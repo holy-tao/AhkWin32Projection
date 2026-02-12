@@ -41,7 +41,11 @@ class IPrintWorkflowXpsObjectModelTargetPackageNative extends IUnknown{
      * @returns {IXpsDocumentPackageTarget} 
      */
     get_DocumentPackageTarget() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsDocumentPackageTarget(value)
     }
 }

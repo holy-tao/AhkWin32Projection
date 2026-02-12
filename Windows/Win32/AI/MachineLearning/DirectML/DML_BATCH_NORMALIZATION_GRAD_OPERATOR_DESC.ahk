@@ -5,7 +5,7 @@
  * Computes backpropagation gradients for [batch normalization](/windows/win32/api/directml/ns-directml-dml_batch_normalization_operator_desc).
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_batch_normalization_grad_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_batch_normalization_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

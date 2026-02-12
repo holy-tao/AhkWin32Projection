@@ -31,27 +31,40 @@ class IProtectedModeMenuServices extends IUnknown{
 
     /**
      * Creates a menu. The menu is initially empty, but it can be filled with menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions.
+     * @remarks
+     * Resources associated with a menu that is assigned to a window are freed automatically. If the menu is not assigned to a window, an application must free system resources associated with the menu before closing. An application frees menu resources by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function.
      * @returns {HMENU} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-createmenu
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createmenu
      */
     CreateMenu() {
         phMenu := HMENU()
-        result := ComCall(3, this, "ptr", phMenu, "HRESULT")
+        result := ComCall(3, this, "ptr", phMenu, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phMenu
     }
 
     /**
-     * 
+     * Loads the specified menu resource from the executable (.exe) file associated with an application instance. (Unicode)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroymenu">DestroyMenu</a> function is used, before an application closes, to destroy the menu and free memory that the loaded menu occupied.
      * @param {PWSTR} pszModuleName 
      * @param {PWSTR} pszMenuName 
      * @returns {HMENU} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-loadmenuw
      */
     LoadMenu(pszModuleName, pszMenuName) {
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
         pszMenuName := pszMenuName is String ? StrPtr(pszMenuName) : pszMenuName
 
         phMenu := HMENU()
-        result := ComCall(4, this, "ptr", pszModuleName, "ptr", pszMenuName, "ptr", phMenu, "HRESULT")
+        result := ComCall(4, this, "ptr", pszModuleName, "ptr", pszMenuName, "ptr", phMenu, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phMenu
     }
 
@@ -65,7 +78,11 @@ class IProtectedModeMenuServices extends IUnknown{
         pszModuleName := pszModuleName is String ? StrPtr(pszModuleName) : pszModuleName
 
         phMenu := HMENU()
-        result := ComCall(5, this, "ptr", pszModuleName, "ushort", wResourceID, "ptr", phMenu, "HRESULT")
+        result := ComCall(5, this, "ptr", pszModuleName, "ushort", wResourceID, "ptr", phMenu, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phMenu
     }
 }

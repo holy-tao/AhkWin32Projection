@@ -21,7 +21,7 @@
  *       
  * 
  * For more information on this representation, refer to IEEE Standard for Binary Floating-Point Arithmetic, available on the Web site http://www.ieee.org/.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_float_text
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_float_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

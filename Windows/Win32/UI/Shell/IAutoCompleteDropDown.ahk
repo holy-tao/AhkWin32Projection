@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that allow clients to reset or query the display state of the autocomplete drop-down list, which contains possible completions to a string entered by the user in an edit control.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iautocompletedropdown
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iautocompletedropdown
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,26 +46,36 @@ class IAutoCompleteDropDown extends IUnknown{
      * If this value is not <b>NULL</b> on exit, the buffer it points to must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iautocompletedropdown-getdropdownstatus
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iautocompletedropdown-getdropdownstatus
      */
     GetDropDownStatus(pdwFlags, ppwszString) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, ppwszStringMarshal, ppwszString, "HRESULT")
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, ppwszStringMarshal, ppwszString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Forces the autocomplete object to refresh its list of suggestions when the list is visible.
+     * @remarks
+     * The drop-down list is always rebuilt before it is displayed, so there is no reason to use this method unless the drop-down list is currently visible.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iautocompletedropdown-resetenumerator
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iautocompletedropdown-resetenumerator
      */
     ResetEnumerator() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

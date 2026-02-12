@@ -46,7 +46,11 @@ class ISpShortcut extends IUnknown{
         pszDisplay := pszDisplay is String ? StrPtr(pszDisplay) : pszDisplay
         pszSpoken := pszSpoken is String ? StrPtr(pszSpoken) : pszSpoken
 
-        result := ComCall(3, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, "int", shType, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, "int", shType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +66,11 @@ class ISpShortcut extends IUnknown{
         pszDisplay := pszDisplay is String ? StrPtr(pszDisplay) : pszDisplay
         pszSpoken := pszSpoken is String ? StrPtr(pszSpoken) : pszSpoken
 
-        result := ComCall(4, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, "int", shType, "HRESULT")
+        result := ComCall(4, this, "ptr", pszDisplay, "ushort", LangID, "ptr", pszSpoken, "int", shType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +81,11 @@ class ISpShortcut extends IUnknown{
      * @returns {HRESULT} 
      */
     GetShortcuts(LangID, pShortcutpairList) {
-        result := ComCall(5, this, "ushort", LangID, "ptr", pShortcutpairList, "HRESULT")
+        result := ComCall(5, this, "ushort", LangID, "ptr", pShortcutpairList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +94,11 @@ class ISpShortcut extends IUnknown{
      * @returns {Integer} 
      */
     GetGeneration() {
-        result := ComCall(6, this, "uint*", &pdwGeneration := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwGeneration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwGeneration
     }
 
@@ -95,7 +111,11 @@ class ISpShortcut extends IUnknown{
     GetWordsFromGenerationChange(pdwGeneration, pWordList) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwGenerationMarshal, pdwGeneration, "ptr", pWordList, "HRESULT")
+        result := ComCall(7, this, pdwGenerationMarshal, pdwGeneration, "ptr", pWordList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +130,11 @@ class ISpShortcut extends IUnknown{
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pWordList, "HRESULT")
+        result := ComCall(8, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pWordList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +149,11 @@ class ISpShortcut extends IUnknown{
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pShortcutpairList, "HRESULT")
+        result := ComCall(9, this, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pShortcutpairList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +166,11 @@ class ISpShortcut extends IUnknown{
     GetGenerationChange(pdwGeneration, pShortcutpairList) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pdwGenerationMarshal, pdwGeneration, "ptr", pShortcutpairList, "HRESULT")
+        result := ComCall(10, this, pdwGenerationMarshal, pdwGeneration, "ptr", pShortcutpairList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

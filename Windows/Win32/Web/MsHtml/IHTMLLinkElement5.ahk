@@ -41,7 +41,11 @@ class IHTMLLinkElement5 extends IDispatch{
      * @returns {IHTMLStyleSheet} 
      */
     get_sheet() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheet(p)
     }
 }

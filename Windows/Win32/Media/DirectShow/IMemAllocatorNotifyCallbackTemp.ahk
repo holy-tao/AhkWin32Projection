@@ -5,7 +5,7 @@
 
 /**
  * Enables a filter to receive a callback notification from an allocator whenever a sample is returned to the allocator's free list.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-imemallocatornotifycallbacktemp
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-imemallocatornotifycallbacktemp
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,11 +32,17 @@ class IMemAllocatorNotifyCallbackTemp extends IUnknown{
 
     /**
      * The NotifyRelease method is called whenever the allocator's IMemAllocator::ReleaseBuffer method is called. The ReleaseBuffer method returns a media sample to the allocator's free list. Samples call this method when their reference counts reach zero.
+     * @remarks
+     * In general, this call can occur on any thread, and the caller may be holding critical sections. Therefore, this method should not do anything that could cause a deadlock. Instead, the method should set an event or post a message to another thread, and the other thread should take any required actions.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imemallocatornotifycallbacktemp-notifyrelease
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-imemallocatornotifycallbacktemp-notifyrelease
      */
     NotifyRelease() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

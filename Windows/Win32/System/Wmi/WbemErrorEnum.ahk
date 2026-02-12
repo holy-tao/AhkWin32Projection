@@ -3,7 +3,7 @@
 
 /**
  * Define the errors that may be returned by Scripting API for WMI calls.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemerrorenum
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemdisp/ne-wbemdisp-wbemerrorenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

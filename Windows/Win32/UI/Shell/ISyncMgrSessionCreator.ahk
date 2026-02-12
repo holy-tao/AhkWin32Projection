@@ -7,14 +7,12 @@
 /**
  * Exposes a single method through which a handler or external application can notify Sync Center that synchronization has begun, as well as report progress and events.
  * @remarks
- * 
  * This interface is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-synchronize">ISyncMgrHandler::Synchronize</a>. The handler can choose to create a session in its <b>Synchronize</b> implementation. This allows the handler to report progress and events itself or to signal a background process to report progress and events itself.
  * 
  *                 
  * 
  * Alternatively, the handler can choose to signal an external process to create a CLSID_SyncMgrClient object. If a handler is implemented to perform automatic synchronizations in an external process such as a service, it must be able to provide progress reports to Sync Center so that Sync Center can update the UI for the user. The handler also must be able to add events to Sync Center's <b>Sync Results</b> folder. An external process creates the CLSID_SyncMgrClient object by passing the CLSCTX_SERVER flag and the <b>ISyncMgrSessionCreator</b> IID to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>. This allows that process to report progress and events as well as to ask Sync Center whether the user canceled the synchronization. Note, however, that <b>ISyncMgrSessionCreator</b> cannot be marshaled to an external process.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrsessioncreator
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgrsessioncreator
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,6 +39,8 @@ class ISyncMgrSessionCreator extends IUnknown{
 
     /**
      * Notifies Sync Center that synchronization of the specified items has begun.
+     * @remarks
+     * Both <i>pszHandlerID</i> and <i>ppszItemIDs</i> must be specified.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
@@ -53,14 +53,18 @@ class ISyncMgrSessionCreator extends IUnknown{
      * @returns {ISyncMgrSyncCallback} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynccallback">ISyncMgrSyncCallback</a>**</b>
      * 
      * The address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynccallback">ISyncMgrSyncCallback</a> used to report progress and events. This value can be <b>NULL</b> if no callback is needed.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsessioncreator-createsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrsessioncreator-createsession
      */
     CreateSession(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr*", &ppCallback := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr*", &ppCallback := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncMgrSyncCallback(ppCallback)
     }
 }

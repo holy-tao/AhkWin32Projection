@@ -32,10 +32,14 @@ class ID3DShaderCacheInstallerFactory extends IUnknown{
      * 
      * @param {ID3DShaderCacheInstallerClient} pClient 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateInstaller(pClient, riid) {
-        result := ComCall(3, this, "ptr", pClient, "ptr", riid, "ptr*", &ppvInstaller := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pClient, "ptr", riid, "ptr*", &ppvInstaller := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvInstaller
     }
 
@@ -43,10 +47,14 @@ class ID3DShaderCacheInstallerFactory extends IUnknown{
      * 
      * @param {IUnknown} pUnknown 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateExplorer(pUnknown, riid) {
-        result := ComCall(4, this, "ptr", pUnknown, "ptr", riid, "ptr*", &ppvExplorer := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnknown, "ptr", riid, "ptr*", &ppvExplorer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvExplorer
     }
 }

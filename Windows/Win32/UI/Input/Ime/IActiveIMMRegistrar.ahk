@@ -40,7 +40,11 @@ class IActiveIMMRegistrar extends IUnknown{
         pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
         pszDesc := pszDesc is String ? StrPtr(pszDesc) : pszDesc
 
-        result := ComCall(3, this, "ptr", rclsid, "ushort", lgid, "ptr", pszIconFile, "ptr", pszDesc, "HRESULT")
+        result := ComCall(3, this, "ptr", rclsid, "ushort", lgid, "ptr", pszIconFile, "ptr", pszDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IActiveIMMRegistrar extends IUnknown{
      * @returns {HRESULT} 
      */
     UnregisterIME(rclsid) {
-        result := ComCall(4, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(4, this, "ptr", rclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Extends the IUIAutomationTransformPattern interface to enable Microsoft UI Automation clients to programmatically access the viewport zooming functionality of a control.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtransformpattern2
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationtransformpattern2
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -87,110 +87,150 @@ class IUIAutomationTransformPattern2 extends IUIAutomationTransformPattern{
     }
 
     /**
-     * Zooms the viewport of the control.
+     * Zooms the viewport of the control. (IUIAutomationTransformPattern2.Zoom)
      * @param {Float} zoomValue Type: <b>double</b>
      * 
      * The amount to zoom the viewport, specified as a percentage. Positive values increase the zoom level, and negative values decrease it. The control zooms its viewport to the nearest supported value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-zoom
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-zoom
      */
     Zoom(zoomValue) {
-        result := ComCall(12, this, "double", zoomValue, "HRESULT")
+        result := ComCall(12, this, "double", zoomValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Zooms the viewport of the control by the specified unit.
-     * @param {Integer} zoomUnit 
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @param {Integer} zoomUnit_ 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-zoombyunit
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-zoombyunit
      */
-    ZoomByUnit(zoomUnit) {
-        result := ComCall(13, this, "int", zoomUnit, "HRESULT")
+    ZoomByUnit(zoomUnit_) {
+        result := ComCall(13, this, "int", zoomUnit_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether the control supports zooming of its viewport.
+     * Indicates whether the control supports zooming of its viewport. (IUIAutomationTransformPattern2.get_CurrentCanZoom)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentcanzoom
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentcanzoom
      */
     get_CurrentCanZoom() {
-        result := ComCall(14, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves a cached value that indicates whether the control supports zooming of its viewport.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedcanzoom
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedcanzoom
      */
     get_CachedCanZoom() {
-        result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the zoom level of the control's viewport.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomlevel
      */
     get_CurrentZoomLevel() {
-        result := ComCall(16, this, "double*", &retVal := 0, "HRESULT")
+        result := ComCall(16, this, "double*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the cached zoom level of the control's viewport.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomlevel
      */
     get_CachedZoomLevel() {
-        result := ComCall(17, this, "double*", &retVal := 0, "HRESULT")
+        result := ComCall(17, this, "double*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the minimum zoom level of the control's viewport.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomminimum
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoomminimum
      */
     get_CurrentZoomMinimum() {
-        result := ComCall(18, this, "double*", &retVal := 0, "HRESULT")
+        result := ComCall(18, this, "double*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the cached minimum zoom level of the control's viewport.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomminimum
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoomminimum
      */
     get_CachedZoomMinimum() {
-        result := ComCall(19, this, "double*", &retVal := 0, "HRESULT")
+        result := ComCall(19, this, "double*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the maximum zoom level of the control's viewport.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoommaximum
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_currentzoommaximum
      */
     get_CurrentZoomMaximum() {
-        result := ComCall(20, this, "double*", &retVal := 0, "HRESULT")
+        result := ComCall(20, this, "double*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the cached maximum zoom level of the control's viewport.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoommaximum
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtransformpattern2-get_cachedzoommaximum
      */
     get_CachedZoomMaximum() {
-        result := ComCall(21, this, "double*", &retVal := 0, "HRESULT")
+        result := ComCall(21, this, "double*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

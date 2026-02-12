@@ -9,7 +9,7 @@
  *     <b>COPYFILE2_MESSAGE</b> structure, define the 
  *     <b>_WIN32_WINNT</b> macro as 0x0601 or later. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_message
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-copyfile2_message
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

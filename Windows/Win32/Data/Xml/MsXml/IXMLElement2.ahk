@@ -82,7 +82,11 @@ class IXMLElement2 extends IDispatch{
      */
     get_tagName() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -92,9 +96,16 @@ class IXMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_tagName(p) {
-        p := p is String ? BSTR.Alloc(p).Value : p
+        if(p is String) {
+            pin := BSTR.Alloc(p)
+            p := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,34 +114,55 @@ class IXMLElement2 extends IDispatch{
      * @returns {IXMLElement2} 
      */
     get_parent() {
-        result := ComCall(9, this, "ptr*", &ppParent := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppParent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLElement2(ppParent)
     }
 
     /**
      * 
      * @param {BSTR} strPropertyName 
-     * @param {VARIANT} PropertyValue 
+     * @param {VARIANT} PropertyValue_ 
      * @returns {HRESULT} 
      */
-    setAttribute(strPropertyName, PropertyValue) {
-        strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
+    setAttribute(strPropertyName, PropertyValue_) {
+        if(strPropertyName is String) {
+            pin := BSTR.Alloc(strPropertyName)
+            strPropertyName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", strPropertyName, "ptr", PropertyValue, "HRESULT")
+        result := ComCall(10, this, "ptr", strPropertyName, "ptr", PropertyValue_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * getAttributes Method (SQLServerDatabaseMetaData)
+     * @remarks
+     * This getAttributes method is specified by the getAttributes method in the java.sql.DatabaseMetaData interface.
      * @param {BSTR} strPropertyName 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getattributes-method-sqlserverdatabasemetadata
      */
     getAttribute(strPropertyName) {
-        strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
+        if(strPropertyName is String) {
+            pin := BSTR.Alloc(strPropertyName)
+            strPropertyName := pin.Value
+        }
 
-        PropertyValue := VARIANT()
-        result := ComCall(11, this, "ptr", strPropertyName, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        PropertyValue_ := VARIANT()
+        result := ComCall(11, this, "ptr", strPropertyName, "ptr", PropertyValue_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return PropertyValue_
     }
 
     /**
@@ -139,9 +171,16 @@ class IXMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     removeAttribute(strPropertyName) {
-        strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
+        if(strPropertyName is String) {
+            pin := BSTR.Alloc(strPropertyName)
+            strPropertyName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", strPropertyName, "HRESULT")
+        result := ComCall(12, this, "ptr", strPropertyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,7 +189,11 @@ class IXMLElement2 extends IDispatch{
      * @returns {IXMLElementCollection} 
      */
     get_children() {
-        result := ComCall(13, this, "ptr*", &pp := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &pp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLElementCollection(pp)
     }
 
@@ -159,7 +202,11 @@ class IXMLElement2 extends IDispatch{
      * @returns {Integer} 
      */
     get_type() {
-        result := ComCall(14, this, "int*", &plType := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &plType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plType
     }
 
@@ -169,7 +216,11 @@ class IXMLElement2 extends IDispatch{
      */
     get_text() {
         p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -179,9 +230,16 @@ class IXMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_text(p) {
-        p := p is String ? BSTR.Alloc(p).Value : p
+        if(p is String) {
+            pin := BSTR.Alloc(p)
+            p := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +251,11 @@ class IXMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     addChild(pChildElem, lIndex, lReserved) {
-        result := ComCall(17, this, "ptr", pChildElem, "int", lIndex, "int", lReserved, "HRESULT")
+        result := ComCall(17, this, "ptr", pChildElem, "int", lIndex, "int", lReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +265,11 @@ class IXMLElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     removeChild(pChildElem) {
-        result := ComCall(18, this, "ptr", pChildElem, "HRESULT")
+        result := ComCall(18, this, "ptr", pChildElem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,7 +278,11 @@ class IXMLElement2 extends IDispatch{
      * @returns {IXMLElementCollection} 
      */
     get_attributes() {
-        result := ComCall(19, this, "ptr*", &pp := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &pp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLElementCollection(pp)
     }
 }

@@ -35,7 +35,11 @@ class IDirectSoundFXWavesReverb extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxWavesReverb) {
-        result := ComCall(3, this, "ptr", pcDsFxWavesReverb, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxWavesReverb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXWavesReverb extends IUnknown{
      */
     GetAllParameters() {
         pDsFxWavesReverb := DSFXWavesReverb()
-        result := ComCall(4, this, "ptr", pDsFxWavesReverb, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxWavesReverb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxWavesReverb
     }
 }

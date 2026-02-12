@@ -63,7 +63,11 @@ class ISClusScsiAddress extends IDispatch{
      */
     get_PortNumber() {
         pvarPortNumber := VARIANT()
-        result := ComCall(7, this, "ptr", pvarPortNumber, "HRESULT")
+        result := ComCall(7, this, "ptr", pvarPortNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPortNumber
     }
 
@@ -73,7 +77,11 @@ class ISClusScsiAddress extends IDispatch{
      */
     get_PathId() {
         pvarPathId := VARIANT()
-        result := ComCall(8, this, "ptr", pvarPathId, "HRESULT")
+        result := ComCall(8, this, "ptr", pvarPathId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPathId
     }
 
@@ -83,7 +91,11 @@ class ISClusScsiAddress extends IDispatch{
      */
     get_TargetId() {
         pvarTargetId := VARIANT()
-        result := ComCall(9, this, "ptr", pvarTargetId, "HRESULT")
+        result := ComCall(9, this, "ptr", pvarTargetId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarTargetId
     }
 
@@ -93,7 +105,11 @@ class ISClusScsiAddress extends IDispatch{
      */
     get_Lun() {
         pvarLun := VARIANT()
-        result := ComCall(10, this, "ptr", pvarLun, "HRESULT")
+        result := ComCall(10, this, "ptr", pvarLun, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarLun
     }
 }

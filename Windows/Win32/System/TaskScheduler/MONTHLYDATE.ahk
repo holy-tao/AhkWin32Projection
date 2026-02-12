@@ -16,7 +16,7 @@
  * example.rgfDays = 1;
  * example.rgfMonths = TASK_JANUARY | TASK_APRIL | TASK_JULY | TASK_OCTOBER;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-monthlydate
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstask/ns-mstask-monthlydate
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Provides administration functionality for properly authorized clients.
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-icertadmin
+ * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nn-certadm-icertadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class ICertAdmin extends IDispatch{
 
     /**
      * Verifies the certificate against the certification authority (CA) key and checks that the certificate has not been revoked. This method was first defined in the ICertAdmin interface.
+     * @remarks
+     * This method determines only whether a certificate has been issued and is not currently revoked; it does not check that the current time and date are within the period for which the certificate is valid (the NotBefore and NotAfter certificate properties). An application that uses this method is also responsible for checking the certificate expiration.
+     * 
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -40,28 +44,53 @@ class ICertAdmin extends IDispatch{
      * <div> </div>
      * @param {BSTR} strSerialNumber Specifies a serial number that identifies the certificate to be reviewed. The string must specify the serial number as an even number of hexadecimal digits. If necessary, a zero can be prefixed to the number to produce an even number of digits. No more than one leading zero may be used.
      * @returns {Integer} A pointer to a <b>LONG</b> that receives the disposition value.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-isvalidcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-isvalidcertificate
      */
     IsValidCertificate(strConfig, strSerialNumber) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strSerialNumber is String) {
+            pin := BSTR.Alloc(strSerialNumber)
+            strSerialNumber := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", strConfig, "ptr", strSerialNumber, "int*", &pDisposition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDisposition
     }
 
     /**
      * Returns the reason a certificate was revoked. This method was first defined in the ICertAdmin interface.
+     * @remarks
+     * Before you call <b>GetRevocationReason</b>, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-isvalidcertificate">IsValidCertificate</a> method to retrieve the disposition of the certificate. To call <b>GetRevocationReason</b>, you must receive a certificate disposition CA_DISP_REVOKED from this earlier call, indicating that the certificate has been revoked. The call to <b>IsValidCertificate</b> establishes the identity of the certificate whose revocation reason you want to retrieve.
+     * 
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @returns {Integer} A pointer to a variable that will receive the revocation reason.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-getrevocationreason
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-getrevocationreason
      */
     GetRevocationReason() {
-        result := ComCall(8, this, "int*", &pReason := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pReason := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pReason
     }
 
     /**
      * Revokes a certificate either on a specified date or immediately. This method was first defined in the ICertAdmin interface.
+     * @remarks
+     * This method can be called more than once on the same certificate, which allows you to change the effective revocation date and revocation reason.
+     * 
+     * If a currently revoked certificate has CRL_REASON_CERTIFICATE_HOLD as its reason code, you can reinstate the certificate by calling <b>RevokeCertificate</b> with MAXDWORD (defined in Winnt.h) as the value for its reason code (the <i>Reason</i> parameter). After it is reinstated, the certificate will not appear in future CRLs.
+     * 
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) server in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
      * <div class="alert"><b>Important</b>  <b>RevokeCertificate</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
@@ -74,19 +103,48 @@ class ICertAdmin extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-revokecertificate
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-revokecertificate
      */
     RevokeCertificate(strConfig, strSerialNumber, Reason, Date) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strSerialNumber is String) {
+            pin := BSTR.Alloc(strSerialNumber)
+            strSerialNumber := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", strConfig, "ptr", strSerialNumber, "int", Reason, "double", Date, "HRESULT")
+        result := ComCall(9, this, "ptr", strConfig, "ptr", strSerialNumber, "int", Reason, "double", Date, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets attributes in the specified pending certificate request. This method was first defined in the ICertAdmin interface.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Attributes</a> added or updated by calling <b>SetRequestAttributes</b> do not alter the initial, unparsed attribute string associated with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a>. The certificate request's unparsed attribute string is unalterable after the certificate is requested (the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-submit">ICertRequest::Submit</a> method allows attributes to be specified at the time the certificate is requested).
+     * 
+     * You can use the Certification Authority MMC snap-in to display the initial unparsed request attribute string.
+     * 
+     * When you view the parsed attributes, you will also see any changes due to calls to <b>SetRequestAttributes</b>.
+     * 
+     * <p class="proch"><b>To view the parsed attributes</b>
+     * 
+     * <ol>
+     * <li>Open the Certification Authority MMC snap-in.</li>
+     * <li>Open the <b>Pending Requests</b> folder.</li>
+     * <li>Right-click a request, point to <b>All Tasks</b>, and then click <b>View Attributes/Extensions</b>.</li>
+     * </ol>
+     *   To enumerate or view all of the parsed attributes, including those added by means of <b>SetRequestAttributes</b>, you may also use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nn-certview-ienumcertviewattribute">IEnumCERTVIEWATTRIBUTE</a> interface.
+     * 
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) server in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -120,19 +178,31 @@ class ICertAdmin extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-setrequestattributes
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-setrequestattributes
      */
     SetRequestAttributes(strConfig, RequestId, strAttributes) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strAttributes is String) {
+            pin := BSTR.Alloc(strAttributes)
+            strAttributes := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", strConfig, "int", RequestId, "ptr", strAttributes, "HRESULT")
+        result := ComCall(10, this, "ptr", strConfig, "int", RequestId, "ptr", strAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds a new extension to the certificate issued in response to a certificate request. This method was first defined by the ICertAdmin interface.
+     * @remarks
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) server in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -180,42 +250,57 @@ class ICertAdmin extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-setcertificateextension
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-setcertificateextension
      */
     SetCertificateExtension(strConfig, RequestId, strExtensionName, Type, Flags, pvarValue) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strExtensionName is String) {
+            pin := BSTR.Alloc(strExtensionName)
+            strExtensionName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", strConfig, "int", RequestId, "ptr", strExtensionName, "int", Type, "int", Flags, "ptr", pvarValue, "HRESULT")
+        result := ComCall(11, this, "ptr", strConfig, "int", RequestId, "ptr", strExtensionName, "int", Type, "int", Flags, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Denies a specified certificate request that is pending.
      * @remarks
-     * 
      * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
-     * 
-     * 
-     * 
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) in the form COMPUTERNAME\CANAME where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the certification authority as entered during Certificate Services setup. For information about the configuration string, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
      * <div class="alert"><b>Important</b>  <b>DenyRequest</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
      * <div> </div>
      * @param {Integer} RequestId Specifies the ID of the pending request to be denied.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-denyrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-denyrequest
      */
     DenyRequest(strConfig, RequestId) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", strConfig, "int", RequestId, "HRESULT")
+        result := ComCall(12, this, "ptr", strConfig, "int", RequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Submits the specified certificate request to the policy module for the specified certification authority. This method was first introduced in the ICertAdmin interface.
+     * @remarks
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -223,17 +308,26 @@ class ICertAdmin extends IDispatch{
      * <div> </div>
      * @param {Integer} RequestId Specifies the ID of the request to resubmit.
      * @returns {Integer} A pointer to the disposition of the request.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-resubmitrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-resubmitrequest
      */
     ResubmitRequest(strConfig, RequestId) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", strConfig, "int", RequestId, "int*", &pDisposition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDisposition
     }
 
     /**
      * Sends a request to the Certificate Services certification authority (CA) to publish a new certificate revocation list (CRL). This method was first introduced in the ICertAdmin interface.
+     * @remarks
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.<div class="alert"><b>Important</b>  <b>PublishCRL</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
      * <div> </div>
      * @param {Float} Date Specifies the next update value of the CRL in Coordinated Universal Time (Greenwich Mean Time). 
@@ -241,18 +335,27 @@ class ICertAdmin extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-publishcrl
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-publishcrl
      */
     PublishCRL(strConfig, Date) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strConfig, "double", Date, "HRESULT")
+        result := ComCall(14, this, "ptr", strConfig, "double", Date, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the current certificate revocation list (CRL) for the Certificate Services certification authority (CA).
+     * @remarks
+     * Administration tasks use DCOM. Code that calls this interface method as defined in an earlier version of Certadm.h will run on Windows-based servers as long as the client and the server are both running the same Windows operating system.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA whose CRL you want to retrieve. This string is in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the network name of the Certificate Services server and CANAME is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
      * <div class="alert"><b>Important</b>  <b>GetCRL</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
@@ -298,18 +401,31 @@ class ICertAdmin extends IDispatch{
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the CRL.
      * 
      * When using this method, create a variable of <b>BSTR</b> type, set the variable to <b>NULL</b>, and pass the address of this variable in the <i>pbstrCRL</i> parameter. When you have finished using the <b>BSTR</b> variable, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-getcrl
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-getcrl
      */
     GetCRL(strConfig, Flags) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
         pstrCRL := BSTR()
-        result := ComCall(15, this, "ptr", strConfig, "int", Flags, "ptr", pstrCRL, "HRESULT")
+        result := ComCall(15, this, "ptr", strConfig, "int", Flags, "ptr", pstrCRL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrCRL
     }
 
     /**
      * Takes a previously issued certificate and imports it to the certification authority's (CA) database. This method was first defined in the ICertAdmin interface.
+     * @remarks
+     * The <b>ImportCertificate</b> method is useful in the case of a certification authority that has been partially restored from backup: If a certificate is not on the backup tapes used to restore the certification authority but exists in a file, the certificate can be imported by means of this method.
+     * 
+     * For this method to succeed, the certificate being imported must have been previously issued by the certification authority specified in <i>strConfig</i>. The restored certification authority will validate the certificate's signature, and if the signature is not valid, the method call will fail.
+     * 
+     * Furthermore, you cannot import a certificate if it already exists in the database. Each certificate in the database must be unique. The database ensures uniqueness by checking the certificate's serial number.
      * @param {BSTR} strConfig Represents a valid configuration string for the certification authority in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -318,13 +434,23 @@ class ICertAdmin extends IDispatch{
      * @param {BSTR} strCertificate The binary representation of the certificate being imported.
      * @param {Integer} Flags 
      * @returns {Integer} A pointer to a <b>LONG</b> value that receives the database-assigned request ID for the imported certificate.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin-importcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin-importcertificate
      */
     ImportCertificate(strConfig, strCertificate, Flags) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strCertificate is String) {
+            pin := BSTR.Alloc(strCertificate)
+            strCertificate := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, "int*", &pRequestId := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", strConfig, "ptr", strCertificate, "int", Flags, "int*", &pRequestId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 }

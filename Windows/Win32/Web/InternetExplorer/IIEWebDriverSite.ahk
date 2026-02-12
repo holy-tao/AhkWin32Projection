@@ -32,11 +32,15 @@ class IIEWebDriverSite extends IDispatch{
     /**
      * 
      * @param {Integer} operationCode 
-     * @param {Integer} hWnd 
+     * @param {Integer} hWnd_ 
      * @returns {HRESULT} 
      */
-    WindowOperation(operationCode, hWnd) {
-        result := ComCall(7, this, "uint", operationCode, "uint", hWnd, "HRESULT")
+    WindowOperation(operationCode, hWnd_) {
+        result := ComCall(7, this, "uint", operationCode, "uint", hWnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IIEWebDriverSite extends IDispatch{
      * @returns {HRESULT} 
      */
     DetachWebdriver(pUnkWD) {
-        result := ComCall(8, this, "ptr", pUnkWD, "HRESULT")
+        result := ComCall(8, this, "ptr", pUnkWD, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IIEWebDriverSite extends IDispatch{
         capName := capName is String ? StrPtr(capName) : capName
 
         capValue := VARIANT()
-        result := ComCall(9, this, "ptr", pUnkWD, "ptr", capName, "ptr", capValue, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnkWD, "ptr", capName, "ptr", capValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return capValue
     }
 }

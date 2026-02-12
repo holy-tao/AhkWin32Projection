@@ -29,22 +29,34 @@ class ISurfacePresenterFlip extends IUnknown{
     static VTableNames => ["Present", "GetBuffer"]
 
     /**
-     * 
+     * Represents an arbitrary affine 2D transformation defined by a 3-by-2 matrix. (PresentationTransform)
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentationtypes/ns-presentationtypes-presentationtransform
      */
     Present() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
+     * @remarks
+     * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Integer} backBufferIndex 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/uxtheme/nf-uxtheme-getbufferedpaintbits
      */
     GetBuffer(backBufferIndex, riid) {
-        result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, "ptr*", &ppBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppBuffer
     }
 }

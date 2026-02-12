@@ -3,7 +3,7 @@
 
 /**
  * Defines messages for an enhanced video renderer (EVR) presenter.
- * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvp_message_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/evr/ne-evr-mfvp_message_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

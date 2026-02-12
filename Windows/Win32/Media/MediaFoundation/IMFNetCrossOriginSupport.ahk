@@ -6,10 +6,8 @@
 /**
  * Implemented by clients that want to enforce a cross origin policy for HTML5 media downloads.
  * @remarks
- * 
  * The Media Foundation network code uses these client callbacks to implement and enforce cross origin downloads.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetcrossoriginsupport
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfnetcrossoriginsupport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,20 +35,30 @@ class IMFNetCrossOriginSupport extends IUnknown{
     /**
      * Returns the client's current cross-origin policy to apply to the download session.
      * @returns {Integer} A value indicating the client's current cross-origin policy to apply to the download session.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
      */
     GetCrossOriginPolicy() {
-        result := ComCall(3, this, "int*", &pPolicy := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pPolicy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPolicy
     }
 
     /**
      * Returns the W3C origin of the HTML5 media element.
+     * @remarks
+     * Use <b>CoTaskMemFree</b> to free the string.
      * @returns {PWSTR} The W3C origin of the HTML5 media element.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcrossoriginsupport-getsourceorigin
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetcrossoriginsupport-getsourceorigin
      */
     GetSourceOrigin() {
-        result := ComCall(4, this, "ptr*", &wszSourceOrigin := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &wszSourceOrigin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return wszSourceOrigin
     }
 
@@ -62,7 +70,11 @@ class IMFNetCrossOriginSupport extends IUnknown{
     IsSameOrigin(wszURL) {
         wszURL := wszURL is String ? StrPtr(wszURL) : wszURL
 
-        result := ComCall(5, this, "ptr", wszURL, "int*", &pfIsSameOrigin := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", wszURL, "int*", &pfIsSameOrigin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsSameOrigin
     }
 }

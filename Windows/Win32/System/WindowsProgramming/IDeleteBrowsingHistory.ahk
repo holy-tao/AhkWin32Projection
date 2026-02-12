@@ -34,7 +34,11 @@ class IDeleteBrowsingHistory extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteBrowsingHistory(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

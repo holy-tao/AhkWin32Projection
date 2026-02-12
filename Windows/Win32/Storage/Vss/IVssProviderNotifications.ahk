@@ -5,7 +5,7 @@
 
 /**
  * The IVssProviderNotifications interface manages providers registered with VSS.
- * @see https://docs.microsoft.com/windows/win32/api//vsprov/nn-vsprov-ivssprovidernotifications
+ * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nn-vsprov-ivssprovidernotifications
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -90,15 +90,22 @@ class IVssProviderNotifications extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssprovidernotifications-onload
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssprovidernotifications-onload
      */
     OnLoad(pCallback) {
-        result := ComCall(3, this, "ptr", pCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", pCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notifies the provider to prepare to be unloaded.
+     * @remarks
+     * If <i>bForceUnload</i> is <b>TRUE</b>, the return value must be 
+     *    <b>S_OK</b>.
      * @param {BOOL} bForceUnload If <b>TRUE</b>, the provider must prepare to be released.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -132,10 +139,14 @@ class IVssProviderNotifications extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssprovidernotifications-onunload
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssprovidernotifications-onunload
      */
     OnUnload(bForceUnload) {
-        result := ComCall(4, this, "int", bForceUnload, "HRESULT")
+        result := ComCall(4, this, "int", bForceUnload, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

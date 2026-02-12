@@ -34,7 +34,11 @@ class IActiveScriptSiteDebugEx extends IUnknown{
      * @returns {BOOL} 
      */
     OnCanNotJITScriptErrorDebug(pErrorDebug) {
-        result := ComCall(3, this, "ptr", pErrorDebug, "int*", &pfCallOnScriptErrorWhenContinuing := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pErrorDebug, "int*", &pfCallOnScriptErrorWhenContinuing := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCallOnScriptErrorWhenContinuing
     }
 }

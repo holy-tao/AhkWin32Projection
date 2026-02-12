@@ -8,7 +8,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/WinHttp/option-flags">option flags</a>. These options require the registry key <b>HKLM\Software\Microsoft\Windows\CurrentVersion\Internet Settings!ShareCredsWithWinHttp</b>. This registry key is not present by default.
  * 
  * When it is set, WinINet will send credentials  down to WinHTTP. Whenever WinHttp gets an authentication challenge and if there are no credentials set on the current handle, it will use the credentials provided by WinINet. In order to share server credentials in addition to proxy credentials, users needs to set  the <b>WINHTTP_OPTION_USE_GLOBAL_SERVER_CREDENTIALS</b> option flag.
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_creds
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_creds
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

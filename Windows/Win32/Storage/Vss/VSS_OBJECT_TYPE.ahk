@@ -18,7 +18,7 @@
  * The <b>Type</b> member of 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> is a member of the 
  *     <b>VSS_OBJECT_TYPE</b> enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_object_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_object_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

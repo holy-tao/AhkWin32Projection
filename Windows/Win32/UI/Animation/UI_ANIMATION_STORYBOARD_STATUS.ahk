@@ -17,7 +17,7 @@
  * The following diagram illustrates the transitions between these states.
  * 
  * <img alt="Diagram that shows how the animation manager schedules the storyboard and manages the animation." src="images/StateDiagram.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_storyboard_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/ne-uianimation-ui_animation_storyboard_status
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The ITfTextInputProcessorEx interface is implemented by a text service and used by the TSF manager to activate and deactivate the text service.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itftextinputprocessorex
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itftextinputprocessorex
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -83,10 +83,14 @@ class ITfTextInputProcessorEx extends ITfTextInputProcessor{
      * </tr>
      * </table>
      * @returns {HRESULT} The TSF manager ignores the return value of this method.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftextinputprocessorex-activateex
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itftextinputprocessorex-activateex
      */
     ActivateEx(ptim, tid, dwFlags) {
-        result := ComCall(5, this, "ptr", ptim, "uint", tid, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", ptim, "uint", tid, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

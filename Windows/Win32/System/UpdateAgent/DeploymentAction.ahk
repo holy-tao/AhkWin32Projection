@@ -3,7 +3,7 @@
 
 /**
  * Defines the action for which an update is explicitly deployed.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-deploymentaction
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/ne-wuapi-deploymentaction
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

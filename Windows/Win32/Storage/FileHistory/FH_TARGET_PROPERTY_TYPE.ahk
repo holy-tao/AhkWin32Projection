@@ -9,7 +9,7 @@
  * For local disks, the <b>FH_TARGET_URL</b> property contains the drive letter. This path must end with a trailing backslash (for example, "X:\\").
  * 
  * For network shares, the <b>FH_TARGET_URL</b> property contains the full path of the share. This path must end with a trailing backslash (for example, "\\\\myserver\myshare\\").
- * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_target_property_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/fhcfg/ne-fhcfg-fh_target_property_type
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */

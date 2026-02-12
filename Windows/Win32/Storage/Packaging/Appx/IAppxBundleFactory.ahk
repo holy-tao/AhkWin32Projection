@@ -9,12 +9,10 @@
 /**
  * Creates objects for reading and writing bundle packages.
  * @remarks
- * 
  * The <b>IAppxBundleFactory</b> interface provides factory methods to create readers and writers of bundle packages as well as methods to create readers for manifests outside of a bundle. 
  * 
  * The <b>IAppxBundleFactory</b> interface is the main entry point to the Appx Bundle APIs.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlefactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxbundlefactory
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -47,6 +45,8 @@ class IAppxBundleFactory extends IUnknown{
 
     /**
      * Creates a write-only bundle object to which app packages can be added.
+     * @remarks
+     * Content added to the bundle is serialized out as an Appx bundle file to <i>outputStream</i>.
      * @param {IStream} outputStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * The output stream that receives the serialized package data. The stream must support at least the  <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-write">Write</a> method.
@@ -61,10 +61,14 @@ class IAppxBundleFactory extends IUnknown{
      * @returns {IAppxBundleWriter} Type: <b>IAppxBundleWriter**</b>
      * 
      * The bundle writer created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlewriter
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlewriter
      */
     CreateBundleWriter(outputStream, bundleVersion) {
-        result := ComCall(3, this, "ptr", outputStream, "uint", bundleVersion, "ptr*", &bundleWriter := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", outputStream, "uint", bundleVersion, "ptr*", &bundleWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleWriter(bundleWriter)
     }
 
@@ -76,10 +80,14 @@ class IAppxBundleFactory extends IUnknown{
      * @returns {IAppxBundleReader} Type: <b>IAppxBundleReader**</b>
      * 
      * A  bundle  reader.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlereader
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlereader
      */
     CreateBundleReader(inputStream) {
-        result := ComCall(4, this, "ptr", inputStream, "ptr*", &bundleReader := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", inputStream, "ptr*", &bundleReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleReader(bundleReader)
     }
 
@@ -91,10 +99,14 @@ class IAppxBundleFactory extends IUnknown{
      * @returns {IAppxBundleManifestReader} Type: <b>IAppxBundleManifestReader**</b>
      * 
      * The manifest reader.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlemanifestreader
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlefactory-createbundlemanifestreader
      */
     CreateBundleManifestReader(inputStream) {
-        result := ComCall(5, this, "ptr", inputStream, "ptr*", &manifestReader := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", inputStream, "ptr*", &manifestReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleManifestReader(manifestReader)
     }
 }

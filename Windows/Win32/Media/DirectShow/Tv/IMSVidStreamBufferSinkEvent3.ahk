@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent3)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersinkevent3
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidstreambuffersinkevent3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -39,10 +36,14 @@ class IMSVidStreamBufferSinkEvent3 extends IMSVidStreamBufferSinkEvent2{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @param {Integer} dwProt Specifies the new license as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/encdec/ne-encdec-prottype">ProtType</a> enumeration.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent3-licensechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambuffersinkevent3-licensechange
      */
     LicenseChange(dwProt) {
-        result := ComCall(13, this, "int", dwProt, "HRESULT")
+        result := ComCall(13, this, "int", dwProt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

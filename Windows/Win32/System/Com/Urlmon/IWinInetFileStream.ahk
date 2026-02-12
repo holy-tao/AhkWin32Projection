@@ -35,7 +35,11 @@ class IWinInetFileStream extends IUnknown{
      * @returns {HRESULT} 
      */
     SetHandleForUnlock(hWinInetLockHandle, dwReserved) {
-        result := ComCall(3, this, "ptr", hWinInetLockHandle, "ptr", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", hWinInetLockHandle, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IWinInetFileStream extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDeleteFile(dwReserved) {
-        result := ComCall(4, this, "ptr", dwReserved, "HRESULT")
+        result := ComCall(4, this, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

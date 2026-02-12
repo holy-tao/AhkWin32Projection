@@ -3,7 +3,7 @@
 
 /**
  * Current status of a sync provider.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_sync_provider_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_sync_provider_status
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

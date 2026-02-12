@@ -5,7 +5,7 @@
 
 /**
  * Represents a brush based on an ID2D1Image.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1imagebrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1imagebrush
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,14 +32,14 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the image associated with the provided image brush.
-     * @param {ID2D1Image} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
+     * @param {ID2D1Image} image_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
      * 
      * The image to be associated with the image brush.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-setimage
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-setimage
      */
-    SetImage(image) {
-        ComCall(8, this, "ptr", image)
+    SetImage(image_) {
+        ComCall(8, this, "ptr", image_)
     }
 
     /**
@@ -48,7 +48,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
      * 
      * The extend mode on the x-axis of the image.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-setextendmodex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-setextendmodex
      */
     SetExtendModeX(extendModeX) {
         ComCall(9, this, "int", extendModeX)
@@ -60,7 +60,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
      * 
      * The extend mode on the y-axis of the image.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-setextendmodey
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-setextendmodey
      */
     SetExtendModeY(extendModeY) {
         ComCall(10, this, "int", extendModeY)
@@ -68,20 +68,19 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Sets the interpolation mode for the image brush.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * @param {Integer} interpolationMode_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
      * 
      * How the contents of the image will be interpolated to handle the brush transform.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-setinterpolationmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-setinterpolationmode
      */
-    SetInterpolationMode(interpolationMode) {
-        ComCall(11, this, "int", interpolationMode)
+    SetInterpolationMode(interpolationMode_) {
+        ComCall(11, this, "int", interpolationMode_)
     }
 
     /**
      * Sets the source rectangle in the image brush.
      * @remarks
-     * 
      * The top left corner of the <i>sourceRectangle</i> parameter maps to the brush space origin. That is, if the  brush and world transforms are both identity, the portion of the image in the top left corner of the source rectangle will be rendered at (0,0) in the render target.
      * 
      * The source rectangle will be expanded differently depending on whether the input image is based on   pixels (a bitmap or effect) or by a command list.
@@ -93,13 +92,11 @@ class ID2D1ImageBrush extends ID2D1Brush{
      * <li>If the input image is a command list, the command list will be slightly expanded to encapsulate a full input pixel.
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Pointer<D2D_RECT_F>} sourceRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The source rectangle that defines the portion of the image to tile.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-setsourcerectangle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-setsourcerectangle
      */
     SetSourceRectangle(sourceRectangle) {
         ComCall(12, this, "ptr", sourceRectangle)
@@ -107,22 +104,22 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the image associated with the image brush.
-     * @param {Pointer<ID2D1Image>} image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
+     * @param {Pointer<ID2D1Image>} image_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the image associated with  this brush.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-getimage
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-getimage
      */
-    GetImage(image) {
-        ComCall(13, this, "ptr*", image)
+    GetImage(image_) {
+        ComCall(13, this, "ptr*", image_)
     }
 
     /**
      * Gets the extend mode of the image brush on the x-axis.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * This method returns the x-extend mode.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodex
      */
     GetExtendModeX() {
         result := ComCall(14, this, "int")
@@ -131,10 +128,10 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the extend mode of the image brush on the y-axis of the image.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * This method returns the  y-extend mode.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodey
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-getextendmodey
      */
     GetExtendModeY() {
         result := ComCall(15, this, "int")
@@ -143,10 +140,10 @@ class ID2D1ImageBrush extends ID2D1Brush{
 
     /**
      * Gets the interpolation mode of the image brush.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
      * 
      * This method returns the  interpolation mode.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-getinterpolationmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-getinterpolationmode
      */
     GetInterpolationMode() {
         result := ComCall(16, this, "int")
@@ -159,7 +156,7 @@ class ID2D1ImageBrush extends ID2D1Brush{
      * 
      * When this method returns, contains the address of the output source rectangle.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1imagebrush-getsourcerectangle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1imagebrush-getsourcerectangle
      */
     GetSourceRectangle(sourceRectangle) {
         ComCall(17, this, "ptr", sourceRectangle)

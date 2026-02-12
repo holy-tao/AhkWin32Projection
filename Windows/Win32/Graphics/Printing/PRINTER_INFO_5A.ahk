@@ -3,7 +3,7 @@
 
 /**
  * The PRINTER\_INFO\_5 structure specifies detailed printer information.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-5
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-info-5
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

@@ -8,7 +8,7 @@
  * The <b>pluginFolderName</b> type is defined as follows:
  * 
  * <c>typedef [string] WCHAR* pluginFolderName;</c>
- * @see https://learn.microsoft.com/windows/win32/api/tspubplugin2com/ns-tspubplugin2com-pluginresource2
+ * @see https://learn.microsoft.com/windows/win32/api//content/tspubplugin2com/ns-tspubplugin2com-pluginresource2
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

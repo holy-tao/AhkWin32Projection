@@ -309,7 +309,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coinitialize
      * @since windows5.0
      */
     static CoInitialize() {
@@ -358,7 +358,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregistermallocspy
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coregistermallocspy
      * @since windows5.0
      */
     static CoRegisterMallocSpy(pMallocSpy) {
@@ -419,7 +419,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-corevokemallocspy
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-corevokemallocspy
      * @since windows5.0
      */
     static CoRevokeMallocSpy() {
@@ -454,7 +454,7 @@ class Com {
      * It is unpredictable whether a call to <b>CoRegisterInitializeSpy</b> from within an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> method call will be effective during the current top-level (non-nested) call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a>. A registered implementation of <b>IInitializeSpy</b> will always be effective for future top-level calls to <b>CoInitializeEx</b> or <b>CoUninitialize</b>.
      * @param {IInitializeSpy} pSpy A pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> implementation.
      * @returns {Integer} The address at which to store a cookie that identifies this registration.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregisterinitializespy
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coregisterinitializespy
      * @since windows5.1.2600
      */
     static CoRegisterInitializeSpy(pSpy) {
@@ -476,7 +476,7 @@ class Com {
      * It is unpredictable whether a call to <b>CoRevokeInitializeSpy</b> from within an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iinitializespy">IInitializeSpy</a> method call will have an effect during the current top-level (non-nested) call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a>. The revocation will always have an effect after the current top-level call to <b>CoInitializeEx</b> or <b>CoUninitialize</b> returns.
      * @param {Integer} uliCookie A <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a> cookie identifying the registration.
      * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as S_OK to indicate success.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-corevokeinitializespy
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-corevokeinitializespy
      * @since windows5.0
      */
     static CoRevokeInitializeSpy(uliCookie) {
@@ -544,7 +544,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cogetsystemsecuritypermissions
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cogetsystemsecuritypermissions
      * @since windows5.0
      */
     static CoGetSystemSecurityPermissions(comSDType, ppSD) {
@@ -565,7 +565,7 @@ class Com {
      * @param {PWSTR} lpszLibName The name of the library to be loaded.
      * @param {BOOL} bAutoFree This parameter is maintained for compatibility with 16-bit applications, but is ignored.
      * @returns {HINSTANCE} If the function succeeds, the return value is a handle to the loaded library; otherwise, it is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coloadlibrary
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coloadlibrary
      * @since windows5.0
      */
     static CoLoadLibrary(lpszLibName, bAutoFree) {
@@ -582,7 +582,7 @@ class Com {
      * The <b>CoFreeLibrary</b> function should be called to free a library that is to be freed explicitly. This is established when the library is loaded with the <i>bAutoFree</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> set to <b>FALSE</b>. It is illegal to free a library explicitly when the corresponding <b>CoLoadLibrary</b> call specifies that it be freed automatically (the <i>bAutoFree</i> parameter is set to <b>TRUE</b>).
      * @param {HINSTANCE} hInst A handle to the library module to be freed, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coloadlibrary">CoLoadLibrary</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofreelibrary
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cofreelibrary
      * @since windows5.0
      */
     static CoFreeLibrary(hInst) {
@@ -596,7 +596,7 @@ class Com {
      * @remarks
      * To unload libraries, <b>CoFreeAllLibraries</b> uses a list of loaded DLLs for each process that the COM library maintains. The <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-oleuninitialize">OleUninitialize</a> functions call <b>CoFreeAllLibraries</b> internally, so applications usually have no need to call this function directly.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofreealllibraries
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cofreealllibraries
      * @since windows5.0
      */
     static CoFreeAllLibraries() {
@@ -671,7 +671,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coallowsetforegroundwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coallowsetforegroundwindow
      * @since windows5.0
      */
     static CoAllowSetForegroundWindow(pUnk) {
@@ -726,7 +726,7 @@ class Com {
      * </ul>
      * @param {Pointer<Guid>} rclsid The CLSID to be checked.
      * @returns {BOOL} If the CLSID refers to an OLE 1 object, the return value is <b>TRUE</b>; otherwise, it is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coisole1class
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coisole1class
      * @since windows5.0
      */
     static CoIsOle1Class(rclsid) {
@@ -796,7 +796,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-clsidfromprogidex
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-clsidfromprogidex
      * @since windows5.0
      */
     static CLSIDFromProgIDEx(lpszProgID, lpclsid) {
@@ -816,7 +816,7 @@ class Com {
      * @param {Pointer<Integer>} lpDosDate Receives the MS-DOS date.
      * @param {Pointer<Integer>} lpDosTime Receives the MS-DOS time.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>; otherwise, it is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cofiletimetodosdatetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cofiletimetodosdatetime
      * @since windows5.0
      */
     static CoFileTimeToDosDateTime(lpFileTime, lpDosDate, lpDosTime) {
@@ -881,7 +881,7 @@ class Com {
      * @param {Integer} nDosTime The MS-DOS time.
      * @param {Pointer<FILETIME>} lpFileTime A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>; otherwise, it is <b>FALSE</b>, probably because of invalid arguments.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-codosdatetimetofiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-codosdatetimetofiletime
      * @since windows5.0
      */
     static CoDosDateTimeToFileTime(nDosDate, nDosTime, lpFileTime) {
@@ -893,7 +893,7 @@ class Com {
      * The CoFileTimeNow function (combaseapi.h) returns the current time as a FILETIME structure.
      * @param {Pointer<FILETIME>} lpFileTime A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the current time.
      * @returns {HRESULT} This function returns S_OK to indicate success.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofiletimenow
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cofiletimenow
      * @since windows5.0
      */
     static CoFileTimeNow(lpFileTime) {
@@ -910,7 +910,7 @@ class Com {
      * @param {Pointer<Guid>} ExtensionUuid The extension to register.
      * @param {IChannelHook} pChannelHook The channel hook to register.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregisterchannelhook
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coregisterchannelhook
      */
     static CoRegisterChannelHook(ExtensionUuid, pChannelHook) {
         result := DllCall("ole32.dll\CoRegisterChannelHook", "ptr", ExtensionUuid, "ptr", pChannelHook, "int")
@@ -1009,7 +1009,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cotreatasclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cotreatasclass
      * @since windows5.0
      */
     static CoTreatAsClass(clsidOld, clsidNew) {
@@ -1022,11 +1022,11 @@ class Com {
     }
 
     /**
-     * The CreateDataAdviseHolder function (ole2.h) retrieves a pointer to the OLE implementation of IDataAdviseHolder on the data advise holder object.
+     * The CreateDataAdviseHolder function (objbase.h) retrieves a pointer to the OLE implementation of IDataAdviseHolder on the data advise holder object.
      * @remarks
      * Call <b>CreateDataAdviseHolder</b> in your implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a> to get a pointer to the OLE implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> interface. With this pointer, you can then complete the implementation of <b>IDataObject::DAdvise</b> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataadviseholder-advise">IDataAdviseHolder::Advise</a> method, which creates an advisory connection between the calling object and the data object.
      * @returns {IDataAdviseHolder} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataadviseholder">IDataAdviseHolder</a> pointer variable that receives the interface pointer to the new advise holder object.
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-createdataadviseholder
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createdataadviseholder
      * @since windows5.0
      */
     static CreateDataAdviseHolder() {
@@ -1046,7 +1046,7 @@ class Com {
      * @param {Pointer<Guid>} rclsid CLSID used to generate icon labels. This value is typically CLSID_NULL.
      * @param {Pointer<Guid>} iid Reference to the identifier of the interface the caller wants to use to communicate with the cache. This value is typically IID_IOleCache (defined in the OLE headers to equal the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolecache">IOleCache</a>).
      * @returns {Pointer<Pointer<Void>>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the supplied cache object.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createdatacache
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createdatacache
      * @since windows5.0
      */
     static CreateDataCache(pUnkOuter, rclsid, iid) {
@@ -1095,7 +1095,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coinstall
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coinstall
      */
     static CoInstall(pbc, dwFlags, pClassSpec, pQuery, pszCodeBase) {
         pszCodeBase := pszCodeBase is String ? StrPtr(pszCodeBase) : pszCodeBase
@@ -1129,7 +1129,7 @@ class Com {
      * @param {Integer} grfOpt This parameter is reserved for future use and must be 0.
      * @param {Pointer<Guid>} iidResult The interface identifier to be used to communicate with the object.
      * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in <i>iidResult</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer. If an error occurs, *<i>ppvResult</i> is <b>NULL</b>. If the call is successful, the caller is responsible for releasing the pointer with a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-bindmoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-bindmoniker
      * @since windows5.0
      */
     static BindMoniker(pmk, grfOpt, iidResult) {
@@ -1149,7 +1149,7 @@ class Com {
      * @param {Pointer<BIND_OPTS>} pBindOptions The binding options used to create a moniker that creates the actual object. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-bind_opts">BIND_OPTS</a>. This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid A reference to the identifier of an interface that is implemented on the object to be created.
      * @returns {Pointer<Pointer<Void>>} The address of a pointer to the interface specified by <i>riid</i> on the object that is created.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cogetobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cogetobject
      * @since windows5.0
      */
     static CoGetObject(pszName, pBindOptions, riid) {
@@ -1235,7 +1235,7 @@ class Com {
      *  
      * 
      * This function can also return any of the error values returned by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a>, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iparsedisplayname-parsedisplayname">IParseDisplayName::ParseDisplayName</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-mkparsedisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-mkparsedisplayname
      * @since windows5.0
      */
     static MkParseDisplayName(pbc, szUserName, pchEaten, ppmk) {
@@ -1263,7 +1263,7 @@ class Com {
      * @param {IMoniker} pmkDest A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be expressed relative to <i>pmkSrc</i>. This moniker identifies the destination of the relative moniker to be created.
      * @param {BOOL} dwReserved This parameter is reserved and must be nonzero.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new relative moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the interface pointer value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-monikerrelativepathto
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-monikerrelativepathto
      * @since windows5.0
      */
     static MonikerRelativePathTo(pmkSrc, pmkDest, dwReserved) {
@@ -1286,7 +1286,7 @@ class Com {
      * @param {IMoniker} pmkThis A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on one of the monikers for which a common prefix is sought; usually the moniker in which this call is used to implement <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-commonprefixwith">IMoniker::CommonPrefixWith</a>.
      * @param {IMoniker} pmkOther A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be compared with the first moniker.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker based on the common prefix of <i>pmkThis</i> and <i>pmkOther</i>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-monikercommonprefixwith
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-monikercommonprefixwith
      * @since windows5.0
      */
     static MonikerCommonPrefixWith(pmkThis, pmkOther) {
@@ -1346,7 +1346,7 @@ class Com {
      * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-setbindoptions">IBindCtx::SetBindOptions</a> method to modify these default values.
      * @param {Integer} reserved This parameter is reserved and must be 0.
      * @returns {IBindCtx} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>* pointer variable that receives the interface pointer to the new bind context object. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the bind context. A <b>NULL</b> value for the bind context indicates that an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createbindctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createbindctx
      * @since windows5.0
      */
     static CreateBindCtx(reserved) {
@@ -1369,7 +1369,7 @@ class Com {
      * @param {IMoniker} pmkFirst A pointer to the moniker to be composed to the left of the moniker that pmkRest points to. Can point to any kind of moniker, including a generic composite.
      * @param {IMoniker} pmkRest A pointer to the moniker to be composed to the right of the moniker to which <i>pmkFirst</i> points. Can point to any kind of moniker compatible with the type of the <i>pmkRest</i> moniker, including a generic composite.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the composite moniker object that is the result of composing <i>pmkFirst</i> and <i>pmkRest</i>. This object supports the OLE composite moniker implementation of <b>IMoniker</b>. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If either <i>pmkFirst</i> or <i>pmkRest</i> are <b>NULL</b>, the supplied pointer is the one that is non-<b>NULL</b>. If both <i>pmkFirst</i> and <i>pmkRest</i> are <b>NULL</b>, or if an error occurs, the returned pointer is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-creategenericcomposite
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-creategenericcomposite
      * @since windows5.0
      */
     static CreateGenericComposite(pmkFirst, pmkRest) {
@@ -1464,7 +1464,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-getclassfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-getclassfile
      * @since windows5.0
      */
     static GetClassFile(szFilename, pclsid) {
@@ -1484,7 +1484,7 @@ class Com {
      * The class moniker will support the binding to a fresh instance of the class identified by the CLSID in <i>rclsid</i>.
      * @param {Pointer<Guid>} rclsid A reference to the CLSID of the object type to which this moniker binds.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new class moniker. On successful return, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the moniker pointer is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createclassmoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createclassmoniker
      * @since windows5.0
      */
     static CreateClassMoniker(rclsid) {
@@ -1508,7 +1508,7 @@ class Com {
      * 
      * This parameter can specify a relative path, a UNC path, or a drive-letter-based path. If based on a relative path, the resulting moniker must be composed onto another file moniker before it can be bound.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new file moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the file moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the value of the interface pointer is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createfilemoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createfilemoniker
      * @since windows5.0
      */
     static CreateFileMoniker(lpszPathName) {
@@ -1539,7 +1539,7 @@ class Com {
      * @param {PWSTR} lpszDelim A pointer to a wide character string (two bytes per character) zero-terminated string containing the delimiter (typically "!") used to separate this item's display name from the display name of its containing object.
      * @param {PWSTR} lpszItem A pointer to a zero-terminated string indicating the containing object's name for the object being identified. This name can later be used to retrieve a pointer to the object in a call to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">IOleItemContainer::GetObject</a>.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the item moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the item moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the supplied interface pointer has a <b>NULL</b> value.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createitemmoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createitemmoniker
      * @since windows5.0
      */
     static CreateItemMoniker(lpszDelim, lpszItem) {
@@ -1572,7 +1572,7 @@ class Com {
      * </li>
      * </ol>
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new anti-moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the anti-moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the anti-moniker pointer is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createantimoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createantimoniker
      * @since windows5.0
      */
     static CreateAntiMoniker() {
@@ -1594,7 +1594,7 @@ class Com {
      * Pointer monikers are not commonly used, so this function is not often called.
      * @param {IUnknown} punk A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object to be identified by the resulting moniker.
      * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the new pointer moniker. When successful, the function has called <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. When an error occurs, the returned interface pointer has a <b>NULL</b> value.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createpointermoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createpointermoniker
      * @since windows5.0
      */
     static CreatePointerMoniker(punk) {
@@ -1630,7 +1630,7 @@ class Com {
      * The script engine internally makes the calls to <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-mkparsedisplayname">MkParseDisplayName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a>, and the script can then use objMyInstance to refer directly to the running object.
      * @param {IUnknown} punk A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that the moniker is to represent.
      * @returns {IMoniker} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the OBJREF moniker that was created.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createobjrefmoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createobjrefmoniker
      * @since windows5.0
      */
     static CreateObjrefMoniker(punk) {
@@ -1656,7 +1656,7 @@ class Com {
      * If you are implementing the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface to write a new moniker class, and you need an interface pointer to the ROT, call <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-getrunningobjecttable">IBindCtx::GetRunningObjectTable</a> rather than the <b>GetRunningObjectTable</b> function. This allows future implementations of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface to modify binding behavior.
      * @param {Integer} reserved This parameter is reserved and must be 0.
      * @returns {IRunningObjectTable} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-getrunningobjecttable
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-getrunningobjecttable
      * @since windows5.0
      */
     static GetRunningObjectTable(reserved) {
@@ -1693,7 +1693,7 @@ class Com {
      * The pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface pointer received through the <i>ppMalloc</i> parameter cannot be used from a remote process; each process must have its own allocator.
      * @param {Integer} dwMemContext This parameter must be 1.
      * @returns {IMalloc} The address of an <b>IMalloc*</b> pointer variable that receives the interface pointer to the memory allocator.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetmalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetmalloc
      * @since windows5.0
      */
     static CoGetMalloc(dwMemContext) {
@@ -1722,7 +1722,7 @@ class Com {
      * 
      * Because there is no way to control the order in which in-process servers are loaded or unloaded, do not call <a href="https://docs.microsoft.com/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a>, <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a>, or <b>CoUninitialize</b> from the <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-couninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-couninitialize
      * @since windows5.0
      */
     static CoUninitialize() {
@@ -1738,7 +1738,7 @@ class Com {
      * 
      * The value returned by <b>CoGetCurrentProcess</b> will uniquely identify the same thread for the life of the caller. Because thread IDs can be reused without notice as threads are created and destroyed, this value is more reliable than the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid">GetCurrentThreadId</a> function.
      * @returns {Integer} The function returns the unique identifier of the current thread.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcurrentprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetcurrentprocess
      * @since windows5.0
      */
     static CoGetCurrentProcess() {
@@ -1812,7 +1812,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coinitializeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coinitializeex
      * @since windows5.0
      */
     static CoInitializeEx(dwCoInit) {
@@ -1829,7 +1829,7 @@ class Com {
      * 
      * There is no guarantee that the information returned from this API is not tampered with, so do not use the ID that is returned to make security decisions. The ID can only be used for logging and diagnostic purposes.
      * @returns {Integer} Receives the apartment ID of the caller's thread. For a single threaded apartment (STA), this is the current thread ID. For a multithreaded apartment (MTA), the value is 0.  For a neutral apartment (NA), the value is -1.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcallertid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetcallertid
      * @since windows5.0
      */
     static CoGetCallerTID() {
@@ -1887,7 +1887,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcurrentlogicalthreadid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetcurrentlogicalthreadid
      * @since windows5.0
      */
     static CoGetCurrentLogicalThreadId(pguid) {
@@ -1902,7 +1902,7 @@ class Com {
     /**
      * Returns a pointer to an implementation of IObjContext for the current context.
      * @returns {Pointer} A pointer to an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iobjcontext">IObjContext</a> for the current context.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcontexttoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetcontexttoken
      * @since windows5.0
      */
     static CoGetContextToken() {
@@ -1970,7 +1970,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetapartmenttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetapartmenttype
      * @since windows6.1
      */
     static CoGetApartmentType(pAptType, pAptQualifier) {
@@ -2009,7 +2009,7 @@ class Com {
      * <li> Your API implementation requires COM to be initialized, but has no information about whether the current thread is already in an apartment, and does not need the current thread to go into a particular apartment. </li>
      * </ul>
      * @returns {CO_MTA_USAGE_COOKIE} Address of a <b>PVOID</b> variable that receives the cookie for the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-codecrementmtausage">CoDecrementMTAUsage</a> function, or <b>NULL</b> if the call fails.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coincrementmtausage
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coincrementmtausage
      */
     static CoIncrementMTAUsage() {
         pCookie := CO_MTA_USAGE_COOKIE()
@@ -2031,7 +2031,7 @@ class Com {
      * Don't call <b>CoDecrementMTAUsage</b> during process shutdown or inside dllmain. You can call <b>CoDecrementMTAUsage</b> before the call to start the shutdown process.
      * @param {CO_MTA_USAGE_COOKIE} Cookie A <b>PVOID</b> variable that was set by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coincrementmtausage">CoIncrementMTAUsage</a> function.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecrementmtausage
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-codecrementmtausage
      */
     static CoDecrementMTAUsage(Cookie) {
         Cookie := Cookie is Win32Handle ? NumGet(Cookie, "ptr") : Cookie
@@ -2054,7 +2054,7 @@ class Com {
      * For example, it's appropriate to call the <b>CoAllowUnmarshalerCLSID</b> function when an unmarshaler is known or believed to have a vulnerability but is required by an app. Also, it's appropriate to call <b>CoAllowUnmarshalerCLSID</b> if the unmarshaler is used in multiple processes, but only as part of an uncommon feature. Don't use the <b>CoAllowUnmarshalerCLSID</b> function as a replacement for hardening the unmarshaler.
      * @param {Pointer<Guid>} clsid The CLSID of the unmarshaler to be added to the per-process allowed list.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coallowunmarshalerclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coallowunmarshalerclsid
      * @since windows8.0
      */
     static CoAllowUnmarshalerCLSID(clsid) {
@@ -2080,7 +2080,7 @@ class Com {
      * 
      * For objects running within COM+ applications, IID_IObjectContext, IID_IObjectContextActivity IID_IObjectContextInfo, and IID_IContextState are available.
      * @returns {Pointer<Pointer<Void>>} The address of a pointer to the interface specified by <i>riid</i> on the context object.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetobjectcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetobjectcontext
      * @since windows5.0
      */
     static CoGetObjectContext(riid) {
@@ -2135,7 +2135,7 @@ class Com {
      * @param {Pointer<Void>} pvReserved A pointer to computer on which to instantiate the class object. If this parameter is <b>NULL</b>, the class object is instantiated on the current computer or at the computer specified under the class's <a href="https://docs.microsoft.com/windows/desktop/com/remoteservername">RemoteServerName</a> key, according to the interpretation of the <i>dwClsCtx</i> parameter. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-coserverinfo">COSERVERINFO</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, which will be supplied in _ppv_ on successful return. This interface will be used to communicate with the class object. Typically this value is IID_IClassFactory, although other values such as IID_IClassFactory2 which supports a form of licensing are allowed. All OLE-defined interface IIDs are defined in the OLE header files as IID_interfacename, where interfacename is the name of the interface.
      * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetclassobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetclassobject
      * @since windows5.0
      */
     static CoGetClassObject(rclsid, dwClsContext, pvReserved, riid) {
@@ -2187,7 +2187,7 @@ class Com {
      * @param {Integer} dwClsContext The context in which the executable code is to be run. For information on these context values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Integer} flags Indicates how connections are made to the class object. For information on these flags, see the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-regcls">REGCLS</a> enumeration.
      * @returns {Integer} A pointer to a value that identifies the class object registered; later used by the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a> function to revoke the registration.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterclassobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coregisterclassobject
      * @since windows5.0
      */
     static CoRegisterClassObject(rclsid, pUnk, dwClsContext, flags) {
@@ -2228,7 +2228,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-corevokeclassobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-corevokeclassobject
      * @since windows5.0
      */
     static CoRevokeClassObject(dwRegister) {
@@ -2247,7 +2247,7 @@ class Com {
      * 
      * This reduces the overall registration time, and thus the server application startup time, by making a single call to the SCM, no matter how many CLSIDs are registered for the server. Another advantage is that if the server has multiple apartments with different CLSIDs registered in different apartments, or is a free-threaded server, no activation requests will come in until the server calls <b>CoResumeClassObjects</b>. This gives the server a chance to register all of its CLSIDs and get properly set up before having to deal with activation requests, and possibly shutdown requests.
      * @returns {HRESULT} This function returns S_OK to indicate that the CLSID was retrieved successfully.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coresumeclassobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coresumeclassobjects
      * @since windows5.0
      */
     static CoResumeClassObjects() {
@@ -2264,7 +2264,7 @@ class Com {
      * @remarks
      * <b>CoSuspendClassObjects</b> prevents any new activation requests from the SCM on all class objects registered within the process. Even though a process may call this function, the process still must call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-corevokeclassobject">CoRevokeClassObject</a> function for each CLSID it has registered, in the apartment it registered in. Applications typically do not need to call this function, which is generally only called internally by OLE when used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coreleaseserverprocess">CoReleaseServerProcess</a> function.
      * @returns {HRESULT} This function returns S_OK to indicate that the activation of class objects was successfully suspended.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cosuspendclassobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cosuspendclassobjects
      * @since windows5.0
      */
     static CoSuspendClassObjects() {
@@ -2287,7 +2287,7 @@ class Com {
      * 
      * If these functions are used at all, they must be called in both the object instances and the <a href="https://docs.microsoft.com/windows/desktop/api/unknwnbase/nf-unknwnbase-iclassfactory-lockserver">LockServer</a> method, otherwise the server application may be shut down prematurely. In-process servers typically should not call <b>CoAddRefServerProcess</b> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coreleaseserverprocess">CoReleaseServerProcess</a>.
      * @returns {Integer} The current reference count.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coaddrefserverprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coaddrefserverprocess
      * @since windows5.0
      */
     static CoAddRefServerProcess() {
@@ -2308,7 +2308,7 @@ class Com {
      * 
      * If these APIs are used at all, they must be called in both the object instances and the <a href="https://docs.microsoft.com/windows/desktop/api/unknwnbase/nf-unknwnbase-iclassfactory-lockserver">LockServer</a> method, otherwise the server application may be shutdown prematurely. In-process Servers typically should not call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coaddrefserverprocess">CoAddRefServerProcess</a> or <b>CoReleaseServerProcess</b>.
      * @returns {Integer} If the server application should initiate its cleanup, the function returns 0; otherwise, the function returns a nonzero value.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coreleaseserverprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coreleaseserverprocess
      * @since windows5.0
      */
     static CoReleaseServerProcess() {
@@ -2363,7 +2363,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetpsclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetpsclsid
      * @since windows5.0
      */
     static CoGetPSClsid(riid, pClsid) {
@@ -2386,7 +2386,7 @@ class Com {
      * @param {Pointer<Guid>} riid A pointer to the IID of the interface to be registered.
      * @param {Pointer<Guid>} rclsid A pointer to the CLSID of the DLL that contains the proxy/stub code for the custom interface specified by <i>riid</i>.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterpsclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coregisterpsclsid
      * @since windows5.0
      */
     static CoRegisterPSClsid(riid, rclsid) {
@@ -2408,7 +2408,7 @@ class Com {
      * As of Windows Server 2003, if a COM object application is registered as a service, COM verifies the registration. COM makes sure the process ID of the service, in the service control manager (SCM), matches the process ID of the registering process. If not, COM fails the registration.
      * @param {ISurrogate} pSurrogate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-isurrogate">ISurrogate</a> interface on the surrogate process to be registered.
      * @returns {HRESULT} This function returns S_OK to indicate that the surrogate process was registered successfully.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregistersurrogate
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coregistersurrogate
      * @since windows5.0
      */
     static CoRegisterSurrogate(pSurrogate) {
@@ -2440,7 +2440,7 @@ class Com {
      * <b>CoDisconnectObject</b> does not necessarily disconnect out-of-process clients immediately. If any marshaled calls are pending on the server object, <b>CoDisconnectObject</b> disconnects the object only when those calls have returned. In the meantime, <b>CoDisconnectObject</b> sets a flag that causes any new marshaled calls to return CO_E_OBJNOTCONNECTED.
      * @param {IUnknown} pUnk A pointer to any interface derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> on the object to be disconnected.
      * @returns {HRESULT} This function returns S_OK to indicate that all connections to remote processes were successfully deleted.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codisconnectobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-codisconnectobject
      * @since windows5.0
      */
     static CoDisconnectObject(pUnk) {
@@ -2512,7 +2512,7 @@ class Com {
      * 
      * If <i>fLock</i> is <b>TRUE</b>, this parameter is ignored.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-colockobjectexternal
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-colockobjectexternal
      * @since windows5.0
      */
     static CoLockObjectExternal(pUnk, fLock, fLastUnlockReleases) {
@@ -2530,7 +2530,7 @@ class Com {
      * The <b>CoIsHandlerConnected</b> function determines the status of a remote object. You can use it to determine when to release a remote object. You specify the remote object by giving the function a pointer to its controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface (the <i>pUnk</i> parameter). A value of <b>TRUE</b> returned from the function indicates either that the specified object is not remote, or that it is remote and is still connected to its remote handler. A value of <b>FALSE</b> returned from the function indicates that the object is remote but is no longer connected to its remote handler; in this case, the caller should respond by releasing the object.
      * @param {IUnknown} pUnk A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the remote object.
      * @returns {BOOL} If the object is not remote or if it is remote and still connected, the return value is <b>TRUE</b>; otherwise, it is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coishandlerconnected
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coishandlerconnected
      * @since windows5.0
      */
     static CoIsHandlerConnected(pUnk) {
@@ -2575,7 +2575,7 @@ class Com {
      * </ul>
      * @param {IUnknown} punkOuter A pointer to the aggregating object's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>.
      * @returns {IUnknown} Address of the pointer variable that receives the interface pointer to the aggregatable marshaler.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreatefreethreadedmarshaler
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocreatefreethreadedmarshaler
      * @since windows5.0
      */
     static CoCreateFreeThreadedMarshaler(punkOuter) {
@@ -2592,7 +2592,7 @@ class Com {
      * @remarks
      * Applications can call <b>CoFreeUnusedLibraries</b> periodically to free resources. It is most efficient to call it either at the top of a message loop or in some idle-time task. <b>CoFreeUnusedLibraries</b> internally calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-dllcanunloadnow">DllCanUnloadNow</a> for DLLs that implement and export that function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofreeunusedlibraries
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cofreeunusedlibraries
      * @since windows5.0
      */
     static CoFreeUnusedLibraries() {
@@ -2623,7 +2623,7 @@ class Com {
      * This behavior is triggered by the DLL supplying components with threading models set to Free, Neutral, or Both. For a threading model set to Apartment (or if no threading model is specified), <i>dwUnloadDelay</i> is treated as 0 because these components are tied to the single thread hosting the apartment.
      * @param {Integer} dwUnloadDelay The delay in milliseconds between the time that the DLL has stated it can be unloaded until it becomes a candidate to unload. Setting this parameter to INFINITE uses the system default delay (10 minutes). Setting this parameter to 0 forces the unloading of any DLLs without any delay.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cofreeunusedlibrariesex
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cofreeunusedlibrariesex
      * @since windows5.1.2600
      */
     static CoFreeUnusedLibrariesEx(dwUnloadDelay) {
@@ -2718,7 +2718,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codisconnectcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-codisconnectcontext
      * @since windows6.0.6000
      */
     static CoDisconnectContext(dwTimeout) {
@@ -2829,7 +2829,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coinitializesecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coinitializesecurity
      * @since windows5.0
      */
     static CoInitializeSecurity(pSecDesc, cAuthSvc, asAuthSvc, dwAuthnLevel, dwImpLevel, pAuthList, dwCapabilities) {
@@ -2853,7 +2853,7 @@ class Com {
      * <b>CoGetCallContext</b> retrieves the context of the current call on the current thread. The <i>riid</i> parameter specifies the interface on the context to be retrieved. This is one of the functions provided to give the server access to any contextual information of the caller.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the call context that is being requested. If you are using the default call context supported by standard marshaling, IID_IServerSecurity is available. For COM+ applications using role-based security, IID_ISecurityCallContext is available.
      * @returns {Pointer<Pointer<Void>>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppInterface</i> contains the requested interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcallcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetcallcontext
      * @since windows5.0
      */
     static CoGetCallContext(riid) {
@@ -2894,7 +2894,7 @@ class Com {
      * @param {Pointer<Pointer<Void>>} pAuthInfo A pointer to a handle that receives the identity of the client that was passed to the last <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> call (or the default value). Default values are only valid until the proxy is released. If the caller specifies <b>NULL</b>, the client identity is not retrieved. The format of the structure that the handle refers to depends on the authentication service. The application should not write or free the memory. For NTLMSSP and Kerberos, if the client specified a structure in the <i>pAuthInfo</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>, that value is returned. For Schannel, if a certificate for the client could be retrieved from the certificate manager, that value is returned here. Otherwise, <b>NULL</b> is returned. See <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a>.
      * @param {Pointer<Integer>} pCapabilites A pointer to a variable that receives the capabilities of the proxy. If the caller specifies <b>NULL</b>, the current capability flags are not retrieved.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coqueryproxyblanket
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coqueryproxyblanket
      * @since windows5.0
      */
     static CoQueryProxyBlanket(pProxy, pwAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
@@ -2985,7 +2985,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cosetproxyblanket
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cosetproxyblanket
      * @since windows5.0
      */
     static CoSetProxyBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAuthnLevel, dwImpLevel, pAuthInfo, dwCapabilities) {
@@ -3022,7 +3022,7 @@ class Com {
      * Copies of the same proxy have a special relationship with respect to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>. Given a proxy, a, of the IA interface of a remote object, suppose a copy of a is created, called b. In this case, calling <b>QueryInterface</b> from the b proxy for IID_IA will not retrieve the IA interface on b, but the one on a, the original proxy with the "default" security settings for the IA interface.
      * @param {IUnknown} pProxy A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the proxy to be copied. This parameter cannot be <b>NULL</b>.
      * @returns {IUnknown} Address of the pointer variable that receives the interface pointer to the copy of the proxy. This parameter cannot be <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocopyproxy
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocopyproxy
      * @since windows5.0
      */
     static CoCopyProxy(pProxy) {
@@ -3059,7 +3059,7 @@ class Com {
      * @param {Pointer<Pointer<Void>>} pPrivs A pointer to a handle that receives the privilege information for the client application. The format of the structure that the handle refers to depends on the authentication service. The application should not write or free the memory. The information is valid only for the duration of the current call. For NTLMSSP and Kerberos, this is a string identifying the client principal. For Schannel, this is a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that represents the client's certificate. If the client has no certificate, <b>NULL</b> is returned. If the caller specifies <b>NULL</b>, the current privilege information is not retrieved. See <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-authz-handle">RPC_AUTHZ_HANDLE</a>.
      * @param {Pointer<Integer>} pCapabilities A pointer to return flags indicating capabilities of the call. To request that the principal name be returned in fullsic form if Schannel is the authentication service, the caller can set the EOAC_MAKE_FULLSIC flag in this parameter. If the caller specifies <b>NULL</b>, the current capabilities are not retrieved.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coqueryclientblanket
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coqueryclientblanket
      * @since windows5.0
      */
     static CoQueryClientBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
@@ -3094,7 +3094,7 @@ class Com {
      * 
      * <b>CoImpersonateClient</b> encapsulates the process of getting a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iserversecurity">IServerSecurity</a> that contains data about the current call, calling its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iserversecurity-impersonateclient">ImpersonateClient</a> method, and then releasing the pointer. One call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coreverttoself">CoRevertToSelf</a> (or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iserversecurity-reverttoself">IServerSecurity::RevertToSelf</a>) will undo any number of  calls to impersonate the client.
      * @returns {HRESULT} This function supports the standard return values, including S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coimpersonateclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coimpersonateclient
      * @since windows5.0
      */
     static CoImpersonateClient() {
@@ -3121,7 +3121,7 @@ class Com {
      * 
      * ```
      * @returns {HRESULT} This function supports the standard return values, including S_OK to indicate success.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coreverttoself
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coreverttoself
      * @since windows5.0
      */
     static CoRevertToSelf() {
@@ -3144,7 +3144,7 @@ class Com {
      * @param {Pointer<Integer>} pcAuthSvc A pointer to a variable that receives the number of entries returned in the <i>asAuthSvc</i> array.
      * @param {Pointer<Pointer<SOLE_AUTHENTICATION_SERVICE>>} asAuthSvc A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-sole_authentication_service">SOLE_AUTHENTICATION_SERVICE</a> structures. The list is allocated through a call to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function. The caller must free the list when finished with it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coqueryauthenticationservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coqueryauthenticationservices
      * @since windows5.0
      */
     static CoQueryAuthenticationServices(pcAuthSvc, asAuthSvc) {
@@ -3169,7 +3169,7 @@ class Com {
      * Call context objects provided by custom marshallers should support the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iserversecurity">IServerSecurity</a> interface.
      * @param {IUnknown} pNewObject A pointer to an interface on the new call context object. COM stores this pointer without adding a reference to the pointer until <b>CoSwitchCallContext</b> is called with another object. This parameter may be <b>NULL</b> if you are calling <b>CoSwitchCallContext</b> to switch back to the original call context but there was no original call context.
      * @returns {IUnknown} The address of pointer variable that receives a pointer to the call context object of the call currently in progress. This value is returned so that the original call context can be restored by the custom marshaller. The returned pointer will be <b>NULL</b> if there was no call in progress.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coswitchcallcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coswitchcallcontext
      * @since windows5.0
      */
     static CoSwitchCallContext(pNewObject) {
@@ -3202,7 +3202,7 @@ class Com {
      * @param {Integer} dwClsContext Context in which the code that manages the newly created object will run. The values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a>.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be used to communicate with the object.
      * @returns {Pointer<Pointer<Void>>} Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppv</i> contains the requested interface pointer. Upon failure, *<i>ppv</i> contains <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocreateinstance
      * @since windows5.0
      */
     static CoCreateInstance(rclsid, pUnkOuter, dwClsContext, riid) {
@@ -3295,7 +3295,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstanceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocreateinstanceex
      * @since windows5.0
      */
     static CoCreateInstanceEx(Clsid, punkOuter, dwClsCtx, pServerInfo, dwCount, pResults) {
@@ -3387,7 +3387,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstancefromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocreateinstancefromapp
      * @since windows8.0
      */
     static CoCreateInstanceFromApp(Clsid, punkOuter, dwClsCtx, reserved, dwCount, pResults) {
@@ -3407,7 +3407,7 @@ class Com {
      * This registers one and only one process-wide filter.
      * @param {IActivationFilter} pActivationFilter Pointer to the filter to register.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisteractivationfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coregisteractivationfilter
      * @since windows5.1.2600
      */
     static CoRegisterActivationFilter(pActivationFilter) {
@@ -3428,7 +3428,7 @@ class Com {
      * @param {Integer} dwThreadId The identifier of the thread on which the pending COM call is to be canceled. If this parameter is 0, the call is on the current thread.
      * @param {Pointer<Guid>} iid The globally unique identifier of an interface on the cancel object for the call to be canceled. This argument is usually IID_ICancelMethodCalls.
      * @returns {Pointer<Pointer<Void>>} Receives the address of a pointer to the interface specified by <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetcancelobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetcancelobject
      * @since windows5.0
      */
     static CoGetCancelObject(dwThreadId, iid) {
@@ -3482,7 +3482,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cosetcancelobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cosetcancelobject
      * @since windows5.0
      */
     static CoSetCancelObject(pUnk) {
@@ -3567,7 +3567,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocancelcall
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocancelcall
      * @since windows5.0
      */
     static CoCancelCall(dwThreadId, ulTimeout) {
@@ -3617,7 +3617,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotestcancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cotestcancel
      * @since windows5.0
      */
     static CoTestCancel() {
@@ -3638,7 +3638,7 @@ class Com {
      * 
      * A call will be cancelable or not depending on the state of the thread at the time the call was made. Subsequently enabling or disabling call cancellation has no effect on any calls that are pending on the thread.
      * @returns {HRESULT} This function can return the standard return values S_OK, E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coenablecallcancellation
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coenablecallcancellation
      * @since windows5.0
      */
     static CoEnableCallCancellation() {
@@ -3698,7 +3698,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codisablecallcancellation
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-codisablecallcancellation
      * @since windows5.0
      */
     static CoDisableCallCancellation() {
@@ -3720,7 +3720,7 @@ class Com {
      * The caller is responsible for freeing the memory allocated for the string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} rclsid The CLSID to be converted.
      * @returns {PWSTR} The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-stringfromclsid
      * @since windows5.0
      */
     static StringFromCLSID(rclsid) {
@@ -3770,7 +3770,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-clsidfromstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-clsidfromstring
      * @since windows5.0
      */
     static CLSIDFromString(lpsz, pclsid) {
@@ -3790,7 +3790,7 @@ class Com {
      * The caller is responsible for freeing the memory allocated for the string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} rclsid The interface identifier to be converted.
      * @returns {PWSTR} The address of a pointer variable that receives a pointer to the resulting string. The string that represents <i>rclsid</i> includes enclosing braces.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromiid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-stringfromiid
      * @since windows5.0
      */
     static StringFromIID(rclsid) {
@@ -3813,7 +3813,7 @@ class Com {
      * @param {PWSTR} lpsz A pointer to the string representation of the IID or <b>NULL</b>.
      * @param {Pointer<Guid>} lpiid A pointer to the requested IID on return.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-iidfromstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-iidfromstring
      * @since windows5.0
      */
     static IIDFromString(lpsz, lpiid) {
@@ -3843,7 +3843,7 @@ class Com {
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-clsidfromprogid">CLSIDFromProgID</a> function to find the CLSID associated with a given ProgID. Be sure to free the returned ProgID  when you are finished with it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Guid>} clsid The CLSID for which the ProgID is to be requested.
      * @returns {PWSTR} The address of a pointer variable that receives the ProgID string. The string that represents <i>clsid</i> includes enclosing braces.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-progidfromclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-progidfromclsid
      * @since windows5.0
      */
     static ProgIDFromCLSID(clsid) {
@@ -3903,7 +3903,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-clsidfromprogid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-clsidfromprogid
      * @since windows5.0
      */
     static CLSIDFromProgID(lpszProgID, lpclsid) {
@@ -3923,7 +3923,7 @@ class Com {
      * @param {PWSTR} lpsz A pointer to a caller-allocated string variable to receive the resulting string. The string that represents <i>rguid</i> includes enclosing braces.
      * @param {Integer} cchMax The number of characters available in the <i>lpsz</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is the number of characters in the returned string, including the null terminator. If the buffer is too small to contain the string, the return value is 0.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-stringfromguid2
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-stringfromguid2
      * @since windows5.0
      */
     static StringFromGUID2(rguid, lpsz, cchMax) {
@@ -3958,7 +3958,7 @@ class Com {
      *  
      * 
      * Errors returned by <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-uuidcreate">UuidCreate</a> are wrapped as an <b>HRESULT</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cocreateguid
      * @since windows5.0
      */
     static CoCreateGuid(pguid) {
@@ -3996,7 +3996,7 @@ class Com {
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_ALERTABLE</a> flag is set in <i>dwFlags</i>, a value of WAIT_IO_COMPLETION indicates the wait was ended by one or more user-mode asynchronous procedure calls (APC) queued to the thread.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitformultipleobjectsex">WaitForMultipleObjectsEx</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultiplehandles
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cowaitformultiplehandles
      * @since windows5.0
      */
     static CoWaitForMultipleHandles(dwFlags, dwTimeout, cHandles, pHandles) {
@@ -4015,7 +4015,7 @@ class Com {
      * @param {Integer} cHandles The length of the <i>pHandles</i> array. Must be &lt;= 56.
      * @param {Pointer<HANDLE>} pHandles An array of handles to waitable kernel objects.
      * @returns {Integer} Receives the index of the handle that satisfied the wait.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cowaitformultipleobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cowaitformultipleobjects
      */
     static CoWaitForMultipleObjects(dwFlags, dwTimeout, cHandles, pHandles) {
         result := DllCall("OLE32.dll\CoWaitForMultipleObjects", "uint", dwFlags, "uint", dwTimeout, "uint", cHandles, "ptr", pHandles, "uint*", &lpdwindex := 0, "int")
@@ -4073,7 +4073,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogettreatasclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogettreatasclass
      * @since windows5.0
      */
     static CoGetTreatAsClass(clsidOld, pClsidNew) {
@@ -4141,7 +4141,7 @@ class Com {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coinvalidateremotemachinebindings
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coinvalidateremotemachinebindings
      * @since windows5.1.2600
      */
     static CoInvalidateRemoteMachineBindings(pszMachineName) {
@@ -4165,7 +4165,7 @@ class Com {
      * If <i>cb</i> is 0, <b>CoTaskMemAlloc</b> allocates a zero-length item and returns a valid pointer to that item. If there is insufficient memory available, <b>CoTaskMemAlloc</b> returns <b>NULL</b>. Applications should always check the return value from this function, even when requesting small amounts of memory, because there is no guarantee that the memory will be allocated.
      * @param {Pointer} cb The size of the memory block to be allocated, in bytes.
      * @returns {Pointer<Void>} If the function succeeds, it returns the allocated memory block. Otherwise, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cotaskmemalloc
      * @since windows5.0
      */
     static CoTaskMemAlloc(cb) {
@@ -4188,7 +4188,7 @@ class Com {
      * @param {Pointer<Void>} pv A pointer to the memory block to be reallocated. This parameter can be <b>NULL</b>, as discussed in Remarks.
      * @param {Pointer} cb The size of the memory block to be reallocated, in bytes. This parameter can be 0, as discussed in Remarks.
      * @returns {Pointer<Void>} If the function succeeds, it returns the reallocated memory block. Otherwise, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemrealloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cotaskmemrealloc
      * @since windows5.0
      */
     static CoTaskMemRealloc(pv, cb) {
@@ -4206,7 +4206,7 @@ class Com {
      * The number of bytes freed equals the number of bytes that were originally allocated or reallocated. After the call, the memory block pointed to by pv is invalid and can no longer be used.
      * @param {Pointer<Void>} pv A pointer to the memory block to be freed. If this parameter is <b>NULL</b>, the function has no effect.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cotaskmemfree
      * @since windows5.0
      */
     static CoTaskMemFree(pv) {
@@ -4223,7 +4223,7 @@ class Com {
      * @returns {CO_DEVICE_CATALOG_COOKIE} Type: \_Out\_ **CO_DEVICE_CATALOG_COOKIE\***
      * 
      * Returns an instance of **CO_DEVICE_CATALOG_COOKIE**. You can use this value to revoke the device catalog using [CoRevokeDeviceCatalog](nf-combaseapi-corevokedevicecatalog.md).
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coregisterdevicecatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coregisterdevicecatalog
      */
     static CoRegisterDeviceCatalog(deviceInstanceId) {
         deviceInstanceId := deviceInstanceId is String ? StrPtr(deviceInstanceId) : deviceInstanceId
@@ -4243,7 +4243,7 @@ class Com {
      * 
      * The **CO_DEVICE_CATALOG_COOKIE** that was returned by **CoRegisterDeviceCatalog**.
      * @returns {HRESULT} This function can return the standard return values **E_INVALIDARG**, **E_OUTOFMEMORY**, and **S_OK**.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-corevokedevicecatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-corevokedevicecatalog
      */
     static CoRevokeDeviceCatalog(cookie) {
         cookie := cookie is Win32Handle ? NumGet(cookie, "ptr") : cookie
@@ -4356,7 +4356,7 @@ class Com {
      * @param {Integer} dwReserved Reserved for future use. Must be zero.
      * @param {IErrorInfo} perrinfo An error object.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-seterrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-seterrorinfo
      */
     static SetErrorInfo(dwReserved, perrinfo) {
         result := DllCall("OLEAUT32.dll\SetErrorInfo", "uint", dwReserved, "ptr", perrinfo, "int")
@@ -4375,7 +4375,7 @@ class Com {
      * Making a COM call that goes through a proxy-stub will clear any existing error object for the calling thread. A called object should not make any such calls after calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a> and before returning. The caller should not make any such calls after the call returns and before calling <b>GetErrorInfo</b>. As a rule of thumb, an interface method should return as soon as possible after calling <b>SetErrorInfo</b>, and the caller should call <b>GetErrorInfo</b> as soon as possible after the call returns.
      * @param {Integer} dwReserved Reserved for future use. Must be zero.
      * @returns {IErrorInfo} An error object.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-geterrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-geterrorinfo
      */
     static GetErrorInfo(dwReserved) {
         result := DllCall("OLEAUT32.dll\GetErrorInfo", "uint", dwReserved, "ptr*", &pperrinfo := 0, "int")

@@ -8,16 +8,12 @@
 /**
  * A read-only enumerator of IOpcDigitalSignature interface pointers.
  * @remarks
- * 
- * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext">MoveNext</a>method after creating the enumerator.
+ * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext">MoveNext</a> method after creating the enumerator.
  * 
  * Changes to the set will invalidate the enumerator and all subsequent calls to it will fail.
  * 
  * To get an   <b>IOpcDigitalSignatureEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-getsignatureenumerator">IOpcDigitalSignatureManager::GetSignatureEnumerator</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcdigitalsignatureenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcdigitalsignatureenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -76,10 +72,14 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 
@@ -117,30 +117,46 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-moveprevious
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcdigitalsignatureenumerator-moveprevious
      */
     MovePrevious() {
-        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasPrevious
     }
 
     /**
      * Gets the IOpcDigitalSignature interface pointer at the current position of the enumerator.
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext">MoveNext</a> method after creating the enumerator.
      * @returns {IOpcDigitalSignature} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignature">IOpcDigitalSignature</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcdigitalsignatureenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &digitalSignature := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &digitalSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcDigitalSignature(digitalSignature)
     }
 
     /**
      * Creates a copy of the current IOpcDigitalSignatureEnumerator interface pointer and all its descendants.
+     * @remarks
+     * The copy has a current position  and set that are identical to the current enumerator.
      * @returns {IOpcDigitalSignatureEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignatureenumerator">IOpcDigitalSignatureEnumerator</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcdigitalsignatureenumerator-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcdigitalsignatureenumerator-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &copy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcDigitalSignatureEnumerator(copy)
     }
 }

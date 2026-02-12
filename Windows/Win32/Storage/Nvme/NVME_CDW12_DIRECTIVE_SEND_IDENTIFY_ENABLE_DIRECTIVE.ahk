@@ -5,7 +5,7 @@
  * Contains parameters for specifying and enabling directives in the Directive Send command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_directive_send_identify_enable_directive
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw12_directive_send_identify_enable_directive
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

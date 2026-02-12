@@ -8,7 +8,6 @@
 /**
  * The IADsPrintQueue interface represents a printer on a network.
  * @remarks
- * 
  * Use this interface to browse a collection of print jobs in the print queue. To control a printer across a network, use the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsprintqueueoperations">IADsPrintQueueOperations</a> interface. To obtain a collection of the print jobs, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsprintqueueoperations-printjobs">IADsPrintQueueOperations::PrintJobs</a> method.
  * 
  * In Windows, a printer, or a print queue, is managed by a host computer. If the path to a print queue is known, bind to it as to any other ADSI objects.
@@ -41,9 +40,7 @@
  * <li>Determine if the computer contains any "PrintQueue" objects.</li>
  * <li>Enumerate all the found printer objects.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsprintqueue
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsprintqueue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -178,7 +175,11 @@ class IADsPrintQueue extends IADs{
      */
     get_PrinterPath() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -188,9 +189,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_PrinterPath(bstrPrinterPath) {
-        bstrPrinterPath := bstrPrinterPath is String ? BSTR.Alloc(bstrPrinterPath).Value : bstrPrinterPath
+        if(bstrPrinterPath is String) {
+            pin := BSTR.Alloc(bstrPrinterPath)
+            bstrPrinterPath := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", bstrPrinterPath, "HRESULT")
+        result := ComCall(21, this, "ptr", bstrPrinterPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -200,7 +208,11 @@ class IADsPrintQueue extends IADs{
      */
     get_Model() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -210,9 +222,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_Model(bstrModel) {
-        bstrModel := bstrModel is String ? BSTR.Alloc(bstrModel).Value : bstrModel
+        if(bstrModel is String) {
+            pin := BSTR.Alloc(bstrModel)
+            bstrModel := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrModel, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -222,7 +241,11 @@ class IADsPrintQueue extends IADs{
      */
     get_Datatype() {
         retval := BSTR()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -232,9 +255,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_Datatype(bstrDatatype) {
-        bstrDatatype := bstrDatatype is String ? BSTR.Alloc(bstrDatatype).Value : bstrDatatype
+        if(bstrDatatype is String) {
+            pin := BSTR.Alloc(bstrDatatype)
+            bstrDatatype := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrDatatype, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrDatatype, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,7 +274,11 @@ class IADsPrintQueue extends IADs{
      */
     get_PrintProcessor() {
         retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        result := ComCall(26, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -254,9 +288,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_PrintProcessor(bstrPrintProcessor) {
-        bstrPrintProcessor := bstrPrintProcessor is String ? BSTR.Alloc(bstrPrintProcessor).Value : bstrPrintProcessor
+        if(bstrPrintProcessor is String) {
+            pin := BSTR.Alloc(bstrPrintProcessor)
+            bstrPrintProcessor := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrPrintProcessor, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrPrintProcessor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +307,11 @@ class IADsPrintQueue extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
+        result := ComCall(28, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -276,9 +321,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(29, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -288,7 +340,11 @@ class IADsPrintQueue extends IADs{
      */
     get_Location() {
         retval := BSTR()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        result := ComCall(30, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -298,9 +354,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_Location(bstrLocation) {
-        bstrLocation := bstrLocation is String ? BSTR.Alloc(bstrLocation).Value : bstrLocation
+        if(bstrLocation is String) {
+            pin := BSTR.Alloc(bstrLocation)
+            bstrLocation := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", bstrLocation, "HRESULT")
+        result := ComCall(31, this, "ptr", bstrLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -309,7 +372,11 @@ class IADsPrintQueue extends IADs{
      * @returns {Float} 
      */
     get_StartTime() {
-        result := ComCall(32, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(32, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -319,7 +386,11 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_StartTime(daStartTime) {
-        result := ComCall(33, this, "double", daStartTime, "HRESULT")
+        result := ComCall(33, this, "double", daStartTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -328,7 +399,11 @@ class IADsPrintQueue extends IADs{
      * @returns {Float} 
      */
     get_UntilTime() {
-        result := ComCall(34, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(34, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -338,7 +413,11 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_UntilTime(daUntilTime) {
-        result := ComCall(35, this, "double", daUntilTime, "HRESULT")
+        result := ComCall(35, this, "double", daUntilTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -347,7 +426,11 @@ class IADsPrintQueue extends IADs{
      * @returns {Integer} 
      */
     get_DefaultJobPriority() {
-        result := ComCall(36, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(36, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -357,7 +440,11 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_DefaultJobPriority(lnDefaultJobPriority) {
-        result := ComCall(37, this, "int", lnDefaultJobPriority, "HRESULT")
+        result := ComCall(37, this, "int", lnDefaultJobPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -366,7 +453,11 @@ class IADsPrintQueue extends IADs{
      * @returns {Integer} 
      */
     get_Priority() {
-        result := ComCall(38, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -376,7 +467,11 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_Priority(lnPriority) {
-        result := ComCall(39, this, "int", lnPriority, "HRESULT")
+        result := ComCall(39, this, "int", lnPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -386,7 +481,11 @@ class IADsPrintQueue extends IADs{
      */
     get_BannerPage() {
         retval := BSTR()
-        result := ComCall(40, this, "ptr", retval, "HRESULT")
+        result := ComCall(40, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -396,9 +495,16 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_BannerPage(bstrBannerPage) {
-        bstrBannerPage := bstrBannerPage is String ? BSTR.Alloc(bstrBannerPage).Value : bstrBannerPage
+        if(bstrBannerPage is String) {
+            pin := BSTR.Alloc(bstrBannerPage)
+            bstrBannerPage := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", bstrBannerPage, "HRESULT")
+        result := ComCall(41, this, "ptr", bstrBannerPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -408,7 +514,11 @@ class IADsPrintQueue extends IADs{
      */
     get_PrintDevices() {
         retval := VARIANT()
-        result := ComCall(42, this, "ptr", retval, "HRESULT")
+        result := ComCall(42, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -418,7 +528,11 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_PrintDevices(vPrintDevices) {
-        result := ComCall(43, this, "ptr", vPrintDevices, "HRESULT")
+        result := ComCall(43, this, "ptr", vPrintDevices, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -428,7 +542,11 @@ class IADsPrintQueue extends IADs{
      */
     get_NetAddresses() {
         retval := VARIANT()
-        result := ComCall(44, this, "ptr", retval, "HRESULT")
+        result := ComCall(44, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -438,7 +556,11 @@ class IADsPrintQueue extends IADs{
      * @returns {HRESULT} 
      */
     put_NetAddresses(vNetAddresses) {
-        result := ComCall(45, this, "ptr", vNetAddresses, "HRESULT")
+        result := ComCall(45, this, "ptr", vNetAddresses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

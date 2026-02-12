@@ -5,7 +5,7 @@
  * Defines constants that indicate the entry point of a web search.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ne-commctrl-ec_searchweb_entrypoint
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ne-commctrl-ec_searchweb_entrypoint
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -55,7 +55,11 @@ class IPrinterScriptContext extends IDispatch{
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_DriverProperties() {
-        result := ComCall(7, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 
@@ -64,7 +68,11 @@ class IPrinterScriptContext extends IDispatch{
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_QueueProperties() {
-        result := ComCall(8, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 
@@ -73,7 +81,11 @@ class IPrinterScriptContext extends IDispatch{
      * @returns {IPrinterScriptablePropertyBag} 
      */
     get_UserProperties() {
-        result := ComCall(9, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 }

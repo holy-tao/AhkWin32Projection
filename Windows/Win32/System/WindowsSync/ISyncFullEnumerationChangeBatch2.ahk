@@ -44,7 +44,11 @@ class ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerationChangeBatch{
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 }

@@ -42,7 +42,11 @@ class IThumbnailExtractor extends IUnknown{
         pulOutputLengthMarshal := pulOutputLength is VarRef ? "uint*" : "ptr"
         pulOutputHeightMarshal := pulOutputHeight is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pStg, "uint", ulLength, "uint", ulHeight, pulOutputLengthMarshal, pulOutputLength, pulOutputHeightMarshal, pulOutputHeight, "ptr", phOutputBitmap, "HRESULT")
+        result := ComCall(3, this, "ptr", pStg, "uint", ulLength, "uint", ulHeight, pulOutputLengthMarshal, pulOutputLength, pulOutputHeightMarshal, pulOutputHeight, "ptr", phOutputBitmap, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class IThumbnailExtractor extends IUnknown{
      * @returns {HRESULT} 
      */
     OnFileUpdated(pStg) {
-        result := ComCall(4, this, "ptr", pStg, "HRESULT")
+        result := ComCall(4, this, "ptr", pStg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

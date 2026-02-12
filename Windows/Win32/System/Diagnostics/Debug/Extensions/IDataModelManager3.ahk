@@ -36,8 +36,8 @@ class IDataModelManager3 extends IDataModelManager2{
      * @param {PWSTR} accessName 
      * @param {IKeyStore} metadata 
      * @param {IModelMethod} filter 
-     * @param {Pointer<IModelObject>} namespaceModelObject 
-     * @param {Pointer<IFilteredNamespacePropertyToken>} token 
+     * @param {Pointer<Pointer<IModelObject>>} namespaceModelObject 
+     * @param {Pointer<Pointer<IFilteredNamespacePropertyToken>>} token 
      * @returns {HRESULT} 
      */
     AcquireFilteredSubNamespace(modelName, subNamespaceModelName, accessName, metadata, filter, namespaceModelObject, token) {
@@ -45,16 +45,24 @@ class IDataModelManager3 extends IDataModelManager2{
         subNamespaceModelName := subNamespaceModelName is String ? StrPtr(subNamespaceModelName) : subNamespaceModelName
         accessName := accessName is String ? StrPtr(accessName) : accessName
 
-        result := ComCall(25, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr", filter, "ptr*", namespaceModelObject, "ptr*", token, "HRESULT")
+        result := ComCall(25, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr", filter, "ptr*", namespaceModelObject, "ptr*", token, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {INamedModelsEnumerator} 
+     * @returns {Pointer<INamedModelsEnumerator>} 
      */
     EnumerateNamedModels() {
-        result := ComCall(26, this, "ptr*", &ppEnumerator := 0, "HRESULT")
-        return INamedModelsEnumerator(ppEnumerator)
+        result := ComCall(26, this, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppEnumerator
     }
 }

@@ -34,7 +34,11 @@ class IDebugSessionProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     StartDebugSession(pda) {
-        result := ComCall(3, this, "ptr", pda, "HRESULT")
+        result := ComCall(3, this, "ptr", pda, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

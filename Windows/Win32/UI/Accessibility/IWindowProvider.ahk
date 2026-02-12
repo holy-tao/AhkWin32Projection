@@ -6,11 +6,8 @@
 /**
  * Provides access to the fundamental window-based functionality of a control.
  * @remarks
- * 
- * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingwindow">Window</a> control pattern.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iwindowprovider
+ * Implemented on a Microsoft UI Automation provider that must support the [Window Control Pattern](/windows/win32/winauto/uiauto-implementingwindow) control pattern.
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-iwindowprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -82,30 +79,57 @@ class IWindowProvider extends IUnknown{
      * @param {Integer} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-windowvisualstate">WindowVisualState</a></b>
      * 
      * The state of the window.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-setvisualstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-setvisualstate
      */
     SetVisualState(state) {
-        result := ComCall(3, this, "int", state, "HRESULT")
+        result := ComCall(3, this, "int", state, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Attempts to close the window.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @remarks
+     * <b>IWindowProvider::Close</b> must return immediately without blocking.
+     *         
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-close
+     * <b>IWindowProvider::Close</b> raises the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Window_WindowClosedEventId</a> 
+     *         event. 
+     *         If possible, the event should be raised after the control has completed its associated action. 
+     *         
+     * 
+     * When called on a split pane control, this method will close the pane and remove 
+     *         the associated split. 
+     * 
+     * This method may also close all other panes depending on implementation.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first.
+     * Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first. (IWindowProvider.WaitForInputIdle)
+     * @remarks
+     * This method is typically used in conjunction with the handling of a <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Window_WindowOpenedEventId</a>.
+     *         The implementation is dependent on the underlying application framework; 
+     *         therefore this method might return some time after the window is ready for user input. 
+     *         The calling code should not rely on this method to ascertain exactly when the window has become idle. 
+     *         Use the value of <i>pRetVal</i> to determine if the window is ready for input or if the method timed out.
      * @param {Integer} milliseconds Type: <b>int</b>
      * 
      * The amount of time, in milliseconds, to wait for the associated process to become idle. 
@@ -114,70 +138,98 @@ class IWindowProvider extends IUnknown{
      * 
      * Receives <b>TRUE</b> if the window has entered the idle state; <b>FALSE</b> if the time-out occurred. 
      * 				This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-waitforinputidle
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-waitforinputidle
      */
     WaitForInputIdle(milliseconds) {
-        result := ComCall(5, this, "int", milliseconds, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(5, this, "int", milliseconds, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Indicates whether the window can be maximized.
+     * Indicates whether the window can be maximized. (IWindowProvider.get_CanMaximize)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-get_canmaximize
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_canmaximize
      */
     get_CanMaximize() {
-        result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Indicates whether the window can be minimized.
+     * Indicates whether the window can be minimized. (IWindowProvider.get_CanMinimize)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-get_canminimize
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_canminimize
      */
     get_CanMinimize() {
-        result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Indicates whether the window is modal.
+     * Indicates whether the window is modal. (IWindowProvider.get_IsModal)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-get_ismodal
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_ismodal
      */
     get_IsModal() {
-        result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Specifies the visual state of the window; that is, whether the window is normal (restored), minimized, or maximized.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowvisualstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowvisualstate
      */
     get_WindowVisualState() {
-        result := ComCall(9, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Specifies the current state of the window for the purposes of user interaction.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowinteractionstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowinteractionstate
      */
     get_WindowInteractionState() {
-        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Indicates whether the window is the topmost element in the z-order.
+     * Indicates whether the window is the topmost element in the z-order. (IWindowProvider.get_IsTopmost)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iwindowprovider-get_istopmost
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_istopmost
      */
     get_IsTopmost() {
-        result := ComCall(11, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 }

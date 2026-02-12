@@ -67,7 +67,11 @@ class IHTMLDOMAttribute3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_nodeValue(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +81,11 @@ class IHTMLDOMAttribute3 extends IDispatch{
      */
     get_nodeValue() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -87,9 +95,16 @@ class IHTMLDOMAttribute3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +114,11 @@ class IHTMLDOMAttribute3 extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -108,7 +127,11 @@ class IHTMLDOMAttribute3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_specified() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +140,11 @@ class IHTMLDOMAttribute3 extends IDispatch{
      * @returns {IHTMLElement2} 
      */
     get_ownerElement() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement2(p)
     }
 }

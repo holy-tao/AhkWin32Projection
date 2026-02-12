@@ -56,7 +56,11 @@ class ISVGPathSeg extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pathSegType(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class ISVGPathSeg extends IDispatch{
      * @returns {Integer} 
      */
     get_pathSegType() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -75,7 +83,11 @@ class ISVGPathSeg extends IDispatch{
      */
     get_pathSegTypeAsLetter() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The IWbemStatusCodeText interface extracts text string descriptions of error codes or the name of the subsystem where the error occurred.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemstatuscodetext
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nn-wbemcli-iwbemstatuscodetext
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -39,29 +39,46 @@ class IWbemStatusCodeText extends IUnknown{
 
     /**
      * Returns the text string description associated with the error code.
+     * @remarks
+     * To enable <b>GetErrorCodeText</b> to 
+     *     return the text string description, the caller must free the pointer in the <i>MessageText</i> 
+     *     parameter.
      * @param {HRESULT} hRes Handle to the error code for which you want a description.
      * @param {Integer} LocaleId Reserved. This parameter must be 0 (zero).
      * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
      * @returns {BSTR} Pointer to a string containing the descriptive text of the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemstatuscodetext-geterrorcodetext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nf-wbemcli-iwbemstatuscodetext-geterrorcodetext
      */
     GetErrorCodeText(hRes, LocaleId, lFlags) {
         MessageText := BSTR()
-        result := ComCall(3, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "HRESULT")
+        result := ComCall(3, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MessageText
     }
 
     /**
      * The IWbemStatusCodeText::GetFacilityCodeText method returns the name of the subsystem where the error occurred, such as &quot;Windows&quot;, &quot;WBEM&quot;, &quot;SSPI&quot;, or &quot;RPC&quot;.
+     * @remarks
+     * To enable the 
+     *     <b>GetFacilityCodeText</b> method to 
+     *     return the subsystem name, the caller must free the pointer in the <i>MessageText</i> 
+     *     parameter.
      * @param {HRESULT} hRes Handle to the error code for which you want a description.
      * @param {Integer} LocaleId Reserved. This parameter must be 0 (zero).
      * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
      * @returns {BSTR} Pointer to a string containing the descriptive text of the error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemstatuscodetext-getfacilitycodetext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nf-wbemcli-iwbemstatuscodetext-getfacilitycodetext
      */
     GetFacilityCodeText(hRes, LocaleId, lFlags) {
         MessageText := BSTR()
-        result := ComCall(4, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "HRESULT")
+        result := ComCall(4, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MessageText
     }
 }

@@ -35,7 +35,11 @@ class IXMLDOMText extends IXMLDOMCharacterData{
      * @returns {IXMLDOMText} 
      */
     splitText(offset) {
-        result := ComCall(51, this, "int", offset, "ptr*", &rightHandTextNode := 0, "HRESULT")
+        result := ComCall(51, this, "int", offset, "ptr*", &rightHandTextNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMText(rightHandTextNode)
     }
 }

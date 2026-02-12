@@ -5,7 +5,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvb_rst
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvb_rst
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -85,20 +85,28 @@ class IDVB_RST extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-initialize
      */
     Initialize(pSectionList) {
-        result := ComCall(3, this, "ptr", pSectionList, "HRESULT")
+        result := ComCall(3, this, "ptr", pSectionList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Pointer to a variable that receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords
      */
     GetCountOfRecords() {
-        result := ComCall(4, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -106,10 +114,14 @@ class IDVB_RST extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords">IDVB_RST::GetCountOfRecords</a> method to get the number of records in the RST.
      * @returns {Integer} Pointer to a variable that receives the transport_stream_id field. This value identifies the transport stream from other transport streams in the multiplex.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordtransportstreamid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordtransportstreamid
      */
     GetRecordTransportStreamId(dwRecordIndex) {
-        result := ComCall(5, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -117,10 +129,14 @@ class IDVB_RST extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords">IDVB_RST::GetCountOfRecords</a> method to get the number of records in the RST.
      * @returns {Integer} Pointer to a variable that receives the original_network_id field. This value identifies the network_id of the originating delivery system.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordoriginalnetworkid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordoriginalnetworkid
      */
     GetRecordOriginalNetworkId(dwRecordIndex) {
-        result := ComCall(6, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -128,10 +144,14 @@ class IDVB_RST extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords">IDVB_RST::GetCountOfRecords</a> method to get the number of records in the RST.
      * @returns {Integer} Pointer to a variable that receives the service_id field. This value distinguishes the service from other services carried in the transport stream.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordserviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordserviceid
      */
     GetRecordServiceId(dwRecordIndex) {
-        result := ComCall(7, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(7, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -139,21 +159,64 @@ class IDVB_RST extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords">IDVB_RST::GetCountOfRecords</a> method to get the number of records in the RST.
      * @returns {Integer} Pointer to a variable that receives the event_id field.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordeventid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * ETSI EN 300 468 defines the following values for the running_status field.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *             </th>
+     * <th>Description
+     *             </th>
+     * </tr>
+     * <tr>
+     * <td>0</td>
+     * <td>Undefined.</td>
+     * </tr>
+     * <tr>
+     * <td>1</td>
+     * <td>Not running.</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>Starts in a few seconds.</td>
+     * </tr>
+     * <tr>
+     * <td>3</td>
+     * <td>Pausing.</td>
+     * </tr>
+     * <tr>
+     * <td>4</td>
+     * <td>Running.</td>
+     * </tr>
+     * <tr>
+     * <td>5 to 7</td>
+     * <td>Reserved.</td>
+     * </tr>
+     * </table>
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_rst-getcountofrecords">IDVB_RST::GetCountOfRecords</a> method to get the number of records in the RST.
      * @returns {Integer} Pointer to a variable that receives the running_status field.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordrunningstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_rst-getrecordrunningstatus
      */
     GetRecordRunningStatus(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 }

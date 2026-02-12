@@ -30,22 +30,32 @@ class ISideShowContentManager extends IUnknown{
     static VTableNames => ["Add", "Remove", "RemoveAll", "SetEventSink", "GetDeviceCapabilities"]
 
     /**
-     * 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
      * @param {ISideShowContent} in_pIContent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
     Add(in_pIContent) {
-        result := ComCall(3, this, "ptr", in_pIContent, "HRESULT")
+        result := ComCall(3, this, "ptr", in_pIContent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {Integer} in_contentId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(in_contentId) {
-        result := ComCall(4, this, "uint", in_contentId, "HRESULT")
+        result := ComCall(4, this, "uint", in_contentId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +64,11 @@ class ISideShowContentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveAll() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +78,11 @@ class ISideShowContentManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventSink(in_pIEvents) {
-        result := ComCall(6, this, "ptr", in_pIEvents, "HRESULT")
+        result := ComCall(6, this, "ptr", in_pIEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +91,11 @@ class ISideShowContentManager extends IUnknown{
      * @returns {ISideShowCapabilitiesCollection} 
      */
     GetDeviceCapabilities() {
-        result := ComCall(7, this, "ptr*", &out_ppCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &out_ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISideShowCapabilitiesCollection(out_ppCollection)
     }
 }

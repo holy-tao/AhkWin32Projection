@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_POINT_2F.ahk
 #Include .\ID2D1Brush.ahk
 
 /**
  * Paints an area with a radial gradient.
  * @remarks
- * 
  * The <b>ID2D1RadialGradientBrush</b> is similar to the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1lineargradientbrush">ID2D1LinearGradientBrush</a> in that they both map a collection of gradient stops to a gradient. However, the linear gradient has a start and an end point to define the gradient vector, while the radial gradient uses an ellipse and a gradient origin to define its gradient behavior. To define the position and size of the ellipse, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setcenter">SetCenter</a>, <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusx">SetRadiusX</a>, and <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusy">SetRadiusY</a> methods to specify the center, x-radius, and y-radius of the ellipse. The gradient origin is the center of the ellipse, unless a gradient offset is specified by using the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1radialgradientbrush-setgradientoriginoffset">SetGradientOriginOffset</a> method.
  * 
  * The brush maps the gradient stop position 0.0f of the gradient origin, and the position 1.0f is mapped to the ellipse boundary. When the gradient origin is within the ellipse, the contents of the ellipse enclose the entire [0, 1] range of the brush gradient stops. If the gradient origin is outside the bounds of the ellipse, the brush still works, but its gradient is not well-defined.
  * 
- * The start point and end point are described in the brush space and are mappped to the render target when the brush is used. Note the starting and ending coordinates are absolute, not relative to the render target size. A value of (0, 0) maps to the upper-left corner of the render target, while a value of (1, 1) maps just one pixel diagonally away from (0, 0). If there is a nonidentity brush transform or render target transform, the brush ellipse and gradient origin are also transformed.
+ * The start point and end point are described in the brush space and are mapped to the render target when the brush is used. Note the starting and ending coordinates are absolute, not relative to the render target size. A value of (0, 0) maps to the upper-left corner of the render target, while a value of (1, 1) maps just one pixel diagonally away from (0, 0). If there is a nonidentity brush transform or render target transform, the brush ellipse and gradient origin are also transformed.
  * 
  * It is possible to specify an ellipse that does not completely fill area being painted. When this occurs,       the            <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a> and  setting (specified by the  brush     <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gradientstopcollection">ID2D1GradientStopCollection</a>) determines how the remaining area is painted. 
  * 
@@ -20,10 +20,7 @@
  * To create a radial gradient brush, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createradialgradientbrush(constd2d1_radial_gradient_brush_properties__constd2d1_brush_properties__id2d1gradientstopcollection_id2d1radialgradientbrush)">ID2D1RenderTarget::CreateRadialGradientBrush</a> method of the render target on which the brush will be used. The brush may be used only with the render target that created it or with the compatible targets for that render target.
  * 
  * A radial gradient brush is a device-dependent resource: your application should create radial gradient brushes after it initializes the render target with which the brushes will be used, and recreate the brushes whenever the render target needs recreated. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1radialgradientbrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nn-d2d1-id2d1radialgradientbrush
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -54,7 +51,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
      * 
      * The center of the gradient ellipse, in the brush's coordinate space.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-setcenter
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-setcenter
      */
     SetCenter(center) {
         ComCall(8, this, "ptr", center)
@@ -66,7 +63,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
      * 
      * The offset of the gradient origin from the center of the gradient ellipse.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-setgradientoriginoffset
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-setgradientoriginoffset
      */
     SetGradientOriginOffset(gradientOriginOffset) {
         ComCall(9, this, "ptr", gradientOriginOffset)
@@ -78,7 +75,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
      * 
      * The x-radius of the gradient ellipse. This value is in the brush's coordinate space.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusx
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusx
      */
     SetRadiusX(radiusX) {
         ComCall(10, this, "float", radiusX)
@@ -90,7 +87,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
      * 
      * The y-radius of the gradient ellipse. This value is in the brush's coordinate space.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusy
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-setradiusy
      */
     SetRadiusY(radiusY) {
         ComCall(11, this, "float", radiusY)
@@ -98,10 +95,10 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
 
     /**
      * Retrieves the center of the gradient ellipse.
-     * @returns {D2D_POINT_2F} Type: <b><a href="/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * @returns {D2D_POINT_2F} Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The center of the gradient ellipse. This value is expressed in the brush's coordinate space.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-getcenter
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-getcenter
      */
     GetCenter() {
         result := ComCall(12, this, "ptr")
@@ -110,10 +107,10 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
 
     /**
      * Retrieves the offset of the gradient origin relative to the gradient ellipse's center.
-     * @returns {D2D_POINT_2F} Type: <b><a href="/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * @returns {D2D_POINT_2F} Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The offset of the gradient origin from the center of the gradient ellipse. This value is expressed in the brush's coordinate space.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-getgradientoriginoffset
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-getgradientoriginoffset
      */
     GetGradientOriginOffset() {
         result := ComCall(13, this, "ptr")
@@ -125,7 +122,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The x-radius of the gradient ellipse. This value is expressed in the brush's coordinate space.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-getradiusx
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-getradiusx
      */
     GetRadiusX() {
         result := ComCall(14, this, "float")
@@ -137,7 +134,7 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The y-radius of the gradient ellipse. This value is expressed in the brush's coordinate space.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-getradiusy
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-getradiusy
      */
     GetRadiusY() {
         result := ComCall(15, this, "float")
@@ -147,15 +144,12 @@ class ID2D1RadialGradientBrush extends ID2D1Brush{
     /**
      * Retrieves the ID2D1GradientStopCollection associated with this radial gradient brush object.
      * @remarks
-     * 
      * <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gradientstopcollection">ID2D1GradientStopCollection</a> contains an array of <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_gradient_stop">D2D1_GRADIENT_STOP</a> structures and additional information, such as the extend mode and the color interpolation mode.
-     * 
-     * 
      * @param {Pointer<ID2D1GradientStopCollection>} gradientStopCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gradientstopcollection">ID2D1GradientStopCollection</a>**</b>
      * 
      * The  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gradientstopcollection">ID2D1GradientStopCollection</a> object associated with this linear gradient brush object. This parameter is passed uninitialized.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1radialgradientbrush-getgradientstopcollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1radialgradientbrush-getgradientstopcollection
      */
     GetGradientStopCollection(gradientStopCollection) {
         ComCall(16, this, "ptr*", gradientStopCollection)

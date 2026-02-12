@@ -35,17 +35,30 @@ class IGCHost extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGCStartupLimits(SegmentSize, MaxGen0Size) {
-        result := ComCall(3, this, "uint", SegmentSize, "uint", MaxGen0Size, "HRESULT")
+        result := ComCall(3, this, "uint", SegmentSize, "uint", MaxGen0Size, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Collection Class
+     * @remarks
+     * The **Collection** object has these types of members:
      * 
+     * -   [Properties](#properties)
      * @param {Integer} Generation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-collection
      */
     Collect(Generation) {
-        result := ComCall(4, this, "int", Generation, "HRESULT")
+        result := ComCall(4, this, "int", Generation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +68,11 @@ class IGCHost extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStats(pStats) {
-        result := ComCall(5, this, "ptr", pStats, "HRESULT")
+        result := ComCall(5, this, "ptr", pStats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +85,11 @@ class IGCHost extends IUnknown{
     GetThreadStats(pFiberCookie, pStats) {
         pFiberCookieMarshal := pFiberCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pFiberCookieMarshal, pFiberCookie, "ptr", pStats, "HRESULT")
+        result := ComCall(6, this, pFiberCookieMarshal, pFiberCookie, "ptr", pStats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +99,11 @@ class IGCHost extends IUnknown{
      * @returns {HRESULT} 
      */
     SetVirtualMemLimit(sztMaxVirtualMemMB) {
-        result := ComCall(7, this, "ptr", sztMaxVirtualMemMB, "HRESULT")
+        result := ComCall(7, this, "ptr", sztMaxVirtualMemMB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

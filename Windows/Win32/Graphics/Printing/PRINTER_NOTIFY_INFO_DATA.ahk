@@ -198,7 +198,7 @@
  * | JOB\_NOTIFY\_FIELD\_PAGES\_PRINTED       | **adwData** \[0\] specifies the number of pages that have printed.                                                                                                                                                                                      | 0x15  |
  * | JOB\_NOTIFY\_FIELD\_TOTAL\_BYTES         | **adwData** \[0\] specifies the size, in bytes, of the job.                                                                                                                                                                                             | 0x16  |
  * | JOB\_NOTIFY\_FIELD\_BYTES\_PRINTED       | **adwData** \[0\] specifies the number of bytes that have been printed on this job. For this field, the change notification object is signaled when bytes are sent to the printer.                                                                      | 0x17  |
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-info-data
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-notify-info-data
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

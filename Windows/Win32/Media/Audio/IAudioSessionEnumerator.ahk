@@ -7,7 +7,6 @@
 /**
  * The IAudioSessionEnumerator interface enumerates audio sessions on an audio device.
  * @remarks
- * 
  * If an application wants to be  notified when new sessions are created, it must register its implementation of  <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> with the session manager.  Upon successful registration, the session manager sends create-session notifications to the application in the form of callbacks. These notifications contain a reference to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> pointer of the newly created session. 
  * 
  * The session enumerator maintains a list of current sessions by holding references to each session's <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> pointer. However, the session enumerator might not be aware of the new sessions that are reported through <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a>. In that case, the application would have access to only a partial list of sessions. This might occur if the <b>IAudioSessionControl</b> pointer (in the callback) is released before the session enumerator is initialized. Therefore,    if an application wants a complete set of sessions for the audio endpoint, the application should maintain its own list. 
@@ -27,11 +26,8 @@
  * </ol>
  * Because the application maintains this list of sessions and manages the lifetime of the session based on the application's requirements, there is no expiration mechanism enforced by the audio system on the session control objects.
  * 
- * A session control is valid as long as the application has a reference to the session control in the list.  
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nn-audiopolicy-iaudiosessionenumerator
+ * A session control is valid as long as the application has a reference to the session control in the list.
+ * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nn-audiopolicy-iaudiosessionenumerator
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -59,10 +55,14 @@ class IAudioSessionEnumerator extends IUnknown{
     /**
      * The GetCount method gets the total number of audio sessions that are open on the audio device.
      * @returns {Integer} Receives the total number of audio sessions.
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount
      */
     GetCount() {
-        result := ComCall(3, this, "int*", &SessionCount := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &SessionCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SessionCount
     }
 
@@ -70,10 +70,14 @@ class IAudioSessionEnumerator extends IUnknown{
      * The GetSession method gets the audio session specified by an audio session number.
      * @param {Integer} SessionCount The session number. If there are <i>n</i> sessions, the sessions are numbered from 0 to <i>n</i> – 1. To get the number of sessions, call the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount">IAudioSessionEnumerator::GetCount</a> method.
      * @returns {IAudioSessionControl} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> interface of the session object in the collection that is maintained by the session enumerator. The caller must release the interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getsession
      */
     GetSession(SessionCount) {
-        result := ComCall(4, this, "int", SessionCount, "ptr*", &Session := 0, "HRESULT")
+        result := ComCall(4, this, "int", SessionCount, "ptr*", &Session := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAudioSessionControl(Session)
     }
 }

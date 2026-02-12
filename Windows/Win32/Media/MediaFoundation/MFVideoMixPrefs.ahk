@@ -38,7 +38,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideomixprefs
+ * @see https://learn.microsoft.com/windows/win32/api//content/evr/ne-evr-mfvideomixprefs
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

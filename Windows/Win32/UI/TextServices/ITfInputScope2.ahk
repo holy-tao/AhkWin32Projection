@@ -6,7 +6,7 @@
 
 /**
  * The ITfInputScope2 interface is used by the text input processors to get the IEnumString interface pointer and this IEnumString interface enumerates the word list that the application specified for this context.
- * @see https://docs.microsoft.com/windows/win32/api//inputscope/nn-inputscope-itfinputscope2
+ * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nn-inputscope-itfinputscope2
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class ITfInputScope2 extends ITfInputScope{
     /**
      * ITfInputScope2::EnumWordList method
      * @returns {IEnumString} A pointer to obtain the IEnumString interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope2-enumwordlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-itfinputscope2-enumwordlist
      */
     EnumWordList() {
-        result := ComCall(8, this, "ptr*", &ppEnumString := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppEnumString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumString(ppEnumString)
     }
 }

@@ -13,7 +13,7 @@
  * 
  * 
  * These constants are also used in the <b>advf</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-statdata">STATDATA</a> structure. This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatdata">IEnumSTATDATA</a> to describe the enumerated connections, and the <b>advf</b> member indicates the flags that were specified when the advisory or cache connection was established. When <b>STATDATA</b> is used for an<a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-enumadvise"> IOleObject::EnumAdvise</a> enumerator, the <b>advf</b> member is indeterminate.
- * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-advf
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-advf
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

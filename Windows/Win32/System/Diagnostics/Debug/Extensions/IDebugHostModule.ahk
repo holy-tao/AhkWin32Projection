@@ -38,7 +38,11 @@ class IDebugHostModule extends IDebugHostSymbol{
      */
     GetImageName(allowPath) {
         imageName := BSTR()
-        result := ComCall(10, this, "char", allowPath, "ptr", imageName, "HRESULT")
+        result := ComCall(10, this, "char", allowPath, "ptr", imageName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return imageName
     }
 
@@ -48,24 +52,38 @@ class IDebugHostModule extends IDebugHostSymbol{
      */
     GetBaseLocation() {
         moduleBaseLocation := Location()
-        result := ComCall(11, this, "ptr", moduleBaseLocation, "HRESULT")
+        result := ComCall(11, this, "ptr", moduleBaseLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return moduleBaseLocation
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getversionexa">GetVersionEx</a> function was developed because many existing applications err when examining the packed <b>DWORD</b> value returned by 
+     * <b>GetVersion</b>, transposing the major and minor version numbers. 
+     * <b>GetVersionEx</b> forces applications to explicitly examine each element of version information. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-verifyversioninfoa">VerifyVersionInfo</a> eliminates further potential for error by comparing the required system version with the current system version for you.
      * @param {Pointer<Integer>} fileVersion 
      * @param {Pointer<Integer>} productVersion 
      * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
      * 
      * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(fileVersion, productVersion) {
         fileVersionMarshal := fileVersion is VarRef ? "uint*" : "ptr"
         productVersionMarshal := productVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, fileVersionMarshal, fileVersion, productVersionMarshal, productVersion, "HRESULT")
+        result := ComCall(12, this, fileVersionMarshal, fileVersion, productVersionMarshal, productVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +95,11 @@ class IDebugHostModule extends IDebugHostSymbol{
     FindTypeByName(typeName) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := ComCall(13, this, "ptr", typeName, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", typeName, "ptr*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(type)
     }
 
@@ -87,7 +109,11 @@ class IDebugHostModule extends IDebugHostSymbol{
      * @returns {IDebugHostSymbol} 
      */
     FindSymbolByRVA(rva) {
-        result := ComCall(14, this, "uint", rva, "ptr*", &symbol := 0, "HRESULT")
+        result := ComCall(14, this, "uint", rva, "ptr*", &symbol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostSymbol(symbol)
     }
 
@@ -99,7 +125,11 @@ class IDebugHostModule extends IDebugHostSymbol{
     FindSymbolByName(symbolName) {
         symbolName := symbolName is String ? StrPtr(symbolName) : symbolName
 
-        result := ComCall(15, this, "ptr", symbolName, "ptr*", &symbol := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", symbolName, "ptr*", &symbol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostSymbol(symbol)
     }
 }

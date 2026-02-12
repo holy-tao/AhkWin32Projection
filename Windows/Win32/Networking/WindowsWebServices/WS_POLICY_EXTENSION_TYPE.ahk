@@ -3,7 +3,7 @@
 
 /**
  * The values in this enumeration are used to identify the sub-types of WS_POLICY_EXTENSION.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_policy_extension_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_policy_extension_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

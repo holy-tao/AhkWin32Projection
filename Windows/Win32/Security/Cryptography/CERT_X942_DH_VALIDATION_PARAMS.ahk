@@ -4,7 +4,7 @@
 
 /**
  * Optionally pointed to by a member of the CERT_X942_DH_PARAMETERS structure and contains additional seed information.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_x942_dh_validation_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_x942_dh_validation_params
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

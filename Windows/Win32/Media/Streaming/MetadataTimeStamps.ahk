@@ -10,7 +10,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-metadatatimestamps
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ns-mfapi-metadatatimestamps
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

@@ -32,21 +32,25 @@ class IEAPProviderConfig2 extends IEAPProviderConfig{
      * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Pointer<Integer>} pConfigDataIn 
      * @param {Integer} dwSizeOfConfigDataIn 
      * @param {Pointer<Pointer<Integer>>} ppConfigDataOut 
      * @param {Pointer<Integer>} pdwSizeOfConfigDataOut 
      * @returns {HRESULT} 
      */
-    ServerInvokeConfigUI2(dwEapTypeId, uConnectionParam, hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    ServerInvokeConfigUI2(dwEapTypeId, uConnectionParam, hWnd_, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
         ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
+        result := ComCall(8, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd_, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +65,11 @@ class IEAPProviderConfig2 extends IEAPProviderConfig{
         ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwEapTypeId, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "HRESULT")
+        result := ComCall(9, this, "uint", dwEapTypeId, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

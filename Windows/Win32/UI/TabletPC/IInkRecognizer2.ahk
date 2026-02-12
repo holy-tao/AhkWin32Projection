@@ -7,7 +7,7 @@
 
 /**
  * Adds members to the IInkWordList2 Interface.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkrecognizer2
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkrecognizer2
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -48,23 +48,33 @@ class IInkRecognizer2 extends IDispatch{
 
     /**
      * Retrieves the ID for the InkRecognizer.
+     * @remarks
+     * To access this method, first create and instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrecognizercontext-class">InkRecognizerContext Class</a>, then call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to get a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognizer2">IInkRecognizer2 Interface</a>. Use this pointer to call the <b>get_Id</b> method.
      * @returns {BSTR} A BSTR containing the ID of the recognizer.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizer2-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizer2-get_id
      */
     get_Id() {
         pbstrId := BSTR()
-        result := ComCall(7, this, "ptr", pbstrId, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrId
     }
 
     /**
      * Retrieves the Unicode ranges set for the current recognizer.
      * @returns {VARIANT} A VARIANT array containing the Unicode ranges being used by the recognizer. An array (VT_ARRAY) of long integers (VT_ARRAY|VT_UI4). The array consists of alternating pairs for each range. For each pair in the array, the first value specifies the low Unicode code point in the range of supported Unicode points, and the second value specifies the number of Unicode points in the range.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizer2-get_unicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizer2-get_unicoderanges
      */
     get_UnicodeRanges() {
         UnicodeRanges := VARIANT()
-        result := ComCall(8, this, "ptr", UnicodeRanges, "HRESULT")
+        result := ComCall(8, this, "ptr", UnicodeRanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return UnicodeRanges
     }
 }

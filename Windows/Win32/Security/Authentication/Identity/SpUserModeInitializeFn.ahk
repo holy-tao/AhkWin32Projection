@@ -1,0 +1,57 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+
+/**
+ * Called when a security support provider/authentication package (SSP/AP) DLL is loaded into the process space of a client/server application. This function provides the SECPKG_USER_FUNCTION_TABLE tables for each security package in the SSP/AP DLL.
+ * @remarks
+ * The <b>SpUserModeInitialize</b> function must be implemented by SSP/AP DLLs that contain user-mode security packages.
+ * 
+ * The <i>ppTables</i> parameter should contain one 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ns-ntsecpkg-secpkg_user_function_table">SECPKG_USER_FUNCTION_TABLE</a> for each user-mode security package deployed in the DLL. For more information on deploying security packages in DLLs, see 
+ * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/user-mode-initialization">User Mode Initialization</a>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntsecpkg/nc-ntsecpkg-spusermodeinitializefn
+ * @namespace Windows.Win32.Security.Authentication.Identity
+ * @version v4.0.30319
+ */
+class SpUserModeInitializeFn extends IUnknown {
+
+    static sizeof => A_PtrSize
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["Invoke"]
+
+    /**
+     * Invokes helper functionality for the IDispatch interface.
+     * @param {Integer} LsaVersion 
+     * @param {Pointer<Integer>} PackageVersion 
+     * @param {Pointer<Pointer<SECPKG_USER_FUNCTION_TABLE>>} ppTables 
+     * @param {Pointer<Integer>} pcTables 
+     * @returns {NTSTATUS} If the method succeeds, it returns S\_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * 
+     * 
+     * | Return code                                                                                  | Description                                      |
+     * |----------------------------------------------------------------------------------------------|--------------------------------------------------|
+     * | <dl> <dt>**E\_INVALIDARG**</dt> </dl> | The value for *pDispatch* is invalid.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/invokeidispatch
+     */
+    Invoke(LsaVersion, PackageVersion, ppTables, pcTables) {
+        PackageVersionMarshal := PackageVersion is VarRef ? "uint*" : "ptr"
+        ppTablesMarshal := ppTables is VarRef ? "ptr*" : "ptr"
+        pcTablesMarshal := pcTables is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "uint", LsaVersion, PackageVersionMarshal, PackageVersion, ppTablesMarshal, ppTables, pcTablesMarshal, pcTables, "int")
+        return result
+    }
+}

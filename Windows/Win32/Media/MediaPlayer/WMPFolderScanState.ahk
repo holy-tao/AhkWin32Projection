@@ -7,7 +7,7 @@
  * A scanning operation consists of two phases: scanning and updating. During the first phase, Windows Media Player determines which digital media files to add to the library. During the second phase, the Player adds the files. You can determine the current scan state by calling <b>IWMPFolderMonitorServices::get_scanState</b> or by handling the <b>FolderScanStateChange</b> event.
  * 
  * Windows Media Player 10 Mobile: This enumeration is not supported.
- * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpfolderscanstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/ne-wmp-wmpfolderscanstate
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

@@ -33,7 +33,11 @@ class IXFeedItem2 extends IXFeedItem{
      * @returns {Integer} 
      */
     EffectiveId() {
-        result := ComCall(20, this, "uint*", &puiEffectiveId := 0, "HRESULT")
+        result := ComCall(20, this, "uint*", &puiEffectiveId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiEffectiveId
     }
 }

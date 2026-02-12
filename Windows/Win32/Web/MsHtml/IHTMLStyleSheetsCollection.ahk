@@ -55,7 +55,11 @@ class IHTMLStyleSheetsCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -64,7 +68,11 @@ class IHTMLStyleSheetsCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -75,7 +83,11 @@ class IHTMLStyleSheetsCollection extends IDispatch{
      */
     item(pvarIndex) {
         pvarResult := VARIANT()
-        result := ComCall(9, this, "ptr", pvarIndex, "ptr", pvarResult, "HRESULT")
+        result := ComCall(9, this, "ptr", pvarIndex, "ptr", pvarResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarResult
     }
 }

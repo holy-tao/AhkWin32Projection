@@ -4,7 +4,7 @@
 
 /**
  * Represents serialization information about a field within a union. See WS_UNION_DESCRIPTION.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_union_field_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_union_field_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

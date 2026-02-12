@@ -4,8 +4,10 @@
 #Include .\IPresentStatistics.ahk
 
 /**
+ * Describes how a present was processed during a DWM-composed frame.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentstatuspresentstatistics
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nn-presentation-ipresentstatuspresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */
@@ -31,9 +33,11 @@ class IPresentStatusPresentStatistics extends IPresentStatistics{
     static VTableNames => ["GetCompositionFrameId", "GetPresentStatus"]
 
     /**
+     * Gets the ID of the composition frame on which the present was processed, skipped, or canceled.
+     * @returns {Integer} Type: **CompositionFrameId**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentstatuspresentstatistics-getcompositionframeid
+     * The ID of the composition frame on which the present was processed, skipped, or canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentstatuspresentstatistics-getcompositionframeid
      */
     GetCompositionFrameId() {
         result := ComCall(5, this, "uint")
@@ -41,9 +45,11 @@ class IPresentStatusPresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets the status of the frame.
+     * @returns {Integer} Type: **[PresentStatus](ne-presentation-presentstatus.md)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentstatuspresentstatistics-getpresentstatus
+     * The status of the frame.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentstatuspresentstatistics-getpresentstatus
      */
     GetPresentStatus() {
         result := ComCall(6, this, "int")

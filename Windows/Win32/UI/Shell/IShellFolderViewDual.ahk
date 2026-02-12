@@ -8,8 +8,8 @@
 #Include ..\..\Foundation\BSTR.ahk
 
 /**
- * Exposes methods that modify the view and select items in the current folder.
- * @see https://docs.microsoft.com/windows/win32/api//shldisp/nn-shldisp-ishellfolderviewdual
+ * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nn-shldisp-ishellfolderviewdual
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -81,58 +81,78 @@ class IShellFolderViewDual extends IDispatch{
      * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
      * 
      * The application object.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-get_application
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-get_application
      */
     get_Application() {
-        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (IShellFolderViewDual.get_Parent)
      * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
      * 
      * The application object.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-get_parent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-get_parent
      */
     get_Parent() {
-        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
     /**
      * Gets the Folder object that represents the view.
-     * @returns {Folder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-folder">Folder</a>**</b>
+     * @returns {Folder} Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/folder">Folder</a>**</b>
      * 
      * The folder object.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-get_folder
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-get_folder
      */
     get_Folder() {
-        result := ComCall(9, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Folder(ppid)
     }
 
     /**
      * Gets a FolderItems object that represents all of the selected items in the view.
-     * @returns {FolderItems} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-folderitems">FolderItems</a>**</b>
+     * @returns {FolderItems} Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/folderitem">FolderItems</a>**</b>
      * 
      * The FolderItems object.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-selecteditems
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-selecteditems
      */
     SelectedItems() {
-        result := ComCall(10, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItems(ppid)
     }
 
     /**
      * Gets the FolderItem object that represents the item that has input focus.
-     * @returns {FolderItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-folderitem">FolderItem</a>**</b>
+     * @returns {FolderItem} Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/folderitem">FolderItem</a>**</b>
      * 
      * The FolderItem object with input focus.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-get_focuseditem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-get_focuseditem
      */
     get_FocusedItem() {
-        result := ComCall(11, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItem(ppid)
     }
 
@@ -146,17 +166,21 @@ class IShellFolderViewDual extends IDispatch{
      * The flags representing the state of the object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-selectitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-selectitem
      */
     SelectItem(pvfi, dwFlags) {
-        result := ComCall(12, this, "ptr", pvfi, "int", dwFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", pvfi, "int", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a shortcut menu for the specified item and returns the selected command string.
-     * @param {FolderItem} pfi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-folderitem">FolderItem</a>*</b>
+     * @param {FolderItem} pfi Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/folderitem">FolderItem</a>*</b>
      * 
      * The FolderItem for which to create a shortcut menu.
      * @param {VARIANT} vx Type: <b>VARIANT</b>
@@ -168,11 +192,15 @@ class IShellFolderViewDual extends IDispatch{
      * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * The command string.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-popupitemmenu
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-popupitemmenu
      */
     PopupItemMenu(pfi, vx, vy) {
         pbs := BSTR()
-        result := ComCall(13, this, "ptr", pfi, "ptr", vx, "ptr", vy, "ptr", pbs, "HRESULT")
+        result := ComCall(13, this, "ptr", pfi, "ptr", vx, "ptr", vy, "ptr", pbs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbs
     }
 
@@ -181,10 +209,14 @@ class IShellFolderViewDual extends IDispatch{
      * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
      * 
      * The scripting object for the view. This represents the scripting automation model.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-get_script
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-get_script
      */
     get_Script() {
-        result := ComCall(14, this, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppDisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDisp)
     }
 
@@ -193,10 +225,14 @@ class IShellFolderViewDual extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The set of flags that indicate the current options of the view.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual-get_viewoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual-get_viewoptions
      */
     get_ViewOptions() {
-        result := ComCall(15, this, "int*", &plViewOptions := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &plViewOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plViewOptions
     }
 }

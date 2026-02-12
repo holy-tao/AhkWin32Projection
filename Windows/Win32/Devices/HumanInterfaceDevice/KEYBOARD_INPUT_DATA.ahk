@@ -5,7 +5,7 @@
  * KEYBOARD_INPUT_DATA contains one packet of keyboard input data.
  * @remarks
  * In response to an <a href="https://docs.microsoft.com/previous-versions/ff542213(v=vs.85)">IRP_MJ_READ (Kbdclass)</a> request, Kbdclass transfers zero or more <b>KEYBOARD_INPUT_DATA</b> structures from its internal data queue to the Win32 subsystem buffer.
- * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_input_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntddkbd/ns-ntddkbd-keyboard_input_data
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

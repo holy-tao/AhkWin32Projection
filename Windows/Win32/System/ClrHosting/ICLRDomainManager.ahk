@@ -39,7 +39,11 @@ class ICLRDomainManager extends IUnknown{
         wszAppDomainManagerAssembly := wszAppDomainManagerAssembly is String ? StrPtr(wszAppDomainManagerAssembly) : wszAppDomainManagerAssembly
         wszAppDomainManagerType := wszAppDomainManagerType is String ? StrPtr(wszAppDomainManagerType) : wszAppDomainManagerType
 
-        result := ComCall(3, this, "ptr", wszAppDomainManagerAssembly, "ptr", wszAppDomainManagerType, "int", dwInitializeDomainFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", wszAppDomainManagerAssembly, "ptr", wszAppDomainManagerType, "int", dwInitializeDomainFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class ICLRDomainManager extends IUnknown{
         pwszPropertyNamesMarshal := pwszPropertyNames is VarRef ? "ptr*" : "ptr"
         pwszPropertyValuesMarshal := pwszPropertyValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", nProperties, pwszPropertyNamesMarshal, pwszPropertyNames, pwszPropertyValuesMarshal, pwszPropertyValues, "HRESULT")
+        result := ComCall(4, this, "uint", nProperties, pwszPropertyNamesMarshal, pwszPropertyNames, pwszPropertyValuesMarshal, pwszPropertyValues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

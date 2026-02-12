@@ -18,7 +18,7 @@ class SetupAndMigration {
      *       <b>FALSE</b> if OOBE completion state was not set. If <b>FALSE</b>, 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will retrieve extended error 
      *       information.
-     * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-oobecomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/oobenotification/nf-oobenotification-oobecomplete
      */
     static OOBEComplete(isOOBEComplete) {
         isOOBECompleteMarshal := isOOBEComplete is VarRef ? "int*" : "ptr"
@@ -41,7 +41,7 @@ class SetupAndMigration {
      * @param {Pointer<Void>} CallbackContext Pointer to the callback context. This value will be passed to the function specified by <i>OOBECompletedCallback</i>. This value can be <b>null</b>.
      * @param {Pointer<Pointer<Void>>} WaitHandle Pointer to a variable that will receive the handle to the wait callback registration.
      * @returns {BOOL} <b>TRUE</b> if the routine successfully registered the callback. Otherwise, <b>FALSE</b> is returned. If <b>FALSE</b>, <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will retrieve extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-registerwaituntiloobecompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/oobenotification/nf-oobenotification-registerwaituntiloobecompleted
      */
     static RegisterWaitUntilOOBECompleted(OOBECompletedCallback, CallbackContext, WaitHandle) {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
@@ -61,7 +61,7 @@ class SetupAndMigration {
      * Unregisters the callback previously registered via RegisterWaitUntilOOBECompleted.
      * @param {Pointer<Void>} WaitHandle Handle to be unregistered.
      * @returns {BOOL} <b>TRUE</b> if the callback was successfully unregistered. Otherwise, <b>FALSE</b> is returned. If <b>FALSE</b>, <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will retrieve extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/oobenotification/nf-oobenotification-unregisterwaituntiloobecompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/oobenotification/nf-oobenotification-unregisterwaituntiloobecompleted
      */
     static UnregisterWaitUntilOOBECompleted(WaitHandle) {
         WaitHandleMarshal := WaitHandle is VarRef ? "ptr" : "ptr"

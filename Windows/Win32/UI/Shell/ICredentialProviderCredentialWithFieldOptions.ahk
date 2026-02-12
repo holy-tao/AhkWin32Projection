@@ -6,12 +6,9 @@
 /**
  * Provides a method that enables the credential provider framework to determine whether you've made a customization to a field's option in a logon or credential UI.
  * @remarks
- * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * Implement this interface if your credential provider overrides the default field options through <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredentialevents2-setfieldoptions">ICredentialProviderCredentialEvents2::SetFieldOptions</a>. This enables the credential provider framework to determine the field options that you've specified .
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialprovidercredentialwithfieldoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nn-credentialprovider-icredentialprovidercredentialwithfieldoptions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -40,10 +37,14 @@ class ICredentialProviderCredentialWithFieldOptions extends IUnknown{
      * Retrieves the current option set for a specified field in a logon or credential UI. Called by the credential provider framework.
      * @param {Integer} fieldID The ID of the field in the logon or credential UI.
      * @returns {Integer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/ne-credentialprovider-credential_provider_credential_field_options">CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS</a> value that, when this method returns successfully, receives one or more flags that specify the current options for the field.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredentialwithfieldoptions-getfieldoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nf-credentialprovider-icredentialprovidercredentialwithfieldoptions-getfieldoptions
      */
     GetFieldOptions(fieldID) {
-        result := ComCall(3, this, "uint", fieldID, "int*", &options := 0, "HRESULT")
+        result := ComCall(3, this, "uint", fieldID, "int*", &options := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return options
     }
 }

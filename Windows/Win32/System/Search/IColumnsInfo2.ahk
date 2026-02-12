@@ -45,7 +45,11 @@ class IColumnsInfo2 extends IColumnsInfo{
         prgColumnInfoMarshal := prgColumnInfo is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cColumnIDMasks, "ptr", rgColumnIDMasks, "uint", dwFlags, pcColumnsMarshal, pcColumns, prgColumnIDsMarshal, prgColumnIDs, prgColumnInfoMarshal, prgColumnInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", cColumnIDMasks, "ptr", rgColumnIDMasks, "uint", dwFlags, pcColumnsMarshal, pcColumns, prgColumnIDsMarshal, prgColumnIDs, prgColumnInfoMarshal, prgColumnInfo, ppStringsBufferMarshal, ppStringsBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

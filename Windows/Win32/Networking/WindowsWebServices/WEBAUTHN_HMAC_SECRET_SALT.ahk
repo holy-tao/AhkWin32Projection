@@ -5,7 +5,7 @@
  * Contains the SALT values for the Hmac-Secret.
  * @remarks
  * SALT values, by default, are converted into RAW Hmac-Secret values as per PRF extension.
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_hmac_secret_salt
+ * @see https://learn.microsoft.com/windows/win32/api//content/webauthn/ns-webauthn-webauthn_hmac_secret_salt
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

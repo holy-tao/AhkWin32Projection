@@ -5,7 +5,7 @@
 
 /**
  * An effect-scalar-variable interface accesses scalar values.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectscalarvariable
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nn-d3d10effect-id3d10effectscalarvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -35,13 +35,17 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @param {Float} Value Type: <b>float</b>
      * 
      * A pointer to the variable.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloat
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloat
      */
     SetFloat(Value) {
-        result := ComCall(25, this, "float", Value, "HRESULT")
+        result := ComCall(25, this, "float", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,10 +54,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @returns {Float} Type: <b>float*</b>
      * 
      * A pointer to the variable.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloat
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloat
      */
     GetFloat() {
-        result := ComCall(26, this, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(26, this, "float*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -68,15 +76,19 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of array elements to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloatarray
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setfloatarray
      */
     SetFloatArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
 
-        result := ComCall(27, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,10 +103,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @returns {Float} Type: <b>float*</b>
      * 
      * A pointer to the start of the data to set.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloatarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getfloatarray
      */
     GetFloatArray(Offset, Count) {
-        result := ComCall(28, this, "float*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(28, this, "float*", &pData := 0, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
@@ -103,13 +119,17 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @param {Integer} Value Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a></b>
      * 
      * A pointer to the variable.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setint
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setint
      */
     SetInt(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,10 +138,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a>*</b>
      * 
      * A pointer to the variable.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getint
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getint
      */
     GetInt() {
-        result := ComCall(30, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -136,15 +160,19 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of array elements to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setintarray
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setintarray
      */
     SetIntArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -159,10 +187,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a>*</b>
      * 
      * A pointer to the start of the data to set.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getintarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getintarray
      */
     GetIntArray(Offset, Count) {
-        result := ComCall(32, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(32, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
@@ -171,13 +203,17 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @param {BOOL} Value Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A pointer to the variable.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setbool
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setbool
      */
     SetBool(Value) {
-        result := ComCall(33, this, "int", Value, "HRESULT")
+        result := ComCall(33, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,10 +222,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * A pointer to the variable.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getbool
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getbool
      */
     GetBool() {
-        result := ComCall(34, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -204,15 +244,19 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of array elements to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setboolarray
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-setboolarray
      */
     SetBoolArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
 
-        result := ComCall(35, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(35, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,10 +271,14 @@ class ID3D10EffectScalarVariable extends ID3D10EffectVariable{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * A pointer to the start of the data to set.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getboolarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectscalarvariable-getboolarray
      */
     GetBoolArray(Offset, Count) {
-        result := ComCall(36, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(36, this, "int*", &pData := 0, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 }

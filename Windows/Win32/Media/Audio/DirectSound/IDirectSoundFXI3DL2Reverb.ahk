@@ -35,7 +35,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxI3DL2Reverb) {
-        result := ComCall(3, this, "ptr", pcDsFxI3DL2Reverb, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxI3DL2Reverb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      */
     GetAllParameters() {
         pDsFxI3DL2Reverb := DSFXI3DL2Reverb()
-        result := ComCall(4, this, "ptr", pDsFxI3DL2Reverb, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxI3DL2Reverb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxI3DL2Reverb
     }
 
@@ -55,7 +63,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPreset(dwPreset) {
-        result := ComCall(5, this, "uint", dwPreset, "HRESULT")
+        result := ComCall(5, this, "uint", dwPreset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {Integer} 
      */
     GetPreset() {
-        result := ComCall(6, this, "uint*", &pdwPreset := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwPreset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwPreset
     }
 
@@ -74,7 +90,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {HRESULT} 
      */
     SetQuality(lQuality) {
-        result := ComCall(7, this, "int", lQuality, "HRESULT")
+        result := ComCall(7, this, "int", lQuality, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +103,11 @@ class IDirectSoundFXI3DL2Reverb extends IUnknown{
      * @returns {Integer} 
      */
     GetQuality() {
-        result := ComCall(8, this, "int*", &plQuality := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plQuality := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plQuality
     }
 }

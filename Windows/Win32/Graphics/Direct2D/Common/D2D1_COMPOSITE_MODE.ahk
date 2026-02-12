@@ -21,7 +21,7 @@
  * </ul>
  * <h3><a id="Sample_code"></a><a id="sample_code"></a><a id="SAMPLE_CODE"></a>Sample code</h3>
  * For an example that uses composite modes, download the <a href="https://github.com/microsoftarchive/msdn-code-gallery-microsoft/tree/master/Official%20Windows%20Platform%20Sample/Direct2D%20composite%20effect%20modes%20sample">Direct2D composite effect modes sample</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_composite_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/ne-d2d1_1-d2d1_composite_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

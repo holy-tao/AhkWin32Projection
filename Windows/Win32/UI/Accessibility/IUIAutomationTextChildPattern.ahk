@@ -7,7 +7,7 @@
 
 /**
  * Provides access a text-based control (or an object embedded in text) that is a child or descendant of another text-based control.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtextchildpattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationtextchildpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -49,25 +49,30 @@ class IUIAutomationTextChildPattern extends IUnknown{
     /**
      * Retrieves this element's nearest ancestor element that supports the Text control pattern.
      * @returns {IUIAutomationElement} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textcontainer
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textcontainer
      */
     get_TextContainer() {
-        result := ComCall(3, this, "ptr*", &container := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &container := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(container)
     }
 
     /**
-     * Retrieves a text range that encloses this child element.
+     * Retrieves a text range that encloses this child element. (IUIAutomationTextChildPattern.get_TextRange)
      * @remarks
-     * 
      * This property is equivalent to  specifying this child element in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefromchild">IUIAutomationTextPattern::RangeFromChild</a> method.
-     * 
-     * 
      * @returns {IUIAutomationTextRange} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textrange
      */
     get_TextRange() {
-        result := ComCall(4, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTextRange(range)
     }
 }

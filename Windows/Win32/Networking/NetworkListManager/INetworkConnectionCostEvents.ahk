@@ -5,7 +5,7 @@
 
 /**
  * This interface to notify an application of cost and data plan status change events for a connection.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nn-netlistmgr-inetworkconnectioncostevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nn-netlistmgr-inetworkconnectioncostevents
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class INetworkConnectionCostEvents extends IUnknown{
      * @param {Guid} connectionId A unique ID  that identifies the connection on which the cost change event occurred.
      * @param {Integer} newCost A DWORD value that represents the new cost of the connection. The lowest 16 bits represent the cost level, and the highest 16 bits represent the flags. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_cost">NLM_CONNECTION_COST</a> enumeration.
      * @returns {HRESULT} This method returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnectioncostevents-connectioncostchanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkconnectioncostevents-connectioncostchanged
      */
     ConnectionCostChanged(connectionId, newCost) {
-        result := ComCall(3, this, "ptr", connectionId, "uint", newCost, "HRESULT")
+        result := ComCall(3, this, "ptr", connectionId, "uint", newCost, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,10 +50,14 @@ class INetworkConnectionCostEvents extends IUnknown{
      * ConnectionDataPlanStatusChanged method notifies an application of a data plan status change on a connection.
      * @param {Guid} connectionId A unique ID that identifies the connection on which the data plan status change event occurred.
      * @returns {HRESULT} This method returns  S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnectioncostevents-connectiondataplanstatuschanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkconnectioncostevents-connectiondataplanstatuschanged
      */
     ConnectionDataPlanStatusChanged(connectionId) {
-        result := ComCall(4, this, "ptr", connectionId, "HRESULT")
+        result := ComCall(4, this, "ptr", connectionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

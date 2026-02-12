@@ -33,12 +33,16 @@ class IInternetZoneManagerEx extends IInternetZoneManager{
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
      * @param {Integer} cbPolicy 
-     * @param {Integer} urlZoneReg 
+     * @param {Integer} urlZoneReg_ 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
-    GetZoneActionPolicyEx(dwZone, dwAction, cbPolicy, urlZoneReg, dwFlags) {
-        result := ComCall(15, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, "int", urlZoneReg, "uint", dwFlags, "HRESULT")
+    GetZoneActionPolicyEx(dwZone, dwAction, cbPolicy, urlZoneReg_, dwFlags) {
+        result := ComCall(15, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, "int", urlZoneReg_, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPolicy
     }
 
@@ -48,14 +52,18 @@ class IInternetZoneManagerEx extends IInternetZoneManager{
      * @param {Integer} dwAction 
      * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
-     * @param {Integer} urlZoneReg 
+     * @param {Integer} urlZoneReg_ 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    SetZoneActionPolicyEx(dwZone, dwAction, pPolicy, cbPolicy, urlZoneReg, dwFlags) {
+    SetZoneActionPolicyEx(dwZone, dwAction, pPolicy, cbPolicy, urlZoneReg_, dwFlags) {
         pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", urlZoneReg, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", urlZoneReg_, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

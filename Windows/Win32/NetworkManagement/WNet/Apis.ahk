@@ -544,7 +544,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetaddconnectiona
      * @since windows5.0
      */
     static WNetAddConnectionA(lpRemoteName, lpPassword, lpLocalName) {
@@ -724,7 +724,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetaddconnectionw
      * @since windows5.0
      */
     static WNetAddConnectionW(lpRemoteName, lpPassword, lpLocalName) {
@@ -1252,7 +1252,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetaddconnection2a
      * @since windows5.0
      */
     static WNetAddConnection2A(lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -1779,7 +1779,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetaddconnection2w
      * @since windows5.0
      */
     static WNetAddConnection2W(lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -2208,7 +2208,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection3a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetaddconnection3a
      * @since windows5.0
      */
     static WNetAddConnection3A(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -2638,7 +2638,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetaddconnection3w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetaddconnection3w
      * @since windows5.0
      */
     static WNetAddConnection3W(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -2786,7 +2786,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetcancelconnectiona
      * @since windows5.0
      */
     static WNetCancelConnectionA(lpName, fForce) {
@@ -2896,7 +2896,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetcancelconnectionw
      * @since windows5.0
      */
     static WNetCancelConnectionW(lpName, fForce) {
@@ -3039,7 +3039,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnection2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetcancelconnection2a
      * @since windows5.0
      */
     static WNetCancelConnection2A(lpName, dwFlags, fForce) {
@@ -3182,7 +3182,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcancelconnection2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetcancelconnection2w
      * @since windows5.0
      */
     static WNetCancelConnection2W(lpName, dwFlags, fForce) {
@@ -3296,7 +3296,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetconnectiona
      * @since windows5.0
      */
     static WNetGetConnectionA(lpLocalName, lpRemoteName, lpnLength) {
@@ -3413,7 +3413,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetconnectionw
      * @since windows5.0
      */
     static WNetGetConnectionW(lpLocalName, lpRemoteName, lpnLength) {
@@ -3756,7 +3756,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetuseconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetuseconnectiona
      * @since windows5.0
      */
     static WNetUseConnectionA(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
@@ -4102,7 +4102,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetuseconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetuseconnectionw
      * @since windows5.0
      */
     static WNetUseConnectionW(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
@@ -4175,7 +4175,7 @@ class WNet {
      * <b>WNetConnectionDialog</b> function returns.
      * 
      * If the function attempts to make a connection and the network provider returns the message ERROR_INVALID_PASSWORD, the system prompts the user to enter a password. The system uses the new password in another attempt to make the connection.
-     * @param {HWND} hwnd Handle to the owner window for the dialog box.
+     * @param {HWND} hwnd_ Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to allow connections to. This parameter can be the following value. 
      * 
      * 
@@ -4252,13 +4252,13 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetconnectiondialog
      * @since windows5.0
      */
-    static WNetConnectionDialog(hwnd, dwType) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WNetConnectionDialog(hwnd_, dwType) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("MPR.dll\WNetConnectionDialog", "ptr", hwnd, "uint", dwType, "uint")
+        result := DllCall("MPR.dll\WNetConnectionDialog", "ptr", hwnd_, "uint", dwType, "uint")
         return result
     }
 
@@ -4269,7 +4269,7 @@ class WNet {
      * <b>WNetDisconnectDialog</b> function returns immediately and creates a dialog box for disconnecting networked drives. This dialog box runs asynchronously on a worker thread.
      * 
      * If the worker thread is terminated, the owner window and its associated dialog box are also terminated. If this occurs, the user might not be able to interact with the dialog box, because it will not  appear on the user's screen or will appear briefly.
-     * @param {HWND} hwnd Handle to the owner window for the dialog box.
+     * @param {HWND} hwnd_ Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to disconnect from. This parameter can have the following value. 
      * 
      * 
@@ -4335,13 +4335,13 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetdisconnectdialog
      * @since windows5.0
      */
-    static WNetDisconnectDialog(hwnd, dwType) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WNetDisconnectDialog(hwnd_, dwType) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("MPR.dll\WNetDisconnectDialog", "ptr", hwnd, "uint", dwType, "uint")
+        result := DllCall("MPR.dll\WNetDisconnectDialog", "ptr", hwnd_, "uint", dwType, "uint")
         return result
     }
 
@@ -4447,7 +4447,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog1a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetconnectiondialog1a
      * @since windows5.0
      */
     static WNetConnectionDialog1A(lpConnDlgStruct) {
@@ -4557,7 +4557,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetconnectiondialog1w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetconnectiondialog1w
      * @since windows5.0
      */
     static WNetConnectionDialog1W(lpConnDlgStruct) {
@@ -4650,7 +4650,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog1a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetdisconnectdialog1a
      * @since windows5.0
      */
     static WNetDisconnectDialog1A(lpConnDlgStruct) {
@@ -4743,7 +4743,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetdisconnectdialog1w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetdisconnectdialog1w
      * @since windows5.0
      */
     static WNetDisconnectDialog1W(lpConnDlgStruct) {
@@ -4868,7 +4868,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetopenenuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetopenenuma
      * @since windows5.0
      */
     static WNetOpenEnumA(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
@@ -4993,7 +4993,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetopenenumw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetopenenumw
      * @since windows5.0
      */
     static WNetOpenEnumW(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
@@ -5114,7 +5114,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetenumresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetenumresourcea
      * @since windows5.0
      */
     static WNetEnumResourceA(hEnum, lpcCount, lpBuffer, lpBufferSize) {
@@ -5240,7 +5240,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetenumresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetenumresourcew
      * @since windows5.0
      */
     static WNetEnumResourceW(hEnum, lpcCount, lpBuffer, lpBufferSize) {
@@ -5302,7 +5302,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetcloseenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetcloseenum
      * @since windows5.0
      */
     static WNetCloseEnum(hEnum) {
@@ -5470,7 +5470,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceparenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetresourceparenta
      * @since windows5.0
      */
     static WNetGetResourceParentA(lpNetResource, lpBuffer, lpcbBuffer) {
@@ -5638,7 +5638,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceparentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetresourceparentw
      * @since windows5.0
      */
     static WNetGetResourceParentW(lpNetResource, lpBuffer, lpcbBuffer) {
@@ -5753,7 +5753,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetresourceinformationa
      * @since windows5.0
      */
     static WNetGetResourceInformationA(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
@@ -5869,7 +5869,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetresourceinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetresourceinformationw
      * @since windows5.0
      */
     static WNetGetResourceInformationW(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem) {
@@ -6031,7 +6031,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetuniversalnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetuniversalnamea
      * @since windows5.0
      */
     static WNetGetUniversalNameA(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
@@ -6194,7 +6194,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetuniversalnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetuniversalnamew
      * @since windows5.0
      */
     static WNetGetUniversalNameW(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
@@ -6282,7 +6282,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetusera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetusera
      * @since windows5.0
      */
     static WNetGetUserA(lpName, lpUserName, lpnLength) {
@@ -6371,7 +6371,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetuserw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetuserw
      * @since windows5.0
      */
     static WNetGetUserW(lpName, lpUserName, lpnLength) {
@@ -6446,7 +6446,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetprovidernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetprovidernamea
      * @since windows5.0
      */
     static WNetGetProviderNameA(dwNetType, lpProviderName, lpBufferSize) {
@@ -6520,7 +6520,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetprovidernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetprovidernamew
      * @since windows5.0
      */
     static WNetGetProviderNameW(dwNetType, lpProviderName, lpBufferSize) {
@@ -6574,7 +6574,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetnetworkinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetnetworkinformationa
      * @since windows5.0
      */
     static WNetGetNetworkInformationA(lpProvider, lpNetInfoStruct) {
@@ -6626,7 +6626,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetnetworkinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetnetworkinformationw
      * @since windows5.0
      */
     static WNetGetNetworkInformationW(lpProvider, lpNetInfoStruct) {
@@ -6666,7 +6666,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
      * If the caller supplies an invalid buffer, the return value is ERROR_INVALID_ADDRESS.
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetlasterrora
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetlasterrora
      * @since windows5.0
      */
     static WNetGetLastErrorA(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize) {
@@ -6715,7 +6715,7 @@ class WNet {
      * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
      * If the caller supplies an invalid buffer, the return value is ERROR_INVALID_ADDRESS.
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetlasterrorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-wnetgetlasterrorw
      * @since windows5.0
      */
     static WNetGetLastErrorW(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize) {
@@ -6919,7 +6919,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-multinetgetconnectionperformancea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-multinetgetconnectionperformancea
      * @since windows5.0
      */
     static MultinetGetConnectionPerformanceA(lpNetResource, lpNetConnectInfoStruct) {
@@ -7112,7 +7112,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-multinetgetconnectionperformancew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnetwk/nf-winnetwk-multinetgetconnectionperformancew
      * @since windows5.0
      */
     static MultinetGetConnectionPerformanceW(lpNetResource, lpNetConnectInfoStruct) {
@@ -7239,7 +7239,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npaddconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npaddconnection
      * @since windows5.1.2600
      */
     static NPAddConnection(lpNetResource, lpPassword, lpUserName) {
@@ -7386,7 +7386,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npaddconnection3
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npaddconnection3
      * @since windows5.1.2600
      */
     static NPAddConnection3(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
@@ -7450,7 +7450,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npcancelconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npcancelconnection
      * @since windows5.1.2600
      */
     static NPCancelConnection(lpName, fForce) {
@@ -7523,7 +7523,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetconnection
      * @since windows5.1.2600
      */
     static NPGetConnection(lpLocalName, lpRemoteName, lpnBufferLen) {
@@ -7615,7 +7615,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetconnection3
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetconnection3
      * @since windows5.1.2600
      */
     static NPGetConnection3(lpLocalName, dwLevel, lpBuffer, lpBufferSize) {
@@ -7685,7 +7685,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetuniversalname
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetuniversalname
      * @since windows5.1.2600
      */
     static NPGetUniversalName(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize) {
@@ -7734,7 +7734,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetconnectionperformance
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetconnectionperformance
      * @since windows5.1.2600
      */
     static NPGetConnectionPerformance(lpRemoteName, lpNetConnectInfo) {
@@ -7924,7 +7924,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npopenenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npopenenum
      * @since windows5.1.2600
      */
     static NPOpenEnum(dwScope, dwType, dwUsage, lpNetResource, lphEnum) {
@@ -7995,7 +7995,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npenumresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npenumresource
      * @since windows5.1.2600
      */
     static NPEnumResource(hEnum, lpcCount, lpBuffer, lpBufferSize) {
@@ -8042,7 +8042,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npcloseenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npcloseenum
      * @since windows5.1.2600
      */
     static NPCloseEnum(hEnum) {
@@ -8060,7 +8060,7 @@ class WNet {
      * @returns {Integer} The <b>NPGetCaps</b> function returns either a constant or a bitmask, depending on the value of the <i>nIndex</i> parameter. A few of the <i>nIndex</i> values cause a constant to be returned. But in most cases, the <i>nIndex</i> parameter specifies which set of services to query, and the returned value is a bitmask that indicates which services in this set are supported. In these cases, a zero return value indicates that none of the services in the set are supported.
      * 
      * The following list shows the values that <i>nIndex</i> may contain, each followed by a description of what is returned for that value.
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetcaps
      * @since windows5.1.2600
      */
     static NPGetCaps(ndex) {
@@ -8116,7 +8116,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetuser
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetuser
      * @since windows5.1.2600
      */
     static NPGetUser(lpName, lpUserName, lpnBufferLen) {
@@ -8237,7 +8237,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetresourceparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetresourceparent
      * @since windows5.1.2600
      */
     static NPGetResourceParent(lpNetResource, lpBuffer, lpBufferSize) {
@@ -8349,7 +8349,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npgetresourceinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npgetresourceinformation
      * @since windows5.1.2600
      */
     static NPGetResourceInformation(lpNetResource, lpBuffer, lpBufferSize, lplpSystem) {
@@ -8507,7 +8507,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-npformatnetworkname
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-npformatnetworkname
      * @since windows5.1.2600
      */
     static NPFormatNetworkName(lpRemoteName, lpFormattedName, lpnLength, dwFlags, dwAveCharPerLine) {
@@ -8558,7 +8558,7 @@ class WNet {
      * @param {PSTR} lpError String that describes the network-specific error.
      * @param {PSTR} lpProviders String that names the network provider that raised the error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrora
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-wnetsetlasterrora
      * @since windows5.1.2600
      */
     static WNetSetLastErrorA(err, lpError, lpProviders) {
@@ -8600,7 +8600,7 @@ class WNet {
      * @param {PWSTR} lpError String that describes the network-specific error.
      * @param {PWSTR} lpProviders String that names the network provider that raised the error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/npapi/nf-npapi-wnetsetlasterrorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/npapi/nf-npapi-wnetsetlasterrorw
      */
     static WNetSetLastErrorW(err, lpError, lpProviders) {
         lpError := lpError is String ? StrPtr(lpError) : lpError

@@ -10,7 +10,7 @@
 
 /**
  * The ITTAPI interface is the base interface for the TAPI object. The TAPI object is created by CoCreateInstance. For information on CoCreateInstance, see documentation on COM. All other TAPI 3 objects are created by TAPI 3 itself.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ittapi
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-ittapi
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -107,15 +107,23 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-initialize
      */
     Initialize() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Shutdown method shuts down a TAPI session.
+     * @remarks
+     * One reason why 
+     * <b>Shutdown</b> might fail is if 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-initialize">Initialize</a> was not previously called successfully.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -157,39 +165,74 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-shutdown
      */
     Shutdown() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Addresses method creates a collection of addresses that are currently available. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateAddresses method.
+     * @remarks
+     * TAPI calls the <b>Addref</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface returned by <b>ITTAPI::get_Addesses</b>. The application must call <b>Release</b> on the 
+     * <b>ITAddress</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface pointers (address objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-get_addresses
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-get_addresses
      */
     get_Addresses() {
         pVariant := VARIANT()
-        result := ComCall(9, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(9, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
     /**
      * The EnumerateAddresses method enumerates the addresses that are currently available. Provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_Addresses method.
+     * @remarks
+     * An application typically uses this enumeration to check the capabilities of each address and determine which are useful for current purposes.
+     * 
+     * If an expected address is not found, this may indicate that the appropriate service provider has not been installed or is not working correctly.
+     * 
+     * TAPI calls the <b>Addref</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumaddress">IEnumAddress</a> interface returned by <b>ITTAPI::EnumerateAddresses</b>. The application must call the <b>Release</b> method on the 
+     * <b>IEnumAddress</b> interface to free resources associated with it.
+     * 
+     * If an address is created or removed during a TAPI session, the application will be notified through the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittapieventnotification">ITTAPIEventNotification</a> interface. If an address has been created, such as by installing a Plug and Play device, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapieventnotification-event">ITTAPIEventNotification::Event</a> returns the <b>TE_ADDRESSCREATE</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapiobject_event">TAPIOBJECT_EVENT</a> enum. If an address is removed, <b>ITTAPIEventNotification::Event</b> returns <b>TE_ADDRESSREMOVE</b>. Calling 
+     * <b>EnumerateAddresses</b> after these events will reflect the current addresses.
      * @returns {IEnumAddress} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumaddress">IEnumAddress</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-enumerateaddresses
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-enumerateaddresses
      */
     EnumerateAddresses() {
-        result := ComCall(10, this, "ptr*", &ppEnumAddress := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppEnumAddress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumAddress(ppEnumAddress)
     }
 
     /**
      * The RegisterCallNotifications method sets which new call notifications an application will receive. The application must call the method for each address, indicating media type or types it can handle, and specifying the privileges it requests.
+     * @remarks
+     * If multiple calls of this method are used on one address, the information about participant calls from a call hub may be confusing if a call that is already being monitored by the application is handed off to it.
+     * 
+     * The <b>RegisterCallNotifications</b> method registers the application as having an interest in monitoring calls or receiving ownership of calls that are of the specified media types. These call privileges are set in the <i>fMonitor</i> and <i>fOwner</i> parameters. 
+     * An application can specify multiple flags to handle multiple media types. Conflicts can arise if multiple applications register for the same address and media type. These conflicts are resolved by a priority scheme in which the user assigns relative priorities to the applications. Users can set application priorities by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-setapplicationpriority">ITTAPI::SetApplicationPriority</a> function. Only the highest priority application for a given media type will receive ownership (unsolicited) of a call of that media type. Ownership can be received when an incoming call first arrives or when a call is handed off. The <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-handoffdirect">ITBasicCallControl::HandoffDirect</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-handoffindirect">ITBasicCallControl::HandoffIndirect</a> functions are called  to hand off ownership of a call to another application. If the user does not assign priorities to the application, and multiple applications open the same line device, by default, the application that called <b>RegisterCallNotifications</b> first will have the highest priority.
      * @param {ITAddress} pAddress Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface.
      * @param {VARIANT_BOOL} fMonitor Boolean value indicating whether the application will monitor calls. VARIANT_TRUE indicates that the application will monitor calls; VARIANT_FALSE that it will not.
@@ -199,10 +242,14 @@ class ITTAPI extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittapieventnotification">ITTAPIEventNotification</a> outgoing interface.
      * @returns {Integer} On success, the returned value that is used by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-unregisternotifications">ITTAPI::UnregisterNotifications</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-registercallnotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-registercallnotifications
      */
     RegisterCallNotifications(pAddress, fMonitor, fOwner, lMediaTypes, lCallbackInstance) {
-        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", &plRegister := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pAddress, "short", fMonitor, "short", fOwner, "int", lMediaTypes, "int", lCallbackInstance, "int*", &plRegister := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRegister
     }
 
@@ -251,34 +298,54 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-unregisternotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-unregisternotifications
      */
     UnregisterNotifications(lRegister) {
-        result := ComCall(12, this, "int", lRegister, "HRESULT")
+        result := ComCall(12, this, "int", lRegister, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_CallHubs method creates a collection of the currently available call hubs. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateCallHubs method.
+     * @remarks
+     * TAPI calls the <b>Addref</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface returned by <b>ITTAPI::get_CallHubs</b>. The application must call <b>Release</b> on the 
+     * <b>ITCallHub</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface pointers (CallHub objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-get_callhubs
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-get_callhubs
      */
     get_CallHubs() {
         pVariant := VARIANT()
-        result := ComCall(13, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(13, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
     /**
      * The EnumerateCallHubs method enumerates the currently available call hubs. Provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_Callhubs method.
+     * @remarks
+     * TAPI calls the <b>Addref</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcallhub">IEnumCallHub</a> interface returned by <b>ITTAPI::EnumerateCallHubs</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumCallHub</b> interface to free resources associated with it.
      * @returns {IEnumCallHub} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcallhub">IEnumCallHub</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-enumeratecallhubs
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-enumeratecallhubs
      */
     EnumerateCallHubs() {
-        result := ComCall(14, this, "ptr*", &ppEnumCallHub := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppEnumCallHub := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumCallHub(ppEnumCallHub)
     }
 
@@ -328,31 +395,43 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-setcallhubtracking
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-setcallhubtracking
      */
     SetCallHubTracking(pAddresses, bTracking) {
-        result := ComCall(15, this, "ptr", pAddresses, "short", bTracking, "HRESULT")
+        result := ComCall(15, this, "ptr", pAddresses, "short", bTracking, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EnumeratePrivateTAPIObjects method of the ITTAPI interface is not implemented and will return E_NOTIMPL.
      * @returns {IEnumUnknown} This method is not implemented.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-enumerateprivatetapiobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-enumerateprivatetapiobjects
      */
     EnumeratePrivateTAPIObjects() {
-        result := ComCall(16, this, "ptr*", &ppEnumUnknown := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppEnumUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppEnumUnknown)
     }
 
     /**
      * The get_PrivateTAPIObjects method of the ITTAPI interface is not implemented and will return E_NOTIMPL.
      * @returns {VARIANT} This method is not implemented.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-get_privatetapiobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-get_privatetapiobjects
      */
     get_PrivateTAPIObjects() {
         pVariant := VARIANT()
-        result := ComCall(17, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(17, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
@@ -402,15 +481,23 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-registerrequestrecipient
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-registerrequestrecipient
      */
     RegisterRequestRecipient(lRegistrationInstance, lRequestMode, fEnable) {
-        result := ComCall(18, this, "int", lRegistrationInstance, "int", lRequestMode, "short", fEnable, "HRESULT")
+        result := ComCall(18, this, "int", lRegistrationInstance, "int", lRequestMode, "short", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetAssistedTelephonyPriority method sets the application priority to handle assisted telephony requests.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pAppFilename</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
      * @param {BSTR} pAppFilename Pointer to a <b>BSTR</b> containing the name of the application.
      * @param {VARIANT_BOOL} fPriority Set to VARIANT_FALSE to disable, VARIANT_TRUE to enable.
      * @returns {HRESULT} This method can return one of these values.
@@ -443,17 +530,30 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-setassistedtelephonypriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-setassistedtelephonypriority
      */
     SetAssistedTelephonyPriority(pAppFilename, fPriority) {
-        pAppFilename := pAppFilename is String ? BSTR.Alloc(pAppFilename).Value : pAppFilename
+        if(pAppFilename is String) {
+            pin := BSTR.Alloc(pAppFilename)
+            pAppFilename := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", pAppFilename, "short", fPriority, "HRESULT")
+        result := ComCall(19, this, "ptr", pAppFilename, "short", fPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetApplicationPriority method allows an application to set its priority in the handoff priority list for a particular media type or Assisted Telephony request mode, or to remove itself from the priority list.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pAppFilename</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * The Priorities that are set with <b>SetApplicationPriority</b> will persist across reboots of the system or restarts of tapisrv. The <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a> function opens the line with no specified call priorities. By default, the highest priority application will be the one that first called <b>ITTAPI::RegisterCallNotifications</b>.
      * @param {BSTR} pAppFilename Pointer to <b>BSTR</b> containing name of application.
      * @param {Integer} lMediaType Media associated with application.
      * @param {VARIANT_BOOL} fPriority The new priority for the application. If the value VARIANT_FALSE is passed, the application is removed from the priority list for the specified media or request mode (if it was already not present, no error is generated). If the value VARIANT_TRUE is passed, the application is inserted as the highest-priority application for the media or request mode (and removed from a lower-priority position, if it was already in the list).
@@ -487,12 +587,19 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-setapplicationpriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-setapplicationpriority
      */
     SetApplicationPriority(pAppFilename, lMediaType, fPriority) {
-        pAppFilename := pAppFilename is String ? BSTR.Alloc(pAppFilename).Value : pAppFilename
+        if(pAppFilename is String) {
+            pin := BSTR.Alloc(pAppFilename)
+            pAppFilename := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", pAppFilename, "int", lMediaType, "short", fPriority, "HRESULT")
+        result := ComCall(20, this, "ptr", pAppFilename, "int", lMediaType, "short", fPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -529,20 +636,28 @@ class ITTAPI extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-put_eventfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-put_eventfilter
      */
     put_EventFilter(lFilterMask) {
-        result := ComCall(21, this, "int", lFilterMask, "HRESULT")
+        result := ComCall(21, this, "int", lFilterMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_EventFilter method gets the current event filter mask. The mask is a series of ORed members of the TAPI_EVENT enumeration.
      * @returns {Integer} Pointer to the event filter mask.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi-get_eventfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ittapi-get_eventfilter
      */
     get_EventFilter() {
-        result := ComCall(22, this, "int*", &plFilterMask := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &plFilterMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plFilterMask
     }
 }

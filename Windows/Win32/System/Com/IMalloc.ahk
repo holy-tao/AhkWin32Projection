@@ -4,8 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Allocates, frees, and manages memory.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-imalloc
+ * The IMalloc interface (objidl.h) allocates, frees, and manages memory.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-imalloc
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -31,12 +31,16 @@ class IMalloc extends IUnknown{
     static VTableNames => ["Alloc", "Realloc", "Free", "GetSize", "DidAlloc", "HeapMinimize"]
 
     /**
-     * Allocates a block of memory.
+     * Allocates a block of memory. (IMalloc.Alloc)
+     * @remarks
+     * The initial contents of the returned memory block are undefined and there is no guarantee that the block has been initialized, so you should initialize it in your code. The allocated block may be larger than <i>cb</i> bytes because of the space required for alignment and for maintenance information.
+     * 
+     * If <i>cb</i> is zero, <b>Alloc</b> allocates a zero-length item and returns a valid pointer to that item. If there is insufficient memory available, <b>Alloc</b> returns <b>NULL</b>.
      * @param {Pointer} cb The size of the memory block to be allocated, in bytes.
      * @returns {Pointer<Void>} If the method succeeds, the return value is a pointer to the allocated block of memory. Otherwise, it is <b>NULL</b>.
      * 
      * Applications should always check the return value from this method, even when requesting small amounts of memory, because there is no guarantee the memory will be allocated.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imalloc-alloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-imalloc-alloc
      */
     Alloc(cb) {
         result := ComCall(3, this, "ptr", cb, "ptr")
@@ -44,11 +48,21 @@ class IMalloc extends IUnknown{
     }
 
     /**
-     * Changes the size of a previously allocated block of memory.
+     * The IMalloc::Realloc method (objidl.h) changes the size of a previously allocated block of memory.
+     * @remarks
+     * This method reallocates a block of memory, but does not guarantee that its contents are initialized. Therefore, the caller is responsible for subsequently initializing the memory. The allocated block may be larger than <i>cb</i> bytes because of the space required for alignment and for maintenance information.
+     * 
+     * The <i>pv</i> argument points to the beginning of the block. If <i>pv</i> is <b>NULL</b>, <b>Realloc</b> allocates a new memory block in the same way that <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-alloc">IMalloc::Alloc</a> does. If <i>pv</i> is not <b>NULL</b>, it should be a pointer returned by a prior call to <b>Alloc</b>.
+     * 
+     * The <i>cb</i> argument specifies the size of the new block, in bytes. The contents of the block are unchanged up to the shorter of the new and old sizes, although the new block can be in a different location. Because the new block can be in a different memory location, the pointer returned by <b>Realloc</b> is not guaranteed to be the pointer passed through the <i>pv</i> argument. If <i>pv</i> is not <b>NULL</b> and <i>cb</i> is zero, the memory pointed to by <i>pv</i> is freed.
+     * 
+     * <b>Realloc</b> returns a void pointer to the reallocated (and possibly moved) block of memory. The return value is <b>NULL</b> if the size is zero and the buffer argument is not <b>NULL</b>, or if there is not enough memory available to expand the block to the specified size. In the first case, the original block is freed; in the second, the original block is unchanged.
+     * 
+     * The storage space pointed to by the return value is guaranteed to be suitably aligned for storage of any type of object. To get a pointer to a type other than <b>void</b>, use a type cast on the return value.
      * @param {Pointer<Void>} pv A pointer to the block of memory to be reallocated. This parameter can be <b>NULL</b>, as discussed in the Remarks section below.
      * @param {Pointer} cb The size of the memory block to be reallocated, in bytes. This parameter can be 0, as discussed in the Remarks section below.
      * @returns {Pointer<Void>} If the method succeeds, the return value is a pointer to the reallocated block of memory. Otherwise, it is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imalloc-realloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-imalloc-realloc
      */
     Realloc(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -58,15 +72,12 @@ class IMalloc extends IUnknown{
     }
 
     /**
-     * Frees a previously allocated block of memory.
+     * The IMalloc::Free method (objidl.h) frees a previously allocated block of memory.
      * @remarks
-     * 
      * This method frees a block of memory previously allocated through a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-alloc">IMalloc::Alloc</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-realloc">IMalloc::Realloc</a>. The number of bytes freed equals the number of bytes that were allocated. After the call, the block of memory pointed to by <i>pv</i> is invalid and can no longer be used.
-     * 
-     * 
      * @param {Pointer<Void>} pv A pointer to the memory block to be freed. If this parameter is <b>NULL</b>, this method has no effect.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imalloc-free
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-imalloc-free
      */
     Free(pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -75,10 +86,12 @@ class IMalloc extends IUnknown{
     }
 
     /**
-     * Retrieves the size of a previously allocated block of memory.
+     * The IMalloc::GetSize method (objidl.h) retrieves the size of a previously allocated block of memory.
+     * @remarks
+     * To get the size in bytes of a memory block, the block must have been previously allocated with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-alloc">IMalloc::Alloc</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-realloc">IMalloc::Realloc</a>. The size returned is the actual size of the allocation, which may be greater than the size requested when the allocation was made.
      * @param {Pointer<Void>} pv A pointer to the block of memory.
      * @returns {Pointer} The size of the allocated memory block in bytes or, if <i>pv</i> is a <b>NULL</b> pointer, -1.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imalloc-getsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-imalloc-getsize
      */
     GetSize(pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -88,7 +101,7 @@ class IMalloc extends IUnknown{
     }
 
     /**
-     * Determines whether this allocator was used to allocate the specified block of memory.
+     * The IMalloc::DidAlloc method (objidl.h) determines whether this allocator was used to allocate the specified block of memory.
      * @param {Pointer<Void>} pv A pointer to the block of memory. If this parameter is a <b>NULL</b> pointer, -1 is returned.
      * @returns {Integer} This method can return the following values.
      * 
@@ -131,7 +144,7 @@ class IMalloc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imalloc-didalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-imalloc-didalloc
      */
     DidAlloc(pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -141,9 +154,9 @@ class IMalloc extends IUnknown{
     }
 
     /**
-     * Minimizes the heap as much as possible by releasing unused memory to the operating system, coalescing adjacent free blocks, and committing free pages.
+     * The IMalloc::HeapMinimize method (objidl.h) minimizes the heap by releasing unused memory to the operating system, coalescing adjacent free blocks, and committing free pages.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imalloc-heapminimize
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-imalloc-heapminimize
      */
     HeapMinimize() {
         ComCall(8, this)

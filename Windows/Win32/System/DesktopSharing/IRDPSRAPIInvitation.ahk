@@ -6,7 +6,7 @@
 
 /**
  * Invitations enable a person or group of persons to connect to a session. When an attendee connects to a session, the client sends a ticket and a password. These two pieces of information are used to authenticate an attendee.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiinvitation
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiinvitation
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -77,110 +77,117 @@ class IRDPSRAPIInvitation extends IDispatch{
     /**
      * The ticket string.
      * @remarks
-     * 
      * The ticket string is set when calling the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation">IRDPSRAPIInvitationManager::CreateInvitation</a> method.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_connectionstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_connectionstring
      */
     get_ConnectionString() {
         pbstrVal := BSTR()
-        result := ComCall(7, this, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVal
     }
 
     /**
      * The group name.
      * @remarks
-     * 
      * The group name is set when calling the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation">IRDPSRAPIInvitationManager::CreateInvitation</a> method. Applications typically use this property to separate attendees into groups that can be granted different authorization levels.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_groupname
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_groupname
      */
     get_GroupName() {
         pbstrVal := BSTR()
-        result := ComCall(8, this, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVal
     }
 
     /**
      * The password string.
      * @remarks
-     * 
      * The password is set when calling the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation">IRDPSRAPIInvitationManager::CreateInvitation</a> method.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_password
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_password
      */
     get_Password() {
         pbstrVal := BSTR()
-        result := ComCall(9, this, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVal
     }
 
     /**
-     * The maximum number of attendees that can connect to the session.
+     * The maximum number of attendees that can connect to the session. (Get)
      * @remarks
-     * 
      * The password is set when the invitation is created and can be modified using <b>put_AttendeeLimit</b>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_attendeelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_attendeelimit
      */
     get_AttendeeLimit() {
-        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * The maximum number of attendees that can connect to the session.
+     * The maximum number of attendees that can connect to the session. (Put)
      * @remarks
-     * 
      * The password is set when the invitation is created and can be modified using <b>put_AttendeeLimit</b>.
-     * 
-     * 
      * @param {Integer} NewVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-put_attendeelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-put_attendeelimit
      */
     put_AttendeeLimit(NewVal) {
-        result := ComCall(11, this, "int", NewVal, "HRESULT")
+        result := ComCall(11, this, "int", NewVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The revoked state of the invitation.
+     * The revoked state of the invitation. (Get)
      * @remarks
-     * 
      * There is no way to delete an invitation, only to revoke it. This enables the application to check whether a ticket was issued before to ensure that each invitation has a unique ticket. If an invitation state is revoked,  no new attendees can connect by using that invitation.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_revoked
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_revoked
      */
     get_Revoked() {
-        result := ComCall(12, this, "short*", &pRetVal := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * The revoked state of the invitation.
+     * The revoked state of the invitation. (Put)
      * @remarks
-     * 
      * There is no way to delete an invitation, only to revoke it. This enables the application to check whether a ticket was issued before to ensure that each invitation has a unique ticket. If an invitation state is revoked,  no new attendees can connect by using that invitation.
-     * 
-     * 
      * @param {VARIANT_BOOL} NewVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-put_revoked
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-put_revoked
      */
     put_Revoked(NewVal) {
-        result := ComCall(13, this, "short", NewVal, "HRESULT")
+        result := ComCall(13, this, "short", NewVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

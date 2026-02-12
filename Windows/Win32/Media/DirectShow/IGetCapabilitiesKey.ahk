@@ -6,7 +6,7 @@
 
 /**
  * The IGetCapabilitiesKey interface enables an application to retrieve the capabilities of a software or hardware codec from the registry, without creating an instance of the encoder filter.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-igetcapabilitieskey
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-igetcapabilitieskey
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,12 +33,18 @@ class IGetCapabilitiesKey extends IUnknown{
 
     /**
      * The GetCapabilitiesKey method gets a registry key that contains capability information for the codec.
+     * @remarks
+     * To enumerate the values for the returned key, call <b>RegEnumValue</b>.
      * @returns {HKEY} Receives a handle to the registry key. The caller must close the handle by calling <b>RegCloseKey</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igetcapabilitieskey-getcapabilitieskey
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-igetcapabilitieskey-getcapabilitieskey
      */
     GetCapabilitiesKey() {
         pHKey := HKEY()
-        result := ComCall(3, this, "ptr", pHKey, "HRESULT")
+        result := ComCall(3, this, "ptr", pHKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHKey
     }
 }

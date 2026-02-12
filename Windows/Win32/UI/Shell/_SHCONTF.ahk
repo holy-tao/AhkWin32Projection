@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>  The name of this enumeration was changed to <b>SHCONTF</b> in Windows Vista. Earlier, it was named <b>SHCONTF</b>. The name <b>SHCONTF</b> is still defined through a typedef statement, however, so it can continue to be used by legacy code.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ne-shobjidl_core-_shcontf
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

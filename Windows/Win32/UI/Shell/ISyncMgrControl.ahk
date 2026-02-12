@@ -6,14 +6,12 @@
 /**
  * Exposes methods that allow an application or handler to start or stop a synchronization, notify Sync Center of changes to the set of handlers or items, or notify of changes to property values.
  * @remarks
- * 
  * <b>ISyncMgrControl</b> is implemented by Sync Center. It can be instantiated by an application or handler as the CLSID_SyncMgrControl object, which is implemented as a Component Object Model (COM) local server. As a result, calls to <b>ISyncMgrControl</b> methods could take considerable time. Those calls should not be made on a UI thread.
  * 
  * All methods of this interface queue their requests with Sync Center.
  * 
  * <b>ISyncMgrControl</b> is a replacement for <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronizeinvoke">ISyncMgrSynchronizeInvoke</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrcontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgrcontrol
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -63,19 +61,25 @@ class ISyncMgrControl extends IUnknown{
      * A pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncresult">ISyncMgrSyncResult</a>, whose <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncresult-result">Result</a> method is called when the synchronization ends, either through success, failure, or cancellation. The <b>Result</b> method is called with the aggregated state of the handler synchronization. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-starthandlersync
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-starthandlersync
      */
     StartHandlerSync(pszHandlerID, hwndOwner, punk, nSyncControlFlags, pResult) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "HRESULT")
+        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initiates the synchronization of specified items managed by a particular handler.
+     * @remarks
+     * This method is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems">UpdateItems</a>.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler that manages the items. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
@@ -99,8 +103,8 @@ class ISyncMgrControl extends IUnknown{
      * A pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncresult">ISyncMgrSyncResult</a>, whose <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncresult-result">Result</a> method is called when the synchronization ends, either through success, failure, or cancellation. The <b>Result</b> method is called with the aggregated state of the handler synchronization. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-startitemsync
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-startitemsync
      */
     StartItemSync(pszHandlerID, ppszItemIDs, cItems, hwndOwner, punk, nSyncControlFlags, pResult) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
@@ -108,24 +112,34 @@ class ISyncMgrControl extends IUnknown{
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Synchronizes all items managed by all handlers.
+     * @remarks
+     * This method is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateall">UpdateAll</a>.
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * A handle to a window that can be used by a handler or item to display any necessary UI. This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-startsyncall
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-startsyncall
      */
     StartSyncAll(hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(5, this, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(5, this, "ptr", hwndOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,13 +150,17 @@ class ISyncMgrControl extends IUnknown{
      * A pointer to a buffer containing the unique ID of the handler. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-stophandlersync
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-stophandlersync
      */
     StopHandlerSync(pszHandlerID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(6, this, "ptr", pszHandlerID, "HRESULT")
+        result := ComCall(6, this, "ptr", pszHandlerID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -159,15 +177,19 @@ class ISyncMgrControl extends IUnknown{
      * The number of IDs in <i>ppszItemIDs</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-stopitemsync
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-stopitemsync
      */
     StopItemSync(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
         ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "HRESULT")
+        result := ComCall(7, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,16 +197,22 @@ class ISyncMgrControl extends IUnknown{
      * Stops the synchronization of all items managed by all handlers.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-stopsyncall
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-stopsyncall
      */
     StopSyncAll() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Instructs Sync Center to reenumerate the handler collection, or informs it that properties of a handler in the handler collection have changed.
+     * @remarks
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateHandlerCollection</b> does not return until Sync Center has loaded the specified handler collection and reloaded all handler and item information.
      * @param {Pointer<Guid>} rclsidCollectionID Type: <b>REFCLSID</b>
      * 
      * A reference to the handler collection's CLSID.
@@ -193,16 +221,22 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandlercollection
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandlercollection
      */
     UpdateHandlerCollection(rclsidCollectionID, nControlFlags) {
-        result := ComCall(9, this, "ptr", rclsidCollectionID, "int", nControlFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", rclsidCollectionID, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Instructs Sync Center to reenumerate the items managed by a handler or informs it that properties of the handler have changed.
+     * @remarks
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateHandler</b> does not return until Sync Center has loaded the specified handler and reloaded all handler and item information. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
@@ -211,18 +245,24 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-updatehandler
      */
     UpdateHandler(pszHandlerID, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(10, this, "ptr", pszHandlerID, "int", nControlFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pszHandlerID, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Informs Sync Center that properties of a sync item have changed.
+     * @remarks
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateItem</b> does not return until Sync Center has loaded the specified handler and reloaded all handler and item information. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler that manages the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
@@ -234,19 +274,25 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-updateitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-updateitem
      */
     UpdateItem(pszHandlerID, pszItemID, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(11, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Informs Sync Center that events have been added for a specific handler or item.
+     * @remarks
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateEvents</b> does not return until Sync Center has loaded the specified handler, retrieved the handler's event store, and reloaded all events from that store. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler that manages the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
@@ -258,35 +304,54 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-updateevents
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-updateevents
      */
     UpdateEvents(pszHandlerID, pszItemID, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(12, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "HRESULT")
-        return result
-    }
+        result := ComCall(12, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
-    /**
-     * 
-     * @param {PWSTR} pszHandlerID 
-     * @param {PWSTR} pszItemID 
-     * @param {ISyncMgrConflict} pConflict 
-     * @param {Integer} nReason 
-     * @returns {HRESULT} 
-     */
-    UpdateConflict(pszHandlerID, pszItemID, pConflict, nReason) {
-        pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
-        pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
-
-        result := ComCall(13, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", pConflict, "int", nReason, "HRESULT")
         return result
     }
 
     /**
      * Informs Sync Center that conflicts have been added for a specific handler or item.
+     * @remarks
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateConflicts</b> does not return until Sync Center has loaded the specified handler, retrieved the handler's conflict store, and reloaded all conflicts from that store. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
+     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing the unique ID of the handler that manages the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing the unique ID of the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character. This parameter can be <b>NULL</b> if the event occurred on the handler rather than on a specific item.
+     * @param {ISyncMgrConflict} pConflict 
+     * @param {Integer} nReason 
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts
+     */
+    UpdateConflict(pszHandlerID, pszItemID, pConflict, nReason) {
+        pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
+        pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
+
+        result := ComCall(13, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", pConflict, "int", nReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * Informs Sync Center that conflicts have been added for a specific handler or item.
+     * @remarks
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>UpdateConflicts</b> does not return until Sync Center has loaded the specified handler, retrieved the handler's conflict store, and reloaded all conflicts from that store. If the handler is provided by a handler collection, the handler collection is also loaded to reload the handler.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a buffer containing the unique ID of the handler that manages the item. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
@@ -298,19 +363,29 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the update should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts
      */
     UpdateConflicts(pszHandlerID, pszItemID, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(14, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", pszHandlerID, "ptr", pszItemID, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Activates or deactivates a handler.
+     * @remarks
+     * An active handler appears in the Sync Center folder; an inactive handler appears in the Sync Setup folder.
+     * 
+     * If the specified handler returns <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_handler_capabilities">SYNCMGR_HCM_QUERY_BEFORE_ACTIVATE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_handler_capabilities">SYNCMGR_HCM_QUERY_BEFORE_DEACTIVATE</a> in the mask returned from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getcapabilities">GetCapabilities</a> method, the query operation is requested before the handler is activated or deactivated. If no query UI is requested or once the user confirms the operation, the handler's <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-activate">Activate</a> method is called.
+     * 
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>ActivateHandler</b> does not return until Sync Center has processed this notification.
      * @param {BOOL} fActivate Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to activate; <b>FALSE</b> to deactivate.
@@ -325,19 +400,29 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the activation or deactivation of the handler should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-activatehandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-activatehandler
      */
     ActivateHandler(fActivate, pszHandlerID, hwndOwner, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(15, this, "int", fActivate, "ptr", pszHandlerID, "ptr", hwndOwner, "int", nControlFlags, "HRESULT")
+        result := ComCall(15, this, "int", fActivate, "ptr", pszHandlerID, "ptr", hwndOwner, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables or disables a handler.
+     * @remarks
+     * An active handler appears in the Sync Center folder; an inactive handler appears in the Sync Setup folder.
+     * 
+     * If the specified handler returns <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_handler_capabilities">SYNCMGR_HCM_QUERY_BEFORE_ENABLE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_handler_capabilities">SYNCMGR_HCM_QUERY_BEFORE_DISABLE</a> in the mask returned from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getcapabilities">GetCapabilities</a> method, the user is presented with a confirmation dialog requested before the handler is enabled or disabled. If no query UI is requested or once the user confirms the operation, the handler's <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-enable">Enable</a> method is called.
+     * 
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>EnableHandler</b> does not return until Sync Center has processed this notification.
      * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to enable; <b>FALSE</b> to disable.
@@ -352,19 +437,29 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the enabling or disabling of the handler should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-enablehandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-enablehandler
      */
     EnableHandler(fEnable, pszHandlerID, hwndOwner, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(16, this, "int", fEnable, "ptr", pszHandlerID, "ptr", hwndOwner, "int", nControlFlags, "HRESULT")
+        result := ComCall(16, this, "int", fEnable, "ptr", pszHandlerID, "ptr", hwndOwner, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables or disables a sync item managed by a specified handler.
+     * @remarks
+     * An <i>enabled</i> item is an item that can be synchronized.
+     * 
+     * If the specified item returns <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ICM_QUERY_BEFORE_ENABLE</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ICM_QUERY_BEFORE_DISABLE</a> in the mask returned from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities">GetCapabilities</a> method, the user is presented with a confirmation dialog box requested before the item is enabled or disabled. If no query UI is requested or once the user confirms the operation, the item's <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-enable">Enable</a> method is called.
+     * 
+     * If SYNCMGR_CF_WAIT is set in the <i>nControlFlags</i> parameter, <b>EnableItem</b> does not return until Sync Center has processed this notification.
      * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to enable; <b>FALSE</b> to disable.
@@ -382,15 +477,19 @@ class ISyncMgrControl extends IUnknown{
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_control_flags">SYNCMGR_CONTROL_FLAGS</a> enumeration specifying whether the enabling or disabling of the item should be performed synchronously or asynchronously.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrcontrol-enableitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrcontrol-enableitem
      */
     EnableItem(fEnable, pszHandlerID, pszItemID, hwndOwner, nControlFlags) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(17, this, "int", fEnable, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", hwndOwner, "int", nControlFlags, "HRESULT")
+        result := ComCall(17, this, "int", fEnable, "ptr", pszHandlerID, "ptr", pszItemID, "ptr", hwndOwner, "int", nControlFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -29,14 +29,19 @@ class IBindCallbackRedirect extends IUnknown{
     static VTableNames => ["Redirect"]
 
     /**
-     * 
+     * The installer sets the RedirectedDLLSupport property if the system platform performing the installation supports Isolated Components.
      * @param {PWSTR} lpcUrl 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Msi/redirecteddllsupport
      */
     Redirect(lpcUrl) {
         lpcUrl := lpcUrl is String ? StrPtr(lpcUrl) : lpcUrl
 
-        result := ComCall(3, this, "ptr", lpcUrl, "short*", &vbCancel := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", lpcUrl, "short*", &vbCancel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return vbCancel
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Used to control a printer from across a network.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsprintqueueoperations
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsprintqueueoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -43,47 +43,67 @@ class IADsPrintQueueOperations extends IADs{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * The IADsPrintQueueOperations::PrintJobs method gets an IADsCollection interface pointer on the collection of the print jobs processed in this print queue.
      * @returns {IADsCollection} Pointer to a pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface on the collection of objects added to this print queue. Objects in the collection implement the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsprintjob">IADsPrintJob</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-printjobs
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsprintqueueoperations-printjobs
      */
     PrintJobs() {
-        result := ComCall(21, this, "ptr*", &pObject := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &pObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IADsCollection(pObject)
     }
 
     /**
      * The IADsPrintQueueOperations::Pause method suspends the processing of print jobs within a print queue service.
-     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-pause
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsprintqueueoperations-pause
      */
     Pause() {
-        result := ComCall(22, this, "HRESULT")
+        result := ComCall(22, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsPrintQueueOperations::Resume method resumes processing of suspended print jobs in the print queue.
-     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-resume
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsprintqueueoperations-resume
      */
     Resume() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsPrintQueueOperations::Purge method clears the print queue of all print jobs without processing them.
-     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-purge
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsprintqueueoperations-purge
      */
     Purge() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

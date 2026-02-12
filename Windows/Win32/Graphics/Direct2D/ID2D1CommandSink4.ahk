@@ -5,7 +5,7 @@
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink3 interface. It also enables access to the new primitive blend mode, MAX, through the SetPrimitiveBlend2 method.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1commandsink4
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1commandsink4
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -35,13 +35,17 @@ class ID2D1CommandSink4 extends ID2D1CommandSink3{
      * @param {Integer} primitiveBlend Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend">D2D1_PRIMITIVE_BLEND</a></b>
      * 
      * The primitive blend that will apply to subsequent primitives.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1commandsink4-setprimitiveblend2
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1commandsink4-setprimitiveblend2
      */
     SetPrimitiveBlend2(primitiveBlend) {
-        result := ComCall(33, this, "int", primitiveBlend, "HRESULT")
+        result := ComCall(33, this, "int", primitiveBlend, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

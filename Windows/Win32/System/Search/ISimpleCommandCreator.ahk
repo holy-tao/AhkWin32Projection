@@ -5,7 +5,7 @@
 
 /**
  * Contains methods for interacting with the file catalog.
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-isimplecommandcreator
+ * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nn-indexsrv-isimplecommandcreator
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class ISimpleCommandCreator extends IUnknown{
      * Creates an ICommand.
      * @param {IUnknown} pOuterUnk Optional outer unknown pointer.
      * @returns {IUnknown} Returns the IUnknown for the command.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-isimplecommandcreator-createicommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-isimplecommandcreator-createicommand
      */
     CreateICommand(pOuterUnk) {
-        result := ComCall(3, this, "ptr*", &ppIUnknown := 0, "ptr", pOuterUnk, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppIUnknown := 0, "ptr", pOuterUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIUnknown)
     }
 
@@ -46,13 +50,17 @@ class ISimpleCommandCreator extends IUnknown{
      * @param {PWSTR} pwszMachine Machine on which the catalog exists.
      * @param {PWSTR} pwszCatalogName The catalog name.
      * @returns {HRESULT} If the catalog is accessible, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-isimplecommandcreator-verifycatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-isimplecommandcreator-verifycatalog
      */
     VerifyCatalog(pwszMachine, pwszCatalogName) {
         pwszMachine := pwszMachine is String ? StrPtr(pwszMachine) : pwszMachine
         pwszCatalogName := pwszCatalogName is String ? StrPtr(pwszCatalogName) : pwszCatalogName
 
-        result := ComCall(4, this, "ptr", pwszMachine, "ptr", pwszCatalogName, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszMachine, "ptr", pwszCatalogName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,14 +70,18 @@ class ISimpleCommandCreator extends IUnknown{
      * @param {Integer} cwcIn The size in characters of <i>pwszCatalogName</i>.
      * @param {Pointer<Integer>} pcwcOut Size of the catalog name.
      * @returns {HRESULT} If this method succeeds, it returns the contents of the IsapiDefaultCatalogDirectory registry value. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-isimplecommandcreator-getdefaultcatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-isimplecommandcreator-getdefaultcatalog
      */
     GetDefaultCatalog(pwszCatalogName, cwcIn, pcwcOut) {
         pwszCatalogName := pwszCatalogName is String ? StrPtr(pwszCatalogName) : pwszCatalogName
 
         pcwcOutMarshal := pcwcOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwszCatalogName, "uint", cwcIn, pcwcOutMarshal, pcwcOut, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszCatalogName, "uint", cwcIn, pcwcOutMarshal, pcwcOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

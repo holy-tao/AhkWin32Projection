@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * The ITPluggableTerminalEventSink interface provides a method that fires a message to notify client applications about a change in a pluggable terminal.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3/nn-tapi3-itpluggableterminaleventsink
+ * The ITPluggableTerminalEventSink (msp.h) interface provides a method that fires a message to notify client applications about a change in a pluggable terminal.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msp/nn-msp-itpluggableterminaleventsink
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -31,14 +31,18 @@ class ITPluggableTerminalEventSink extends IUnknown{
     static VTableNames => ["FireEvent"]
 
     /**
-     * The FireEvent method results in a message that notifies the client application of a change in the pluggable terminal.
+     * The ITPluggableTerminalEventSink::FireEvent (msp.h) method results in a message that notifies the client application of a change in the pluggable terminal.
      * @param {Pointer<MSP_EVENT_INFO>} pMspEventInfo Pointer to a const cast of the 
      * <a href="https://docs.microsoft.com/windows/win32/api/msp/ns-msp-msp_event_info">MSP_EVENT_INFO</a> structure.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3/nf-tapi3-itpluggableterminaleventsink-fireevent
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msp/nf-msp-itpluggableterminaleventsink-fireevent
      */
     FireEvent(pMspEventInfo) {
-        result := ComCall(3, this, "ptr", pMspEventInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pMspEventInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Specifies whether Protected Process Light (PPL) is enabled.
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/ns-processthreadsapi-process_protection_level_information
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

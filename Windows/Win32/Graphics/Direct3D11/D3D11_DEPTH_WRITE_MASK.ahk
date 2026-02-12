@@ -3,7 +3,7 @@
 
 /**
  * Identify the portion of a depth-stencil buffer for writing depth data. (D3D11_DEPTH_WRITE_MASK)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_depth_write_mask
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_depth_write_mask
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

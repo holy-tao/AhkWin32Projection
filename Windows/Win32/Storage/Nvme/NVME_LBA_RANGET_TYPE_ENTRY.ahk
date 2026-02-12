@@ -5,7 +5,7 @@
  * Contains parameters that specify a single entry in a list of Logical Block Address (LBA) ranges, for the LBA Range Type Feature in the Set Features command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_ranget_type_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_lba_ranget_type_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

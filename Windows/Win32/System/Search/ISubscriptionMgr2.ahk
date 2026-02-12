@@ -38,7 +38,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
     GetItemFromURL(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(11, this, "ptr", pwszURL, "ptr*", &ppSubscriptionItem := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszURL, "ptr*", &ppSubscriptionItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISubscriptionItem(ppSubscriptionItem)
     }
 
@@ -48,7 +52,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {ISubscriptionItem} 
      */
     GetItemFromCookie(pSubscriptionCookie) {
-        result := ComCall(12, this, "ptr", pSubscriptionCookie, "ptr*", &ppSubscriptionItem := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pSubscriptionCookie, "ptr*", &ppSubscriptionItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISubscriptionItem(ppSubscriptionItem)
     }
 
@@ -59,7 +67,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {Integer} 
      */
     GetSubscriptionRunState(dwNumCookies, pCookies) {
-        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, "uint*", &pdwRunState := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwNumCookies, "ptr", pCookies, "uint*", &pdwRunState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwRunState
     }
 
@@ -69,7 +81,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {IEnumSubscription} 
      */
     EnumSubscriptions(dwFlags) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumSubscriptions := 0, "HRESULT")
+        result := ComCall(14, this, "uint", dwFlags, "ptr*", &ppEnumSubscriptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSubscription(ppEnumSubscriptions)
     }
 
@@ -81,7 +97,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {HRESULT} 
      */
     UpdateItems(dwFlags, dwNumCookies, pCookies) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", dwNumCookies, "ptr", pCookies, "HRESULT")
+        result := ComCall(15, this, "uint", dwFlags, "uint", dwNumCookies, "ptr", pCookies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +112,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {HRESULT} 
      */
     AbortItems(dwNumCookies, pCookies) {
-        result := ComCall(16, this, "uint", dwNumCookies, "ptr", pCookies, "HRESULT")
+        result := ComCall(16, this, "uint", dwNumCookies, "ptr", pCookies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +125,11 @@ class ISubscriptionMgr2 extends ISubscriptionMgr{
      * @returns {HRESULT} 
      */
     AbortAll() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

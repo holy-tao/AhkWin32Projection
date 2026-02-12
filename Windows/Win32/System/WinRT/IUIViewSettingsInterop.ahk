@@ -7,8 +7,7 @@
  * Enables interoperability with a WinRT [UIViewSettings](/uwp/api/Windows.UI.ViewManagement.UIViewSettings) object.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiviewsettingsinterop/nn-uiviewsettingsinterop-iuiviewsettingsinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiviewsettingsinterop/nn-uiviewsettingsinterop-iuiviewsettingsinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -34,16 +33,24 @@ class IUIViewSettingsInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
+     * Gets an [UIViewSettings](/uwp/api/Windows.UI.ViewManagement.UIViewSettings) object for the window of the active application.
+     * @param {HWND} hwnd_ Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiviewsettingsinterop/nf-uiviewsettingsinterop-iuiviewsettingsinterop-getforwindow
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(UIViewSettings)`
+     * @returns {Pointer<Pointer<Void>>} Address of a pointer to a [UIViewSettings](/uwp/api/Windows.UI.ViewManagement.UIViewSettings) object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiviewsettingsinterop/nf-uiviewsettingsinterop-iuiviewsettingsinterop-getforwindow
      */
-    GetForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetForWindow(hwnd_, riid) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hwnd_, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

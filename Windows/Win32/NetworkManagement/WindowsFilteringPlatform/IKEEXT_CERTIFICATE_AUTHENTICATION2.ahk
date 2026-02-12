@@ -4,7 +4,7 @@
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION2)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication2
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_certificate_authentication2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

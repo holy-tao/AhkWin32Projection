@@ -5,7 +5,7 @@
 
 /**
  * Allows you to access fallback fonts from the font list.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritefontfallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nn-dwrite_2-idwritefontfallback
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -59,7 +59,7 @@ class IDWriteFontFallback extends IUnknown{
      * @param {Pointer<Integer>} mappedLength Type: <b>UINT32*</b>
      * 
      * Length of text mapped to the mapped font. This will always be less than     or equal to the text length and greater than zero (if the text length is non-zero) so     the caller advances at least one character.
-     * @param {Pointer<IDWriteFont>} mappedFont Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * @param {Pointer<Pointer<IDWriteFont>>} mappedFont Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
      * 
      * The font that should be used to render the first <i>mappedLength</i>     characters of the text. If it returns NULL, that means that no font can render the     text, and <i>mappedLength</i> is the number of characters to skip (rendered with a missing
      *          glyph).
@@ -68,8 +68,8 @@ class IDWriteFontFallback extends IUnknown{
      * Scale factor to multiply the em size of the returned font by.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontfallback-mapcharacters
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontfallback-mapcharacters
      */
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, baseWeight, baseStyle, baseStretch, mappedLength, mappedFont, scale) {
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
@@ -77,7 +77,11 @@ class IDWriteFontFallback extends IUnknown{
         mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
         scaleMarshal := scale is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "int", baseWeight, "int", baseStyle, "int", baseStretch, mappedLengthMarshal, mappedLength, "ptr*", mappedFont, scaleMarshal, scale, "HRESULT")
+        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "int", baseWeight, "int", baseStyle, "int", baseStretch, mappedLengthMarshal, mappedLength, "ptr*", mappedFont, scaleMarshal, scale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

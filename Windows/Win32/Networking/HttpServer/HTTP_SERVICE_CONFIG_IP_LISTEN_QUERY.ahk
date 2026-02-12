@@ -35,7 +35,7 @@
  * ```
  * 
  * The <b>SOCKADDR_IN6</b> structure is exactly equivalent to <b>sockaddr_in6</b> by typedef.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ip_listen_query
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_service_config_ip_listen_query
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

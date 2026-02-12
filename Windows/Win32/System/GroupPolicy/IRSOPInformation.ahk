@@ -5,7 +5,7 @@
 
 /**
  * The IRSOPInformation interface provides methods for Microsoft Management Console (MMC) extension snap-ins to communicate with the main Resultant Set of Policy (RSoP) snap-in. For more information about MMC, see the Microsoft Management Console.
- * @see https://docs.microsoft.com/windows/win32/api//gpedit/nn-gpedit-irsopinformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpedit/nn-gpedit-irsopinformation
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -31,17 +31,21 @@ class IRSOPInformation extends IUnknown{
     static VTableNames => ["GetNamespace", "GetFlags", "GetEventLogEntryText"]
 
     /**
-     * 
+     * The GetNameSpace method retrieves the namespace from which the RSoP data is being displayed.
      * @param {Integer} dwSection 
-     * @param {PWSTR} pszName 
-     * @param {Integer} cchMaxLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-irsopinformation-getnamespace
+     * @param {PWSTR} pszName Receives the namespace from which the RSoP data is being displayed. The computer and user RSoP data are in sub-namespaces under this namespace. Computer RSoP data is under the Computer sub-namespace, and user RSoP data is under the User sub-namespace.
+     * @param {Integer} cchMaxLength Specifies the size, in characters, of the <i>pszName</i> buffer.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpedit/nf-gpedit-irsopinformation-getnamespace
      */
     GetNamespace(dwSection, pszName, cchMaxLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "uint", dwSection, "ptr", pszName, "int", cchMaxLength, "HRESULT")
+        result := ComCall(3, this, "uint", dwSection, "ptr", pszName, "int", cchMaxLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,12 +53,16 @@ class IRSOPInformation extends IUnknown{
      * The GetFlags method retrieves information about the RSoP user interface session.
      * @param {Pointer<Integer>} pdwFlags Receives a pointer to a value that contains information about the RSoP session. This parameter can be the following value.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-irsopinformation-getflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpedit/nf-gpedit-irsopinformation-getflags
      */
     GetFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,14 +75,18 @@ class IRSOPInformation extends IUnknown{
      * @param {Integer} dwEventID Specifies the event ID.
      * @returns {PWSTR} Receives the pointer to a buffer containing the text of the event log entry. The calling application must free the memory allocated for this buffer with a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-irsopinformation-geteventlogentrytext
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpedit/nf-gpedit-irsopinformation-geteventlogentrytext
      */
     GetEventLogEntryText(pszEventSource, pszEventLogName, pszEventTime, dwEventID) {
         pszEventSource := pszEventSource is String ? StrPtr(pszEventSource) : pszEventSource
         pszEventLogName := pszEventLogName is String ? StrPtr(pszEventLogName) : pszEventLogName
         pszEventTime := pszEventTime is String ? StrPtr(pszEventTime) : pszEventTime
 
-        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, "ptr*", &ppszText := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, "ptr*", &ppszText := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszText
     }
 }

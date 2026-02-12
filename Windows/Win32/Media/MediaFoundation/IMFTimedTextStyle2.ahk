@@ -32,20 +32,28 @@ class IMFTimedTextStyle2 extends IUnknown{
 
     /**
      * 
-     * @returns {IMFTimedTextRuby} 
+     * @returns {Pointer<IMFTimedTextRuby>} 
      */
     GetRuby() {
-        result := ComCall(3, this, "ptr*", &ruby := 0, "HRESULT")
-        return IMFTimedTextRuby(ruby)
+        result := ComCall(3, this, "ptr*", &ruby := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ruby
     }
 
     /**
      * 
-     * @returns {IMFTimedTextBouten} 
+     * @returns {Pointer<IMFTimedTextBouten>} 
      */
     GetBouten() {
-        result := ComCall(4, this, "ptr*", &bouten := 0, "HRESULT")
-        return IMFTimedTextBouten(bouten)
+        result := ComCall(4, this, "ptr*", &bouten := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return bouten
     }
 
     /**
@@ -53,7 +61,11 @@ class IMFTimedTextStyle2 extends IUnknown{
      * @returns {BOOL} 
      */
     IsTextCombined() {
-        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -62,7 +74,11 @@ class IMFTimedTextStyle2 extends IUnknown{
      * @returns {Float} 
      */
     GetFontAngleInDegrees() {
-        result := ComCall(6, this, "double*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "double*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

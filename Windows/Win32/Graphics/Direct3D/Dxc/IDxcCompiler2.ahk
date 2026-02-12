@@ -39,9 +39,9 @@ class IDxcCompiler2 extends IDxcCompiler{
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
+     * @param {Pointer<Pointer<IDxcOperationResult>>} ppResult 
      * @param {Pointer<PWSTR>} ppDebugBlobName 
-     * @param {Pointer<IDxcBlob>} ppDebugBlob 
+     * @param {Pointer<Pointer<IDxcBlob>>} ppDebugBlob 
      * @returns {HRESULT} 
      */
     CompileWithDebug(pSource, pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount, pIncludeHandler, ppResult, ppDebugBlobName, ppDebugBlob) {
@@ -52,7 +52,11 @@ class IDxcCompiler2 extends IDxcCompiler{
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
         ppDebugBlobNameMarshal := ppDebugBlobName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, "ptr*", ppDebugBlob, "HRESULT")
+        result := ComCall(6, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, ppDebugBlobNameMarshal, ppDebugBlobName, "ptr*", ppDebugBlob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Learn more about: JET_SETCOLUMN constructor
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-setcolumn-constructor
+ * Learn more about: JET_SETCOLUMN Structure
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-setcolumn-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

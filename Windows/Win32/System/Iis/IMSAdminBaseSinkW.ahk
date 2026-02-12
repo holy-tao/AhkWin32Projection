@@ -35,7 +35,11 @@ class IMSAdminBaseSinkW extends IUnknown{
      * @returns {HRESULT} 
      */
     SinkNotify(dwMDNumElements, pcoChangeList) {
-        result := ComCall(3, this, "uint", dwMDNumElements, "ptr", pcoChangeList, "HRESULT")
+        result := ComCall(3, this, "uint", dwMDNumElements, "ptr", pcoChangeList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IMSAdminBaseSinkW extends IUnknown{
      * @returns {HRESULT} 
      */
     ShutdownNotify() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

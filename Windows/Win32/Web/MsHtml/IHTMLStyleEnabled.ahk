@@ -35,9 +35,16 @@ class IHTMLStyleEnabled extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     msGetPropertyEnabled(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", name, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -48,9 +55,16 @@ class IHTMLStyleEnabled extends IDispatch{
      * @returns {HRESULT} 
      */
     msPutPropertyEnabled(name, b) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", name, "short", b, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "short", b, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

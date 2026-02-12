@@ -6,7 +6,7 @@
  * @remarks
  * Be sure to initialize the memory for this structure to zero before setting any
  * members or passing to any functions.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_guid_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-trace_guid_properties
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

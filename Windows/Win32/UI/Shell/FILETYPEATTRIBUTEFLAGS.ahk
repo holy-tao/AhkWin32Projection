@@ -53,7 +53,7 @@
  * 
  * 
  * To set an EditFlags attribute, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shsetvaluea">SHSetValue</a> functions. First use <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-getdata">IQueryAssociations::GetData</a> to retrieve the current set of attributes as shown in the example above, add the desired <b>FILETYPEATTRIBUTEFLAGS</b> to that value, then write that value back to the registry using one of the two set functions.
- * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-filetypeattributeflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/ne-shlwapi-filetypeattributeflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

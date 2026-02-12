@@ -13,7 +13,7 @@
  * If a delayed auto-start service is demand-started using the <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-startservicea">StartService</a> function shortly after boot, the system starts the service on demand instead of delaying its start further. If this situation is likely to occur on a regular basis, the service should not be marked as a delayed auto-start service.
  * 
  * If a client calls a delayed auto-start service before it is loaded, the call fails. Therefore, clients should be prepared to either retry the call or demand start the service.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_delayed_auto_start_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_delayed_auto_start_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

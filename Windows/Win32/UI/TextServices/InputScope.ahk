@@ -5,7 +5,7 @@
  * The InputScope enumeration contains values that specify which input scopes are applied to a given field.
  * @remarks
  * Whether a given input scope value is supported can vary across technologies.
- * @see https://learn.microsoft.com/windows/win32/api/inputscope/ne-inputscope-inputscope
+ * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/ne-inputscope-inputscope
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -16,7 +16,7 @@ class Pointer {
      * @remarks
      * By default, touch prediction is activated.
      * @returns {Integer} The screen location of the pointer input.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getunpredictedmessagepos
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getunpredictedmessagepos
      * @since windows8.0
      */
     static GetUnpredictedMessagePos() {
@@ -41,7 +41,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is TRUE.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-initializetouchinjection
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-initializetouchinjection
      * @since windows8.0
      */
     static InitializeTouchInjection(maxCount, dwMode) {
@@ -130,7 +130,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-injecttouchinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-injecttouchinput
      * @since windows8.0
      */
     static InjectTouchInput(count, contacts) {
@@ -156,7 +156,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointertype
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointertype
      * @since windows8.0
      */
     static GetPointerType(pointerId, pointerType) {
@@ -183,7 +183,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointercursorid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointercursorid
      * @since windows8.0
      */
     static GetPointerCursorId(pointerId, cursorId) {
@@ -218,7 +218,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerinfo
      * @since windows8.0
      */
     static GetPointerInfo(pointerId, pointerInfo) {
@@ -253,7 +253,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerinfohistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerinfohistory
      * @since windows8.0
      */
     static GetPointerInfoHistory(pointerId, entriesCount, pointerInfo) {
@@ -310,7 +310,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerframeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerframeinfo
      * @since windows8.0
      */
     static GetPointerFrameInfo(pointerId, pointerCount, pointerInfo) {
@@ -371,7 +371,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerframeinfohistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerframeinfohistory
      * @since windows8.0
      */
     static GetPointerFrameInfoHistory(pointerId, entriesCount, pointerCount, pointerInfo) {
@@ -409,7 +409,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointertouchinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointertouchinfo
      * @since windows8.0
      */
     static GetPointerTouchInfo(pointerId, touchInfo) {
@@ -446,7 +446,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointertouchinfohistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointertouchinfohistory
      * @since windows8.0
      */
     static GetPointerTouchInfoHistory(pointerId, entriesCount, touchInfo) {
@@ -507,7 +507,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerframetouchinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerframetouchinfo
      * @since windows8.0
      */
     static GetPointerFrameTouchInfo(pointerId, pointerCount, touchInfo) {
@@ -572,7 +572,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerframetouchinfohistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerframetouchinfohistory
      * @since windows8.0
      */
     static GetPointerFrameTouchInfoHistory(pointerId, entriesCount, pointerCount, touchInfo) {
@@ -610,7 +610,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerpeninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerpeninfo
      * @since windows8.0
      */
     static GetPointerPenInfo(pointerId, penInfo) {
@@ -672,7 +672,7 @@ class Pointer {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerpeninfohistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerpeninfohistory
      * @since windows8.0
      */
     static GetPointerPenInfoHistory(pointerId, entriesCount, penInfo) {
@@ -733,7 +733,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerframepeninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerframepeninfo
      * @since windows8.0
      */
     static GetPointerFramePenInfo(pointerId, pointerCount, penInfo) {
@@ -798,7 +798,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerframepeninfohistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerframepeninfohistory
      * @since windows8.0
      */
     static GetPointerFramePenInfoHistory(pointerId, entriesCount, pointerCount, penInfo) {
@@ -837,7 +837,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-skippointerframemessages
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-skippointerframemessages
      * @since windows8.0
      */
     static SkipPointerFrameMessages(pointerId) {
@@ -869,7 +869,7 @@ class Pointer {
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
      * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-injectsyntheticpointerinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-injectsyntheticpointerinput
      * @since windows10.0.17763
      */
     static InjectSyntheticPointerInput(device, pointerInfo, count) {
@@ -889,7 +889,7 @@ class Pointer {
      * Destroys the specified pointer injection device.
      * @param {HSYNTHETICPOINTERDEVICE} device A handle to the pointer injection device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroysyntheticpointerdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-destroysyntheticpointerdevice
      * @since windows10.0.17763
      */
     static DestroySyntheticPointerDevice(device) {
@@ -912,7 +912,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enablemouseinpointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enablemouseinpointer
      * @since windows8.0
      */
     static EnableMouseInPointer(fEnable) {
@@ -939,7 +939,7 @@ class Pointer {
      * @returns {BOOL} If <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enablemouseinpointer">EnableMouseInPointer</a> is set, the return value is nonzero.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enablemouseinpointer">EnableMouseInPointer</a> is not set, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ismouseinpointerenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-ismouseinpointerenabled
      * @since windows8.0
      */
     static IsMouseInPointerEnabled() {
@@ -985,7 +985,7 @@ class Pointer {
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerinputtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerinputtransform
      * @since windows8.1
      */
     static GetPointerInputTransform(pointerId, historyCount, inputTransform) {
@@ -1013,7 +1013,7 @@ class Pointer {
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
      * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerdevices
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerdevices
      * @since windows8.0
      */
     static GetPointerDevices(deviceCount, pointerDevices) {
@@ -1036,7 +1036,7 @@ class Pointer {
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
      * Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerdevice
      * @since windows8.0
      */
     static GetPointerDevice(device, pointerDevice) {
@@ -1064,7 +1064,7 @@ class Pointer {
      * If this value is less than the number of properties that the pointer device supports and <i>pointerProperties</i> is not NULL, the function returns the actual number of properties in this variable and fails.
      * @param {Pointer<POINTER_DEVICE_PROPERTY>} pointerProperties The array of properties.
      * @returns {BOOL} TRUE if the function succeeds; otherwise, FALSE. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerdeviceproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerdeviceproperties
      * @since windows8.0
      */
     static GetPointerDeviceProperties(device, propertyCount, pointerProperties) {
@@ -1088,7 +1088,7 @@ class Pointer {
      * @param {Pointer<RECT>} pointerDeviceRect The structure for retrieving the device's physical range data.
      * @param {Pointer<RECT>} displayRect The structure for retrieving the display resolution.
      * @returns {BOOL} TRUE if the function succeeds; otherwise, FALSE. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerdevicerects
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerdevicerects
      * @since windows8.0
      */
     static GetPointerDeviceRects(device, pointerDeviceRect, displayRect) {
@@ -1110,7 +1110,7 @@ class Pointer {
      * @param {Pointer<Integer>} cursorCount The number of cursors associated with the pointer device.
      * @param {Pointer<POINTER_DEVICE_CURSOR_INFO>} deviceCursors An array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_cursor_info">POINTER_DEVICE_CURSOR_INFO</a> structures that contain info about the cursors. If NULL, <i>cursorCount</i> returns the number of cursors associated with the pointer device.
      * @returns {BOOL} TRUE if the function succeeds; otherwise, FALSE. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpointerdevicecursors
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpointerdevicecursors
      * @since windows8.0
      */
     static GetPointerDeviceCursors(device, cursorCount, deviceCursors) {
@@ -1136,7 +1136,7 @@ class Pointer {
      * @param {Pointer<POINTER_DEVICE_PROPERTY>} pProperties Array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_property">POINTER_DEVICE_PROPERTY</a> structures that contain raw data reported by the device.
      * @param {Pointer<Integer>} pValues The values for <i>pProperties</i>.
      * @returns {BOOL} TRUE if the function succeeds; otherwise, FALSE. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawpointerdevicedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getrawpointerdevicedata
      * @since windows8.0
      */
     static GetRawPointerDeviceData(pointerId, historyCount, propertiesCount, pProperties, pValues) {

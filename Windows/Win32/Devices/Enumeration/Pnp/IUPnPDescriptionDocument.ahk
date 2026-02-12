@@ -7,7 +7,7 @@
 
 /**
  * The IUPnPDescriptionDocument interface enables an application to load a device description.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdescriptiondocument
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpdescriptiondocument
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -114,15 +114,26 @@ class IUPnPDescriptionDocument extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-get_readystate
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-get_readystate
      */
     get_ReadyState() {
-        result := ComCall(7, this, "int*", &plReadyState := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plReadyState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plReadyState
     }
 
     /**
      * The Load method loads a document synchronously. This method does not return control to the caller until the load operation is complete.
+     * @remarks
+     * This method should not be called from a user interface thread because it can take a long time for the method to return.
+     * 
+     * If the 
+     * <b>Load</b> method is called by a script within a Web page, <i>bstrUrl</i> may be a relative URL. The address of the current web page is used as the base URL.
+     * 
+     * If this method is called from a Web page, the URL the caller specifies must refer to the same server from which the Web page was loaded.
      * @param {BSTR} bstrUrl Specifies the URL of the document to load.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h, or one of the following UPnP return values.
      * 
@@ -253,17 +264,51 @@ class IUPnPDescriptionDocument extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-load
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-load
      */
     Load(bstrUrl) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrUrl, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The LoadAsync method loads a document asynchronously. This method returns control to the caller immediately, and uses the specified callback to notify the caller when the operation is complete.
+     * @remarks
+     * This method should not be called from a user interface thread because it can take a long time for the method to return.
+     * 
+     * If you invoke this method for the same object immediately after a previous invocation, the first invocation of 
+     * <b>LoadAsync</b> is aborted. To avoid this, wait for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocumentcallback-loadcomplete">IUPnPDescriptionDocumentCallback::LoadComplete</a> callback, and then use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-get_loadresult">LoadResult</a> to view the state information.
+     * 
+     * If the 
+     * <b>LoadAsync</b> method is called by a script within a Web page, <i>bstrUrl</i> might be a relative URL. The address of the current Web page is used as the base URL.
+     * 
+     * If this method is called from a Web page, the URL that the caller specifies must refer to the same server from which the Web page was loaded.
+     * 
+     * The object referred to by <i>pUnkCallback</i> must either support the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdescriptiondocumentcallback">IUPnPDescriptionDocumentCallback</a> interface or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface. The 
+     * <b>LoadAsync</b> method first queries <i>pUnkCallback</i> for the 
+     * <b>IUPnPDescriptionDocumentCallback</b> interface. If this interface is not supported, the 
+     * <b>LoadAsync</b> method then queries <i>pUnkCallback</i> for the <b>IDispatch</b> interface. If the <b>IDispatch</b> interface is not supported, both checks have failed and the 
+     * <b>LoadAsync</b> method returns E_FAIL.
+     * 
+     * The callback based on <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> for the 
+     * <b>LoadAsync</b> method works as a script function that takes one parameter. This parameter is the result of the load operation. If the parameter is zero, the load succeeded, and the user can retrieve device objects from the document. If the parameter is non-zero, it describes the error. The value is the same as the error code that the <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-load">IUPnPDescriptionDocument::Load</a> method returns.
+     * 
+     * In Visual Basic Scripting Edition (VBScript) development software, the second argument must be <b>GetRef</b>(<i>funcname</i>), where <i>funcname</i> is the name of the callback subroutine.
+     * 
+     * If this function returns S_OK, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocumentcallback-loadcomplete">IUPnPDescriptionDocumentCallback::LoadComplete</a> is invoked by the UPnP framework.
      * @param {BSTR} bstrUrl Specifies the URL of the document to load. If the URL specified is a relative URL, the server name is prepended to the value of <i>bstrUrl</i>.
      * @param {IUnknown} punkCallback Reference to an <b>IUnknown</b> specifying the callback that the UPnP framework uses to notify the caller when the operation is complete. If the load operation did not fail immediately, this callback indicates whether or not the load operation succeeded or failed. The object referred to by <i>pUnkCallback</i> must support either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdescriptiondocumentcallback">IUPnPDescriptionDocumentCallback</a> interface or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface.
@@ -352,17 +397,26 @@ class IUPnPDescriptionDocument extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-loadasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-loadasync
      */
     LoadAsync(bstrUrl, punkCallback) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrUrl, "ptr", punkCallback, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrUrl, "ptr", punkCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The LoadResult property specifies the success or failure code of a completed load operation.
+     * @remarks
+     * This property specifies the error that the <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-load">IUPnPDescriptionDocument::Load</a> or <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-loadasync">IUPnPDescriptionDocument::LoadAsync</a> method generates. This property is useful when it is necessary to separate the load operation from the error checking.
      * @returns {Integer} Receives a reference to the success or failure code. The values this parameter can receive are:
      * 
      * <table>
@@ -411,45 +465,80 @@ class IUPnPDescriptionDocument extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-get_loadresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-get_loadresult
      */
     get_LoadResult() {
-        result := ComCall(10, this, "int*", &phrError := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &phrError := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phrError
     }
 
     /**
      * The Abort method stops an asynchronous load operation started by IUPnPDescriptionDocument::LoadAsync.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-abort
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-abort
      */
     Abort() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The RootDevice method returns the root device of the currently loaded document's device tree.
+     * @remarks
+     * Do not use 
+     * <b>RootDevice</b> unless a device description is first loaded using either 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-load">IUPnPDescriptionDocument::Load</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-loadasync">IUPnPDescriptionDocument::LoadAsync</a>. The search operation only searches in the currently loaded device description.
      * @returns {IUPnPDevice} Receives a reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a> object that describes the device. This reference must be released when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-rootdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-rootdevice
      */
     RootDevice() {
-        result := ComCall(12, this, "ptr*", &ppudRootDevice := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppudRootDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUPnPDevice(ppudRootDevice)
     }
 
     /**
      * The DeviceByUDN method returns the device with the specified unique device name (UDN) contained within the loaded description document.
+     * @remarks
+     * Use 
+     * <b>DeviceByUDN</b> after loading the device description using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-load">IUPnPDescriptionDocument::Load</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-loadasync">IUPnPDescriptionDocument::LoadAsync</a>. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-get_readystate">IUPnPDescriptionDocument::ReadyState</a> property returns READYSTATE_COMPLETED.
+     * 
+     * Do not use 
+     * <b>DeviceByUDN</b> unless a device description is first loaded using either 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-load">IUPnPDescriptionDocument::Load</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdescriptiondocument-loadasync">IUPnPDescriptionDocument::LoadAsync</a>. The search operation only searches in the currently loaded device description.
      * @param {BSTR} bstrUDN Specifies the UDN of the device.
      * @returns {IUPnPDevice} Receives a reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a> object that describes the device. This reference must be released when it is no longer used.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocument-devicebyudn
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocument-devicebyudn
      */
     DeviceByUDN(bstrUDN) {
-        bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
+        if(bstrUDN is String) {
+            pin := BSTR.Alloc(bstrUDN)
+            bstrUDN := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrUDN, "ptr*", &ppudDevice := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrUDN, "ptr*", &ppudDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUPnPDevice(ppudDevice)
     }
 }

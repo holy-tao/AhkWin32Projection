@@ -6,7 +6,7 @@
 
 /**
  * Use this interface to query or set several optional behaviors of a job.
- * @see https://docs.microsoft.com/windows/win32/api//bits5_0/nn-bits5_0-ibackgroundcopyjob5
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits5_0/nn-bits5_0-ibackgroundcopyjob5
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IBackgroundCopyJob5 extends IBackgroundCopyJob4{
     /**
      * A generic method for setting BITS job properties.
      * @param {Integer} PropertyId The ID of the property that is being set specified as a <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ne-bits5_0-bits_job_property_id">BITS_JOB_PROPERTY_ID</a> enum value.
-     * @param {BITS_JOB_PROPERTY_VALUE} PropertyValue The value of the property that is being set. In order to hold a value whose type is appropriate to the property, this value is specified via the <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ns-bits5_0-bits_job_property_value">BITS_JOB_PROPERTY_VALUE</a> union that is composed of all the known property types.
+     * @param {BITS_JOB_PROPERTY_VALUE} PropertyValue_ The value of the property that is being set. In order to hold a value whose type is appropriate to the property, this value is specified via the <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ns-bits5_0-bits_job_property_value">BITS_JOB_PROPERTY_VALUE</a> union that is composed of all the known property types.
      * @returns {HRESULT} The method returns the following return values.
      * 
      * <table>
@@ -54,22 +54,30 @@ class IBackgroundCopyJob5 extends IBackgroundCopyJob4{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits5_0/nf-bits5_0-ibackgroundcopyjob5-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits5_0/nf-bits5_0-ibackgroundcopyjob5-setproperty
      */
-    SetProperty(PropertyId, PropertyValue) {
-        result := ComCall(53, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
+    SetProperty(PropertyId, PropertyValue_) {
+        result := ComCall(53, this, "int", PropertyId, "ptr", PropertyValue_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * A generic method for getting BITS job properties.
      * @param {Integer} PropertyId The ID of the property that is being obtained specified as a <a href="https://docs.microsoft.com/windows/desktop/api/bits5_0/ne-bits5_0-bits_job_property_id">BITS_JOB_PROPERTY_ID</a> enum value.
-     * @returns {BITS_JOB_PROPERTY_VALUE} The property value returned as a BITS_JOB_PROPERTY_VALUE union.
-     * @see https://docs.microsoft.com/windows/win32/api//bits5_0/nf-bits5_0-ibackgroundcopyjob5-getproperty
+     * @returns {BITS_JOB_PROPERTY_VALUE} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits5_0/nf-bits5_0-ibackgroundcopyjob5-getproperty
      */
     GetProperty(PropertyId) {
-        PropertyValue := BITS_JOB_PROPERTY_VALUE()
-        result := ComCall(54, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        PropertyValue_ := BITS_JOB_PROPERTY_VALUE()
+        result := ComCall(54, this, "int", PropertyId, "ptr", PropertyValue_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return PropertyValue_
     }
 }

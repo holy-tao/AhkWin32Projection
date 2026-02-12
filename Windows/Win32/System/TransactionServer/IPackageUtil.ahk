@@ -43,10 +43,20 @@ class IPackageUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     InstallPackage(bstrPackageFile, bstrInstallPath, lOptions) {
-        bstrPackageFile := bstrPackageFile is String ? BSTR.Alloc(bstrPackageFile).Value : bstrPackageFile
-        bstrInstallPath := bstrInstallPath is String ? BSTR.Alloc(bstrInstallPath).Value : bstrInstallPath
+        if(bstrPackageFile is String) {
+            pin := BSTR.Alloc(bstrPackageFile)
+            bstrPackageFile := pin.Value
+        }
+        if(bstrInstallPath is String) {
+            pin := BSTR.Alloc(bstrInstallPath)
+            bstrInstallPath := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrPackageFile, "ptr", bstrInstallPath, "int", lOptions, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrPackageFile, "ptr", bstrInstallPath, "int", lOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,10 +68,20 @@ class IPackageUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     ExportPackage(bstrPackageID, bstrPackageFile, lOptions) {
-        bstrPackageID := bstrPackageID is String ? BSTR.Alloc(bstrPackageID).Value : bstrPackageID
-        bstrPackageFile := bstrPackageFile is String ? BSTR.Alloc(bstrPackageFile).Value : bstrPackageFile
+        if(bstrPackageID is String) {
+            pin := BSTR.Alloc(bstrPackageID)
+            bstrPackageID := pin.Value
+        }
+        if(bstrPackageFile is String) {
+            pin := BSTR.Alloc(bstrPackageFile)
+            bstrPackageFile := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrPackageID, "ptr", bstrPackageFile, "int", lOptions, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrPackageID, "ptr", bstrPackageFile, "int", lOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,9 +91,16 @@ class IPackageUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     ShutdownPackage(bstrPackageID) {
-        bstrPackageID := bstrPackageID is String ? BSTR.Alloc(bstrPackageID).Value : bstrPackageID
+        if(bstrPackageID is String) {
+            pin := BSTR.Alloc(bstrPackageID)
+            bstrPackageID := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrPackageID, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrPackageID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,11 +6,8 @@
 /**
  * The ICreatePropBagOnRegKey interface creates a property bag that can store information in the system registry.Use this interface to store the default tune request in the registry.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ICreatePropBagOnRegKey)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//regbag/nn-regbag-icreatepropbagonregkey
+ * @see https://learn.microsoft.com/windows/win32/api//content/regbag/nn-regbag-icreatepropbagonregkey
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -43,19 +40,57 @@ class ICreatePropBagOnRegKey extends IUnknown{
 
     /**
      * The Create method creates a property bag that can store information in the system registry.
-     * @param {HKEY} hkey Specifies a handle to the registry key.
+     * @remarks
+     * This method creates a property bag and returns a pointer to the <b>IPropertyBag</b> or <b>IPropertyBag2</b> interface, depending on the value of the <i>iid</i> parameter. The returned property bag can access the specified registry key, using the access rights given in the <i>samDesired</i> parameter. The various property bag methods require different access rights, as follows:
+     * 
+     * <table>
+     * <tr>
+     * <th>Method
+     *             </th>
+     * <th>Required Access Rights
+     *             </th>
+     * </tr>
+     * <tr>
+     * <td><b>IPropertyBag::Read
+     *             </b></td>
+     * <td>KEY_READ</td>
+     * </tr>
+     * <tr>
+     * <td><b>IPropertyBag::Write
+     *             </b></td>
+     * <td>KEY_WRITE</td>
+     * </tr>
+     * <tr>
+     * <td><b>IPropertyBag2::CountProperties
+     *             </b></td>
+     * <td>KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS</td>
+     * </tr>
+     * <tr>
+     * <td><b>IPropertyBag2::GetPropertyInfo
+     *             </b></td>
+     * <td>KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If you write a value of VT_EMPTY or VT_NULL the property is removed from the bag and the corresponding registry values are deleted.
+     * @param {HKEY} hkey_ Specifies a handle to the registry key.
      * @param {PWSTR} subkey Specifies the subkey.
      * @param {Integer} ulOptions Reserved; must be zero.
      * @param {Integer} samDesired Specifies the desired access rights to the key. The value can be any combination of flags from the <i>samDesired</i> parameter in the Win32 <b>RegOpenKeyEx</b> function.
      * @param {Pointer<Guid>} iid Specifies the interface identifier (IID) of a property bag interface. Use the value IID_IPropertyBag or IID_IPropertyBag2.
      * @returns {Pointer<Void>} Address of a variable that receives the interface specified by the <i>iid</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//regbag/nf-regbag-icreatepropbagonregkey-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/regbag/nf-regbag-icreatepropbagonregkey-create
      */
-    Create(hkey, subkey, ulOptions, samDesired, iid) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    Create(hkey_, subkey, ulOptions, samDesired, iid) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         subkey := subkey is String ? StrPtr(subkey) : subkey
 
-        result := ComCall(3, this, "ptr", hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, "ptr*", &ppBag := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hkey_, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, "ptr*", &ppBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppBag
     }
 }

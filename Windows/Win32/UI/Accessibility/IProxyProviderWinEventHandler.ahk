@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that is implemented by proxy providers to handle WinEvents.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iproxyproviderwineventhandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-iproxyproviderwineventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IProxyProviderWinEventHandler extends IUnknown{
 
     /**
      * Handles a WinEvent.
+     * @remarks
+     * The provider should review the event data. If the provider needs to raise a UI Automation event in response, the data for that event should be added to the <i>pSink</i> event sink.
      * @param {Integer} idWinEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * The identifier of the incoming WinEvent. For a list of WinEvent IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">Event Constants</a>.
-     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The handle of the window for which the WinEvent was fired. This should also be the window for which the proxy was created.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
@@ -47,15 +49,19 @@ class IProxyProviderWinEventHandler extends IUnknown{
      * @param {IProxyProviderWinEventSink} pSink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iproxyproviderwineventsink">IProxyProviderWinEventSink</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iproxyproviderwineventsink">IProxyProviderWinEventSink</a> interface provided by the UI Automation core. Any event that the proxy needs to raise in response to the WinEvent being handled should be added to the sink.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent
      */
-    RespondToWinEvent(idWinEvent, hwnd, idObject, idChild, pSink) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    RespondToWinEvent(idWinEvent, hwnd_, idObject, idChild, pSink) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(3, this, "uint", idWinEvent, "ptr", hwnd, "int", idObject, "int", idChild, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, "uint", idWinEvent, "ptr", hwnd_, "int", idObject, "int", idChild, "ptr", pSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

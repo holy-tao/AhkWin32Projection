@@ -6,7 +6,7 @@
 
 /**
  * Translates security identifiers (SIDs) into principal display names.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iaznameresolver
+ * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nn-azroles-iaznameresolver
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -38,15 +38,22 @@ class IAzNameResolver extends IDispatch{
      * @param {Pointer<BSTR>} pbstrName A pointer to the display name of the principal that corresponds to the SID specified by the <i>bstrSid</i> parameter.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. In particular, if the method cannot find the display name of the principal, it returns <b>CO_E_NOMATCHINGNAMEFOUND</b>. For a list of other common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaznameresolver-namefromsid
+     * If the method fails, it returns an error code. In particular, if the method cannot find the display name of the principal, it returns <b>CO_E_NOMATCHINGNAMEFOUND</b>. For a list of other common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iaznameresolver-namefromsid
      */
     NameFromSid(bstrSid, pSidType, pbstrName) {
-        bstrSid := bstrSid is String ? BSTR.Alloc(bstrSid).Value : bstrSid
+        if(bstrSid is String) {
+            pin := BSTR.Alloc(bstrSid)
+            bstrSid := pin.Value
+        }
 
         pSidTypeMarshal := pSidType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", bstrSid, pSidTypeMarshal, pSidType, "ptr", pbstrName, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrSid, pSidTypeMarshal, pSidType, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,11 +70,15 @@ class IAzNameResolver extends IDispatch{
      * This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_BSTR</b> that contains a display name. If a name could not be found for one or more of the SIDs, the corresponding array element contains an empty string.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. If the method cannot find the display names of any of the principals, it returns <b>CO_E_NOMATCHINGNAMEFOUND</b>. For a list of other common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaznameresolver-namesfromsids
+     * If the method fails, it returns an error code. If the method cannot find the display names of any of the principals, it returns <b>CO_E_NOMATCHINGNAMEFOUND</b>. For a list of other common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iaznameresolver-namesfromsids
      */
     NamesFromSids(vSids, pvSidTypes, pvNames) {
-        result := ComCall(8, this, "ptr", vSids, "ptr", pvSidTypes, "ptr", pvNames, "HRESULT")
+        result := ComCall(8, this, "ptr", vSids, "ptr", pvSidTypes, "ptr", pvNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

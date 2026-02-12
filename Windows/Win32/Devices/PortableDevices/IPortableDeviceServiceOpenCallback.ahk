@@ -34,7 +34,11 @@ class IPortableDeviceServiceOpenCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     OnComplete(hrStatus) {
-        result := ComCall(3, this, "int", hrStatus, "HRESULT")
+        result := ComCall(3, this, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

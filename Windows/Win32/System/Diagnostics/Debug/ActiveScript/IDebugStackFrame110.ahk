@@ -34,7 +34,11 @@ class IDebugStackFrame110 extends IDebugStackFrame{
      * @returns {Integer} 
      */
     GetStackFrameType() {
-        result := ComCall(8, this, "int*", &pStackFrameKind := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pStackFrameKind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStackFrameKind
     }
 
@@ -43,7 +47,11 @@ class IDebugStackFrame110 extends IDebugStackFrame{
      * @returns {IScriptInvocationContext} 
      */
     GetScriptInvocationContext() {
-        result := ComCall(9, this, "ptr*", &ppInvocationContext := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppInvocationContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptInvocationContext(ppInvocationContext)
     }
 }

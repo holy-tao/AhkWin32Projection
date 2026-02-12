@@ -78,7 +78,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_anchorNode() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -87,7 +91,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {Integer} 
      */
     get_anchorOffset() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -96,7 +104,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_focusNode() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -105,7 +117,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {Integer} 
      */
     get_focusOffset() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -114,7 +130,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_isCollapsed() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -125,7 +145,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     collapse(parentNode, offfset) {
-        result := ComCall(12, this, "ptr", parentNode, "int", offfset, "HRESULT")
+        result := ComCall(12, this, "ptr", parentNode, "int", offfset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +158,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     collapseToStart() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +171,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     collapseToEnd() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +185,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     selectAllChildren(parentNode) {
-        result := ComCall(15, this, "ptr", parentNode, "HRESULT")
+        result := ComCall(15, this, "ptr", parentNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +198,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteFromDocument() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +211,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {Integer} 
      */
     get_rangeCount() {
-        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -181,7 +225,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {IHTMLDOMRange} 
      */
     getRangeAt(index) {
-        result := ComCall(18, this, "int", index, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(18, this, "int", index, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMRange(ppRange)
     }
 
@@ -191,7 +239,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     addRange(range) {
-        result := ComCall(19, this, "ptr", range, "HRESULT")
+        result := ComCall(19, this, "ptr", range, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,7 +253,11 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     removeRange(range) {
-        result := ComCall(20, this, "ptr", range, "HRESULT")
+        result := ComCall(20, this, "ptr", range, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,17 +266,30 @@ class IHTMLSelection extends IDispatch{
      * @returns {HRESULT} 
      */
     removeAllRanges() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
         pSelectionString := BSTR()
-        result := ComCall(22, this, "ptr", pSelectionString, "HRESULT")
+        result := ComCall(22, this, "ptr", pSelectionString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSelectionString
     }
 }

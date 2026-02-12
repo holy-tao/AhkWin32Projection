@@ -13,7 +13,7 @@
  * The result of a content restriction imposed against a property is undefined when the property does not exist. When a client requires well-defined behavior for such a restriction and is not sure whether the property exists for example, it is not a required column of a table it should create an **AND** restriction to join the content restriction with an exist restriction. Use an [SExistRestriction](sexistrestriction.md) structure to define the exist restriction and an [SAndRestriction](sandrestriction.md) structure to define the **AND** restriction. 
  *   
  * For more information about the **SContentRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scontentrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/scontentrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

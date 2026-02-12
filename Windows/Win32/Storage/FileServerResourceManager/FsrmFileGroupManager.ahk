@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Creates a file group object.
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

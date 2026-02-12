@@ -6,7 +6,7 @@
 
 /**
  * The IGPMMapEntry interface provides access to a map entry.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmmapentry
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmmapentry
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -71,7 +71,11 @@ class IGPMMapEntry extends IDispatch{
      */
     get_Source() {
         pbstrSource := BSTR()
-        result := ComCall(7, this, "ptr", pbstrSource, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrSource
     }
 
@@ -81,7 +85,11 @@ class IGPMMapEntry extends IDispatch{
      */
     get_Destination() {
         pbstrDestination := BSTR()
-        result := ComCall(8, this, "ptr", pbstrDestination, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrDestination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDestination
     }
 
@@ -90,7 +98,11 @@ class IGPMMapEntry extends IDispatch{
      * @returns {Integer} 
      */
     get_DestinationOption() {
-        result := ComCall(9, this, "int*", &pgpmDestOption := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pgpmDestOption := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pgpmDestOption
     }
 
@@ -99,7 +111,11 @@ class IGPMMapEntry extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryType() {
-        result := ComCall(10, this, "int*", &pgpmEntryType := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pgpmEntryType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pgpmEntryType
     }
 }

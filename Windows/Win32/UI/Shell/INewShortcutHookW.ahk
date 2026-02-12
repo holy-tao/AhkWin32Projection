@@ -4,9 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Exposes methods to create a new Internet shortcut.
+ * Exposes methods to create a new Internet shortcut. (Unicode)
  * @remarks
- * 
  * You do not typically implement <b>INewShortcutHook</b>. It is implemented by the Shell for Internet shortcuts.
  * 
  * You use <b>INewShortcutHook</b> when creating a new Internet shortcut. The methods provided by this interface are supplied as a convenience.
@@ -18,8 +17,7 @@
  * 
  * > [!NOTE]
  * > The shlobj.h header defines INewShortcutHook as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-inewshortcuthookw
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nn-shlobj-inewshortcuthookw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset Unicode
@@ -46,88 +44,142 @@ class INewShortcutHookW extends IUnknown{
     static VTableNames => ["SetReferent", "GetReferent", "SetFolder", "GetFolder", "GetName", "GetExtension"]
 
     /**
-     * Sets the referent of the shortcut object.
+     * Sets the referent of the shortcut object. (Unicode)
+     * @remarks
+     * For Internet shortcut objects, this method is the same as <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/dd565676(v=vs.85)">IUniformResourceLocator::SetURL</a>.
      * @param {PWSTR} pcszReferent TBD
-     * @param {HWND} hwnd TBD
+     * @param {HWND} hwnd_ TBD
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-inewshortcuthookw-setreferent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-inewshortcuthookw-setreferent
      */
-    SetReferent(pcszReferent, hwnd) {
+    SetReferent(pcszReferent, hwnd_) {
         pcszReferent := pcszReferent is String ? StrPtr(pcszReferent) : pcszReferent
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(3, this, "ptr", pcszReferent, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pcszReferent, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Gets the referent of the shortcut object. (Unicode)
+     * @remarks
+     * For Internet shortcut objects, this method is the same as <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/dd565674(v=vs.85)">IUniformResourceLocator::GetURL</a>.
+     * @param {PWSTR} pszReferent Type: <b>PTSTR</b>
      * 
-     * @param {PWSTR} pszReferent 
-     * @param {Integer} cchReferent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-getreferent
+     * A pointer to a string that receives the referent.
+     * @param {Integer} cchReferent Type: <b>int</b>
+     * 
+     * The size of the buffer at <i>pszReferent</i>, in characters.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-inewshortcuthookw-getreferent
      */
     GetReferent(pszReferent, cchReferent) {
         pszReferent := pszReferent is String ? StrPtr(pszReferent) : pszReferent
 
-        result := ComCall(4, this, "ptr", pszReferent, "int", cchReferent, "HRESULT")
+        result := ComCall(4, this, "ptr", pszReferent, "int", cchReferent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the folder name for the shortcut object. (Unicode)
+     * @param {PWSTR} pcszFolder TBD
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {PWSTR} pcszFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-setfolder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-inewshortcuthookw-setfolder
      */
     SetFolder(pcszFolder) {
         pcszFolder := pcszFolder is String ? StrPtr(pcszFolder) : pcszFolder
 
-        result := ComCall(5, this, "ptr", pcszFolder, "HRESULT")
+        result := ComCall(5, this, "ptr", pcszFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Gets the folder name for the shortcut object. (Unicode)
+     * @param {PWSTR} pszFolder Type: <b>PTSTR</b>
      * 
-     * @param {PWSTR} pszFolder 
-     * @param {Integer} cchFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-getfolder
+     * The address of a character buffer that receives the folder name.
+     * @param {Integer} cchFolder Type: <b>int</b>
+     * 
+     * The size of the buffer at <i>pszFolder</i>, in characters.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, S_FALSE if no folder has been assigned, or a standard error code otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-inewshortcuthookw-getfolder
      */
     GetFolder(pszFolder, cchFolder) {
         pszFolder := pszFolder is String ? StrPtr(pszFolder) : pszFolder
 
-        result := ComCall(6, this, "ptr", pszFolder, "int", cchFolder, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFolder, "int", cchFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Gets the file name of the shortcut object, without the extension. (Unicode)
+     * @param {PWSTR} pszName Type: <b>PTSTR</b>
      * 
-     * @param {PWSTR} pszName 
-     * @param {Integer} cchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-getname
+     * A pointer to a string that receives the name.
+     * @param {Integer} cchName Type: <b>int</b>
+     * 
+     * The size of the buffer at <i>pszName</i>, in characters.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-inewshortcuthookw-getname
      */
     GetName(pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(7, this, "ptr", pszName, "int", cchName, "HRESULT")
+        result := ComCall(7, this, "ptr", pszName, "int", cchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Gets the file name extension for the shortcut object. (Unicode)
+     * @param {PWSTR} pszExtension Type: <b>PTSTR</b>
      * 
-     * @param {PWSTR} pszExtension 
-     * @param {Integer} cchExtension 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-inewshortcuthookw-getextension
+     * Pointer to a string that receives the extension.
+     * @param {Integer} cchExtension Type: <b>int</b>
+     * 
+     * The size of the buffer at <i>pszExtension</i>, in characters.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-inewshortcuthookw-getextension
      */
     GetExtension(pszExtension, cchExtension) {
         pszExtension := pszExtension is String ? StrPtr(pszExtension) : pszExtension
 
-        result := ComCall(8, this, "ptr", pszExtension, "int", cchExtension, "HRESULT")
+        result := ComCall(8, this, "ptr", pszExtension, "int", cchExtension, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -38,7 +38,7 @@
  * 
  * When the channel is finished using the encoder instance it will free it via the
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_encoder_callback">WS_FREE_ENCODER_CALLBACK</a>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_encoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_channel_encoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

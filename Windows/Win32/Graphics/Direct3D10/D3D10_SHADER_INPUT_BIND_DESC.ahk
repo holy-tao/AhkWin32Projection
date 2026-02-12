@@ -5,7 +5,7 @@
  * Describes how a shader resource is bound to a shader input. (D3D10_SHADER_INPUT_BIND_DESC)
  * @remarks
  * Get a shader-input-signature description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getresourcebindingdesc">ID3D10ShaderReflection::GetResourceBindingDesc</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10shader/ns-d3d10shader-d3d10_shader_input_bind_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

@@ -38,7 +38,11 @@ class IHttpNegotiate3 extends IHttpNegotiate2{
         ppbCertMarshal := ppbCert is VarRef ? "ptr*" : "ptr"
         pcbCertMarshal := pcbCert is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, ppbCertMarshal, ppbCert, pcbCertMarshal, pcbCert, "HRESULT")
+        result := ComCall(6, this, ppbCertMarshal, ppbCert, pcbCertMarshal, pcbCert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

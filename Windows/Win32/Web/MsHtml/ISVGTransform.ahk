@@ -64,7 +64,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     put_type(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +77,11 @@ class ISVGTransform extends IDispatch{
      * @returns {Integer} 
      */
     get_type() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -83,7 +91,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_matrix(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +104,11 @@ class ISVGTransform extends IDispatch{
      * @returns {ISVGMatrix} 
      */
     get_matrix() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGMatrix(p)
     }
 
@@ -102,7 +118,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     put_angle(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,17 +131,25 @@ class ISVGTransform extends IDispatch{
      * @returns {Float} 
      */
     get_angle() {
-        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
      * 
-     * @param {ISVGMatrix} matrix 
+     * @param {ISVGMatrix} matrix_ 
      * @returns {HRESULT} 
      */
-    setMatrix(matrix) {
-        result := ComCall(13, this, "ptr", matrix, "HRESULT")
+    setMatrix(matrix_) {
+        result := ComCall(13, this, "ptr", matrix_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +160,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     setTranslate(tx, ty) {
-        result := ComCall(14, this, "float", tx, "float", ty, "HRESULT")
+        result := ComCall(14, this, "float", tx, "float", ty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +175,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     setScale(sx, sy) {
-        result := ComCall(15, this, "float", sx, "float", sy, "HRESULT")
+        result := ComCall(15, this, "float", sx, "float", sy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,11 +187,15 @@ class ISVGTransform extends IDispatch{
      * 
      * @param {Float} angle 
      * @param {Float} cx 
-     * @param {Float} cy 
+     * @param {Float} cy_ 
      * @returns {HRESULT} 
      */
-    setRotate(angle, cx, cy) {
-        result := ComCall(16, this, "float", angle, "float", cx, "float", cy, "HRESULT")
+    setRotate(angle, cx, cy_) {
+        result := ComCall(16, this, "float", angle, "float", cx, "float", cy_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +205,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     setSkewX(angle) {
-        result := ComCall(17, this, "float", angle, "HRESULT")
+        result := ComCall(17, this, "float", angle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +219,11 @@ class ISVGTransform extends IDispatch{
      * @returns {HRESULT} 
      */
     setSkewY(angle) {
-        result := ComCall(18, this, "float", angle, "HRESULT")
+        result := ComCall(18, this, "float", angle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

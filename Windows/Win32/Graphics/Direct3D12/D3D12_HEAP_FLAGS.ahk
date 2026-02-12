@@ -95,7 +95,7 @@
  * <li>D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL and D3D12_RESOURCE_FLAG_ALLOW_CROSS_ADAPTER are invalid
  * flags.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ne-d3d12-d3d12_heap_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

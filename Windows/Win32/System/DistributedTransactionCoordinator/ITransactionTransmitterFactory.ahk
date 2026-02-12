@@ -30,11 +30,16 @@ class ITransactionTransmitterFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @returns {ITransactionTransmitter} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create() {
-        result := ComCall(3, this, "ptr*", &ppTransmitter := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppTransmitter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionTransmitter(ppTransmitter)
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Start the service when the specified trigger event occurs.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_trigger
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

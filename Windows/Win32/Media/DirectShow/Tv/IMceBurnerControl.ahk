@@ -33,7 +33,11 @@ class IMceBurnerControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBurnerNoDecryption() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

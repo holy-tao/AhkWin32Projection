@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/WMP/-wmpocxevents-interface
+ * The \_WMPOCXEvents interface provides the same events as the IWMPEvents, IWMPEvents2, IWMPEvents3, and IWMPEvents4 interfaces, but inherits from IDispatch rather than IUnknown.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/-wmpocxevents-interface
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the type that contains the binary information for an image in a Journal note.
- * @see https://learn.microsoft.com/windows/win32/tablet/imagetype-complex-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/imagetype-complex-type
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

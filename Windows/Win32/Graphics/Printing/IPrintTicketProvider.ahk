@@ -42,21 +42,25 @@ class IPrintTicketProvider extends IUnknown{
         ppVersionsMarshal := ppVersions is VarRef ? "ptr*" : "ptr"
         cVersionsMarshal := cVersions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hPrinter, ppVersionsMarshal, ppVersions, cVersionsMarshal, cVersions, "HRESULT")
+        result := ComCall(3, this, "ptr", hPrinter, ppVersionsMarshal, ppVersions, cVersionsMarshal, cVersions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {PRINTER_HANDLE} hPrinter 
-     * @param {Integer} version 
+     * @param {Integer} version_ 
      * @param {Pointer<Integer>} pOptions 
      * @param {Pointer<Integer>} pDevModeFlags 
      * @param {Pointer<Integer>} cNamespaces 
      * @param {Pointer<Pointer<BSTR>>} ppNamespaces 
      * @returns {HRESULT} 
      */
-    BindPrinter(hPrinter, version, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
+    BindPrinter(hPrinter, version_, pOptions, pDevModeFlags, cNamespaces, ppNamespaces) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
@@ -64,7 +68,11 @@ class IPrintTicketProvider extends IUnknown{
         cNamespacesMarshal := cNamespaces is VarRef ? "int*" : "ptr"
         ppNamespacesMarshal := ppNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hPrinter, "int", version, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "HRESULT")
+        result := ComCall(4, this, "ptr", hPrinter, "int", version_, pOptionsMarshal, pOptions, pDevModeFlagsMarshal, pDevModeFlags, cNamespacesMarshal, cNamespaces, ppNamespacesMarshal, ppNamespaces, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,46 +82,65 @@ class IPrintTicketProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryDeviceNamespace(pDefaultNamespace) {
-        result := ComCall(5, this, "ptr", pDefaultNamespace, "HRESULT")
+        result := ComCall(5, this, "ptr", pDefaultNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {IXMLDOMDocument2} pPrintTicket 
+     * Converts a print ticket to a DEVMODE structure.
+     * @param {IXMLDOMDocument2} pPrintTicket The buffer that contains the print ticket to convert.
      * @param {Integer} cbDevmodeIn 
      * @param {Pointer<DEVMODEA>} pDevmodeIn 
      * @param {Pointer<Integer>} pcbDevmodeOut 
      * @param {Pointer<Pointer<DEVMODEA>>} ppDevmodeOut 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/convertprinttickettodevmodethunk2
      */
     ConvertPrintTicketToDevMode(pPrintTicket, cbDevmodeIn, pDevmodeIn, pcbDevmodeOut, ppDevmodeOut) {
         pcbDevmodeOutMarshal := pcbDevmodeOut is VarRef ? "uint*" : "ptr"
         ppDevmodeOutMarshal := ppDevmodeOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "HRESULT")
+        result := ComCall(6, this, "ptr", pPrintTicket, "uint", cbDevmodeIn, "ptr", pDevmodeIn, pcbDevmodeOutMarshal, pcbDevmodeOut, ppDevmodeOutMarshal, ppDevmodeOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Converts a DEVMODE structure to a print ticket.
      * @param {Integer} cbDevmode 
-     * @param {Pointer<DEVMODEA>} pDevmode 
+     * @param {Pointer<DEVMODEA>} pDevmode A pointer to the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) to convert.
      * @param {IXMLDOMDocument2} pPrintTicket 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, it returns **S\_OK**; otherwise, it returns an **HRESULT** error code. For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/convertdevmodetoprintticketthunk2
      */
     ConvertDevModeToPrintTicket(cbDevmode, pDevmode, pPrintTicket) {
-        result := ComCall(7, this, "uint", cbDevmode, "ptr", pDevmode, "ptr", pPrintTicket, "HRESULT")
+        result := ComCall(7, this, "uint", cbDevmode, "ptr", pDevmode, "ptr", pPrintTicket, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {IXMLDOMDocument2} pPrintTicket 
+     * Retrieves the printers capabilities formatted in compliance with the XML Print Schema.
+     * @param {IXMLDOMDocument2} pPrintTicket The buffer that contains the print ticket data, expressed in XML as described in the [Print Schema](./printschema.md).
      * @returns {IXMLDOMDocument2} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprintcapabilitiesthunk2
      */
     GetPrintCapabilities(pPrintTicket) {
-        result := ComCall(8, this, "ptr", pPrintTicket, "ptr*", &ppCapabilities := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pPrintTicket, "ptr*", &ppCapabilities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocument2(ppCapabilities)
     }
 
@@ -123,7 +150,11 @@ class IPrintTicketProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     ValidatePrintTicket(pBaseTicket) {
-        result := ComCall(9, this, "ptr", pBaseTicket, "HRESULT")
+        result := ComCall(9, this, "ptr", pBaseTicket, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

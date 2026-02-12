@@ -41,7 +41,11 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &nLength := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &nLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return nLength
     }
 
@@ -52,7 +56,11 @@ class IVBSAXAttributes extends IDispatch{
      */
     getURI(nIndex) {
         strURI := BSTR()
-        result := ComCall(8, this, "int", nIndex, "ptr", strURI, "HRESULT")
+        result := ComCall(8, this, "int", nIndex, "ptr", strURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strURI
     }
 
@@ -63,7 +71,11 @@ class IVBSAXAttributes extends IDispatch{
      */
     getLocalName(nIndex) {
         strLocalName := BSTR()
-        result := ComCall(9, this, "int", nIndex, "ptr", strLocalName, "HRESULT")
+        result := ComCall(9, this, "int", nIndex, "ptr", strLocalName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strLocalName
     }
 
@@ -74,7 +86,11 @@ class IVBSAXAttributes extends IDispatch{
      */
     getQName(nIndex) {
         strQName := BSTR()
-        result := ComCall(10, this, "int", nIndex, "ptr", strQName, "HRESULT")
+        result := ComCall(10, this, "int", nIndex, "ptr", strQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strQName
     }
 
@@ -85,10 +101,20 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {Integer} 
      */
     getIndexFromName(strURI, strLocalName) {
-        strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
-        strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
+        if(strURI is String) {
+            pin := BSTR.Alloc(strURI)
+            strURI := pin.Value
+        }
+        if(strLocalName is String) {
+            pin := BSTR.Alloc(strLocalName)
+            strLocalName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", strURI, "ptr", strLocalName, "int*", &nIndex := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", strURI, "ptr", strLocalName, "int*", &nIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return nIndex
     }
 
@@ -98,20 +124,36 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {Integer} 
      */
     getIndexFromQName(strQName) {
-        strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
+        if(strQName is String) {
+            pin := BSTR.Alloc(strQName)
+            strQName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", strQName, "int*", &nIndex := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", strQName, "int*", &nIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return nIndex
     }
 
     /**
-     * 
+     * getType Method (SQLServerResultSet)
+     * @remarks
+     * This getType method is specified by the getType method in the java.sql.ResultSet interface.  
+     *   
+     *  This method can be used to determine the actual cursor type. If the application selected TYPE_FORWARD_ONLY or used a default cursor type, TYPE_FORWARD_ONLY will be returned.
      * @param {Integer} nIndex 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/gettype-method-sqlserverresultset
      */
     getType(nIndex) {
         strType := BSTR()
-        result := ComCall(13, this, "int", nIndex, "ptr", strType, "HRESULT")
+        result := ComCall(13, this, "int", nIndex, "ptr", strType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strType
     }
 
@@ -122,11 +164,21 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {BSTR} 
      */
     getTypeFromName(strURI, strLocalName) {
-        strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
-        strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
+        if(strURI is String) {
+            pin := BSTR.Alloc(strURI)
+            strURI := pin.Value
+        }
+        if(strLocalName is String) {
+            pin := BSTR.Alloc(strLocalName)
+            strLocalName := pin.Value
+        }
 
         strType := BSTR()
-        result := ComCall(14, this, "ptr", strURI, "ptr", strLocalName, "ptr", strType, "HRESULT")
+        result := ComCall(14, this, "ptr", strURI, "ptr", strLocalName, "ptr", strType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strType
     }
 
@@ -136,10 +188,17 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {BSTR} 
      */
     getTypeFromQName(strQName) {
-        strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
+        if(strQName is String) {
+            pin := BSTR.Alloc(strQName)
+            strQName := pin.Value
+        }
 
         strType := BSTR()
-        result := ComCall(15, this, "ptr", strQName, "ptr", strType, "HRESULT")
+        result := ComCall(15, this, "ptr", strQName, "ptr", strType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strType
     }
 
@@ -150,7 +209,11 @@ class IVBSAXAttributes extends IDispatch{
      */
     getValue(nIndex) {
         strValue := BSTR()
-        result := ComCall(16, this, "int", nIndex, "ptr", strValue, "HRESULT")
+        result := ComCall(16, this, "int", nIndex, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strValue
     }
 
@@ -161,11 +224,21 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {BSTR} 
      */
     getValueFromName(strURI, strLocalName) {
-        strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
-        strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
+        if(strURI is String) {
+            pin := BSTR.Alloc(strURI)
+            strURI := pin.Value
+        }
+        if(strLocalName is String) {
+            pin := BSTR.Alloc(strLocalName)
+            strLocalName := pin.Value
+        }
 
         strValue := BSTR()
-        result := ComCall(17, this, "ptr", strURI, "ptr", strLocalName, "ptr", strValue, "HRESULT")
+        result := ComCall(17, this, "ptr", strURI, "ptr", strLocalName, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strValue
     }
 
@@ -175,10 +248,17 @@ class IVBSAXAttributes extends IDispatch{
      * @returns {BSTR} 
      */
     getValueFromQName(strQName) {
-        strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
+        if(strQName is String) {
+            pin := BSTR.Alloc(strQName)
+            strQName := pin.Value
+        }
 
         strValue := BSTR()
-        result := ComCall(18, this, "ptr", strQName, "ptr", strValue, "HRESULT")
+        result := ComCall(18, this, "ptr", strQName, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strValue
     }
 }

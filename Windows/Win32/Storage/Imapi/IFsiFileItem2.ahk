@@ -8,16 +8,13 @@
 /**
  * Use this interface to add, remove and enumerate named streams associated with a file. This interface also provides access to the 'Real-Time' attribute of a file.
  * @remarks
- * 
  * While UDF 2.0 is the lowest required revision for named stream support, the user must enable UDF  2.01 or higher to enable the use of both named streams and   real-time file attributes.
  * 
  * 
  * The recipients of a storage medium containing such files are required to read them using special MMC commands reducing read latency and increasing the worst-case read speed.
  * 
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsifileitem2
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-ifsifileitem2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -66,26 +63,52 @@ class IFsiFileItem2 extends IFsiFileItem{
 
     /**
      * Retrieves a collection of named streams associated with a file in the file system image.
+     * @remarks
+     * If this method is invoked for a file item which itself represents a named stream, the <b>IMAPI_E_PROPERTY_NOT_ACCESSIBLE</b> error code is returned, as a named streams cannot contain additional named streams.
+     * 
+     * The user must enable UDF and set the UDF revision to 2.00 or higher to support named streams.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {IFsiNamedStreams} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsinamedstreams">IFsiNamedStreams</a> object that represents a collection of named streams associated with the file.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem2-get_fsinamedstreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem2-get_fsinamedstreams
      */
     get_FsiNamedStreams() {
-        result := ComCall(24, this, "ptr*", &streams := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &streams := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsiNamedStreams(streams)
     }
 
     /**
      * Determines if the item is a named stream.
+     * @remarks
+     * The user must enable UDF and set the UDF revision to 2.00 or higher to support named streams.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {VARIANT_BOOL} Pointer to a value that indicates if the item is a named stream. to <b>VARIANT_TRUE</b> if an ; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem2-get_isnamedstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem2-get_isnamedstream
      */
     get_IsNamedStream() {
-        result := ComCall(25, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Associates a named stream with a specific file in the file system image.
+     * @remarks
+     * The file to which the named stream will be added must already exist within the file system image. If this method is called with a <i>name</i> that already exists for a named stream, it will return an error and will not replace the existing named stream.
+     * 
+     * If this method is invoked for a file system object that does not contain UDF in the list of file systems enabled for creation in the resultant image or if the UDF revision is below 2.00, this method returns success code <b>IMAPI_S_IMAGE_FEATURE_NOT_SUPPORTED</b>. This success code indicates that the named stream has been added but will not appear in the resultant file system image unless UDF revision 2.00 or higher is enabled in the file system object.
+     * 
+     * Currently, <b>IMAPI_E_READONLY</b> is returned when this method is called on an imported file system image, regardless of the read only status of the image.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {BSTR} name A string represents the name of the named stream. This should not include the path and should only contain valid characters as per file system naming conventions.
      * @param {IStream} streamData An <b>IStream</b> interface of the named stream used to write to the resultant file system image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -151,7 +174,7 @@ class IFsiFileItem2 extends IFsiFileItem{
      * </dl>
      * </td>
      * <td width="60%">
-     * The referenced <a href="/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> object is in read only mode.
+     * The referenced <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> object is in read only mode.
      * 
      * </td>
      * </tr>
@@ -228,17 +251,30 @@ class IFsiFileItem2 extends IFsiFileItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem2-addstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem2-addstream
      */
     AddStream(name, streamData) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", name, "ptr", streamData, "HRESULT")
+        result := ComCall(26, this, "ptr", name, "ptr", streamData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a named stream association with a file.
+     * @remarks
+     * This method can be called only for file items present in the file system image.
+     * 
+     * The user must enable UDF and set the UDF revision to 2.00 or higher to support named streams.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {BSTR} name String that specifies the name of the named stream association to remove. This should not include the path and should only contain valid characters as per file system naming conventions.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -303,7 +339,7 @@ class IFsiFileItem2 extends IFsiFileItem{
      * </dl>
      * </td>
      * <td width="60%">
-     * The referenced <a href="/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> object is in read only mode.
+     * The referenced <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> object is in read only mode.
      * 
      * </td>
      * </tr>
@@ -380,27 +416,54 @@ class IFsiFileItem2 extends IFsiFileItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem2-removestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem2-removestream
      */
     RemoveStream(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", name, "HRESULT")
+        result := ComCall(27, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the property value that specifies if a file item in the file system image is a 'Real-Time' or standard file.
-     * @returns {VARIANT_BOOL} Pointer to a value that indicates if the Real-Time attribute of the file is set in the file system image.  A value of <b>VARIANT_TRUE</b>indicates the attribute is set; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem2-get_isrealtime
+     * @remarks
+     * If this method is invoked for a file item representing a named stream, this method returns error code <b>IMAPI_E_PROPERTY_NOT_ACCESSIBLE</b> as
+     * named streams do not have the Real-Time attribute.
+     * 
+     * The user must enable UDF and set the UDF revision to 2.01 or higher to support Real-Time files.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
+     * @returns {VARIANT_BOOL} Pointer to a value that indicates if the Real-Time attribute of the file is set in the file system image.  A value of <b>VARIANT_TRUE</b> indicates the attribute is set; otherwise, <b>VARIANT_FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem2-get_isrealtime
      */
     get_IsRealTime() {
-        result := ComCall(28, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(28, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Sets the 'Real-Time' attribute of a file in a file system. This attribute specifies whether or not the content requires a minimum data-transfer rate when writing or reading, for example, audio and video data.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addtree">IFsiDirectoryItem::AddTree</a> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem2-addtreewithnamedstreams">IFsiDirectoryItem2::AddTreeWithNamedStreams</a> methods do not set the Real-Time attribute while adding files to a file system image. To mark files  as Real-time files, they must be enumerated after they have been added to the file system image and have the Real-Time attribute set individually.
+     *  
+     *  
+     * 
+     * If this method is invoked for a file item representing a named stream, this method returns error code <b>IMAPI_E_PROPERTY_NOT_ACCESSIBLE</b> as
+     * named streams do not have the Real-Time attribute.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {VARIANT_BOOL} newVal Specify <b>VARIANT_TRUE</b> to set the Real-Time attribute of a file in the file system image; otherwise, <b>VARIANT_FALSE</b>. The default is <b>VARIANT_FALSE</b>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -448,12 +511,16 @@ class IFsiFileItem2 extends IFsiFileItem{
      * </table>
      *  
      * 
-     * <div class="alert"><b>Note</b>  Currently, S_OK is returned when using this method to set a  Real-Time attribute   value of a file that is 'Read Only' as a result of a successful  <a href="/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createresultimage">CreateResultImage</a> operation.</div>
+     * <div class="alert"><b>Note</b>  Currently, S_OK is returned when using this method to set a  Real-Time attribute   value of a file that is 'Read Only' as a result of a successful  <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createresultimage">CreateResultImage</a> operation.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem2-put_isrealtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem2-put_isrealtime
      */
     put_IsRealTime(newVal) {
-        result := ComCall(29, this, "short", newVal, "HRESULT")
+        result := ComCall(29, this, "short", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

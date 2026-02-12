@@ -7,7 +7,7 @@
  * The JOB\_INFO\_2 structure describes a full set of values associated with a job.
  * @remarks
  * Port monitors that do not support TrueEndOfJob will set the job as JOB\_STATUS\_PRINTED right after the job is submitted to the printer.
- * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/job-info-2
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

@@ -6,7 +6,7 @@
 
 /**
  * Retrieves information about an assembly when using managed code in the .NET Framework common language runtime.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iassemblylocator
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iassemblylocator
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -37,14 +37,27 @@ class IAssemblyLocator extends IDispatch{
      * @param {BSTR} applicationName The name of the application domain.
      * @param {BSTR} assemblyName The name of the assembly.
      * @returns {Pointer<SAFEARRAY>} An array listing the names of the modules in the assembly.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iassemblylocator-getmodules
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iassemblylocator-getmodules
      */
     GetModules(applicationDir, applicationName, assemblyName) {
-        applicationDir := applicationDir is String ? BSTR.Alloc(applicationDir).Value : applicationDir
-        applicationName := applicationName is String ? BSTR.Alloc(applicationName).Value : applicationName
-        assemblyName := assemblyName is String ? BSTR.Alloc(assemblyName).Value : assemblyName
+        if(applicationDir is String) {
+            pin := BSTR.Alloc(applicationDir)
+            applicationDir := pin.Value
+        }
+        if(applicationName is String) {
+            pin := BSTR.Alloc(applicationName)
+            applicationName := pin.Value
+        }
+        if(assemblyName is String) {
+            pin := BSTR.Alloc(assemblyName)
+            assemblyName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", applicationDir, "ptr", applicationName, "ptr", assemblyName, "ptr*", &pModules := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", applicationDir, "ptr", applicationName, "ptr", assemblyName, "ptr*", &pModules := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pModules
     }
 }

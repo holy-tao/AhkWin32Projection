@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The EXTCONN (objidlbase.h) enumeration specifies the type of external connection existing on an embedded object.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-extconn
+ * The EXTCONN enumeration (objidl.h) specifies the type of external connection existing on an embedded object.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-extconn
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

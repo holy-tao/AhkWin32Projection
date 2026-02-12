@@ -5,7 +5,7 @@
  * Contains an array of currency values that are used to describe a property of type PT_MV_CURRENCY.
  * @remarks
  * For information about PT_MV_CURRENCY, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scurrencyarray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/scurrencyarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

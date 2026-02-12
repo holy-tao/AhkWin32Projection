@@ -3,7 +3,7 @@
 
 /**
  * Represents the licensing status. (SLLICENSINGSTATUS)
- * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sllicensingstatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/slpublic/ne-slpublic-sllicensingstatus
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

@@ -10,7 +10,7 @@
  *         value 255 could only take 1).
  *         This structure provides a way to indicate textual content in xml without physically representing it as the characters
  *         that comprise that value.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_text
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_text
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

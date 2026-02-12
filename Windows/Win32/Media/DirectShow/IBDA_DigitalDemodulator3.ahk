@@ -48,7 +48,11 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
      * @returns {HRESULT} 
      */
     put_SignalTimeouts(pSignalTimeouts) {
-        result := ComCall(25, this, "ptr", pSignalTimeouts, "HRESULT")
+        result := ComCall(25, this, "ptr", pSignalTimeouts, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +62,11 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
      * @returns {HRESULT} 
      */
     get_SignalTimeouts(pSignalTimeouts) {
-        result := ComCall(26, this, "ptr", pSignalTimeouts, "HRESULT")
+        result := ComCall(26, this, "ptr", pSignalTimeouts, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +78,11 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
     put_PLPNumber(pPLPNumber) {
         pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(27, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
+        result := ComCall(27, this, pPLPNumberMarshal, pPLPNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +94,11 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
     get_PLPNumber(pPLPNumber) {
         pPLPNumberMarshal := pPLPNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, pPLPNumberMarshal, pPLPNumber, "HRESULT")
+        result := ComCall(28, this, pPLPNumberMarshal, pPLPNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Currently, this interface contains no methods other than those inherited from ITextRange2.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextselection2
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/nn-tom-itextselection2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

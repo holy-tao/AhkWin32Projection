@@ -5,7 +5,7 @@
  * Defines the possible states of a rule.
  * @remarks
  * You cannot set <b>FsrmRuleFlags_Invalid</b>; this flag is used by FSRM.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmruleflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmenums/ne-fsrmenums-fsrmruleflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

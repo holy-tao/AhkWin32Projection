@@ -34,7 +34,11 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDesiredSize(pSize) {
-        result := ComCall(3, this, "ptr", pSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRects(pSrc, pDest, pClip) {
-        result := ComCall(4, this, "ptr", pSrc, "ptr", pDest, "ptr", pClip, "HRESULT")
+        result := ComCall(4, this, "ptr", pSrc, "ptr", pDest, "ptr", pClip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +66,11 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRects(pSrc, pDest, pClip) {
-        result := ComCall(5, this, "ptr", pSrc, "ptr", pDest, "ptr", pClip, "HRESULT")
+        result := ComCall(5, this, "ptr", pSrc, "ptr", pDest, "ptr", pClip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     SetWindowless(fWindowless) {
-        result := ComCall(6, this, "int", fWindowless, "HRESULT")
+        result := ComCall(6, this, "int", fWindowless, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class IWMPNodeRealEstate extends IUnknown{
     GetWindowless(pfWindowless) {
         pfWindowlessMarshal := pfWindowless is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pfWindowlessMarshal, pfWindowless, "HRESULT")
+        result := ComCall(7, this, pfWindowlessMarshal, pfWindowless, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class IWMPNodeRealEstate extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFullScreen(fFullScreen) {
-        result := ComCall(8, this, "int", fFullScreen, "HRESULT")
+        result := ComCall(8, this, "int", fFullScreen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +126,11 @@ class IWMPNodeRealEstate extends IUnknown{
     GetFullScreen(pfFullScreen) {
         pfFullScreenMarshal := pfFullScreen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pfFullScreenMarshal, pfFullScreen, "HRESULT")
+        result := ComCall(9, this, pfFullScreenMarshal, pfFullScreen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

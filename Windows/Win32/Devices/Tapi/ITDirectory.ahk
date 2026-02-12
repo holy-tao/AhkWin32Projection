@@ -8,7 +8,7 @@
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.
- * @see https://docs.microsoft.com/windows/win32/api//rend/nn-rend-itdirectory
+ * @see https://learn.microsoft.com/windows/win32/api//content/rend/nn-rend-itdirectory
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -65,41 +65,60 @@ class ITDirectory extends IDispatch{
     /**
      * The get_DirectoryType method gets DIRECTORY_TYPE indicator of the type of the directory.
      * @returns {Integer} Pointer to type of the directory.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-get_directorytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-get_directorytype
      */
     get_DirectoryType() {
-        result := ComCall(7, this, "int*", &pDirectoryType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pDirectoryType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDirectoryType
     }
 
     /**
      * The get_DisplayName method gets displayable name for directory.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>pName</i> parameter.
      * @returns {BSTR} Pointer to a <b>BSTR</b> representation of the directory name.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-get_displayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-get_displayname
      */
     get_DisplayName() {
         pName := BSTR()
-        result := ComCall(8, this, "ptr", pName, "HRESULT")
+        result := ComCall(8, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pName
     }
 
     /**
      * The get_IsDynamic method gets an indicator of whether the object on the server needs to be refreshed.
      * @returns {VARIANT_BOOL} Pointer to a Boolean <b>VARIANT</b>; VARIANT_TRUE if server needs to be refreshed and VARIANT_FALSE if it does not.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-get_isdynamic
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-get_isdynamic
      */
     get_IsDynamic() {
-        result := ComCall(9, this, "short*", &pfDynamic := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &pfDynamic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfDynamic
     }
 
     /**
      * The get_DefaultObjectTTL method gets the default time to live (TTL) value, in seconds, for objects created. Only applies to dynamic servers.
      * @returns {Integer} Pointer to TTL value, in seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-get_defaultobjectttl
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-get_defaultobjectttl
      */
     get_DefaultObjectTTL() {
-        result := ComCall(10, this, "int*", &pTTL := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pTTL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTTL
     }
 
@@ -169,10 +188,14 @@ class ITDirectory extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-put_defaultobjectttl
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-put_defaultobjectttl
      */
     put_DefaultObjectTTL(TTL) {
-        result := ComCall(11, this, "int", TTL, "HRESULT")
+        result := ComCall(11, this, "int", TTL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -242,15 +265,23 @@ class ITDirectory extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-enableautorefresh
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-enableautorefresh
      */
     EnableAutoRefresh(fEnable) {
-        result := ComCall(12, this, "short", fEnable, "HRESULT")
+        result := ComCall(12, this, "short", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Connect method establishes a connection to the directory server.
+     * @remarks
+     * The 
+     * <b>Connect</b> method must be successfully called before any other function except 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-get_directorytype">get_DirectoryType</a>.
      * @param {VARIANT_BOOL} fSecure Boolean indicator of whether to use SSL connection.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -289,20 +320,33 @@ class ITDirectory extends IDispatch{
      * </td>
      * <td width="60%">
      * The server name is <b>NULL</b>, probably because 
-     * <a href="/windows/desktop/Tapi/itconferenceblob-init">ITConferenceBlob::Init</a> has not been run or did not succeed.
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/itconferenceblob-init">ITConferenceBlob::Init</a> has not been run or did not succeed.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-connect
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-connect
      */
     Connect(fSecure) {
-        result := ComCall(13, this, "short", fSecure, "HRESULT")
+        result := ComCall(13, this, "short", fSecure, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Bind method binds to the server.
+     * @remarks
+     * The input variables <i>pDomainName</i>, <i>pUserName</i>, and <i>pPassword</i> can be <b>NULL</b>.
+     * 
+     * Calling this function is optional. However, some directory operations require the user to be authenticated first. It is always safe to call 
+     * <b>Bind</b>.
+     * 
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDomainName</i>, <i>pUserName</i>, and <i>pPassword</i> parameters. The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variables are no longer needed.
      * @param {BSTR} pDomainName Pointer to a <b>BSTR</b> containing the user's domain name.
      * @param {BSTR} pUserName Pointer to a <b>BSTR</b> containing the user's name.
      * @param {BSTR} pPassword Pointer to a <b>BSTR</b> containing the user's password.
@@ -355,19 +399,32 @@ class ITDirectory extends IDispatch{
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-bind
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-bind
      */
     Bind(pDomainName, pUserName, pPassword, lFlags) {
-        pDomainName := pDomainName is String ? BSTR.Alloc(pDomainName).Value : pDomainName
-        pUserName := pUserName is String ? BSTR.Alloc(pUserName).Value : pUserName
-        pPassword := pPassword is String ? BSTR.Alloc(pPassword).Value : pPassword
+        if(pDomainName is String) {
+            pin := BSTR.Alloc(pDomainName)
+            pDomainName := pin.Value
+        }
+        if(pUserName is String) {
+            pin := BSTR.Alloc(pUserName)
+            pUserName := pin.Value
+        }
+        if(pPassword is String) {
+            pin := BSTR.Alloc(pPassword)
+            pPassword := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", pDomainName, "ptr", pUserName, "ptr", pPassword, "int", lFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", pDomainName, "ptr", pUserName, "ptr", pPassword, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -411,7 +468,7 @@ class ITDirectory extends IDispatch{
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
      * 
      * </td>
      * </tr>
@@ -427,15 +484,25 @@ class ITDirectory extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-adddirectoryobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-adddirectoryobject
      */
     AddDirectoryObject(pDirectoryObject) {
-        result := ComCall(15, this, "ptr", pDirectoryObject, "HRESULT")
+        result := ComCall(15, this, "ptr", pDirectoryObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ModifyDirectoryObject method commits directory modifications to the server.
+     * @remarks
+     * Changes made to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> will not take effect on the server until this method is called.
+     * 
+     * Some attributes cannot be modified, and an attempt to modify them will fail. For an example, see the Remarks section of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectoryobjectuser-put_ipphoneprimary">ITDirectoryObjectUser::put_IPPhonePrimary</a>.
      * @param {ITDirectoryObject} pDirectoryObject Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> modified.
      * @returns {HRESULT} This method can return one of these values.
@@ -475,7 +542,7 @@ class ITDirectory extends IDispatch{
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
      * 
      * </td>
      * </tr>
@@ -491,10 +558,14 @@ class ITDirectory extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-modifydirectoryobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-modifydirectoryobject
      */
     ModifyDirectoryObject(pDirectoryObject) {
-        result := ComCall(16, this, "ptr", pDirectoryObject, "HRESULT")
+        result := ComCall(16, this, "ptr", pDirectoryObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -539,20 +610,26 @@ class ITDirectory extends IDispatch{
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-refreshdirectoryobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-refreshdirectoryobject
      */
     RefreshDirectoryObject(pDirectoryObject) {
-        result := ComCall(17, this, "ptr", pDirectoryObject, "HRESULT")
+        result := ComCall(17, this, "ptr", pDirectoryObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The DeleteDirectoryObject method deletes an object from the server.
+     * @remarks
+     * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
      * @param {ITDirectoryObject} pDirectoryObject Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> that will be deleted from the directory.
      * @returns {HRESULT} This method can return one of these values.
@@ -592,7 +669,7 @@ class ITDirectory extends IDispatch{
      * </td>
      * <td width="60%">
      * The 
-     * <a href="/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-connect">ITDirectory::Connect</a> method has not been invoked or did not succeed.
      * 
      * </td>
      * </tr>
@@ -608,44 +685,78 @@ class ITDirectory extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-deletedirectoryobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-deletedirectoryobject
      */
     DeleteDirectoryObject(pDirectoryObject) {
-        result := ComCall(18, this, "ptr", pDirectoryObject, "HRESULT")
+        result := ComCall(18, this, "ptr", pDirectoryObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_DirectoryObjects method gets the collection of objects in a given directory that matches certain criteria. This method performs the same function as EnumerateDirectoryObjects but is used by Visual Basic and other scripting languages.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pName</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> interface returned by <b>ITDirectory::get_DirectoryObjects</b>. The application must call <b>Release</b> on the 
+     * <b>ITDirectoryObject</b> interface to free resources associated with it.
      * @param {Integer} DirectoryObjectType The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_object_type">DIRECTORY_OBJECT_TYPE</a> criteria for object desired.
      * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the full or partial name of the object. The "*" wildcard is supported.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> objects in the server that match the description.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-get_directoryobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-get_directoryobjects
      */
     get_DirectoryObjects(DirectoryObjectType, pName) {
-        pName := pName is String ? BSTR.Alloc(pName).Value : pName
+        if(pName is String) {
+            pin := BSTR.Alloc(pName)
+            pName := pin.Value
+        }
 
         pVariant := VARIANT()
-        result := ComCall(19, this, "int", DirectoryObjectType, "ptr", pName, "ptr", pVariant, "HRESULT")
+        result := ComCall(19, this, "int", DirectoryObjectType, "ptr", pName, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
     /**
      * The EnumerateDirectoryObjects method creates an enumeration of directory objects of a given type and name.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pName</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdirectoryobject">IEnumDirectoryObject</a> interface returned by <b>ITDirectory::EnumerateDirectoryObjects</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumDirectoryObject</b> interface to free resources associated with it.
      * @param {Integer} DirectoryObjectType The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_object_type">DIRECTORY_OBJECT_TYPE</a> criteria for object desired.
      * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the full or partial name of the object. The "*" wildcard is supported.
      * @returns {IEnumDirectoryObject} Pointer to receive 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdirectoryobject">IEnumDirectoryObject</a> interface pointer for the enumerator of matching objects.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectory-enumeratedirectoryobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectory-enumeratedirectoryobjects
      */
     EnumerateDirectoryObjects(DirectoryObjectType, pName) {
-        pName := pName is String ? BSTR.Alloc(pName).Value : pName
+        if(pName is String) {
+            pin := BSTR.Alloc(pName)
+            pName := pin.Value
+        }
 
-        result := ComCall(20, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", &ppEnumObject := 0, "HRESULT")
+        result := ComCall(20, this, "int", DirectoryObjectType, "ptr", pName, "ptr*", &ppEnumObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDirectoryObject(ppEnumObject)
     }
 }

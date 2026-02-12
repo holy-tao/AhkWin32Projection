@@ -32,11 +32,15 @@ class ICorProfilerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @returns {Pointer} 
      */
-    GetClassFromObject(objectId) {
-        result := ComCall(3, this, "ptr", objectId, "ptr*", &pClassId := 0, "HRESULT")
+    GetClassFromObject(objectId_) {
+        result := ComCall(3, this, "ptr", objectId_, "ptr*", &pClassId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pClassId
     }
 
@@ -47,7 +51,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {Pointer} 
      */
     GetClassFromToken(moduleId, typeDef) {
-        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, "ptr*", &pClassId := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, "ptr*", &pClassId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pClassId
     }
 
@@ -62,7 +70,11 @@ class ICorProfilerInfo extends IUnknown{
         pStartMarshal := pStart is VarRef ? "ptr*" : "ptr"
         pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", functionId, pStartMarshal, pStart, pcSizeMarshal, pcSize, "HRESULT")
+        result := ComCall(5, this, "ptr", functionId, pStartMarshal, pStart, pcSizeMarshal, pcSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +83,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {Integer} 
      */
     GetEventMask() {
-        result := ComCall(6, this, "uint*", &pdwEvents := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwEvents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwEvents
     }
 
@@ -83,7 +99,11 @@ class ICorProfilerInfo extends IUnknown{
     GetFunctionFromIP(ip) {
         ipMarshal := ip is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, ipMarshal, ip, "ptr*", &pFunctionId := 0, "HRESULT")
+        result := ComCall(7, this, ipMarshal, ip, "ptr*", &pFunctionId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFunctionId
     }
 
@@ -94,7 +114,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {Pointer} 
      */
     GetFunctionFromToken(moduleId, token) {
-        result := ComCall(8, this, "ptr", moduleId, "uint", token, "ptr*", &pFunctionId := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", moduleId, "uint", token, "ptr*", &pFunctionId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFunctionId
     }
 
@@ -105,17 +129,25 @@ class ICorProfilerInfo extends IUnknown{
      */
     GetHandleFromThread(threadId) {
         phThread := HANDLE()
-        result := ComCall(9, this, "ptr", threadId, "ptr", phThread, "HRESULT")
+        result := ComCall(9, this, "ptr", threadId, "ptr", phThread, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phThread
     }
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @returns {Integer} 
      */
-    GetObjectSize(objectId) {
-        result := ComCall(10, this, "ptr", objectId, "uint*", &pcSize := 0, "HRESULT")
+    GetObjectSize(objectId_) {
+        result := ComCall(10, this, "ptr", objectId_, "uint*", &pcSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcSize
     }
 
@@ -132,17 +164,26 @@ class ICorProfilerInfo extends IUnknown{
         pBaseClassIdMarshal := pBaseClassId is VarRef ? "ptr*" : "ptr"
         pcRankMarshal := pcRank is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", classId, pBaseElemTypeMarshal, pBaseElemType, pBaseClassIdMarshal, pBaseClassId, pcRankMarshal, pcRank, "HRESULT")
+        result := ComCall(11, this, "ptr", classId, pBaseElemTypeMarshal, pBaseElemType, pBaseClassIdMarshal, pBaseClassId, pcRankMarshal, pcRank, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves information about the specified thread. (GetThreadInformation)
      * @param {Pointer} threadId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getthreadinformation
      */
     GetThreadInfo(threadId) {
-        result := ComCall(12, this, "ptr", threadId, "uint*", &pdwWin32ThreadId := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", threadId, "uint*", &pdwWin32ThreadId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwWin32ThreadId
     }
 
@@ -151,7 +192,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {Pointer} 
      */
     GetCurrentThreadID() {
-        result := ComCall(13, this, "ptr*", &pThreadId := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &pThreadId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pThreadId
     }
 
@@ -166,7 +211,11 @@ class ICorProfilerInfo extends IUnknown{
         pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
         pTypeDefTokenMarshal := pTypeDefToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, "HRESULT")
+        result := ComCall(14, this, "ptr", classId, pModuleIdMarshal, pModuleId, pTypeDefTokenMarshal, pTypeDefToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +232,11 @@ class ICorProfilerInfo extends IUnknown{
         pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
         pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", functionId, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "HRESULT")
+        result := ComCall(15, this, "ptr", functionId, pClassIdMarshal, pClassId, pModuleIdMarshal, pModuleId, pTokenMarshal, pToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +246,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventMask(dwEvents) {
-        result := ComCall(16, this, "uint", dwEvents, "HRESULT")
+        result := ComCall(16, this, "uint", dwEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -209,7 +266,11 @@ class ICorProfilerInfo extends IUnknown{
         pFuncLeaveMarshal := pFuncLeave is VarRef ? "ptr*" : "ptr"
         pFuncTailcallMarshal := pFuncTailcall is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, pFuncEnterMarshal, pFuncEnter, pFuncLeaveMarshal, pFuncLeave, pFuncTailcallMarshal, pFuncTailcall, "HRESULT")
+        result := ComCall(17, this, pFuncEnterMarshal, pFuncEnter, pFuncLeaveMarshal, pFuncLeave, pFuncTailcallMarshal, pFuncTailcall, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,7 +282,11 @@ class ICorProfilerInfo extends IUnknown{
     SetFunctionIDMapper(pFunc) {
         pFuncMarshal := pFunc is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, pFuncMarshal, pFunc, "HRESULT")
+        result := ComCall(18, this, pFuncMarshal, pFunc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,19 +301,48 @@ class ICorProfilerInfo extends IUnknown{
     GetTokenAndMetaDataFromFunction(functionId, riid, ppImport, pToken) {
         pTokenMarshal := pToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", functionId, "ptr", riid, "ptr*", ppImport, pTokenMarshal, pToken, "HRESULT")
+        result := ComCall(19, this, "ptr", functionId, "ptr", riid, "ptr*", ppImport, pTokenMarshal, pToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves information about the specified module in the MODULEINFO structure.
+     * @remarks
+     * To get information for the calling process, pass the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a>.
      * 
+     * The <b>GetModuleInformation</b> function does not retrieve information for modules that were loaded with the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
+     * 
+     * Starting with Windows 7 and Windows Server 2008 R2, Psapi.h establishes 
+     *     version numbers for the PSAPI functions. The PSAPI version number affects the name used to call the function and 
+     *     the library that a program must load.
+     * 
+     * If <b>PSAPI_VERSION</b> is 2 or greater, this function is defined as 
+     *     <b>K32GetModuleInformation</b> in Psapi.h and exported in 
+     *     Kernel32.lib and Kernel32.dll. If <b>PSAPI_VERSION</b> is 1, this 
+     *     function is defined as K32GetModuleInformation in 
+     *     Psapi.h and exported in Psapi.lib and Psapi.dll as a wrapper that calls 
+     *     <b>K32GetModuleInformation</b>. 
+     * 
+     * Programs that must run on earlier versions of Windows as 
+     *     well as Windows 7 and later versions should always call this function as 
+     *     K32GetModuleInformation. To ensure correct resolution of symbols, 
+     *     add Psapi.lib to the <b>TARGETLIBS</b> macro and compile the program with 
+     *     <b>-DPSAPI_VERSION=1</b>. To use run-time dynamic linking, load Psapi.dll.
      * @param {Pointer} moduleId 
      * @param {Pointer<Pointer<Integer>>} ppBaseLoadAddress 
      * @param {Integer} cchName 
      * @param {Pointer<Integer>} pcchName 
      * @param {PWSTR} szName 
      * @param {Pointer<Pointer>} pAssemblyId 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmoduleinformation
      */
     GetModuleInfo(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -257,7 +351,11 @@ class ICorProfilerInfo extends IUnknown{
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
         pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
+        result := ComCall(20, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +367,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {IUnknown} 
      */
     GetModuleMetaData(moduleId, dwOpenFlags, riid) {
-        result := ComCall(21, this, "ptr", moduleId, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppOut := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", moduleId, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppOut)
     }
 
@@ -285,7 +387,11 @@ class ICorProfilerInfo extends IUnknown{
         ppMethodHeaderMarshal := ppMethodHeader is VarRef ? "ptr*" : "ptr"
         pcbMethodSizeMarshal := pcbMethodSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, ppMethodHeaderMarshal, ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
+        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, ppMethodHeaderMarshal, ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -295,7 +401,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {IMethodMalloc} 
      */
     GetILFunctionBodyAllocator(moduleId) {
-        result := ComCall(23, this, "ptr", moduleId, "ptr*", &ppMalloc := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", moduleId, "ptr*", &ppMalloc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMethodMalloc(ppMalloc)
     }
 
@@ -309,7 +419,11 @@ class ICorProfilerInfo extends IUnknown{
     SetILFunctionBody(moduleId, methodid, pbNewILMethodHeader) {
         pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(24, this, "ptr", moduleId, "uint", methodid, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
+        result := ComCall(24, this, "ptr", moduleId, "uint", methodid, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -328,7 +442,11 @@ class ICorProfilerInfo extends IUnknown{
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
         pProcessIdMarshal := pProcessId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(25, this, "ptr", appDomainId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pProcessIdMarshal, pProcessId, "HRESULT")
+        result := ComCall(25, this, "ptr", appDomainId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pProcessIdMarshal, pProcessId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -349,7 +467,11 @@ class ICorProfilerInfo extends IUnknown{
         pAppDomainIdMarshal := pAppDomainId is VarRef ? "ptr*" : "ptr"
         pModuleIdMarshal := pModuleId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(26, this, "ptr", assemblyId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAppDomainIdMarshal, pAppDomainId, pModuleIdMarshal, pModuleId, "HRESULT")
+        result := ComCall(26, this, "ptr", assemblyId, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAppDomainIdMarshal, pAppDomainId, pModuleIdMarshal, pModuleId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -359,7 +481,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFunctionReJIT(functionId) {
-        result := ComCall(27, this, "ptr", functionId, "HRESULT")
+        result := ComCall(27, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -368,7 +494,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     ForceGC() {
-        result := ComCall(28, this, "HRESULT")
+        result := ComCall(28, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -381,7 +511,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SetILInstrumentedCodeMap(functionId, fStartJit, cILMapEntries, rgILMapEntries) {
-        result := ComCall(29, this, "ptr", functionId, "int", fStartJit, "uint", cILMapEntries, "ptr", rgILMapEntries, "HRESULT")
+        result := ComCall(29, this, "ptr", functionId, "int", fStartJit, "uint", cILMapEntries, "ptr", rgILMapEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -390,7 +524,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {IUnknown} 
      */
     GetInprocInspectionInterface() {
-        result := ComCall(30, this, "ptr*", &ppicd := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &ppicd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppicd)
     }
 
@@ -399,18 +537,32 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {IUnknown} 
      */
     GetInprocInspectionIThisThread() {
-        result := ComCall(31, this, "ptr*", &ppicd := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &ppicd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppicd)
     }
 
     /**
      * Retrieves the context of the specified thread.
+     * @remarks
+     * This function is used to retrieve the thread context of the specified thread. The function retrieves a selective context based on the value of the **ContextFlags** member of the context structure. The thread identified by the *hThread* parameter is typically being debugged, but the function can also operate when the thread is not being debugged.
+     * 
+     * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
+     * 
+     * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
      * @param {Pointer} threadId 
      * @returns {Pointer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId) {
-        result := ComCall(32, this, "ptr", threadId, "ptr*", &pContextId := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", threadId, "ptr*", &pContextId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pContextId
     }
 
@@ -420,7 +572,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {Integer} 
      */
     BeginInprocDebugging(fThisThreadOnly) {
-        result := ComCall(33, this, "int", fThisThreadOnly, "uint*", &pdwProfilerContext := 0, "HRESULT")
+        result := ComCall(33, this, "int", fThisThreadOnly, "uint*", &pdwProfilerContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwProfilerContext
     }
 
@@ -430,7 +586,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     EndInprocDebugging(dwProfilerContext) {
-        result := ComCall(34, this, "uint", dwProfilerContext, "HRESULT")
+        result := ComCall(34, this, "uint", dwProfilerContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -445,7 +605,11 @@ class ICorProfilerInfo extends IUnknown{
     GetILToNativeMapping(functionId, cMap, pcMap, map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(35, this, "ptr", functionId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
+        result := ComCall(35, this, "ptr", functionId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

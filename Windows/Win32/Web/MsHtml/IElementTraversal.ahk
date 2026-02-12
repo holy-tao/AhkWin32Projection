@@ -69,7 +69,11 @@ class IElementTraversal extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_firstElementChild() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -78,7 +82,11 @@ class IElementTraversal extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_lastElementChild() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -87,7 +95,11 @@ class IElementTraversal extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_previousElementSibling() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -96,7 +108,11 @@ class IElementTraversal extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_nextElementSibling() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -105,7 +121,11 @@ class IElementTraversal extends IDispatch{
      * @returns {Integer} 
      */
     get_childElementCount() {
-        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

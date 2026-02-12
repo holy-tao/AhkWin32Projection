@@ -5,7 +5,7 @@
 
 /**
  * Used by the Microsoft Media Foundation proxy/stub DLL to marshal certain asynchronous method calls across process boundaries.Applications do not use or implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfremoteasynccallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imfremoteasynccallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,14 +31,18 @@ class IMFRemoteAsyncCallback extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
+     * Used by the Microsoft Media Foundation proxy/stub DLL to marshal certain asynchronous method calls across process boundaries.Applications do not use or implement this interface.
      * @param {HRESULT} hr 
      * @param {IUnknown} pRemoteResult 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfremoteasynccallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imfremoteasynccallback
      */
     Invoke(hr, pRemoteResult) {
-        result := ComCall(3, this, "int", hr, "ptr", pRemoteResult, "HRESULT")
+        result := ComCall(3, this, "int", hr, "ptr", pRemoteResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

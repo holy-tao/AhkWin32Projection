@@ -38,7 +38,11 @@ class IDirectMusicThru extends IUnknown{
      * @returns {HRESULT} 
      */
     ThruChannel(dwSourceChannelGroup, dwSourceChannel, dwDestinationChannelGroup, dwDestinationChannel, pDestinationPort) {
-        result := ComCall(3, this, "uint", dwSourceChannelGroup, "uint", dwSourceChannel, "uint", dwDestinationChannelGroup, "uint", dwDestinationChannel, "ptr", pDestinationPort, "HRESULT")
+        result := ComCall(3, this, "uint", dwSourceChannelGroup, "uint", dwSourceChannel, "uint", dwDestinationChannelGroup, "uint", dwDestinationChannel, "ptr", pDestinationPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

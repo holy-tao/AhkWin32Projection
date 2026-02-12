@@ -8,15 +8,12 @@
 /**
  * Contains a collection of IInkDivisionUnit objects that are contained in an IInkDivisionResult object.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nf-msinkaut15-iinkdivisionresult-resultbytype">ResultByType</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionresult">IInkDivisionResult</a> object returns the requested structural elements of the analysis results in a <b>DivisionUnits</b> collection.
  * 
  * For more information about collections in Automation, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nn-msinkaut15-iinkdivisionunits
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut15/nn-msinkaut15-iinkdivisionunits
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -56,12 +53,16 @@ class IInkDivisionUnits extends IDispatch{
     }
 
     /**
-     * Gets the number of objects or collections contained in a collection.
+     * Gets the number of objects or collections contained in a collection. (IInkDivisionUnits.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nf-msinkaut15-iinkdivisionunits-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut15/nf-msinkaut15-iinkdivisionunits-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
@@ -70,18 +71,28 @@ class IInkDivisionUnits extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(_NewEnum)
     }
 
     /**
      * Retrieves the IInkDivisionUnit object at the specified index within the IInkDivisionUnits collection.
+     * @remarks
+     * An error occurs if the index doesn't match any existing member of the collection.
      * @param {Integer} Index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunit">IInkDivisionUnit</a> object to get.
      * @returns {IInkDivisionUnit} When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunit">IInkDivisionUnit</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunits">IInkDivisionUnits</a> collection.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nf-msinkaut15-iinkdivisionunits-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut15/nf-msinkaut15-iinkdivisionunits-item
      */
     Item(Index) {
-        result := ComCall(9, this, "int", Index, "ptr*", &InkDivisionUnit := 0, "HRESULT")
+        result := ComCall(9, this, "int", Index, "ptr*", &InkDivisionUnit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkDivisionUnit(InkDivisionUnit)
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Enables a client application to retrieve information about an item (cell) in a spreadsheet.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationspreadsheetitempattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationspreadsheetitempattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -49,11 +49,15 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
     /**
      * Retrieves the formula for this cell.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_currentformula
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_currentformula
      */
     get_CurrentFormula() {
         retVal := BSTR()
-        result := ComCall(3, this, "ptr", retVal, "HRESULT")
+        result := ComCall(3, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
@@ -62,33 +66,45 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives the array of annotation elements for this spreadsheet cell.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationobjects
      */
     GetCurrentAnnotationObjects() {
-        result := ComCall(4, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
     /**
-     * Retrieves an array of annotation type identifiers indicating the types of annotations that are associated with this spreadsheet cell.
+     * Retrieves an array of annotation type identifiers indicating the types of annotations that are associated with this spreadsheet cell. (IUIAutomationSpreadsheetItemPattern.GetCurrentAnnotationTypes)
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives the array of annotation type identifiers. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">Annotation Type Identifiers</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationtypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationtypes
      */
     GetCurrentAnnotationTypes() {
-        result := ComCall(5, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the cached formula for this cell.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_cachedformula
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_cachedformula
      */
     get_CachedFormula() {
         retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        result := ComCall(6, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
@@ -97,10 +113,14 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives the cached array of annotation elements for this spreadsheet cell.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationobjects
      */
     GetCachedAnnotationObjects() {
-        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
@@ -109,10 +129,14 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives the cached array of annotation type identifiers. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">Annotation Type Identifiers</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationtypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationtypes
      */
     GetCachedAnnotationTypes() {
-        result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

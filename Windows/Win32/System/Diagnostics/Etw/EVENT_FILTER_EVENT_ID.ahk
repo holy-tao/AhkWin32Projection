@@ -12,7 +12,7 @@
  * walk filter. The **EVENT_FILTER_EVENT_ID** structure contains an array of event
  * IDs and a Boolean value that indicates if filtering is enabled or disabled for
  * the specified event IDs.
- * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_event_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntprov/ns-evntprov-event_filter_event_id
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

@@ -7,10 +7,8 @@
 /**
  * Performs a reverse conversion of a specified string.
  * @remarks
- * 
  * A reverse conversion provides the keystroke sequences required to create the specified string.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfreverseconversion
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfreverseconversion
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,14 +35,20 @@ class ITfReverseConversion extends IUnknown{
 
     /**
      * Performs a reverse conversion of the specified string.
+     * @remarks
+     * A reverse conversion provides the keystroke sequences required to create the specified string.
      * @param {PWSTR} lpstr The string to convert.
-     * @returns {ITfReverseConversionList} The result of the conversion: a list of the key strokes required to create the string specied by <i>lpstr</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversion-doreverseconversion
+     * @returns {ITfReverseConversionList} The result of the conversion: a list of the key strokes required to create the string specified by <i>lpstr</i>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreverseconversion-doreverseconversion
      */
     DoReverseConversion(lpstr) {
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
-        result := ComCall(3, this, "ptr", lpstr, "ptr*", &ppList := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", lpstr, "ptr*", &ppList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfReverseConversionList(ppList)
     }
 }

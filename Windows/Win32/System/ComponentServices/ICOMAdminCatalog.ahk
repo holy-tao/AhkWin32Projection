@@ -6,7 +6,7 @@
 
 /**
  * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.
- * @see https://docs.microsoft.com/windows/win32/api//comadmin/nn-comadmin-icomadmincatalog
+ * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nn-comadmin-icomadmincatalog
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -53,97 +53,180 @@ class ICOMAdminCatalog extends IDispatch{
 
     /**
      * Retrieves a top-level collection on the COM+ catalog.
+     * @remarks
+     * This method retrieves a top-level collection, such as the <a href="https://docs.microsoft.com/windows/desktop/cossdk/applications">Applications</a> collection, from the COM+ catalog. For related collections that are not top-level collections, such as <a href="https://docs.microsoft.com/windows/desktop/cossdk/components">Components</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icatalogcollection-getcollection">GetCollection</a> method available from the parent collection.
+     * 
+     * The catalog collection retrieved by <b>GetCollection</b> does not contain data from the catalog for items contained within the collection. Use the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icatalogcollection-populate">Populate</a> method to read in data for items in the collection.
+     * 
+     * For a complete list of collections in the COM+ catalog, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
      * @param {BSTR} bstrCollName The name of the collection to be retrieved.
      * @returns {IDispatch} The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-getcollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-getcollection
      */
     GetCollection(bstrCollName) {
-        bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
+        if(bstrCollName is String) {
+            pin := BSTR.Alloc(bstrCollName)
+            bstrCollName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppCatalogCollection)
     }
 
     /**
      * Connects to the COM+ catalog on a specified remote computer.
+     * @remarks
+     * The <b>Connect</b> method also retrieves a root collection that is bound to the remote computer. A root collection serves as a starting point to locate top-level collections and does not contain any objects or properties.
+     * 
+     * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog-getcollection">GetCollection</a> method to get a top-level collection on the local computer without first using the <b>Connect</b> method.
+     * 
+     * When you use the <b>Connect</b> method, the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icomadmincatalog">ICOMAdminCatalog</a> interface you are holding works on the computer to which you have connected.
      * @param {BSTR} bstrCatalogServerName The name of the remote computer. To connect to the local computer, use an empty string.
      * @returns {IDispatch} The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface for the root collection on the remote computer.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-connect
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-connect
      */
     Connect(bstrCatalogServerName) {
-        bstrCatalogServerName := bstrCatalogServerName is String ? BSTR.Alloc(bstrCatalogServerName).Value : bstrCatalogServerName
+        if(bstrCatalogServerName is String) {
+            pin := BSTR.Alloc(bstrCatalogServerName)
+            bstrCatalogServerName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrCatalogServerName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrCatalogServerName, "ptr*", &ppCatalogCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppCatalogCollection)
     }
 
     /**
      * Retrieves the major version number of the COMAdmin library.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-get_majorversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-get_majorversion
      */
     get_MajorVersion() {
-        result := ComCall(9, this, "int*", &plMajorVersion := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plMajorVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMajorVersion
     }
 
     /**
      * Retrieves the minor version number of the COMAdmin library.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-get_minorversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-get_minorversion
      */
     get_MinorVersion() {
-        result := ComCall(10, this, "int*", &plMinorVersion := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plMinorVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMinorVersion
     }
 
     /**
      * Retrieves a collection on the COM+ catalog given the key property values for all of its parent items.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icatalogobject-get_key">ICatalogObject::Key</a> property value for an item is a GUID that serves to uniquely identify it in the COM+ catalog.
+     * 
+     * The <b>GetCollectionByQuery</b> method retrieves any collection on the catalog, given the key values for all of its parent items. However, with the <a href="https://docs.microsoft.com/windows/desktop/cossdk/errorinfo">ErrorInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/cossdk/propertyinfo">PropertyInfo</a>, and <a href="https://docs.microsoft.com/windows/desktop/cossdk/relatedcollectioninfo">RelatedCollectionInfo</a> collections, this method behaves differently. If you specify any of these collections, <b>GetCollectionByQuery</b> always returns that named collection immediately relative to the <a href="https://docs.microsoft.com/windows/desktop/cossdk/root">Root</a> collection.
+     * 
+     * To get the <a href="https://docs.microsoft.com/windows/desktop/cossdk/errorinfo">ErrorInfo</a>, <a href="https://docs.microsoft.com/windows/desktop/cossdk/propertyinfo">PropertyInfo</a>, or <a href="https://docs.microsoft.com/windows/desktop/cossdk/relatedcollectioninfo">RelatedCollectionInfo</a> collection that is relative to an arbitrary collection in the catalog and not relative to the <a href="https://docs.microsoft.com/windows/desktop/cossdk/root">Root</a> collection, use the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icatalogcollection-getcollection">GetCollection</a> method from the parent collection.
+     * 
+     * For a complete list of available collections, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
      * @param {BSTR} bstrCollName The name of the collection to be retrieved.
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarQuery A reference to an array consisting of key property values for all parent items of the collection to be retrieved.
      * @returns {IDispatch} The <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nn-comadmin-icatalogcollection">ICatalogCollection</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-getcollectionbyquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-getcollectionbyquery
      */
     GetCollectionByQuery(bstrCollName, ppsaVarQuery) {
-        bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
+        if(bstrCollName is String) {
+            pin := BSTR.Alloc(bstrCollName)
+            bstrCollName := pin.Value
+        }
 
         ppsaVarQueryMarshal := ppsaVarQuery is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", &ppCatalogCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppCatalogCollection)
     }
 
     /**
      * Imports a component already registered as an in-process server into a COM+ application.
+     * @remarks
+     * Generally, this method should not be used unless you want to restrict a component to local use only. Otherwise, use the <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog-installcomponent">InstallComponent</a> method instead of <b>ImportComponent</b>. <b>InstallComponent</b> fully registers the component in the COM+ class registration database (RegDB), whereas <b>ImportComponent</b> does not, resulting in an application with limited functionality.
+     * 
+     * <b>ImportComponent</b> does not bring any interface, method, or type library information for the component into the COM+ class registration database. This behavior restricts how the component can be configured. When you attempt to export a COM+ application that has an imported component to an application proxy, the proxy contains no interface or type library information for the component and marshaling for that component fails.
      * @param {BSTR} bstrApplIDOrName The GUID or name of the application.
      * @param {BSTR} bstrCLSIDOrProgID The CLSID or ProgID for the component to import.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-importcomponent
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-importcomponent
      */
     ImportComponent(bstrApplIDOrName, bstrCLSIDOrProgID) {
-        bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
-        bstrCLSIDOrProgID := bstrCLSIDOrProgID is String ? BSTR.Alloc(bstrCLSIDOrProgID).Value : bstrCLSIDOrProgID
+        if(bstrApplIDOrName is String) {
+            pin := BSTR.Alloc(bstrApplIDOrName)
+            bstrApplIDOrName := pin.Value
+        }
+        if(bstrCLSIDOrProgID is String) {
+            pin := BSTR.Alloc(bstrCLSIDOrProgID)
+            bstrCLSIDOrProgID := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrApplIDOrName, "ptr", bstrCLSIDOrProgID, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrApplIDOrName, "ptr", bstrCLSIDOrProgID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Installs all components (COM classes) from a DLL file into a COM+ application and registers the components in the COM+ class registration database.
+     * @remarks
+     * <b>InstallComponent</b> provides full registration of components in the COM+ class registration database (RegDB) as configured components, including interface, method, type library, and proxy-stub information necessary for marshaling. 
+     * 
+     * <b>InstallComponent</b> is the recommended way to install all components into COM+ applications instead of <a href="https://docs.microsoft.com/windows/desktop/api/comadmin/nf-comadmin-icomadmincatalog-importcomponent">ICOMAdminCatalog::ImportComponent</a>.
      * @param {BSTR} bstrApplIDOrName The GUID or name of the application.
      * @param {BSTR} bstrDLL The name of the DLL file containing the component to be installed.
      * @param {BSTR} bstrTLB The name of the external type library file. If the type library file is embedded in the DLL, pass in an empty string for this parameter.
      * @param {BSTR} bstrPSDLL The name of the proxy-stub DLL file. If there is no proxy-stub DLL associated with the component, pass in an empty string for this parameter.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installcomponent
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-installcomponent
      */
     InstallComponent(bstrApplIDOrName, bstrDLL, bstrTLB, bstrPSDLL) {
-        bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
-        bstrDLL := bstrDLL is String ? BSTR.Alloc(bstrDLL).Value : bstrDLL
-        bstrTLB := bstrTLB is String ? BSTR.Alloc(bstrTLB).Value : bstrTLB
-        bstrPSDLL := bstrPSDLL is String ? BSTR.Alloc(bstrPSDLL).Value : bstrPSDLL
+        if(bstrApplIDOrName is String) {
+            pin := BSTR.Alloc(bstrApplIDOrName)
+            bstrApplIDOrName := pin.Value
+        }
+        if(bstrDLL is String) {
+            pin := BSTR.Alloc(bstrDLL)
+            bstrDLL := pin.Value
+        }
+        if(bstrTLB is String) {
+            pin := BSTR.Alloc(bstrTLB)
+            bstrTLB := pin.Value
+        }
+        if(bstrPSDLL is String) {
+            pin := BSTR.Alloc(bstrPSDLL)
+            bstrPSDLL := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrApplIDOrName, "ptr", bstrDLL, "ptr", bstrTLB, "ptr", bstrPSDLL, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrApplIDOrName, "ptr", bstrDLL, "ptr", bstrTLB, "ptr", bstrPSDLL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,12 +263,19 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-shutdownapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-shutdownapplication
      */
     ShutdownApplication(bstrApplIDOrName) {
-        bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
+        if(bstrApplIDOrName is String) {
+            pin := BSTR.Alloc(bstrApplIDOrName)
+            bstrApplIDOrName := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrApplIDOrName, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrApplIDOrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,13 +316,23 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-exportapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-exportapplication
      */
     ExportApplication(bstrApplIDOrName, bstrApplicationFile, lOptions) {
-        bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
-        bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
+        if(bstrApplIDOrName is String) {
+            pin := BSTR.Alloc(bstrApplIDOrName)
+            bstrApplIDOrName := pin.Value
+        }
+        if(bstrApplicationFile is String) {
+            pin := BSTR.Alloc(bstrApplicationFile)
+            bstrApplicationFile := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrApplIDOrName, "ptr", bstrApplicationFile, "int", lOptions, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrApplIDOrName, "ptr", bstrApplicationFile, "int", lOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -296,21 +396,42 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-installapplication
      */
     InstallApplication(bstrApplicationFile, bstrDestinationDirectory, lOptions, bstrUserId, bstrPassword, bstrRSN) {
-        bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
-        bstrDestinationDirectory := bstrDestinationDirectory is String ? BSTR.Alloc(bstrDestinationDirectory).Value : bstrDestinationDirectory
-        bstrUserId := bstrUserId is String ? BSTR.Alloc(bstrUserId).Value : bstrUserId
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
-        bstrRSN := bstrRSN is String ? BSTR.Alloc(bstrRSN).Value : bstrRSN
+        if(bstrApplicationFile is String) {
+            pin := BSTR.Alloc(bstrApplicationFile)
+            bstrApplicationFile := pin.Value
+        }
+        if(bstrDestinationDirectory is String) {
+            pin := BSTR.Alloc(bstrDestinationDirectory)
+            bstrDestinationDirectory := pin.Value
+        }
+        if(bstrUserId is String) {
+            pin := BSTR.Alloc(bstrUserId)
+            bstrUserId := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
+        if(bstrRSN is String) {
+            pin := BSTR.Alloc(bstrRSN)
+            bstrRSN := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrApplicationFile, "ptr", bstrDestinationDirectory, "int", lOptions, "ptr", bstrUserId, "ptr", bstrPassword, "ptr", bstrRSN, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrApplicationFile, "ptr", bstrDestinationDirectory, "int", lOptions, "ptr", bstrUserId, "ptr", bstrPassword, "ptr", bstrRSN, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Stops the component load balancing service if the service is currently installed.
+     * @remarks
+     * When called on a computer acting as the component load balancing (CLB) server, the <b>StopRouter</b> method stops the server from routing component activation requests to other servers in the application cluster.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -352,25 +473,35 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-stoprouter
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-stoprouter
      */
     StopRouter() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This method is obsolete.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-refreshrouter
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-refreshrouter
      */
     RefreshRouter() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Starts the component load balancing service if the service is currently installed.
+     * @remarks
+     * When called on a computer acting as the component load balancing (CLB) server, the <b>StartRouter</b> method starts up the service; subsequent component activation requests are routed across the application cluster that is defined on the router.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -412,30 +543,42 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-startrouter
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-startrouter
      */
     StartRouter() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icomadmincatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nn-comadmin-icomadmincatalog
      */
     Reserved1() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Initiates a session to do programmatic COM+ administration, access collections in the catalog, install COM+ applications and components, start and stop services, and connect to remote servers.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icomadmincatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nn-comadmin-icomadmincatalog
      */
     Reserved2() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -474,15 +617,22 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installmultiplecomponents
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-installmultiplecomponents
      */
     InstallMultipleComponents(bstrApplIDOrName, ppsaVarFileNames, ppsaVarCLSIDs) {
-        bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
+        if(bstrApplIDOrName is String) {
+            pin := BSTR.Alloc(bstrApplIDOrName)
+            bstrApplIDOrName := pin.Value
+        }
 
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
         ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(22, this, "ptr", bstrApplIDOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrApplIDOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -524,10 +674,13 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-getmultiplecomponentsinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-getmultiplecomponentsinfo
      */
     GetMultipleComponentsInfo(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDs, ppsaVarClassNames, ppsaVarFileFlags, ppsaVarComponentFlags) {
-        bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
+        if(bstrApplIdOrName is String) {
+            pin := BSTR.Alloc(bstrApplIdOrName)
+            bstrApplIdOrName := pin.Value
+        }
 
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
         ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
@@ -535,17 +688,31 @@ class ICOMAdminCatalog extends IDispatch{
         ppsaVarFileFlagsMarshal := ppsaVarFileFlags is VarRef ? "ptr*" : "ptr"
         ppsaVarComponentFlagsMarshal := ppsaVarComponentFlags is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(23, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarClassNamesMarshal, ppsaVarClassNames, ppsaVarFileFlagsMarshal, ppsaVarFileFlags, ppsaVarComponentFlagsMarshal, ppsaVarComponentFlags, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarClassNamesMarshal, ppsaVarClassNames, ppsaVarFileFlagsMarshal, ppsaVarFileFlags, ppsaVarComponentFlagsMarshal, ppsaVarComponentFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Updates component registration information from the registry.
+     * @remarks
+     * The <b>RefreshComponents</b> method is called from within the Microsoft Visual Basic 6.0 development environment when you use the <b>Auto-refresh</b> or <b>Refresh all</b> components now features from the <b>Component Services</b> submenu of the <b>Add-Ins</b> menu.
+     * 
+     * To find mismatches, <b>RefreshComponents</b> compares CLSIDs and ProgIDs between the COM+ class registration database (RegDB) and the registry. This method updates components only when there is both a mismatch between CLSIDs and a match between corresponding ProgIDs.
+     * 
+     * Only CLSID information is updated to RegDB. No interface or method information is updated. Components that are refreshed using <b>RefreshComponents</b> cannot be configured or secured at the interface or method levels within COM+ applications.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-refreshcomponents
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-refreshcomponents
      */
     RefreshComponents() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -553,12 +720,19 @@ class ICOMAdminCatalog extends IDispatch{
      * Backs up the COM+ class registration database to a specified file.
      * @param {BSTR} bstrBackupFilePath The path for the file in which the registration database is to be backed up.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-backupregdb
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-backupregdb
      */
     BackupREGDB(bstrBackupFilePath) {
-        bstrBackupFilePath := bstrBackupFilePath is String ? BSTR.Alloc(bstrBackupFilePath).Value : bstrBackupFilePath
+        if(bstrBackupFilePath is String) {
+            pin := BSTR.Alloc(bstrBackupFilePath)
+            bstrBackupFilePath := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrBackupFilePath, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrBackupFilePath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -606,12 +780,19 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-restoreregdb
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-restoreregdb
      */
     RestoreREGDB(bstrBackupFilePath) {
-        bstrBackupFilePath := bstrBackupFilePath is String ? BSTR.Alloc(bstrBackupFilePath).Value : bstrBackupFilePath
+        if(bstrBackupFilePath is String) {
+            pin := BSTR.Alloc(bstrBackupFilePath)
+            bstrBackupFilePath := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", bstrBackupFilePath, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrBackupFilePath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -624,16 +805,23 @@ class ICOMAdminCatalog extends IDispatch{
      * @param {Pointer<VARIANT_BOOL>} pbIsProxy Indicates whether the file contains an application proxy.
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames An array of names of the DLL files for the components installed in the application.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-queryapplicationfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-queryapplicationfile
      */
     QueryApplicationFile(bstrApplicationFile, pbstrApplicationName, pbstrApplicationDescription, pbHasUsers, pbIsProxy, ppsaVarFileNames) {
-        bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
+        if(bstrApplicationFile is String) {
+            pin := BSTR.Alloc(bstrApplicationFile)
+            bstrApplicationFile := pin.Value
+        }
 
         pbHasUsersMarshal := pbHasUsers is VarRef ? "short*" : "ptr"
         pbIsProxyMarshal := pbIsProxy is VarRef ? "short*" : "ptr"
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, pbHasUsersMarshal, pbHasUsers, pbIsProxyMarshal, pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, pbHasUsersMarshal, pbHasUsers, pbIsProxyMarshal, pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -641,12 +829,19 @@ class ICOMAdminCatalog extends IDispatch{
      * Starts the specified COM+ server application. The application components are launched in a dedicated server process.
      * @param {BSTR} bstrApplIdOrName The GUID or name of the application. If a GUID is used, it must be surrounded by braces.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-startapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-startapplication
      */
     StartApplication(bstrApplIdOrName) {
-        bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
+        if(bstrApplIdOrName is String) {
+            pin := BSTR.Alloc(bstrApplIdOrName)
+            bstrApplIdOrName := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", bstrApplIdOrName, "HRESULT")
+        result := ComCall(28, this, "ptr", bstrApplIdOrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -750,47 +945,84 @@ class ICOMAdminCatalog extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-servicecheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-servicecheck
      */
     ServiceCheck(lService) {
-        result := ComCall(29, this, "int", lService, "int*", &plStatus := 0, "HRESULT")
+        result := ComCall(29, this, "int", lService, "int*", &plStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatus
     }
 
     /**
      * Installs event classes from multiple files into a COM+ application.
+     * @remarks
+     * Use <b>InstallMultipleEventClasses</b> to install event classes from DLLs holding dummy implementations of the event classes. The requirements are a self-registering DLL, a type library describing the interfaces implemented by the event classes, and each event class having a CLSID and a ProgID. 
+     * 
+     * 
+     * 
+     * The dummy implementation of the interface exposed by an event class never actually runs; it exists only to register the event class. Instead, when the event class is created by the publisher, an implementation is provided by the Events system to send the event to subscribers.
      * @param {BSTR} bstrApplIdOrName The GUID or name of the application.
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarFileNames An array of the names of the DLL files that contains the event classes to be installed.
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarCLSIDS An array of CLSIDs for the event classes to be installed.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installmultipleeventclasses
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-installmultipleeventclasses
      */
     InstallMultipleEventClasses(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDS) {
-        bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
+        if(bstrApplIdOrName is String) {
+            pin := BSTR.Alloc(bstrApplIdOrName)
+            bstrApplIdOrName := pin.Value
+        }
 
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
         ppsaVarCLSIDSMarshal := ppsaVarCLSIDS is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(30, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDSMarshal, ppsaVarCLSIDS, "HRESULT")
+        result := ComCall(30, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDSMarshal, ppsaVarCLSIDS, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Installs event classes from a file into a COM+ application.
+     * @remarks
+     * Use <b>InstallEventClass</b> to install event classes from a DLL holding dummy implementations of the event classes. The requirements are a self-registering DLL, a type library describing the interfaces implemented by the event classes, and each event class having a CLSID and a ProgID.
+     * 
+     * The dummy implementation of the interface exposed by an event class never actually runs; it exists only to register the event class. Instead, when the event class is created by the publisher, an implementation is provided by the Events system to send the event to subscribers.
      * @param {BSTR} bstrApplIdOrName The GUID or name of the application.
      * @param {BSTR} bstrDLL The file name of the DLL containing the event classes to be installed.
      * @param {BSTR} bstrTLB The name of an external type library file. If the type library file is embedded in the DLL, pass in an empty string for this parameter.
      * @param {BSTR} bstrPSDLL The name of the proxy-stub DLL file. If there is no proxy-stub DLL associated with the event class, pass in an empty string for this parameter.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-installeventclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-installeventclass
      */
     InstallEventClass(bstrApplIdOrName, bstrDLL, bstrTLB, bstrPSDLL) {
-        bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
-        bstrDLL := bstrDLL is String ? BSTR.Alloc(bstrDLL).Value : bstrDLL
-        bstrTLB := bstrTLB is String ? BSTR.Alloc(bstrTLB).Value : bstrTLB
-        bstrPSDLL := bstrPSDLL is String ? BSTR.Alloc(bstrPSDLL).Value : bstrPSDLL
+        if(bstrApplIdOrName is String) {
+            pin := BSTR.Alloc(bstrApplIdOrName)
+            bstrApplIdOrName := pin.Value
+        }
+        if(bstrDLL is String) {
+            pin := BSTR.Alloc(bstrDLL)
+            bstrDLL := pin.Value
+        }
+        if(bstrTLB is String) {
+            pin := BSTR.Alloc(bstrTLB)
+            bstrTLB := pin.Value
+        }
+        if(bstrPSDLL is String) {
+            pin := BSTR.Alloc(bstrPSDLL)
+            bstrPSDLL := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", bstrApplIdOrName, "ptr", bstrDLL, "ptr", bstrTLB, "ptr", bstrPSDLL, "HRESULT")
+        result := ComCall(31, this, "ptr", bstrApplIdOrName, "ptr", bstrDLL, "ptr", bstrTLB, "ptr", bstrPSDLL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -801,16 +1033,23 @@ class ICOMAdminCatalog extends IDispatch{
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarProgIDs An array of ProgIDs for the event classes implementing the interface specified in <i>bstrIID</i>.
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarDescriptions An array of descriptions for the event classes implementing the interface specified in <i>bstrIID</i>.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icomadmincatalog-geteventclassesforiid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog-geteventclassesforiid
      */
     GetEventClassesForIID(bstrIID, ppsaVarCLSIDs, ppsaVarProgIDs, ppsaVarDescriptions) {
-        bstrIID := bstrIID is String ? BSTR.Alloc(bstrIID).Value : bstrIID
+        if(bstrIID is String) {
+            pin := BSTR.Alloc(bstrIID)
+            bstrIID := pin.Value
+        }
 
         ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
         ppsaVarProgIDsMarshal := ppsaVarProgIDs is VarRef ? "ptr*" : "ptr"
         ppsaVarDescriptionsMarshal := ppsaVarDescriptions is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(32, this, "ptr", bstrIID, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarProgIDsMarshal, ppsaVarProgIDs, ppsaVarDescriptionsMarshal, ppsaVarDescriptions, "HRESULT")
+        result := ComCall(32, this, "ptr", bstrIID, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarProgIDsMarshal, ppsaVarProgIDs, ppsaVarDescriptionsMarshal, ppsaVarDescriptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Base class for all FSRM objects.
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmobject
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -49,55 +49,80 @@ class IFsrmObject extends IDispatch{
     /**
      * Retrieves the identifier of the object.
      * @returns {Guid} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmobject-get_id
      */
     get_Id() {
         id := Guid()
-        result := ComCall(7, this, "ptr", id, "HRESULT")
+        result := ComCall(7, this, "ptr", id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return id
     }
 
     /**
-     * Retrieves or sets the description of the object.
+     * Retrieves or sets the description of the object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmobject-get_description
      */
     get_Description() {
         description := BSTR()
-        result := ComCall(8, this, "ptr", description, "HRESULT")
+        result := ComCall(8, this, "ptr", description, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return description
     }
 
     /**
-     * Retrieves or sets the description of the object.
+     * Retrieves or sets the description of the object. (Put)
      * @param {BSTR} description 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-put_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmobject-put_description
      */
     put_Description(description) {
-        description := description is String ? BSTR.Alloc(description).Value : description
+        if(description is String) {
+            pin := BSTR.Alloc(description)
+            description := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", description, "HRESULT")
+        result := ComCall(9, this, "ptr", description, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the object from the server's list of objects.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmObject::Commit</a> method to complete the delete operation.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmobject-delete
      */
     Delete() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Saves the object in the server's list of objects.
      * @returns {HRESULT} The method returns the following return values as well as others depending of the object being committed.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-commit
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmobject-commit
      */
     Commit() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

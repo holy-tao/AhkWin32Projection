@@ -44,7 +44,11 @@ class ISClusApplication extends IDispatch{
      * @returns {ISDomainNames} 
      */
     get_DomainNames() {
-        result := ComCall(7, this, "ptr*", &ppDomains := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppDomains := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISDomainNames(ppDomains)
     }
 
@@ -54,22 +58,51 @@ class ISClusApplication extends IDispatch{
      * @returns {ISClusterNames} 
      */
     get_ClusterNames(bstrDomainName) {
-        bstrDomainName := bstrDomainName is String ? BSTR.Alloc(bstrDomainName).Value : bstrDomainName
+        if(bstrDomainName is String) {
+            pin := BSTR.Alloc(bstrDomainName)
+            bstrDomainName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrDomainName, "ptr*", &ppClusters := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrDomainName, "ptr*", &ppClusters := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusterNames(ppClusters)
     }
 
     /**
-     * Opens a connection to a cluster and returns a handle to it.
+     * Opens a connection to a cluster and returns a handle to it. (OpenCluster)
+     * @remarks
+     * A cluster handle is a pointer to an internally defined structure which stores information about the RPC or LPC 
+     *      connection to the cluster. Any object handles obtained from the cluster handle will be associated with the RPC or 
+     *      LPC session data stored in the cluster structure. Combining RPC and LPC handles or using handles obtained from 
+     *      different contexts can cause exceptions or other unpredictable results. For more information, see 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/lpc-and-rpc-handles">LPC and RPC Handles</a>.
+     * 
+     * When finished with a cluster handle, it is important to call 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> to ensure that all memory is freed and the 
+     *      connection is shut down cleanly.
+     * 
+     * If the cluster is remote, the client must be running a compatible operating system. For example computers running 
+     *      Windows Server 2008 cannot call <b>OpenCluster</b> against a 
+     *      cluster running Windows Server 2016. To remotely manage these clusters, use 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover-cluster-apis-portal">the Failover Cluster WMI Provider</a>.
      * @param {BSTR} bstrClusterName 
      * @returns {ISCluster} 
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-opencluster
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-opencluster
      */
     OpenCluster(bstrClusterName) {
-        bstrClusterName := bstrClusterName is String ? BSTR.Alloc(bstrClusterName).Value : bstrClusterName
+        if(bstrClusterName is String) {
+            pin := BSTR.Alloc(bstrClusterName)
+            bstrClusterName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrClusterName, "ptr*", &pCluster := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrClusterName, "ptr*", &pCluster := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCluster(pCluster)
     }
 }

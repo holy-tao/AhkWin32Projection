@@ -8,7 +8,7 @@
  *       
  * 
  * Simple instancing means that instancing is supported with the caveat that the <b>InstanceDataStepRate</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_input_element_desc">D3D11_INPUT_ELEMENT_DESC</a> structure must be equal to 1. This does not change the full instancing support provided by hardware at feature level 9.3 and above, and is meant to expose the instancing support that may be available on feature level 9.2 and 9.1 hardware.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d9_simple_instancing_support
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_feature_data_d3d9_simple_instancing_support
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

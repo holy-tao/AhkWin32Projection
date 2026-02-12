@@ -57,7 +57,11 @@ class ISWbemNamedValue extends IDispatch{
      */
     get_Value() {
         varValue := VARIANT()
-        result := ComCall(7, this, "ptr", varValue, "HRESULT")
+        result := ComCall(7, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varValue
     }
 
@@ -67,7 +71,11 @@ class ISWbemNamedValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Value(varValue) {
-        result := ComCall(8, this, "ptr", varValue, "HRESULT")
+        result := ComCall(8, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +85,11 @@ class ISWbemNamedValue extends IDispatch{
      */
     get_Name() {
         strName := BSTR()
-        result := ComCall(9, this, "ptr", strName, "HRESULT")
+        result := ComCall(9, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strName
     }
 }

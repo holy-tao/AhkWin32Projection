@@ -36,7 +36,11 @@ class IRowsetBookmark extends IUnknown{
      * @returns {HRESULT} 
      */
     PositionOnBookmark(hChapter, cbBookmark, pBookmark) {
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, "ptr", pBookmark, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, "ptr", pBookmark, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

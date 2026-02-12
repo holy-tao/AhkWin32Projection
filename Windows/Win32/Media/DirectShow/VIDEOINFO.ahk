@@ -13,7 +13,7 @@
  * The first five data members are equivalent to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amvideo/ns-amvideo-videoinfoheader">VIDEOINFOHEADER</a> structure. They are expanded in full simply to reduce the amount of dereferencing needed when dealing with a pointer to a <b>VIDEOINFO</b> structure.
  * 
  * For information about using the <b>rcSource</b> and <b>rcTarget</b> members, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/source-and-target-rectangles-in-video-renderers">Source and Target Rectangles in Video Renderers</a>.
- * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/amvideo/ns-amvideo-videoinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

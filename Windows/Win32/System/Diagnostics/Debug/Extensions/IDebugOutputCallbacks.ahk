@@ -29,15 +29,20 @@ class IDebugOutputCallbacks extends IUnknown{
     static VTableNames => ["Output"]
 
     /**
-     * 
+     * OutputData: generates an OutputData Object that captures the information about the data frame that needs to be returned after the execution of the R function embedded into the stored procedure.
      * @param {Integer} Mask 
      * @param {PSTR} Text 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/machine-learning/r/reference/sqlrutils/outputdata
      */
     Output(Mask, Text) {
         Text := Text is String ? StrPtr(Text) : Text
 
-        result := ComCall(3, this, "uint", Mask, "ptr", Text, "HRESULT")
+        result := ComCall(3, this, "uint", Mask, "ptr", Text, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

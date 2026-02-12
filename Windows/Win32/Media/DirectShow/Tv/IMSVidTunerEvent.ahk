@@ -6,11 +6,8 @@
 /**
  * This topic applies to Windows XP or later.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidTunerEvent)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidtunerevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidtunerevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,12 +34,18 @@ class IMSVidTunerEvent extends IMSVidInputDeviceEvent{
 
     /**
      * This topic applies to Windows XP or later.
+     * @remarks
+     * The dispatch identifier (dispid) of this method is <b>eventidOnTuneChanged</b>.
      * @param {IMSVidTuner} lpd Pointer to the <b>MSVidTuner</b> object that fired the event.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidtunerevent-tunechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidtunerevent-tunechanged
      */
     TuneChanged(lpd) {
-        result := ComCall(7, this, "ptr", lpd, "HRESULT")
+        result := ComCall(7, this, "ptr", lpd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

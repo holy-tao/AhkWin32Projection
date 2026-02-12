@@ -34,7 +34,11 @@ class IActiveScriptProfilerControl4 extends IActiveScriptProfilerControl3{
      * @returns {HRESULT} 
      */
     SummarizeHeap(heapSummary) {
-        result := ComCall(9, this, "ptr", heapSummary, "HRESULT")
+        result := ComCall(9, this, "ptr", heapSummary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

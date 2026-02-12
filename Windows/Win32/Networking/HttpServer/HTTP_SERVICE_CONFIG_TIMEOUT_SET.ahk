@@ -13,7 +13,7 @@
  * When the HTTP Server API wide timeout value is set with <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpsetserviceconfiguration">HTTPSetServiceConfiguration</a>, the setting persists when the HTTP service is stopped and restarted.  The timeout value is applied to all the HTTP Server API applications on the machine.
  * 
  * The HTTP Server API timeout value is deleted by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpdeleteserviceconfiguration">HTTPDeleteServiceConfiguration</a> with the <i>ConfigId</i> parameter set to <b>HttpServiceConfigTimeout</b> and the <i>pConfigInformation</i>  parameter pointing to the <b>HTTP_SERVICE_CONFIG_TIMEOUT_SET</b> structure. When a timer value is deleted, the persistent setting goes away, and HTTP Server API uses its hardcoded defaults.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_timeout_set
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_service_config_timeout_set
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

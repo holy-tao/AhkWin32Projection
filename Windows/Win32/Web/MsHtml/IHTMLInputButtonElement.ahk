@@ -90,7 +90,11 @@ class IHTMLInputButtonElement extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -100,9 +104,16 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +123,11 @@ class IHTMLInputButtonElement extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -122,9 +137,16 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +156,11 @@ class IHTMLInputButtonElement extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -144,7 +170,11 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_status(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,7 +184,11 @@ class IHTMLInputButtonElement extends IDispatch{
      */
     get_status() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -164,7 +198,11 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(14, this, "short", v, "HRESULT")
+        result := ComCall(14, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -173,7 +211,11 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -182,7 +224,11 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {IHTMLFormElement} 
      */
     get_form() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFormElement(p)
     }
 
@@ -191,7 +237,11 @@ class IHTMLInputButtonElement extends IDispatch{
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {
-        result := ComCall(17, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLTxtRange(range)
     }
 }

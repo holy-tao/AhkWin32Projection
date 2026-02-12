@@ -33,7 +33,11 @@ class IDebuggerThreadControl extends IUnknown{
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForDebugger() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IDebuggerThreadControl extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseAllRuntimeThreads() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IDebuggerThreadControl extends IUnknown{
      * @returns {HRESULT} 
      */
     StartBlockingForDebugger(dwUnused) {
-        result := ComCall(5, this, "uint", dwUnused, "HRESULT")
+        result := ComCall(5, this, "uint", dwUnused, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

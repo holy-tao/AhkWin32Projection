@@ -5,7 +5,7 @@
 
 /**
  * This interface is derived from IAdviseSink to provide extensions for notifying the sink of changes in an object's view status.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-iadvisesinkex
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-iadvisesinkex
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IAdviseSinkEx extends IAdviseSink{
 
     /**
      * Notifies the sink that a view status of an object has changed.
+     * @remarks
+     * It is important that objects call the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iadvisesink-onviewchange">IAdviseSink:OnViewChange</a> method whenever the object's view changes even when the object is in place active. Containers rely on this notification to keep an object's view up-to-date.
      * @param {Integer} dwViewStatus The new view status. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-viewstatus">VIEWSTATUS</a> enumeration.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iadvisesinkex-onviewstatuschange
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iadvisesinkex-onviewstatuschange
      */
     OnViewStatusChange(dwViewStatus) {
         ComCall(8, this, "uint", dwViewStatus)

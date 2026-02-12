@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
@@ -57,47 +59,47 @@ class PortableDevices {
     static IOCTL_WPD_MESSAGE_READ_ACCESS => 4210952
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WPD_DEVICE_OBJECT_ID => "DEVICE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_TYPE => "PortableDeviceType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_ICON => "Icons"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_NAMESPACE_TIMEOUT => "PortableDeviceNameSpaceTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_NAMESPACE_EXCLUDE_FROM_SHELL => "PortableDeviceNameSpaceExcludeFromShell"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_NAMESPACE_THUMBNAIL_CONTENT_TYPES => "PortableDeviceNameSpaceThumbnailContentTypes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_IS_MASS_STORAGE => "PortableDeviceIsMassStorage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_DRM_SCHEME_WMDRM10_PD => "WMDRM10-PD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PORTABLE_DEVICE_DRM_SCHEME_PDDRM => "PDDRM"
 
@@ -8165,797 +8167,797 @@ class PortableDevices {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_Undefined => "Undefined"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_Association => "Association"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DeviceScript => "DeviceScript"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DeviceExecutable => "DeviceExecutable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TextDocument => "TextDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_HTMLDocument => "HTMLDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DPOFDocument => "DPOFDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AIFFFile => "AIFFFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_WAVFile => "WAVFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MP3File => "MP3File"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AVIFile => "AVIFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MPEGFile => "MPEGFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ASFFile => "ASFFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_UnknownImage => "UnknownImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_EXIFImage => "EXIFImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TIFFEPImage => "TIFFEPImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FlashPixImage => "FlashPixImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_BMPImage => "BMPImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CIFFImage => "CIFFImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GIFImage => "GIFImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_JFIFImage => "JFIFImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_PCDImage => "PCDImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_PICTImage => "PICTImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_PNGImage => "PNGImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TIFFImage => "TIFFImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TIFFITImage => "TIFFITImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_JP2Image => "JP2Image"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_JPXImage => "JPXImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FirmwareFile => "FirmwareFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_WBMPImage => "WBMPImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_JPEGXRImage => "JPEGXRImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_HDPhotoImage => "HDPhotoImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_UndefinedAudio => "UndefinedAudio"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_WMAFile => "WMAFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_OGGFile => "OGGFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AACFile => "AACFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudibleFile => "AudibleFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FLACFile => "FLACFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_QCELPFile => "QCELPFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AMRFile => "AMRFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_UndefinedVideo => "UndefinedVideo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_WMVFile => "WMVFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MPEG4File => "MPEG4File"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MPEG2File => "MPEG2File"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_3GPPFile => "3GPPFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_3GPP2File => "3GPP2File"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AVCHDFile => "AVCHDFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ATSCTSFile => "ATSCTSFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DVBTSFile => "DVBTSFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_UndefinedCollection => "UndefinedCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractMultimediaAlbum => "AbstractMultimediaAlbum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractImageAlbum => "AbstractImageAlbum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractAudioAlbum => "AbstractAudioAlbum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractVideoAlbum => "AbstractVideoAlbum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractAudioVideoAlbum => "AbstractAudioVideoAlbum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractChapteredProduction => "AbstractChapteredProduction"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractAudioPlaylist => "AbstractAudioPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractVideoPlaylist => "AbstractVideoPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractMediacast => "AbstractMediacast"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_WPLPlaylist => "WPLPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_M3UPlaylist => "M3UPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MPLPlaylist => "MPLPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ASXPlaylist => "ASXPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_PSLPlaylist => "PSLPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_UndefinedDocument => "UndefinedDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractDocument => "AbstractDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_XMLDocument => "XMLDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_WordDocument => "WordDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MHTDocument => "MHTDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ExcelDocument => "ExcelDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_PowerPointDocument => "PowerPointDocument"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ObjectID => "ObjectID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ReferenceParentID => "ReferenceParentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_StorageID => "StorageID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ObjectFormat => "ObjectFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ProtectionStatus => "ProtectionStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ObjectSize => "ObjectSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_AssociationType => "AssociationType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_AssociationDesc => "AssociationDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ObjectFileName => "ObjectFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DateCreated => "DateCreated"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DateModified => "DateModified"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_Keywords => "Keywords"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_ParentID => "ParentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_AllowedFolderContents => "AllowedFolderContents"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_Hidden => "Hidden"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_SystemObject => "SystemObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_PersistentUID => "PersistentUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_SyncID => "SyncID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_PropertyBag => "PropertyBag"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_Name => "Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Artist => "Artist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DateAuthored => "DateAuthored"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_Description => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_LanguageLocale => "LanguageLocale"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_Copyright => "Copyright"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VideoObj_Source => "Source"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_GeographicOrigin => "GeographicOrigin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DateAdded => "DateAdded"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_NonConsumable => "NonConsumable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_Corrupt => "Corrupt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Width => "Width"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Height => "Height"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Duration => "Duration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_UserRating => "UserRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Track => "Track"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Genre => "Genre"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Credits => "Credits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudioObj_Lyrics => "Lyrics"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_SubscriptionContentID => "SubscriptionContentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Producer => "Producer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_UseCount => "UseCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_SkipCount => "SkipCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DateAccessed => "DateAccessed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_ParentalRating => "ParentalRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_MediaType => "MediaType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Composer => "Composer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_EffectiveRating => "EffectiveRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Subtitle => "Subtitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_DateOriginalRelease => "DateOriginalRelease"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_AlbumName => "AlbumName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_AlbumArtist => "AlbumArtist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Mood => "Mood"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DRMStatus => "DRMStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_SubDescription => "SubDescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ImageObj_IsCropped => "IsCropped"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ImageObj_IsColorCorrected => "IsColorCorrected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ImageObj_ImageBitDepth => "ImageBitDepth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ImageObj_Aperature => "Aperature"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ImageObj_Exposure => "Exposure"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ImageObj_ISOSpeed => "ISOSpeed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Owner => "Owner"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_Editor => "Editor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_WebMaster => "WebMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_URLSource => "URLSource"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_URLLink => "URLLink"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_BookmarkTime => "BookmarkTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_BookmarkObject => "BookmarkObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_BookmarkByte => "BookmarkByte"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_DateRevised => "DateRevised"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_GenericObj_TimeToLive => "TimeToLive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_MediaUID => "MediaUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_TotalBitRate => "TotalBitRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_BitRateType => "BitRateType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_SampleRate => "SampleRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudioObj_Channels => "Channels"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudioObj_AudioBitDepth => "AudioBitDepth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudioObj_AudioBlockAlignment => "AudioBlockAlignment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VideoObj_ScanType => "ScanType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudioObj_AudioFormatCode => "AudioFormatCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AudioObj_AudioBitRate => "AudioBitRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VideoObj_VideoFormatCode => "VideoFormatCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VideoObj_VideoBitRate => "VideoBitRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VideoObj_VideoFrameRate => "VideoFrameRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VideoObj_KeyFrameDistance => "KeyFrameDistance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_BufferSize => "BufferSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_EncodingQuality => "EncodingQuality"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_EncodingProfile => "EncodingProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MediaObj_AudioEncodingProfile => "AudioEncodingProfile"
 
@@ -8975,22 +8977,22 @@ class PortableDevices {
     static DEVSVCTYPE_ABSTRACT => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_Services_ServiceDisplayName => "ServiceDisplayName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_Services_ServiceIcon => "ServiceIcon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_Services_ServiceLocale => "ServiceLocale"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarSvc => "Calendar"
 
@@ -9000,67 +9002,67 @@ class PortableDevices {
     static TYPE_CalendarSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarSvc_SyncWindowStart => "SyncWindowStart"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarSvc_SyncWindowEnd => "SyncWindowEnd"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractActivity => "AbstractActivity"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractActivityOccurrence => "AbstractActivityOccurrence"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VCalendar1Activity => "VCalendar1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ICalendarActivity => "ICalendar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_Location => "Location"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_Accepted => "Accepted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_Tentative => "Tentative"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_Declined => "Declined"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_TimeZone => "TimeZone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_ReminderOffset => "ReminderOffset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_BusyStatus => "BusyStatus"
 
@@ -9085,27 +9087,27 @@ class PortableDevices {
     static ENUM_CalendarObj_BusyStatusTentative => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_PatternStartTime => "PatternStartTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_PatternDuration => "PatternDuration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_BeginDateTime => "BeginDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_CalendarObj_EndDateTime => "EndDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_HintsSvc => "Hints"
 
@@ -9115,7 +9117,7 @@ class PortableDevices {
     static TYPE_HintsSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageSvc => "Message"
 
@@ -9125,27 +9127,27 @@ class PortableDevices {
     static TYPE_MessageSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractMessage => "AbstractMessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractMessageFolder => "AbstractMessageFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_Subject => "Subject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_Body => "Body"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_Priority => "Priority"
 
@@ -9165,32 +9167,32 @@ class PortableDevices {
     static ENUM_MessageObj_PriorityLowest => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_Category => "Category"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_Sender => "Sender"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_To => "To"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_CC => "CC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_BCC => "BCC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_Read => "Read"
 
@@ -9205,17 +9207,17 @@ class PortableDevices {
     static ENUM_MessageObj_ReadTrue => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_ReceivedTime => "ReceivedTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternOriginalDateTime => "PatternOriginalDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternType => "PatternType"
 
@@ -9240,22 +9242,22 @@ class PortableDevices {
     static ENUM_MessageObj_PatternTypeYearly => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternValidStartDate => "PatternValidStartDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternValidEndDate => "PatternValidEndDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternPeriod => "PatternPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternDayOfWeek => "PatternDayOfWeek"
 
@@ -9300,7 +9302,7 @@ class PortableDevices {
     static FLAG_MessageObj_DayOfWeekSaturday => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternDayOfMonth => "PatternDayOfMonth"
 
@@ -9320,7 +9322,7 @@ class PortableDevices {
     static RANGESTEP_MessageObj_PatternDayOfMonth => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternMonthOfYear => "PatternMonthOfYear"
 
@@ -9340,7 +9342,7 @@ class PortableDevices {
     static RANGESTEP_MessageObj_PatternMonthOfYear => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternInstance => "PatternInstance"
 
@@ -9375,12 +9377,12 @@ class PortableDevices {
     static ENUM_MessageObj_PatternInstanceLast => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_MessageObj_PatternDeleteDates => "PatternDeleteDates"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DeviceMetadataSvc => "Metadata"
 
@@ -9390,17 +9392,17 @@ class PortableDevices {
     static TYPE_DeviceMetadataSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DeviceMetadataCAB => "DeviceMetadataCAB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DeviceMetadataObj_ContentID => "ContentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_DeviceMetadataObj_DefaultCAB => "DefaultCAB"
 
@@ -9415,7 +9417,7 @@ class PortableDevices {
     static ENUM_DeviceMetadataObj_DefaultCABTrue => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_NotesSvc => "Notes"
 
@@ -9425,12 +9427,12 @@ class PortableDevices {
     static TYPE_NotesSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractNote => "AbstractNote"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc => "Status"
 
@@ -9440,7 +9442,7 @@ class PortableDevices {
     static TYPE_StatusSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_SignalStrength => "SignalStrength"
 
@@ -9460,7 +9462,7 @@ class PortableDevices {
     static RANGESTEP_StatusSvc_SignalStrength => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_TextMessages => "TextMessages"
 
@@ -9470,7 +9472,7 @@ class PortableDevices {
     static RANGEMAX_StatusSvc_TextMessages => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_NewPictures => "NewPictures"
 
@@ -9480,7 +9482,7 @@ class PortableDevices {
     static RANGEMAX_StatusSvc_NewPictures => 65535
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_MissedCalls => "MissedCalls"
 
@@ -9490,7 +9492,7 @@ class PortableDevices {
     static RANGEMAX_StatusSvc_MissedCalls => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_VoiceMail => "VoiceMail"
 
@@ -9500,17 +9502,17 @@ class PortableDevices {
     static RANGEMAX_StatusSvc_VoiceMail => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_NetworkName => "NetworkName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_NetworkType => "NetworkType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_Roaming => "Roaming"
 
@@ -9530,7 +9532,7 @@ class PortableDevices {
     static ENUM_StatusSvc_RoamingUnknown => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_BatteryLife => "BatteryLife"
 
@@ -9550,7 +9552,7 @@ class PortableDevices {
     static RANGESTEP_StatusSvc_BatteryLife => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_ChargingState => "ChargingState"
 
@@ -9570,27 +9572,27 @@ class PortableDevices {
     static ENUM_StatusSvc_ChargingUnknown => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_StorageCapacity => "StorageCapacity"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_StatusSvc_StorageFreeSpace => "StorageFreeSpace"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncSvc_SyncFormat => "SyncFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncSvc_LocalOnlyDelete => "LocalOnlyDelete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncSvc_FilterType => "FilterType"
 
@@ -9615,7 +9617,7 @@ class PortableDevices {
     static SYNCSVC_FILTER_CALENDAR_WINDOW_WITH_RECURRENCE => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncSvc_SyncObjectReferences => "SyncObjectReferences"
 
@@ -9630,22 +9632,22 @@ class PortableDevices {
     static ENUM_SyncSvc_SyncObjectReferencesEnabled => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncObj_LastAuthorProxyID => "LastAuthorProxyID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncSvc_BeginSync => "BeginSync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_SyncSvc_EndSync => "EndSync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TasksSvc => "Tasks"
 
@@ -9655,22 +9657,22 @@ class PortableDevices {
     static TYPE_TasksSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TasksSvc_SyncActiveOnly => "FilterType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractTask => "AbstractTask"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TaskObj_ReminderDateTime => "ReminderDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TaskObj_Complete => "Complete"
 
@@ -9685,12 +9687,12 @@ class PortableDevices {
     static ENUM_TaskObj_CompleteTrue => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TaskObj_BeginDate => "BeginDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_TaskObj_EndDate => "EndDate"
 
@@ -10132,17 +10134,17 @@ class PortableDevices {
     static WPDNSE_PROPSHEET_CONTENT_DETAILS => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_WPDNSE_FAST_ENUM => "WPDNSE Fast Enum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_WPDNSE_SIMPLE_ITEM => "WPDNSE SimpleItem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactsSvc => "Contacts"
 
@@ -10152,337 +10154,337 @@ class PortableDevices {
     static TYPE_ContactsSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactSvc_SyncWithPhoneOnly => "FilterType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractContact => "AbstractContact"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VCard2Contact => "VCard2Contact"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_VCard3Contact => "VCard3Contact"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AbstractContactGroup => "AbstractContactGroup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_GivenName => "GivenName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_MiddleNames => "MiddleNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_FamilyName => "FamilyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Title => "Title"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Suffix => "Suffix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PhoneticGivenName => "PhoneticGivenName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PhoneticFamilyName => "PhoneticFamilyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressFull => "PersonalAddressFull"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressStreet => "PersonalAddressStreet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressLine2 => "PersonalAddressLine2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressCity => "PersonalAddressCity"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressRegion => "PersonalAddressRegion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressPostalCode => "PersonalAddressPostalCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalAddressCountry => "PersonalAddressCountry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressFull => "BusinessAddressFull"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressStreet => "BusinessAddressStreet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressLine2 => "BusinessAddressLine2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressCity => "BusinessAddressCity"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressRegion => "BusinessAddressRegion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressPostalCode => "BusinessAddressPostalCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessAddressCountry => "BusinessAddressCountry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressFull => "OtherAddressFull"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressStreet => "OtherAddressStreet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressLine2 => "OtherAddressLine2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressCity => "OtherAddressCity"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressRegion => "OtherAddressRegion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressPostalCode => "OtherAddressPostalCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherAddressCountry => "OtherAddressCountry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Email => "Email"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalEmail => "PersonalEmail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalEmail2 => "PersonalEmail2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessEmail => "BusinessEmail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessEmail2 => "BusinessEmail2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherEmail => "OtherEmail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Phone => "Phone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalPhone => "PersonalPhone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalPhone2 => "PersonalPhone2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessPhone => "BusinessPhone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessPhone2 => "BusinessPhone2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_MobilePhone => "MobilePhone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_MobilePhone2 => "MobilePhone2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalFax => "PersonalFax"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessFax => "BusinessFax"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Pager => "Pager"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_OtherPhone => "OtherPhone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_WebAddress => "WebAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PersonalWebAddress => "PersonalWebAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_BusinessWebAddress => "BusinessWebAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_IMAddress => "IMAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_IMAddress2 => "IMAddress2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_IMAddress3 => "IMAddress3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Organization => "Organization"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_PhoneticOrganization => "PhoneticOrganization"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Role => "Role"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Fax => "Fax"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Spouse => "Spouse"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Children => "Children"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Assistant => "Assistant"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Ringtone => "Ringtone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_Birthdate => "Birthdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_ContactObj_AnniversaryDate => "AnniversaryDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_RingtonesSvc => "Ringtones"
 
@@ -10492,12 +10494,12 @@ class PortableDevices {
     static TYPE_RingtonesSvc => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_RingtonesSvc_DefaultRingtone => "DefaultRingtone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc => "AnchorSync"
 
@@ -10507,62 +10509,62 @@ class PortableDevices {
     static TYPE_AnchorSyncSvc => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_VersionProps => "AnchorVersionProps"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_ReplicaID => "AnchorReplicaID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_KnowledgeObjectID => "AnchorKnowledgeObjectID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_LastSyncProxyID => "AnchorLastSyncProxyID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_CurrentAnchor => "AnchorCurrentAnchor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_ProviderVersion => "AnchorProviderVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_SyncFormat => "SyncFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_LocalOnlyDelete => "LocalOnlyDelete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_FilterType => "FilterType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncKnowledge => "AnchorSyncKnowledge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorResults => "AnchorResults"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorResults_AnchorState => "AnchorState"
 
@@ -10582,27 +10584,27 @@ class PortableDevices {
     static ENUM_AnchorResults_AnchorStateOld => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorResults_Anchor => "Anchor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorResults_ResultObjectID => "ResultObjectID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_GetChangesSinceAnchor => "GetChangesSinceAnchor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_BeginSync => "BeginSync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_AnchorSyncSvc_EndSync => "EndSync"
 
@@ -10632,7 +10634,7 @@ class PortableDevices {
     static ENUM_AnchorResults_ItemStateChanged => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc => "FullEnumSync"
 
@@ -10642,57 +10644,57 @@ class PortableDevices {
     static TYPE_FullEnumSyncSvc => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_VersionProps => "FullEnumVersionProps"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_ReplicaID => "FullEnumReplicaID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_KnowledgeObjectID => "FullEnumKnowledgeObjectID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_LastSyncProxyID => "FullEnumLastSyncProxyID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_ProviderVersion => "FullEnumProviderVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_SyncFormat => "SyncFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_LocalOnlyDelete => "LocalOnlyDelete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_FilterType => "FilterType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncKnowledge => "FullEnumSyncKnowledge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_BeginSync => "BeginSync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NAME_FullEnumSyncSvc_EndSync => "EndSync"
 ;@endregion Constants

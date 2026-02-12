@@ -34,7 +34,11 @@ class ITypeLibRegistrationReader extends IUnknown{
      * @returns {IEnumUnknown} 
      */
     EnumTypeLibRegistrations() {
-        result := ComCall(3, this, "ptr*", &ppEnumUnknown := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnumUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppEnumUnknown)
     }
 }

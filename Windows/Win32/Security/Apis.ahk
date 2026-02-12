@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
 #Include .\SID_IDENTIFIER_AUTHORITY.ahk
+#Include ..\System\WinRT\Apis.ahk
+#Include ..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security
@@ -218,187 +220,187 @@ class Security {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CREATE_TOKEN_NAME => "SeCreateTokenPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_ASSIGNPRIMARYTOKEN_NAME => "SeAssignPrimaryTokenPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_LOCK_MEMORY_NAME => "SeLockMemoryPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_INCREASE_QUOTA_NAME => "SeIncreaseQuotaPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_UNSOLICITED_INPUT_NAME => "SeUnsolicitedInputPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_MACHINE_ACCOUNT_NAME => "SeMachineAccountPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_TCB_NAME => "SeTcbPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SECURITY_NAME => "SeSecurityPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_TAKE_OWNERSHIP_NAME => "SeTakeOwnershipPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_LOAD_DRIVER_NAME => "SeLoadDriverPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SYSTEM_PROFILE_NAME => "SeSystemProfilePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SYSTEMTIME_NAME => "SeSystemtimePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_PROF_SINGLE_PROCESS_NAME => "SeProfileSingleProcessPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_INC_BASE_PRIORITY_NAME => "SeIncreaseBasePriorityPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CREATE_PAGEFILE_NAME => "SeCreatePagefilePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CREATE_PERMANENT_NAME => "SeCreatePermanentPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_BACKUP_NAME => "SeBackupPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_RESTORE_NAME => "SeRestorePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SHUTDOWN_NAME => "SeShutdownPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_DEBUG_NAME => "SeDebugPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_AUDIT_NAME => "SeAuditPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SYSTEM_ENVIRONMENT_NAME => "SeSystemEnvironmentPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CHANGE_NOTIFY_NAME => "SeChangeNotifyPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_REMOTE_SHUTDOWN_NAME => "SeRemoteShutdownPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_UNDOCK_NAME => "SeUndockPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SYNC_AGENT_NAME => "SeSyncAgentPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_ENABLE_DELEGATION_NAME => "SeEnableDelegationPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_MANAGE_VOLUME_NAME => "SeManageVolumePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_IMPERSONATE_NAME => "SeImpersonatePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CREATE_GLOBAL_NAME => "SeCreateGlobalPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_TRUSTED_CREDMAN_ACCESS_NAME => "SeTrustedCredManAccessPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_RELABEL_NAME => "SeRelabelPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_INC_WORKING_SET_NAME => "SeIncreaseWorkingSetPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_TIME_ZONE_NAME => "SeTimeZonePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CREATE_SYMBOLIC_LINK_NAME => "SeCreateSymbolicLinkPrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME => "SeDelegateSessionUserImpersonatePrivilege"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERTENROLLSHAREPATH => "CertSrv\CertEnroll"
 
@@ -408,42 +410,42 @@ class Security {
     static cwcHRESULTSTRING => 40
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szLBRACE => "{"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szRBRACE => "}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszLBRACE => "{"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszRBRACE => "}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szLPAREN => "("
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szRPAREN => ")"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszLPAREN => "("
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszRPAREN => ")"
 
@@ -458,72 +460,72 @@ class Security {
     static cwcFILENAMESUFFIXMAX => 20
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_SERVERDNSNAME => "%1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_SERVERSHORTNAME => "%2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_SANITIZEDCANAME => "%3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_CERTFILENAMESUFFIX => "%4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_DOMAINDN => "%5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_CONFIGDN => "%6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_SANITIZEDCANAMEHASH => "%7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_CRLFILENAMESUFFIX => "%8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_CRLDELTAFILENAMESUFFIX => "%9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_DSCRLATTRIBUTE => "%10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_DSCACERTATTRIBUTE => "%11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_DSUSERCERTATTRIBUTE => "%12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_DSKRACERTATTRIBUTE => "%13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszFCSAPARM_DSCROSSCERTPAIRATTRIBUTE => "%14"
 
@@ -579,7 +581,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheck
      * @since windows5.1.2600
      */
     static AccessCheck(pSecurityDescriptor, ClientToken, DesiredAccess, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
@@ -612,7 +614,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string specifying the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to the 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Integer} DesiredAccess <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Access mask</a> that specifies the access rights to check. This mask must have been mapped by the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function to contain no generic access rights.
      * 
@@ -627,20 +629,20 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheckandauditalarmw
      */
-    static AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+    static AccessCheckAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor_, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         return result
     }
 
@@ -701,7 +703,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheckbytype
      * @since windows5.1.2600
      */
     static AccessCheckByType(pSecurityDescriptor, PrincipalSelfSid, ClientToken, DesiredAccess, ObjectTypeList, ObjectTypeListLength, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccess, AccessStatus) {
@@ -775,7 +777,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlist
      * @since windows5.1.2600
      */
     static AccessCheckByTypeResultList(pSecurityDescriptor, PrincipalSelfSid, ClientToken, DesiredAccess, ObjectTypeList, ObjectTypeListLength, GenericMapping, PrivilegeSet, PrivilegeSetLength, GrantedAccessList, AccessStatusList) {
@@ -818,7 +820,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * If the protected object does not represent a principal, set this parameter to <b>NULL</b>.
@@ -840,20 +842,20 @@ class Security {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytypeandauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheckbytypeandauditalarmw
      */
-    static AccessCheckByTypeAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+    static AccessCheckByTypeAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor_, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
         AccessStatusMarshal := AccessStatus is VarRef ? "int*" : "ptr"
         pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         return result
     }
 
@@ -882,7 +884,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE that contains the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * Set this parameter to <b>NULL</b> if the protected object does not represent a principal.
@@ -909,20 +911,20 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmw
      */
-    static AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
+    static AccessCheckByTypeResultListAndAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor_, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : "ptr"
         AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
         pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         return result
     }
 
@@ -951,7 +953,7 @@ class Security {
      * @param {HANDLE} ClientToken A handle to a token object that represents the client that requested the operation. This handle must be obtained through a communication session layer, such as a local named pipe, to prevent possible security policy violations. The caller must have TOKEN_QUERY access for the specified token.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a SID. If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
@@ -974,21 +976,21 @@ class Security {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmbyhandlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-accesscheckbytyperesultlistandauditalarmbyhandlew
      */
-    static AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
+    static AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor_, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessListMarshal := GrantedAccessList is VarRef ? "uint*" : "ptr"
         AccessStatusListMarshal := AccessStatusList is VarRef ? "uint*" : "ptr"
         pfGenerateOnCloseMarshal := pfGenerateOnClose is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessListMarshal, GrantedAccessList, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         return result
     }
 
@@ -1009,7 +1011,7 @@ class Security {
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
      * @param {Integer} AccessMask Specifies the mask of access rights to be granted to the specified SID.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * SID  representing a user, group, or logon account being granted access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1077,13 +1079,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      * @since windows5.1.2600
      */
-    static AddAccessAllowedAce(pAcl, dwAceRevision, AccessMask, pSid) {
+    static AddAccessAllowedAce(pAcl, dwAceRevision, AccessMask, pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAccessAllowedAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AccessMask, "ptr", pSid, "int")
+        result := DllCall("ADVAPI32.dll\AddAccessAllowedAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AccessMask, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1102,7 +1104,7 @@ class Security {
      * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format. These flags specify the access rights that the new ACE allows for the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @param {PSID} pSid A pointer to a 
+     * @param {PSID} pSid_ A pointer to a 
      * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE allows access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1181,13 +1183,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addaccessallowedaceex
      * @since windows5.1.2600
      */
-    static AddAccessAllowedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, pSid) {
+    static AddAccessAllowedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAccessAllowedAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "int")
+        result := DllCall("ADVAPI32.dll\AddAccessAllowedAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1214,7 +1216,7 @@ class Security {
      * @param {Pointer<Guid>} ObjectTypeGuid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object, property set, or property protected by the new ACE. If this parameter is <b>NULL</b>, the new ACE protects the object to which the DACL is assigned.
      * @param {Pointer<Guid>} InheritedObjectTypeGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object that can inherit the new ACE. If this parameter is non-<b>NULL</b>, only the specified object type can inherit the ACE. If <b>NULL</b>, any type of child object can inherit the ACE. In either case, inheritance is also controlled by the value of the <i>AceFlags</i> parameter, as well as by any protection against inheritance placed on the child objects.
-     * @param {PSID} pSid A pointer to a 
+     * @param {PSID} pSid_ A pointer to a 
      * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE allows access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1293,13 +1295,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedobjectace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addaccessallowedobjectace
      * @since windows5.1.2600
      */
-    static AddAccessAllowedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid) {
+    static AddAccessAllowedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid, "int")
+        result := DllCall("ADVAPI32.dll\AddAccessAllowedObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1325,7 +1327,7 @@ class Security {
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
      * @param {Integer} AccessMask Specifies the mask of access rights being denied to the specified SID.
-     * @param {PSID} pSid A pointer to the SID structure representing the user, group, or logon account being denied access.
+     * @param {PSID} pSid_ A pointer to the SID structure representing the user, group, or logon account being denied access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1392,13 +1394,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addaccessdeniedace
      * @since windows5.1.2600
      */
-    static AddAccessDeniedAce(pAcl, dwAceRevision, AccessMask, pSid) {
+    static AddAccessDeniedAce(pAcl, dwAceRevision, AccessMask, pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAccessDeniedAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AccessMask, "ptr", pSid, "int")
+        result := DllCall("ADVAPI32.dll\AddAccessDeniedAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AccessMask, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1417,7 +1419,7 @@ class Security {
      * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that the new ACE denies to the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @param {PSID} pSid A pointer to a 
+     * @param {PSID} pSid_ A pointer to a 
      * SID  that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE denies access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1496,13 +1498,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedaceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addaccessdeniedaceex
      * @since windows5.1.2600
      */
-    static AddAccessDeniedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, pSid) {
+    static AddAccessDeniedAceEx(pAcl, dwAceRevision, AceFlags, AccessMask, pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAccessDeniedAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "int")
+        result := DllCall("ADVAPI32.dll\AddAccessDeniedAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1529,7 +1531,7 @@ class Security {
      * @param {Pointer<Guid>} ObjectTypeGuid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object, property set, or property protected by the new ACE. If this parameter is <b>NULL</b>, the new ACE protects the object to which the ACL is assigned.
      * @param {Pointer<Guid>} InheritedObjectTypeGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object that can inherit the new ACE. If this parameter is non-<b>NULL</b>, only the specified object type can inherit the ACE. If <b>NULL</b>, any type of child object can inherit the ACE. In either case, inheritance is also controlled by the value of the <i>AceFlags</i> parameter, as well as by any protection against inheritance placed on the child objects.
-     * @param {PSID} pSid A pointer to a 
+     * @param {PSID} pSid_ A pointer to a 
      * SID  that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE allows access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1608,13 +1610,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedobjectace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addaccessdeniedobjectace
      * @since windows5.1.2600
      */
-    static AddAccessDeniedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid) {
+    static AddAccessDeniedObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid, "int")
+        result := DllCall("ADVAPI32.dll\AddAccessDeniedObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1684,7 +1686,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addace
      * @since windows5.1.2600
      */
     static AddAce(pAcl, dwAceRevision, dwStartingAceIndex, pAceList, nAceListLength) {
@@ -1711,7 +1713,7 @@ class Security {
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
      * @param {Integer} dwAccessMask Specifies the mask of access rights to be audited for the specified SID.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * SID representing the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> whose access is being audited.
      * @param {BOOL} bAuditSuccess Specifies whether successful access attempts are to be audited. Set this flag to <b>TRUE</b> to enable auditing; otherwise, set it to <b>FALSE</b>.
      * @param {BOOL} bAuditFailure Specifies whether unsuccessful access attempts are to be audited. Set this flag to <b>TRUE</b> to enable auditing; otherwise, set it to <b>FALSE</b>.
@@ -1781,13 +1783,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addauditaccessace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addauditaccessace
      * @since windows5.1.2600
      */
-    static AddAuditAccessAce(pAcl, dwAceRevision, dwAccessMask, pSid, bAuditSuccess, bAuditFailure) {
+    static AddAuditAccessAce(pAcl, dwAceRevision, dwAccessMask, pSid_, bAuditSuccess, bAuditFailure) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAuditAccessAce", "ptr", pAcl, "uint", dwAceRevision, "uint", dwAccessMask, "ptr", pSid, "int", bAuditSuccess, "int", bAuditFailure, "int")
+        result := DllCall("ADVAPI32.dll\AddAuditAccessAce", "ptr", pAcl, "uint", dwAceRevision, "uint", dwAccessMask, "ptr", pSid_, "int", bAuditSuccess, "int", bAuditFailure, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1803,7 +1805,7 @@ class Security {
      * @param {Integer} AceFlags 
      * @param {Integer} dwAccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that the new ACE audits for the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @param {PSID} pSid A pointer to a 
+     * @param {PSID} pSid_ A pointer to a 
      * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> for which the new ACE audits access.
      * @param {BOOL} bAuditSuccess Specifies whether successful uses of the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the SUCCESSFUL_ACCESS_ACE_FLAG flag, the system records successful access attempts; otherwise, it does not.
      * @param {BOOL} bAuditFailure Specifies whether failed attempts to use the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the FAILED_ACCESS_ACE_FLAG flag, the system records failed access attempts; otherwise, it does not.
@@ -1884,13 +1886,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addauditaccessaceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addauditaccessaceex
      * @since windows5.1.2600
      */
-    static AddAuditAccessAceEx(pAcl, dwAceRevision, AceFlags, dwAccessMask, pSid, bAuditSuccess, bAuditFailure) {
+    static AddAuditAccessAceEx(pAcl, dwAceRevision, AceFlags, dwAccessMask, pSid_, bAuditSuccess, bAuditFailure) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAuditAccessAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", dwAccessMask, "ptr", pSid, "int", bAuditSuccess, "int", bAuditFailure, "int")
+        result := DllCall("ADVAPI32.dll\AddAuditAccessAceEx", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", dwAccessMask, "ptr", pSid_, "int", bAuditSuccess, "int", bAuditFailure, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1914,7 +1916,7 @@ class Security {
      * @param {Pointer<Guid>} ObjectTypeGuid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object, property set, or property protected by the new ACE. If this parameter is <b>NULL</b>, the new ACE protects the object to which the ACL is assigned.
      * @param {Pointer<Guid>} InheritedObjectTypeGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object that can inherit the new ACE. If this parameter is non-<b>NULL</b>, only the specified object type can inherit the ACE. If <b>NULL</b>, any type of child object can inherit the ACE. In either case, inheritance is also controlled by the value of the <i>AceFlags</i> parameter, as well as by any protection against inheritance placed on the child objects.
-     * @param {PSID} pSid A pointer to a 
+     * @param {PSID} pSid_ A pointer to a 
      * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> for which the new ACE audits access.
      * @param {BOOL} bAuditSuccess Specifies whether successful uses of the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the SUCCESSFUL_ACCESS_ACE_FLAG flag, the system records successful access attempts; otherwise, it does not.
      * @param {BOOL} bAuditFailure Specifies whether failed attempts to use the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the FAILED_ACCESS_ACE_FLAG flag, the system records failed access attempts; otherwise, it does not.
@@ -1995,13 +1997,13 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addauditaccessobjectace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addauditaccessobjectace
      * @since windows5.1.2600
      */
-    static AddAuditAccessObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid, bAuditSuccess, bAuditFailure) {
+    static AddAuditAccessObjectAce(pAcl, dwAceRevision, AceFlags, AccessMask, ObjectTypeGuid, InheritedObjectTypeGuid, pSid_, bAuditSuccess, bAuditFailure) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid, "int", bAuditSuccess, "int", bAuditFailure, "int")
+        result := DllCall("ADVAPI32.dll\AddAuditAccessObjectAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", ObjectTypeGuid, "ptr", InheritedObjectTypeGuid, "ptr", pSid_, "int", bAuditSuccess, "int", bAuditFailure, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2085,7 +2087,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addmandatoryace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addmandatoryace
      * @since windows6.0.6000
      */
     static AddMandatoryAce(pAcl, dwAceRevision, AceFlags, MandatoryPolicy, pLabelSid) {
@@ -2107,22 +2109,22 @@ class Security {
      * 
      * For consistency with the Windows 8 Advanced File Permissions UI, applications should specify the CONTAINER_INHERIT_ACE and OBJECT_INHERIT_ACE flags in the <i>AceFlags</i> parameter.
      * @param {Integer} AccessMask Must be zero for Windows 8 and Windows Server 2012.
-     * @param {PSID} pSid Must be the Everyone SID (S-1-1-0) for Windows 8 and Windows Server 2012.
+     * @param {PSID} pSid_ Must be the Everyone SID (S-1-1-0) for Windows 8 and Windows Server 2012.
      * @param {Pointer<CLAIM_SECURITY_ATTRIBUTES_INFORMATION>} pAttributeInfo Specifies the attribute information that will be appended after the SID in the ACE.
      * @param {Pointer<Integer>} pReturnLength The size, in bytes, of the actual ACL buffer used. If the buffer specified by the <i>pAcl</i> parameter is not big enough, the value of this parameter is the total size required for the ACL buffer.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addresourceattributeace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addresourceattributeace
      * @since windows8.0
      */
-    static AddResourceAttributeAce(pAcl, dwAceRevision, AceFlags, AccessMask, pSid, pAttributeInfo, pReturnLength) {
+    static AddResourceAttributeAce(pAcl, dwAceRevision, AceFlags, AccessMask, pSid_, pAttributeInfo, pReturnLength) {
         pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddResourceAttributeAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "ptr", pAttributeInfo, pReturnLengthMarshal, pReturnLength, "int")
+        result := DllCall("KERNEL32.dll\AddResourceAttributeAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid_, "ptr", pAttributeInfo, pReturnLengthMarshal, pReturnLength, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2138,18 +2140,18 @@ class Security {
      * 
      * For consistency with the Windows 8 Advanced File Permissions UI, applications should specify the CONTAINER_INHERIT_ACE and OBJECT_INHERIT_ACE flags in the <i>AceFlags</i> parameter.
      * @param {Integer} AccessMask Must be zero for Windows 8 and Windows Server 2012.
-     * @param {PSID} pSid A pointer to the SID (S-1-17-*) that identifies the Central Access Policy to be associated with the resource.
+     * @param {PSID} pSid_ A pointer to the SID (S-1-17-*) that identifies the Central Access Policy to be associated with the resource.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addscopedpolicyidace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addscopedpolicyidace
      * @since windows8.0
      */
-    static AddScopedPolicyIDAce(pAcl, dwAceRevision, AceFlags, AccessMask, pSid) {
+    static AddScopedPolicyIDAce(pAcl, dwAceRevision, AceFlags, AccessMask, pSid_) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddScopedPolicyIDAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid, "int")
+        result := DllCall("KERNEL32.dll\AddScopedPolicyIDAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "uint", AccessMask, "ptr", pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2185,7 +2187,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-adjusttokengroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-adjusttokengroups
      * @since windows5.1.2600
      */
     static AdjustTokenGroups(TokenHandle, ResetToDefault, NewState, BufferLength, PreviousState, ReturnLength) {
@@ -2312,7 +2314,7 @@ class Security {
      *  
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges
      * @since windows5.1.2600
      */
     static AdjustTokenPrivileges(TokenHandle, DisableAllPrivileges, NewState, BufferLength, PreviousState, ReturnLength) {
@@ -2353,21 +2355,21 @@ class Security {
      * @param {Integer} nSubAuthority5 Subauthority value to place in the SID.
      * @param {Integer} nSubAuthority6 Subauthority value to place in the SID.
      * @param {Integer} nSubAuthority7 Subauthority value to place in the SID.
-     * @param {Pointer<PSID>} pSid A pointer to a variable that receives the pointer to the allocated and initialized 
+     * @param {Pointer<PSID>} pSid_ A pointer to a variable that receives the pointer to the allocated and initialized 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-allocateandinitializesid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-allocateandinitializesid
      * @since windows5.1.2600
      */
-    static AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid) {
-        pSidMarshal := pSid is VarRef ? "ptr*" : "ptr"
+    static AllocateAndInitializeSid(pIdentifierAuthority, nSubAuthorityCount, nSubAuthority0, nSubAuthority1, nSubAuthority2, nSubAuthority3, nSubAuthority4, nSubAuthority5, nSubAuthority6, nSubAuthority7, pSid_) {
+        pSid_Marshal := pSid_ is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AllocateAndInitializeSid", "ptr", pIdentifierAuthority, "char", nSubAuthorityCount, "uint", nSubAuthority0, "uint", nSubAuthority1, "uint", nSubAuthority2, "uint", nSubAuthority3, "uint", nSubAuthority4, "uint", nSubAuthority5, "uint", nSubAuthority6, "uint", nSubAuthority7, pSidMarshal, pSid, "int")
+        result := DllCall("ADVAPI32.dll\AllocateAndInitializeSid", "ptr", pIdentifierAuthority, "char", nSubAuthorityCount, "uint", nSubAuthority0, "uint", nSubAuthority1, "uint", nSubAuthority2, "uint", nSubAuthority3, "uint", nSubAuthority4, "uint", nSubAuthority5, "uint", nSubAuthority6, "uint", nSubAuthority7, pSid_Marshal, pSid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2381,18 +2383,18 @@ class Security {
      * The allocated <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> is unique to the local system only, and uniqueness is guaranteed only until the system is next restarted.
      * 
      * The allocated <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> is guaranteed  to be nonzero if this function succeeds.
-     * @param {Pointer<LUID>} Luid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure that receives the allocated LUID.
+     * @param {Pointer<LUID>} Luid_ A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure that receives the allocated LUID.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-allocatelocallyuniqueid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-allocatelocallyuniqueid
      * @since windows5.1.2600
      */
-    static AllocateLocallyUniqueId(Luid) {
+    static AllocateLocallyUniqueId(Luid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AllocateLocallyUniqueId", "ptr", Luid, "int")
+        result := DllCall("ADVAPI32.dll\AllocateLocallyUniqueId", "ptr", Luid_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2410,7 +2412,7 @@ class Security {
      * @returns {BOOL} If all requested access rights have been granted, the return value is nonzero.
      * 
      * If not all requested access rights have been granted, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-areallaccessesgranted
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-areallaccessesgranted
      * @since windows5.1.2600
      */
     static AreAllAccessesGranted(GrantedAccess, DesiredAccess) {
@@ -2428,7 +2430,7 @@ class Security {
      * @returns {BOOL} If any of the requested access rights have been granted, the return value is nonzero.
      * 
      * If none of the requested access rights have been granted, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-areanyaccessesgranted
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-areanyaccessesgranted
      * @since windows5.1.2600
      */
     static AreAnyAccessesGranted(GrantedAccess, DesiredAccess) {
@@ -2458,7 +2460,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-checktokenmembership
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-checktokenmembership
      * @since windows5.1.2600
      */
     static CheckTokenMembership(TokenHandle, SidToCheck, IsMember) {
@@ -2487,7 +2489,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-checktokencapability
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-checktokencapability
      * @since windows8.0
      */
     static CheckTokenCapability(TokenHandle, CapabilitySidToCheck, HasCapability) {
@@ -2507,20 +2509,20 @@ class Security {
 
     /**
      * Retrieves a value that indicates whether a package or capability SID is present.
-     * @param {Pointer<ACL>} Acl A pointer to an [ACL](/windows/desktop/api/winnt/ns-winnt-acl) structure.
+     * @param {Pointer<ACL>} Acl_ A pointer to an [ACL](/windows/desktop/api/winnt/ns-winnt-acl) structure.
      * @param {Integer} StartingAceIndex Specifies the position in the ACL's list of ACEs at which to add new ACEs. A value of zero inserts the ACEs at the beginning of the list. A value of MAXDWORD appends the ACEs to the end of the list.
      * @param {Pointer<Pointer<Void>>} AppContainerAce Pointer to an AppContainerAce object.
      * @param {Pointer<Integer>} AppContainerAceIndex The position in the ACL's list of ACEs.
      * @returns {BOOL} If the function succeeds, it returns **TRUE**.
      * 
      * If the function fails, it returns **FALSE**. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror). **GetLastError** may return one of the error codes defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getappcontainerace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getappcontainerace
      */
-    static GetAppContainerAce(Acl, StartingAceIndex, AppContainerAce, AppContainerAceIndex) {
+    static GetAppContainerAce(Acl_, StartingAceIndex, AppContainerAce, AppContainerAceIndex) {
         AppContainerAceMarshal := AppContainerAce is VarRef ? "ptr*" : "ptr"
         AppContainerAceIndexMarshal := AppContainerAceIndex is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl, "uint", StartingAceIndex, AppContainerAceMarshal, AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, "int")
+        result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl_, "uint", StartingAceIndex, AppContainerAceMarshal, AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, "int")
         return result
     }
 
@@ -2533,7 +2535,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-checktokenmembershipex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-checktokenmembershipex
      * @since windows8.0
      */
     static CheckTokenMembershipEx(TokenHandle, SidToCheck, Flags, IsMember) {
@@ -2577,7 +2579,7 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} CurrentSecurityDescriptor A pointer to the current security descriptor of the object.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor A pointer to a variable that receives a pointer to the newly allocated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a>. It is the caller's responsibility to call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity">DestroyPrivateObjectSecurity</a> function to free this security descriptor.
-     * @param {Pointer<Guid>} ObjectType A pointer to a 
+     * @param {Pointer<Guid>} ObjectType_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object associated with the <i>CurrentSecurityDescriptor</i> parameter. If the object does not have a GUID, this parameter must be <b>NULL</b>.
      * @param {BOOLEAN} IsDirectoryObject If <b>TRUE</b>, the new object is a container and can contain other objects. If <b>FALSE</b>, the new object is not a container.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
@@ -2586,16 +2588,16 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-converttoautoinheritprivateobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-converttoautoinheritprivateobjectsecurity
      * @since windows5.1.2600
      */
-    static ConvertToAutoInheritPrivateObjectSecurity(ParentDescriptor, CurrentSecurityDescriptor, NewSecurityDescriptor, ObjectType, IsDirectoryObject, GenericMapping) {
+    static ConvertToAutoInheritPrivateObjectSecurity(ParentDescriptor, CurrentSecurityDescriptor, NewSecurityDescriptor, ObjectType_, IsDirectoryObject, GenericMapping) {
         ParentDescriptor := ParentDescriptor is Win32Handle ? NumGet(ParentDescriptor, "ptr") : ParentDescriptor
         CurrentSecurityDescriptor := CurrentSecurityDescriptor is Win32Handle ? NumGet(CurrentSecurityDescriptor, "ptr") : CurrentSecurityDescriptor
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ConvertToAutoInheritPrivateObjectSecurity", "ptr", ParentDescriptor, "ptr", CurrentSecurityDescriptor, "ptr", NewSecurityDescriptor, "ptr", ObjectType, "char", IsDirectoryObject, "ptr", GenericMapping, "int")
+        result := DllCall("ADVAPI32.dll\ConvertToAutoInheritPrivateObjectSecurity", "ptr", ParentDescriptor, "ptr", CurrentSecurityDescriptor, "ptr", NewSecurityDescriptor, "ptr", ObjectType_, "char", IsDirectoryObject, "ptr", GenericMapping, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2615,7 +2617,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-copysid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-copysid
      * @since windows5.1.2600
      */
     static CopySid(nDestinationSidLength, pDestinationSid, pSourceSid) {
@@ -2662,7 +2664,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity
      * @since windows5.1.2600
      */
     static CreatePrivateObjectSecurity(ParentDescriptor, CreatorDescriptor, NewDescriptor, IsDirectoryObject, Token, GenericMapping) {
@@ -2731,7 +2733,7 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} CreatorDescriptor A pointer to a security descriptor provided by the creator of the object. If the object's creator does not explicitly pass security information for the new object, this parameter can be <b>NULL</b>. Alternatively, this parameter can point to a default security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewDescriptor A pointer to a variable that receives a pointer to the newly allocated self-relative security descriptor. When you have finished using the security descriptor, free it by calling the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity">DestroyPrivateObjectSecurity</a> function.
-     * @param {Pointer<Guid>} ObjectType A pointer to a 
+     * @param {Pointer<Guid>} ObjectType_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object associated with <i>NewDescriptor</i>. If the object does not have a GUID, set <i>ObjectType</i> to <b>NULL</b>.
      * @param {BOOL} IsContainerObject Specifies whether the new object can contain other objects. A value of <b>TRUE</b> indicates that the new object is a container. A value of <b>FALSE</b> indicates that the new object is not a container.
      * @param {Integer} AutoInheritFlags 
@@ -2808,17 +2810,17 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex
      * @since windows5.1.2600
      */
-    static CreatePrivateObjectSecurityEx(ParentDescriptor, CreatorDescriptor, NewDescriptor, ObjectType, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
+    static CreatePrivateObjectSecurityEx(ParentDescriptor, CreatorDescriptor, NewDescriptor, ObjectType_, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
         ParentDescriptor := ParentDescriptor is Win32Handle ? NumGet(ParentDescriptor, "ptr") : ParentDescriptor
         CreatorDescriptor := CreatorDescriptor is Win32Handle ? NumGet(CreatorDescriptor, "ptr") : CreatorDescriptor
         Token := Token is Win32Handle ? NumGet(Token, "ptr") : Token
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityEx", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "ptr", ObjectType, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
+        result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityEx", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "ptr", ObjectType_, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2967,7 +2969,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecuritywithmultipleinheritance
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-createprivateobjectsecuritywithmultipleinheritance
      * @since windows5.1.2600
      */
     static CreatePrivateObjectSecurityWithMultipleInheritance(ParentDescriptor, CreatorDescriptor, NewDescriptor, ObjectTypes, GuidCount, IsContainerObject, AutoInheritFlags, Token, GenericMapping) {
@@ -3053,7 +3055,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-createrestrictedtoken
      * @since windows5.1.2600
      */
     static CreateRestrictedToken(ExistingTokenHandle, Flags, DisableSidCount, SidsToDisable, DeletePrivilegeCount, PrivilegesToDelete, RestrictedSidCount, SidsToRestrict, NewTokenHandle) {
@@ -3073,21 +3075,21 @@ class Security {
      * Creates a SID for predefined aliases.
      * @param {Integer} WellKnownSidType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WELL_KNOWN_SID_TYPE</a> enumeration that specifies what the SID will identify.
      * @param {PSID} DomainSid A pointer to a SID that identifies the domain to use when creating the SID. Pass <b>NULL</b> to use the local computer.
-     * @param {Pointer} pSid A pointer to memory where <b>CreateWellKnownSid</b> will store the new SID.
+     * @param {Pointer} pSid_ A pointer to memory where <b>CreateWellKnownSid</b> will store the new SID.
      * @param {Pointer<Integer>} cbSid A pointer to a <b>DWORD</b> that contains the number of bytes available at <i>pSid</i>. The <b>CreateWellKnownSid</b> function stores the number of bytes actually used at this location.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-createwellknownsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-createwellknownsid
      * @since windows5.1.2600
      */
-    static CreateWellKnownSid(WellKnownSidType, DomainSid, pSid, cbSid) {
+    static CreateWellKnownSid(WellKnownSidType, DomainSid, pSid_, cbSid) {
         cbSidMarshal := cbSid is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreateWellKnownSid", "int", WellKnownSidType, "ptr", DomainSid, "ptr", pSid, cbSidMarshal, cbSid, "int")
+        result := DllCall("ADVAPI32.dll\CreateWellKnownSid", "int", WellKnownSidType, "ptr", DomainSid, "ptr", pSid_, cbSidMarshal, cbSid, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3103,7 +3105,7 @@ class Security {
      * @returns {BOOL} If both SIDs are  account domain SIDs and/or BUILTIN SIDs, the return value is nonzero. In addition, *<i>pfEqual</i> is set to <b>TRUE</b> if the domains of the two SIDs are equal; otherwise  *<i>pfEqual</i> is set to <b>FALSE</b>.
      * 
      * If one or more of the SIDS is neither an account domain SID nor a BUILTIN SID, then the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> returns ERROR_NON_DOMAIN_SID if either SID is not an account domain SID or BUILTIN SID.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-equaldomainsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-equaldomainsid
      * @since windows5.1.2600
      */
     static EqualDomainSid(pSid1, pSid2, pfEqual) {
@@ -3133,7 +3135,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-deleteace
      * @since windows5.1.2600
      */
     static DeleteAce(pAcl, dwAceIndex) {
@@ -3149,20 +3151,20 @@ class Security {
 
     /**
      * Deletes a private object's security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectDescriptor A pointer to a pointer to the 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectDescriptor_ A pointer to a pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure to be deleted. This security descriptor must have been created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity">CreatePrivateObjectSecurity</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity
      * @since windows5.1.2600
      */
-    static DestroyPrivateObjectSecurity(ObjectDescriptor) {
+    static DestroyPrivateObjectSecurity(ObjectDescriptor_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\DestroyPrivateObjectSecurity", "ptr", ObjectDescriptor, "int")
+        result := DllCall("ADVAPI32.dll\DestroyPrivateObjectSecurity", "ptr", ObjectDescriptor_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3184,7 +3186,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-duplicatetoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-duplicatetoken
      * @since windows5.1.2600
      */
     static DuplicateToken(ExistingTokenHandle, ImpersonationLevel, DuplicateTokenHandle) {
@@ -3231,7 +3233,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-duplicatetokenex
      * @since windows5.1.2600
      */
     static DuplicateTokenEx(hExistingToken, dwDesiredAccess, lpTokenAttributes, ImpersonationLevel, TokenType, phNewToken) {
@@ -3262,7 +3264,7 @@ class Security {
      * 
      * If the SID prefixes are not equal, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-equalprefixsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-equalprefixsid
      * @since windows5.1.2600
      */
     static EqualPrefixSid(pSid1, pSid2) {
@@ -3288,7 +3290,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If either <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-equalsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-equalsid
      * @since windows5.1.2600
      */
     static EqualSid(pSid1, pSid2) {
@@ -3312,7 +3314,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-findfirstfreeace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-findfirstfreeace
      * @since windows5.1.2600
      */
     static FindFirstFreeAce(pAcl, pAce) {
@@ -3330,16 +3332,16 @@ class Security {
 
     /**
      * Frees a security identifier (SID) previously allocated by using the AllocateAndInitializeSid function.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to free.
      * @returns {Pointer<Void>} If the function succeeds, the function returns <b>NULL</b>.
      * 
      * If the function fails, it returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure represented by the <i>pSid</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-freesid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-freesid
      * @since windows5.1.2600
      */
-    static FreeSid(pSid) {
-        result := DllCall("ADVAPI32.dll\FreeSid", "ptr", pSid, "ptr")
+    static FreeSid(pSid_) {
+        result := DllCall("ADVAPI32.dll\FreeSid", "ptr", pSid_, "ptr")
         return result
     }
 
@@ -3353,7 +3355,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getace
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getace
      * @since windows5.1.2600
      */
     static GetAce(pAcl, dwAceIndex, pAce) {
@@ -3389,7 +3391,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getaclinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getaclinformation
      * @since windows5.1.2600
      */
     static GetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass) {
@@ -3420,7 +3422,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getfilesecurityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getfilesecurityw
      */
     static GetFileSecurityW(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -3443,7 +3445,7 @@ class Security {
      * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">DACL</a> from the kernel object's security descriptor, the calling process must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the object or the object's DACL must grant the access.
      * 
      * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SACL</a> from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the handle was opened. The proper way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
-     * @param {HANDLE} Handle A handle to a kernel object.
+     * @param {HANDLE} Handle_ A handle to a kernel object.
      * @param {Integer} RequestedInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer the function fills with a copy of the security descriptor of the specified object. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have the right to view the specified aspects of the object's security status. The 
@@ -3454,17 +3456,17 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getkernelobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getkernelobjectsecurity
      * @since windows5.1.2600
      */
-    static GetKernelObjectSecurity(Handle, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static GetKernelObjectSecurity(Handle_, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
+        Handle_ := Handle_ is Win32Handle ? NumGet(Handle_, "ptr") : Handle_
 
         lpnLengthNeededMarshal := lpnLengthNeeded is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", "ptr", Handle, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
+        result := DllCall("ADVAPI32.dll\GetKernelObjectSecurity", "ptr", Handle_, "uint", RequestedInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3474,17 +3476,17 @@ class Security {
 
     /**
      * Returns the length, in bytes, of a valid security identifier (SID).
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure whose length is returned. The structure is assumed to be valid.
      * @returns {Integer} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getlengthsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getlengthsid
      * @since windows5.1.2600
      */
-    static GetLengthSid(pSid) {
-        result := DllCall("ADVAPI32.dll\GetLengthSid", "ptr", pSid, "uint")
+    static GetLengthSid(pSid_) {
+        result := DllCall("ADVAPI32.dll\GetLengthSid", "ptr", pSid_, "uint")
         return result
     }
 
@@ -3499,7 +3501,7 @@ class Security {
      * <li>If the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
      * </ul>
      * If the preceding conditions are not met, a call to this function does not fail, however, standard access policy is not enforced.
-     * @param {PSECURITY_DESCRIPTOR} ObjectDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} ObjectDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. This is the security descriptor to be queried.
      * @param {Integer} SecurityInformation A set of bit flags that indicate the parts of the security descriptor to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -3511,17 +3513,17 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getprivateobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getprivateobjectsecurity
      * @since windows5.1.2600
      */
-    static GetPrivateObjectSecurity(ObjectDescriptor, SecurityInformation, ResultantDescriptor, DescriptorLength, ReturnLength) {
-        ObjectDescriptor := ObjectDescriptor is Win32Handle ? NumGet(ObjectDescriptor, "ptr") : ObjectDescriptor
+    static GetPrivateObjectSecurity(ObjectDescriptor_, SecurityInformation, ResultantDescriptor, DescriptorLength, ReturnLength) {
+        ObjectDescriptor_ := ObjectDescriptor_ is Win32Handle ? NumGet(ObjectDescriptor_, "ptr") : ObjectDescriptor_
 
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", "ptr", ObjectDescriptor, "uint", SecurityInformation, "ptr", ResultantDescriptor, "uint", DescriptorLength, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ADVAPI32.dll\GetPrivateObjectSecurity", "ptr", ObjectDescriptor_, "uint", SecurityInformation, "ptr", ResultantDescriptor, "uint", DescriptorLength, ReturnLengthMarshal, ReturnLength, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3540,7 +3542,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorcontrol
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorControl(pSecurityDescriptor, pControl, lpdwRevision) {
@@ -3581,7 +3583,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptordacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptordacl
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorDacl(pSecurityDescriptor, lpbDaclPresent, pDacl, lpbDaclDefaulted) {
@@ -3613,7 +3615,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorgroup
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, lpbGroupDefaulted) {
@@ -3643,7 +3645,7 @@ class Security {
      * @returns {Integer} If the function succeeds, the function returns the length, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is not valid, the return value is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorlength
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorLength(pSecurityDescriptor) {
@@ -3666,7 +3668,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorowner
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorowner
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, lpbOwnerDefaulted) {
@@ -3690,7 +3692,7 @@ class Security {
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits are eight bits in the <b>Sbz1</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains information specific to the resource manager accessing the structure. These bits should be accessed only through the <b>GetSecurityDescriptorRMControl</b> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol">SetSecurityDescriptorRMControl</a> functions.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits. The value of the <b>Control</b> member is set to SE_RM_CONTROL_VALID.
      * @param {Pointer<Integer>} RMControl A pointer to a buffer that receives the resource manager control bits.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -3715,15 +3717,15 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol
      * @since windows5.1.2600
      */
-    static GetSecurityDescriptorRMControl(SecurityDescriptor, RMControl) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static GetSecurityDescriptorRMControl(SecurityDescriptor_, RMControl) {
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         RMControlMarshal := RMControl is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorRMControl", "ptr", SecurityDescriptor, RMControlMarshal, RMControl, "uint")
+        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorRMControl", "ptr", SecurityDescriptor_, RMControlMarshal, RMControl, "uint")
         return result
     }
 
@@ -3746,7 +3748,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorsacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorsacl
      * @since windows5.1.2600
      */
     static GetSecurityDescriptorSacl(pSecurityDescriptor, lpbSaclPresent, pSacl, lpbSaclDefaulted) {
@@ -3771,7 +3773,7 @@ class Security {
      * @remarks
      * This function uses a 32-bit RID value. For applications that require a larger RID value, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure for which a pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure is returned.
      * 
@@ -3781,13 +3783,13 @@ class Security {
      * 
      * If the function fails, the return value is undefined. The function fails if the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure pointed to by the <i>pSid</i> parameter is not valid. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsididentifierauthority
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsididentifierauthority
      * @since windows5.1.2600
      */
-    static GetSidIdentifierAuthority(pSid) {
+    static GetSidIdentifierAuthority(pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSidIdentifierAuthority", "ptr", pSid, "ptr")
+        result := DllCall("ADVAPI32.dll\GetSidIdentifierAuthority", "ptr", pSid_, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -3803,7 +3805,7 @@ class Security {
      * @param {Integer} nSubAuthorityCount Specifies the number of subauthorities to be stored in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * @returns {Integer} The return value is the length, in bytes, of the buffer required to store the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure. This function cannot fail.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsidlengthrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsidlengthrequired
      * @since windows5.1.2600
      */
     static GetSidLengthRequired(nSubAuthorityCount) {
@@ -3816,7 +3818,7 @@ class Security {
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure specified in <i>pSid</i> uses a 32-bit RID value. For applications that require longer RID values, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to a subauthority is to be returned.
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
@@ -3825,13 +3827,13 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the function fails, the return value is undefined. The function fails if the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid or if the index value specified by the <i>nSubAuthority</i> parameter is out of bounds.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsidsubauthority
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsidsubauthority
      * @since windows5.1.2600
      */
-    static GetSidSubAuthority(pSid, nSubAuthority) {
+    static GetSidSubAuthority(pSid_, nSubAuthority) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSidSubAuthority", "ptr", pSid, "uint", nSubAuthority, "ptr")
+        result := DllCall("ADVAPI32.dll\GetSidSubAuthority", "ptr", pSid_, "uint", nSubAuthority, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -3844,7 +3846,7 @@ class Security {
      * @remarks
      * The SID structure specified in <i>pSid</i> uses a 32-bit value. For applications that require longer RID values, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to the subauthority count is returned.
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
@@ -3852,13 +3854,13 @@ class Security {
      * 
      * If the function fails, the return value is undefined. The function fails if the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount
      * @since windows5.1.2600
      */
-    static GetSidSubAuthorityCount(pSid) {
+    static GetSidSubAuthorityCount(pSid_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSidSubAuthorityCount", "ptr", pSid, "ptr")
+        result := DllCall("ADVAPI32.dll\GetSidSubAuthorityCount", "ptr", pSid_, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -3880,7 +3882,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-gettokeninformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-gettokeninformation
      * @since windows5.1.2600
      */
     static GetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength, ReturnLength) {
@@ -3900,22 +3902,22 @@ class Security {
 
     /**
      * Receives a security identifier (SID) and returns a SID representing the domain of that SID.
-     * @param {PSID} pSid A pointer to the SID to examine.
+     * @param {PSID} pSid_ A pointer to the SID to examine.
      * @param {Pointer} pDomainSid Pointer that <b>GetWindowsAccountDomainSid</b> fills with a pointer to a SID representing the domain.
      * @param {Pointer<Integer>} cbDomainSid A pointer to a <b>DWORD</b> that <b>GetWindowsAccountDomainSid</b> fills with the size of the domain SID, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful.
      * 
      * Otherwise, returns <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getwindowsaccountdomainsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getwindowsaccountdomainsid
      * @since windows5.1.2600
      */
-    static GetWindowsAccountDomainSid(pSid, pDomainSid, cbDomainSid) {
+    static GetWindowsAccountDomainSid(pSid_, pDomainSid, cbDomainSid) {
         cbDomainSidMarshal := cbDomainSid is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", "ptr", pSid, "ptr", pDomainSid, cbDomainSidMarshal, cbDomainSid, "int")
+        result := DllCall("ADVAPI32.dll\GetWindowsAccountDomainSid", "ptr", pSid_, "ptr", pDomainSid, cbDomainSidMarshal, cbDomainSid, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3939,7 +3941,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * An error of ACCESS_DENIED might indicate that the token is for a restricted process. Use [OpenProcessToken](/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocesstoken) and [IsTokenRestricted](/windows/win32/api/securitybaseapi/nf-securitybaseapi-istokenrestricted) to check if the process is restricted. ACCESS_DENIED is also returned if the thread handle lacks right access to THREAD_IMPERSONATE.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateanonymoustoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-impersonateanonymoustoken
      * @since windows5.1.2600
      */
     static ImpersonateAnonymousToken(ThreadHandle) {
@@ -3990,7 +3992,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser
      * @since windows5.1.2600
      */
     static ImpersonateLoggedOnUser(hToken) {
@@ -4021,7 +4023,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-impersonateself
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-impersonateself
      * @since windows5.1.2600
      */
     static ImpersonateSelf(ImpersonationLevel) {
@@ -4061,7 +4063,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-initializeacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-initializeacl
      * @since windows5.1.2600
      */
     static InitializeAcl(pAcl, nAclLength, dwAclRevision) {
@@ -4089,7 +4091,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-initializesecuritydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-initializesecuritydescriptor
      * @since windows5.1.2600
      */
     static InitializeSecurityDescriptor(pSecurityDescriptor, dwRevision) {
@@ -4114,7 +4116,7 @@ class Security {
      * 
      * This function uses a 32-bit RID value. For applications that require a larger RID value, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a>.
-     * @param {PSID} Sid A pointer to a 
+     * @param {PSID} Sid_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be initialized.
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} pIdentifierAuthority A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure to set in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
@@ -4124,13 +4126,13 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-initializesid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-initializesid
      * @since windows5.1.2600
      */
-    static InitializeSid(Sid, pIdentifierAuthority, nSubAuthorityCount) {
+    static InitializeSid(Sid_, pIdentifierAuthority, nSubAuthorityCount) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\InitializeSid", "ptr", Sid, "ptr", pIdentifierAuthority, "char", nSubAuthorityCount, "int")
+        result := DllCall("ADVAPI32.dll\InitializeSid", "ptr", Sid_, "ptr", pIdentifierAuthority, "char", nSubAuthorityCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4150,7 +4152,7 @@ class Security {
      * 
      * If an error occurs, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-istokenrestricted
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-istokenrestricted
      * @since windows5.1.2600
      */
     static IsTokenRestricted(TokenHandle) {
@@ -4178,7 +4180,7 @@ class Security {
      *       
      * 
      * If the ACL is not valid, the function returns zero. There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-isvalidacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-isvalidacl
      * @since windows5.1.2600
      */
     static IsValidAcl(pAcl) {
@@ -4196,7 +4198,7 @@ class Security {
      * 
      * If any of the components of the security descriptor are not valid, the return value is zero. There is no extended error information for this function; do not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-isvalidsecuritydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-isvalidsecuritydescriptor
      * @since windows5.1.2600
      */
     static IsValidSecurityDescriptor(pSecurityDescriptor) {
@@ -4210,32 +4212,32 @@ class Security {
      * Validates a security identifier (SID) by verifying that the revision number is within a known range, and that the number of subauthorities is less than the maximum.
      * @remarks
      * If <i>pSid</i> is <b>NULL</b>, the application will fail with an access violation.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to validate. This parameter cannot be <b>NULL</b>.
      * @returns {BOOL} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is nonzero.
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is zero. There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-isvalidsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-isvalidsid
      * @since windows5.1.2600
      */
-    static IsValidSid(pSid) {
-        result := DllCall("ADVAPI32.dll\IsValidSid", "ptr", pSid, "int")
+    static IsValidSid(pSid_) {
+        result := DllCall("ADVAPI32.dll\IsValidSid", "ptr", pSid_, "int")
         return result
     }
 
     /**
      * Compares a SID to a well-known SID and returns TRUE if they match.
-     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to test.
+     * @param {PSID} pSid_ A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to test.
      * @param {Integer} WellKnownSidType Member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WELL_KNOWN_SID_TYPE</a> enumeration to compare with the SID at <i>pSid</i>.
      * @returns {BOOL} Returns <b>TRUE</b> if the SID at <i>pSid</i> matches the well-known SID indicated by <i>WellKnownSidType</i>.
      * 
      * Otherwise, returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-iswellknownsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-iswellknownsid
      * @since windows5.1.2600
      */
-    static IsWellKnownSid(pSid, WellKnownSidType) {
-        result := DllCall("ADVAPI32.dll\IsWellKnownSid", "ptr", pSid, "int", WellKnownSidType, "int")
+    static IsWellKnownSid(pSid_, WellKnownSidType) {
+        result := DllCall("ADVAPI32.dll\IsWellKnownSid", "ptr", pSid_, "int", WellKnownSidType, "int")
         return result
     }
 
@@ -4284,7 +4286,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-makeabsolutesd
      * @since windows5.1.2600
      */
     static MakeAbsoluteSD(pSelfRelativeSecurityDescriptor, pAbsoluteSecurityDescriptor, lpdwAbsoluteSecurityDescriptorSize, pDacl, lpdwDaclSize, pSacl, lpdwSaclSize, pOwner, lpdwOwnerSize, pPrimaryGroup, lpdwPrimaryGroupSize) {
@@ -4343,7 +4345,7 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-makeselfrelativesd
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-makeselfrelativesd
      * @since windows5.1.2600
      */
     static MakeSelfRelativeSD(pAbsoluteSecurityDescriptor, pSelfRelativeSecurityDescriptor, lpdwBufferLength) {
@@ -4369,7 +4371,7 @@ class Security {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure specifying a mapping of generic access types to specific and standard access types.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-mapgenericmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-mapgenericmask
      * @since windows5.1.2600
      */
     static MapGenericMask(AccessMask, GenericMapping) {
@@ -4388,7 +4390,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw
      */
     static ObjectCloseAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
@@ -4410,7 +4412,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectdeleteauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-objectdeleteauditalarmw
      */
     static ObjectDeleteAuditAlarmW(SubsystemName, HandleId, GenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
@@ -4444,7 +4446,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-objectopenauditalarmw
      */
     static ObjectOpenAuditAlarmW(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
@@ -4475,7 +4477,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-objectprivilegeauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-objectprivilegeauditalarmw
      */
     static ObjectPrivilegeAuditAlarmW(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
@@ -4507,7 +4509,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-privilegecheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-privilegecheck
      * @since windows5.1.2600
      */
     static PrivilegeCheck(ClientToken, RequiredPrivileges, pfResult) {
@@ -4540,7 +4542,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-privilegedserviceauditalarmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-privilegedserviceauditalarmw
      */
     static PrivilegedServiceAuditAlarmW(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
@@ -4556,7 +4558,7 @@ class Security {
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be queried.
      * @param {Pointer<Integer>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
      * @since windows6.0.6000
      */
     static QuerySecurityAccessMask(SecurityInformation, DesiredAccess) {
@@ -4581,7 +4583,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-reverttoself
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-reverttoself
      * @since windows5.1.2600
      */
     static RevertToSelf() {
@@ -4615,7 +4617,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setaclinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setaclinformation
      * @since windows5.1.2600
      */
     static SetAclInformation(pAcl, pAclInformation, nAclInformationLength, dwAclInformationClass) {
@@ -4647,7 +4649,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setfilesecurityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setfilesecurityw
      */
     static SetFileSecurityW(lpFileName, SecurityInformation, pSecurityDescriptor) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -4659,27 +4661,27 @@ class Security {
 
     /**
      * Sets the security of a kernel object.
-     * @param {HANDLE} Handle A handle to a kernel object for which security information is set.
+     * @param {HANDLE} Handle_ A handle to a kernel object for which security information is set.
      * @param {Integer} SecurityInformation A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      *       
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setkernelobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setkernelobjectsecurity
      * @since windows5.1.2600
      */
-    static SetKernelObjectSecurity(Handle, SecurityInformation, SecurityDescriptor) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SetKernelObjectSecurity(Handle_, SecurityInformation, SecurityDescriptor_) {
+        Handle_ := Handle_ is Win32Handle ? NumGet(Handle_, "ptr") : Handle_
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\SetKernelObjectSecurity", "ptr", Handle, "uint", SecurityInformation, "ptr", SecurityDescriptor, "int")
+        result := DllCall("ADVAPI32.dll\SetKernelObjectSecurity", "ptr", Handle_, "uint", SecurityInformation, "ptr", SecurityDescriptor_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4717,7 +4719,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurity
      * @since windows5.1.2600
      */
     static SetPrivateObjectSecurity(SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, GenericMapping, Token) {
@@ -4837,7 +4839,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurityex
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setprivateobjectsecurityex
      * @since windows5.1.2600
      */
     static SetPrivateObjectSecurityEx(SecurityInformation, ModificationDescriptor, ObjectsSecurityDescriptor, AutoInheritFlags, GenericMapping, Token) {
@@ -4859,7 +4861,7 @@ class Security {
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be set.
      * @param {Pointer<Integer>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
      * @since windows6.0.6000
      */
     static SetSecurityAccessMask(SecurityInformation, DesiredAccess) {
@@ -4881,7 +4883,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorcontrol
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorControl(pSecurityDescriptor, ControlBitsOfInterest, ControlBitsToSet) {
@@ -4922,7 +4924,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptordacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecuritydescriptordacl
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorDacl(pSecurityDescriptor, bDaclPresent, pDacl, bDaclDefaulted) {
@@ -4950,7 +4952,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorgroup
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorGroup(pSecurityDescriptor, pGroup, bGroupDefaulted) {
@@ -4978,7 +4980,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorowner
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorowner
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorOwner(pSecurityDescriptor, pOwner, bOwnerDefaulted) {
@@ -5000,19 +5002,19 @@ class Security {
      * The resource manager control bits are eight bits in the <b>Sbz1</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that contains information specific to the resource manager accessing the structure. These bits should be accessed only through the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol">GetSecurityDescriptorRMControl</a> and <b>SetSecurityDescriptorRMControl</b> functions.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits.
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits.
      * @param {Pointer<Integer>} RMControl A pointer to the bitfield value that the resource manager control bits in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure will be set to. If the value of this parameter is <b>NULL</b>, the resource manager control bits will be cleared.
      * @returns {Integer} The return value is ERROR_SUCCESS.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol
      * @since windows5.1.2600
      */
-    static SetSecurityDescriptorRMControl(SecurityDescriptor, RMControl) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static SetSecurityDescriptorRMControl(SecurityDescriptor_, RMControl) {
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         RMControlMarshal := RMControl is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\SetSecurityDescriptorRMControl", "ptr", SecurityDescriptor, RMControlMarshal, RMControl, "uint")
+        result := DllCall("ADVAPI32.dll\SetSecurityDescriptorRMControl", "ptr", SecurityDescriptor_, RMControlMarshal, RMControl, "uint")
         return result
     }
 
@@ -5029,7 +5031,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorsacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorsacl
      * @since windows5.1.2600
      */
     static SetSecurityDescriptorSacl(pSecurityDescriptor, bSaclPresent, pSacl, bSaclDefaulted) {
@@ -5060,7 +5062,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-settokeninformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-settokeninformation
      * @since windows5.1.2600
      */
     static SetTokenInformation(TokenHandle, TokenInformationClass, TokenInformation, TokenInformationLength) {
@@ -5092,7 +5094,7 @@ class Security {
      * @returns {BOOL} If the function succeeds, it returns **TRUE**.
      * 
      * If the function fails, it returns **FALSE**. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror). **GetLastError** may return one of the error codes defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setcachedsigninglevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-setcachedsigninglevel
      */
     static SetCachedSigningLevel(SourceFiles, SourceFileCount, Flags, TargetFile) {
         TargetFile := TargetFile is Win32Handle ? NumGet(TargetFile, "ptr") : TargetFile
@@ -5103,7 +5105,7 @@ class Security {
 
     /**
      * Retrieves the cached signing level.
-     * @param {HANDLE} File Handle to a file.
+     * @param {HANDLE} File_ Handle to a file.
      * @param {Pointer<Integer>} Flags Pointer to the flags set on the file. The following *Flags* are supported:
      * 
      * | Flag | Value |
@@ -5119,17 +5121,17 @@ class Security {
      * @returns {BOOL} If the function succeeds, it returns **TRUE**.
      * 
      * If the function fails, it returns **FALSE**. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror). **GetLastError** may return one of the error codes defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getcachedsigninglevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getcachedsigninglevel
      */
-    static GetCachedSigningLevel(File, Flags, SigningLevel, Thumbprint, ThumbprintSize, ThumbprintAlgorithm) {
-        File := File is Win32Handle ? NumGet(File, "ptr") : File
+    static GetCachedSigningLevel(File_, Flags, SigningLevel, Thumbprint, ThumbprintSize, ThumbprintAlgorithm) {
+        File_ := File_ is Win32Handle ? NumGet(File_, "ptr") : File_
 
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
         SigningLevelMarshal := SigningLevel is VarRef ? "uint*" : "ptr"
         ThumbprintSizeMarshal := ThumbprintSize is VarRef ? "uint*" : "ptr"
         ThumbprintAlgorithmMarshal := ThumbprintAlgorithm is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetCachedSigningLevel", "ptr", File, FlagsMarshal, Flags, SigningLevelMarshal, SigningLevel, "ptr", Thumbprint, ThumbprintSizeMarshal, ThumbprintSize, ThumbprintAlgorithmMarshal, ThumbprintAlgorithm, "int")
+        result := DllCall("KERNEL32.dll\GetCachedSigningLevel", "ptr", File_, FlagsMarshal, Flags, SigningLevelMarshal, SigningLevel, "ptr", Thumbprint, ThumbprintSizeMarshal, ThumbprintSize, ThumbprintAlgorithmMarshal, ThumbprintAlgorithm, "int")
         return result
     }
 
@@ -5148,7 +5150,7 @@ class Security {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-derivecapabilitysidsfromname
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-derivecapabilitysidsfromname
      */
     static DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGroupSidCount, CapabilitySids, CapabilitySidCount) {
         CapName := CapName is String ? StrPtr(CapName) : CapName
@@ -5170,17 +5172,17 @@ class Security {
 
     /**
      * 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor_ 
      * @param {Integer} SecurityDescriptorLength 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor 
      * @param {Pointer<Integer>} NewSecurityDescriptorLength 
      * @param {BOOLEAN} CheckOnly 
      * @returns {BOOLEAN} 
      */
-    static RtlNormalizeSecurityDescriptor(SecurityDescriptor, SecurityDescriptorLength, NewSecurityDescriptor, NewSecurityDescriptorLength, CheckOnly) {
+    static RtlNormalizeSecurityDescriptor(SecurityDescriptor_, SecurityDescriptorLength, NewSecurityDescriptor, NewSecurityDescriptorLength, CheckOnly) {
         NewSecurityDescriptorLengthMarshal := NewSecurityDescriptorLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", "ptr", SecurityDescriptor, "uint", SecurityDescriptorLength, "ptr", NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, "char", CheckOnly, "char")
+        result := DllCall("ntdll.dll\RtlNormalizeSecurityDescriptor", "ptr", SecurityDescriptor_, "uint", SecurityDescriptorLength, "ptr", NewSecurityDescriptor, NewSecurityDescriptorLengthMarshal, NewSecurityDescriptorLength, "char", CheckOnly, "char")
         return result
     }
 
@@ -5190,7 +5192,7 @@ class Security {
      * The <b>SetUserObjectSecurity</b> function applies changes specified in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> to the security descriptor assigned to a user object. The security descriptor of the object must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> form. If necessary, this function allocates additional memory to increase the size of the security descriptor.
      * @param {HANDLE} hObj A handle to a user object for which security information is set.
      * @param {Pointer<Integer>} pSIRequested 
-     * @param {PSECURITY_DESCRIPTOR} pSID A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} pSID_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information. 
      * 
      * 
@@ -5201,18 +5203,18 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setuserobjectsecurity
      * @since windows5.1.2600
      */
-    static SetUserObjectSecurity(hObj, pSIRequested, pSID) {
+    static SetUserObjectSecurity(hObj, pSIRequested, pSID_) {
         hObj := hObj is Win32Handle ? NumGet(hObj, "ptr") : hObj
-        pSID := pSID is Win32Handle ? NumGet(pSID, "ptr") : pSID
+        pSID_ := pSID_ is Win32Handle ? NumGet(pSID_, "ptr") : pSID_
 
         pSIRequestedMarshal := pSIRequested is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetUserObjectSecurity", "ptr", hObj, pSIRequestedMarshal, pSIRequested, "ptr", pSID, "int")
+        result := DllCall("USER32.dll\SetUserObjectSecurity", "ptr", hObj, pSIRequestedMarshal, pSIRequested, "ptr", pSID_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5229,7 +5231,7 @@ class Security {
      * @param {HANDLE} hObj A handle to the user object for which to return security information.
      * @param {Pointer<Integer>} pSIRequested A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information being requested.
-     * @param {Pointer} pSID A pointer to a 
+     * @param {Pointer} pSID_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format that contains the requested information when the function returns. This buffer must be aligned on a 4-byte boundary.
      * @param {Integer} nLength The length, in bytes, of the buffer pointed to by the <i>pSD</i> parameter.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable to receive the number of bytes required to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer. Otherwise, the entire security descriptor is copied.
@@ -5238,10 +5240,10 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getuserobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getuserobjectsecurity
      * @since windows5.1.2600
      */
-    static GetUserObjectSecurity(hObj, pSIRequested, pSID, nLength, lpnLengthNeeded) {
+    static GetUserObjectSecurity(hObj, pSIRequested, pSID_, nLength, lpnLengthNeeded) {
         hObj := hObj is Win32Handle ? NumGet(hObj, "ptr") : hObj
 
         pSIRequestedMarshal := pSIRequested is VarRef ? "uint*" : "ptr"
@@ -5249,7 +5251,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetUserObjectSecurity", "ptr", hObj, pSIRequestedMarshal, pSIRequested, "ptr", pSID, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
+        result := DllCall("USER32.dll\GetUserObjectSecurity", "ptr", hObj, pSIRequestedMarshal, pSIRequested, "ptr", pSID_, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5269,7 +5271,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string specifying the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to the 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Integer} DesiredAccess <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Access mask</a> that specifies the access rights to check. This mask must have been mapped by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function to contain no generic access rights. 
@@ -5289,14 +5291,14 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckandauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-accesscheckandauditalarma
      * @since windows5.1.2600
      */
-    static AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+    static AccessCheckAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor_, DesiredAccess, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
@@ -5305,7 +5307,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "uint", DesiredAccess, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5337,7 +5339,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>. 
      * 
@@ -5377,14 +5379,14 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckbytypeandauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-accesscheckbytypeandauditalarma
      * @since windows5.1.2600
      */
-    static AccessCheckByTypeAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
+    static AccessCheckByTypeAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor_, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatus, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
@@ -5393,7 +5395,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckByTypeAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusMarshal, AccessStatus, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5426,7 +5428,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE that contains the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
@@ -5455,14 +5457,14 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarma
      * @since windows5.1.2600
      */
-    static AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
+    static AccessCheckByTypeResultListAndAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, SecurityDescriptor_, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
@@ -5471,7 +5473,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5506,7 +5508,7 @@ class Security {
      * @param {HANDLE} ClientToken A handle to a token object that represents the client that requested the operation. This handle must be obtained through a communication session layer, such as a local named pipe, to prevent possible security policy violations. The caller must have TOKEN_QUERY access for the specified token.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a SID. If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
@@ -5535,15 +5537,15 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarmbyhandlea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-accesscheckbytyperesultlistandauditalarmbyhandlea
      * @since windows5.1.2600
      */
-    static AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
+    static AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor_, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
         ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
         HandleIdMarshal := HandleId is VarRef ? "ptr" : "ptr"
         GrantedAccessMarshal := GrantedAccess is VarRef ? "uint*" : "ptr"
@@ -5552,7 +5554,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
+        result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleA", "ptr", SubsystemName, HandleIdMarshal, HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor_, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, GrantedAccessMarshal, GrantedAccess, AccessStatusListMarshal, AccessStatusList, pfGenerateOnCloseMarshal, pfGenerateOnClose, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5588,7 +5590,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectopenauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-objectopenauditalarma
      * @since windows5.1.2600
      */
     static ObjectOpenAuditAlarmA(SubsystemName, HandleId, ObjectTypeName, ObjectName, pSecurityDescriptor, ClientToken, DesiredAccess, GrantedAccess, Privileges, ObjectCreation, AccessGranted, GenerateOnClose) {
@@ -5631,7 +5633,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectprivilegeauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-objectprivilegeauditalarma
      * @since windows5.1.2600
      */
     static ObjectPrivilegeAuditAlarmA(SubsystemName, HandleId, ClientToken, DesiredAccess, Privileges, AccessGranted) {
@@ -5662,7 +5664,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectcloseauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-objectcloseauditalarma
      * @since windows5.1.2600
      */
     static ObjectCloseAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
@@ -5695,7 +5697,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-objectdeleteauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-objectdeleteauditalarma
      * @since windows5.1.2600
      */
     static ObjectDeleteAuditAlarmA(SubsystemName, HandleId, GenerateOnClose) {
@@ -5730,7 +5732,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-privilegedserviceauditalarma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-privilegedserviceauditalarma
      * @since windows5.1.2600
      */
     static PrivilegedServiceAuditAlarmA(SubsystemName, ServiceName, ClientToken, Privileges, AccessGranted) {
@@ -5759,7 +5761,7 @@ class Security {
      * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AceType The type of the ACE.
      * @param {Integer} AccessMask Specifies the mask of access rights to be granted to the specified SID.
-     * @param {PSID} pSid A pointer to the 
+     * @param {PSID} pSid_ A pointer to the 
      * SID  that represents a user, group, or logon account being granted access.
      * @param {PWSTR} ConditionStr A string that specifies the conditional statement to be evaluated for the ACE.
      * @param {Pointer<Integer>} ReturnLength The size, in bytes, of the ACL. If the buffer specified by the <i>pACL</i> parameter is not of sufficient size, the value of this parameter is the required size.
@@ -5785,17 +5787,17 @@ class Security {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addconditionalace
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-addconditionalace
      * @since windows6.1
      */
-    static AddConditionalAce(pAcl, dwAceRevision, AceFlags, AceType, AccessMask, pSid, ConditionStr, ReturnLength) {
+    static AddConditionalAce(pAcl, dwAceRevision, AceFlags, AceType, AccessMask, pSid_, ConditionStr, ReturnLength) {
         ConditionStr := ConditionStr is String ? StrPtr(ConditionStr) : ConditionStr
 
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AddConditionalAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "char", AceType, "uint", AccessMask, "ptr", pSid, "ptr", ConditionStr, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ADVAPI32.dll\AddConditionalAce", "ptr", pAcl, "uint", dwAceRevision, "uint", AceFlags, "char", AceType, "uint", AccessMask, "ptr", pSid_, "ptr", ConditionStr, ReturnLengthMarshal, ReturnLength, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5822,7 +5824,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfilesecuritya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfilesecuritya
      * @since windows5.1.2600
      */
     static SetFileSecurityA(lpFileName, SecurityInformation, pSecurityDescriptor) {
@@ -5856,7 +5858,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfilesecuritya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfilesecuritya
      * @since windows5.1.2600
      */
     static GetFileSecurityA(lpFileName, RequestedInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -5883,7 +5885,7 @@ class Security {
      * 
      * In addition to looking up SIDs for local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountSid</b> can look up SIDs for any account in any domain in the forest, including SIDs that appear only in the SIDhistory field of an account in the forest. The SIDhistory field stores former SIDs of an account that has been moved from another domain. To look up a SID, <b>LookupAccountSid</b> queries the global catalog of the forest.
      * @param {PSTR} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the target computer. This string can be the name of a remote computer. If this parameter is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
-     * @param {PSID} Sid A pointer to the 
+     * @param {PSID} Sid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
      * @param {PSTR} Name A pointer to a buffer that receives a <b>null</b>-terminated string that contains the account name that corresponds to the <i>lpSid</i> parameter.
      * @param {Pointer<Integer>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
@@ -5902,10 +5904,10 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountsida
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupaccountsida
      * @since windows5.1.2600
      */
-    static LookupAccountSidA(lpSystemName, Sid, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
+    static LookupAccountSidA(lpSystemName, Sid_, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
         lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
         Name := Name is String ? StrPtr(Name) : Name
         ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
@@ -5916,7 +5918,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LookupAccountSidA", "ptr", lpSystemName, "ptr", Sid, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
+        result := DllCall("ADVAPI32.dll\LookupAccountSidA", "ptr", lpSystemName, "ptr", Sid_, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5933,7 +5935,7 @@ class Security {
      * 
      * In addition to looking up SIDs for local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountSid</b> can look up SIDs for any account in any domain in the forest, including SIDs that appear only in the SIDhistory field of an account in the forest. The SIDhistory field stores former SIDs of an account that has been moved from another domain. To look up a SID, <b>LookupAccountSid</b> queries the global catalog of the forest.
      * @param {PWSTR} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the target computer. This string can be the name of a remote computer. If this parameter is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
-     * @param {PSID} Sid A pointer to the 
+     * @param {PSID} Sid_ A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
      * @param {PWSTR} Name A pointer to a buffer that receives a <b>null</b>-terminated string that contains the account name that corresponds to the <i>lpSid</i> parameter.
      * @param {Pointer<Integer>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
@@ -5952,10 +5954,10 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountsidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupaccountsidw
      * @since windows5.1.2600
      */
-    static LookupAccountSidW(lpSystemName, Sid, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
+    static LookupAccountSidW(lpSystemName, Sid_, Name, cchName, ReferencedDomainName, cchReferencedDomainName, peUse) {
         lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
         Name := Name is String ? StrPtr(Name) : Name
         ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
@@ -5966,7 +5968,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LookupAccountSidW", "ptr", lpSystemName, "ptr", Sid, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
+        result := DllCall("ADVAPI32.dll\LookupAccountSidW", "ptr", lpSystemName, "ptr", Sid_, "ptr", Name, cchNameMarshal, cchName, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5993,7 +5995,7 @@ class Security {
      * @param {PSTR} lpAccountName A pointer to a <b>null</b>-terminated string that specifies the account name.
      * 
      * Use a fully qualified string in the domain_name\user_name format to ensure that <b>LookupAccountName</b> finds the account in the desired domain.
-     * @param {Pointer} Sid A pointer to a buffer that receives the 
+     * @param {Pointer} Sid_ A pointer to a buffer that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that corresponds to the account name pointed to by the <i>lpAccountName</i> parameter. If this parameter is <b>NULL</b>, <i>cbSid</i> must be zero.
      * @param {Pointer<Integer>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
      * @param {PSTR} ReferencedDomainName A pointer to a buffer that receives the name of the domain where the account name is found. For computers that are not joined to a domain, this buffer receives the computer name. If this parameter is <b>NULL</b>, the function returns the required buffer size.
@@ -6004,10 +6006,10 @@ class Security {
      * 
      * If the function fails, it returns zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupaccountnamea
      * @since windows5.1.2600
      */
-    static LookupAccountNameA(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
+    static LookupAccountNameA(lpSystemName, lpAccountName, Sid_, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
         lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
         lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
         ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
@@ -6018,7 +6020,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
+        result := DllCall("ADVAPI32.dll\LookupAccountNameA", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid_, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -6045,7 +6047,7 @@ class Security {
      * @param {PWSTR} lpAccountName A pointer to a <b>null</b>-terminated string that specifies the account name.
      * 
      * Use a fully qualified string in the domain_name\user_name format to ensure that <b>LookupAccountName</b> finds the account in the desired domain.
-     * @param {Pointer} Sid A pointer to a buffer that receives the 
+     * @param {Pointer} Sid_ A pointer to a buffer that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that corresponds to the account name pointed to by the <i>lpAccountName</i> parameter. If this parameter is <b>NULL</b>, <i>cbSid</i> must be zero.
      * @param {Pointer<Integer>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
      * @param {PWSTR} ReferencedDomainName A pointer to a buffer that receives the name of the domain where the account name is found. For computers that are not joined to a domain, this buffer receives the computer name. If this parameter is <b>NULL</b>, the function returns the required buffer size.
@@ -6056,10 +6058,10 @@ class Security {
      * 
      * If the function fails, it returns zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupaccountnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupaccountnamew
      * @since windows5.1.2600
      */
-    static LookupAccountNameW(lpSystemName, lpAccountName, Sid, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
+    static LookupAccountNameW(lpSystemName, lpAccountName, Sid_, cbSid, ReferencedDomainName, cchReferencedDomainName, peUse) {
         lpSystemName := lpSystemName is String ? StrPtr(lpSystemName) : lpSystemName
         lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
         ReferencedDomainName := ReferencedDomainName is String ? StrPtr(ReferencedDomainName) : ReferencedDomainName
@@ -6070,7 +6072,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
+        result := DllCall("ADVAPI32.dll\LookupAccountNameW", "ptr", lpSystemName, "ptr", lpAccountName, "ptr", Sid_, cbSidMarshal, cbSid, "ptr", ReferencedDomainName, cchReferencedDomainNameMarshal, cchReferencedDomainName, peUseMarshal, peUse, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -6090,7 +6092,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegevaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupprivilegevaluea
      * @since windows5.1.2600
      */
     static LookupPrivilegeValueA(lpSystemName, lpName, lpLuid) {
@@ -6119,7 +6121,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegevaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupprivilegevaluew
      * @since windows5.1.2600
      */
     static LookupPrivilegeValueW(lpSystemName, lpName, lpLuid) {
@@ -6156,7 +6158,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupprivilegenamea
      * @since windows5.1.2600
      */
     static LookupPrivilegeNameA(lpSystemName, lpLuid, lpName, cchName) {
@@ -6195,7 +6197,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupprivilegenamew
      * @since windows5.1.2600
      */
     static LookupPrivilegeNameW(lpSystemName, lpLuid, lpName, cchName) {
@@ -6235,7 +6237,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegedisplaynamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupprivilegedisplaynamea
      * @since windows5.1.2600
      */
     static LookupPrivilegeDisplayNameA(lpSystemName, lpName, lpDisplayName, cchDisplayName, lpLanguageId) {
@@ -6277,7 +6279,7 @@ class Security {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-lookupprivilegedisplaynamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-lookupprivilegedisplaynamew
      * @since windows5.1.2600
      */
     static LookupPrivilegeDisplayNameW(lpSystemName, lpName, lpDisplayName, cchDisplayName, lpLanguageId) {
@@ -6339,7 +6341,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonusera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-logonusera
      * @since windows5.1.2600
      */
     static LogonUserA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken) {
@@ -6398,7 +6400,7 @@ class Security {
      * 
      * If the function fails, it returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonuserw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-logonuserw
      * @since windows5.1.2600
      */
     static LogonUserW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken) {
@@ -6470,7 +6472,7 @@ class Security {
      * 
      * If the function fails, it returns  zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonuserexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-logonuserexa
      * @since windows5.1.2600
      */
     static LogonUserExA(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken, ppLogonSid, ppProfileBuffer, pdwProfileLength, pQuotaLimits) {
@@ -6546,7 +6548,7 @@ class Security {
      * 
      * If the function fails, it returns  zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-logonuserexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-logonuserexw
      * @since windows5.1.2600
      */
     static LogonUserExW(lpszUsername, lpszDomain, lpszPassword, dwLogonType, dwLogonProvider, phToken, ppLogonSid, ppProfileBuffer, pdwProfileLength, pQuotaLimits) {
@@ -6571,14 +6573,14 @@ class Security {
     /**
      * Converts a security identifier (SID) to its Unicode character representation.
      * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode character representation of the security identifier.
-     * @param {PSID} Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the security identifier.
+     * @param {PSID} Sid_ A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the security identifier.
      * @param {BOOLEAN} AllocateDestinationString If <b>TRUE</b>, then  <i>UnicodeString</i> is allocated on behalf of the caller, and it is the caller's responsibility to free the allocated memory by calling the <b>RtlFreeUnicodeString</b> function. If <b>FALSE</b>, the caller is responsible for allocating and freeing  <i>UnicodeString</i>.
      * @returns {NTSTATUS} The return value is an  NTSTATUS code. A value of STATUS_SUCCESS (0x00000000L) is returned if the function succeeds.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlconvertsidtounicodestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlconvertsidtounicodestring
      * @since windows5.1.2600
      */
-    static RtlConvertSidToUnicodeString(UnicodeString, Sid, AllocateDestinationString) {
-        result := DllCall("ntdll.dll\RtlConvertSidToUnicodeString", "ptr", UnicodeString, "ptr", Sid, "char", AllocateDestinationString, "int")
+    static RtlConvertSidToUnicodeString(UnicodeString, Sid_, AllocateDestinationString) {
+        result := DllCall("ntdll.dll\RtlConvertSidToUnicodeString", "ptr", UnicodeString, "ptr", Sid_, "char", AllocateDestinationString, "int")
         return result
     }
 

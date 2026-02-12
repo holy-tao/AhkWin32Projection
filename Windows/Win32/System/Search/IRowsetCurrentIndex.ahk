@@ -33,17 +33,26 @@ class IRowsetCurrentIndex extends IRowsetIndex{
      * @returns {Pointer<DBID>} 
      */
     GetIndex() {
-        result := ComCall(6, this, "ptr*", &ppIndexID := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppIndexID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppIndexID
     }
 
     /**
-     * 
+     * Learn more about: SetIndexRangeGrbit enumeration
      * @param {Pointer<DBID>} pIndexID 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/setindexrangegrbit-enumeration
      */
     SetIndex(pIndexID) {
-        result := ComCall(7, this, "ptr", pIndexID, "HRESULT")
+        result := ComCall(7, this, "ptr", pIndexID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

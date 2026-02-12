@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -426,7 +428,7 @@ class ExtensibleAuthenticationProtocol {
     static eapPropReserved => 2147483648
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_VALUENAME_PROPERTIES => "Properties"
 
@@ -631,72 +633,72 @@ class ExtensibleAuthenticationProtocol {
     static NCRYPT_PIN_CACHE_PIN_BYTE_LENGTH => 90
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_REGISTRY_LOCATION => "System\CurrentControlSet\Services\EapHost\Methods"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_DLL_PATH => "PeerDllPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_FRIENDLY_NAME => "PeerFriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_CONFIGUI => "PeerConfigUIPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_REQUIRE_CONFIGUI => "PeerRequireConfigUI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_IDENTITY => "PeerIdentityPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_INTERACTIVEUI => "PeerInteractiveUIPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_INVOKE_NAMEDLG => "PeerInvokeUsernameDialog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_INVOKE_PWDDLG => "PeerInvokePasswordDialog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_PEER_VALUENAME_PROPERTIES => "Properties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_AUTHENTICATOR_VALUENAME_DLL_PATH => "AuthenticatorDllPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_AUTHENTICATOR_VALUENAME_FRIENDLY_NAME => "AuthenticatorFriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_AUTHENTICATOR_VALUENAME_PROPERTIES => "Properties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EAP_AUTHENTICATOR_VALUENAME_CONFIGUI => "AuthenticatorConfigUIPath"
 
@@ -706,87 +708,87 @@ class ExtensibleAuthenticationProtocol {
     static EAP_METHOD_AUTHENTICATOR_CONFIG_IS_IDENTITY_PRIVACY => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_REGISTRY_LOCATION => "System\CurrentControlSet\Services\Rasman\PPP\EAP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_PATH => "Path"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_CONFIGUI => "ConfigUIPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_INTERACTIVEUI => "InteractiveUIPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_IDENTITY => "IdentityPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_FRIENDLY_NAME => "FriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_DEFAULT_DATA => "ConfigData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_REQUIRE_CONFIGUI => "RequireConfigUI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_ENCRYPTION => "MPPEEncryptionSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_INVOKE_NAMEDLG => "InvokeUsernameDialog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_INVOKE_PWDDLG => "InvokePasswordDialog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_CONFIG_CLSID => "ConfigCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_STANDALONE_SUPPORTED => "StandaloneSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_ROLES_SUPPORTED => "RolesSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_PER_POLICY_CONFIG => "PerPolicyConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_ISTUNNEL_METHOD => "IsTunnelMethod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RAS_EAP_VALUENAME_FILTER_INNERMETHODS => "FilterInnerMethods"
 
@@ -1228,7 +1230,7 @@ class ExtensibleAuthenticationProtocol {
      *                 using the function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>, starting at the innermost pointer.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeergetmethods
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeergetmethods
      * @since windows6.0.6000
      */
     static EapHostPeerGetMethods(pEapMethodInfoArray, ppEapError) {
@@ -1254,7 +1256,7 @@ class ExtensibleAuthenticationProtocol {
      *                 at the innermost pointer. The caller should free an <b>empvString</b> value only when the type is <b>empvtString</b>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by passing a pointer to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeergetmethodproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeergetmethodproperties
      * @since windows6.1
      */
     static EapHostPeerGetMethodProperties(dwVersion, dwFlags, eapMethodType, hUserImpersonationToken, dwEapConnDataSize, pbEapConnData, dwUserDataSize, pbUserData, pMethodPropertyArray, ppEapError) {
@@ -1279,7 +1281,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<Integer>>} ppConfigOut A pointer to a pointer to a byte buffer that contains updated configuration data from the user. After consuming the data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeconfigui
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeconfigui
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeConfigUI(hwndParent, dwFlags, eapMethodType, dwSizeOfConfigIn, pConfigIn, pdwSizeOfConfigOut, ppConfigOut, ppEapError) {
@@ -1311,7 +1313,7 @@ class ExtensibleAuthenticationProtocol {
      *                 using the function <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>, starting at the innermost pointer.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by passing a pointer to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerquerycredentialinputfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerquerycredentialinputfields
      * @since windows6.0.6000
      */
     static EapHostPeerQueryCredentialInputFields(hUserImpersonationToken, eapMethodType, dwFlags, dwEapConnDataSize, pbEapConnData, pEapConfigInputFieldArray, ppEapError) {
@@ -1342,7 +1344,7 @@ class ExtensibleAuthenticationProtocol {
      *                 Memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>. If a non-null value is supplied for this parameter (meaning that an existing data BLOB is passed to it), the supplied data BLOB will be updated and returned in this parameter.  If a non-NULL BLOB value is supplied, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function should be used.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryuserblobfromcredentialinputfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryuserblobfromcredentialinputfields
      * @since windows6.0.6000
      */
     static EapHostPeerQueryUserBlobFromCredentialInputFields(hUserImpersonationToken, eapMethodType, dwFlags, dwEapConnDataSize, pbEapConnData, pEapConfigInputFieldArray, pdwUserBlobSize, ppbUserBlob, ppEapError) {
@@ -1373,7 +1375,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised during the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @param {Pointer<Pointer<Void>>} ppvReserved Reserved for future use.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeidentityui
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeidentityui
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeIdentityUI(dwVersion, eapMethodType, dwFlags, hwndParent, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
@@ -1406,7 +1408,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<Integer>>} ppDataFromInteractiveUI A pointer to a pointer to a byte buffer that  contains data from the interactive UI necessary for authentication to continue. The parameter <i>ppDataFromInteractiveUI</i> should be passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeersetuicontext">EapHostPeerSetUIContext</a> as the IN parameter <i>pUIContextData</i>. After consuming the data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>. The buffer is of size <i>pdwSizeofDataFromInteractiveUI</i>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeinteractiveui
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeinteractiveui
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeInteractiveUI(hwndParent, dwSizeofUIContextData, pUIContextData, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUI, ppEapError) {
@@ -1454,7 +1456,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @param {Pointer<Pointer<Void>>} ppvReserved Reserved for future use. This parameter must be set to 0.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryinteractiveuiinputfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryinteractiveuiinputfields
      * @since windows6.0.6000
      */
     static EapHostPeerQueryInteractiveUIInputFields(dwVersion, dwFlags, dwSizeofUIContextData, pUIContextData, pEapInteractiveUIData, ppEapError, ppvReserved) {
@@ -1500,7 +1502,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @param {Pointer<Pointer<Void>>} ppvReserved Reserved for future use. This parameter must be set to 0.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryuiblobfrominteractiveuiinputfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryuiblobfrominteractiveuiinputfields
      * @since windows6.0.6000
      */
     static EapHostPeerQueryUIBlobFromInteractiveUIInputFields(dwVersion, dwFlags, dwSizeofUIContextData, pUIContextData, pEapInteractiveUIData, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUI, ppEapError, ppvReserved) {
@@ -1523,7 +1525,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<EAP_METHOD_TYPE>} pEapMethodType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure referred to in the XML document.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised  by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerconfigxml2blob
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerconfigxml2blob
      * @since windows6.0.6000
      */
     static EapHostPeerConfigXml2Blob(dwFlags, pConfigDoc, pdwSizeOfConfigOut, ppConfigOut, pEapMethodType, ppEapError) {
@@ -1561,7 +1563,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<EAP_METHOD_TYPE>} pEapMethodType A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure referred to in the XML document.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised  by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeercredentialsxml2blob
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeercredentialsxml2blob
      * @since windows6.0.6000
      */
     static EapHostPeerCredentialsXml2Blob(dwFlags, pCredentialsDoc, dwSizeOfConfigIn, pConfigIn, pdwSizeOfCredentialsOut, ppCredentialsOut, pEapMethodType, ppEapError) {
@@ -1584,7 +1586,7 @@ class ExtensibleAuthenticationProtocol {
      *                 the [EapHostConfig Schema](/windows/win32/eaphost/eaphostconfigschema-schema) element.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised by EAPHost during  the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerconfigblob2xml
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerconfigblob2xml
      * @since windows6.0.6000
      */
     static EapHostPeerConfigBlob2Xml(dwFlags, eapMethodType, dwSizeOfConfigIn, pConfigIn, ppConfigDoc, ppEapError) {
@@ -1599,7 +1601,7 @@ class ExtensibleAuthenticationProtocol {
      * Frees memory returned by the configuration APIs.
      * @param {Pointer<Integer>} pData A pointer to the memory to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory
      * @since windows6.0.6000
      */
     static EapHostPeerFreeMemory(pData) {
@@ -1612,7 +1614,7 @@ class ExtensibleAuthenticationProtocol {
      * Frees memory allocated to an EAP_ERROR structure.
      * @param {Pointer<EAP_ERROR>} pEapError A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that  contains the error data to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory
      * @since windows6.0.6000
      */
     static EapHostPeerFreeErrorMemory(pEapError) {
@@ -1632,7 +1634,7 @@ class ExtensibleAuthenticationProtocol {
      * The client should not initialize a conflicting COM environment.
      * If different COM environment (such as a single-threaded apartment) is required, the client should call  <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializeex">CoInitializeEx</a> directly, and not call <b>EapHostPeerInitialize</b>. If <b>CoInitializeEx</b> is called directly, then the client must call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-couninitialize">CoUninitialize</a> to uninitialize the session. In addition, the client must use COM functions (and not EAPHost supplicant functions) to allocate and free memory.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerinitialize
      * @since windows6.0.6000
      */
     static EapHostPeerInitialize() {
@@ -1648,7 +1650,7 @@ class ExtensibleAuthenticationProtocol {
      * 
      * <b>EapHostPeerUninitialize</b> calls <b>CoUninitialize</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeeruninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeeruninitialize
      * @since windows6.0.6000
      */
     static EapHostPeerUninitialize() {
@@ -1700,7 +1702,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Integer>} pSessionId A pointer to an <b>EAP_SESSIONID</b> structure that contains the unique handle for this EAP authentication session on the EAPHost server.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerbeginsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerbeginsession
      * @since windows6.0.6000
      */
     static EapHostPeerBeginSession(dwFlags, eapType, pAttributeArray, hTokenImpersonateUser, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, dwMaxSendPacketSize, pConnectionId, func, pContextData, pSessionId, ppEapError) {
@@ -1726,7 +1728,7 @@ class ExtensibleAuthenticationProtocol {
      *       another method on EAPHost or acts  on its own.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerprocessreceivedpacket
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerprocessreceivedpacket
      * @since windows6.0.6000
      */
     static EapHostPeerProcessReceivedPacket(sessionHandle, cbReceivePacket, pReceivePacket, pEapOutput, ppEapError) {
@@ -1745,7 +1747,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<Integer>>} ppSendPacket A pointer to a pointer to a  buffer that contains the packet data returned by the EAP module. The buffer is allocated by EAPHost.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetsendpacket
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetsendpacket
      * @since windows6.0.6000
      */
     static EapHostPeerGetSendPacket(sessionHandle, pcbSendPacket, ppSendPacket, ppEapError) {
@@ -1777,7 +1779,7 @@ class ExtensibleAuthenticationProtocol {
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>. The return value does not indicate if the authentication was successful. Supplicants must refer to the <i>ppEapError</i> parameter to determine the authentication result.
      * 
      * If the function fails, the return value should be an appropriate error code from Winerror.h, Raserror.h, or Mprerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetresult
      * @since windows6.0.6000
      */
     static EapHostPeerGetResult(sessionHandle, reason, ppResult, ppEapError) {
@@ -1794,7 +1796,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<Integer>>} ppUIContextData A pointer to a pointer to a  buffer that contains the supplicant UI context data from EAPHost. The address pointed to by this parameter is passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerinvokeinteractiveui">EapHostPeerInvokeInteractiveUI</a> as IN parameter <i>pUIContextData</i>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetuicontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetuicontext
      * @since windows6.0.6000
      */
     static EapHostPeerGetUIContext(sessionHandle, pdwSizeOfUIContextData, ppUIContextData, ppEapError) {
@@ -1814,7 +1816,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Integer>} pEapOutput A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/eaphostpeertypes/ne-eaphostpeertypes-eaphostpeerresponseaction">EapHostPeerResponseAction</a> enumeration value that specifies the action code for the next step the supplicant must take as a response.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeersetuicontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeersetuicontext
      * @since windows6.0.6000
      */
     static EapHostPeerSetUIContext(sessionHandle, dwSizeOfUIContextData, pUIContextData, pEapOutput, ppEapError) {
@@ -1832,7 +1834,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<EAP_ATTRIBUTES>} pAttribs A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_attributes">EAP_ATTRIBUTES</a> structure that contains an array of EAP authentication response attributes for the supplicant.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetresponseattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetresponseattributes
      * @since windows6.0.6000
      */
     static EapHostPeerGetResponseAttributes(sessionHandle, pAttribs, ppEapError) {
@@ -1865,7 +1867,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Integer>} pEapOutput A pointer to an <a href="https://docs.microsoft.com/windows/win32/api/eaphostpeertypes/ne-eaphostpeertypes-eaphostpeerresponseaction">EapHostPeerResponseAction</a> enumeration value that specifies the action code for the next step the supplicant must take as a response.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeersetresponseattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeersetresponseattributes
      * @since windows6.0.6000
      */
     static EapHostPeerSetResponseAttributes(sessionHandle, pAttribs, pEapOutput, ppEapError) {
@@ -1931,7 +1933,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<Integer>>} ppAuthData A pointer to a pointer to a byte buffer that contains the authentication data from EAPHost. The format of this data depends on the value supplied in <i>authParam</i>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetauthstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetauthstatus
      * @since windows6.0.6000
      */
     static EapHostPeerGetAuthStatus(sessionHandle, authParam, pcbAuthData, ppAuthData, ppEapError) {
@@ -1948,7 +1950,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Integer} sessionHandle A pointer to an <b>EAP_SESSIONID</b> structure that contains the unique handle for this EAP authentication session on the EAPHost server. This handle is returned in the <i>pSessionId</i> parameter in a previous call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerbeginsession">EapHostPeerBeginSession</a>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerendsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerendsession
      * @since windows6.0.6000
      */
     static EapHostPeerEndSession(sessionHandle, ppEapError) {
@@ -1966,7 +1968,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to an <b>EAP_SESSIONID</b> structure that contains the unique handle for this EAP authentication session on the EAPHost server. This handle is returned in the <i>pSessionId</i> parameter in a previous call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerbeginsession">EapHostPeerBeginSession</a>.
      * @param {Pointer<BOOL>} fSaveToCredMan A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetdatatounplumbcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetdatatounplumbcredentials
      * @since windows10.0.10240
      */
     static EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds, phCredentialImpersonationToken, sessionHandle, ppEapError, fSaveToCredMan) {
@@ -1983,7 +1985,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Guid>} pConnectionId A pointer to a GUID value that uniquely identifies a logical network interface for a connection to terminate between the supplicant and the EAPHost. This connection ID must have been provided in a previous call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerbeginsession">EapHostPeerBeginSession</a>.
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerclearconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerclearconnection
      * @since windows6.0.6000
      */
     static EapHostPeerClearConnection(pConnectionId, ppEapError) {
@@ -2001,7 +2003,7 @@ class ExtensibleAuthenticationProtocol {
      * <b>EapHostPeerFreeEapError</b> is not thread safe. Any given <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> must be freed on one thread only. Do not call  <b>EapHostPeerFreeEapError</b> twice on the same <b>EAP_ERROR</b> structure.
      * @param {Pointer<EAP_ERROR>} pEapError A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that  contains the error data to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerfreeeaperror
      * @since windows6.0.6000
      */
     static EapHostPeerFreeEapError(pEapError) {
@@ -2025,7 +2027,7 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<Pointer<EAP_ERROR>>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised during the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @param {Pointer<Pointer<Integer>>} ppvReserved Reserved for future use
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeergetidentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeergetidentity
      * @since windows6.0.6000
      */
     static EapHostPeerGetIdentity(dwVersion, dwFlags, eapMethodType, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, hTokenImpersonateUser, pfInvokeUI, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
@@ -2066,7 +2068,7 @@ class ExtensibleAuthenticationProtocol {
      * This call is performed by a peer-based EAPHost using a function pointer to this API. This API must be implemented on the EAP method loaded by EAPHost, and must strictly conform to the syntax and parameter types specified in the documentation.
      * @param {Pointer<Integer>} pData A pointer to a buffer returned by any EapHost peer run-time API.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/eappapis/nf-eappapis-eaphostpeerfreeruntimememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/eappapis/nf-eappapis-eaphostpeerfreeruntimememory
      * @since windows6.0.6000
      */
     static EapHostPeerFreeRuntimeMemory(pData) {

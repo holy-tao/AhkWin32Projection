@@ -14,7 +14,7 @@
  * GetComboBoxInfo(hwnd, &info);
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-comboboxinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-comboboxinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

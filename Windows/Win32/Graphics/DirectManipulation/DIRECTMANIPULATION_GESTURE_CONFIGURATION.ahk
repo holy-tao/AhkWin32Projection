@@ -8,7 +8,7 @@
  * 
  * 
  * Use <b>DIRECTMANIPULATION_GESTURE_PINCH_ZOOM</b> to zoom instead of scale.
- * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_gesture_configuration
+ * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/ne-directmanipulation-directmanipulation_gesture_configuration
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

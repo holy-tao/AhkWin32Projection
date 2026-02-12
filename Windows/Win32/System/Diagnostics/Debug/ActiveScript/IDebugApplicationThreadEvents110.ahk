@@ -33,7 +33,11 @@ class IDebugApplicationThreadEvents110 extends IUnknown{
      * @returns {HRESULT} 
      */
     OnSuspendForBreakPoint() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IDebugApplicationThreadEvents110 extends IUnknown{
      * @returns {HRESULT} 
      */
     OnResumeFromBreakPoint() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +59,11 @@ class IDebugApplicationThreadEvents110 extends IUnknown{
      * @returns {HRESULT} 
      */
     OnThreadRequestComplete() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +72,11 @@ class IDebugApplicationThreadEvents110 extends IUnknown{
      * @returns {HRESULT} 
      */
     OnBeginThreadRequest() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

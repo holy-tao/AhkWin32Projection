@@ -5,7 +5,7 @@
 
 /**
  * The ITfCompositionSink interface is implemented by a text service to receive a notification when a composition is terminated.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcompositionsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfcompositionsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,13 +32,19 @@ class ITfCompositionSink extends IUnknown{
 
     /**
      * ITfCompositionSink::OnCompositionTerminated method
+     * @remarks
+     * There is no required action for the TSF text service when this method is called. The TSF text service can use this notification to revert partially composed text into readable text or erase the composition entirely. The TSF manager will automatically clear the GUID_PROP_COMPOSING property value over the affected text.
      * @param {Integer} ecWrite Contains a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfeditcookie">TfEditCookie</a> value that identifies the edit context. This is the same value passed for <i>ecWrite</i> in the call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontextcomposition-startcomposition">ITfContextComposition::StartComposition</a>.
      * @param {ITfComposition} pComposition Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcomposition">ITfComposition</a> object terminated.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompositionsink-oncompositionterminated
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcompositionsink-oncompositionterminated
      */
     OnCompositionTerminated(ecWrite, pComposition) {
-        result := ComCall(3, this, "uint", ecWrite, "ptr", pComposition, "HRESULT")
+        result := ComCall(3, this, "uint", ecWrite, "ptr", pComposition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

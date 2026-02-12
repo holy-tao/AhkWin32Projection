@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Priority 1 point above the priority class.
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-setthreadpriority
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

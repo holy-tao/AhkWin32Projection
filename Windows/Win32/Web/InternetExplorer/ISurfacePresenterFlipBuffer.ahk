@@ -34,7 +34,11 @@ class ISurfacePresenterFlipBuffer extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     BeginDraw(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppBuffer
     }
 
@@ -43,7 +47,11 @@ class ISurfacePresenterFlipBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     EndDraw() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,8 +5,8 @@
 #Include .\ICertRequest2.ahk
 
 /**
- * Provide communications between a client or intermediary application and Certificate Services.
- * @see https://docs.microsoft.com/windows/win32/api//certcli/nn-certcli-icertrequest3
+ * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nn-certcli-icertrequest3
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,7 +33,75 @@ class ICertRequest3 extends ICertRequest2{
 
     /**
      * Sets the credential used to contact the Certificate Enrollment Web Service.
-     * @param {Integer} hWnd A handle to the parent window.
+     * @remarks
+     * The <b>SetCredential</b> method must be called prior to calling the <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-submit">ICertRequest2::Submit</a> method.
+     * 
+     * The <i>strCredential</i> and <i>strPassword</i> arguments change depending on the value specified in the <i>AuthType</i> parameter as shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th><i>AuthType</i> parameter </th>
+     * <th><i>strCredential</i> parameter</th>
+     * <th><i>strPassword</i> parameter</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * X509AuthAnonymous
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * X509AuthCertificate
+     * 
+     * </td>
+     * <td>
+     * A 20 byte SHA-1 hash (thumbprint) of the certificate
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * X509AuthKerberos
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b>
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * X509AuthUsername
+     * 
+     * </td>
+     * <td>
+     * A plaintext user name that is recognized by the Certificate Enrollment Web Service
+     * 
+     * </td>
+     * <td>
+     * A plaintext password that is associated with the user name
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Integer} hWnd_ A handle to the parent window.
      * 
      * You must set the <i>hWnd</i> parameter there is a UI presented to obtain the credential. 
      * 
@@ -115,24 +183,38 @@ class ICertRequest3 extends ICertRequest2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest3-setcredential
+     * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nf-certcli-icertrequest3-setcredential
      */
-    SetCredential(hWnd, AuthType, strCredential, strPassword) {
-        strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
+    SetCredential(hWnd_, AuthType, strCredential, strPassword) {
+        if(strCredential is String) {
+            pin := BSTR.Alloc(strCredential)
+            strCredential := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
 
-        result := ComCall(20, this, "int", hWnd, "int", AuthType, "ptr", strCredential, "ptr", strPassword, "HRESULT")
+        result := ComCall(20, this, "int", hWnd_, "int", AuthType, "ptr", strCredential, "ptr", strPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the current internal request number, formatted as a string, for the request and subsequent certificate.
      * @returns {BSTR} A pointer to <b>BSTR</b> variable to receive the request ID string.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest3-getrequestidstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nf-certcli-icertrequest3-getrequestidstring
      */
     GetRequestIdString() {
         pstrRequestId := BSTR()
-        result := ComCall(21, this, "ptr", pstrRequestId, "HRESULT")
+        result := ComCall(21, this, "ptr", pstrRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrRequestId
     }
 
@@ -150,24 +232,43 @@ class ICertRequest3 extends ICertRequest2{
      * 
      * The <i>strSerialNumber</i> value is only used when the <i>strRequestId</i> is set to <b>NULL</b>.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest3-getissuedcertificate2
+     * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nf-certcli-icertrequest3-getissuedcertificate2
      */
     GetIssuedCertificate2(strConfig, strRequestId, strSerialNumber) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strRequestId := strRequestId is String ? BSTR.Alloc(strRequestId).Value : strRequestId
-        strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strRequestId is String) {
+            pin := BSTR.Alloc(strRequestId)
+            strRequestId := pin.Value
+        }
+        if(strSerialNumber is String) {
+            pin := BSTR.Alloc(strSerialNumber)
+            strSerialNumber := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", strConfig, "ptr", strRequestId, "ptr", strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", strConfig, "ptr", strRequestId, "ptr", strSerialNumber, "uint*", &pDisposition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDisposition
     }
 
     /**
      * Returns a value that indicates whether a client's cached certificate enrollment policy is out of date and needs to be refreshed.
+     * @remarks
+     * The <b>GetRefreshPolicy</b> method returns <b>TRUE</b> only when the enrollment server returns a fault. Before calling the <b>GetRefreshPolicy</b> method you must contact the enrollment server. If a fault is returned, then call  the <b>GetRefreshPolicy</b> method from same instance of <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertrequest3">ICertRequest3</a> to determine whether  the cached policy is out of date and needs to be refreshed.
      * @returns {VARIANT_BOOL} A pointer to a <b>VARIANT_BOOL</b> variable to receive the refresh indicator.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest3-getrefreshpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nf-certcli-icertrequest3-getrefreshpolicy
      */
     GetRefreshPolicy() {
-        result := ComCall(23, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(23, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

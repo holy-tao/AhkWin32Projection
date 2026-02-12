@@ -5,7 +5,7 @@
 
 /**
  * Represents a base interface to the derived interfaces:\_IWdsTransportNamespaceScheduledCastManualStart and IWdsTransportNamespaceScheduledCastAutoStart.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespacescheduledcast
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespacescheduledcast
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -39,10 +39,14 @@ class IWdsTransportNamespaceScheduledCast extends IWdsTransportNamespace{
     /**
      * Starts a transmission on a namespace.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcast-starttransmission
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcast-starttransmission
      */
     StartTransmission() {
-        result := ComCall(28, this, "HRESULT")
+        result := ComCall(28, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

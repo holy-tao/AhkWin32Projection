@@ -74,7 +74,11 @@ class IHTMLTableCol extends IDispatch{
      * @returns {HRESULT} 
      */
     put_span(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +87,11 @@ class IHTMLTableCol extends IDispatch{
      * @returns {Integer} 
      */
     get_span() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -93,7 +101,11 @@ class IHTMLTableCol extends IDispatch{
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,7 +115,11 @@ class IHTMLTableCol extends IDispatch{
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -113,9 +129,16 @@ class IHTMLTableCol extends IDispatch{
      * @returns {HRESULT} 
      */
     put_align(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +148,11 @@ class IHTMLTableCol extends IDispatch{
      */
     get_align() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -135,9 +162,16 @@ class IHTMLTableCol extends IDispatch{
      * @returns {HRESULT} 
      */
     put_vAlign(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +181,11 @@ class IHTMLTableCol extends IDispatch{
      */
     get_vAlign() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -43,7 +43,11 @@ class IPackageDebugSettings2 extends IPackageDebugSettings{
         appUserModelIdsMarshal := appUserModelIds is VarRef ? "ptr*" : "ptr"
         appDisplayNamesMarshal := appDisplayNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "ptr", packageFullName, appCountMarshal, appCount, appUserModelIdsMarshal, appUserModelIds, appDisplayNamesMarshal, appDisplayNames, "HRESULT")
+        result := ComCall(18, this, "ptr", packageFullName, appCountMarshal, appCount, appUserModelIdsMarshal, appUserModelIds, appDisplayNamesMarshal, appDisplayNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

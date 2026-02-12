@@ -29,19 +29,24 @@ class IOpenServiceActivityOutputContext extends IUnknown{
     static VTableNames => ["Navigate", "CanNavigate"]
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {PWSTR} pwzUri 
      * @param {PWSTR} pwzMethod 
      * @param {PWSTR} pwzHeaders 
      * @param {IStream} pPostData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/navigate-element
      */
     Navigate(pwzUri, pwzMethod, pwzHeaders, pPostData) {
         pwzUri := pwzUri is String ? StrPtr(pwzUri) : pwzUri
         pwzMethod := pwzMethod is String ? StrPtr(pwzMethod) : pwzMethod
         pwzHeaders := pwzHeaders is String ? StrPtr(pwzHeaders) : pwzHeaders
 
-        result := ComCall(3, this, "ptr", pwzUri, "ptr", pwzMethod, "ptr", pwzHeaders, "ptr", pPostData, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzUri, "ptr", pwzMethod, "ptr", pwzHeaders, "ptr", pPostData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +63,11 @@ class IOpenServiceActivityOutputContext extends IUnknown{
         pwzMethod := pwzMethod is String ? StrPtr(pwzMethod) : pwzMethod
         pwzHeaders := pwzHeaders is String ? StrPtr(pwzHeaders) : pwzHeaders
 
-        result := ComCall(4, this, "ptr", pwzUri, "ptr", pwzMethod, "ptr", pwzHeaders, "ptr", pPostData, "int*", &pfCanNavigate := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzUri, "ptr", pwzMethod, "ptr", pwzHeaders, "ptr", pPostData, "int*", &pfCanNavigate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCanNavigate
     }
 }

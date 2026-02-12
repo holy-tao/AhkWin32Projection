@@ -13,7 +13,6 @@
 /**
  * Provides the root node of a tree of objects that hold the contents of a single page.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -66,9 +65,7 @@
  * 
  * 
  * For information about using this interface in a program, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd316970(v=vs.85)">Create a Blank XPS OM</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372917(v=vs.85)">Navigate the XPS OM</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsompage
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsompage
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -95,34 +92,50 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * Gets a pointer to the IXpsOMPageReference interface that contains the page.
+     * @remarks
+     * When the page does not have an owner, a <b>NULL</b> pointer is returned in <i>pageReference</i>.
      * @returns {IXpsOMPageReference} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface that contains the page.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getowner
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getowner
      */
     GetOwner() {
-        result := ComCall(5, this, "ptr*", &pageReference := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &pageReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMPageReference(pageReference)
     }
 
     /**
      * Gets a pointer to an IXpsOMVisualCollection interface that contains a collection of the page's visual objects.
      * @returns {IXpsOMVisualCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualcollection">IXpsOMVisualCollection</a>  interface that contains a collection  of the page's visual objects.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getvisuals
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getvisuals
      */
     GetVisuals() {
-        result := ComCall(6, this, "ptr*", &visuals := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &visuals := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMVisualCollection(visuals)
     }
 
     /**
      * Gets the page dimensions.
+     * @remarks
+     * The default page size is passed to <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpage">IXpsOMObjectFactory::CreatePage</a>  in the <i>pageDimensions</i> parameter.
      * @returns {XPS_SIZE} The page dimensions.
      * 
      * Size is described in XPS units. There are 96 XPS units per inch.  For example, the dimensions of an 8.5" by 11.0" page are 816 by 1,056 XPS units.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getpagedimensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getpagedimensions
      */
     GetPageDimensions() {
         pageDimensions := XPS_SIZE()
-        result := ComCall(7, this, "ptr", pageDimensions, "HRESULT")
+        result := ComCall(7, this, "ptr", pageDimensions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pageDimensions
     }
 
@@ -133,7 +146,7 @@ class IXpsOMPage extends IXpsOMPart{
      * Size is described in XPS units. There are 96 XPS units per inch.  For example, the dimensions of an 8.5" by 11.0" page are 816 by 1,056 XPS units.
      * 
      * The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size">XPS_SIZE</a> structure has the following properties:
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -174,26 +187,66 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setpagedimensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setpagedimensions
      */
     SetPageDimensions(pageDimensions) {
-        result := ComCall(8, this, "ptr", pageDimensions, "HRESULT")
+        result := ComCall(8, this, "ptr", pageDimensions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the dimensions of the page's content box.
+     * @remarks
+     * The content box indicates where ink appears on the page.
+     * 
+     * The default content box of a page is
+     * 
+     * <table>
+     * <tr>
+     * <th>
+     * <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> field</th>
+     * <th>Default value</th>
+     * </tr>
+     * <tr>
+     * <td>x</td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td>y</td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td>width</td>
+     * <td>pageDimension.width</td>
+     * </tr>
+     * <tr>
+     * <td>height</td>
+     * <td>pageDimension.height</td>
+     * </tr>
+     * </table>
      * @returns {XPS_RECT} The dimensions of the content box.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getcontentbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getcontentbox
      */
     GetContentBox() {
         contentBox := XPS_RECT()
-        result := ComCall(9, this, "ptr", contentBox, "HRESULT")
+        result := ComCall(9, this, "ptr", contentBox, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return contentBox
     }
 
     /**
      * Sets the dimensions of the page's content box.
+     * @remarks
+     * The content box specifies where ink appears on the page.
+     * 
+     * The content box dimensions are not checked against the page dimensions until the page is serialized.
      * @param {Pointer<XPS_RECT>} contentBox The dimensions of the page's content box.
      * 
      * <table>
@@ -218,7 +271,7 @@ class IXpsOMPage extends IXpsOMPart{
      * <td>Greater than or equal to 0.0 and less than pageDimensions.height.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -259,30 +312,66 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setcontentbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setcontentbox
      */
     SetContentBox(contentBox) {
-        result := ComCall(10, this, "ptr", contentBox, "HRESULT")
+        result := ComCall(10, this, "ptr", contentBox, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the dimensions of the page's bleed box.
+     * @remarks
+     * The default bleed box of a page is:
+     * 
+     * <table>
+     * <tr>
+     * <th>
+     * <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> field</th>
+     * <th>Default value</th>
+     * </tr>
+     * <tr>
+     * <td>x</td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td>y</td>
+     * <td>0</td>
+     * </tr>
+     * <tr>
+     * <td>width</td>
+     * <td>pageDimension.width</td>
+     * </tr>
+     * <tr>
+     * <td>height</td>
+     * <td>pageDimension.height</td>
+     * </tr>
+     * </table>
      * @returns {XPS_RECT} The dimensions of the bleed box.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getbleedbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getbleedbox
      */
     GetBleedBox() {
         bleedBox := XPS_RECT()
-        result := ComCall(11, this, "ptr", bleedBox, "HRESULT")
+        result := ComCall(11, this, "ptr", bleedBox, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bleedBox
     }
 
     /**
      * Sets the dimensions of the page's bleed box.
+     * @remarks
+     * The bleed box dimensions are not checked against the page dimensions until the page is serialized.
      * @param {Pointer<XPS_RECT>} bleedBox The dimensions of the page's bleed box. This parameter must not be <b>NULL</b>.
      * 
      * A valid bleed box has the following properties:
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -323,27 +412,43 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setbleedbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setbleedbox
      */
     SetBleedBox(bleedBox) {
-        result := ComCall(12, this, "ptr", bleedBox, "HRESULT")
+        result := ComCall(12, this, "ptr", bleedBox, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the Language property of the page.
+     * @remarks
+     * The default value is the language tag string that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpage">IXpsOMObjectFactory::CreatePage</a>  in the <i>language</i>  parameter.
+     * 
+     * Internet Engineering Task Force (IETF) RFC 3066 describes the recommended encoding of the language tag string that is returned in <i>language</i>.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>language</i>.  If <i>language</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} A language tag string that represents the language of the page contents. If the <b>Language</b> property has not been set, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getlanguage
      */
     GetLanguage() {
-        result := ComCall(13, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &language := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return language
     }
 
     /**
      * Sets the Language property of the page.
+     * @remarks
+     * The language tag string must conform to the language tag syntax that is described in the Internet Engineering Task Force (IETF) RFC 3066. For more information,  go to <a href="http://tools.ietf.org/html/rfc3066">http://tools.ietf.org/html/rfc3066</a>.
      * @param {PWSTR} language A language tag string that represents the language of the page content. A <b>NULL</b> pointer clears the previously assigned language.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -373,29 +478,41 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setlanguage
      */
     SetLanguage(language) {
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(14, this, "ptr", language, "HRESULT")
+        result := ComCall(14, this, "ptr", language, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the Name property of the page.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>name</i>.  If <i>name</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The <b>Name</b> property of the page. A <b>NULL</b> pointer is returned if  the <b>Name</b> property has not been set.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getname
      */
     GetName() {
-        result := ComCall(15, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &name := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Sets the Name property of this page.
+     * @remarks
+     * The <b>Name</b> property identifies the current page as a named, addressable point in a document, allowing the page to be referenced by a hyperlink.
      * @param {PWSTR} name A pointer to the name string to be set as the page's <b>Name</b> property. A <b>NULL</b> pointer clears any previously assigned name.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -425,12 +542,16 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setname
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setname
      */
     SetName(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(16, this, "ptr", name, "HRESULT")
+        result := ComCall(16, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -466,15 +587,21 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getishyperlinktarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getishyperlinktarget
      */
     GetIsHyperlinkTarget() {
-        result := ComCall(17, this, "int*", &isHyperlinkTarget := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &isHyperlinkTarget := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isHyperlinkTarget
     }
 
     /**
      * Specifies whether the page is the target of a hyperlink.
+     * @remarks
+     * Only those pages that have this property set to <b>TRUE</b> will be included in the hyperlink targets that are collected by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereference-collectlinktargets">IXpsOMPageReference::CollectLinkTargets</a>.
      * @param {BOOL} isHyperlinkTarget The Boolean value that indicates whether the page is the target of a hyperlink.
      * 
      * <table>
@@ -505,7 +632,7 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -535,15 +662,25 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setishyperlinktarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setishyperlinktarget
      */
     SetIsHyperlinkTarget(isHyperlinkTarget) {
-        result := ComCall(18, this, "int", isHyperlinkTarget, "HRESULT")
+        result := ComCall(18, this, "int", isHyperlinkTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to the resolved IXpsOMDictionary interface that is associated with this page.
+     * @remarks
+     * Whether the dictionary is local or is contained within a remote dictionary resource, this method returns an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface pointer. <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getowner">GetOwner</a> determines whether the dictionary  is remote.
+     * 
+     * If a page contains a remote dictionary, <b>GetDictionary</b> will deserialize the dictionary. If the page contains a remote dictionary that is not valid, <b>GetDictionary</b> might return a deserialization error code.
+     * 
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMDictionary} A pointer to the resolved <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface that is associated with this page.
      * 
      * The value that is returned in this parameter depends on which method has most recently been called to set the dictionary.
@@ -588,10 +725,14 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionary
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionary
      */
     GetDictionary() {
-        result := ComCall(19, this, "ptr*", &resourceDictionary := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &resourceDictionary := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMDictionary(resourceDictionary)
     }
 
@@ -639,17 +780,91 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionarylocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionarylocal
      */
     GetDictionaryLocal() {
-        result := ComCall(20, this, "ptr*", &resourceDictionary := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &resourceDictionary := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMDictionary(resourceDictionary)
     }
 
     /**
      * Sets the IXpsOMDictionary interface pointer of the page's local dictionary resource.
+     * @remarks
+     * After you call <b>SetDictionaryLocal</b>, the remote dictionary resource is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionaryresource">GetDictionaryResource</a> returns a <b>NULL</b> pointer in the <i>remoteDictionaryResource</i> parameter. The table that follows explains the relationship between the local and remote values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in <i>resourceDictionary</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionary">GetDictionary</a>
+     * </th>
+     * <th>Object that is returned  in <i>resourceDictionary</i>      by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionarylocal">GetDictionaryLocal</a>
+     * </th>
+     * <th>Object that is returned  in <i>remoteDictionaryResource</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionaryresource">GetDictionaryResource</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetDictionaryLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local dictionary resource that is set by <b>SetDictionaryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local dictionary resource that is set by <b>SetDictionaryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionaryresource">SetDictionaryResource</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared dictionary in the dictionary resource that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionaryresource">SetDictionaryResource</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The remote dictionary resource that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionaryresource">SetDictionaryResource</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetDictionaryLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionaryresource">SetDictionaryResource</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMDictionary} resourceDictionary The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface pointer to be set for the page. A <b>NULL</b> pointer releases any previously assigned local dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -679,15 +894,21 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionarylocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionarylocal
      */
     SetDictionaryLocal(resourceDictionary) {
-        result := ComCall(21, this, "ptr", resourceDictionary, "HRESULT")
+        result := ComCall(21, this, "ptr", resourceDictionary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to the IXpsOMRemoteDictionaryResource interface of the shared dictionary resource that is used by this page.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMRemoteDictionaryResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource">IXpsOMRemoteDictionaryResource</a> interface of the shared dictionary resource that is used by this page. If no <b>IXpsOMRemoteDictionaryResource</b> interface has been set or if a local dictionary has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -730,17 +951,91 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionaryresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionaryresource
      */
     GetDictionaryResource() {
-        result := ComCall(22, this, "ptr*", &remoteDictionaryResource := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &remoteDictionaryResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMRemoteDictionaryResource(remoteDictionaryResource)
     }
 
     /**
      * Sets the IXpsOMRemoteDictionaryResource interface pointer of the page's remote dictionary resource.
+     * @remarks
+     * Setting this value will cause <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionarylocal">GetDictionaryLocal</a> to return <b>NULL</b>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>resourceDictionary</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionary">GetDictionary</a>
+     * </th>
+     * <th>Object that is returned in <i>resourceDictionary</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionarylocal">GetDictionaryLocal</a>
+     * </th>
+     * <th>Object that is returned in <i>remoteDictionaryResource</i>   by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionaryresource">GetDictionaryResource</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionarylocal">SetDictionaryLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local dictionary resource that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionarylocal">SetDictionaryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local dictionary resource that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionarylocal">SetDictionaryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetDictionaryResource</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared dictionary in the dictionary resource that is set by <b>SetDictionaryResource</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The remote dictionary resource that is set by <b>SetDictionaryResource</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionarylocal">SetDictionaryLocal</a> nor <b>SetDictionaryResource</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMRemoteDictionaryResource} remoteDictionaryResource The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource">IXpsOMRemoteDictionaryResource</a> interface pointer to be set for the page. A <b>NULL</b> value releases the previously assigned dictionary resource.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -770,15 +1065,23 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionaryresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-setdictionaryresource
      */
     SetDictionaryResource(remoteDictionaryResource) {
-        result := ComCall(23, this, "ptr", remoteDictionaryResource, "HRESULT")
+        result := ComCall(23, this, "ptr", remoteDictionaryResource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Writes the page to the specified stream.
+     * @remarks
+     * To examine the XPS markup of a page before it is written to an XPS package, an application can call the <b>Write</b> method to write the page's contents to a stream. The application can then read that stream to examine the XPS markup as it would be serialized when it is written to the XPS package.
+     * 
+     * The XPS markup that is  written to the stream by this method contains the page markup but none of the page's resources.
      * @param {ISequentialStream} stream The stream that receives the serialized contents of the page.
      * @param {BOOL} optimizeMarkupSize A Boolean value that  indicates whether the document markup of the page is to be optimized for size when the page is written to the stream. 
      * 
@@ -808,7 +1111,7 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -838,31 +1141,166 @@ class IXpsOMPage extends IXpsOMPart{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-write
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-write
      */
     Write(stream, optimizeMarkupSize) {
-        result := ComCall(24, this, "ptr", stream, "int", optimizeMarkupSize, "HRESULT")
+        result := ComCall(24, this, "ptr", stream, "int", optimizeMarkupSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Generates a unique name that can be used as a lookup key by a resource in a resource dictionary.
+     * @remarks
+     * To be unique in the dictionary, the string generated by <b>GenerateUnusedLookupKey</b> consists of a prefix string that is based on the object type and is followed by four unique alphanumeric characters.
+     * 
+     * The prefix string for each object type is shown in the following table. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Object type</th>
+     * <th>Prefix string for this object type</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_CANVAS
+     * 
+     * </td>
+     * <td>
+     * Canvas_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_GEOMETRY
+     * 
+     * </td>
+     * <td>
+     * Geometry_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_GLYPHS
+     * 
+     * </td>
+     * <td>
+     * Glyphs_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_IMAGE_BRUSH
+     * 
+     * </td>
+     * <td>
+     * IBrush_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_LINEAR_GRADIENT_BRUSH
+     * 
+     * </td>
+     * <td>
+     * LGBrush_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_MATRIX_TRANSFORM
+     * 
+     * </td>
+     * <td>
+     * MTransform_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_PATH
+     * 
+     * </td>
+     * <td>
+     * Path_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_RADIAL_GRADIENT_BRUSH
+     * 
+     * </td>
+     * <td>
+     * RGBrush_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_SOLID_COLOR_BRUSH
+     * 
+     * </td>
+     * <td>
+     * SCBrush_
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * XPS_OBJECT_TYPE_VISUAL_BRUSH
+     * 
+     * </td>
+     * <td>
+     * 	VBrush_
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">This method returns a key string that is unique within the context of this page. It is not guaranteed to 
+     * 	 return a key that is unique in a remote dictionary resource that could be used by more than one page.
+     * 
+     * </div>
+     * <div> </div>
+     * This method allocates the memory used by the string that is returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @param {Integer} type The   type of <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> object  for which  the lookup key is generated.
      * @returns {PWSTR} The lookup key string that is generated by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-generateunusedlookupkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-generateunusedlookupkey
      */
     GenerateUnusedLookupKey(type) {
-        result := ComCall(25, this, "int", type, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(25, this, "int", type, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return key
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMPage.Clone)
+     * @remarks
+     * This method does not update any of the resource pointers in the copy.
+     * 
+     * The owner of the new interface is <b>NULL</b>.
      * @returns {IXpsOMPage} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-clone
      */
     Clone() {
-        result := ComCall(26, this, "ptr*", &page := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &page := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMPage(page)
     }
 }

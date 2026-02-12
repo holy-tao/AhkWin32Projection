@@ -43,7 +43,11 @@ class IPrintSchemaParameterInitializer extends IPrintSchemaElement{
      */
     get_Value() {
         pVar := VARIANT()
-        result := ComCall(10, this, "ptr", pVar, "HRESULT")
+        result := ComCall(10, this, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 
@@ -53,7 +57,11 @@ class IPrintSchemaParameterInitializer extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     put_Value(pVar) {
-        result := ComCall(11, this, "ptr", pVar, "HRESULT")
+        result := ComCall(11, this, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

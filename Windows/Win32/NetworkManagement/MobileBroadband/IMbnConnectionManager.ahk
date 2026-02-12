@@ -7,7 +7,6 @@
 /**
  * Provides access to IMbnConnection objects and connection notifications.
  * @remarks
- * 
  * This interface can be used to access the following notification interfaces.<table>
  * <tr>
  * <th>Notification Sink to Register</th>
@@ -45,8 +44,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the "Client" section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnconnectionmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nn-mbnapi-imbnconnectionmanager
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -81,22 +79,30 @@ class IMbnConnectionManager extends IUnknown{
      * Gets a connection.
      * @param {PWSTR} connectionID A string containing the connection ID.
      * @returns {IMbnConnection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the requested connection.  If the method returns anything other than S_OK, then this is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanager-getconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnection
      */
     GetConnection(connectionID) {
         connectionID := connectionID is String ? StrPtr(connectionID) : connectionID
 
-        result := ComCall(3, this, "ptr", connectionID, "ptr*", &mbnConnection := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", connectionID, "ptr*", &mbnConnection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMbnConnection(mbnConnection)
     }
 
     /**
      * Gets a list of available connections.
      * @returns {Pointer<SAFEARRAY>} An array of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interfaces representing connections that are associated with the devices.  If this method returns anything other than <b>S_OK</b>, then this is <b>NULL</b>.  Otherwise the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanager-getconnections
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnections
      */
     GetConnections() {
-        result := ComCall(4, this, "ptr*", &mbnConnections := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &mbnConnections := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return mbnConnections
     }
 }

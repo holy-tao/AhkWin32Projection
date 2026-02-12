@@ -77,7 +77,11 @@ class IPrintJob extends IUnknown{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -86,7 +90,11 @@ class IPrintJob extends IUnknown{
      * @returns {Integer} 
      */
     get_Id() {
-        result := ComCall(4, this, "uint*", &pulID := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pulID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulID
     }
 
@@ -95,7 +103,11 @@ class IPrintJob extends IUnknown{
      * @returns {Integer} 
      */
     get_PrintedPages() {
-        result := ComCall(5, this, "uint*", &pulPages := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pulPages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulPages
     }
 
@@ -104,7 +116,11 @@ class IPrintJob extends IUnknown{
      * @returns {Integer} 
      */
     get_TotalPages() {
-        result := ComCall(6, this, "uint*", &pulPages := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pulPages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulPages
     }
 
@@ -113,7 +129,11 @@ class IPrintJob extends IUnknown{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(7, this, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
@@ -122,7 +142,11 @@ class IPrintJob extends IUnknown{
      * @returns {Float} 
      */
     get_SubmissionTime() {
-        result := ComCall(8, this, "double*", &pSubmissionTime := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &pSubmissionTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSubmissionTime
     }
 
@@ -131,7 +155,11 @@ class IPrintJob extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestCancel() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

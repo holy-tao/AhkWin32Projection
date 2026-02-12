@@ -5,7 +5,7 @@
  * Contains a 64 bit entry specifying information about idle time and power state transition for each of the allowable 32 power states.
  * @remarks
  * This structure is used in the Autonomous Power State Transition Enable (**APSTE**) parameter of the [NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION](ns-nvme-nvme_cdw11_feature_auto_power_state_transition.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_auto_power_state_transition_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_auto_power_state_transition_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

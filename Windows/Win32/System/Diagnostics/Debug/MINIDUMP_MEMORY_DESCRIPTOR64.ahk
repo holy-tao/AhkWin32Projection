@@ -14,7 +14,7 @@
  *     ULONG64 DataSize;
  * } MINIDUMP_MEMORY_DESCRIPTOR64, *PMINIDUMP_MEMORY_DESCRIPTOR64;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor64
+ * @see https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

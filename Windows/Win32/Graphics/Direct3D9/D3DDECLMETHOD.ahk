@@ -9,7 +9,7 @@
  * Vertex data is declared with an array of [**D3DVERTEXELEMENT9**](d3dvertexelement9.md) structures. Each element in the array contains a vertex declaration method.
  * 
  * In addition to using D3DDECLMETHOD\_DEFAULT, a normal mesh can use D3DDECLMETHOD\_LOOKUP and D3DDECLMETHOD\_LOOKUPPRESAMPLED methods when N-patches are enabled.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddeclmethod
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddeclmethod
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

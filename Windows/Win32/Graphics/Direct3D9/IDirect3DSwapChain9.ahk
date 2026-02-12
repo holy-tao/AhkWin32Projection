@@ -6,9 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications use the methods of the IDirect3DSwapChain9 interface to manipulate a swap chain.
+ * The IDirect3DSwapChain9 (d3d9.h) interface is used by applications to manipulate a swap chain.
  * @remarks
- * 
  * There is always at least one swap chain for each device, known as the implicit swap chain. However, an additional swap chain for rendering multiple views from the same device can be created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-createadditionalswapchain">IDirect3DDevice9::CreateAdditionalSwapChain</a> method.
  * 
  * This interface, like all COM interfaces, inherits from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
@@ -28,9 +27,7 @@
  * 
  * 
  * Note the application should ensure that its associated device window is visible when its swapchain(s) is in fullscreen mode. Invisible windows cannot receive user mode events and invisible fullscreen windows will interfere with other windowed mode applications' presentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dswapchain9
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nn-d3d9-idirect3dswapchain9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -56,7 +53,13 @@ class IDirect3DSwapChain9 extends IUnknown{
     static VTableNames => ["Present", "GetFrontBufferData", "GetBackBuffer", "GetRasterStatus", "GetDisplayMode", "GetDevice", "GetPresentParameters"]
 
     /**
-     * Presents the contents of the next buffer in the sequence of back buffers owned by the swap chain.
+     * The IDirect3DSwapChain9::Present (d3d9.h) method presents the contents of the next buffer in the sequence of back buffers owned by the swap chain.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-present">Present</a> method is a shortcut to Present. Present has been updated to take a flag allowing the application to request that the method return immediately when the driver reports that it cannot schedule a presentation.
+     * 
+     * If necessary, a stretch operation is applied to transfer the pixels within the source rectangle to the destination rectangle in the client area of the target window.
+     * 
+     * Present will fail if called between <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-beginscene">BeginScene</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-endscene">EndScene</a> pairs unless the render target is not the current render target (such as the back buffer you get from creating an additional swap chain). This is a new behavior for Direct3D 9.
      * @param {Pointer<RECT>} pSourceRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Pointer to the source rectangle (see <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>). Use <b>NULL</b> to present the entire surface. This value must be <b>NULL</b> unless the swap chain was created with D3DSWAPEFFECT_COPY. If the rectangle exceeds the source surface, the rectangle is clipped to the source surface.
@@ -80,38 +83,50 @@ class IDirect3DSwapChain9 extends IUnknown{
      * <ul>
      * <li>If dwFlags = 0, this method behaves as it did prior to Direct3D 9. Present will spin until the hardware is free, without returning an error.</li>
      * <li>If dwFlags = <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresent">D3DPRESENT_DONOTWAIT</a>, and the hardware is busy processing or waiting for a vertical sync interval, the method will return D3DERR_WASSTILLDRAWING.</li>
-     * <li>If dwFlags = <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresent">D3DPRESENT_LINEAR_CONTENT</a>, gamma correction is performed from linear space to sRGB for windowed swap chains. This flag will take effect only when the driver exposes <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcaps3">D3DCAPS3_LINEAR_TO_SRGB_PRESENTATION</a> (see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/gamma">Gamma (Direct3D 9)</a>). Appliations should specify this flag if the backbuffer format is 16-bit floating point in order to match windowed mode present to fullscreen gamma behavior.</li>
+     * <li>If dwFlags = <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresent">D3DPRESENT_LINEAR_CONTENT</a>, gamma correction is performed from linear space to sRGB for windowed swap chains. This flag will take effect only when the driver exposes <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dcaps3">D3DCAPS3_LINEAR_TO_SRGB_PRESENTATION</a> (see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/gamma">Gamma (Direct3D 9)</a>). Applications should specify this flag if the backbuffer format is 16-bit floating point in order to match windowed mode present to fullscreen gamma behavior.</li>
      * </ul>
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_DEVICELOST, D3DERR_DRIVERINTERNALERROR, D3DERR_INVALIDCALL, D3DERR_OUTOFVIDEOMEMORY, E_OUTOFMEMORY.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-present
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-present
      */
     Present(pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags) {
         hDestWindowOverride := hDestWindowOverride is Win32Handle ? NumGet(hDestWindowOverride, "ptr") : hDestWindowOverride
 
-        result := ComCall(3, this, "ptr", pSourceRect, "ptr", pDestRect, "ptr", hDestWindowOverride, "ptr", pDirtyRegion, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pSourceRect, "ptr", pDestRect, "ptr", hDestWindowOverride, "ptr", pDirtyRegion, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Generates a copy of the swapchain's front buffer and places that copy in a system memory buffer provided by the application.
+     * The IDirect3DSwapChain9::GetFrontBufferData (d3d9.h) method generates a copy of the swapchain's front buffer and places that copy in a system memory buffer.
+     * @remarks
+     * Calling this method will increase the internal reference count on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface. Failure to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when finished using this <b>IDirect3DSurface9</b> interface results in a memory leak.
      * @param {IDirect3DSurface9} pDestSurface Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface that will receive a copy of the swapchain's front buffer. The data is returned in successive rows with no intervening space, starting from the vertically highest row to the lowest.  For windowed mode, the size of the destination surface should be the size of the desktop. For full screen mode, the size of the destination surface should be the screen size.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK.
      *  If BackBuffer exceeds or equals the total number of back buffers, the function fails and returns D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-getfrontbufferdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-getfrontbufferdata
      */
     GetFrontBufferData(pDestSurface) {
-        result := ComCall(4, this, "ptr", pDestSurface, "HRESULT")
+        result := ComCall(4, this, "ptr", pDestSurface, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves a back buffer from the swap chain of the device.
+     * The IDirect3DSwapChain9::GetBackBuffer (d3d9.h) method retrieves a back buffer from the swap chain of the device.
+     * @remarks
+     * Calling this method will increase the internal reference count on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface. Failure to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when finished using this <b>IDirect3DSurface9</b> interface results in a memory leak. You must release any surfaces obtained through this method before releasing the swap chain it belongs to.
      * @param {Integer} iBackBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index of the back buffer object to return. Back buffers are numbered from 0 to the total number of back buffers - 1. A value of 0 returns the first back buffer, not the front buffer. The front buffer is not accessible through this method. Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3dswapchain9-getfrontbufferdata">IDirect3DSwapChain9::GetFrontBufferData</a> to retrieve a copy of the front buffer.
@@ -121,67 +136,93 @@ class IDirect3DSwapChain9 extends IUnknown{
      * @returns {IDirect3DSurface9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface, representing the returned back buffer surface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-getbackbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-getbackbuffer
      */
     GetBackBuffer(iBackBuffer, Type) {
-        result := ComCall(5, this, "uint", iBackBuffer, "int", Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        result := ComCall(5, this, "uint", iBackBuffer, "int", Type, "ptr*", &ppBackBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirect3DSurface9(ppBackBuffer)
     }
 
     /**
-     * Returns information describing the raster of the monitor on which the swap chain is presented.
+     * The IDirect3DSwapChain9::GetRasterStatus (d3d9.h) method returns information describing the raster of the monitor on which the swap chain is presented.
      * @param {Pointer<D3DRASTER_STATUS>} pRasterStatus Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3draster-status">D3DRASTER_STATUS</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3draster-status">D3DRASTER_STATUS</a> structure filled with information about the position or other status of the raster on the monitor driven by this adapter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if pRasterStatus is invalid or if the device does not support reading the current scan line. To determine if the device supports reading the scan line, check for the D3DCAPS_READ_SCANLINE flag in the Caps member of <a href="/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dcaps9">D3DCAPS9</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-getrasterstatus
+     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if pRasterStatus is invalid or if the device does not support reading the current scan line. To determine if the device supports reading the scan line, check for the D3DCAPS_READ_SCANLINE flag in the Caps member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dcaps9">D3DCAPS9</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-getrasterstatus
      */
     GetRasterStatus(pRasterStatus) {
-        result := ComCall(6, this, "ptr", pRasterStatus, "HRESULT")
+        result := ComCall(6, this, "ptr", pRasterStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves the display mode's spatial resolution, color resolution, and refresh frequency.
+     * The IDirect3DSwapChain9::GetDisplayMode (d3d9.h) method retrieves the display mode's spatial resolution, color resolution, and refresh frequency.
      * @param {Pointer<D3DDISPLAYMODE>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymode">D3DDISPLAYMODE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymode">D3DDISPLAYMODE</a> structure containing data about the display mode of the adapter. As opposed to the display mode of the device, which may not be active if the device does not own full-screen mode.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-getdisplaymode
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-getdisplaymode
      */
     GetDisplayMode(pMode) {
-        result := ComCall(7, this, "ptr", pMode, "HRESULT")
+        result := ComCall(7, this, "ptr", pMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves the device associated with the swap chain.
+     * The IDirect3DSwapChain9::GetDevice (d3d9.h) method retrieves the device associated with the swap chain.
+     * @remarks
+     * This method allows navigation to the owning device object.
+     * 
+     * Calling this method will increase the internal reference count on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface. Failure to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when finished using this <b>IDirect3DDevice9</b> interface results in a memory leak.
      * @returns {IDirect3DDevice9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface to fill with the device pointer, if the query succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-getdevice
      */
     GetDevice() {
-        result := ComCall(8, this, "ptr*", &ppDevice := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirect3DDevice9(ppDevice)
     }
 
     /**
-     * Retrieves the presentation parameters associated with a swap chain.
+     * The IDirect3DSwapChain9::GetPresentParameters (d3d9.h) method retrieves the presentation parameters associated with a swap chain.
+     * @remarks
+     * This method can be used to see the presentation parameters of the parent swap chain of a surface (a back buffer, for instance). The parent swap chain can be retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3dsurface9-getcontainer">IDirect3DSurface9::GetContainer</a>.
      * @param {Pointer<D3DPRESENT_PARAMETERS>} pPresentationParameters Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresent-parameters">D3DPRESENT_PARAMETERS</a>*</b>
      * 
      * Pointer to the presentation parameters. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresent-parameters">D3DPRESENT_PARAMETERS</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dswapchain9-getpresentparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dswapchain9-getpresentparameters
      */
     GetPresentParameters(pPresentationParameters) {
-        result := ComCall(9, this, "ptr", pPresentationParameters, "HRESULT")
+        result := ComCall(9, this, "ptr", pPresentationParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -36,7 +36,11 @@ class IStaticVerbProvider extends IUnknown{
     IsVerbSupported(verbName) {
         verbName := verbName is String ? StrPtr(verbName) : verbName
 
-        result := ComCall(3, this, "ptr", verbName, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", verbName, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 }

@@ -19,7 +19,7 @@
  * 
  * 
  * Note that <b>BaseRva</b> is the overall base RVA for the memory list. To locate the data for a particular descriptor, start at <b>BaseRva</b> and increment by the size of a descriptor until you reach the descriptor.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory64_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ns-minidumpapiset-minidump_memory64_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

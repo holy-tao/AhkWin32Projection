@@ -7,7 +7,7 @@
 
 /**
  * The ITBasicCallControl2 interface is an extension of the ITBasicCallControl interface.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itbasiccallcontrol2
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itbasiccallcontrol2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -34,19 +34,30 @@ class ITBasicCallControl2 extends ITBasicCallControl{
 
     /**
      * The RequestTerminal method gets a suitable terminal, given the class, media, and direction required.
+     * @remarks
+     * The <b>AddRef</b> method is automatically called on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by this method. The application must call the <b>Release</b> method on the 
+     * <b>ITTerminal</b> interface to free resources associated with it.
      * @param {BSTR} bstrTerminalClassGUID The terminal class required for the call.
      * @param {Integer} lMediaType Bitwise ORed list of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the call.
-     * @param {Integer} Direction The 
+     * @param {Integer} Direction_ The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
      * @returns {ITTerminal} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal
      */
-    RequestTerminal(bstrTerminalClassGUID, lMediaType, Direction) {
-        bstrTerminalClassGUID := bstrTerminalClassGUID is String ? BSTR.Alloc(bstrTerminalClassGUID).Value : bstrTerminalClassGUID
+    RequestTerminal(bstrTerminalClassGUID, lMediaType, Direction_) {
+        if(bstrTerminalClassGUID is String) {
+            pin := BSTR.Alloc(bstrTerminalClassGUID)
+            bstrTerminalClassGUID := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", Direction, "ptr*", &ppTerminal := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrTerminalClassGUID, "int", lMediaType, "int", Direction_, "ptr*", &ppTerminal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITTerminal(ppTerminal)
     }
 
@@ -54,11 +65,15 @@ class ITBasicCallControl2 extends ITBasicCallControl{
      * The SelectTerminalOnCall method selects the terminal onto the call.
      * @param {ITTerminal} pTerminal Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasiccallcontrol2-selectterminaloncall
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasiccallcontrol2-selectterminaloncall
      */
     SelectTerminalOnCall(pTerminal) {
-        result := ComCall(26, this, "ptr", pTerminal, "HRESULT")
+        result := ComCall(26, this, "ptr", pTerminal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,11 +81,15 @@ class ITBasicCallControl2 extends ITBasicCallControl{
      * The UnselectTerminalOnCall method unselects a terminal from the call.
      * @param {ITTerminal} pTerminal Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasiccallcontrol2-unselectterminaloncall
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasiccallcontrol2-unselectterminaloncall
      */
     UnselectTerminalOnCall(pTerminal) {
-        result := ComCall(27, this, "ptr", pTerminal, "HRESULT")
+        result := ComCall(27, this, "ptr", pTerminal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

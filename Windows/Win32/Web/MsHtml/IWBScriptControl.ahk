@@ -82,9 +82,16 @@ class IWBScriptControl extends IDispatch{
      * @returns {HRESULT} 
      */
     raiseEvent(name, eventData) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", name, "ptr", eventData, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "ptr", eventData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +100,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {HRESULT} 
      */
     bubbleEvent() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,7 +114,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {HRESULT} 
      */
     setContextMenu(menuItemPairs) {
-        result := ComCall(9, this, "ptr", menuItemPairs, "HRESULT")
+        result := ComCall(9, this, "ptr", menuItemPairs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +128,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selectableContent(v) {
-        result := ComCall(10, this, "short", v, "HRESULT")
+        result := ComCall(10, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,7 +141,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_selectableContent() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -131,7 +154,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_frozen() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -141,7 +168,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbar(v) {
-        result := ComCall(13, this, "short", v, "HRESULT")
+        result := ComCall(13, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,7 +181,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_scrollbar() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -160,7 +195,11 @@ class IWBScriptControl extends IDispatch{
      */
     get_version() {
         p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -169,7 +208,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_visibility() {
-        result := ComCall(16, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -179,7 +222,11 @@ class IWBScriptControl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onvisibilitychange(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +236,11 @@ class IWBScriptControl extends IDispatch{
      */
     get_onvisibilitychange() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

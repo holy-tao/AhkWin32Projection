@@ -9,7 +9,6 @@
 /**
  * Represents a remote Devices Profile for Web Services (DPWS) device for client applications and middleware.
  * @remarks
- * 
  * This interface is a client-side representation of a remote device. The proxy provides basic access to device metadata (<a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_this_device_metadata">WSD_THIS_DEVICE_METADATA</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_this_model_metadata">WSD_THIS_MODEL_METADATA</a>), in addition to providing methods for creating service proxy objects. The service proxy objects correspond to service hosted on the device. For example, a television is a device and the tuner portion of the television is a service hosted on the device that has an accessible, atomic set of functions.
  * 
  * The <b>IWSDDeviceProxy</b> object exposes WSD-specific device semantics.
@@ -23,9 +22,7 @@
  * <li>Call any of the four metadata methods of the device proxy object.</li>
  * <li>Get an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdserviceproxy">IWSDServiceProxy</a> object, either by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybyid">GetServiceProxyById</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybytype">GetServiceProxyByType</a>.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nn-wsdclient-iwsddeviceproxy
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nn-wsdclient-iwsddeviceproxy
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -52,6 +49,8 @@ class IWSDDeviceProxy extends IUnknown{
 
     /**
      * Initializes the device proxy, optionally sharing a session with a previously initialized sponsoring device proxy.
+     * @remarks
+     * This method is called by <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-wsdcreatedeviceproxy">WSDCreateDeviceProxy</a> and need not normally be called directly by the client code.
      * @param {PWSTR} pszDeviceId The logical address (ID) of the device.
      * @param {IWSDAddress} pDeviceAddress Reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdaddress">IWSDAddress</a> object that contains the device configuration data.
      * @param {PWSTR} pszLocalId The logical address of the client. The logical address is of the form, urn:uuid:{guid}. Used when the server needs to initiate a connection to the client.
@@ -100,28 +99,40 @@ class IWSDDeviceProxy extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-init
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-init
      */
     Init(pszDeviceId, pDeviceAddress, pszLocalId, pContext, pSponsor) {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := ComCall(3, this, "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr", pSponsor, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr", pSponsor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends an asynchronous request for metadata.
+     * @remarks
+     * BeginGetMetadata will force the device proxy to send a metadata request to the host.  Once <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a> has been called, the results of the latest metadata retrieval are accessible through the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getallmetadata">GetAllMetadata</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-gethostmetadata">GetHostMetadata</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthisdevicemetadata">GetThisDeviceMetadata</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthismodelmetadata">GetThisModelMetadata</a> methods.
      * @returns {IWSDAsyncResult} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object that can be used to determine whether an operation has completed.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata
      */
     BeginGetMetadata() {
-        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWSDAsyncResult(ppResult)
     }
 
     /**
      * Ends an asynchronous request for metadata.
+     * @remarks
+     * EndGetMetadata must only be called after the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object returned by <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> has indicated that the operation is complete.  Once EndGetMetadata has been called, the results of the latest metadata retrieval are accessible through the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getallmetadata">GetAllMetadata</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-gethostmetadata">GetHostMetadata</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthisdevicemetadata">GetThisDeviceMetadata</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-getthismodelmetadata">GetThisModelMetadata</a> methods.
      * @param {IWSDAsyncResult} pResult The <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object returned by <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -186,53 +197,93 @@ class IWSDDeviceProxy extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata
      */
     EndGetMetadata(pResult) {
-        result := ComCall(5, this, "ptr", pResult, "HRESULT")
+        result := ComCall(5, this, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves class-specific metadata for the device describing the features of the device and the services it hosts.
+     * @remarks
+     * <b>GetHostMetadata</b> will not cause the device proxy to retrieve metadata from the device.  Instead, <b>GetHostMetadata</b> will return the metadata retrieved with the last call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a>.  If neither of these methods has been called, <b>GetHostMetadata</b> will return the metadata retrieved when the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object was initialized.
+     * 
+     * Upon success, the memory at <i>ppMetadata</i> will be valid until <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a> is called or until the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object is released.
      * @returns {Pointer<WSD_HOST_METADATA>} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_host_metadata">WSD_HOST_METADATA</a> structure that specifies metadata. 
      * Do not release this object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-gethostmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-gethostmetadata
      */
     GetHostMetadata() {
-        result := ComCall(6, this, "ptr*", &ppHostMetadata := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppHostMetadata := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppHostMetadata
     }
 
     /**
      * Retrieves model-specific metadata for the device.
+     * @remarks
+     * <b>GetThisModelMetadata</b> will not cause the device proxy to retrieve metadata from the device.  Instead, <b>GetThisModelMetadata</b> will return the metadata retrieved with the last call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a>.  If neither of these methods has been called, <b>GetThisModelMetadata</b> will return the metadata retrieved when the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object was initialized.
+     * 
+     * Upon success, the memory at <i>ppMetadata</i> will be valid until <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a> is called or until the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object is released.
      * @returns {Pointer<WSD_THIS_MODEL_METADATA>} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_this_model_metadata">WSD_THIS_MODEL_METADATA</a> structure that specifies manufacturer and model-specific metadata. Do not release this object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-getthismodelmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-getthismodelmetadata
      */
     GetThisModelMetadata() {
-        result := ComCall(7, this, "ptr*", &ppManufacturerMetadata := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppManufacturerMetadata := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppManufacturerMetadata
     }
 
     /**
      * Retrieves device-specific metadata for this device.
+     * @remarks
+     * <b>GetThisDeviceMetadata</b> will not cause the device proxy to retrieve metadata from the device.  Instead, <b>GetThisDeviceMetadata</b> will return the metadata retrieved with the last call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a>.  If neither of these methods has been called, <b>GetThisDeviceMetadata</b> will return the metadata retrieved when the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object was initialized.
+     * 
+     * Upon success, the memory at <i>ppMetadata</i> will be valid until <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a> is called or until the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object is released.
      * @returns {Pointer<WSD_THIS_DEVICE_METADATA>} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_this_device_metadata">WSD_THIS_DEVICE_METADATA</a> structure that specifies the device-specific metadata of this device. 
      * Do not release this object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-getthisdevicemetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-getthisdevicemetadata
      */
     GetThisDeviceMetadata() {
-        result := ComCall(8, this, "ptr*", &ppThisDeviceMetadata := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppThisDeviceMetadata := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppThisDeviceMetadata
     }
 
     /**
      * Retrieves all metadata for this device.
+     * @remarks
+     * This method is supplied so that extended metadata may be accessed. Manufacturer, service host and device-specific metadata is best obtained using methods provided specifically for those purposes.
+     * 
+     * 
+     * 
+     * <b>GetAllMetadata</b> will not cause the device proxy to retrieve metadata from the device.  Instead, <b>GetAllMetadata</b> will return the metadata retrieved with the last call to <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a>.  If neither of these methods has been called, <b>GetAllMetadata</b> will return the metadata retrieved when the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object was initialized.
+     * 
+     * Upon success, the memory at <i>ppMetadata</i> will be valid until <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-begingetmetadata">BeginGetMetadata</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsddeviceproxy-endgetmetadata">EndGetMetadata</a> is called, or until the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> object is released.
      * @returns {Pointer<WSD_METADATA_SECTION_LIST>} Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_metadata_section_list">WSD_METADATA_SECTION_LIST</a> structure that specifies all metadata related to a device. 
      * Do not release this object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-getallmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-getallmetadata
      */
     GetAllMetadata() {
-        result := ComCall(9, this, "ptr*", &ppMetadata := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppMetadata := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppMetadata
     }
 
@@ -240,33 +291,47 @@ class IWSDDeviceProxy extends IUnknown{
      * Retrieves a generic IWSDServiceProxy service proxy by service ID.
      * @param {PWSTR} pszServiceId The service ID.
      * @returns {IWSDServiceProxy} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdserviceproxy">IWSDServiceProxy</a> object for the specified service proxy.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybyid
      */
     GetServiceProxyById(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        result := ComCall(10, this, "ptr", pszServiceId, "ptr*", &ppServiceProxy := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pszServiceId, "ptr*", &ppServiceProxy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWSDServiceProxy(ppServiceProxy)
     }
 
     /**
      * Retrieves a generic IWSDServiceProxy proxy for a service exposed by the device by port type name.
+     * @remarks
+     * If the device hosts more than one service of the specified type, a proxy for any one of the services may be returned. In such a case, callers should not depend on any particular service proxy being returned.
      * @param {Pointer<WSDXML_NAME>} pType Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_name">WSDXML_NAME</a> structure that specifies the port type name.
      * @returns {IWSDServiceProxy} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdserviceproxy">IWSDServiceProxy</a> object associated with the specified service.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-getserviceproxybytype
      */
     GetServiceProxyByType(pType) {
-        result := ComCall(11, this, "ptr", pType, "ptr*", &ppServiceProxy := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pType, "ptr*", &ppServiceProxy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWSDServiceProxy(ppServiceProxy)
     }
 
     /**
      * Retrieves the endpoint proxy for the device.
      * @returns {IWSDEndpointProxy} An <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdendpointproxy">IWSDEndpointProxy</a> interface that implements a device services messaging proxy for this device.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsddeviceproxy-getendpointproxy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsddeviceproxy-getendpointproxy
      */
     GetEndpointProxy() {
-        result := ComCall(12, this, "ptr*", &ppProxy := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppProxy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWSDEndpointProxy(ppProxy)
     }
 }

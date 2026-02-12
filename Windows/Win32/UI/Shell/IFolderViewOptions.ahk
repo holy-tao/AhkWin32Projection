@@ -6,7 +6,6 @@
 /**
  * Exposes methods that allow control of folder view options specific to the Windows 7 and later views.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * An implementation of this interface is provided with Windows as part of CLSID_ExplorerBrowser and CLSID_ShellBrowser. Third parties do not implement this interface.
  * 
@@ -18,8 +17,7 @@
  * Use this interface to turn off animation and scroll tip view options new to Windows 7.
  * 
  * Use this interface to retrieve the current view settings for all of those options.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ifolderviewoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ifolderviewoptions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -54,11 +52,15 @@ class IFolderViewOptions extends IUnknown{
      * A bitmask that contains the new values for the options specified in <i>fvoMask</i>. To enable an option, the bitmask should include the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> flag for that option. To disable an option, the bit used for that <b>FOLDERVIEWOPTIONS</b> flag should be 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderviewoptions-setfolderviewoptions
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ifolderviewoptions-setfolderviewoptions
      */
     SetFolderViewOptions(fvoMask, fvoFlags) {
-        result := ComCall(3, this, "int", fvoMask, "int", fvoFlags, "HRESULT")
+        result := ComCall(3, this, "int", fvoMask, "int", fvoFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,10 +69,14 @@ class IFolderViewOptions extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a>*</b>
      * 
      * A bitmask that, when this method returns successfully, receives the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> values that are currently set.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderviewoptions-getfolderviewoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ifolderviewoptions-getfolderviewoptions
      */
     GetFolderViewOptions() {
-        result := ComCall(4, this, "int*", &pfvoFlags := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfvoFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfvoFlags
     }
 }

@@ -36,16 +36,25 @@ class IPartBase extends IUnknown{
      */
     GetUri() {
         uri := BSTR()
-        result := ComCall(3, this, "ptr", uri, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uri
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetStreamPropertiesAsync completes, and provides a method that returns the results of the operation.
      * @returns {IPrintReadStream} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mediastreaming/getstreampropertiesoperation
      */
     GetStream() {
-        result := ComCall(4, this, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintReadStream(ppStream)
     }
 
@@ -54,7 +63,11 @@ class IPartBase extends IUnknown{
      * @returns {Integer} 
      */
     GetPartCompression() {
-        result := ComCall(5, this, "int*", &pCompression := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pCompression := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCompression
     }
 
@@ -64,7 +77,11 @@ class IPartBase extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPartCompression(compression) {
-        result := ComCall(6, this, "int", compression, "HRESULT")
+        result := ComCall(6, this, "int", compression, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

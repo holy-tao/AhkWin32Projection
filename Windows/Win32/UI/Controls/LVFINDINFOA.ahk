@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -7,7 +8,7 @@
  * @remarks
  * > [!NOTE]
  * > The commctrl.h header defines LVFINDINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvfindinfoa
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-lvfindinfoa
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI
@@ -44,9 +45,12 @@ class LVFINDINFOA extends Win32Struct
      * Value to compare with the <b>lParam</b> member of a list-view item's <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure. It is valid only if LVFI_PARAM is set in the <b>flags</b> member.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(16, this)
+            return this.__lParam
+        }
     }
 
     /**

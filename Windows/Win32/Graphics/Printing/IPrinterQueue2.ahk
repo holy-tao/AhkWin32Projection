@@ -38,9 +38,16 @@ class IPrinterQueue2 extends IPrinterQueue{
      * @returns {IPrinterExtensionAsyncOperation} 
      */
     SendBidiSetRequestAsync(bstrBidiRequest, pCallback) {
-        bstrBidiRequest := bstrBidiRequest is String ? BSTR.Alloc(bstrBidiRequest).Value : bstrBidiRequest
+        if(bstrBidiRequest is String) {
+            pin := BSTR.Alloc(bstrBidiRequest)
+            bstrBidiRequest := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrBidiRequest, "ptr", pCallback, "ptr*", &ppAsyncOperation := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrBidiRequest, "ptr", pCallback, "ptr*", &ppAsyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterExtensionAsyncOperation(ppAsyncOperation)
     }
 
@@ -51,7 +58,11 @@ class IPrinterQueue2 extends IPrinterQueue{
      * @returns {IPrinterQueueView} 
      */
     GetPrinterQueueView(ulViewOffset, ulViewSize) {
-        result := ComCall(12, this, "uint", ulViewOffset, "uint", ulViewSize, "ptr*", &ppJobView := 0, "HRESULT")
+        result := ComCall(12, this, "uint", ulViewOffset, "uint", ulViewSize, "ptr*", &ppJobView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterQueueView(ppJobView)
     }
 }

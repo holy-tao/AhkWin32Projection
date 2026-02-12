@@ -6,11 +6,8 @@
 /**
  * Adds entries to an IReplicaKeyMap object.
  * @remarks
- * 
  * An <b>IConstructReplicaKeyMap</b> object can be obtained by passing <b>IID_IConstructReplicaKeyMap</b> to the <b>QueryInterface</b> method of an <b>IReplicaKeyMap</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iconstructreplicakeymap
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-iconstructreplicakeymap
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -80,13 +77,17 @@ class IConstructReplicaKeyMap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iconstructreplicakeymap-findoraddreplica
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-iconstructreplicakeymap-findoraddreplica
      */
     FindOrAddReplica(pbReplicaId, pdwReplicaKey) {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
         pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
+        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

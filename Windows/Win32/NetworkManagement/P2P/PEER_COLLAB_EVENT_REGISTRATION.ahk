@@ -3,7 +3,7 @@
 
 /**
  * The PEER_COLLAB_EVENT_REGISTRATION structure contains the data used by a peer to register for specific peer collaboration network events.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_registration
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_collab_event_registration
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

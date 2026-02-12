@@ -49,7 +49,7 @@
  * <td>Used only with CERT_FIND_SUBJECT_ATTR and CERT_FIND_ISSUER-ATTR values of <b>dwFindType</b>. By default, a case-sensitive, exact match is made. If this flag is set, the match is case-insensitive.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_find_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_store_prov_find_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

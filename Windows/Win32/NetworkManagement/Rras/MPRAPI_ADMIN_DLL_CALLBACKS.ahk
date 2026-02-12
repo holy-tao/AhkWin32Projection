@@ -12,7 +12,7 @@
  * <li>Either <b>lpfnRasAdminLinkHangupNotification</b> or <b>lpfnRasAdminAcceptNewLink</b> must be implemented.</li>
  * <li>Either <b>lpfnRasAdminAcceptNewConnectionEx</b> or <b>lpfnRasAdminConnectionHangupNotificationEx</b> must be implemented.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mprapi_admin_dll_callbacks
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-mprapi_admin_dll_callbacks
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

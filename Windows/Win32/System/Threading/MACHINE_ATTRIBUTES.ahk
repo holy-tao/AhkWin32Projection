@@ -5,7 +5,7 @@
  * Specifies the ways in which an architecture of code can run on a host operating system.  More than one bit may be set.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-machine_attributes
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/ne-processthreadsapi-machine_attributes
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

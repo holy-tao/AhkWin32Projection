@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RIO_BUFFERID.ahk
 
 /**
  * Specifies a portion of a registered buffer used for sending or receiving network data with the Winsock registered I/O extensions.
@@ -11,7 +12,7 @@
  * An application cannot resize a registered buffer simply by using a buffer slice with values larger than the original buffer that was registered using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437199(v=vs.85)">RIORegisterBuffer</a> function.
  * 
  * The <b>RIO_BUF</b> structure is defined in the <i>Mswsockdef.h</i> header file which is automatically included in the <i>Mswsock.h</i> header file. The <i>Mswsockdef.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rio_buf
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswsockdef/ns-mswsockdef-rio_buf
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
@@ -25,9 +26,12 @@ class RIO_BUF extends Win32Struct
      * The registered buffer descriptor for a Winsock registered I/O buffer used with send and receive requests.
      * @type {RIO_BUFFERID}
      */
-    BufferId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    BufferId{
+        get {
+            if(!this.HasProp("__BufferId"))
+                this.__BufferId := RIO_BUFFERID(0, this)
+            return this.__BufferId
+        }
     }
 
     /**

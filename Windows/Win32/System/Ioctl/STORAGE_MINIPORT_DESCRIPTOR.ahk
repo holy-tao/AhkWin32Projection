@@ -3,7 +3,7 @@
 
 /**
  * Reserved for system use. (STORAGE_MINIPORT_DESCRIPTOR)
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_miniport_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_miniport_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

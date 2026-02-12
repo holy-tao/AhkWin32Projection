@@ -35,7 +35,11 @@ class IPartDiscardControl extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDiscardProperties(uriSentinelPage, uriPartToDiscard) {
-        result := ComCall(3, this, "ptr", uriSentinelPage, "ptr", uriPartToDiscard, "HRESULT")
+        result := ComCall(3, this, "ptr", uriSentinelPage, "ptr", uriPartToDiscard, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

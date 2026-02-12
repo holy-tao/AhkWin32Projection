@@ -3,7 +3,7 @@
 
 /**
  * Deprecated. Specifies the date units for adjusting the CALDATETIME structure.
- * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime-dateunit
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Intl/caldatetime-dateunit
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

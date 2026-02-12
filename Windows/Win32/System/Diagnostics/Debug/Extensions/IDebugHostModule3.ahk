@@ -35,7 +35,11 @@ class IDebugHostModule3 extends IDebugHostModule2{
      * @returns {HRESULT} 
      */
     GetRange(moduleStart, moduleEnd) {
-        result := ComCall(17, this, "ptr", moduleStart, "ptr", moduleEnd, "HRESULT")
+        result := ComCall(17, this, "ptr", moduleStart, "ptr", moduleEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

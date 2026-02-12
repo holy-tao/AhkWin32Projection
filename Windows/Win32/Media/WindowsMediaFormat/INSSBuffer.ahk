@@ -5,7 +5,7 @@
 
 /**
  * The INSSBuffer interface is the basic interface of a buffer object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nn-wmsbuffer-inssbuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nn-wmsbuffer-inssbuffer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,11 +32,17 @@ class INSSBuffer extends IUnknown{
 
     /**
      * The GetLength method retrieves the size of the used portion of the buffer controlled by the buffer object.
+     * @remarks
+     * The allocated buffer may be larger than the used portion. To find the total size of the allocated buffer, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getmaxlength">INSSBuffer::GetMaxLength</a>.
      * @returns {Integer} Pointer to a <b>DWORD</b> containing the length of the buffer, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer-getlength
      */
     GetLength() {
-        result := ComCall(3, this, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwLength
     }
 
@@ -73,30 +79,44 @@ class INSSBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer-setlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer-setlength
      */
     SetLength(dwLength) {
-        result := ComCall(4, this, "uint", dwLength, "HRESULT")
+        result := ComCall(4, this, "uint", dwLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetMaxLength method retrieves the maximum size to which a buffer can be set.
+     * @remarks
+     * The maximum size of the buffer as returned by this method does not affect or reflect the size of any data unit extensions associated with the sample stored in the buffer.
      * @returns {Integer} Pointer to a <b>DWORD</b> containing the maximum length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer-getmaxlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer-getmaxlength
      */
     GetMaxLength() {
-        result := ComCall(5, this, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwLength
     }
 
     /**
      * The GetBuffer method retrieves the location of the buffer controlled by the buffer object.
      * @returns {Pointer<Integer>} Pointer to a pointer to the buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer-getbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer-getbuffer
      */
     GetBuffer() {
-        result := ComCall(6, this, "ptr*", &ppdwBuffer := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppdwBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppdwBuffer
     }
 
@@ -134,13 +154,17 @@ class INSSBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer-getbufferandlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer-getbufferandlength
      */
     GetBufferAndLength(ppdwBuffer, pdwLength) {
         ppdwBufferMarshal := ppdwBuffer is VarRef ? "ptr*" : "ptr"
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, ppdwBufferMarshal, ppdwBuffer, pdwLengthMarshal, pdwLength, "HRESULT")
+        result := ComCall(7, this, ppdwBufferMarshal, ppdwBuffer, pdwLengthMarshal, pdwLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

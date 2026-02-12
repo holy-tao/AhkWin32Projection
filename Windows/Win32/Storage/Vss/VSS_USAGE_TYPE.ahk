@@ -12,7 +12,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getidentity">IVssExamineWriterMetadata::GetIdentity</a>.
  * 
  * Requester applications that are interested in backing up system state should look for writers with the  <b>VSS_UT_BOOTABLESYSTEMSTATE</b> or  <b>VSS_UT_SYSTEMSERVICE</b> usage type.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_usage_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/ne-vswriter-vss_usage_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

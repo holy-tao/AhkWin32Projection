@@ -4,7 +4,7 @@
 
 /**
  * Contains information specific to a hit test operation. This structure is used with the RB_HITTEST message.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rbhittestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-rbhittestinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

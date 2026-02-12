@@ -9,13 +9,10 @@
 /**
  * The IMSVidGraphSegmentContainer interface is exposed by the Video Control and contains one supported method, get_Graph, which obtains a pointer to the Filter Graph Manager.
  * @remarks
- * 
  * This interface has additional methods besides the one shown here, but they are not supported.
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGraphSegmentContainer)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidgraphsegmentcontainer
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidgraphsegmentcontainer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -98,11 +95,19 @@ class IMSVidGraphSegmentContainer extends IUnknown{
 
     /**
      * The get_Graph method returns a pointer to the Filter Graph Manager.
+     * @remarks
+     * Objects can use this method to find a specific DirectShow filter in the filter graph. It is not recommended that applications use this method. Applications should always control the filter graph using the Video Control.
+     * 
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface has an outstanding reference count. The caller must release the interface.
      * @returns {IGraphBuilder} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
      */
     get_Graph() {
-        result := ComCall(3, this, "ptr*", &ppGraph := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppGraph := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGraphBuilder(ppGraph)
     }
 
@@ -111,7 +116,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IMSVidGraphSegment} 
      */
     get_Input() {
-        result := ComCall(4, this, "ptr*", &ppInput := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppInput := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSVidGraphSegment(ppInput)
     }
 
@@ -120,7 +129,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Outputs() {
-        result := ComCall(5, this, "ptr*", &ppOutputs := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppOutputs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumMSVidGraphSegment(ppOutputs)
     }
 
@@ -129,7 +142,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IMSVidGraphSegment} 
      */
     get_VideoRenderer() {
-        result := ComCall(6, this, "ptr*", &ppVR := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppVR := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSVidGraphSegment(ppVR)
     }
 
@@ -138,7 +155,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IMSVidGraphSegment} 
      */
     get_AudioRenderer() {
-        result := ComCall(7, this, "ptr*", &ppAR := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppAR := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSVidGraphSegment(ppAR)
     }
 
@@ -147,7 +168,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Features() {
-        result := ComCall(8, this, "ptr*", &ppFeatures := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppFeatures := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumMSVidGraphSegment(ppFeatures)
     }
 
@@ -156,7 +181,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IEnumMSVidGraphSegment} 
      */
     get_Composites() {
-        result := ComCall(9, this, "ptr*", &ppComposites := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppComposites := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumMSVidGraphSegment(ppComposites)
     }
 
@@ -165,7 +194,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {IUnknown} 
      */
     get_ParentContainer() {
-        result := ComCall(10, this, "ptr*", &ppContainer := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppContainer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppContainer)
     }
 
@@ -175,7 +208,11 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     Decompose(pSegment) {
-        result := ComCall(11, this, "ptr", pSegment, "HRESULT")
+        result := ComCall(11, this, "ptr", pSegment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,19 +221,34 @@ class IMSVidGraphSegmentContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     IsWindowless() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the handle to the window that has the keyboard focus, if the window is attached to the calling thread's message queue.
+     * @remarks
+     * <b>GetFocus</b> returns the window with the keyboard focus for the current thread's message queue. If <b>GetFocus</b> returns <b>NULL</b>, another thread's queue may be attached to a window that has the keyboard focus.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getforegroundwindow">GetForegroundWindow</a> function to retrieve the handle to the window with which the user is currently working. You can associate your thread's message queue with the windows owned by another thread by using the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-attachthreadinput">AttachThreadInput</a> function.
+     * 
+     * To get the window with the keyboard focus on the foreground queue or the queue of another thread, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getguithreadinfo">GetGUIThreadInfo</a> function.
      * @returns {HRESULT} Type: <b>HWND</b>
      * 
      * The return value is the handle to the window with the keyboard focus. If the calling thread's message queue does not have an associated window with the keyboard focus, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getfocus
      */
     GetFocus() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

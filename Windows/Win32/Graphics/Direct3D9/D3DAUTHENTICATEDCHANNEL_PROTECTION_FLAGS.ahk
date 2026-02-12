@@ -3,7 +3,7 @@
 
 /**
  * Specifies the protection level for video content.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-protection-flags
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-protection-flags
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

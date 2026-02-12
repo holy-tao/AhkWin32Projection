@@ -9,7 +9,7 @@
  * The <b>iBounceMSec</b> member controls the BounceKeys feature, and the <b>iWaitMSec</b>, <b>iDelayMSec</b>, and <b>iRepeatMSec</b> members work together to control the RepeatKeys and SlowKeys features. If BounceKeys is on (that is, <b>iBounceMSec</b> is nonzero), the RepeatKeys and SlowKeys features are off (that is, the <b>iWaitMSec</b>, <b>iDelayMSec</b>, and <b>iRepeatMSec</b> members must all be zero). Similarly, if BounceKeys is off (<b>iBounceMSec</b> is zero), the <b>iWaitMSec</b>, <b>iDelayMSec</b>, and <b>iRepeatMSec</b> must all be nonzero.
  * 
  * The maximum value of the  <b>iBounceMSec</b>, <b>iWaitMSec</b>, <b>iDelayMSec</b>, and <b>iRepeatMSec</b> members is 20,000 milliseconds.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-filterkeys
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-filterkeys
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

@@ -22,7 +22,7 @@
  * 
  * If the shadow copy is exposed as a share, the value of 
  *     <b>m_pwszExposedPath</b> will be the path to the portion of the volume that is shared.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_snapshot_prop
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ns-vss-vss_snapshot_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -28,7 +28,7 @@
  * <td>Windows Server 2012 R2</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-teb
+ * @see https://learn.microsoft.com/windows/win32/api//content/winternl/ns-winternl-teb
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

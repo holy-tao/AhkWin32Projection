@@ -93,7 +93,11 @@ class ISWbemProperty extends IDispatch{
      */
     get_Value() {
         varValue := VARIANT()
-        result := ComCall(7, this, "ptr", varValue, "HRESULT")
+        result := ComCall(7, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varValue
     }
 
@@ -103,7 +107,11 @@ class ISWbemProperty extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Value(varValue) {
-        result := ComCall(8, this, "ptr", varValue, "HRESULT")
+        result := ComCall(8, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +121,11 @@ class ISWbemProperty extends IDispatch{
      */
     get_Name() {
         strName := BSTR()
-        result := ComCall(9, this, "ptr", strName, "HRESULT")
+        result := ComCall(9, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strName
     }
 
@@ -122,7 +134,11 @@ class ISWbemProperty extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
-        result := ComCall(10, this, "short*", &bIsLocal := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &bIsLocal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsLocal
     }
 
@@ -132,7 +148,11 @@ class ISWbemProperty extends IDispatch{
      */
     get_Origin() {
         strOrigin := BSTR()
-        result := ComCall(11, this, "ptr", strOrigin, "HRESULT")
+        result := ComCall(11, this, "ptr", strOrigin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strOrigin
     }
 
@@ -141,7 +161,11 @@ class ISWbemProperty extends IDispatch{
      * @returns {Integer} 
      */
     get_CIMType() {
-        result := ComCall(12, this, "int*", &iCimType := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &iCimType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iCimType
     }
 
@@ -150,7 +174,11 @@ class ISWbemProperty extends IDispatch{
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
-        result := ComCall(13, this, "ptr*", &objWbemQualifierSet := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &objWbemQualifierSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemQualifierSet(objWbemQualifierSet)
     }
 
@@ -159,7 +187,11 @@ class ISWbemProperty extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsArray() {
-        result := ComCall(14, this, "short*", &bIsArray := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &bIsArray := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsArray
     }
 }

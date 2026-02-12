@@ -7,11 +7,8 @@
 /**
  * A callback interface, implemented by backup applications, that enables Data Deduplication to read content from metadata and container files residing in a backup store and optionally improve restore efficiency.
  * @remarks
- * 
  * The <b>IDedupReadFileCallback</b> interface is implemented by a backup application and passed as a parameter to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles">IDedupBackupSupport::RestoreFiles</a> method. The callback is used by Data Deduplication to read data from Data Duplication store containers in the backup store.  <b>IDedupReadFileCallback</b> also includes methods that applications can optionally implement to increase the efficiency of the Data Deduplication file restore process.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nn-ddpbackup-idedupreadfilecallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddpbackup/nn-ddpbackup-idedupreadfilecallback
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319
  */
@@ -44,21 +41,40 @@ class IDedupReadFileCallback extends IUnknown{
      * @param {Pointer<Integer>} FileBuffer A pointer to a buffer that receives the data that is read from the file. The size of the buffer must be greater than or equal to the number specified in the <i>SizeToRead</i> parameter.
      * @param {Pointer<Integer>} ReturnedSize Pointer to a ULONG variable that receives the number of bytes that were read from the backup store. If the call to <b>ReadBackupFile</b> is successful, this number is equal to the value that was specified in the <i>SizeToRead</i> parameter.
      * @param {Integer} Flags This parameter is reserved for future use.
-     * @returns {HRESULT} This method can return standard <b>HRESULT</b> values, such as <b>S_OK</b>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Possible return values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nf-ddpbackup-idedupreadfilecallback-readbackupfile
+     * @returns {HRESULT} This method can return standard <b>HRESULT</b> values, such as <b>S_OK</b>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Possible return values include the following.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddpbackup/nf-ddpbackup-idedupreadfilecallback-readbackupfile
      */
     ReadBackupFile(FileFullPath, FileOffset, SizeToRead, FileBuffer, ReturnedSize, Flags) {
-        FileFullPath := FileFullPath is String ? BSTR.Alloc(FileFullPath).Value : FileFullPath
+        if(FileFullPath is String) {
+            pin := BSTR.Alloc(FileFullPath)
+            FileFullPath := pin.Value
+        }
 
         FileBufferMarshal := FileBuffer is VarRef ? "char*" : "ptr"
         ReturnedSizeMarshal := ReturnedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", FileFullPath, "int64", FileOffset, "uint", SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, "ptr", FileFullPath, "int64", FileOffset, "uint", SizeToRead, FileBufferMarshal, FileBuffer, ReturnedSizeMarshal, ReturnedSize, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This method provides the application with the ability to influence the order of the pending reads that are required to retrieve the target file.
+     * @remarks
+     * Given a list of container files that hold data for the restore target file, the application optionally 
+     *     generates a list of container store file extents in a sorted order that results in an efficient cross-container 
+     *     read plan. For a backup store located on tape, this would normally be in tape order.
+     * 
+     * In the case where a container is stored in multiple extents in the backup store—for 
+     *     example, as a result of an incremental backup sequence—the application may also return 
+     *     multiple container extents for each logical container file.
+     * 
+     * The application may return 
+     *     <b>S_OK</b> and <b>NULL</b> output parameters to skip the read plan 
+     *     optimizations. In this case, container read order will be chosen by Data Deduplication.
      * @param {Integer} NumberOfContainers Number of container paths in the <i>ContainerPaths</i> array.
      * @param {Pointer<BSTR>} ContainerPaths Array of paths to container files that must be read in order to restore the file specified in the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles">IDedupBackupSupport::RestoreFiles</a> 
@@ -70,31 +86,44 @@ class IDedupReadFileCallback extends IUnknown{
      *       <a href="https://docs.microsoft.com/windows/desktop/api/ddpbackup/ns-ddpbackup-dedup_container_extent">DEDUP_CONTAINER_EXTENT</a> structures.
      * @returns {HRESULT} This method can return standard <b>HRESULT</b> values, such as 
      *       <b>S_OK</b>. It can also return converted 
-     *       <a href="/windows/desktop/Debug/system-error-codes">system error codes</a> using the 
-     *       <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Possible return values 
+     *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Possible return values 
      *       include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nf-ddpbackup-idedupreadfilecallback-ordercontainersrestore
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddpbackup/nf-ddpbackup-idedupreadfilecallback-ordercontainersrestore
      */
     OrderContainersRestore(NumberOfContainers, ContainerPaths, ReadPlanEntries, ReadPlan) {
         ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : "ptr"
         ReadPlanMarshal := ReadPlan is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
+        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Provides the application with a preview of the sequence of reads that are pending for a given container file extent.
+     * @remarks
+     * <b>PreviewContainerRead</b> is called for each container file extent reported by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nf-ddpbackup-idedupreadfilecallback-ordercontainersrestore">IDedupReadFileCallback::OrderContainersRestore</a>. The application may use this preview as a per-container extent read plan to increase the efficiency of the pending reads. For example, the application may choose to perform read-ahead to improve throughput or to cache read buffers to improve overall performance across parallel file restore operations.
      * @param {BSTR} FileFullPath The full path from the root directory of the volume to the container file.
      * @param {Integer} NumberOfReads Number of <a href="https://docs.microsoft.com/windows/desktop/api/ddpbackup/ns-ddpbackup-ddp_file_extent">DDP_FILE_EXTENT</a> structures in the array that the <i>ReadOffsets</i> parameter points to.
      * @param {Pointer<DDP_FILE_EXTENT>} ReadOffsets Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ddpbackup/ns-ddpbackup-ddp_file_extent">DDP_FILE_EXTENT</a> structures.
-     * @returns {HRESULT} This method can return standard <b>HRESULT</b> values, such as <b>S_OK</b>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Possible return values include the following.
-     * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nf-ddpbackup-idedupreadfilecallback-previewcontainerread
+     * @returns {HRESULT} This method can return standard <b>HRESULT</b> values, such as <b>S_OK</b>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Possible return values include the following.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddpbackup/nf-ddpbackup-idedupreadfilecallback-previewcontainerread
      */
     PreviewContainerRead(FileFullPath, NumberOfReads, ReadOffsets) {
-        FileFullPath := FileFullPath is String ? BSTR.Alloc(FileFullPath).Value : FileFullPath
+        if(FileFullPath is String) {
+            pin := BSTR.Alloc(FileFullPath)
+            FileFullPath := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", FileFullPath, "uint", NumberOfReads, "ptr", ReadOffsets, "HRESULT")
+        result := ComCall(5, this, "ptr", FileFullPath, "uint", NumberOfReads, "ptr", ReadOffsets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

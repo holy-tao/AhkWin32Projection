@@ -35,7 +35,11 @@ class ISpObjectWithToken extends IUnknown{
      * @returns {HRESULT} 
      */
     SetObjectToken(pToken) {
-        result := ComCall(3, this, "ptr", pToken, "HRESULT")
+        result := ComCall(3, this, "ptr", pToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ISpObjectWithToken extends IUnknown{
      * @returns {ISpObjectToken} 
      */
     GetObjectToken() {
-        result := ComCall(4, this, "ptr*", &ppToken := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectToken(ppToken)
     }
 }

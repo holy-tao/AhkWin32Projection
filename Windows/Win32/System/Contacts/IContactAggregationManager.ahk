@@ -55,7 +55,11 @@ class IContactAggregationManager extends IUnknown{
         plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
         plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "HRESULT")
+        result := ComCall(3, this, plMajorVersionMarshal, plMajorVersion, plMinorVersionMarshal, plMinorVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +75,11 @@ class IContactAggregationManager extends IUnknown{
 
         pCreatedGroupMarshal := pCreatedGroup is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pGroupName, "int", options, pCreatedGroupMarshal, pCreatedGroup, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pGroupName, "int", options, pCreatedGroupMarshal, pCreatedGroup, "ptr*", &ppGroup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationGroup(ppGroup)
     }
 
@@ -80,7 +88,11 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationContact} 
      */
     CreateExternalContact() {
-        result := ComCall(5, this, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationContact(ppItem)
     }
 
@@ -89,7 +101,11 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationServerPerson} 
      */
     CreateServerPerson() {
-        result := ComCall(6, this, "ptr*", &ppServerPerson := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppServerPerson := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationServerPerson(ppServerPerson)
     }
 
@@ -98,16 +114,28 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationLink} 
      */
     CreateServerContactLink() {
-        result := ComCall(7, this, "ptr*", &ppServerContactLink := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppServerContactLink := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationLink(ppServerContactLink)
     }
 
     /**
+     * Clears the forward buffers for the stream and writes any buffered data to the configuration file.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-flush
      */
     Flush() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +147,11 @@ class IContactAggregationManager extends IUnknown{
     OpenAggregateContact(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(9, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pItemId, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationAggregate(ppItem)
     }
 
@@ -131,7 +163,11 @@ class IContactAggregationManager extends IUnknown{
     OpenContact(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(10, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pItemId, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationContact(ppItem)
     }
 
@@ -143,7 +179,11 @@ class IContactAggregationManager extends IUnknown{
     OpenServerContactLink(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(11, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pItemId, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationLink(ppItem)
     }
 
@@ -155,7 +195,11 @@ class IContactAggregationManager extends IUnknown{
     OpenServerPerson(pItemId) {
         pItemId := pItemId is String ? StrPtr(pItemId) : pItemId
 
-        result := ComCall(12, this, "ptr", pItemId, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pItemId, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationServerPerson(ppItem)
     }
 
@@ -165,7 +209,11 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationContactCollection} 
      */
     get_Contacts(options) {
-        result := ComCall(13, this, "int", options, "ptr*", &ppItems := 0, "HRESULT")
+        result := ComCall(13, this, "int", options, "ptr*", &ppItems := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationContactCollection(ppItems)
     }
 
@@ -175,7 +223,11 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationAggregateCollection} 
      */
     get_AggregateContacts(options) {
-        result := ComCall(14, this, "int", options, "ptr*", &ppAggregates := 0, "HRESULT")
+        result := ComCall(14, this, "int", options, "ptr*", &ppAggregates := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationAggregateCollection(ppAggregates)
     }
 
@@ -185,7 +237,11 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationGroupCollection} 
      */
     get_Groups(options) {
-        result := ComCall(15, this, "int", options, "ptr*", &ppGroups := 0, "HRESULT")
+        result := ComCall(15, this, "int", options, "ptr*", &ppGroups := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationGroupCollection(ppGroups)
     }
 
@@ -194,7 +250,11 @@ class IContactAggregationManager extends IUnknown{
      * @returns {IContactAggregationServerPersonCollection} 
      */
     get_ServerPersons() {
-        result := ComCall(16, this, "ptr*", &ppServerPersonCollection := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppServerPersonCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationServerPersonCollection(ppServerPersonCollection)
     }
 
@@ -206,7 +266,11 @@ class IContactAggregationManager extends IUnknown{
     get_ServerContactLinks(pPersonItemId) {
         pPersonItemId := pPersonItemId is String ? StrPtr(pPersonItemId) : pPersonItemId
 
-        result := ComCall(17, this, "ptr", pPersonItemId, "ptr*", &ppServerContactLinkCollection := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pPersonItemId, "ptr*", &ppServerContactLinkCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContactAggregationLinkCollection(ppServerContactLinkCollection)
     }
 }

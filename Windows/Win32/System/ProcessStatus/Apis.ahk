@@ -38,7 +38,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocesses
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumprocesses
      * @since windows5.1.2600
      */
     static EnumProcesses(lpidProcess, cb, lpcbNeeded) {
@@ -117,7 +117,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocessmodules
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumprocessmodules
      * @since windows5.1.2600
      */
     static EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
@@ -169,7 +169,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocessmodulesex
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumprocessmodulesex
      * @since windows6.0.6000
      */
     static EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
@@ -222,24 +222,24 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulebasenamea
      * @since windows5.1.2600
      */
-    static GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
+    static GetModuleBaseNameA(hProcess, hModule_, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule_, "ptr", lpBaseName, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -282,24 +282,24 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulebasenamew
      * @since windows5.1.2600
      */
-    static GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
+    static GetModuleBaseNameW(hProcess, hModule_, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule_, "ptr", lpBaseName, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -339,24 +339,24 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulefilenameexa
      * @since windows5.1.2600
      */
-    static GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
+    static GetModuleFileNameExA(hProcess, hModule_, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule_, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -396,24 +396,24 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulefilenameexw
      * @since windows5.1.2600
      */
-    static GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
+    static GetModuleFileNameExW(hProcess, hModule_, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("PSAPI.dll\GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule_, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -447,7 +447,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module.
+     * @param {HMODULE} hModule_ A handle to the module.
      * @param {Pointer<MODULEINFO>} lpmodinfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-moduleinfo">MODULEINFO</a> structure that receives information about the module.
      * @param {Integer} cb The size of the 
@@ -456,16 +456,16 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmoduleinformation
      * @since windows5.1.2600
      */
-    static GetModuleInformation(hProcess, hModule, lpmodinfo, cb) {
+    static GetModuleInformation(hProcess, hModule_, lpmodinfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
         A_LastError := 0
 
-        result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
+        result := DllCall("PSAPI.dll\GetModuleInformation", "ptr", hProcess, "ptr", hModule_, "ptr", lpmodinfo, "uint", cb, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -499,7 +499,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-emptyworkingset
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-emptyworkingset
      * @since windows5.1.2600
      */
     static EmptyWorkingSet(hProcess) {
@@ -539,7 +539,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-initializeprocessforwswatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-initializeprocessforwswatch
      * @since windows5.1.2600
      */
     static InitializeProcessForWsWatch(hProcess) {
@@ -609,7 +609,7 @@ class ProcessStatus {
      *        <b>ERROR_INSUFFICIENT_BUFFER</b> if the <i>lpWatchInfo</i> buffer is not 
      *        large enough to contain all the working set change records; the buffer is returned empty. Reallocate a larger 
      *        block of memory for the buffer and call again.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getwschanges
      * @since windows5.1.2600
      */
     static GetWsChanges(hProcess, lpWatchInfo, cb) {
@@ -662,7 +662,7 @@ class ProcessStatus {
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_INSUFFICIENT_BUFFER</b> if the <i>lpWatchInfoEx</i> buffer is not large enough to contain all the working set change records; the buffer is returned empty. Reallocate a larger block of memory for the buffer and call again.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschangesex
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getwschangesex
      * @since windows6.0.6000
      */
     static GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
@@ -766,7 +766,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmappedfilenamew
      * @since windows5.1.2600
      */
     static GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
@@ -871,7 +871,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmappedfilenamea
      * @since windows5.1.2600
      */
     static GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
@@ -908,7 +908,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumdevicedrivers
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumdevicedrivers
      * @since windows5.1.2600
      */
     static EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
@@ -941,7 +941,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverbasenamea
      * @since windows5.1.2600
      */
     static GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
@@ -976,7 +976,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverbasenamew
      * @since windows5.1.2600
      */
     static GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
@@ -1016,7 +1016,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverfilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverfilenamea
      * @since windows5.1.2600
      */
     static GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
@@ -1056,7 +1056,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverfilenamew
      * @since windows5.1.2600
      */
     static GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
@@ -1111,7 +1111,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingset
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-queryworkingset
      * @since windows5.1.2600
      */
     static QueryWorkingSet(hProcess, pv, cb) {
@@ -1143,7 +1143,7 @@ class ProcessStatus {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingsetex
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-queryworkingsetex
      * @since windows6.0.6000
      */
     static QueryWorkingSetEx(hProcess, pv, cb) {
@@ -1189,7 +1189,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getprocessmemoryinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getprocessmemoryinfo
      * @since windows5.1.2600
      */
     static GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
@@ -1231,7 +1231,7 @@ class ProcessStatus {
      *       bytes.
      * @returns {BOOL} If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE. To get 
      *        extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getperformanceinfo
      * @since windows5.1.2600
      */
     static GetPerformanceInfo(pPerformanceInformation, cb) {
@@ -1277,7 +1277,7 @@ class ProcessStatus {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the 
      *        return value is <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumpagefilesw
      * @since windows5.1.2600
      */
     static EnumPageFilesW(pCallBackRoutine, pContext) {
@@ -1325,7 +1325,7 @@ class ProcessStatus {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the 
      *        return value is <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumpagefilesa
      * @since windows5.1.2600
      */
     static EnumPageFilesA(pCallBackRoutine, pContext) {
@@ -1388,7 +1388,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getprocessimagefilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getprocessimagefilenamea
      * @since windows5.1.2600
      */
     static GetProcessImageFileNameA(hProcess, lpImageFileName, nSize) {
@@ -1452,7 +1452,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getprocessimagefilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getprocessimagefilenamew
      * @since windows5.1.2600
      */
     static GetProcessImageFileNameW(hProcess, lpImageFileName, nSize) {
@@ -1491,7 +1491,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocesses
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumprocesses
      */
     static K32EnumProcesses(lpidProcess, cb, lpcbNeeded) {
         lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
@@ -1563,7 +1563,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocessmodules
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumprocessmodules
      */
     static K32EnumProcessModules(hProcess, lphModule, cb, lpcbNeeded) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -1608,7 +1608,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumprocessmodulesex
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumprocessmodulesex
      */
     static K32EnumProcessModulesEx(hProcess, lphModule, cb, lpcbNeeded, dwFilterFlag) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -1654,21 +1654,21 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulebasenamew
      */
-    static K32GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
+    static K32GetModuleBaseNameA(hProcess, hModule_, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule_, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
     }
 
@@ -1707,21 +1707,21 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module. 
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, this function  returns the name of the file used to create the calling process.
      * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the module. If the base name is longer than maximum number of characters specified by the <i>nSize</i> parameter, the base name is truncated.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, in characters.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulebasenamew
      */
-    static K32GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
+    static K32GetModuleBaseNameW(hProcess, hModule_, lpBaseName, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
-        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule_, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
     }
 
@@ -1757,21 +1757,21 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulefilenameexw
      */
-    static K32GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
+    static K32GetModuleFileNameExA(hProcess, hModule_, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule_, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -1807,21 +1807,21 @@ class ProcessStatus {
      * <b>Windows 10 and later, Windows Server 2016 and later</b>: If the <i>hModule</i> parameter is NULL, then the handle requires only <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access rights.
      * 
      * The <b>GetModuleFileNameEx</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexw">LoadLibraryEx</a>.
-     * @param {HMODULE} hModule A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
+     * @param {HMODULE} hModule_ A handle to the module. If this parameter is NULL, <b>GetModuleFileNameEx</b> returns the path of the executable file of the process specified in <i>hProcess</i>.
      * @param {PWSTR} lpFilename A pointer to a buffer that receives the fully qualified path to the module. If the size of the file name is larger than the value of the <i>nSize</i> parameter, the function succeeds but the file name is truncated and null-terminated.
      * @param {Integer} nSize The size of the <i>lpFilename</i> buffer, in characters.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmodulefilenameexw
      */
-    static K32GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
+    static K32GetModuleFileNameExW(hProcess, hModule_, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
-        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule_, "ptr", lpFilename, "uint", nSize, "uint")
         return result
     }
 
@@ -1851,7 +1851,7 @@ class ProcessStatus {
      * @param {HANDLE} hProcess A handle to the process that contains the module.
      * 
      * The handle must have the <b>PROCESS_QUERY_INFORMATION</b> and <b>PROCESS_VM_READ</b> access rights. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {HMODULE} hModule A handle to the module.
+     * @param {HMODULE} hModule_ A handle to the module.
      * @param {Pointer<MODULEINFO>} lpmodinfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/psapi/ns-psapi-moduleinfo">MODULEINFO</a> structure that receives information about the module.
      * @param {Integer} cb The size of the 
@@ -1860,13 +1860,13 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmoduleinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmoduleinformation
      */
-    static K32GetModuleInformation(hProcess, hModule, lpmodinfo, cb) {
+    static K32GetModuleInformation(hProcess, hModule_, lpmodinfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
-        result := DllCall("KERNEL32.dll\K32GetModuleInformation", "ptr", hProcess, "ptr", hModule, "ptr", lpmodinfo, "uint", cb, "int")
+        result := DllCall("KERNEL32.dll\K32GetModuleInformation", "ptr", hProcess, "ptr", hModule_, "ptr", lpmodinfo, "uint", cb, "int")
         return result
     }
 
@@ -1896,7 +1896,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-emptyworkingset
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-emptyworkingset
      */
     static K32EmptyWorkingSet(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -1929,7 +1929,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-initializeprocessforwswatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-initializeprocessforwswatch
      */
     static K32InitializeProcessForWsWatch(hProcess) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -1992,7 +1992,7 @@ class ProcessStatus {
      *        <b>ERROR_INSUFFICIENT_BUFFER</b> if the <i>lpWatchInfo</i> buffer is not 
      *        large enough to contain all the working set change records; the buffer is returned empty. Reallocate a larger 
      *        block of memory for the buffer and call again.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getwschanges
      */
     static K32GetWsChanges(hProcess, lpWatchInfo, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -2038,7 +2038,7 @@ class ProcessStatus {
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_INSUFFICIENT_BUFFER</b> if the <i>lpWatchInfoEx</i> buffer is not large enough to contain all the working set change records; the buffer is returned empty. Reallocate a larger block of memory for the buffer and call again.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getwschangesex
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getwschangesex
      */
     static K32GetWsChangesEx(hProcess, lpWatchInfoEx, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -2135,7 +2135,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmappedfilenamew
      */
     static K32GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -2233,7 +2233,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getmappedfilenamew
      */
     static K32GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -2263,7 +2263,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumdevicedrivers
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumdevicedrivers
      */
     static K32EnumDeviceDrivers(lpImageBase, cb, lpcbNeeded) {
         lpcbNeededMarshal := lpcbNeeded is VarRef ? "uint*" : "ptr"
@@ -2273,7 +2273,7 @@ class ProcessStatus {
     }
 
     /**
-     * Retrieves the base name of the specified device driver. (ANSI)
+     * Retrieves the base name of the specified device driver. (Unicode)
      * @remarks
      * Starting with Windows 7 and Windows Server 2008 R2, Psapi.h establishes version numbers for the PSAPI functions. The PSAPI version number affects  the name used to call the function and the library that a program must load.
      * 
@@ -2283,13 +2283,13 @@ class ProcessStatus {
      * @param {Pointer<Void>} ImageBase The load address of the device driver. This value can be retrieved using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-enumdevicedrivers">EnumDeviceDrivers</a> 
      *       function.
-     * @param {PSTR} lpFilename TBD
+     * @param {PSTR} lpFilename 
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters. If the buffer is not large enough to store the base name plus the terminating null character, the string is truncated.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, not including any terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverbasenamew
      */
     static K32GetDeviceDriverBaseNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -2301,7 +2301,7 @@ class ProcessStatus {
     }
 
     /**
-     * Retrieves the base name of the specified device driver. (ANSI)
+     * Retrieves the base name of the specified device driver. (Unicode)
      * @remarks
      * Starting with Windows 7 and Windows Server 2008 R2, Psapi.h establishes version numbers for the PSAPI functions. The PSAPI version number affects  the name used to call the function and the library that a program must load.
      * 
@@ -2311,13 +2311,13 @@ class ProcessStatus {
      * @param {Pointer<Void>} ImageBase The load address of the device driver. This value can be retrieved using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/psapi/nf-psapi-enumdevicedrivers">EnumDeviceDrivers</a> 
      *       function.
-     * @param {PWSTR} lpBaseName 
+     * @param {PWSTR} lpBaseName A pointer to the buffer that receives the base name of the device driver.
      * @param {Integer} nSize The size of the <i>lpBaseName</i> buffer, in characters. If the buffer is not large enough to store the base name plus the terminating null character, the string is truncated.
      * @returns {Integer} If the function succeeds, the return value specifies the length of the string copied to the buffer, not including any terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverbasenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverbasenamew
      */
     static K32GetDeviceDriverBaseNameW(ImageBase, lpBaseName, nSize) {
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
@@ -2350,7 +2350,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverfilenamew
      */
     static K32GetDeviceDriverFileNameA(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -2383,7 +2383,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getdevicedriverfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getdevicedriverfilenamew
      */
     static K32GetDeviceDriverFileNameW(ImageBase, lpFilename, nSize) {
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
@@ -2431,7 +2431,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingset
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-queryworkingset
      */
     static K32QueryWorkingSet(hProcess, pv, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -2456,7 +2456,7 @@ class ProcessStatus {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-queryworkingsetex
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-queryworkingsetex
      */
     static K32QueryWorkingSetEx(hProcess, pv, cb) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
@@ -2495,7 +2495,7 @@ class ProcessStatus {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getprocessmemoryinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getprocessmemoryinfo
      */
     static K32GetProcessMemoryInfo(Process, ppsmemCounters, cb) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
@@ -2530,7 +2530,7 @@ class ProcessStatus {
      *       bytes.
      * @returns {BOOL} If the function succeeds, the return value is TRUE. If the function fails, the return value is FALSE. To get 
      *        extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getperformanceinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-getperformanceinfo
      */
     static K32GetPerformanceInfo(pPerformanceInformation, cb) {
         result := DllCall("KERNEL32.dll\K32GetPerformanceInfo", "ptr", pPerformanceInformation, "uint", cb, "int")
@@ -2538,7 +2538,7 @@ class ProcessStatus {
     }
 
     /**
-     * Calls the callback routine for each installed pagefile in the system. (ANSI)
+     * Calls the callback routine for each installed pagefile in the system. (Unicode)
      * @remarks
      * Starting with Windows 7 and Windows Server 2008 R2, Psapi.h establishes 
      *     version numbers for the PSAPI functions. The PSAPI version number affects  the name used to call the function and 
@@ -2569,7 +2569,7 @@ class ProcessStatus {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the 
      *        return value is <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumpagefilesw
      */
     static K32EnumPageFilesW(pCallBackRoutine, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
@@ -2579,7 +2579,7 @@ class ProcessStatus {
     }
 
     /**
-     * Calls the callback routine for each installed pagefile in the system. (ANSI)
+     * Calls the callback routine for each installed pagefile in the system. (Unicode)
      * @remarks
      * Starting with Windows 7 and Windows Server 2008 R2, Psapi.h establishes 
      *     version numbers for the PSAPI functions. The PSAPI version number affects  the name used to call the function and 
@@ -2610,7 +2610,7 @@ class ProcessStatus {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the 
      *        return value is <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-enumpagefilesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/psapi/nf-psapi-enumpagefilesw
      */
     static K32EnumPageFilesA(pCallBackRoutine, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"

@@ -36,10 +36,20 @@ class IHTMLStorage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     setItem(bstrKey, bstrValue) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
-        bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
+        if(bstrValue is String) {
+            pin := BSTR.Alloc(bstrValue)
+            bstrValue := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrKey, "ptr", bstrValue, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrKey, "ptr", bstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

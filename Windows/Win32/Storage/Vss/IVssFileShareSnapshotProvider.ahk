@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//vsprov/nn-vsprov-ivssfilesharesnapshotprovider
+ * . (IVssFileShareSnapshotProvider)
+ * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nn-vsprov-ivssfilesharesnapshotprovider
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -34,6 +34,23 @@ class IVssFileShareSnapshotProvider extends IUnknown{
 
     /**
      * Sets the context for the subsequent shadow copy-related operations.
+     * @remarks
+     * The default context for VSS shadow copies is VSS_CTX_BACKUP.
+     * 
+     * <b>Windows XP:  </b>The only supported context is the default context, VSS_CTX_BACKUP. Therefore, calling 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-setcontext">SetContext</a> under Windows XP returns
+     *      E_NOTIMPL.
+     * 
+     * For more information about how the context that is set by 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-setcontext">SetContext</a> affects 
+     *     how a shadow copy is created and managed, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/VSS/implementation-details-for-creating-shadow-copies">Implementation Details for 
+     *     Creating Shadow Copies</a>.
+     *    
+     * 
+     * For a complete discussion of the permitted shadow copy contexts, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a>.
      * @param {Integer} lContext The context to be set. The context must be one of the supported values of <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_context">_VSS_SNAPSHOT_CONTEXT</a> or a supported combination of <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> and  <b>_VSS_SNAPSHOT_CONTEXT</b> values.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -98,41 +115,69 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-setcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-setcontext
      */
     SetContext(lContext) {
-        result := ComCall(3, this, "int", lContext, "HRESULT")
+        result := ComCall(3, this, "int", lContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the VSS_SNAPSHOT_PROP structure for a file share snapshot.
+     * @remarks
+     * The caller should set the contents of the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure to zero before calling the <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsssoftwaresnapshotprovider-getsnapshotproperties">GetSnapshotProperties</a> method.
+     * 
+     * The provider is responsible for allocating and freeing the strings in the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
+     * 
+     * The VSS coordinator calls this method during the PostSnapshot phase of snapshot creation in order to retrieve the snapshot access path (UNC path for file share snapshots).  The coordinator calls this method after PreFinalCommitSnapshots and before it invokes PostSnapshot in the writers.
      * @param {Guid} SnapshotId Shadow copy identifier.
      * @returns {VSS_SNAPSHOT_PROP} The address of a caller-allocated <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure that receives the shadow copy properties. The provider is responsible for setting the members of this structure. All members are required except  <b>m_pwszExposedName</b> and <b>m_pwszExposedPath</b>, which the provider can set to <b>NULL</b>. The provider allocates memory for all string members  that it sets in the structure. When the structure is no longer needed, the caller is responsible for freeing these strings by calling the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-getsnapshotproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-getsnapshotproperties
      */
     GetSnapshotProperties(SnapshotId) {
         pProp := VSS_SNAPSHOT_PROP()
-        result := ComCall(4, this, "ptr", SnapshotId, "ptr", pProp, "HRESULT")
+        result := ComCall(4, this, "ptr", SnapshotId, "ptr", pProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProp
     }
 
     /**
      * Gets an enumeration of VSS_SNAPSHOT_PROP structures for all file share snapshots that are available to the application server.
+     * @remarks
+     * This method is typically called in response to requester generated snapshot query operations.
+     * 
+     * Calling the <a href="https://docs.microsoft.com/windows/desktop/api/vss/nf-vss-ivssenumobject-next">IVssEnumObject::Next</a> method on the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> interface that is returned though the 
+     *     <i>ppEnum</i>  parameter will return 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structures containing a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure for each shadow copy.
      * @param {Guid} QueriedObjectId Reserved for system use. The value of this parameter must be GUID_NULL.
      * @param {Integer} eQueriedObjectType Reserved for system use. The value of this parameter must be VSS_OBJECT_NONE.
      * @param {Integer} eReturnedObjectsType Reserved for system use. The value of this parameter must be VSS_OBJECT_SNAPSHOT.
      * @returns {IVssEnumObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> interface pointer, 
      *       which is initialized on return. Callers must release the interface. This parameter is required and cannot be null.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-query
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-query
      */
     Query(QueriedObjectId, eQueriedObjectType, eReturnedObjectsType) {
-        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVssEnumObject(ppEnum)
     }
 
     /**
      * Deletes specific snapshots, or all snapshots in a specified snapshot set.
+     * @remarks
+     * The VSS coordinator calls this method as part of the snapshot auto-release process.  The method is also called in response to requester driven delete operations.
      * @param {Guid} SourceObjectId Identifier of the shadow copy or shadow copy set to be deleted.
      * @param {Integer} eSourceObjectType Type of the object to be deleted. The value of this parameter is VSS_OBJECT_SNAPSHOT or VSS_OBJECT_SNAPSHOT_SET.
      * @param {BOOL} bForceDelete If the value of this parameter is <b>TRUE</b>, the provider will do everything possible to delete the shadow copy or shadow copies in a shadow copy set. If it is <b>FALSE</b>, no additional effort will be made.
@@ -208,23 +253,27 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * <td width="60%">
      * Provider error. The provider logged the error in the event log. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      *        
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-deletesnapshots
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-deletesnapshots
      */
     DeleteSnapshots(SourceObjectId, eSourceObjectType, bForceDelete, plDeletedSnapshots, pNondeletedSnapshotID) {
         plDeletedSnapshotsMarshal := plDeletedSnapshots is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "HRESULT")
+        result := ComCall(6, this, "ptr", SourceObjectId, "int", eSourceObjectType, "int", bForceDelete, plDeletedSnapshotsMarshal, plDeletedSnapshots, "ptr", pNondeletedSnapshotID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * VSS calls this method for each shadow copy that is added to the shadow copy set.
+     * VSS calls this method for each shadow copy that is added to the shadow copy set. (IVssFileShareSnapshotProvider.BeginPrepareSnapshot)
      * @param {Guid} SnapshotSetId Shadow copy set identifier.
      * @param {Guid} SnapshotId Identifier of the shadow copy to be created.
      * @param {Pointer<Integer>} pwszSharePath The file share path.
@@ -300,7 +349,7 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * <td width="60%">
      * Provider error. The provider logged the error in the event log. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      *        
      * 
      * </td>
@@ -335,32 +384,42 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-beginpreparesnapshot
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, pwszSharePath, lNewContext, ProviderId) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, pwszSharePathMarshal, pwszSharePath, "int", lNewContext, "ptr", ProviderId, "HRESULT")
+        result := ComCall(7, this, "ptr", SnapshotSetId, "ptr", SnapshotId, pwszSharePathMarshal, pwszSharePath, "int", lNewContext, "ptr", ProviderId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether the given Universal Naming Convention (UNC) path is supported by this provider.
+     * @remarks
+     * The VSS coordinator calls this method as part of <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addtosnapshotset">AddToSnapshotSet</a> to determine which provider to use for snapshot creation.
      * @param {Pointer<Integer>} pwszSharePath The path to the file share.
      * @returns {BOOL} This parameter receives <b>TRUE</b> if shadow copies are supported on the specified volume, otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsupported
      */
     IsPathSupported(pwszSharePath) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, "int*", &pbSupportedByThisProvider := 0, "HRESULT")
+        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, "int*", &pbSupportedByThisProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSupportedByThisProvider
     }
 
@@ -439,7 +498,7 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * <td width="60%">
      * Provider error. The provider logged the error in the event log. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      *        
      * 
      * </td>
@@ -452,21 +511,25 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsnapshotted
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsnapshotted
      */
     IsPathSnapshotted(pwszSharePath, pbSnapshotsPresent, plSnapshotCompatibility) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
         pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : "ptr"
         plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pwszSharePathMarshal, pwszSharePath, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
+        result := ComCall(9, this, pwszSharePathMarshal, pwszSharePath, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -538,10 +601,14 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivssfilesharesnapshotprovider-setsnapshotproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-setsnapshotproperty
      */
     SetSnapshotProperty(SnapshotId, eSnapshotPropertyId, vProperty) {
-        result := ComCall(10, this, "ptr", SnapshotId, "int", eSnapshotPropertyId, "ptr", vProperty, "HRESULT")
+        result := ComCall(10, this, "ptr", SnapshotId, "int", eSnapshotPropertyId, "ptr", vProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

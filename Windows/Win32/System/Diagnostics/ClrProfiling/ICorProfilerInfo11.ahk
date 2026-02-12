@@ -29,36 +29,48 @@ class ICorProfilerInfo11 extends ICorProfilerInfo10{
     static VTableNames => ["GetEnvironmentVariableA", "SetEnvironmentVariable"]
 
     /**
-     * Retrieves the contents of the specified variable from the environment block of the calling process.
+     * Retrieves the contents of the specified variable from the environment block of the calling process. (GetEnvironmentVariableA)
+     * @remarks
+     * This function can retrieve either a system environment variable or a user environment variable.
      * @param {PWSTR} szName 
      * @param {Integer} cchValue 
      * @param {PWSTR} szValue 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-getenvironmentvariablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getenvironmentvariablea
      */
     GetEnvironmentVariableA(szName, cchValue, szValue) {
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := ComCall(99, this, "ptr", szName, "uint", cchValue, "uint*", &pcchValue := 0, "ptr", szValue, "HRESULT")
+        result := ComCall(99, this, "ptr", szName, "uint", cchValue, "uint*", &pcchValue := 0, "ptr", szValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchValue
     }
 
     /**
-     * Sets the contents of the specified environment variable for the current process.
+     * The SetEnvironmentVariable function (winbase.h) sets the contents of the specified environment variable for the current process.
+     * @remarks
+     * This function has no effect on the system environment variables or the environment variables of other processes.
      * @param {PWSTR} szName 
      * @param {PWSTR} szValue 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setenvironmentvariable
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setenvironmentvariable
      */
     SetEnvironmentVariable(szName, szValue) {
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        result := ComCall(100, this, "ptr", szName, "ptr", szValue, "HRESULT")
+        result := ComCall(100, this, "ptr", szName, "ptr", szValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,12 +34,17 @@ class IDebugHostSymbol extends IUnknown{
     static VTableNames => ["GetContext", "EnumerateChildren", "GetSymbolKind", "GetName", "GetType", "GetContainingModule", "CompareAgainst"]
 
     /**
-     * 
-     * @returns {IDebugHostContext} 
+     * Gets the context preference flags.
+     * @returns {Pointer<IDebugHostContext>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext() {
-        result := ComCall(3, this, "ptr*", &context := 0, "HRESULT")
-        return IDebugHostContext(context)
+        result := ComCall(3, this, "ptr*", &context_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return context_
     }
 
     /**
@@ -51,7 +56,11 @@ class IDebugHostSymbol extends IUnknown{
     EnumerateChildren(kind, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "int", kind, "ptr", name, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, "int", kind, "ptr", name, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostSymbolEnumerator(ppEnum)
     }
 
@@ -60,26 +69,43 @@ class IDebugHostSymbol extends IUnknown{
      * @returns {Integer} 
      */
     GetSymbolKind() {
-        result := ComCall(5, this, "int*", &kind := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &kind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return kind
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         symbolName := BSTR()
-        result := ComCall(6, this, "ptr", symbolName, "HRESULT")
+        result := ComCall(6, this, "ptr", symbolName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return symbolName
     }
 
     /**
-     * 
+     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {IDebugHostType} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/nspapi/nf-nspapi-gettypebynamew
      */
     GetType() {
-        result := ComCall(7, this, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(type)
     }
 
@@ -88,7 +114,11 @@ class IDebugHostSymbol extends IUnknown{
      * @returns {IDebugHostModule} 
      */
     GetContainingModule() {
-        result := ComCall(8, this, "ptr*", &containingModule := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &containingModule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostModule(containingModule)
     }
 
@@ -99,7 +129,11 @@ class IDebugHostSymbol extends IUnknown{
      * @returns {Boolean} 
      */
     CompareAgainst(pComparisonSymbol, comparisonFlags) {
-        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, "int*", &pMatches := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pComparisonSymbol, "uint", comparisonFlags, "int*", &pMatches := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMatches
     }
 }

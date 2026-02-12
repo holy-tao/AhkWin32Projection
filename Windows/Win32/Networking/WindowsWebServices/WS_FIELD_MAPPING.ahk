@@ -13,7 +13,7 @@
  * 
  * The order of the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a> within a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_struct_description">WS_STRUCT_DESCRIPTION</a> is determined by the <b>WS_FIELD_MAPPING</b> value of the <b>WS_FIELD_DESCRIPTION</b>.
  *                 See <b>WS_STRUCT_DESCRIPTION</b> for more information on the ordering.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_field_mapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_field_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

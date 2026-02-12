@@ -5,7 +5,7 @@
 
 /**
  * Provides a method to set the SAN mode of a disk to offline or online.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsdisk2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdsdisk2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,8 +32,12 @@ class IVdsDisk2 extends IUnknown{
 
     /**
      * Sets the SAN mode of a disk to offline or online.
+     * @remarks
+     * Setting the SAN mode of a disk to offline is called "offlining" the disk. Setting it to online is called "onlining" the disk.
+     * 
+     * <b>Windows Vista:  </b>Setting the SAN mode of a disk to offline also makes the disk read-only. Setting it to online also makes the disk read-write.
      * @param {BOOL} bEnable Specify <b>TRUE</b> for online or <b>FALSE</b> for offline.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -76,10 +80,14 @@ class IVdsDisk2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdisk2-setsanmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsdisk2-setsanmode
      */
     SetSANMode(bEnable) {
-        result := ComCall(3, this, "int", bEnable, "HRESULT")
+        result := ComCall(3, this, "int", bEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

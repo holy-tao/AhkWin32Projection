@@ -38,7 +38,11 @@ class IDDVideoPortContainer extends IUnknown{
      * @returns {IDirectDrawVideoPort} 
      */
     CreateVideoPort(param0, param1, param3) {
-        result := ComCall(3, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(3, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawVideoPort(param2)
     }
 
@@ -53,7 +57,11 @@ class IDDVideoPortContainer extends IUnknown{
     EnumVideoPorts(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(4, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +75,11 @@ class IDDVideoPortContainer extends IUnknown{
         pcInfoMarshal := pcInfo is VarRef ? "uint*" : "ptr"
 
         param2 := DDVIDEOPORTCONNECT()
-        result := ComCall(5, this, "uint", param0, pcInfoMarshal, pcInfo, "ptr", param2, "HRESULT")
+        result := ComCall(5, this, "uint", param0, pcInfoMarshal, pcInfo, "ptr", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return param2
     }
 
@@ -78,7 +90,11 @@ class IDDVideoPortContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryVideoPortStatus(param0, param1) {
-        result := ComCall(6, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(6, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Represents items in collections on the COM+ catalog. ICatalogObject enables you to get and put properties exposed by objects in the catalog.
- * @see https://docs.microsoft.com/windows/win32/api//comadmin/nn-comadmin-icatalogobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nn-comadmin-icatalogobject
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -54,74 +54,84 @@ class ICatalogObject extends IDispatch{
     }
 
     /**
-     * Accesses the value of the specified property exposed by this catalog object.
+     * Accesses the value of the specified property exposed by this catalog object. (Get)
      * @remarks
-     * 
      * For information regarding properties exposed by catalog objects in each collection, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
-     * 
-     * 
      * @param {BSTR} bstrPropName 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-get_value
      */
     get_Value(bstrPropName) {
-        bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
+        if(bstrPropName is String) {
+            pin := BSTR.Alloc(bstrPropName)
+            bstrPropName := pin.Value
+        }
 
         pvarRetVal := VARIANT()
-        result := ComCall(7, this, "ptr", bstrPropName, "ptr", pvarRetVal, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrPropName, "ptr", pvarRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarRetVal
     }
 
     /**
-     * Accesses the value of the specified property exposed by this catalog object.
+     * Accesses the value of the specified property exposed by this catalog object. (Put)
      * @remarks
-     * 
      * For information regarding properties exposed by catalog objects in each collection, see <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
-     * 
-     * 
      * @param {BSTR} bstrPropName 
-     * @param {VARIANT} val 
+     * @param {VARIANT} val_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-put_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-put_value
      */
-    put_Value(bstrPropName, val) {
-        bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
+    put_Value(bstrPropName, val_) {
+        if(bstrPropName is String) {
+            pin := BSTR.Alloc(bstrPropName)
+            bstrPropName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrPropName, "ptr", val, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrPropName, "ptr", val_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the key property of the object.
      * @remarks
-     * 
      * The key property serves as the primary identifier for a collection. In some cases, it is a GUID, such as CLSID for a component; in some cases, it is the object name, as with roles. The key property of a collection is identified in the documentation for each specific collection of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
      * 
      * If you add a new object and save it with the key property of an existing object, you overwrite the existing object.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_key
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-get_key
      */
     get_Key() {
         pvarRetVal := VARIANT()
-        result := ComCall(9, this, "ptr", pvarRetVal, "HRESULT")
+        result := ComCall(9, this, "ptr", pvarRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarRetVal
     }
 
     /**
      * Retrieves the name property of the object.
      * @remarks
-     * 
      * The name property of a collection is identified in the documentation for each specific collection of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--administration-collections">COM+ Administration Collections</a>.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-get_name
      */
     get_Name() {
         pvarRetVal := VARIANT()
-        result := ComCall(10, this, "ptr", pvarRetVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pvarRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarRetVal
     }
 
@@ -129,22 +139,33 @@ class ICatalogObject extends IDispatch{
      * Indicates whether the specified property can be modified using Value.
      * @param {BSTR} bstrPropName The name of the property to be modified.
      * @returns {VARIANT_BOOL} If this value is True, you cannot modify the property. Otherwise, you can modify the property.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-ispropertyreadonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-ispropertyreadonly
      */
     IsPropertyReadOnly(bstrPropName) {
-        bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
+        if(bstrPropName is String) {
+            pin := BSTR.Alloc(bstrPropName)
+            bstrPropName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbRetVal
     }
 
     /**
      * Indicates whether all properties were successfully read from the catalog data store.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-get_valid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-get_valid
      */
     get_Valid() {
-        result := ComCall(12, this, "short*", &pbRetVal := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &pbRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbRetVal
     }
 
@@ -152,12 +173,19 @@ class ICatalogObject extends IDispatch{
      * Indicates whether the specified property can be read using Value.
      * @param {BSTR} bstrPropName The name of the property to be read.
      * @returns {VARIANT_BOOL} If this value is True, you cannot read the property. Otherwise, you can read the property.
-     * @see https://docs.microsoft.com/windows/win32/api//comadmin/nf-comadmin-icatalogobject-ispropertywriteonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icatalogobject-ispropertywriteonly
      */
     IsPropertyWriteOnly(bstrPropName) {
-        bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
+        if(bstrPropName is String) {
+            pin := BSTR.Alloc(bstrPropName)
+            bstrPropName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbRetVal
     }
 }

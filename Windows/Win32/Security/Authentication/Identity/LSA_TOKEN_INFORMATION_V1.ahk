@@ -8,7 +8,7 @@
 
 /**
  * Contains information an authentication package can place in a Version 2 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_token_information_v1
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntsecpkg/ns-ntsecpkg-lsa_token_information_v1
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

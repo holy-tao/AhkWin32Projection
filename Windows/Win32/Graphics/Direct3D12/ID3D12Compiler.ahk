@@ -36,7 +36,11 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     CompilePipelineState(pGroupKey, GroupVersion, pDesc) {
-        result := ComCall(4, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "HRESULT")
+        result := ComCall(4, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,10 +50,14 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @param {Integer} GroupVersion 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CompileStateObject(pGroupKey, GroupVersion, pDesc, riid) {
-        result := ComCall(5, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "ptr", riid, "ptr*", &ppCompilerStateObject := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pDesc, "ptr", riid, "ptr*", &ppCompilerStateObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCompilerStateObject
     }
 
@@ -60,20 +68,28 @@ class ID3D12Compiler extends ID3D12CompilerFactoryChild{
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pAddition 
      * @param {ID3D12CompilerStateObject} pCompilerStateObjectToGrowFrom 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CompileAddToStateObject(pGroupKey, GroupVersion, pAddition, pCompilerStateObjectToGrowFrom, riid) {
-        result := ComCall(6, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pAddition, "ptr", pCompilerStateObjectToGrowFrom, "ptr", riid, "ptr*", &ppNewCompilerStateObject := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pAddition, "ptr", pCompilerStateObjectToGrowFrom, "ptr", riid, "ptr*", &ppNewCompilerStateObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppNewCompilerStateObject
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetCacheSession(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppCompilerCacheSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCompilerCacheSession
     }
 }

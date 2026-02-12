@@ -6,7 +6,7 @@
 
 /**
  * The IWMPCore2 interface provides a method that supplements the IWMPCore interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpcore2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpcore2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -41,10 +41,14 @@ class IWMPCore2 extends IWMPCore{
     /**
      * The get_dvd method retrieves a pointer to an IWMPDVD interface.
      * @returns {IWMPDVD} Pointer to a pointer to an <b>IWMPDVD</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcore2-get_dvd
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpcore2-get_dvd
      */
     get_dvd() {
-        result := ComCall(28, this, "ptr*", &ppDVD := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppDVD := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMPDVD(ppDVD)
     }
 }

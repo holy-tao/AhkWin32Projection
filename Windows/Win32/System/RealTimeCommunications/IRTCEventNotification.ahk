@@ -29,13 +29,18 @@ class IRTCEventNotification extends IUnknown{
     static VTableNames => ["Event"]
 
     /**
-     * 
+     * Event Callback Samples
      * @param {Integer} RTCEvent 
      * @param {IDispatch} pEvent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/EventCallbackSample
      */
     Event(RTCEvent, pEvent) {
-        result := ComCall(3, this, "int", RTCEvent, "ptr", pEvent, "HRESULT")
+        result := ComCall(3, this, "int", RTCEvent, "ptr", pEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

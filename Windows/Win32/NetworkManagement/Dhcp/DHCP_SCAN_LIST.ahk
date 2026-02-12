@@ -3,7 +3,7 @@
 
 /**
  * Defines a list of all desynchronized client lease IP address on a DHCPv4 server that must be fixed.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/ns-dhcpsapi-dhcp_scan_list
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

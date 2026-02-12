@@ -34,7 +34,11 @@ class IXMLGenericParse extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGenericParse(fDoGeneric) {
-        result := ComCall(3, this, "short", fDoGeneric, "HRESULT")
+        result := ComCall(3, this, "short", fDoGeneric, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

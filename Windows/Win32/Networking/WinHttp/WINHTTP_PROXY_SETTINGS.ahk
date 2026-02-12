@@ -3,6 +3,10 @@
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
+ * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_proxy_settings_ex
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

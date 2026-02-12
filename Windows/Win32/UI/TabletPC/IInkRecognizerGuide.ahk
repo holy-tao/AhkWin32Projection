@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkrecognizerguide
+ * . (IInkRecognizerGuide)
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkrecognizerguide
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -81,79 +81,82 @@ class IInkRecognizerGuide extends IDispatch{
     }
 
     /**
-     * Gets or sets the invisible writing area of the recognition guide in which writing can actually take place.
+     * Gets or sets the invisible writing area of the recognition guide in which writing can actually take place. (Get)
      * @remarks
-     * 
      * The writing box provides a margin of error to users who write outside the drawn box-the lines that are physically drawn on the tablet screen within which users write. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox">DrawnBox</a> property to set the drawn box.
-     * 
-     * 
      * @returns {IInkRectangle} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-get_writingbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-get_writingbox
      */
     get_WritingBox() {
-        result := ComCall(7, this, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &Rectangle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkRectangle(Rectangle)
     }
 
     /**
-     * Gets or sets the invisible writing area of the recognition guide in which writing can actually take place.
+     * Gets or sets the invisible writing area of the recognition guide in which writing can actually take place. (Put)
      * @remarks
-     * 
      * The writing box provides a margin of error to users who write outside the drawn box-the lines that are physically drawn on the tablet screen within which users write. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox">DrawnBox</a> property to set the drawn box.
-     * 
-     * 
      * @param {IInkRectangle} Rectangle 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-put_writingbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-put_writingbox
      */
     put_WritingBox(Rectangle) {
-        result := ComCall(8, this, "ptr", Rectangle, "HRESULT")
+        result := ComCall(8, this, "ptr", Rectangle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the box that is physically drawn on the tablet's screen and in which writing takes place.
+     * Gets or sets the box that is physically drawn on the tablet's screen and in which writing takes place. (Get)
      * @remarks
-     * 
      * The lines of the drawn box are visual cues that specify where writing can take place. The user normally writes within the boundaries of the lines.
      * 
      * Another box, the writing box, is the invisible box in which writing can actually take place. It is larger than the drawn box and provides a margin of error to users if they draw ink outside the lines of the drawn box. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_writingbox">WritingBox</a> property to set the writing box.
      * 
      * The writing box specifies the boundaries of the ink to the recognizer.The drawn box is drawn using ink space  units, relative to the top left of the writing box.
-     * 
-     * 
      * @returns {IInkRectangle} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox
      */
     get_DrawnBox() {
-        result := ComCall(9, this, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &Rectangle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkRectangle(Rectangle)
     }
 
     /**
-     * Gets or sets the box that is physically drawn on the tablet's screen and in which writing takes place.
+     * Gets or sets the box that is physically drawn on the tablet's screen and in which writing takes place. (Put)
      * @remarks
-     * 
      * The lines of the drawn box are visual cues that specify where writing can take place. The user normally writes within the boundaries of the lines.
      * 
      * Another box, the writing box, is the invisible box in which writing can actually take place. It is larger than the drawn box and provides a margin of error to users if they draw ink outside the lines of the drawn box. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_writingbox">WritingBox</a> property to set the writing box.
      * 
      * The writing box specifies the boundaries of the ink to the recognizer.The drawn box is drawn using ink space  units, relative to the top left of the writing box.
-     * 
-     * 
      * @param {IInkRectangle} Rectangle 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-put_drawnbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-put_drawnbox
      */
     put_DrawnBox(Rectangle) {
-        result := ComCall(10, this, "ptr", Rectangle, "HRESULT")
+        result := ComCall(10, this, "ptr", Rectangle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the number of rows in the recognition guide.
+     * Gets or sets the number of rows in the recognition guide. (Get)
      * @remarks
-     * 
      * Row height is determined by the size of the drawn box. To get or set the drawn box, use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox">DrawnBox</a> property.
      * 
      * Use the values of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_columns">Columns</a> and <b>Rows</b> properties to control the kind of recognition input that you use. When the <b>Columns</b> and <b>Rows</b> properties are both greater than zero, boxed input is used. The following table lists potential input modes and which values to set the <b>Columns</b> and <b>Rows</b> properties for each mode.
@@ -277,20 +280,21 @@ class IInkRecognizerGuide extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-get_rows
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-get_rows
      */
     get_Rows() {
-        result := ComCall(11, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the number of rows in the recognition guide.
+     * Gets or sets the number of rows in the recognition guide. (Put)
      * @remarks
-     * 
      * Row height is determined by the size of the drawn box. To get or set the drawn box, use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox">DrawnBox</a> property.
      * 
      * Use the values of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_columns">Columns</a> and <b>Rows</b> properties to control the kind of recognition input that you use. When the <b>Columns</b> and <b>Rows</b> properties are both greater than zero, boxed input is used. The following table lists potential input modes and which values to set the <b>Columns</b> and <b>Rows</b> properties for each mode.
@@ -414,21 +418,22 @@ class IInkRecognizerGuide extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-put_rows
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-put_rows
      */
     put_Rows(Units) {
-        result := ComCall(12, this, "int", Units, "HRESULT")
+        result := ComCall(12, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the number of columns in the recognition guide box.
+     * Gets or sets the number of columns in the recognition guide box. (Get)
      * @remarks
-     * 
      * Column width is determined by the size of the drawn box. To get or set the drawn box, use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox">DrawnBox</a> property.
      * 
      * Use the values of <b>Columns</b> and <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_rows">Rows</a> to control the kind of recognition input that you use. When <b>Columns</b> and <b>Rows</b> are both greater than zero, boxed input is used. The following table lists potential input modes and which values to set the <b>Columns</b> and <b>Rows</b> properties for each mode.
@@ -552,20 +557,21 @@ class IInkRecognizerGuide extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-get_columns
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-get_columns
      */
     get_Columns() {
-        result := ComCall(13, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the number of columns in the recognition guide box.
+     * Gets or sets the number of columns in the recognition guide box. (Put)
      * @remarks
-     * 
      * Column width is determined by the size of the drawn box. To get or set the drawn box, use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox">DrawnBox</a> property.
      * 
      * Use the values of <b>Columns</b> and <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_rows">Rows</a> to control the kind of recognition input that you use. When <b>Columns</b> and <b>Rows</b> are both greater than zero, boxed input is used. The following table lists potential input modes and which values to set the <b>Columns</b> and <b>Rows</b> properties for each mode.
@@ -689,67 +695,79 @@ class IInkRecognizerGuide extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-put_columns
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-put_columns
      */
     put_Columns(Units) {
-        result := ComCall(14, this, "int", Units, "HRESULT")
+        result := ComCall(14, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the midline height. The midline height is distance from the baseline to the midline, of the drawn box.
+     * Gets or sets the midline height. The midline height is distance from the baseline to the midline, of the drawn box. (Get)
      * @remarks
-     * 
      * The value is 0 if the midline is not present.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-get_midline
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-get_midline
      */
     get_Midline() {
-        result := ComCall(15, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the midline height. The midline height is distance from the baseline to the midline, of the drawn box.
+     * Gets or sets the midline height. The midline height is distance from the baseline to the midline, of the drawn box. (Put)
      * @remarks
-     * 
      * The value is 0 if the midline is not present.
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-put_midline
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-put_midline
      */
     put_Midline(Units) {
-        result := ComCall(16, this, "int", Units, "HRESULT")
+        result := ComCall(16, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the InkRecoGuide structure that represents the boundaries of the ink to the recognizer.
+     * Gets or sets the InkRecoGuide structure that represents the boundaries of the ink to the recognizer. (Get)
      * @returns {InkRecoGuide} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-get_guidedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-get_guidedata
      */
     get_GuideData() {
         pRecoGuide := InkRecoGuide()
-        result := ComCall(17, this, "ptr", pRecoGuide, "HRESULT")
+        result := ComCall(17, this, "ptr", pRecoGuide, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRecoGuide
     }
 
     /**
-     * Gets or sets the InkRecoGuide structure that represents the boundaries of the ink to the recognizer.
+     * Gets or sets the InkRecoGuide structure that represents the boundaries of the ink to the recognizer. (Put)
      * @param {InkRecoGuide} recoGuide 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizerguide-put_guidedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrecognizerguide-put_guidedata
      */
     put_GuideData(recoGuide) {
-        result := ComCall(18, this, "ptr", recoGuide, "HRESULT")
+        result := ComCall(18, this, "ptr", recoGuide, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

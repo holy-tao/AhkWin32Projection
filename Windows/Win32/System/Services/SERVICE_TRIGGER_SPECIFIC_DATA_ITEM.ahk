@@ -40,7 +40,7 @@
  * <td>A SERVICE_TRIGGER_DATA_TYPE_STRING that specifies the port, named pipe, or RPC interface for the network endpoint.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger_specific_data_item
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_trigger_specific_data_item
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

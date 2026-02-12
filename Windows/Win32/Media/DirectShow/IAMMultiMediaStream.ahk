@@ -8,7 +8,7 @@
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IAMMultiMediaStream interface is supported by the multimedia stream object. It contains methods for creating the underlying filter graph that the object manages.
- * @see https://docs.microsoft.com/windows/win32/api//amstream/nn-amstream-iammultimediastream
+ * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nn-amstream-iammultimediastream
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -35,6 +35,8 @@ class IAMMultiMediaStream extends IMultiMediaStream{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The Initialize method initializes the multimedia stream object.
+     * @remarks
+     * If you specify AMMSF_NOGRAPHTHREAD in the <i>dwFlags</i> parameter, the calling thread must process window messages, and it must release all multimedia streaming objects before the thread exits. Otherwise, the application might deadlock.
      * @param {Integer} StreamType Member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration, specifying whether the streams are read-only, write-only, or read/write.
      * @param {Integer} dwFlags 
      * @param {IGraphBuilder} pFilterGraph [optional] Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface, or <b>NULL</b>. If this parameter is non-<b>NULL</b>, it specifies a filter graph that the multimedia stream object will use. Otherwise, the multimedia stream object creates a new filter graph.
@@ -68,35 +70,73 @@ class IAMMultiMediaStream extends IMultiMediaStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-initialize
      */
     Initialize(StreamType, dwFlags, pFilterGraph) {
-        result := ComCall(12, this, "int", StreamType, "uint", dwFlags, "ptr", pFilterGraph, "HRESULT")
+        result := ComCall(12, this, "int", StreamType, "uint", dwFlags, "ptr", pFilterGraph, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetFilterGraph method retrieves the Filter Graph Manager that is managed by the multimedia stream object.
+     * @remarks
+     * If the method succeeds and *<i>ppGraphBuilder</i> is non-<b>NULL</b>, the caller must release the <b>IGraphBuilder</b> pointer.
      * @returns {IGraphBuilder} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface pointer. If there is no filter graph associated with the multimedia stream object, the returned pointer is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-getfiltergraph
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-getfiltergraph
      */
     GetFilterGraph() {
-        result := ComCall(13, this, "ptr*", &ppGraphBuilder := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppGraphBuilder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGraphBuilder(ppGraphBuilder)
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetFilter method retrieves the Media Stream filter, which is used internally by the multimedia stream object.
+     * @remarks
+     * Applications should not call this method. The <b>IMediaStreamFilter</b> interface is not intended for applications to use.
+     * 
+     * If the method succeeds, the caller must release the <b>IMediaStreamFilter</b> interface.
      * @returns {IMediaStreamFilter} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/amstream/nn-amstream-imediastreamfilter">IMediaStreamFilter</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-getfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-getfilter
      */
     GetFilter() {
-        result := ComCall(14, this, "ptr*", &ppFilter := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMediaStreamFilter(ppFilter)
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The AddMediaStream method adds a new media stream to the filter graph.
+     * @remarks
+     * If <i>pPurposeID</i> is <b>NULL</b>, <i>pStreamObject</i> must specify an <b>IMediaStream</b> object. The object's <b>GetInformation</b> method is used to determine the purpose ID, which is then used to create the new media stream.
+     * 
+     * If the purpose ID is MSPID_PrimaryAudio and <i>dwFlags</i> includes the AMMSF_ADDDEFAULTRENDERER flag, the method adds the DirectSound Renderer to the filter graph.
+     * 
+     * If <i>dwFlags</i> includes the AMMSF_CREATEPEER flag, the method uses the object specified by <i>pStreamObject</i> to create a new media stream. In that case, <i>pStreamObject</i> can specify any of the following:
+     * 
+     * <ul>
+     * <li>An <b>IAMMediaStream</b> pointer.</li>
+     * <li>An <b>IMediaStream</b> pointer.</li>
+     * <li>An <b>IDirectDraw</b> pointer.</li>
+     * </ul>
+     * If neither flag is set, <i>pStreamObject</i> can be any of the following:
+     * 
+     * <ul>
+     * <li>An <b>IAMMediaStream</b> pointer. The object is added to the multimedia stream.</li>
+     * <li>An <b>IDirectDraw</b> pointer. The DirectDraw object is used to create a default video stream.</li>
+     * <li><b>NULL</b>. A default media stream object is created.</li>
+     * </ul>
+     * If the method succeeds, the caller must release the returned <b>IMediaStream</b> interface.
      * @param {IUnknown} pStreamObject Pointer to the <b>IUnknown</b> interface of an object that is used to create the new media stream. This parameter can be <b>NULL</b>. See Remarks for more information.
      * @param {Pointer<Guid>} PurposeId Pointer an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/mspid">MSPID</a> the specifies the type of media stream to create. This parameter can be <b>NULL</b>.
      * @param {Integer} dwFlags Bitwise combination of zero or more of the following flags.
@@ -126,15 +166,21 @@ class IAMMultiMediaStream extends IMultiMediaStream{
      * </tr>
      * </table>
      * @returns {IMediaStream} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nn-mmstream-imediastream">IMediaStream</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-addmediastream
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-addmediastream
      */
     AddMediaStream(pStreamObject, PurposeId, dwFlags) {
-        result := ComCall(15, this, "ptr", pStreamObject, "ptr", PurposeId, "uint", dwFlags, "ptr*", &ppNewStream := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pStreamObject, "ptr", PurposeId, "uint", dwFlags, "ptr*", &ppNewStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMediaStream(ppNewStream)
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The OpenFile method opens and automatically creates a filter graph for the specified media file. If DirectShow doesn't support the file format, this method does nothing.
+     * @remarks
+     * The AMMSF_RENDERALLSTREAMS flag will create default rendering filters for video and audio if they do not exist. However, these default filters cannot be accessed by the <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nf-mmstream-istreamsample-getmediastream">IStreamSample::GetMediaStream</a> method.
      * @param {PWSTR} pszFileName Pointer to the name of the file you want to open.
      * @param {Integer} dwFlags Value that modifies how the filter graph will render the specified file. This value is a combination of one or more of the following flags.
      * 
@@ -207,12 +253,16 @@ class IAMMultiMediaStream extends IMultiMediaStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-openfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-openfile
      */
     OpenFile(pszFileName, dwFlags) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(16, this, "ptr", pszFileName, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "ptr", pszFileName, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -251,21 +301,33 @@ class IAMMultiMediaStream extends IMultiMediaStream{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns S_OK if successful or E_INVALIDARG if the <i>dwFlags</i> parameter is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-openmoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-openmoniker
      */
     OpenMoniker(pCtx, pMoniker, dwFlags) {
-        result := ComCall(17, this, "ptr", pCtx, "ptr", pMoniker, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, "ptr", pCtx, "ptr", pMoniker, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The Render method renders the current filter graph.
+     * @remarks
+     * This method renders each of the source streams for a stream of type STREAMTYPE_WRITE. This can be called several times, for instance, each time a source stream is added, the stream is not set into running mode. Use the <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nf-mmstream-imultimediastream-setstate">IMultiMediaStream::SetState</a> method to set the stream into running mode after calling this method.
+     * 
+     * The AMMSF_RENDERALLSTREAMS flag will create default rendering streams for video and audio if they do not exist.
      * @param {Integer} dwFlags Value that specifies how the filter graph renders the current multimedia stream. This value currently must be AMMSF_NOCLOCK.
      * @returns {HRESULT} Returns S_OK if successful or E_INVALIDARG if the <i>dwFlags</i> parameter is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammultimediastream-render
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-iammultimediastream-render
      */
     Render(dwFlags) {
-        result := ComCall(18, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(18, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

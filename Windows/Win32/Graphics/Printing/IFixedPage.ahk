@@ -37,7 +37,11 @@ class IFixedPage extends IPartBase{
      * @returns {IPartPrintTicket} 
      */
     GetPrintTicket() {
-        result := ComCall(7, this, "ptr*", &ppPrintTicket := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppPrintTicket := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPartPrintTicket(ppPrintTicket)
     }
 
@@ -49,7 +53,11 @@ class IFixedPage extends IPartBase{
     GetPagePart(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(8, this, "ptr", uri, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", uri, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
@@ -58,7 +66,11 @@ class IFixedPage extends IPartBase{
      * @returns {IPrintWriteStream} 
      */
     GetWriteStream() {
-        result := ComCall(9, this, "ptr*", &ppWriteStream := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppWriteStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintWriteStream(ppWriteStream)
     }
 
@@ -68,7 +80,11 @@ class IFixedPage extends IPartBase{
      * @returns {HRESULT} 
      */
     SetPrintTicket(ppPrintTicket) {
-        result := ComCall(10, this, "ptr", ppPrintTicket, "HRESULT")
+        result := ComCall(10, this, "ptr", ppPrintTicket, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +94,11 @@ class IFixedPage extends IPartBase{
      * @returns {HRESULT} 
      */
     SetPagePart(pUnk) {
-        result := ComCall(11, this, "ptr", pUnk, "HRESULT")
+        result := ComCall(11, this, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class IFixedPage extends IPartBase{
     DeleteResource(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(12, this, "ptr", uri, "HRESULT")
+        result := ComCall(12, this, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +123,11 @@ class IFixedPage extends IPartBase{
      * @returns {IXpsPartIterator} 
      */
     GetXpsPartIterator() {
-        result := ComCall(13, this, "ptr*", &pXpsPartIt := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &pXpsPartIt := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsPartIterator(pXpsPartIt)
     }
 }

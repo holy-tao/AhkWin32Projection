@@ -8,7 +8,7 @@
  * Some of the members of this structure are also present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/aviriff/ns-aviriff-avimainheader">AVIMAINHEADER</a> structure. The data in the <b>AVIMAINHEADER</b> structure applies to the whole file, while the data in the <b>AVISTREAMHEADER</b> structure applies to one stream.
  * 
  * The header file Vfw.h defines a <b>AVIStreamHeader</b> structure that is equivalent to this structure, but omits the <b>fcc</b> and <b>cb</b> members.
- * @see https://learn.microsoft.com/windows/win32/api/avifmt/ns-avifmt-avistreamheader
+ * @see https://learn.microsoft.com/windows/win32/api//content/avifmt/ns-avifmt-avistreamheader
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Represents a collection of host connection groups.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_query_connection_group_result
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_query_connection_group_result
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

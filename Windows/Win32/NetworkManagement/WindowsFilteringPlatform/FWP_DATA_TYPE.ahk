@@ -6,7 +6,7 @@
  * @remarks
  * Not all data types are valid for each structure; see the tagged union
  * in each structure to determine which are allowed.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_data_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwptypes/ne-fwptypes-fwp_data_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Represents a security handle.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sechandle
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sechandle
  * @namespace Windows.Wdk.Storage.FileSystem
  * @version v4.0.30319
  */

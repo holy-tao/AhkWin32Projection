@@ -51,7 +51,7 @@
  * <td>Specifies the size of the format data after the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure, in bytes. For the standard <b>MPEG1WAVEFORMAT</b> structure, this value is 22 bytes.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-mpeg1waveformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmreg/ns-mmreg-mpeg1waveformat
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

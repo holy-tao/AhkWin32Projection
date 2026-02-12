@@ -9,7 +9,7 @@
 
 /**
  * Enables manipulation of call frames such as stack frames.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/nn-callobj-icallframe
+ * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nn-callobj-icallframe
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */
@@ -37,11 +37,15 @@ class ICallFrame extends IUnknown{
     /**
      * Retrieves information about the call frame.
      * @returns {CALLFRAMEINFO} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframeinfo">CALLFRAMEINFO</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getinfo
      */
     GetInfo() {
         pInfo := CALLFRAMEINFO()
-        result := ComCall(3, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInfo
     }
 
@@ -79,12 +83,16 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getiidandmethod
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getiidandmethod
      */
     GetIIDAndMethod(pIID, piMethod) {
         piMethodMarshal := piMethod is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pIID, piMethodMarshal, piMethod, "HRESULT")
+        result := ComCall(4, this, "ptr", pIID, piMethodMarshal, piMethod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,20 +130,24 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getnames
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getnames
      */
     GetNames(pwszInterface, pwszMethod) {
         pwszInterfaceMarshal := pwszInterface is VarRef ? "ptr*" : "ptr"
         pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pwszInterfaceMarshal, pwszInterface, pwszMethodMarshal, pwszMethod, "HRESULT")
+        result := ComCall(5, this, pwszInterfaceMarshal, pwszInterface, pwszMethodMarshal, pwszMethod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the stack location onto which this call frame is bound.
      * @returns {Pointer<Void>} This method returns the requested stack location.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getstacklocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getstacklocation
      */
     GetStackLocation() {
         result := ComCall(6, this, "ptr")
@@ -146,7 +158,7 @@ class ICallFrame extends IUnknown{
      * Sets the stack location onto which this call frame is bound.
      * @param {Pointer<Void>} pvStack A pointer to the stack location.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-setstacklocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-setstacklocation
      */
     SetStackLocation(pvStack) {
         pvStackMarshal := pvStack is VarRef ? "ptr" : "ptr"
@@ -158,7 +170,7 @@ class ICallFrame extends IUnknown{
      * Sets the return value within the call frame.
      * @param {HRESULT} hr The new return value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-setreturnvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-setreturnvalue
      */
     SetReturnValue(hr) {
         ComCall(8, this, "int", hr)
@@ -167,10 +179,14 @@ class ICallFrame extends IUnknown{
     /**
      * Retrieves the return value stored in the call frame.
      * @returns {HRESULT} This method returns the <b>HRESULT</b> value stored in the call frame.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getreturnvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getreturnvalue
      */
     GetReturnValue() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -178,11 +194,15 @@ class ICallFrame extends IUnknown{
      * Retrieves the information for the specified parameter.
      * @param {Integer} iparam The parameter number.
      * @returns {CALLFRAMEPARAMINFO} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframeparaminfo">CALLFRAMEPARAMINFO</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getparaminfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getparaminfo
      */
     GetParamInfo(iparam) {
         pInfo := CALLFRAMEPARAMINFO()
-        result := ComCall(10, this, "uint", iparam, "ptr", pInfo, "HRESULT")
+        result := ComCall(10, this, "uint", iparam, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInfo
     }
 
@@ -220,10 +240,14 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-setparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-setparam
      */
     SetParam(iparam, pvar) {
-        result := ComCall(11, this, "uint", iparam, "ptr", pvar, "HRESULT")
+        result := ComCall(11, this, "uint", iparam, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -231,23 +255,33 @@ class ICallFrame extends IUnknown{
      * Retrieves the value of a specified parameter in the call frame.
      * @param {Integer} iparam The parameter number.
      * @returns {VARIANT} The value of the parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getparam
      */
     GetParam(iparam) {
         pvar := VARIANT()
-        result := ComCall(12, this, "uint", iparam, "ptr", pvar, "HRESULT")
+        result := ComCall(12, this, "uint", iparam, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvar
     }
 
     /**
      * Creates a copy of this call frame and all of its associated data.
+     * @remarks
+     * Copying a frame is like unmarshalling a marshaled frame. The call frame can only be copied if it has in-parameters. If the call frame is invoked, it cannot be copied. The copy method copies interface pointers as binary values and no referenced count adjustments are performed. But if this behavior is desired, then a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframewalker">ICallFrameWalker</a> can be used.
      * @param {Integer} copyControl Determines whether the copied call frame data can be shared with data in the parent frame by determining its lifetime dependency on the parent frame. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_copy">CALLFRAME_COPY</a> enumeration. If the CALLFRAME_COPY_NESTED flag is set, then the client will be responsible for using the copied call frame in a manner that its lifetime is nested in the lifetime of its parent frame making the data sharable. If the CALLFRAME_COPY_INDEPENDENT is set, then the lifetime of the copied frame will be independent of the parents.
      * @param {ICallFrameWalker} pWalker A pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframewalker">ICallFrameWalker</a> interface. The <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframewalker-onwalkinterface">OnWalkInterface</a> method will be called for each interface pointer that is copied. If this parameter is not provided, then any interface pointer that is copied will be passed to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>.
      * @returns {ICallFrame} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframe">ICallFrame</a> pointer to a copy of the call frame.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-copy
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-copy
      */
     Copy(copyControl, pWalker) {
-        result := ComCall(13, this, "int", copyControl, "ptr", pWalker, "ptr*", &ppFrame := 0, "HRESULT")
+        result := ComCall(13, this, "int", copyControl, "ptr", pWalker, "ptr*", &ppFrame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICallFrame(ppFrame)
     }
 
@@ -291,10 +325,14 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-free
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-free
      */
     Free(pframeArgsDest, pWalkerDestFree, pWalkerCopy, freeFlags, pWalkerFree, nullFlags) {
-        result := ComCall(14, this, "ptr", pframeArgsDest, "ptr", pWalkerDestFree, "ptr", pWalkerCopy, "uint", freeFlags, "ptr", pWalkerFree, "uint", nullFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", pframeArgsDest, "ptr", pWalkerDestFree, "ptr", pWalkerCopy, "uint", freeFlags, "ptr", pWalkerFree, "uint", nullFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -334,10 +372,14 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-freeparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-freeparam
      */
     FreeParam(iparam, freeFlags, pWalkerFree, nullFlags) {
-        result := ComCall(15, this, "uint", iparam, "uint", freeFlags, "ptr", pWalkerFree, "uint", nullFlags, "HRESULT")
+        result := ComCall(15, this, "uint", iparam, "uint", freeFlags, "ptr", pWalkerFree, "uint", nullFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -375,29 +417,41 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-walkframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-walkframe
      */
     WalkFrame(walkWhat, pWalker) {
-        result := ComCall(16, this, "uint", walkWhat, "ptr", pWalker, "HRESULT")
+        result := ComCall(16, this, "uint", walkWhat, "ptr", pWalker, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an upper bound on the number of bytes needed to marshal the call frame.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how marshalling is carried out.
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} mshlflags_ Indicates whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @returns {Integer} A pointer to the size of the buffer, in bytes, that will be needed to marshal the call frame.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-getmarshalsizemax
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-getmarshalsizemax
      */
-    GetMarshalSizeMax(pmshlContext, mshlflags) {
-        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags, "uint*", &pcbBufferNeeded := 0, "HRESULT")
+    GetMarshalSizeMax(pmshlContext, mshlflags_) {
+        result := ComCall(17, this, "ptr", pmshlContext, "int", mshlflags_, "uint*", &pcbBufferNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbBufferNeeded
     }
 
     /**
      * Marshals the call frame by turning its reachable data into a flat buffer without disturbing the frame.
+     * @remarks
+     * When marshalling the [In] versions of [in, out] parameters are present, and the [out] versions are undefined. When marshalling [out] parameters the values are valid.
+     * 
+     * If this method returns an error, the caller will not be able to clean it up. Resources such as memory transiently allocated during the attempted marshalling have been freed.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how marshalling is carried out.
-     * @param {Integer} mshlflags Flag indicating whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. The possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} mshlflags_ Flag indicating whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. The possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @param {Pointer<Void>} pBuffer A pointer to the buffer into which the marshaled data is to be placed.
      * @param {Integer} cbBuffer The size of the buffer, in bytes.
      * @param {Pointer<Integer>} pcbBufferUsed Receives the size of the buffer that was actually used. This parameter is optional.
@@ -433,36 +487,50 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-marshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-marshal
      */
-    Marshal(pmshlContext, mshlflags, pBuffer, cbBuffer, pcbBufferUsed, pdataRep, prpcFlags) {
+    Marshal(pmshlContext, mshlflags_, pBuffer, cbBuffer, pcbBufferUsed, pdataRep, prpcFlags) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbBufferUsedMarshal := pcbBufferUsed is VarRef ? "uint*" : "ptr"
         pdataRepMarshal := pdataRep is VarRef ? "uint*" : "ptr"
         prpcFlagsMarshal := prpcFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pmshlContext, "int", mshlflags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "HRESULT")
+        result := ComCall(18, this, "ptr", pmshlContext, "int", mshlflags_, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufferUsedMarshal, pcbBufferUsed, pdataRepMarshal, pdataRep, prpcFlagsMarshal, prpcFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Unmarshals a packet of data containing the previously marshaled [out] parameters of a call into this already existing activation record.
+     * @remarks
+     * When unmarshalling, the [in] versions of [in, out] parameters are freed and interface pointers are released and replaced with their [out] versions. All the [in, out] and [out] parameters will always be set to reasonable [in], [in, out] values, [out] values successfully unmarshaled from the returned data, or a value explicitly initialized to <b>NULL</b>. On failure return, the caller will typically want to call <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-free">ICallFrame::Free</a> in order to clean up the values that are not <b>NULL</b>.
      * @param {Pointer<Void>} pBuffer A pointer to the buffer containing the marshaled [out] values.
      * @param {Integer} cbBuffer The size of the buffer, in bytes.
      * @param {Integer} dataRep The NDR data representation with which the data was marshaled. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irpcchannelbuffer-getbuffer">IRpcChannelBuffer::GetBuffer</a>.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pcontext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how unmarshalling is carried out.
      * @returns {Integer} Receives the number of bytes that were successfully unmarshaled. This parameter is returned even in error situations. This parameter is optional.
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-unmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-unmarshal
      */
     Unmarshal(pBuffer, cbBuffer, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, "uint*", &pcbUnmarshalled := 0, "HRESULT")
+        result := ComCall(19, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", dataRep, "ptr", pcontext, "uint*", &pcbUnmarshalled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbUnmarshalled
     }
 
     /**
      * Releases resources that are held by interface pointers residing in a packet of marshaled data. This method finds all interface pointers in the packet, and calls the CoReleaseMarshalData function on each one.
+     * @remarks
+     * The <b>ReleaseMarshalData</b> method must be called exactly once to clean up the resources held in a marshaled buffer. However when the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration is set to MSHLFLAGS_NORMAL, this is done automatically during un-marshaling and so need not be carried out explicitly.
+     * 
+     * This method can function correctly on both marshaled [in] and [out] parameters.
      * @param {Pointer<Void>} pBuffer A pointer to the buffer containing the marshaled [out] values.
      * @param {Integer} cbBuffer The size of the buffer, in bytes.
      * @param {Integer} ibFirstRelease The first byte in the buffer, which is to be released. A value of zero implies that the interface pointers in the whole buffer are to be released. The marshaled interface pointers are assumed to have been released by some other mechanism.
@@ -498,17 +566,23 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-releasemarshaldata
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-releasemarshaldata
      */
     ReleaseMarshalData(pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(20, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
+        result := ComCall(20, this, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Applies this activation record to an object. In a marshalling situation, typically this is carried out on the server side, and is the means by which the work of the actual object is accomplished.
+     * @remarks
+     * Generally speaking, carrying out the invocation involves allocating a new stack frame, shallow-copying down the data in the original frame, then calling the appropriate method in the indicated object. The object invoked may then choose to modify [out] parameters, which are reachable from the copied frame, according to the appropriate semantics of the invocation. When the invocation returns from the object, the call frame automatically captures the return value from <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-setreturnvalue">ICallFrame::SetReturnValue</a>.
      * @param {Pointer<Void>} pvReceiver The interface on which the invocation is to occur. The caller is responsible for ensuring that this interface is of the appropriate IID; the implementation will simply do a cast and assume that is the case.
      * @returns {HRESULT} This method can return the following values.
      * 
@@ -551,12 +625,16 @@ class ICallFrame extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframe-invoke
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframe-invoke
      */
     Invoke(pvReceiver) {
         pvReceiverMarshal := pvReceiver is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(21, this, pvReceiverMarshal, pvReceiver, "HRESULT")
+        result := ComCall(21, this, pvReceiverMarshal, pvReceiver, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -42,7 +42,7 @@
  * 
  * -   The *lpszInData* parameter of the [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) function consists of only the **MXDC\_ESCAPE\_HEADER\_T** structure.
  * -   This call must occur before the call to [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca).
- * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcescapeheader
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/mxdcescapeheader
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

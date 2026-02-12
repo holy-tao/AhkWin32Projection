@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetBios
@@ -90,12 +92,12 @@ class NetBios {
     static SESSION_ABORTED => 6
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALL_TRANSPORTS => "M" Chr(0) "" Chr(0) "" Chr(0) ""
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_NBF => "MNBF"
 
@@ -451,7 +453,7 @@ class NetBios {
      * If the address specified by the pncb parameter is invalid, the return value is <b>NRC_BADNCB</b>.
      * 
      * If the buffer length specified in the <b>ncb_length</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/nb30/ns-nb30-ncb">NCB</a> structure is incorrect, or if the buffer specified by the <b>ncb_retcode</b> member is protected from write operations, the return value is <b>NRC_BUFLEN</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/nb30/nf-nb30-netbios
+     * @see https://learn.microsoft.com/windows/win32/api//content/nb30/nf-nb30-netbios
      * @since windows5.0
      */
     static Netbios(pncb) {

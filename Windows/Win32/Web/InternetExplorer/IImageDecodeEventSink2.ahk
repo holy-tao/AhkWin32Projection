@@ -33,7 +33,11 @@ class IImageDecodeEventSink2 extends IImageDecodeEventSink{
      * @returns {BOOL} 
      */
     IsAlphaPremultRequired() {
-        result := ComCall(9, this, "int*", &pfPremultAlpha := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pfPremultAlpha := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPremultAlpha
     }
 }

@@ -6,7 +6,7 @@
  * Contains information that describes the commands that the controller supports and the effects of those commands on the state of the NVM subsystem.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_effects_log
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_command_effects_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

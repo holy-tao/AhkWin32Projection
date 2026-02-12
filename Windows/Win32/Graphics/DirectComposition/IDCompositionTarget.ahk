@@ -5,7 +5,7 @@
 
 /**
  * Represents a binding between a Microsoft DirectComposition visual tree and a destination on top of which the visual tree should be composed.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiontarget
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositiontarget
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -32,16 +32,24 @@ class IDCompositionTarget extends IUnknown{
 
     /**
      * Sets a visual object as the new root object of a visual tree.
+     * @remarks
+     * A visual can be either the root of a single visual tree, or a child of another visual, but it cannot be both at the same time. This method fails if the <i>visual</i> parameter is already the root of another visual tree, or is a child of another visual.
+     * 
+     * If <i>visual</i> is NULL, the visual tree is empty. If there was a previous non-NULL root visual, that visual becomes available for use as the root of another visual tree, or as a child of another visual.
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual object that is the new root of this visual tree. This parameter can be NULL.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontarget-setroot
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontarget-setroot
      */
     SetRoot(visual) {
-        result := ComCall(3, this, "ptr", visual, "HRESULT")
+        result := ComCall(3, this, "ptr", visual, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

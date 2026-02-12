@@ -6,13 +6,10 @@
 /**
  * Used by ShellExecuteEx and IContextMenu to allow the caller to alter some parameters of the process being created.
  * @remarks
- * 
- *  The caller should install an object into the site chain which implements <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.shell.package.microsoft-visualstudio-ole-interop-iserviceprovider-queryservice?view=visualstudiosdk-2017">IServiceProvider::QueryService</a> and responds to the <b>SID_ExecuteCreatingProcess</b> service ID with an object that implements the <b>ICreatingProcess</b> interface.
+ * The caller should install an object into the site chain which implements <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.shell.package.microsoft-visualstudio-ole-interop-iserviceprovider-queryservice?view=visualstudiosdk-2017&preserve-view=true">IServiceProvider::QueryService</a> and responds to the <b>SID_ExecuteCreatingProcess</b> service ID with an object that implements the <b>ICreatingProcess</b> interface.
  * 
  * After performing the desired operations, the object should forward the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating">ICreatingProcess::OnCreating</a> call up the site chain to allow other members of the site chain to participate.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icreatingprocess
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-icreatingprocess
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,10 +38,14 @@ class ICreatingProcess extends IUnknown{
      * Allows you to modify the parameters of the process being created.
      * @param {ICreateProcessInputs} pcpi A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icreateprocessinputs">ICreateProcessInputs</a> interface which allows you to set some parameters for the process that is being created.
      * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code, and the process is not created.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating
      */
     OnCreating(pcpi) {
-        result := ComCall(3, this, "ptr", pcpi, "HRESULT")
+        result := ComCall(3, this, "ptr", pcpi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

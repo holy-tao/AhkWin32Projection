@@ -13,7 +13,7 @@
  * As an accelerator, the driver can access public members of the WNDOBJ. These public members are guaranteed to remain unchanged only in the context of the driver callback routine supplied to GDI in the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatewnd">EngCreateWnd</a> function, or the functions where a WNDOBJ is given.
  * 
  * The driver should use the SURFOBJ to which <b>psoOwner</b> points to retrieve driver-specific state relevant to the WNDOBJ, such as the driver's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> handle, rather than maintain global variables.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-wndobj
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-wndobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

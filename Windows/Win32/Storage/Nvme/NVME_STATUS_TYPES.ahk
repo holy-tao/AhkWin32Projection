@@ -5,7 +5,7 @@
  * Contains values indicating the type of status code that is posted by the controller in a completion queue entry when a command is completed.
  * @remarks
  * When a command is completed, a value from this enumeration is posted by the controller in the **SCT** field of a [NVME_COMMAND_STATUS](ns-nvme-nvme_command_status.md) structure in the **Status** field of a [Completion Queue entry](ns-nvme-nvme_completion_entry.md).
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_status_types
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

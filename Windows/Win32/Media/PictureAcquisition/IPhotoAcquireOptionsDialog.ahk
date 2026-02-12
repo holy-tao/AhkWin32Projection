@@ -6,7 +6,7 @@
 
 /**
  * The IPhotoAcquireOptionsDialog interface is used to display an options dialog box in which the user can select photo acquisition settings such as file name formats, as well as whether or not to rotate images, to prompt for a tag name, or to erase photos from the camera after importing.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquireoptionsdialog
+ * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nn-photoacquire-iphotoacquireoptionsdialog
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -39,6 +39,10 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
 
     /**
      * Initializes the options dialog box and reads any saved options from the registry.
+     * @remarks
+     * <c>Initialize</c> must be called prior to calling <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-create">Create</a> or <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-domodal">DoModal</a>. Failure to do so will cause <b>Create</b> or <b>DoModal</b> to fail.
+     * 
+     * If <c>Initialize</c> is called while the options dialog box is already displayed, an error will be returned.
      * @param {PWSTR} pszRegistryRoot (optional) Pointer to a null-terminated string containing the registry root of a custom location to read the acquisition settings from. If this parameter is set to <b>NULL</b>, the default location will be used.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -59,31 +63,45 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-initialize
      */
     Initialize(pszRegistryRoot) {
         pszRegistryRoot := pszRegistryRoot is String ? StrPtr(pszRegistryRoot) : pszRegistryRoot
 
-        result := ComCall(3, this, "ptr", pszRegistryRoot, "HRESULT")
+        result := ComCall(3, this, "ptr", pszRegistryRoot, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Create method creates and displays a modeless instance of the photo options dialog box, hosted within a parent window.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-initialize">Initialize</a> method should be called prior to the <c>Create</c> method.
+     * 
+     * The parent window indicated by <i>hWndParent</i> provides <b>OK</b> and <b>Cancel</b> buttons to the new dialog box instance.
      * @param {HWND} hWndParent Handle to the parent window.
      * @returns {HWND} Specifies the created dialog box.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-create
      */
     Create(hWndParent) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         phWndDialog := HWND()
-        result := ComCall(4, this, "ptr", hWndParent, "ptr", phWndDialog, "HRESULT")
+        result := ComCall(4, this, "ptr", hWndParent, "ptr", phWndDialog, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phWndDialog
     }
 
     /**
      * The Destroy method closes and destroys the modeless dialog box created with the Create method.
+     * @remarks
+     * If you destroy the parent window, the child window will automatically be destroyed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -103,15 +121,21 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-destroy
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-destroy
      */
     Destroy() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The DoModal method creates and displays the options dialog box as a modal dialog box.
+     * @remarks
+     * The modal dialog displayed by <b>DoModal</b> will have <b>OK</b> and <b>Cancel</b> buttons, whereas the <b>OK</b> and <b>Cancel</b> buttons of the modeless dialog displayed by <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-create">Create</a> must be provided by the parent window.
      * @param {HWND} hWndParent Handle to the dialog's parent window.
      * @param {Pointer<Pointer>} ppnReturnCode Specifies the code returned when the window is closed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -133,14 +157,18 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-domodal
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-domodal
      */
     DoModal(hWndParent, ppnReturnCode) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         ppnReturnCodeMarshal := ppnReturnCode is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", hWndParent, ppnReturnCodeMarshal, ppnReturnCode, "HRESULT")
+        result := ComCall(6, this, "ptr", hWndParent, ppnReturnCodeMarshal, ppnReturnCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,10 +193,14 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-savedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-savedata
      */
     SaveData() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

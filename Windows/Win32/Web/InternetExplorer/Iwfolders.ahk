@@ -41,10 +41,17 @@ class Iwfolders extends IDispatch{
      * @returns {BSTR} 
      */
     navigate(bstrUrl) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
         pbstrRetVal := BSTR()
-        result := ComCall(7, this, "ptr", bstrUrl, "ptr", pbstrRetVal, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrUrl, "ptr", pbstrRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrRetVal
     }
 
@@ -55,11 +62,21 @@ class Iwfolders extends IDispatch{
      * @returns {BSTR} 
      */
     navigateFrame(bstrUrl, bstrTargetFrame) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
-        bstrTargetFrame := bstrTargetFrame is String ? BSTR.Alloc(bstrTargetFrame).Value : bstrTargetFrame
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
+        if(bstrTargetFrame is String) {
+            pin := BSTR.Alloc(bstrTargetFrame)
+            bstrTargetFrame := pin.Value
+        }
 
         pbstrRetVal := BSTR()
-        result := ComCall(8, this, "ptr", bstrUrl, "ptr", bstrTargetFrame, "ptr", pbstrRetVal, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrUrl, "ptr", bstrTargetFrame, "ptr", pbstrRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrRetVal
     }
 
@@ -72,10 +89,20 @@ class Iwfolders extends IDispatch{
      * @returns {HRESULT} 
      */
     navigateNoSite(bstrUrl, bstrTargetFrame, dwhwnd, pwb) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
-        bstrTargetFrame := bstrTargetFrame is String ? BSTR.Alloc(bstrTargetFrame).Value : bstrTargetFrame
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
+        if(bstrTargetFrame is String) {
+            pin := BSTR.Alloc(bstrTargetFrame)
+            bstrTargetFrame := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrUrl, "ptr", bstrTargetFrame, "uint", dwhwnd, "ptr", pwb, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrUrl, "ptr", bstrTargetFrame, "uint", dwhwnd, "ptr", pwb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

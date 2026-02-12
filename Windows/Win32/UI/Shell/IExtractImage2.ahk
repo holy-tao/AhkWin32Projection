@@ -7,15 +7,13 @@
 /**
  * Extends the capabilities of IExtractImage.
  * @remarks
- * 
  * Implement <b>IExtractImage2</b> to provide date stamps for your thumbnail images.
  * 
  * You do not call this interface directly. <b>IExtractImage2</b> is used by the operating system only when it has confirmed that your application is aware of this interface.
  * 
  * <b>IExtractImage2</b> implements all the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iextractimage">IExtractImage</a> methods as well as 
  * 				<b>IUnknown</b>. The listed method is specific to <b>IExtractImage2</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iextractimage2
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iextractimage2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -45,11 +43,15 @@ class IExtractImage2 extends IExtractImage{
      * @returns {FILETIME} Type: <b>FILETIME*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure used to return the last time the image was modified.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iextractimage2-getdatestamp
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iextractimage2-getdatestamp
      */
     GetDateStamp() {
         pDateStamp := FILETIME()
-        result := ComCall(5, this, "ptr", pDateStamp, "HRESULT")
+        result := ComCall(5, this, "ptr", pDateStamp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDateStamp
     }
 }

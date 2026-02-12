@@ -9,7 +9,7 @@
  * An "application" is a set of software or software  components available on the peer's endpoint. Commonly, this refers to software packages that support peer networking activities, like games or other collaborative applications.
  * 
  * A peer application has a GUID representing a single specific application. When an application is registered for a peer, this GUID and the corresponding application can be made available to all trusted contacts of the peer, indicating the activities the peer can participate in. To deregister a peer's application, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabunregisterapplication">PeerCollabUnregisterApplication</a> with this GUID.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_application_registration_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_application_registration_info
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

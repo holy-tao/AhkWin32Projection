@@ -35,7 +35,11 @@ class ICLRErrorReportingManager extends IUnknown{
      */
     GetBucketParametersForCurrentException() {
         pParams := BucketParameters()
-        result := ComCall(3, this, "ptr", pParams, "HRESULT")
+        result := ComCall(3, this, "ptr", pParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pParams
     }
 
@@ -48,7 +52,11 @@ class ICLRErrorReportingManager extends IUnknown{
      * @returns {HRESULT} 
      */
     BeginCustomDump(dwFlavor, dwNumItems, items, dwReserved) {
-        result := ComCall(4, this, "int", dwFlavor, "uint", dwNumItems, "ptr", items, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, "int", dwFlavor, "uint", dwNumItems, "ptr", items, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class ICLRErrorReportingManager extends IUnknown{
      * @returns {HRESULT} 
      */
     EndCustomDump() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

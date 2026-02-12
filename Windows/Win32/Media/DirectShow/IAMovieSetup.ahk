@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Note  This interface has been deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamoviesetup
+ * Note  This interface has been deprecated. (IAMovieSetup)
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamoviesetup
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,21 +32,33 @@ class IAMovieSetup extends IUnknown{
 
     /**
      * Note  The IAMovieSetup interface is deprecated. Use the AMovieDllRegisterServer2 function instead. Adds the filter to the registry.
+     * @remarks
+     * This method registers the filter, its pins, and the media type associated with the pins. It should be implemented to use <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifiltermapper">IFilterMapper</a> methods to accomplish this. See the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/cbasefilter-register">CBaseFilter::Register</a> member function for a description of its implementation.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamoviesetup-register
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamoviesetup-register
      */
     Register() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  The IAMovieSetup interface is deprecated. Use the AMovieDllRegisterServer2 function instead. Removes the filter from the registry.
+     * @remarks
+     * This method should be implemented to use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltermapper-unregisterfilter">IFilterMapper::UnregisterFilter</a> method to remove the filter from the registry. This effectively removes the pins and media types as well.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamoviesetup-unregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamoviesetup-unregister
      */
     Unregister() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

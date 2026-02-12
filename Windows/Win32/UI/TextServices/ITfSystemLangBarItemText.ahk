@@ -6,7 +6,7 @@
 
 /**
  * The ITfSystemLangBarItemText interface is implemented by a system language bar and is used by a system language bar extension to modify the description displayed for the menu.
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itfsystemlangbaritemtext
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nn-ctfutb-itfsystemlangbaritemtext
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -76,23 +76,31 @@ class ITfSystemLangBarItemText extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritemtext-setitemtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itfsystemlangbaritemtext-setitemtext
      */
     SetItemText(pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch
 
-        result := ComCall(3, this, "ptr", pch, "uint", cch, "HRESULT")
+        result := ComCall(3, this, "ptr", pch, "uint", cch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITfSystemLangBarItemText::GetItemText method obtains the text displayed for the system language bar menu.
      * @returns {BSTR} [out] A pointer to BSTR that contains the current description.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itfsystemlangbaritemtext-getitemtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itfsystemlangbaritemtext-getitemtext
      */
     GetItemText() {
         pbstrText := BSTR()
-        result := ComCall(4, this, "ptr", pbstrText, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrText
     }
 }

@@ -32,10 +32,14 @@ class IActionQueryConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @returns {IActionEnumerator} 
+     * @returns {Pointer<IActionEnumerator>} 
      */
     EnumerateActions(contextObject) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr*", &actionEnumerator := 0, "HRESULT")
-        return IActionEnumerator(actionEnumerator)
+        result := ComCall(3, this, "ptr", contextObject, "ptr*", &actionEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return actionEnumerator
     }
 }

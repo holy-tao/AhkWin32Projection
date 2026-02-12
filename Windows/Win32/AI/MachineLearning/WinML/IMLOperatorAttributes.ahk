@@ -37,7 +37,11 @@ class IMLOperatorAttributes extends IUnknown{
     GetAttributeElementCount(name, type) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "uint", type, "uint*", &elementCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", name, "uint", type, "uint*", &elementCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return elementCount
     }
 
@@ -52,7 +56,11 @@ class IMLOperatorAttributes extends IUnknown{
     GetAttribute(name, type, elementCount, elementByteSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, "ptr", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, "ptr", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -65,7 +73,11 @@ class IMLOperatorAttributes extends IUnknown{
     GetStringAttributeElementLength(name, elementIndex) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", &attributeElementByteSize := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", &attributeElementByteSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return attributeElementByteSize
     }
 
@@ -81,7 +93,11 @@ class IMLOperatorAttributes extends IUnknown{
         name := name is String ? StrPtr(name) : name
         attributeElement := attributeElement is String ? StrPtr(attributeElement) : attributeElement
 
-        result := ComCall(6, this, "ptr", name, "uint", elementIndex, "uint", attributeElementByteSize, "ptr", attributeElement, "HRESULT")
+        result := ComCall(6, this, "ptr", name, "uint", elementIndex, "uint", attributeElementByteSize, "ptr", attributeElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

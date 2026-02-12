@@ -36,9 +36,16 @@ class ISdoMachine2 extends ISdoMachine{
      * @returns {IUnknown} 
      */
     GetTemplatesSDO(bstrServiceName) {
-        bstrServiceName := bstrServiceName is String ? BSTR.Alloc(bstrServiceName).Value : bstrServiceName
+        if(bstrServiceName is String) {
+            pin := BSTR.Alloc(bstrServiceName)
+            bstrServiceName := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrServiceName, "ptr*", &ppTemplatesSDO := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrServiceName, "ptr*", &ppTemplatesSDO := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppTemplatesSDO)
     }
 
@@ -47,7 +54,11 @@ class ISdoMachine2 extends ISdoMachine{
      * @returns {HRESULT} 
      */
     EnableTemplates() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,9 +71,16 @@ class ISdoMachine2 extends ISdoMachine{
      * @returns {HRESULT} 
      */
     SyncConfigAgainstTemplates(bstrServiceName, ppConfigRoot, ppTemplatesRoot, bForcedSync) {
-        bstrServiceName := bstrServiceName is String ? BSTR.Alloc(bstrServiceName).Value : bstrServiceName
+        if(bstrServiceName is String) {
+            pin := BSTR.Alloc(bstrServiceName)
+            bstrServiceName := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrServiceName, "ptr*", ppConfigRoot, "ptr*", ppTemplatesRoot, "short", bForcedSync, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrServiceName, "ptr*", ppConfigRoot, "ptr*", ppTemplatesRoot, "short", bForcedSync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,18 +91,33 @@ class ISdoMachine2 extends ISdoMachine{
      * @returns {HRESULT} 
      */
     ImportRemoteTemplates(pLocalTemplatesRoot, bstrRemoteMachineName) {
-        bstrRemoteMachineName := bstrRemoteMachineName is String ? BSTR.Alloc(bstrRemoteMachineName).Value : bstrRemoteMachineName
+        if(bstrRemoteMachineName is String) {
+            pin := BSTR.Alloc(bstrRemoteMachineName)
+            bstrRemoteMachineName := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", pLocalTemplatesRoot, "ptr", bstrRemoteMachineName, "HRESULT")
+        result := ComCall(19, this, "ptr", pLocalTemplatesRoot, "ptr", bstrRemoteMachineName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The ReloadZone method reloads the DNS Zone from its database.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DNS/microsoftdns-zone-reloadzone
      */
     Reload() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

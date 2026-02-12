@@ -5,8 +5,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraconfigurationmanager
+ * The IMFCameraConfigurationManager interface can be created by calling the COM function CoCreateInstance, and passing the CLSID_CameraConfigurationManager as the CLSID parameter.
+ * @remarks
+ * An instance of the **IMFCameraConfigurationManager** interface can be created by calling the COM function [CoCreateInstance](../combaseapi/nf-combaseapi-cocreateinstance.md), and passing the **CLSID_CameraConfigurationManager** as the CLSID parameter.
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfcameraconfigurationmanager
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,31 +34,50 @@ class IMFCameraConfigurationManager extends IUnknown{
     static VTableNames => ["LoadDefaults", "SaveDefaults", "Shutdown"]
 
     /**
-     * 
-     * @param {IMFAttributes} cameraAttributes 
-     * @returns {IMFCameraControlDefaultsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraconfigurationmanager-loaddefaults
+     * Loads the camera control defaults for the specified capture source.
+     * @remarks
+     * If there are no default controls specified, the resulting collection will be empty. I.e.  [IMFCameraControlDefaultsCollection::GetControlCount](nf-mfidl-imfcameracontroldefaultscollection-getcontrolcount.md) will return 0.
+     * @param {IMFAttributes} cameraAttributes A pointer to an [IMFAttributes](../mfobjects/nn-mfobjects-imfattributes.md) in which the [MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_SYMBOLIC_LINK](/windows/win32/medfound/mf-devsource-attribute-source-type-vidcap-symbolic-link) attribute identifies the capture source for which default control values are retrieved.
+     * @returns {Pointer<IMFCameraControlDefaultsCollection>} Receives a pointer to an [IMFCameraControlDefaultsCollection](nn-mfidl-imfcameracontroldefaultscollection.md) object representing the collection of camera control default values.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfcameraconfigurationmanager-loaddefaults
      */
     LoadDefaults(cameraAttributes) {
-        result := ComCall(3, this, "ptr", cameraAttributes, "ptr*", &configurations := 0, "HRESULT")
-        return IMFCameraControlDefaultsCollection(configurations)
+        result := ComCall(3, this, "ptr", cameraAttributes, "ptr*", &configurations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return configurations
     }
 
     /**
+     * Saves the provided collection of camera control default values.
+     * @remarks
+     * The provided default values are assigned to the camera specified with the [MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_SYMBOLIC_LINK](/windows/win32/medfound/mf-devsource-attribute-source-type-vidcap-symbolic-link) value provided when the collection was loaded with a call to [IMFCameraConfigurationManager::LoadDefaults](nf-mfidl-imfcameraconfigurationmanager-loaddefaults.md). Saving an empty collection will clear all existing control default values for the associated camera.
+     * @param {IMFCameraControlDefaultsCollection} configurations An [IMFCameraControlDefaultsCollection](nn-mfidl-imfcameracontroldefaultscollection.md) representing the collection of camera control default values to save.
+     * @returns {HRESULT} An HRESULT, including the following:
      * 
-     * @param {IMFCameraControlDefaultsCollection} configurations 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraconfigurationmanager-savedefaults
+     * | Value | Description | 
+     * |-------|-------------|
+     * | S_OK | Success. |
+     * | MF_E_SHUTDOWN | The function was called after [IMFCameraConfigurationManager::Shutdown](nf-mfidl-imfcameraconfigurationmanager-shutdown.md) was called. |
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfcameraconfigurationmanager-savedefaults
      */
     SaveDefaults(configurations) {
-        result := ComCall(4, this, "ptr", configurations, "HRESULT")
+        result := ComCall(4, this, "ptr", configurations, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IMFCameraConfigurationManager::Shutdown function shuts down the camera configuration manager.
+     * @remarks
+     * After calling **Shutdown**, subsequent calls to [IMFCameraConfigurationManager::LoadDefaults](nf-mfidl-imfcameraconfigurationmanager-loaddefaults.md) or [IMFCameraConfigurationManager::SaveDefaults](nf-mfidl-imfcameraconfigurationmanager-savedefaults.md) will result in an MF_E_SHUTDOWN error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraconfigurationmanager-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfcameraconfigurationmanager-shutdown
      */
     Shutdown() {
         ComCall(5, this)

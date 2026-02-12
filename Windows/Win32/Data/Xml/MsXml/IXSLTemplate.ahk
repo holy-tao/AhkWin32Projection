@@ -43,7 +43,11 @@ class IXSLTemplate extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_stylesheet(stylesheet) {
-        result := ComCall(7, this, "ptr", stylesheet, "HRESULT")
+        result := ComCall(7, this, "ptr", stylesheet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class IXSLTemplate extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     get_stylesheet() {
-        result := ComCall(8, this, "ptr*", &stylesheet := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &stylesheet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(stylesheet)
     }
 
@@ -61,7 +69,11 @@ class IXSLTemplate extends IDispatch{
      * @returns {IXSLProcessor} 
      */
     createProcessor() {
-        result := ComCall(9, this, "ptr*", &ppProcessor := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProcessor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXSLProcessor(ppProcessor)
     }
 }

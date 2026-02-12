@@ -34,7 +34,11 @@ class IElementBehaviorFocus extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFocusRect(pRect) {
-        result := ComCall(3, this, "ptr", pRect, "HRESULT")
+        result := ComCall(3, this, "ptr", pRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

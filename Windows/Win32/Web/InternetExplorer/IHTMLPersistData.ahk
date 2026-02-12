@@ -29,24 +29,38 @@ class IHTMLPersistData extends IUnknown{
     static VTableNames => ["save", "load", "queryType"]
 
     /**
-     * 
+     * The save command saves an MCI file. Video-overlay and waveform-audio devices recognize this command. Although digital-video devices and MIDI sequencers also recognize this command, the MCIAVI and MCISEQ drivers do not support it.
+     * @remarks
+     * The *filename* variable is required if the device was opened using the "new" device identifier.
      * @param {IUnknown} pUnk 
      * @param {Integer} lType 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/save
      */
     save(pUnk, lType) {
-        result := ComCall(3, this, "ptr", pUnk, "int", lType, "short*", &fContinueBroacast := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnk, "int", lType, "short*", &fContinueBroacast := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fContinueBroacast
     }
 
     /**
-     * 
+     * The load command loads a file in a device-specific format. Digital-video and video-overlay devices recognize this command.
+     * @remarks
+     * The "vidboard" device sends a notification message when the loading is completed.
      * @param {IUnknown} pUnk 
      * @param {Integer} lType 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/load
      */
     load(pUnk, lType) {
-        result := ComCall(4, this, "ptr", pUnk, "int", lType, "short*", &fDoDefault := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnk, "int", lType, "short*", &fDoDefault := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fDoDefault
     }
 
@@ -56,7 +70,11 @@ class IHTMLPersistData extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     queryType(lType) {
-        result := ComCall(5, this, "int", lType, "short*", &pfSupportsType := 0, "HRESULT")
+        result := ComCall(5, this, "int", lType, "short*", &pfSupportsType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfSupportsType
     }
 }

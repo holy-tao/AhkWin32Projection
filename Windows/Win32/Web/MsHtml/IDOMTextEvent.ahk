@@ -62,7 +62,11 @@ class IDOMTextEvent extends IDispatch{
      */
     get_data() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -71,7 +75,11 @@ class IDOMTextEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_inputMethod() {
-        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -87,11 +95,24 @@ class IDOMTextEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initTextEvent(eventType, canBubble, cancelable, viewArg, dataArg, inputMethod, locale) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        dataArg := dataArg is String ? BSTR.Alloc(dataArg).Value : dataArg
-        locale := locale is String ? BSTR.Alloc(locale).Value : locale
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(dataArg is String) {
+            pin := BSTR.Alloc(dataArg)
+            dataArg := pin.Value
+        }
+        if(locale is String) {
+            pin := BSTR.Alloc(locale)
+            locale := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", dataArg, "uint", inputMethod, "ptr", locale, "HRESULT")
+        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", dataArg, "uint", inputMethod, "ptr", locale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +122,11 @@ class IDOMTextEvent extends IDispatch{
      */
     get_locale() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

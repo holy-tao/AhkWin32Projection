@@ -34,7 +34,11 @@ class IAppxManifestDriverDependency extends IUnknown{
      * @returns {IAppxManifestDriverConstraintsEnumerator} 
      */
     GetDriverConstraints() {
-        result := ComCall(3, this, "ptr*", &driverConstraints := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &driverConstraints := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestDriverConstraintsEnumerator(driverConstraints)
     }
 }

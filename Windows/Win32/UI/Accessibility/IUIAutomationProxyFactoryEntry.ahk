@@ -7,7 +7,7 @@
 
 /**
  * Represents a proxy factory in the table maintained by Microsoft UI Automation, and exposes properties and methods that can be used by client applications to interact with IUIAutomationProxyFactory objects.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactoryentry
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactoryentry
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -82,126 +82,172 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
     /**
      * Retrieves the proxy factory associated with this entry.
      * @returns {IUIAutomationProxyFactory} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_proxyfactory
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_proxyfactory
      */
     get_ProxyFactory() {
-        result := ComCall(3, this, "ptr*", &factory := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &factory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationProxyFactory(factory)
     }
 
     /**
-     * Sets or retrieves the name of the window class served by the proxy factory.
+     * Sets or retrieves the name of the window class served by the proxy factory. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_classname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_classname
      */
     get_ClassName() {
         className := BSTR()
-        result := ComCall(4, this, "ptr", className, "HRESULT")
+        result := ComCall(4, this, "ptr", className, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return className
     }
 
     /**
-     * Sets or retrieves the name of the image of the proxy factory.
+     * Sets or retrieves the name of the image of the proxy factory. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_imagename
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_imagename
      */
     get_ImageName() {
         imageName := BSTR()
-        result := ComCall(5, this, "ptr", imageName, "HRESULT")
+        result := ComCall(5, this, "ptr", imageName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return imageName
     }
 
     /**
-     * Sets or retrieves a value that specifies whether the proxy allows substring matching.
+     * Sets or retrieves a value that specifies whether the proxy allows substring matching. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_allowsubstringmatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_allowsubstringmatch
      */
     get_AllowSubstringMatch() {
-        result := ComCall(6, this, "int*", &allowSubstringMatch := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &allowSubstringMatch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return allowSubstringMatch
     }
 
     /**
-     * Sets or retrieves a value that specifies whether the base class can be checked when searching for a proxy factory.
+     * Sets or retrieves a value that specifies whether the base class can be checked when searching for a proxy factory. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_cancheckbaseclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_cancheckbaseclass
      */
     get_CanCheckBaseClass() {
-        result := ComCall(7, this, "int*", &canCheckBaseClass := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &canCheckBaseClass := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return canCheckBaseClass
     }
 
     /**
-     * Sets or retrieves a value that specifies whether the proxy must be notified when an application has registered for events.
+     * Sets or retrieves a value that specifies whether the proxy must be notified when an application has registered for events. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_needsadviseevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-get_needsadviseevents
      */
     get_NeedsAdviseEvents() {
-        result := ComCall(8, this, "int*", &adviseEvents := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &adviseEvents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return adviseEvents
     }
 
     /**
-     * Sets or retrieves the name of the window class served by the proxy factory.
+     * Sets or retrieves the name of the window class served by the proxy factory. (Put)
      * @param {PWSTR} className 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_classname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_classname
      */
     put_ClassName(className) {
         className := className is String ? StrPtr(className) : className
 
-        result := ComCall(9, this, "ptr", className, "HRESULT")
+        result := ComCall(9, this, "ptr", className, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves the name of the image of the proxy factory.
+     * Sets or retrieves the name of the image of the proxy factory. (Put)
      * @param {PWSTR} imageName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_imagename
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_imagename
      */
     put_ImageName(imageName) {
         imageName := imageName is String ? StrPtr(imageName) : imageName
 
-        result := ComCall(10, this, "ptr", imageName, "HRESULT")
+        result := ComCall(10, this, "ptr", imageName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that specifies whether the proxy allows substring matching.
+     * Sets or retrieves a value that specifies whether the proxy allows substring matching. (Put)
      * @param {BOOL} allowSubstringMatch 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_allowsubstringmatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_allowsubstringmatch
      */
     put_AllowSubstringMatch(allowSubstringMatch) {
-        result := ComCall(11, this, "int", allowSubstringMatch, "HRESULT")
+        result := ComCall(11, this, "int", allowSubstringMatch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that specifies whether the base class can be checked when searching for a proxy factory.
+     * Sets or retrieves a value that specifies whether the base class can be checked when searching for a proxy factory. (Put)
      * @param {BOOL} canCheckBaseClass 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_cancheckbaseclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_cancheckbaseclass
      */
     put_CanCheckBaseClass(canCheckBaseClass) {
-        result := ComCall(12, this, "int", canCheckBaseClass, "HRESULT")
+        result := ComCall(12, this, "int", canCheckBaseClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that specifies whether the proxy must be notified when an application has registered for events.
+     * Sets or retrieves a value that specifies whether the proxy must be notified when an application has registered for events. (Put)
      * @param {BOOL} adviseEvents 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_needsadviseevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-put_needsadviseevents
      */
     put_NeedsAdviseEvents(adviseEvents) {
-        result := ComCall(13, this, "int", adviseEvents, "HRESULT")
+        result := ComCall(13, this, "int", adviseEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Maps Microsoft UI Automation events to WinEvents.
+     * @remarks
+     * When a client application subscribes to a UI Automation event, the UI Automation core also listens for WinEvents that map to this event. For example, suppose that <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Invoke_InvokedEventId</a> is mapped to <a href="https://docs.microsoft.com/windows/desktop/WinAuto/event-constants">EVENT_OBJECT_INVOKED</a>. When <b>EVENT_OBJECT_INVOKED</b> is raised, the client instantiates the proxy and calls <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventhandler-respondtowinevent">RespondToWinEvent</a> on that proxy. In the implementation of <b>RespondToWinEvent</b>, the proxy calls <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-iproxyproviderwineventsink-addautomationevent">AddAutomationEvent</a>. The core then raises the corresponding UI Automation event.
      * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
      * The event identifier. For a list of event identifiers, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
@@ -211,13 +257,17 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
      * @param {Pointer<SAFEARRAY>} winEvents Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * The list of WinEvents that map to this event.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-setwineventsforautomationevent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-setwineventsforautomationevent
      */
     SetWinEventsForAutomationEvent(eventId, propertyId, winEvents) {
-        result := ComCall(14, this, "int", eventId, "int", propertyId, "ptr", winEvents, "HRESULT")
+        result := ComCall(14, this, "int", eventId, "int", propertyId, "ptr", winEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -232,10 +282,14 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives a pointer to the list of WinEvents that map to this event.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-getwineventsforautomationevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-getwineventsforautomationevent
      */
     GetWinEventsForAutomationEvent(eventId, propertyId) {
-        result := ComCall(15, this, "int", eventId, "int", propertyId, "ptr*", &winEvents := 0, "HRESULT")
+        result := ComCall(15, this, "int", eventId, "int", propertyId, "ptr*", &winEvents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return winEvents
     }
 }

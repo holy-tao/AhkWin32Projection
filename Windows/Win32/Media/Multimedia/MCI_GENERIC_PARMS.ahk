@@ -7,7 +7,7 @@
  * The **MCI\_CLOSE\_PARMS** and **MCI\_REALIZE\_PARMS** structures are identical to the **MCI\_GENERIC\_PARMS** structure.
  * 
  * When assigning data to the members of this structure, set the corresponding flags in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the members.
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-generic-parms
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/mci-generic-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

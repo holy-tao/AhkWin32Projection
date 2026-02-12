@@ -78,7 +78,11 @@ class IRTCMessagingEvent extends IDispatch{
      * @returns {IRTCSession} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession(ppSession)
     }
 
@@ -87,7 +91,11 @@ class IRTCMessagingEvent extends IDispatch{
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
-        result := ComCall(8, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppParticipant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCParticipant(ppParticipant)
     }
 
@@ -96,7 +104,11 @@ class IRTCMessagingEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_EventType() {
-        result := ComCall(9, this, "int*", &penEventType := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &penEventType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penEventType
     }
 
@@ -106,7 +118,11 @@ class IRTCMessagingEvent extends IDispatch{
      */
     get_Message() {
         pbstrMessage := BSTR()
-        result := ComCall(10, this, "ptr", pbstrMessage, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMessage
     }
 
@@ -116,7 +132,11 @@ class IRTCMessagingEvent extends IDispatch{
      */
     get_MessageHeader() {
         pbstrMessageHeader := BSTR()
-        result := ComCall(11, this, "ptr", pbstrMessageHeader, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrMessageHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMessageHeader
     }
 
@@ -125,7 +145,11 @@ class IRTCMessagingEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_UserStatus() {
-        result := ComCall(12, this, "int*", &penUserStatus := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &penUserStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penUserStatus
     }
 }

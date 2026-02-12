@@ -36,26 +36,46 @@ class ISpObjectToken extends ISpDataKey{
     static VTableNames => ["SetId", "GetId", "GetCategory", "CreateInstance", "GetStorageFileName", "RemoveStorageFileName", "Remove", "IsUISupported", "DisplayUI", "MatchesAttributes"]
 
     /**
-     * 
+     * Sets the specified identifier string in the volume's metadata.
      * @param {PWSTR} pszCategoryId 
      * @param {PWSTR} pszTokenId 
      * @param {BOOL} fCreateIfNotExist 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/setidentificationfield-win32-encryptablevolume
      */
     SetId(pszCategoryId, pszTokenId, fCreateIfNotExist) {
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
         pszTokenId := pszTokenId is String ? StrPtr(pszTokenId) : pszTokenId
 
-        result := ComCall(15, this, "ptr", pszCategoryId, "ptr", pszTokenId, "int", fCreateIfNotExist, "HRESULT")
+        result := ComCall(15, this, "ptr", pszCategoryId, "ptr", pszTokenId, "int", fCreateIfNotExist, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
-        result := ComCall(16, this, "ptr*", &ppszCoMemTokenId := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppszCoMemTokenId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCoMemTokenId
     }
 
@@ -64,22 +84,33 @@ class ISpObjectToken extends ISpDataKey{
      * @returns {ISpObjectTokenCategory} 
      */
     GetCategory() {
-        result := ComCall(17, this, "ptr*", &ppTokenCategory := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppTokenCategory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectTokenCategory(ppTokenCategory)
     }
 
     /**
-     * 
+     * The CWbemGlueFactory class is part of the WMI Provider Framework. The Provider Framework implements methods of this interface internally to create new instances of classes for the provider.
+     * @remarks
+     * The destructor for the class is <b>CWbemGlueFactory::~CWbemGlueFactory.</b>
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(pUnkOuter, dwClsContext, riid, ppvObject) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
+        result := ComCall(18, this, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +126,11 @@ class ISpObjectToken extends ISpDataKey{
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszFileNameSpecifier := pszFileNameSpecifier is String ? StrPtr(pszFileNameSpecifier) : pszFileNameSpecifier
 
-        result := ComCall(19, this, "ptr", clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, "ptr*", &ppszFilePath := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, "ptr*", &ppszFilePath := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszFilePath
     }
 
@@ -109,17 +144,26 @@ class ISpObjectToken extends ISpDataKey{
     RemoveStorageFileName(clsidCaller, pszKeyName, fDeleteFile) {
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
-        result := ComCall(20, this, "ptr", clsidCaller, "ptr", pszKeyName, "int", fDeleteFile, "HRESULT")
+        result := ComCall(20, this, "ptr", clsidCaller, "ptr", pszKeyName, "int", fDeleteFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {Pointer<Guid>} pclsidCaller 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(pclsidCaller) {
-        result := ComCall(21, this, "ptr", pclsidCaller, "HRESULT")
+        result := ComCall(21, this, "ptr", pclsidCaller, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +182,11 @@ class ISpObjectToken extends ISpDataKey{
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
         pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, pfSupportedMarshal, pfSupported, "HRESULT")
+        result := ComCall(22, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, pfSupportedMarshal, pfSupported, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -159,7 +207,11 @@ class ISpObjectToken extends ISpDataKey{
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(23, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "HRESULT")
+        result := ComCall(23, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -174,7 +226,11 @@ class ISpObjectToken extends ISpDataKey{
 
         pfMatchesMarshal := pfMatches is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "ptr", pszAttributes, pfMatchesMarshal, pfMatches, "HRESULT")
+        result := ComCall(24, this, "ptr", pszAttributes, pfMatchesMarshal, pfMatches, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

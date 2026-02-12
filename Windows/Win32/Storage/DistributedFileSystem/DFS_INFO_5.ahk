@@ -8,7 +8,7 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_6">DFS_INFO_6</a> structure. 
  *      <b>DFS_INFO_5</b> is used to specify information about a DFS 
  *      namespace without target information.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_5
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_info_5
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

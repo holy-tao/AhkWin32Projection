@@ -5,7 +5,7 @@
 
 /**
  * The IWMPCdromRip interface provides methods to manage copying, or ripping, tracks from an audio CD.Ripping a CD by using the IWMPCdromRip interface has the same effect as ripping music by using the Windows Media Player user interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpcdromrip
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpcdromrip
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -44,6 +44,8 @@ class IWMPCdromRip extends IUnknown{
 
     /**
      * The get_ripState method retrieves an enumeration value that indicates the current state of the ripping process.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} pwmprs Pointer to a variable that receives a value from the <b>WMPRipState</b> enumeration that indicates the current state.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -64,17 +66,25 @@ class IWMPCdromRip extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdromrip-get_ripstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpcdromrip-get_ripstate
      */
     get_ripState(pwmprs) {
         pwmprsMarshal := pwmprs is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pwmprsMarshal, pwmprs, "HRESULT")
+        result := ComCall(3, this, pwmprsMarshal, pwmprs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_ripProgress method retrieves the CD ripping progress as percent complete.
+     * @remarks
+     * The progress value represents the completed percentage of the entire ripping process. To determine the progress of a specific track, use <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nf-wmp-iwmpmedia-getiteminfo">IWMPMedia::getItemInfo</a> with <b>RipProgress</b> as the attribute name. To determine the index of the track currently being ripped, call <a href="https://docs.microsoft.com/windows/desktop/api/wmp/nf-wmp-iwmpplaylist-getiteminfo">IWMPPlaylist::getItemInfo</a> with <b>CurrentRipTrackIndex</b> as the attribute name.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} plProgress Pointer to a <b>long</b> that receives the progress value. Progress values range from 0 to 100.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -95,17 +105,25 @@ class IWMPCdromRip extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdromrip-get_ripprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpcdromrip-get_ripprogress
      */
     get_ripProgress(plProgress) {
         plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, plProgressMarshal, plProgress, "HRESULT")
+        result := ComCall(4, this, plProgressMarshal, plProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The startRip method rips the CD.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
+     * 
+     * Ripping a CD by using the <b>IWMPCdromRip</b> interface has the same effect as ripping music by using the Windows Media Player user interface. Ripped content is automatically added to the library according to the user's preferences. For more information about user preferences for CD ripping, see "Ripping music from CDs" in Windows Media Player Help.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -125,15 +143,21 @@ class IWMPCdromRip extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdromrip-startrip
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpcdromrip-startrip
      */
     startRip() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The stopRip method stops the CD ripping process.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -153,10 +177,14 @@ class IWMPCdromRip extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdromrip-stoprip
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpcdromrip-stoprip
      */
     stopRip() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

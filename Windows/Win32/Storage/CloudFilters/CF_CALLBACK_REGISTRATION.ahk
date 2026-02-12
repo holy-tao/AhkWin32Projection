@@ -7,7 +7,7 @@
  * This callback registration is how a sync provider communicates to the library which functions to call to execute various requests from the platform.
  * 
  * Note that the sync provider only needs to register implemented callbacks, and **CF_CALLBACK_REGISTRATION** should always end with **CF_CALLBACK_REGISTRATION_END**.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_registration
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ns-cfapi-cf_callback_registration
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

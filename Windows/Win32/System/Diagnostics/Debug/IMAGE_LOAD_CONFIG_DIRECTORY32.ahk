@@ -32,7 +32,7 @@
  *     DWORD   SEHandlerCount;
  * } IMAGE_LOAD_CONFIG_DIRECTORY32, *PIMAGE_LOAD_CONFIG_DIRECTORY32;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_load_config_directory32
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-image_load_config_directory32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

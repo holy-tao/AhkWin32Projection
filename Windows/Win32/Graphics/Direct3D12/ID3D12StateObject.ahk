@@ -5,7 +5,7 @@
 
 /**
  * Represents a variable amount of configuration state, including shaders, that an application manages as a single unit and which is given to a driver atomically to process, such as compile or optimize.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12stateobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12stateobject
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

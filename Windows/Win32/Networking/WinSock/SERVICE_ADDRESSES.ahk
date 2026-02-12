@@ -4,7 +4,7 @@
 
 /**
  * The SERVICE_ADDRESSES structure contains an array of SERVICE_ADDRESS data structures.
- * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_addresses
+ * @see https://learn.microsoft.com/windows/win32/api//content/nspapi/ns-nspapi-service_addresses
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

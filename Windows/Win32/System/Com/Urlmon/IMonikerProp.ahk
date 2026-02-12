@@ -31,13 +31,17 @@ class IMonikerProp extends IUnknown{
     /**
      * 
      * @param {Integer} mkp 
-     * @param {PWSTR} val 
+     * @param {PWSTR} val_ 
      * @returns {HRESULT} 
      */
-    PutProperty(mkp, val) {
-        val := val is String ? StrPtr(val) : val
+    PutProperty(mkp, val_) {
+        val_ := val_ is String ? StrPtr(val_) : val_
 
-        result := ComCall(3, this, "int", mkp, "ptr", val, "HRESULT")
+        result := ComCall(3, this, "int", mkp, "ptr", val_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

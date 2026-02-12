@@ -67,7 +67,7 @@
  * Get/Set GMMP as global gamut map model profile for a specific rendering intent as described by that subtype to be used in CreateMultiProfileTransform API when resolving the rendering intent array in WCS transform.<br/>
  * 
  * COLORPROFILESUBTYPE Global default can be or?d with WCS\_DEFAULT to set this GMMP as the global default for use in OpenColorProfile or WcsOpenColorProfile where GMMP is **NULL**.<br/>
- * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-colorprofilesubtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/icm/ne-icm-colorprofilesubtype
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

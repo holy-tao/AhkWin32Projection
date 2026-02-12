@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_HEALTH enumeration (vdshwprv.h) defines the set of health state values for a VDS object.
+ * The VDS_HEALTH (vds.h) enumeration defines the set of health state values for a VDS object.
  * @remarks
  * Health enumeration values apply to the VDS objects as shown in the following table. Y indicates that the value 
  *     applies to the object, and N indicates that the value does not apply to the object. A pack object does not 
@@ -173,7 +173,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_HEALTH</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_HEALTH</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_health
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_health
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

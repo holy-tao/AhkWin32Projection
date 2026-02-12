@@ -13,7 +13,7 @@
  * The **Counters** object is the default property of the [**SystemMonitor**](systemmonitor.md) object.
  * 
  * Add to this collection those counters that you want to graph. SYSMON retrieves the counter values either from the system or from a log file depending on the [**data source**](systemmonitor-datasourcetype.md) that you specify.
- * @see https://learn.microsoft.com/windows/win32/SysMon/counters
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SysMon/counters
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

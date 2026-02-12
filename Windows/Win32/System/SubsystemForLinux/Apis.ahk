@@ -16,7 +16,7 @@ class SubsystemForLinux {
      * Determines if a distribution is registered with the Windows Subsystem for Linux (WSL).
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
      * @returns {BOOL} Returns TRUE if the supplied distribution is currently registered, or FALSE otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wslisdistributionregistered
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wslisdistributionregistered
      */
     static WslIsDistributionRegistered(distributionName) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
@@ -45,7 +45,7 @@ class SubsystemForLinux {
      * <td>Failed because a distribution with this name has already been registered.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wslregisterdistribution
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wslregisterdistribution
      */
     static WslRegisterDistribution(distributionName, tarGzFilename) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
@@ -63,7 +63,7 @@ class SubsystemForLinux {
      * Unregisters a distribution from the Windows Subsystem for Linux (WSL).
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wslunregisterdistribution
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wslunregisterdistribution
      */
     static WslUnregisterDistribution(distributionName) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
@@ -82,7 +82,7 @@ class SubsystemForLinux {
      * @param {Integer} defaultUID The Linux user ID to use when launching new WSL sessions for this distribution.
      * @param {Integer} wslDistributionFlags Flags specifying what behavior to use for this distribution.
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wslconfiguredistribution
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wslconfiguredistribution
      */
     static WslConfigureDistribution(distributionName, defaultUID, wslDistributionFlags) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
@@ -106,7 +106,7 @@ class SubsystemForLinux {
      * @param {Pointer<Pointer<PSTR>>} defaultEnvironmentVariables The address of a pointer to an array of default environment variable strings used when launching new WSL sessions for this distribution.
      * @param {Pointer<Integer>} defaultEnvironmentVariableCount The number of elements in <i>pDefaultEnvironmentVariablesArray</i>.
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wslgetdistributionconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wslgetdistributionconfiguration
      */
     static WslGetDistributionConfiguration(distributionName, distributionVersion, defaultUID, wslDistributionFlags, defaultEnvironmentVariables, defaultEnvironmentVariableCount) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
@@ -131,7 +131,7 @@ class SubsystemForLinux {
      * @param {PWSTR} command Command to execute. If no command is supplied, launches the default shell.
      * @param {BOOL} useCurrentWorkingDirectory Governs whether or not the launched process should inherit the calling process's working directory. If FALSE, the process is started in the WSL default user's home directory ("~").
      * @returns {Integer} Receives the exit code of the process after it exits.
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wsllaunchinteractive
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wsllaunchinteractive
      */
     static WslLaunchInteractive(distributionName, command, useCurrentWorkingDirectory) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
@@ -156,7 +156,7 @@ class SubsystemForLinux {
      * @param {HANDLE} stdOut Handle to use for <b>STDOUT</b>.
      * @param {HANDLE} stdErr Handle to use for <b>STDERR</b>.
      * @returns {HANDLE} Pointer to address to receive the process HANDLE associated with the newly-launched WSL process.
-     * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wsllaunch
+     * @see https://learn.microsoft.com/windows/win32/api//content/wslapi/nf-wslapi-wsllaunch
      */
     static WslLaunch(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName

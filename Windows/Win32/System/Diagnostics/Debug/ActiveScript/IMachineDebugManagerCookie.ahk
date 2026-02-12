@@ -36,7 +36,11 @@ class IMachineDebugManagerCookie extends IUnknown{
      * @returns {Integer} 
      */
     AddApplication(pda, dwDebugAppCookie) {
-        result := ComCall(3, this, "ptr", pda, "uint", dwDebugAppCookie, "uint*", &pdwAppCookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pda, "uint", dwDebugAppCookie, "uint*", &pdwAppCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwAppCookie
     }
 
@@ -47,7 +51,11 @@ class IMachineDebugManagerCookie extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveApplication(dwDebugAppCookie, dwAppCookie) {
-        result := ComCall(4, this, "uint", dwDebugAppCookie, "uint", dwAppCookie, "HRESULT")
+        result := ComCall(4, this, "uint", dwDebugAppCookie, "uint", dwAppCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class IMachineDebugManagerCookie extends IUnknown{
      * @returns {IEnumRemoteDebugApplications} 
      */
     EnumApplications() {
-        result := ComCall(5, this, "ptr*", &ppeda := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppeda := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumRemoteDebugApplications(ppeda)
     }
 }

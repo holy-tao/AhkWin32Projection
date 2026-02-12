@@ -4,15 +4,12 @@
 #Include .\ID3D11View.ahk
 
 /**
- * A depth-stencil-view interface accesses a texture resource during depth-stencil testing.
+ * A depth-stencil-view interface accesses a texture resource during depth-stencil testing. (ID3D11DepthStencilView)
  * @remarks
- * 
  * To create a depth-stencil view, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdepthstencilview">ID3D11Device::CreateDepthStencilView</a>.
  * 
  * To bind a depth-stencil view to the pipeline, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-omsetrendertargets">ID3D11DeviceContext::OMSetRenderTargets</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11depthstencilview
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nn-d3d11-id3d11depthstencilview
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -38,12 +35,12 @@ class ID3D11DepthStencilView extends ID3D11View{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get the depth-stencil view.
+     * Get the depth-stencil view. (ID3D11DepthStencilView.GetDesc)
      * @param {Pointer<D3D11_DEPTH_STENCIL_VIEW_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencil_view_desc">D3D11_DEPTH_STENCIL_VIEW_DESC</a>*</b>
      * 
      * Pointer to a depth-stencil-view description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencil_view_desc">D3D11_DEPTH_STENCIL_VIEW_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11depthstencilview-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11depthstencilview-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

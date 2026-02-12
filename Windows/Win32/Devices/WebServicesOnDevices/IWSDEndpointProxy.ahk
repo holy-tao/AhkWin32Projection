@@ -7,12 +7,10 @@
 /**
  * Implements a device services messaging proxy.
  * @remarks
- * 
  * Service proxy objects may reside on multiple endpoints. An endpoint more completely represents a URL (contains additional useful data). One endpoint may support HTTP on IPv4 addresses and another may support HTTPS on IPv6 addresses. Since the same service lives on both endpoints, it is important that the service have underlying endpoint proxy objects, with each endpoint proxy corresponding to a single endpoint at which the service is available. The endpoint proxy takes care of simple messaging requests to the service, for example, sending one-way or two-way messages.
  * 
  * Endpoint proxies are generally used inside WSDAPI, but they can be retrieved from <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdserviceproxy">IWSDServiceProxy</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsddeviceproxy">IWSDDeviceProxy</a> objects to expose message-level functionality.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nn-wsdclient-iwsdendpointproxy
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nn-wsdclient-iwsdendpointproxy
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -39,6 +37,8 @@ class IWSDEndpointProxy extends IUnknown{
 
     /**
      * Sends a one-way request message.
+     * @remarks
+     * This method is normally only called by generated proxy code.
      * @param {Pointer<Void>} pBody The body of the message.
      * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation to perform.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
@@ -71,17 +71,28 @@ class IWSDEndpointProxy extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-sendonewayrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-sendonewayrequest
      */
     SendOneWayRequest(pBody, pOperation) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pBodyMarshal, pBody, "ptr", pOperation, "HRESULT")
+        result := ComCall(3, this, pBodyMarshal, pBody, "ptr", pOperation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a two-way request message using a synchronous call pattern.
+     * @remarks
+     * This method is normally only called by generated proxy code.
+     * 
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_synchronous_response_context">WSD_SYNCHRONOUS_RESPONSE_CONTEXT</a> is used for the <i>responseContext</i> value when a synchronous call pattern is used.
      * @param {Pointer<Void>} pBody The body of the message.
      * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation to perform.
      * @param {Pointer<WSD_SYNCHRONOUS_RESPONSE_CONTEXT>} pResponseContext Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_synchronous_response_context">WSD_SYNCHRONOUS_RESPONSE_CONTEXT</a> structure or other context structure that specifies the context for handling the response to the request.
@@ -115,28 +126,38 @@ class IWSDEndpointProxy extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequest
      */
     SendTwoWayRequest(pBody, pOperation, pResponseContext) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pResponseContext, "HRESULT")
+        result := ComCall(4, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pResponseContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a two-way request message using an asynchronous call pattern.
+     * @remarks
+     * This method is normally only called by generated proxy code.
      * @param {Pointer<Void>} pBody The body of the message.
      * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation to perform.
      * @param {IUnknown} pAsyncState Anonymous data passed to <i>pCallback</i> when the operation has completed.  This data is used to associate a client object with the pending operation. This parameter may be  optional.
      * @param {IWSDAsyncCallback} pCallback Reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> object which performs the message status callback notification. This parameter may be  optional.
      * @returns {IWSDAsyncResult} Reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object that specifies the results of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
      */
     SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(5, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWSDAsyncResult(pResult)
     }
 
@@ -173,15 +194,19 @@ class IWSDEndpointProxy extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>pAsyncResult</i> is <b>NULL</b> or <i>pAsyncResult</i> does not support the <a href="/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface.
+     * <i>pAsyncResult</i> is <b>NULL</b> or <i>pAsyncResult</i> does not support the <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasynccallback">IWSDAsyncCallback</a> interface.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-abortasyncoperation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-abortasyncoperation
      */
     AbortAsyncOperation(pAsyncResult) {
-        result := ComCall(6, this, "ptr", pAsyncResult, "HRESULT")
+        result := ComCall(6, this, "ptr", pAsyncResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -229,30 +254,48 @@ class IWSDEndpointProxy extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-processfault
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-processfault
      */
     ProcessFault(pFault) {
-        result := ComCall(7, this, "ptr", pFault, "HRESULT")
+        result := ComCall(7, this, "ptr", pFault, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves information on the last error.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The error information returned in  <i>ppszErrorInfo</i> must be released with <a href="https://docs.microsoft.com/windows/desktop/api/wsdutil/nf-wsdutil-wsdfreelinkedmemory">WSDFreeLinkedMemory</a> when it is no longer required for use.</div>
+     * <div> </div>
      * @returns {PWSTR} Pointer to a buffer containing the data for the last recorded error.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-geterrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-geterrorinfo
      */
     GetErrorInfo() {
-        result := ComCall(8, this, "ptr*", &ppszErrorInfo := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppszErrorInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszErrorInfo
     }
 
     /**
      * Retrieves information on the last received fault.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The fault information returned in  <i>ppFault</i> must be released with <b>WSDFreeLinkedMemory</b> when it is no longer required for use.</div>
+     * <div> </div>
      * @returns {Pointer<WSD_SOAP_FAULT>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_fault">WSD_SOAP_FAULT</a> structure containing the SOAP fault information.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdendpointproxy-getfaultinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdendpointproxy-getfaultinfo
      */
     GetFaultInfo() {
-        result := ComCall(9, this, "ptr*", &ppFault := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppFault := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppFault
     }
 }

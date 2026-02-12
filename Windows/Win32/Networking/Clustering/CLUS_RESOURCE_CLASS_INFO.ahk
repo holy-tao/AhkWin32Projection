@@ -18,7 +18,7 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> when 
  *      <i>dwControlCode</i> is set to 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-get-class-info">CLUSCTL_RESOURCE_TYPE_GET_CLASS_INFO</a>.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_resource_class_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clus_resource_class_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

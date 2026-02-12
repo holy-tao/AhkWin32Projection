@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains and receives list-view item information needed to display a tooltip for an item. This structure is used with the LVN_GETINFOTIP notification code. (Unicode)
@@ -13,7 +14,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines NMLVGETINFOTIP as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvgetinfotipw
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmlvgetinfotipw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode
@@ -103,8 +104,11 @@ class NMLVGETINFOTIPW extends Win32Struct
      * Application-defined value associated with the item. This member is not currently used and will always be zero.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(56, this)
+            return this.__lParam
+        }
     }
 }

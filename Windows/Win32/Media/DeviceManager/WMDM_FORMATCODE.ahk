@@ -13,7 +13,7 @@
  * An application can query the format code of a storage by calling [**IWMDMStorage3::GetMetadata**](/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage3-getmetadata) or [**IWMDMStorage4::GetSpecifiedMetadata**](/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage4-getspecifiedmetadata) and retrieving the **g\_wszWMDMFormatCode** property.
  * 
  * If the device supports setting the format code after the creation of storage, an application can use [**IWMDMStorage3::SetMetadata**](/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage3-setmetadata) to set the **g\_wszWMDMFormatCode** property. Some devices may not allow changing the format code after the storage is created on the device. Therefore, setting this property along with the metadata passed in [**IWMDMStorageControl3::Insert3**](/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol3-insert3) is strongly recommended.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-formatcode
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-formatcode
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

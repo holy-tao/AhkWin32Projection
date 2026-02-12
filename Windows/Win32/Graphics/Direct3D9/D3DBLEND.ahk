@@ -14,7 +14,7 @@
  * -   D3DRS\_SRCBLENDALPHA
  * 
  * See [**D3DRENDERSTATETYPE**](./d3drenderstatetype.md)
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dblend
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dblend
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the version number for sample protection.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-sample_protection_version
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/ne-mfidl-sample_protection_version
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

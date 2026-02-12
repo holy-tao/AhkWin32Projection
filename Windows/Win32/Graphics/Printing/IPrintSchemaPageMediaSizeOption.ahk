@@ -47,7 +47,11 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
      * @returns {Integer} 
      */
     get_WidthInMicrons() {
-        result := ComCall(14, this, "uint*", &pulWidth := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pulWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulWidth
     }
 
@@ -56,7 +60,11 @@ class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
      * @returns {Integer} 
      */
     get_HeightInMicrons() {
-        result := ComCall(15, this, "uint*", &pulHeight := 0, "HRESULT")
+        result := ComCall(15, this, "uint*", &pulHeight := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulHeight
     }
 }

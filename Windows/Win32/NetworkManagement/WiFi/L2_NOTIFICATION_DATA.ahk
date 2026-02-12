@@ -11,7 +11,7 @@
  * The IHV Extensions DLL sends notifications to registered services or applications by calling the 
  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wlanihv/nc-wlanihv-dot11ext_send_notification">Dot11ExtSendNotification</a> function. The service or application must register to receive
  *     notifications from a source of L2_NOTIFICATION_SOURCE_WLAN_IHV.
- * @see https://learn.microsoft.com/windows/win32/api/l2cmn/ns-l2cmn-l2_notification_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/l2cmn/ns-l2cmn-l2_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

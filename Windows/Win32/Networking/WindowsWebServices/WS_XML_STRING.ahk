@@ -12,7 +12,7 @@
  *       
  * 
  * The dictionary information is used by the binary encoding to write a more compact xml document.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_string
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_string
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

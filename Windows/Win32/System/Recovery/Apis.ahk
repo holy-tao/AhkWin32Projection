@@ -57,7 +57,7 @@ class Recovery {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-registerapplicationrecoverycallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-registerapplicationrecoverycallback
      * @since windows6.0.6000
      */
     static RegisterApplicationRecoveryCallback(pRecoveyCallback, pvParameter, dwPingInterval, dwFlags) {
@@ -94,7 +94,7 @@ class Recovery {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-unregisterapplicationrecoverycallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-unregisterapplicationrecoverycallback
      * @since windows6.0.6000
      */
     static UnregisterApplicationRecoveryCallback() {
@@ -153,7 +153,7 @@ class Recovery {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-registerapplicationrestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-registerapplicationrestart
      * @since windows6.0.6000
      */
     static RegisterApplicationRestart(pwzCommandline, dwFlags) {
@@ -190,7 +190,7 @@ class Recovery {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-unregisterapplicationrestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-unregisterapplicationrestart
      * @since windows6.0.6000
      */
     static UnregisterApplicationRestart() {
@@ -239,7 +239,7 @@ class Recovery {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getapplicationrecoverycallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getapplicationrecoverycallback
      * @since windows6.0.6000
      */
     static GetApplicationRecoveryCallback(hProcess, pRecoveryCallback, ppvParameter, pdwPingInterval, pdwFlags) {
@@ -268,7 +268,7 @@ class Recovery {
      * 
      * To determine the required buffer size, set <i>pwzCommandLine</i> to <b>NULL</b> and this parameter to zero. The size includes one for the <b>null</b>-terminator character. Note that the function returns S_OK, not HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) in this case.
      * @returns {Integer} A pointer to a variable that receives the flags specified by the application when it called the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-registerapplicationrestart">RegisterApplicationRestart</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getapplicationrestartsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getapplicationrestartsettings
      * @since windows6.0.6000
      */
     static GetApplicationRestartSettings(hProcess, pwzCommandline, pcchSize) {
@@ -294,7 +294,7 @@ class Recovery {
      * 
      * To indicate that the recovery process has been completed, call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-applicationrecoveryfinished">ApplicationRecoveryFinished</a> function.
      * @returns {BOOL} Indicates whether the user has canceled the recovery process. Set by WER if the user clicks the Cancel button.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-applicationrecoveryinprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-applicationrecoveryinprogress
      * @since windows6.0.6000
      */
     static ApplicationRecoveryInProgress() {
@@ -312,7 +312,7 @@ class Recovery {
      * This should be the last call that you make in your callback because your application terminates as soon as this function is called.
      * @param {BOOL} bSuccess Specify <b>TRUE</b> to indicate that the data was successfully recovered; otherwise, <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-applicationrecoveryfinished
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-applicationrecoveryfinished
      * @since windows6.0.6000
      */
     static ApplicationRecoveryFinished(bSuccess) {

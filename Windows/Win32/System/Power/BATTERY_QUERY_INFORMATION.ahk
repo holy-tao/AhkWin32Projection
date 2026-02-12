@@ -5,7 +5,7 @@
  * Contains battery query information.
  * @remarks
  * Some information about batteries is optional or may be meaningless for some batteries. If the particular type of data requested is not available for the current battery, then ERROR\_INVALID\_FUNCTION is returned.
- * @see https://learn.microsoft.com/windows/win32/Power/battery-query-information-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/battery-query-information-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

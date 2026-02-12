@@ -38,7 +38,11 @@ class ICoreWindowComponentInterop extends IUnknown{
     ConfigureComponentInput(hostViewInstanceId, hwndHost, inputSourceVisual) {
         hwndHost := hwndHost is Win32Handle ? NumGet(hwndHost, "ptr") : hwndHost
 
-        result := ComCall(3, this, "uint", hostViewInstanceId, "ptr", hwndHost, "ptr", inputSourceVisual, "HRESULT")
+        result := ComCall(3, this, "uint", hostViewInstanceId, "ptr", hwndHost, "ptr", inputSourceVisual, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ICoreWindowComponentInterop extends IUnknown{
      * @returns {Integer} 
      */
     GetViewInstanceId() {
-        result := ComCall(4, this, "uint*", &componentViewInstanceId := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &componentViewInstanceId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return componentViewInstanceId
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Time
@@ -10,32 +12,32 @@ class Time {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszW32TimeRegKeyTimeProviders => "System\CurrentControlSet\Services\W32Time\TimeProviders"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszW32TimeRegKeyPolicyTimeProviders => "Software\Policies\Microsoft\W32Time\TimeProviders"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszW32TimeRegValueEnabled => "Enabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszW32TimeRegValueDllName => "DllName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszW32TimeRegValueInputProvider => "InputProvider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszW32TimeRegValueMetaDataProvider => "MetaDataProvider"
 
@@ -93,7 +95,7 @@ class Time {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltime
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltime
      * @since windows5.0
      */
     static SystemTimeToTzSpecificLocalTime(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
@@ -124,7 +126,7 @@ class Time {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtime
      * @since windows5.1.2600
      */
     static TzSpecificLocalTimeToSystemTime(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {
@@ -150,7 +152,7 @@ class Time {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-filetimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-filetimetosystemtime
      * @since windows5.1.2600
      */
     static FileTimeToSystemTime(lpFileTime, lpSystemTime) {
@@ -183,7 +185,7 @@ class Time {
      * 
      * > [!NOTE]
      * > A False return value can indicate that the passed SYSTEMTIME structure represents an invalid date. Certain situations, such as the additional day added in a leap year, can result in application logic unexpectedly creating an invalid date. For more information on avoiding these issues, see [leap year readiness](https://techcommunity.microsoft.com/t5/azure-developer-community-blog/it-s-2020-is-your-code-ready-for-leap-day/ba-p/1157279).
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-systemtimetofiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-systemtimetofiletime
      * @since windows5.0
      */
     static SystemTimeToFileTime(lpSystemTime, lpFileTime) {
@@ -263,7 +265,7 @@ class Time {
      * 
      * If the function fails for other reasons, such as an out of memory error, it returns TIME_ZONE_ID_INVALID. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-gettimezoneinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-gettimezoneinformation
      * @since windows5.0
      */
     static GetTimeZoneInformation(lpTimeZoneInformation) {
@@ -305,7 +307,7 @@ class Time {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-settimezoneinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-settimezoneinformation
      * @since windows5.0
      */
     static SetTimeZoneInformation(lpTimeZoneInformation) {
@@ -332,7 +334,7 @@ class Time {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-setdynamictimezoneinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-setdynamictimezoneinformation
      * @since windows6.0.6000
      */
     static SetDynamicTimeZoneInformation(lpTimeZoneInformation) {
@@ -405,7 +407,7 @@ class Time {
      * 
      * If the function fails, it returns TIME_ZONE_ID_INVALID. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-getdynamictimezoneinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-getdynamictimezoneinformation
      * @since windows6.0.6000
      */
     static GetDynamicTimeZoneInformation(pTimeZoneInformation) {
@@ -432,7 +434,7 @@ class Time {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-gettimezoneinformationforyear
      * @since windows6.0.6000
      */
     static GetTimeZoneInformationForYear(wYear, pdtzi, ptzi) {
@@ -477,7 +479,7 @@ class Time {
      * | ERROR_NO_MORE_ITEMS     | No more data is available for the given index.    |
      * | ERROR_INVALID_PARAMETER | A parameter is invalid.                           |
      * | Any other value         | The operation failed.                             |
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-enumdynamictimezoneinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-enumdynamictimezoneinformation
      * @since windows8.0
      */
     static EnumDynamicTimeZoneInformation(dwIndex, lpTimeZoneInformation) {
@@ -540,7 +542,7 @@ class Time {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-getdynamictimezoneinformationeffectiveyears
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-getdynamictimezoneinformationeffectiveyears
      * @since windows8.0
      */
     static GetDynamicTimeZoneInformationEffectiveYears(lpTimeZoneInformation, FirstYear, LastYear) {
@@ -560,7 +562,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the local time.
      * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltimeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-systemtimetotzspecificlocaltimeex
      * @since windows6.1
      */
     static SystemTimeToTzSpecificLocalTimeEx(lpTimeZoneInformation, lpUniversalTime, lpLocalTime) {
@@ -583,7 +585,7 @@ class Time {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the UTC time.
      * @returns {BOOL} If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtimeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/nf-timezoneapi-tzspecificlocaltimetosystemtimeex
      * @since windows6.1
      */
     static TzSpecificLocalTimeToSystemTimeEx(lpTimeZoneInformation, lpLocalTime, lpUniversalTime) {

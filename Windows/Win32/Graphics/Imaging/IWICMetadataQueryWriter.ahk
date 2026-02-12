@@ -6,12 +6,8 @@
 /**
  * Exposes methods for setting or removing metadata blocks and items to an encoder or its image frames using a metadata query expression.
  * @remarks
- * 
  * A metadata query writer uses metadata query expressions to set or remove metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicmetadataquerywriter
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicmetadataquerywriter
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -38,6 +34,11 @@ class IWICMetadataQueryWriter extends IWICMetadataQueryReader{
 
     /**
      * Sets a metadata item to a specific location.
+     * @remarks
+     * <b>SetMetadataByName</b> uses metadata query expressions to remove metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
+     * 
+     * If the value set is a nested metadata block then use variant type <c>VT_UNKNOWN</c> and <i>pvarValue</i> pointing to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a> of the new metadata block.  
+     *                 The ordering of metadata items is at the discretion of the query writer since relative locations are not specified.
      * @param {PWSTR} wzName Type: <b>LPCWSTR</b>
      * 
      * The name of the metadata item.
@@ -46,30 +47,42 @@ class IWICMetadataQueryWriter extends IWICMetadataQueryReader{
      * The metadata to set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataquerywriter-setmetadatabyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicmetadataquerywriter-setmetadatabyname
      */
     SetMetadataByName(wzName, pvarValue) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := ComCall(7, this, "ptr", wzName, "ptr", pvarValue, "HRESULT")
+        result := ComCall(7, this, "ptr", wzName, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a metadata item from a specific location using a metadata query expression.
+     * @remarks
+     * <b>RemoveMetadataByName</b> uses metadata query expressions to remove metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
+     * 
+     * If the metadata item is a metadata block, it is removed from the metadata hierarchy.
      * @param {PWSTR} wzName Type: <b>LPCWSTR</b>
      * 
      * The name of the metadata item to remove.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataquerywriter-removemetadatabyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicmetadataquerywriter-removemetadatabyname
      */
     RemoveMetadataByName(wzName) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := ComCall(8, this, "ptr", wzName, "HRESULT")
+        result := ComCall(8, this, "ptr", wzName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

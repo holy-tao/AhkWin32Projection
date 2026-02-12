@@ -7,7 +7,7 @@
 
 /**
  * Used to configure templates from which new quota objects can be derived.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotatemplate
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nn-fsrmquota-ifsrmquotatemplate
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -41,54 +41,64 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
     }
 
     /**
-     * Retrieves and sets the name of the quota template.
+     * Retrieves and sets the name of the quota template. (Get)
      * @remarks
-     * 
      * If you do not specify a name, FSRM generates a unique name that begins with 
      *     "QuotaTemplate".
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name
      */
     get_Name() {
         name := BSTR()
-        result := ComCall(22, this, "ptr", name, "HRESULT")
+        result := ComCall(22, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * Retrieves and sets the name of the quota template.
+     * Retrieves and sets the name of the quota template. (Put)
      * @remarks
-     * 
      * If you do not specify a name, FSRM generates a unique name that begins with 
      *     "QuotaTemplate".
-     * 
-     * 
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-put_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-put_name
      */
     put_Name(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", name, "HRESULT")
+        result := ComCall(23, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Copies the property values of the specified template to this template.
+     * Copies the property values of the specified template to this template. (IFsrmQuotaTemplate.CopyTemplate)
      * @param {BSTR} quotaTemplateName The name of the template from which to copy the property values. The string is limited to 4,000 
      *       characters.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-copytemplate
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-copytemplate
      */
     CopyTemplate(quotaTemplateName) {
-        quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName
+        if(quotaTemplateName is String) {
+            pin := BSTR.Alloc(quotaTemplateName)
+            quotaTemplateName := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", quotaTemplateName, "HRESULT")
+        result := ComCall(24, this, "ptr", quotaTemplateName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,10 +111,14 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
      * @returns {IFsrmDerivedObjectsResult} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmderivedobjectsresult">IFsrmDerivedObjectsResult</a> interface 
      *       that you use to determine the list of derived objects that were updated and whether the update was 
      *       successful.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived
      */
     CommitAndUpdateDerived(commitOptions, applyOptions) {
-        result := ComCall(25, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
+        result := ComCall(25, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmDerivedObjectsResult(derivedObjectsResult)
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/excel/cluster-safe-functions
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -40,7 +40,11 @@ class IMultiLanguage extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberOfCodePageInfo() {
-        result := ComCall(3, this, "uint*", &pcCodePage := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcCodePage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcCodePage
     }
 
@@ -51,7 +55,11 @@ class IMultiLanguage extends IUnknown{
      */
     GetCodePageInfo(uiCodePage) {
         pCodePageInfo := MIMECPINFO()
-        result := ComCall(4, this, "uint", uiCodePage, "ptr", pCodePageInfo, "HRESULT")
+        result := ComCall(4, this, "uint", uiCodePage, "ptr", pCodePageInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCodePageInfo
     }
 
@@ -61,7 +69,11 @@ class IMultiLanguage extends IUnknown{
      * @returns {Integer} 
      */
     GetFamilyCodePage(uiCodePage) {
-        result := ComCall(5, this, "uint", uiCodePage, "uint*", &puiFamilyCodePage := 0, "HRESULT")
+        result := ComCall(5, this, "uint", uiCodePage, "uint*", &puiFamilyCodePage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiFamilyCodePage
     }
 
@@ -71,7 +83,11 @@ class IMultiLanguage extends IUnknown{
      * @returns {IEnumCodePage} 
      */
     EnumCodePages(grfFlags) {
-        result := ComCall(6, this, "uint", grfFlags, "ptr*", &ppEnumCodePage := 0, "HRESULT")
+        result := ComCall(6, this, "uint", grfFlags, "ptr*", &ppEnumCodePage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumCodePage(ppEnumCodePage)
     }
 
@@ -81,10 +97,17 @@ class IMultiLanguage extends IUnknown{
      * @returns {MIMECSETINFO} 
      */
     GetCharsetInfo(Charset) {
-        Charset := Charset is String ? BSTR.Alloc(Charset).Value : Charset
+        if(Charset is String) {
+            pin := BSTR.Alloc(Charset)
+            Charset := pin.Value
+        }
 
         pCharsetInfo := MIMECSETINFO()
-        result := ComCall(7, this, "ptr", Charset, "ptr", pCharsetInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", Charset, "ptr", pCharsetInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCharsetInfo
     }
 
@@ -95,12 +118,26 @@ class IMultiLanguage extends IUnknown{
      * @returns {HRESULT} 
      */
     IsConvertible(dwSrcEncoding, dwDstEncoding) {
-        result := ComCall(8, this, "uint", dwSrcEncoding, "uint", dwDstEncoding, "HRESULT")
+        result := ComCall(8, this, "uint", dwSrcEncoding, "uint", dwDstEncoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Converts a string-format security descriptor into a valid, functional security descriptor. (Unicode)
+     * @remarks
+     * If <b>ace_type</b> is ACCESS_ALLOWED_OBJECT_ACE_TYPE
+     * and neither <b>object_guid</b> nor <b>inherit_object_guid</b> has a  <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> specified, then <b>ConvertStringSecurityDescriptorToSecurityDescriptor</b> converts <b>ace_type</b> to ACCESS_ALLOWED_ACE_TYPE. For information about the  <b>ace_type</b>,  <b>object_guid</b>, and <b>inherit_object_guid</b> fields, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace-strings">Ace Strings</a>.
      * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The sddl.h header defines ConvertStringSecurityDescriptorToSecurityDescriptor as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
@@ -108,14 +145,62 @@ class IMultiLanguage extends IUnknown{
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {Pointer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_UNKNOWN_REVISION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The SDDL revision level is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NONE_MAPPED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) in the input security descriptor string could not be found in an account lookup operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptorw
      */
     ConvertString(pdwMode, dwSrcEncoding, dwDstEncoding, pSrcStr, pcSrcSize, pDstStr, pcDstSize) {
         pdwModeMarshal := pdwMode is VarRef ? "uint*" : "ptr"
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwModeMarshal, pdwMode, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(9, this, pdwModeMarshal, pdwMode, "uint", dwSrcEncoding, "uint", dwDstEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,7 +221,11 @@ class IMultiLanguage extends IUnknown{
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(10, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +246,11 @@ class IMultiLanguage extends IUnknown{
         pcSrcSizeMarshal := pcSrcSize is VarRef ? "uint*" : "ptr"
         pcDstSizeMarshal := pcDstSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "HRESULT")
+        result := ComCall(11, this, pdwModeMarshal, pdwMode, "uint", dwEncoding, "ptr", pSrcStr, pcSrcSizeMarshal, pcSrcSize, "ptr", pDstStr, pcDstSizeMarshal, pcDstSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +259,11 @@ class IMultiLanguage extends IUnknown{
      * @returns {HRESULT} 
      */
     ConvertStringReset() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +274,11 @@ class IMultiLanguage extends IUnknown{
      */
     GetRfc1766FromLcid(Locale) {
         pbstrRfc1766 := BSTR()
-        result := ComCall(13, this, "uint", Locale, "ptr", pbstrRfc1766, "HRESULT")
+        result := ComCall(13, this, "uint", Locale, "ptr", pbstrRfc1766, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrRfc1766
     }
 
@@ -187,9 +288,16 @@ class IMultiLanguage extends IUnknown{
      * @returns {Integer} 
      */
     GetLcidFromRfc1766(bstrRfc1766) {
-        bstrRfc1766 := bstrRfc1766 is String ? BSTR.Alloc(bstrRfc1766).Value : bstrRfc1766
+        if(bstrRfc1766 is String) {
+            pin := BSTR.Alloc(bstrRfc1766)
+            bstrRfc1766 := pin.Value
+        }
 
-        result := ComCall(14, this, "uint*", &pLocale := 0, "ptr", bstrRfc1766, "HRESULT")
+        result := ComCall(14, this, "uint*", &pLocale := 0, "ptr", bstrRfc1766, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLocale
     }
 
@@ -198,7 +306,11 @@ class IMultiLanguage extends IUnknown{
      * @returns {IEnumRfc1766} 
      */
     EnumRfc1766() {
-        result := ComCall(15, this, "ptr*", &ppEnumRfc1766 := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppEnumRfc1766 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumRfc1766(ppEnumRfc1766)
     }
 
@@ -209,7 +321,11 @@ class IMultiLanguage extends IUnknown{
      */
     GetRfc1766Info(Locale) {
         pRfc1766Info := RFC1766INFO()
-        result := ComCall(16, this, "uint", Locale, "ptr", pRfc1766Info, "HRESULT")
+        result := ComCall(16, this, "uint", Locale, "ptr", pRfc1766Info, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRfc1766Info
     }
 
@@ -221,7 +337,11 @@ class IMultiLanguage extends IUnknown{
      * @returns {IMLangConvertCharset} 
      */
     CreateConvertCharset(uiSrcCodePage, uiDstCodePage, dwProperty) {
-        result := ComCall(17, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "ptr*", &ppMLangConvertCharset := 0, "HRESULT")
+        result := ComCall(17, this, "uint", uiSrcCodePage, "uint", uiDstCodePage, "uint", dwProperty, "ptr*", &ppMLangConvertCharset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMLangConvertCharset(ppMLangConvertCharset)
     }
 }

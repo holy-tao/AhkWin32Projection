@@ -354,7 +354,7 @@
  *  
  * 
  * <b>VT_BSTR_BLOB</b> is reserved for system use.
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-varenum
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtypes/ne-wtypes-varenum
  * @namespace Windows.Win32.System.Variant
  * @version v4.0.30319
  */

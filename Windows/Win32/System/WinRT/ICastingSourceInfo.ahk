@@ -35,7 +35,11 @@ class ICastingSourceInfo extends IUnknown{
      * @returns {ICastingController} 
      */
     GetController() {
-        result := ComCall(3, this, "ptr*", &controller := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &controller := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICastingController(controller)
     }
 
@@ -44,7 +48,11 @@ class ICastingSourceInfo extends IUnknown{
      * @returns {INamedPropertyStore} 
      */
     GetProperties() {
-        result := ComCall(4, this, "ptr*", &props := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &props := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INamedPropertyStore(props)
     }
 }

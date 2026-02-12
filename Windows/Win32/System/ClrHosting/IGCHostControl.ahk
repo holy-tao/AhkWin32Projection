@@ -37,7 +37,11 @@ class IGCHostControl extends IUnknown{
     RequestVirtualMemLimit(sztMaxVirtualMemMB, psztNewMaxVirtualMemMB) {
         psztNewMaxVirtualMemMBMarshal := psztNewMaxVirtualMemMB is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", sztMaxVirtualMemMB, psztNewMaxVirtualMemMBMarshal, psztNewMaxVirtualMemMB, "HRESULT")
+        result := ComCall(3, this, "ptr", sztMaxVirtualMemMB, psztNewMaxVirtualMemMBMarshal, psztNewMaxVirtualMemMB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

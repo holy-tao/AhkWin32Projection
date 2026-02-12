@@ -28,7 +28,7 @@
  * <td>Contains a <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemdevcaps">MODEMDEVCAPS</a> structure.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commprop
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-commprop
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * Implement this interface to receive notifications of the current write operation.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-dfilesystemimageevents
+ * Implement this interface to receive notifications of the current write operation. (DFileSystemImageEvents)
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-dfilesystemimageevents
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -39,19 +39,57 @@ class DFileSystemImageEvents extends IDispatch{
 
     /**
      * Implement this method to receive progress notification of the current write operation. The notifications are sent when copying the content of a file or while adding directories or files to the file system image.
-     * @param {IDispatch} object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> interface of the file system image that is being written. 
+     * @remarks
+     * Notifications are sent in response to calling one of the following methods:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-add">IFsiDirectoryItem::Add</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addfile">IFsiDirectoryItem::AddFile</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addtree">IFsiDirectoryItem::AddTree</a>
+     * </li>
+     * </ul>
+     * Notifications can also be sent when calling one of the following methods to import a UDF file system that was created using immediate allocation (immediate allocation means that the file data is contained within the file descriptor instead of having allocation descriptors in the file descriptor that point to sectors of data):
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importfilesystem">IFileSystemImage::ImportFileSystem</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-importspecificfilesystem">IFileSystemImage::ImportSpecificFileSystem</a>
+     * </li>
+     * </ul>
+     * Notification is sent:
+     * 
+     * <ul>
+     * <li>Once before adding the first sector of a file (<i>copiedSectors</i> is 0)</li>
+     * <li>For every megabyte that is written</li>
+     * <li>Once after the final write if the file did not end on a megabyte boundary</li>
+     * </ul>
+     * @param {IDispatch} object_ An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> interface of the file system image that is being written. 
      * 
      * This parameter is a <b>CFileSystemImage</b> object in a script.
      * @param {BSTR} currentFile String that contains the full path of the file being written.
      * @param {Integer} copiedSectors Number of sectors copied.
      * @param {Integer} totalSectors Total number of sectors in the file.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-dfilesystemimageevents-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-dfilesystemimageevents-update
      */
-    Update(object, currentFile, copiedSectors, totalSectors) {
-        currentFile := currentFile is String ? BSTR.Alloc(currentFile).Value : currentFile
+    Update(object_, currentFile, copiedSectors, totalSectors) {
+        if(currentFile is String) {
+            pin := BSTR.Alloc(currentFile)
+            currentFile := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", object, "ptr", currentFile, "int", copiedSectors, "int", totalSectors, "HRESULT")
+        result := ComCall(7, this, "ptr", object_, "ptr", currentFile, "int", copiedSectors, "int", totalSectors, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

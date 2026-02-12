@@ -36,7 +36,11 @@ class IExtensionServices extends IUnknown{
     SetAdditionalHeaders(pwzAdditionalHeaders) {
         pwzAdditionalHeaders := pwzAdditionalHeaders is String ? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders
 
-        result := ComCall(3, this, "ptr", pwzAdditionalHeaders, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzAdditionalHeaders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class IExtensionServices extends IUnknown{
         pwzUsername := pwzUsername is String ? StrPtr(pwzUsername) : pwzUsername
         pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-        result := ComCall(4, this, "ptr", phwnd, "ptr", pwzUsername, "ptr", pwzPassword, "HRESULT")
+        result := ComCall(4, this, "ptr", phwnd, "ptr", pwzUsername, "ptr", pwzPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

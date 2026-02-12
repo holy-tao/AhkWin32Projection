@@ -7,14 +7,11 @@
 /**
  * Provides access to controls that have an intrinsic value that does not span a range, and that can be represented as a string.
  * @remarks
- * 
  * The value of the control may or may not be editable depending on the control and its settings.
  *         
  * 
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingvalue">Value</a> control pattern.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-ivalueprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-ivalueprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -55,25 +52,38 @@ class IValueProvider extends IUnknown{
 
     /**
      * Sets the value of control.
-     * @param {PWSTR} val Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
+     * @remarks
+     * Single-line edit controls support programmatic access to their contents by implementing <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-ivalueprovider">IValueProvider</a>. 
+     *         However, multi-line edit controls do not implement <b>IValueProvider</b>; 
+     *         instead they provide access to their content by implementing <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextprovider">ITextProvider</a>.
+     *         
+     * 
+     * Controls such as ListItem and TreeItem must implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-ivalueprovider">IValueProvider</a> 
+     *         if the value of any of the items is editable, regardless of the current edit 
+     *         mode of the control. The parent control must also implement <b>IValueProvider</b> 
+     *         if the child items are editable.
+     * @param {PWSTR} val_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The value to set. The provider is responsible for converting the value to the appropriate data type.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue
      */
-    SetValue(val) {
-        val := val is String ? StrPtr(val) : val
+    SetValue(val_) {
+        val_ := val_ is String ? StrPtr(val_) : val_
 
-        result := ComCall(3, this, "ptr", val, "HRESULT")
+        result := ComCall(3, this, "ptr", val_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The value of the control.
      * @remarks
-     * 
      * Single-line edit controls support programmatic access to their contents by implementing <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-ivalueprovider">IValueProvider</a> (in addition to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextprovider">ITextProvider</a>). However, multi-line edit controls do not implement <b>IValueProvider</b>.
      * 
      * 
@@ -82,30 +92,33 @@ class IValueProvider extends IUnknown{
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-ivalueprovider">IValueProvider</a> does not support the retrieval of formatting information or substring values. Implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextprovider">ITextProvider</a> in these scenarios.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivalueprovider-get_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_value
      */
     get_Value() {
         pRetVal := BSTR()
-        result := ComCall(4, this, "ptr", pRetVal, "HRESULT")
+        result := ComCall(4, this, "ptr", pRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Indicates whether the value of a control is read-only.
+     * Indicates whether the value of a control is read-only. (IValueProvider.get_IsReadOnly)
      * @remarks
-     * 
      * A control should have its IsEnabled property (<a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-automation-element-propids">UIA_IsEnabledPropertyId</a>) set to <b>TRUE</b> and its <b>IValueProvider::IsReadOnly</b> 
      *             property set to <b>FALSE</b> before allowing a call to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-ivalueprovider-setvalue">IValueProvider::SetValue</a>.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ivalueprovider-get_isreadonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-ivalueprovider-get_isreadonly
      */
     get_IsReadOnly() {
-        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 }

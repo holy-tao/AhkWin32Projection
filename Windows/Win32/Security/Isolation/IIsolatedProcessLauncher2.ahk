@@ -41,7 +41,11 @@ class IIsolatedProcessLauncher2 extends IIsolatedProcessLauncher{
         arguments := arguments is String ? StrPtr(arguments) : arguments
         workingDirectory := workingDirectory is String ? StrPtr(workingDirectory) : workingDirectory
 
-        result := ComCall(8, this, "ptr", process, "ptr", arguments, "ptr", workingDirectory, "ptr", correlationGuid, "HRESULT")
+        result := ComCall(8, this, "ptr", process, "ptr", arguments, "ptr", workingDirectory, "ptr", correlationGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

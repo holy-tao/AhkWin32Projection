@@ -5,7 +5,7 @@
 
 /**
  * These three methods allow additional interfaces to be added to the DirectInputEffectDriver object without affecting the functionality of the original interface.
- * @see https://docs.microsoft.com/windows/win32/api//dinputd/nn-dinputd-idirectinputeffectdriver
+ * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nn-dinputd-idirectinputeffectdriver
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */
@@ -32,18 +32,24 @@ class IDirectInputEffectDriver extends IUnknown{
 
     /**
      * The IDirectInputEffectDriver::DeviceID method sends the driver the identity of the device.
+     * @remarks
+     * As an example of the <b>IDirectInputEffectDriver::DeviceID </b> method, if a device driver is passed <i>dwExternalID</i> = 2 and <i>dwInternalId</i> = 1, then unit 1 on the device corresponds to the joystick whose ID is 2.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @param {Pointer<Void>} param4 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-deviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-deviceid
      */
     DeviceID(param0, param1, param2, param3, param4) {
         param4Marshal := param4 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, param4Marshal, param4, "HRESULT")
+        result := ComCall(3, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, param4Marshal, param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,10 +57,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * The IDirectInputEffectDriver::GetVersions method obtains version information about the force-feedback hardware and driver.
      * @param {Pointer<DIDRIVERVERSIONS>} param0 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-getversions
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-getversions
      */
     GetVersions(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,10 +74,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param1 
      * @param {Pointer<DIEFFESCAPE>} param2 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-escape
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-escape
      */
     Escape(param0, param1, param2) {
-        result := ComCall(5, this, "uint", param0, "uint", param1, "ptr", param2, "HRESULT")
+        result := ComCall(5, this, "uint", param0, "uint", param1, "ptr", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,10 +90,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-setgain
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-setgain
      */
     SetGain(param0, param1) {
-        result := ComCall(6, this, "uint", param0, "uint", param1, "HRESULT")
+        result := ComCall(6, this, "uint", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,10 +106,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-sendforcefeedbackcommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-sendforcefeedbackcommand
      */
     SendForceFeedbackCommand(param0, param1) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "HRESULT")
+        result := ComCall(7, this, "uint", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,10 +122,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param0 
      * @param {Pointer<DIDEVICESTATE>} param1 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-getforcefeedbackstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-getforcefeedbackstate
      */
     GetForceFeedbackState(param0, param1) {
-        result := ComCall(8, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(8, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,12 +141,16 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Pointer<DIEFFECT>} param3 
      * @param {Integer} param4 
      * @returns {HRESULT} Returns S_OK if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-downloadeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-downloadeffect
      */
     DownloadEffect(param0, param1, param2, param3, param4) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", param0, "uint", param1, param2Marshal, param2, "ptr", param3, "uint", param4, "HRESULT")
+        result := ComCall(9, this, "uint", param0, "uint", param1, param2Marshal, param2, "ptr", param3, "uint", param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,10 +159,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-destroyeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-destroyeffect
      */
     DestroyEffect(param0, param1) {
-        result := ComCall(10, this, "uint", param0, "uint", param1, "HRESULT")
+        result := ComCall(10, this, "uint", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,10 +177,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param2 
      * @param {Integer} param3 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-starteffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-starteffect
      */
     StartEffect(param0, param1, param2, param3) {
-        result := ComCall(11, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "HRESULT")
+        result := ComCall(11, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -155,10 +193,14 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-stopeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-stopeffect
      */
     StopEffect(param0, param1) {
-        result := ComCall(12, this, "uint", param0, "uint", param1, "HRESULT")
+        result := ComCall(12, this, "uint", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -168,12 +210,16 @@ class IDirectInputEffectDriver extends IUnknown{
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {HRESULT} Returns S_OK if successful; otherwise, returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputeffectdriver-geteffectstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/dinputd/nf-dinputd-idirectinputeffectdriver-geteffectstatus
      */
     GetEffectStatus(param0, param1, param2) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", param0, "uint", param1, param2Marshal, param2, "HRESULT")
+        result := ComCall(13, this, "uint", param0, "uint", param1, param2Marshal, param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

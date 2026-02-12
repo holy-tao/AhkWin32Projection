@@ -5,7 +5,7 @@
  * Contains values that indicate a Controller Configuration (CC) shutdown notification.
  * @remarks
  * Use the CC shutdown notification values from this enumeration in the **SHN** field (offset 14h) of the [NVME_CONTROLLER_CONFIGURATION](ns-nvme-nvme_controller_configuration.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_cc_shn_shutdown_notifications
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_cc_shn_shutdown_notifications
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains trust information about a certificate in a certificate chain, summary trust information about a simple chain of certificates, or summary information about an array of simple chains.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_trust_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_trust_status
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

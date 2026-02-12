@@ -35,7 +35,11 @@ class IMFMediaSource2 extends IMFMediaSourceEx{
      * @returns {HRESULT} 
      */
     SetMediaType(dwStreamID, pMediaType) {
-        result := ComCall(16, this, "uint", dwStreamID, "ptr", pMediaType, "HRESULT")
+        result := ComCall(16, this, "uint", dwStreamID, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

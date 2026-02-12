@@ -14,7 +14,7 @@
  * Example: Suppose the software decoder submits three buffers for a single frame, and that each buffer contains three 128-bit blocks.  For the first buffer, <b>IV</b> can be any value. For the next two buffers, the same value of <b>IV</b>  must be used. The value of  <b>Count</b> starts at 1. For the second buffer, <b>Count</b> equals 4 (1 + 3 blocks from the first submission). For the third buffer, <b>Count</b> equals 7 (4 + 3 blocks from the second submission).
  * 
  * When the <b>D3DCPCAPS_SEQUENTIAL_CTR_IV</b> capability is present, it is recommended to submit data in 128-bit blocks.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

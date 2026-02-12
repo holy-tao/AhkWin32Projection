@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Contacts
@@ -46,492 +48,492 @@ class Contacts {
     static CLSID_ContactAggregationManager => Guid("{96c8ad95-c199-44de-b34e-ac33c442df39}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_NOTES => "Notes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_MAILER => "Mailer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_PROGID => "ProgID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_GENDER => "Gender"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_GENDER_UNSPECIFIED => "Unspecified"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_GENDER_MALE => "Male"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_GENDER_FEMALE => "Female"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_CREATIONDATE => "CreationDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_CONTACTIDCOLLECTION => "ContactIDCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_CONTACTID => "/ContactID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_VALUE => "/Value"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_NAMECOLLECTION => "NameCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_NAME => "/Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_FORMATTEDNAME => "/FormattedName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_PHONETIC => "/Phonetic"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_PREFIX => "/Prefix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_TITLE => "/Title"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_GIVENNAME => "/GivenName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_FAMILYNAME => "/FamilyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_MIDDLENAME => "/MiddleName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_GENERATION => "/Generation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_SUFFIX => "/Suffix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_NICKNAME => "/NickName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_POSITIONCOLLECTION => "PositionCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_POSITION => "/Position"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_ORGANIZATION => "/Organization"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_COMPANY => "/Company"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_DEPARTMENT => "/Department"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_OFFICE => "/Office"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_JOB_TITLE => "/JobTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_PROFESSION => "/Profession"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_ROLE => "/Role"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_PERSONCOLLECTION => "PersonCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_PERSON => "/Person"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_PERSONID => "/PersonID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_DATECOLLECTION => "DateCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_DATE => "/Date"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_EMAILADDRESSCOLLECTION => "EmailAddressCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_EMAILADDRESS => "/EmailAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_ADDRESS => "/Address"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_TYPE => "/Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_CERTIFICATECOLLECTION => "CertificateCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_CERTIFICATE => "/Certificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_THUMBPRINT => "/ThumbPrint"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_PHONENUMBERCOLLECTION => "PhoneNumberCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_PHONENUMBER => "/PhoneNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_NUMBER => "/Number"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_ALTERNATE => "/Alternate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_PHYSICALADDRESSCOLLECTION => "PhysicalAddressCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_PHYSICALADDRESS => "/PhysicalAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_ADDRESSLABEL => "/AddressLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_STREET => "/Street"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_LOCALITY => "/Locality"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_REGION => "/Region"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_POSTALCODE => "/PostalCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_COUNTRY => "/Country"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_POBOX => "/POBox"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_EXTENDEDADDRESS => "/ExtendedAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_IMADDRESSCOLLECTION => "IMAddressCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_IMADDRESSENTRY => "/IMAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_PROTOCOL => "/Protocol"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_URLCOLLECTION => "UrlCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_URL => "/Url"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L1_PHOTOCOLLECTION => "PhotoCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L2_PHOTO => "/Photo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTPROP_PUB_L3_URL => "/Url"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_PREFERRED => "Preferred"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_PERSONAL => "Personal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_BUSINESS => "Business"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_OTHER => "Other"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_VOICE => "Voice"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_MOBILE => "Mobile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_PCS => "PCS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_CELLULAR => "Cellular"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_CAR => "Car"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_PAGER => "Pager"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_TTY => "TTY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_FAX => "Fax"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_VIDEO => "Video"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_MODEM => "Modem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_BBS => "BBS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_ISDN => "ISDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_AGENT => "Agent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_DOMESTIC => "Domestic"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_INTERNATIONAL => "International"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_POSTAL => "Postal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_PARCEL => "Parcel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_USERTILE => "UserTile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_PUB_LOGO => "Logo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_SPOUSE => "wab:Spouse"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_CHILD => "wab:Child"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_MANAGER => "wab:Manager"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_ASSISTANT => "wab:Assistant"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_BIRTHDAY => "wab:Birthday"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_ANNIVERSARY => "wab:Anniversary"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_SOCIALNETWORK => "wab:SocialNetwork"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_SCHOOL => "wab:School"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTACTLABEL_WAB_WISHLIST => "wab:WishList"
 ;@endregion Constants

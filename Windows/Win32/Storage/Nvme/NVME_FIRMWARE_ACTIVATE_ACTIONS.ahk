@@ -5,7 +5,7 @@
  * Contains values that indicate the action that is taken on the image downloaded by the Firmware Image Download command or on a previously downloaded and placed image.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_firmware_activate_actions
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_firmware_activate_actions
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

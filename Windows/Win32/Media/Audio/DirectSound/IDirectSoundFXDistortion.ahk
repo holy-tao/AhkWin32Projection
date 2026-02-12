@@ -35,7 +35,11 @@ class IDirectSoundFXDistortion extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxDistortion) {
-        result := ComCall(3, this, "ptr", pcDsFxDistortion, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxDistortion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXDistortion extends IUnknown{
      */
     GetAllParameters() {
         pDsFxDistortion := DSFXDistortion()
-        result := ComCall(4, this, "ptr", pDsFxDistortion, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxDistortion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxDistortion
     }
 }

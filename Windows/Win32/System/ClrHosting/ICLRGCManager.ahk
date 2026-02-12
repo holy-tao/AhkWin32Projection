@@ -29,12 +29,21 @@ class ICLRGCManager extends IUnknown{
     static VTableNames => ["Collect", "GetStats", "SetGCStartupLimits"]
 
     /**
+     * Collection Class
+     * @remarks
+     * The **Collection** object has these types of members:
      * 
+     * -   [Properties](#properties)
      * @param {Integer} Generation 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-collection
      */
     Collect(Generation) {
-        result := ComCall(3, this, "int", Generation, "HRESULT")
+        result := ComCall(3, this, "int", Generation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +53,11 @@ class ICLRGCManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStats(pStats) {
-        result := ComCall(4, this, "ptr", pStats, "HRESULT")
+        result := ComCall(4, this, "ptr", pStats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +68,11 @@ class ICLRGCManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGCStartupLimits(SegmentSize, MaxGen0Size) {
-        result := ComCall(5, this, "uint", SegmentSize, "uint", MaxGen0Size, "HRESULT")
+        result := ComCall(5, this, "uint", SegmentSize, "uint", MaxGen0Size, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

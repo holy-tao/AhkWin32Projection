@@ -4,7 +4,7 @@
 
 /**
  * Stores information needed for pre-shared key authentication. (IKEEXT_PRESHARED_KEY_AUTHENTICATION1)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_preshared_key_authentication1
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_preshared_key_authentication1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

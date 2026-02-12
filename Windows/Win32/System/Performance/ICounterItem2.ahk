@@ -57,7 +57,11 @@ class ICounterItem2 extends ICounterItem{
      * @returns {HRESULT} 
      */
     put_Selected(bState) {
-        result := ComCall(15, this, "short", bState, "HRESULT")
+        result := ComCall(15, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +70,11 @@ class ICounterItem2 extends ICounterItem{
      * @returns {VARIANT_BOOL} 
      */
     get_Selected() {
-        result := ComCall(16, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -76,7 +84,11 @@ class ICounterItem2 extends ICounterItem{
      * @returns {HRESULT} 
      */
     put_Visible(bState) {
-        result := ComCall(17, this, "short", bState, "HRESULT")
+        result := ComCall(17, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +97,11 @@ class ICounterItem2 extends ICounterItem{
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
-        result := ComCall(18, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -97,7 +113,11 @@ class ICounterItem2 extends ICounterItem{
      */
     GetDataAt(iIndex, iWhich) {
         pVariant := VARIANT()
-        result := ComCall(19, this, "int", iIndex, "int", iWhich, "ptr", pVariant, "HRESULT")
+        result := ComCall(19, this, "int", iIndex, "int", iWhich, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 }

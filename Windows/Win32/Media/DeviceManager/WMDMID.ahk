@@ -3,7 +3,7 @@
 
 /**
  * The WMDMID structure describes serial numbers and group IDs.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmid
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdmid
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Represents the collection of currently visible 802.11 ad hoc networks.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-ienumdot11adhocnetworks
+ * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nn-adhoc-ienumdot11adhocnetworks
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumDot11AdHocNetworks extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved.
+     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved. (IEnumDot11AdHocNetworks.Next)
      * @param {Integer} cElt The number of elements requested.
      * @param {Pointer<IDot11AdHocNetwork>} rgElt A pointer to the first element in an array of  <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetwork">IDot11AdHocNetwork</a> interfaces. The array is of size <i>cElt</i>. The array must exist and be of size <i>cElt</i> (at a minimum) before the <b>Next</b> method is called, although the array need not be initialized. Upon return, the previously existing array will contain pointers to <b>IDot11AdHocNetwork</b>  objects.
      * @param {Pointer<Integer>} pcEltFetched A pointer to a variable that specifies the number of elements returned in <i>rgElt</i>.
@@ -110,17 +110,21 @@ class IEnumDot11AdHocNetworks extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nf-adhoc-ienumdot11adhocnetworks-next
      */
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, "ptr*", rgElt, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cElt, "ptr*", rgElt, pcEltFetchedMarshal, pcEltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Skips over the next specified number of elements in the enumeration sequence.
+     * Skips over the next specified number of elements in the enumeration sequence. (IEnumDot11AdHocNetworks.Skip)
      * @param {Integer} cElt The number of elements to skip.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -152,15 +156,19 @@ class IEnumDot11AdHocNetworks extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nf-adhoc-ienumdot11adhocnetworks-skip
      */
     Skip(cElt) {
-        result := ComCall(4, this, "uint", cElt, "HRESULT")
+        result := ComCall(4, this, "uint", cElt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets to the beginning of the enumeration sequence.
+     * Resets to the beginning of the enumeration sequence. (IEnumDot11AdHocNetworks.Reset)
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
@@ -191,20 +199,28 @@ class IEnumDot11AdHocNetworks extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nf-adhoc-ienumdot11adhocnetworks-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a new enumeration interface.
-     * @returns {IEnumDot11AdHocNetworks} A pointer to a variable that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocnetworks">IEnumDot11AdHocNetworks</a>interface.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocnetworks-clone
+     * Creates a new enumeration interface. (IEnumDot11AdHocNetworks.Clone)
+     * @returns {IEnumDot11AdHocNetworks} A pointer to a variable that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocnetworks">IEnumDot11AdHocNetworks</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nf-adhoc-ienumdot11adhocnetworks-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDot11AdHocNetworks(ppEnum)
     }
 }

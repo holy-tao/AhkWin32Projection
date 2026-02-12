@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_ISCSI_INITIATOR_ADAPTER_PROP structure (vdshwprv.h) defines the properties of an iSCSI initiator adapter.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_initiator_adapter_prop
+ * The VDS_ISCSI_INITIATOR_ADAPTER_PROP structure (vds.h) defines the properties of an iSCSI initiator adapter.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_iscsi_initiator_adapter_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

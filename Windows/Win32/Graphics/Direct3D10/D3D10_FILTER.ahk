@@ -27,7 +27,7 @@
  *  
  * 
  * Comparison filters only work with textures that have the following <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">formats</a>: R32_FLOAT_X8X24_TYPELESS, R32_FLOAT, R24_UNORM_X8_TYPELESS, R16_UNORM.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_filter
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_filter
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

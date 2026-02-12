@@ -42,7 +42,11 @@ class IMSMQTransaction2 extends IMSMQTransaction{
      * @returns {HRESULT} 
      */
     InitNew(varTransaction) {
-        result := ComCall(10, this, "ptr", varTransaction, "HRESULT")
+        result := ComCall(10, this, "ptr", varTransaction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IMSMQTransaction2 extends IMSMQTransaction{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(11, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 }

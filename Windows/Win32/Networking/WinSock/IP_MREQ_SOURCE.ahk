@@ -31,7 +31,7 @@
  * 
  * <div class="alert"><b>Note</b>  The <b>IP_MREQ_SOURCE</b> and <b>PIP_MREQ_SOURCE</b> derived structures are only defined on the Windows SDK released with Windows Vista and later. The <b>ip_mreq_source</b> structure should be used on earlier versions of the Windows SDK. </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_mreq_source
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2ipdef/ns-ws2ipdef-ip_mreq_source
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

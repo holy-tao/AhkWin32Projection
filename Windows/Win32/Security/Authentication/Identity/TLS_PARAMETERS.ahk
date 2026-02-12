@@ -5,7 +5,7 @@
  * Indicates TLS parameter restrictions.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-tls_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-tls_parameters
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

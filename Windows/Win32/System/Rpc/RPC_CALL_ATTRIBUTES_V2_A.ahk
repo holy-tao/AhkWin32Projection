@@ -15,7 +15,7 @@
  * <b>RPC_CALL_ATTRIBUTES</b> structure (currently either <b>RPC_CALL_ATTRIBUTES_V1</b> or <b>RPC_CALL_ATTRIBUTES_V2</b>) being used by the calling application. This identification enables the RPC run time to provide backward compatibility for applications not using the most current version of the structure.
  * 
  *  Until the process terminates, <b>ClientPID</b> uniquely identifies that process on the client. When the process terminates, the process ID specified by <b>ClientPID</b> can be used by new processes.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_attributes_v2_a
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcasync/ns-rpcasync-rpc_call_attributes_v2_a
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset ANSI

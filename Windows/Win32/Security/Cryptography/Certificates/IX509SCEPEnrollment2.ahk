@@ -58,7 +58,11 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      */
     CreateChallengeAnswerMessage(Encoding) {
         pValue := BSTR()
-        result := ComCall(29, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(29, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -70,9 +74,16 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      * @returns {Integer} 
      */
     ProcessResponseMessage2(Flags, strResponse, Encoding) {
-        strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
+        if(strResponse is String) {
+            pin := BSTR.Alloc(strResponse)
+            strResponse := pin.Value
+        }
 
-        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, "int*", &pDisposition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDisposition
     }
 
@@ -82,7 +93,11 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      */
     get_ResultMessageText() {
         pValue := BSTR()
-        result := ComCall(31, this, "ptr", pValue, "HRESULT")
+        result := ComCall(31, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -91,7 +106,11 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      * @returns {Integer} 
      */
     get_DelayRetry() {
-        result := ComCall(32, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -101,7 +120,11 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      */
     get_ActivityId() {
         pValue := BSTR()
-        result := ComCall(33, this, "ptr", pValue, "HRESULT")
+        result := ComCall(33, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -111,9 +134,16 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      * @returns {HRESULT} 
      */
     put_ActivityId(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", Value, "HRESULT")
+        result := ComCall(34, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

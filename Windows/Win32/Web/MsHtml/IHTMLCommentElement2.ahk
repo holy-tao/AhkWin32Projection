@@ -50,9 +50,16 @@ class IHTMLCommentElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_data(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +69,11 @@ class IHTMLCommentElement2 extends IDispatch{
      */
     get_data() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -71,7 +82,11 @@ class IHTMLCommentElement2 extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -83,7 +98,11 @@ class IHTMLCommentElement2 extends IDispatch{
      */
     substringData(offset, Count) {
         pbstrsubString := BSTR()
-        result := ComCall(10, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
+        result := ComCall(10, this, "int", offset, "int", Count, "ptr", pbstrsubString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrsubString
     }
 
@@ -93,9 +112,16 @@ class IHTMLCommentElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     appendData(bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrstring, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,9 +132,16 @@ class IHTMLCommentElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     insertData(offset, bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(12, this, "int", offset, "ptr", bstrstring, "HRESULT")
+        result := ComCall(12, this, "int", offset, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +152,11 @@ class IHTMLCommentElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteData(offset, Count) {
-        result := ComCall(13, this, "int", offset, "int", Count, "HRESULT")
+        result := ComCall(13, this, "int", offset, "int", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,9 +168,16 @@ class IHTMLCommentElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     replaceData(offset, Count, bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(14, this, "int", offset, "int", Count, "ptr", bstrstring, "HRESULT")
+        result := ComCall(14, this, "int", offset, "int", Count, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

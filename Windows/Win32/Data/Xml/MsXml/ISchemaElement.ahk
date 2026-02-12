@@ -115,7 +115,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {ISchemaType} 
      */
     get_type() {
-        result := ComCall(16, this, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaType(type)
     }
 
@@ -124,7 +128,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {ISchemaComplexType} 
      */
     get_scope() {
-        result := ComCall(17, this, "ptr*", &scope := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &scope := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaComplexType(scope)
     }
 
@@ -134,7 +142,11 @@ class ISchemaElement extends ISchemaParticle{
      */
     get_defaultValue() {
         defaultValue := BSTR()
-        result := ComCall(18, this, "ptr", defaultValue, "HRESULT")
+        result := ComCall(18, this, "ptr", defaultValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return defaultValue
     }
 
@@ -144,7 +156,11 @@ class ISchemaElement extends ISchemaParticle{
      */
     get_fixedValue() {
         fixedValue := BSTR()
-        result := ComCall(19, this, "ptr", fixedValue, "HRESULT")
+        result := ComCall(19, this, "ptr", fixedValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fixedValue
     }
 
@@ -153,7 +169,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {VARIANT_BOOL} 
      */
     get_isNillable() {
-        result := ComCall(20, this, "short*", &nillable := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &nillable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return nillable
     }
 
@@ -162,7 +182,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {ISchemaItemCollection} 
      */
     get_identityConstraints() {
-        result := ComCall(21, this, "ptr*", &constraints := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &constraints := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(constraints)
     }
 
@@ -171,7 +195,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {ISchemaElement} 
      */
     get_substitutionGroup() {
-        result := ComCall(22, this, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaElement(element)
     }
 
@@ -180,7 +208,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {Integer} 
      */
     get_substitutionGroupExclusions() {
-        result := ComCall(23, this, "int*", &exclusions := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &exclusions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return exclusions
     }
 
@@ -189,7 +221,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {Integer} 
      */
     get_disallowedSubstitutions() {
-        result := ComCall(24, this, "int*", &disallowed := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &disallowed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return disallowed
     }
 
@@ -198,7 +234,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
-        result := ComCall(25, this, "short*", &abstract := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &abstract := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return abstract
     }
 
@@ -207,7 +247,11 @@ class ISchemaElement extends ISchemaParticle{
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
-        result := ComCall(26, this, "short*", &reference := 0, "HRESULT")
-        return reference
+        result := ComCall(26, this, "short*", &reference_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return reference_
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The IGPMGPO2 interface supports methods that enable you to manage Group Policy objects (GPOs) and Starter Group Policy objects in the directory service.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmgpo2
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmgpo2
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -45,7 +45,11 @@ class IGPMGPO2 extends IGPMGPO{
      */
     get_Description() {
         pVal := BSTR()
-        result := ComCall(36, this, "ptr", pVal, "HRESULT")
+        result := ComCall(36, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -55,9 +59,16 @@ class IGPMGPO2 extends IGPMGPO{
      * @returns {HRESULT} 
      */
     put_Description(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", newVal, "HRESULT")
+        result := ComCall(37, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

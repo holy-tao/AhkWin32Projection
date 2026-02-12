@@ -29,11 +29,16 @@ class ITravelLogEntry extends IUnknown{
     static VTableNames => ["GetTitle", "GetURL"]
 
     /**
-     * 
+     * Retrieves information about the specified title bar.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-gettitlebarinfo
      */
     GetTitle() {
-        result := ComCall(3, this, "ptr*", &ppszTitle := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszTitle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszTitle
     }
 
@@ -42,7 +47,11 @@ class ITravelLogEntry extends IUnknown{
      * @returns {PWSTR} 
      */
     GetURL() {
-        result := ComCall(4, this, "ptr*", &ppszURL := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszURL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszURL
     }
 }

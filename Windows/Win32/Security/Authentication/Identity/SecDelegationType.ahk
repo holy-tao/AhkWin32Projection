@@ -5,7 +5,7 @@
  * The type of delegation used.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-secdelegationtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ne-sspi-secdelegationtype
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

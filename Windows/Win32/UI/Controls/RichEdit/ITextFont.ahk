@@ -6,9 +6,8 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
- * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara.
+ * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextFont)
  * @remarks
- * 
  * The <b>ITextFont</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara">ITextPara</a> interfaces encapsulate the functionality of the Microsoft Word Format <b>Font</b> and <b>Paragraph</b> dialog boxes, respectively. Both interfaces include a duplicate (<b>Value</b>) property that can return a duplicate of the attributes in a range object or transfer a set of attributes to a range. As such, they act like programmable format painters. For example, you could transfer all attributes from range r1 to range r2 except for making r2 bold and the font size 12 points by using the following subroutine.
  * 
  * 
@@ -31,9 +30,7 @@
  * <b>ITextFont</b> uses the "tomBool" type for rich-text attributes that have binary states. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">The tomBool Type</a>.
  * 
  * The rich edit control is able to accept and return all <b>ITextFont</b> properties intact, that is, without modification, both through TOM and through its Rich Text Format (RTF) converters. However, it cannot display the All Caps, Animation, Embossed, Imprint, Shadow, Small Caps, Hidden, Kerning, Outline, and Style font properties.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextfont
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/nn-tom-itextfont
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -60,24 +57,36 @@ class ITextFont extends IDispatch{
 
     /**
      * Gets a duplicate of this text font object.
+     * @remarks
+     * The duplicate property is the default property of an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a> object.
+     * 
+     * For an example of how to use font duplicates, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setfont">SetFont</a>.
      * @returns {ITextFont} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a>**</b>
      * 
      * The duplicate text font object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getduplicate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getduplicate
      */
     GetDuplicate() {
-        result := ComCall(7, this, "ptr*", &ppFont := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppFont := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextFont(ppFont)
     }
 
     /**
      * Sets the character formatting by copying another text font object.
+     * @remarks
+     * Values with the <b>tomUndefined</b> attribute have no effect.
+     * 
+     * For an example of how to use font duplicates, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setfont">SetFont</a>.
      * @param {ITextFont} pFont Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a>*</b>
      * 
      * The text font object to apply to this font object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -129,46 +138,66 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setduplicate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setduplicate
      */
     SetDuplicate(pFont) {
-        result := ComCall(8, this, "ptr", pFont, "HRESULT")
+        result := ComCall(8, this, "ptr", pFont, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether the font can be changed.
+     * @remarks
+     * The *<i>pbCanChange</i> returns <b>tomTrue</b> only if the font can be changed. That is, no part of an associated range is protected and an associated document is not read-only. If this <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a> object is a duplicate, no protection rules apply.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A variable that is <b>tomTrue</b> if the font can be changed or <b>tomFalse</b> if it cannot be changed. This parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-canchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-canchange
      */
     CanChange() {
-        result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Determines whether this text font object has the same properties as the specified text font object.
+     * Determines whether this text font object has the same properties as the specified text font object. (ITextFont.IsEqual)
+     * @remarks
+     * The text font objects are equal only if <i>pFont</i> belongs to the same Text Object Model (TOM) object as the current font object. The <b>ITextFont::IsEqual</b> method ignores entries for which either font object has an <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomUndefined</a>.
      * @param {ITextFont} pFont Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a>*</b>
      * 
      * The text font object to compare against.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A variable that is <b>tomTrue</b> if the font objects have the same properties or <b>tomFalse</b> if they do not. This parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-isequal
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-isequal
      */
     IsEqual(pFont) {
-        result := ComCall(10, this, "ptr", pFont, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pFont, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Resets the character formatting to the specified values.
+     * @remarks
+     * Calling 
+     * 				<b>ITextFont::Reset</b> with <b>tomUndefined</b> sets all properties to undefined values. Thus, applying the font object to a range changes nothing. This applies to a font object that is obtained by the 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-getduplicate">ITextFont::GetDuplicate</a> method.
      * @param {Integer} Value Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -209,33 +238,45 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-reset
      */
     Reset(Value) {
-        result := ComCall(11, this, "int", Value, "HRESULT")
+        result := ComCall(11, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the character style handle of the characters in a range.
+     * @remarks
+     * The Text Object Model (TOM) version 1.0 does not specify the meanings of the style handles. The meanings depend on other facilities of the text system that implements TOM.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The character style handle.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getstyle
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getstyle
      */
     GetStyle() {
-        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the character style handle of the characters in a range.
+     * @remarks
+     * The Text Object Model (TOM) version 1.0 does not specify the meanings of the style handles. The meanings depend on other facilities of the text system that implements TOM.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new character style handle.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -287,15 +328,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setstyle
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setstyle
      */
     SetStyle(Value) {
-        result := ComCall(13, this, "int", Value, "HRESULT")
+        result := ComCall(13, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether the characters are all uppercase.
+     * @remarks
+     * This property corresponds to the <b>CFE_ALLCAPS</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -318,10 +365,14 @@ class ITextFont extends IDispatch{
      * <td>The AllCaps property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getallcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getallcaps
      */
     GetAllCaps() {
-        result := ComCall(14, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -355,7 +406,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -407,10 +458,14 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setallcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setallcaps
      */
     SetAllCaps(Value) {
-        result := ComCall(15, this, "int", Value, "HRESULT")
+        result := ComCall(15, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -430,10 +485,14 @@ class ITextFont extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomShimmer</a>
      * <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomWipeDown</a>
      * <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomWipeRight</a>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getanimation
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getanimation
      */
     GetAnimation() {
-        result := ComCall(16, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -442,7 +501,7 @@ class ITextFont extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns the following COM error code. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns the following COM error code. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -461,20 +520,28 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setanimation
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setanimation
      */
     SetAnimation(Value) {
-        result := ComCall(17, this, "int", Value, "HRESULT")
+        result := ComCall(17, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the text background (highlight) color.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getbackcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getbackcolor
      */
     GetBackColor() {
-        result := ComCall(18, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -513,7 +580,7 @@ class ITextFont extends IDispatch{
      * If <i>Value</i> contains an RGB color, generate the <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -565,15 +632,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setbackcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setbackcolor
      */
     SetBackColor(Value) {
-        result := ComCall(19, this, "int", Value, "HRESULT")
+        result := ComCall(19, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether the characters are bold.
+     * @remarks
+     * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-setweight">ITextFont::SetWeight</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-getweight">ITextFont::GetWeight</a> methods to set or retrieve the font weight more precisely than the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-setbold">ITextFont::SetBold</a> and <b>ITextFont::GetBold</b> methods.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -596,10 +669,14 @@ class ITextFont extends IDispatch{
      * <td>The Bold property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getbold
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getbold
      */
     GetBold() {
-        result := ComCall(20, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -633,7 +710,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -685,15 +762,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setbold
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setbold
      */
     SetBold(Value) {
-        result := ComCall(21, this, "int", Value, "HRESULT")
+        result := ComCall(21, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are embossed.
+     * @remarks
+     * This property corresponds to the <b>CFE_EMBOSS</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -716,10 +799,14 @@ class ITextFont extends IDispatch{
      * <td>The Emboss property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getemboss
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getemboss
      */
     GetEmboss() {
-        result := ComCall(22, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -753,7 +840,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -805,20 +892,28 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setemboss
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setemboss
      */
     SetEmboss(Value) {
-        result := ComCall(23, this, "int", Value, "HRESULT")
+        result := ComCall(23, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the foreground, or text, color.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getforecolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getforecolor
      */
     GetForeColor() {
-        result := ComCall(24, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -859,7 +954,7 @@ class ITextFont extends IDispatch{
      * 					<a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -911,15 +1006,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setforecolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setforecolor
      */
     SetForeColor(Value) {
-        result := ComCall(25, this, "int", Value, "HRESULT")
+        result := ComCall(25, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are hidden.
+     * @remarks
+     * This property corresponds to the <b>CFE_HIDDEN</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -942,10 +1043,14 @@ class ITextFont extends IDispatch{
      * <td>The Hidden property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-gethidden
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-gethidden
      */
     GetHidden() {
-        result := ComCall(26, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -979,7 +1084,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1031,15 +1136,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-sethidden
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-sethidden
      */
     SetHidden(Value) {
-        result := ComCall(27, this, "int", Value, "HRESULT")
+        result := ComCall(27, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are displayed as imprinted characters.
+     * @remarks
+     * This property corresponds to the <b>CFE_IMPRINT</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -1062,10 +1173,14 @@ class ITextFont extends IDispatch{
      * <td>The Engrave property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getengrave
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getengrave
      */
     GetEngrave() {
-        result := ComCall(28, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -1099,7 +1214,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1151,10 +1266,14 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setengrave
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setengrave
      */
     SetEngrave(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1182,10 +1301,14 @@ class ITextFont extends IDispatch{
      * <td>The Italic property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getitalic
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getitalic
      */
     GetItalic() {
-        result := ComCall(30, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -1219,7 +1342,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1271,33 +1394,46 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setitalic
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setitalic
      */
     SetItalic(Value) {
-        result := ComCall(31, this, "int", Value, "HRESULT")
+        result := ComCall(31, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the minimum font size at which kerning occurs.
+     * @remarks
+     * If the value pointed to by 
+     * 				<i>pValue</i> is zero, kerning is off. Positive values turn on pair kerning for font point sizes greater than or equal to the kerning value. For example, the value 1 turns on kerning for all legible sizes, whereas 16 turns on kerning only for font sizes of 16 points and larger.
      * @returns {Float} Type: <b>float*</b>
      * 
      * The minimum font size at which kerning occurs, in floating-point points.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getkerning
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getkerning
      */
     GetKerning() {
-        result := ComCall(32, this, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(32, this, "float*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the minimum font size at which kerning occurs.
+     * @remarks
+     * If this value is zero, kerning is turned off. Positive values turn on pair kerning for font sizes greater than this kerning value. For example, the value 1 turns on kerning for all legible sizes, whereas 16 turns on kerning only for font sizes of 16 points and larger.
      * @param {Float} Value Type: <b>float</b>
      * 
      * The new value of the minimum kerning size, in floating-point points.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1349,33 +1485,50 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setkerning
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setkerning
      */
     SetKerning(Value) {
-        result := ComCall(33, this, "float", Value, "HRESULT")
+        result := ComCall(33, this, "float", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the language ID or language code identifier (LCID).
+     * @remarks
+     * To get the BCP-47 language tag, such as "en-US", call <c>ITextRange2::GetText2(pBstr, tomLanguageTag)</c>, where <i>pBstr</i> specifies the desired language tag.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The language ID or LCID. The low word contains the language identifier. The high word is either zero or it contains the high word of the LCID. To retrieve the language identifier, mask out the high word. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale Identifiers</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getlanguageid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getlanguageid
      */
     GetLanguageID() {
-        result := ComCall(34, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the language ID or language code identifier (LCID).
+     * @remarks
+     * If the high nibble of  <i>Value</i> is <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomCharset</a>, set the <i>charrep</i> from the <i>charset</i> in the low byte and the pitch and family from the next byte. See also <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont2-setcharrep">ITextFont2::SetCharRep</a>. 
+     * 
+     * If the high nibble of <i>Value</i> is <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomCharRepFromLcid</a>, set the <i>charrep</i> from the LCID and set the LCID as well. See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-getlanguageid">ITextFont::GetLanguageID</a> for more information. 
+     * 
+     * 
+     * To set the BCP-47 language tag, such as "en-US", call <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-settext2">ITextRange2::SetText2</a> and set the <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomLanguageTag</a> and <i>bstr</i> with the language tag.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new language identifier. The low word contains the language identifier. The high word is either zero or it contains the high word of the locale identifier LCID. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-identifiers">Locale Identifiers</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1427,10 +1580,14 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setlanguageid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setlanguageid
      */
     SetLanguageID(Value) {
-        result := ComCall(35, this, "int", Value, "HRESULT")
+        result := ComCall(35, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1439,22 +1596,26 @@ class ITextFont extends IDispatch{
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * The font name.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getname
      */
     GetName() {
         pbstr := BSTR()
-        result := ComCall(36, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(36, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * Sets the font name.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * @param {BSTR} bstr_ Type: <b>BSTR</b>
      * 
      * The new font name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1506,17 +1667,26 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setname
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setname
      */
-    SetName(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetName(bstr_) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", bstr, "HRESULT")
+        result := ComCall(37, this, "ptr", bstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are displayed as outlined characters.
+     * @remarks
+     * This property corresponds to the <b>CFE_OUTLINE</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -1539,10 +1709,14 @@ class ITextFont extends IDispatch{
      * <td>The Outline property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getoutline
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getoutline
      */
     GetOutline() {
-        result := ComCall(38, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -1576,7 +1750,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1628,33 +1802,45 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setoutline
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setoutline
      */
     SetOutline(Value) {
-        result := ComCall(39, this, "int", Value, "HRESULT")
+        result := ComCall(39, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the amount that characters are offset vertically relative to the baseline.
+     * @remarks
+     * Displayed text typically has a zero value for this property. Positive values raise the text, and negative values lower it.
      * @returns {Float} Type: <b>float*</b>
      * 
      * The amount of vertical offset, in floating-point points.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getposition
      */
     GetPosition() {
-        result := ComCall(40, this, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(40, this, "float*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the amount that characters are offset vertically relative to the baseline.
+     * @remarks
+     * Displayed text typically has a zero value for this property. Positive values raise the text, and negative values lower it.
      * @param {Float} Value Type: <b>float</b>
      * 
      *  The new amount of vertical offset, in floating-point points.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1706,15 +1892,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setposition
      */
     SetPosition(Value) {
-        result := ComCall(41, this, "float", Value, "HRESULT")
+        result := ComCall(41, this, "float", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are protected against attempts to modify them.
+     * @remarks
+     * In general, Text Object Model (TOM) methods that attempt to change the formatting or content of a range fail with <b>E_ACCESSDENIED</b> if any part of that range is protected, or if the document is read only. To make a change in protected text, the TOM client should attempt to turn off the protection of the text to be modified. The owner of the document may permit this to happen. For example in rich edit controls, attempts to change protected text result in an <a href="https://docs.microsoft.com/windows/desktop/Controls/en-protected">EN_PROTECTED</a> notification code to the creator of the document, who then can refuse or grant permission for the change. The creator is the client that created a windowed rich edit control through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nl-textserv-itexthost">ITextHost</a> object that called the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function to create a windowless rich edit control.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -1737,15 +1929,21 @@ class ITextFont extends IDispatch{
      * <td>The Protected property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getprotected
      */
     GetProtected() {
-        result := ComCall(42, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(42, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets whether characters are protected against attempts to modify them.
+     * @remarks
+     * In general, Text Object Model (TOM) methods that attempt to change the formatting or content of a range will fail with <b>E_ACCESSDENIED</b> if any part of that range is protected or if the document is read-only. To make a change in protected text, the TOM client should attempt to turn off the protection of the text to be modified. The owner of the document may permit this to happen. For example in rich edit controls, attempts to change protected text result in an <a href="https://docs.microsoft.com/windows/desktop/Controls/en-protected">EN_PROTECTED</a> notification code to the creator of the document, who then can refuse or grant permission for the change. The creator is the client that created a windowed rich-edit control through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nl-textserv-itexthost">ITextHost</a> object that called the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function to create a windowless rich edit control.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -1774,7 +1972,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1826,15 +2024,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setprotected
      */
     SetProtected(Value) {
-        result := ComCall(43, this, "int", Value, "HRESULT")
+        result := ComCall(43, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are displayed as shadowed characters.
+     * @remarks
+     * This property corresponds to the <b>CFE_SHADOW</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -1857,10 +2061,14 @@ class ITextFont extends IDispatch{
      * <td>The Shadow property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getshadow
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getshadow
      */
     GetShadow() {
-        result := ComCall(44, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(44, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -1894,7 +2102,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1946,22 +2154,30 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setshadow
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setshadow
      */
     SetShadow(Value) {
-        result := ComCall(45, this, "int", Value, "HRESULT")
+        result := ComCall(45, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the font size.
+     * Gets the font size. (ITextFont.GetSize)
      * @returns {Float} Type: <b>float*</b>
      * 
      * The font size, in floating-point points.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getsize
      */
     GetSize() {
-        result := ComCall(46, this, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(46, this, "float*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -1972,7 +2188,7 @@ class ITextFont extends IDispatch{
      * The new font size, in floating-point points.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2024,15 +2240,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setsize
      */
     SetSize(Value) {
-        result := ComCall(47, this, "float", Value, "HRESULT")
+        result := ComCall(47, this, "float", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are in small capital letters.
+     * @remarks
+     * This property corresponds to the <b>CFE_SMALLCAPS</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -2055,10 +2277,14 @@ class ITextFont extends IDispatch{
      * <td>The SmallCaps property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getsmallcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getsmallcaps
      */
     GetSmallCaps() {
-        result := ComCall(48, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(48, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -2092,7 +2318,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2144,33 +2370,45 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setsmallcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setsmallcaps
      */
     SetSmallCaps(Value) {
-        result := ComCall(49, this, "int", Value, "HRESULT")
+        result := ComCall(49, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the amount of horizontal spacing between characters.
+     * @remarks
+     * Displayed text typically has an intercharacter spacing value of zero. Positive values expand the spacing, and negative values compress it.
      * @returns {Float} Type: <b>float*</b>
      * 
      * The amount of horizontal spacing between characters, in floating-point points.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getspacing
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getspacing
      */
     GetSpacing() {
-        result := ComCall(50, this, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(50, this, "float*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the amount of horizontal spacing between characters.
+     * @remarks
+     * Displayed text typically has an intercharacter spacing value of zero. Positive values expand the spacing, and negative values compress it.
      * @param {Float} Value Type: <b>float</b>
      * 
      * The new amount of horizontal spacing between characters, in floating-point points.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2222,15 +2460,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setspacing
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setspacing
      */
     SetSpacing(Value) {
-        result := ComCall(51, this, "float", Value, "HRESULT")
+        result := ComCall(51, this, "float", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are displayed with a horizontal line through the center.
+     * @remarks
+     * This property corresponds to the <b>CFE_STRIKEOUT</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -2253,10 +2497,14 @@ class ITextFont extends IDispatch{
      * <td>The StrikeThrough property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getstrikethrough
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getstrikethrough
      */
     GetStrikeThrough() {
-        result := ComCall(52, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(52, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -2290,7 +2538,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2342,15 +2590,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setstrikethrough
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setstrikethrough
      */
     SetStrikeThrough(Value) {
-        result := ComCall(53, this, "int", Value, "HRESULT")
+        result := ComCall(53, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are displayed as subscript.
+     * @remarks
+     * This property corresponds to the <b>CFE_SUBSCRIPT</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -2373,10 +2627,14 @@ class ITextFont extends IDispatch{
      * <td>The Subscript property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getsubscript
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getsubscript
      */
     GetSubscript() {
-        result := ComCall(54, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(54, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -2410,7 +2668,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2462,15 +2720,21 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setsubscript
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setsubscript
      */
     SetSubscript(Value) {
-        result := ComCall(55, this, "int", Value, "HRESULT")
+        result := ComCall(55, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets whether characters are displayed as superscript.
+     * @remarks
+     * This property corresponds to the <b>CFE_SUPERSCRIPT</b> effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-charformat2a">CHARFORMAT2</a> structure.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that can be one of the following.
@@ -2493,10 +2757,14 @@ class ITextFont extends IDispatch{
      * <td>The Superscript property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getsuperscript
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getsuperscript
      */
     GetSuperscript() {
-        result := ComCall(56, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(56, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -2530,7 +2798,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2582,20 +2850,28 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setsuperscript
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setsuperscript
      */
     SetSuperscript(Value) {
-        result := ComCall(57, this, "int", Value, "HRESULT")
+        result := ComCall(57, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the type of underlining for the characters in a range.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getunderline
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getunderline
      */
     GetUnderline() {
-        result := ComCall(58, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(58, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -2604,7 +2880,7 @@ class ITextFont extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2656,10 +2932,14 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setunderline
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setunderline
      */
     SetUnderline(Value) {
-        result := ComCall(59, this, "int", Value, "HRESULT")
+        result := ComCall(59, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -2719,10 +2999,14 @@ class ITextFont extends IDispatch{
      * <td>900</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-getweight
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-getweight
      */
     GetWeight() {
-        result := ComCall(60, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(60, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -2784,7 +3068,7 @@ class ITextFont extends IDispatch{
      * </table>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -2836,10 +3120,14 @@ class ITextFont extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont-setweight
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont-setweight
      */
     SetWeight(Value) {
-        result := ComCall(61, this, "int", Value, "HRESULT")
+        result := ComCall(61, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

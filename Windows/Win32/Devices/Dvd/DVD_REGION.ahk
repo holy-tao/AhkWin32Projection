@@ -5,7 +5,7 @@
  * Identifies the DVD region as reported by the local system components.
  * @remarks
  * The AM_PROPERTY_DVDCOPY_REGION property uses this structure.
- * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-dvd_region
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvdmedia/ns-dvdmedia-dvd_region
  * @namespace Windows.Win32.Devices.Dvd
  * @version v4.0.30319
  */

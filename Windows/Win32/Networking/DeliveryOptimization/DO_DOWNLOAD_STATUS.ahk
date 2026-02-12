@@ -5,7 +5,7 @@
  * Used to obtain the status of a specific download.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/deliveryoptimization/ns-deliveryoptimization-do_download_status
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  * @version v4.0.30319
  */

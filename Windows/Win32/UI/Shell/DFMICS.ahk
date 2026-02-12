@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains additional arguments used by DFM_INVOKECOMMANDEX.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-dfmics
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/ns-shlobj_core-dfmics
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,9 +42,12 @@ class DFMICS extends Win32Struct
      * A pointer to a null-terminated string that contains additional arguments to the selected menu command. This member can be <b>NULL</b>.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(8, this)
+            return this.__lParam
+        }
     }
 
     /**

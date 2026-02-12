@@ -78,7 +78,7 @@
  * <td>Excluded</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_pin_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_pin_state
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

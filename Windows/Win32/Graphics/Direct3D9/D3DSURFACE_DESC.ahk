@@ -3,7 +3,7 @@
 
 /**
  * Describes a surface.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dsurface-desc
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dsurface-desc
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

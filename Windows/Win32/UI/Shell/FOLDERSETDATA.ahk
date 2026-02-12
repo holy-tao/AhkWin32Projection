@@ -4,7 +4,7 @@
 
 /**
  * Deprecated. Data used in IBrowserService2::GetFolderSetData.
- * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-foldersetdata
+ * @see https://learn.microsoft.com/windows/win32/api//content/shdeprecated/ns-shdeprecated-foldersetdata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

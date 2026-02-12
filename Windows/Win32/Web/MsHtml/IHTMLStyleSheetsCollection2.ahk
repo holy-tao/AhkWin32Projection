@@ -36,7 +36,11 @@ class IHTMLStyleSheetsCollection2 extends IDispatch{
      */
     item(index) {
         pvarResult := VARIANT()
-        result := ComCall(7, this, "int", index, "ptr", pvarResult, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr", pvarResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarResult
     }
 }

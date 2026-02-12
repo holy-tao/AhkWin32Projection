@@ -4,8 +4,8 @@
 #Include .\IDWriteTextRenderer.ahk
 
 /**
- * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritetextrenderer1
+ * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer1)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nn-dwrite_2-idwritetextrenderer1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -31,7 +31,9 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
     static VTableNames => ["DrawGlyphRun", "DrawUnderline", "DrawStrikethrough", "DrawInlineObject"]
 
     /**
-     * IDWriteTextLayout::Draw calls this function to instruct the client to render a run of glyphs.
+     * IDWriteTextLayout::Draw calls this function to instruct the client to render a run of glyphs. (IDWriteTextRenderer1.DrawGlyphRun)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a> function calls this callback function with all the information about glyphs to render. The application implements this callback by mostly delegating the call to the underlying platform's graphics API such as <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-portal">Direct2D</a> to draw glyphs on the drawing context. An application that uses GDI can implement this callback in terms of the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun">IDWriteBitmapRenderTarget::DrawGlyphRun</a> method.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to 
@@ -48,7 +50,7 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method for glyphs in the run, used with the other properties to determine the rendering mode.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
      * 
      * Pointer to the glyph run instance to render.
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
@@ -60,18 +62,34 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * Application-defined drawing effects for the glyphs to render. Usually this argument represents effects such as the foreground brush filling the interior of text.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawglyphrun
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawglyphrun
      */
-    DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, measuringMode, glyphRun, glyphRunDescription, clientDrawingEffect) {
+    DrawGlyphRun(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, measuringMode, glyphRun_, glyphRunDescription, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "int", measuringMode, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(10, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "int", measuringMode, "ptr", glyphRun_, "ptr", glyphRunDescription, "ptr", clientDrawingEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * IDWriteTextLayout::Draw calls this function to instruct the client to draw an underline.
+     * IDWriteTextLayout::Draw calls this function to instruct the client to draw an underline. (IDWriteTextRenderer1.DrawUnderline)
+     * @remarks
+     * A single underline can be broken into multiple calls, depending on
+     *      how the formatting changes attributes. If font sizes/styles change
+     *      within an underline, the thickness and offset will be averaged
+     *      weighted according to characters.
+     *      To get an appropriate starting pixel position, add underline::offset
+     *      to the baseline. Otherwise there will be no spacing between the text.
+     *      The x coordinate will always be passed as the left side, regardless
+     *      of text directionality. This simplifies drawing and reduces the
+     *      problem of round-off that could potentially cause gaps or a double
+     *      stamped alpha blend. To avoid alpha overlap, round the end points
+     *      to the nearest device pixel.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to 
@@ -93,18 +111,30 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      *  Application-defined effect to apply to the underline. Usually this argument represents effects such as the foreground brush filling the interior of a line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawunderline
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawunderline
      */
     DrawUnderline(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, underline, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", underline, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(11, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", underline, "ptr", clientDrawingEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * IDWriteTextLayout::Draw calls this function to instruct the client to draw a strikethrough.
+     * IDWriteTextLayout::Draw calls this function to instruct the client to draw a strikethrough. (IDWriteTextRenderer1.DrawStrikethrough)
+     * @remarks
+     * A single strikethrough can be broken into multiple calls, depending on
+     *      how the formatting changes attributes. Strikethrough is not averaged
+     *      across font sizes/styles changes.
+     *      To get an appropriate starting pixel position, add strikethrough::offset
+     *      to the baseline.
+     *      Like underlines, the x coordinate will always be passed as the left side,
+     *      regardless of text directionality.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to 
@@ -126,18 +156,22 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * Application-defined effect to apply to the strikethrough.  Usually this argument represents effects such as the foreground brush filling the interior of a line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawstrikethrough
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawstrikethrough
      */
     DrawStrikethrough(clientDrawingContext, baselineOriginX, baselineOriginY, orientationAngle, strikethrough, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", strikethrough, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(12, this, clientDrawingContextMarshal, clientDrawingContext, "float", baselineOriginX, "float", baselineOriginY, "int", orientationAngle, "ptr", strikethrough, "ptr", clientDrawingEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * IDWriteTextLayout::Draw calls this application callback when it needs to draw an inline object.
+     * IDWriteTextLayout::Draw calls this application callback when it needs to draw an inline object. (IDWriteTextRenderer1.DrawInlineObject)
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The application-defined drawing context passed to IDWriteTextLayout::<a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-draw">Draw</a>.
@@ -164,13 +198,17 @@ class IDWriteTextRenderer1 extends IDWriteTextRenderer{
      * Application-defined drawing effects for the glyphs to render. Usually this argument represents effects such as the foreground brush filling the interior of a line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawinlineobject
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritetextrenderer1-drawinlineobject
      */
     DrawInlineObject(clientDrawingContext, originX, originY, orientationAngle, inlineObject, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, "int", orientationAngle, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(13, this, clientDrawingContextMarshal, clientDrawingContext, "float", originX, "float", originY, "int", orientationAngle, "ptr", inlineObject, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

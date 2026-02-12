@@ -3,7 +3,7 @@
 
 /**
  * Identifies a texture resource for a video processor output view. (D3D11_TEX2D_ARRAY_VPOV)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex2d_array_vpov
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_tex2d_array_vpov
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

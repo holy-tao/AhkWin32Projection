@@ -64,7 +64,11 @@ class IPrinterExtensionContext extends IDispatch{
      * @returns {IPrinterQueue} 
      */
     get_PrinterQueue() {
-        result := ComCall(7, this, "ptr*", &ppQueue := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppQueue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterQueue(ppQueue)
     }
 
@@ -73,7 +77,11 @@ class IPrinterExtensionContext extends IDispatch{
      * @returns {IPrintSchemaTicket} 
      */
     get_PrintSchemaTicket() {
-        result := ComCall(8, this, "ptr*", &ppTicket := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppTicket := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaTicket(ppTicket)
     }
 
@@ -82,7 +90,11 @@ class IPrinterExtensionContext extends IDispatch{
      * @returns {IPrinterPropertyBag} 
      */
     get_DriverProperties() {
-        result := ComCall(9, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterPropertyBag(ppPropertyBag)
     }
 
@@ -91,7 +103,11 @@ class IPrinterExtensionContext extends IDispatch{
      * @returns {IPrinterPropertyBag} 
      */
     get_UserProperties() {
-        result := ComCall(10, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterPropertyBag(ppPropertyBag)
     }
 }

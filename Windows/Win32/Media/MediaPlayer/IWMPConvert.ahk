@@ -7,11 +7,8 @@
 /**
  * The IWMPConvert interface provides methods to enable Windows Media Player conversion plug-ins to convert digital media files that are created using technologies not provided by Microsoft, into Advanced Systems Format (ASF).
  * @remarks
- * 
  * These methods are implemented by a conversion plug-in and called by Windows Media Player.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nn-wmpservices-iwmpconvert
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmpservices/nn-wmpservices-iwmpconvert
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -38,6 +35,10 @@ class IWMPConvert extends IUnknown{
 
     /**
      * The ConvertFile method is implemented by a conversion plug-in and called by Windows Media Player to enable a conversion plug-in to convert a digital media file into ASF.
+     * @remarks
+     * This is a synchronous call. Your code must complete and return as quickly as possible. This method is not intended to be used for transcoding digital media files. You should use this method only to change the file format.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {BSTR} bstrInputFile <b>BSTR</b> containing the path to the file to be converted.
      * @param {BSTR} bstrDestinationFolder <b>BSTR</b> containing that path to the folder where the converted file must be copied.
      * @param {Pointer<BSTR>} pbstrOutputFile Pointer to a <b>BSTR</b> that receives the path to the converted file.
@@ -133,24 +134,42 @@ class IWMPConvert extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpconvert-convertfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmpservices/nf-wmpservices-iwmpconvert-convertfile
      */
     ConvertFile(bstrInputFile, bstrDestinationFolder, pbstrOutputFile) {
-        bstrInputFile := bstrInputFile is String ? BSTR.Alloc(bstrInputFile).Value : bstrInputFile
-        bstrDestinationFolder := bstrDestinationFolder is String ? BSTR.Alloc(bstrDestinationFolder).Value : bstrDestinationFolder
+        if(bstrInputFile is String) {
+            pin := BSTR.Alloc(bstrInputFile)
+            bstrInputFile := pin.Value
+        }
+        if(bstrDestinationFolder is String) {
+            pin := BSTR.Alloc(bstrDestinationFolder)
+            bstrDestinationFolder := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrInputFile, "ptr", bstrDestinationFolder, "ptr", pbstrOutputFile, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrInputFile, "ptr", bstrDestinationFolder, "ptr", pbstrOutputFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetErrorURL method is implemented by a conversion plug-in and called by Windows Media Player to retrieve the URL of a webpage that displays information to help the user correct the condition that caused an error.
+     * @remarks
+     * This is a synchronous call. Your code must complete and return as quickly as possible.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<BSTR>} pbstrURL Pointer to a <b>BSTR</b> that receives the URL of the webpage that displays the error information.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpconvert-geterrorurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmpservices/nf-wmpservices-iwmpconvert-geterrorurl
      */
     GetErrorURL(pbstrURL) {
-        result := ComCall(4, this, "ptr", pbstrURL, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

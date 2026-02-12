@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_NODE_DRAIN_STATUS enumeration (msclus.h) enumerates the possible values of the status of a node drain.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_node_drain_status
+ * CLUSTER_NODE_DRAIN_STATUS (clusapi.h) enumerates the possible values of the status of a node drain.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_node_drain_status
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -38,7 +38,11 @@ class IElementBehaviorSiteCategory extends IUnknown{
     GetRelatedBehaviors(lDirection, pchCategory) {
         pchCategory := pchCategory is String ? StrPtr(pchCategory) : pchCategory
 
-        result := ComCall(3, this, "int", lDirection, "ptr", pchCategory, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(3, this, "int", lDirection, "ptr", pchCategory, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppEnumerator)
     }
 }

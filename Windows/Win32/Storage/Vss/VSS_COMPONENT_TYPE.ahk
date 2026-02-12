@@ -25,7 +25,7 @@
  * <li>Examining the <b>Type</b> member of the 
  *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/ns-vsbackup-vss_componentinfo">VSS_COMPONENTINFO</a> object</li>
  * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_component_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/ne-vswriter-vss_component_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

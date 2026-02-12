@@ -7,11 +7,8 @@
 /**
  * Creates a name-value pair in which the name is associated with the value.
  * @remarks
- * 
  * When reading or writing your own XML for a task, a name-value pair is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-valuequeries-eventtriggertype-element">ValueQueries</a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itasknamedvaluepair
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itasknamedvaluepair
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -51,50 +48,72 @@ class ITaskNamedValuePair extends IDispatch{
     }
 
     /**
-     * Gets or sets the name that is associated with a value in a name-value pair.
+     * Gets or sets the name that is associated with a value in a name-value pair. (Get)
      * @param {Pointer<BSTR>} pName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluepair-get_name
      */
     get_Name(pName) {
-        result := ComCall(7, this, "ptr", pName, "HRESULT")
+        result := ComCall(7, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the name that is associated with a value in a name-value pair.
+     * Gets or sets the name that is associated with a value in a name-value pair. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-put_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluepair-put_name
      */
     put_Name(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the value that is associated with a name in a name-value pair.
+     * Gets or sets the value that is associated with a name in a name-value pair. (Get)
      * @param {Pointer<BSTR>} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-get_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluepair-get_value
      */
     get_Value(pValue) {
-        result := ComCall(9, this, "ptr", pValue, "HRESULT")
+        result := ComCall(9, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the value that is associated with a name in a name-value pair.
+     * Gets or sets the value that is associated with a name in a name-value pair. (Put)
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluepair-put_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluepair-put_value
      */
     put_Value(value) {
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", value, "HRESULT")
+        result := ComCall(10, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

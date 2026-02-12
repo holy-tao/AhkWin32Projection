@@ -3,7 +3,7 @@
 
 /**
  * Used to get and set the device configuration for Point-to-Point Tunneling Protocol (PPTP) on a RAS Server.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-pptp_config_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-pptp_config_params
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -24,7 +24,7 @@
  * For a general synchronization overview and conceptual <b>OVERLAPPED</b> usage information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and Output</a> and related topics.
  * 
  * For a file I/O–oriented overview of synchronous and asynchronous I/O, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/synchronous-and-asynchronous-i-o">Synchronous and Asynchronous I/O</a>.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped
+ * @see https://learn.microsoft.com/windows/win32/api//content/minwinbase/ns-minwinbase-overlapped
  * @namespace Windows.Win32.System.IO
  * @version v4.0.30319
  */

@@ -18,7 +18,7 @@
  *  
  * 
  * To improve your application's performance, dispose of your **InkRecognizerContext** object when it is no longer needed.
- * @see https://learn.microsoft.com/windows/win32/tablet/inkrecognizercontext-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/inkrecognizercontext-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

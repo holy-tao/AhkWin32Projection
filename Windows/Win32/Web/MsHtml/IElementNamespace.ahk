@@ -36,9 +36,16 @@ class IElementNamespace extends IUnknown{
      * @returns {HRESULT} 
      */
     AddTag(bstrTagName, lFlags) {
-        bstrTagName := bstrTagName is String ? BSTR.Alloc(bstrTagName).Value : bstrTagName
+        if(bstrTagName is String) {
+            pin := BSTR.Alloc(bstrTagName)
+            bstrTagName := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrTagName, "int", lFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrTagName, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -43,7 +43,11 @@ class ITipAutoCompleteClient extends IUnknown{
     AdviseProvider(hWndField, pIProvider) {
         hWndField := hWndField is Win32Handle ? NumGet(hWndField, "ptr") : hWndField
 
-        result := ComCall(3, this, "ptr", hWndField, "ptr", pIProvider, "HRESULT")
+        result := ComCall(3, this, "ptr", hWndField, "ptr", pIProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class ITipAutoCompleteClient extends IUnknown{
     UnadviseProvider(hWndField, pIProvider) {
         hWndField := hWndField is Win32Handle ? NumGet(hWndField, "ptr") : hWndField
 
-        result := ComCall(4, this, "ptr", hWndField, "ptr", pIProvider, "HRESULT")
+        result := ComCall(4, this, "ptr", hWndField, "ptr", pIProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class ITipAutoCompleteClient extends IUnknown{
      * @returns {HRESULT} 
      */
     UserSelection() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +92,11 @@ class ITipAutoCompleteClient extends IUnknown{
     PreferredRects(prcACList, prcField, prcModifiedACList, pfShownAboveTip) {
         pfShownAboveTipMarshal := pfShownAboveTip is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", prcACList, "ptr", prcField, "ptr", prcModifiedACList, pfShownAboveTipMarshal, pfShownAboveTip, "HRESULT")
+        result := ComCall(6, this, "ptr", prcACList, "ptr", prcField, "ptr", prcModifiedACList, pfShownAboveTipMarshal, pfShownAboveTip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +108,11 @@ class ITipAutoCompleteClient extends IUnknown{
     RequestShowUI(hWndList) {
         hWndList := hWndList is Win32Handle ? NumGet(hWndList, "ptr") : hWndList
 
-        result := ComCall(7, this, "ptr", hWndList, "int*", &pfAllowShowing := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", hWndList, "int*", &pfAllowShowing := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAllowShowing
     }
 }

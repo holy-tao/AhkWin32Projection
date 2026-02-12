@@ -13,7 +13,7 @@
  * The **ExtendedProperty** object is used by the [**ExtendedProperties**](extendedproperties.md) collection.
  * 
  * The **ExtendedProperty** object can be created, and it is not safe for scripting. The ProgID for the **ExtendedProperty** object is CAPICOM.ExtendedProperty.1.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/extendedproperty
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/extendedproperty
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

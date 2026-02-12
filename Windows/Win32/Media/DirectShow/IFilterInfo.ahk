@@ -79,9 +79,16 @@ class IFilterInfo extends IDispatch{
      * @returns {IDispatch} 
      */
     FindPin(strPinID) {
-        strPinID := strPinID is String ? BSTR.Alloc(strPinID).Value : strPinID
+        if(strPinID is String) {
+            pin := BSTR.Alloc(strPinID)
+            strPinID := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strPinID, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", strPinID, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 
@@ -91,7 +98,11 @@ class IFilterInfo extends IDispatch{
      */
     get_Name() {
         strName := BSTR()
-        result := ComCall(8, this, "ptr", strName, "HRESULT")
+        result := ComCall(8, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strName
     }
 
@@ -101,7 +112,11 @@ class IFilterInfo extends IDispatch{
      */
     get_VendorInfo() {
         strVendorInfo := BSTR()
-        result := ComCall(9, this, "ptr", strVendorInfo, "HRESULT")
+        result := ComCall(9, this, "ptr", strVendorInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strVendorInfo
     }
 
@@ -110,7 +125,11 @@ class IFilterInfo extends IDispatch{
      * @returns {IUnknown} 
      */
     get_Filter() {
-        result := ComCall(10, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
@@ -119,7 +138,11 @@ class IFilterInfo extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Pins() {
-        result := ComCall(11, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 
@@ -128,7 +151,11 @@ class IFilterInfo extends IDispatch{
      * @returns {Integer} 
      */
     get_IsFileSource() {
-        result := ComCall(12, this, "int*", &pbIsSource := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pbIsSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsSource
     }
 
@@ -138,7 +165,11 @@ class IFilterInfo extends IDispatch{
      */
     get_Filename() {
         pstrFilename := BSTR()
-        result := ComCall(13, this, "ptr", pstrFilename, "HRESULT")
+        result := ComCall(13, this, "ptr", pstrFilename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrFilename
     }
 
@@ -148,9 +179,16 @@ class IFilterInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Filename(strFilename) {
-        strFilename := strFilename is String ? BSTR.Alloc(strFilename).Value : strFilename
+        if(strFilename is String) {
+            pin := BSTR.Alloc(strFilename)
+            strFilename := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strFilename, "HRESULT")
+        result := ComCall(14, this, "ptr", strFilename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -20,7 +20,7 @@
  * <div class="alert"><b>Note</b>  An application should ignore the <b>iMaxsockets</b>, <b>iMaxUdpDg</b>, and <b>lpVendorInfo</b> members in <b>WSADATA</b> if the value in <b>wVersion</b> after a successful call to 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsastartup">WSAStartup</a> is at least 2. This is because the architecture of Windows Sockets changed in version 2 to support multiple providers, and <b>WSADATA</b> no longer applies to a single vendor's stack. Two new socket options are introduced to supply provider-specific information: SO_MAX_MSG_SIZE (replaces the <b>iMaxUdpDg</b> member) and PVD_CONFIG (allows any other provider-specific configuration to occur).</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-wsadata
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsock/ns-winsock-wsadata
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

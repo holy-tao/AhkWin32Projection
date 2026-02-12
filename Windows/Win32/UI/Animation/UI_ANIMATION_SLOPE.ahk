@@ -3,7 +3,7 @@
 
 /**
  * Defines animation slope characteristics.
- * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_slope
+ * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/ne-uianimation-ui_animation_slope
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */

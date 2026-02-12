@@ -4,8 +4,8 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ifindreferencetargetscallback
+ * Defines the interface for callbacks from IReferenceTracker::FindTrackerTargets. The implementation of this interface must pass any IReferenceTrackerTarget instances it finds to the FoundTrackerTarget method.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ifindreferencetargetscallback
  * @namespace Windows.Win32.System.WinRT.Xaml
  * @version v4.0.30319
  */
@@ -36,7 +36,11 @@ class IFindReferenceTargetsCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     FoundTrackerTarget(target) {
-        result := ComCall(3, this, "ptr", target, "HRESULT")
+        result := ComCall(3, this, "ptr", target, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

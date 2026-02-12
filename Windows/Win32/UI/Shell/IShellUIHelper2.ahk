@@ -35,9 +35,16 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     AddSearchProvider(URL) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", URL, "HRESULT")
+        result := ComCall(20, this, "ptr", URL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +53,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     RunOnceShown() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +66,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     SkipRunOnce() {
-        result := ComCall(22, this, "HRESULT")
+        result := ComCall(22, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,9 +82,16 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     CustomizeSettings(fSQM, fPhishing, bstrLocale) {
-        bstrLocale := bstrLocale is String ? BSTR.Alloc(bstrLocale).Value : bstrLocale
+        if(bstrLocale is String) {
+            pin := BSTR.Alloc(bstrLocale)
+            bstrLocale := pin.Value
+        }
 
-        result := ComCall(23, this, "short", fSQM, "short", fPhishing, "ptr", bstrLocale, "HRESULT")
+        result := ComCall(23, this, "short", fSQM, "short", fPhishing, "ptr", bstrLocale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +100,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {VARIANT_BOOL} 
      */
     SqmEnabled() {
-        result := ComCall(24, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(24, this, "short*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
@@ -87,7 +113,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {VARIANT_BOOL} 
      */
     PhishingEnabled() {
-        result := ComCall(25, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
@@ -97,7 +127,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      */
     BrandImageUri() {
         pbstrUri := BSTR()
-        result := ComCall(26, this, "ptr", pbstrUri, "HRESULT")
+        result := ComCall(26, this, "ptr", pbstrUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUri
     }
 
@@ -106,7 +140,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     SkipTabsWelcome() {
-        result := ComCall(27, this, "HRESULT")
+        result := ComCall(27, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +153,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     DiagnoseConnection() {
-        result := ComCall(28, this, "HRESULT")
+        result := ComCall(28, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +167,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     CustomizeClearType(fSet) {
-        result := ComCall(29, this, "short", fSet, "HRESULT")
+        result := ComCall(29, this, "short", fSet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,9 +181,16 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {Integer} 
      */
     IsSearchProviderInstalled(URL) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(30, this, "ptr", URL, "uint*", &pdwResult := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", URL, "uint*", &pdwResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwResult
     }
 
@@ -146,7 +199,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {VARIANT_BOOL} 
      */
     IsSearchMigrated() {
-        result := ComCall(31, this, "short*", &pfMigrated := 0, "HRESULT")
+        result := ComCall(31, this, "short*", &pfMigrated := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfMigrated
     }
 
@@ -156,7 +213,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      */
     DefaultSearchProvider() {
         pbstrName := BSTR()
-        result := ComCall(32, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(32, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -166,7 +227,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {HRESULT} 
      */
     RunOnceRequiredSettingsComplete(fComplete) {
-        result := ComCall(33, this, "short", fComplete, "HRESULT")
+        result := ComCall(33, this, "short", fComplete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +240,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      * @returns {VARIANT_BOOL} 
      */
     RunOnceHasShown() {
-        result := ComCall(34, this, "short*", &pfShown := 0, "HRESULT")
+        result := ComCall(34, this, "short*", &pfShown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfShown
     }
 
@@ -185,7 +254,11 @@ class IShellUIHelper2 extends IShellUIHelper{
      */
     SearchGuideUrl() {
         pbstrUrl := BSTR()
-        result := ComCall(35, this, "ptr", pbstrUrl, "HRESULT")
+        result := ComCall(35, this, "ptr", pbstrUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUrl
     }
 }

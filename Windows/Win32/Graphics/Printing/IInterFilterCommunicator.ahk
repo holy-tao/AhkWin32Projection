@@ -33,7 +33,11 @@ class IInterFilterCommunicator extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     RequestReader() {
-        result := ComCall(3, this, "ptr*", &ppIReader := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppIReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppIReader
     }
 
@@ -42,7 +46,11 @@ class IInterFilterCommunicator extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     RequestWriter() {
-        result := ComCall(4, this, "ptr*", &ppIWriter := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppIWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppIWriter
     }
 }

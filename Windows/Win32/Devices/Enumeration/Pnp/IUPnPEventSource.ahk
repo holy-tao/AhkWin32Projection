@@ -5,7 +5,7 @@
 
 /**
  * The IUPnPEventSource interface allows the device host to manage event subscriptions for the hosted service.
- * @see https://docs.microsoft.com/windows/win32/api//upnphost/nn-upnphost-iupnpeventsource
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnphost/nn-upnphost-iupnpeventsource
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IUPnPEventSource extends IUnknown{
      * @param {IUPnPEventSink} pesSubscriber Pointer to the device host's 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nn-upnphost-iupnpeventsink">IUPnPEventSink</a> interface.
      * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpeventsource-advise
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnphost/nf-upnphost-iupnpeventsource-advise
      */
     Advise(pesSubscriber) {
-        result := ComCall(3, this, "ptr", pesSubscriber, "HRESULT")
+        result := ComCall(3, this, "ptr", pesSubscriber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,10 +52,14 @@ class IUPnPEventSource extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nn-upnphost-iupnpeventsink">IUPnPEventSink</a> interface. This must be the same pointer that was passed when 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpeventsource-advise">IUPnPEventSource::Advise</a> was invoked.
      * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpeventsource-unadvise
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnphost/nf-upnphost-iupnpeventsource-unadvise
      */
     Unadvise(pesSubscriber) {
-        result := ComCall(4, this, "ptr", pesSubscriber, "HRESULT")
+        result := ComCall(4, this, "ptr", pesSubscriber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

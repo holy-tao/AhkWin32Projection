@@ -42,7 +42,7 @@
  * 
  * </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapcoreinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-bitmapcoreinfo
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

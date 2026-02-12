@@ -129,9 +129,16 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_action(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,7 +148,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_action() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -151,9 +162,16 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_dir(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +181,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_dir() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -173,9 +195,16 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_encoding(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +214,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_encoding() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -195,9 +228,16 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_method(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +247,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_method() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -216,7 +260,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {IDispatch} 
      */
     get_elements() {
-        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -226,9 +274,16 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_target(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -238,7 +293,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_target() {
         p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -248,9 +307,16 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -260,7 +326,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -270,7 +340,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onsubmit(v) {
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,7 +354,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_onsubmit() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -290,7 +368,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onreset(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -300,7 +382,11 @@ class IHTMLFormElement extends IDispatch{
      */
     get_onreset() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -309,7 +395,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     submit() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -318,7 +408,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -328,7 +422,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_length(v) {
-        result := ComCall(26, this, "int", v, "HRESULT")
+        result := ComCall(26, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -337,7 +435,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -346,7 +448,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -357,7 +463,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {IDispatch} 
      */
     item(name, index) {
-        result := ComCall(29, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 
@@ -367,7 +477,11 @@ class IHTMLFormElement extends IDispatch{
      * @returns {IDispatch} 
      */
     tags(tagName) {
-        result := ComCall(30, this, "ptr", tagName, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", tagName, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 }

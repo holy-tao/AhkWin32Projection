@@ -11,7 +11,7 @@
  * The streaming programming model can be used regardless of which 
  *                 transfer mode is used.  In the case where streaming is not used, the calls
  *                 to the calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfillbody">WsFillBody</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushbody">WsFlushBody</a> are NOPs.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_transfer_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_transfer_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

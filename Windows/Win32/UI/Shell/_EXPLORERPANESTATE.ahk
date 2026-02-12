@@ -3,7 +3,7 @@
 
 /**
  * Indicate flags used by IExplorerPaneVisibility::GetPaneState to get the current state of the given Windows Explorer pane.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_explorerpanestate
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ne-shobjidl_core-_explorerpanestate
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

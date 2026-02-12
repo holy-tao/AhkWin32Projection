@@ -56,7 +56,11 @@ class IHTMLAreasCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     put_length(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class IHTMLAreasCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -74,7 +82,11 @@ class IHTMLAreasCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -85,7 +97,11 @@ class IHTMLAreasCollection extends IDispatch{
      * @returns {IDispatch} 
      */
     item(name, index) {
-        result := ComCall(10, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 
@@ -95,28 +111,44 @@ class IHTMLAreasCollection extends IDispatch{
      * @returns {IDispatch} 
      */
     tags(tagName) {
-        result := ComCall(11, this, "ptr", tagName, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", tagName, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 
     /**
-     * 
+     * Reserves the specified URL for non-administrator users and accounts.
      * @param {IHTMLElement} element 
      * @param {VARIANT} before 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/add-urlacl
      */
     add(element, before) {
-        result := ComCall(12, this, "ptr", element, "ptr", before, "HRESULT")
+        result := ComCall(12, this, "ptr", element, "ptr", before, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * removeConnectionEventListener Method (SQLServerPooledConnection)
+     * @remarks
+     * This removeConnectionEventListener method is specified by the removeConnectionEventListener method in the javax.sql.PooledConnection interface.
      * @param {Integer} index 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/removeconnectioneventlistener-method-sqlserverpooledconnection
      */
     remove(index) {
-        result := ComCall(13, this, "int", index, "HRESULT")
+        result := ComCall(13, this, "int", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,6 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @remarks
- * 
  * To obtain a pointer to this interface, do the following:
  * 
  * <ol>
@@ -14,9 +13,7 @@
  * <li>Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecorddescriptorbytag">IATSC_EIT::GetRecordDescriptorByTag</a> and pass in the caption service descriptor tag (0x86). If the descriptor is present, the method returns an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> pointer.</li>
  * <li>Query the returned <b>IGenericDescriptor</b> pointer for the <b>ICaptionServiceDescriptor</b> interface.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nn-atscpsipparser-icaptionservicedescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nn-atscpsipparser-icaptionservicedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -44,10 +41,14 @@ class ICaptionServiceDescriptor extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the number of caption services.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getnumberofservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getnumberofservices
      */
     GetNumberOfServices() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -55,10 +56,14 @@ class ICaptionServiceDescriptor extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} bIndex Zero-based index of the caption service. To get the number of caption services, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getnumberofservices">ICaptionServiceDescriptor::GetNumberOfServices</a>.
      * @returns {Integer} Address of a 3-byte array that receives the ISO-639 language code.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getlanguagecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getlanguagecode
      */
     GetLanguageCode(bIndex) {
-        result := ComCall(4, this, "char", bIndex, "char*", &LangCode := 0, "HRESULT")
+        result := ComCall(4, this, "char", bIndex, "char*", &LangCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LangCode
     }
 
@@ -66,10 +71,14 @@ class ICaptionServiceDescriptor extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} bIndex Zero-based index of the caption service. To get the number of caption services, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getnumberofservices">ICaptionServiceDescriptor::GetNumberOfServices</a>.
      * @returns {Integer} Receives the caption_service_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcaptionservicenumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcaptionservicenumber
      */
     GetCaptionServiceNumber(bIndex) {
-        result := ComCall(5, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char", bIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -94,10 +103,14 @@ class ICaptionServiceDescriptor extends IUnknown{
      * <td>The caption service contains DTVCC captions.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcctype
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getcctype
      */
     GetCCType(bIndex) {
-        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -122,10 +135,14 @@ class ICaptionServiceDescriptor extends IUnknown{
      * <td>The caption service contains "Easy Reader" captions.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-geteasyreader
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-geteasyreader
      */
     GetEasyReader(bIndex) {
-        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -150,10 +167,14 @@ class ICaptionServiceDescriptor extends IUnknown{
      * <td>The caption service is formatted for a 16:9 aspect ratio.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getwideaspectratio
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-icaptionservicedescriptor-getwideaspectratio
      */
     GetWideAspectRatio(bIndex) {
-        result := ComCall(8, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, "char", bIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 }

@@ -34,7 +34,11 @@ class ISurfacePresenterFlip2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRotation(dxgiRotation) {
-        result := ComCall(3, this, "int", dxgiRotation, "HRESULT")
+        result := ComCall(3, this, "int", dxgiRotation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

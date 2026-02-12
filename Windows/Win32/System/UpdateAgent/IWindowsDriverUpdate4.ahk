@@ -5,8 +5,8 @@
 #Include .\IWindowsDriverUpdate3.ahk
 
 /**
- * Contains the properties and methods that are available only from a Windows driver update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsdriverupdate4
+ * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate4)
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iwindowsdriverupdate4
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -48,20 +48,28 @@ class IWindowsDriverUpdate4 extends IWindowsDriverUpdate3{
     /**
      * Gets the driver update entries that are applicable for the update.
      * @returns {IWindowsDriverUpdateEntryCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate4-get_windowsdriverupdateentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsdriverupdate4-get_windowsdriverupdateentries
      */
     get_WindowsDriverUpdateEntries() {
-        result := ComCall(65, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(65, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWindowsDriverUpdateEntryCollection(retval)
     }
 
     /**
      * Gets a Boolean value that indicates whether an update is a per-user update.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate4-get_peruser
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsdriverupdate4-get_peruser
      */
     get_PerUser() {
-        result := ComCall(66, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(66, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

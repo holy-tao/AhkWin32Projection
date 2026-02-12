@@ -6,14 +6,11 @@
 /**
  * Use this interface to retrieve information about the current state of media allowing random writes and not supporting the concept of physical sessions.
  * @remarks
- * 
  * If more than one multi-session interface exist, the application can let <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> choose a compatible multi-session interface to use or the application can specify the multi-session interface to use by setting the <i>put_InUse</i> property to <b>VARIANT_TRUE</b>.
  * 
  * A file system creator would use the address properties to import the content of the previous session on the disc and to compute the position of the next session it will create. These properties will return the same values as the properties of the same name of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2data">IDiscFormat2Data</a> interface.
  * This is a <b>MsftMultisessionRandomWrite</b> object in script.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-imultisessionrandomwrite
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-imultisessionrandomwrite
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -60,32 +57,48 @@ class IMultisessionRandomWrite extends IMultisession{
     }
 
     /**
-     * Retrieves the size of a writeable unit on the media.
-     * @returns {Integer} The size of a writeable unit on the media.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize
+     * Retrieves the size of a writable unit on the media. (IMultisessionRandomWrite.get_WriteUnitSize)
+     * @remarks
+     * Each write performed to the disc must start from an LBA that is a multiple of the writable unit size. The number of recorded sectors must also be a multiple of the writable unit size.
+     * @returns {Integer} The size of a writable unit on the media.
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-imultisessionrandomwrite-get_writeunitsize
      */
     get_WriteUnitSize() {
-        result := ComCall(11, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the last written address on the media.
+     * @remarks
+     * This property can be used for wear-out leveling on the media. The property is retrieved from the drive and may not be provided for some media types. If the drive does not provide the required information, this property access method returns <b>E_NOTIMPL</b>.
      * @returns {Integer} The last written address on the media.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionrandomwrite-get_lastwrittenaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-imultisessionrandomwrite-get_lastwrittenaddress
      */
     get_LastWrittenAddress() {
-        result := ComCall(12, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the total number of sectors on the media.
      * @returns {Integer} The total number of sectors on the media.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionrandomwrite-get_totalsectorsonmedia
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-imultisessionrandomwrite-get_totalsectorsonmedia
      */
     get_TotalSectorsOnMedia() {
-        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

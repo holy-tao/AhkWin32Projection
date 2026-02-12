@@ -15,7 +15,7 @@
  * This is a static property meaning that it can only be set before the encoding session starts.
  * 
  * Recommended default value is 2.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideomaxnumrefframe
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencvideomaxnumrefframe
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

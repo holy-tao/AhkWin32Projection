@@ -6,7 +6,7 @@
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_CHANNELTYPE query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-querychanneltype-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-querychanneltype-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

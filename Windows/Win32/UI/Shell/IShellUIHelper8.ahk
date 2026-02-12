@@ -35,7 +35,11 @@ class IShellUIHelper8 extends IShellUIHelper7{
      */
     GetCVListData() {
         pbstrResult := BSTR()
-        result := ComCall(97, this, "ptr", pbstrResult, "HRESULT")
+        result := ComCall(97, this, "ptr", pbstrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrResult
     }
 
@@ -45,7 +49,11 @@ class IShellUIHelper8 extends IShellUIHelper7{
      */
     GetCVListLocalData() {
         pbstrResult := BSTR()
-        result := ComCall(98, this, "ptr", pbstrResult, "HRESULT")
+        result := ComCall(98, this, "ptr", pbstrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrResult
     }
 
@@ -55,7 +63,11 @@ class IShellUIHelper8 extends IShellUIHelper7{
      */
     GetEMIEListData() {
         pbstrResult := BSTR()
-        result := ComCall(99, this, "ptr", pbstrResult, "HRESULT")
+        result := ComCall(99, this, "ptr", pbstrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrResult
     }
 
@@ -65,7 +77,11 @@ class IShellUIHelper8 extends IShellUIHelper7{
      */
     GetEMIEListLocalData() {
         pbstrResult := BSTR()
-        result := ComCall(100, this, "ptr", pbstrResult, "HRESULT")
+        result := ComCall(100, this, "ptr", pbstrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrResult
     }
 
@@ -74,7 +90,11 @@ class IShellUIHelper8 extends IShellUIHelper7{
      * @returns {HRESULT} 
      */
     OpenFavoritesPane() {
-        result := ComCall(101, this, "HRESULT")
+        result := ComCall(101, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +103,11 @@ class IShellUIHelper8 extends IShellUIHelper7{
      * @returns {HRESULT} 
      */
     OpenFavoritesSettings() {
-        result := ComCall(102, this, "HRESULT")
+        result := ComCall(102, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,9 +117,16 @@ class IShellUIHelper8 extends IShellUIHelper7{
      * @returns {HRESULT} 
      */
     LaunchInHVSI(bstrUrl) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(103, this, "ptr", bstrUrl, "HRESULT")
+        result := ComCall(103, this, "ptr", bstrUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

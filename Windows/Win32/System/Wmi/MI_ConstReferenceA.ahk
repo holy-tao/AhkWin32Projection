@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Instance types. (MI_ConstReferenceA)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constreferencea
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_constreferencea
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

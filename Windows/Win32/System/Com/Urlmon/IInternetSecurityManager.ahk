@@ -36,7 +36,11 @@ class IInternetSecurityManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSecuritySite(pSite) {
-        result := ComCall(3, this, "ptr", pSite, "HRESULT")
+        result := ComCall(3, this, "ptr", pSite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IInternetSecurityManager extends IUnknown{
      * @returns {IInternetSecurityMgrSite} 
      */
     GetSecuritySite() {
-        result := ComCall(4, this, "ptr*", &ppSite := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppSite := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInternetSecurityMgrSite(ppSite)
     }
 
@@ -58,7 +66,11 @@ class IInternetSecurityManager extends IUnknown{
     MapUrlToZone(pwszUrl, dwFlags) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := ComCall(5, this, "ptr", pwszUrl, "uint*", &pdwZone := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszUrl, "uint*", &pdwZone := 0, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwZone
     }
 
@@ -74,7 +86,11 @@ class IInternetSecurityManager extends IUnknown{
 
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszUrl, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszUrl, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSecurityId
     }
 
@@ -94,7 +110,11 @@ class IInternetSecurityManager extends IUnknown{
 
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPolicy
     }
 
@@ -116,7 +136,11 @@ class IInternetSecurityManager extends IUnknown{
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwszUrl, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszUrl, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +154,11 @@ class IInternetSecurityManager extends IUnknown{
     SetZoneMapping(dwZone, lpszPattern, dwFlags) {
         lpszPattern := lpszPattern is String ? StrPtr(lpszPattern) : lpszPattern
 
-        result := ComCall(9, this, "uint", dwZone, "ptr", lpszPattern, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "uint", dwZone, "ptr", lpszPattern, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,7 +169,11 @@ class IInternetSecurityManager extends IUnknown{
      * @returns {IEnumString} 
      */
     GetZoneMappings(dwZone, dwFlags) {
-        result := ComCall(10, this, "uint", dwZone, "ptr*", &ppenumString := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "uint", dwZone, "ptr*", &ppenumString := 0, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumString(ppenumString)
     }
 }

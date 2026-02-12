@@ -3,7 +3,7 @@
 
 /**
  * contains information about digest signing.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-digest-sign-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-digest-sign-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

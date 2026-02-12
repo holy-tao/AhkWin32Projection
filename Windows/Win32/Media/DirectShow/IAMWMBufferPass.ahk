@@ -5,7 +5,7 @@
 
 /**
  * The IAMWMBufferPass interface is implemented on the output pins of the WM ASF Reader and the input pins of the WM ASF Writer.
- * @see https://docs.microsoft.com/windows/win32/api//dshowasf/nn-dshowasf-iamwmbufferpass
+ * @see https://learn.microsoft.com/windows/win32/api//content/dshowasf/nn-dshowasf-iamwmbufferpass
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,12 +32,18 @@ class IAMWMBufferPass extends IUnknown{
 
     /**
      * The SetNotify method is used by applications to provide the WM ASF Writer or WM ASF Reader filter with a pointer to the application's IAMWMBufferPassCallback interface.
+     * @remarks
+     * Call this method before putting the filter graph into the run state.
      * @param {IAMWMBufferPassCallback} pCallback Pointer to the application's <b>IAMWMBufferPassCallback</b> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dshowasf/nf-dshowasf-iamwmbufferpass-setnotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/dshowasf/nf-dshowasf-iamwmbufferpass-setnotify
      */
     SetNotify(pCallback) {
-        result := ComCall(3, this, "ptr", pCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", pCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The ITQOSEvent interface contains methods that retrieve the description of quality of service (QOS) events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itqosevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itqosevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -54,32 +54,48 @@ class ITQOSEvent extends IDispatch{
 
     /**
      * The get_Call method gets a pointer to the ITCallInfo interface for the call on which the QOS event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface returned by <b>tapi3.itqosevent_get_call</b>. The application must call <b>Release</b> on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface to free resources associated with it.
      * @returns {ITCallInfo} Points to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itqosevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itqosevent-get_call
      */
     get_Call() {
-        result := ComCall(7, this, "ptr*", &ppCall := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppCall := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITCallInfo(ppCall)
     }
 
     /**
      * The get_Event method gets the QOS_EVENT indicator.
      * @returns {Integer} Indicator of the QOS event type.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itqosevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itqosevent-get_event
      */
     get_Event() {
-        result := ComCall(8, this, "int*", &pQosEvent := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pQosEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pQosEvent
     }
 
     /**
      * The get_MediaType method gets the media type indicator.
      * @returns {Integer} Indicates the media type for the call on which the QOS event occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itqosevent-get_mediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itqosevent-get_mediatype
      */
     get_MediaType() {
-        result := ComCall(9, this, "int*", &plMediaType := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMediaType
     }
 }

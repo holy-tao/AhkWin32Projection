@@ -34,7 +34,11 @@ class IActiveScriptProfilerControl3 extends IActiveScriptProfilerControl2{
      * @returns {IActiveScriptProfilerHeapEnum} 
      */
     EnumHeap() {
-        result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IActiveScriptProfilerHeapEnum(ppEnum)
     }
 }

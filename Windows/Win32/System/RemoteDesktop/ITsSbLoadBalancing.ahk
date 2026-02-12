@@ -6,11 +6,8 @@
 /**
  * Exposes methods you can use to provide a custom load-balancing algorithm.
  * @remarks
- * 
  * A plug-in can implement this interface to provide a custom load-balancing algorithm.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbloadbalancing
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbloadbalancing
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -37,6 +34,10 @@ class ITsSbLoadBalancing extends ITsSbPlugin{
 
     /**
      * Determines the most suitable target to which to direct an incoming client connection.
+     * @remarks
+     * The default load-balancing algorithm in RD Connection Broker redirects an incoming connection to the server with the 
+     * fewest remote sessions. Your plug-in can use this method to override the default load-balancing algorithm. For example, you could define an algorithm that assigns connections to servers by comparing resource use on the target servers. You could also redirect the connection based on the 
+     *  information in the client connection object, such as the <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nf-sbtsv-itssbclientconnection-get_initialprogram">InitialProgram</a> property.
      * @param {ITsSbClientConnection} pConnection A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbclientconnection">ITsSbClientConnection</a> object. Information specific to a client connection, such as user name and 
      * farm name, can be obtained from this object.
      * @param {ITsSbLoadBalancingNotifySink} pLBSink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbloadbalancingnotifysink">ITsSbLoadBalancingNotifySink</a> object. If the plug-in successfully determines where to redirect the connection, it should return the load balancing result by using this sink object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbloadbalanceresult">ITsSbLoadBalanceResult</a>.
@@ -44,10 +45,14 @@ class ITsSbLoadBalancing extends ITsSbPlugin{
      * 
      * 
      * If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbloadbalancing-getmostsuitabletarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbloadbalancing-getmostsuitabletarget
      */
     GetMostSuitableTarget(pConnection, pLBSink) {
-        result := ComCall(5, this, "ptr", pConnection, "ptr", pLBSink, "HRESULT")
+        result := ComCall(5, this, "ptr", pConnection, "ptr", pLBSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

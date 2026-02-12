@@ -3,7 +3,7 @@
 
 /**
  * Define the valid CIM types of a property value.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemcimtypeenum
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemdisp/ne-wbemdisp-wbemcimtypeenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

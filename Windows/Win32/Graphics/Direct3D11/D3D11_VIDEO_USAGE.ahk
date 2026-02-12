@@ -3,7 +3,7 @@
 
 /**
  * Specifies the intended use for a video processor.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_usage
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_video_usage
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

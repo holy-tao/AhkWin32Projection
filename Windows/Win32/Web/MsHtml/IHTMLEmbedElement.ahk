@@ -98,9 +98,16 @@ class IHTMLEmbedElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hidden(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +117,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_hidden() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -120,7 +131,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_palette() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -130,7 +145,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_pluginspage() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -140,9 +159,16 @@ class IHTMLEmbedElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_src(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +178,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_src() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -162,9 +192,16 @@ class IHTMLEmbedElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_units(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -174,7 +211,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_units() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -184,9 +225,16 @@ class IHTMLEmbedElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +244,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -206,7 +258,11 @@ class IHTMLEmbedElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -216,7 +272,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -226,7 +286,11 @@ class IHTMLEmbedElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +300,11 @@ class IHTMLEmbedElement extends IDispatch{
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

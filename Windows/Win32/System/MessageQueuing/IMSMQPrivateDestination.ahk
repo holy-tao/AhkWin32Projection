@@ -43,7 +43,11 @@ class IMSMQPrivateDestination extends IDispatch{
      */
     get_Handle() {
         pvarHandle := VARIANT()
-        result := ComCall(7, this, "ptr", pvarHandle, "HRESULT")
+        result := ComCall(7, this, "ptr", pvarHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarHandle
     }
 
@@ -53,7 +57,11 @@ class IMSMQPrivateDestination extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Handle(varHandle) {
-        result := ComCall(8, this, "ptr", varHandle, "HRESULT")
+        result := ComCall(8, this, "ptr", varHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

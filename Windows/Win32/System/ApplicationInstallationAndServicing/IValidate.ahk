@@ -5,7 +5,7 @@
 
 /**
  * The IValidate interface enables authoring tools to validate a Windows Installer package against a set of Internal Consistency Evaluators.
- * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nn-evalcom2-ivalidate
+ * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nn-evalcom2-ivalidate
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IValidate extends IUnknown{
 
     /**
      * The OpenDatabase method opens a Windows Installer installation package or merge module for validation.
+     * @remarks
+     * The <b>OpenDatabase</b> method can also accept a handle to an opened database. The handle to the opened database can be provided in the form "#nnnn" where nnnn is the database handle in string form. For example, for an opened database handle 123, the method can accept #123 for the value of  <i>szDatabase</i>  instead of the path to the package.
      * @param {PWSTR} szDatabase The fully qualified path to the installation package or merge module to be opened.  The <i>szDatabase</i> parameter cannot be <b>NULL</b>.
      * @returns {HRESULT} <table>
      * <tr>
@@ -63,18 +65,24 @@ class IValidate extends IUnknown{
      * </table>
      *  
      * 
-     * This method can also return one or more of the errors returned by the <a href="/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> function. The error is converted to <b>HRESULTS</b> using the <b>HRESULT_FROM_WIN32</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-opendatabase
+     * This method can also return one or more of the errors returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> function. The error is converted to <b>HRESULTS</b> using the <b>HRESULT_FROM_WIN32</b> function.
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-opendatabase
      */
     OpenDatabase(szDatabase) {
         szDatabase := szDatabase is String ? StrPtr(szDatabase) : szDatabase
 
-        result := ComCall(3, this, "ptr", szDatabase, "HRESULT")
+        result := ComCall(3, this, "ptr", szDatabase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OpenCUB method opens an Internal Consistency Evaluator (ICE) file that is to be used for validation.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/Msi/internal-consistency-evaluators-ices">Internal Consistency Evaluator (ICE)</a> file typically has a .cub file name extension.
      * @param {PWSTR} szCUBFile The fully qualified path to the <a href="https://docs.microsoft.com/windows/desktop/Msi/internal-consistency-evaluators-ices">Internal Consistency Evaluator (ICE)</a> file to be used for validation.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -128,12 +136,16 @@ class IValidate extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-opencub
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-opencub
      */
     OpenCUB(szCUBFile) {
         szCUBFile := szCUBFile is String ? StrPtr(szCUBFile) : szCUBFile
 
-        result := ComCall(4, this, "ptr", szCUBFile, "HRESULT")
+        result := ComCall(4, this, "ptr", szCUBFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,16 +170,22 @@ class IValidate extends IUnknown{
      * </table>
      *  
      * 
-     * This method can also return one or more of the errors returned by the <a href="/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a> function. The error is converted to <b>HRESULTS</b> using the <b>HRESULT_FROM_WIN32</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-closedatabase
+     * This method can also return one or more of the errors returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a> function. The error is converted to <b>HRESULTS</b> using the <b>HRESULT_FROM_WIN32</b> function.
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-closedatabase
      */
     CloseDatabase() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CloseCUB method closes an open Internal Consistency Evaluator (ICE) .cub file. Internal Consistency Evaluator (ICE) .cub files can be opened using the OpenCUB method.
+     * @remarks
+     * The method returns S_FALSE if no .cub file has been opened using the <a href="https://docs.microsoft.com/windows/desktop/api/evalcom2/nf-evalcom2-ivalidate-opencub">OpenCUB</a> method.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -198,10 +216,14 @@ class IValidate extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-closecub
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-closecub
      */
     CloseCUB() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -239,12 +261,16 @@ class IValidate extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-setdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-setdisplay
      */
     SetDisplay(pDisplayFunction, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDisplayFunction, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(7, this, "ptr", pDisplayFunction, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,12 +297,16 @@ class IValidate extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-setstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-setstatus
      */
     SetStatus(pStatusFunction, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", pStatusFunction, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(8, this, "ptr", pStatusFunction, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -330,12 +360,16 @@ class IValidate extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evalcom2/nf-evalcom2-ivalidate-validate
+     * @see https://learn.microsoft.com/windows/win32/api//content/evalcom2/nf-evalcom2-ivalidate-validate
      */
     Validate(wzICEs) {
         wzICEs := wzICEs is String ? StrPtr(wzICEs) : wzICEs
 
-        result := ComCall(9, this, "ptr", wzICEs, "HRESULT")
+        result := ComCall(9, this, "ptr", wzICEs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

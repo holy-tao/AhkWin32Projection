@@ -83,9 +83,16 @@ class ILayoutRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_nextRect(bstrElementId) {
-        bstrElementId := bstrElementId is String ? BSTR.Alloc(bstrElementId).Value : bstrElementId
+        if(bstrElementId is String) {
+            pin := BSTR.Alloc(bstrElementId)
+            bstrElementId := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrElementId, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrElementId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +102,11 @@ class ILayoutRect extends IDispatch{
      */
     get_nextRect() {
         pbstrElementId := BSTR()
-        result := ComCall(8, this, "ptr", pbstrElementId, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrElementId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrElementId
     }
 
@@ -105,7 +116,11 @@ class ILayoutRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_contentSrc(varContentSrc) {
-        result := ComCall(9, this, "ptr", varContentSrc, "HRESULT")
+        result := ComCall(9, this, "ptr", varContentSrc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +130,11 @@ class ILayoutRect extends IDispatch{
      */
     get_contentSrc() {
         pvarContentSrc := VARIANT()
-        result := ComCall(10, this, "ptr", pvarContentSrc, "HRESULT")
+        result := ComCall(10, this, "ptr", pvarContentSrc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarContentSrc
     }
 
@@ -125,7 +144,11 @@ class ILayoutRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_honorPageBreaks(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +157,11 @@ class ILayoutRect extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_honorPageBreaks() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -144,7 +171,11 @@ class ILayoutRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_honorPageRules(v) {
-        result := ComCall(13, this, "short", v, "HRESULT")
+        result := ComCall(13, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +184,11 @@ class ILayoutRect extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_honorPageRules() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -163,7 +198,11 @@ class ILayoutRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_nextRectElement(pElem) {
-        result := ComCall(15, this, "ptr", pElem, "HRESULT")
+        result := ComCall(15, this, "ptr", pElem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,7 +211,11 @@ class ILayoutRect extends IDispatch{
      * @returns {IDispatch} 
      */
     get_nextRectElement() {
-        result := ComCall(16, this, "ptr*", &ppElem := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppElem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppElem)
     }
 
@@ -181,7 +224,11 @@ class ILayoutRect extends IDispatch{
      * @returns {IDispatch} 
      */
     get_contentDocument() {
-        result := ComCall(17, this, "ptr*", &pDoc := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &pDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pDoc)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * The HYPOTHESIS structure contains data used to submit a hypothesis to NDF for another helper class.
- * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-hypothesis
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndhelper/ns-ndhelper-hypothesis
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The THDTYPE (objidlbase.h) enumeration indicates whether a particular thread supports a message loop.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-thdtype
+ * The THDTYPE enumeration (objidl.h) indicates whether a particular thread supports a message loop.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-thdtype
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

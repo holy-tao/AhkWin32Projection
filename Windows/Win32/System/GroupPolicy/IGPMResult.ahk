@@ -7,7 +7,7 @@
 
 /**
  * The IGPMResult interface contains methods to retrieve status message information while performing various types of GPO processing operations such as restore, import, copy and backup.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmresult
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -57,7 +57,11 @@ class IGPMResult extends IDispatch{
      * @returns {IGPMStatusMsgCollection} 
      */
     get_Status() {
-        result := ComCall(7, this, "ptr*", &ppIGPMStatusMsgCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppIGPMStatusMsgCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMStatusMsgCollection(ppIGPMStatusMsgCollection)
     }
 
@@ -67,7 +71,11 @@ class IGPMResult extends IDispatch{
      */
     get_Result() {
         pvarResult := VARIANT()
-        result := ComCall(8, this, "ptr", pvarResult, "HRESULT")
+        result := ComCall(8, this, "ptr", pvarResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarResult
     }
 
@@ -78,10 +86,14 @@ class IGPMResult extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmresult-overallstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmresult-overallstatus
      */
     OverallStatus() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

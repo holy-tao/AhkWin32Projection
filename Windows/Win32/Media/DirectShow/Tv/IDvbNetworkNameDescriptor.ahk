@@ -6,7 +6,7 @@
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) network name descriptor. The network name descriptor gets text format information about the network that originated the broadcast.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbnetworknamedescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbnetworknamedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -34,30 +34,42 @@ class IDvbNetworkNameDescriptor extends IUnknown{
     /**
      * Gets the tag that identifies a Digital Video Broadcast (DVB) network name descriptor.
      * @returns {Integer} Receives the identifier tag. For DVB network name descriptors, this value is "0x40".
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the body length of a Digital Video Broadcast (DVB) network name descriptor.
      * @returns {Integer} Receives the descriptor length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the network name, in ASCII string format, from a Digital Video Broadcast (DVB) network name descriptor.
      * @returns {Pointer<Integer>} Pointer to a buffer that receives the network name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getnetworkname
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getnetworkname
      */
     GetNetworkName() {
-        result := ComCall(5, this, "ptr*", &pszName := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &pszName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszName
     }
 
@@ -65,11 +77,15 @@ class IDvbNetworkNameDescriptor extends IUnknown{
      * Gets the network name, in Unicode string format, from a Digital Video Broadcast (DVB) network name descriptor.
      * @param {Integer} convMode 
      * @returns {BSTR} Pointer to a string buffer that receives the network name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getnetworknamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getnetworknamew
      */
     GetNetworkNameW(convMode) {
         pbstrName := BSTR()
-        result := ComCall(6, this, "int", convMode, "ptr", pbstrName, "HRESULT")
+        result := ComCall(6, this, "int", convMode, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 }

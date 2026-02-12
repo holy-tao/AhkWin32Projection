@@ -42,7 +42,11 @@ class IHTMLWindow4 extends IDispatch{
      * @returns {IDispatch} 
      */
     createPopup(varArgIn) {
-        result := ComCall(7, this, "ptr", varArgIn, "ptr*", &ppPopup := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", varArgIn, "ptr*", &ppPopup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppPopup)
     }
 
@@ -51,7 +55,11 @@ class IHTMLWindow4 extends IDispatch{
      * @returns {IHTMLFrameBase} 
      */
     get_frameElement() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFrameBase(p)
     }
 }

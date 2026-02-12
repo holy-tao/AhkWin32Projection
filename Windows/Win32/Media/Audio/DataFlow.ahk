@@ -13,7 +13,7 @@
  * The topology of a capture endpoint device (for example, a microphone) has a single connector with data-flow direction "Out" through which audio data exits the device.
  * 
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
- * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-dataflow
+ * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/ne-devicetopology-dataflow
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

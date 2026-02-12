@@ -12,7 +12,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_FLAG</a> cannot be used when creating resources with <b>D3D11_CPU_ACCESS</b> flags.
  * 
  * On non-unified memory architecture systems (discrete GPUs), apps should not use mappable default buffers if the compute shader code accesses the same byte in a default buffer more than once - sending the data across the bus multiple times eliminates the performance gained by mapping the default buffer instead of copying it.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Manages all Remote Desktop Connection (RDC) client plug-ins and dynamic virtual channel (DVC) listeners.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelmanager
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -37,12 +37,16 @@ class IWTSVirtualChannelManager extends IUnknown{
      * @param {Integer} uFlags This parameter is reserved and must be set to zero.
      * @param {IWTSListenerCallback} pListenerCallback Returns a listener callback (<a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtslistenercallback">IWTSListenerCallback</a>)  that will receive notifications for incoming connections.
      * @returns {IWTSListener} An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtslistener">IWTSListener</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelmanager-createlistener
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannelmanager-createlistener
      */
     CreateListener(pszChannelName, uFlags, pListenerCallback) {
         pszChannelName := pszChannelName is String ? StrPtr(pszChannelName) : pszChannelName
 
-        result := ComCall(3, this, "ptr", pszChannelName, "uint", uFlags, "ptr", pListenerCallback, "ptr*", &ppListener := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszChannelName, "uint", uFlags, "ptr", pListenerCallback, "ptr*", &ppListener := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWTSListener(ppListener)
     }
 }

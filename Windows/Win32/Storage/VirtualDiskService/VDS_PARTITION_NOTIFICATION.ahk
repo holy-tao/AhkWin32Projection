@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_PARTITION_NOTIFICATION structure (vdshwprv.h) defines the details of partition events.
+ * The VDS_PARTITION_NOTIFICATION structure (vds.h) defines the details of partition events.
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
  *     structure as a member.
@@ -11,7 +11,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsadvisesink">IVdsAdviseSink</a> interface and passing the interface 
  *     pointer as an argument to the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-advise">IVdsService::Advise</a> 
  *     method.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_partition_notification
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_partition_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

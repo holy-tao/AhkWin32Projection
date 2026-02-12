@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -118,9 +119,12 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(96, this)
+            return this.__lCustData
+        }
     }
 
     /**

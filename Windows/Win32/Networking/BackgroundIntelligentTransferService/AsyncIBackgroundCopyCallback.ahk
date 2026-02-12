@@ -40,7 +40,11 @@ class AsyncIBackgroundCopyCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_JobTransferred(pJob) {
-        result := ComCall(3, this, "ptr", pJob, "HRESULT")
+        result := ComCall(3, this, "ptr", pJob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIBackgroundCopyCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_JobTransferred() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class AsyncIBackgroundCopyCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_JobError(pJob, pError) {
-        result := ComCall(5, this, "ptr", pJob, "ptr", pError, "HRESULT")
+        result := ComCall(5, this, "ptr", pJob, "ptr", pError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class AsyncIBackgroundCopyCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_JobError() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class AsyncIBackgroundCopyCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_JobModification(pJob, dwReserved) {
-        result := ComCall(7, this, "ptr", pJob, "uint", dwReserved, "HRESULT")
+        result := ComCall(7, this, "ptr", pJob, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +109,11 @@ class AsyncIBackgroundCopyCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_JobModification() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

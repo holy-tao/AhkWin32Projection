@@ -64,7 +64,11 @@ class IHTMLCurrentStyle3 extends IDispatch{
      */
     get_textOverflow() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -74,7 +78,11 @@ class IHTMLCurrentStyle3 extends IDispatch{
      */
     get_minHeight() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -84,7 +92,11 @@ class IHTMLCurrentStyle3 extends IDispatch{
      */
     get_wordSpacing() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -94,7 +106,11 @@ class IHTMLCurrentStyle3 extends IDispatch{
      */
     get_whiteSpace() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

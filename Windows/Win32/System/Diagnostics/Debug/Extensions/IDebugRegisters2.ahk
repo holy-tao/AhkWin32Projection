@@ -34,25 +34,34 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberRegisters() {
-        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(3, this, "uint*", &Number_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Number_
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
      * @param {Integer} Register 
      * @param {PSTR} NameBuffer 
      * @param {Integer} NameBufferSize 
      * @param {Pointer<Integer>} NameSize 
      * @param {Pointer<DEBUG_REGISTER_DESCRIPTION>} Desc 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription(Register, NameBuffer, NameBufferSize, NameSize, Desc) {
         NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "HRESULT")
+        result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,29 +73,43 @@ class IDebugRegisters2 extends IUnknown{
     GetIndexByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(5, this, "ptr", Name, "uint*", &Index := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", Name, "uint*", &Index := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Index
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Integer} Register 
      * @returns {DEBUG_VALUE} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Register) {
         Value := DEBUG_VALUE()
-        result := ComCall(6, this, "uint", Register, "ptr", Value, "HRESULT")
+        result := ComCall(6, this, "uint", Register, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
     /**
-     * 
+     * SetValue Method (ServerSettingsGeneralFlag Class)
      * @param {Integer} Register 
      * @param {Pointer<DEBUG_VALUE>} Value 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/wmi-provider-configuration-classes/serversettingsgeneralflag-class/setvalue-method-serversettingsgeneralflag-class
      */
     SetValue(Register, Value) {
-        result := ComCall(7, this, "uint", Register, "ptr", Value, "HRESULT")
+        result := ComCall(7, this, "uint", Register, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +124,11 @@ class IDebugRegisters2 extends IUnknown{
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(8, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(8, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Values
     }
 
@@ -116,7 +143,11 @@ class IDebugRegisters2 extends IUnknown{
     SetValues(Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(9, this, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +158,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputRegisters(OutputControl, Flags) {
-        result := ComCall(10, this, "uint", OutputControl, "uint", Flags, "HRESULT")
+        result := ComCall(10, this, "uint", OutputControl, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,7 +171,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetInstructionOffset() {
-        result := ComCall(11, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -145,7 +184,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetStackOffset() {
-        result := ComCall(12, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -154,7 +197,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetFrameOffset() {
-        result := ComCall(13, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -172,7 +219,11 @@ class IDebugRegisters2 extends IUnknown{
 
         NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "HRESULT")
+        result := ComCall(14, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, "ptr", Desc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +235,11 @@ class IDebugRegisters2 extends IUnknown{
     GetIndexByNameWide(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(15, this, "ptr", Name, "uint*", &Index := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", Name, "uint*", &Index := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Index
     }
 
@@ -193,8 +248,12 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberPseudoRegisters() {
-        result := ComCall(16, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(16, this, "uint*", &Number_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Number_
     }
 
     /**
@@ -214,7 +273,11 @@ class IDebugRegisters2 extends IUnknown{
         TypeModuleMarshal := TypeModule is VarRef ? "uint*" : "ptr"
         TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "HRESULT")
+        result := ComCall(17, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -235,7 +298,11 @@ class IDebugRegisters2 extends IUnknown{
         TypeModuleMarshal := TypeModule is VarRef ? "uint*" : "ptr"
         TypeIdMarshal := TypeId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "HRESULT")
+        result := ComCall(18, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, NameSizeMarshal, NameSize, TypeModuleMarshal, TypeModule, TypeIdMarshal, TypeId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -247,7 +314,11 @@ class IDebugRegisters2 extends IUnknown{
     GetPseudoIndexByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(19, this, "ptr", Name, "uint*", &Index := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", Name, "uint*", &Index := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Index
     }
 
@@ -259,7 +330,11 @@ class IDebugRegisters2 extends IUnknown{
     GetPseudoIndexByNameWide(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(20, this, "ptr", Name, "uint*", &Index := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", Name, "uint*", &Index := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Index
     }
 
@@ -275,7 +350,11 @@ class IDebugRegisters2 extends IUnknown{
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(21, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(21, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Values
     }
 
@@ -291,7 +370,11 @@ class IDebugRegisters2 extends IUnknown{
     SetPseudoValues(Source, Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(22, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -307,7 +390,11 @@ class IDebugRegisters2 extends IUnknown{
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
         Values := DEBUG_VALUE()
-        result := ComCall(23, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(23, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Values
     }
 
@@ -323,7 +410,11 @@ class IDebugRegisters2 extends IUnknown{
     SetValues2(Source, Count, Indices, Start, Values) {
         IndicesMarshal := Indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "HRESULT")
+        result := ComCall(24, this, "uint", Source, "uint", Count, IndicesMarshal, Indices, "uint", Start, "ptr", Values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -335,7 +426,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputRegisters2(OutputControl, Source, Flags) {
-        result := ComCall(25, this, "uint", OutputControl, "uint", Source, "uint", Flags, "HRESULT")
+        result := ComCall(25, this, "uint", OutputControl, "uint", Source, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -345,7 +440,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetInstructionOffset2(Source) {
-        result := ComCall(26, this, "uint", Source, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(26, this, "uint", Source, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -355,7 +454,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetStackOffset2(Source) {
-        result := ComCall(27, this, "uint", Source, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(27, this, "uint", Source, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -365,7 +468,11 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {Integer} 
      */
     GetFrameOffset2(Source) {
-        result := ComCall(28, this, "uint", Source, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(28, this, "uint", Source, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 }

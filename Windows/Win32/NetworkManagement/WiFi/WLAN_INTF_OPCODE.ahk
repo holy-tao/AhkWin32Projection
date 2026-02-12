@@ -5,7 +5,7 @@
  * The WLAN_INTF_OPCODE enumeration defines various opcodes used to set and query parameters on a wireless interface.
  * @remarks
  * The <b>WLAN_INTF_OPCODE</b> enumerated type defines the possible opcodes that can be passed in the <i>OpCode</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanqueryinterface">WlanQueryInterface</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetinterface">WlanSetInterface</a> functions to query or set parameters on a wireless interface.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/ne-wlanapi-wlan_intf_opcode~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

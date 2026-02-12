@@ -30,12 +30,27 @@ class ITimerService extends IUnknown{
     static VTableNames => ["CreateTimer", "GetNamedTimer", "SetNamedTimerReference"]
 
     /**
+     * Creates a queue for timers.
+     * @remarks
+     * To add a timer to the queue, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueuetimer">CreateTimerQueueTimer</a> function. To remove a timer from the queue, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueuetimer">DeleteTimerQueueTimer</a> function.
      * 
+     * When you are finished with the queue of timers, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/threadpoollegacyapiset/nf-threadpoollegacyapiset-deletetimerqueueex">DeleteTimerQueueEx</a> function to delete the timer queue. Any pending timers in the queue are canceled and deleted.
+     * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {ITimer} pReferenceTimer 
      * @returns {ITimer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/threadpoollegacyapiset/nf-threadpoollegacyapiset-createtimerqueue
      */
     CreateTimer(pReferenceTimer) {
-        result := ComCall(3, this, "ptr", pReferenceTimer, "ptr*", &ppNewTimer := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pReferenceTimer, "ptr*", &ppNewTimer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITimer(ppNewTimer)
     }
 
@@ -45,7 +60,11 @@ class ITimerService extends IUnknown{
      * @returns {ITimer} 
      */
     GetNamedTimer(rguidName) {
-        result := ComCall(4, this, "ptr", rguidName, "ptr*", &ppTimer := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", rguidName, "ptr*", &ppTimer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITimer(ppTimer)
     }
 
@@ -56,7 +75,11 @@ class ITimerService extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNamedTimerReference(rguidName, pReferenceTimer) {
-        result := ComCall(5, this, "ptr", rguidName, "ptr", pReferenceTimer, "HRESULT")
+        result := ComCall(5, this, "ptr", rguidName, "ptr", pReferenceTimer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

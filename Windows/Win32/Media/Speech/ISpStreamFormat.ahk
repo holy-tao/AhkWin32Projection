@@ -29,12 +29,17 @@ class ISpStreamFormat extends IStream{
     static VTableNames => ["GetFormat"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
      * @param {Pointer<Guid>} pguidFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pguidFormatId) {
-        result := ComCall(14, this, "ptr", pguidFormatId, "ptr*", &ppCoMemWaveFormatEx := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pguidFormatId, "ptr*", &ppCoMemWaveFormatEx := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCoMemWaveFormatEx
     }
 }

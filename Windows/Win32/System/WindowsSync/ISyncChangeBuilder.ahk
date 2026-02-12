@@ -5,7 +5,7 @@
 
 /**
  * Provides additional data for an item change.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebuilder
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncchangebuilder
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -94,12 +94,16 @@ class ISyncChangeBuilder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebuilder-addchangeunitmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebuilder-addchangeunitmetadata
      */
     AddChangeUnitMetadata(pbChangeUnitId, pChangeUnitVersion) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", pChangeUnitVersion, "HRESULT")
+        result := ComCall(3, this, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", pChangeUnitVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

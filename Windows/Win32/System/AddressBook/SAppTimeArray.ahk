@@ -5,7 +5,7 @@
  * Contains an array of time values. The SAppTimeArray structure is used to define properties of type PT_MV_APPTIME.
  * @remarks
  * The **SAppTimeArray** structure is used to define properties of type PT_MV_APPTIME. For more information about PT_MV_APPTIME, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sapptimearray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sapptimearray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

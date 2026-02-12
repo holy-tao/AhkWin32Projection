@@ -38,7 +38,7 @@
  * <c>/s:Envelope/s:Header/d:AppSequence/@MessageNumber</c>
  * 
  * This setting identifies a message within the context of a sequence identifier and an instance identifier. must be incremented by a value of at least 1 for each message sent. Retransmission of this message at the transport level must maintain this value.
- * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_app_sequence
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdtypes/ns-wsdtypes-wsd_app_sequence
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

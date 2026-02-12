@@ -9,7 +9,7 @@
  * The button count is the number of radio buttons in the group. The structures for the other radio buttons in the group must be in subsequent rows in the display table. Each of these structures should have the same value for its button count.
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblradiobutton
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblradiobutton
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

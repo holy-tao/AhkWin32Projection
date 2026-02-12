@@ -4,8 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Represents a single entry in the present statistics queue.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentstatistics
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nn-presentation-ipresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */
@@ -31,9 +33,11 @@ class IPresentStatistics extends IUnknown{
     static VTableNames => ["GetPresentId", "GetKind"]
 
     /**
+     * Gets the identifier of the present to which this statistic corresponds.
+     * @returns {Integer} Type: **[UINT64](/windows/desktop/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentstatistics-getpresentid
+     * The identifier of the present to which this statistic corresponds.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentstatistics-getpresentid
      */
     GetPresentId() {
         result := ComCall(3, this, "uint")
@@ -41,9 +45,11 @@ class IPresentStatistics extends IUnknown{
     }
 
     /**
+     * Gets the specific kind of present statistics to which this data corresponds.
+     * @returns {Integer} Type: **[PresentStatisticsKind](../presentationtypes/ne-presentationtypes-presentstatisticskind.md)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentstatistics-getkind
+     * The specific kind of present statistics to which this data corresponds.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentstatistics-getkind
      */
     GetKind() {
         result := ComCall(4, this, "int")

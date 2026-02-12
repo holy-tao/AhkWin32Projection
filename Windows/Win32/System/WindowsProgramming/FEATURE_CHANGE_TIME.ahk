@@ -3,7 +3,7 @@
 
 /**
  * This enumeration is intended for infrastructure use only. (FEATURE_CHANGE_TIME)
- * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/ne-featurestagingapi-feature_change_time
+ * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/ne-featurestagingapi-feature_change_time
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

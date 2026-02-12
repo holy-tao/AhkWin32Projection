@@ -10,7 +10,7 @@
  * If *radiusX* is greater than or equal to half the width of the rectangle, and *radiusY* is greater than or equal to one-half the height, then the rounded rectangle is an ellipse with the same width and height of *rect*.
  * 
  * Even when both *radiusX* and *radiusY* are zero, the rounded rectangle is different from a rectangle. When stroked, the corners of the rounded rectangle are roundly joined, not mitered (square).
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_rounded_rect
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ns-d2d1-d2d1_rounded_rect
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

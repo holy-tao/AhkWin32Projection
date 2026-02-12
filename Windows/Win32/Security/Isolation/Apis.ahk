@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation
@@ -11,7 +13,7 @@ class Isolation {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WDAG_CLIPBOARD_TAG => "CrossIsolatedEnvironmentContent"
 ;@endregion Constants
@@ -29,7 +31,7 @@ class Isolation {
      * @returns {BOOL} If the function succeeds, the function returns a value of <b>TRUE</b>. 
      * 
      * If the function fails, it returns a value of <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/securityappcontainer/nf-securityappcontainer-getappcontainernamedobjectpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/securityappcontainer/nf-securityappcontainer-getappcontainernamedobjectpath
      * @since windows8.0
      */
     static GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, ObjectPath, ReturnLength) {
@@ -86,7 +88,7 @@ class Isolation {
      * @returns {BOOL} `[out]`
      * 
      * A pointer to a boolean value that receives the result of the API. This parameter will be `true` if the process is in an Isolated Windows Environment, `false` otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
+     * @see https://learn.microsoft.com/windows/win32/api//content/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
     static IsProcessInIsolatedWindowsEnvironment() {
         result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "int*", &isProcessInIsolatedWindowsEnvironment := 0, "int")
@@ -111,7 +113,7 @@ class Isolation {
      * @returns {BOOL} `[out]`
      * 
      * A pointer to a boolean value that receives the result of the API. This parameter will be `true` if the clipboard content came from the other side of a WDAG boundary, `false` otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
     static IsCrossIsolatedEnvironmentClipboardContent() {
         result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "int*", &isCrossIsolatedEnvironmentClipboardContent := 0, "int")
@@ -134,7 +136,7 @@ class Isolation {
      * @param {Pointer<SID_AND_ATTRIBUTES>} pCapabilities The SIDs that define the requested capabilities.
      * @param {Integer} dwCapabilityCount The number of SIDs in <i>pCapabilities</i>.
      * @returns {PSID} The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-createappcontainerprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-createappcontainerprofile
      * @since windows8.0
      */
     static CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescription, pCapabilities, dwCapabilityCount) {
@@ -200,7 +202,7 @@ class Isolation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deleteappcontainerprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-deleteappcontainerprofile
      * @since windows8.0
      */
     static DeleteAppContainerProfile(pszAppContainerName) {
@@ -224,7 +226,7 @@ class Isolation {
      * @returns {HKEY} Type: <b>PHKEY</b>
      * 
      * A pointer to an HKEY that, when this function returns successfully, receives the registry storage location for the current profile.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappcontainerregistrylocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getappcontainerregistrylocation
      * @since windows8.0
      */
     static GetAppContainerRegistryLocation(desiredAccess) {
@@ -245,7 +247,7 @@ class Isolation {
      * If a thread token is set, this function uses the app container for the current user. If no thread token is set, this function uses the app container associated with the process identity.
      * @param {PWSTR} pszAppContainerSid A pointer to the SID of the app container.
      * @returns {PWSTR} The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getappcontainerfolderpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getappcontainerfolderpath
      * @since windows8.0
      */
     static GetAppContainerFolderPath(pszAppContainerSid) {
@@ -264,7 +266,7 @@ class Isolation {
      * @param {PSID} psidAppContainerSid Reserved.
      * @param {PWSTR} pszRestrictedAppContainerName Reserved.
      * @returns {PSID} Reserved.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
      * @since windows10.0.10240
      */
     static DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid, pszRestrictedAppContainerName) {
@@ -282,7 +284,7 @@ class Isolation {
      * Gets the SID of the specified profile.
      * @param {PWSTR} pszAppContainerName The name of the profile.
      * @returns {PSID} The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deriveappcontainersidfromappcontainername
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-deriveappcontainersidfromappcontainername
      * @since windows8.0
      */
     static DeriveAppContainerSidFromAppContainerName(pszAppContainerName) {

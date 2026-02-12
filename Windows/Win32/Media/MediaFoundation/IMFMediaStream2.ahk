@@ -34,7 +34,11 @@ class IMFMediaStream2 extends IMFMediaStream{
      * @returns {HRESULT} 
      */
     SetStreamState(value) {
-        result := ComCall(10, this, "int", value, "HRESULT")
+        result := ComCall(10, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IMFMediaStream2 extends IMFMediaStream{
      * @returns {Integer} 
      */
     GetStreamState() {
-        result := ComCall(11, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

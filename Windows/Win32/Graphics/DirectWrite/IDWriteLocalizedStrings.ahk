@@ -6,7 +6,6 @@
 /**
  * Represents a collection of strings indexed by locale name.
  * @remarks
- * 
  * The set of strings represented by an <b>IDWriteLocalizedStrings</b> are indexed by a zero based <i>UINT32</i> number that maps to a locale.  The numeric index for a specific locale is retreived by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-findlocalename">FindLocaleName</a> method.
  * 
  * A common use for the <b>IDWriteLocalizedStrings</b> interface is to hold a list of localized font family names created by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfamily-getfamilynames">IDWriteFontFamily::GetFamilyNames</a> method.  The following example shows how to get the family name for the "en-us" locale.
@@ -68,9 +67,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritelocalizedstrings
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritelocalizedstrings
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -100,7 +97,7 @@ class IDWriteLocalizedStrings extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The number of language/string pairs.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalizedstrings-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalizedstrings-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint")
@@ -109,6 +106,37 @@ class IDWriteLocalizedStrings extends IUnknown{
 
     /**
      * Gets the zero-based index of the locale name/string pair with the specified locale name.
+     * @remarks
+     * Note that if the locale name does not exist, the return value is a success and the <i>exists</i> parameter is <b>FALSE</b>. If you are getting the font family name for a font and the specified locale name does not exist, one option is to set the index to 0 as shown below.  There is always at least one locale for a font family.
+     * 
+     * 
+     * ```cpp
+     * UINT32 index = 0;
+     * BOOL exists = false;
+     * 
+     * wchar_t localeName[LOCALE_NAME_MAX_LENGTH];
+     * 
+     * if (SUCCEEDED(hr))
+     * {
+     *     // Get the default locale for this user.
+     *     int defaultLocaleSuccess = GetUserDefaultLocaleName(localeName, LOCALE_NAME_MAX_LENGTH);
+     * 
+     *     // If the default locale is returned, find that locale name, otherwise use "en-us".
+     *     if (defaultLocaleSuccess)
+     *     {
+     *         hr = pFamilyNames->FindLocaleName(localeName, &index, &exists);
+     *     }
+     *     if (SUCCEEDED(hr) && !exists) // if the above find did not find a match, retry with US English
+     *     {
+     *         hr = pFamilyNames->FindLocaleName(L"en-us", &index, &exists);
+     *     }
+     * }
+     * 
+     * // If the specified locale doesn't exist, select the first on the list.
+     * if (!exists)
+     *     index = 0;
+     * 
+     * ```
      * @param {PWSTR} localeName Type: <b>const WCHAR*</b>
      * 
      * A null-terminated array of characters containing the locale name to look for.
@@ -122,7 +150,7 @@ class IDWriteLocalizedStrings extends IUnknown{
      * 
      * If the specified locale name does not exist, the return value is <b>S_OK</b>, 
      *      but <i>index</i> is <b>UINT_MAX</b> and <i>exists</i> is <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalizedstrings-findlocalename
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalizedstrings-findlocalename
      */
     FindLocaleName(localeName, index, exists) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -130,85 +158,159 @@ class IDWriteLocalizedStrings extends IUnknown{
         indexMarshal := index is VarRef ? "uint*" : "ptr"
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", localeName, indexMarshal, index, existsMarshal, exists, "HRESULT")
+        result := ComCall(4, this, "ptr", localeName, indexMarshal, index, existsMarshal, exists, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the length in characters (not including the null terminator) of the locale name with the specified index.
+     * Gets the length in characters (not including the null terminator) of the locale name with the specified index. (IDWriteLocalizedStrings.GetLocaleNameLength)
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * Zero-based index of the locale name to be retrieved.
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * When this method returns, contains the length in characters of the locale name, not including the null terminator.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalizedstrings-getlocalenamelength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalizedstrings-getlocalenamelength
      */
     GetLocaleNameLength(index) {
-        result := ComCall(5, this, "uint", index, "uint*", &length := 0, "HRESULT")
+        result := ComCall(5, this, "uint", index, "uint*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
     /**
-     * Copies the locale name with the specified index to the specified array.
+     * Copies the locale name with the specified index to the specified array. (IDWriteLocalizedStrings.GetLocaleName)
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * Zero-based index of the locale name to be retrieved.
      * @param {PWSTR} localeName Type: <b>WCHAR*</b>
      * 
      * When this method returns, contains a character array, which is null-terminated, that receives the locale name from the language/string pair.  The buffer allocated for this array must be at least the size of <i>size</i>, in element count.
-     * @param {Integer} size Type: <b>UINT32</b>
+     * @param {Integer} size_ Type: <b>UINT32</b>
      * 
      * The size of the array in characters. The size must include space for the terminating
      *      null character.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalizedstrings-getlocalename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalizedstrings-getlocalename
      */
-    GetLocaleName(index, localeName, size) {
+    GetLocaleName(index, localeName, size_) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
-        result := ComCall(6, this, "uint", index, "ptr", localeName, "uint", size, "HRESULT")
+        result := ComCall(6, this, "uint", index, "ptr", localeName, "uint", size_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the length in characters (not including the null terminator) of the string with the specified index.
+     * Gets the length in characters (not including the null terminator) of the string with the specified index. (IDWriteLocalizedStrings.GetStringLength)
+     * @remarks
+     * Use <b>GetStringLength</b> to get the string length before calling the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstring">IDWriteLocalizedStrings::GetString</a> method, as shown in the following code.
+     * 
+     * 
+     * ```cpp
+     * UINT32 length = 0;
+     * 
+     * // Get the string length.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFamilyNames->GetStringLength(index, &length);
+     * }
+     * 
+     * // Allocate a string big enough to hold the name.
+     * wchar_t* name = new (std::nothrow) wchar_t[length+1];
+     * if (name == NULL)
+     * {
+     *     hr = E_OUTOFMEMORY;
+     * }
+     * 
+     * // Get the family name.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFamilyNames->GetString(index, name, length+1);
+     * }
+     * 
+     * ```
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * A zero-based index of the language/string pair.
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * The length in characters of the string, not including the null terminator, from the language/string pair.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength
      */
     GetStringLength(index) {
-        result := ComCall(7, this, "uint", index, "uint*", &length := 0, "HRESULT")
+        result := ComCall(7, this, "uint", index, "uint*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
     /**
-     * Copies the string with the specified index to the specified array.
+     * Copies the string with the specified index to the specified array. (IDWriteLocalizedStrings.GetString)
+     * @remarks
+     * The string returned must be allocated by the caller.  You can get the size of the string by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength">GetStringLength</a> method prior to calling <b>GetString</b>, as shown in the following example.
+     * 
+     * 
+     * ```cpp
+     * UINT32 length = 0;
+     * 
+     * // Get the string length.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFamilyNames->GetStringLength(index, &length);
+     * }
+     * 
+     * // Allocate a string big enough to hold the name.
+     * wchar_t* name = new (std::nothrow) wchar_t[length+1];
+     * if (name == NULL)
+     * {
+     *     hr = E_OUTOFMEMORY;
+     * }
+     * 
+     * // Get the family name.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFamilyNames->GetString(index, name, length+1);
+     * }
+     * 
+     * ```
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * The zero-based index of the language/string pair to be examined.
      * @param {PWSTR} stringBuffer Type: <b>WCHAR*</b>
      * 
      * The null terminated array of characters that receives the string from the language/string pair.  The buffer allocated for this array should be at least the size of <i>size</i>. <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength">GetStringLength</a> can be used to get the size of the array before using this method.
-     * @param {Integer} size Type: <b>UINT32</b>
+     * @param {Integer} size_ Type: <b>UINT32</b>
      * 
      * The size of the array in characters. The size must include space for the terminating
      *      null character. <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength">GetStringLength</a> can be used to get the size of the array before using this method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalizedstrings-getstring
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalizedstrings-getstring
      */
-    GetString(index, stringBuffer, size) {
+    GetString(index, stringBuffer, size_) {
         stringBuffer := stringBuffer is String ? StrPtr(stringBuffer) : stringBuffer
 
-        result := ComCall(8, this, "uint", index, "ptr", stringBuffer, "uint", size, "HRESULT")
+        result := ComCall(8, this, "uint", index, "ptr", stringBuffer, "uint", size_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

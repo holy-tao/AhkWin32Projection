@@ -103,7 +103,7 @@ class LibraryLoader {
      * If the function fails, the return value is zero. The 
      * <b>DisableThreadLibraryCalls</b> function fails if the DLL specified by <i>hModule</i> has active static thread local storage, or if <i>hModule</i> is an invalid module handle. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-disablethreadlibrarycalls
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-disablethreadlibrarycalls
      * @since windows5.1.2600
      */
     static DisableThreadLibraryCalls(hLibModule) {
@@ -182,7 +182,7 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadiconw">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResourceEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application.
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringw">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PWSTR} lpType Type: <b>LPCTSTR</b>
@@ -201,14 +201,14 @@ class LibraryLoader {
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-findresourceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-findresourceexw
      */
-    static FindResourceExW(hModule, lpType, lpName, wLanguage) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static FindResourceExW(hModule_, lpType, lpName, wLanguage) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceExW", "ptr", hModule_, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
         resultHandle := HRSRC({Value: result}, True)
         return resultHandle
     }
@@ -228,7 +228,7 @@ class LibraryLoader {
      * Do not call this function with a handle returned by either the <b>GetModuleHandleEx</b> function (with the GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT flag) or the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function, as they do not maintain a reference count for the module.
      * @param {Integer} dwExitCode The exit code for the calling thread.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibraryandexitthread
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-freelibraryandexitthread
      * @since windows5.1.2600
      */
     static FreeLibraryAndExitThread(hLibModule, dwExitCode) {
@@ -291,7 +291,7 @@ class LibraryLoader {
      * If the function succeeds, the return value is zero.
      * 
      * If the function fails, the return value is nonzero, which indicates that the resource has not been freed.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freeresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-freeresource
      * @since windows5.0
      */
     static FreeResource(hResData) {
@@ -307,7 +307,7 @@ class LibraryLoader {
      * If a DLL is loaded in two processes, its file name in one process may differ in case from its file name in the other process.
      * 
      * The global variable <c>_pgmptr</c> is automatically initialized to the full path of the executable file, and can be used to retrieve the full path name of an executable file.
-     * @param {HMODULE} hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
+     * @param {HMODULE} hModule_ A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
      * <b>GetModuleFileName</b> retrieves the path of the executable file of the current process.
      * 
      * The <b>GetModuleFileName</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
@@ -326,16 +326,16 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getmodulefilenamea
      * @since windows5.1.2600
      */
-    static GetModuleFileNameA(hModule, lpFilename, nSize) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static GetModuleFileNameA(hModule_, lpFilename, nSize) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetModuleFileNameA", "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\GetModuleFileNameA", "ptr", hModule_, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -349,7 +349,7 @@ class LibraryLoader {
      * If a DLL is loaded in two processes, its file name in one process may differ in case from its file name in the other process.
      * 
      * The global variable <c>_pgmptr</c> is automatically initialized to the full path of the executable file, and can be used to retrieve the full path name of an executable file.
-     * @param {HMODULE} hModule A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
+     * @param {HMODULE} hModule_ A handle to the loaded module whose path is being requested. If this parameter is <b>NULL</b>, 
      * <b>GetModuleFileName</b> retrieves the path of the executable file of the current process.
      * 
      * The <b>GetModuleFileName</b> function does not retrieve the path for modules  that were loaded using the <b>LOAD_LIBRARY_AS_DATAFILE</b> flag. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
@@ -367,16 +367,16 @@ class LibraryLoader {
      * <b>Windows XP:  </b>If the buffer is too small to hold the module name, the function returns <i>nSize</i> and the last error code is not modified. If <i>nSize</i> is zero, the return value is zero and the last error code is not modified.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulefilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getmodulefilenamew
      * @since windows5.1.2600
      */
-    static GetModuleFileNameW(hModule, lpFilename, nSize) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static GetModuleFileNameW(hModule_, lpFilename, nSize) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetModuleFileNameW", "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
+        result := DllCall("KERNEL32.dll\GetModuleFileNameW", "ptr", hModule_, "ptr", lpFilename, "uint", nSize, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -409,7 +409,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandlea
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getmodulehandlea
      * @since windows5.1.2600
      */
     static GetModuleHandleA(lpModuleName) {
@@ -451,7 +451,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getmodulehandlew
      * @since windows5.1.2600
      */
     static GetModuleHandleW(lpModuleName) {
@@ -505,7 +505,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandleexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getmodulehandleexa
      * @since windows5.1.2600
      */
     static GetModuleHandleExA(dwFlags, lpModuleName, phModule) {
@@ -558,7 +558,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getmodulehandleexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getmodulehandleexw
      * @since windows5.1.2600
      */
     static GetModuleHandleExW(dwFlags, lpModuleName, phModule) {
@@ -617,7 +617,7 @@ class LibraryLoader {
      * 
      * 
      * For the complete example that contains this code fragment, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/getting-the-system-version">Getting the System Version</a>.
-     * @param {HMODULE} hModule A handle to the DLL module that contains the function or variable. The 
+     * @param {HMODULE} hModule_ A handle to the DLL module that contains the function or variable. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a>, <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-loadpackagedlibrary">LoadPackagedLibrary</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function returns this handle. 
      * 
@@ -627,16 +627,16 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-getprocaddress
      * @since windows5.1.2600
      */
-    static GetProcAddress(hModule, lpProcName) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static GetProcAddress(hModule_, lpProcName) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpProcName := lpProcName is String ? StrPtr(lpProcName) : lpProcName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcAddress", "ptr", hModule, "ptr", lpProcName, "ptr")
+        result := DllCall("KERNEL32.dll\GetProcAddress", "ptr", hModule_, "ptr", lpProcName, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -759,7 +759,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information,
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-loadlibraryexa
      * @since windows5.1.2600
      */
     static LoadLibraryExA(lpLibFileName, dwFlags) {
@@ -894,7 +894,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information,
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-loadlibraryexw
      * @since windows5.1.2600
      */
     static LoadLibraryExW(lpLibFileName, dwFlags) {
@@ -991,7 +991,7 @@ class LibraryLoader {
      *  
      * 
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen, followed by <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when done.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to the module whose executable file contains the resource. If <i>hModule</i> is <b>NULL</b>, the system loads the resource from the module that was used to create the current process.
      * @param {HRSRC} hResInfo Type: <b>HRSRC</b>
@@ -1002,16 +1002,16 @@ class LibraryLoader {
      * If the function succeeds, the return value is a handle to the data associated with the resource.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-loadresource
      * @since windows5.0
      */
-    static LoadResource(hModule, hResInfo) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static LoadResource(hModule_, hResInfo) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         hResInfo := hResInfo is Win32Handle ? NumGet(hResInfo, "ptr") : hResInfo
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\LoadResource", "ptr", hModule, "ptr", hResInfo, "ptr")
+        result := DllCall("KERNEL32.dll\LoadResource", "ptr", hModule_, "ptr", hResInfo, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1035,7 +1035,7 @@ class LibraryLoader {
      * @returns {Pointer<Void>} Type: **LPVOID**
      * 
      * If the loaded resource is available, the return value is a pointer to the first byte of the resource; otherwise, it is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-lockresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-lockresource
      * @since windows5.0
      */
     static LockResource(hResData) {
@@ -1047,7 +1047,7 @@ class LibraryLoader {
 
     /**
      * Retrieves the size, in bytes, of the specified resource.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to the module whose executable file contains the resource. Default is the module used to create the current process.
      * @param {HRSRC} hResInfo Type: <b>HRSRC</b>
@@ -1058,16 +1058,16 @@ class LibraryLoader {
      * If the function succeeds, the return value is the number of bytes in the resource.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-sizeofresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-sizeofresource
      * @since windows5.0
      */
-    static SizeofResource(hModule, hResInfo) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static SizeofResource(hModule_, hResInfo) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         hResInfo := hResInfo is Win32Handle ? NumGet(hResInfo, "ptr") : hResInfo
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\SizeofResource", "ptr", hModule, "ptr", hResInfo, "uint")
+        result := DllCall("KERNEL32.dll\SizeofResource", "ptr", hModule_, "ptr", hResInfo, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1108,7 +1108,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error 
      *       information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-adddlldirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-adddlldirectory
      * @since windows8.0
      */
     static AddDllDirectory(NewDirectory) {
@@ -1142,7 +1142,7 @@ class LibraryLoader {
      * If the function fails, the return value 
      *       is zero. To get extended error information, call 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-removedlldirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-removedlldirectory
      * @since windows8.0
      */
     static RemoveDllDirectory(Cookie) {
@@ -1213,7 +1213,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-setdefaultdlldirectories
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-setdefaultdlldirectories
      * @since windows8.0
      */
     static SetDefaultDllDirectories(DirectoryFlags) {
@@ -1253,7 +1253,7 @@ class LibraryLoader {
      * If the <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file. If this is a specific .mui file, only that file is searched for resources.
      *     
@@ -1271,7 +1271,7 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCA>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://msdn.microsoft.com/58c1a42d-15d2-4157-8c57-f9b1d389b917">EnumResLangProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -1334,17 +1334,17 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the function succeeds or <b>FALSE</b> if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcelanguagesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcelanguagesexa
      * @since windows6.0.6000
      */
-    static EnumResourceLanguagesExA(hModule, lpType, lpName, lpEnumFunc, lParam, dwFlags, LangId) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceLanguagesExA(hModule_, lpType, lpName, lpEnumFunc, lParam_, dwFlags, LangId) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExA", "ptr", hModule_, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam_, "uint", dwFlags, "ushort", LangId, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1378,7 +1378,7 @@ class LibraryLoader {
      * If the <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file. If this is a specific .mui file, only that file is searched for resources.
      *     
@@ -1396,7 +1396,7 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCW>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://msdn.microsoft.com/58c1a42d-15d2-4157-8c57-f9b1d389b917">EnumResLangProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -1459,17 +1459,17 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the function succeeds or <b>FALSE</b> if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcelanguagesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcelanguagesexw
      * @since windows6.0.6000
      */
-    static EnumResourceLanguagesExW(hModule, lpType, lpName, lpEnumFunc, lParam, dwFlags, LangId) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceLanguagesExW(hModule_, lpType, lpName, lpEnumFunc, lParam_, dwFlags, LangId) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesExW", "ptr", hModule_, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam_, "uint", dwFlags, "ushort", LangId, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1499,7 +1499,7 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that Language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the name will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
@@ -1510,7 +1510,7 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESNAMEPROCA>} lpEnumFunc Type: <b>ENUMRESNAMEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource name. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameproca">EnumResNameProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -1562,16 +1562,16 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function <b>TRUE</b> if successful, or <b>FALSE</b> if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcenamesexa
      * @since windows6.0.6000
      */
-    static EnumResourceNamesExA(hModule, lpType, lpEnumFunc, lParam, dwFlags, LangId) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceNamesExA(hModule_, lpType, lpEnumFunc, lParam_, dwFlags, LangId) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesExA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesExA", "ptr", hModule_, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam_, "uint", dwFlags, "ushort", LangId, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1601,7 +1601,7 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that Language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the name will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to search. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files are included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
@@ -1612,7 +1612,7 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESNAMEPROCW>} lpEnumFunc Type: <b>ENUMRESNAMEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource name. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameproca">EnumResNameProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -1664,16 +1664,16 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function <b>TRUE</b> if successful, or <b>FALSE</b> if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcenamesexw
      * @since windows6.0.6000
      */
-    static EnumResourceNamesExW(hModule, lpType, lpEnumFunc, lParam, dwFlags, LangId) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceNamesExW(hModule_, lpType, lpEnumFunc, lParam_, dwFlags, LangId) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesExW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesExW", "ptr", hModule_, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam_, "uint", dwFlags, "ushort", LangId, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1693,7 +1693,7 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files can be included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
@@ -1701,7 +1701,7 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESTYPEPROCA>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumrestypeproca">EnumResTypeProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -1753,15 +1753,15 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcetypesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcetypesexa
      * @since windows6.0.6000
      */
-    static EnumResourceTypesExA(hModule, lpEnumFunc, lParam, dwFlags, LangId) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceTypesExA(hModule_, lpEnumFunc, lParam_, dwFlags, LangId) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesExA", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesExA", "ptr", hModule_, "ptr", lpEnumFunc, "ptr", lParam_, "uint", dwFlags, "ushort", LangId, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1781,7 +1781,7 @@ class LibraryLoader {
      * If <i>LangId</i> is nonzero, then only the .mui file corresponding to that language identifier will be searched. Language fallbacks will not be used. If an .mui file for that language does not exist, the enumeration will be empty (unless resources for that language exist in the LN file, and the flag is set to search the LN file as well).
      * 
      * The enumeration never includes duplicates: if resources for a particular language are contained in both the LN file and in an .mui file, the type will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Typically this is an LN file, and if flag <b>RESOURCE_ENUM_MUI</b> is set, then appropriate .mui files can be included in the search. Alternately, this can be a handle to an .mui file or other LN file.
      * 
@@ -1789,7 +1789,7 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESTYPEPROCW>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nc-libloaderapi-enumrestypeproca">EnumResTypeProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -1841,15 +1841,15 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcetypesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcetypesexw
      * @since windows6.0.6000
      */
-    static EnumResourceTypesExW(hModule, lpEnumFunc, lParam, dwFlags, LangId) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceTypesExW(hModule_, lpEnumFunc, lParam_, dwFlags, LangId) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesExW", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "uint", dwFlags, "ushort", LangId, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesExW", "ptr", hModule_, "ptr", lpEnumFunc, "ptr", lParam_, "uint", dwFlags, "ushort", LangId, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1920,7 +1920,7 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadiconw">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResource</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application.
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringw">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PWSTR} lpName Type: <b>LPCTSTR</b>
@@ -1936,14 +1936,14 @@ class LibraryLoader {
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-findresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-findresourcew
      */
-    static FindResourceW(hModule, lpName, lpType) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static FindResourceW(hModule_, lpName, lpType) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
-        result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceW", "ptr", hModule_, "ptr", lpName, "ptr", lpType, "ptr")
         resultHandle := HRSRC({Value: result}, True)
         return resultHandle
     }
@@ -2083,7 +2083,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-loadlibrarya
      * @since windows5.1.2600
      */
     static LoadLibraryA(lpLibFileName) {
@@ -2235,7 +2235,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibraryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-loadlibraryw
      * @since windows5.1.2600
      */
     static LoadLibraryW(lpLibFileName) {
@@ -2268,7 +2268,7 @@ class LibraryLoader {
      * Starting with Windows Vista, if *hModule* specifies an LN file, then the resources enumerated can reside either in the LN file or in a .mui file associated with it. If no .mui files are found, only resources from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see [User Interface Language Management](/windows/desktop/Intl/user-interface-language-management) for details. Once one appropriate .mui file is found, the .mui file search stops. Because all .mui files that correspond to a single LN file have the same resource types, only the resources in the found .mui file need to be enumerated.
      * 
      * The enumeration never includes duplicates: if resources with the same name are contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} hModule Type: **HMODULE**
+     * @param {HMODULE} hModule_ Type: **HMODULE**
      * 
      * A handle to a module to be searched. Starting with Windows Vista, if this is an LN file, then appropriate .mui files (if any exist) are included in the search.
      * 
@@ -2279,19 +2279,19 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESNAMEPROCW>} lpEnumFunc Type: **ENUMRESNAMEPROC**
      * 
      * A pointer to the callback function to be called for each enumerated resource name or ID. For more information, see [ENUMRESNAMEPROC](/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameprocw).
-     * @param {Pointer} lParam Type: **LONG_PTR**
+     * @param {Pointer} lParam_ Type: **LONG_PTR**
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: **BOOL**
      * 
      * The return value is **TRUE** if the function succeeds or **FALSE** if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcenamesw
      */
-    static EnumResourceNamesW(hModule, lpType, lpEnumFunc, lParam) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceNamesW(hModule_, lpType, lpEnumFunc, lParam_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesW", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesW", "ptr", hModule_, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         return result
     }
 
@@ -2311,7 +2311,7 @@ class LibraryLoader {
      * Starting with Windows Vista, if *hModule* specifies an LN file, then the resources enumerated can reside either in the LN file or in a .mui file associated with it. If no .mui files are found, only resources from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see [User Interface Language Management](/windows/desktop/Intl/user-interface-language-management) for details. Once one appropriate .mui file is found, the .mui file search stops. Because all .mui files that correspond to a single LN file have the same resource types, only the resources in the found .mui file need to be enumerated.
      * 
      * The enumeration never includes duplicates: if resources with the same name are contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} hModule Type: **HMODULE**
+     * @param {HMODULE} hModule_ Type: **HMODULE**
      * 
      * A handle to a module to be searched. Starting with Windows Vista, if this is an LN file, then appropriate .mui files (if any exist) are included in the search.
      * 
@@ -2322,22 +2322,22 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESNAMEPROCA>} lpEnumFunc Type: **ENUMRESNAMEPROC**
      * 
      * A pointer to the callback function to be called for each enumerated resource name or ID. For more information, see [ENUMRESNAMEPROC](/windows/win32/api/libloaderapi/nc-libloaderapi-enumresnameproca).
-     * @param {Pointer} lParam Type: **LONG_PTR**
+     * @param {Pointer} lParam_ Type: **LONG_PTR**
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: **BOOL**
      * 
      * The return value is **TRUE** if the function succeeds or **FALSE** if the function does not find a resource of the type specified, or if the function fails for another reason. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-enumresourcenamesa
      * @since windows5.0
      */
-    static EnumResourceNamesA(hModule, lpType, lpEnumFunc, lParam) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceNamesA(hModule_, lpType, lpEnumFunc, lParam_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceNamesA", "ptr", hModule, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceNamesA", "ptr", hModule_, "ptr", lpType, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2380,7 +2380,7 @@ class LibraryLoader {
      * @returns {HMODULE} If the function succeeds, the return value is a handle to the loaded module.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-loadpackagedlibrary
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-loadpackagedlibrary
      * @since windows8.0
      */
     static LoadPackagedLibrary(lpwLibFileName) {
@@ -2416,7 +2416,7 @@ class LibraryLoader {
      * @param {PSTR} lpProcName The name of the function to query. This parameter is case-sensitive.
      * @returns {BOOL} TRUE if the specified function is available on the system. If the specified function is not available on the system, this function returns FALSE. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi2/nf-libloaderapi2-queryoptionaldelayloadedapi
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi2/nf-libloaderapi2-queryoptionaldelayloadedapi
      * @since windows10.0.10240
      */
     static QueryOptionalDelayLoadedAPI(hParentModule, lpDllName, lpProcName) {
@@ -2615,7 +2615,7 @@ class LibraryLoader {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-loadmodule
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-loadmodule
      * @since windows5.1.2600
      */
     static LoadModule(lpModuleName, lpParameterBlock) {
@@ -2691,7 +2691,7 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResource</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application. 
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PSTR} lpName Type: <b>LPCTSTR</b>
@@ -2705,17 +2705,17 @@ class LibraryLoader {
      * If the function succeeds, the return value is a handle to the specified resource's information block. To obtain a handle to the resource, pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> function.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findresourcea
      * @since windows5.0
      */
-    static FindResourceA(hModule, lpName, lpType) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static FindResourceA(hModule_, lpName, lpType) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpType := lpType is String ? StrPtr(lpType) : lpType
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindResourceA", "ptr", hModule, "ptr", lpName, "ptr", lpType, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceA", "ptr", hModule_, "ptr", lpName, "ptr", lpType, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -2788,7 +2788,7 @@ class LibraryLoader {
      * For example, an application can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadicona">LoadIcon</a> function to load an icon for display on the screen. However, the application should use <b>FindResourceEx</b> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadresource">LoadResource</a> if it is loading the icon to copy its data to another application. 
      * 
      * String resources are stored in sections of up to 16 strings per section. The strings in each section are stored as a sequence of counted (not necessarily null-terminated) Unicode strings. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadstringa">LoadString</a> function will extract the string resource from its corresponding section.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to the module whose portable executable file or an accompanying MUI file contains the resource. If this parameter is <b>NULL</b>, the function searches the module used to create the current process.
      * @param {PSTR} lpType Type: <b>LPCTSTR</b>
@@ -2811,17 +2811,17 @@ class LibraryLoader {
      *                     
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findresourceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findresourceexa
      * @since windows5.0
      */
-    static FindResourceExA(hModule, lpType, lpName, wLanguage) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static FindResourceExA(hModule_, lpType, lpName, wLanguage) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\FindResourceExA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
+        result := DllCall("KERNEL32.dll\FindResourceExA", "ptr", hModule_, "ptr", lpType, "ptr", lpName, "ushort", wLanguage, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -2840,7 +2840,7 @@ class LibraryLoader {
      * Starting with Windows Vista, if <i>hModule</i> specifies an LN file, then the types enumerated correspond to resources that reside in the LN file and in the .mui file associated with it. If no .mui files are found, only types from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see <a href="https://docs.microsoft.com/windows/desktop/Intl/user-interface-language-management">User Interface Language Management</a> for details. After one appropriate .mui file is found, the search does not continue further to other .mui files associated with the LN file, because all .mui files that correspond to a single LN file have the same set of resource types.
      * 
      * The enumeration never includes duplicates: if a given resource type is contained in both the LN file and in an .mui file, the type is enumerated only once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to a module to be searched. This handle must be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * 					
@@ -2850,21 +2850,21 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESTYPEPROCA>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648041(v=vs.85)">EnumResTypeProc</a> function.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enumresourcetypesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-enumresourcetypesa
      * @since windows5.0
      */
-    static EnumResourceTypesA(hModule, lpEnumFunc, lParam) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceTypesA(hModule_, lpEnumFunc, lParam_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesA", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesA", "ptr", hModule_, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2882,7 +2882,7 @@ class LibraryLoader {
      * Starting with Windows Vista, if <i>hModule</i> specifies an LN file, then the types enumerated correspond to resources that reside in the LN file and in the .mui file associated with it. If no .mui files are found, only types from the LN file are returned. The order in which .mui files are searched is the usual Resource Loader search order; see <a href="https://docs.microsoft.com/windows/desktop/Intl/user-interface-language-management">User Interface Language Management</a> for details. After one appropriate .mui file is found, the search does not continue further to other .mui files associated with the LN file, because all .mui files that correspond to a single LN file have the same set of resource types.
      * 
      * The enumeration never includes duplicates: if a given resource type is contained in both the LN file and in an .mui file, the type is enumerated only once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * A handle to a module to be searched. This handle must be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> or <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibraryexa">LoadLibraryEx</a>.
      * 					
@@ -2892,21 +2892,21 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESTYPEPROCW>} lpEnumFunc Type: <b>ENUMRESTYPEPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource type. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648041(v=vs.85)">EnumResTypeProc</a> function.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enumresourcetypesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-enumresourcetypesw
      * @since windows5.0
      */
-    static EnumResourceTypesW(hModule, lpEnumFunc, lParam) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceTypesW(hModule_, lpEnumFunc, lParam_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceTypesW", "ptr", hModule, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceTypesW", "ptr", hModule_, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2932,7 +2932,7 @@ class LibraryLoader {
      * In Windows Vista and later, if  <i>hModule</i> specifies an LN file, then the resources enumerated can reside either in the LN file or in an .mui file associated with it.  If no .mui files are found, only resources from the LN file are returned.  Unlike <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa">EnumResourceNames</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enumresourcetypesa">EnumResourceTypes</a>, this search will look at multiple .mui files. The enumeration begins with .mui files in the folders associated with <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumuilanguagesa">EnumUILanguages</a>. These are followed by any other .mui files whose paths conform to the scheme described at <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">MUI Resource Management</a>. Finally, the file designated by <i>hModule</i> is also searched.
      * 
      * The enumeration never includes duplicates: if a resource with the same name, type, and language is contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Starting with Windows Vista, if this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a specific .mui file, only that file is searched for resources.
      * 				
@@ -2948,23 +2948,23 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCA>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648033(v=vs.85)">EnumResLangProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enumresourcelanguagesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-enumresourcelanguagesa
      * @since windows5.0
      */
-    static EnumResourceLanguagesA(hModule, lpType, lpName, lpEnumFunc, lParam) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceLanguagesA(hModule_, lpType, lpName, lpEnumFunc, lParam_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesA", "ptr", hModule_, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2990,7 +2990,7 @@ class LibraryLoader {
      * In Windows Vista and later, if  <i>hModule</i> specifies an LN file, then the resources enumerated can reside either in the LN file or in an .mui file associated with it.  If no .mui files are found, only resources from the LN file are returned.  Unlike <a href="https://docs.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-enumresourcenamesa">EnumResourceNames</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enumresourcetypesa">EnumResourceTypes</a>, this search will look at multiple .mui files. The enumeration begins with .mui files in the folders associated with <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumuilanguagesa">EnumUILanguages</a>. These are followed by any other .mui files whose paths conform to the scheme described at <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">MUI Resource Management</a>. Finally, the file designated by <i>hModule</i> is also searched.
      * 
      * The enumeration never includes duplicates: if a resource with the same name, type, and language is contained in both the LN file and in an .mui file, the resource will only be enumerated once.
-     * @param {HMODULE} hModule Type: <b>HMODULE</b>
+     * @param {HMODULE} hModule_ Type: <b>HMODULE</b>
      * 
      * The handle to a module to be searched. Starting with Windows Vista, if this is a <a href="https://docs.microsoft.com/windows/desktop/Intl/mui-resource-management">language-neutral Portable Executable</a> (LN file), then appropriate .mui files (if any exist) are included in the search. If this is a specific .mui file, only that file is searched for resources.
      * 				
@@ -3006,23 +3006,23 @@ class LibraryLoader {
      * @param {Pointer<ENUMRESLANGPROCW>} lpEnumFunc Type: <b>ENUMRESLANGPROC</b>
      * 
      * A pointer to the callback function to be called for each enumerated resource language. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms648033(v=vs.85)">EnumResLangProc</a>.
-     * @param {Pointer} lParam Type: <b>LONG_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>LONG_PTR</b>
      * 
      * An application-defined value passed to the callback function. This parameter can be used in error checking.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enumresourcelanguagesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-enumresourcelanguagesw
      * @since windows5.0
      */
-    static EnumResourceLanguagesW(hModule, lpType, lpName, lpEnumFunc, lParam) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static EnumResourceLanguagesW(hModule_, lpType, lpName, lpEnumFunc, lParam_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         lpType := lpType is String ? StrPtr(lpType) : lpType
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", "ptr", hModule, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("KERNEL32.dll\EnumResourceLanguagesW", "ptr", hModule_, "ptr", lpType, "ptr", lpName, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3047,7 +3047,7 @@ class LibraryLoader {
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-endupdateresourcea">EndUpdateResource</a> functions. The return value is <b>NULL</b> if the specified file is not a PE, the file does not exist, or the file cannot be opened for writing. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-beginupdateresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-beginupdateresourcea
      * @since windows5.0
      */
     static BeginUpdateResourceA(pFileName, bDeleteExistingResources) {
@@ -3081,7 +3081,7 @@ class LibraryLoader {
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is a handle that can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-updateresourcea">UpdateResource</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-endupdateresourcea">EndUpdateResource</a> functions. The return value is <b>NULL</b> if the specified file is not a PE, the file does not exist, or the file cannot be opened for writing. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-beginupdateresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-beginupdateresourcew
      * @since windows5.0
      */
     static BeginUpdateResourceW(pFileName, bDeleteExistingResources) {
@@ -3185,7 +3185,7 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-updateresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-updateresourcea
      * @since windows5.0
      */
     static UpdateResourceA(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
@@ -3290,7 +3290,7 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-updateresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-updateresourcew
      * @since windows5.0
      */
     static UpdateResourceW(hUpdate, lpType, lpName, wLanguage, lpData, cb) {
@@ -3323,7 +3323,7 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the function succeeds; <b>FALSE</b> otherwise. If the function succeeds and <i>fDiscard</i> is <b>TRUE</b>, then no resource updates are made to the file; otherwise all successful resource updates are made to the file. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-endupdateresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-endupdateresourcea
      * @since windows5.0
      */
     static EndUpdateResourceA(hUpdate, fDiscard) {
@@ -3354,7 +3354,7 @@ class LibraryLoader {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the function succeeds; <b>FALSE</b> otherwise. If the function succeeds and <i>fDiscard</i> is <b>TRUE</b>, then no resource updates are made to the file; otherwise all successful resource updates are made to the file. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-endupdateresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-endupdateresourcew
      * @since windows5.0
      */
     static EndUpdateResourceW(hUpdate, fDiscard) {
@@ -3415,7 +3415,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdlldirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setdlldirectorya
      * @since windows6.0.6000
      */
     static SetDllDirectoryA(lpPathName) {
@@ -3476,7 +3476,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdlldirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setdlldirectoryw
      * @since windows6.0.6000
      */
     static SetDllDirectoryW(lpPathName) {
@@ -3514,7 +3514,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getdlldirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getdlldirectorya
      * @since windows6.0.6000
      */
     static GetDllDirectoryA(nBufferLength, lpBuffer) {
@@ -3552,7 +3552,7 @@ class LibraryLoader {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getdlldirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getdlldirectoryw
      * @since windows6.0.6000
      */
     static GetDllDirectoryW(nBufferLength, lpBuffer) {

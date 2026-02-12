@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.
+ * @see https://learn.microsoft.com/windows/win32/api//content/aclui/nn-aclui-isecurityinformation
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -33,7 +35,11 @@ class ISecurityInfo extends IUnknown{
      * @returns {Pointer<TRUSTEE_W>} 
      */
     GetCurrentTrustee() {
-        result := ComCall(3, this, "ptr*", &ppTrustee := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppTrustee := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppTrustee
     }
 
@@ -47,17 +53,26 @@ class ISecurityInfo extends IUnknown{
         cObjectTypesMarshal := cObjectTypes is VarRef ? "uint*" : "ptr"
         rgObjectTypesMarshal := rgObjectTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, cObjectTypesMarshal, cObjectTypes, rgObjectTypesMarshal, rgObjectTypes, "HRESULT")
+        result := ComCall(4, this, cObjectTypesMarshal, cObjectTypes, rgObjectTypesMarshal, rgObjectTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {Guid} ObjectType 
+     * GetPermissions Method (ADOX)
+     * @param {Guid} ObjectType_ 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/getpermissions-method-adox
      */
-    GetPermissions(ObjectType) {
-        result := ComCall(5, this, "ptr", ObjectType, "uint*", &pPermissions := 0, "HRESULT")
+    GetPermissions(ObjectType_) {
+        result := ComCall(5, this, "ptr", ObjectType_, "uint*", &pPermissions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPermissions
     }
 }

@@ -4,9 +4,8 @@
 #Include .\ID3D11DeviceChild.ahk
 
 /**
- * This interface encapsulates methods for retrieving data from the GPU asynchronously.
+ * This interface encapsulates methods for retrieving data from the GPU asynchronously. (ID3D11Asynchronous)
  * @remarks
- * 
  * There are three types of asynchronous interfaces, all of which inherit this interface:
  * 
  * <ul>
@@ -17,9 +16,7 @@
  * <li>
  * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11counter">ID3D11Counter</a> - Measures GPU performance.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11asynchronous
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nn-d3d11-id3d11asynchronous
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -46,10 +43,10 @@ class ID3D11Asynchronous extends ID3D11DeviceChild{
 
     /**
      * Get the size of the data (in bytes) that is output when calling ID3D11DeviceContext::GetData.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the data (in bytes) that is output when calling GetData.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11asynchronous-getdatasize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11asynchronous-getdatasize
      */
     GetDataSize() {
         result := ComCall(7, this, "uint")

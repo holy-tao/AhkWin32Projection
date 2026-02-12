@@ -5,7 +5,7 @@
 
 /**
  * Determines whether to construct a new context based on the current context or to create a new context based solely on the information in CServiceConfig.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iserviceinheritanceconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iserviceinheritanceconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IServiceInheritanceConfig extends IUnknown{
      * Determines whether the containing context is based on the current context.
      * @param {Integer} inheritanceConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceinheritanceconfig-containingcontexttreatment
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iserviceinheritanceconfig-containingcontexttreatment
      */
     ContainingContextTreatment(inheritanceConfig) {
-        result := ComCall(3, this, "int", inheritanceConfig, "HRESULT")
+        result := ComCall(3, this, "int", inheritanceConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

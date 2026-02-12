@@ -10,7 +10,7 @@
  * 
  * An ACL that contains an <b>SYSTEM_ALARM_CALLBACK_OBJECT_ACE</b> must specify the ACL_REVISION_DS revision number in its 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_alarm_callback_object_ace
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-system_alarm_callback_object_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

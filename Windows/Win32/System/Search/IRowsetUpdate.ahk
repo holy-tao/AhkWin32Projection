@@ -31,13 +31,17 @@ class IRowsetUpdate extends IRowsetChange{
     /**
      * 
      * @param {Pointer} hRow 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @returns {Void} 
      */
-    GetOriginalData(hRow, hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetOriginalData(hRow, hAccessor_) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
-        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor_, "ptr", &pData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
@@ -55,7 +59,11 @@ class IRowsetUpdate extends IRowsetChange{
         prgPendingRowsMarshal := prgPendingRows is VarRef ? "ptr*" : "ptr"
         prgPendingStatusMarshal := prgPendingStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, pcPendingRowsMarshal, pcPendingRows, prgPendingRowsMarshal, prgPendingRows, prgPendingStatusMarshal, prgPendingStatus, "HRESULT")
+        result := ComCall(7, this, "ptr", hReserved, "uint", dwRowStatus, pcPendingRowsMarshal, pcPendingRows, prgPendingRowsMarshal, prgPendingRows, prgPendingStatusMarshal, prgPendingStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,19 +77,42 @@ class IRowsetUpdate extends IRowsetChange{
     GetRowStatus(hReserved, cRows, rghRows) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgPendingStatus := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgPendingStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgPendingStatus
     }
 
     /**
-     * 
+     * Restore the active configuration of the collector from the previous backup file (determined by going back from the current original timestamp).
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Pointer>} pcRowsUndone 
      * @param {Pointer<Pointer<Pointer>>} prgRowsUndone 
      * @param {Pointer<Pointer<Integer>>} prgRowStatus 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <dl> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 0
+     * 
+     * Failure
+     * 
+     * </dd> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 1
+     * 
+     * Success
+     * 
+     * </dd> </dl>
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-undo
      */
     Undo(hReserved, cRows, rghRows, pcRowsUndone, prgRowsUndone, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
@@ -89,12 +120,16 @@ class IRowsetUpdate extends IRowsetChange{
         prgRowsUndoneMarshal := prgRowsUndone is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, prgRowsUndoneMarshal, prgRowsUndone, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(9, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsUndoneMarshal, pcRowsUndone, prgRowsUndoneMarshal, prgRowsUndone, prgRowStatusMarshal, prgRowStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: Update constructor
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -102,6 +137,7 @@ class IRowsetUpdate extends IRowsetChange{
      * @param {Pointer<Pointer<Pointer>>} prgRows 
      * @param {Pointer<Pointer<Integer>>} prgRowStatus 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/update-constructor
      */
     Update(hReserved, cRows, rghRows, pcRows, prgRows, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
@@ -109,7 +145,11 @@ class IRowsetUpdate extends IRowsetChange{
         prgRowsMarshal := prgRows is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, prgRowsMarshal, prgRows, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(10, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsMarshal, pcRows, prgRowsMarshal, prgRows, prgRowStatusMarshal, prgRowStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

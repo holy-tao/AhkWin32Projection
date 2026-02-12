@@ -5,7 +5,7 @@
  * A flags enumeration allowing bitwise OR combinations of values from the D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264_SLICES_DEBLOCKING_MODES.
  * @remarks
  * Values from this enumeration are used by the [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_H264](ns-d3d12video-d3d12_video_encoder_codec_configuration_support_h264.md) structure for checking feature support.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_codec_configuration_h264_slices_deblocking_mode_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_codec_configuration_h264_slices_deblocking_mode_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -42,7 +42,11 @@ class IUrlHistoryStg2 extends IUrlHistoryStg{
         pocsUrl := pocsUrl is String ? StrPtr(pocsUrl) : pocsUrl
         pocsTitle := pocsTitle is String ? StrPtr(pocsTitle) : pocsTitle
 
-        result := ComCall(8, this, "ptr", pocsUrl, "ptr", pocsTitle, "uint", dwFlags, "int", fWriteHistory, "ptr", poctNotify, "ptr", punkISFolder, "HRESULT")
+        result := ComCall(8, this, "ptr", pocsUrl, "ptr", pocsTitle, "uint", dwFlags, "int", fWriteHistory, "ptr", poctNotify, "ptr", punkISFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IUrlHistoryStg2 extends IUrlHistoryStg{
      * @returns {HRESULT} 
      */
     ClearHistory() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

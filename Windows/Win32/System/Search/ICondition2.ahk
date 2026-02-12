@@ -6,11 +6,8 @@
 /**
  * Extends the functionality of the ICondition interface. ICondition2 provides methods for retrieving information about a search condition.
  * @remarks
- * 
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nn-structuredquerycondition-icondition2
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquerycondition/nn-structuredquerycondition-icondition2
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -36,19 +33,27 @@ class ICondition2 extends ICondition{
     static VTableNames => ["GetLocale", "GetLeafConditionInfo"]
 
     /**
-     * Retrieves the property name, operation, and value from a leaf search condition node.
+     * Retrieves the property name, operation, and value from a leaf search condition node. (ICondition2.GetLocale)
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Receives the name of the locale of the leaf condition as a Unicode string. This parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nf-structuredquerycondition-icondition2-getlocale
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquerycondition/nf-structuredquerycondition-icondition2-getlocale
      */
     GetLocale() {
-        result := ComCall(15, this, "ptr*", &ppszLocaleName := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppszLocaleName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszLocaleName
     }
 
     /**
-     * Retrieves the property name, operation, and value from a leaf search condition node.
+     * Retrieves the property name, operation, and value from a leaf search condition node. (ICondition2.GetLeafConditionInfo)
+     * @remarks
+     * Any or all of the three parameters can be <b>NULL</b>.
+     * 
+     * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
      * @param {Pointer<PROPERTYKEY>} ppropkey Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * Receives the name of the property of the leaf condition as a PROPERTYKEY.
@@ -61,12 +66,16 @@ class ICondition2 extends ICondition{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, E_FAIL if this is not a leaf node, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo
      */
     GetLeafConditionInfo(ppropkey, pcop, ppropvar) {
         pcopMarshal := pcop is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, "ptr", ppropkey, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
+        result := ComCall(16, this, "ptr", ppropkey, pcopMarshal, pcop, "ptr", ppropvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

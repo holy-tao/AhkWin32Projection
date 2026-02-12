@@ -20,7 +20,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex">WSCInstallNameSpaceEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscinstallnamespaceex32">WSCInstallNameSpaceEx32</a> functions are used to install a namespace provider for the NS_EMAIL namespace using a <b>NAPI_PROVIDER_INSTALLATION_BLOB</b> structure.  
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexa">WSAEnumNameSpaceProvidersEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumnamespaceprovidersex32">WSCEnumNameSpaceProvidersEx32</a> functions are used to enumerate all namespace providers (including NS_EMAIL namespace providers) and to retrieve the <b>NAPI_PROVIDER_INSTALLATION_BLOB</b> structure for  a provider if the provider registered a blob upon installation.
- * @see https://learn.microsoft.com/windows/win32/api/nsemail/ns-nsemail-napi_provider_installation_blob
+ * @see https://learn.microsoft.com/windows/win32/api//content/nsemail/ns-nsemail-napi_provider_installation_blob
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

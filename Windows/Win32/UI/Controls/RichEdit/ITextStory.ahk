@@ -7,7 +7,7 @@
 
 /**
  * The ITextStory interface methods are used to access shared data from multiple stories, which is stored in the parent ITextServices instance.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextstory
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/nn-tom-itextstory
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -33,61 +33,85 @@ class ITextStory extends IUnknown{
     static VTableNames => ["GetActive", "SetActive", "GetDisplay", "GetIndex", "GetType", "SetType", "GetProperty", "GetRange", "GetText", "SetFormattedText", "SetProperty", "SetText"]
 
     /**
-     * Sets the active state of a story.
+     * Sets the active state of a story. (ITextStory.GetActive)
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getactive
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-getactive
      */
     GetActive() {
-        result := ComCall(3, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Sets the active state of a story.
+     * Sets the active state of a story. (ITextStory.SetActive)
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The active state. For values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstory-getactive">ITextStory::GetActive</a> method.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-setactive
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-setactive
      */
     SetActive(Value) {
-        result := ComCall(4, this, "int", Value, "HRESULT")
+        result := ComCall(4, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a new display for a story.
+     * @remarks
+     * A story can be displayed by calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstory-setactive">ITextStory::SetActive</a>(<b>tomDisplayActive</b>). The <b>ITextStory::GetDisplay</b> method is included, in case it might be advantageous to have more than one display for a set of <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstory">ITextStory</a> interfaces.
      * @returns {IUnknown} Type: <b>IUnknown**</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for a display.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-getdisplay
      */
     GetDisplay() {
-        result := ComCall(5, this, "ptr*", &ppDisplay := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppDisplay := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDisplay)
     }
 
     /**
      * Gets the index of a story.
+     * @remarks
+     * The index is used with the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument2-getstory">ITextDocument2:: GetStory</a> method.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The index.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-getindex
      */
     GetIndex() {
-        result := ComCall(6, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Gets this story's type.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-gettype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-gettype
      */
     GetType() {
-        result := ComCall(7, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -96,28 +120,36 @@ class ITextStory extends IUnknown{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The story type. The type values are defined in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstory-gettype">ITextStory::GetType</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-settype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-settype
      */
     SetType(Value) {
-        result := ComCall(8, this, "int", Value, "HRESULT")
+        result := ComCall(8, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the value of the specified property.
+     * Gets the value of the specified property. (ITextStory.GetProperty)
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The ID of the property.  Currently, no extra properties are defined.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The property value.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(9, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(9, this, "int", Type, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -132,15 +164,21 @@ class ITextStory extends IUnknown{
      * @returns {ITextRange2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>**</b>
      * 
      * The text range object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-getrange
      */
     GetRange(cpActive, cpAnchor) {
-        result := ComCall(10, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(10, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextRange2(ppRange)
     }
 
     /**
      * Gets the text in a story according to the specified conversion flags.
+     * @remarks
+     * This method is similar to using <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-gettext2">ITextRange2::GetText2</a> for a whole story, but it doesn’t require a range.
      * @param {Integer} Flags Type: <b>long</b>
      * 
      * The conversion flags.
@@ -153,22 +191,28 @@ class ITextStory extends IUnknown{
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * The text in the story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-gettext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-gettext
      */
     GetText(Flags) {
         pbstr := BSTR()
-        result := ComCall(11, this, "int", Flags, "ptr", pbstr, "HRESULT")
+        result := ComCall(11, this, "int", Flags, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * Replaces a story’s text with specified formatted text.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> for an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a> interface.
      * @param {IUnknown} pUnk Type: <b>IUnknown*</b>
      * 
      * The formatted text to replace the story’s text.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -209,28 +253,36 @@ class ITextStory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-setformattedtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-setformattedtext
      */
     SetFormattedText(pUnk) {
-        result := ComCall(12, this, "ptr", pUnk, "HRESULT")
+        result := ComCall(12, this, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the value of the specified property.
+     * Sets the value of the specified property. (ITextStory.SetProperty)
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The Microsoft accountID that identifies the property. Currently, no extra properties are defined.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(13, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(13, this, "int", Type, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,12 +296,12 @@ class ITextStory extends IUnknown{
      * <a id="tomCheckTextLimit"></a>
      * <a id="tomchecktextlimit"></a>
      * <a id="TOMCHECKTEXTLIMIT"></a>
-     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * @param {BSTR} bstr_ Type: <b>BSTR</b>
      * 
      * The new text for this story. If this parameter is <b>NULL</b>, the text in the story is deleted.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -290,12 +342,19 @@ class ITextStory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-settext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextstory-settext
      */
-    SetText(Flags, bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetText(Flags, bstr_) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(14, this, "int", Flags, "ptr", bstr, "HRESULT")
+        result := ComCall(14, this, "int", Flags, "ptr", bstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Used by **IDOManager::EnumDownloads** to filter the downloads enumeration by the specific property's value.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_enum_category
+ * @see https://learn.microsoft.com/windows/win32/api//content/deliveryoptimization/ns-deliveryoptimization-do_download_enum_category
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  * @version v4.0.30319
  */

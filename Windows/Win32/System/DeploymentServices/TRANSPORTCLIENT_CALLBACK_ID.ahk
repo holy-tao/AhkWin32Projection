@@ -3,7 +3,7 @@
 
 /**
  * This enumeration is received by the WdsTransportClientRegisterCallback function.
- * @see https://learn.microsoft.com/windows/win32/api/wdstci/ne-wdstci-transportclient_callback_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstci/ne-wdstci-transportclient_callback_id
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

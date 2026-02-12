@@ -35,7 +35,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {Integer} 
      */
     KsGetTime() {
-        result := ComCall(3, this, "int64*", &Time := 0, "HRESULT")
+        result := ComCall(3, this, "int64*", &Time := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Time
     }
 
@@ -45,7 +49,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetTime(Time) {
-        result := ComCall(4, this, "int64", Time, "HRESULT")
+        result := ComCall(4, this, "int64", Time, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {Integer} 
      */
     KsGetPhysicalTime() {
-        result := ComCall(5, this, "int64*", &Time := 0, "HRESULT")
+        result := ComCall(5, this, "int64*", &Time := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Time
     }
 
@@ -64,7 +76,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetPhysicalTime(Time) {
-        result := ComCall(6, this, "int64", Time, "HRESULT")
+        result := ComCall(6, this, "int64", Time, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +90,11 @@ class IKsClockPropertySet extends IUnknown{
      */
     KsGetCorrelatedTime() {
         CorrelatedTime := KSCORRELATED_TIME()
-        result := ComCall(7, this, "ptr", CorrelatedTime, "HRESULT")
+        result := ComCall(7, this, "ptr", CorrelatedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return CorrelatedTime
     }
 
@@ -84,7 +104,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetCorrelatedTime(CorrelatedTime) {
-        result := ComCall(8, this, "ptr", CorrelatedTime, "HRESULT")
+        result := ComCall(8, this, "ptr", CorrelatedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +118,11 @@ class IKsClockPropertySet extends IUnknown{
      */
     KsGetCorrelatedPhysicalTime() {
         CorrelatedTime := KSCORRELATED_TIME()
-        result := ComCall(9, this, "ptr", CorrelatedTime, "HRESULT")
+        result := ComCall(9, this, "ptr", CorrelatedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return CorrelatedTime
     }
 
@@ -104,7 +132,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetCorrelatedPhysicalTime(CorrelatedTime) {
-        result := ComCall(10, this, "ptr", CorrelatedTime, "HRESULT")
+        result := ComCall(10, this, "ptr", CorrelatedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,7 +146,11 @@ class IKsClockPropertySet extends IUnknown{
      */
     KsGetResolution() {
         Resolution := KSRESOLUTION()
-        result := ComCall(11, this, "ptr", Resolution, "HRESULT")
+        result := ComCall(11, this, "ptr", Resolution, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Resolution
     }
 
@@ -123,7 +159,11 @@ class IKsClockPropertySet extends IUnknown{
      * @returns {Integer} 
      */
     KsGetState() {
-        result := ComCall(12, this, "int*", &State := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &State := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return State
     }
 }

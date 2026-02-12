@@ -147,7 +147,11 @@ class IRTCProfile extends IUnknown{
      */
     get_Key() {
         pbstrKey := BSTR()
-        result := ComCall(3, this, "ptr", pbstrKey, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrKey
     }
 
@@ -157,7 +161,11 @@ class IRTCProfile extends IUnknown{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -167,7 +175,11 @@ class IRTCProfile extends IUnknown{
      */
     get_XML() {
         pbstrXML := BSTR()
-        result := ComCall(5, this, "ptr", pbstrXML, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrXML, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrXML
     }
 
@@ -177,7 +189,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ProviderName() {
         pbstrName := BSTR()
-        result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(6, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -188,7 +204,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ProviderURI(enURI) {
         pbstrURI := BSTR()
-        result := ComCall(7, this, "int", enURI, "ptr", pbstrURI, "HRESULT")
+        result := ComCall(7, this, "int", enURI, "ptr", pbstrURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrURI
     }
 
@@ -198,7 +218,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ProviderData() {
         pbstrData := BSTR()
-        result := ComCall(8, this, "ptr", pbstrData, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrData
     }
 
@@ -208,7 +232,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ClientName() {
         pbstrName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -217,7 +245,11 @@ class IRTCProfile extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ClientBanner() {
-        result := ComCall(10, this, "short*", &pfBanner := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pfBanner := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfBanner
     }
 
@@ -227,7 +259,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ClientMinVer() {
         pbstrMinVer := BSTR()
-        result := ComCall(11, this, "ptr", pbstrMinVer, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrMinVer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMinVer
     }
 
@@ -237,7 +273,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ClientCurVer() {
         pbstrCurVer := BSTR()
-        result := ComCall(12, this, "ptr", pbstrCurVer, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrCurVer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCurVer
     }
 
@@ -247,7 +287,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ClientUpdateURI() {
         pbstrUpdateURI := BSTR()
-        result := ComCall(13, this, "ptr", pbstrUpdateURI, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrUpdateURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUpdateURI
     }
 
@@ -257,7 +301,11 @@ class IRTCProfile extends IUnknown{
      */
     get_ClientData() {
         pbstrData := BSTR()
-        result := ComCall(14, this, "ptr", pbstrData, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrData
     }
 
@@ -267,7 +315,11 @@ class IRTCProfile extends IUnknown{
      */
     get_UserURI() {
         pbstrUserURI := BSTR()
-        result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
+        result := ComCall(15, this, "ptr", pbstrUserURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserURI
     }
 
@@ -277,7 +329,11 @@ class IRTCProfile extends IUnknown{
      */
     get_UserName() {
         pbstrUserName := BSTR()
-        result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
+        result := ComCall(16, this, "ptr", pbstrUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserName
     }
 
@@ -287,23 +343,86 @@ class IRTCProfile extends IUnknown{
      */
     get_UserAccount() {
         pbstrUserAccount := BSTR()
-        result := ComCall(17, this, "ptr", pbstrUserAccount, "HRESULT")
+        result := ComCall(17, this, "ptr", pbstrUserAccount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserAccount
     }
 
     /**
-     * 
+     * Sets the attributes of a credential, such as the name associated with the credential. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} bstrUserURI 
      * @param {BSTR} bstrUserAccount 
      * @param {BSTR} bstrPassword 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
+     * 
+     * If the function fails, the return value may be one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handle passed to the function is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not enough memory is available to complete the request.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/sspi/nf-sspi-setcredentialsattributesw
      */
     SetCredentials(bstrUserURI, bstrUserAccount, bstrPassword) {
-        bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI
-        bstrUserAccount := bstrUserAccount is String ? BSTR.Alloc(bstrUserAccount).Value : bstrUserAccount
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
+        if(bstrUserURI is String) {
+            pin := BSTR.Alloc(bstrUserURI)
+            bstrUserURI := pin.Value
+        }
+        if(bstrUserAccount is String) {
+            pin := BSTR.Alloc(bstrUserAccount)
+            bstrUserAccount := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrUserURI, "ptr", bstrUserAccount, "ptr", bstrPassword, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrUserURI, "ptr", bstrUserAccount, "ptr", bstrPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -312,7 +431,11 @@ class IRTCProfile extends IUnknown{
      * @returns {Integer} 
      */
     get_SessionCapabilities() {
-        result := ComCall(19, this, "int*", &plSupportedSessions := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &plSupportedSessions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSupportedSessions
     }
 
@@ -321,7 +444,11 @@ class IRTCProfile extends IUnknown{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(20, this, "int*", &penState := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &penState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penState
     }
 }

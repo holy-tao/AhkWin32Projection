@@ -3,7 +3,7 @@
 
 /**
  * Specifies the reason why a connection attempt failed.
- * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_connect_fail_reason
+ * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/ne-adhoc-dot11_adhoc_connect_fail_reason
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

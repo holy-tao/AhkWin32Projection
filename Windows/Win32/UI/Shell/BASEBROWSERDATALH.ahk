@@ -4,7 +4,7 @@
 
 /**
  * The BASEBROWSERDATALH structure contains protected members of the base class. (BASEBROWSERDATALH structure)
- * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-basebrowserdatalh
+ * @see https://learn.microsoft.com/windows/win32/api//content/shdeprecated/ns-shdeprecated-basebrowserdatalh
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

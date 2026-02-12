@@ -37,7 +37,11 @@ class IAudioSourceProvider extends IUnknown{
     ProvideInput(dwSampleCount, pdwChannelCount) {
         pdwChannelCountMarshal := pdwChannelCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwSampleCount, pdwChannelCountMarshal, pdwChannelCount, "float*", &pInterleavedAudioData := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwSampleCount, pdwChannelCountMarshal, pdwChannelCount, "float*", &pInterleavedAudioData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInterleavedAudioData
     }
 }

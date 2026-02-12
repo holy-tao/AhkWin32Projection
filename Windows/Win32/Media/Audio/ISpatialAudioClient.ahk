@@ -7,33 +7,29 @@
 /**
  * The ISpatialAudioClient interface enables a client to create audio streams that emit audio from a position in 3D space.
  * @remarks
- * 
- * Get an instance of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>, using the  <a href="https://docs.microsoft.com/cpp/cpp/uuidof-operator">__uuidof</a> operator to get the class ID of the <b>ISpatialAudioClient</b> interface. The following example code shows how to initialize this interface.
+ * The following example code illustrates how to initialize this interface using **IMMDevice**.
  * 
  * 
  * ```cpp
- * PROPVARIANT var; 
- * PropVariantInit(&var);  
- * auto p = reinterpret_cast<SpatialAudioClientActivationParams *>(CoTaskMemAlloc(sizeof(SpatialAudioClientActivationParams)));  
- * if (nullptr == p) { ... } 
- * p->tracingContextId = // context identifier ;  
- * p->appId = // app identifier ;  
- * p->majorVersion = // app version info ;  
- * p->majorVersionN = // app version info ;
- * var.vt = VT_BLOB;
- * var.blob.cbSize = sizeof(*p);
- * var.blob.pBlobData = reinterpret_cast<BYTE *>(p); 
- * hr = ActivateAudioInterfaceAsync(device, __uuidof(ISpatialAudioClient), &var, ...);
- * // ...
- * ropVariantClear(&var);
+ * HRESULT hr;
+ * Microsoft::WRL::ComPtr<IMMDeviceEnumerator> deviceEnum;
+ * Microsoft::WRL::ComPtr<IMMDevice> defaultDevice;
+ * 
+ * hr = CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL, __uuidof(IMMDeviceEnumerator), (void**)&deviceEnum);
+ * hr = deviceEnum->GetDefaultAudioEndpoint(EDataFlow::eRender, eMultimedia, &defaultDevice);
+ * 
+ * Microsoft::WRL::ComPtr<ISpatialAudioClient> spatialAudioClient;
+ * hr = defaultDevice->Activate(__uuidof(ISpatialAudioClient), CLSCTX_INPROC_SERVER, nullptr, (void**)&spatialAudioClient);
+ * 
  * ```
+ * 
+ * For UWP apps that do not have access to **IMMDevice**, you should get an instance of **ISpatialAudioClient** by calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a>. For an example, see the [WindowsAudioSession sample](https://github.com/microsoft/Windows-universal-samples/tree/b1cb20f191d3fd99ce89df50c5b7d1a6e2382c01/Samples/WindowsAudioSession).
  * 
  * 
  * <div class="alert"><b>Note</b>  When using the <b>ISpatialAudioClient</b> interfaces on an Xbox One Development Kit (XDK) title, you must first call <b>EnableSpatialAudio</b> before calling <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-enumaudioendpoints">IMMDeviceEnumerator::EnumAudioEndpoints</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdefaultaudioendpoint">IMMDeviceEnumerator::GetDefaultAudioEndpoint</a>. Failure to do so will result in an E_NOINTERFACE error being returned from the call to Activate. <b>EnableSpatialAudio</b> is only available for XDK titles, and does not need to be called for Universal Windows Platform apps running on Xbox One, nor for any non-Xbox One devices.</div>
  * <div> </div>
  * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -60,6 +56,8 @@ class ISpatialAudioClient extends IUnknown{
 
     /**
      * Gets the position in 3D space of the specified static spatial audio channel.
+     * @remarks
+     * Position values use a right-handed Cartesian coordinate system, where each unit represents 1 meter. The coordinate system is relative to the listener where the origin (x=0.0, y=0.0, z=0.0) represents the center point between the listener's ears.
      * @param {Integer} type A value indicating the static spatial audio channel for which the position is being queried. This method will return E_INVALIDARG  if the value does not represent a static channel, including <b>AudioObjectType_Dynamic</b> and <b>AudioObjectType_None</b>.
      * @param {Pointer<Float>} x The x coordinate of the static audio channel, in meters, relative to the listener. Positive values are to the right of the listener and negative values are to the left.
      * @param {Pointer<Float>} y The y coordinate of the static audio channel, in meters, relative to the listener. Positive values are above the listener and negative values are below.
@@ -78,60 +76,86 @@ class ISpatialAudioClient extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The supplied  <a href="/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> value does not represent a static channel.
+     * The supplied  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> value does not represent a static channel.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getstaticobjectposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getstaticobjectposition
      */
     GetStaticObjectPosition(type, x, y, z) {
         xMarshal := x is VarRef ? "float*" : "ptr"
         yMarshal := y is VarRef ? "float*" : "ptr"
         zMarshal := z is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "int", type, xMarshal, x, yMarshal, y, zMarshal, z, "HRESULT")
+        result := ComCall(3, this, "int", type, xMarshal, x, yMarshal, y, zMarshal, z, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a channel mask which represents the subset of static speaker bed channels native to current rendering engine.
      * @returns {Integer} A bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> enumeration indicating a subset of static speaker channels. The values returned will only include the static channel values and will not include <b>AudioObjectType_Dynamic</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getnativestaticobjecttypemask
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getnativestaticobjecttypemask
      */
     GetNativeStaticObjectTypeMask() {
-        result := ComCall(4, this, "int*", &mask := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &mask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return mask
     }
 
     /**
      * Gets the maximum number of dynamic audio objects for the spatial audio client.
+     * @remarks
+     * A dynamic <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobject">ISpatialAudioObject</a> is one that was activated by setting the <i>type</i> parameter to the  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstream-activatespatialaudioobject">ISpatialAudioObjectRenderStream::ActivateSpatialAudioObject</a> method to <b>AudioObjectType_Dynamic</b>. The client has a limit of the maximum number of dynamic spatial audio objects that can be activated at one time. When the capacity of the audio rendering pipeline changes, the system will dynamically adjust the maximum number of concurrent dynamic spatial audio objects. Before doing so, the system will call <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreamnotify-onavailabledynamicobjectcountchange">OnAvailableDynamicObjectCountChange</a> to notify clients of the resource limit change. 
+     * 
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on an <b>ISpatialAudioObject</b> when it is no longer being used to free up the resource to create new dynamic spatial audio objects.
+     * 
+     * When Windows Sonic is not available (for instance, when playing to embedded laptop stereo speakers, or if the user has not explicitly enabled Windows Sonic on the device), the number of available dynamic objects returned by <b>GetMaxDynamicObjectCount</b> to an application will be 0.
      * @returns {Integer} Gets the maximum dynamic object count for this client.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxdynamicobjectcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxdynamicobjectcount
      */
     GetMaxDynamicObjectCount() {
-        result := ComCall(5, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Gets an IAudioFormatEnumerator that contains all supported audio formats for spatial audio objects, the first item in the list represents the most preferable format.
-     * @returns {IAudioFormatEnumerator} Pointer to the pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nn-spatialaudioclient-iaudioformatenumerator">IAudioFormatEnumerator</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getsupportedaudioobjectformatenumerator
+     * @returns {Pointer<IAudioFormatEnumerator>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getsupportedaudioobjectformatenumerator
      */
     GetSupportedAudioObjectFormatEnumerator() {
-        result := ComCall(6, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IAudioFormatEnumerator(enumerator)
+        result := ComCall(6, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
      * Gets the maximum possible frame count per processing pass. This method can be used to determine the size of the source buffer that should be allocated to convey audio data for each processing pass.
      * @param {Pointer<WAVEFORMATEX>} objectFormat The audio format used to calculate the maximum frame count. This should be the same format specified in the <b>ObjectFormat</b> field of the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams">SpatialAudioObjectRenderStreamActivationParams</a> passed to  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream">ActivateSpatialAudioStream</a>.
      * @returns {Integer} The maximum number of audio frames that will be processed in one pass.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxframecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxframecount
      */
     GetMaxFrameCount(objectFormat) {
-        result := ComCall(7, this, "ptr", objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", objectFormat, "uint*", &frameCountPerBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return frameCountPerBuffer
     }
 
@@ -139,15 +163,31 @@ class ISpatialAudioClient extends IUnknown{
      * Gets a value indicating whether ISpatialAudioObjectRenderStream supports a the specified format.
      * @param {Pointer<WAVEFORMATEX>} objectFormat The format for which support is queried.
      * @returns {HRESULT} If the specified format is supported, it returns S_OK. If specified format is unsupported, this method returns AUDCLNT_E_UNSUPPORTED_FORMAT.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isaudioobjectformatsupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isaudioobjectformatsupported
      */
     IsAudioObjectFormatSupported(objectFormat) {
-        result := ComCall(8, this, "ptr", objectFormat, "HRESULT")
+        result := ComCall(8, this, "ptr", objectFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * When successful, gets a value indicating whether the currently active spatial rendering engine supports the specified spatial audio render stream.
+     * @remarks
+     * When querying to see if the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata">ISpatialAudioObjectRenderStreamForMetadata</a> you can use the auxilaryInfo parameter to query if a particular metadata format is supported. The following code example demonstrates how to initialize the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure to check for support for an example metadata format.
+     * 
+     * 
+     * ```cpp
+     * PROPVARIANT auxiliaryInfo;  
+     * auxiliaryInfo.vt = VT_CLSID;  
+     * auxiliaryInfo.puuid = const_cast<CLSID*>(&CONTOSO_SPATIAL_METADATA_V1_0);  
+     * ```
+     * 
+     * 
+     * If the specified metadata format is unsupported, <b>IsSpatialAudioStreamAvailable</b> returns SPTLAUDCLNT_E_METADATA_FORMAT_IS_NOT_SUPPORTED.
      * @param {Pointer<Guid>} streamUuid The interface ID of the interface for which availability is queried.
      * @param {Pointer<PROPVARIANT>} auxiliaryInfo A structure containing additional information to be used when support is queried. For more information, see Remarks.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
@@ -180,22 +220,39 @@ class ISpatialAudioClient extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isspatialaudiostreamavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-isspatialaudiostreamavailable
      */
     IsSpatialAudioStreamAvailable(streamUuid, auxiliaryInfo) {
-        result := ComCall(9, this, "ptr", streamUuid, "ptr", auxiliaryInfo, "HRESULT")
+        result := ComCall(9, this, "ptr", streamUuid, "ptr", auxiliaryInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Activates and initializes spatial audio stream using one of the spatial audio stream activation structures.
+     * @remarks
+     * This method supports activation of the following spatial audio stream interfaces:
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectrenderstream">ISpatialAudioObjectRenderStream</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata">ISpatialAudioObjectRenderStreamForMetadata</a>
      * @param {Pointer<PROPVARIANT>} activationParams The structure defining the activation parameters for the spatial audio stream. The <b>vt</b> field should be set to VT_BLOB and the <b>blob</b> field should be  populated with a <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams">SpatialAudioObjectRenderStreamActivationParams</a> or a <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/ns-spatialaudiometadata-spatialaudioobjectrenderstreamformetadataactivationparams">SpatialAudioObjectRenderStreamForMetadataActivationParams</a>.
      * @param {Pointer<Guid>} riid The UUID of the spatial audio stream interface to activate.
-     * @returns {Pointer<Void>} A pointer to the pointer which receives the activated spatial audio interface.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream
+     * @returns {Pointer<Pointer<Void>>} A pointer to the pointer which receives the activated spatial audio interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream
      */
     ActivateSpatialAudioStream(activationParams, riid) {
-        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, "ptr*", &stream := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, "ptr*", &stream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return stream
     }
 }

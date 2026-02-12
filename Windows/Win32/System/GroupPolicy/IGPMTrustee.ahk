@@ -6,7 +6,7 @@
 
 /**
  * The IGPMTrustee interface contains methods to retrieve information about a given trustee when using the Group Policy Management Console (GPMC).
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmtrustee
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmtrustee
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -78,7 +78,11 @@ class IGPMTrustee extends IDispatch{
      */
     get_TrusteeSid() {
         bstrVal := BSTR()
-        result := ComCall(7, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -88,7 +92,11 @@ class IGPMTrustee extends IDispatch{
      */
     get_TrusteeName() {
         bstrVal := BSTR()
-        result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -98,7 +106,11 @@ class IGPMTrustee extends IDispatch{
      */
     get_TrusteeDomain() {
         bstrVal := BSTR()
-        result := ComCall(9, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -108,7 +120,11 @@ class IGPMTrustee extends IDispatch{
      */
     get_TrusteeDSPath() {
         pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -117,7 +133,11 @@ class IGPMTrustee extends IDispatch{
      * @returns {Integer} 
      */
     get_TrusteeType() {
-        result := ComCall(11, this, "int*", &lVal := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &lVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lVal
     }
 }

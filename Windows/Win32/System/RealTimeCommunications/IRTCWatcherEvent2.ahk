@@ -47,7 +47,11 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent{
      * @returns {Integer} 
      */
     get_EventType() {
-        result := ComCall(8, this, "int*", &pEventType := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pEventType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEventType
     }
 
@@ -56,7 +60,11 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 }

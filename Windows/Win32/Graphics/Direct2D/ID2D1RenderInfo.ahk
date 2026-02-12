@@ -6,11 +6,8 @@
 /**
  * Describes the render information common to all of the various transform implementations.
  * @remarks
- * 
  * This interface is used by a transform implementation to first describe and then indicate changes to the rendering pass that corresponds to the transform.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1renderinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nn-d2d1effectauthor-id2d1renderinfo
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class ID2D1RenderInfo extends IUnknown{
 
     /**
      * Sets how a specific input to the transform should be handled by the renderer in terms of sampling.
+     * @remarks
+     * The input description must be matched correctly by the effect shader code.
      * @param {Integer} inputIndex Type: <b>UINT32</b>
      * 
      * The index of the input that will have the input description applied.
@@ -62,15 +61,25 @@ class ID2D1RenderInfo extends IUnknown{
      * <td>An invalid parameter was passed to the returning function.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinputdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinputdescription
      */
     SetInputDescription(inputIndex, inputDescription) {
-        result := ComCall(3, this, "uint", inputIndex, "ptr", inputDescription, "HRESULT")
+        result := ComCall(3, this, "uint", inputIndex, "ptr", inputDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Allows a caller to control the output precision and channel-depth of the transform in which the render information is encapsulated.
+     * @remarks
+     * If the output precision of the transform is not specified, then it will default to the precision specified on the Direct2D device context. The maximum of 16bpc <b>UNORM</b> and 16bpc <b>FLOAT</b> is 32bpc <b>FLOAT</b>.
+     * 
+     * The output channel depth will match the maximum of the input channel depths if the channel depth is <b>D2D1_CHANNEL_DEPTH_DEFAULT</b>.
+     * 
+     * There is no global output channel depth, this is always left to the control of the transforms.
      * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * The type of buffer that should be used as an output from this transform.
@@ -80,10 +89,14 @@ class ID2D1RenderInfo extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setoutputbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setoutputbuffer
      */
     SetOutputBuffer(bufferPrecision, channelDepth) {
-        result := ComCall(4, this, "int", bufferPrecision, "int", channelDepth, "HRESULT")
+        result := ComCall(4, this, "int", bufferPrecision, "int", channelDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +106,7 @@ class ID2D1RenderInfo extends IUnknown{
      * 
      * <b>TRUE</b> if the output of the transform is cached; otherwise, <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setcached
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setcached
      */
     SetCached(isCached) {
         ComCall(5, this, "int", isCached)
@@ -102,20 +115,17 @@ class ID2D1RenderInfo extends IUnknown{
     /**
      * Provides an estimated hint of shader execution cost to D2D.
      * @remarks
-     * 
      * The instruction count may be set according to the number of instructions in the shader.  This information is used as a hint when rendering extremely large images.  Calling this API is optional, but it may  improve performance if you provide an accurate number.
      * 
      * 
      * 
      * <div class="alert"><b>Note</b>  Instructions that occur in a loop should be counted according to the number of loop iterations.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} instructionCount Type: <b>UINT32</b>
      * 
      * An approximate instruction count of the associated shader.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinstructioncounthint
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinstructioncounthint
      */
     SetInstructionCountHint(instructionCount) {
         ComCall(6, this, "uint", instructionCount)

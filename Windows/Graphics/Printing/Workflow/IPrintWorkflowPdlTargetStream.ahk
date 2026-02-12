@@ -1,0 +1,58 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Storage\Streams\IOutputStream.ahk
+#Include ..\..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Graphics.Printing.Workflow
+ * @version WindowsRuntime 1.4
+ */
+class IPrintWorkflowPdlTargetStream extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IPrintWorkflowPdlTargetStream
+     * @type {Guid}
+     */
+    static IID => Guid("{a742dfe5-1ee3-52a9-9f9f-2e2043180fd1}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["GetOutputStream", "CompleteStreamSubmission"]
+
+    /**
+     * 
+     * @returns {IOutputStream} 
+     */
+    GetOutputStream() {
+        result := ComCall(6, this, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IOutputStream(result_)
+    }
+
+    /**
+     * 
+     * @param {Integer} status_ 
+     * @returns {HRESULT} 
+     */
+    CompleteStreamSubmission(status_) {
+        result := ComCall(7, this, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

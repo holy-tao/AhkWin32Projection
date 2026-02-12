@@ -30,25 +30,29 @@ class IDebugHostMemory5 extends IDebugHostMemory4{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} context_ 
+     * @param {Location} location_ 
      * @param {Integer} vt 
      * @param {Integer} count 
      * @param {Pointer<VARIANT>} vals 
      * @param {Pointer<Integer>} intrinsicsRead 
      * @returns {HRESULT} 
      */
-    ReadIntrinsics(context, location, vt, count, vals, intrinsicsRead) {
+    ReadIntrinsics(context_, location_, vt, count, vals, intrinsicsRead) {
         intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", context, "ptr", location, "ushort", vt, "uint", count, "ptr", vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
+        result := ComCall(12, this, "ptr", context_, "ptr", location_, "ushort", vt, "uint", count, "ptr", vals, intrinsicsReadMarshal, intrinsicsRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} context_ 
+     * @param {Location} location_ 
      * @param {Integer} ordinalSize 
      * @param {Integer} ordinalIsSigned 
      * @param {Integer} count 
@@ -56,10 +60,14 @@ class IDebugHostMemory5 extends IDebugHostMemory4{
      * @param {Pointer<Integer>} intrinsicsRead 
      * @returns {HRESULT} 
      */
-    ReadOrdinalIntrinsics(context, location, ordinalSize, ordinalIsSigned, count, vals, intrinsicsRead) {
+    ReadOrdinalIntrinsics(context_, location_, ordinalSize, ordinalIsSigned, count, vals, intrinsicsRead) {
         intrinsicsReadMarshal := intrinsicsRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", context, "ptr", location, "uint", ordinalSize, "char", ordinalIsSigned, "uint", count, "ptr", vals, intrinsicsReadMarshal, intrinsicsRead, "HRESULT")
+        result := ComCall(13, this, "ptr", context_, "ptr", location_, "uint", ordinalSize, "char", ordinalIsSigned, "uint", count, "ptr", vals, intrinsicsReadMarshal, intrinsicsRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The IUPnPDeviceDocumentAccess interface enables an application to obtain the URL of the device description document.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdevicedocumentaccess
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpdevicedocumentaccess
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -33,12 +33,18 @@ class IUPnPDeviceDocumentAccess extends IUnknown{
 
     /**
      * The GetDocumentURL method returns the URL from which the device description document can be loaded.
+     * @remarks
+     * This method does not support scripting.
      * @returns {BSTR} Receives the URL from which the device description document can be downloaded.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicedocumentaccess-getdocumenturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevicedocumentaccess-getdocumenturl
      */
     GetDocumentURL() {
         pbstrDocument := BSTR()
-        result := ComCall(3, this, "ptr", pbstrDocument, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrDocument, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDocument
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Monitors the individual log records maintained by a specific CRM clerk for a given transaction.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icrmmonitorlogrecords
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icrmmonitorlogrecords
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -55,20 +55,28 @@ class ICrmMonitorLogRecords extends IUnknown{
     /**
      * Retrieves the number of log records written by this CRM clerk.
      * @returns {Integer} The number of log records written by this CRM clerk.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_count
      */
     get_Count() {
-        result := ComCall(3, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the current state of the transaction.
      * @returns {Integer} The current transaction state, represented by an <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-crmtransactionstate">CrmTransactionState</a> enumeration value.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_transactionstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_transactionstate
      */
     get_TransactionState() {
-        result := ComCall(4, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -76,10 +84,14 @@ class ICrmMonitorLogRecords extends IUnknown{
      * Retrieves a flag indicating whether the log records written by this CRM clerk were structured.
      * @returns {VARIANT_BOOL} Indicates whether the log records are structured.
      * If this method is called before any log records have been written, this parameter is <b>TRUE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_structuredrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorlogrecords-get_structuredrecords
      */
     get_StructuredRecords() {
-        result := ComCall(5, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(5, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -150,10 +162,14 @@ class ICrmMonitorLogRecords extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecord
      */
     GetLogRecord(dwIndex, pCrmLogRec) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pCrmLogRec, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, "ptr", pCrmLogRec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,11 +177,15 @@ class ICrmMonitorLogRecords extends IUnknown{
      * Retrieves a structured log record given its numeric index.
      * @param {VARIANT} IndexNumber The index of the required log record.
      * @returns {VARIANT} The log record. See <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-preparerecordvariants">ICrmCompensatorVariants::PrepareRecordVariants</a> for the format.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecordvariants
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorlogrecords-getlogrecordvariants
      */
     GetLogRecordVariants(IndexNumber) {
         pLogRecord := VARIANT()
-        result := ComCall(7, this, "ptr", IndexNumber, "ptr", pLogRecord, "HRESULT")
+        result := ComCall(7, this, "ptr", IndexNumber, "ptr", pLogRecord, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLogRecord
     }
 }

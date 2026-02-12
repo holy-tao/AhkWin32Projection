@@ -6,6 +6,10 @@
 #Include .\IUpdate5.ahk
 
 /**
+ * Represents info about the aspects of search results returned in the ISearchResult object that were incomplete.
+ * @remarks
+ * The <b>IUpdateException</b> object is returned as part of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-isearchresult-get_warnings">ISearchResult::Warnings</a> property when a search succeeds but can't return complete results. For example, Windows Update might not have been able to retrieve all of the update metadata for a given update from the server. In this situation, the search results returned in the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchresult">ISearchResult</a> object are usable, but they aren't necessarily complete. The properties of the <b>IUpdateException</b> objects that are returned by the <b>ISearchResult::Warnings</b> property contain info about the  aspects of the search that were incomplete. This info is unlikely to be useful programmatically, but can sometimes be useful for debugging.
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdateexception
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -36,10 +40,17 @@ class IUpdateEx extends IUpdate5{
      * @returns {VARIANT} 
      */
     get_ExtendedStaticProperty(propertyName) {
-        propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
+        if(propertyName is String) {
+            pin := BSTR.Alloc(propertyName)
+            propertyName := pin.Value
+        }
 
         retval := VARIANT()
-        result := ComCall(60, this, "ptr", propertyName, "ptr", retval, "HRESULT")
+        result := ComCall(60, this, "ptr", propertyName, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -49,10 +60,17 @@ class IUpdateEx extends IUpdate5{
      * @returns {VARIANT} 
      */
     EvaluateExtendedDynamicProperty(propertyName) {
-        propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
+        if(propertyName is String) {
+            pin := BSTR.Alloc(propertyName)
+            propertyName := pin.Value
+        }
 
         retval := VARIANT()
-        result := ComCall(61, this, "ptr", propertyName, "ptr", retval, "HRESULT")
+        result := ComCall(61, this, "ptr", propertyName, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

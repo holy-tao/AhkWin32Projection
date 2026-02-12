@@ -121,9 +121,16 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,7 +140,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -143,7 +154,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -153,9 +168,16 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +187,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -175,7 +201,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_checked(v) {
-        result := ComCall(12, this, "short", v, "HRESULT")
+        result := ComCall(12, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +214,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_checked() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -194,7 +228,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_defaultChecked(v) {
-        result := ComCall(14, this, "short", v, "HRESULT")
+        result := ComCall(14, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +241,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_defaultChecked() {
-        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -213,7 +255,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,7 +269,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -233,7 +283,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(18, this, "short", v, "HRESULT")
+        result := ComCall(18, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -242,7 +296,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -252,7 +310,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_status(v) {
-        result := ComCall(20, this, "short", v, "HRESULT")
+        result := ComCall(20, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -261,7 +323,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_status() {
-        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -271,7 +337,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_indeterminate(v) {
-        result := ComCall(22, this, "short", v, "HRESULT")
+        result := ComCall(22, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,7 +350,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_indeterminate() {
-        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -289,7 +363,11 @@ class IHTMLOptionButtonElement extends IDispatch{
      * @returns {IHTMLFormElement} 
      */
     get_form() {
-        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFormElement(p)
     }
 }

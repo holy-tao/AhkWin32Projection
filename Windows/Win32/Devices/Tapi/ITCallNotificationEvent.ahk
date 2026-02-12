@@ -6,7 +6,7 @@
 
 /**
  * The ITCallNotificationEvent interface contains methods that retrieve the description of call notification events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcallnotificationevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itcallnotificationevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -54,12 +54,20 @@ class ITCallNotificationEvent extends IDispatch{
 
     /**
      * The get_Call method returns the ITCallInfo interface on which a call event has occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface returned by <b>ITCallNotificationEvent::get_Call</b>. The application must call <b>Release</b> on 
+     * <b>ITCallInfo</b> to free resources associated with it.
      * @returns {ITCallInfo} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface on which call event has occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallnotificationevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallnotificationevent-get_call
      */
     get_Call() {
-        result := ComCall(7, this, "ptr*", &ppCall := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppCall := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITCallInfo(ppCall)
     }
 
@@ -68,21 +76,29 @@ class ITCallNotificationEvent extends IDispatch{
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_notification_event">CALL_NOTIFICATION_EVENT</a> description of the application's privilege on the call returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itcallnotificationevent-get_call">ITCallNotificationEvent::get_Call</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallnotificationevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallnotificationevent-get_event
      */
     get_Event() {
-        result := ComCall(8, this, "int*", &pCallNotificationEvent := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pCallNotificationEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCallNotificationEvent
     }
 
     /**
-     * The get_CallbackInstance method gets a pointer to the callback instance associated with this event.
+     * The get_CallbackInstance method gets a pointer to the callback instance associated with this event. (ITCallNotificationEvent.get_CallbackInstance)
      * @returns {Integer} Pointer to callback instance returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallnotificationevent-get_callbackinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallnotificationevent-get_callbackinstance
      */
     get_CallbackInstance() {
-        result := ComCall(9, this, "int*", &plCallbackInstance := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plCallbackInstance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCallbackInstance
     }
 }

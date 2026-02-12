@@ -4,13 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * For a particular seek position, gets the two nearest key frames.
+ * For a particular seek position, gets the two nearest key frames. (IMFSeekInfo)
  * @remarks
- * 
  * A media source can implement this interface as an optional service. To get a pointer to the interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfgetservice">IMFGetService::GetService</a> with the service identifier <b>MF_SCRUBBING_SERVICE</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfseekinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfseekinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,7 +33,9 @@ class IMFSeekInfo extends IUnknown{
     static VTableNames => ["GetNearestKeyFrames"]
 
     /**
-     * For a particular seek position, gets the two nearest key frames.
+     * For a particular seek position, gets the two nearest key frames. (IMFSeekInfo.GetNearestKeyFrames)
+     * @remarks
+     * If an application seeks to a non–key frame, the decoder must start decoding from the previous key frame. This can increase latency, because several frames might get decoded before the requested frame is reached. To reduce latency, an application can call this method to find the two key frames that are closest to the desired time, and then seek to one of those key frames.
      * @param {Pointer<Guid>} pguidTimeFormat A pointer to a GUID that specifies the time format. The time format defines the units for the other parameters of this method. If the value is <b>GUID_NULL</b>, the time format is 100-nanosecond units. Some media sources might support additional time format GUIDs.
      * @param {Pointer<PROPVARIANT>} pvarStartPosition The seek position. The units for this parameter are specified by <i>pguidTimeFormat</i>.
      * @param {Pointer<PROPVARIANT>} pvarPreviousKeyFrame Receives the position of the nearest key frame that appears earlier than <i>pvarStartPosition</i>. The units for this parameter are specified by <i>pguidTimeFormat</i>.
@@ -71,10 +70,14 @@ class IMFSeekInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfseekinfo-getnearestkeyframes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfseekinfo-getnearestkeyframes
      */
     GetNearestKeyFrames(pguidTimeFormat, pvarStartPosition, pvarPreviousKeyFrame, pvarNextKeyFrame) {
-        result := ComCall(3, this, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "ptr", pvarPreviousKeyFrame, "ptr", pvarNextKeyFrame, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "ptr", pvarPreviousKeyFrame, "ptr", pvarNextKeyFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -37,7 +37,11 @@ class IEnumACString extends IEnumString{
     NextItem(pszUrl, cchMax) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(7, this, "ptr", pszUrl, "uint", cchMax, "uint*", &pulSortIndex := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pszUrl, "uint", cchMax, "uint*", &pulSortIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulSortIndex
     }
 
@@ -47,7 +51,11 @@ class IEnumACString extends IEnumString{
      * @returns {HRESULT} 
      */
     SetEnumOptions(dwOptions) {
-        result := ComCall(8, this, "uint", dwOptions, "HRESULT")
+        result := ComCall(8, this, "uint", dwOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class IEnumACString extends IEnumString{
      * @returns {Integer} 
      */
     GetEnumOptions() {
-        result := ComCall(9, this, "uint*", &pdwOptions := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pdwOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwOptions
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * This is the primary interface for conditions used in filtering when searching for elements in the UI Automation tree.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationcondition
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationcondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

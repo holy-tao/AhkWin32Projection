@@ -7,7 +7,7 @@
 
 /**
  * The IGPMSOMCollection interface represents a collection of GPMSOM objects.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmsomcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmsomcollection
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -55,10 +55,14 @@ class IGPMSOMCollection extends IDispatch{
     /**
      * Returns the number of SOMs in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsomcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmsomcollection-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -66,21 +70,29 @@ class IGPMSOMCollection extends IDispatch{
      * Given an index, returns a SOM from the collection.
      * @param {Integer} lIndex 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsomcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmsomcollection-get_item
      */
     get_Item(lIndex) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", lIndex, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", lIndex, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Retrieves an enumerator for the collection.
+     * Retrieves an enumerator for the collection. (IGPMSOMCollection.get__NewEnum)
      * @returns {IEnumVARIANT} Pointer to an <b>IEnumVARIANT</b> interface of an enumerator object for the collection. <b>IEnumVARIANT</b> provides a number of methods that you can use to iterate through the collection. For more information about <b>IEnumVARIANT</b>, see the COM documentation in the Platform SDK.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsomcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmsomcollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppIGPMSOM := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppIGPMSOM := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(ppIGPMSOM)
     }
 }

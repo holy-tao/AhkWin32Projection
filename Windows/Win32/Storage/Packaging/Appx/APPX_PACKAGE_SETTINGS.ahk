@@ -11,7 +11,7 @@
  * <li>http://www.w3.org/2001/04/xmldsig-more#sha384</li>
  * <li>http://www.w3.org/2001/04/xmlenc#sha512</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_package_settings
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/ns-appxpackaging-appx_package_settings
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

@@ -6,10 +6,8 @@
 /**
  * Exposes a method through which a delegate folder is given the IMalloc interface required to allocate and free item IDs.
  * @remarks
- * 
  * The IDs allocated by the delegate folder are in the form of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-delegateitemid">DELEGATEITEMID</a> structures. It is the delegate's job to pack its data into the pointer to an item identifier list (PIDL) in the <b>DELEGATEITEMID</b> format.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idelegatefolder
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-idelegatefolder
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,11 +39,15 @@ class IDelegateFolder extends IUnknown{
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idelegatefolder-setitemalloc
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idelegatefolder-setitemalloc
      */
     SetItemAlloc(pmalloc) {
-        result := ComCall(3, this, "ptr", pmalloc, "HRESULT")
+        result := ComCall(3, this, "ptr", pmalloc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

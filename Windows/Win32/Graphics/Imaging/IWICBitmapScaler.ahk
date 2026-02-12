@@ -6,7 +6,6 @@
 /**
  * Represents a resized version of the input bitmap using a resampling or filtering algorithm.
  * @remarks
- * 
  * Images can be scaled to larger sizes; however, even with sophisticated scaling algorithms, there is only so much information in the image and artifacts tend to worsen the more you scale up.
  * 
  * The scaler will reapply the resampling algorithm every time <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">CopyPixels</a> is called. 
@@ -22,8 +21,7 @@
  *             In this case the accumulator from the previous vertically adjacent rectangle is re-used to avoid duplicate scanline requests from the source. 
  *             This implies that banded output from the scaler may have better performance if the bands are requested sequentially. 
  *             Of course if the scaler is simply used to produce a single rectangle output, this concern is eliminated because the scaler will internally request scanlines in the correct order.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicbitmapscaler
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicbitmapscaler
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -50,6 +48,8 @@ class IWICBitmapScaler extends IWICBitmapSource{
 
     /**
      * Initializes the bitmap scaler with the provided parameters.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapscaler">IWICBitmapScaler</a> can't be initialized multiple times. For example, when scaling every frame in a multi-frame image, a new <b>IWICBitmapScaler</b> must be created and initialized for each frame.
      * @param {IWICBitmapSource} pISource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The input bitmap source.
@@ -58,17 +58,21 @@ class IWICBitmapScaler extends IWICBitmapSource{
      * The destination width.
      * @param {Integer} uiHeight Type: <b>UINT</b>
      * 
-     * The desination height.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a></b>
+     * The destination height.
+     * @param {Integer} mode_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a> to use when scaling.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapscaler-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicbitmapscaler-initialize
      */
-    Initialize(pISource, uiWidth, uiHeight, mode) {
-        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, "int", mode, "HRESULT")
+    Initialize(pISource, uiWidth, uiHeight, mode_) {
+        result := ComCall(8, this, "ptr", pISource, "uint", uiWidth, "uint", uiHeight, "int", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

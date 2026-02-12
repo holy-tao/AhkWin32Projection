@@ -4,11 +4,10 @@
 #Include .\ID3D12VideoDecoderHeap.ahk
 
 /**
- * 
+ * The ID3D12VideoDecoderHeap1 interface (d3d12video.h) inherits from ID3D12VideoDecoderHeap and introduces support for protected resources.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodecoderheap1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nn-d3d12video-id3d12videodecoderheap1
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,13 +33,17 @@ class ID3D12VideoDecoderHeap1 extends ID3D12VideoDecoderHeap{
     static VTableNames => ["GetProtectedResourceSession"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecoderheap1-getprotectedresourcesession
+     * Gets the ID3D12ProtectedResourceSession that was passed into ID3D12VideoDevice2::CreateVideoDecoderHeap1 when the ID3D12VideoDecoderHeap1 was created.
+     * @param {Pointer<Guid>} riid The globally unique identifier (GUID) for the **ID3D12ProtectedResourceSession** interface.
+     * @returns {Pointer<Pointer<Void>>} Receives a void pointer representing the **ID3D12ProtectedResourceSession** interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videodecoderheap1-getprotectedresourcesession
      */
     GetProtectedResourceSession(riid) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppProtectedSession
     }
 }

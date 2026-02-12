@@ -7,7 +7,7 @@
  * Contains the response to a call to the IDirect3DAuthenticatedChannel9::Configure method.
  * @remarks
  * For the **ConfigureType**, **hChannel**, and **SequenceNumber** members, the driver uses the same values that the application provided in the [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure. The application should verify that these values match.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configure-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-configure-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

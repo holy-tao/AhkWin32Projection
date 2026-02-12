@@ -7,7 +7,7 @@
  * The PCOLORDATATYPE and LPCOLORDATATYPE data types are defined as pointers to the **COLORDATATYPE** enumeration:
  * 
  * `typedef COLORDATATYPE *PCOLORDATATYPE, *LPCOLORDATATYPE;`
- * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-colordatatype
+ * @see https://learn.microsoft.com/windows/win32/api//content/icm/ne-icm-colordatatype
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

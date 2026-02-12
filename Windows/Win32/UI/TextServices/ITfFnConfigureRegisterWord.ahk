@@ -6,7 +6,7 @@
 
 /**
  * The ITfFnConfigureRegisterWord interface is implemented by a text service to enable the Active Input Method Editor (IME) to cause the text service to display a word registration dialog box.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnconfigureregisterword
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffnconfigureregisterword
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -67,13 +67,20 @@ class ITfFnConfigureRegisterWord extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnconfigureregisterword-show
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnconfigureregisterword-show
      */
     Show(hwndParent, langid, rguidProfile, bstrRegistered) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
-        bstrRegistered := bstrRegistered is String ? BSTR.Alloc(bstrRegistered).Value : bstrRegistered
+        if(bstrRegistered is String) {
+            pin := BSTR.Alloc(bstrRegistered)
+            bstrRegistered := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", hwndParent, "ushort", langid, "ptr", rguidProfile, "ptr", bstrRegistered, "HRESULT")
+        result := ComCall(4, this, "ptr", hwndParent, "ushort", langid, "ptr", rguidProfile, "ptr", bstrRegistered, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

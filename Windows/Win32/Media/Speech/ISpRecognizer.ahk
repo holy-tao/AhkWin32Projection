@@ -37,7 +37,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     SetRecognizer(pRecognizer) {
-        result := ComCall(7, this, "ptr", pRecognizer, "HRESULT")
+        result := ComCall(7, this, "ptr", pRecognizer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,18 +50,46 @@ class ISpRecognizer extends ISpProperties{
      * @returns {ISpObjectToken} 
      */
     GetRecognizer() {
-        result := ComCall(8, this, "ptr*", &ppRecognizer := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppRecognizer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectToken(ppRecognizer)
     }
 
     /**
+     * Sets an input scope for the specified window.
+     * @remarks
+     * Calling this method replaces whatever scope is associated with the window.
      * 
+     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
+     * 
+     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
+     * 
+     * If you call this method on a window (<i>hwnd</i> parameter) that has 
+     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
+     * scope change.
      * @param {IUnknown} pUnkInput 
      * @param {BOOL} fAllowFormatChanges 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method was successful.</td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-setinputscope
      */
     SetInput(pUnkInput, fAllowFormatChanges) {
-        result := ComCall(9, this, "ptr", pUnkInput, "int", fAllowFormatChanges, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnkInput, "int", fAllowFormatChanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +98,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {ISpObjectToken} 
      */
     GetInputObjectToken() {
-        result := ComCall(10, this, "ptr*", &ppToken := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectToken(ppToken)
     }
 
@@ -75,7 +111,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {ISpStreamFormat} 
      */
     GetInputStream() {
-        result := ComCall(11, this, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpStreamFormat(ppStream)
     }
 
@@ -84,7 +124,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {ISpRecoContext} 
      */
     CreateRecoContext() {
-        result := ComCall(12, this, "ptr*", &ppNewCtxt := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppNewCtxt := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecoContext(ppNewCtxt)
     }
 
@@ -93,7 +137,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {ISpObjectToken} 
      */
     GetRecoProfile() {
-        result := ComCall(13, this, "ptr*", &ppToken := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectToken(ppToken)
     }
 
@@ -103,7 +151,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     SetRecoProfile(pToken) {
-        result := ComCall(14, this, "ptr", pToken, "HRESULT")
+        result := ComCall(14, this, "ptr", pToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +164,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     IsSharedInstance() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +180,11 @@ class ISpRecognizer extends ISpProperties{
     GetRecoState(pState) {
         pStateMarshal := pState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(16, this, pStateMarshal, pState, "HRESULT")
+        result := ComCall(16, this, pStateMarshal, pState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +194,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     SetRecoState(NewState) {
-        result := ComCall(17, this, "int", NewState, "HRESULT")
+        result := ComCall(17, this, "int", NewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,18 +208,27 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     GetStatus(pStatus) {
-        result := ComCall(18, this, "ptr", pStatus, "HRESULT")
+        result := ComCall(18, this, "ptr", pStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
      * @param {Integer} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(WaveFormatType, pFormatId) {
-        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, "ptr*", &ppCoMemWFEX := 0, "HRESULT")
+        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, "ptr*", &ppCoMemWFEX := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCoMemWFEX
     }
 
@@ -173,7 +246,11 @@ class ISpRecognizer extends ISpProperties{
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
         pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
+        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +270,11 @@ class ISpRecognizer extends ISpProperties{
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(21, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
+        result := ComCall(21, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +284,11 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     EmulateRecognition(pPhrase) {
-        result := ComCall(22, this, "ptr", pPhrase, "HRESULT")
+        result := ComCall(22, this, "ptr", pPhrase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

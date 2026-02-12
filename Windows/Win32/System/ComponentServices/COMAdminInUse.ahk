@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The DLL is in use by the COM+ catalog.
+ * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nf-comadmin-icomadmincatalog2-issafetodelete
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

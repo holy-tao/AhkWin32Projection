@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Defines the options for the DrawThemeTextEx function.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dttopts
+ * @see https://learn.microsoft.com/windows/win32/api//content/uxtheme/ns-uxtheme-dttopts
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -333,8 +334,11 @@ class DTTOPTS extends Win32Struct
      * Parameter for callback back function specified by <b>pfnDrawTextCallback</b>.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(64, this)
+            return this.__lParam
+        }
     }
 }

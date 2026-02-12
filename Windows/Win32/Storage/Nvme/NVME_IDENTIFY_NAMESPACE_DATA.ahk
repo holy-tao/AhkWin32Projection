@@ -7,7 +7,7 @@
  * Contains values that indicate capabilities and settings that are specific to a particular namespace.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_namespace_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_identify_namespace_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

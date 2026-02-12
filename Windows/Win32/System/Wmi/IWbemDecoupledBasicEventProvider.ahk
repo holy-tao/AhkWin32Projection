@@ -7,7 +7,7 @@
 
 /**
  * The IWbemDecoupledBasicEventProvider interface is a cocreatable interface that registers decoupled providers with WMI. The object created should be passed into the pUnknown argument of IWbemDecoupledRegistrar::Register.
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemdecoupledbasiceventprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nn-wbemprov-iwbemdecoupledbasiceventprovider
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -44,10 +44,14 @@ class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar{
      * @param {IWbemContext} a_Context Reserved for future use.
      * @returns {IWbemObjectSink} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a> instance used to forward events to WMI.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getsink
      */
     GetSink(a_Flags, a_Context) {
-        result := ComCall(5, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Sink := 0, "HRESULT")
+        result := ComCall(5, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Sink := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemObjectSink(a_Sink)
     }
 
@@ -56,10 +60,14 @@ class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar{
      * @param {Integer} a_Flags Reserved for future use.
      * @param {IWbemContext} a_Context Reserved for future use.
      * @returns {IWbemServices} Pointer to an <b>IWbemService</b> object that can be used to retrieve information from WMI.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
      */
     GetService(a_Flags, a_Context) {
-        result := ComCall(6, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Service := 0, "HRESULT")
+        result := ComCall(6, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Service := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemServices(a_Service)
     }
 }

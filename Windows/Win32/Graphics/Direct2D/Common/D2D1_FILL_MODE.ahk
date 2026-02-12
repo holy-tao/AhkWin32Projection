@@ -25,7 +25,7 @@
  * The following illustration explains this process. The red arrows represent the direction in which the segments are drawn and the black arrow represents an arbitrary ray that runs from a point in the innermost ring. Starting with a value of zero, for each segment that the ray crosses, a value of one is added for every clockwise intersection. All points lie in the fill region in this illustration, because the count does not equal zero. 
  * 
  * <img alt="Illustration of concentric circles with a ray from within the first ring that crosses all four rings" src="./images/fillmode_04.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ne-d2d1-d2d1_fill_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

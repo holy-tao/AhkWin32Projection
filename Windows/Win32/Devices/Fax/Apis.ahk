@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IStillImageW.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
@@ -118,17 +120,17 @@ class Fax {
     static FAXDEVREPORTSTATUS_SIZE => 4096
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_FAXROUTE_PRINTING_GUID => "{aec1b37c-9af2-11d0-abf7-00c04fd91a4e}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_FAXROUTE_FOLDER_GUID => "{92041a90-9af2-11d0-abf7-00c04fd91a4e}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_FAXROUTE_EMAIL_GUID => "{6bbf7bfe-9af2-11d0-abf7-00c04fd91a4e}"
 
@@ -653,27 +655,27 @@ class Fax {
     static FAXSRV_ROUTING_METHOD_NODETYPE_GUID => Guid("{220d2cb0-85a9-4a43-b6e8-9d66b44f1af5}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_MSFAXSRV_DEVICE_ID => "FAXSRV_DeviceID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_MSFAXSRV_FSP_GUID => "FAXSRV_FSPGuid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_MSFAXSRV_SERVER_NAME => "FAXSRV_ServerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_MSFAXSRV_ROUTEEXT_NAME => "FAXSRV_RoutingExtName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_MSFAXSRV_ROUTING_METHOD_GUID => "FAXSRV_RoutingMethodGuid"
 
@@ -948,22 +950,22 @@ class Fax {
     static MAX_NOTIFICATION_DATA => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_ADD_DEVICE_BROADCAST_ACTION => "Arrival"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_REMOVE_DEVICE_BROADCAST_ACTION => "Removal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_ADD_DEVICE_BROADCAST_STRING => "STI\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_REMOVE_DEVICE_BROADCAST_STRING => "STI\"
 
@@ -1133,107 +1135,107 @@ class Fax {
     static STIERR_DEVICE_NOTREADY => -2147024875
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TYPE_W => "Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VENDOR_NAME_W => "Vendor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICETYPE_W => "DeviceType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICESUBTYPE_W => "DeviceSubType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEV_NAME_W => "DeviceName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVER_DESC_W => "DriverDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FRIENDLY_NAME_W => "FriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_GENERIC_CAPS_W => "Capabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HARDWARE_W => "HardwareConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HARDWARE => "HardwareConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICE_NAME_W => "DriverDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DATA_W => "DeviceData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_GUID_W => "GUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_GUID => "GUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LAUNCH_APPS_W => "LaunchApplications"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LAUNCH_APPS => "LaunchApplications"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LAUNCHABLE_W => "Launchable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LAUNCHABLE => "Launchable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNDELAY_W => "ShutdownIfUnusedDelay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNDELAY => "ShutdownIfUnusedDelay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IS_DIGITAL_CAMERA_STR => "IsDigitalCamera"
 
@@ -1243,7 +1245,7 @@ class Fax {
     static IS_DIGITAL_CAMERA_VAL => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SUPPORTS_MSCPLUS_STR => "SupportsMSCPlus"
 
@@ -1253,72 +1255,72 @@ class Fax {
     static SUPPORTS_MSCPLUS_VAL => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_TWAIN_NAME => "TwainDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_ISIS_NAME => "ISISDriverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_ICM_PROFILE => "ICMProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_DEFAULT_LAUNCHAPP => "DefaultLaunchApp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_TIMEOUT => "PollTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_DISABLE_NOTIFICATIONS => "DisableNotifications"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BAUDRATE => "BaudRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_TWAIN_NAME_A => "TwainDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_ISIS_NAME_A => "ISISDriverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_ICM_PROFILE_A => "ICMProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_DEFAULT_LAUNCHAPP_A => "DefaultLaunchApp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_TIMEOUT_A => "PollTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STI_DEVICE_VALUE_DISABLE_NOTIFICATIONS_A => "DisableNotifications"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BAUDRATE_A => "BaudRate"
 
@@ -1436,7 +1438,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxconnectfaxservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxconnectfaxservera
      * @since windows5.0
      */
     static FaxConnectFaxServerA(MachineName, FaxHandle) {
@@ -1518,7 +1520,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxconnectfaxserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxconnectfaxserverw
      * @since windows5.0
      */
     static FaxConnectFaxServerW(MachineName, FaxHandle) {
@@ -1535,9 +1537,53 @@ class Fax {
     }
 
     /**
+     * The FaxClose function closes fax handles
+     * @remarks
+     * A fax client application must call the <b>FaxClose</b> function as the last function before it terminates. The <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function cannot close the handle to a fax server or a fax port.
      * 
-     * @param {HANDLE} FaxHandle 
-     * @returns {BOOL} 
+     * When the <b>FaxClose</b> function closes a handle allocated by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function, the function disconnects the calling application from the specified fax server.
+     * 
+     * A fax client application continues to receive fax events from the fax service after the application successfully calls the <b>FaxClose</b> function to close a fax server handle. This permits the fax service to shut down and conserve system resources when the service has been idle for an extended period. If you keep the handle to the fax server open, the fax service does not shut down.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-enabling-an-application-to-receive-notifications-of-fax-events">Enabling an Application to Receive Notifications of Fax Events</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-connecting-to-a-fax-server">Connecting to a Fax Server</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-disconnecting-from-a-fax-server">Disconnecting from a Fax Server</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxinitializeeventqueue">FaxInitializeEventQueue</a>.
+     * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
+     * 
+     * Specifies the fax handle to close. This value can be a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function, or a fax port handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxopenport">FaxOpenPort</a> function.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. GetLastError can return one of the following errors.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Access is denied. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-specific-fax-access-rights">FAX_PORT_QUERY</a> access is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>FaxHandle</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxclose
      */
     static FaxClose(FaxHandle) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
@@ -1547,12 +1593,86 @@ class Fax {
     }
 
     /**
+     * The FaxOpenPort function returns a fax port handle to a fax client application. The port handle is required when the application calls other fax client functions that facilitate device management and fax document routing.
+     * @remarks
+     * Call the <b>FaxOpenPort</b> function to obtain the handle to a fax port. Use the handle when you call the following functions:
      * 
-     * @param {HANDLE} FaxHandle 
-     * @param {Integer} DeviceId 
-     * @param {Integer} Flags 
-     * @param {Pointer<HANDLE>} FaxPortHandle 
-     * @returns {BOOL} 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxsetporta">FaxSetPort</a> to change the configuration of the port</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxenumroutingmethodsa">FaxEnumRoutingMethods</a> to retrieve information about the fax routing methods associated with a device</li>
+     * </ul>
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxenumportsa">FaxEnumPorts</a> function returns an array of <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_port_infoa">FAX_PORT_INFO</a> structures. Each structure contains detailed information for one port, including a valid value to pass in the <i>DeviceId</i> parameter. An application should not save this device identifier in a persistent manner, because the identifier can change between function calls to the fax server.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-ports">Fax Ports</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-device-management">Fax Device Management</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-managing-fax-routing-data">Managing Fax Routing Data</a>.
+     * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
+     * 
+     * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
+     * @param {Integer} DeviceId Type: <b>DWORD</b>
+     * 
+     * Specifies a <b>DWORD</b> variable that is the permanent line identifier for the receiving device. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxenumportsa">FaxEnumPorts</a> function to retrieve a valid value for this parameter. For more information, see the following Remarks section.
+     * @param {Integer} Flags Type: <b>DWORD</b>
+     * @param {Pointer<HANDLE>} FaxPortHandle Type: <b>LPHANDLE</b>
+     * 
+     * Pointer to a variable that receives a fax port handle that is required on subsequent calls to other fax client functions. If the fax server returns a <b>NULL</b> handle, it indicates an error.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. GetLastError can return one of the following errors.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Access is denied. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-specific-fax-access-rights">FAX_PORT_QUERY</a> access is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_ENOUGH_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred during memory allocation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The port has already been opened with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-port-access-levels">PORT_OPEN_MODIFY</a> access.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_BAD_UNIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>DeviceId</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxopenport
      */
     static FaxOpenPort(FaxHandle, DeviceId, Flags, FaxPortHandle) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
@@ -1585,7 +1705,7 @@ class Fax {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxcompletejobparamsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxcompletejobparamsa
      * @since windows5.0
      */
     static FaxCompleteJobParamsA(JobParams, CoverpageInfo) {
@@ -1620,7 +1740,7 @@ class Fax {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxcompletejobparamsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxcompletejobparamsw
      * @since windows5.0
      */
     static FaxCompleteJobParamsW(JobParams, CoverpageInfo) {
@@ -1747,7 +1867,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsenddocumenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsenddocumenta
      * @since windows5.0
      */
     static FaxSendDocumentA(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
@@ -1882,7 +2002,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsenddocumentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsenddocumentw
      * @since windows5.0
      */
     static FaxSendDocumentW(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
@@ -1944,7 +2064,7 @@ class Fax {
      * @param {Pointer<PFAX_RECIPIENT_CALLBACKA>} FaxRecipientCallback Type: <b>PFAX_RECIPIENT_CALLBACK</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function that retrieves user-specific information for each designated recipient of the fax transmission. The <b>FaxSendDocumentForBroadcast</b> function calls the <b>FAX_RECIPIENT_CALLBACK</b> function once for each fax recipient until it returns a value of zero, indicating that all outbound transmissions have been queued.
-     * @param {Pointer<Void>} Context Type: <b>LPVOID</b>
+     * @param {Pointer<Void>} Context_ Type: <b>LPVOID</b>
      * 
      * Pointer to a variable that contains application-specific context information or an application-defined value. <b>FaxSendDocumentForBroadcast</b> passes this data to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2003,19 +2123,19 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsenddocumentforbroadcasta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsenddocumentforbroadcasta
      * @since windows5.0
      */
-    static FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
+    static FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context_) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
         FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastA", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, Context_Marshal, Context_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2066,7 +2186,7 @@ class Fax {
      * @param {Pointer<PFAX_RECIPIENT_CALLBACKW>} FaxRecipientCallback Type: <b>PFAX_RECIPIENT_CALLBACK</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function that retrieves user-specific information for each designated recipient of the fax transmission. The <b>FaxSendDocumentForBroadcast</b> function calls the <b>FAX_RECIPIENT_CALLBACK</b> function once for each fax recipient until it returns a value of zero, indicating that all outbound transmissions have been queued.
-     * @param {Pointer<Void>} Context Type: <b>LPVOID</b>
+     * @param {Pointer<Void>} Context_ Type: <b>LPVOID</b>
      * 
      * Pointer to a variable that contains application-specific context information or an application-defined value. <b>FaxSendDocumentForBroadcast</b> passes this data to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfax_recipient_callbacka">FAX_RECIPIENT_CALLBACK</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -2125,19 +2245,19 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsenddocumentforbroadcastw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsenddocumentforbroadcastw
      * @since windows5.0
      */
-    static FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
+    static FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context_) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         FileName := FileName is String ? StrPtr(FileName) : FileName
 
         FaxJobIdMarshal := FaxJobId is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, ContextMarshal, Context, "int")
+        result := DllCall("WINFAX.dll\FaxSendDocumentForBroadcastW", "ptr", FaxHandle, "ptr", FileName, FaxJobIdMarshal, FaxJobId, "ptr", FaxRecipientCallback, Context_Marshal, Context_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2212,7 +2332,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumjobsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumjobsa
      * @since windows5.0
      */
     static FaxEnumJobsA(FaxHandle, JobEntry, JobsReturned) {
@@ -2298,7 +2418,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumjobsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumjobsw
      * @since windows5.0
      */
     static FaxEnumJobsW(FaxHandle, JobEntry, JobsReturned) {
@@ -2386,7 +2506,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetjoba
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetjoba
      * @since windows5.0
      */
     static FaxGetJobA(FaxHandle, JobId, JobEntry) {
@@ -2473,7 +2593,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetjobw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetjobw
      * @since windows5.0
      */
     static FaxGetJobW(FaxHandle, JobId, JobEntry) {
@@ -2548,7 +2668,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetjoba
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetjoba
      * @since windows5.0
      */
     static FaxSetJobA(FaxHandle, JobId, Command, JobEntry) {
@@ -2621,7 +2741,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetjobw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetjobw
      * @since windows5.0
      */
     static FaxSetJobW(FaxHandle, JobId, Command, JobEntry) {
@@ -2638,24 +2758,100 @@ class Fax {
     }
 
     /**
+     * The FaxGetPageData function returns to a fax client application the first page of data for a fax job.
+     * @remarks
+     * A fax client application can call the <b>FaxGetPageData</b> function for administrative purposes, to display a thumbnail sketch of the fax documents in the fax queue.
      * 
-     * @param {HANDLE} FaxHandle 
-     * @param {Integer} JobId 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
-     * @param {Pointer<Integer>} BufferSize 
-     * @param {Pointer<Integer>} ImageWidth 
-     * @param {Pointer<Integer>} ImageHeight 
-     * @returns {BOOL} 
+     * The fax service creates fax documents as TIFF Class F files based on the Tagged Image File Format (TIFF) 6.0 specification. The <b>FaxGetPageData</b> function returns a TIFF data stream that has a Modified Modified READ (MMR) two-dimensional encoding data compression format. The calling application must decode the data stream. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-image-format">Fax Image Format</a>.
+     * 
+     * The <b>FaxGetPageData</b> function allocates the memory required for the <i>Buffer</i> parameter. An application must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxfreebuffer">FaxFreeBuffer</a> function to deallocate the resources associated with this parameter.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-displaying-documents-in-the-fax-job-queue">Displaying Documents in the Fax Job Queue</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-freeing-fax-resources">Freeing Fax Resources</a>.
+     * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
+     * 
+     * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
+     * @param {Integer} JobId Type: <b>DWORD</b>
+     * 
+     * Specifies a unique number that identifies the fax job associated with the page of data.
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Type: <b>LPBYTE*</b>
+     * 
+     * Pointer to the address of a buffer to receive the first page of data in the fax document. For information about memory allocation, see the following Remarks section.
+     * @param {Pointer<Integer>} BufferSize Type: <b>LPDWORD</b>
+     * 
+     * Pointer to a <b>DWORD</b> variable to receive the size of the buffer, in bytes, pointed to by the <i>Buffer</i> parameter.
+     * @param {Pointer<Integer>} ImageWidth Type: <b>LPDWORD</b>
+     * 
+     * Pointer to a <b>DWORD</b> variable to receive the width, in pixels, of the fax image.
+     * @param {Pointer<Integer>} ImageHeight Type: <b>LPDWORD</b>
+     * 
+     * Pointer to a <b>DWORD</b> variable to receive the height, in pixels, of the fax image.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. GetLastError can return one of the following errors.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Access is denied. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-specific-fax-access-rights">FAX_JOB_QUERY</a> access is required.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or all of the <i>Buffer</i>, <i>BufferSize</i>, <i>ImageWidth</i>, <i>ImageHeight</i>, or <i>FaxHandle</i> parameters are <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_ENOUGH_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred during memory allocation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_DATA</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid-data error occurred. For example, the fax job identified by the <i>JobId</i> parameter is not an outgoing fax transmission; the job must be specified with the JT_SEND job type.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxgetpagedata
      */
-    static FaxGetPageData(FaxHandle, JobId, Buffer_R, BufferSize, ImageWidth, ImageHeight) {
+    static FaxGetPageData(FaxHandle, JobId, Buffer_, BufferSize, ImageWidth, ImageHeight) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
         ImageWidthMarshal := ImageWidth is VarRef ? "uint*" : "ptr"
         ImageHeightMarshal := ImageHeight is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, Buffer_RMarshal, Buffer_R, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, "int")
+        result := DllCall("WINFAX.dll\FaxGetPageData", "ptr", FaxHandle, "uint", JobId, Buffer_Marshal, Buffer_, BufferSizeMarshal, BufferSize, ImageWidthMarshal, ImageWidth, ImageHeightMarshal, ImageHeight, "int")
         return result
     }
 
@@ -2723,7 +2919,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetdevicestatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetdevicestatusa
      * @since windows5.0
      */
     static FaxGetDeviceStatusA(FaxPortHandle, DeviceStatus) {
@@ -2805,7 +3001,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetdevicestatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetdevicestatusw
      * @since windows5.0
      */
     static FaxGetDeviceStatusW(FaxPortHandle, DeviceStatus) {
@@ -2824,10 +3020,65 @@ class Fax {
     }
 
     /**
+     * A fax client application calls the FaxAbort function to terminate a fax job.
+     * @remarks
+     * An application typically calls the <b>FaxAbort</b> function to terminate a fax transmission that is in progress. To manage a queued fax job, an application typically calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxsetjoba">FaxSetJob</a> function. <b>FaxSetJob</b> can cancel an active job; the function can also pause, resume, cancel, or restart a queued fax job.
      * 
-     * @param {HANDLE} FaxHandle 
-     * @param {Integer} JobId 
-     * @returns {BOOL} 
+     * Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxenumjobsa">FaxEnumJobs</a> function to retrieve a valid value to use in the <i>JobId</i> parameter.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-modifying-a-fax-job">Modifying a Fax Job</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-terminating-a-fax-job">Terminating a Fax Job</a>.
+     * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
+     * 
+     * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
+     * @param {Integer} JobId Type: <b>DWORD</b>
+     * 
+     * Specifies a unique number that identifies the fax job to terminate.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. GetLastError can return one of the following errors.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Access is denied. You must own the job, or have <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-specific-fax-access-rights">FAX_JOB_MANAGE</a> access.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>FaxHandle</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>JobId</i> parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxabort
      */
     static FaxAbort(FaxHandle, JobId) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
@@ -2902,7 +3153,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetconfigurationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetconfigurationa
      * @since windows5.0
      */
     static FaxGetConfigurationA(FaxHandle, FaxConfig) {
@@ -2986,7 +3237,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetconfigurationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetconfigurationw
      * @since windows5.0
      */
     static FaxGetConfigurationW(FaxHandle, FaxConfig) {
@@ -3066,7 +3317,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetconfigurationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetconfigurationa
      * @since windows5.0
      */
     static FaxSetConfigurationA(FaxHandle, FaxConfig) {
@@ -3144,7 +3395,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetconfigurationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetconfigurationw
      * @since windows5.0
      */
     static FaxSetConfigurationW(FaxHandle, FaxConfig) {
@@ -3233,7 +3484,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetloggingcategoriesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetloggingcategoriesa
      * @since windows5.0
      */
     static FaxGetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
@@ -3325,7 +3576,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetloggingcategoriesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetloggingcategoriesw
      * @since windows5.0
      */
     static FaxGetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
@@ -3420,7 +3671,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetloggingcategoriesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetloggingcategoriesa
      * @since windows5.0
      */
     static FaxSetLoggingCategoriesA(FaxHandle, Categories, NumberCategories) {
@@ -3512,7 +3763,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetloggingcategoriesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetloggingcategoriesw
      * @since windows5.0
      */
     static FaxSetLoggingCategoriesW(FaxHandle, Categories, NumberCategories) {
@@ -3595,7 +3846,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumportsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumportsa
      * @since windows5.0
      */
     static FaxEnumPortsA(FaxHandle, PortInfo, PortsReturned) {
@@ -3681,7 +3932,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumportsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumportsw
      * @since windows5.0
      */
     static FaxEnumPortsW(FaxHandle, PortInfo, PortsReturned) {
@@ -3770,7 +4021,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetporta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetporta
      * @since windows5.0
      */
     static FaxGetPortA(FaxPortHandle, PortInfo) {
@@ -3858,7 +4109,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetportw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetportw
      * @since windows5.0
      */
     static FaxGetPortW(FaxPortHandle, PortInfo) {
@@ -3944,7 +4195,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetporta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetporta
      * @since windows5.0
      */
     static FaxSetPortA(FaxPortHandle, PortInfo) {
@@ -4028,7 +4279,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetportw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetportw
      * @since windows5.0
      */
     static FaxSetPortW(FaxPortHandle, PortInfo) {
@@ -4119,7 +4370,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumroutingmethodsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumroutingmethodsa
      * @since windows5.0
      */
     static FaxEnumRoutingMethodsA(FaxPortHandle, RoutingMethod, MethodsReturned) {
@@ -4213,7 +4464,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumroutingmethodsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumroutingmethodsw
      * @since windows5.0
      */
     static FaxEnumRoutingMethodsW(FaxPortHandle, RoutingMethod, MethodsReturned) {
@@ -4303,7 +4554,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenableroutingmethoda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenableroutingmethoda
      * @since windows5.0
      */
     static FaxEnableRoutingMethodA(FaxPortHandle, RoutingGuid, Enabled) {
@@ -4391,7 +4642,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenableroutingmethodw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenableroutingmethodw
      * @since windows5.0
      */
     static FaxEnableRoutingMethodW(FaxPortHandle, RoutingGuid, Enabled) {
@@ -4477,7 +4728,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumglobalroutinginfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumglobalroutinginfoa
      * @since windows5.0
      */
     static FaxEnumGlobalRoutingInfoA(FaxHandle, RoutingInfo, MethodsReturned) {
@@ -4565,7 +4816,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxenumglobalroutinginfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxenumglobalroutinginfow
      * @since windows5.0
      */
     static FaxEnumGlobalRoutingInfoW(FaxHandle, RoutingInfo, MethodsReturned) {
@@ -4648,7 +4899,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetglobalroutinginfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetglobalroutinginfoa
      * @since windows5.0
      */
     static FaxSetGlobalRoutingInfoA(FaxHandle, RoutingInfo) {
@@ -4728,7 +4979,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetglobalroutinginfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetglobalroutinginfow
      * @since windows5.0
      */
     static FaxSetGlobalRoutingInfoW(FaxHandle, RoutingInfo) {
@@ -4835,7 +5086,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetroutinginfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetroutinginfoa
      * @since windows5.0
      */
     static FaxGetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
@@ -4946,7 +5197,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxgetroutinginfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxgetroutinginfow
      * @since windows5.0
      */
     static FaxGetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
@@ -5044,7 +5295,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetroutinginfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetroutinginfoa
      * @since windows5.0
      */
     static FaxSetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
@@ -5141,7 +5392,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxsetroutinginfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxsetroutinginfow
      * @since windows5.0
      */
     static FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
@@ -5161,32 +5412,121 @@ class Fax {
     }
 
     /**
+     * The FaxInitializeEventQueue function creates a fax event queue for the calling fax client application. The queue enables the application to receive notifications of asynchronous events from the fax server.
+     * @remarks
+     * An application can specify how the fax server should inform the client application of events. The application can request that the fax server queue I/O completion packets to an I/O completion port, or it can specify notification messages.
      * 
-     * @param {HANDLE} FaxHandle 
-     * @param {HANDLE} CompletionPort 
-     * @param {Pointer} CompletionKey 
-     * @param {HWND} hWnd 
-     * @param {Integer} MessageStart 
-     * @returns {BOOL} 
+     * A fax client application must call the <b>FaxInitializeEventQueue</b> function before calling <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> to retrieve the value to specify in the <i>CompletionKey</i> parameter. This value is useful to a message loop that retrieves I/O completion packets from multiple I/O completion ports, using calls to the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitformultipleobjects">WaitForMultipleObjects</a> function. If you specify a different completion key for each I/O completion port, you can identify the completion port associated with the completion packet.
+     * 
+     * An application can call the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> function to retrieve the queued I/O completion packet for a completed I/O operation. A call to GetQueuedCompletionStatus also returns a pointer to a variable that the function sets to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_eventa">FAX_EVENT</a> structure. The structure is associated with the I/O completion packet of interest. Call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the memory allocated for the <b>FAX_EVENT</b> structure.
+     * 
+     * After a fax client application receives the <b>FEI_FAXSVC_ENDED</b> message, it will no longer receive fax events from the fax service. To resume receiving fax events, the application must call the <b>FaxInitializeEventQueue</b> function again when the fax service restarts. The application can determine if the fax service is running by using the service control manager. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxclose">FaxClose</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-enabling-an-application-to-receive-notifications-of-fax-events">Enabling an Application to Receive Notifications of Fax Events</a>.
+     * 
+     * For a list of the asynchronous events that can occur within the fax server, see the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_eventa">FAX_EVENT</a> topic.
+     * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
+     * 
+     * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
+     * @param {HANDLE} CompletionPort Type: <b>HANDLE</b>
+     * 
+     * Specifies a valid handle to an I/O completion port returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/FileIO/createiocompletionport">CreateIoCompletionPort</a> function. This parameter is required for notification using I/O completion packets. This parameter must be <b>NULL</b> if you specify notification messages. 
+     * 
+     *                     
+     * 
+     * For information about I/O completion ports, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/i-o-completion-ports">I/O Completion Ports</a>.
+     * @param {Pointer} CompletionKey Type: <b>ULONG_PTR</b>
+     * 
+     * Specifies a variable that contains a completion key value the fax server includes in each I/O completion packet. This parameter is required for notification using I/O completion packets. This parameter must be <b>NULL</b> if you specify notification messages. For more information, see the following Remarks section.
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
+     * 
+     * Handle to a window of the fax client application to notify when an asynchronous event occurs. This parameter is required for notification messages. This parameter must be <b>NULL</b> if you specify notification using I/O completion packets.
+     * @param {Integer} MessageStart Type: <b>UINT</b>
+     * 
+     * Specifies an unsigned integer that identifies the application's base window message. The application can use this number to determine whether to process the message as a fax server event. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_eventa">FAX_EVENT</a> topic. 
+     * 
+     *                     
+     * 
+     * This parameter is required for notification messages. This parameter must be equal to zero if you specify notification using I/O completion packets.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. GetLastError can return one of the following errors.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Both the <i>hWnd</i> and <i>CompletionPort</i> parameters are <b>NULL</b>, or both parameters are specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>FaxHandle</i> parameter is <b>NULL</b>; or the <i>hWnd</i> parameter is specified but the <i>FaxHandle</i> parameter does not specify a connection with a local fax server; or the <i>MessageStart</i> parameter specifies a message in the range below <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-user">WM_USER</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_DATA</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application called the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nc-winfax-pfaxinitializeeventqueue">FaxInitializeEventQueue</a> function more than once during a fax service session in Windows 2000. More than one call is supported in Windows XP and Windows Server 2003.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_ENOUGH_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred during memory allocation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxinitializeeventqueue
      */
-    static FaxInitializeEventQueue(FaxHandle, CompletionPort, CompletionKey, hWnd, MessageStart) {
+    static FaxInitializeEventQueue(FaxHandle, CompletionPort, CompletionKey, hWnd_, MessageStart) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         CompletionPort := CompletionPort is Win32Handle ? NumGet(CompletionPort, "ptr") : CompletionPort
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("WINFAX.dll\FaxInitializeEventQueue", "ptr", FaxHandle, "ptr", CompletionPort, "ptr", CompletionKey, "ptr", hWnd, "uint", MessageStart, "int")
+        result := DllCall("WINFAX.dll\FaxInitializeEventQueue", "ptr", FaxHandle, "ptr", CompletionPort, "ptr", CompletionKey, "ptr", hWnd_, "uint", MessageStart, "int")
         return result
     }
 
     /**
+     * The FaxFreeBuffer function releases resources associated with a buffer allocated previously as the result of a function call by a fax client application.
+     * @remarks
+     * When the resources allocated for a buffer are no longer needed, the calling application must free the resources. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-freeing-fax-resources">Freeing Fax Resources</a>.
+     * @param {Pointer<Void>} Buffer_ Type: <b>LPVOID</b>
      * 
-     * @param {Pointer<Void>} Buffer_R 
+     * Pointer to a buffer allocated on a previous call to one of the functions named in the following See Also section.
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxfreebuffer
      */
-    static FaxFreeBuffer(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static FaxFreeBuffer(Buffer_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        DllCall("WINFAX.dll\FaxFreeBuffer", Buffer_RMarshal, Buffer_R)
+        DllCall("WINFAX.dll\FaxFreeBuffer", Buffer_Marshal, Buffer_)
     }
 
     /**
@@ -5297,7 +5637,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxstartprintjoba
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxstartprintjoba
      * @since windows5.0
      */
     static FaxStartPrintJobA(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
@@ -5423,7 +5763,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxstartprintjobw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxstartprintjobw
      * @since windows5.0
      */
     static FaxStartPrintJobW(PrinterName, PrintInfo, FaxJobId, FaxContextInfo) {
@@ -5509,7 +5849,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxprintcoverpagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxprintcoverpagea
      * @since windows5.0
      */
     static FaxPrintCoverPageA(FaxContextInfo, CoverPageInfo) {
@@ -5591,7 +5931,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxprintcoverpagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxprintcoverpagew
      * @since windows5.0
      */
     static FaxPrintCoverPageW(FaxContextInfo, CoverPageInfo) {
@@ -5648,7 +5988,7 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxregisterserviceproviderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxregisterserviceproviderw
      * @since windows5.0
      */
     static FaxRegisterServiceProviderW(DeviceProvider, FriendlyName, ImageName, TspName) {
@@ -5708,7 +6048,7 @@ class Fax {
      * @param {Pointer<PFAX_ROUTING_INSTALLATION_CALLBACKW>} CallBack Type: <b>PFAX_ROUTING_INSTALLATION_CALLBACK</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/nc-winfax-pfax_routing_installation_callbackw">FaxRoutingInstallationCallback</a> function that installs a fax routing method for the specified fax routing extension DLL. The <b>FaxRegisterRoutingExtension</b> function calls the <b>FaxRoutingInstallationCallback</b> function multiple times, until it returns a value of zero, indicating that all routing methods in the fax routing extension DLL have been registered.
-     * @param {Pointer<Void>} Context Type: <b>LPVOID</b>
+     * @param {Pointer<Void>} Context_ Type: <b>LPVOID</b>
      * 
      * Pointer to a variable that contains application-specific context information or an application-defined value. <b>FaxRegisterRoutingExtension</b> passes this data to the <a href="https://docs.microsoft.com/windows/desktop/api/winfax/nc-winfax-pfax_routing_installation_callbackw">FaxRoutingInstallationCallback</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -5745,20 +6085,20 @@ class Fax {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winfax/nf-winfax-faxregisterroutingextensionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nf-winfax-faxregisterroutingextensionw
      * @since windows5.0
      */
-    static FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, ImageName, CallBack, Context) {
+    static FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, ImageName, CallBack, Context_) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         ExtensionName := ExtensionName is String ? StrPtr(ExtensionName) : ExtensionName
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, ContextMarshal, Context, "int")
+        result := DllCall("WINFAX.dll\FaxRegisterRoutingExtensionW", "ptr", FaxHandle, "ptr", ExtensionName, "ptr", FriendlyName, "ptr", ImageName, "ptr", CallBack, Context_Marshal, Context_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -5767,10 +6107,41 @@ class Fax {
     }
 
     /**
+     * A fax client application calls the FaxAccessCheck function to query the fax access privileges of a user.
+     * @remarks
+     * The fax service is a secure service. Users must have certain access privileges to successfully call fax service functions. Call the <b>FaxAccessCheck</b> function to programmatically check a user's fax access permissions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-checking-the-access-rights-of-users">Checking the Access Rights of Users</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-client-user-access-rights">Fax Client User Access Rights</a>.
      * 
-     * @param {HANDLE} FaxHandle 
-     * @param {Integer} AccessMask 
-     * @returns {BOOL} 
+     * The fax service administration application, a Microsoft Management Console (MMC) snap-in component, is also available for users to query and modify job access, port access, and global configuration data access privileges.
+     * @param {HANDLE} FaxHandle Type: <b>HANDLE</b>
+     * 
+     * Specifies a fax server handle returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxconnectfaxservera">FaxConnectFaxServer</a> function.
+     * @param {Integer} AccessMask Type: <b>DWORD</b>
+     * 
+     * Specifies a <b>DWORD</b> variable that contains a set of bit flags defining a user's fax access permissions. This parameter can be one or more of the following generic access permissions: FAX_READ, FAX_WRITE, and FAX_ALL_ACCESS. It can also be one or more of the following specific access permissions:
+     * 
+     *                     
+     * 
+     * 
+     * <ul>
+     * <li>FAX_JOB_SUBMIT</li>
+     * <li>FAX_JOB_QUERY</li>
+     * <li>FAX_CONFIG_QUERY</li>
+     * <li>FAX_CONFIG_SET</li>
+     * <li>FAX_PORT_QUERY</li>
+     * <li>FAX_PORT_SET</li>
+     * <li>FAX_JOB_MANAGE</li>
+     * </ul>
+     * 
+     * 
+     * For a detailed description of these values, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-generic-fax-access-rights">Generic Fax Access Rights</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-specific-fax-access-rights">Specific Fax Access Rights</a>.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * If the user has the required permission, the return value is nonzero.
+     * 
+     * If the user does not have the required permission, the return value is zero, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_SUCCESS.
+     * 
+     * If the function fails, the return value is also zero, but <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns an error code other than ERROR_SUCCESS.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winfax/nc-winfax-pfaxaccesscheck
      */
     static FaxAccessCheck(FaxHandle, AccessMask) {
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
@@ -5791,7 +6162,7 @@ class Fax {
      * <li>The fax service is installed.</li>
      * <li>The current user has a fax account setup with the fax service.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/fxsutility/nf-fxsutility-cansendtofaxrecipient
+     * @see https://learn.microsoft.com/windows/win32/api//content/fxsutility/nf-fxsutility-cansendtofaxrecipient
      * @since windows6.0.6000
      */
     static CanSendToFaxRecipient() {
@@ -5812,7 +6183,7 @@ class Fax {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Zero, if the operation is successful.
-     * @see https://learn.microsoft.com/windows/win32/api/fxsutility/nf-fxsutility-sendtofaxrecipient
+     * @see https://learn.microsoft.com/windows/win32/api//content/fxsutility/nf-fxsutility-sendtofaxrecipient
      * @since windows6.0.6000
      */
     static SendToFaxRecipient(sndMode, lpFileName) {

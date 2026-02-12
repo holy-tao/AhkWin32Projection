@@ -44,10 +44,20 @@ class IGameExplorer extends IUnknown{
      * @returns {HRESULT} 
      */
     AddGame(bstrGDFBinaryPath, bstrGameInstallDirectory, installScope, pguidInstanceID) {
-        bstrGDFBinaryPath := bstrGDFBinaryPath is String ? BSTR.Alloc(bstrGDFBinaryPath).Value : bstrGDFBinaryPath
-        bstrGameInstallDirectory := bstrGameInstallDirectory is String ? BSTR.Alloc(bstrGameInstallDirectory).Value : bstrGameInstallDirectory
+        if(bstrGDFBinaryPath is String) {
+            pin := BSTR.Alloc(bstrGDFBinaryPath)
+            bstrGDFBinaryPath := pin.Value
+        }
+        if(bstrGameInstallDirectory is String) {
+            pin := BSTR.Alloc(bstrGameInstallDirectory)
+            bstrGameInstallDirectory := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrGDFBinaryPath, "ptr", bstrGameInstallDirectory, "int", installScope, "ptr", pguidInstanceID, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrGDFBinaryPath, "ptr", bstrGameInstallDirectory, "int", installScope, "ptr", pguidInstanceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +67,11 @@ class IGameExplorer extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveGame(guidInstanceID) {
-        result := ComCall(4, this, "ptr", guidInstanceID, "HRESULT")
+        result := ComCall(4, this, "ptr", guidInstanceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +81,11 @@ class IGameExplorer extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateGame(guidInstanceID) {
-        result := ComCall(5, this, "ptr", guidInstanceID, "HRESULT")
+        result := ComCall(5, this, "ptr", guidInstanceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,9 +95,16 @@ class IGameExplorer extends IUnknown{
      * @returns {BOOL} 
      */
     VerifyAccess(bstrGDFBinaryPath) {
-        bstrGDFBinaryPath := bstrGDFBinaryPath is String ? BSTR.Alloc(bstrGDFBinaryPath).Value : bstrGDFBinaryPath
+        if(bstrGDFBinaryPath is String) {
+            pin := BSTR.Alloc(bstrGDFBinaryPath)
+            bstrGDFBinaryPath := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", bstrGDFBinaryPath, "int*", &pfHasAccess := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", bstrGDFBinaryPath, "int*", &pfHasAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasAccess
     }
 }

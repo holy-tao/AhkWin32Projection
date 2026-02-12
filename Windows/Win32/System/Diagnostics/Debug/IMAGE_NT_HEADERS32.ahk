@@ -17,7 +17,7 @@
  *     IMAGE_OPTIONAL_HEADER64 OptionalHeader;
  * } IMAGE_NT_HEADERS64, *PIMAGE_NT_HEADERS64;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_nt_headers32
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-image_nt_headers32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

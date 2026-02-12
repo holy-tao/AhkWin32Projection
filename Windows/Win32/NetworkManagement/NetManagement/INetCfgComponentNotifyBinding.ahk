@@ -35,7 +35,11 @@ class INetCfgComponentNotifyBinding extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryBindingPath(dwChangeFlag, pIPath) {
-        result := ComCall(3, this, "uint", dwChangeFlag, "ptr", pIPath, "HRESULT")
+        result := ComCall(3, this, "uint", dwChangeFlag, "ptr", pIPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class INetCfgComponentNotifyBinding extends IUnknown{
      * @returns {HRESULT} 
      */
     NotifyBindingPath(dwChangeFlag, pIPath) {
-        result := ComCall(4, this, "uint", dwChangeFlag, "ptr", pIPath, "HRESULT")
+        result := ComCall(4, this, "uint", dwChangeFlag, "ptr", pIPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

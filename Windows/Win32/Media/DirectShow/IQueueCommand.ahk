@@ -5,7 +5,7 @@
 
 /**
  * The IQueueCommand interface queues a command for processing at a designated time.
- * @see https://docs.microsoft.com/windows/win32/api//control/nn-control-iqueuecommand
+ * @see https://learn.microsoft.com/windows/win32/api//content/control/nn-control-iqueuecommand
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IQueueCommand extends IUnknown{
 
     /**
      * The InvokeAtStreamTime method queues a method or property change for execution at a specified stream time (that is, presentation time relative to the current stream time offset).
+     * @remarks
+     * Use the <b>IDispatch::GetIDsOfNames</b> method to retrieve the DISPID for the <i>dispidMember</i> parameter.
      * @param {Pointer<IDeferredCommand>} pCmd Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/control/nn-control-ideferredcommand">IDeferredCommand</a> interface pointer.
      * @param {Float} time Time at which to invoke the command.
      * @param {Pointer<Guid>} iid Pointer to the interface identifier (IID) of interface.
@@ -42,17 +44,25 @@ class IQueueCommand extends IUnknown{
      * @param {Pointer<VARIANT>} pvarResult Pointer to a VARIANT that receives the result. Equivalent to the <i>pVarResult</i> parameter of the <b>IDispatch::Invoke</b> method.
      * @param {Pointer<Integer>} puArgErr Pointer to a variable that receives the index of the first argument that has an error. Equivalent to the <i>puArgErr</i> parameter of the <b>IDispatch::Invoke</b> method.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iqueuecommand-invokeatstreamtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iqueuecommand-invokeatstreamtime
      */
     InvokeAtStreamTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(3, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, puArgErrMarshal, puArgErr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The InvokeAtPresentationTime method queues a method to be invoked at the specified presentation time.
+     * @remarks
+     * Use the <b>IDispatch::GetIDsOfNames</b> method to retrieve the DISPID for the <i>dispidMember</i> parameter.
+     * 
+     * For a code example, see <a href="https://docs.microsoft.com/windows/desktop/api/control/nf-control-iqueuecommand-invokeatstreamtime">IQueueCommand::InvokeAtStreamTime</a>.
      * @param {Pointer<IDeferredCommand>} pCmd Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/control/nn-control-ideferredcommand">IDeferredCommand</a> interface pointer.
      * @param {Float} time Time at which to invoke the command.
      * @param {Pointer<Guid>} iid Pointer to the interface identifier (IID) of interface.
@@ -63,12 +73,16 @@ class IQueueCommand extends IUnknown{
      * @param {Pointer<VARIANT>} pvarResult Pointer a VARIANT that receives the result. Equivalent to the <i>pVarResult</i> parameter of the <b>IDispatch::Invoke</b> method.
      * @param {Pointer<Integer>} puArgErr Pointer to a variable that receives the index of the first argument that has an error. Equivalent to the <i>puArgErr</i> parameter of the <b>IDispatch::Invoke</b> method.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iqueuecommand-invokeatpresentationtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iqueuecommand-invokeatpresentationtime
      */
     InvokeAtPresentationTime(pCmd, time, iid, dispidMethod, wFlags, cArgs, pDispParams, pvarResult, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "short*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(4, this, "ptr*", pCmd, "double", time, "ptr", iid, "int", dispidMethod, "short", wFlags, "int", cArgs, "ptr", pDispParams, "ptr", pvarResult, puArgErrMarshal, puArgErr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

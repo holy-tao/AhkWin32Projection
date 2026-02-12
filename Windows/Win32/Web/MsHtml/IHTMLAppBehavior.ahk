@@ -144,9 +144,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_applicationName(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,7 +163,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_applicationName() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -166,9 +177,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_version(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -178,7 +196,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_version() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -188,9 +210,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_icon(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -200,7 +229,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_icon() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -210,9 +243,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_singleInstance(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -222,7 +262,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_singleInstance() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -232,9 +276,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_minimizeButton(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,7 +295,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_minimizeButton() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -254,9 +309,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_maximizeButton(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +328,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_maximizeButton() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -276,9 +342,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_border(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -288,7 +361,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_border() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -298,9 +375,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderStyle(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -310,7 +394,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_borderStyle() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -320,9 +408,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_sysMenu(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -332,7 +427,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_sysMenu() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -342,9 +441,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_caption(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -354,7 +460,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_caption() {
         p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -364,9 +474,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_windowState(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -376,7 +493,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_windowState() {
         p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -386,9 +507,16 @@ class IHTMLAppBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_showInTaskBar(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -398,7 +526,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_showInTaskBar() {
         p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -408,7 +540,11 @@ class IHTMLAppBehavior extends IDispatch{
      */
     get_commandLine() {
         p := BSTR()
-        result := ComCall(31, this, "ptr", p, "HRESULT")
+        result := ComCall(31, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

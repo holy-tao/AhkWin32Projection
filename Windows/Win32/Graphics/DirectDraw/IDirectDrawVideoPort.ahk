@@ -30,13 +30,18 @@ class IDirectDrawVideoPort extends IUnknown{
     static VTableNames => ["Flip", "GetBandwidthInfo", "GetColorControls", "GetInputFormats", "GetOutputFormats", "GetFieldPolarity", "GetVideoLine", "GetVideoSignalStatus", "SetColorControls", "SetTargetSurface", "StartVideo", "StopVideo", "UpdateVideo", "WaitForSync"]
 
     /**
-     * 
+     * Initializes a new instance of the [FlipView](flipview.md) class.
      * @param {IDirectDrawSurface} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.flipview.#ctor
      */
     Flip(param0, param1) {
-        result := ComCall(3, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(3, this, "ptr", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +55,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBandwidthInfo(param0, param1, param2, param3, param4) {
-        result := ComCall(4, this, "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(4, this, "ptr", param0, "uint", param1, "uint", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +69,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColorControls(param0) {
-        result := ComCall(5, this, "ptr", param0, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +87,11 @@ class IDirectDrawVideoPort extends IUnknown{
         lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
 
         param1 := DDPIXELFORMAT()
-        result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, "ptr", param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, lpNumFormatsMarshal, lpNumFormats, "ptr", param1, "uint", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return param1
     }
 
@@ -89,7 +106,11 @@ class IDirectDrawVideoPort extends IUnknown{
         lpNumFormatsMarshal := lpNumFormats is VarRef ? "uint*" : "ptr"
 
         param2 := DDPIXELFORMAT()
-        result := ComCall(7, this, "ptr", param0, lpNumFormatsMarshal, lpNumFormats, "ptr", param2, "uint", param3, "HRESULT")
+        result := ComCall(7, this, "ptr", param0, lpNumFormatsMarshal, lpNumFormats, "ptr", param2, "uint", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return param2
     }
 
@@ -101,7 +122,11 @@ class IDirectDrawVideoPort extends IUnknown{
     GetFieldPolarity(param0) {
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(8, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +138,11 @@ class IDirectDrawVideoPort extends IUnknown{
     GetVideoLine(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(9, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +154,11 @@ class IDirectDrawVideoPort extends IUnknown{
     GetVideoSignalStatus(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(10, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +168,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     SetColorControls(param0) {
-        result := ComCall(11, this, "ptr", param0, "HRESULT")
+        result := ComCall(11, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +183,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTargetSurface(param0, param1) {
-        result := ComCall(12, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(12, this, "ptr", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,7 +197,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     StartVideo(param0) {
-        result := ComCall(13, this, "ptr", param0, "HRESULT")
+        result := ComCall(13, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +210,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     StopVideo() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +224,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateVideo(param0) {
-        result := ComCall(15, this, "ptr", param0, "HRESULT")
+        result := ComCall(15, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -187,7 +240,11 @@ class IDirectDrawVideoPort extends IUnknown{
      * @returns {HRESULT} 
      */
     WaitForSync(param0, param1, param2) {
-        result := ComCall(16, this, "uint", param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(16, this, "uint", param0, "uint", param1, "uint", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

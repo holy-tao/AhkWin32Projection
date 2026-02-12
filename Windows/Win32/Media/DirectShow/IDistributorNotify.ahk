@@ -5,7 +5,7 @@
 
 /**
  * The IDistributorNotify interface enables a plug-in distributor to be notified when the filter graph changes.Applications never use this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-idistributornotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-idistributornotify
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDistributorNotify extends IUnknown{
 
     /**
      * The Stop method is called when the filter graph is entering a stopped state.
+     * @remarks
+     * This method is called before the filters are notified.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -62,15 +64,21 @@ class IDistributorNotify extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-stop
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-idistributornotify-stop
      */
     Stop() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Pause method is called when the filter graph is entering a paused state.
+     * @remarks
+     * This method is called before the filters are notified.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -101,42 +109,66 @@ class IDistributorNotify extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-pause
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-idistributornotify-pause
      */
     Pause() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Run method is called when the filter graph is entering a running state.
+     * @remarks
+     * This method is called before the filters are notified.
      * @param {Integer} tStart Stream-time offset that will be passed to every filter's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediafilter-run">IMediaFilter::Run</a> method.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-run
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-idistributornotify-run
      */
     Run(tStart) {
-        result := ComCall(5, this, "int64", tStart, "HRESULT")
+        result := ComCall(5, this, "int64", tStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetSyncSource method is called when a new clock is registered.
+     * @remarks
+     * This method is called before the filters are notified. Make sure to use <b>AddRef</b> on the <i>pClock</i> parameter if the plug-in distributor intends to hold it beyond this method call.
      * @param {IReferenceClock} pClock Pointer to the new clock's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ireferenceclock">IReferenceClock</a> interface.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-setsyncsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-idistributornotify-setsyncsource
      */
     SetSyncSource(pClock) {
-        result := ComCall(6, this, "ptr", pClock, "HRESULT")
+        result := ComCall(6, this, "ptr", pClock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The NotifyGraphChange method is called when the set of filters in the filter graph changes or any pin connections change.
+     * @remarks
+     * This method is called whenever the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltergraph-addfilter">IFilterGraph::AddFilter</a>, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltergraph-removefilter">IFilterGraph::RemoveFilter</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltergraph-connectdirect">IFilterGraph::ConnectDirect</a> method is called or a method is called that will lead to one of these being called (such as <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-renderfile">IGraphBuilder::RenderFile</a>).
+     * 
+     * Make sure you call <b>Release</b> on any held filters that have been removed at this point. For performance reasons, PIDs might choose not to rescan the filters until the PIDs actually need the interfaces, because there might be several separate notifications sent. However, it is important to release any cached interfaces immediately.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idistributornotify-notifygraphchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-idistributornotify-notifygraphchange
      */
     NotifyGraphChange() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

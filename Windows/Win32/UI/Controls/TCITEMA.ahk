@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Specifies or receives the attributes of a tab item. It is used with the TCM_INSERTITEM, TCM_GETITEM, and TCM_SETITEM messages. This structure supersedes the TC_ITEM structure. (ANSI)
@@ -12,7 +13,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines TCITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tcitema
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-tcitema
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI
@@ -96,8 +97,11 @@ class TCITEMA extends Win32Struct
      * Application-defined data associated with the tab control item. If more or less than 4 bytes of application-defined data exist per tab, an application must define a structure and use it instead of the <b>TCITEM</b> structure. The first member of the application-defined structure must be a <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tcitemheadera">TCITEMHEADER</a> structure.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(32, this)
+            return this.__lParam
+        }
     }
 }

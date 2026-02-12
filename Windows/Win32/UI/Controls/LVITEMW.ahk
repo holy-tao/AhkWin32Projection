@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure. (Unicode)
@@ -17,7 +18,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines LVITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvitemw
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-lvitemw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode
@@ -278,9 +279,12 @@ class LVITEMW extends Win32Struct
      * Value specific to the item. If you use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-sortitems">LVM_SORTITEMS</a> message, the list-view control passes this value to the application-defined comparison function. You can also use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-finditem">LVM_FINDITEM</a> message to search a list-view control for an item with a specified <b>lParam</b> value.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 
     /**

@@ -8,7 +8,7 @@
 
 /**
  * Provides methods for retrieving information about an entity type in the schema.
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-ientity
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-ientity
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -35,25 +35,37 @@ class IEntity extends IUnknown{
 
     /**
      * Retrieves the name of this entity.
+     * @remarks
+     * Each name must be unique.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Receives a pointer to the name of this entity as a Unicode string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-name
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-name
      */
     Name() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszName
     }
 
     /**
      * Retrieves the parent entity of this entity.
+     * @remarks
+     * Each entity derives from some other entity, except the entity named Entity, for which this method returns S_FALSE. The derived entity inherits all relationships from the base entity.
      * @returns {IEntity} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ientity">IEntity</a>**</b>
      * 
      * Receives a pointer to the parent <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ientity">IEntity</a> object, or <b>NULL</b> if there is no parent entity.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-base
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-base
      */
     Base() {
-        result := ComCall(4, this, "ptr*", &pBaseEntity := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &pBaseEntity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEntity(pBaseEntity)
     }
 
@@ -62,13 +74,17 @@ class IEntity extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the result, either IID_IEnumUnknown or IID_IEnumVARIANT.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives the address of a pointer to the enumeration of the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-irelationship">IRelationship</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-relationships
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-relationships
      */
     Relationships(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &pRelationships := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, "ptr*", &pRelationships := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRelationships
     }
 
@@ -80,12 +96,16 @@ class IEntity extends IUnknown{
      * @returns {IRelationship} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-irelationship">IRelationship</a>**</b>
      * 
      * Receives the address of a pointer to the requested <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-irelationship">IRelationship</a> object, or <b>NULL</b> if this entity has no relationship with the name specified.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-getrelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-getrelationship
      */
     GetRelationship(pszRelationName) {
         pszRelationName := pszRelationName is String ? StrPtr(pszRelationName) : pszRelationName
 
-        result := ComCall(6, this, "ptr", pszRelationName, "ptr*", &pRelationship := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszRelationName, "ptr*", &pRelationship := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRelationship(pRelationship)
     }
 
@@ -94,13 +114,17 @@ class IEntity extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the result, either IID_IEnumUnknown or IID_IEnumVARIANT.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives the address of a pointer to an enumeration of <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-imetadata">IMetaData</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-metadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-metadata
      */
     MetaData(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", riid, "ptr*", &pMetaData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMetaData
     }
 
@@ -109,13 +133,17 @@ class IEntity extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the result, either IID_IEnumUnknown or IID_IEnumVARIANT.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives the address of a pointer to an enumeration of <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-inamedentity">INamedEntity</a> objects, one for each known named entity of this type.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-namedentities
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-namedentities
      */
     NamedEntities(riid) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", &pNamedEntities := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", riid, "ptr*", &pNamedEntities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNamedEntities
     }
 
@@ -127,12 +155,16 @@ class IEntity extends IUnknown{
      * @returns {INamedEntity} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-inamedentity">INamedEntity</a>**</b>
      * 
      * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-inamedentity">INamedEntity</a> object that was named in <i>pszValue</i>. <b>NULL</b> if no named entity was found.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-getnamedentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-getnamedentity
      */
     GetNamedEntity(pszValue) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(9, this, "ptr", pszValue, "ptr*", &ppNamedEntity := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pszValue, "ptr*", &ppNamedEntity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INamedEntity(ppNamedEntity)
     }
 
@@ -141,10 +173,14 @@ class IEntity extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Receives a pointer to the default phrase as a Unicode string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ientity-defaultphrase
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ientity-defaultphrase
      */
     DefaultPhrase() {
-        result := ComCall(10, this, "ptr*", &ppszPhrase := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppszPhrase := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszPhrase
     }
 }

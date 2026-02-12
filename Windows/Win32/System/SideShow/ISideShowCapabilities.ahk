@@ -35,7 +35,11 @@ class ISideShowCapabilities extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCapability(in_keyCapability, inout_pValue) {
-        result := ComCall(3, this, "ptr", in_keyCapability, "ptr", inout_pValue, "HRESULT")
+        result := ComCall(3, this, "ptr", in_keyCapability, "ptr", inout_pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

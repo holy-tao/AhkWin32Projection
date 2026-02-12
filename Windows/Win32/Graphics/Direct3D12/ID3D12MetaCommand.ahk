@@ -5,7 +5,7 @@
 
 /**
  * Represents a meta command. A meta command is a Direct3D 12 object representing an algorithm that is accelerated by independent hardware vendors (IHVs). It's an opaque reference to a command generator that is implemented by the driver.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12metacommand
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12metacommand
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -38,10 +38,10 @@ class ID3D12MetaCommand extends ID3D12Pageable{
      * @param {Integer} ParameterIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The zero-based index of the parameter within the stage.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The number of bytes required for the  specified  runtime parameter resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12metacommand-getrequiredparameterresourcesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12metacommand-getrequiredparameterresourcesize
      */
     GetRequiredParameterResourceSize(Stage, ParameterIndex) {
         result := ComCall(8, this, "int", Stage, "uint", ParameterIndex, "uint")

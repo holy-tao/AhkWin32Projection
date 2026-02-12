@@ -7,14 +7,11 @@
 /**
  * Provides access to controls that act as containers of other controls, such as a virtual list-view.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingitemcontainer">ItemContainer</a> control pattern allows a container object to efficiently lookup an item by a 
  * 		specified automation element property, such as Name, AutomationId, or IsSelected state. While this control 
  * 		pattern is introduced with a view to being used by virtualized containers, it can be implemented by any container 
  * 		that provides name lookup, independently of whether that container uses virtualization.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iitemcontainerprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-iitemcontainerprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -40,7 +37,15 @@ class IItemContainerProvider extends IUnknown{
     static VTableNames => ["FindItemByProperty"]
 
     /**
-     * Retrieves an element within a containing element, based on a specified property value.
+     * Retrieves an element within a containing element, based on a specified property value. (IItemContainerProvider.FindItemByProperty)
+     * @remarks
+     * For virtual lists, the element returned may be a placeholder. <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-ivirtualizeditemprovider-realize">IVirtualizedItemProvider::Realize</a> can then be used to make the item fully available.
+     * 
+     * The method returns E_INVALIDARG if searching by the specified property is not supported. Most containers should support <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-automation-element-propids">UIA_NamePropertyId</a> and, if appropriate, <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-automation-element-propids">UIA_AutomationIdPropertyId</a> and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-control-pattern-propids">UIA_SelectionItemIsSelectedPropertyId</a>.
+     * 
+     * If <i>propertyId</i> is 0, all items are a match. This value can be  used
+     * with <i>pStartAfter</i> equalling <b>NULL</b> to get the first item, and then to get successive
+     * items. In this case, <i>value</i> should be VT_EMPTY.
      * @param {IRawElementProviderSimple} pStartAfter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
      * The UI Automation provider of the element after which the search begins, or <b>NULL</b> to search all elements.
@@ -53,10 +58,14 @@ class IItemContainerProvider extends IUnknown{
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives a pointer to the UI Automation provider of the element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iitemcontainerprovider-finditembyproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iitemcontainerprovider-finditembyproperty
      */
     FindItemByProperty(pStartAfter, propertyId, value) {
-        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderSimple(pFound)
     }
 }

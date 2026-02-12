@@ -37,7 +37,11 @@ class IVariantChangeType extends IUnknown{
      * @returns {HRESULT} 
      */
     ChangeType(pvarDst, pvarSrc, lcid, vtNew) {
-        result := ComCall(3, this, "ptr", pvarDst, "ptr", pvarSrc, "uint", lcid, "ushort", vtNew, "HRESULT")
+        result := ComCall(3, this, "ptr", pvarDst, "ptr", pvarSrc, "uint", lcid, "ushort", vtNew, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

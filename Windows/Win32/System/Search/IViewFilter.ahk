@@ -30,20 +30,24 @@ class IViewFilter extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer<Pointer>} pcRows 
      * @param {Pointer<Pointer<Integer>>} pCompareOps 
      * @param {Pointer<Void>} pCriteriaData 
      * @returns {HRESULT} 
      */
-    GetFilter(hAccessor, pcRows, pCompareOps, pCriteriaData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetFilter(hAccessor_, pcRows, pCompareOps, pCriteriaData) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
         pCompareOpsMarshal := pCompareOps is VarRef ? "ptr*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", hAccessor, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(3, this, "ptr", hAccessor_, pcRowsMarshal, pcRows, pCompareOpsMarshal, pCompareOps, pCriteriaDataMarshal, pCriteriaData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,25 +61,33 @@ class IViewFilter extends IUnknown{
         pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
         prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
+        result := ComCall(4, this, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer} cRows 
      * @param {Pointer<Integer>} CompareOps 
      * @param {Pointer<Void>} pCriteriaData 
      * @returns {HRESULT} 
      */
-    SetFilter(hAccessor, cRows, CompareOps, pCriteriaData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    SetFilter(hAccessor_, cRows, CompareOps, pCriteriaData) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
         CompareOpsMarshal := CompareOps is VarRef ? "uint*" : "ptr"
         pCriteriaDataMarshal := pCriteriaData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", hAccessor, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "HRESULT")
+        result := ComCall(5, this, "ptr", hAccessor_, "ptr", cRows, CompareOpsMarshal, CompareOps, pCriteriaDataMarshal, pCriteriaData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

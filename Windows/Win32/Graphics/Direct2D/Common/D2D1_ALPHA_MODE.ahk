@@ -27,7 +27,7 @@
  * <li>Use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-pushaxisalignedclip(constd2d1_rect_f_d2d1_antialias_mode)">PushAxisAlignedClip</a> method to clip the render target to the area where the text will be rendered,    then call the <a href="https://docs.microsoft.com/windows/desktop/Direct2D/id2d1rendertarget-clear">Clear</a> method and specify an opaque color, then render your text.</li>
  * <li>Use <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawrectangle(constd2d1_rect_f_id2d1brush_float_id2d1strokestyle)">DrawRectangle</a> to draw an opaque rectangle behind the area where the text will be rendered.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/dcommon/ne-dcommon-d2d1_alpha_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcommon/ne-dcommon-d2d1_alpha_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

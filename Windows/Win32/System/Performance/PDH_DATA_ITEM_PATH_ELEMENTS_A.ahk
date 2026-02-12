@@ -3,7 +3,7 @@
 
 /**
  * The PDH_DATA_ITEM_PATH_ELEMENTS structure contains the path elements of a specific data item. (ANSI)
- * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_data_item_path_elements_a
+ * @see https://learn.microsoft.com/windows/win32/api//content/pdh/ns-pdh-pdh_data_item_path_elements_a
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  * @charset ANSI

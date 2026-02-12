@@ -30,9 +30,12 @@ class IGameInputDispatcher extends IUnknown{
     static VTableNames => ["Dispatch", "OpenWaitHandle"]
 
     /**
-     * 
+     * Creates a **DispatcherQueueTimer** on the **DispatcherQueue** to execute a task periodically after a time interval has elapsed.
+     * @remarks
+     * By default, a repeating timer is created. Set **IsRepeating** to **false** to make it non-repeating.
      * @param {Integer} quotaInMicroseconds 
-     * @returns {Boolean} 
+     * @returns {Boolean} An **DispatcherQueueTimer** that can queue tasks on a timed basis to the current **DispatcherQueue**.
+     * @see https://learn.microsoft.com/uwp/api/windows.system.dispatcherqueue.createtimer
      */
     Dispatch(quotaInMicroseconds) {
         result := ComCall(3, this, "uint", quotaInMicroseconds, "int")
@@ -45,7 +48,11 @@ class IGameInputDispatcher extends IUnknown{
      */
     OpenWaitHandle() {
         waitHandle := HANDLE()
-        result := ComCall(4, this, "ptr", waitHandle, "HRESULT")
+        result := ComCall(4, this, "ptr", waitHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return waitHandle
     }
 }

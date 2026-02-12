@@ -12,7 +12,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramheader
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ns-mfapi-histogramheader
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

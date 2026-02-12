@@ -5,7 +5,7 @@
  * Describes an OR restriction which is used to apply a logical OR operation to a restriction. 
  * @remarks
  * For more information about the **SOrRestriction** structure, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sorrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sorrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

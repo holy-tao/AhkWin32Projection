@@ -17,7 +17,7 @@
  * </dl> </dd> 3. On the FIRST call to your EventRecordCallback function for a particular log file, use data from the logFile (EVENT\_TRACE\_LOGFILE) and from the eventRecord (EVENT\_RECORD) to compute the timeStampBase that will be used for the remaining events in the log file: INT64 timeStampBase = logFile.LogfileHeader.StartTime.QuadPart - (INT64)(timeStampScale \* eventRecord.EventHeader.TimeStamp.QuadPart);  
  * 4. For each eventRecord (EVENT\_RECORD), convert the event’s timestamp into FILETIME as follows, using the timeStampScale and timeStampBase values calculated in steps 2 and 3: INT64 timeStampInFileTime = timeStampBase + (INT64)(timeStampScale \* eventRecord.EventHeader.TimeStamp.QuadPart);  
  * </dl>
- * @see https://learn.microsoft.com/windows/win32/ETW/wnode-header
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/ETW/wnode-header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

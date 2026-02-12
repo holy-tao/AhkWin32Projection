@@ -7,7 +7,7 @@
  * The output bitstream is expected to contain the subregion headers, but not the picture, sequence, video or other headers. The host is responsible for coding those headers and generating the complete bitstream.
  * 
  * In subregion frame partitioning, all subregions for a given frame encoding operation output must be placed in top/down, left/right order and must be contiguous.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_compressed_bitstream
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_compressed_bitstream
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

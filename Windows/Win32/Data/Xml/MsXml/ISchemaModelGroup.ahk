@@ -41,7 +41,11 @@ class ISchemaModelGroup extends ISchemaParticle{
      * @returns {ISchemaItemCollection} 
      */
     get_particles() {
-        result := ComCall(16, this, "ptr*", &particles := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &particles := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(particles)
     }
 }

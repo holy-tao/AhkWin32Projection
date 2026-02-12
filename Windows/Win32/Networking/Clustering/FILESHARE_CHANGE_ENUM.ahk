@@ -8,7 +8,7 @@
  * 
  * 
  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-fileshare_change_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-fileshare_change_enum
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

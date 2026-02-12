@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include .\HTREEITEM.ahk
 
 /**
  * Contains information about an NM_TVSTATEIMAGECHANGING notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvstateimagechanging
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmtvstateimagechanging
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -36,9 +37,12 @@ class NMTVSTATEIMAGECHANGING extends Win32Struct
      * Handle to the tree-view item whose state image is changing.
      * @type {HTREEITEM}
      */
-    hti {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hti{
+        get {
+            if(!this.HasProp("__hti"))
+                this.__hti := HTREEITEM(24, this)
+            return this.__hti
+        }
     }
 
     /**

@@ -154,7 +154,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +168,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -174,7 +182,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollDelay(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +195,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollDelay() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -193,9 +209,16 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_direction(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +228,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_direction() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -215,9 +242,16 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_behavior(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +261,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_behavior() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -237,7 +275,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollAmount(v) {
-        result := ComCall(15, this, "int", v, "HRESULT")
+        result := ComCall(15, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -246,7 +288,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollAmount() {
-        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -256,7 +302,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_loop(v) {
-        result := ComCall(17, this, "int", v, "HRESULT")
+        result := ComCall(17, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,7 +315,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {Integer} 
      */
     get_loop() {
-        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -275,7 +329,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_vspace(v) {
-        result := ComCall(19, this, "int", v, "HRESULT")
+        result := ComCall(19, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -284,7 +342,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {Integer} 
      */
     get_vspace() {
-        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -294,7 +356,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hspace(v) {
-        result := ComCall(21, this, "int", v, "HRESULT")
+        result := ComCall(21, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -303,7 +369,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {Integer} 
      */
     get_hspace() {
-        result := ComCall(22, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -313,7 +383,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onfinish(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -323,7 +397,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_onfinish() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -333,7 +411,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onstart(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -343,7 +425,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_onstart() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -353,7 +439,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onbounce(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -363,7 +453,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_onbounce() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -373,7 +467,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -383,7 +481,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -393,7 +495,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -403,7 +509,11 @@ class IHTMLMarqueeElement extends IDispatch{
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -413,7 +523,11 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_trueSpeed(v) {
-        result := ComCall(33, this, "short", v, "HRESULT")
+        result := ComCall(33, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -422,25 +536,69 @@ class IHTMLMarqueeElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_trueSpeed() {
-        result := ComCall(34, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(34, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * start Method (SQLServerXAResource)
+     * @remarks
+     * This start method is specified by the start method in the javax.transaction.xa.XAResource interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/start-method-sqlserverxaresource
      */
     start() {
-        result := ComCall(35, this, "HRESULT")
+        result := ComCall(35, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The stop command stops playback or recording. CD audio, digital-video, MIDI sequencer, videodisc, VCR, and waveform-audio devices recognize this command.
+     * @remarks
+     * For CD audio devices, the stop command stops playback and resets the current track position to zero.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszStopFlags"></span><span id="lpszstopflags"></span><span id="LPSZSTOPFLAGS"></span>*lpszStopFlags*
+     * 
+     * For digital-video devices, it can be the following flag.
+     * 
+     * 
+     * 
+     * | Value | Meaning                                                                                                                                                                                      |
+     * |-------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | hold  | Prevents the release of resources required to redraw a still image on the screen. The frame buffer remains available for use in updating the display when, for example, the window is moved. |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/stop
      */
     stop() {
-        result := ComCall(36, this, "HRESULT")
+        result := ComCall(36, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

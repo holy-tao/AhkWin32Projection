@@ -7,7 +7,7 @@
 
 /**
  * The IADsFaxNumber interface provides methods for an ADSI client to access the Facsimile Telephone Number attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfaxnumber
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsfaxnumber
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -54,7 +54,11 @@ class IADsFaxNumber extends IDispatch{
      */
     get_TelephoneNumber() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -64,9 +68,16 @@ class IADsFaxNumber extends IDispatch{
      * @returns {HRESULT} 
      */
     put_TelephoneNumber(bstrTelephoneNumber) {
-        bstrTelephoneNumber := bstrTelephoneNumber is String ? BSTR.Alloc(bstrTelephoneNumber).Value : bstrTelephoneNumber
+        if(bstrTelephoneNumber is String) {
+            pin := BSTR.Alloc(bstrTelephoneNumber)
+            bstrTelephoneNumber := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrTelephoneNumber, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrTelephoneNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +87,11 @@ class IADsFaxNumber extends IDispatch{
      */
     get_Parameters() {
         retval := VARIANT()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -86,7 +101,11 @@ class IADsFaxNumber extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Parameters(vParameters) {
-        result := ComCall(10, this, "ptr", vParameters, "HRESULT")
+        result := ComCall(10, this, "ptr", vParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

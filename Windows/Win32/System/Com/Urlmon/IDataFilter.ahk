@@ -47,7 +47,11 @@ class IDataFilter extends IUnknown{
         plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
         plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +74,11 @@ class IDataFilter extends IUnknown{
         plInBytesReadMarshal := plInBytesRead is VarRef ? "int*" : "ptr"
         plOutBytesWrittenMarshal := plOutBytesWritten is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, "int", lInBufferSize, pbInBufferMarshal, pbInBuffer, "int", lOutBufferSize, pbOutBufferMarshal, pbOutBuffer, "int", lInBytesAvailable, plInBytesReadMarshal, plInBytesRead, plOutBytesWrittenMarshal, plOutBytesWritten, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +88,11 @@ class IDataFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEncodingLevel(dwEncLevel) {
-        result := ComCall(5, this, "uint", dwEncLevel, "HRESULT")
+        result := ComCall(5, this, "uint", dwEncLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
@@ -15,37 +17,37 @@ class RichEdit {
     static cchTextLimitDefault => 32767
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MSFTEDIT_CLASS => "RICHEDIT50W"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERICHEDIT_CLASSA => "RichEditCEA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERICHEDIT_CLASSW => "RichEditCEW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RICHEDIT_CLASSA => "RichEdit20A"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RICHEDIT_CLASS10A => "RICHEDIT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RICHEDIT_CLASSW => "RichEdit20W"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RICHEDIT_CLASS => "RichEdit20W"
 
@@ -1810,17 +1812,17 @@ class RichEdit {
     static OLEOP_DOVERB => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_RTF => "Rich Text Format"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_RTFNOOBJS => "Rich Text Format Without Objects"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CF_RETEXTOBJ => "RichEdit Text and Objects"
 
@@ -1925,7 +1927,7 @@ class RichEdit {
     static BOE_UNICODEBIDI => 128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RICHEDIT60_CLASS => "RICHEDIT60W"
 

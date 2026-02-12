@@ -5,7 +5,7 @@
  * Contains fields that describe the attributes of each power state.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_power_state_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_power_state_desc
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

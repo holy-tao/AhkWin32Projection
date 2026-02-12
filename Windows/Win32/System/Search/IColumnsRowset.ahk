@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * The DBCOLUMN_BASETABLEINSTANCE column in IColumnsRowset::GetColumnRowset is reserved for use by Microsoft in OLE DB Driver for SQL Server.
+ * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-interfaces/icolumnsrowset
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -38,7 +40,11 @@ class IColumnsRowset extends IUnknown{
         pcOptColumnsMarshal := pcOptColumns is VarRef ? "ptr*" : "ptr"
         prgOptColumnsMarshal := prgOptColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcOptColumnsMarshal, pcOptColumns, prgOptColumnsMarshal, prgOptColumns, "HRESULT")
+        result := ComCall(3, this, pcOptColumnsMarshal, pcOptColumns, prgOptColumnsMarshal, prgOptColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +59,11 @@ class IColumnsRowset extends IUnknown{
      * @returns {IUnknown} 
      */
     GetColumnsRowset(pUnkOuter, cOptColumns, rgOptColumns, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", cOptColumns, "ptr", rgOptColumns, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppColRowset := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", cOptColumns, "ptr", rgOptColumns, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppColRowset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppColRowset)
     }
 }

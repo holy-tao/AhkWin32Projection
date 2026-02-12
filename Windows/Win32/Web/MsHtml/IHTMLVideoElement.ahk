@@ -79,7 +79,11 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +92,11 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {Integer} 
      */
     get_width() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -98,7 +106,11 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,7 +119,11 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {Integer} 
      */
     get_height() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -116,7 +132,11 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {Integer} 
      */
     get_videoWidth() {
-        result := ComCall(11, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -125,7 +145,11 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {Integer} 
      */
     get_videoHeight() {
-        result := ComCall(12, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -135,9 +159,16 @@ class IHTMLVideoElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_poster(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +178,11 @@ class IHTMLVideoElement extends IDispatch{
      */
     get_poster() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

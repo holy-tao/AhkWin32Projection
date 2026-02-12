@@ -8,7 +8,6 @@
 /**
  * Specifies a linear gradient, which is the color gradient along a vector.
  * @remarks
- * 
  * In the illustration that follows, the start and end points of a linear gradient are also the start and end points of the gradient path, which is the straight line that connects those points.
  * 
  * The gradient region of a linear gradient is the area between and including the start and end points and extending in both directions at a right angle to the gradient path. The spread area is the area of the geometry that lies outside the gradient region.
@@ -61,9 +60,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomlineargradientbrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomlineargradientbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -90,19 +87,27 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
 
     /**
      * Gets the start point of the gradient.
+     * @remarks
+     * The coordinates are relative to the page and are expressed in the units of the transform that is in effect.
      * @returns {XPS_POINT} The x and y coordinates of the start point.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getstartpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getstartpoint
      */
     GetStartPoint() {
         startPoint := XPS_POINT()
-        result := ComCall(17, this, "ptr", startPoint, "HRESULT")
+        result := ComCall(17, this, "ptr", startPoint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return startPoint
     }
 
     /**
      * Sets the start point of the gradient.
+     * @remarks
+     * The coordinates are relative to the page and are expressed in the units of the  transform that is in effect.
      * @param {Pointer<XPS_POINT>} startPoint The x and y coordinates of the start point.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -127,7 +132,7 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * The point described by <i>startPoint</i> was not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * The point described by <i>startPoint</i> was not valid. The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
      * 
      * </td>
      * </tr>
@@ -143,28 +148,40 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setstartpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setstartpoint
      */
     SetStartPoint(startPoint) {
-        result := ComCall(18, this, "ptr", startPoint, "HRESULT")
+        result := ComCall(18, this, "ptr", startPoint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the end point of the gradient.
+     * @remarks
+     * The coordinates are relative to the page and are expressed in units of the transform that is in effect.
      * @returns {XPS_POINT} The x and y coordinates of the end point.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getendpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getendpoint
      */
     GetEndPoint() {
         endPoint := XPS_POINT()
-        result := ComCall(19, this, "ptr", endPoint, "HRESULT")
+        result := ComCall(19, this, "ptr", endPoint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return endPoint
     }
 
     /**
      * Sets the end point of the gradient.
+     * @remarks
+     * The coordinates are relative to the page and are expressed in the units of the transform that is in effect.
      * @param {Pointer<XPS_POINT>} endPoint The x and y coordinates of the end point.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -189,7 +206,7 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * The point described by <i>endPoint</i> was not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * The point described by <i>endPoint</i> was not valid. The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
      * 
      * </td>
      * </tr>
@@ -205,20 +222,30 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setendpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setendpoint
      */
     SetEndPoint(endPoint) {
-        result := ComCall(20, this, "ptr", endPoint, "HRESULT")
+        result := ComCall(20, this, "ptr", endPoint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMLinearGradientBrush.Clone)
+     * @remarks
+     * This method does not update any of the resource pointers in the copy.
      * @returns {IXpsOMLinearGradientBrush} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-clone
      */
     Clone() {
-        result := ComCall(21, this, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &linearGradientBrush := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMLinearGradientBrush(linearGradientBrush)
     }
 }

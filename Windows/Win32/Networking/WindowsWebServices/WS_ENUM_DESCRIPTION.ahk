@@ -46,7 +46,7 @@
  * enumDescription.nameIndices = nameIndices;
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_enum_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_enum_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

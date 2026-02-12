@@ -11,7 +11,7 @@
  * This property should not be called if a pending call to mark an LTR frame has been issued using the CODECAPI\_AVEncVideoMarkLTRFrame property and the encoder has not yet marked a frame as LTR. In other words, the encoder should not queue up CODECAPI\_AVEncVideoMarkLTRFrame requests. If a CODECAPI\_AVEncVideoMarkLTRFrame request is submitted while another CODECAPI\_AVEncVideoMarkLTRFrame request is still pending, the older request should be dropped.
  * 
  * The CODECAPI\_AVEncVideoMarkLTRFrame property is dynamic and can be set during the encoding session.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideomarkltrframe
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencvideomarkltrframe
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

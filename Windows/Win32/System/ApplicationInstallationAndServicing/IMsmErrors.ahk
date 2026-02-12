@@ -49,8 +49,12 @@ class IMsmErrors extends IDispatch{
      * @returns {IMsmError} 
      */
     get_Item(Item) {
-        result := ComCall(7, this, "int", Item, "ptr*", &Return_R := 0, "HRESULT")
-        return IMsmError(Return_R)
+        result := ComCall(7, this, "int", Item, "ptr*", &Return_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IMsmError(Return_)
     }
 
     /**
@@ -61,7 +65,11 @@ class IMsmErrors extends IDispatch{
     get_Count(Count) {
         CountMarshal := Count is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, CountMarshal, Count, "HRESULT")
+        result := ComCall(8, this, CountMarshal, Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +78,11 @@ class IMsmErrors extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &NewEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(NewEnum)
     }
 }

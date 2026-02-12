@@ -6,7 +6,6 @@
 /**
  * The IAudioSessionNotification interface provides notification when an audio session is created.
  * @remarks
- * 
  * Unlike the other WASAPI interfaces, which are implemented by the WASAPI system component, the <b>IAudioSessionNotification</b> interface is implemented by the application. To receive event notifications, the application passes to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification">IAudioSessionManager2::RegisterSessionNotification</a> method a pointer to its <b>IAudioSessionNotification</b> implementation .
  * 
  * 
@@ -24,9 +23,7 @@
  * 
  * </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nn-audiopolicy-iaudiosessionnotification
+ * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nn-audiopolicy-iaudiosessionnotification
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -53,12 +50,21 @@ class IAudioSessionNotification extends IUnknown{
 
     /**
      * The OnSessionCreated method notifies the registered processes that the audio session has been created.
+     * @remarks
+     * After registering its <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface, the application receives event notifications in the form of callbacks through the methods of the interface.
+     * 
+     * The audio engine calls <b>OnSessionCreated</b> when a new session is activated on the device endpoint.
+     * This method is called from the session manager thread.  This method must take a reference to the session in the <i>NewSession</i> parameter if it wants to keep the reference after this call completes.
      * @param {IAudioSessionControl} NewSession Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> interface of the audio session that was created.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionnotification-onsessioncreated
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionnotification-onsessioncreated
      */
     OnSessionCreated(NewSession) {
-        result := ComCall(3, this, "ptr", NewSession, "HRESULT")
+        result := ComCall(3, this, "ptr", NewSession, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

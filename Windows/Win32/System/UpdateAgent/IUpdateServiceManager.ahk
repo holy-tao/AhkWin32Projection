@@ -7,12 +7,10 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates.
+ * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager)
  * @remarks
- * 
  * You can create an instance of this interface by using the UpdateServiceManager coclass. Use the Microsoft.Update.ServiceManager program identifier to create the object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateservicemanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdateservicemanager
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -53,30 +51,54 @@ class IUpdateServiceManager extends IDispatch{
     /**
      * Gets an IUpdateServiceCollection of the services that are registered with WUA.
      * @returns {IUpdateServiceCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-get_services
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-get_services
      */
     get_Services() {
-        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUpdateServiceCollection(retval)
     }
 
     /**
      * Registers a service with Windows Update Agent (WUA).
+     * @remarks
+     * This method returns <b>WU_E_DS_INVALIDOPERATION</b> if the requested change in the state of Automatic Updates is contrary to the specifications in the Authorization Cab. An error is returned by <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> if the Authorization Cab has not been signed.
      * @param {BSTR} serviceID An identifier for a service to be registered.
      * @param {BSTR} authorizationCabPath The path of the Microsoft signed local cabinet file that has the information that is required for a service registration.
      * @returns {IUpdateService} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> interface that represents an added service.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-addservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-addservice
      */
     AddService(serviceID, authorizationCabPath) {
-        serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
-        authorizationCabPath := authorizationCabPath is String ? BSTR.Alloc(authorizationCabPath).Value : authorizationCabPath
+        if(serviceID is String) {
+            pin := BSTR.Alloc(serviceID)
+            serviceID := pin.Value
+        }
+        if(authorizationCabPath is String) {
+            pin := BSTR.Alloc(authorizationCabPath)
+            authorizationCabPath := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", serviceID, "ptr", authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", serviceID, "ptr", authorizationCabPath, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUpdateService(retval)
     }
 
     /**
      * Registers a service with Automatic Updates.
+     * @remarks
+     * This method returns <b>WU_E_DS_UNKNOWNSERVICE</b> if the service to be registered is unknown to Automatic Updates.
+     * 
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the method is called with an invalid service ID.  This method also returns <b>WU_E_INVALID_OPERATION</b> if the service ID is valid but the service can't register with Automatic Updates. That is,  the requested change in the state of Automatic Updates is contrary to the specifications in the authorization cabinet file (for example, <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservice-get_canregisterwithau">CanRegisterWithAU</a> property is set to <b>FALSE</b>). An error is returned by <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function if the authorization cabinet file has not been signed.
+     * 
+     * 
+     * 
+     * This method returns <b>WU_E_DS_NEEDWINDOWSSERVICE</b> if you try to remove the Windows Update service.
      * @param {BSTR} serviceID An identifier for the service to be registered.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns  a COM or Windows error code. 
      * 
@@ -145,12 +167,19 @@ class IUpdateServiceManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-registerservicewithau
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-registerservicewithau
      */
     RegisterServiceWithAU(serviceID) {
-        serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
+        if(serviceID is String) {
+            pin := BSTR.Alloc(serviceID)
+            serviceID := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", serviceID, "HRESULT")
+        result := ComCall(9, this, "ptr", serviceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -222,17 +251,30 @@ class IUpdateServiceManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-removeservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-removeservice
      */
     RemoveService(serviceID) {
-        serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
+        if(serviceID is String) {
+            pin := BSTR.Alloc(serviceID)
+            serviceID := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", serviceID, "HRESULT")
+        result := ComCall(10, this, "ptr", serviceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Unregisters a service with Automatic Updates.
+     * @remarks
+     * This method returns <b>WU_E_DS_INVALIDOPERATION</b> if the requested change in the state of Automatic Updates is contrary to the specifications in the Authorization Cab. An error is returned by <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> function if the Authorization Cab has not been signed.
+     * 
+     * This method returns <b>WU_E_DS_UNKNOWNSERVICE</b> if the service to be removed does not exist.
+     * 
+     * This method returns <b>WU_E_DS_NEEDWINDOWSSERVICE</b> if you attempt to remove the Windows Update service and if it is the only service that is registered with Automatic Updates.
      * @param {BSTR} serviceID An identifier for the service to be unregistered.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
@@ -322,30 +364,59 @@ class IUpdateServiceManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-unregisterservicewithau
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-unregisterservicewithau
      */
     UnregisterServiceWithAU(serviceID) {
-        serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
+        if(serviceID is String) {
+            pin := BSTR.Alloc(serviceID)
+            serviceID := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", serviceID, "HRESULT")
+        result := ComCall(11, this, "ptr", serviceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers a scan package as a service with Windows Update Agent (WUA) and then returns an IUpdateService interface.
+     * @remarks
+     * You can use the ID of the service in searches by passing the ID as the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid">ServiceID</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface.
+     * 
+     * To free resources, remove the service after it is no longer needed. Use the  <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-removeservice">RemoveService</a> method to remove the service.
+     * 
+     * Do not  call the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-registerservicewithau">RegisterServiceWithAU</a> method for the service that  the <b>AddScanPackageService</b> method registers.
+     * 
+     * The service that is returned by <b>AddScanPackageService</b> is in the collection of services that the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager-get_services">Services</a> property of the IUpdateServiceManager interface returns. This service has the special <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservice-get_isscanpackageservice">IsScanPackageService</a> property.
+     * 
+     * An error is returned by <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a> if the Authorization Cab is not  signed.
+     * 
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that implements the interface has been locked down.
      * @param {BSTR} serviceName A descriptive name for the scan package service.
      * @param {BSTR} scanFileLocation The path of the Microsoft signed scan file that has to be registered as a service.
      * @param {Integer} flags Determines how to remove the service registration of the scan package. 
      * 
      * For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-updateserviceoption">UpdateServiceOption</a>.
      * @returns {IUpdateService} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> interface that contains service registration information.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-addscanpackageservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-addscanpackageservice
      */
     AddScanPackageService(serviceName, scanFileLocation, flags) {
-        serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
-        scanFileLocation := scanFileLocation is String ? BSTR.Alloc(scanFileLocation).Value : scanFileLocation
+        if(serviceName is String) {
+            pin := BSTR.Alloc(serviceName)
+            serviceName := pin.Value
+        }
+        if(scanFileLocation is String) {
+            pin := BSTR.Alloc(scanFileLocation)
+            scanFileLocation := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", serviceName, "ptr", scanFileLocation, "int", flags, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", serviceName, "ptr", scanFileLocation, "int", flags, "ptr*", &ppService := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUpdateService(ppService)
     }
 
@@ -391,12 +462,19 @@ class IUpdateServiceManager extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager-setoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservicemanager-setoption
      */
     SetOption(optionName, optionValue) {
-        optionName := optionName is String ? BSTR.Alloc(optionName).Value : optionName
+        if(optionName is String) {
+            pin := BSTR.Alloc(optionName)
+            optionName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", optionName, "ptr", optionValue, "HRESULT")
+        result := ComCall(13, this, "ptr", optionName, "ptr", optionValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The GLOBALOPT_PROPERTIES (objidlbase.h) enumeration identifies process-global options that you can set or query by using the IGlobalOptions interface.
+ * The GLOBALOPT_PROPERTIES enumeration (objidl.h) identifies process-global options that you can set or query by using the IGlobalOptions interface.
  * @remarks
  * The unmarshaling policy option <b>COMGLB_UNMARSHALING_POLICY</b> takes values from the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ne-objidl-globalopt_unmarshaling_policy_values">GLOBALOPT_UNMARSHALING_POLICY_VALUES</a> enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-globalopt_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-globalopt_properties
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

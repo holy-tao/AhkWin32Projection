@@ -10,7 +10,7 @@
  *     for the output buffer, and then using the returned <b>Size</b> member of the 
  *     <b>STORAGE_DESCRIPTOR_HEADER</b> structure to allocate 
  *     a buffer of the proper size.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_device_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

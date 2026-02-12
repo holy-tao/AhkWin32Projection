@@ -44,7 +44,7 @@ class PCW_MASK_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {PPCW_BUFFER}
+     * @type {Pointer<PPCW_BUFFER>}
      */
     Buffer {
         get => NumGet(this, 24, "ptr")

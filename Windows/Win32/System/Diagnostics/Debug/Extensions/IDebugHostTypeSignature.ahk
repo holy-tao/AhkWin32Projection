@@ -33,7 +33,11 @@ class IDebugHostTypeSignature extends IUnknown{
      * @returns {Integer} 
      */
     GetHashCode() {
-        result := ComCall(3, this, "uint*", &hashCode := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &hashCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hashCode
     }
 
@@ -41,13 +45,17 @@ class IDebugHostTypeSignature extends IUnknown{
      * 
      * @param {IDebugHostType} type 
      * @param {Pointer<Boolean>} isMatch 
-     * @param {Pointer<IDebugHostSymbolEnumerator>} wildcardMatches 
+     * @param {Pointer<Pointer<IDebugHostSymbolEnumerator>>} wildcardMatches 
      * @returns {HRESULT} 
      */
     IsMatch(type, isMatch, wildcardMatches) {
         isMatchMarshal := isMatch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", type, isMatchMarshal, isMatch, "ptr*", wildcardMatches, "HRESULT")
+        result := ComCall(4, this, "ptr", type, isMatchMarshal, isMatch, "ptr*", wildcardMatches, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class IDebugHostTypeSignature extends IUnknown{
      * @returns {Integer} 
      */
     CompareAgainst(typeSignature) {
-        result := ComCall(5, this, "ptr", typeSignature, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", typeSignature, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 }

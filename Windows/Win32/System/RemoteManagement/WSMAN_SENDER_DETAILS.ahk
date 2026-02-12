@@ -4,7 +4,7 @@
 
 /**
  * Specifies the client details for every inbound request.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_sender_details
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsman/ns-wsman-wsman_sender_details
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

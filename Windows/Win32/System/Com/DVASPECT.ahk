@@ -13,7 +13,7 @@
  * 
  * <pre><b>HKEY_CLASSES_ROOT\CLSID\ . . .</b>
  *    <b>MiscStatus</b> = 1</pre>
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-dvaspect
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtypes/ne-wtypes-dvaspect
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

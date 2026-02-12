@@ -5,7 +5,7 @@
 
 /**
  * The IWMWriterFileSink interface is used to open a file to which the writer can write data. The file sink object exposes this interface. To create the file sink object, call the WMCreateWriterFileSink function.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmwriterfilesink
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMWriterFileSink extends IWMWriterSink{
 
     /**
      * The Open method opens a file that acts as the writer sink.
+     * @remarks
+     * There is no close method in this interface as the closing of the writer sink file is done automatically by a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-endwriting">IWMWriter::EndWriting</a>.
+     * 
+     * See the Remarks and Example Code sections for <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a>.
      * @param {PWSTR} pwszFilename Pointer to a wide-character <b>null</b>-terminated string containing the file name. URLs are not supported.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -63,12 +67,16 @@ class IWMWriterFileSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink-open
      */
     Open(pwszFilename) {
         pwszFilename := pwszFilename is String ? StrPtr(pwszFilename) : pwszFilename
 
-        result := ComCall(8, this, "ptr", pwszFilename, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszFilename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

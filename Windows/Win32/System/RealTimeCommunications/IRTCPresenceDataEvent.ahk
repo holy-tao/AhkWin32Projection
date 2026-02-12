@@ -48,7 +48,11 @@ class IRTCPresenceDataEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(7, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 
@@ -58,7 +62,11 @@ class IRTCPresenceDataEvent extends IDispatch{
      */
     get_StatusText() {
         pbstrStatusText := BSTR()
-        result := ComCall(8, this, "ptr", pbstrStatusText, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrStatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStatusText
     }
 
@@ -69,7 +77,11 @@ class IRTCPresenceDataEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     GetPresenceData(pbstrNamespace, pbstrData) {
-        result := ComCall(9, this, "ptr", pbstrNamespace, "ptr", pbstrData, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrNamespace, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

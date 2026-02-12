@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The ICSETSTATUSPROC structure contains status information used with the ICM_SET_STATUS_PROC message.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icsetstatusproc
+ * @see https://learn.microsoft.com/windows/win32/api//content/vfw/ns-vfw-icsetstatusproc
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -26,9 +27,12 @@ class ICSETSTATUSPROC extends Win32Struct
      * Parameter that contains a constant to pass to the status procedure.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(8, this)
+            return this.__lParam
+        }
     }
 
     /**

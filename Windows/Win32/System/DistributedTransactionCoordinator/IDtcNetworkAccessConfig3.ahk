@@ -33,7 +33,11 @@ class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2{
      * @returns {BOOL} 
      */
     GetLUAccess() {
-        result := ComCall(22, this, "int*", &pbLUAccess := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &pbLUAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbLUAccess
     }
 
@@ -43,7 +47,11 @@ class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2{
      * @returns {HRESULT} 
      */
     SetLUAccess(bLUAccess) {
-        result := ComCall(23, this, "int", bLUAccess, "HRESULT")
+        result := ComCall(23, this, "int", bLUAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

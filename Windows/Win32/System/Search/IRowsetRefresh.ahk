@@ -45,20 +45,28 @@ class IRowsetRefresh extends IUnknown{
         prghRowsRefreshedMarshal := prghRowsRefreshed is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, rghRowsMarshal, rghRows, "int", fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, prghRowsRefreshedMarshal, prghRowsRefreshed, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, rghRowsMarshal, rghRows, "int", fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, prghRowsRefreshedMarshal, prghRowsRefreshed, prgRowStatusMarshal, prgRowStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer} hRow 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @returns {Void} 
      */
-    GetLastVisibleData(hRow, hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetLastVisibleData(hRow, hAccessor_) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
-        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor_, "ptr", &pData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 }

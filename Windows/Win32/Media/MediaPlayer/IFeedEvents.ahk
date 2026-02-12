@@ -30,102 +30,161 @@ class IFeedEvents extends IDispatch{
     static VTableNames => ["Error", "FeedDeleted", "FeedRenamed", "FeedUrlChanged", "FeedMoved", "FeedDownloading", "FeedDownloadCompleted", "FeedItemCountChanged"]
 
     /**
-     * Indicates a significant problem.
+     * The Error event occurs when the Windows Media Player control has an error condition.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//timeprov/nc-timeprov-logtimeproveventfunc
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-error
      */
     Error() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedDeleted(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedDeleted(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", path, "HRESULT")
+        result := ComCall(8, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FeedRenamed(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FeedRenamed(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(9, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedUrlChanged(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedUrlChanged(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", path, "HRESULT")
+        result := ComCall(10, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FeedMoved(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FeedMoved(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(11, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedDownloading(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedDownloading(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", path, "HRESULT")
+        result := ComCall(12, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {Integer} error 
      * @returns {HRESULT} 
      */
-    FeedDownloadCompleted(path, error) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedDownloadCompleted(path_, error) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", path, "int", error, "HRESULT")
+        result := ComCall(13, this, "ptr", path_, "int", error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 
      */
-    FeedItemCountChanged(path, itemCountType) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedItemCountChanged(path_, itemCountType) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", path, "int", itemCountType, "HRESULT")
+        result := ComCall(14, this, "ptr", path_, "int", itemCountType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

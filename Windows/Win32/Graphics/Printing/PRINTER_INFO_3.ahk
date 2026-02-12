@@ -6,7 +6,7 @@
  * The PRINTER\_INFO\_3 structure specifies printer security information.
  * @remarks
  * The **PRINTER\_INFO\_3** structure lets an application get and set a printer's security descriptor. The caller may do so even if it lacks specific printer permissions, as long as it has the standard rights described in [**SetPrinter**](setprinter.md) and [**GetPrinter**](getprinter.md). Thus, an application may temporarily deny all access to a printer, while allowing the owner of the printer to have access to the printer's discretionary ACL.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-3
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-info-3
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

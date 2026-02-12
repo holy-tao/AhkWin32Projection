@@ -3,7 +3,7 @@
 
 /**
  * The MSP_EVENT_INFO (msp.h) structure defines the type of event returned by the GetEvent method.
- * @see https://learn.microsoft.com/windows/win32/api/msp/ns-msp-msp_event_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/msp/ns-msp-msp_event_info
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Represents an arbitrary affine 2D transformation defined by a 3-by-2 matrix. (PresentationTransform)
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentationtypes/ns-presentationtypes-presentationtransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentationtypes/ns-presentationtypes-presentationtransform
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */

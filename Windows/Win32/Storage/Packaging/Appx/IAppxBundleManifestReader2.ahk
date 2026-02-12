@@ -5,8 +5,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a read-only object model for manifests of bundle packages.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlemanifestreader2
+ * Provides a read-only object model for manifests of bundle packages. (IAppxBundleManifestReader2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxbundlemanifestreader2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IAppxBundleManifestReader2 extends IUnknown{
     /**
      * Retrieves an object that represents the &lt;OptionalBundles&gt; element under the root &lt;Bundle&gt; element.
      * @returns {IAppxBundleManifestOptionalBundleInfoEnumerator} The optional bundle.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader2-getoptionalbundles
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader2-getoptionalbundles
      */
     GetOptionalBundles() {
-        result := ComCall(3, this, "ptr*", &optionalBundles := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &optionalBundles := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleManifestOptionalBundleInfoEnumerator(optionalBundles)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Represents key exchange output data for hardware content protection.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_key_exchange_hw_protection_output_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/ns-d3d11_1-d3d11_key_exchange_hw_protection_output_data
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

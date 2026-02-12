@@ -430,7 +430,7 @@ class Vss {
     /**
      * The CreateVssExpressWriterInternal function (vswriter.h) creates an IVssExpressWriter interface object and returns a pointer to it.
      * @returns {IVssExpressWriter} Doubly indirect pointer to the newly created <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivssexpresswriter">IVssExpressWriter</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-createvssexpresswriterinternal
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-createvssexpresswriterinternal
      * @since windows6.1
      */
     static CreateVssExpressWriterInternal() {

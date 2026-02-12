@@ -5,7 +5,7 @@
  * Specifies the type of an IORING_HANDLE_REF structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ne-ioringapi-ioring_ref_kind
+ * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/ne-ioringapi-ioring_ref_kind
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

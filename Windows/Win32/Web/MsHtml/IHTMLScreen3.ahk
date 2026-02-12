@@ -47,7 +47,11 @@ class IHTMLScreen3 extends IDispatch{
      * @returns {Integer} 
      */
     get_systemXDPI() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -56,7 +60,11 @@ class IHTMLScreen3 extends IDispatch{
      * @returns {Integer} 
      */
     get_systemYDPI() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

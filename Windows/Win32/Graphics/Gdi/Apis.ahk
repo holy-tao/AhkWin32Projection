@@ -4159,7 +4159,7 @@ class Gdi {
      * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getobjecta
      */
     static GetObjectA(h, c, pv) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
@@ -4189,7 +4189,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-addfontresourcea
      * @since windows5.0
      */
     static AddFontResourceA(param0) {
@@ -4220,7 +4220,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-addfontresourcew
      * @since windows5.0
      */
     static AddFontResourceW(param0) {
@@ -4245,7 +4245,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-animatepalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-animatepalette
      * @since windows5.0
      */
     static AnimatePalette(hPal, iStartIndex, cEntries, ppe) {
@@ -4265,7 +4265,7 @@ class Gdi {
      * The current position is neither used nor updated by <b>Arc</b>.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getarcdirection">GetArcDirection</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setarcdirection">SetArcDirection</a> functions to get and set the current drawing direction for a device context. The default drawing direction is counterclockwise.
-     * @param {HDC} hdc A handle to the device context where drawing takes place.
+     * @param {HDC} hdc_ A handle to the device context where drawing takes place.
      * @param {Integer} x1 The x-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
      * @param {Integer} y1 The y-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
      * @param {Integer} x2 The x-coordinate, in logical units, of the lower-right corner of the bounding rectangle.
@@ -4277,13 +4277,13 @@ class Gdi {
      * @returns {BOOL} If the arc is drawn, the return value is nonzero.
      * 
      * If the arc is not drawn, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-arc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-arc
      * @since windows5.0
      */
-    static Arc(hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Arc(hdc_, x1, y1, x2, y2, x3, y3, x4, y4) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Arc", "ptr", hdc, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
+        result := DllCall("GDI32.dll\Arc", "ptr", hdc_, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
         return result
     }
 
@@ -4303,11 +4303,11 @@ class Gdi {
      * <b>BitBlt</b> returns an error if the source and destination device contexts represent different devices. To transfer data between DCs for different devices, convert the memory bitmap to a DIB by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a>. To display the DIB to the second device, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a>.
      * 
      * <b>ICM:</b> No color management is performed when blits occur.
-     * @param {HDC} hdc A handle to the destination device context.
+     * @param {HDC} hdc_ A handle to the destination device context.
      * @param {Integer} x The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} y The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} cx The width, in logical units, of the source and destination rectangles.
-     * @param {Integer} cy The height, in logical units, of the source and the destination rectangles.
+     * @param {Integer} cy_ The height, in logical units, of the source and the destination rectangles.
      * @param {HDC} hdcSrc A handle to the source device context.
      * @param {Integer} x1 The x-coordinate, in logical units, of the upper-left corner of the source rectangle.
      * @param {Integer} y1 The y-coordinate, in logical units, of the upper-left corner of the source rectangle.
@@ -4494,16 +4494,16 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-bitblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-bitblt
      * @since windows5.0
      */
-    static BitBlt(hdc, x, y, cx, cy, hdcSrc, x1, y1, rop) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static BitBlt(hdc_, x, y, cx, cy_, hdcSrc, x1, y1, rop) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\BitBlt", "ptr", hdc, "int", x, "int", y, "int", cx, "int", cy, "ptr", hdcSrc, "int", x1, "int", y1, "uint", rop, "int")
+        result := DllCall("GDI32.dll\BitBlt", "ptr", hdc_, "int", x, "int", y, "int", cx, "int", cy_, "ptr", hdcSrc, "int", x1, "int", y1, "uint", rop, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4517,17 +4517,17 @@ class Gdi {
      * The <b>CancelDC</b> function is used by multithreaded applications to cancel lengthy drawing operations. If thread A initiates a lengthy drawing operation, thread B may cancel that operation by calling this function.
      * 
      * If an operation is canceled, the affected thread returns an error and the result of its drawing operation is undefined. The results are also undefined if no drawing operation was in progress when the function was called.
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-canceldc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-canceldc
      * @since windows5.0
      */
-    static CancelDC(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CancelDC(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CancelDC", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\CancelDC", "ptr", hdc_, "int")
         return result
     }
 
@@ -4539,7 +4539,7 @@ class Gdi {
      * If the starting point and ending point of the curve are the same, a complete ellipse is drawn.
      * 
      * The current position is neither used nor updated by <b>Chord</b>.
-     * @param {HDC} hdc A handle to the device context in which the chord appears.
+     * @param {HDC} hdc_ A handle to the device context in which the chord appears.
      * @param {Integer} x1 The x-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
      * @param {Integer} y1 The y-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
      * @param {Integer} x2 The x-coordinate, in logical coordinates, of the lower-right corner of the bounding rectangle.
@@ -4551,13 +4551,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-chord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-chord
      * @since windows5.0
      */
-    static Chord(hdc, x1, y1, x2, y2, x3, y3, x4, y4) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Chord(hdc_, x1, y1, x2, y2, x3, y3, x4, y4) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Chord", "ptr", hdc, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
+        result := DllCall("GDI32.dll\Chord", "ptr", hdc_, "int", x1, "int", y1, "int", x2, "int", y2, "int", x3, "int", y3, "int", x4, "int", y4, "int")
         return result
     }
 
@@ -4567,17 +4567,17 @@ class Gdi {
      * To convert a Windows-format metafile into a new enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
      * 
      * When an application no longer needs the Windows-format metafile handle, it should delete the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletemetafile">DeleteMetaFile</a> function.
-     * @param {HDC} hdc Handle to a metafile device context used to create a Windows-format metafile.
+     * @param {HDC} hdc_ Handle to a metafile device context used to create a Windows-format metafile.
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to a Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-closemetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-closemetafile
      * @since windows5.0
      */
-    static CloseMetaFile(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CloseMetaFile(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CloseMetaFile", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\CloseMetaFile", "ptr", hdc_, "ptr")
         resultHandle := HMETAFILE({Value: result}, True)
         return resultHandle
     }
@@ -4642,7 +4642,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-combinergn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-combinergn
      * @since windows5.0
      */
     static CombineRgn(hrgnDst, hrgnSrc1, hrgnSrc2, iMode) {
@@ -4672,7 +4672,7 @@ class Gdi {
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to the copy of the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copymetafilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-copymetafilea
      * @since windows5.0
      */
     static CopyMetaFileA(param0, param1) {
@@ -4702,7 +4702,7 @@ class Gdi {
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to the copy of the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copymetafilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-copymetafilew
      * @since windows5.0
      */
     static CopyMetaFileW(param0, param1) {
@@ -4762,7 +4762,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createbitmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createbitmap
      * @since windows5.0
      */
     static CreateBitmap(nWidth, nHeight, nPlanes, nBitCount, lpBits) {
@@ -4820,7 +4820,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createbitmapindirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createbitmapindirect
      * @since windows5.0
      */
     static CreateBitmapIndirect(pbm) {
@@ -4845,7 +4845,7 @@ class Gdi {
      * @returns {HBRUSH} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createbrushindirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createbrushindirect
      * @since windows5.0
      */
     static CreateBrushIndirect(plbrush) {
@@ -4878,19 +4878,19 @@ class Gdi {
      * If a DIB section, which is a bitmap created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function, is selected into the device context identified by the <i>hdc</i> parameter, <b>CreateCompatibleBitmap</b> creates a DIB section.
      * 
      * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Integer} cx The bitmap width, in pixels.
-     * @param {Integer} cy The bitmap height, in pixels.
+     * @param {Integer} cy_ The bitmap height, in pixels.
      * @returns {HBITMAP} If the function succeeds, the return value is a handle to the compatible bitmap (DDB).
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createcompatiblebitmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createcompatiblebitmap
      * @since windows5.0
      */
-    static CreateCompatibleBitmap(hdc, cx, cy) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateCompatibleBitmap(hdc_, cx, cy_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CreateCompatibleBitmap", "ptr", hdc, "int", cx, "int", cy, "ptr")
+        result := DllCall("GDI32.dll\CreateCompatibleBitmap", "ptr", hdc_, "int", cx, "int", cy_, "ptr")
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
     }
@@ -4899,19 +4899,19 @@ class Gdi {
      * The CreateDiscardableBitmap function creates a discardable bitmap that is compatible with the specified device.
      * @remarks
      * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Integer} cx The width, in pixels, of the bitmap.
-     * @param {Integer} cy The height, in pixels, of the bitmap.
+     * @param {Integer} cy_ The height, in pixels, of the bitmap.
      * @returns {HBITMAP} If the function succeeds, the return value is a handle to the compatible bitmap (DDB).
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-creatediscardablebitmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-creatediscardablebitmap
      * @since windows5.0
      */
-    static CreateDiscardableBitmap(hdc, cx, cy) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateDiscardableBitmap(hdc_, cx, cy_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CreateDiscardableBitmap", "ptr", hdc, "int", cx, "int", cy, "ptr")
+        result := DllCall("GDI32.dll\CreateDiscardableBitmap", "ptr", hdc_, "int", cx, "int", cy_, "ptr")
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
     }
@@ -4930,17 +4930,17 @@ class Gdi {
      * If <i>hdc</i> is <b>NULL</b>, the thread that calls <b>CreateCompatibleDC</b> owns the HDC that is created. When this thread is destroyed, the HDC is no longer valid. Thus, if you create the HDC and pass it to another thread, then exit the first thread, the second thread will not be able to use the HDC.
      * 
      * <b>ICM:</b> If the DC that is passed to this function is enabled for Image Color Management (ICM), the DC created by the function is ICM-enabled. The source and destination color spaces are specified in the DC.
-     * @param {HDC} hdc A handle to an existing DC. If this handle is <b>NULL</b>, the function creates a memory DC compatible with the application's current screen.
+     * @param {HDC} hdc_ A handle to an existing DC. If this handle is <b>NULL</b>, the function creates a memory DC compatible with the application's current screen.
      * @returns {HDC} If the function succeeds, the return value is the handle to a memory DC.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createcompatibledc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createcompatibledc
      * @since windows5.0
      */
-    static CreateCompatibleDC(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateCompatibleDC(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CreateCompatibleDC", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\CreateCompatibleDC", "ptr", hdc_, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -4976,7 +4976,7 @@ class Gdi {
      * @returns {HDC} If the function succeeds, the return value is the handle to a DC for the specified device.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdca
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createdca
      * @since windows5.0
      */
     static CreateDCA(pwszDriver, pwszDevice, pszPort, pdm) {
@@ -5020,7 +5020,7 @@ class Gdi {
      * @returns {HDC} If the function succeeds, the return value is the handle to a DC for the specified device.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdcw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createdcw
      * @since windows5.0
      */
     static CreateDCW(pwszDriver, pwszDevice, pszPort, pdm) {
@@ -5045,7 +5045,7 @@ class Gdi {
      * When you no longer need the bitmap, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * 
      * <b>ICM:</b> No color management is performed. The contents of the resulting bitmap are not color matched after the bitmap has been created.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Pointer<BITMAPINFOHEADER>} pbmih A pointer to a bitmap information header structure, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a>.
      * 
      * If <i>fdwInit</i> is CBM_INIT, the function uses the bitmap information header structure to obtain the desired width and height of the bitmap as well as other information. Note that a positive value for the height indicates a bottom-up DIB while a negative value for the height indicates a top-down DIB. Calling <b>CreateDIBitmap</b> with <i>fdwInit</i> as CBM_INIT is equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatiblebitmap">CreateCompatibleBitmap</a> function to create a DDB in the format of the device and then calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> function to translate the DIB bits to the DDB.
@@ -5078,15 +5078,15 @@ class Gdi {
      * @returns {HBITMAP} If the function succeeds, the return value is a handle to the compatible bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibitmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createdibitmap
      * @since windows5.0
      */
-    static CreateDIBitmap(hdc, pbmih, flInit, pjBits, pbmi, iUsage) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateDIBitmap(hdc_, pbmih, flInit, pjBits, pbmi, iUsage) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pjBitsMarshal := pjBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\CreateDIBitmap", "ptr", hdc, "ptr", pbmih, "uint", flInit, pjBitsMarshal, pjBits, "ptr", pbmi, "uint", iUsage, "ptr")
+        result := DllCall("GDI32.dll\CreateDIBitmap", "ptr", hdc_, "ptr", pbmih, "uint", flInit, pjBitsMarshal, pjBits, "ptr", pbmi, "uint", iUsage, "ptr")
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
     }
@@ -5104,7 +5104,7 @@ class Gdi {
      * @returns {HBRUSH} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibpatternbrush
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createdibpatternbrush
      * @since windows5.0
      */
     static CreateDIBPatternBrush(h, iUsage) {
@@ -5130,7 +5130,7 @@ class Gdi {
      * @returns {HBRUSH} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibpatternbrushpt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createdibpatternbrushpt
      * @since windows5.0
      */
     static CreateDIBPatternBrushPt(lpPackedDIB, iUsage) {
@@ -5154,7 +5154,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createellipticrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createellipticrgn
      * @since windows5.0
      */
     static CreateEllipticRgn(x1, y1, x2, y2) {
@@ -5173,7 +5173,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createellipticrgnindirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createellipticrgnindirect
      * @since windows5.0
      */
     static CreateEllipticRgnIndirect(lprect) {
@@ -5198,7 +5198,7 @@ class Gdi {
      * @returns {HFONT} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createfontindirecta
      * @since windows5.0
      */
     static CreateFontIndirectA(lplf) {
@@ -5223,7 +5223,7 @@ class Gdi {
      * @returns {HFONT} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createfontindirectw
      * @since windows5.0
      */
     static CreateFontIndirectW(lplf) {
@@ -5532,7 +5532,7 @@ class Gdi {
      * @returns {HFONT} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfonta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createfonta
      * @since windows5.0
      */
     static CreateFontA(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
@@ -5843,7 +5843,7 @@ class Gdi {
      * @returns {HFONT} If the function succeeds, the return value is a handle to a logical font.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createfontw
      * @since windows5.0
      */
     static CreateFontW(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName) {
@@ -5867,15 +5867,15 @@ class Gdi {
      * 
      * <b>ICM:</b> No color is defined  at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
      * @param {Integer} iHatch 
-     * @param {COLORREF} color The foreground color of the brush that is used for the hatches. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ The foreground color of the brush that is used for the hatches. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {HBRUSH} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createhatchbrush
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createhatchbrush
      * @since windows5.0
      */
-    static CreateHatchBrush(iHatch, color) {
-        result := DllCall("GDI32.dll\CreateHatchBrush", "int", iHatch, "uint", color, "ptr")
+    static CreateHatchBrush(iHatch, color_) {
+        result := DllCall("GDI32.dll\CreateHatchBrush", "int", iHatch, "uint", color_, "ptr")
         resultHandle := HBRUSH({Value: result}, True)
         return resultHandle
     }
@@ -5898,7 +5898,7 @@ class Gdi {
      * @returns {HDC} If the function succeeds, the return value is the handle to an information context.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createica
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createica
      * @since windows5.0
      */
     static CreateICA(pszDriver, pszDevice, pszPort, pdm) {
@@ -5929,7 +5929,7 @@ class Gdi {
      * @returns {HDC} If the function succeeds, the return value is the handle to an information context.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createicw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createicw
      * @since windows5.0
      */
     static CreateICW(pszDriver, pszDevice, pszPort, pdm) {
@@ -5963,7 +5963,7 @@ class Gdi {
      * @returns {HDC} If the function succeeds, the return value is a handle to the device context for the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createmetafilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createmetafilea
      * @since windows5.0
      */
     static CreateMetaFileA(pszFile) {
@@ -5996,7 +5996,7 @@ class Gdi {
      * @returns {HDC} If the function succeeds, the return value is a handle to the device context for the Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createmetafilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createmetafilew
      * @since windows5.0
      */
     static CreateMetaFileW(pszFile) {
@@ -6020,7 +6020,7 @@ class Gdi {
      * @returns {HPALETTE} If the function succeeds, the return value is a handle to a logical palette.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpalette
      * @since windows5.0
      */
     static CreatePalette(plpal) {
@@ -6051,15 +6051,15 @@ class Gdi {
      * @param {Integer} cWidth The width of the pen, in logical units. If <i>nWidth</i> is zero, the pen is a single pixel wide, regardless of the current transformation.
      * 
      * <b>CreatePen</b> returns a pen with the specified width but with the PS_SOLID style if you specify a width greater than one for the following styles: PS_DASH, PS_DOT, PS_DASHDOT, PS_DASHDOTDOT.
-     * @param {COLORREF} color A color reference for the pen color. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ A color reference for the pen color. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {HPEN} If the function succeeds, the return value is a handle that identifies a logical pen.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpen
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpen
      * @since windows5.0
      */
-    static CreatePen(iStyle, cWidth, color) {
-        result := DllCall("GDI32.dll\CreatePen", "int", iStyle, "int", cWidth, "uint", color, "ptr")
+    static CreatePen(iStyle, cWidth, color_) {
+        result := DllCall("GDI32.dll\CreatePen", "int", iStyle, "int", cWidth, "uint", color_, "ptr")
         resultHandle := HPEN({Value: result}, True)
         return resultHandle
     }
@@ -6074,7 +6074,7 @@ class Gdi {
      * @returns {HPEN} If the function succeeds, the return value is a handle that identifies a logical cosmetic pen.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpenindirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpenindirect
      * @since windows5.0
      */
     static CreatePenIndirect(plpen) {
@@ -6096,7 +6096,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpolypolygonrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpolypolygonrgn
      * @since windows5.0
      */
     static CreatePolyPolygonRgn(pptl, pc, cPoly, iMode) {
@@ -6119,17 +6119,17 @@ class Gdi {
      * A brush created by using a monochrome (1 bit per pixel) bitmap has the text and background colors of the device context to which it is drawn. Pixels represented by a 0 bit are drawn with the current text color; pixels represented by a 1 bit are drawn with the current background color.
      * 
      * <b>ICM:</b> No color is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
-     * @param {HBITMAP} hbm A handle to the bitmap to be used to create the logical brush.
+     * @param {HBITMAP} hbm_ A handle to the bitmap to be used to create the logical brush.
      * @returns {HBRUSH} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpatternbrush
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpatternbrush
      * @since windows5.0
      */
-    static CreatePatternBrush(hbm) {
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    static CreatePatternBrush(hbm_) {
+        hbm_ := hbm_ is Win32Handle ? NumGet(hbm_, "ptr") : hbm_
 
-        result := DllCall("GDI32.dll\CreatePatternBrush", "ptr", hbm, "ptr")
+        result := DllCall("GDI32.dll\CreatePatternBrush", "ptr", hbm_, "ptr")
         resultHandle := HBRUSH({Value: result}, True)
         return resultHandle
     }
@@ -6149,7 +6149,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createrectrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createrectrgn
      * @since windows5.0
      */
     static CreateRectRgn(x1, y1, x2, y2) {
@@ -6170,7 +6170,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createrectrgnindirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createrectrgnindirect
      * @since windows5.0
      */
     static CreateRectRgnIndirect(lprect) {
@@ -6194,7 +6194,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createroundrectrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createroundrectrgn
      * @since windows5.0
      */
     static CreateRoundRectRgn(x1, y1, x2, y2, w, h) {
@@ -6231,7 +6231,7 @@ class Gdi {
      * If the function fails, the return value is zero.
      * 
      * If <i>lpszFontRes</i> specifies an existing font file, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_FILE_EXISTS
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createscalablefontresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createscalablefontresourcea
      * @since windows5.0
      */
     static CreateScalableFontResourceA(fdwHidden, lpszFont, lpszFile, lpszPath) {
@@ -6277,7 +6277,7 @@ class Gdi {
      * If the function fails, the return value is zero.
      * 
      * If <i>lpszFontRes</i> specifies an existing font file, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_FILE_EXISTS
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createscalablefontresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createscalablefontresourcew
      * @since windows5.0
      */
     static CreateScalableFontResourceW(fdwHidden, lpszFont, lpszFile, lpszPath) {
@@ -6307,15 +6307,15 @@ class Gdi {
      * To paint with a system color brush, an application should use <c>GetSysColorBrush (nIndex)</code> instead of <code>CreateSolidBrush(GetSysColor(nIndex))</c>, because <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolorbrush">GetSysColorBrush</a> returns a cached brush instead of allocating a new one.
      * 
      * <b>ICM:</b> No color management is done at brush creation. However, color management is performed when the brush is selected into an ICM-enabled device context.
-     * @param {COLORREF} color The color of the brush. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ The color of the brush. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {HBRUSH} If the function succeeds, the return value identifies a logical brush.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createsolidbrush
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createsolidbrush
      * @since windows5.0
      */
-    static CreateSolidBrush(color) {
-        result := DllCall("GDI32.dll\CreateSolidBrush", "uint", color, "ptr")
+    static CreateSolidBrush(color_) {
+        result := DllCall("GDI32.dll\CreateSolidBrush", "uint", color_, "ptr")
         resultHandle := HBRUSH({Value: result}, True)
         return resultHandle
     }
@@ -6324,17 +6324,17 @@ class Gdi {
      * The DeleteDC function deletes the specified device context (DC).
      * @remarks
      * An application must not delete a DC whose handle was obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function. Instead, it must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function to free the DC.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deletedc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-deletedc
      * @since windows5.0
      */
-    static DeleteDC(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DeleteDC(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\DeleteDC", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\DeleteDC", "ptr", hdc_, "int")
         return result
     }
 
@@ -6346,7 +6346,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deletemetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-deletemetafile
      * @since windows5.0
      */
     static DeleteMetaFile(hmf) {
@@ -6366,7 +6366,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the specified handle is not valid or is currently selected into a DC, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deleteobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-deleteobject
      * @since windows5.0
      */
     static DeleteObject(ho) {
@@ -6380,7 +6380,7 @@ class Gdi {
      * The DrawEscape function provides drawing capabilities of the specified video display that are not directly available through the graphics device interface (GDI).
      * @remarks
      * When an application calls the <b>DrawEscape</b> function, the data identified by <i>cbInput</i> and <i>lpszInData</i> is passed directly to the specified display driver.
-     * @param {HDC} hdc A handle to the DC for the specified video display.
+     * @param {HDC} hdc_ A handle to the DC for the specified video display.
      * @param {Integer} iEscape The escape function to be performed.
      * @param {Integer} cjIn The number of bytes of data pointed to by the <i>lpszInData</i> parameter.
      * @param {Pointer} lpIn A pointer to the input structure required for the specified escape.
@@ -6389,19 +6389,19 @@ class Gdi {
      * If the escape is not implemented, the return value is zero.
      * 
      * If an error occurred, the return value is less than zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-drawescape
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-drawescape
      * @since windows5.0
      */
-    static DrawEscape(hdc, iEscape, cjIn, lpIn) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawEscape(hdc_, iEscape, cjIn, lpIn) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\DrawEscape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", lpIn, "int")
+        result := DllCall("GDI32.dll\DrawEscape", "ptr", hdc_, "int", iEscape, "int", cjIn, "ptr", lpIn, "int")
         return result
     }
 
     /**
      * Creates a D2D1_ELLIPSE structure.
-     * @param {HDC} hdc 
+     * @param {HDC} hdc_ 
      * @param {Integer} left 
      * @param {Integer} top 
      * @param {Integer} right 
@@ -6409,13 +6409,13 @@ class Gdi {
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ns-d2d1-d2d1_ellipse">D2D1_ELLIPSE</a></b>
      * 
      * The new ellipse.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-ellipse
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1helper/nf-d2d1helper-ellipse
      * @since windows6.1
      */
-    static Ellipse(hdc, left, top, right, bottom) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Ellipse(hdc_, left, top, right, bottom) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Ellipse", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int")
+        result := DllCall("GDI32.dll\Ellipse", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -6537,7 +6537,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumFontFamiliesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context from which to enumerate the fonts.
+     * @param {HDC} hdc_ A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<LOGFONTA>} lpLogfont A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the fonts to enumerate. The function examines the following members.
      * 
      * <table>
@@ -6559,16 +6559,17 @@ class Gdi {
      * </tr>
      * </table>
      * @param {Pointer<FONTENUMPROCA>} lpProc A pointer to the application defined callback function. For more information, see the <a href="https://docs.microsoft.com/previous-versions/dd162618(v=vs.85)">EnumFontFamExProc</a> function.
-     * @param {LPARAM} lParam An application defined value. The function passes this value to the callback function along with font information.
+     * @param {LPARAM} lParam_ An application defined value. The function passes this value to the callback function along with font information.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @returns {Integer} The return value is the last value returned by the callback function. This value depends on which font families are available for the specified device.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumfontfamiliesexa
      * @since windows5.0
      */
-    static EnumFontFamiliesExA(hdc, lpLogfont, lpProc, lParam, dwFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumFontFamiliesExA(hdc_, lpLogfont, lpProc, lParam_, dwFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumFontFamiliesExA", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam, "uint", dwFlags, "int")
+        result := DllCall("GDI32.dll\EnumFontFamiliesExA", "ptr", hdc_, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam_, "uint", dwFlags, "int")
         return result
     }
 
@@ -6690,7 +6691,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumFontFamiliesEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context from which to enumerate the fonts.
+     * @param {HDC} hdc_ A handle to the device context from which to enumerate the fonts.
      * @param {Pointer<LOGFONTW>} lpLogfont A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that contains information about the fonts to enumerate. The function examines the following members.
      * 
      * <table>
@@ -6712,16 +6713,17 @@ class Gdi {
      * </tr>
      * </table>
      * @param {Pointer<FONTENUMPROCW>} lpProc A pointer to the application defined callback function. For more information, see the <a href="https://docs.microsoft.com/previous-versions/dd162618(v=vs.85)">EnumFontFamExProc</a> function.
-     * @param {LPARAM} lParam An application defined value. The function passes this value to the callback function along with font information.
+     * @param {LPARAM} lParam_ An application defined value. The function passes this value to the callback function along with font information.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @returns {Integer} The return value is the last value returned by the callback function. This value depends on which font families are available for the specified device.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumfontfamiliesexw
      * @since windows5.0
      */
-    static EnumFontFamiliesExW(hdc, lpLogfont, lpProc, lParam, dwFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumFontFamiliesExW(hdc_, lpLogfont, lpProc, lParam_, dwFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumFontFamiliesExW", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam, "uint", dwFlags, "int")
+        result := DllCall("GDI32.dll\EnumFontFamiliesExW", "ptr", hdc_, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam_, "uint", dwFlags, "int")
         return result
     }
 
@@ -6733,19 +6735,20 @@ class Gdi {
      * When the graphics mode on the device context is set to GM_ADVANCED using the SetGraphicsMode function and the DEVICE_FONTTYPE flag is passed to the FontType parameter, this function returns a list of type 1 and OpenType fonts on the system. When the graphics mode is not set to GM_ADVANCED, this function returns a list of type 1, OpenType, and TrueType fonts on the system.
      * 
      * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <b>EnumFontFamilies</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
-     * @param {HDC} hdc A handle to the device context from which to enumerate the fonts.
+     * @param {HDC} hdc_ A handle to the device context from which to enumerate the fonts.
      * @param {PSTR} lpLogfont A pointer to a null-terminated string that specifies the family name of the desired fonts. If <i>lpszFamily</i> is <b>NULL</b>, <b>EnumFontFamilies</b> selects and enumerates one font of each available type family.
      * @param {Pointer<FONTENUMPROCA>} lpProc A pointer to the application defined callback function. For information, see <a href="https://docs.microsoft.com/previous-versions/dd162621(v=vs.85)">EnumFontFamProc</a>.
-     * @param {LPARAM} lParam A pointer to application-supplied data. The data is passed to the callback function along with the font information.
+     * @param {LPARAM} lParam_ A pointer to application-supplied data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is implementation specific.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumfontfamiliesa
      * @since windows5.0
      */
-    static EnumFontFamiliesA(hdc, lpLogfont, lpProc, lParam) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumFontFamiliesA(hdc_, lpLogfont, lpProc, lParam_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumFontFamiliesA", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam, "int")
+        result := DllCall("GDI32.dll\EnumFontFamiliesA", "ptr", hdc_, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam_, "int")
         return result
     }
 
@@ -6757,19 +6760,20 @@ class Gdi {
      * When the graphics mode on the device context is set to GM_ADVANCED using the SetGraphicsMode function and the DEVICE_FONTTYPE flag is passed to the FontType parameter, this function returns a list of type 1 and OpenType fonts on the system. When the graphics mode is not set to GM_ADVANCED, this function returns a list of type 1, OpenType, and TrueType fonts on the system.
      * 
      * The fonts for many East Asian languages have two typeface names: an English name and a localized name. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontsa">EnumFonts</a>, <b>EnumFontFamilies</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumfontfamiliesexa">EnumFontFamiliesEx</a> return the English typeface name if the system locale does not match the language of the font.
-     * @param {HDC} hdc A handle to the device context from which to enumerate the fonts.
+     * @param {HDC} hdc_ A handle to the device context from which to enumerate the fonts.
      * @param {PWSTR} lpLogfont A pointer to a null-terminated string that specifies the family name of the desired fonts. If <i>lpszFamily</i> is <b>NULL</b>, <b>EnumFontFamilies</b> selects and enumerates one font of each available type family.
      * @param {Pointer<FONTENUMPROCW>} lpProc A pointer to the application defined callback function. For information, see <a href="https://docs.microsoft.com/previous-versions/dd162621(v=vs.85)">EnumFontFamProc</a>.
-     * @param {LPARAM} lParam A pointer to application-supplied data. The data is passed to the callback function along with the font information.
+     * @param {LPARAM} lParam_ A pointer to application-supplied data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is implementation specific.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontfamiliesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumfontfamiliesw
      * @since windows5.0
      */
-    static EnumFontFamiliesW(hdc, lpLogfont, lpProc, lParam) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumFontFamiliesW(hdc_, lpLogfont, lpProc, lParam_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumFontFamiliesW", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam, "int")
+        result := DllCall("GDI32.dll\EnumFontFamiliesW", "ptr", hdc_, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam_, "int")
         return result
     }
 
@@ -6786,19 +6790,20 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumFonts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context from which to enumerate the fonts.
+     * @param {HDC} hdc_ A handle to the device context from which to enumerate the fonts.
      * @param {PSTR} lpLogfont A pointer to a null-terminated string that specifies the typeface name of the desired fonts. If <i>lpFaceName</i> is <b>NULL</b>, <b>EnumFonts</b> randomly selects and enumerates one font of each available typeface.
      * @param {Pointer<FONTENUMPROCA>} lpProc A pointer to the application definedcallback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162623(v=vs.85)">EnumFontsProc</a>.
-     * @param {LPARAM} lParam A pointer to any application-defined data. The data is passed to the callback function along with the font information.
+     * @param {LPARAM} lParam_ A pointer to any application-defined data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is defined by the application.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumfontsa
      * @since windows5.0
      */
-    static EnumFontsA(hdc, lpLogfont, lpProc, lParam) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumFontsA(hdc_, lpLogfont, lpProc, lParam_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumFontsA", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam, "int")
+        result := DllCall("GDI32.dll\EnumFontsA", "ptr", hdc_, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam_, "int")
         return result
     }
 
@@ -6815,38 +6820,40 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumFonts as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context from which to enumerate the fonts.
+     * @param {HDC} hdc_ A handle to the device context from which to enumerate the fonts.
      * @param {PWSTR} lpLogfont A pointer to a null-terminated string that specifies the typeface name of the desired fonts. If <i>lpFaceName</i> is <b>NULL</b>, <b>EnumFonts</b> randomly selects and enumerates one font of each available typeface.
      * @param {Pointer<FONTENUMPROCW>} lpProc A pointer to the application definedcallback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162623(v=vs.85)">EnumFontsProc</a>.
-     * @param {LPARAM} lParam A pointer to any application-defined data. The data is passed to the callback function along with the font information.
+     * @param {LPARAM} lParam_ A pointer to any application-defined data. The data is passed to the callback function along with the font information.
      * @returns {Integer} The return value is the last value returned by the callback function. Its meaning is defined by the application.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumfontsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumfontsw
      * @since windows5.0
      */
-    static EnumFontsW(hdc, lpLogfont, lpProc, lParam) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumFontsW(hdc_, lpLogfont, lpProc, lParam_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpLogfont := lpLogfont is String ? StrPtr(lpLogfont) : lpLogfont
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumFontsW", "ptr", hdc, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam, "int")
+        result := DllCall("GDI32.dll\EnumFontsW", "ptr", hdc_, "ptr", lpLogfont, "ptr", lpProc, "ptr", lParam_, "int")
         return result
     }
 
     /**
      * The EnumObjects function enumerates the pens or brushes available for the specified device context (DC).
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @param {Integer} nType The object type. This parameter can be OBJ_BRUSH or OBJ_PEN.
      * @param {Pointer<GOBJENUMPROC>} lpFunc A pointer to the application-defined callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/previous-versions/dd162686(v=vs.85)">EnumObjectsProc</a> function.
-     * @param {LPARAM} lParam A pointer to the application-defined data. The data is passed to the callback function along with the object information.
+     * @param {LPARAM} lParam_ A pointer to the application-defined data. The data is passed to the callback function along with the object information.
      * @returns {Integer} If the function succeeds, the return value is the last value returned by the callback function. Its meaning is user-defined.
      * 
      * If the objects cannot be enumerated (for example, there are too many objects), the function returns zero without calling the callback function.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumobjects
      * @since windows5.0
      */
-    static EnumObjects(hdc, nType, lpFunc, lParam) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumObjects(hdc_, nType, lpFunc, lParam_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("GDI32.dll\EnumObjects", "ptr", hdc, "int", nType, "ptr", lpFunc, "ptr", lParam, "int")
+        result := DllCall("GDI32.dll\EnumObjects", "ptr", hdc_, "int", nType, "ptr", lpFunc, "ptr", lParam_, "int")
         return result
     }
 
@@ -6857,7 +6864,7 @@ class Gdi {
      * @returns {BOOL} If the two regions are equal, the return value is nonzero.
      * 
      * If the two regions are not equal, the return value is zero. A return value of ERROR means at least one of the region handles is invalid.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-equalrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-equalrgn
      * @since windows5.0
      */
     static EqualRgn(hrgn1, hrgn2) {
@@ -6872,7 +6879,7 @@ class Gdi {
      * The ExcludeClipRect function creates a new clipping region that consists of the existing clipping region minus the specified rectangle.
      * @remarks
      * The lower and right edges of the specified rectangle are not excluded from the clipping region.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical units, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical units, of the upper-left corner of the rectangle.
      * @param {Integer} right The x-coordinate, in logical units, of the lower-right corner of the rectangle.
@@ -6929,13 +6936,13 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-excludecliprect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-excludecliprect
      * @since windows5.0
      */
-    static ExcludeClipRect(hdc, left, top, right, bottom) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ExcludeClipRect(hdc_, left, top, right, bottom) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ExcludeClipRect", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int")
+        result := DllCall("GDI32.dll\ExcludeClipRect", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -6951,7 +6958,7 @@ class Gdi {
      * @returns {HRGN} If the function succeeds, the return value is the value of the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extcreateregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-extcreateregion
      * @since windows5.0
      */
     static ExtCreateRegion(lpx, nCount, lpData) {
@@ -6976,41 +6983,41 @@ class Gdi {
      * If <i>fuFillType</i> is FLOODFILLSURFACE, the system assumes that the area to be filled is a single color. The function begins to fill the area at the point specified by <i>nXStart</i> and <i>nYStart</i> and continues in all directions, filling all adjacent regions containing the color specified by <i>color</i>.
      * 
      * Only memory device contexts and devices that support raster-display operations support the <b>ExtFloodFill</b> function. To determine whether a device supports this technology, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point where filling is to start.
      * @param {Integer} y The y-coordinate, in logical units, of the point where filling is to start.
-     * @param {COLORREF} color The color of the boundary or of the area to be filled. The interpretation of <i>color</i> depends on the value of the <i>fuFillType</i> parameter. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ The color of the boundary or of the area to be filled. The interpretation of <i>color</i> depends on the value of the <i>fuFillType</i> parameter. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @param {Integer} type 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extfloodfill
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-extfloodfill
      * @since windows5.0
      */
-    static ExtFloodFill(hdc, x, y, color, type) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ExtFloodFill(hdc_, x, y, color_, type) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ExtFloodFill", "ptr", hdc, "int", x, "int", y, "uint", color, "uint", type, "int")
+        result := DllCall("GDI32.dll\ExtFloodFill", "ptr", hdc_, "int", x, "int", y, "uint", color_, "uint", type, "int")
         return result
     }
 
     /**
      * The FillRgn function fills a region by using the specified brush.
-     * @param {HDC} hdc Handle to the device context.
-     * @param {HRGN} hrgn Handle to the region to be filled. The region's coordinates are presumed to be in logical units.
+     * @param {HDC} hdc_ Handle to the device context.
+     * @param {HRGN} hrgn_ Handle to the region to be filled. The region's coordinates are presumed to be in logical units.
      * @param {HBRUSH} hbr Handle to the brush to be used to fill the region.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-fillrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-fillrgn
      * @since windows5.0
      */
-    static FillRgn(hdc, hrgn, hbr) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static FillRgn(hdc_, hrgn_, hbr) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
         hbr := hbr is Win32Handle ? NumGet(hbr, "ptr") : hbr
 
-        result := DllCall("GDI32.dll\FillRgn", "ptr", hdc, "ptr", hrgn, "ptr", hbr, "int")
+        result := DllCall("GDI32.dll\FillRgn", "ptr", hdc_, "ptr", hrgn_, "ptr", hbr, "int")
         return result
     }
 
@@ -7024,42 +7031,42 @@ class Gdi {
      * <li>The given point has the boundary color specified by the <i>color</i> parameter.</li>
      * <li>The given point lies outside the current clipping region, that is, it is not visible on the device.</li>
      * </ul>
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point where filling is to start.
      * @param {Integer} y The y-coordinate, in logical units, of the point where filling is to start.
-     * @param {COLORREF} color The color of the boundary or the area to be filled. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ The color of the boundary or the area to be filled. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-floodfill
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-floodfill
      * @since windows5.0
      */
-    static FloodFill(hdc, x, y, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static FloodFill(hdc_, x, y, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\FloodFill", "ptr", hdc, "int", x, "int", y, "uint", color, "int")
+        result := DllCall("GDI32.dll\FloodFill", "ptr", hdc_, "int", x, "int", y, "uint", color_, "int")
         return result
     }
 
     /**
      * The FrameRgn function draws a border around the specified region by using the specified brush.
-     * @param {HDC} hdc Handle to the device context.
-     * @param {HRGN} hrgn Handle to the region to be enclosed in a border. The region's coordinates are presumed to be in logical units.
+     * @param {HDC} hdc_ Handle to the device context.
+     * @param {HRGN} hrgn_ Handle to the region to be enclosed in a border. The region's coordinates are presumed to be in logical units.
      * @param {HBRUSH} hbr Handle to the brush to be used to draw the border.
      * @param {Integer} w Specifies the width, in logical units, of vertical brush strokes.
      * @param {Integer} h Specifies the height, in logical units, of horizontal brush strokes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-framergn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-framergn
      * @since windows5.0
      */
-    static FrameRgn(hdc, hrgn, hbr, w, h) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static FrameRgn(hdc_, hrgn_, hbr, w, h) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
         hbr := hbr is Win32Handle ? NumGet(hbr, "ptr") : hbr
 
-        result := DllCall("GDI32.dll\FrameRgn", "ptr", hdc, "ptr", hrgn, "ptr", hbr, "int", w, "int", h, "int")
+        result := DllCall("GDI32.dll\FrameRgn", "ptr", hdc_, "ptr", hrgn_, "ptr", hbr, "int", w, "int", h, "int")
         return result
     }
 
@@ -7138,17 +7145,17 @@ class Gdi {
      * <td>Pixel is a combination of the colors in the pen and in the screen, but not in both.</td>
      * </tr>
      * </table>
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @returns {Integer} If the function succeeds, the return value specifies the foreground mix mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrop2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getrop2
      * @since windows5.0
      */
-    static GetROP2(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetROP2(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetROP2", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetROP2", "ptr", hdc_, "int")
         return result
     }
 
@@ -7158,34 +7165,34 @@ class Gdi {
      * The aspect ratio is the ratio formed by the width and height of a pixel on a specified device.
      * 
      * The system provides a special filter, the aspect-ratio filter, to select fonts that were designed for a particular device. An application can specify that the system should only retrieve fonts matching the specified aspect ratio by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setmapperflags">SetMapperFlags</a> function.
-     * @param {HDC} hdc Handle to a device context.
+     * @param {HDC} hdc_ Handle to a device context.
      * @param {Pointer<SIZE>} lpsize Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the current aspect-ratio filter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getaspectratiofilterex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getaspectratiofilterex
      * @since windows5.0
      */
-    static GetAspectRatioFilterEx(hdc, lpsize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetAspectRatioFilterEx(hdc_, lpsize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetAspectRatioFilterEx", "ptr", hdc, "ptr", lpsize, "int")
+        result := DllCall("GDI32.dll\GetAspectRatioFilterEx", "ptr", hdc_, "ptr", lpsize, "int")
         return result
     }
 
     /**
      * The GetBkColor function returns the current background color for the specified device context.
-     * @param {HDC} hdc Handle to the device context whose background color is to be returned.
+     * @param {HDC} hdc_ Handle to the device context whose background color is to be returned.
      * @returns {COLORREF} If the function succeeds, the return value is a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value for the current background color.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbkcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getbkcolor
      * @since windows5.0
      */
-    static GetBkColor(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetBkColor(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetBkColor", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetBkColor", "ptr", hdc_, "uint")
         return result
     }
 
@@ -7195,17 +7202,17 @@ class Gdi {
      * For information on setting the brush color, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCBrushColor</a>.
      * 
      * <b>ICM:</b> Color management is performed if ICM is enabled.
-     * @param {HDC} hdc A handle to the DC whose brush color is to be returned.
+     * @param {HDC} hdc_ A handle to the DC whose brush color is to be returned.
      * @returns {COLORREF} If the function succeeds, the return value is the <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value for the current DC brush color.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdcbrushcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdcbrushcolor
      * @since windows5.0
      */
-    static GetDCBrushColor(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDCBrushColor(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetDCBrushColor", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetDCBrushColor", "ptr", hdc_, "uint")
         return result
     }
 
@@ -7215,33 +7222,33 @@ class Gdi {
      * For information on setting the pen color, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCPenColor</a>.
      * 
      * <b>ICM:</b> Color management is performed if ICM is enabled.
-     * @param {HDC} hdc A handle to the DC whose brush color is to be returned.
+     * @param {HDC} hdc_ A handle to the DC whose brush color is to be returned.
      * @returns {COLORREF} If the function succeeds, the return value is a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value for the current DC pen color.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdcpencolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdcpencolor
      * @since windows5.0
      */
-    static GetDCPenColor(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDCPenColor(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetDCPenColor", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetDCPenColor", "ptr", hdc_, "uint")
         return result
     }
 
     /**
      * The GetBkMode function returns the current background mix mode for a specified device context. The background mix mode of a device context affects text, hatched brushes, and pen styles that are not solid lines.
-     * @param {HDC} hdc Handle to the device context whose background mode is to be returned.
+     * @param {HDC} hdc_ Handle to the device context whose background mode is to be returned.
      * @returns {Integer} If the function succeeds, the return value specifies the current background mix mode, either OPAQUE or TRANSPARENT.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbkmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getbkmode
      * @since windows5.0
      */
-    static GetBkMode(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetBkMode(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetBkMode", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetBkMode", "ptr", hdc_, "int")
         return result
     }
 
@@ -7253,7 +7260,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of bytes copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapbits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getbitmapbits
      * @since windows5.0
      */
     static GetBitmapBits(hbit, cb, lpvBits) {
@@ -7272,7 +7279,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapdimensionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getbitmapdimensionex
      * @since windows5.0
      */
     static GetBitmapDimensionEx(hbit, lpsize) {
@@ -7286,7 +7293,7 @@ class Gdi {
      * The GetBoundsRect function obtains the current accumulated bounding rectangle for a specified device context.
      * @remarks
      * The DCB_SET value is a combination of the bit values DCB_ACCUMULATE and DCB_RESET. Applications that check the DCB_RESET bit to determine whether the bounding rectangle is empty must also check the DCB_ACCUMULATE bit. The bounding rectangle is empty only if the DCB_RESET bit is 1 and the DCB_ACCUMULATE bit is 0.
-     * @param {HDC} hdc A handle to the device context whose bounding rectangle the function will return.
+     * @param {HDC} hdc_ A handle to the device context whose bounding rectangle the function will return.
      * @param {Pointer<RECT>} lprect A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that will receive the current bounding rectangle. The application's rectangle is returned in logical coordinates, and the bounding rectangle is returned in screen coordinates.
      * @param {Integer} flags Specifies how the <b>GetBoundsRect</b> function will behave. This parameter can be the following value.
      * 
@@ -7334,13 +7341,13 @@ class Gdi {
      * <td>The bounding rectangle is not empty.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getboundsrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getboundsrect
      * @since windows5.0
      */
-    static GetBoundsRect(hdc, lprect, flags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetBoundsRect(hdc_, lprect, flags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetBoundsRect", "ptr", hdc, "ptr", lprect, "uint", flags, "uint")
+        result := DllCall("GDI32.dll\GetBoundsRect", "ptr", hdc_, "ptr", lprect, "uint", flags, "uint")
         return result
     }
 
@@ -7354,18 +7361,18 @@ class Gdi {
      * If an application uses a brush to fill the backgrounds of both a parent and a child window with matching colors, it may be necessary to set the brush origin after painting the parent window but before painting the child window.
      * 
      * The system automatically tracks the origin of all window-managed device contexts and adjusts their brushes as necessary to maintain an alignment of patterns on the surface.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the brush origin, in device coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbrushorgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getbrushorgex
      * @since windows5.0
      */
-    static GetBrushOrgEx(hdc, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetBrushOrgEx(hdc_, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetBrushOrgEx", "ptr", hdc, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\GetBrushOrgEx", "ptr", hdc_, "ptr", lppt, "int")
         return result
     }
 
@@ -7384,22 +7391,22 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharWidth as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
      * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidtha
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidtha
      * @since windows5.0
      */
-    static GetCharWidthA(hdc, iFirst, iLast, lpBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidthA(hdc_, iFirst, iLast, lpBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidthA", "ptr", hdc, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
+        result := DllCall("GDI32.dll\GetCharWidthA", "ptr", hdc_, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
         return result
     }
 
@@ -7418,22 +7425,22 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharWidth as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
      * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidthw
      * @since windows5.0
      */
-    static GetCharWidthW(hdc, iFirst, iLast, lpBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidthW(hdc_, iFirst, iLast, lpBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidthW", "ptr", hdc, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
+        result := DllCall("GDI32.dll\GetCharWidthW", "ptr", hdc_, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
         return result
     }
 
@@ -7445,22 +7452,22 @@ class Gdi {
      * The range is inclusive; that is, the returned widths include the widths of the characters specified by the <i>iFirstChar</i> and <i>iLastChar</i> parameters.
      * 
      * If a character does not exist in the current font, it is assigned the width of the default character.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
      * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidth32a
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidth32a
      * @since windows5.0
      */
-    static GetCharWidth32A(hdc, iFirst, iLast, lpBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidth32A(hdc_, iFirst, iLast, lpBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidth32A", "ptr", hdc, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
+        result := DllCall("GDI32.dll\GetCharWidth32A", "ptr", hdc_, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
         return result
     }
 
@@ -7472,22 +7479,22 @@ class Gdi {
      * The range is inclusive; that is, the returned widths include the widths of the characters specified by the <i>iFirstChar</i> and <i>iLastChar</i> parameters.
      * 
      * If a character does not exist in the current font, it is assigned the width of the default character.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
      * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidth32w
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidth32w
      * @since windows5.0
      */
-    static GetCharWidth32W(hdc, iFirst, iLast, lpBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidth32W(hdc_, iFirst, iLast, lpBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBufferMarshal := lpBuffer is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidth32W", "ptr", hdc, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
+        result := DllCall("GDI32.dll\GetCharWidth32W", "ptr", hdc_, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
         return result
     }
 
@@ -7506,22 +7513,22 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharWidthFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iFirst The code point of the first character in the group of consecutive characters.
      * @param {Integer} iLast The code point of the last character in the group of consecutive characters.
      * @param {Pointer<Float>} lpBuffer A pointer to a buffer that receives the character widths, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthfloata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidthfloata
      * @since windows5.0
      */
-    static GetCharWidthFloatA(hdc, iFirst, iLast, lpBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidthFloatA(hdc_, iFirst, iLast, lpBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBufferMarshal := lpBuffer is VarRef ? "float*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidthFloatA", "ptr", hdc, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
+        result := DllCall("GDI32.dll\GetCharWidthFloatA", "ptr", hdc_, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
         return result
     }
 
@@ -7540,22 +7547,22 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharWidthFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iFirst The code point of the first character in the group of consecutive characters.
      * @param {Integer} iLast The code point of the last character in the group of consecutive characters.
      * @param {Pointer<Float>} lpBuffer A pointer to a buffer that receives the character widths, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthfloatw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidthfloatw
      * @since windows5.0
      */
-    static GetCharWidthFloatW(hdc, iFirst, iLast, lpBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidthFloatW(hdc_, iFirst, iLast, lpBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBufferMarshal := lpBuffer is VarRef ? "float*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidthFloatW", "ptr", hdc, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
+        result := DllCall("GDI32.dll\GetCharWidthFloatW", "ptr", hdc_, "uint", iFirst, "uint", iLast, lpBufferMarshal, lpBuffer, "int")
         return result
     }
 
@@ -7578,20 +7585,20 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharABCWidths as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} wFirst The first character in the group of consecutive characters from the current font.
      * @param {Integer} wLast The last character in the group of consecutive characters from the current font.
      * @param {Pointer<ABC>} lpABC A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abc">ABC</a> structures that receives the character widths, in logical units. This array must contain at least as many <b>ABC</b> structures as there are characters in the range specified by the <i>uFirstChar</i> and <i>uLastChar</i> parameters.
      * @returns {BOOL} If the function succeeds, the return value is nonzero
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharabcwidthsa
      * @since windows5.0
      */
-    static GetCharABCWidthsA(hdc, wFirst, wLast, lpABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharABCWidthsA(hdc_, wFirst, wLast, lpABC) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsA", "ptr", hdc, "uint", wFirst, "uint", wLast, "ptr", lpABC, "int")
+        result := DllCall("GDI32.dll\GetCharABCWidthsA", "ptr", hdc_, "uint", wFirst, "uint", wLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -7614,20 +7621,20 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharABCWidths as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} wFirst The first character in the group of consecutive characters from the current font.
      * @param {Integer} wLast The last character in the group of consecutive characters from the current font.
      * @param {Pointer<ABC>} lpABC A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abc">ABC</a> structures that receives the character widths, in logical units. This array must contain at least as many <b>ABC</b> structures as there are characters in the range specified by the <i>uFirstChar</i> and <i>uLastChar</i> parameters.
      * @returns {BOOL} If the function succeeds, the return value is nonzero
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharabcwidthsw
      * @since windows5.0
      */
-    static GetCharABCWidthsW(hdc, wFirst, wLast, lpABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharABCWidthsW(hdc_, wFirst, wLast, lpABC) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsW", "ptr", hdc, "uint", wFirst, "uint", wLast, "ptr", lpABC, "int")
+        result := DllCall("GDI32.dll\GetCharABCWidthsW", "ptr", hdc_, "uint", wFirst, "uint", wLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -7650,20 +7657,20 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharABCWidthsFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @param {Integer} iFirst Specifies the code point of the first character in the group of consecutive characters where the ABC widths are seeked.
      * @param {Integer} iLast Specifies the code point of the last character in the group of consecutive characters where the ABC widths are seeked. This range is inclusive. An error is returned if the specified last character precedes the specified first character.
      * @param {Pointer<ABCFLOAT>} lpABC Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abcfloat">ABCFLOAT</a> structures that receives the character widths, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsfloata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharabcwidthsfloata
      * @since windows5.0
      */
-    static GetCharABCWidthsFloatA(hdc, iFirst, iLast, lpABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharABCWidthsFloatA(hdc_, iFirst, iLast, lpABC) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsFloatA", "ptr", hdc, "uint", iFirst, "uint", iLast, "ptr", lpABC, "int")
+        result := DllCall("GDI32.dll\GetCharABCWidthsFloatA", "ptr", hdc_, "uint", iFirst, "uint", iLast, "ptr", lpABC, "int")
         return result
     }
 
@@ -7686,26 +7693,26 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharABCWidthsFloat as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @param {Integer} iFirst Specifies the code point of the first character in the group of consecutive characters where the ABC widths are seeked.
      * @param {Integer} iLast Specifies the code point of the last character in the group of consecutive characters where the ABC widths are seeked. This range is inclusive. An error is returned if the specified last character precedes the specified first character.
      * @param {Pointer<ABCFLOAT>} lpABC Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abcfloat">ABCFLOAT</a> structures that receives the character widths, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsfloatw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharabcwidthsfloatw
      * @since windows5.0
      */
-    static GetCharABCWidthsFloatW(hdc, iFirst, iLast, lpABC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharABCWidthsFloatW(hdc_, iFirst, iLast, lpABC) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsFloatW", "ptr", hdc, "uint", iFirst, "uint", iLast, "ptr", lpABC, "int")
+        result := DllCall("GDI32.dll\GetCharABCWidthsFloatW", "ptr", hdc_, "uint", iFirst, "uint", iLast, "ptr", lpABC, "int")
         return result
     }
 
     /**
      * The GetClipBox function retrieves the dimensions of the tightest bounding rectangle that can be drawn around the current visible area on the device.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that is to receive the rectangle dimensions, in logical units.
      * @returns {Integer} If the function succeeds, the return value specifies the clipping box's complexity and can be one of the following values.
      * 
@@ -7762,13 +7769,13 @@ class Gdi {
      *  
      * 
      * <b>GetClipBox</b> returns logical coordinates based on the given device context.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getclipbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getclipbox
      * @since windows5.0
      */
-    static GetClipBox(hdc, lprect) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetClipBox(hdc_, lprect) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetClipBox", "ptr", hdc, "ptr", lprect, "int")
+        result := DllCall("GDI32.dll\GetClipBox", "ptr", hdc_, "ptr", lprect, "int")
         return result
     }
 
@@ -7778,17 +7785,17 @@ class Gdi {
      * An application-defined clipping region is a clipping region identified by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectcliprgn">SelectClipRgn</a> function. It is not a clipping region created when the application calls the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function.
      * 
      * If the function succeeds, the <i>hrgn</i> parameter is a handle to a copy of the current clipping region. Subsequent changes to this copy will not affect the current clipping region.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {HRGN} hrgn A handle to an existing region before the function is called. After the function returns, this parameter is a handle to a copy of the current clipping region.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {HRGN} hrgn_ A handle to an existing region before the function is called. After the function returns, this parameter is a handle to a copy of the current clipping region.
      * @returns {Integer} If the function succeeds and there is no clipping region for the given device context, the return value is zero. If the function succeeds and there is a clipping region for the given device context, the return value is 1. If an error occurs, the return value is -1.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcliprgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcliprgn
      * @since windows5.0
      */
-    static GetClipRgn(hdc, hrgn) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static GetClipRgn(hdc_, hrgn_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\GetClipRgn", "ptr", hdc, "ptr", hrgn, "int")
+        result := DllCall("GDI32.dll\GetClipRgn", "ptr", hdc_, "ptr", hrgn_, "int")
         return result
     }
 
@@ -7798,19 +7805,19 @@ class Gdi {
      * If the function succeeds, <i>hrgn</i> is a handle to a copy of the current metaregion. Subsequent changes to this copy will not affect the current metaregion.
      * 
      * The current clipping region of a device context is defined by the intersection of its clipping region and its metaregion.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {HRGN} hrgn A handle to an existing region before the function is called. After the function returns, this parameter is a handle to a copy of the current metaregion.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {HRGN} hrgn_ A handle to an existing region before the function is called. After the function returns, this parameter is a handle to a copy of the current metaregion.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetargn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getmetargn
      * @since windows5.0
      */
-    static GetMetaRgn(hdc, hrgn) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static GetMetaRgn(hdc_, hrgn_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\GetMetaRgn", "ptr", hdc, "ptr", hrgn, "int")
+        result := DllCall("GDI32.dll\GetMetaRgn", "ptr", hdc_, "ptr", hrgn_, "int")
         return result
     }
 
@@ -7818,36 +7825,36 @@ class Gdi {
      * The GetCurrentObject function retrieves a handle to an object of the specified type that has been selected into the specified device context (DC).
      * @remarks
      * An application can use the <b>GetCurrentObject</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getobject">GetObject</a> functions to retrieve descriptions of the graphic objects currently selected into the specified DC.
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @param {Integer} type 
      * @returns {HGDIOBJ} If the function succeeds, the return value is a handle to the specified object.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcurrentobject
      * @since windows5.0
      */
-    static GetCurrentObject(hdc, type) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCurrentObject(hdc_, type) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetCurrentObject", "ptr", hdc, "uint", type, "ptr")
+        result := DllCall("GDI32.dll\GetCurrentObject", "ptr", hdc_, "uint", type, "ptr")
         resultHandle := HGDIOBJ({Value: result}, True)
         return resultHandle
     }
 
     /**
      * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the logical coordinates of the current position.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcurrentpositionex
      * @since windows5.0
      */
-    static GetCurrentPositionEx(hdc, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCurrentPositionEx(hdc_, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetCurrentPositionEx", "ptr", hdc, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\GetCurrentPositionEx", "ptr", hdc_, "ptr", lppt, "int")
         return result
     }
 
@@ -7900,18 +7907,18 @@ class Gdi {
      * 
      * <div class="alert"><b>Note</b>  <b>GetDeviceCaps</b> reports info that the display driver provides. If the display driver declines to report any info, <b>GetDeviceCaps</b> calculates the info based on fixed calculations. If the display driver reports invalid info, <b>GetDeviceCaps</b> returns the invalid info. Also, if the display driver declines to report info, <b>GetDeviceCaps</b> might calculate incorrect info because it assumes either fixed DPI (96 DPI) or a fixed size (depending on the info that the display driver did and didn’t provide). Unfortunately, a display driver that is implemented to the Windows Display Driver Model (WDDM) (introduced in Windows Vista) causes GDI to not get the info, so <b>GetDeviceCaps</b> must always calculate the info.</div>
      * <div> </div>
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @param {Integer} index 
      * @returns {Integer} The return value specifies the value of the desired item.
      * 
      * When <i>nIndex</i> is BITSPIXEL and the device has 15bpp or 16bpp, the return value is 16.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicecaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdevicecaps
      * @since windows5.0
      */
-    static GetDeviceCaps(hdc, index) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDeviceCaps(hdc_, index) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetDeviceCaps", "ptr", hdc, "int", index, "int")
+        result := DllCall("GDI32.dll\GetDeviceCaps", "ptr", hdc_, "int", index, "int")
         return result
     }
 
@@ -7955,8 +7962,8 @@ class Gdi {
      * The bitmap identified by the <i>hbmp</i> parameter must not be selected into a device context when the application calls this function.
      * 
      * The origin for a bottom-up DIB is the lower-left corner of the bitmap; the origin for a top-down DIB is the upper-left corner.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {HBITMAP} hbm A handle to the bitmap. This must be a compatible bitmap (DDB).
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {HBITMAP} hbm_ A handle to the bitmap. This must be a compatible bitmap (DDB).
      * @param {Integer} start The first scan line to retrieve.
      * @param {Integer} cLines The number of scan lines to retrieve.
      * @param {Pointer<Void>} lpvBits A pointer to a buffer to receive the bitmap data. If this parameter is <b>NULL</b>, the function passes the dimensions and format of the bitmap to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure pointed to by the <i>lpbmi</i> parameter.
@@ -7987,16 +7994,16 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdibits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdibits
      * @since windows5.0
      */
-    static GetDIBits(hdc, hbm, start, cLines, lpvBits, lpbmi, usage) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    static GetDIBits(hdc_, hbm_, start, cLines, lpvBits, lpbmi, usage) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hbm_ := hbm_ is Win32Handle ? NumGet(hbm_, "ptr") : hbm_
 
         lpvBitsMarshal := lpvBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\GetDIBits", "ptr", hdc, "ptr", hbm, "uint", start, "uint", cLines, lpvBitsMarshal, lpvBits, "ptr", lpbmi, "uint", usage, "int")
+        result := DllCall("GDI32.dll\GetDIBits", "ptr", hdc_, "ptr", hbm_, "uint", start, "uint", cLines, lpvBitsMarshal, lpvBits, "ptr", lpbmi, "uint", usage, "int")
         return result
     }
 
@@ -8008,7 +8015,7 @@ class Gdi {
      * An application can sometimes use the <b>GetFontData</b> function to save a TrueType font with a document. To do this, the application determines whether the font can be embedded by checking the <b>otmfsType</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. If bit 1 of <b>otmfsType</b> is set, embedding is not permitted for the font. If bit 1 is clear, the font can be embedded. If bit 2 is set, the embedding is read-only. If embedding is permitted, the application can retrieve the entire font file, specifying zero for the <i>dwTable</i>, <i>dwOffset</i>, and <i>cbData</i> parameters.
      * 
      * If an application attempts to use this function to retrieve information for a non-TrueType font, an error occurs.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} dwTable The name of a font metric table from which the font data is to be retrieved. This parameter can identify one of the metric tables documented in the TrueType Font Files specification published by Microsoft Corporation. If this parameter is zero, the information is retrieved starting at the beginning of the file for TrueType font files or from the beginning of the data for the currently selected font for TrueType Collection files. To retrieve the data from the beginning of the file for TrueType Collection files specify 'ttcf' (0x66637474).
      * @param {Integer} dwOffset The offset from the beginning of the font metric table to the location where the function should begin retrieving information. If this parameter is zero, the information is retrieved starting at the beginning of the table specified by the <i>dwTable</i> parameter. If this value is greater than or equal to the size of the table, an error occurs.
      * @param {Pointer} pvBuffer A pointer to a buffer that receives the font information. If this parameter is <b>NULL</b>, the function returns the size of the buffer required for the font data.
@@ -8016,13 +8023,13 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of bytes returned.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getfontdata
      * @since windows5.0
      */
-    static GetFontData(hdc, dwTable, dwOffset, pvBuffer, cjBuffer) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetFontData(hdc_, dwTable, dwOffset, pvBuffer, cjBuffer) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetFontData", "ptr", hdc, "uint", dwTable, "uint", dwOffset, "ptr", pvBuffer, "uint", cjBuffer, "uint")
+        result := DllCall("GDI32.dll\GetFontData", "ptr", hdc_, "uint", dwTable, "uint", dwOffset, "ptr", pvBuffer, "uint", cjBuffer, "uint")
         return result
     }
 
@@ -8047,7 +8054,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetGlyphOutline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} uChar The character for which data is to be returned.
      * @param {Integer} fuFormat 
      * @param {Pointer<GLYPHMETRICS>} lpgm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetrics">GLYPHMETRICS</a> structure describing the placement of the glyph in the character cell.
@@ -8057,13 +8064,13 @@ class Gdi {
      * @returns {Integer} If GGO_BITMAP, GGO_GRAY2_BITMAP, GGO_GRAY4_BITMAP, GGO_GRAY8_BITMAP, or GGO_NATIVE is specified and the function succeeds, the return value is greater than zero; otherwise, the return value is GDI_ERROR. If one of these flags is specified and the buffer size or address is zero, the return value specifies the required buffer size, in bytes.
      * 
      * If GGO_METRICS is specified and the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphoutlinea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getglyphoutlinea
      * @since windows5.0
      */
-    static GetGlyphOutlineA(hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetGlyphOutlineA(hdc_, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetGlyphOutlineA", "ptr", hdc, "uint", uChar, "uint", fuFormat, "ptr", lpgm, "uint", cjBuffer, "ptr", pvBuffer, "ptr", lpmat2, "uint")
+        result := DllCall("GDI32.dll\GetGlyphOutlineA", "ptr", hdc_, "uint", uChar, "uint", fuFormat, "ptr", lpgm, "uint", cjBuffer, "ptr", pvBuffer, "ptr", lpmat2, "uint")
         return result
     }
 
@@ -8088,7 +8095,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetGlyphOutline as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} uChar The character for which data is to be returned.
      * @param {Integer} fuFormat 
      * @param {Pointer<GLYPHMETRICS>} lpgm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphmetrics">GLYPHMETRICS</a> structure describing the placement of the glyph in the character cell.
@@ -8098,13 +8105,13 @@ class Gdi {
      * @returns {Integer} If GGO_BITMAP, GGO_GRAY2_BITMAP, GGO_GRAY4_BITMAP, GGO_GRAY8_BITMAP, or GGO_NATIVE is specified and the function succeeds, the return value is greater than zero; otherwise, the return value is GDI_ERROR. If one of these flags is specified and the buffer size or address is zero, the return value specifies the required buffer size, in bytes.
      * 
      * If GGO_METRICS is specified and the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphoutlinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getglyphoutlinew
      * @since windows5.0
      */
-    static GetGlyphOutlineW(hdc, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetGlyphOutlineW(hdc_, uChar, fuFormat, lpgm, cjBuffer, pvBuffer, lpmat2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetGlyphOutlineW", "ptr", hdc, "uint", uChar, "uint", fuFormat, "ptr", lpgm, "uint", cjBuffer, "ptr", pvBuffer, "ptr", lpmat2, "uint")
+        result := DllCall("GDI32.dll\GetGlyphOutlineW", "ptr", hdc_, "uint", uChar, "uint", fuFormat, "ptr", lpgm, "uint", cjBuffer, "ptr", pvBuffer, "ptr", lpmat2, "uint")
         return result
     }
 
@@ -8112,7 +8119,7 @@ class Gdi {
      * The GetGraphicsMode function retrieves the current graphics mode for the specified device context.
      * @remarks
      * An application can set the graphics mode for a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">SetGraphicsMode</a> function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current graphics mode. It can be one of the following values.
      * 
      * <table>
@@ -8132,13 +8139,13 @@ class Gdi {
      *  
      * 
      * Otherwise, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getgraphicsmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getgraphicsmode
      * @since windows5.0
      */
-    static GetGraphicsMode(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetGraphicsMode(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetGraphicsMode", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetGraphicsMode", "ptr", hdc_, "int")
         return result
     }
 
@@ -8185,17 +8192,17 @@ class Gdi {
      * <td>Each logical unit is mapped to one twentieth of a printer's point (1/1440 inch, also called a "twip"). Positive x is to the right; positive y is up.</td>
      * </tr>
      * </table>
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value specifies the mapping mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmapmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getmapmode
      * @since windows5.0
      */
-    static GetMapMode(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetMapMode(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetMapMode", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetMapMode", "ptr", hdc_, "int")
         return result
     }
 
@@ -8213,7 +8220,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds and the buffer pointer is <b>NULL</b>, the return value is the number of bytes required for the buffer; if the function succeeds and the buffer pointer is a valid pointer, the return value is the number of bytes copied.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilebitsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getmetafilebitsex
      * @since windows5.0
      */
     static GetMetaFileBitsEx(hMF, cbBuffer, lpData) {
@@ -8238,7 +8245,7 @@ class Gdi {
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to the metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getmetafilea
      */
     static GetMetaFileA(lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -8263,7 +8270,7 @@ class Gdi {
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to the metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmetafilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getmetafilew
      */
     static GetMetaFileW(lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -8275,18 +8282,18 @@ class Gdi {
 
     /**
      * The GetNearestColor function retrieves a color value identifying a color from the system palette that will be displayed when the specified color value is used.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {COLORREF} color A color value that identifies a requested color. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {COLORREF} color_ A color value that identifies a requested color. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {COLORREF} If the function succeeds, the return value identifies a color from the system palette that corresponds to the given color value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getnearestcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getnearestcolor
      * @since windows5.0
      */
-    static GetNearestColor(hdc, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetNearestColor(hdc_, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetNearestColor", "ptr", hdc, "uint", color, "uint")
+        result := DllCall("GDI32.dll\GetNearestColor", "ptr", hdc_, "uint", color_, "uint")
         return result
     }
 
@@ -8297,17 +8304,17 @@ class Gdi {
      * 
      * If the given logical palette contains entries with the PC_EXPLICIT flag set, the return value is undefined.
      * @param {HPALETTE} h A handle to a logical palette.
-     * @param {COLORREF} color A color to be matched. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ A color to be matched. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {Integer} If the function succeeds, the return value is the index of an entry in a logical palette.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getnearestpaletteindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getnearestpaletteindex
      * @since windows5.0
      */
-    static GetNearestPaletteIndex(h, color) {
+    static GetNearestPaletteIndex(h, color_) {
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("GDI32.dll\GetNearestPaletteIndex", "ptr", h, "uint", color, "uint")
+        result := DllCall("GDI32.dll\GetNearestPaletteIndex", "ptr", h, "uint", color_, "uint")
         return result
     }
 
@@ -8381,7 +8388,7 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjecttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getobjecttype
      * @since windows5.0
      */
     static GetObjectType(h) {
@@ -8402,19 +8409,19 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetOutlineTextMetrics as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} cjCopy The size, in bytes, of the array that receives the text metrics.
      * @param {Pointer} potm A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. If this parameter is <b>NULL</b>, the function returns the size of the buffer required for the retrieved metric data.
      * @returns {Integer} If the function succeeds, the return value is nonzero or the size of the required buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getoutlinetextmetricsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getoutlinetextmetricsa
      * @since windows5.0
      */
-    static GetOutlineTextMetricsA(hdc, cjCopy, potm) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetOutlineTextMetricsA(hdc_, cjCopy, potm) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetOutlineTextMetricsA", "ptr", hdc, "uint", cjCopy, "ptr", potm, "uint")
+        result := DllCall("GDI32.dll\GetOutlineTextMetricsA", "ptr", hdc_, "uint", cjCopy, "ptr", potm, "uint")
         return result
     }
 
@@ -8429,19 +8436,19 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetOutlineTextMetrics as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} cjCopy The size, in bytes, of the array that receives the text metrics.
      * @param {Pointer} potm A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-outlinetextmetrica">OUTLINETEXTMETRIC</a> structure. If this parameter is <b>NULL</b>, the function returns the size of the buffer required for the retrieved metric data.
      * @returns {Integer} If the function succeeds, the return value is nonzero or the size of the required buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getoutlinetextmetricsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getoutlinetextmetricsw
      * @since windows5.0
      */
-    static GetOutlineTextMetricsW(hdc, cjCopy, potm) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetOutlineTextMetricsW(hdc_, cjCopy, potm) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetOutlineTextMetricsW", "ptr", hdc, "uint", cjCopy, "ptr", potm, "uint")
+        result := DllCall("GDI32.dll\GetOutlineTextMetricsW", "ptr", hdc_, "uint", cjCopy, "ptr", potm, "uint")
         return result
     }
 
@@ -8458,7 +8465,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds and the handle to the logical palette is a valid pointer (not <b>NULL</b>), the return value is the number of entries retrieved from the logical palette. If the function succeeds and handle to the logical palette is <b>NULL</b>, the return value is the number of entries in the given palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpaletteentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getpaletteentries
      * @since windows5.0
      */
     static GetPaletteEntries(hpal, iStart, cEntries, pPalEntries) {
@@ -8476,23 +8483,23 @@ class Gdi {
      * Not all devices support <b>GetPixel</b>. An application should call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> to determine whether a specified device supports this function.
      * 
      * A bitmap must be selected within the device context, otherwise, CLR_INVALID is returned on all pixels.
-     * @param {HDC} hdc A handle to the [device context](/windows/win32/gdi/device-contexts).
+     * @param {HDC} hdc_ A handle to the [device context](/windows/win32/gdi/device-contexts).
      * @param {Integer} x The x-coordinate, in logical units, of the pixel to be examined.
      * @param {Integer} y The y-coordinate, in logical units, of the pixel to be examined.
      * @returns {COLORREF} The return value is the <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the RGB of the pixel. If the pixel is outside of the current clipping region, the return value is CLR_INVALID (0xFFFFFFFF defined in Wingdi.h).
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpixel
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getpixel
      * @since windows5.0
      */
-    static GetPixel(hdc, x, y) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetPixel(hdc_, x, y) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetPixel", "ptr", hdc, "int", x, "int", y, "uint")
+        result := DllCall("GDI32.dll\GetPixel", "ptr", hdc_, "int", x, "int", y, "uint")
         return result
     }
 
     /**
      * The GetPolyFillMode function retrieves the current polygon fill mode.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @returns {Integer} If the function succeeds, the return value specifies the polygon fill mode, which can be one of the following values.
      * 
      * <table>
@@ -8512,13 +8519,13 @@ class Gdi {
      *  
      * 
      * If an error occurs, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpolyfillmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getpolyfillmode
      * @since windows5.0
      */
-    static GetPolyFillMode(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetPolyFillMode(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetPolyFillMode", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetPolyFillMode", "ptr", hdc_, "int")
         return result
     }
 
@@ -8535,7 +8542,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrasterizercaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getrasterizercaps
      * @since windows5.0
      */
     static GetRasterizerCaps(lpraststat, cjBytes) {
@@ -8549,18 +8556,18 @@ class Gdi {
      * When using the SYSRGN flag, note that the system clipping region might not be current because of window movements. Nonetheless, it is safe to retrieve and use the system clipping region within the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>-<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-endpaint">EndPaint</a> block during <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> processing. In this case, the system region is the intersection of the update region and the current visible area of the window. Any window movement following the return of <b>GetRandomRgn</b> and before <b>EndPaint</b> will result in a new <b>WM_PAINT</b> message. Any other use of the SYSRGN flag may result in painting errors in your application.
      * 
      * The region returned is in screen coordinates.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {HRGN} hrgn A handle to a region. Before the function is called, this identifies an existing region. After the function returns, this identifies a copy of the current system region. The old region identified by <i>hrgn</i> is overwritten.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {HRGN} hrgn_ A handle to a region. Before the function is called, this identifies an existing region. After the function returns, this identifies a copy of the current system region. The old region identified by <i>hrgn</i> is overwritten.
      * @param {Integer} i This parameter must be SYSRGN.
      * @returns {Integer} If the function succeeds, the return value is 1. If the function fails, the return value is -1. If the region to be retrieved is <b>NULL</b>, the return value is 0. If the function fails or the region to be retrieved is <b>NULL</b>, <i>hrgn</i> is not initialized.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrandomrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getrandomrgn
      * @since windows5.0
      */
-    static GetRandomRgn(hdc, hrgn, i) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static GetRandomRgn(hdc_, hrgn_, i) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\GetRandomRgn", "ptr", hdc, "ptr", hrgn, "int", i, "int")
+        result := DllCall("GDI32.dll\GetRandomRgn", "ptr", hdc_, "ptr", hrgn_, "int", i, "int")
         return result
     }
 
@@ -8568,25 +8575,25 @@ class Gdi {
      * The GetRegionData function fills the specified buffer with data describing a region. This data includes the dimensions of the rectangles that make up the region.
      * @remarks
      * The <b>GetRegionData</b> function is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreateregion">ExtCreateRegion</a> function.
-     * @param {HRGN} hrgn A handle to the region.
+     * @param {HRGN} hrgn_ A handle to the region.
      * @param {Integer} nCount The size, in bytes, of the <i>lpRgnData</i> buffer.
      * @param {Pointer} lpRgnData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure that receives the information. The dimensions of the region are in logical units. If this parameter is <b>NULL</b>, the return value contains the number of bytes needed for the region data.
      * @returns {Integer} If the function succeeds and <i>dwCount</i> specifies an adequate number of bytes, the return value is always <i>dwCount</i>. If <i>dwCount</i> is too small or the function fails, the return value is 0. If <i>lpRgnData</i> is <b>NULL</b>, the return value is the required number of bytes.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getregiondata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getregiondata
      * @since windows5.0
      */
-    static GetRegionData(hrgn, nCount, lpRgnData) {
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static GetRegionData(hrgn_, nCount, lpRgnData) {
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\GetRegionData", "ptr", hrgn, "uint", nCount, "ptr", lpRgnData, "uint")
+        result := DllCall("GDI32.dll\GetRegionData", "ptr", hrgn_, "uint", nCount, "ptr", lpRgnData, "uint")
         return result
     }
 
     /**
      * The GetRgnBox function retrieves the bounding rectangle of the specified region.
-     * @param {HRGN} hrgn A handle to the region.
+     * @param {HRGN} hrgn_ A handle to the region.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the bounding rectangle in logical units.
      * @returns {Integer} The return value specifies the region's complexity. It can be one of the following values:
      * 
@@ -8611,13 +8618,13 @@ class Gdi {
      *  
      * 
      * If the <i>hrgn</i> parameter does not identify a valid region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getrgnbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getrgnbox
      * @since windows5.0
      */
-    static GetRgnBox(hrgn, lprc) {
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static GetRgnBox(hrgn_, lprc) {
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\GetRgnBox", "ptr", hrgn, "ptr", lprc, "int")
+        result := DllCall("GDI32.dll\GetRgnBox", "ptr", hrgn_, "ptr", lprc, "int")
         return result
     }
 
@@ -8637,7 +8644,7 @@ class Gdi {
      * @returns {HGDIOBJ} If the function succeeds, the return value is a handle to the requested logical object.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getstockobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getstockobject
      * @since windows5.0
      */
     static GetStockObject(i) {
@@ -8648,7 +8655,7 @@ class Gdi {
 
     /**
      * The GetStretchBltMode function retrieves the current stretching mode. The stretching mode defines how color data is added to or removed from bitmaps that are stretched or compressed when the StretchBlt function is called.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current stretching mode. This can be one of the following values.
      * 
      * <table>
@@ -8692,13 +8699,13 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getstretchbltmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getstretchbltmode
      * @since windows5.0
      */
-    static GetStretchBltMode(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetStretchBltMode(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetStretchBltMode", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetStretchBltMode", "ptr", hdc_, "int")
         return result
     }
 
@@ -8706,20 +8713,20 @@ class Gdi {
      * The GetSystemPaletteEntries function retrieves a range of palette entries from the system palette that is associated with the specified device context (DC).
      * @remarks
      * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iStart The first entry to be retrieved from the system palette.
      * @param {Integer} cEntries The number of entries to be retrieved from the system palette.
      * @param {Pointer<PALETTEENTRY>} pPalEntries A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures to receive the palette entries. The array must contain at least as many structures as specified by the <i>cEntries</i> parameter. If this parameter is <b>NULL</b>, the function returns the total number of entries in the palette.
      * @returns {Integer} If the function succeeds, the return value is the number of entries retrieved from the palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getsystempaletteentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getsystempaletteentries
      * @since windows5.0
      */
-    static GetSystemPaletteEntries(hdc, iStart, cEntries, pPalEntries) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetSystemPaletteEntries(hdc_, iStart, cEntries, pPalEntries) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetSystemPaletteEntries", "ptr", hdc, "uint", iStart, "uint", cEntries, "ptr", pPalEntries, "uint")
+        result := DllCall("GDI32.dll\GetSystemPaletteEntries", "ptr", hdc_, "uint", iStart, "uint", cEntries, "ptr", pPalEntries, "uint")
         return result
     }
 
@@ -8731,7 +8738,7 @@ class Gdi {
      * The device context identified by the <i>hdc</i> parameter must represent a device that supports color palettes.
      * 
      * An application can determine whether a device supports color palettes by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current state of the system palette. This parameter can be one of the following values.
      * 
      * <table>
@@ -8752,13 +8759,13 @@ class Gdi {
      * <td>The given device context is invalid or does not support a color palette.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getsystempaletteuse
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getsystempaletteuse
      * @since windows5.0
      */
-    static GetSystemPaletteUse(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetSystemPaletteUse(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetSystemPaletteUse", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetSystemPaletteUse", "ptr", hdc_, "uint")
         return result
     }
 
@@ -8766,17 +8773,17 @@ class Gdi {
      * The GetTextCharacterExtra function retrieves the current intercharacter spacing for the specified device context.
      * @remarks
      * The intercharacter spacing defines the extra space, in logical units along the base line, that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions add to each character as a line is written. The spacing is used to expand lines of text.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the current intercharacter spacing, in logical coordinates.
      * 
      * If the function fails, the return value is 0x8000000.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcharacterextra
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextcharacterextra
      * @since windows5.0
      */
-    static GetTextCharacterExtra(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextCharacterExtra(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetTextCharacterExtra", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetTextCharacterExtra", "ptr", hdc_, "int")
         return result
     }
 
@@ -8808,7 +8815,7 @@ class Gdi {
      * <li>Apply the bitwise AND operator to the result and the return value.</li>
      * <li>Test for the equality of this result and the flag.</li>
      * </ol>
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} If the function succeeds, the return value is the status of the text-alignment flags. For more information about the return value, see the Remarks section. The return value is a combination of the following values.
      * 
      * <table>
@@ -8874,13 +8881,13 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextalign
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextalign
      * @since windows5.0
      */
-    static GetTextAlign(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextAlign(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetTextAlign", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetTextAlign", "ptr", hdc_, "uint")
         return result
     }
 
@@ -8888,17 +8895,17 @@ class Gdi {
      * The GetTextColor function retrieves the current text color for the specified device context.
      * @remarks
      * The text color defines the foreground color of characters drawn by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> function.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @returns {COLORREF} If the function succeeds, the return value is the current text color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextcolor
      * @since windows5.0
      */
-    static GetTextColor(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextColor(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetTextColor", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetTextColor", "ptr", hdc_, "uint")
         return result
     }
 
@@ -8917,21 +8924,21 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetTextExtentPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpString A pointer to the string that specifies the text. The string does not need to be zero-terminated, since <i>cbString</i> specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentpointa
      * @since windows5.0
      */
-    static GetTextExtentPointA(hdc, lpString, c, lpsz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentPointA(hdc_, lpString, c, lpsz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\GetTextExtentPointA", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\GetTextExtentPointA", "ptr", hdc_, "ptr", lpString, "int", c, "ptr", lpsz, "int")
         return result
     }
 
@@ -8950,21 +8957,21 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetTextExtentPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpString A pointer to the string that specifies the text. The string does not need to be zero-terminated, since <i>cbString</i> specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentpointw
      * @since windows5.0
      */
-    static GetTextExtentPointW(hdc, lpString, c, lpsz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentPointW(hdc_, lpString, c, lpsz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\GetTextExtentPointW", "ptr", hdc, "ptr", lpString, "int", c, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\GetTextExtentPointW", "ptr", hdc_, "ptr", lpString, "int", c, "ptr", lpsz, "int")
         return result
     }
 
@@ -8986,21 +8993,21 @@ class Gdi {
      * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
      * 
      * <b>GetTextExtentPoint32</b> doesn't consider "\n" (new line) or "\r\n" (carriage return and new line) characters when it computes the height of a text string.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpString A pointer to a buffer that specifies the text string. The string does not need to be null-terminated, because the <i>c</i> parameter specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Pointer<SIZE>} psizl A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpoint32a
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentpoint32a
      * @since windows5.0
      */
-    static GetTextExtentPoint32A(hdc, lpString, c, psizl) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentPoint32A(hdc_, lpString, c, psizl) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\GetTextExtentPoint32A", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "int")
+        result := DllCall("GDI32.dll\GetTextExtentPoint32A", "ptr", hdc_, "ptr", lpString, "int", c, "ptr", psizl, "int")
         return result
     }
 
@@ -9022,21 +9029,21 @@ class Gdi {
      * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
      * 
      * <b>GetTextExtentPoint32</b> doesn't consider "\n" (new line) or "\r\n" (carriage return and new line) characters when it computes the height of a text string.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpString A pointer to a buffer that specifies the text string. The string does not need to be null-terminated, because the <i>c</i> parameter specifies the length of the string.
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Pointer<SIZE>} psizl A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpoint32w
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentpoint32w
      * @since windows5.0
      */
-    static GetTextExtentPoint32W(hdc, lpString, c, psizl) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentPoint32W(hdc_, lpString, c, psizl) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\GetTextExtentPoint32W", "ptr", hdc, "ptr", lpString, "int", c, "ptr", psizl, "int")
+        result := DllCall("GDI32.dll\GetTextExtentPoint32W", "ptr", hdc_, "ptr", lpString, "int", c, "ptr", psizl, "int")
         return result
     }
 
@@ -9059,7 +9066,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetTextExtentExPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpszString A pointer to the null-terminated string for which extents are to be retrieved.
      * @param {Integer} cchString The number of characters in the string pointed to by the <i>lpszStr</i> parameter. For an ANSI call it specifies the string length in bytes and for a Unicode it specifies the string length in WORDs. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
@@ -9071,17 +9078,17 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentexpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentexpointa
      * @since windows5.0
      */
-    static GetTextExtentExPointA(hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentExPointA(hdc_, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
         lpnFitMarshal := lpnFit is VarRef ? "int*" : "ptr"
         lpnDxMarshal := lpnDx is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetTextExtentExPointA", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, "ptr", lpSize, "int")
+        result := DllCall("GDI32.dll\GetTextExtentExPointA", "ptr", hdc_, "ptr", lpszString, "int", cchString, "int", nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, "ptr", lpSize, "int")
         return result
     }
 
@@ -9104,7 +9111,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetTextExtentExPoint as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpszString A pointer to the null-terminated string for which extents are to be retrieved.
      * @param {Integer} cchString The number of characters in the string pointed to by the <i>lpszStr</i> parameter. For an ANSI call it specifies the string length in bytes and for a Unicode it specifies the string length in WORDs. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
@@ -9116,23 +9123,23 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentexpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentexpointw
      * @since windows5.0
      */
-    static GetTextExtentExPointW(hdc, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentExPointW(hdc_, lpszString, cchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpszString := lpszString is String ? StrPtr(lpszString) : lpszString
 
         lpnFitMarshal := lpnFit is VarRef ? "int*" : "ptr"
         lpnDxMarshal := lpnDx is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetTextExtentExPointW", "ptr", hdc, "ptr", lpszString, "int", cchString, "int", nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, "ptr", lpSize, "int")
+        result := DllCall("GDI32.dll\GetTextExtentExPointW", "ptr", hdc_, "ptr", lpszString, "int", cchString, "int", nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, "ptr", lpSize, "int")
         return result
     }
 
     /**
      * The GetFontLanguageInfo function returns information about the currently selected font for the specified display context. Applications typically use this information and the GetCharacterPlacement function to prepare a character string for display.
-     * @param {HDC} hdc Handle to a display device context.
+     * @param {HDC} hdc_ Handle to a display device context.
      * @returns {Integer} The return value identifies characteristics of the currently selected font. The function returns 0 if the font is "normalized" and can be treated as a simple Latin font; it returns GCP_ERROR if an error occurs. Otherwise, the function returns a combination of the following values.
      * 
      * <table>
@@ -9176,13 +9183,13 @@ class Gdi {
      *  
      * 
      * The return value, when masked with FLI_MASK, can be passed directly to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharacterplacementa">GetCharacterPlacement</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontlanguageinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getfontlanguageinfo
      * @since windows5.0
      */
-    static GetFontLanguageInfo(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetFontLanguageInfo(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetFontLanguageInfo", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetFontLanguageInfo", "ptr", hdc_, "uint")
         return result
     }
 
@@ -9210,7 +9217,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharacterPlacement as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpString A pointer to the character string to process. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
      * @param {Integer} nCount The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Integer} nMexExtent The maximum extent (in logical units) to which the string is processed. Characters that, if processed, would exceed this extent are ignored. Computations for any required ordering or glyph arrays apply only to the included characters. This parameter is used only if the GCP_MAXEXTENT value is specified in the <i>dwFlags</i> parameter. As the function processes the input string, each character and its extent is added to the output, extent, and other arrays only if the total extent has not yet exceeded the maximum. Once the limit is reached, processing will stop.
@@ -9219,14 +9226,14 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the  width and height of the string in logical units. The width is the low-order word and the height is the high-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharacterplacementa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharacterplacementa
      * @since windows5.0
      */
-    static GetCharacterPlacementA(hdc, lpString, nCount, nMexExtent, lpResults, dwFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharacterPlacementA(hdc_, lpString, nCount, nMexExtent, lpResults, dwFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\GetCharacterPlacementA", "ptr", hdc, "ptr", lpString, "int", nCount, "int", nMexExtent, "ptr", lpResults, "uint", dwFlags, "uint")
+        result := DllCall("GDI32.dll\GetCharacterPlacementA", "ptr", hdc_, "ptr", lpString, "int", nCount, "int", nMexExtent, "ptr", lpResults, "uint", dwFlags, "uint")
         return result
     }
 
@@ -9253,7 +9260,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetCharacterPlacement as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpString A pointer to the character string to process. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
      * @param {Integer} nCount The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Integer} nMexExtent The maximum extent (in logical units) to which the string is processed. Characters that, if processed, would exceed this extent are ignored. Computations for any required ordering or glyph arrays apply only to the included characters. This parameter is used only if the GCP_MAXEXTENT value is specified in the <i>dwFlags</i> parameter. As the function processes the input string, each character and its extent is added to the output, extent, and other arrays only if the total extent has not yet exceeded the maximum. Once the limit is reached, processing will stop.
@@ -9262,31 +9269,31 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the  width and height of the string in logical units. The width is the low-order word and the height is the high-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharacterplacementw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharacterplacementw
      * @since windows5.0
      */
-    static GetCharacterPlacementW(hdc, lpString, nCount, nMexExtent, lpResults, dwFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharacterPlacementW(hdc_, lpString, nCount, nMexExtent, lpResults, dwFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\GetCharacterPlacementW", "ptr", hdc, "ptr", lpString, "int", nCount, "int", nMexExtent, "ptr", lpResults, "uint", dwFlags, "uint")
+        result := DllCall("GDI32.dll\GetCharacterPlacementW", "ptr", hdc_, "ptr", lpString, "int", nCount, "int", nMexExtent, "ptr", lpResults, "uint", dwFlags, "uint")
         return result
     }
 
     /**
      * The GetFontUnicodeRanges function returns information about which Unicode characters are supported by a font. The information is returned as a GLYPHSET structure.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<GLYPHSET>} lpgs A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-glyphset">GLYPHSET</a> structure that receives the glyph set information. If this parameter is <b>NULL</b>, the function returns the size of the <b>GLYPHSET</b> structure required to store the information.
      * @returns {Integer} If the function succeeds, it returns number of bytes written to the GLYPHSET structure or, if the <i>lpgs</i> parameter is <b>NULL</b>, it returns the size of the GLYPHSET structure required to store the information.
      * 
      * If the function fails, it returns zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getfontunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getfontunicoderanges
      * @since windows5.0
      */
-    static GetFontUnicodeRanges(hdc, lpgs) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetFontUnicodeRanges(hdc_, lpgs) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetFontUnicodeRanges", "ptr", hdc, "ptr", lpgs, "uint")
+        result := DllCall("GDI32.dll\GetFontUnicodeRanges", "ptr", hdc_, "ptr", lpgs, "uint")
         return result
     }
 
@@ -9301,7 +9308,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetGlyphIndices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpstr A pointer to the string to be converted.
      * @param {Integer} c The length of both the <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpstr</i> and the size (in WORDs) of the buffer pointed to by <i>pgi</i>.
      * @param {Pointer<Integer>} pgi This buffer must be of dimension c. On successful return, contains an array of glyph indices corresponding to the characters in the string.
@@ -9326,16 +9333,16 @@ class Gdi {
      * @returns {Integer} If the function succeeds, it returns the number of bytes (for the ANSI function) or WORDs (for the Unicode function) converted.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphindicesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getglyphindicesa
      * @since windows5.0
      */
-    static GetGlyphIndicesA(hdc, lpstr, c, pgi, fl) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetGlyphIndicesA(hdc_, lpstr, c, pgi, fl) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
         pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetGlyphIndicesA", "ptr", hdc, "ptr", lpstr, "int", c, pgiMarshal, pgi, "uint", fl, "uint")
+        result := DllCall("GDI32.dll\GetGlyphIndicesA", "ptr", hdc_, "ptr", lpstr, "int", c, pgiMarshal, pgi, "uint", fl, "uint")
         return result
     }
 
@@ -9350,7 +9357,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetGlyphIndices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpstr A pointer to the string to be converted.
      * @param {Integer} c The length of both the <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpstr</i> and the size (in WORDs) of the buffer pointed to by <i>pgi</i>.
      * @param {Pointer<Integer>} pgi This buffer must be of dimension c. On successful return, contains an array of glyph indices corresponding to the characters in the string.
@@ -9375,16 +9382,16 @@ class Gdi {
      * @returns {Integer} If the function succeeds, it returns the number of bytes (for the ANSI function) or WORDs (for the Unicode function) converted.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getglyphindicesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getglyphindicesw
      * @since windows5.0
      */
-    static GetGlyphIndicesW(hdc, lpstr, c, pgi, fl) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetGlyphIndicesW(hdc_, lpstr, c, pgi, fl) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
         pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetGlyphIndicesW", "ptr", hdc, "ptr", lpstr, "int", c, pgiMarshal, pgi, "uint", fl, "uint")
+        result := DllCall("GDI32.dll\GetGlyphIndicesW", "ptr", hdc_, "ptr", lpstr, "int", c, pgiMarshal, pgi, "uint", fl, "uint")
         return result
     }
 
@@ -9398,22 +9405,22 @@ class Gdi {
      * Because some devices kern characters, the sum of the extents of the individual glyph indices may not be equal to the extent of the entire array of glyph indices.
      * 
      * The calculated string width takes into account the intercharacter spacing set by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-settextcharacterextra">SetTextCharacterExtra</a> function.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @param {Pointer<Integer>} pgiIn Pointer to array of glyph indices.
      * @param {Integer} cgi Specifies the number of glyph indices.
      * @param {Pointer<SIZE>} psize Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentpointi
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentpointi
      * @since windows5.0
      */
-    static GetTextExtentPointI(hdc, pgiIn, cgi, psize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentPointI(hdc_, pgiIn, cgi, psize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pgiInMarshal := pgiIn is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetTextExtentPointI", "ptr", hdc, pgiInMarshal, pgiIn, "int", cgi, "ptr", psize, "int")
+        result := DllCall("GDI32.dll\GetTextExtentPointI", "ptr", hdc_, pgiInMarshal, pgiIn, "int", cgi, "ptr", psize, "int")
         return result
     }
 
@@ -9423,7 +9430,7 @@ class Gdi {
      * If both the <i>lpnFit</i> and <i>alpDx</i> parameters are <b>NULL</b>, calling the <b>GetTextExtentExPointI</b> function is equivalent to calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpointi">GetTextExtentPointI</a> function.
      * 
      * When this function returns the text extent, it assumes that the text is horizontal, that is, that the escapement is always 0. This is true for both the horizontal and vertical measurements of the text. Even if you use a font that specifies a nonzero escapement, this function doesn't use the angle while it computes the text extent. The app must convert it explicitly. However, when the graphics mode is set to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">GM_ADVANCED</a> and the character orientation is 90 degrees from the print orientation, the values that this function return do not follow this rule. When the character orientation and the print orientation match for a given string, this function returns the dimensions of the string in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure as { cx : 116, cy : 18 }.  When the character orientation and the print orientation are 90 degrees apart for the same string, this function returns the dimensions of the string in the <b>SIZE</b> structure as { cx : 18, cy : 116 }.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<Integer>} lpwszString A pointer to an array of glyph indices for which extents are to be retrieved.
      * @param {Integer} cwchString The number of glyphs in the array pointed to by the <i>pgiIn</i> parameter.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
@@ -9433,17 +9440,17 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextextentexpointi
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextextentexpointi
      * @since windows5.0
      */
-    static GetTextExtentExPointI(hdc, lpwszString, cwchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextExtentExPointI(hdc_, lpwszString, cwchString, nMaxExtent, lpnFit, lpnDx, lpSize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpwszStringMarshal := lpwszString is VarRef ? "ushort*" : "ptr"
         lpnFitMarshal := lpnFit is VarRef ? "int*" : "ptr"
         lpnDxMarshal := lpnDx is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetTextExtentExPointI", "ptr", hdc, lpwszStringMarshal, lpwszString, "int", cwchString, "int", nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, "ptr", lpSize, "int")
+        result := DllCall("GDI32.dll\GetTextExtentExPointI", "ptr", hdc_, lpwszStringMarshal, lpwszString, "int", cwchString, "int", nMaxExtent, lpnFitMarshal, lpnFit, lpnDxMarshal, lpnDx, "ptr", lpSize, "int")
         return result
     }
 
@@ -9453,7 +9460,7 @@ class Gdi {
      * The <b>GetCharWidthI</b> function processes a consecutive glyph indices if the <i>pgi</i> parameter is <b>NULL</b> with the <i>giFirst</i> parameter indicating the first glyph index to process and the <i>cgi</i> parameter indicating how many glyph indices to process. Otherwise the <b>GetCharWidthI</b> function processes the array of glyph indices pointed to by the <i>pgi</i> parameter with the <i>cgi</i> parameter indicating how many glyph indices to process.
      * 
      * If a character does not exist in the current font, it is assigned the width of the default character.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} giFirst The first glyph index in the group of consecutive glyph indices.
      * @param {Integer} cgi The number of glyph indices.
      * @param {Pointer<Integer>} pgi A pointer to an array of glyph indices. If this parameter is not <b>NULL</b>, it is used instead of the <i>giFirst</i> parameter.
@@ -9461,16 +9468,16 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharwidthi
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharwidthi
      * @since windows5.0
      */
-    static GetCharWidthI(hdc, giFirst, cgi, pgi, piWidths) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharWidthI(hdc_, giFirst, cgi, pgi, piWidths) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
         piWidthsMarshal := piWidths is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharWidthI", "ptr", hdc, "uint", giFirst, "uint", cgi, pgiMarshal, pgi, piWidthsMarshal, piWidths, "int")
+        result := DllCall("GDI32.dll\GetCharWidthI", "ptr", hdc_, "uint", giFirst, "uint", cgi, pgiMarshal, pgi, piWidthsMarshal, piWidths, "int")
         return result
     }
 
@@ -9486,7 +9493,7 @@ class Gdi {
      * The ABC widths of the default character are used for characters outside the range of the currently selected font.
      * 
      * To retrieve the widths of glyph indices in non-TrueType fonts, applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getcharwidthi">GetCharWidthI</a> function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} giFirst The first glyph index in the group of consecutive glyph indices from the current font. This parameter is only used if the <i>pgi</i> parameter is <b>NULL</b>.
      * @param {Integer} cgi The number of glyph indices.
      * @param {Pointer<Integer>} pgi A pointer to an array that contains glyph indices. If this parameter is <b>NULL</b>, the <i>giFirst</i> parameter is used instead. The <i>cgi</i> parameter specifies the number of glyph indices in this array.
@@ -9494,15 +9501,15 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcharabcwidthsi
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcharabcwidthsi
      * @since windows5.0
      */
-    static GetCharABCWidthsI(hdc, giFirst, cgi, pgi, pabc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetCharABCWidthsI(hdc_, giFirst, cgi, pgi, pabc) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pgiMarshal := pgi is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetCharABCWidthsI", "ptr", hdc, "uint", giFirst, "uint", cgi, pgiMarshal, pgi, "ptr", pabc, "int")
+        result := DllCall("GDI32.dll\GetCharABCWidthsI", "ptr", hdc_, "uint", giFirst, "uint", cgi, pgiMarshal, pgi, "ptr", pabc, "int")
         return result
     }
 
@@ -9628,7 +9635,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-addfontresourceexa
      * @since windows5.0
      */
     static AddFontResourceExA(name, fl) {
@@ -9762,7 +9769,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value specifies the number of fonts added.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontresourceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-addfontresourceexw
      * @since windows5.0
      */
     static AddFontResourceExW(name, fl) {
@@ -9812,7 +9819,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-removefontresourceexa
      * @since windows5.0
      */
     static RemoveFontResourceExA(name, fl) {
@@ -9862,7 +9869,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-removefontresourceexw
      * @since windows5.0
      */
     static RemoveFontResourceExW(name, fl) {
@@ -9886,7 +9893,7 @@ class Gdi {
      * @param {Integer} cjSize The number of bytes in the font resource that is pointed to by <i>pbFont</i>.
      * @param {Pointer<Integer>} pNumFonts A pointer to a variable that specifies the number of fonts installed.
      * @returns {HANDLE} If the function succeeds, the return value specifies the handle to the font added. This handle uniquely identifies the fonts that were installed on the system. If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-addfontmemresourceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-addfontmemresourceex
      * @since windows5.0
      */
     static AddFontMemResourceEx(pFileView, cjSize, pNumFonts) {
@@ -9907,7 +9914,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontmemresourceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-removefontmemresourceex
      * @since windows5.0
      */
     static RemoveFontMemResourceEx(h) {
@@ -9936,7 +9943,7 @@ class Gdi {
      * @returns {HFONT} If the function succeeds, the return value is the handle to the new <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createfontindirectexa
      * @since windows5.0
      */
     static CreateFontIndirectExA(param0) {
@@ -9964,7 +9971,7 @@ class Gdi {
      * @returns {HFONT} If the function succeeds, the return value is the handle to the new <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexdva">ENUMLOGFONTEXDV</a> structure.
      * 
      * If the function fails, the return value is zero. No extended error information is available.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createfontindirectexw
      * @since windows5.0
      */
     static CreateFontIndirectExW(param0) {
@@ -9975,69 +9982,69 @@ class Gdi {
 
     /**
      * The GetViewportExtEx function retrieves the x-extent and y-extent of the current viewport for the specified device context.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the x- and y-extents, in device units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getviewportextex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getviewportextex
      * @since windows5.0
      */
-    static GetViewportExtEx(hdc, lpsize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetViewportExtEx(hdc_, lpsize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetViewportExtEx", "ptr", hdc, "ptr", lpsize, "int")
+        result := DllCall("GDI32.dll\GetViewportExtEx", "ptr", hdc_, "ptr", lpsize, "int")
         return result
     }
 
     /**
      * The GetViewportOrgEx function retrieves the x-coordinates and y-coordinates of the viewport origin for the specified device context.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} lppoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the coordinates of the origin, in device units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getviewportorgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getviewportorgex
      * @since windows5.0
      */
-    static GetViewportOrgEx(hdc, lppoint) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetViewportOrgEx(hdc_, lppoint) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetViewportOrgEx", "ptr", hdc, "ptr", lppoint, "int")
+        result := DllCall("GDI32.dll\GetViewportOrgEx", "ptr", hdc_, "ptr", lppoint, "int")
         return result
     }
 
     /**
      * This function retrieves the x-extent and y-extent of the window for the specified device context.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<SIZE>} lpsize A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the x- and y-extents in page-space units, that is, logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getwindowextex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getwindowextex
      * @since windows5.0
      */
-    static GetWindowExtEx(hdc, lpsize) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetWindowExtEx(hdc_, lpsize) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetWindowExtEx", "ptr", hdc, "ptr", lpsize, "int")
+        result := DllCall("GDI32.dll\GetWindowExtEx", "ptr", hdc_, "ptr", lpsize, "int")
         return result
     }
 
     /**
      * The GetWindowOrgEx function retrieves the x-coordinates and y-coordinates of the window origin for the specified device context.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} lppoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the coordinates, in logical units, of the window origin.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getwindoworgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getwindoworgex
      * @since windows5.0
      */
-    static GetWindowOrgEx(hdc, lppoint) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetWindowOrgEx(hdc_, lppoint) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetWindowOrgEx", "ptr", hdc, "ptr", lppoint, "int")
+        result := DllCall("GDI32.dll\GetWindowOrgEx", "ptr", hdc_, "ptr", lppoint, "int")
         return result
     }
 
@@ -10047,7 +10054,7 @@ class Gdi {
      * The lower and right-most edges of the given rectangle are excluded from the clipping region.
      * 
      * If a clipping region does not already exist then the system may apply a default clipping region to the specified HDC. A clipping region is then created from the intersection of that default clipping region and the rectangle specified in the function parameters.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical units, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical units, of the upper-left corner of the rectangle.
      * @param {Integer} right The x-coordinate, in logical units, of the lower-right corner of the rectangle.
@@ -10104,13 +10111,13 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-intersectcliprect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-intersectcliprect
      * @since windows5.0
      */
-    static IntersectClipRect(hdc, left, top, right, bottom) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static IntersectClipRect(hdc_, left, top, right, bottom) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\IntersectClipRect", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int")
+        result := DllCall("GDI32.dll\IntersectClipRect", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -10118,19 +10125,19 @@ class Gdi {
      * The InvertRgn function inverts the colors in the specified region.
      * @remarks
      * On monochrome screens, the <b>InvertRgn</b> function makes white pixels black and black pixels white. On color screens, this inversion is dependent on the type of technology used to generate the colors for the screen.
-     * @param {HDC} hdc Handle to the device context.
-     * @param {HRGN} hrgn Handle to the region for which colors are inverted. The region's coordinates are presumed to be logical coordinates.
+     * @param {HDC} hdc_ Handle to the device context.
+     * @param {HRGN} hrgn_ Handle to the region for which colors are inverted. The region's coordinates are presumed to be logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-invertrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-invertrgn
      * @since windows5.0
      */
-    static InvertRgn(hdc, hrgn) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static InvertRgn(hdc_, hrgn_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\InvertRgn", "ptr", hdc, "ptr", hrgn, "int")
+        result := DllCall("GDI32.dll\InvertRgn", "ptr", hdc_, "ptr", hrgn_, "int")
         return result
     }
 
@@ -10149,10 +10156,12 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-linedda
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-linedda
      * @since windows5.0
      */
     static LineDDA(xStart, yStart, xEnd, yEnd, lpProc, data) {
+        data := data is Win32Handle ? NumGet(data, "ptr") : data
+
         result := DllCall("GDI32.dll\LineDDA", "int", xStart, "int", yStart, "int", xEnd, "int", yEnd, "ptr", lpProc, "ptr", data, "int")
         return result
     }
@@ -10163,19 +10172,19 @@ class Gdi {
      * The line is drawn by using the current pen and, if the pen is a geometric pen, the current brush.
      * 
      * If <b>LineTo</b> succeeds, the current position is set to the specified ending point.
-     * @param {HDC} hdc Handle to a device context.
+     * @param {HDC} hdc_ Handle to a device context.
      * @param {Integer} x Specifies the x-coordinate, in logical units, of the line's ending point.
      * @param {Integer} y Specifies the y-coordinate, in logical units, of the line's ending point.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-lineto
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-lineto
      * @since windows5.0
      */
-    static LineTo(hdc, x, y) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static LineTo(hdc_, x, y) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\LineTo", "ptr", hdc, "int", x, "int", y, "int")
+        result := DllCall("GDI32.dll\LineTo", "ptr", hdc_, "int", x, "int", y, "int")
         return result
     }
 
@@ -10222,7 +10231,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-maskblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-maskblt
      * @since windows5.0
      */
     static MaskBlt(hdcDest, xDest, yDest, width, height, hdcSrc, xSrc, ySrc, hbmMask, xMask, yMask, rop) {
@@ -10269,7 +10278,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-plgblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-plgblt
      * @since windows5.0
      */
     static PlgBlt(hdcDest, lpPoint, hdcSrc, xSrc, ySrc, width, height, hbmMask, xMask, yMask) {
@@ -10283,7 +10292,7 @@ class Gdi {
 
     /**
      * The OffsetClipRgn function moves the clipping region of a device context by the specified offsets.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The number of logical units to move left or right.
      * @param {Integer} y The number of logical units to move up or down.
      * @returns {Integer} The return value specifies the new region's complexity and can be one of the following values.
@@ -10338,19 +10347,19 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetcliprgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-offsetcliprgn
      * @since windows5.0
      */
-    static OffsetClipRgn(hdc, x, y) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static OffsetClipRgn(hdc_, x, y) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\OffsetClipRgn", "ptr", hdc, "int", x, "int", y, "int")
+        result := DllCall("GDI32.dll\OffsetClipRgn", "ptr", hdc_, "int", x, "int", y, "int")
         return result
     }
 
     /**
      * The OffsetRgn function moves a region by the specified offsets.
-     * @param {HRGN} hrgn Handle to the region to be moved.
+     * @param {HRGN} hrgn_ Handle to the region to be moved.
      * @param {Integer} x Specifies the number of logical units to move left or right.
      * @param {Integer} y Specifies the number of logical units to move up or down.
      * @returns {Integer} The return value specifies the new region's complexity. It can be one of the following values.
@@ -10377,13 +10386,13 @@ class Gdi {
      * <td>An error occurred; region is unaffected.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-offsetrgn
      * @since windows5.0
      */
-    static OffsetRgn(hrgn, x, y) {
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static OffsetRgn(hrgn_, x, y) {
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\OffsetRgn", "ptr", hrgn, "int", x, "int", y, "int")
+        result := DllCall("GDI32.dll\OffsetRgn", "ptr", hrgn_, "int", x, "int", y, "int")
         return result
     }
 
@@ -10393,7 +10402,7 @@ class Gdi {
      * The values of the <i>dwRop</i> parameter for this function are a limited subset of the full 256 ternary raster-operation codes; in particular, an operation code that refers to a source rectangle cannot be used.
      * 
      * Not all devices support the <b>PatBlt</b> function. For more information, see the description of the RC_BITBLT capability in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the upper-left corner of the rectangle to be filled.
      * @param {Integer} y The y-coordinate, in logical units, of the upper-left corner of the rectangle to be filled.
      * @param {Integer} w The width, in logical units, of the rectangle.
@@ -10402,13 +10411,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-patblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-patblt
      * @since windows5.0
      */
-    static PatBlt(hdc, x, y, w, h, rop) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PatBlt(hdc_, x, y, w, h, rop) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PatBlt", "ptr", hdc, "int", x, "int", y, "int", w, "int", h, "uint", rop, "int")
+        result := DllCall("GDI32.dll\PatBlt", "ptr", hdc_, "int", x, "int", y, "int", w, "int", h, "uint", rop, "int")
         return result
     }
 
@@ -10418,7 +10427,7 @@ class Gdi {
      * The curve of the pie is defined by an ellipse that fits the specified bounding rectangle. The curve begins at the point where the ellipse intersects the first radial and extends counterclockwise to the point where the ellipse intersects the second radial.
      * 
      * The current position is neither used nor updated by the <b>Pie</b> function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
      * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the bounding rectangle.
      * @param {Integer} right The x-coordinate, in logical coordinates, of the lower-right corner of the bounding rectangle.
@@ -10430,13 +10439,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-pie
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-pie
      * @since windows5.0
      */
-    static Pie(hdc, left, top, right, bottom, xr1, yr1, xr2, yr2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Pie(hdc_, left, top, right, bottom, xr1, yr1, xr2, yr2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Pie", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "int")
+        result := DllCall("GDI32.dll\Pie", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "int")
         return result
     }
 
@@ -10452,37 +10461,37 @@ class Gdi {
      * Any object created but not deleted in the Windows-format metafile is deleted by this function.
      * 
      * To stop this function, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-canceldc">CancelDC</a> function from another thread to terminate the operation. In this case, the function returns <b>FALSE</b>.
-     * @param {HDC} hdc Handle to a device context.
+     * @param {HDC} hdc_ Handle to a device context.
      * @param {HMETAFILE} hmf Handle to a Windows-format metafile.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playmetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-playmetafile
      * @since windows5.0
      */
-    static PlayMetaFile(hdc, hmf) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PlayMetaFile(hdc_, hmf) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\PlayMetaFile", "ptr", hdc, "ptr", hmf, "int")
+        result := DllCall("GDI32.dll\PlayMetaFile", "ptr", hdc_, "ptr", hmf, "int")
         return result
     }
 
     /**
      * The PaintRgn function paints the specified region by using the brush currently selected into the device context.
-     * @param {HDC} hdc Handle to the device context.
-     * @param {HRGN} hrgn Handle to the region to be filled. The region's coordinates are presumed to be logical coordinates.
+     * @param {HDC} hdc_ Handle to the device context.
+     * @param {HRGN} hrgn_ Handle to the region to be filled. The region's coordinates are presumed to be logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-paintrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-paintrgn
      * @since windows5.0
      */
-    static PaintRgn(hdc, hrgn) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static PaintRgn(hdc_, hrgn_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\PaintRgn", "ptr", hdc, "ptr", hrgn, "int")
+        result := DllCall("GDI32.dll\PaintRgn", "ptr", hdc_, "ptr", hrgn_, "int")
         return result
     }
 
@@ -10492,46 +10501,46 @@ class Gdi {
      * The current position is neither used nor updated by this function.
      * 
      * Any extra points are ignored. To draw the polygons with more points, divide your data into groups, each of which have less than the maximum number of points, and call the function for each group of points. Note, it is best to have a polygon in only one of the groups.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that define the vertices of the polygons, in logical coordinates. The polygons are specified consecutively. Each polygon is closed automatically by drawing a line from the last vertex to the first. Each vertex should be specified once.
      * @param {Pointer<Integer>} asz A pointer to an array of integers, each of which specifies the number of points in the corresponding polygon. Each integer must be greater than or equal to 2.
      * @param {Integer} csz The total number of polygons.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polypolygon
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polypolygon
      * @since windows5.0
      */
-    static PolyPolygon(hdc, apt, asz, csz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyPolygon(hdc_, apt, asz, csz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         aszMarshal := asz is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\PolyPolygon", "ptr", hdc, "ptr", apt, aszMarshal, asz, "int", csz, "int")
+        result := DllCall("GDI32.dll\PolyPolygon", "ptr", hdc_, "ptr", apt, aszMarshal, asz, "int", csz, "int")
         return result
     }
 
     /**
      * The PtInRegion function determines whether the specified point is inside the specified region.
-     * @param {HRGN} hrgn Handle to the region to be examined.
+     * @param {HRGN} hrgn_ Handle to the region to be examined.
      * @param {Integer} x Specifies the x-coordinate of the point in logical units.
      * @param {Integer} y Specifies the y-coordinate of the point in logical units.
      * @returns {BOOL} If the specified point is in the region, the return value is nonzero.
      * 
      * If the specified point is not in the region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-ptinregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-ptinregion
      * @since windows5.0
      */
-    static PtInRegion(hrgn, x, y) {
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static PtInRegion(hrgn_, x, y) {
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\PtInRegion", "ptr", hrgn, "int", x, "int", y, "int")
+        result := DllCall("GDI32.dll\PtInRegion", "ptr", hrgn_, "int", x, "int", y, "int")
         return result
     }
 
     /**
      * The PtVisible function determines whether the specified point is within the clipping region of a device context.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point.
      * @param {Integer} y The y-coordinate, in logical units, of the point.
      * @returns {BOOL} If the specified point is within the clipping region of the device context, the return value is <b>TRUE</b>(1).
@@ -10539,36 +10548,36 @@ class Gdi {
      * If the specified point is not within the clipping region of the device context, the return value is <b>FALSE</b>(0).
      * 
      * If the <b>HDC</b> is not valid, the return value is (BOOL)-1.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-ptvisible
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-ptvisible
      * @since windows5.0
      */
-    static PtVisible(hdc, x, y) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PtVisible(hdc_, x, y) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PtVisible", "ptr", hdc, "int", x, "int", y, "int")
+        result := DllCall("GDI32.dll\PtVisible", "ptr", hdc_, "int", x, "int", y, "int")
         return result
     }
 
     /**
      * The RectInRegion function determines whether any part of the specified rectangle is within the boundaries of a region.
-     * @param {HRGN} hrgn Handle to the region.
+     * @param {HRGN} hrgn_ Handle to the region.
      * @param {Pointer<RECT>} lprect Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the rectangle in logical units. The lower and right edges of the rectangle are not included.
      * @returns {BOOL} If any part of the specified rectangle lies within the boundaries of the region, the return value is nonzero.
      * 
      * If no part of the specified rectangle lies within the boundaries of the region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-rectinregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-rectinregion
      * @since windows5.0
      */
-    static RectInRegion(hrgn, lprect) {
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static RectInRegion(hrgn_, lprect) {
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\RectInRegion", "ptr", hrgn, "ptr", lprect, "int")
+        result := DllCall("GDI32.dll\RectInRegion", "ptr", hrgn_, "ptr", lprect, "int")
         return result
     }
 
     /**
      * The RectVisible function determines whether any part of the specified rectangle lies within the clipping region of a device context.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the specified rectangle.
      * @returns {BOOL} If the current transform does not have a rotation and the rectangle lies within the clipping region, the return value is <b>TRUE</b> (1).
      * 
@@ -10579,13 +10588,13 @@ class Gdi {
      * If the current transform has a rotation and the rectangle does not lie within the clipping region, the return value is 1.
      * 
      * All other return values are considered error codes. If the any parameter is not valid, the return value is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-rectvisible
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-rectvisible
      * @since windows5.0
      */
-    static RectVisible(hdc, lprect) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static RectVisible(hdc_, lprect) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\RectVisible", "ptr", hdc, "ptr", lprect, "int")
+        result := DllCall("GDI32.dll\RectVisible", "ptr", hdc_, "ptr", lprect, "int")
         return result
     }
 
@@ -10597,7 +10606,7 @@ class Gdi {
      * The rectangle that is drawn excludes the bottom and right edges.
      * 
      * If a PS_NULL pen is used, the dimensions of the rectangle are 1 pixel less in height and 1 pixel less in width.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
      * @param {Integer} right The x-coordinate, in logical coordinates, of the lower-right corner of the rectangle.
@@ -10605,13 +10614,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-rectangle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-rectangle
      * @since windows5.0
      */
-    static Rectangle(hdc, left, top, right, bottom) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Rectangle(hdc_, left, top, right, bottom) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Rectangle", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int")
+        result := DllCall("GDI32.dll\Rectangle", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -10619,18 +10628,18 @@ class Gdi {
      * The RestoreDC function restores a device context (DC) to the specified state. The DC is restored by popping state information off a stack created by earlier calls to the SaveDC function.
      * @remarks
      * Each DC maintains a stack of saved states. The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-savedc">SaveDC</a> function pushes the current state of the DC onto its stack of saved states. That state can be restored only to the same DC from which it was created. After a state is restored, the saved state is destroyed and cannot be reused. Furthermore, any states saved after the restored state was created are also destroyed and cannot be used. In other words, the <b>RestoreDC</b> function pops the restored state (and any subsequent states) from the state information stack.
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @param {Integer} nSavedDC The saved state to be restored. If this parameter is positive, <i>nSavedDC</i> represents a specific instance of the state to be restored. If this parameter is negative, <i>nSavedDC</i> represents an instance relative to the current state. For example, -1 restores the most recently saved state.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-restoredc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-restoredc
      * @since windows5.0
      */
-    static RestoreDC(hdc, nSavedDC) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static RestoreDC(hdc_, nSavedDC) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\RestoreDC", "ptr", hdc, "int", nSavedDC, "int")
+        result := DllCall("GDI32.dll\RestoreDC", "ptr", hdc_, "int", nSavedDC, "int")
         return result
     }
 
@@ -10651,18 +10660,18 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines ResetDC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the DC to update.
+     * @param {HDC} hdc_ A handle to the DC to update.
      * @param {Pointer<DEVMODEA>} lpdm A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure containing information about the new DC.
      * @returns {HDC} If the function succeeds, the return value is a handle to the original DC.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-resetdca
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-resetdca
      * @since windows5.0
      */
-    static ResetDCA(hdc, lpdm) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ResetDCA(hdc_, lpdm) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ResetDCA", "ptr", hdc, "ptr", lpdm, "ptr")
+        result := DllCall("GDI32.dll\ResetDCA", "ptr", hdc_, "ptr", lpdm, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -10684,18 +10693,18 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines ResetDC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the DC to update.
+     * @param {HDC} hdc_ A handle to the DC to update.
      * @param {Pointer<DEVMODEW>} lpdm A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure containing information about the new DC.
      * @returns {HDC} If the function succeeds, the return value is a handle to the original DC.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-resetdcw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-resetdcw
      * @since windows5.0
      */
-    static ResetDCW(hdc, lpdm) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ResetDCW(hdc_, lpdm) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ResetDCW", "ptr", hdc, "ptr", lpdm, "ptr")
+        result := DllCall("GDI32.dll\ResetDCW", "ptr", hdc_, "ptr", lpdm, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -10710,17 +10719,17 @@ class Gdi {
      * A logical palette is a buffer between color-intensive applications and the system, allowing these applications to use as many colors as needed without interfering with colors displayed by other windows.
      * 
      * When an application's window has the focus and it calls the <b>RealizePalette</b> function, the system attempts to realize as many of the requested colors as possible. The same is also true for applications with inactive windows.
-     * @param {HDC} hdc A handle to the device context into which a logical palette has been selected.
+     * @param {HDC} hdc_ A handle to the device context into which a logical palette has been selected.
      * @returns {Integer} If the function succeeds, the return value is the number of entries in the logical palette mapped to the system palette.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-realizepalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-realizepalette
      * @since windows5.0
      */
-    static RealizePalette(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static RealizePalette(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\RealizePalette", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\RealizePalette", "ptr", hdc_, "uint")
         return result
     }
 
@@ -10763,7 +10772,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-removefontresourcea
      * @since windows5.0
      */
     static RemoveFontResourceA(lpFileName) {
@@ -10812,7 +10821,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-removefontresourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-removefontresourcew
      * @since windows5.0
      */
     static RemoveFontResourceW(lpFileName) {
@@ -10826,7 +10835,7 @@ class Gdi {
      * The RoundRect function draws a rectangle with rounded corners. The rectangle is outlined by using the current pen and filled by using the current brush.
      * @remarks
      * The current position is neither used nor updated by this function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} left The x-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
      * @param {Integer} top The y-coordinate, in logical coordinates, of the upper-left corner of the rectangle.
      * @param {Integer} right The x-coordinate, in logical coordinates, of the lower-right corner of the rectangle.
@@ -10836,13 +10845,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-roundrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-roundrect
      * @since windows5.0
      */
-    static RoundRect(hdc, left, top, right, bottom, width, height) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static RoundRect(hdc_, left, top, right, bottom, width, height) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\RoundRect", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", width, "int", height, "int")
+        result := DllCall("GDI32.dll\RoundRect", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int", width, "int", height, "int")
         return result
     }
 
@@ -10859,7 +10868,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-resizepalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-resizepalette
      * @since windows5.0
      */
     static ResizePalette(hpal, n) {
@@ -10875,17 +10884,17 @@ class Gdi {
      * The <b>SaveDC</b> function can be used any number of times to save any number of instances of the DC state.
      * 
      * A saved state can be restored by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-restoredc">RestoreDC</a> function.
-     * @param {HDC} hdc A handle to the DC whose state is to be saved.
+     * @param {HDC} hdc_ A handle to the DC whose state is to be saved.
      * @returns {Integer} If the function succeeds, the return value identifies the saved state.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-savedc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-savedc
      * @since windows5.0
      */
-    static SaveDC(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SaveDC(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SaveDC", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\SaveDC", "ptr", hdc_, "int")
         return result
     }
 
@@ -10897,8 +10906,8 @@ class Gdi {
      * The <b>SelectClipRgn</b> function assumes that the coordinates for a region are specified in device units.
      * 
      * To remove a device-context's clipping region, specify a <b>NULL</b> region handle.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {HRGN} hrgn A handle to the region to be selected.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {HRGN} hrgn_ A handle to the region to be selected.
      * @returns {Integer} The return value specifies the region's complexity and can be one of the following values.
      * 
      * <table>
@@ -10951,14 +10960,14 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectcliprgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-selectcliprgn
      * @since windows5.0
      */
-    static SelectClipRgn(hdc, hrgn) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static SelectClipRgn(hdc_, hrgn_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\SelectClipRgn", "ptr", hdc, "ptr", hrgn, "int")
+        result := DllCall("GDI32.dll\SelectClipRgn", "ptr", hdc_, "ptr", hrgn_, "int")
         return result
     }
 
@@ -10970,9 +10979,9 @@ class Gdi {
      * The <b>ExtSelectClipRgn</b> function assumes that the coordinates for the specified region are specified in device units.
      * 
      * Only a copy of the region identified by the <i>hrgn</i> parameter is used. The region itself can be reused after this call or it can be deleted.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {HRGN} hrgn A handle to the region to be selected. This handle must not be <b>NULL</b> unless the RGN_COPY mode is specified.
-     * @param {Integer} mode 
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {HRGN} hrgn_ A handle to the region to be selected. This handle must not be <b>NULL</b> unless the RGN_COPY mode is specified.
+     * @param {Integer} mode_ 
      * @returns {Integer} The return value specifies the new clipping region's complexity; it can be one of the following values.
      * 
      * <table>
@@ -11025,14 +11034,14 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extselectcliprgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-extselectcliprgn
      * @since windows5.0
      */
-    static ExtSelectClipRgn(hdc, hrgn, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static ExtSelectClipRgn(hdc_, hrgn_, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\ExtSelectClipRgn", "ptr", hdc, "ptr", hrgn, "int", mode, "int")
+        result := DllCall("GDI32.dll\ExtSelectClipRgn", "ptr", hdc_, "ptr", hrgn_, "int", mode_, "int")
         return result
     }
 
@@ -11042,7 +11051,7 @@ class Gdi {
      * The current clipping region of a device context is defined by the intersection of its clipping region and its metaregion.
      * 
      * The <b>SetMetaRgn</b> function should only be called after an application's original device context was saved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-savedc">SaveDC</a> function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} The return value specifies the new clipping region's complexity and can be one of the following values.
      * 
      * <table>
@@ -11095,13 +11104,13 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmetargn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setmetargn
      * @since windows5.0
      */
-    static SetMetaRgn(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetMetaRgn(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetMetaRgn", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\SetMetaRgn", "ptr", hdc_, "int")
         return result
     }
 
@@ -11113,7 +11122,7 @@ class Gdi {
      * An application cannot select a single bitmap into more than one DC at a time.
      * 
      * <b>ICM:</b> If the object being selected is a brush or a pen, color management is performed.
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @param {HGDIOBJ} h A handle to the object to be selected. The specified object must have been created by using one of the following functions.
      * 
      * <table>
@@ -11207,14 +11216,14 @@ class Gdi {
      *  
      * 
      * If an error occurs and the selected object is not a region, the return value is <b>NULL</b>. Otherwise, it is HGDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-selectobject
      * @since windows5.0
      */
-    static SelectObject(hdc, h) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SelectObject(hdc_, h) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         h := h is Win32Handle ? NumGet(h, "ptr") : h
 
-        result := DllCall("GDI32.dll\SelectObject", "ptr", hdc, "ptr", h, "ptr")
+        result := DllCall("GDI32.dll\SelectObject", "ptr", hdc_, "ptr", h, "ptr")
         resultHandle := HGDIOBJ({Value: result}, True)
         return resultHandle
     }
@@ -11227,7 +11236,7 @@ class Gdi {
      * An application can select a logical palette into more than one device context only if device contexts are compatible. Otherwise <b>SelectPalette</b> fails. To create a device context that is compatible with another device context, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> with the first device context as the parameter. If a logical palette is selected into more than one device context, changes to the logical palette will affect all device contexts for which it is selected.
      * 
      * An application might call the <b>SelectPalette</b> function with the <i>bForceBackground</i> parameter set to <b>TRUE</b> if the child windows of a top-level window each realize their own palettes. However, only the child window that needs to realize its palette must set <i>bForceBackground</i> to <b>TRUE</b>; other child windows must set this value to <b>FALSE</b>.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {HPALETTE} hPal A handle to the logical palette to be selected.
      * @param {BOOL} bForceBkgd Specifies whether the logical palette is forced to be a background palette. If this value is <b>TRUE</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> function causes the logical palette to be mapped to the colors already in the physical palette in the best possible way. This is always done, even if the window for which the palette is realized belongs to a thread without active focus.
      * 
@@ -11235,14 +11244,14 @@ class Gdi {
      * @returns {HPALETTE} If the function succeeds, the return value is a handle to the device context's previous logical palette.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectpalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-selectpalette
      * @since windows5.0
      */
-    static SelectPalette(hdc, hPal, bForceBkgd) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SelectPalette(hdc_, hPal, bForceBkgd) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
 
-        result := DllCall("GDI32.dll\SelectPalette", "ptr", hdc, "ptr", hPal, "int", bForceBkgd, "ptr")
+        result := DllCall("GDI32.dll\SelectPalette", "ptr", hdc_, "ptr", hPal, "int", bForceBkgd, "ptr")
         resultHandle := HPALETTE({Value: result}, True)
         return resultHandle
     }
@@ -11253,18 +11262,18 @@ class Gdi {
      * This function fills the gaps between styled lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpen">CreatePen</a> function; it does not fill the gaps between styled lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a> function. The <b>SetBkColor</b> function also sets the background colors for <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a>.
      * 
      * If the background mode is OPAQUE, the background color is used to fill gaps between styled lines, gaps between hatched lines in brushes, and character cells. The background color is also used when converting bitmaps from color to monochrome and vice versa.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {COLORREF} color The new background color. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {COLORREF} color_ The new background color. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {COLORREF} If the function succeeds, the return value specifies the previous background color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbkcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setbkcolor
      * @since windows5.0
      */
-    static SetBkColor(hdc, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetBkColor(hdc_, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetBkColor", "ptr", hdc, "uint", color, "uint")
+        result := DllCall("GDI32.dll\SetBkColor", "ptr", hdc_, "uint", color_, "uint")
         return result
     }
 
@@ -11278,18 +11287,18 @@ class Gdi {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function with an argument of DC_BRUSH or DC_PEN can be used interchangeably with the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcpencolor">SetDCPenColor</a> and <b>SetDCBrushColor</b> functions.
      * 
      * <b>ICM:</b> Color management is performed if ICM is enabled.
-     * @param {HDC} hdc A handle to the DC.
-     * @param {COLORREF} color The new brush color.
+     * @param {HDC} hdc_ A handle to the DC.
+     * @param {COLORREF} color_ The new brush color.
      * @returns {COLORREF} If the function succeeds, the return value specifies the previous DC brush color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdcbrushcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setdcbrushcolor
      * @since windows5.0
      */
-    static SetDCBrushColor(hdc, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetDCBrushColor(hdc_, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetDCBrushColor", "ptr", hdc, "uint", color, "uint")
+        result := DllCall("GDI32.dll\SetDCBrushColor", "ptr", hdc_, "uint", color_, "uint")
         return result
     }
 
@@ -11301,16 +11310,16 @@ class Gdi {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function with an argument of DC_BRUSH or DC_PEN can be used interchangeably with the <b>SetDCPenColor</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdcbrushcolor">SetDCBrushColor</a> functions.
      * 
      * <b>ICM:</b> Color management is performed if ICM is enabled.
-     * @param {HDC} hdc A handle to the DC.
-     * @param {COLORREF} color The new pen color.
+     * @param {HDC} hdc_ A handle to the DC.
+     * @param {COLORREF} color_ The new pen color.
      * @returns {COLORREF} If the function succeeds, the return value specifies the previous DC pen color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value. If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdcpencolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setdcpencolor
      * @since windows5.0
      */
-    static SetDCPenColor(hdc, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetDCPenColor(hdc_, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetDCPenColor", "ptr", hdc, "uint", color, "uint")
+        result := DllCall("GDI32.dll\SetDCPenColor", "ptr", hdc_, "uint", color_, "uint")
         return result
     }
 
@@ -11318,18 +11327,18 @@ class Gdi {
      * The SetBkMode function sets the background mix mode of the specified device context. The background mix mode is used with text, hatched brushes, and pen styles that are not solid lines.
      * @remarks
      * The <b>SetBkMode</b> function affects the line styles for lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpen">CreatePen</a> function. <b>SetBkMode</b> does not affect lines drawn using a pen created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extcreatepen">ExtCreatePen</a> function.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {Integer} mode 
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {Integer} mode_ 
      * @returns {Integer} If the function succeeds, the return value specifies the previous background mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbkmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setbkmode
      * @since windows5.0
      */
-    static SetBkMode(hdc, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetBkMode(hdc_, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetBkMode", "ptr", hdc, "int", mode, "int")
+        result := DllCall("GDI32.dll\SetBkMode", "ptr", hdc_, "int", mode_, "int")
         return result
     }
 
@@ -11337,19 +11346,19 @@ class Gdi {
      * The SetBitmapBits function sets the bits of color data for a bitmap to the specified values.
      * @remarks
      * The array identified by <i>lpBits</i> must be WORD aligned.
-     * @param {HBITMAP} hbm A handle to the bitmap to be set. This must be a compatible bitmap (DDB).
+     * @param {HBITMAP} hbm_ A handle to the bitmap to be set. This must be a compatible bitmap (DDB).
      * @param {Integer} cb The number of bytes pointed to by the <i>lpBits</i> parameter.
      * @param {Pointer} pvBits A pointer to an array of bytes that contain color data for the specified bitmap.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes used in setting the bitmap bits.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapbits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setbitmapbits
      * @since windows5.0
      */
-    static SetBitmapBits(hbm, cb, pvBits) {
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    static SetBitmapBits(hbm_, cb, pvBits) {
+        hbm_ := hbm_ is Win32Handle ? NumGet(hbm_, "ptr") : hbm_
 
-        result := DllCall("GDI32.dll\SetBitmapBits", "ptr", hbm, "uint", cb, "ptr", pvBits, "int")
+        result := DllCall("GDI32.dll\SetBitmapBits", "ptr", hbm_, "uint", cb, "ptr", pvBits, "int")
         return result
     }
 
@@ -11357,7 +11366,7 @@ class Gdi {
      * The SetBoundsRect function controls the accumulation of bounding rectangle information for the specified device context.
      * @remarks
      * The DCB_SET value is a combination of the bit values DCB_ACCUMULATE and DCB_RESET. Applications that check the DCB_RESET bit to determine whether the bounding rectangle is empty must also check the DCB_ACCUMULATE bit. The bounding rectangle is empty only if the DCB_RESET bit is 1 and the DCB_ACCUMULATE bit is 0.
-     * @param {HDC} hdc A handle to the device context for which to accumulate bounding rectangles.
+     * @param {HDC} hdc_ A handle to the device context for which to accumulate bounding rectangles.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure used to set the bounding rectangle. Rectangle dimensions are in logical coordinates. This parameter can be <b>NULL</b>.
      * @param {Integer} flags 
      * @returns {Integer} If the function succeeds, the return value specifies the previous state of the bounding rectangle. This state can be a combination of the following values.
@@ -11387,13 +11396,13 @@ class Gdi {
      *  
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setboundsrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setboundsrect
      * @since windows5.0
      */
-    static SetBoundsRect(hdc, lprect, flags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetBoundsRect(hdc_, lprect, flags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetBoundsRect", "ptr", hdc, "ptr", lprect, "uint", flags, "uint")
+        result := DllCall("GDI32.dll\SetBoundsRect", "ptr", hdc_, "ptr", lprect, "uint", flags, "uint")
         return result
     }
 
@@ -11413,8 +11422,8 @@ class Gdi {
      * The origin for bottom-up DIBs is the lower-left corner of the bitmap; the origin for top-down DIBs is the upper-left corner of the bitmap.
      * 
      * <b>ICM:</b> Color management is performed if color management has been enabled with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> with the <i>iEnableICM</i> parameter set to ICM_ON. If the bitmap specified by <i>lpbmi</i> has a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header">BITMAPV4HEADER</a> that specifies the gamma and endpoints members, or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> that specifies either the gamma and endpoints members or the profileData and profileSize members, then the call treats the bitmap's pixels as being expressed in the color space described by those members, rather than in the device context's source color space.
-     * @param {HDC} hdc A handle to a device context.
-     * @param {HBITMAP} hbm A handle to the compatible bitmap (DDB) that is to be altered using the color data from the specified DIB.
+     * @param {HDC} hdc_ A handle to a device context.
+     * @param {HBITMAP} hbm_ A handle to the compatible bitmap (DDB) that is to be altered using the color data from the specified DIB.
      * @param {Integer} start The starting scan line for the device-independent color data in the array pointed to by the <i>lpvBits</i> parameter.
      * @param {Integer} cLines The number of scan lines found in the array containing device-independent color data.
      * @param {Pointer<Void>} lpBits A pointer to the DIB color data, stored as an array of bytes. The format of the bitmap values depends on the <b>biBitCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure pointed to by the <i>lpbmi</i> parameter.
@@ -11443,16 +11452,16 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdibits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setdibits
      * @since windows5.0
      */
-    static SetDIBits(hdc, hbm, start, cLines, lpBits, lpbmi, ColorUse) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    static SetDIBits(hdc_, hbm_, start, cLines, lpBits, lpbmi, ColorUse) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        hbm_ := hbm_ is Win32Handle ? NumGet(hbm_, "ptr") : hbm_
 
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\SetDIBits", "ptr", hdc, "ptr", hbm, "uint", start, "uint", cLines, lpBitsMarshal, lpBits, "ptr", lpbmi, "uint", ColorUse, "int")
+        result := DllCall("GDI32.dll\SetDIBits", "ptr", hdc_, "ptr", hbm_, "uint", start, "uint", cLines, lpBitsMarshal, lpBits, "ptr", lpbmi, "uint", ColorUse, "int")
         return result
     }
 
@@ -11476,7 +11485,7 @@ class Gdi {
      * <li>To ensure proper metafile spooling while printing, applications must call the CHECKJPEGFORMAT or CHECKPNGFORMAT escape to verify that the printer recognizes the JPEG or PNG image, respectively, before calling <b>SetDIBitsToDevice</b>.</li>
      * </ul>
      * <b>ICM:</b> Color management is performed if color management has been enabled with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> with the <i>iEnableICM</i> parameter set to ICM_ON. If the bitmap specified by <i>lpbmi</i> has a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header">BITMAPV4HEADER</a> that specifies the gamma and endpoints members, or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> that specifies either the gamma and endpoints members or the profileData and profileSize members, then the call treats the bitmap's pixels as being expressed in the color space described by those members, rather than in the device context's source color space.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} xDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} w The width, in logical units, of the image.
@@ -11493,15 +11502,15 @@ class Gdi {
      * If zero scan lines are set (such as when <i>dwHeight</i> is 0) or the function fails, the function returns zero.
      * 
      * If the driver cannot support the JPEG or PNG file image passed to <b>SetDIBitsToDevice</b>, the function will fail and return GDI_ERROR. If failure does occur, the application must fall back on its own JPEG or PNG support to decompress the image into a bitmap, and then pass the bitmap to <b>SetDIBitsToDevice</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdibitstodevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setdibitstodevice
      * @since windows5.0
      */
-    static SetDIBitsToDevice(hdc, xDest, yDest, w, h, xSrc, ySrc, StartScan, cLines, lpvBits, lpbmi, ColorUse) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetDIBitsToDevice(hdc_, xDest, yDest, w, h, xSrc, ySrc, StartScan, cLines, lpvBits, lpbmi, ColorUse) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpvBitsMarshal := lpvBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\SetDIBitsToDevice", "ptr", hdc, "int", xDest, "int", yDest, "uint", w, "uint", h, "int", xSrc, "int", ySrc, "uint", StartScan, "uint", cLines, lpvBitsMarshal, lpvBits, "ptr", lpbmi, "uint", ColorUse, "int")
+        result := DllCall("GDI32.dll\SetDIBitsToDevice", "ptr", hdc_, "int", xDest, "int", yDest, "uint", w, "uint", h, "int", xSrc, "int", ySrc, "uint", StartScan, "uint", cLines, lpvBitsMarshal, lpvBits, "ptr", lpbmi, "uint", ColorUse, "int")
         return result
     }
 
@@ -11511,18 +11520,18 @@ class Gdi {
      * If the <i>dwFlag</i> parameter is set and no matching fonts exist, Windows chooses a new aspect ratio and retrieves a font that matches this ratio.
      * 
      * The remaining bits of the <i>dwFlag</i> parameter must be zero.
-     * @param {HDC} hdc A handle to the device context that contains the font-mapper flag.
+     * @param {HDC} hdc_ A handle to the device context that contains the font-mapper flag.
      * @param {Integer} flags Specifies whether the font mapper should attempt to match a font's aspect ratio to the current device's aspect ratio. If bit zero is set, the mapper selects only matching fonts.
      * @returns {Integer} If the function succeeds, the return value is the previous value of the font-mapper flag.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmapperflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setmapperflags
      * @since windows5.0
      */
-    static SetMapperFlags(hdc, flags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetMapperFlags(hdc_, flags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetMapperFlags", "ptr", hdc, "uint", flags, "uint")
+        result := DllCall("GDI32.dll\SetMapperFlags", "ptr", hdc_, "uint", flags, "uint")
         return result
     }
 
@@ -11551,18 +11560,18 @@ class Gdi {
      * 
      * </li>
      * </ol>
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iMode 
      * @returns {Integer} If the function succeeds, the return value is the old graphics mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setgraphicsmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setgraphicsmode
      * @since windows5.0
      */
-    static SetGraphicsMode(hdc, iMode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetGraphicsMode(hdc_, iMode) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetGraphicsMode", "ptr", hdc, "int", iMode, "int")
+        result := DllCall("GDI32.dll\SetGraphicsMode", "ptr", hdc_, "int", iMode, "int")
         return result
     }
 
@@ -11576,18 +11585,18 @@ class Gdi {
      * The MM_ISOTROPIC mode ensures a 1:1 aspect ratio.
      * 
      * The MM_ANISOTROPIC mode allows the x-coordinates and y-coordinates to be adjusted independently.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iMode 
      * @returns {Integer} If the function succeeds, the return value identifies the previous mapping mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmapmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setmapmode
      * @since windows5.0
      */
-    static SetMapMode(hdc, iMode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetMapMode(hdc_, iMode) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetMapMode", "ptr", hdc, "int", iMode, "int")
+        result := DllCall("GDI32.dll\SetMapMode", "ptr", hdc_, "int", iMode, "int")
         return result
     }
 
@@ -11637,18 +11646,18 @@ class Gdi {
      * <b>SetLayout</b> cannot modify drawing directly into the bits of a DIB.
      * 
      * For more information, see "Window Layout and Mirroring" in <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Features</a>.
-     * @param {HDC} hdc A handle to the DC.
+     * @param {HDC} hdc_ A handle to the DC.
      * @param {Integer} l 
      * @returns {Integer} If the function succeeds, it returns the previous layout of the DC.
      * 
      * If the function fails, it returns GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setlayout
      * @since windows5.0
      */
-    static SetLayout(hdc, l) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetLayout(hdc_, l) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetLayout", "ptr", hdc, "uint", l, "uint")
+        result := DllCall("GDI32.dll\SetLayout", "ptr", hdc_, "uint", l, "uint")
         return result
     }
 
@@ -11656,19 +11665,19 @@ class Gdi {
      * The GetLayout function returns the layout of a device context (DC).
      * @remarks
      * The layout specifies the order in which text and graphics are revealed in a window or device context. The default is left to right. The <b>GetLayout</b> function tells you if the default has been changed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setlayout">SetLayout</a>. For more information, see "Window Layout and Mirroring" in <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Features</a>.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {Integer} If the function succeeds, it returns the layout flags for the current device context.
      * 
      * If the function fails, it returns GDI_ERROR. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getlayout
      * @since windows5.0
      */
-    static GetLayout(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetLayout(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\GetLayout", "ptr", hdc, "uint")
+        result := DllCall("GDI32.dll\GetLayout", "ptr", hdc_, "uint")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -11687,7 +11696,7 @@ class Gdi {
      * @returns {HMETAFILE} If the function succeeds, the return value is a handle to a memory-based Windows-format metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmetafilebitsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setmetafilebitsex
      * @since windows5.0
      */
     static SetMetaFileBitsEx(cbBuffer, lpData) {
@@ -11709,7 +11718,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the number of entries that were set in the logical palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpaletteentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setpaletteentries
      * @since windows5.0
      */
     static SetPaletteEntries(hpal, iStart, cEntries, pPalEntries) {
@@ -11725,10 +11734,10 @@ class Gdi {
      * The function fails if the pixel coordinates lie outside of the current clipping region.
      * 
      * Not all devices support the <b>SetPixel</b> function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point to be set.
      * @param {Integer} y The y-coordinate, in logical units, of the point to be set.
-     * @param {COLORREF} color The color to be used to paint the point. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ The color to be used to paint the point. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {COLORREF} If the function succeeds, the return value is the RGB value that the function sets the pixel to. This value may differ from the color specified by <i>crColor</i>; that occurs when an exact match for the specified color cannot be found.
      * 
      * If the function fails, the return value is -1.
@@ -11752,13 +11761,13 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixel
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setpixel
      * @since windows5.0
      */
-    static SetPixel(hdc, x, y, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetPixel(hdc_, x, y, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetPixel", "ptr", hdc, "int", x, "int", y, "uint", color, "uint")
+        result := DllCall("GDI32.dll\SetPixel", "ptr", hdc_, "int", x, "int", y, "uint", color_, "uint")
         return result
     }
 
@@ -11768,20 +11777,20 @@ class Gdi {
      * Not all devices support the <b>SetPixelV</b> function. For more information, see the description of the RC_BITBLT capability in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function.
      * 
      * <b>SetPixelV</b> is faster than <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setpixel">SetPixel</a> because it does not need to return the color value of the point actually painted.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the point to be set.
      * @param {Integer} y The y-coordinate, in logical units, of the point to be set.
-     * @param {COLORREF} color The color to be used to paint the point. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
+     * @param {COLORREF} color_ The color to be used to paint the point. To create a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> color value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixelv
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setpixelv
      * @since windows5.0
      */
-    static SetPixelV(hdc, x, y, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetPixelV(hdc_, x, y, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetPixelV", "ptr", hdc, "int", x, "int", y, "uint", color, "int")
+        result := DllCall("GDI32.dll\SetPixelV", "ptr", hdc_, "int", x, "int", y, "uint", color_, "int")
         return result
     }
 
@@ -11793,16 +11802,16 @@ class Gdi {
      * When the fill mode is ALTERNATE, GDI fills the area between odd-numbered and even-numbered polygon sides on each scan line. That is, GDI fills the area between the first and second side, between the third and fourth side, and so on.
      * 
      * When the fill mode is WINDING, GDI fills any region that has a nonzero winding value. This value is defined as the number of times a pen used to draw the polygon would go around the region. The direction of each edge of the polygon is important.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {Integer} mode 
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {Integer} mode_ 
      * @returns {Integer} The return value specifies the previous filling mode. If an error occurs, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpolyfillmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setpolyfillmode
      * @since windows5.0
      */
-    static SetPolyFillMode(hdc, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetPolyFillMode(hdc_, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetPolyFillMode", "ptr", hdc, "int", mode, "int")
+        result := DllCall("GDI32.dll\SetPolyFillMode", "ptr", hdc_, "int", mode_, "int")
         return result
     }
 
@@ -11846,7 +11855,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-stretchblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-stretchblt
      * @since windows5.0
      */
     static StretchBlt(hdcDest, xDest, yDest, wDest, hDest, hdcSrc, xSrc, ySrc, wSrc, hSrc, rop) {
@@ -11861,7 +11870,7 @@ class Gdi {
      * The SetRectRgn function converts a region into a rectangular region with the specified coordinates.
      * @remarks
      * The region does not include the lower and right boundaries of the rectangle.
-     * @param {HRGN} hrgn Handle to the region.
+     * @param {HRGN} hrgn_ Handle to the region.
      * @param {Integer} left Specifies the x-coordinate of the upper-left corner of the rectangular region in logical units.
      * @param {Integer} top Specifies the y-coordinate of the upper-left corner of the rectangular region in logical units.
      * @param {Integer} right Specifies the x-coordinate of the lower-right corner of the rectangular region in logical units.
@@ -11869,13 +11878,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setrectrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setrectrgn
      * @since windows5.0
      */
-    static SetRectRgn(hrgn, left, top, right, bottom) {
-        hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
+    static SetRectRgn(hrgn_, left, top, right, bottom) {
+        hrgn_ := hrgn_ is Win32Handle ? NumGet(hrgn_, "ptr") : hrgn_
 
-        result := DllCall("GDI32.dll\SetRectRgn", "ptr", hrgn, "int", left, "int", top, "int", right, "int", bottom, "int")
+        result := DllCall("GDI32.dll\SetRectRgn", "ptr", hrgn_, "int", left, "int", top, "int", right, "int", bottom, "int")
         return result
     }
 
@@ -11895,7 +11904,7 @@ class Gdi {
      * <li>To ensure proper metafile spooling while printing, applications must call the CHECKJPEGFORMAT or CHECKPNGFORMAT escape to verify that the printer recognizes the JPEG or PNG image, respectively, before calling <b>StretchDIBits</b>.</li>
      * </ul>
      * <b>ICM:</b> Color management is performed if color management has been enabled with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> with the <i>iEnableICM</i> parameter set to ICM_ON. If the bitmap specified by <i>lpBitsInfo</i> has a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv4header">BITMAPV4HEADER</a> that specifies the gamma and endpoints members, or a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> that specifies either the gamma and endpoints members or the profileData and profileSize members, then the call treats the bitmap's pixels as being expressed in the color space described by those members, rather than in the device context's source color space.
-     * @param {HDC} hdc A handle to the destination device context.
+     * @param {HDC} hdc_ A handle to the destination device context.
      * @param {Integer} xDest The x-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} yDest The y-coordinate, in logical units, of the upper-left corner of the destination rectangle.
      * @param {Integer} DestWidth The width, in logical units, of the destination rectangle.
@@ -11913,15 +11922,15 @@ class Gdi {
      * If the function fails, or no scan lines are copied, the return value is 0.
      * 
      * If the driver cannot support the JPEG or PNG file image passed to <b>StretchDIBits</b>, the function will fail and return GDI_ERROR. If failure does occur, the application must fall back on its own JPEG or PNG support to decompress the image into a bitmap, and then pass the bitmap to <b>StretchDIBits</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-stretchdibits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-stretchdibits
      * @since windows5.0
      */
-    static StretchDIBits(hdc, xDest, yDest, DestWidth, DestHeight, xSrc, ySrc, SrcWidth, SrcHeight, lpBits, lpbmi, iUsage, rop) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static StretchDIBits(hdc_, xDest, yDest, DestWidth, DestHeight, xSrc, ySrc, SrcWidth, SrcHeight, lpBits, lpbmi, iUsage, rop) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\StretchDIBits", "ptr", hdc, "int", xDest, "int", yDest, "int", DestWidth, "int", DestHeight, "int", xSrc, "int", ySrc, "int", SrcWidth, "int", SrcHeight, lpBitsMarshal, lpBits, "ptr", lpbmi, "uint", iUsage, "uint", rop, "int")
+        result := DllCall("GDI32.dll\StretchDIBits", "ptr", hdc_, "int", xDest, "int", yDest, "int", DestWidth, "int", DestHeight, "int", xSrc, "int", ySrc, "int", SrcWidth, "int", SrcHeight, lpBitsMarshal, lpBits, "ptr", lpbmi, "uint", iUsage, "uint", rop, "int")
         return result
     }
 
@@ -11929,18 +11938,18 @@ class Gdi {
      * The SetROP2 function sets the current foreground mix mode.
      * @remarks
      * Mix modes define how GDI combines source and destination colors when drawing with the current pen. The mix modes are binary raster operation codes, representing all possible Boolean functions of two variables, using the binary operations AND, OR, and XOR (exclusive OR), and the unary operation NOT. The mix mode is for raster devices only; it is not available for vector devices.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} rop2 
      * @returns {Integer} If the function succeeds, the return value specifies the previous mix mode.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setrop2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setrop2
      * @since windows5.0
      */
-    static SetROP2(hdc, rop2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetROP2(hdc_, rop2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetROP2", "ptr", hdc, "int", rop2, "int")
+        result := DllCall("GDI32.dll\SetROP2", "ptr", hdc_, "int", rop2, "int")
         return result
     }
 
@@ -11954,8 +11963,8 @@ class Gdi {
      * The HALFTONE mode is slower and requires more processing of the source image than the other three modes; but produces higher quality images. Also note that <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setbrushorgex">SetBrushOrgEx</a> must be called after setting the HALFTONE mode to avoid brush misalignment.
      * 
      * Additional stretching modes might also be available depending on the capabilities of the device driver.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {Integer} mode 
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {Integer} mode_ 
      * @returns {Integer} If the function succeeds, the return value is the previous stretching mode.
      * 
      * If the function fails, the return value is zero.
@@ -11979,13 +11988,13 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setstretchbltmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setstretchbltmode
      * @since windows5.0
      */
-    static SetStretchBltMode(hdc, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetStretchBltMode(hdc_, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetStretchBltMode", "ptr", hdc, "int", mode, "int")
+        result := DllCall("GDI32.dll\SetStretchBltMode", "ptr", hdc_, "int", mode_, "int")
         return result
     }
 
@@ -12018,18 +12027,18 @@ class Gdi {
      * <li>Restore the system colors to their previous values.</li>
      * <li>Send the <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-syscolorchange">WM_SYSCOLORCHANGE</a> message.</li>
      * </ol>
-     * @param {HDC} hdc A handle to the device context. This device context must refer to a device that supports color palettes.
+     * @param {HDC} hdc_ A handle to the device context. This device context must refer to a device that supports color palettes.
      * @param {Integer} use 
      * @returns {Integer} If the function succeeds, the return value is the previous system palette. It can be either SYSPAL_NOSTATIC, SYSPAL_NOSTATIC256, or SYSPAL_STATIC.
      * 
      * If the function fails, the return value is SYSPAL_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setsystempaletteuse
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setsystempaletteuse
      * @since windows5.0
      */
-    static SetSystemPaletteUse(hdc, use) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetSystemPaletteUse(hdc_, use) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetSystemPaletteUse", "ptr", hdc, "uint", use, "uint")
+        result := DllCall("GDI32.dll\SetSystemPaletteUse", "ptr", hdc_, "uint", use, "uint")
         return result
     }
 
@@ -12039,18 +12048,18 @@ class Gdi {
      * This function is supported mainly for compatibility with existing applications. New applications should generally avoid calling this function, because it is incompatible with complex scripts (scripts that require text shaping; Arabic script is an example of this).
      * 
      * The recommended approach is that instead of calling this function and then <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a>, applications should call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> and use its <i>lpDx</i> parameter to supply widths.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} extra The amount of extra space, in logical units, to be added to each character. If the current mapping mode is not MM_TEXT, the <i>nCharExtra</i> parameter is transformed and rounded to the nearest pixel.
      * @returns {Integer} If the function succeeds, the return value is the previous intercharacter spacing.
      * 
      * If the function fails, the return value is 0x80000000.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextcharacterextra
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-settextcharacterextra
      * @since windows5.0
      */
-    static SetTextCharacterExtra(hdc, extra) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetTextCharacterExtra(hdc_, extra) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetTextCharacterExtra", "ptr", hdc, "int", extra, "int")
+        result := DllCall("GDI32.dll\SetTextCharacterExtra", "ptr", hdc_, "int", extra, "int")
         return result
     }
 
@@ -12058,18 +12067,18 @@ class Gdi {
      * The SetTextColor function sets the text color for the specified device context to the specified color.
      * @remarks
      * The text color is used to draw the face of each character written by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions. The text color is also used in converting bitmaps from color to monochrome and vice versa.
-     * @param {HDC} hdc A handle to the device context.
-     * @param {COLORREF} color The color of the text.
+     * @param {HDC} hdc_ A handle to the device context.
+     * @param {COLORREF} color_ The color of the text.
      * @returns {COLORREF} If the function succeeds, the return value is a color reference for the previous text color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-settextcolor
      * @since windows5.0
      */
-    static SetTextColor(hdc, color) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetTextColor(hdc_, color_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetTextColor", "ptr", hdc, "uint", color, "uint")
+        result := DllCall("GDI32.dll\SetTextColor", "ptr", hdc_, "uint", color_, "uint")
         return result
     }
 
@@ -12104,7 +12113,7 @@ class Gdi {
      * 
      * <div class="alert"><b>Note</b>  You should not use <b>SetTextAlign</b> with TA_UPDATECP when you are using <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringout">ScriptStringOut</a>, because selected text is not rendered correctly. If you must use this flag, you can unset and reset it as necessary to avoid the problem.</div>
      * <div> </div>
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} align The text alignment by using a mask of the values in the following list. Only one flag can be chosen from those that affect horizontal and vertical alignment. In addition, only one of the two flags that alter the current position can be chosen.
      * 
      * <table>
@@ -12239,13 +12248,13 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the previous text-alignment setting.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextalign
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-settextalign
      * @since windows5.0
      */
-    static SetTextAlign(hdc, align) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetTextAlign(hdc_, align) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetTextAlign", "ptr", hdc, "uint", align, "uint")
+        result := DllCall("GDI32.dll\SetTextAlign", "ptr", hdc_, "uint", align, "uint")
         return result
     }
 
@@ -12261,19 +12270,19 @@ class Gdi {
      * <b>SetTextJustification</b> can be used to justify a line that contains multiple strings in different fonts. In this case, each string must be justified separately.
      * 
      * Because rounding errors can occur during justification, the system keeps a running error term that defines the current error value. When justifying a line that contains multiple runs, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpointa">GetTextExtentPoint</a> automatically uses this error term when it computes the extent of the next run, allowing <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> to blend the error into the new run. After each line has been justified, this error term must be cleared to prevent it from being incorporated into the next line. The term can be cleared by calling <b>SetTextJustification</b> with <i>nBreakExtra</i> set to zero.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} extra The total extra space, in logical units, to be added to the line of text. If the current mapping mode is not MM_TEXT, the value identified by the <i>nBreakExtra</i> parameter is transformed and rounded to the nearest pixel.
      * @param {Integer} count The number of break characters in the line.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextjustification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-settextjustification
      * @since windows5.0
      */
-    static SetTextJustification(hdc, extra, count) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetTextJustification(hdc_, extra, count) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetTextJustification", "ptr", hdc, "int", extra, "int", count, "int")
+        result := DllCall("GDI32.dll\SetTextJustification", "ptr", hdc_, "int", extra, "int", count, "int")
         return result
     }
 
@@ -12287,17 +12296,17 @@ class Gdi {
      * The <b>UpdateColors</b> function typically updates a client area faster than redrawing the area. However, because <b>UpdateColors</b> performs the color translation based on the color of each pixel before the system palette changed, each call to this function results in the loss of some color accuracy.
      * 
      * This function must be called soon after a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-palettechanged">WM_PALETTECHANGED</a> message is received.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-updatecolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-updatecolors
      * @since windows5.0
      */
-    static UpdateColors(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static UpdateColors(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\UpdateColors", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\UpdateColors", "ptr", hdc_, "int")
         return result
     }
 
@@ -12337,7 +12346,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-alphablend
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-alphablend
      * @since windows5.0
      */
     static AlphaBlend(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, ftn) {
@@ -12376,7 +12385,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-transparentblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-transparentblt
      * @since windows5.0
      */
     static TransparentBlt(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, crTransparent) {
@@ -12406,7 +12415,7 @@ class Gdi {
      * Note that GradientFill does not use the Alpha member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structure. To use GradientFill with transparency, call GradientFill and then call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-alphablend">AlphaBlend</a> with the desired values for the alpha channel of each vertex.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/smooth-shading">Smooth Shading</a>, <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-triangle">Drawing a Shaded Triangle</a>, and <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-rectangle">Drawing a Shaded Rectangle</a>.
-     * @param {HDC} hdc A handle to the destination device context.
+     * @param {HDC} hdc_ A handle to the destination device context.
      * @param {Pointer<TRIVERTEX>} pVertex A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structures that each define a vertex.
      * @param {Integer} nVertex The number of vertices in <i>pVertex</i>.
      * @param {Pointer<Void>} pMesh An array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_triangle">GRADIENT_TRIANGLE</a> structures in triangle mode, or an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_rect">GRADIENT_RECT</a> structures in rectangle mode.
@@ -12415,15 +12424,15 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gradientfill
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gradientfill
      * @since windows5.0
      */
-    static GradientFill(hdc, pVertex, nVertex, pMesh, nMesh, ulMode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GradientFill(hdc_, pVertex, nVertex, pMesh, nMesh, ulMode) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSIMG32.dll\GradientFill", "ptr", hdc, "ptr", pVertex, "uint", nVertex, pMeshMarshal, pMesh, "uint", nMesh, "uint", ulMode, "int")
+        result := DllCall("MSIMG32.dll\GradientFill", "ptr", hdc_, "ptr", pVertex, "uint", nVertex, pMeshMarshal, pMesh, "uint", nMesh, "uint", ulMode, "int")
         return result
     }
 
@@ -12485,7 +12494,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdialphablend
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gdialphablend
      * @since windows5.0
      */
     static GdiAlphaBlend(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, ftn) {
@@ -12524,7 +12533,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gditransparentblt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gditransparentblt
      * @since windows5.0
      */
     static GdiTransparentBlt(hdcDest, xoriginDest, yoriginDest, wDest, hDest, hdcSrc, xoriginSrc, yoriginSrc, wSrc, hSrc, crTransparent) {
@@ -12556,7 +12565,7 @@ class Gdi {
      * Note that <b>GdiGradientFill</b> does not use the Alpha member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structure. To use <b>GdiGradientFill</b> with transparency, call <b>GdiGradientFill</b> and then call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdialphablend">GdiAlphaBlend</a> with the desired values for the alpha channel of each vertex.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/gdi/smooth-shading">Smooth Shading</a>, <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-triangle">Drawing a Shaded Triangle</a>, and <a href="https://docs.microsoft.com/windows/desktop/gdi/drawing-a-shaded-rectangle">Drawing a Shaded Rectangle</a>.
-     * @param {HDC} hdc A handle to the destination device context.
+     * @param {HDC} hdc_ A handle to the destination device context.
      * @param {Pointer<TRIVERTEX>} pVertex A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structures that each define a triangle vertex.
      * @param {Integer} nVertex The number of vertices in <i>pVertex</i>.
      * @param {Pointer<Void>} pMesh An array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_triangle">GRADIENT_TRIANGLE</a> structures in triangle mode, or an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-gradient_rect">GRADIENT_RECT</a> structures in rectangle mode.
@@ -12565,15 +12574,15 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdigradientfill
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gdigradientfill
      * @since windows5.0
      */
-    static GdiGradientFill(hdc, pVertex, nVertex, pMesh, nCount, ulMode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdiGradientFill(hdc_, pVertex, nVertex, pMesh, nCount, ulMode) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pMeshMarshal := pMesh is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\GdiGradientFill", "ptr", hdc, "ptr", pVertex, "uint", nVertex, pMeshMarshal, pMesh, "uint", nCount, "uint", ulMode, "int")
+        result := DllCall("GDI32.dll\GdiGradientFill", "ptr", hdc_, "ptr", pVertex, "uint", nVertex, pMeshMarshal, pMesh, "uint", nCount, "uint", ulMode, "int")
         return result
     }
 
@@ -12587,20 +12596,20 @@ class Gdi {
      * The <i>lpHandletable</i> and <i>nHandles</i> parameters must be identical to those passed to the <a href="https://docs.microsoft.com/previous-versions/dd162630(v=vs.85)">EnumMetaFileProc</a> callback procedure by <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enummetafile">EnumMetaFile</a>.
      * 
      * If the <b>PlayMetaFileRecord</b> function does not recognize a record, it ignores the record and returns <b>TRUE</b>.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Pointer<HANDLETABLE>} lpHandleTable A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-handletable">HANDLETABLE</a> structure representing the table of handles to GDI objects used when playing the metafile.
      * @param {Pointer<METARECORD>} lpMR A pointer to the Windows-format metafile record.
      * @param {Integer} noObjs The number of handles in the handle table.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playmetafilerecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-playmetafilerecord
      * @since windows5.0
      */
-    static PlayMetaFileRecord(hdc, lpHandleTable, lpMR, noObjs) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PlayMetaFileRecord(hdc_, lpHandleTable, lpMR, noObjs) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PlayMetaFileRecord", "ptr", hdc, "ptr", lpHandleTable, "ptr", lpMR, "uint", noObjs, "int")
+        result := DllCall("GDI32.dll\PlayMetaFileRecord", "ptr", hdc_, "ptr", lpHandleTable, "ptr", lpMR, "uint", noObjs, "int")
         return result
     }
 
@@ -12610,21 +12619,22 @@ class Gdi {
      * To convert a Windows-format metafile into an enhanced-format metafile, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwinmetafilebits">SetWinMetaFileBits</a> function.
      * 
      * You can use the <b>EnumMetaFile</b> function to embed one Windows-format metafile within another.
-     * @param {HDC} hdc Handle to a device context. This handle is passed to the callback function.
+     * @param {HDC} hdc_ Handle to a device context. This handle is passed to the callback function.
      * @param {HMETAFILE} hmf Handle to a Windows-format metafile.
-     * @param {Pointer<MFENUMPROC>} proc Pointer to an application-supplied callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162630(v=vs.85)">EnumMetaFileProc</a>.
+     * @param {Pointer<MFENUMPROC>} proc_ Pointer to an application-supplied callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd162630(v=vs.85)">EnumMetaFileProc</a>.
      * @param {LPARAM} param3 
      * @returns {BOOL} If the callback function successfully enumerates all the records in the Windows-format metafile, the return value is nonzero.
      * 
      * If the callback function does not successfully enumerate all the records in the Windows-format metafile, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enummetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enummetafile
      * @since windows5.0
      */
-    static EnumMetaFile(hdc, hmf, proc, param3) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumMetaFile(hdc_, hmf, proc_, param3) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
+        param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
 
-        result := DllCall("GDI32.dll\EnumMetaFile", "ptr", hdc, "ptr", hmf, "ptr", proc, "ptr", param3, "int")
+        result := DllCall("GDI32.dll\EnumMetaFile", "ptr", hdc_, "ptr", hmf, "ptr", proc_, "ptr", param3, "int")
         return result
     }
 
@@ -12644,17 +12654,17 @@ class Gdi {
      * <li>Convert an enhanced-format metafile into a Windows-format metafile</li>
      * </ul>
      * When the application no longer needs the enhanced metafile handle, it should release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
-     * @param {HDC} hdc Handle to an enhanced-metafile device context.
+     * @param {HDC} hdc_ Handle to an enhanced-metafile device context.
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to an enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-closeenhmetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-closeenhmetafile
      * @since windows5.0
      */
-    static CloseEnhMetaFile(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CloseEnhMetaFile(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CloseEnhMetaFile", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\CloseEnhMetaFile", "ptr", hdc_, "ptr")
         resultHandle := HENHMETAFILE({Value: result}, True)
         return resultHandle
     }
@@ -12679,7 +12689,7 @@ class Gdi {
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to the copy of the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copyenhmetafilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-copyenhmetafilea
      * @since windows5.0
      */
     static CopyEnhMetaFileA(hEnh, lpFileName) {
@@ -12711,7 +12721,7 @@ class Gdi {
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to the copy of the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copyenhmetafilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-copyenhmetafilew
      * @since windows5.0
      */
     static CopyEnhMetaFileW(hEnh, lpFileName) {
@@ -12743,22 +12753,22 @@ class Gdi {
      * Applications must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function to convert an enhanced metafile to the older Windows metafile format.
      * 
      * The file name for the enhanced metafile should use the .emf extension.
-     * @param {HDC} hdc A handle to a reference device for the enhanced metafile. This parameter can be <b>NULL</b>; for more information, see Remarks.
+     * @param {HDC} hdc_ A handle to a reference device for the enhanced metafile. This parameter can be <b>NULL</b>; for more information, see Remarks.
      * @param {PSTR} lpFilename A pointer to the file name for the enhanced metafile to be created. If this parameter is <b>NULL</b>, the enhanced metafile is memory based and its contents are lost when it is deleted by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the dimensions (in .01-millimeter units) of the picture to be stored in the enhanced metafile.
      * @param {PSTR} lpDesc A pointer to a string that specifies the name of the application that created the picture, as well as the picture's title. This parameter can be <b>NULL</b>; for more information, see Remarks.
      * @returns {HDC} If the function succeeds, the return value is a handle to the device context for the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createenhmetafilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createenhmetafilea
      * @since windows5.0
      */
-    static CreateEnhMetaFileA(hdc, lpFilename, lprc, lpDesc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateEnhMetaFileA(hdc_, lpFilename, lprc, lpDesc) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         lpDesc := lpDesc is String ? StrPtr(lpDesc) : lpDesc
 
-        result := DllCall("GDI32.dll\CreateEnhMetaFileA", "ptr", hdc, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
+        result := DllCall("GDI32.dll\CreateEnhMetaFileA", "ptr", hdc_, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
         resultHandle := HDC({Value: result}, True)
         resultHandle.DefineProp("Free", { Call: (self) => Gdi.DeleteEnhMetaFile(self.Value) })
         return resultHandle
@@ -12784,22 +12794,22 @@ class Gdi {
      * Applications must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function to convert an enhanced metafile to the older Windows metafile format.
      * 
      * The file name for the enhanced metafile should use the .emf extension.
-     * @param {HDC} hdc A handle to a reference device for the enhanced metafile. This parameter can be <b>NULL</b>; for more information, see Remarks.
+     * @param {HDC} hdc_ A handle to a reference device for the enhanced metafile. This parameter can be <b>NULL</b>; for more information, see Remarks.
      * @param {PWSTR} lpFilename A pointer to the file name for the enhanced metafile to be created. If this parameter is <b>NULL</b>, the enhanced metafile is memory based and its contents are lost when it is deleted by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteenhmetafile">DeleteEnhMetaFile</a> function.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the dimensions (in .01-millimeter units) of the picture to be stored in the enhanced metafile.
      * @param {PWSTR} lpDesc A pointer to a string that specifies the name of the application that created the picture, as well as the picture's title. This parameter can be <b>NULL</b>; for more information, see Remarks.
      * @returns {HDC} If the function succeeds, the return value is a handle to the device context for the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createenhmetafilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createenhmetafilew
      * @since windows5.0
      */
-    static CreateEnhMetaFileW(hdc, lpFilename, lprc, lpDesc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateEnhMetaFileW(hdc_, lpFilename, lprc, lpDesc) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         lpDesc := lpDesc is String ? StrPtr(lpDesc) : lpDesc
 
-        result := DllCall("GDI32.dll\CreateEnhMetaFileW", "ptr", hdc, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
+        result := DllCall("GDI32.dll\CreateEnhMetaFileW", "ptr", hdc_, "ptr", lpFilename, "ptr", lprc, "ptr", lpDesc, "ptr")
         resultHandle := HDC({Value: result}, True)
         resultHandle.DefineProp("Free", { Call: (self) => Gdi.DeleteEnhMetaFile(self.Value) })
         return resultHandle
@@ -12813,7 +12823,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deleteenhmetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-deleteenhmetafile
      * @since windows5.0
      */
     static DeleteEnhMetaFile(hmf) {
@@ -12831,24 +12841,24 @@ class Gdi {
      * If the callback function calls the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-playenhmetafilerecord">PlayEnhMetaFileRecord</a> function, <i>hdc</i> must identify a valid device context. The system uses the device context's transformation and mapping mode to transform the picture displayed by the <b>PlayEnhMetaFileRecord</b> function.
      * 
      * You can use the <b>EnumEnhMetaFile</b> function to embed one enhanced-metafile within another.
-     * @param {HDC} hdc A handle to a device context. This handle is passed to the callback function.
+     * @param {HDC} hdc_ A handle to a device context. This handle is passed to the callback function.
      * @param {HENHMETAFILE} hmf A handle to an enhanced metafile.
-     * @param {Pointer<ENHMFENUMPROC>} proc A pointer to the application-supplied callback function. For more information, see the <a href="https://docs.microsoft.com/previous-versions/dd162606(v=vs.85)">EnhMetaFileProc</a> function.
+     * @param {Pointer<ENHMFENUMPROC>} proc_ A pointer to the application-supplied callback function. For more information, see the <a href="https://docs.microsoft.com/previous-versions/dd162606(v=vs.85)">EnhMetaFileProc</a> function.
      * @param {Pointer<Void>} param3 
      * @param {Pointer<RECT>} lpRect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the coordinates, in logical units, of the picture's upper-left and lower-right corners.
      * @returns {BOOL} If the callback function successfully enumerates all the records in the enhanced metafile, the return value is nonzero.
      * 
      * If the callback function does not successfully enumerate all the records in the enhanced metafile, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumenhmetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumenhmetafile
      * @since windows5.0
      */
-    static EnumEnhMetaFile(hdc, hmf, proc, param3, lpRect) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumEnhMetaFile(hdc_, hmf, proc_, param3, lpRect) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
         param3Marshal := param3 is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\EnumEnhMetaFile", "ptr", hdc, "ptr", hmf, "ptr", proc, param3Marshal, param3, "ptr", lpRect, "int")
+        result := DllCall("GDI32.dll\EnumEnhMetaFile", "ptr", hdc_, "ptr", hmf, "ptr", proc_, param3Marshal, param3, "ptr", lpRect, "int")
         return result
     }
 
@@ -12864,7 +12874,7 @@ class Gdi {
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafilea
      * @since windows5.0
      */
     static GetEnhMetaFileA(lpName) {
@@ -12887,7 +12897,7 @@ class Gdi {
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to the enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafilew
      * @since windows5.0
      */
     static GetEnhMetaFileW(lpName) {
@@ -12914,7 +12924,7 @@ class Gdi {
      * If the function succeeds and the buffer pointer is a valid pointer, the return value is the number of bytes copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilebits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafilebits
      * @since windows5.0
      */
     static GetEnhMetaFileBits(hEMF, nSize, lpData) {
@@ -12947,7 +12957,7 @@ class Gdi {
      * If the optional text description does not exist, the return value is zero.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafiledescriptiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafiledescriptiona
      * @since windows5.0
      */
     static GetEnhMetaFileDescriptionA(hemf, cchBuffer, lpDescription) {
@@ -12981,7 +12991,7 @@ class Gdi {
      * If the optional text description does not exist, the return value is zero.
      * 
      * If the function fails, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafiledescriptionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafiledescriptionw
      * @since windows5.0
      */
     static GetEnhMetaFileDescriptionW(hemf, cchBuffer, lpDescription) {
@@ -13002,7 +13012,7 @@ class Gdi {
      * @param {Integer} nSize The size, in bytes, of the buffer to receive the data. Only this many bytes will be copied.
      * @param {Pointer} lpEnhMetaHeader A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enhmetaheader">ENHMETAHEADER</a> structure that receives the header record. If this parameter is <b>NULL</b>, the function returns the size of the header record.
      * @returns {Integer} If the function succeeds and the structure pointer is <b>NULL</b>, the return value is the size of the record that contains the header; if the structure pointer is a valid pointer, the return value is the number of bytes copied. Otherwise, it is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafileheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafileheader
      * @since windows5.0
      */
     static GetEnhMetaFileHeader(hemf, nSize, lpEnhMetaHeader) {
@@ -13022,7 +13032,7 @@ class Gdi {
      * @param {Integer} nNumEntries The number of entries to be retrieved from the optional palette.
      * @param {Pointer<PALETTEENTRY>} lpPaletteEntries A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures that receives the palette colors. The array must contain at least as many structures as there are entries specified by the <i>cEntries</i> parameter.
      * @returns {Integer} If the array pointer is <b>NULL</b> and the enhanced metafile contains an optional palette, the return value is the number of entries in the enhanced metafile's palette; if the array pointer is a valid pointer and the enhanced metafile contains an optional palette, the return value is the number of entries copied; if the metafile does not contain an optional palette, the return value is zero. Otherwise, the return value is GDI_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getenhmetafilepaletteentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getenhmetafilepaletteentries
      * @since windows5.0
      */
     static GetEnhMetaFilePaletteEntries(hemf, nNumEntries, lpPaletteEntries) {
@@ -13052,7 +13062,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds and the buffer pointer is <b>NULL</b>, the return value is the number of bytes required to store the converted records; if the function succeeds and the buffer pointer is a valid pointer, the return value is the size of the metafile data in bytes.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getwinmetafilebits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getwinmetafilebits
      * @since windows5.0
      */
     static GetWinMetaFileBits(hemf, cbData16, pData16, iMapMode, hdcRef) {
@@ -13077,20 +13087,20 @@ class Gdi {
      * The states of the output device context are preserved by this function. Any object created but not deleted in the enhanced metafile is deleted by this function.
      * 
      * To stop this function, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-canceldc">CancelDC</a> function from another thread to terminate the operation. In this case, the function returns <b>FALSE</b>.
-     * @param {HDC} hdc A handle to the device context for the output device on which the picture will appear.
+     * @param {HDC} hdc_ A handle to the device context for the output device on which the picture will appear.
      * @param {HENHMETAFILE} hmf A handle to the enhanced metafile.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the bounding rectangle used to display the picture. The coordinates are specified in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playenhmetafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-playenhmetafile
      * @since windows5.0
      */
-    static PlayEnhMetaFile(hdc, hmf, lprect) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PlayEnhMetaFile(hdc_, hmf, lprect) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hmf := hmf is Win32Handle ? NumGet(hmf, "ptr") : hmf
 
-        result := DllCall("GDI32.dll\PlayEnhMetaFile", "ptr", hdc, "ptr", hmf, "ptr", lprect, "int")
+        result := DllCall("GDI32.dll\PlayEnhMetaFile", "ptr", hdc_, "ptr", hmf, "ptr", lprect, "int")
         return result
     }
 
@@ -13104,20 +13114,20 @@ class Gdi {
      * The <i>hdc</i>, <i>lpHandletable</i>, and <i>nHandles</i> parameters must be exactly those passed to the <a href="https://docs.microsoft.com/previous-versions/dd162606(v=vs.85)">EnhMetaFileProc</a> callback procedure by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumenhmetafile">EnumEnhMetaFile</a> function.
      * 
      * If <b>PlayEnhMetaFileRecord</b> does not recognize a record, it ignores the record and returns <b>TRUE</b>.
-     * @param {HDC} hdc A handle to the device context passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumenhmetafile">EnumEnhMetaFile</a> function.
+     * @param {HDC} hdc_ A handle to the device context passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enumenhmetafile">EnumEnhMetaFile</a> function.
      * @param {Pointer<HANDLETABLE>} pht A pointer to a table of handles to GDI objects used when playing the metafile. The first entry in this table contains the enhanced-metafile handle.
      * @param {Pointer<ENHMETARECORD>} pmr A pointer to the enhanced-metafile record to be played.
      * @param {Integer} cht The number of handles in the handle table.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-playenhmetafilerecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-playenhmetafilerecord
      * @since windows5.0
      */
-    static PlayEnhMetaFileRecord(hdc, pht, pmr, cht) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PlayEnhMetaFileRecord(hdc_, pht, pmr, cht) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PlayEnhMetaFileRecord", "ptr", hdc, "ptr", pht, "ptr", pmr, "uint", cht, "int")
+        result := DllCall("GDI32.dll\PlayEnhMetaFileRecord", "ptr", hdc_, "ptr", pht, "ptr", pmr, "uint", cht, "int")
         return result
     }
 
@@ -13132,7 +13142,7 @@ class Gdi {
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to a memory-based enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setenhmetafilebits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setenhmetafilebits
      * @since windows5.0
      */
     static SetEnhMetaFileBits(nSize, pb) {
@@ -13215,19 +13225,19 @@ class Gdi {
      * DWORD   iComment;    // This contains GDICOMMENT_ENDGROUP.  
      * 
      * ```
-     * @param {HDC} hdc A handle to an enhanced-metafile device context.
+     * @param {HDC} hdc_ A handle to an enhanced-metafile device context.
      * @param {Integer} nSize The length of the comment buffer, in bytes.
      * @param {Pointer} lpData A pointer to the buffer that contains the comment.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdicomment
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gdicomment
      * @since windows5.0
      */
-    static GdiComment(hdc, nSize, lpData) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GdiComment(hdc_, nSize, lpData) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GdiComment", "ptr", hdc, "uint", nSize, "ptr", lpData, "int")
+        result := DllCall("GDI32.dll\GdiComment", "ptr", hdc_, "uint", nSize, "ptr", lpData, "int")
         return result
     }
 
@@ -13235,18 +13245,18 @@ class Gdi {
      * The GetTextMetrics function fills the specified buffer with the metrics for the currently selected font. (GetTextMetricsA)
      * @remarks
      * To determine whether a font is a TrueType font, first select it into a DC, then call <b>GetTextMetrics</b>, and then check for TMPF_TRUETYPE in TEXTMETRIC.tmPitchAndFamily. Note that <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> returns an uninitialized DC, which has "System" (a bitmap font) as the default font; thus the need to select a font into the DC.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<TEXTMETRICA>} lptm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure that receives the text metrics.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextmetricsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextmetricsa
      * @since windows5.0
      */
-    static GetTextMetricsA(hdc, lptm) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextMetricsA(hdc_, lptm) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetTextMetricsA", "ptr", hdc, "ptr", lptm, "int")
+        result := DllCall("GDI32.dll\GetTextMetricsA", "ptr", hdc_, "ptr", lptm, "int")
         return result
     }
 
@@ -13254,18 +13264,18 @@ class Gdi {
      * The GetTextMetricsW (Unicode) function (wingdi.h) fills the specified buffer with the metrics for the currently selected font.
      * @remarks
      * To determine whether a font is a TrueType font, first select it into a DC, then call <b>GetTextMetrics</b>, and then check for TMPF_TRUETYPE in TEXTMETRIC.tmPitchAndFamily. Note that <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> returns an uninitialized DC, which has "System" (a bitmap font) as the default font; thus the need to select a font into the DC.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<TEXTMETRICW>} lptm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure that receives the text metrics.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextmetricsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextmetricsw
      * @since windows5.0
      */
-    static GetTextMetricsW(hdc, lptm) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextMetricsW(hdc_, lptm) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetTextMetricsW", "ptr", hdc, "ptr", lptm, "int")
+        result := DllCall("GDI32.dll\GetTextMetricsW", "ptr", hdc_, "ptr", lptm, "int")
         return result
     }
 
@@ -13281,7 +13291,7 @@ class Gdi {
      * If the sweep angle is greater than 360 degrees, the arc is swept multiple times.
      * 
      * This function draws lines by using the current pen. The figure is not filled.
-     * @param {HDC} hdc Handle to a device context.
+     * @param {HDC} hdc_ Handle to a device context.
      * @param {Integer} x Specifies the x-coordinate, in logical units, of the center of the circle.
      * @param {Integer} y Specifies the y-coordinate, in logical units, of the center of the circle.
      * @param {Integer} r Specifies the radius, in logical units, of the circle. This value must be positive.
@@ -13290,13 +13300,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-anglearc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-anglearc
      * @since windows5.0
      */
-    static AngleArc(hdc, x, y, r, StartAngle, SweepAngle) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static AngleArc(hdc_, x, y, r, StartAngle, SweepAngle) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\AngleArc", "ptr", hdc, "int", x, "int", y, "uint", r, "float", StartAngle, "float", SweepAngle, "int")
+        result := DllCall("GDI32.dll\AngleArc", "ptr", hdc_, "int", x, "int", y, "uint", r, "float", StartAngle, "float", SweepAngle, "int")
         return result
     }
 
@@ -13306,22 +13316,22 @@ class Gdi {
      * The line segments are drawn by using the current pen. The figures formed by the segments are not filled.
      * 
      * The current position is neither used nor updated by this function.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the vertices of the polylines, in logical units. The polylines are specified consecutively.
      * @param {Pointer<Integer>} asz A pointer to an array of variables specifying the number of points in the <i>lppt</i> array for the corresponding polyline. Each entry must be greater than or equal to two.
      * @param {Integer} csz The total number of entries in the <i>lpdwPolyPoints</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polypolyline
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polypolyline
      * @since windows5.0
      */
-    static PolyPolyline(hdc, apt, asz, csz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyPolyline(hdc_, apt, asz, csz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         aszMarshal := asz is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("GDI32.dll\PolyPolyline", "ptr", hdc, "ptr", apt, aszMarshal, asz, "uint", csz, "int")
+        result := DllCall("GDI32.dll\PolyPolyline", "ptr", hdc_, "ptr", apt, aszMarshal, asz, "uint", csz, "int")
         return result
     }
 
@@ -13329,18 +13339,18 @@ class Gdi {
      * The GetWorldTransform function retrieves the current world-space to page-space transformation.
      * @remarks
      * The precision of the transformation may be altered if an application calls the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-modifyworldtransform">ModifyWorldTransform</a> function prior to calling <b>GetWorldTransform</b>. (This is because the internal format for storing transformation values uses a higher precision than a <b>FLOAT</b> value.)
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<XFORM>} lpxf A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that receives the current world-space to page-space transformation.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getworldtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getworldtransform
      * @since windows5.0
      */
-    static GetWorldTransform(hdc, lpxf) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetWorldTransform(hdc_, lpxf) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetWorldTransform", "ptr", hdc, "ptr", lpxf, "int")
+        result := DllCall("GDI32.dll\GetWorldTransform", "ptr", hdc_, "ptr", lpxf, "int")
         return result
     }
 
@@ -13379,18 +13389,18 @@ class Gdi {
      * The default world transformation is the identity matrix with zero offset.
      * 
      * The <b>SetWorldTransform</b> function will fail unless the graphics mode for the given device context has been set to GM_ADVANCED by previously calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">SetGraphicsMode</a> function. Likewise, it will not be possible to reset the graphics mode for the device context to the default GM_COMPATIBLE mode, unless the world transformation has first been reset to the default identity transformation by calling <b>SetWorldTransform</b> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-modifyworldtransform">ModifyWorldTransform</a>.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<XFORM>} lpxf A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure that contains the transformation data.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setworldtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setworldtransform
      * @since windows5.0
      */
-    static SetWorldTransform(hdc, lpxf) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetWorldTransform(hdc_, lpxf) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetWorldTransform", "ptr", hdc, "ptr", lpxf, "int")
+        result := DllCall("GDI32.dll\SetWorldTransform", "ptr", hdc_, "ptr", lpxf, "int")
         return result
     }
 
@@ -13398,19 +13408,19 @@ class Gdi {
      * The ModifyWorldTransform function changes the world transformation for a device context using the specified mode.
      * @remarks
      * The <b>ModifyWorldTransform</b> function will fail unless graphics mode for the specified device context has been set to GM_ADVANCED by previously calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setgraphicsmode">SetGraphicsMode</a> function. Likewise, it will not be possible to reset the graphics mode for the device context to the default GM_COMPATIBLE mode, unless world transform has first been reset to the default identity transform by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setworldtransform">SetWorldTransform</a> or <b>ModifyWorldTransform</b>.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<XFORM>} lpxf A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure used to modify the world transformation for the given device context.
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-modifyworldtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-modifyworldtransform
      * @since windows5.0
      */
-    static ModifyWorldTransform(hdc, lpxf, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ModifyWorldTransform(hdc_, lpxf, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ModifyWorldTransform", "ptr", hdc, "ptr", lpxf, "uint", mode, "int")
+        result := DllCall("GDI32.dll\ModifyWorldTransform", "ptr", hdc_, "ptr", lpxf, "uint", mode_, "int")
         return result
     }
 
@@ -13426,7 +13436,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-combinetransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-combinetransform
      * @since windows5.0
      */
     static CombineTransform(lpxfOut, lpxf1, lpxf2) {
@@ -13446,7 +13456,7 @@ class Gdi {
      * You need to guarantee that the GDI subsystem has completed any drawing to a bitmap created by <b>CreateDIBSection</b> before you draw to the bitmap yourself. Access to the bitmap must be synchronized. Do this by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gdiflush">GdiFlush</a> function. This applies to any use of the pointer to the bitmap bit values, including passing the pointer in calls to functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a>.
      * 
      * <b>ICM:</b> No color management is done.
-     * @param {HDC} hdc A handle to a device context. If the value of <i>iUsage</i> is DIB_PAL_COLORS, the function uses this device context's logical palette to initialize the DIB colors.
+     * @param {HDC} hdc_ A handle to a device context. If the value of <i>iUsage</i> is DIB_PAL_COLORS, the function uses this device context's logical palette to initialize the DIB colors.
      * @param {Pointer<BITMAPINFO>} pbmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure that specifies various attributes of the DIB, including the bitmap dimensions and colors.
      * @param {Integer} usage The type of data contained in the <b>bmiColors</b> array member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfo">BITMAPINFO</a> structure pointed to by <i>pbmi</i> (either logical palette indexes or literal RGB values). The following values are defined.
      * 
@@ -13508,18 +13518,18 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createdibsection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createdibsection
      * @since windows5.0
      */
-    static CreateDIBSection(hdc, pbmi, usage, ppvBits, hSection, offset) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateDIBSection(hdc_, pbmi, usage, ppvBits, hSection, offset) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
         ppvBitsMarshal := ppvBits is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc, "ptr", pbmi, "uint", usage, ppvBitsMarshal, ppvBits, "ptr", hSection, "uint", offset, "ptr")
+        result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc_, "ptr", pbmi, "uint", usage, ppvBitsMarshal, ppvBits, "ptr", hSection, "uint", offset, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -13532,20 +13542,20 @@ class Gdi {
      * The GetDIBColorTable function retrieves RGB (red, green, blue) color values from a range of entries in the color table of the DIB section bitmap that is currently selected into a specified device context.
      * @remarks
      * The <b>GetDIBColorTable</b> function should be called to retrieve the color table for DIB section bitmaps that use 1, 4, or 8 bpp. The <b>biBitCount</b> member of a bitmap associated <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure specifies the number of bits-per-pixel. DIB section bitmaps with a <b>biBitCount</b> value greater than eight do not have a color table, but they do have associated color masks. Call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getobject">GetObject</a> function to retrieve those color masks.
-     * @param {HDC} hdc A handle to a device context. A DIB section bitmap must be selected into this device context.
+     * @param {HDC} hdc_ A handle to a device context. A DIB section bitmap must be selected into this device context.
      * @param {Integer} iStart A zero-based color table index that specifies the first color table entry to retrieve.
      * @param {Integer} cEntries The number of color table entries to retrieve.
      * @param {Pointer<RGBQUAD>} prgbq A pointer to a buffer that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgbquad">RGBQUAD</a> data structures containing color information from the DIB color table. The buffer must be large enough to contain as many <b>RGBQUAD</b> data structures as the value of <i>cEntries</i>.
      * @returns {Integer} If the function succeeds, the return value is the number of color table entries that the function retrieves.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdibcolortable
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdibcolortable
      * @since windows5.0
      */
-    static GetDIBColorTable(hdc, iStart, cEntries, prgbq) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDIBColorTable(hdc_, iStart, cEntries, prgbq) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetDIBColorTable", "ptr", hdc, "uint", iStart, "uint", cEntries, "ptr", prgbq, "uint")
+        result := DllCall("GDI32.dll\GetDIBColorTable", "ptr", hdc_, "uint", iStart, "uint", cEntries, "ptr", prgbq, "uint")
         return result
     }
 
@@ -13561,20 +13571,20 @@ class Gdi {
      * The <b>bV5BitCount</b> member of a bitmap's associated <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapv5header">BITMAPV5HEADER</a> structure specifies the number of bits-per-pixel. Device-independent bitmaps with a <b>bV5BitCount</b> value greater than 8 do not have a color table.
      * 
      * <b>ICM:</b> No color management is performed.
-     * @param {HDC} hdc A device context. A DIB must be selected into this device context.
+     * @param {HDC} hdc_ A device context. A DIB must be selected into this device context.
      * @param {Integer} iStart A zero-based color table index that specifies the first color table entry to set.
      * @param {Integer} cEntries The number of color table entries to set.
      * @param {Pointer<RGBQUAD>} prgbq A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgbquad">RGBQUAD</a> structures containing new color information for the DIB's color table.
      * @returns {Integer} If the function succeeds, the return value is the number of color table entries that the function sets.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdibcolortable
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setdibcolortable
      * @since windows5.0
      */
-    static SetDIBColorTable(hdc, iStart, cEntries, prgbq) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetDIBColorTable(hdc_, iStart, cEntries, prgbq) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetDIBColorTable", "ptr", hdc, "uint", iStart, "uint", cEntries, "ptr", prgbq, "uint")
+        result := DllCall("GDI32.dll\SetDIBColorTable", "ptr", hdc_, "uint", iStart, "uint", cEntries, "ptr", prgbq, "uint")
         return result
     }
 
@@ -13582,35 +13592,35 @@ class Gdi {
      * The SetColorAdjustment function sets the color adjustment values for a device context (DC) using the specified values.
      * @remarks
      * The color adjustment values are used to adjust the input color of the source bitmap for calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchblt">StretchBlt</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a> functions when HALFTONE mode is set.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<COLORADJUSTMENT>} lpca A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-coloradjustment">COLORADJUSTMENT</a> structure containing the color adjustment values.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setcoloradjustment
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setcoloradjustment
      * @since windows5.0
      */
-    static SetColorAdjustment(hdc, lpca) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetColorAdjustment(hdc_, lpca) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetColorAdjustment", "ptr", hdc, "ptr", lpca, "int")
+        result := DllCall("GDI32.dll\SetColorAdjustment", "ptr", hdc_, "ptr", lpca, "int")
         return result
     }
 
     /**
      * The GetColorAdjustment function retrieves the color adjustment values for the specified device context (DC).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<COLORADJUSTMENT>} lpca A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-coloradjustment">COLORADJUSTMENT</a> structure that receives the color adjustment values.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcoloradjustment
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcoloradjustment
      * @since windows5.0
      */
-    static GetColorAdjustment(hdc, lpca) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetColorAdjustment(hdc_, lpca) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetColorAdjustment", "ptr", hdc, "ptr", lpca, "int")
+        result := DllCall("GDI32.dll\GetColorAdjustment", "ptr", hdc_, "ptr", lpca, "int")
         return result
     }
 
@@ -13620,17 +13630,17 @@ class Gdi {
      * An application should create a halftone palette when the stretching mode of a device context is set to HALFTONE. The logical halftone palette returned by <b>CreateHalftonePalette</b> should then be selected and realized into the device context before the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchblt">StretchBlt</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-stretchdibits">StretchDIBits</a> function is called.
      * 
      * When you no longer need the palette, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {HPALETTE} If the function succeeds, the return value is a handle to a logical halftone palette.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createhalftonepalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createhalftonepalette
      * @since windows5.0
      */
-    static CreateHalftonePalette(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CreateHalftonePalette(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CreateHalftonePalette", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\CreateHalftonePalette", "ptr", hdc_, "ptr")
         resultHandle := HPALETTE({Value: result}, True)
         return resultHandle
     }
@@ -13639,17 +13649,17 @@ class Gdi {
      * The AbortPath function closes and discards any paths in the specified device context.
      * @remarks
      * If there is an open path bracket in the given device context, the path bracket is closed and the path is discarded. If there is a closed path in the device context, the path is discarded.
-     * @param {HDC} hdc Handle to the device context from which a path will be discarded.
+     * @param {HDC} hdc_ Handle to the device context from which a path will be discarded.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-abortpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-abortpath
      * @since windows5.0
      */
-    static AbortPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static AbortPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\AbortPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\AbortPath", "ptr", hdc_, "int")
         return result
     }
 
@@ -13663,7 +13673,7 @@ class Gdi {
      * A line is drawn from the current position to the starting point of the arc. If no error occurs, the current position is set to the ending point of the arc.
      * 
      * The arc is drawn using the current pen; it is not filled.
-     * @param {HDC} hdc A handle to the device context where drawing takes place.
+     * @param {HDC} hdc_ A handle to the device context where drawing takes place.
      * @param {Integer} left The x-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
      * @param {Integer} top The y-coordinate, in logical units, of the upper-left corner of the bounding rectangle.
      * @param {Integer} right The x-coordinate, in logical units, of the lower-right corner of the bounding rectangle.
@@ -13675,13 +13685,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-arcto
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-arcto
      * @since windows5.0
      */
-    static ArcTo(hdc, left, top, right, bottom, xr1, yr1, xr2, yr2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ArcTo(hdc_, left, top, right, bottom, xr1, yr1, xr2, yr2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ArcTo", "ptr", hdc, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "int")
+        result := DllCall("GDI32.dll\ArcTo", "ptr", hdc_, "int", left, "int", top, "int", right, "int", bottom, "int", xr1, "int", yr1, "int", xr2, "int", yr2, "int")
         return result
     }
 
@@ -13757,17 +13767,17 @@ class Gdi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a>
      * </li>
      * </ul>
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-beginpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-beginpath
      * @since windows5.0
      */
-    static BeginPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static BeginPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\BeginPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\BeginPath", "ptr", hdc_, "int")
         return result
     }
 
@@ -13781,33 +13791,33 @@ class Gdi {
      * A figure in a path is open unless it is explicitly closed by using this function. (A figure can be open even if the current point and the starting point of the figure are the same.)
      * 
      * After a call to <b>CloseFigure</b>, adding a line or curve to the path starts a new figure.
-     * @param {HDC} hdc Handle to the device context in which the figure will be closed.
+     * @param {HDC} hdc_ Handle to the device context in which the figure will be closed.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-closefigure
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-closefigure
      * @since windows5.0
      */
-    static CloseFigure(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CloseFigure(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CloseFigure", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\CloseFigure", "ptr", hdc_, "int")
         return result
     }
 
     /**
      * The EndPath function closes a path bracket and selects the path defined by the bracket into the specified device context.
-     * @param {HDC} hdc A handle to the device context into which the new path is selected.
+     * @param {HDC} hdc_ A handle to the device context into which the new path is selected.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-endpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-endpath
      * @since windows5.0
      */
-    static EndPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EndPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\EndPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\EndPath", "ptr", hdc_, "int")
         return result
     }
 
@@ -13815,33 +13825,33 @@ class Gdi {
      * The FillPath function closes any open figures in the current path and fills the path's interior by using the current brush and polygon-filling mode.
      * @remarks
      * After its interior is filled, the path is discarded from the DC identified by the <i>hdc</i> parameter.
-     * @param {HDC} hdc A handle to a device context that contains a valid path.
+     * @param {HDC} hdc_ A handle to a device context that contains a valid path.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-fillpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-fillpath
      * @since windows5.0
      */
-    static FillPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static FillPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\FillPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\FillPath", "ptr", hdc_, "int")
         return result
     }
 
     /**
      * The FlattenPath function transforms any curves in the path that is selected into the current device context (DC), turning each curve into a sequence of lines.
-     * @param {HDC} hdc A handle to a DC that contains a valid path.
+     * @param {HDC} hdc_ A handle to a DC that contains a valid path.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-flattenpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-flattenpath
      * @since windows5.0
      */
-    static FlattenPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static FlattenPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\FlattenPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\FlattenPath", "ptr", hdc_, "int")
         return result
     }
 
@@ -13853,20 +13863,20 @@ class Gdi {
      * The points of the path are returned in logical coordinates. Points are stored in the path in device coordinates, so <b>GetPath</b> changes the points from device coordinates to logical coordinates by using the inverse of the current transformation.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-flattenpath">FlattenPath</a> function may be called before <b>GetPath</b> to convert all curves in the path into line segments.
-     * @param {HDC} hdc A handle to a device context that contains a closed path.
+     * @param {HDC} hdc_ A handle to a device context that contains a closed path.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that receives the line endpoints and curve control points, in logical coordinates.
      * @param {Pointer<Integer>} aj 
      * @param {Integer} cpt The total number of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that can be stored in the array pointed to by <i>lpPoints</i>. This value must be the same as the number of bytes that can be placed in the array pointed to by <i>lpTypes</i>.
      * @returns {Integer} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getpath
      * @since windows5.0
      */
-    static GetPath(hdc, apt, aj, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetPath(hdc_, apt, aj, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         ajMarshal := aj is VarRef ? "char*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetPath", "ptr", hdc, "ptr", apt, ajMarshal, aj, "int", cpt, "int")
+        result := DllCall("GDI32.dll\GetPath", "ptr", hdc_, "ptr", apt, ajMarshal, aj, "int", cpt, "int")
         return result
     }
 
@@ -13878,17 +13888,17 @@ class Gdi {
      * The device context identified by the <i>hdc</i> parameter must contain a closed path.
      * 
      * After <b>PathToRegion</b> converts a path into a region, the system discards the closed path from the specified device context.
-     * @param {HDC} hdc Handle to a device context that contains a closed path.
+     * @param {HDC} hdc_ Handle to a device context that contains a closed path.
      * @returns {HRGN} If the function succeeds, the return value identifies a valid region.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-pathtoregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-pathtoregion
      * @since windows5.0
      */
-    static PathToRegion(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PathToRegion(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PathToRegion", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\PathToRegion", "ptr", hdc_, "ptr")
         resultHandle := HRGN({Value: result}, True)
         return resultHandle
     }
@@ -13901,22 +13911,22 @@ class Gdi {
      * The points contained in the <i>lppt</i> array and in the <i>lpbTypes</i> array indicate whether each point is part of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-movetoex">MoveTo</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polybezierto">PolyBezierTo</a> operation. It is also possible to close figures.
      * 
      * This function updates the current position.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the endpoints for each line segment and the endpoints and control points for each Bézier curve, in logical units.
      * @param {Pointer<Integer>} aj 
      * @param {Integer} cpt The total number of points in the <i>lppt</i> array, the same as the number of bytes in the <i>lpbTypes</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polydraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polydraw
      * @since windows5.0
      */
-    static PolyDraw(hdc, apt, aj, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyDraw(hdc_, apt, aj, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         ajMarshal := aj is VarRef ? "char*" : "ptr"
 
-        result := DllCall("GDI32.dll\PolyDraw", "ptr", hdc, "ptr", apt, ajMarshal, aj, "int", cpt, "int")
+        result := DllCall("GDI32.dll\PolyDraw", "ptr", hdc_, "ptr", apt, ajMarshal, aj, "int", cpt, "int")
         return result
     }
 
@@ -13924,18 +13934,18 @@ class Gdi {
      * The SelectClipPath function selects the current path as a clipping region for a device context, combining the new region with any existing clipping region using the specified mode.
      * @remarks
      * The device context identified by the <i>hdc</i> parameter must contain a closed path.
-     * @param {HDC} hdc A handle to the device context of the path.
-     * @param {Integer} mode 
+     * @param {HDC} hdc_ A handle to the device context of the path.
+     * @param {Integer} mode_ 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-selectclippath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-selectclippath
      * @since windows5.0
      */
-    static SelectClipPath(hdc, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SelectClipPath(hdc_, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SelectClipPath", "ptr", hdc, "int", mode, "int")
+        result := DllCall("GDI32.dll\SelectClipPath", "ptr", hdc_, "int", mode_, "int")
         return result
     }
 
@@ -13969,18 +13979,18 @@ class Gdi {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-roundrect">RoundRect</a>
      * </li>
      * </ul>
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} dir 
      * @returns {Integer} If the function succeeds, the return value specifies the old arc direction.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setarcdirection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setarcdirection
      * @since windows5.0
      */
-    static SetArcDirection(hdc, dir) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetArcDirection(hdc_, dir) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetArcDirection", "ptr", hdc, "int", dir, "int")
+        result := DllCall("GDI32.dll\SetArcDirection", "ptr", hdc_, "int", dir, "int")
         return result
     }
 
@@ -13993,21 +14003,21 @@ class Gdi {
      * 
      * <div class="alert"><b>Note</b>  Setting <i>eNewLimit</i> to a float value less than 1.0f will cause the function to fail.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @param {Float} limit Specifies the new miter limit for the device context.
      * @param {Pointer<Float>} old Pointer to a floating-point value that receives the previous miter limit. If this parameter is <b>NULL</b>, the previous miter limit is not returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setmiterlimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setmiterlimit
      * @since windows5.0
      */
-    static SetMiterLimit(hdc, limit, old) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetMiterLimit(hdc_, limit, old) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         oldMarshal := old is VarRef ? "float*" : "ptr"
 
-        result := DllCall("GDI32.dll\SetMiterLimit", "ptr", hdc, "float", limit, oldMarshal, old, "int")
+        result := DllCall("GDI32.dll\SetMiterLimit", "ptr", hdc_, "float", limit, oldMarshal, old, "int")
         return result
     }
 
@@ -14017,17 +14027,17 @@ class Gdi {
      * The device context identified by the <i>hdc</i> parameter must contain a closed path.
      * 
      * The <b>StrokeAndFillPath</b> function has the same effect as closing all the open figures in the path, and stroking and filling the path separately, except that the filled region will not overlap the stroked region even if the pen is wide.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-strokeandfillpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-strokeandfillpath
      * @since windows5.0
      */
-    static StrokeAndFillPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static StrokeAndFillPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\StrokeAndFillPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\StrokeAndFillPath", "ptr", hdc_, "int")
         return result
     }
 
@@ -14035,17 +14045,17 @@ class Gdi {
      * The StrokePath function renders the specified path by using the current pen.
      * @remarks
      * The path, if it is to be drawn by <b>StrokePath</b>, must have been completed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-endpath">EndPath</a>. Calling this function on a path for which <b>EndPath</b> has not been called will cause this function to fail and return zero.  Unlike other path drawing functions such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-strokeandfillpath">StrokeAndFillPath</a>, <b>StrokePath</b> will not attempt to close the path by drawing a straight line from the first point on the path to the last point on the path.
-     * @param {HDC} hdc Handle to a device context that contains the completed path.
+     * @param {HDC} hdc_ Handle to a device context that contains the completed path.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-strokepath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-strokepath
      * @since windows5.0
      */
-    static StrokePath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static StrokePath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\StrokePath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\StrokePath", "ptr", hdc_, "int")
         return result
     }
 
@@ -14057,17 +14067,17 @@ class Gdi {
      * The device context identified by the <i>hdc</i> parameter must contain a closed path.
      * 
      * Any Bézier curves in the path are converted to sequences of straight lines approximating the widened curves. As such, no Bézier curves remain in the path after <b>WidenPath</b> is called.
-     * @param {HDC} hdc A handle to a device context that contains a closed path.
+     * @param {HDC} hdc_ A handle to a device context that contains a closed path.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-widenpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-widenpath
      * @since windows5.0
      */
-    static WidenPath(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static WidenPath(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\WidenPath", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\WidenPath", "ptr", hdc_, "int")
         return result
     }
 
@@ -14105,7 +14115,7 @@ class Gdi {
      * @returns {HPEN} If the function succeeds, the return value is a handle that identifies a logical pen.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extcreatepen
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-extcreatepen
      * @since windows5.0
      */
     static ExtCreatePen(iPenStyle, cWidth, plbrush, cStyle, pstyle) {
@@ -14120,26 +14130,26 @@ class Gdi {
      * The GetMiterLimit function retrieves the miter limit for the specified device context.
      * @remarks
      * The miter limit is used when drawing geometric lines that have miter joins.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @param {Pointer<Float>} plimit Pointer to a floating-point value that receives the current miter limit.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getmiterlimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getmiterlimit
      * @since windows5.0
      */
-    static GetMiterLimit(hdc, plimit) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetMiterLimit(hdc_, plimit) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         plimitMarshal := plimit is VarRef ? "float*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetMiterLimit", "ptr", hdc, plimitMarshal, plimit, "int")
+        result := DllCall("GDI32.dll\GetMiterLimit", "ptr", hdc_, plimitMarshal, plimit, "int")
         return result
     }
 
     /**
      * The GetArcDirection function retrieves the current arc direction for the specified device context. Arc and rectangle functions use the arc direction.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @returns {Integer} The return value specifies the current arc direction; it can be any one of the following values:
      * 
      * <table>
@@ -14156,13 +14166,13 @@ class Gdi {
      * <td>Arcs and rectangles are drawn clockwise.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getarcdirection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getarcdirection
      * @since windows5.0
      */
-    static GetArcDirection(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetArcDirection(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetArcDirection", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\GetArcDirection", "ptr", hdc_, "int")
         return result
     }
 
@@ -14186,7 +14196,7 @@ class Gdi {
      * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobjectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getobjectw
      * @since windows5.0
      */
     static GetObjectW(h, c, pv) {
@@ -14200,20 +14210,20 @@ class Gdi {
      * The MoveToEx function updates the current position to the specified point and optionally returns the previous position.
      * @remarks
      * The <b>MoveToEx</b> function affects all drawing functions.
-     * @param {HDC} hdc Handle to a device context.
+     * @param {HDC} hdc_ Handle to a device context.
      * @param {Integer} x Specifies the x-coordinate, in logical units, of the new position, in logical units.
      * @param {Integer} y Specifies the y-coordinate, in logical units, of the new position, in logical units.
      * @param {Pointer<POINT>} lppt Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous current position. If this parameter is a <b>NULL</b> pointer, the previous position is not returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-movetoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-movetoex
      * @since windows5.0
      */
-    static MoveToEx(hdc, x, y, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static MoveToEx(hdc_, x, y, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\MoveToEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\MoveToEx", "ptr", hdc_, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -14356,7 +14366,7 @@ class Gdi {
      * FillRect(hdc, &r, GetStockObject(GRAY_BRUSH));
      * 
      * ```
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
      * @param {PSTR} lpString A pointer to the string to be drawn. The string does not need to be zero-terminated, because <i>cchString</i> specifies the length of the string.
@@ -14364,14 +14374,14 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-textouta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-textouta
      * @since windows5.0
      */
-    static TextOutA(hdc, x, y, lpString, c) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static TextOutA(hdc_, x, y, lpString, c) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\TextOutA", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "int")
+        result := DllCall("GDI32.dll\TextOutA", "ptr", hdc_, "int", x, "int", y, "ptr", lpString, "int", c, "int")
         return result
     }
 
@@ -14514,7 +14524,7 @@ class Gdi {
      * FillRect(hdc, &r, GetStockObject(GRAY_BRUSH));
      * 
      * ```
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point that the system uses to align the string.
      * @param {PWSTR} lpString A pointer to the string to be drawn. The string does not need to be zero-terminated, because <i>cchString</i> specifies the length of the string.
@@ -14522,14 +14532,14 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-textoutw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-textoutw
      * @since windows5.0
      */
-    static TextOutW(hdc, x, y, lpString, c) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static TextOutW(hdc_, x, y, lpString, c) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
-        result := DllCall("GDI32.dll\TextOutW", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", c, "int")
+        result := DllCall("GDI32.dll\TextOutW", "ptr", hdc_, "int", x, "int", y, "ptr", lpString, "int", c, "int")
         return result
     }
 
@@ -14653,7 +14663,7 @@ class Gdi {
      * 
      * > [!TIP]
      * >  **ExtTextOut** is strongly recommended over **PolyTextOut** for modern development due to its ability to handle display of different languages.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point used to position the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point used to position the string.
      * @param {Integer} options 
@@ -14666,16 +14676,16 @@ class Gdi {
      * @returns {BOOL} If the string is drawn, the return value is nonzero. However, if the ANSI version of <b>ExtTextOut</b> is called with ETO_GLYPH_INDEX, the function returns <b>TRUE</b> even though the function does nothing.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-exttextouta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-exttextouta
      * @since windows5.0
      */
-    static ExtTextOutA(hdc, x, y, options, lprect, lpString, c, lpDx) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ExtTextOutA(hdc_, x, y, options, lprect, lpString, c, lpDx) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         lpDxMarshal := lpDx is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\ExtTextOutA", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, lpDxMarshal, lpDx, "int")
+        result := DllCall("GDI32.dll\ExtTextOutA", "ptr", hdc_, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, lpDxMarshal, lpDx, "int")
         return result
     }
 
@@ -14798,7 +14808,7 @@ class Gdi {
      * 
      * > [!TIP]
      * >  **ExtTextOut** is strongly recommended over **PolyTextOut** for modern development due to its ability to handle display of different languages.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical coordinates, of the reference point used to position the string.
      * @param {Integer} y The y-coordinate, in logical coordinates, of the reference point used to position the string.
      * @param {Integer} options 
@@ -14811,16 +14821,16 @@ class Gdi {
      * @returns {BOOL} If the string is drawn, the return value is nonzero. However, if the ANSI version of <b>ExtTextOut</b> is called with ETO_GLYPH_INDEX, the function returns <b>TRUE</b> even though the function does nothing.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-exttextoutw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-exttextoutw
      * @since windows5.0
      */
-    static ExtTextOutW(hdc, x, y, options, lprect, lpString, c, lpDx) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ExtTextOutW(hdc_, x, y, options, lprect, lpString, c, lpDx) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         lpDxMarshal := lpDx is VarRef ? "int*" : "ptr"
 
-        result := DllCall("GDI32.dll\ExtTextOutW", "ptr", hdc, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, lpDxMarshal, lpDx, "int")
+        result := DllCall("GDI32.dll\ExtTextOutW", "ptr", hdc_, "int", x, "int", y, "uint", options, "ptr", lprect, "ptr", lpString, "uint", c, lpDxMarshal, lpDx, "int")
         return result
     }
 
@@ -14840,19 +14850,19 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines PolyTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POLYTEXTA>} ppt A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures describing the strings to be drawn. The array contains one structure for each string to be drawn.
      * @param {Integer} nstrings The number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures in the <i>pptxt</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polytextouta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polytextouta
      * @since windows5.0
      */
-    static PolyTextOutA(hdc, ppt, nstrings) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyTextOutA(hdc_, ppt, nstrings) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PolyTextOutA", "ptr", hdc, "ptr", ppt, "int", nstrings, "int")
+        result := DllCall("GDI32.dll\PolyTextOutA", "ptr", hdc_, "ptr", ppt, "int", nstrings, "int")
         return result
     }
 
@@ -14870,19 +14880,19 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines PolyTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POLYTEXTW>} ppt A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures describing the strings to be drawn. The array contains one structure for each string to be drawn.
      * @param {Integer} nstrings The number of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-polytexta">POLYTEXT</a> structures in the <i>pptxt</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polytextoutw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polytextoutw
      * @since windows5.0
      */
-    static PolyTextOutW(hdc, ppt, nstrings) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyTextOutW(hdc_, ppt, nstrings) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PolyTextOutW", "ptr", hdc, "ptr", ppt, "int", nstrings, "int")
+        result := DllCall("GDI32.dll\PolyTextOutW", "ptr", hdc_, "ptr", ppt, "int", nstrings, "int")
         return result
     }
 
@@ -14895,16 +14905,16 @@ class Gdi {
      * 
      * Regions created by the Create&lt;shape&gt;Rgn methods (such as <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createrectrgn">CreateRectRgn</a> and <b>CreatePolygonRgn</b>) only include the interior of the shape; the shape's outline is excluded from the region. This means that any point on a line between two sequential vertices is not included in the region. If you were to call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-ptinregion">PtInRegion</a> for such a point, it would return zero as the result.
      * @param {Pointer<POINT>} pptl A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that define the vertices of the polygon in logical units. The polygon is presumed closed. Each vertex can be specified only once.
-     * @param {Integer} cPoint The number of points in the array.
+     * @param {Integer} cPoint_ The number of points in the array.
      * @param {Integer} iMode 
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createpolygonrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpolygonrgn
      * @since windows5.0
      */
-    static CreatePolygonRgn(pptl, cPoint, iMode) {
-        result := DllCall("GDI32.dll\CreatePolygonRgn", "ptr", pptl, "int", cPoint, "int", iMode, "ptr")
+    static CreatePolygonRgn(pptl, cPoint_, iMode) {
+        result := DllCall("GDI32.dll\CreatePolygonRgn", "ptr", pptl, "int", cPoint_, "int", iMode, "ptr")
         resultHandle := HRGN({Value: result}, True)
         return resultHandle
     }
@@ -14913,19 +14923,19 @@ class Gdi {
      * The DPtoLP function converts device coordinates into logical coordinates. The conversion depends on the mapping mode of the device context, the settings of the origins and extents for the window and viewport, and the world transformation.
      * @remarks
      * The <b>DPtoLP</b> function fails if the device coordinates exceed 27 bits, or if the converted logical coordinates exceed 32 bits. In the case of such an overflow, the results for all the points are undefined.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} lppt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures. The x- and y-coordinates contained in each <b>POINT</b> structure will be transformed.
      * @param {Integer} c The number of points in the array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-dptolp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-dptolp
      * @since windows5.0
      */
-    static DPtoLP(hdc, lppt, c) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DPtoLP(hdc_, lppt, c) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\DPtoLP", "ptr", hdc, "ptr", lppt, "int", c, "int")
+        result := DllCall("GDI32.dll\DPtoLP", "ptr", hdc_, "ptr", lppt, "int", c, "int")
         return result
     }
 
@@ -14935,19 +14945,19 @@ class Gdi {
      * The <b>LPtoDP</b> function fails if the logical coordinates exceed 32 bits, or if the converted device coordinates exceed 27 bits. In the case of such an overflow, the results for all the points are undefined.
      * 
      * <b>LPtoDP</b> calculates complex floating-point arithmetic, and it has a caching system for efficiency. Therefore, the conversion result of an initial call to <b>LPtoDP</b> might not exactly match the conversion result of a later call to <b>LPtoDP</b>. We recommend not to write code that relies on the exact match of the conversion results from multiple calls to <b>LPtoDP</b> even if the parameters that are passed to each call are identical.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} lppt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures. The x-coordinates and y-coordinates contained in each of the <b>POINT</b> structures will be transformed.
      * @param {Integer} c The number of points in the array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-lptodp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-lptodp
      * @since windows5.0
      */
-    static LPtoDP(hdc, lppt, c) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static LPtoDP(hdc_, lppt, c) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\LPtoDP", "ptr", hdc, "ptr", lppt, "int", c, "int")
+        result := DllCall("GDI32.dll\LPtoDP", "ptr", hdc_, "ptr", lppt, "int", c, "int")
         return result
     }
 
@@ -14959,19 +14969,19 @@ class Gdi {
      * The current position is neither used nor updated by the <b>Polygon</b> function.
      * 
      * Any extra points are ignored. To draw a line with more points, divide your data into groups, each of which have less than the maximum number of points, and call the function for each group of points. Remember to connect the line segments.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that specify the vertices of the polygon, in logical coordinates.
      * @param {Integer} cpt The number of vertices in the array. This value must be greater than or equal to 2.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polygon
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polygon
      * @since windows5.0
      */
-    static Polygon(hdc, apt, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Polygon(hdc_, apt, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Polygon", "ptr", hdc, "ptr", apt, "int", cpt, "int")
+        result := DllCall("GDI32.dll\Polygon", "ptr", hdc_, "ptr", apt, "int", cpt, "int")
         return result
     }
 
@@ -14979,19 +14989,19 @@ class Gdi {
      * The Polyline function draws a series of line segments by connecting the points in the specified array.
      * @remarks
      * The lines are drawn from the first point through subsequent points by using the current pen. Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-lineto">LineTo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polylineto">PolylineTo</a> functions, the <b>Polyline</b> function neither uses nor updates the current position.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures, in logical units.
      * @param {Integer} cpt The number of points in the array. This number must be greater than or equal to two.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polyline
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polyline
      * @since windows5.0
      */
-    static Polyline(hdc, apt, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Polyline(hdc_, apt, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\Polyline", "ptr", hdc, "ptr", apt, "int", cpt, "int")
+        result := DllCall("GDI32.dll\Polyline", "ptr", hdc_, "ptr", apt, "int", cpt, "int")
         return result
     }
 
@@ -15003,19 +15013,19 @@ class Gdi {
      * The current position is neither used nor updated by the <b>PolyBezier</b> function. The figure is not filled.
      * 
      * This function draws lines by using the current pen.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contain the endpoints and control points of the curve(s), in logical units.
      * @param {Integer} cpt The number of points in the <i>lppt</i> array. This value must be one more than three times the number of curves to be drawn, because each Bézier curve requires two control points and an endpoint, and the initial curve requires an additional starting point.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polybezier
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polybezier
      * @since windows5.0
      */
-    static PolyBezier(hdc, apt, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyBezier(hdc_, apt, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PolyBezier", "ptr", hdc, "ptr", apt, "uint", cpt, "int")
+        result := DllCall("GDI32.dll\PolyBezier", "ptr", hdc_, "ptr", apt, "uint", cpt, "int")
         return result
     }
 
@@ -15027,19 +15037,19 @@ class Gdi {
      * <b>PolyBezierTo</b> moves the current position to the ending point of the last Bézier curve. The figure is not filled.
      * 
      * This function draws lines by using the current pen.
-     * @param {HDC} hdc A handle to a device context.
+     * @param {HDC} hdc_ A handle to a device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the endpoints and control points, in logical units.
      * @param {Integer} cpt The number of points in the <i>lppt</i> array. This value must be three times the number of curves to be drawn because each Bézier curve requires two control points and an ending point.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polybezierto
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polybezierto
      * @since windows5.0
      */
-    static PolyBezierTo(hdc, apt, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolyBezierTo(hdc_, apt, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PolyBezierTo", "ptr", hdc, "ptr", apt, "uint", cpt, "int")
+        result := DllCall("GDI32.dll\PolyBezierTo", "ptr", hdc_, "ptr", apt, "uint", cpt, "int")
         return result
     }
 
@@ -15053,19 +15063,19 @@ class Gdi {
      * <b>PolylineTo</b> moves the current position to the ending point of the last line.
      * 
      * If the line segments drawn by this function form a closed figure, the figure is not filled.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structures that contains the vertices of the line, in logical units.
      * @param {Integer} cpt The number of points in the array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-polylineto
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-polylineto
      * @since windows5.0
      */
-    static PolylineTo(hdc, apt, cpt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PolylineTo(hdc_, apt, cpt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\PolylineTo", "ptr", hdc, "ptr", apt, "uint", cpt, "int")
+        result := DllCall("GDI32.dll\PolylineTo", "ptr", hdc_, "ptr", apt, "uint", cpt, "int")
         return result
     }
 
@@ -15085,20 +15095,20 @@ class Gdi {
      * <li>MM_TWIPS</li>
      * </ul>
      * When MM_ISOTROPIC mode is set, an application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindowextex">SetWindowExtEx</a> function before it calls <b>SetViewportExtEx</b>. Note that for the MM_ISOTROPIC mode certain portions of a nonsquare screen may not be available for display because the logical units on both axes represent equal physical distances.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The horizontal extent, in device units, of the viewport.
      * @param {Integer} y The vertical extent, in device units, of the viewport.
      * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the previous viewport extents, in device units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setviewportextex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setviewportextex
      * @since windows5.0
      */
-    static SetViewportExtEx(hdc, x, y, lpsz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetViewportExtEx(hdc_, x, y, lpsz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetViewportExtEx", "ptr", hdc, "int", x, "int", y, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\SetViewportExtEx", "ptr", hdc_, "int", x, "int", y, "ptr", lpsz, "int")
         return result
     }
 
@@ -15117,20 +15127,20 @@ class Gdi {
      * 
      * 
      * This is related to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setwindoworgex">SetWindowOrgEx</a> function. Generally, you will use one function or the other, but not both. Regardless of your use of <b>SetWindowOrgEx</b> and <b>SetViewportOrgEx</b>, the device point (0,0) is always the upper-left corner.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in device units, of the new viewport origin.
      * @param {Integer} y The y-coordinate, in device units, of the new viewport origin.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous viewport origin, in device coordinates. If <i>lpPoint</i> is <b>NULL</b>, this parameter is not used.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setviewportorgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setviewportorgex
      * @since windows5.0
      */
-    static SetViewportOrgEx(hdc, x, y, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetViewportOrgEx(hdc_, x, y, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetViewportOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\SetViewportOrgEx", "ptr", hdc_, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -15150,20 +15160,20 @@ class Gdi {
      * <li>MM_TWIPS</li>
      * </ul>
      * When MM_ISOTROPIC mode is set, an application must call the <b>SetWindowExtEx</b> function before calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportextex">SetViewportExtEx</a>. Note that for the MM_ISOTROPIC mode, certain portions of a nonsquare screen may not be available for display because the logical units on both axes represent equal physical distances.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The window's horizontal extent in logical units.
      * @param {Integer} y The window's vertical extent in logical units.
      * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that receives the previous window extents, in logical units. If <i>lpSize</i> is <b>NULL</b>, this parameter is not used.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setwindowextex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setwindowextex
      * @since windows5.0
      */
-    static SetWindowExtEx(hdc, x, y, lpsz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetWindowExtEx(hdc_, x, y, lpsz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetWindowExtEx", "ptr", hdc, "int", x, "int", y, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\SetWindowExtEx", "ptr", hdc_, "int", x, "int", y, "ptr", lpsz, "int")
         return result
     }
 
@@ -15182,20 +15192,20 @@ class Gdi {
      * 
      * 
      * This is related to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setviewportorgex">SetViewportOrgEx</a> function. Generally, you will use one function or the other, but not both. Regardless of your use of <b>SetWindowOrgEx</b> and <b>SetViewportOrgEx</b>, the device point (0,0) is always the upper-left corner.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in logical units, of the new window origin.
      * @param {Integer} y The y-coordinate, in logical units, of the new window origin.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous origin of the window, in logical units. If <i>lpPoint</i> is <b>NULL</b>, this parameter is not used.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setwindoworgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setwindoworgex
      * @since windows5.0
      */
-    static SetWindowOrgEx(hdc, x, y, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetWindowOrgEx(hdc_, x, y, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetWindowOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\SetWindowOrgEx", "ptr", hdc_, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -15203,39 +15213,39 @@ class Gdi {
      * The OffsetViewportOrgEx function modifies the viewport origin for a device context using the specified horizontal and vertical offsets.
      * @remarks
      * The new origin is the sum of the current origin and the horizontal and vertical offsets.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The horizontal offset, in device units.
      * @param {Integer} y The vertical offset, in device units.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure. The previous viewport origin, in device units, is placed in this structure. If <i>lpPoint</i> is <b>NULL</b>, the previous viewport origin is not returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetviewportorgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-offsetviewportorgex
      * @since windows5.0
      */
-    static OffsetViewportOrgEx(hdc, x, y, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static OffsetViewportOrgEx(hdc_, x, y, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\OffsetViewportOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\OffsetViewportOrgEx", "ptr", hdc_, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
     /**
      * The OffsetWindowOrgEx function modifies the window origin for a device context using the specified horizontal and vertical offsets.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The horizontal offset, in logical units.
      * @param {Integer} y The vertical offset, in logical units.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure. The logical coordinates of the previous window origin are placed in this structure. If <i>lpPoint</i> is <b>NULL</b>, the previous origin is not returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-offsetwindoworgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-offsetwindoworgex
      * @since windows5.0
      */
-    static OffsetWindowOrgEx(hdc, x, y, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static OffsetWindowOrgEx(hdc_, x, y, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\OffsetWindowOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\OffsetWindowOrgEx", "ptr", hdc_, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -15251,7 +15261,7 @@ class Gdi {
      *     yNewVE = (yOldVE * Ynum) / Ydenom 
      * 
      * ```
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} xn The amount by which to multiply the current horizontal extent.
      * @param {Integer} dx The amount by which to divide the current horizontal extent.
      * @param {Integer} yn The amount by which to multiply the current vertical extent.
@@ -15260,13 +15270,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-scaleviewportextex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-scaleviewportextex
      * @since windows5.0
      */
-    static ScaleViewportExtEx(hdc, xn, dx, yn, yd, lpsz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScaleViewportExtEx(hdc_, xn, dx, yn, yd, lpsz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ScaleViewportExtEx", "ptr", hdc, "int", xn, "int", dx, "int", yn, "int", yd, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\ScaleViewportExtEx", "ptr", hdc_, "int", xn, "int", dx, "int", yn, "int", yd, "ptr", lpsz, "int")
         return result
     }
 
@@ -15282,7 +15292,7 @@ class Gdi {
      *     yNewWE = (yOldWE * Ynum) / Ydenom 
      * 
      * ```
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} xn The amount by which to multiply the current horizontal extent.
      * @param {Integer} xd The amount by which to divide the current horizontal extent.
      * @param {Integer} yn The amount by which to multiply the current vertical extent.
@@ -15291,13 +15301,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-scalewindowextex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-scalewindowextex
      * @since windows5.0
      */
-    static ScaleWindowExtEx(hdc, xn, xd, yn, yd, lpsz) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ScaleWindowExtEx(hdc_, xn, xd, yn, yd, lpsz) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ScaleWindowExtEx", "ptr", hdc, "int", xn, "int", xd, "int", yn, "int", yd, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\ScaleWindowExtEx", "ptr", hdc_, "int", xn, "int", xd, "int", yn, "int", yd, "ptr", lpsz, "int")
         return result
     }
 
@@ -15307,20 +15317,20 @@ class Gdi {
      * An application can retrieve the dimensions assigned to a bitmap with the <b>SetBitmapDimensionEx</b> function by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getbitmapdimensionex">GetBitmapDimensionEx</a> function.
      * 
      * The bitmap identified by <i>hBitmap</i> cannot be a DIB section, which is a bitmap created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function. If the bitmap is a DIB section, the <b>SetBitmapDimensionEx</b> function fails.
-     * @param {HBITMAP} hbm A handle to the bitmap. The bitmap cannot be a DIB-section bitmap.
+     * @param {HBITMAP} hbm_ A handle to the bitmap. The bitmap cannot be a DIB-section bitmap.
      * @param {Integer} w The width, in 0.1-millimeter units, of the bitmap.
      * @param {Integer} h The height, in 0.1-millimeter units, of the bitmap.
      * @param {Pointer<SIZE>} lpsz A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure to receive the previous dimensions of the bitmap. This pointer can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapdimensionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setbitmapdimensionex
      * @since windows5.0
      */
-    static SetBitmapDimensionEx(hbm, w, h, lpsz) {
-        hbm := hbm is Win32Handle ? NumGet(hbm, "ptr") : hbm
+    static SetBitmapDimensionEx(hbm_, w, h, lpsz) {
+        hbm_ := hbm_ is Win32Handle ? NumGet(hbm_, "ptr") : hbm_
 
-        result := DllCall("GDI32.dll\SetBitmapDimensionEx", "ptr", hbm, "int", w, "int", h, "ptr", lpsz, "int")
+        result := DllCall("GDI32.dll\SetBitmapDimensionEx", "ptr", hbm_, "int", w, "int", h, "ptr", lpsz, "int")
         return result
     }
 
@@ -15336,7 +15346,7 @@ class Gdi {
      * An application should call <b>SetBrushOrgEx</b> after setting the bitmap stretching mode to HALFTONE by using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setstretchbltmode">SetStretchBltMode</a>. This must be done to avoid brush misalignment.
      * 
      * The system automatically tracks the origin of all window-managed device contexts and adjusts their brushes as necessary to maintain an alignment of patterns on the surface.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate, in device units, of the new brush origin. If this value is greater than the brush width, its value is reduced using the modulus operator (<i>nXOrg</i> <b>mod</b> brush width).
      * @param {Integer} y The y-coordinate, in device units, of the new brush origin. If this value is greater than the brush height, its value is reduced using the modulus operator (<i>nYOrg</i> <b>mod</b> brush height).
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the previous brush origin.
@@ -15345,13 +15355,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbrushorgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setbrushorgex
      * @since windows5.0
      */
-    static SetBrushOrgEx(hdc, x, y, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetBrushOrgEx(hdc_, x, y, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetBrushOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\SetBrushOrgEx", "ptr", hdc_, "int", x, "int", y, "ptr", lppt, "int")
         return result
     }
 
@@ -15368,20 +15378,20 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetTextFace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} c The length of the buffer pointed to by <i>lpFaceName</i>. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {PSTR} lpName A pointer to the buffer that receives the typeface name. If this parameter is <b>NULL</b>, the function returns the number of characters in the name, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of characters copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextfacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextfacea
      * @since windows5.0
      */
-    static GetTextFaceA(hdc, c, lpName) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextFaceA(hdc_, c, lpName) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("GDI32.dll\GetTextFaceA", "ptr", hdc, "int", c, "ptr", lpName, "int")
+        result := DllCall("GDI32.dll\GetTextFaceA", "ptr", hdc_, "int", c, "ptr", lpName, "int")
         return result
     }
 
@@ -15398,20 +15408,20 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetTextFace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} c The length of the buffer pointed to by <i>lpFaceName</i>. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {PWSTR} lpName A pointer to the buffer that receives the typeface name. If this parameter is <b>NULL</b>, the function returns the number of characters in the name, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is the number of characters copied to the buffer.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextfacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gettextfacew
      * @since windows5.0
      */
-    static GetTextFaceW(hdc, c, lpName) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTextFaceW(hdc_, c, lpName) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("GDI32.dll\GetTextFaceW", "ptr", hdc, "int", c, "ptr", lpName, "int")
+        result := DllCall("GDI32.dll\GetTextFaceW", "ptr", hdc_, "int", c, "ptr", lpName, "int")
         return result
     }
 
@@ -15420,19 +15430,19 @@ class Gdi {
      * @remarks
      * > [!NOTE]
      * > The wingdi.h header defines GetKerningPairs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} nPairs The number of pairs in the <i>lpkrnpair</i> array. If the font has more than <i>nNumPairs</i> kerning pairs, the function returns an error.
      * @param {Pointer<KERNINGPAIR>} lpKernPair A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-kerningpair">KERNINGPAIR</a> structures that receives the kerning pairs. The array must contain at least as many structures as specified by the <i>nNumPairs</i> parameter. If this parameter is <b>NULL</b>, the function returns the total number of kerning pairs for the font.
      * @returns {Integer} If the function succeeds, the return value is the number of kerning pairs returned.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getkerningpairsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getkerningpairsa
      * @since windows5.0
      */
-    static GetKerningPairsA(hdc, nPairs, lpKernPair) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetKerningPairsA(hdc_, nPairs, lpKernPair) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetKerningPairsA", "ptr", hdc, "uint", nPairs, "ptr", lpKernPair, "uint")
+        result := DllCall("GDI32.dll\GetKerningPairsA", "ptr", hdc_, "uint", nPairs, "ptr", lpKernPair, "uint")
         return result
     }
 
@@ -15441,19 +15451,19 @@ class Gdi {
      * @remarks
      * > [!NOTE]
      * > The wingdi.h header defines GetKerningPairs as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} nPairs The number of pairs in the <i>lpkrnpair</i> array. If the font has more than <i>nNumPairs</i> kerning pairs, the function returns an error.
      * @param {Pointer<KERNINGPAIR>} lpKernPair A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-kerningpair">KERNINGPAIR</a> structures that receives the kerning pairs. The array must contain at least as many structures as specified by the <i>nNumPairs</i> parameter. If this parameter is <b>NULL</b>, the function returns the total number of kerning pairs for the font.
      * @returns {Integer} If the function succeeds, the return value is the number of kerning pairs returned.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getkerningpairsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getkerningpairsw
      * @since windows5.0
      */
-    static GetKerningPairsW(hdc, nPairs, lpKernPair) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetKerningPairsW(hdc_, nPairs, lpKernPair) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetKerningPairsW", "ptr", hdc, "uint", nPairs, "ptr", lpKernPair, "uint")
+        result := DllCall("GDI32.dll\GetKerningPairsW", "ptr", hdc_, "uint", nPairs, "ptr", lpKernPair, "uint")
         return result
     }
 
@@ -15461,33 +15471,33 @@ class Gdi {
      * The GetDCOrgEx function retrieves the final translation origin for a specified device context (DC).
      * @remarks
      * The final translation origin is relative to the physical origin of the screen.
-     * @param {HDC} hdc A handle to the DC whose final translation origin is to be retrieved.
+     * @param {HDC} hdc_ A handle to the DC whose final translation origin is to be retrieved.
      * @param {Pointer<POINT>} lppt A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that receives the final translation origin, in device coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdcorgex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdcorgex
      * @since windows5.0
      */
-    static GetDCOrgEx(hdc, lppt) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDCOrgEx(hdc_, lppt) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetDCOrgEx", "ptr", hdc, "ptr", lppt, "int")
+        result := DllCall("GDI32.dll\GetDCOrgEx", "ptr", hdc_, "ptr", lppt, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} hdc_ 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Pointer<POINT>} ptl 
      * @returns {BOOL} 
      */
-    static FixBrushOrgEx(hdc, x, y, ptl) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static FixBrushOrgEx(hdc_, x, y, ptl) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\FixBrushOrgEx", "ptr", hdc, "int", x, "int", y, "ptr", ptl, "int")
+        result := DllCall("GDI32.dll\FixBrushOrgEx", "ptr", hdc_, "int", x, "int", y, "ptr", ptl, "int")
         return result
     }
 
@@ -15503,7 +15513,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-unrealizeobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-unrealizeobject
      * @since windows5.0
      */
     static UnrealizeObject(h) {
@@ -15536,7 +15546,7 @@ class Gdi {
      * @returns {BOOL} If all functions in the current batch succeed, the return value is nonzero.
      * 
      * If not all functions in the current batch succeed, the return value is zero, indicating that at least one function returned an error.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdiflush
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gdiflush
      * @since windows5.0
      */
     static GdiFlush() {
@@ -15557,7 +15567,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the previous batch limit.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdisetbatchlimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gdisetbatchlimit
      * @since windows5.0
      */
     static GdiSetBatchLimit(dw) {
@@ -15579,7 +15589,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the batch limit.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gdigetbatchlimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-gdigetbatchlimit
      * @since windows5.0
      */
     static GdiGetBatchLimit() {
@@ -15710,7 +15720,7 @@ class Gdi {
      * @returns {Integer} If the function is successful, returns zero.
      * 
      * Otherwise, returns a nonzero value. See <a href="https://docs.microsoft.com/windows/desktop/gdi/font-package-function-error-messages">Font-Package Function Error Messages</a> for possible error returns.
-     * @see https://learn.microsoft.com/windows/win32/api/fontsub/nf-fontsub-createfontpackage
+     * @see https://learn.microsoft.com/windows/win32/api//content/fontsub/nf-fontsub-createfontpackage
      * @since windows5.1.2600
      */
     static CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer, pulFontPackageBufferSize, pulBytesWritten, usFlag, usTTCIndex, usSubsetFormat, usSubsetLanguage, usSubsetPlatform, usSubsetEncoding, pusSubsetKeepList, usSubsetListCount, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
@@ -15818,7 +15828,7 @@ class Gdi {
      * @returns {Integer} If the function is successful, returns zero.
      * 
      * Otherwise, returns a nonzero value. See <a href="https://docs.microsoft.com/windows/desktop/gdi/font-package-function-error-messages">Font-Package Function Error Messages</a> for possible error returns.
-     * @see https://learn.microsoft.com/windows/win32/api/fontsub/nf-fontsub-mergefontpackage
+     * @see https://learn.microsoft.com/windows/win32/api//content/fontsub/nf-fontsub-mergefontpackage
      * @since windows5.1.2600
      */
     static MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPackageBuffer, ulFontPackageBufferSize, ppuchDestBuffer, pulDestBufferSize, pulBytesWritten, usMode, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
@@ -15839,7 +15849,7 @@ class Gdi {
      * Clients are responsible for determining and indicating the character set of the font.
      * 
      * For information about embedding UCS-4 characters, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontex">TTEmbedFontEx</a>. For information about embedding font characters from a file, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontfromfilea">TTEmbedFontFromFileA</a>.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
      * @param {Pointer<Integer>} pulPrivStatus 
@@ -15855,18 +15865,18 @@ class Gdi {
      * The font structure is incorporated into the document stream by the client. <i>pulPrivStatus</i> is set, indicating the embedding privileges of the font; and <i>pulStatus</i> is set to provide results of the embedding operation.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttembedfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttembedfont
      * @since windows5.0
      */
-    static TTEmbedFont(hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTEmbedFont(hDC_, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
         pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
         pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
         lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
         pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("t2embed.dll\TTEmbedFont", "ptr", hDC, "uint", ulFlags, "uint", ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
+        result := DllCall("t2embed.dll\TTEmbedFont", "ptr", hDC_, "uint", ulFlags, "uint", ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
         return result
     }
 
@@ -15878,7 +15888,7 @@ class Gdi {
      * Clients are responsible for determining and indicating the character set of the font.
      * 
      * For information on embedding Unicode characters from a device context, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfont">TTEmbedFont</a>; for information on embedding UCS-4 characters from a device context, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontex">TTEmbedFontEx</a>.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {PSTR} szFontFileName The font file name and path to embed. This is an ANSI string.
      * @param {Integer} usTTCIndex Zero-based index into the font file (TTC) identifying the physical font to embed. If the file contains a single font (such as a TTF or OTF outline file), this parameter should be set to 0.
      * @param {Integer} ulFlags 
@@ -15896,11 +15906,11 @@ class Gdi {
      * The font structure is incorporated into the document stream by the client. <i>pulPrivStatus</i> is set, indicating the embedding privileges of the font; and <i>pulStatus</i> is set to provide results of the embedding operation.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttembedfontfromfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttembedfontfromfilea
      * @since windows5.0
      */
-    static TTEmbedFontFromFileA(hDC, szFontFileName, usTTCIndex, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTEmbedFontFromFileA(hDC_, szFontFileName, usTTCIndex, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pusCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
         szFontFileName := szFontFileName is String ? StrPtr(szFontFileName) : szFontFileName
 
         pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
@@ -15908,7 +15918,7 @@ class Gdi {
         lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
         pusCharCodeSetMarshal := pusCharCodeSet is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("t2embed.dll\TTEmbedFontFromFileA", "ptr", hDC, "ptr", szFontFileName, "ushort", usTTCIndex, "uint", ulFlags, "uint", ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
+        result := DllCall("t2embed.dll\TTEmbedFontFromFileA", "ptr", hDC_, "ptr", szFontFileName, "ushort", usTTCIndex, "uint", ulFlags, "uint", ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pusCharCodeSetMarshal, pusCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
         return result
     }
 
@@ -15956,7 +15966,7 @@ class Gdi {
      * If font loading is successful, a font indicated by <i>phFontReference</i> is created from the font structure with the names referenced in <i>szWinFamilyName</i> and <i>szMacFamilyName</i>. <i>pulPrivStatus</i> is set indicating the embedding privileges of the font; and <i>pulStatus</i> may be set indicating status information about the font loading operation.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttloadembeddedfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttloadembeddedfont
      * @since windows5.0
      */
     static TTLoadEmbeddedFont(phFontReference, ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnReadFromStream, lpvReadStream, szWinFamilyName, szMacFamilyName, pTTLoadInfo) {
@@ -16049,7 +16059,7 @@ class Gdi {
      * The location referenced by *<i>pulPrivStatus</i> identifies embedding privileges of the font. The location referenced by *<i>pulStatus</i> identifies whether a subset of the font is embedded.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttgetembeddedfontinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttgetembeddedfontinfo
      * @since windows5.0
      */
     static TTGetEmbeddedFontInfo(ulFlags, pulPrivStatus, ulPrivs, pulStatus, lpfnReadFromStream, lpvReadStream, pTTLoadInfo) {
@@ -16090,7 +16100,7 @@ class Gdi {
      * The memory occupied by the embedded font structure is cleared. By default, the font indicated by <i>hFontReference</i> is also permanently removed (uninstalled and deleted) from the system.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttdeleteembeddedfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttdeleteembeddedfont
      * @since windows5.0
      */
     static TTDeleteEmbeddedFont(hFontReference, ulFlags, pulStatus) {
@@ -16106,22 +16116,22 @@ class Gdi {
      * Obtains the embedding privileges of a font.
      * @remarks
      * Alternatively, an application can determine embedding privileges by using <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a> and then checking the value returned in <i>pulPrivStatus</i> for success or failure of the function.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {Pointer<Integer>} pulEmbedType 
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * This function reads the embedding privileges stored in the font and transfers the privileges to <i>pulPrivStatus</i>.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttgetembeddingtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttgetembeddingtype
      * @since windows5.0
      */
-    static TTGetEmbeddingType(hDC, pulEmbedType) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTGetEmbeddingType(hDC_, pulEmbedType) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
         pulEmbedTypeMarshal := pulEmbedType is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("t2embed.dll\TTGetEmbeddingType", "ptr", hDC, pulEmbedTypeMarshal, pulEmbedType, "int")
+        result := DllCall("t2embed.dll\TTGetEmbeddingType", "ptr", hDC_, pulEmbedTypeMarshal, pulEmbedType, "int")
         return result
     }
 
@@ -16129,7 +16139,7 @@ class Gdi {
      * Converts an array of 8-bit character code values to 16-bit Unicode values.
      * @remarks
      * This function may be useful to clients when creating a list of symbol characters to be subsetted.
-     * @param {HDC} hDC A device context handle.
+     * @param {HDC} hDC_ A device context handle.
      * @param {Pointer<Integer>} pucCharCodes A pointer to an array of 8-bit character codes to convert to 16-bit Unicode values. Must be set to a non-null value.
      * @param {Integer} ulCharCodeSize The size of an 8-bit character code array.
      * @param {Pointer<Integer>} pusShortCodes A pointer to an array that will be filled by this function with the Unicode equivalents of the 8-bit values in the <i>pucCharCodesarray</i>. This parameter must be set to a non-null value.
@@ -16140,16 +16150,16 @@ class Gdi {
      * Array *<i>pusShortCodes</i> is filled with 16-bit Unicode values that correspond to the 8-bit character codes in *<i>pusCharCodes</i>.<i>ulShortCodeSize</i> contains the size, in wide characters, of *<i>pusShortCodes</i>.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttchartounicode
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttchartounicode
      * @since windows5.0
      */
-    static TTCharToUnicode(hDC, pucCharCodes, ulCharCodeSize, pusShortCodes, ulShortCodeSize, ulFlags) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTCharToUnicode(hDC_, pucCharCodes, ulCharCodeSize, pusShortCodes, ulShortCodeSize, ulFlags) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
         pucCharCodesMarshal := pucCharCodes is VarRef ? "char*" : "ptr"
         pusShortCodesMarshal := pusShortCodes is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("t2embed.dll\TTCharToUnicode", "ptr", hDC, pucCharCodesMarshal, pucCharCodes, "uint", ulCharCodeSize, pusShortCodesMarshal, pusShortCodes, "uint", ulShortCodeSize, "uint", ulFlags, "int")
+        result := DllCall("t2embed.dll\TTCharToUnicode", "ptr", hDC_, pucCharCodesMarshal, pucCharCodes, "uint", ulCharCodeSize, pusShortCodesMarshal, pusShortCodes, "uint", ulShortCodeSize, "uint", ulFlags, "int")
         return result
     }
 
@@ -16159,18 +16169,18 @@ class Gdi {
      * This function was supported in Windows XP and earlier, but is no longer supported. In Windows Vista and later, this function will always return E_API_NOTIMPL, and no processing is performed by this API.
      * 
      * Effective font validation can be performed by a tool, such as Font Validator, that is capable of performing thorough validation of all parts of the font file. See the <a href="https://www.microsoft.com/typography/FontValidator.aspx">Font Validator documentation</a> for more information.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {Pointer<TTVALIDATIONTESTSPARAMS>} pTestParam Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttvalidationtestsparams">TTVALIDATIONTESTPARAMS</a> structure specifying the parameters to test.
      * @returns {Integer} If successful and the glyph data is valid, returns E_NONE.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttrunvalidationtests
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttrunvalidationtests
      * @since windows5.0
      */
-    static TTRunValidationTests(hDC, pTestParam) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTRunValidationTests(hDC_, pTestParam) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := DllCall("t2embed.dll\TTRunValidationTests", "ptr", hDC, "ptr", pTestParam, "int")
+        result := DllCall("t2embed.dll\TTRunValidationTests", "ptr", hDC_, "ptr", pTestParam, "int")
         return result
     }
 
@@ -16180,22 +16190,22 @@ class Gdi {
      * If the specified font is listed, the client should not embed the font.
      * 
      * For additional information on the exclusion list, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttenableembeddingforfacename">TTEnableEmbeddingForFacename</a>.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {Pointer<BOOL>} pbEnabled Pointer to a boolean, set upon completion of the function. A nonzero value indicates the font is not in the typeface exclusion list and, therefore, can be embedded without conflict.
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * The parameter <i>pbEnabled</i> is filled with a boolean that indicates whether embedding is currently enabled within a device context.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttisembeddingenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttisembeddingenabled
      * @since windows5.0
      */
-    static TTIsEmbeddingEnabled(hDC, pbEnabled) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTIsEmbeddingEnabled(hDC_, pbEnabled) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
         pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
 
-        result := DllCall("t2embed.dll\TTIsEmbeddingEnabled", "ptr", hDC, pbEnabledMarshal, pbEnabled, "int")
+        result := DllCall("t2embed.dll\TTIsEmbeddingEnabled", "ptr", hDC_, pbEnabledMarshal, pbEnabled, "int")
         return result
     }
 
@@ -16212,7 +16222,7 @@ class Gdi {
      * <i>pbEnabled</i> is filled with a boolean that indicates whether embedding is currently enabled within a device context for the specified font.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttisembeddingenabledforfacename
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttisembeddingenabledforfacename
      * @since windows5.0
      */
     static TTIsEmbeddingEnabledForFacename(lpszFacename, pbEnabled) {
@@ -16316,7 +16326,7 @@ class Gdi {
      * The facename indicated by <i>lpszFacename</i> will be added or removed from the typeface exclusion list.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttenableembeddingforfacename
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttenableembeddingforfacename
      * @since windows5.0
      */
     static TTEnableEmbeddingForFacename(lpszFacename, bEnable) {
@@ -16334,7 +16344,7 @@ class Gdi {
      * Clients are responsible for determining and indicating the character set of the font.
      * 
      * For information on embedding Unicode characters, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfont">TTEmbedFont</a>; for information on embedding Unicode characters from a file, see <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttembedfontfromfilea">TTEmbedFontFromFileA</a>.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
      * @param {Pointer<Integer>} pulPrivStatus 
@@ -16352,18 +16362,18 @@ class Gdi {
      * <i>pulPrivStatus</i> is set, indicating the embedding privileges of the font; and <i>pulStatus</i> is set to provide results of the embedding operation.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttembedfontex
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttembedfontex
      * @since windows5.0
      */
-    static TTEmbedFontEx(hDC, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pulCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTEmbedFontEx(hDC_, ulFlags, ulCharSet, pulPrivStatus, pulStatus, lpfnWriteToStream, lpvWriteStream, pulCharCodeSet, usCharCodeCount, usLanguage, pTTEmbedInfo) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
         pulPrivStatusMarshal := pulPrivStatus is VarRef ? "uint*" : "ptr"
         pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
         lpvWriteStreamMarshal := lpvWriteStream is VarRef ? "ptr" : "ptr"
         pulCharCodeSetMarshal := pulCharCodeSet is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("t2embed.dll\TTEmbedFontEx", "ptr", hDC, "uint", ulFlags, "uint", ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
+        result := DllCall("t2embed.dll\TTEmbedFontEx", "ptr", hDC_, "uint", ulFlags, "uint", ulCharSet, pulPrivStatusMarshal, pulPrivStatus, pulStatusMarshal, pulStatus, "ptr", lpfnWriteToStream, lpvWriteStreamMarshal, lpvWriteStream, pulCharCodeSetMarshal, pulCharCodeSet, "ushort", usCharCodeCount, "ushort", usLanguage, "ptr", pTTEmbedInfo, "int")
         return result
     }
 
@@ -16375,18 +16385,18 @@ class Gdi {
      * This function was supported in Windows XP and earlier, but is no longer supported. In Windows Vista and later, this function will always return E_API_NOTIMPL, and no processing is performed by this API.
      * 
      * Effective font validation can be performed by a tool, such as Font Validator, that is capable of performing thorough validation of all parts of the font file. Please see <a href="https://www.microsoft.com/typography/FontValidator.aspx">https://www.microsoft.com/typography/FontValidator.aspx</a> for information on the Font Validator tool.
-     * @param {HDC} hDC Device context handle.
+     * @param {HDC} hDC_ Device context handle.
      * @param {Pointer<TTVALIDATIONTESTSPARAMSEX>} pTestParam Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttvalidationtestsparamsex">TTVALIDATIONTESTPARAMSEX</a> structure specifying the parameters to test.
      * @returns {Integer} If successful and the glyph data is valid, returns E_NONE.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttrunvalidationtestsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttrunvalidationtestsex
      * @since windows5.0
      */
-    static TTRunValidationTestsEx(hDC, pTestParam) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static TTRunValidationTestsEx(hDC_, pTestParam) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := DllCall("t2embed.dll\TTRunValidationTestsEx", "ptr", hDC, "ptr", pTestParam, "int")
+        result := DllCall("t2embed.dll\TTRunValidationTestsEx", "ptr", hDC_, "ptr", pTestParam, "int")
         return result
     }
 
@@ -16405,7 +16415,7 @@ class Gdi {
      * The font family name is a string in <i>szWinFamilyName</i> or <i>szMacFamilyName</i>.
      * 
      * Otherwise, returns an error code described in <a href="https://docs.microsoft.com/windows/desktop/gdi/font-embedding-function-error-messages">Embedding-Function Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/t2embapi/nf-t2embapi-ttgetnewfontname
+     * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/nf-t2embapi-ttgetnewfontname
      * @since windows5.0
      */
     static TTGetNewFontName(phFontReference, wzWinFamilyName, cchMaxWinName, szMacFamilyName, cchMaxMacName) {
@@ -16418,7 +16428,7 @@ class Gdi {
 
     /**
      * The DrawEdge function draws one or more edges of rectangle.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Pointer<RECT>} qrc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle.
      * @param {Integer} edge The type of inner and outer edges to draw. This parameter must be a combination of one inner-border flag and one outer-border flag. The inner-border flags are as follows.
      * 
@@ -16532,13 +16542,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawedge
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawedge
      * @since windows5.0
      */
-    static DrawEdge(hdc, qrc, edge, grfFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawEdge(hdc_, qrc, edge, grfFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("USER32.dll\DrawEdge", "ptr", hdc, "ptr", qrc, "uint", edge, "uint", grfFlags, "int")
+        result := DllCall("USER32.dll\DrawEdge", "ptr", hdc_, "ptr", qrc, "uint", edge, "uint", grfFlags, "int")
         return result
     }
 
@@ -16549,59 +16559,59 @@ class Gdi {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The input given is always in terms of physical pixels, and is not related to the calling context.
-     * @param {HDC} hdc 
+     * @param {HDC} hdc_ 
      * @param {Pointer<RECT>} lprc 
      * @param {Integer} uType 
      * @param {Integer} uState 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawframecontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawframecontrol
      * @since windows5.0
      */
-    static DrawFrameControl(hdc, lprc, uType, uState) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawFrameControl(hdc_, lprc, uType, uState) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("USER32.dll\DrawFrameControl", "ptr", hdc, "ptr", lprc, "uint", uType, "uint", uState, "int")
+        result := DllCall("USER32.dll\DrawFrameControl", "ptr", hdc_, "ptr", lprc, "uint", uType, "uint", uState, "int")
         return result
     }
 
     /**
      * The DrawCaption function draws a window caption.
-     * @param {HWND} hwnd A handle to a window that supplies text and an icon for the window caption.
-     * @param {HDC} hdc A handle to a device context. The function draws the window caption into this device context.
+     * @param {HWND} hwnd_ A handle to a window that supplies text and an icon for the window caption.
+     * @param {HDC} hdc_ A handle to a device context. The function draws the window caption into this device context.
      * @param {Pointer<RECT>} lprect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the bounding rectangle for the window caption in logical coordinates.
      * @param {Integer} flags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawcaption
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawcaption
      * @since windows5.0
      */
-    static DrawCaption(hwnd, hdc, lprect, flags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawCaption(hwnd_, hdc_, lprect, flags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("USER32.dll\DrawCaption", "ptr", hwnd, "ptr", hdc, "ptr", lprect, "uint", flags, "int")
+        result := DllCall("USER32.dll\DrawCaption", "ptr", hwnd_, "ptr", hdc_, "ptr", lprect, "uint", flags, "int")
         return result
     }
 
     /**
      * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
-     * @param {HWND} hwnd A handle to the window whose caption should be animated on the screen. The animation will be clipped to the parent of this window.
+     * @param {HWND} hwnd_ A handle to the window whose caption should be animated on the screen. The animation will be clipped to the parent of this window.
      * @param {Integer} idAni The type of animation. This must be IDANI_CAPTION. With the IDANI_CAPTION animation type, the window caption will animate from the position specified by lprcFrom to the position specified by lprcTo. The effect is similar to minimizing or maximizing a window.
      * @param {Pointer<RECT>} lprcFrom A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure specifying the location and size of the icon or minimized window. Coordinates are relative to the clipping window <i>hwnd</i>.
      * @param {Pointer<RECT>} lprcTo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure specifying the location and size of the restored window. Coordinates are relative to the clipping window <i>hwnd</i>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawanimatedrects
      * @since windows5.0
      */
-    static DrawAnimatedRects(hwnd, idAni, lprcFrom, lprcTo) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DrawAnimatedRects(hwnd_, idAni, lprcFrom, lprcTo) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("USER32.dll\DrawAnimatedRects", "ptr", hwnd, "int", idAni, "ptr", lprcFrom, "ptr", lprcTo, "int")
+        result := DllCall("USER32.dll\DrawAnimatedRects", "ptr", hwnd_, "int", idAni, "ptr", lprcFrom, "ptr", lprcTo, "int")
         return result
     }
 
@@ -16620,7 +16630,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DrawText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpchText A pointer to the string that specifies the text to be drawn. If the <i>nCount</i> parameter is -1, the string must be null-terminated.
      * 
      * If <i>uFormat</i> includes DT_MODIFYSTRING, the function could add up to four additional characters to this string. The buffer containing the string should be large enough to accommodate these extra characters.
@@ -16630,14 +16640,14 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lpRect-&gt;top</c> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawtexta
      * @since windows5.0
      */
-    static DrawTextA(hdc, lpchText, cchText, lprc, format) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawTextA(hdc_, lpchText, cchText, lprc, format) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpchText := lpchText is String ? StrPtr(lpchText) : lpchText
 
-        result := DllCall("USER32.dll\DrawTextA", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "int")
+        result := DllCall("USER32.dll\DrawTextA", "ptr", hdc_, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "int")
         return result
     }
 
@@ -16656,7 +16666,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DrawText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpchText A pointer to the string that specifies the text to be drawn. If the <i>nCount</i> parameter is -1, the string must be null-terminated.
      * 
      * If <i>uFormat</i> includes DT_MODIFYSTRING, the function could add up to four additional characters to this string. The buffer containing the string should be large enough to accommodate these extra characters.
@@ -16666,14 +16676,14 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the height of the text in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lpRect-&gt;top</c> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawtextw
      * @since windows5.0
      */
-    static DrawTextW(hdc, lpchText, cchText, lprc, format) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawTextW(hdc_, lpchText, cchText, lprc, format) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpchText := lpchText is String ? StrPtr(lpchText) : lpchText
 
-        result := DllCall("USER32.dll\DrawTextW", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "int")
+        result := DllCall("USER32.dll\DrawTextW", "ptr", hdc_, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "int")
         return result
     }
 
@@ -16690,7 +16700,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DrawTextEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context in which to draw.
+     * @param {HDC} hdc_ A handle to the device context in which to draw.
      * @param {PSTR} lpchText A pointer to the string that contains the text to draw. If the <i>cchText</i> parameter is -1, the string must be null-terminated.
      * 
      * If <i>dwDTFormat</i> includes DT_MODIFYSTRING, the function could add up to four additional characters to this string. The buffer containing the string should be large enough to accommodate these extra characters.
@@ -16701,14 +16711,14 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lprc-&gt;top</c> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtextexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawtextexa
      * @since windows5.0
      */
-    static DrawTextExA(hdc, lpchText, cchText, lprc, format, lpdtp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawTextExA(hdc_, lpchText, cchText, lprc, format, lpdtp) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpchText := lpchText is String ? StrPtr(lpchText) : lpchText
 
-        result := DllCall("USER32.dll\DrawTextExA", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "ptr", lpdtp, "int")
+        result := DllCall("USER32.dll\DrawTextExA", "ptr", hdc_, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "ptr", lpdtp, "int")
         return result
     }
 
@@ -16725,7 +16735,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines DrawTextEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context in which to draw.
+     * @param {HDC} hdc_ A handle to the device context in which to draw.
      * @param {PWSTR} lpchText A pointer to the string that contains the text to draw. If the <i>cchText</i> parameter is -1, the string must be null-terminated.
      * 
      * If <i>dwDTFormat</i> includes DT_MODIFYSTRING, the function could add up to four additional characters to this string. The buffer containing the string should be large enough to accommodate these extra characters.
@@ -16736,14 +16746,14 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the text height in logical units. If DT_VCENTER or DT_BOTTOM is specified, the return value is the offset from <c>lprc-&gt;top</c> to the bottom of the drawn text
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawtextexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawtextexw
      * @since windows5.0
      */
-    static DrawTextExW(hdc, lpchText, cchText, lprc, format, lpdtp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawTextExW(hdc_, lpchText, cchText, lprc, format, lpdtp) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpchText := lpchText is String ? StrPtr(lpchText) : lpchText
 
-        result := DllCall("USER32.dll\DrawTextExW", "ptr", hdc, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "ptr", lpdtp, "int")
+        result := DllCall("USER32.dll\DrawTextExW", "ptr", hdc_, "ptr", lpchText, "int", cchText, "ptr", lprc, "uint", format, "ptr", lpdtp, "int")
         return result
     }
 
@@ -16758,8 +16768,8 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GrayString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hDC A handle to the device context.
-     * @param {HBRUSH} hBrush A handle to the brush to be used for graying. If this parameter is <b>NULL</b>, the text is grayed with the same brush that was used to draw window text.
+     * @param {HDC} hDC_ A handle to the device context.
+     * @param {HBRUSH} hBrush_ A handle to the brush to be used for graying. If this parameter is <b>NULL</b>, the text is grayed with the same brush that was used to draw window text.
      * @param {Pointer<GRAYSTRINGPROC>} lpOutputFunc A pointer to the application-defined function that will draw the string, or, if <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> is to be used to draw the string, it is a <b>NULL</b> pointer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-graystringproc">OutputProc</a> callback function.
      * @param {LPARAM} lpData A pointer to data to be passed to the output function. If the <i>lpOutputFunc</i> parameter is <b>NULL</b>, <i>lpData</i> must be a pointer to the string to be output.
      * @param {Integer} nCount The number of characters to be output. If the <i>nCount</i> parameter is zero, <b>GrayString</b> calculates the length of the string (assuming <i>lpData</i> is a pointer to the string). If <i>nCount</i> is 1 and the function pointed to by <i>lpOutputFunc</i> returns <b>FALSE</b>, the image is shown but not grayed.
@@ -16770,14 +16780,15 @@ class Gdi {
      * @returns {BOOL} If the string is drawn, the return value is nonzero.
      * 
      * If either the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-graystringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-graystringa
      * @since windows5.0
      */
-    static GrayStringA(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hBrush := hBrush is Win32Handle ? NumGet(hBrush, "ptr") : hBrush
+    static GrayStringA(hDC_, hBrush_, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
+        hBrush_ := hBrush_ is Win32Handle ? NumGet(hBrush_, "ptr") : hBrush_
+        lpData := lpData is Win32Handle ? NumGet(lpData, "ptr") : lpData
 
-        result := DllCall("USER32.dll\GrayStringA", "ptr", hDC, "ptr", hBrush, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int")
+        result := DllCall("USER32.dll\GrayStringA", "ptr", hDC_, "ptr", hBrush_, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int")
         return result
     }
 
@@ -16792,8 +16803,8 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GrayString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hDC A handle to the device context.
-     * @param {HBRUSH} hBrush A handle to the brush to be used for graying. If this parameter is <b>NULL</b>, the text is grayed with the same brush that was used to draw window text.
+     * @param {HDC} hDC_ A handle to the device context.
+     * @param {HBRUSH} hBrush_ A handle to the brush to be used for graying. If this parameter is <b>NULL</b>, the text is grayed with the same brush that was used to draw window text.
      * @param {Pointer<GRAYSTRINGPROC>} lpOutputFunc A pointer to the application-defined function that will draw the string, or, if <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> is to be used to draw the string, it is a <b>NULL</b> pointer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-graystringproc">OutputProc</a> callback function.
      * @param {LPARAM} lpData A pointer to data to be passed to the output function. If the <i>lpOutputFunc</i> parameter is <b>NULL</b>, <i>lpData</i> must be a pointer to the string to be output.
      * @param {Integer} nCount The number of characters to be output. If the <i>nCount</i> parameter is zero, <b>GrayString</b> calculates the length of the string (assuming <i>lpData</i> is a pointer to the string). If <i>nCount</i> is 1 and the function pointed to by <i>lpOutputFunc</i> returns <b>FALSE</b>, the image is shown but not grayed.
@@ -16804,14 +16815,15 @@ class Gdi {
      * @returns {BOOL} If the string is drawn, the return value is nonzero.
      * 
      * If either the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> function or the application-defined output function returned zero, or there was insufficient memory to create a memory bitmap for graying, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-graystringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-graystringw
      * @since windows5.0
      */
-    static GrayStringW(hDC, hBrush, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hBrush := hBrush is Win32Handle ? NumGet(hBrush, "ptr") : hBrush
+    static GrayStringW(hDC_, hBrush_, lpOutputFunc, lpData, nCount, X, Y, nWidth, nHeight) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
+        hBrush_ := hBrush_ is Win32Handle ? NumGet(hBrush_, "ptr") : hBrush_
+        lpData := lpData is Win32Handle ? NumGet(lpData, "ptr") : lpData
 
-        result := DllCall("USER32.dll\GrayStringW", "ptr", hDC, "ptr", hBrush, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int")
+        result := DllCall("USER32.dll\GrayStringW", "ptr", hDC_, "ptr", hBrush_, "ptr", lpOutputFunc, "ptr", lpData, "int", nCount, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int")
         return result
     }
 
@@ -16820,7 +16832,7 @@ class Gdi {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines DrawState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context to draw in.
+     * @param {HDC} hdc_ A handle to the device context to draw in.
      * @param {HBRUSH} hbrFore A handle to the brush used to draw the image, if the state specified by the <i>fuFlags</i> parameter is DSS_MONO. This parameter is ignored for other states.
      * @param {Pointer<DRAWSTATEPROC>} qfnCallBack A pointer to an application-defined callback function used to render the image. This parameter is required if the image type in <i>fuFlags</i> is DST_COMPLEX. It is optional and can be <b>NULL</b> if the image type is DST_TEXT. For all other image types, this parameter is ignored. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-drawstateproc">DrawStateProc</a> function.
      * @param {LPARAM} lData Information about the image. The meaning of this parameter depends on the image type.
@@ -16828,7 +16840,7 @@ class Gdi {
      * @param {Integer} x The horizontal location, in device units, at which to draw the image.
      * @param {Integer} y The vertical location, in device units, at which to draw the image.
      * @param {Integer} cx The width of the image, in device units. This parameter is required if the image type is DST_COMPLEX. Otherwise, it can be zero to calculate the width of the image.
-     * @param {Integer} cy The height of the image, in device units. This parameter is required if the image type is DST_COMPLEX. Otherwise, it can be zero to calculate the height of the image.
+     * @param {Integer} cy_ The height of the image, in device units. This parameter is required if the image type is DST_COMPLEX. Otherwise, it can be zero to calculate the height of the image.
      * @param {Integer} uFlags The image type and state. This parameter can be one of the following type values.
      * 
      * <table>
@@ -16973,14 +16985,16 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawstatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawstatea
      * @since windows5.0
      */
-    static DrawStateA(hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, cy, uFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawStateA(hdc_, hbrFore, qfnCallBack, lData, wData, x, y, cx, cy_, uFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hbrFore := hbrFore is Win32Handle ? NumGet(hbrFore, "ptr") : hbrFore
+        lData := lData is Win32Handle ? NumGet(lData, "ptr") : lData
+        wData := wData is Win32Handle ? NumGet(wData, "ptr") : wData
 
-        result := DllCall("USER32.dll\DrawStateA", "ptr", hdc, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "int")
+        result := DllCall("USER32.dll\DrawStateA", "ptr", hdc_, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy_, "uint", uFlags, "int")
         return result
     }
 
@@ -16989,7 +17003,7 @@ class Gdi {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines DrawState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context to draw in.
+     * @param {HDC} hdc_ A handle to the device context to draw in.
      * @param {HBRUSH} hbrFore A handle to the brush used to draw the image, if the state specified by the <i>fuFlags</i> parameter is DSS_MONO. This parameter is ignored for other states.
      * @param {Pointer<DRAWSTATEPROC>} qfnCallBack A pointer to an application-defined callback function used to render the image. This parameter is required if the image type in <i>fuFlags</i> is DST_COMPLEX. It is optional and can be <b>NULL</b> if the image type is DST_TEXT. For all other image types, this parameter is ignored. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-drawstateproc">DrawStateProc</a> function.
      * @param {LPARAM} lData Information about the image. The meaning of this parameter depends on the image type.
@@ -16997,7 +17011,7 @@ class Gdi {
      * @param {Integer} x The horizontal location, in device units, at which to draw the image.
      * @param {Integer} y The vertical location, in device units, at which to draw the image.
      * @param {Integer} cx The width of the image, in device units. This parameter is required if the image type is DST_COMPLEX. Otherwise, it can be zero to calculate the width of the image.
-     * @param {Integer} cy The height of the image, in device units. This parameter is required if the image type is DST_COMPLEX. Otherwise, it can be zero to calculate the height of the image.
+     * @param {Integer} cy_ The height of the image, in device units. This parameter is required if the image type is DST_COMPLEX. Otherwise, it can be zero to calculate the height of the image.
      * @param {Integer} uFlags The image type and state. This parameter can be one of the following type values.
      * 
      * <table>
@@ -17142,14 +17156,16 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawstatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawstatew
      * @since windows5.0
      */
-    static DrawStateW(hdc, hbrFore, qfnCallBack, lData, wData, x, y, cx, cy, uFlags) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DrawStateW(hdc_, hbrFore, qfnCallBack, lData, wData, x, y, cx, cy_, uFlags) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hbrFore := hbrFore is Win32Handle ? NumGet(hbrFore, "ptr") : hbrFore
+        lData := lData is Win32Handle ? NumGet(lData, "ptr") : lData
+        wData := wData is Win32Handle ? NumGet(wData, "ptr") : wData
 
-        result := DllCall("USER32.dll\DrawStateW", "ptr", hdc, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "int")
+        result := DllCall("USER32.dll\DrawStateW", "ptr", hdc_, "ptr", hbrFore, "ptr", qfnCallBack, "ptr", lData, "ptr", wData, "int", x, "int", y, "int", cx, "int", cy_, "uint", uFlags, "int")
         return result
     }
 
@@ -17174,7 +17190,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines TabbedTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate of the starting point of the string, in logical units.
      * @param {Integer} y The y-coordinate of the starting point of the string, in logical units.
      * @param {PSTR} lpString A pointer to the character string to draw. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
@@ -17185,16 +17201,16 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tabbedtextouta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-tabbedtextouta
      * @since windows5.0
      */
-    static TabbedTextOutA(hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static TabbedTextOutA(hdc_, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USER32.dll\TabbedTextOutA", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "int", nTabOrigin, "int")
+        result := DllCall("USER32.dll\TabbedTextOutA", "ptr", hdc_, "int", x, "int", y, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "int", nTabOrigin, "int")
         return result
     }
 
@@ -17219,7 +17235,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines TabbedTextOut as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} x The x-coordinate of the starting point of the string, in logical units.
      * @param {Integer} y The y-coordinate of the starting point of the string, in logical units.
      * @param {PWSTR} lpString A pointer to the character string to draw. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
@@ -17230,16 +17246,16 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tabbedtextoutw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-tabbedtextoutw
      * @since windows5.0
      */
-    static TabbedTextOutW(hdc, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static TabbedTextOutW(hdc_, x, y, lpString, chCount, nTabPositions, lpnTabStopPositions, nTabOrigin) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USER32.dll\TabbedTextOutW", "ptr", hdc, "int", x, "int", y, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "int", nTabOrigin, "int")
+        result := DllCall("USER32.dll\TabbedTextOutW", "ptr", hdc_, "int", x, "int", y, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "int", nTabOrigin, "int")
         return result
     }
 
@@ -17260,7 +17276,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetTabbedTextExtent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PSTR} lpString A pointer to a character string.
      * @param {Integer} chCount The length of the text string. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nTabPositions The number of tab-stop positions in the array pointed to by the <i>lpnTabStopPositions</i> parameter.
@@ -17268,16 +17284,16 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is 0. <b>GetTabbedTextExtent</b> will fail if <i>hDC</i> is invalid and if <i>nTabPositions</i> is less than 0.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettabbedtextextenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-gettabbedtextextenta
      * @since windows5.0
      */
-    static GetTabbedTextExtentA(hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTabbedTextExtentA(hdc_, lpString, chCount, nTabPositions, lpnTabStopPositions) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USER32.dll\GetTabbedTextExtentA", "ptr", hdc, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "uint")
+        result := DllCall("USER32.dll\GetTabbedTextExtentA", "ptr", hdc_, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "uint")
         return result
     }
 
@@ -17298,7 +17314,7 @@ class Gdi {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetTabbedTextExtent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {PWSTR} lpString A pointer to a character string.
      * @param {Integer} chCount The length of the text string. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nTabPositions The number of tab-stop positions in the array pointed to by the <i>lpnTabStopPositions</i> parameter.
@@ -17306,62 +17322,62 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is 0. <b>GetTabbedTextExtent</b> will fail if <i>hDC</i> is invalid and if <i>nTabPositions</i> is less than 0.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-gettabbedtextextentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-gettabbedtextextentw
      * @since windows5.0
      */
-    static GetTabbedTextExtentW(hdc, lpString, chCount, nTabPositions, lpnTabStopPositions) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetTabbedTextExtentW(hdc_, lpString, chCount, nTabPositions, lpnTabStopPositions) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         lpnTabStopPositionsMarshal := lpnTabStopPositions is VarRef ? "int*" : "ptr"
 
-        result := DllCall("USER32.dll\GetTabbedTextExtentW", "ptr", hdc, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "uint")
+        result := DllCall("USER32.dll\GetTabbedTextExtentW", "ptr", hdc_, "ptr", lpString, "int", chCount, "int", nTabPositions, lpnTabStopPositionsMarshal, lpnTabStopPositions, "uint")
         return result
     }
 
     /**
      * The UpdateWindow function updates the client area of the specified window by sending a WM_PAINT message to the window if the window's update region is not empty.
-     * @param {HWND} hWnd Handle to the window to be updated.
+     * @param {HWND} hWnd_ Handle to the window to be updated.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-updatewindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-updatewindow
      * @since windows5.0
      */
-    static UpdateWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static UpdateWindow(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\UpdateWindow", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\UpdateWindow", "ptr", hWnd_, "int")
         return result
     }
 
     /**
      * The PaintDesktop function fills the clipping region in the specified device context with the desktop pattern or wallpaper. The function is provided primarily for shell desktops.
-     * @param {HDC} hdc Handle to the device context.
+     * @param {HDC} hdc_ Handle to the device context.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-paintdesktop
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-paintdesktop
      * @since windows5.0
      */
-    static PaintDesktop(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static PaintDesktop(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("USER32.dll\PaintDesktop", "ptr", hdc, "int")
+        result := DllCall("USER32.dll\PaintDesktop", "ptr", hdc_, "int")
         return result
     }
 
     /**
      * The WindowFromDC function returns a handle to the window associated with the specified display device context (DC). Output functions that use the specified device context draw into this window.
-     * @param {HDC} hDC Handle to the device context from which a handle to the associated window is to be retrieved.
+     * @param {HDC} hDC_ Handle to the device context from which a handle to the associated window is to be retrieved.
      * @returns {HWND} The return value is a handle to the window associated with the specified DC. If no window is associated with the specified DC, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-windowfromdc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-windowfromdc
      * @since windows5.0
      */
-    static WindowFromDC(hDC) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static WindowFromDC(hDC_) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := DllCall("USER32.dll\WindowFromDC", "ptr", hDC, "ptr")
+        result := DllCall("USER32.dll\WindowFromDC", "ptr", hDC_, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -17374,17 +17390,17 @@ class Gdi {
      * Note that the handle to the DC can only be used by a single thread at any one time.
      * 
      * After painting with a common DC, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the DC. Class and private DCs do not have to be released. <b>ReleaseDC</b> must be called from the same thread that called <b>GetDC</b>. The number of DCs is limited only by available memory.
-     * @param {HWND} hWnd A handle to the window whose DC is to be retrieved. If this value is <b>NULL</b>, <b>GetDC</b> retrieves the DC for the entire screen.
+     * @param {HWND} hWnd_ A handle to the window whose DC is to be retrieved. If this value is <b>NULL</b>, <b>GetDC</b> retrieves the DC for the entire screen.
      * @returns {HDC} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getdc
      * @since windows5.0
      */
-    static GetDC(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetDC(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\GetDC", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\GetDC", "ptr", hWnd_, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -17395,20 +17411,20 @@ class Gdi {
      * Unless the display DC belongs to a window class, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the DC after painting. Also, <b>ReleaseDC</b> must be called from the same thread that called <b>GetDCEx</b>. The number of DCs is limited only by available memory.
      * 
      * The function returns a handle to a DC that belongs to the window's class if CS_CLASSDC, CS_OWNDC or CS_PARENTDC was specified as a style in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure when the class was registered.
-     * @param {HWND} hWnd A handle to the window whose DC is to be retrieved. If this value is <b>NULL</b>, <b>GetDCEx</b> retrieves the DC for the entire screen.
+     * @param {HWND} hWnd_ A handle to the window whose DC is to be retrieved. If this value is <b>NULL</b>, <b>GetDCEx</b> retrieves the DC for the entire screen.
      * @param {HRGN} hrgnClip A clipping region that may be combined with the visible region of the DC. If the value of <i>flags</i> is DCX_INTERSECTRGN or DCX_EXCLUDERGN, then the operating system assumes ownership of the region and will automatically delete it when it is no longer needed. In this case, the application should not use or delete the region after a successful call to <b>GetDCEx</b>.
      * @param {Integer} flags 
      * @returns {HDC} If the function succeeds, the return value is the handle to the DC for the specified window.
      * 
      * If the function fails, the return value is <b>NULL</b>. An invalid value for the <i>hWnd</i> parameter will cause the function to fail.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdcex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getdcex
      * @since windows5.0
      */
-    static GetDCEx(hWnd, hrgnClip, flags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetDCEx(hWnd_, hrgnClip, flags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hrgnClip := hrgnClip is Win32Handle ? NumGet(hrgnClip, "ptr") : hrgnClip
 
-        result := DllCall("USER32.dll\GetDCEx", "ptr", hWnd, "ptr", hrgnClip, "uint", flags, "ptr")
+        result := DllCall("USER32.dll\GetDCEx", "ptr", hWnd_, "ptr", hrgnClip, "uint", flags, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -17423,19 +17439,19 @@ class Gdi {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function can be used to retrieve a device context for the entire screen.
      * 
      * After painting is complete, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the device context. Not releasing the window device context has serious effects on painting requested by applications.
-     * @param {HWND} hWnd A handle to the window with a device context that is to be retrieved. If this value is <b>NULL</b>, <b>GetWindowDC</b> retrieves the device context for the entire screen.
+     * @param {HWND} hWnd_ A handle to the window with a device context that is to be retrieved. If this value is <b>NULL</b>, <b>GetWindowDC</b> retrieves the device context for the entire screen.
      * 
      * If this parameter is <b>NULL</b>, <b>GetWindowDC</b> retrieves the device context for the primary display monitor. To get the device context for other display monitors, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> functions.
      * @returns {HDC} If the function succeeds, the return value is a handle to a device context for the specified window.
      * 
      * If the function fails, the return value is <b>NULL</b>, indicating an error or an invalid <i>hWnd</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getwindowdc
      * @since windows5.0
      */
-    static GetWindowDC(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowDC(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\GetWindowDC", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\GetWindowDC", "ptr", hWnd_, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -17446,19 +17462,19 @@ class Gdi {
      * The application must call the <b>ReleaseDC</b> function for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowdc">GetWindowDC</a> function and for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function that retrieves a common DC.
      * 
      * An application cannot use the <b>ReleaseDC</b> function to release a DC that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> function; instead, it must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function. <b>ReleaseDC</b> must be called from the same thread that called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a>.
-     * @param {HWND} hWnd A handle to the window whose DC is to be released.
-     * @param {HDC} hDC A handle to the DC to be released.
+     * @param {HWND} hWnd_ A handle to the window whose DC is to be released.
+     * @param {HDC} hDC_ A handle to the DC to be released.
      * @returns {Integer} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
      * 
      * If the DC was not released, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-releasedc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-releasedc
      * @since windows5.0
      */
-    static ReleaseDC(hWnd, hDC) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static ReleaseDC(hWnd_, hDC_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := DllCall("USER32.dll\ReleaseDC", "ptr", hWnd, "ptr", hDC, "int")
+        result := DllCall("USER32.dll\ReleaseDC", "ptr", hWnd_, "ptr", hDC_, "int")
         return result
     }
 
@@ -17475,18 +17491,18 @@ class Gdi {
      * 
      * <h3><a id="DPI_Virtualization"></a><a id="dpi_virtualization"></a><a id="DPI_VIRTUALIZATION"></a>DPI Virtualization</h3>
      * This API does not participate in DPI virtualization. The output returned is always in terms of physical pixels.
-     * @param {HWND} hWnd Handle to the window to be repainted.
+     * @param {HWND} hWnd_ Handle to the window to be repainted.
      * @param {Pointer<PAINTSTRUCT>} lpPaint Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure that will receive painting information.
      * @returns {HDC} If the function succeeds, the return value is the handle to a display device context for the specified window.
      * 
      * If the function fails, the return value is <b>NULL</b>, indicating that no display device context is available.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-beginpaint
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-beginpaint
      * @since windows5.0
      */
-    static BeginPaint(hWnd, lpPaint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static BeginPaint(hWnd_, lpPaint) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\BeginPaint", "ptr", hWnd, "ptr", lpPaint, "ptr")
+        result := DllCall("USER32.dll\BeginPaint", "ptr", hWnd_, "ptr", lpPaint, "ptr")
         resultHandle := HDC({Value: result}, True)
         return resultHandle
     }
@@ -17497,16 +17513,16 @@ class Gdi {
      * If the caret was hidden by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>, <b>EndPaint</b> restores the caret to the screen.
      * 
      * <b>EndPaint</b> releases the display device context that <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> retrieved.
-     * @param {HWND} hWnd Handle to the window that has been repainted.
+     * @param {HWND} hWnd_ Handle to the window that has been repainted.
      * @param {Pointer<PAINTSTRUCT>} lpPaint Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure that contains the painting information retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>.
      * @returns {BOOL} The return value is always nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-endpaint
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-endpaint
      * @since windows5.0
      */
-    static EndPaint(hWnd, lpPaint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static EndPaint(hWnd_, lpPaint) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\EndPaint", "ptr", hWnd, "ptr", lpPaint, "int")
+        result := DllCall("USER32.dll\EndPaint", "ptr", hWnd_, "ptr", lpPaint, "int")
         return result
     }
 
@@ -17517,7 +17533,7 @@ class Gdi {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> automatically validates the update region, so any call to <b>GetUpdateRect</b> made immediately after the call to <b>BeginPaint</b> retrieves an empty update region.
-     * @param {HWND} hWnd Handle to the window whose update region is to be retrieved.
+     * @param {HWND} hWnd_ Handle to the window whose update region is to be retrieved.
      * @param {Pointer<RECT>} lpRect Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the coordinates, in device units, of the enclosing rectangle.
      * 
      * An application can set this parameter to <b>NULL</b> to determine whether an update region exists for the window. If this parameter is <b>NULL</b>, <b>GetUpdateRect</b> returns nonzero if an update region exists, and zero if one does not. This provides a simple and efficient means of determining whether a <b>WM_PAINT</b> message resulted from an invalid area.
@@ -17525,13 +17541,13 @@ class Gdi {
      * @returns {BOOL} If the update region is not empty, the return value is nonzero.
      * 
      * If there is no update region, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getupdaterect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getupdaterect
      * @since windows5.0
      */
-    static GetUpdateRect(hWnd, lpRect, bErase) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetUpdateRect(hWnd_, lpRect, bErase) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\GetUpdateRect", "ptr", hWnd, "ptr", lpRect, "int", bErase, "int")
+        result := DllCall("USER32.dll\GetUpdateRect", "ptr", hWnd_, "ptr", lpRect, "int", bErase, "int")
         return result
     }
 
@@ -17539,8 +17555,8 @@ class Gdi {
      * The GetUpdateRgn function retrieves the update region of a window by copying it into the specified region. The coordinates of the update region are relative to the upper-left corner of the window (that is, they are client coordinates).
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function automatically validates the update region, so any call to <b>GetUpdateRgn</b> made immediately after the call to <b>BeginPaint</b> retrieves an empty update region.
-     * @param {HWND} hWnd Handle to the window with an update region that is to be retrieved.
-     * @param {HRGN} hRgn Handle to the region to receive the update region.
+     * @param {HWND} hWnd_ Handle to the window with an update region that is to be retrieved.
+     * @param {HRGN} hRgn_ Handle to the region to receive the update region.
      * @param {BOOL} bErase Specifies whether the window background should be erased and whether nonclient areas of child windows should be drawn. If this parameter is <b>FALSE</b>, no drawing is done.
      * @returns {Integer} The return value indicates the complexity of the resulting region; it can be one of the following values.
      * 
@@ -17566,14 +17582,14 @@ class Gdi {
      * <td>Region is a single rectangle.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getupdatergn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getupdatergn
      * @since windows5.0
      */
-    static GetUpdateRgn(hWnd, hRgn, bErase) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static GetUpdateRgn(hWnd_, hRgn_, bErase) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        hRgn_ := hRgn_ is Win32Handle ? NumGet(hRgn_, "ptr") : hRgn_
 
-        result := DllCall("USER32.dll\GetUpdateRgn", "ptr", hWnd, "ptr", hRgn, "int", bErase, "int")
+        result := DllCall("USER32.dll\GetUpdateRgn", "ptr", hWnd_, "ptr", hRgn_, "int", bErase, "int")
         return result
     }
 
@@ -17589,8 +17605,8 @@ class Gdi {
      * After a successful call to <b>SetWindowRgn</b>, the system owns the region specified by the region handle <i>hRgn</i>. The system does not make a copy of the region. Thus, you should not make any further function calls with this region handle. In particular, do not delete this region handle. The system deletes the region handle when it no longer needed.
      * 
      * To obtain the window region of a window, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowrgn">GetWindowRgn</a> function.
-     * @param {HWND} hWnd A handle to the window whose window region is to be set.
-     * @param {HRGN} hRgn A handle to a region. The function sets the window region of the window to this region.
+     * @param {HWND} hWnd_ A handle to the window whose window region is to be set.
+     * @param {HRGN} hRgn_ A handle to a region. The function sets the window region of the window to this region.
      * 
      * If <i>hRgn</i> is <b>NULL</b>, the function sets the window region to <b>NULL</b>.
      * @param {BOOL} bRedraw Specifies whether the system redraws the window after setting the window region. If <i>bRedraw</i> is <b>TRUE</b>, the system does so; otherwise, it does not.
@@ -17599,14 +17615,14 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setwindowrgn
      * @since windows5.0
      */
-    static SetWindowRgn(hWnd, hRgn, bRedraw) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static SetWindowRgn(hWnd_, hRgn_, bRedraw) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        hRgn_ := hRgn_ is Win32Handle ? NumGet(hRgn_, "ptr") : hRgn_
 
-        result := DllCall("USER32.dll\SetWindowRgn", "ptr", hWnd, "ptr", hRgn, "int", bRedraw, "int")
+        result := DllCall("USER32.dll\SetWindowRgn", "ptr", hWnd_, "ptr", hRgn_, "int", bRedraw, "int")
         return result
     }
 
@@ -17616,8 +17632,8 @@ class Gdi {
      * The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.
      * 
      * To set the window region of a window, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowrgn">SetWindowRgn</a> function.
-     * @param {HWND} hWnd Handle to the window whose window region is to be obtained.
-     * @param {HRGN} hRgn Handle to the region which will be modified to represent the window region.
+     * @param {HWND} hWnd_ Handle to the window whose window region is to be obtained.
+     * @param {HRGN} hRgn_ Handle to the region which will be modified to represent the window region.
      * @returns {Integer} The return value specifies the type of the region that the function obtains. It can be one of the following values.
      * 
      * <table>
@@ -17670,14 +17686,14 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowrgn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getwindowrgn
      * @since windows5.0
      */
-    static GetWindowRgn(hWnd, hRgn) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static GetWindowRgn(hWnd_, hRgn_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        hRgn_ := hRgn_ is Win32Handle ? NumGet(hRgn_, "ptr") : hRgn_
 
-        result := DllCall("USER32.dll\GetWindowRgn", "ptr", hWnd, "ptr", hRgn, "int")
+        result := DllCall("USER32.dll\GetWindowRgn", "ptr", hWnd_, "ptr", hRgn_, "int")
         return result
     }
 
@@ -17687,7 +17703,7 @@ class Gdi {
      * The window region determines the area within the window where the system permits drawing. The system does not display any portion of a window that lies outside of the window region. The coordinates of a window's window region are relative to the upper-left corner of the window, not the client area of the window.
      * 
      * To set the window region of a window, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowrgn">SetWindowRgn</a> function.
-     * @param {HWND} hWnd Handle to the window.
+     * @param {HWND} hWnd_ Handle to the window.
      * @param {Pointer<RECT>} lprc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the rectangle dimensions, in device units relative to the upper-left corner of the window.
      * @returns {Integer} The return value specifies the type of the region that the function obtains. It can be one of the following values.
      * 
@@ -17713,20 +17729,20 @@ class Gdi {
      * <td>The region is a single rectangle.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowrgnbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getwindowrgnbox
      * @since windows5.0
      */
-    static GetWindowRgnBox(hWnd, lprc) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowRgnBox(hWnd_, lprc) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\GetWindowRgnBox", "ptr", hWnd, "ptr", lprc, "int")
+        result := DllCall("USER32.dll\GetWindowRgnBox", "ptr", hWnd_, "ptr", lprc, "int")
         return result
     }
 
     /**
      * The ExcludeUpdateRgn function prevents drawing within invalid areas of a window by excluding an updated region in the window from a clipping region.
-     * @param {HDC} hDC Handle to the device context associated with the clipping region.
-     * @param {HWND} hWnd Handle to the window to update.
+     * @param {HDC} hDC_ Handle to the device context associated with the clipping region.
+     * @param {HWND} hWnd_ Handle to the window to update.
      * @returns {Integer} The return value specifies the complexity of the excluded region; it can be any one of the following values.
      * 
      * <table>
@@ -17751,14 +17767,14 @@ class Gdi {
      * <td>Region is a single rectangle.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-excludeupdatergn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-excludeupdatergn
      * @since windows5.0
      */
-    static ExcludeUpdateRgn(hDC, hWnd) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ExcludeUpdateRgn(hDC_, hWnd_) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\ExcludeUpdateRgn", "ptr", hDC, "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\ExcludeUpdateRgn", "ptr", hDC_, "ptr", hWnd_, "int")
         return result
     }
 
@@ -17770,19 +17786,19 @@ class Gdi {
      * The system sends a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.
      * 
      * If the <i>bErase</i> parameter is <b>TRUE</b> for any part of the update region, the background is erased in the entire region, not just in the specified part.
-     * @param {HWND} hWnd A handle to the window whose update region has changed. If this parameter is <b>NULL</b>, the system invalidates and redraws all windows, not just the windows for this application, and sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> and <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-ncpaint">WM_NCPAINT</a> messages before the function returns. Setting this parameter to <b>NULL</b> is not recommended.
+     * @param {HWND} hWnd_ A handle to the window whose update region has changed. If this parameter is <b>NULL</b>, the system invalidates and redraws all windows, not just the windows for this application, and sends the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> and <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-ncpaint">WM_NCPAINT</a> messages before the function returns. Setting this parameter to <b>NULL</b> is not recommended.
      * @param {Pointer<RECT>} lpRect A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the client coordinates of the rectangle to be added to the update region. If this parameter is <b>NULL</b>, the entire client area is added to the update region.
      * @param {BOOL} bErase Specifies whether the background within the update region is to be erased when the update region is processed. If this parameter is <b>TRUE</b>, the background is erased when the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function is called. If this parameter is <b>FALSE</b>, the background remains unchanged.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invalidaterect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-invalidaterect
      * @since windows5.0
      */
-    static InvalidateRect(hWnd, lpRect, bErase) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InvalidateRect(hWnd_, lpRect, bErase) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\InvalidateRect", "ptr", hWnd, "ptr", lpRect, "int", bErase, "int")
+        result := DllCall("USER32.dll\InvalidateRect", "ptr", hWnd_, "ptr", lpRect, "int", bErase, "int")
         return result
     }
 
@@ -17792,18 +17808,18 @@ class Gdi {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function automatically validates the entire client area. Neither the <b>ValidateRect</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validatergn">ValidateRgn</a> function should be called if a portion of the update region must be validated before the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message is generated.
      * 
      * The system continues to generate <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> messages until the current update region is validated.
-     * @param {HWND} hWnd Handle to the window whose update region is to be modified. If this parameter is <b>NULL</b>, the system invalidates and redraws all windows and sends the <b>WM_ERASEBKGND</b> and <b>WM_NCPAINT</b> messages to the window procedure before the function returns.
+     * @param {HWND} hWnd_ Handle to the window whose update region is to be modified. If this parameter is <b>NULL</b>, the system invalidates and redraws all windows and sends the <b>WM_ERASEBKGND</b> and <b>WM_NCPAINT</b> messages to the window procedure before the function returns.
      * @param {Pointer<RECT>} lpRect Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the client coordinates of the rectangle to be removed from the update region. If this parameter is <b>NULL</b>, the entire client area is removed.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-validaterect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-validaterect
      * @since windows5.0
      */
-    static ValidateRect(hWnd, lpRect) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ValidateRect(hWnd_, lpRect) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\ValidateRect", "ptr", hWnd, "ptr", lpRect, "int")
+        result := DllCall("USER32.dll\ValidateRect", "ptr", hWnd_, "ptr", lpRect, "int")
         return result
     }
 
@@ -17817,18 +17833,18 @@ class Gdi {
      * The specified region must have been created by using one of the region functions.
      * 
      * If the <i>bErase</i> parameter is <b>TRUE</b> for any part of the update region, the background in the entire region is erased, not just in the specified part.
-     * @param {HWND} hWnd A handle to the window with an update region that is to be modified.
-     * @param {HRGN} hRgn A handle to the region to be added to the update region. The region is assumed to have client coordinates. If this parameter is <b>NULL</b>, the entire client area is added to the update region.
+     * @param {HWND} hWnd_ A handle to the window with an update region that is to be modified.
+     * @param {HRGN} hRgn_ A handle to the region to be added to the update region. The region is assumed to have client coordinates. If this parameter is <b>NULL</b>, the entire client area is added to the update region.
      * @param {BOOL} bErase Specifies whether the background within the update region should be erased when the update region is processed. If this parameter is <b>TRUE</b>, the background is erased when the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function is called. If the parameter is <b>FALSE</b>, the background remains unchanged.
      * @returns {BOOL} The return value is always nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invalidatergn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-invalidatergn
      * @since windows5.0
      */
-    static InvalidateRgn(hWnd, hRgn, bErase) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static InvalidateRgn(hWnd_, hRgn_, bErase) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        hRgn_ := hRgn_ is Win32Handle ? NumGet(hRgn_, "ptr") : hRgn_
 
-        result := DllCall("USER32.dll\InvalidateRgn", "ptr", hWnd, "ptr", hRgn, "int", bErase, "int")
+        result := DllCall("USER32.dll\InvalidateRgn", "ptr", hWnd_, "ptr", hRgn_, "int", bErase, "int")
         return result
     }
 
@@ -17838,19 +17854,19 @@ class Gdi {
      * The specified region must have been created by a region function. The region coordinates are assumed to be client coordinates.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function automatically validates the entire client area. Neither the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validaterect">ValidateRect</a> nor <b>ValidateRgn</b> function should be called if a portion of the update region must be validated before the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message is generated.
-     * @param {HWND} hWnd Handle to the window whose update region is to be modified.
-     * @param {HRGN} hRgn Handle to a region that defines the area to be removed from the update region. If this parameter is <b>NULL</b>, the entire client area is removed.
+     * @param {HWND} hWnd_ Handle to the window whose update region is to be modified.
+     * @param {HRGN} hRgn_ Handle to a region that defines the area to be removed from the update region. If this parameter is <b>NULL</b>, the entire client area is removed.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-validatergn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-validatergn
      * @since windows5.0
      */
-    static ValidateRgn(hWnd, hRgn) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hRgn := hRgn is Win32Handle ? NumGet(hRgn, "ptr") : hRgn
+    static ValidateRgn(hWnd_, hRgn_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        hRgn_ := hRgn_ is Win32Handle ? NumGet(hRgn_, "ptr") : hRgn_
 
-        result := DllCall("USER32.dll\ValidateRgn", "ptr", hWnd, "ptr", hRgn, "int")
+        result := DllCall("USER32.dll\ValidateRgn", "ptr", hWnd_, "ptr", hRgn_, "int")
         return result
     }
 
@@ -17858,7 +17874,7 @@ class Gdi {
      * The RedrawWindow function updates the specified rectangle or region in a window's client area.
      * @remarks
      * When <b>RedrawWindow</b> is used to invalidate part of the desktop window, the desktop window does not receive a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message. To repaint the desktop, an application uses the RDW_ERASE flag to generate a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> message.
-     * @param {HWND} hWnd A handle to the window to be redrawn. If this parameter is <b>NULL</b>, the desktop window is updated.
+     * @param {HWND} hWnd_ A handle to the window to be redrawn. If this parameter is <b>NULL</b>, the desktop window is updated.
      * @param {Pointer<RECT>} lprcUpdate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates, in device units, of the update rectangle. This parameter is ignored if the <i>hrgnUpdate</i> parameter identifies a region.
      * @param {HRGN} hrgnUpdate A handle to the update region. If both the <i>hrgnUpdate</i> and <i>lprcUpdate</i> parameters are <b>NULL</b>, the entire client area is added to the update region.
      * @param {Integer} flags One or more redraw flags. This parameter can be used to invalidate or validate a window, control repainting, and control which windows are affected by <b>RedrawWindow</b>.
@@ -18024,14 +18040,14 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-redrawwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-redrawwindow
      * @since windows5.0
      */
-    static RedrawWindow(hWnd, lprcUpdate, hrgnUpdate, flags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RedrawWindow(hWnd_, lprcUpdate, hrgnUpdate, flags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
 
-        result := DllCall("USER32.dll\RedrawWindow", "ptr", hWnd, "ptr", lprcUpdate, "ptr", hrgnUpdate, "uint", flags, "int")
+        result := DllCall("USER32.dll\RedrawWindow", "ptr", hWnd_, "ptr", lprcUpdate, "ptr", hrgnUpdate, "uint", flags, "int")
         return result
     }
 
@@ -18051,7 +18067,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero, indicating that an error occurred or another window was already locked.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-lockwindowupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-lockwindowupdate
      * @since windows5.0
      */
     static LockWindowUpdate(hWndLock) {
@@ -18067,18 +18083,18 @@ class Gdi {
      * The <b>ClientToScreen</b> function replaces the client-area coordinates in the <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure with the screen coordinates. The screen coordinates are relative to the upper-left corner of the screen. Note, a screen-coordinate point that is above the window's client area has a negative y-coordinate. Similarly, a screen coordinate to the left of a client area has a negative x-coordinate.
      * 
      * All coordinates are device coordinates.
-     * @param {HWND} hWnd A handle to the window whose client area is used for the conversion.
+     * @param {HWND} hWnd_ A handle to the window whose client area is used for the conversion.
      * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the client coordinates to be converted. The new screen coordinates are copied into this structure if the function succeeds.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-clienttoscreen
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-clienttoscreen
      * @since windows5.0
      */
-    static ClientToScreen(hWnd, lpPoint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ClientToScreen(hWnd_, lpPoint) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\ClientToScreen", "ptr", hWnd, "ptr", lpPoint, "int")
+        result := DllCall("USER32.dll\ClientToScreen", "ptr", hWnd_, "ptr", lpPoint, "int")
         return result
     }
 
@@ -18092,18 +18108,18 @@ class Gdi {
      * All coordinates are in device units.
      * 
      * Do not use <b>ScreenToClient</b> when in a mirroring situation, that is, when changing from left-to-right layout to right-to-left layout. Instead, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapwindowpoints">MapWindowPoints</a>. For more information, see "Window Layout and Mirroring" in <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">Window Features</a>.
-     * @param {HWND} hWnd A handle to the window whose client area will be used for the conversion.
+     * @param {HWND} hWnd_ A handle to the window whose client area will be used for the conversion.
      * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the screen coordinates to be converted.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-screentoclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-screentoclient
      * @since windows5.0
      */
-    static ScreenToClient(hWnd, lpPoint) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ScreenToClient(hWnd_, lpPoint) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\ScreenToClient", "ptr", hWnd, "ptr", lpPoint, "int")
+        result := DllCall("USER32.dll\ScreenToClient", "ptr", hWnd_, "ptr", lpPoint, "int")
         return result
     }
 
@@ -18143,7 +18159,7 @@ class Gdi {
      * @returns {Integer} If the function succeeds, the low-order word of the return value is the number of pixels added to the horizontal coordinate of each source point in order to compute the horizontal coordinate of each destination point. (In addition to that, if precisely one of <i>hWndFrom</i> and <i>hWndTo</i> is mirrored, then each resulting horizontal coordinate is multiplied by -1.) The high-order word is the number of pixels added to the vertical coordinate of each source point in order to compute the vertical coordinate of each destination point.
      * 
      * If the function fails, the return value is zero. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> prior to calling this method to differentiate an error return value from a legitimate "0" return value.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mapwindowpoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-mapwindowpoints
      * @since windows5.0
      */
     static MapWindowPoints(hWndFrom, hWndTo, lpPoints, cPoints) {
@@ -18170,7 +18186,7 @@ class Gdi {
      * The function returns the red, green, blue (RGB) color value of the given element.
      * 
      * If the <i>nIndex</i> parameter is out of range, the return value is zero. Because zero is also a valid RGB value, you cannot use <b>GetSysColor</b> to determine whether a system color is supported by the current platform. Instead, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolorbrush">GetSysColorBrush</a> function, which returns <b>NULL</b> if the color is not supported.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsyscolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getsyscolor
      * @since windows5.0
      */
     static GetSysColor(nIndex) {
@@ -18192,7 +18208,7 @@ class Gdi {
      * System color brushes are owned by the system so you don't need to destroy them. Although you don't need to delete the logical brush that <b>GetSysColorBrush</b> returns, no harm occurs by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a>.
      * @param {Integer} nIndex A color index. This value corresponds to the color used to paint one of the window elements. See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a> for system color index values.
      * @returns {HBRUSH} The return value identifies a logical brush if the <i>nIndex</i> parameter is supported by the current platform. Otherwise, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getsyscolorbrush
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getsyscolorbrush
      * @since windows5.0
      */
     static GetSysColorBrush(nIndex) {
@@ -18231,7 +18247,7 @@ class Gdi {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setsyscolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setsyscolors
      * @since windows5.0
      */
     static SetSysColors(cElements, lpaElements, lpaRgbValues) {
@@ -18258,18 +18274,18 @@ class Gdi {
      * This function draws a rectangle that cannot be scrolled. To scroll an area containing a rectangle drawn by this function, call <b>DrawFocusRect</b> to remove the rectangle from the screen, scroll the area, and then call <b>DrawFocusRect</b> again to draw the rectangle in the new position.
      * 
      * <b>Windows XP:</b> The focus rectangle can now be thicker than 1 pixel, so it is more visible for high-resolution, high-density displays and accessibility needs. This is handled by the SPI_SETFOCUSBORDERWIDTH and SPI_SETFOCUSBORDERHEIGHT in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa">SystemParametersInfo</a>.
-     * @param {HDC} hDC A handle to the device context.
+     * @param {HDC} hDC_ A handle to the device context.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the logical coordinates of the rectangle.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawfocusrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawfocusrect
      * @since windows5.0
      */
-    static DrawFocusRect(hDC, lprc) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static DrawFocusRect(hDC_, lprc) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := DllCall("USER32.dll\DrawFocusRect", "ptr", hDC, "ptr", lprc, "int")
+        result := DllCall("USER32.dll\DrawFocusRect", "ptr", hDC_, "ptr", lprc, "int")
         return result
     }
 
@@ -18289,20 +18305,20 @@ class Gdi {
      * For a list of all the standard system colors, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a>.
      * 
      * When filling the specified rectangle, <b>FillRect</b> does not include the rectangle's right and bottom sides. GDI fills a rectangle up to, but not including, the right column and bottom row, regardless of the current mapping mode.
-     * @param {HDC} hDC A handle to the device context.
+     * @param {HDC} hDC_ A handle to the device context.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle to be filled.
      * @param {HBRUSH} hbr A handle to the brush used to fill the rectangle.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-fillrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-fillrect
      * @since windows5.0
      */
-    static FillRect(hDC, lprc, hbr) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static FillRect(hDC_, lprc, hbr) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
         hbr := hbr is Win32Handle ? NumGet(hbr, "ptr") : hbr
 
-        result := DllCall("USER32.dll\FillRect", "ptr", hDC, "ptr", lprc, "ptr", hbr, "int")
+        result := DllCall("USER32.dll\FillRect", "ptr", hDC_, "ptr", lprc, "ptr", hbr, "int")
         return result
     }
 
@@ -18312,20 +18328,20 @@ class Gdi {
      * The brush identified by the <i>hbr</i> parameter must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createhatchbrush">CreateHatchBrush</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createpatternbrush">CreatePatternBrush</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createsolidbrush">CreateSolidBrush</a> function, or retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getstockobject">GetStockObject</a> function.
      * 
      * If the <b>bottom</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure is less than the <b>top</b> member, or if the <b>right</b> member is less than the <b>left</b> member, the function does not draw the rectangle.
-     * @param {HDC} hDC A handle to the device context in which the border is drawn.
+     * @param {HDC} hDC_ A handle to the device context in which the border is drawn.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the upper-left and lower-right corners of the rectangle.
      * @param {HBRUSH} hbr A handle to the brush used to draw the border.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-framerect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-framerect
      * @since windows5.0
      */
-    static FrameRect(hDC, lprc, hbr) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static FrameRect(hDC_, lprc, hbr) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
         hbr := hbr is Win32Handle ? NumGet(hbr, "ptr") : hbr
 
-        result := DllCall("USER32.dll\FrameRect", "ptr", hDC, "ptr", lprc, "ptr", hbr, "int")
+        result := DllCall("USER32.dll\FrameRect", "ptr", hDC_, "ptr", lprc, "ptr", hbr, "int")
         return result
     }
 
@@ -18333,18 +18349,18 @@ class Gdi {
      * The InvertRect function inverts a rectangle in a window by performing a logical NOT operation on the color values for each pixel in the rectangle's interior.
      * @remarks
      * On monochrome screens, <b>InvertRect</b> makes white pixels black and black pixels white. On color screens, the inversion depends on how colors are generated for the screen. Calling <b>InvertRect</b> twice for the same rectangle restores the display to its previous colors.
-     * @param {HDC} hDC A handle to the device context.
+     * @param {HDC} hDC_ A handle to the device context.
      * @param {Pointer<RECT>} lprc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the logical coordinates of the rectangle to be inverted.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-invertrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-invertrect
      * @since windows5.0
      */
-    static InvertRect(hDC, lprc) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static InvertRect(hDC_, lprc) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := DllCall("USER32.dll\InvertRect", "ptr", hDC, "ptr", lprc, "int")
+        result := DllCall("USER32.dll\InvertRect", "ptr", hDC_, "ptr", lprc, "int")
         return result
     }
 
@@ -18360,7 +18376,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setrect
      * @since windows5.0
      */
     static SetRect(lprc, xLeft, yTop, xRight, yBottom) {
@@ -18376,7 +18392,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setrectempty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setrectempty
      * @since windows5.0
      */
     static SetRectEmpty(lprc) {
@@ -18393,7 +18409,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-copyrect
      * @since windows5.0
      */
     static CopyRect(lprcDst, lprcSrc) {
@@ -18411,7 +18427,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-inflaterect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-inflaterect
      * @since windows5.0
      */
     static InflateRect(lprc, dx, dy) {
@@ -18429,7 +18445,7 @@ class Gdi {
      * @returns {BOOL} If the rectangles intersect, the return value is nonzero.
      * 
      * If the rectangles do not intersect, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-intersectrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-intersectrect
      * @since windows5.0
      */
     static IntersectRect(lprcDst, lprcSrc1, lprcSrc2) {
@@ -18449,7 +18465,7 @@ class Gdi {
      * @returns {BOOL} If the specified structure contains a nonempty rectangle, the return value is nonzero.
      * 
      * If the specified structure does not contain a nonempty rectangle, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unionrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-unionrect
      * @since windows5.0
      */
     static UnionRect(lprcDst, lprcSrc1, lprcSrc2) {
@@ -18469,7 +18485,7 @@ class Gdi {
      * @returns {BOOL} If the resulting rectangle is empty, the return value is zero.
      * 
      * If the resulting rectangle is not empty, the return value is nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-subtractrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-subtractrect
      * @since windows5.0
      */
     static SubtractRect(lprcDst, lprcSrc1, lprcSrc2) {
@@ -18487,7 +18503,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-offsetrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-offsetrect
      * @since windows5.0
      */
     static OffsetRect(lprc, dx, dy) {
@@ -18503,7 +18519,7 @@ class Gdi {
      * @returns {BOOL} If the rectangle is empty, the return value is nonzero.
      * 
      * If the rectangle is not empty, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-isrectempty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-isrectempty
      * @since windows5.0
      */
     static IsRectEmpty(lprc) {
@@ -18522,7 +18538,7 @@ class Gdi {
      * @returns {BOOL} If the two rectangles are identical, the return value is nonzero.
      * 
      * If the two rectangles are not identical, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-equalrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-equalrect
      * @since windows5.0
      */
     static EqualRect(lprc1, lprc2) {
@@ -18541,7 +18557,7 @@ class Gdi {
      * @returns {BOOL} If the specified point lies within the rectangle, the return value is nonzero.
      * 
      * If the specified point does not lie within the rectangle, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-ptinrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-ptinrect
      * @since windows5.0
      */
     static PtInRect(lprc, pt) {
@@ -18639,19 +18655,19 @@ class Gdi {
      * For an application to use any of the OBM_ constants, the constant OEMRESOURCE must be defined before the Windows.h header file is included.
      * 
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete each bitmap handle returned by the <b>LoadBitmap</b> function.
-     * @param {HINSTANCE} hInstance A handle to the instance of the module whose executable file contains the bitmap to be loaded.
+     * @param {HINSTANCE} hInstance_ A handle to the instance of the module whose executable file contains the bitmap to be loaded.
      * @param {PSTR} lpBitmapName A pointer to a null-terminated string that contains the name of the bitmap resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can be used to create this value.
      * @returns {HBITMAP} If the function succeeds, the return value is the handle to the specified bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadbitmapa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-loadbitmapa
      * @since windows5.0
      */
-    static LoadBitmapA(hInstance, lpBitmapName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadBitmapA(hInstance_, lpBitmapName) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
-        result := DllCall("USER32.dll\LoadBitmapA", "ptr", hInstance, "ptr", lpBitmapName, "ptr")
+        result := DllCall("USER32.dll\LoadBitmapA", "ptr", hInstance_, "ptr", lpBitmapName, "ptr")
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
     }
@@ -18746,19 +18762,19 @@ class Gdi {
      * For an application to use any of the OBM_ constants, the constant OEMRESOURCE must be defined before the Windows.h header file is included.
      * 
      * The application must call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete each bitmap handle returned by the <b>LoadBitmap</b> function.
-     * @param {HINSTANCE} hInstance A handle to the instance of the module whose executable file contains the bitmap to be loaded.
+     * @param {HINSTANCE} hInstance_ A handle to the instance of the module whose executable file contains the bitmap to be loaded.
      * @param {PWSTR} lpBitmapName A pointer to a null-terminated string that contains the name of the bitmap resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can be used to create this value.
      * @returns {HBITMAP} If the function succeeds, the return value is the handle to the specified bitmap.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadbitmapw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-loadbitmapw
      * @since windows5.0
      */
-    static LoadBitmapW(hInstance, lpBitmapName) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LoadBitmapW(hInstance_, lpBitmapName) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
-        result := DllCall("USER32.dll\LoadBitmapW", "ptr", hInstance, "ptr", lpBitmapName, "ptr")
+        result := DllCall("USER32.dll\LoadBitmapW", "ptr", hInstance_, "ptr", lpBitmapName, "ptr")
         resultHandle := HBITMAP({Value: result}, True)
         return resultHandle
     }
@@ -18930,7 +18946,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-changedisplaysettingsa
      * @since windows5.0
      */
     static ChangeDisplaySettingsA(lpDevMode, dwFlags) {
@@ -19105,7 +19121,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-changedisplaysettingsw
      * @since windows5.0
      */
     static ChangeDisplaySettingsW(lpDevMode, dwFlags) {
@@ -19201,7 +19217,7 @@ class Gdi {
      * </tr>
      * </table>
      * @param {Integer} dwflags 
-     * @param {Pointer<Void>} lParam If <i>dwFlags</i> is <b>CDS_VIDEOPARAMETERS</b>, <i>lParam</i> is a pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145196(v=vs.85)">VIDEOPARAMETERS</a> structure. Otherwise <i>lParam</i> must be <b>NULL</b>.
+     * @param {Pointer<Void>} lParam_ If <i>dwFlags</i> is <b>CDS_VIDEOPARAMETERS</b>, <i>lParam</i> is a pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145196(v=vs.85)">VIDEOPARAMETERS</a> structure. Otherwise <i>lParam</i> must be <b>NULL</b>.
      * @returns {Integer} The <b>ChangeDisplaySettingsEx</b> function returns one of the following values.
      * 
      * <table>
@@ -19298,17 +19314,17 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-changedisplaysettingsexa
      * @since windows5.0
      */
-    static ChangeDisplaySettingsExA(lpszDeviceName, lpDevMode, dwflags, lParam) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+    static ChangeDisplaySettingsExA(lpszDeviceName, lpDevMode, dwflags, lParam_) {
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        lParamMarshal := lParam is VarRef ? "ptr" : "ptr"
+        lParam_Marshal := lParam_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("USER32.dll\ChangeDisplaySettingsExA", "ptr", lpszDeviceName, "ptr", lpDevMode, "ptr", hwnd, "uint", dwflags, lParamMarshal, lParam, "int")
+        result := DllCall("USER32.dll\ChangeDisplaySettingsExA", "ptr", lpszDeviceName, "ptr", lpDevMode, "ptr", hwnd_, "uint", dwflags, lParam_Marshal, lParam_, "int")
         return result
     }
 
@@ -19400,7 +19416,7 @@ class Gdi {
      * </tr>
      * </table>
      * @param {Integer} dwflags 
-     * @param {Pointer<Void>} lParam If <i>dwFlags</i> is <b>CDS_VIDEOPARAMETERS</b>, <i>lParam</i> is a pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145196(v=vs.85)">VIDEOPARAMETERS</a> structure. Otherwise <i>lParam</i> must be <b>NULL</b>.
+     * @param {Pointer<Void>} lParam_ If <i>dwFlags</i> is <b>CDS_VIDEOPARAMETERS</b>, <i>lParam</i> is a pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145196(v=vs.85)">VIDEOPARAMETERS</a> structure. Otherwise <i>lParam</i> must be <b>NULL</b>.
      * @returns {Integer} The <b>ChangeDisplaySettingsEx</b> function returns one of the following values.
      * 
      * <table>
@@ -19497,17 +19513,17 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changedisplaysettingsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-changedisplaysettingsexw
      * @since windows5.0
      */
-    static ChangeDisplaySettingsExW(lpszDeviceName, lpDevMode, dwflags, lParam) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+    static ChangeDisplaySettingsExW(lpszDeviceName, lpDevMode, dwflags, lParam_) {
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
 
-        lParamMarshal := lParam is VarRef ? "ptr" : "ptr"
+        lParam_Marshal := lParam_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("USER32.dll\ChangeDisplaySettingsExW", "ptr", lpszDeviceName, "ptr", lpDevMode, "ptr", hwnd, "uint", dwflags, lParamMarshal, lParam, "int")
+        result := DllCall("USER32.dll\ChangeDisplaySettingsExW", "ptr", lpszDeviceName, "ptr", lpDevMode, "ptr", hwnd_, "uint", dwflags, lParam_Marshal, lParam_, "int")
         return result
     }
 
@@ -19543,7 +19559,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaysettingsa
      * @since windows5.0
      */
     static EnumDisplaySettingsA(lpszDeviceName, iModeNum, lpDevMode) {
@@ -19585,7 +19601,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaysettingsw
      * @since windows5.0
      */
     static EnumDisplaySettingsW(lpszDeviceName, iModeNum, lpDevMode) {
@@ -19657,7 +19673,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaysettingsexa
      * @since windows5.0
      */
     static EnumDisplaySettingsExA(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
@@ -19729,7 +19745,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaysettingsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaysettingsexw
      * @since windows5.0
      */
     static EnumDisplaySettingsExW(lpszDeviceName, iModeNum, lpDevMode, dwFlags) {
@@ -19769,7 +19785,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. The function fails if <i>iDevNum</i> is greater than the largest device index.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaydevicesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaydevicesa
      * @since windows5.0
      */
     static EnumDisplayDevicesA(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
@@ -19809,7 +19825,7 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. The function fails if <i>iDevNum</i> is greater than the largest device index.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaydevicesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaydevicesw
      * @since windows5.0
      */
     static EnumDisplayDevicesW(lpDevice, iDevNum, lpDisplayDevice, dwFlags) {
@@ -19826,7 +19842,7 @@ class Gdi {
      * @returns {HMONITOR} If the point is contained by a display monitor, the return value is an <b>HMONITOR</b> handle to that display monitor.
      * 
      * If the point is not contained by a display monitor, the return value depends on the value of <i>dwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-monitorfrompoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-monitorfrompoint
      * @since windows5.0
      */
     static MonitorFromPoint(pt, dwFlags) {
@@ -19842,7 +19858,7 @@ class Gdi {
      * @returns {HMONITOR} If the rectangle intersects one or more display monitor rectangles, the return value is an <b>HMONITOR</b> handle to the display monitor that has the largest area of intersection with the rectangle.
      * 
      * If the rectangle does not intersect a display monitor, the return value depends on the value of <i>dwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-monitorfromrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-monitorfromrect
      * @since windows5.0
      */
     static MonitorFromRect(lprc, dwFlags) {
@@ -19855,18 +19871,18 @@ class Gdi {
      * The MonitorFromWindow function retrieves a handle to the display monitor that has the largest area of intersection with the bounding rectangle of a specified window.
      * @remarks
      * If the window is currently minimized, <b>MonitorFromWindow</b> uses the rectangle of the window before it was minimized.
-     * @param {HWND} hwnd A handle to the window of interest.
+     * @param {HWND} hwnd_ A handle to the window of interest.
      * @param {Integer} dwFlags Determines the function's return value if the window does not intersect any display monitor.
      * @returns {HMONITOR} If the window intersects one or more display monitor rectangles, the return value is an <b>HMONITOR</b> handle to the display monitor that has the largest area of intersection with the window.
      * 
      * If the window does not intersect a display monitor, the return value depends on the value of <i>dwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-monitorfromwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-monitorfromwindow
      * @since windows5.0
      */
-    static MonitorFromWindow(hwnd, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static MonitorFromWindow(hwnd_, dwFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("USER32.dll\MonitorFromWindow", "ptr", hwnd, "uint", dwFlags, "ptr")
+        result := DllCall("USER32.dll\MonitorFromWindow", "ptr", hwnd_, "uint", dwFlags, "ptr")
         resultHandle := HMONITOR({Value: result}, True)
         return resultHandle
     }
@@ -19876,7 +19892,7 @@ class Gdi {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetMonitorInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMONITOR} hMonitor A handle to the display monitor of interest.
+     * @param {HMONITOR} hMonitor_ A handle to the display monitor of interest.
      * @param {Pointer<MONITORINFO>} lpmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfo">MONITORINFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfoexa">MONITORINFOEX</a> structure that receives information about the specified display monitor.
      * 
      * You must set the <b>cbSize</b> member of the structure to sizeof(MONITORINFO) or sizeof(MONITORINFOEX) before calling the <b>GetMonitorInfo</b> function. Doing so lets the function determine the type of structure you are passing to it.
@@ -19885,13 +19901,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmonitorinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getmonitorinfoa
      * @since windows5.0
      */
-    static GetMonitorInfoA(hMonitor, lpmi) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorInfoA(hMonitor_, lpmi) {
+        hMonitor_ := hMonitor_ is Win32Handle ? NumGet(hMonitor_, "ptr") : hMonitor_
 
-        result := DllCall("USER32.dll\GetMonitorInfoA", "ptr", hMonitor, "ptr", lpmi, "int")
+        result := DllCall("USER32.dll\GetMonitorInfoA", "ptr", hMonitor_, "ptr", lpmi, "int")
         return result
     }
 
@@ -19900,7 +19916,7 @@ class Gdi {
      * @remarks
      * > [!NOTE]
      * > The winuser.h header defines GetMonitorInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HMONITOR} hMonitor A handle to the display monitor of interest.
+     * @param {HMONITOR} hMonitor_ A handle to the display monitor of interest.
      * @param {Pointer<MONITORINFO>} lpmi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfo">MONITORINFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-monitorinfoexa">MONITORINFOEX</a> structure that receives information about the specified display monitor.
      * 
      * You must set the <b>cbSize</b> member of the structure to sizeof(MONITORINFO) or sizeof(MONITORINFOEX) before calling the <b>GetMonitorInfo</b> function. Doing so lets the function determine the type of structure you are passing to it.
@@ -19909,13 +19925,13 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmonitorinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getmonitorinfow
      * @since windows5.0
      */
-    static GetMonitorInfoW(hMonitor, lpmi) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    static GetMonitorInfoW(hMonitor_, lpmi) {
+        hMonitor_ := hMonitor_ is Win32Handle ? NumGet(hMonitor_, "ptr") : hMonitor_
 
-        result := DllCall("USER32.dll\GetMonitorInfoW", "ptr", hMonitor, "ptr", lpmi, "int")
+        result := DllCall("USER32.dll\GetMonitorInfoW", "ptr", hMonitor_, "ptr", lpmi, "int")
         return result
     }
 
@@ -19969,7 +19985,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @param {HDC} hdc A handle to a display device context that defines the visible region of interest.
+     * @param {HDC} hdc_ A handle to a display device context that defines the visible region of interest.
      * 
      * If this parameter is <b>NULL</b>, the <i>hdcMonitor</i> parameter passed to the callback function will be <b>NULL</b>, and the visible region of interest is the virtual screen that encompasses all the displays on the desktop.
      * @param {Pointer<RECT>} lprcClip A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies a clipping rectangle. The region of interest is the intersection of the clipping rectangle with the visible region specified by <i>hdc</i>.
@@ -19982,13 +19998,14 @@ class Gdi {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdisplaymonitors
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdisplaymonitors
      * @since windows5.0
      */
-    static EnumDisplayMonitors(hdc, lprcClip, lpfnEnum, dwData) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumDisplayMonitors(hdc_, lprcClip, lpfnEnum, dwData) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        dwData := dwData is Win32Handle ? NumGet(dwData, "ptr") : dwData
 
-        result := DllCall("USER32.dll\EnumDisplayMonitors", "ptr", hdc, "ptr", lprcClip, "ptr", lpfnEnum, "ptr", dwData, "int")
+        result := DllCall("USER32.dll\EnumDisplayMonitors", "ptr", hdc_, "ptr", lprcClip, "ptr", lpfnEnum, "ptr", dwData, "int")
         return result
     }
 

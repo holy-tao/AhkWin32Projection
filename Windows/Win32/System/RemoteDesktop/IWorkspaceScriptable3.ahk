@@ -5,8 +5,8 @@
 #Include .\IWorkspaceScriptable2.ahk
 
 /**
- * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections.
- * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nn-workspaceruntime-iworkspacescriptable3
+ * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nn-workspaceruntime-iworkspacescriptable3
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -43,20 +43,48 @@ class IWorkspaceScriptable3 extends IWorkspaceScriptable2{
      * @param {Integer} lTimeout 
      * @param {Integer} lFlags 
      * @param {BSTR} bstrEventLogUploadAddress 
-     * @param {Guid} correlationId 
+     * @param {Guid} correlationId_ 
      * @returns {HRESULT} 
      */
-    StartWorkspaceEx2(bstrWorkspaceId, bstrWorkspaceFriendlyName, bstrRedirectorName, bstrUserName, bstrPassword, bstrAppContainer, bstrWorkspaceParams, lTimeout, lFlags, bstrEventLogUploadAddress, correlationId) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
-        bstrWorkspaceFriendlyName := bstrWorkspaceFriendlyName is String ? BSTR.Alloc(bstrWorkspaceFriendlyName).Value : bstrWorkspaceFriendlyName
-        bstrRedirectorName := bstrRedirectorName is String ? BSTR.Alloc(bstrRedirectorName).Value : bstrRedirectorName
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
-        bstrAppContainer := bstrAppContainer is String ? BSTR.Alloc(bstrAppContainer).Value : bstrAppContainer
-        bstrWorkspaceParams := bstrWorkspaceParams is String ? BSTR.Alloc(bstrWorkspaceParams).Value : bstrWorkspaceParams
-        bstrEventLogUploadAddress := bstrEventLogUploadAddress is String ? BSTR.Alloc(bstrEventLogUploadAddress).Value : bstrEventLogUploadAddress
+    StartWorkspaceEx2(bstrWorkspaceId, bstrWorkspaceFriendlyName, bstrRedirectorName, bstrUserName, bstrPassword, bstrAppContainer, bstrWorkspaceParams, lTimeout, lFlags, bstrEventLogUploadAddress, correlationId_) {
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
+        if(bstrWorkspaceFriendlyName is String) {
+            pin := BSTR.Alloc(bstrWorkspaceFriendlyName)
+            bstrWorkspaceFriendlyName := pin.Value
+        }
+        if(bstrRedirectorName is String) {
+            pin := BSTR.Alloc(bstrRedirectorName)
+            bstrRedirectorName := pin.Value
+        }
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
+        if(bstrAppContainer is String) {
+            pin := BSTR.Alloc(bstrAppContainer)
+            bstrAppContainer := pin.Value
+        }
+        if(bstrWorkspaceParams is String) {
+            pin := BSTR.Alloc(bstrWorkspaceParams)
+            bstrWorkspaceParams := pin.Value
+        }
+        if(bstrEventLogUploadAddress is String) {
+            pin := BSTR.Alloc(bstrEventLogUploadAddress)
+            bstrEventLogUploadAddress := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrWorkspaceId, "ptr", bstrWorkspaceFriendlyName, "ptr", bstrRedirectorName, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", bstrAppContainer, "ptr", bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "ptr", bstrEventLogUploadAddress, "ptr", correlationId, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrWorkspaceId, "ptr", bstrWorkspaceFriendlyName, "ptr", bstrRedirectorName, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", bstrAppContainer, "ptr", bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "ptr", bstrEventLogUploadAddress, "ptr", correlationId_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

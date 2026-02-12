@@ -52,7 +52,7 @@
  *             As usual, single-adapter applications can simplify the landscape and ensure that the CPU writes to upload heaps use patterns that are write-combine-friendly.
  *             The lower-level details help reinforce the concepts for multi-adapter applications.
  *             Multi-adapter applications likely need to understand adapter architecture properties well enough to choose the optimal custom heap properties to efficiently move data between adapters.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_feature_data_architecture1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

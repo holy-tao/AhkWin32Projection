@@ -34,7 +34,11 @@ class IDebugDocumentProvider extends IDebugDocumentInfo{
      * @returns {IDebugDocument} 
      */
     GetDocument() {
-        result := ComCall(5, this, "ptr*", &ppssd := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppssd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocument(ppssd)
     }
 }

@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_DRIVE_PROP2 structure (vdshwprv.h) defines the properties of a drive object.
+ * The VDS_DRIVE_PROP2 structure (vds.h) defines the properties of a drive object.
  * @remarks
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive2-getproperties2">IVdsDrive2::GetProperties2</a> method to return the properties for a <a href="https://docs.microsoft.com/windows/desktop/VDS/drive-object">drive object</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_prop2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_drive_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -9,7 +9,7 @@
  * The following image shows an example of a triangle with a gradient fill.
  * 
  * <img alt="Illustration of a triangle that fills from orange at the top point to magenta on the bottom line " border="0" src="images/GradientFillTriangle.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gradient_triangle
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-gradient_triangle
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

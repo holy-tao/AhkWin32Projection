@@ -8,14 +8,11 @@
 /**
  * A sampler interface accesses sampler state.
  * @remarks
- * 
  * An <b>ID3D10EffectSamplerVariable Interface</b> is created when an effect is read into memory.
  * 
  * Effect variables are saved in memory in the backing store; when a technique is applied, the values in the backing store are copied to the device. You
  *  can use either of these methods to return state. For examples, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-set-state">Two Ways to Get the State in an Effect Variable</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectsamplervariable
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nn-d3d10effect-id3d10effectsamplervariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -48,10 +45,14 @@ class ID3D10EffectSamplerVariable extends ID3D10EffectVariable{
      * @returns {ID3D10SamplerState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>**</b>
      * 
      * The address of a pointer to a sampler interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getsampler
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getsampler
      */
     GetSampler(Index) {
-        result := ComCall(25, this, "uint", Index, "ptr*", &ppSampler := 0, "HRESULT")
+        result := ComCall(25, this, "uint", Index, "ptr*", &ppSampler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10SamplerState(ppSampler)
     }
 
@@ -63,11 +64,15 @@ class ID3D10EffectSamplerVariable extends ID3D10EffectVariable{
      * @returns {D3D10_SAMPLER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a>*</b>
      * 
      * A pointer to a sampler description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getbackingstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectsamplervariable-getbackingstore
      */
     GetBackingStore(Index) {
         pSamplerDesc := D3D10_SAMPLER_DESC()
-        result := ComCall(26, this, "uint", Index, "ptr", pSamplerDesc, "HRESULT")
+        result := ComCall(26, this, "uint", Index, "ptr", pSamplerDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSamplerDesc
     }
 }

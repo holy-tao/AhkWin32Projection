@@ -3,9 +3,14 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\SHANDLE_PTR.ahk
 #Include .\IWebBrowser.ahk
 
 /**
+ * Gets the handle of the Windows Internet Explorer main window.
+ * @remarks
+ * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
+ * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -109,9 +114,14 @@ class IWebBrowserApp extends IWebBrowser{
     /**
      * 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/excel/quitframework
      */
     Quit() {
-        result := ComCall(32, this, "HRESULT")
+        result := ComCall(32, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,33 +135,56 @@ class IWebBrowserApp extends IWebBrowser{
         pcxMarshal := pcx is VarRef ? "int*" : "ptr"
         pcyMarshal := pcy is VarRef ? "int*" : "ptr"
 
-        result := ComCall(33, this, pcxMarshal, pcx, pcyMarshal, pcy, "HRESULT")
+        result := ComCall(33, this, pcxMarshal, pcx, pcyMarshal, pcy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} Property 
+     * @param {BSTR} Property_ 
      * @param {VARIANT} vtValue 
      * @returns {HRESULT} 
      */
-    PutProperty(Property, vtValue) {
-        Property := Property is String ? BSTR.Alloc(Property).Value : Property
+    PutProperty(Property_, vtValue) {
+        if(Property_ is String) {
+            pin := BSTR.Alloc(Property_)
+            Property_ := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", Property, "ptr", vtValue, "HRESULT")
+        result := ComCall(34, this, "ptr", Property_, "ptr", vtValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
-     * @param {BSTR} Property 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
+     * @param {BSTR} Property_ 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getproperty
      */
-    GetProperty(Property) {
-        Property := Property is String ? BSTR.Alloc(Property).Value : Property
+    GetProperty(Property_) {
+        if(Property_ is String) {
+            pin := BSTR.Alloc(Property_)
+            Property_ := pin.Value
+        }
 
         pvtValue := VARIANT()
-        result := ComCall(35, this, "ptr", Property, "ptr", pvtValue, "HRESULT")
+        result := ComCall(35, this, "ptr", Property_, "ptr", pvtValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvtValue
     }
 
@@ -161,22 +194,28 @@ class IWebBrowserApp extends IWebBrowser{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(36, this, "ptr", Name, "HRESULT")
+        result := ComCall(36, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
     /**
      * Gets the handle of the Windows Internet Explorer main window.
      * @remarks
-     * 
      * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
-     * 
-     * 
      * @returns {SHANDLE_PTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
      */
     get_HWND() {
-        result := ComCall(37, this, "ptr*", &pHWND := 0, "HRESULT")
+        pHWND := SHANDLE_PTR()
+        result := ComCall(37, this, "ptr", pHWND, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHWND
     }
 
@@ -186,7 +225,11 @@ class IWebBrowserApp extends IWebBrowser{
      */
     get_FullName() {
         FullName := BSTR()
-        result := ComCall(38, this, "ptr", FullName, "HRESULT")
+        result := ComCall(38, this, "ptr", FullName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FullName
     }
 
@@ -195,9 +238,13 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {BSTR} 
      */
     get_Path() {
-        Path := BSTR()
-        result := ComCall(39, this, "ptr", Path, "HRESULT")
-        return Path
+        Path_ := BSTR()
+        result := ComCall(39, this, "ptr", Path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Path_
     }
 
     /**
@@ -205,7 +252,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {VARIANT_BOOL} 
      */
     get_Visible() {
-        result := ComCall(40, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(40, this, "short*", &pBool := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBool
     }
 
@@ -215,7 +266,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {HRESULT} 
      */
     put_Visible(Value) {
-        result := ComCall(41, this, "short", Value, "HRESULT")
+        result := ComCall(41, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -224,7 +279,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {VARIANT_BOOL} 
      */
     get_StatusBar() {
-        result := ComCall(42, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(42, this, "short*", &pBool := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBool
     }
 
@@ -234,7 +293,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {HRESULT} 
      */
     put_StatusBar(Value) {
-        result := ComCall(43, this, "short", Value, "HRESULT")
+        result := ComCall(43, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,7 +307,11 @@ class IWebBrowserApp extends IWebBrowser{
      */
     get_StatusText() {
         StatusText := BSTR()
-        result := ComCall(44, this, "ptr", StatusText, "HRESULT")
+        result := ComCall(44, this, "ptr", StatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StatusText
     }
 
@@ -254,44 +321,53 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {HRESULT} 
      */
     put_StatusText(StatusText) {
-        StatusText := StatusText is String ? BSTR.Alloc(StatusText).Value : StatusText
+        if(StatusText is String) {
+            pin := BSTR.Alloc(StatusText)
+            StatusText := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", StatusText, "HRESULT")
+        result := ComCall(45, this, "ptr", StatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets or gets whether toolbars for the object are visible.
      * @remarks
-     * 
      * When the IWebBrowser2::ToolBar property is set to FALSE, it is not equivalent to the "toolbar=no" feature of window.open. Instead, it turns off all user interface elements that can be considered toolbars, leaving Windows Internet Explorer in a blank state. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
+     * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
      */
     get_ToolBar() {
-        result := ComCall(46, this, "int*", &Value := 0, "HRESULT")
+        result := ComCall(46, this, "int*", &Value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
     /**
      * Sets or gets whether toolbars for the object are visible.
      * @remarks
-     * 
      * When the IWebBrowser2::ToolBar property is set to FALSE, it is not equivalent to the "toolbar=no" feature of window.open. Instead, it turns off all user interface elements that can be considered toolbars, leaving Windows Internet Explorer in a blank state. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
+     * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
      */
     put_ToolBar(Value) {
-        result := ComCall(47, this, "int", Value, "HRESULT")
+        result := ComCall(47, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -300,7 +376,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {VARIANT_BOOL} 
      */
     get_MenuBar() {
-        result := ComCall(48, this, "short*", &Value := 0, "HRESULT")
+        result := ComCall(48, this, "short*", &Value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
@@ -310,7 +390,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {HRESULT} 
      */
     put_MenuBar(Value) {
-        result := ComCall(49, this, "short", Value, "HRESULT")
+        result := ComCall(49, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -319,7 +403,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {VARIANT_BOOL} 
      */
     get_FullScreen() {
-        result := ComCall(50, this, "short*", &pbFullScreen := 0, "HRESULT")
+        result := ComCall(50, this, "short*", &pbFullScreen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbFullScreen
     }
 
@@ -329,7 +417,11 @@ class IWebBrowserApp extends IWebBrowser{
      * @returns {HRESULT} 
      */
     put_FullScreen(bFullScreen) {
-        result := ComCall(51, this, "short", bFullScreen, "HRESULT")
+        result := ComCall(51, this, "short", bFullScreen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

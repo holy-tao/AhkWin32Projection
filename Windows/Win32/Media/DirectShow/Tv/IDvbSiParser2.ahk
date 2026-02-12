@@ -7,7 +7,6 @@
 /**
  * The IDvbSiParser2 interface retrieves program specific information (PSI) and service information (SI) tables from a DVB transport stream.
  * @remarks
- * 
  * To get a pointer to this interface, call <b>CoCreateInstance</b>. Use the following CLSID:
  * 
  * 
@@ -17,9 +16,7 @@
  * 
  * 
  * This CLSID is not is not published in an SDK header; define a new GUID constant in your application.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbsiparser2
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbsiparser2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -46,17 +43,23 @@ class IDvbSiParser2 extends IDvbSiParser{
 
     /**
      * .
+     * @remarks
+     * The method fails if the filter does not receive a matching table within a predetermined length of time.
      * @param {Integer} tableId 
      * @param {Pointer<Integer>} pwServiceId An optional parameter that contains a service identifier. You can use this value to filter the request. Otherwise, set this parameter to <b>NULL</b>.
      * @param {Pointer<Integer>} pbSegment An optional parameter that contains a segment number. You can use this value to filter the request. Otherwise, set this parameter to <b>NULL</b>.
      * @returns {IDVB_EIT2} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-idvb_eit2">IDVB_EIT2</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
      */
     GetEIT2(tableId, pwServiceId, pbSegment) {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
         pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "HRESULT")
+        result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDVB_EIT2(ppEIT)
     }
 }

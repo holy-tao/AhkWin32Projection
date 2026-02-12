@@ -5,7 +5,7 @@
 
 /**
  * Analyzes various text properties for complex script processing such as bidirectional (bidi) support for languages like Arabic, determination of line break opportunities, glyph placement, and number substitution.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextanalyzer
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritetextanalyzer
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -46,16 +46,25 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzescript
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-analyzescript
      */
     AnalyzeScript(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Analyzes a text range for script directionality, reading attributes from the source and reporting levels to the sink callback SetBidiLevel.
+     * @remarks
+     * While the function can handle multiple paragraphs, the text range
+     *      should not arbitrarily split the middle of paragraphs. Otherwise, the
+     *      returned levels may be wrong, because the Bidi algorithm is meant to
+     *      apply to the paragraph as a whole.
      * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
      * 
      * A pointer to a source object to analyze.
@@ -70,16 +79,25 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzebidi
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-analyzebidi
      */
     AnalyzeBidi(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Analyzes a text range for spans where number substitution is applicable, reading attributes from the source and reporting substitutable ranges to the sink callback SetNumberSubstitution.
+     * @remarks
+     * Although the function can handle multiple ranges of differing number
+     *      substitutions, the text ranges should not arbitrarily split the
+     *      middle of numbers. Otherwise, it will treat the numbers separately
+     *      and will not translate any intervening punctuation.
      * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
      * 
      * The source object to analyze.
@@ -94,16 +112,26 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzenumbersubstitution
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-analyzenumbersubstitution
      */
     AnalyzeNumberSubstitution(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(5, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(5, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Analyzes a text range for potential breakpoint opportunities, reading attributes from the source and reporting breakpoint opportunities to the sink callback SetLineBreakpoints.
+     * @remarks
+     * Although the function can handle multiple paragraphs, the text range
+     *      should not arbitrarily split the middle of paragraphs, unless the
+     *      specified text span is considered a whole unit. Otherwise, the
+     *      returned properties for the first and last characters will
+     *      inappropriately allow breaks.
      * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
      * 
      * A pointer to the source object to analyze.
@@ -118,16 +146,24 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the  sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzelinebreakpoints
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-analyzelinebreakpoints
      */
     AnalyzeLineBreakpoints(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(6, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(6, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Parses the input text string and maps it to the set of glyphs and associated glyph data according to the font and the writing system's rendering rules.
+     * @remarks
+     * Note that the mapping from characters to glyphs is, in general, many-to-many.  The recommended estimate for the per-glyph output buffers is (3 * <i>textLength</i> / 2 + 16).  This is not guaranteed to be sufficient.
+     * 
+     * The value of the <i>actualGlyphCount</i> parameter is only valid if the call succeeds.  In the event that <i>maxGlyphCount</i> is not big enough, <b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b> will be returned. The application should allocate a larger buffer and try again.
      * @param {PWSTR} textString Type: <b>const WCHAR*</b>
      * 
      * An array of characters to convert to glyphs.
@@ -189,8 +225,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      *      the call succeeds.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-getglyphs
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs
      */
     GetGlyphs(textString, textLength, fontFace, isSideways, isRightToLeft, scriptAnalysis, localeName, numberSubstitution, features, featureRangeLengths, featureRanges, maxGlyphCount, clusterMap, textProps, glyphIndices, glyphProps, actualGlyphCount) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -202,7 +238,11 @@ class IDWriteTextAnalyzer extends IUnknown{
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
         actualGlyphCountMarshal := actualGlyphCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, "ptr", textProps, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, actualGlyphCountMarshal, actualGlyphCount, "HRESULT")
+        result := ComCall(7, this, "ptr", textString, "uint", textLength, "ptr", fontFace, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, "ptr", numberSubstitution, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, "ptr", textProps, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, actualGlyphCountMarshal, actualGlyphCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,8 +311,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * When this method returns, contains the offset of the origin of each glyph.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-getglyphplacements
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-getglyphplacements
      */
     GetGlyphPlacements(textString, clusterMap, textProps, textLength, glyphIndices, glyphProps, glyphCount, fontFace, fontEmSize, isSideways, isRightToLeft, scriptAnalysis, localeName, features, featureRangeLengths, featureRanges, glyphAdvances, glyphOffsets) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -284,7 +324,11 @@ class IDWriteTextAnalyzer extends IUnknown{
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "HRESULT")
+        result := ComCall(8, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -362,8 +406,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * When this method returns, contains the offset of the origin of each glyph.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-getgdicompatibleglyphplacements
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalyzer-getgdicompatibleglyphplacements
      */
     GetGdiCompatibleGlyphPlacements(textString, clusterMap, textProps, textLength, glyphIndices, glyphProps, glyphCount, fontFace, fontEmSize, pixelsPerDip, transform, useGdiNatural, isSideways, isRightToLeft, scriptAnalysis, localeName, features, featureRangeLengths, featureRanges, glyphAdvances, glyphOffsets) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -375,7 +419,11 @@ class IDWriteTextAnalyzer extends IUnknown{
         featureRangeLengthsMarshal := featureRangeLengths is VarRef ? "uint*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "HRESULT")
+        result := ComCall(9, this, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", textProps, "uint", textLength, glyphIndicesMarshal, glyphIndices, "ptr", glyphProps, "uint", glyphCount, "ptr", fontFace, "float", fontEmSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "int", isRightToLeft, "ptr", scriptAnalysis, "ptr", localeName, featuresMarshal, features, featureRangeLengthsMarshal, featureRangeLengths, "uint", featureRanges, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

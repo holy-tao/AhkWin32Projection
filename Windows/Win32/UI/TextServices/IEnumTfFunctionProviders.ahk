@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfFunctionProviders interface is implemented by the TSF manager to provide an enumeration of function provider objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtffunctionproviders
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-ienumtffunctionproviders
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IEnumTfFunctionProviders extends IUnknown{
     /**
      * IEnumTfFunctionProviders::Clone method
      * @returns {IEnumTfFunctionProviders} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtffunctionproviders">IEnumTfFunctionProviders</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtffunctionproviders-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtffunctionproviders-clone
      */
     Clone() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfFunctionProviders(ppEnum)
     }
 
@@ -87,12 +91,16 @@ class IEnumTfFunctionProviders extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtffunctionproviders-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtffunctionproviders-next
      */
     Next(ulCount, ppCmdobj, pcFetch) {
         pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppCmdobj, pcFetchMarshal, pcFetch, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, "ptr*", ppCmdobj, pcFetchMarshal, pcFetch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,10 +125,14 @@ class IEnumTfFunctionProviders extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtffunctionproviders-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtffunctionproviders-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,10 +169,14 @@ class IEnumTfFunctionProviders extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtffunctionproviders-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtffunctionproviders-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

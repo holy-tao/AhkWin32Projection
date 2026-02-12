@@ -407,7 +407,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cogetinstancefromfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cogetinstancefromfile
      * @since windows5.0
      */
     static CoGetInstanceFromFile(pServerInfo, pClsid, punkOuter, dwClsCtx, grfMode, pwszName, dwCount, pResults) {
@@ -481,7 +481,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-cogetinstancefromistorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-cogetinstancefromistorage
      * @since windows5.0
      */
     static CoGetInstanceFromIStorage(pServerInfo, pClsid, punkOuter, dwClsCtx, pstg, dwCount, pResults) {
@@ -512,7 +512,7 @@ class StructuredStorage {
      * @param {Integer} asyncFlags A value that indicates whether a connection point on a storage is inherited by its substorages and streams. ASYNC_MODE_COMPATIBILITY indicates that the connection point is inherited; ASYNC_MODE_DEFAULT indicates that the connection point is not inherited.
      * @returns {IStorage} A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>* pointer variable that receives the interface pointer to the root asynchronous storage object.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stgopenasyncdocfileonifilllockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-stgopenasyncdocfileonifilllockbytes
      */
     static StgOpenAsyncDocfileOnIFillLockBytes(pflb, grfMode, asyncFlags) {
         result := DllCall("ole32.dll\StgOpenAsyncDocfileOnIFillLockBytes", "ptr", pflb, "uint", grfMode, "uint", asyncFlags, "ptr*", &ppstgOpen := 0, "int")
@@ -531,7 +531,7 @@ class StructuredStorage {
      * @param {ILockBytes} pilb Pointer to an existing byte array object.
      * @returns {IFillLockBytes} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ifilllockbytes">IFillLockBytes</a> pointer variable that receives the interface pointer to the new byte array wrapper object.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stggetifilllockbytesonilockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-stggetifilllockbytesonilockbytes
      */
     static StgGetIFillLockBytesOnILockBytes(pilb) {
         result := DllCall("ole32.dll\StgGetIFillLockBytesOnILockBytes", "ptr", pilb, "ptr*", &ppflb := 0, "int")
@@ -550,7 +550,7 @@ class StructuredStorage {
      * @param {PWSTR} pwcsName A pointer to the null-terminated unicode string name of the file for which a wrapper object is created.
      * @returns {IFillLockBytes} A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ifilllockbytes">IFillLockBytes</a>* pointer variable that receives the interface pointer to the new byte array wrapper object.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stggetifilllockbytesonfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-stggetifilllockbytesonfile
      */
     static StgGetIFillLockBytesOnFile(pwcsName) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
@@ -577,7 +577,7 @@ class StructuredStorage {
      * @param {Integer} reserved Reserved for future use.
      * @returns {IStorage} A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer variable that receives the interface pointer to the root object of the newly created root storage object.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-stgopenlayoutdocfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-stgopenlayoutdocfile
      */
     static StgOpenLayoutDocfile(pwcsDfName, grfMode, reserved) {
         pwcsDfName := pwcsDfName is String ? StrPtr(pwcsDfName) : pwcsDfName
@@ -636,17 +636,17 @@ class StructuredStorage {
      * <b>CreateStreamOnHGlobal</b> will accept a memory handle allocated with <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GMEM_FIXED</a>, but this usage is not recommended. HGLOBALs allocated with <b>GMEM_FIXED</b> are not really handles and their value can change when they are reallocated. If the memory handle was allocated with <b>GMEM_FIXED</b> and <i>fDeleteOnRelease</i> is <b>FALSE</b>,  the caller must call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-gethglobalfromstream">GetHGlobalFromStream</a> to get the correct handle in order to free it.
      * 
      * Prior to Windows 7 and Windows Server 2008 R2, this implementation did not zero memory when calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalrealloc">GlobalReAlloc</a> to grow the memory block. Increasing the size of the stream with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-setsize">IStream::SetSize</a> or by writing to a location past the current end of the stream may leave portions of the newly allocated memory uninitialized.
-     * @param {HGLOBAL} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
+     * @param {HGLOBAL} hGlobal_ A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
      * @param {BOOL} fDeleteOnRelease A value that indicates whether the underlying handle for this stream object should be automatically freed when the stream object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the underlying handle. See the Remarks for further discussion of the case where <i>fDeleteOnRelease</i> is <b>FALSE</b>.
      * @returns {IStream} The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the new stream object. Its value cannot be <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-createstreamonhglobal
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-createstreamonhglobal
      * @since windows5.0
      */
-    static CreateStreamOnHGlobal(hGlobal, fDeleteOnRelease) {
-        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+    static CreateStreamOnHGlobal(hGlobal_, fDeleteOnRelease) {
+        hGlobal_ := hGlobal_ is Win32Handle ? NumGet(hGlobal_, "ptr") : hGlobal_
 
-        result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr*", &ppstm := 0, "int")
+        result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal_, "int", fDeleteOnRelease, "ptr*", &ppstm := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -663,7 +663,7 @@ class StructuredStorage {
      * @param {IStream} pstm <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> function.
      * @returns {HGLOBAL} Pointer to the current memory handle used by the specified stream object.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-gethglobalfromstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-gethglobalfromstream
      * @since windows5.0
      */
     static GetHGlobalFromStream(pstm) {
@@ -694,7 +694,7 @@ class StructuredStorage {
      * @param {IStream} pStm A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream to be unmarshaled.
      * @param {Pointer<Guid>} iid A reference to the identifier of the interface requested from the unmarshaled object.
      * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer to the unmarshaled interface.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetinterfaceandreleasestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetinterfaceandreleasestream
      * @since windows5.0
      */
     static CoGetInterfaceAndReleaseStream(pStm, iid) {
@@ -719,7 +719,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} pvarSrc Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure to be copied.
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-propvariantcopy
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-propvariantcopy
      * @since windows5.0
      */
     static PropVariantCopy(pvarDest, pvarSrc) {
@@ -749,7 +749,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure for which any deallocatable elements are to be freed. On return, all zeroes are written to the 
      * <b>PROPVARIANT</b> structure.
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-propvariantclear
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-propvariantclear
      * @since windows5.0
      */
     static PropVariantClear(pvar) {
@@ -777,7 +777,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structures for which any deallocatable elements are to be freed. On exit, all zeroes are written to the 
      * <b>PROPVARIANT</b> structure (thus tagging them as VT_EMPTY).
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-freepropvariantarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-freepropvariantarray
      * @since windows5.0
      */
     static FreePropVariantArray(cVariants, rgvars) {
@@ -811,7 +811,7 @@ class StructuredStorage {
      * @param {Integer} grfMode Specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
      * @returns {IStorage} A pointer to the location of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the new storage object.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatedocfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgcreatedocfile
      * @since windows5.0
      */
     static StgCreateDocfile(pwcsName, grfMode) {
@@ -866,7 +866,7 @@ class StructuredStorage {
      * @param {Integer} reserved Reserved for future use; must be zero.
      * @returns {IStorage} A pointer to the location of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer on the new storage object.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatedocfileonilockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgcreatedocfileonilockbytes
      * @since windows5.0
      */
     static StgCreateDocfileOnILockBytes(plkbyt, grfMode, reserved) {
@@ -988,7 +988,7 @@ class StructuredStorage {
      * @param {Integer} reserved Indicates reserved for future use; must be zero.
      * @returns {IStorage} A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>* pointer variable that receives the interface pointer to the opened storage.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgopenstorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgopenstorage
      * @since windows5.0
      */
     static StgOpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved) {
@@ -1048,7 +1048,7 @@ class StructuredStorage {
      * @param {Pointer<Pointer<Integer>>} snbExclude Can be <b>NULL</b>. If not <b>NULL</b>, this parameter points to a block of elements in this storage that are to be excluded as the storage object is opened. This exclusion occurs independently of whether a snapshot copy happens on the open.
      * @returns {IStorage} Points to the location of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the opened storage on successful return.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgopenstorageonilockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgopenstorageonilockbytes
      * @since windows5.0
      */
     static StgOpenStorageOnILockBytes(plkbyt, pstgPriority, grfMode, snbExclude) {
@@ -1075,7 +1075,7 @@ class StructuredStorage {
      * @returns {HRESULT} <b>StgIsStorageFile</b> function can also return any file system errors or system errors wrapped in an <b>HRESULT</b>. See 
      * <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-strategies">Error Handling Strategies</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/com/handling-unknown-errors">Handling Unknown Errors</a>
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgisstoragefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgisstoragefile
      * @since windows5.0
      */
     static StgIsStorageFile(pwcsName) {
@@ -1101,7 +1101,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface error return values. See 
      * <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-strategies">Error Handling Strategies</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/com/handling-unknown-errors">Handling Unknown Errors</a>
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgisstorageilockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgisstorageilockbytes
      * @since windows5.0
      */
     static StgIsStorageILockBytes(plkbyt) {
@@ -1127,7 +1127,7 @@ class StructuredStorage {
      * @returns {HRESULT} The <b>StgSetTimes</b> function can also return any file system errors or system errors wrapped in an <b>HRESULT</b>. See 
      * <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-strategies">Error Handling Strategies</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/com/handling-unknown-errors">Handling Unknown Errors</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgsettimes
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgsettimes
      * @since windows5.0
      */
     static StgSetTimes(lpszName, pctime, patime, pmtime) {
@@ -1195,7 +1195,7 @@ class StructuredStorage {
      * 
      * <b>Windows 2000:  </b>Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, you cannot exceed the MAX_PATH limit by using the "\\?\" prefix.
      * @param {Integer} grfMode A value that specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
-     * @param {Integer} stgfmt A value that specifies the storage file format. For more information, see the 
+     * @param {Integer} stgfmt_ A value that specifies the storage file format. For more information, see the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa380330(v=vs.85)">STGFMT</a> enumeration.
      * @param {Integer} grfAttrs A value that depends on the value of the <i>stgfmt</i> parameter.
      * 
@@ -1236,14 +1236,14 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> interface.
      * @returns {Pointer<Void>} A pointer to an interface pointer variable that receives a pointer for an interface on the new storage object; contains <b>NULL</b> if operation failed.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatestorageex
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgcreatestorageex
      * @since windows5.0
      */
-    static StgCreateStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
+    static StgCreateStorageEx(pwcsName, grfMode, stgfmt_, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "int")
+        result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt_, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1317,7 +1317,7 @@ class StructuredStorage {
      * 
      * The mode in which a file is opened can affect implementation performance. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Stg/structured-storage-interfaces">Compound File Implementation Limits</a>.
-     * @param {Integer} stgfmt A value that specifies the storage file format. For more information, see the 
+     * @param {Integer} stgfmt_ A value that specifies the storage file format. For more information, see the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa380330(v=vs.85)">STGFMT</a> enumeration.
      * @param {Integer} grfAttrs A value that depends upon the value of the <i>stgfmt</i> parameter. 
      * 
@@ -1330,14 +1330,14 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface or for <b>IID_IPropertySetStorage</b> to obtain the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> interface.
      * @returns {Pointer<Void>} The address of an interface pointer variable that receives a pointer for an interface on the storage object opened; contains <b>NULL</b> if operation failed.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgopenstorageex
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgopenstorageex
      * @since windows5.0
      */
-    static StgOpenStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
+    static StgOpenStorageEx(pwcsName, grfMode, stgfmt_, grfAttrs, pStgOptions, pSecurityDescriptor, riid) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "int")
+        result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt_, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", &ppObjectOpen := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1371,7 +1371,7 @@ class StructuredStorage {
      * @param {Integer} grfFlags The values from <a href="https://docs.microsoft.com/windows/desktop/Stg/propsetflag-constants">PROPSETFLAG Constants</a> that determine how the property set is created and opened.
      * @returns {IPropertyStorage} The address of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>* pointer variable that receives the interface pointer to the new property set.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatepropstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgcreatepropstg
      * @since windows5.0
      */
     static StgCreatePropStg(pUnk, fmtid, pclsid, grfFlags) {
@@ -1409,7 +1409,7 @@ class StructuredStorage {
      * @param {Integer} grfFlags The values from <a href="https://docs.microsoft.com/windows/desktop/Stg/propsetflag-constants">PROPSETFLAG Constants</a>.
      * @returns {IPropertyStorage} A pointer to 
      * an <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a>* pointer variable that receives the interface pointer to the requested property set.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgopenpropstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgopenpropstg
      * @since windows5.0
      */
     static StgOpenPropStg(pUnk, fmtid, grfFlags) {
@@ -1437,7 +1437,7 @@ class StructuredStorage {
      * @param {IStorage} pStorage A pointer to the storage object that contains or will contain one or more property sets.
      * @returns {IPropertySetStorage} A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>* pointer variable that receives the interface pointer to the property-set storage object.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-stgcreatepropsetstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-stgcreatepropsetstg
      * @since windows5.0
      */
     static StgCreatePropSetStg(pStorage) {
@@ -1462,7 +1462,7 @@ class StructuredStorage {
      * @param {Pointer<Guid>} pfmtid A pointer to the FMTID of the property set.
      * @param {PWSTR} oszName A pointer to a null-terminated string that receives the storage or stream name of the property set identified by <i>pfmtid</i>. The array allocated for this string must be at least CCH_MAX_PROPSTG_NAME (32) characters in length.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG as well as the following:
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-fmtidtopropstgname
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-fmtidtopropstgname
      * @since windows5.0
      */
     static FmtIdToPropStgName(pfmtid, oszName) {
@@ -1487,7 +1487,7 @@ class StructuredStorage {
      * @param {PWSTR} oszName A pointer to a null-terminated Unicode string that contains the stream name of a simple property set or the storage name of a nonsimple property set.
      * @param {Pointer<Guid>} pfmtid A pointer to a FMTID variable that receives the format identifier of the property set specified by <i>oszName</i>.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG as well as the following:
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-propstgnametofmtid
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-propstgnametofmtid
      * @since windows5.0
      */
     static PropStgNameToFmtId(oszName, pfmtid) {
@@ -1514,7 +1514,7 @@ class StructuredStorage {
      * 
      * This function also returns any of the error values returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-stat">IStorage::Stat</a> method.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-readclassstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-readclassstg
      * @since windows5.0
      */
     static ReadClassStg(pStg, pclsid) {
@@ -1536,7 +1536,7 @@ class StructuredStorage {
      * @param {IStorage} pStg <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the storage object that gets a new CLSID.
      * @param {Pointer<Guid>} rclsid Pointer to the CLSID to be stored with the object.
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-writeclassstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-writeclassstg
      * @since windows5.0
      */
     static WriteClassStg(pStg, rclsid) {
@@ -1560,7 +1560,7 @@ class StructuredStorage {
      * @param {Pointer<Guid>} pclsid A pointer to where the CLSID is to be written.
      * @returns {HRESULT} This function also returns any of the error values returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> method.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-readclassstm
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-readclassstm
      * @since windows5.0
      */
     static ReadClassStm(pStm, pclsid) {
@@ -1583,7 +1583,7 @@ class StructuredStorage {
      * @param {IStream} pStm <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream into which the CLSID is to be written.
      * @param {Pointer<Guid>} rclsid Specifies the CLSID to write to the stream.
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-writeclassstm
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-writeclassstm
      * @since windows5.0
      */
     static WriteClassStm(pStm, rclsid) {
@@ -1610,7 +1610,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface on the byte-array object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-createilockbytesonhglobal">CreateILockBytesOnHGlobal</a> function.
      * @returns {HGLOBAL} Pointer to the current memory handle used by the specified byte-array object.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-gethglobalfromilockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-gethglobalfromilockbytes
      * @since windows5.0
      */
     static GetHGlobalFromILockBytes(plkbyt) {
@@ -1672,17 +1672,17 @@ class StructuredStorage {
      * <li>Instead of a compound file in memory, create a temporary file by calling <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-stgcreatestorageex">StgCreateStorageEx</a> with a <b>NULL</b> value for the <i>pwcsName</i> parameter. When it is time to write to the destination file, use the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irootstorage-switchtofile">IRootStorage::SwitchToFile</a> method.</li>
      * <li>Implement the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface such that memory reallocations are zeroed (see for example the <b>HEAP_ZERO_MEMORY</b> flag in <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heaprealloc">HeapReAlloc</a>). The memory contents of this byte array can then be written to a file. </li>
      * </ul>
-     * @param {HGLOBAL} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
+     * @param {HGLOBAL} hGlobal_ A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
      * @param {BOOL} fDeleteOnRelease A flag  that specifies whether the underlying handle for this byte array object should be automatically freed when the object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the <i>hGlobal</i> parameter.
      * @returns {ILockBytes} The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> pointer variable that receives the interface pointer to the new byte array object.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-createilockbytesonhglobal
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-createilockbytesonhglobal
      * @since windows5.0
      */
-    static CreateILockBytesOnHGlobal(hGlobal, fDeleteOnRelease) {
-        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+    static CreateILockBytesOnHGlobal(hGlobal_, fDeleteOnRelease) {
+        hGlobal_ := hGlobal_ is Win32Handle ? NumGet(hGlobal_, "ptr") : hGlobal_
 
-        result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr*", &pplkbyt := 0, "int")
+        result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal_, "int", fDeleteOnRelease, "ptr*", &pplkbyt := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1708,7 +1708,7 @@ class StructuredStorage {
      * @returns {HRESULT} <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-openstream">IStorage::OpenStream</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-openstorage">IStorage::OpenStorage</a>, and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> storage and stream access errors.
-     * @see https://learn.microsoft.com/windows/win32/api/coml2api/nf-coml2api-getconvertstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/coml2api/nf-coml2api-getconvertstg
      * @since windows5.0
      */
     static GetConvertStg(pStg) {
@@ -1731,7 +1731,7 @@ class StructuredStorage {
      * @param {Integer} pid The propid (used if indirect).
      * @param {Pointer<Integer>} pcIndirect Optional. A pointer to the indirect property count.
      * @returns {Pointer<SERIALIZEDPROPERTYVALUE>} Returns a pointer to <b>SERIALIZEDPROPERTYVALUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-stgconvertvarianttoproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nf-propidl-stgconvertvarianttoproperty
      * @since windows5.0
      */
     static StgConvertVariantToProperty(pvar, CodePage, pprop, pcb, pid, pcIndirect) {
@@ -1753,7 +1753,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} pvar A pointer to <b>PROPVARIANT</b>.
      * @param {IMemoryAllocator} pma A pointer to a class that implements the <a href="https://docs.microsoft.com/windows/desktop/Stg/imemoryallocator">IMemoryAllocator</a> abstract class.
      * @returns {BOOLEAN} Returns <b>TRUE</b> is the property converted was an indirect type (<b>VT_STREAM</b> or <b>VT_STREAMED_OBJECT</b>); otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/propidl/nf-propidl-stgconvertpropertytovariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nf-propidl-stgconvertpropertytovariant
      * @since windows5.0
      */
     static StgConvertPropertyToVariant(pprop, CodePage, pvar, pma) {
@@ -1769,7 +1769,7 @@ class StructuredStorage {
      * @param {Integer} cbProp The size of the <i>pProp</i> buffer in bytes.
      * @param {Integer} CodePage A property set code page.
      * @returns {Integer} Returns the amount of memory the property would occupy as a <b>PROPVARIANT</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/propapi/nf-propapi-stgpropertylengthasvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propapi/nf-propapi-stgpropertylengthasvariant
      * @since windows5.0
      */
     static StgPropertyLengthAsVariant(pProp, cbProp, CodePage) {
@@ -1793,7 +1793,7 @@ class StructuredStorage {
      * @param {PWSTR} lpszUserType Pointer to a null-terminated Unicode string that specifies the object's current user type. The user type value, itself, cannot be <b>NULL</b>. This is the type returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> method. If this function is transported to a remote machine where the object class does not exist, this persistently stored user type can be shown to the user in dialog boxes.
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-writefmtusertypestg
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-writefmtusertypestg
      * @since windows5.0
      */
     static WriteFmtUserTypeStg(pstg, cf, lpszUserType) {
@@ -1821,7 +1821,7 @@ class StructuredStorage {
      * 
      * This function also returns any of the error values returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> method.
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-readfmtusertypestg
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-readfmtusertypestg
      * @since windows5.0
      */
     static ReadFmtUserTypeStg(pstg, pcf, lplpszUserType) {
@@ -1884,7 +1884,7 @@ class StructuredStorage {
      * @param {Pointer<DVTARGETDEVICE>} ptd A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-dvtargetdevice">DVTARGETDEVICE</a> structure that specifies the target device for which the OLE 1 object is rendered.
      * @returns {HRESULT} This function supports the standard return value <b>E_INVALIDARG</b>, in addition to the following:
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleconvertolestreamtoistorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-oleconvertolestreamtoistorage
      * @since windows5.0
      */
     static OleConvertOLESTREAMToIStorage(lpolestream, pstg, ptd) {
@@ -1912,7 +1912,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object to be converted to an OLE 1 storage.
      * @param {Pointer<OLESTREAM>} lpolestream Pointer to an OLE 1 stream structure where the persistent representation of the object is saved using the OLE 1 storage model.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG, in addition to the following:
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleconvertistoragetoolestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-oleconvertistoragetoolestream
      * @since windows5.0
      */
     static OleConvertIStorageToOLESTREAM(pstg, lpolestream) {
@@ -1961,7 +1961,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-openstream">IStorage::OpenStream</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a>, and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-write">ISequentialStream::Write</a> methods for possible storage and stream access errors.
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-setconvertstg
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-setconvertstg
      * @since windows5.0
      */
     static SetConvertStg(pStg, fConvert) {
@@ -1999,7 +1999,7 @@ class StructuredStorage {
      * <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> structure for the serialized data to be converted.
      * @param {Pointer<OLESTREAM>} polestm Pointer to a stream where the persistent representation of the object is saved using the OLE 1 storage model.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG, in addition to the following:
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleconvertistoragetoolestreamex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-oleconvertistoragetoolestreamex
      * @since windows5.0
      */
     static OleConvertIStorageToOLESTREAMEx(pstg, cfFormat, lWidth, lHeight, dwSize, pmedium, polestm) {
@@ -2032,7 +2032,7 @@ class StructuredStorage {
      * @param {Pointer<STGMEDIUM>} pmedium Pointer to where the 
      * <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> structure for the converted serialized data is returned.
      * @returns {HRESULT} This function returns HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-oleconvertolestreamtoistorageex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ole2/nf-ole2-oleconvertolestreamtoistorageex
      * @since windows5.0
      */
     static OleConvertOLESTREAMToIStorageEx(polestm, pstg, pcfFormat, plwWidth, plHeight, pdwSize, pmedium) {
@@ -2056,7 +2056,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IPropertyValue (defined in Windows.Foundation.h).
      * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically an <a href="https://docs.microsoft.com/uwp/api/Windows.Foundation.IPropertyValue">IPropertyValue</a> pointer. If the call fails, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-propvarianttowinrtpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-propvarianttowinrtpropertyvalue
      * @since windows8.0
      */
     static PropVariantToWinRTPropertyValue(propvar, riid) {
@@ -2073,7 +2073,7 @@ class StructuredStorage {
      * @param {IUnknown} punkPropertyValue A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface from which this function can access the contents of a Windows runtime property value by retrieving and using the <a href="https://docs.microsoft.com/windows/desktop/api/windows.foundation/nn-windows-foundation-ipropertyvalue">Windows::Foundation::IPropertyValue</a> interface.
      * @param {Pointer<PROPVARIANT>} ppropvar Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure. When this function returns, the <b>PROPVARIANT</b> contains the converted info.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-winrtpropertyvaluetopropvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-winrtpropertyvaluetopropvariant
      * @since windows8.0
      */
     static WinRTPropertyValueToPropVariant(punkPropertyValue, ppropvar) {
@@ -2101,7 +2101,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromresource
      * @since windows5.1.2600
      */
     static InitPropVariantFromResource(hinst, id, ppropvar) {
@@ -2131,7 +2131,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfrombuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfrombuffer
      * @since windows5.1.2600
      */
     static InitPropVariantFromBuffer(pv, cb, ppropvar) {
@@ -2156,7 +2156,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromclsid
      * @since windows5.1.2600
      */
     static InitPropVariantFromCLSID(clsid, ppropvar) {
@@ -2181,7 +2181,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromguidasstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromguidasstring
      * @since windows5.1.2600
      */
     static InitPropVariantFromGUIDAsString(guid, ppropvar) {
@@ -2206,7 +2206,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromfiletime
      * @since windows5.1.2600
      */
     static InitPropVariantFromFileTime(pftIn, ppropvar) {
@@ -2262,7 +2262,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfrompropvariantvectorelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfrompropvariantvectorelem
      * @since windows5.1.2600
      */
     static InitPropVariantFromPropVariantVectorElem(propvarIn, iElem, ppropvar) {
@@ -2311,7 +2311,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantvectorfrompropvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantvectorfrompropvariant
      * @since windows5.1.2600
      */
     static InitPropVariantVectorFromPropVariant(propvarSingle, ppropvarVector) {
@@ -2339,7 +2339,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfrombooleanvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfrombooleanvector
      * @since windows5.1.2600
      */
     static InitPropVariantFromBooleanVector(prgf, cElems, ppropvar) {
@@ -2369,7 +2369,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromint16vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromint16vector
      * @since windows5.1.2600
      */
     static InitPropVariantFromInt16Vector(prgn, cElems, ppropvar) {
@@ -2399,7 +2399,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromuint16vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromuint16vector
      * @since windows5.1.2600
      */
     static InitPropVariantFromUInt16Vector(prgn, cElems, ppropvar) {
@@ -2429,7 +2429,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromint32vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromint32vector
      * @since windows5.1.2600
      */
     static InitPropVariantFromInt32Vector(prgn, cElems, ppropvar) {
@@ -2459,7 +2459,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromuint32vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromuint32vector
      * @since windows5.1.2600
      */
     static InitPropVariantFromUInt32Vector(prgn, cElems, ppropvar) {
@@ -2489,7 +2489,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromint64vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromint64vector
      * @since windows5.1.2600
      */
     static InitPropVariantFromInt64Vector(prgn, cElems, ppropvar) {
@@ -2519,7 +2519,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromuint64vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromuint64vector
      * @since windows5.1.2600
      */
     static InitPropVariantFromUInt64Vector(prgn, cElems, ppropvar) {
@@ -2549,7 +2549,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromdoublevector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromdoublevector
      * @since windows5.1.2600
      */
     static InitPropVariantFromDoubleVector(prgn, cElems, ppropvar) {
@@ -2579,7 +2579,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromfiletimevector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromfiletimevector
      * @since windows5.1.2600
      */
     static InitPropVariantFromFileTimeVector(prgft, cElems, ppropvar) {
@@ -2605,7 +2605,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromstringvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromstringvector
      * @since windows5.1.2600
      */
     static InitPropVariantFromStringVector(prgsz, cElems, ppropvar) {
@@ -2634,7 +2634,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromstringasvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromstringasvector
      * @since windows5.1.2600
      */
     static InitPropVariantFromStringAsVector(psz, ppropvar) {
@@ -2663,7 +2663,7 @@ class StructuredStorage {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The extracted Boolean value or the default value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttobooleanwithdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttobooleanwithdefault
      * @since windows5.1.2600
      */
     static PropVariantToBooleanWithDefault(propvarIn, fDefault) {
@@ -2686,7 +2686,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>SHORT</b>
      * 
      * Returns the extracted <b>short</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint16withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint16withdefault
      * @since windows5.1.2600
      */
     static PropVariantToInt16WithDefault(propvarIn, iDefault) {
@@ -2709,7 +2709,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>unsigned short</b>
      * 
      * Returns extracted <b>unsigned short</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint16withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint16withdefault
      * @since windows5.1.2600
      */
     static PropVariantToUInt16WithDefault(propvarIn, uiDefault) {
@@ -2732,7 +2732,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * Returns extracted <b>LONG</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint32withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint32withdefault
      * @since windows5.1.2600
      */
     static PropVariantToInt32WithDefault(propvarIn, lDefault) {
@@ -2755,7 +2755,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns extracted <b>ULONG</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint32withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint32withdefault
      * @since windows5.1.2600
      */
     static PropVariantToUInt32WithDefault(propvarIn, ulDefault) {
@@ -2778,7 +2778,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>LONGLONG</b>
      * 
      * Returns the extracted <b>LONGLONG</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint64withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint64withdefault
      * @since windows5.1.2600
      */
     static PropVariantToInt64WithDefault(propvarIn, llDefault) {
@@ -2801,7 +2801,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONGLONG</b>
      * 
      * Returns the extracted unsigned <b>LONGLONG</b> value, or a default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint64withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint64withdefault
      * @since windows5.1.2600
      */
     static PropVariantToUInt64WithDefault(propvarIn, ullDefault) {
@@ -2824,7 +2824,7 @@ class StructuredStorage {
      * @returns {Float} Type: <b>DOUBLE</b>
      * 
      * Returns extracted <b>double</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttodoublewithdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttodoublewithdefault
      * @since windows5.1.2600
      */
     static PropVariantToDoubleWithDefault(propvarIn, dblDefault) {
@@ -2849,7 +2849,7 @@ class StructuredStorage {
      * @returns {PWSTR} Type: <b>PCWSTR</b>
      * 
      * Returns string value or default, or the default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostringwithdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttostringwithdefault
      * @since windows5.1.2600
      */
     static PropVariantToStringWithDefault(propvarIn, pszDefault) {
@@ -2871,7 +2871,7 @@ class StructuredStorage {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, contains <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoboolean
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoboolean
      * @since windows5.1.2600
      */
     static PropVariantToBoolean(propvarIn) {
@@ -2895,7 +2895,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint16
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint16
      * @since windows5.1.2600
      */
     static PropVariantToInt16(propvarIn) {
@@ -2919,7 +2919,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint16
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint16
      * @since windows5.1.2600
      */
     static PropVariantToUInt16(propvarIn) {
@@ -2943,7 +2943,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint32
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint32
      * @since windows5.1.2600
      */
     static PropVariantToInt32(propvarIn) {
@@ -2967,7 +2967,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint32
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint32
      * @since windows5.1.2600
      */
     static PropVariantToUInt32(propvarIn) {
@@ -2991,7 +2991,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint64
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint64
      * @since windows5.1.2600
      */
     static PropVariantToInt64(propvarIn) {
@@ -3015,7 +3015,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint64
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint64
      * @since windows5.1.2600
      */
     static PropVariantToUInt64(propvarIn) {
@@ -3039,7 +3039,7 @@ class StructuredStorage {
      * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, contains 0.0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttodouble
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttodouble
      * @since windows5.1.2600
      */
     static PropVariantToDouble(propvarIn) {
@@ -3110,7 +3110,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttobuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttobuffer
      * @since windows5.1.2600
      */
     static PropVariantToBuffer(propvar, pv, cb) {
@@ -3190,7 +3190,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttostring
      * @since windows5.1.2600
      */
     static PropVariantToString(propvar, psz, cch) {
@@ -3227,7 +3227,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoguid
      * @since windows5.1.2600
      */
     static PropVariantToGUID(propvar, pguid) {
@@ -3261,7 +3261,7 @@ class StructuredStorage {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to the extracted property value if one exists.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostringalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttostringalloc
      * @since windows5.1.2600
      */
     static PropVariantToStringAlloc(propvar) {
@@ -3297,7 +3297,7 @@ class StructuredStorage {
      * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, contains an empty string.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttobstr
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttobstr
      * @since windows5.1.2600
      */
     static PropVariantToBSTR(propvar) {
@@ -3330,7 +3330,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttofiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttofiletime
      * @since windows5.1.2600
      */
     static PropVariantToFileTime(propvar, pstfOut, pftOut) {
@@ -3354,7 +3354,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns the element count of a VT_VECTOR or VT_ARRAY value: for single values, returns 1; for empty structures, returns 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetelementcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetelementcount
      * @since windows5.1.2600
      */
     static PropVariantGetElementCount(propvar) {
@@ -3423,7 +3423,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttobooleanvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttobooleanvector
      * @since windows5.1.2600
      */
     static PropVariantToBooleanVector(propvar, prgf, crgf, pcElem) {
@@ -3499,7 +3499,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint16vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint16vector
      * @since windows5.1.2600
      */
     static PropVariantToInt16Vector(propvar, prgn, crgn, pcElem) {
@@ -3575,7 +3575,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint16vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint16vector
      * @since windows5.1.2600
      */
     static PropVariantToUInt16Vector(propvar, prgn, crgn, pcElem) {
@@ -3651,7 +3651,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint32vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint32vector
      * @since windows5.1.2600
      */
     static PropVariantToInt32Vector(propvar, prgn, crgn, pcElem) {
@@ -3727,7 +3727,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint32vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint32vector
      * @since windows5.1.2600
      */
     static PropVariantToUInt32Vector(propvar, prgn, crgn, pcElem) {
@@ -3803,7 +3803,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint64vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint64vector
      * @since windows5.1.2600
      */
     static PropVariantToInt64Vector(propvar, prgn, crgn, pcElem) {
@@ -3879,7 +3879,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint64vector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint64vector
      * @since windows5.1.2600
      */
     static PropVariantToUInt64Vector(propvar, prgn, crgn, pcElem) {
@@ -3915,7 +3915,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttodoublevector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttodoublevector
      * @since windows5.1.2600
      */
     static PropVariantToDoubleVector(propvar, prgn, crgn, pcElem) {
@@ -3950,7 +3950,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this function returns, contains the count of FILETIME elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttofiletimevector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttofiletimevector
      * @since windows5.1.2600
      */
     static PropVariantToFileTimeVector(propvar, prgft, crgft) {
@@ -4035,7 +4035,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostringvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttostringvector
      * @since windows5.1.2600
      */
     static PropVariantToStringVector(propvar, prgsz, crgsz, pcElem) {
@@ -4097,7 +4097,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttobooleanvectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttobooleanvectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToBooleanVectorAlloc(propvar, pprgf, pcElem) {
@@ -4159,7 +4159,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint16vectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint16vectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToInt16VectorAlloc(propvar, pprgn, pcElem) {
@@ -4221,7 +4221,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint16vectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint16vectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToUInt16VectorAlloc(propvar, pprgn, pcElem) {
@@ -4283,7 +4283,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint32vectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint32vectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToInt32VectorAlloc(propvar, pprgn, pcElem) {
@@ -4345,7 +4345,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint32vectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint32vectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToUInt32VectorAlloc(propvar, pprgn, pcElem) {
@@ -4407,7 +4407,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttoint64vectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttoint64vectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToInt64VectorAlloc(propvar, pprgn, pcElem) {
@@ -4469,7 +4469,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttouint64vectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttouint64vectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToUInt64VectorAlloc(propvar, pprgn, pcElem) {
@@ -4502,7 +4502,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttodoublevectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttodoublevectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToDoubleVectorAlloc(propvar, pprgn, pcElem) {
@@ -4566,7 +4566,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttofiletimevectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttofiletimevectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToFileTimeVectorAlloc(propvar, pprgft, pcElem) {
@@ -4638,7 +4638,7 @@ class StructuredStorage {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostringvectoralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttostringvectoralloc
      * @since windows5.1.2600
      */
     static PropVariantToStringVectorAlloc(propvar, pprgsz, pcElem) {
@@ -4668,7 +4668,7 @@ class StructuredStorage {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted Boolean value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetbooleanelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetbooleanelem
      * @since windows5.1.2600
      */
     static PropVariantGetBooleanElem(propvar, iElem) {
@@ -4701,7 +4701,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * When this function returns, contains the extracted Int32 element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetint16elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetint16elem
      * @since windows5.1.2600
      */
     static PropVariantGetInt16Elem(propvar, iElem) {
@@ -4735,7 +4735,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * When this function returns, contains the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetuint16elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetuint16elem
      * @since windows5.1.2600
      */
     static PropVariantGetUInt16Elem(propvar, iElem) {
@@ -4769,7 +4769,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * When this function, contains the extracted Int32 value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetint32elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetint32elem
      * @since windows5.1.2600
      */
     static PropVariantGetInt32Elem(propvar, iElem) {
@@ -4803,7 +4803,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this function returns, contains the extracted unsigned Int32 value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetuint32elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetuint32elem
      * @since windows5.1.2600
      */
     static PropVariantGetUInt32Elem(propvar, iElem) {
@@ -4837,7 +4837,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * When this function returns, contains the extracted Int64 value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetint64elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetint64elem
      * @since windows5.1.2600
      */
     static PropVariantGetInt64Elem(propvar, iElem) {
@@ -4871,7 +4871,7 @@ class StructuredStorage {
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * When this function returns, contains the extracted Int64 value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetuint64elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetuint64elem
      * @since windows5.1.2600
      */
     static PropVariantGetUInt64Elem(propvar, iElem) {
@@ -4898,7 +4898,7 @@ class StructuredStorage {
      * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * When this function returns, contains the extracted double value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetdoubleelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetdoubleelem
      * @since windows5.1.2600
      */
     static PropVariantGetDoubleElem(propvar, iElem) {
@@ -4926,7 +4926,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetfiletimeelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetfiletimeelem
      * @since windows5.1.2600
      */
     static PropVariantGetFileTimeElem(propvar, iElem, pftVal) {
@@ -4964,7 +4964,7 @@ class StructuredStorage {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains the extracted string value. The calling application is responsible for freeing this string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantgetstringelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantgetstringelem
      * @since windows5.1.2600
      */
     static PropVariantGetStringElem(propvar, iElem) {
@@ -4989,7 +4989,7 @@ class StructuredStorage {
      * 
      * The number of elements in the array specified by <i>rgPropVar</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-clearpropvariantarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-clearpropvariantarray
      * @since windows5.1.2600
      */
     static ClearPropVariantArray(rgPropVar, cVars) {
@@ -5013,7 +5013,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar2 Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to the second <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Integer} unit Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a></b>
+     * @param {Integer} unit_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a></b>
      * 
      * Specifies, where appropriate, one of the comparison units defined in <a href="https://docs.microsoft.com/windows/desktop/api/propvarutil/ne-propvarutil-propvar_compare_unit">PROPVAR_COMPARE_UNIT</a>.
      * @param {Integer} flags Type: <b>PROPVAR_COMPARE_FLAGS</b>
@@ -5026,11 +5026,11 @@ class StructuredStorage {
      * <li>Returns 0 if <i>propvar1</i> equals <i>propvar2</i></li>
      * <li>Returns -1 if <i>propvar1</i> is less than <i>propvar2</i></li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantcompareex
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantcompareex
      * @since windows5.1.2600
      */
-    static PropVariantCompareEx(propvar1, propvar2, unit, flags) {
-        result := DllCall("PROPSYS.dll\PropVariantCompareEx", "ptr", propvar1, "ptr", propvar2, "int", unit, "int", flags, "int")
+    static PropVariantCompareEx(propvar1, propvar2, unit_, flags) {
+        result := DllCall("PROPSYS.dll\PropVariantCompareEx", "ptr", propvar1, "ptr", propvar2, "int", unit_, "int", flags, "int")
         return result
     }
 
@@ -5350,7 +5350,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful, or a standard COM error value otherwise. If the requested coercion is not possible, an error is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvariantchangetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvariantchangetype
      * @since windows5.1.2600
      */
     static PropVariantChangeType(ppropvarDest, propvarSrc, flags, vt) {
@@ -5417,7 +5417,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttovariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttovariant
      * @since windows6.0.6000
      */
     static PropVariantToVariant(pPropVar, pVar) {
@@ -5450,7 +5450,7 @@ class StructuredStorage {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttopropvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttopropvariant
      * @since windows6.0.6000
      */
     static VariantToPropVariant(pVar, pPropVar) {
@@ -5471,7 +5471,7 @@ class StructuredStorage {
      * @param {Pointer<Pointer<SERIALIZEDPROPERTYVALUE>>} ppProp A pointer to the newly allocated  <b>SERIALIZEDPROPERTYVALUE</b>.
      * @param {Pointer<Integer>} pcb A pointer to the size of the newly allocated  <b>SERIALIZEDPROPERTYVALUE</b>.
      * @returns {HRESULT} This function can return one of these values.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-stgserializepropvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-stgserializepropvariant
      * @since windows5.0
      */
     static StgSerializePropVariant(ppropvar, ppProp, pcb) {
@@ -5494,7 +5494,7 @@ class StructuredStorage {
      * @param {Integer} cbMax The size of the <i>pprop</i> buffer in bytes.
      * @param {Pointer<PROPVARIANT>} ppropvar A pointer to a <b>PROPVARIANT</b>.
      * @returns {HRESULT} This function can return one of these values.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-stgdeserializepropvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-stgdeserializepropvariant
      * @since windows5.0
      */
     static StgDeserializePropVariant(pprop, cbMax, ppropvar) {

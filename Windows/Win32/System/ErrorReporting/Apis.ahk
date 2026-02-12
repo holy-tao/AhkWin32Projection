@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HREPORT.ahk
 #Include .\HREPORTSTORE.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -57,12 +59,12 @@ class ErrorReporting {
     static WER_MAX_PREFERRED_MODULES_BUFFER => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static APPCRASH_EVENT => "APPCRASH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PACKAGED_APPCRASH_EVENT => "MoAppCrash"
 
@@ -227,17 +229,17 @@ class ErrorReporting {
     static WER_MAX_REGISTERED_RUNTIME_EXCEPTION_MODULES => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WER_RUNTIME_EXCEPTION_EVENT_FUNCTION => "OutOfProcessExceptionEventCallback"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WER_RUNTIME_EXCEPTION_EVENT_SIGNATURE_FUNCTION => "OutOfProcessExceptionEventSignatureCallback"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WER_RUNTIME_EXCEPTION_DEBUGGER_LAUNCH => "OutOfProcessExceptionEventDebuggerLaunchCallback"
 ;@endregion Constants
@@ -260,7 +262,7 @@ class ErrorReporting {
      * @param {Integer} repType 
      * @param {Pointer<WER_REPORT_INFORMATION>} pReportInformation A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_information">WER_REPORT_INFORMATION</a> structure that specifies information for the report.
      * @returns {HREPORT} A handle to the report. If the function fails, this handle is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportcreate
      * @since windows6.0.6000
      */
     static WerReportCreate(pwzEventType, repType, pReportInformation) {
@@ -313,7 +315,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportsetparameter
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportsetparameter
      * @since windows6.0.6000
      */
     static WerReportSetParameter(hReportHandle, dwparamID, pwzName, pwzValue) {
@@ -367,7 +369,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportaddfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportaddfile
      * @since windows6.0.6000
      */
     static WerReportAddFile(hReportHandle, pwzPath, repFileType, dwFileFlags) {
@@ -388,7 +390,7 @@ class ErrorReporting {
      * @param {Integer} repUITypeID 
      * @param {PWSTR} pwzValue A pointer to a Unicode string that specifies the custom text. For more information, see the description of <i>repUITypeID</i>.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportsetuioption
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportsetuioption
      * @since windows6.0.6000
      */
     static WerReportSetUIOption(hReportHandle, repUITypeID, pwzValue) {
@@ -421,7 +423,7 @@ class ErrorReporting {
      * @param {Integer} consent 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportsubmit
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportsubmit
      * @since windows6.0.6000
      */
     static WerReportSubmit(hReportHandle, consent, dwFlags) {
@@ -444,7 +446,7 @@ class ErrorReporting {
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @param {HANDLE} hProcess A handle to the process for which the report is being generated. This handle must have the STANDARD_RIGHTS_READ and PROCESS_QUERY_INFORMATION access rights.
      * @param {HANDLE} hThread A handle to the thread of <i>hProcess</i> for which the report is being generated. If <i>dumpType</i> is WerDumpTypeMicro, this parameter is required. For other dump types, this parameter may be <b>NULL</b>.
-     * @param {Integer} dumpType 
+     * @param {Integer} dumpType_ 
      * @param {Pointer<WER_EXCEPTION_INFORMATION>} pExceptionParam A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_exception_information">WER_EXCEPTION_INFORMATION</a> structure that specifies exception information.
      * @param {Pointer<WER_DUMP_CUSTOM_OPTIONS>} pDumpCustomOptions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_dump_custom_options">WER_DUMP_CUSTOM_OPTIONS</a> structure that specifies custom minidump options. If this parameter is <b>NULL</b>, the standard minidump information is collected.
      * @param {Integer} dwFlags This parameter can be 0 or the following value.
@@ -466,15 +468,15 @@ class ErrorReporting {
      * </tr>
      * </table>
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportadddump
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportadddump
      * @since windows6.0.6000
      */
-    static WerReportAddDump(hReportHandle, hProcess, hThread, dumpType, pExceptionParam, pDumpCustomOptions, dwFlags) {
+    static WerReportAddDump(hReportHandle, hProcess, hThread, dumpType_, pExceptionParam, pDumpCustomOptions, dwFlags) {
         hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
 
-        result := DllCall("wer.dll\WerReportAddDump", "ptr", hReportHandle, "ptr", hProcess, "ptr", hThread, "int", dumpType, "ptr", pExceptionParam, "ptr", pDumpCustomOptions, "uint", dwFlags, "int")
+        result := DllCall("wer.dll\WerReportAddDump", "ptr", hReportHandle, "ptr", hProcess, "ptr", hThread, "int", dumpType_, "ptr", pExceptionParam, "ptr", pDumpCustomOptions, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -486,7 +488,7 @@ class ErrorReporting {
      * Closes the specified report.
      * @param {HREPORT} hReportHandle A handle to the report. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werreportcreate">WerReportCreate</a> function.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werreportclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werreportclosehandle
      * @since windows6.0.6000
      */
     static WerReportCloseHandle(hReportHandle) {
@@ -545,7 +547,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisterfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregisterfile
      * @since windows6.0.6000
      */
     static WerRegisterFile(pwzFile, regFileType, dwFlags) {
@@ -592,7 +594,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregisterfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregisterfile
      * @since windows6.0.6000
      */
     static WerUnregisterFile(pwzFilePath) {
@@ -649,7 +651,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregistermemoryblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregistermemoryblock
      * @since windows6.0.6000
      */
     static WerRegisterMemoryBlock(pvAddress, dwSize) {
@@ -696,7 +698,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregistermemoryblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregistermemoryblock
      * @since windows6.0.6000
      */
     static WerUnregisterMemoryBlock(pvAddress) {
@@ -714,8 +716,8 @@ class ErrorReporting {
      * Marks a memory block (that is normally included by default in error reports) to be excluded from the error report.
      * @remarks
      * This mechanism is intended for applications that hold large amounts of data in memory that aren't useful for root cause debugging and increase the size of the dump file unnecessarily.  For example, some Xbox One games hold large amounts of texture data in memory that is included in error dumps by default.
-     * @param {Pointer<Void>} address The starting address of the memory block.
-     * @param {Integer} size The size of the memory block, in bytes.
+     * @param {Pointer<Void>} address_ The starting address of the memory block.
+     * @param {Integer} size_ The size of the memory block, in bytes.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error codes.
      * 
      * <table>
@@ -768,13 +770,13 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisterexcludedmemoryblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregisterexcludedmemoryblock
      * @since windows10.0.15063
      */
-    static WerRegisterExcludedMemoryBlock(address, size) {
-        addressMarshal := address is VarRef ? "ptr" : "ptr"
+    static WerRegisterExcludedMemoryBlock(address_, size_) {
+        address_Marshal := address_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\WerRegisterExcludedMemoryBlock", addressMarshal, address, "uint", size, "int")
+        result := DllCall("KERNEL32.dll\WerRegisterExcludedMemoryBlock", address_Marshal, address_, "uint", size_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -784,7 +786,7 @@ class ErrorReporting {
 
     /**
      * Removes a memory block that was previously marked as excluded (it will again be included in error reports).
-     * @param {Pointer<Void>} address The starting address of the memory block. This memory block must have been registered using the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterexcludedmemoryblock">WerRegisterExcludedMemoryBlock</a> function.
+     * @param {Pointer<Void>} address_ The starting address of the memory block. This memory block must have been registered using the <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werregisterexcludedmemoryblock">WerRegisterExcludedMemoryBlock</a> function.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
      * 
      * <table>
@@ -804,13 +806,13 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregisterexcludedmemoryblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregisterexcludedmemoryblock
      * @since windows10.0.15063
      */
-    static WerUnregisterExcludedMemoryBlock(address) {
-        addressMarshal := address is VarRef ? "ptr" : "ptr"
+    static WerUnregisterExcludedMemoryBlock(address_) {
+        address_Marshal := address_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\WerUnregisterExcludedMemoryBlock", addressMarshal, address, "int")
+        result := DllCall("KERNEL32.dll\WerUnregisterExcludedMemoryBlock", address_Marshal, address_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -876,7 +878,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregistercustommetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregistercustommetadata
      * @since windows10.0.15063
      */
     static WerRegisterCustomMetadata(key, value) {
@@ -924,7 +926,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregistercustommetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregistercustommetadata
      * @since windows10.0.15063
      */
     static WerUnregisterCustomMetadata(key) {
@@ -996,7 +998,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisteradditionalprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregisteradditionalprocess
      * @since windows10.0.15063
      */
     static WerRegisterAdditionalProcess(processId, captureExtraInfoForThreadId) {
@@ -1041,7 +1043,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregisteradditionalprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregisteradditionalprocess
      * @since windows10.0.15063
      */
     static WerUnregisterAdditionalProcess(processId) {
@@ -1090,7 +1092,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisterapplocaldump
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregisterapplocaldump
      * @since windows10.0.16299
      */
     static WerRegisterAppLocalDump(localAppDataRelativePath) {
@@ -1107,7 +1109,7 @@ class ErrorReporting {
     /**
      * Cancels the registration that was made by calling the WerRegisterAppLocalDump function to specify that Windows Error Reporting (WER) should save a copy of the diagnostic memory dump that WER collects when one of the processes for the application stops responding.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregisterapplocaldump
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregisterapplocaldump
      * @since windows10.0.16299
      */
     static WerUnregisterAppLocalDump() {
@@ -1123,7 +1125,7 @@ class ErrorReporting {
      * Sets the fault reporting settings for the current process.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-wersetflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-wersetflags
      * @since windows6.0.6000
      */
     static WerSetFlags(dwFlags) {
@@ -1139,7 +1141,7 @@ class ErrorReporting {
      * Retrieves the fault reporting settings for the specified process.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_VM_READ or PROCESS_QUERY_INFORMATION access right.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-wergetflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-wergetflags
      * @since windows6.0.6000
      */
     static WerGetFlags(hProcess) {
@@ -1181,7 +1183,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-weraddexcludedapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-weraddexcludedapplication
      * @since windows6.0.6000
      */
     static WerAddExcludedApplication(pwzExeName, bAllUsers) {
@@ -1225,7 +1227,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werremoveexcludedapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werremoveexcludedapplication
      * @since windows6.0.6000
      */
     static WerRemoveExcludedApplication(pwzExeName, bAllUsers) {
@@ -1298,7 +1300,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werregisterruntimeexceptionmodule
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werregisterruntimeexceptionmodule
      * @since windows6.1
      */
     static WerRegisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) {
@@ -1350,7 +1352,7 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werunregisterruntimeexceptionmodule
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werunregisterruntimeexceptionmodule
      * @since windows6.1
      */
     static WerUnregisterRuntimeExceptionModule(pwszOutOfProcessCallbackDll, pContext) {
@@ -1374,7 +1376,7 @@ class ErrorReporting {
      * The Windows Error Report (WER) Store is the queue of error reports that have been marked to be sent to Microsoft but have not yet been uploaded. The upload of an error report can be postponed under a number of circumstances. The WerStore functions allow developers to access the stored reports and query the status of each one.
      * @param {Integer} repStoreType The type of report store to open. See Remarks for details.
      * @returns {HREPORTSTORE} A pointer to a report store. On a successful call, this will point to the retrieved report store.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoreopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werstoreopen
      * @since windows10.0.15063
      */
     static WerStoreOpen(repStoreType) {
@@ -1389,28 +1391,28 @@ class ErrorReporting {
 
     /**
      * Closes the collection of stored reports.
-     * @param {HREPORTSTORE} hReportStore The error report store to close (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {HREPORTSTORE} hReportStore_ The error report store to close (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoreclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werstoreclose
      * @since windows10.0.15063
      */
-    static WerStoreClose(hReportStore) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreClose(hReportStore_) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
 
-        DllCall("wer.dll\WerStoreClose", "ptr", hReportStore)
+        DllCall("wer.dll\WerStoreClose", "ptr", hReportStore_)
     }
 
     /**
      * Gets a reference to the first report in the report store.
-     * @param {HREPORTSTORE} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {HREPORTSTORE} hReportStore_ The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @returns {PWSTR} A pointer to the report key string. On a successful call, this will point to the retrieved report key.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoregetfirstreportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werstoregetfirstreportkey
      * @since windows10.0.15063
      */
-    static WerStoreGetFirstReportKey(hReportStore) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreGetFirstReportKey(hReportStore_) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
 
-        result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore, "ptr*", &ppszReportKey := 0, "int")
+        result := DllCall("wer.dll\WerStoreGetFirstReportKey", "ptr", hReportStore_, "ptr*", &ppszReportKey := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1420,15 +1422,15 @@ class ErrorReporting {
 
     /**
      * Gets a reference to the next report in the error report store.
-     * @param {HREPORTSTORE} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {HREPORTSTORE} hReportStore_ The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @returns {PWSTR} A pointer to the report key string. On a successful call, this will point to the retrieved report key.
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstoregetnextreportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werstoregetnextreportkey
      * @since windows10.0.15063
      */
-    static WerStoreGetNextReportKey(hReportStore) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreGetNextReportKey(hReportStore_) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
 
-        result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore, "ptr*", &ppszReportKey := 0, "int")
+        result := DllCall("wer.dll\WerStoreGetNextReportKey", "ptr", hReportStore_, "ptr*", &ppszReportKey := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1438,7 +1440,7 @@ class ErrorReporting {
 
     /**
      * Retrieves metadata about a report in the store.
-     * @param {HREPORTSTORE} hReportStore The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
+     * @param {HREPORTSTORE} hReportStore_ The error report store (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoreopen">WerStoreOpen</a>).
      * @param {PWSTR} pszReportKey The string identifying which report is being queried (previously retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetfirstreportkey">WerStoreGetFirstReportKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/werapi/nf-werapi-werstoregetnextreportkey">WerStoreGetNextReportKey</a>).
      * @param {Pointer<WER_REPORT_METADATA_V2>} pReportMetadata A pointer to the report store metadata in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/werapi/ns-werapi-wer_report_metadata_v2">WER_REPORT_METADATA_V2</a> structure. The field <b>SizeOfFileNames</b> should be set to 0 during the first call. The function updates this field with the required size to hold the file names associated with the report. The field <b>FileNames</b> should then be allocated with <b>SizeOfFileNames</b> bytes and the function should be called again to get all of the file names.
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or an error code on failure, including the following error code.
@@ -1471,14 +1473,14 @@ class ErrorReporting {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werstorequeryreportmetadatav2
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werstorequeryreportmetadatav2
      * @since windows10.0.15063
      */
-    static WerStoreQueryReportMetadataV2(hReportStore, pszReportKey, pReportMetadata) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreQueryReportMetadataV2(hReportStore_, pszReportKey, pReportMetadata) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
-        result := DllCall("wer.dll\WerStoreQueryReportMetadataV2", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
+        result := DllCall("wer.dll\WerStoreQueryReportMetadataV2", "ptr", hReportStore_, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1488,16 +1490,16 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {HREPORTSTORE} hReportStore 
+     * @param {HREPORTSTORE} hReportStore_ 
      * @param {PWSTR} pszReportKey 
      * @param {Pointer<WER_REPORT_METADATA_V3>} pReportMetadata 
      * @returns {HRESULT} 
      */
-    static WerStoreQueryReportMetadataV3(hReportStore, pszReportKey, pReportMetadata) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreQueryReportMetadataV3(hReportStore_, pszReportKey, pReportMetadata) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
-        result := DllCall("wer.dll\WerStoreQueryReportMetadataV3", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
+        result := DllCall("wer.dll\WerStoreQueryReportMetadataV3", "ptr", hReportStore_, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1509,7 +1511,7 @@ class ErrorReporting {
      * Frees up the memory used to store a report key string. This should be called after each successive call to WerStoreGetFirstReportKey or WerStoreGetNextReportKey, once the particular report key string has been used and is no longer needed.
      * @param {PWSTR} pwszStr The string to be freed (value set to <b>NULL</b>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/werapi/nf-werapi-werfreestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/werapi/nf-werapi-werfreestring
      * @since windows10.0.15063
      */
     static WerFreeString(pwszStr) {
@@ -1533,13 +1535,13 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {HREPORTSTORE} hReportStore 
+     * @param {HREPORTSTORE} hReportStore_ 
      * @returns {Integer} 
      */
-    static WerStoreGetReportCount(hReportStore) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreGetReportCount(hReportStore_) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
 
-        result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore, "uint*", &pdwReportCount := 0, "int")
+        result := DllCall("wer.dll\WerStoreGetReportCount", "ptr", hReportStore_, "uint*", &pdwReportCount := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1549,13 +1551,13 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {HREPORTSTORE} hReportStore 
+     * @param {HREPORTSTORE} hReportStore_ 
      * @returns {Integer} 
      */
-    static WerStoreGetSizeOnDisk(hReportStore) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreGetSizeOnDisk(hReportStore_) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
 
-        result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore, "uint*", &pqwSizeInBytes := 0, "int")
+        result := DllCall("wer.dll\WerStoreGetSizeOnDisk", "ptr", hReportStore_, "uint*", &pqwSizeInBytes := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1565,16 +1567,16 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {HREPORTSTORE} hReportStore 
+     * @param {HREPORTSTORE} hReportStore_ 
      * @param {PWSTR} pszReportKey 
      * @param {Pointer<WER_REPORT_METADATA_V1>} pReportMetadata 
      * @returns {HRESULT} 
      */
-    static WerStoreQueryReportMetadataV1(hReportStore, pszReportKey, pReportMetadata) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreQueryReportMetadataV1(hReportStore_, pszReportKey, pReportMetadata) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
-        result := DllCall("wer.dll\WerStoreQueryReportMetadataV1", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
+        result := DllCall("wer.dll\WerStoreQueryReportMetadataV1", "ptr", hReportStore_, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1584,16 +1586,16 @@ class ErrorReporting {
 
     /**
      * 
-     * @param {HREPORTSTORE} hReportStore 
+     * @param {HREPORTSTORE} hReportStore_ 
      * @param {PWSTR} pszReportKey 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
-    static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags) {
-        hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+    static WerStoreUploadReport(hReportStore_, pszReportKey, dwFlags) {
+        hReportStore_ := hReportStore_ is Win32Handle ? NumGet(hReportStore_, "ptr") : hReportStore_
         pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
-        result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "int*", &pSubmitResult := 0, "int")
+        result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore_, "ptr", pszReportKey, "uint", dwFlags, "int*", &pSubmitResult := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1707,7 +1709,7 @@ class ErrorReporting {
      *  
      * 
      * These return values indicate whether the reporting application was successfully launched. A successful return value does not necessarily indicate that the fault was successfully reported.
-     * @see https://learn.microsoft.com/windows/win32/api/errorrep/nf-errorrep-reportfault
+     * @see https://learn.microsoft.com/windows/win32/api//content/errorrep/nf-errorrep-reportfault
      * @since windows5.1.2600
      */
     static ReportFault(pep, dwOpt) {
@@ -1731,7 +1733,7 @@ class ErrorReporting {
      * 
      * If the function fails, the return value is zero. To get extended error information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/errorrep/nf-errorrep-adderexcludedapplicationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/errorrep/nf-errorrep-adderexcludedapplicationa
      * @since windows5.1.2600
      */
     static AddERExcludedApplicationA(szApplication) {
@@ -1758,7 +1760,7 @@ class ErrorReporting {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, see <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/errorrep/nf-errorrep-adderexcludedapplicationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/errorrep/nf-errorrep-adderexcludedapplicationw
      * @since windows5.1.2600
      */
     static AddERExcludedApplicationW(wszApplication) {
@@ -1794,7 +1796,7 @@ class ErrorReporting {
      * @param {HWND} hwndHungApp Handle to the window that is not responding.
      * @param {PWSTR} pwzHungApplicationName The name of the not-responding application to be shown in the Hang Reporting UI. The name is limited to 128 characters including the <b>NULL</b> terminator. If <b>NULL</b>, WER tries to get the name from the target image resources. If it cannot get the name from the image, the image name will be used.
      * @returns {HRESULT} Returns S_OK if the function was able to initiate the reporting or an error code on failure. Note that S_OK does not necessarily mean that "no response" reporting has completed successfully, only that it was initiated.
-     * @see https://learn.microsoft.com/windows/win32/api/errorrep/nf-errorrep-werreporthang
+     * @see https://learn.microsoft.com/windows/win32/api//content/errorrep/nf-errorrep-werreporthang
      * @since windows6.0.6000
      */
     static WerReportHang(hwndHungApp, pwzHungApplicationName) {

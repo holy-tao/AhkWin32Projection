@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * Provides context information about the event.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_buffer_context
+ * Provides context information about the event. (ETW_BUFFER_CONTEXT)
+ * @see https://learn.microsoft.com/windows/win32/api//content/relogger/ns-relogger-etw_buffer_context
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

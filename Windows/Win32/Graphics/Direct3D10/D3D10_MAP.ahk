@@ -21,7 +21,7 @@
  * A common use of these two flags involves filling dynamic index/vertex buffers with geometry that can be seen from the camera's current position. The first time that data is entered into the buffer on a given frame, Map is called with D3D10_MAP_WRITE_DISCARD; doing so invalidates the previous contents of the buffer. The buffer is then filled with all available data.
  * 
  * Subsequent writes to the buffer within the same frame should use D3D10_MAP_WRITE_NO_OVERWRITE. This will enable the CPU to access a resource that is potentially being used by the GPU as long as the restrictions described previously are respected.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_map
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_map
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

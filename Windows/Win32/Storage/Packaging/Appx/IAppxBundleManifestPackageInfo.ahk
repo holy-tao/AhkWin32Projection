@@ -6,8 +6,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a read-only object model for a &lt;Package&gt; element in a bundle package manifest.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo
+ * Provides a read-only object model for a &lt;Package&gt; element in a bundle package manifest. (IAppxBundleManifestPackageInfo)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -37,34 +37,52 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_bundle_payload_package_type">APPX_BUNDLE_PAYLOAD_PACKAGE_TYPE</a>*</b>
      * 
      * The type of package.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackagetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackagetype
      */
     GetPackageType() {
-        result := ComCall(3, this, "int*", &packageType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &packageType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return packageType
     }
 
     /**
      * Retrieves an object that represents the identity of the app package.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method when you have finished using the <i>packageId</i> object.
      * @returns {IAppxManifestPackageId} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestpackageid">IAppxManifestPackageId</a>**</b>
      * 
      * The package identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackageid
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getpackageid
      */
     GetPackageId() {
-        result := ComCall(4, this, "ptr*", &packageId := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &packageId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestPackageId(packageId)
     }
 
     /**
      * Retrieves the file-name attribute of the package.
+     * @remarks
+     * You can pass the package file name that  <b>GetFileName</b> outputs to the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxbundlereader-getpayloadpackage">IAppxBundleReader::GetPayloadPackage</a> method to access the package’s contents.
+     * 
+     * When you're done using the file name, free the memory allocated for <i>fileName</i> by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * A string that contains the file name of the package.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getfilename
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getfilename
      */
     GetFileName() {
-        result := ComCall(5, this, "ptr*", &fileName := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &fileName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fileName
     }
 
@@ -73,23 +91,29 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
      * 
      * The offset of the package, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getoffset
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getoffset
      */
     GetOffset() {
-        result := ComCall(6, this, "uint*", &offset := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return offset
     }
 
     /**
      * Retrieves the size of the package, in bytes.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
-     * 
-     * The size of the package, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getsize
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getsize
      */
     GetSize() {
-        result := ComCall(7, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(7, this, "uint*", &size_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return size_
     }
 
     /**
@@ -97,10 +121,14 @@ class IAppxBundleManifestPackageInfo extends IUnknown{
      * @returns {IAppxManifestQualifiedResourcesEnumerator} Type: <b><a href="https://docs.microsoft.com/previous-versions/dn280306(v=vs.85)">IAppxManifestQualifiedResourcesEnumerator</a>**</b>
      * 
      * The enumerator that iterates through the resources.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo-getresources
      */
     GetResources() {
-        result := ComCall(8, this, "ptr*", &resources := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &resources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestQualifiedResourcesEnumerator(resources)
     }
 }

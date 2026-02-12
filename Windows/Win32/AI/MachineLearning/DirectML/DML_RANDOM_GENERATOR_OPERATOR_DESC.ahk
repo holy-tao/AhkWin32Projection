@@ -9,7 +9,7 @@
  * For **DML_RANDOM_GENERATOR_TYPE_PHILOX_4X32_10**, the 128-bit counter should be incremented by `ceil(outputSize / 4)` on each execution, where `outputSize` is the number of elements in the *OutputTensor*.
  * 
  * Consider an example where the value of the 128-bit counter is currently `0x48656c6c'6f46726f'6d536561'74746c65`, and the OutputTensor's size is `{3,3,20,7219}`. After executing this operator once, the counter should be incremented by 324,855 (the number of output elements generated divided by 4, rounded up) resulting in a counter value of `0x48656c6c'6f46726f'6d536561'746f776e`. This updated value should then be supplied as an input for the next execution of this operator.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_random_generator_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_random_generator_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Information about the properties of a display mode.
  * @remarks
  * This structure is used in various methods to create and manage Direct3D 9Ex devices ([**IDirect3DDevice9Ex**](/windows/desktop/api/d3d9/nn-d3d9-idirect3ddevice9ex)) and swapchains ([**IDirect3DSwapChain9Ex**](/windows/desktop/api/d3d9/nn-d3d9-idirect3dswapchain9ex)).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddisplaymodeex
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddisplaymodeex
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

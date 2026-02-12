@@ -39,6 +39,8 @@
 #Include .\PROPERTYRESTRICTION.ahk
 
 /**
+ * These flags are used with the SHRestricted function.
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

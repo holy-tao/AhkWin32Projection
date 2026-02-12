@@ -33,7 +33,11 @@ class ISIInbandEPG extends IUnknown{
      * @returns {HRESULT} 
      */
     StartSIEPGScan() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class ISIInbandEPG extends IUnknown{
      * @returns {HRESULT} 
      */
     StopSIEPGScan() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +59,11 @@ class ISIInbandEPG extends IUnknown{
      * @returns {BOOL} 
      */
     IsSIEPGScanRunning() {
-        result := ComCall(5, this, "int*", &bRunning := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &bRunning := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bRunning
     }
 }

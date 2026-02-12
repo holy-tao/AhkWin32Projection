@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkrectangle
+ * . (IInkRectangle)
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkrectangle
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -72,156 +72,172 @@ class IInkRectangle extends IDispatch{
     }
 
     /**
-     * Gets or sets the top position of the InkRectangle object.
+     * Gets or sets the top position of the InkRectangle object. (Get)
      * @remarks
-     * 
      * Note: A point is within an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrectangle-class">InkRectangle Class</a> if it lies on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_left">Left Property</a> or <b>Top Property</b> side or is within all four sides. A point on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_right">Right Property</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom">Bottom Property</a> side is considered outside the rectangle.
      * 
      * The default value of this property is 0.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-get_top
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-get_top
      */
     get_Top() {
-        result := ComCall(7, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the top position of the InkRectangle object.
+     * Gets or sets the top position of the InkRectangle object. (Put)
      * @remarks
-     * 
      * Note: A point is within an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrectangle-class">InkRectangle Class</a> if it lies on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_left">Left Property</a> or <b>Top Property</b> side or is within all four sides. A point on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_right">Right Property</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom">Bottom Property</a> side is considered outside the rectangle.
      * 
      * The default value of this property is 0.
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-put_top
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-put_top
      */
     put_Top(Units) {
-        result := ComCall(8, this, "int", Units, "HRESULT")
+        result := ComCall(8, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the left position of the InkRectangle object.
+     * Gets or sets the left position of the InkRectangle object. (Get)
      * @remarks
-     * 
      * The default value of this property is 0.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-get_left
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-get_left
      */
     get_Left() {
-        result := ComCall(9, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the left position of the InkRectangle object.
+     * Gets or sets the left position of the InkRectangle object. (Put)
      * @remarks
-     * 
      * The default value of this property is 0.
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-put_left
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-put_left
      */
     put_Left(Units) {
-        result := ComCall(10, this, "int", Units, "HRESULT")
+        result := ComCall(10, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the bottom position of the InkRectangle object.
+     * Gets or sets the bottom position of the InkRectangle object. (Get)
      * @remarks
-     * 
      * The default value of this property is 0.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-get_bottom
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-get_bottom
      */
     get_Bottom() {
-        result := ComCall(11, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the bottom position of the InkRectangle object.
+     * Gets or sets the bottom position of the InkRectangle object. (Put)
      * @remarks
-     * 
      * The default value of this property is 0.
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-put_bottom
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-put_bottom
      */
     put_Bottom(Units) {
-        result := ComCall(12, this, "int", Units, "HRESULT")
+        result := ComCall(12, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the right position of the InkRectangle object.
+     * Gets or sets the right position of the InkRectangle object. (Get)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  A point is within an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrectangle-class">InkRectangle</a> if it lies on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_left">Left</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_top">Top</a> side or is within all four sides. A point on the <b>Right</b> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom">Bottom</a> side is considered outside the rectangle.</div>
      * <div> </div>
      * The default value of this property is 0.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-get_right
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-get_right
      */
     get_Right() {
-        result := ComCall(13, this, "int*", &Units := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &Units := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Units
     }
 
     /**
-     * Gets or sets the right position of the InkRectangle object.
+     * Gets or sets the right position of the InkRectangle object. (Put)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  A point is within an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrectangle-class">InkRectangle</a> if it lies on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_left">Left</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_top">Top</a> side or is within all four sides. A point on the <b>Right</b> or <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrectangle-get_bottom">Bottom</a> side is considered outside the rectangle.</div>
      * <div> </div>
      * The default value of this property is 0.
-     * 
-     * 
      * @param {Integer} Units 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-put_right
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-put_right
      */
     put_Right(Units) {
-        result := ComCall(14, this, "int", Units, "HRESULT")
+        result := ComCall(14, this, "int", Units, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets access to the rectangle structure (C++ only).
+     * Gets or sets access to the rectangle structure (C++ only). (Get)
      * @returns {RECT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-get_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-get_data
      */
     get_Data() {
-        Rect := RECT()
-        result := ComCall(15, this, "ptr", Rect, "HRESULT")
-        return Rect
+        Rect_ := RECT()
+        result := ComCall(15, this, "ptr", Rect_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Rect_
     }
 
     /**
-     * Gets or sets access to the rectangle structure (C++ only).
-     * @param {RECT} Rect 
+     * Gets or sets access to the rectangle structure (C++ only). (Put)
+     * @param {RECT} Rect_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-put_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-put_data
      */
-    put_Data(Rect) {
-        result := ComCall(16, this, "ptr", Rect, "HRESULT")
+    put_Data(Rect_) {
+        result := ComCall(16, this, "ptr", Rect_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,7 +288,7 @@ class IInkRectangle extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-getrectangle
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-getrectangle
      */
     GetRectangle(Top, Left, Bottom, Right) {
         TopMarshal := Top is VarRef ? "int*" : "ptr"
@@ -280,12 +296,19 @@ class IInkRectangle extends IDispatch{
         BottomMarshal := Bottom is VarRef ? "int*" : "ptr"
         RightMarshal := Right is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, TopMarshal, Top, LeftMarshal, Left, BottomMarshal, Bottom, RightMarshal, Right, "HRESULT")
+        result := ComCall(17, this, TopMarshal, Top, LeftMarshal, Left, BottomMarshal, Bottom, RightMarshal, Right, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the elements of the InkRectangle object in a single call.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The order of the parameters in this method (<i>Top</i>, <i>Left</i>, <i>Bottom</i>, and <i>Right</i>) is different from the expected order (<i>Left</i>, <i>Top</i>, <i>Right</i>, and <i>Bottom</i>).</div>
+     * <div> </div>
      * @param {Integer} Top The top of the rectangle.
      * @param {Integer} Left The left of the rectangle.
      * @param {Integer} Bottom The bottom of the rectangle.
@@ -331,10 +354,14 @@ class IInkRectangle extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrectangle-setrectangle
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrectangle-setrectangle
      */
     SetRectangle(Top, Left, Bottom, Right) {
-        result := ComCall(18, this, "int", Top, "int", Left, "int", Bottom, "int", Right, "HRESULT")
+        result := ComCall(18, this, "int", Top, "int", Left, "int", Bottom, "int", Right, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

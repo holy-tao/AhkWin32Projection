@@ -35,7 +35,11 @@ class IDBCreateSession extends IUnknown{
      * @returns {IUnknown} 
      */
     CreateSession(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppDBSession := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppDBSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDBSession)
     }
 }

@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nn-ddkernel-idirectdrawsurfacekernel
+ * IDirectDrawSurfaceKernel interface
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nn-ddkernel-idirectdrawsurfacekernel
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -74,12 +74,16 @@ class IDirectDrawSurfaceKernel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawsurfacekernel-getkernelhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nf-ddkernel-idirectdrawsurfacekernel-getkernelhandle
      */
     GetKernelHandle(param0) {
         param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(3, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,10 +130,14 @@ class IDirectDrawSurfaceKernel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawsurfacekernel-releasekernelhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nf-ddkernel-idirectdrawsurfacekernel-releasekernelhandle
      */
     ReleaseKernelHandle() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

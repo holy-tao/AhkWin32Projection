@@ -43,7 +43,11 @@ class IExecAction2 extends IExecAction{
     get_HideAppWindow(pHideAppWindow) {
         pHideAppWindowMarshal := pHideAppWindow is VarRef ? "short*" : "ptr"
 
-        result := ComCall(16, this, pHideAppWindowMarshal, pHideAppWindow, "HRESULT")
+        result := ComCall(16, this, pHideAppWindowMarshal, pHideAppWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class IExecAction2 extends IExecAction{
      * @returns {HRESULT} 
      */
     put_HideAppWindow(hideAppWindow) {
-        result := ComCall(17, this, "short", hideAppWindow, "HRESULT")
+        result := ComCall(17, this, "short", hideAppWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

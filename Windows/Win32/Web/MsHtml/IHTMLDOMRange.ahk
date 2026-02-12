@@ -86,7 +86,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_startContainer() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -95,7 +99,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {Integer} 
      */
     get_startOffset() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -104,7 +112,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_endContainer() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -113,7 +125,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {Integer} 
      */
     get_endOffset() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -122,7 +138,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_collapsed() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -131,7 +151,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_commonAncestorContainer() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -142,7 +166,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     setStart(refNode, offset) {
-        result := ComCall(13, this, "ptr", refNode, "int", offset, "HRESULT")
+        result := ComCall(13, this, "ptr", refNode, "int", offset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +181,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     setEnd(refNode, offset) {
-        result := ComCall(14, this, "ptr", refNode, "int", offset, "HRESULT")
+        result := ComCall(14, this, "ptr", refNode, "int", offset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +195,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     setStartBefore(refNode) {
-        result := ComCall(15, this, "ptr", refNode, "HRESULT")
+        result := ComCall(15, this, "ptr", refNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -173,7 +209,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     setStartAfter(refNode) {
-        result := ComCall(16, this, "ptr", refNode, "HRESULT")
+        result := ComCall(16, this, "ptr", refNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +223,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     setEndBefore(refNode) {
-        result := ComCall(17, this, "ptr", refNode, "HRESULT")
+        result := ComCall(17, this, "ptr", refNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +237,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     setEndAfter(refNode) {
-        result := ComCall(18, this, "ptr", refNode, "HRESULT")
+        result := ComCall(18, this, "ptr", refNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +251,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     collapse(toStart) {
-        result := ComCall(19, this, "short", toStart, "HRESULT")
+        result := ComCall(19, this, "short", toStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +265,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     selectNode(refNode) {
-        result := ComCall(20, this, "ptr", refNode, "HRESULT")
+        result := ComCall(20, this, "ptr", refNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,7 +279,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     selectNodeContents(refNode) {
-        result := ComCall(21, this, "ptr", refNode, "HRESULT")
+        result := ComCall(21, this, "ptr", refNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,7 +294,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {Integer} 
      */
     compareBoundaryPoints(how, sourceRange) {
-        result := ComCall(22, this, "short", how, "ptr", sourceRange, "int*", &compareResult := 0, "HRESULT")
+        result := ComCall(22, this, "short", how, "ptr", sourceRange, "int*", &compareResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return compareResult
     }
 
@@ -243,7 +307,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteContents() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -252,7 +320,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IDispatch} 
      */
     extractContents() {
-        result := ComCall(24, this, "ptr*", &ppDocumentFragment := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &ppDocumentFragment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDocumentFragment)
     }
 
@@ -261,7 +333,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IDispatch} 
      */
     cloneContents() {
-        result := ComCall(25, this, "ptr*", &ppDocumentFragment := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &ppDocumentFragment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDocumentFragment)
     }
 
@@ -271,7 +347,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     insertNode(newNode) {
-        result := ComCall(26, this, "ptr", newNode, "HRESULT")
+        result := ComCall(26, this, "ptr", newNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -281,7 +361,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     surroundContents(newParent) {
-        result := ComCall(27, this, "ptr", newParent, "HRESULT")
+        result := ComCall(27, this, "ptr", newParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -290,17 +374,30 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IHTMLDOMRange} 
      */
     cloneRange() {
-        result := ComCall(28, this, "ptr*", &ppClonedRange := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppClonedRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMRange(ppClonedRange)
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
         pRangeString := BSTR()
-        result := ComCall(29, this, "ptr", pRangeString, "HRESULT")
+        result := ComCall(29, this, "ptr", pRangeString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRangeString
     }
 
@@ -309,7 +406,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {HRESULT} 
      */
     detach() {
-        result := ComCall(30, this, "HRESULT")
+        result := ComCall(30, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -318,7 +419,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
-        result := ComCall(31, this, "ptr*", &ppRectCol := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &ppRectCol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLRectCollection(ppRectCol)
     }
 
@@ -327,7 +432,11 @@ class IHTMLDOMRange extends IDispatch{
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {
-        result := ComCall(32, this, "ptr*", &ppRect := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &ppRect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLRect(ppRect)
     }
 }

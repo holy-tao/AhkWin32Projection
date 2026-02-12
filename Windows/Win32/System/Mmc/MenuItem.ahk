@@ -5,6 +5,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Determines which menu item, if any, is at the specified location.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-menuitemfrompoint
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -76,7 +78,11 @@ class MenuItem extends IDispatch{
      */
     get_DisplayName() {
         DisplayName := BSTR()
-        result := ComCall(7, this, "ptr", DisplayName, "HRESULT")
+        result := ComCall(7, this, "ptr", DisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DisplayName
     }
 
@@ -86,7 +92,11 @@ class MenuItem extends IDispatch{
      */
     get_LanguageIndependentName() {
         LanguageIndependentName := BSTR()
-        result := ComCall(8, this, "ptr", LanguageIndependentName, "HRESULT")
+        result := ComCall(8, this, "ptr", LanguageIndependentName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LanguageIndependentName
     }
 
@@ -95,9 +105,13 @@ class MenuItem extends IDispatch{
      * @returns {BSTR} 
      */
     get_Path() {
-        Path := BSTR()
-        result := ComCall(9, this, "ptr", Path, "HRESULT")
-        return Path
+        Path_ := BSTR()
+        result := ComCall(9, this, "ptr", Path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Path_
     }
 
     /**
@@ -106,16 +120,25 @@ class MenuItem extends IDispatch{
      */
     get_LanguageIndependentPath() {
         LanguageIndependentPath := BSTR()
-        result := ComCall(10, this, "ptr", LanguageIndependentPath, "HRESULT")
+        result := ComCall(10, this, "ptr", LanguageIndependentPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LanguageIndependentPath
     }
 
     /**
-     * 
+     * Learn how to run SQL Server stored procedures with RPC, and process return codes and output parameters in this example.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/results/execute-stored-procedure-with-rpc-and-process-output
      */
     Execute() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +147,11 @@ class MenuItem extends IDispatch{
      * @returns {BOOL} 
      */
     get_Enabled() {
-        result := ComCall(12, this, "int*", &Enabled := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &Enabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Enabled
     }
 }

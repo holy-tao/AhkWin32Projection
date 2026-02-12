@@ -3,7 +3,7 @@
 
 /**
  * Contains information needed for preshared key authentication. (IKEEXT_KERBEROS_AUTHENTICATION1)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_kerberos_authentication1
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_kerberos_authentication1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

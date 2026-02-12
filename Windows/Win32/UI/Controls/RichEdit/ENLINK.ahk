@@ -2,11 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 #Include .\CHARRANGE.ahk
 
 /**
  * Contains information about an EN_LINK notification code from a rich edit control.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enlink
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-enlink
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -47,9 +49,12 @@ class ENLINK extends Win32Struct
      * The <b>wParam</b> parameter of the message received by the rich edit control.
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(32, this)
+            return this.__wParam
+        }
     }
 
     /**
@@ -58,9 +63,12 @@ class ENLINK extends Win32Struct
      * The <b>lParam</b> parameter of the message received by the rich edit control.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 
     /**

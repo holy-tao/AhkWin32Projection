@@ -25,7 +25,7 @@
  * <td> 1 </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_matrix
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/ns-xpsobjectmodel-xps_matrix
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

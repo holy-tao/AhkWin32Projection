@@ -38,7 +38,11 @@ class IDebugHostExtensibility2 extends IDebugHostExtensibility{
     CreateFunctionAliasWithMetadata(aliasName, functionObject, metadata) {
         aliasName := aliasName is String ? StrPtr(aliasName) : aliasName
 
-        result := ComCall(5, this, "ptr", aliasName, "ptr", functionObject, "ptr", metadata, "HRESULT")
+        result := ComCall(5, this, "ptr", aliasName, "ptr", functionObject, "ptr", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

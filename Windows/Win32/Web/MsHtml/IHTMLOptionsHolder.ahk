@@ -131,7 +131,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {IHTMLDocument2} 
      */
     get_document() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(p)
     }
 
@@ -140,7 +144,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {IHTMLFontNamesCollection} 
      */
     get_fonts() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFontNamesCollection(p)
     }
 
@@ -150,7 +158,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_execArg(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +172,11 @@ class IHTMLOptionsHolder extends IDispatch{
      */
     get_execArg() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -170,7 +186,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_errorLine(v) {
-        result := ComCall(11, this, "int", v, "HRESULT")
+        result := ComCall(11, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +199,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {Integer} 
      */
     get_errorLine() {
-        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -189,7 +213,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_errorCharacter(v) {
-        result := ComCall(13, this, "int", v, "HRESULT")
+        result := ComCall(13, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,7 +226,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {Integer} 
      */
     get_errorCharacter() {
-        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -208,7 +240,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_errorCode(v) {
-        result := ComCall(15, this, "int", v, "HRESULT")
+        result := ComCall(15, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +253,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {Integer} 
      */
     get_errorCode() {
-        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -227,9 +267,16 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_errorMessage(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -239,7 +286,11 @@ class IHTMLOptionsHolder extends IDispatch{
      */
     get_errorMessage() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -249,7 +300,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_errorDebug(v) {
-        result := ComCall(19, this, "short", v, "HRESULT")
+        result := ComCall(19, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -258,7 +313,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_errorDebug() {
-        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -267,7 +326,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {IHTMLWindow2} 
      */
     get_unsecuredWindowOfDocument() {
-        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -277,9 +340,16 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_findText(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -289,7 +359,11 @@ class IHTMLOptionsHolder extends IDispatch{
      */
     get_findText() {
         p := BSTR()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -299,7 +373,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     put_anythingAfterFrameset(v) {
-        result := ComCall(24, this, "short", v, "HRESULT")
+        result := ComCall(24, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -308,7 +386,11 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_anythingAfterFrameset() {
-        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -318,9 +400,16 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {IHTMLFontSizesCollection} 
      */
     sizes(fontName) {
-        fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
+        if(fontName is String) {
+            pin := BSTR.Alloc(fontName)
+            fontName := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", fontName, "ptr*", &pSizesCollection := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", fontName, "ptr*", &pSizesCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFontSizesCollection(pSizesCollection)
     }
 
@@ -333,9 +422,13 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {BSTR} 
      */
     openfiledlg(initFile, initDir, filter, title) {
-        pathName := BSTR()
-        result := ComCall(27, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName, "HRESULT")
-        return pathName
+        pathName_ := BSTR()
+        result := ComCall(27, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pathName_
     }
 
     /**
@@ -347,9 +440,13 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {BSTR} 
      */
     savefiledlg(initFile, initDir, filter, title) {
-        pathName := BSTR()
-        result := ComCall(28, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName, "HRESULT")
-        return pathName
+        pathName_ := BSTR()
+        result := ComCall(28, this, "ptr", initFile, "ptr", initDir, "ptr", filter, "ptr", title, "ptr", pathName_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pathName_
     }
 
     /**
@@ -358,8 +455,12 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {Integer} 
      */
     choosecolordlg(initColor) {
-        result := ComCall(29, this, "ptr", initColor, "int*", &rgbColor := 0, "HRESULT")
-        return rgbColor
+        result := ComCall(29, this, "ptr", initColor, "int*", &rgbColor_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return rgbColor_
     }
 
     /**
@@ -367,17 +468,25 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {HRESULT} 
      */
     showSecurityInfo() {
-        result := ComCall(30, this, "HRESULT")
+        result := ComCall(30, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {IHTMLObjectElement} object 
+     * @param {IHTMLObjectElement} object_ 
      * @returns {VARIANT_BOOL} 
      */
-    isApartmentModel(object) {
-        result := ComCall(31, this, "ptr", object, "short*", &fApartment := 0, "HRESULT")
+    isApartmentModel(object_) {
+        result := ComCall(31, this, "ptr", object_, "short*", &fApartment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fApartment
     }
 
@@ -387,9 +496,16 @@ class IHTMLOptionsHolder extends IDispatch{
      * @returns {Integer} 
      */
     getCharset(fontName) {
-        fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
+        if(fontName is String) {
+            pin := BSTR.Alloc(fontName)
+            fontName := pin.Value
+        }
 
-        result := ComCall(32, this, "ptr", fontName, "int*", &charset := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", fontName, "int*", &charset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return charset
     }
 
@@ -399,7 +515,11 @@ class IHTMLOptionsHolder extends IDispatch{
      */
     get_secureConnectionInfo() {
         p := BSTR()
-        result := ComCall(33, this, "ptr", p, "HRESULT")
+        result := ComCall(33, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

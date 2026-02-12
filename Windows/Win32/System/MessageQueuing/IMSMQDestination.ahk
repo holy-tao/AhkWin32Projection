@@ -88,20 +88,32 @@ class IMSMQDestination extends IDispatch{
     }
 
     /**
-     * 
+     * Open Method (ADO MD)
+     * @remarks
+     * The **Open** method generates an error if either of its parameters is omitted and its corresponding property value has not been set prior to attempting to open the **Cellset**.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-md-api/open-method-ado-md
      */
     Open() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +122,11 @@ class IMSMQDestination extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsOpen() {
-        result := ComCall(9, this, "short*", &pfIsOpen := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &pfIsOpen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsOpen
     }
 
@@ -119,7 +135,11 @@ class IMSMQDestination extends IDispatch{
      * @returns {IDispatch} 
      */
     get_IADs() {
-        result := ComCall(10, this, "ptr*", &ppIADs := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppIADs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppIADs)
     }
 
@@ -129,7 +149,11 @@ class IMSMQDestination extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_IADs(pIADs) {
-        result := ComCall(11, this, "ptr", pIADs, "HRESULT")
+        result := ComCall(11, this, "ptr", pIADs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +163,11 @@ class IMSMQDestination extends IDispatch{
      */
     get_ADsPath() {
         pbstrADsPath := BSTR()
-        result := ComCall(12, this, "ptr", pbstrADsPath, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrADsPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrADsPath
     }
 
@@ -149,9 +177,16 @@ class IMSMQDestination extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ADsPath(bstrADsPath) {
-        bstrADsPath := bstrADsPath is String ? BSTR.Alloc(bstrADsPath).Value : bstrADsPath
+        if(bstrADsPath is String) {
+            pin := BSTR.Alloc(bstrADsPath)
+            bstrADsPath := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrADsPath, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrADsPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +196,11 @@ class IMSMQDestination extends IDispatch{
      */
     get_PathName() {
         pbstrPathName := BSTR()
-        result := ComCall(14, this, "ptr", pbstrPathName, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstrPathName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrPathName
     }
 
@@ -171,9 +210,16 @@ class IMSMQDestination extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PathName(bstrPathName) {
-        bstrPathName := bstrPathName is String ? BSTR.Alloc(bstrPathName).Value : bstrPathName
+        if(bstrPathName is String) {
+            pin := BSTR.Alloc(bstrPathName)
+            bstrPathName := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrPathName, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrPathName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +229,11 @@ class IMSMQDestination extends IDispatch{
      */
     get_FormatName() {
         pbstrFormatName := BSTR()
-        result := ComCall(16, this, "ptr", pbstrFormatName, "HRESULT")
+        result := ComCall(16, this, "ptr", pbstrFormatName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormatName
     }
 
@@ -193,9 +243,16 @@ class IMSMQDestination extends IDispatch{
      * @returns {HRESULT} 
      */
     put_FormatName(bstrFormatName) {
-        bstrFormatName := bstrFormatName is String ? BSTR.Alloc(bstrFormatName).Value : bstrFormatName
+        if(bstrFormatName is String) {
+            pin := BSTR.Alloc(bstrFormatName)
+            bstrFormatName := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrFormatName, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrFormatName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -204,7 +261,11 @@ class IMSMQDestination extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Destinations() {
-        result := ComCall(18, this, "ptr*", &ppDestinations := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppDestinations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDestinations)
     }
 
@@ -214,7 +275,11 @@ class IMSMQDestination extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_Destinations(pDestinations) {
-        result := ComCall(19, this, "ptr", pDestinations, "HRESULT")
+        result := ComCall(19, this, "ptr", pDestinations, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,7 +288,11 @@ class IMSMQDestination extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(20, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 }

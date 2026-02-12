@@ -42,7 +42,11 @@ class INetworkTransportSettings extends IUnknown{
         LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
         ValueOutMarshal := ValueOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
+        result := ComCall(3, this, "ptr", SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +64,11 @@ class INetworkTransportSettings extends IUnknown{
         LengthOutMarshal := LengthOut is VarRef ? "uint*" : "ptr"
         ValueOutMarshal := ValueOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "HRESULT")
+        result := ComCall(4, this, "ptr", SettingId, "uint", LengthIn, ValueInMarshal, ValueIn, LengthOutMarshal, LengthOut, ValueOutMarshal, ValueOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * INetworkEvents is a notification sink interface that a client implements to get network related events. These APIs are all callback functions that are called automatically when the respective events are raised.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nn-netlistmgr-inetworkevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nn-netlistmgr-inetworkevents
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class INetworkEvents extends IUnknown{
      * The NetworkAdded method is called when a new network is added. The GUID of the new network is provided.
      * @param {Guid} networkId A <b>GUID</b> that specifies the new network that was added.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkadded
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkevents-networkadded
      */
     NetworkAdded(networkId) {
-        result := ComCall(3, this, "ptr", networkId, "HRESULT")
+        result := ComCall(3, this, "ptr", networkId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,22 +49,30 @@ class INetworkEvents extends IUnknown{
      * The NetworkDeleted method is called when a network is deleted.
      * @param {Guid} networkId GUID that contains the network ID of the network that was deleted.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkdeleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkevents-networkdeleted
      */
     NetworkDeleted(networkId) {
-        result := ComCall(4, this, "ptr", networkId, "HRESULT")
+        result := ComCall(4, this, "ptr", networkId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The NetworkConnectivityChanged method is called when network connectivity related changes occur.
+     * The NetworkConnectivityChanged method is called when network connectivity related changes occur. (INetworkEvents.NetworkConnectivityChanged)
      * @param {Guid} networkId A <b>GUID</b> that specifies the new network that was added.
      * @param {Integer} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains the new connectivity of this network.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkconnectivitychanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkevents-networkconnectivitychanged
      */
     NetworkConnectivityChanged(networkId, newConnectivity) {
-        result := ComCall(5, this, "ptr", networkId, "int", newConnectivity, "HRESULT")
+        result := ComCall(5, this, "ptr", networkId, "int", newConnectivity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,10 +81,14 @@ class INetworkEvents extends IUnknown{
      * @param {Guid} networkId GUID that specifies the network on which this event occurred.
      * @param {Integer} flags <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_property_change">NLM_NETWORK_PROPERTY_CHANGE</a> enumeration value that specifies the network property that changed.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkevents-networkpropertychanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkevents-networkpropertychanged
      */
     NetworkPropertyChanged(networkId, flags) {
-        result := ComCall(6, this, "ptr", networkId, "int", flags, "HRESULT")
+        result := ComCall(6, this, "ptr", networkId, "int", flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -41,7 +41,11 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     ResetFirstBootMode() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     ResetSafeMode() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     RefreshOfflineDesktop() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,9 +82,16 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     AddFavorite(URL, Title) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", URL, "ptr", Title, "HRESULT")
+        result := ComCall(10, this, "ptr", URL, "ptr", Title, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,9 +101,16 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     AddChannel(URL) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", URL, "HRESULT")
+        result := ComCall(11, this, "ptr", URL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,10 +125,20 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     AddDesktopComponent(URL, Type, Left, Top, Width, Height) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
-        Type := Type is String ? BSTR.Alloc(Type).Value : Type
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
+        if(Type is String) {
+            pin := BSTR.Alloc(Type)
+            Type := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", URL, "ptr", Type, "ptr", Left, "ptr", Top, "ptr", Width, "ptr", Height, "HRESULT")
+        result := ComCall(12, this, "ptr", URL, "ptr", Type, "ptr", Left, "ptr", Top, "ptr", Width, "ptr", Height, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,9 +148,16 @@ class IShellUIHelper extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     IsSubscribed(URL) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", URL, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", URL, "short*", &pBool := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBool
     }
 
@@ -126,10 +169,20 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     NavigateAndFind(URL, strQuery, varTargetFrame) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
-        strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
+        if(strQuery is String) {
+            pin := BSTR.Alloc(strQuery)
+            strQuery := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", URL, "ptr", strQuery, "ptr", varTargetFrame, "HRESULT")
+        result := ComCall(14, this, "ptr", URL, "ptr", strQuery, "ptr", varTargetFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,9 +193,16 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     ImportExportFavorites(fImport, strImpExpPath) {
-        strImpExpPath := strImpExpPath is String ? BSTR.Alloc(strImpExpPath).Value : strImpExpPath
+        if(strImpExpPath is String) {
+            pin := BSTR.Alloc(strImpExpPath)
+            strImpExpPath := pin.Value
+        }
 
-        result := ComCall(15, this, "short", fImport, "ptr", strImpExpPath, "HRESULT")
+        result := ComCall(15, this, "short", fImport, "ptr", strImpExpPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +212,11 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     AutoCompleteSaveForm(Form) {
-        result := ComCall(16, this, "ptr", Form, "HRESULT")
+        result := ComCall(16, this, "ptr", Form, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,10 +228,20 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     AutoScan(strSearch, strFailureUrl, pvarTargetFrame) {
-        strSearch := strSearch is String ? BSTR.Alloc(strSearch).Value : strSearch
-        strFailureUrl := strFailureUrl is String ? BSTR.Alloc(strFailureUrl).Value : strFailureUrl
+        if(strSearch is String) {
+            pin := BSTR.Alloc(strSearch)
+            strSearch := pin.Value
+        }
+        if(strFailureUrl is String) {
+            pin := BSTR.Alloc(strFailureUrl)
+            strFailureUrl := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", strSearch, "ptr", strFailureUrl, "ptr", pvarTargetFrame, "HRESULT")
+        result := ComCall(17, this, "ptr", strSearch, "ptr", strFailureUrl, "ptr", pvarTargetFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +251,11 @@ class IShellUIHelper extends IDispatch{
      * @returns {HRESULT} 
      */
     AutoCompleteAttach(Reserved) {
-        result := ComCall(18, this, "ptr", Reserved, "HRESULT")
+        result := ComCall(18, this, "ptr", Reserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,10 +266,17 @@ class IShellUIHelper extends IDispatch{
      * @returns {VARIANT} 
      */
     ShowBrowserUI(bstrName, pvarIn) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
         pvarOut := VARIANT()
-        result := ComCall(19, this, "ptr", bstrName, "ptr", pvarIn, "ptr", pvarOut, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrName, "ptr", pvarIn, "ptr", pvarOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarOut
     }
 }

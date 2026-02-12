@@ -39,7 +39,11 @@ class IObjectSafety extends IUnknown{
         pdwSupportedOptionsMarshal := pdwSupportedOptions is VarRef ? "uint*" : "ptr"
         pdwEnabledOptionsMarshal := pdwEnabledOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", riid, pdwSupportedOptionsMarshal, pdwSupportedOptions, pdwEnabledOptionsMarshal, pdwEnabledOptions, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, pdwSupportedOptionsMarshal, pdwSupportedOptions, pdwEnabledOptionsMarshal, pdwEnabledOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IObjectSafety extends IUnknown{
      * @returns {HRESULT} 
      */
     SetInterfaceSafetyOptions(riid, dwOptionSetMask, dwEnabledOptions) {
-        result := ComCall(4, this, "ptr", riid, "uint", dwOptionSetMask, "uint", dwEnabledOptions, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "uint", dwOptionSetMask, "uint", dwEnabledOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -44,7 +44,11 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
      * @returns {HRESULT} 
      */
     validate() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
      * @returns {HRESULT} 
      */
     put_validateOnLoad(validateOnLoad) {
-        result := ComCall(15, this, "short", validateOnLoad, "HRESULT")
+        result := ComCall(15, this, "short", validateOnLoad, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,29 +71,47 @@ class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnLoad() {
-        result := ComCall(16, this, "short*", &validateOnLoad := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &validateOnLoad := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return validateOnLoad
     }
 
     /**
-     * 
+     * getSchemaName Method (SQLServerResultSetMetaData)
+     * @remarks
+     * This getSchemaName method is specified by the getSchemaName method in the java.sql.ResultSetMetaData interface.
      * @param {BSTR} namespaceURI 
      * @returns {ISchema} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getschemaname-method-sqlserverresultsetmetadata
      */
     getSchema(namespaceURI) {
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", namespaceURI, "ptr*", &schema := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", namespaceURI, "ptr*", &schema := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchema(schema)
     }
 
     /**
      * 
-     * @param {IXMLDOMNode} node 
+     * @param {IXMLDOMNode} node_ 
      * @returns {ISchemaItem} 
      */
-    getDeclaration(node) {
-        result := ComCall(18, this, "ptr", node, "ptr*", &item := 0, "HRESULT")
+    getDeclaration(node_) {
+        result := ComCall(18, this, "ptr", node_, "ptr*", &item := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItem(item)
     }
 }

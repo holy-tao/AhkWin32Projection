@@ -7,7 +7,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nn-mpeg2psiparser-icat
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nn-mpeg2psiparser-icat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -77,30 +77,42 @@ class ICAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-getversionnumber
      */
     GetVersionNumber() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the number of descriptors.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-getcountoftabledescriptors
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors() {
-        result := ComCall(5, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -108,29 +120,41 @@ class ICAT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getcountoftabledescriptors">ICAT::GetCountOfTableDescriptors</a> method to get the number of table descriptors in the CAT.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * If the value of <i>pdwCookie</i> is not <b>NULL</b>, the method returns either MPEG2_S_NO_MORE_DATA_AVAILABLE or MPEG2_S_MORE_DATA_AVAILABLE to indicate whether the MGT contains additional tags that match the search criteria.
      * @param {Integer} bTag Specifies the descriptor tag for which to search.
      * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position in the descriptor list. This parameter is optional. If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in <i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbytag
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This method applies only to <i>current</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {HANDLE} hNextTableAvailable Handle to an event created by the caller. The object signals the event when the <i>next</i> table arrives. When the event is signaled, call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getnexttable">ICAT::GetNextTable</a> method to retrieve the table.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -184,28 +208,40 @@ class ICAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-registerfornexttable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
         hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
 
-        result := ComCall(8, this, "ptr", hNextTableAvailable, "HRESULT")
+        result := ComCall(8, this, "ptr", hNextTableAvailable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This method applies only to current tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {Integer} dwTimeout Specifies a time-out value, in milliseconds. If the filter does not receive the data within the time-out period, the method fails.
      * @returns {ICAT} Receives a pointer to the <b>ICAT</b> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-getnexttable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-getnexttable
      */
     GetNextTable(dwTimeout) {
-        result := ComCall(9, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICAT(ppCAT)
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This method applies only to <i>next</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {HANDLE} hNextTableIsCurrent Handle to an event created by the caller. The object signals the event when the table becomes current.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -259,17 +295,23 @@ class ICAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-registerforwhencurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
         hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
 
-        result := ComCall(10, this, "ptr", hNextTableIsCurrent, "HRESULT")
+        result := ComCall(10, this, "ptr", hNextTableIsCurrent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This method applies only to <i>next</i> tables that have become current. Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-icat-registerforwhencurrent">ICAT::RegisterForWhenCurrent</a> and wait for the event to be signaled.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -322,10 +364,14 @@ class ICAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-icat-convertnexttocurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-icat-convertnexttocurrent
      */
     ConvertNextToCurrent() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

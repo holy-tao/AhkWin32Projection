@@ -30,21 +30,47 @@ class IRadioInstanceCollection extends IUnknown{
     static VTableNames => ["GetCount", "GetAt"]
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
-        result := ComCall(3, this, "uint*", &pcInstance := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcInstance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcInstance
     }
 
     /**
+     * Retrieves a copy of the character string associated with the specified local atom. (Unicode)
+     * @remarks
+     * The string returned for an integer atom (an atom whose value is in the range 0x0001 to 0xBFFF) is a null-terminated string in which the first character is a pound sign (#) and the remaining characters represent the unsigned integer atom value. 
      * 
+     * <h3><a id="Security_Considerations"></a><a id="security_considerations"></a><a id="SECURITY_CONSIDERATIONS"></a>Security Considerations</h3>
+     * Using this function incorrectly might compromise the security of your program. Incorrect use of this function includes not correctly specifying the size of the <i>lpBuffer</i> parameter. 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winbase.h header defines GetAtomName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} uIndex 
      * @returns {IRadioInstance} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getatomnamew
      */
     GetAt(uIndex) {
-        result := ComCall(4, this, "uint", uIndex, "ptr*", &ppRadioInstance := 0, "HRESULT")
+        result := ComCall(4, this, "uint", uIndex, "ptr*", &ppRadioInstance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRadioInstance(ppRadioInstance)
     }
 }

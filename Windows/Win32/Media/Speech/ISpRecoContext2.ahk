@@ -34,7 +34,11 @@ class ISpRecoContext2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGrammarOptions(eGrammarOptions) {
-        result := ComCall(3, this, "uint", eGrammarOptions, "HRESULT")
+        result := ComCall(3, this, "uint", eGrammarOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ISpRecoContext2 extends IUnknown{
     GetGrammarOptions(peGrammarOptions) {
         peGrammarOptionsMarshal := peGrammarOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, peGrammarOptionsMarshal, peGrammarOptions, "HRESULT")
+        result := ComCall(4, this, peGrammarOptionsMarshal, peGrammarOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class ISpRecoContext2 extends IUnknown{
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
         pTopicName := pTopicName is String ? StrPtr(pTopicName) : pTopicName
 
-        result := ComCall(5, this, "ptr", pAdaptationData, "uint", cch, "ptr", pTopicName, "uint", eAdaptationSettings, "int", eRelevance, "HRESULT")
+        result := ComCall(5, this, "ptr", pAdaptationData, "uint", cch, "ptr", pTopicName, "uint", eAdaptationSettings, "int", eRelevance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

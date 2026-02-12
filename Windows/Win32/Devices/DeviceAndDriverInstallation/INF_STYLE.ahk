@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Specifies that the style of the INF file is unrecognized or nonexistent.
+ * @see https://learn.microsoft.com/windows/win32/api//content/setupapi/ns-setupapi-sp_inf_information
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

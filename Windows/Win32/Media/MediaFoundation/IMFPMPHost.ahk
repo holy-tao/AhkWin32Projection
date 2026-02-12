@@ -6,15 +6,12 @@
 /**
  * Enables a media source in the application process to create objects in the protected media path (PMP) process.
  * @remarks
- * 
  * This interface is used when a media source resides in the application process but the Media Session resides in a PMP process. The media source can use this interface to create objects in the PMP process. For example, to play DRM-protected content, the media source typically must create an input trust authority (ITA) in the PMP process. 
  * 
  * To use this interface, the media source implements the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpmpclient">IMFPMPClient</a> interface. The PMP Media Session calls <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpmpclient-setpmphost">IMFPMPClient::SetPMPHost</a> on the media source, passing in a pointer to the <b>IMFPMPHost</b> interface.
  * 
  * You can also get a pointer to this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">IMFGetService::GetService</a> on the PMP Media Session, using the service identifier <b>MF_PMP_SERVICE</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpmphost
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfpmphost
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -40,35 +37,51 @@ class IMFPMPHost extends IUnknown{
     static VTableNames => ["LockProcess", "UnlockProcess", "CreateObjectByCLSID"]
 
     /**
-     * Blocks the protected media path (PMP) process from ending.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphost-lockprocess
+     * Blocks the protected media path (PMP) process from ending. (IMFPMPHost.LockProcess)
+     * @remarks
+     * When this method is called, it increments the lock count on the PMP process. For every call to this method, the application should make a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpmphost-unlockprocess">IMFPMPHost::UnlockProcess</a>, which decrements the lock count. When the PMP process is ready to exit, it waits for about 3 seconds, or until the lock count reaches zero, before exiting.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmphost-lockprocess
      */
     LockProcess() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Decrements the lock count on the protected media path (PMP) process. Call this method once for each call to IMFPMPHost::LockProcess.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphost-unlockprocess
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmphost-unlockprocess
      */
     UnlockProcess() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates an object in the protect media path (PMP) process, from a CLSID.
+     * @remarks
+     * You can use the <i>pStream</i> parameter to initialize the object after it is created.
      * @param {Pointer<Guid>} clsid The CLSID of the object to create.
      * @param {IStream} pStream A pointer to the <b>IStream</b> interface. This parameter can be <b>NULL</b>. If this parameter is not <b>NULL</b>, the PMP host queries the created object for the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststream">IPersistStream</a> interface and calls <b>IPersistStream::Load</b>, passing in the <i>pStream</i> pointer.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface to retrieve.
-     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
+     * @returns {Pointer<Pointer<Void>>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmphost-createobjectbyclsid
      */
     CreateObjectByCLSID(clsid, pStream, riid) {
-        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", clsid, "ptr", pStream, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

@@ -34,7 +34,11 @@ class IViewChapter extends IUnknown{
      * @returns {IUnknown} 
      */
     GetSpecification(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppRowset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppRowset)
     }
 
@@ -44,7 +48,11 @@ class IViewChapter extends IUnknown{
      * @returns {Pointer} 
      */
     OpenViewChapter(hSource) {
-        result := ComCall(4, this, "ptr", hSource, "ptr*", &phViewChapter := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hSource, "ptr*", &phViewChapter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phViewChapter
     }
 }

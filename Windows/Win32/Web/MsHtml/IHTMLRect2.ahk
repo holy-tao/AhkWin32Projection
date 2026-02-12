@@ -47,7 +47,11 @@ class IHTMLRect2 extends IDispatch{
      * @returns {Float} 
      */
     get_width() {
-        result := ComCall(7, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -56,7 +60,11 @@ class IHTMLRect2 extends IDispatch{
      * @returns {Float} 
      */
     get_height() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

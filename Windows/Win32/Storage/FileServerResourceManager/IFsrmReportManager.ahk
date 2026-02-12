@@ -10,16 +10,13 @@
 /**
  * Used to manage report jobs.
  * @remarks
- * 
  * A storage report job specifies a set of directories that will be analyzed to generate one or more different 
  *     report types that help administrators to better understand how storage is utilized in the specified directories. 
  *     You can configure report jobs to execute according to a schedule or on demand.
  * 
  * To create this object from a script, use the "Fsrm.FsrmReportManager" program 
  *     identifier.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmreportmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nn-fsrmreports-ifsrmreportmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -69,10 +66,14 @@ class IFsrmReportManager extends IDispatch{
      *        included in the collection, the running status of the job must be 
      *        <b>FsrmReportRunningStatus_Queued</b> or 
      *        <b>FsrmReportRunningStatus_Running</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs
      */
     EnumReportJobs(options) {
-        result := ComCall(7, this, "int", options, "ptr*", &reportJobs := 0, "HRESULT")
+        result := ComCall(7, this, "int", options, "ptr*", &reportJobs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCollection(reportJobs)
     }
 
@@ -81,10 +82,14 @@ class IFsrmReportManager extends IDispatch{
      * @returns {IFsrmReportJob} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmreportjob">IFsrmReportJob</a> interface of the newly created 
      *       report job object. Use the interface to add reports to the job and run the reports. To add the report job to 
      *       FSRM, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmReportJob::Commit</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-createreportjob
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-createreportjob
      */
     CreateReportJob() {
-        result := ComCall(8, this, "ptr*", &reportJob := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &reportJob := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmReportJob(reportJob)
     }
 
@@ -92,41 +97,94 @@ class IFsrmReportManager extends IDispatch{
      * Retrieves the specified report job.
      * @param {BSTR} taskName The task name that identifies the report job to retrieve. The string is limited to 230 characters.
      * @returns {IFsrmReportJob} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmreportjob">IFsrmReportJob</a> interface to the retrieved job.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportjob
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportjob
      */
     GetReportJob(taskName) {
-        taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
+        if(taskName is String) {
+            pin := BSTR.Alloc(taskName)
+            taskName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", taskName, "ptr*", &reportJob := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", taskName, "ptr*", &reportJob := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmReportJob(reportJob)
     }
 
     /**
      * Retrieves the local directory path where the reports with the specified context are stored.
-     * @param {Integer} context The report context (for example, if the report is scheduled or run on demand). For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration.
-     * @returns {BSTR} The local directory path where the reports are stored.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
+     * @param {Integer} context_ The report context (for example, if the report is scheduled or run on demand). For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration.
+     * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
      */
-    GetOutputDirectory(context) {
-        path := BSTR()
-        result := ComCall(10, this, "int", context, "ptr", path, "HRESULT")
-        return path
+    GetOutputDirectory(context_) {
+        path_ := BSTR()
+        result := ComCall(10, this, "int", context_, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 
     /**
      * Sets the local directory path where reports are stored.
-     * @param {Integer} context The report context (for example, if the report is scheduled or runs on demand). For possible values, see 
+     * @remarks
+     * The reports are stored in the following folders under the given path.
+     * 
+     * <table>
+     * <tr>
+     * <th>Context</th>
+     * <th>Folder</th>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportGenerationContext_ScheduledReport</b></td>
+     * <td>Scheduled</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportGenerationContext_InteractiveReport</b></td>
+     * <td>Interactive</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportGenerationContext_IncidentReport</b></td>
+     * <td>Incident</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For example, if <i>path</i> is set to "C:\StorageReports" and 
+     *     <i>context</i> is set to 
+     *     <b>FsrmReportGenerationContext_ScheduledReport</b>, the path for the scheduled reports would 
+     *     be "C:\StorageReports\Scheduled".
+     * 
+     * The default output directories are:
+     * 
+     * <ul>
+     * <li>"%systemdrive%\StorageReports\Scheduled"</li>
+     * <li>"%systemdrive%\StorageReports\Incident"</li>
+     * <li>"%systemdrive%\StorageReports\Interactive"</li>
+     * </ul>
+     * @param {Integer} context_ The report context (for example, if the report is scheduled or runs on demand). For possible values, see 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> 
      *       enumeration.
-     * @param {BSTR} path The full path to the local directory where the reports are stored. The path can contain environment 
+     * @param {BSTR} path_ The full path to the local directory where the reports are stored. The path can contain environment 
      *       variables. The path is limited to 150 characters.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory
      */
-    SetOutputDirectory(context, path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    SetOutputDirectory(context_, path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(11, this, "int", context, "ptr", path, "HRESULT")
+        result := ComCall(11, this, "int", context_, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,36 +193,122 @@ class IFsrmReportManager extends IDispatch{
      * @param {Integer} reportType Report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
      * @param {Integer} filter Report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the filter is configurable for the report type, otherwise it is <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-isfiltervalidforreporttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-isfiltervalidforreporttype
      */
     IsFilterValidForReportType(reportType, filter) {
-        result := ComCall(12, this, "int", reportType, "int", filter, "short*", &valid := 0, "HRESULT")
+        result := ComCall(12, this, "int", reportType, "int", filter, "short*", &valid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return valid
     }
 
     /**
      * Retrieves the default report filter value that is used with the specified report type.
+     * @remarks
+     * This value is used if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreport-setfilter">IFsrmReport::SetFilter</a> method was not called to specify a filter value for the report.
      * @param {Integer} reportType Report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
      * @param {Integer} filter Report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @returns {VARIANT} The default report filter value.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-getdefaultfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getdefaultfilter
      */
     GetDefaultFilter(reportType, filter) {
         filterValue := VARIANT()
-        result := ComCall(13, this, "int", reportType, "int", filter, "ptr", filterValue, "HRESULT")
+        result := ComCall(13, this, "int", reportType, "int", filter, "ptr", filterValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return filterValue
     }
 
     /**
      * Sets the default report filter value to use with the specified report type.
+     * @remarks
+     * This value is used if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreport-setfilter">IFsrmReport::SetFilter</a> method was not called to specify a filter value for the report.
+     * 
+     * Note that each report type supports a specific set of filters. To determine if the filter is valid, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-isfiltervalidforreporttype">IFsrmReportManager::IsFilterValidForReportType</a> method.
+     * 
+     * The following list lists the variant types associated with the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration values used for the <i>filterValue</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Filter type</th>
+     * <th>Variant type</th>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_FileGroups</b></td>
+     * <td>
+     * <b>VT_BSTR</b> | <b>VT_ARRAY</b>. Set the <b>parray</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_MinAgeDays</b></td>
+     * <td>
+     * <b>VT_I4</b>. Set the <b>lVal</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_MaxAgeDays</b></td>
+     * <td>
+     * <b>VT_I4</b>. Set the <b>lVal</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_MinQuotaUsage</b></td>
+     * <td>
+     * <b>VT_I4</b>. Set the <b>lVal</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_MinSize</b></td>
+     * <td>
+     * <b>VT_I8</b>. Set the <b>llVal</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_NamePattern</b></td>
+     * <td>
+     * <b>VT_BSTR</b>. Set the <b>bstrVal</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_Owners</b></td>
+     * <td>
+     * <b>VT_BSTR</b> | <b>VT_ARRAY</b>. Set the <b>parray</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportFilter_Property</b></td>
+     * <td>
+     * <b>VT_BSTR</b>. Set the <b>bstrVal</b> member of the variant.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The default filter values are used for report actions.
      * @param {Integer} reportType The report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
      * @param {Integer} filter The report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @param {VARIANT} filterValue The default report filter value.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-setdefaultfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setdefaultfilter
      */
     SetDefaultFilter(reportType, filter, filterValue) {
-        result := ComCall(14, this, "int", reportType, "int", filter, "ptr", filterValue, "HRESULT")
+        result := ComCall(14, this, "int", reportType, "int", filter, "ptr", filterValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,16 +316,79 @@ class IFsrmReportManager extends IDispatch{
      * Retrieves the current value of the specified report size limit.
      * @param {Integer} limit The report size limit which is used to limit the files listed in a report. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportlimit">FsrmReportLimit</a> enumeration.
      * @returns {VARIANT} The limit. The variant type is <b>VT_I4</b>. Use the <b>lVal</b> member of the variant to access the limit value.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportsizelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportsizelimit
      */
     GetReportSizeLimit(limit) {
         limitValue := VARIANT()
-        result := ComCall(15, this, "int", limit, "ptr", limitValue, "HRESULT")
+        result := ComCall(15, this, "int", limit, "ptr", limitValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return limitValue
     }
 
     /**
      * Sets the current value of the specified report size limit.
+     * @remarks
+     * The following list lists the default limits for the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportlimit">FsrmReportLimit</a> enumeration values used for 
+     *      the <i>limit</i> parameter.
+     * 
+     * <table>
+     * <tr>
+     * <th>Limit</th>
+     * <th>Default value</th>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxDuplicateGroups</b></td>
+     * <td>100 duplicate groups</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFiles</b></td>
+     * <td>1,000 files</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFileGroups</b></td>
+     * <td>10 groups</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFileScreenEvents</b></td>
+     * <td>1,000 file screen events</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFilesPerDuplGroup</b></td>
+     * <td>10 files per duplicate group</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFilesPerFileGroup</b></td>
+     * <td>100 files per group</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFilesPerOwner</b></td>
+     * <td>100 files per owner</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFilesPerPropertyValue</b></td>
+     * <td>100 files per property</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxOwners</b></td>
+     * <td>10 owners</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxPropertyValues</b></td>
+     * <td>10 properties</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxQuotas</b></td>
+     * <td>1,000 quotas</td>
+     * </tr>
+     * <tr>
+     * <td><b>FsrmReportLimit_MaxFolders</b></td>
+     * <td>1,000 folders</td>
+     * </tr>
+     * </table>
      * @param {Integer} limit Identifies the limit which is used to limit the files listed in a report. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportlimit">FsrmReportLimit</a> enumeration.
      * @param {VARIANT} limitValue The limit. Must be greater than zero. You can specify the variant as a short, int, or long that is either 
@@ -190,10 +397,14 @@ class IFsrmReportManager extends IDispatch{
      *       <b>VT_I4</b> and then set the <b>lVal</b> member of the variant to the 
      *       limit value.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportmanager-setreportsizelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setreportsizelimit
      */
     SetReportSizeLimit(limit, limitValue) {
-        result := ComCall(16, this, "int", limit, "ptr", limitValue, "HRESULT")
+        result := ComCall(16, this, "int", limit, "ptr", limitValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

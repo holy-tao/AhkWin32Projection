@@ -34,7 +34,11 @@ class IFilterTrackingRequestCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestTrackedFilter(pFilter) {
-        result := ComCall(3, this, "ptr", pFilter, "HRESULT")
+        result := ComCall(3, this, "ptr", pFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,13 +7,10 @@
 /**
  * Retrieves information about the version of Windows Update Agent (WUA).
  * @remarks
- * 
  * The <b>IWindowsUpdateAgentInfo</b> interface  may require  you to update WUA. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
  * 
  * You can create an instance of this interface by using the WindowsUpdateAgentInfo coclass. Use the Microsoft.Update.AgentInfo program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsupdateagentinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iwindowsupdateagentinfo
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -46,6 +43,10 @@ class IWindowsUpdateAgentInfo extends IDispatch{
 
     /**
      * Retrieves version information about Windows Update Agent (WUA).
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iwindowsupdateagentinfo">IWindowsUpdateAgentInfo</a> interface  may require you to update WUA. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
+     * 
+     * The major version is incremented one time for each release if a change occurs in the interfaces of the WUA API. The minor version is incremented one time for each release if a change occurs in the existing interfaces of the WUA API.
      * @param {VARIANT} varInfoIdentifier A literal string value that specifies  the type of information  that  the <i>retval</i> parameter returns. The following table lists the current possible string values.
      * 
      * <table>
@@ -69,11 +70,15 @@ class IWindowsUpdateAgentInfo extends IDispatch{
      * </ul>
      * <div class="alert"><b>Note</b>  The format of a returned string is as follows:  "<i>&lt;Windows-major-version&gt;</i>.<i>&lt;Windows-minor-version&gt;</i>.<i>&lt;build&gt;</i>.<i>&lt;update&gt;</i>".</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsupdateagentinfo-getinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsupdateagentinfo-getinfo
      */
     GetInfo(varInfoIdentifier) {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", varInfoIdentifier, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", varInfoIdentifier, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

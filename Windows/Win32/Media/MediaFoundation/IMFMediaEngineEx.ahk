@@ -9,11 +9,8 @@
 /**
  * Extends the IMFMediaEngine interface.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengine">IMFMediaEngine</a> interface contains methods that map to the HTML5 media elements. The <b>IMFMediaEngineEx</b> provides additional functionality that does not correspond directly to HTML5.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediaengineex
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfmediaengineex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -42,13 +39,20 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * Opens a media resource from a byte stream.
      * @param {IMFByteStream} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the byte stream.
      * @param {BSTR} pURL The URL of the byte stream.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setsourcefrombytestream
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setsourcefrombytestream
      */
     SetSourceFromByteStream(pByteStream, pURL) {
-        pURL := pURL is String ? BSTR.Alloc(pURL).Value : pURL
+        if(pURL is String) {
+            pin := BSTR.Alloc(pURL)
+            pURL := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", pByteStream, "ptr", pURL, "HRESULT")
+        result := ComCall(45, this, "ptr", pByteStream, "ptr", pURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,24 +60,38 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * Gets a playback statistic from the Media Engine.
      * @param {Integer} StatisticID A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_statistic">MF_MEDIA_ENGINE_STATISTIC</a> enumeration that identifies the statistic to get.
      * @returns {PROPVARIANT} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> that receives the statistic. The data type and meaning of this value depends on the value of <i>StatisticID</i>. The caller must free the <b>PROPVARIANT</b> by calling <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-propvariantclear">PropVariantClear</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstatistics
      */
     GetStatistics(StatisticID) {
         pStatistic := PROPVARIANT()
-        result := ComCall(46, this, "int", StatisticID, "ptr", pStatistic, "HRESULT")
+        result := ComCall(46, this, "int", StatisticID, "ptr", pStatistic, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatistic
     }
 
     /**
      * Updates the source rectangle, destination rectangle, and border color for the video.
+     * @remarks
+     * In rendering mode, call this method to reposition the video, update the border color, or repaint the video frame. If all of the parameters are <b>NULL</b>, the method repaints the most recent video frame.
+     * 
+     * In frame-server mode, this method has no effect.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-processor-mft">Video Processor MFT</a> for info regarding source and destination rectangles in the <b>Video Processor MFT</b>.
      * @param {Pointer<MFVideoNormalizedRect>} pSrc A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/evr/ns-evr-mfvideonormalizedrect">MFVideoNormalizedRect</a> structure that specifies the source rectangle. The source rectangle defines the area of the video frame that is displayed. If this parameter is <b>NULL</b>, the entire video frame is displayed.
      * @param {Pointer<RECT>} pDst A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the destination rectangle. The destination rectangle defines the area of the window or DirectComposition visual where the video is drawn.
      * @param {Pointer<MFARGB>} pBorderClr A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfargb">MFARGB</a> structure that specifies the border color.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-updatevideostream
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-updatevideostream
      */
     UpdateVideoStream(pSrc, pDst, pBorderClr) {
-        result := ComCall(47, this, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "HRESULT")
+        result := ComCall(47, this, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +134,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      *  
      * 
      * If the value is zero, the left and right channels are at equal volumes. The default value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getbalance
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getbalance
      */
     GetBalance() {
         result := ComCall(48, this, "double")
@@ -124,7 +142,9 @@ class IMFMediaEngineEx extends IMFMediaEngine{
     }
 
     /**
-     * Sets the audio balance.
+     * Sets the audio balance. (IMFMediaEngineEx.SetBalance)
+     * @remarks
+     * When the audio balance changes, the Media Engine sends an <b>MF_MEDIA_ENGINE_EVENT_BALANCECHANGE</b> event. See <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaenginenotify-eventnotify">IMFMediaEventNotify::EventNotify</a>.
      * @param {Float} balance The audio balance. The value can be any number in the following range (inclusive).
      * 
      * 
@@ -162,19 +182,27 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      *  
      * 
      * If the value is zero, the left and right channels are at equal volumes. The default value is zero.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setbalance
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setbalance
      */
     SetBalance(balance) {
-        result := ComCall(49, this, "double", balance, "HRESULT")
+        result := ComCall(49, this, "double", balance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries whether the Media Engine can play at a specified playback rate.
+     * @remarks
+     * Playback rates are expressed as a ratio of the current rate to the normal rate. For example, 1.0 is normal playback speed, 0.5 is half speed, and 2.0 is 2× speed. Positive values mean forward playback, and negative values mean reverse playback.
+     * 
+     * The results of this method can vary depending on the media resource that is currently loaded. Some media formats might support faster playback rates than others. Also, some formats might not support reverse play.
      * @param {Float} rate The requested playback rate.
      * @returns {BOOL} Returns <b>TRUE</b> if the playback rate is supported, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-isplaybackratesupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isplaybackratesupported
      */
     IsPlaybackRateSupported(rate) {
         result := ComCall(50, this, "double", rate, "int")
@@ -183,22 +211,34 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * Steps forward or backward one frame.
+     * @remarks
+     * The frame-step direction is independent of the current playback direction.
+     * 
+     * This method completes asynchronously. When the operation completes, the Media Engine sends an <b>MF_MEDIA_ENGINE_EVENT_FRAMESTEPCOMPLETED</b> event and enters the paused state.
      * @param {BOOL} Forward Specify <b>TRUE</b> to step forward or <b>FALSE</b> to step backward.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-framestep
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-framestep
      */
     FrameStep(Forward) {
-        result := ComCall(51, this, "int", Forward, "HRESULT")
+        result := ComCall(51, this, "int", Forward, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets various flags that describe the media resource.
      * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfmediasource_characteristics">MFMEDIASOURCE_CHARACTERISTICS enumeration</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getresourcecharacteristics
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getresourcecharacteristics
      */
     GetResourceCharacteristics() {
-        result := ComCall(52, this, "uint*", &pCharacteristics := 0, "HRESULT")
+        result := ComCall(52, this, "uint*", &pCharacteristics := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCharacteristics
     }
 
@@ -208,21 +248,29 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * 
      * For a list of presentation attributes, see <a href="https://docs.microsoft.com/windows/desktop/medfound/presentation-descriptor-attributes">Presentation Descriptor Attributes</a>.
      * @returns {PROPVARIANT} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> that receives the value. The method fills the <b>PROPVARIANT</b> with a copy of the stored value. The caller must free the <b>PROPVARIANT</b> by calling <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-propvariantclear">PropVariantClear</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getpresentationattribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getpresentationattribute
      */
     GetPresentationAttribute(guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(53, this, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
+        result := ComCall(53, this, "ptr", guidMFAttribute, "ptr", pvValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvValue
     }
 
     /**
      * Gets the number of streams in the media resource.
      * @returns {Integer} Receives the number of streams.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getnumberofstreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getnumberofstreams
      */
     GetNumberOfStreams() {
-        result := ComCall(54, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        result := ComCall(54, this, "uint*", &pdwStreamCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwStreamCount
     }
 
@@ -241,16 +289,20 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * </li>
      * </ul>
      * @returns {PROPVARIANT} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> that receives the value. The method fills the <b>PROPVARIANT</b> with a copy of the stored value. Call <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-propvariantclear">PropVariantClear</a> to free the memory allocated by the method.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamattribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamattribute
      */
     GetStreamAttribute(dwStreamIndex, guidMFAttribute) {
         pvValue := PROPVARIANT()
-        result := ComCall(55, this, "uint", dwStreamIndex, "ptr", guidMFAttribute, "ptr", pvValue, "HRESULT")
+        result := ComCall(55, this, "uint", dwStreamIndex, "ptr", guidMFAttribute, "ptr", pvValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvValue
     }
 
     /**
-     * Queries whether a stream is selected to play.
+     * Queries whether a stream is selected to play. (IMFMediaEngineEx.GetStreamSelection)
      * @param {Integer} dwStreamIndex The zero-based index of the stream. To get the number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getnumberofstreams">IMFMediaEngineEx::GetNumberOfStreams</a>.
      * @returns {BOOL} Receives a Boolean value.
      * 
@@ -281,10 +333,14 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
-        result := ComCall(56, this, "uint", dwStreamIndex, "int*", &pEnabled := 0, "HRESULT")
+        result := ComCall(56, this, "uint", dwStreamIndex, "int*", &pEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEnabled
     }
 
@@ -319,36 +375,50 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstreamselection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, Enabled) {
-        result := ComCall(57, this, "uint", dwStreamIndex, "int", Enabled, "HRESULT")
+        result := ComCall(57, this, "uint", dwStreamIndex, "int", Enabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Applies the stream selections from previous calls to SetStreamSelection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-applystreamselections
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-applystreamselections
      */
     ApplyStreamSelections() {
-        result := ComCall(58, this, "HRESULT")
+        result := ComCall(58, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries whether the media resource contains protected content.
      * @returns {BOOL} Receives the value <b>TRUE</b> if the media resource contains protected content, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-isprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isprotected
      */
     IsProtected() {
-        result := ComCall(59, this, "int*", &pProtected := 0, "HRESULT")
+        result := ComCall(59, this, "int*", &pProtected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProtected
     }
 
     /**
      * Inserts a video effect.
+     * @remarks
+     * The effect is applied when the next media resource is loaded.
      * @param {IUnknown} pEffect One of the following: 
      * 
      * <ul>
@@ -413,15 +483,21 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertvideoeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertvideoeffect
      */
     InsertVideoEffect(pEffect, fOptional) {
-        result := ComCall(60, this, "ptr", pEffect, "int", fOptional, "HRESULT")
+        result := ComCall(60, this, "ptr", pEffect, "int", fOptional, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Inserts an audio effect.
+     * @remarks
+     * The effect is applied when the next media resource is loaded.
      * @param {IUnknown} pEffect One of the following: 
      * 
      * <ul>
@@ -486,58 +562,90 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertaudioeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertaudioeffect
      */
     InsertAudioEffect(pEffect, fOptional) {
-        result := ComCall(61, this, "ptr", pEffect, "int", fOptional, "HRESULT")
+        result := ComCall(61, this, "ptr", pEffect, "int", fOptional, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes all audio and video effects.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-removealleffects
+     * @remarks
+     * Call this method to remove all of the effects that were added with the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertaudioeffect">InsertAudioEffect</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-insertvideoeffect">InsertVideoEffect</a> methods.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-removealleffects
      */
     RemoveAllEffects() {
-        result := ComCall(62, this, "HRESULT")
+        result := ComCall(62, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies a presentation time when the Media Engine will send a marker event.
+     * @remarks
+     * When playback reaches the time specified by <i>timeToFire</i>, the Media Engine sends an <b>MF_MEDIA_ENGINE_EVENT_TIMELINE_MARKER</b> event through the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaenginenotify-eventnotify">IMFMediaEngineNotify::EventNotify</a> method. Calling this method cancels any previous marker that is still pending. 
+     * 
+     * If the application seeks past the marker point, the Media Engine cancels the marker and does not send the event.
+     * 
+     * During  forward playback, set <i>timeToFire</i> to a value greater than the current playback position. During reverse playback, set <i>timeToFire</i> to a value less than the playback position.
+     * 
+     * To cancel a marker, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-canceltimelinemarkertimer">IMFMediaEngineEx::CancelTimelineMarkerTimer</a>.
      * @param {Float} timeToFire The presentation time for the marker event, in seconds.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-settimelinemarkertimer
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-settimelinemarkertimer
      */
     SetTimelineMarkerTimer(timeToFire) {
-        result := ComCall(63, this, "double", timeToFire, "HRESULT")
+        result := ComCall(63, this, "double", timeToFire, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the time of the next timeline marker, if any.
      * @returns {Float} Receives the marker time, in seconds. If no marker is set, this parameter receives the value <b>NaN</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-gettimelinemarkertimer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-gettimelinemarkertimer
      */
     GetTimelineMarkerTimer() {
-        result := ComCall(64, this, "double*", &pTimeToFire := 0, "HRESULT")
+        result := ComCall(64, this, "double*", &pTimeToFire := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTimeToFire
     }
 
     /**
      * Cancels the next pending timeline marker.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-canceltimelinemarkertimer
+     * @remarks
+     * Call this method to cancel the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-settimelinemarkertimer">IMFMediaEngineEx::SetTimelineMarkerTimer</a> method.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-canceltimelinemarkertimer
      */
     CancelTimelineMarkerTimer() {
-        result := ComCall(65, this, "HRESULT")
+        result := ComCall(65, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries whether the media resource contains stereoscopic 3D video.
      * @returns {BOOL} Returns <b>TRUE</b> if the media resource contains 3D video, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-isstereo3d
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-isstereo3d
      */
     IsStereo3D() {
         result := ComCall(66, this, "int")
@@ -547,138 +655,202 @@ class IMFMediaEngineEx extends IMFMediaEngine{
     /**
      * For stereoscopic 3D video, gets the layout of the two views within a video frame.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode">MF_MEDIA_ENGINE_S3D_PACKING_MODE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3dframepackingmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3dframepackingmode
      */
     GetStereo3DFramePackingMode() {
-        result := ComCall(67, this, "int*", &packMode := 0, "HRESULT")
+        result := ComCall(67, this, "int*", &packMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return packMode
     }
 
     /**
      * For stereoscopic 3D video, sets the layout of the two views within a video frame.
      * @param {Integer} packMode A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode">MF_MEDIA_ENGINE_S3D_PACKING_MODE</a> enumeration that specifies the layout. The two views can be arranged side-by-side, or top-to-bottom.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3dframepackingmode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3dframepackingmode
      */
     SetStereo3DFramePackingMode(packMode) {
-        result := ComCall(68, this, "int", packMode, "HRESULT")
+        result := ComCall(68, this, "int", packMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * For stereoscopic 3D video, queries how the Media Engine renders the 3D video content.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mf3dvideooutputtype">MF3DVideoOutputType</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3drendermode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3drendermode
      */
     GetStereo3DRenderMode() {
-        result := ComCall(69, this, "int*", &outputType := 0, "HRESULT")
+        result := ComCall(69, this, "int*", &outputType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return outputType
     }
 
     /**
      * For stereoscopic 3D video, specifies how the Media Engine renders the 3D video content.
      * @param {Integer} outputType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mf3dvideooutputtype">MF3DVideoOutputType</a> enumeration that specifies the 3D video rendering mode.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3drendermode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3drendermode
      */
     SetStereo3DRenderMode(outputType) {
-        result := ComCall(70, this, "int", outputType, "HRESULT")
+        result := ComCall(70, this, "int", outputType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables or disables windowless swap-chain mode.
+     * @remarks
+     * In windowless swap-chain mode, the Media Engine creates a windowless swap chain and presents video frames to the swap chain. To render the video, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getvideoswapchainhandle">IMFMediaEngineEx::GetVideoSwapchainHandle</a> to get a handle to the swap chain, and then associate the handle with a Microsoft DirectComposition visual.
      * @param {BOOL} fEnable If <b>TRUE</b>, windowless swap-chain mode is enabled.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablewindowlessswapchainmode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablewindowlessswapchainmode
      */
     EnableWindowlessSwapchainMode(fEnable) {
-        result := ComCall(71, this, "int", fEnable, "HRESULT")
+        result := ComCall(71, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a handle to the windowless swap chain.
+     * @remarks
+     * To enable windowless swap-chain mode, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablewindowlessswapchainmode">IMFMediaEngineEx::EnableWindowlessSwapchainMode</a>.
      * @returns {HANDLE} Receives a handle to the swap chain.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getvideoswapchainhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getvideoswapchainhandle
      */
     GetVideoSwapchainHandle() {
         phSwapchain := HANDLE()
-        result := ComCall(72, this, "ptr", phSwapchain, "HRESULT")
+        result := ComCall(72, this, "ptr", phSwapchain, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phSwapchain
     }
 
     /**
      * Enables or disables mirroring of the video.
      * @param {BOOL} fEnable If <b>TRUE</b>, the video is mirrored horizontally. Otherwise, the video is displayed normally.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablehorizontalmirrormode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enablehorizontalmirrormode
      */
     EnableHorizontalMirrorMode(fEnable) {
-        result := ComCall(73, this, "int", fEnable, "HRESULT")
+        result := ComCall(73, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the audio stream category used for the next call to SetSource or Load.
+     * @remarks
+     * For information on audio stream categories, see <a href="https://docs.microsoft.com/windows/desktop/api/audiosessiontypes/ne-audiosessiontypes-audio_stream_category">AUDIO_STREAM_CATEGORY enumeration</a>.
      * @returns {Integer} Receives the audio stream category.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getaudiostreamcategory
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getaudiostreamcategory
      */
     GetAudioStreamCategory() {
-        result := ComCall(74, this, "uint*", &pCategory := 0, "HRESULT")
+        result := ComCall(74, this, "uint*", &pCategory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCategory
     }
 
     /**
      * Sets the audio stream category for the next call to SetSource or Load.
+     * @remarks
+     * For information on audio stream categories, see <a href="https://docs.microsoft.com/windows/desktop/api/audiosessiontypes/ne-audiosessiontypes-audio_stream_category">AUDIO_STREAM_CATEGORY enumeration</a>.
      * @param {Integer} category 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setaudiostreamcategory
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setaudiostreamcategory
      */
     SetAudioStreamCategory(category) {
-        result := ComCall(75, this, "uint", category, "HRESULT")
+        result := ComCall(75, this, "uint", category, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the audio device endpoint role used for the next call to SetSource or Load.
+     * @remarks
+     * For information on audio endpoint roles, see <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole">ERole  enumeration</a>.
      * @returns {Integer} Receives the audio endpoint role.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getaudioendpointrole
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getaudioendpointrole
      */
     GetAudioEndpointRole() {
-        result := ComCall(76, this, "uint*", &pRole := 0, "HRESULT")
+        result := ComCall(76, this, "uint*", &pRole := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRole
     }
 
     /**
      * Sets the audio device endpoint used for the next call to SetSource or Load.
+     * @remarks
+     * For information on audio endpoint roles, see <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole">ERole  enumeration</a>.
      * @param {Integer} role Specifies the audio end point role.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setaudioendpointrole
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setaudioendpointrole
      */
     SetAudioEndpointRole(role) {
-        result := ComCall(77, this, "uint", role, "HRESULT")
+        result := ComCall(77, this, "uint", role, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the real time mode used for the next call to SetSource or Load.
      * @returns {BOOL} Receives the real time mode.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-getrealtimemode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getrealtimemode
      */
     GetRealTimeMode() {
-        result := ComCall(78, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(78, this, "int*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
     /**
      * Sets the real time mode used for the next call to SetSource or Load.
      * @param {BOOL} fEnable Specifies the real time mode.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setrealtimemode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setrealtimemode
      */
     SetRealTimeMode(fEnable) {
-        result := ComCall(79, this, "int", fEnable, "HRESULT")
+        result := ComCall(79, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -686,22 +858,30 @@ class IMFMediaEngineEx extends IMFMediaEngine{
      * Seeks to a new playback position using the specified MF_MEDIA_ENGINE_SEEK_MODE.
      * @param {Float} seekTime The new playback position, in seconds.
      * @param {Integer} seekMode Specifies if the seek is a normal seek or an approximate seek.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex
      */
     SetCurrentTimeEx(seekTime, seekMode) {
-        result := ComCall(80, this, "double", seekTime, "int", seekMode, "HRESULT")
+        result := ComCall(80, this, "double", seekTime, "int", seekMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables or disables the time update timer.
      * @param {BOOL} fEnableTimer If <b>TRUE</b>, the update timer is enabled. Otherwise, the timer is disabled.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineex-enabletimeupdatetimer
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineex-enabletimeupdatetimer
      */
     EnableTimeUpdateTimer(fEnableTimer) {
-        result := ComCall(81, this, "int", fEnableTimer, "HRESULT")
+        result := ComCall(81, this, "int", fEnableTimer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

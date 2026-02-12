@@ -39,7 +39,11 @@ class ICompositionTextureInterop extends IUnknown{
         fenceValueMarshal := fenceValue is VarRef ? "uint*" : "ptr"
         availableFenceMarshal := availableFence is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, fenceValueMarshal, fenceValue, "ptr", iid, availableFenceMarshal, availableFence, "HRESULT")
+        result := ComCall(3, this, fenceValueMarshal, fenceValue, "ptr", iid, availableFenceMarshal, availableFence, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

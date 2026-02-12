@@ -35,17 +35,28 @@ class ISpeechMemoryStream extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     SetData(Data) {
-        result := ComCall(12, this, "ptr", Data, "HRESULT")
+        result := ComCall(12, this, "ptr", Data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetDataProviderDSO Method
+     * @remarks
+     * This method does not addref the interface pointer. If the caller plans to hold the pointer, the caller must do the required addref and release.
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getdataproviderdso-method
      */
     GetData() {
         pData := VARIANT()
-        result := ComCall(13, this, "ptr", pData, "HRESULT")
+        result := ComCall(13, this, "ptr", pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 }

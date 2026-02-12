@@ -22,7 +22,7 @@
  * ```
  * 
  * The information returned does not include the number of partitions nor the partition information contained in the [**DISK_PARTITION_INFO**](ns-winioctl-disk_partition_info.md) structure. To obtain this information, use the [**IOCTL_DISK_GET_DRIVE_LAYOUT_EX**](ni-winioctl-ioctl_disk_get_drive_layout_ex.md) control code.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_geometry_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-disk_geometry_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

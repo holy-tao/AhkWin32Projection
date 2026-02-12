@@ -45,7 +45,7 @@
  * Field 2: Line 3
  * 
  * ...
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-video-scan-types
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/wpd-video-scan-types
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

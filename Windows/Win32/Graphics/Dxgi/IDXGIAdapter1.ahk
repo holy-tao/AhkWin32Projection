@@ -7,9 +7,8 @@
 /**
  * The IDXGIAdapter1 interface represents a display sub-system (including one or more GPU's, DACs and video memory).
  * @remarks
- * 
  * This interface is not supported by DXGI 1.0, which shipped in Windows Vista and Windows Server 2008. DXGI 1.1 support is required, which is available on
- *             Windows 7, Windows Server 2008 R2, and as an update to Windows Vista with Service Pack 2 (SP2) (<a href="https://support.microsoft.com/kb/971644">KB 971644</a>) and Windows Server 2008 (<a href="https://support.microsoft.com/kb/971512/">KB 971512</a>).
+ *             Windows 7, Windows Server 2008 R2, and as an update to Windows Vista with Service Pack 2 (SP2) (<a href="https://support.microsoft.com/topic/application-compatibility-update-for-windows-vista-windows-server-2008-windows-7-and-windows-server-2008-r2-february-2010-3eb7848b-9a76-85fe-98d0-729e3827ea60">KB 971644</a>) and Windows Server 2008 (<a href="https://support.microsoft.com/kb/971512/">KB 971512</a>).
  *           
  * 
  * A display sub-system is often referred to as a video card, however, on some machines the display sub-system is part of the mother board.
@@ -20,9 +19,7 @@
  * 
  * <b>Windows Phone 8:
  *         </b> This API is supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgiadapter1
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nn-dxgi-idxgiadapter1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -49,15 +46,24 @@ class IDXGIAdapter1 extends IDXGIAdapter{
 
     /**
      * Gets a DXGI 1.1 description of an adapter (or video card).
+     * @remarks
+     * This method is not supported by DXGI 1.0, which shipped in Windows Vista and Windows Server 2008. DXGI 1.1 support is required, which is available on 
+     *       Windows 7, Windows Server 2008 R2, and as an update to Windows Vista with Service Pack 2 (SP2) (<a href="https://support.microsoft.com/topic/application-compatibility-update-for-windows-vista-windows-server-2008-windows-7-and-windows-server-2008-r2-february-2010-3eb7848b-9a76-85fe-98d0-729e3827ea60">KB 971644</a>) and Windows Server 2008 (<a href="https://support.microsoft.com/kb/971512/">KB 971512</a>).
+     * 
+     * Use the <b>GetDesc1</b> method to get a DXGI 1.1 description of an adapter.  To get a DXGI 1.0 description, use the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> method.
      * @returns {DXGI_ADAPTER_DESC1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc1">DXGI_ADAPTER_DESC1</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_adapter_desc1">DXGI_ADAPTER_DESC1</a> structure that describes the adapter.  
      *       This parameter must not be <b>NULL</b>. On <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> 9 graphics hardware, <b>GetDesc1</b> returns zeros for the PCI ID in the <b>VendorId</b>, <b>DeviceId</b>, <b>SubSysId</b>, and <b>Revision</b> members of <b>DXGI_ADAPTER_DESC1</b> and “Software Adapter” for the description string in the <b>Description</b> member.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiadapter1-getdesc1
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-idxgiadapter1-getdesc1
      */
     GetDesc1() {
         pDesc := DXGI_ADAPTER_DESC1()
-        result := ComCall(10, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(10, this, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 }

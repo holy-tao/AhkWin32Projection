@@ -7,11 +7,8 @@
 /**
  * The ID2D1PathGeometry1 interface adds functionality to ID2D1PathGeometry. In particular, it provides the path geometry-specific ComputePointAndSegmentAtLength method.
  * @remarks
- * 
  * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1pathgeometry">ID2D1PathGeometry</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1pathgeometry1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1pathgeometry1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -37,17 +34,21 @@ class ID2D1PathGeometry1 extends ID2D1PathGeometry{
     static VTableNames => ["ComputePointAndSegmentAtLength"]
 
     /**
-     * 
+     * Computes the point that exists at a given distance along the path geometry along with the index of the segment the point is on and the directional vector at that point.
      * @param {Float} length 
      * @param {Integer} startSegment 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
      * @returns {D2D1_POINT_DESCRIPTION} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1pathgeometry1-computepointandsegmentatlength(float_uint32_constd2d1_matrix_3x2_f__float_d2d1_point_description)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1pathgeometry1-computepointandsegmentatlength-overload
      */
     ComputePointAndSegmentAtLength(length, startSegment, worldTransform, flatteningTolerance) {
         pointDescription := D2D1_POINT_DESCRIPTION()
-        result := ComCall(21, this, "float", length, "uint", startSegment, "ptr", worldTransform, "float", flatteningTolerance, "ptr", pointDescription, "HRESULT")
+        result := ComCall(21, this, "float", length, "uint", startSegment, "ptr", worldTransform, "float", flatteningTolerance, "ptr", pointDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pointDescription
     }
 }

@@ -33,7 +33,11 @@ class IDebugHostSymbol2 extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetLanguage() {
-        result := ComCall(10, this, "int*", &pKind := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pKind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pKind
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Used to configure an exception that excludes the specified files from the file screening process.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreenexception
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenexception
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -50,38 +50,47 @@ class IFsrmFileScreenException extends IFsrmObject{
     /**
      * Retrieves the path that is associated with this file screen exception.
      * @remarks
-     * 
      * Note that if the path is renamed, the exception becomes associated with the new path. If the path is deleted, 
      *     the exception is deleted.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_path
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_path
      */
     get_Path() {
-        path := BSTR()
-        result := ComCall(12, this, "ptr", path, "HRESULT")
-        return path
+        path_ := BSTR()
+        result := ComCall(12, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 
     /**
-     * Retrieves or sets the names of the file groups that contain the file name patterns of the files that are allowed in the directory.
+     * Retrieves or sets the names of the file groups that contain the file name patterns of the files that are allowed in the directory. (Get)
      * @returns {IFsrmMutableCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_allowedfilegroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_allowedfilegroups
      */
     get_AllowedFileGroups() {
-        result := ComCall(13, this, "ptr*", &allowList := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &allowList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmMutableCollection(allowList)
     }
 
     /**
-     * Retrieves or sets the names of the file groups that contain the file name patterns of the files that are allowed in the directory.
+     * Retrieves or sets the names of the file groups that contain the file name patterns of the files that are allowed in the directory. (Put)
      * @param {IFsrmMutableCollection} allowList 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-put_allowedfilegroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-put_allowedfilegroups
      */
     put_AllowedFileGroups(allowList) {
-        result := ComCall(14, this, "ptr", allowList, "HRESULT")
+        result := ComCall(14, this, "ptr", allowList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has the candidate list UI.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcandidatelistuielement
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfcandidatelistuielement
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -102,53 +102,73 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getupdatedflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getupdatedflags
      */
     GetUpdatedFlags() {
-        result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
     /**
      * The ITfCandidateListUIElement::GetDocumentMgr method returns the target document manager of this UI.
      * @returns {ITfDocumentMgr} [out] A pointer to receive <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getdocumentmgr
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getdocumentmgr
      */
     GetDocumentMgr() {
-        result := ComCall(8, this, "ptr*", &ppdim := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppdim := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfDocumentMgr(ppdim)
     }
 
     /**
      * The ITfCandidateListUIElement::GetCount method returns the count of the candidate strings.
      * @returns {Integer} [out] A pointer to receive a count of the candidate strings.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getcount
      */
     GetCount() {
-        result := ComCall(9, this, "uint*", &puCount := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &puCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puCount
     }
 
     /**
      * The ITfCandidateListUIElement::GetSelection method returns the current selection of the candidate list.
      * @returns {Integer} [out] A pointer to receive an index of the current selected candidate string.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getselection
      */
     GetSelection() {
-        result := ComCall(10, this, "uint*", &puIndex := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &puIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puIndex
     }
 
     /**
      * The ITfCandidateListUIElement::GetString method returns the string of the index.
      * @param {Integer} uIndex [in] An index of the string to obtain.
-     * @returns {BSTR} [out] A pointer to BSTR for the candidate string of the index.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getstring
+     * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getstring
      */
     GetString(uIndex) {
-        pstr := BSTR()
-        result := ComCall(11, this, "uint", uIndex, "ptr", pstr, "HRESULT")
-        return pstr
+        pstr_ := BSTR()
+        result := ComCall(11, this, "uint", uIndex, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pstr_
     }
 
     /**
@@ -197,13 +217,17 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getpageindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getpageindex
      */
     GetPageIndex(pIndex, uSize, puPageCnt) {
         pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
         puPageCntMarshal := puPageCnt is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pIndexMarshal, pIndex, "uint", uSize, puPageCntMarshal, puPageCnt, "HRESULT")
+        result := ComCall(12, this, pIndexMarshal, pIndex, "uint", uSize, puPageCntMarshal, puPageCnt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -252,22 +276,30 @@ class ITfCandidateListUIElement extends ITfUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-setpageindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-setpageindex
      */
     SetPageIndex(pIndex, uPageCnt) {
         pIndexMarshal := pIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, pIndexMarshal, pIndex, "uint", uPageCnt, "HRESULT")
+        result := ComCall(13, this, pIndexMarshal, pIndex, "uint", uPageCnt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITfCandidateListUIElement::GetCurrentPage method returns the current page.
      * @returns {Integer} [in] A pointer to receive the current page index.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielement-getcurrentpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielement-getcurrentpage
      */
     GetCurrentPage() {
-        result := ComCall(14, this, "uint*", &puPage := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &puPage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puPage
     }
 }

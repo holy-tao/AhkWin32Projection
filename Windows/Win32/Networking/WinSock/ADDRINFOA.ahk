@@ -28,7 +28,7 @@
  * The IPv6  protocol is supported on Windows 2000 when the IPv6 Technology Preview for Windows 2000 is installed. Otherwise <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a> support on versions of Windows earlier than Windows XP is limited to handling IPv4 name resolution.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function that uses the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure is the Unicode version of the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a> function and associated <b>addrinfo</b> structure.  The <b>GetAddrInfoW</b> function was added to the <i>Ws2_32.dll</i> in Windows XP with Service Pack 2 (SP2). The <b>GetAddrInfoW</b> function and the <b>addrinfoW</b> structure cannot be used on versions of Windows earlier than Windows XP with SP2.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoa
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-addrinfoa
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI

@@ -5,7 +5,7 @@
 
 /**
  * Defines a set of lighting properties.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlight9
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dlight9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

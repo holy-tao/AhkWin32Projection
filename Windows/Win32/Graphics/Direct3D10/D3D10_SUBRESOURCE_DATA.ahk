@@ -13,7 +13,7 @@
  *       In some cases <b>SysMemPitch</b> will include padding to skip past additional data in a line.  This could be padding for alignment or 
  *       the texture could be a subsection of a larger texture.  For example the D3D10_SUBRESOURCE_DATA structure could represent a 32 by 32 subsection of a 128 by 128 texture.  
  *       The value for <b>SysMemSlicePitch</b> will reflect any padding included in <b>SysMemPitch</b>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_subresource_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ns-d3d10-d3d10_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

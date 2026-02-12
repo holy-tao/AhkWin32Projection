@@ -30,7 +30,7 @@ class OperationRecorder {
      * For Windows Server 2012, this prefetching functionality needs to be enabled and disabled as required. This can be done using CIM based PowerShell cmdlets.  The prefetcher functionality can be exposed using the <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/cimclas">CIM class</a>  of the <b>CIM_PrefetcherService</b>.
      * @param {Pointer<OPERATION_START_PARAMETERS>} OperationStartParams An <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-operation_start_parameters">_OPERATION_START_PARAMETERS</a> structure that specifies <b>VERSION</b>, <b>OPERATION_ID</b> and <b>FLAGS</b>.
      * @returns {BOOL} <b>TRUE</b> for all valid parameters and <b>FALSE</b> otherwise.  To get extended error information, call <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-operationstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-operationstart
      * @since windows8.0
      */
     static OperationStart(OperationStartParams) {
@@ -46,7 +46,7 @@ class OperationRecorder {
      * The  <b>OperationEnd</b> function is safe to call on any thread.
      * @param {Pointer<OPERATION_END_PARAMETERS>} OperationEndParams An <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-operation_end_parameters">_OPERATION_END_PARAMETERS</a> structure that specifies <b>VERSION</b>, <b>OPERATION_ID</b> and <b>FLAGS</b>.
      * @returns {BOOL} <b>TRUE</b> for all valid parameters and <b>FALSE</b> otherwise.  To get extended error information, call <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-operationend
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-operationend
      * @since windows8.0
      */
     static OperationEnd(OperationEndParams) {

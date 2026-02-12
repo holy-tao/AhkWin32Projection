@@ -29,11 +29,19 @@ class IDirectMusicBuffer extends IUnknown{
     static VTableNames => ["Flush", "TotalTime", "PackStructured", "PackUnstructured", "ResetReadPtr", "GetNextEvent", "GetRawBufferPtr", "GetStartTime", "GetUsedBytes", "GetMaxBytes", "GetBufferFormat", "SetStartTime", "SetUsedBytes"]
 
     /**
+     * Clears the forward buffers for the stream and writes any buffered data to the configuration file.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-flush
      */
     Flush() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +53,11 @@ class IDirectMusicBuffer extends IUnknown{
     TotalTime(prtTime) {
         prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, prtTimeMarshal, prtTime, "HRESULT")
+        result := ComCall(4, this, prtTimeMarshal, prtTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +69,11 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     PackStructured(rt, dwChannelGroup, dwChannelMessage) {
-        result := ComCall(5, this, "int64", rt, "uint", dwChannelGroup, "uint", dwChannelMessage, "HRESULT")
+        result := ComCall(5, this, "int64", rt, "uint", dwChannelGroup, "uint", dwChannelMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +88,11 @@ class IDirectMusicBuffer extends IUnknown{
     PackUnstructured(rt, dwChannelGroup, cb, lpb) {
         lpbMarshal := lpb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "int64", rt, "uint", dwChannelGroup, "uint", cb, lpbMarshal, lpb, "HRESULT")
+        result := ComCall(6, this, "int64", rt, "uint", dwChannelGroup, "uint", cb, lpbMarshal, lpb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +101,11 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     ResetReadPtr() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +123,11 @@ class IDirectMusicBuffer extends IUnknown{
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, prtMarshal, prt, pdwChannelGroupMarshal, pdwChannelGroup, pdwLengthMarshal, pdwLength, ppDataMarshal, ppData, "HRESULT")
+        result := ComCall(8, this, prtMarshal, prt, pdwChannelGroupMarshal, pdwChannelGroup, pdwLengthMarshal, pdwLength, ppDataMarshal, ppData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +139,11 @@ class IDirectMusicBuffer extends IUnknown{
     GetRawBufferPtr(ppData) {
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, ppDataMarshal, ppData, "HRESULT")
+        result := ComCall(9, this, ppDataMarshal, ppData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -123,7 +155,11 @@ class IDirectMusicBuffer extends IUnknown{
     GetStartTime(prt) {
         prtMarshal := prt is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(10, this, prtMarshal, prt, "HRESULT")
+        result := ComCall(10, this, prtMarshal, prt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +171,11 @@ class IDirectMusicBuffer extends IUnknown{
     GetUsedBytes(pcb) {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pcbMarshal, pcb, "HRESULT")
+        result := ComCall(11, this, pcbMarshal, pcb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +187,11 @@ class IDirectMusicBuffer extends IUnknown{
     GetMaxBytes(pcb) {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pcbMarshal, pcb, "HRESULT")
+        result := ComCall(12, this, pcbMarshal, pcb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +201,11 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBufferFormat(pGuidFormat) {
-        result := ComCall(13, this, "ptr", pGuidFormat, "HRESULT")
+        result := ComCall(13, this, "ptr", pGuidFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,7 +215,11 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetStartTime(rt) {
-        result := ComCall(14, this, "int64", rt, "HRESULT")
+        result := ComCall(14, this, "int64", rt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +229,11 @@ class IDirectMusicBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetUsedBytes(cb) {
-        result := ComCall(15, this, "uint", cb, "HRESULT")
+        result := ComCall(15, this, "uint", cb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

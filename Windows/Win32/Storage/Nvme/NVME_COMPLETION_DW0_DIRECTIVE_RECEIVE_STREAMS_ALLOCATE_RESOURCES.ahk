@@ -5,7 +5,7 @@
  * Contains information about the number of allocated stream resources in a Directive Receive command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_dw0_directive_receive_streams_allocate_resources
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_completion_dw0_directive_receive_streams_allocate_resources
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

@@ -36,7 +36,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetState(NewState, ullReserved) {
-        result := ComCall(15, this, "int", NewState, "uint", ullReserved, "HRESULT")
+        result := ComCall(15, this, "int", NewState, "uint", ullReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetFormat(rguidFmtId, pWaveFormatEx) {
-        result := ComCall(16, this, "ptr", rguidFmtId, "ptr", pWaveFormatEx, "HRESULT")
+        result := ComCall(16, this, "ptr", rguidFmtId, "ptr", pWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     GetStatus(pStatus) {
-        result := ComCall(17, this, "ptr", pStatus, "HRESULT")
+        result := ComCall(17, this, "ptr", pStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +79,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetBufferInfo(pBuffInfo) {
-        result := ComCall(18, this, "ptr", pBuffInfo, "HRESULT")
+        result := ComCall(18, this, "ptr", pBuffInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +93,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     GetBufferInfo(pBuffInfo) {
-        result := ComCall(19, this, "ptr", pBuffInfo, "HRESULT")
+        result := ComCall(19, this, "ptr", pBuffInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class ISpAudio extends ISpStreamFormat{
     GetDefaultFormat(pFormatId, ppCoMemWaveFormatEx) {
         ppCoMemWaveFormatExMarshal := ppCoMemWaveFormatEx is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", pFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "HRESULT")
+        result := ComCall(20, this, "ptr", pFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +124,8 @@ class ISpAudio extends ISpStreamFormat{
      */
     EventHandle() {
         result := ComCall(21, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -111,7 +136,11 @@ class ISpAudio extends ISpStreamFormat{
     GetVolumeLevel(pLevel) {
         pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, pLevelMarshal, pLevel, "HRESULT")
+        result := ComCall(22, this, pLevelMarshal, pLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +150,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetVolumeLevel(Level) {
-        result := ComCall(23, this, "uint", Level, "HRESULT")
+        result := ComCall(23, this, "uint", Level, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,7 +166,11 @@ class ISpAudio extends ISpStreamFormat{
     GetBufferNotifySize(pcbSize) {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(24, this, pcbSizeMarshal, pcbSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +180,11 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetBufferNotifySize(cbSize) {
-        result := ComCall(25, this, "uint", cbSize, "HRESULT")
+        result := ComCall(25, this, "uint", cbSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -29,12 +29,17 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
     static VTableNames => ["Send", "Receive", "Cancel", "GetCallContext", "GetDestCtxEx", "GetState", "RegisterAsync"]
 
     /**
-     * 
+     * Send BLOB Data to SQL SERVER Using IROWSETFASTLOAD and ISEQUENTIALSTREAM in (Native Client OLE DB)
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-ole-db-how-to/send-blob-data-to-sql-server-using-irowsetfastload-and-isequentialstream-ole-db
      */
     Send(pMsg) {
-        result := ComCall(9, this, "ptr", pMsg, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pMsg, "uint*", &pulStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStatus
     }
 
@@ -45,17 +50,28 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {Integer} 
      */
     Receive(pMsg, ulSize) {
-        result := ComCall(10, this, "ptr", pMsg, "uint", ulSize, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pMsg, "uint", ulSize, "uint*", &pulStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStatus
     }
 
     /**
-     * 
+     * Cancel Method (RDS)
+     * @remarks
+     * When you call **Cancel**, [ReadyState](./readystate-property-rds.md) is automatically set to **adcReadyStateLoaded**, and the [Recordset](../ado-api/recordset-object-ado.md) will be empty.
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/cancel-method-rds
      */
     Cancel(pMsg) {
-        result := ComCall(11, this, "ptr", pMsg, "HRESULT")
+        result := ComCall(11, this, "ptr", pMsg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +82,11 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {Pointer<Void>} 
      */
     GetCallContext(pMsg, riid) {
-        result := ComCall(12, this, "ptr", pMsg, "ptr", riid, "ptr*", &pInterface := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pMsg, "ptr", riid, "ptr*", &pInterface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInterface
     }
 
@@ -81,17 +101,28 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
         pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
         ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
+        result := ComCall(13, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Gets current Interaction Context state and the time when the context will return to idle state.
+     * @remarks
+     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      */
     GetState(pMsg) {
-        result := ComCall(14, this, "ptr", pMsg, "uint*", &pState := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pMsg, "uint*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 
@@ -102,7 +133,11 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     RegisterAsync(pMsg, pAsyncMgr) {
-        result := ComCall(15, this, "ptr", pMsg, "ptr", pAsyncMgr, "HRESULT")
+        result := ComCall(15, this, "ptr", pMsg, "ptr", pAsyncMgr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

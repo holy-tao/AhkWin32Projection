@@ -13,7 +13,7 @@
  * 
  * The RPC run-time library allocates memory for the interface identification vector. The application calls 
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcifidvectorfree">RpcIfIdVectorFree</a> to free the interface identification vector.
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_if_id_vector
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcdce/ns-rpcdce-rpc_if_id_vector
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * A list of commonly used security identifiers (SIDs). Programs can pass these values to the CreateWellKnownSid function to create a SID from this list.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-well_known_sid_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ne-winnt-well_known_sid_type
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

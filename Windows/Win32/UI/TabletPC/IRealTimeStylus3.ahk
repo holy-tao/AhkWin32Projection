@@ -5,7 +5,7 @@
 
 /**
  * The IRealTimeStylus3 interface enables multitouch for the realtime stylus.
- * @see https://docs.microsoft.com/windows/win32/api//rtscom/nn-rtscom-irealtimestylus3
+ * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nn-rtscom-irealtimestylus3
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -39,9 +39,8 @@ class IRealTimeStylus3 extends IUnknown{
     }
 
     /**
-     * Indicates whether the IRealTimeStylus3 object has multitouch input enabled.
+     * Indicates whether the IRealTimeStylus3 object has multitouch input enabled. (Get)
      * @remarks
-     * 
      * The following table lists the defined opt-in options for multitouch.
      * 
      * 
@@ -57,22 +56,21 @@ class IRealTimeStylus3 extends IUnknown{
      * <td>0x01000000</td>
      * </tr>
      * </table>
-     *  
-     * 
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylus3-get_multitouchenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-irealtimestylus3-get_multitouchenabled
      */
     get_MultiTouchEnabled() {
-        result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfEnable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnable
     }
 
     /**
-     * Indicates whether the IRealTimeStylus3 object has multitouch input enabled.
+     * Indicates whether the IRealTimeStylus3 object has multitouch input enabled. (Put)
      * @remarks
-     * 
      * The following table lists the defined opt-in options for multitouch.
      * 
      * 
@@ -88,16 +86,16 @@ class IRealTimeStylus3 extends IUnknown{
      * <td>0x01000000</td>
      * </tr>
      * </table>
-     *  
-     * 
-     * 
-     * 
      * @param {BOOL} fEnable 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylus3-put_multitouchenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-irealtimestylus3-put_multitouchenabled
      */
     put_MultiTouchEnabled(fEnable) {
-        result := ComCall(4, this, "int", fEnable, "HRESULT")
+        result := ComCall(4, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

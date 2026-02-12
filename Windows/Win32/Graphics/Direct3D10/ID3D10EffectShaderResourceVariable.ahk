@@ -6,7 +6,7 @@
 
 /**
  * A shader-resource interface accesses a shader resource.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectshaderresourcevariable
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nn-d3d10effect-id3d10effectshaderresourcevariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -36,13 +36,17 @@ class ID3D10EffectShaderResourceVariable extends ID3D10EffectVariable{
      * @param {ID3D10ShaderResourceView} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>*</b>
      * 
      * The address of a pointer to a shader-resource-view interface. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView Interface</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-setresource
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-setresource
      */
     SetResource(pResource) {
-        result := ComCall(25, this, "ptr", pResource, "HRESULT")
+        result := ComCall(25, this, "ptr", pResource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,10 +55,14 @@ class ID3D10EffectShaderResourceVariable extends ID3D10EffectVariable{
      * @returns {ID3D10ShaderResourceView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>**</b>
      * 
      * The address of a pointer to a shader-resource-view interface. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-getresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-getresource
      */
     GetResource() {
-        result := ComCall(26, this, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &ppResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10ShaderResourceView(ppResource)
     }
 
@@ -69,13 +77,17 @@ class ID3D10EffectShaderResourceVariable extends ID3D10EffectVariable{
      * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of elements in the array.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-setresourcearray
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-setresourcearray
      */
     SetResourceArray(ppResources, Offset, Count) {
-        result := ComCall(27, this, "ptr*", ppResources, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(27, this, "ptr*", ppResources, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,10 +102,14 @@ class ID3D10EffectShaderResourceVariable extends ID3D10EffectVariable{
      * @returns {ID3D10ShaderResourceView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>**</b>
      * 
      * The address of an array of shader-resource-view interfaces. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-getresourcearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshaderresourcevariable-getresourcearray
      */
     GetResourceArray(Offset, Count) {
-        result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10ShaderResourceView(ppResources)
     }
 }

@@ -5,7 +5,7 @@
  * Specifies motion estimation precision modes for video encoding.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

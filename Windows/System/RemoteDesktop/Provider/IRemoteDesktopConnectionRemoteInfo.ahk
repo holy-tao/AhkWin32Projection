@@ -1,0 +1,106 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\EventRegistrationToken.ahk
+#Include ..\..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.System.RemoteDesktop.Provider
+ * @version WindowsRuntime 1.4
+ */
+class IRemoteDesktopConnectionRemoteInfo extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IRemoteDesktopConnectionRemoteInfo
+     * @type {Guid}
+     */
+    static IID => Guid("{2a3dfa7e-a7ab-547e-9a6a-4c565bbb8d71}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["ReportSwitched", "add_SwitchToLocalSessionRequested", "remove_SwitchToLocalSessionRequested", "add_PerformLocalActionRequested", "remove_PerformLocalActionRequested"]
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    ReportSwitched() {
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {TypedEventHandler<RemoteDesktopConnectionRemoteInfo, IInspectable>} handler 
+     * @returns {EventRegistrationToken} 
+     */
+    add_SwitchToLocalSessionRequested(handler) {
+        token := EventRegistrationToken()
+        result := ComCall(7, this, "ptr", handler, "ptr", token, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return token
+    }
+
+    /**
+     * 
+     * @param {EventRegistrationToken} token 
+     * @returns {HRESULT} 
+     */
+    remove_SwitchToLocalSessionRequested(token) {
+        token := token is Win32Handle ? NumGet(token, "ptr") : token
+
+        result := ComCall(8, this, "ptr", token, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {TypedEventHandler<RemoteDesktopConnectionRemoteInfo, PerformLocalActionRequestedEventArgs>} handler 
+     * @returns {EventRegistrationToken} 
+     */
+    add_PerformLocalActionRequested(handler) {
+        token := EventRegistrationToken()
+        result := ComCall(9, this, "ptr", handler, "ptr", token, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return token
+    }
+
+    /**
+     * 
+     * @param {EventRegistrationToken} token 
+     * @returns {HRESULT} 
+     */
+    remove_PerformLocalActionRequested(token) {
+        token := token is Win32Handle ? NumGet(token, "ptr") : token
+
+        result := ComCall(10, this, "ptr", token, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

@@ -15,7 +15,7 @@
  * | [**AddWordsToWordList**](/windows/desktop/api/recapis/nf-recapis-addwordstowordlist) | Adds one or more words to the word list.<br/> |
  * | [**DestroyWordList**](/windows/desktop/api/recapis/nf-recapis-destroywordlist)       | Destroys the current word list.<br/>          |
  * | [**MakeWordList**](/windows/desktop/api/recapis/nf-recapis-makewordlist)             | Creates a word list.<br/>                     |
- * @see https://learn.microsoft.com/windows/win32/tablet/hrecowordlist-handle
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/hrecowordlist-handle
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

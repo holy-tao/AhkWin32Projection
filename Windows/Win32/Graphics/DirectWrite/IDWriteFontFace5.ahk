@@ -6,8 +6,8 @@
 #Include .\IDWriteFontFace4.ahk
 
 /**
- * Contains font face type, appropriate file references, and face identification data.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontface5
+ * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace5)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefontface5
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,9 +33,11 @@ class IDWriteFontFace5 extends IDWriteFontFace4{
     static VTableNames => ["GetFontAxisValueCount", "GetFontAxisValues", "HasVariations", "GetFontResource", "Equals"]
 
     /**
+     * Retrieves the number of axes defined by the font. This includes both static and variable axes.
+     * @returns {Integer} Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-getfontaxisvaluecount
+     * The number of axes defined by the font face.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontface5-getfontaxisvaluecount
      */
     GetFontAxisValueCount() {
         result := ComCall(53, this, "uint")
@@ -43,21 +45,33 @@ class IDWriteFontFace5 extends IDWriteFontFace4{
     }
 
     /**
+     * Retrieves the list of axis values used by the font.
+     * @remarks
+     * The values are returned in the canonical order defined by the font, clamped to the actual range supported. It's not necessarily the same axis value array that you passed to **CreateFontFace**.
+     * @param {Integer} fontAxisValueCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Integer} fontAxisValueCount 
-     * @returns {DWRITE_FONT_AXIS_VALUE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-getfontaxisvalues
+     * The maximum number of font axis values to write into the memory block pointed to by `fontAxisValues`.
+     * @returns {DWRITE_FONT_AXIS_VALUE} Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md)\***
+     * 
+     * A pointer to an array of **DWRITE_FONT_AXIS_VALUE** structures into which **GetFontAxisValues** writes the list of font axis values. You're responsible for managing the size and the lifetime of this array. Call [GetFontAxisValueCount](./nf-dwrite_3-idwritefontface5-getfontaxisvaluecount.md) to determine the size of array to allocate.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontface5-getfontaxisvalues
      */
     GetFontAxisValues(fontAxisValueCount) {
         fontAxisValues := DWRITE_FONT_AXIS_VALUE()
-        result := ComCall(54, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
+        result := ComCall(54, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fontAxisValues
     }
 
     /**
+     * Determines whether this font face's resource supports any variable axes. (IDWriteFontFace5::HasVariations)
+     * @returns {BOOL} Type: **[BOOL](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-hasvariations
+     * `true` if the font face's resource supports any variable axes. Otherwise, `false`.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontface5-hasvariations
      */
     HasVariations() {
         result := ComCall(55, this, "int")
@@ -65,20 +79,30 @@ class IDWriteFontFace5 extends IDWriteFontFace4{
     }
 
     /**
+     * Retrieves the underlying font resource for this font face.
+     * @returns {Pointer<IDWriteFontResource>} Type: **[IDWriteFontResource](./nn-dwrite_3-idwritefontresource.md)\*\***
      * 
-     * @returns {IDWriteFontResource} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-getfontresource
+     * The address of a pointer to an [IDWriteFontResource](./nn-dwrite_3-idwritefontresource.md) interface. On successful completion, the function sets the pointer to a newly created font resource object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontface5-getfontresource
      */
     GetFontResource() {
-        result := ComCall(56, this, "ptr*", &fontResource := 0, "HRESULT")
-        return IDWriteFontResource(fontResource)
+        result := ComCall(56, this, "ptr*", &fontResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontResource
     }
 
     /**
+     * Performs an equality comparison between the font face object on which **Equals** is being called and the font face object passed as a parameter.
+     * @param {IDWriteFontFace} fontFace Type: **[IDWriteFontFace](../dwrite/nn-dwrite-idwritefontface.md)\***
      * 
-     * @param {IDWriteFontFace} fontFace 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface5-equals
+     * A pointer to a font face object to compare with the font face object on which **Equals** is being called.
+     * @returns {BOOL} Type: **[BOOL](/windows/win32/winprog/windows-data-types)**
+     * 
+     * `true` if the font face objects are equal. Otherwise, `false`.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontface5-equals
      */
     Equals(fontFace) {
         result := ComCall(57, this, "ptr", fontFace, "int")

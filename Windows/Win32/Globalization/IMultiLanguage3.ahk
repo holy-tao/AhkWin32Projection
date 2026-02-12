@@ -46,7 +46,11 @@ class IMultiLanguage3 extends IMultiLanguage2{
         puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
         pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        result := ComCall(30, this, "uint", dwFlags, "ptr", lpWideCharStr, "uint", cchWideChar, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiDetectedCodePages
     }
 
@@ -66,7 +70,11 @@ class IMultiLanguage3 extends IMultiLanguage2{
         puiPreferredCodePagesMarshal := puiPreferredCodePages is VarRef ? "uint*" : "ptr"
         pnDetectedCodePagesMarshal := pnDetectedCodePages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "HRESULT")
+        result := ComCall(31, this, "uint", dwFlags, "ptr", pStrIn, puiPreferredCodePagesMarshal, puiPreferredCodePages, "uint", nPreferredCodePages, "uint*", &puiDetectedCodePages := 0, pnDetectedCodePagesMarshal, pnDetectedCodePages, "ptr", lpSpecialChar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiDetectedCodePages
     }
 }

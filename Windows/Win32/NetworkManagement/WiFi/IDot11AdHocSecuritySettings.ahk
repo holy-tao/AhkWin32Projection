@@ -5,7 +5,7 @@
 
 /**
  * Specifies the security settings for a wireless ad hoc network.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocsecuritysettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nn-adhoc-idot11adhocsecuritysettings
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -96,12 +96,16 @@ class IDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11authalgorithm
      */
     GetDot11AuthAlgorithm(pAuth) {
         pAuthMarshal := pAuth is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pAuthMarshal, pAuth, "HRESULT")
+        result := ComCall(3, this, pAuthMarshal, pAuth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,12 +175,16 @@ class IDot11AdHocSecuritySettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
+     * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/nf-adhoc-idot11adhocsecuritysettings-getdot11cipheralgorithm
      */
     GetDot11CipherAlgorithm(pCipher) {
         pCipherMarshal := pCipher is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, pCipherMarshal, pCipher, "HRESULT")
+        result := ComCall(4, this, pCipherMarshal, pCipher, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

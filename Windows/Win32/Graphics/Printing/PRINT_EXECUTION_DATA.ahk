@@ -3,7 +3,7 @@
 
 /**
  * Contains the execution context of the printer driver that calls GetPrintExecutionData.
- * @see https://learn.microsoft.com/windows/win32/printdocs/print-execution-data
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/print-execution-data
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

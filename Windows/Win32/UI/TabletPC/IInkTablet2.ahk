@@ -5,7 +5,7 @@
 
 /**
  * Extends the IInkTablet interface.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinktablet2
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinktablet2
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -40,10 +40,14 @@ class IInkTablet2 extends IDispatch{
     /**
      * Gets the type of Tablet device being used.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinktablet2-get_devicekind
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinktablet2-get_devicekind
      */
     get_DeviceKind() {
-        result := ComCall(7, this, "int*", &Kind := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Kind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Kind
     }
 }

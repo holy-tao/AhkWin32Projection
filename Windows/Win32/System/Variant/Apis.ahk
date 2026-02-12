@@ -17,7 +17,7 @@ class Variant {
      * @param {Integer} param1 
      * @param {Pointer<VARIANT>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_usersize
      */
     static VARIANT_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -90,7 +90,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_usermarshal
      */
     static VARIANT_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -173,7 +173,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_userunmarshal
      */
     static VARIANT_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -188,7 +188,7 @@ class Variant {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<VARIANT>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_userfree
      */
     static VARIANT_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -202,7 +202,7 @@ class Variant {
      * @param {Integer} param1 
      * @param {Pointer<VARIANT>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_usersize64
      * @since windows5.1.2600
      */
     static VARIANT_UserSize64(param0, param1, param2) {
@@ -276,7 +276,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_usermarshal64
      * @since windows5.1.2600
      */
     static VARIANT_UserMarshal64(param0, param1, param2) {
@@ -360,7 +360,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_userunmarshal64
      * @since windows5.1.2600
      */
     static VARIANT_UserUnmarshal64(param0, param1, param2) {
@@ -376,7 +376,7 @@ class Variant {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<VARIANT>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-variant_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-variant_userfree64
      * @since windows5.1.2600
      */
     static VARIANT_UserFree64(param0, param1) {
@@ -437,7 +437,7 @@ class Variant {
      * @param {Integer} wDosTime The MS-DOS time to convert.
      * @param {Pointer<Float>} pvtime The converted time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-dosdatetimetovarianttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-dosdatetimetovarianttime
      */
     static DosDateTimeToVariantTime(wDosDate, wDosTime, pvtime) {
         pvtimeMarshal := pvtime is VarRef ? "double*" : "ptr"
@@ -458,7 +458,7 @@ class Variant {
      * @param {Pointer<Integer>} pwDosDate Receives the converted MS-DOS date.
      * @param {Pointer<Integer>} pwDosTime Receives the converted MS-DOS time
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varianttimetodosdatetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-varianttimetodosdatetime
      */
     static VariantTimeToDosDateTime(vtime, pwDosDate, pwDosTime) {
         pwDosDateMarshal := pwDosDate is VarRef ? "ushort*" : "ptr"
@@ -502,7 +502,7 @@ class Variant {
      * @param {Pointer<SYSTEMTIME>} lpSystemTime The system time.
      * @param {Pointer<Float>} pvtime The variant time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-systemtimetovarianttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-systemtimetovarianttime
      */
     static SystemTimeToVariantTime(lpSystemTime, pvtime) {
         pvtimeMarshal := pvtime is VarRef ? "double*" : "ptr"
@@ -540,7 +540,7 @@ class Variant {
      * @param {Float} vtime The variant time to convert.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime Receives the system time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-varianttimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-varianttimetosystemtime
      */
     static VariantTimeToSystemTime(vtime, lpSystemTime) {
         result := DllCall("OLEAUT32.dll\VariantTimeToSystemTime", "double", vtime, "ptr", lpSystemTime, "int")
@@ -553,7 +553,7 @@ class Variant {
      * The <b>VariantInit</b> function initializes the VARIANTARG by setting the <b>vt</b> field to VT_EMPTY. Unlike <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a>, this function does not interpret the current contents of the VARIANTARG. Use <b>VariantInit</b> to initialize new local variables of type VARIANTARG (or VARIANT).
      * @param {Pointer<VARIANT>} pvarg The variant to initialize.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantinit
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-variantinit
      */
     static VariantInit(pvarg) {
         DllCall("OLEAUT32.dll\VariantInit", "ptr", pvarg)
@@ -628,7 +628,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantclear
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-variantclear
      */
     static VariantClear(pvarg) {
         result := DllCall("OLEAUT32.dll\VariantClear", "ptr", pvarg, "int")
@@ -718,7 +718,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantcopy
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-variantcopy
      */
     static VariantCopy(pvargDest, pvargSrc) {
         result := DllCall("OLEAUT32.dll\VariantCopy", "ptr", pvargDest, "ptr", pvargSrc, "int")
@@ -807,7 +807,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantcopyind
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-variantcopyind
      */
     static VariantCopyInd(pvarDest, pvargSrc) {
         result := DllCall("OLEAUT32.dll\VariantCopyInd", "ptr", pvarDest, "ptr", pvargSrc, "int")
@@ -960,7 +960,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-variantchangetype
      */
     static VariantChangeType(pvargDest, pvarSrc, wFlags, vt) {
         result := DllCall("OLEAUT32.dll\VariantChangeType", "ptr", pvargDest, "ptr", pvarSrc, "ushort", wFlags, "ushort", vt, "int")
@@ -1116,7 +1116,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-variantchangetypeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-variantchangetypeex
      */
     static VariantChangeTypeEx(pvargDest, pvarSrc, lcid, wFlags, vt) {
         result := DllCall("OLEAUT32.dll\VariantChangeTypeEx", "ptr", pvargDest, "ptr", pvarSrc, "uint", lcid, "ushort", wFlags, "ushort", vt, "int")
@@ -1143,7 +1143,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromresource
      * @since windows5.1.2600
      */
     static InitVariantFromResource(hinst, id, pvar) {
@@ -1173,7 +1173,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfrombuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfrombuffer
      * @since windows5.1.2600
      */
     static InitVariantFromBuffer(pv, cb, pvar) {
@@ -1198,7 +1198,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromguidasstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromguidasstring
      * @since windows5.1.2600
      */
     static InitVariantFromGUIDAsString(guid, pvar) {
@@ -1223,7 +1223,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromfiletime
      * @since windows5.1.2600
      */
     static InitVariantFromFileTime(pft, pvar) {
@@ -1251,7 +1251,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromfiletimearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromfiletimearray
      * @since windows5.1.2600
      */
     static InitVariantFromFileTimeArray(prgft, cElems, pvar) {
@@ -1305,7 +1305,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromvariantarrayelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromvariantarrayelem
      * @since windows5.1.2600
      */
     static InitVariantFromVariantArrayElem(varIn, iElem, pvar) {
@@ -1333,7 +1333,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfrombooleanarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfrombooleanarray
      * @since windows5.1.2600
      */
     static InitVariantFromBooleanArray(prgf, cElems, pvar) {
@@ -1363,7 +1363,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromint16array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromint16array
      * @since windows5.1.2600
      */
     static InitVariantFromInt16Array(prgn, cElems, pvar) {
@@ -1393,7 +1393,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromuint16array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromuint16array
      * @since windows5.1.2600
      */
     static InitVariantFromUInt16Array(prgn, cElems, pvar) {
@@ -1423,7 +1423,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromint32array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromint32array
      * @since windows5.1.2600
      */
     static InitVariantFromInt32Array(prgn, cElems, pvar) {
@@ -1453,7 +1453,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromuint32array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromuint32array
      * @since windows5.1.2600
      */
     static InitVariantFromUInt32Array(prgn, cElems, pvar) {
@@ -1485,7 +1485,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromint64array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromint64array
      * @since windows5.1.2600
      */
     static InitVariantFromInt64Array(prgn, cElems, pvar) {
@@ -1515,7 +1515,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromuint64array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromuint64array
      * @since windows5.1.2600
      */
     static InitVariantFromUInt64Array(prgn, cElems, pvar) {
@@ -1545,7 +1545,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromdoublearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromdoublearray
      * @since windows5.1.2600
      */
     static InitVariantFromDoubleArray(prgn, cElems, pvar) {
@@ -1575,7 +1575,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromstringarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromstringarray
      * @since windows5.1.2600
      */
     static InitVariantFromStringArray(prgsz, cElems, pvar) {
@@ -1608,7 +1608,7 @@ class Variant {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns the extracted <b>BOOL</b> value; otherwise, the default value specified in <i>fDefault</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobooleanwithdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttobooleanwithdefault
      * @since windows5.1.2600
      */
     static VariantToBooleanWithDefault(varIn, fDefault) {
@@ -1627,7 +1627,7 @@ class Variant {
      * @returns {Integer} Type: <b>SHORT</b>
      * 
      * Returns the extracted <b>Int16</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint16withdefault
      * @since windows5.1.2600
      */
     static VariantToInt16WithDefault(varIn, iDefault) {
@@ -1646,7 +1646,7 @@ class Variant {
      * @returns {Integer} Type: <b>USHORT</b>
      * 
      * Returns extracted unsigned <b>Int16</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint16withdefault
      * @since windows5.1.2600
      */
     static VariantToUInt16WithDefault(varIn, uiDefault) {
@@ -1665,7 +1665,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * Returns the extracted Int32 value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint32withdefault
      * @since windows5.1.2600
      */
     static VariantToInt32WithDefault(varIn, lDefault) {
@@ -1684,7 +1684,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns extracted unsigned <b>Int32</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint32withdefault
      * @since windows5.1.2600
      */
     static VariantToUInt32WithDefault(varIn, ulDefault) {
@@ -1703,7 +1703,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONGLONG</b>
      * 
      * Returns extracted <b>Int64</b> value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint64withdefault
      * @since windows5.1.2600
      */
     static VariantToInt64WithDefault(varIn, llDefault) {
@@ -1722,7 +1722,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONGLONG</b>
      * 
      * Returns the extracted unsigned <b>Int64</b> value, or a default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64withdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint64withdefault
      * @since windows5.1.2600
      */
     static VariantToUInt64WithDefault(varIn, ullDefault) {
@@ -1749,7 +1749,7 @@ class Variant {
      * @returns {Float} Type: <b>DOUBLE</b>
      * 
      * Returns the extracted <b>double</b> value; otherwise, the default value specified in <i>dblDefault</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodoublewithdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttodoublewithdefault
      * @since windows5.1.2600
      */
     static VariantToDoubleWithDefault(varIn, dblDefault) {
@@ -1768,7 +1768,7 @@ class Variant {
      * @returns {PWSTR} Type: <b>PCWSTR</b>
      * 
      * Returns the extracted string value, or default.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringwithdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttostringwithdefault
      * @since windows5.1.2600
      */
     static VariantToStringWithDefault(varIn, pszDefault) {
@@ -1792,7 +1792,7 @@ class Variant {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoboolean
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoboolean
      * @since windows5.1.2600
      */
     static VariantToBoolean(varIn) {
@@ -1812,7 +1812,7 @@ class Variant {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint16
      * @since windows5.1.2600
      */
     static VariantToInt16(varIn) {
@@ -1832,7 +1832,7 @@ class Variant {
      * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint16
      * @since windows5.1.2600
      */
     static VariantToUInt16(varIn) {
@@ -1852,7 +1852,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint32
      * @since windows5.1.2600
      */
     static VariantToInt32(varIn) {
@@ -1872,7 +1872,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint32
      * @since windows5.1.2600
      */
     static VariantToUInt32(varIn) {
@@ -1892,7 +1892,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint64
      * @since windows5.1.2600
      */
     static VariantToInt64(varIn) {
@@ -1912,7 +1912,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint64
      * @since windows5.1.2600
      */
     static VariantToUInt64(varIn) {
@@ -1938,7 +1938,7 @@ class Variant {
      * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, 0.0.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodouble
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttodouble
      * @since windows5.1.2600
      */
     static VariantToDouble(varIn) {
@@ -2012,7 +2012,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttobuffer
      * @since windows5.1.2600
      */
     static VariantToBuffer(varIn, pv, cb) {
@@ -2035,7 +2035,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoguid
      * @since windows5.1.2600
      */
     static VariantToGUID(varIn, pguid) {
@@ -2061,7 +2061,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttostring
      * @since windows5.1.2600
      */
     static VariantToString(varIn, pszBuf, cchBuf) {
@@ -2083,7 +2083,7 @@ class Variant {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, empty.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttostringalloc
      * @since windows5.1.2600
      */
     static VariantToStringAlloc(varIn) {
@@ -2117,7 +2117,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodosdatetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttodosdatetime
      * @since windows5.1.2600
      */
     static VariantToDosDateTime(varIn, pwDate, pwTime) {
@@ -2148,7 +2148,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttofiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttofiletime
      * @since windows5.1.2600
      */
     static VariantToFileTime(varIn, stfOut, pftOut) {
@@ -2168,7 +2168,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns the element count for values of type VT_ARRAY; otherwise, returns 1.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetelementcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetelementcount
      * @since windows5.1.2600
      */
     static VariantGetElementCount(varIn) {
@@ -2226,7 +2226,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobooleanarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttobooleanarray
      * @since windows5.1.2600
      */
     static VariantToBooleanArray(var, prgf, crgn, pcElem) {
@@ -2258,7 +2258,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint16array
      * @since windows5.1.2600
      */
     static VariantToInt16Array(var, prgn, crgn, pcElem) {
@@ -2290,7 +2290,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint16array
      * @since windows5.1.2600
      */
     static VariantToUInt16Array(var, prgn, crgn, pcElem) {
@@ -2322,7 +2322,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint32array
      * @since windows5.1.2600
      */
     static VariantToInt32Array(var, prgn, crgn, pcElem) {
@@ -2354,7 +2354,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint32array
      * @since windows5.1.2600
      */
     static VariantToUInt32Array(var, prgn, crgn, pcElem) {
@@ -2386,7 +2386,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint64array
      * @since windows5.1.2600
      */
     static VariantToInt64Array(var, prgn, crgn, pcElem) {
@@ -2418,7 +2418,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64array
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint64array
      * @since windows5.1.2600
      */
     static VariantToUInt64Array(var, prgn, crgn, pcElem) {
@@ -2485,7 +2485,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodoublearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttodoublearray
      * @since windows5.1.2600
      */
     static VariantToDoubleArray(var, prgn, crgn, pcElem) {
@@ -2517,7 +2517,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttostringarray
      * @since windows5.1.2600
      */
     static VariantToStringArray(var, prgsz, crgsz, pcElem) {
@@ -2550,7 +2550,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttobooleanarrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttobooleanarrayalloc
      * @since windows5.1.2600
      */
     static VariantToBooleanArrayAlloc(var, pprgf, pcElem) {
@@ -2579,7 +2579,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint16arrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint16arrayalloc
      * @since windows5.1.2600
      */
     static VariantToInt16ArrayAlloc(var, pprgn, pcElem) {
@@ -2608,7 +2608,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint16arrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint16arrayalloc
      * @since windows5.1.2600
      */
     static VariantToUInt16ArrayAlloc(var, pprgn, pcElem) {
@@ -2637,7 +2637,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint32arrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint32arrayalloc
      * @since windows5.1.2600
      */
     static VariantToInt32ArrayAlloc(var, pprgn, pcElem) {
@@ -2666,7 +2666,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint32arrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint32arrayalloc
      * @since windows5.1.2600
      */
     static VariantToUInt32ArrayAlloc(var, pprgn, pcElem) {
@@ -2695,7 +2695,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttoint64arrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttoint64arrayalloc
      * @since windows5.1.2600
      */
     static VariantToInt64ArrayAlloc(var, pprgn, pcElem) {
@@ -2724,7 +2724,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttouint64arrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttouint64arrayalloc
      * @since windows5.1.2600
      */
     static VariantToUInt64ArrayAlloc(var, pprgn, pcElem) {
@@ -2757,7 +2757,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttodoublearrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttodoublearrayalloc
      * @since windows5.1.2600
      */
     static VariantToDoubleArrayAlloc(var, pprgn, pcElem) {
@@ -2786,7 +2786,7 @@ class Variant {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostringarrayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttostringarrayalloc
      * @since windows5.1.2600
      */
     static VariantToStringArrayAlloc(var, pprgsz, pcElem) {
@@ -2812,7 +2812,7 @@ class Variant {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetbooleanelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetbooleanelem
      * @since windows5.1.2600
      */
     static VariantGetBooleanElem(var, iElem) {
@@ -2835,7 +2835,7 @@ class Variant {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetint16elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetint16elem
      * @since windows5.1.2600
      */
     static VariantGetInt16Elem(var, iElem) {
@@ -2858,7 +2858,7 @@ class Variant {
      * @returns {Integer} Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetuint16elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetuint16elem
      * @since windows5.1.2600
      */
     static VariantGetUInt16Elem(var, iElem) {
@@ -2881,7 +2881,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetint32elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetint32elem
      * @since windows5.1.2600
      */
     static VariantGetInt32Elem(var, iElem) {
@@ -2904,7 +2904,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetuint32elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetuint32elem
      * @since windows5.1.2600
      */
     static VariantGetUInt32Elem(var, iElem) {
@@ -2927,7 +2927,7 @@ class Variant {
      * @returns {Integer} Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetint64elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetint64elem
      * @since windows5.1.2600
      */
     static VariantGetInt64Elem(var, iElem) {
@@ -2950,7 +2950,7 @@ class Variant {
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetuint64elem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetuint64elem
      * @since windows5.1.2600
      */
     static VariantGetUInt64Elem(var, iElem) {
@@ -2973,7 +2973,7 @@ class Variant {
      * @returns {Float} Type: <b>DOUBLE*</b>
      * 
      * Pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetdoubleelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetdoubleelem
      * @since windows5.1.2600
      */
     static VariantGetDoubleElem(var, iElem) {
@@ -2996,7 +2996,7 @@ class Variant {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The address of a pointer to the extracted element value.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantgetstringelem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantgetstringelem
      * @since windows5.1.2600
      */
     static VariantGetStringElem(var, iElem) {
@@ -3019,7 +3019,7 @@ class Variant {
      * 
      * The number of elements in the array specified by <i>pvars</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-clearvariantarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-clearvariantarray
      * @since windows5.1.2600
      */
     static ClearVariantArray(pvars, cvars) {
@@ -3045,7 +3045,7 @@ class Variant {
      * <li>Returns 0 if <i>var1</i> equals <i>var2</i></li>
      * <li>Returns -1 if <i>var1</i> is less than <i>var2</i></li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-variantcompare
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-variantcompare
      * @since windows5.1.2600
      */
     static VariantCompare(var1, var2) {

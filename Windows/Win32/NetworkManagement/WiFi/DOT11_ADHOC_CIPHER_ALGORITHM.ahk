@@ -28,7 +28,7 @@
  * <td>DOT11_ADHOC_CIPHER_ALGO_CCMP</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
+ * @see https://learn.microsoft.com/windows/win32/api//content/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

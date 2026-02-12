@@ -5,15 +5,12 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * .
+ * . (IInkRenderer)
  * @remarks
- * 
  * Printing is also done through the InkRenderer object.
  * 
  * This object can be instantiated by calling the [CoCreateInstance](../combaseapi/nf-combaseapi-cocreateinstance.md) method in C++.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkrenderer
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkrenderer
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -40,6 +37,12 @@ class IInkRenderer extends IDispatch{
 
     /**
      * Gets the InkTransform object that represents the view transform that is used to render ink.
+     * @remarks
+     * Any translations applied to this transform should be in ink space units (1 unit = .01mm).
+     * 
+     * Adjusting the view transform is analogous to adjusting the zoom factor on the ink rendering.
+     * 
+     * View transformation occurs after object transformation.
      * @param {IInkTransform} ViewTransform The matrix that represents the geometric transformation - rotation, scaling, shear, and reflection - values to use to transform the stroke coordinates within the ink space. The transformation applies to both the points and pen width. View transformation occurs after object transformation.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -82,15 +85,28 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-getviewtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-getviewtransform
      */
     GetViewTransform(ViewTransform) {
-        result := ComCall(7, this, "ptr", ViewTransform, "HRESULT")
+        result := ComCall(7, this, "ptr", ViewTransform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the InkTransform object that represents the view transform that is used to render ink.
+     * @remarks
+     * The transformation applies to both the points and pen width.
+     * 
+     * View transformation occurs after object transformation.
+     * 
+     * The pen width is calculated by multiplying the specified pen width (or default of 53, if unspecified) by the square root of the determinant of the view transform.
+     * 
+     * It is problematic to call this method in response to SENT message.  Test whether you are processing a SENT message
+     * 			  by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insendmessageex">InSendMesssageEx</a> and then POST the message to yourself if the message was SENT.
      * @param {IInkTransform} ViewTransform The <a href="https://docs.microsoft.com/windows/desktop/tablet/inktransform-class">InkTransform</a> object that represents the geometric transformation - rotation, scaling, shear, and reflection - values to use to transform the stroke coordinates within the ink space.
      * 
      * A <b>NULL</b> value for the <i>viewTransform</i> parameter correlates to the identity transform.
@@ -130,7 +146,7 @@ class IInkRenderer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>viewTransform</i> does not point to a compatible <a href="/windows/desktop/tablet/inktransform-class">InkTransform</a> object.
+     * <i>viewTransform</i> does not point to a compatible <a href="https://docs.microsoft.com/windows/desktop/tablet/inktransform-class">InkTransform</a> object.
      * 
      * </td>
      * </tr>
@@ -146,15 +162,21 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-setviewtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-setviewtransform
      */
     SetViewTransform(ViewTransform) {
-        result := ComCall(8, this, "ptr", ViewTransform, "HRESULT")
+        result := ComCall(8, this, "ptr", ViewTransform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the InkTransform object that represents the object transform that was used to render ink.
+     * @remarks
+     * Any translations applied to this transform should be in ink space units (1 unit = .01mm).
      * @param {IInkTransform} ObjectTransform The <a href="https://docs.microsoft.com/windows/desktop/tablet/inktransform-class">InkTransform</a> object that represents the geometric transformation - rotation, scaling, shear, and reflection - values to use to transform the stroke coordinates within the ink space.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -197,15 +219,26 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-getobjecttransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-getobjecttransform
      */
     GetObjectTransform(ObjectTransform) {
-        result := ComCall(9, this, "ptr", ObjectTransform, "HRESULT")
+        result := ComCall(9, this, "ptr", ObjectTransform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the InkTransform object that represents the object transform that is used to render ink.
+     * @remarks
+     * The transformation applies to the points, but not the pen width.
+     * 
+     * Object transformation occurs before view transformation.
+     * 
+     * It is problematic to call this method in response to SENT message.  Test whether you are processing a SENT message
+     * 			  by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-insendmessageex">InSendMesssageEx</a> and then POST the message to yourself if the message was SENT.
      * @param {IInkTransform} ObjectTransform The <a href="https://docs.microsoft.com/windows/desktop/tablet/inktransform-class">InkTransform</a> object that represents the geometric transformation - rotation, scaling, shear, and reflection - values to use to transform the stroke coordinates within the ink space.
      * 
      * A <b>NULL</b> value for the <i>objectTransform</i> parameter correlates to the identity transform.
@@ -245,7 +278,7 @@ class IInkRenderer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>objectTransform</i> does not point to a compatible <a href="/windows/desktop/tablet/inktransform-class">InkTransform</a> object.
+     * <i>objectTransform</i> does not point to a compatible <a href="https://docs.microsoft.com/windows/desktop/tablet/inktransform-class">InkTransform</a> object.
      * 
      * </td>
      * </tr>
@@ -261,16 +294,30 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-setobjecttransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-setobjecttransform
      */
     SetObjectTransform(ObjectTransform) {
-        result := ComCall(10, this, "ptr", ObjectTransform, "HRESULT")
+        result := ComCall(10, this, "ptr", ObjectTransform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Draws ink strokes using the known device context.
-     * @param {Pointer} hDC Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a> of the device context on which to draw.
+     * @remarks
+     * The pen width is multiplied (or scaled) by the square root of the determinant of the view transform.
+     * 
+     * <div class="alert"><b>Note</b>  If you have not set the pen width explicitly, it is 53 by default. You must multiply the pen width by the square root of the determinant to yield the correct bounding box. The height and width of the bounding box are expanded by half this amount in each direction.</div>
+     * <div> </div>
+     * For example, consider that the pen width is 53, the square root of the determinant is 50, and the bounding box is (0,0,1000,1000). The pen width adjustment to the bounding box in each direction is calculated as (53*50)/2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325,-1325,2326,2326).
+     * 
+     * <div class="alert"><b>Note</b>  Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke">DrawStroke</a> method to draw a single stroke.</div>
+     * <div> </div>
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> forces the viewport and window origins to 0, 0. Any existing settings are saved and restored, but is not used by the <b>InkRenderer</b>. To perform scrolling, use the <b>InkRenderer</b> object's view and object transform methods.
+     * @param {Pointer} hDC_ Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a> of the device context on which to draw.
      * @param {IInkStrokes} Strokes Specifies the strokes to draw.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -308,7 +355,7 @@ class IInkRenderer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The strokes parameter is associated with a different <a href="/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
+     * The strokes parameter is associated with a different <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
      * 
      * </td>
      * </tr>
@@ -357,16 +404,28 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-draw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-draw
      */
-    Draw(hDC, Strokes) {
-        result := ComCall(11, this, "ptr", hDC, "ptr", Strokes, "HRESULT")
+    Draw(hDC_, Strokes) {
+        result := ComCall(11, this, "ptr", hDC_, "ptr", Strokes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Draws the IInkStrokeDisp object using the known device context, and optionally draws the IInkStrokeDisp object with the known InkDrawingAttributes object.
-     * @param {Pointer} hDC The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a> of the device context on which to draw.
+     * @remarks
+     * The pen width is multiplied (or scaled) by the square root of the determinant of the view transform.
+     * 
+     * <div class="alert"><b>Note</b>  If you have not set the pen width explicitly, it is 53 by default. You must multiply the pen width by the square root of the determinant to yield the correct bounding box. The height and width of the bounding box are expanded by half this amount in each direction.</div>
+     * <div> </div>
+     * For example, consider that the pen width is 53, the square root of the determinant is 50, and the bounding box is (0,0,1000,1000). The pen width adjustment to the bounding box in each direction is calculated as (53*50)/2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325,-1325,2326,2326).
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> forces the viewport and window origins to 0, 0. Any existing settings are saved and restored, but are not used by the <b>InkRenderer</b>. To perform scrolling, use the <b>InkRenderer</b> object's view and object transform methods.
+     * @param {Pointer} hDC_ The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a> of the device context on which to draw.
      * @param {IInkStrokeDisp} Stroke The stroke to draw.
      * @param {IInkDrawingAttributes} DrawingAttributes Optional. Specifies the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdrawingattributes-class">InkDrawingAttributes</a> to use on the drawing. The default value is <b>NULL</b>. If <b>InkDrawingAttributes</b> is specified, they override the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a>.
      * @returns {HRESULT} This method can return one of these values.
@@ -405,7 +464,7 @@ class IInkRenderer extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The strokes parameter is associated with a different <a href="/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
+     * The strokes parameter is associated with a different <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
      * 
      * </td>
      * </tr>
@@ -454,16 +513,22 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-drawstroke
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-drawstroke
      */
-    DrawStroke(hDC, Stroke, DrawingAttributes) {
-        result := ComCall(12, this, "ptr", hDC, "ptr", Stroke, "ptr", DrawingAttributes, "HRESULT")
+    DrawStroke(hDC_, Stroke, DrawingAttributes) {
+        result := ComCall(12, this, "ptr", hDC_, "ptr", Stroke, "ptr", DrawingAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Converts a location in pixel space coordinates to be a location in ink space coordinates.
-     * @param {Pointer} hDC The handle of the device context for the containing control or form.
+     * @remarks
+     * <b>PixelToInkSpace</b> converts from pixel to ink space (1 HIMETRIC unit = .01mm), applies the inverse of the view transform, and then applies the object transform.
+     * @param {Pointer} hDC_ The handle of the device context for the containing control or form.
      * @param {Pointer<Integer>} x The x coordinate of the point to convert into an ink location.
      * @param {Pointer<Integer>} y The y coordinate of the point to convert into an ink location.
      * @returns {HRESULT} This method can return one of these values.
@@ -518,18 +583,24 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspace
      */
-    PixelToInkSpace(hDC, x, y) {
+    PixelToInkSpace(hDC_, x, y) {
         xMarshal := x is VarRef ? "int*" : "ptr"
         yMarshal := y is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "ptr", hDC, xMarshal, x, yMarshal, y, "HRESULT")
+        result := ComCall(13, this, "ptr", hDC_, xMarshal, x, yMarshal, y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Converts a location in ink space coordinates to a location in pixel space using a handle for the conversion.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixelfrompoints">InkSpaceToPixelFromPoints</a> applies the object transform, applies the view transform of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> object, and then converts from inkspace to pixel units (1 ink unit = .01mm).
      * @param {Pointer} hdcDisplay The handle of the device context.
      * @param {Pointer<Integer>} x The X-coordinate of the point to convert into a pixel location.
      * @param {Pointer<Integer>} y The Y-coordinate of the point to convert into a pixel location.
@@ -596,20 +667,26 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixel
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixel
      */
     InkSpaceToPixel(hdcDisplay, x, y) {
         xMarshal := x is VarRef ? "int*" : "ptr"
         yMarshal := y is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "ptr", hdcDisplay, xMarshal, x, yMarshal, y, "HRESULT")
+        result := ComCall(14, this, "ptr", hdcDisplay, xMarshal, x, yMarshal, y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Converts an array of locations in pixel space coordinates to an array of locations in ink space coordinates.
-     * @param {Pointer} hDC The handle of the device context for the containing control or form.
-     * @param {Pointer<VARIANT>} Points The Variant array of points, as alternating Long x and y values of the form x0, y0, x1, y1, x2, y2, and so on, to convert from a pixel location to ink space coordinates.
+     * @remarks
+     * <c>PixelToInkSpaceFromPoints</c> converts from pixel to ink space (1 ink unit = .01mm), applies the inverse of the view transform, and then applies the inverse of the object transform.
+     * @param {Pointer} hDC_ The handle of the device context for the containing control or form.
+     * @param {Pointer<VARIANT>} Points_ The Variant array of points, as alternating Long x and y values of the form x0, y0, x1, y1, x2, y2, and so on, to convert from a pixel location to ink space coordinates.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {HRESULT} This method can return one of these values.
@@ -664,17 +741,23 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspacefrompoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-pixeltoinkspacefrompoints
      */
-    PixelToInkSpaceFromPoints(hDC, Points) {
-        result := ComCall(15, this, "ptr", hDC, "ptr", Points, "HRESULT")
+    PixelToInkSpaceFromPoints(hDC_, Points_) {
+        result := ComCall(15, this, "ptr", hDC_, "ptr", Points_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Converts an array of points in ink space coordinates to an array of points in pixel space.
-     * @param {Pointer} hDC The handle of the device context on which to draw.
-     * @param {Pointer<VARIANT>} Points The array of points in ink space coordinates to convert into pixel locations. This should be an array of 32-bit integer values, passed within a VARIANT.
+     * @remarks
+     * <b>InkSpaceToPixelFromPoints</b> applies the object transform, applies the view transform of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> object, and then converts from inkspace to pixel units (1 ink unit = .01mm).
+     * @param {Pointer} hDC_ The handle of the device context on which to draw.
+     * @param {Pointer<VARIANT>} Points_ The array of points in ink space coordinates to convert into pixel locations. This should be an array of 32-bit integer values, passed within a VARIANT.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {HRESULT} <table>
@@ -727,33 +810,57 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixelfrompoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-inkspacetopixelfrompoints
      */
-    InkSpaceToPixelFromPoints(hDC, Points) {
-        result := ComCall(16, this, "ptr", hDC, "ptr", Points, "HRESULT")
+    InkSpaceToPixelFromPoints(hDC_, Points_) {
+        result := ComCall(16, this, "ptr", hDC_, "ptr", Points_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Calculates the rectangle on the device context that would contain a collection of strokes if the strokes were drawn with the InkRenderer object using the DrawStroke method.
+     * @remarks
+     * This is accurate only if you pass the same arguments to both <b>Measure</b> and <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke">DrawStroke</a>.
+     * 
+     * Since the bounding box is affected by the pen width, this width is scaled appropriately for the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a>'s view transform. To do this, the pen width is multiplied by the square root of the determinant of the view transform. The height and width of the bounding box are expanded by half this amount in each direction, and the right and bottom sides are incremented by one.
+     * 
+     * For example, consider that the pen width is originally 53, the square root of the determinant of the view transform is 50, and the bounding box is (0, 0, 1000, 1000). The pen width adjustment to the bounding box in each direction is calculated as (53 * 50) / 2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325, -1325, 2326, 2326).
      * @param {IInkStrokes} Strokes The collection of strokes to measure.
      * @returns {IInkRectangle} When this method returns, contains a pointer to the rectangle on the device context that would contain the strokes if they were drawn with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke">DrawStroke</a> method of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> object. The strokes must contain x- and y-coordinates to calculate the rectangle. Otherwise, the method returns an empty rectangle.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-measure
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-measure
      */
     Measure(Strokes) {
-        result := ComCall(17, this, "ptr", Strokes, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", Strokes, "ptr*", &Rectangle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkRectangle(Rectangle)
     }
 
     /**
      * Calculates the rectangle on the device context that would contain a stroke if it were drawn with the InkRenderer object using the DrawStroke method.
+     * @remarks
+     * This is accurate only if you pass the same arguments to both <b>MeasureStroke</b> and <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke">DrawStroke</a>.
+     * 
+     * Since the bounding box is affected by the pen width, this width is scaled appropriately for the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a>'s view transform. To do this, the pen width is multiplied by the square root of the determinant of the view transform. The height and width of the bounding box are expanded by half this amount in each direction, and the right and bottom sides are incremented by one.
+     * 
+     * For example, consider that the pen width is originally 53, the square root of the determinant of the view transform is 50, and the bounding box is (0, 0, 1000, 1000). The pen width adjustment to the bounding box in each direction is calculated as (53 * 50) / 2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325, -1325, 2326, 2326).
      * @param {IInkStrokeDisp} Stroke The stroke to measure.
      * @param {IInkDrawingAttributes} DrawingAttributes Optional. The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdrawingattributes-class">InkDrawingAttributes</a> to use when calculating the rectangle, which override the drawing attributes on the stroke. The default value is <b>NULL</b>, which means the stroke is measured by using its own drawing attributes.
      * @returns {IInkRectangle} When this method returns, contains a pointer to the rectangle on the device context that would contain the stroke if the stroke were drawn with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke">DrawStroke</a> method of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> object. The stroke must contain x- and y-coordinates to calculate the rectangle. Otherwise, the method returns an empty rectangle.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-measurestroke
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-measurestroke
      */
     MeasureStroke(Stroke, DrawingAttributes) {
-        result := ComCall(18, this, "ptr", Stroke, "ptr", DrawingAttributes, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", Stroke, "ptr", DrawingAttributes, "ptr*", &Rectangle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkRectangle(Rectangle)
     }
 
@@ -761,16 +868,22 @@ class IInkRenderer extends IDispatch{
      * Applies a translation to the view transform in ink space coordinates.
      * @param {Float} HorizontalComponent The amount in ink space coordinates to translate the view transform in the X dimension.
      * @param {Float} VerticalComponent The amount in ink space coordinates to translate the view transform in the Y dimension.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-move
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-move
      */
     Move(HorizontalComponent, VerticalComponent) {
-        result := ComCall(19, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(19, this, "float", HorizontalComponent, "float", VerticalComponent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Applies a rotation to a InkRenderer's view transform.
+     * @remarks
+     * If no point is specified, the rotation is centered around the origin.
      * @param {Float} Degrees The degrees by which to rotate clockwise.
      * @param {Float} x Optional. The x-coordinate of the point in ink space coordinates around which to rotate. The default is zero.
      * @param {Float} y Optional. The y-coordinate of the point in ink space coordinates around which to rotate. The default is zero.
@@ -804,10 +917,14 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-rotate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-rotate
      */
     Rotate(Degrees, x, y) {
-        result := ComCall(20, this, "float", Degrees, "float", x, "float", y, "HRESULT")
+        result := ComCall(20, this, "float", Degrees, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -846,10 +963,14 @@ class IInkRenderer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrenderer-scaletransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkrenderer-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier, ApplyOnPenWidth) {
-        result := ComCall(21, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "short", ApplyOnPenWidth, "HRESULT")
+        result := ComCall(21, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "short", ApplyOnPenWidth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

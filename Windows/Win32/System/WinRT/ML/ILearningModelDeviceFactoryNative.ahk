@@ -34,7 +34,11 @@ class ILearningModelDeviceFactoryNative extends IUnknown{
      * @returns {IUnknown} 
      */
     CreateFromD3D12CommandQueue(value) {
-        result := ComCall(3, this, "ptr", value, "ptr*", &result := 0, "HRESULT")
-        return IUnknown(result)
+        result := ComCall(3, this, "ptr", value, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IUnknown(result_)
     }
 }

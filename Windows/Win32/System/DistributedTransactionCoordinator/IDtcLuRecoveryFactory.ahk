@@ -30,15 +30,20 @@ class IDtcLuRecoveryFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @returns {IDtcLuRecovery} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(pucLuPair, cbLuPair) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr*", &ppRecovery := 0, "HRESULT")
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr*", &ppRecovery := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDtcLuRecovery(ppRecovery)
     }
 }

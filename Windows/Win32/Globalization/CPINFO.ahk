@@ -10,7 +10,7 @@
  * 
  * 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-cpinfoexa">CPINFOEX</a>, used by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a> function, provides an extended version of this structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-cpinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnls/ns-winnls-cpinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

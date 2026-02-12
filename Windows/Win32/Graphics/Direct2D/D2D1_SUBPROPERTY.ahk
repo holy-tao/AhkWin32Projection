@@ -3,7 +3,7 @@
 
 /**
  * Specifies the indices of the system sub-properties that may be present in any property.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_subproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/ne-d2d1_1-d2d1_subproperty
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

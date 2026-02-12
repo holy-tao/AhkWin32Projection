@@ -63,7 +63,11 @@ class IRTCSessionReferStatusEvent extends IDispatch{
      * @returns {IRTCSession2} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession2(ppSession)
     }
 
@@ -72,7 +76,11 @@ class IRTCSessionReferStatusEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_ReferStatus() {
-        result := ComCall(8, this, "int*", &penReferStatus := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &penReferStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penReferStatus
     }
 
@@ -81,7 +89,11 @@ class IRTCSessionReferStatusEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 
@@ -91,7 +103,11 @@ class IRTCSessionReferStatusEvent extends IDispatch{
      */
     get_StatusText() {
         pbstrStatusText := BSTR()
-        result := ComCall(10, this, "ptr", pbstrStatusText, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrStatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStatusText
     }
 }

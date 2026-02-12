@@ -30,11 +30,24 @@ class IDirectSoundFullDuplex extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {Pointer<Guid>} pCaptureGuid 
      * @param {Pointer<Guid>} pRenderGuid 
      * @param {Pointer<DSCBUFFERDESC>} lpDscBufferDesc 
      * @param {Pointer<DSBUFFERDESC>} lpDsBufferDesc 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Integer} dwLevel 
      * @param {Pointer<IDirectSoundCaptureBuffer8>} lplpDirectSoundCaptureBuffer8 
      * @param {Pointer<IDirectSoundBuffer8>} lplpDirectSoundBuffer8 
@@ -49,12 +62,16 @@ class IDirectSoundFullDuplex extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
-    Initialize(pCaptureGuid, pRenderGuid, lpDscBufferDesc, lpDsBufferDesc, hWnd, dwLevel, lplpDirectSoundCaptureBuffer8, lplpDirectSoundBuffer8) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    Initialize(pCaptureGuid, pRenderGuid, lpDscBufferDesc, lpDsBufferDesc, hWnd_, dwLevel, lplpDirectSoundCaptureBuffer8, lplpDirectSoundBuffer8) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(3, this, "ptr", pCaptureGuid, "ptr", pRenderGuid, "ptr", lpDscBufferDesc, "ptr", lpDsBufferDesc, "ptr", hWnd, "uint", dwLevel, "ptr*", lplpDirectSoundCaptureBuffer8, "ptr*", lplpDirectSoundBuffer8, "HRESULT")
+        result := ComCall(3, this, "ptr", pCaptureGuid, "ptr", pRenderGuid, "ptr", lpDscBufferDesc, "ptr", lpDsBufferDesc, "ptr", hWnd_, "uint", dwLevel, "ptr*", lplpDirectSoundCaptureBuffer8, "ptr*", lplpDirectSoundBuffer8, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

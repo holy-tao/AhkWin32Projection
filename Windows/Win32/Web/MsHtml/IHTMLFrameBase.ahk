@@ -114,9 +114,16 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_src(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,7 +133,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_src() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -136,9 +147,16 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,7 +166,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -158,7 +180,11 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_border(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -168,7 +194,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_border() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -178,9 +208,16 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_frameBorder(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -190,7 +227,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_frameBorder() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -200,7 +241,11 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_frameSpacing(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,7 +255,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_frameSpacing() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -220,7 +269,11 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_marginWidth(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +283,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_marginWidth() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -240,7 +297,11 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_marginHeight(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -250,7 +311,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_marginHeight() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -260,7 +325,11 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_noResize(v) {
-        result := ComCall(21, this, "short", v, "HRESULT")
+        result := ComCall(21, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +338,11 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_noResize() {
-        result := ComCall(22, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -279,9 +352,16 @@ class IHTMLFrameBase extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrolling(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -291,7 +371,11 @@ class IHTMLFrameBase extends IDispatch{
      */
     get_scrolling() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

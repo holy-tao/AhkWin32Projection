@@ -5,7 +5,7 @@
 
 /**
  * Provides a dialog box for selecting the device to acquire images from.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquiredeviceselectiondialog
+ * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nn-photoacquire-iphotoacquiredeviceselectiondialog
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -58,12 +58,16 @@ class IPhotoAcquireDeviceSelectionDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-settitle
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-settitle
      */
     SetTitle(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := ComCall(3, this, "ptr", pszTitle, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,12 +93,16 @@ class IPhotoAcquireDeviceSelectionDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-setsubmitbuttontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-setsubmitbuttontext
      */
     SetSubmitButtonText(pszSubmitButtonText) {
         pszSubmitButtonText := pszSubmitButtonText is String ? StrPtr(pszSubmitButtonText) : pszSubmitButtonText
 
-        result := ComCall(4, this, "ptr", pszSubmitButtonText, "HRESULT")
+        result := ComCall(4, this, "ptr", pszSubmitButtonText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,14 +172,18 @@ class IPhotoAcquireDeviceSelectionDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-domodal
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquiredeviceselectiondialog-domodal
      */
     DoModal(hWndParent, dwDeviceFlags, pbstrDeviceId, pnDeviceType) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         pnDeviceTypeMarshal := pnDeviceType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hWndParent, "uint", dwDeviceFlags, "ptr", pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "HRESULT")
+        result := ComCall(5, this, "ptr", hWndParent, "uint", dwDeviceFlags, "ptr", pbstrDeviceId, pnDeviceTypeMarshal, pnDeviceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

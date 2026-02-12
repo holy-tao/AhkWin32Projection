@@ -30,15 +30,19 @@ class IDXCoreAdapter1 extends IDXCoreAdapter{
 
     /**
      * 
-     * @param {Integer} property 
+     * @param {Integer} property_ 
      * @param {Pointer} inputPropertyDetailsSize 
      * @param {Pointer} inputPropertyDetails 
      * @param {Pointer} outputBufferSize 
      * @param {Pointer} outputBuffer 
      * @returns {HRESULT} 
      */
-    GetPropertyWithInput(property, inputPropertyDetailsSize, inputPropertyDetails, outputBufferSize, outputBuffer) {
-        result := ComCall(13, this, "uint", property, "ptr", inputPropertyDetailsSize, "ptr", inputPropertyDetails, "ptr", outputBufferSize, "ptr", outputBuffer, "HRESULT")
+    GetPropertyWithInput(property_, inputPropertyDetailsSize, inputPropertyDetails, outputBufferSize, outputBuffer) {
+        result := ComCall(13, this, "uint", property_, "ptr", inputPropertyDetailsSize, "ptr", inputPropertyDetails, "ptr", outputBufferSize, "ptr", outputBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

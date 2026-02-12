@@ -9,12 +9,8 @@
 /**
  * The IADsClass interface is designed for managing schema class objects that provide class definitions for any ADSI object. Other schema management interfaces include IADsProperty for attribute definitions and IADsSyntax for attribute syntax.
  * @remarks
- * 
  * Schema objects are organized in the schema container of a given directory. To access an object's schema class, use the object's <b>Schema</b> property (namely, call the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iads-property-methods">IADs::get_Schema</a> property method) to obtain the ADsPath string and use that string to bind to its schema class object.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsclass
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsclass
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -164,7 +160,11 @@ class IADsClass extends IADs{
      */
     get_PrimaryInterface() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -174,7 +174,11 @@ class IADsClass extends IADs{
      */
     get_CLSID() {
         retval := BSTR()
-        result := ComCall(21, this, "ptr", retval, "HRESULT")
+        result := ComCall(21, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -184,9 +188,16 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_CLSID(bstrCLSID) {
-        bstrCLSID := bstrCLSID is String ? BSTR.Alloc(bstrCLSID).Value : bstrCLSID
+        if(bstrCLSID is String) {
+            pin := BSTR.Alloc(bstrCLSID)
+            bstrCLSID := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", bstrCLSID, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +207,11 @@ class IADsClass extends IADs{
      */
     get_OID() {
         retval := BSTR()
-        result := ComCall(23, this, "ptr", retval, "HRESULT")
+        result := ComCall(23, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -206,9 +221,16 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_OID(bstrOID) {
-        bstrOID := bstrOID is String ? BSTR.Alloc(bstrOID).Value : bstrOID
+        if(bstrOID is String) {
+            pin := BSTR.Alloc(bstrOID)
+            bstrOID := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", bstrOID, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrOID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +239,11 @@ class IADsClass extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_Abstract() {
-        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -227,7 +253,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_Abstract(fAbstract) {
-        result := ComCall(26, this, "short", fAbstract, "HRESULT")
+        result := ComCall(26, this, "short", fAbstract, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +266,11 @@ class IADsClass extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_Auxiliary() {
-        result := ComCall(27, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(27, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -246,7 +280,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_Auxiliary(fAuxiliary) {
-        result := ComCall(28, this, "short", fAuxiliary, "HRESULT")
+        result := ComCall(28, this, "short", fAuxiliary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -256,7 +294,11 @@ class IADsClass extends IADs{
      */
     get_MandatoryProperties() {
         retval := VARIANT()
-        result := ComCall(29, this, "ptr", retval, "HRESULT")
+        result := ComCall(29, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -266,7 +308,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_MandatoryProperties(vMandatoryProperties) {
-        result := ComCall(30, this, "ptr", vMandatoryProperties, "HRESULT")
+        result := ComCall(30, this, "ptr", vMandatoryProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,7 +322,11 @@ class IADsClass extends IADs{
      */
     get_OptionalProperties() {
         retval := VARIANT()
-        result := ComCall(31, this, "ptr", retval, "HRESULT")
+        result := ComCall(31, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -286,7 +336,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_OptionalProperties(vOptionalProperties) {
-        result := ComCall(32, this, "ptr", vOptionalProperties, "HRESULT")
+        result := ComCall(32, this, "ptr", vOptionalProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -296,7 +350,11 @@ class IADsClass extends IADs{
      */
     get_NamingProperties() {
         retval := VARIANT()
-        result := ComCall(33, this, "ptr", retval, "HRESULT")
+        result := ComCall(33, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -306,7 +364,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_NamingProperties(vNamingProperties) {
-        result := ComCall(34, this, "ptr", vNamingProperties, "HRESULT")
+        result := ComCall(34, this, "ptr", vNamingProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -316,7 +378,11 @@ class IADsClass extends IADs{
      */
     get_DerivedFrom() {
         retval := VARIANT()
-        result := ComCall(35, this, "ptr", retval, "HRESULT")
+        result := ComCall(35, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -326,7 +392,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_DerivedFrom(vDerivedFrom) {
-        result := ComCall(36, this, "ptr", vDerivedFrom, "HRESULT")
+        result := ComCall(36, this, "ptr", vDerivedFrom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -336,7 +406,11 @@ class IADsClass extends IADs{
      */
     get_AuxDerivedFrom() {
         retval := VARIANT()
-        result := ComCall(37, this, "ptr", retval, "HRESULT")
+        result := ComCall(37, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -346,7 +420,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_AuxDerivedFrom(vAuxDerivedFrom) {
-        result := ComCall(38, this, "ptr", vAuxDerivedFrom, "HRESULT")
+        result := ComCall(38, this, "ptr", vAuxDerivedFrom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -356,7 +434,11 @@ class IADsClass extends IADs{
      */
     get_PossibleSuperiors() {
         retval := VARIANT()
-        result := ComCall(39, this, "ptr", retval, "HRESULT")
+        result := ComCall(39, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -366,7 +448,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_PossibleSuperiors(vPossibleSuperiors) {
-        result := ComCall(40, this, "ptr", vPossibleSuperiors, "HRESULT")
+        result := ComCall(40, this, "ptr", vPossibleSuperiors, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -376,7 +462,11 @@ class IADsClass extends IADs{
      */
     get_Containment() {
         retval := VARIANT()
-        result := ComCall(41, this, "ptr", retval, "HRESULT")
+        result := ComCall(41, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -386,7 +476,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_Containment(vContainment) {
-        result := ComCall(42, this, "ptr", vContainment, "HRESULT")
+        result := ComCall(42, this, "ptr", vContainment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -395,7 +489,11 @@ class IADsClass extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_Container() {
-        result := ComCall(43, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(43, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -405,7 +503,11 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_Container(fContainer) {
-        result := ComCall(44, this, "short", fContainer, "HRESULT")
+        result := ComCall(44, this, "short", fContainer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -415,7 +517,11 @@ class IADsClass extends IADs{
      */
     get_HelpFileName() {
         retval := BSTR()
-        result := ComCall(45, this, "ptr", retval, "HRESULT")
+        result := ComCall(45, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -425,9 +531,16 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_HelpFileName(bstrHelpFileName) {
-        bstrHelpFileName := bstrHelpFileName is String ? BSTR.Alloc(bstrHelpFileName).Value : bstrHelpFileName
+        if(bstrHelpFileName is String) {
+            pin := BSTR.Alloc(bstrHelpFileName)
+            bstrHelpFileName := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", bstrHelpFileName, "HRESULT")
+        result := ComCall(46, this, "ptr", bstrHelpFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -436,7 +549,11 @@ class IADsClass extends IADs{
      * @returns {Integer} 
      */
     get_HelpFileContext() {
-        result := ComCall(47, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(47, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -446,17 +563,29 @@ class IADsClass extends IADs{
      * @returns {HRESULT} 
      */
     put_HelpFileContext(lnHelpFileContext) {
-        result := ComCall(48, this, "int", lnHelpFileContext, "HRESULT")
+        result := ComCall(48, this, "int", lnHelpFileContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns a collection of ADSI objects that describe additional qualifiers for this schema class.
+     * @remarks
+     * The qualifier objects are provider-specific. When supported, this method can be used to obtain extended schema data.
+     * 
+     * This method is not currently supported by any of Microsoft providers.
      * @returns {IADsCollection} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> pointer variable that receives the interface pointer to the ADSI collection object that represents additional limits for this schema class.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsclass-qualifiers
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsclass-qualifiers
      */
     Qualifiers() {
-        result := ComCall(49, this, "ptr*", &ppQualifiers := 0, "HRESULT")
+        result := ComCall(49, this, "ptr*", &ppQualifiers := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IADsCollection(ppQualifiers)
     }
 }

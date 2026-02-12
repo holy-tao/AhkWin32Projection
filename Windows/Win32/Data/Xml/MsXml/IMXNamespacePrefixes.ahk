@@ -51,7 +51,11 @@ class IMXNamespacePrefixes extends IDispatch{
      */
     get_item(index) {
         prefix := BSTR()
-        result := ComCall(7, this, "int", index, "ptr", prefix, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr", prefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prefix
     }
 
@@ -60,7 +64,11 @@ class IMXNamespacePrefixes extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &length := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -69,7 +77,11 @@ class IMXNamespacePrefixes extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(9, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 }

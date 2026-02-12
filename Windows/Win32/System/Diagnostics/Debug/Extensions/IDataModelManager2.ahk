@@ -35,26 +35,34 @@ class IDataModelManager2 extends IDataModelManager{
      * @param {PWSTR} subNamespaceModelName 
      * @param {PWSTR} accessName 
      * @param {IKeyStore} metadata 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
      */
     AcquireSubNamespace(modelName, subNamespaceModelName, accessName, metadata) {
         modelName := modelName is String ? StrPtr(modelName) : modelName
         subNamespaceModelName := subNamespaceModelName is String ? StrPtr(subNamespaceModelName) : subNamespaceModelName
         accessName := accessName is String ? StrPtr(accessName) : accessName
 
-        result := ComCall(23, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr*", &namespaceModelObject := 0, "HRESULT")
-        return IModelObject(namespaceModelObject)
+        result := ComCall(23, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr*", &namespaceModelObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return namespaceModelObject
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} context_ 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
      */
-    CreateTypedIntrinsicObjectEx(context, intrinsicData, type) {
-        result := ComCall(24, this, "ptr", context, "ptr", intrinsicData, "ptr", type, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+    CreateTypedIntrinsicObjectEx(context_, intrinsicData, type) {
+        result := ComCall(24, this, "ptr", context_, "ptr", intrinsicData, "ptr", type, "ptr*", &object_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return object_
     }
 }

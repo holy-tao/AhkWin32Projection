@@ -5,7 +5,7 @@
 
 /**
  * Can be used to define custom properties of an environment that hosts target computers as appropriate.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbenvironmentpropertyset
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbenvironmentpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

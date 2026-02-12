@@ -33,7 +33,11 @@ class IHandlerInfo2 extends IHandlerInfo{
      * @returns {PWSTR} 
      */
     GetApplicationId() {
-        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

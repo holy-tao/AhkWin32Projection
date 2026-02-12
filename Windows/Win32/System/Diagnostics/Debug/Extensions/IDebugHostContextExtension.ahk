@@ -39,16 +39,24 @@ class IDebugHostContextExtension extends IUnknown{
     AddExtensionData(blobId, dataSize, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "HRESULT")
+        result := ComCall(3, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IDebugHostContext} 
+     * @returns {Pointer<IDebugHostContext>} 
      */
     FinalizeContext() {
-        result := ComCall(4, this, "ptr*", &immutableContext := 0, "HRESULT")
-        return IDebugHostContext(immutableContext)
+        result := ComCall(4, this, "ptr*", &immutableContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return immutableContext
     }
 }

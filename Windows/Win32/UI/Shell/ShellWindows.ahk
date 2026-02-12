@@ -3,7 +3,7 @@
 
 /**
  * Represents a collection of the open windows that belong to the Shell. Methods associated with this objects can control and execute commands within the Shell, and obtain other Shell-related objects.
- * @see https://learn.microsoft.com/windows/win32/shell/shellwindows
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/shellwindows
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

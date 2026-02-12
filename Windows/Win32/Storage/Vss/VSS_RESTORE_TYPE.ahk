@@ -9,7 +9,7 @@
  * 
  * A writer can retrieve the type of a restore operation by calling 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-getrestoretype">CVssWriter::GetRestoreType</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_restore_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_restore_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

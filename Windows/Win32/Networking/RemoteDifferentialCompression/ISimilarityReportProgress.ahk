@@ -5,7 +5,7 @@
 
 /**
  * Defines a method for RDC to report the current completion percentage of a similarity operation.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-isimilarityreportprogress
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-isimilarityreportprogress
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -38,12 +38,22 @@ class ISimilarityReportProgress extends IUnknown{
 
     /**
      * Reports the current completion percentage of a similarity operation in progress.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-isimilarity-copyandswap">ISimilarity::CopyAndSwap</a> method calls the <b>ReportProgress</b>  method to report the progress of the copy-and-swap operation. To receive the progress information, RDC applications must implement this method.
+     * 
+     * No guarantee is made as to how frequently this method is called, nor that it will be called with any specific values for the <i>percentCompleted</i> parameter. For example, the <i>percentCompleted</i> parameter may not start at zero and may never reach 100, and it may receive the same value more than once. However, each value is guaranteed to be greater than or equal to the previous value.
+     * 
+     * If the application returns an error code such as <b>E_FAIL</b>, the similarity operation is stopped, and the error code is propagated.
      * @param {Integer} percentCompleted The current completion percentage of the task. The valid range is from 0 through 100.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilarityreportprogress-reportprogress
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-isimilarityreportprogress-reportprogress
      */
     ReportProgress(percentCompleted) {
-        result := ComCall(3, this, "uint", percentCompleted, "HRESULT")
+        result := ComCall(3, this, "uint", percentCompleted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

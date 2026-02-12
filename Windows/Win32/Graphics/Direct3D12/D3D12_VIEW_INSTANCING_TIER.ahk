@@ -3,7 +3,7 @@
 
 /**
  * Indicates the tier level at which view instancing is supported.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_view_instancing_tier
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ne-d3d12-d3d12_view_instancing_tier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

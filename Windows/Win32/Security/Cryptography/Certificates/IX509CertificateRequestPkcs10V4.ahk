@@ -49,7 +49,11 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
      * @returns {Integer} 
      */
     get_ClaimType() {
-        result := ComCall(76, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(76, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -59,7 +63,11 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
      * @returns {HRESULT} 
      */
     put_ClaimType(Value) {
-        result := ComCall(77, this, "int", Value, "HRESULT")
+        result := ComCall(77, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
      * @returns {VARIANT_BOOL} 
      */
     get_AttestPrivateKeyPreferred() {
-        result := ComCall(78, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(78, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -78,7 +90,11 @@ class IX509CertificateRequestPkcs10V4 extends IX509CertificateRequestPkcs10V3{
      * @returns {HRESULT} 
      */
     put_AttestPrivateKeyPreferred(Value) {
-        result := ComCall(79, this, "short", Value, "HRESULT")
+        result := ComCall(79, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

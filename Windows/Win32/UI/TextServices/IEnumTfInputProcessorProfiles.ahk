@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfInputProcessorProfiles interface is implemented by TSF manager and used by applications or textservices. This interface can be retrieved by ITfInputProcessorProfileMgr::EnumProfiles and enumerates the registered profiles.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtfinputprocessorprofiles
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-ienumtfinputprocessorprofiles
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IEnumTfInputProcessorProfiles extends IUnknown{
     /**
      * The IEnumTfInputProcessorProfiles::Clone method creates a copy of the enumerator object.
      * @returns {IEnumTfInputProcessorProfiles} [out] A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfinputprocessorprofiles">IEnumTfInputProcessorProfiles</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfinputprocessorprofiles-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfinputprocessorprofiles-clone
      */
     Clone() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfInputProcessorProfiles(ppEnum)
     }
 
@@ -87,12 +91,16 @@ class IEnumTfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfinputprocessorprofiles-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfinputprocessorprofiles-next
      */
     Next(ulCount, pProfile, pcFetch) {
         pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr", pProfile, pcFetchMarshal, pcFetch, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, "ptr", pProfile, pcFetchMarshal, pcFetch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,10 +125,14 @@ class IEnumTfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfinputprocessorprofiles-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfinputprocessorprofiles-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,10 +169,14 @@ class IEnumTfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfinputprocessorprofiles-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfinputprocessorprofiles-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

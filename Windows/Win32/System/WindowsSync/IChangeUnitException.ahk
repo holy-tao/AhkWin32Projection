@@ -5,7 +5,7 @@
 
 /**
  * Represents a change unit to exclude from a knowledge object.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ichangeunitexception
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ichangeunitexception
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -72,13 +72,17 @@ class IChangeUnitException extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitexception-getitemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeunitexception-getitemid
      */
     GetItemId(pbItemId, pcbIdSize) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,18 +131,22 @@ class IChangeUnitException extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitexception-getchangeunitid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeunitexception-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(4, this, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the clock vector that is associated with this exception.
+     * Gets the clock vector that is associated with this exception. (IChangeUnitException.GetClockVector)
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumClockVector</b>.
      * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that represents the clock vector that is associated with this exception.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -168,12 +176,16 @@ class IChangeUnitException extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitexception-getclockvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeunitexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

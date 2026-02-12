@@ -5,7 +5,7 @@
 
 /**
  * Enables apps to determine whether they are running in a Windows Defender Application Guard container (VM container environment).
- * @see https://docs.microsoft.com/windows/win32/api//isolatedapplauncher/nn-isolatedapplauncher-iisolatedapplauncher
+ * @see https://learn.microsoft.com/windows/win32/api//content/isolatedapplauncher/nn-isolatedapplauncher-iisolatedapplauncher
  * @namespace Windows.Win32.Security.Isolation
  * @version v4.0.30319
  */
@@ -31,17 +31,24 @@ class IIsolatedAppLauncher extends IUnknown{
     static VTableNames => ["Launch"]
 
     /**
-     * 
+     * Enumerate the Uniform Resource Identifiers (URI) handlers on the device.
+     * @remarks
+     * This API may also be called from Windows desktop application but does not return Windows desktop application.
      * @param {PWSTR} appUserModelId 
      * @param {PWSTR} arguments 
      * @param {Pointer<IsolatedAppLauncherTelemetryParameters>} telemetryParameters 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} A list of [AppInfo](../windows.applicationmodel/appinfo.md) objects representing each application that handles the specified http(s) URI.
+     * @see https://learn.microsoft.com/uwp/api/windows.system.launcher.findappurihandlersasync
      */
     Launch(appUserModelId, arguments, telemetryParameters) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId
         arguments := arguments is String ? StrPtr(arguments) : arguments
 
-        result := ComCall(3, this, "ptr", appUserModelId, "ptr", arguments, "ptr", telemetryParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", appUserModelId, "ptr", arguments, "ptr", telemetryParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

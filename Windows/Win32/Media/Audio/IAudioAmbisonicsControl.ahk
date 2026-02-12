@@ -35,7 +35,11 @@ class IAudioAmbisonicsControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetData(pAmbisonicsParams, cbAmbisonicsParams) {
-        result := ComCall(3, this, "ptr", pAmbisonicsParams, "uint", cbAmbisonicsParams, "HRESULT")
+        result := ComCall(3, this, "ptr", pAmbisonicsParams, "uint", cbAmbisonicsParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IAudioAmbisonicsControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetHeadTracking(bEnableHeadTracking) {
-        result := ComCall(4, this, "int", bEnableHeadTracking, "HRESULT")
+        result := ComCall(4, this, "int", bEnableHeadTracking, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IAudioAmbisonicsControl extends IUnknown{
      * @returns {BOOL} 
      */
     GetHeadTracking() {
-        result := ComCall(5, this, "int*", &pbEnableHeadTracking := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pbEnableHeadTracking := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbEnableHeadTracking
     }
 
@@ -67,7 +79,11 @@ class IAudioAmbisonicsControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRotation(X, Y, Z, W) {
-        result := ComCall(6, this, "float", X, "float", Y, "float", Z, "float", W, "HRESULT")
+        result := ComCall(6, this, "float", X, "float", Y, "float", Z, "float", W, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

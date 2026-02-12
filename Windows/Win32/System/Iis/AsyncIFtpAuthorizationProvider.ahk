@@ -48,7 +48,11 @@ class AsyncIFtpAuthorizationProvider extends IUnknown{
         pszVirtualPath := pszVirtualPath is String ? StrPtr(pszVirtualPath) : pszVirtualPath
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszVirtualPath, "ptr", pszUserName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszVirtualPath, "ptr", pszUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class AsyncIFtpAuthorizationProvider extends IUnknown{
      * @returns {Integer} 
      */
     Finish_GetUserAccessPermission() {
-        result := ComCall(4, this, "int*", &pFtpAccess := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pFtpAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFtpAccess
     }
 }

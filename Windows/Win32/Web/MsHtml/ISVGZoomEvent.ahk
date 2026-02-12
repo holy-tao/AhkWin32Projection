@@ -76,7 +76,11 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {ISVGRect} 
      */
     get_zoomRectScreen() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGRect(p)
     }
 
@@ -85,7 +89,11 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {Float} 
      */
     get_previousScale() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -94,7 +102,11 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {ISVGPoint} 
      */
     get_previousTranslate() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(p)
     }
 
@@ -103,7 +115,11 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {Float} 
      */
     get_newScale() {
-        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -112,7 +128,11 @@ class ISVGZoomEvent extends IDispatch{
      * @returns {ISVGPoint} 
      */
     get_newTranslate() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(p)
     }
 }

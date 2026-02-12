@@ -12,7 +12,7 @@
  * 
  * If <b>UnmapGranularityAlignmentValid</b> = 0, then any code using 
  *     <b>UnmapGranularityAlignment</b> should assume it has a value of 0.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_lb_provisioning_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-device_lb_provisioning_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

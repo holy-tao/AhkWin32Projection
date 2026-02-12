@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include .\HSWDEVICE.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
@@ -236,12 +238,12 @@ class Pnp {
     static UPNP_E_DEVICE_NOTREGISTERED => -2147180494
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REMOTE_ADDRESS_VALUE_NAME => "RemoteAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ADDRESS_FAMILY_VALUE_NAME => "AddressFamily"
 ;@endregion Constants
@@ -281,7 +283,7 @@ class Pnp {
      * typedef HSWDEVICE *PHSWDEVICE;
      * 
      * ```
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicecreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdevicecreate
      * @since windows8.0
      */
     static SwDeviceCreate(pszEnumeratorName, pszParentDeviceInstance, pCreateInfo, cPropertyCount, pProperties, pCallback, pContext) {
@@ -311,15 +313,15 @@ class Pnp {
      * By calling <b>SwDeviceClose</b>, if the lifetime of the SwDevice is <b>SWDeviceLifetimeHandle</b>, you initiate the process of "unplugging" the device.  This causes the device to no longer be reported as a child of its parent which causes PnP to issue a "surprise removal" of the device.  The call to <b>SwDeviceClose</b> returns before this removal is complete.  However, you can safely call <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdevicecreate">SwDeviceCreate</a> immediately  after <b>SwDeviceClose</b>.  The new create will be queued until the previous removal processing completes, and then the device will be re-created.
      * 
      * PnP removal makes the device "Not present" and does not uninstall the device. PnP removal of a device is the same as unplugging a USB device and all of the persisted property state for the device will remain. If you wish to uninstall the device after calling <b>SwDeviceClose</b>, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/how-devices-and-driver-packages-are-uninstalled#uninstalling-the-device">Uninstalling the device</a>.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to close.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to close.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdeviceclose
      * @since windows8.0
      */
-    static SwDeviceClose(hSwDevice) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDeviceClose(hSwDevice_) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
 
-        DllCall("CFGMGR32.dll\SwDeviceClose", "ptr", hSwDevice)
+        DllCall("CFGMGR32.dll\SwDeviceClose", "ptr", hSwDevice_)
     }
 
     /**
@@ -336,7 +338,7 @@ class Pnp {
      * If the client app specifies info in <a href="https://docs.microsoft.com/windows/desktop/api/swdevicedef/ns-swdevicedef-sw_device_create_info">SW_DEVICE_CREATE_INFO</a> that is different form a previous enumeration, the device might stop being enumerated and immediately re-enumerated to apply the changes.  The operating system reports only some properties when PnP enumerates the device.
      * 
      * To uninstall a software device with a lifetime of <b>SwDeviceLifetimeParentPresent</b>, we recommend that you change the lifetime back to <b>SwDeviceLifetimeHandle</b> before the device is uninstalled.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device to manage.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to the software device to manage.
      * @param {Integer} Lifetime A <b>SW_DEVICE_LIFETIME</b>-typed value that indicates the new lifetime value for the software device. Here are possible values:
      * 
      * <table>
@@ -366,13 +368,13 @@ class Pnp {
      * </tr>
      * </table>
      * @returns {HRESULT} S_OK is returned if <b>SwDeviceSetLifetime</b> successfully updated the lifetime.
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicesetlifetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdevicesetlifetime
      * @since windows8.1
      */
-    static SwDeviceSetLifetime(hSwDevice, Lifetime) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDeviceSetLifetime(hSwDevice_, Lifetime) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
 
-        result := DllCall("CFGMGR32.dll\SwDeviceSetLifetime", "ptr", hSwDevice, "int", Lifetime, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceSetLifetime", "ptr", hSwDevice_, "int", Lifetime, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -382,7 +384,7 @@ class Pnp {
 
     /**
      * Gets the lifetime of a software device.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device to retrieve.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to the software device to retrieve.
      * @returns {Integer} A pointer to a variable that receives a <b>SW_DEVICE_LIFETIME</b>-typed value that indicates the current lifetime value for the software device. Here are possible values:
      * 
      * <table>
@@ -411,13 +413,13 @@ class Pnp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicegetlifetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdevicegetlifetime
      * @since windows8.1
      */
-    static SwDeviceGetLifetime(hSwDevice) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDeviceGetLifetime(hSwDevice_) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
 
-        result := DllCall("CFGMGR32.dll\SwDeviceGetLifetime", "ptr", hSwDevice, "int*", &pLifetime := 0, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceGetLifetime", "ptr", hSwDevice_, "int*", &pLifetime := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -435,17 +437,17 @@ class Pnp {
      * There is a subtle difference between properties that are set as part of a <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdevicecreate">SwDeviceCreate</a> call and properties that are later set by calling <b>SwDevicePropertySet</b>.  Properties that are set as part of <b>SwDeviceCreate</b> are stored in memory; if the device is uninstalled or a null driver wipes out the property stores, these properties are written out again by the Software Device API feature when PnP re-enumerates the devices.  This is all transparent to the client.  Properties that are set using <b>SwDevicePropertySet</b> after the enumeration don't persist in memory.  But, if you set a property by using <b>SwDeviceCreate</b>, you can update the value with <b>SwDevicePropertySet</b>, and this update is applied to the in-memory value as well as the persisted store.
      * 
      * You can use <b>SwDevicePropertySet</b> only to set properties in the operating system store for the device.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device to set properties for.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to the software device to set properties for.
      * @param {Integer} cPropertyCount The number of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures in the <i>pProperties</i> array.
      * @param {Pointer<DEVPROPERTY>} pProperties An array of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures containing the properties to set.
      * @returns {HRESULT} S_OK is returned if <b>SwDevicePropertySet</b> successfully set the properties; otherwise, an appropriate error value.
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdevicepropertyset
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdevicepropertyset
      * @since windows8.0
      */
-    static SwDevicePropertySet(hSwDevice, cPropertyCount, pProperties) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDevicePropertySet(hSwDevice_, cPropertyCount, pProperties) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
 
-        result := DllCall("CFGMGR32.dll\SwDevicePropertySet", "ptr", hSwDevice, "uint", cPropertyCount, "ptr", pProperties, "int")
+        result := DllCall("CFGMGR32.dll\SwDevicePropertySet", "ptr", hSwDevice_, "uint", cPropertyCount, "ptr", pProperties, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -459,7 +461,7 @@ class Pnp {
      * You can call <b>SwDeviceInterfaceRegister</b> only after the operating system has called your client app's <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nc-swdevice-sw_device_create_callback">SW_DEVICE_CREATE_CALLBACK</a> callback function to notify the client app that device enumeration completed.
      * 
      * You can't call <b>SwDeviceInterfaceRegister</b> for software devices that specify the <a href="https://docs.microsoft.com/windows/desktop/api/swdevicedef/ns-swdevicedef-sw_device_create_info">SWDeviceCapabilitiesDriverRequired</a> capability.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device to register a device interface for.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to the software device to register a device interface for.
      * @param {Pointer<Guid>} pInterfaceClassGuid A pointer to the interface class GUID that names the contract that this interface implements.
      * @param {PWSTR} pszReferenceString An optional reference string that differentiates multiple interfaces of the same class for this device.  This pointer can be <b>NULL</b>.
      * @param {Integer} cPropertyCount The number of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures in the <i>pProperties</i> array.
@@ -468,14 +470,14 @@ class Pnp {
      * Set these properties on the interface after it is created but before a notification that the interface has been created are sent.  For more info, see Remarks.  This pointer can be <b>NULL</b>.
      * @param {BOOL} fEnabled A Boolean value that indicates whether to either enable or disable  the interface. <b>TRUE</b> to enable; <b>FALSE</b> to disable.
      * @returns {PWSTR} A pointer to a variable that receives a pointer to the device interface ID for the interface. The caller must free this value with <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swmemfree">SwMemFree</a>.  This value can be <b>NULL</b> if the client app doesn't need to retrieve the name.
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceinterfaceregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdeviceinterfaceregister
      * @since windows8.0
      */
-    static SwDeviceInterfaceRegister(hSwDevice, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDeviceInterfaceRegister(hSwDevice_, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
         pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
 
-        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr*", &ppszDeviceInterfaceId := 0, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice_, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr*", &ppszDeviceInterfaceId := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -487,7 +489,7 @@ class Pnp {
      * Frees memory that other Software Device API functions allocated.
      * @param {Pointer<Void>} pMem A pointer to the block of memory to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swmemfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swmemfree
      * @since windows8.0
      */
     static SwMemFree(pMem) {
@@ -504,18 +506,18 @@ class Pnp {
      * You can only use <b>SwDeviceInterfaceSetState</b> to manage interfaces that were previously registered with <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdeviceinterfaceregister">SwDeviceInterfaceRegister</a> against the software device that <i>hSwDevice</i> represents.
      * 
      * Client apps use <b>SwDeviceInterfaceSetState</b> to manage the state that they want the interface to have.  The software device changes the actual interface state as needed.  For example, a client app disables and re-enables the interface if the device is re-enumerated for any reason.  The state always tries to reflect the client app’s required state.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device to register a device interface for.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to the software device to register a device interface for.
      * @param {PWSTR} pszDeviceInterfaceId A string that identifies the interface to enable or disable.
      * @param {BOOL} fEnabled A Boolean value that indicates whether to either enable or disable  the interface. <b>TRUE</b> to enable; <b>FALSE</b> to disable.
      * @returns {HRESULT} S_OK is returned if <b>SwDeviceInterfaceSetState</b> successfully enabled or disabled the interface; otherwise, an appropriate error value.
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceinterfacesetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdeviceinterfacesetstate
      * @since windows8.0
      */
-    static SwDeviceInterfaceSetState(hSwDevice, pszDeviceInterfaceId, fEnabled) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDeviceInterfaceSetState(hSwDevice_, pszDeviceInterfaceId, fEnabled) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
         pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
-        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice_, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -533,19 +535,19 @@ class Pnp {
      * There is a subtle difference between properties that are set as part of a <a href="https://docs.microsoft.com/windows/desktop/api/swdevice/nf-swdevice-swdeviceinterfaceregister">SwDeviceInterfaceRegister</a> call and properties that are later set by calling <b>SwDeviceInterfacePropertySet</b>.  Properties that are set as part of <b>SwDeviceInterfaceRegister</b> are stored in memory; if the device is uninstalled or a null driver wipes out the property stores, these properties are written out again by the Software Device API feature when PnP re-enumerates the devices.  This is all transparent to the client.  Properties that are set using <b>SwDeviceInterfacePropertySet</b> after the enumeration don't persist in memory.  But, if you set a property by using <b>SwDeviceInterfaceRegister</b>, you can update the value with <b>SwDeviceInterfacePropertySet</b>, and this update is applied to the in-memory value as well as the persisted store.
      * 
      * You can use <b>SwDeviceInterfacePropertySet</b> only to set properties in the operating system store for the interface.
-     * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device of the interface to set properties for.
+     * @param {HSWDEVICE} hSwDevice_ The <b>HSWDEVICE</b> handle to the software device of the interface to set properties for.
      * @param {PWSTR} pszDeviceInterfaceId A string that identifies the interface to set properties on.
      * @param {Integer} cPropertyCount The number of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures in the <i>pProperties</i> array.
      * @param {Pointer<DEVPROPERTY>} pProperties An array of <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/dn315030(v=vs.85)">DEVPROPERTY</a> structures containing the properties to set on the interface.
      * @returns {HRESULT} S_OK is returned if <b>SwDeviceInterfacePropertySet</b> successfully set the properties on the interface; otherwise, an appropriate error value.
-     * @see https://learn.microsoft.com/windows/win32/api/swdevice/nf-swdevice-swdeviceinterfacepropertyset
+     * @see https://learn.microsoft.com/windows/win32/api//content/swdevice/nf-swdevice-swdeviceinterfacepropertyset
      * @since windows8.0
      */
-    static SwDeviceInterfacePropertySet(hSwDevice, pszDeviceInterfaceId, cPropertyCount, pProperties) {
-        hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+    static SwDeviceInterfacePropertySet(hSwDevice_, pszDeviceInterfaceId, cPropertyCount, pProperties) {
+        hSwDevice_ := hSwDevice_ is Win32Handle ? NumGet(hSwDevice_, "ptr") : hSwDevice_
         pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
-        result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, "ptr", pProperties, "int")
+        result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", "ptr", hSwDevice_, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, "ptr", pProperties, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

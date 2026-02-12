@@ -195,7 +195,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
-        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -204,7 +208,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
-        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -213,7 +221,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
-        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -222,7 +234,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
-        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -231,7 +247,11 @@ class ISClusResource extends IDispatch{
      * @returns {Pointer} 
      */
     get_Handle() {
-        result := ComCall(11, this, "ptr*", &phandle := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &phandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phandle
     }
 
@@ -241,7 +261,11 @@ class ISClusResource extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -251,9 +275,16 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Name(bstrResourceName) {
-        bstrResourceName := bstrResourceName is String ? BSTR.Alloc(bstrResourceName).Value : bstrResourceName
+        if(bstrResourceName is String) {
+            pin := BSTR.Alloc(bstrResourceName)
+            bstrResourceName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrResourceName, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrResourceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -262,7 +293,11 @@ class ISClusResource extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(14, this, "int*", &dwState := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &dwState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwState
     }
 
@@ -271,7 +306,11 @@ class ISClusResource extends IDispatch{
      * @returns {Integer} 
      */
     get_CoreFlag() {
-        result := ComCall(15, this, "int*", &dwCoreFlag := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &dwCoreFlag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwCoreFlag
     }
 
@@ -282,49 +321,97 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     BecomeQuorumResource(bstrDevicePath, lMaxLogSize) {
-        bstrDevicePath := bstrDevicePath is String ? BSTR.Alloc(bstrDevicePath).Value : bstrDevicePath
+        if(bstrDevicePath is String) {
+            pin := BSTR.Alloc(bstrDevicePath)
+            bstrDevicePath := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrDevicePath, "int", lMaxLogSize, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrDevicePath, "int", lMaxLogSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Initiates a resource failure.
+     * @remarks
+     * The resource identified by <i>hResource</i> is treated as inoperable, causing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to initiate the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failover</a> process that would result if the resource had actually failed. Applications call the  <b>FailClusterResource</b> function to test their policies for restarting resources and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a>.
      * 
-     * @returns {HRESULT} 
+     * Do not call  <b>FailClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * @returns {HRESULT} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
+     * 
+     * If the operation fails, 
+     * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-failclusterresource
      */
     Fail() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Brings a group online. (OnlineClusterGroup)
+     * @remarks
+     * If the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter, the  <b>OnlineClusterGroup</b> function fails.
      * 
+     * If the <i>hDestinationNode</i> parameter is set to <b>NULL</b>,  <b>OnlineClusterGroup</b> brings the group online on the current node.
+     * 
+     * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-onlineclustergroup
      */
     Online(nTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(19, this, "int", nTimeout, "ptr", pvarPending, "HRESULT")
+        result := ComCall(19, this, "int", nTimeout, "ptr", pvarPending, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPending
     }
 
     /**
-     * 
+     * Takes a group offline.
+     * @remarks
+     * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {Integer} nTimeout 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-offlineclustergroup
      */
     Offline(nTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(20, this, "int", nTimeout, "ptr", pvarPending, "HRESULT")
+        result := ComCall(20, this, "int", nTimeout, "ptr", pvarPending, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPending
     }
 
@@ -334,7 +421,11 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     ChangeResourceGroup(pResourceGroup) {
-        result := ComCall(21, this, "ptr", pResourceGroup, "HRESULT")
+        result := ComCall(21, this, "ptr", pResourceGroup, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -344,7 +435,11 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     AddResourceNode(pNode) {
-        result := ComCall(22, this, "ptr", pNode, "HRESULT")
+        result := ComCall(22, this, "ptr", pNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -354,19 +449,37 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     RemoveResourceNode(pNode) {
-        result := ComCall(23, this, "ptr", pNode, "HRESULT")
+        result := ComCall(23, this, "ptr", pNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines if one resource can be dependent upon another resource.
+     * @remarks
+     * With the  <b>CanResourceBeDependent</b> function, for the resource identified by <i>hResource</i> to be dependent on the resource identified by <i>hResourceDependent</i>, the following must be true:
+     * 
+     * <ul>
+     * <li>Both resources must be members of the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a>.</li>
+     * <li>The resource identified by <i>hResourceDependent</i> cannot depend on the resource identified by <i>hResource</i>, either directly or indirectly.</li>
+     * </ul>
+     * Do not call  <b>CanResourceBeDependent</b> from any resource DLL entry point function.  <b>CanResourceBeDependent</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {ISClusResource} pResource 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-canresourcebedependent
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-canresourcebedependent
      */
     CanResourceBeDependent(pResource) {
         pvarDependent := VARIANT()
-        result := ComCall(24, this, "ptr", pResource, "ptr", pvarDependent, "HRESULT")
+        result := ComCall(24, this, "ptr", pResource, "ptr", pvarDependent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarDependent
     }
 
@@ -375,7 +488,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusResPossibleOwnerNodes} 
      */
     get_PossibleOwnerNodes() {
-        result := ComCall(25, this, "ptr*", &ppOwnerNodes := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &ppOwnerNodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResPossibleOwnerNodes(ppOwnerNodes)
     }
 
@@ -384,7 +501,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusResDependencies} 
      */
     get_Dependencies() {
-        result := ComCall(26, this, "ptr*", &ppResDependencies := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &ppResDependencies := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResDependencies(ppResDependencies)
     }
 
@@ -393,7 +514,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusResDependents} 
      */
     get_Dependents() {
-        result := ComCall(27, this, "ptr*", &ppResDependents := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &ppResDependents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResDependents(ppResDependents)
     }
 
@@ -402,7 +527,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusResGroup} 
      */
     get_Group() {
-        result := ComCall(28, this, "ptr*", &ppResGroup := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppResGroup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResGroup(ppResGroup)
     }
 
@@ -411,7 +540,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusNode} 
      */
     get_OwnerNode() {
-        result := ComCall(29, this, "ptr*", &ppOwnerNode := 0, "HRESULT")
+        result := ComCall(29, this, "ptr*", &ppOwnerNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusNode(ppOwnerNode)
     }
 
@@ -420,7 +553,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISCluster} 
      */
     get_Cluster() {
-        result := ComCall(30, this, "ptr*", &ppCluster := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &ppCluster := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCluster(ppCluster)
     }
 
@@ -429,7 +566,11 @@ class ISClusResource extends IDispatch{
      * @returns {Integer} 
      */
     get_ClassInfo() {
-        result := ComCall(31, this, "int*", &prcClassInfo := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &prcClassInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prcClassInfo
     }
 
@@ -438,7 +579,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusDisk} 
      */
     get_Disk() {
-        result := ComCall(32, this, "ptr*", &ppDisk := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &ppDisk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusDisk(ppDisk)
     }
 
@@ -447,7 +592,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusRegistryKeys} 
      */
     get_RegistryKeys() {
-        result := ComCall(33, this, "ptr*", &ppRegistryKeys := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &ppRegistryKeys := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusRegistryKeys(ppRegistryKeys)
     }
 
@@ -456,7 +605,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusCryptoKeys} 
      */
     get_CryptoKeys() {
-        result := ComCall(34, this, "ptr*", &ppCryptoKeys := 0, "HRESULT")
+        result := ComCall(34, this, "ptr*", &ppCryptoKeys := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusCryptoKeys(ppCryptoKeys)
     }
 
@@ -466,7 +619,11 @@ class ISClusResource extends IDispatch{
      */
     get_TypeName() {
         pbstrTypeName := BSTR()
-        result := ComCall(35, this, "ptr", pbstrTypeName, "HRESULT")
+        result := ComCall(35, this, "ptr", pbstrTypeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTypeName
     }
 
@@ -475,7 +632,11 @@ class ISClusResource extends IDispatch{
      * @returns {ISClusResType} 
      */
     get_Type() {
-        result := ComCall(36, this, "ptr*", &ppResourceType := 0, "HRESULT")
+        result := ComCall(36, this, "ptr*", &ppResourceType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResType(ppResourceType)
     }
 
@@ -484,7 +645,11 @@ class ISClusResource extends IDispatch{
      * @returns {BOOL} 
      */
     get_MaintenanceMode() {
-        result := ComCall(37, this, "int*", &pbMaintenanceMode := 0, "HRESULT")
+        result := ComCall(37, this, "int*", &pbMaintenanceMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbMaintenanceMode
     }
 
@@ -494,7 +659,11 @@ class ISClusResource extends IDispatch{
      * @returns {HRESULT} 
      */
     put_MaintenanceMode(bMaintenanceMode) {
-        result := ComCall(38, this, "int", bMaintenanceMode, "HRESULT")
+        result := ComCall(38, this, "int", bMaintenanceMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

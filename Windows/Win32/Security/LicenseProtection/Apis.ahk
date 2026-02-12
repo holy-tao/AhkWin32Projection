@@ -20,12 +20,12 @@ class LicenseProtection {
     static RegisterLicenseKeyWithExpiration(licenseKey, validityInDays) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-        result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, "int*", &status := 0, "int")
+        result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, "int*", &status_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return status
+        return status_
     }
 
     /**
@@ -38,12 +38,12 @@ class LicenseProtection {
     static ValidateLicenseKeyProtection(licenseKey, notValidBefore, notValidAfter) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-        result := DllCall("licenseprotection.dll\ValidateLicenseKeyProtection", "ptr", licenseKey, "ptr", notValidBefore, "ptr", notValidAfter, "int*", &status := 0, "int")
+        result := DllCall("licenseprotection.dll\ValidateLicenseKeyProtection", "ptr", licenseKey, "ptr", notValidBefore, "ptr", notValidAfter, "int*", &status_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return status
+        return status_
     }
 
 ;@endregion Methods

@@ -6,11 +6,8 @@
 /**
  * Provides a method that allows content protection systems to perform a handshake with the protected environment. This is needed because the CreateFile and DeviceIoControl APIs are not available to Windows Store apps.
  * @remarks
- * 
  * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateprotectedenvironmentaccess">MFCreateProtectedEnvironmentAccess</a> for an example of how to create and use an <b>IMFProtectedEnvironmentAccess</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfprotectedenvironmentaccess
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfprotectedenvironmentaccess
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,8 +34,10 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
 
     /**
      * Allows content protection systems to access the protected environment.
+     * @remarks
+     * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateprotectedenvironmentaccess">MFCreateProtectedEnvironmentAccess</a> for an example of how to create an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfprotectedenvironmentaccess">IMFProtectedEnvironmentAccess</a> object and use the <b>Call</b> method.
      * @param {Integer} inputLength The length in bytes of the input data.
-     * @param {Pointer} input A pointer to the input data.
+     * @param {Pointer} input_ A pointer to the input data.
      * @param {Integer} outputLength The length in bytes of the output data.
      * @param {Pointer} output A pointer to the output data.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -60,25 +59,35 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfprotectedenvironmentaccess-call
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfprotectedenvironmentaccess-call
      */
-    Call(inputLength, input, outputLength, output) {
-        result := ComCall(3, this, "uint", inputLength, "ptr", input, "uint", outputLength, "ptr", output, "HRESULT")
+    Call(inputLength, input_, outputLength, output) {
+        result := ComCall(3, this, "uint", inputLength, "ptr", input_, "uint", outputLength, "ptr", output, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the Global Revocation List (GLR).
+     * @remarks
+     * Allows reading of the system Global Revocation List (GRL).
      * @param {Pointer<Integer>} outputLength The length of the data returned in <b>output</b>.
      * @param {Pointer<Pointer<Integer>>} output Receives the contents of the global revocation list file.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfprotectedenvironmentaccess-readgrl
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfprotectedenvironmentaccess-readgrl
      */
     ReadGRL(outputLength, output) {
         outputLengthMarshal := outputLength is VarRef ? "uint*" : "ptr"
         outputMarshal := output is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, outputLengthMarshal, outputLength, outputMarshal, output, "HRESULT")
+        result := ComCall(4, this, outputLengthMarshal, outputLength, outputMarshal, output, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

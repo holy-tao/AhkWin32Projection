@@ -5,7 +5,7 @@
 
 /**
  * Implement this callback to receive notifications when system-allocated frame buffers are sent to the device driver.
- * @see https://docs.microsoft.com/windows/win32/api//mftransform/nn-mftransform-imfdevicetransformcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/mftransform/nn-mftransform-imfdevicetransformcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,13 +32,19 @@ class IMFDeviceTransformCallback extends IUnknown{
 
     /**
      * Called when system-allocated frame buffers are sent to the device driver.
+     * @remarks
+     * The frame buffer header information provided by this callback is read-only. You should not try to allocate, deallocate, open, or close anything within the header.
      * @param {IMFAttributes} pCallbackAttributes The attributes containing the callback data. The System-allocated frame buffer information is stored in the attribute with the MF_DMFT_FRAME_BUFFER_INFO key.
      * @param {Integer} pinId The identifier of the device pin to which the frame buffers are sent.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mftransform/nf-mftransform-imfdevicetransformcallback-onbuffersent
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mftransform/nf-mftransform-imfdevicetransformcallback-onbuffersent
      */
     OnBufferSent(pCallbackAttributes, pinId) {
-        result := ComCall(3, this, "ptr", pCallbackAttributes, "uint", pinId, "HRESULT")
+        result := ComCall(3, this, "ptr", pCallbackAttributes, "uint", pinId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

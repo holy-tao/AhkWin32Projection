@@ -38,7 +38,11 @@ class IPortableDeviceServiceActivation extends IUnknown{
     OpenAsync(pszPnPServiceID, pClientInfo, pCallback) {
         pszPnPServiceID := pszPnPServiceID is String ? StrPtr(pszPnPServiceID) : pszPnPServiceID
 
-        result := ComCall(3, this, "ptr", pszPnPServiceID, "ptr", pClientInfo, "ptr", pCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPnPServiceID, "ptr", pClientInfo, "ptr", pCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IPortableDeviceServiceActivation extends IUnknown{
      * @returns {HRESULT} 
      */
     CancelOpenAsync() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

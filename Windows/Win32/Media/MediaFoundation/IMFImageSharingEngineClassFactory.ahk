@@ -7,7 +7,7 @@
 
 /**
  * Creates an instance of the IMFImageSharingEngine.
- * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nn-mfsharingengine-imfimagesharingengineclassfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfsharingengine/nn-mfsharingengine-imfimagesharingengineclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,13 +35,20 @@ class IMFImageSharingEngineClassFactory extends IUnknown{
     /**
      * Creates an instance of the IMFImageSharingEngine from the provided unique device name.
      * @param {BSTR} pUniqueDeviceName The unique device name of the device with which the sharing engine is created.
-     * @returns {IMFImageSharingEngine} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/nn-mfsharingengine-imfimagesharingengine">IMFImageSharingEngine</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfsharingengine/nf-mfsharingengine-imfimagesharingengineclassfactory-createinstancefromudn
+     * @returns {Pointer<IMFImageSharingEngine>} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfsharingengine/nn-mfsharingengine-imfimagesharingengine">IMFImageSharingEngine</a> interface. The caller must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfsharingengine/nf-mfsharingengine-imfimagesharingengineclassfactory-createinstancefromudn
      */
     CreateInstanceFromUDN(pUniqueDeviceName) {
-        pUniqueDeviceName := pUniqueDeviceName is String ? BSTR.Alloc(pUniqueDeviceName).Value : pUniqueDeviceName
+        if(pUniqueDeviceName is String) {
+            pin := BSTR.Alloc(pUniqueDeviceName)
+            pUniqueDeviceName := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", pUniqueDeviceName, "ptr*", &ppEngine := 0, "HRESULT")
-        return IMFImageSharingEngine(ppEngine)
+        result := ComCall(3, this, "ptr", pUniqueDeviceName, "ptr*", &ppEngine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppEngine
     }
 }

@@ -4,13 +4,10 @@
 #Include .\ID3D11VideoContext.ahk
 
 /**
- * Provides the video functionality of a Microsoft Direct3D 11 device.
+ * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext1)
  * @remarks
- * 
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nn-d3d11_1-id3d11devicecontext1">ID3D11DeviceContext1</a>  interface pointer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nn-d3d11_1-id3d11videocontext1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nn-d3d11_1-id3d11videocontext1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -36,7 +33,11 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
     static VTableNames => ["SubmitDecoderBuffers1", "GetDataForNewHardwareKey", "CheckCryptoSessionStatus", "DecoderEnableDownsampling", "DecoderUpdateDownsampling", "VideoProcessorSetOutputColorSpace1", "VideoProcessorSetOutputShaderUsage", "VideoProcessorGetOutputColorSpace1", "VideoProcessorGetOutputShaderUsage", "VideoProcessorSetStreamColorSpace1", "VideoProcessorSetStreamMirror", "VideoProcessorGetStreamColorSpace1", "VideoProcessorGetStreamMirror", "VideoProcessorGetBehaviorHints"]
 
     /**
-     * Submits one or more buffers for decoding.
+     * Submits one or more buffers for decoding. (ID3D11VideoContext1.SubmitDecoderBuffers1)
+     * @remarks
+     * This function does not honor any D3D11 predicate that may have been set.
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_query_data_pipeline_statistics">D3D11_QUERY_DATA_PIPELINE_STATISTICS</a> will not include this function for any feature level.
      * @param {ID3D11VideoDecoder} pDecoder Type: <b>ID3D11VideoDecoder*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface. To get this pointer, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a> method.
@@ -46,13 +47,17 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {Pointer<D3D11_VIDEO_DECODER_BUFFER_DESC1>} pBufferDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_video_decoder_buffer_desc1">D3D11_VIDEO_DECODER_BUFFER_DESC1</a>*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_video_decoder_buffer_desc1">D3D11_VIDEO_DECODER_BUFFER_DESC1</a> structures. The <i>NumBuffers</i> parameter specifies the number of elements in the array. Each element in the array describes a compressed buffer for decoding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-submitdecoderbuffers1
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-submitdecoderbuffers1
      */
     SubmitDecoderBuffers1(pDecoder, NumBuffers, pBufferDesc) {
-        result := ComCall(65, this, "ptr", pDecoder, "uint", NumBuffers, "ptr", pBufferDesc, "HRESULT")
+        result := ComCall(65, this, "ptr", pDecoder, "uint", NumBuffers, "ptr", pBufferDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,12 +75,16 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @returns {Integer} Type: <b>UINT64*</b>
      * 
      * A pointer to the private output data. The return data is defined by the implementation of the secure execution environment. It may contain graphics-specific data to be associated with the underlying hardware key.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-getdatafornewhardwarekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-getdatafornewhardwarekey
      */
     GetDataForNewHardwareKey(pCryptoSession, PrivateInputSize, pPrivatInputData) {
         pPrivatInputDataMarshal := pPrivatInputData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, "uint*", &pPrivateOutputData := 0, "HRESULT")
+        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, "uint*", &pPrivateOutputData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPrivateOutputData
     }
 
@@ -87,15 +96,21 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_crypto_session_status">D3D11_CRYPTO_SESSION_STATUS</a>*</b>
      * 
      * A D3D11_CRYPTO_SESSION_STATUS that is populated with the crypto session status upon completion.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-checkcryptosessionstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-checkcryptosessionstatus
      */
     CheckCryptoSessionStatus(pCryptoSession) {
-        result := ComCall(67, this, "ptr", pCryptoSession, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(67, this, "ptr", pCryptoSession, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
     /**
      * Indicates that decoder downsampling will be used and that the driver should allocate the appropriate reference frames.
+     * @remarks
+     * This function can only be called once for a specific <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface. This method must be called prior to the first call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-decoderbeginframe">DecoderBeginFrame</a>. To update the downsampling parameters, use <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderupdatedownsampling">DecoderUpdateDownsampling</a>.
      * @param {ID3D11VideoDecoder} pDecoder Type: <b>ID3D11VideoDecoder*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface.
@@ -108,7 +123,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {Integer} ReferenceFrameCount Type: <b>UINT</b>
      * 
      * The number of reference frames to be used in the operation.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns one of the following error codes.
      * 
@@ -126,22 +141,28 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * <td>There is insufficient memory to complete the operation.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderenabledownsampling
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderenabledownsampling
      */
     DecoderEnableDownsampling(pDecoder, InputColorSpace, pOutputDesc, ReferenceFrameCount) {
-        result := ComCall(68, this, "ptr", pDecoder, "int", InputColorSpace, "ptr", pOutputDesc, "uint", ReferenceFrameCount, "HRESULT")
+        result := ComCall(68, this, "ptr", pDecoder, "int", InputColorSpace, "ptr", pOutputDesc, "uint", ReferenceFrameCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Updates the decoder downsampling parameters.
+     * @remarks
+     * This method can only be called after decode downsampling is enabled by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderenabledownsampling">DecoderEnableDownsampling</a>. This method is only supported if the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_video_decoder_caps">D3D11_VIDEO_DECODER_CAPS_DOWNSAMPLE_DYNAMIC</a> capability is reported.
      * @param {ID3D11VideoDecoder} pDecoder Type: <b>ID3D11VideoDecoder*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface.
      * @param {Pointer<D3D11_VIDEO_SAMPLE_DESC>} pOutputDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ns-d3d11_1-d3d11_video_sample_desc">D3D11_VIDEO_SAMPLE_DESC</a>*</b>
      * 
      * The resolution, format, and colorspace of the output/display frames.  This is the destination resolution and format of the downsample operation.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns one of the following error codes.
      * 
@@ -159,10 +180,14 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * <td>There is insufficient memory to complete the operation.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderupdatedownsampling
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-decoderupdatedownsampling
      */
     DecoderUpdateDownsampling(pDecoder, pOutputDesc) {
-        result := ComCall(69, this, "ptr", pDecoder, "ptr", pOutputDesc, "HRESULT")
+        result := ComCall(69, this, "ptr", pDecoder, "ptr", pOutputDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +200,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace for the video processor output surface.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputcolorspace1
      */
     VideoProcessorSetOutputColorSpace1(pVideoProcessor, ColorSpace) {
         ComCall(70, this, "ptr", pVideoProcessor, "int", ColorSpace)
@@ -190,7 +215,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * True if the surface rendered using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> will be read by Direct3D shaders; otherwise, false. This may be set to false when multi-plane overlay hardware is supported.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputshaderusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetoutputshaderusage
      */
     VideoProcessorSetOutputShaderUsage(pVideoProcessor, ShaderUsage) {
         ComCall(71, this, "ptr", pVideoProcessor, "int", ShaderUsage)
@@ -205,7 +230,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that indicates the colorspace for the video processor output surface.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputcolorspace1
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputcolorspace1
      */
     VideoProcessorGetOutputColorSpace1(pVideoProcessor, pColorSpace) {
         pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
@@ -222,7 +247,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * A pointer to a boolean value indicating if the output surface can be read by Direct3D shaders. True if the surface rendered using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> can be read by Direct3D shaders; otherwise, false.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputshaderusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputshaderusage
      */
     VideoProcessorGetOutputShaderUsage(pVideoProcessor, pShaderUsage) {
         pShaderUsageMarshal := pShaderUsage is VarRef ? "int*" : "ptr"
@@ -242,7 +267,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace for the video processor input stream.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreamcolorspace1
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreamcolorspace1
      */
     VideoProcessorSetStreamColorSpace1(pVideoProcessor, StreamIndex, ColorSpace) {
         ComCall(74, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", ColorSpace)
@@ -251,7 +276,6 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
     /**
      * Specifies whether the video processor input stream should be flipped vertically or horizontally.
      * @remarks
-     * 
      * When used in combination, transformations on the processor input stream should be applied in the following order:
      * 
      * <ul>
@@ -259,8 +283,6 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * <li>Mirroring</li>
      * <li>Source clipping</li>
      * </ul>
-     * 
-     * 
      * @param {ID3D11VideoProcessor} pVideoProcessor Type: <b>ID3D11VideoProcessor*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface.
@@ -277,7 +299,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * True if the stream should be flipped vertically; otherwise, false.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreammirror
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorsetstreammirror
      */
     VideoProcessorSetStreamMirror(pVideoProcessor, StreamIndex, Enable, FlipHorizontal, FlipVertical) {
         ComCall(75, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Enable, "int", FlipHorizontal, "int", FlipVertical)
@@ -295,7 +317,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a> value that specifies the colorspace for the video processor input stream.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreamcolorspace1
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreamcolorspace1
      */
     VideoProcessorGetStreamColorSpace1(pVideoProcessor, StreamIndex, pColorSpace) {
         pColorSpaceMarshal := pColorSpace is VarRef ? "int*" : "ptr"
@@ -321,7 +343,7 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * 
      * A pointer to a boolean value indicating whether the stream is being flipped vertically. True if the stream is being flipped vertically; otherwise, false.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreammirror
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreammirror
      */
     VideoProcessorGetStreamMirror(pVideoProcessor, StreamIndex, pEnable, pFlipHorizontal, pFlipVertical) {
         pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
@@ -333,6 +355,8 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
 
     /**
      * Returns driver hints that indicate which of the video processor operations are best performed using multi-plane overlay hardware rather than ID3D11VideoContext::VideoProcessorBlt method.
+     * @remarks
+     * This method computes the behavior hints using the current state of the video processor as set by the "SetOutput" and "SetStream" methods of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videocontext">ID3D11VideoContext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nn-d3d11_1-id3d11videocontext1">ID3D11VideoContext1</a>. You must set the proper state before calling this method to ensure that the returned hints contain useful data.
      * @param {ID3D11VideoProcessor} pVideoProcessor Type: <b>ID3D11VideoProcessor*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface.
@@ -354,10 +378,14 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer to a bitwise OR combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_video_processor_behavior_hints">D3D11_VIDEO_PROCESSOR_BEHAVIOR_HINTS</a> values indicating which video processor operations would best be performed using multi-plane overlay hardware rather than the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorblt">ID3D11VideoContext::VideoProcessorBlt</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetbehaviorhints
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetbehaviorhints
      */
     VideoProcessorGetBehaviorHints(pVideoProcessor, OutputWidth, OutputHeight, OutputFormat, StreamCount, pStreams) {
-        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, "uint*", &pBehaviorHints := 0, "HRESULT")
+        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, "uint*", &pBehaviorHints := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBehaviorHints
     }
 }

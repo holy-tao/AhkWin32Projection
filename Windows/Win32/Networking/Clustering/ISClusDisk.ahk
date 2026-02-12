@@ -63,7 +63,11 @@ class ISClusDisk extends IDispatch{
      * @returns {Integer} 
      */
     get_Signature() {
-        result := ComCall(7, this, "int*", &plSignature := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSignature
     }
 
@@ -72,7 +76,11 @@ class ISClusDisk extends IDispatch{
      * @returns {ISClusScsiAddress} 
      */
     get_ScsiAddress() {
-        result := ComCall(8, this, "ptr*", &ppScsiAddress := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppScsiAddress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusScsiAddress(ppScsiAddress)
     }
 
@@ -81,7 +89,11 @@ class ISClusDisk extends IDispatch{
      * @returns {Integer} 
      */
     get_DiskNumber() {
-        result := ComCall(9, this, "int*", &plDiskNumber := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plDiskNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plDiskNumber
     }
 
@@ -90,7 +102,11 @@ class ISClusDisk extends IDispatch{
      * @returns {ISClusPartitions} 
      */
     get_Partitions() {
-        result := ComCall(10, this, "ptr*", &ppPartitions := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppPartitions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusPartitions(ppPartitions)
     }
 }

@@ -36,7 +36,11 @@ class ISIInbandEPGEvent extends IUnknown{
      * @returns {HRESULT} 
      */
     SIObjectEvent(pIDVB_EIT, dwTable_ID, dwService_ID) {
-        result := ComCall(3, this, "ptr", pIDVB_EIT, "uint", dwTable_ID, "uint", dwService_ID, "HRESULT")
+        result := ComCall(3, this, "ptr", pIDVB_EIT, "uint", dwTable_ID, "uint", dwService_ID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

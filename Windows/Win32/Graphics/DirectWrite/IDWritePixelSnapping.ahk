@@ -6,7 +6,7 @@
 
 /**
  * Defines the pixel snapping properties such as pixels per DIP(device-independent pixel) and the current transform matrix of a text renderer.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritepixelsnapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritepixelsnapping
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -39,7 +39,11 @@ class IDWritePixelSnapping extends IUnknown{
     IsPixelSnappingDisabled(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "int*", &isDisabled := 0, "HRESULT")
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "int*", &isDisabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isDisabled
     }
 
@@ -51,30 +55,41 @@ class IDWritePixelSnapping extends IUnknown{
      * @returns {DWRITE_MATRIX} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * When this method returns, contains a structure which has transform information for  pixel snapping.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
      */
     GetCurrentTransform(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
         transform := DWRITE_MATRIX()
-        result := ComCall(4, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", transform, "HRESULT")
+        result := ComCall(4, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", transform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return transform
     }
 
     /**
      * Gets the number of physical pixels per DIP.
+     * @remarks
+     * Because a DIP (device-independent pixel) is 1/96 inch, 
+     *       the <i>pixelsPerDip</i> value is the number of logical pixels per inch divided by 96.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * The drawing context passed to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a>.
      * @returns {Float} Type: <b>FLOAT*</b>
      * 
      * When this method returns, contains the number of physical pixels per DIP.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
      */
     GetPixelsPerDip(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, clientDrawingContextMarshal, clientDrawingContext, "float*", &pixelsPerDip := 0, "HRESULT")
+        result := ComCall(5, this, clientDrawingContextMarshal, clientDrawingContext, "float*", &pixelsPerDip := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pixelsPerDip
     }
 }

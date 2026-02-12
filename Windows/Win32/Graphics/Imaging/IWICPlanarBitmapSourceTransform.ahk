@@ -5,7 +5,7 @@
 
 /**
  * Provides access to planar Y’CbCr pixel formats where pixel components are stored in separate component planes.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicplanarbitmapsourcetransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicplanarbitmapsourcetransform
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -69,21 +69,91 @@ class IWICPlanarBitmapSourceTransform extends IUnknown{
      * Set to TRUE if the requested transforms are natively supported.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Check the value of <i>pfIsSupported</i> to determine if the transform is supported via <a href="/windows/desktop/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-copypixels">IWICPlanarBitmapSourceTransform::CopyPixels</a>.  If this method fails, the output parameters for width, height, and plane descriptions are zero initialized.
+     * Check the value of <i>pfIsSupported</i> to determine if the transform is supported via <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-copypixels">IWICPlanarBitmapSourceTransform::CopyPixels</a>.  If this method fails, the output parameters for width, height, and plane descriptions are zero initialized.
      * Other return values indicate failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform
      */
     DoesSupportTransform(puiWidth, puiHeight, dstTransform, dstPlanarOptions, pguidDstFormats, pPlaneDescriptions, cPlanes, pfIsSupported) {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
         puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
         pfIsSupportedMarshal := pfIsSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pguidDstFormats, "ptr", pPlaneDescriptions, "uint", cPlanes, pfIsSupportedMarshal, pfIsSupported, "HRESULT")
+        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pguidDstFormats, "ptr", pPlaneDescriptions, "uint", cPlanes, pfIsSupportedMarshal, pfIsSupported, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Copies pixels into the destination planes. Configured by the supplied input parameters.
+     * @remarks
+     * WIC JPEG Decoder:
+     * Depending on the configured chroma subsampling of the image, the source rectangle has the following restrictions:
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Chroma Subsampling</th>
+     * <th>X Coordinate</th>
+     * <th>Y Coordinate</th>
+     * <th>Chroma Width</th>
+     * <th>Chroma Height</th>
+     * </tr>
+     * <tr>
+     * <td>4:2:0</td>
+     * <td>Multiple of 2</td>
+     * <td>Multiple of 2</td>
+     * <td>lumaWidth / 2 Rounded up to the nearest integer.</td>
+     * <td>lumaHeight / 2 Rounded up to the nearest integer.</td>
+     * </tr>
+     * <tr>
+     * <td>4:2:2</td>
+     * <td>Multiple of 2</td>
+     * <td>Any</td>
+     * <td>lumaWidth / 2 Rounded up to the nearest integer.</td>
+     * <td>lumaHeight</td>
+     * </tr>
+     * <tr>
+     * <td>4:4:4</td>
+     * <td>Any</td>
+     * <td>Any</td>
+     * <td>llumaWidth</td>
+     * <td>llumaHeight</td>
+     * </tr>
+     * <tr>
+     * <td>4:4:0</td>
+     * <td>Any</td>
+     * <td>Multiple of 2</td>
+     * <td>lumaWidth</td>
+     * <td>llumaHeight / 2 Rounded up to the nearest integer.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The <i>pDstPlanes</i> parameter supports the following pixel formats.
+     * 
+     * <table>
+     * <tr>
+     * <th>Plane Count</th>
+     * <th>Plane 1</th>
+     * <th>Plane 2</th>
+     * <th>Plane 3</th>
+     * </tr>
+     * <tr>
+     * <td>3</td>
+     * <td>GUID_WICPixelFormat8bppY</td>
+     * <td>GUID_WICPixelFormat8bppCb</td>
+     * <td>GUID_WICPixelFormat8bppCr</td>
+     * </tr>
+     * <tr>
+     * <td>2</td>
+     * <td>GUID_WICPixelFormat8bppY</td>
+     * <td>GUID_WICPixelFormat16bppCbCr</td>
+     * <td>N/A</td>
+     * </tr>
+     * </table>
      * @param {Pointer<WICRect>} prcSource Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrect">WICRect</a>*</b>
      * 
      * The source rectangle of pixels to copy.
@@ -110,11 +180,15 @@ class IWICPlanarBitmapSourceTransform extends IUnknown{
      * The number of component planes specified by the <i>pDstPlanes</i> parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the specified scale, flip/rotate, and planar format configuration is not supported this method fails with <b>WINCODEC_ERR_INVALIDPARAMETER</b>.  You can check if a transform is supported by calling <a href="/windows/desktop/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform">IWICPlanarBitmapSourceTransform::DoesSupportTransform</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-copypixels
+     * If the specified scale, flip/rotate, and planar format configuration is not supported this method fails with <b>WINCODEC_ERR_INVALIDPARAMETER</b>.  You can check if a transform is supported by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-doessupporttransform">IWICPlanarBitmapSourceTransform::DoesSupportTransform</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicplanarbitmapsourcetransform-copypixels
      */
     CopyPixels(prcSource, uiWidth, uiHeight, dstTransform, dstPlanarOptions, pDstPlanes, cPlanes) {
-        result := ComCall(4, this, "ptr", prcSource, "uint", uiWidth, "uint", uiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pDstPlanes, "uint", cPlanes, "HRESULT")
+        result := ComCall(4, this, "ptr", prcSource, "uint", uiWidth, "uint", uiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pDstPlanes, "uint", cPlanes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

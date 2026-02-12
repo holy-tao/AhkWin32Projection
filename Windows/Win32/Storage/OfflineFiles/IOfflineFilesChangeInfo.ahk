@@ -5,7 +5,7 @@
 
 /**
  * Represents the information associated with local changes made to an item while working offline.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefileschangeinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefileschangeinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IOfflineFilesChangeInfo extends IUnknown{
 
     /**
      * Determines whether an item in the Offline Files cache has been modified.
+     * @remarks
+     * When an item is modified offline, it is marked as "dirty." Such items must be synchronized to clear this "dirty" property on the item.  The Offline Files service automatically synchronizes items when an offline scope transitions to online.
      * @returns {BOOL} Receives <b>TRUE</b> if the item has been modified in some way while working offline, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileschangeinfo-isdirty
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileschangeinfo-isdirty
      */
     IsDirty() {
         result := ComCall(3, this, "int*", &pbDirty := 0, "int")
@@ -43,50 +45,74 @@ class IOfflineFilesChangeInfo extends IUnknown{
     /**
      * Determines whether an item has been deleted from the Offline Files cache while working offline.
      * @returns {BOOL} Receives <b>TRUE</b> if the item has been deleted from the Offline Files cache while working offline, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileschangeinfo-isdeletedoffline
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileschangeinfo-isdeletedoffline
      */
     IsDeletedOffline() {
-        result := ComCall(4, this, "int*", &pbDeletedOffline := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pbDeletedOffline := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbDeletedOffline
     }
 
     /**
      * Determines whether an item was created in the Offline Files cache while working offline.
      * @returns {BOOL} Receives <b>TRUE</b> if the item was created in the Offline Files cache while working offline, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileschangeinfo-iscreatedoffline
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileschangeinfo-iscreatedoffline
      */
     IsCreatedOffline() {
-        result := ComCall(5, this, "int*", &pbCreatedOffline := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pbCreatedOffline := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbCreatedOffline
     }
 
     /**
      * Determines whether an item's data was modified while working offline.
      * @returns {BOOL} Receives <b>TRUE</b> if the item's data was modified in the Offline Files cache while working offline, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifieddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifieddata
      */
     IsLocallyModifiedData() {
-        result := ComCall(6, this, "int*", &pbLocallyModifiedData := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pbLocallyModifiedData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbLocallyModifiedData
     }
 
     /**
      * Determines whether one or more of an item's attributes were modified while working offline.
+     * @remarks
+     * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesfilesysinfo-getattributes">IOfflineFilesFileSysInfo::GetAttributes</a> to examine the Win32 file attributes for an item.
      * @returns {BOOL} Receives <b>TRUE</b> if one or more of the item's attributes were modified in the Offline Files cache while working offline, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedattributes
      */
     IsLocallyModifiedAttributes() {
-        result := ComCall(7, this, "int*", &pbLocallyModifiedAttributes := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pbLocallyModifiedAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbLocallyModifiedAttributes
     }
 
     /**
      * Determines whether one or more of an item's time values were modified while working offline.
+     * @remarks
+     * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesfilesysinfo-gettimes">IOfflineFilesFileSysInfo::GetTimes</a> to examine the time values associated with an item.
      * @returns {BOOL} Receives <b>TRUE</b> if one or more of the item's time values were modified in the Offline Files cache while working offline, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileschangeinfo-islocallymodifiedtime
      */
     IsLocallyModifiedTime() {
-        result := ComCall(8, this, "int*", &pbLocallyModifiedTime := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pbLocallyModifiedTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbLocallyModifiedTime
     }
 }

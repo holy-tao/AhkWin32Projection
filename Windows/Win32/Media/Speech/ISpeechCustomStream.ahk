@@ -41,7 +41,11 @@ class ISpeechCustomStream extends ISpeechBaseStream{
      * @returns {IUnknown} 
      */
     get_BaseStream() {
-        result := ComCall(12, this, "ptr*", &ppUnkStream := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppUnkStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkStream)
     }
 
@@ -51,7 +55,11 @@ class ISpeechCustomStream extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     putref_BaseStream(pUnkStream) {
-        result := ComCall(13, this, "ptr", pUnkStream, "HRESULT")
+        result := ComCall(13, this, "ptr", pUnkStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

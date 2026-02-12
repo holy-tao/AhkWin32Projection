@@ -4,13 +4,10 @@
 #Include .\IUpdateDownloadContent.ahk
 
 /**
- * Represents the download content of an update.
+ * Represents the download content of an update. (IUpdateDownloadContent2)
  * @remarks
- * 
  * The <b>IUpdateDownloadContent2</b> interface  may require you to update the Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatedownloadcontent2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdatedownloadcontent2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -45,15 +42,16 @@ class IUpdateDownloadContent2 extends IUpdateDownloadContent{
     /**
      * Gets a Boolean value that indicates whether an update is a binary update or a full-file update.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloadcontent2">IUpdateDownloadContent2</a> interface  may require you to update the Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontent2-get_isdeltacompressedcontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatedownloadcontent2-get_isdeltacompressedcontent
      */
     get_IsDeltaCompressedContent() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

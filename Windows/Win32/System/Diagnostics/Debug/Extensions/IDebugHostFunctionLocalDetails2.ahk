@@ -40,10 +40,14 @@ class IDebugHostFunctionLocalDetails2 extends IDebugHostFunctionLocalDetails{
 
     /**
      * 
-     * @returns {IDebugHostSymbol} 
+     * @returns {Pointer<IDebugHostSymbol>} 
      */
     GetInlinedFunction() {
-        result := ComCall(9, this, "ptr*", &inlineFunction := 0, "HRESULT")
-        return IDebugHostSymbol(inlineFunction)
+        result := ComCall(9, this, "ptr*", &inlineFunction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return inlineFunction
     }
 }

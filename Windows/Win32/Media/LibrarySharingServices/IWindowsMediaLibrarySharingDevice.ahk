@@ -8,11 +8,8 @@
 /**
  * The IWindowsMediaLibrarySharingDevice interface defines methods that provide access to an individual media device on the home network.
  * @remarks
- * 
  * To obtain an <b>IWindowsMediaLibrarySharingDevice</b> interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-getdevice">GetDevice</a> method or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_item">get_Item</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevices">IWindowsMediaLibrarySharingDevices</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice
  * @namespace Windows.Win32.Media.LibrarySharingServices
  * @version v4.0.30319
  */
@@ -62,21 +59,29 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     /**
      * The get_DeviceID method retrieves the device ID.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the device ID.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
      */
     get_DeviceID() {
         deviceID := BSTR()
-        result := ComCall(7, this, "ptr", deviceID, "HRESULT")
+        result := ComCall(7, this, "ptr", deviceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return deviceID
     }
 
     /**
      * The get_Authorization method retrieves a value that indicates whether the device is authorized to have access to the current user's media library.
      * @returns {Integer} A pointer to a variable that receives an element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
      */
     get_Authorization() {
-        result := ComCall(8, this, "int*", &authorization := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &authorization := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return authorization
     }
 
@@ -102,20 +107,28 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-put_authorization
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-put_authorization
      */
     put_Authorization(authorization) {
-        result := ComCall(9, this, "int", authorization, "HRESULT")
+        result := ComCall(9, this, "int", authorization, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Properties method retrieves an IWindowsMediaLibrarySharingDeviceProperties interface that represents the collection of all properties for the device.
      * @returns {IWindowsMediaLibrarySharingDeviceProperties} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperties">IWindowsMediaLibrarySharingDeviceProperties</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties
      */
     get_Properties() {
-        result := ComCall(10, this, "ptr*", &deviceProperties := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &deviceProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWindowsMediaLibrarySharingDeviceProperties(deviceProperties)
     }
 }

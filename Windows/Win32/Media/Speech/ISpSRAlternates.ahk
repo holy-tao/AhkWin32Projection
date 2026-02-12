@@ -39,23 +39,39 @@ class ISpSRAlternates extends IUnknown{
         ppAltsMarshal := ppAlts is VarRef ? "ptr*" : "ptr"
         pcAltsMarshal := pcAlts is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pAltRequest, ppAltsMarshal, ppAlts, pcAltsMarshal, pcAlts, "HRESULT")
+        result := ComCall(3, this, "ptr", pAltRequest, ppAltsMarshal, ppAlts, pcAltsMarshal, pcAlts, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<SPPHRASEALT>} pAlt 
      * @param {Pointer<Pointer<Void>>} ppvResultExtra 
      * @param {Pointer<Integer>} pcbResultExtra 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
+     * 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit(pAltRequest, pAlt, ppvResultExtra, pcbResultExtra) {
         ppvResultExtraMarshal := ppvResultExtra is VarRef ? "ptr*" : "ptr"
         pcbResultExtraMarshal := pcbResultExtra is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pAltRequest, "ptr", pAlt, ppvResultExtraMarshal, ppvResultExtra, pcbResultExtraMarshal, pcbResultExtra, "HRESULT")
+        result := ComCall(4, this, "ptr", pAltRequest, "ptr", pAlt, ppvResultExtraMarshal, ppvResultExtra, pcbResultExtraMarshal, pcbResultExtra, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

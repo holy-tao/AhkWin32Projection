@@ -13,7 +13,7 @@
  *  If the value of the <i>ulAttribute</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesw">QueryContextAttributes (Schannel)</a> function is <b>SECPKG_ATTR_UNIQUE_BINDINGS</b>, the channel binding data specified by this structure begins with "tls-unique:".
  * 
  * If the value of the <i>ulAttribute</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesw">QueryContextAttributes (Schannel)</a> function is <b>SECPKG_ATTR_ENDPOINT_BINDINGS</b>, the channel binding data specified by this structure begins with "tls-server-end-point:".
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_channel_bindings
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_channel_bindings
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

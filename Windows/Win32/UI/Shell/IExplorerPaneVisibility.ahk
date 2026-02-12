@@ -5,7 +5,7 @@
 
 /**
  * Used in Windows Explorer by an IShellFolder implementation to give suggestions to the view about what panes are visible.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iexplorerpanevisibility
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iexplorerpanevisibility
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,16 +32,22 @@ class IExplorerPaneVisibility extends IUnknown{
 
     /**
      * Gets the visibility state of the given Windows Explorer pane.
+     * @remarks
+     * If the implementer does not care about the state of a given pane and therefore does not want to change it, then the implementer should return a success code for the method and EPS_DONTCARE for the <i>peps</i> parameter. If the method fails, it is treated as if EPS_DONTCARE was returned for the <i>peps</i> parameter.
      * @param {Pointer<Guid>} ep Type: <b>REFEXPLORERPANE</b>
      * 
      * A reference to a GUID that uniquely identifies a Windows Explorer pane. One of the following constants as defined in Shlguid.h.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_explorerpanestate">EXPLORERPANESTATE</a>*</b>
      * 
      * When this method returns, contains the visibility state of the given Windows Explorer pane as one of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_explorerpanestate">EXPLORERPANESTATE</a> constants.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerpanevisibility-getpanestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iexplorerpanevisibility-getpanestate
      */
     GetPaneState(ep) {
-        result := ComCall(3, this, "ptr", ep, "uint*", &peps := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", ep, "uint*", &peps := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peps
     }
 }

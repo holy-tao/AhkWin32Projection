@@ -13,7 +13,7 @@
  * 
  * <div class="alert"><b>Note</b>  For Windows XP and Windows 2000, see the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Run-Time Requirements</a> section of the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Windows HTTP Services</a> start page.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_certificate_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_certificate_info
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

@@ -15,7 +15,7 @@
  * 
  * 
  * If [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAG_P_FRAMES_IMPLEMENTED_AS_LOW_DELAY_B_FRAMES](ne-d3d12video-d3d12_video_encoder_codec_configuration_support_hevc_flags.md) is set, it informs the caller that when encoding frames with type **D3D12_VIDEO_ENCODER_FRAME_TYPE_HEVC_P_FRAME**, they will be written as low delay B-Frames in the compressed bitstream. If bit is not set, it informs the caller P frames will be written in the compressed bitstream. Note that When operating under this mode, is the caller's responsibility to code the correct frame type in AUD_NUT and other parts of the HEVC bitstream, taking into account that P frames will be treated as generalized B frames with only references to past frames in POC order.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_frame_type_hevc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_frame_type_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

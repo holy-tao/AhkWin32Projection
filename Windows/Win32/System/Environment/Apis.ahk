@@ -104,7 +104,7 @@ class Environment {
      * <i>VarN</i>
      * <i>ValueN</i>
      * @returns {BOOL} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setenvironmentstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-setenvironmentstringsw
      */
     static SetEnvironmentStringsW(NewEnvironment) {
         NewEnvironment := NewEnvironment is String ? StrPtr(NewEnvironment) : NewEnvironment
@@ -131,7 +131,7 @@ class Environment {
      * > [!NOTE]
      * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {PSTR} The return value is a pointer to the command-line string for the current process.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinea
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getcommandlinea
      * @since windows5.1.2600
      */
     static GetCommandLineA() {
@@ -157,7 +157,7 @@ class Environment {
      * > [!NOTE]
      * > The processenv.h header defines GetCommandLine as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {PWSTR} The return value is a pointer to the command-line string for the current process.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getcommandlinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getcommandlinew
      * @since windows5.1.2600
      */
     static GetCommandLineW() {
@@ -193,7 +193,7 @@ class Environment {
      * @returns {PSTR} If the function succeeds, the return value is a pointer to the environment block of the current process.
      * 
      * If the function fails, the return value is NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentstrings
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getenvironmentstrings
      * @since windows5.1.2600
      */
     static GetEnvironmentStrings() {
@@ -227,7 +227,7 @@ class Environment {
      * @returns {PWSTR} If the function succeeds, the return value is a pointer to the environment block of the current process.
      * 
      * If the function fails, the return value is NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getenvironmentstringsw
      * @since windows5.1.2600
      */
     static GetEnvironmentStringsW() {
@@ -245,7 +245,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-freeenvironmentstringsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-freeenvironmentstringsa
      * @since windows5.1.2600
      */
     static FreeEnvironmentStringsA(penv) {
@@ -271,7 +271,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-freeenvironmentstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-freeenvironmentstringsw
      * @since windows5.1.2600
      */
     static FreeEnvironmentStringsW(penv) {
@@ -300,7 +300,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. If the specified environment variable was not found in the environment block, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_ENVVAR_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentvariablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getenvironmentvariablea
      * @since windows5.1.2600
      */
     static GetEnvironmentVariableA(lpName, lpBuffer, nSize) {
@@ -332,7 +332,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. If the specified environment variable was not found in the environment block, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_ENVVAR_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-getenvironmentvariablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-getenvironmentvariablew
      * @since windows5.1.2600
      */
     static GetEnvironmentVariableW(lpName, lpBuffer, nSize) {
@@ -364,7 +364,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setenvironmentvariablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-setenvironmentvariablea
      * @since windows5.1.2600
      */
     static SetEnvironmentVariableA(lpName, lpValue) {
@@ -397,7 +397,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setenvironmentvariablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-setenvironmentvariablew
      * @since windows5.1.2600
      */
     static SetEnvironmentVariableW(lpName, lpValue) {
@@ -436,7 +436,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-expandenvironmentstringsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-expandenvironmentstringsa
      * @since windows5.0
      */
     static ExpandEnvironmentStringsA(lpSrc, lpDst, nSize) {
@@ -475,7 +475,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-expandenvironmentstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-expandenvironmentstringsw
      * @since windows5.0
      */
     static ExpandEnvironmentStringsW(lpSrc, lpDst, nSize) {
@@ -586,7 +586,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcurrentdirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcurrentdirectory
      */
     static SetCurrentDirectoryA(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -689,7 +689,7 @@ class Environment {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcurrentdirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcurrentdirectory
      */
     static SetCurrentDirectoryW(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -787,7 +787,7 @@ class Environment {
      * 
      * If the buffer that is pointed to by <i>lpBuffer</i> is not large enough, the return value 
      *        specifies the required size of the buffer, in characters, including the null-terminating character.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentdirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcurrentdirectory
      */
     static GetCurrentDirectoryA(nBufferLength, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
@@ -885,7 +885,7 @@ class Environment {
      * 
      * If the buffer that is pointed to by <i>lpBuffer</i> is not large enough, the return value 
      *        specifies the required size of the buffer, in characters, including the null-terminating character.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentdirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcurrentdirectory
      */
     static GetCurrentDirectoryW(nBufferLength, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
@@ -915,7 +915,7 @@ class Environment {
      * > The processenv.h header defines NeedCurrentDirectoryForExePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} ExeName The name of the executable file.
      * @returns {BOOL} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-needcurrentdirectoryforexepatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-needcurrentdirectoryforexepatha
      * @since windows6.0.6000
      */
     static NeedCurrentDirectoryForExePathA(ExeName) {
@@ -946,7 +946,7 @@ class Environment {
      * > The processenv.h header defines NeedCurrentDirectoryForExePath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} ExeName The name of the executable file.
      * @returns {BOOL} If the current directory should be part of the search path, the return value is TRUE. Otherwise, the return value is FALSE.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-needcurrentdirectoryforexepathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-needcurrentdirectoryforexepathw
      * @since windows6.0.6000
      */
     static NeedCurrentDirectoryForExePathW(ExeName) {
@@ -985,7 +985,7 @@ class Environment {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-createenvironmentblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-createenvironmentblock
      * @since windows5.0
      */
     static CreateEnvironmentBlock(lpEnvironment, hToken, bInherit) {
@@ -1012,7 +1012,7 @@ class Environment {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-destroyenvironmentblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-destroyenvironmentblock
      * @since windows5.0
      */
     static DestroyEnvironmentBlock(lpEnvironment) {
@@ -1072,7 +1072,7 @@ class Environment {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-expandenvironmentstringsforusera
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-expandenvironmentstringsforusera
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserA(hToken, lpSrc, lpDest, dwSize) {
@@ -1134,7 +1134,7 @@ class Environment {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-expandenvironmentstringsforuserw
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-expandenvironmentstringsforuserw
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserW(hToken, lpSrc, lpDest, dwSize) {
@@ -1220,7 +1220,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-isenclavetypesupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-isenclavetypesupported
      * @since windows10.0.10240
      */
     static IsEnclaveTypeSupported(flEnclaveType) {
@@ -1347,7 +1347,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-createenclave
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-createenclave
      * @since windows10.0.10240
      */
     static CreateEnclave(hProcess, lpAddress, dwSize, dwInitialCommitment, flEnclaveType, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
@@ -1425,7 +1425,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-loadenclavedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-loadenclavedata
      * @since windows10.0.10240
      */
     static LoadEnclaveData(hProcess, lpAddress, lpBuffer, nSize, flProtect, lpPageInformation, dwInfoLength, lpNumberOfBytesWritten, lpEnclaveError) {
@@ -1515,7 +1515,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-initializeenclave
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-initializeenclave
      * @since windows10.0.10240
      */
     static InitializeEnclave(hProcess, lpAddress, lpEnclaveInformation, dwInfoLength, lpEnclaveError) {
@@ -1543,7 +1543,7 @@ class Environment {
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  
      * 
      * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-loadenclaveimagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-loadenclaveimagea
      */
     static LoadEnclaveImageA(lpEnclaveAddress, lpImageName) {
         lpImageName := lpImageName is String ? StrPtr(lpImageName) : lpImageName
@@ -1562,7 +1562,7 @@ class Environment {
      * @param {PWSTR} lpImageName A NULL-terminated string that contains the name of the image to load.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-loadenclaveimagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-loadenclaveimagew
      * @since windows10.0.16299
      */
     static LoadEnclaveImageW(lpEnclaveAddress, lpImageName) {
@@ -1592,7 +1592,7 @@ class Environment {
      * @param {Pointer<Pointer<Void>>} lpReturnValue The return value of the function, if it is called successfully.
      * @returns {BOOL} <b>TRUE</b> if the specified function was called successfully; otherwise <b>FALSE</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-callenclave
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-callenclave
      * @since windows10.0.16299
      */
     static CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
@@ -1615,7 +1615,7 @@ class Environment {
      * @param {BOOL} fWait <b>TRUE</b> if <b>TerminateEnclave</b> should not return  until all of the threads in the enclave end execution. <b>FALSE</b> if <b>TerminateEnclave</b> should return immediately.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise <b>FALSE</b>.  To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-terminateenclave
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-terminateenclave
      * @since windows10.0.16299
      */
     static TerminateEnclave(lpAddress, fWait) {
@@ -1656,7 +1656,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/enclaveapi/nf-enclaveapi-deleteenclave
+     * @see https://learn.microsoft.com/windows/win32/api//content/enclaveapi/nf-enclaveapi-deleteenclave
      * @since windows10.0.16299
      */
     static DeleteEnclave(lpAddress) {
@@ -1713,7 +1713,7 @@ class Environment {
      * @param {Pointer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
      * @param {Integer} BufferSize The size of the buffer to which the <i>Report</i> parameter points.  If <i>Report</i> is NULL, <i>BufferSize</i> must be zero.  If <i>Report</i> is not NULL, and if the size of the report is larger than this value, an error is returned.
      * @returns {Integer} A pointer to a variable that receives the size of the report.
-     * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetattestationreport
+     * @see https://learn.microsoft.com/windows/win32/api//content/winenclaveapi/nf-winenclaveapi-enclavegetattestationreport
      * @since windows10.0.16299
      */
     static EnclaveGetAttestationReport(EnclaveData, Report, BufferSize) {
@@ -1737,7 +1737,7 @@ class Environment {
      * @param {Pointer} Report A pointer to a buffer that stores the report.  This report may be stored either within the address range of the enclave or within the address space of the host process.
      * @param {Integer} ReportSize The size of the report, in bytes.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveverifyattestationreport
+     * @see https://learn.microsoft.com/windows/win32/api//content/winenclaveapi/nf-winenclaveapi-enclaveverifyattestationreport
      * @since windows10.0.16299
      */
     static EnclaveVerifyAttestationReport(EnclaveType, Report, ReportSize) {
@@ -1791,7 +1791,7 @@ class Environment {
      * @param {Pointer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
      * @param {Integer} BufferSize A pointer to a variable that holds the size of the buffer to which the <i>ProtectedBlob</i> parameter points.  If <i>ProtectedBlob</i> is NULL, this value must be zero.  If <i>ProtectedBlob</i> is not NULL, and if the size of the encrypted data is larger than this value, an error occurs.
      * @returns {Integer} A pointer to a variable that receives the actual size of the encrypted blob.
-     * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavesealdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winenclaveapi/nf-winenclaveapi-enclavesealdata
      * @since windows10.0.16299
      */
     static EnclaveSealData(DataToEncrypt, DataToEncryptSize, IdentityPolicy, RuntimePolicy, ProtectedBlob, BufferSize) {
@@ -1835,7 +1835,7 @@ class Environment {
      * </tr>
      * </table>
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveunsealdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winenclaveapi/nf-winenclaveapi-enclaveunsealdata
      * @since windows10.0.16299
      */
     static EnclaveUnsealData(ProtectedBlob, ProtectedBlobSize, DecryptedData, BufferSize, DecryptedDataSize, SealingIdentity, UnsealingFlags) {
@@ -1875,7 +1875,7 @@ class Environment {
      * @param {Integer} InformationSize The size of the <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ns-ntenclv-enclave_information">ENCLAVE_INFORMATION</a> structure that the <i>EnclaveInformation</i> parameter points to, in bytes.
      * @param {Pointer} EnclaveInformation Information about the currently executing enclave.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetenclaveinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winenclaveapi/nf-winenclaveapi-enclavegetenclaveinformation
      * @since windows10.0.16299
      */
     static EnclaveGetEnclaveInformation(InformationSize, EnclaveInformation) {

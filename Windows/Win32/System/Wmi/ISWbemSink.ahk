@@ -35,11 +35,18 @@ class ISWbemSink extends IDispatch{
     static VTableNames => ["Cancel"]
 
     /**
-     * 
+     * Cancel Method (RDS)
+     * @remarks
+     * When you call **Cancel**, [ReadyState](./readystate-property-rds.md) is automatically set to **adcReadyStateLoaded**, and the [Recordset](../ado-api/recordset-object-ado.md) will be empty.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/cancel-method-rds
      */
     Cancel() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

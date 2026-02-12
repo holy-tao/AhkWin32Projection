@@ -56,9 +56,13 @@ class IHtmlDlgSafeHelper extends IDispatch{
      * @returns {VARIANT} 
      */
     choosecolordlg(initColor) {
-        rgbColor := VARIANT()
-        result := ComCall(7, this, "ptr", initColor, "ptr", rgbColor, "HRESULT")
-        return rgbColor
+        rgbColor_ := VARIANT()
+        result := ComCall(7, this, "ptr", initColor, "ptr", rgbColor_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return rgbColor_
     }
 
     /**
@@ -67,10 +71,17 @@ class IHtmlDlgSafeHelper extends IDispatch{
      * @returns {VARIANT} 
      */
     getCharset(fontName) {
-        fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
+        if(fontName is String) {
+            pin := BSTR.Alloc(fontName)
+            fontName := pin.Value
+        }
 
         charset := VARIANT()
-        result := ComCall(8, this, "ptr", fontName, "ptr", charset, "HRESULT")
+        result := ComCall(8, this, "ptr", fontName, "ptr", charset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return charset
     }
 
@@ -79,7 +90,11 @@ class IHtmlDlgSafeHelper extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Fonts() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -88,7 +103,11 @@ class IHtmlDlgSafeHelper extends IDispatch{
      * @returns {IDispatch} 
      */
     get_BlockFormats() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 }

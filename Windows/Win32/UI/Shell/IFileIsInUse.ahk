@@ -7,7 +7,6 @@
 /**
  * Exposes methods that can be called to get information on or close a file that is in use by another application.
  * @remarks
- * 
  * In versions of Windows before Windows Vista, when a user attempted to access a file that was open in another application, the user would simply receive a dialog box with a message stating that the file was already open. The message instructed that the user close the other application, but did not identify it. Other than that suggestion, the dialog box provided no user action to address the situation. This interface provides methods that can lead to a more informative dialog box from which the user can take direct action.
  * 
  * <h3><a id="The_Running_Object_Table"></a><a id="the_running_object_table"></a><a id="THE_RUNNING_OBJECT_TABLE"></a>The Running Object Table</h3>
@@ -36,9 +35,7 @@
  * 
  * <h3><a id="Sample"></a><a id="sample"></a><a id="SAMPLE"></a>Sample</h3>
  * See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ee330722(v=vs.85)">File Is in Use</a> sample, which demonstrates how to implement <b>IFileIsInUse</b> and register a file with the ROT. It then shows how to customize the <b>File In Use</b> dialog to display additional information and options for files currently opened in an application.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifileisinuse
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ifileisinuse
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -65,13 +62,19 @@ class IFileIsInUse extends IUnknown{
 
     /**
      * Retrieves the name of the application that is using the file.
+     * @remarks
+     * This information can be passed to the user in a dialog box so that the user knows the source of the conflict and can act accordingly. For instance "File.txt is in use by Litware."
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * The address of a pointer to a buffer that, when this method returns successfully, receives the application name.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getappname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileisinuse-getappname
      */
     GetAppName() {
-        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszName
     }
 
@@ -80,45 +83,67 @@ class IFileIsInUse extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a>*</b>
      * 
      * Pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-file_usage_type">FILE_USAGE_TYPE</a> values.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileisinuse-getusage
      */
     GetUsage() {
-        result := ComCall(4, this, "int*", &pfut := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfut
     }
 
     /**
      * Determines whether the file can be closed and whether the UI is capable of switching to the window of the application that is using the file.
+     * @remarks
+     * The capabilities returned by this method can be used in the composition of the dialog box presented to the user that informs them of the sharing conflict. For instance, if the OF_CAP_CANSWITCHTO flag is retrieved, a button can be added to the dialog box that will switch the user to the conflicting application window (based on the <b>HWND</b> information retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getswitchtohwnd">IFileIsInUse::GetSwitchToHWND</a>) so that the user can address the situation as they see fit. If the OF_CAP_CANCLOSE flag is retrieved, the dialog box can present a <b>Close</b> button that calls the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-closefile">CloseFile</a> method.
      * @returns {Integer} Type: <b>DWORD*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities
      */
     GetCapabilities() {
-        result := ComCall(5, this, "uint*", &pdwCapFlags := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwCapFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCapFlags
     }
 
     /**
      * Retrieves the handle of the top-level window of the application that is using the file.
+     * @remarks
+     * Only files that return the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities">capability flag</a> OF_CAP_CANSWITCHTO can be switched to.
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to an <b>HWND</b> value that, when this method returns successfully, receives the window handle.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-getswitchtohwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileisinuse-getswitchtohwnd
      */
     GetSwitchToHWND() {
         phwnd := HWND()
-        result := ComCall(6, this, "ptr", phwnd, "HRESULT")
+        result := ComCall(6, this, "ptr", phwnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phwnd
     }
 
     /**
      * Closes the file currently in use.
+     * @remarks
+     * Only files that return the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileisinuse-getcapabilities">capability flag</a> OF_CAP_CANCLOSE can be closed by this method. If that flag is returned, the user can be presented with a dialog box that includes a <b>Close</b> option that calls this method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileisinuse-closefile
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileisinuse-closefile
      */
     CloseFile() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

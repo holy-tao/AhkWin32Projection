@@ -4,9 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Used exclusively in lightweight client-side handlers that require access to some of the internal interfaces on the proxy.
+ * The IInternalUnknown interface (objidl.h) is used exclusively in lightweight client-side handlers that require access to the internal interfaces on the proxy.
  * @remarks
- * 
  * Handlers that need access to some of the internal interfaces on the proxy manager have to go through the <b>IInternalUnknown</b> interface. This prevents the handlers from blindly delegating and exposing the aggregatee's internal interfaces outside of the aggregate. These interfaces include <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iclientsecurity">IClientSecurity</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imultiqi">IMultiQI</a>. If the handler wants to expose <b>IClientSecurity</b> or <b>IMultiQI</b>, the handler should implement these interfaces itself and delegate to the proxy manager's implementation of these interfaces when appropriate.
  * 
  * For the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iclientsecurity">IClientSecurity</a> interface, if the client tries to set the security on an interface that the handler has exposed, the handler should set the security on the underlying network interface proxy.
@@ -14,9 +13,7 @@
  * 
  * 
  * For the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imultiqi">IMultiQI</a> interface, the handler should fill in the interfaces it knows about and then forward the call to the proxy manager to fill in the rest of the interfaces.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iinternalunknown
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iinternalunknown
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -42,13 +39,19 @@ class IInternalUnknown extends IUnknown{
     static VTableNames => ["QueryInternalInterface"]
 
     /**
-     * Retrieves pointers to the supported internal interfaces on an object.
+     * The IInternalUnknown::QueryInternalInterface method (objidl.h) retrieves pointers to the supported internal interfaces on an object.
+     * @remarks
+     * This method is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> method, except that the COM proxy manager, when aggregated, will not expose some interfaces through <b>QueryInterface</b>. Instead, those internal interfaces must be exposed through <b>QueryInternalInterface</b>.
      * @param {Pointer<Guid>} riid The identifier of the internal interface being requested.
      * @returns {Pointer<Void>} The address of a pointer variable that receives the interface pointer requested in the <i>riid</i> parameter. Upon successful return, *<i>ppv</i> contains the requested interface pointer to the object. If the object does not support the interface, *<i>ppv</i> is set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iinternalunknown-queryinternalinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iinternalunknown-queryinternalinterface
      */
     QueryInternalInterface(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

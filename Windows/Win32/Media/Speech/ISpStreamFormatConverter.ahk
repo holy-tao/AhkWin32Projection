@@ -42,7 +42,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetBaseStream(pStream, fSetFormatToBaseStreamFormat, fWriteToBaseStream) {
-        result := ComCall(15, this, "ptr", pStream, "int", fSetFormatToBaseStreamFormat, "int", fWriteToBaseStream, "HRESULT")
+        result := ComCall(15, this, "ptr", pStream, "int", fSetFormatToBaseStreamFormat, "int", fWriteToBaseStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {ISpStreamFormat} 
      */
     GetBaseStream() {
-        result := ComCall(16, this, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpStreamFormat(ppStream)
     }
 
@@ -62,7 +70,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetFormat(rguidFormatIdOfConvertedStream, pWaveFormatExOfConvertedStream) {
-        result := ComCall(17, this, "ptr", rguidFormatIdOfConvertedStream, "ptr", pWaveFormatExOfConvertedStream, "HRESULT")
+        result := ComCall(17, this, "ptr", rguidFormatIdOfConvertedStream, "ptr", pWaveFormatExOfConvertedStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +83,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     ResetSeekPosition() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +97,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {Integer} 
      */
     ScaleConvertedToBaseOffset(ullOffsetConvertedStream) {
-        result := ComCall(19, this, "uint", ullOffsetConvertedStream, "uint*", &pullOffsetBaseStream := 0, "HRESULT")
+        result := ComCall(19, this, "uint", ullOffsetConvertedStream, "uint*", &pullOffsetBaseStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pullOffsetBaseStream
     }
 
@@ -91,7 +111,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
      * @returns {Integer} 
      */
     ScaleBaseToConvertedOffset(ullOffsetBaseStream) {
-        result := ComCall(20, this, "uint", ullOffsetBaseStream, "uint*", &pullOffsetConvertedStream := 0, "HRESULT")
+        result := ComCall(20, this, "uint", ullOffsetBaseStream, "uint*", &pullOffsetConvertedStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pullOffsetConvertedStream
     }
 }

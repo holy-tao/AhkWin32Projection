@@ -7,7 +7,7 @@
  * The 
  * <b>CREATE_DISK_MBR</b> structure is part of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-create_disk">CREATE_DISK</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_disk_mbr
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-create_disk_mbr
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

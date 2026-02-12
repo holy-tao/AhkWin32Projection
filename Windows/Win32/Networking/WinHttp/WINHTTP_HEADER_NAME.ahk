@@ -5,7 +5,7 @@
  * Represents an HTTP request header name.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_header_name
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_header_name
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

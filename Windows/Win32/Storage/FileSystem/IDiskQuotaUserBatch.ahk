@@ -5,7 +5,7 @@
 
 /**
  * Adds multiple quota user objects to a container that is then submitted for update in a single call.
- * @see https://docs.microsoft.com/windows/win32/api//dskquota/nn-dskquota-idiskquotauserbatch
+ * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nn-dskquota-idiskquotauserbatch
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -86,10 +86,14 @@ class IDiskQuotaUserBatch extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotauserbatch-add
      */
     Add(pUser) {
-        result := ComCall(3, this, "ptr", pUser, "HRESULT")
+        result := ComCall(3, this, "ptr", pUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,10 +153,14 @@ class IDiskQuotaUserBatch extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotauserbatch-remove
      */
     Remove(pUser) {
-        result := ComCall(4, this, "ptr", pUser, "HRESULT")
+        result := ComCall(4, this, "ptr", pUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,15 +196,21 @@ class IDiskQuotaUserBatch extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-removeall
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotauserbatch-removeall
      */
     RemoveAll() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Writes user object changes to disk in a single call to the underlying file system.
+     * @remarks
+     * There are limitations on the amount of information that can be written to disk in a single call to the file system. The flush operation may generate multiple calls to the file system. Nonetheless, the batch operation will be more efficient than a single call for each user object.
      * @returns {HRESULT} This method returns a file system error or one of the following values.
      * 
      * <table>
@@ -260,10 +274,14 @@ class IDiskQuotaUserBatch extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-flushtodisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotauserbatch-flushtodisk
      */
     FlushToDisk() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -9,7 +9,7 @@
  * Not every DVD text string identifier is included in this enumeration, so an authored DVD might include other values.
  * 
  * One important identifier that is not included in this enumeration is 0xF0, the code for sorting. You can use this string to sort the string data. It can be a unique number or a repetition of a previous string with the word order changed. For example, a DVD might have a string of 0x30 (DVD_General_Name) with the value "The Greatest Hits", which might be followed by another string of type 0xF0 with the value "Greatest Hits, The". As with content strings, however, the use of the sorting string is not strictly defined.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_textstringtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-dvd_textstringtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -11,7 +11,7 @@
  * To avoid unexpected outcomes, a thread's <b>DPI_HOSTING_BEHAVIOR</b> should be changed to support mixed hosting behaviors only when creating a new window which needs to support those behaviors. Once that window is created, the hosting behavior should be switched back to its default value.
  * 
  * Enabling mixed hosting behavior will not automatically adjust the thread's <b>DPI_AWARENESS_CONTEXT</b> to be compatible with legacy content. The thread's awareness context must still be manually changed before new windows are created to host such content.
- * @see https://learn.microsoft.com/windows/win32/api/windef/ne-windef-dpi_hosting_behavior
+ * @see https://learn.microsoft.com/windows/win32/api//content/windef/ne-windef-dpi_hosting_behavior
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */

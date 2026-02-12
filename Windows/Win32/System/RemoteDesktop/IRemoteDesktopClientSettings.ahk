@@ -7,7 +7,7 @@
 
 /**
  * Provides the methods needed to configure the connection settings for the Remote Desktop Protocol (RDP) app container client control.
- * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclientsettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclientsettings
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,24 +35,35 @@ class IRemoteDesktopClientSettings extends IDispatch{
     /**
      * Stores the specified contents in the RDP file.
      * @param {BSTR} rdpFileContents Specifies the entire contents of the RDP file.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-applysettings
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-applysettings
      */
     ApplySettings(rdpFileContents) {
-        rdpFileContents := rdpFileContents is String ? BSTR.Alloc(rdpFileContents).Value : rdpFileContents
+        if(rdpFileContents is String) {
+            pin := BSTR.Alloc(rdpFileContents)
+            rdpFileContents := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", rdpFileContents, "HRESULT")
+        result := ComCall(7, this, "ptr", rdpFileContents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the entire RDP file as a string.
      * @returns {BSTR} The entire contents of the RDP file.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-retrievesettings
      */
     RetrieveSettings() {
         rdpFileContents := BSTR()
-        result := ComCall(8, this, "ptr", rdpFileContents, "HRESULT")
+        result := ComCall(8, this, "ptr", rdpFileContents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rdpFileContents
     }
 
@@ -60,13 +71,20 @@ class IRemoteDesktopClientSettings extends IDispatch{
      * Retrieves a single named RDP property value.
      * @param {BSTR} propertyName 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-getrdpproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-getrdpproperty
      */
     GetRdpProperty(propertyName) {
-        propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
+        if(propertyName is String) {
+            pin := BSTR.Alloc(propertyName)
+            propertyName := pin.Value
+        }
 
         value := VARIANT()
-        result := ComCall(9, this, "ptr", propertyName, "ptr", value, "HRESULT")
+        result := ComCall(9, this, "ptr", propertyName, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -79,13 +97,20 @@ class IRemoteDesktopClientSettings extends IDispatch{
      * 
      * The possible values are.
      * @param {VARIANT} value The new property value.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-setrdpproperty
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientsettings-setrdpproperty
      */
     SetRdpProperty(propertyName, value) {
-        propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
+        if(propertyName is String) {
+            pin := BSTR.Alloc(propertyName)
+            propertyName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", propertyName, "ptr", value, "HRESULT")
+        result := ComCall(10, this, "ptr", propertyName, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

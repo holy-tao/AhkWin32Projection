@@ -55,7 +55,11 @@ class IDOMMSTransitionEvent extends IDispatch{
      */
     get_propertyName() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -64,7 +68,11 @@ class IDOMMSTransitionEvent extends IDispatch{
      * @returns {Float} 
      */
     get_elapsedTime() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -78,10 +86,20 @@ class IDOMMSTransitionEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMSTransitionEvent(eventType, canBubble, cancelable, propertyName, elapsedTime) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(propertyName is String) {
+            pin := BSTR.Alloc(propertyName)
+            propertyName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", propertyName, "float", elapsedTime, "HRESULT")
+        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", propertyName, "float", elapsedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -44,7 +44,7 @@ class IO_DRIVER_CREATE_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {PESILO}
+     * @type {Pointer<PESILO>}
      */
     SiloContext {
         get => NumGet(this, 32, "ptr")

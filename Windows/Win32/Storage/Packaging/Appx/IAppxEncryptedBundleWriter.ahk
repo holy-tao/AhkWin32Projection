@@ -4,8 +4,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a write-only object model for encrypted bundle packages.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxencryptedbundlewriter
+ * Provides a write-only object model for encrypted bundle packages. (IAppxEncryptedBundleWriter)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxencryptedbundlewriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -31,27 +31,35 @@ class IAppxEncryptedBundleWriter extends IUnknown{
     static VTableNames => ["AddPayloadPackageEncrypted", "Close"]
 
     /**
-     * Encrypts a new payload package to the bundle.
+     * Encrypts a new payload package to the bundle. (IAppxEncryptedBundleWriter.AddPayloadPackageEncrypted)
      * @param {PWSTR} fileName The name of the payload file. The file name path must be relative to the root of the package.
      * @param {IStream} packageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of <i>fileName</i>.
      *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-addpayloadpackageencrypted
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-addpayloadpackageencrypted
      */
     AddPayloadPackageEncrypted(fileName, packageStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(3, this, "ptr", fileName, "ptr", packageStream, "HRESULT")
+        result := ComCall(3, this, "ptr", fileName, "ptr", packageStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Writes the bundle manifest and blockmap footprint files to the bundle.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

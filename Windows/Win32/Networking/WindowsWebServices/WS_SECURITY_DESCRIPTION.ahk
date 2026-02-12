@@ -7,7 +7,7 @@
  * The figure below illustrates the structure of a security description.
  * 
  * :::image type="content" source="images/SecurityDescription.png" border="false" alt-text="Diagram of the elements in a security description. A Channel-wide Settings Bag,  a Security Binding, and the properties of the Security Binding.":::
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_security_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

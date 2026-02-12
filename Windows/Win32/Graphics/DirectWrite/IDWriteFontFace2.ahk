@@ -5,8 +5,8 @@
 #Include .\IDWriteFontFace1.ahk
 
 /**
- * Contains font face type, appropriate file references, and face identification data.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritefontface2
+ * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nn-dwrite_2-idwritefontface2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a color rendering path is potentially necessary.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontface2-iscolorfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontface2-iscolorfont
      */
     IsColorFont() {
         result := ComCall(30, this, "int")
@@ -46,7 +46,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
     /**
      * Gets the number of color palettes defined by the font.
      * @returns {Integer} The return value is zero if the font has no color information. Color fonts are required to define at least one palette, with palette index zero reserved as the default palette.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontface2-getcolorpalettecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontface2-getcolorpalettecount
      */
     GetColorPaletteCount() {
         result := ComCall(31, this, "uint")
@@ -58,7 +58,7 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
      * @returns {Integer} The number of entries in each color palette. All color palettes
      *     in a font have the same number of palette entries. The return value is 
      *     zero if the font has no color information.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontface2-getpaletteentrycount
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontface2-getpaletteentrycount
      */
     GetPaletteEntryCount() {
         result := ComCall(32, this, "uint")
@@ -71,16 +71,20 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
      * @param {Integer} firstEntryIndex Zero-based index of the first palette entry to read.
      * @param {Integer} entryCount Number of palette entries to read.
      * @returns {DWRITE_COLOR_F} Array that receives the color values.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontface2-getpaletteentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontface2-getpaletteentries
      */
     GetPaletteEntries(colorPaletteIndex, firstEntryIndex, entryCount) {
         paletteEntries := DWRITE_COLOR_F()
-        result := ComCall(33, this, "uint", colorPaletteIndex, "uint", firstEntryIndex, "uint", entryCount, "ptr", paletteEntries, "HRESULT")
+        result := ComCall(33, this, "uint", colorPaletteIndex, "uint", firstEntryIndex, "uint", entryCount, "ptr", paletteEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return paletteEntries
     }
 
     /**
-     * Determines the recommended text rendering and grid-fit mode to be used based on the font, size, world transform, and measuring mode.
+     * Determines the recommended text rendering and grid-fit mode to be used based on the font, size, world transform, and measuring mode. (IDWriteFontFace2.GetRecommendedRenderingMode)
      * @param {Float} fontEmSize Type: <b>FLOAT</b>
      * 
      * Logical font size in DIPs.
@@ -113,14 +117,18 @@ class IDWriteFontFace2 extends IDWriteFontFace1{
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value for the recommended grid-fit mode.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontface2-getrecommendedrenderingmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontface2-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingParams, renderingMode, gridFitMode) {
         renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
         gridFitModeMarshal := gridFitMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "HRESULT")
+        result := ComCall(34, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "ptr", renderingParams, renderingModeMarshal, renderingMode, gridFitModeMarshal, gridFitMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

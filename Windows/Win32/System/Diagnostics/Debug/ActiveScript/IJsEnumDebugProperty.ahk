@@ -29,25 +29,41 @@ class IJsEnumDebugProperty extends IUnknown{
     static VTableNames => ["Next", "GetCount"]
 
     /**
-     * 
+     * NextMember (MDX)
+     * @remarks
+     * The **NextMember** function returns the next member, in the same level, that contains the specified member.
      * @param {Integer} count 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<Integer>} pActualCount 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/mdx/nextmember-mdx
      */
     Next(count, ppDebugProperty, pActualCount) {
         pActualCountMarshal := pActualCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", count, "ptr*", ppDebugProperty, pActualCountMarshal, pActualCount, "HRESULT")
+        result := ComCall(3, this, "uint", count, "ptr*", ppDebugProperty, pActualCountMarshal, pActualCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
-        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 }

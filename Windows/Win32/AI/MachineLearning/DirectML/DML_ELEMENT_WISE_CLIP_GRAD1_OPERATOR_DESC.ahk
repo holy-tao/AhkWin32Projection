@@ -6,7 +6,7 @@
  * Computes backpropagation gradients for [element-wise clip](/windows/win32/api/directml/ns-directml-dml_element_wise_clip1_operator_desc).
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_clip_grad1_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_element_wise_clip_grad1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

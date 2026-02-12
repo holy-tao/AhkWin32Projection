@@ -3,7 +3,7 @@
 
 /**
  * This structure is used by the WdsTransportServerRegisterCallback function.
- * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/ne-wdstpdi-transportprovider_callback_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstpdi/ne-wdstpdi-transportprovider_callback_id
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

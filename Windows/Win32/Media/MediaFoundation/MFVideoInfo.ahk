@@ -98,7 +98,7 @@
  * <td>See <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfvideoflags">MFVideoFlags</a>.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/ns-mfobjects-mfvideoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

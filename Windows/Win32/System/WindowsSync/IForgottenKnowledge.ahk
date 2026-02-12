@@ -6,11 +6,8 @@
 /**
  * Represents knowledge that has been forgotten because of tombstone cleanup.
  * @remarks
- * 
  * The forgotten knowledge tracks the maximum version of tombstones that have been cleaned up. When an item is deleted from the item store, the metadata for that item is kept, but the item is marked as deleted. Metadata for a deleted item is called a tombstone. Tombstones must be periodically cleaned up or they will eventually use too much space in the item store. When a tombstone is removed from the metadata, the forgotten knowledge must be updated to contain the version of the removed tombstone. Be aware that forgotten knowledge is an overestimation of which items have had their metadata removed. Therefore, the forgotten knowledge might also contain items that still have active entries in the metadata.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iforgottenknowledge
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-iforgottenknowledge
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IForgottenKnowledge extends ISyncKnowledge{
 
     /**
      * Updates the forgotten knowledge to reflect that all versions that are less than or equal to the specified version might have been forgotten, and that corresponding tombstones might have been deleted.
+     * @remarks
+     * When a replica cleans up the tombstone for an item, its associated provider must call this method and specify the version of the tombstone that was removed.
      * @param {ISyncKnowledge} pKnowledge The current knowledge of the replica that owns this forgotten knowledge object.
      * @param {Pointer<SYNC_VERSION>} pVersion The version of the tombstone that has been cleaned up.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -74,10 +73,14 @@ class IForgottenKnowledge extends ISyncKnowledge{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iforgottenknowledge-forgettoversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-iforgottenknowledge-forgettoversion
      */
     ForgetToVersion(pKnowledge, pVersion) {
-        result := ComCall(27, this, "ptr", pKnowledge, "ptr", pVersion, "HRESULT")
+        result := ComCall(27, this, "ptr", pKnowledge, "ptr", pVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

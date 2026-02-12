@@ -15,7 +15,7 @@
  * - As = The per-pixel source alpha
  * - Ap = The planar alpha value
  * - Ae = The palette-entry alpha value, or 1.0 (palette-entry alpha values apply only to palettized color formats)
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_alpha_blending
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_process_alpha_blending
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

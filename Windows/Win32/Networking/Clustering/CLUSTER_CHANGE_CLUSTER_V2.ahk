@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_CHANGE_CLUSTER_V2 enumeration (msclus.h) defines the list of notifications that are generated for a cluster.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_cluster_v2
+ * CLUSTER_CHANGE_CLUSTER_V2 (clusapi.h) defines the list of notifications that are generated for a cluster.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_change_cluster_v2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

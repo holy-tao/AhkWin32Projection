@@ -32,10 +32,14 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetResourceForDevice(pUnkDevice, riid) {
-        result := ComCall(3, this, "ptr", pUnkDevice, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkDevice, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 
@@ -45,7 +49,11 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @returns {Integer} 
      */
     GetSubresourceIndexForDevice(pUnkDevice) {
-        result := ComCall(4, this, "ptr", pUnkDevice, "uint*", &puSubresource := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnkDevice, "uint*", &puSubresource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puSubresource
     }
 
@@ -54,10 +62,14 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetUnknownForDevice(pUnkDevice, guid, riid) {
-        result := ComCall(5, this, "ptr", pUnkDevice, "ptr", guid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnkDevice, "ptr", guid, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 
@@ -69,7 +81,11 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetUnknownForDevice(pUnkDevice, guid, pUnkData) {
-        result := ComCall(6, this, "ptr", pUnkDevice, "ptr", guid, "ptr", pUnkData, "HRESULT")
+        result := ComCall(6, this, "ptr", pUnkDevice, "ptr", guid, "ptr", pUnkData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The ITfThreadFocusSink interface is implemented by an application or TSF text service to receive notifications when the thread receives or loses the UI focus.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfthreadfocussink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfthreadfocussink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,21 +32,29 @@ class ITfThreadFocusSink extends IUnknown{
 
     /**
      * ITfThreadFocusSink::OnSetThreadFocus method
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadfocussink-onsetthreadfocus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadfocussink-onsetthreadfocus
      */
     OnSetThreadFocus() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfThreadFocusSink::OnKillThreadFocus method
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadfocussink-onkillthreadfocus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadfocussink-onkillthreadfocus
      */
     OnKillThreadFocus() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

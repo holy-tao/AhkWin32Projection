@@ -27,7 +27,7 @@
  * MIXERCONTROL_CONTROLTYPE_QSOUNDPAN
  * 
  * MIXERCONTROL_CONTROLTYPE_SLIDER
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails_signed
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/ns-mmeapi-mixercontroldetails_signed
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

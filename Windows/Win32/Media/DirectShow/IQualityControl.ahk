@@ -5,7 +5,7 @@
 
 /**
  * The IQualityControl interface provides support for quality control.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iqualitycontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iqualitycontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -35,15 +35,23 @@ class IQualityControl extends IUnknown{
      * @param {IBaseFilter} pSelf Pointer to the filter that is sending the quality notification.
      * @param {Quality} q [Quality](/windows/desktop/api/strmif/ns-strmif-quality) structure.
      * @returns {HRESULT} Returns S_OK if the method succeeds; otherwise, returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iqualitycontrol-notify
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iqualitycontrol-notify
      */
     Notify(pSelf, q) {
-        result := ComCall(3, this, "ptr", pSelf, "ptr", q, "HRESULT")
+        result := ComCall(3, this, "ptr", pSelf, "ptr", q, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetSink method sets the IQualityControl object that will receive quality messages.
+     * @remarks
+     * The filter that receives a call to this method should record the <i>piqc</i> but should not add a reference count to it. The object pointed to will be a quality manager and will be a part of the filter graph (for example, a plug-in distributor). Adding a reference count to this could cause circular reference problems.
+     * 
+     * The reference to the object specified in <i>piqc</i> is guaranteed to be valid until this method is called with a null value.
      * @param {IQualityControl} piqc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iqualitycontrol">IQualityControl</a> object to which the notifications should be sent.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation. <b>HRESULT</b> can be one of the following standard constants, or other values not listed.
      * 
@@ -108,10 +116,14 @@ class IQualityControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iqualitycontrol-setsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iqualitycontrol-setsink
      */
     SetSink(piqc) {
-        result := ComCall(4, this, "ptr", piqc, "HRESULT")
+        result := ComCall(4, this, "ptr", piqc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

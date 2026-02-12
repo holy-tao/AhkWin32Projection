@@ -53,12 +53,17 @@ class IRTCSessionCallControl extends IUnknown{
     }
 
     /**
-     * 
+     * The IADsHold interface provides methods for an ADSI client to access the Hold attribute.
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadshold
      */
     Hold(lCookie) {
-        result := ComCall(3, this, "ptr", lCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +73,11 @@ class IRTCSessionCallControl extends IUnknown{
      * @returns {HRESULT} 
      */
     UnHold(lCookie) {
-        result := ComCall(4, this, "ptr", lCookie, "HRESULT")
+        result := ComCall(4, this, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,23 +87,41 @@ class IRTCSessionCallControl extends IUnknown{
      * @returns {HRESULT} 
      */
     Forward(bstrForwardToURI) {
-        bstrForwardToURI := bstrForwardToURI is String ? BSTR.Alloc(bstrForwardToURI).Value : bstrForwardToURI
+        if(bstrForwardToURI is String) {
+            pin := BSTR.Alloc(bstrForwardToURI)
+            bstrForwardToURI := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", bstrForwardToURI, "HRESULT")
+        result := ComCall(5, this, "ptr", bstrForwardToURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn about references you can use to create and configure Always On availability groups for SQL Server.
      * @param {BSTR} bstrReferToURI 
      * @param {BSTR} bstrReferCookie 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/database-engine/availability-groups/windows/creation-and-configuration-of-availability-groups-sql-server
      */
     Refer(bstrReferToURI, bstrReferCookie) {
-        bstrReferToURI := bstrReferToURI is String ? BSTR.Alloc(bstrReferToURI).Value : bstrReferToURI
-        bstrReferCookie := bstrReferCookie is String ? BSTR.Alloc(bstrReferCookie).Value : bstrReferCookie
+        if(bstrReferToURI is String) {
+            pin := BSTR.Alloc(bstrReferToURI)
+            bstrReferToURI := pin.Value
+        }
+        if(bstrReferCookie is String) {
+            pin := BSTR.Alloc(bstrReferCookie)
+            bstrReferCookie := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", bstrReferToURI, "ptr", bstrReferCookie, "HRESULT")
+        result := ComCall(6, this, "ptr", bstrReferToURI, "ptr", bstrReferCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,9 +131,16 @@ class IRTCSessionCallControl extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ReferredByURI(bstrReferredByURI) {
-        bstrReferredByURI := bstrReferredByURI is String ? BSTR.Alloc(bstrReferredByURI).Value : bstrReferredByURI
+        if(bstrReferredByURI is String) {
+            pin := BSTR.Alloc(bstrReferredByURI)
+            bstrReferredByURI := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrReferredByURI, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrReferredByURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +150,11 @@ class IRTCSessionCallControl extends IUnknown{
      */
     get_ReferredByURI() {
         pbstrReferredByURI := BSTR()
-        result := ComCall(8, this, "ptr", pbstrReferredByURI, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrReferredByURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrReferredByURI
     }
 
@@ -126,9 +164,16 @@ class IRTCSessionCallControl extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ReferCookie(bstrReferCookie) {
-        bstrReferCookie := bstrReferCookie is String ? BSTR.Alloc(bstrReferCookie).Value : bstrReferCookie
+        if(bstrReferCookie is String) {
+            pin := BSTR.Alloc(bstrReferCookie)
+            bstrReferCookie := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrReferCookie, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrReferCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +183,11 @@ class IRTCSessionCallControl extends IUnknown{
      */
     get_ReferCookie() {
         pbstrReferCookie := BSTR()
-        result := ComCall(10, this, "ptr", pbstrReferCookie, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrReferCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrReferCookie
     }
 
@@ -147,7 +196,11 @@ class IRTCSessionCallControl extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_IsReferred() {
-        result := ComCall(11, this, "short*", &pfIsReferred := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &pfIsReferred := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsReferred
     }
 }

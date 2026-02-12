@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about initialization or termination of a plug-in.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbpluginnotifysink
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbpluginnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,22 +32,34 @@ class ITsSbPluginNotifySink extends ITsSbBaseNotifySink{
 
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the plug-in has completed a call of Initialize.
+     * @remarks
+     * Plug-ins should call this method after they complete their initialization process.
      * @param {HRESULT} hr Specifies the result of the call to <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nf-sbtsv-itssbplugin-initialize">Initialize</a>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbpluginnotifysink-oninitialized
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbpluginnotifysink-oninitialized
      */
     OnInitialized(hr) {
-        result := ComCall(5, this, "int", hr, "HRESULT")
+        result := ComCall(5, this, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the plug-in has completed a call of Terminate.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbpluginnotifysink-onterminated
+     * @remarks
+     * Plug-ins should call this method after they complete their termination process or after throwing a fatal exception.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbpluginnotifysink-onterminated
      */
     OnTerminated() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IMediaActivityNotifySite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnMediaActivityStarted(mediaActivityType) {
-        result := ComCall(3, this, "int", mediaActivityType, "HRESULT")
+        result := ComCall(3, this, "int", mediaActivityType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IMediaActivityNotifySite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnMediaActivityStopped(mediaActivityType) {
-        result := ComCall(4, this, "int", mediaActivityType, "HRESULT")
+        result := ComCall(4, this, "int", mediaActivityType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

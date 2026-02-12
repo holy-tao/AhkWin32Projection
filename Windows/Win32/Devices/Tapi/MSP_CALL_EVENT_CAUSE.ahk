@@ -3,7 +3,7 @@
 
 /**
  * The MSP_CALL_EVENT_CAUSE (msp.h) enumeration constant is returned within the MSP_EVENT_INFO struct by the GetEvent method when MSP_EVENT is ME_CALL_EVENT.
- * @see https://learn.microsoft.com/windows/win32/api/msp/ne-msp-msp_call_event_cause
+ * @see https://learn.microsoft.com/windows/win32/api//content/msp/ne-msp-msp_call_event_cause
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

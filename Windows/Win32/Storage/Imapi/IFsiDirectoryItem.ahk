@@ -9,16 +9,13 @@
 /**
  * Use this interface to add items to or remove items from the file-system image.
  * @remarks
- * 
  * Each directory item contains an enumerable collection of child items within the directory.
  * 
  * You can add and remove files and directories only after the directory item has been added to the file system image.
  * 
  * 
  * This is an <b>FsiDirectoryItem</b> object in script.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsidirectoryitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-ifsidirectoryitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -71,51 +68,82 @@ class IFsiDirectoryItem extends IFsiItem{
     }
 
     /**
-     * Retrieves a list of child items contained within the directory in the file system image.
+     * Retrieves a list of child items contained within the directory in the file system image. (IFsiDirectoryItem.get__NewEnum)
+     * @remarks
+     * The enumeration is a snapshot of the children contained in the directory at the time of the call and will not reflect children that are added and removed. 
+     * 
+     * To retrieve a single item, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_item">IFsiDirectoryItem::get_Item</a> property.
      * @returns {IEnumVARIANT} An <b>IEnumVariant</b> interface that you use to enumerate the child items contained within the directory. The items of the enumeration are variants whose type is <b>VT_BSTR</b>. Use the <b>bstrVal</b> member to retrieve the path to the child item.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(19, this, "ptr*", &NewEnum := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(NewEnum)
     }
 
     /**
      * Retrieves the specified directory or file item from file system image.
-     * @param {BSTR} path String that contains the path to the item to retrieve.
+     * @remarks
+     * To determine whether the item is a file item or directory item, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem::QueryInterface</a>  method passing __uuidof(IFsiDirectoryItem) as the interface identifier. If the call succeeds, the item is a directory item; otherwise, the item is a file item.
+     * 
+     * To enumerate all children, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum">IFsiDirectoryItem::get__NewEnum</a> method.
+     * @param {BSTR} path_ String that contains the path to the item to retrieve.
      * @returns {IFsiItem} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem</a> interface of the requested directory or file item.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_item
      */
-    get_Item(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    get_Item(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", path, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", path_, "ptr*", &item := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsiItem(item)
     }
 
     /**
      * Number of child items in the enumeration.
      * @returns {Integer} Number of directory and file items within the directory in the file system image.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_count
      */
     get_Count() {
-        result := ComCall(21, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
     /**
-     * Retrieves a list of child items contained within the directory in the file system image.
+     * Retrieves a list of child items contained within the directory in the file system image. (IFsiDirectoryItem.get_EnumFsiItems)
+     * @remarks
+     * This property returns the same results as the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum">IFsiDirectoryItem::get__NewEnum</a> property and is meant for use by C/C++ applications.
      * @returns {IEnumFsiItems} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ienumfsiitems">IEnumFsiItems</a> interface that contains a collection of the child directory and file items contained within the directory.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_enumfsiitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_enumfsiitems
      */
     get_EnumFsiItems() {
-        result := ComCall(22, this, "ptr*", &NewEnum := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumFsiItems(NewEnum)
     }
 
     /**
      * Adds a directory to the file system image.
-     * @param {BSTR} path String that contains the relative path of directory to create.   
+     * @remarks
+     * The parent directory for the new subdirectory must already exist within the file system image.
+     * @param {BSTR} path_ String that contains the relative path of directory to create.   
      * 
      * Specify the full path when calling this method from the root directory item.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -178,18 +206,27 @@ class IFsiDirectoryItem extends IFsiItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-adddirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-adddirectory
      */
-    AddDirectory(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    AddDirectory(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", path, "HRESULT")
+        result := ComCall(23, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds a file to the file system image.
-     * @param {BSTR} path String that contains the relative path of the directory to contain the new file.
+     * @remarks
+     * The directory that will contain the new file must already exist within the file system image.
+     * @param {BSTR} path_ String that contains the relative path of the directory to contain the new file.
      * 
      * Specify the full path when calling this method from the root directory item.
      * @param {IStream} fileData An <b>IStream</b> interface of the file (data stream) to write to the media.
@@ -266,17 +303,33 @@ class IFsiDirectoryItem extends IFsiItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-addfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addfile
      */
-    AddFile(path, fileData) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    AddFile(path_, fileData) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", path, "ptr", fileData, "HRESULT")
+        result := ComCall(24, this, "ptr", path_, "ptr", fileData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds the contents of a directory tree to the file system image.
+     * @remarks
+     * The parent directory for the new subdirectory must already exist within the file system image.
+     * 
+     * 
+     * The subdirectory structure within specified source directory is implicitly mirrored in the file system image.  
+     * 
+     * If file or directory collisions occur, the content of the specified source directory prevails. The file system image is overwritten with the appropriate directories and files from the source directory.
+     * 
+     * If an exception occurs during processing, the file system image reverts to its previous state.
      * @param {BSTR} sourceDirectory String that contains the relative path of the directory tree to create.
      * 
      * Specify the full path when calling this method from the root directory item.
@@ -490,20 +543,31 @@ class IFsiDirectoryItem extends IFsiItem{
      * </table>
      *  
      * 
-     * <div class="alert"><b>Note</b>  Values returned by the  <a href="/windows/desktop/api/fileapi/nf-fileapi-getfileattributesexa">GetFileAttributesEx</a> and <a href="/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> functions may also be returned here.</div>
+     * <div class="alert"><b>Note</b>  Values returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesexa">GetFileAttributesEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> functions may also be returned here.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-addtree
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-addtree
      */
     AddTree(sourceDirectory, includeBaseDirectory) {
-        sourceDirectory := sourceDirectory is String ? BSTR.Alloc(sourceDirectory).Value : sourceDirectory
+        if(sourceDirectory is String) {
+            pin := BSTR.Alloc(sourceDirectory)
+            sourceDirectory := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", sourceDirectory, "short", includeBaseDirectory, "HRESULT")
+        result := ComCall(25, this, "ptr", sourceDirectory, "short", includeBaseDirectory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds a file or directory described by the IFsiItem object to the file system image.
-     * @param {IFsiItem} item An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem</a> interface of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsifileitem">IFsiFileItem</a>or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsidirectoryitem">IFsiDirectoryItem</a> to add to the file system  image.
+     * @remarks
+     * To create a directory item or file item, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createdirectoryitem">IFileSystemImage::CreateDirectoryItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifilesystemimage-createfileitem">IFileSystemImage::CreateFileItem</a> method, respectively.
+     * 
+     * Once an item is added to the file system image, the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_data">IFsiFileItem::get_Data</a> property becomes read-only.
+     * @param {IFsiItem} item An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem</a> interface of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsifileitem">IFsiFileItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsidirectoryitem">IFsiDirectoryItem</a> to add to the file system  image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -689,16 +753,22 @@ class IFsiDirectoryItem extends IFsiItem{
      * 
      * <div class="alert"><b>Note</b>  Values returned by the  IUnknown::QueryInterface method may also be returned here.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-add
      */
     Add(item) {
-        result := ComCall(26, this, "ptr", item, "HRESULT")
+        result := ComCall(26, this, "ptr", item, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the specified item from the file system image.
-     * @param {BSTR} path String that contains the relative path of the item to remove.
+     * @remarks
+     * This method is only callable on directory items present in the file system image.
+     * @param {BSTR} path_ String that contains the relative path of the item to remove.
      * The path is relative to current directory item.
      * 
      * Specify the full path when calling this method from the root directory item.
@@ -801,18 +871,30 @@ class IFsiDirectoryItem extends IFsiItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-remove
      */
-    Remove(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    Remove(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", path, "HRESULT")
+        result := ComCall(27, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Remove the specified directory tree from the file system image.
-     * @param {BSTR} path String that contains the name of directory to remove.
+     * @remarks
+     * The directory item must be  present in the file system image.
+     * 
+     * 
+     * You can delete the entire file-system image by calling this method for the root directory item and setting the path to a single path delimiter (\\).
+     * @param {BSTR} path_ String that contains the name of directory to remove.
      * The path is relative to current directory item.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -935,12 +1017,19 @@ class IFsiDirectoryItem extends IFsiItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem-removetree
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem-removetree
      */
-    RemoveTree(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    RemoveTree(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", path, "HRESULT")
+        result := ComCall(28, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

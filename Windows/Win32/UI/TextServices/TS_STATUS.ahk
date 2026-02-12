@@ -70,7 +70,7 @@
  * <td><b>Starting with Windows 8:</b> The document supports text suggestions provided by the touch keyboard.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/textstor/ns-textstor-ts_status
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -7,16 +7,13 @@
 /**
  * Accesses the components of a signature request.
  * @remarks
- * 
  * The <b>IXpsSignatureRequest</b> interface corresponds to a single <b>SignatureDefinition</b> element in the markup of the SignatureDefinitons part.
  * 
  * This <b>SignatureDefinition</b> element markup is described in section 10.2.2 of the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>. 
  * 
  * All signature requests are 
  * stored in a request collection of a signature block. They cannot exist independently from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblock">IXpsSignatureBlock</a> interface from which they were instantiated.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturerequest
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -42,19 +39,29 @@ class IXpsSignatureRequest extends IUnknown{
     static VTableNames => ["GetIntent", "SetIntent", "GetRequestedSigner", "SetRequestedSigner", "GetRequestSignByDate", "SetRequestSignByDate", "GetSigningLocale", "SetSigningLocale", "GetSpotLocation", "SetSpotLocation", "GetRequestId", "GetSignature"]
 
     /**
-     * Sets the string that describes the intent or meaning of the signature.
+     * Sets the string that describes the intent or meaning of the signature. (IXpsSignatureRequest.GetIntent)
+     * @remarks
+     * The signature intent string describes what the signature means to the signer. For example, for the  signature intent string "I have read and agree with the contents of this document" the presence of a digital signature means that the signer has read and agrees with the content of the document.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>intent</i>.  If <i>intent</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The signature intention agreement against which the signer is signing.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getintent
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getintent
      */
     GetIntent() {
-        result := ComCall(3, this, "ptr*", &intent := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &intent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return intent
     }
 
     /**
-     * Sets the string that describes the intent or meaning of the signature.
+     * Sets the string that describes the intent or meaning of the signature. (IXpsSignatureRequest.SetIntent)
+     * @remarks
+     * The signature intent string describes what the signature means to the signer. For example, for the  signature intent string "I have read and agree with the contents of this document" the presence of a digital signature means that the signer has read and agrees with the content of the document.
      * @param {PWSTR} intent The string that describes the intent or meaning of the signature.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -95,29 +102,39 @@ class IXpsSignatureRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setintent
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setintent
      */
     SetIntent(intent) {
         intent := intent is String ? StrPtr(intent) : intent
 
-        result := ComCall(4, this, "ptr", intent, "HRESULT")
+        result := ComCall(4, this, "ptr", intent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the identity of the person who has signed or is requesting to sign the package.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>signerName</i>.  If <i>signerName</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The identity of the person who has signed or is requesting to sign the package.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestedsigner
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestedsigner
      */
     GetRequestedSigner() {
-        result := ComCall(5, this, "ptr*", &signerName := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &signerName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return signerName
     }
 
     /**
      * Sets the identity of the person who signed or is requested to sign the package.
      * @param {PWSTR} signerName The identity of the person who signed or is requesting to sign the package.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -158,24 +175,34 @@ class IXpsSignatureRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setrequestedsigner
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setrequestedsigner
      */
     SetRequestedSigner(signerName) {
         signerName := signerName is String ? StrPtr(signerName) : signerName
 
-        result := ComCall(6, this, "ptr", signerName, "HRESULT")
+        result := ComCall(6, this, "ptr", signerName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the date and time before which the requested signer must sign the specified parts of the document.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>dateString</i>.  If <i>dateString</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} A string that contains the date and time before which the requested signer must sign the specified parts of the document.
      * 
      * The string is formatted as either <c>YYYY-MM-DDThh:mmZ</code>,  which includes the UTC time zone offset, or <code>YYYY-MM-DDThh:mm</code>, which does not include the UTC time zone offset. For example, without the time zone offset, 7:30:29 P.M. on July 4, 2008 would be represented  as <code>2008-07-04T19:30:29</c>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestsignbydate
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestsignbydate
      */
     GetRequestSignByDate() {
-        result := ComCall(7, this, "ptr*", &dateString := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &dateString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dateString
     }
 
@@ -184,7 +211,7 @@ class IXpsSignatureRequest extends IUnknown{
      * @param {PWSTR} dateString A string that contains the date and time before which the requested signer must sign the specified parts of the document.
      * 
      * The string must be formatted as <c>YYYY-MM-DDThh:mmZ</code> with the UTC time zone offset. For example, 7:30:29 A.M. Pacific Standard Time on July 4, 2008 would be represented as the UTC time of <code>2008-07-04T15:30:29Z</c>.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -225,29 +252,39 @@ class IXpsSignatureRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setrequestsignbydate
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setrequestsignbydate
      */
     SetRequestSignByDate(dateString) {
         dateString := dateString is String ? StrPtr(dateString) : dateString
 
-        result := ComCall(8, this, "ptr", dateString, "HRESULT")
+        result := ComCall(8, this, "ptr", dateString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the legal jurisdiction of the package signing location.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>place</i>.  If <i>place</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The legal jurisdiction of the package signing location
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsigninglocale
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsigninglocale
      */
     GetSigningLocale() {
-        result := ComCall(9, this, "ptr*", &place := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &place := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return place
     }
 
     /**
      * Sets the legal jurisdiction of the package signing location.
      * @param {PWSTR} place The legal jurisdiction of the package signing location.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -288,22 +325,28 @@ class IXpsSignatureRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setsigninglocale
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setsigninglocale
      */
     SetSigningLocale(place) {
         place := place is String ? StrPtr(place) : place
 
-        result := ComCall(10, this, "ptr", place, "HRESULT")
+        result := ComCall(10, this, "ptr", place, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the page and the location on the page where the visible digital signature or the digital signature request will be displayed.
+     * @remarks
+     * The location  of the signing spot is specified in XPS units from the upper-left corner of the page. There are 96 XPS units per inch.
      * @param {Pointer<Integer>} pageIndex The index value of the FixedPage part that contains the signature or the digital signature request. If a spot location is not specified for the signature request, –1 is returned.
      * @param {Pointer<IOpcPartUri>} pagePartName A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part that contains the FixedPage on which the digital signature is to be displayed.
      * @param {Pointer<Float>} x The x-coordinate value of the signing spot on the page.
      * @param {Pointer<Float>} y The y-coordinate value of the signing spot on the page.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -344,19 +387,25 @@ class IXpsSignatureRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getspotlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getspotlocation
      */
     GetSpotLocation(pageIndex, pagePartName, x, y) {
         pageIndexMarshal := pageIndex is VarRef ? "int*" : "ptr"
         xMarshal := x is VarRef ? "float*" : "ptr"
         yMarshal := y is VarRef ? "float*" : "ptr"
 
-        result := ComCall(11, this, pageIndexMarshal, pageIndex, "ptr*", pagePartName, xMarshal, x, yMarshal, y, "HRESULT")
+        result := ComCall(11, this, pageIndexMarshal, pageIndex, "ptr*", pagePartName, xMarshal, x, yMarshal, y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the page and the location on the page where the visible digital signature or the digital signature request will be displayed.
+     * @remarks
+     * The location  of the signing spot is specified in XPS units from the upper-left corner of the page. There are 96 XPS units per inch.
      * @param {Integer} pageIndex The index value of the FixedPage part in the XPS document  that contains the visible digital signature or the digital signature request.
      * 
      * If the value of this parameter is –1, a <b>SpotLocation</b> element will not be written to the SignatureDefinitions markup.
@@ -364,7 +413,7 @@ class IXpsSignatureRequest extends IUnknown{
      * If the value of this parameter is not –1, it must be a page number that exists in the FixedDocument part to which the signature block that contains this request is attached.
      * @param {Float} x The x-coordinate value of the signing spot on the page.
      * @param {Float} y The y-coordinate value of the signing spot on the page.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -394,30 +443,47 @@ class IXpsSignatureRequest extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setspotlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-setspotlocation
      */
     SetSpotLocation(pageIndex, x, y) {
-        result := ComCall(12, this, "int", pageIndex, "float", x, "float", y, "HRESULT")
+        result := ComCall(12, this, "int", pageIndex, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the unique identifier of the signature request.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>requestId</i>.  If <i>requestId</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
+     * 
+     *  The <i>requestId</i> parameter receives the value of the <b>SpotID</b> attribute  of the <b>SignatureDefinition</b> element. The <b>SpotID</b> attribute  is required and should follow the xs:ID (XML ID) format; however, 
+     *     existing SignatureDefinitions parts are not checked for adherence to the recommended format. Some XPS documents that were produced by Windows Presentation Foundation (WPF) applications may have an ID that starts with a digit.
      * @returns {PWSTR} The unique identifier of  the signature request.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestid
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getrequestid
      */
     GetRequestId() {
-        result := ComCall(13, this, "ptr*", &requestId := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &requestId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return requestId
     }
 
     /**
      * Gets a pointer to an IXpsSignature interface that contains the XPS digital signature with the same unique identifier as the signature request.
      * @returns {IXpsSignature} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface that contains the XPS digital signature with the same unique identifier as the signature request. If no matching signature is found, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturerequest-getsignature
      */
     GetSignature() {
-        result := ComCall(14, this, "ptr*", &signature := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &signature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsSignature(signature)
     }
 }

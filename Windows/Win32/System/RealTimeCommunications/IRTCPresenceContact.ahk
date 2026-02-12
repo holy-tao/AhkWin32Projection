@@ -67,7 +67,11 @@ class IRTCPresenceContact extends IUnknown{
      */
     get_PresentityURI() {
         pbstrPresentityURI := BSTR()
-        result := ComCall(3, this, "ptr", pbstrPresentityURI, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrPresentityURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrPresentityURI
     }
 
@@ -77,9 +81,16 @@ class IRTCPresenceContact extends IUnknown{
      * @returns {HRESULT} 
      */
     put_PresentityURI(bstrPresentityURI) {
-        bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
+        if(bstrPresentityURI is String) {
+            pin := BSTR.Alloc(bstrPresentityURI)
+            bstrPresentityURI := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrPresentityURI, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrPresentityURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +100,11 @@ class IRTCPresenceContact extends IUnknown{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -99,9 +114,16 @@ class IRTCPresenceContact extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Name(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(6, this, "ptr", bstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +133,11 @@ class IRTCPresenceContact extends IUnknown{
      */
     get_Data() {
         pbstrData := BSTR()
-        result := ComCall(7, this, "ptr", pbstrData, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrData
     }
 
@@ -121,9 +147,16 @@ class IRTCPresenceContact extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Data(bstrData) {
-        bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
+        if(bstrData is String) {
+            pin := BSTR.Alloc(bstrData)
+            bstrData := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrData, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +165,11 @@ class IRTCPresenceContact extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_Persistent() {
-        result := ComCall(9, this, "short*", &pfPersistent := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &pfPersistent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPersistent
     }
 
@@ -142,7 +179,11 @@ class IRTCPresenceContact extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Persistent(fPersistent) {
-        result := ComCall(10, this, "short", fPersistent, "HRESULT")
+        result := ComCall(10, this, "short", fPersistent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

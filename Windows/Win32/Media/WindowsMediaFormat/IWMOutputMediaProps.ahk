@@ -5,7 +5,7 @@
 
 /**
  * The IWMOutputMediaProps interface is used to retrieve the properties of an output stream.An IWMOutputMediaProps object is created by a call to IWMReader::GetOutputFormat or IWMReader::GetOutputProps.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmoutputmediaprops
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmoutputmediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMOutputMediaProps extends IWMMediaProps{
 
     /**
      * The GetStreamGroupName method is not implemented in this release, and returns the empty string.
+     * @remarks
+     * You should make two calls to <b>GetStreamGroupName</b>. On the first call, pass <b>NULL</b> as <i>pwszName</i>. On return, the value pointed to by <i>pcchName</i> is set to the number of wide characters, including the terminating <b>null</b> character, required to hold the stream group name. Then you can allocate the required amount of memory for the string and pass a pointer to it as <i>pwszName</i> on the second call.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name. Pass <b>NULL</b> to retrieve the length of the name.
      * @param {Pointer<Integer>} pcchName On input, a pointer to a variable containing the length of the <i>pwszName</i> array in wide characters (2 bytes). On output, and if the method succeeds, the variable contains the length of the name, including the terminating <b>null</b> character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -75,19 +77,29 @@ class IWMOutputMediaProps extends IWMMediaProps{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmoutputmediaprops-getstreamgroupname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmoutputmediaprops-getstreamgroupname
      */
     GetStreamGroupName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszName, pcchNameMarshal, pcchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetConnectionName method retrieves the name of the connection to be used for output.
+     * @remarks
+     * The reader creates a default connection name for each output that is simply a string representation of the output number, for example "1", "2", "3" and so on.
+     * 
+     * You should make two calls to <b>GetConnectionName</b>. On the first call, pass <b>NULL</b> as <i>pwszName</i>. On return, the value pointed to by <i>pcchName</i> is set to the number of wide characters, including the terminating <b>null</b> character, required to hold the connection name. Then you can allocate the required amount of memory for the string and pass a pointer to it as <i>pwszName</i> on the second call.
+     * 
+     * This connection name is used to match stream numbers to output numbers. All streams in the file are associated with an <b>IWMStreamConfig</b> object whose connection name matches this one (which can be obtained by a call to <b>IWMStreamConfig::GetConnectionName</b>).
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name. Pass <b>NULL</b> to retrieve the length of the name.
      * @param {Pointer<Integer>} pcchName On input, a pointer to a variable containing the length of the <i>pwszName</i> array in wide characters. On output, if the method succeeds, it specifies a pointer to the length of the connection name, including the terminating <b>null</b> character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -131,14 +143,18 @@ class IWMOutputMediaProps extends IWMMediaProps{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmoutputmediaprops-getconnectionname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmoutputmediaprops-getconnectionname
      */
     GetConnectionName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         pcchNameMarshal := pcchName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszName, pcchNameMarshal, pcchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -47,7 +47,11 @@ class IHTMLImgElement4 extends IDispatch{
      * @returns {Integer} 
      */
     get_naturalWidth() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -56,7 +60,11 @@ class IHTMLImgElement4 extends IDispatch{
      * @returns {Integer} 
      */
     get_naturalHeight() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

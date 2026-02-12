@@ -7,7 +7,7 @@
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-listview_getfooterinfo">ListView_GetFooterInfo</a> macro and the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-getfooterinfo">LVM_GETFOOTERINFO</a> message.
  * 
  * The creation of footers in list-view controls is currently not supported.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvfooterinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-lvfooterinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

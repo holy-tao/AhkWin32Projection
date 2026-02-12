@@ -29,16 +29,21 @@ class IModelMethod extends IUnknown{
     static VTableNames => ["Call"]
 
     /**
-     * 
+     * Call SQLColumns on a Table with Sparse Columns
      * @param {IModelObject} pContextObject 
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 
      * @param {Pointer<IModelObject>} ppResult 
-     * @param {Pointer<IKeyStore>} ppMetadata 
+     * @param {Pointer<Pointer<IKeyStore>>} ppMetadata 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-odbc-how-to/call-sqlcolumns-on-a-table-with-sparse-columns
      */
     Call(pContextObject, argCount, ppArguments, ppResult, ppMetadata) {
-        result := ComCall(3, this, "ptr", pContextObject, "uint", argCount, "ptr*", ppArguments, "ptr*", ppResult, "ptr*", ppMetadata, "HRESULT")
+        result := ComCall(3, this, "ptr", pContextObject, "uint", argCount, "ptr*", ppArguments, "ptr*", ppResult, "ptr*", ppMetadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

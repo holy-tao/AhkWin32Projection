@@ -31,14 +31,18 @@ class IObjectWrapperConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} pContextObject 
-     * @param {Pointer<IModelObject>} wrappedObject 
+     * @param {Pointer<Pointer<IModelObject>>} wrappedObject 
      * @param {Pointer<Integer>} pUsagePreference 
      * @returns {HRESULT} 
      */
     GetWrappedObject(pContextObject, wrappedObject, pUsagePreference) {
         pUsagePreferenceMarshal := pUsagePreference is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pContextObject, "ptr*", wrappedObject, pUsagePreferenceMarshal, pUsagePreference, "HRESULT")
+        result := ComCall(3, this, "ptr", pContextObject, "ptr*", wrappedObject, pUsagePreferenceMarshal, pUsagePreference, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

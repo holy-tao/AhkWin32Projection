@@ -7,7 +7,7 @@
 
 /**
  * Represents a collection of IAzRole objects.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazroles
+ * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nn-azroles-iazroles
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -50,39 +50,47 @@ class IAzRoles extends IDispatch{
      * Retrieves the IAzRole object at the specified index into the IAzRoles collection.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroles-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazroles-get_item
      */
     get_Item(Index) {
         pvarObtPtr := VARIANT()
-        result := ComCall(7, this, "int", Index, "ptr", pvarObtPtr, "HRESULT")
+        result := ComCall(7, this, "int", Index, "ptr", pvarObtPtr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarObtPtr
     }
 
     /**
      * Retrieves the number of IAzRole objects in the collection.
      * @remarks
-     * 
      * The <b>Count</b> property can be used to specify the last <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazrole">IAzRole</a> object in a collection when retrieving a specific <b>IAzRole</b> object using the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazroles-get_item">IAzRoles.Item</a> property.
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroles-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazroles-get_count
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
      * The _NewEnum property of IAzRoles retrieves an IEnumVARIANT interface on an object that can be used to enumerate the collection. This property is hidden within Visual Basic and Visual Basic Scripting Edition (VBScript).
      * @remarks
-     * 
      * This property is provided for use by the <c>For Each</code> keyword in Visual Basic and the <code>foreach</c> keyword in Visual C#.
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazroles-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazroles-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppEnumPtr := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnumPtr := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppEnumPtr)
     }
 }

@@ -34,7 +34,11 @@ class IDebugHostType3 extends IDebugHostType2{
      * @returns {IDebugHostType3} 
      */
     GetContainingType() {
-        result := ComCall(34, this, "ptr*", &containingParentType := 0, "HRESULT")
+        result := ComCall(34, this, "ptr*", &containingParentType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType3(containingParentType)
     }
 }

@@ -12,7 +12,7 @@
  * "ACTCTX_SECTION_KEYED_DATA askd = { sizeof(askd) };"
  * 
  * which  initializes all members to zero/null except the size field which is set correctly.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-actctx_section_keyed_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-actctx_section_keyed_data
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

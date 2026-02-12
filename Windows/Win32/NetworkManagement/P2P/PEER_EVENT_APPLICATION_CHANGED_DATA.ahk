@@ -11,7 +11,7 @@
  * When a new application is registered locally using PeerCollabRegisterApplication or unregistered using PeerCollabUnregisterApplication all peers subscribed to the local peer's presence information receive the PEER_EVENT_ENDPOINT_APPLICATION_CHANGED event. Locally, applications receive the PEER_EVENT_MY_APPLICATION_CHANGED event. 
  * 
  * The <b>current user</b> scope has priority over the <b>all user</b> scope. If the application is registered in both scopes, the event will be fired only if the <b>current user</b> scope is changed.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_application_changed_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_event_application_changed_data
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

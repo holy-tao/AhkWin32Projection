@@ -59,7 +59,11 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_vspace(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +72,11 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {Integer} 
      */
     get_vspace() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -78,7 +86,11 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hspace(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +99,11 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {Integer} 
      */
     get_hspace() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -97,9 +113,16 @@ class IHTMLIFrameElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_align(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +132,11 @@ class IHTMLIFrameElement extends IDispatch{
      */
     get_align() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

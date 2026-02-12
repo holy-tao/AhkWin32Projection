@@ -13,7 +13,7 @@
  *         
  * 
  * Some FFT algorithms benefit from precomputing sin and cos. The FFT object might store precomputed data in the user-supplied buffers.
- * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/ns-d3dcsx-d3dx11_fft_buffer_info
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

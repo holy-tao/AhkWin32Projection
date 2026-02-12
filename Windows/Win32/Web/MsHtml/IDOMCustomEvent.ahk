@@ -49,7 +49,11 @@ class IDOMCustomEvent extends IDispatch{
      */
     get_detail() {
         p := VARIANT()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -62,9 +66,16 @@ class IDOMCustomEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initCustomEvent(eventType, canBubble, cancelable, detail) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", detail, "HRESULT")
+        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", detail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

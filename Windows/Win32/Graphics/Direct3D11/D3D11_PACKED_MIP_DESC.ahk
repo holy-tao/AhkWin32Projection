@@ -3,7 +3,7 @@
 
 /**
  * Describes the tile structure of a tiled resource with mipmaps. (D3D11_PACKED_MIP_DESC)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_packed_mip_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_2/ns-d3d11_2-d3d11_packed_mip_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

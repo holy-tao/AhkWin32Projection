@@ -20,7 +20,7 @@
  * <li><b>ClearView</b>, <b>CopyWithOverlap</b>, <b>ConstantBufferPartialUpdate</b>, <b>ConstantBufferOffsetting</b>, and <b>MapNoOverwriteOnDynamicConstantBuffer</b></li>
  * <li><b>MapNoOverwriteOnDynamicBufferSRV</b> and <b>MultisampleRTVWithForcedSampleCountOne</b></li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -41,10 +41,17 @@ class IMSMQApplication extends IDispatch{
      * @returns {BSTR} 
      */
     MachineIdOfMachineName(MachineName) {
-        MachineName := MachineName is String ? BSTR.Alloc(MachineName).Value : MachineName
+        if(MachineName is String) {
+            pin := BSTR.Alloc(MachineName)
+            MachineName := pin.Value
+        }
 
         pbstrGuid := BSTR()
-        result := ComCall(7, this, "ptr", MachineName, "ptr", pbstrGuid, "HRESULT")
+        result := ComCall(7, this, "ptr", MachineName, "ptr", pbstrGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGuid
     }
 }

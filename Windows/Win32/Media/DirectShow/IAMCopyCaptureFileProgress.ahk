@@ -6,12 +6,11 @@
 /**
  * The IAMCopyCaptureFileProgress interface is a callback interface used by the ICaptureGraphBuilder2::CopyCaptureFile method.Because the CopyCaptureFile method can take a long time to complete, an application can implement this interface to receive periodic notifications about the progress of the copy operation. If the application does not need to receive this information, there is no need to implement the interface.
  * @remarks
- * 
  * To use this interface, implement a class that inherits the interface and implements all of its methods, including the methods in <b>IUnknown</b>. In your application, create an instance of the class and pass it to the <b>CopyCaptureFile</b> method. You do not have to implement COM reference counting in your class, as long as the object is guaranteed not to be deleted before the <b>CopyCaptureFile</b> method returns.
  * 
  * The following example shows a class that implements the interface:
  * 
- * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
+ * <div class="code"><span><table>
  * <tr>
  * <th>C++</th>
  * </tr>
@@ -65,7 +64,7 @@
  * </table></span></div>
  * The following example uses this class in the <b>CopyCaptureFile</b> method:
  * 
- * <div class="code"><span codelanguage="ManagedCPlusPlus"><table>
+ * <div class="code"><span><table>
  * <tr>
  * <th>C++</th>
  * </tr>
@@ -83,9 +82,7 @@
  * </td>
  * </tr>
  * </table></span></div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamcopycapturefileprogress
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamcopycapturefileprogress
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -112,12 +109,18 @@ class IAMCopyCaptureFileProgress extends IUnknown{
 
     /**
      * The Progress method is called periodically by the ICaptureGraphBuilder2::CopyCaptureFile method while it copies the file.
+     * @remarks
+     * Applications typically use the value of <i>iProgress</i> to update a progress bar on the user interface.
      * @param {Integer} iProgress Specifies the percentage of the copy operation that has completed, as a value between 0 and 100.
      * @returns {HRESULT} Returns S_OK or an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamcopycapturefileprogress-progress
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamcopycapturefileprogress-progress
      */
     Progress(iProgress) {
-        result := ComCall(3, this, "int", iProgress, "HRESULT")
+        result := ComCall(3, this, "int", iProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -4,8 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Exposes methods that manipulate and interact with image lists.
- * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nn-commoncontrols-iimagelist
+ * The IImageList interface enables the user to insert images to be used as icons for items in the result or scope pane of the console.
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nn-mmc-iimagelist
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -32,33 +32,75 @@ class IImageList extends IUnknown{
 
     /**
      * The IImageList::ImageListSetIcon method enables a user to set an icon in the image list or to create an icon if it is not there.
+     * @remarks
+     * If the index specified by <i>nLoc</i> has been used before, 
+     * <b>ImageListSetIcon</b> replaces the icon stored at <i>nLoc</i>. If it has not been previously used, a new entry in the image list is added. The icon being inserted must have both the 32x32 and 16x16 pixel sizes defined.
+     * 
+     * <h3><a id="Selectively_Changing_the_Small_or_Large_Icon_in_an_Image_List"></a><a id="selectively_changing_the_small_or_large_icon_in_an_image_list"></a><a id="SELECTIVELY_CHANGING_THE_SMALL_OR_LARGE_ICON_IN_AN_IMAGE_LIST"></a>Selectively Changing the Small or Large Icon in an Image List</h3>
+     * In MMC 1.2, two new macros are introduced to support changing only the small or large icon in an image list. The two macros, ILSI_LARGE_ICON and ILSI_SMALL_ICON, are applied to the <i>nLoc</i> parameter of 
+     * <b>ImageListSetIcon</b>.
+     * 
+     * The ILSI_LARGE_ICON macro is used to change only the large icon at nLoc. The ILSI_SMALL_ICON macro is used to change only the small icon at nLoc.
+     * 
+     * To set different large and small icons, you can use either one of the two macros. The following code examples show these macros.
+     * 
+     * <h3><a id="Snippet_1"></a><a id="snippet_1"></a><a id="SNIPPET_1"></a>Snippet 1</h3>
+     * 
+     * ```cpp
+     * pImageList->ImageListSetIcon((LONG_PTR*) hLargeIcon, nLoc); // set both
+     * pImageList->ImageListSetIcon((LONG_PTR*) hSmallIcon, ILSI_SMALL_ICON (nLoc)); // change small
+     * ```
+     * 
+     * 
+     * <h3><a id="Snippet_2"></a><a id="snippet_2"></a><a id="SNIPPET_2"></a>Snippet 2</h3>
+     * 
+     * ```cpp
+     * pImageList->ImageListSetIcon((LONG_PTR*) hSmallIcon, nLoc); // set both
+     * pImageList->ImageListSetIcon((LONG_PTR*) hLargeIcon, ILSI_LARGE_ICON (nLoc)); // change large
+     * ```
+     * 
+     * 
+     * Before using either ILSI_LARGE_ICON or ILSI_SMALL_ICON, the snap-in must first insert an image at nLoc. The 
+     * ImageListSetIcon method will fail if the ILSI_LARGE_ICON or ILSI_SMALL_ICON macro is used and nLoc does not refer to an existing image.
      * @param {Pointer<Pointer>} pIcon A value that specifies the Win32
      *       HICON handle to the icon to set. The type must be cast as a pointer to a LONG_PTR. The snap-in owns this resource and must free it when finished. A resource memory leak will occur if the snap-in does not free Icon.
      * @param {Integer} nLoc A value that specifies the index assigned to the entry. This is a virtual index that is internally mapped to the actual index.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iimagelist-imagelistseticon
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iimagelist-imagelistseticon
      */
     ImageListSetIcon(pIcon, nLoc) {
         pIconMarshal := pIcon is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pIconMarshal, pIcon, "int", nLoc, "HRESULT")
+        result := ComCall(3, this, pIconMarshal, pIcon, "int", nLoc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IImageList::ImageListSetStrip method enables a user to add a strip of icons to the image list using a pair of bitmaps (large and small icons), starting at a location identified by nStartLoc.
+     * @remarks
+     * Both small and large bitmaps must be provided and the number of icons in each strip must be equal. The small bitmap must be 16 pixels high and 16*n pixels wide, where n is an integer value. The large bitmap must be 32 pixels high and 32*n pixels wide.
+     * 
+     * Each pixel of the color used to generate a mask in the specified bitmap is changed to black and the corresponding bit in the mask is set to one.
      * @param {Pointer<Pointer>} pBMapSm Win32 HBITMAP handle to the small (16x16) icon image strip. The snap-in owns this resource and must free it when finished. A resource memory leak will occur if the snap-in does not free BMapSm.
      * @param {Pointer<Pointer>} pBMapLg Win32 HBITMAP handle to the large (32x32) icon image strip. The snap-in owns this resource and must free it when finished. A resource memory leak will occur if the snap-in does not free BMapLg.
      * @param {Integer} nStartLoc A value that specifies the index assigned to the first image in the strip. This is a virtual index that is internally mapped to the actual index.
      * @param {COLORREF} cMask A value that specifies the color used to generate a mask.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iimagelist-imagelistsetstrip
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iimagelist-imagelistsetstrip
      */
     ImageListSetStrip(pBMapSm, pBMapLg, nStartLoc, cMask) {
         pBMapSmMarshal := pBMapSm is VarRef ? "ptr*" : "ptr"
         pBMapLgMarshal := pBMapLg is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, "int", nStartLoc, "uint", cMask, "HRESULT")
+        result := ComCall(4, this, pBMapSmMarshal, pBMapSm, pBMapLgMarshal, pBMapLg, "int", nStartLoc, "uint", cMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,11 +7,8 @@
 /**
  * The IFaxIncomingJob interface is used by a fax client application to retrieve information about an incoming fax job in a fax server's queue.
  * @remarks
- * 
  * To create a <b>FaxIncomingJob</b> object in C++, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxincomingjobs-get_item">IFaxIncomingJobs::get_Item</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxincomingjob
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxincomingjob
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -157,46 +154,59 @@ class IFaxIncomingJob extends IDispatch{
     /**
      * The Size property is a value that indicates the size of the Tagged Image File Format Class F (TIFF Class F) file associated with the inbound fax job.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_size
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_size
      */
     get_Size() {
-        result := ComCall(7, this, "int*", &plSize := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSize
     }
 
     /**
      * The Id property is a null-terminated string that contains a unique ID for the inbound fax job.
      * @remarks
-     * 
      * You can use the fax job's ID to retrieve the archived fax message after the job completes successfully.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_id
      */
     get_Id() {
         pbstrId := BSTR()
-        result := ComCall(8, this, "ptr", pbstrId, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrId
     }
 
     /**
      * The CurrentPage property is a number that identifies the page that the fax service is actively receiving on an inbound fax job.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_currentpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_currentpage
      */
     get_CurrentPage() {
-        result := ComCall(9, this, "int*", &plCurrentPage := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plCurrentPage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCurrentPage
     }
 
     /**
      * The DeviceId property indicates the device ID of the device receiving the inbound fax job.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_deviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_deviceid
      */
     get_DeviceId() {
-        result := ComCall(10, this, "int*", &plDeviceId := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plDeviceId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plDeviceId
     }
 
@@ -205,10 +215,14 @@ class IFaxIncomingJob extends IDispatch{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_status_enum">FAX_JOB_STATUS_ENUM</a>*</b>
      * 
      * Pointer to a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_status_enum">FAX_JOB_STATUS_ENUM</a> enumeration that specifies the current status of an inbound fax job in the job queue.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_status
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_status
      */
     get_Status() {
-        result := ComCall(11, this, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
@@ -217,26 +231,31 @@ class IFaxIncomingJob extends IDispatch{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a>*</b>
      * 
      * Pointer to a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum">FAX_JOB_EXTENDED_STATUS_ENUM</a> enumeration that specifies the extended job status.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatuscode
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatuscode
      */
     get_ExtendedStatusCode() {
-        result := ComCall(12, this, "int*", &pExtendedStatusCode := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pExtendedStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pExtendedStatusCode
     }
 
     /**
-     * The ExtendedStatus property is a null-terminated string that describes the job's extended status.
+     * The ExtendedStatus property is a null-terminated string that describes the job's extended status. (IFaxIncomingJob.get_ExtendedStatus)
      * @remarks
-     * 
      * The <b>ExtendedStatus</b> property can have a value only if the fax service provider (FSP) returns a proprietary status code in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingjob-extendedstatuscode">ExtendedStatusCode</a> property. Otherwise, the <b>ExtendedStatus</b> property will contain an empty string.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_extendedstatus
      */
     get_ExtendedStatus() {
         pbstrExtendedStatus := BSTR()
-        result := ComCall(13, this, "ptr", pbstrExtendedStatus, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrExtendedStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrExtendedStatus
     }
 
@@ -245,94 +264,120 @@ class IFaxIncomingJob extends IDispatch{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_operations_enum">FAX_JOB_OPERATIONS_ENUM</a>*</b>
      * 
      * Pointer to a <b>long</b> value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_operations_enum">FAX_JOB_OPERATIONS_ENUM</a> enumeration that specifies a bitwise combination of the operations that you can currently perform on the fax job. Some operations are mutually exclusive. For example, you cannot pause a job that has already been paused.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_availableoperations
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_availableoperations
      */
     get_AvailableOperations() {
-        result := ComCall(14, this, "int*", &pAvailableOperations := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pAvailableOperations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAvailableOperations
     }
 
     /**
      * The Retries property is a value that indicates the number of times the fax service attempted to route an incoming fax when the initial routing attempt failed.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_retries
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_retries
      */
     get_Retries() {
-        result := ComCall(15, this, "int*", &plRetries := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &plRetries := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRetries
     }
 
     /**
      * The TransmissionStart property indicates the time that the fax inbound job began transmitting.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_transmissionstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_transmissionstart
      */
     get_TransmissionStart() {
-        result := ComCall(16, this, "double*", &pdateTransmissionStart := 0, "HRESULT")
+        result := ComCall(16, this, "double*", &pdateTransmissionStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateTransmissionStart
     }
 
     /**
      * The TransmissionEnd property indicates the time at which the inbound fax job completed transmission.
      * @remarks
-     * 
      * The <b>TransmissionEnd</b> property is not valid as long as the fax is still being received by the fax device. In the case of a fax that is still in progress, this property will be assigned a value of zero. If you try to retrieve the property for a fax that is still in progress you will receive an error.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_transmissionend
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_transmissionend
      */
     get_TransmissionEnd() {
-        result := ComCall(17, this, "double*", &pdateTransmissionEnd := 0, "HRESULT")
+        result := ComCall(17, this, "double*", &pdateTransmissionEnd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateTransmissionEnd
     }
 
     /**
-     * The CSID property is a null-terminated string that contains the called station identifier (CSID) for the job.
+     * The CSID property is a null-terminated string that contains the called station identifier (CSID) for the job. (IFaxIncomingJob.get_CSID)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_csid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_csid
      */
     get_CSID() {
         pbstrCSID := BSTR()
-        result := ComCall(18, this, "ptr", pbstrCSID, "HRESULT")
+        result := ComCall(18, this, "ptr", pbstrCSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCSID
     }
 
     /**
      * The TSID property is a null-terminated string that contains the transmitting station identifier (TSID) associated with the fax inbound job.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_tsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_tsid
      */
     get_TSID() {
         pbstrTSID := BSTR()
-        result := ComCall(19, this, "ptr", pbstrTSID, "HRESULT")
+        result := ComCall(19, this, "ptr", pbstrTSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTSID
     }
 
     /**
      * The CallerId property is a string that identifies the calling device that sent the inbound fax job.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_callerid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_callerid
      */
     get_CallerId() {
         pbstrCallerId := BSTR()
-        result := ComCall(20, this, "ptr", pbstrCallerId, "HRESULT")
+        result := ComCall(20, this, "ptr", pbstrCallerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCallerId
     }
 
     /**
      * The RoutingInformation property is a null-terminated string that specifies routing information for the inbound fax job.
      * @remarks
-     * 
      * For more information about routing information, see the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">RoutingInfo</a> member of the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">FAX_DEV_STATUS</a> structure.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_routinginformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_routinginformation
      */
     get_RoutingInformation() {
         pbstrRoutingInformation := BSTR()
-        result := ComCall(21, this, "ptr", pbstrRoutingInformation, "HRESULT")
+        result := ComCall(21, this, "ptr", pbstrRoutingInformation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrRoutingInformation
     }
 
@@ -341,51 +386,76 @@ class IFaxIncomingJob extends IDispatch{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_type_enum">FAX_JOB_TYPE_ENUM</a>*</b>
      * 
      * Pointer to a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_job_type_enum">FAX_JOB_TYPE_ENUM</a> enumeration that specifies the fax job type.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-get_jobtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-get_jobtype
      */
     get_JobType() {
-        result := ComCall(22, this, "int*", &pJobType := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &pJobType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pJobType
     }
 
     /**
      * The Cancel method cancels the incoming fax job.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_JOBS</a> access right.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-cancel
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-cancel
      */
     Cancel() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Refresh method refreshes FaxIncomingJob object information from the fax server.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_QUEUE</a> access right.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-refresh
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-refresh
      */
     Refresh() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CopyTiff method copies the Tagged Image File Format Class F (TIFF Class F) file associated with the inbound fax job to a file on the local computer.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_JOBS</a> access right.
      * @param {BSTR} bstrTiffPath Type: <b>BSTR</b>
      * 
      * Null-terminated string that specifies a fully qualified path and file name on the local computer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingjob-copytiff
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxincomingjob-copytiff
      */
     CopyTiff(bstrTiffPath) {
-        bstrTiffPath := bstrTiffPath is String ? BSTR.Alloc(bstrTiffPath).Value : bstrTiffPath
+        if(bstrTiffPath is String) {
+            pin := BSTR.Alloc(bstrTiffPath)
+            bstrTiffPath := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrTiffPath, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrTiffPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

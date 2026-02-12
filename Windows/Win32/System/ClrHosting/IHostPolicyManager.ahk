@@ -35,7 +35,11 @@ class IHostPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDefaultAction(operation, action) {
-        result := ComCall(3, this, "int", operation, "int", action, "HRESULT")
+        result := ComCall(3, this, "int", operation, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IHostPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     OnTimeout(operation, action) {
-        result := ComCall(4, this, "int", operation, "int", action, "HRESULT")
+        result := ComCall(4, this, "int", operation, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class IHostPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     OnFailure(failure, action) {
-        result := ComCall(5, this, "int", failure, "int", action, "HRESULT")
+        result := ComCall(5, this, "int", failure, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

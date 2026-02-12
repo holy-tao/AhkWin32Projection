@@ -34,7 +34,11 @@ class ISpRecoResult2 extends ISpRecoResult{
      * @returns {ISpRecoResult} 
      */
     CommitAlternate(pPhraseAlt) {
-        result := ComCall(14, this, "ptr", pPhraseAlt, "ptr*", &ppNewResult := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pPhraseAlt, "ptr*", &ppNewResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecoResult(ppNewResult)
     }
 
@@ -49,7 +53,11 @@ class ISpRecoResult2 extends ISpRecoResult{
     CommitText(ulStartElement, cElements, pszCorrectedData, eCommitFlags) {
         pszCorrectedData := pszCorrectedData is String ? StrPtr(pszCorrectedData) : pszCorrectedData
 
-        result := ComCall(15, this, "uint", ulStartElement, "uint", cElements, "ptr", pszCorrectedData, "uint", eCommitFlags, "HRESULT")
+        result := ComCall(15, this, "uint", ulStartElement, "uint", cElements, "ptr", pszCorrectedData, "uint", eCommitFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +70,11 @@ class ISpRecoResult2 extends ISpRecoResult{
     SetTextFeedback(pszFeedback, fSuccessful) {
         pszFeedback := pszFeedback is String ? StrPtr(pszFeedback) : pszFeedback
 
-        result := ComCall(16, this, "ptr", pszFeedback, "int", fSuccessful, "HRESULT")
+        result := ComCall(16, this, "ptr", pszFeedback, "int", fSuccessful, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

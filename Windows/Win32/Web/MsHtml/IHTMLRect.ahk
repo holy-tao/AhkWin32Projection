@@ -66,7 +66,11 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_left(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +79,11 @@ class IHTMLRect extends IDispatch{
      * @returns {Integer} 
      */
     get_left() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -85,7 +93,11 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_top(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +106,11 @@ class IHTMLRect extends IDispatch{
      * @returns {Integer} 
      */
     get_top() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -104,7 +120,11 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_right(v) {
-        result := ComCall(11, this, "int", v, "HRESULT")
+        result := ComCall(11, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +133,11 @@ class IHTMLRect extends IDispatch{
      * @returns {Integer} 
      */
     get_right() {
-        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -123,7 +147,11 @@ class IHTMLRect extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bottom(v) {
-        result := ComCall(13, this, "int", v, "HRESULT")
+        result := ComCall(13, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +160,11 @@ class IHTMLRect extends IDispatch{
      * @returns {Integer} 
      */
     get_bottom() {
-        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

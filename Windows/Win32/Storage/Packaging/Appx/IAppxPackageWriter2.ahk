@@ -4,8 +4,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a write-only object model for app packages.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxpackagewriter2
+ * Provides a write-only object model for app packages. (IAppxPackageWriter2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxpackagewriter2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -64,10 +64,14 @@ class IAppxPackageWriter2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter2-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxpackagewriter2-close
      */
     Close(manifest, contentGroupMap) {
-        result := ComCall(3, this, "ptr", manifest, "ptr", contentGroupMap, "HRESULT")
+        result := ComCall(3, this, "ptr", manifest, "ptr", contentGroupMap, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

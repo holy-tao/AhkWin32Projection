@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,7 +40,11 @@ class IKsPinPipe extends IUnknown{
         FramingExMarshal := FramingEx is VarRef ? "ptr*" : "ptr"
         FramingPropMarshal := FramingProp is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, FramingExMarshal, FramingEx, FramingPropMarshal, FramingProp, "int", Option, "HRESULT")
+        result := ComCall(3, this, FramingExMarshal, FramingEx, FramingPropMarshal, FramingProp, "int", Option, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +58,11 @@ class IKsPinPipe extends IUnknown{
     KsSetPinFramingCache(FramingEx, FramingProp, Option) {
         FramingPropMarshal := FramingProp is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", FramingEx, FramingPropMarshal, FramingProp, "int", Option, "HRESULT")
+        result := ComCall(4, this, "ptr", FramingEx, FramingPropMarshal, FramingProp, "int", Option, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +91,11 @@ class IKsPinPipe extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetPipe(KsAllocator) {
-        result := ComCall(7, this, "ptr", KsAllocator, "HRESULT")
+        result := ComCall(7, this, "ptr", KsAllocator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +114,11 @@ class IKsPinPipe extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetPipeAllocatorFlag(Flag) {
-        result := ComCall(9, this, "uint", Flag, "HRESULT")
+        result := ComCall(9, this, "uint", Flag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +137,11 @@ class IKsPinPipe extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetPinBusCache(Bus) {
-        result := ComCall(11, this, "ptr", Bus, "HRESULT")
+        result := ComCall(11, this, "ptr", Bus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

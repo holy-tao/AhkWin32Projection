@@ -5,7 +5,7 @@
  * Defines constants that specify the status of a compositor frame.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ne-dcomptypes-composition_frame_id_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomptypes/ne-dcomptypes-composition_frame_id_type
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

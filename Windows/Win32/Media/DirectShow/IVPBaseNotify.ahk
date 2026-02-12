@@ -6,11 +6,8 @@
 /**
  * Enables the Overlay Mixer to control the properties of a hardware device such as a decoder that uses a video port. The IVPNotify interface derives from this interface.Applications should never use this interface.
  * @remarks
- * 
  * Include Vptype.h before Vpnotify.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nn-vpnotify-ivpbasenotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/vpnotify/nn-vpnotify-ivpbasenotify
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,11 +29,19 @@ class IVPBaseNotify extends IUnknown{
 
     /**
      * The RenegotiateVPParameters method initializes the connection to the decoder.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter negotiates various parameters (by using the <a href="https://docs.microsoft.com/windows/desktop/api/vpconfig/nn-vpconfig-ivpbaseconfig">IVPBaseConfig</a> interface) with the decoder or driver. Call this method if any of those parameters (such as the video format or size) change. Currently, the Overlay Mixer repeats the whole connection process. You can call this method even while the graph is playing.
+     * 
+     * Include Vptype.h before Vpnotify.h.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpbasenotify-renegotiatevpparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/vpnotify/nf-vpnotify-ivpbasenotify-renegotiatevpparameters
      */
     RenegotiateVPParameters() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

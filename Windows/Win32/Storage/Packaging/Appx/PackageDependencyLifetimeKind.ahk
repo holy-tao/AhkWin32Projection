@@ -5,7 +5,7 @@
  * Specifies values that indicate the type of artifact that is used to define the lifetime of a package dependency.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-packagedependencylifetimekind
+ * @see https://learn.microsoft.com/windows/win32/api//content/appmodel/ne-appmodel-packagedependencylifetimekind
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

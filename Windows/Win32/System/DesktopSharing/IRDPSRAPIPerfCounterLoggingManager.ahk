@@ -7,7 +7,7 @@
 
 /**
  * Manages IRDPSRAPIPerfCounterLogger objects.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterloggingmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterloggingmanager
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -36,12 +36,19 @@ class IRDPSRAPIPerfCounterLoggingManager extends IUnknown{
      * Creates a new IRDPSRAPIPerfCounterLogger object.
      * @param {BSTR} bstrCounterName The name of the counter.
      * @returns {IRDPSRAPIPerfCounterLogger} An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterlogger">IRDPSRAPIPerfCounterLogger</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterloggingmanager-createlogger
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterloggingmanager-createlogger
      */
     CreateLogger(bstrCounterName) {
-        bstrCounterName := bstrCounterName is String ? BSTR.Alloc(bstrCounterName).Value : bstrCounterName
+        if(bstrCounterName is String) {
+            pin := BSTR.Alloc(bstrCounterName)
+            bstrCounterName := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrCounterName, "ptr*", &ppLogger := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrCounterName, "ptr*", &ppLogger := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIPerfCounterLogger(ppLogger)
     }
 }

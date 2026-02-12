@@ -3,7 +3,7 @@
 
 /**
  * Defines the counter that is sent to a provider's callback when the consumer adds or removes a counter from the query.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_identity
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_counter_identity
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * This interface performs all the same functions as the existing ID2D1DeviceContext5 interface, plus it enables access to the BlendImage method.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1devicecontext6
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1devicecontext6
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -31,8 +31,8 @@ class ID2D1DeviceContext6 extends ID2D1DeviceContext5{
     static VTableNames => ["BlendImage"]
 
     /**
-     * Draws an image to the device context using the specified blend mode. Results are equivalent to using Direct2D's built-in Blend effect.
-     * @param {ID2D1Image} image Type: <b>ID2D1Image*</b>
+     * Draws an image to the device context using the specified blend mode. Results are equivalent to using Direct2D's built-in Blend effect. (ID2D1DeviceContext6.BlendImage)
+     * @param {ID2D1Image} image_ Type: <b>ID2D1Image*</b>
      * 
      * The image to be drawn to the device context.
      * @param {Integer} blendMode Type: <b>D2D1_BLEND_MODE</b>
@@ -48,13 +48,13 @@ class ID2D1DeviceContext6 extends ID2D1DeviceContext5{
      * @param {Pointer<D2D_RECT_F>} imageRectangle Type: <b>const D2D1_RECT_F*</b>
      * 
      * The corresponding rectangle in the image space will be mapped to the given origins when processing the image. The default value is NULL.
-     * @param {Integer} interpolationMode Type: <b>D2D1_INTERPOLATION_MODE</b>
+     * @param {Integer} interpolationMode_ Type: <b>D2D1_INTERPOLATION_MODE</b>
      * 
      * The interpolation mode that will be used to scale the image if necessary. The default value is D2D1_INTERPOLATION_MODE_LINEAR.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext6-blendimage
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1devicecontext6-blendimage
      */
-    BlendImage(image, blendMode, targetOffset, imageRectangle, interpolationMode) {
-        ComCall(119, this, "ptr", image, "int", blendMode, "ptr", targetOffset, "ptr", imageRectangle, "int", interpolationMode)
+    BlendImage(image_, blendMode, targetOffset, imageRectangle, interpolationMode_) {
+        ComCall(119, this, "ptr", image_, "int", blendMode, "ptr", targetOffset, "ptr", imageRectangle, "int", interpolationMode_)
     }
 }

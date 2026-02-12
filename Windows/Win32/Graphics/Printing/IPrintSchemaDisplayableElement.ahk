@@ -42,7 +42,11 @@ class IPrintSchemaDisplayableElement extends IPrintSchemaElement{
      */
     get_DisplayName() {
         pbstrDisplayName := BSTR()
-        result := ComCall(10, this, "ptr", pbstrDisplayName, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDisplayName
     }
 }

@@ -33,7 +33,11 @@ class IPrepareInfo2 extends IUnknown{
      * @returns {Integer} 
      */
     GetPrepareInfoSize() {
-        result := ComCall(3, this, "uint*", &pcbPrepInfo := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcbPrepInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbPrepInfo
     }
 
@@ -43,7 +47,11 @@ class IPrepareInfo2 extends IUnknown{
      * @returns {Integer} 
      */
     GetPrepareInfo(cbPrepareInfo) {
-        result := ComCall(4, this, "uint", cbPrepareInfo, "char*", &pPrepInfo := 0, "HRESULT")
+        result := ComCall(4, this, "uint", cbPrepareInfo, "char*", &pPrepInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPrepInfo
     }
 }

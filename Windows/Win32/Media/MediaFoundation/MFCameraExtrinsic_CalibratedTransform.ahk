@@ -12,7 +12,7 @@
  * <div class="alert"><b>Important</b>
  *   <p class="note">The <b>Position</b> and <b>Orientation</b> have different interpretations for stand-alone sensor groups, and for Windows Mixed Reality devices.
  * </div>
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mfcameraextrinsic_calibratedtransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ns-mfapi-mfcameraextrinsic_calibratedtransform
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

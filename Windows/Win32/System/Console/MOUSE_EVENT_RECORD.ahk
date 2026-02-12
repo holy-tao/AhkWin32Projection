@@ -8,7 +8,7 @@
  * Mouse events are placed in the input buffer when the console is in mouse mode (**ENABLE\_MOUSE\_INPUT**).
  * 
  * Mouse events are generated whenever the user moves the mouse, or presses or releases one of the mouse buttons. Mouse events are placed in a console's input buffer only when the console group has the keyboard focus and the cursor is within the borders of the console's window.
- * @see https://learn.microsoft.com/windows/console/mouse-event-record-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/mouse-event-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

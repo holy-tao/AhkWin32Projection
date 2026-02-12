@@ -40,7 +40,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowContextMenu(dwID, ppt, pcmdtReserved, pdispReserved) {
-        result := ComCall(3, this, "uint", dwID, "ptr", ppt, "ptr", pcmdtReserved, "ptr", pdispReserved, "HRESULT")
+        result := ComCall(3, this, "uint", dwID, "ptr", ppt, "ptr", pcmdtReserved, "ptr", pdispReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHostInfo(pInfo) {
-        result := ComCall(4, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +72,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowUI(dwID, pActiveObject, pCommandTarget, pFrame, pDoc) {
-        result := ComCall(5, this, "uint", dwID, "ptr", pActiveObject, "ptr", pCommandTarget, "ptr", pFrame, "ptr", pDoc, "HRESULT")
+        result := ComCall(5, this, "uint", dwID, "ptr", pActiveObject, "ptr", pCommandTarget, "ptr", pFrame, "ptr", pDoc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +85,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     HideUI() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +98,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateUI() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +112,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     EnableModeless(fEnable) {
-        result := ComCall(8, this, "int", fEnable, "HRESULT")
+        result := ComCall(8, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +126,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDocWindowActivate(fActivate) {
-        result := ComCall(9, this, "int", fActivate, "HRESULT")
+        result := ComCall(9, this, "int", fActivate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +140,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     OnFrameWindowActivate(fActivate) {
-        result := ComCall(10, this, "int", fActivate, "HRESULT")
+        result := ComCall(10, this, "int", fActivate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,19 +156,58 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     ResizeBorder(prcBorder, pUIWindow, fRameWindow) {
-        result := ComCall(11, this, "ptr", prcBorder, "ptr", pUIWindow, "int", fRameWindow, "HRESULT")
+        result := ComCall(11, this, "ptr", prcBorder, "ptr", pUIWindow, "int", fRameWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Processes accelerator keys for menu commands. (Unicode)
+     * @remarks
+     * To differentiate the message that this function sends from messages sent by menus or controls, the high-order word of the
+     *         <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> or <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-syscommand">WM_SYSCOMMAND</a> message contains the value 1.
      * 
-     * @param {Pointer<MSG>} lpMsg 
+     * Accelerator key combinations used to select items from the
+     *         <b>window</b> menu are translated into <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-syscommand">WM_SYSCOMMAND</a> messages; all other accelerator key combinations are translated into <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> messages.
+     * 
+     * When <b>TranslateAccelerator</b> returns a nonzero value and the message is translated, the application should not use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> function to process the message again.
+     * 
+     * An accelerator need not correspond to a menu command.
+     * 
+     * If the accelerator command corresponds to a menu item, the application is sent <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-initmenu">WM_INITMENU</a> and <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-initmenupopup">WM_INITMENUPOPUP</a> messages, as if the user were trying to display the menu. However, these messages are not sent if any of the following conditions exist:
+     * 
+     * <ul>
+     * <li>The window is disabled.</li>
+     * <li>The accelerator key combination does not correspond to an item on the <b>window</b> menu and the window is minimized.</li>
+     * <li>A mouse capture is in effect. For information about mouse capture, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setcapture">SetCapture</a> function.</li>
+     * </ul>
+     * If the specified window is the active window and no window has the keyboard focus (which is generally the case if the window is minimized), <b>TranslateAccelerator</b> translates
+     *         <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-syskeyup">WM_SYSKEYUP</a> and <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-syskeydown">WM_SYSKEYDOWN</a> messages instead of
+     *         <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a> and <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a> messages.
+     * 
+     * If an accelerator keystroke occurs that corresponds to a menu item when the window that owns the menu is minimized, <b>TranslateAccelerator</b> does not send a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. However, if an accelerator keystroke occurs that does not match any of the items in the window's menu or in the
+     *         <b>window</b> menu, the function sends a <b>WM_COMMAND</b> message, even if the window is minimized.
+     * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains message information retrieved from the calling thread's message queue using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function.
      * @param {Pointer<Guid>} pguidCmdGroup 
      * @param {Integer} nCmdID 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>int</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-translateacceleratorw
      */
     TranslateAccelerator(lpMsg, pguidCmdGroup, nCmdID) {
-        result := ComCall(12, this, "ptr", lpMsg, "ptr", pguidCmdGroup, "uint", nCmdID, "HRESULT")
+        result := ComCall(12, this, "ptr", lpMsg, "ptr", pguidCmdGroup, "uint", nCmdID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +217,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {PWSTR} 
      */
     GetOptionKeyPath(dw) {
-        result := ComCall(13, this, "ptr*", &pchKey := 0, "uint", dw, "HRESULT")
+        result := ComCall(13, this, "ptr*", &pchKey := 0, "uint", dw, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pchKey
     }
 
@@ -156,16 +231,27 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {IDropTarget} 
      */
     GetDropTarget(pDropTarget) {
-        result := ComCall(14, this, "ptr", pDropTarget, "ptr*", &ppDropTarget := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pDropTarget, "ptr*", &ppDropTarget := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDropTarget(ppDropTarget)
     }
 
     /**
-     * 
+     * Returns the name of the file that contains the external key.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/getexternalkeyfilename-win32-encryptablevolume
      */
     GetExternal() {
-        result := ComCall(15, this, "ptr*", &ppDispatch := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppDispatch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDispatch)
     }
 
@@ -178,7 +264,11 @@ class IDocHostUIHandler extends IUnknown{
     TranslateUrl(dwTranslate, pchURLIn) {
         pchURLIn := pchURLIn is String ? StrPtr(pchURLIn) : pchURLIn
 
-        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, "ptr*", &ppchURLOut := 0, "HRESULT")
+        result := ComCall(16, this, "uint", dwTranslate, "ptr", pchURLIn, "ptr*", &ppchURLOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppchURLOut
     }
 
@@ -188,7 +278,11 @@ class IDocHostUIHandler extends IUnknown{
      * @returns {IDataObject} 
      */
     FilterDataObject(pDO) {
-        result := ComCall(17, this, "ptr", pDO, "ptr*", &ppDORet := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pDO, "ptr*", &ppDORet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataObject(ppDORet)
     }
 }

@@ -40,7 +40,11 @@ class ICanvasPixelArray extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

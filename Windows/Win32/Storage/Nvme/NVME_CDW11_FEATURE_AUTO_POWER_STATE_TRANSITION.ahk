@@ -5,7 +5,7 @@
  * Contains parameters for the Autonomous Power State Transition Feature that configures the settings for autonomous power state transitions.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_auto_power_state_transition
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_feature_auto_power_state_transition
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

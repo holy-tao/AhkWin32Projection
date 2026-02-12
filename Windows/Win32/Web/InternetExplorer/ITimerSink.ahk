@@ -34,7 +34,11 @@ class ITimerSink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnTimer(vtimeAdvise) {
-        result := ComCall(3, this, "ptr", vtimeAdvise, "HRESULT")
+        result := ComCall(3, this, "ptr", vtimeAdvise, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

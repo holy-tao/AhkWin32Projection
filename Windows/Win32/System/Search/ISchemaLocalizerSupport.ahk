@@ -5,7 +5,7 @@
 
 /**
  * Provides a method for localizing keywords in a specified string.
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-ischemalocalizersupport
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-ischemalocalizersupport
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -38,12 +38,16 @@ class ISchemaLocalizerSupport extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Returns a null-terminated Unicode string that is the localized string. The calling application must free the returned string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. If the method does not succeed, this parameter is set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-ischemalocalizersupport-localize
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-ischemalocalizersupport-localize
      */
     Localize(pszGlobalString) {
         pszGlobalString := pszGlobalString is String ? StrPtr(pszGlobalString) : pszGlobalString
 
-        result := ComCall(3, this, "ptr", pszGlobalString, "ptr*", &ppszLocalString := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszGlobalString, "ptr*", &ppszLocalString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszLocalString
     }
 }

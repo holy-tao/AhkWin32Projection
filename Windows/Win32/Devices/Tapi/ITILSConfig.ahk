@@ -5,7 +5,7 @@
 
 /**
  * The ITILSConfig interface allows configuration of the ILS directory.
- * @see https://docs.microsoft.com/windows/win32/api//rend/nn-rend-itilsconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/rend/nn-rend-itilsconfig
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -41,15 +41,23 @@ class ITILSConfig extends IDispatch{
     /**
      * The get_Port method gets the port number used to connect to the server of a given ILS directory.
      * @returns {Integer} Pointer to receive the port number used in the connection.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itilsconfig-get_port
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itilsconfig-get_port
      */
     get_Port() {
-        result := ComCall(7, this, "int*", &pPort := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pPort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPort
     }
 
     /**
      * The put_Port method sets the port number used to connect to the server of a specified ILS directory.
+     * @remarks
+     * Applications use this method only if they need to connect to custom-configured ILS servers listening on strange ports that are not listed in the Active Directory. By default, the Rendezvous control automatically tries to use ports 1002 and 389, the usual ILS ports, for connecting to application-specified ILS servers. Also, the Rendezvous control automatically uses whatever port is published in the Active Directory for ILS servers retrieved from there.
+     * 
+     * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
      * @param {Integer} Port The port number that will be used to connect to the server. This can be any port number in the range of 16-bit unsigned integers.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -92,10 +100,14 @@ class ITILSConfig extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itilsconfig-put_port
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itilsconfig-put_port
      */
     put_Port(Port) {
-        result := ComCall(8, this, "int", Port, "HRESULT")
+        result := ComCall(8, this, "int", Port, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

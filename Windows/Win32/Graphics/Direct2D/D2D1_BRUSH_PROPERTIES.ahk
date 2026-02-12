@@ -9,7 +9,7 @@
  * 
  * 
  * After creating a brush, you can change its opacity or transform by calling the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-setopacity">SetOpacity</a> or <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-settransform(constd2d1_matrix_3x2_f_)">SetTransform</a> methods.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_brush_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ns-d2d1-d2d1_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

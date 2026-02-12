@@ -3,7 +3,7 @@
 
 /**
  * Specifies the IP version. (FWP_IP_VERSION)
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_ip_version
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwptypes/ne-fwptypes-fwp_ip_version
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

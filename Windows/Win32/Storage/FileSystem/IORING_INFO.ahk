@@ -6,7 +6,7 @@
  * Represents the shape and version information for the specified I/O ring.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/ns-ioringapi-ioring_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

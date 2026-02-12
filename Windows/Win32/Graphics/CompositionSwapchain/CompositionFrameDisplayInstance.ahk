@@ -7,7 +7,7 @@
  * Represents a single instance of the content shown on a single output.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentation/ns-presentation-compositionframedisplayinstance
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/ns-presentation-compositionframedisplayinstance
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */

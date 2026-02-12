@@ -6,7 +6,7 @@
 
 /**
  * Use this interface to specify how often WSD repeats the message transmission.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdudpmessageparameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nn-wsdbase-iwsdudpmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IWSDUdpMessageParameters extends IWSDMessageParameters{
 
     /**
      * Sets the values that WSD uses to determine how often to repeat the message transmission.
+     * @remarks
+     * If you do not specify these values, WSD sends the message only once.
      * @param {Pointer<WSDUdpRetransmitParams>} pParams Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsdudpretransmitparams">WSDUdpRetransmitParams</a> structure. The structure contains values that determine how often WSD repeats the message transmission.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -53,21 +55,29 @@ class IWSDUdpMessageParameters extends IWSDMessageParameters{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpmessageparameters-setretransmitparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nf-wsdbase-iwsdudpmessageparameters-setretransmitparams
      */
     SetRetransmitParams(pParams) {
-        result := ComCall(8, this, "ptr", pParams, "HRESULT")
+        result := ComCall(8, this, "ptr", pParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the values that WSD uses to determine how often to repeat the message transmission.
      * @returns {WSDUdpRetransmitParams} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsdudpretransmitparams">WSDUdpRetransmitParams</a> structure. The structure contains values that determine how often WSD repeats the message transmission.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpmessageparameters-getretransmitparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nf-wsdbase-iwsdudpmessageparameters-getretransmitparams
      */
     GetRetransmitParams() {
         pParams := WSDUdpRetransmitParams()
-        result := ComCall(9, this, "ptr", pParams, "HRESULT")
+        result := ComCall(9, this, "ptr", pParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pParams
     }
 }

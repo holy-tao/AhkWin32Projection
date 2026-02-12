@@ -35,7 +35,11 @@ class ITransaction2 extends ITransactionCloner{
      */
     GetTransactionInfo2() {
         pinfo := XACTTRANSINFO()
-        result := ComCall(7, this, "ptr", pinfo, "HRESULT")
+        result := ComCall(7, this, "ptr", pinfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pinfo
     }
 }

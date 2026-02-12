@@ -7,7 +7,6 @@
 /**
  * Handles the mapping between output pins and streams for the Stream Buffer Source filter.
  * @remarks
- * 
  * In version 1 of the Stream Buffer Engine (SBE), each output pin is mapped to a single stream for the lifetime of the filter. Starting in version 2 of SBE,   the application can change the mapping, as follows:
  * 
  * <ol>
@@ -19,8 +18,7 @@
  *     For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/stream-buffer-source-filter-enhancements-in-windows-7">Stream Buffer Source Filter Enhancements in Windows 7</a>.
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2StreamMap)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2streammap
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nn-sbe-isbe2streammap
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -47,6 +45,8 @@ class ISBE2StreamMap extends IUnknown{
 
     /**
      * Maps a stream to an output pin for a Stream Buffer Source filter.
+     * @remarks
+     * If the new stream has different media type from the previously mapped stream, the output pin follows the dynamic format change procedure described in <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dynamic-format-changes">Dynamic Format Changes</a>, and flushes downstream pins as described in <a href="https://docs.microsoft.com/windows/desktop/DirectShow/flushing">Flushing</a>.
      * @param {Integer} Stream Identifier for the stream mapped to an output pin. The major type of the stream must match the major type of the pin.
      * @returns {HRESULT} <table>
      * <tr>
@@ -99,10 +99,14 @@ class ISBE2StreamMap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2streammap-mapstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2streammap-mapstream
      */
     MapStream(Stream) {
-        result := ComCall(3, this, "uint", Stream, "HRESULT")
+        result := ComCall(3, this, "uint", Stream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,21 +152,31 @@ class ISBE2StreamMap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2streammap-unmapstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2streammap-unmapstream
      */
     UnmapStream(Stream) {
-        result := ComCall(4, this, "uint", Stream, "HRESULT")
+        result := ComCall(4, this, "uint", Stream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates streams that are mapped to output pins in a Stream Buffer Source filter.
+     * @remarks
+     * In Windows 7, only one stream at a time can be mapped to an output pin, although a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-isbe2streammap-mapstream">ISBE2StreamMap::MapStream</a> method can be used to change the stream mapped to any particular pin while the graph is running. In previous versions of Windows, a stream mapped to a pin could not be changed while the graph was running.
      * @returns {ISBE2EnumStream} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-isbe2enumstream">ISBE2EnumStream</a> interface for an enumeration object that lists all streams mapped to the filter outputs pin.
      *           The caller is responsible for freeing the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2streammap-enummappedstreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2streammap-enummappedstreams
      */
     EnumMappedStreams() {
-        result := ComCall(5, this, "ptr*", &ppStreams := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppStreams := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISBE2EnumStream(ppStreams)
     }
 }

@@ -37,7 +37,11 @@ class INetCfgLock extends IUnknown{
     AcquireWriteLock(cmsTimeout, pszwClientDescription) {
         pszwClientDescription := pszwClientDescription is String ? StrPtr(pszwClientDescription) : pszwClientDescription
 
-        result := ComCall(3, this, "uint", cmsTimeout, "ptr", pszwClientDescription, "ptr*", &ppszwClientDescription := 0, "HRESULT")
+        result := ComCall(3, this, "uint", cmsTimeout, "ptr", pszwClientDescription, "ptr*", &ppszwClientDescription := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszwClientDescription
     }
 
@@ -46,7 +50,11 @@ class INetCfgLock extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseWriteLock() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class INetCfgLock extends IUnknown{
      * @returns {PWSTR} 
      */
     IsWriteLocked() {
-        result := ComCall(5, this, "ptr*", &ppszwClientDescription := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppszwClientDescription := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszwClientDescription
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * A function is the building block for a shader created in the high-level language. If you prefer to write shaders in a C-style language instead of in assembly language, you will want to write functions.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/functions
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/functions
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

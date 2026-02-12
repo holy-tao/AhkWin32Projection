@@ -36,9 +36,16 @@ class IHTMLAttributeCollection2 extends IDispatch{
      * @returns {IHTMLDOMAttribute} 
      */
     getNamedItem(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrName, "ptr*", &newretNode := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrName, "ptr*", &newretNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMAttribute(newretNode)
     }
 
@@ -48,7 +55,11 @@ class IHTMLAttributeCollection2 extends IDispatch{
      * @returns {IHTMLDOMAttribute} 
      */
     setNamedItem(ppNode) {
-        result := ComCall(8, this, "ptr", ppNode, "ptr*", &newretNode := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", ppNode, "ptr*", &newretNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMAttribute(newretNode)
     }
 
@@ -58,9 +69,16 @@ class IHTMLAttributeCollection2 extends IDispatch{
      * @returns {IHTMLDOMAttribute} 
      */
     removeNamedItem(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr*", &newretNode := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrName, "ptr*", &newretNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMAttribute(newretNode)
     }
 }

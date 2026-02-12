@@ -40,7 +40,11 @@ class ISAXEntityResolver extends IUnknown{
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
         pvarInput := VARIANT()
-        result := ComCall(3, this, "ptr", pwchPublicId, "ptr", pwchSystemId, "ptr", pvarInput, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchPublicId, "ptr", pwchSystemId, "ptr", pvarInput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarInput
     }
 }

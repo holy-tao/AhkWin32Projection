@@ -21,7 +21,7 @@
  * </ul>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntenclv/ns-ntenclv-vbs_enclave_report
  * @namespace Windows.Win32.System.Environment
  * @version v4.0.30319
  */

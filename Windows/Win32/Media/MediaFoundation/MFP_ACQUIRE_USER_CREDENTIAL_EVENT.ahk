@@ -22,7 +22,7 @@
  * <li>Call <b>QueryInterface</b> on the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> pointer to get the <b>IPropertyStore</b> interface.</li>
  * <li>Call <b>IPropertyStore::SetValue</b> to set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfnetsource-credential-manager-property">MFNETSOURCE_CREDENTIAL_MANAGER</a> property.</li>
  * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_acquire_user_credential_event
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfplay/ns-mfplay-mfp_acquire_user_credential_event
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

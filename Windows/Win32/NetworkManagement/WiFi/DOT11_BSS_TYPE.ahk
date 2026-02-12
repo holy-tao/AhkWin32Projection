@@ -3,7 +3,7 @@
 
 /**
  * Defines a basic service set (BSS) network type.
- * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-bss-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/NativeWiFi/dot11-bss-type
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

@@ -7,7 +7,6 @@
 /**
  * Controls a capture sink, which is an object that receives one or more streams from a capture device.
  * @remarks
- * 
  * The capture engine creates the following capture sinks.
  * 
  * <ul>
@@ -52,9 +51,7 @@
  * If the native type is H.264 for the record stream, the record sink should be configured with the same media type. H.264 native type is passthrough only and cannot be decoded.
  * 
  * Record streams that expose H.264 do not  expose any other type. H.264 record streams cannot be used in conjunction with effects. To add effects, instead connect the preview stream to the recordsink using <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream">AddStream</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcapturesink
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nn-mfcaptureengine-imfcapturesink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -83,10 +80,14 @@ class IMFCaptureSink extends IUnknown{
      * Gets the output format for a stream on this capture sink.
      * @param {Integer} dwSinkStreamIndex The zero-based index of the stream to query. The index is returned in the <i>pdwSinkStreamIndex</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream">IMFCaptureSink::AddStream</a> method.
      * @returns {IMFMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getoutputmediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getoutputmediatype
      */
     GetOutputMediaType(dwSinkStreamIndex) {
-        result := ComCall(3, this, "uint", dwSinkStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwSinkStreamIndex, "ptr*", &ppMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaType(ppMediaType)
     }
 
@@ -96,10 +97,14 @@ class IMFCaptureSink extends IUnknown{
      * @param {Pointer<Guid>} rguidService A service identifier GUID. Currently, the value must be <b>GUID_NULL</b>.
      * @param {Pointer<Guid>} riid A service identifier GUID. Currently, the value must be <b>IID_IMFSinkWriter</b>.
      * @returns {IUnknown} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getservice
      */
     GetService(dwSinkStreamIndex, rguidService, riid) {
-        result := ComCall(4, this, "uint", dwSinkStreamIndex, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwSinkStreamIndex, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnknown)
     }
 
@@ -168,15 +173,25 @@ class IMFCaptureSink extends IUnknown{
      * 
      * For the preview sink, set this parameter to <b>NULL</b>.
      * @returns {Integer} Receives the index of the new stream on the capture sink. Note that this index will not necessarily match the value of <i>dwSourceStreamIndex</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream
      */
     AddStream(dwSourceStreamIndex, pMediaType, pAttributes) {
-        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", &pdwSinkStreamIndex := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", &pdwSinkStreamIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwSinkStreamIndex
     }
 
     /**
      * Prepares the capture sink by loading any required pipeline components, such as encoders, video processors, and media sinks.
+     * @remarks
+     * Calling this method is optional. This method gives the application an opportunity to configure the pipeline components before they are used. The method is asynchronous. If the method returns a success code, the caller will receive an <b>MF_CAPTURE_SINK_PREPARED</b> event through the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineoneventcallback-onevent">IMFCaptureEngineOnEventCallback::OnEvent</a> method.  After this event is received, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getservice">IMFCaptureSink::GetService</a> to configure individual components.
+     * 
+     * Before calling this method, configure the capture sink by adding at least one stream. To add a stream, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream">IMFCaptureSink::AddStream</a>.
+     * 
+     * The <b>Prepare</b> method fails if the capture sink is currently in use. For example, calling <b>Prepare</b> on the preview sink fails if the capture engine is currently previewing.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -207,20 +222,30 @@ class IMFCaptureSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink-prepare
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-prepare
      */
     Prepare() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes all streams from the capture sink.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink-removeallstreams
+     * @remarks
+     * You can use this method to reconfigure the sink.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-removeallstreams
      */
     RemoveAllStreams() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

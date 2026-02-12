@@ -64,7 +64,11 @@ class IRulesApplied extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_element() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -73,7 +77,11 @@ class IRulesApplied extends IDispatch{
      * @returns {IHTMLStyle} 
      */
     get_inlineStyles() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyle(p)
     }
 
@@ -82,7 +90,11 @@ class IRulesApplied extends IDispatch{
      * @returns {IHTMLStyleSheetRulesAppliedCollection} 
      */
     get_appliedRules() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRulesAppliedCollection(p)
     }
 
@@ -92,9 +104,16 @@ class IRulesApplied extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     propertyIsInline(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", name, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -104,9 +123,16 @@ class IRulesApplied extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     propertyIsInheritable(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", name, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", name, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -115,7 +141,11 @@ class IRulesApplied extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     hasInheritableProperty() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

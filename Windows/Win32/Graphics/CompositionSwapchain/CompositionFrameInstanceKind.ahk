@@ -5,7 +5,7 @@
  * Defines constants that indicate how the content was used in a composition frame.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentation/ne-presentation-compositionframeinstancekind
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/ne-presentation-compositionframeinstancekind
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */

@@ -38,7 +38,11 @@ class IUniformResourceLocatorA extends IUnknown{
     SetURL(pcszURL, dwInFlags) {
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
-        result := ComCall(3, this, "ptr", pcszURL, "uint", dwInFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pcszURL, "uint", dwInFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IUniformResourceLocatorA extends IUnknown{
      * @returns {PSTR} 
      */
     GetURL() {
-        result := ComCall(4, this, "ptr*", &ppszURL := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszURL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszURL
     }
 
@@ -57,7 +65,11 @@ class IUniformResourceLocatorA extends IUnknown{
      * @returns {HRESULT} 
      */
     InvokeCommand(purlici) {
-        result := ComCall(5, this, "ptr", purlici, "HRESULT")
+        result := ComCall(5, this, "ptr", purlici, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

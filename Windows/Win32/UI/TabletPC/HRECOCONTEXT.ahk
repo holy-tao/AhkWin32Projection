@@ -35,7 +35,7 @@
  * | [**SetGuide**](/windows/desktop/api/recapis/nf-recapis-setguide)                                        | Sets the guide to use for boxed or lined input.<br/>                                                                                                                                                                                                  |
  * | [**SetTextContext**](/windows/desktop/api/recapis/nf-recapis-settextcontext)                            | Provides the text strings that come before and after the text contained in the recognizer context. For recognizers of East Asian characters, the [**SetTextContext**](/windows/desktop/api/recapis/nf-recapis-settextcontext) function provides characters rather than text strings.<br/> |
  * | [**SetWordList**](/windows/desktop/api/recapis/nf-recapis-setwordlist)                                  | Sets the word list for the current recognizer context to recognize.<br/>                                                                                                                                                                              |
- * @see https://learn.microsoft.com/windows/win32/tablet/hrecocontext-handle
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/hrecocontext-handle
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

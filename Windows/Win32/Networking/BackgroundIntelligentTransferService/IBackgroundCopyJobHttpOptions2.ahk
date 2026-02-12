@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\Apis.ahk
 #Include .\IBackgroundCopyJobHttpOptions.ahk
 
 /**
  * Use this interface to retrieve and/or to override the HTTP method used for a BITS transfer.
- * @see https://docs.microsoft.com/windows/win32/api//bits10_2/nn-bits10_2-ibackgroundcopyjobhttpoptions2
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits10_2/nn-bits10_2-ibackgroundcopyjobhttpoptions2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -32,18 +33,31 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
 
     /**
      * Overrides the default HTTP method used for a BITS transfer.
+     * @remarks
+     * BITS allows you, as the developer, to choose an HTTP method other than the default method. This increases BITS' ability to interact with servers that don't adhere to the normal BITS requirements for HTTP servers. Bear the following in mind when you choose a different HTTP method from the default one.
+     * 
+     * <ul>
+     * <li>BITS automatically changes the job priority to <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_priority">BG_JOB_PRIORITY_FOREGROUND</a>, and prevents that priority from being changed.</li>
+     * <li>An error that would ordinarily  be resumable (such as loss of connectivity) transitions the job to an ERROR state. You, as the developer, can restart the job by calling <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume">IBackgroundCopyJob::Resume</a>, and the job will be restarted from the beginning. See <a href="https://docs.microsoft.com/windows/desktop/Bits/life-cycle-of-a-bits-job">Life Cycle of a BITS Job</a> for more information on BITS job states.</li>
+     * <li>BITS doesn’t allow DYNAMIC_CONTENT nor ON_DEMAND_MODE jobs with <b>SetHttpMethod</b>.</li>
+     * </ul>
+     * <b>SetHttpMethod</b> does nothing if the method name that you pass matches the default HTTP method for the transfer type. For example, if you set a download job method to "GET" (the default), then the job priority won't be changed. The HTTP method must be set before the first call to <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-resume">IBackgroundCopyJob::Resume</a> that starts the job.
      * @param {PWSTR} method Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * A pointer to a constant null-terminated string of wide characters containing the HTTP method name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-sethttpmethod
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-sethttpmethod
      */
     SetHttpMethod(method) {
         method := method is String ? StrPtr(method) : method
 
-        result := ComCall(11, this, "ptr", method, "HRESULT")
+        result := ComCall(11, this, "ptr", method, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,10 +66,15 @@ class IBackgroundCopyJobHttpOptions2 extends IBackgroundCopyJobHttpOptions{
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The address of a pointer to a null-terminated string of wide characters. If successful, the method updates the pointer to point to a string containing the HTTP method name. When you're done with this string, free it with a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-gethttpmethod
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits10_2/nf-bits10_2-ibackgroundcopyjobhttpoptions2-gethttpmethod
      */
     GetHttpMethod() {
-        result := ComCall(12, this, "ptr*", &method := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &method := 0, "int")
+        if(result != 0) {
+            Com.CoTaskMemFree(method)
+            throw OSError(A_LastError || result)
+        }
+
         return method
     }
 }

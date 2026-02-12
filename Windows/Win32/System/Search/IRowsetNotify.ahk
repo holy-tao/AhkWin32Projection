@@ -42,7 +42,11 @@ class IRowsetNotify extends IUnknown{
     OnFieldChange(pRowset, hRow, cColumns, rgColumns, eReason, ePhase, fCantDeny) {
         rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pRowset, "ptr", hRow, "ptr", cColumns, rgColumnsMarshal, rgColumns, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
+        result := ComCall(3, this, "ptr", pRowset, "ptr", hRow, "ptr", cColumns, rgColumnsMarshal, rgColumns, "uint", eReason, "uint", ePhase, "int", fCantDeny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +63,11 @@ class IRowsetNotify extends IUnknown{
     OnRowChange(pRowset, cRows, rghRows, eReason, ePhase, fCantDeny) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pRowset, "ptr", cRows, rghRowsMarshal, rghRows, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
+        result := ComCall(4, this, "ptr", pRowset, "ptr", cRows, rghRowsMarshal, rghRows, "uint", eReason, "uint", ePhase, "int", fCantDeny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IRowsetNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnRowsetChange(pRowset, eReason, ePhase, fCantDeny) {
-        result := ComCall(5, this, "ptr", pRowset, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
+        result := ComCall(5, this, "ptr", pRowset, "uint", eReason, "uint", ePhase, "int", fCantDeny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

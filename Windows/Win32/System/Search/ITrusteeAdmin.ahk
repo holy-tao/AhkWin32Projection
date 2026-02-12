@@ -35,7 +35,11 @@ class ITrusteeAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     CompareTrustees(pTrustee1, pTrustee2) {
-        result := ComCall(3, this, "ptr", pTrustee1, "ptr", pTrustee2, "HRESULT")
+        result := ComCall(3, this, "ptr", pTrustee1, "ptr", pTrustee2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ITrusteeAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateTrustee(pTrustee, cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, "ptr", pTrustee, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(4, this, "ptr", pTrustee, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class ITrusteeAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteTrustee(pTrustee) {
-        result := ComCall(5, this, "ptr", pTrustee, "HRESULT")
+        result := ComCall(5, this, "ptr", pTrustee, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class ITrusteeAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTrusteeProperties(pTrustee, cPropertySets, rgPropertySets) {
-        result := ComCall(6, this, "ptr", pTrustee, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(6, this, "ptr", pTrustee, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +100,11 @@ class ITrusteeAdmin extends IUnknown{
     GetTrusteeProperties(pTrustee, cPropertyIDSets, rgPropertyIDSets, pcPropertySets) {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTrustee, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", &prgPropertySets := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pTrustee, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", &prgPropertySets := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prgPropertySets
     }
 }

@@ -10,7 +10,7 @@
  * - <xref:NS:spatialaudiohrtf.SpatialAudioHrtfActivationParams2>
  * - <xref:NS:spatialaudiometadata.SpatialAudioObjectRenderStreamForMetadataActivationParams2>
  * -
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ne-spatialaudioclient-spatial_audio_stream_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/ne-spatialaudioclient-spatial_audio_stream_options
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

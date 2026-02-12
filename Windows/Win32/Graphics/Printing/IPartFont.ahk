@@ -37,7 +37,11 @@ class IPartFont extends IPartBase{
     GetFontProperties(pContentType, pFontOptions) {
         pFontOptionsMarshal := pFontOptions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pContentType, pFontOptionsMarshal, pFontOptions, "HRESULT")
+        result := ComCall(7, this, "ptr", pContentType, pFontOptionsMarshal, pFontOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IPartFont extends IPartBase{
     SetFontContent(pContentType) {
         pContentType := pContentType is String ? StrPtr(pContentType) : pContentType
 
-        result := ComCall(8, this, "ptr", pContentType, "HRESULT")
+        result := ComCall(8, this, "ptr", pContentType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IPartFont extends IPartBase{
      * @returns {HRESULT} 
      */
     SetFontOptions(options) {
-        result := ComCall(9, this, "int", options, "HRESULT")
+        result := ComCall(9, this, "int", options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

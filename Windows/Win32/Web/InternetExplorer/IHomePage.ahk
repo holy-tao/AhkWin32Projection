@@ -40,7 +40,11 @@ class IHomePage extends IDispatch{
      * @returns {HRESULT} 
      */
     navigateHomePage() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,9 +54,16 @@ class IHomePage extends IDispatch{
      * @returns {HRESULT} 
      */
     setHomePage(bstrURL) {
-        bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
+        if(bstrURL is String) {
+            pin := BSTR.Alloc(bstrURL)
+            bstrURL := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrURL, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,9 +73,16 @@ class IHomePage extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     isHomePage(bstrURL) {
-        bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
+        if(bstrURL is String) {
+            pin := BSTR.Alloc(bstrURL)
+            bstrURL := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrURL, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrURL, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

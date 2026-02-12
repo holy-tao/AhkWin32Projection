@@ -25,7 +25,7 @@
  * The following figure shows a recognizer guide with four columns.
  * 
  * ![illustration showing recognizer guide with four columns](images/de44c07e-4b55-42d0-8e8b-997e2da79e52.jpg)
- * @see https://learn.microsoft.com/windows/win32/tablet/inkrecognizerguide-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/inkrecognizerguide-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

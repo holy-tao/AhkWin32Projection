@@ -6,8 +6,8 @@
 #Include .\ID2D1Resource.ahk
 
 /**
- * Represents a resource domain whose objects and device contexts can be used together.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1device
+ * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device)
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1device
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -34,56 +34,63 @@ class ID2D1Device extends ID2D1Resource{
 
     /**
      * Creates a new device context from a Direct2D device.
+     * @remarks
+     * The new device context will not have a  selected target bitmap. The caller must create and select a bitmap as the target surface of the context.
      * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_device_context_options">D2D1_DEVICE_CONTEXT_OPTIONS</a></b>
      * 
      * The options to be applied to the created device context.
-     * @returns {ID2D1DeviceContext} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1devicecontext">ID2D1DeviceContext</a>**</b>
+     * @returns {Pointer<ID2D1DeviceContext>} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1devicecontext">ID2D1DeviceContext</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the new device context.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-createdevicecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1device-createdevicecontext
      */
     CreateDeviceContext(options) {
-        result := ComCall(4, this, "int", options, "ptr*", &deviceContext := 0, "HRESULT")
-        return ID2D1DeviceContext(deviceContext)
+        result := ComCall(4, this, "int", options, "ptr*", &deviceContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return deviceContext
     }
 
     /**
-     * 
+     * Creates an ID2D1PrintControl object that converts Direct2D primitives stored in ID2D1CommandList into a fixed page representation. The print sub-system then consumes the primitives.
      * @param {IWICImagingFactory} wicFactory 
      * @param {IPrintDocumentPackageTarget} documentTarget 
      * @param {Pointer<D2D1_PRINT_CONTROL_PROPERTIES>} printControlProperties 
-     * @returns {ID2D1PrintControl} 
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1device-createprintcontrol
+     * @returns {Pointer<ID2D1PrintControl>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1device-createprintcontrol
      */
     CreatePrintControl(wicFactory, documentTarget, printControlProperties) {
-        result := ComCall(5, this, "ptr", wicFactory, "ptr", documentTarget, "ptr", printControlProperties, "ptr*", &printControl := 0, "HRESULT")
-        return ID2D1PrintControl(printControl)
+        result := ComCall(5, this, "ptr", wicFactory, "ptr", documentTarget, "ptr", printControlProperties, "ptr*", &printControl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return printControl
     }
 
     /**
-     * Sets the maximum amount of texture memory Direct2D accumulates before it purges the image caches and cached texture allocations.
+     * Sets the maximum amount of texture memory Direct2D accumulates before it purges the image caches and cached texture allocations. (ID2D1Device.SetMaximumTextureMemory)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  Direct2D may exceed the  maximum texture memory you set with this method for a single frame if necessary to render the frame.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} maximumInBytes Type: <b>UINT64</b>
      * 
      * The new maximum texture memory in bytes.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-setmaximumtexturememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1device-setmaximumtexturememory
      */
     SetMaximumTextureMemory(maximumInBytes) {
         ComCall(6, this, "uint", maximumInBytes)
     }
 
     /**
-     * Sets the maximum amount of texture memory Direct2D accumulates before it purges the image caches and cached texture allocations.
+     * Sets the maximum amount of texture memory Direct2D accumulates before it purges the image caches and cached texture allocations. (ID2D1Device.GetMaximumTextureMemory)
      * @returns {Integer} Type: <b>UINT64</b>
      * 
      * The maximum amount of texture memory in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-getmaximumtexturememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1device-getmaximumtexturememory
      */
     GetMaximumTextureMemory() {
         result := ComCall(7, this, "uint")
@@ -96,7 +103,7 @@ class ID2D1Device extends ID2D1Resource{
      * 
      * Discards only resources that haven't been used for greater than the specified time in milliseconds. The default is 0 milliseconds.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-clearresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1device-clearresources
      */
     ClearResources(millisecondsSinceUse) {
         ComCall(8, this, "uint", millisecondsSinceUse)

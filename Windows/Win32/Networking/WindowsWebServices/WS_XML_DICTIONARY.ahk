@@ -46,7 +46,7 @@
  * ``` syntax
  * WsWriteStartElement(xmlWriter, NULL, &amp;purchaseOrderDictionary.purchaseOrder, &amp;purchaseOrderDictionary.purchaseOrderNamespace, error);
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_dictionary
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_dictionary
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

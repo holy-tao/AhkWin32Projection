@@ -3,7 +3,7 @@
 
 /**
  * Defines raw codec capabilities.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrawcapabilitiesinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/ns-wincodec-wicrawcapabilitiesinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

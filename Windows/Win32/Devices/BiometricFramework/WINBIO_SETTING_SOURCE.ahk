@@ -3,7 +3,7 @@
 
 /**
  * Determine whether the Windows Biometric Framework is currently enabled.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-setting-source-constants
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-setting-source-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

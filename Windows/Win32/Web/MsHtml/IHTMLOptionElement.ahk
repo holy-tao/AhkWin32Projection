@@ -89,7 +89,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selected(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +102,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_selected() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -108,9 +116,16 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +135,11 @@ class IHTMLOptionElement extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -130,7 +149,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_defaultSelected(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +162,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_defaultSelected() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -149,7 +176,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_index(v) {
-        result := ComCall(13, this, "int", v, "HRESULT")
+        result := ComCall(13, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +189,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {Integer} 
      */
     get_index() {
-        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -168,9 +203,16 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_text(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +222,11 @@ class IHTMLOptionElement extends IDispatch{
      */
     get_text() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -189,7 +235,11 @@ class IHTMLOptionElement extends IDispatch{
      * @returns {IHTMLFormElement} 
      */
     get_form() {
-        result := ComCall(17, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFormElement(p)
     }
 }

@@ -177,7 +177,7 @@
  * <b>PreferredServerBitness</b>
  * <b>PreferredServerBitness</b>
  * <b>PreferredServerBitness</b>
- * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-clsctx
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtypesbase/ne-wtypesbase-clsctx
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

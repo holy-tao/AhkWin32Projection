@@ -34,7 +34,11 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6{
      * @returns {HRESULT} 
      */
     ApplyMetaData(moduleId) {
-        result := ComCall(84, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(84, this, "ptr", moduleId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6{
      * @returns {Integer} 
      */
     GetInMemorySymbolsLength(moduleId) {
-        result := ComCall(85, this, "ptr", moduleId, "uint*", &pCountSymbolBytes := 0, "HRESULT")
+        result := ComCall(85, this, "ptr", moduleId, "uint*", &pCountSymbolBytes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCountSymbolBytes
     }
 
@@ -61,7 +69,11 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6{
         pSymbolBytesMarshal := pSymbolBytes is VarRef ? "char*" : "ptr"
         pCountSymbolBytesReadMarshal := pCountSymbolBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(86, this, "ptr", moduleId, "uint", symbolsReadOffset, pSymbolBytesMarshal, pSymbolBytes, "uint", countSymbolBytes, pCountSymbolBytesReadMarshal, pCountSymbolBytesRead, "HRESULT")
+        result := ComCall(86, this, "ptr", moduleId, "uint", symbolsReadOffset, pSymbolBytesMarshal, pSymbolBytes, "uint", countSymbolBytes, pCountSymbolBytesReadMarshal, pCountSymbolBytesRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

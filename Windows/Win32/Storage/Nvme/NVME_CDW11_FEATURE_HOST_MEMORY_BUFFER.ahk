@@ -5,7 +5,7 @@
  * Contains parameters for the Host Memory Buffer Feature that provides a mechanism for the host to allocate a portion of host memory for the controller to use exclusively.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_host_memory_buffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_feature_host_memory_buffer
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

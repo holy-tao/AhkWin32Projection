@@ -3,7 +3,7 @@
 
 /**
  * The EAP_UI_DATA_FORMAT union specifies the value of the attribute stored in the pbUiData member of the EAP_INTERACTIVE_UI_DATA structure.
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_ui_data_format
+ * @see https://learn.microsoft.com/windows/win32/api//content/eaptypes/ns-eaptypes-eap_ui_data_format
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

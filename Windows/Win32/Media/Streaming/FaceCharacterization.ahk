@@ -10,7 +10,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facecharacterization
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ns-mfapi-facecharacterization
  * @namespace Windows.Win32.Media.Streaming
  * @version v4.0.30319
  */

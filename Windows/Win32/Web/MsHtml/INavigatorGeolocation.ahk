@@ -41,7 +41,11 @@ class INavigatorGeolocation extends IDispatch{
      * @returns {IWebGeolocation} 
      */
     get_geolocation() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWebGeolocation(p)
     }
 }

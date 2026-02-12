@@ -9,7 +9,7 @@
  *     The <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-reassign_blocks">REASSIGN_BLOCKS</a> structure used with the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_reassign_blocks">IOCTL_DISK_REASSIGN_BLOCKS</a> control code 
  *     supports devices with up to a 4-byte LBA should be used where possible.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-reassign_blocks_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

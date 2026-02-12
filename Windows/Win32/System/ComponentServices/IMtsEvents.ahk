@@ -6,7 +6,7 @@
 
 /**
  * Provides methods for obtaining information about the running package and establishing event sinks.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-imtsevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-imtsevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -55,22 +55,30 @@ class IMtsEvents extends IDispatch{
     /**
      * Retrieves the name of the package in which the instance of the object that implements the IMtsEvents interface is running.
      * @returns {BSTR} A pointer to the package name string.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-get_packagename
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtsevents-get_packagename
      */
     get_PackageName() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the globally unique identifier (GUID) for the package in which the event occurred.
      * @returns {BSTR} A pointer to the package GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-get_packageguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtsevents-get_packageguid
      */
     get_PackageGuid() {
         pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -78,30 +86,42 @@ class IMtsEvents extends IDispatch{
      * Posts a user-defined event to an event sink.
      * @param {Pointer<VARIANT>} vEvent A pointer to the name of the event.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-postevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtsevents-postevent
      */
     PostEvent(vEvent) {
-        result := ComCall(9, this, "ptr", vEvent, "HRESULT")
+        result := ComCall(9, this, "ptr", vEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves whether events are enabled or disabled for an event sink.
      * @returns {VARIANT_BOOL} Indicates whether events are enabled or disabled for an event sink.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-get_fireevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtsevents-get_fireevents
      */
     get_FireEvents() {
-        result := ComCall(10, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the identifier of the process in which the event occurred.
      * @returns {Integer} A pointer to the process identification for the event.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-getprocessid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtsevents-getprocessid
      */
     GetProcessID() {
-        result := ComCall(11, this, "int*", &id := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return id
     }
 }

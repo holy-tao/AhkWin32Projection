@@ -8,8 +8,8 @@
 #Include .\IDWriteFactory4.ahk
 
 /**
- * The root factory interface for all DirectWrite objects.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefactory5
+ * The root factory interface for all DirectWrite objects. (IDWriteFactory5)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefactory5
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,27 +35,35 @@ class IDWriteFactory5 extends IDWriteFactory4{
     static VTableNames => ["CreateFontSetBuilder", "CreateInMemoryFontFileLoader", "CreateHttpFontFileLoader", "AnalyzeContainerType", "UnpackFontFile"]
 
     /**
-     * Creates an empty font set builder to add font face references and create a custom font set.
-     * @returns {IDWriteFontSetBuilder1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder1">IDWriteFontSetBuilder1</a>**</b>
+     * Creates an empty font set builder to add font face references and create a custom font set. (IDWriteFactory5.CreateFontSetBuilder)
+     * @returns {Pointer<IDWriteFontSetBuilder1>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder1">IDWriteFontSetBuilder1</a>**</b>
      * 
      * Holds the newly created font set builder object, or NULL in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory5-createfontsetbuilder
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory5-createfontsetbuilder
      */
     CreateFontSetBuilder() {
-        result := ComCall(43, this, "ptr*", &fontSetBuilder := 0, "HRESULT")
-        return IDWriteFontSetBuilder1(fontSetBuilder)
+        result := ComCall(43, this, "ptr*", &fontSetBuilder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontSetBuilder
     }
 
     /**
      * Creates a loader object that can be used to create font file references to in-memory fonts. The caller is responsible for registering and unregistering the loader.
-     * @returns {IDWriteInMemoryFontFileLoader} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteinmemoryfontfileloader">IDWriteInMemoryFontFileLoader</a>**</b>
+     * @returns {Pointer<IDWriteInMemoryFontFileLoader>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteinmemoryfontfileloader">IDWriteInMemoryFontFileLoader</a>**</b>
      * 
      * Receives a pointer to the newly-created loader object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory5-createinmemoryfontfileloader
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory5-createinmemoryfontfileloader
      */
     CreateInMemoryFontFileLoader() {
-        result := ComCall(44, this, "ptr*", &newLoader := 0, "HRESULT")
-        return IDWriteInMemoryFontFileLoader(newLoader)
+        result := ComCall(44, this, "ptr*", &newLoader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return newLoader
     }
 
     /**
@@ -66,17 +74,21 @@ class IDWriteFactory5 extends IDWriteFactory4{
      * @param {PWSTR} extraHeaders Type: <b>wchar_t const*</b>
      * 
      * Optional additional header fields to include in HTTP requests. Each header field consists of a name followed by a colon (":") and the field value, as specified by RFC 2616. Multiple header fields may be separated by newlines.
-     * @returns {IDWriteRemoteFontFileLoader} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfileloader">IDWriteRemoteFontFileLoader</a>**</b>
+     * @returns {Pointer<IDWriteRemoteFontFileLoader>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfileloader">IDWriteRemoteFontFileLoader</a>**</b>
      * 
      * Receives a pointer to the newly-created loader object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory5-createhttpfontfileloader
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory5-createhttpfontfileloader
      */
     CreateHttpFontFileLoader(referrerUrl, extraHeaders) {
         referrerUrl := referrerUrl is String ? StrPtr(referrerUrl) : referrerUrl
         extraHeaders := extraHeaders is String ? StrPtr(extraHeaders) : extraHeaders
 
-        result := ComCall(45, this, "ptr", referrerUrl, "ptr", extraHeaders, "ptr*", &newLoader := 0, "HRESULT")
-        return IDWriteRemoteFontFileLoader(newLoader)
+        result := ComCall(45, this, "ptr", referrerUrl, "ptr", extraHeaders, "ptr*", &newLoader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return newLoader
     }
 
     /**
@@ -87,10 +99,10 @@ class IDWriteFactory5 extends IDWriteFactory4{
      * @param {Integer} fileDataSize Type: <b>UINT32</b>
      * 
      * Size of the buffer passed in fileData.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_container_type">DWRITE_CONTAINER_TYPE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_container_type">DWRITE_CONTAINER_TYPE</a></b>
      * 
      * Returns the container type if recognized. DWRITE_CONTAINER_TYPE_UNKOWNN is returned for all other files, including uncompressed font files.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory5-analyzecontainertype
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory5-analyzecontainertype
      */
     AnalyzeContainerType(fileData, fileDataSize) {
         result := ComCall(46, this, "ptr", fileData, "uint", fileDataSize, "int")
@@ -108,13 +120,17 @@ class IDWriteFactory5 extends IDWriteFactory4{
      * @param {Integer} fileDataSize Type: <b>UINT32</b>
      * 
      * Size of the compressed data, in bytes.
-     * @returns {IDWriteFontFileStream} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a>**</b>
+     * @returns {Pointer<IDWriteFontFileStream>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a>**</b>
      * 
      * Receives a pointer to a newly created font file stream containing the uncompressed data.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory5-unpackfontfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory5-unpackfontfile
      */
     UnpackFontFile(containerType, fileData, fileDataSize) {
-        result := ComCall(47, this, "int", containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", &unpackedFontStream := 0, "HRESULT")
-        return IDWriteFontFileStream(unpackedFontStream)
+        result := ComCall(47, this, "int", containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", &unpackedFontStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return unpackedFontStream
     }
 }

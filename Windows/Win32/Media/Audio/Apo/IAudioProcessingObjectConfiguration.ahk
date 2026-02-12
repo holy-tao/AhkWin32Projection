@@ -5,7 +5,7 @@
 
 /**
  * The IAudioProcessingObjectConfiguration interface is used to configure the APO. This interface uses its methods to lock and unlock the APO for processing.
- * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectconfiguration
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -32,11 +32,13 @@ class IAudioProcessingObjectConfiguration extends IUnknown{
 
     /**
      * The LockForProcess method is used to verify that the APO is locked and ready to process data.
+     * @remarks
+     * When the <c>LockForProcess</c> method is called, it first performs an internal check to see if the APO has been initialized and is ready to process data. Each APO has different initialization requirements so each APO must define its own Initialize method if needed.
      * @param {Integer} u32NumInputConnections Number of input connections that are attached to this APO.
      * @param {Pointer<Pointer<APO_CONNECTION_DESCRIPTOR>>} ppInputConnections Connection descriptor for each input connection that is attached to this APO.
      * @param {Integer} u32NumOutputConnections Number of output connections that are attached to this APO.
      * @param {Pointer<Pointer<APO_CONNECTION_DESCRIPTOR>>} ppOutputConnections Connection descriptor for each output connection that is attached to this APO.
-     * @returns {HRESULT} The <code>LockForProcess</code> method returns a value of S_OK if the call is completed successfully. At this stage, the APO is locked and is ready to process data.
+     * @returns {HRESULT} The <c>LockForProcess</c> method returns a value of S_OK if the call is completed successfully. At this stage, the APO is locked and is ready to process data.
      * 
      * <table>
      * <tr>
@@ -99,23 +101,33 @@ class IAudioProcessingObjectConfiguration extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectconfiguration-lockforprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectconfiguration-lockforprocess
      */
     LockForProcess(u32NumInputConnections, ppInputConnections, u32NumOutputConnections, ppOutputConnections) {
         ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
         ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, "uint", u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections, "HRESULT")
+        result := ComCall(3, this, "uint", u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, "uint", u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The UnlockForProcess method releases the lock that was imposed on the APO by the LockForProcess method.
-     * @returns {HRESULT} The <code>UnlockForProcess</code> method returns a value of S_OK if the call completed successfully. If the APO was already unlocked when the call was made, the method returns a value of APOERR_ALREADY_UNLOCKED.
-     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectconfiguration-unlockforprocess
+     * @remarks
+     * The <c>UnlockForProcess</c> method places the APO in a mode that makes configuration changes possible. These changes include Add, Remove, and Swap of the input and output connections that are attached to the APO.
+     * @returns {HRESULT} The <c>UnlockForProcess</c> method returns a value of S_OK if the call completed successfully. If the APO was already unlocked when the call was made, the method returns a value of APOERR_ALREADY_UNLOCKED.
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectconfiguration-unlockforprocess
      */
     UnlockForProcess() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Contains the name of a domain-based Distributed File System (DFS) namespace.
  * @remarks
  * The <b>DFS_INFO_200</b> structure is used to enumerate domain-based DFS namespaces in a domain.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_200
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_info_200
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

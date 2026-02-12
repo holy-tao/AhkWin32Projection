@@ -5,7 +5,7 @@
 
 /**
  * The ITfFnPropertyUIStatus interface is implemented by a text service and used by an application or text service to obtain and set the status of the text service property UI.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnpropertyuistatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffnpropertyuistatus
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class ITfFnPropertyUIStatus extends ITfFunction{
     /**
      * ITfFnPropertyUIStatus::GetStatus method
      * @param {Pointer<Guid>} refguidProp Specifies the property identifier. This can be a custom identifier or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-properties">predefined property</a> identifiers.
-     * @returns {Integer} Pointer to a <b>DWORD</b> that recevies the property UI status. This can be zero or the following value.
+     * @returns {Integer} Pointer to a <b>DWORD</b> that receives the property UI status. This can be zero or the following value.
      * 
      * <table>
      * <tr>
@@ -51,10 +51,14 @@ class ITfFnPropertyUIStatus extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnpropertyuistatus-getstatus
      */
     GetStatus(refguidProp) {
-        result := ComCall(4, this, "ptr", refguidProp, "uint*", &pdw := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", refguidProp, "uint*", &pdw := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdw
     }
 
@@ -92,10 +96,14 @@ class ITfFnPropertyUIStatus extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnpropertyuistatus-setstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnpropertyuistatus-setstatus
      */
     SetStatus(refguidProp, dw) {
-        result := ComCall(5, this, "ptr", refguidProp, "uint", dw, "HRESULT")
+        result := ComCall(5, this, "ptr", refguidProp, "uint", dw, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

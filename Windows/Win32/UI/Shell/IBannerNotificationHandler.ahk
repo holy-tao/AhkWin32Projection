@@ -30,11 +30,15 @@ class IBannerNotificationHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BANNER_NOTIFICATION>} notification 
+     * @param {Pointer<BANNER_NOTIFICATION>} notification_ 
      * @returns {HRESULT} 
      */
-    OnBannerEvent(notification) {
-        result := ComCall(3, this, "ptr", notification, "HRESULT")
+    OnBannerEvent(notification_) {
+        result := ComCall(3, this, "ptr", notification_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

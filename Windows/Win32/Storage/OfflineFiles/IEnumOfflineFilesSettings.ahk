@@ -6,7 +6,7 @@
 
 /**
  * Enumerates setting objects associated with the Offline Files service.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-ienumofflinefilessettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-ienumofflinefilessettings
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,48 +32,64 @@ class IEnumOfflineFilesSettings extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the next item in the enumeration and advances the enumerator.
+     * Retrieves the next item in the enumeration and advances the enumerator. (IEnumOfflineFilesSettings.Next)
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<IOfflineFilesSetting>} rgelt Array of elements returned.
      * @param {Pointer<Integer>} pceltFetched Number of elements returned.
      * @returns {HRESULT} Returns <b>S_OK</b> if the number of elements returned is <i>celt</i>; S_FALSE if a number less than <i>celt</i> is returned; or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilessettings-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-ienumofflinefilessettings-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Skips over the next specified number of elements in the enumeration.
+     * Skips over the next specified number of elements in the enumeration. (IEnumOfflineFilesSettings.Skip)
      * @param {Integer} celt Number of elements to be skipped.
      * @returns {HRESULT} Returns <b>S_OK</b> if the number of elements skipped is <i>celt</i>; S_FALSE if a number less than <i>celt</i> is skipped; or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilessettings-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-ienumofflinefilessettings-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumeration to the beginning.
+     * Resets the enumeration to the beginning. (IEnumOfflineFilesSettings.Reset)
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilessettings-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-ienumofflinefilessettings-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a new instance of the enumerator with the same enumeration state as the current one.
+     * Creates a new instance of the enumerator with the same enumeration state as the current one. (IEnumOfflineFilesSettings.Clone)
      * @returns {IEnumOfflineFilesSettings} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-ienumofflinefilessettings">IEnumOfflineFilesSettings</a> pointer variable that receives the interface pointer of the new enumeration object.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-ienumofflinefilessettings-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-ienumofflinefilessettings-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumOfflineFilesSettings(ppenum)
     }
 }

@@ -40,7 +40,11 @@ class IWiaMiniDrvCallBack extends IUnknown{
      * @returns {HRESULT} 
      */
     MiniDrvCallback(lReason, lStatus, lPercentComplete, lOffset, lLength, pTranCtx, lReserved) {
-        result := ComCall(3, this, "int", lReason, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, "ptr", pTranCtx, "int", lReserved, "HRESULT")
+        result := ComCall(3, this, "int", lReason, "int", lStatus, "int", lPercentComplete, "int", lOffset, "int", lLength, "ptr", pTranCtx, "int", lReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

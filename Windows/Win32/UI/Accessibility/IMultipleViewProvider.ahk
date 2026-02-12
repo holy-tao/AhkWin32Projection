@@ -7,12 +7,9 @@
 /**
  * Provides access to controls that provide, and are able to switch between, multiple representations of the same set of information or child controls.
  * @remarks
- * 
  * Implemented on a Microsoft UI Automation provider that must support the 
  *             <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingmultipleview">MultipleView</a> control pattern.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-imultipleviewprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-imultipleviewprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -45,7 +42,15 @@ class IMultipleViewProvider extends IUnknown{
     }
 
     /**
-     * Retrieves the name of a control-specific view.
+     * Retrieves the name of a control-specific view. (IMultipleViewProvider.GetViewName)
+     * @remarks
+     * View identifiers can be retrieved by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews">IMultipleViewProvider::GetSupportedViews</a>.
+     *             
+     * 
+     * The collection of view identifiers must be identical for all instances of a control.
+     *             
+     * 
+     * View names must be suitable for use in text-to-speech, Braille, and other accessible applications.
      * @param {Integer} viewId Type: <b>int</b>
      * 
      * A view identifier.
@@ -53,54 +58,80 @@ class IMultipleViewProvider extends IUnknown{
      * 
      * Receives a localized name for the view. 
      *                 This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getviewname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getviewname
      */
     GetViewName(viewId) {
         pRetVal := BSTR()
-        result := ComCall(3, this, "int", viewId, "ptr", pRetVal, "HRESULT")
+        result := ComCall(3, this, "int", viewId, "ptr", pRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Sets the current control-specific view.
+     * @remarks
+     * View identifiers can be retrieved by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews">IMultipleViewProvider::GetSupportedViews</a>.
+     *         
+     * 
+     * The collection of view identifiers must be identical for all instances of a control.
      * @param {Integer} viewId Type: <b>int</b>
      * 
      * A view identifier.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-setcurrentview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-setcurrentview
      */
     SetCurrentView(viewId) {
-        result := ComCall(4, this, "int", viewId, "HRESULT")
+        result := ComCall(4, this, "int", viewId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Identifies the current view that the control is using to display information or child controls.
      * @remarks
-     * 
      * The collection of view identifiers must be identical for all instances of a control.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-get_currentview
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-get_currentview
      */
     get_CurrentView() {
-        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Retrieves a collection of control-specific view identifiers.
+     * Retrieves a collection of control-specific view identifiers. (IMultipleViewProvider.GetSupportedViews)
+     * @remarks
+     * An empty array is returned by UIAutoCore.dll if the provider does not supply any view identifiers.
+     *         
+     * 
+     * The collection of view identifiers must be identical for all instances of a control.
+     *             
+     * 
+     * View identifier values can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getviewname">IMultipleViewProvider::GetViewName</a>.
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives a collection of control-specific integer values that identify the views available for a UI Automation element.
      * 				This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews
      */
     GetSupportedViews() {
-        result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 }

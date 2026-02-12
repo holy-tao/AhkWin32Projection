@@ -33,7 +33,11 @@ class IApoAcousticEchoCancellation2 extends IApoAcousticEchoCancellation{
      * @returns {Integer} 
      */
     GetDesiredReferenceStreamProperties() {
-        result := ComCall(3, this, "int*", &pProperties := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProperties
     }
 }

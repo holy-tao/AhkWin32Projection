@@ -35,48 +35,72 @@ class ISpNotifySource extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNotifySink(pNotifySink) {
-        result := ComCall(3, this, "ptr", pNotifySink, "HRESULT")
+        result := ComCall(3, this, "ptr", pNotifySink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
-     * @param {Integer} Msg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {HWND} hWnd_ 
+     * @param {Integer} Msg_ 
+     * @param {WPARAM} wParam_ 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    SetNotifyWindowMessage(hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    SetNotifyWindowMessage(hWnd_, Msg_, wParam_, lParam_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := ComCall(4, this, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(4, this, "ptr", hWnd_, "uint", Msg_, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} pfnCallback 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {Pointer<Pointer<SPNOTIFYCALLBACK>>} pfnCallback_ 
+     * @param {WPARAM} wParam_ 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    SetNotifyCallbackFunction(pfnCallback, wParam, lParam) {
-        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr*" : "ptr"
+    SetNotifyCallbackFunction(pfnCallback_, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := ComCall(5, this, pfnCallbackMarshal, pfnCallback, "ptr", wParam, "ptr", lParam, "HRESULT")
+        pfnCallback_Marshal := pfnCallback_ is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pfnCallback_Marshal, pfnCallback_, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {ISpNotifyCallback} pSpCallback 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {WPARAM} wParam_ 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    SetNotifyCallbackInterface(pSpCallback, wParam, lParam) {
-        result := ComCall(6, this, "ptr", pSpCallback, "ptr", wParam, "ptr", lParam, "HRESULT")
+    SetNotifyCallbackInterface(pSpCallback, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(6, this, "ptr", pSpCallback, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +109,11 @@ class ISpNotifySource extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNotifyWin32Event() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +123,11 @@ class ISpNotifySource extends IUnknown{
      * @returns {HRESULT} 
      */
     WaitForNotifyEvent(dwMilliseconds) {
-        result := ComCall(8, this, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(8, this, "uint", dwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,10 +136,11 @@ class ISpNotifySource extends IUnknown{
      * @returns {HANDLE} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. 
      * 
      * If the operation fails, the function returns a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getnotifyeventhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-getnotifyeventhandle
      */
     GetNotifyEventHandle() {
         result := ComCall(9, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 }

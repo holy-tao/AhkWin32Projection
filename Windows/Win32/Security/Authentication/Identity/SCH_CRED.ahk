@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Client only.
+  * 
+  * This flag is the opposite of SCH_CRED_MANUAL_CRED_VALIDATION and is part of the default behavior of Schannel.
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-sch_credentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

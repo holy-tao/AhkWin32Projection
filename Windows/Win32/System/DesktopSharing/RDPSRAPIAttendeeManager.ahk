@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * An enumerator interface for the attendee collection.
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get__newenum
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

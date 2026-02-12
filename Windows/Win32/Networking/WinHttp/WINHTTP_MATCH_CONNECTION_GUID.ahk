@@ -5,7 +5,7 @@
  * Represents the GUID of a connection, for purposes of connection-matching.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_match_connection_guid
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_match_connection_guid
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

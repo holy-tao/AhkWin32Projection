@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RDITEMHDR structure is introduced in MMC 1.2.
@@ -9,7 +10,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-rdcompare">RDCOMPARE</a> structure and two 
  * <b>RDITEMHDR</b> structures and then calls the snap-ins 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> method. After the method returns, MMC releases the three structures it allocated.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-rditemhdr
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-rditemhdr
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -41,8 +42,11 @@ class RDITEMHDR extends Win32Struct
      * Reserved for future use.
      * @type {LPARAM}
      */
-    lpReserved {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lpReserved{
+        get {
+            if(!this.HasProp("__lpReserved"))
+                this.__lpReserved := LPARAM(16, this)
+            return this.__lpReserved
+        }
     }
 }

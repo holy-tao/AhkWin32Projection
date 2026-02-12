@@ -23,7 +23,7 @@
  * The Vendor Specific address range starts after the last doorbell supported by the controller and continues to the end of the BAR0/1 supported range. The start of the Vendor Specific address range starts at the same location and is not dependent on the number of allocated doorbells.
  * 
  * Accesses that target any portion of two or more registers are not supported.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_registers
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_controller_registers
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

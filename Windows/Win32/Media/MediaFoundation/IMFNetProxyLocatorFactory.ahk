@@ -6,7 +6,7 @@
 
 /**
  * Creates a proxy locator object, which determines the proxy to use.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetproxylocatorfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfnetproxylocatorfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,12 +35,16 @@ class IMFNetProxyLocatorFactory extends IUnknown{
      * Creates an IMFNetProxyLocator interface proxy locator object based on the protocol name.
      * @param {PWSTR} pszProtocol Null-terminated wide-character string containing the protocol name (for example, RTSP or HTTP).
      * @returns {IMFNetProxyLocator} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetproxylocator">IMFNetProxyLocator</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetproxylocatorfactory-createproxylocator
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetproxylocatorfactory-createproxylocator
      */
     CreateProxyLocator(pszProtocol) {
         pszProtocol := pszProtocol is String ? StrPtr(pszProtocol) : pszProtocol
 
-        result := ComCall(3, this, "ptr", pszProtocol, "ptr*", &ppProxyLocator := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszProtocol, "ptr*", &ppProxyLocator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFNetProxyLocator(ppProxyLocator)
     }
 }

@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAttributeSet interface sets key/value pairs on an object, where the key is a GUID and the value is any binary data.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAttributeSet)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nn-dsattrib-iattributeset
+ * @see https://learn.microsoft.com/windows/win32/api//content/dsattrib/nn-dsattrib-iattributeset
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,7 +34,7 @@ class IAttributeSet extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
-     * @param {Guid} guidAttribute <b>GUID</b> that identifies the attribute.
+     * @param {Guid} guidAttribute_ <b>GUID</b> that identifies the attribute.
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that contains the attribute value.
      * @param {Integer} dwAttributeLength Size of the <i>pbAttribute</i> buffer, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -70,12 +67,16 @@ class IAttributeSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeset-setattrib
+     * @see https://learn.microsoft.com/windows/win32/api//content/dsattrib/nf-dsattrib-iattributeset-setattrib
      */
-    SetAttrib(guidAttribute, pbAttribute, dwAttributeLength) {
+    SetAttrib(guidAttribute_, pbAttribute, dwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", guidAttribute, pbAttributeMarshal, pbAttribute, "uint", dwAttributeLength, "HRESULT")
+        result := ComCall(3, this, "ptr", guidAttribute_, pbAttributeMarshal, pbAttribute, "uint", dwAttributeLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

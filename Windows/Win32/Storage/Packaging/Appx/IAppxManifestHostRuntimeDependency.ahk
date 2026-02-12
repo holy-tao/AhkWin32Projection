@@ -29,11 +29,16 @@ class IAppxManifestHostRuntimeDependency extends IUnknown{
     static VTableNames => ["GetName", "GetPublisher", "GetMinVersion"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &name := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
@@ -42,7 +47,11 @@ class IAppxManifestHostRuntimeDependency extends IUnknown{
      * @returns {PWSTR} 
      */
     GetPublisher() {
-        result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &publisher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return publisher
     }
 
@@ -51,7 +60,11 @@ class IAppxManifestHostRuntimeDependency extends IUnknown{
      * @returns {Integer} 
      */
     GetMinVersion() {
-        result := ComCall(5, this, "uint*", &minVersion := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &minVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minVersion
     }
 }

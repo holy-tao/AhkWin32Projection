@@ -7,7 +7,7 @@
 
 /**
  * Provide administration functionality for properly authorized clients.
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-icertadmin2
+ * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nn-certadm-icertadmin2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -35,11 +35,7 @@ class ICertAdmin2 extends ICertAdmin{
     /**
      * Publishes certificate revocation lists (CRLs) for a certification authority (CA).
      * @remarks
-     * 
      * To determine whether a CA has successfully published base and delta CRLs, call <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin2-getcaproperty">ICertAdmin2::GetCAProperty</a> with the CR_PROP_BASECRLPUBLISHSTATUS and CR_PROP_DELTACRLPUBLISHSTATUS property identifiers, respectively.
-     * 
-     * 
-     * 
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
      * <div class="alert"><b>Important</b>  <b>PublishCRLs</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
@@ -85,17 +81,84 @@ class ICertAdmin2 extends ICertAdmin{
      * </tr>
      * </table>
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-publishcrls
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-publishcrls
      */
     PublishCRLs(strConfig, Date, CRLFlags) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", strConfig, "double", Date, "int", CRLFlags, "HRESULT")
+        result := ComCall(17, this, "ptr", strConfig, "double", Date, "int", CRLFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves a property value for the certification authority (CA).
+     * Retrieves a property value for the certification authority (CA). (ICertAdmin2.GetCAProperty)
+     * @remarks
+     * The following values are returned when the property identifier is CR_PROP_BASECRLPUBLISHSTATUS or CR_PROP_DELTACRLPUBLISHSTATUS. These values can be combined.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td> CPF_BADURL_ERROR</td>
+     * <td>A URL is not valid.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_BASE</td>
+     * <td>A base CRL was published.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_CASTORE_ERROR</td>
+     * <td>A CA store error prevented publication.</td>
+     * </tr>
+     * <tr>
+     * <td> CPF_COMPLETE</td>
+     * <td>A complete CRL was published.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_DELTA</td>
+     * <td>A delta CRL was published.</td>
+     * </tr>
+     * <tr>
+     * <td> CPF_FILE_ERROR</td>
+     * <td>A file error prevented publication.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_FTP_ERROR</td>
+     * <td>An FTP  error prevented publication.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_HTTP_ERROR</td>
+     * <td>An HTTP error prevented publication.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_LDAP_ERROR</td>
+     * <td>An LDAP error prevented publication.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_MANUAL</td>
+     * <td>A CRL was published manually.</td>
+     * </tr>
+     * <tr>
+     * <td> CPF_SHADOW</td>
+     * <td>An empty delta CRL was published, along with a new BASE CRL.</td>
+     * </tr>
+     * <tr>
+     * <td>CPF_SIGNATURE_ERROR</td>
+     * <td>A signature error   prevented publication.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For an example of retrieving a CRL, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-a-certificate-revocation-list">Retrieving a Certificate Revocation List</a>.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -468,13 +531,20 @@ class ICertAdmin2 extends ICertAdmin{
      * </tr>
      * </table>
      * @returns {VARIANT} A pointer to a buffer that receives the requested property value. It is a caller's responsibility to free this resource when done by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-getcaproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-getcaproperty
      */
     GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
         pvarPropertyValue := VARIANT()
-        result := ComCall(18, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(18, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPropertyValue
     }
 
@@ -580,18 +650,27 @@ class ICertAdmin2 extends ICertAdmin{
      * If the function is successful, the return value is S_OK.
      * 
      *  
-     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-setcaproperty
+     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-setcaproperty
      */
     SetCAProperty(strConfig, PropId, PropIndex, PropType, pvarPropertyValue) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(19, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pvarPropertyValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ICertAdmin2::GetCAPropertyFlags method retrieves the property flags for a certification authority (CA) property.
+     * @remarks
+     * The <b>LONG</b> value retrieved by calling this method can be examined to determine the data type and the indexed status. To determine the data type and indexed status, use the PROPTYPE_MASK and PROPFLAGS_INDEXED values, respectively.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see <b>ICertConfig</b>.
      * 
      * <div class="alert"><b>Important</b>  <b>GetCAPropertyFlags</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
@@ -599,12 +678,19 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {Integer} PropId Specifies the property identifier. For information about this parameter, see the table in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin2-getcaproperty">ICertAdmin2::GetCAProperty</a>.
      * @returns {Integer} A pointer to a value that represents the property flags.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-getcapropertyflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-getcapropertyflags
      */
     GetCAPropertyFlags(strConfig, PropId) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", strConfig, "int", PropId, "int*", &pPropFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPropFlags
     }
 
@@ -620,18 +706,27 @@ class ICertAdmin2 extends ICertAdmin{
      * @returns {BSTR} A pointer to the string representing the property's display name.
      * 
      * It is the responsibility of the caller to free the <b>BSTR</b> when done by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-getcapropertydisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-getcapropertydisplayname
      */
     GetCAPropertyDisplayName(strConfig, PropId) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
         pstrDisplayName := BSTR()
-        result := ComCall(21, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
+        result := ComCall(21, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrDisplayName
     }
 
     /**
      * Retrieves an archived key recovery BLOB.
+     * @remarks
+     * An archived key is encrypted in a PKCS #7 to the key recovery agent certificate or certificates, and is stored in the Certificate Services database in that form. This method retrieves the encrypted PKCS #7 from the Certificate Services database, wraps it in a signed PKCS #7 which contains the user certificate and chain, the key recovery agent certificate or certificates, and the certification authority's signing certificate and chain. An authenticated attribute contains a certificate used to uniquely identify the user certificate.
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) in the form <i>ComputerName</i>&#92;<i>CAName</i>, where <i>ComputerName</i> is the Certificate Services server's network name, and <i>CAName</i> is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
@@ -682,18 +777,30 @@ class ICertAdmin2 extends ICertAdmin{
      * </tr>
      * </table>
      * @returns {BSTR} A pointer to the string that represents the retrieved archived <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a>. When you have finished using this string, it is the responsibility of the caller to free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-getarchivedkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-getarchivedkey
      */
     GetArchivedKey(strConfig, RequestId, Flags) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
         pstrArchivedKey := BSTR()
-        result := ComCall(22, this, "ptr", strConfig, "int", RequestId, "int", Flags, "ptr", pstrArchivedKey, "HRESULT")
+        result := ComCall(22, this, "ptr", strConfig, "int", RequestId, "int", Flags, "ptr", pstrArchivedKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrArchivedKey
     }
 
     /**
      * Retrieves configuration information for a certification authority (CA).
+     * @remarks
+     * The configuration information is stored in the registry under the following path.
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SYSTEM</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>CertSvc</b>&#92;<b>Configuration</b>&#92;<i>[CASANITIZEDNAME]</i>&#92;<i>[strNodePath]</i>&#92;<i>[strEntryName]</i></p>Where <i>CASANITIZEDNAME</i> is the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">sanitized name</a> for the CA. For more information about sanitized names, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertconfig-getconfig">ICertConfig2::GetConfig</a>.
      * @param {BSTR} strConfig String value that represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>. This parameter can be an empty string, in which case the function retrieves configuration information that is not specific to a CA. This parameter cannot be <b>NULL</b>.
      * 
@@ -702,20 +809,38 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {BSTR} strNodePath String value that represents the node path for the configuration information. This parameter can be an empty string, in which case the function retrieves configuration information from the path identified by <i>strConfig</i>. This parameter cannot be <b>NULL</b>.
      * @param {BSTR} strEntryName String value that represents the name of the entry whose information is being retrieved. This value can be an empty string, in which case all of the entry names are retrieved. This parameter cannot be <b>NULL</b>.
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the requested information.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-getconfigentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-getconfigentry
      */
     GetConfigEntry(strConfig, strNodePath, strEntryName) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strNodePath := strNodePath is String ? BSTR.Alloc(strNodePath).Value : strNodePath
-        strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strNodePath is String) {
+            pin := BSTR.Alloc(strNodePath)
+            strNodePath := pin.Value
+        }
+        if(strEntryName is String) {
+            pin := BSTR.Alloc(strEntryName)
+            strEntryName := pin.Value
+        }
 
         pvarEntry := VARIANT()
-        result := ComCall(23, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "HRESULT")
+        result := ComCall(23, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarEntry
     }
 
     /**
      * Sets configuration information for a certification authority (CA).
+     * @remarks
+     * The configuration information is stored in the registry under the following path.
+     * 
+     * 
+     * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SYSTEM</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>CertSvc</b>&#92;<b>Configuration</b>&#92;<i>[CASANITIZEDNAME]</i>&#92;<i>[strNodePath]</i>&#92;<i>[strEntryName]</i></p>Where <i>CASANITIZEDNAME</i> is the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">sanitized name</a> for the CA. For more information about sanitized names, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertconfig-getconfig">ICertConfig2::GetConfig</a>.
      * @param {BSTR} strConfig String value that represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>. This parameter can be an empty string, in which case the function sets configuration information that is not specific to a CA. This parameter cannot be <b>NULL</b>.
      * 
@@ -737,15 +862,28 @@ class ICertAdmin2 extends ICertAdmin{
      * If the function is successful, the return value is S_OK.
      * 
      *  
-     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-setconfigentry
+     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-setconfigentry
      */
     SetConfigEntry(strConfig, strNodePath, strEntryName, pvarEntry) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strNodePath := strNodePath is String ? BSTR.Alloc(strNodePath).Value : strNodePath
-        strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strNodePath is String) {
+            pin := BSTR.Alloc(strNodePath)
+            strNodePath := pin.Value
+        }
+        if(strEntryName is String) {
+            pin := BSTR.Alloc(strEntryName)
+            strEntryName := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "HRESULT")
+        result := ComCall(24, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -761,14 +899,27 @@ class ICertAdmin2 extends ICertAdmin{
      * @param {Integer} Flags 
      * @param {BSTR} strKey String value that represents the KRA key information.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-importkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-importkey
      */
     ImportKey(strConfig, RequestId, strCertHash, Flags, strKey) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
-        strCertHash := strCertHash is String ? BSTR.Alloc(strCertHash).Value : strCertHash
-        strKey := strKey is String ? BSTR.Alloc(strKey).Value : strKey
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
+        if(strCertHash is String) {
+            pin := BSTR.Alloc(strCertHash)
+            strCertHash := pin.Value
+        }
+        if(strKey is String) {
+            pin := BSTR.Alloc(strKey)
+            strKey := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", strConfig, "int", RequestId, "ptr", strCertHash, "int", Flags, "ptr", strKey, "HRESULT")
+        result := ComCall(25, this, "ptr", strConfig, "int", RequestId, "ptr", strCertHash, "int", Flags, "ptr", strKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -780,17 +931,26 @@ class ICertAdmin2 extends ICertAdmin{
      * <div class="alert"><b>Important</b>  <b>GetMyRoles</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
      * <div> </div>
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-getmyroles
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-getmyroles
      */
     GetMyRoles(strConfig) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", strConfig, "uint*", &pRoles := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", strConfig, "uint*", &pRoles := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRoles
     }
 
     /**
      * The DeleteRow method deletes a row or set of rows from a database table. The caller specifies a database table and either a row ID or an ending date.
+     * @remarks
+     * <i>RowID</i> and <i>Date</i> are mutually exclusive; one and only one of them can be nonzero.
      * @param {BSTR} strConfig Represents a valid configuration string for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * 
      * <div class="alert"><b>Important</b>  <b>DeleteRow</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
@@ -804,12 +964,19 @@ class ICertAdmin2 extends ICertAdmin{
      * 
      * If this value is not zero, then <i>Date</i> must be zero.
      * @returns {Integer} The number of rows successfully deleted.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-icertadmin2-deleterow
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-icertadmin2-deleterow
      */
     DeleteRow(strConfig, Flags, Date, Table, RowId) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, "int*", &pcDeleted := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, "int*", &pcDeleted := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcDeleted
     }
 }

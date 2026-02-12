@@ -25,7 +25,7 @@
  * </li>
  * </ul>
  * Be aware that a sort control must accompany a VLV search request to specify the ordered list of entries against which the VLV search is performed. Servers can reject VLV searches performed against lists for which they do not have indexes.
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapvlvinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winldap/ns-winldap-ldapvlvinfo
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

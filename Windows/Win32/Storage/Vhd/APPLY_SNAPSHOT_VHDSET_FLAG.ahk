@@ -3,7 +3,7 @@
 
 /**
  * Contains flags affecting the behavior of the ApplySnapshotVhdSet function.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-apply_snapshot_vhdset_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/ne-virtdisk-apply_snapshot_vhdset_flag
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

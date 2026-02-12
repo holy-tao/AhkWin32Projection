@@ -39,7 +39,11 @@ class ISpObjectTokenInit extends ISpObjectToken{
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
         pszTokenId := pszTokenId is String ? StrPtr(pszTokenId) : pszTokenId
 
-        result := ComCall(25, this, "ptr", pszCategoryId, "ptr", pszTokenId, "ptr", pDataKey, "HRESULT")
+        result := ComCall(25, this, "ptr", pszCategoryId, "ptr", pszTokenId, "ptr", pDataKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

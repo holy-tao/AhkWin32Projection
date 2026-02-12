@@ -6,7 +6,7 @@
 
 /**
  * This interface inherits from the IWdsTransportServer interface and extends it. It is available beginning with Windows Server 2012.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportserver2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransportserver2
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -41,10 +41,14 @@ class IWdsTransportServer2 extends IWdsTransportServer{
     /**
      * Receives a pointer to the object of the IWdsTransportTftpManager interface used to manage the WDS TFTP server.
      * @returns {IWdsTransportTftpManager} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportserver2-get_tftpmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver2-get_tftpmanager
      */
     get_TftpManager() {
-        result := ComCall(12, this, "ptr*", &ppWdsTransportTftpManager := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppWdsTransportTftpManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWdsTransportTftpManager(ppWdsTransportTftpManager)
     }
 }

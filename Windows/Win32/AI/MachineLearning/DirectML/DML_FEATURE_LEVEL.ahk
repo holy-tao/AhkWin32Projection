@@ -7,7 +7,7 @@
  * The **DML_FEATURE_LEVEL_5_1** constant was introduced in `DML_FEATURE_LEVEL_5_1`. **DML_FEATURE_LEVEL_5_1** specifies [feature level 5_1](/windows/ai/directml/dml-feature-level-history#dml_feature_level_5_1).
  * 
  * The **DML_FEATURE_LEVEL_5_2** constant was introduced in `DML_FEATURE_LEVEL_5_2`. **DML_FEATURE_LEVEL_5_2** specifies [feature level 5_2](/windows/ai/directml/dml-feature-level-history#dml_feature_level_5_2).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_feature_level
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ne-directml-dml_feature_level
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

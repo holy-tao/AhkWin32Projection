@@ -45,7 +45,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {HRESULT} 
      */
     put_allowOverride(fOverride) {
-        result := ComCall(7, this, "short", fOverride, "HRESULT")
+        result := ComCall(7, this, "short", fOverride, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_allowOverride() {
-        result := ComCall(8, this, "short*", &fOverride := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &fOverride := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fOverride
     }
 
@@ -63,7 +71,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +84,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {HRESULT} 
      */
     pushContext() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +99,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {HRESULT} 
      */
     pushNodeContext(contextNode, fDeep) {
-        result := ComCall(11, this, "ptr", contextNode, "short", fDeep, "HRESULT")
+        result := ComCall(11, this, "ptr", contextNode, "short", fDeep, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +112,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {HRESULT} 
      */
     popContext() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,10 +127,20 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {HRESULT} 
      */
     declarePrefix(prefix, namespaceURI) {
-        prefix := prefix is String ? BSTR.Alloc(prefix).Value : prefix
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(prefix is String) {
+            pin := BSTR.Alloc(prefix)
+            prefix := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", prefix, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(13, this, "ptr", prefix, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +149,11 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {IMXNamespacePrefixes} 
      */
     getDeclaredPrefixes() {
-        result := ComCall(14, this, "ptr*", &prefixes := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &prefixes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMXNamespacePrefixes(prefixes)
     }
 
@@ -125,9 +163,16 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {IMXNamespacePrefixes} 
      */
     getPrefixes(namespaceURI) {
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", namespaceURI, "ptr*", &prefixes := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", namespaceURI, "ptr*", &prefixes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMXNamespacePrefixes(prefixes)
     }
 
@@ -137,10 +182,17 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {VARIANT} 
      */
     getURI(prefix) {
-        prefix := prefix is String ? BSTR.Alloc(prefix).Value : prefix
+        if(prefix is String) {
+            pin := BSTR.Alloc(prefix)
+            prefix := pin.Value
+        }
 
         uri := VARIANT()
-        result := ComCall(16, this, "ptr", prefix, "ptr", uri, "HRESULT")
+        result := ComCall(16, this, "ptr", prefix, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uri
     }
 
@@ -151,10 +203,17 @@ class IVBMXNamespaceManager extends IDispatch{
      * @returns {VARIANT} 
      */
     getURIFromNode(strPrefix, contextNode) {
-        strPrefix := strPrefix is String ? BSTR.Alloc(strPrefix).Value : strPrefix
+        if(strPrefix is String) {
+            pin := BSTR.Alloc(strPrefix)
+            strPrefix := pin.Value
+        }
 
         uri := VARIANT()
-        result := ComCall(17, this, "ptr", strPrefix, "ptr", contextNode, "ptr", uri, "HRESULT")
+        result := ComCall(17, this, "ptr", strPrefix, "ptr", contextNode, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uri
     }
 }

@@ -54,7 +54,11 @@ class IMSMQQueueManagement extends IMSMQManagement{
      * @returns {Integer} 
      */
     get_JournalMessageCount() {
-        result := ComCall(16, this, "int*", &plJournalMessageCount := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &plJournalMessageCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plJournalMessageCount
     }
 
@@ -64,7 +68,11 @@ class IMSMQQueueManagement extends IMSMQManagement{
      */
     get_BytesInJournal() {
         pvBytesInJournal := VARIANT()
-        result := ComCall(17, this, "ptr", pvBytesInJournal, "HRESULT")
+        result := ComCall(17, this, "ptr", pvBytesInJournal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvBytesInJournal
     }
 
@@ -74,7 +82,11 @@ class IMSMQQueueManagement extends IMSMQManagement{
      */
     EodGetReceiveInfo() {
         pvCollection := VARIANT()
-        result := ComCall(18, this, "ptr", pvCollection, "HRESULT")
+        result := ComCall(18, this, "ptr", pvCollection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvCollection
     }
 }

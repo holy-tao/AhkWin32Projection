@@ -5,7 +5,7 @@
 
 /**
  * This interface is implemented by a text service that has a candidate list UI and its UI can be controlled by the application. The application QI this interface from ITfUIElement and controls the candidate list behavior.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcandidatelistuielementbehavior
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfcandidatelistuielementbehavior
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -63,10 +63,14 @@ class ITfCandidateListUIElementBehavior extends ITfCandidateListUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielementbehavior-setselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielementbehavior-setselection
      */
     SetSelection(nIndex) {
-        result := ComCall(15, this, "uint", nIndex, "HRESULT")
+        result := ComCall(15, this, "uint", nIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,10 +106,14 @@ class ITfCandidateListUIElementBehavior extends ITfCandidateListUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielementbehavior-finalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielementbehavior-finalize
      */
     Finalize() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,10 +149,14 @@ class ITfCandidateListUIElementBehavior extends ITfCandidateListUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcandidatelistuielementbehavior-abort
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcandidatelistuielementbehavior-abort
      */
     Abort() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

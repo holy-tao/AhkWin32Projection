@@ -36,7 +36,11 @@ class IRTCUserSearchResult extends IUnknown{
      */
     get_Value(enColumn) {
         pbstrValue := BSTR()
-        result := ComCall(3, this, "int", enColumn, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(3, this, "int", enColumn, "ptr", pbstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrValue
     }
 }

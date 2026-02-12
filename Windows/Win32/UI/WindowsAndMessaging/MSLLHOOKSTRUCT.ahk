@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a low-level mouse input event.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msllhookstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-msllhookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

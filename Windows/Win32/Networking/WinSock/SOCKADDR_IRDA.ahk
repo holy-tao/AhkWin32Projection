@@ -11,7 +11,7 @@
  * 
  * The <b>irdaServiceName</b> member is filled with the well-known value that the server application specified in its 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function call.
- * @see https://learn.microsoft.com/windows/win32/api/af_irda/ns-af_irda-sockaddr_irda
+ * @see https://learn.microsoft.com/windows/win32/api//content/af_irda/ns-af_irda-sockaddr_irda
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

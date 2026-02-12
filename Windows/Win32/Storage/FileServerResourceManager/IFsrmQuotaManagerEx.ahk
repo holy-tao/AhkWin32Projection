@@ -6,7 +6,7 @@
 
 /**
  * Used to manage quotas, extended version.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotamanagerex
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nn-fsrmquota-ifsrmquotamanagerex
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -33,18 +33,25 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
 
     /**
      * Retrieves a value that determines whether a specified path is subject to a quota.
-     * @param {BSTR} path The local directory path to determine whether a quota applies.
+     * @param {BSTR} path_ The local directory path to determine whether a quota applies.
      * @param {Integer} options The options to use when checking for a quota. For possible values, see the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the path referred to by the 
      *      <i>path</i> parameter is subject to a quota, otherwise it is 
      *      <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
      */
-    IsAffectedByQuota(path, options) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    IsAffectedByQuota(path_, options) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", path, "int", options, "short*", &affected := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", path_, "int", options, "short*", &affected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return affected
     }
 }

@@ -33,12 +33,16 @@ class ICLRMetaHost extends IUnknown{
      * 
      * @param {PWSTR} pwzVersion 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetRuntime(pwzVersion, riid) {
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
 
-        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, "ptr*", &ppRuntime := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, "ptr*", &ppRuntime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppRuntime
     }
 
@@ -55,7 +59,11 @@ class ICLRMetaHost extends IUnknown{
 
         pcchBufferMarshal := pcchBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwzFilePath, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzFilePath, "ptr", pwzBuffer, pcchBufferMarshal, pcchBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +72,11 @@ class ICLRMetaHost extends IUnknown{
      * @returns {IEnumUnknown} 
      */
     EnumerateInstalledRuntimes() {
-        result := ComCall(5, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppEnumerator)
     }
 
@@ -76,7 +88,11 @@ class ICLRMetaHost extends IUnknown{
     EnumerateLoadedRuntimes(hndProcess) {
         hndProcess := hndProcess is Win32Handle ? NumGet(hndProcess, "ptr") : hndProcess
 
-        result := ComCall(6, this, "ptr", hndProcess, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hndProcess, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppEnumerator)
     }
 
@@ -86,24 +102,31 @@ class ICLRMetaHost extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestRuntimeLoadedNotification(pCallbackFunction) {
-        result := ComCall(7, this, "ptr", pCallbackFunction, "HRESULT")
+        result := ComCall(7, this, "ptr", pCallbackFunction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     QueryLegacyV2RuntimeBinding(riid) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", riid, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppUnk
     }
 
     /**
      * Ends the calling process and all its threads.
      * @remarks
-     * 
      * Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a> function to retrieve the process's exit value. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodethread">GetExitCodeThread</a> function to retrieve a thread's exit value.
@@ -131,15 +154,16 @@ class ICLRMetaHost extends IUnknown{
      * Exiting a process does not cause child processes to be terminated.
      * 
      * Exiting a process does not necessarily remove the process object from the operating system. A process object is deleted when the last handle to the process is closed.
-     * 
-     * 
-     * 
      * @param {Integer} iExitCode 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-exitprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-exitprocess
      */
     ExitProcess(iExitCode) {
-        result := ComCall(9, this, "int", iExitCode, "HRESULT")
+        result := ComCall(9, this, "int", iExitCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

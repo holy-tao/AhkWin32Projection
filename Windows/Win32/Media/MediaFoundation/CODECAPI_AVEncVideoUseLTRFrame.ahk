@@ -11,7 +11,7 @@
  * If a CODECAPI\_AVEncVideoUseLTRFrame request is submitted while another CODECAPI\_AVEncVideoUseLTRFrame request is still pending, then the older request should be dropped.
  * 
  * Calling CODECAPI\_AVEncVideoUseLTRFrame on a non-base layer frame is valid and shall apply to the non-base layer frame, without delay to a base layer frame.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideouseltrframe
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencvideouseltrframe
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

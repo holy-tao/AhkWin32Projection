@@ -6,11 +6,8 @@
 /**
  * If a BDA device filter, specifically a demodulator, exposes this interface, it indicates that the filter can automatically detect signal characteristics.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_AutoDemodulate)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_autodemodulate
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_autodemodulate
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,10 +35,14 @@ class IBDA_AutoDemodulate extends IUnknown{
     /**
      * The put_AutoDemodulate method instructs the BDA device filter to automatically detect signal characteristics.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_autodemodulate-put_autodemodulate
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_autodemodulate-put_autodemodulate
      */
     put_AutoDemodulate() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

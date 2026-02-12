@@ -105,7 +105,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {Integer} 
      */
     get_status() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -115,7 +119,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onchecking(v) {
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +133,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_onchecking() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -135,7 +147,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,7 +161,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -155,7 +175,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onnoupdate(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +189,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_onnoupdate() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -175,7 +203,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ondownloading(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +217,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_ondownloading() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -195,7 +231,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onprogress(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +245,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_onprogress() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -215,7 +259,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onupdateready(v) {
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -225,7 +273,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_onupdateready() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -235,7 +287,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_oncached(v) {
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -245,7 +301,11 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_oncached() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -255,7 +315,11 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onobsolete(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,16 +329,67 @@ class IHTMLApplicationCache extends IDispatch{
      */
     get_onobsolete() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
+     * The update command repaints the current frame into the specified device context (DC). Digital-video devices recognize this command.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszHDC"></span><span id="lpszhdc"></span><span id="LPSZHDC"></span>*lpszHDC*
+     * 
+     * Handle of a DC. The following table lists device types that recognize the **update** command and the flags used by each type.
+     * 
+     * 
+     * 
+     * | Value        | Meaning                       | Meaning         |
+     * |--------------|-------------------------------|-----------------|
+     * | digitalvideo | hdc *hdc* hdc *hdc* at *rect* | paint hdc *hdc* |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * The following table lists the flags that can be specified in the **lpszHDC** parameter and their meanings.
+     * 
+     * 
+     * 
+     * | Value               | Meaning                                                                                                |
+     * |---------------------|--------------------------------------------------------------------------------------------------------|
+     * | hdc *hdc*           | Specifies the handle of the DC to paint.                                                               |
+     * | hdc *hdc* at *rect* | Specifies the clipping rectangle relative to the client rectangle.                                     |
+     * | paint hdc *hdc*     | Paints the DC when the application receives a [**WM\_PAINT**](/windows/desktop/gdi/wm-paint) message intended for a DC. |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * To specify the handle of the DC, use the string "hdc" followed by an ASCII representation of the handle. The rectangle is specified as**X1 Y1 X2 Y2**. The coordinates**X1 Y1**specify the upper left corner of the rectangle, and the coordinates**X2 Y2**specify the width and height.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/update
      */
     update() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -283,16 +398,31 @@ class IHTMLApplicationCache extends IDispatch{
      * @returns {HRESULT} 
      */
     swapCache() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Submits an error message to the information queue and terminates the current draw or dispatch call being executed.
+     * @remarks
+     * This operation does nothing on rasterizers that do not support it.
+     * @returns {HRESULT} None
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     * This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/abort
      */
     abort() {
-        result := ComCall(26, this, "HRESULT")
+        result := ComCall(26, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

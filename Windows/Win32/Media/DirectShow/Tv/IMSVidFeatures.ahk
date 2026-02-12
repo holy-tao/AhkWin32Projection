@@ -8,11 +8,8 @@
 /**
  * The IMSVidFeatures interface represents a collection of Video Control features.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFeatures)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidfeatures
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidfeatures
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -60,31 +57,53 @@ class IMSVidFeatures extends IDispatch{
     /**
      * The get_Count method retrieves the number of items in the collection.
      * @returns {Integer} Pointer to a variable that receives the number of items.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfeatures-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfeatures-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &lCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lCount
     }
 
     /**
      * The get__NewEnum method retrieves an enumerator for the collection.
+     * @remarks
+     * This method is provided so that Automation clients can iterate through the collection using a <c>For...Each</c> loop.
+     * 
+     * The returned <b>IEnumVARIANT</b> interface is not thread safe, because it is intended primarily for use by Automation clients. Clients should not call methods on the interface from more than one thread. (C++ applications should generally use the <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidfeatures-get_item">IMSVidFeatures::get_Item</a> method instead.)
+     * 
+     * If the method succeeds, the <b>IEnumVARIANT</b> interface has an outstanding reference count. The caller must release the interface.
      * @returns {IEnumVARIANT} Pointer to a variable that receives an <b>IEnumVARIANT</b> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfeatures-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfeatures-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &pD := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pD := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(pD)
     }
 
     /**
      * The get_Item method retrieves the specified item from the collection.
+     * @remarks
+     * The <i>v</i> parameter must be a <b>VARIANT</b> that contains an integer type (VT_I4). The valid range is from 0 to <c>IMSVidFeatures::get_Count - 1</c>.
+     * 
+     * If the method succeeds, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidfeature">IMSVidFeature</a> interface has an outstanding reference count. The caller must release the interface.
      * @param {VARIANT} v <b>VARIANT</b> that specifies the index of the item to retrieve.
      * @returns {IMSVidFeature} Address of a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidfeature">IMSVidFeature</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfeatures-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfeatures-get_item
      */
     get_Item(v) {
-        result := ComCall(9, this, "ptr", v, "ptr*", &pDB := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "ptr*", &pDB := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSVidFeature(pDB)
     }
 
@@ -143,15 +162,21 @@ class IMSVidFeatures extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfeatures-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfeatures-add
      */
     Add(pDB) {
-        result := ComCall(10, this, "ptr", pDB, "HRESULT")
+        result := ComCall(10, this, "ptr", pDB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Remove method removes an item from the collection.
+     * @remarks
+     * The <i>v</i> parameter must be a <b>VARIANT</b> that contains an integer type (VT_I4). The valid range is from 0 to <c>IMSVidFeatures::get_Count</c> - 1.
      * @param {VARIANT} v <b>VARIANT</b> that specifies the index of the item to remove.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -216,10 +241,14 @@ class IMSVidFeatures extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfeatures-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfeatures-remove
      */
     Remove(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

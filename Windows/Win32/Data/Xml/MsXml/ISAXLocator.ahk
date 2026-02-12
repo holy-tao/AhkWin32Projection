@@ -33,7 +33,11 @@ class ISAXLocator extends IUnknown{
      * @returns {Integer} 
      */
     getColumnNumber() {
-        result := ComCall(3, this, "int*", &pnColumn := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pnColumn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnColumn
     }
 
@@ -42,7 +46,11 @@ class ISAXLocator extends IUnknown{
      * @returns {Integer} 
      */
     getLineNumber() {
-        result := ComCall(4, this, "int*", &pnLine := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pnLine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnLine
     }
 
@@ -51,7 +59,11 @@ class ISAXLocator extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     getPublicId() {
-        result := ComCall(5, this, "ptr*", &ppwchPublicId := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppwchPublicId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwchPublicId
     }
 
@@ -60,7 +72,11 @@ class ISAXLocator extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     getSystemId() {
-        result := ComCall(6, this, "ptr*", &ppwchSystemId := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppwchSystemId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwchSystemId
     }
 }

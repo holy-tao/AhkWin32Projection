@@ -36,9 +36,16 @@ class IHTMLOpsProfile extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     addRequest(name, reserved) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", name, "ptr", reserved, "short*", &success := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "ptr", reserved, "short*", &success := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return success
     }
 
@@ -47,7 +54,11 @@ class IHTMLOpsProfile extends IDispatch{
      * @returns {HRESULT} 
      */
     clearRequest() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,26 +67,40 @@ class IHTMLOpsProfile extends IDispatch{
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
-     * @param {VARIANT} path 
+     * @param {VARIANT} path_ 
      * @param {VARIANT} expire 
      * @param {VARIANT} reserved 
      * @returns {HRESULT} 
      */
-    doRequest(usage, fname, domain, path, expire, reserved) {
-        result := ComCall(9, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", path, "ptr", expire, "ptr", reserved, "HRESULT")
+    doRequest(usage, fname, domain, path_, expire, reserved) {
+        result := ComCall(9, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", path_, "ptr", expire, "ptr", reserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * getAttributes Method (SQLServerDatabaseMetaData)
+     * @remarks
+     * This getAttributes method is specified by the getAttributes method in the java.sql.DatabaseMetaData interface.
      * @param {BSTR} name 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getattributes-method-sqlserverdatabasemetadata
      */
     getAttribute(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
         value := BSTR()
-        result := ComCall(10, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -87,10 +112,20 @@ class IHTMLOpsProfile extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     setAttribute(name, value, prefs) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", name, "ptr", value, "ptr", prefs, "short*", &success := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", name, "ptr", value, "ptr", prefs, "short*", &success := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return success
     }
 
@@ -99,7 +134,11 @@ class IHTMLOpsProfile extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     commitChanges() {
-        result := ComCall(12, this, "short*", &success := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &success := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return success
     }
 
@@ -110,9 +149,16 @@ class IHTMLOpsProfile extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     addReadRequest(name, reserved) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", name, "ptr", reserved, "short*", &success := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", name, "ptr", reserved, "short*", &success := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return success
     }
 
@@ -121,13 +167,17 @@ class IHTMLOpsProfile extends IDispatch{
      * @param {VARIANT} usage 
      * @param {VARIANT} fname 
      * @param {VARIANT} domain 
-     * @param {VARIANT} path 
+     * @param {VARIANT} path_ 
      * @param {VARIANT} expire 
      * @param {VARIANT} reserved 
      * @returns {HRESULT} 
      */
-    doReadRequest(usage, fname, domain, path, expire, reserved) {
-        result := ComCall(14, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", path, "ptr", expire, "ptr", reserved, "HRESULT")
+    doReadRequest(usage, fname, domain, path_, expire, reserved) {
+        result := ComCall(14, this, "ptr", usage, "ptr", fname, "ptr", domain, "ptr", path_, "ptr", expire, "ptr", reserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,7 +186,11 @@ class IHTMLOpsProfile extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     doWriteRequest() {
-        result := ComCall(15, this, "short*", &success := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &success := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return success
     }
 }

@@ -35,7 +35,11 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2{
      * @returns {Integer} 
      */
     ExtendHostContext(blobSize, identifier) {
-        result := ComCall(6, this, "uint", blobSize, "ptr", identifier, "uint*", &blobId := 0, "HRESULT")
+        result := ComCall(6, this, "uint", blobSize, "ptr", identifier, "uint*", &blobId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return blobId
     }
 
@@ -50,7 +54,11 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2{
         blobIdMarshal := blobId is VarRef ? "uint*" : "ptr"
         blobSizeMarshal := blobSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", identifier, blobIdMarshal, blobId, blobSizeMarshal, blobSize, "HRESULT")
+        result := ComCall(7, this, "ptr", identifier, blobIdMarshal, blobId, blobSizeMarshal, blobSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2{
      * @returns {HRESULT} 
      */
     ReleaseHostContextExtension(blobId) {
-        result := ComCall(8, this, "uint", blobId, "HRESULT")
+        result := ComCall(8, this, "uint", blobId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

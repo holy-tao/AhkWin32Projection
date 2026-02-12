@@ -5,7 +5,7 @@
 
 /**
  * The optional, application-implemented IWMDMProgress3 interface extends IWMDMProgress2 by providing additional input parameters to specify which event is being monitored, and to allow for context-specific information.Applications that implement this callback interface should provide an implementation for methods corresponding to IWMDMProgress and IWMDMProgress2 for backward compatibility, in addition to the new methods.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmprogress3
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iwmdmprogress3
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMDMProgress3 extends IWMDMProgress2{
 
     /**
      * The Begin3 method is called by Windows Media Device Manager to indicate that an operation is about to begin.
+     * @remarks
+     * The application returns S_OK to indicate that an operation should be continued and WMDM_E_USER_CANCELLED to indicate that the operation should be cancelled. If the application is using block mode and returns WMDM_E_USER_CANCELLED, then Windows Media Device Manager will return this same error to the application.
      * @param {Guid} EventId A <b>GUID</b> identifying the operation that will begin. Possible values are shown in the following table.
      * 
      * <table>
@@ -103,15 +105,23 @@ class IWMDMProgress3 extends IWMDMProgress2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress3-begin3
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmprogress3-begin3
      */
     Begin3(EventId, dwEstimatedTicks, pContext) {
-        result := ComCall(7, this, "ptr", EventId, "uint", dwEstimatedTicks, "ptr", pContext, "HRESULT")
+        result := ComCall(7, this, "ptr", EventId, "uint", dwEstimatedTicks, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Progress3 method is called by Windows Media Device Manager to indicate the status of an action in progress.
+     * @remarks
+     * The interface that owns the method that is implementing an operation calls the <b>Progress3</b> method as the operation defined by the method is carried out. The intention is that <b>Progress3</b> will be called once per estimated tick. However, the <i>dwTranspiredTicks</i> parameter must be checked on each call because the operation being performed may not guarantee one call for each estimated tick.
+     * 
+     * The application returns S_OK to the calling method to indicate that the operation should continue. The application returns WMDM_E_USER_CANCELLED to indicate that the operation should be canceled. If the application is using block mode and returns WMDM_E_USER_CANCELLED, then Windows Media Device Manager will return this same error to the application.
      * @param {Guid} EventId <b>GUID</b> specifying the event ID for which progress notifications are being sent. Possible values are shown in the following table.
      * 
      * <table>
@@ -183,15 +193,21 @@ class IWMDMProgress3 extends IWMDMProgress2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress3-progress3
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmprogress3-progress3
      */
     Progress3(EventId, dwTranspiredTicks, pContext) {
-        result := ComCall(8, this, "ptr", EventId, "uint", dwTranspiredTicks, "ptr", pContext, "HRESULT")
+        result := ComCall(8, this, "ptr", EventId, "uint", dwTranspiredTicks, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The End3 method is called by Windows Media Device Manager to indicate that an operation has finished.
+     * @remarks
+     * The interface that owns the method that is implementing an operation calls <b>End3</b> when the operation defined by the method is completed.
      * @param {Guid} EventId A <b>GUID</b> specifying the event that is ending. Possible values are shown in the following table.
      * 
      * <table>
@@ -234,10 +250,14 @@ class IWMDMProgress3 extends IWMDMProgress2{
      * @param {HRESULT} hrCompletionCode <b>HRESULT</b> specifying the completion code of the operation that was in progress. The <i>hrCompletionCode</i> parameter is the return code of the operation that ended. This parameter can be any <b>HRESULT</b>, including standard COM error codes, Win32 error codes converted to <b>HRESULT</b>, or Windows Media Device Manager error codes.
      * @param {Pointer<OPAQUECOMMAND>} pContext Pointer to an <a href="https://docs.microsoft.com/windows/desktop/WMDM/opaquecommand">OPAQUECOMMAND</a> structure containing a command sent directly to the device without being handled by Windows Media Device Manager. This parameter is optional and can be <b>NULL</b>. The context structure is a way for the component to send any relevant data with the event to the application. The component sending this structure should define how the application can interpret this data structure.
      * @returns {HRESULT} Windows Media Device Manager ignores any return code returned by the <b>End3</b> method because the current operation is finished or cancelled before this method is called.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress3-end3
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmprogress3-end3
      */
     End3(EventId, hrCompletionCode, pContext) {
-        result := ComCall(9, this, "ptr", EventId, "int", hrCompletionCode, "ptr", pContext, "HRESULT")
+        result := ComCall(9, this, "ptr", EventId, "int", hrCompletionCode, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

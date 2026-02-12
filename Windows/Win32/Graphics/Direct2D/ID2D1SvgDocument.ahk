@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D_SIZE_F.ahk
 #Include .\ID2D1SvgElement.ahk
 #Include .\ID2D1SvgPaint.ahk
 #Include .\ID2D1SvgStrokeDashArray.ahk
@@ -10,7 +11,7 @@
 
 /**
  * Represents an SVG document.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nn-d2d1svg-id2d1svgdocument
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nn-d2d1svg-id2d1svgdocument
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -40,13 +41,17 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {D2D_SIZE_F} viewportSize Type: <b>D2D1_SIZE_F</b>
      * 
      * The size of the viewport.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-setviewportsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-setviewportsize
      */
     SetViewportSize(viewportSize) {
-        result := ComCall(4, this, "ptr", viewportSize, "HRESULT")
+        result := ComCall(4, this, "ptr", viewportSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +60,7 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @returns {D2D_SIZE_F} Type: <b>D2D1_SIZE_F</b>
      * 
      * Returns the size of the initial viewport
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-getviewportsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-getviewportsize
      */
     GetViewportSize() {
         result := ComCall(5, this, "ptr")
@@ -67,13 +72,17 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {ID2D1SvgElement} root Type: <b>ID2D1SvgElement*</b>
      * 
      * The new root element of the document.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-setroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-setroot
      */
     SetRoot(root) {
-        result := ComCall(6, this, "ptr", root, "HRESULT")
+        result := ComCall(6, this, "ptr", root, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +92,7 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * 
      * Outputs the root element of the document.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-getroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-getroot
      */
     GetRoot(root) {
         ComCall(7, this, "ptr*", root)
@@ -94,16 +103,18 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {PWSTR} id Type: <b>PCWSTR</b>
      * 
      * ID of the element to retrieve.
-     * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
-     * 
-     * The element matching the specified ID. If the element cannot be found, the returned element will be null.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-findelementbyid
+     * @returns {Pointer<ID2D1SvgElement>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-findelementbyid
      */
     FindElementById(id) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(8, this, "ptr", id, "ptr*", &svgElement := 0, "HRESULT")
-        return ID2D1SvgElement(svgElement)
+        result := ComCall(8, this, "ptr", id, "ptr*", &svgElement_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return svgElement_
     }
 
     /**
@@ -114,13 +125,17 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {ID2D1SvgElement} subtree Type: <b>ID2D1SvgElement*</b>
      * 
      * The root of the subtree. If null, the entire document is serialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-serialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-serialize
      */
     Serialize(outputXmlStream, subtree) {
-        result := ComCall(9, this, "ptr", outputXmlStream, "ptr", subtree, "HRESULT")
+        result := ComCall(9, this, "ptr", outputXmlStream, "ptr", subtree, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,29 +144,37 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {IStream} inputXmlStream Type: <b>IStream*</b>
      * 
      * An input stream containing the SVG XML subtree.
-     * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
+     * @returns {Pointer<ID2D1SvgElement>} Type: <b>ID2D1SvgElement**</b>
      * 
      * The root of the subtree.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-deserialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-deserialize
      */
     Deserialize(inputXmlStream) {
-        result := ComCall(10, this, "ptr", inputXmlStream, "ptr*", &subtree := 0, "HRESULT")
-        return ID2D1SvgElement(subtree)
+        result := ComCall(10, this, "ptr", inputXmlStream, "ptr*", &subtree := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return subtree
     }
 
     /**
-     * 
+     * Creates a paint object which can be used to set the 'fill' or 'stroke' properties.
      * @param {Integer} paintType 
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} color_ 
      * @param {PWSTR} id 
-     * @returns {ID2D1SvgPaint} 
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgdocument-createpaint-overload
+     * @returns {Pointer<ID2D1SvgPaint>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1svgdocument-createpaint-overload
      */
-    CreatePaint(paintType, color, id) {
+    CreatePaint(paintType, color_, id) {
         id := id is String ? StrPtr(id) : id
 
-        result := ComCall(11, this, "int", paintType, "ptr", color, "ptr", id, "ptr*", &paint := 0, "HRESULT")
-        return ID2D1SvgPaint(paint)
+        result := ComCall(11, this, "int", paintType, "ptr", color_, "ptr", id, "ptr*", &paint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return paint
     }
 
     /**
@@ -162,32 +185,40 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {Integer} dashesCount Type: <b>UINT32</b>
      * 
      * Size of the array in th dashes argument.
-     * @returns {ID2D1SvgStrokeDashArray} Type: <b>ID2D1SvgStrokeDashArray**</b>
+     * @returns {Pointer<ID2D1SvgStrokeDashArray>} Type: <b>ID2D1SvgStrokeDashArray**</b>
      * 
      * The created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/nn-d2d1svg-id2d1svgstrokedasharray">ID2D1SvgStrokeDashArray</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-createstrokedasharray
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-createstrokedasharray
      */
     CreateStrokeDashArray(dashes, dashesCount) {
-        result := ComCall(12, this, "ptr", dashes, "uint", dashesCount, "ptr*", &strokeDashArray := 0, "HRESULT")
-        return ID2D1SvgStrokeDashArray(strokeDashArray)
+        result := ComCall(12, this, "ptr", dashes, "uint", dashesCount, "ptr*", &strokeDashArray := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return strokeDashArray
     }
 
     /**
      * Creates a points object which can be used to set a points attribute on a polygon or polyline element.
-     * @param {Pointer<D2D_POINT_2F>} points Type: <b>const D2D1_POINT_2F*</b>
+     * @param {Pointer<D2D_POINT_2F>} points_ Type: <b>const D2D1_POINT_2F*</b>
      * 
      * The points in the point collection.
      * @param {Integer} pointsCount Type: <b>UINT32</b>
      * 
      * The number of points in the points argument.
-     * @returns {ID2D1SvgPointCollection} Type: <b>ID2D1SvgPointCollection**</b>
+     * @returns {Pointer<ID2D1SvgPointCollection>} Type: <b>ID2D1SvgPointCollection**</b>
      * 
      * The created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/nn-d2d1svg-id2d1svgpointcollection">ID2D1SvgPointCollection</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-createpointcollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpointcollection
      */
-    CreatePointCollection(points, pointsCount) {
-        result := ComCall(13, this, "ptr", points, "uint", pointsCount, "ptr*", &pointCollection := 0, "HRESULT")
-        return ID2D1SvgPointCollection(pointCollection)
+    CreatePointCollection(points_, pointsCount) {
+        result := ComCall(13, this, "ptr", points_, "uint", pointsCount, "ptr*", &pointCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pointCollection
     }
 
     /**
@@ -204,16 +235,18 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {Integer} commandsCount Type: <b>UINT32</b>
      * 
      * The number of items in commands.
-     * @returns {ID2D1SvgPathData} Type: <b>ID2D1SvgPathData**</b>
-     * 
-     * When this method completes, this points to the created path data.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgdocument-createpathdata
+     * @returns {Pointer<ID2D1SvgPathData>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpathdata
      */
     CreatePathData(segmentData, segmentDataCount, commands, commandsCount) {
         segmentDataMarshal := segmentData is VarRef ? "float*" : "ptr"
         commandsMarshal := commands is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", &pathData := 0, "HRESULT")
-        return ID2D1SvgPathData(pathData)
+        result := ComCall(14, this, segmentDataMarshal, segmentData, "uint", segmentDataCount, commandsMarshal, commands, "uint", commandsCount, "ptr*", &pathData_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pathData_
     }
 }

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
- * The Component object represents a unique instance of a component that is available for enumeration.
- * @see https://learn.microsoft.com/windows/win32/Msi/components
+ * The name of the component that logged the trace message.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WES/eventschema-component-debugdatatype-element
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

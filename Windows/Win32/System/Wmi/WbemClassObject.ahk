@@ -14,7 +14,7 @@
  *      methods on the <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> interface. Examples of such 
  *      updates are: <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putinstance">IWbemServices::PutInstance</a> or 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putclass">IWbemServices::PutClass</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemclassobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nn-wbemcli-iwbemclassobject
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -19,7 +19,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-get-win-type-command">HH_GET_WIN_TYPE</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_wintype
+ * @see https://learn.microsoft.com/windows/win32/api//content/htmlhelp/ns-htmlhelp-hh_wintype
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

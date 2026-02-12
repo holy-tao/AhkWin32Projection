@@ -6,7 +6,6 @@
 /**
  * This notification interface signals an application when IMbnConnectionProfile methods change the Mobile Broadband profile state.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnconnectionprofileevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nn-mbnapi-imbnconnectionprofileevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,12 +43,18 @@ class IMbnConnectionProfileEvents extends IUnknown{
 
     /**
      * A notification method that indicates that profile update operation has completed.
+     * @remarks
+     * <b>OnProfileUpdate</b> is called to notify a registered application of the completion of an operation initiated by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectionprofile-updateprofile">UpdateProfile</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interface, or the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-createconnectionprofile">CreateConnectionProfile</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofilemanager">IMbnConnectionProfileManager</a> interface.
      * @param {IMbnConnectionProfile} newProfile An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interface that represents the profile that has changed.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofileevents-onprofileupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionprofileevents-onprofileupdate
      */
     OnProfileUpdate(newProfile) {
-        result := ComCall(3, this, "ptr", newProfile, "HRESULT")
+        result := ComCall(3, this, "ptr", newProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

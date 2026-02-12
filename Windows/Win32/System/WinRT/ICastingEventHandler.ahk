@@ -34,7 +34,11 @@ class ICastingEventHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     OnStateChanged(newState) {
-        result := ComCall(3, this, "int", newState, "HRESULT")
+        result := ComCall(3, this, "int", newState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ICastingEventHandler extends IUnknown{
     OnError(errorStatus, errorMessage) {
         errorMessage := errorMessage is String ? StrPtr(errorMessage) : errorMessage
 
-        result := ComCall(4, this, "int", errorStatus, "ptr", errorMessage, "HRESULT")
+        result := ComCall(4, this, "int", errorStatus, "ptr", errorMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,8 +6,8 @@
 #Include .\IDWriteFactory3.ahk
 
 /**
- * The root factory interface for all DirectWrite objects.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefactory4
+ * The root factory interface for all DirectWrite objects. (IDWriteFactory4)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefactory4
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -34,10 +34,13 @@ class IDWriteFactory4 extends IDWriteFactory3{
 
     /**
      * Translates a glyph run to a sequence of color glyph runs, which can be rendered to produce a color representation of the original &quot;base&quot; run.
+     * @remarks
+     * Calling <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun">IDWriteFactory2::TranslateColorGlyphRun</a> is equivalent 
+     *         to calling <b>IDWriteFactory4::TranslateColorGlyph</b> run with the following formats specified: DWRITE_GLYPH_IMAGE_FORMATS_TRUETYPE|DWRITE_GLYPH_IMAGE_FORMATS_CFF|DWRITE_GLYPH_IMAGE_FORMATS_COLR.
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * Horizontal and vertical origin of the base glyph run in pre-transform coordinates.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
      * 
      * Pointer to the original "base" glyph run.
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a></b>
@@ -57,42 +60,54 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * Zero-based index of the color palette to use.
      *           Valid indices are less than the number of palettes in the font, as returned
      *           by <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontface2-getcolorpalettecount">IDWriteFontFace2::GetColorPaletteCount</a>.
-     * @returns {IDWriteColorGlyphRunEnumerator1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritecolorglyphrunenumerator1">IDWriteColorGlyphRunEnumerator1</a>**</b>
+     * @returns {Pointer<IDWriteColorGlyphRunEnumerator1>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritecolorglyphrunenumerator1">IDWriteColorGlyphRunEnumerator1</a>**</b>
      * 
      * If the function succeeds, receives a pointer to an enumerator object that can be used to obtain the color glyph runs.
      *           If the base run has no color glyphs, then the output pointer is NULL and the method returns DWRITE_E_NOCOLOR.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
      */
-    TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(40, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
-        return IDWriteColorGlyphRunEnumerator1(colorLayers)
+    TranslateColorGlyphRun(baselineOrigin, glyphRun_, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
+        result := ComCall(40, this, "ptr", baselineOrigin, "ptr", glyphRun_, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return colorLayers
     }
 
     /**
-     * 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * Converts glyph run placements to glyph origins.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @returns {D2D_POINT_2F} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefactory4-computeglyphorigins-overload
      */
-    ComputeGlyphOrigins(glyphRun, baselineOrigin) {
+    ComputeGlyphOrigins(glyphRun_, baselineOrigin) {
         glyphOrigins := D2D_POINT_2F()
-        result := ComCall(41, this, "ptr", glyphRun, "ptr", baselineOrigin, "ptr", glyphOrigins, "HRESULT")
+        result := ComCall(41, this, "ptr", glyphRun_, "ptr", baselineOrigin, "ptr", glyphOrigins, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return glyphOrigins
     }
 
     /**
-     * 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * Converts glyph run placements to glyph origins.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ 
      * @param {Integer} measuringMode 
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
      * @returns {D2D_POINT_2F} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefactory4-computeglyphorigins-overload
      */
-    ComputeGlyphOrigins1(glyphRun, measuringMode, baselineOrigin, worldAndDpiTransform) {
+    ComputeGlyphOrigins1(glyphRun_, measuringMode, baselineOrigin, worldAndDpiTransform) {
         glyphOrigins := D2D_POINT_2F()
-        result := ComCall(42, this, "ptr", glyphRun, "int", measuringMode, "ptr", baselineOrigin, "ptr", worldAndDpiTransform, "ptr", glyphOrigins, "HRESULT")
+        result := ComCall(42, this, "ptr", glyphRun_, "int", measuringMode, "ptr", baselineOrigin, "ptr", worldAndDpiTransform, "ptr", glyphOrigins, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return glyphOrigins
     }
 }

@@ -38,7 +38,11 @@ class IImageDecodeEventSink extends IUnknown{
      * @returns {IUnknown} 
      */
     GetSurface(nWidth, nHeight, bfid, nPasses, dwHints) {
-        result := ComCall(3, this, "int", nWidth, "int", nHeight, "ptr", bfid, "uint", nPasses, "uint", dwHints, "ptr*", &ppSurface := 0, "HRESULT")
+        result := ComCall(3, this, "int", nWidth, "int", nHeight, "ptr", bfid, "uint", nPasses, "uint", dwHints, "ptr*", &ppSurface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppSurface)
     }
 
@@ -54,7 +58,11 @@ class IImageDecodeEventSink extends IUnknown{
         pnFormatsMarshal := pnFormats is VarRef ? "uint*" : "ptr"
         ppFormatsMarshal := ppFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pdwEventsMarshal, pdwEvents, pnFormatsMarshal, pnFormats, ppFormatsMarshal, ppFormats, "HRESULT")
+        result := ComCall(4, this, pdwEventsMarshal, pdwEvents, pnFormatsMarshal, pnFormats, ppFormatsMarshal, ppFormats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class IImageDecodeEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnBitsComplete() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +85,11 @@ class IImageDecodeEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDecodeComplete(hrStatus) {
-        result := ComCall(6, this, "int", hrStatus, "HRESULT")
+        result := ComCall(6, this, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +98,11 @@ class IImageDecodeEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnPalette() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +113,11 @@ class IImageDecodeEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnProgress(pBounds, bComplete) {
-        result := ComCall(8, this, "ptr", pBounds, "int", bComplete, "HRESULT")
+        result := ComCall(8, this, "ptr", pBounds, "int", bComplete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

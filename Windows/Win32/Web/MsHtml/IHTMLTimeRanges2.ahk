@@ -34,7 +34,11 @@ class IHTMLTimeRanges2 extends IDispatch{
      * @returns {Float} 
      */
     startDouble(index) {
-        result := ComCall(7, this, "int", index, "double*", &startTime := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "double*", &startTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return startTime
     }
 
@@ -44,7 +48,11 @@ class IHTMLTimeRanges2 extends IDispatch{
      * @returns {Float} 
      */
     endDouble(index) {
-        result := ComCall(8, this, "int", index, "double*", &endTime := 0, "HRESULT")
+        result := ComCall(8, this, "int", index, "double*", &endTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return endTime
     }
 }

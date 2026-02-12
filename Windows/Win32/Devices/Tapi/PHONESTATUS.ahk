@@ -7,7 +7,7 @@
  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
  * 
  * The <b>dwPhoneFeatures</b> member is available only to applications that open the phone device with an API version of 2.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phonestatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-phonestatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

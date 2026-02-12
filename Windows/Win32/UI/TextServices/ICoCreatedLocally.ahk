@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method to return information about a local object.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-icocreatedlocally
+ * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nn-msaatext-icocreatedlocally
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -44,13 +44,17 @@ class ICoCreatedLocally extends IUnknown{
      * @param {VARIANT} varParam Type: <b>VARIANT</b>
      * 
      * An optional interface parameter that is passed to the new helper object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If successful, returns S_OK. If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-icocreatedlocally-localinit
+     * If successful, returns S_OK. If not successful, returns a standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/return-values">COM error code</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nf-msaatext-icocreatedlocally-localinit
      */
     LocalInit(punkLocalObject, riidParam, punkParam, varParam) {
-        result := ComCall(3, this, "ptr", punkLocalObject, "ptr", riidParam, "ptr", punkParam, "ptr", varParam, "HRESULT")
+        result := ComCall(3, this, "ptr", punkLocalObject, "ptr", riidParam, "ptr", punkParam, "ptr", varParam, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

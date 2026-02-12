@@ -6,13 +6,10 @@
 /**
  * Represents a buffer as an array of bytes.
  * @remarks
- * 
  * The client creates an [IBuffer](/uwp/api/Windows.Storage.Streams.IBuffer) object, and the buffer is provided by the [Buffer](nf-robuffer-ibufferbyteaccess-buffer.md) method.
  * 
  * When you implement the **IBuffer** interface, you must implement the **IBufferByteAccess** interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//robuffer/ns-robuffer-ibufferbyteaccess
+ * @see https://learn.microsoft.com/windows/win32/api//content/robuffer/ns-robuffer-ibufferbyteaccess
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -40,10 +37,14 @@ class IBufferByteAccess extends IUnknown{
     /**
      * Gets the array of bytes in the buffer.
      * @returns {Pointer<Integer>} The byte array.
-     * @see https://docs.microsoft.com/windows/win32/api//robuffer/nf-robuffer-ibufferbyteaccess-buffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/robuffer/nf-robuffer-ibufferbyteaccess-buffer
      */
     Buffer() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

@@ -5,7 +5,7 @@
  * Contains fields that specify the information contained in the SMART / Health Information Log page.
  * @remarks
  * The temperature reported by a temperature sensor may be used to trigger an asynchronous event. For more information, see [NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD](ns-nvme-nvme_cdw11_feature_temperature_threshold.md).
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_health_info_log
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_health_info_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

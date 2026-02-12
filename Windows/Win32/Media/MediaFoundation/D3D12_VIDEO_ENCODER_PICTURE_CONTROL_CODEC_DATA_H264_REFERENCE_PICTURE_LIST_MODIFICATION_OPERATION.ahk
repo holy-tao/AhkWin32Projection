@@ -6,7 +6,7 @@
  * @remarks
  * For more information, refer to H264 specification for more details: section 7.4.3.1 "Reference picture list modification semantics".
  * .
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264_reference_picture_list_modification_operation
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264_reference_picture_list_modification_operation
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -20,7 +20,7 @@
  * For example, setting ADDLOCAL=ALL installs all features locally regardless of the value of the **INSTALLLEVEL** property. If the value of the Level column in the [Feature table](feature-table.md) is 0, that feature is not installed and not displayed in the UI.
  * 
  * An administrator can permanently disable a feature by applying a customization transform that sets a 0 in the Level column for that feature. The application of the customization transform prevents the installation and display of the feature even if the user selects a complete installation using the UI or by setting ADDLOCAL to ALL on the command line. See [A Customization Transform Example](a-customization-transform-example.md).
- * @see https://learn.microsoft.com/windows/win32/Msi/installlevel
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Msi/installlevel
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

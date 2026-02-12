@@ -15,7 +15,7 @@
  * <li><b>cPresenceMax</b></li>
  * </ul>
  * The remaining members cannot be modified.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_graph_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_graph_properties
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

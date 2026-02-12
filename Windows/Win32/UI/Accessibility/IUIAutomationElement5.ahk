@@ -6,7 +6,7 @@
 
 /**
  * Extends the IUIAutomationElement4 interface to provide access to current and cached landmark data.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelement5
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationelement5
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -62,42 +62,58 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
     /**
      * Gets the current landmark type ID for the automation element.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
      */
     get_CurrentLandmarkType() {
-        result := ComCall(104, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(104, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Gets a string containing the current localized landmark type for the automation element.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlocalizedlandmarktype
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlocalizedlandmarktype
      */
     get_CurrentLocalizedLandmarkType() {
         retVal := BSTR()
-        result := ComCall(105, this, "ptr", retVal, "HRESULT")
+        result := ComCall(105, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Gets the cached landmark type ID for the automation element.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
      */
     get_CachedLandmarkType() {
-        result := ComCall(106, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(106, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Gets a string containing the cached localized landmark type for the automation element.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlocalizedlandmarktype
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlocalizedlandmarktype
      */
     get_CachedLocalizedLandmarkType() {
         retVal := BSTR()
-        result := ComCall(107, this, "ptr", retVal, "HRESULT")
+        result := ComCall(107, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

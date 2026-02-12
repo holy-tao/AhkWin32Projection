@@ -11,7 +11,6 @@
 /**
  * Creates Packaging API objects and provides support for saving and loading packages.
  * @remarks
- * 
  * Do not use a stream to serialize package data when the same stream is being used to deserialize a package; attempting to do so may result in undefined behavior.
  * 
  * To use the Packaging API, the package must map to a ZIP archive as specified in the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
@@ -20,10 +19,7 @@
  * 
  * <h3><a id="IOpcFactory_Support_on_Previous_Versions_of_Windows"></a><a id="iopcfactory_support_on_previous_versions_of_windows"></a><a id="IOPCFACTORY_SUPPORT_ON_PREVIOUS_VERSIONS_OF_WINDOWS"></a>IOpcFactory Support on Previous Versions of Windows</h3>
  * If an application attempts to an unsupported <b>IOpcFactory</b> method, the E_NOTIMPL error code will be returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcfactory
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -56,31 +52,54 @@ class IOpcFactory extends IUnknown{
 
     /**
      * Creates an OPC URI object that represents the root of a package.
+     * @remarks
+     * The URI of the root of a package is always represented as "/".
+     * 
+     * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
+     * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @returns {IOpcUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> interface of the OPC URI object that represents the URI of the root of a package.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createpackagerooturi
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-createpackagerooturi
      */
     CreatePackageRootUri() {
-        result := ComCall(3, this, "ptr*", &rootUri := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &rootUri := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcUri(rootUri)
     }
 
     /**
      * Creates a part URI object that represents a part name.
+     * @remarks
+     * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
+     * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {PWSTR} pwzUri A  URI that represents the location of a part relative to the root of the package that contains it.
      * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object. This object represents the  part name derived from the URI passed in <i>pwzUri</i>.
      * 
      * Part names must conform to the syntax specified in the <i>OPC</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createparturi
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-createparturi
      */
     CreatePartUri(pwzUri) {
         pwzUri := pwzUri is String ? StrPtr(pwzUri) : pwzUri
 
-        result := ComCall(4, this, "ptr", pwzUri, "ptr*", &partUri := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzUri, "ptr*", &partUri := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcPartUri(partUri)
     }
 
     /**
      * Creates a stream over a file.
+     * @remarks
+     * Do not use a stream to serialize package data when the same stream is being used to deserialize a package, because the attempt may result in undefined behavior.
+     * 
+     * For information about using this method when loading or saving a package, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/loading-a-package">Loading a Package</a> or  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/saving-a-package">Saving a Package</a> programming task. 
+     * 
+     * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
+     * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {PWSTR} filename The name of the file over which the stream is created.
      * @param {Integer} ioMode The value that describes the read/write status of the stream to be created.
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes For information about the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure in this parameter, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
@@ -88,41 +107,72 @@ class IOpcFactory extends IUnknown{
      * 
      * For more information about this parameter, see <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
      * @returns {IStream} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createstreamonfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-createstreamonfile
      */
     CreateStreamOnFile(filename, ioMode, securityAttributes, dwFlagsAndAttributes) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(5, this, "ptr", filename, "int", ioMode, "ptr", securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", &stream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", filename, "int", ioMode, "ptr", securityAttributes, "uint", dwFlagsAndAttributes, "ptr*", &stream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(stream)
     }
 
     /**
      * Creates a package object that represents an empty package.
+     * @remarks
+     * <h3><a id="Support_on_Previous_Versions_of_Windows"></a><a id="support_on_previous_versions_of_windows"></a><a id="SUPPORT_ON_PREVIOUS_VERSIONS_OF_WINDOWS"></a>Support on Previous Versions of Windows</h3>
+     * This method is not supported on versions of Windows prior to Windows 7. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @returns {IOpcPackage} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object that represents an empty package.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createpackage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-createpackage
      */
     CreatePackage() {
-        result := ComCall(6, this, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &package := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcPackage(package)
     }
 
     /**
      * Deserializes package data from a stream and creates a package object to represent the package being read.
+     * @remarks
+     * Do not use a stream to serialize package data when the same stream is being used to deserialize a package, because the attempt may result in undefined behavior.
+     * 
+     * The Packaging APIs can interact with packages that map a ZIP archive as specified in the OPC, and that are based on either Zip32 (ZIP 2.0) or Zip64 (ZIP 4.5) encoding.
+     * 
+     * For information about how to use this method to load a package, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/loading-a-package">Loading a Package</a> programming task. 
+     * 
+     * <h3><a id="Support_on_Previous_Versions_of_Windows"></a><a id="support_on_previous_versions_of_windows"></a><a id="SUPPORT_ON_PREVIOUS_VERSIONS_OF_WINDOWS"></a>Support on Previous Versions of Windows</h3>
+     * This method is not supported on versions of Windows prior to Windows 7. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {IStream} stream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream.
      * 
-     * The stream must be readable, seekable, have size,   and must contain package data. Additionally, if the stream is not clonable, it will be buffered and read sequentially, incurring overhead.
+     * The stream must be readable, seekable, have size,   and must contain package data. Additionally, if the stream is not cloneable, it will be buffered and read sequentially, incurring overhead.
      * @param {Integer} flags The value that specifies the read settings for caching package components and validating them against <i>OPC</i> conformance requirements.
      * @returns {IOpcPackage} A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object that represents the package being read through the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-readpackagefromstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-readpackagefromstream
      */
     ReadPackageFromStream(stream, flags) {
-        result := ComCall(7, this, "ptr", stream, "int", flags, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", stream, "int", flags, "ptr*", &package := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcPackage(package)
     }
 
     /**
      * Serializes a package that is represented by a package object.
+     * @remarks
+     * Do not use a stream to serialize package data when the same stream is being used to deserialize a package, because the attempt may result in undefined behavior.
+     * 
+     * For information about how to use this method to save a package that is represented as a package object, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/saving-a-package">Saving a Package</a> programming task. 
+     * 
+     * <h3><a id="Support_on_Previous_Versions_of_Windows"></a><a id="support_on_previous_versions_of_windows"></a><a id="SUPPORT_ON_PREVIOUS_VERSIONS_OF_WINDOWS"></a>Support on Previous Versions of Windows</h3>
+     * This method is not supported on versions of Windows prior to Windows 7. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {IOpcPackage} package A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface  of the package object that contains data to be serialized.
      * @param {Integer} flags The value that describes the encoding method  used in serialization.
      * @param {IStream} stream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream where the package object  data will be written.
@@ -151,7 +201,7 @@ class IOpcFactory extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The value passed in the <i>flags</i> parameter is not a valid <a href="/windows/win32/api/msopc/ne-msopc-opc_write_flags">OPC_WRITE_FLAGS</a> enumeration value.
+     * The value passed in the <i>flags</i> parameter is not a valid <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_write_flags">OPC_WRITE_FLAGS</a> enumeration value.
      * 
      * </td>
      * </tr>
@@ -184,7 +234,7 @@ class IOpcFactory extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * An <b>HRESULT</b> error code from the <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface. 
+     * An <b>HRESULT</b> error code from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface. 
      * 
      * </td>
      * </tr>
@@ -195,7 +245,7 @@ class IOpcFactory extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * An <b>HRESULT</b> error code from the <a href="/previous-versions/windows/desktop/opc/package-consumption-error-group">Package Consumption Error Group</a>. 
+     * An <b>HRESULT</b> error code from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/package-consumption-error-group">Package Consumption Error Group</a>. 
      * 
      * </td>
      * </tr>
@@ -206,28 +256,41 @@ class IOpcFactory extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * An <b>HRESULT</b> error code from the <a href="/previous-versions/windows/desktop/opc/part-uri-error-group">Part URI Error Group</a>. 
+     * An <b>HRESULT</b> error code from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/part-uri-error-group">Part URI Error Group</a>. 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-writepackagetostream
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-writepackagetostream
      */
     WritePackageToStream(package, flags, stream) {
-        result := ComCall(8, this, "ptr", package, "int", flags, "ptr", stream, "HRESULT")
+        result := ComCall(8, this, "ptr", package, "int", flags, "ptr", stream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a digital signature manager object for a package object.
+     * @remarks
+     * If a package is modified while <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-digital-signature-interfaces">Packaging Digital Signature Interfaces</a> are being used to sign the package, signing may fail or result in an inconsistent signature or package.
+     * 
+     * <h3><a id="Support_on_Previous_Versions_of_Windows"></a><a id="support_on_previous_versions_of_windows"></a><a id="SUPPORT_ON_PREVIOUS_VERSIONS_OF_WINDOWS"></a>Support on Previous Versions of Windows</h3>
+     * This method is not supported on versions of Windows prior to Windows 7. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {IOpcPackage} package A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object to associate with the digital signature manager object.
      * @returns {IOpcDigitalSignatureManager} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignaturemanager">IOpcDigitalSignatureManager</a> interface of the digital signature manager object that is created for use with the package object.
      * 
      * A digital signature manager object provides access to the Packaging API's digital signature interfaces and methods. These can be used to sign the package represented by the package object or to validate the signatures in a package that has already been signed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createdigitalsignaturemanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcfactory-createdigitalsignaturemanager
      */
     CreateDigitalSignatureManager(package) {
-        result := ComCall(9, this, "ptr", package, "ptr*", &signatureManager := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", package, "ptr*", &signatureManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcDigitalSignatureManager(signatureManager)
     }
 }

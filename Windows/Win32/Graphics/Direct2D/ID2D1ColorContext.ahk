@@ -5,7 +5,7 @@
 
 /**
  * Represents a color context that can be used with an ID2D1Bitmap1 object.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1colorcontext
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1colorcontext
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,10 +32,10 @@ class ID2D1ColorContext extends ID2D1Resource{
 
     /**
      * Gets the color space of the color context.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * This method returns the color space of the contained ICC profile.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1colorcontext-getcolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1colorcontext-getcolorspace
      */
     GetColorSpace() {
         result := ComCall(4, this, "int")
@@ -44,10 +44,12 @@ class ID2D1ColorContext extends ID2D1Resource{
 
     /**
      * Gets the size of the color profile associated with the bitmap.
+     * @remarks
+     * This can be used to allocate a buffer to receive the color profile bytes associated with the context.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * This method returns the  size of the profile in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofilesize
      */
     GetProfileSize() {
         result := ComCall(5, this, "uint")
@@ -56,16 +58,20 @@ class ID2D1ColorContext extends ID2D1Resource{
 
     /**
      * Gets the color profile bytes for an ID2D1ColorContext.
+     * @remarks
+     * If <i>profileSize</i> is insufficient to store the entire profile, <i>profile</i> is zero-initialized before this method fails.
      * @param {Integer} profileSize Type: <b>UINT32</b>
      * 
      * The size of the <i>profile</i> buffer.
-     * @returns {Integer} Type: <b>BYTE*</b>
-     * 
-     * When this method returns, contains the color profile.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofile
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofile
      */
     GetProfile(profileSize) {
-        result := ComCall(6, this, "char*", &profile := 0, "uint", profileSize, "HRESULT")
-        return profile
+        result := ComCall(6, this, "char*", &profile_ := 0, "uint", profileSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return profile_
     }
 }

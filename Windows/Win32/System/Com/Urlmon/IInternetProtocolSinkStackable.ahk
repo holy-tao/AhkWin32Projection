@@ -34,7 +34,11 @@ class IInternetProtocolSinkStackable extends IUnknown{
      * @returns {HRESULT} 
      */
     SwitchSink(pOIProtSink) {
-        result := ComCall(3, this, "ptr", pOIProtSink, "HRESULT")
+        result := ComCall(3, this, "ptr", pOIProtSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IInternetProtocolSinkStackable extends IUnknown{
      * @returns {HRESULT} 
      */
     CommitSwitch() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IInternetProtocolSinkStackable extends IUnknown{
      * @returns {HRESULT} 
      */
     RollbackSwitch() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

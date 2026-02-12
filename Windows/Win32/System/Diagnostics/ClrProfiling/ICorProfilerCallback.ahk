@@ -30,6 +30,19 @@ class ICorProfilerCallback extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {IUnknown} pICorProfilerInfoUnk 
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
@@ -42,19 +55,31 @@ class ICorProfilerCallback extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(pICorProfilerInfoUnk) {
-        result := ComCall(3, this, "ptr", pICorProfilerInfoUnk, "HRESULT")
+        result := ComCall(3, this, "ptr", pICorProfilerInfoUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Stops the collector. If the collector is running as a service, stopping the service is the better approach.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-shutdown
      */
     Shutdown() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +89,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AppDomainCreationStarted(appDomainId) {
-        result := ComCall(5, this, "ptr", appDomainId, "HRESULT")
+        result := ComCall(5, this, "ptr", appDomainId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +104,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AppDomainCreationFinished(appDomainId, hrStatus) {
-        result := ComCall(6, this, "ptr", appDomainId, "int", hrStatus, "HRESULT")
+        result := ComCall(6, this, "ptr", appDomainId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +118,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AppDomainShutdownStarted(appDomainId) {
-        result := ComCall(7, this, "ptr", appDomainId, "HRESULT")
+        result := ComCall(7, this, "ptr", appDomainId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +133,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AppDomainShutdownFinished(appDomainId, hrStatus) {
-        result := ComCall(8, this, "ptr", appDomainId, "int", hrStatus, "HRESULT")
+        result := ComCall(8, this, "ptr", appDomainId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +147,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AssemblyLoadStarted(assemblyId) {
-        result := ComCall(9, this, "ptr", assemblyId, "HRESULT")
+        result := ComCall(9, this, "ptr", assemblyId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +162,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AssemblyLoadFinished(assemblyId, hrStatus) {
-        result := ComCall(10, this, "ptr", assemblyId, "int", hrStatus, "HRESULT")
+        result := ComCall(10, this, "ptr", assemblyId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +176,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AssemblyUnloadStarted(assemblyId) {
-        result := ComCall(11, this, "ptr", assemblyId, "HRESULT")
+        result := ComCall(11, this, "ptr", assemblyId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +191,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     AssemblyUnloadFinished(assemblyId, hrStatus) {
-        result := ComCall(12, this, "ptr", assemblyId, "int", hrStatus, "HRESULT")
+        result := ComCall(12, this, "ptr", assemblyId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,7 +205,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ModuleLoadStarted(moduleId) {
-        result := ComCall(13, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(13, this, "ptr", moduleId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -159,7 +220,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ModuleLoadFinished(moduleId, hrStatus) {
-        result := ComCall(14, this, "ptr", moduleId, "int", hrStatus, "HRESULT")
+        result := ComCall(14, this, "ptr", moduleId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +234,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ModuleUnloadStarted(moduleId) {
-        result := ComCall(15, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(15, this, "ptr", moduleId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +249,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ModuleUnloadFinished(moduleId, hrStatus) {
-        result := ComCall(16, this, "ptr", moduleId, "int", hrStatus, "HRESULT")
+        result := ComCall(16, this, "ptr", moduleId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +264,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ModuleAttachedToAssembly(moduleId, AssemblyId) {
-        result := ComCall(17, this, "ptr", moduleId, "ptr", AssemblyId, "HRESULT")
+        result := ComCall(17, this, "ptr", moduleId, "ptr", AssemblyId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,7 +278,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ClassLoadStarted(classId) {
-        result := ComCall(18, this, "ptr", classId, "HRESULT")
+        result := ComCall(18, this, "ptr", classId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,7 +293,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ClassLoadFinished(classId, hrStatus) {
-        result := ComCall(19, this, "ptr", classId, "int", hrStatus, "HRESULT")
+        result := ComCall(19, this, "ptr", classId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -222,7 +307,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ClassUnloadStarted(classId) {
-        result := ComCall(20, this, "ptr", classId, "HRESULT")
+        result := ComCall(20, this, "ptr", classId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -233,7 +322,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ClassUnloadFinished(classId, hrStatus) {
-        result := ComCall(21, this, "ptr", classId, "int", hrStatus, "HRESULT")
+        result := ComCall(21, this, "ptr", classId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -243,7 +336,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     FunctionUnloadStarted(functionId) {
-        result := ComCall(22, this, "ptr", functionId, "HRESULT")
+        result := ComCall(22, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -254,7 +351,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     JITCompilationStarted(functionId, fIsSafeToBlock) {
-        result := ComCall(23, this, "ptr", functionId, "int", fIsSafeToBlock, "HRESULT")
+        result := ComCall(23, this, "ptr", functionId, "int", fIsSafeToBlock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +367,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     JITCompilationFinished(functionId, hrStatus, fIsSafeToBlock) {
-        result := ComCall(24, this, "ptr", functionId, "int", hrStatus, "int", fIsSafeToBlock, "HRESULT")
+        result := ComCall(24, this, "ptr", functionId, "int", hrStatus, "int", fIsSafeToBlock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,18 +381,26 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {BOOL} 
      */
     JITCachedFunctionSearchStarted(functionId) {
-        result := ComCall(25, this, "ptr", functionId, "int*", &pbUseCachedFunction := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", functionId, "int*", &pbUseCachedFunction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbUseCachedFunction
     }
 
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Integer} result 
+     * @param {Integer} result_ 
      * @returns {HRESULT} 
      */
-    JITCachedFunctionSearchFinished(functionId, result) {
-        result := ComCall(26, this, "ptr", functionId, "int", result, "HRESULT")
+    JITCachedFunctionSearchFinished(functionId, result_) {
+        result := ComCall(26, this, "ptr", functionId, "int", result_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -297,7 +410,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     JITFunctionPitched(functionId) {
-        result := ComCall(27, this, "ptr", functionId, "HRESULT")
+        result := ComCall(27, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -308,7 +425,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {BOOL} 
      */
     JITInlining(callerId, calleeId) {
-        result := ComCall(28, this, "ptr", callerId, "ptr", calleeId, "int*", &pfShouldInline := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", callerId, "ptr", calleeId, "int*", &pfShouldInline := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfShouldInline
     }
 
@@ -318,7 +439,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ThreadCreated(threadId) {
-        result := ComCall(29, this, "ptr", threadId, "HRESULT")
+        result := ComCall(29, this, "ptr", threadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -328,7 +453,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ThreadDestroyed(threadId) {
-        result := ComCall(30, this, "ptr", threadId, "HRESULT")
+        result := ComCall(30, this, "ptr", threadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -339,7 +468,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ThreadAssignedToOSThread(managedThreadId, osThreadId) {
-        result := ComCall(31, this, "ptr", managedThreadId, "uint", osThreadId, "HRESULT")
+        result := ComCall(31, this, "ptr", managedThreadId, "uint", osThreadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -348,7 +481,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingClientInvocationStarted() {
-        result := ComCall(32, this, "HRESULT")
+        result := ComCall(32, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -359,7 +496,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingClientSendingMessage(pCookie, fIsAsync) {
-        result := ComCall(33, this, "ptr", pCookie, "int", fIsAsync, "HRESULT")
+        result := ComCall(33, this, "ptr", pCookie, "int", fIsAsync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -370,7 +511,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingClientReceivingReply(pCookie, fIsAsync) {
-        result := ComCall(34, this, "ptr", pCookie, "int", fIsAsync, "HRESULT")
+        result := ComCall(34, this, "ptr", pCookie, "int", fIsAsync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -379,7 +524,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingClientInvocationFinished() {
-        result := ComCall(35, this, "HRESULT")
+        result := ComCall(35, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -390,7 +539,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingServerReceivingMessage(pCookie, fIsAsync) {
-        result := ComCall(36, this, "ptr", pCookie, "int", fIsAsync, "HRESULT")
+        result := ComCall(36, this, "ptr", pCookie, "int", fIsAsync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -399,7 +552,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingServerInvocationStarted() {
-        result := ComCall(37, this, "HRESULT")
+        result := ComCall(37, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -408,7 +565,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingServerInvocationReturned() {
-        result := ComCall(38, this, "HRESULT")
+        result := ComCall(38, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -419,7 +580,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RemotingServerSendingReply(pCookie, fIsAsync) {
-        result := ComCall(39, this, "ptr", pCookie, "int", fIsAsync, "HRESULT")
+        result := ComCall(39, this, "ptr", pCookie, "int", fIsAsync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -430,7 +595,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     UnmanagedToManagedTransition(functionId, reason) {
-        result := ComCall(40, this, "ptr", functionId, "int", reason, "HRESULT")
+        result := ComCall(40, this, "ptr", functionId, "int", reason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -441,7 +610,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ManagedToUnmanagedTransition(functionId, reason) {
-        result := ComCall(41, this, "ptr", functionId, "int", reason, "HRESULT")
+        result := ComCall(41, this, "ptr", functionId, "int", reason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -451,7 +624,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeSuspendStarted(suspendReason) {
-        result := ComCall(42, this, "int", suspendReason, "HRESULT")
+        result := ComCall(42, this, "int", suspendReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -460,7 +637,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeSuspendFinished() {
-        result := ComCall(43, this, "HRESULT")
+        result := ComCall(43, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -469,7 +650,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeSuspendAborted() {
-        result := ComCall(44, this, "HRESULT")
+        result := ComCall(44, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -478,7 +663,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeResumeStarted() {
-        result := ComCall(45, this, "HRESULT")
+        result := ComCall(45, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -487,7 +676,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeResumeFinished() {
-        result := ComCall(46, this, "HRESULT")
+        result := ComCall(46, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -497,7 +690,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeThreadSuspended(threadId) {
-        result := ComCall(47, this, "ptr", threadId, "HRESULT")
+        result := ComCall(47, this, "ptr", threadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -507,7 +704,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     RuntimeThreadResumed(threadId) {
-        result := ComCall(48, this, "ptr", threadId, "HRESULT")
+        result := ComCall(48, this, "ptr", threadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -524,18 +725,26 @@ class ICorProfilerCallback extends IUnknown{
         newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(49, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @param {Pointer} classId 
      * @returns {HRESULT} 
      */
-    ObjectAllocated(objectId, classId) {
-        result := ComCall(50, this, "ptr", objectId, "ptr", classId, "HRESULT")
+    ObjectAllocated(objectId_, classId) {
+        result := ComCall(50, this, "ptr", objectId_, "ptr", classId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -550,22 +759,30 @@ class ICorProfilerCallback extends IUnknown{
         classIdsMarshal := classIds is VarRef ? "ptr*" : "ptr"
         cObjectsMarshal := cObjects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(51, this, "uint", cClassCount, classIdsMarshal, classIds, cObjectsMarshal, cObjects, "HRESULT")
+        result := ComCall(51, this, "uint", cClassCount, classIdsMarshal, classIds, cObjectsMarshal, cObjects, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @param {Pointer} classId 
      * @param {Integer} cObjectRefs 
      * @param {Pointer<Pointer>} objectRefIds 
      * @returns {HRESULT} 
      */
-    ObjectReferences(objectId, classId, cObjectRefs, objectRefIds) {
+    ObjectReferences(objectId_, classId, cObjectRefs, objectRefIds) {
         objectRefIdsMarshal := objectRefIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(52, this, "ptr", objectId, "ptr", classId, "uint", cObjectRefs, objectRefIdsMarshal, objectRefIds, "HRESULT")
+        result := ComCall(52, this, "ptr", objectId_, "ptr", classId, "uint", cObjectRefs, objectRefIdsMarshal, objectRefIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -578,7 +795,11 @@ class ICorProfilerCallback extends IUnknown{
     RootReferences(cRootRefs, rootRefIds) {
         rootRefIdsMarshal := rootRefIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(53, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, "HRESULT")
+        result := ComCall(53, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -588,7 +809,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionThrown(thrownObjectId) {
-        result := ComCall(54, this, "ptr", thrownObjectId, "HRESULT")
+        result := ComCall(54, this, "ptr", thrownObjectId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -598,7 +823,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionSearchFunctionEnter(functionId) {
-        result := ComCall(55, this, "ptr", functionId, "HRESULT")
+        result := ComCall(55, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -607,7 +836,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionSearchFunctionLeave() {
-        result := ComCall(56, this, "HRESULT")
+        result := ComCall(56, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -617,7 +850,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionSearchFilterEnter(functionId) {
-        result := ComCall(57, this, "ptr", functionId, "HRESULT")
+        result := ComCall(57, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -626,7 +863,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionSearchFilterLeave() {
-        result := ComCall(58, this, "HRESULT")
+        result := ComCall(58, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -636,7 +877,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionSearchCatcherFound(functionId) {
-        result := ComCall(59, this, "ptr", functionId, "HRESULT")
+        result := ComCall(59, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -646,7 +891,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionOSHandlerEnter(__unused) {
-        result := ComCall(60, this, "ptr", __unused, "HRESULT")
+        result := ComCall(60, this, "ptr", __unused, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -656,7 +905,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionOSHandlerLeave(__unused) {
-        result := ComCall(61, this, "ptr", __unused, "HRESULT")
+        result := ComCall(61, this, "ptr", __unused, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -666,7 +919,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionUnwindFunctionEnter(functionId) {
-        result := ComCall(62, this, "ptr", functionId, "HRESULT")
+        result := ComCall(62, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -675,7 +932,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionUnwindFunctionLeave() {
-        result := ComCall(63, this, "HRESULT")
+        result := ComCall(63, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -685,7 +946,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionUnwindFinallyEnter(functionId) {
-        result := ComCall(64, this, "ptr", functionId, "HRESULT")
+        result := ComCall(64, this, "ptr", functionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -694,18 +959,26 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionUnwindFinallyLeave() {
-        result := ComCall(65, this, "HRESULT")
+        result := ComCall(65, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @returns {HRESULT} 
      */
-    ExceptionCatcherEnter(functionId, objectId) {
-        result := ComCall(66, this, "ptr", functionId, "ptr", objectId, "HRESULT")
+    ExceptionCatcherEnter(functionId, objectId_) {
+        result := ComCall(66, this, "ptr", functionId, "ptr", objectId_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -714,7 +987,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionCatcherLeave() {
-        result := ComCall(67, this, "HRESULT")
+        result := ComCall(67, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -729,7 +1006,11 @@ class ICorProfilerCallback extends IUnknown{
     COMClassicVTableCreated(wrappedClassId, implementedIID, pVTable, cSlots) {
         pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(68, this, "ptr", wrappedClassId, "ptr", implementedIID, pVTableMarshal, pVTable, "uint", cSlots, "HRESULT")
+        result := ComCall(68, this, "ptr", wrappedClassId, "ptr", implementedIID, pVTableMarshal, pVTable, "uint", cSlots, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -743,7 +1024,11 @@ class ICorProfilerCallback extends IUnknown{
     COMClassicVTableDestroyed(wrappedClassId, implementedIID, pVTable) {
         pVTableMarshal := pVTable is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(69, this, "ptr", wrappedClassId, "ptr", implementedIID, pVTableMarshal, pVTable, "HRESULT")
+        result := ComCall(69, this, "ptr", wrappedClassId, "ptr", implementedIID, pVTableMarshal, pVTable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -752,7 +1037,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionCLRCatcherFound() {
-        result := ComCall(70, this, "HRESULT")
+        result := ComCall(70, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -761,7 +1050,11 @@ class ICorProfilerCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     ExceptionCLRCatcherExecute() {
-        result := ComCall(71, this, "HRESULT")
+        result := ComCall(71, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

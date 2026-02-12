@@ -29,12 +29,13 @@ class IWbemAddressResolution extends IUnknown{
     static VTableNames => ["Resolve"]
 
     /**
-     * 
+     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
      * @param {PWSTR} wszNamespacePath 
      * @param {PWSTR} wszAddressType 
      * @param {Pointer<Integer>} pdwAddressLength 
      * @param {Pointer<Pointer<Integer>>} pabBinaryAddress 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} The address of the import, or the failure stub for it.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/resolvedelayloadedapi
      */
     Resolve(wszNamespacePath, wszAddressType, pdwAddressLength, pabBinaryAddress) {
         wszNamespacePath := wszNamespacePath is String ? StrPtr(wszNamespacePath) : wszNamespacePath
@@ -43,7 +44,11 @@ class IWbemAddressResolution extends IUnknown{
         pdwAddressLengthMarshal := pdwAddressLength is VarRef ? "uint*" : "ptr"
         pabBinaryAddressMarshal := pabBinaryAddress is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszNamespacePath, "ptr", wszAddressType, pdwAddressLengthMarshal, pdwAddressLength, pabBinaryAddressMarshal, pabBinaryAddress, "HRESULT")
+        result := ComCall(3, this, "ptr", wszNamespacePath, "ptr", wszAddressType, pdwAddressLengthMarshal, pdwAddressLength, pabBinaryAddressMarshal, pabBinaryAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -11,7 +11,7 @@
  * Only multi-valued string properties are supported for the multi-valued list; other multi-valued property types are not supported. 
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblmvlistbox
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblmvlistbox
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

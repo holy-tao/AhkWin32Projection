@@ -39,11 +39,15 @@ class IMFSourceBufferAppendMode extends IUnknown{
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {HRESULT} 
      */
-    SetAppendMode(mode) {
-        result := ComCall(4, this, "int", mode, "HRESULT")
+    SetAppendMode(mode_) {
+        result := ComCall(4, this, "int", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

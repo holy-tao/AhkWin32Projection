@@ -6,11 +6,8 @@
 /**
  * Extends IEmptyVolumeCache. This interface defines one additional method, InitializeEx, that provides better localization support than IEmptyVolumeCache::Initialize.
  * @remarks
- * 
  * This interface should be exported by disk cleanup handlers running on Windows 2000. Handlers running on Windows 98 must export <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nn-emptyvc-iemptyvolumecache">IEmptyVolumeCache</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nn-emptyvc-iemptyvolumecache2
+ * @see https://learn.microsoft.com/windows/win32/api//content/emptyvc/nn-emptyvc-iemptyvolumecache2
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -37,6 +34,12 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache{
 
     /**
      * Initializes the disk cleanup handler. It provides better support for localization than Initialize.
+     * @remarks
+     * The Windows 2000 disk cleanup manager will first call <b>IEmptyVolumeCache2::InitializeEx</b> to initialize a disk cleanup handler. It will only call <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-initialize">Initialize</a> if the <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nn-emptyvc-iemptyvolumecache2">IEmptyVolumeCache2</a> interface is not implemented. The Windows 98 disk cleanup manager only supports <b>Initialize</b>.
+     * 
+     * <b>InitializeEx</b> is intended to provide better localization support than <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-initialize">Initialize</a>. When <b>InitializeEx</b> is called, the handler application must assign appropriately localized values to the <i>ppwszDisplayName</i> and <i>ppwszDescription</i> parameters. If the <b>Settings</b> button is enabled, you must also assign a value to the <i>ppwszBtnText</i> parameter. Unlike <b>Initialize</b>, if you set these strings to <b>NULL</b> to notify the disk cleanup manager to retrieve the default values from the registry, <b>InitializeEx</b> will fail. 
+     * 
+     * Use <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> to allocate memory for the strings returned through <i>ppwszDisplayName</i>, <i>ppwszDescription</i>, and <i>ppwszBtnText</i>. The disk cleanup manager will free the memory when it is no longer needed.
      * @param {HKEY} hkRegKey Type: <b>HKEY</b>
      * 
      * A handle to the registry key that holds the information about the handler object.
@@ -112,7 +115,7 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache2-initializeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/emptyvc/nf-emptyvc-iemptyvolumecache2-initializeex
      */
     InitializeEx(hkRegKey, pcwszVolume, pcwszKeyName, ppwszDisplayName, ppwszDescription, ppwszBtnText, pdwFlags) {
         hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey
@@ -124,7 +127,11 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache{
         ppwszBtnTextMarshal := ppwszBtnText is VarRef ? "ptr*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, ppwszBtnTextMarshal, ppwszBtnText, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", hkRegKey, "ptr", pcwszVolume, "ptr", pcwszKeyName, ppwszDisplayNameMarshal, ppwszDisplayName, ppwszDescriptionMarshal, ppwszDescription, ppwszBtnTextMarshal, ppwszBtnText, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

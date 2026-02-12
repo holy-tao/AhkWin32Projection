@@ -20,7 +20,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-3d-num-views">MF_MT_VIDEO_3D_NUM_VIEWS</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideo3dsampleformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ne-mfapi-mfvideo3dsampleformat
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

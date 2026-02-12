@@ -6,7 +6,7 @@
 
 /**
  * Notifies the subscriber when a COM+ application instance is created or reconfigured.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-isystemappeventdata
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-isystemappeventdata
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class ISystemAppEventData extends IUnknown{
 
     /**
      * Invoked when a COM+ application instance is created.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isystemappeventdata-startup
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-isystemappeventdata-startup
      */
     Startup() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,13 +53,20 @@ class ISystemAppEventData extends IUnknown{
      * @param {BSTR} bstrDwMethodMask The event mask used to determine to which events the user has subscribed.
      * @param {Integer} dwReason Always set equal to INFO_MASKCHANGED.
      * @param {Integer} u64TraceHandle A handle to the relevant tracing session.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isystemappeventdata-ondatachanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-isystemappeventdata-ondatachanged
      */
     OnDataChanged(dwPID, dwMask, dwNumberSinks, bstrDwMethodMask, dwReason, u64TraceHandle) {
-        bstrDwMethodMask := bstrDwMethodMask is String ? BSTR.Alloc(bstrDwMethodMask).Value : bstrDwMethodMask
+        if(bstrDwMethodMask is String) {
+            pin := BSTR.Alloc(bstrDwMethodMask)
+            bstrDwMethodMask := pin.Value
+        }
 
-        result := ComCall(4, this, "uint", dwPID, "uint", dwMask, "uint", dwNumberSinks, "ptr", bstrDwMethodMask, "uint", dwReason, "uint", u64TraceHandle, "HRESULT")
+        result := ComCall(4, this, "uint", dwPID, "uint", dwMask, "uint", dwNumberSinks, "ptr", bstrDwMethodMask, "uint", dwReason, "uint", u64TraceHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

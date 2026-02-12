@@ -35,7 +35,11 @@ class IRowChange extends IUnknown{
      * @returns {HRESULT} 
      */
     SetColumns(cColumns, rgColumns) {
-        result := ComCall(3, this, "ptr", cColumns, "ptr", rgColumns, "HRESULT")
+        result := ComCall(3, this, "ptr", cColumns, "ptr", rgColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

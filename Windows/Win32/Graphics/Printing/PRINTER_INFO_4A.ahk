@@ -9,7 +9,7 @@
  * **Attributes** can also contain values that are defined in the **Attributes** field of **PRINTER\_INFO\_2**.
  * 
  * Some printer configurations, such as printer connections to some non-Windows-based print servers, might return both **PRINTER\_ATTRIBUTE\_LOCAL** and **PRINTER\_ATTRIBUTE\_NETWORK**.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-4
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-info-4
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

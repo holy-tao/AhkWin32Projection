@@ -34,7 +34,11 @@ class ITransactionJoin extends IUnknown{
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
-        result := ComCall(3, this, "ptr*", &ppOptions := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionOptions(ppOptions)
     }
 
@@ -47,7 +51,11 @@ class ITransactionJoin extends IUnknown{
      * @returns {HRESULT} 
      */
     JoinTransaction(punkTransactionCoord, isoLevel, isoFlags, pOtherOptions) {
-        result := ComCall(4, this, "ptr", punkTransactionCoord, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "HRESULT")
+        result := ComCall(4, this, "ptr", punkTransactionCoord, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -617,7 +617,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-globalmemorystatusex
      * @since windows5.1.2600
      */
     static GlobalMemoryStatusEx(lpBuffer) {
@@ -636,7 +636,7 @@ class SystemInformation {
      * @param {Pointer<SYSTEM_INFO>} lpSystemInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ns-sysinfoapi-system_info">SYSTEM_INFO</a> structure that receives the information.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsysteminfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsysteminfo
      * @since windows5.0
      */
     static GetSystemInfo(lpSystemInfo) {
@@ -650,7 +650,7 @@ class SystemInformation {
      * @param {Pointer<SYSTEMTIME>} lpSystemTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure to receive the current system date and time. The <i>lpSystemTime</i> parameter must not be <b>NULL</b>. Using <b>NULL</b> will result in an access violation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemtime
      * @since windows5.0
      */
     static GetSystemTime(lpSystemTime) {
@@ -662,7 +662,7 @@ class SystemInformation {
      * @param {Pointer<FILETIME>} lpSystemTimeAsFileTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure to receive the current system date and time in UTC format.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimeasfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemtimeasfiletime
      * @since windows5.0
      */
     static GetSystemTimeAsFileTime(lpSystemTimeAsFileTime) {
@@ -676,7 +676,7 @@ class SystemInformation {
      * @param {Pointer<SYSTEMTIME>} lpSystemTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure to receive the current local date and time.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlocaltime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getlocaltime
      * @since windows5.0
      */
     static GetLocalTime(lpSystemTime) {
@@ -687,7 +687,7 @@ class SystemInformation {
      * Queries whether user-mode Hardware-enforced Stack Protection is available for the specified environment.
      * @param {Integer} UserCetEnvironment 
      * @returns {BOOL} TRUE if user-mode Hardware-enforced Stack Protection is available for the specified environment, FALSE otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
      */
     static IsUserCetAvailableInEnvironment(UserCetEnvironment) {
         result := DllCall("KERNEL32.dll\IsUserCetAvailableInEnvironment", "uint", UserCetEnvironment, "int")
@@ -719,7 +719,7 @@ class SystemInformation {
      * @returns {Integer} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
      * 
      * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getversion
      * @deprecated 
      * @since windows5.0
      */
@@ -750,7 +750,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setlocaltime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setlocaltime
      * @since windows5.0
      */
     static SetLocalTime(lpSystemTime) {
@@ -784,7 +784,7 @@ class SystemInformation {
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime">QueryUnbiasedInterruptTime</a> function produces different results on debug ("checked") builds of Windows, because the interrupt-time count and tick count are advanced by approximately 49 days. This helps to identify bugs that might not occur until the system has been running for a long time. The checked build is available to MSDN subscribers through the <a href="https://msdn.microsoft.com/default.aspx">Microsoft Developer Network (MSDN)</a> Web site.</div>
      * <div> </div>
      * @returns {Integer} The return value is the number of milliseconds that have elapsed since the system was started.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-gettickcount
      * @since windows5.0
      */
     static GetTickCount() {
@@ -808,7 +808,7 @@ class SystemInformation {
      * <div> </div>
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @returns {Integer} The number of milliseconds.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount64
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-gettickcount64
      * @since windows6.0.6000
      */
     static GetTickCount64() {
@@ -835,7 +835,7 @@ class SystemInformation {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimeadjustment
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemtimeadjustment
      * @since windows5.0
      */
     static GetSystemTimeAdjustment(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
@@ -873,7 +873,7 @@ class SystemInformation {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimeadjustmentprecise
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemtimeadjustmentprecise
      * @since windows10.0.10240
      */
     static GetSystemTimeAdjustmentPrecise(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
@@ -901,7 +901,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemdirectorya
      * @since windows5.0
      */
     static GetSystemDirectoryA(lpBuffer, uSize) {
@@ -927,7 +927,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemdirectoryw
      * @since windows5.0
      */
     static GetSystemDirectoryW(lpBuffer, uSize) {
@@ -981,7 +981,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getwindowsdirectorya
      * @since windows5.0
      */
     static GetWindowsDirectoryA(lpBuffer, uSize) {
@@ -1035,7 +1035,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getwindowsdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getwindowsdirectoryw
      * @since windows5.0
      */
     static GetWindowsDirectoryW(lpBuffer, uSize) {
@@ -1076,7 +1076,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectorya
      * @since windows5.0
      */
     static GetSystemWindowsDirectoryA(lpBuffer, uSize) {
@@ -1117,7 +1117,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemwindowsdirectoryw
      * @since windows5.0
      */
     static GetSystemWindowsDirectoryW(lpBuffer, uSize) {
@@ -1281,7 +1281,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getcomputernameexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getcomputernameexa
      * @since windows5.0
      */
     static GetComputerNameExA(NameType, lpBuffer, nSize) {
@@ -1447,7 +1447,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getcomputernameexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getcomputernameexw
      * @since windows5.0
      */
     static GetComputerNameExW(NameType, lpBuffer, nSize) {
@@ -1491,7 +1491,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setcomputernameexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setcomputernameexw
      * @since windows5.0
      */
     static SetComputerNameExW(NameType, lpBuffer) {
@@ -1525,7 +1525,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setsystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setsystemtime
      * @since windows5.0
      */
     static SetSystemTime(lpSystemTime) {
@@ -1595,7 +1595,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The function fails if you specify an invalid value for the <b>dwOSVersionInfoSize</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoa">OSVERSIONINFO</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getversionexa
      * @deprecated 
      * @since windows5.0
      */
@@ -1666,7 +1666,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The function fails if you specify an invalid value for the <b>dwOSVersionInfoSize</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoa">OSVERSIONINFO</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getversionexw
      * @deprecated 
      * @since windows5.0
      */
@@ -1706,21 +1706,21 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformation
      * @since windows6.0.6000
      */
-    static GetLogicalProcessorInformation(Buffer_R, ReturnedLength) {
+    static GetLogicalProcessorInformation(Buffer_, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformation", "ptr", Buffer_, ReturnedLengthMarshal, ReturnedLength, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1842,21 +1842,21 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A pointer to a buffer that receives a sequence of variable-sized <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getlogicalprocessorinformationex
      * @since windows6.1
      */
-    static GetLogicalProcessorInformationEx(RelationshipType, Buffer_R, ReturnedLength) {
+    static GetLogicalProcessorInformationEx(RelationshipType, Buffer_, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetLogicalProcessorInformationEx", "int", RelationshipType, "ptr", Buffer_, ReturnedLengthMarshal, ReturnedLength, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1875,7 +1875,7 @@ class SystemInformation {
      * @param {Pointer<SYSTEM_INFO>} lpSystemInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ns-sysinfoapi-system_info">SYSTEM_INFO</a> structure that receives the information.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getnativesysteminfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getnativesysteminfo
      * @since windows5.1.2600
      */
     static GetNativeSystemInfo(lpSystemInfo) {
@@ -1892,7 +1892,7 @@ class SystemInformation {
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the 
      *       current system date and time in UTC format.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemtimepreciseasfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemtimepreciseasfiletime
      * @since windows8.0
      */
     static GetSystemTimePreciseAsFileTime(lpSystemTimeAsFileTime) {
@@ -1942,7 +1942,7 @@ class SystemInformation {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. This function fails if one of the input parameters is invalid.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getproductinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getproductinfo
      * @since windows6.0.6000
      */
     static GetProductInfo(dwOSMajorVersion, dwOSMinorVersion, dwSpMajorVersion, dwSpMinorVersion, pdwReturnedProductType) {
@@ -1969,7 +1969,7 @@ class SystemInformation {
      * @param {Integer} Condition The operator to be used for the comparison. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-verifyversioninfoa">VerifyVersionInfo</a> function uses this operator to compare a specified attribute value to the corresponding value for the currently running system.
      * @returns {Integer} The function returns the condition mask value.
-     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-versetconditionmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnt/nf-winnt-versetconditionmask
      * @since windows5.0
      */
     static VerSetConditionMask(ConditionMask, TypeMask, Condition) {
@@ -2020,7 +2020,7 @@ class SystemInformation {
      * If the function fails because the buffer is not large enough, the return value is the required buffer size, in bytes. This value is always greater than <i>BufferSize</i>.
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-enumsystemfirmwaretables
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-enumsystemfirmwaretables
      * @since windows6.0.6000
      */
     static EnumSystemFirmwareTables(FirmwareTableProviderSignature, pFirmwareTableEnumBuffer, BufferSize) {
@@ -2069,7 +2069,7 @@ class SystemInformation {
      * If the function fails because the buffer is not large enough, the return value is the required buffer size, in bytes. This value is always greater than <i>BufferSize</i>.
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable
      * @since windows6.0.6000
      */
     static GetSystemFirmwareTable(FirmwareTableProviderSignature, FirmwareTableID, pFirmwareTableBuffer, BufferSize) {
@@ -2142,7 +2142,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getphysicallyinstalledsystemmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getphysicallyinstalledsystemmemory
      * @since windows6.0.6000
      */
     static GetPhysicallyInstalledSystemMemory(TotalMemoryInKilobytes) {
@@ -2237,7 +2237,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. One way the function can fail is if the caller does not possess the SE_SYSTEMTIME_NAME privilege.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setsystemtimeadjustment
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setsystemtimeadjustment
      * @since windows5.0
      */
     static SetSystemTimeAdjustment(dwTimeAdjustment, bTimeAdjustmentDisabled) {
@@ -2268,7 +2268,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. One way the function can fail is if the caller does not possess the SE_SYSTEMTIME_NAME privilege.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setsystemtimeadjustmentprecise
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setsystemtimeadjustmentprecise
      * @since windows10.0.10240
      */
     static SetSystemTimeAdjustmentPrecise(dwTimeAdjustment, bTimeAdjustmentDisabled) {
@@ -2288,22 +2288,22 @@ class SystemInformation {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
      * @param {Pointer<Integer>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
      * If the error value is ERROR_INSUFFICIENT_BUFFER, the <i>ReturnedLength</i> parameter contains the required buffer size.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getprocessorsystemcycletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getprocessorsystemcycletime
      * @since windows6.1
      */
-    static GetProcessorSystemCycleTime(Group, Buffer_R, ReturnedLength) {
+    static GetProcessorSystemCycleTime(Group, Buffer_, ReturnedLength) {
         ReturnedLengthMarshal := ReturnedLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer_R, ReturnedLengthMarshal, ReturnedLength, "int")
+        result := DllCall("KERNEL32.dll\GetProcessorSystemCycleTime", "ushort", Group, "ptr", Buffer_, ReturnedLengthMarshal, ReturnedLength, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2331,7 +2331,7 @@ class SystemInformation {
      * To compile an application that uses this function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @returns {Float} The best estimate of the diagonal size of the built-in screen, in inches.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getintegrateddisplaysize
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getintegrateddisplaysize
      * @since windows10.0.10240
      */
     static GetIntegratedDisplaySize() {
@@ -2365,7 +2365,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setcomputernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setcomputernamea
      * @since windows5.0
      */
     static SetComputerNameA(lpComputerName) {
@@ -2403,7 +2403,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setcomputernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setcomputernamew
      * @since windows5.0
      */
     static SetComputerNameW(lpComputerName) {
@@ -2445,7 +2445,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-setcomputernameexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-setcomputernameexa
      * @since windows5.0
      */
     static SetComputerNameExA(NameType, lpBuffer) {
@@ -2477,7 +2477,7 @@ class SystemInformation {
      * @param {Pointer<Integer>} ReturnedLength The length, in bytes, of the valid data in the output buffer if the buffer is large enough, or the required size of the output buffer. If no CPU Sets exist, this value will be 0.
      * @param {HANDLE} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
      * @returns {BOOL} If the API succeeds it returns TRUE. If it fails, the error reason is available through **GetLastError**. If the Information buffer was NULL or not large enough, the error code ERROR\_INSUFFICIENT\_BUFFER is returned. This API cannot fail when passed valid parameters and a buffer that is large enough to hold all of the return data.
-     * @see https://learn.microsoft.com/windows/win32/ProcThread/getsystemcpusetinformation
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/ProcThread/getsystemcpusetinformation
      */
     static GetSystemCpuSetInformation(Information, BufferLength, ReturnedLength, Process) {
         static Flags := 0 ;Reserved parameters must always be NULL
@@ -2515,7 +2515,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * On 32-bit Windows, the function always fails, and the extended error is set to ERROR_CALL_NOT_IMPLEMENTED.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-getsystemwow64directorya
      * @since windows5.1.2600
      */
     static GetSystemWow64DirectoryA(lpBuffer, uSize) {
@@ -2556,7 +2556,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * On 32-bit Windows, the function always fails, and the extended error is set to ERROR_CALL_NOT_IMPLEMENTED.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-getsystemwow64directoryw
      * @since windows5.1.2600
      */
     static GetSystemWow64DirectoryW(lpBuffer, uSize) {
@@ -2595,7 +2595,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directory2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-getsystemwow64directory2a
      * @since windows10.0.10586
      */
     static GetSystemWow64Directory2A(lpBuffer, uSize, ImageFileMachineType) {
@@ -2634,7 +2634,7 @@ class SystemInformation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-getsystemwow64directory2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-getsystemwow64directory2w
      * @since windows10.0.10586
      */
     static GetSystemWow64Directory2W(lpBuffer, uSize, ImageFileMachineType) {
@@ -2663,7 +2663,7 @@ class SystemInformation {
      * </ul>
      * @param {Integer} WowGuestMachine An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
      * @returns {BOOL} On success, returns a pointer to a boolean: <b>true</b> if the machine supports WOW64, or <b>false</b> if it does not.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-iswow64guestmachinesupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-iswow64guestmachinesupported
      * @since windows10.0.16299
      */
     static IsWow64GuestMachineSupported(WowGuestMachine) {
@@ -2706,14 +2706,14 @@ class SystemInformation {
     /**
      * 
      * @param {Integer} DataId 
-     * @param {Pointer<Void>} Buffer_R 
-     * @param {Integer} Size 
+     * @param {Pointer<Void>} Buffer_ 
+     * @param {Integer} Size_ 
      * @returns {Integer} 
      */
-    static RtlGetSystemGlobalData(DataId, Buffer_R, Size) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlGetSystemGlobalData(DataId, Buffer_, Size_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, Buffer_RMarshal, Buffer_R, "uint", Size, "uint")
+        result := DllCall("ntdllk.dll\RtlGetSystemGlobalData", "int", DataId, Buffer_Marshal, Buffer_, "uint", Size_, "uint")
         return result
     }
 
@@ -2723,7 +2723,7 @@ class SystemInformation {
      * @param {Pointer<Integer>} pulDeviceFamily 
      * @param {Pointer<Integer>} pulDeviceForm 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlgetdevicefamilyinfoenum
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/rtlgetdevicefamilyinfoenum
      */
     static RtlGetDeviceFamilyInfoEnum(pullUAPInfo, pulDeviceFamily, pulDeviceForm) {
         pullUAPInfoMarshal := pullUAPInfo is VarRef ? "uint*" : "ptr"
@@ -2752,7 +2752,7 @@ class SystemInformation {
      * @returns {Integer} Type: DWORD
      * 
      * A success or failure status.
-     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlconvertdevicefamilyinfotostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnt/nf-winnt-rtlconvertdevicefamilyinfotostring
      */
     static RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFormBufferSize, DeviceFamily, DeviceForm) {
         pulDeviceFamilyBufferSizeMarshal := pulDeviceFamilyBufferSize is VarRef ? "uint*" : "ptr"
@@ -2793,7 +2793,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-memorystatus">MEMORYSTATUS</a> structure. The 
      * <b>GlobalMemoryStatus</b> function stores information about current memory availability into this structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalmemorystatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalmemorystatus
      * @since windows5.1.2600
      */
     static GlobalMemoryStatus(lpBuffer) {
@@ -2866,7 +2866,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getsystemdeppolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getsystemdeppolicy
      * @since windows6.0.6000
      */
     static GetSystemDEPPolicy() {
@@ -2880,7 +2880,7 @@ class SystemInformation {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwaretype
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfirmwaretype
      * @since windows8.0
      */
     static GetFirmwareType(FirmwareType) {
@@ -2946,7 +2946,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_OLD_WIN_VERSION.
      * 
      * If the function fails, the return value is zero and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns an error code other than ERROR_OLD_WIN_VERSION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-verifyversioninfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-verifyversioninfoa
      * @since windows5.0
      */
     static VerifyVersionInfoA(lpVersionInformation, dwTypeMask, dwlConditionMask) {
@@ -3010,7 +3010,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_OLD_WIN_VERSION.
      * 
      * If the function fails, the return value is zero and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns an error code other than ERROR_OLD_WIN_VERSION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-verifyversioninfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-verifyversioninfow
      * @since windows5.0
      */
     static VerifyVersionInfoW(lpVersionInformation, dwTypeMask, dwlConditionMask) {

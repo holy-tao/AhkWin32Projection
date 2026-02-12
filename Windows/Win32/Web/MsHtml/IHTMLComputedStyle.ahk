@@ -159,7 +159,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_bold() {
-        result := ComCall(3, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(3, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -168,7 +172,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_italic() {
-        result := ComCall(4, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(4, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -177,7 +185,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_underline() {
-        result := ComCall(5, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(5, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -186,7 +198,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_overline() {
-        result := ComCall(6, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(6, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -195,7 +211,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_strikeOut() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -204,7 +224,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_subScript() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -213,7 +237,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_superScript() {
-        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -222,7 +250,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_explicitFace() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -231,7 +263,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {Integer} 
      */
     get_fontWeight() {
-        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -240,7 +276,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {Integer} 
      */
     get_fontSize() {
-        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -249,7 +289,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {Integer} 
      */
     get_fontName() {
-        result := ComCall(13, this, "char*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "char*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -258,7 +302,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_hasBgColor() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -267,7 +315,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {Integer} 
      */
     get_textColor() {
-        result := ComCall(15, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -276,7 +328,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {Integer} 
      */
     get_backgroundColor() {
-        result := ComCall(16, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -285,7 +341,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_preFormatted() {
-        result := ComCall(17, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -294,7 +354,11 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_direction() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -303,26 +367,40 @@ class IHTMLComputedStyle extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_blockDirection() {
-        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * get_OLEDBCommand Method
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/get-oledbcommand-method
      */
     get_OL() {
-        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * Evaluates to a Boolean value that indicates whether two CLSIDs are equal.
      * @param {IHTMLComputedStyle} pComputedStyle 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/guiddef/nf-guiddef-isequalclsid
      */
     IsEqual(pComputedStyle) {
-        result := ComCall(21, this, "ptr", pComputedStyle, "short*", &pfEqual := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", pComputedStyle, "short*", &pfEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEqual
     }
 }

@@ -13,7 +13,7 @@
  * Note the following defines.
  * 
  * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_component_mapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ne-d3d12-d3d12_shader_component_mapping
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

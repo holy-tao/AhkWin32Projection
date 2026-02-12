@@ -6,9 +6,8 @@
 #Include .\IDWriteFontList.ahk
 
 /**
- * Represents a family of related fonts.
+ * Represents a family of related fonts. (IDWriteFontFamily)
  * @remarks
- * 
  * A font family is a set of fonts that share the same family name, such as "Times New Roman", but that differ in features. These feature differences include style, such as italic, and weight, such as bold. 
  * 
  * The following illustration shows examples of fonts that are members of the "Times New Roman" font family.
@@ -42,9 +41,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontfamily
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritefontfamily
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -70,15 +67,79 @@ class IDWriteFontFamily extends IDWriteFontList{
     static VTableNames => ["GetFamilyNames", "GetFirstMatchingFont", "GetMatchingFonts"]
 
     /**
-     * Creates a localized strings object that contains the family names for the font family, indexed by locale name.
-     * @returns {IDWriteLocalizedStrings} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
+     * Creates a localized strings object that contains the family names for the font family, indexed by locale name. (IDWriteFontFamily.GetFamilyNames)
+     * @remarks
+     * The following code example shows how to get the font family name from a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a> object.
+     * 
+     * 
+     * ```cpp
+     * IDWriteLocalizedStrings* pFamilyNames = NULL;
+     * 
+     * // Get a list of localized strings for the family name.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFontFamily->GetFamilyNames(&pFamilyNames);
+     * }
+     * 
+     * UINT32 index = 0;
+     * BOOL exists = false;
+     * 
+     * wchar_t localeName[LOCALE_NAME_MAX_LENGTH];
+     * 
+     * if (SUCCEEDED(hr))
+     * {
+     *     // Get the default locale for this user.
+     *     int defaultLocaleSuccess = GetUserDefaultLocaleName(localeName, LOCALE_NAME_MAX_LENGTH);
+     * 
+     *     // If the default locale is returned, find that locale name, otherwise use "en-us".
+     *     if (defaultLocaleSuccess)
+     *     {
+     *         hr = pFamilyNames->FindLocaleName(localeName, &index, &exists);
+     *     }
+     *     if (SUCCEEDED(hr) && !exists) // if the above find did not find a match, retry with US English
+     *     {
+     *         hr = pFamilyNames->FindLocaleName(L"en-us", &index, &exists);
+     *     }
+     * }
+     * 
+     * // If the specified locale doesn't exist, select the first on the list.
+     * if (!exists)
+     *     index = 0;
+     * 
+     * UINT32 length = 0;
+     * 
+     * // Get the string length.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFamilyNames->GetStringLength(index, &length);
+     * }
+     * 
+     * // Allocate a string big enough to hold the name.
+     * wchar_t* name = new (std::nothrow) wchar_t[length+1];
+     * if (name == NULL)
+     * {
+     *     hr = E_OUTOFMEMORY;
+     * }
+     * 
+     * // Get the family name.
+     * if (SUCCEEDED(hr))
+     * {
+     *     hr = pFamilyNames->GetString(index, name, length+1);
+     * }
+     * 
+     * ```
+     * @returns {Pointer<IDWriteLocalizedStrings>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
      * 
      * The address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfamily-getfamilynames
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfamily-getfamilynames
      */
     GetFamilyNames() {
-        result := ComCall(6, this, "ptr*", &names := 0, "HRESULT")
-        return IDWriteLocalizedStrings(names)
+        result := ComCall(6, this, "ptr*", &names := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return names
     }
 
     /**
@@ -92,14 +153,18 @@ class IDWriteFontFamily extends IDWriteFontList{
      * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value that is used to match a requested font style.
-     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * @returns {Pointer<IDWriteFont>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfamily-getfirstmatchingfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfamily-getfirstmatchingfont
      */
     GetFirstMatchingFont(weight, stretch, style) {
-        result := ComCall(7, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFont := 0, "HRESULT")
-        return IDWriteFont(matchingFont)
+        result := ComCall(7, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFont := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return matchingFont
     }
 
     /**
@@ -113,13 +178,17 @@ class IDWriteFontFamily extends IDWriteFontList{
      * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value that is used to match a requested font style.
-     * @returns {IDWriteFontList} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist">IDWriteFontList</a>**</b>
+     * @returns {Pointer<IDWriteFontList>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist">IDWriteFontList</a>**</b>
      * 
      * An address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist">IDWriteFontList</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfamily-getmatchingfonts
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfamily-getmatchingfonts
      */
     GetMatchingFonts(weight, stretch, style) {
-        result := ComCall(8, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFonts := 0, "HRESULT")
-        return IDWriteFontList(matchingFonts)
+        result := ComCall(8, this, "int", weight, "int", stretch, "int", style, "ptr*", &matchingFonts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return matchingFonts
     }
 }

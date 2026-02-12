@@ -7,7 +7,7 @@
  * To compile an application that uses this structure, define the <b>_WIN32_WINNT</b> 
  *     macro as <b>_WIN32_WINNT_WIN8</b> or later. For more information, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_extended_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-copyfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The IAMLine21Decoder interface sets and retrieves information about closed captions.The Line 21 Decoder filter exposes this interface.
- * @see https://docs.microsoft.com/windows/win32/api//il21dec/nn-il21dec-iamline21decoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nn-il21dec-iamline21decoder
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IAMLine21Decoder extends IUnknown{
 
     /**
      * The GetDecoderLevel method retrieves the closed-captioned decoder level.
+     * @remarks
+     * TeleCaption I and TeleCaption II are standards for closed caption decoders. The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/line-21-decoder-filter">Line 21 Decoder</a> filter supports TeleCaption II, which is backward compatible with TeleCaption I.
      * @param {Pointer<Integer>} lpLevel Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_cclevel">AM_LINE21_CCLEVEL</a> enumeration. The returned value is always <b>AM_L21_CCLEVEL_TC2</b> (TeleCaption II).
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -63,12 +65,16 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getdecoderlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getdecoderlevel
      */
     GetDecoderLevel(lpLevel) {
         lpLevelMarshal := lpLevel is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, lpLevelMarshal, lpLevel, "HRESULT")
+        result := ComCall(3, this, lpLevelMarshal, lpLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,12 +111,16 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getcurrentservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getcurrentservice
      */
     GetCurrentService(lpService) {
         lpServiceMarshal := lpService is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, lpServiceMarshal, lpService, "HRESULT")
+        result := ComCall(4, this, lpServiceMarshal, lpService, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,15 +147,21 @@ class IAMLine21Decoder extends IUnknown{
      * <td>Success</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-setcurrentservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-setcurrentservice
      */
     SetCurrentService(Service) {
-        result := ComCall(5, this, "int", Service, "HRESULT")
+        result := ComCall(5, this, "int", Service, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetServiceState method indicates whether closed captioning is on or off.
+     * @remarks
+     * By default, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/line-21-decoder-filter">Line 21 Decoder</a> enables closed captioning.
      * @param {Pointer<Integer>} lpState Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_ccstate">AM_LINE21_CCSTATE</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -177,12 +193,16 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getservicestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getservicestate
      */
     GetServiceState(lpState) {
         lpStateMarshal := lpState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, lpStateMarshal, lpState, "HRESULT")
+        result := ComCall(6, this, lpStateMarshal, lpState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -219,10 +239,14 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-setservicestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-setservicestate
      */
     SetServiceState(State) {
-        result := ComCall(7, this, "int", State, "HRESULT")
+        result := ComCall(7, this, "int", State, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -270,10 +294,14 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getoutputformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getoutputformat
      */
     GetOutputFormat(lpbmih) {
-        result := ComCall(8, this, "ptr", lpbmih, "HRESULT")
+        result := ComCall(8, this, "ptr", lpbmih, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -281,10 +309,14 @@ class IAMLine21Decoder extends IUnknown{
      * The SetOutputFormat method sets the Line 21 Decoder filter's output format.
      * @param {Pointer<BITMAPINFO>} lpbmi Pointer to a <b>BITMAPINFO</b> structure that describes the output format.
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-setoutputformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-setoutputformat
      */
     SetOutputFormat(lpbmi) {
-        result := ComCall(9, this, "ptr", lpbmi, "HRESULT")
+        result := ComCall(9, this, "ptr", lpbmi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -321,12 +353,16 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getbackgroundcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getbackgroundcolor
      */
     GetBackgroundColor(pdwPhysColor) {
         pdwPhysColorMarshal := pdwPhysColor is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pdwPhysColorMarshal, pdwPhysColor, "HRESULT")
+        result := ComCall(10, this, pdwPhysColorMarshal, pdwPhysColor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -334,10 +370,14 @@ class IAMLine21Decoder extends IUnknown{
      * The SetBackgroundColor method sets the background color that the Line 21 Decoder filter uses for overlay. The default background color is magenta.
      * @param {Integer} dwPhysColor Sets the background color as a pixel color value. The meaning of the pixel value is defined by the bit depth of the filter's current output format.
      * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-setbackgroundcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-setbackgroundcolor
      */
     SetBackgroundColor(dwPhysColor) {
-        result := ComCall(11, this, "uint", dwPhysColor, "HRESULT")
+        result := ComCall(11, this, "uint", dwPhysColor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -374,23 +414,33 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getredrawalways
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getredrawalways
      */
     GetRedrawAlways(lpbOption) {
         lpbOptionMarshal := lpbOption is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, lpbOptionMarshal, lpbOption, "HRESULT")
+        result := ComCall(12, this, lpbOptionMarshal, lpbOption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetRedrawAlways method specifies whether the Line 21 Decoder filter redraws the entire output bitmap for each sample.
+     * @remarks
+     * Generally, applications should not call this method. The downstream mixer or renderer filter should call this method with the value <b>TRUE</b> if it writes into the buffers that it receives from the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/line-21-decoder-filter">Line 21 Decoder</a> filter. Redrawing degrades performance and increases CPU load, because it negates any potential optimizations.
      * @param {BOOL} bOption 
      * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-setredrawalways
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-setredrawalways
      */
     SetRedrawAlways(bOption) {
-        result := ComCall(13, this, "int", bOption, "HRESULT")
+        result := ComCall(13, this, "int", bOption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -427,18 +477,22 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-getdrawbackgroundmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-getdrawbackgroundmode
      */
     GetDrawBackgroundMode(lpMode) {
         lpModeMarshal := lpMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, lpModeMarshal, lpMode, "HRESULT")
+        result := ComCall(14, this, lpModeMarshal, lpMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetDrawBackgroundMode method specifies whether the Line 21 Decoder filter draws the captions on a transparent background or an opaque background. By default, the caption background is opaque.
-     * @param {Integer} Mode Specifies a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_drawbgmode">AM_LINE21_DRAWBGMODE</a> enumeration.
+     * @param {Integer} Mode_ Specifies a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/il21dec/ne-il21dec-am_line21_drawbgmode">AM_LINE21_DRAWBGMODE</a> enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -469,10 +523,14 @@ class IAMLine21Decoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//il21dec/nf-il21dec-iamline21decoder-setdrawbackgroundmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/il21dec/nf-il21dec-iamline21decoder-setdrawbackgroundmode
      */
-    SetDrawBackgroundMode(Mode) {
-        result := ComCall(15, this, "int", Mode, "HRESULT")
+    SetDrawBackgroundMode(Mode_) {
+        result := ComCall(15, this, "int", Mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

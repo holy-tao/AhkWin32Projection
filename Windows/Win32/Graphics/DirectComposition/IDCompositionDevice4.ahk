@@ -35,7 +35,11 @@ class IDCompositionDevice4 extends IDCompositionDevice3{
      * @returns {BOOL} 
      */
     CheckCompositionTextureSupport(renderingDevice) {
-        result := ComCall(37, this, "ptr", renderingDevice, "int*", &supportsCompositionTextures := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", renderingDevice, "int*", &supportsCompositionTextures := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return supportsCompositionTextures
     }
 
@@ -45,7 +49,11 @@ class IDCompositionDevice4 extends IDCompositionDevice3{
      * @returns {IDCompositionTexture} 
      */
     CreateCompositionTexture(d3dTexture) {
-        result := ComCall(38, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "HRESULT")
+        result := ComCall(38, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionTexture(compositionTexture)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Extends the IUIAutomationElement8 interface.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelement9
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationelement9
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -47,30 +47,32 @@ class IUIAutomationElement9 extends IUIAutomationElement8{
     /**
      * Retrieves the current is dialog window indicator for the element.
      * @remarks
-     * 
      * When the <b>CurrentIsDialog</b> property is <b>TRUE</b>, a client application can assume the current window is a dialog.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_currentisdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_currentisdialog
      */
     get_CurrentIsDialog() {
-        result := ComCall(117, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(117, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the cached is dialog window indicator for the element.
      * @remarks
-     * 
      * When the <b>CachedIsDialog</b> property is <b>TRUE</b>, a client application can assume the cached window is a dialog.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_cachedisdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement9-get_cachedisdialog
      */
     get_CachedIsDialog() {
-        result := ComCall(118, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(118, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

@@ -32,7 +32,7 @@
  * The actual implementation of composition and necessary bitblts is different for the bitblt model and the flip model. For more info about these models, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-flip-model">DXGI Flip Model</a>.
  * 
  * For more info about the flip-model swap chain and optimizing presentation, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-2-presentation-improvements">Enhancing presentation with the flip model, dirty rectangles, and scrolled areas</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_present_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_2/ns-dxgi1_2-dxgi_present_parameters
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

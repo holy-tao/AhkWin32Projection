@@ -5,7 +5,7 @@
 
 /**
  * Retrieves names and descriptive strings for codecs and formats.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmcodecstrings
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nn-wmcodecdsp-iwmcodecstrings
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -55,14 +55,18 @@ class IWMCodecStrings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getname
      */
     GetName(pmt, cchLength, szName, pcchLength) {
         szName := szName is String ? StrPtr(szName) : szName
 
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pmt, "uint", cchLength, "ptr", szName, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(3, this, "ptr", pmt, "uint", cchLength, "ptr", szName, pcchLengthMarshal, pcchLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,14 +95,18 @@ class IWMCodecStrings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmcodecstrings-getdescription
      */
     GetDescription(pmt, cchLength, szDescription, pcchLength) {
         szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
         pcchLengthMarshal := pcchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pmt, "uint", cchLength, "ptr", szDescription, pcchLengthMarshal, pcchLength, "HRESULT")
+        result := ComCall(4, this, "ptr", pmt, "uint", cchLength, "ptr", szDescription, pcchLengthMarshal, pcchLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

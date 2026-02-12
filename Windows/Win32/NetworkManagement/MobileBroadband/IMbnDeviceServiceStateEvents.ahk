@@ -36,9 +36,16 @@ class IMbnDeviceServiceStateEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnSessionsStateChange(interfaceID, stateChange) {
-        interfaceID := interfaceID is String ? BSTR.Alloc(interfaceID).Value : interfaceID
+        if(interfaceID is String) {
+            pin := BSTR.Alloc(interfaceID)
+            interfaceID := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", interfaceID, "int", stateChange, "HRESULT")
+        result := ComCall(3, this, "ptr", interfaceID, "int", stateChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

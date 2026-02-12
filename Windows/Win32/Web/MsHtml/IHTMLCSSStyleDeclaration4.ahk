@@ -396,9 +396,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAppearance(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -408,7 +415,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAppearance() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -418,9 +429,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitUserSelect(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -430,7 +448,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitUserSelect() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -440,9 +462,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxAlign(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -452,7 +481,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxAlign() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -462,7 +495,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxOrdinalGroup(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -472,7 +509,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxOrdinalGroup() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -482,9 +523,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxPack(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -494,7 +542,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxPack() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -504,7 +556,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxFlex(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -514,7 +570,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxFlex() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -524,9 +584,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxOrient(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -536,7 +603,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxOrient() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -546,9 +617,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxDirection(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -558,7 +636,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxDirection() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -568,9 +650,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransform(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -580,7 +669,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransform() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -590,9 +683,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundSize(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -602,7 +702,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundSize() {
         p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -612,9 +716,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackfaceVisibility(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -624,7 +735,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackfaceVisibility() {
         p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -634,9 +749,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimation(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -646,7 +768,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimation() {
         p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -656,9 +782,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransition(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -668,7 +801,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransition() {
         p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -678,9 +815,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationName(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -690,7 +834,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationName() {
         p := BSTR()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -700,9 +848,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationDuration(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -712,7 +867,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationDuration() {
         p := BSTR()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -722,9 +881,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationTimingFunction(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -734,7 +900,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationTimingFunction() {
         p := BSTR()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -744,9 +914,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationDelay(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -756,7 +933,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationDelay() {
         p := BSTR()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        result := ComCall(40, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -766,9 +947,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationIterationCount(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", v, "HRESULT")
+        result := ComCall(41, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -778,7 +966,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationIterationCount() {
         p := BSTR()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        result := ComCall(42, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -788,9 +980,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationDirection(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -800,7 +999,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationDirection() {
         p := BSTR()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -810,9 +1013,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationPlayState(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", v, "HRESULT")
+        result := ComCall(45, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -822,7 +1032,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationPlayState() {
         p := BSTR()
-        result := ComCall(46, this, "ptr", p, "HRESULT")
+        result := ComCall(46, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -832,9 +1046,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransitionProperty(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", v, "HRESULT")
+        result := ComCall(47, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -844,7 +1065,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransitionProperty() {
         p := BSTR()
-        result := ComCall(48, this, "ptr", p, "HRESULT")
+        result := ComCall(48, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -854,9 +1079,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransitionDuration(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(49, this, "ptr", v, "HRESULT")
+        result := ComCall(49, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -866,7 +1098,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransitionDuration() {
         p := BSTR()
-        result := ComCall(50, this, "ptr", p, "HRESULT")
+        result := ComCall(50, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -876,9 +1112,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransitionTimingFunction(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(51, this, "ptr", v, "HRESULT")
+        result := ComCall(51, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -888,7 +1131,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransitionTimingFunction() {
         p := BSTR()
-        result := ComCall(52, this, "ptr", p, "HRESULT")
+        result := ComCall(52, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -898,9 +1145,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransitionDelay(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(53, this, "ptr", v, "HRESULT")
+        result := ComCall(53, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -910,7 +1164,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransitionDelay() {
         p := BSTR()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        result := ComCall(54, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -920,9 +1178,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundAttachment(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(55, this, "ptr", v, "HRESULT")
+        result := ComCall(55, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -932,7 +1197,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundAttachment() {
         p := BSTR()
-        result := ComCall(56, this, "ptr", p, "HRESULT")
+        result := ComCall(56, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -942,7 +1211,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundColor(v) {
-        result := ComCall(57, this, "ptr", v, "HRESULT")
+        result := ComCall(57, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -952,7 +1225,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundColor() {
         p := VARIANT()
-        result := ComCall(58, this, "ptr", p, "HRESULT")
+        result := ComCall(58, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -962,9 +1239,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundClip(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(59, this, "ptr", v, "HRESULT")
+        result := ComCall(59, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -974,7 +1258,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundClip() {
         p := BSTR()
-        result := ComCall(60, this, "ptr", p, "HRESULT")
+        result := ComCall(60, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -984,9 +1272,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundImage(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(61, this, "ptr", v, "HRESULT")
+        result := ComCall(61, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -996,7 +1291,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundImage() {
         p := BSTR()
-        result := ComCall(62, this, "ptr", p, "HRESULT")
+        result := ComCall(62, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1006,9 +1305,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundRepeat(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(63, this, "ptr", v, "HRESULT")
+        result := ComCall(63, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1018,7 +1324,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundRepeat() {
         p := BSTR()
-        result := ComCall(64, this, "ptr", p, "HRESULT")
+        result := ComCall(64, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1028,9 +1338,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundOrigin(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(65, this, "ptr", v, "HRESULT")
+        result := ComCall(65, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1040,7 +1357,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundOrigin() {
         p := BSTR()
-        result := ComCall(66, this, "ptr", p, "HRESULT")
+        result := ComCall(66, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1050,9 +1371,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundPosition(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(67, this, "ptr", v, "HRESULT")
+        result := ComCall(67, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1062,7 +1390,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundPosition() {
         p := BSTR()
-        result := ComCall(68, this, "ptr", p, "HRESULT")
+        result := ComCall(68, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1072,7 +1404,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundPositionX(v) {
-        result := ComCall(69, this, "ptr", v, "HRESULT")
+        result := ComCall(69, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1082,7 +1418,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundPositionX() {
         p := VARIANT()
-        result := ComCall(70, this, "ptr", p, "HRESULT")
+        result := ComCall(70, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1092,7 +1432,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackgroundPositionY(v) {
-        result := ComCall(71, this, "ptr", v, "HRESULT")
+        result := ComCall(71, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1102,7 +1446,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackgroundPositionY() {
         p := VARIANT()
-        result := ComCall(72, this, "ptr", p, "HRESULT")
+        result := ComCall(72, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1112,9 +1460,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBackground(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(73, this, "ptr", v, "HRESULT")
+        result := ComCall(73, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1124,7 +1479,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBackground() {
         p := BSTR()
-        result := ComCall(74, this, "ptr", p, "HRESULT")
+        result := ComCall(74, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1134,9 +1493,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTransformOrigin(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(75, this, "ptr", v, "HRESULT")
+        result := ComCall(75, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1146,7 +1512,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTransformOrigin() {
         p := BSTR()
-        result := ComCall(76, this, "ptr", p, "HRESULT")
+        result := ComCall(76, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1156,7 +1526,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_msTextSizeAdjust(v) {
-        result := ComCall(77, this, "ptr", v, "HRESULT")
+        result := ComCall(77, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1166,7 +1540,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_msTextSizeAdjust() {
         p := VARIANT()
-        result := ComCall(78, this, "ptr", p, "HRESULT")
+        result := ComCall(78, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1176,7 +1554,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitTextSizeAdjust(v) {
-        result := ComCall(79, this, "ptr", v, "HRESULT")
+        result := ComCall(79, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1186,7 +1568,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitTextSizeAdjust() {
         p := VARIANT()
-        result := ComCall(80, this, "ptr", p, "HRESULT")
+        result := ComCall(80, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1196,9 +1582,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBorderImage(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(81, this, "ptr", v, "HRESULT")
+        result := ComCall(81, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1208,7 +1601,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBorderImage() {
         p := BSTR()
-        result := ComCall(82, this, "ptr", p, "HRESULT")
+        result := ComCall(82, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1218,9 +1615,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBorderImageSource(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(83, this, "ptr", v, "HRESULT")
+        result := ComCall(83, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1230,7 +1634,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBorderImageSource() {
         p := BSTR()
-        result := ComCall(84, this, "ptr", p, "HRESULT")
+        result := ComCall(84, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1240,9 +1648,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBorderImageSlice(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(85, this, "ptr", v, "HRESULT")
+        result := ComCall(85, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1252,7 +1667,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBorderImageSlice() {
         p := BSTR()
-        result := ComCall(86, this, "ptr", p, "HRESULT")
+        result := ComCall(86, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1262,9 +1681,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBorderImageWidth(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(87, this, "ptr", v, "HRESULT")
+        result := ComCall(87, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1274,7 +1700,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBorderImageWidth() {
         p := BSTR()
-        result := ComCall(88, this, "ptr", p, "HRESULT")
+        result := ComCall(88, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1284,9 +1714,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBorderImageOutset(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(89, this, "ptr", v, "HRESULT")
+        result := ComCall(89, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1296,7 +1733,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBorderImageOutset() {
         p := BSTR()
-        result := ComCall(90, this, "ptr", p, "HRESULT")
+        result := ComCall(90, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1306,9 +1747,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBorderImageRepeat(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(91, this, "ptr", v, "HRESULT")
+        result := ComCall(91, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1318,7 +1766,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBorderImageRepeat() {
         p := BSTR()
-        result := ComCall(92, this, "ptr", p, "HRESULT")
+        result := ComCall(92, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1328,9 +1780,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitBoxSizing(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(93, this, "ptr", v, "HRESULT")
+        result := ComCall(93, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1340,7 +1799,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitBoxSizing() {
         p := BSTR()
-        result := ComCall(94, this, "ptr", p, "HRESULT")
+        result := ComCall(94, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1350,9 +1813,16 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_webkitAnimationFillMode(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(95, this, "ptr", v, "HRESULT")
+        result := ComCall(95, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1362,7 +1832,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
      */
     get_webkitAnimationFillMode() {
         p := BSTR()
-        result := ComCall(96, this, "ptr", p, "HRESULT")
+        result := ComCall(96, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

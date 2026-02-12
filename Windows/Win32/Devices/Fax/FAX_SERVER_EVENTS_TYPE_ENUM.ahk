@@ -306,7 +306,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_server_events_type_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/ne-faxcomex-fax_server_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

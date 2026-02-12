@@ -79,7 +79,7 @@
  * objAppCollection.SaveChanges
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/cossdk/comadmincatalogobject
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/cossdk/comadmincatalogobject
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

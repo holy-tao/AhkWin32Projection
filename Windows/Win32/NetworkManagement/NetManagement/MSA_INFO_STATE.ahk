@@ -7,7 +7,7 @@
  * Service accounts  can be group managed and are called group managed service accounts (gMSA). Standalone managed service accounts (sMSA) are limited to being deployed to a single computer.
  * 
  * <b>Windows Server 2008 R2 and Windows 7:  </b> The managed service account (MSA) is limited to being deployed to a single computer.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ne-lmaccess-msa_info_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/ne-lmaccess-msa_info_state
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

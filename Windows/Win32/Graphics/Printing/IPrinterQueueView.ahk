@@ -41,7 +41,11 @@ class IPrinterQueueView extends IDispatch{
      * @returns {HRESULT} 
      */
     SetViewRange(ulViewOffset, ulViewSize) {
-        result := ComCall(7, this, "uint", ulViewOffset, "uint", ulViewSize, "HRESULT")
+        result := ComCall(7, this, "uint", ulViewOffset, "uint", ulViewSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

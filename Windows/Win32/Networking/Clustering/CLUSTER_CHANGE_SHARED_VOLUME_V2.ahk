@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_CHANGE_SHARED_VOLUME_V2 enumeration (msclus.h) defines the notifications that are generated for a cluster shared volume.
+ * CLUSTER_CHANGE_SHARED_VOLUME_V2 (clusapi.h) defines the notifications that are generated for a cluster shared volume.
  * @remarks
  * Protocol version 2.0 servers do not support this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_shared_volume_v2
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_change_shared_volume_v2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

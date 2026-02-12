@@ -54,7 +54,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMApplicationInfoEnumerator} 
      */
     get_AllApplications(Filter) {
-        result := ComCall(3, this, "ptr*", &ppAppEnum := 0, "ptr", Filter, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppAppEnum := 0, "ptr", Filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMApplicationInfoEnumerator(ppAppEnum)
     }
 
@@ -64,7 +68,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMTileInfoEnumerator} 
      */
     get_AllTiles(Filter) {
-        result := ComCall(4, this, "ptr*", &ppTileEnum := 0, "ptr", Filter, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppTileEnum := 0, "ptr", Filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTileInfoEnumerator(ppTileEnum)
     }
 
@@ -74,7 +82,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMTaskInfoEnumerator} 
      */
     get_AllTasks(Filter) {
-        result := ComCall(5, this, "ptr*", &ppTaskEnum := 0, "ptr", Filter, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppTaskEnum := 0, "ptr", Filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTaskInfoEnumerator(ppTaskEnum)
     }
 
@@ -84,7 +96,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMExtensionInfoEnumerator} 
      */
     get_AllExtensions(Filter) {
-        result := ComCall(6, this, "ptr*", &ppExtensionEnum := 0, "ptr", Filter, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppExtensionEnum := 0, "ptr", Filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMExtensionInfoEnumerator(ppExtensionEnum)
     }
 
@@ -94,7 +110,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMBackgroundServiceAgentInfoEnumerator} 
      */
     get_AllBackgroundServiceAgents(Filter) {
-        result := ComCall(7, this, "ptr*", &ppBSAEnum := 0, "ptr", Filter, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppBSAEnum := 0, "ptr", Filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMBackgroundServiceAgentInfoEnumerator(ppBSAEnum)
     }
 
@@ -104,7 +124,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMBackgroundWorkerInfoEnumerator} 
      */
     get_AllBackgroundWorkers(Filter) {
-        result := ComCall(8, this, "ptr*", &ppBSWEnum := 0, "ptr", Filter, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppBSWEnum := 0, "ptr", Filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMBackgroundWorkerInfoEnumerator(ppBSWEnum)
     }
 
@@ -114,7 +138,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMApplicationInfo} 
      */
     get_ApplicationInfo(ProductID) {
-        result := ComCall(9, this, "ptr", ProductID, "ptr*", &ppAppInfo := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", ProductID, "ptr*", &ppAppInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMApplicationInfo(ppAppInfo)
     }
 
@@ -125,9 +153,16 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMTileInfo} 
      */
     get_TileInfo(ProductID, TileID) {
-        TileID := TileID is String ? BSTR.Alloc(TileID).Value : TileID
+        if(TileID is String) {
+            pin := BSTR.Alloc(TileID)
+            TileID := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", ProductID, "ptr", TileID, "ptr*", &ppTileInfo := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", ProductID, "ptr", TileID, "ptr*", &ppTileInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTileInfo(ppTileInfo)
     }
 
@@ -138,9 +173,16 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMTaskInfo} 
      */
     get_TaskInfo(ProductID, TaskID) {
-        TaskID := TaskID is String ? BSTR.Alloc(TaskID).Value : TaskID
+        if(TaskID is String) {
+            pin := BSTR.Alloc(TaskID)
+            TaskID := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", ProductID, "ptr", TaskID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", ProductID, "ptr", TaskID, "ptr*", &ppTaskInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTaskInfo(ppTaskInfo)
     }
 
@@ -153,7 +195,11 @@ class IPMEnumerationManager extends IUnknown{
     get_TaskInfoEx(ProductID, TaskID) {
         TaskID := TaskID is String ? StrPtr(TaskID) : TaskID
 
-        result := ComCall(12, this, "ptr", ProductID, "ptr", TaskID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", ProductID, "ptr", TaskID, "ptr*", &ppTaskInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTaskInfo(ppTaskInfo)
     }
 
@@ -163,7 +209,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMBackgroundServiceAgentInfo} 
      */
     get_BackgroundServiceAgentInfo(BSAID) {
-        result := ComCall(13, this, "uint", BSAID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        result := ComCall(13, this, "uint", BSAID, "ptr*", &ppTaskInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMBackgroundServiceAgentInfo(ppTaskInfo)
     }
 
@@ -172,7 +222,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMLiveTileJobInfoEnumerator} 
      */
     get_AllLiveTileJobs() {
-        result := ComCall(14, this, "ptr*", &ppLiveTileJobEnum := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppLiveTileJobEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMLiveTileJobInfoEnumerator(ppLiveTileJobEnum)
     }
 
@@ -184,9 +238,16 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMLiveTileJobInfo} 
      */
     get_LiveTileJob(ProductID, TileID, RecurrenceType) {
-        TileID := TileID is String ? BSTR.Alloc(TileID).Value : TileID
+        if(TileID is String) {
+            pin := BSTR.Alloc(TileID)
+            TileID := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", ProductID, "ptr", TileID, "int", RecurrenceType, "ptr*", &ppLiveTileJobInfo := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", ProductID, "ptr", TileID, "int", RecurrenceType, "ptr*", &ppLiveTileJobInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMLiveTileJobInfo(ppLiveTileJobInfo)
     }
 
@@ -196,7 +257,11 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMApplicationInfo} 
      */
     get_ApplicationInfoExternal(ProductID) {
-        result := ComCall(16, this, "ptr", ProductID, "ptr*", &ppAppInfo := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", ProductID, "ptr*", &ppAppInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMApplicationInfo(ppAppInfo)
     }
 
@@ -208,9 +273,16 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {HRESULT} 
      */
     get_FileHandlerGenericLogo(FileType, LogoSize, pLogo) {
-        FileType := FileType is String ? BSTR.Alloc(FileType).Value : FileType
+        if(FileType is String) {
+            pin := BSTR.Alloc(FileType)
+            FileType := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", FileType, "int", LogoSize, "ptr", pLogo, "HRESULT")
+        result := ComCall(17, this, "ptr", FileType, "int", LogoSize, "ptr", pLogo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,10 +293,20 @@ class IPMEnumerationManager extends IUnknown{
      * @returns {IPMApplicationInfo} 
      */
     get_ApplicationInfoFromAccessClaims(SysAppID0, SysAppID1) {
-        SysAppID0 := SysAppID0 is String ? BSTR.Alloc(SysAppID0).Value : SysAppID0
-        SysAppID1 := SysAppID1 is String ? BSTR.Alloc(SysAppID1).Value : SysAppID1
+        if(SysAppID0 is String) {
+            pin := BSTR.Alloc(SysAppID0)
+            SysAppID0 := pin.Value
+        }
+        if(SysAppID1 is String) {
+            pin := BSTR.Alloc(SysAppID1)
+            SysAppID1 := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", SysAppID0, "ptr", SysAppID1, "ptr*", &ppAppInfo := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", SysAppID0, "ptr", SysAppID1, "ptr*", &ppAppInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMApplicationInfo(ppAppInfo)
     }
 
@@ -239,7 +321,11 @@ class IPMEnumerationManager extends IUnknown{
         pcTilesMarshal := pcTiles is VarRef ? "uint*" : "ptr"
         ppTileBlobsMarshal := ppTileBlobs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "ptr", Filter, pcTilesMarshal, pcTiles, ppTileBlobsMarshal, ppTileBlobs, "HRESULT")
+        result := ComCall(19, this, "ptr", Filter, pcTilesMarshal, pcTiles, ppTileBlobsMarshal, ppTileBlobs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -254,7 +340,11 @@ class IPMEnumerationManager extends IUnknown{
         pcAppsMarshal := pcApps is VarRef ? "uint*" : "ptr"
         ppAppBlobsMarshal := ppAppBlobs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", Filter, pcAppsMarshal, pcApps, ppAppBlobsMarshal, ppAppBlobs, "HRESULT")
+        result := ComCall(20, this, "ptr", Filter, pcAppsMarshal, pcApps, ppAppBlobsMarshal, ppAppBlobs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

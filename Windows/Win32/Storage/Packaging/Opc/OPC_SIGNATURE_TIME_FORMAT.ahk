@@ -125,7 +125,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/ne-msopc-opc_signature_time_format
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

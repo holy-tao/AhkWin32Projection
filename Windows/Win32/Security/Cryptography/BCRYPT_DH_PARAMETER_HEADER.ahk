@@ -39,7 +39,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dh_parameter_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/ns-bcrypt-bcrypt_dh_parameter_header
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

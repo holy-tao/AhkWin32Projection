@@ -34,13 +34,17 @@ class IDataModelNameBinder extends IUnknown{
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
      * @param {Pointer<IModelObject>} value 
-     * @param {Pointer<IKeyStore>} metadata 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
      * @returns {HRESULT} 
      */
     BindValue(contextObject, name, value, metadata) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", contextObject, "ptr", name, "ptr*", value, "ptr*", metadata, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "ptr", name, "ptr*", value, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,34 +52,46 @@ class IDataModelNameBinder extends IUnknown{
      * 
      * @param {IModelObject} contextObject 
      * @param {PWSTR} name 
-     * @param {Pointer<IModelObject>} reference 
-     * @param {Pointer<IKeyStore>} metadata 
+     * @param {Pointer<IModelObject>} reference_ 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
      * @returns {HRESULT} 
      */
-    BindReference(contextObject, name, reference, metadata) {
+    BindReference(contextObject, name, reference_, metadata) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "ptr", contextObject, "ptr", name, "ptr*", reference, "ptr*", metadata, "HRESULT")
+        result := ComCall(4, this, "ptr", contextObject, "ptr", name, "ptr*", reference_, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateValues(contextObject) {
-        result := ComCall(5, this, "ptr", contextObject, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(5, this, "ptr", contextObject, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateReferences(contextObject) {
-        result := ComCall(6, this, "ptr", contextObject, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(6, this, "ptr", contextObject, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 }

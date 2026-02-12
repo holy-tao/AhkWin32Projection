@@ -5,16 +5,13 @@
 #Include .\D3D11_SHADER_INPUT_BIND_DESC.ahk
 
 /**
- * A function-reflection interface accesses function info.
+ * A function-reflection interface accesses function info. (ID3D11FunctionReflection)
  * @remarks
- * 
  * To get a function-reflection interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11libraryreflection-getfunctionbyindex">ID3D11LibraryReflection::GetFunctionByIndex</a>. This isn't a COM interface, so you don't need to worry about reference counts or releasing the interface when you're done with it.
  * 
  * <div class="alert"><b>Note</b>  <b>ID3D11FunctionReflection</b> requires the D3dcompiler_47.dll or a later version of the DLL. </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11functionreflection
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nn-d3d11shader-id3d11functionreflection
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -40,27 +37,33 @@ class ID3D11FunctionReflection extends Win32ComInterface{
     static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetVariableByName", "GetResourceBindingDescByName", "GetFunctionParameter"]
 
     /**
-     * Fills the function descriptor structure for the function.
+     * Fills the function descriptor structure for the function. (ID3D11FunctionReflection.GetDesc)
      * @returns {D3D11_FUNCTION_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_function_desc">D3D11_FUNCTION_DESC</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_function_desc">D3D11_FUNCTION_DESC</a> structure that receives a description of the function.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D11_FUNCTION_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 
     /**
-     * Gets a constant buffer by index for a function.
+     * The ID3D11FunctionReflection::GetConstantBufferByIndex (d3d11shader.h) method gets a constant buffer by index for a function.
+     * @remarks
+     * A constant buffer supplies either scalar constants or texture constants to a shader. A shader can use one or more constant buffers. For best performance, separate constants into buffers based on the frequency they are updated.
      * @param {Integer} BufferIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Zero-based index.
-     * @returns {ID3D11ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a>*</b>
+     * @returns {ID3D11ShaderReflectionConstantBuffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a>*</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a> interface that represents the constant buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getconstantbufferbyindex
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a> interface that represents the constant buffer.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(BufferIndex) {
         result := ComCall(1, this, "uint", BufferIndex, "ptr")
@@ -68,14 +71,16 @@ class ID3D11FunctionReflection extends Win32ComInterface{
     }
 
     /**
-     * Gets a constant buffer by name for a function.
+     * Gets a constant buffer by name for a function. (ID3D11FunctionReflection.GetConstantBufferByName)
+     * @remarks
+     * A constant buffer supplies either scalar constants or texture constants to a shader. A shader can use one or more constant buffers. For best performance, separate constants into buffers based on the frequency they are updated.
      * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The constant-buffer name.
-     * @returns {ID3D11ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a>*</b>
+     * @returns {ID3D11ShaderReflectionConstantBuffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a>*</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a> interface that represents the constant buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getconstantbufferbyname
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionconstantbuffer">ID3D11ShaderReflectionConstantBuffer</a> interface that represents the constant buffer.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -85,30 +90,36 @@ class ID3D11FunctionReflection extends Win32ComInterface{
     }
 
     /**
-     * Gets a description of how a resource is bound to a function.
+     * Gets a description of how a resource is bound to a function. (ID3D11FunctionReflection.GetResourceBindingDesc)
+     * @remarks
+     * A shader consists of executable code (the compiled HLSL functions) and a set of resources that supply the shader with input data. <b>GetResourceBindingDesc</b> gets info about how one resource in the set is bound as an input to the shader. The  <i>ResourceIndex</i> parameter specifies the index for the resource.
      * @param {Integer} ResourceIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A zero-based resource index.
      * @returns {D3D11_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a> structure that describes input binding of the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getresourcebindingdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getresourcebindingdesc
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
-        result := ComCall(3, this, "uint", ResourceIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(3, this, "uint", ResourceIndex, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 
     /**
-     * Gets a variable by name.
+     * Gets a variable by name. (ID3D11FunctionReflection.GetVariableByName)
      * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A pointer to a string containing the variable name.
-     * @returns {ID3D11ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable</a>*</b>
+     * @returns {ID3D11ShaderReflectionVariable} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable</a>*</b>
      * 
-     * Returns a <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable Interface</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getvariablebyname
+     * Returns a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11shaderreflectionvariable">ID3D11ShaderReflectionVariable Interface</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -118,32 +129,38 @@ class ID3D11FunctionReflection extends Win32ComInterface{
     }
 
     /**
-     * Gets a description of how a resource is bound to a function.
+     * Gets a description of how a resource is bound to a function. (ID3D11FunctionReflection.GetResourceBindingDescByName)
+     * @remarks
+     * A shader consists of executable code (the compiled HLSL functions) and a set of resources that supply the shader with input data. <b>GetResourceBindingDescByName</b> gets info about how one resource in the set is bound as an input to the shader. The  <i>Name</i> parameter specifies the name of the resource.
      * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The constant-buffer name of the resource.
      * @returns {D3D11_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc">D3D11_SHADER_INPUT_BIND_DESC</a> structure that describes input binding of the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getresourcebindingdescbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getresourcebindingdescbyname
      */
     GetResourceBindingDescByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
         pDesc := D3D11_SHADER_INPUT_BIND_DESC()
-        result := ComCall(5, this, "ptr", Name, "ptr", pDesc, "HRESULT")
+        result := ComCall(5, this, "ptr", Name, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 
     /**
-     * Gets the function parameter reflector.
+     * Gets the function parameter reflector. (ID3D11FunctionReflection.GetFunctionParameter)
      * @param {Integer} ParameterIndex Type: <b>INT</b>
      * 
      * The zero-based index of the function parameter reflector to retrieve.
-     * @returns {ID3D11FunctionParameterReflection} Type: <b><a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11functionparameterreflection">ID3D11FunctionParameterReflection</a>*</b>
+     * @returns {ID3D11FunctionParameterReflection} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11functionparameterreflection">ID3D11FunctionParameterReflection</a>*</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11functionparameterreflection">ID3D11FunctionParameterReflection</a> interface that represents the function parameter reflector.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionreflection-getfunctionparameter
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11functionparameterreflection">ID3D11FunctionParameterReflection</a> interface that represents the function parameter reflector.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionreflection-getfunctionparameter
      */
     GetFunctionParameter(ParameterIndex) {
         result := ComCall(6, this, "int", ParameterIndex, "ptr")

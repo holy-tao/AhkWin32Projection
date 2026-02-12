@@ -7,11 +7,8 @@
 /**
  * Use this interface to retrieve block information for one segment of the result file image.
  * @remarks
- * 
  * This is a <b>ProgressItem</b> object in script.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-iprogressitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-iprogressitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -73,41 +70,57 @@ class IProgressItem extends IDispatch{
     /**
      * Retrieves the description in the progress item.
      * @returns {BSTR} String containing the description. The description contains the name of the file in the file system image.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitem-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-iprogressitem-get_description
      */
     get_Description() {
         desc := BSTR()
-        result := ComCall(7, this, "ptr", desc, "HRESULT")
+        result := ComCall(7, this, "ptr", desc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return desc
     }
 
     /**
      * Retrieves the first block number in this segment of the result image.
      * @returns {Integer} First block number of this segment.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitem-get_firstblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-iprogressitem-get_firstblock
      */
     get_FirstBlock() {
-        result := ComCall(8, this, "uint*", &block := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &block := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return block
     }
 
     /**
      * Retrieves the last block in this segment of the result image.
      * @returns {Integer} Number of the last block of this segment.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitem-get_lastblock
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-iprogressitem-get_lastblock
      */
     get_LastBlock() {
-        result := ComCall(9, this, "uint*", &block := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &block := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return block
     }
 
     /**
      * Retrieves the number of blocks in the progress item.
      * @returns {Integer} Number of blocks in the segment.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-iprogressitem-get_blockcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-iprogressitem-get_blockcount
      */
     get_BlockCount() {
-        result := ComCall(10, this, "uint*", &blocks := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &blocks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return blocks
     }
 }

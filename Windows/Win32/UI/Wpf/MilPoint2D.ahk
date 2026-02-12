@@ -3,7 +3,7 @@
 
 /**
  * Represents an x- and y-coordinate pair in two-dimensional space.M
- * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milpoint2d
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/ns-mileffects-milpoint2d
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */

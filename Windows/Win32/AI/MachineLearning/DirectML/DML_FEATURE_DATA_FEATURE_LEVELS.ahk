@@ -3,7 +3,7 @@
 
 /**
  * Provides detail about the feature levels supported by a DirectML device.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_feature_data_feature_levels
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_feature_data_feature_levels
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

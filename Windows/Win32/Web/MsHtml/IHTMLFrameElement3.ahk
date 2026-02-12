@@ -65,7 +65,11 @@ class IHTMLFrameElement3 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_contentDocument() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -75,9 +79,16 @@ class IHTMLFrameElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_src(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +98,11 @@ class IHTMLFrameElement3 extends IDispatch{
      */
     get_src() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -97,9 +112,16 @@ class IHTMLFrameElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_longDesc(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +131,11 @@ class IHTMLFrameElement3 extends IDispatch{
      */
     get_longDesc() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -119,9 +145,16 @@ class IHTMLFrameElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_frameBorder(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +164,11 @@ class IHTMLFrameElement3 extends IDispatch{
      */
     get_frameBorder() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

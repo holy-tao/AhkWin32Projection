@@ -6,7 +6,7 @@
 
 /**
  * The IADsServiceOperations interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsserviceoperations
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsserviceoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -43,60 +43,89 @@ class IADsServiceOperations extends IADs{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * The IADsServiceOperations::Start method starts a network service.
-     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-start
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsserviceoperations-start
      */
     Start() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsServiceOperations::Stop method stops a currently active network service.
-     * @returns {HRESULT} This method supports standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-stop
+     * @returns {HRESULT} This method supports standard return values, including S_OK. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsserviceoperations-stop
      */
     Stop() {
-        result := ComCall(22, this, "HRESULT")
+        result := ComCall(22, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsServiceOperations::Pause method pauses a service started with the IADsServiceOperations::Start method.
-     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-pause
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsserviceoperations-pause
      */
     Pause() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsServiceOperations::Continue method resumes a service operation paused by the IADsServiceOperations::Pause method.
-     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-continue
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsserviceoperations-continue
      */
     Continue() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsServiceOperations::SetPassword method sets the password for the account used by the service manager. This method is called when the security context for this service is created.
+     * @remarks
+     * The property <a href="https://docs.microsoft.com/windows/desktop/ADSI/iadsservice-property-methods">IADsService::get_ServiceAccountName</a> identifies the account for which this password is to be set.
      * @param {BSTR} bstrNewPassword The null-terminated Unicode string to be stored as the new password.
-     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-setpassword
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsserviceoperations-setpassword
      */
     SetPassword(bstrNewPassword) {
-        bstrNewPassword := bstrNewPassword is String ? BSTR.Alloc(bstrNewPassword).Value : bstrNewPassword
+        if(bstrNewPassword is String) {
+            pin := BSTR.Alloc(bstrNewPassword)
+            bstrNewPassword := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrNewPassword, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrNewPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

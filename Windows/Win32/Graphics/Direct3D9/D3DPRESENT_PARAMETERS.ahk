@@ -4,7 +4,7 @@
 
 /**
  * Describes the presentation parameters.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dpresent-parameters
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dpresent-parameters
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

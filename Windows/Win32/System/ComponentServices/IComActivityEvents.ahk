@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if an activity is created, destroyed, or timed out.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomactivityevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomactivityevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Pointer<Guid>} guidActivity The GUID associated with the current activity.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivitycreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivitycreate
      */
     OnActivityCreate(pInfo, guidActivity) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "ptr", guidActivity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,10 +51,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Pointer<Guid>} guidActivity The GUID associated with the current activity.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivitydestroy
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivitydestroy
      */
     OnActivityDestroy(pInfo, guidActivity) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidActivity, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "ptr", guidActivity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,10 +69,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Pointer<Guid>} guidEntered The GUID associated with the activity thread entered.
      * @param {Integer} dwThread The identifier of the activity thread.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivityenter
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivityenter
      */
     OnActivityEnter(pInfo, guidCurrent, guidEntered, dwThread) {
-        result := ComCall(5, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidEntered, "uint", dwThread, "HRESULT")
+        result := ComCall(5, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidEntered, "uint", dwThread, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,10 +88,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Integer} dwThread The identifier of the  thread executing the call.
      * @param {Integer} dwTimeout The time-out period.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivitytimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivitytimeout
      */
     OnActivityTimeout(pInfo, guidCurrent, guidEntered, dwThread, dwTimeout) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidEntered, "uint", dwThread, "uint", dwTimeout, "HRESULT")
+        result := ComCall(6, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidEntered, "uint", dwThread, "uint", dwTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,10 +106,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Integer} dwThread The identifier of the activity thread.
      * @param {Integer} dwCallDepth The recursion depth.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivityreenter
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivityreenter
      */
     OnActivityReenter(pInfo, guidCurrent, dwThread, dwCallDepth) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidCurrent, "uint", dwThread, "uint", dwCallDepth, "HRESULT")
+        result := ComCall(7, this, "ptr", pInfo, "ptr", guidCurrent, "uint", dwThread, "uint", dwCallDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,10 +123,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Pointer<Guid>} guidCurrent The GUID associated with the caller.
      * @param {Pointer<Guid>} guidLeft The GUID associated with the activity thread left.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivityleave
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivityleave
      */
     OnActivityLeave(pInfo, guidCurrent, guidLeft) {
-        result := ComCall(8, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidLeft, "HRESULT")
+        result := ComCall(8, this, "ptr", pInfo, "ptr", guidCurrent, "ptr", guidLeft, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,10 +140,14 @@ class IComActivityEvents extends IUnknown{
      * @param {Pointer<Guid>} guidCurrent The GUID associated with the caller.
      * @param {Integer} dwCallDepth The recursion depth.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomactivityevents-onactivityleavesame
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomactivityevents-onactivityleavesame
      */
     OnActivityLeaveSame(pInfo, guidCurrent, dwCallDepth) {
-        result := ComCall(9, this, "ptr", pInfo, "ptr", guidCurrent, "uint", dwCallDepth, "HRESULT")
+        result := ComCall(9, this, "ptr", pInfo, "ptr", guidCurrent, "uint", dwCallDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

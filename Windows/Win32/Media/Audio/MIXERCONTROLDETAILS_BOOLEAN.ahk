@@ -41,7 +41,7 @@
  * MIXERCONTROL_CONTROLTYPE_MUX
  * 
  * MIXERCONTROL_CONTROLTYPE_SINGLESELECT
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails_boolean
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/ns-mmeapi-mixercontroldetails_boolean
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

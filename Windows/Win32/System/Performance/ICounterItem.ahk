@@ -86,17 +86,25 @@ class ICounterItem extends IUnknown{
      * @returns {Float} 
      */
     get_Value() {
-        result := ComCall(3, this, "double*", &pdblValue := 0, "HRESULT")
+        result := ComCall(3, this, "double*", &pdblValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdblValue
     }
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} Color_ 
      * @returns {HRESULT} 
      */
-    put_Color(Color) {
-        result := ComCall(4, this, "uint", Color, "HRESULT")
+    put_Color(Color_) {
+        result := ComCall(4, this, "uint", Color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +113,11 @@ class ICounterItem extends IUnknown{
      * @returns {Integer} 
      */
     get_Color() {
-        result := ComCall(5, this, "uint*", &pColor := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pColor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pColor
     }
 
@@ -115,7 +127,11 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Width(iWidth) {
-        result := ComCall(6, this, "int", iWidth, "HRESULT")
+        result := ComCall(6, this, "int", iWidth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +140,11 @@ class ICounterItem extends IUnknown{
      * @returns {Integer} 
      */
     get_Width() {
-        result := ComCall(7, this, "int*", &piValue := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &piValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piValue
     }
 
@@ -134,7 +154,11 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     put_LineStyle(iLineStyle) {
-        result := ComCall(8, this, "int", iLineStyle, "HRESULT")
+        result := ComCall(8, this, "int", iLineStyle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +167,11 @@ class ICounterItem extends IUnknown{
      * @returns {Integer} 
      */
     get_LineStyle() {
-        result := ComCall(9, this, "int*", &piValue := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &piValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piValue
     }
 
@@ -153,7 +181,11 @@ class ICounterItem extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ScaleFactor(iScale) {
-        result := ComCall(10, this, "int", iScale, "HRESULT")
+        result := ComCall(10, this, "int", iScale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +194,11 @@ class ICounterItem extends IUnknown{
      * @returns {Integer} 
      */
     get_ScaleFactor() {
-        result := ComCall(11, this, "int*", &piValue := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &piValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piValue
     }
 
@@ -172,21 +208,30 @@ class ICounterItem extends IUnknown{
      */
     get_Path() {
         pstrValue := BSTR()
-        result := ComCall(12, this, "ptr", pstrValue, "HRESULT")
+        result := ComCall(12, this, "ptr", pstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrValue
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Pointer<Float>} Value 
-     * @param {Pointer<Integer>} Status 
+     * @param {Pointer<Integer>} Status_ 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecmetadata-getvalueandname
      */
-    GetValue(Value, Status) {
+    GetValue(Value, Status_) {
         ValueMarshal := Value is VarRef ? "double*" : "ptr"
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+        Status_Marshal := Status_ is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, ValueMarshal, Value, StatusMarshal, Status, "HRESULT")
+        result := ComCall(13, this, ValueMarshal, Value, Status_Marshal, Status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -195,16 +240,20 @@ class ICounterItem extends IUnknown{
      * @param {Pointer<Float>} Max 
      * @param {Pointer<Float>} Min 
      * @param {Pointer<Float>} Avg 
-     * @param {Pointer<Integer>} Status 
+     * @param {Pointer<Integer>} Status_ 
      * @returns {HRESULT} 
      */
-    GetStatistics(Max, Min, Avg, Status) {
+    GetStatistics(Max, Min, Avg, Status_) {
         MaxMarshal := Max is VarRef ? "double*" : "ptr"
         MinMarshal := Min is VarRef ? "double*" : "ptr"
         AvgMarshal := Avg is VarRef ? "double*" : "ptr"
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
+        Status_Marshal := Status_ is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, StatusMarshal, Status, "HRESULT")
+        result := ComCall(14, this, MaxMarshal, Max, MinMarshal, Min, AvgMarshal, Avg, Status_Marshal, Status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

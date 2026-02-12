@@ -73,7 +73,7 @@
  *     }
  * }
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawmouse
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-rawmouse
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

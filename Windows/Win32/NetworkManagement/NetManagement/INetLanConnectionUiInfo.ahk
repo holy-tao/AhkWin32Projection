@@ -34,7 +34,11 @@ class INetLanConnectionUiInfo extends IUnknown{
      */
     GetDeviceGuid() {
         pguid := Guid()
-        result := ComCall(3, this, "ptr", pguid, "HRESULT")
+        result := ComCall(3, this, "ptr", pguid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguid
     }
 }

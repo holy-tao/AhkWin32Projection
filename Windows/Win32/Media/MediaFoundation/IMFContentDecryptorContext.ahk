@@ -5,7 +5,7 @@
 
 /**
  * Allows a decryptor to manage hardware keys and decrypt hardware samples.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfcontentdecryptorcontext
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfcontentdecryptorcontext
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,12 +37,16 @@ class IMFContentDecryptorContext extends IUnknown{
      *          the protection system that runs in the security processor. The contents may contain data about license or stream properties.
      * @returns {Integer} The return data is also defined by the implementation of the protection system implementation   
      *      that runs in the security processor.  The contents may contain data associated with the underlying hardware key.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentdecryptorcontext-initializehardwarekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfcontentdecryptorcontext-initializehardwarekey
      */
     InitializeHardwareKey(InputPrivateDataByteCount, InputPrivateData) {
         InputPrivateDataMarshal := InputPrivateData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "HRESULT")
+        result := ComCall(3, this, "uint", InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return OutputPrivateData
     }
 }

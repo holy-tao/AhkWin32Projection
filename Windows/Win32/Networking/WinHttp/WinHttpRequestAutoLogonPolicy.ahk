@@ -8,7 +8,7 @@
  * 
  * > [!Note]  
  * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP start page.
- * @see https://learn.microsoft.com/windows/win32/WinHttp/winhttprequestautologonpolicy
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WinHttp/winhttprequestautologonpolicy
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

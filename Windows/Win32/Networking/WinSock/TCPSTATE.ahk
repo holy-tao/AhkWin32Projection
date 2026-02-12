@@ -10,7 +10,7 @@
  *   containing the SYN, ACK, RST and FIN flags; and timeouts.
  * 
  * For more information about TCP connection states, see <a href="https://tools.ietf.org/html/rfc793">RFC 793</a>.
- * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-tcpstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstcpip/ne-mstcpip-tcpstate
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

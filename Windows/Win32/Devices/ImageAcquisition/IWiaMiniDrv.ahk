@@ -43,13 +43,23 @@ class IWiaMiniDrv extends IUnknown{
      * @returns {HRESULT} 
      */
     drvInitializeWia(__MIDL__IWiaMiniDrv0000, __MIDL__IWiaMiniDrv0001, __MIDL__IWiaMiniDrv0002, __MIDL__IWiaMiniDrv0003, __MIDL__IWiaMiniDrv0004, __MIDL__IWiaMiniDrv0005, __MIDL__IWiaMiniDrv0006, __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008) {
-        __MIDL__IWiaMiniDrv0002 := __MIDL__IWiaMiniDrv0002 is String ? BSTR.Alloc(__MIDL__IWiaMiniDrv0002).Value : __MIDL__IWiaMiniDrv0002
-        __MIDL__IWiaMiniDrv0003 := __MIDL__IWiaMiniDrv0003 is String ? BSTR.Alloc(__MIDL__IWiaMiniDrv0003).Value : __MIDL__IWiaMiniDrv0003
+        if(__MIDL__IWiaMiniDrv0002 is String) {
+            pin := BSTR.Alloc(__MIDL__IWiaMiniDrv0002)
+            __MIDL__IWiaMiniDrv0002 := pin.Value
+        }
+        if(__MIDL__IWiaMiniDrv0003 is String) {
+            pin := BSTR.Alloc(__MIDL__IWiaMiniDrv0003)
+            __MIDL__IWiaMiniDrv0003 := pin.Value
+        }
 
         __MIDL__IWiaMiniDrv0000Marshal := __MIDL__IWiaMiniDrv0000 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0008Marshal := __MIDL__IWiaMiniDrv0008 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, __MIDL__IWiaMiniDrv0000Marshal, __MIDL__IWiaMiniDrv0000, "int", __MIDL__IWiaMiniDrv0001, "ptr", __MIDL__IWiaMiniDrv0002, "ptr", __MIDL__IWiaMiniDrv0003, "ptr", __MIDL__IWiaMiniDrv0004, "ptr", __MIDL__IWiaMiniDrv0005, "ptr*", __MIDL__IWiaMiniDrv0006, "ptr*", __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008Marshal, __MIDL__IWiaMiniDrv0008, "HRESULT")
+        result := ComCall(3, this, __MIDL__IWiaMiniDrv0000Marshal, __MIDL__IWiaMiniDrv0000, "int", __MIDL__IWiaMiniDrv0001, "ptr", __MIDL__IWiaMiniDrv0002, "ptr", __MIDL__IWiaMiniDrv0003, "ptr", __MIDL__IWiaMiniDrv0004, "ptr", __MIDL__IWiaMiniDrv0005, "ptr*", __MIDL__IWiaMiniDrv0006, "ptr*", __MIDL__IWiaMiniDrv0007, __MIDL__IWiaMiniDrv0008Marshal, __MIDL__IWiaMiniDrv0008, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +73,11 @@ class IWiaMiniDrv extends IUnknown{
     drvAcquireItemData(__MIDL__IWiaMiniDrv0009, __MIDL__IWiaMiniDrv0010, __MIDL__IWiaMiniDrv0011) {
         __MIDL__IWiaMiniDrv0009Marshal := __MIDL__IWiaMiniDrv0009 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, __MIDL__IWiaMiniDrv0009Marshal, __MIDL__IWiaMiniDrv0009, "int", __MIDL__IWiaMiniDrv0010, "ptr", __MIDL__IWiaMiniDrv0011, "int*", &__MIDL__IWiaMiniDrv0012 := 0, "HRESULT")
+        result := ComCall(4, this, __MIDL__IWiaMiniDrv0009Marshal, __MIDL__IWiaMiniDrv0009, "int", __MIDL__IWiaMiniDrv0010, "ptr", __MIDL__IWiaMiniDrv0011, "int*", &__MIDL__IWiaMiniDrv0012 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0012
     }
 
@@ -76,7 +90,11 @@ class IWiaMiniDrv extends IUnknown{
     drvInitItemProperties(__MIDL__IWiaMiniDrv0013, __MIDL__IWiaMiniDrv0014) {
         __MIDL__IWiaMiniDrv0013Marshal := __MIDL__IWiaMiniDrv0013 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, __MIDL__IWiaMiniDrv0013Marshal, __MIDL__IWiaMiniDrv0013, "int", __MIDL__IWiaMiniDrv0014, "int*", &__MIDL__IWiaMiniDrv0015 := 0, "HRESULT")
+        result := ComCall(5, this, __MIDL__IWiaMiniDrv0013Marshal, __MIDL__IWiaMiniDrv0013, "int", __MIDL__IWiaMiniDrv0014, "int*", &__MIDL__IWiaMiniDrv0015 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0015
     }
 
@@ -91,7 +109,11 @@ class IWiaMiniDrv extends IUnknown{
     drvValidateItemProperties(__MIDL__IWiaMiniDrv0016, __MIDL__IWiaMiniDrv0017, __MIDL__IWiaMiniDrv0018, __MIDL__IWiaMiniDrv0019) {
         __MIDL__IWiaMiniDrv0016Marshal := __MIDL__IWiaMiniDrv0016 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, __MIDL__IWiaMiniDrv0016Marshal, __MIDL__IWiaMiniDrv0016, "int", __MIDL__IWiaMiniDrv0017, "uint", __MIDL__IWiaMiniDrv0018, "ptr", __MIDL__IWiaMiniDrv0019, "int*", &__MIDL__IWiaMiniDrv0020 := 0, "HRESULT")
+        result := ComCall(6, this, __MIDL__IWiaMiniDrv0016Marshal, __MIDL__IWiaMiniDrv0016, "int", __MIDL__IWiaMiniDrv0017, "uint", __MIDL__IWiaMiniDrv0018, "ptr", __MIDL__IWiaMiniDrv0019, "int*", &__MIDL__IWiaMiniDrv0020 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0020
     }
 
@@ -105,7 +127,11 @@ class IWiaMiniDrv extends IUnknown{
     drvWriteItemProperties(__MIDL__IWiaMiniDrv0021, __MIDL__IWiaMiniDrv0022, __MIDL__IWiaMiniDrv0023) {
         __MIDL__IWiaMiniDrv0021Marshal := __MIDL__IWiaMiniDrv0021 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, __MIDL__IWiaMiniDrv0021Marshal, __MIDL__IWiaMiniDrv0021, "int", __MIDL__IWiaMiniDrv0022, "ptr", __MIDL__IWiaMiniDrv0023, "int*", &__MIDL__IWiaMiniDrv0024 := 0, "HRESULT")
+        result := ComCall(7, this, __MIDL__IWiaMiniDrv0021Marshal, __MIDL__IWiaMiniDrv0021, "int", __MIDL__IWiaMiniDrv0022, "ptr", __MIDL__IWiaMiniDrv0023, "int*", &__MIDL__IWiaMiniDrv0024 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0024
     }
 
@@ -120,7 +146,11 @@ class IWiaMiniDrv extends IUnknown{
     drvReadItemProperties(__MIDL__IWiaMiniDrv0025, __MIDL__IWiaMiniDrv0026, __MIDL__IWiaMiniDrv0027, __MIDL__IWiaMiniDrv0028) {
         __MIDL__IWiaMiniDrv0025Marshal := __MIDL__IWiaMiniDrv0025 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, __MIDL__IWiaMiniDrv0025Marshal, __MIDL__IWiaMiniDrv0025, "int", __MIDL__IWiaMiniDrv0026, "uint", __MIDL__IWiaMiniDrv0027, "ptr", __MIDL__IWiaMiniDrv0028, "int*", &__MIDL__IWiaMiniDrv0029 := 0, "HRESULT")
+        result := ComCall(8, this, __MIDL__IWiaMiniDrv0025Marshal, __MIDL__IWiaMiniDrv0025, "int", __MIDL__IWiaMiniDrv0026, "uint", __MIDL__IWiaMiniDrv0027, "ptr", __MIDL__IWiaMiniDrv0028, "int*", &__MIDL__IWiaMiniDrv0029 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0029
     }
 
@@ -133,7 +163,11 @@ class IWiaMiniDrv extends IUnknown{
     drvLockWiaDevice(__MIDL__IWiaMiniDrv0030, __MIDL__IWiaMiniDrv0031) {
         __MIDL__IWiaMiniDrv0030Marshal := __MIDL__IWiaMiniDrv0030 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, __MIDL__IWiaMiniDrv0030Marshal, __MIDL__IWiaMiniDrv0030, "int", __MIDL__IWiaMiniDrv0031, "int*", &__MIDL__IWiaMiniDrv0032 := 0, "HRESULT")
+        result := ComCall(9, this, __MIDL__IWiaMiniDrv0030Marshal, __MIDL__IWiaMiniDrv0030, "int", __MIDL__IWiaMiniDrv0031, "int*", &__MIDL__IWiaMiniDrv0032 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0032
     }
 
@@ -146,7 +180,11 @@ class IWiaMiniDrv extends IUnknown{
     drvUnLockWiaDevice(__MIDL__IWiaMiniDrv0033, __MIDL__IWiaMiniDrv0034) {
         __MIDL__IWiaMiniDrv0033Marshal := __MIDL__IWiaMiniDrv0033 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, __MIDL__IWiaMiniDrv0033Marshal, __MIDL__IWiaMiniDrv0033, "int", __MIDL__IWiaMiniDrv0034, "int*", &__MIDL__IWiaMiniDrv0035 := 0, "HRESULT")
+        result := ComCall(10, this, __MIDL__IWiaMiniDrv0033Marshal, __MIDL__IWiaMiniDrv0033, "int", __MIDL__IWiaMiniDrv0034, "int*", &__MIDL__IWiaMiniDrv0035 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0035
     }
 
@@ -161,7 +199,11 @@ class IWiaMiniDrv extends IUnknown{
         __MIDL__IWiaMiniDrv0036Marshal := __MIDL__IWiaMiniDrv0036 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0038Marshal := __MIDL__IWiaMiniDrv0038 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, __MIDL__IWiaMiniDrv0036Marshal, __MIDL__IWiaMiniDrv0036, "int", __MIDL__IWiaMiniDrv0037, __MIDL__IWiaMiniDrv0038Marshal, __MIDL__IWiaMiniDrv0038, "HRESULT")
+        result := ComCall(11, this, __MIDL__IWiaMiniDrv0036Marshal, __MIDL__IWiaMiniDrv0036, "int", __MIDL__IWiaMiniDrv0037, __MIDL__IWiaMiniDrv0038Marshal, __MIDL__IWiaMiniDrv0038, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +219,11 @@ class IWiaMiniDrv extends IUnknown{
         __MIDL__IWiaMiniDrv0041Marshal := __MIDL__IWiaMiniDrv0041 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0042Marshal := __MIDL__IWiaMiniDrv0042 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "int", __MIDL__IWiaMiniDrv0039, "int", __MIDL__IWiaMiniDrv0040, __MIDL__IWiaMiniDrv0041Marshal, __MIDL__IWiaMiniDrv0041, __MIDL__IWiaMiniDrv0042Marshal, __MIDL__IWiaMiniDrv0042, "HRESULT")
+        result := ComCall(12, this, "int", __MIDL__IWiaMiniDrv0039, "int", __MIDL__IWiaMiniDrv0040, __MIDL__IWiaMiniDrv0041Marshal, __MIDL__IWiaMiniDrv0041, __MIDL__IWiaMiniDrv0042Marshal, __MIDL__IWiaMiniDrv0042, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -194,7 +240,11 @@ class IWiaMiniDrv extends IUnknown{
         __MIDL__IWiaMiniDrv0043Marshal := __MIDL__IWiaMiniDrv0043 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0047Marshal := __MIDL__IWiaMiniDrv0047 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, __MIDL__IWiaMiniDrv0043Marshal, __MIDL__IWiaMiniDrv0043, "int", __MIDL__IWiaMiniDrv0044, "ptr", __MIDL__IWiaMiniDrv0045, "ptr*", __MIDL__IWiaMiniDrv0046, __MIDL__IWiaMiniDrv0047Marshal, __MIDL__IWiaMiniDrv0047, "HRESULT")
+        result := ComCall(13, this, __MIDL__IWiaMiniDrv0043Marshal, __MIDL__IWiaMiniDrv0043, "int", __MIDL__IWiaMiniDrv0044, "ptr", __MIDL__IWiaMiniDrv0045, "ptr*", __MIDL__IWiaMiniDrv0046, __MIDL__IWiaMiniDrv0047Marshal, __MIDL__IWiaMiniDrv0047, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +263,11 @@ class IWiaMiniDrv extends IUnknown{
         __MIDL__IWiaMiniDrv0051Marshal := __MIDL__IWiaMiniDrv0051 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0052Marshal := __MIDL__IWiaMiniDrv0052 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, __MIDL__IWiaMiniDrv0048Marshal, __MIDL__IWiaMiniDrv0048, "int", __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050Marshal, __MIDL__IWiaMiniDrv0050, __MIDL__IWiaMiniDrv0051Marshal, __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052Marshal, __MIDL__IWiaMiniDrv0052, "HRESULT")
+        result := ComCall(14, this, __MIDL__IWiaMiniDrv0048Marshal, __MIDL__IWiaMiniDrv0048, "int", __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050Marshal, __MIDL__IWiaMiniDrv0050, __MIDL__IWiaMiniDrv0051Marshal, __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052Marshal, __MIDL__IWiaMiniDrv0052, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +280,11 @@ class IWiaMiniDrv extends IUnknown{
     drvDeleteItem(__MIDL__IWiaMiniDrv0053, __MIDL__IWiaMiniDrv0054) {
         __MIDL__IWiaMiniDrv0053Marshal := __MIDL__IWiaMiniDrv0053 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, __MIDL__IWiaMiniDrv0053Marshal, __MIDL__IWiaMiniDrv0053, "int", __MIDL__IWiaMiniDrv0054, "int*", &__MIDL__IWiaMiniDrv0055 := 0, "HRESULT")
+        result := ComCall(15, this, __MIDL__IWiaMiniDrv0053Marshal, __MIDL__IWiaMiniDrv0053, "int", __MIDL__IWiaMiniDrv0054, "int*", &__MIDL__IWiaMiniDrv0055 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0055
     }
 
@@ -239,7 +297,11 @@ class IWiaMiniDrv extends IUnknown{
     drvFreeDrvItemContext(__MIDL__IWiaMiniDrv0056, __MIDL__IWiaMiniDrv0057) {
         __MIDL__IWiaMiniDrv0057Marshal := __MIDL__IWiaMiniDrv0057 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "int", __MIDL__IWiaMiniDrv0056, __MIDL__IWiaMiniDrv0057Marshal, __MIDL__IWiaMiniDrv0057, "int*", &__MIDL__IWiaMiniDrv0058 := 0, "HRESULT")
+        result := ComCall(16, this, "int", __MIDL__IWiaMiniDrv0056, __MIDL__IWiaMiniDrv0057Marshal, __MIDL__IWiaMiniDrv0057, "int*", &__MIDL__IWiaMiniDrv0058 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaMiniDrv0058
     }
 
@@ -258,7 +320,11 @@ class IWiaMiniDrv extends IUnknown{
         __MIDL__IWiaMiniDrv0062Marshal := __MIDL__IWiaMiniDrv0062 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0063Marshal := __MIDL__IWiaMiniDrv0063 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, __MIDL__IWiaMiniDrv0059Marshal, __MIDL__IWiaMiniDrv0059, "int", __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061Marshal, __MIDL__IWiaMiniDrv0061, __MIDL__IWiaMiniDrv0062Marshal, __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063Marshal, __MIDL__IWiaMiniDrv0063, "HRESULT")
+        result := ComCall(17, this, __MIDL__IWiaMiniDrv0059Marshal, __MIDL__IWiaMiniDrv0059, "int", __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061Marshal, __MIDL__IWiaMiniDrv0061, __MIDL__IWiaMiniDrv0062Marshal, __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063Marshal, __MIDL__IWiaMiniDrv0063, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -270,9 +336,16 @@ class IWiaMiniDrv extends IUnknown{
      * @returns {HRESULT} 
      */
     drvNotifyPnpEvent(pEventGUID, bstrDeviceID, ulReserved) {
-        bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
+        if(bstrDeviceID is String) {
+            pin := BSTR.Alloc(bstrDeviceID)
+            bstrDeviceID := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", pEventGUID, "ptr", bstrDeviceID, "uint", ulReserved, "HRESULT")
+        result := ComCall(18, this, "ptr", pEventGUID, "ptr", bstrDeviceID, "uint", ulReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -284,7 +357,11 @@ class IWiaMiniDrv extends IUnknown{
     drvUnInitializeWia(__MIDL__IWiaMiniDrv0064) {
         __MIDL__IWiaMiniDrv0064Marshal := __MIDL__IWiaMiniDrv0064 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, __MIDL__IWiaMiniDrv0064Marshal, __MIDL__IWiaMiniDrv0064, "HRESULT")
+        result := ComCall(19, this, __MIDL__IWiaMiniDrv0064Marshal, __MIDL__IWiaMiniDrv0064, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

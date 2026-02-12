@@ -17,7 +17,7 @@
  * Changing the software radio state of a physical network interface could cause related changes in the state of the wireless Hosted Network or virtual wireless adapter radio states. The PHYs of every virtual wireless adapter are linked. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/about-the-wireless-hosted-network">About the Wireless Hosted Network</a>.
  * 
  * The radio state of a PHY is off if either the software radio state (<b>dot11SoftwareRadioState</b> member) or the hardware radio state (<b>dot11HardwareRadioState</b> member) is off.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_phy_radio_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/ns-wlanapi-wlan_phy_radio_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\UI\Composition\CompositionCapabilities.ahk
 #Include ..\IInspectable.ahk
 
 /**
@@ -30,13 +31,17 @@ class ICompositionCapabilitiesInteropFactory extends IInspectable{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {Pointer<CompositionCapabilities>} 
      */
-    GetForWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetForWindow(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hwnd_, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return CompositionCapabilities(result_)
     }
 }

@@ -35,7 +35,11 @@ class ITransactionVoterBallotAsync2 extends IUnknown{
      * @returns {HRESULT} 
      */
     VoteRequestDone(hr, pboidReason) {
-        result := ComCall(3, this, "int", hr, "ptr", pboidReason, "HRESULT")
+        result := ComCall(3, this, "int", hr, "ptr", pboidReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

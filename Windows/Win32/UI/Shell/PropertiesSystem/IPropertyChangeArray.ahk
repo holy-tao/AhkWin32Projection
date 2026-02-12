@@ -6,10 +6,8 @@
 /**
  * Exposes methods for several multiple change operations that may be passed to IFileOperation.
  * @remarks
- * 
  * Either call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with a class identifier (CLSID) of <b>CLSID_PropertyChangeArray</b> or call <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatepropertychangearray">PSCreatePropertyChangeArray</a> to obtain a standard implementation of this interface. This is a container interface that allows multiple changes to be passed to a single file operation to prevent accessing a file multiple times.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertychangearray
+ * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nn-propsys-ipropertychangearray
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -39,10 +37,14 @@ class IPropertyChangeArray extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer to the number of change operations.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-getcount
      */
     GetCount() {
-        result := ComCall(3, this, "uint*", &pcOperations := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcOperations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcOperations
     }
 
@@ -54,13 +56,17 @@ class IPropertyChangeArray extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired IID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The address of a pointer to the interface specified by <i>riid</i>, usually <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychange">IPropertyChange</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-getat
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-getat
      */
     GetAt(iIndex, riid) {
-        result := ComCall(4, this, "uint", iIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "uint", iIndex, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -74,11 +80,15 @@ class IPropertyChangeArray extends IUnknown{
      * A pointer to the interface that contains the change.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-insertat
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-insertat
      */
     InsertAt(iIndex, ppropChange) {
-        result := ComCall(5, this, "uint", iIndex, "ptr", ppropChange, "HRESULT")
+        result := ComCall(5, this, "uint", iIndex, "ptr", ppropChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,11 +99,15 @@ class IPropertyChangeArray extends IUnknown{
      * A pointer to the interface that contains the change.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-append
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-append
      */
     Append(ppropChange) {
-        result := ComCall(6, this, "ptr", ppropChange, "HRESULT")
+        result := ComCall(6, this, "ptr", ppropChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,10 +119,14 @@ class IPropertyChangeArray extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-appendorreplace
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-appendorreplace
      */
     AppendOrReplace(ppropChange) {
-        result := ComCall(7, this, "ptr", ppropChange, "HRESULT")
+        result := ComCall(7, this, "ptr", ppropChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,11 +137,15 @@ class IPropertyChangeArray extends IUnknown{
      * The index of the change to remove.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-removeat
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-removeat
      */
     RemoveAt(iIndex) {
-        result := ComCall(8, this, "uint", iIndex, "HRESULT")
+        result := ComCall(8, this, "uint", iIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,10 +157,14 @@ class IPropertyChangeArray extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if key is found; otherwise, E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychangearray-iskeyinarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertychangearray-iskeyinarray
      */
     IsKeyInArray(key) {
-        result := ComCall(9, this, "ptr", key, "HRESULT")
+        result := ComCall(9, this, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

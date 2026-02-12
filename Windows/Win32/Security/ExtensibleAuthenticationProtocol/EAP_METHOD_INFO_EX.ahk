@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an EAP method. (EAP_METHOD_INFO_EX)
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_info_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/eaptypes/ns-eaptypes-eap_method_info_ex
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

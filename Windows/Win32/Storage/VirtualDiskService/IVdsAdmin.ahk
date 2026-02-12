@@ -5,7 +5,7 @@
 
 /**
  * Registers providers with VDS.
- * @see https://docs.microsoft.com/windows/win32/api//vdshwprv/nn-vdshwprv-ivdsadmin
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdshwprv/nn-vdshwprv-ivdsadmin
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,6 +32,18 @@ class IVdsAdmin extends IUnknown{
 
     /**
      * Registers the specified hardware provider with VDS. Hardware providers call this method.
+     * @remarks
+     * If necessary, call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsadmin-unregisterprovider">UnregisterProvider</a> to remove a provider 
+     *     before registering a new version.
+     * 
+     * An in-process provider calls this method from 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-dllregisterserver">DllRegisterServer</a>; whereas, an out-of-process 
+     *     provider calls from the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-winmain">WinMain</a> 
+     *     function.
+     * 
+     * Hardware providers must not stop running while VDS is running.
      * @param {Guid} providerId The GUID of the hardware provider.
      * @param {Guid} providerClsid The COM class identifier (Clsid) of the hardware provider.
      * @param {PWSTR} pwszName The name of the hardware provider as  a zero-terminated, human-readable string.
@@ -41,7 +53,7 @@ class IVdsAdmin extends IUnknown{
      *      Use <b>NULL</b> to reference the current computer.
      * @param {PWSTR} pwszVersion The  version of the provider as a zero-terminated, human-readable string.
      * @param {Guid} guidVersionId The GUID for this version of the provider.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -62,25 +74,39 @@ class IVdsAdmin extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vdshwprv/nf-vdshwprv-ivdsadmin-registerprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/vdshwprv/nf-vdshwprv-ivdsadmin-registerprovider
      */
     RegisterProvider(providerId, providerClsid, pwszName, type, pwszMachineName, pwszVersion, guidVersionId) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszMachineName := pwszMachineName is String ? StrPtr(pwszMachineName) : pwszMachineName
         pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
 
-        result := ComCall(3, this, "ptr", providerId, "ptr", providerClsid, "ptr", pwszName, "int", type, "ptr", pwszMachineName, "ptr", pwszVersion, "ptr", guidVersionId, "HRESULT")
+        result := ComCall(3, this, "ptr", providerId, "ptr", providerClsid, "ptr", pwszName, "int", type, "ptr", pwszMachineName, "ptr", pwszVersion, "ptr", guidVersionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes VDS provider registration data. Hardware providers call this method.
+     * @remarks
+     * An in-process provider calls this method from the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-dllregisterserver">DllRegisterServer</a> function; whereas, an out-of-process 
+     *     provider calls from the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-winmain">WinMain</a> 
+     *     function.
      * @param {Guid} providerId The GUID of the provider.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used.
-     * @see https://docs.microsoft.com/windows/win32/api//vdshwprv/nf-vdshwprv-ivdsadmin-unregisterprovider
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used.
+     * @see https://learn.microsoft.com/windows/win32/api//content/vdshwprv/nf-vdshwprv-ivdsadmin-unregisterprovider
      */
     UnregisterProvider(providerId) {
-        result := ComCall(4, this, "ptr", providerId, "HRESULT")
+        result := ComCall(4, this, "ptr", providerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

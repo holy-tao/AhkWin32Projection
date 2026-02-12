@@ -42,7 +42,11 @@ class IOpenServiceActivityManager extends IUnknown{
      * @returns {IEnumOpenServiceActivityCategory} 
      */
     GetCategoryEnumerator(eType) {
-        result := ComCall(3, this, "int", eType, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "int", eType, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumOpenServiceActivityCategory(ppEnum)
     }
 
@@ -54,7 +58,11 @@ class IOpenServiceActivityManager extends IUnknown{
     GetActivityByID(pwzActivityID) {
         pwzActivityID := pwzActivityID is String ? StrPtr(pwzActivityID) : pwzActivityID
 
-        result := ComCall(4, this, "ptr", pwzActivityID, "ptr*", &ppActivity := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzActivityID, "ptr*", &ppActivity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpenServiceActivity(ppActivity)
     }
 
@@ -68,7 +76,11 @@ class IOpenServiceActivityManager extends IUnknown{
         pwzHomepage := pwzHomepage is String ? StrPtr(pwzHomepage) : pwzHomepage
         pwzCategory := pwzCategory is String ? StrPtr(pwzCategory) : pwzCategory
 
-        result := ComCall(5, this, "ptr", pwzHomepage, "ptr", pwzCategory, "ptr*", &ppActivity := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwzHomepage, "ptr", pwzCategory, "ptr*", &ppActivity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpenServiceActivity(ppActivity)
     }
 
@@ -77,7 +89,11 @@ class IOpenServiceActivityManager extends IUnknown{
      * @returns {Integer} 
      */
     GetVersionCookie() {
-        result := ComCall(6, this, "uint*", &pdwVersionCookie := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwVersionCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVersionCookie
     }
 }

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 
 /**
  * Describes a request initiated by a call to the lineGetRequest function. This data structure is obsolete and should not be used.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linereqmediacall
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linereqmediacall
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  * @charset ANSI
@@ -31,9 +32,12 @@ class LINEREQMEDIACALL extends Win32Struct
      * The identifier of the request. Used to match an asynchronous response.
      * @type {WPARAM}
      */
-    wRequestID {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wRequestID{
+        get {
+            if(!this.HasProp("__wRequestID"))
+                this.__wRequestID := WPARAM(8, this)
+            return this.__wRequestID
+        }
     }
 
     /**

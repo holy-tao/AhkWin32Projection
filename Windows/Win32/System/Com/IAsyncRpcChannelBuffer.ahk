@@ -29,13 +29,18 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
     static VTableNames => ["Send", "Receive", "GetDestCtxEx"]
 
     /**
-     * 
+     * Send BLOB Data to SQL SERVER Using IROWSETFASTLOAD and ISEQUENTIALSTREAM in (Native Client OLE DB)
      * @param {Pointer<RPCOLEMESSAGE>} pMsg 
      * @param {ISynchronize} pSync 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-ole-db-how-to/send-blob-data-to-sql-server-using-irowsetfastload-and-isequentialstream-ole-db
      */
     Send(pMsg, pSync) {
-        result := ComCall(9, this, "ptr", pMsg, "ptr", pSync, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pMsg, "ptr", pSync, "uint*", &pulStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStatus
     }
 
@@ -45,7 +50,11 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
      * @returns {Integer} 
      */
     Receive(pMsg) {
-        result := ComCall(10, this, "ptr", pMsg, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pMsg, "uint*", &pulStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStatus
     }
 
@@ -60,7 +69,11 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
         pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
         ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
+        result := ComCall(11, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

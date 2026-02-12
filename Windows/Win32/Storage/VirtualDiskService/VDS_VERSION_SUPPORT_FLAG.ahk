@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_VERSION_SUPPORT_FLAG enumeration (vdshwprv.h) indicates which versions of the VDS interfaces are supported.
+ * The VDS_VERSION_SUPPORT_FLAG (vds.h) enumeration indicates which versions of the VDS interfaces are supported.
  * @remarks
  * <div class="alert"><b>Note</b>  Additional constants might be added to the 
  *     <b>VDS_VERSION_SUPPORT_FLAG</b> enumeration in future 
@@ -10,7 +10,7 @@
  *     <b>VDS_VERSION_SUPPORT_FLAG</b> enumeration 
  *     constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_version_support_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_version_support_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

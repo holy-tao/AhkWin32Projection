@@ -4,8 +4,8 @@
 #Include ..\IInspectable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.devices.alljoyn.interop/nn-windows-devices-alljoyn-interop-iwindowsdevicesalljoynbusattachmentfactoryinterop
+ * This interface allows for the creation of alljoyn_busattachment without taking ownership of the reference.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.devices.alljoyn.interop/nn-windows-devices-alljoyn-interop-iwindowsdevicesalljoynbusattachmentfactoryinterop
  * @namespace Windows.Win32.System.WinRT.AllJoyn
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends IInspectable{
      * @param {Integer} win32handle 
      * @param {Integer} enableAboutData 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateFromWin32Handle(win32handle, enableAboutData, riid) {
-        result := ComCall(6, this, "uint", win32handle, "char", enableAboutData, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "uint", win32handle, "char", enableAboutData, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

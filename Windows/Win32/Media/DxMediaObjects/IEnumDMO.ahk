@@ -6,7 +6,7 @@
 
 /**
  * The IEnumDMO interface provides methods for enumerating Microsoft DirectX Media Objects (DMOs). It is based on the OLE enumeration interfaces. For more information, see the IEnumXXXX topic in the Platform SDK.
- * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nn-mediaobj-ienumdmo
+ * @see https://learn.microsoft.com/windows/win32/api//content/mediaobj/nn-mediaobj-ienumdmo
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
  */
@@ -33,6 +33,12 @@ class IEnumDMO extends IUnknown{
 
     /**
      * The Next method retrieves a specified number of items in the enumeration sequence.
+     * @remarks
+     * If the method succeeds, the arrays given by the <i>pCLSID</i> and <i>Names</i> parameters are filled with CLSIDs and wide-character strings. The value of *<i>pcItemsFetched</i> specifies the number of items returned in these arrays.
+     * 
+     * The method returns S_OK if it retrieves the requested number of items (in other words, if *<i>pcItemsFetched</i> equals <i>cItemsToFetch</i>). Otherwise, it returns S_FALSE or an error code.
+     * 
+     * The caller must free the memory allocated for each string returned in the <i>Names</i> parameter, using the <b>CoTaskMemFree</b> function.
      * @param {Integer} cItemsToFetch Number of items to retrieve.
      * @param {Pointer<Guid>} pCLSID Array of size <i>cItemsToFetch</i> that is filled with the CLSIDs of the enumerated DMOs.
      * @param {Pointer<PWSTR>} Names Array of size <i>cItemsToFetch</i> that is filled with the friendly names of the enumerated DMOs.
@@ -100,13 +106,17 @@ class IEnumDMO extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-ienumdmo-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/mediaobj/nf-mediaobj-ienumdmo-next
      */
     Next(cItemsToFetch, pCLSID, Names, pcItemsFetched) {
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
         pcItemsFetchedMarshal := pcItemsFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cItemsToFetch, "ptr", pCLSID, NamesMarshal, Names, pcItemsFetchedMarshal, pcItemsFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,30 +124,42 @@ class IEnumDMO extends IUnknown{
      * The Skip method skips over a specified number of items in the enumeration sequence.
      * @param {Integer} cItemsToSkip Number of items to skip.
      * @returns {HRESULT} Returns S_OK if the number items skipped equals <i>cItemsToSkip</i>. Otherwise, returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-ienumdmo-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/mediaobj/nf-mediaobj-ienumdmo-skip
      */
     Skip(cItemsToSkip) {
-        result := ComCall(4, this, "uint", cItemsToSkip, "HRESULT")
+        result := ComCall(4, this, "uint", cItemsToSkip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Reset method resets the enumeration sequence to the beginning.
      * @returns {HRESULT} Returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-ienumdmo-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mediaobj/nf-mediaobj-ienumdmo-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This method is not implemented.
      * @returns {IEnumDMO} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-ienumdmo-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/mediaobj/nf-mediaobj-ienumdmo-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDMO(ppEnum)
     }
 }

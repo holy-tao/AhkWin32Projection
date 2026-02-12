@@ -6,7 +6,7 @@
 
 /**
  * Used to access the results when the source template calls the CommitAndUpdateDerived method.
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmderivedobjectsresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmderivedobjectsresult
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -48,26 +48,30 @@ class IFsrmDerivedObjectsResult extends IDispatch{
     /**
      * Retrieves the collection of derived objects that were updated.
      * @returns {IFsrmCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects
      */
     get_DerivedObjects() {
-        result := ComCall(7, this, "ptr*", &derivedObjects := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &derivedObjects := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCollection(derivedObjects)
     }
 
     /**
      * Retrieves the HRESULT values that indicate the success or failure of the update for each derived object.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects">IFsrmDerivedObjectsResult::DerivedObjects</a> property contains the corresponding list of derived objects.
-     * 
-     * 
-     * 
      * @returns {IFsrmCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_results
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_results
      */
     get_Results() {
-        result := ComCall(8, this, "ptr*", &results := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &results := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCollection(results)
     }
 }

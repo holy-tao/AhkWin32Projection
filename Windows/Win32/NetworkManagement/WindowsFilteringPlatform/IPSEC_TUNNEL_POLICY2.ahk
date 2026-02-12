@@ -5,7 +5,7 @@
 
 /**
  * Stores the quick mode negotiation policy for tunnel mode IPsec. (IPSEC_TUNNEL_POLICY2)
- * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy2
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

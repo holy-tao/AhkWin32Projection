@@ -5,7 +5,7 @@
 
 /**
  * The IDeviceSpecificProperty interface provides access to the control value of a device-specific hardware control.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-idevicespecificproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nn-devicetopology-idevicespecificproperty
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -33,23 +33,35 @@ class IDeviceSpecificProperty extends IUnknown{
     /**
      * The GetType method gets the data type of the device-specific property value.
      * @returns {Integer} Pointer to a <b>VARTYPE</b> variable into which the method writes a <b>VARTYPE</b> enumeration value that indicates the data type of the device-specific property value. For more information about <b>VARTYPE</b> and <b>VARTYPE</b>, see the Windows SDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-idevicespecificproperty-gettype
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-idevicespecificproperty-gettype
      */
     GetType() {
-        result := ComCall(3, this, "ushort*", &pVType := 0, "HRESULT")
+        result := ComCall(3, this, "ushort*", &pVType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVType
     }
 
     /**
      * The GetValue method gets the current value of the device-specific property.
+     * @remarks
+     * If the size of the property value is variable rather than fixed, the caller can obtain the required buffer size by calling <b>GetValue</b> with parameter <i>pvValue</i> = <b>NULL</b> and  <i>*pcbValue</i> = 0. The method writes the required buffer size to  <i>*pcbValue</i>. With this information, the caller can allocate a buffer of the required size and call <b>GetValue</b> a second time to obtain the property value.
+     * 
+     * If the caller-allocated buffer is too small to hold the property value, <b>GetValue</b> writes the required buffer size to  <i>*pcbValue</i> and returns an error status code. In this case, it writes nothing to the buffer pointed by <i>pvValue</i>.
      * @param {Pointer<Integer>} pcbValue [inout] Pointer to a <b>DWORD</b> variable that specifies the size in bytes of the property value. On entry,  <i>*pcbValue</i> contains the size of the caller-allocated buffer (or 0 if <i>pvValue</i> is <b>NULL</b>). Before returning, the method writes the actual size of the property value written to the buffer (or the required size if the buffer is too small or if <i>pvValue</i> is <b>NULL</b>).
      * @returns {Void} Pointer to a caller-allocated buffer into which the method writes the property value.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-idevicespecificproperty-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-idevicespecificproperty-getvalue
      */
     GetValue(pcbValue) {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", &pvValue := 0, pcbValueMarshal, pcbValue, "HRESULT")
+        result := ComCall(4, this, "ptr", &pvValue := 0, pcbValueMarshal, pcbValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvValue
     }
 
@@ -99,17 +111,23 @@ class IDeviceSpecificProperty extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-idevicespecificproperty-setvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-idevicespecificproperty-setvalue
      */
     SetValue(pvValue, cbValue, pguidEventContext) {
         pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pvValueMarshal, pvValue, "uint", cbValue, "ptr", pguidEventContext, "HRESULT")
+        result := ComCall(5, this, pvValueMarshal, pvValue, "uint", cbValue, "ptr", pguidEventContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Get4BRange method gets the 4-byte range of the device-specific property value.
+     * @remarks
+     * This method reports the range and step size for a property value that is a 32-bit signed or unsigned integer. These two data types are represented by <b>VARENUM</b> enumeration constants VT_I4 and VT_UI4, respectively. If the property value is not a 32-bit integer, then the method returns an error status code. For more information about <b>VARENUM</b>, see the Windows SDK documentation.
      * @param {Pointer<Integer>} plMin Pointer to a <b>LONG</b> variable into which the method writes the minimum property value.
      * @param {Pointer<Integer>} plMax Pointer to a <b>LONG</b> variable into which the method writes the maximum property value.
      * @param {Pointer<Integer>} plStepping Pointer to a <b>LONG</b> variable into which the method writes the stepping value between consecutive property values in the range  <i>*plMin</i> to  <i>*plMax</i>. If the difference between the maximum and minimum property values is <i>d</i>, and the range is divided into <i>n</i> steps (uniformly sized intervals), then the property can take <i>n</i> + 1 discrete values and the size of the step between consecutive values is d / n.
@@ -143,14 +161,18 @@ class IDeviceSpecificProperty extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-idevicespecificproperty-get4brange
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-idevicespecificproperty-get4brange
      */
     Get4BRange(plMin, plMax, plStepping) {
         plMinMarshal := plMin is VarRef ? "int*" : "ptr"
         plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
         plSteppingMarshal := plStepping is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plSteppingMarshal, plStepping, "HRESULT")
+        result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plSteppingMarshal, plStepping, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

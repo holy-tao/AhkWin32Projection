@@ -5,7 +5,7 @@
  * Contains parameters used in the Firmware Commit command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_firmware_activate
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw10_firmware_activate
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Contains an array of time values that are used to describe a property of type PT_MV_SYSTIME for Outlook 2013 or Outlook 2016.
  * @remarks
  * For more information about PT_MV_SYSTIME, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sdatetimearray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sdatetimearray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

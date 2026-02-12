@@ -6,7 +6,6 @@
 /**
  * Enables two instances of the Media Session to share the same protected media path (PMP) process.
  * @remarks
- * 
  * If your application creates more than one instance of the Media Session, you can use this interface to share the same PMP process among several instances. This can be more efficient than re-creating the PMP process each time.
  * 
  * Use this interface as follows:
@@ -19,9 +18,7 @@
  * <li>Create the second instance of the PMP Media Session. Set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-session-server-context-attribute">MF_SESSION_SERVER_CONTEXT</a> attribute on the <i>pConfiguration</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatepmpmediasession">MFCreatePMPMediaSession</a> function. The attribute value is the <b>IMFPMPServer</b> pointer retrieved in step 2.
  *           </li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpmpserver
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfpmpserver
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -47,7 +44,9 @@ class IMFPMPServer extends IUnknown{
     static VTableNames => ["LockProcess", "UnlockProcess", "CreateObjectByCLSID"]
 
     /**
-     * Blocks the protected media path (PMP) process from ending.
+     * Blocks the protected media path (PMP) process from ending. (IMFPMPServer.LockProcess)
+     * @remarks
+     * When this method is called, it increments the lock count on the PMP process. For every call to this method, the application should make a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpmpserver-unlockprocess">IMFPMPServer::UnlockProcess</a>, which decrements the lock count. When the PMP process is ready to exit, it waits for about 3 seconds, or until the lock count reaches zero, before exiting.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -67,10 +66,14 @@ class IMFPMPServer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpserver-lockprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmpserver-lockprocess
      */
     LockProcess() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,10 +98,14 @@ class IMFPMPServer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpserver-unlockprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmpserver-unlockprocess
      */
     UnlockProcess() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,11 +113,15 @@ class IMFPMPServer extends IUnknown{
      * Creates an object in the protected media path (PMP) process.
      * @param {Pointer<Guid>} clsid CLSID of the object to create.
      * @param {Pointer<Guid>} riid Interface identifier of the interface to retrieve.
-     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpserver-createobjectbyclsid
+     * @returns {Pointer<Pointer<Void>>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmpserver-createobjectbyclsid
      */
     CreateObjectByCLSID(clsid, riid) {
-        result := ComCall(5, this, "ptr", clsid, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", clsid, "ptr", riid, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppObject
     }
 }

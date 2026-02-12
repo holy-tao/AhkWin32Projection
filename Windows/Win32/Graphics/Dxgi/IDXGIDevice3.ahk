@@ -6,7 +6,6 @@
 /**
  * The IDXGIDevice3 interface implements a derived class for DXGI objects that produce image data. The interface exposes a method to trim graphics memory usage by the DXGI device.
  * @remarks
- * 
  * The <b>IDXGIDevice3</b> interface is designed for use by DXGI objects that need access to other DXGI objects. This interface is useful to
  *           applications that do not use Direct3D to communicate with DXGI.
  *         
@@ -24,9 +23,7 @@
  * 
  * <b>Windows Phone 8:
  *         </b> This API is supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nn-dxgi1_3-idxgidevice3
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_3/nn-dxgi1_3-idxgidevice3
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -54,7 +51,7 @@ class IDXGIDevice3 extends IDXGIDevice2{
     /**
      * Trims the graphics memory allocated by the IDXGIDevice3 DXGI device on the app's behalf.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgidevice3-trim
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_3/nf-dxgi1_3-idxgidevice3-trim
      */
     Trim() {
         ComCall(17, this)

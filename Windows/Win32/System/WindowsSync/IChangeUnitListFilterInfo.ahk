@@ -6,11 +6,8 @@
 /**
  * Represents a filter that can be used to control which change units are included for items in an ISyncChangeBatch object.
  * @remarks
- * 
  * If a provider filters the contents of a change batch that it creates, it must create a filtered <b>ISyncChangeBatch</b> object instead of a standard change batch object. The filtered change batch object contains an <b>IChangeUnitListFilterInfo</b> object that describes how the contents of the change batch were filtered.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ichangeunitlistfilterinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ichangeunitlistfilterinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
 
     /**
      * Initializes a new instance of the IChangeUnitListFilterInfo class that contains the specified array of change unit IDs.
+     * @remarks
+     * An <b>IChangeUnitListFilterInfo</b> object can be reused. Calling <b>Initialize</b> more than one time frees any previously contained array of change unit IDs and replaces it with the array that is specified by <i>ppbChangeUnitIds</i>.
      * @param {Pointer<Pointer<Integer>>} ppbChangeUnitIds The array of change unit IDs that indicate which change units are included by this filter.
      * @param {Integer} dwChangeUnitCount The number of change unit IDs that are contained in <i>ppbChangeUnitIds</i>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -90,12 +89,16 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitlistfilterinfo-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeunitlistfilterinfo-initialize
      */
     Initialize(ppbChangeUnitIds, dwChangeUnitCount) {
         ppbChangeUnitIdsMarshal := ppbChangeUnitIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, ppbChangeUnitIdsMarshal, ppbChangeUnitIds, "uint", dwChangeUnitCount, "HRESULT")
+        result := ComCall(4, this, ppbChangeUnitIdsMarshal, ppbChangeUnitIds, "uint", dwChangeUnitCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,12 +135,16 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitidcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitidcount
      */
     GetChangeUnitIdCount(pdwChangeUnitIdCount) {
         pdwChangeUnitIdCountMarshal := pdwChangeUnitIdCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pdwChangeUnitIdCountMarshal, pdwChangeUnitIdCount, "HRESULT")
+        result := ComCall(5, this, pdwChangeUnitIdCountMarshal, pdwChangeUnitIdCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,13 +217,17 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitid
      */
     GetChangeUnitId(dwChangeUnitIdIndex, pbChangeUnitId, pcbIdSize) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwChangeUnitIdIndex, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(6, this, "uint", dwChangeUnitIdIndex, pbChangeUnitIdMarshal, pbChangeUnitId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -16,7 +16,7 @@
  *   RVA64 Rva;
  * } MINIDUMP_LOCATION_DESCRIPTOR64;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor64
+ * @see https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

@@ -6,11 +6,10 @@
 /**
  * Implemented by a query form extension object to allow the form object to add forms and pages to the system-supplied directory service query dialog box.
  * @remarks
- * 
  * A query form extension object must be registered in the Windows registry to be available to the query handler. This is accomplished by adding the following registry key.
  * 
  * 
- * <pre xml:space="preserve"><b>HKEY_CLASSES_ROOT</b>
+ * <pre><b>HKEY_CLASSES_ROOT</b>
  *    <b>CLSID</b>
  *       <i>&lt;query handler CLSID&gt;</i>
  *          <b>Forms</b>
@@ -55,9 +54,7 @@
  * </td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cmnquery/nn-cmnquery-iqueryform
+ * @see https://learn.microsoft.com/windows/win32/api//content/cmnquery/nn-cmnquery-iqueryform
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -86,36 +83,52 @@ class IQueryForm extends IUnknown{
      * Initializes the query form extension object.
      * @param {HKEY} hkForm Contains a registry key that identifies where the query form object was obtained. This parameter may be <b>NULL</b>.
      * @returns {HRESULT} This method returns <b>S_OK</b> to enable the form object within the query dialog, or a failure code, such as <b>E_FAIL</b>, to prevent the form from being added to the query dialog.
-     * @see https://docs.microsoft.com/windows/win32/api//cmnquery/nf-cmnquery-iqueryform-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/cmnquery/nf-cmnquery-iqueryform-initialize
      */
     Initialize(hkForm) {
         hkForm := hkForm is Win32Handle ? NumGet(hkForm, "ptr") : hkForm
 
-        result := ComCall(3, this, "ptr", hkForm, "HRESULT")
+        result := ComCall(3, this, "ptr", hkForm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called to allow a query form extension object to add forms to the query dialog box.
      * @param {Pointer<LPCQADDFORMSPROC>} pAddFormsProc Pointer to a callback function of the form <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddformsproc">CQAddFormsProc</a>. The query form extension  calls this function with the supplied <i>lParam</i> one time for each form to be added.
-     * @param {LPARAM} lParam Contains a 32-bit value that is defined by the query handler. This value must be passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddformsproc">CQAddFormsProc</a> call.
+     * @param {LPARAM} lParam_ Contains a 32-bit value that is defined by the query handler. This value must be passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddformsproc">CQAddFormsProc</a> call.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or a standard <b>HRESULT</b> failure code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cmnquery/nf-cmnquery-iqueryform-addforms
+     * @see https://learn.microsoft.com/windows/win32/api//content/cmnquery/nf-cmnquery-iqueryform-addforms
      */
-    AddForms(pAddFormsProc, lParam) {
-        result := ComCall(4, this, "ptr", pAddFormsProc, "ptr", lParam, "HRESULT")
+    AddForms(pAddFormsProc, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(4, this, "ptr", pAddFormsProc, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called to allow a query form object to add pages to an existing form.
      * @param {Pointer<LPCQADDPAGESPROC>} pAddPagesProc Pointer to a callback function of the form <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddpagesproc">CQAddPagesProc</a>. The query form extension  calls this function with the supplied <i>lParam</i> one time for each page to be added to a form.
-     * @param {LPARAM} lParam Contains a 32-bit value that is defined by the query handler. This value must be passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddpagesproc">CQAddPagesProc</a> call.
+     * @param {LPARAM} lParam_ Contains a 32-bit value that is defined by the query handler. This value must be passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqaddpagesproc">CQAddPagesProc</a> call.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful or a standard <b>HRESULT</b> failure code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cmnquery/nf-cmnquery-iqueryform-addpages
+     * @see https://learn.microsoft.com/windows/win32/api//content/cmnquery/nf-cmnquery-iqueryform-addpages
      */
-    AddPages(pAddPagesProc, lParam) {
-        result := ComCall(5, this, "ptr", pAddPagesProc, "ptr", lParam, "HRESULT")
+    AddPages(pAddPagesProc, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(5, this, "ptr", pAddPagesProc, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

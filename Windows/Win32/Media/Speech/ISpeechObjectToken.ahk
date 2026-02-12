@@ -58,9 +58,13 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {BSTR} 
      */
     get_Id() {
-        ObjectId := BSTR()
-        result := ComCall(7, this, "ptr", ObjectId, "HRESULT")
-        return ObjectId
+        ObjectId_ := BSTR()
+        result := ComCall(7, this, "ptr", ObjectId_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ObjectId_
     }
 
     /**
@@ -68,7 +72,11 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {ISpeechDataKey} 
      */
     get_DataKey() {
-        result := ComCall(8, this, "ptr*", &DataKey := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &DataKey := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechDataKey(DataKey)
     }
 
@@ -77,33 +85,63 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {ISpeechObjectTokenCategory} 
      */
     get_Category() {
-        result := ComCall(9, this, "ptr*", &Category := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &Category := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectTokenCategory(Category)
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
      * @param {Integer} Locale 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription(Locale) {
         Description := BSTR()
-        result := ComCall(10, this, "int", Locale, "ptr", Description, "HRESULT")
+        result := ComCall(10, this, "int", Locale, "ptr", Description, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Description
     }
 
     /**
-     * 
+     * Sets the specified identifier string in the volume's metadata.
      * @param {BSTR} Id 
      * @param {BSTR} CategoryID 
      * @param {VARIANT_BOOL} CreateIfNotExist 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/setidentificationfield-win32-encryptablevolume
      */
     SetId(Id, CategoryID, CreateIfNotExist) {
-        Id := Id is String ? BSTR.Alloc(Id).Value : Id
-        CategoryID := CategoryID is String ? BSTR.Alloc(CategoryID).Value : CategoryID
+        if(Id is String) {
+            pin := BSTR.Alloc(Id)
+            Id := pin.Value
+        }
+        if(CategoryID is String) {
+            pin := BSTR.Alloc(CategoryID)
+            CategoryID := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", Id, "ptr", CategoryID, "short", CreateIfNotExist, "HRESULT")
+        result := ComCall(11, this, "ptr", Id, "ptr", CategoryID, "short", CreateIfNotExist, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,33 +151,55 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {BSTR} 
      */
     GetAttribute(AttributeName) {
-        AttributeName := AttributeName is String ? BSTR.Alloc(AttributeName).Value : AttributeName
+        if(AttributeName is String) {
+            pin := BSTR.Alloc(AttributeName)
+            AttributeName := pin.Value
+        }
 
         AttributeValue := BSTR()
-        result := ComCall(12, this, "ptr", AttributeName, "ptr", AttributeValue, "HRESULT")
+        result := ComCall(12, this, "ptr", AttributeName, "ptr", AttributeValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AttributeValue
     }
 
     /**
-     * 
+     * The CWbemGlueFactory class is part of the WMI Provider Framework. The Provider Framework implements methods of this interface internally to create new instances of classes for the provider.
+     * @remarks
+     * The destructor for the class is <b>CWbemGlueFactory::~CWbemGlueFactory.</b>
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} ClsContext 
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(pUnkOuter, ClsContext) {
-        result := ComCall(13, this, "ptr", pUnkOuter, "uint", ClsContext, "ptr*", &Object := 0, "HRESULT")
-        return IUnknown(Object)
+        result := ComCall(13, this, "ptr", pUnkOuter, "uint", ClsContext, "ptr*", &Object_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IUnknown(Object_)
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {BSTR} ObjectStorageCLSID 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(ObjectStorageCLSID) {
-        ObjectStorageCLSID := ObjectStorageCLSID is String ? BSTR.Alloc(ObjectStorageCLSID).Value : ObjectStorageCLSID
+        if(ObjectStorageCLSID is String) {
+            pin := BSTR.Alloc(ObjectStorageCLSID)
+            ObjectStorageCLSID := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", ObjectStorageCLSID, "HRESULT")
+        result := ComCall(14, this, "ptr", ObjectStorageCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,16 +208,29 @@ class ISpeechObjectToken extends IDispatch{
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {BSTR} FileName 
-     * @param {Integer} Folder 
+     * @param {Integer} Folder_ 
      * @returns {BSTR} 
      */
-    GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, Folder) {
-        ObjectStorageCLSID := ObjectStorageCLSID is String ? BSTR.Alloc(ObjectStorageCLSID).Value : ObjectStorageCLSID
-        KeyName := KeyName is String ? BSTR.Alloc(KeyName).Value : KeyName
-        FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
+    GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, Folder_) {
+        if(ObjectStorageCLSID is String) {
+            pin := BSTR.Alloc(ObjectStorageCLSID)
+            ObjectStorageCLSID := pin.Value
+        }
+        if(KeyName is String) {
+            pin := BSTR.Alloc(KeyName)
+            KeyName := pin.Value
+        }
+        if(FileName is String) {
+            pin := BSTR.Alloc(FileName)
+            FileName := pin.Value
+        }
 
         FilePath := BSTR()
-        result := ComCall(15, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "ptr", FileName, "int", Folder, "ptr", FilePath, "HRESULT")
+        result := ComCall(15, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "ptr", FileName, "int", Folder_, "ptr", FilePath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FilePath
     }
 
@@ -169,10 +242,20 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {HRESULT} 
      */
     RemoveStorageFileName(ObjectStorageCLSID, KeyName, DeleteFile) {
-        ObjectStorageCLSID := ObjectStorageCLSID is String ? BSTR.Alloc(ObjectStorageCLSID).Value : ObjectStorageCLSID
-        KeyName := KeyName is String ? BSTR.Alloc(KeyName).Value : KeyName
+        if(ObjectStorageCLSID is String) {
+            pin := BSTR.Alloc(ObjectStorageCLSID)
+            ObjectStorageCLSID := pin.Value
+        }
+        if(KeyName is String) {
+            pin := BSTR.Alloc(KeyName)
+            KeyName := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "short", DeleteFile, "HRESULT")
+        result := ComCall(16, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "short", DeleteFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,30 +263,47 @@ class ISpeechObjectToken extends IDispatch{
      * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
-     * @param {IUnknown} Object 
+     * @param {IUnknown} Object_ 
      * @returns {VARIANT_BOOL} 
      */
-    IsUISupported(TypeOfUI, ExtraData, Object) {
-        TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
+    IsUISupported(TypeOfUI, ExtraData, Object_) {
+        if(TypeOfUI is String) {
+            pin := BSTR.Alloc(TypeOfUI)
+            TypeOfUI := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object_, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
     /**
      * 
-     * @param {Integer} hWnd 
+     * @param {Integer} hWnd_ 
      * @param {BSTR} Title 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
-     * @param {IUnknown} Object 
+     * @param {IUnknown} Object_ 
      * @returns {HRESULT} 
      */
-    DisplayUI(hWnd, Title, TypeOfUI, ExtraData, Object) {
-        Title := Title is String ? BSTR.Alloc(Title).Value : Title
-        TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
+    DisplayUI(hWnd_, Title, TypeOfUI, ExtraData, Object_) {
+        if(Title is String) {
+            pin := BSTR.Alloc(Title)
+            Title := pin.Value
+        }
+        if(TypeOfUI is String) {
+            pin := BSTR.Alloc(TypeOfUI)
+            TypeOfUI := pin.Value
+        }
 
-        result := ComCall(18, this, "int", hWnd, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object, "HRESULT")
+        result := ComCall(18, this, "int", hWnd_, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,9 +313,16 @@ class ISpeechObjectToken extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     MatchesAttributes(Attributes) {
-        Attributes := Attributes is String ? BSTR.Alloc(Attributes).Value : Attributes
+        if(Attributes is String) {
+            pin := BSTR.Alloc(Attributes)
+            Attributes := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", Attributes, "short*", &Matches := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", Attributes, "short*", &Matches := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Matches
     }
 }

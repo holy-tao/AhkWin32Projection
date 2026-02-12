@@ -5,7 +5,7 @@
 
 /**
  * The MPEG2_FILTER structure specifies criteria for matching MPEG-2 section headers.
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg2_filter
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2structs/ns-mpeg2structs-mpeg2_filter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

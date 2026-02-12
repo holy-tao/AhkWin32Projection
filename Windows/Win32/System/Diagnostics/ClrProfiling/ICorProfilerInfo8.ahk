@@ -34,7 +34,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
      * @returns {BOOL} 
      */
     IsFunctionDynamic(functionId) {
-        result := ComCall(87, this, "ptr", functionId, "int*", &isDynamic := 0, "HRESULT")
+        result := ComCall(87, this, "ptr", functionId, "int*", &isDynamic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isDynamic
     }
 
@@ -50,7 +54,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
         functionIdMarshal := functionId is VarRef ? "ptr*" : "ptr"
         pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(88, this, ipMarshal, ip, functionIdMarshal, functionId, pReJitIdMarshal, pReJitId, "HRESULT")
+        result := ComCall(88, this, ipMarshal, ip, functionIdMarshal, functionId, pReJitIdMarshal, pReJitId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +81,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
         pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(89, this, "ptr", functionId, moduleIdMarshal, moduleId, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, "uint", cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
+        result := ComCall(89, this, "ptr", functionId, moduleIdMarshal, moduleId, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, "uint", cchName, pcchNameMarshal, pcchName, "ptr", wszName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

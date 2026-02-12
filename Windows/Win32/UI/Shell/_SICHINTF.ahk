@@ -3,7 +3,7 @@
 
 /**
  * Used to determine how to compare two Shell items. IShellItem::Compare uses this enumerated type.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_sichintf
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ne-shobjidl_core-_sichintf
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

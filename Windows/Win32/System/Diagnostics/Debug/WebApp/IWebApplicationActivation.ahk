@@ -5,7 +5,7 @@
 
 /**
  * Enables debugging applications to manage activations.
- * @see https://docs.microsoft.com/windows/win32/api//webapplication/nn-webapplication-iwebapplicationactivation
+ * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nn-webapplication-iwebapplicationactivation
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  * @version v4.0.30319
  */
@@ -32,11 +32,15 @@ class IWebApplicationActivation extends IUnknown{
 
     /**
      * Cancels a pending activation.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationactivation-cancelpendingactivation
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nf-webapplication-iwebapplicationactivation-cancelpendingactivation
      */
     CancelPendingActivation() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

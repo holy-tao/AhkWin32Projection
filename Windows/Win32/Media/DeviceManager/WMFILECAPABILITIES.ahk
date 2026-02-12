@@ -3,7 +3,7 @@
 
 /**
  * The WMFILECAPABILITIES structure describes the MIME type.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmfilecapabilities
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmfilecapabilities
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

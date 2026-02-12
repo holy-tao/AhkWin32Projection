@@ -5,7 +5,7 @@
 
 /**
  * The IWMStreamConfig interface is the primary interface of a stream configuration object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmstreamconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmstreamconfig
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,38 +32,58 @@ class IWMStreamConfig extends IUnknown{
 
     /**
      * The GetStreamType method retrieves the major type of the stream (audio, video, or script).
+     * @remarks
+     * For a table of stream major types, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/media-types">Media Types</a>.
      * @returns {Guid} Pointer to a GUID object specifying the major type of the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamtype
      */
     GetStreamType() {
         pguidStreamType := Guid()
-        result := ComCall(3, this, "ptr", pguidStreamType, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidStreamType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidStreamType
     }
 
     /**
      * The GetStreamNumber method retrieves the stream number.
      * @returns {Integer} Pointer to a <b>WORD</b> containing the stream number. Stream numbers must be in the range of 1 through 63.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamnumber
      */
     GetStreamNumber() {
-        result := ComCall(4, this, "ushort*", &pwStreamNum := 0, "HRESULT")
+        result := ComCall(4, this, "ushort*", &pwStreamNum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwStreamNum
     }
 
     /**
      * The SetStreamNumber method specifies the stream number.
+     * @remarks
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. Stream numbers must be in the range of 1 through 63.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setstreamnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setstreamnumber
      */
     SetStreamNumber(wStreamNum) {
-        result := ComCall(5, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(5, this, "ushort", wStreamNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetStreamName method retrieves the stream name.
+     * @remarks
+     * You should make two calls to <b>GetStreamName</b>. On the first call, pass <b>NULL</b> as <i>pwszStreamName</i>. On return, the value pointed to by <i>pcchStreamName</i> is set to the number of wide characters, including the terminating <b>null</b> character, required to hold the stream name. Then you can allocate the required amount of memory for the string and pass a pointer to it as <i>pwszStreamName</i> on the second call.
+     * 
+     * The stream name is not written to the header section of an ASF file. If you obtain the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig">IWMStreamConfig</a> interface from the reader object or synchronous reader object, you cannot retrieve the original stream name.
      * @param {PWSTR} pwszStreamName Pointer to a wide-character <b>null</b>-terminated string containing the stream name. Pass <b>NULL</b> to retrieve the length of the name.
      * @param {Pointer<Integer>} pcchStreamName On input, a pointer to a variable containing the length of the <i>pwszStreamName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the actual length of the name, including the terminating <b>null</b> character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -107,19 +127,27 @@ class IWMStreamConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getstreamname
      */
     GetStreamName(pwszStreamName, pcchStreamName) {
         pwszStreamName := pwszStreamName is String ? StrPtr(pwszStreamName) : pwszStreamName
 
         pcchStreamNameMarshal := pcchStreamName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszStreamName, pcchStreamNameMarshal, pcchStreamName, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszStreamName, pcchStreamNameMarshal, pcchStreamName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetStreamName method assigns a name to the stream represented by the stream configuration object.
+     * @remarks
+     * This method is purely for the convenience of the developer during profile manipulation and file writing. The name assigned using this method is not stored in the header section of ASF files created using the profile and is therefore not available through the reader object or synchronous reader object.
+     * 
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @param {PWSTR} pwszStreamName Pointer to a wide-character <b>null</b>-terminated string containing the stream name. Stream names are limited to 256 wide characters.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -151,17 +179,25 @@ class IWMStreamConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setstreamname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setstreamname
      */
     SetStreamName(pwszStreamName) {
         pwszStreamName := pwszStreamName is String ? StrPtr(pwszStreamName) : pwszStreamName
 
-        result := ComCall(7, this, "ptr", pwszStreamName, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszStreamName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetConnectionName method retrieves the input name given to the stream.
+     * @remarks
+     * You should make two calls to <b>GetConnectionName</b>. On the first call, pass <b>NULL</b> as <i>pwszInputName</i>. On return, the value pointed to by <i>pcchInputName</i> is set to the number of wide characters, including the terminating <b>null</b> character, required to hold the connection name. Then you can allocate the required amount of memory for the string and pass a pointer to it as <i>pwszInputName</i> on the second call.
+     * 
+     * The connection name is not written to the header section of an ASF file. If you obtain the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstreamconfig">IWMStreamConfig</a> interface from the reader object or synchronous reader object, you cannot retrieve the original connection name.
      * @param {PWSTR} pwszInputName Pointer to a wide-character <b>null</b>-terminated string containing the input name. Pass <b>NULL</b> to retrieve the length of the name.
      * @param {Pointer<Integer>} pcchInputName On input, a pointer to a variable containing the length of the <i>pwszInputName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the length of the name, including the terminating <b>null</b> character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -205,19 +241,27 @@ class IWMStreamConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getconnectionname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getconnectionname
      */
     GetConnectionName(pwszInputName, pcchInputName) {
         pwszInputName := pwszInputName is String ? StrPtr(pwszInputName) : pwszInputName
 
         pcchInputNameMarshal := pcchInputName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwszInputName, pcchInputNameMarshal, pcchInputName, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszInputName, pcchInputNameMarshal, pcchInputName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetConnectionName method specifies a name for an input. If the profile you are creating contains multiple bit rate mutual exclusion, each of the mutually exclusive streams must have the same connection name.
+     * @remarks
+     * This method is purely for the convenience of the developer during profile manipulation and file writing. The name assigned using this method is not stored in the header section of ASF files created using the profile and is therefore not available through the reader object or synchronous reader object.
+     * 
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @param {PWSTR} pwszInputName Pointer to a wide-character <b>null</b>-terminated string containing the input name. Connection names are limited to 256 wide characters.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -249,54 +293,88 @@ class IWMStreamConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setconnectionname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setconnectionname
      */
     SetConnectionName(pwszInputName) {
         pwszInputName := pwszInputName is String ? StrPtr(pwszInputName) : pwszInputName
 
-        result := ComCall(9, this, "ptr", pwszInputName, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszInputName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetBitrate method retrieves the bit rate for the stream.
      * @returns {Integer} Pointer to a <b>DWORD</b> containing the bit rate, in bits per second.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbitrate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbitrate
      */
     GetBitrate() {
-        result := ComCall(10, this, "uint*", &pdwBitrate := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pdwBitrate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwBitrate
     }
 
     /**
      * The SetBitrate method specifies the bit rate for the stream.
+     * @remarks
+     * The bit rate is the number of bits per second given to the stream in the ASF file, not including any overhead. For compressed bit streams, such as audio or video, a higher bit rate gives higher quality.
+     * 
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @param {Integer} pdwBitrate <b>DWORD</b> containing the bit rate, in bits per second.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setbitrate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setbitrate
      */
     SetBitrate(pdwBitrate) {
-        result := ComCall(11, this, "uint", pdwBitrate, "HRESULT")
+        result := ComCall(11, this, "uint", pdwBitrate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetBufferWindow method retrieves the maximum latency between when a stream is received and when it begins to be displayed.
      * @returns {Integer} Pointer to a variable specifying the buffer window, in milliseconds.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbufferwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-getbufferwindow
      */
     GetBufferWindow() {
-        result := ComCall(12, this, "uint*", &pmsBufferWindow := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pmsBufferWindow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pmsBufferWindow
     }
 
     /**
      * The SetBufferWindow method specifies the maximum latency between when a stream is received and when it begins to be displayed.
+     * @remarks
+     * For high bit rate streams (typically, more than 1 megabit per second), a latency (or buffer window) of 1 second is typical; for lower bit rate streams, a latency of approximately 3 seconds is often used.
+     * 
+     * Setting the buffer window to -1 (0xFFFFFFFF) indicates that the buffer window is unknown. In this case, the writer selects the buffer window size.
+     * 
+     * For video streams, a larger buffer window gives higher quality.
+     * 
+     * <div class="alert"><b>Note</b>  A problem can arise if you create a file containing streams with widely varying buffer windows. Playback applications created with a previous version of the Windows Media Format SDK have difficulty rendering the data from such files properly. If you are creating files to be used with older players, you should ensure that the buffer windows of any two streams do not vary by more than five seconds.</div>
+     * <div> </div>
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @param {Integer} msBufferWindow Buffer window, in milliseconds.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setbufferwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig-setbufferwindow
      */
     SetBufferWindow(msBufferWindow) {
-        result := ComCall(13, this, "uint", msBufferWindow, "HRESULT")
+        result := ComCall(13, this, "uint", msBufferWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

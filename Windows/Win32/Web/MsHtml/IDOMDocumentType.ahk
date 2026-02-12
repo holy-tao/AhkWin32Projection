@@ -84,7 +84,11 @@ class IDOMDocumentType extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -93,7 +97,11 @@ class IDOMDocumentType extends IDispatch{
      * @returns {IDispatch} 
      */
     get_entities() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -102,7 +110,11 @@ class IDOMDocumentType extends IDispatch{
      * @returns {IDispatch} 
      */
     get_notations() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -112,7 +124,11 @@ class IDOMDocumentType extends IDispatch{
      */
     get_publicId() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -122,7 +138,11 @@ class IDOMDocumentType extends IDispatch{
      */
     get_systemId() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -132,7 +152,11 @@ class IDOMDocumentType extends IDispatch{
      */
     get_internalSubset() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

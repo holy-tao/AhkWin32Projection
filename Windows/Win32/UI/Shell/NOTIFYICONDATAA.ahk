@@ -17,7 +17,7 @@
  * 
  * ```cpp
  * // Windows Vista and later:
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyicondataa
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/ns-shellapi-notifyicondataa
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset ANSI

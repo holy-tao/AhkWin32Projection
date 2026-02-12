@@ -7,7 +7,7 @@
 
 /**
  * Manages the configuration of a WDS transport server.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -55,20 +55,28 @@ class IWdsTransportConfigurationManager extends IDispatch{
     /**
      * Receives an interface pointer to the Configuration Manager's Service Policy object. This object can be used to configure service parameters such as the multicast IP address source and the active network profile.
      * @returns {IWdsTransportServicePolicy} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_servicepolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_servicepolicy
      */
     get_ServicePolicy() {
-        result := ComCall(7, this, "ptr*", &ppWdsTransportServicePolicy := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppWdsTransportServicePolicy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWdsTransportServicePolicy(ppWdsTransportServicePolicy)
     }
 
     /**
      * Receives an interface pointer to the Configuration Manager's Diagnostics Policy object. The object can be used to configure diagnostics settings that WDS transport server components enable for diagnostic event logging.
      * @returns {IWdsTransportDiagnosticsPolicy} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_diagnosticspolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_diagnosticspolicy
      */
     get_DiagnosticsPolicy() {
-        result := ComCall(8, this, "ptr*", &ppWdsTransportDiagnosticsPolicy := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppWdsTransportDiagnosticsPolicy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWdsTransportDiagnosticsPolicy(ppWdsTransportDiagnosticsPolicy)
     }
 
@@ -76,60 +84,84 @@ class IWdsTransportConfigurationManager extends IDispatch{
      * Receives a value that indicates whether WDS transport services are running on the server.
      * @param {VARIANT_BOOL} bRealtimeStatus 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_wdstransportservicesrunning
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_wdstransportservicesrunning
      */
     get_WdsTransportServicesRunning(bRealtimeStatus) {
-        result := ComCall(9, this, "short", bRealtimeStatus, "short*", &pbServicesRunning := 0, "HRESULT")
+        result := ComCall(9, this, "short", bRealtimeStatus, "short*", &pbServicesRunning := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbServicesRunning
     }
 
     /**
      * Sets all WDS transport services to Auto-Start mode.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-enablewdstransportservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-enablewdstransportservices
      */
     EnableWdsTransportServices() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets all WDS transport services to Disabled mode.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-disablewdstransportservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-disablewdstransportservices
      */
     DisableWdsTransportServices() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Starts all WDS transport services. This method provides the means to change the running state of WDS transport services without changing their configuration.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-startwdstransportservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-startwdstransportservices
      */
     StartWdsTransportServices() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Stops all WDS transport services. This method provides the means to change the running state of WDS transport services without changing their configuration.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-stopwdstransportservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-stopwdstransportservices
      */
     StopWdsTransportServices() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Stops and then restarts any WDS transport services that are running. If no services are running, the method returns with S_OK without further action.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-restartwdstransportservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-restartwdstransportservices
      */
     RestartWdsTransportServices() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,10 +169,14 @@ class IWdsTransportConfigurationManager extends IDispatch{
      * Sends a notification to WDS transport services. The notification value is translated to the appropriate WDS transport service controls, and then these controls are sent to the appropriate services.
      * @param {Integer} ServiceNotification A value of the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_service_notification">WDSTRANSPORT_SERVICE_NOTIFICATION</a> enumeration that specifies the type of service notification to be sent.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-notifywdstransportservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-notifywdstransportservices
      */
     NotifyWdsTransportServices(ServiceNotification) {
-        result := ComCall(15, this, "int", ServiceNotification, "HRESULT")
+        result := ComCall(15, this, "int", ServiceNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The FORM_INFO_1 structure contains information about a print form. The information includes the print forms origin, its name, its dimensions, and the dimensions of its printable area.
- * @see https://learn.microsoft.com/windows/win32/printdocs/form-info-1
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/form-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

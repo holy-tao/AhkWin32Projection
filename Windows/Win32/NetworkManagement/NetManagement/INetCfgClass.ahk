@@ -38,7 +38,11 @@ class INetCfgClass extends IUnknown{
     FindComponent(pszwInfId) {
         pszwInfId := pszwInfId is String ? StrPtr(pszwInfId) : pszwInfId
 
-        result := ComCall(3, this, "ptr", pszwInfId, "ptr*", &ppnccItem := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszwInfId, "ptr*", &ppnccItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetCfgComponent(ppnccItem)
     }
 
@@ -47,7 +51,11 @@ class INetCfgClass extends IUnknown{
      * @returns {IEnumNetCfgComponent} 
      */
     EnumComponents() {
-        result := ComCall(4, this, "ptr*", &ppenumComponent := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppenumComponent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumNetCfgComponent(ppenumComponent)
     }
 }

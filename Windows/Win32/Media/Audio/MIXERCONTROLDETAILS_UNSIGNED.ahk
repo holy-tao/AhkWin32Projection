@@ -33,7 +33,7 @@
  * MIXERCONTROL_CONTROLTYPE_MILLITIME
  * 
  * MIXERCONTROL_CONTROLTYPE_PERCENT
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails_unsigned
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/ns-mmeapi-mixercontroldetails_unsigned
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

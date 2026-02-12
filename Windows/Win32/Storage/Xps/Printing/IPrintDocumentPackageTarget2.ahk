@@ -33,17 +33,25 @@ class IPrintDocumentPackageTarget2 extends IUnknown{
      * @returns {BOOL} 
      */
     GetIsTargetIppPrinter() {
-        result := ComCall(3, this, "int*", &isIppPrinter := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &isIppPrinter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isIppPrinter
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetTargetIppPrintDevice(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvTarget := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvTarget := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvTarget
     }
 }

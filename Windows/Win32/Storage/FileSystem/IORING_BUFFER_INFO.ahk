@@ -5,7 +5,7 @@
  * Represents a data buffer that can be registered with an I/O ring.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ns-ntioring_x-ioring_buffer_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntioring_x/ns-ntioring_x-ioring_buffer_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

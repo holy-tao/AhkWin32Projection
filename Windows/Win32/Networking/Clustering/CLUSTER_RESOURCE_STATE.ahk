@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_RESOURCE_STATE enumeration (msclus.h) describes the operational condition of a resource.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_state
+ * The CLUSTER_RESOURCE_STATE (clusapi.h) enumeration describes the operational condition of a resource.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_resource_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

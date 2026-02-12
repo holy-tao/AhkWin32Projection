@@ -67,7 +67,11 @@ class IHTMLDocument6 extends IDispatch{
      * @returns {IHTMLDocumentCompatibleInfoCollection} 
      */
     get_compatible() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocumentCompatibleInfoCollection(p)
     }
 
@@ -77,7 +81,11 @@ class IHTMLDocument6 extends IDispatch{
      */
     get_documentMode() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -87,7 +95,11 @@ class IHTMLDocument6 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onstorage(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +109,11 @@ class IHTMLDocument6 extends IDispatch{
      */
     get_onstorage() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -107,7 +123,11 @@ class IHTMLDocument6 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onstoragecommit(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +137,11 @@ class IHTMLDocument6 extends IDispatch{
      */
     get_onstoragecommit() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -127,9 +151,16 @@ class IHTMLDocument6 extends IDispatch{
      * @returns {IHTMLElement2} 
      */
     getElementById(bstrId) {
-        bstrId := bstrId is String ? BSTR.Alloc(bstrId).Value : bstrId
+        if(bstrId is String) {
+            pin := BSTR.Alloc(bstrId)
+            bstrId := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrId, "ptr*", &ppRetElement := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrId, "ptr*", &ppRetElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement2(ppRetElement)
     }
 
@@ -138,7 +169,11 @@ class IHTMLDocument6 extends IDispatch{
      * @returns {HRESULT} 
      */
     updateSettings() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

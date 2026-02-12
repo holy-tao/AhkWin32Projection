@@ -6,12 +6,10 @@
 /**
  * Do not use. Used to filter contact data, based on a label or property set. Enumerates contact properties exposed with an IContactProperties object. For each property, the name, type, version, and modification date can be retrieved.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Changing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactproperties">IContactProperties</a> properties object 
  * 		while enumerating properties with this interface results in undefined behavior.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontactpropertycollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nn-icontact-icontactpropertycollection
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */
@@ -38,6 +36,10 @@ class IContactPropertyCollection extends IUnknown{
 
     /**
      * Resets enumeration of properties.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Collection has been reset to the location before the first element (if any elements are present), 
+     * 		so you must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactpropertycollection-next">IContactPropertyCollection::Next</a> to begin querying data.</div>
+     * <div> </div>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following values:
@@ -59,15 +61,22 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-reset
      */
     Reset() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Moves to the next property.
+     * @remarks
+     * <div class="alert"><b>Note</b>  After S_FALSE, further calls to interface's query methods will fail.</div>
+     * <div> </div>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following values:
@@ -100,10 +109,14 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-next
      */
     Next() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,14 +165,18 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-getpropertyname
      */
     GetPropertyName(pszPropertyName, cchPropertyName, pdwcchPropertyNameRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
         pdwcchPropertyNameRequiredMarshal := pdwcchPropertyNameRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszPropertyName, "uint", cchPropertyName, pdwcchPropertyNameRequiredMarshal, pdwcchPropertyNameRequired, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPropertyName, "uint", cchPropertyName, pdwcchPropertyNameRequiredMarshal, pdwcchPropertyNameRequired, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,12 +253,16 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-getpropertytype
      */
     GetPropertyType(pdwType) {
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pdwTypeMarshal, pdwType, "HRESULT")
+        result := ComCall(6, this, pdwTypeMarshal, pdwType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,12 +292,16 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertyversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-getpropertyversion
      */
     GetPropertyVersion(pdwVersion) {
         pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwVersionMarshal, pdwVersion, "HRESULT")
+        result := ComCall(7, this, pdwVersionMarshal, pdwVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -306,15 +331,23 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertymodificationdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-getpropertymodificationdate
      */
     GetPropertyModificationDate(pftModificationDate) {
-        result := ComCall(8, this, "ptr", pftModificationDate, "HRESULT")
+        result := ComCall(8, this, "ptr", pftModificationDate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the unique ID for a given element in a property array.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Valid only when <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactpropertycollection-getpropertytype">IContactPropertyCollection::GetPropertyType</a> 
+     * 		returns CGD_ARRAY_NODE for the current property.</div>
+     * <div> </div>
      * @param {PWSTR} pszArrayElementID Type: <b>LPWSTR</b>
      * 
      * On success, contains the unique ID for the element.
@@ -368,14 +401,18 @@ class IContactPropertyCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertyarrayelementid
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactpropertycollection-getpropertyarrayelementid
      */
     GetPropertyArrayElementID(pszArrayElementID, cchArrayElementID, pdwcchArrayElementIDRequired) {
         pszArrayElementID := pszArrayElementID is String ? StrPtr(pszArrayElementID) : pszArrayElementID
 
         pdwcchArrayElementIDRequiredMarshal := pdwcchArrayElementIDRequired is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pszArrayElementID, "uint", cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "HRESULT")
+        result := ComCall(9, this, "ptr", pszArrayElementID, "uint", cchArrayElementID, pdwcchArrayElementIDRequiredMarshal, pdwcchArrayElementIDRequired, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -51,7 +51,7 @@ class IO {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntdeviceiocontrolfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-ntdeviceiocontrolfile
      */
     static NtDeviceIoControlFile(FileHandle, Event, ApcRoutine, ApcContext, IoStatusBlock, IoControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle

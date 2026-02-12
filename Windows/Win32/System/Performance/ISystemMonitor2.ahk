@@ -95,7 +95,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     put_EnableDigitGrouping(bState) {
-        result := ComCall(79, this, "short", bState, "HRESULT")
+        result := ComCall(79, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +108,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {VARIANT_BOOL} 
      */
     get_EnableDigitGrouping() {
-        result := ComCall(80, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(80, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -114,7 +122,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     put_EnableToolTips(bState) {
-        result := ComCall(81, this, "short", bState, "HRESULT")
+        result := ComCall(81, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -123,7 +135,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {VARIANT_BOOL} 
      */
     get_EnableToolTips() {
-        result := ComCall(82, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(82, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -133,7 +149,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     put_ShowTimeAxisLabels(bState) {
-        result := ComCall(83, this, "short", bState, "HRESULT")
+        result := ComCall(83, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,7 +162,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowTimeAxisLabels() {
-        result := ComCall(84, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(84, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -152,7 +176,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     put_ChartScroll(bScroll) {
-        result := ComCall(85, this, "short", bScroll, "HRESULT")
+        result := ComCall(85, this, "short", bScroll, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +189,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {VARIANT_BOOL} 
      */
     get_ChartScroll() {
-        result := ComCall(86, this, "short*", &pbScroll := 0, "HRESULT")
+        result := ComCall(86, this, "short*", &pbScroll := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbScroll
     }
 
@@ -171,7 +203,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     put_DataPointCount(iNewCount) {
-        result := ComCall(87, this, "int", iNewCount, "HRESULT")
+        result := ComCall(87, this, "int", iNewCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +216,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {Integer} 
      */
     get_DataPointCount() {
-        result := ComCall(88, this, "int*", &piDataPointCount := 0, "HRESULT")
+        result := ComCall(88, this, "int*", &piDataPointCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piDataPointCount
     }
 
@@ -190,7 +230,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     ScaleToFit(bSelectedCountersOnly) {
-        result := ComCall(89, this, "short", bSelectedCountersOnly, "HRESULT")
+        result := ComCall(89, this, "short", bSelectedCountersOnly, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,9 +245,16 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     SaveAs(bstrFileName, eSysmonFileType) {
-        bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
+        if(bstrFileName is String) {
+            pin := BSTR.Alloc(bstrFileName)
+            bstrFileName := pin.Value
+        }
 
-        result := ComCall(90, this, "ptr", bstrFileName, "int", eSysmonFileType, "HRESULT")
+        result := ComCall(90, this, "ptr", bstrFileName, "int", eSysmonFileType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -211,13 +262,20 @@ class ISystemMonitor2 extends ISystemMonitor{
      * 
      * @param {BSTR} bstrFileName 
      * @param {Integer} eSysmonFileType 
-     * @param {Integer} iFilter 
+     * @param {Integer} iFilter_ 
      * @returns {HRESULT} 
      */
-    Relog(bstrFileName, eSysmonFileType, iFilter) {
-        bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
+    Relog(bstrFileName, eSysmonFileType, iFilter_) {
+        if(bstrFileName is String) {
+            pin := BSTR.Alloc(bstrFileName)
+            bstrFileName := pin.Value
+        }
 
-        result := ComCall(91, this, "ptr", bstrFileName, "int", eSysmonFileType, "int", iFilter, "HRESULT")
+        result := ComCall(91, this, "ptr", bstrFileName, "int", eSysmonFileType, "int", iFilter_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +284,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     ClearData() {
-        result := ComCall(92, this, "HRESULT")
+        result := ComCall(92, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -235,7 +297,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {Float} 
      */
     get_LogSourceStartTime() {
-        result := ComCall(93, this, "double*", &pDate := 0, "HRESULT")
+        result := ComCall(93, this, "double*", &pDate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDate
     }
 
@@ -244,7 +310,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {Float} 
      */
     get_LogSourceStopTime() {
-        result := ComCall(94, this, "double*", &pDate := 0, "HRESULT")
+        result := ComCall(94, this, "double*", &pDate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDate
     }
 
@@ -255,7 +325,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     SetLogViewRange(StartTime, StopTime) {
-        result := ComCall(95, this, "double", StartTime, "double", StopTime, "HRESULT")
+        result := ComCall(95, this, "double", StartTime, "double", StopTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +343,11 @@ class ISystemMonitor2 extends ISystemMonitor{
         StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
         StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
 
-        result := ComCall(96, this, StartTimeMarshal, StartTime, StopTimeMarshal, StopTime, "HRESULT")
+        result := ComCall(96, this, StartTimeMarshal, StartTime, StopTimeMarshal, StopTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,7 +358,11 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     BatchingLock(fLock, eBatchReason) {
-        result := ComCall(97, this, "short", fLock, "int", eBatchReason, "HRESULT")
+        result := ComCall(97, this, "short", fLock, "int", eBatchReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -290,9 +372,16 @@ class ISystemMonitor2 extends ISystemMonitor{
      * @returns {HRESULT} 
      */
     LoadSettings(bstrSettingFileName) {
-        bstrSettingFileName := bstrSettingFileName is String ? BSTR.Alloc(bstrSettingFileName).Value : bstrSettingFileName
+        if(bstrSettingFileName is String) {
+            pin := BSTR.Alloc(bstrSettingFileName)
+            bstrSettingFileName := pin.Value
+        }
 
-        result := ComCall(98, this, "ptr", bstrSettingFileName, "HRESULT")
+        result := ComCall(98, this, "ptr", bstrSettingFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

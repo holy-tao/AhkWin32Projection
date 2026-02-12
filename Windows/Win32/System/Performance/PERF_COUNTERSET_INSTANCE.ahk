@@ -5,7 +5,7 @@
  * Defines an instance of a counter set.
  * @remarks
  * The <b>Offset</b> member of  <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> contains the byte offset from the beginning of the <b>PERF_COUNTERSET_INSTANCE</b> block to the counter's raw counter value.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counterset_instance
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_counterset_instance
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

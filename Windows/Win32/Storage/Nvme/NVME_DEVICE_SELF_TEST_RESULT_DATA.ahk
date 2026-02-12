@@ -5,7 +5,7 @@
  * Contains data about the results of a Device Self-Test operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_result_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_device_self_test_result_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

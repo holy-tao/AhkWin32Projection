@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber when a new object is created for or removed from the pool.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomobjectpoolevents2
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomobjectpoolevents2
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -37,10 +37,14 @@ class IComObjectPoolEvents2 extends IUnknown{
      * @param {Integer} dwObjsCreated The number of objects in the pool.
      * @param {Integer} oid The unique pooled object identifier.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreateobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreateobject
      */
     OnObjPoolCreateObject(pInfo, guidObject, dwObjsCreated, oid) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,15 +55,21 @@ class IComObjectPoolEvents2 extends IUnknown{
      * @param {Integer} dwObjsCreated The number of objects in the pool.
      * @param {Integer} oid The unique pooled object identifier.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooldestroyobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooldestroyobject
      */
     OnObjPoolDestroyObject(pInfo, guidObject, dwObjsCreated, oid) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "ptr", guidObject, "uint", dwObjsCreated, "uint", oid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Generated when a pool provides a requesting client with an existing object or creates a new one.
+     * @remarks
+     * When a component is configured for object pooling, the pool is populated with objects up to the specified minimum level. As client requests for the component come in, they are satisfied on a first-come first-served basis from the pool. If no pooled objects are available and the pool is not yet at its specified maximum level, a new object is created and activated for the client.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} dwThreadsWaiting The number of threads waiting for an object.
      * @param {Integer} dwAvail The number of free objects in the pool.
@@ -67,10 +77,14 @@ class IComObjectPoolEvents2 extends IUnknown{
      * @param {Integer} dwMin The pool's minimum object value.
      * @param {Integer} dwMax The pool's maximum object value.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatedecision
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatedecision
      */
     OnObjPoolCreateDecision(pInfo, dwThreadsWaiting, dwAvail, dwCreated, dwMin, dwMax) {
-        result := ComCall(5, this, "ptr", pInfo, "uint", dwThreadsWaiting, "uint", dwAvail, "uint", dwCreated, "uint", dwMin, "uint", dwMax, "HRESULT")
+        result := ComCall(5, this, "ptr", pInfo, "uint", dwThreadsWaiting, "uint", dwAvail, "uint", dwCreated, "uint", dwMin, "uint", dwMax, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,10 +95,14 @@ class IComObjectPoolEvents2 extends IUnknown{
      * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
      * @param {Integer} dwTimeout The pool's time-out value.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooltimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpooltimeout
      */
     OnObjPoolTimeout(pInfo, guidObject, guidActivity, dwTimeout) {
-        result := ComCall(6, this, "ptr", pInfo, "ptr", guidObject, "ptr", guidActivity, "uint", dwTimeout, "HRESULT")
+        result := ComCall(6, this, "ptr", pInfo, "ptr", guidObject, "ptr", guidActivity, "uint", dwTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,10 +114,14 @@ class IComObjectPoolEvents2 extends IUnknown{
      * @param {Integer} dwMax The pool's maximum object value.
      * @param {Integer} dwTimeout The pool's time-out value.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatepool
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomobjectpoolevents2-onobjpoolcreatepool
      */
     OnObjPoolCreatePool(pInfo, guidObject, dwMin, dwMax, dwTimeout) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidObject, "uint", dwMin, "uint", dwMax, "uint", dwTimeout, "HRESULT")
+        result := ComCall(7, this, "ptr", pInfo, "ptr", guidObject, "uint", dwMin, "uint", dwMax, "uint", dwTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,10 +6,8 @@
 /**
  * Provides a reserved method that is used by the Network Diagnostics Framework (NDF).
  * @remarks
- * 
  * This interface is reserved for system use.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nn-ndhelper-inetdiaghelperutilfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndhelper/nn-ndhelper-inetdiaghelperutilfactory
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
@@ -35,13 +33,19 @@ class INetDiagHelperUtilFactory extends IUnknown{
     static VTableNames => ["CreateUtilityInstance"]
 
     /**
-     * Used by the Network Diagnostics Framework (NDF). This method is reserved for system use.
+     * Used by the Network Diagnostics Framework (NDF). This method is reserved for system use. (INetDiagHelperUtilFactory.CreateUtilityInstance)
+     * @remarks
+     * This method is reserved for system use.
      * @param {Pointer<Guid>} riid Reserved for system use.
-     * @returns {Pointer<Void>} Reserved for system use.
-     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelperutilfactory-createutilityinstance
+     * @returns {Pointer<Pointer<Void>>} Reserved for system use.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ndhelper/nf-ndhelper-inetdiaghelperutilfactory-createutilityinstance
      */
     CreateUtilityInstance(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 }

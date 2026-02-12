@@ -30,6 +30,19 @@ class ICastingController extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {IUnknown} castingEngine 
      * @param {IUnknown} castingSource 
      * @returns {HRESULT} <ul>
@@ -43,38 +56,65 @@ class ICastingController extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(castingEngine, castingSource) {
-        result := ComCall(3, this, "ptr", castingEngine, "ptr", castingSource, "HRESULT")
+        result := ComCall(3, this, "ptr", castingEngine, "ptr", castingSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Represents a connection between two shapes in a drawing, such as a line and a box in an organization chart.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/connect-element-connects_type-complextypevisio-xml
      */
     Connect() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Stops the recognizer from processing ink because a stroke has been added or deleted.
+     * @remarks
+     * The <b>AdviseInkChange</b> function signals that there will be additional calls to the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function. This enables any recognition already in progress to stop at any convenient point. Recognition completion is one such point, so <b>AdviseInkChange</b> can safely do nothing.
      * 
+     * For example, if you have two threads, one thread may be using <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-process">Process</a> with other functions to obtain results. The other thread may be collecting ink, echoing it, and queuing tasks for the first thread. The second thread calls <b>AdviseInkChange</b> to notify the recognizer a change is coming. This enables the first thread to return to the caller sooner than without the call to <b>AdviseInkChange</b>. The first thread can then call the recognizer again with more ink.
+     * 
+     * If you set the bNewStroke parameter to <b>FALSE</b> because a stroke was modified or deleted, you must also call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-resetcontext">ResetContext</a> function, and then call the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-addstroke">AddStroke</a> function to add the strokes from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object to the recognizer context. This is done automatically if you attach the recognizer context to the <b>InkDisp</b> object.
      * @param {ICastingEventHandler} eventHandler 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-adviseinkchange
      */
     Advise(eventHandler) {
-        result := ComCall(6, this, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", eventHandler, "uint*", &cookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return cookie
     }
 
@@ -84,7 +124,11 @@ class ICastingController extends IUnknown{
      * @returns {HRESULT} 
      */
     UnAdvise(cookie) {
-        result := ComCall(7, this, "uint", cookie, "HRESULT")
+        result := ComCall(7, this, "uint", cookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IRpcSyntaxNegotiate extends IUnknown{
      * @returns {HRESULT} 
      */
     NegotiateSyntax(pMsg) {
-        result := ComCall(3, this, "ptr", pMsg, "HRESULT")
+        result := ComCall(3, this, "ptr", pMsg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnConnectDebugger(pad) {
-        result := ComCall(3, this, "ptr", pad, "HRESULT")
+        result := ComCall(3, this, "ptr", pad, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDisconnectDebugger() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,19 +63,27 @@ class IRemoteDebugApplicationEvents extends IUnknown{
     OnSetName(pstrName) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
 
-        result := ComCall(5, this, "ptr", pstrName, "HRESULT")
+        result := ComCall(5, this, "ptr", pstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {PWSTR} pstr 
+     * @param {PWSTR} pstr_ 
      * @returns {HRESULT} 
      */
-    OnDebugOutput(pstr) {
-        pstr := pstr is String ? StrPtr(pstr) : pstr
+    OnDebugOutput(pstr_) {
+        pstr_ := pstr_ is String ? StrPtr(pstr_) : pstr_
 
-        result := ComCall(6, this, "ptr", pstr, "HRESULT")
+        result := ComCall(6, this, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +92,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnClose() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +106,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnEnterBreakPoint(prdat) {
-        result := ComCall(8, this, "ptr", prdat, "HRESULT")
+        result := ComCall(8, this, "ptr", prdat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +120,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnLeaveBreakPoint(prdat) {
-        result := ComCall(9, this, "ptr", prdat, "HRESULT")
+        result := ComCall(9, this, "ptr", prdat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +134,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnCreateThread(prdat) {
-        result := ComCall(10, this, "ptr", prdat, "HRESULT")
+        result := ComCall(10, this, "ptr", prdat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +148,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDestroyThread(prdat) {
-        result := ComCall(11, this, "ptr", prdat, "HRESULT")
+        result := ComCall(11, this, "ptr", prdat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +163,11 @@ class IRemoteDebugApplicationEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnBreakFlagChange(abf, prdatSteppingThread) {
-        result := ComCall(12, this, "uint", abf, "ptr", prdatSteppingThread, "HRESULT")
+        result := ComCall(12, this, "uint", abf, "ptr", prdatSteppingThread, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

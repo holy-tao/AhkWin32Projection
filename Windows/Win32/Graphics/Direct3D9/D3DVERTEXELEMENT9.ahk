@@ -5,7 +5,7 @@
  * Defines the vertex data layout. Each vertex can contain one or more data types, and each data type is described by a vertex element.
  * @remarks
  * Vertex data is defined using an array of **D3DVERTEXELEMENT9** structures. Use [**D3DDECL\_END**](d3ddecl-end.md) to declare the last element in the declaration.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dvertexelement9
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dvertexelement9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used with the RBN_AUTOBREAK notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarautobreak
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmrebarautobreak
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -58,9 +59,12 @@ class NMREBARAUTOBREAK extends Win32Struct
      * Application-defined value from the <b>lParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-rebarbandinfoa">REBARBANDINFO</a> structure that defines the rebar band.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(32, this)
+            return this.__lParam
+        }
     }
 
     /**

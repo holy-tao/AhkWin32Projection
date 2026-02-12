@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_ENUM enumeration (msclus.h) describes the type of cluster objects being enumerated.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_enum
+ * CLUSTER_ENUM (clusapi.h) describes the type of cluster objects being enumerated.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_enum
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Sets the number of worker threads used by a video encoder.
  * @remarks
  * If the value is zero, the encoder selects the number of threads.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencnumworkerthreads
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencnumworkerthreads
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

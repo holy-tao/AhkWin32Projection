@@ -33,7 +33,11 @@ class IPartFont2 extends IPartFont{
      * @returns {Integer} 
      */
     GetFontRestriction() {
-        result := ComCall(10, this, "int*", &pRestriction := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pRestriction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRestriction
     }
 }

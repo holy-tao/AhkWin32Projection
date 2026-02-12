@@ -34,7 +34,11 @@ class IMFMediaEngineTransferSource extends IUnknown{
      * @returns {HRESULT} 
      */
     TransferSourceToMediaEngine(destination) {
-        result := ComCall(3, this, "ptr", destination, "HRESULT")
+        result := ComCall(3, this, "ptr", destination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

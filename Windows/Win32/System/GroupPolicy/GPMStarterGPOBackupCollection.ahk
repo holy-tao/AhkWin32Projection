@@ -6,7 +6,7 @@
  * @remarks
  * For more information, see 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackupdirex-searchbackups">SearchBackups</a>.
- * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstartergpobackupcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmstartergpobackupcollection
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

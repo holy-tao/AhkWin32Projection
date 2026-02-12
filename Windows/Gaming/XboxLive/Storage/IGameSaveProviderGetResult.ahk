@@ -1,0 +1,71 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\GameSaveProvider.ahk
+#Include ..\..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Gaming.XboxLive.Storage
+ * @version WindowsRuntime 1.4
+ */
+class IGameSaveProviderGetResult extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IGameSaveProviderGetResult
+     * @type {Guid}
+     */
+    static IID => Guid("{3ab90816-d393-4d65-ac16-41c3e67ab945}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_Status", "get_Value"]
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {GameSaveProvider} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    get_Status() {
+        result := ComCall(6, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @returns {GameSaveProvider} 
+     */
+    get_Value() {
+        result := ComCall(7, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return GameSaveProvider(value)
+    }
+}

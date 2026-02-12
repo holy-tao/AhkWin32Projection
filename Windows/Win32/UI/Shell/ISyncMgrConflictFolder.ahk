@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that gets the conflict ID list for a conflict object.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrconflictfolder
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgrconflictfolder
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,10 +38,14 @@ class ISyncMgrConflictFolder extends IUnknown{
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE*</b>
      * 
      * A pointer to a PIDL, specified relative to the folder.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictfolder-getconflictidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrconflictfolder-getconflictidlist
      */
     GetConflictIDList(pConflict) {
-        result := ComCall(3, this, "ptr", pConflict, "ptr*", &ppidlConflict := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pConflict, "ptr*", &ppidlConflict := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppidlConflict
     }
 }

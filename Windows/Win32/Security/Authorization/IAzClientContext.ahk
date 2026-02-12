@@ -7,7 +7,7 @@
 
 /**
  * Maintains the state that describes a particular client.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazclientcontext
+ * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nn-azroles-iazclientcontext
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -91,6 +91,12 @@ class IAzClientContext extends IDispatch{
 
     /**
      * Determines whether the current client context is allowed to perform the specified operations.
+     * @remarks
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-get_roleforaccesscheck">RoleForAccessCheck</a> property is defined in the client context, the <b>AccessCheck</b> method will be performed only on that role.
+     * 
+     * When this method is called, the application group membership is added to the client context so that it does not need to be recomputed for subsequent access checks on the same client context.
+     * 
+     * This method cannot be called by a BizRule.
      * @param {BSTR} bstrObjectName The name of the accessed object. This string is used in audits.
      * @param {VARIANT} varScopeNames A variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds  a <b>VT_BSTR</b> that contains the name of a scope that the object specified by the <i>bstrObjectName</i> parameter matches. The array can contain only one element. To use the default application level scope, set the first entry in the array to an empty string ("") or <b>VT_EMPTY</b>, or pass <b>VT_EMPTY</b> in to this parameter.
      * @param {VARIANT} varOperations The operations for which access by the client context is checked. This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the  JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_I2</b> or <b>VT_I4</b> that represents the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazoperation-get_operationid">OperationID</a> property of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object in the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> policy.
@@ -102,143 +108,168 @@ class IAzClientContext extends IDispatch{
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> used to return a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains the results of the access check. Each element of the <b>SAFEARRAY</b> is a <b>VARIANT</b> of type <b>VT_I4</b>. Each entry in the array  matches the corresponding element in the <i>varOperations</i> array. If access to an operation is granted to the client context, a value of NO_ERROR is returned in the corresponding element in the <i>pvarResults</i> array. Any other value indicates that access to that operation is not granted. A typical value that indicates failure is ERROR_ACCESS_DENIED.
      * 
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-accesscheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-accesscheck
      */
     AccessCheck(bstrObjectName, varScopeNames, varOperations, varParameterNames, varParameterValues, varInterfaceNames, varInterfaceFlags, varInterfaces) {
-        bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
+        if(bstrObjectName is String) {
+            pin := BSTR.Alloc(bstrObjectName)
+            bstrObjectName := pin.Value
+        }
 
         pvarResults := VARIANT()
-        result := ComCall(7, this, "ptr", bstrObjectName, "ptr", varScopeNames, "ptr", varOperations, "ptr", varParameterNames, "ptr", varParameterValues, "ptr", varInterfaceNames, "ptr", varInterfaceFlags, "ptr", varInterfaces, "ptr", pvarResults, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrObjectName, "ptr", varScopeNames, "ptr", varOperations, "ptr", varParameterNames, "ptr", varParameterValues, "ptr", varInterfaceNames, "ptr", varInterfaceFlags, "ptr", varInterfaces, "ptr", pvarResults, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarResults
     }
 
     /**
      * Returns the application-specific string for the business rule (BizRule).
      * @returns {BSTR} String that contains information about the BizRule. The  format and contents of the string are  defined by the application.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-getbusinessrulestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-getbusinessrulestring
      */
     GetBusinessRuleString() {
         pbstrBusinessRuleString := BSTR()
-        result := ComCall(8, this, "ptr", pbstrBusinessRuleString, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrBusinessRuleString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrBusinessRuleString
     }
 
     /**
      * Retrieves the name of the current client in distinguished name (DN) format.
      * @remarks
-     * 
      * The DN client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameFullyQualifiedDN</b> specified for the <i>NameFormat</i> parameter. 
      * 
      * An example of a  client name in DN format is "CN=Ben Smith, OU=Software, OU=Example, O=FourthCoffee, C=US".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_userdn
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_userdn
      */
     get_UserDn() {
         pbstrProp := BSTR()
-        result := ComCall(9, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
      * Retrieves the name of the current client in a format compatible with Windows�Security�Account�Manager (SAM).
      * @remarks
-     * 
      * The SAM-compatible client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameSamCompatible</b> specified for the <i>NameFormat</i> parameter. 
      * 
      * An example of a  client name in SAM-compatible format is "ExampleDomain\UserName".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_usersamcompat
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_usersamcompat
      */
     get_UserSamCompat() {
         pbstrProp := BSTR()
-        result := ComCall(10, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
      * Retrieves the name of the current client in user display name format.
      * @remarks
-     * 
      * The user display client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameCanonical</b> specified for the <i>NameDisplay</i> parameter. 
      * 
      * An example of a  client name in user display name format is "Ben Smith".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_userdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_userdisplay
      */
     get_UserDisplay() {
         pbstrProp := BSTR()
-        result := ComCall(11, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
      * Retrieves the name of the current client in GUID format.
      * @remarks
-     * 
      * The GUID client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameUniqueId</b> specified for the <i>NameFormat</i> parameter. 
      * 
      * An example of a  client name in GUID format is "{4fa050f0-f561-11cf-bdd9-00aa003a77b6}Ben Smith".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_userguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_userguid
      */
     get_UserGuid() {
         pbstrProp := BSTR()
-        result := ComCall(12, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
      * Retrieves the name of the current client in canonical format.
      * @remarks
-     * 
      * The canonical client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameCanonical</b> specified for the <i>NameFormat</i> parameter. 
      * 
      * An example of a  client name in canonical format is "example.fourthcoffee.com/software/Ben Smith".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_usercanonical
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_usercanonical
      */
     get_UserCanonical() {
         pbstrProp := BSTR()
-        result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
      * Retrieves the name of the current client in user principal name (UPN) format.
      * @remarks
-     * 
      * The UPN client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameUserPrincipal</b> specified for the <i>NameFormat</i> parameter. 
      * 
      * An example of a  client name in UPN format is "someone@example.com".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_userupn
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_userupn
      */
     get_UserUpn() {
         pbstrProp := BSTR()
-        result := ComCall(14, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
      * Retrieves the name of the current client in a DNS format compatible with Windows�Security�Account�Manager (SAM).
      * @remarks
-     * 
      * The SAM-compatible DNS client name is retrieved by impersonating the client token and calling the <a href="https://docs.microsoft.com/windows/desktop/api/secext/nf-secext-getusernameexa">GetUserNameEx</a> function with <b>NameDnsDomain</b> specified for the <i>NameFormat</i> parameter. 
      * 
      * An example of a  client name in SAM-compatible DNS format is "example.fourthcoffee.com\Username".
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_userdnssamcompat
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_userdnssamcompat
      */
     get_UserDnsSamCompat() {
         pbstrProp := BSTR()
-        result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(15, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
@@ -344,59 +375,77 @@ class IAzClientContext extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {VARIANT} A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazclientcontext">IAzClientContext</a> object property.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-getproperty
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(16, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(16, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarProp
     }
 
     /**
      * Returns the roles for the client context.
+     * @remarks
+     * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
      * @param {BSTR} bstrScopeName Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object from which the roles returned in the <i>pvarRoleNames</i> parameter are applicable. If this property is <b>NULL</b>, the roles from the application scope are returned; otherwise, the roles from the specified scope are returned instead of the roles from the application scope.
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> used to return a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>. Each element of the <b>SAFEARRAY</b> is a <b>VARIANT</b> of type <b>BSTR</b> that contains the name of a role to which the client belongs at the scope specified by the <i>bstrScopeName</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-getroles
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-getroles
      */
     GetRoles(bstrScopeName) {
-        bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
+        if(bstrScopeName is String) {
+            pin := BSTR.Alloc(bstrScopeName)
+            bstrScopeName := pin.Value
+        }
 
         pvarRoleNames := VARIANT()
-        result := ComCall(17, this, "ptr", bstrScopeName, "ptr", pvarRoleNames, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrScopeName, "ptr", pvarRoleNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarRoleNames
     }
 
     /**
-     * Sets or retrieves the role that is used to perform the access check.
+     * Sets or retrieves the role that is used to perform the access check. (Get)
      * @remarks
-     * 
      * If this property is set, the role specified by this property will be the only role used in the access check; otherwise, all roles contained in the context will be used.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-get_roleforaccesscheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-get_roleforaccesscheck
      */
     get_RoleForAccessCheck() {
         pbstrProp := BSTR()
-        result := ComCall(18, this, "ptr", pbstrProp, "HRESULT")
+        result := ComCall(18, this, "ptr", pbstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProp
     }
 
     /**
-     * Sets or retrieves the role that is used to perform the access check.
+     * Sets or retrieves the role that is used to perform the access check. (Put)
      * @remarks
-     * 
      * If this property is set, the role specified by this property will be the only role used in the access check; otherwise, all roles contained in the context will be used.
-     * 
-     * 
      * @param {BSTR} bstrProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext-put_roleforaccesscheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazclientcontext-put_roleforaccesscheck
      */
     put_RoleForAccessCheck(bstrProp) {
-        bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
+        if(bstrProp is String) {
+            pin := BSTR.Alloc(bstrProp)
+            bstrProp := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bstrProp, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

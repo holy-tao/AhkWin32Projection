@@ -5,7 +5,7 @@
 
 /**
  * A developer implemented interface that allows a metafile to be replayed.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1gdimetafilesink
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1gdimetafilesink
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -44,12 +44,16 @@ class ID2D1GdiMetafileSink extends IUnknown{
      * @returns {HRESULT} Type: <b>BOOL</b>
      * 
      * Return true if the record is successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1gdimetafilesink-processrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1gdimetafilesink-processrecord
      */
     ProcessRecord(recordType, recordData, recordDataSize) {
         recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", recordType, recordDataMarshal, recordData, "uint", recordDataSize, "HRESULT")
+        result := ComCall(3, this, "uint", recordType, recordDataMarshal, recordData, "uint", recordDataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

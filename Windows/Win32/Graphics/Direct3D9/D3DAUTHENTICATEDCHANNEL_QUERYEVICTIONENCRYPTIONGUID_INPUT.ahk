@@ -5,7 +5,7 @@
 
 /**
  * Contains input data for a D3DAUTHENTICATEDQUERY\_ENCRYPTIONWHENACCESSIBLEGUID query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryevictionencryptionguid-input
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-queryevictionencryptionguid-input
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The stencil operations that can be performed during depth-stencil testing. (D3D11_STENCIL_OP)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_stencil_op
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_stencil_op
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

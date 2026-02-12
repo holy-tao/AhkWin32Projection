@@ -10,7 +10,7 @@
  * structure to the consumer's
  * [EventCallback](/windows/win32/api/evntrace/nc-evntrace-pevent_callback)
  * callback function.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-event_trace
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

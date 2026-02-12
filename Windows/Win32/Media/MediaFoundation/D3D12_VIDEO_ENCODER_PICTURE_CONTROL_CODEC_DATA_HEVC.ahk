@@ -5,7 +5,7 @@
  * Represents the picture level control elements for the associated EncodeFrame command for HEVC encoding.
  * @remarks
  * The following tables list the expected VPS, SPS and PPS Values for HEVC encoding.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

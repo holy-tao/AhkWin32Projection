@@ -30,14 +30,18 @@ class IRadialControllerIndependentInputSourceInterop extends IInspectable{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
-    CreateForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateForWindow(hwnd_, riid) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hwnd_, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

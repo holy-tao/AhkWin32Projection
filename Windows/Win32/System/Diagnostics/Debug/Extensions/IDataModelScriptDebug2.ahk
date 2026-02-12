@@ -32,12 +32,16 @@ class IDataModelScriptDebug2 extends IDataModelScriptDebug{
     /**
      * 
      * @param {PWSTR} functionName 
-     * @returns {IDataModelScriptDebugBreakpoint} 
+     * @returns {Pointer<IDataModelScriptDebugBreakpoint>} 
      */
     SetBreakpointAtFunction(functionName) {
         functionName := functionName is String ? StrPtr(functionName) : functionName
 
-        result := ComCall(13, this, "ptr", functionName, "ptr*", &breakpoint := 0, "HRESULT")
-        return IDataModelScriptDebugBreakpoint(breakpoint)
+        result := ComCall(13, this, "ptr", functionName, "ptr*", &breakpoint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return breakpoint
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Represents a one-to-one mapping to a sharable window.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiwindow
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiwindow
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -77,72 +77,100 @@ class IRDPSRAPIWindow extends IDispatch{
     /**
      * Returns the ID of a window.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id
      */
     get_Id() {
-        result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Returns a pointer to the application object that the window belongs to.
      * @returns {IRDPSRAPIApplication} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_application
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_application
      */
     get_Application() {
-        result := ComCall(8, this, "ptr*", &pApplication := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pApplication := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIApplication(pApplication)
     }
 
     /**
-     * Gets or sets the sharing property for a window.
+     * Gets or sets the sharing property for a window. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_shared
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_shared
      */
     get_Shared() {
-        result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Gets or sets the sharing property for a window.
+     * Gets or sets the sharing property for a window. (Put)
      * @param {VARIANT_BOOL} NewVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-put_shared
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-put_shared
      */
     put_Shared(NewVal) {
-        result := ComCall(10, this, "short", NewVal, "HRESULT")
+        result := ComCall(10, this, "short", NewVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the name for the window object.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
      */
     get_Name() {
         pRetVal := BSTR()
-        result := ComCall(11, this, "ptr", pRetVal, "HRESULT")
+        result := ComCall(11, this, "ptr", pRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Brings the current window to the foreground.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-show
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-show
      */
     Show() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the flags on the current window.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_flags
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_flags
      */
     get_Flags() {
-        result := ComCall(13, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 }

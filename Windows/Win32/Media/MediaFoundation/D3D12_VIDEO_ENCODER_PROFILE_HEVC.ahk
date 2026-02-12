@@ -5,7 +5,7 @@
  * Specifies the encoder profiles for High Efficiency Video Coding (HEVC) encoding.
  * @remarks
  * Use this enumeration to specify the encoder profile in a [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_profile_hevc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_profile_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

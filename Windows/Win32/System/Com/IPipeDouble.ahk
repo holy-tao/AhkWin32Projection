@@ -4,9 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Transfers data of the double type (which is 64 bits wide).
+ * The IPipeDouble interface (objidl.h) transfers data of the double type, which is 64 bits wide.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipipebyte">IPipeByte</a>, <b>IPipeDouble</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipipelong">IPipeLong</a> interfaces are similar to the standard DCE/RPC pipes. However, the COM implementation of pipes offers more flexibility. With the COM implementation, the basic idea is that the pipe is simply another interface with two methods: <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipipedouble-pull">Pull</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipipedouble-push">Push</a>. This results in three main benefits: 
  * 
  * 
@@ -18,9 +17,7 @@
  * <li>Pipes are interfaces, so the method calls can be asynchronous and follow those rules.</li>
  * </ul>
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/pipes">Pipes</a> in the RPC documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-ipipedouble
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-ipipedouble
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -46,32 +43,46 @@ class IPipeDouble extends IUnknown{
     static VTableNames => ["Pull", "Push"]
 
     /**
-     * Retrieves data of the double integer type from the pipe source.
+     * The IPipeDouble::Pull method (objidl.h) retrieves data of the double integer type from the pipe source.
+     * @remarks
+     * When the <b>Pull</b> method is called, data is requested from the provider of the pipe. The caller must provide a buffer that will hold at least the number of double integers specified in the <i>cRequest</i> parameter. The proxy will unmarshal the data into the provided buffer and set the number of double integers actually provided in <i>pcReturned</i>. The <i>pcReturned</i> parameter can be less than or equal to <i>cRequest</i>, but it will never be greater. When <i>pcReturned</i> is 0, it indicates that there is no more data.
      * @param {Pointer<Float>} buf A pointer to the memory buffer that receives the data. The buffer must be able to hold at least the number of double integers specified in <i>cRequest</i>.
      * @param {Integer} cRequest The number of double integers requested.
      * @param {Pointer<Integer>} pcReturned The actual number of double integers returned.
      * @returns {HRESULT} This method returns S_OK to indicate that the data was retrieved successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipipedouble-pull
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ipipedouble-pull
      */
     Pull(buf, cRequest, pcReturned) {
         bufMarshal := buf is VarRef ? "double*" : "ptr"
         pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, bufMarshal, buf, "uint", cRequest, pcReturnedMarshal, pcReturned, "HRESULT")
+        result := ComCall(3, this, bufMarshal, buf, "uint", cRequest, pcReturnedMarshal, pcReturned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sends data of the double integer type to the pipe source.
+     * The IPipeDouble::Push method (objidl.h) sends data of the double integer type to the pipe source.
+     * @remarks
+     * When the <b>Push</b> method is called, the data is being sent to the provider of the pipe. The caller fills the buffer with the data and then calls <b>Push</b>. The number of double integers being sent is specified in the <i>cSent</i> parameter. The caller is responsible for ensuring that the buffer is valid for the duration of the call.
+     * 
+     * When the last of the data has been pushed, the caller must do one last push of <i>cSent</i> equal to 0 to indicate that the data transfer is complete.
      * @param {Pointer<Float>} buf A pointer to the memory buffer that holds the data to be sent.
      * @param {Integer} cSent The number of double integers in the buffer.
      * @returns {HRESULT} This method returns S_OK to indicate that the data was sent successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipipedouble-push
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ipipedouble-push
      */
     Push(buf, cSent) {
         bufMarshal := buf is VarRef ? "double*" : "ptr"
 
-        result := ComCall(4, this, bufMarshal, buf, "uint", cSent, "HRESULT")
+        result := ComCall(4, this, bufMarshal, buf, "uint", cSent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

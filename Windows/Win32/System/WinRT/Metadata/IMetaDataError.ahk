@@ -35,7 +35,11 @@ class IMetaDataError extends IUnknown{
      * @returns {HRESULT} 
      */
     OnError(hrError, token) {
-        result := ComCall(3, this, "int", hrError, "uint", token, "HRESULT")
+        result := ComCall(3, this, "int", hrError, "uint", token, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

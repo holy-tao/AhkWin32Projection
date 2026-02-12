@@ -5,7 +5,7 @@
 
 /**
  * Use this interface to retrieve download statistics for peers and origin servers.
- * @see https://docs.microsoft.com/windows/win32/api//bits4_0/nn-bits4_0-ibackgroundcopyfile4
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits4_0/nn-bits4_0-ibackgroundcopyfile4
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -34,14 +34,18 @@ class IBackgroundCopyFile4 extends IBackgroundCopyFile3{
      * Specifies statistics about the amount of data downloaded from peers and origin servers.
      * @param {Pointer<Integer>} pFromOrigin Specifies the amount of file data downloaded from the originating server.
      * @param {Pointer<Integer>} pFromPeers Specifies the amount of file data downloaded from a peer-to-peer source.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bits4_0/nf-bits4_0-ibackgroundcopyfile4-getpeerdownloadstats
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits4_0/nf-bits4_0-ibackgroundcopyfile4-getpeerdownloadstats
      */
     GetPeerDownloadStats(pFromOrigin, pFromPeers) {
         pFromOriginMarshal := pFromOrigin is VarRef ? "uint*" : "ptr"
         pFromPeersMarshal := pFromPeers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pFromOriginMarshal, pFromOrigin, pFromPeersMarshal, pFromPeers, "HRESULT")
+        result := ComCall(12, this, pFromOriginMarshal, pFromOrigin, pFromPeersMarshal, pFromPeers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * This interface represents a factory object from which all DirectWrite objects are created. **IDWriteFactory7** adds new facilities for working with system fonts.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefactory7
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefactory7
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,25 +33,41 @@ class IDWriteFactory7 extends IDWriteFactory6{
     static VTableNames => ["GetSystemFontSet", "GetSystemFontCollection"]
 
     /**
+     * Retrieves the set of system fonts. (IDWriteFactory7::GetSystemFontSet)
+     * @param {BOOL} includeDownloadableFonts Type: **[BOOL](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {BOOL} includeDownloadableFonts 
-     * @returns {IDWriteFontSet2} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontset
+     * `true` if you want to include downloadable fonts. `false` if you only want locally installed fonts.
+     * @returns {Pointer<IDWriteFontSet2>} Type: **[IDWriteFontSet2](./nn-dwrite_3-idwritefontset2.md)\*\***
+     * 
+     * The address of a pointer to an [IDWriteFontSet2](./nn-dwrite_3-idwritefontset2.md) interface. On successful completion, the function sets the pointer to the font set object, otherwise it sets the pointer to `nullptr`.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontset
      */
     GetSystemFontSet(includeDownloadableFonts) {
-        result := ComCall(55, this, "int", includeDownloadableFonts, "ptr*", &fontSet := 0, "HRESULT")
-        return IDWriteFontSet2(fontSet)
+        result := ComCall(55, this, "int", includeDownloadableFonts, "ptr*", &fontSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontSet
     }
 
     /**
+     * Retrieves a collection of fonts, grouped into families. (IDWriteFactory7::GetSystemFontCollection)
+     * @param {BOOL} includeDownloadableFonts Type: **[BOOL](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {BOOL} includeDownloadableFonts 
-     * @param {Integer} fontFamilyModel 
-     * @returns {IDWriteFontCollection3} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontcollection
+     * `true` if you want to include downloadable fonts. `false` if you only want locally installed fonts.
+     * @param {Integer} fontFamilyModel Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
+     * 
+     * How to group families in the collection.
+     * @returns {Pointer<IDWriteFontCollection3>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
-        result := ComCall(56, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection3(fontCollection)
+        result := ComCall(56, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &fontCollection_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontCollection_
     }
 }

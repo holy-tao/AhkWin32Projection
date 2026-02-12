@@ -4,8 +4,8 @@
 #Include .\IDWriteTextLayout.ahk
 
 /**
- * Represents a block of text after it has been fully analyzed and formatted.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwritetextlayout1
+ * Represents a block of text after it has been fully analyzed and formatted. (IDWriteTextLayout1)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nn-dwrite_1-idwritetextlayout1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -40,11 +40,15 @@ class IDWriteTextLayout1 extends IDWriteTextLayout{
      * The text range to which the change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextlayout1-setpairkerning
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextlayout1-setpairkerning
      */
     SetPairKerning(isPairKerningEnabled, textRange) {
-        result := ComCall(67, this, "int", isPairKerningEnabled, "ptr", textRange, "HRESULT")
+        result := ComCall(67, this, "int", isPairKerningEnabled, "ptr", textRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,13 +65,17 @@ class IDWriteTextLayout1 extends IDWriteTextLayout{
      * The position range of the current format.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextlayout1-getpairkerning
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextlayout1-getpairkerning
      */
     GetPairKerning(currentPosition, isPairKerningEnabled, textRange) {
         isPairKerningEnabledMarshal := isPairKerningEnabled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(68, this, "uint", currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, "ptr", textRange, "HRESULT")
+        result := ComCall(68, this, "uint", currentPosition, isPairKerningEnabledMarshal, isPairKerningEnabled, "ptr", textRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,11 +96,15 @@ class IDWriteTextLayout1 extends IDWriteTextLayout{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextlayout1-setcharacterspacing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextlayout1-setcharacterspacing
      */
     SetCharacterSpacing(leadingSpacing, trailingSpacing, minimumAdvanceWidth, textRange) {
-        result := ComCall(69, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "ptr", textRange, "HRESULT")
+        result := ComCall(69, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "ptr", textRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,15 +127,19 @@ class IDWriteTextLayout1 extends IDWriteTextLayout{
      * The position range of the current format.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextlayout1-getcharacterspacing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextlayout1-getcharacterspacing
      */
     GetCharacterSpacing(currentPosition, leadingSpacing, trailingSpacing, minimumAdvanceWidth, textRange) {
         leadingSpacingMarshal := leadingSpacing is VarRef ? "float*" : "ptr"
         trailingSpacingMarshal := trailingSpacing is VarRef ? "float*" : "ptr"
         minimumAdvanceWidthMarshal := minimumAdvanceWidth is VarRef ? "float*" : "ptr"
 
-        result := ComCall(70, this, "uint", currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, "ptr", textRange, "HRESULT")
+        result := ComCall(70, this, "uint", currentPosition, leadingSpacingMarshal, leadingSpacing, trailingSpacingMarshal, trailingSpacing, minimumAdvanceWidthMarshal, minimumAdvanceWidth, "ptr", textRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

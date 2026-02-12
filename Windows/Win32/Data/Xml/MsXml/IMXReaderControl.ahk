@@ -29,20 +29,47 @@ class IMXReaderControl extends IDispatch{
     static VTableNames => ["abort", "resume", "suspend"]
 
     /**
+     * Submits an error message to the information queue and terminates the current draw or dispatch call being executed.
+     * @remarks
+     * This operation does nothing on rasterizers that do not support it.
+     * @returns {HRESULT} None
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     * This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/abort
      */
     abort() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The resume command continues playing or recording on a device that has been paused using the pause command.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/resume
      */
     resume() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +78,11 @@ class IMXReaderControl extends IDispatch{
      * @returns {HRESULT} 
      */
     suspend() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

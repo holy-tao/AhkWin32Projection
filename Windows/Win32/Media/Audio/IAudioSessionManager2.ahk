@@ -7,7 +7,6 @@
 /**
  * The IAudioSessionManager2 interface enables an application to manage submixes for the audio device.
  * @remarks
- * 
  * An application can use this interface to perform the following tasks:
  * 
  * <ul>
@@ -20,10 +19,7 @@
  * This interface supports  custom implementations for <i>stream attenuation</i> or <i>ducking</i>, a new feature in Windows 7. An application playing a media stream can make the it behave differently when a new communication stream is opened on the default communication device. For example, the original media stream can be paused while the new communication stream is open. For more information about this feature, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/using-the-communication-device">Using a Communication Device</a>.
  * 
  * An application that manages the media streams and wants to provide a custom ducking implementation, must register to receive notifications when session events occur. For stream attenuation, a session event is raised by the system when a communication stream is opened or closed on the default communication device. For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/providing-a-custom-ducking-experience">Providing a Custom Ducking Behavior</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nn-audiopolicy-iaudiosessionmanager2
+ * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nn-audiopolicy-iaudiosessionmanager2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -50,16 +46,39 @@ class IAudioSessionManager2 extends IAudioSessionManager{
 
     /**
      * The GetSessionEnumerator method gets a pointer to the audio session enumerator object.
+     * @remarks
+     * The session manager maintains a collection of audio sessions that are active on the audio device by querying the audio engine.  <b>GetSessionEnumerator</b>  creates a session control for each session in the collection. To get a reference to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> interface of the session in the enumerated collection, the application must call <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessionidentifier">IAudioSessionEnumerator::GetSession</a>. For a code example, see <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionenumerator">IAudioSessionEnumerator Interface</a>.
+     * 
+     * The session enumerator might not be aware of the new sessions that are reported through <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a>. So if an application exclusively relies on the session enumerator for getting all the sessions for an audio endpoint, the results might not be accurate. To work around this, the application should manually maintain a list. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionenumerator">IAudioSessionEnumerator</a>.
      * @returns {IAudioSessionEnumerator} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionenumerator">IAudioSessionEnumerator</a> interface of the session enumerator object that the client can use to enumerate audio sessions on the audio device. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method.
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-getsessionenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-getsessionenumerator
      */
     GetSessionEnumerator() {
-        result := ComCall(5, this, "ptr*", &SessionEnum := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &SessionEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAudioSessionEnumerator(SessionEnum)
     }
 
     /**
      * The RegisterSessionNotification method registers the application to receive a notification when a session is created.
+     * @remarks
+     * The application can register to receive a notification  when a session is created, through the methods  of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface.  The application implements the <b>IAudioSessionNotification</b> interface. The methods defined in this interface receive callbacks from the  system when a session is created. For example code that shows how to implement this interface, see 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification Interface</a>.
+     * 
+     * To begin receiving notifications, the application calls the <b>IAudioSessionManager2::RegisterSessionNotification</b> method to register its <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface. When the application no longer requires notifications, it calls the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregistersessionnotification">IAudioSessionManager2::UnregisterSessionNotification</a> method to delete the registration.
+     * 
+     * > [!Important]
+     * > You must call [IAudioSessionEnumerator::GetCount](/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount) to begin receiving notifications. The session enumeration API discards new session notifications until the application has first retrieved the list of existing sessions. This is to prevent a race condition that can occur when a session notification arrives while the application using the session APIs is starting up. Calling **GetCount** triggers the enumeration API to begin sending session notifications.
+     * 
+     * <div class="alert"><b>Note</b>  Make sure that the application initializes COM with Multithreaded Apartment (MTA) model by calling <c>CoInitializeEx(NULL, COINIT_MULTITHREADED)</c> in a non-UI thread. If MTA is not initialized, the application does not receive session notifications from the session manager. 
+     * Threads that run the user interface of an application should be initialized apartment threading model.
+     * 
+     * </div>
+     * <div> </div>
      * @param {IAudioSessionNotification} SessionNotification A pointer to the application's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface. If the method call succeeds, it calls the <b>AddRef</b> method on the application's <b>IAudioSessionNotification</b> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
      *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
@@ -92,15 +111,21 @@ class IAudioSessionManager2 extends IAudioSessionManager{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification
      */
     RegisterSessionNotification(SessionNotification) {
-        result := ComCall(6, this, "ptr", SessionNotification, "HRESULT")
+        result := ComCall(6, this, "ptr", SessionNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The UnregisterSessionNotification method deletes the registration to receive a notification when a session is created.
+     * @remarks
+     * The application calls this method when it no longer needs to receive notifications. The <b>UnregisterSessionNotification</b> method removes the registration of an <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface that the application previously registered with the session manager by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-registeraudiosessionnotification">IAudioSessionControl::RegisterAudioSessionNotification</a> method.
      * @param {IAudioSessionNotification} SessionNotification A pointer to the application's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface. Pass the same interface pointer that was specified to the session manager in  a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification">IAudioSessionManager2::RegisterSessionNotification</a> to register for notification.  
      * 
      * If the <b>UnregisterSessionNotification</b> method succeeds, it calls the <b>Release</b> method on the application's <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface.
@@ -124,15 +149,25 @@ class IAudioSessionManager2 extends IAudioSessionManager{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregistersessionnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregistersessionnotification
      */
     UnregisterSessionNotification(SessionNotification) {
-        result := ComCall(7, this, "ptr", SessionNotification, "HRESULT")
+        result := ComCall(7, this, "ptr", SessionNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The RegisterDuckNotification method registers the application with the session manager to receive ducking notifications.
+     * @remarks
+     * <i>Stream Attenuation</i> or <i>ducking</i> is a new feature in Windows 7. An application playing a media stream can make the stream behave differently when a new communication stream is opened on the default communication device. For example, the original media stream can be paused while the new communication stream is open. To provide this custom implementation for stream attenuation, the application can opt out of the default stream attenuation experience by calling <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-setduckingpreference">IAudioSessionControl::SetDuckingPreference</a> and then register itself to receive notifications when session events occur. For stream attenuation, a session event is raised by the system when a communication stream is opened or closed on the default communication device. For more information about this feature, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/handling-audio-ducking-events-from-communication-devices">Getting Ducking Events</a>.
+     * 
+     * To begin receiving notifications, the application calls the <b>RegisterDuckNotification</b> method to register its <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification">IAudioVolumeDuckNotification</a> interface with the session manager. When the application no longer requires notifications, it calls the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregisterducknotification">IAudioSessionManager2::UnregisterDuckNotification</a> method to delete the registration.
+     * 
+     * The application receives notifications about the ducking events through the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification">IAudioVolumeDuckNotification</a> interface. The application implements <b>IAudioVolumeDuckNotification</b>. After the registration call has succeeded, the system calls the methods of this interface when session events occur.
      * @param {PWSTR} sessionID Pointer to a null-terminated string that contains a  session instance identifier. Applications that are playing a media stream and want to provide custom stream attenuation or ducking behavior, pass their own session instance identifier.  For more information, see Remarks.
      * 
      * Other applications
@@ -170,17 +205,25 @@ class IAudioSessionManager2 extends IAudioSessionManager{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification
      */
     RegisterDuckNotification(sessionID, duckNotification) {
         sessionID := sessionID is String ? StrPtr(sessionID) : sessionID
 
-        result := ComCall(8, this, "ptr", sessionID, "ptr", duckNotification, "HRESULT")
+        result := ComCall(8, this, "ptr", sessionID, "ptr", duckNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The UnregisterDuckNotification method deletes a previous registration by the application to receive notifications.
+     * @remarks
+     * The application calls this method when it no longer needs to receive notifications. The <b>UnregisterDuckNotification</b> method removes the registration of an <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification">IAudioVolumeDuckNotification</a> interface that the application previously registered with the session manager by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification">IAudioSessionManager2::RegisterDuckNotification</a> method.
+     * 
+     * After the application calls <b>UnregisterDuckNotification</b>, any pending events are not reported to the application.
      * @param {IAudioVolumeDuckNotification} duckNotification Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification">IAudioVolumeDuckNotification</a> interface that is implemented by the application. Pass the same interface pointer that was specified to the session manager in a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification">IAudioSessionManager2::RegisterDuckNotification</a> method. If the <b>UnregisterDuckNotification</b> method succeeds, it calls the <b>Release</b> method on the application's <b>IAudioVolumeDuckNotification</b> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
      *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
@@ -202,10 +245,14 @@ class IAudioSessionManager2 extends IAudioSessionManager{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregisterducknotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregisterducknotification
      */
     UnregisterDuckNotification(duckNotification) {
-        result := ComCall(9, this, "ptr", duckNotification, "HRESULT")
+        result := ComCall(9, this, "ptr", duckNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

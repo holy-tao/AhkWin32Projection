@@ -35,7 +35,11 @@ class IVBSAXDeclHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     elementDecl(strName, strModel) {
-        result := ComCall(7, this, "ptr", strName, "ptr", strModel, "HRESULT")
+        result := ComCall(7, this, "ptr", strName, "ptr", strModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IVBSAXDeclHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     attributeDecl(strElementName, strAttributeName, strType, strValueDefault, strValue) {
-        result := ComCall(8, this, "ptr", strElementName, "ptr", strAttributeName, "ptr", strType, "ptr", strValueDefault, "ptr", strValue, "HRESULT")
+        result := ComCall(8, this, "ptr", strElementName, "ptr", strAttributeName, "ptr", strType, "ptr", strValueDefault, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IVBSAXDeclHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     internalEntityDecl(strName, strValue) {
-        result := ComCall(9, this, "ptr", strName, "ptr", strValue, "HRESULT")
+        result := ComCall(9, this, "ptr", strName, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +84,11 @@ class IVBSAXDeclHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     externalEntityDecl(strName, strPublicId, strSystemId) {
-        result := ComCall(10, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "HRESULT")
+        result := ComCall(10, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

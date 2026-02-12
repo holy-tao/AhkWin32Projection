@@ -3,7 +3,7 @@
 
 /**
  * Used in the HttpSetServiceConfiguration and HttpQueryServiceConfiguration functions.
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_service_config_cache_key
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ne-http-http_service_config_cache_key
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

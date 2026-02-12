@@ -33,7 +33,11 @@ class IWindowsLockModeHelper extends IUnknown{
      * @returns {BOOL} 
      */
     GetSMode() {
-        result := ComCall(3, this, "int*", &isSmode := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &isSmode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isSmode
     }
 }

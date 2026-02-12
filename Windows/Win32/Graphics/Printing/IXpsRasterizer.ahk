@@ -39,8 +39,12 @@ class IXpsRasterizer extends IUnknown{
      * @returns {IWICBitmap} 
      */
     RasterizeRect(x, y, width, height, notificationCallback) {
-        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", &bitmap := 0, "HRESULT")
-        return IWICBitmap(bitmap)
+        result := ComCall(3, this, "int", x, "int", y, "int", width, "int", height, "ptr", notificationCallback, "ptr*", &bitmap_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IWICBitmap(bitmap_)
     }
 
     /**
@@ -49,7 +53,11 @@ class IXpsRasterizer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMinimalLineWidth(width) {
-        result := ComCall(4, this, "int", width, "HRESULT")
+        result := ComCall(4, this, "int", width, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

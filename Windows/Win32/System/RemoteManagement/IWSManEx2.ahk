@@ -5,7 +5,7 @@
 
 /**
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using client certificates.
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanex2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nn-wsmandisp-iwsmanex2
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class IWSManEx2 extends IWSManEx{
     /**
      * Returns the value of the authentication flag WSManFlagUseClientCertificate for use in the flags parameter of IWSMan::CreateSession.
      * @returns {Integer} The session flags to use.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanex2-sessionflaguseclientcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanex2-sessionflaguseclientcertificate
      */
     SessionFlagUseClientCertificate() {
-        result := ComCall(31, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 }

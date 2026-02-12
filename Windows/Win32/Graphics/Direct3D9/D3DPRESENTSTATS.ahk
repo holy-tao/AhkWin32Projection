@@ -60,7 +60,7 @@
  * 5.  Call Present.
  * 6.  Call GetPresentStats and store the resulting D3DPRESENTSTATS structure.
  * 7.  Compare the values of SyncRefreshCount from the two stored D3DPRESENTSTATS structures. If the difference is greater than one, then a frame was skipped.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dpresentstats
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dpresentstats
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

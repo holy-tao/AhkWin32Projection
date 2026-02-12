@@ -127,7 +127,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_captionSide() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -137,7 +141,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_outline() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -147,7 +155,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_outlineWidth() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -157,7 +169,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_outlineStyle() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -167,7 +183,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_outlineColor() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -177,7 +197,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_boxSizing() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -187,7 +211,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_borderSpacing() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -197,7 +225,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_orphans() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -207,7 +239,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_widows() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -217,7 +253,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_pageBreakInside() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -227,7 +267,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_emptyCells() {
         p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -237,7 +281,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_msBlockProgression() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -247,7 +295,11 @@ class IHTMLCurrentStyle5 extends IDispatch{
      */
     get_quotes() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Specifies a Unicode or ANSI character and its attributes. This structure is used by console functions to read from and write to a console screen buffer.
- * @see https://learn.microsoft.com/windows/console/char-info-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/char-info-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

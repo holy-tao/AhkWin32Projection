@@ -6,11 +6,8 @@
 /**
  * Encapsulates information about an output protection system and its corresponding configuration data.
  * @remarks
- * 
  * If the configuration information for the output protection system does not require more than a <b>DWORD</b> of space, the configuration information is retrieved in the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfoutputschema-getconfigurationdata">GetConfigurationData</a> method. If more than a <b>DWORD</b> of configuration information is needed, it is stored using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfoutputschema
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfoutputschema
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,32 +35,46 @@ class IMFOutputSchema extends IMFAttributes{
     /**
      * Retrieves the output protection system that is represented by this object. Output protection systems are identified by GUID value.
      * @returns {Guid} Receives the GUID that identifies the output protection system.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputschema-getschematype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfoutputschema-getschematype
      */
     GetSchemaType() {
         pguidSchemaType := Guid()
-        result := ComCall(33, this, "ptr", pguidSchemaType, "HRESULT")
+        result := ComCall(33, this, "ptr", pguidSchemaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidSchemaType
     }
 
     /**
      * Returns configuration data for the output protection system. The configuration data is used to enable or disable the protection system, and to set the protection levels.
      * @returns {Integer} Receives the configuration data. The meaning of this data depends on the output protection system.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputschema-getconfigurationdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfoutputschema-getconfigurationdata
      */
     GetConfigurationData() {
-        result := ComCall(34, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(34, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
     /**
      * Retrieves a GUID identifying the input trust authority (ITA) that generated this output schema object.
+     * @remarks
+     * All of the policy objects and output schemas from the same ITA should return the same originator identifier (including dynamic policy changes). This value enables the OTA to distinguish policies that originate from different ITAs, so that the OTA can update dynamic policies correctly.
      * @returns {Guid} Receives a GUID that identifies the originating ITA.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputschema-getoriginatorid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfoutputschema-getoriginatorid
      */
     GetOriginatorID() {
         pguidOriginatorID := Guid()
-        result := ComCall(35, this, "ptr", pguidOriginatorID, "HRESULT")
+        result := ComCall(35, this, "ptr", pguidOriginatorID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidOriginatorID
     }
 }

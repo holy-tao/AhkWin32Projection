@@ -47,7 +47,11 @@ class IHTMLNamespaceCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -57,22 +61,37 @@ class IHTMLNamespaceCollection extends IDispatch{
      * @returns {IDispatch} 
      */
     item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppNamespace)
     }
 
     /**
-     * 
+     * Reserves the specified URL for non-administrator users and accounts.
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrUrn 
      * @param {VARIANT} implementationUrl 
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/add-urlacl
      */
     add(bstrNamespace, bstrUrn, implementationUrl) {
-        bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
-        bstrUrn := bstrUrn is String ? BSTR.Alloc(bstrUrn).Value : bstrUrn
+        if(bstrNamespace is String) {
+            pin := BSTR.Alloc(bstrNamespace)
+            bstrNamespace := pin.Value
+        }
+        if(bstrUrn is String) {
+            pin := BSTR.Alloc(bstrUrn)
+            bstrUrn := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrNamespace, "ptr", bstrUrn, "ptr", implementationUrl, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrNamespace, "ptr", bstrUrn, "ptr", implementationUrl, "ptr*", &ppNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppNamespace)
     }
 }

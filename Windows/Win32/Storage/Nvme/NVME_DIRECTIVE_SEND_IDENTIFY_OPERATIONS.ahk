@@ -5,7 +5,7 @@
  * Contains a value that specifies a directive type sent to an Identify operation.
  * @remarks
  * Use this enumeration to specify values in the **DTYPE** member of the [NVME_CDW11_DIRECTIVE_SEND](ns-nvme-nvme_cdw11_directive_send.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_directive_send_identify_operations
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_directive_send_identify_operations
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

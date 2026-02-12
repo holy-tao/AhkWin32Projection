@@ -5,7 +5,7 @@
 
 /**
  * The ITMediaControl interface is a generic interface for media file terminals. The interface exposes methods that allow the application to start, stop, or pause current actions, such as a playback.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itmediacontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -39,31 +39,43 @@ class ITMediaControl extends IDispatch{
 
     /**
      * The Start method starts the action at the current location.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-start
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediacontrol-start
      */
     Start() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Stop method stops the current action and sets the current location to the beginning of the file.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-stop
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediacontrol-stop
      */
     Stop() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Pause method pauses the action, remaining at the current location in the file.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-pause
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediacontrol-pause
      */
     Pause() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,10 +83,14 @@ class ITMediaControl extends IDispatch{
      * The get_MediaState method gets the current state of media on the file terminal.
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_media_state">TERMINAL_MEDIA_STATE</a> descriptor of the current state of the file terminal.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediacontrol-get_mediastate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediacontrol-get_mediastate
      */
     get_MediaState() {
-        result := ComCall(10, this, "int*", &pTerminalMediaState := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pTerminalMediaState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTerminalMediaState
     }
 }

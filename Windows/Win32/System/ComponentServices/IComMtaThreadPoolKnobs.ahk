@@ -34,7 +34,11 @@ class IComMtaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     MTASetMaxThreadCount(dwMaxThreads) {
-        result := ComCall(3, this, "uint", dwMaxThreads, "HRESULT")
+        result := ComCall(3, this, "uint", dwMaxThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IComMtaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     MTAGetMaxThreadCount() {
-        result := ComCall(4, this, "uint*", &pdwMaxThreads := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwMaxThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMaxThreads
     }
 
@@ -53,7 +61,11 @@ class IComMtaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     MTASetThrottleValue(dwThrottle) {
-        result := ComCall(5, this, "uint", dwThrottle, "HRESULT")
+        result := ComCall(5, this, "uint", dwThrottle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +74,11 @@ class IComMtaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     MTAGetThrottleValue() {
-        result := ComCall(6, this, "uint*", &pdwThrottle := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwThrottle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwThrottle
     }
 }

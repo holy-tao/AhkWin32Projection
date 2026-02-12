@@ -5,7 +5,7 @@
  * Contains values that indicate whether end-to-end data protection is enabled, and if it is, specifies the type of protection information.
  * @remarks
  * Use this enumeration to specify values in the **PI** field of the [NVME_CDW10_FORMAT_NVM](ns-nvme-nvme_cdw10_format_nvm.md) structure that is used in the [FORMAT NVM (FORMATNVM)](ns-nvme-nvme_command.md) Admin command.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_protection_information_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_protection_information_types
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

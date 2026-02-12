@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\SC_HANDLE.ahk
 #Include .\SERVICE_STATUS_HANDLE.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Services
@@ -23,32 +25,32 @@ class Services {
     static SC_MANAGER_ALL_ACCESS => 983103
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICES_ACTIVE_DATABASEW => "ServicesActive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICES_FAILED_DATABASEW => "ServicesFailed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICES_ACTIVE_DATABASEA => "ServicesActive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICES_FAILED_DATABASEA => "ServicesFailed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICES_ACTIVE_DATABASE => "ServicesActive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICES_FAILED_DATABASE => "ServicesFailed"
 
@@ -658,12 +660,12 @@ class Services {
     static CUSTOM_SYSTEM_STATE_CHANGE_EVENT_GUID => Guid("{2d7a2816-0c5e-45fc-9ce7-570e5ecde9c9}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_TRIGGER_STARTED_ARGUMENT => "TriggerStarted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SC_AGGREGATE_STORAGE_KEY => "System\CurrentControlSet\Control\ServiceAggregatedEvents"
 ;@endregion Constants
@@ -686,7 +688,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-setservicebits
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-setservicebits
      * @since windows5.1.2600
      */
     static SetServiceBits(hServiceStatus, dwServiceBits, bSetBitsOn, bUpdateImmediately) {
@@ -953,7 +955,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-changeserviceconfiga
      * @since windows5.1.2600
      */
     static ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName) {
@@ -1228,7 +1230,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-changeserviceconfigw
      * @since windows5.1.2600
      */
     static ChangeServiceConfigW(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName) {
@@ -1304,7 +1306,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfig2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-changeserviceconfig2a
      * @since windows5.1.2600
      */
     static ChangeServiceConfig2A(hService, dwInfoLevel, lpInfo) {
@@ -1374,7 +1376,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfig2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-changeserviceconfig2w
      * @since windows5.1.2600
      */
     static ChangeServiceConfig2W(hService, dwInfoLevel, lpInfo) {
@@ -1426,7 +1428,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-closeservicehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-closeservicehandle
      * @since windows5.1.2600
      */
     static CloseServiceHandle(hSCObject) {
@@ -1834,7 +1836,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-controlservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-controlservice
      * @since windows5.1.2600
      */
     static ControlService(hService, dwControl, lpServiceStatus) {
@@ -2112,7 +2114,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-createservicea
      * @since windows5.1.2600
      */
     static CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword) {
@@ -2400,7 +2402,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-createservicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-createservicew
      * @since windows5.1.2600
      */
     static CreateServiceW(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword) {
@@ -2485,7 +2487,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-deleteservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-deleteservice
      * @since windows5.1.2600
      */
     static DeleteService(hService) {
@@ -2576,7 +2578,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-enumdependentservicesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-enumdependentservicesa
      * @since windows5.1.2600
      */
     static EnumDependentServicesA(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned) {
@@ -2670,7 +2672,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-enumdependentservicesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-enumdependentservicesw
      * @since windows5.1.2600
      */
     static EnumDependentServicesW(hService, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned) {
@@ -2769,7 +2771,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-enumservicesstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-enumservicesstatusa
      * @since windows5.1.2600
      */
     static EnumServicesStatusA(hSCManager, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle) {
@@ -2869,7 +2871,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-enumservicesstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-enumservicesstatusw
      * @since windows5.1.2600
      */
     static EnumServicesStatusW(hSCManager, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle) {
@@ -2999,7 +3001,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-enumservicesstatusexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-enumservicesstatusexa
      * @since windows5.1.2600
      */
     static EnumServicesStatusExA(hSCManager, InfoLevel, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle, pszGroupName) {
@@ -3130,7 +3132,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-enumservicesstatusexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-enumservicesstatusexw
      * @since windows5.1.2600
      */
     static EnumServicesStatusExW(hSCManager, InfoLevel, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle, pszGroupName) {
@@ -3179,7 +3181,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getservicekeynamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getservicekeynamea
      * @since windows5.1.2600
      */
     static GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer) {
@@ -3227,7 +3229,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getservicekeynamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getservicekeynamew
      * @since windows5.1.2600
      */
     static GetServiceKeyNameW(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer) {
@@ -3279,7 +3281,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getservicedisplaynamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getservicedisplaynamea
      * @since windows5.1.2600
      */
     static GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer) {
@@ -3336,7 +3338,7 @@ class Services {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getservicedisplaynamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getservicedisplaynamew
      * @since windows5.1.2600
      */
     static GetServiceDisplayNameW(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer) {
@@ -3422,7 +3424,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-lockservicedatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-lockservicedatabase
      * @since windows5.1.2600
      */
     static LockServiceDatabase(hSCManager) {
@@ -3472,7 +3474,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-notifybootconfigstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-notifybootconfigstatus
      * @since windows5.1.2600
      */
     static NotifyBootConfigStatus(BootAcceptable) {
@@ -3547,7 +3549,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-openscmanagera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-openscmanagera
      * @since windows5.1.2600
      */
     static OpenSCManagerA(lpMachineName, lpDatabaseName, dwDesiredAccess) {
@@ -3626,7 +3628,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-openscmanagerw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-openscmanagerw
      * @since windows5.1.2600
      */
     static OpenSCManagerW(lpMachineName, lpDatabaseName, dwDesiredAccess) {
@@ -3721,7 +3723,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-openservicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-openservicea
      * @since windows5.1.2600
      */
     static OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess) {
@@ -3816,7 +3818,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-openservicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-openservicew
      * @since windows5.1.2600
      */
     static OpenServiceW(hSCManager, lpServiceName, dwDesiredAccess) {
@@ -3901,7 +3903,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryserviceconfiga
      * @since windows5.1.2600
      */
     static QueryServiceConfigA(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded) {
@@ -3986,7 +3988,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryserviceconfigw
      * @since windows5.1.2600
      */
     static QueryServiceConfigW(hService, lpServiceConfig, cbBufSize, pcbBytesNeeded) {
@@ -4070,7 +4072,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceconfig2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryserviceconfig2a
      * @since windows5.1.2600
      */
     static QueryServiceConfig2A(hService, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
@@ -4154,7 +4156,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceconfig2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryserviceconfig2w
      * @since windows5.1.2600
      */
     static QueryServiceConfig2W(hService, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
@@ -4242,7 +4244,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryservicelockstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryservicelockstatusa
      * @since windows5.1.2600
      */
     static QueryServiceLockStatusA(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeeded) {
@@ -4330,7 +4332,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryservicelockstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryservicelockstatusw
      * @since windows5.1.2600
      */
     static QueryServiceLockStatusW(hSCManager, lpLockStatus, cbBufSize, pcbBytesNeeded) {
@@ -4426,7 +4428,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryserviceobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryserviceobjectsecurity
      * @since windows5.1.2600
      */
     static QueryServiceObjectSecurity(hService, dwSecurityInformation, lpSecurityDescriptor, cbBufSize, pcbBytesNeeded) {
@@ -4490,7 +4492,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryservicestatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryservicestatus
      * @since windows5.1.2600
      */
     static QueryServiceStatus(hService, lpServiceStatus) {
@@ -4609,7 +4611,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryservicestatusex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryservicestatusex
      * @since windows5.1.2600
      */
     static QueryServiceStatusEx(hService, InfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {
@@ -4689,7 +4691,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-registerservicectrlhandlera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-registerservicectrlhandlera
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerA(lpServiceName, lpHandlerProc) {
@@ -4768,7 +4770,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-registerservicectrlhandlerw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-registerservicectrlhandlerw
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerW(lpServiceName, lpHandlerProc) {
@@ -4850,7 +4852,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-registerservicectrlhandlerexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-registerservicectrlhandlerexa
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerExA(lpServiceName, lpHandlerProc, lpContext) {
@@ -4934,7 +4936,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-registerservicectrlhandlerexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-registerservicectrlhandlerexw
      * @since windows5.1.2600
      */
     static RegisterServiceCtrlHandlerExW(lpServiceName, lpHandlerProc, lpContext) {
@@ -5026,7 +5028,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-setserviceobjectsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-setserviceobjectsecurity
      * @since windows5.1.2600
      */
     static SetServiceObjectSecurity(hService, dwSecurityInformation, lpSecurityDescriptor) {
@@ -5120,7 +5122,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-setservicestatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-setservicestatus
      * @since windows5.1.2600
      */
     static SetServiceStatus(hServiceStatus, lpServiceStatus) {
@@ -5212,7 +5214,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicectrldispatchera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-startservicectrldispatchera
      * @since windows5.1.2600
      */
     static StartServiceCtrlDispatcherA(lpServiceStartTable) {
@@ -5302,7 +5304,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicectrldispatcherw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-startservicectrldispatcherw
      * @since windows5.1.2600
      */
     static StartServiceCtrlDispatcherW(lpServiceStartTable) {
@@ -5499,7 +5501,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-startservicea
      * @since windows5.1.2600
      */
     static StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors) {
@@ -5700,7 +5702,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-startservicew
      * @since windows5.1.2600
      */
     static StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors) {
@@ -5746,7 +5748,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-unlockservicedatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-unlockservicedatabase
      * @since windows5.1.2600
      */
     static UnlockServiceDatabase(ScLock) {
@@ -5801,7 +5803,7 @@ class Services {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS. If the service has been marked for deletion, the return value is ERROR_SERVICE_MARKED_FOR_DELETE and the handle to the service must be closed. If service notification is lagging too far behind the system state, the function returns ERROR_SERVICE_NOTIFY_CLIENT_LAGGING. In this case, the client should close the handle to the SCM, open a new handle,  and call this function again. 
      * 
      * If the function fails, the return value is one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-notifyservicestatuschangea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-notifyservicestatuschangea
      * @since windows6.0.6000
      */
     static NotifyServiceStatusChangeA(hService, dwNotifyMask, pNotifyBuffer) {
@@ -5850,7 +5852,7 @@ class Services {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS. If the service has been marked for deletion, the return value is ERROR_SERVICE_MARKED_FOR_DELETE and the handle to the service must be closed. If service notification is lagging too far behind the system state, the function returns ERROR_SERVICE_NOTIFY_CLIENT_LAGGING. In this case, the client should close the handle to the SCM, open a new handle,  and call this function again. 
      * 
      * If the function fails, the return value is one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-notifyservicestatuschangew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-notifyservicestatuschangew
      * @since windows6.0.6000
      */
     static NotifyServiceStatusChangeW(hService, dwNotifyMask, pNotifyBuffer) {
@@ -6200,7 +6202,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-controlserviceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-controlserviceexa
      * @since windows6.0.6000
      */
     static ControlServiceExA(hService, dwControl, dwInfoLevel, pControlParams) {
@@ -6558,7 +6560,7 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-controlserviceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-controlserviceexw
      * @since windows6.0.6000
      */
     static ControlServiceExW(hService, dwControl, dwInfoLevel, pControlParams) {
@@ -6601,7 +6603,7 @@ class Services {
      * @returns {BOOL} If the function succeeds, the return value is TRUE.
      * 
      * If the function fails, the return value is FALSE. When this happens the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function should be called to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-queryservicedynamicinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-queryservicedynamicinformation
      * @since windows8.0
      */
     static QueryServiceDynamicInformation(hServiceStatus, dwInfoLevel, ppDynamicInfo) {
@@ -6656,15 +6658,14 @@ class Services {
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
      * If the function fails, the return value is one of the [system error codes](/windows/desktop/Debug/system-error-codes).
-     * @see https://learn.microsoft.com/windows/win32/Services/subscribeservicechangenotifications
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Services/subscribeservicechangenotifications
      */
     static SubscribeServiceChangeNotifications(hService, eEventType, pCallback, pCallbackContext, pSubscription) {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
         pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
-        pSubscriptionMarshal := pSubscription is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, "uint")
+        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pSubscription, "uint")
         return result
     }
 
@@ -6674,9 +6675,11 @@ class Services {
      * **UnsubscribeServiceChangeNotifications** does not return until outstanding in-process callbacks are complete. So, you cannot call **UnsubscribeServiceChangeNotifications** within the callback without causing a deadlock.
      * @param {PSC_NOTIFICATION_REGISTRATION} pSubscription A pointer to the subscription to be unsubscribed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/Services/unsubscribeservicechangenotifications
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Services/unsubscribeservicechangenotifications
      */
     static UnsubscribeServiceChangeNotifications(pSubscription) {
+        pSubscription := pSubscription is Win32Handle ? NumGet(pSubscription, "ptr") : pSubscription
+
         DllCall("SecHost.dll\UnsubscribeServiceChangeNotifications", "ptr", pSubscription)
     }
 
@@ -6710,7 +6713,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @param {Pointer<HKEY>} ServiceStateKey Receives the output registry key handle.
      * @returns {Integer} ERROR_SUCCESS when all operations complete successfully; otherwise, a Win32 error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getserviceregistrystatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getserviceregistrystatekey
      * @since windows10.0.19041
      */
     static GetServiceRegistryStateKey(ServiceStatusHandle, StateType, AccessMask, ServiceStateKey) {
@@ -6734,7 +6737,7 @@ class Services {
      * @param {Integer} cchPathBufferLength The length of the buffer supplied in *lpPathBuffer*, in units of WCHARS. This argument is ignored if *lpPathBuffer* is NULL.
      * @param {Pointer<Integer>} lpcchRequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
      * @returns {Integer} Returns ERROR_SUCCESS when all operations complete successfully and the NULL-terminated state path is written to *lpPathBuffer*. Returns ERROR_INSUFFICIENT_BUFFER if *lpPathBuffer* was not large enough to contain the state path, or if *lpPathBuffer* was NULL. In this case the required buffer length in WCHARs is returned via *lpcchRequiredBufferLength*. If some other failure occurs, a Win32 error code is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getservicedirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getservicedirectory
      * @since windows10.0.19041
      */
     static GetServiceDirectory(hServiceStatus, eDirectoryType, lpPathBuffer, cchPathBufferLength, lpcchRequiredBufferLength) {
@@ -6761,7 +6764,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @param {Pointer<HKEY>} ServiceStateKey Receives the output registry key handle.
      * @returns {Integer} ERROR_SUCCESS when all operations complete successfully; otherwise, a Win32 error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedserviceregistrystatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getsharedserviceregistrystatekey
      */
     static GetSharedServiceRegistryStateKey(ServiceHandle, StateType, AccessMask, ServiceStateKey) {
         ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
@@ -6784,7 +6787,7 @@ class Services {
      * @param {Integer} PathBufferLength The length of the buffer supplied in *PathBuffer*, in units of WCHARS. This argument is ignored if *PathBuffer* is NULL.
      * @param {Pointer<Integer>} RequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
      * @returns {Integer} Returns ERROR_SUCCESS when all operations complete successfully and the NULL-terminated state path is written to *PathBuffer*. Returns ERROR_INSUFFICIENT_BUFFER if *PathBuffer* was not large enough to contain the state path, or if *PathBuffer* was NULL. In this case the required buffer length in WCHARs is returned via *RequiredBufferLength*. If some other failure occurs, a Win32 error code is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedservicedirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-getsharedservicedirectory
      */
     static GetSharedServiceDirectory(ServiceHandle, DirectoryType, PathBuffer, PathBufferLength, RequiredBufferLength) {
         ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle

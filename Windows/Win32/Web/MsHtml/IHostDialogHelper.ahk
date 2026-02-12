@@ -42,7 +42,11 @@ class IHostDialogHelper extends IUnknown{
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         pchOptions := pchOptions is String ? StrPtr(pchOptions) : pchOptions
 
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", pMk, "ptr", pvarArgIn, "ptr", pchOptions, "ptr", pvarArgOut, "ptr", punkHost, "HRESULT")
+        result := ComCall(3, this, "ptr", hwndParent, "ptr", pMk, "ptr", pvarArgIn, "ptr", pchOptions, "ptr", pvarArgOut, "ptr", punkHost, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

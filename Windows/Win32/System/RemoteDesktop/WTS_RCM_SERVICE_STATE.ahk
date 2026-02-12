@@ -5,7 +5,7 @@
  * Contains information about the state of the Remote Desktop Services service.
  * @remarks
  * This enumeration type is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_service_state">WTS_SERVICE_STATE</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_rcm_service_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsdefs/ne-wtsdefs-wts_rcm_service_state
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

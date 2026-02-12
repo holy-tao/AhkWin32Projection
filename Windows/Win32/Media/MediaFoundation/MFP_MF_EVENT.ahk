@@ -21,7 +21,7 @@
  * <td>The index of the stream whose format changed. </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_mf_event
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfplay/ns-mfplay-mfp_mf_event
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

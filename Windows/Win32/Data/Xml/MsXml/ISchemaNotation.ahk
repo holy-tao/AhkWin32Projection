@@ -49,7 +49,11 @@ class ISchemaNotation extends ISchemaItem{
      */
     get_systemIdentifier() {
         uri := BSTR()
-        result := ComCall(14, this, "ptr", uri, "HRESULT")
+        result := ComCall(14, this, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uri
     }
 
@@ -59,7 +63,11 @@ class ISchemaNotation extends ISchemaItem{
      */
     get_publicIdentifier() {
         uri := BSTR()
-        result := ComCall(15, this, "ptr", uri, "HRESULT")
+        result := ComCall(15, this, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uri
     }
 }

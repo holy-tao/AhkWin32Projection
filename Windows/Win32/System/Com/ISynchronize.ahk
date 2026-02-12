@@ -4,8 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Provides asynchronous communication between objects about the occurrence of an event.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-isynchronize
+ * The ISynchronize (objidl.h) interface provides asynchronous communication between objects about the occurrence of an event.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-isynchronize
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -31,7 +31,9 @@ class ISynchronize extends IUnknown{
     static VTableNames => ["Wait", "Signal", "Reset"]
 
     /**
-     * Waits for the synchronization object to be signaled or for a specified timeout period to elapse, whichever comes first.
+     * The ISynchronize::Wait method (objidl.h) waits for the synchronization object to be signaled or for a specified timeout period to elapse, whichever comes first.
+     * @remarks
+     * If the caller is waiting in a single-thread apartment, <b>Wait</b> enters the COM modal loop. If the caller is waiting in a multithread apartment, the caller is blocked until <b>Wait</b> returns.
      * @param {Integer} dwFlags The wait options. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_FLAGS</a> enumeration.
      * @param {Integer} dwMilliseconds The time this call will wait before returning, in milliseconds. If this parameter is INFINITE, the caller will wait until the synchronization object is signaled, no matter how long it takes. If this parameter is 0, the method returns immediately.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
@@ -74,30 +76,48 @@ class ISynchronize extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronize-wait
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-isynchronize-wait
      */
     Wait(dwFlags, dwMilliseconds) {
-        result := ComCall(3, this, "uint", dwFlags, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "uint", dwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the synchronization object to the signaled state and causes pending wait operations to return S_OK.
+     * The ISynchronize::Signal method (objidl.h) sets the synchronization object to the signaled state and causes pending wait operations to return S_OK.
      * @returns {HRESULT} This method returns S_OK to indicate that the method completed successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronize-signal
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-isynchronize-signal
      */
     Signal() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the synchronization object to the nonsignaled state.
+     * The ISynchronize::Reset method (objidl.h) sets the synchronization object to the nonsignaled state.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isynchronize-wait">ISynchronize::Wait</a> method implemented on a standard event object (CLSID_StdEvent) automatically calls <b>Reset</b> when the synchronization object has been signaled.
+     * 
+     * The implementation of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isynchronize-wait">ISynchronize::Wait</a> on the manual reset event object (CLSID_ManualResetEvent) does not automatically call <b>Reset</b>. A server object usually calls <b>Reset</b> from a method that clients call after they detect that the synchronization object was signaled.
+     * 
+     * In general, it is the server's responsibility to call <b>Reset</b>. If, however, the client needs to begin with the synchronization object in an unsignaled state, the client should call <b>Reset</b>.
      * @returns {HRESULT} This method returns S_OK to indicate that the method completed successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronize-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-isynchronize-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

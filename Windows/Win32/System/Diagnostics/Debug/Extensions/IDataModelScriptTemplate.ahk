@@ -31,31 +31,45 @@ class IDataModelScriptTemplate extends IUnknown{
     static VTableNames => ["GetName", "GetDescription", "GetContent"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         templateName := BSTR()
-        result := ComCall(3, this, "ptr", templateName, "HRESULT")
+        result := ComCall(3, this, "ptr", templateName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return templateName
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription() {
         templateDescription := BSTR()
-        result := ComCall(4, this, "ptr", templateDescription, "HRESULT")
+        result := ComCall(4, this, "ptr", templateDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return templateDescription
     }
 
     /**
      * 
-     * @returns {IStream} 
+     * @returns {Pointer<IStream>} 
      */
     GetContent() {
-        result := ComCall(5, this, "ptr*", &contentStream := 0, "HRESULT")
-        return IStream(contentStream)
+        result := ComCall(5, this, "ptr*", &contentStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return contentStream
     }
 }

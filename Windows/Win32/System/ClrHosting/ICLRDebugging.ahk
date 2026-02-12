@@ -35,7 +35,7 @@ class ICLRDebugging extends IUnknown{
      * @param {ICLRDebuggingLibraryProvider} pLibraryProvider 
      * @param {Pointer<CLR_DEBUGGING_VERSION>} pMaxDebuggerSupportedVersion 
      * @param {Pointer<Guid>} riidProcess 
-     * @param {Pointer<IUnknown>} ppProcess 
+     * @param {Pointer<Pointer<IUnknown>>} ppProcess 
      * @param {Pointer<CLR_DEBUGGING_VERSION>} pVersion 
      * @param {Pointer<Integer>} pdwFlags 
      * @returns {HRESULT} 
@@ -43,19 +43,27 @@ class ICLRDebugging extends IUnknown{
     OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ppProcess, pVersion, pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, "ptr", pMaxDebuggerSupportedVersion, "ptr", riidProcess, "ptr*", ppProcess, "ptr", pVersion, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", moduleBaseAddress, "ptr", pDataTarget, "ptr", pLibraryProvider, "ptr", pMaxDebuggerSupportedVersion, "ptr", riidProcess, "ptr*", ppProcess, "ptr", pVersion, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HMODULE} hModule 
+     * @param {HMODULE} hModule_ 
      * @returns {HRESULT} 
      */
-    CanUnloadNow(hModule) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    CanUnloadNow(hModule_) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
 
-        result := ComCall(4, this, "ptr", hModule, "HRESULT")
+        result := ComCall(4, this, "ptr", hModule_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

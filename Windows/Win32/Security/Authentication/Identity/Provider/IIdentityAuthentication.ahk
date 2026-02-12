@@ -37,7 +37,11 @@ class IIdentityAuthentication extends IUnknown{
     SetIdentityCredential(CredBuffer, CredBufferLength) {
         CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "HRESULT")
+        result := ComCall(3, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IIdentityAuthentication extends IUnknown{
     ValidateIdentityCredential(CredBuffer, CredBufferLength, ppIdentityProperties) {
         CredBufferMarshal := CredBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "ptr*", ppIdentityProperties, "HRESULT")
+        result := ComCall(4, this, CredBufferMarshal, CredBuffer, "uint", CredBufferLength, "ptr*", ppIdentityProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

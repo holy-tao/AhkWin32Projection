@@ -7,7 +7,7 @@
  * The WM_CAP_GET_SEQUENCE_SETUP message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capcapturegetsetup">capCaptureGetSetup</a> macro is used to retrieve the current capture parameters. The WM_CAP_SET_SEQUENCE_SETUP message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capcapturesetsetup">capCaptureSetSetup</a> macro is used to set the capture parameters.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-get-sequence-setup">WM_CAP_GET_SEQUENCE_SETUP</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capcapturegetsetup">capCaptureGetSetup</a> macro is used to retrieve the current capture parameters. The <a href="https://docs.microsoft.com/windows/desktop/Multimedia/wm-cap-set-sequence-setup">WM_CAP_SET_SEQUENCE_SETUP</a> message or <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nf-vfw-capcapturesetsetup">capCaptureSetSetup</a> macro is used to set the capture parameters.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-captureparms
+ * @see https://learn.microsoft.com/windows/win32/api//content/vfw/ns-vfw-captureparms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

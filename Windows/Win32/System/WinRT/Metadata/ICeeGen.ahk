@@ -39,17 +39,26 @@ class ICeeGen extends IUnknown{
 
         RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", lpString, RVAMarshal, RVA, "HRESULT")
+        result := ComCall(3, this, "ptr", lpString, RVAMarshal, RVA, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetString Method Example (VC++)
      * @param {Integer} RVA 
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getstring-method-example-vc
      */
     GetString(RVA) {
-        result := ComCall(4, this, "uint", RVA, "ptr*", &lpString := 0, "HRESULT")
+        result := ComCall(4, this, "uint", RVA, "ptr*", &lpString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpString
     }
 
@@ -64,7 +73,11 @@ class ICeeGen extends IUnknown{
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
         RVAMarshal := RVA is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", cchBuffer, lpBufferMarshal, lpBuffer, RVAMarshal, RVA, "HRESULT")
+        result := ComCall(5, this, "uint", cchBuffer, lpBufferMarshal, lpBuffer, RVAMarshal, RVA, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +90,11 @@ class ICeeGen extends IUnknown{
     GetMethodBuffer(RVA, lpBuffer) {
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
+        result := ComCall(6, this, "uint", RVA, lpBufferMarshal, lpBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +103,11 @@ class ICeeGen extends IUnknown{
      * @returns {IUnknown} 
      */
     GetIMapTokenIface() {
-        result := ComCall(7, this, "ptr*", &pIMapToken := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pIMapToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pIMapToken)
     }
 
@@ -95,47 +116,63 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     GenerateCeeFile() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} section 
+     * @param {Pointer<Pointer<Void>>} section_ 
      * @returns {HRESULT} 
      */
-    GetIlSection(section) {
-        sectionMarshal := section is VarRef ? "ptr*" : "ptr"
+    GetIlSection(section_) {
+        section_Marshal := section_ is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, sectionMarshal, section, "HRESULT")
+        result := ComCall(9, this, section_Marshal, section_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} section 
+     * @param {Pointer<Pointer<Void>>} section_ 
      * @returns {HRESULT} 
      */
-    GetStringSection(section) {
-        sectionMarshal := section is VarRef ? "ptr*" : "ptr"
+    GetStringSection(section_) {
+        section_Marshal := section_ is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, sectionMarshal, section, "HRESULT")
+        result := ComCall(10, this, section_Marshal, section_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} section_ 
      * @param {Integer} offset 
      * @param {Pointer<Void>} relativeTo 
      * @param {Integer} relocType 
      * @returns {HRESULT} 
      */
-    AddSectionReloc(section, offset, relativeTo, relocType) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    AddSectionReloc(section_, offset, relativeTo, relocType) {
+        section_Marshal := section_ is VarRef ? "ptr" : "ptr"
         relativeToMarshal := relativeTo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, sectionMarshal, section, "uint", offset, relativeToMarshal, relativeTo, "int", relocType, "HRESULT")
+        result := ComCall(11, this, section_Marshal, section_, "uint", offset, relativeToMarshal, relativeTo, "int", relocType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,58 +180,74 @@ class ICeeGen extends IUnknown{
      * 
      * @param {PSTR} name 
      * @param {Integer} flags 
-     * @param {Pointer<Pointer<Void>>} section 
+     * @param {Pointer<Pointer<Void>>} section_ 
      * @returns {HRESULT} 
      */
-    GetSectionCreate(name, flags, section) {
+    GetSectionCreate(name, flags, section_) {
         name := name is String ? StrPtr(name) : name
 
-        sectionMarshal := section is VarRef ? "ptr*" : "ptr"
+        section_Marshal := section_ is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", name, "uint", flags, sectionMarshal, section, "HRESULT")
+        result := ComCall(12, this, "ptr", name, "uint", flags, section_Marshal, section_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} section_ 
      * @param {Pointer<Integer>} dataLen 
      * @returns {HRESULT} 
      */
-    GetSectionDataLen(section, dataLen) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    GetSectionDataLen(section_, dataLen) {
+        section_Marshal := section_ is VarRef ? "ptr" : "ptr"
         dataLenMarshal := dataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, sectionMarshal, section, dataLenMarshal, dataLen, "HRESULT")
+        result := ComCall(13, this, section_Marshal, section_, dataLenMarshal, dataLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} section_ 
      * @param {Integer} len 
      * @param {Integer} align 
      * @param {Pointer<Pointer<Void>>} ppBytes 
      * @returns {HRESULT} 
      */
-    GetSectionBlock(section, len, align, ppBytes) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    GetSectionBlock(section_, len, align, ppBytes) {
+        section_Marshal := section_ is VarRef ? "ptr" : "ptr"
         ppBytesMarshal := ppBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, sectionMarshal, section, "uint", len, "uint", align, ppBytesMarshal, ppBytes, "HRESULT")
+        result := ComCall(14, this, section_Marshal, section_, "uint", len, "uint", align, ppBytesMarshal, ppBytes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} section_ 
      * @param {Integer} len 
      * @returns {HRESULT} 
      */
-    TruncateSection(section, len) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    TruncateSection(section_, len) {
+        section_Marshal := section_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, sectionMarshal, section, "uint", len, "HRESULT")
+        result := ComCall(15, this, section_Marshal, section_, "uint", len, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -206,22 +259,30 @@ class ICeeGen extends IUnknown{
     GenerateCeeMemoryImage(ppImage) {
         ppImageMarshal := ppImage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(16, this, ppImageMarshal, ppImage, "HRESULT")
+        result := ComCall(16, this, ppImageMarshal, ppImage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} section 
+     * @param {Pointer<Void>} section_ 
      * @param {Integer} RVA 
      * @param {Pointer<Pointer<Integer>>} lpBuffer 
      * @returns {HRESULT} 
      */
-    ComputePointer(section, RVA, lpBuffer) {
-        sectionMarshal := section is VarRef ? "ptr" : "ptr"
+    ComputePointer(section_, RVA, lpBuffer) {
+        section_Marshal := section_ is VarRef ? "ptr" : "ptr"
         lpBufferMarshal := lpBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, sectionMarshal, section, "uint", RVA, lpBufferMarshal, lpBuffer, "HRESULT")
+        result := ComCall(17, this, section_Marshal, section_, "uint", RVA, lpBufferMarshal, lpBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

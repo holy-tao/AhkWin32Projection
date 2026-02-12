@@ -12,7 +12,7 @@ class FLT_CREATEFILE_TARGET_ECP_CONTEXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PFLT_INSTANCE}
+     * @type {Pointer<PFLT_INSTANCE>}
      */
     Instance {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class FLT_CREATEFILE_TARGET_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {PFLT_VOLUME}
+     * @type {Pointer<PFLT_VOLUME>}
      */
     Volume {
         get => NumGet(this, 8, "ptr")

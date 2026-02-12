@@ -8,7 +8,6 @@
 /**
  * Exposes methods that enable the addition of custom columns in the Windows Explorer Details view.
  * @remarks
- * 
  * The Windows Explorer Details view typically displays several standard columns. Each column lists information, such as the file size or type, for each file in the current folder. There can also be a number of columns that the user can choose to display. When the user right-clicks one of the column headers, a list of the available columns is displayed in a dialog box. By creating a column provider object that exports the <b>IColumnProvider</b> interface, you can add custom columns to that dialog box for display by Windows Explorer. For example, a collection of files that contain music could use a column provider to display columns listing the artist and piece contained by each file.
  * 
  * A column provider is a global object that is called every time Windows Explorer displays the Details view. Windows Explorer queries all registered column providers for their column characteristics. If the user has selected one of the column provider's columns, Windows Explorer queries the column provider for the associated data for each file in the folder. It then displays all the selected columns.
@@ -28,15 +27,14 @@
  * </ol>
  * In addition to normal Component Object Model (COM) registration, the column provider object must also be registered with Windows Explorer. To do so, add a subkey named with the string form of the object's GUID to this key.
  * 		
- *         		<pre xml:space="preserve"><b>HKEY_CLASSES_ROOT</b>
+ *         		<pre><b>HKEY_CLASSES_ROOT</b>
  *    <b>Folder</b>
  *       <b>shellex</b>
  *          <b>ColumnHandlers</b></pre>
  * 
  * 
  * This interface is called by Windows Explorer. It is not typically used by applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-icolumnprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nn-shlobj-icolumnprovider
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -68,32 +66,46 @@ class IColumnProvider extends IUnknown{
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumninit">SHCOLUMNINIT</a> structure with initialization information, including the folder whose contents are to be displayed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icolumnprovider-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-icolumnprovider-initialize
      */
     Initialize(psci) {
-        result := ComCall(3, this, "ptr", psci, "HRESULT")
+        result := ComCall(3, this, "ptr", psci, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Requests information about a column.
+     * @remarks
+     * This method is called to assign an index to the column and to ask for details on what kind of information the column will contain.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The column's zero-based index. It is an arbitrary value that is used to enumerate columns.
      * @returns {SHCOLUMNINFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumninfo">SHCOLUMNINFO</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-shcolumninfo">SHCOLUMNINFO</a> structure to hold the column information.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icolumnprovider-getcolumninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-icolumnprovider-getcolumninfo
      */
     GetColumnInfo(dwIndex) {
         psci := SHCOLUMNINFO()
-        result := ComCall(4, this, "uint", dwIndex, "ptr", psci, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, "ptr", psci, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psci
     }
 
     /**
      * Requests column data for a specified file.
+     * @remarks
+     * This method is called to retrieve the data for a file to be displayed in the specified column. It should be thread-safe.
+     * 
+     * This method is called for every file that Windows Explorer displays, even though many of them will not be supported by a particular column provider. To improve performance, first check the <b>pwszExt</b> member of the structure pointed to by <i>pscd</i> to see if it has a file name extension that is supported by the column provider. If not, avoid unnecessary processing by immediately returning S_FALSE.
      * @param {Pointer<PROPERTYKEY>} pscid Type: <b>LPCSHCOLUMNID</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> structure that identifies the column.
@@ -103,11 +115,15 @@ class IColumnProvider extends IUnknown{
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * A pointer to a <b>VARIANT</b> with the data for the file specified by <i>pscd</i> that belongs in the column specified by <i>pscid</i>. Set this value if the file is a member of the class supported by the column provider.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-icolumnprovider-getitemdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-icolumnprovider-getitemdata
      */
     GetItemData(pscid, pscd) {
         pvarData := VARIANT()
-        result := ComCall(5, this, "ptr", pscid, "ptr", pscd, "ptr", pvarData, "HRESULT")
+        result := ComCall(5, this, "ptr", pscid, "ptr", pscd, "ptr", pvarData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarData
     }
 }

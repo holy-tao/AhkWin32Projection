@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The ACDGROUP_EVENT enumeration (tapi3cc.h) describes ACD group events.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-acdgroup_event
+ * The ACDGROUP_EVENT enumeration (tapi3.h) describes ACD group events.
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/ne-tapi3-acdgroup_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -8,10 +8,8 @@
 /**
  * Exposes methods and properties that display, manipulate, and describe image data.
  * @remarks
- * 
  * This interface was not included in a public header file prior to Windows Vista.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nn-shimgdata-ishellimagedata
+ * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nn-shimgdata-ishellimagedata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,6 +36,10 @@ class IShellImageData extends IUnknown{
 
     /**
      * Decodes the image file, setting state.
+     * @remarks
+     * <b>IShellImageData::Decode</b> must be called prior to calling most <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> methods. Not doing so causes those methods to fail.
+     * 
+     * <b>IShellImageData::Decode</b> attempts to maintain the aspect ratio of the original image, so one of the values passed in <i>cxDesired</i> or <i>cyDesired</i> might be overridden to do so.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * One of the following flags.
@@ -63,7 +65,7 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The file could not be loaded or the calling application stopped the decode process through a call to a registered <a href="/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a> (see <a href="/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-registerabort">IShellImageData::RegisterAbort</a> for more information).
+     * The file could not be loaded or the calling application stopped the decode process through a call to a registered <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a> (see <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-registerabort">IShellImageData::RegisterAbort</a> for more information).
      * 
      * </td>
      * </tr>
@@ -85,7 +87,7 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The path used to create this instance of <a href="/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> was a URL.
+     * The path used to create this instance of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> was a URL.
      * 
      * </td>
      * </tr>
@@ -101,16 +103,22 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-decode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-decode
      */
     Decode(dwFlags, cxDesired, cyDesired) {
-        result := ComCall(3, this, "uint", dwFlags, "uint", cxDesired, "uint", cyDesired, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "uint", cxDesired, "uint", cyDesired, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Draws a decoded image.
-     * @param {HDC} hdc Type: <b>HDC</b>
+     * @remarks
+     * If <i>prcSrc</i> is <b>NULL</b>, nothing is drawn and the method returns S_OK.
+     * @param {HDC} hdc_ Type: <b>HDC</b>
      * 
      * The handle of the image.
      * @param {Pointer<RECT>} prcDest Type: <b>LPRECT</b>
@@ -135,7 +143,7 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The image was not previously decoded, the call to <a href="/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-decode">IShellImageData::Decode</a> failed, or <i>hdc</i> is <b>NULL</b>. Other internal calls also can cause this error to be returned.
+     * The image was not previously decoded, the call to <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-decode">IShellImageData::Decode</a> failed, or <i>hdc</i> is <b>NULL</b>. Other internal calls also can cause this error to be returned.
      * 
      * </td>
      * </tr>
@@ -157,17 +165,21 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The process was terminated by the calling application through a registered instance of <a href="/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a>.
+     * The process was terminated by the calling application through a registered instance of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-draw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-draw
      */
-    Draw(hdc, prcDest, prcSrc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    Draw(hdc_, prcDest, prcSrc) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := ComCall(4, this, "ptr", hdc, "ptr", prcDest, "ptr", prcSrc, "HRESULT")
+        result := ComCall(4, this, "ptr", hdc_, "ptr", prcDest, "ptr", prcSrc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,10 +239,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-nextframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-nextframe
      */
     NextFrame() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -268,10 +284,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-nextpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-nextpage
      */
     NextPage() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -309,15 +329,21 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-prevpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-prevpage
      */
     PrevPage() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether the image is transparent.
+     * @remarks
+     * If an image supports transparency but does not use it, the method returns S_FALSE.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following:
@@ -361,10 +387,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-istransparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-istransparent
      */
     IsTransparent() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -402,10 +432,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-isanimated
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-isanimated
      */
     IsAnimated() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -427,7 +461,7 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The image is a vector image, supporting the GDI+ flag <a href="/windows/desktop/api/gdiplusimaging/ne-gdiplusimaging-imageflags">ImageFlagsScalable</a>.
+     * The image is a vector image, supporting the GDI+ flag <a href="https://docs.microsoft.com/windows/desktop/api/gdiplusimaging/ne-gdiplusimaging-imageflags">ImageFlagsScalable</a>.
      * 
      * </td>
      * </tr>
@@ -454,10 +488,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-isvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-isvector
      */
     IsVector() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -495,15 +533,21 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-ismultipage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-ismultipage
      */
     IsMultipage() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether the image can be edited.
+     * @remarks
+     * At this time, the criteria for determining whether the image can be edited is solely that it is a Tagged Image File Format (TIFF) image with the Exif IFD tag set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following:
@@ -536,10 +580,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-iseditable
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-iseditable
      */
     IsEditable() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -566,10 +614,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-isprintable
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-isprintable
      */
     IsPrintable() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -592,7 +644,7 @@ class IShellImageData extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-decode">IShellImageData::Decode</a> was called on the image and was successful.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-decode">IShellImageData::Decode</a> was called on the image and was successful.
      * 
      * </td>
      * </tr>
@@ -608,10 +660,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-isdecoded
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-isdecoded
      */
     IsDecoded() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -623,17 +679,23 @@ class IShellImageData extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK. If the image is not a multipage image, such as a .jpg file, the method returns S_OK with a page number of 0.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getcurrentpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getcurrentpage
      */
     GetCurrentPage(pnPage) {
         pnPageMarshal := pnPage is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, pnPageMarshal, pnPage, "HRESULT")
+        result := ComCall(15, this, pnPageMarshal, pnPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number of pages in a multipage image.
+     * @remarks
+     * If the image is not a multipage image, such as a .jpg file, the method returns S_OK with a page count of 1.
      * @param {Pointer<Integer>} pcPages Type: <b>ULONG*</b>
      * 
      * A pointer to the page count. This value is valid only when the method returns S_OK.
@@ -658,12 +720,16 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getpagecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getpagecount
      */
     GetPageCount(pcPages) {
         pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, pcPagesMarshal, pcPages, "HRESULT")
+        result := ComCall(16, this, pcPagesMarshal, pcPages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -704,18 +770,22 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-selectpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-selectpage
      */
     SelectPage(iPage) {
-        result := ComCall(17, this, "uint", iPage, "HRESULT")
+        result := ComCall(17, this, "uint", iPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the dimensions of the image file.
-     * @param {Pointer<SIZE>} pSize Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a>*</b>
+     * @param {Pointer<SIZE>} pSize Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a>*</b>
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure containing the size of the image. This value is valid only when the method returns <b>S_OK</b>.
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure containing the size of the image. This value is valid only when the method returns <b>S_OK</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful or an error value otherwise, including the following:
@@ -737,15 +807,21 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getsize
      */
     GetSize(pSize) {
-        result := ComCall(18, this, "ptr", pSize, "HRESULT")
+        result := ComCall(18, this, "ptr", pSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a GUID that identifies the format of the image.
+     * @remarks
+     * GUIDs that identify various file formats are defined in Gdiplusimaging.h.
      * @param {Pointer<Guid>} pDataFormat Type: <b>GUID*</b>
      * 
      * A pointer to a value indicating the format. This value is valid only when the method returns S_OK.
@@ -770,15 +846,21 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getrawdataformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getrawdataformat
      */
     GetRawDataFormat(pDataFormat) {
-        result := ComCall(19, this, "ptr", pDataFormat, "HRESULT")
+        result := ComCall(19, this, "ptr", pDataFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the pixel format of the image.
+     * @remarks
+     * Values that identify various pixel formats are defined in Gdipluspixelformats.h.
      * @param {Pointer<Integer>} pFormat Type: <b>PixelFormat*</b>
      * 
      * A pointer to a value of type <a href="https://docs.microsoft.com/windows/desktop/gdiplus/-gdiplus-constant-image-pixel-format-constants">PixelFormat</a> indicating the pixel format.  This value is valid only when the method returns <b>S_OK</b>.
@@ -803,17 +885,25 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getpixelformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getpixelformat
      */
     GetPixelFormat(pFormat) {
         pFormatMarshal := pFormat is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, pFormatMarshal, pFormat, "HRESULT")
+        result := ComCall(20, this, pFormatMarshal, pFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the delay value for the current frame of an animation.
+     * @remarks
+     * Delay can vary from frame to frame in an animated image.
+     * 
+     * This method retrieves a minimum value of 100 milliseconds. Values less than that duration are also reported as 100 milliseconds.
      * @param {Pointer<Integer>} pdwDelay Type: <b>DWORD*</b>
      * 
      * A pointer to the delay value, in milliseconds. This value is valid only when the method returns S_OK.
@@ -838,12 +928,16 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getdelay
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getdelay
      */
     GetDelay(pdwDelay) {
         pdwDelayMarshal := pdwDelay is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, pdwDelayMarshal, pdwDelay, "HRESULT")
+        result := ComCall(21, this, pdwDelayMarshal, pdwDelay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -855,10 +949,14 @@ class IShellImageData extends IUnknown{
      * @returns {IPropertySetStorage} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getproperties
      */
     GetProperties(dwMode) {
-        result := ComCall(22, this, "uint", dwMode, "ptr*", &ppPropSet := 0, "HRESULT")
+        result := ComCall(22, this, "uint", dwMode, "ptr*", &ppPropSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertySetStorage(ppPropSet)
     }
 
@@ -932,10 +1030,14 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-rotate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-rotate
      */
     Rotate(dwAngle) {
-        result := ComCall(23, this, "uint", dwAngle, "HRESULT")
+        result := ComCall(23, this, "uint", dwAngle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -944,7 +1046,7 @@ class IShellImageData extends IUnknown{
      * @param {Integer} cx Type: <b>ULONG</b>
      * 
      * The horizontal (x) dimension. If this value is 0, the x dimension is set to a scaled value based on the point specified in <i>cy</i>.
-     * @param {Integer} cy Type: <b>ULONG</b>
+     * @param {Integer} cy_ Type: <b>ULONG</b>
      * 
      * The vertical (y) dimension. If this value is 0, the y dimension is set to a scaled value based on the point specified in <i>cx</i>.
      * @param {Integer} hints Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/gdiplusenums/ne-gdiplusenums-interpolationmode">InterpolationMode</a></b>
@@ -966,7 +1068,7 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The image was not previously decoded or the call to <a href="/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-decode">IShellImageData::Decode</a> failed. Other internal calls also can cause this error to be returned.
+     * The image was not previously decoded or the call to <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-decode">IShellImageData::Decode</a> failed. Other internal calls also can cause this error to be returned.
      * 
      * </td>
      * </tr>
@@ -999,15 +1101,19 @@ class IShellImageData extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The process was stopped by the calling application through a registered instance of <a href="/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a>.
+     * The process was stopped by the calling application through a registered instance of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-scale
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-scale
      */
-    Scale(cx, cy, hints) {
-        result := ComCall(24, this, "uint", cx, "uint", cy, "int", hints, "HRESULT")
+    Scale(cx, cy_, hints) {
+        result := ComCall(24, this, "uint", cx, "uint", cy_, "int", hints, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1016,25 +1122,35 @@ class IShellImageData extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-discardedit
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-discardedit
      */
     DiscardEdit() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets encoder parameters.
+     * @remarks
+     * The <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> passed in <i>pbagEnc</i> is used during a save operation. The image and any edits made to it, such as <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-rotate">Rotate</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-scale">Scale</a>, can be saved by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersistfile">IPersistFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststream">IPersistStream</a> and calling their <b>Save</b> method.
      * @param {IPropertyBag} pbagEnc Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> containing the encoder properties.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns<b> S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-setencoderparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-setencoderparams
      */
     SetEncoderParams(pbagEnc) {
-        result := ComCall(26, this, "ptr", pbagEnc, "HRESULT")
+        result := ComCall(26, this, "ptr", pbagEnc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1067,17 +1183,23 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-displayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-displayname
      */
     DisplayName(wszName, cch) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
-        result := ComCall(27, this, "ptr", wszName, "uint", cch, "HRESULT")
+        result := ComCall(27, this, "ptr", wszName, "uint", cch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the resolution, in dots per inch (dpi), of the image.
+     * @remarks
+     * If either <i>puResolutionX</i> or <i>puResolutionY</i> are <b>NULL</b>, the method returns only the value for the non-null parameter.
      * @param {Pointer<Integer>} puResolutionX Type: <b>ULONG*</b>
      * 
      * A pointer to the horizontal resolution.
@@ -1116,13 +1238,17 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getresolution
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getresolution
      */
     GetResolution(puResolutionX, puResolutionY) {
         puResolutionXMarshal := puResolutionX is VarRef ? "uint*" : "ptr"
         puResolutionYMarshal := puResolutionY is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, puResolutionXMarshal, puResolutionX, puResolutionYMarshal, puResolutionY, "HRESULT")
+        result := ComCall(28, this, puResolutionXMarshal, puResolutionX, puResolutionYMarshal, puResolutionY, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1161,12 +1287,16 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-getencoderparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-getencoderparams
      */
     GetEncoderParams(pguidFmt, ppEncParams) {
         ppEncParamsMarshal := ppEncParams is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(29, this, "ptr", pguidFmt, ppEncParamsMarshal, ppEncParams, "HRESULT")
+        result := ComCall(29, this, "ptr", pguidFmt, ppEncParamsMarshal, ppEncParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1178,15 +1308,21 @@ class IShellImageData extends IUnknown{
      * @returns {IShellImageDataAbort} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedataabort">IShellImageDataAbort</a>**</b>
      * 
      * The address of a pointer to the previous abort object. This parameter can be <b>NULL</b> if the previous object is not of interest.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-registerabort
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-registerabort
      */
     RegisterAbort(pAbort) {
-        result := ComCall(30, this, "ptr", pAbort, "ptr*", &ppAbortPrev := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", pAbort, "ptr*", &ppAbortPrev := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IShellImageDataAbort(ppAbortPrev)
     }
 
     /**
      * Retrieves a clone of the current image or frame.
+     * @remarks
+     * In the case of a multiframed image such as a .gif file, the current frame is cloned. In the case of non-multiframed images such a .jpg file, the entire image is cloned.
      * @param {Pointer<Pointer<Integer>>} ppImg Type: <b>Image**</b>
      * 
      * The address that receives a pointer to the clone image. If this parameter is <b>NULL</b> on entry, an unhandled exception results.
@@ -1212,29 +1348,45 @@ class IShellImageData extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-cloneframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-cloneframe
      */
     CloneFrame(ppImg) {
         ppImgMarshal := ppImg is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(31, this, ppImgMarshal, ppImg, "HRESULT")
+        result := ComCall(31, this, ppImgMarshal, ppImg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Replaces the current frame with a new image.
+     * @remarks
+     * You should also call <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nf-shimgdata-ishellimagedata-discardedit">IShellImageData::DiscardEdit</a> to ensure that any edited properties of the original image are not retained.
+     * 
+     * In the case of a multiframed image such as a .gif file, the current frame is replaced. In the case of non-multiframed images such a .jpg file, the entire image is replaced.
+     * 
+     * Replacing a frame in an animated .gif file causes that file's animation to no longer be functional. Replacing a frame in a Tagged Image File Format (TIFF) file could cause that file to lose pages, particularly if the TIFF frame's image is not the same size as the original. If possible, you should always replace a TIFF frame's image with a TIFF of the same size.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a> implementation takes ownership of the image named in <i>pImg</i> and the caller should not try to use it after calling <b>IShellImageData::ReplaceFrame</b>.
      * @param {Pointer<Integer>} pImg Type: <b>Image*</b>
      * 
      * The address of the new image.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedata-replaceframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/shimgdata/nf-shimgdata-ishellimagedata-replaceframe
      */
     ReplaceFrame(pImg) {
         pImgMarshal := pImg is VarRef ? "char*" : "ptr"
 
-        result := ComCall(32, this, pImgMarshal, pImg, "HRESULT")
+        result := ComCall(32, this, pImgMarshal, pImg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

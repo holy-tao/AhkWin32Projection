@@ -6,7 +6,7 @@
 
 /**
  * Provides access to a control that contains selectable child items. The children of this element support IUIAutomationSelectionItemPattern.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationselectionpattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationselectionpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -64,35 +64,44 @@ class IUIAutomationSelectionPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of selected elements. The default is an empty array.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcurrentselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcurrentselection
      */
     GetCurrentSelection() {
-        result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
     /**
      * Indicates whether more than one item in the container can be selected at one time.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_currentcanselectmultiple
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_currentcanselectmultiple
      */
     get_CurrentCanSelectMultiple() {
-        result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Indicates whether at least one item must be selected at all times.
      * @remarks
-     * 
      * This property can be dynamic. For example, the initial state of a control might not have any items selected by default, but after an item is selected, the control must always have at least one item selected.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_currentisselectionrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_currentisselectionrequired
      */
     get_CurrentIsSelectionRequired() {
-        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
@@ -101,35 +110,44 @@ class IUIAutomationSelectionPattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the cached collection of selected elements. The default is an empty array.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcachedselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcachedselection
      */
     GetCachedSelection() {
-        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
     /**
      * Retrieves a cached value that indicates whether more than one item in the container can be selected at one time.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_cachedcanselectmultiple
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_cachedcanselectmultiple
      */
     get_CachedCanSelectMultiple() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves a cached value that indicates whether at least one item must be selected at all times.
      * @remarks
-     * 
      * This property can be dynamic. For example, the initial state of a control might not have any items selected by default, but after an item is selected, the control must always have at least one item selected.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_cachedisselectionrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_cachedisselectionrequired
      */
     get_CachedIsSelectionRequired() {
-        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

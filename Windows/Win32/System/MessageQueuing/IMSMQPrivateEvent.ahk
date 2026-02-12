@@ -40,7 +40,11 @@ class IMSMQPrivateEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_Hwnd() {
-        result := ComCall(7, this, "int*", &phwnd := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &phwnd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phwnd
     }
 
@@ -51,7 +55,11 @@ class IMSMQPrivateEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     FireArrivedEvent(pq, msgcursor) {
-        result := ComCall(8, this, "ptr", pq, "int", msgcursor, "HRESULT")
+        result := ComCall(8, this, "ptr", pq, "int", msgcursor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class IMSMQPrivateEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     FireArrivedErrorEvent(pq, hrStatus, msgcursor) {
-        result := ComCall(9, this, "ptr", pq, "int", hrStatus, "int", msgcursor, "HRESULT")
+        result := ComCall(9, this, "ptr", pq, "int", hrStatus, "int", msgcursor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

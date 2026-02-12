@@ -43,7 +43,11 @@ class AsyncIIdentityAdvise extends IUnknown{
     Begin_IdentityUpdated(dwIdentityUpdateEvents, lpszUniqueID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(3, this, "uint", dwIdentityUpdateEvents, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(3, this, "uint", dwIdentityUpdateEvents, "ptr", lpszUniqueID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class AsyncIIdentityAdvise extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_IdentityUpdated() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

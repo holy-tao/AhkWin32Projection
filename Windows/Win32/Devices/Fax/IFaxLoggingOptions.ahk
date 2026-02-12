@@ -8,11 +8,8 @@
 /**
  * The IFaxLoggingOptions interface is used by a fax client application to access and configure the event logging categories and the activity logging options that the fax service is using.
  * @remarks
- * 
  * To create a <b>FaxLoggingOptions</b> object in C++, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver-loggingoptions">LoggingOptions</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxloggingoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxloggingoptions
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -60,20 +57,28 @@ class IFaxLoggingOptions extends IDispatch{
     /**
      * The EventLogging property retrieves the FaxEventLogging configuration object.
      * @returns {IFaxEventLogging} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxloggingoptions-get_eventlogging
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxloggingoptions-get_eventlogging
      */
     get_EventLogging() {
-        result := ComCall(7, this, "ptr*", &pFaxEventLogging := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pFaxEventLogging := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxEventLogging(pFaxEventLogging)
     }
 
     /**
      * The ActivityLogging property retrieves the FaxActivityLogging configuration object.
      * @returns {IFaxActivityLogging} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxloggingoptions-get_activitylogging
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxloggingoptions-get_activitylogging
      */
     get_ActivityLogging() {
-        result := ComCall(8, this, "ptr*", &pFaxActivityLogging := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pFaxActivityLogging := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxActivityLogging(pFaxActivityLogging)
     }
 }

@@ -36,7 +36,11 @@ class IDisplayServices extends IUnknown{
      * @returns {IDisplayPointer} 
      */
     CreateDisplayPointer() {
-        result := ComCall(3, this, "ptr*", &ppDispPointer := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppDispPointer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDisplayPointer(ppDispPointer)
     }
 
@@ -49,7 +53,11 @@ class IDisplayServices extends IUnknown{
      * @returns {HRESULT} 
      */
     TransformRect(pRect, eSource, eDestination, pIElement) {
-        result := ComCall(4, this, "ptr", pRect, "int", eSource, "int", eDestination, "ptr", pIElement, "HRESULT")
+        result := ComCall(4, this, "ptr", pRect, "int", eSource, "int", eDestination, "ptr", pIElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,16 +70,25 @@ class IDisplayServices extends IUnknown{
      * @returns {HRESULT} 
      */
     TransformPoint(pPoint, eSource, eDestination, pIElement) {
-        result := ComCall(5, this, "ptr", pPoint, "int", eSource, "int", eDestination, "ptr", pIElement, "HRESULT")
+        result := ComCall(5, this, "ptr", pPoint, "int", eSource, "int", eDestination, "ptr", pIElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves the time required to invert the caret's pixels. The user can set this value.
      * @returns {IHTMLCaret} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getcaretblinktime
      */
     GetCaret() {
-        result := ComCall(6, this, "ptr*", &ppCaret := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppCaret := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLCaret(ppCaret)
     }
 
@@ -81,18 +98,26 @@ class IDisplayServices extends IUnknown{
      * @returns {IHTMLComputedStyle} 
      */
     GetComputedStyle(pPointer) {
-        result := ComCall(7, this, "ptr", pPointer, "ptr*", &ppComputedStyle := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pPointer, "ptr*", &ppComputedStyle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLComputedStyle(ppComputedStyle)
     }
 
     /**
      * 
      * @param {IHTMLElement} pIElement 
-     * @param {RECT} rect 
+     * @param {RECT} rect_ 
      * @returns {HRESULT} 
      */
-    ScrollRectIntoView(pIElement, rect) {
-        result := ComCall(8, this, "ptr", pIElement, "ptr", rect, "HRESULT")
+    ScrollRectIntoView(pIElement, rect_) {
+        result := ComCall(8, this, "ptr", pIElement, "ptr", rect_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +127,11 @@ class IDisplayServices extends IUnknown{
      * @returns {BOOL} 
      */
     HasFlowLayout(pIElement) {
-        result := ComCall(9, this, "ptr", pIElement, "int*", &pfHasFlowLayout := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pIElement, "int*", &pfHasFlowLayout := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasFlowLayout
     }
 }

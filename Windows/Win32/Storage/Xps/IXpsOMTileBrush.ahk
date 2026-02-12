@@ -8,7 +8,6 @@
 /**
  * A tile brush uses a visual image to paint a region by repeating the image.
  * @remarks
- * 
  * As shown in the illustration that follows, the tile brush takes a visual element, or a part of it,  transforms the visual element to create a tile, places the tile in the viewport of the output area, and fills the output area  as specified  by the tile mode.
  * 
  * <img alt="A figure that shows how a tile brush fills a geometry" src="./images/tile_cherry.png"/>
@@ -22,9 +21,7 @@
  * The next illustration shows the tile modes that are used to repeat the tile image to fill the output area. If the tile mode value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE_NONE</a>, the tile image is drawn only once.
  * 
  * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomtilebrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomtilebrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -50,7 +47,9 @@ class IXpsOMTileBrush extends IXpsOMBrush{
     static VTableNames => ["GetTransform", "GetTransformLocal", "SetTransformLocal", "GetTransformLookup", "SetTransformLookup", "GetViewbox", "SetViewbox", "GetViewport", "SetViewport", "GetTileMode", "SetTileMode"]
 
     /**
-     * Gets a pointer to the IXpsOMMatrixTransform interface that contains the resolved matrix transform for the brush.
+     * Gets a pointer to the IXpsOMMatrixTransform interface that contains the resolved matrix transform for the brush. (IXpsOMTileBrush.GetTransform)
+     * @remarks
+     * The transform determines how the output area is transformed before the brush image is rendered in the path, stroke, or glyph that is using the tile brush.
      * @returns {IXpsOMMatrixTransform} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a>  interface that contains the resolved matrix transform for the brush. If a matrix transform has not been set, a <b>NULL</b> pointer is returned.
      * 
      * The value that is returned in this parameter depends on which method has most recently been called to set the transform.
@@ -95,15 +94,21 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransform
      */
     GetTransform() {
-        result := ComCall(7, this, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &transform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * Gets a pointer to the IXpsOMMatrixTransform interface that contains the local, unshared resolved matrix transform for the brush.
+     * @remarks
+     * The transform determines how the output area is transformed before the brush image is rendered in the path, stroke, or glyph that is using the tile brush.
      * @returns {IXpsOMMatrixTransform} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface that contains the local, unshared resolved matrix transform for the brush. If  a local matrix transform has not been set or if a matrix transform lookup key has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -146,17 +151,93 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlocal
      */
     GetTransformLocal() {
-        result := ComCall(8, this, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &transform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * Sets the IXpsOMMatrixTransform interface pointer to a local, unshared matrix transform.
+     * @remarks
+     * The transform determines how the output area is transformed before the brush image is rendered in the path, stroke, or glyph that is using the tile brush.
+     * 
+     * After you call <b>SetTransformLocal</b>, the transform lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup">GetTransformLookup</a> returns a <b>NULL</b> pointer in the <i>key</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransform">GetTransform</a>
+     * </th>
+     * <th>Object that is returned  in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlocal">GetTransformLocal</a>
+     * </th>
+     * <th>String that is returned  in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup">GetTransformLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetTransformLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The transform that is set by <b>SetTransformLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The transform that is set by <b>SetTransformLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlookup">SetTransformLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The transform which is retrieved, using a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlookup">SetTransformLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlookup">SetTransformLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetTransformLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlookup">SetTransformLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMMatrixTransform} transform A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface to be set as the local, unshared matrix transform. If a local transform has been set, a <b>NULL</b> pointer will release it.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -186,15 +267,23 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlocal
      */
     SetTransformLocal(transform) {
-        result := ComCall(9, this, "ptr", transform, "HRESULT")
+        result := ComCall(9, this, "ptr", transform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the lookup key that identifies the IXpsOMMatrixTransform interface in a resource dictionary that contains the resolved matrix transform for the brush.
+     * @remarks
+     * The transform determines how the output area is transformed before the brush image is rendered in the path, stroke, or glyph that is using the tile brush.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The lookup key that identifies the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface in a resource dictionary that contains the resolved matrix transform for the brush. If a matrix transform lookup key has not been set or if a local matrix transform has  been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -237,17 +326,96 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(10, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return key
     }
 
     /**
      * Sets the lookup key name of a shared matrix transform that will be used as the transform for this brush.
+     * @remarks
+     * The transform is applied before the brush image is rendered in the path, stroke, or glyph that is using the tile brush. The tile brush has only one transform, which can be local or remote.
+     * 
+     * 
+     * 
+     * After you call <b>SetTransformLookup</b>, the local transform is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlocal">GetTransformLocal</a> returns a <b>NULL</b> pointer in the <i>transform</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransform">GetTransform</a>
+     * </th>
+     * <th>Object that is returned  in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlocal">GetTransformLocal</a>
+     * </th>
+     * <th>String that is returned  in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettransformlookup">GetTransformLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlocal">SetTransformLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The transform that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlocal">SetTransformLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The transform that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlocal">SetTransformLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetTransformLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The transform which is retrieved—using a lookup key that matches the key that is set by <b>SetTransformLookup</b>— from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetTransformLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlocal">SetTransformLocal</a> nor <b>SetTransformLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} key A string variable that contains the lookup key name of a shared matrix transform in the resource dictionary. If a lookup key has already been set, a <b>NULL</b> pointer will clear it.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -299,30 +467,70 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settransformlookup
      */
     SetTransformLookup(key) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(11, this, "ptr", key, "HRESULT")
+        result := ComCall(11, this, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the portion of the source image to be used by the tile.
+     * @remarks
+     * The brush's viewbox specifies the portion of a source image or visual to be used as the tile image.
+     * 
+     * The  coordinates of the brush's viewbox are relative to the source content, such that  (0,0) specifies the upper-left corner of the source content. For images, dimensions specified by the brush's viewbox are expressed in the units of 1/96". The corresponding pixel coordinates in the source image are calculated as follows: 
+     * 
+     * In the illustration that follows, the image on the left is an example of a source image,    the  image in the center shows the selected viewbox,  and the image on the right shows the resulting brush.  
+     * 
+     * <img alt="An illustration that shows a viewbox example" src="./images/CreateBrush.png"/>
+     * If the source image resolution is 96 by 96 dots per inch and image dimensions are 96 by 96 pixels, the values of fields in the <i>viewbox</i>   parameter would be:
+     * 
+     * The preceding parameter values correspond to the  source image as:<dl>
+     * <dd>SourceLeft = 96 × 48 / 96  = 48 pixels from the left side</dd>
+     * <dd>SourceTop = 96 × 4  / 96 = 24 pixels from the top</dd>
+     * <dd>SourceWidth = 96 × 24 / 96 = 24 pixels wide</dd>
+     * <dd>SourceHeight = 96 × 48 / 96 = 48 pixels high</dd>
+     * </dl>
      * @returns {XPS_RECT} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that describes the area of the source content to be used by the tile.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-getviewbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-getviewbox
      */
     GetViewbox() {
         viewbox := XPS_RECT()
-        result := ComCall(12, this, "ptr", viewbox, "HRESULT")
+        result := ComCall(12, this, "ptr", viewbox, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return viewbox
     }
 
     /**
      * Sets the portion of the source content to be used as the tile image.
+     * @remarks
+     * The brush's viewbox specifies the portion of a source image or visual to be used as the tile image.
+     * 
+     * The coordinates of the brush's viewbox are relative to the source content, such that  (0,0) specifies the upper-left corner of the source content. For images, dimensions specified by the brush's viewbox are expressed in the units of 1/96". The corresponding pixel coordinates in the source image are calculated as follows: 
+     * 
+     * In the illustration that follows, the image on the left is an example of a source image, while  that on the right is the source image with the selected viewbox for the brush shown as a red rectangle. In this example, the part of the source image that is used as the  content for the tile brush is the area within the red rectangle. The shaded area of the  image is not used by the brush.
+     * 
+     * <img alt="An image that shows how a viewbox is mapped to a source image" src="./images/viewbox_image.png"/>
+     * If the source image resolution is 96 by 96 dots per inch and image dimensions are 96 by 96 pixels, the values of fields in the <i>viewbox</i>  parameter would be:
+     * 
+     * The preceding parameter values correspond to the  source image as:<dl>
+     * <dd>SourceLeft = 96 * 48 / 96  = 48 pixels from the left side</dd>
+     * <dd>SourceTop = 96 * 24  / 96 = 24 pixels from the top</dd>
+     * <dd>SourceWidth = 96 * 24 / 96 = 24 pixels wide</dd>
+     * <dd>SourceHeight = 96 * 48 / 96 = 48 pixels high</dd>
+     * </dl>
      * @param {Pointer<XPS_RECT>} viewbox An <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that describes the portion of the source content   to be used as the tile image.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -363,28 +571,44 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-setviewbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-setviewbox
      */
     SetViewbox(viewbox) {
-        result := ComCall(13, this, "ptr", viewbox, "HRESULT")
+        result := ComCall(13, this, "ptr", viewbox, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the portion of the destination geometry that is covered by a single tile.
+     * @remarks
+     * The viewport is the portion of the output area where the first tile is drawn. In the illustration, the viewport is outlined by the purple rectangle inside the red, dotted rectangle. The tile mode of the brush determines how the rest of the tiles are drawn in the output area.
+     * 
+     * <img alt="An image that shows how a viewport is mapped to the output area" src="./images/viewport_image.png"/>
      * @returns {XPS_RECT} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that describes the portion of the destination geometry  that is covered by a single tile.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-getviewport
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-getviewport
      */
     GetViewport() {
         viewport := XPS_RECT()
-        result := ComCall(14, this, "ptr", viewport, "HRESULT")
+        result := ComCall(14, this, "ptr", viewport, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return viewport
     }
 
     /**
      * Sets the portion of the destination geometry that is covered by a single tile.
+     * @remarks
+     * The viewport is the portion of the output area where the tile is drawn. In the following illustration, the viewport  is outlined by the blue rectangle inside the red, dotted rectangle. The tile mode of the brush determines how other tiles are drawn in the output area.
+     * 
+     * <img alt="An image that shows how a viewport is mapped to the output area" src="./images/viewport_image.png"/>
      * @param {Pointer<XPS_RECT>} viewport An <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that describes the portion of the destination geometry that is covered by a single  tile.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -425,25 +649,41 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-setviewport
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-setviewport
      */
     SetViewport(viewport) {
-        result := ComCall(15, this, "ptr", viewport, "HRESULT")
+        result := ComCall(15, this, "ptr", viewport, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the XPS_TILE_MODE value that describes the tile mode of the brush.
+     * @remarks
+     * The tile mode determines how the tile image is repeated to fill the output area. If the tile mode value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE_NONE</a>, the tile image is drawn only once. The following illustration shows examples of how the tile image appears in several tile modes.
+     * 
+     * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value that describes the tile mode of the brush.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettilemode
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettilemode
      */
     GetTileMode() {
-        result := ComCall(16, this, "int*", &tileMode := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &tileMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return tileMode
     }
 
     /**
      * Sets the XPS_TILE_MODE value that describes the tiling mode of the brush.
+     * @remarks
+     * The tile mode determines how the tile image is repeated to fill the output area. If the tile mode value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE_NONE</a>, the tile image is drawn only once.
+     * 
+     * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
      * @param {Integer} tileMode The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value to be set.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * 
@@ -470,15 +710,19 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>tileMode</i> was not a valid <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value.
+     * <i>tileMode</i> was not a valid <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settilemode
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-settilemode
      */
     SetTileMode(tileMode) {
-        result := ComCall(17, this, "int", tileMode, "HRESULT")
+        result := ComCall(17, this, "int", tileMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

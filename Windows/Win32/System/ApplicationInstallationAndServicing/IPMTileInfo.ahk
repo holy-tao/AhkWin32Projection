@@ -94,11 +94,6 @@ class IPMTileInfo extends IUnknown{
 
     /**
      */
-    NotifiedState {
-    }
-
-    /**
-     */
     StartTileBlob {
         get => this.get_StartTileBlob()
     }
@@ -123,7 +118,11 @@ class IPMTileInfo extends IUnknown{
      */
     get_ProductID() {
         pProductID := Guid()
-        result := ComCall(3, this, "ptr", pProductID, "HRESULT")
+        result := ComCall(3, this, "ptr", pProductID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProductID
     }
 
@@ -133,7 +132,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TileID(pTileID) {
-        result := ComCall(4, this, "ptr", pTileID, "HRESULT")
+        result := ComCall(4, this, "ptr", pTileID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,7 +145,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_TemplateType() {
-        result := ComCall(5, this, "int*", &pTemplateType := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pTemplateType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTemplateType
     }
 
@@ -152,7 +159,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_HubPinnedState(HubType) {
-        result := ComCall(6, this, "int", HubType, "int*", &pPinned := 0, "HRESULT")
+        result := ComCall(6, this, "int", HubType, "int*", &pPinned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPinned
     }
 
@@ -162,7 +173,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_HubPosition(HubType) {
-        result := ComCall(7, this, "int", HubType, "uint*", &pPosition := 0, "HRESULT")
+        result := ComCall(7, this, "int", HubType, "uint*", &pPosition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPosition
     }
 
@@ -171,7 +186,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsNotified() {
-        result := ComCall(8, this, "int*", &pIsNotified := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pIsNotified := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsNotified
     }
 
@@ -180,7 +199,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsDefault() {
-        result := ComCall(9, this, "int*", &pIsDefault := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pIsDefault := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsDefault
     }
 
@@ -190,7 +213,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TaskID(pTaskID) {
-        result := ComCall(10, this, "ptr", pTaskID, "HRESULT")
+        result := ComCall(10, this, "ptr", pTaskID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -199,7 +226,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_TileType() {
-        result := ComCall(11, this, "int*", &pStartTileType := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pStartTileType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStartTileType
     }
 
@@ -208,7 +239,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsThemable() {
-        result := ComCall(12, this, "int*", &pIsThemable := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pIsThemable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsThemable
     }
 
@@ -218,7 +253,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {IPMTilePropertyInfo} 
      */
     get_PropertyById(PropID) {
-        result := ComCall(13, this, "uint", PropID, "ptr*", &ppPropInfo := 0, "HRESULT")
+        result := ComCall(13, this, "uint", PropID, "ptr*", &ppPropInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTilePropertyInfo(ppPropInfo)
     }
 
@@ -229,7 +268,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pImageUrn, pParameters) {
-        result := ComCall(14, this, "ptr", pImageUrn, "ptr", pParameters, "HRESULT")
+        result := ComCall(14, this, "ptr", pImageUrn, "ptr", pParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -238,7 +281,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {IPMTilePropertyEnumerator} 
      */
     get_PropertyEnum() {
-        result := ComCall(15, this, "ptr*", &ppTilePropEnum := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppTilePropEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTilePropertyEnumerator(ppTilePropEnum)
     }
 
@@ -248,7 +295,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_HubTileSize(HubType) {
-        result := ComCall(16, this, "int", HubType, "int*", &pSize := 0, "HRESULT")
+        result := ComCall(16, this, "int", HubType, "int*", &pSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSize
     }
 
@@ -259,7 +310,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_HubPosition(HubType, Position) {
-        result := ComCall(17, this, "int", HubType, "uint", Position, "HRESULT")
+        result := ComCall(17, this, "int", HubType, "uint", Position, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +324,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_NotifiedState(Notified) {
-        result := ComCall(18, this, "int", Notified, "HRESULT")
+        result := ComCall(18, this, "int", Notified, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,18 +339,26 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_HubPinnedState(HubType, Pinned) {
-        result := ComCall(19, this, "int", HubType, "int", Pinned, "HRESULT")
+        result := ComCall(19, this, "int", HubType, "int", Pinned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Integer} HubType 
-     * @param {Integer} Size 
+     * @param {Integer} Size_ 
      * @returns {HRESULT} 
      */
-    set_HubTileSize(HubType, Size) {
-        result := ComCall(20, this, "int", HubType, "int", Size, "HRESULT")
+    set_HubTileSize(HubType, Size_) {
+        result := ComCall(20, this, "int", HubType, "int", Size_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -302,10 +369,20 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_InvocationInfo(TaskName, TaskParameters) {
-        TaskName := TaskName is String ? BSTR.Alloc(TaskName).Value : TaskName
-        TaskParameters := TaskParameters is String ? BSTR.Alloc(TaskParameters).Value : TaskParameters
+        if(TaskName is String) {
+            pin := BSTR.Alloc(TaskName)
+            TaskName := pin.Value
+        }
+        if(TaskParameters is String) {
+            pin := BSTR.Alloc(TaskParameters)
+            TaskParameters := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", TaskName, "ptr", TaskParameters, "HRESULT")
+        result := ComCall(21, this, "ptr", TaskName, "ptr", TaskParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -315,7 +392,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_StartTileBlob(pBlob) {
-        result := ComCall(22, this, "ptr", pBlob, "HRESULT")
+        result := ComCall(22, this, "ptr", pBlob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -324,7 +405,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsRestoring() {
-        result := ComCall(23, this, "int*", &pIsRestoring := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pIsRestoring := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsRestoring
     }
 
@@ -333,7 +418,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsAutoRestoreDisabled() {
-        result := ComCall(24, this, "int*", &pIsAutoRestoreDisabled := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &pIsAutoRestoreDisabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsAutoRestoreDisabled
     }
 
@@ -343,7 +432,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IsRestoring(Restoring) {
-        result := ComCall(25, this, "int", Restoring, "HRESULT")
+        result := ComCall(25, this, "int", Restoring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -353,7 +446,11 @@ class IPMTileInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IsAutoRestoreDisabled(AutoRestoreDisabled) {
-        result := ComCall(26, this, "int", AutoRestoreDisabled, "HRESULT")
+        result := ComCall(26, this, "int", AutoRestoreDisabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

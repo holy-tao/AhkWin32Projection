@@ -7,7 +7,7 @@
  * The WMT_PROXY_SETTING_BROWSER setting applies only to the HTTP protocol.
  * 
  * This enumeration is used directly in <b>GetProxySettings</b> and <b>SetProxySettings</b>, and referenced in several other methods of the <b>IWMReaderNetworkConfig</b> interface.
- * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Represents a color context to be used with the Color Management Effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1colorcontext1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1colorcontext1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,11 +32,11 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
     static VTableNames => ["GetColorContextType", "GetDXGIColorSpace", "GetSimpleColorProfile"]
 
     /**
-     * Retrieves the color context type.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_context_type">D2D1_COLOR_CONTEXT_TYPE</a></b>
+     * Retrieves the color context type. (ID2D1ColorContext1.GetColorContextType)
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_context_type">D2D1_COLOR_CONTEXT_TYPE</a></b>
      * 
      * This method returns color context type.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1colorcontext1-getcolorcontexttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getcolorcontexttype
      */
     GetColorContextType() {
         result := ComCall(7, this, "int")
@@ -48,7 +48,7 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
      * @returns {Integer} Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * This method returns the DXGI color space of this context.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1colorcontext1-getdxgicolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getdxgicolorspace
      */
     GetDXGIColorSpace() {
         result := ComCall(8, this, "int")
@@ -60,11 +60,15 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
      * @returns {D2D1_SIMPLE_COLOR_PROFILE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_simple_color_profile">D2D1_SIMPLE_COLOR_PROFILE</a>*</b>
      * 
      * Pointer to a D2D1_SIMPLE_COLOR_PROFILE that will contain the simple color profile when the method returns.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1colorcontext1-getsimplecolorprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getsimplecolorprofile
      */
     GetSimpleColorProfile() {
         simpleProfile := D2D1_SIMPLE_COLOR_PROFILE()
-        result := ComCall(9, this, "ptr", simpleProfile, "HRESULT")
+        result := ComCall(9, this, "ptr", simpleProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return simpleProfile
     }
 }

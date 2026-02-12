@@ -5,7 +5,7 @@
  * Contains an array of LONG value types that are used to describe a property of type PT_MV_LONG.
  * @remarks
  * For more information about PT_MV_LONG, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/slongarray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/slongarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

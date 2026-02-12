@@ -4,7 +4,7 @@
 
 /**
  * Used in the CMC_DATA_INFO and CMC_RESPONSE_INFO structures. (CMC_TAGGED_OTHER_MSG)
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_other_msg
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmc_tagged_other_msg
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

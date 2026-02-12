@@ -6,7 +6,7 @@
 
 /**
  * The ITLegacyCallMediaControl interface supports legacy applications that must communicate directly with a device. This interface is exposed on the Call Object and can be created by calling QueryInterface on ITBasicCallControl.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itlegacycallmediacontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itlegacycallmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -76,15 +76,23 @@ class ITLegacyCallMediaControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-detectdigits
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacycallmediacontrol-detectdigits
      */
     DetectDigits(DigitMode) {
-        result := ComCall(7, this, "int", DigitMode, "HRESULT")
+        result := ComCall(7, this, "int", DigitMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GenerateDigits method causes digits to be output on the current call.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDigits</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
      * @param {BSTR} pDigits Pointer to <b>BSTR</b> representation of digits to be sent.
      * @param {Integer} DigitMode Indicates 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-digitmode--constants">digit mode</a>.
@@ -129,17 +137,34 @@ class ITLegacyCallMediaControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-generatedigits
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacycallmediacontrol-generatedigits
      */
     GenerateDigits(pDigits, DigitMode) {
-        pDigits := pDigits is String ? BSTR.Alloc(pDigits).Value : pDigits
+        if(pDigits is String) {
+            pin := BSTR.Alloc(pDigits)
+            pDigits := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", pDigits, "int", DigitMode, "HRESULT")
+        result := ComCall(8, this, "ptr", pDigits, "int", DigitMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetID method gets the identifier for the device associated with the current call.
+     * @remarks
+     * The application must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a> prior to calling this method.
+     * 
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDeviceClass</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * The application must call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory allocated for the <i>ppDeviceID</i> parameter.
      * @param {BSTR} pDeviceClass Pointer to <b>BSTR</b> representing the 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">TAPI device class</a>.
      * @param {Pointer<Integer>} pdwSize Size in bytes of device identifier.
@@ -185,15 +210,22 @@ class ITLegacyCallMediaControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-getid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacycallmediacontrol-getid
      */
     GetID(pDeviceClass, pdwSize, ppDeviceID) {
-        pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
+        if(pDeviceClass is String) {
+            pin := BSTR.Alloc(pDeviceClass)
+            pDeviceClass := pin.Value
+        }
 
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
+        result := ComCall(9, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,10 +285,14 @@ class ITLegacyCallMediaControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-setmediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacycallmediacontrol-setmediatype
      */
     SetMediaType(lMediaType) {
-        result := ComCall(10, this, "int", lMediaType, "HRESULT")
+        result := ComCall(10, this, "int", lMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -316,10 +352,14 @@ class ITLegacyCallMediaControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacycallmediacontrol-monitormedia
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacycallmediacontrol-monitormedia
      */
     MonitorMedia(lMediaType) {
-        result := ComCall(11, this, "int", lMediaType, "HRESULT")
+        result := ComCall(11, this, "int", lMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

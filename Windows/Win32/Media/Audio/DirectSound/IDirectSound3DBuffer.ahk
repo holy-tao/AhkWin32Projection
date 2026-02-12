@@ -36,7 +36,11 @@ class IDirectSound3DBuffer extends IUnknown{
      */
     GetAllParameters() {
         pDs3dBuffer := DS3DBUFFER()
-        result := ComCall(3, this, "ptr", pDs3dBuffer, "HRESULT")
+        result := ComCall(3, this, "ptr", pDs3dBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDs3dBuffer
     }
 
@@ -50,7 +54,11 @@ class IDirectSound3DBuffer extends IUnknown{
         pdwInsideConeAngleMarshal := pdwInsideConeAngle is VarRef ? "uint*" : "ptr"
         pdwOutsideConeAngleMarshal := pdwOutsideConeAngle is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwInsideConeAngleMarshal, pdwInsideConeAngle, pdwOutsideConeAngleMarshal, pdwOutsideConeAngle, "HRESULT")
+        result := ComCall(4, this, pdwInsideConeAngleMarshal, pdwInsideConeAngle, pdwOutsideConeAngleMarshal, pdwOutsideConeAngle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IDirectSound3DBuffer extends IUnknown{
      */
     GetConeOrientation() {
         pvOrientation := D3DVECTOR()
-        result := ComCall(5, this, "ptr", pvOrientation, "HRESULT")
+        result := ComCall(5, this, "ptr", pvOrientation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvOrientation
     }
 
@@ -69,7 +81,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {Integer} 
      */
     GetConeOutsideVolume() {
-        result := ComCall(6, this, "int*", &plConeOutsideVolume := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &plConeOutsideVolume := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plConeOutsideVolume
     }
 
@@ -78,7 +94,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {Float} 
      */
     GetMaxDistance() {
-        result := ComCall(7, this, "float*", &pflMaxDistance := 0, "HRESULT")
+        result := ComCall(7, this, "float*", &pflMaxDistance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pflMaxDistance
     }
 
@@ -87,7 +107,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {Float} 
      */
     GetMinDistance() {
-        result := ComCall(8, this, "float*", &pflMinDistance := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &pflMinDistance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pflMinDistance
     }
 
@@ -96,17 +120,26 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {Integer} 
      */
     GetMode() {
-        result := ComCall(9, this, "uint*", &pdwMode := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pdwMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMode
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
      * @returns {D3DVECTOR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mediastreaming/getpositioninformationoperation
      */
     GetPosition() {
         pvPosition := D3DVECTOR()
-        result := ComCall(10, this, "ptr", pvPosition, "HRESULT")
+        result := ComCall(10, this, "ptr", pvPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvPosition
     }
 
@@ -116,7 +149,11 @@ class IDirectSound3DBuffer extends IUnknown{
      */
     GetVelocity() {
         pvVelocity := D3DVECTOR()
-        result := ComCall(11, this, "ptr", pvVelocity, "HRESULT")
+        result := ComCall(11, this, "ptr", pvVelocity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvVelocity
     }
 
@@ -127,7 +164,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDs3dBuffer, dwApply) {
-        result := ComCall(12, this, "ptr", pcDs3dBuffer, "uint", dwApply, "HRESULT")
+        result := ComCall(12, this, "ptr", pcDs3dBuffer, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +180,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConeAngles(dwInsideConeAngle, dwOutsideConeAngle, dwApply) {
-        result := ComCall(13, this, "uint", dwInsideConeAngle, "uint", dwOutsideConeAngle, "uint", dwApply, "HRESULT")
+        result := ComCall(13, this, "uint", dwInsideConeAngle, "uint", dwOutsideConeAngle, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +197,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConeOrientation(x, y, z, dwApply) {
-        result := ComCall(14, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(14, this, "float", x, "float", y, "float", z, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +212,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConeOutsideVolume(lConeOutsideVolume, dwApply) {
-        result := ComCall(15, this, "int", lConeOutsideVolume, "uint", dwApply, "HRESULT")
+        result := ComCall(15, this, "int", lConeOutsideVolume, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -174,7 +227,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMaxDistance(flMaxDistance, dwApply) {
-        result := ComCall(16, this, "float", flMaxDistance, "uint", dwApply, "HRESULT")
+        result := ComCall(16, this, "float", flMaxDistance, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +242,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMinDistance(flMinDistance, dwApply) {
-        result := ComCall(17, this, "float", flMinDistance, "uint", dwApply, "HRESULT")
+        result := ComCall(17, this, "float", flMinDistance, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +257,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMode(dwMode, dwApply) {
-        result := ComCall(18, this, "uint", dwMode, "uint", dwApply, "HRESULT")
+        result := ComCall(18, this, "uint", dwMode, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -209,7 +274,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPosition(x, y, z, dwApply) {
-        result := ComCall(19, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(19, this, "float", x, "float", y, "float", z, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -222,7 +291,11 @@ class IDirectSound3DBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetVelocity(x, y, z, dwApply) {
-        result := ComCall(20, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(20, this, "float", x, "float", y, "float", z, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

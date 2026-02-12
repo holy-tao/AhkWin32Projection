@@ -34,7 +34,11 @@ class ITimerEx extends ITimer{
      * @returns {HRESULT} 
      */
     SetMode(dwMode) {
-        result := ComCall(7, this, "uint", dwMode, "HRESULT")
+        result := ComCall(7, this, "uint", dwMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

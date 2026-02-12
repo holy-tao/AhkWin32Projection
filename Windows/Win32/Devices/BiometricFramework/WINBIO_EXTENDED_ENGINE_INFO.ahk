@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the capabilities and enrollment requirements of the engine adapter for a biometric unit.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-engine-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-extended-engine-info
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

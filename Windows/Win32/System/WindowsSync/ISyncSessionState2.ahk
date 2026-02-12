@@ -6,11 +6,8 @@
 /**
  * Represents additional information about the current synchronization session.
  * @remarks
- * 
  * An <b>ISyncSessionState2</b> object can be obtained by passing <b>IID_ISyncSessionState2</b> to the <b>QueryInterface</b> method of an <b>ISyncSessionState</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncsessionstate2
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncsessionstate2
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class ISyncSessionState2 extends ISyncSessionState{
 
     /**
      * Indicates which provider caused synchronization to fail.
+     * @remarks
+     * The destination provider indicates which provider caused synchronization to fail during processing of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-iknowledgesyncprovider-processchangebatch">IKnowledgeSyncProvider::ProcessChangeBatch</a> method, by using <b>ISyncSessionState2::SetProviderWithError</b>. <b>ISyncSessionState2::SetProviderWithError</b> is used by an application to obtain the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncprovider">ISyncProvider</a> interface of the provider that caused the failure. The synchronization session can then query for other interfaces that are implemented by the provider, and call methods to handle the error.
      * @param {BOOL} fSelf <b>TRUE</b> when the provider that calls this method is the provider that caused the error. Otherwise,<b> FALSE</b>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -68,10 +67,14 @@ class ISyncSessionState2 extends ISyncSessionState{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate2-setproviderwitherror
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncsessionstate2-setproviderwitherror
      */
     SetProviderWithError(fSelf) {
-        result := ComCall(10, this, "int", fSelf, "HRESULT")
+        result := ComCall(10, this, "int", fSelf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,12 +112,16 @@ class ISyncSessionState2 extends ISyncSessionState{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate2-getsessionerrorstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncsessionstate2-getsessionerrorstatus
      */
     GetSessionErrorStatus(phrSessionError) {
         phrSessionErrorMarshal := phrSessionError is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, phrSessionErrorMarshal, phrSessionError, "HRESULT")
+        result := ComCall(11, this, phrSessionErrorMarshal, phrSessionError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

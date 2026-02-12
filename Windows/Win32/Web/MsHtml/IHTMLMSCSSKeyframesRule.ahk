@@ -58,9 +58,16 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +77,11 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -79,7 +90,11 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRulesCollection(p)
     }
 
@@ -89,9 +104,16 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
      * @returns {HRESULT} 
      */
     appendRule(bstrRule) {
-        bstrRule := bstrRule is String ? BSTR.Alloc(bstrRule).Value : bstrRule
+        if(bstrRule is String) {
+            pin := BSTR.Alloc(bstrRule)
+            bstrRule := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrRule, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,9 +123,16 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteRule(bstrKey) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrKey, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,9 +142,16 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
      * @returns {IHTMLMSCSSKeyframeRule} 
      */
     findRule(bstrKey) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrKey, "ptr*", &ppMSKeyframeRule := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrKey, "ptr*", &ppMSKeyframeRule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLMSCSSKeyframeRule(ppMSKeyframeRule)
     }
 }

@@ -4,7 +4,7 @@
 
 /**
  * A security binding constraint that corresponds to the WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_message_security_binding_constraint
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_security_context_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -11,7 +11,7 @@
  * 
  * Because the WinSNMP application allocates memory for input descriptor objects with variable lengths, it must free that memory. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smioctets
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsnmp/ns-winsnmp-smioctets
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

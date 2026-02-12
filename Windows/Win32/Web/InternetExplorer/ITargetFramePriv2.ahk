@@ -42,7 +42,11 @@ class ITargetFramePriv2 extends ITargetFramePriv{
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
         pszLocation := pszLocation is String ? StrPtr(pszLocation) : pszLocation
 
-        result := ComCall(9, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pUri, "ptr", pszLocation, "HRESULT")
+        result := ComCall(9, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pUri, "ptr", pszLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

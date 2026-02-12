@@ -6,7 +6,7 @@
 
 /**
  * Encapsulates a usage policy from an input trust authority (ITA).
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfoutputpolicy
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfoutputpolicy
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IMFOutputPolicy extends IMFAttributes{
 
     /**
      * Retrieves a list of the output protection systems that the output trust authority (OTA) must enforce, along with configuration data for each protection system.
+     * @remarks
+     * The video OTA returns  the <b>MFCONNECTOR_UNKNOWN</b> connector type unless the Direct3D device is in full-screen mode. (Direct3D windowed mode is not generally a secure video mode.) You can override this behavior by implementing a custom EVR presenter that implements the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-ievrtrustedvideoplugin">IEVRTrustedVideoPlugin</a> interface.
      * @param {Integer} dwAttributes Describes the output that is represented by the OTA calling this method. This value is a bitwise OR of zero or more of the following flags.
      *           
      * 
@@ -354,31 +356,45 @@ class IMFOutputPolicy extends IMFAttributes{
      * @param {Pointer<Guid>} rgGuidProtectionSchemasSupported Pointer to an array of GUID values that specify which output protection systems are supported by the OTA that is calling this method.
      * @param {Integer} cProtectionSchemasSupported Number of elements in the <i>rgGuidProtectionSchemasSupported</i> array.
      * @returns {IMFCollection} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface of a collection object. The caller must release the interface. Each object in the collection is an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfoutputschema">IMFOutputSchema</a> pointer. Each <b>IMFOutputSchema</b> pointer defines an output protection system that the OTA must enforce.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputpolicy-generaterequiredschemas
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfoutputpolicy-generaterequiredschemas
      */
     GenerateRequiredSchemas(dwAttributes, guidOutputSubType, rgGuidProtectionSchemasSupported, cProtectionSchemasSupported) {
-        result := ComCall(33, this, "uint", dwAttributes, "ptr", guidOutputSubType, "ptr", rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "HRESULT")
+        result := ComCall(33, this, "uint", dwAttributes, "ptr", guidOutputSubType, "ptr", rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFCollection(ppRequiredProtectionSchemas)
     }
 
     /**
-     * Retrieives a GUID identifying the input trust authority (ITA) that created this output policy object.
+     * Retrieves a GUID identifying the input trust authority (ITA) that created this output policy object.
+     * @remarks
+     * All of the policy objects and output schemas from the same ITA should return the same originator identifier (including dynamic policy changes). This value enables the OTA to distinguish policies that originate from different ITAs, so that the OTA can update dynamic policies correctly.
      * @returns {Guid} Receives a GUID that identifies the originating ITA.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputpolicy-getoriginatorid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfoutputpolicy-getoriginatorid
      */
     GetOriginatorID() {
         pguidOriginatorID := Guid()
-        result := ComCall(34, this, "ptr", pguidOriginatorID, "HRESULT")
+        result := ComCall(34, this, "ptr", pguidOriginatorID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidOriginatorID
     }
 
     /**
      * Retrieves the minimum version of the global revocation list (GRL) that must be enforced by the protected environment for this policy.
      * @returns {Integer} Receives the minimum GRL version.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputpolicy-getminimumgrlversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfoutputpolicy-getminimumgrlversion
      */
     GetMinimumGRLVersion() {
-        result := ComCall(35, this, "uint*", &pdwMinimumGRLVersion := 0, "HRESULT")
+        result := ComCall(35, this, "uint*", &pdwMinimumGRLVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMinimumGRLVersion
     }
 }

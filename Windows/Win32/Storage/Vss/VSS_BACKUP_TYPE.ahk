@@ -26,7 +26,7 @@
  * Writers use 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-getbackuptype">CVssWriter::GetBackupType</a> to determine the 
  *     backup type.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_backup_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_backup_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -92,7 +92,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_refX(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +105,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_refX() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -111,7 +119,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_refY(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +132,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_refY() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -130,7 +146,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_markerUnits(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +159,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_markerUnits() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -149,7 +173,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_markerWidth(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +186,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_markerWidth() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -168,7 +200,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_markerHeight(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +213,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_markerHeight() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -187,7 +227,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_orientType(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +240,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_orientType() {
-        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -206,7 +254,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_orientAngle(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,7 +267,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {ISVGAnimatedAngle} 
      */
     get_orientAngle() {
-        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedAngle(p)
     }
 
@@ -224,7 +280,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     setOrientToAuto() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,7 +294,11 @@ class ISVGMarkerElement extends IDispatch{
      * @returns {HRESULT} 
      */
     setOrientToAngle(pSVGAngle) {
-        result := ComCall(22, this, "ptr", pSVGAngle, "HRESULT")
+        result := ComCall(22, this, "ptr", pSVGAngle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

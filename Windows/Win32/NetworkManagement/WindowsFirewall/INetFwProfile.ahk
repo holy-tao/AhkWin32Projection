@@ -11,16 +11,13 @@
 /**
  * The INetFwProfile interface provides access to the firewall settings profile.
  * @remarks
- * 
  * Instances of this interface
  * are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy-get_currentprofile">CurrentProfile</a> property or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype">GetProfileByType</a> method
  * of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwpolicy">INetFwPolicy</a> interface.
  * 
  * All configuration changes take
  * effect immediately.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwprofile
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nn-netfw-inetfwprofile
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -120,182 +117,220 @@ class INetFwProfile extends IDispatch{
     }
 
     /**
-     * Speciifes the type of the profile.
+     * Specifies the type of the profile.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_type
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_type
      */
     get_Type() {
-        result := ComCall(7, this, "int*", &type := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return type
     }
 
     /**
-     * Indicates whether the firewall is enabled.
+     * Indicates whether the firewall is enabled. (Get)
      * @remarks
-     * 
-     *  The resulting  firewall status is based on the local policy from the local store. Use the procedure <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/checking-the-effective-firewall-status">Checking the Effective Firewall Status</a> to determine the overall operational state.
-     * 
-     * 
+     * The resulting  firewall status is based on the local policy from the local store. Use the procedure <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/checking-the-effective-firewall-status">Checking the Effective Firewall Status</a> to determine the overall operational state.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_firewallenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_firewallenabled
      */
     get_FirewallEnabled() {
-        result := ComCall(8, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &enabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return enabled
     }
 
     /**
-     * Indicates whether the firewall is enabled.
+     * Indicates whether the firewall is enabled. (Put)
      * @remarks
-     * 
-     *  The resulting  firewall status is based on the local policy from the local store. Use the procedure <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/checking-the-effective-firewall-status">Checking the Effective Firewall Status</a> to determine the overall operational state.
-     * 
-     * 
+     * The resulting  firewall status is based on the local policy from the local store. Use the procedure <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/checking-the-effective-firewall-status">Checking the Effective Firewall Status</a> to determine the overall operational state.
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-put_firewallenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-put_firewallenabled
      */
     put_FirewallEnabled(enabled) {
-        result := ComCall(9, this, "short", enabled, "HRESULT")
+        result := ComCall(9, this, "short", enabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether the firewall should not allow exceptions.
+     * Indicates whether the firewall should not allow exceptions. (Get)
      * @remarks
-     * 
      * All interfaces are firewalled. This means that all the exceptions; such as GloballyOpenPorts, Applications, or Services, which are  specified in the profile, are ignored
      *    and only locally initiated traffic is allowed.
      * 
      *  The resulting  firewall status is determined by the combination of  two levels: First check the global operation mode, then the mode on the interface of interest. Use the procedure <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/checking-the-effective-firewall-status">Checking the Effective Firewall Status</a> to determine the overall operational state.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_exceptionsnotallowed
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_exceptionsnotallowed
      */
     get_ExceptionsNotAllowed() {
-        result := ComCall(10, this, "short*", &notAllowed := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &notAllowed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return notAllowed
     }
 
     /**
-     * Indicates whether the firewall should not allow exceptions.
+     * Indicates whether the firewall should not allow exceptions. (Put)
      * @remarks
-     * 
      * All interfaces are firewalled. This means that all the exceptions; such as GloballyOpenPorts, Applications, or Services, which are  specified in the profile, are ignored
      *    and only locally initiated traffic is allowed.
      * 
      *  The resulting  firewall status is determined by the combination of  two levels: First check the global operation mode, then the mode on the interface of interest. Use the procedure <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/checking-the-effective-firewall-status">Checking the Effective Firewall Status</a> to determine the overall operational state.
-     * 
-     * 
      * @param {VARIANT_BOOL} notAllowed 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-put_exceptionsnotallowed
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-put_exceptionsnotallowed
      */
     put_ExceptionsNotAllowed(notAllowed) {
-        result := ComCall(11, this, "short", notAllowed, "HRESULT")
+        result := ComCall(11, this, "short", notAllowed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether interactive firewall notifications are disabled.
+     * Indicates whether interactive firewall notifications are disabled. (INetFwProfile.get_NotificationsDisabled)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_notificationsdisabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_notificationsdisabled
      */
     get_NotificationsDisabled() {
-        result := ComCall(12, this, "short*", &disabled := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &disabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return disabled
     }
 
     /**
-     * Indicates whether interactive firewall notifications are disabled.
+     * Indicates whether interactive firewall notifications are disabled. (INetFwProfile.put_NotificationsDisabled)
      * @param {VARIANT_BOOL} disabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-put_notificationsdisabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-put_notificationsdisabled
      */
     put_NotificationsDisabled(disabled) {
-        result := ComCall(13, this, "short", disabled, "HRESULT")
+        result := ComCall(13, this, "short", disabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether the firewall should not allow unicast responses to multicast and broadcast traffic.
+     * Indicates whether the firewall should not allow unicast responses to multicast and broadcast traffic. (INetFwProfile.get_UnicastResponsesToMulticastBroadcastDisabled)
      * @remarks
-     * 
      * If a PC sends a broadcast packet, a unicast response is allowed for three seconds. Use this property to change this behavior.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_unicastresponsestomulticastbroadcastdisabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_unicastresponsestomulticastbroadcastdisabled
      */
     get_UnicastResponsesToMulticastBroadcastDisabled() {
-        result := ComCall(14, this, "short*", &disabled := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &disabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return disabled
     }
 
     /**
-     * Indicates whether the firewall should not allow unicast responses to multicast and broadcast traffic.
+     * Indicates whether the firewall should not allow unicast responses to multicast and broadcast traffic. (INetFwProfile.put_UnicastResponsesToMulticastBroadcastDisabled)
      * @remarks
-     * 
      * If a PC sends a broadcast packet, a unicast response is allowed for three seconds. Use this property to change this behavior.
-     * 
-     * 
      * @param {VARIANT_BOOL} disabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-put_unicastresponsestomulticastbroadcastdisabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-put_unicastresponsestomulticastbroadcastdisabled
      */
     put_UnicastResponsesToMulticastBroadcastDisabled(disabled) {
-        result := ComCall(15, this, "short", disabled, "HRESULT")
+        result := ComCall(15, this, "short", disabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the settings governing remote administration.
      * @returns {INetFwRemoteAdminSettings} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_remoteadminsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_remoteadminsettings
      */
     get_RemoteAdminSettings() {
-        result := ComCall(16, this, "ptr*", &remoteAdminSettings := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &remoteAdminSettings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwRemoteAdminSettings(remoteAdminSettings)
     }
 
     /**
      * Retrieves the ICMP settings of the profile.
      * @returns {INetFwIcmpSettings} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_icmpsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_icmpsettings
      */
     get_IcmpSettings() {
-        result := ComCall(17, this, "ptr*", &icmpSettings := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &icmpSettings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwIcmpSettings(icmpSettings)
     }
 
     /**
      * Retrieves the collection of globally open ports of the profile.
      * @returns {INetFwOpenPorts} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_globallyopenports
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_globallyopenports
      */
     get_GloballyOpenPorts() {
-        result := ComCall(18, this, "ptr*", &openPorts := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &openPorts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwOpenPorts(openPorts)
     }
 
     /**
      * Retrieves the collection of services of the profile.
      * @returns {INetFwServices} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_services
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_services
      */
     get_Services() {
-        result := ComCall(19, this, "ptr*", &services := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &services := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwServices(services)
     }
 
     /**
      * Retrieves the collection of authorized applications of the profile.
      * @returns {INetFwAuthorizedApplications} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwprofile-get_authorizedapplications
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwprofile-get_authorizedapplications
      */
     get_AuthorizedApplications() {
-        result := ComCall(20, this, "ptr*", &apps := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &apps := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwAuthorizedApplications(apps)
     }
 }

@@ -13,7 +13,7 @@
  * 
  * <div class="alert"><b>Note</b>  A scheduled work item can have one or more triggers defined. The times that the work item will run is the union of all the triggers defined for that item.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-task_trigger
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstask/ns-mstask-task_trigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

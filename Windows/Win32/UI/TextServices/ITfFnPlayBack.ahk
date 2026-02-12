@@ -5,7 +5,7 @@
 
 /**
  * The ITfFnPlayBack interface is implemented by the Speech API (SAPI) text service. This interface is used by the TSF manager or a client (application or other text service) to control the audio data for speech input text.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnplayback
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffnplayback
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ITfFnPlayBack extends ITfFunction{
 
     /**
      * ITfFnPlayBack::QueryRange method
+     * @remarks
+     * The current implementation of this method is simple. It clones <i>pRange</i>, places the clone in <i>ppNewRange</i>, sets <i>pfPlayable</i> to <b>TRUE</b> and returns S_OK.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers all or part of the text that contains audio data.
      * @param {Pointer<ITfRange>} ppNewRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> pointer that receives a range object that covers all of the text that contains audio data. If there is no audio data for the text covered by <i>pRange</i>, this parameters receives <b>NULL</b>. In this case, the method returns S_OK, so the caller must verify that this parameter is not <b>NULL</b> before using the pointer.
      * @param {Pointer<BOOL>} pfPlayable Pointer to a <b>BOOL</b> that receives zero if none of the text covered by <i>pRange</i> has any audio data or nonzero otherwise.
@@ -76,12 +78,16 @@ class ITfFnPlayBack extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnplayback-queryrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnplayback-queryrange
      */
     QueryRange(pRange, ppNewRange, pfPlayable) {
         pfPlayableMarshal := pfPlayable is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, pfPlayableMarshal, pfPlayable, "HRESULT")
+        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, pfPlayableMarshal, pfPlayable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,10 +137,14 @@ class ITfFnPlayBack extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnplayback-play
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnplayback-play
      */
     Play(pRange) {
-        result := ComCall(5, this, "ptr", pRange, "HRESULT")
+        result := ComCall(5, this, "ptr", pRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

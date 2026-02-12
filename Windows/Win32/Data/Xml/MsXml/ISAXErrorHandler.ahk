@@ -29,16 +29,23 @@ class ISAXErrorHandler extends IUnknown{
     static VTableNames => ["error", "fatalError", "ignorableWarning"]
 
     /**
-     * 
+     * Submits an error message to the information queue.
+     * @remarks
+     * This operation does nothing on devices that do not support it.
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/errorf
      */
     error(pLocator, pwchErrorMessage, hrErrorCode) {
         pwchErrorMessage := pwchErrorMessage is String ? StrPtr(pwchErrorMessage) : pwchErrorMessage
 
-        result := ComCall(3, this, "ptr", pLocator, "ptr", pwchErrorMessage, "int", hrErrorCode, "HRESULT")
+        result := ComCall(3, this, "ptr", pLocator, "ptr", pwchErrorMessage, "int", hrErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +59,11 @@ class ISAXErrorHandler extends IUnknown{
     fatalError(pLocator, pwchErrorMessage, hrErrorCode) {
         pwchErrorMessage := pwchErrorMessage is String ? StrPtr(pwchErrorMessage) : pwchErrorMessage
 
-        result := ComCall(4, this, "ptr", pLocator, "ptr", pwchErrorMessage, "int", hrErrorCode, "HRESULT")
+        result := ComCall(4, this, "ptr", pLocator, "ptr", pwchErrorMessage, "int", hrErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +77,11 @@ class ISAXErrorHandler extends IUnknown{
     ignorableWarning(pLocator, pwchErrorMessage, hrErrorCode) {
         pwchErrorMessage := pwchErrorMessage is String ? StrPtr(pwchErrorMessage) : pwchErrorMessage
 
-        result := ComCall(5, this, "ptr", pLocator, "ptr", pwchErrorMessage, "int", hrErrorCode, "HRESULT")
+        result := ComCall(5, this, "ptr", pLocator, "ptr", pwchErrorMessage, "int", hrErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

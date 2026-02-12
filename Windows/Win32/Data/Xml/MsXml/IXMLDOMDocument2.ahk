@@ -51,7 +51,11 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
      * @returns {IXMLDOMSchemaCollection} 
      */
     get_namespaces() {
-        result := ComCall(76, this, "ptr*", &namespaceCollection := 0, "HRESULT")
+        result := ComCall(76, this, "ptr*", &namespaceCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMSchemaCollection(namespaceCollection)
     }
 
@@ -61,7 +65,11 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
      */
     get_schemas() {
         otherCollection := VARIANT()
-        result := ComCall(77, this, "ptr", otherCollection, "HRESULT")
+        result := ComCall(77, this, "ptr", otherCollection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return otherCollection
     }
 
@@ -71,7 +79,11 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
      * @returns {HRESULT} 
      */
     putref_schemas(otherCollection) {
-        result := ComCall(78, this, "ptr", otherCollection, "HRESULT")
+        result := ComCall(78, this, "ptr", otherCollection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +92,11 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
      * @returns {IXMLDOMParseError} 
      */
     validate() {
-        result := ComCall(79, this, "ptr*", &errorObj := 0, "HRESULT")
+        result := ComCall(79, this, "ptr*", &errorObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMParseError(errorObj)
     }
 
@@ -91,22 +107,39 @@ class IXMLDOMDocument2 extends IXMLDOMDocument{
      * @returns {HRESULT} 
      */
     setProperty(name, value) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(80, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(80, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * getPropertyInfo Method (SQLServerDriver)
+     * @remarks
+     * This getPropertyInfo method is specified by the getPropertyInfo method in the java.sql.Driver interface.
      * @param {BSTR} name 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getpropertyinfo-method-sqlserverdriver
      */
     getProperty(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
         value := VARIANT()
-        result := ComCall(81, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(81, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

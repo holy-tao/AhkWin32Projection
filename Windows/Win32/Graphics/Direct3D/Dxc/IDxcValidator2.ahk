@@ -34,10 +34,14 @@ class IDxcValidator2 extends IDxcValidator{
      * @param {IDxcBlob} pShader 
      * @param {Integer} Flags 
      * @param {Pointer<DxcBuffer>} pOptDebugBitcode 
-     * @returns {IDxcOperationResult} 
+     * @returns {Pointer<IDxcOperationResult>} 
      */
     ValidateWithDebug(pShader, Flags, pOptDebugBitcode) {
-        result := ComCall(4, this, "ptr", pShader, "uint", Flags, "ptr", pOptDebugBitcode, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcOperationResult(ppResult)
+        result := ComCall(4, this, "ptr", pShader, "uint", Flags, "ptr", pOptDebugBitcode, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 }

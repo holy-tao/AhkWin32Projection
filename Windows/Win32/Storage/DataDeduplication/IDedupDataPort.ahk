@@ -44,7 +44,11 @@ class IDedupDataPort extends IUnknown{
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         pDataHeadroomMbMarshal := pDataHeadroomMb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pStatusMarshal, pStatus, pDataHeadroomMbMarshal, pDataHeadroomMb, "HRESULT")
+        result := ComCall(3, this, pStatusMarshal, pStatus, pDataHeadroomMbMarshal, pDataHeadroomMb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class IDedupDataPort extends IUnknown{
      */
     LookupChunks(Count, pHashes) {
         pRequestId := Guid()
-        result := ComCall(4, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "HRESULT")
+        result := ComCall(4, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -72,7 +80,11 @@ class IDedupDataPort extends IUnknown{
         pChunkDataMarshal := pChunkData is VarRef ? "char*" : "ptr"
 
         pRequestId := Guid()
-        result := ComCall(5, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, "ptr", pRequestId, "HRESULT")
+        result := ComCall(5, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, pChunkDataMarshal, pChunkData, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -86,7 +98,11 @@ class IDedupDataPort extends IUnknown{
      */
     InsertChunksWithStream(ChunkCount, pChunkMetadata, DataByteCount, pChunkDataStream) {
         pRequestId := Guid()
-        result := ComCall(6, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, "ptr", pChunkDataStream, "ptr", pRequestId, "HRESULT")
+        result := ComCall(6, this, "uint", ChunkCount, "ptr", pChunkMetadata, "uint", DataByteCount, "ptr", pChunkDataStream, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -100,7 +116,11 @@ class IDedupDataPort extends IUnknown{
      */
     CommitStreams(StreamCount, pStreams, EntryCount, pEntries) {
         pRequestId := Guid()
-        result := ComCall(7, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntries, "ptr", pRequestId, "HRESULT")
+        result := ComCall(7, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntries, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -114,7 +134,11 @@ class IDedupDataPort extends IUnknown{
      */
     CommitStreamsWithStream(StreamCount, pStreams, EntryCount, pEntriesStream) {
         pRequestId := Guid()
-        result := ComCall(8, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntriesStream, "ptr", pRequestId, "HRESULT")
+        result := ComCall(8, this, "uint", StreamCount, "ptr", pStreams, "uint", EntryCount, "ptr", pEntriesStream, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -126,7 +150,11 @@ class IDedupDataPort extends IUnknown{
      */
     GetStreams(StreamCount, pStreamPaths) {
         pRequestId := Guid()
-        result := ComCall(9, this, "uint", StreamCount, "ptr", pStreamPaths, "ptr", pRequestId, "HRESULT")
+        result := ComCall(9, this, "uint", StreamCount, "ptr", pStreamPaths, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -151,7 +179,11 @@ class IDedupDataPort extends IUnknown{
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(10, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", StreamEntryIndex, pStreamCountMarshal, pStreamCount, ppStreamsMarshal, ppStreams, pEntryCountMarshal, pEntryCount, ppEntriesMarshal, ppEntries, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +195,11 @@ class IDedupDataPort extends IUnknown{
      */
     GetChunks(Count, pHashes) {
         pRequestId := Guid()
-        result := ComCall(11, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "HRESULT")
+        result := ComCall(11, this, "uint", Count, "ptr", pHashes, "ptr", pRequestId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestId
     }
 
@@ -188,7 +224,11 @@ class IDedupDataPort extends IUnknown{
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(12, this, "ptr", RequestId, "uint", MaxWaitMs, "uint", ChunkIndex, pChunkCountMarshal, pChunkCount, ppChunkMetadataMarshal, ppChunkMetadata, pDataByteCountMarshal, pDataByteCount, ppChunkDataMarshal, ppChunkData, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,7 +238,11 @@ class IDedupDataPort extends IUnknown{
      * @returns {Integer} 
      */
     GetRequestStatus(RequestId) {
-        result := ComCall(13, this, "ptr", RequestId, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", RequestId, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
@@ -218,7 +262,11 @@ class IDedupDataPort extends IUnknown{
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         ppItemResultsMarshal := ppItemResults is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "HRESULT")
+        result := ComCall(14, this, "ptr", RequestId, "uint", MaxWaitMs, pBatchResultMarshal, pBatchResult, pBatchCountMarshal, pBatchCount, pStatusMarshal, pStatus, ppItemResultsMarshal, ppItemResults, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

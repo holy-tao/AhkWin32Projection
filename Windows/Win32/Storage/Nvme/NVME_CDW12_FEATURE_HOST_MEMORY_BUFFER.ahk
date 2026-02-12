@@ -5,7 +5,7 @@
  * Contains a parameter for the Host Memory Buffer Feature that specifies the size of the host memory buffer.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw12_feature_host_memory_buffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw12_feature_host_memory_buffer
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

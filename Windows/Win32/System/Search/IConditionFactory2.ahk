@@ -6,11 +6,8 @@
 /**
  * Extends the functionality of IConditionFactory. IConditionFactory2 provides methods for creating or resolving a condition tree that was obtained by parsing a query string.
  * @remarks
- * 
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-iconditionfactory2
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-iconditionfactory2
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -36,7 +33,9 @@ class IConditionFactory2 extends IConditionFactory{
     static VTableNames => ["CreateTrueFalse", "CreateNegation", "CreateCompoundFromObjectArray", "CreateCompoundFromArray", "CreateStringLeaf", "CreateIntegerLeaf", "CreateBooleanLeaf", "CreateLeaf", "ResolveCondition"]
 
     /**
-     * Creates a search condition that is either TRUE or FALSE.
+     * Creates a search condition that is either TRUE or FALSE. (IConditionFactory2.CreateTrueFalse)
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
      * @param {BOOL} fVal Type: <b>BOOL</b>
      * 
      * The value of the search condition to use. <i>fValue</i> should typically be set to VARIANT_FALSE.
@@ -46,18 +45,26 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a>, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createtruefalse
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createtruefalse
      */
     CreateTrueFalse(fVal, cco, riid) {
-        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "int", fVal, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
-     * Creates a condition node that is a logical negation (NOT) of another condition (a subnode of this node).
+     * Creates a condition node that is a logical negation (NOT) of another condition (a subnode of this node). (IConditionFactory2.CreateNegation)
+     * @remarks
+     * Logically simplifying a condition node usually results in a smaller, more easily traversed and processed condition tree. For example, if <i>pcSub</i> is itself a negation condition with a subcondition C, then the double negation is logically resolved, and <i>ppcResult</i> is set to C. Without simplification, the resulting tree would look like NOT — NOT — C.
+     * 
+     * Applications that need to execute queries based on the condition tree would typically benefit from setting this parameter to <b>TRUE</b>.
      * @param {ICondition} pcSub Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> subnode to be negated. For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
@@ -67,18 +74,24 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a>, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createnegation
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createnegation
      */
     CreateNegation(pcSub, cco, riid) {
-        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pcSub, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Creates a leaf condition node that is a conjunction (AND) or a disjunction (OR) of a collection of subconditions. The returned object supports ICondition and ICondition2.
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
      * @param {Integer} ct Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a> enumeration that must be set to either the <i>CT_AND_CONDITION</i> or <i>CT_OR_CONDITION</i> flag.
@@ -91,18 +104,24 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, IID_IEnumVARIANT, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A collection of zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromobjectarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromobjectarray
      */
     CreateCompoundFromObjectArray(ct, poaSubs, cco, riid) {
-        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, "int", ct, "ptr", poaSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Creates a leaf condition node that is a conjunction (AND) or a disjunction (OR) from an array of condition nodes. The returned object supports ICondition and ICondition2.
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
      * @param {Integer} ct Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type">CONDITION_TYPE</a> enumeration that must be set to either the <i>CT_AND_CONDITION</i> or <i>CT_OR_CONDITION</i> flag.
@@ -118,18 +137,24 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, IID_IEnumVARIANT, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A collection of zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createcompoundfromarray
      */
     CreateCompoundFromArray(ct, ppcondSubs, cSubs, cco, riid) {
-        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, "int", ct, "ptr*", ppcondSubs, "uint", cSubs, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Creates a leaf condition node for a string value that represents a comparison of property value and constant value. The returned object supports ICondition and ICondition2.
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
      * 
      * The name of the property of the leaf condition as a REFPROPERTYKEY. If the leaf has no particular property, use PKEY_Null.
@@ -148,21 +173,27 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, IID_IEnumVARIANT, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createstringleaf
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createstringleaf
      */
     CreateStringLeaf(propkey, cop, pszValue, pszLocaleName, cco, riid) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", propkey, "int", cop, "ptr", pszValue, "ptr", pszLocaleName, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Creates a leaf condition node for an integer value. The returned object supports ICondition and ICondition2.
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
      * 
      * The name of the property of the leaf condition as a REFPROPERTYKEY. If the leaf has no particular property, use PKEY_Null.
@@ -178,18 +209,24 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, IID_IEnumVARIANT, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createintegerleaf
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createintegerleaf
      */
     CreateIntegerLeaf(propkey, cop, lValue, cco, riid) {
-        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", propkey, "int", cop, "int", lValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
-     * Creates a search condition that is either TRUE or FALSE.
+     * Creates a search condition that is either TRUE or FALSE. (IConditionFactory2.CreateBooleanLeaf)
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
      * 
      * The name of the property of the leaf condition as a REFPROPERTYKEY. If the leaf has no particular property, use PKEY_Null.
@@ -205,18 +242,31 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a>, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createbooleanleaf
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createbooleanleaf
      */
     CreateBooleanLeaf(propkey, cop, fValue, cco, riid) {
-        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", propkey, "int", cop, "int", fValue, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Creates a leaf condition node for any value. The returned object supports ICondition and ICondition2.
+     * @remarks
+     * For default options, use the <i>CONDITION_CREATION_DEFAULT</i> flag.
+     * 
+     *  If the leaf condition was obtained by parsing a string, one or more of the parameters <i>pPropertyNameTerm</i>, <i>pOperationTerm </i> and <i>pValueTerm</i> may be represented by an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> interface (obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nf-structuredquerycondition-icondition-getinputterms">ICondition::GetInputTerms</a> method). Otherwise all three parameters can be <b>NULL</b>. 
+     * 
+     * For more information about leaf node terms (property, value, and operation), see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nf-structuredquerycondition-icondition-getinputterms">ICondition::GetInputTerms</a>.
+     * 
+     * A virtual property has one or more metadata items in which the key is "MapsToRelation" and the value is a property name (which is one expansion of the property). For more information about metadata, see <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-irelationship-metadata">MetaData</a>.
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
      * 
      * The name of the property of the leaf condition as a REFPROPERTYKEY. If the leaf has no particular property, use PKEY_Null.
@@ -234,34 +284,42 @@ class IConditionFactory2 extends IConditionFactory{
      * The name of the locale to be compared, or <b>NULL</b> for an unspecified locale. If <i>propvar</i> does not contain a string value, then <i>pszLocaleName</i> should be LOCALE_NAME_USER_DEFAULT; otherwise, <i>pszLocaleName</i> should reflect the language the string. Alternatively, <i>pszLocaleName</i> could be  LOCALE_NAME_INVARIANT.
      * @param {IRichChunk} pPropertyNameTerm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a>*</b>
      * 
-     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> that identifies the range of the input string that repesents the property. It can be <b>NULL</b>.
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> that identifies the range of the input string that represents the property. It can be <b>NULL</b>.
      * @param {IRichChunk} pOperationTerm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a>*</b>
      * 
-     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> that identifies the range of the input string that repesents the operation. It can be <b>NULL</b>.
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> that identifies the range of the input string that represents the operation. It can be <b>NULL</b>.
      * @param {IRichChunk} pValueTerm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a>*</b>
      * 
-     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> that identifies the range of the input string that repesents the value. It can be <b>NULL</b>.
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> that identifies the range of the input string that represents the value. It can be <b>NULL</b>.
      * @param {Integer} cco Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/ne-structuredquery-condition_creation_options">CONDITION_CREATION_OPTIONS</a></b>
      * 
      * The condition creation operation of the leaf condition as the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/ne-structuredquery-condition_creation_options">CONDITION_CREATION_OPTIONS</a> enumeration.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a>, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-createleaf
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-createleaf
      */
     CreateLeaf(propkey, cop, propvar, pszSemanticType, pszLocaleName, pPropertyNameTerm, pOperationTerm, pValueTerm, cco, riid) {
         pszSemanticType := pszSemanticType is String ? StrPtr(pszSemanticType) : pszSemanticType
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", propkey, "int", cop, "ptr", propvar, "ptr", pszSemanticType, "ptr", pszLocaleName, "ptr", pPropertyNameTerm, "ptr", pOperationTerm, "ptr", pValueTerm, "int", cco, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Performs a variety of transformations on a condition tree, and thereby the resolved condition for evaluation. The returned object supports ICondition and ICondition2.
+     * @remarks
+     * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
+     * 
+     * Refer to the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iconditionfactory-resolve">Resolve</a> method for additional detail.
      * @param {ICondition} pc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> object to be resolved.
@@ -274,13 +332,17 @@ class IConditionFactory2 extends IConditionFactory{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the  enumerating interface: either <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a>, or (for a negation condition) IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a> and <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition2">ICondition2</a> objects.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iconditionfactory2-resolvecondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iconditionfactory2-resolvecondition
      */
     ResolveCondition(pc, sqro, pstReferenceTime, riid) {
-        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pc, "int", sqro, "ptr", pstReferenceTime, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

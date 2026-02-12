@@ -37,7 +37,11 @@ class IDebugHostModule5 extends IDebugHostModule4{
     GetPrimaryCompilerInformation(pCompilerId, pPrimaryCompilerString) {
         pCompilerIdMarshal := pCompilerId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, pCompilerIdMarshal, pCompilerId, "ptr", pPrimaryCompilerString, "HRESULT")
+        result := ComCall(19, this, pCompilerIdMarshal, pCompilerId, "ptr", pPrimaryCompilerString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,11 +6,8 @@
 /**
  * The IBDA_EasMessage interface represents an ATSC emergency alert system (EAS) message table.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_EasMessage)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_easmessage
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_easmessage
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,13 +34,19 @@ class IBDA_EasMessage extends IUnknown{
 
     /**
      * The get_EasMessage method retrieves an EAS message.
+     * @remarks
+     * This method retrieves a counted reference to an <b>IUnknown</b> interface instance. The caller is responsible for releasing the interface when it is no longer required.
      * @param {Integer} ulEventID Specifies the event ID of the EAS message.
      * @param {Pointer<IUnknown>} ppEASObject Pointer to a pointer variable that receives a pointer to the <b>IUnknown</b> interface of the EAS object. The caller can query this object for its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nn-atscpsipparser-iscte_eas">ISCTE_EAS</a> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_easmessage-get_easmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_easmessage-get_easmessage
      */
     get_EasMessage(ulEventID, ppEASObject) {
-        result := ComCall(3, this, "uint", ulEventID, "ptr*", ppEASObject, "HRESULT")
+        result := ComCall(3, this, "uint", ulEventID, "ptr*", ppEASObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -10,7 +10,7 @@
  * ``` syntax
  * typedef UINT32 MFP_MEDIAITEM_CHARACTERISTICS;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_mediaitem_characteristics
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfplay/ne-mfplay-_mfp_mediaitem_characteristics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

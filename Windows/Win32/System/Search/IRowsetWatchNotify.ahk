@@ -35,7 +35,11 @@ class IRowsetWatchNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnChange(pRowset, eChangeReason) {
-        result := ComCall(3, this, "ptr", pRowset, "uint", eChangeReason, "HRESULT")
+        result := ComCall(3, this, "ptr", pRowset, "uint", eChangeReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

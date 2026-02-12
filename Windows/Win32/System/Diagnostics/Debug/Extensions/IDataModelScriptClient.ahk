@@ -40,7 +40,11 @@ class IDataModelScriptClient extends IUnknown{
     ReportError(errClass, hrFail, message, line, position) {
         message := message is String ? StrPtr(message) : message
 
-        result := ComCall(3, this, "int", errClass, "int", hrFail, "ptr", message, "uint", line, "uint", position, "HRESULT")
+        result := ComCall(3, this, "int", errClass, "int", hrFail, "ptr", message, "uint", line, "uint", position, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,11 +6,8 @@
 /**
  * Represents additional capabilities of an ISyncChangeBatchBase object.
  * @remarks
- * 
  * An <b>ISyncChangeBatchBase2</b> object can be obtained by passing <b>IID_ISyncChangeBatchBase2</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatchbase">ISyncChangeBatchBase</a> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebatchbase2
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncchangebatchbase2
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,6 +34,27 @@ class ISyncChangeBatchBase2 extends ISyncChangeBatchBase{
 
     /**
      * Serializes the change batch object data to a byte array, based on the specified version and serialization options.
+     * @remarks
+     * The following table describes the flags that specify information about an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncfilterinfo">ISyncFilterInfo</a> object.
+     * 
+     * <table>
+     * <tr>
+     * <th>SYNC_FILTER_INFO_FLAG value</th>
+     * <th>Description </th>
+     * </tr>
+     * <tr>
+     * <td><b>SYNC_FILTER_INFO_FLAG_ITEM_LIST</b></td>
+     * <td>This flag indicates that the set of items synchronized is restricted by an item filter.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>SYNC_FILTER_INFO_FLAG_CHANGE_UNIT_LIST</b></td>
+     * <td>An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-ichangeunitlistfilterinfo">IChangeUnitListFilterInfo</a> object specifies that changes apply only to a subset of the change units that are defined for the scope.
+     * </td>
+     * </tr>
+     * </table>
      * @param {Integer} targetFormatVersion The serialized change batch is compatible with this version.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @param {Pointer<Integer>} pbBuffer The serialized change batch object data is serialized to this buffer.
@@ -123,13 +141,17 @@ class ISyncChangeBatchBase2 extends ISyncChangeBatchBase{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase2-serializewithoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatchbase2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
+        result := ComCall(17, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

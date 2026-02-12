@@ -35,7 +35,11 @@ class IRowsetIdentity extends IUnknown{
      * @returns {HRESULT} 
      */
     IsSameRow(hThisRow, hThatRow) {
-        result := ComCall(3, this, "ptr", hThisRow, "ptr", hThatRow, "HRESULT")
+        result := ComCall(3, this, "ptr", hThisRow, "ptr", hThatRow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

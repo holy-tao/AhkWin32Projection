@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.P2P
@@ -57,17 +59,17 @@ class P2P {
     static PNRP_MAX_ENDPOINT_ADDRESSES => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSZ_SCOPE_GLOBAL => "GLOBAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSZ_SCOPE_SITELOCAL => "SITELOCAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSZ_SCOPE_LINKLOCAL => "LINKLOCAL"
 
@@ -77,7 +79,7 @@ class P2P {
     static PNRP_MAX_EXTENDED_PAYLOAD_BYTES => 4096
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PEER_PNRP_ALL_LINK_CLOUDS => "PEER_PNRP_ALL_LINKS"
 
@@ -508,7 +510,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphstartup
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphstartup
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -544,7 +546,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphshutdown
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -563,7 +565,7 @@ class P2P {
      * The [PEER_RECORD](./ns-p2p-peer_record.md).
      * @param {Pointer<Void>} pvData Pointer to an item to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphfreedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphfreedata
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -579,7 +581,7 @@ class P2P {
      * Because some items can become invalid while an application is enumerating a set of items, the number of items returned from <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphgetnextitem">PeerGraphGetNextItem</a> can be less than the number of items  returned in <i>pCount</i>.  The value of  <i>pCount</i> indicates the number of items in an enumeration when the handle is created.  Due to the dynamic nature of the Peer Infrastructure, it is not guaranteed that the number of items retrieved by using <b>PeerGraphGetNextItem</b> is equal to <i>pCount</i>.
      * @param {Pointer<Void>} hPeerEnum Handle to a peer graph.
      * @returns {Integer} Receives a pointer to the number of records in an enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgetitemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgetitemcount
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -608,7 +610,7 @@ class P2P {
      * <div class="alert"><b>Note</b>  If <i>pCount</i> is a zero (0) output, the end of the enumeration is reached.</div>
      * <div> </div>
      * @returns {Pointer<Pointer<Void>>} Receives an array of pointers to  the requested items.  The number  of pointers contained in an array is specified by the output value of  <i>pCount</i>.  The actual data returned depends on the type of enumeration. The  types of structures that are returned are the following:  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_connection_info">PEER_CONNECTION_INFO</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_node_info">PEER_NODE_INFO</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgetnextitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgetnextitem
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -657,7 +659,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphendenumeration
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphendenumeration
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -682,7 +684,7 @@ class P2P {
      * @param {PWSTR} pwzDatabaseName The name of a record database to associate with a peer graph when it is created. The record database name must be a valid file name. Do not include a path with the file name.  For a complete list of rules regarding file names, see  the Naming a File item in the list of  <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">Graphing Reference_Links</a>.
      * @param {Pointer<PEER_SECURITY_INTERFACE>} pSecurityInterface The information about a security provider for a peer graph in the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_security_interface">PEER_SECURITY_INTERFACE</a> structure.
      * @returns {Pointer<Void>} Receives a handle to the peer graph that is created. When this handle is not required anymore, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphclose">PeerGraphClose</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphcreate
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -727,7 +729,7 @@ class P2P {
      * 
      * Specify <b>NULL</b> to use the default order. This parameter must be <b>NULL</b> if <i>cRecordTypeSyncPrecedence</i> is zero (0).
      * @returns {Pointer<Void>} Receives a handle to the peer graph that is opened. When this handle is not required or needed, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphclose">PeerGraphClose</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphopen
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -861,7 +863,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphlisten
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphlisten
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -882,7 +884,7 @@ class P2P {
      * @param {PWSTR} pwzPeerId The unique ID of a peer to connect to at  <i>pAddress</i>. Specify <b>NULL</b> to connect to any peer listening at a specified address in the same peer graph.
      * @param {Pointer<PEER_ADDRESS>} pAddress Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure that identifies a node to connect to.
      * @returns {Integer} Receives the pointer to an <b>ULONGLONG</b> that contains  the connection ID. This ID can be used with the direct communication functions.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphconnect
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -954,7 +956,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphclose
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1019,7 +1021,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphdelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphdelete
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1040,7 +1042,7 @@ class P2P {
      * The PeerGraphGetStatus function returns the current status of the peer graph.
      * @param {Pointer<Void>} hGraph Handle to the peer graph.
      * @returns {Integer} Receives the current status of the peer graph.  Returns one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_graph_status_flags">PEER_GRAPH_STATUS_FLAGS</a> values.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgetstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgetstatus
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1059,7 +1061,7 @@ class P2P {
      * The PeerGraphGetProperties function retrieves the current peer graph properties.
      * @param {Pointer<Void>} hGraph Handle to a peer graph.
      * @returns {Pointer<PEER_GRAPH_PROPERTIES>} Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_graph_properties">PEER_GRAPH_PROPERTIES</a> structure.  When the structure is not needed, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphfreedata">PeerGraphFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgetproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgetproperties
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1144,7 +1146,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphsetproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphsetproperties
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1166,7 +1168,7 @@ class P2P {
      * @param {Integer} cEventRegistrations Specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_graph_event_registration">PEER_GRAPH_EVENT_REGISTRATION</a> structures in <i>pEventRegistrations</i>.
      * @param {Pointer<PEER_GRAPH_EVENT_REGISTRATION>} pEventRegistrations Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_graph_event_registration">PEER_GRAPH_EVENT_REGISTRATION</a> structures that specify what events the application requests notifications for.
      * @returns {Pointer<Void>} Receives a <b>HPEEREVENT</b> handle. This handle must be used when calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphunregisterevent">PeerGraphUnregisterEvent</a> to stop receiving  notifications.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphregisterevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphregisterevent
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1218,7 +1220,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphunregisterevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphunregisterevent
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1239,7 +1241,7 @@ class P2P {
      * Peer event data is returned in  a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_graph_event_data">PEER_GRAPH_EVENT_DATA</a> structure.  The type of data structure that <b>PEER_GRAPH_EVENT_DATA</b> points to depends  on which event is triggered.
      * @param {Pointer<Void>} hPeerEvent Peer event handle obtained by a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphregisterevent">PeerGraphRegisterEvent</a>.
      * @returns {Pointer<PEER_GRAPH_EVENT_DATA>} Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_graph_event_data">PEER_GRAPH_EVENT_DATA</a> structure that contains the data about an event notification.   When this structure is not needed, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphfreedata">PeerGraphFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgeteventdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgeteventdata
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1259,7 +1261,7 @@ class P2P {
      * @param {Pointer<Void>} hGraph Handle to the peer graph.
      * @param {Pointer<Guid>} pRecordId Pointer to record ID to retrieve.
      * @returns {Pointer<PEER_RECORD>} Receives the requested record. When this structure is no longer required, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphfreedata">PeerGraphFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgetrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgetrecord
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1416,7 +1418,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphaddrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphaddrecord
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1507,7 +1509,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphupdaterecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphupdaterecord
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1593,7 +1595,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphdeleterecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphdeleterecord
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1624,7 +1626,7 @@ class P2P {
      * @param {Pointer<Guid>} pRecordType Pointer to the type of record to enumerate. Specify <b>NULL</b> to enumerate   all record types.
      * @param {PWSTR} pwzPeerId Pointer to a string that identifies the creator that an application is requesting an enumeration for. Specify <b>NULL</b> to enumerate   all records.
      * @returns {Pointer<Void>} Receives a handle to an enumeration. Supply the handle to all calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphgetnextitem">PeerGraphGetNextItem</a>. When a handle is not needed, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphendenumeration">PeerGraphEndEnumeration</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphenumrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphenumrecords
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1650,7 +1652,7 @@ class P2P {
      * @param {Pointer<Void>} hGraph Handle to the peer graph.
      * @param {PWSTR} pwzCriteria Pointer to an XML string that specifies the records to search for. For information on formulating an XML query string to search the peer graphing records, see <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/record-search-query-format">Record Search Query Format</a>.
      * @returns {Pointer<Void>} Handle to the enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphsearchrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphsearchrecords
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1725,7 +1727,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphexportdatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphexportdatabase
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1813,7 +1815,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphimportdatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphimportdatabase
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1889,7 +1891,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphvalidatedeferredrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphvalidatedeferredrecords
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1912,7 +1914,7 @@ class P2P {
      * @param {PWSTR} pwzPeerId Pointer to  the unique ID of a user or node to connect to. This parameter is used to identify a specific user because multiple identities can be attached to the specified address.
      * @param {Pointer<PEER_ADDRESS>} pAddress Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure that contains the address of the node to  connect to.
      * @returns {Integer} Receives the connection ID for the requested connection.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphopendirectconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphopendirectconnection
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -1993,7 +1995,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphsenddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphsenddata
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2064,7 +2066,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphclosedirectconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphclosedirectconnection
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2086,7 +2088,7 @@ class P2P {
      * @param {Pointer<Void>} hGraph Handle to a peer graph.
      * @param {Integer} dwFlags The  type of connection to enumerate. This parameter is required. Valid values are specified by <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_connection_flags">PEER_CONNECTION_FLAGS</a>.
      * @returns {Pointer<Void>} Receives a handle to an  enumeration.  Use <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphgetnextitem">PeerGraphGetNextItem</a> to retrieve the actual connection information. When this handle is not required, free it by calling  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphendenumeration">PeerGraphEndEnumeration</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphenumconnections
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphenumconnections
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2108,7 +2110,7 @@ class P2P {
      * @param {Pointer<Void>} hGraph Handle to  a  peer graph.
      * @param {PWSTR} pwzPeerId The peer ID   to obtain a node enumeration.	Specify <b>NULL</b> to return all nodes in  a peer graph.
      * @returns {Pointer<Void>} Receives a handle to an enumeration.  Use <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphgetnextitem">PeerGraphGetNextItem</a> to retrieve the actual node information. When this handle is not needed, free it by calling  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphendenumeration">PeerGraphEndEnumeration</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphenumnodes
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphenumnodes
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2175,7 +2177,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphsetpresence
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphsetpresence
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2197,7 +2199,7 @@ class P2P {
      * @param {Pointer<Void>} hGraph Handle to a peer graph.
      * @param {Integer} ullNodeId Specifies  the ID of a node   that an application receives  information about. Specify zero (0) to  retrieve information about the local node.
      * @returns {Pointer<PEER_NODE_INFO>} Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_node_info">PEER_NODE_INFO</a> structure that contains the requested information. When the handle is not needed, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphfreedata">PeerGraphFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphgetnodeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphgetnodeinfo
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2270,7 +2272,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphsetnodeattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphsetnodeattributes
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2341,7 +2343,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphpeertimetouniversaltime
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphpeertimetouniversaltime
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2410,7 +2412,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergraphuniversaltimetopeertime
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergraphuniversaltimetopeertime
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2431,7 +2433,7 @@ class P2P {
      * Do not use this function to release memory that the Peer Graphing API returns. Use <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphfreedata">PeerGraphFreeData</a> for memory that  the Peer Graphing API returns.
      * @param {Pointer<Void>} pvData Pointer to a block of data to be deallocated. This parameter must reference a valid block of memory.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerfreedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerfreedata
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2445,7 +2447,7 @@ class P2P {
      * The PeerGetItemCount function returns a count of the items in a peer enumeration.
      * @param {Pointer<Void>} hPeerEnum Handle to the peer enumeration on which a count is performed. A peer enumeration function generates this handle.
      * @returns {Integer} Returns the total number of items in a peer enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergetitemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergetitemcount
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2477,7 +2479,7 @@ class P2P {
      * @param {Pointer<Void>} hPeerEnum Handle to the peer enumeration from which items are retrieved. This handle is generated by a peer enumeration function.
      * @param {Pointer<Integer>} pCount Pointer to an integer that specifies the number of items to be retrieved from the peer enumeration. When returned, it contains the number of items in <i>ppvItems</i>. This parameter cannot be <b>NULL</b>.
      * @returns {Pointer<Pointer<Void>>} Receives a pointer to an array of pointers to the next <i>pCount</i> items in the peer enumeration. The  data, for example, a record or member information block, depends on the actual peer enumeration type.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergetnextitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergetnextitem
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2515,7 +2517,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerendenumeration
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerendenumeration
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2597,7 +2599,7 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupstartup
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupstartup
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2634,7 +2636,7 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupshutdown
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2666,7 +2668,7 @@ class P2P {
      * <li><b>pwzGroupPeerName</b></li>
      * </ul>The remaining members are optional.
      * @returns {Pointer<Void>} Returns the  handle pointer to the  peer group. Any function called with this handle as a parameter  has the corresponding action performed on that peer group.  This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupcreate
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2687,7 +2689,7 @@ class P2P {
      * @param {PWSTR} pwzGroupPeerName Pointer to a Unicode string that contains the peer name of the peer group. This parameter is required.
      * @param {PWSTR} pwzCloud Pointer to a Unicode string that contains the name of the PNRP cloud in which the peer group is located. If the value is <b>NULL</b>,  the cloud specified in the peer group properties is used.
      * @returns {Pointer<Void>} Pointer to a handle for a  peer group. If this value is <b>NULL</b>, the open operation is unsuccessful. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupopen
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2710,7 +2712,7 @@ class P2P {
      * @param {PWSTR} pwzInvitation Pointer to a Unicode string that contains the XML invitation granted by another peer. An invitation is created when the inviting peer calls <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreateinvitation">PeerGroupCreateInvitation</a> or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupissuecredentials">PeerGroupIssueCredentials</a>. Specific details regarding this invitation can be obtained as a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_invitation_info">PEER_INVITATION_INFO</a> structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupparseinvitation">PeerGroupParseInvitation</a>. This parameter is required.
      * @param {PWSTR} pwzCloud Pointer to a Unicode string that contains the name of the PNRP cloud where a group is located.  The default value is <b>NULL</b>, which indicates that the cloud specified in the invitation must be used.
      * @returns {Pointer<Void>} Pointer to the handle of the peer group. To start communication with a group, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupconnect">PeerGroupConnect</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupjoin
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupjoin
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2736,7 +2738,7 @@ class P2P {
      * @param {PWSTR} pwzPassword Pointer to a zero-terminated Unicode string that contains the password required to validate and join the peer group. This password must match the password specified in the invitation. This parameter is required.
      * @param {PWSTR} pwzCloud Pointer to a Unicode string that contains the name of the PNRP cloud where a group is located.  The default value is <b>NULL</b>, which indicates that the cloud specified in the invitation must be used.
      * @returns {Pointer<Void>} Pointer to the handle of the peer group. To start communication with a group, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupconnect">PeerGroupConnect</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergrouppasswordjoin
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergrouppasswordjoin
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2769,7 +2771,7 @@ class P2P {
      * If a time-out value for <b>PeerGroupConnect</b> is not provided in the application, encountering a failure will cause the application to hang.  A time-out value  of 30 seconds is recommended.
      * 
      * Prior to calling <b>PeerGroupConnect</b>, a group exists in a '<b>Disconnected State</b>'. During this time the group cannot be detected or receive connections. In order  to return a group to this state, the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupclose">PeerGroupClose</a> function must be called.
-     * @param {Pointer<Void>} hGroup Handle to the peer group  to which a peer intends to connect. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>,<a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergrouppasswordjoin">PeerGroupPasswordJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group  to which a peer intends to connect. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>,<a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergrouppasswordjoin">PeerGroupPasswordJoin</a> function. This parameter is required.
      * @returns {HRESULT} Returns S_OK if the operation succeeds. Otherwise, the function returns  the following value.
      * 
      * <table>
@@ -2792,14 +2794,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupconnect
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupConnect(hGroup) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupConnect(hGroup_) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupConnect", hGroupMarshal, hGroup, "int")
+        result := DllCall("P2P.dll\PeerGroupConnect", hGroup_Marshal, hGroup_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2811,7 +2813,7 @@ class P2P {
      * Attempts to connect to the peer group that other peers with known IPv6 addresses are participating in.
      * @remarks
      * If  a time-out value for PeerGroupConnectByAddress is not provided in the application, encountering a failure will cause the application to hang.  A time-out value  of 30 seconds is recommended.
-     * @param {Pointer<Void>} hGroup Handle to the peer group  to which a peer intends to connect. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>,<a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergrouppasswordjoin">PeerGroupPasswordJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group  to which a peer intends to connect. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>,<a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergrouppasswordjoin">PeerGroupPasswordJoin</a> function. This parameter is required.
      * @param {Integer} cAddresses The total number of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structures pointed to by <i>pAddresses</i>.
      * @param {Pointer<PEER_ADDRESS>} pAddresses Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structures that specify the endpoints of peers participating in the group.
      * @returns {HRESULT} Returns S_OK if the operation succeeds. Otherwise, the function returns  the following value.
@@ -2836,14 +2838,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors may be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupconnectbyaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupconnectbyaddress
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupConnectByAddress(hGroup, cAddresses, pAddresses) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupConnectByAddress(hGroup_, cAddresses, pAddresses) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupConnectByAddress", hGroupMarshal, hGroup, "uint", cAddresses, "ptr", pAddresses, "int")
+        result := DllCall("P2P.dll\PeerGroupConnectByAddress", hGroup_Marshal, hGroup_, "uint", cAddresses, "ptr", pAddresses, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2855,7 +2857,7 @@ class P2P {
      * The PeerGroupClose function invalidates the peer group handle obtained by a previous call to the PeerGroupCreate, PeerGroupJoin, or PeerGroupOpen function.
      * @remarks
      * If the peer group handle closed is the last handle that refers to a peer group shared  across multiple applications or processes, the call  also closes the respective network connections  for the peer.
-     * @param {Pointer<Void>} hGroup Handle to the peer group to close. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group to close. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @returns {HRESULT} Returns S_OK if the operation succeeds. Otherwise, the function returns the following value.
      * 
      * <table>
@@ -2878,14 +2880,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupclose
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupClose(hGroup) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupClose(hGroup_) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupClose", hGroupMarshal, hGroup, "int")
+        result := DllCall("P2P.dll\PeerGroupClose", hGroup_Marshal, hGroup_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2959,7 +2961,7 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupdelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupdelete
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -2979,7 +2981,7 @@ class P2P {
      * The PeerGroupCreateInvitation function returns an XML string that can be used by the specified peer to join a group.
      * @remarks
      * Peers cannot create invitations for peers whose assumed role is superior to their own. For example, a peer in a member role cannot create an invitation for a peer in an administrator role.
-     * @param {Pointer<Void>} hGroup Handle to the peer group for which this invitation is issued. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group for which this invitation is issued. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzIdentityInfo Pointer to a Unicode string that contains the XML blob (including the GMC) returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peeridentitygetxml">PeerIdentityGetXML</a> with the identity of the peer. Alternatively, this parameter can contain a pointer to an XML blob generated by <b>PeerIdentityGetXML</b>  using the peer information contained in <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> to generate an invitation for a peer contact.
      * @param {Pointer<FILETIME>} pftExpiration Specifies a UTC <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure that contains the specific date and time the invitation  expires. This value cannot be greater than the remaining lifetime of the issuing peer. If this parameter is <b>NULL</b>, the invitation lifetime is set to the maximum value possible - the remaining lifetime of the peer.
      * @param {Integer} cRoles Specifies the count of roles in  <i>pRoleInfo</i>.
@@ -3012,16 +3014,16 @@ class P2P {
      * </tr>
      * </table>
      * @returns {PWSTR} Pointer to a Unicode string that contains the invitation from the issuer. This invitation can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> by the recipient in order to join the specified peer group. To return the details of the invitation as a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_invitation_info">PEER_INVITATION_INFO</a> structure, pass this string to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupparseinvitation">PeerGroupParseInvitation</a>. To release this data, pass this pointer to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupcreateinvitation
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupcreateinvitation
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupCreateInvitation(hGroup, pwzIdentityInfo, pftExpiration, cRoles, pRoles) {
+    static PeerGroupCreateInvitation(hGroup_, pwzIdentityInfo, pftExpiration, cRoles, pRoles) {
         pwzIdentityInfo := pwzIdentityInfo is String ? StrPtr(pwzIdentityInfo) : pwzIdentityInfo
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupCreateInvitation", hGroupMarshal, hGroup, "ptr", pwzIdentityInfo, "ptr", pftExpiration, "uint", cRoles, "ptr", pRoles, "ptr*", &ppwzInvitation := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupCreateInvitation", hGroup_Marshal, hGroup_, "ptr", pwzIdentityInfo, "ptr", pftExpiration, "uint", cRoles, "ptr", pRoles, "ptr*", &ppwzInvitation := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3031,7 +3033,7 @@ class P2P {
 
     /**
      * Returns an XML string that can be used by the specified peer to join a group with a matching password.
-     * @param {Pointer<Void>} hGroup Handle to the peer group for which this invitation is issued. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group for which this invitation is issued. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @returns {PWSTR} Pointer to a Unicode string that contains the invitation from the issuer. This invitation can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergrouppasswordjoin">PeerGroupPasswordJoin</a> by the recipient in order to join the specified peer group. To return the details of the invitation as a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_invitation_info">PEER_INVITATION_INFO</a> structure, pass this string to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupparseinvitation">PeerGroupParseInvitation</a>. To release this data, pass this pointer to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
      * 
      * This function requires that the following fields are set on the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_group_properties">PEER_GROUP_PROPERTIES</a> structure passed to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>.<ul>
@@ -3039,14 +3041,14 @@ class P2P {
      * <li><b>groupPasswordRole</b>. This field must containing the GUID of the role (administrator or peer) for which the password is required.</li>
      * <li><b>dwAuthenticationSchemes</b>. This field must have the <b>PEER_GROUP_PASSWORD_AUTHENTICATION</b> flag (0x00000001) set on it.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupcreatepasswordinvitation
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupcreatepasswordinvitation
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupCreatePasswordInvitation(hGroup) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupCreatePasswordInvitation(hGroup_) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupCreatePasswordInvitation", hGroupMarshal, hGroup, "ptr*", &ppwzInvitation := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupCreatePasswordInvitation", hGroup_Marshal, hGroup_, "ptr*", &ppwzInvitation := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3058,7 +3060,7 @@ class P2P {
      * The PeerGroupParseInvitation function returns a PEER_INVITATION_INFO structure with the details of a specific invitation.
      * @param {PWSTR} pwzInvitation Pointer to a Unicode string that contains the specific peer group invitation. This parameter is required.
      * @returns {Pointer<PEER_INVITATION_INFO>} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_invitation_info">PEER_INVITATION_INFO</a> structure with the details of a specific invitation. To release the resources used by this structure, pass this pointer to  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupparseinvitation
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupparseinvitation
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -3075,16 +3077,16 @@ class P2P {
 
     /**
      * The PeerGroupGetStatus function retrieves the current status of a group.
-     * @param {Pointer<Void>} hGroup Handle to a peer group whose status is returned. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to a peer group whose status is returned. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @returns {Integer} Pointer to a set of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_status">PEER_GROUP_STATUS</a> flags that describe the status of a peer group.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupgetstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupgetstatus
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupGetStatus(hGroup) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupGetStatus(hGroup_) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupGetStatus", hGroupMarshal, hGroup, "uint*", &pdwStatus := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupGetStatus", hGroup_Marshal, hGroup_, "uint*", &pdwStatus := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3096,16 +3098,16 @@ class P2P {
      * The PeerGroupGetProperties function retrieves information on the properties of a specified group.
      * @remarks
      * Group properties cannot be retrieved if a peer has not synchronized with a peer group database. To synchronize with a peer group database before calling this function, first call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupconnect">PeerGroupConnect</a>.
-     * @param {Pointer<Void>} hGroup Handle to a peer group whose properties are retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to a peer group whose properties are retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @returns {Pointer<PEER_GROUP_PROPERTIES>} Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_group_properties">PEER_GROUP_PROPERTIES</a> structure that contains information about peer   group properties. This data must be freed with <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupgetproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupgetproperties
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupGetProperties(hGroup) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupGetProperties(hGroup_) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupGetProperties", hGroupMarshal, hGroup, "ptr*", &ppProperties := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupGetProperties", hGroup_Marshal, hGroup_, "ptr*", &ppProperties := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3117,7 +3119,7 @@ class P2P {
      * The PeerGroupSetProperties function sets the current peer group properties. In version 1.0 of this API, only the creator of the peer group can perform this operation.
      * @remarks
      * For applications that utilize passwords, it is recommended the passwords are handled securely  by calling the <a href="https://docs.microsoft.com/windows/desktop/api/dpapi/nf-dpapi-cryptprotectmemory">CryptoProtectMemory</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> functions.
-     * @param {Pointer<Void>} hGroup Handle to the peer group whose properties are set by a peer. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group whose properties are set by a peer. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<PEER_GROUP_PROPERTIES>} pProperties Pointer to a peer-populated <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_group_properties">PEER_GROUP_PROPERTIES</a> 
      * 	   structure that contains the new properties. To obtain this structure, a peer must first call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupgetproperties">PeerGroupGetProperties</a>, change the appropriate fields, and then pass it as this parameter. This parameter is required.
      * 
@@ -3205,14 +3207,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupsetproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupsetproperties
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupSetProperties(hGroup, pProperties) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupSetProperties(hGroup_, pProperties) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupSetProperties", hGroupMarshal, hGroup, "ptr", pProperties, "int")
+        result := DllCall("P2P.dll\PeerGroupSetProperties", hGroup_Marshal, hGroup_, "ptr", pProperties, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3226,7 +3228,7 @@ class P2P {
      * The local node is always the very first item in the enumeration if <i>pwzIdentity</i> is <b>NULL</b>, and <i>dwFlags</i> is set to indicate that the local node is a member of the explicit subset.
      * 
      * By default, every member publishes membership information to the peer group. If <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_property_flags">PEER_MEMBER_DATA_OPTIONAL</a> is set on the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_member">PEER_MEMBER</a> data for that peer, this information is only  available when a peer performs an action within the group, for example, publishing a record, updating presence, or issuing a GMC.
-     * @param {Pointer<Void>} hGroup Handle to the peer group whose members are enumerated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group whose members are enumerated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Integer} dwFlags Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_member_flags">PEER_MEMBER_FLAGS</a> flags that indicate which types of members to include in the enumeration. If this value is set to zero, all members of the peer group are included.
      * 
      * <table>
@@ -3248,16 +3250,16 @@ class P2P {
      * @param {PWSTR} pwzIdentity Unicode string that contains the identity of a specific peer whose information is  retrieved and returned in a one-item enumeration. If this parameter is <b>NULL</b>, all members of the current peer group are retrieved. This parameter is required.
      * @returns {Pointer<Void>} Pointer to the enumeration that contains the returned list of peer group members. This handle is passed to  
      * 	 <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to retrieve the items, with each item represented as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_member">PEER_MEMBER</a> structure. When finished, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> is called to return the memory used by the enumeration. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupenummembers
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupenummembers
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupEnumMembers(hGroup, dwFlags, pwzIdentity) {
+    static PeerGroupEnumMembers(hGroup_, dwFlags, pwzIdentity) {
         pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupEnumMembers", hGroupMarshal, hGroup, "uint", dwFlags, "ptr", pwzIdentity, "ptr*", &phPeerEnum := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupEnumMembers", hGroup_Marshal, hGroup_, "uint", dwFlags, "ptr", pwzIdentity, "ptr*", &phPeerEnum := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3269,20 +3271,20 @@ class P2P {
      * The PeerGroupOpenDirectConnection function establishes a direct connection with another peer in a peer group.
      * @remarks
      * Every direct connection opened with this function must be closed with [PEER_GROUP_EVENT DATA](/windows/win32/api/p2p/ns-p2p-peer_group_event_data-r1) structure has the  <b>status</b> member of its component <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_event_connection_change_data">PEER_EVENT_CONNECTION_CHANGE_DATA</a> structure set to PEER_CONNECTION_FAILED.
-     * @param {Pointer<Void>} hGroup Handle to the peer group that hosts the direct connection. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group that hosts the direct connection. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzIdentity Pointer to a Unicode string that contains the identity   a peer  connects to. This parameter is required.
      * @param {Pointer<PEER_ADDRESS>} pAddress Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure that contains the IPv6 address   the peer  connects to. This parameter is required.
      * @returns {Integer} Unsigned 64-bit integer that identifies the direct connection. This ID value cannot be assumed as valid until the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_event_type">PEER_GROUP_EVENT_DIRECT_CONNECTION</a> event is raised and indicates that the connection has been accepted by the other peer. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupopendirectconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupopendirectconnection
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupOpenDirectConnection(hGroup, pwzIdentity, pAddress) {
+    static PeerGroupOpenDirectConnection(hGroup_, pwzIdentity, pAddress) {
         pwzIdentity := pwzIdentity is String ? StrPtr(pwzIdentity) : pwzIdentity
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupOpenDirectConnection", hGroupMarshal, hGroup, "ptr", pwzIdentity, "ptr", pAddress, "uint*", &pullConnectionId := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupOpenDirectConnection", hGroup_Marshal, hGroup_, "ptr", pwzIdentity, "ptr", pAddress, "uint*", &pullConnectionId := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3292,7 +3294,7 @@ class P2P {
 
     /**
      * The PeerGroupCloseDirectConnection function closes a specific direct connection between two peers.
-     * @param {Pointer<Void>} hGroup Handle to the peer group that contains the peers involved in the direct connection. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group that contains the peers involved in the direct connection. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Integer} ullConnectionId Specifies the connection ID  to disconnect from. This parameter is required and has no default value.
      * @returns {HRESULT} Returns S_OK if the operation succeeds. Otherwise, the function returns one of the following values.
      * 
@@ -3327,14 +3329,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupclosedirectconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupclosedirectconnection
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupCloseDirectConnection(hGroup, ullConnectionId) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupCloseDirectConnection(hGroup_, ullConnectionId) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupCloseDirectConnection", hGroupMarshal, hGroup, "uint", ullConnectionId, "int")
+        result := DllCall("P2P.dll\PeerGroupCloseDirectConnection", hGroup_Marshal, hGroup_, "uint", ullConnectionId, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3344,18 +3346,18 @@ class P2P {
 
     /**
      * The PeerGroupEnumConnections function creates an enumeration of connections currently active on the peer.
-     * @param {Pointer<Void>} hGroup Handle to the group that contains the connections to be enumerated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the group that contains the connections to be enumerated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Integer} dwFlags Specifies the flags that indicate the type of connection to enumerate. Valid values are specified by <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_connection_flags">PEER_CONNECTION_FLAGS</a>.
      * @returns {Pointer<Void>} Pointer to the enumeration that contains the returned list of active connections. This handle is passed to  
      * 	 <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to retrieve the items, with each item represented as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_connection_info">PEER_CONNECTION_INFO</a> structure. When finished, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> is called to return the memory used by the enumeration. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupenumconnections
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupenumconnections
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupEnumConnections(hGroup, dwFlags) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupEnumConnections(hGroup_, dwFlags) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupEnumConnections", hGroupMarshal, hGroup, "uint", dwFlags, "ptr*", &phPeerEnum := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupEnumConnections", hGroup_Marshal, hGroup_, "uint", dwFlags, "ptr*", &phPeerEnum := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3367,7 +3369,7 @@ class P2P {
      * The PeerGroupSendData function sends data to a member over a neighbor or direct connection.
      * @remarks
      * To receive data, the receiving peer must have registered for the <b>PEER_GROUP_EVENT_INCOMING_DATA</b> peer event.
-     * @param {Pointer<Void>} hGroup Handle to the group that contains both members of a connection. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the group that contains both members of a connection. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Integer} ullConnectionId Unsigned 64-bit integer that contains the ID of the connection that  hosts the data transmission. A connection ID is obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopendirectconnection">PeerGroupOpenDirectConnection</a>. This parameter is required.
      * @param {Pointer<Guid>} pType Pointer to a <b>GUID</b> value that uniquely identifies the data being transmitted. This parameter is required.
      * @param {Integer} cbData Specifies the size of  the data in <i>pvData</i>, in bytes. This parameter is required.
@@ -3405,14 +3407,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupsenddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupsenddata
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupSendData(hGroup, ullConnectionId, pType, cbData, pvData) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupSendData(hGroup_, ullConnectionId, pType, cbData, pvData) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupSendData", hGroupMarshal, hGroup, "uint", ullConnectionId, "ptr", pType, "uint", cbData, "ptr", pvData, "int")
+        result := DllCall("P2P.dll\PeerGroupSendData", hGroup_Marshal, hGroup_, "uint", ullConnectionId, "ptr", pType, "uint", cbData, "ptr", pvData, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3424,22 +3426,22 @@ class P2P {
      * The PeerGroupRegisterEvent function registers a peer for specific peer group events.
      * @remarks
      * Before you close the HPEEREVENT handle, you must unregister for the peer event  types by passing the handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupunregisterevent">PeerGroupUnregisterEvent</a>.
-     * @param {Pointer<Void>} hGroup Handle of the peer group on which to monitor the specific peer events. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle of the peer group on which to monitor the specific peer events. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {HANDLE} hEvent Pointer to a Windows  event handle, which is signaled when a peer event is fired. When this handle is signaled, the peer should call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupgeteventdata">PeerGroupGetEventData</a> until the function returns <b>PEER_S_NO_EVENT_DATA</b>.  This parameter is required.
      * @param {Integer} cEventRegistration Contains the number of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_group_event_registration">PEER_GROUP_EVENT_REGISTRATION</a> structures listed in <i>pEventRegistrations</i>. This parameter is required.
      * @param {Pointer<PEER_GROUP_EVENT_REGISTRATION>} pEventRegistrations Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_group_event_registration">PEER_GROUP_EVENT_REGISTRATION</a> 
      * 		 structures that contains the peer event types for which registration  occurs. This parameter is required.
      * @returns {Pointer<Void>} Pointer to the returned HPEEREVENT handle. A peer can unregister for this peer event by passing this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupunregisterevent">PeerGroupUnregisterEvent</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupregisterevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupregisterevent
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupRegisterEvent(hGroup, hEvent, cEventRegistration, pEventRegistrations) {
+    static PeerGroupRegisterEvent(hGroup_, hEvent, cEventRegistration, pEventRegistrations) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupRegisterEvent", hGroupMarshal, hGroup, "ptr", hEvent, "uint", cEventRegistration, "ptr", pEventRegistrations, "ptr*", &phPeerEvent := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupRegisterEvent", hGroup_Marshal, hGroup_, "ptr", hEvent, "uint", cEventRegistration, "ptr", pEventRegistrations, "ptr*", &phPeerEvent := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3474,7 +3476,7 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupunregisterevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupunregisterevent
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -3500,7 +3502,7 @@ class P2P {
      * </ul>
      * @param {Pointer<Void>} hPeerEvent Handle obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupregisterevent">PeerGroupRegisterEvent</a>. This parameter is required.
      * @returns {Pointer<PEER_GROUP_EVENT_DATA>} Pointer to a [PEER_GROUP_EVENT_DATA](/windows/win32/api/p2p/ns-p2p-peer_group_event_data-r1) structure that contains data about the peer event. This data structure must be freed after use with <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupgeteventdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupgeteventdata
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -3517,17 +3519,17 @@ class P2P {
 
     /**
      * The PeerGroupGetRecord function retrieves a specific group record.
-     * @param {Pointer<Void>} hGroup Handle to a group that contains a specific record. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to a group that contains a specific record. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<Guid>} pRecordId Specifies the GUID value that uniquely identifies a required record within a peer group. This parameter is required.
      * @returns {Pointer<PEER_RECORD>} Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> structure that contains a returned record. This structure is freed by passing its pointer to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupgetrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupgetrecord
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupGetRecord(hGroup, pRecordId) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupGetRecord(hGroup_, pRecordId) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupGetRecord", hGroupMarshal, hGroup, "ptr", pRecordId, "ptr*", &ppRecord := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupGetRecord", hGroup_Marshal, hGroup_, "ptr", pRecordId, "ptr*", &ppRecord := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3537,7 +3539,7 @@ class P2P {
 
     /**
      * The PeerGroupAddRecord function adds a new record to the peer group, which is propagated to all participating peers.
-     * @param {Pointer<Void>} hGroup Handle to the peer group. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<PEER_RECORD>} pRecord Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> structure that is added to the peer group specified in <i>hGroup</i>. This parameter is required.
      * 
      * The following members in <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> must be populated.
@@ -3671,14 +3673,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupaddrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupaddrecord
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupAddRecord(hGroup, pRecord, pRecordId) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupAddRecord(hGroup_, pRecord, pRecordId) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupAddRecord", hGroupMarshal, hGroup, "ptr", pRecord, "ptr", pRecordId, "int")
+        result := DllCall("P2P.dll\PeerGroupAddRecord", hGroup_Marshal, hGroup_, "ptr", pRecord, "ptr", pRecordId, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3688,7 +3690,7 @@ class P2P {
 
     /**
      * The PeerGroupUpdateRecord function updates a record within a specific peer group.
-     * @param {Pointer<Void>} hGroup Handle to the peer group whose record is updated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group whose record is updated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<PEER_RECORD>} pRecord Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> structure that contains the updated record for <i>hGroup</i>.  This parameter is required.
      * 
      * The following members in <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> can be updated.
@@ -3783,14 +3785,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupupdaterecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupupdaterecord
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupUpdateRecord(hGroup, pRecord) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupUpdateRecord(hGroup_, pRecord) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupUpdateRecord", hGroupMarshal, hGroup, "ptr", pRecord, "int")
+        result := DllCall("P2P.dll\PeerGroupUpdateRecord", hGroup_Marshal, hGroup_, "ptr", pRecord, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3800,7 +3802,7 @@ class P2P {
 
     /**
      * The PeerGroupDeleteRecord function deletes a record from a peer group. The creator, as well as any other member in an administrative role may delete a specific record.
-     * @param {Pointer<Void>} hGroup Handle to the peer group that contains the record. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group that contains the record. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<Guid>} pRecordId Specifies the GUID value that uniquely identifies the record to be deleted. This parameter is required.
      * @returns {HRESULT} Returns S_OK  if the operation succeeds. Otherwise, the function returns one of the following values.
      * 
@@ -3857,14 +3859,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupdeleterecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupdeleterecord
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupDeleteRecord(hGroup, pRecordId) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupDeleteRecord(hGroup_, pRecordId) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupDeleteRecord", hGroupMarshal, hGroup, "ptr", pRecordId, "int")
+        result := DllCall("P2P.dll\PeerGroupDeleteRecord", hGroup_Marshal, hGroup_, "ptr", pRecordId, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3874,18 +3876,18 @@ class P2P {
 
     /**
      * The PeerGroupEnumRecords function creates an enumeration of peer group records.
-     * @param {Pointer<Void>} hGroup Handle to the peer group whose records are enumerated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group whose records are enumerated. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<Guid>} pRecordType Pointer to  a <b>GUID</b> value that uniquely identifies a specific record type. If this parameter is <b>NULL</b>, all records are returned.
      * @returns {Pointer<Void>} Pointer to the enumeration that contains the returned list of records. This handle is passed to  
      * 	 <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to retrieve the items, with each item represented as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> structure. When finished, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> is called to return the memory used by the enumeration. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupenumrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupenumrecords
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupEnumRecords(hGroup, pRecordType) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupEnumRecords(hGroup_, pRecordType) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupEnumRecords", hGroupMarshal, hGroup, "ptr", pRecordType, "ptr*", &phPeerEnum := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupEnumRecords", hGroup_Marshal, hGroup_, "ptr", pRecordType, "ptr*", &phPeerEnum := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3895,20 +3897,20 @@ class P2P {
 
     /**
      * The PeerGroupSearchRecords function searches the local peer group database for records that match the supplied criteria.
-     * @param {Pointer<Void>} hGroup Handle to the peer group whose local database is searched. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group whose local database is searched. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzCriteria Pointer to a Unicode XML string that contains the record search query. For information about formulating an XML query string to search the peer group records database, see the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/record-search-query-format">Record Search Query Format</a> documentation. This parameter is required.
      * @returns {Pointer<Void>} Pointer to the enumeration that contains the returned list of records. This handle is passed to  
      * 	 <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to retrieve the items with each item represented as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_record">PEER_RECORD</a> structure. When finished, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> is called to return the memory used by the enumeration. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupsearchrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupsearchrecords
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupSearchRecords(hGroup, pwzCriteria) {
+    static PeerGroupSearchRecords(hGroup_, pwzCriteria) {
         pwzCriteria := pwzCriteria is String ? StrPtr(pwzCriteria) : pwzCriteria
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupSearchRecords", hGroupMarshal, hGroup, "ptr", pwzCriteria, "ptr*", &phPeerEnum := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupSearchRecords", hGroup_Marshal, hGroup_, "ptr", pwzCriteria, "ptr*", &phPeerEnum := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3918,7 +3920,7 @@ class P2P {
 
     /**
      * The PeerGroupExportDatabase function exports a peer group database to a specific file, which can be transported to another computer and imported with the PeerGroupImportDatabase function.
-     * @param {Pointer<Void>} hGroup Handle to the peer group whose database is exported to a local file on the peer. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the peer group whose database is exported to a local file on the peer. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzFilePath Pointer to a Unicode string that contains the absolute file system path and file name where the exported database is stored. For example, "C:\backup\p2pdb.db". If this file already exists at the specified location, the older file is overwritten. This parameter is required.
      * @returns {HRESULT} Returns S_OK  if the operation succeeds. Otherwise, the function returns one of the following values.
      * 
@@ -3955,16 +3957,16 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupexportdatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupexportdatabase
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupExportDatabase(hGroup, pwzFilePath) {
+    static PeerGroupExportDatabase(hGroup_, pwzFilePath) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupExportDatabase", hGroupMarshal, hGroup, "ptr", pwzFilePath, "int")
+        result := DllCall("P2P.dll\PeerGroupExportDatabase", hGroup_Marshal, hGroup_, "ptr", pwzFilePath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3976,7 +3978,7 @@ class P2P {
      * The PeerGroupImportDatabase function imports a peer group database from a local file.
      * @remarks
      * This function must be called before <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupconnect">PeerGroupConnect</a>, and after <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a> or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a>.
-     * @param {Pointer<Void>} hGroup Handle to a peer group whose database is imported from a local file. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to a peer group whose database is imported from a local file. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzFilePath Pointer to a Unicode string that contains the absolute file system path and file name where the data is stored, for example, "C:\backup\p2pdb.db". If the file does not exist at this location, an appropriate error from the file system is returned. This parameter is required.
      * @returns {HRESULT} Returns <b>S_OK</b>  if the operation succeeds. Otherwise, the function returns one of the following values.
      * 
@@ -4024,16 +4026,16 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupimportdatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupimportdatabase
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupImportDatabase(hGroup, pwzFilePath) {
+    static PeerGroupImportDatabase(hGroup_, pwzFilePath) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupImportDatabase", hGroupMarshal, hGroup, "ptr", pwzFilePath, "int")
+        result := DllCall("P2P.dll\PeerGroupImportDatabase", hGroup_Marshal, hGroup_, "ptr", pwzFilePath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -4047,7 +4049,7 @@ class P2P {
      * This function can only be called successfully by an administrator.
      * 
      * The credentials for a member (<a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_credential_info">PEER_CREDENTIAL_INFO</a>) are obtained  by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupenummembers">PeerGroupEnumMembers</a>. The credentials are located in  the <b>pCredentialInfo</b> field of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_member">PEER_MEMBER</a> structure for a specific member.
-     * @param {Pointer<Void>} hGroup Handle to a peer group  for which a peer will issue credentials to potential invited peers. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to a peer group  for which a peer will issue credentials to potential invited peers. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzSubjectIdentity Specifies the identity of a peer to whom credentials will be issued. This parameter is required.
      * @param {Pointer<PEER_CREDENTIAL_INFO>} pCredentialInfo <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_credential_info">PEER_CREDENTIAL_INFO</a> structure that contains information about the credentials  of a peer whose identity is specified in <i>pwzSubjectIdentity</i>. If this parameter is <b>NULL</b>, the information stored in the peer database is used, instead. This parameter is optional.
      * 
@@ -4074,16 +4076,16 @@ class P2P {
      * </tr>
      * </table>
      * @returns {PWSTR} Pointer to an invitation XML string returned by the function call. This invitation is passed out-of-band to the invited peer who uses it in a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a>. This parameter is optional.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupissuecredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupissuecredentials
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupIssueCredentials(hGroup, pwzSubjectIdentity, pCredentialInfo, dwFlags) {
+    static PeerGroupIssueCredentials(hGroup_, pwzSubjectIdentity, pCredentialInfo, dwFlags) {
         pwzSubjectIdentity := pwzSubjectIdentity is String ? StrPtr(pwzSubjectIdentity) : pwzSubjectIdentity
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupIssueCredentials", hGroupMarshal, hGroup, "ptr", pwzSubjectIdentity, "ptr", pCredentialInfo, "uint", dwFlags, "ptr*", &ppwzInvitation := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupIssueCredentials", hGroup_Marshal, hGroup_, "ptr", pwzSubjectIdentity, "ptr", pCredentialInfo, "uint", dwFlags, "ptr*", &ppwzInvitation := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -4121,19 +4123,19 @@ class P2P {
      *   &lt;/GMC&gt;
      * &lt;/PEERGROUPCONFIG&gt;
      * ```
-     * @param {Pointer<Void>} hGroup Handle to the group. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the group. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {PWSTR} pwzPassword Specifies the password used to protect the exported configuration. There are no rules or limits for the formation of this password. This parameter is required.
      * @returns {PWSTR} Pointer to the returned XML configuration string that contains the identity, group peer name, cloud peer name, group scope, and the GMC for the identity. This parameter is required.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupexportconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupexportconfig
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupExportConfig(hGroup, pwzPassword) {
+    static PeerGroupExportConfig(hGroup_, pwzPassword) {
         pwzPassword := pwzPassword is String ? StrPtr(pwzPassword) : pwzPassword
 
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupExportConfig", hGroupMarshal, hGroup, "ptr", pwzPassword, "ptr*", &ppwzXML := 0, "int")
+        result := DllCall("P2P.dll\PeerGroupExportConfig", hGroup_Marshal, hGroup_, "ptr", pwzPassword, "ptr*", &ppwzXML := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -4220,7 +4222,7 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupimportconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupimportconfig
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4247,7 +4249,7 @@ class P2P {
      * <i>Peer time</i> is a common reference time maintained by a peer group, expressed as UTC. It is often offset from the universal time value, and is used to correct latency issues.
      * 
      * Universal time can be converted to peer time by calling the converse function <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupuniversaltimetopeertime">PeerGroupUniversalTimeToPeerTime</a>.
-     * @param {Pointer<Void>} hGroup Handle to the  peer group that a peer participates in. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the  peer group that a peer participates in. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<FILETIME>} pftPeerTime Pointer to the peer time value—Coordinated Universal Time (UTC)—that is represented as a <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure.  This parameter is required.
      * @param {Pointer<FILETIME>} pftUniversalTime Pointer to the returned universal time value that is  represented as a <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure. This parameter is <b>NULL</b> if an error occurs.
      * @returns {HRESULT} Returns <b>S_OK</b> if the function succeeds. Otherwise, the function returns either one of the remote procedure call (RPC) errors or one of the following errors.
@@ -4294,14 +4296,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergrouppeertimetouniversaltime
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergrouppeertimetouniversaltime
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupPeerTimeToUniversalTime(hGroup, pftPeerTime, pftUniversalTime) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupPeerTimeToUniversalTime(hGroup_, pftPeerTime, pftUniversalTime) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupPeerTimeToUniversalTime", hGroupMarshal, hGroup, "ptr", pftPeerTime, "ptr", pftUniversalTime, "int")
+        result := DllCall("P2P.dll\PeerGroupPeerTimeToUniversalTime", hGroup_Marshal, hGroup_, "ptr", pftPeerTime, "ptr", pftUniversalTime, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -4317,7 +4319,7 @@ class P2P {
      * <i>Peer time</i> is a common reference time maintained by a peer group, expressed as Coordinated Universal Time (UTC). It is often offset from the universal time value, and is used to correct latency issues.
      * 
      * Peer time can be converted to universal time by calling the converse function <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergrouppeertimetouniversaltime">PeerGroupPeerTimeToUniversalTime</a>.
-     * @param {Pointer<Void>} hGroup Handle to the  peer group a peer participates in. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
+     * @param {Pointer<Void>} hGroup_ Handle to the  peer group a peer participates in. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreate">PeerGroupCreate</a>, <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupopen">PeerGroupOpen</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupjoin">PeerGroupJoin</a> function. This parameter is required.
      * @param {Pointer<FILETIME>} pftUniversalTime Pointer to the universal time value, represented as a <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure. This parameter is required.
      * @param {Pointer<FILETIME>} pftPeerTime Pointer to the returned peer time—Greenwich Mean Time (GMT) value that is represented as a <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">FILETIME</a> structure. This parameter is <b>NULL</b> if an error occurs.
      * @returns {HRESULT} Returns <b>S_OK</b> if the function succeeds. Otherwise, the function returns either one of the RPC errors or one of the following values.
@@ -4364,14 +4366,14 @@ class P2P {
      *  
      * 
      * Cryptography-specific errors can be returned from the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-base-cryptographic-provider">Microsoft RSA Base Provider</a>. These errors are prefixed with CRYPT_* and defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peergroupuniversaltimetopeertime
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peergroupuniversaltimetopeertime
      * @deprecated 
      * @since windows5.1.2600
      */
-    static PeerGroupUniversalTimeToPeerTime(hGroup, pftUniversalTime, pftPeerTime) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupUniversalTimeToPeerTime(hGroup_, pftUniversalTime, pftPeerTime) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupUniversalTimeToPeerTime", hGroupMarshal, hGroup, "ptr", pftUniversalTime, "ptr", pftPeerTime, "int")
+        result := DllCall("P2P.dll\PeerGroupUniversalTimeToPeerTime", hGroup_Marshal, hGroup_, "ptr", pftUniversalTime, "ptr", pftPeerTime, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -4381,16 +4383,16 @@ class P2P {
 
     /**
      * 
-     * @param {Pointer<Void>} hGroup 
+     * @param {Pointer<Void>} hGroup_ 
      * @param {Pointer<Void>} hPeerEventHandle 
      * @returns {HRESULT} 
      * @deprecated 
      */
-    static PeerGroupResumePasswordAuthentication(hGroup, hPeerEventHandle) {
-        hGroupMarshal := hGroup is VarRef ? "ptr" : "ptr"
+    static PeerGroupResumePasswordAuthentication(hGroup_, hPeerEventHandle) {
+        hGroup_Marshal := hGroup_ is VarRef ? "ptr" : "ptr"
         hPeerEventHandleMarshal := hPeerEventHandle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("P2P.dll\PeerGroupResumePasswordAuthentication", hGroupMarshal, hGroup, hPeerEventHandleMarshal, hPeerEventHandle, "int")
+        result := DllCall("P2P.dll\PeerGroupResumePasswordAuthentication", hGroup_Marshal, hGroup_, hPeerEventHandleMarshal, hPeerEventHandle, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -4413,7 +4415,7 @@ class P2P {
      * <div class="alert"><b>Note</b>  The Identity Manager API does not support a CSP that has user protected keys. If  a CSP that has user protected keys  is used, <b>PeerIdentityCreate</b> returns <b>E_INVALIDARG</b>. </div>
      * <div> </div>
      * @returns {PWSTR} Receives a pointer to the name of a peer identity that is created. This name must be used in all subsequent calls to  the Peer Identity Manager, Peer Grouping, or PNRP functions that operate on behalf of the peer identity. Returns <b>NULL</b> if the peer identity cannot be created.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitycreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitycreate
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4433,7 +4435,7 @@ class P2P {
      * The PeerIdentityGetFriendlyName function returns the friendly name of the peer identity.
      * @param {PWSTR} pwzIdentity Specifies the peer identity to obtain a friendly name.
      * @returns {PWSTR} Receives a pointer to the friendly name. When <i>ppwzFriendlyName</i> is not required anymore, the application is responsible for freeing this string by calling  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitygetfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitygetfriendlyname
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4504,7 +4506,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitysetfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitysetfriendlyname
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4528,7 +4530,7 @@ class P2P {
      * When the handle is not required anymore, the application is responsible for releasing the handle by using <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/identity-manager-reference-links">CryptReleaseContext</a>.
      * @param {PWSTR} pwzIdentity Specifies the peer identity to retrieve the key pair for.
      * @returns {Pointer} Receives a pointer to the handle of the  cryptographic service provider (CSP) that contains an AT_KEYEXCHANGE RSA key pair.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitygetcryptkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitygetcryptkey
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4588,7 +4590,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitydelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitydelete
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4612,7 +4614,7 @@ class P2P {
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> to free the enumeration handle when it is no longer required.
      * @returns {Pointer<Void>} Receives a handle to the peer enumeration that contains the list of peer identities, with each item represented as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_name_pair">PEER_NAME_PAIR</a> structure. Pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to retrieve the items; when finished, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a>  to release the memory.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerenumidentities
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerenumidentities
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4635,7 +4637,7 @@ class P2P {
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> to free the peer enumeration handle when it is no longer required.
      * @param {PWSTR} pwzIdentity Specifies the peer identity to enumerate groups for.
      * @returns {Pointer<Void>} Receives a handle to the peer enumeration that contains the list of peer groups that the specified identity is a member of, with each item represented as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_name_pair">PEER_NAME_PAIR</a> structure. Pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to retrieve the items; when finished, call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a> release the memory.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerenumgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerenumgroups
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4661,7 +4663,7 @@ class P2P {
      * 
      * This parameter can only be <b>NULL</b> if <i>pwzIdentity</i> is not <b>NULL</b>.
      * @returns {PWSTR} Pointer that receives a pointer to the new peer name. When this string is not required anymore, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercreatepeername
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercreatepeername
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4696,7 +4698,7 @@ class P2P {
      * Applications are not allowed to add tags within the <b>PEERIDENTITYINFO</b> tag or modify this XML fragment in any way.  Applications are allowed to incorporate this XML fragment into other XML documents, but must strip out all application-specific XML before passing this fragment to the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergroupcreateinvitation">PeerGroupCreateInvitation</a>.
      * @param {PWSTR} pwzIdentity Specifies the peer identity to retrieve peer identity information for. When this parameter is passed as <b>NULL</b>, a "default" identity will be generated for the user by the peer infrastructure.
      * @returns {PWSTR} Pointer to a pointer to a Unicode string that contains the XML fragment. When <i>ppwzIdentityXML</i> is no longer required, the application is responsible for freeing this string by calling  <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitygetxml
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitygetxml
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4736,7 +4738,7 @@ class P2P {
      * @param {PWSTR} pwzIdentity Specifies the peer identity  to export. This parameter is required and does not have a default value.
      * @param {PWSTR} pwzPassword Specifies the password to use to encrypt the peer identity. This parameter cannot be <b>NULL</b>. This password must also be used to import the peer identity, or the import operation fails.
      * @returns {PWSTR} Receives a pointer to the exported peer identity in XML format. If the export operation is successful, the application must free <i>ppwzExportXML</i> by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentityexport
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentityexport
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4773,7 +4775,7 @@ class P2P {
      * characters.
      * @param {PWSTR} pwzPassword Specifies the password to use to de-crypt a peer identity. The password must be identical to the password supplied to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peeridentityexport">PeerIdentityExport</a>. This parameter cannot be <b>NULL</b>.
      * @returns {PWSTR} Pointer to a string that represents a peer identity that is imported.  If the import operation is successful, the application must free <i>ppwzIdentity</i> by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentityimport
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentityimport
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4792,7 +4794,7 @@ class P2P {
     /**
      * The PeerIdentityGetDefault function retrieves the default peer name set for the current user.
      * @returns {PWSTR} Pointer to the address of a zero-terminated Unicode string that contains the default name of the current user.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peeridentitygetdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peeridentitygetdefault
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -4844,7 +4846,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabstartup
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabstartup
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -4891,7 +4893,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabshutdown
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -4991,7 +4993,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabsignin
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabsignin
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5055,7 +5057,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabsignout
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabsignout
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5071,7 +5073,7 @@ class P2P {
     /**
      * Obtains the peer's current signed-in peer collaboration network presence options.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_signin_flags">PEER_SIGNIN_FLAGS</a> enumeration value is returned by this function.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetsigninoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetsigninoptions
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5110,7 +5112,7 @@ class P2P {
      * 
      * If the event is not provided the caller must poll for the result by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgetinvitationresponse">PeerCollabGetInvitationResponse</a>.
      * @returns {HANDLE} A pointer to a handle to the sent invitation. The framework will cleanup the response information after the invitation response is received if <b>NULL</b> is specified. When <b>NULL</b> is not the specified handle to the invitation provided, it must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabclosehandle">PeerCollabCloseHandle</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabasyncinvitecontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabasyncinvitecontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5134,7 +5136,7 @@ class P2P {
      * @returns {Pointer<PEER_INVITATION_RESPONSE>} Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_invitation_response">PEER_INVITATION_RESPONSE</a> structure that contains an invited peer's response to a previously transmitted invitation request.
      * 
      * Free the memory associated with this structure by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetinvitationresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetinvitationresponse
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5215,7 +5217,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabcancelinvitation
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabcancelinvitation
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5265,7 +5267,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabclosehandle
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5303,7 +5305,7 @@ class P2P {
      * If this call fails with an error, this parameter will be <b>NULL</b>.
      * 
      * Free the memory returned by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabinvitecontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabinvitecontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5340,7 +5342,7 @@ class P2P {
      * 
      * If the event is not provided, the caller must poll for the result by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgetinvitationresponse">PeerCollabGetInvitationResponse</a>.
      * @returns {HANDLE} A pointer to a handle to the sent invitation. If this parameter is <b>NULL</b>, the framework will cleanup the response information after the invitation response is received. If this parameter is not <b>NULL</b>, the handle must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabclosehandle">PeerCollabCloseHandle</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabasyncinviteendpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabasyncinviteendpoint
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5377,7 +5379,7 @@ class P2P {
      * If this call fails with an error, on output this parameter will be <b>NULL</b>.
      * 
      * Free the memory associated with this structure by pass it to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabinviteendpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabinviteendpoint
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5397,7 +5399,7 @@ class P2P {
      * @returns {Pointer<PEER_APP_LAUNCH_INFO>} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_app_launch_info">PEER_APP_LAUNCH_INFO</a> structure that receives the peer application launch data.
      * 
      * Free the memory associated with this structure by passing it to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetapplaunchinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetapplaunchinfo
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5459,7 +5461,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabregisterapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabregisterapplication
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5525,7 +5527,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabunregisterapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabunregisterapplication
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5547,7 +5549,7 @@ class P2P {
      * @param {Pointer<Guid>} pApplicationId Pointer to the GUID value that represents a particular peer's application registration flags.
      * @param {Integer} registrationType A <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_application_registration_type">PEER_APPLICATION_REGISTRATION_TYPE</a> enumeration value that describes whether the peer's application is registered to the current user or all users of the local machine.
      * @returns {Pointer<PEER_APPLICATION_REGISTRATION_INFO>} Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_application_registration_info">PEER_APPLICATION_REGISTRATION_INFO</a> structure that contains the information about a peer's specific registered application. The data returned in this parameter can be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetapplicationregistrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetapplicationregistrationinfo
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5572,7 +5574,7 @@ class P2P {
      * Peer application registration information items are returned as individual <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_application_registration_info">PEER_APPLICATION_REGISTRATION_INFO</a> structures.
      * @param {Integer} registrationType A <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_application_registration_type">PEER_APPLICATION_REGISTRATION_TYPE</a> value that specifies whether the peer's application is registered to the <b>current user</b> or <b>all users</b> of the peer's machine.
      * @returns {Pointer<Void>} Pointer to a peer enumeration handle for the peer application registration information. This data is obtained by passing this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabenumapplicationregistrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabenumapplicationregistrationinfo
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5596,7 +5598,7 @@ class P2P {
      * </ul>
      * @param {Pointer<PEER_ENDPOINT>} pcEndpoint Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_endpoint">PEER_ENDPOINT</a> structure that contains the specific endpoint associated with the contact specified in <i>pcContact</i> for which presence information must be returned.
      * @returns {Pointer<PEER_PRESENCE_INFO>} Pointer  to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_presence_info">PEER_PRESENCE_INFO</a> structure that contains the requested presence data for the supplied endpoint.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetpresenceinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetpresenceinfo
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5630,7 +5632,7 @@ class P2P {
      * If this parameter is set to <b>NULL</b>, the published application information for the local peer's endpoint is enumerated.
      * @param {Pointer<Guid>} pApplicationId Pointer to the GUID value that uniquely identifies a particular application of the supplied peer. If this parameter is supplied, the only peer application returned is the one that matches this GUID.
      * @returns {Pointer<Void>} Pointer to the handle for the enumerated set of registered applications that correspond to the GUID returned in <i>pObjectId</i>. Pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to obtain each item in the enumerated set.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabenumapplications
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabenumapplications
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5666,7 +5668,7 @@ class P2P {
      * If this parameter is <b>NULL</b> the published objects of the  local peer's contacts are returned.
      * @param {Pointer<Guid>} pObjectId Pointer to a GUID value that uniquely identifies a peer object with the supplied peer. If this parameter is supplied, the only peer object returned is the one that matches this GUID.
      * @returns {Pointer<Void>} Pointer to the handle for the enumerated set of peer objects that correspond to the GUID returned in <i>pObjectId</i>. Pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to obtain each item in the enumerated set.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabenumobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabenumobjects
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5691,7 +5693,7 @@ class P2P {
      * The limit for connections to a single contact is 50.
      * @param {Pointer<PEER_CONTACT>} pcContact Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure that contains the contact information for a specific peer. This parameter must not be <b>NULL</b>.
      * @returns {Pointer<Void>} Pointer to a handle for the enumerated set of endpoints that are associated with the supplied peer contact. Pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a> to obtain each item in the enumerated set.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabenumendpoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabenumendpoints
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5748,7 +5750,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabrefreshendpointdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabrefreshendpointdata
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5796,7 +5798,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabdeleteendpointdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabdeleteendpointdata
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5822,7 +5824,7 @@ class P2P {
      * 
      * If this parameter is set to <b>NULL</b>, the contact information for the current peer endpoint is obtained.
      * @returns {PWSTR} Pointer to a zero-terminated Unicode string buffer that contains the contact data for the endpoint supplied in <i>pcEndpoint</i>. Call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a> to free the data.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabquerycontactdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabquerycontactdata
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5889,7 +5891,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabsubscribeendpointdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabsubscribeendpointdata
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -5950,7 +5952,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabunsubscribeendpointdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabunsubscribeendpointdata
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6022,7 +6024,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabsetpresenceinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabsetpresenceinfo
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6040,7 +6042,7 @@ class P2P {
      * @remarks
      * The endpoint name is limited to 25 Unicode characters. To free this data call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
      * @returns {PWSTR} Pointer to a zero-terminated Unicode string name of the peer endpoint currently used by the calling application.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetendpointname
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetendpointname
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6099,7 +6101,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabsetendpointname
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabsetendpointname
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6183,7 +6185,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabsetobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabsetobject
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6257,7 +6259,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabdeleteobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabdeleteobject
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6284,7 +6286,7 @@ class P2P {
      * @param {Integer} cEventRegistration The number of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_collab_event_registration">PEER_COLLAB_EVENT_REGISTRATION</a> structures in <i>pEventRegistrations</i>.
      * @param {Pointer<PEER_COLLAB_EVENT_REGISTRATION>} pEventRegistrations An array of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_collab_event_registration">PEER_COLLAB_EVENT_REGISTRATION</a> structures that specify the peer collaboration events for which the application requests notification.
      * @returns {Pointer<Void>} The peer event handle returned by this function. This handle is passed to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabgeteventdata">PeerCollabGetEventData</a> when a peer collaboration network event is raised on the peer.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabregisterevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabregisterevent
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6303,7 +6305,7 @@ class P2P {
      * Obtains the data associated with a peer collaboration event raised on the peer.
      * @param {Pointer<Void>} hPeerEvent The peer collaboration network event handle obtained by a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabregisterevent">PeerCollabRegisterEvent</a>.
      * @returns {Pointer<PEER_COLLAB_EVENT_DATA>} Pointer to a list of [PEER_COLLAB_EVENT_DATA](/windows/win32/api/p2p/ns-p2p-peer_collab_event_data-r1) structures that contain data about the peer collaboration network event. These data structures must be freed after use by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgeteventdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgeteventdata
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6351,7 +6353,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabunregisterevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabunregisterevent
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6371,7 +6373,7 @@ class P2P {
      * @remarks
      * To obtain the individual peer "people near me" contacts, pass the returned handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergetnextitem">PeerGetNextItem</a>. An array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_people_near_me">PEER_PEOPLE_NEAR_ME</a> structures are returned. To close the enumeration and release the resources associated with it, pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a>. Individual items returned by the enumeration must be released with <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
      * @returns {Pointer<Void>} Pointer to a handle of an enumerated set that contains all of the peer collaboration network "people near me" endpoints currently available on the subnet of the calling peer.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabenumpeoplenearme
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabenumpeoplenearme
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6392,7 +6394,7 @@ class P2P {
      * @returns {Pointer<PEER_CONTACT>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure. This parameter receives the address of a <b>PEER_CONTACT</b> structure containing peer contact information for the contact supplied in <i>pwzContactData</i>. This parameter may be <b>NULL</b>. 
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a> on the address of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure to free this data.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabaddcontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabaddcontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6442,7 +6444,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabdeletecontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabdeletecontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6465,7 +6467,7 @@ class P2P {
      * @returns {Pointer<PEER_CONTACT>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure. It receives the address of a PEER_CONTACT structure containing peer contact information for the peer name supplied in <i>pwzPeerName</i>. When this parameter is <b>NULL</b>, this function returns E_INVALIDARG.
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a> on the address of the <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure to free this data.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabgetcontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabgetcontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6517,7 +6519,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabupdatecontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabupdatecontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6535,7 +6537,7 @@ class P2P {
      * @remarks
      * To obtain the individual peer contacts, pass the returned handle to [PEER_CONTACT](./ns-p2p-peer_contact.md) structures will be returned. To close the enumeration and release the resources associated with it, pass this handle to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerendenumeration">PeerEndEnumeration</a>. Individual items returned by the enumeration must be released with <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
      * @returns {Pointer<Void>} Handle to an enumerated set that contains all of the peer collaboration network contacts currently available on the calling peer, excluding the "Me" contact.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabenumcontacts
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabenumcontacts
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6556,7 +6558,7 @@ class P2P {
      * @returns {PWSTR} Pointer to a zero-terminated string buffer that contains peer contact XML data where the peer names match the string supplied in <i>pwzPeerName</i>.  
      * 
      * The memory returned here can be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabexportcontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabexportcontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6575,7 +6577,7 @@ class P2P {
      * Parses a Unicode string buffer containing contact XML data into a PEER_CONTACT data structure.
      * @param {PWSTR} pwzContactData Pointer to zero-terminated Unicode string buffer that contains XML contact data as returned by functions like <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabquerycontactdata">PeerCollabQueryContactData</a> or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabexportcontact">PeerCollabExportContact</a>.
      * @returns {Pointer<PEER_CONTACT>} Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_contact">PEER_CONTACT</a> structure that contain the peer contact information parsed from <i>pwzContactData</i>. Free the memory allocated by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peercollabparsecontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peercollabparsecontact
      * @deprecated 
      * @since windows6.0.6000
      */
@@ -6594,7 +6596,7 @@ class P2P {
      * Encodes the supplied peer name as a format that can be used with a subsequent call to the getaddrinfo Windows Sockets function.
      * @param {PWSTR} pwzPeerName Pointer to a zero-terminated Unicode string that contains the peer name to encode as a host name.
      * @returns {PWSTR} Pointer to the address of the zero-terminated Unicode string that contains the encoded host name. This string can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo_v2</a> to obtain network information about the peer.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peernametopeerhostname
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peernametopeerhostname
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6613,7 +6615,7 @@ class P2P {
      * Decodes a host name returned by PeerNameToPeerHostName into the peer name string it represents.
      * @param {PWSTR} pwzHostName Pointer to a zero-terminated Unicode string that contains the host name to decode.
      * @returns {PWSTR} Pointer to the address of the zero-terminated Unicode string that contains the decoded peer name. The returned  string must be released with <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerhostnametopeername
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerhostnametopeername
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6685,7 +6687,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpstartup
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpstartup
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6730,7 +6732,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpshutdown
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6754,7 +6756,7 @@ class P2P {
      * @param {PWSTR} pcwzPeerName Pointer to a zero-terminated Unicode string that contains the peer name to register with the PNRP service.
      * @param {Pointer<PEER_PNRP_REGISTRATION_INFO>} pRegistrationInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_pnrp_registration_info">PEER_PNRP_REGISTRATION_INFO</a> structure that contains the endpoint information for the registering peer node. If <b>NULL</b>, the API will register the peer with all known PNRP clouds, and any registered addresses are automatically selected by the infrastructure.
      * @returns {Pointer<Void>} Handle to the  PNRP registration for the calling peer node. Use this handle to update the registration or to deregister with the PNRP service.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpregister
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6807,7 +6809,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpupdateregistration
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpupdateregistration
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6855,7 +6857,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpunregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpunregister
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6884,7 +6886,7 @@ class P2P {
      * @param {PWSTR} pcwzCloudName Pointer to a zero-terminated string that contains the name of the PNRP cloud under which to resolve the peer name. If <b>NULL</b>, the resolve is performed in all clouds. If PEER_PNRP_ALL_LINK_CLOUDS, the resolve is performed in all link local clouds. When "GLOBAL_", resolve will only take place in the global cloud.
      * @param {Pointer<Integer>} pcEndpoints The maximum number of endpoints to return in  <i>ppEndpoints</i>. Upon return, this parameter contains the actual number of endpoints in <i>ppEndpoints</i>.
      * @returns {Pointer<PEER_PNRP_ENDPOINT_INFO>} Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_pnrp_endpoint_info">PEER_PNRP_ENDPOINT_INFO</a> structures that contain the endpoints for which the peer name successfully resolved. Each endpoint contains one or more IP addresses at which the peer node can be reached.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpresolve
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpresolve
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6917,7 +6919,7 @@ class P2P {
      * @param {Integer} cMaxEndpoints The maximum number of endpoints to return for the peer name.
      * @param {HANDLE} hEvent Handle to the event signaled when a peer endpoint is resolved for the supplied peer name and are ready for consumption by calling PeerPnrpGetEndpoint. This event is signaled for every endpoint discovered by the PNRP service. If PEER_NO_MORE is returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerpnrpgetendpoint">PeerPnrpGetEndpoint</a>, then all endpoints have been found for that peer.
      * @returns {Pointer<Void>} Handle to this peer name resolution request. This handle must be provided to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerpnrpendresolve">PeerPnrpEndResolve</a> after the resolution events are raised and the endpoints are obtained with corresponding calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerpnrpgetendpoint">PeerPnrpGetEndpoint</a>, or if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpstartresolve
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpstartresolve
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6970,7 +6972,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpgetcloudinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpgetcloudinfo
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -6998,7 +7000,7 @@ class P2P {
      * @returns {Pointer<PEER_PNRP_ENDPOINT_INFO>} Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_pnrp_endpoint_info">PEER_PNRP_ENDPOINT_INFO</a> structure that contains an endpoint address for the peer name supplied in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerpnrpstartresolve">PeerPnrpStartResolve</a>.
      * 
      * This data returned by this parameter must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerfreedata">PeerFreeData</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpgetendpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpgetendpoint
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -7046,7 +7048,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/p2p/nf-p2p-peerpnrpendresolve
+     * @see https://learn.microsoft.com/windows/win32/api//content/p2p/nf-p2p-peerpnrpendresolve
      * @deprecated 
      * @since windows5.1.2600
      */
@@ -7074,7 +7076,7 @@ class P2P {
      * 137 unicode characters.
      * It is important to note that if <i>fPublish</i> is set to <b>TRUE</b>, the <i>PublishingIdentity</i> must be allowed to publish the PeerName specified.
      * @returns {Pointer<DRT_BOOTSTRAP_PROVIDER>} A pointer to the created PNRP bootstrap resolver which is used in the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_settings">DRT_SETTINGS</a> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcreatepnrpbootstrapresolver
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcreatepnrpbootstrapresolver
      * @since windows6.1
      */
     static DrtCreatePnrpBootstrapResolver(fPublish, pwzPeerName, pwzCloudName, pwzPublishingIdentity) {
@@ -7094,7 +7096,7 @@ class P2P {
      * DrtDeletePnrpBootstrapResolver function deletes a bootstrap resolver based on the Peer Name Resolution Protocol (PNRP).
      * @param {Pointer<DRT_BOOTSTRAP_PROVIDER>} pResolver Pointer to the created PNRP bootstrap resolver to be deleted.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtdeletepnrpbootstrapresolver
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtdeletepnrpbootstrapresolver
      * @since windows6.1
      */
     static DrtDeletePnrpBootstrapResolver(pResolver) {
@@ -7106,7 +7108,7 @@ class P2P {
      * @param {Integer} port Specifies the port to which the DRT protocol is bound on the well known node.
      * @param {PWSTR} pwszAddress Specifies the hostname of the well known node.
      * @returns {Pointer<DRT_BOOTSTRAP_PROVIDER>} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_bootstrap_provider">DRT_BOOTSTRAP_PROVIDER</a> module to be included in the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_settings">DRT_SETTINGS</a> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcreatednsbootstrapresolver
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcreatednsbootstrapresolver
      * @since windows6.1
      */
     static DrtCreateDnsBootstrapResolver(port, pwszAddress) {
@@ -7124,7 +7126,7 @@ class P2P {
      * DrtDeleteDnsBootstrapResolver function deletes a DNS Bootstrap Provider instance.
      * @param {Pointer<DRT_BOOTSTRAP_PROVIDER>} pResolver Pointer to a DRT_BOOTSTRAP_PROVIDER instance specifying the security provider to delete.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtdeletednsbootstrapresolver
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtdeletednsbootstrapresolver
      * @since windows6.1
      */
     static DrtDeleteDnsBootstrapResolver(pResolver) {
@@ -7145,7 +7147,7 @@ class P2P {
      * @param {Integer} dwLocalityThreshold The identifier that specifies how Locality information based on IpV6 addresses is used when caching neighbors.  By default, the DRT gives preference to neighbors that have an IPv6 address with a prefix in common with the local machine.
      * @param {Pointer<Integer>} pwPort Pointer to the port utilized by the local DRT instance.
      * @returns {Pointer<Void>} Pointer to a DRT transport handle specified in the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_settings">DRT_SETTINGS</a> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcreateipv6udptransport
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcreateipv6udptransport
      * @since windows6.1
      */
     static DrtCreateIpv6UdpTransport(scope, dwScopeId, dwLocalityThreshold, pwPort) {
@@ -7218,7 +7220,7 @@ class P2P {
      * 
      * <div class="alert"><b>Note</b>  This function may also surface errors returned by underlying calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peerpnrpstartup">PeerPnrpStartup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peeridentitygetcryptkey">PeerIdentityGetCryptKey</a>.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtdeleteipv6udptransport
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtdeleteipv6udptransport
      * @since windows6.1
      */
     static DrtDeleteIpv6UdpTransport(hTransport) {
@@ -7239,7 +7241,7 @@ class P2P {
      * @param {Pointer<CERT_CONTEXT>} pRootCert Pointer to the certificate that is the "root" portion of the chain. This is used to ensure that keys derived from the same chain can be verified.
      * @param {Pointer<CERT_CONTEXT>} pLocalCert Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_security_provider">DRT_SECURITY_PROVIDER</a> module to be included in the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_settings">DRT_SETTINGS</a> structure.
      * @returns {Pointer<DRT_SECURITY_PROVIDER>} Receives a pointer to the created security provider.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcreatederivedkeysecurityprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcreatederivedkeysecurityprovider
      * @since windows6.1
      */
     static DrtCreateDerivedKeySecurityProvider(pRootCert, pLocalCert) {
@@ -7292,7 +7294,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcreatederivedkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcreatederivedkey
      * @since windows6.1
      */
     static DrtCreateDerivedKey(pLocalCert, pKey) {
@@ -7308,7 +7310,7 @@ class P2P {
      * DrtDeleteDerivedKeySecurityProvider function deletes a derived key security provider for a Distributed Routing Table.
      * @param {Pointer<DRT_SECURITY_PROVIDER>} pSecurityProvider Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_security_provider">DRT_SECURITY_PROVIDER</a> specifying the security provider to delete.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtdeletederivedkeysecurityprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtdeletederivedkeysecurityprovider
      * @since windows6.1
      */
     static DrtDeleteDerivedKeySecurityProvider(pSecurityProvider) {
@@ -7318,7 +7320,7 @@ class P2P {
     /**
      * DrtCreateNullSecurityProvider function creates a null security provider. This security provider does not require nodes to authenticate keys.
      * @returns {Pointer<DRT_SECURITY_PROVIDER>} Pointer to the [DRT_SETTINGS](./ns-drt-drt_settings.md) structure.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcreatenullsecurityprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcreatenullsecurityprovider
      * @since windows6.1
      */
     static DrtCreateNullSecurityProvider() {
@@ -7334,7 +7336,7 @@ class P2P {
      * DrtDeleteNullSecurityProvider function deletes a null security provider for a Distributed Routing Table.
      * @param {Pointer<DRT_SECURITY_PROVIDER>} pSecurityProvider Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_security_provider">DRT_SECURITY_PROVIDER</a> structure specifying the security provider to delete.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtdeletenullsecurityprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtdeletenullsecurityprovider
      * @since windows6.1
      */
     static DrtDeleteNullSecurityProvider(pSecurityProvider) {
@@ -7349,7 +7351,7 @@ class P2P {
      * @param {HANDLE} hEvent Handle to the event signaled when an event occurs.
      * @param {Pointer<Void>} pvContext User defined context data which is passed  to the application via  events.
      * @returns {Pointer<Void>} The new handle associated with the DRT. This is used in all future operations on the DRT instance.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtopen
      * @since windows6.1
      */
     static DrtOpen(pSettings, hEvent, pvContext) {
@@ -7369,7 +7371,7 @@ class P2P {
      * DrtClose function closes the local instance of the DRT.
      * @param {Pointer<Void>} hDrt Handle to the DRT instance.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtclose
      * @since windows6.1
      */
     static DrtClose(hDrt) {
@@ -7382,7 +7384,7 @@ class P2P {
      * DrtGetEventDataSize function returns the size of the DRT_EVENT_DATA structure associated with a signaled event.
      * @param {Pointer<Void>} hDrt Handle to the Distributed Routing Table instance for which the event occurred.
      * @returns {Integer} The size, in bytes, of the event data.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgeteventdatasize
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgeteventdatasize
      * @since windows6.1
      */
     static DrtGetEventDataSize(hDrt) {
@@ -7453,7 +7455,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgeteventdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgeteventdata
      * @since windows6.1
      */
     static DrtGetEventData(hDrt, ulEventDataLen, pEventData) {
@@ -7477,7 +7479,7 @@ class P2P {
      * @param {Pointer<DRT_REGISTRATION>} pRegistration A pointer to a handle to the <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_registration">DRT_REGISTRATION</a> structure.
      * @param {Pointer<Void>} pvKeyContext Pointer to the context data associated with the key in the DRT. This data is passed to the key-specific functions of the security provider.
      * @returns {Pointer<Void>} Pointer to a handle for a key that has been registered.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtregisterkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtregisterkey
      * @since windows6.1
      */
     static DrtRegisterKey(hDrt, pRegistration, pvKeyContext) {
@@ -7541,7 +7543,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtupdatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtupdatekey
      * @since windows6.1
      */
     static DrtUpdateKey(hKeyRegistration, pAppData) {
@@ -7563,7 +7565,7 @@ class P2P {
      * Only the application that registered they key may deregister it. An application can deregister a key from the local node. Upon completion the function triggers a <b>DRT_EVENT_LEAFSET_KEY_CHANGE</b> event;  informing the application and other nodes participating in the DRT mesh of the deregistration.
      * @param {Pointer<Void>} hKeyRegistration The DRT handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtregisterkey">DrtRegisterKey</a> function specifying a registered key within the DRT.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtunregisterkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtunregisterkey
      * @since windows6.1
      */
     static DrtUnregisterKey(hKeyRegistration) {
@@ -7581,7 +7583,7 @@ class P2P {
      * @param {HANDLE} hEvent Handle to the event that is signaled when the <b>DrtStartSearch</b> API finishes or an intermediate node is found.
      * @param {Pointer<Void>} pvContext Pointer to the context data passed to the application through the event.
      * @returns {Pointer<Void>} Handle used in the call to <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtendsearch">DrtEndSearch</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtstartsearch
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtstartsearch
      * @since windows6.1
      */
     static DrtStartSearch(hDrt, pKey, pInfo, timeout, hEvent, pvContext) {
@@ -7631,7 +7633,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtcontinuesearch
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtcontinuesearch
      * @since windows6.1
      */
     static DrtContinueSearch(hSearchContext) {
@@ -7651,7 +7653,7 @@ class P2P {
      * The application will receive S_OK and continue to loop using the <b>DrtGetSearchResultSize</b> and <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtgetsearchresult">DrtGetSearchResult</a> functions as long as the queue contains the search results. When the queue is empty the <b>DrtGetSearchResult</b> function will return DRT_E_SEARCH_IN_PROGRESS or DRT_E_NO_MORE.
      * @param {Pointer<Void>} hSearchContext Handle to the search context to close. This parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtstartsearch">DrtStartSearch</a> function.
      * @returns {Integer} Holds the size of the next available search result.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgetsearchresultsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgetsearchresultsize
      * @since windows6.1
      */
     static DrtGetSearchResultSize(hSearchContext) {
@@ -7755,7 +7757,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgetsearchresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgetsearchresult
      * @since windows6.1
      */
     static DrtGetSearchResult(hSearchContext, ulSearchResultSize, pSearchResult) {
@@ -7773,7 +7775,7 @@ class P2P {
      * DrtGetSearchPathSize function returns the size of the search path, which represents the number of nodes utilized in the search operation.
      * @param {Pointer<Void>} hSearchContext Handle to the search context. This parameter is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtstartsearch">DrtStartSearch</a> function.
      * @returns {Integer} Pointer to a <b>ULONG</b> value that indicates the size of the search path.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgetsearchpathsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgetsearchpathsize
      * @since windows6.1
      */
     static DrtGetSearchPathSize(hSearchContext) {
@@ -7793,7 +7795,7 @@ class P2P {
      * @param {Integer} ulSearchPathSize The size of the search path which represents the number of nodes utilized in the search operation.
      * @param {Pointer} pSearchPath Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/drt/ns-drt-drt_address_list">DRT_ADDRESS_LIST</a> structure containing the list of addresses.
      * @returns {HRESULT} This function returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgetsearchpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgetsearchpath
      * @since windows6.1
      */
     static DrtGetSearchPath(hSearchContext, ulSearchPathSize, pSearchPath) {
@@ -7842,7 +7844,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtendsearch
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtendsearch
      * @since windows6.1
      */
     static DrtEndSearch(hSearchContext) {
@@ -7902,7 +7904,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgetinstancename
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgetinstancename
      * @since windows6.1
      */
     static DrtGetInstanceName(hDrt, ulcbInstanceNameSize, pwzDrtInstanceName) {
@@ -7920,7 +7922,7 @@ class P2P {
      * The DrtGetInstanceNameSize function returns the size of the Distributed Routing Table instance name.
      * @param {Pointer<Void>} hDrt Handle to the target DRT instance.
      * @returns {Integer} The length of the DRT instance name.
-     * @see https://learn.microsoft.com/windows/win32/api/drt/nf-drt-drtgetinstancenamesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/drt/nf-drt-drtgetinstancenamesize
      * @since windows6.1
      */
     static DrtGetInstanceNameSize(hDrt) {
@@ -7971,7 +7973,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdiststartup
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdiststartup
      * @since windows6.1
      */
     static PeerDistStartup(dwVersionRequested, phPeerDist, pdwSupportedVersion) {
@@ -8006,7 +8008,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistshutdown
      * @since windows6.1
      */
     static PeerDistShutdown(hPeerDist) {
@@ -8021,7 +8023,7 @@ class P2P {
      * @param {Pointer} hPeerDist A <b>PEERDIST_INSTANCE_HANDLE</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/peerdist/nf-peerdist-peerdiststartup">PeerDistStartup</a>.
      * @param {Pointer<Integer>} pPeerDistStatus A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/peerdist/ne-peerdist-peerdist_status">PEERDIST_STATUS</a> enumeration which upon operation success receives the current status of the Peer Distribution service.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistgetstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistgetstatus
      * @since windows6.1
      */
     static PeerDistGetStatus(hPeerDist, pPeerDistStatus) {
@@ -8074,7 +8076,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistregisterforstatuschangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistregisterforstatuschangenotification
      * @since windows6.1
      */
     static PeerDistRegisterForStatusChangeNotification(hPeerDist, hCompletionPort, ulCompletionKey, lpOverlapped, pPeerDistStatus) {
@@ -8125,7 +8127,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistunregisterforstatuschangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistunregisterforstatuschangenotification
      * @since windows6.1
      */
     static PeerDistUnregisterForStatusChangeNotification(hPeerDist) {
@@ -8218,7 +8220,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverpublishstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverpublishstream
      * @since windows6.1
      */
     static PeerDistServerPublishStream(hPeerDist, cbContentIdentifier, pContentIdentifier, cbContentLength, pPublishOptions, hCompletionPort, ulCompletionKey, phStream) {
@@ -8302,7 +8304,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverpublishaddtostream
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverpublishaddtostream
      * @since windows6.1
      */
     static PeerDistServerPublishAddToStream(hPeerDist, hStream, cbNumberOfBytes, pBuffer, lpOverlapped) {
@@ -8382,7 +8384,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverpublishcompletestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverpublishcompletestream
      * @since windows6.1
      */
     static PeerDistServerPublishCompleteStream(hPeerDist, hStream, lpOverlapped) {
@@ -8428,7 +8430,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverclosestreamhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverclosestreamhandle
      * @since windows6.1
      */
     static PeerDistServerCloseStreamHandle(hPeerDist, hStream) {
@@ -8497,7 +8499,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverunpublish
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverunpublish
      * @since windows6.1
      */
     static PeerDistServerUnpublish(hPeerDist, cbContentIdentifier, pContentIdentifier) {
@@ -8585,7 +8587,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserveropencontentinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserveropencontentinformation
      * @since windows6.1
      */
     static PeerDistServerOpenContentInformation(hPeerDist, cbContentIdentifier, pContentIdentifier, ullContentOffset, cbContentLength, hCompletionPort, ulCompletionKey, phContentInfo) {
@@ -8672,7 +8674,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverretrievecontentinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverretrievecontentinformation
      * @since windows6.1
      */
     static PeerDistServerRetrieveContentInformation(hPeerDist, hContentInfo, cbMaxNumberOfBytes, pBuffer, lpOverlapped) {
@@ -8716,7 +8718,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserverclosecontentinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserverclosecontentinformation
      * @since windows6.1
      */
     static PeerDistServerCloseContentInformation(hPeerDist, hContentInfo) {
@@ -8801,7 +8803,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistservercancelasyncoperation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistservercancelasyncoperation
      * @since windows6.1
      */
     static PeerDistServerCancelAsyncOperation(hPeerDist, cbContentIdentifier, pContentIdentifier, pOverlapped) {
@@ -8897,7 +8899,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientopencontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientopencontent
      * @since windows6.1
      */
     static PeerDistClientOpenContent(hPeerDist, pContentTag, hCompletionPort, ulCompletionKey, phContentHandle) {
@@ -8947,7 +8949,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientclosecontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientclosecontent
      * @since windows6.1
      */
     static PeerDistClientCloseContent(hPeerDist, hContentHandle) {
@@ -9020,7 +9022,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientaddcontentinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientaddcontentinformation
      * @since windows6.1
      */
     static PeerDistClientAddContentInformation(hPeerDist, hContentHandle, cbNumberOfBytes, pBuffer, lpOverlapped) {
@@ -9087,7 +9089,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientcompletecontentinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientcompletecontentinformation
      * @since windows6.1
      */
     static PeerDistClientCompleteContentInformation(hPeerDist, hContentHandle, lpOverlapped) {
@@ -9158,7 +9160,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientadddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientadddata
      * @since windows6.1
      */
     static PeerDistClientAddData(hPeerDist, hContentHandle, cbNumberOfBytes, pBuffer, lpOverlapped) {
@@ -9281,7 +9283,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientblockread
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientblockread
      * @since windows6.1
      */
     static PeerDistClientBlockRead(hPeerDist, hContentHandle, cbMaxNumberOfBytes, pBuffer, dwTimeoutInMilliseconds, lpOverlapped) {
@@ -9404,7 +9406,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientstreamread
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientstreamread
      * @since windows6.1
      */
     static PeerDistClientStreamRead(hPeerDist, hContentHandle, cbMaxNumberOfBytes, pBuffer, dwTimeoutInMilliseconds, lpOverlapped) {
@@ -9473,7 +9475,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientflushcontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientflushcontent
      * @since windows6.1
      */
     static PeerDistClientFlushContent(hPeerDist, pContentTag, hCompletionPort, ulCompletionKey, lpOverlapped) {
@@ -9559,7 +9561,7 @@ class P2P {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientcancelasyncoperation
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientcancelasyncoperation
      * @since windows6.1
      */
     static PeerDistClientCancelAsyncOperation(hPeerDist, hContentHandle, pOverlapped) {
@@ -9580,7 +9582,7 @@ class P2P {
      * @param {Pointer} hPeerDist A <b>PEERDIST_INSTANCE_HANDLE</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/peerdist/nf-peerdist-peerdiststartup">PeerDistStartup</a>.
      * @param {Pointer<PEERDIST_STATUS_INFO>} pPeerDistStatus A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/peerdist/ns-peerdist-peerdist_status_info">PEERDIST_STATUS_INFO</a> structure that contains the current status and capabilities of the Peer Distribution service.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistgetstatusex
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistgetstatusex
      * @since windows8.0
      */
     static PeerDistGetStatusEx(hPeerDist, pPeerDistStatus) {
@@ -9602,7 +9604,7 @@ class P2P {
      * @param {Pointer<OVERLAPPED>} lpOverlapped Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. If the <b>hEvent</b> member of the structure is not <b>NULL</b>, it will be signaled via SetEvent() used in order to signal the notification. This can occur  even if the completion port is specified via the <i>hCompletionPort</i> argument.
      * @param {Pointer<PEERDIST_STATUS_INFO>} pPeerDistStatus A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/peerdist/ns-peerdist-peerdist_status_info">PEERDIST_STATUS_INFO</a> structure that contains the current status and capabilities of the Peer Distribution service.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistregisterforstatuschangenotificationex
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistregisterforstatuschangenotificationex
      * @since windows8.0
      */
     static PeerDistRegisterForStatusChangeNotificationEx(hPeerDist, hCompletionPort, ulCompletionKey, lpOverlapped, pPeerDistStatus) {
@@ -9620,7 +9622,7 @@ class P2P {
      * @returns {BOOL} Type: **[BOOL](/windows/win32/winprog/windows-data-types)**
      * 
      * `true` if the operation has completed. `false` if the *bWait* argument is `false` and the operation is still pending.
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistgetoverlappedresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistgetoverlappedresult
      * @since windows8.0
      */
     static PeerDistGetOverlappedResult(lpOverlapped, lpNumberOfBytesTransferred, bWait) {
@@ -9651,7 +9653,7 @@ class P2P {
      * @param {Pointer} ulCompletionKey Value to be returned through the <i>lpCompletionKey</i> parameter of the <a href="https://docs.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> function. This parameter is ignored when <i>hCompletionPort</i> is <b>NULL</b>.
      * @param {Pointer<Pointer>} phContentInfo A handle  used to retrieve the content information.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistserveropencontentinformationex
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistserveropencontentinformationex
      * @since windows8.0
      */
     static PeerDistServerOpenContentInformationEx(hPeerDist, cbContentIdentifier, pContentIdentifier, ullContentOffset, cbContentLength, pRetrievalOptions, hCompletionPort, ulCompletionKey, phContentInfo) {
@@ -9671,7 +9673,7 @@ class P2P {
      * @param {Integer} dwBufferSize The size, in bytes, of the buffer for the <i>lpInformation</i> parameter.
      * @param {Pointer} lpInformation A buffer for the returned information. The format of this information depends on the value of the <i>PeerDistClientInfoClass</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
-     * @see https://learn.microsoft.com/windows/win32/api/peerdist/nf-peerdist-peerdistclientgetinformationbyhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/peerdist/nf-peerdist-peerdistclientgetinformationbyhandle
      * @since windows8.0
      */
     static PeerDistClientGetInformationByHandle(hPeerDist, hContentHandle, PeerDistClientInfoClass, dwBufferSize, lpInformation) {

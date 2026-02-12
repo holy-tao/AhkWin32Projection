@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_MOTION_ESTIMATOR_DESC.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
 
 /**
  * This interface maintains context for video motion estimation operations.
  * @remarks
- * 
  * Create a new instance of this interface by calling [ID3D12VideoDevice1::CreateVideoMotionEstimator](nf-d3d12video-id3d12videodevice1-createvideomotionestimator.md).
  * 
  * This interface is passed into calls to [ID3D12VideoEncodeCommandList::EstimateMotion](nf-d3d12video-id3d12videoencodecommandlist-estimatemotion.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videomotionestimator
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nn-d3d12video-id3d12videomotionestimator
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,9 +36,9 @@ class ID3D12VideoMotionEstimator extends ID3D12Pageable{
     static VTableNames => ["GetDesc", "GetProtectedResourceSession"]
 
     /**
-     * 
-     * @returns {D3D12_VIDEO_MOTION_ESTIMATOR_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videomotionestimator-getdesc
+     * Gets the D3D12_VIDEO_MOTION_ESTIMATOR_DESC structure that was passed into ID3D12VideoDevice1::CreateVideoMotionEstimator) when the ID3D12VideoMotionEstimator was created.
+     * @returns {D3D12_VIDEO_MOTION_ESTIMATOR_DESC} This method returns a **D3D12_VIDEO_MOTION_ESTIMATOR_DESC** structure.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videomotionestimator-getdesc
      */
     GetDesc() {
         result := ComCall(8, this, "ptr")
@@ -48,13 +46,17 @@ class ID3D12VideoMotionEstimator extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videomotionestimator-getprotectedresourcesession
+     * Gets the ID3D12ProtectedResourceSession that was passed into ID3D12VideoDevice1::CreateVideoMotionEstimator when the ID3D12VideoMotionEstimator was created.
+     * @param {Pointer<Guid>} riid The globally unique identifier (GUID) for the **ID3D12ProtectedResourceSession** interface.
+     * @returns {Pointer<Pointer<Void>>} Receives a void pointer representing the **ID3D12ProtectedResourceSession** interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videomotionestimator-getprotectedresourcesession
      */
     GetProtectedResourceSession(riid) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppProtectedSession
     }
 }

@@ -38,7 +38,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
     ThreadNameChanged(threadId, cchName, name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(72, this, "ptr", threadId, "uint", cchName, "ptr", name, "HRESULT")
+        result := ComCall(72, this, "ptr", threadId, "uint", cchName, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
     GarbageCollectionStarted(cGenerations, generationCollected, reason) {
         generationCollectedMarshal := generationCollected is VarRef ? "int*" : "ptr"
 
-        result := ComCall(73, this, "int", cGenerations, generationCollectedMarshal, generationCollected, "int", reason, "HRESULT")
+        result := ComCall(73, this, "int", cGenerations, generationCollectedMarshal, generationCollected, "int", reason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +75,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
         objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(74, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,18 +88,26 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * @returns {HRESULT} 
      */
     GarbageCollectionFinished() {
-        result := ComCall(75, this, "HRESULT")
+        result := ComCall(75, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Integer} finalizerFlags 
-     * @param {Pointer} objectID 
+     * @param {Pointer} objectID_ 
      * @returns {HRESULT} 
      */
-    FinalizeableObjectQueued(finalizerFlags, objectID) {
-        result := ComCall(76, this, "uint", finalizerFlags, "ptr", objectID, "HRESULT")
+    FinalizeableObjectQueued(finalizerFlags, objectID_) {
+        result := ComCall(76, this, "uint", finalizerFlags, "ptr", objectID_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +126,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
         rootFlagsMarshal := rootFlags is VarRef ? "int*" : "ptr"
         rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(77, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, rootKindsMarshal, rootKinds, rootFlagsMarshal, rootFlags, rootIdsMarshal, rootIds, "HRESULT")
+        result := ComCall(77, this, "uint", cRootRefs, rootRefIdsMarshal, rootRefIds, rootKindsMarshal, rootKinds, rootFlagsMarshal, rootFlags, rootIdsMarshal, rootIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +141,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * @returns {HRESULT} 
      */
     HandleCreated(handleId, initialObjectId) {
-        result := ComCall(78, this, "ptr", handleId, "ptr", initialObjectId, "HRESULT")
+        result := ComCall(78, this, "ptr", handleId, "ptr", initialObjectId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +155,11 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * @returns {HRESULT} 
      */
     HandleDestroyed(handleId) {
-        result := ComCall(79, this, "ptr", handleId, "HRESULT")
+        result := ComCall(79, this, "ptr", handleId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

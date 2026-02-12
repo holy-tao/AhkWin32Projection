@@ -13,7 +13,7 @@
  * <li><b>dwStringOffset</b> is nonzero and <b>dwStringSize</b> is zero.</li>
  * <li><b>dwStringOffset</b> is nonzero, <b>dwStringSize</b> is 1, and the byte at the given offset is zero.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-varstring
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-varstring
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

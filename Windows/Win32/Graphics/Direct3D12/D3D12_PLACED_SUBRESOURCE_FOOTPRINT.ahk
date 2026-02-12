@@ -14,7 +14,7 @@
  * This structure is also used a number of helper functions (refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/helper-structures-and-functions-for-d3d12">Helper Structures and Functions for D3D12</a>).
  * 
  * When copying textures, use this structure along with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_texture_copy_location">D3D12_TEXTURE_COPY_LOCATION</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_placed_subresource_footprint
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

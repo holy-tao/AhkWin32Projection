@@ -5,6 +5,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Describes the stub for a managed object.
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-imanagedobjectinfo
  * @namespace Windows.Win32.System.ClrHosting
  * @version v4.0.30319
  */
@@ -35,7 +37,11 @@ class IManagedObject extends IUnknown{
      */
     GetSerializedBuffer() {
         pBSTR := BSTR()
-        result := ComCall(3, this, "ptr", pBSTR, "HRESULT")
+        result := ComCall(3, this, "ptr", pBSTR, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBSTR
     }
 
@@ -50,7 +56,11 @@ class IManagedObject extends IUnknown{
         AppDomainIDMarshal := AppDomainID is VarRef ? "int*" : "ptr"
         pCCWMarshal := pCCW is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pBSTRGUID, AppDomainIDMarshal, AppDomainID, pCCWMarshal, pCCW, "HRESULT")
+        result := ComCall(4, this, "ptr", pBSTRGUID, AppDomainIDMarshal, AppDomainID, pCCWMarshal, pCCW, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

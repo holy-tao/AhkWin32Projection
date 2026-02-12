@@ -93,7 +93,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(7, this, "int*", &Type := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Type
     }
 
@@ -103,7 +107,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      */
     get_Text() {
         Text := BSTR()
-        result := ComCall(8, this, "ptr", Text, "HRESULT")
+        result := ComCall(8, this, "ptr", Text, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Text
     }
 
@@ -112,7 +120,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {ISpeechGrammarRule} 
      */
     get_Rule() {
-        result := ComCall(9, this, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &Rule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechGrammarRule(Rule)
     }
 
@@ -122,7 +134,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      */
     get_Weight() {
         Weight := VARIANT()
-        result := ComCall(10, this, "ptr", Weight, "HRESULT")
+        result := ComCall(10, this, "ptr", Weight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Weight
     }
 
@@ -132,7 +148,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      */
     get_PropertyName() {
         PropertyName := BSTR()
-        result := ComCall(11, this, "ptr", PropertyName, "HRESULT")
+        result := ComCall(11, this, "ptr", PropertyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PropertyName
     }
 
@@ -141,7 +161,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {Integer} 
      */
     get_PropertyId() {
-        result := ComCall(12, this, "int*", &PropertyId := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &PropertyId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PropertyId
     }
 
@@ -150,9 +174,13 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {VARIANT} 
      */
     get_PropertyValue() {
-        PropertyValue := VARIANT()
-        result := ComCall(13, this, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        PropertyValue_ := VARIANT()
+        result := ComCall(13, this, "ptr", PropertyValue_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return PropertyValue_
     }
 
     /**
@@ -160,7 +188,11 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
      * @returns {ISpeechGrammarRuleState} 
      */
     get_NextState() {
-        result := ComCall(14, this, "ptr*", &NextState := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &NextState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechGrammarRuleState(NextState)
     }
 }

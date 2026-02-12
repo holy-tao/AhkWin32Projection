@@ -5,7 +5,7 @@
 
 /**
  * An IInkPresenterDesktop object represents an InkPresenter that can be configured and inserted into the DirectComposition visual tree of the Classic Windows app.
- * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nn-inkpresenterdesktop-iinkpresenterdesktop
+ * @see https://learn.microsoft.com/windows/win32/api//content/inkpresenterdesktop/nn-inkpresenterdesktop-iinkpresenterdesktop
  * @namespace Windows.Win32.UI.Input.Ink
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IInkPresenterDesktop extends IUnknown{
      * @param {IUnknown} rootVisual The app's  <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-portal">DirectComposition</a> visual tree.
      * @param {IUnknown} device NULL for default ink rendering, or an <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiondevice3">IDCompositionDevice3</a> object used to commit all pending DirectComposition commands for custom drying of ink input to the app's  <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-portal">DirectComposition</a> visual tree.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setrootvisual
+     * @see https://learn.microsoft.com/windows/win32/api//content/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setrootvisual
      */
     SetRootVisual(rootVisual, device) {
-        result := ComCall(3, this, "ptr", rootVisual, "ptr", device, "HRESULT")
+        result := ComCall(3, this, "ptr", rootVisual, "ptr", device, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,10 +50,14 @@ class IInkPresenterDesktop extends IUnknown{
      * Sets an IInkCommitRequestHandler object that enables the app (instead of an IInkPresenterDesktop object) to commit all pending Microsoft DirectComposition commands to the app's DirectComposition visual tree.
      * @param {IInkCommitRequestHandler} handler The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/inkpresenterdesktop/nn-inkpresenterdesktop-iinkcommitrequesthandler">IInkCommitRequestHandler</a> that processes the ink input.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setcommitrequesthandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setcommitrequesthandler
      */
     SetCommitRequestHandler(handler) {
-        result := ComCall(4, this, "ptr", handler, "HRESULT")
+        result := ComCall(4, this, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,13 +66,17 @@ class IInkPresenterDesktop extends IUnknown{
      * @param {Pointer<Float>} width The width of the object, in DIPs.
      * @param {Pointer<Float>} height The height of the object, in DIPs.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-getsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-getsize
      */
     GetSize(width, height) {
         widthMarshal := width is VarRef ? "float*" : "ptr"
         heightMarshal := height is VarRef ? "float*" : "ptr"
 
-        result := ComCall(5, this, widthMarshal, width, heightMarshal, height, "HRESULT")
+        result := ComCall(5, this, widthMarshal, width, heightMarshal, height, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,20 +85,28 @@ class IInkPresenterDesktop extends IUnknown{
      * @param {Float} width The width of the object, in DIPs.
      * @param {Float} height The height of the object, in DIPs.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-setsize
      */
     SetSize(width, height) {
-        result := ComCall(6, this, "float", width, "float", height, "HRESULT")
+        result := ComCall(6, this, "float", width, "float", height, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies a high contrast change handler. This handler is notified of changes to the high contrast system settings.
-     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-onhighcontrastchanged
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/inkpresenterdesktop/nf-inkpresenterdesktop-iinkpresenterdesktop-onhighcontrastchanged
      */
     OnHighContrastChanged() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

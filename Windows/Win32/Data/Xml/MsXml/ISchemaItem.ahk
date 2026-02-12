@@ -79,7 +79,11 @@ class ISchemaItem extends IDispatch{
      */
     get_name() {
         name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
@@ -89,7 +93,11 @@ class ISchemaItem extends IDispatch{
      */
     get_namespaceURI() {
         namespaceURI := BSTR()
-        result := ComCall(8, this, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(8, this, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return namespaceURI
     }
 
@@ -98,7 +106,11 @@ class ISchemaItem extends IDispatch{
      * @returns {ISchema} 
      */
     get_schema() {
-        result := ComCall(9, this, "ptr*", &schema := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &schema := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchema(schema)
     }
 
@@ -108,7 +120,11 @@ class ISchemaItem extends IDispatch{
      */
     get_id() {
         id := BSTR()
-        result := ComCall(10, this, "ptr", id, "HRESULT")
+        result := ComCall(10, this, "ptr", id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return id
     }
 
@@ -117,7 +133,11 @@ class ISchemaItem extends IDispatch{
      * @returns {Integer} 
      */
     get_itemType() {
-        result := ComCall(11, this, "int*", &itemType := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &itemType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return itemType
     }
 
@@ -126,7 +146,11 @@ class ISchemaItem extends IDispatch{
      * @returns {IVBSAXAttributes} 
      */
     get_unhandledAttributes() {
-        result := ComCall(12, this, "ptr*", &attributes := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &attributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVBSAXAttributes(attributes)
     }
 
@@ -136,7 +160,11 @@ class ISchemaItem extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     writeAnnotation(annotationSink) {
-        result := ComCall(13, this, "ptr", annotationSink, "short*", &isWritten := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", annotationSink, "short*", &isWritten := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isWritten
     }
 }

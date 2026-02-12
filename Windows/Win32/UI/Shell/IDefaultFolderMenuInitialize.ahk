@@ -5,7 +5,7 @@
 
 /**
  * Provides methods used to get and set shortcut menu information. This information is the same as that provided to SHCreateDefaultContextMenu through the DEFCONTEXTMENU structure.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idefaultfoldermenuinitialize
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-idefaultfoldermenuinitialize
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -31,8 +31,8 @@ class IDefaultFolderMenuInitialize extends IUnknown{
     static VTableNames => ["Initialize", "SetMenuRestrictions", "GetMenuRestrictions", "SetHandlerClsid"]
 
     /**
-     * .
-     * @param {HWND} hwnd A handle to the shortcut menu.
+     * . (IDefaultFolderMenuInitialize.Initialize)
+     * @param {HWND} hwnd_ A handle to the shortcut menu.
      * @param {IContextMenuCB} pcmcb Type: <b><a href="nn-shobjidl_core-icontextmenucb.md">IContextMenuCB</a>*</b>
      * 
      * The address of the object that defines the callback for the shortcut menu.
@@ -57,50 +57,66 @@ class IDefaultFolderMenuInitialize extends IUnknown{
      * @param {Pointer<HKEY>} aKeys Type: <b>const HKEY*</b>
      * 
      * Specifies where to load extensions from.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-initialize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-initialize
      */
-    Initialize(hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Initialize(hwnd_, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "HRESULT")
+        result := ComCall(3, this, "ptr", hwnd_, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * .
+     * . (IDefaultFolderMenuInitialize.SetMenuRestrictions)
      * @param {Integer} dfmrValues A bitwise combination of the [DEFAULT_FOLDER_MENU_RESTRICTIONS](ne-shobjidl_core-default_folder_menu_restrictions.md) values that specify the restrictions to set.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-setmenurestrictions
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-setmenurestrictions
      */
     SetMenuRestrictions(dfmrValues) {
-        result := ComCall(4, this, "int", dfmrValues, "HRESULT")
+        result := ComCall(4, this, "int", dfmrValues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * .
+     * . (IDefaultFolderMenuInitialize.GetMenuRestrictions)
      * @param {Integer} dfmrMask A bitwise combination of the [DEFAULT_FOLDER_MENU_RESTRICTIONS](ne-shobjidl_core-default_folder_menu_restrictions.md) values that specify the mask of the restrictions to get.
      * @returns {Integer} A bitwise combination of the [DEFAULT_FOLDER_MENU_RESTRICTIONS](ne-shobjidl_core-default_folder_menu_restrictions.md) values that specify the restrictions.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-getmenurestrictions
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-getmenurestrictions
      */
     GetMenuRestrictions(dfmrMask) {
-        result := ComCall(5, this, "int", dfmrMask, "int*", &pdfmrValues := 0, "HRESULT")
+        result := ComCall(5, this, "int", dfmrMask, "int*", &pdfmrValues := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdfmrValues
     }
 
     /**
-     * .
+     * . (IDefaultFolderMenuInitialize.SetHandlerClsid)
      * @param {Pointer<Guid>} rclsid Type: <b>REFCLSID</b>
      * 
      * The CLSID for the object defines the shortcut menu handler.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-sethandlerclsid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultfoldermenuinitialize-sethandlerclsid
      */
     SetHandlerClsid(rclsid) {
-        result := ComCall(6, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(6, this, "ptr", rclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

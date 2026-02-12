@@ -34,7 +34,11 @@ class ILearningModelSessionOptionsNative1 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetIntraOpThreadSpinning(allowSpinning) {
-        result := ComCall(3, this, "char", allowSpinning, "HRESULT")
+        result := ComCall(3, this, "char", allowSpinning, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

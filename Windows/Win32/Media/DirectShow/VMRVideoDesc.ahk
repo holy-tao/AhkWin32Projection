@@ -4,7 +4,7 @@
 
 /**
  * This topic applies to Windows XP Service Pack 1 or later. The VMRVideoDesc structure describes a video stream to be deinterlaced.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrvideodesc
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-vmrvideodesc
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

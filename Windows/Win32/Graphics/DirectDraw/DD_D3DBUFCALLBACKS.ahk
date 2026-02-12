@@ -31,7 +31,7 @@
  * </li>
  * </ul>
  * Implicit vertex buffers should not be placed in video memory because they are expected to be read/write. Only explicit vertex buffers with the DDSCAPS_WRITEONLY flag set can be safely placed in video memory.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_d3dbufcallbacks
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_d3dbufcallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

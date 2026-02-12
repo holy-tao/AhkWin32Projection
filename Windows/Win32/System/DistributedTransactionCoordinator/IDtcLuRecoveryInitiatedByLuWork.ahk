@@ -45,7 +45,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
         pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
         pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", lRecoverySeqNum, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, pOurLogNameMarshal, pOurLogName, "uint", cbOurLogName, "uint", dwProtocol, pResponseMarshal, pResponse, "HRESULT")
+        result := ComCall(3, this, "int", lRecoverySeqNum, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, pOurLogNameMarshal, pOurLogName, "uint", cbOurLogName, "uint", dwProtocol, pResponseMarshal, pResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
     GetOurLogNameSize(pcbOurLogName) {
         pcbOurLogNameMarshal := pcbOurLogName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pcbOurLogNameMarshal, pcbOurLogName, "HRESULT")
+        result := ComCall(4, this, pcbOurLogNameMarshal, pcbOurLogName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +81,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
         pOurLogNameMarshal := pOurLogName is VarRef ? "char*" : "ptr"
         pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pdwProtocolMarshal, pdwProtocol, "HRESULT")
+        result := ComCall(5, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pdwProtocolMarshal, pdwProtocol, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +95,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleConfirmationOfOurXln(Confirmation) {
-        result := ComCall(6, this, "int", Confirmation, "HRESULT")
+        result := ComCall(6, this, "int", Confirmation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +117,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
         pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
         pCompareStateMarshal := pCompareState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pRemoteTransIdMarshal, pRemoteTransId, "uint", cbRemoteTransId, "int", CompareState, pResponseMarshal, pResponse, pCompareStateMarshal, pCompareState, "HRESULT")
+        result := ComCall(7, this, pRemoteTransIdMarshal, pRemoteTransId, "uint", cbRemoteTransId, "int", CompareState, pResponseMarshal, pResponse, pCompareStateMarshal, pCompareState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +131,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleConfirmationOfOurCompareStates(Confirmation) {
-        result := ComCall(8, this, "int", Confirmation, "HRESULT")
+        result := ComCall(8, this, "int", Confirmation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +145,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleErrorFromOurCompareStates(Error) {
-        result := ComCall(9, this, "int", Error, "HRESULT")
+        result := ComCall(9, this, "int", Error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +158,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * @returns {HRESULT} 
      */
     ConversationLost() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

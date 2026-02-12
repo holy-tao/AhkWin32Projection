@@ -7,12 +7,9 @@
 /**
  * Exposes methods and properties on the root element in a fragment.
  * @remarks
- * 
  * This interface is implemented by a root element within a framework; for example, a list box within a window. 
  * 			Other elements in the same fragment, such as list items, implement the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -39,6 +36,10 @@ class IRawElementProviderFragmentRoot extends IUnknown{
 
     /**
      * Retrieves the provider of the element that is at the specified point in this fragment.
+     * @remarks
+     * The returned provider should correspond to the element that would receive mouse input at the specified point.
+     * 
+     * If the point is on this element but not on any child element, either <b>NULL</b> or the provider of the fragment root is returned. If the point is on an element in another framework that is hosted by this fragment, the method returns the element that hosts that fragment (as indicated by <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragment-getembeddedfragmentroots">IRawElementProviderFragment::GetEmbeddedFragmentRoots</a>).
      * @param {Float} x Type: <b>double</b>
      * 
      * The horizontal screen coordinate.
@@ -48,10 +49,14 @@ class IRawElementProviderFragmentRoot extends IUnknown{
      * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
      * 
      * Receives a pointer to the provider of the element at (x, y),	or <b>NULL</b> if none exists. This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-elementproviderfrompoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-elementproviderfrompoint
      */
     ElementProviderFromPoint(x, y) {
-        result := ComCall(3, this, "double", x, "double", y, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, "double", x, "double", y, "ptr*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderFragment(pRetVal)
     }
 
@@ -63,10 +68,14 @@ class IRawElementProviderFragmentRoot extends IUnknown{
      *                 interface of the
      * 				element in this fragment that has the input focus, if any; otherwise <b>NULL</b>. 
      * 				This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-getfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-getfocus
      */
     GetFocus() {
-        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderFragment(pRetVal)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Maps a position on an input video stream to the corresponding position on an output video stream.
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imfvideopositionmapper
+ * @see https://learn.microsoft.com/windows/win32/api//content/evr/nn-evr-imfvideopositionmapper
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,6 +32,39 @@ class IMFVideoPositionMapper extends IUnknown{
 
     /**
      * Maps output image coordinates to input image coordinates.
+     * @remarks
+     * In the following diagram, R(dest) is the destination rectangle for the video. You can obtain this rectangle by calling <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideodisplaycontrol-getvideoposition">IMFVideoDisplayControl::GetVideoPosition</a>. The rectangle R1 is a substream within the video. The point P has pixel coordinates (x,y) relative to R(dest).
+     * 
+     * <img alt="Illustration showing a rectangle labeled R dest surrounding one labeled R1, which contains a point P located at (x,y)" border="" src="./images/imfvideopositionmapper.gif"/>
+     * 
+     * The position of P relative to R(dest) in <i>normalized</i> coordinates is calculated as follows:
+     * 
+     * 
+     * ``` syntax
+     * float xn = float(x + 0.5) / widthDest;
+     * float xy = float(y + 0.5) / heightDest;
+     * 
+     * ```
+     * 
+     * where <i>widthDest</i> and <i>heightDest</i> are the width and height of R(dest) in pixels.
+     * 
+     * To calculate the position of P relative to R1, call <b>MapOutputCoordinateToInputStream</b> as follows:
+     * 
+     * 
+     * ``` syntax
+     * float x1 = 0, y1 = 0;
+     * hr = pMap-&gt;MapOutputCoordinateToInputStream(xn, yn, 0, dwInputStreamIndex, &amp;x1, &amp;y1);
+     * ```
+     * 
+     * The values returned in <i>x1</i> and <i>y1</i> are normalized to the range [0...1]. To convert back to pixel coordinates, scale these values by the size of R1:
+     * 
+     * 
+     * ``` syntax
+     * int scaledx = int(floor(x1 * widthR1));
+     * int scaledy = int(floor(xy * heightR1));
+     * ```
+     * 
+     * Note that <i>x1</i> and <i>y1</i> might fall outside the range [0...1] if P lies outside of R1.
      * @param {Float} xOut X-coordinate of the output image, normalized to the range [0...1].
      * @param {Float} yOut Y-coordinate of the output image, normalized to the range [0...1].
      * @param {Integer} dwOutputStreamIndex Output stream index for the coordinate mapping.
@@ -70,13 +103,17 @@ class IMFVideoPositionMapper extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideopositionmapper-mapoutputcoordinatetoinputstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/evr/nf-evr-imfvideopositionmapper-mapoutputcoordinatetoinputstream
      */
     MapOutputCoordinateToInputStream(xOut, yOut, dwOutputStreamIndex, dwInputStreamIndex, pxIn, pyIn) {
         pxInMarshal := pxIn is VarRef ? "float*" : "ptr"
         pyInMarshal := pyIn is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "float", xOut, "float", yOut, "uint", dwOutputStreamIndex, "uint", dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "HRESULT")
+        result := ComCall(3, this, "float", xOut, "float", yOut, "uint", dwOutputStreamIndex, "uint", dwInputStreamIndex, pxInMarshal, pxIn, pyInMarshal, pyIn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

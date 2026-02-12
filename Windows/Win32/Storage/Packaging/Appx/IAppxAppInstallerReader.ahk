@@ -5,8 +5,10 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxappinstallerreader
+ * Provides access to the XML DOM for an App Installer file.
+ * @remarks
+ * Get an instance of this interface by calling [IAppxFactory3::CreateAppInstallerReader](nf-appxpackaging-iappxfactory3-createappinstallerreader.md).
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxappinstallerreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -32,12 +34,16 @@ class IAppxAppInstallerReader extends IUnknown{
     static VTableNames => ["GetXmlDom"]
 
     /**
-     * 
-     * @returns {IXMLDOMDocument} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxappinstallerreader-getxmldom
+     * Gets the XML DOM for an App Installer file.
+     * @returns {IXMLDOMDocument} Receives a pointer to [IXMLDOMDocument](/previous-versions/windows/desktop/ms756987(v=vs.85)) representing the XML DOM for the App Installer file.
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxappinstallerreader-getxmldom
      */
     GetXmlDom() {
-        result := ComCall(3, this, "ptr*", &dom := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &dom := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocument(dom)
     }
 }

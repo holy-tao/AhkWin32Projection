@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Learn about the architecture of client-side and server-side XML formatting in SQLXML 4.0.
+ * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/sqlxml/formatting/architecture-of-client-side-and-server-side-xml-formatting-sqlxml-4-0
  * @namespace Windows.Win32.Foundation.Metadata
  * @version v4.0.30319
  */

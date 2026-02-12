@@ -140,7 +140,7 @@ class IO {
      * </ul>
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-createiocompletionport
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-createiocompletionport
      * @since windows5.1.2600
      */
     static CreateIoCompletionPort(FileHandle, ExistingCompletionPort, CompletionKey, NumberOfConcurrentThreads) {
@@ -259,7 +259,7 @@ class IO {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * For more information, see the Remarks section.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-getqueuedcompletionstatus
      * @since windows5.1.2600
      */
     static GetQueuedCompletionStatus(CompletionPort, lpNumberOfBytesTransferred, lpCompletionKey, lpOverlapped, dwMilliseconds) {
@@ -410,7 +410,7 @@ class IO {
      * 
      * To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-getqueuedcompletionstatusex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-getqueuedcompletionstatusex
      * @since windows6.0.6000
      */
     static GetQueuedCompletionStatusEx(CompletionPort, lpCompletionPortEntries, ulCount, ulNumEntriesRemoved, dwMilliseconds, fAlertable) {
@@ -507,7 +507,7 @@ class IO {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> .
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-postqueuedcompletionstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-postqueuedcompletionstatus
      * @since windows5.1.2600
      */
     static PostQueuedCompletionStatus(CompletionPort, dwNumberOfBytesTransferred, dwCompletionKey, lpOverlapped) {
@@ -650,7 +650,7 @@ class IO {
      * 
      * If the operation fails or is pending, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-deviceiocontrol
      * @since windows5.1.2600
      */
     static DeviceIoControl(hDevice, dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
@@ -705,7 +705,7 @@ class IO {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-getoverlappedresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-getoverlappedresult
      * @since windows5.1.2600
      */
     static GetOverlappedResult(hFile, lpOverlapped, lpNumberOfBytesTransferred, bWait) {
@@ -840,7 +840,7 @@ class IO {
      * If this function cannot find a request to cancel, the return value is 0 (zero), and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_NOT_FOUND</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-cancelioex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-cancelioex
      * @since windows6.0.6000
      */
     static CancelIoEx(hFile, lpOverlapped) {
@@ -932,7 +932,7 @@ class IO {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-cancelio
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-cancelio
      * @since windows5.1.2600
      */
     static CancelIo(hFile) {
@@ -1005,7 +1005,7 @@ class IO {
      * <li>If <i>dwMilliseconds</i> is nonzero, and an I/O completion routine or APC is queued, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>WAIT_IO_COMPLETION</b>. </li>
      * <li>If <i>dwMilliseconds</i> is nonzero and the specified timeout interval elapses, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>WAIT_TIMEOUT</b>. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-getoverlappedresultex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-getoverlappedresultex
      * @since windows8.0
      */
     static GetOverlappedResultEx(hFile, lpOverlapped, lpNumberOfBytesTransferred, dwMilliseconds, bAlertable) {
@@ -1117,7 +1117,7 @@ class IO {
      * If this function cannot find a request to cancel, the return value is 0 (zero), and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_NOT_FOUND</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-cancelsynchronousio
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-cancelsynchronousio
      * @since windows6.0.6000
      */
     static CancelSynchronousIo(hThread) {
@@ -1156,7 +1156,7 @@ class IO {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-bindiocompletioncallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-bindiocompletioncallback
      * @since windows5.1.2600
      */
     static BindIoCompletionCallback(FileHandle, Function, Flags) {

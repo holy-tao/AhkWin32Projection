@@ -41,7 +41,11 @@ class IActiveScriptAuthor extends IUnknown{
     AddNamedItem(pszName, dwFlags, pdisp) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pszName, "uint", dwFlags, "ptr", pdisp, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, "uint", dwFlags, "ptr", pdisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class IActiveScriptAuthor extends IUnknown{
         pszEventName := pszEventName is String ? StrPtr(pszEventName) : pszEventName
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(4, this, "ptr", pszDefaultName, "ptr", pszCode, "ptr", pszItemName, "ptr", pszSubItemName, "ptr", pszEventName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pszDefaultName, "ptr", pszCode, "ptr", pszItemName, "ptr", pszSubItemName, "ptr", pszEventName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +91,11 @@ class IActiveScriptAuthor extends IUnknown{
         pszItemName := pszItemName is String ? StrPtr(pszItemName) : pszItemName
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(5, this, "ptr", pszCode, "ptr", pszItemName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pszCode, "ptr", pszItemName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +114,11 @@ class IActiveScriptAuthor extends IUnknown{
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(6, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,16 +137,27 @@ class IActiveScriptAuthor extends IUnknown{
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(7, this, "ptr", pszCode, "uint", cch, "ptr", pszDelimiter, "uint", dwFlags, pattrMarshal, pattr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetRoot (Database Engine)
+     * @remarks
+     * Used to determine the root node in a hierarchy tree.
      * @returns {IScriptNode} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/t-sql/data-types/getroot-database-engine
      */
     GetRoot() {
-        result := ComCall(8, this, "ptr*", &ppsp := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppsp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptNode(ppsp)
     }
 
@@ -139,7 +166,11 @@ class IActiveScriptAuthor extends IUnknown{
      * @returns {Integer} 
      */
     GetLanguageFlags() {
-        result := ComCall(9, this, "uint*", &pgrfasa := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pgrfasa := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pgrfasa
     }
 
@@ -156,7 +187,11 @@ class IActiveScriptAuthor extends IUnknown{
         pszSubItem := pszSubItem is String ? StrPtr(pszSubItem) : pszSubItem
         pszEvent := pszEvent is String ? StrPtr(pszEvent) : pszEvent
 
-        result := ComCall(10, this, "ptr", pdisp, "ptr", pszItem, "ptr", pszSubItem, "ptr", pszEvent, "ptr*", &ppse := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pdisp, "ptr", pszItem, "ptr", pszSubItem, "ptr", pszEvent, "ptr*", &ppse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptEntry(ppse)
     }
 
@@ -168,7 +203,11 @@ class IActiveScriptAuthor extends IUnknown{
     RemoveNamedItem(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(11, this, "ptr", pszName, "HRESULT")
+        result := ComCall(11, this, "ptr", pszName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,7 +220,11 @@ class IActiveScriptAuthor extends IUnknown{
      * @returns {HRESULT} 
      */
     AddTypeLib(rguidTypeLib, dwMajor, dwMinor, dwFlags) {
-        result := ComCall(12, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +236,11 @@ class IActiveScriptAuthor extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveTypeLib(rguidTypeLib, dwMajor, dwMinor) {
-        result := ComCall(13, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "HRESULT")
+        result := ComCall(13, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -204,7 +251,11 @@ class IActiveScriptAuthor extends IUnknown{
      */
     GetChars(fRequestedList) {
         pbstrChars := BSTR()
-        result := ComCall(14, this, "uint", fRequestedList, "ptr", pbstrChars, "HRESULT")
+        result := ComCall(14, this, "uint", fRequestedList, "ptr", pbstrChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrChars
     }
 
@@ -231,7 +282,11 @@ class IActiveScriptAuthor extends IUnknown{
         pmemidMarshal := pmemid is VarRef ? "int*" : "ptr"
         piCurrentParameterMarshal := piCurrentParameter is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, "ptr*", ppunk, "HRESULT")
+        result := ComCall(15, this, "ptr", pszCode, "uint", cchCode, "uint", ichCurrentPosition, "uint", dwListTypesRequested, pdwListTypesProvidedMarshal, pdwListTypesProvided, pichListAnchorPositionMarshal, pichListAnchorPosition, pichFuncAnchorPositionMarshal, pichFuncAnchorPosition, pmemidMarshal, pmemid, piCurrentParameterMarshal, piCurrentParameter, "ptr*", ppunk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -241,7 +296,11 @@ class IActiveScriptAuthor extends IUnknown{
      * @returns {BOOL} 
      */
     IsCommitChar(ch) {
-        result := ComCall(16, this, "char", ch, "int*", &pfcommit := 0, "HRESULT")
+        result := ComCall(16, this, "char", ch, "int*", &pfcommit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfcommit
     }
 }

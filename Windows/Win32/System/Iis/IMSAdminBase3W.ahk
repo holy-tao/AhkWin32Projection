@@ -43,7 +43,11 @@ class IMSAdminBase3W extends IMSAdminBase2W{
 
         pcchMDRequiredBufferSizeMarshal := pcchMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", cchMDBufferSize, "ptr", pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "HRESULT")
+        result := ComCall(40, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", cchMDBufferSize, "ptr", pszBuffer, pcchMDRequiredBufferSizeMarshal, pcchMDRequiredBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -36,7 +36,11 @@ class IBufferingTime extends IUnknown{
     GetBufferingTime(pdwMilliseconds) {
         pdwMillisecondsMarshal := pdwMilliseconds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwMillisecondsMarshal, pdwMilliseconds, "HRESULT")
+        result := ComCall(3, this, pdwMillisecondsMarshal, pdwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IBufferingTime extends IUnknown{
      * @returns {HRESULT} 
      */
     SetBufferingTime(dwMilliseconds) {
-        result := ComCall(4, this, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(4, this, "uint", dwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

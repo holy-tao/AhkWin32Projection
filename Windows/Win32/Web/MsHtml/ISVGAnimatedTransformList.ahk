@@ -55,7 +55,11 @@ class ISVGAnimatedTransformList extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_baseVal(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +68,11 @@ class ISVGAnimatedTransformList extends IDispatch{
      * @returns {ISVGTransformList} 
      */
     get_baseVal() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGTransformList(p)
     }
 
@@ -74,7 +82,11 @@ class ISVGAnimatedTransformList extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_animVal(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +95,11 @@ class ISVGAnimatedTransformList extends IDispatch{
      * @returns {ISVGTransformList} 
      */
     get_animVal() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGTransformList(p)
     }
 }

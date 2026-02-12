@@ -5,7 +5,7 @@
  * Specifies the algorithm being used to disable cryptographic settings.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ne-schannel-etlsalgorithmusage
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ne-schannel-etlsalgorithmusage
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

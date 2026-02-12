@@ -32,7 +32,7 @@
  * }
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_oid_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/ns-bcrypt-bcrypt_oid_list
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

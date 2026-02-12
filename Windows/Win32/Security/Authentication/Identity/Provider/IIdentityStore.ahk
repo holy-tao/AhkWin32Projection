@@ -6,7 +6,7 @@
 
 /**
  * Provides methods to enumerate and manage identities and identity providers.
- * @see https://docs.microsoft.com/windows/win32/api//identitystore/nn-identitystore-iidentitystore
+ * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nn-identitystore-iidentitystore
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IIdentityStore extends IUnknown{
     /**
      * Gets the number of identity providers registered on the system.
      * @returns {Integer} The number of identity providers registered on the system.
-     * @see https://docs.microsoft.com/windows/win32/api//identitystore/nf-identitystore-iidentitystore-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nf-identitystore-iidentitystore-getcount
      */
     GetCount() {
-        result := ComCall(3, this, "uint*", &pdwProviders := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwProviders := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwProviders
     }
 
@@ -46,10 +50,14 @@ class IIdentityStore extends IUnknown{
      * @param {Integer} dwProvider The index of the identity provider to retrieve.
      * @param {Pointer<Guid>} pProvGuid On output, this parameter receives a pointer to the GUID of the identity provider that this function retrieves.
      * @returns {IUnknown} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/identityprovider/nn-identityprovider-iidentityprovider">IIdentityProvider</a> interface pointer that this method retrieves.
-     * @see https://docs.microsoft.com/windows/win32/api//identitystore/nf-identitystore-iidentitystore-getat
+     * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nf-identitystore-iidentitystore-getat
      */
     GetAt(dwProvider, pProvGuid) {
-        result := ComCall(4, this, "uint", dwProvider, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwProvider, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIdentityProvider)
     }
 
@@ -59,13 +67,17 @@ class IIdentityStore extends IUnknown{
      * @param {Pointer<Guid>} ProviderGUID The identity provider associated with the identity.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//identitystore/nf-identitystore-iidentitystore-addtocache
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nf-identitystore-iidentitystore-addtocache
      */
     AddToCache(lpszUniqueID, ProviderGUID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(5, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "HRESULT")
+        result := ComCall(5, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,16 +86,20 @@ class IIdentityStore extends IUnknown{
      * @param {PWSTR} lpszUniqueID The identity for which to retrieve the SID.
      * @param {Pointer<Guid>} ProviderGUID The GUID of the identity provider.
      * @param {Integer} cbSid The size, in bytes, of the buffer pointed to by the <i>pSid</i> parameter.
-     * @param {Pointer<Integer>} pSid A pointer to the SID this method retrieves.
+     * @param {Pointer<Integer>} pSid_ A pointer to the SID this method retrieves.
      * @returns {Integer} The required length, in bytes,  of the <i>pSid</i> buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//identitystore/nf-identitystore-iidentitystore-converttosid
+     * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nf-identitystore-iidentitystore-converttosid
      */
-    ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid) {
+    ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid_) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        pSid_Marshal := pSid_ is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSid_Marshal, pSid_, "ushort*", &pcbRequiredSid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbRequiredSid
     }
 
@@ -93,10 +109,14 @@ class IIdentityStore extends IUnknown{
      * @param {Pointer<PROPERTYKEY>} pFilterkey A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that specifies a property. If the value of this parameter is not <b>NULL</b>, only identities that support the property specified by this parameter are enumerated.
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure. If the values of this parameter and the <i>pFilterkey</i> parameters are not <b>NULL</b>, only identities that have the property value specified by this parameter are enumerated.
      * @returns {IEnumUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a> interface pointer that can be used to enumerate identities.
-     * @see https://docs.microsoft.com/windows/win32/api//identitystore/nf-identitystore-iidentitystore-enumerateidentities
+     * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nf-identitystore-iidentitystore-enumerateidentities
      */
     EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(7, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        result := ComCall(7, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -104,11 +124,15 @@ class IIdentityStore extends IUnknown{
      * Sets the current index of the identity enumeration to zero.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//identitystore/nf-identitystore-iidentitystore-reset
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/identitystore/nf-identitystore-iidentitystore-reset
      */
     Reset() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

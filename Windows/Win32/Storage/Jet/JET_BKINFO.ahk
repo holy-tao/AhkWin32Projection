@@ -6,7 +6,7 @@
 
 /**
  * Learn more about: JET_BKINFO structure
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-bkinfo-structure2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-bkinfo-structure2
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

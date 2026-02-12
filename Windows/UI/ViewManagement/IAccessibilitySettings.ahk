@@ -1,0 +1,104 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Win32\System\WinRT\HSTRING.ahk
+#Include ..\..\Foundation\EventRegistrationToken.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.UI.ViewManagement
+ * @version WindowsRuntime 1.4
+ */
+class IAccessibilitySettings extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IAccessibilitySettings
+     * @type {Guid}
+     */
+    static IID => Guid("{fe0e8147-c4c0-4562-b962-1327b52ad5b9}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_HighContrast", "get_HighContrastScheme", "add_HighContrastChanged", "remove_HighContrastChanged"]
+
+    /**
+     * @type {Boolean} 
+     */
+    HighContrast {
+        get => this.get_HighContrast()
+    }
+
+    /**
+     * @type {HSTRING} 
+     */
+    HighContrastScheme {
+        get => this.get_HighContrastScheme()
+    }
+
+    /**
+     * 
+     * @returns {Boolean} 
+     */
+    get_HighContrast() {
+        result := ComCall(6, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @returns {HSTRING} 
+     */
+    get_HighContrastScheme() {
+        value := HSTRING()
+        result := ComCall(7, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @param {TypedEventHandler<AccessibilitySettings, IInspectable>} handler 
+     * @returns {EventRegistrationToken} 
+     */
+    add_HighContrastChanged(handler) {
+        cookie := EventRegistrationToken()
+        result := ComCall(8, this, "ptr", handler, "ptr", cookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cookie
+    }
+
+    /**
+     * 
+     * @param {EventRegistrationToken} cookie 
+     * @returns {HRESULT} 
+     */
+    remove_HighContrastChanged(cookie) {
+        cookie := cookie is Win32Handle ? NumGet(cookie, "ptr") : cookie
+
+        result := ComCall(9, this, "ptr", cookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

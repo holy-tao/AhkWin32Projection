@@ -29,12 +29,17 @@ class IObjectIdentity extends IUnknown{
     static VTableNames => ["IsEqualObject"]
 
     /**
-     * 
+     * The IsEqualObject function checks if two interfaces are on the same object.
      * @param {IUnknown} punk 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns **TRUE** if the interfaces are both on the same object, or **FALSE** otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/isequalobject
      */
     IsEqualObject(punk) {
-        result := ComCall(3, this, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -36,7 +36,11 @@ class IConvertType extends IUnknown{
      * @returns {HRESULT} 
      */
     CanConvert(wFromType, wToType, dwConvertFlags) {
-        result := ComCall(3, this, "ushort", wFromType, "ushort", wToType, "uint", dwConvertFlags, "HRESULT")
+        result := ComCall(3, this, "ushort", wFromType, "ushort", wToType, "uint", dwConvertFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

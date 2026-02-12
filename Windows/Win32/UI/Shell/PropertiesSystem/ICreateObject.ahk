@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that creates an object of a specified class.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-icreateobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nn-propsys-icreateobject
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ICreateObject extends IUnknown{
 
     /**
      * Creates a local object of a specified class and returns a pointer to a specified interface on the object.
+     * @remarks
+     * This method can be used with <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystorewithcreateobject">GetPropertyStoreWithCreateObject</a>.
      * @param {Pointer<Guid>} clsid Type: <b>REFCLSID</b>
      * 
      * A reference to a CLSID.
@@ -41,13 +43,17 @@ class ICreateObject extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface the created object should return.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of the pointer to the interface requested in <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-icreateobject-createobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-icreateobject-createobject
      */
     CreateObject(clsid, pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

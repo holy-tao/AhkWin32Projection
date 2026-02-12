@@ -11,7 +11,7 @@
  * The properties specified in the **ulPropTag1** and **ulPropTag2** members can be multi-valued if the service provider supports it. 
  *   
  * For more information about the **SComparePropsRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scomparepropsrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/scomparepropsrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

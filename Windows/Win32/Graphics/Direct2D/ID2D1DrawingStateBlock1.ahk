@@ -5,7 +5,7 @@
 
 /**
  * Implementation of a drawing state block that adds the functionality of primitive blend in addition to already existing antialias mode, transform, tags and text rendering mode.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1drawingstateblock1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1drawingstateblock1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock{
      * 
      * When this method returns, contains the antialiasing mode, transform, tags, primitive blend, and unit mode portion of the drawing state. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-getdescription
      */
     GetDescription(stateDescription) {
         ComCall(8, this, "ptr", stateDescription)
@@ -48,7 +48,7 @@ class ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock{
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_drawing_state_description1">D2D1_DRAWING_STATE_DESCRIPTION1</a> to be set associated with  this drawing state block.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-setdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-setdescription
      */
     SetDescription(stateDescription) {
         ComCall(9, this, "ptr", stateDescription)

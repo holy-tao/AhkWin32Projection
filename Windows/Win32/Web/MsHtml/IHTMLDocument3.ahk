@@ -179,7 +179,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     releaseCapture() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +193,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     recalc(fForce) {
-        result := ComCall(8, this, "short", fForce, "HRESULT")
+        result := ComCall(8, this, "short", fForce, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -199,9 +207,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     createTextNode(text) {
-        text := text is String ? BSTR.Alloc(text).Value : text
+        if(text is String) {
+            pin := BSTR.Alloc(text)
+            text := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", text, "ptr*", &newTextNode := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", text, "ptr*", &newTextNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(newTextNode)
     }
 
@@ -210,7 +225,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_documentElement() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -220,7 +239,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_uniqueID() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -231,9 +254,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     attachEvent(event, pDisp) {
-        event := event is String ? BSTR.Alloc(event).Value : event
+        if(event is String) {
+            pin := BSTR.Alloc(event)
+            event := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -244,9 +274,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     detachEvent(event, pDisp) {
-        event := event is String ? BSTR.Alloc(event).Value : event
+        if(event is String) {
+            pin := BSTR.Alloc(event)
+            event := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", event, "ptr", pDisp, "HRESULT")
+        result := ComCall(13, this, "ptr", event, "ptr", pDisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -256,7 +293,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onrowsdelete(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +307,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_onrowsdelete() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -276,7 +321,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onrowsinserted(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -286,7 +335,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_onrowsinserted() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -296,7 +349,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_oncellchange(v) {
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -306,7 +363,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_oncellchange() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -316,7 +377,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ondatasetchanged(v) {
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -326,7 +391,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_ondatasetchanged() {
         p := VARIANT()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -336,7 +405,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ondataavailable(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -346,7 +419,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_ondataavailable() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -356,7 +433,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ondatasetcomplete(v) {
-        result := ComCall(24, this, "ptr", v, "HRESULT")
+        result := ComCall(24, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -366,7 +447,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_ondatasetcomplete() {
         p := VARIANT()
-        result := ComCall(25, this, "ptr", p, "HRESULT")
+        result := ComCall(25, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -376,7 +461,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onpropertychange(v) {
-        result := ComCall(26, this, "ptr", v, "HRESULT")
+        result := ComCall(26, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -386,7 +475,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_onpropertychange() {
         p := VARIANT()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        result := ComCall(27, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -396,9 +489,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_dir(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", v, "HRESULT")
+        result := ComCall(28, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -408,7 +508,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_dir() {
         p := BSTR()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        result := ComCall(29, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -418,7 +522,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_oncontextmenu(v) {
-        result := ComCall(30, this, "ptr", v, "HRESULT")
+        result := ComCall(30, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -428,7 +536,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_oncontextmenu() {
         p := VARIANT()
-        result := ComCall(31, this, "ptr", p, "HRESULT")
+        result := ComCall(31, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -438,7 +550,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onstop(v) {
-        result := ComCall(32, this, "ptr", v, "HRESULT")
+        result := ComCall(32, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -448,7 +564,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_onstop() {
         p := VARIANT()
-        result := ComCall(33, this, "ptr", p, "HRESULT")
+        result := ComCall(33, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -457,7 +577,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLDocument2} 
      */
     createDocumentFragment() {
-        result := ComCall(34, this, "ptr*", &pNewDoc := 0, "HRESULT")
+        result := ComCall(34, this, "ptr*", &pNewDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(pNewDoc)
     }
 
@@ -466,7 +590,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLDocument2} 
      */
     get_parentDocument() {
-        result := ComCall(35, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(35, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(p)
     }
 
@@ -476,7 +604,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_enableDownload(v) {
-        result := ComCall(36, this, "short", v, "HRESULT")
+        result := ComCall(36, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -485,7 +617,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_enableDownload() {
-        result := ComCall(37, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(37, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -495,9 +631,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_baseUrl(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(38, this, "ptr", v, "HRESULT")
+        result := ComCall(38, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -507,7 +650,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_baseUrl() {
         p := BSTR()
-        result := ComCall(39, this, "ptr", p, "HRESULT")
+        result := ComCall(39, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -516,7 +663,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_childNodes() {
-        result := ComCall(40, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(40, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -526,7 +677,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_inheritStyleSheets(v) {
-        result := ComCall(41, this, "short", v, "HRESULT")
+        result := ComCall(41, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -535,7 +690,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_inheritStyleSheets() {
-        result := ComCall(42, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(42, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -545,7 +704,11 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onbeforeeditfocus(v) {
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -555,7 +718,11 @@ class IHTMLDocument3 extends IDispatch{
      */
     get_onbeforeeditfocus() {
         p := VARIANT()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -565,9 +732,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLElementCollection} 
      */
     getElementsByName(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", v, "ptr*", &pelColl := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", v, "ptr*", &pelColl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(pelColl)
     }
 
@@ -577,9 +751,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLElement} 
      */
     getElementById(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", v, "ptr*", &pel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(pel)
     }
 
@@ -589,9 +770,16 @@ class IHTMLDocument3 extends IDispatch{
      * @returns {IHTMLElementCollection} 
      */
     getElementsByTagName(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", v, "ptr*", &pelColl := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", v, "ptr*", &pelColl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(pelColl)
     }
 }

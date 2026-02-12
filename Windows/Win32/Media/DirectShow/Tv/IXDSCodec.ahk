@@ -6,11 +6,8 @@
 /**
  * The IXDSCodec interface is exposed by the XDS Codec filter. Most applications will not have to use this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSCodec)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-ixdscodec
+ * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nn-encdec-ixdscodec
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -59,10 +56,14 @@ class IXDSCodec extends IUnknown{
     /**
      * The get_XDSToRatObjOK method queries whether the XDSToRat object was created successfully.
      * @returns {HRESULT} Receives an <b>HRESULT</b> value. The <b>HRESULT</b> is the value that was returned when the filter called <b>CoCreateInstance</b> to create the <b>XDSToRat</b> object. If it equals S_OK, the <b>EvalRat</b> object was created successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-get_xdstoratobjok
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-get_xdstoratobjok
      */
     get_XDSToRatObjOK() {
-        result := ComCall(3, this, "int*", &pHrCoCreateRetVal := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pHrCoCreateRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHrCoCreateRetVal
     }
 
@@ -99,20 +100,28 @@ class IXDSCodec extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-put_ccsubstreamservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-put_ccsubstreamservice
      */
     put_CCSubstreamService(SubstreamMask) {
-        result := ComCall(4, this, "int", SubstreamMask, "HRESULT")
+        result := ComCall(4, this, "int", SubstreamMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_CCSubstreamService method queries which line 21 data channels the XDS Codec filter sends to the XDSToRat object. By default, it sends just the Extended Data Services (XDS) channel.
      * @returns {Integer} Receives a bitwise combination of zero or more <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ks-cc-substream">KS_CC_SUBSTREAM</a> flags.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-get_ccsubstreamservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-get_ccsubstreamservice
      */
     get_CCSubstreamService() {
-        result := ComCall(5, this, "int*", &pSubstreamMask := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pSubstreamMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSubstreamMask
     }
 
@@ -153,7 +162,7 @@ class IXDSCodec extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getcontentadvisoryrating
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-getcontentadvisoryrating
      */
     GetContentAdvisoryRating(pRat, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
         pRatMarshal := pRat is VarRef ? "int*" : "ptr"
@@ -162,12 +171,18 @@ class IXDSCodec extends IUnknown{
         pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
         pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(6, this, pRatMarshal, pRat, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
+        result := ComCall(6, this, pRatMarshal, pRat, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetXDSPacket method retrieves the most recent XDS packet.
+     * @remarks
+     * The returned <b>BSTR</b> contains binary data which might include embedded NULL characters. The caller must free the returned <b>BSTR</b> by calling <b>SysFreeString</b>.
      * @param {Pointer<Integer>} pXDSClassPkt Receives the packet class.
      * @param {Pointer<Integer>} pXDSTypePkt Receives the class-specific packet type.
      * @param {Pointer<BSTR>} pBstrXDSPkt Receives the packet as a <b>BSTR</b> value.
@@ -205,7 +220,7 @@ class IXDSCodec extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getxdspacket
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-getxdspacket
      */
     GetXDSPacket(pXDSClassPkt, pXDSTypePkt, pBstrXDSPkt, pPktSeqID, pCallSeqID, pTimeStart, pTimeEnd) {
         pXDSClassPktMarshal := pXDSClassPkt is VarRef ? "int*" : "ptr"
@@ -215,30 +230,42 @@ class IXDSCodec extends IUnknown{
         pTimeStartMarshal := pTimeStart is VarRef ? "int64*" : "ptr"
         pTimeEndMarshal := pTimeEnd is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(7, this, pXDSClassPktMarshal, pXDSClassPkt, pXDSTypePktMarshal, pXDSTypePkt, "ptr", pBstrXDSPkt, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "HRESULT")
+        result := ComCall(7, this, pXDSClassPktMarshal, pXDSClassPkt, pXDSTypePktMarshal, pXDSTypePkt, "ptr", pBstrXDSPkt, pPktSeqIDMarshal, pPktSeqID, pCallSeqIDMarshal, pCallSeqID, pTimeStartMarshal, pTimeStart, pTimeEndMarshal, pTimeEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Not implemented in this release.
-     * @param {Pointer<Integer>} protType Reserved.
+     * @param {Pointer<Integer>} protType_ Reserved.
      * @returns {Integer} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */
-    GetCurrLicenseExpDate(protType) {
-        protTypeMarshal := protType is VarRef ? "int*" : "ptr"
+    GetCurrLicenseExpDate(protType_) {
+        protType_Marshal := protType_ is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, protTypeMarshal, protType, "int*", &lpDateTime := 0, "HRESULT")
+        result := ComCall(8, this, protType_Marshal, protType_, "int*", &lpDateTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpDateTime
     }
 
     /**
      * Not implemented in this release.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodec-getlasterrorcode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/encdec/nf-encdec-ixdscodec-getlasterrorcode
      */
     GetLastErrorCode() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

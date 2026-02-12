@@ -3,7 +3,7 @@
 
 /**
  * See reference information about the CONSOLE_HISTORY_INFO structure, which contains information about the console history.
- * @see https://learn.microsoft.com/windows/console/console-history-info
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/console-history-info
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

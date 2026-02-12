@@ -5,7 +5,7 @@
  * Describes a size restriction which is used to test the size of a property value for Outlook 2013 and Outlook 2016.
  * @remarks
  * For a general discussion of how restrictions work, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssizerestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/ssizerestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

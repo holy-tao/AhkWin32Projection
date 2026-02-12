@@ -99,7 +99,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElement} 
      */
     get_correspondingElement() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElement(p)
     }
 
@@ -108,7 +112,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGUseElement} 
      */
     get_correspondingUseElement() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGUseElement(p)
     }
 
@@ -117,7 +125,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElementInstance} 
      */
     get_parentNode() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElementInstance(p)
     }
 
@@ -126,7 +138,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElementInstanceList} 
      */
     get_childNodes() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElementInstanceList(p)
     }
 
@@ -135,7 +151,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElementInstance} 
      */
     get_firstChild() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElementInstance(p)
     }
 
@@ -144,7 +164,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElementInstance} 
      */
     get_lastChild() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElementInstance(p)
     }
 
@@ -153,7 +177,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElementInstance} 
      */
     get_previousSibling() {
-        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElementInstance(p)
     }
 
@@ -162,7 +190,11 @@ class ISVGElementInstance extends IDispatch{
      * @returns {ISVGElementInstance} 
      */
     get_nextSibling() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElementInstance(p)
     }
 }

@@ -36,10 +36,20 @@ class IActiveScriptStringCompare extends IUnknown{
      * @returns {Integer} 
      */
     StrComp(bszStr1, bszStr2) {
-        bszStr1 := bszStr1 is String ? BSTR.Alloc(bszStr1).Value : bszStr1
-        bszStr2 := bszStr2 is String ? BSTR.Alloc(bszStr2).Value : bszStr2
+        if(bszStr1 is String) {
+            pin := BSTR.Alloc(bszStr1)
+            bszStr1 := pin.Value
+        }
+        if(bszStr2 is String) {
+            pin := BSTR.Alloc(bszStr2)
+            bszStr2 := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bszStr1, "ptr", bszStr2, "int*", &iRet := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", bszStr1, "ptr", bszStr2, "int*", &iRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iRet
     }
 }

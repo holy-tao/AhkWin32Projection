@@ -4,8 +4,10 @@
 #Include ..\IInspectable.ahk
 
 /**
+ * The ICoreFrameworkInputViewInterop interface is to be determined.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nn-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nn-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop
  * @namespace Windows.Win32.System.WinRT.CoreInputView
  * @version v4.0.30319
  */
@@ -31,16 +33,20 @@ class ICoreFrameworkInputViewInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
-     * 
+     * The ICoreFrameworkInputViewInterop::GetForWindow function is to be determined.
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nf-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop-getforwindow
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nf-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &coreFrameworkInputView := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &coreFrameworkInputView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return coreFrameworkInputView
     }
 }

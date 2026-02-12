@@ -40,16 +40,32 @@ class ISpPhraseAlt extends ISpPhrase{
         pcElementsInParentMarshal := pcElementsInParent is VarRef ? "uint*" : "ptr"
         pcElementsInAltMarshal := pcElementsInAlt is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr*", &ppParent := 0, pulStartElementInParentMarshal, pulStartElementInParent, pcElementsInParentMarshal, pcElementsInParent, pcElementsInAltMarshal, pcElementsInAlt, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppParent := 0, pulStartElementInParentMarshal, pulStartElementInParent, pcElementsInParentMarshal, pcElementsInParent, pcElementsInAltMarshal, pcElementsInAlt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpPhrase(ppParent)
     }
 
     /**
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * @returns {HRESULT} 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -506,7 +506,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-clearcommbreak
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-clearcommbreak
      * @since windows5.1.2600
      */
     static ClearCommBreak(hFile) {
@@ -540,7 +540,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-clearcommerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-clearcommerror
      * @since windows5.1.2600
      */
     static ClearCommError(hFile, lpErrors, lpStat) {
@@ -576,7 +576,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setupcomm
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setupcomm
      * @since windows5.1.2600
      */
     static SetupComm(hFile, dwInQueue, dwOutQueue) {
@@ -601,7 +601,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-escapecommfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-escapecommfunction
      * @since windows5.1.2600
      */
     static EscapeCommFunction(hFile, dwFunc) {
@@ -628,7 +628,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommconfig
      * @since windows5.1.2600
      */
     static GetCommConfig(hCommDev, lpCC, lpdwSize) {
@@ -660,7 +660,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommmask
      * @since windows5.1.2600
      */
     static GetCommMask(hFile, lpEvtMask) {
@@ -694,7 +694,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommproperties
      * @since windows5.1.2600
      */
     static GetCommProperties(hFile, lpCommProp) {
@@ -727,7 +727,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommmodemstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommmodemstatus
      * @since windows5.1.2600
      */
     static GetCommModemStatus(hFile, lpModemStat) {
@@ -755,7 +755,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommstate
      * @since windows5.1.2600
      */
     static GetCommState(hFile, lpDCB) {
@@ -784,7 +784,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommtimeouts
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommtimeouts
      * @since windows5.1.2600
      */
     static GetCommTimeouts(hFile, lpCommTimeouts) {
@@ -813,7 +813,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-purgecomm
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-purgecomm
      * @since windows5.1.2600
      */
     static PurgeComm(hFile, dwFlags) {
@@ -837,7 +837,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcommbreak
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcommbreak
      * @since windows5.1.2600
      */
     static SetCommBreak(hFile) {
@@ -864,7 +864,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcommconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcommconfig
      * @since windows5.1.2600
      */
     static SetCommConfig(hCommDev, lpCC, dwSize) {
@@ -894,7 +894,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcommmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcommmask
      * @since windows5.1.2600
      */
     static SetCommMask(hFile, dwEvtMask) {
@@ -941,7 +941,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcommstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcommstate
      * @since windows5.1.2600
      */
     static SetCommState(hFile, lpDCB) {
@@ -967,7 +967,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcommtimeouts
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setcommtimeouts
      * @since windows5.1.2600
      */
     static SetCommTimeouts(hFile, lpCommTimeouts) {
@@ -1000,7 +1000,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-transmitcommchar
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-transmitcommchar
      * @since windows5.1.2600
      */
     static TransmitCommChar(hFile, cChar) {
@@ -1055,7 +1055,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-waitcommevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-waitcommevent
      * @since windows5.1.2600
      */
     static WaitCommEvent(hFile, lpEvtMask, lpOverlapped) {
@@ -1109,7 +1109,7 @@ class Communication {
      * @returns {HANDLE} If the function succeeds, the function returns a valid <b>HANDLE</b>. Use <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to close that handle.
      * 
      * If an error occurs, the function returns <b>INVALID_HANDLE_VALUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-opencommport
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-opencommport
      * @since windows10.0.16299
      */
     static OpenCommPort(uPortNumber, dwDesiredAccess, dwFlagsAndAttributes) {
@@ -1162,7 +1162,7 @@ class Communication {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcommports
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcommports
      * @since windows10.0.17134
      */
     static GetCommPorts(lpPortNumbers, uPortNumbersCount, puPortNumbersFound) {
@@ -1257,7 +1257,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-buildcommdcba
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-buildcommdcba
      * @since windows5.1.2600
      */
     static BuildCommDCBA(lpDef, lpDCB) {
@@ -1357,7 +1357,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-buildcommdcbw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-buildcommdcbw
      * @since windows5.1.2600
      */
     static BuildCommDCBW(lpDef, lpDCB) {
@@ -1432,7 +1432,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-buildcommdcbandtimeoutsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-buildcommdcbandtimeoutsa
      * @since windows5.1.2600
      */
     static BuildCommDCBAndTimeoutsA(lpDef, lpDCB, lpCommTimeouts) {
@@ -1507,7 +1507,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-buildcommdcbandtimeoutsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-buildcommdcbandtimeoutsw
      * @since windows5.1.2600
      */
     static BuildCommDCBAndTimeoutsW(lpDef, lpDCB, lpCommTimeouts) {
@@ -1536,23 +1536,23 @@ class Communication {
      * > [!NOTE]
      * > The winbase.h header defines CommConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {HWND} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {HWND} hWnd_ A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-commconfigdialoga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-commconfigdialoga
      * @since windows5.1.2600
      */
-    static CommConfigDialogA(lpszName, hWnd, lpCC) {
+    static CommConfigDialogA(lpszName, hWnd_, lpCC) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
+        result := DllCall("KERNEL32.dll\CommConfigDialogA", "ptr", lpszName, "ptr", hWnd_, "ptr", lpCC, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1573,23 +1573,23 @@ class Communication {
      * > [!NOTE]
      * > The winbase.h header defines CommConfigDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpszName The name of the device for which a dialog box should be displayed. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
-     * @param {HWND} hWnd A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
+     * @param {HWND} hWnd_ A handle to the window that owns the dialog box. This parameter can be any valid window handle, or it should be <b>NULL</b> if the dialog box is to have no owner.
      * @param {Pointer<COMMCONFIG>} lpCC A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure. This structure contains initial settings for the dialog box before the call, and changed values after the call.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-commconfigdialogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-commconfigdialogw
      * @since windows5.1.2600
      */
-    static CommConfigDialogW(lpszName, hWnd, lpCC) {
+    static CommConfigDialogW(lpszName, hWnd_, lpCC) {
         lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd, "ptr", lpCC, "int")
+        result := DllCall("KERNEL32.dll\CommConfigDialogW", "ptr", lpszName, "ptr", hWnd_, "ptr", lpCC, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1610,7 +1610,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getdefaultcommconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getdefaultcommconfiga
      * @since windows5.1.2600
      */
     static GetDefaultCommConfigA(lpszName, lpCC, lpdwSize) {
@@ -1641,7 +1641,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getdefaultcommconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getdefaultcommconfigw
      * @since windows5.1.2600
      */
     static GetDefaultCommConfigW(lpszName, lpCC, lpdwSize) {
@@ -1672,7 +1672,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdefaultcommconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setdefaultcommconfiga
      * @since windows5.1.2600
      */
     static SetDefaultCommConfigA(lpszName, lpCC, dwSize) {
@@ -1701,7 +1701,7 @@ class Communication {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdefaultcommconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setdefaultcommconfigw
      * @since windows5.1.2600
      */
     static SetDefaultCommConfigW(lpszName, lpCC, dwSize) {

@@ -37,7 +37,11 @@ class IPrinterQueueViewEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     OnChanged(pCollection, ulViewOffset, ulViewSize, ulCountJobsInPrintQueue) {
-        result := ComCall(7, this, "ptr", pCollection, "uint", ulViewOffset, "uint", ulViewSize, "uint", ulCountJobsInPrintQueue, "HRESULT")
+        result := ComCall(7, this, "ptr", pCollection, "uint", ulViewOffset, "uint", ulViewSize, "uint", ulCountJobsInPrintQueue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Enables the host container of a windowless rich edit control to obtain the Microsoft UI Automation provider for the parent of the control.
- * @see https://docs.microsoft.com/windows/win32/api//textserv/nn-textserv-iricheditwindowlessaccessibility
+ * @see https://learn.microsoft.com/windows/win32/api//content/textserv/nn-textserv-iricheditwindowlessaccessibility
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -39,10 +39,14 @@ class IRicheditWindowlessAccessibility extends IUnknown{
      * @returns {IRawElementProviderSimple} Type: <b>IRawElementProviderSimple**</b>
      * 
      * The UI Automation provider for the windowless rich edit control's parent.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-iricheditwindowlessaccessibility-createprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/textserv/nf-textserv-iricheditwindowlessaccessibility-createprovider
      */
     CreateProvider(pSite) {
-        result := ComCall(3, this, "ptr", pSite, "ptr*", &ppProvider := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pSite, "ptr*", &ppProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderSimple(ppProvider)
     }
 }

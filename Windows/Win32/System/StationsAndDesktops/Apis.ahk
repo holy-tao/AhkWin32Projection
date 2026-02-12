@@ -76,7 +76,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdesktopa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createdesktopa
      * @since windows5.0
      */
     static CreateDesktopA(lpszDesktop, dwFlags, dwDesiredAccess, lpsa) {
@@ -158,7 +158,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdesktopw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createdesktopw
      * @since windows5.0
      */
     static CreateDesktopW(lpszDesktop, dwFlags, dwDesiredAccess, lpsa) {
@@ -249,7 +249,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdesktopexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createdesktopexa
      * @since windows6.0.6000
      */
     static CreateDesktopExA(lpszDesktop, dwFlags, dwDesiredAccess, lpsa, ulHeapSize) {
@@ -340,7 +340,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createdesktopexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createdesktopexw
      * @since windows6.0.6000
      */
     static CreateDesktopExW(lpszDesktop, dwFlags, dwDesiredAccess, lpsa, ulHeapSize) {
@@ -403,7 +403,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-opendesktopa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-opendesktopa
      * @since windows5.0
      */
     static OpenDesktopA(lpszDesktop, dwFlags, fInherit, dwDesiredAccess) {
@@ -464,7 +464,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-opendesktopw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-opendesktopw
      * @since windows5.0
      */
     static OpenDesktopW(lpszDesktop, dwFlags, fInherit, dwDesiredAccess) {
@@ -520,7 +520,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-openinputdesktop
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-openinputdesktop
      * @since windows5.0
      */
     static OpenInputDesktop(dwFlags, fInherit, dwDesiredAccess) {
@@ -551,7 +551,7 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumDesktops as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWINSTA} hwinsta A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
+     * @param {HWINSTA} hwinsta_ A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function, and must have the WINSTA_ENUMDESKTOPS access right. For more information, see 
@@ -560,22 +560,23 @@ class StationsAndDesktops {
      * If this parameter is NULL, the current window station is used.
      * @param {Pointer<DESKTOPENUMPROCA>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682612(v=vs.85)">EnumDesktopProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} lParam_ An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * 
      * If the callback function fails, the return value is zero. The callback function can  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> to set an error code for the caller to retrieve by calling <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdesktopsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdesktopsa
      * @since windows5.0
      */
-    static EnumDesktopsA(hwinsta, lpEnumFunc, lParam) {
-        hwinsta := hwinsta is Win32Handle ? NumGet(hwinsta, "ptr") : hwinsta
+    static EnumDesktopsA(hwinsta_, lpEnumFunc, lParam_) {
+        hwinsta_ := hwinsta_ is Win32Handle ? NumGet(hwinsta_, "ptr") : hwinsta_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopsA", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumDesktopsA", "ptr", hwinsta_, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -599,7 +600,7 @@ class StationsAndDesktops {
      * 
      * > [!NOTE]
      * > The winuser.h header defines EnumDesktops as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWINSTA} hwinsta A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
+     * @param {HWINSTA} hwinsta_ A handle to the window station whose desktops are to be enumerated. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function, and must have the WINSTA_ENUMDESKTOPS access right. For more information, see 
@@ -608,22 +609,23 @@ class StationsAndDesktops {
      * If this parameter is NULL, the current window station is used.
      * @param {Pointer<DESKTOPENUMPROCW>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682612(v=vs.85)">EnumDesktopProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} lParam_ An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * 
      * If the callback function fails, the return value is zero. The callback function can  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> to set an error code for the caller to retrieve by calling <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdesktopsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdesktopsw
      * @since windows5.0
      */
-    static EnumDesktopsW(hwinsta, lpEnumFunc, lParam) {
-        hwinsta := hwinsta is Win32Handle ? NumGet(hwinsta, "ptr") : hwinsta
+    static EnumDesktopsW(hwinsta_, lpEnumFunc, lParam_) {
+        hwinsta_ := hwinsta_ is Win32Handle ? NumGet(hwinsta_, "ptr") : hwinsta_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopsW", "ptr", hwinsta, "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumDesktopsW", "ptr", hwinsta_, "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -645,7 +647,7 @@ class StationsAndDesktops {
      * If this parameter is NULL, the current desktop is used.
      * @param {Pointer<WNDENUMPROC>} lpfn A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633498(v=vs.85)">EnumWindowsProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} lParam_ An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function fails or is unable to perform the enumeration, the return value is zero.
      * 
      * To get extended error information, call 
@@ -654,15 +656,16 @@ class StationsAndDesktops {
      * You must ensure that the callback function sets <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> if it fails.
      * 
      * <b>Windows Server 2003 and Windows XP/2000:  </b>If there are no windows on the desktop, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INVALID_HANDLE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumdesktopwindows
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumdesktopwindows
      * @since windows5.0
      */
-    static EnumDesktopWindows(hDesktop, lpfn, lParam) {
+    static EnumDesktopWindows(hDesktop, lpfn, lParam_) {
         hDesktop := hDesktop is Win32Handle ? NumGet(hDesktop, "ptr") : hDesktop
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumDesktopWindows", "ptr", hDesktop, "ptr", lpfn, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -691,7 +694,7 @@ class StationsAndDesktops {
      * <li>When the desktop belongs to an invisible window station</li>
      * <li>When <i>hDesktop</i> is an invalid handle, refers to a destroyed desktop, or belongs to a different session than that of the calling process</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-switchdesktop
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-switchdesktop
      * @since windows5.0
      */
     static SwitchDesktop(hDesktop) {
@@ -725,7 +728,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setthreaddesktop
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setthreaddesktop
      * @since windows5.0
      */
     static SetThreadDesktop(hDesktop) {
@@ -754,7 +757,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-closedesktop
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-closedesktop
      * @since windows5.0
      */
     static CloseDesktop(hDesktop) {
@@ -789,7 +792,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getthreaddesktop
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getthreaddesktop
      * @since windows5.0
      */
     static GetThreadDesktop(dwThreadId) {
@@ -830,7 +833,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowstationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createwindowstationa
      * @since windows5.0
      */
     static CreateWindowStationA(lpwinsta, dwFlags, dwDesiredAccess, lpsa) {
@@ -873,7 +876,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createwindowstationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-createwindowstationw
      * @since windows5.0
      */
     static CreateWindowStationW(lpwinsta, dwFlags, dwDesiredAccess, lpsa) {
@@ -912,7 +915,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-openwindowstationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-openwindowstationa
      * @since windows5.0
      */
     static OpenWindowStationA(lpszWinSta, fInherit, dwDesiredAccess) {
@@ -951,7 +954,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-openwindowstationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-openwindowstationw
      * @since windows5.0
      */
     static OpenWindowStationW(lpszWinSta, fInherit, dwDesiredAccess) {
@@ -985,20 +988,22 @@ class StationsAndDesktops {
      * > The winuser.h header defines EnumWindowStations as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WINSTAENUMPROCA>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682643(v=vs.85)">EnumWindowStationProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} lParam_ An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * 
      * If the callback function fails, the return value is zero. The callback function can  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> to set an error code for the caller to retrieve by calling <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumwindowstationsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumwindowstationsa
      * @since windows5.0
      */
-    static EnumWindowStationsA(lpEnumFunc, lParam) {
+    static EnumWindowStationsA(lpEnumFunc, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumWindowStationsA", "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1023,20 +1028,22 @@ class StationsAndDesktops {
      * > The winuser.h header defines EnumWindowStations as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<WINSTAENUMPROCW>} lpEnumFunc A pointer to an application-defined 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms682643(v=vs.85)">EnumWindowStationProc</a> callback function.
-     * @param {LPARAM} lParam An application-defined value to be passed to the callback function.
+     * @param {LPARAM} lParam_ An application-defined value to be passed to the callback function.
      * @returns {BOOL} If the function succeeds, it returns the  nonzero value returned by the callback function that was pointed to by <i>lpEnumFunc</i>.
      * 
      * If the function is unable to perform the enumeration, the return value is zero. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * 
      * If the callback function fails, the return value is zero. The callback function can  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> to set an error code for the caller to retrieve by calling <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumwindowstationsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumwindowstationsw
      * @since windows5.0
      */
-    static EnumWindowStationsW(lpEnumFunc, lParam) {
+    static EnumWindowStationsW(lpEnumFunc, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\EnumWindowStationsW", "ptr", lpEnumFunc, "ptr", lParam_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1049,7 +1056,7 @@ class StationsAndDesktops {
      * @remarks
      * The 
      * <b>CloseWindowStation</b> function will fail if the handle being closed is for the window station assigned to the calling process.
-     * @param {HWINSTA} hWinSta A handle to the window station to be closed. This handle is returned by the 
+     * @param {HWINSTA} hWinSta_ A handle to the window station to be closed. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a> function. Do not specify the handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1058,15 +1065,15 @@ class StationsAndDesktops {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * <b>Windows Server 2003 and Windows XP/2000:  </b>This function does not set the last error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-closewindowstation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-closewindowstation
      * @since windows5.0
      */
-    static CloseWindowStation(hWinSta) {
-        hWinSta := hWinSta is Win32Handle ? NumGet(hWinSta, "ptr") : hWinSta
+    static CloseWindowStation(hWinSta_) {
+        hWinSta_ := hWinSta_ is Win32Handle ? NumGet(hWinSta_, "ptr") : hWinSta_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\CloseWindowStation", "ptr", hWinSta, "int")
+        result := DllCall("USER32.dll\CloseWindowStation", "ptr", hWinSta_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1076,7 +1083,7 @@ class StationsAndDesktops {
 
     /**
      * Assigns the specified window station to the calling process.
-     * @param {HWINSTA} hWinSta A handle to the window station. This can be a handle returned by the 
+     * @param {HWINSTA} hWinSta_ A handle to the window station. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowstationa">CreateWindowStation</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-openwindowstationa">OpenWindowStation</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getprocesswindowstation">GetProcessWindowStation</a> function.
@@ -1086,15 +1093,15 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setprocesswindowstation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setprocesswindowstation
      * @since windows5.0
      */
-    static SetProcessWindowStation(hWinSta) {
-        hWinSta := hWinSta is Win32Handle ? NumGet(hWinSta, "ptr") : hWinSta
+    static SetProcessWindowStation(hWinSta_) {
+        hWinSta_ := hWinSta_ is Win32Handle ? NumGet(hWinSta_, "ptr") : hWinSta_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", hWinSta, "int")
+        result := DllCall("USER32.dll\SetProcessWindowStation", "ptr", hWinSta_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1119,7 +1126,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is NULL. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getprocesswindowstation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getprocesswindowstation
      * @since windows5.0
      */
     static GetProcessWindowStation() {
@@ -1152,7 +1159,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getuserobjectinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getuserobjectinformationa
      * @since windows5.0
      */
     static GetUserObjectInformationA(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded) {
@@ -1188,7 +1195,7 @@ class StationsAndDesktops {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getuserobjectinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getuserobjectinformationw
      * @since windows5.0
      */
     static GetUserObjectInformationW(hObj, nIndex, pvInfo, nLength, lpnLengthNeeded) {
@@ -1257,7 +1264,7 @@ class StationsAndDesktops {
      * 
      * If the function fails the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setuserobjectinformationa
      * @since windows5.0
      */
     static SetUserObjectInformationA(hObj, nIndex, pvInfo, nLength) {
@@ -1324,7 +1331,7 @@ class StationsAndDesktops {
      * 
      * If the function fails the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setuserobjectinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setuserobjectinformationw
      * @since windows5.0
      */
     static SetUserObjectInformationW(hObj, nIndex, pvInfo, nLength) {
@@ -1364,15 +1371,15 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
+     * @param {Integer} Msg_ Type: <b>UINT</b>
      * 
      * The message to be sent. 
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @param {Pointer<BSMINFO>} pbsmInfo Type: <b>PBSMINFO</b>
@@ -1385,15 +1392,18 @@ class StationsAndDesktops {
      * If the function is unable to broadcast the message, the return value is –1. 
      * 
      * If the <i>dwFlags</i> parameter is <b>BSF_QUERY</b> and at least one recipient returned <b>BROADCAST_QUERY_DENY</b> to the corresponding message, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessageexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-broadcastsystemmessageexa
      * @since windows5.1.2600
      */
-    static BroadcastSystemMessageExA(flags, lpInfo, Msg, wParam, lParam, pbsmInfo) {
+    static BroadcastSystemMessageExA(flags, lpInfo, Msg_, wParam_, lParam_, pbsmInfo) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageExA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg_, "ptr", wParam_, "ptr", lParam_, "ptr", pbsmInfo, "int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1425,15 +1435,15 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
+     * @param {Integer} Msg_ Type: <b>UINT</b>
      * 
      * The message to be sent. 
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @param {Pointer<BSMINFO>} pbsmInfo Type: <b>PBSMINFO</b>
@@ -1446,15 +1456,18 @@ class StationsAndDesktops {
      * If the function is unable to broadcast the message, the return value is –1. 
      * 
      * If the <i>dwFlags</i> parameter is <b>BSF_QUERY</b> and at least one recipient returned <b>BROADCAST_QUERY_DENY</b> to the corresponding message, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessageexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-broadcastsystemmessageexw
      * @since windows5.1.2600
      */
-    static BroadcastSystemMessageExW(flags, lpInfo, Msg, wParam, lParam, pbsmInfo) {
+    static BroadcastSystemMessageExW(flags, lpInfo, Msg_, wParam_, lParam_, pbsmInfo) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", pbsmInfo, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageExW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg_, "ptr", wParam_, "ptr", lParam_, "ptr", pbsmInfo, "int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1481,15 +1494,15 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message.
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
+     * @param {Integer} Msg_ Type: <b>UINT</b>
      * 
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @returns {Integer} Type: <b>long</b>
@@ -1499,12 +1512,15 @@ class StationsAndDesktops {
      * If the function is unable to broadcast the message, the return value is –1.
      * 
      * If the <i>dwFlags</i> parameter is <b>BSF_QUERY</b> and at least one recipient returned <b>BROADCAST_QUERY_DENY</b> to the corresponding message, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-broadcastsystemmessagea
      */
-    static BroadcastSystemMessageA(flags, lpInfo, Msg, wParam, lParam) {
+    static BroadcastSystemMessageA(flags, lpInfo, Msg_, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageA", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg_, "ptr", wParam_, "ptr", lParam_, "int")
         return result
     }
 
@@ -1523,15 +1539,15 @@ class StationsAndDesktops {
      * When the function returns, this variable receives a combination of these values identifying which recipients actually received the message. 
      * 
      * If this parameter is <b>NULL</b>, the function broadcasts to all components.
-     * @param {Integer} Msg Type: <b>UINT</b>
+     * @param {Integer} Msg_ Type: <b>UINT</b>
      * 
      * The message to be sent. 
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @returns {Integer} Type: <b>long</b>
@@ -1541,15 +1557,18 @@ class StationsAndDesktops {
      * If the function is unable to broadcast the message, the return value is –1. 
      * 
      * If the <i>dwFlags</i> parameter is <b>BSF_QUERY</b> and at least one recipient returned <b>BROADCAST_QUERY_DENY</b> to the corresponding message, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-broadcastsystemmessagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-broadcastsystemmessagew
      * @since windows5.0
      */
-    static BroadcastSystemMessageW(flags, lpInfo, Msg, wParam, lParam) {
+    static BroadcastSystemMessageW(flags, lpInfo, Msg_, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         lpInfoMarshal := lpInfo is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
+        result := DllCall("USER32.dll\BroadcastSystemMessageW", "uint", flags, lpInfoMarshal, lpInfo, "uint", Msg_, "ptr", wParam_, "ptr", lParam_, "int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }

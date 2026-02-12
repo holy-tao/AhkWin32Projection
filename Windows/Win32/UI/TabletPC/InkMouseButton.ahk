@@ -5,7 +5,7 @@
  * Specifies which mouse button was pressed. (InkMouseButton)
  * @remarks
  * In C++, explicit casting is required when trying to set more than one flag at a time. A compilation error occurs if explicit casting is not used.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkmousebutton
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-inkmousebutton
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

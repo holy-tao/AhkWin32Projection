@@ -6,7 +6,7 @@
 
 /**
  * Provides a method to create aligned volumes on a pack.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdspack2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdspack2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -51,10 +51,14 @@ class IVdsPack2 extends IUnknown{
      * 
      * The default alignment is 1 MB if the disk is 4 GB or larger, or 64 KB if the disk is smaller than 4 GB.
      * @returns {IVdsAsync} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface that upon successful completion receives the <b>IVdsAsync</b> interface to monitor and control this operation.  Callers must release the interface received when they are done with it.  If the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> method is called on the interface and a success HRESULT value is returned, the interfaces returned in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack2-createvolume2
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdspack2-createvolume2
      */
     CreateVolume2(type, pInputDiskArray, lNumberOfDisks, ulStripeSize, ulAlign) {
-        result := ComCall(3, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "uint", ulAlign, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(3, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "uint", ulAlign, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsAsync(ppAsync)
     }
 }

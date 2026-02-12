@@ -31,15 +31,20 @@ class ISpSREngineSite extends IUnknown{
     static VTableNames => ["Read", "DataAvailable", "SetBufferNotifySize", "ParseFromTransitions", "Recognition", "AddEvent", "Synchronize", "GetWordInfo", "SetWordClientContext", "GetRuleInfo", "SetRuleClientContext", "GetStateInfo", "GetResource", "GetTransitionProperty", "IsAlternate", "GetMaxAlternates", "GetContextMaxAlternates", "UpdateRecoPos"]
 
     /**
-     * 
+     * Learn how to read a FILESTREAM column to a file using the IBCPSession interface in OLE DB Driver for SQL Server and write a format file with this example.
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/filestream/read-a-filestream-column-to-file-using-ibcpsession-ole-db
      */
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pvMarshal, pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        result := ComCall(3, this, pvMarshal, pv, "uint", cb, "uint*", &pcbRead := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbRead
     }
 
@@ -48,7 +53,11 @@ class ISpSREngineSite extends IUnknown{
      * @returns {Integer} 
      */
     DataAvailable() {
-        result := ComCall(4, this, "uint*", &pcb := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pcb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcb
     }
 
@@ -58,7 +67,11 @@ class ISpSREngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     SetBufferNotifySize(cbSize) {
-        result := ComCall(5, this, "uint", cbSize, "HRESULT")
+        result := ComCall(5, this, "uint", cbSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,17 +81,28 @@ class ISpSREngineSite extends IUnknown{
      * @returns {ISpPhraseBuilder} 
      */
     ParseFromTransitions(pParseInfo) {
-        result := ComCall(6, this, "ptr", pParseInfo, "ptr*", &ppNewPhrase := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pParseInfo, "ptr*", &ppNewPhrase := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpPhraseBuilder(ppNewPhrase)
     }
 
     /**
-     * 
+     * Indicates the level of confidence that the IInkAnalyzer has in the accuracy of the recognition result.
+     * @remarks
+     * The [**IInkAnalyzer**](iinkanalyzer.md) uses one or more [**IInkAnalysisRecognizer**](iinkanalysisrecognizer.md) objects to convert handwriting to text.
      * @param {Pointer<SPRECORESULTINFO>} pResultInfo 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/recognitionconfidence
      */
     Recognition(pResultInfo) {
-        result := ComCall(7, this, "ptr", pResultInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", pResultInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,17 +115,28 @@ class ISpSREngineSite extends IUnknown{
     AddEvent(pEvent, hSAPIRecoContext) {
         hSAPIRecoContext := hSAPIRecoContext is Win32Handle ? NumGet(hSAPIRecoContext, "ptr") : hSAPIRecoContext
 
-        result := ComCall(8, this, "ptr", pEvent, "ptr", hSAPIRecoContext, "HRESULT")
+        result := ComCall(8, this, "ptr", pEvent, "ptr", hSAPIRecoContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Synchronize Method (RDS)
+     * @remarks
+     * The *HandlerString* parameter may be null. What happens in this case depends on how the RDS server is configured. A handler string of "MSDFMAP.handler" indicates that the Microsoft supplied handler (Msdfmap.dll) should be used. A handler string of "MASDFMAP.handler,sample.ini" indicates that the Msdfmap.dll handler should be used and that the argument "sample.ini" should be passed to the handler. Msdfmap.dll will then interpret the argument as a direction to use the sample.ini to check the connection and query strings.
      * @param {Integer} ullProcessedThruPos 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/synchronize-method-rds
      */
     Synchronize(ullProcessedThruPos) {
-        result := ComCall(9, this, "uint", ullProcessedThruPos, "HRESULT")
+        result := ComCall(9, this, "uint", ullProcessedThruPos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +147,11 @@ class ISpSREngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWordInfo(pWordEntry, Options) {
-        result := ComCall(10, this, "ptr", pWordEntry, "int", Options, "HRESULT")
+        result := ComCall(10, this, "ptr", pWordEntry, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +166,11 @@ class ISpSREngineSite extends IUnknown{
 
         pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", hWord, pvClientContextMarshal, pvClientContext, "HRESULT")
+        result := ComCall(11, this, "ptr", hWord, pvClientContextMarshal, pvClientContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +181,11 @@ class ISpSREngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRuleInfo(pRuleEntry, Options) {
-        result := ComCall(12, this, "ptr", pRuleEntry, "int", Options, "HRESULT")
+        result := ComCall(12, this, "ptr", pRuleEntry, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +200,11 @@ class ISpSREngineSite extends IUnknown{
 
         pvClientContextMarshal := pvClientContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, "ptr", hRule, pvClientContextMarshal, pvClientContext, "HRESULT")
+        result := ComCall(13, this, "ptr", hRule, pvClientContextMarshal, pvClientContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +217,11 @@ class ISpSREngineSite extends IUnknown{
         hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
 
         pStateInfo := SPSTATEINFO()
-        result := ComCall(14, this, "ptr", hState, "ptr", pStateInfo, "HRESULT")
+        result := ComCall(14, this, "ptr", hState, "ptr", pStateInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStateInfo
     }
 
@@ -180,7 +235,11 @@ class ISpSREngineSite extends IUnknown{
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        result := ComCall(15, this, "ptr", hRule, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", hRule, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCoMemResource
     }
 
@@ -192,7 +251,11 @@ class ISpSREngineSite extends IUnknown{
     GetTransitionProperty(ID) {
         ID := ID is Win32Handle ? NumGet(ID, "ptr") : ID
 
-        result := ComCall(16, this, "ptr", ID, "ptr*", &ppCoMemProperty := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", ID, "ptr*", &ppCoMemProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCoMemProperty
     }
 
@@ -206,7 +269,11 @@ class ISpSREngineSite extends IUnknown{
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
         hAltRule := hAltRule is Win32Handle ? NumGet(hAltRule, "ptr") : hAltRule
 
-        result := ComCall(17, this, "ptr", hRule, "ptr", hAltRule, "HRESULT")
+        result := ComCall(17, this, "ptr", hRule, "ptr", hAltRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -218,7 +285,11 @@ class ISpSREngineSite extends IUnknown{
     GetMaxAlternates(hRule) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        result := ComCall(18, this, "ptr", hRule, "uint*", &pulNumAlts := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", hRule, "uint*", &pulNumAlts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulNumAlts
     }
 
@@ -230,7 +301,11 @@ class ISpSREngineSite extends IUnknown{
     GetContextMaxAlternates(hContext) {
         hContext := hContext is Win32Handle ? NumGet(hContext, "ptr") : hContext
 
-        result := ComCall(19, this, "ptr", hContext, "uint*", &pulNumAlts := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", hContext, "uint*", &pulNumAlts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulNumAlts
     }
 
@@ -240,7 +315,11 @@ class ISpSREngineSite extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateRecoPos(ullCurrentRecoPos) {
-        result := ComCall(20, this, "uint", ullCurrentRecoPos, "HRESULT")
+        result := ComCall(20, this, "uint", ullCurrentRecoPos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

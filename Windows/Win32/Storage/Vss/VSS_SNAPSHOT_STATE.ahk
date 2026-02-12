@@ -25,7 +25,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getsnapshotproperties">IVssBackupComponents::GetSnapshotProperties</a>, 
  *     the <b>IVssBackupComponents::Query</b> method can 
  *     return only a shadow copy state of <b>VSS_SS_CREATED</b>.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_snapshot_state
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

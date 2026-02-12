@@ -7,11 +7,8 @@
 /**
  * Gets summary information for a subcomponent of the assessment, for example, its score.
  * @remarks
- * 
  * To retrieve details of the subcomponent, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryrecentwinsatassessment-get_xml">IQueryRecentWinSATAssessment::get_XML</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatassessmentinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatassessmentinfo
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
@@ -60,53 +57,54 @@ class IProvideWinSATAssessmentInfo extends IDispatch{
     /**
      * Retrieves the score for the subcomponent.
      * @remarks
-     * 
      * The score represents the subcomponent's metrics as normalized by WinSAT.    The score is a floating point value that should be displayed with only one significant digit to the right of the decimal point.  The value is 0.0 if the assessment is unavailable or not valid. 
      * 
      * A user can use the score to determine if a subcomponent of the computer can support a specific type of application.  For example, a user that spends more time reading or writing documents may require a higher score for the disk than a user who runs scientific applications, and a user who runs scientific applications would probably want a higher CPU subcomponent score and may not be concerned with a lower disk score.
      * 
-     * To get the base score for the computer, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_systemrating">IProvideWinSATResultsInfo::get_SystemRating</a> method. 
-     * 
-     * 
-     * 
+     * To get the base score for the computer, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_systemrating">IProvideWinSATResultsInfo::get_SystemRating</a> method.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_score
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_score
      */
     get_Score() {
-        result := ComCall(7, this, "float*", &score := 0, "HRESULT")
+        result := ComCall(7, this, "float*", &score := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return score
     }
 
     /**
      * Retrieves the title of the subcomponent.
      * @remarks
-     * 
      * Note that the title includes a trailing colon character. For example, the title for the CPU subcomponent is "Processor:".
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_title
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_title
      */
     get_Title() {
         title := BSTR()
-        result := ComCall(8, this, "ptr", title, "HRESULT")
+        result := ComCall(8, this, "ptr", title, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return title
     }
 
     /**
      * Retrieves the description of the subcomponent.
      * @remarks
-     * 
      * The description provided depends on the subcomponent. For example, the description for the CPU subcomponent identifies the processor, and the description for the memory subcomponent indicates the amount of available RAM.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatassessmentinfo-get_description
      */
     get_Description() {
         description := BSTR()
-        result := ComCall(9, this, "ptr", description, "HRESULT")
+        result := ComCall(9, this, "ptr", description, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return description
     }
 }

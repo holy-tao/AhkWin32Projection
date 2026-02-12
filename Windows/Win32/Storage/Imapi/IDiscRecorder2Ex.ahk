@@ -6,11 +6,8 @@
 /**
  * This interface represents a physical device.
  * @remarks
- * 
  * To write data to media, you need to attach this recorder to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwriteengine2">IWriteEngine2</a> data writer, using the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_recorder">IWriteEngine2::put_Recorder</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscrecorder2ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-idiscrecorder2ex
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -37,44 +34,229 @@ class IDiscRecorder2Ex extends IUnknown{
 
     /**
      * Sends a MMC command to the recording device. Use this function when no data buffer is sent to nor received from the device.
+     * @remarks
+     * For details of the contents of the command packet and sense data, see the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+     * 
+     * Client-defined commands (CDBs) used with this method must be between 6 and 16 bytes in length. In addition, the size of each command must match the size defined by the operation code as defined in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>CDB operation code range</th>
+     * <th>CDB group</th>
+     * <th>Required CDB size</th>
+     * </tr>
+     * <tr>
+     * <td>0x00 — 0x1F</td>
+     * <td>0</td>
+     * <td>6 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x20 — 0x3F</td>
+     * <td>1</td>
+     * <td>10 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x40 — 0x5F</td>
+     * <td>2</td>
+     * <td>10 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x60 — 0x7F</td>
+     * <td>3</td>
+     * <td>Will enforce standard-specified size requirements for this opcode range in the future.</td>
+     * </tr>
+     * <tr>
+     * <td>0x80 — 0x9F</td>
+     * <td>4</td>
+     * <td>16 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0xA0 — 0xBF</td>
+     * <td>5</td>
+     * <td>12 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0xC0 — 0xDF</td>
+     * <td>6</td>
+     * <td>Vendor Unique - Any size allowed</td>
+     * </tr>
+     * <tr>
+     * <td>0xE0 — 0xFF</td>
+     * <td>7</td>
+     * <td>Vendor Unique - Any size allowed</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Some very early devices used vendor-unique opcodes and therefore some opcodes cannot be validated in this manner. The following opcodes are still valid and only verify that the size is between 6 and 16 bytes:
+     * 
+     * 
+     * 
+     * 0x02, 0x05, 0x06, 0x09, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x13, 0x14, 0x19, 0x20, 0x21, 0x22, 0x23, 0x24, 0x26, 0x27, 0x29, 0x2C, 0x2D
      * @param {Pointer<Integer>} Cdb Command packet to send to the device.
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
      * @returns {Integer} Sense data returned by the recording device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-sendcommandnodata
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandnodata
      */
     SendCommandNoData(Cdb, CdbSize, Timeout) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, "HRESULT")
+        result := ComCall(3, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SenseBuffer
     }
 
     /**
      * Sends a MMC command and its associated data buffer to the recording device.
+     * @remarks
+     * For details of the contents of the command packet, sense data, and input data buffer, see the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+     * 
+     * Client-defined commands (CDBs) used with this method must be between 6 and 16 bytes in length. In addition, the size of each command must match the size defined by the operation code as defined in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>CDB operation code range</th>
+     * <th>CDB group</th>
+     * <th>Required CDB size</th>
+     * </tr>
+     * <tr>
+     * <td>0x00 — 0x1F</td>
+     * <td>0</td>
+     * <td>6 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x20 — 0x3F</td>
+     * <td>1</td>
+     * <td>10 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x40 — 0x5F</td>
+     * <td>2</td>
+     * <td>10 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x60 — 0x7F</td>
+     * <td>3</td>
+     * <td>Will enforce standard-specified size requirements for this opcode range in the future.</td>
+     * </tr>
+     * <tr>
+     * <td>0x80 — 0x9F</td>
+     * <td>4</td>
+     * <td>16 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0xA0 — 0xBF</td>
+     * <td>5</td>
+     * <td>12 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0xC0 — 0xDF</td>
+     * <td>6</td>
+     * <td>Vendor Unique - Any size allowed</td>
+     * </tr>
+     * <tr>
+     * <td>0xE0 — 0xFF</td>
+     * <td>7</td>
+     * <td>Vendor Unique - Any size allowed</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Some very early devices used vendor-unique opcodes and therefore some opcodes cannot be validated in this manner. The following opcodes are still valid and only verify that the size is between 6 and 16 bytes:
+     * 
+     * 
+     * 
+     * 0x02, 0x05, 0x06, 0x09, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x13, 0x14, 0x19, 0x20, 0x21, 0x22, 0x23, 0x24, 0x26, 0x27, 0x29, 0x2C, 0x2D
      * @param {Pointer<Integer>} Cdb Command packet to send to the device.
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
-     * @param {Pointer<Integer>} Buffer Buffer containing data associated with the send command. Must not be <b>NULL</b>.
+     * @param {Pointer<Integer>} Buffer_ Buffer containing data associated with the send command. Must not be <b>NULL</b>.
      * @param {Integer} BufferSize Size, in bytes, of the data buffer to send. Must not be zero.
      * @returns {Integer} Sense data returned by the recording device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice
      */
-    SendCommandSendDataToDevice(Cdb, CdbSize, Timeout, Buffer, BufferSize) {
+    SendCommandSendDataToDevice(Cdb, CdbSize, Timeout, Buffer_, BufferSize) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, BufferMarshal, Buffer, "uint", BufferSize, "HRESULT")
+        result := ComCall(4, this, CdbMarshal, Cdb, "uint", CdbSize, "char*", &SenseBuffer := 0, "uint", Timeout, Buffer_Marshal, Buffer_, "uint", BufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SenseBuffer
     }
 
     /**
      * Sends a MMC command to the recording device requesting data from the device.
+     * @remarks
+     * For details of the contents of the command packet, sense data, and output data buffer, see the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
+     * 
+     * Client-defined commands (CDBs) used with this method must be between 6 and 16 bytes in length. In addition, the size of each command must match the size defined by the operation code as defined in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>CDB operation code range</th>
+     * <th>CDB group</th>
+     * <th>Required CDB size</th>
+     * </tr>
+     * <tr>
+     * <td>0x00 — 0x1F</td>
+     * <td>0</td>
+     * <td>6 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x20 — 0x3F</td>
+     * <td>1</td>
+     * <td>10 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x40 — 0x5F</td>
+     * <td>2</td>
+     * <td>10 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0x60 — 0x7F</td>
+     * <td>3</td>
+     * <td>Will enforce standard-specified size requirements for this opcode range in the future.</td>
+     * </tr>
+     * <tr>
+     * <td>0x80 — 0x9F</td>
+     * <td>4</td>
+     * <td>16 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0xA0 — 0xBF</td>
+     * <td>5</td>
+     * <td>12 bytes</td>
+     * </tr>
+     * <tr>
+     * <td>0xC0 — 0xDF</td>
+     * <td>6</td>
+     * <td>Vendor Unique - Any size allowed</td>
+     * </tr>
+     * <tr>
+     * <td>0xE0 — 0xFF</td>
+     * <td>7</td>
+     * <td>Vendor Unique - Any size allowed</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Some very early devices used vendor-unique opcodes and therefore some opcodes cannot be validated in this manner. The following opcodes are still valid and only verify that the size is between 6 and 16 bytes:
+     * 
+     * 
+     * 
+     * 0x02, 0x05, 0x06, 0x09, 0x0C, 0x0D, 0x0E, 0x0F, 0x10, 0x13, 0x14, 0x19, 0x20, 0x21, 0x22, 0x23, 0x24, 0x26, 0x27, 0x29, 0x2C, 0x2D
      * @param {Pointer<Integer>} Cdb Command packet to send to the device.
      * @param {Integer} CdbSize Size, in bytes, of the command packet to send. Must be between 6 and 16 bytes.
      * @param {Pointer<Integer>} SenseBuffer Sense data returned by the recording device.
      * @param {Integer} Timeout Time limit, in seconds, allowed for the send command to receive a result.
-     * @param {Pointer<Integer>} Buffer Application-allocated data buffer that will receive data associated with the send command. Must not be <b>NULL</b>.
+     * @param {Pointer<Integer>} Buffer_ Application-allocated data buffer that will receive data associated with the send command. Must not be <b>NULL</b>.
      * @param {Integer} BufferSize Size, in bytes, of the <i>Buffer</i> data buffer. Must not be zero.
      * @param {Pointer<Integer>} BufferFetched Size, in bytes, of the data returned in the <i>Buffer</i> data buffer.
      * @returns {HRESULT} S_OK or one of the following values can be returned on success, but other success codes may be returned as a result of implementation:
@@ -405,25 +587,31 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-sendcommandgetdatafromdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandgetdatafromdevice
      */
-    SendCommandGetDataFromDevice(Cdb, CdbSize, SenseBuffer, Timeout, Buffer, BufferSize, BufferFetched) {
+    SendCommandGetDataFromDevice(Cdb, CdbSize, SenseBuffer, Timeout, Buffer_, BufferSize, BufferFetched) {
         CdbMarshal := Cdb is VarRef ? "char*" : "ptr"
         SenseBufferMarshal := SenseBuffer is VarRef ? "char*" : "ptr"
-        BufferMarshal := Buffer is VarRef ? "char*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
         BufferFetchedMarshal := BufferFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, BufferMarshal, Buffer, "uint", BufferSize, BufferFetchedMarshal, BufferFetched, "HRESULT")
+        result := ComCall(5, this, CdbMarshal, Cdb, "uint", CdbSize, SenseBufferMarshal, SenseBuffer, "uint", Timeout, Buffer_Marshal, Buffer_, "uint", BufferSize, BufferFetchedMarshal, BufferFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Reads a DVD structure from the media.
+     * @remarks
+     * This method removes the complexity of working with the READ DISC STRUCTURE command. For details on the values to specify for the <i>format</i>, <i>address</i>, <i>layer</i>, and <i>agid</i> parameters, see their field descriptions for the READ DISC STRUCTURE command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * @param {Integer} format Format field of the command packet. Acceptable values range from zero to 0xFF.
      * 
      * <div class="alert"><b>Note</b>  This value is truncated to <b>UCHAR</b>.</div>
      * <div> </div>
-     * @param {Integer} address Address field of the command packet.
+     * @param {Integer} address_ Address field of the command packet.
      * @param {Integer} layer Layer field of the command packet.
      * @param {Integer} agid Authentication grant ID (AGID) field of the command packet.
      * @param {Pointer<Pointer<Integer>>} data Data buffer that contains the DVD structure. For details of the contents of the data buffer, see the READ DISC STRUCTURE command in the latest revision of the MMC specification at <a href="https://www.microsoft.com/?ref=go">ftp://ftp.t10.org/t10/drafts/mmc5</a>.
@@ -752,18 +940,24 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-readdvdstructure
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-readdvdstructure
      */
-    ReadDvdStructure(format, address, layer, agid, data, count) {
+    ReadDvdStructure(format, address_, layer, agid, data, count) {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", format, "uint", address, "uint", layer, "uint", agid, dataMarshal, data, countMarshal, count, "HRESULT")
+        result := ComCall(6, this, "uint", format, "uint", address_, "uint", layer, "uint", agid, dataMarshal, data, countMarshal, count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a DVD structure to the media.
+     * @remarks
+     * For details on specifying the fields of  the structure, see the SEND DISC STRUCTURE command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * @param {Integer} format Format field of the command packet. Acceptable values range from zero to 0xFF.
      * @param {Pointer<Integer>} data Data buffer that contains the DVD structure to send to the media. Do not include a header; this method generates and prepends a header to the DVD structure.
      * @param {Integer} count Size, in bytes, of the data buffer.
@@ -1074,12 +1268,16 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-senddvdstructure
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-senddvdstructure
      */
     SendDvdStructure(format, data, count) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", format, dataMarshal, data, "uint", count, "HRESULT")
+        result := ComCall(7, this, "uint", format, dataMarshal, data, "uint", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1123,13 +1321,17 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getadapterdescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getadapterdescriptor
      */
     GetAdapterDescriptor(data, byteSize) {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, dataMarshal, data, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(8, this, dataMarshal, data, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1186,18 +1388,24 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getdevicedescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getdevicedescriptor
      */
     GetDeviceDescriptor(data, byteSize) {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, dataMarshal, data, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(9, this, dataMarshal, data, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the disc information from the media.
+     * @remarks
+     * See the MMC specification for details regarding how to interpret the returned data.
      * @param {Pointer<Pointer<Integer>>} discInformation Data buffer that contains disc information from the media. For details of the contents of the data buffer, see the READ DISC INFORMATION command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * 
      * When done, call the <b>CoTaskMemFree</b> function to free the memory.
@@ -1470,19 +1678,23 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getdiscinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getdiscinformation
      */
     GetDiscInformation(discInformation, byteSize) {
         discInformationMarshal := discInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, discInformationMarshal, discInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(10, this, discInformationMarshal, discInformation, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the track information from the media.
-     * @param {Integer} address Address field. The <i>addressType</i> parameter provides additional context for this parameter.
+     * @param {Integer} address_ Address field. The <i>addressType</i> parameter provides additional context for this parameter.
      * @param {Integer} addressType Type of address specified in the <i>address</i> parameter, for example, if this is an LBA address or a track number. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_read_track_address_type">IMAPI_READ_TRACK_ADDRESS_TYPE</a> enumeration type.
      * @param {Pointer<Pointer<Integer>>} trackInformation Data buffer that contains the track information. For details of the contents of the data buffer, see the READ TRACK INFORMATION command in the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
      * 
@@ -1795,13 +2007,17 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-gettrackinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-gettrackinformation
      */
-    GetTrackInformation(address, addressType, trackInformation, byteSize) {
+    GetTrackInformation(address_, addressType, trackInformation, byteSize) {
         trackInformationMarshal := trackInformation is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", address, "int", addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(11, this, "uint", address_, "int", addressType, trackInformationMarshal, trackInformation, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -2122,13 +2338,17 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getfeaturepage
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getfeaturepage
      */
     GetFeaturePage(requestedFeature, currentFeatureOnly, featureData, byteSize) {
         featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(12, this, "int", requestedFeature, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -2436,13 +2656,17 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getmodepage
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getmodepage
      */
     GetModePage(requestedModePage, requestType, modePageData, byteSize) {
         modePageDataMarshal := modePageData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "int", requestedModePage, "int", requestType, modePageDataMarshal, modePageData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(13, this, "int", requestedModePage, "int", requestType, modePageDataMarshal, modePageData, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -2760,12 +2984,16 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-setmodepage
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-setmodepage
      */
     SetModePage(requestType, data, byteSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, "int", requestType, dataMarshal, data, "uint", byteSize, "HRESULT")
+        result := ComCall(14, this, "int", requestType, dataMarshal, data, "uint", byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -3085,13 +3313,17 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getsupportedfeaturepages
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedfeaturepages
      */
     GetSupportedFeaturePages(currentFeatureOnly, featureData, byteSize) {
         featureDataMarshal := featureData is VarRef ? "ptr*" : "ptr"
         byteSizeMarshal := byteSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "HRESULT")
+        result := ComCall(15, this, "char", currentFeatureOnly, featureDataMarshal, featureData, byteSizeMarshal, byteSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -3409,13 +3641,17 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getsupportedprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedprofiles
      */
     GetSupportedProfiles(currentOnly, profileTypes, validProfiles) {
         profileTypesMarshal := profileTypes is VarRef ? "ptr*" : "ptr"
         validProfilesMarshal := validProfiles is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "char", currentOnly, profileTypesMarshal, profileTypes, validProfilesMarshal, validProfiles, "HRESULT")
+        result := ComCall(16, this, "char", currentOnly, profileTypesMarshal, profileTypes, validProfilesMarshal, validProfiles, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -3722,43 +3958,73 @@ class IDiscRecorder2Ex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getsupportedmodepages
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getsupportedmodepages
      */
     GetSupportedModePages(requestType, modePageTypes, validPages) {
         modePageTypesMarshal := modePageTypes is VarRef ? "ptr*" : "ptr"
         validPagesMarshal := validPages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "int", requestType, modePageTypesMarshal, modePageTypes, validPagesMarshal, validPages, "HRESULT")
+        result := ComCall(17, this, "int", requestType, modePageTypesMarshal, modePageTypes, validPagesMarshal, validPages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the byte alignment mask for the device.
+     * @remarks
+     * The data buffer for <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandsenddatatodevice">IDiscRecorder2Ex::SendCommandSendDataToDevice</a> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2ex-sendcommandgetdatafromdevice">IDiscRecorder2Ex::SendCommandGetDataFromDevice</a> must aligned to the correct byte boundary. To determine if the buffer is on the correct byte boundary, perform a bitwise logical AND of the bitmask with  the address of the data buffer. For example, if the address of the buffer is 0x3840958, you can test for correct alignment using the following statement:
+     * 
+     * 
+     * ``` syntax
+     * if (0x3840958 &amp; (value - 1) == 0)
+     * {
+     *     // The alignment is correct
+     * }
+     * ```
      * @returns {Integer} Byte alignment mask that you use to determine if the buffer is aligned to the correct byte boundary for the device. The byte alignment value is always a number that is a power of 2.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getbytealignmentmask
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getbytealignmentmask
      */
     GetByteAlignmentMask() {
-        result := ComCall(18, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(18, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the maximum non-page-aligned transfer size for the device.
+     * @remarks
+     * This is the maximum buffer size that a device can accept for a single command. Buffers of this size provide the maximum exchange of data. The buffer does not need to begin on a  physical memory page boundary.
      * @returns {Integer} Maximum size, in bytes,  of a non-page-aligned buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getmaximumnonpagealignedtransfersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumnonpagealignedtransfersize
      */
     GetMaximumNonPageAlignedTransferSize() {
-        result := ComCall(19, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(19, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the maximum page-aligned transfer size for the device.
+     * @remarks
+     * Maximum page-aligned buffer size that a device can accept for a single command. The buffer for this transfer size must begin on a physical memory page boundary.
      * @returns {Integer} Maximum size, in bytes,  of a page-aligned buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2ex-getmaximumpagealignedtransfersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumpagealignedtransfersize
      */
     GetMaximumPageAlignedTransferSize() {
-        result := ComCall(20, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(20, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

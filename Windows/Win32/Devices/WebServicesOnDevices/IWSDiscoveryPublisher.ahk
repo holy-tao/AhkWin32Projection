@@ -7,11 +7,8 @@
 /**
  * Provides methods for announcing hosts and managing incoming queries to hosts.
  * @remarks
- * 
- *  This interface represents the "server" or "host" side of <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nn-wsddisco-iwsdiscoverypublisher
+ * This interface represents the "server" or "host" side of <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery</a>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nn-wsddisco-iwsdiscoverypublisher
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -38,6 +35,8 @@ class IWSDiscoveryPublisher extends IUnknown{
 
     /**
      * Specifies the IP address family (IPv4, IPv6, or both) over which the host will be published.
+     * @remarks
+     * This method must be called before a notification sink is attached to the publisher.
      * @param {Integer} dwAddressFamily The address family over which the host will be published.
      * 
      * <table>
@@ -128,15 +127,24 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-setaddressfamily
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-setaddressfamily
      */
     SetAddressFamily(dwAddressFamily) {
-        result := ComCall(3, this, "uint", dwAddressFamily, "HRESULT")
+        result := ComCall(3, this, "uint", dwAddressFamily, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Attaches a callback notification sink to the discovery publisher.
+     * @remarks
+     * The notification sink receives a callback whenever an inbound query is received. It is possible to register multiple notification sinks with a single publisher.
+     * 
+     * <div class="alert"><b>Note</b>  <b>RegisterNotificationSink</b> must be called at least once before any other <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublisher">IWSDiscoveryPublisher</a> method is used.</div>
+     * <div> </div>
      * @param {IWSDiscoveryPublisherNotify} pSink Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublishernotify">IWSDiscoveryPublisherNotify</a> object that represents the initialized interface to receive callback notifications. This parameter cannot be <b>NULL</b>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -179,15 +187,22 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink
      */
     RegisterNotificationSink(pSink) {
-        result := ComCall(4, this, "ptr", pSink, "HRESULT")
+        result := ComCall(4, this, "ptr", pSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Detaches a callback notification sink from the discovery publisher.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <b>UnRegisterNotificationSink</b> must be called at least once for each notification sink previously attached to the discovery publisher.</div>
+     * <div> </div>
      * @param {IWSDiscoveryPublisherNotify} pSink Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoverypublishernotify">IWSDiscoveryPublisherNotify</a> interface that will stop receiving callback notifications.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -230,15 +245,21 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-unregisternotificationsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-unregisternotificationsink
      */
     UnRegisterNotificationSink(pSink) {
-        result := ComCall(5, this, "ptr", pSink, "HRESULT")
+        result := ComCall(5, this, "ptr", pSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Announces the presence of a network host by sending a Hello message.
+     * @remarks
+     * If successful, <b>Publish</b> will send a WS-Discovery Hello message to the local subnet with the provided information.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
      * @param {Integer} ullMetadataVersion Current metadata version.
      * 
@@ -299,7 +320,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * There is no registered notification sink. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * There is no registered notification sink. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -310,7 +331,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -326,18 +347,24 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-publish
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-publish
      */
     Publish(pszId, ullMetadataVersion, ullInstanceId, ullMessageNumber, pszSessionId, pTypesList, pScopesList, pXAddrsList) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(6, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "HRESULT")
+        result := ComCall(6, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Announces the departure of a network host by sending a Bye message.
+     * @remarks
+     * If successful, <b>UnPublish</b> will send a WS-Discovery Bye message to the local subnet with the provided information.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
      * @param {Integer} ullInstanceId Identifier for the current instance of the device being published. This identifier must be incremented whenever the service is restarted. For more information about instance identifiers, see Appendix I of the <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery specification</a>.
      * 
@@ -392,7 +419,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -408,18 +435,26 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-unpublish
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-unpublish
      */
     UnPublish(pszId, ullInstanceId, ullMessageNumber, pszSessionId, pAny) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(7, this, "ptr", pszId, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pAny, "HRESULT")
+        result := ComCall(7, this, "ptr", pszId, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pAny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether a Probe message matches the specified host and sends a WS-Discovery ProbeMatches message if the match is made.
+     * @remarks
+     * <b>MatchProbe</b> should be called only when the discovery publisher has issued a <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler">ProbeHandler</a> callback. <i>pProbeMessage</i> and <i>pMessageParameters</i> are passed directly from the callback into <b>MatchProbe</b>. The <b>ProbeHandler</b> also passes information required by the publisher to determine if the supplied Probe message matches and, if so, to issue a ProbeMatches response if appropriate.
+     * 
+     * <b>MatchProbe</b> sends ProbeMatches messages on all bound adapters and automatically issues message retransmissions when required by WS-Discovery.
      * @param {Pointer<WSD_SOAP_MESSAGE>} pProbeMessage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that represents the Probe message passed to the notification sink's <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler">ProbeHandler</a>.
      * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> object that represents the transmission parameters passed in to the notification sink's <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler">ProbeHandler</a>.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
@@ -487,7 +522,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -503,18 +538,26 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchprobe
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchprobe
      */
     MatchProbe(pProbeMessage, pMessageParameters, pszId, ullMetadataVersion, ullInstanceId, ullMessageNumber, pszSessionId, pTypesList, pScopesList, pXAddrsList) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(8, this, "ptr", pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "HRESULT")
+        result := ComCall(8, this, "ptr", pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether a Resolve message matches the specified host and sends a WS-Discovery ResolveMatches message if the match is made.
+     * @remarks
+     * <b>MatchResolve</b> should be called only when the discovery publisher has issued a <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler">ResolveHandler</a> callback. <i>pResolveMessage</i> and <i>pMessageParameters</i> are passed directly from the callback into <b>MatchResolve</b>. The <b>ResolveHandler</b> also passes information required by the publisher to determine if the supplied Resolve message matches and, if so, to issue a ResolveMatches response if appropriate.
+     * 
+     * <b>MatchResolve</b>  sends ResolveMatches messages on all bound adapters and automatically issues message retransmissions when required by WS-Discovery.
      * @param {Pointer<WSD_SOAP_MESSAGE>} pResolveMessage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that represents the Resolve message passed in to the notification sink's <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler">ResolveHandler</a>.
      * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> object that represents the transmission parameters passed in to the notification sink's <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler">ResolveHandler</a>.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
@@ -578,7 +621,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -594,18 +637,26 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchresolve
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchresolve
      */
     MatchResolve(pResolveMessage, pMessageParameters, pszId, ullMetadataVersion, ullInstanceId, ullMessageNumber, pszSessionId, pTypesList, pScopesList, pXAddrsList) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(9, this, "ptr", pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "HRESULT")
+        result := ComCall(9, this, "ptr", pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Announces the presence of a network host by sending a Hello message with extended information.
+     * @remarks
+     * If successful, <b>PublishEx</b> will send a WS-Discovery Hello message to the local subnet with the provided information. 
+     * 
+     * The parameters referring to <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structures can be used to extend the contents of the Hello message being sent with custom information.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
      * @param {Integer} ullMetadataVersion Current metadata version.
      * 
@@ -671,7 +722,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * There is no registered notification sink. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * There is no registered notification sink. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -682,7 +733,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -698,18 +749,28 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-publishex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-publishex
      */
     PublishEx(pszId, ullMetadataVersion, ullInstanceId, ullMessageNumber, pszSessionId, pTypesList, pScopesList, pXAddrsList, pHeaderAny, pReferenceParameterAny, pPolicyAny, pEndpointReferenceAny, pAny) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(10, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "HRESULT")
+        result := ComCall(10, this, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether a Probe message matches the specified host and sends a WS-Discovery ProbeMatches message with extended information if the match is made.
+     * @remarks
+     * <b>MatchProbeEx</b> should be called only when the discovery publisher has issued a <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-probehandler">ProbeHandler</a> callback. <i>pProbeMessage</i> and <i>pMessageParameters</i> are passed directly from the callback into <b>MatchProbeEx</b>. The <b>ProbeHandler</b> also passes information required by the publisher to determine if the supplied Probe message matches and, if so, to issue a ProbeMatches response if appropriate.
+     * 
+     * <b>MatchProbeEx</b> sends ProbeMatches messages on all bound adapters and automatically issues message retransmissions when required by WS-Discovery.
+     * 
+     * The parameters referring to <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structures can be used to extend the contents of the ProbeMatches message being sent with custom information.
      * @param {Pointer<WSD_SOAP_MESSAGE>} pProbeMessage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that represents the Probe message passed to the notification sink's ProbeHandler.
      * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> object that represents the transmission parameters passed in to the notification sink's ProbeHandler.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
@@ -782,7 +843,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -798,18 +859,28 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchprobeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchprobeex
      */
     MatchProbeEx(pProbeMessage, pMessageParameters, pszId, ullMetadataVersion, ullInstanceId, ullMessageNumber, pszSessionId, pTypesList, pScopesList, pXAddrsList, pHeaderAny, pReferenceParameterAny, pPolicyAny, pEndpointReferenceAny, pAny) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(11, this, "ptr", pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "HRESULT")
+        result := ComCall(11, this, "ptr", pProbeMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether a Resolve message matches the specified host and sends a WS-Discovery ResolveMatches message with extended information if the match is made.
+     * @remarks
+     * <b>MatchResolveEx</b> should be only when the discovery publisher has issued a <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler">ResolveHandler</a> callback. <i>pResolveMessage</i> and <i>pMessageParameters</i> are passed directly from the callback into <b>MatchResolveEx</b>. The <b>ResolveHandler</b> also passes information required by the publisher to determine if the supplied Resolve message matches and, if so, to issue a ResolveMatches response if appropriate.
+     * 
+     * <b>MatchResolveEx</b>  sends ResolveMatches messages on all bound adapters and automatically issues message retransmissions when required by WS-Discovery.
+     * 
+     * The parameters referring to <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a> structures can be used to extend the contents of the ResolveMatches message being sent with custom information.
      * @param {Pointer<WSD_SOAP_MESSAGE>} pResolveMessage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_soap_message">WSD_SOAP_MESSAGE</a> structure that represents the Resolve message passed in to the notification sink's <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler">ResolveHandler</a>.
      * @param {IWSDMessageParameters} pMessageParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/nn-wsdbase-iwsdmessageparameters">IWSDMessageParameters</a> object that represents the transmission parameters passed in to the notification sink's <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublishernotify-resolvehandler">ResolveHandler</a>.
      * @param {PWSTR} pszId The logical or physical address of the device, which is used as the device endpoint address. A logical address is of the form <c>urn:uuid:{guid}</code>. A physical address can be a URI prefixed by http or https, or simply a URI prefixed by <code>uri</c>. Whenever possible, use a logical address.
@@ -878,7 +949,7 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
+     * The publisher has not been started. Attaching a notification sink starts the publisher. To attach a sink, call <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registernotificationsink">RegisterNotificationSink</a>.
      * 
      * </td>
      * </tr>
@@ -894,18 +965,24 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchresolveex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-matchresolveex
      */
     MatchResolveEx(pResolveMessage, pMessageParameters, pszId, ullMetadataVersion, ullInstanceId, ullMessageNumber, pszSessionId, pTypesList, pScopesList, pXAddrsList, pHeaderAny, pReferenceParameterAny, pPolicyAny, pEndpointReferenceAny, pAny) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
 
-        result := ComCall(12, this, "ptr", pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "HRESULT")
+        result := ComCall(12, this, "ptr", pResolveMessage, "ptr", pMessageParameters, "ptr", pszId, "uint", ullMetadataVersion, "uint", ullInstanceId, "uint", ullMessageNumber, "ptr", pszSessionId, "ptr", pTypesList, "ptr", pScopesList, "ptr", pXAddrsList, "ptr", pHeaderAny, "ptr", pReferenceParameterAny, "ptr", pPolicyAny, "ptr", pEndpointReferenceAny, "ptr", pAny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds support for a custom scope matching rule.
+     * @remarks
+     * <b>RegisterScopeMatchingRule</b> allows custom scope matching rules to be defined and added to the existing set defined in the <a href="https://specs.xmlsoap.org/ws/2005/04/discovery/ws-discovery.pdf">WS-Discovery specification</a>.
      * @param {IWSDScopeMatchingRule} pScopeMatchingRule Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdscopematchingrule">IWSDScopeMatchingRule</a> object that represents a  custom scope matching rule.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -948,15 +1025,21 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-registerscopematchingrule
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-registerscopematchingrule
      */
     RegisterScopeMatchingRule(pScopeMatchingRule) {
-        result := ComCall(13, this, "ptr", pScopeMatchingRule, "HRESULT")
+        result := ComCall(13, this, "ptr", pScopeMatchingRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes support for a custom scope matching rule.
+     * @remarks
+     * <b>UnRegisterScopeMatchingRule</b> removes a previously associated custom scope matching rule.
      * @param {IWSDScopeMatchingRule} pScopeMatchingRule Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdscopematchingrule">IWSDScopeMatchingRule</a> object that represents a custom scope matching rule.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -988,20 +1071,30 @@ class IWSDiscoveryPublisher extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-unregisterscopematchingrule
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-unregisterscopematchingrule
      */
     UnRegisterScopeMatchingRule(pScopeMatchingRule) {
-        result := ComCall(14, this, "ptr", pScopeMatchingRule, "HRESULT")
+        result := ComCall(14, this, "ptr", pScopeMatchingRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the XML context associated with the device.
+     * @remarks
+     * Returns an optional context for the XML state of the transaction. If the service layer is used then this should be the context the XML namespaces and types were registered with.
      * @returns {IWSDXMLContext} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdxml/nn-wsdxml-iwsdxmlcontext">IWSDXMLContext</a> object that represents the XML context.
-     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoverypublisher-getxmlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsddisco/nf-wsddisco-iwsdiscoverypublisher-getxmlcontext
      */
     GetXMLContext() {
-        result := ComCall(15, this, "ptr*", &ppContext := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWSDXMLContext(ppContext)
     }
 }

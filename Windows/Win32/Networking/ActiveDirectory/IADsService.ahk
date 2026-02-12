@@ -8,14 +8,10 @@
 /**
  * The IADsService interface is a dual interface that inherits from IADs.
  * @remarks
- * 
  * The system services are published in the underlying directory. Some may be running, others may not. To verify the status or to operate on any of the services, use the properties and methods of the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsserviceoperations">IADsServiceOperations</a> interface.
  * 
  * File service is a special case of the system service. The  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsfileservice">IADsFileService</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsfileserviceoperations">IADsFileServiceOperations</a> interfaces support additional features unique to file services.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsservice
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -142,7 +138,11 @@ class IADsService extends IADs{
      */
     get_HostComputer() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -152,9 +152,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_HostComputer(bstrHostComputer) {
-        bstrHostComputer := bstrHostComputer is String ? BSTR.Alloc(bstrHostComputer).Value : bstrHostComputer
+        if(bstrHostComputer is String) {
+            pin := BSTR.Alloc(bstrHostComputer)
+            bstrHostComputer := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", bstrHostComputer, "HRESULT")
+        result := ComCall(21, this, "ptr", bstrHostComputer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +171,11 @@ class IADsService extends IADs{
      */
     get_DisplayName() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -174,9 +185,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_DisplayName(bstrDisplayName) {
-        bstrDisplayName := bstrDisplayName is String ? BSTR.Alloc(bstrDisplayName).Value : bstrDisplayName
+        if(bstrDisplayName is String) {
+            pin := BSTR.Alloc(bstrDisplayName)
+            bstrDisplayName := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrDisplayName, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,7 +204,11 @@ class IADsService extends IADs{
      */
     get_Version() {
         retval := BSTR()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -196,9 +218,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_Version(bstrVersion) {
-        bstrVersion := bstrVersion is String ? BSTR.Alloc(bstrVersion).Value : bstrVersion
+        if(bstrVersion is String) {
+            pin := BSTR.Alloc(bstrVersion)
+            bstrVersion := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrVersion, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +236,11 @@ class IADsService extends IADs{
      * @returns {Integer} 
      */
     get_ServiceType() {
-        result := ComCall(26, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -217,7 +250,11 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_ServiceType(lnServiceType) {
-        result := ComCall(27, this, "int", lnServiceType, "HRESULT")
+        result := ComCall(27, this, "int", lnServiceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +263,11 @@ class IADsService extends IADs{
      * @returns {Integer} 
      */
     get_StartType() {
-        result := ComCall(28, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -236,7 +277,11 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_StartType(lnStartType) {
-        result := ComCall(29, this, "int", lnStartType, "HRESULT")
+        result := ComCall(29, this, "int", lnStartType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -246,7 +291,11 @@ class IADsService extends IADs{
      */
     get_Path() {
         retval := BSTR()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        result := ComCall(30, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -256,9 +305,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_Path(bstrPath) {
-        bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
+        if(bstrPath is String) {
+            pin := BSTR.Alloc(bstrPath)
+            bstrPath := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", bstrPath, "HRESULT")
+        result := ComCall(31, this, "ptr", bstrPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -268,7 +324,11 @@ class IADsService extends IADs{
      */
     get_StartupParameters() {
         retval := BSTR()
-        result := ComCall(32, this, "ptr", retval, "HRESULT")
+        result := ComCall(32, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -278,9 +338,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_StartupParameters(bstrStartupParameters) {
-        bstrStartupParameters := bstrStartupParameters is String ? BSTR.Alloc(bstrStartupParameters).Value : bstrStartupParameters
+        if(bstrStartupParameters is String) {
+            pin := BSTR.Alloc(bstrStartupParameters)
+            bstrStartupParameters := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", bstrStartupParameters, "HRESULT")
+        result := ComCall(33, this, "ptr", bstrStartupParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -289,7 +356,11 @@ class IADsService extends IADs{
      * @returns {Integer} 
      */
     get_ErrorControl() {
-        result := ComCall(34, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -299,7 +370,11 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_ErrorControl(lnErrorControl) {
-        result := ComCall(35, this, "int", lnErrorControl, "HRESULT")
+        result := ComCall(35, this, "int", lnErrorControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -309,7 +384,11 @@ class IADsService extends IADs{
      */
     get_LoadOrderGroup() {
         retval := BSTR()
-        result := ComCall(36, this, "ptr", retval, "HRESULT")
+        result := ComCall(36, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -319,9 +398,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_LoadOrderGroup(bstrLoadOrderGroup) {
-        bstrLoadOrderGroup := bstrLoadOrderGroup is String ? BSTR.Alloc(bstrLoadOrderGroup).Value : bstrLoadOrderGroup
+        if(bstrLoadOrderGroup is String) {
+            pin := BSTR.Alloc(bstrLoadOrderGroup)
+            bstrLoadOrderGroup := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", bstrLoadOrderGroup, "HRESULT")
+        result := ComCall(37, this, "ptr", bstrLoadOrderGroup, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -331,7 +417,11 @@ class IADsService extends IADs{
      */
     get_ServiceAccountName() {
         retval := BSTR()
-        result := ComCall(38, this, "ptr", retval, "HRESULT")
+        result := ComCall(38, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -341,9 +431,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_ServiceAccountName(bstrServiceAccountName) {
-        bstrServiceAccountName := bstrServiceAccountName is String ? BSTR.Alloc(bstrServiceAccountName).Value : bstrServiceAccountName
+        if(bstrServiceAccountName is String) {
+            pin := BSTR.Alloc(bstrServiceAccountName)
+            bstrServiceAccountName := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", bstrServiceAccountName, "HRESULT")
+        result := ComCall(39, this, "ptr", bstrServiceAccountName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -353,7 +450,11 @@ class IADsService extends IADs{
      */
     get_ServiceAccountPath() {
         retval := BSTR()
-        result := ComCall(40, this, "ptr", retval, "HRESULT")
+        result := ComCall(40, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -363,9 +464,16 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_ServiceAccountPath(bstrServiceAccountPath) {
-        bstrServiceAccountPath := bstrServiceAccountPath is String ? BSTR.Alloc(bstrServiceAccountPath).Value : bstrServiceAccountPath
+        if(bstrServiceAccountPath is String) {
+            pin := BSTR.Alloc(bstrServiceAccountPath)
+            bstrServiceAccountPath := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", bstrServiceAccountPath, "HRESULT")
+        result := ComCall(41, this, "ptr", bstrServiceAccountPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -375,7 +483,11 @@ class IADsService extends IADs{
      */
     get_Dependencies() {
         retval := VARIANT()
-        result := ComCall(42, this, "ptr", retval, "HRESULT")
+        result := ComCall(42, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -385,7 +497,11 @@ class IADsService extends IADs{
      * @returns {HRESULT} 
      */
     put_Dependencies(vDependencies) {
-        result := ComCall(43, this, "ptr", vDependencies, "HRESULT")
+        result := ComCall(43, this, "ptr", vDependencies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

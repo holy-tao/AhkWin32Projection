@@ -18,7 +18,7 @@
  * 
  * <div class="alert"><b>Note</b>  When formatting attributes for encryption keys, it is strongly recommended that you  use MSCHAPv2 and its MS-MPPE-Recv-Keys and MS-MPPE-Send-Keys,  which create <i>strong encryption</i> rather than  MSCHAPv1 and its MS-CHAP-MPPE-Keys.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_output
+ * @see https://learn.microsoft.com/windows/win32/api//content/raseapif/ns-raseapif-ppp_eap_output
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

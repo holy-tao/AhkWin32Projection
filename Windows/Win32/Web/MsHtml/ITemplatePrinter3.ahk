@@ -44,9 +44,16 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @returns {HRESULT} 
      */
     put_headerFooterFont(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(71, this, "ptr", v, "HRESULT")
+        result := ComCall(71, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +63,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      */
     get_headerFooterFont() {
         p := BSTR()
-        result := ComCall(72, this, "ptr", p, "HRESULT")
+        result := ComCall(72, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -69,7 +80,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      */
     getPageMarginTop(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(73, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(73, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMargin
     }
 
@@ -82,7 +97,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      */
     getPageMarginRight(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(74, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(74, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMargin
     }
 
@@ -95,7 +114,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      */
     getPageMarginBottom(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(75, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(75, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMargin
     }
 
@@ -108,7 +131,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      */
     getPageMarginLeft(pageRule, pageWidth, pageHeight) {
         pMargin := VARIANT()
-        result := ComCall(76, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "HRESULT")
+        result := ComCall(76, this, "ptr", pageRule, "int", pageWidth, "int", pageHeight, "ptr", pMargin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMargin
     }
 
@@ -118,7 +145,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginTopImportant(pageRule) {
-        result := ComCall(77, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", pageRule, "short*", &pbImportant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbImportant
     }
 
@@ -128,7 +159,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginRightImportant(pageRule) {
-        result := ComCall(78, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(78, this, "ptr", pageRule, "short*", &pbImportant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbImportant
     }
 
@@ -138,7 +173,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginBottomImportant(pageRule) {
-        result := ComCall(79, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(79, this, "ptr", pageRule, "short*", &pbImportant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbImportant
     }
 
@@ -148,7 +187,11 @@ class ITemplatePrinter3 extends ITemplatePrinter2{
      * @returns {VARIANT_BOOL} 
      */
     getPageMarginLeftImportant(pageRule) {
-        result := ComCall(80, this, "ptr", pageRule, "short*", &pbImportant := 0, "HRESULT")
+        result := ComCall(80, this, "ptr", pageRule, "short*", &pbImportant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbImportant
     }
 }

@@ -13,7 +13,7 @@
  * Recommended default value is 2 (size in MB row per slice).
  * 
  * This is a static API, which means the application won t change this while the encoder is running.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencslicecontrolmode
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencslicecontrolmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

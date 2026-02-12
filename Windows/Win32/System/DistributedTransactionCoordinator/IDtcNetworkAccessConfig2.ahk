@@ -33,7 +33,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {BOOL} 
      */
     GetNetworkInboundAccess() {
-        result := ComCall(16, this, "int*", &pbInbound := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pbInbound := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbInbound
     }
 
@@ -42,7 +46,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {BOOL} 
      */
     GetNetworkOutboundAccess() {
-        result := ComCall(17, this, "int*", &pbOutbound := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pbOutbound := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbOutbound
     }
 
@@ -52,7 +60,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {HRESULT} 
      */
     SetNetworkInboundAccess(bInbound) {
-        result := ComCall(18, this, "int", bInbound, "HRESULT")
+        result := ComCall(18, this, "int", bInbound, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +74,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {HRESULT} 
      */
     SetNetworkOutboundAccess(bOutbound) {
-        result := ComCall(19, this, "int", bOutbound, "HRESULT")
+        result := ComCall(19, this, "int", bOutbound, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +87,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {Integer} 
      */
     GetAuthenticationLevel() {
-        result := ComCall(20, this, "int*", &pAuthLevel := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pAuthLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAuthLevel
     }
 
@@ -81,7 +101,11 @@ class IDtcNetworkAccessConfig2 extends IDtcNetworkAccessConfig{
      * @returns {HRESULT} 
      */
     SetAuthenticationLevel(AuthLevel) {
-        result := ComCall(21, this, "int", AuthLevel, "HRESULT")
+        result := ComCall(21, this, "int", AuthLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

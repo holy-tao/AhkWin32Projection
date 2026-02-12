@@ -5,7 +5,7 @@
  * The DWM_WINDOW_CORNER_PREFERENCE enumeration (dwmapi.h) specifies the rounded corner preference for a window.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_window_corner_preference
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwmapi/ne-dwmapi-dwm_window_corner_preference
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

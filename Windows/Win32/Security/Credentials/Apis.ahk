@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Credentials
@@ -397,177 +399,177 @@ class Credentials {
     static CRED_MAX_ATTRIBUTES => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_SESSION_WILDCARD_NAME_W => "*Session"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_SESSION_WILDCARD_NAME_A => "*Session"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_DOMAIN_NAMESPACE_W => "Domain"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_DOMAIN_NAMESPACE_A => "Domain"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_LEGACYGENERIC_NAMESPACE_W => "LegacyGeneric"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_LEGACYGENERIC_NAMESPACE_A => "LegacyGeneric"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_TARGET_W => "target"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_TARGET_A => "target"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NAME_W => "name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NAME_A => "name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_BATCH_W => "batch"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_BATCH_A => "batch"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_INTERACTIVE_W => "interactive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_INTERACTIVE_A => "interactive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_SERVICE_W => "service"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_SERVICE_A => "service"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NETWORK_W => "network"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NETWORK_A => "network"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NETWORKCLEARTEXT_W => "networkcleartext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NETWORKCLEARTEXT_A => "networkcleartext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_REMOTEINTERACTIVE_W => "remoteinteractive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_REMOTEINTERACTIVE_A => "remoteinteractive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_CACHEDINTERACTIVE_W => "cachedinteractive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_CACHEDINTERACTIVE_A => "cachedinteractive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_SESSION_WILDCARD_NAME => "*Session"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_DOMAIN_NAMESPACE => "Domain"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NAME => "name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_TARGET => "target"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_BATCH => "batch"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_INTERACTIVE => "interactive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_SERVICE => "service"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NETWORK => "network"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_NETWORKCLEARTEXT => "networkcleartext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_REMOTEINTERACTIVE => "remoteinteractive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRED_TARGETNAME_ATTRIBUTE_CACHEDINTERACTIVE => "cachedinteractive"
 
@@ -717,22 +719,22 @@ class Credentials {
     static SCARD_SCOPE_TERMINAL => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SCARD_ALL_READERS => "SCard$AllReaders" Chr(0) "00"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SCARD_DEFAULT_READERS => "SCard$DefaultReaders" Chr(0) "00"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SCARD_LOCAL_READERS => "SCard$LocalReaders" Chr(0) "00"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SCARD_SYSTEM_READERS => "SCard$SystemReaders" Chr(0) "00"
 
@@ -827,22 +829,22 @@ class Credentials {
     static SCARD_AUDIT_CHV_SUCCESS => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CREDSSP_NAME => "CREDSSP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TS_SSP_NAME_A => "TSSSP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TS_SSP_NAME => "TSSSP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TS_KP_TS_SERVER_AUTH => "1.3.6.1.4.1.311.54.1.2"
 
@@ -885,17 +887,17 @@ class Credentials {
 ;@region Methods
     /**
      * Prerequisite API to call to determine if the operation will be successful prior.
-     * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype.md">KeyCredentialManagerOperationType</a>.
+     * @param {Integer} keyCredentialManagerOperationType_ The intended operation from the <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype.md">KeyCredentialManagerOperationType</a>.
      * @param {Pointer<BOOL>} isReady If the operational prerequisite will succeed (True) or (False).
-     * @param {Pointer<Integer>} keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
+     * @param {Pointer<Integer>} keyCredentialManagerOperationErrorStates_ Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
      * @returns {HRESULT} Returns an HRESULT.
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
+     * @see https://learn.microsoft.com/windows/win32/api//content/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
-    static KeyCredentialManagerGetOperationErrorStates(keyCredentialManagerOperationType, isReady, keyCredentialManagerOperationErrorStates) {
+    static KeyCredentialManagerGetOperationErrorStates(keyCredentialManagerOperationType_, isReady, keyCredentialManagerOperationErrorStates_) {
         isReadyMarshal := isReady is VarRef ? "int*" : "ptr"
-        keyCredentialManagerOperationErrorStatesMarshal := keyCredentialManagerOperationErrorStates is VarRef ? "int*" : "ptr"
+        keyCredentialManagerOperationErrorStates_Marshal := keyCredentialManagerOperationErrorStates_ is VarRef ? "int*" : "ptr"
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType, isReadyMarshal, isReady, keyCredentialManagerOperationErrorStatesMarshal, keyCredentialManagerOperationErrorStates, "int")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetOperationErrorStates", "int", keyCredentialManagerOperationType_, isReadyMarshal, isReady, keyCredentialManagerOperationErrorStates_Marshal, keyCredentialManagerOperationErrorStates_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -906,14 +908,14 @@ class Credentials {
     /**
      * API to perform the requested WHFB operation.
      * @param {HWND} hWndOwner Window handle of the calling app.
-     * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="https://docs.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
+     * @param {Integer} keyCredentialManagerOperationType_ The intended operation from the <a href="https://docs.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
      * @returns {HRESULT} Returns an HRESULT
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
+     * @see https://learn.microsoft.com/windows/win32/api//content/keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
      */
-    static KeyCredentialManagerShowUIOperation(hWndOwner, keyCredentialManagerOperationType) {
+    static KeyCredentialManagerShowUIOperation(hWndOwner, keyCredentialManagerOperationType_) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType, "int")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerShowUIOperation", "ptr", hWndOwner, "int", keyCredentialManagerOperationType_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -923,26 +925,26 @@ class Credentials {
 
     /**
      * API to get a unique identifier of the users enrollment.
-     * @returns {Pointer<KeyCredentialManagerInfo>} Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
+     * @returns {Pointer<KeyCredentialManagerInfo>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation() {
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &keyCredentialManagerInfo := 0, "int")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", &keyCredentialManagerInfo_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return keyCredentialManagerInfo
+        return keyCredentialManagerInfo_
     }
 
     /**
      * API to free the KeyCredentialManagerInfo pointer variable from the KeyCredentialManagerGetInformation call.
-     * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer variable to <a href="../keycredmgr/ns-keycredmgr-keycredentialmanagerinfo.md">KeyCredentialManagerInfo</a> data structure returned by the <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation.md">KeyCredentialManagerGetInformation</a> API.
+     * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo_ Pointer variable to <a href="../keycredmgr/ns-keycredmgr-keycredentialmanagerinfo.md">KeyCredentialManagerInfo</a> data structure returned by the <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation.md">KeyCredentialManagerGetInformation</a> API.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
      */
-    static KeyCredentialManagerFreeInformation(keyCredentialManagerInfo) {
-        DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", keyCredentialManagerInfo)
+    static KeyCredentialManagerFreeInformation(keyCredentialManagerInfo_) {
+        DllCall("KeyCredMgr.dll\KeyCredentialManagerFreeInformation", "ptr", keyCredentialManagerInfo_)
     }
 
     /**
@@ -1088,7 +1090,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credwritew
      * @since windows5.1.2600
      */
     static CredWriteW(Credential, Flags) {
@@ -1245,7 +1247,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credwritea
      * @since windows5.1.2600
      */
     static CredWriteA(Credential, Flags) {
@@ -1296,7 +1298,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreadw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credreadw
      * @since windows5.1.2600
      */
     static CredReadW(TargetName, Type, Credential) {
@@ -1353,7 +1355,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreada
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credreada
      * @since windows5.1.2600
      */
     static CredReadA(TargetName, Type, Credential) {
@@ -1429,7 +1431,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credenumeratew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credenumeratew
      * @since windows5.1.2600
      */
     static CredEnumerateW(Filter, Count, Credential) {
@@ -1506,7 +1508,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credenumeratea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credenumeratea
      * @since windows5.1.2600
      */
     static CredEnumerateA(Filter, Count, Credential) {
@@ -1667,7 +1669,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritedomaincredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credwritedomaincredentialsw
      * @since windows5.1.2600
      */
     static CredWriteDomainCredentialsW(TargetInfo, Credential, Flags) {
@@ -1821,7 +1823,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credwritedomaincredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credwritedomaincredentialsa
      * @since windows5.1.2600
      */
     static CredWriteDomainCredentialsA(TargetInfo, Credential, Flags) {
@@ -1918,7 +1920,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreaddomaincredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credreaddomaincredentialsw
      * @since windows5.1.2600
      */
     static CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
@@ -2018,7 +2020,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credreaddomaincredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credreaddomaincredentialsa
      * @since windows5.1.2600
      */
     static CredReadDomainCredentialsA(TargetInfo, Flags, Count, Credential) {
@@ -2068,7 +2070,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creddeletew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creddeletew
      * @since windows5.1.2600
      */
     static CredDeleteW(TargetName, Type) {
@@ -2119,7 +2121,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creddeletea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creddeletea
      * @since windows5.1.2600
      */
     static CredDeleteA(TargetName, Type) {
@@ -2173,7 +2175,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credrenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credrenamew
      * @since windows5.1.2600
      */
     static CredRenameW(OldTargetName, NewTargetName, Type) {
@@ -2228,7 +2230,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credrenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credrenamea
      * @since windows5.1.2600
      */
     static CredRenameA(OldTargetName, NewTargetName, Type) {
@@ -2274,7 +2276,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credgettargetinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credgettargetinfow
      * @since windows5.1.2600
      */
     static CredGetTargetInfoW(TargetName, Flags, TargetInfo) {
@@ -2319,7 +2321,7 @@ class Credentials {
      * 
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credgettargetinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credgettargetinfoa
      * @since windows5.1.2600
      */
     static CredGetTargetInfoA(TargetName, Flags, TargetInfo) {
@@ -2358,7 +2360,7 @@ class Credentials {
      * ERROR_INVALID_PARAMETER
      * 
      * <i>CredType</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credmarshalcredentialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credmarshalcredentialw
      * @since windows5.1.2600
      */
     static CredMarshalCredentialW(CredType, Credential, MarshaledCredential) {
@@ -2396,7 +2398,7 @@ class Credentials {
      * ERROR_INVALID_PARAMETER
      * 
      * <i>CredType</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credmarshalcredentiala
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credmarshalcredentiala
      * @since windows5.1.2600
      */
     static CredMarshalCredentialA(CredType, Credential, MarshaledCredential) {
@@ -2431,7 +2433,7 @@ class Credentials {
      * ERROR_INVALID_PARAMETER
      * 
      * <i>MarshaledCredential</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunmarshalcredentialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credunmarshalcredentialw
      * @since windows5.1.2600
      */
     static CredUnmarshalCredentialW(MarshaledCredential, CredType, Credential) {
@@ -2468,7 +2470,7 @@ class Credentials {
      * ERROR_INVALID_PARAMETER
      * 
      * <i>MarshaledCredential</i> is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunmarshalcredentiala
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credunmarshalcredentiala
      * @since windows5.1.2600
      */
     static CredUnmarshalCredentialA(MarshaledCredential, CredType, Credential) {
@@ -2494,7 +2496,7 @@ class Credentials {
      * > The wincred.h header defines CredIsMarshaledCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
      * @returns {BOOL} This function returns <b>TRUE</b> if <i>MarshaledCredential</i> is a marshaled credential and <b>FALSE</b> if it is not.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credismarshaledcredentialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credismarshaledcredentialw
      * @since windows5.1.2600
      */
     static CredIsMarshaledCredentialW(MarshaledCredential) {
@@ -2511,7 +2513,7 @@ class Credentials {
      * > The wincred.h header defines CredIsMarshaledCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
      * @returns {BOOL} This function returns <b>TRUE</b> if <i>MarshaledCredential</i> is a marshaled credential and <b>FALSE</b> if it is not.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credismarshaledcredentiala
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credismarshaledcredentiala
      * @since windows5.1.2600
      */
     static CredIsMarshaledCredentialA(MarshaledCredential) {
@@ -2606,7 +2608,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunpackauthenticationbufferw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credunpackauthenticationbufferw
      * @since windows6.0.6000
      */
     static CredUnPackAuthenticationBufferW(dwFlags, pAuthBuffer, cbAuthBuffer, pszUserName, pcchMaxUserName, pszDomainName, pcchMaxDomainName, pszPassword, pcchMaxPassword) {
@@ -2713,7 +2715,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunpackauthenticationbuffera
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credunpackauthenticationbuffera
      * @since windows6.0.6000
      */
     static CredUnPackAuthenticationBufferA(dwFlags, pAuthBuffer, cbAuthBuffer, pszUserName, pcchlMaxUserName, pszDomainName, pcchMaxDomainName, pszPassword, pcchMaxPassword) {
@@ -2830,7 +2832,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credpackauthenticationbufferw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credpackauthenticationbufferw
      * @since windows6.0.6000
      */
     static CredPackAuthenticationBufferW(dwFlags, pszUserName, pszPassword, pPackedCredentials, pcbPackedCredentials) {
@@ -2944,7 +2946,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credpackauthenticationbuffera
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credpackauthenticationbuffera
      * @since windows6.0.6000
      */
     static CredPackAuthenticationBufferA(dwFlags, pszUserName, pszPassword, pPackedCredentials, pcbPackedCredentials) {
@@ -2983,7 +2985,7 @@ class Credentials {
      * 
      * For extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credprotectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credprotectw
      * @since windows6.0.6000
      */
     static CredProtectW(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredentials, pcchMaxChars, ProtectionType) {
@@ -3023,7 +3025,7 @@ class Credentials {
      * 
      * For extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credprotecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credprotecta
      * @since windows6.0.6000
      */
     static CredProtectA(fAsSelf, pszCredentials, cchCredentials, pszProtectedCredentials, pcchMaxChars, ProtectionType) {
@@ -3088,7 +3090,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunprotectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credunprotectw
      * @since windows6.0.6000
      */
     static CredUnprotectW(fAsSelf, pszProtectedCredentials, cchProtectedCredentials, pszCredentials, pcchMaxChars) {
@@ -3152,7 +3154,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credunprotecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credunprotecta
      * @since windows6.0.6000
      */
     static CredUnprotectA(fAsSelf, pszProtectedCredentials, cchProtectedCredentials, pszCredentials, pcchMaxChars) {
@@ -3182,7 +3184,7 @@ class Credentials {
      * 
      * For extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credisprotectedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credisprotectedw
      * @since windows6.0.6000
      */
     static CredIsProtectedW(pszProtectedCredentials, pProtectionType) {
@@ -3211,7 +3213,7 @@ class Credentials {
      * 
      * For extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credisprotecteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credisprotecteda
      * @since windows6.0.6000
      */
     static CredIsProtectedA(pszProtectedCredentials, pProtectionType) {
@@ -3244,7 +3246,7 @@ class Credentials {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfindbestcredentialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credfindbestcredentialw
      * @since windows6.0.6000
      */
     static CredFindBestCredentialW(TargetName, Type, Flags, Credential) {
@@ -3277,7 +3279,7 @@ class Credentials {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfindbestcredentiala
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credfindbestcredentiala
      * @since windows6.0.6000
      */
     static CredFindBestCredentialA(TargetName, Type, Flags, Credential) {
@@ -3375,7 +3377,7 @@ class Credentials {
      * ERROR_NO_SUCH_LOGON_SESSION
      * 
      * The logon session does not exist or there is no credential set associated with this logon session. Network logon sessions do not have an associated credential set.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credgetsessiontypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credgetsessiontypes
      * @since windows5.1.2600
      */
     static CredGetSessionTypes(MaximumPersistCount, MaximumPersist) {
@@ -3393,15 +3395,15 @@ class Credentials {
 
     /**
      * The CredFree function frees a buffer returned by any of the credentials management functions.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ Pointer to the buffer to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-credfree
      * @since windows5.1.2600
      */
-    static CredFree(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static CredFree(Buffer_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        DllCall("ADVAPI32.dll\CredFree", Buffer_RMarshal, Buffer_R)
+        DllCall("ADVAPI32.dll\CredFree", Buffer_Marshal, Buffer_)
     }
 
     /**
@@ -3552,7 +3554,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduipromptforcredentialsw
      * @since windows5.1.2600
      */
     static CredUIPromptForCredentialsW(pUiInfo, pszTargetName, dwAuthError, pszUserName, ulUserNameBufferSize, pszPassword, ulPasswordBufferSize, save, dwFlags) {
@@ -3723,7 +3725,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduipromptforcredentialsa
      * @since windows5.1.2600
      */
     static CredUIPromptForCredentialsA(pUiInfo, pszTargetName, dwAuthError, pszUserName, ulUserNameBufferSize, pszPassword, ulPasswordBufferSize, save, dwFlags) {
@@ -3779,7 +3781,7 @@ class Credentials {
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>. If the function is canceled by the user, it returns <b>ERROR_CANCELLED</b>. Any other return value indicates that the function failed to load.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforwindowscredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduipromptforwindowscredentialsw
      * @since windows6.0.6000
      */
     static CredUIPromptForWindowsCredentialsW(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
@@ -3832,7 +3834,7 @@ class Credentials {
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>. If the function is canceled by the user, it returns <b>ERROR_CANCELLED</b>. Any other return value indicates that the function failed to load.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforwindowscredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduipromptforwindowscredentialsa
      * @since windows6.0.6000
      */
     static CredUIPromptForWindowsCredentialsA(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
@@ -3930,7 +3932,7 @@ class Credentials {
      * </ul>
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiparseusernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduiparseusernamew
      * @since windows5.1.2600
      */
     static CredUIParseUserNameW(UserName, user, userBufferSize, domain, domainBufferSize) {
@@ -4027,7 +4029,7 @@ class Credentials {
      * </ul>
      * </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiparseusernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduiparseusernamea
      * @since windows5.1.2600
      */
     static CredUIParseUserNameA(userName, user, userBufferSize, domain, domainBufferSize) {
@@ -4183,7 +4185,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduicmdlinepromptforcredentialsw
      * @since windows5.1.2600
      */
     static CredUICmdLinePromptForCredentialsW(pszTargetName, dwAuthError, UserName, ulUserBufferSize, pszPassword, ulPasswordBufferSize, pfSave, dwFlags) {
@@ -4343,7 +4345,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduicmdlinepromptforcredentialsa
      * @since windows5.1.2600
      */
     static CredUICmdLinePromptForCredentialsA(pszTargetName, dwAuthError, UserName, ulUserBufferSize, pszPassword, ulPasswordBufferSize, pfSave, dwFlags) {
@@ -4407,7 +4409,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiconfirmcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduiconfirmcredentialsw
      * @since windows5.1.2600
      */
     static CredUIConfirmCredentialsW(pszTargetName, bConfirm) {
@@ -4465,7 +4467,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduiconfirmcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduiconfirmcredentialsa
      * @since windows5.1.2600
      */
     static CredUIConfirmCredentialsA(pszTargetName, bConfirm) {
@@ -4482,7 +4484,7 @@ class Credentials {
      * @param {PWSTR} pszPassword Pointer to a <b>null</b>-terminated string that specifies the user's password. When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {BOOL} bPersist Boolean value that specifies whether the credentials are persisted. If this value is <b>TRUE</b>, the credentials are persisted. If this value is <b>FALSE</b>, the credentials are not persisted.
      * @returns {Integer} The return value is a <b>DWORD</b>. A return value of ERROR_SUCCESS indicates the function was successful.
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduistoressocredw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduistoressocredw
      * @since windows5.1.2600
      */
     static CredUIStoreSSOCredW(pszRealm, pszUsername, pszPassword, bPersist) {
@@ -4528,7 +4530,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduireadssocredw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincred/nf-wincred-creduireadssocredw
      * @since windows5.1.2600
      */
     static CredUIReadSSOCredW(pszRealm, ppszUsername) {
@@ -4556,7 +4558,7 @@ class Credentials {
      * @returns {Integer} If the function succeeds, the function returns SCARD_S_SUCCESS. 
      * 
      * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardestablishcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardestablishcontext
      * @since windows5.1.2600
      */
     static SCardEstablishContext(dwScope, phContext) {
@@ -4602,7 +4604,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreleasecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardreleasecontext
      * @since windows5.1.2600
      */
     static SCardReleaseContext(hContext) {
@@ -4659,7 +4661,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardisvalidcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardisvalidcontext
      * @since windows5.1.2600
      */
     static SCardIsValidContext(hContext) {
@@ -4762,7 +4764,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadergroupsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistreadergroupsa
      * @since windows5.1.2600
      */
     static SCardListReaderGroupsA(hContext, mszGroups, pcchGroups) {
@@ -4869,7 +4871,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadergroupsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistreadergroupsw
      * @since windows5.1.2600
      */
     static SCardListReaderGroupsW(hContext, mszGroups, pcchGroups) {
@@ -4999,7 +5001,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadersa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistreadersa
      * @since windows5.1.2600
      */
     static SCardListReadersA(hContext, mszGroups, mszReaders, pcchReaders) {
@@ -5130,7 +5132,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreadersw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistreadersw
      * @since windows5.1.2600
      */
     static SCardListReadersW(hContext, mszGroups, mszReaders, pcchReaders) {
@@ -5198,7 +5200,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistcardsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistcardsa
      * @since windows5.1.2600
      */
     static SCardListCardsA(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
@@ -5266,7 +5268,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistcardsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistcardsw
      * @since windows5.1.2600
      */
     static SCardListCardsW(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards) {
@@ -5322,7 +5324,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistinterfacesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistinterfacesa
      * @since windows5.1.2600
      */
     static SCardListInterfacesA(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
@@ -5377,7 +5379,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistinterfacesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistinterfacesw
      * @since windows5.1.2600
      */
     static SCardListInterfacesW(hContext, szCard, pguidInterfaces, pcguidInterfaces) {
@@ -5431,7 +5433,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetproviderida
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetproviderida
      * @since windows5.1.2600
      */
     static SCardGetProviderIdA(hContext, szCard, pguidProviderId) {
@@ -5483,7 +5485,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetprovideridw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetprovideridw
      * @since windows5.1.2600
      */
     static SCardGetProviderIdW(hContext, szCard, pguidProviderId) {
@@ -5595,7 +5597,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetcardtypeprovidernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetcardtypeprovidernamea
      * @since windows5.1.2600
      */
     static SCardGetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvider, pcchProvider) {
@@ -5710,7 +5712,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetcardtypeprovidernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetcardtypeprovidernamew
      * @since windows5.1.2600
      */
     static SCardGetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvider, pcchProvider) {
@@ -5818,7 +5820,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereadergroupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardintroducereadergroupa
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderGroupA(hContext, szGroupName) {
@@ -5923,7 +5925,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereadergroupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardintroducereadergroupw
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderGroupW(hContext, szGroupName) {
@@ -6023,7 +6025,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreadergroupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardforgetreadergroupa
      * @since windows5.1.2600
      */
     static SCardForgetReaderGroupA(hContext, szGroupName) {
@@ -6123,7 +6125,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreadergroupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardforgetreadergroupw
      * @since windows5.1.2600
      */
     static SCardForgetReaderGroupW(hContext, szGroupName) {
@@ -6178,7 +6180,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereadera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardintroducereadera
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderA(hContext, szReaderName, szDeviceName) {
@@ -6234,7 +6236,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducereaderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardintroducereaderw
      * @since windows5.1.2600
      */
     static SCardIntroduceReaderW(hContext, szReaderName, szDeviceName) {
@@ -6286,7 +6288,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreadera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardforgetreadera
      * @since windows5.1.2600
      */
     static SCardForgetReaderA(hContext, szReaderName) {
@@ -6337,7 +6339,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetreaderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardforgetreaderw
      * @since windows5.1.2600
      */
     static SCardForgetReaderW(hContext, szReaderName) {
@@ -6440,7 +6442,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaddreadertogroupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardaddreadertogroupa
      * @since windows5.1.2600
      */
     static SCardAddReaderToGroupA(hContext, szReaderName, szGroupName) {
@@ -6544,7 +6546,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaddreadertogroupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardaddreadertogroupw
      * @since windows5.1.2600
      */
     static SCardAddReaderToGroupW(hContext, szReaderName, szGroupName) {
@@ -6651,7 +6653,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardremovereaderfromgroupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardremovereaderfromgroupa
      * @since windows5.1.2600
      */
     static SCardRemoveReaderFromGroupA(hContext, szReaderName, szGroupName) {
@@ -6758,7 +6760,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardremovereaderfromgroupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardremovereaderfromgroupw
      * @since windows5.1.2600
      */
     static SCardRemoveReaderFromGroupW(hContext, szReaderName, szGroupName) {
@@ -6820,7 +6822,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducecardtypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardintroducecardtypea
      * @since windows5.1.2600
      */
     static SCardIntroduceCardTypeA(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
@@ -6884,7 +6886,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardintroducecardtypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardintroducecardtypew
      * @since windows5.1.2600
      */
     static SCardIntroduceCardTypeW(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen) {
@@ -6992,7 +6994,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardsetcardtypeprovidernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardsetcardtypeprovidernamea
      * @since windows5.1.2600
      */
     static SCardSetCardTypeProviderNameA(hContext, szCardName, dwProviderId, szProvider) {
@@ -7098,7 +7100,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardsetcardtypeprovidernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardsetcardtypeprovidernamew
      * @since windows5.1.2600
      */
     static SCardSetCardTypeProviderNameW(hContext, szCardName, dwProviderId, szProvider) {
@@ -7150,7 +7152,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetcardtypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardforgetcardtypea
      * @since windows5.1.2600
      */
     static SCardForgetCardTypeA(hContext, szCardName) {
@@ -7201,7 +7203,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardforgetcardtypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardforgetcardtypew
      * @since windows5.1.2600
      */
     static SCardForgetCardTypeW(hContext, szCardName) {
@@ -7247,7 +7249,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardfreememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardfreememory
      * @since windows5.1.2600
      */
     static SCardFreeMemory(hContext, pvMem) {
@@ -7267,7 +7269,7 @@ class Credentials {
      * @returns {HANDLE} The function returns an event HANDLE if it succeeds or <b>NULL</b> if it fails.
      * 
      *  If the function fails, the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function provides information on the cause of the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaccessstartedevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardaccessstartedevent
      * @since windows5.1.2600
      */
     static SCardAccessStartedEvent() {
@@ -7285,7 +7287,7 @@ class Credentials {
     /**
      * Decrements the reference count for a handle acquired by a previous call to the SCardAccessStartedEvent function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreleasestartedevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardreleasestartedevent
      * @since windows5.1.2600
      */
     static SCardReleaseStartedEvent() {
@@ -7341,7 +7343,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlocatecardsa
      * @since windows5.1.2600
      */
     static SCardLocateCardsA(hContext, mszCards, rgReaderStates, cReaders) {
@@ -7400,7 +7402,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlocatecardsw
      * @since windows5.1.2600
      */
     static SCardLocateCardsW(hContext, mszCards, rgReaderStates, cReaders) {
@@ -7461,7 +7463,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsbyatra
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlocatecardsbyatra
      * @since windows5.1.2600
      */
     static SCardLocateCardsByATRA(hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders) {
@@ -7520,7 +7522,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlocatecardsbyatrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlocatecardsbyatrw
      * @since windows5.1.2600
      */
     static SCardLocateCardsByATRW(hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders) {
@@ -7575,7 +7577,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetstatuschangea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetstatuschangea
      * @since windows5.1.2600
      */
     static SCardGetStatusChangeA(hContext, dwTimeout, rgReaderStates, cReaders) {
@@ -7630,7 +7632,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetstatuschangew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetstatuschangew
      * @since windows5.1.2600
      */
     static SCardGetStatusChangeW(hContext, dwTimeout, rgReaderStates, cReaders) {
@@ -7676,7 +7678,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardcancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardcancel
      * @since windows5.1.2600
      */
     static SCardCancel(hContext) {
@@ -7849,7 +7851,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardconnecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardconnecta
      * @since windows5.1.2600
      */
     static SCardConnectA(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
@@ -8027,7 +8029,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardconnectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardconnectw
      * @since windows5.1.2600
      */
     static SCardConnectW(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol) {
@@ -8204,7 +8206,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardreconnect
      * @since windows5.1.2600
      */
     static SCardReconnect(hCard, dwShareMode, dwPreferredProtocols, dwInitialization, pdwActiveProtocol) {
@@ -8304,7 +8306,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scarddisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scarddisconnect
      * @since windows5.1.2600
      */
     static SCardDisconnect(hCard, dwDisposition) {
@@ -8328,7 +8330,7 @@ class Credentials {
      * If another process or thread has reset the card, SCARD_W_RESET_CARD is returned as expected.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This function returns <b>SCARD_S_SUCCESS</b> even if another process or thread has reset the card. To determine whether the card has been reset, call the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardstatusa">SCardStatus</a> function immediately after calling this function.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardbegintransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardbegintransaction
      * @since windows5.1.2600
      */
     static SCardBeginTransaction(hCard) {
@@ -8417,7 +8419,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardendtransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardendtransaction
      * @since windows5.1.2600
      */
     static SCardEndTransaction(hCard, dwDisposition) {
@@ -8574,7 +8576,7 @@ class Credentials {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardstatusa
      * @since windows5.1.2600
      */
     static SCardStatusA(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
@@ -8721,7 +8723,7 @@ class Credentials {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardstatusw
      * @since windows5.1.2600
      */
     static SCardStatusW(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
@@ -8844,7 +8846,7 @@ class Credentials {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardtransmit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardtransmit
      * @since windows5.1.2600
      */
     static SCardTransmit(hCard, pioSendPci, pbSendBuffer, cbSendLength, pioRecvPci, pbRecvBuffer, pcbRecvLength) {
@@ -8862,7 +8864,7 @@ class Credentials {
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
      * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgettransmitcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgettransmitcount
      * @since windows6.0.6000
      */
     static SCardGetTransmitCount(hCard, pcTransmitCount) {
@@ -8916,7 +8918,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardcontrol
      * @since windows5.1.2600
      */
     static SCardControl(hCard, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
@@ -9362,7 +9364,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetattrib
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetattrib
      * @since windows5.1.2600
      */
     static SCardGetAttrib(hCard, dwAttrId, pbAttr, pcbAttrLen) {
@@ -9435,7 +9437,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardsetattrib
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardsetattrib
      * @since windows5.1.2600
      */
     static SCardSetAttrib(hCard, dwAttrId, pbAttr, cbAttrLen) {
@@ -9494,7 +9496,7 @@ class Credentials {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scarduidlgselectcarda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scarduidlgselectcarda
      * @since windows5.1.2600
      */
     static SCardUIDlgSelectCardA(param0) {
@@ -9553,7 +9555,7 @@ class Credentials {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scarduidlgselectcardw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scarduidlgselectcardw
      * @since windows5.1.2600
      */
     static SCardUIDlgSelectCardW(param0) {
@@ -9601,7 +9603,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-getopencardnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-getopencardnamea
      * @since windows5.1.2600
      */
     static GetOpenCardNameA(param0) {
@@ -9649,7 +9651,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-getopencardnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-getopencardnamew
      * @since windows5.1.2600
      */
     static GetOpenCardNameW(param0) {
@@ -9712,7 +9714,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreadcachea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardreadcachea
      * @since windows6.0.6000
      */
     static SCardReadCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9770,7 +9772,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardreadcachew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardreadcachew
      * @since windows6.0.6000
      */
     static SCardReadCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9816,7 +9818,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardwritecachea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardwritecachea
      * @since windows6.0.6000
      */
     static SCardWriteCacheA(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9860,7 +9862,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardwritecachew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardwritecachew
      * @since windows6.0.6000
      */
     static SCardWriteCacheW(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen) {
@@ -9909,7 +9911,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreadericona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetreadericona
      * @since windows8.0
      */
     static SCardGetReaderIconA(hContext, szReaderName, pbIcon, pcbIcon) {
@@ -9960,7 +9962,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreadericonw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetreadericonw
      * @since windows8.0
      */
     static SCardGetReaderIconW(hContext, szReaderName, pbIcon, pcbIcon) {
@@ -10011,7 +10013,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetdevicetypeida
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetdevicetypeida
      * @since windows8.0
      */
     static SCardGetDeviceTypeIdA(hContext, szReaderName, pdwDeviceTypeId) {
@@ -10062,7 +10064,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetdevicetypeidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetdevicetypeidw
      * @since windows8.0
      */
     static SCardGetDeviceTypeIdW(hContext, szReaderName, pdwDeviceTypeId) {
@@ -10113,7 +10115,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreaderdeviceinstanceida
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetreaderdeviceinstanceida
      * @since windows8.0
      */
     static SCardGetReaderDeviceInstanceIdA(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId) {
@@ -10165,7 +10167,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardgetreaderdeviceinstanceidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardgetreaderdeviceinstanceidw
      * @since windows8.0
      */
     static SCardGetReaderDeviceInstanceIdW(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId) {
@@ -10217,7 +10219,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreaderswithdeviceinstanceida
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistreaderswithdeviceinstanceida
      * @since windows8.0
      */
     static SCardListReadersWithDeviceInstanceIdA(hContext, szDeviceInstanceId, mszReaders, pcchReaders) {
@@ -10269,7 +10271,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardlistreaderswithdeviceinstanceidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardlistreaderswithdeviceinstanceidw
      * @since windows8.0
      */
     static SCardListReadersWithDeviceInstanceIdW(hContext, szDeviceInstanceId, mszReaders, pcchReaders) {
@@ -10348,7 +10350,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winscard/nf-winscard-scardaudit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardaudit
      * @since windows8.0
      */
     static SCardAudit(hContext, dwEvent) {

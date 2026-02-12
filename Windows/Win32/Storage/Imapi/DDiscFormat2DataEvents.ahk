@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * Implement this interface to receive notifications of the current write operation.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-ddiscformat2dataevents
+ * Implement this interface to receive notifications of the current write operation. (DDiscFormat2DataEvents)
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-ddiscformat2dataevents
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -37,18 +37,35 @@ class DDiscFormat2DataEvents extends IDispatch{
     static VTableNames => ["Update"]
 
     /**
-     * Implement this method to receive progress notification of the current write operation.
-     * @param {IDispatch} object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2data">IDiscFormat2Data</a> interface that initiated the write operation. 
+     * Implement this method to receive progress notification of the current write operation. (DDiscFormat2DataEvents.Update)
+     * @remarks
+     * Notifications are sent in response to calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-write">IDiscFormat2Data::Write</a> method.
+     * 
+     * Notification is sent when the current action changes:
+     * 
+     * <ul>
+     * <li>Once when initializing the hardware</li>
+     * <li>Once when calibrating the power</li>
+     * <li>Once when formatting the media, if required by the media type</li>
+     * <li>Every 0.5 seconds during the write operation</li>
+     * <li>Once after the operation completes</li>
+     * </ul>
+     * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-cancelwrite">IDiscFormat2Data::CancelWrite</a> method.
+     * @param {IDispatch} object_ The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2data">IDiscFormat2Data</a> interface that initiated the write operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2Data</b> object in script.
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2dataeventargs">IDiscFormat2DataEventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2Data</b> object in script.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscformat2dataevents-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-ddiscformat2dataevents-update
      */
-    Update(object, progress) {
-        result := ComCall(7, this, "ptr", object, "ptr", progress, "HRESULT")
+    Update(object_, progress) {
+        result := ComCall(7, this, "ptr", object_, "ptr", progress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

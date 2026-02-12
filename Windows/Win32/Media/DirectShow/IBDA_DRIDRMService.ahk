@@ -7,10 +7,8 @@
 /**
  * The IBDA_DRIDRMService interface implements a Digital Rights Management (DRM) service for Media Transform Devices (MTDs) under the Protected Broadcast Driver Architecture (PBDA).
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DRIDRMService)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_dridrmservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_dridrmservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,13 +36,20 @@ class IBDA_DRIDRMService extends IUnknown{
     /**
      * Selects a Digital Rights Management (DRM) application for a Media Transform Device (MTD) in a Protected Broadcast Device Architecture (PBDA) graph.
      * @param {BSTR} bstrNewDrm Address of the GUID that identifies the new DRM application.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_dridrmservice-setdrm
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_dridrmservice-setdrm
      */
     SetDRM(bstrNewDrm) {
-        bstrNewDrm := bstrNewDrm is String ? BSTR.Alloc(bstrNewDrm).Value : bstrNewDrm
+        if(bstrNewDrm is String) {
+            pin := BSTR.Alloc(bstrNewDrm)
+            bstrNewDrm := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrNewDrm, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrNewDrm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,24 +57,32 @@ class IBDA_DRIDRMService extends IUnknown{
      * The GetDRMSTatus method returns the current status of the Digital Rights Management (DRM) system for a Media Transform Device (MTD) in a graph under the Protected Broadcast Device Architecture (PBDA).
      * @param {Pointer<BSTR>} pbstrDrmUuidList Address of a variable that gets a comma-delimited string of UUID values that identify the DRM systems supported by the MTD. This method allocates the memory for the variable by calling <b>SysAllocString</b> and returns the associated pointer in this parameter. The caller is memory and is responsible for deallocating it by calling <b>SysFreeString</b>.
      * @param {Pointer<Guid>} DrmUuid Address of a variable that gets a GUID identifying the active DRM system for the MTD.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_dridrmservice-getdrmstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_dridrmservice-getdrmstatus
      */
     GetDRMStatus(pbstrDrmUuidList, DrmUuid) {
-        result := ComCall(4, this, "ptr", pbstrDrmUuidList, "ptr", DrmUuid, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrDrmUuidList, "ptr", DrmUuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetPairingStatus method gets the Digital Rights Management (DRM) pairing status for a Media Transform Device (MTD) in a graph under the Protected Broadcast Driver Architecture (PBDA).
      * @param {Pointer<Integer>} penumPairingStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_dridrmservice-getpairingstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_dridrmservice-getpairingstatus
      */
     GetPairingStatus(penumPairingStatus) {
         penumPairingStatusMarshal := penumPairingStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, penumPairingStatusMarshal, penumPairingStatus, "HRESULT")
+        result := ComCall(5, this, penumPairingStatusMarshal, penumPairingStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

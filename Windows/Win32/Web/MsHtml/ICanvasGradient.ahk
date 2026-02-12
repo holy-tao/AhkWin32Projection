@@ -38,13 +38,20 @@ class ICanvasGradient extends IDispatch{
     /**
      * 
      * @param {Float} offset 
-     * @param {BSTR} color 
+     * @param {BSTR} color_ 
      * @returns {HRESULT} 
      */
-    addColorStop(offset, color) {
-        color := color is String ? BSTR.Alloc(color).Value : color
+    addColorStop(offset, color_) {
+        if(color_ is String) {
+            pin := BSTR.Alloc(color_)
+            color_ := pin.Value
+        }
 
-        result := ComCall(7, this, "float", offset, "ptr", color, "HRESULT")
+        result := ComCall(7, this, "float", offset, "ptr", color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

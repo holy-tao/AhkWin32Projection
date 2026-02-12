@@ -55,7 +55,11 @@ class IDOMCompositionEvent extends IDispatch{
      */
     get_data() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -70,11 +74,24 @@ class IDOMCompositionEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initCompositionEvent(eventType, canBubble, cancelable, viewArg, data, locale) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        data := data is String ? BSTR.Alloc(data).Value : data
-        locale := locale is String ? BSTR.Alloc(locale).Value : locale
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
+        if(locale is String) {
+            pin := BSTR.Alloc(locale)
+            locale := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", data, "ptr", locale, "HRESULT")
+        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", data, "ptr", locale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +101,11 @@ class IDOMCompositionEvent extends IDispatch{
      */
     get_locale() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Tracks a transform-created resource texture.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1resourcetexture
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nn-d2d1effectauthor-id2d1resourcetexture
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ID2D1ResourceTexture extends IUnknown{
 
     /**
      * Updates the specific resource texture inside the specific range or box using the supplied data.
+     * @remarks
+     * The number of dimensions in the update must match those of the created texture.
      * @param {Pointer<Integer>} minimumExtents Type: <b>const UINT32*</b>
      * 
      * The "left" extent of the updates if specified; if <b>NULL</b>, the entire texture is updated.
@@ -73,7 +75,7 @@ class ID2D1ResourceTexture extends IUnknown{
      * <td>An invalid parameter was passed to the returning function.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1resourcetexture-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1resourcetexture-update
      */
     Update(minimumExtents, maximimumExtents, strides, dimensions, data, dataCount) {
         minimumExtentsMarshal := minimumExtents is VarRef ? "uint*" : "ptr"
@@ -81,7 +83,11 @@ class ID2D1ResourceTexture extends IUnknown{
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, "uint", dimensions, dataMarshal, data, "uint", dataCount, "HRESULT")
+        result := ComCall(3, this, minimumExtentsMarshal, minimumExtents, maximimumExtentsMarshal, maximimumExtents, stridesMarshal, strides, "uint", dimensions, dataMarshal, data, "uint", dataCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

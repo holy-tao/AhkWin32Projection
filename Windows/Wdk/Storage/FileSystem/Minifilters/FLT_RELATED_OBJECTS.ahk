@@ -28,7 +28,7 @@ class FLT_RELATED_OBJECTS extends Win32Struct
     }
 
     /**
-     * @type {PFLT_FILTER}
+     * @type {Pointer<PFLT_FILTER>}
      */
     Filter {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class FLT_RELATED_OBJECTS extends Win32Struct
     }
 
     /**
-     * @type {PFLT_VOLUME}
+     * @type {Pointer<PFLT_VOLUME>}
      */
     Volume {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class FLT_RELATED_OBJECTS extends Win32Struct
     }
 
     /**
-     * @type {PFLT_INSTANCE}
+     * @type {Pointer<PFLT_INSTANCE>}
      */
     Instance {
         get => NumGet(this, 24, "ptr")

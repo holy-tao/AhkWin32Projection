@@ -35,7 +35,11 @@ class IDirectSoundFXFlanger extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxFlanger) {
-        result := ComCall(3, this, "ptr", pcDsFxFlanger, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxFlanger, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXFlanger extends IUnknown{
      */
     GetAllParameters() {
         pDsFxFlanger := DSFXFlanger()
-        result := ComCall(4, this, "ptr", pDsFxFlanger, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxFlanger, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxFlanger
     }
 }

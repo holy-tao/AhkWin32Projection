@@ -98,7 +98,11 @@ class IDynamicPortMapping extends IDispatch{
      */
     get_ExternalIPAddress() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -108,7 +112,11 @@ class IDynamicPortMapping extends IDispatch{
      */
     get_RemoteHost() {
         pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -117,7 +125,11 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {Integer} 
      */
     get_ExternalPort() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -127,7 +139,11 @@ class IDynamicPortMapping extends IDispatch{
      */
     get_Protocol() {
         pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -136,7 +152,11 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {Integer} 
      */
     get_InternalPort() {
-        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -146,7 +166,11 @@ class IDynamicPortMapping extends IDispatch{
      */
     get_InternalClient() {
         pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        result := ComCall(12, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -155,7 +179,11 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_Enabled() {
-        result := ComCall(13, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -165,7 +193,11 @@ class IDynamicPortMapping extends IDispatch{
      */
     get_Description() {
         pVal := BSTR()
-        result := ComCall(14, this, "ptr", pVal, "HRESULT")
+        result := ComCall(14, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -174,7 +206,11 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {Integer} 
      */
     get_LeaseDuration() {
-        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -184,7 +220,11 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {Integer} 
      */
     RenewLease(lLeaseDurationDesired) {
-        result := ComCall(16, this, "int", lLeaseDurationDesired, "int*", &pLeaseDurationReturned := 0, "HRESULT")
+        result := ComCall(16, this, "int", lLeaseDurationDesired, "int*", &pLeaseDurationReturned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLeaseDurationReturned
     }
 
@@ -194,19 +234,37 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     EditInternalClient(bstrInternalClient) {
-        bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
+        if(bstrInternalClient is String) {
+            pin := BSTR.Alloc(bstrInternalClient)
+            bstrInternalClient := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrInternalClient, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrInternalClient, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Enables monitoring on a particular drive.
+     * @remarks
+     * The **Enable** method does not wait for monitoring to be enabled completely before it returns, because this could take a while. Instead, it returns immediately after starting the System Restore service and filter driver.
      * 
+     * To enable System Restore on a non-system drive, you must first enable System Restore on the system drive.
+     * 
+     * This method fails in safe mode.
      * @param {VARIANT_BOOL} vb 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/sr/enable-systemrestore
      */
     Enable(vb) {
-        result := ComCall(18, this, "short", vb, "HRESULT")
+        result := ComCall(18, this, "short", vb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -216,9 +274,16 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     EditDescription(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -228,7 +293,11 @@ class IDynamicPortMapping extends IDispatch{
      * @returns {HRESULT} 
      */
     EditInternalPort(lInternalPort) {
-        result := ComCall(20, this, "int", lInternalPort, "HRESULT")
+        result := ComCall(20, this, "int", lInternalPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

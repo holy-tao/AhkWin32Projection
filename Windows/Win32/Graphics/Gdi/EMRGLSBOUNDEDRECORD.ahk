@@ -8,7 +8,7 @@
  * @remarks
  * The coordinates in <b>rclBounds</b> are in OpenGL pixel coordinates, which generally equate to window coordinates. 
  * 		For example, if the <a href="https://docs.microsoft.com/windows/desktop/OpenGL/glbitmap">glBitmap</a> function has width1 and height1, the bounds will be 0, 0, width1, height1.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrglsboundedrecord
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-emrglsboundedrecord
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

@@ -34,7 +34,11 @@ class IPrintTaskRequestFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     CreatePrintTaskRequest(pPrintTaskRequestHandler) {
-        result := ComCall(3, this, "ptr", pPrintTaskRequestHandler, "HRESULT")
+        result := ComCall(3, this, "ptr", pPrintTaskRequestHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

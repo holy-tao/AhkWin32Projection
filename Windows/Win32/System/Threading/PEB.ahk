@@ -20,7 +20,7 @@
  *     ULONG SessionId;
  * } PEB;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb
+ * @see https://learn.microsoft.com/windows/win32/api//content/winternl/ns-winternl-peb
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

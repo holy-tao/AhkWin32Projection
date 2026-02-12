@@ -4,7 +4,7 @@
 
 /**
  * The CIEXYZTRIPLE structure contains the x,y, and z coordinates of the three colors that correspond to the red, green, and blue endpoints for a specified logical color space.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ciexyztriple
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-ciexyztriple
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

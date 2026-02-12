@@ -34,7 +34,11 @@ class IBriefcaseInitiator extends IUnknown{
      * @returns {HRESULT} 
      */
     IsMonikerInBriefcase(pmk) {
-        result := ComCall(3, this, "ptr", pmk, "HRESULT")
+        result := ComCall(3, this, "ptr", pmk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

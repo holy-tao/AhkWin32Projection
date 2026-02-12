@@ -34,7 +34,11 @@ class ICommandPersist extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteCommand(pCommandID) {
-        result := ComCall(3, this, "ptr", pCommandID, "HRESULT")
+        result := ComCall(3, this, "ptr", pCommandID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class ICommandPersist extends IUnknown{
      * @returns {Pointer<DBID>} 
      */
     GetCurrentCommand() {
-        result := ComCall(4, this, "ptr*", &ppCommandID := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppCommandID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCommandID
     }
 
@@ -54,7 +62,11 @@ class ICommandPersist extends IUnknown{
      * @returns {HRESULT} 
      */
     LoadCommand(pCommandID, dwFlags) {
-        result := ComCall(5, this, "ptr", pCommandID, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pCommandID, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +77,11 @@ class ICommandPersist extends IUnknown{
      * @returns {HRESULT} 
      */
     SaveCommand(pCommandID, dwFlags) {
-        result := ComCall(6, this, "ptr", pCommandID, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pCommandID, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

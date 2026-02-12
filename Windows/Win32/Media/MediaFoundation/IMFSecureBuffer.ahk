@@ -34,7 +34,11 @@ class IMFSecureBuffer extends IUnknown{
      */
     GetIdentifier() {
         pGuidIdentifier := Guid()
-        result := ComCall(3, this, "ptr", pGuidIdentifier, "HRESULT")
+        result := ComCall(3, this, "ptr", pGuidIdentifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGuidIdentifier
     }
 }

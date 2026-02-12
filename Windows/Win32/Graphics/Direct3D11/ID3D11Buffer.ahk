@@ -4,17 +4,14 @@
 #Include .\ID3D11Resource.ahk
 
 /**
- * A buffer interface accesses a buffer resource, which is unstructured memory. Buffers typically store vertex or index data.
+ * A buffer interface accesses a buffer resource, which is unstructured memory. Buffers typically store vertex or index data. (ID3D11Buffer)
  * @remarks
- * 
  * There are three types of buffers: vertex, index, or a shader-constant buffer. Create a buffer resource by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createbuffer">ID3D11Device::CreateBuffer</a>.
  * 
  * A buffer must be bound to the pipeline before it can be accessed. Buffers can be bound to the input-assembler stage by calls to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-iasetvertexbuffers">ID3D11DeviceContext::IASetVertexBuffers</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-iasetindexbuffer">ID3D11DeviceContext::IASetIndexBuffer</a>, to the stream-output stage by a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-sosettargets">ID3D11DeviceContext::SOSetTargets</a>, and to a shader stage by calling the appropriate shader method (such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-vssetconstantbuffers">ID3D11DeviceContext::VSSetConstantBuffers</a> for example).
  * 
  * Buffers can be bound to multiple pipeline stages simultaneously for reading. A buffer can also be bound to a single pipeline stage for writing; however, the same buffer cannot be bound for reading and writing simultaneously.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11buffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nn-d3d11-id3d11buffer
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -40,12 +37,12 @@ class ID3D11Buffer extends ID3D11Resource{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get the properties of a buffer resource.
+     * Get the properties of a buffer resource. (ID3D11Buffer.GetDesc)
      * @param {Pointer<D3D11_BUFFER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_buffer_desc">D3D11_BUFFER_DESC</a>*</b>
      * 
      * Pointer to a resource description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_buffer_desc">D3D11_BUFFER_DESC</a>) filled in by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11buffer-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11buffer-getdesc
      */
     GetDesc(pDesc) {
         ComCall(10, this, "ptr", pDesc)

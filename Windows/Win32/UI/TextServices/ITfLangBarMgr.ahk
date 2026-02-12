@@ -5,7 +5,7 @@
 
 /**
  * The ITfLangBarMgr interface is implemented by the TSF manager and used by text services to manage event sink notification and configure floating language bar display settings. The interface ID is IID_ITfLangBarMgr.
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itflangbarmgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nn-ctfutb-itflangbarmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class ITfLangBarMgr extends IUnknown{
 
     /**
      * The ITfLangBarMgr::AdviseEventSink method advises a sink about a language bar event.
+     * @remarks
+     * <i>pdwCookie</i> receives an identifier that should be passed to <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbarmgr-unadviseeventsink">ITfLangBarMgr::UnadviseEventSink</a> when the event sink is no longer required.
      * @param {ITfLangBarEventSink} pSink Sink object to advise about the event.
-     * @param {HWND} hwnd Reserved; must be <b>NULL</b>.
+     * @param {HWND} hwnd_ Reserved; must be <b>NULL</b>.
      * @param {Integer} dwFlags Reserved; must be 0.
      * @param {Pointer<Integer>} pdwCookie Pointer to an identifier for the connection.
      * @returns {HRESULT} This method can return one of these values.
@@ -77,14 +79,18 @@ class ITfLangBarMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-adviseeventsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-adviseeventsink
      */
-    AdviseEventSink(pSink, hwnd, dwFlags, pdwCookie) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    AdviseEventSink(pSink, hwnd_, dwFlags, pdwCookie) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSink, "ptr", hwnd, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pSink, "ptr", hwnd_, "uint", dwFlags, pdwCookieMarshal, pdwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,10 +127,14 @@ class ITfLangBarMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-unadviseeventsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-unadviseeventsink
      */
     UnadviseEventSink(dwCookie) {
-        result := ComCall(4, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(4, this, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,12 +143,16 @@ class ITfLangBarMgr extends IUnknown{
      * @param {Integer} dwThreadId 
      * @param {Integer} dwType 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-getthreadmarshalinterface
+     * @returns {Pointer<IUnknown>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-getthreadmarshalinterface
      */
     GetThreadMarshalInterface(dwThreadId, dwType, riid) {
-        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
-        return IUnknown(ppunk)
+        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, "ptr", riid, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunk
     }
 
     /**
@@ -147,12 +161,16 @@ class ITfLangBarMgr extends IUnknown{
      * @param {Pointer<ITfLangBarItemMgr>} pplbi 
      * @param {Pointer<Integer>} pdwThreadid 
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-getthreadlangbaritemmgr
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-getthreadlangbaritemmgr
      */
     GetThreadLangBarItemMgr(dwThreadId, pplbi, pdwThreadid) {
         pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwThreadId, "ptr*", pplbi, pdwThreadidMarshal, pdwThreadid, "HRESULT")
+        result := ComCall(6, this, "uint", dwThreadId, "ptr*", pplbi, pdwThreadidMarshal, pdwThreadid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,13 +179,17 @@ class ITfLangBarMgr extends IUnknown{
      * @param {Integer} dwThreadId 
      * @param {Pointer<ITfInputProcessorProfiles>} ppaip 
      * @param {Pointer<Integer>} pdwThreadid 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-getinputprocessorprofiles
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-getinputprocessorprofiles
      */
     GetInputProcessorProfiles(dwThreadId, ppaip, pdwThreadid) {
         pdwThreadidMarshal := pdwThreadid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwThreadId, "ptr*", ppaip, pdwThreadidMarshal, pdwThreadid, "HRESULT")
+        result := ComCall(7, this, "uint", dwThreadId, "ptr*", ppaip, pdwThreadidMarshal, pdwThreadid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,10 +197,14 @@ class ITfLangBarMgr extends IUnknown{
      * ITfLangBarMgr::RestoreLastFocus method
      * @param {BOOL} fPrev 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-restorelastfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-restorelastfocus
      */
     RestoreLastFocus(fPrev) {
-        result := ComCall(8, this, "uint*", &pdwThreadId := 0, "int", fPrev, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwThreadId := 0, "int", fPrev, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwThreadId
     }
 
@@ -188,10 +214,14 @@ class ITfLangBarMgr extends IUnknown{
      * @param {Integer} dwThreadId Should not be used.
      * @param {Integer} dwFlags Should not be used.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-setmodalinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-setmodalinput
      */
     SetModalInput(pSink, dwThreadId, dwFlags) {
-        result := ComCall(9, this, "ptr", pSink, "uint", dwThreadId, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pSink, "uint", dwThreadId, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -366,20 +396,28 @@ class ITfLangBarMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-showfloating
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-showfloating
      */
     ShowFloating(dwFlags) {
-        result := ComCall(10, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfLangBarMgr::GetShowFloatingStatus method
      * @returns {Integer} Indicates current language bar display settings. For a list of bitfield values, see <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbarmgr-showfloating">ITfLangBarMgr::ShowFloating</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbarmgr-getshowfloatingstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbarmgr-getshowfloatingstatus
      */
     GetShowFloatingStatus() {
-        result := ComCall(11, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 }

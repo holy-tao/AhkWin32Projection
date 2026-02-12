@@ -37,7 +37,11 @@ class IMarkupServices extends IUnknown{
      * @returns {IMarkupPointer} 
      */
     CreateMarkupPointer() {
-        result := ComCall(3, this, "ptr*", &ppPointer := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppPointer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupPointer(ppPointer)
     }
 
@@ -46,7 +50,11 @@ class IMarkupServices extends IUnknown{
      * @returns {IMarkupContainer} 
      */
     CreateMarkupContainer() {
-        result := ComCall(4, this, "ptr*", &ppMarkupContainer := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppMarkupContainer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupContainer(ppMarkupContainer)
     }
 
@@ -59,7 +67,11 @@ class IMarkupServices extends IUnknown{
     CreateElement(tagID, pchAttributes) {
         pchAttributes := pchAttributes is String ? StrPtr(pchAttributes) : pchAttributes
 
-        result := ComCall(5, this, "int", tagID, "ptr", pchAttributes, "ptr*", &ppElement := 0, "HRESULT")
+        result := ComCall(5, this, "int", tagID, "ptr", pchAttributes, "ptr*", &ppElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppElement)
     }
 
@@ -69,7 +81,11 @@ class IMarkupServices extends IUnknown{
      * @returns {IHTMLElement} 
      */
     CloneElement(pElemCloneThis) {
-        result := ComCall(6, this, "ptr", pElemCloneThis, "ptr*", &ppElementTheClone := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pElemCloneThis, "ptr*", &ppElementTheClone := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppElementTheClone)
     }
 
@@ -81,7 +97,11 @@ class IMarkupServices extends IUnknown{
      * @returns {HRESULT} 
      */
     InsertElement(pElementInsert, pPointerStart, pPointerFinish) {
-        result := ComCall(7, this, "ptr", pElementInsert, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(7, this, "ptr", pElementInsert, "ptr", pPointerStart, "ptr", pPointerFinish, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,42 +111,61 @@ class IMarkupServices extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveElement(pElementRemove) {
-        result := ComCall(8, this, "ptr", pElementRemove, "HRESULT")
+        result := ComCall(8, this, "ptr", pElementRemove, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(pPointerStart, pPointerFinish) {
-        result := ComCall(9, this, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(9, this, "ptr", pPointerStart, "ptr", pPointerFinish, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Describes the four steps to take to copy and paste a formula from one cell into another using CTRL+C and CTRL+V.
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/copy-and-paste-a-formula-from-one-cell-into-another
      */
     Copy(pPointerSourceStart, pPointerSourceFinish, pPointerTarget) {
-        result := ComCall(10, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "HRESULT")
+        result := ComCall(10, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Move Method Example (VC++)
      * @param {IMarkupPointer} pPointerSourceStart 
      * @param {IMarkupPointer} pPointerSourceFinish 
      * @param {IMarkupPointer} pPointerTarget 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/move-method-example-vc
      */
     Move(pPointerSourceStart, pPointerSourceFinish, pPointerTarget) {
-        result := ComCall(11, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "HRESULT")
+        result := ComCall(11, this, "ptr", pPointerSourceStart, "ptr", pPointerSourceFinish, "ptr", pPointerTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,7 +179,11 @@ class IMarkupServices extends IUnknown{
     InsertText(pchText, cch, pPointerTarget) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(12, this, "ptr", pchText, "int", cch, "ptr", pPointerTarget, "HRESULT")
+        result := ComCall(12, this, "ptr", pchText, "int", cch, "ptr", pPointerTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -155,7 +198,11 @@ class IMarkupServices extends IUnknown{
     ParseString(pchHTML, dwFlags, ppPointerStart, ppPointerFinish) {
         pchHTML := pchHTML is String ? StrPtr(pchHTML) : pchHTML
 
-        result := ComCall(13, this, "ptr", pchHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", ppPointerStart, "ptr", ppPointerFinish, "HRESULT")
+        result := ComCall(13, this, "ptr", pchHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", ppPointerStart, "ptr", ppPointerFinish, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupContainer(ppContainerResult)
     }
 
@@ -170,7 +217,11 @@ class IMarkupServices extends IUnknown{
     ParseGlobal(hglobalHTML, dwFlags, pPointerStart, pPointerFinish) {
         hglobalHTML := hglobalHTML is Win32Handle ? NumGet(hglobalHTML, "ptr") : hglobalHTML
 
-        result := ComCall(14, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(14, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupContainer(ppContainerResult)
     }
 
@@ -180,7 +231,11 @@ class IMarkupServices extends IUnknown{
      * @returns {BOOL} 
      */
     IsScopedElement(pElement) {
-        result := ComCall(15, this, "ptr", pElement, "int*", &pfScoped := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pElement, "int*", &pfScoped := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfScoped
     }
 
@@ -190,7 +245,11 @@ class IMarkupServices extends IUnknown{
      * @returns {Integer} 
      */
     GetElementTagId(pElement) {
-        result := ComCall(16, this, "ptr", pElement, "int*", &ptagId := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pElement, "int*", &ptagId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ptagId
     }
 
@@ -200,9 +259,16 @@ class IMarkupServices extends IUnknown{
      * @returns {Integer} 
      */
     GetTagIDForName(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrName, "int*", &ptagId := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrName, "int*", &ptagId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ptagId
     }
 
@@ -213,7 +279,11 @@ class IMarkupServices extends IUnknown{
      */
     GetNameForTagID(tagId) {
         pbstrName := BSTR()
-        result := ComCall(18, this, "int", tagId, "ptr", pbstrName, "HRESULT")
+        result := ComCall(18, this, "int", tagId, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -225,7 +295,11 @@ class IMarkupServices extends IUnknown{
      * @returns {HRESULT} 
      */
     MovePointersToRange(pIRange, pPointerStart, pPointerFinish) {
-        result := ComCall(19, this, "ptr", pIRange, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(19, this, "ptr", pIRange, "ptr", pPointerStart, "ptr", pPointerFinish, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,7 +311,11 @@ class IMarkupServices extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveRangeToPointers(pPointerStart, pPointerFinish, pIRange) {
-        result := ComCall(20, this, "ptr", pPointerStart, "ptr", pPointerFinish, "ptr", pIRange, "HRESULT")
+        result := ComCall(20, this, "ptr", pPointerStart, "ptr", pPointerFinish, "ptr", pIRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -249,7 +327,11 @@ class IMarkupServices extends IUnknown{
     BeginUndoUnit(pchTitle) {
         pchTitle := pchTitle is String ? StrPtr(pchTitle) : pchTitle
 
-        result := ComCall(21, this, "ptr", pchTitle, "HRESULT")
+        result := ComCall(21, this, "ptr", pchTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -258,7 +340,11 @@ class IMarkupServices extends IUnknown{
      * @returns {HRESULT} 
      */
     EndUndoUnit() {
-        result := ComCall(22, this, "HRESULT")
+        result := ComCall(22, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

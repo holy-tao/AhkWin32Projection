@@ -49,7 +49,11 @@ class IDOMBeforeUnloadEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     put_returnValue(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +63,11 @@ class IDOMBeforeUnloadEvent extends IDispatch{
      */
     get_returnValue() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

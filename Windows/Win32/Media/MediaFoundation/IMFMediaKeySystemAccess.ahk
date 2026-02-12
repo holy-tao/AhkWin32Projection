@@ -48,20 +48,28 @@ class IMFMediaKeySystemAccess extends IUnknown{
     /**
      * 
      * @param {IPropertyStore} pCdmCustomConfig 
-     * @returns {IMFMediaKeys2} 
+     * @returns {Pointer<IMFMediaKeys2>} 
      */
     CreateMediaKeys(pCdmCustomConfig) {
-        result := ComCall(3, this, "ptr", pCdmCustomConfig, "ptr*", &ppKeys := 0, "HRESULT")
-        return IMFMediaKeys2(ppKeys)
+        result := ComCall(3, this, "ptr", pCdmCustomConfig, "ptr*", &ppKeys := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppKeys
     }
 
     /**
      * 
-     * @returns {IPropertyStore} 
+     * @returns {Pointer<IPropertyStore>} 
      */
     get_SupportedConfiguration() {
-        result := ComCall(4, this, "ptr*", &ppSupportedConfiguration := 0, "HRESULT")
-        return IPropertyStore(ppSupportedConfiguration)
+        result := ComCall(4, this, "ptr*", &ppSupportedConfiguration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppSupportedConfiguration
     }
 
     /**
@@ -70,7 +78,11 @@ class IMFMediaKeySystemAccess extends IUnknown{
      */
     get_KeySystem() {
         pKeySystem := BSTR()
-        result := ComCall(5, this, "ptr", pKeySystem, "HRESULT")
+        result := ComCall(5, this, "ptr", pKeySystem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pKeySystem
     }
 }

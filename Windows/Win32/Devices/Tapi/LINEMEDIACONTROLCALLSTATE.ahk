@@ -9,7 +9,7 @@
  * The 
  * <b>LINEMEDIACONTROLCALLSTATE</b> structure defines a triple &lt;call state(s), media-control action&gt;. An array of these triples is passed to the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetmediacontrol">lineSetMediaControl</a> function to set the media control actions triggered by the transition to the call state of the given call. When a transition to a listed call state is detected, the corresponding action on the media stream is invoked.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontrolcallstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linemediacontrolcallstate
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

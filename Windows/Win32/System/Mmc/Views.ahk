@@ -6,6 +6,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Views Limitations
+ * @see https://learn.microsoft.com/sql/ocs/docs/odbc/microsoft/views-limitations
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -51,13 +53,23 @@ class Views extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Integer} Index 
      * @returns {View} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &View := 0, "HRESULT")
-        return View(View)
+        result := ComCall(7, this, "int", Index, "ptr*", &View_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return View(View_)
     }
 
     /**
@@ -65,18 +77,27 @@ class Views extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
     /**
-     * 
-     * @param {Node} Node 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
+     * @param {Node} Node_ 
      * @param {Integer} viewOptions 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
-    Add(Node, viewOptions) {
-        result := ComCall(9, this, "ptr", Node, "int", viewOptions, "HRESULT")
+    Add(Node_, viewOptions) {
+        result := ComCall(9, this, "ptr", Node_, "int", viewOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +106,11 @@ class Views extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 }

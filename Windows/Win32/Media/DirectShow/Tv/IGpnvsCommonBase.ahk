@@ -35,7 +35,11 @@ class IGpnvsCommonBase extends IUnknown{
      */
     GetValueUpdateName() {
         pbstrName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 }

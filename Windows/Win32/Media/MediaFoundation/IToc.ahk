@@ -6,7 +6,7 @@
 
 /**
  * The IToc interface represents an individual table of contents. It provides methods for adding entries to, and removing entries from the table of contents.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-itoc
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nn-wmcodecdsp-itoc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -53,10 +53,14 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor
      */
     SetDescriptor(pDescriptor) {
-        result := ComCall(3, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(3, this, "ptr", pDescriptor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,15 +86,21 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-getdescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-getdescriptor
      */
     GetDescriptor(pDescriptor) {
-        result := ComCall(4, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(4, this, "ptr", pDescriptor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetDescription method associates a description with the table of contents.
+     * @remarks
+     * You can use this method to associate any description with the table of contents. TOC parser does not inspect or interpret the description.
      * @param {PWSTR} pwszDescription Pointer to a NULL-terminated, wide-character string that contains the description.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -111,12 +121,16 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-setdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-setdescription
      */
     SetDescription(pwszDescription) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(5, this, "ptr", pwszDescription, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,19 +168,25 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-getdescription
      */
     GetDescription(pwDescriptionSize, pwszDescription) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
         pwDescriptionSizeMarshal := pwDescriptionSize is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, pwDescriptionSizeMarshal, pwDescriptionSize, "ptr", pwszDescription, "HRESULT")
+        result := ComCall(6, this, pwDescriptionSizeMarshal, pwDescriptionSize, "ptr", pwszDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetContext method associates a caller-supplied context block with the table of contents.
+     * @remarks
+     * You can use this method to associate any information with the table of contents. The type of information you store in the context block is completely up to you. TOC Parser does not inspect or interpret the context block.
      * @param {Integer} dwContextSize The size, in bytes, of the context block.
      * @param {Pointer<Integer>} pbtContext Pointer to the first byte of the context block.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -188,12 +208,16 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-setcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-setcontext
      */
     SetContext(dwContextSize, pbtContext) {
         pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
+        result := ComCall(7, this, "uint", dwContextSize, pbtContextMarshal, pbtContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -231,13 +255,17 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-getcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-getcontext
      */
     GetContext(pdwContextSize, pbtContext) {
         pdwContextSizeMarshal := pdwContextSize is VarRef ? "uint*" : "ptr"
         pbtContextMarshal := pbtContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, pdwContextSizeMarshal, pdwContextSize, pbtContextMarshal, pbtContext, "HRESULT")
+        result := ComCall(8, this, pdwContextSizeMarshal, pdwContextSize, pbtContextMarshal, pbtContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -263,12 +291,16 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistcount
      */
     GetEntryListCount(pwCount) {
         pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, pwCountMarshal, pwCount, "HRESULT")
+        result := ComCall(9, this, pwCountMarshal, pwCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,10 +308,14 @@ class IToc extends IUnknown{
      * The GetEntryListByIndex method retrieves an entry list, specified by an index, from the table of contents.
      * @param {Integer} wEntryListIndex The index of the entry list to retrieve.
      * @returns {ITocEntryList} Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itocentrylist">ITocEntryList</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-getentrylistbyindex
      */
     GetEntryListByIndex(wEntryListIndex) {
-        result := ComCall(10, this, "ushort", wEntryListIndex, "ptr*", &ppEntryList := 0, "HRESULT")
+        result := ComCall(10, this, "ushort", wEntryListIndex, "ptr*", &ppEntryList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITocEntryList(ppEntryList)
     }
 
@@ -306,12 +342,16 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-addentrylist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-addentrylist
      */
     AddEntryList(pEntryList, pwEntryListIndex) {
         pwEntryListIndexMarshal := pwEntryListIndex is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pEntryList, pwEntryListIndexMarshal, pwEntryListIndex, "HRESULT")
+        result := ComCall(11, this, "ptr", pEntryList, pwEntryListIndexMarshal, pwEntryListIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -338,10 +378,14 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-addentrylistbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-addentrylistbyindex
      */
     AddEntryListByIndex(wEntryListIndex, pEntryList) {
-        result := ComCall(12, this, "ushort", wEntryListIndex, "ptr", pEntryList, "HRESULT")
+        result := ComCall(12, this, "ushort", wEntryListIndex, "ptr", pEntryList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -368,10 +412,14 @@ class IToc extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itoc-removeentrylistbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itoc-removeentrylistbyindex
      */
     RemoveEntryListByIndex(wEntryListIndex) {
-        result := ComCall(13, this, "ushort", wEntryListIndex, "HRESULT")
+        result := ComCall(13, this, "ushort", wEntryListIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

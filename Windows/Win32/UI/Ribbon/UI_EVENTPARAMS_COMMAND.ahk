@@ -9,7 +9,7 @@
  * 
  * 
  * <b>ParentCommandID</b> and <b>ParentCommandName</b>  identify the parent command (if any) of the command associated with this event.  If there is no parent, then <b>ParentCommandID</b> is zero and <b>ParentCommandName</b> is an empty string.
- * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ns-uiribbon-ui_eventparams_command
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/ns-uiribbon-ui_eventparams_command
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

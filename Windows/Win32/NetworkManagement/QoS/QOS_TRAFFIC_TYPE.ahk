@@ -11,7 +11,7 @@
  * <li>The qWAVE subsystem has determined that 802.1p tagged packets are not discarded by a network element on the end-to-end path
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_traffic_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/qos2/ne-qos2-qos_traffic_type
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

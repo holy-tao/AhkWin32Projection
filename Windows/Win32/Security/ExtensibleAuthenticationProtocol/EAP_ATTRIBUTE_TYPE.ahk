@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of possible EAP attribute types available on an authenticating entity.
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/eaptypes/ne-eaptypes-eap_attribute_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

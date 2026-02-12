@@ -52,7 +52,11 @@ class IBDA_WMDRMSession extends IUnknown{
         RevListVersionMarshal := RevListVersion is VarRef ? "uint*" : "ptr"
         ulStateMarshal := ulState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, MaxCaptureTokenMarshal, MaxCaptureToken, MaxStreamingPidMarshal, MaxStreamingPid, MaxLicenseMarshal, MaxLicense, MinSecurityLevelMarshal, MinSecurityLevel, RevInfoSequenceNumberMarshal, RevInfoSequenceNumber, RevInfoIssuedTimeMarshal, RevInfoIssuedTime, RevInfoTTLMarshal, RevInfoTTL, RevListVersionMarshal, RevListVersion, ulStateMarshal, ulState, "HRESULT")
+        result := ComCall(3, this, MaxCaptureTokenMarshal, MaxCaptureToken, MaxStreamingPidMarshal, MaxStreamingPid, MaxLicenseMarshal, MaxLicense, MinSecurityLevelMarshal, MinSecurityLevel, RevInfoSequenceNumberMarshal, RevInfoSequenceNumber, RevInfoIssuedTimeMarshal, RevInfoIssuedTime, RevInfoTTLMarshal, RevInfoTTL, RevListVersionMarshal, RevListVersion, ulStateMarshal, ulState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class IBDA_WMDRMSession extends IUnknown{
     SetRevInfo(ulRevInfoLen, pbRevInfo) {
         pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulRevInfoLen, pbRevInfoMarshal, pbRevInfo, "HRESULT")
+        result := ComCall(4, this, "uint", ulRevInfoLen, pbRevInfoMarshal, pbRevInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +86,11 @@ class IBDA_WMDRMSession extends IUnknown{
     SetCrl(ulCrlLen, pbCrlLen) {
         pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", ulCrlLen, pbCrlLenMarshal, pbCrlLen, "HRESULT")
+        result := ComCall(5, this, "uint", ulCrlLen, pbCrlLenMarshal, pbCrlLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +107,11 @@ class IBDA_WMDRMSession extends IUnknown{
         pulcbResponseMarshal := pulcbResponse is VarRef ? "uint*" : "ptr"
         pbResponseMarshal := pbResponse is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "uint", ulcbRequest, pbRequestMarshal, pbRequest, pulcbResponseMarshal, pulcbResponse, pbResponseMarshal, pbResponse, "HRESULT")
+        result := ComCall(6, this, "uint", ulcbRequest, pbRequestMarshal, pbRequest, pulcbResponseMarshal, pulcbResponse, pbResponseMarshal, pbResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +126,11 @@ class IBDA_WMDRMSession extends IUnknown{
         pulPackageLenMarshal := pulPackageLen is VarRef ? "uint*" : "ptr"
         pbPackageMarshal := pbPackage is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", uuidKey, pulPackageLenMarshal, pulPackageLen, pbPackageMarshal, pbPackage, "HRESULT")
+        result := ComCall(7, this, "ptr", uuidKey, pulPackageLenMarshal, pulPackageLen, pbPackageMarshal, pbPackage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +140,11 @@ class IBDA_WMDRMSession extends IUnknown{
      * @returns {HRESULT} 
      */
     ReissueLicense(uuidKey) {
-        result := ComCall(8, this, "ptr", uuidKey, "HRESULT")
+        result := ComCall(8, this, "ptr", uuidKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,7 +164,11 @@ class IBDA_WMDRMSession extends IUnknown{
         pulOutXmrLicenseLenMarshal := pulOutXmrLicenseLen is VarRef ? "uint*" : "ptr"
         pbOutXmrLicenseMarshal := pbOutXmrLicense is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", ulInXmrLicenseLen, pbInXmrLicenseMarshal, pbInXmrLicense, "uint", ulEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, pulOutXmrLicenseLenMarshal, pulOutXmrLicenseLen, pbOutXmrLicenseMarshal, pbOutXmrLicense, "HRESULT")
+        result := ComCall(9, this, "uint", ulInXmrLicenseLen, pbInXmrLicenseMarshal, pbInXmrLicense, "uint", ulEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, pulOutXmrLicenseLenMarshal, pulOutXmrLicenseLen, pbOutXmrLicenseMarshal, pbOutXmrLicense, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulDescrambleStatus
     }
 
@@ -154,7 +182,11 @@ class IBDA_WMDRMSession extends IUnknown{
         pulKeyInfoLenMarshal := pulKeyInfoLen is VarRef ? "uint*" : "ptr"
         pbKeyInfoMarshal := pbKeyInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pulKeyInfoLenMarshal, pulKeyInfoLen, pbKeyInfoMarshal, pbKeyInfo, "HRESULT")
+        result := ComCall(10, this, pulKeyInfoLenMarshal, pulKeyInfoLen, pbKeyInfoMarshal, pbKeyInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

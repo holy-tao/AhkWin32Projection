@@ -6,10 +6,8 @@
 /**
  * Provides access to a device's Digital Rights Management (DRM) Service.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DRMService)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_drmservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_drmservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,11 +35,15 @@ class IBDA_DRMService extends IUnknown{
     /**
      * Activates a digital rights management (DRM) system on the media transform device (MTD).
      * @param {Pointer<Guid>} puuidNewDrm Pointer to a GUID that specifies the DRM system.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_drmservice-setdrm
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_drmservice-setdrm
      */
     SetDRM(puuidNewDrm) {
-        result := ComCall(3, this, "ptr", puuidNewDrm, "HRESULT")
+        result := ComCall(3, this, "ptr", puuidNewDrm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,11 +51,15 @@ class IBDA_DRMService extends IUnknown{
      * Gets the current digital rights management (DRM) status.
      * @param {Pointer<BSTR>} pbstrDrmUuidList Receives a comma-separated list of GUIDs that identify the DRM systems supported by the media transform device (MTD). Each GUID is represented in following format: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx". The caller must release the string by calling <b>SysFreeString</b>.
      * @param {Pointer<Guid>} DrmUuid Receives a GUID that identifies which DRM system is currently active.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_drmservice-getdrmstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_drmservice-getdrmstatus
      */
     GetDRMStatus(pbstrDrmUuidList, DrmUuid) {
-        result := ComCall(4, this, "ptr", pbstrDrmUuidList, "ptr", DrmUuid, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrDrmUuidList, "ptr", DrmUuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

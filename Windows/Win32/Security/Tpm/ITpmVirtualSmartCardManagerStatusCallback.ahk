@@ -5,7 +5,7 @@
 
 /**
  * Notifies the caller of the progress of the requested operation or any resulting errors.
- * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback
  * @namespace Windows.Win32.Security.Tpm
  * @version v4.0.30319
  */
@@ -32,14 +32,18 @@ class ITpmVirtualSmartCardManagerStatusCallback extends IUnknown{
 
     /**
      * Reports the progress of the current operation.
-     * @param {Integer} Status Status code of the current operation from the possible status states listed in the <a href="https://docs.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status">TPMVSCMGR_STATUS</a> enumeration.
+     * @param {Integer} Status_ Status code of the current operation from the possible status states listed in the <a href="https://docs.microsoft.com/windows/win32/api/tpmvscmgr/ne-tpmvscmgr-tpmvscmgr_status">TPMVSCMGR_STATUS</a> enumeration.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If the method fails, it returns a Win32 error code. The requested operation on the TPM virtual smart card manager server may be interrupted.
-     * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reportprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reportprogress
      */
-    ReportProgress(Status) {
-        result := ComCall(3, this, "int", Status, "HRESULT")
+    ReportProgress(Status_) {
+        result := ComCall(3, this, "int", Status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,10 +53,14 @@ class ITpmVirtualSmartCardManagerStatusCallback extends IUnknown{
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If the method fails, it returns a Win32 error code. The requested operation on the TPM virtual smart card manager server may be interrupted.
-     * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reporterror
+     * @see https://learn.microsoft.com/windows/win32/api//content/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback-reporterror
      */
     ReportError(Error) {
-        result := ComCall(4, this, "int", Error, "HRESULT")
+        result := ComCall(4, this, "int", Error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

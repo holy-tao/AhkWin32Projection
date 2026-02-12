@@ -9,7 +9,7 @@
  * Exist restrictions cannot be used with sub-object properties that have type PT_OBJECT. 
  *   
  * For more information about the **SExistRestriction** structure, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sexistrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sexistrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

@@ -253,7 +253,7 @@ class PropertiesSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psformatfordisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psformatfordisplay
      * @since windows6.0.6000
      */
     static PSFormatForDisplay(propkey, propvar, pdfFlags, pwszText, cchText) {
@@ -440,7 +440,7 @@ class PropertiesSystem {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When the function returns, contains a pointer to a null-terminated, Unicode string representation of the requested property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psformatfordisplayalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psformatfordisplayalloc
      * @since windows6.0.6000
      */
     static PSFormatForDisplayAlloc(key, propvar, pdff) {
@@ -625,7 +625,7 @@ class PropertiesSystem {
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * When the function returns, contains a pointer to the formatted value as a null-terminated, Unicode string.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psformatpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psformatpropertyvalue
      * @since windows6.0.6000
      */
     static PSFormatPropertyValue(pps, ppd, pdff) {
@@ -650,7 +650,7 @@ class PropertiesSystem {
      * @returns {PWSTR} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetimagereferenceforvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetimagereferenceforvalue
      * @since windows6.1
      */
     static PSGetImageReferenceForValue(propkey, propvar) {
@@ -678,7 +678,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psstringfrompropertykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psstringfrompropertykey
      * @since windows5.1.2600
      */
     static PSStringFromPropertyKey(pkey, psz, cch) {
@@ -707,7 +707,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertykeyfromstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertykeyfromstring
      * @since windows5.1.2600
      */
     static PSPropertyKeyFromString(pszString, pkey) {
@@ -732,10 +732,10 @@ class PropertiesSystem {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the requested interface ID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains a pointer to the desired interface, typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatememorypropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatememorypropertystore
      * @since windows5.1.2600
      */
     static PSCreateMemoryPropertyStore(riid) {
@@ -785,7 +785,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatedelayedmultiplexpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatedelayedmultiplexpropertystore
      * @since windows5.1.2600
      */
     static PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid) {
@@ -827,7 +827,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatemultiplexpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatemultiplexpropertystore
      * @since windows5.1.2600
      */
     static PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid) {
@@ -870,7 +870,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychangearray">IPropertyChangeArray</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatepropertychangearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatepropertychangearray
      * @since windows5.1.2600
      */
     static PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid) {
@@ -904,7 +904,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychange">IPropertyChange</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatesimplepropertychange
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatesimplepropertychange
      * @since windows5.1.2600
      */
     static PSCreateSimplePropertyChange(flags, key, propvar, riid) {
@@ -929,7 +929,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionaliasinfo">IPropertyDescriptionAliasInfo</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionsearchinfo">IPropertyDescriptionSearchInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertydescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertydescription
      * @since windows5.1.2600
      */
     static PSGetPropertyDescription(propkey, riid) {
@@ -1449,7 +1449,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionaliasinfo">IPropertyDescriptionAliasInfo</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionsearchinfo">IPropertyDescriptionSearchInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertydescriptionbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertydescriptionbyname
      * @since windows5.1.2600
      */
     static PSGetPropertyDescriptionByName(pszCanonicalName, riid) {
@@ -1484,7 +1484,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pslookuppropertyhandlerclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pslookuppropertyhandlerclsid
      * @since windows5.1.2600
      */
     static PSLookupPropertyHandlerCLSID(pszFilePath, pclsid) {
@@ -1524,7 +1524,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetitempropertyhandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetitempropertyhandler
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandler(punkItem, fReadWrite, riid) {
@@ -1567,7 +1567,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystorecapabilities">IPropertyStoreCapabilities</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetitempropertyhandlerwithcreateobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetitempropertyhandlerwithcreateobject
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandlerWithCreateObject(punkItem, fReadWrite, punkCreateObject, riid) {
@@ -1595,7 +1595,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertyvalue
      * @since windows5.1.2600
      */
     static PSGetPropertyValue(pps, ppd, ppropvar) {
@@ -1623,7 +1623,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pssetpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pssetpropertyvalue
      * @since windows5.1.2600
      */
     static PSSetPropertyValue(pps, ppd, propvar) {
@@ -1691,7 +1691,7 @@ class PropertiesSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psregisterpropertyschema
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psregisterpropertyschema
      * @since windows5.1.2600
      */
     static PSRegisterPropertySchema(pszPath) {
@@ -1746,7 +1746,7 @@ class PropertiesSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psunregisterpropertyschema
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psunregisterpropertyschema
      * @since windows5.1.2600
      */
     static PSUnregisterPropertySchema(pszPath) {
@@ -1794,7 +1794,7 @@ class PropertiesSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psrefreshpropertyschema
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psrefreshpropertyschema
      * @since windows5.1.2600
      */
     static PSRefreshPropertySchema() {
@@ -1819,7 +1819,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psenumeratepropertydescriptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psenumeratepropertydescriptions
      * @since windows5.1.2600
      */
     static PSEnumeratePropertyDescriptions(filterOn, riid) {
@@ -1886,7 +1886,7 @@ class PropertiesSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertykeyfromname
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertykeyfromname
      * @since windows5.1.2600
      */
     static PSGetPropertyKeyFromName(pszName, ppropkey) {
@@ -1912,7 +1912,7 @@ class PropertiesSystem {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to the property name as a null-terminated Unicode string.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetnamefrompropertykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetnamefrompropertykey
      * @since windows5.1.2600
      */
     static PSGetNameFromPropertyKey(propkey) {
@@ -2120,7 +2120,7 @@ class PropertiesSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscoercetocanonicalvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscoercetocanonicalvalue
      * @since windows5.1.2600
      */
     static PSCoerceToCanonicalValue(key, ppropvar) {
@@ -2149,7 +2149,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertydescriptionlistfromstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertydescriptionlistfromstring
      * @since windows5.1.2600
      */
     static PSGetPropertyDescriptionListFromString(pszPropList, riid) {
@@ -2179,7 +2179,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer specified in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatepropertystorefrompropertysetstorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatepropertystorefrompropertysetstorage
      * @since windows5.1.2600
      */
     static PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid) {
@@ -2207,7 +2207,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the address of a pointer to an interface guaranteed to support <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreatepropertystorefromobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreatepropertystorefromobject
      * @since windows5.1.2600
      */
     static PSCreatePropertyStoreFromObject(punk, grfMode, riid) {
@@ -2238,7 +2238,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pscreateadapterfrompropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pscreateadapterfrompropertystore
      * @since windows5.1.2600
      */
     static PSCreateAdapterFromPropertyStore(pps, riid) {
@@ -2262,7 +2262,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertysystem">IPropertySystem</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertysystem
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertysystem
      * @since windows5.1.2600
      */
     static PSGetPropertySystem(riid) {
@@ -2297,7 +2297,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetpropertyfrompropertystorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetpropertyfrompropertystorage
      * @since windows5.1.2600
      */
     static PSGetPropertyFromPropertyStorage(psps, cb, rpkey, ppropvar) {
@@ -2332,7 +2332,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>PSSTDAPI</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psgetnamedpropertyfrompropertystorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-psgetnamedpropertyfrompropertystorage
      * @since windows5.1.2600
      */
     static PSGetNamedPropertyFromPropertyStorage(psps, cb, pszName, ppropvar) {
@@ -2365,7 +2365,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readtype
      * @since windows6.1
      */
     static PSPropertyBag_ReadType(propBag, propName, var, type) {
@@ -2398,7 +2398,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readstr
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readstr
      * @since windows6.1
      */
     static PSPropertyBag_ReadStr(propBag, propName, value, characterCount) {
@@ -2426,7 +2426,7 @@ class PropertiesSystem {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to a string data value from a property in a property bag and allocates memory for the string that is read. The caller of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pspropertybag_readstralloc">PSPropertyBag_ReadStrAlloc</a> function needs to call a <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function on this parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readstralloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readstralloc
      * @since windows6.1
      */
     static PSPropertyBag_ReadStrAlloc(propBag, propName) {
@@ -2453,7 +2453,7 @@ class PropertiesSystem {
      * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * When this function returns, contains a pointer to a <b>BSTR</b> property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readbstr
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readbstr
      * @since windows6.1
      */
     static PSPropertyBag_ReadBSTR(propBag, propName) {
@@ -2484,7 +2484,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writestr
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writestr
      * @since windows6.1
      */
     static PSPropertyBag_WriteStr(propBag, propName, value) {
@@ -2515,7 +2515,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writebstr
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writebstr
      * @since windows6.1
      */
     static PSPropertyBag_WriteBSTR(propBag, propName, value) {
@@ -2545,7 +2545,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to an <b>int</b> property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readint
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readint
      * @since windows6.1
      */
     static PSPropertyBag_ReadInt(propBag, propName) {
@@ -2575,7 +2575,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writeint
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writeint
      * @since windows6.1
      */
     static PSPropertyBag_WriteInt(propBag, propName, value) {
@@ -2602,7 +2602,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>SHORT*</b>
      * 
      * When this function returns, contains a pointer to a SHORT property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readshort
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readshort
      * @since windows6.1
      */
     static PSPropertyBag_ReadSHORT(propBag, propName) {
@@ -2632,7 +2632,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writeshort
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writeshort
      * @since windows6.1
      */
     static PSPropertyBag_WriteSHORT(propBag, propName, value) {
@@ -2661,7 +2661,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * When this function returns, contains a pointer to a <b>LONG</b> property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readlong
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readlong
      * @since windows6.1
      */
     static PSPropertyBag_ReadLONG(propBag, propName) {
@@ -2691,7 +2691,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writelong
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writelong
      * @since windows6.1
      */
     static PSPropertyBag_WriteLONG(propBag, propName, value) {
@@ -2718,7 +2718,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to a <b>DWORD</b> property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readdword
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readdword
      * @since windows6.1
      */
     static PSPropertyBag_ReadDWORD(propBag, propName) {
@@ -2748,7 +2748,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writedword
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writedword
      * @since windows6.1
      */
     static PSPropertyBag_WriteDWORD(propBag, propName, value) {
@@ -2775,7 +2775,7 @@ class PropertiesSystem {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns successfully, contains a pointer to the value read from the property.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readbool
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readbool
      * @since windows6.1
      */
     static PSPropertyBag_ReadBOOL(propBag, propName) {
@@ -2805,7 +2805,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writebool
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writebool
      * @since windows6.1
      */
     static PSPropertyBag_WriteBOOL(propBag, propName, value) {
@@ -2835,7 +2835,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readpointl
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readpointl
      * @since windows6.1
      */
     static PSPropertyBag_ReadPOINTL(propBag, propName, value) {
@@ -2865,7 +2865,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writepointl
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writepointl
      * @since windows6.1
      */
     static PSPropertyBag_WritePOINTL(propBag, propName, value) {
@@ -2895,7 +2895,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readpoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readpoints
      * @since windows6.1
      */
     static PSPropertyBag_ReadPOINTS(propBag, propName, value) {
@@ -2925,7 +2925,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writepoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writepoints
      * @since windows6.1
      */
     static PSPropertyBag_WritePOINTS(propBag, propName, value) {
@@ -2955,7 +2955,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readrectl
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readrectl
      * @since windows6.1
      */
     static PSPropertyBag_ReadRECTL(propBag, propName, value) {
@@ -2985,7 +2985,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writerectl
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writerectl
      * @since windows6.1
      */
     static PSPropertyBag_WriteRECTL(propBag, propName, value) {
@@ -3016,7 +3016,7 @@ class PropertiesSystem {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * The address of a pointer that, when this function returns successfully, receives the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readstream
      * @since windows6.1
      */
     static PSPropertyBag_ReadStream(propBag, propName) {
@@ -3046,7 +3046,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writestream
      * @since windows6.1
      */
     static PSPropertyBag_WriteStream(propBag, propName, value) {
@@ -3073,7 +3073,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_delete
      * @since windows6.1
      */
     static PSPropertyBag_Delete(propBag, propName) {
@@ -3100,7 +3100,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>ULONGLONG</b>
      * 
      * When this function returns, contains a pointer to a <b>ULONGLONG</b> property value.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readulonglong
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readulonglong
      * @since windows6.1
      */
     static PSPropertyBag_ReadULONGLONG(propBag, propName) {
@@ -3130,7 +3130,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writeulonglong
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writeulonglong
      * @since windows6.1
      */
     static PSPropertyBag_WriteULONGLONG(propBag, propName, value) {
@@ -3160,7 +3160,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readunknown
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readunknown
      * @since windows6.1
      */
     static PSPropertyBag_ReadUnknown(propBag, propName, riid) {
@@ -3190,7 +3190,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writeunknown
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writeunknown
      * @since windows6.1
      */
     static PSPropertyBag_WriteUnknown(propBag, propName, punk) {
@@ -3220,7 +3220,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readguid
      * @since windows6.1
      */
     static PSPropertyBag_ReadGUID(propBag, propName, value) {
@@ -3250,7 +3250,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writeguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writeguid
      * @since windows6.1
      */
     static PSPropertyBag_WriteGUID(propBag, propName, value) {
@@ -3280,7 +3280,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_readpropertykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_readpropertykey
      * @since windows6.1
      */
     static PSPropertyBag_ReadPropertyKey(propBag, propName, value) {
@@ -3312,7 +3312,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-pspropertybag_writepropertykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-pspropertybag_writepropertykey
      * @since windows6.1
      */
     static PSPropertyBag_WritePropertyKey(propBag, propName, value) {
@@ -3340,7 +3340,7 @@ class PropertiesSystem {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetpropertystorefromidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgetpropertystorefromidlist
      * @since windows6.0.6000
      */
     static SHGetPropertyStoreFromIDList(pidl, flags, riid) {
@@ -3369,7 +3369,7 @@ class PropertiesSystem {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> or a related interface.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetpropertystorefromparsingname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgetpropertystorefromparsingname
      * @since windows6.0.6000
      */
     static SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid) {
@@ -3409,7 +3409,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-shadddefaultpropertiesbyext
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-shadddefaultpropertiesbyext
      * @since windows6.0.6000
      */
     static SHAddDefaultPropertiesByExt(pszExt, pPropStore) {
@@ -3456,7 +3456,7 @@ class PropertiesSystem {
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle to the application's properties. Use this handle when you call the related .pif functions.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pifmgr_openproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pifmgr_openproperties
      * @since windows5.0
      */
     static PifMgr_OpenProperties(pszApp, pszPIF, hInf, flOpt) {
@@ -3496,7 +3496,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns <b>NULL</b> if successful. If unsuccessful, the function returns the handle to the application properties that were passed as <i>hProps</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pifmgr_getproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pifmgr_getproperties
      * @since windows5.0
      */
     static PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
@@ -3527,7 +3527,7 @@ class PropertiesSystem {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the amount of information transferred, in bytes. Returns zero if the group cannot be found or an error occurs.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pifmgr_setproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pifmgr_setproperties
      * @since windows5.0
      */
     static PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
@@ -3549,7 +3549,7 @@ class PropertiesSystem {
      * @returns {HANDLE} Type: <b>int</b>
      * 
      * Returns <b>NULL</b> if successful. If unsuccessful, the functions returns the handle to the application properties that was passed as <i>hProps</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pifmgr_closeproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pifmgr_closeproperties
      * @since windows5.0
      */
     static PifMgr_CloseProperties(hProps, flOpt) {
@@ -3587,7 +3587,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpropstgcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shpropstgcreate
      * @since windows5.0
      */
     static SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, ppstg, puCodePage) {
@@ -3621,7 +3621,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpropstgreadmultiple
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shpropstgreadmultiple
      * @since windows5.1.2600
      */
     static SHPropStgReadMultiple(pps, uCodePage, cpspec, rgpspec, rgvar) {
@@ -3656,7 +3656,7 @@ class PropertiesSystem {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpropstgwritemultiple
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shpropstgwritemultiple
      * @since windows5.1.2600
      */
     static SHPropStgWriteMultiple(pps, puCodePage, cpspec, rgpspec, rgvar, propidNameFirst) {
@@ -3696,7 +3696,7 @@ class PropertiesSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-appusermodel-relaunchiconresource">System.AppUserModel.RelaunchIconResource</a>
      * </li>
      * </ul>
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window whose properties are being retrieved.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -3705,13 +3705,13 @@ class PropertiesSystem {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetpropertystoreforwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetpropertystoreforwindow
      * @since windows6.1
      */
-    static SHGetPropertyStoreForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHGetPropertyStoreForWindow(hwnd_, riid) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "int")
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd_, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

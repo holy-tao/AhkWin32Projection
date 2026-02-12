@@ -5,7 +5,7 @@
  * Specifies errors encountered during the ID3D12VideoEncodeCommandList2::EncodeFrame operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_encode_error_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_encode_error_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -14,7 +14,7 @@
  *     To register an interface, a provider passes a pointer to a provider-initialized NET_IF_INFORMATION
  *     structure to the 
  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndis/nf-ndis-ndisifregisterinterface">NdisIfRegisterInterface</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-net_physical_location_lh
+ * @see https://learn.microsoft.com/windows/win32/api//content/ifdef/ns-ifdef-net_physical_location_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Describes a sampler state. (D3D12_SAMPLER_DESC)
  * @remarks
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createsampler">CreateSampler</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_sampler_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

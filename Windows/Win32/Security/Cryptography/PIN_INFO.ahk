@@ -10,7 +10,7 @@
  * Use a tilde if the pin delivers a secondary stream that should not be rendered by default, or if the pin requires special code to render correctly. For example, DVD filters should use it for pins that deliver subpicture or closed captioning data. Video capture filters should use it for capture pins (but not preview pins).
  * 
  * The <b>pFilter</b> member has an outstanding reference count. The application must release the interface.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-pin_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-pin_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

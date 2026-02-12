@@ -7,7 +7,7 @@
 
 /**
  * The IADsMembers interface is a dual interface.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsmembers
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsmembers
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -59,17 +59,25 @@ class IADsMembers extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
      * The IADsMembers::get__NewEnum method gets a dependent enumerator object that implements IEnumVARIANT for this ADSI collection object. Be aware that there are two underscore characters in the function name (get__NewEnum).
      * @returns {IUnknown} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the enumerator object for this collection.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsmembers-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsmembers-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppEnumerator)
     }
 
@@ -79,7 +87,11 @@ class IADsMembers extends IDispatch{
      */
     get_Filter() {
         pvFilter := VARIANT()
-        result := ComCall(9, this, "ptr", pvFilter, "HRESULT")
+        result := ComCall(9, this, "ptr", pvFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvFilter
     }
 
@@ -89,7 +101,11 @@ class IADsMembers extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Filter(pvFilter) {
-        result := ComCall(10, this, "ptr", pvFilter, "HRESULT")
+        result := ComCall(10, this, "ptr", pvFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

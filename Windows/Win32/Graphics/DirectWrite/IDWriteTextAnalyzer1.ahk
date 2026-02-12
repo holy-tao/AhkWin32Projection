@@ -7,8 +7,8 @@
 #Include .\IDWriteTextAnalyzer.ahk
 
 /**
- * Analyzes various text properties for complex script processing.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwritetextanalyzer1
+ * Analyzes various text properties for complex script processing. (IDWriteTextAnalyzer1)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nn-dwrite_1-idwritetextanalyzer1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,6 +35,8 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
 
     /**
      * Applies spacing between characters, properly adjusting glyph clusters and diacritics.
+     * @remarks
+     * The input and output advances/offsets are allowed to alias the same array.
      * @param {Float} leadingSpacing The spacing before each character, in reading order.
      * @param {Float} trailingSpacing The spacing after each character, in reading order.
      * @param {Float} minimumAdvanceWidth The minimum advance of each character,
@@ -48,20 +50,30 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @param {Pointer<DWRITE_SHAPING_GLYPH_PROPERTIES>} glyphProperties Properties of each glyph, from GetGlyphs.
      * @param {Pointer<Float>} modifiedGlyphAdvances The new advance width of each glyph.
      * @param {Pointer<DWRITE_GLYPH_OFFSET>} modifiedGlyphOffsets The new offset of the origin of each glyph.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-applycharacterspacing
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-applycharacterspacing
      */
     ApplyCharacterSpacing(leadingSpacing, trailingSpacing, minimumAdvanceWidth, textLength, glyphCount, clusterMap, glyphAdvances, glyphOffsets, glyphProperties, modifiedGlyphAdvances, modifiedGlyphOffsets) {
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
         modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "ptr", glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(10, this, "float", leadingSpacing, "float", trailingSpacing, "float", minimumAdvanceWidth, "uint", textLength, "uint", glyphCount, clusterMapMarshal, clusterMap, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, "ptr", glyphProperties, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the given baseline from the font.
+     * @remarks
+     * If the baseline does not exist in the font, it is not considered an
+     *     error, but the function will return exists = false. You may then use
+     *     heuristics to calculate the missing base, or, if the flag
+     *     simulationAllowed is true, the function will compute a reasonable
+     *     approximation for you.
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefontface1">IDWriteFontFace</a>*</b>
      * 
      * The font face to read.
@@ -91,8 +103,8 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * Whether the returned baseline exists in the font.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getbaseline
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getbaseline
      */
     GetBaseline(fontFace, baseline, isVertical, isSimulationAllowed, scriptAnalysis, localeName, baselineCoordinate, exists) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -100,7 +112,11 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
         baselineCoordinateMarshal := baselineCoordinate is VarRef ? "int*" : "ptr"
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "HRESULT")
+        result := ComCall(11, this, "ptr", fontFace, "int", baseline, "int", isVertical, "int", isSimulationAllowed, "ptr", scriptAnalysis, "ptr", localeName, baselineCoordinateMarshal, baselineCoordinate, existsMarshal, exists, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,16 +136,22 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * Length to analyze.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-analyzeverticalglyphorientation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-analyzeverticalglyphorientation
      */
     AnalyzeVerticalGlyphOrientation(analysisSource, textPosition, textLength, analysisSink) {
-        result := ComCall(12, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
+        result := ComCall(12, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Returns 2x3 transform matrix for the respective angle to draw the glyph run.
+     * Returns 2x3 transform matrix for the respective angle to draw the glyph run. (IDWriteTextAnalyzer1.GetGlyphOrientationTransform)
+     * @remarks
+     * The translation component of the transform returned is zero.
      * @param {Integer} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a>-typed value that specifies the angle that was reported into
@@ -140,11 +162,15 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @returns {DWRITE_MATRIX} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * Returned transform.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getglyphorientationtransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getglyphorientationtransform
      */
     GetGlyphOrientationTransform(glyphOrientationAngle, isSideways) {
         transform := DWRITE_MATRIX()
-        result := ComCall(13, this, "int", glyphOrientationAngle, "int", isSideways, "ptr", transform, "HRESULT")
+        result := ComCall(13, this, "int", glyphOrientationAngle, "int", isSideways, "ptr", transform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return transform
     }
 
@@ -157,16 +183,26 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * @returns {DWRITE_SCRIPT_PROPERTIES} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_script_properties">DWRITE_SCRIPT_PROPERTIES</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_script_properties">DWRITE_SCRIPT_PROPERTIES</a> structure that describes info for the script.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getscriptproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getscriptproperties
      */
     GetScriptProperties(scriptAnalysis) {
         scriptProperties := DWRITE_SCRIPT_PROPERTIES()
-        result := ComCall(14, this, "ptr", scriptAnalysis, "ptr", scriptProperties, "HRESULT")
+        result := ComCall(14, this, "ptr", scriptAnalysis, "ptr", scriptProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return scriptProperties
     }
 
     /**
      * Determines the complexity of text, and whether you need to call IDWriteTextAnalyzer::GetGlyphs for full script shaping.
+     * @remarks
+     * Text is not simple if the characters are part of a script that has
+     *     complex shaping requirements, require bidi analysis, combine with
+     *     other characters, reside in the supplementary planes, or have glyphs
+     *     that participate in standard OpenType features. The length returned
+     *     will not split combining marks from their base characters.
      * @param {PWSTR} textString Type: <b>const WCHAR*</b>
      * 
      * The text to check for complexity. This string
@@ -197,8 +233,8 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      *     and you need to call <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">IDWriteTextAnalyzer::GetGlyphs</a> for shaping instead.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-gettextcomplexity
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-gettextcomplexity
      */
     GetTextComplexity(textString, textLength, fontFace, isTextSimple, textLengthRead, glyphIndices) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -207,12 +243,20 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
         textLengthReadMarshal := textLengthRead is VarRef ? "uint*" : "ptr"
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, isTextSimpleMarshal, isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "HRESULT")
+        result := ComCall(15, this, "ptr", textString, "uint", textLength, "ptr", fontFace, isTextSimpleMarshal, isTextSimple, textLengthReadMarshal, textLengthRead, glyphIndicesMarshal, glyphIndices, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves justification opportunity information for each of the glyphs given the text and shaping glyph properties.
+     * @remarks
+     * This function is called per-run, after shaping is done via the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">IDWriteTextAnalyzer::GetGlyphs</a> method.
+     *     <div class="alert"><b>Note</b>  this function only supports natural metrics (<a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_NATURAL</a>).</div>
+     * <div> </div>
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefontface1">IDWriteFontFace</a>*</b>
      * 
      * Font face that was used for shaping. This is
@@ -245,7 +289,7 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_justification_opportunity">DWRITE_JUSTIFICATION_OPPORTUNITY</a> structure that receives info for the
      *     allowed justification expansion/compression for each glyph.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustificationopportunities
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustificationopportunities
      */
     GetJustificationOpportunities(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, textString, clusterMap, glyphProperties) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -253,12 +297,19 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
 
         justificationOpportunities := DWRITE_JUSTIFICATION_OPPORTUNITY()
-        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", glyphProperties, "ptr", justificationOpportunities, "HRESULT")
+        result := ComCall(16, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "ptr", textString, clusterMapMarshal, clusterMap, "ptr", glyphProperties, "ptr", justificationOpportunities, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return justificationOpportunities
     }
 
     /**
      * Justifies an array of glyph advances to fit the line width.
+     * @remarks
+     * You call  <b>JustifyGlyphAdvances</b> after you call <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustificationopportunities">IDWriteTextAnalyzer1::GetJustificationOpportunities</a> to collect all the opportunities, and <b>JustifyGlyphAdvances</b> spans across the entire line. The input and output arrays are allowed
+     *     to alias each other, permitting in-place update.
      * @param {Float} lineWidth Type: <b>FLOAT</b>
      * 
      * The line width.
@@ -283,19 +334,32 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * The returned array of justified glyph offsets.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-justifyglyphadvances
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-justifyglyphadvances
      */
     JustifyGlyphAdvances(lineWidth, glyphCount, justificationOpportunities, glyphAdvances, glyphOffsets, justifiedGlyphAdvances, justifiedGlyphOffsets) {
         glyphAdvancesMarshal := glyphAdvances is VarRef ? "float*" : "ptr"
         justifiedGlyphAdvancesMarshal := justifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, "ptr", justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "HRESULT")
+        result := ComCall(17, this, "float", lineWidth, "uint", glyphCount, "ptr", justificationOpportunities, glyphAdvancesMarshal, glyphAdvances, "ptr", glyphOffsets, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Fills in new glyphs for complex scripts where justification increased the advances of glyphs, such as Arabic with kashida.
+     * @remarks
+     * You call <b>GetJustifiedGlyphs</b> after the line has been justified, and it is per-run.
+     * 
+     * You should call <b>GetJustifiedGlyphs</b> if <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getscriptproperties">IDWriteTextAnalyzer1::GetScriptProperties</a> returns a non-null <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_script_properties">DWRITE_SCRIPT_PROPERTIES.justificationCharacter</a> for that script.
+     * 
+     *  Use  <b>GetJustifiedGlyphs</b> mainly for cursive scripts
+     *     like Arabic. If <i>maxGlyphCount</i> is not large enough, <b>GetJustifiedGlyphs</b> returns the error
+     *     E_NOT_SUFFICIENT_BUFFER and fills the variable  to which <i>actualGlyphCount</i>  points with
+     *     the needed glyph count.
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefontface1">IDWriteFontFace</a>*</b>
      * 
      * Font face used for shaping.
@@ -357,8 +421,8 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
      * Updated glyph offsets.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustifiedglyphs
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getjustifiedglyphs
      */
     GetJustifiedGlyphs(fontFace, fontEmSize, scriptAnalysis, textLength, glyphCount, maxGlyphCount, clusterMap, glyphIndices, glyphAdvances, justifiedGlyphAdvances, justifiedGlyphOffsets, glyphProperties, actualGlyphCount, modifiedClusterMap, modifiedGlyphIndices, modifiedGlyphAdvances, modifiedGlyphOffsets) {
         clusterMapMarshal := clusterMap is VarRef ? "ushort*" : "ptr"
@@ -370,7 +434,11 @@ class IDWriteTextAnalyzer1 extends IDWriteTextAnalyzer{
         modifiedGlyphIndicesMarshal := modifiedGlyphIndices is VarRef ? "ushort*" : "ptr"
         modifiedGlyphAdvancesMarshal := modifiedGlyphAdvances is VarRef ? "float*" : "ptr"
 
-        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "ptr", glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "HRESULT")
+        result := ComCall(18, this, "ptr", fontFace, "float", fontEmSize, "ptr", scriptAnalysis, "uint", textLength, "uint", glyphCount, "uint", maxGlyphCount, clusterMapMarshal, clusterMap, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, justifiedGlyphAdvancesMarshal, justifiedGlyphAdvances, "ptr", justifiedGlyphOffsets, "ptr", glyphProperties, actualGlyphCountMarshal, actualGlyphCount, modifiedClusterMapMarshal, modifiedClusterMap, modifiedGlyphIndicesMarshal, modifiedGlyphIndices, modifiedGlyphAdvancesMarshal, modifiedGlyphAdvances, "ptr", modifiedGlyphOffsets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

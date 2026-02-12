@@ -38,7 +38,11 @@ class IMarkupContainer2 extends IMarkupContainer{
      * @returns {IHTMLChangeLog} 
      */
     CreateChangeLog(pChangeSink, fForward, fBackward) {
-        result := ComCall(4, this, "ptr", pChangeSink, "ptr*", &ppChangeLog := 0, "int", fForward, "int", fBackward, "HRESULT")
+        result := ComCall(4, this, "ptr", pChangeSink, "ptr*", &ppChangeLog := 0, "int", fForward, "int", fBackward, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLChangeLog(ppChangeLog)
     }
 
@@ -48,7 +52,11 @@ class IMarkupContainer2 extends IMarkupContainer{
      * @returns {Integer} 
      */
     RegisterForDirtyRange(pChangeSink) {
-        result := ComCall(5, this, "ptr", pChangeSink, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pChangeSink, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -58,7 +66,11 @@ class IMarkupContainer2 extends IMarkupContainer{
      * @returns {HRESULT} 
      */
     UnRegisterForDirtyRange(dwCookie) {
-        result := ComCall(6, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(6, this, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class IMarkupContainer2 extends IMarkupContainer{
      * @returns {HRESULT} 
      */
     GetAndClearDirtyRange(dwCookie, pIPointerBegin, pIPointerEnd) {
-        result := ComCall(7, this, "uint", dwCookie, "ptr", pIPointerBegin, "ptr", pIPointerEnd, "HRESULT")
+        result := ComCall(7, this, "uint", dwCookie, "ptr", pIPointerBegin, "ptr", pIPointerEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +104,11 @@ class IMarkupContainer2 extends IMarkupContainer{
      * @returns {IHTMLElement} 
      */
     GetMasterElement() {
-        result := ComCall(9, this, "ptr*", &ppElementMaster := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppElementMaster := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppElementMaster)
     }
 }

@@ -5,7 +5,7 @@
  * Describes timing and composition information.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_stats
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomptypes/ns-dcomptypes-composition_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

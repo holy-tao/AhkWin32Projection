@@ -5,7 +5,7 @@
  * Contains an array of string values that are used to describe a property of type PT_MV_STRING8.
  * @remarks
  * For more information about PT_MV_STRING8, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/slpstrarray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/slpstrarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

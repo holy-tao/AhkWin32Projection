@@ -1,0 +1,106 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Storage\Streams\IInputStream.ahk
+#Include ..\..\Storage\Streams\IOutputStream.ahk
+#Include ..\..\Foundation\IAsyncOperation.ahk
+#Include ..\..\Foundation\IPropertyValue.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Devices.Custom
+ * @version WindowsRuntime 1.4
+ */
+class ICustomDevice extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for ICustomDevice
+     * @type {Guid}
+     */
+    static IID => Guid("{dd30251f-c48b-43bd-bcb1-dec88f15143e}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_InputStream", "get_OutputStream", "SendIOControlAsync", "TrySendIOControlAsync"]
+
+    /**
+     * @type {IInputStream} 
+     */
+    InputStream {
+        get => this.get_InputStream()
+    }
+
+    /**
+     * @type {IOutputStream} 
+     */
+    OutputStream {
+        get => this.get_OutputStream()
+    }
+
+    /**
+     * 
+     * @returns {IInputStream} 
+     */
+    get_InputStream() {
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IInputStream(value)
+    }
+
+    /**
+     * 
+     * @returns {IOutputStream} 
+     */
+    get_OutputStream() {
+        result := ComCall(7, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IOutputStream(value)
+    }
+
+    /**
+     * 
+     * @param {IIOControlCode} ioControlCode_ 
+     * @param {IBuffer} inputBuffer 
+     * @param {IBuffer} outputBuffer 
+     * @returns {IAsyncOperation<Integer>} 
+     */
+    SendIOControlAsync(ioControlCode_, inputBuffer, outputBuffer) {
+        result := ComCall(8, this, "ptr", ioControlCode_, "ptr", inputBuffer, "ptr", outputBuffer, "ptr*", &operation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncOperation((ptr) => IPropertyValue(ptr).GetUInt32(), operation)
+    }
+
+    /**
+     * 
+     * @param {IIOControlCode} ioControlCode_ 
+     * @param {IBuffer} inputBuffer 
+     * @param {IBuffer} outputBuffer 
+     * @returns {IAsyncOperation<Boolean>} 
+     */
+    TrySendIOControlAsync(ioControlCode_, inputBuffer, outputBuffer) {
+        result := ComCall(9, this, "ptr", ioControlCode_, "ptr", inputBuffer, "ptr", outputBuffer, "ptr*", &operation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncOperation((ptr) => IPropertyValue(ptr).GetBoolean(), operation)
+    }
+}

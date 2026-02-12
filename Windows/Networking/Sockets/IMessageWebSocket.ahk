@@ -1,0 +1,104 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include .\MessageWebSocketControl.ahk
+#Include .\MessageWebSocketInformation.ahk
+#Include ..\..\Foundation\EventRegistrationToken.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Networking.Sockets
+ * @version WindowsRuntime 1.4
+ */
+class IMessageWebSocket extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IMessageWebSocket
+     * @type {Guid}
+     */
+    static IID => Guid("{33727d08-34d5-4746-ad7b-8dde5bc2ef88}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_Control", "get_Information", "add_MessageReceived", "remove_MessageReceived"]
+
+    /**
+     * @type {MessageWebSocketControl} 
+     */
+    Control {
+        get => this.get_Control()
+    }
+
+    /**
+     * @type {MessageWebSocketInformation} 
+     */
+    Information {
+        get => this.get_Information()
+    }
+
+    /**
+     * 
+     * @returns {MessageWebSocketControl} 
+     */
+    get_Control() {
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return MessageWebSocketControl(value)
+    }
+
+    /**
+     * 
+     * @returns {MessageWebSocketInformation} 
+     */
+    get_Information() {
+        result := ComCall(7, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return MessageWebSocketInformation(value)
+    }
+
+    /**
+     * 
+     * @param {TypedEventHandler<MessageWebSocket, MessageWebSocketMessageReceivedEventArgs>} eventHandler 
+     * @returns {EventRegistrationToken} 
+     */
+    add_MessageReceived(eventHandler) {
+        eventCookie := EventRegistrationToken()
+        result := ComCall(8, this, "ptr", eventHandler, "ptr", eventCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return eventCookie
+    }
+
+    /**
+     * 
+     * @param {EventRegistrationToken} eventCookie 
+     * @returns {HRESULT} 
+     */
+    remove_MessageReceived(eventCookie) {
+        eventCookie := eventCookie is Win32Handle ? NumGet(eventCookie, "ptr") : eventCookie
+
+        result := ComCall(9, this, "ptr", eventCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
- * @see https://docs.microsoft.com/windows/win32/api//exdisp/nn-exdisp-iwebbrowser2
+ * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -103,7 +103,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     Navigate2(URL, Flags, TargetFrameName, PostData, Headers) {
-        result := ComCall(52, this, "ptr", URL, "ptr", Flags, "ptr", TargetFrameName, "ptr", PostData, "ptr", Headers, "HRESULT")
+        result := ComCall(52, this, "ptr", URL, "ptr", Flags, "ptr", TargetFrameName, "ptr", PostData, "ptr", Headers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +117,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {Integer} 
      */
     QueryStatusWB(cmdID) {
-        result := ComCall(53, this, "int", cmdID, "int*", &pcmdf := 0, "HRESULT")
+        result := ComCall(53, this, "int", cmdID, "int*", &pcmdf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcmdf
     }
 
@@ -126,7 +134,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     ExecWB(cmdID, cmdexecopt, pvaIn, pvaOut) {
-        result := ComCall(54, this, "int", cmdID, "int", cmdexecopt, "ptr", pvaIn, "ptr", pvaOut, "HRESULT")
+        result := ComCall(54, this, "int", cmdID, "int", cmdexecopt, "ptr", pvaIn, "ptr", pvaOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +150,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     ShowBrowserBar(pvaClsid, pvarShow, pvarSize) {
-        result := ComCall(55, this, "ptr", pvaClsid, "ptr", pvarShow, "ptr", pvarSize, "HRESULT")
+        result := ComCall(55, this, "ptr", pvaClsid, "ptr", pvarShow, "ptr", pvarSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +163,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {Integer} 
      */
     get_ReadyState() {
-        result := ComCall(56, this, "int*", &plReadyState := 0, "HRESULT")
+        result := ComCall(56, this, "int*", &plReadyState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plReadyState
     }
 
@@ -156,7 +176,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {VARIANT_BOOL} 
      */
     get_Offline() {
-        result := ComCall(57, this, "short*", &pbOffline := 0, "HRESULT")
+        result := ComCall(57, this, "short*", &pbOffline := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbOffline
     }
 
@@ -166,7 +190,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     put_Offline(bOffline) {
-        result := ComCall(58, this, "short", bOffline, "HRESULT")
+        result := ComCall(58, this, "short", bOffline, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +203,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {VARIANT_BOOL} 
      */
     get_Silent() {
-        result := ComCall(59, this, "short*", &pbSilent := 0, "HRESULT")
+        result := ComCall(59, this, "short*", &pbSilent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSilent
     }
 
@@ -185,7 +217,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     put_Silent(bSilent) {
-        result := ComCall(60, this, "short", bSilent, "HRESULT")
+        result := ComCall(60, this, "short", bSilent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -194,7 +230,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {VARIANT_BOOL} 
      */
     get_RegisterAsBrowser() {
-        result := ComCall(61, this, "short*", &pbRegister := 0, "HRESULT")
+        result := ComCall(61, this, "short*", &pbRegister := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbRegister
     }
 
@@ -204,7 +244,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     put_RegisterAsBrowser(bRegister) {
-        result := ComCall(62, this, "short", bRegister, "HRESULT")
+        result := ComCall(62, this, "short", bRegister, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +257,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {VARIANT_BOOL} 
      */
     get_RegisterAsDropTarget() {
-        result := ComCall(63, this, "short*", &pbRegister := 0, "HRESULT")
+        result := ComCall(63, this, "short*", &pbRegister := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbRegister
     }
 
@@ -223,46 +271,52 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     put_RegisterAsDropTarget(bRegister) {
-        result := ComCall(64, this, "short", bRegister, "HRESULT")
+        result := ComCall(64, this, "short", bRegister, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or gets whether the object is in theater mode.
+     * Sets or gets whether the object is in theater mode. (Get)
      * @remarks
-     * 
      * In theater mode, the object's main window fills the entire screen and displays a toolbar that has a minimal set of navigational buttons. A status bar is also provided in the upper-right corner of the screen. Explorer bars, such as  History  and Favorites , are displayed as an autohide pane on the left edge of the screen in theater mode. 
      * 
      * Setting TheaterMode (even to VARIANT_FALSE) resets the values of the IWebBrowser2::AddressBar and IWebBrowser2::ToolBar properties to VARIANT_TRUE. Disable the address bar and toolbars after you set the TheaterMode property. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowser2-get_theatermode
+     * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nf-exdisp-iwebbrowser2-get_theatermode
      */
     get_TheaterMode() {
-        result := ComCall(65, this, "short*", &pbRegister := 0, "HRESULT")
+        result := ComCall(65, this, "short*", &pbRegister := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbRegister
     }
 
     /**
-     * Sets or gets whether the object is in theater mode.
+     * Sets or gets whether the object is in theater mode. (Put)
      * @remarks
-     * 
      * In theater mode, the object's main window fills the entire screen and displays a toolbar that has a minimal set of navigational buttons. A status bar is also provided in the upper-right corner of the screen. Explorer bars, such as  History  and Favorites , are displayed as an autohide pane on the left edge of the screen in theater mode. 
      * 
      * Setting TheaterMode (even to VARIANT_FALSE) resets the values of the IWebBrowser2::AddressBar and IWebBrowser2::ToolBar properties to VARIANT_TRUE. Disable the address bar and toolbars after you set the TheaterMode property. 
      * 
      * The WebBrowser object saves the value of this property, but otherwise ignores it.
-     * 
-     * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowser2-put_theatermode
+     * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nf-exdisp-iwebbrowser2-put_theatermode
      */
     put_TheaterMode(bRegister) {
-        result := ComCall(66, this, "short", bRegister, "HRESULT")
+        result := ComCall(66, this, "short", bRegister, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,7 +325,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {VARIANT_BOOL} 
      */
     get_AddressBar() {
-        result := ComCall(67, this, "short*", &Value := 0, "HRESULT")
+        result := ComCall(67, this, "short*", &Value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
@@ -281,7 +339,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     put_AddressBar(Value) {
-        result := ComCall(68, this, "short", Value, "HRESULT")
+        result := ComCall(68, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -290,7 +352,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {VARIANT_BOOL} 
      */
     get_Resizable() {
-        result := ComCall(69, this, "short*", &Value := 0, "HRESULT")
+        result := ComCall(69, this, "short*", &Value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
@@ -300,7 +366,11 @@ class IWebBrowser2 extends IWebBrowserApp{
      * @returns {HRESULT} 
      */
     put_Resizable(Value) {
-        result := ComCall(70, this, "short", Value, "HRESULT")
+        result := ComCall(70, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

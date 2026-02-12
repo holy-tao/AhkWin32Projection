@@ -4,8 +4,8 @@
 #Include .\INetworkConnection.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnection2
+ * The **INetworkConnection2** interface represents a single network connection.
+ * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nn-netlistmgr-inetworkconnection2
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
@@ -31,13 +31,23 @@ class INetworkConnection2 extends INetworkConnection{
     static VTableNames => ["IsDomainAuthenticatedBy"]
 
     /**
+     * Queries whether the specified domain authentication method succeeded for this network connection.
+     * @remarks
+     * See **Remarks** for [INetwork2::IsDomainAuthenticatedBy method](nf-netlistmgr-inetwork2-isdomainauthenticatedby.md).
+     * @param {Integer} domainAuthenticationKind Type: \[in\] **[NLM_DOMAIN_AUTHENTICATION_KIND](ne-netlistmgr-nlm_domain_authentication_kind.md)**
      * 
-     * @param {Integer} domainAuthenticationKind 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection2-isdomainauthenticatedby
+     * The specific domain authentication method to query about.
+     * @returns {BOOL} Type: \[out, retval\] **[BOOL](/windows/win32/winprog/windows-data-types)\***
+     * 
+     * The function dereferences *pValue*, and assigns `TRUE` if this network connection has the same domain authentication kind as that specified in the *domainAuthenticationKind* parameter; or `FALSE` if this network connection has a different domain authentication kind from that specified in *domainAuthenticationKind*.
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkconnection2-isdomainauthenticatedby
      */
     IsDomainAuthenticatedBy(domainAuthenticationKind) {
-        result := ComCall(14, this, "int", domainAuthenticationKind, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(14, this, "int", domainAuthenticationKind, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

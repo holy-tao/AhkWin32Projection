@@ -40,7 +40,11 @@ class IActiveScriptError64 extends IActiveScriptError{
         pulLineNumberMarshal := pulLineNumber is VarRef ? "uint*" : "ptr"
         plCharacterPositionMarshal := plCharacterPosition is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, pdwSourceContextMarshal, pdwSourceContext, pulLineNumberMarshal, pulLineNumber, plCharacterPositionMarshal, plCharacterPosition, "HRESULT")
+        result := ComCall(6, this, pdwSourceContextMarshal, pdwSourceContext, pulLineNumberMarshal, pulLineNumber, plCharacterPositionMarshal, plCharacterPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

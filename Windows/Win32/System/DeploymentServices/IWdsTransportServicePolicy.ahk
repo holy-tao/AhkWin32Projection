@@ -6,7 +6,7 @@
 
 /**
  * Represents the service policy part of the WDS transport server's configuration.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportservicepolicy
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransportservicepolicy
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -62,180 +62,210 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address.
+     * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address. (Get)
      * @param {Integer} AddressType 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
      */
     get_IpAddressSource(AddressType) {
-        result := ComCall(11, this, "int", AddressType, "int*", &pSourceType := 0, "HRESULT")
+        result := ComCall(11, this, "int", AddressType, "int*", &pSourceType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSourceType
     }
 
     /**
-     * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address.
+     * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address. (Put)
      * @param {Integer} AddressType 
      * @param {Integer} SourceType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_ipaddresssource
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_ipaddresssource
      */
     put_IpAddressSource(AddressType, SourceType) {
-        result := ComCall(12, this, "int", AddressType, "int", SourceType, "HRESULT")
+        result := ComCall(12, this, "int", AddressType, "int", SourceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address.
+     * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address. (Get)
      * @remarks
-     * 
      * When setting the start IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * 
-     * 
      * @param {Integer} AddressType 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
      */
     get_StartIpAddress(AddressType) {
         pbszStartIpAddress := BSTR()
-        result := ComCall(13, this, "int", AddressType, "ptr", pbszStartIpAddress, "HRESULT")
+        result := ComCall(13, this, "int", AddressType, "ptr", pbszStartIpAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszStartIpAddress
     }
 
     /**
-     * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address.
+     * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address. (Put)
      * @remarks
-     * 
      * When setting the start IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * 
-     * 
      * @param {Integer} AddressType 
      * @param {BSTR} bszStartIpAddress 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startipaddress
      */
     put_StartIpAddress(AddressType, bszStartIpAddress) {
-        bszStartIpAddress := bszStartIpAddress is String ? BSTR.Alloc(bszStartIpAddress).Value : bszStartIpAddress
+        if(bszStartIpAddress is String) {
+            pin := BSTR.Alloc(bszStartIpAddress)
+            bszStartIpAddress := pin.Value
+        }
 
-        result := ComCall(14, this, "int", AddressType, "ptr", bszStartIpAddress, "HRESULT")
+        result := ComCall(14, this, "int", AddressType, "ptr", bszStartIpAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address.
+     * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address. (Get)
      * @remarks
-     * 
      * When setting the end IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * 
-     * 
      * @param {Integer} AddressType 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
      */
     get_EndIpAddress(AddressType) {
         pbszEndIpAddress := BSTR()
-        result := ComCall(15, this, "int", AddressType, "ptr", pbszEndIpAddress, "HRESULT")
+        result := ComCall(15, this, "int", AddressType, "ptr", pbszEndIpAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszEndIpAddress
     }
 
     /**
-     * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address.
+     * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address. (Put)
      * @remarks
-     * 
      * When setting the end IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
-     * 
-     * 
      * @param {Integer} AddressType 
      * @param {BSTR} bszEndIpAddress 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endipaddress
      */
     put_EndIpAddress(AddressType, bszEndIpAddress) {
-        bszEndIpAddress := bszEndIpAddress is String ? BSTR.Alloc(bszEndIpAddress).Value : bszEndIpAddress
+        if(bszEndIpAddress is String) {
+            pin := BSTR.Alloc(bszEndIpAddress)
+            bszEndIpAddress := pin.Value
+        }
 
-        result := ComCall(16, this, "int", AddressType, "ptr", bszEndIpAddress, "HRESULT")
+        result := ComCall(16, this, "int", AddressType, "ptr", bszEndIpAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Enables a WDS client computer to configure the start of a UDP port range that is used by WDS transport services.
+     * Enables a WDS client computer to configure the start of a UDP port range that is used by WDS transport services. (Get)
      * @remarks
-     * 
      * When setting the UDP start port, this property validates that it is a valid value.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startport
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startport
      */
     get_StartPort() {
-        result := ComCall(17, this, "uint*", &pulStartPort := 0, "HRESULT")
+        result := ComCall(17, this, "uint*", &pulStartPort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStartPort
     }
 
     /**
-     * Enables a WDS client computer to configure the start of a UDP port range that is used by WDS transport services.
+     * Enables a WDS client computer to configure the start of a UDP port range that is used by WDS transport services. (Put)
      * @remarks
-     * 
      * When setting the UDP start port, this property validates that it is a valid value.
-     * 
-     * 
      * @param {Integer} ulStartPort 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startport
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startport
      */
     put_StartPort(ulStartPort) {
-        result := ComCall(18, this, "uint", ulStartPort, "HRESULT")
+        result := ComCall(18, this, "uint", ulStartPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Enables a WDS client computer to configure the end of a UDP port range that is used by WDS transport services.
+     * Enables a WDS client computer to configure the end of a UDP port range that is used by WDS transport services. (Get)
      * @remarks
-     * 
      * When setting the UDP end port, this property validates that it is a valid value.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endport
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endport
      */
     get_EndPort() {
-        result := ComCall(19, this, "uint*", &pulEndPort := 0, "HRESULT")
+        result := ComCall(19, this, "uint*", &pulEndPort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulEndPort
     }
 
     /**
-     * Enables a WDS client computer to configure the end of a UDP port range that is used by WDS transport services.
+     * Enables a WDS client computer to configure the end of a UDP port range that is used by WDS transport services. (Put)
      * @remarks
-     * 
      * When setting the UDP end port, this property validates that it is a valid value.
-     * 
-     * 
      * @param {Integer} ulEndPort 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endport
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endport
      */
     put_EndPort(ulEndPort) {
-        result := ComCall(20, this, "uint", ulEndPort, "HRESULT")
+        result := ComCall(20, this, "uint", ulEndPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Enables a client computer to configure the network profile that is used by the WDS Transport Server.
+     * Enables a client computer to configure the network profile that is used by the WDS Transport Server. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
      */
     get_NetworkProfile() {
-        result := ComCall(21, this, "int*", &pProfileType := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &pProfileType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProfileType
     }
 
     /**
-     * Enables a client computer to configure the network profile that is used by the WDS Transport Server.
+     * Enables a client computer to configure the network profile that is used by the WDS Transport Server. (Put)
      * @param {Integer} ProfileType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_networkprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_networkprofile
      */
     put_NetworkProfile(ProfileType) {
-        result := ComCall(22, this, "int", ProfileType, "HRESULT")
+        result := ComCall(22, this, "int", ProfileType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

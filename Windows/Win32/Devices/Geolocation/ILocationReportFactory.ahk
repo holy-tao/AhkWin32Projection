@@ -57,7 +57,11 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     ListenForReports(requestedReportInterval) {
-        result := ComCall(7, this, "uint", requestedReportInterval, "HRESULT")
+        result := ComCall(7, this, "uint", requestedReportInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +70,11 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     StopListeningForReports() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +83,11 @@ class ILocationReportFactory extends IDispatch{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(9, this, "uint*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -84,7 +96,11 @@ class ILocationReportFactory extends IDispatch{
      * @returns {Integer} 
      */
     get_ReportInterval() {
-        result := ComCall(10, this, "uint*", &pMilliseconds := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pMilliseconds := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMilliseconds
     }
 
@@ -94,7 +110,11 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ReportInterval(millisecondsRequested) {
-        result := ComCall(11, this, "uint", millisecondsRequested, "HRESULT")
+        result := ComCall(11, this, "uint", millisecondsRequested, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,7 +123,11 @@ class ILocationReportFactory extends IDispatch{
      * @returns {Integer} 
      */
     get_DesiredAccuracy() {
-        result := ComCall(12, this, "uint*", &pDesiredAccuracy := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pDesiredAccuracy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesiredAccuracy
     }
 
@@ -113,19 +137,27 @@ class ILocationReportFactory extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DesiredAccuracy(desiredAccuracy) {
-        result := ComCall(13, this, "uint", desiredAccuracy, "HRESULT")
+        result := ComCall(13, this, "uint", desiredAccuracy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} hWnd 
+     * @param {Pointer<Integer>} hWnd_ 
      * @returns {HRESULT} 
      */
-    RequestPermissions(hWnd) {
-        hWndMarshal := hWnd is VarRef ? "uint*" : "ptr"
+    RequestPermissions(hWnd_) {
+        hWnd_Marshal := hWnd_ is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, hWndMarshal, hWnd, "HRESULT")
+        result := ComCall(14, this, hWnd_Marshal, hWnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

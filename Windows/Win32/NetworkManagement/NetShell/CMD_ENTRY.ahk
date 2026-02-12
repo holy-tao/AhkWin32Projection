@@ -9,7 +9,7 @@
  * 
  * 
  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-cmd_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/netsh/ns-netsh-cmd_entry
  * @namespace Windows.Win32.NetworkManagement.NetShell
  * @version v4.0.30319
  */

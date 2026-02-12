@@ -5,7 +5,7 @@
 
 /**
  * The IUIManagerEventSink interface is implemented by an app supporting IME UI integration to receive notifications of IME UI appearance.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-iuimanagereventsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-iuimanagereventsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IUIManagerEventSink extends IUnknown{
      * Called by the TSF before opening an IME UI.
      * @param {Pointer<RECT>} prcBounds Pointer to a <b>RECT</b> structure defining the affected area (in screen coordinates).
      * @returns {HRESULT} Ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-iuimanagereventsink-onwindowopening
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-iuimanagereventsink-onwindowopening
      */
     OnWindowOpening(prcBounds) {
-        result := ComCall(3, this, "ptr", prcBounds, "HRESULT")
+        result := ComCall(3, this, "ptr", prcBounds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,10 +49,14 @@ class IUIManagerEventSink extends IUnknown{
      * Called by the TSF after opening an IME UI.
      * @param {Pointer<RECT>} prcBounds Pointer to a <b>RECT</b> structure defining the affected area (in screen coordinates).
      * @returns {HRESULT} Ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-iuimanagereventsink-onwindowopened
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-iuimanagereventsink-onwindowopened
      */
     OnWindowOpened(prcBounds) {
-        result := ComCall(4, this, "ptr", prcBounds, "HRESULT")
+        result := ComCall(4, this, "ptr", prcBounds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,10 +64,14 @@ class IUIManagerEventSink extends IUnknown{
      * Called by the TSF before resizing and/or relocating the opened IME UI.
      * @param {Pointer<RECT>} prcUpdatedBounds Pointer to a <b>RECT</b> structure defining the affected area (in screen coordinates).
      * @returns {HRESULT} Ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-iuimanagereventsink-onwindowupdating
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-iuimanagereventsink-onwindowupdating
      */
     OnWindowUpdating(prcUpdatedBounds) {
-        result := ComCall(5, this, "ptr", prcUpdatedBounds, "HRESULT")
+        result := ComCall(5, this, "ptr", prcUpdatedBounds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,30 +79,42 @@ class IUIManagerEventSink extends IUnknown{
      * Called by the TSF after resizing and/or relocating the opened IME UI.
      * @param {Pointer<RECT>} prcUpdatedBounds Pointer to a <b>RECT</b> structure defining the affected area (in screen coordinates).
      * @returns {HRESULT} Ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-iuimanagereventsink-onwindowupdated
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-iuimanagereventsink-onwindowupdated
      */
     OnWindowUpdated(prcUpdatedBounds) {
-        result := ComCall(6, this, "ptr", prcUpdatedBounds, "HRESULT")
+        result := ComCall(6, this, "ptr", prcUpdatedBounds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called by the TSF before closing the IME UI.
      * @returns {HRESULT} Ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-iuimanagereventsink-onwindowclosing
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-iuimanagereventsink-onwindowclosing
      */
     OnWindowClosing() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called by the TSF after closing the IME UI.
      * @returns {HRESULT} Ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-iuimanagereventsink-onwindowclosed
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-iuimanagereventsink-onwindowclosed
      */
     OnWindowClosed() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

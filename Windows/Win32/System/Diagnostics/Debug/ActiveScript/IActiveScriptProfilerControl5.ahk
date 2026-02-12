@@ -35,7 +35,11 @@ class IActiveScriptProfilerControl5 extends IActiveScriptProfilerControl4{
      * @returns {IActiveScriptProfilerHeapEnum} 
      */
     EnumHeap2(enumFlags) {
-        result := ComCall(10, this, "int", enumFlags, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(10, this, "int", enumFlags, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IActiveScriptProfilerHeapEnum(ppEnum)
     }
 }

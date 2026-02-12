@@ -42,14 +42,18 @@ class IDxcResult extends IDxcOperationResult{
      * 
      * @param {Integer} dxcOutKind 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @param {Pointer<IDxcBlobUtf16>} ppOutputName 
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppvObject 
+     * @param {Pointer<Pointer<IDxcBlobUtf16>>} ppOutputName 
      * @returns {HRESULT} 
      */
     GetOutput(dxcOutKind, iid, ppvObject, ppOutputName) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "int", dxcOutKind, "ptr", iid, ppvObjectMarshal, ppvObject, "ptr*", ppOutputName, "HRESULT")
+        result := ComCall(7, this, "int", dxcOutKind, "ptr", iid, ppvObjectMarshal, ppvObject, "ptr*", ppOutputName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

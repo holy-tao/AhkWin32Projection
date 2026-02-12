@@ -5,7 +5,7 @@
 
 /**
  * Used to implement the batch work that is submitted through the activity created by CoCreateActivity.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iservicecall
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iservicecall
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -31,12 +31,26 @@ class IServiceCall extends IUnknown{
     static VTableNames => ["OnCall"]
 
     /**
-     * Triggers the execution of the batch work implemented in this method.
+     * Triggers the execution of the batch work implemented in this method. (IServiceCall.OnCall)
+     * @remarks
+     * The batch work that is run in this method runs in the context and thread apartment of the activity that was created by the call to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>. The batch work in this method is run through a call to either <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iserviceactivity-synchronouscall">SynchronousCall</a> or <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iserviceactivity-asynchronouscall">AsynchronousCall</a>, using the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iserviceactivity">IServiceActivity</a> pointer that was returned from the call to <b>CoCreateActivity</b>.
+     * 
+     * 
+     * 
+     * You must make sure that this method is thread safe in situations where the activity object that is created by <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a> is not created with a synchronized context because in such situations many calls to <b>OnCall</b> can run at the same time.
+     * 
+     * 
+     * 
+     * To achieve the best performance from the system, the context configuration of the activity created by <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a> should be matched to the batch work performed by the <b>OnCall</b> method. For example, if the batch work in the <b>OnCall</b> method uses poolable objects, the activity created by <b>CoCreateActivity</b> should be configured to use the multithreaded apartment (MTA).
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicecall-oncall
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iservicecall-oncall
      */
     OnCall() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

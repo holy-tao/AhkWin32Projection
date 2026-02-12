@@ -21,7 +21,7 @@
  * </li>
  * </ul>
  * Refer to the helper structure <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-versioned-root-signature-desc">CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

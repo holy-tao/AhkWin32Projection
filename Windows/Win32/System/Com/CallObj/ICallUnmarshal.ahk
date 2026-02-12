@@ -5,7 +5,7 @@
 
 /**
  * Is used on the server (receiving) side of a remote invocation.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/nn-callobj-icallunmarshal
+ * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nn-callobj-icallunmarshal
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */
@@ -70,18 +70,26 @@ class ICallUnmarshal extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallunmarshal-unmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallunmarshal-unmarshal
      */
     Unmarshal(iMethod, pBuffer, cbBuffer, fForceBufferCopy, dataRep, pcontext, pcbUnmarshalled, ppFrame) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbUnmarshalledMarshal := pcbUnmarshalled is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "int", fForceBufferCopy, "uint", dataRep, "ptr", pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, "ptr*", ppFrame, "HRESULT")
+        result := ComCall(3, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "int", fForceBufferCopy, "uint", dataRep, "ptr", pcontext, pcbUnmarshalledMarshal, pcbUnmarshalled, "ptr*", ppFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Releases resources that may be held by interface pointers residing in a packet of marshaled data. This method finds all interface pointers in the packet and calls the CoReleaseMarshalData function on each interface pointer.
+     * @remarks
+     * To clean up resources held in the marshaled buffer, the <b>ReleaseMarshalData</b> method must be called. However when the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration is set to normal, this is done automatically when unmarshaling.
+     * 
+     * <b>ReleaseMarshalData</b> can be used on both marshaled in and out parameters.
      * @param {Integer} iMethod The method number.
      * @param {Pointer<Void>} pBuffer A pointer to the buffer containing the marshaled out parameters.
      * @param {Integer} cbBuffer The size of the buffer, in bytes.
@@ -118,12 +126,16 @@ class ICallUnmarshal extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallunmarshal-releasemarshaldata
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallunmarshal-releasemarshaldata
      */
     ReleaseMarshalData(iMethod, pBuffer, cbBuffer, ibFirstRelease, dataRep, pcontext) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "HRESULT")
+        result := ComCall(4, this, "uint", iMethod, pBufferMarshal, pBuffer, "uint", cbBuffer, "uint", ibFirstRelease, "uint", dataRep, "ptr", pcontext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

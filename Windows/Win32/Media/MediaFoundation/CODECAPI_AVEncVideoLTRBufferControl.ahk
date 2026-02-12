@@ -7,7 +7,7 @@
  * This is a static API.
  * 
  * Default value shall be 0
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoltrbuffercontrol
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencvideoltrbuffercontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

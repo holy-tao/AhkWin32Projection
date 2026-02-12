@@ -5,7 +5,7 @@
  * Options for swap-chain color space.
  * @remarks
  * This enum is used by [**SetColorSpace**](../dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-setcolorspace).
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

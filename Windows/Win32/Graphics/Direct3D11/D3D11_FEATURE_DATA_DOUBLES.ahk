@@ -46,7 +46,7 @@
  * </ul>
  * <div class="alert"><b>Note</b>  If <b>DoublePrecisionFloatShaderOps</b> is <b>TRUE</b>, the hardware and driver do not necessarily support double-precision division.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_doubles
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_feature_data_doubles
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

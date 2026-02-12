@@ -40,7 +40,11 @@ class IPMExtensionProtocolInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Protocol(pProtocol) {
-        result := ComCall(3, this, "ptr", pProtocol, "HRESULT")
+        result := ComCall(3, this, "ptr", pProtocol, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IPMExtensionProtocolInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pImageUrn, pParameters) {
-        result := ComCall(4, this, "ptr", pImageUrn, "ptr", pParameters, "HRESULT")
+        result := ComCall(4, this, "ptr", pImageUrn, "ptr", pParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

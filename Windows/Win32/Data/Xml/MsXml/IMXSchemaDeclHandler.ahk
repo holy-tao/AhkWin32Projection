@@ -34,7 +34,11 @@ class IMXSchemaDeclHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     schemaElementDecl(oSchemaElement) {
-        result := ComCall(7, this, "ptr", oSchemaElement, "HRESULT")
+        result := ComCall(7, this, "ptr", oSchemaElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

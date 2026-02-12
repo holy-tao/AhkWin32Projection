@@ -3,7 +3,7 @@
 
 /**
  * Callback flags for notifying a sync provider that a placeholder was successfully opened for read/write/delete access.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_open_completion_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_callback_open_completion_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

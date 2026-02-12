@@ -58,7 +58,11 @@ class IHTMLCSSMediaRule extends IDispatch{
      * @returns {HRESULT} 
      */
     put_media(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +72,11 @@ class IHTMLCSSMediaRule extends IDispatch{
      */
     get_media() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -77,7 +85,11 @@ class IHTMLCSSMediaRule extends IDispatch{
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRulesCollection(p)
     }
 
@@ -88,9 +100,16 @@ class IHTMLCSSMediaRule extends IDispatch{
      * @returns {Integer} 
      */
     insertRule(bstrRule, lIndex) {
-        bstrRule := bstrRule is String ? BSTR.Alloc(bstrRule).Value : bstrRule
+        if(bstrRule is String) {
+            pin := BSTR.Alloc(bstrRule)
+            bstrRule := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrRule, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrRule, "int", lIndex, "int*", &plNewIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNewIndex
     }
 
@@ -100,7 +119,11 @@ class IHTMLCSSMediaRule extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteRule(lIndex) {
-        result := ComCall(11, this, "int", lIndex, "HRESULT")
+        result := ComCall(11, this, "int", lIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

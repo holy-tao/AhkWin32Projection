@@ -50,7 +50,11 @@ class IHTMLTextAreaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selectionStart(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +63,11 @@ class IHTMLTextAreaElement2 extends IDispatch{
      * @returns {Integer} 
      */
     get_selectionStart() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -69,7 +77,11 @@ class IHTMLTextAreaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selectionEnd(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class IHTMLTextAreaElement2 extends IDispatch{
      * @returns {Integer} 
      */
     get_selectionEnd() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -89,7 +105,11 @@ class IHTMLTextAreaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     setSelectionRange(start, end) {
-        result := ComCall(11, this, "int", start, "int", end, "HRESULT")
+        result := ComCall(11, this, "int", start, "int", end, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

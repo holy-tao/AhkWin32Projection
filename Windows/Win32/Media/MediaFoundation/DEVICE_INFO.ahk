@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a media sharing device.
- * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ns-mfsharingengine-device_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfsharingengine/ns-mfsharingengine-device_info
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

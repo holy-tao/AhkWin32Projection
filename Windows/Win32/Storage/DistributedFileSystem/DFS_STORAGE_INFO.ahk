@@ -8,7 +8,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_info_4">DFS_INFO_4</a> structures each contain one or more 
  *     <b>DFS_STORAGE_INFO</b> structures, one for each DFS target. 
  *     Only one target can be marked as the active target. It is possible that no targets will be marked active.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_storage_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_storage_info
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

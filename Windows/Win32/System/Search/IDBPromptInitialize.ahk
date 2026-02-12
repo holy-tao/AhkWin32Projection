@@ -46,7 +46,11 @@ class IDBPromptInitialize extends IUnknown{
 
         rgSourceTypeFilterMarshal := rgSourceTypeFilter is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hWndParent, "uint", dwPromptOptions, "uint", cSourceTypeFilter, rgSourceTypeFilterMarshal, rgSourceTypeFilter, "ptr", pwszszzProviderFilter, "ptr", riid, "ptr*", ppDataSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +67,11 @@ class IDBPromptInitialize extends IUnknown{
         pwszInitialDirectory := pwszInitialDirectory is String ? StrPtr(pwszInitialDirectory) : pwszInitialDirectory
         pwszInitialFile := pwszInitialFile is String ? StrPtr(pwszInitialFile) : pwszInitialFile
 
-        result := ComCall(4, this, "ptr", hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, "ptr*", &ppwszSelectedFile := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, "ptr*", &ppwszSelectedFile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszSelectedFile
     }
 }

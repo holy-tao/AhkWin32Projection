@@ -13,7 +13,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to be returned to the application.
  * 
  * This structure may not be extended.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecardentry
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linecardentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -13,7 +13,7 @@
  * <img alt="Patterns for 2 and 4 Sample Count" src="./images/D3D11_MSAAPatterns_2_4.png"/>
  * 
  * <img alt="Patterns for 8 and 16 Sample Count" src="./images/D3D11_MSAAPatterns_8_16.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_standard_multisample_quality_levels
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_standard_multisample_quality_levels
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -73,9 +73,16 @@ class IWebBridge extends IDispatch{
      * @returns {HRESULT} 
      */
     put_URL(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +92,11 @@ class IWebBridge extends IDispatch{
      */
     get_URL() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -95,7 +106,11 @@ class IWebBridge extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Scrollbar(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +119,11 @@ class IWebBridge extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_Scrollbar() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -114,7 +133,11 @@ class IWebBridge extends IDispatch{
      * @returns {HRESULT} 
      */
     put_embed(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -123,7 +146,11 @@ class IWebBridge extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_embed() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -132,7 +159,11 @@ class IWebBridge extends IDispatch{
      * @returns {IDispatch} 
      */
     get_event() {
-        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -141,7 +172,11 @@ class IWebBridge extends IDispatch{
      * @returns {Integer} 
      */
     get_readyState() {
-        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -150,7 +185,11 @@ class IWebBridge extends IDispatch{
      * @returns {HRESULT} 
      */
     AboutBox() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

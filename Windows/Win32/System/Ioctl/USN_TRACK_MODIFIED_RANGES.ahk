@@ -5,7 +5,7 @@
  * Contains information on range tracking parameters for an update sequence number (USN) change journal using the FSCTL_USN_TRACK_MODIFIED_RANGES control code.
  * @remarks
  * Once range tracking is enabled for a given volume it cannot be disabled except by deleting the USN Journal and recreating it.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_track_modified_ranges
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-usn_track_modified_ranges
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

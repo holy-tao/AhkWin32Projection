@@ -5,7 +5,7 @@
 
 /**
  * Loads font file data from a custom font file loader.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontfilestream
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritefontfilestream
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IDWriteFontFileStream extends IUnknown{
 
     /**
      * Reads a fragment from a font file.
+     * @remarks
+     * Note that <b>ReadFileFragment</b> implementations must check whether the requested font file fragment
+     *      is within the file bounds. Otherwise, an error should be returned from <b>ReadFileFragment</b>.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/win32/DirectWrite/direct-write-portal">DirectWrite</a> may invoke <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a> methods on the same object from multiple threads simultaneously. Therefore, <b>ReadFileFragment</b> implementations that rely on internal mutable state must serialize access to such state across multiple threads. For example, an implementation that uses separate Seek and Read operations to read a file fragment must place the code block containing Seek and Read calls under a lock or a critical section.
      * @param {Pointer<Pointer<Void>>} fragmentStart Type: <b>const void**</b>
      * 
      * When this method returns, contains an address of a  pointer to the start of the font file fragment.  This parameter is passed uninitialized.
@@ -46,14 +52,18 @@ class IDWriteFontFileStream extends IUnknown{
      * When this method returns, contains the address of a pointer to a pointer to the client-defined context to be passed to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-releasefilefragment">ReleaseFileFragment</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfilestream-readfilefragment
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfilestream-readfilefragment
      */
     ReadFileFragment(fragmentStart, fileOffset, fragmentSize, fragmentContext) {
         fragmentStartMarshal := fragmentStart is VarRef ? "ptr*" : "ptr"
         fragmentContextMarshal := fragmentContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, fragmentStartMarshal, fragmentStart, "uint", fileOffset, "uint", fragmentSize, fragmentContextMarshal, fragmentContext, "HRESULT")
+        result := ComCall(3, this, fragmentStartMarshal, fragmentStart, "uint", fileOffset, "uint", fragmentSize, fragmentContextMarshal, fragmentContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +73,7 @@ class IDWriteFontFileStream extends IUnknown{
      * 
      * A pointer to the client-defined context of a font fragment returned from <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-readfilefragment">ReadFileFragment</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfilestream-releasefilefragment
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfilestream-releasefilefragment
      */
     ReleaseFileFragment(fragmentContext) {
         fragmentContextMarshal := fragmentContext is VarRef ? "ptr" : "ptr"
@@ -73,26 +83,42 @@ class IDWriteFontFileStream extends IUnknown{
 
     /**
      * Obtains the total size of a file.
+     * @remarks
+     * Implementing <b>GetFileSize</b>() for asynchronously loaded font files may require
+     *      downloading the complete file contents. Therefore, this method should be used only for operations that
+     *      either require a complete font file to be loaded (for example, copying a font file) or that need to make
+     *      decisions based on the value of the file size (for example, validation against a persisted file size).
      * @returns {Integer} Type: <b>UINT64*</b>
      * 
      * When this method returns, contains the total size of the file.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfilestream-getfilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfilestream-getfilesize
      */
     GetFileSize() {
-        result := ComCall(5, this, "uint*", &fileSize := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &fileSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fileSize
     }
 
     /**
      * Obtains the last modified time of the file.
+     * @remarks
+     * The "last modified time" is used by DirectWrite font selection algorithms
+     *      to determine whether one font resource is more up to date than another one.
      * @returns {Integer} Type: <b>UINT64*</b>
      * 
      * When this method returns, contains  the last modified time of the file in the format that represents
      *      the number of 100-nanosecond intervals since January 1, 1601 (UTC).
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfilestream-getlastwritetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfilestream-getlastwritetime
      */
     GetLastWriteTime() {
-        result := ComCall(6, this, "uint*", &lastWriteTime := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &lastWriteTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastWriteTime
     }
 }

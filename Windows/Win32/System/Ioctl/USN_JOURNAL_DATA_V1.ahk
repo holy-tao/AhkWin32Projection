@@ -3,7 +3,7 @@
 
 /**
  * Represents an update sequence number (USN) change journal, its records, and its capacity.U
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_journal_data_v1
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-usn_journal_data_v1
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

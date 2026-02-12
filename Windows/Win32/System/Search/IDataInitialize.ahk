@@ -41,7 +41,11 @@ class IDataInitialize extends IUnknown{
     GetDataSource(pUnkOuter, dwClsCtx, pwszInitializationString, riid, ppDataSource) {
         pwszInitializationString := pwszInitializationString is String ? StrPtr(pwszInitializationString) : pwszInitializationString
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszInitializationString, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszInitializationString, "ptr", riid, "ptr*", ppDataSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class IDataInitialize extends IUnknown{
      * @returns {PWSTR} 
      */
     GetInitializationString(pDataSource, fIncludePassword) {
-        result := ComCall(4, this, "ptr", pDataSource, "char", fIncludePassword, "ptr*", &ppwszInitString := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pDataSource, "char", fIncludePassword, "ptr*", &ppwszInitString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszInitString
     }
 
@@ -68,7 +76,11 @@ class IDataInitialize extends IUnknown{
     CreateDBInstance(clsidProvider, pUnkOuter, dwClsCtx, pwszReserved, riid) {
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
-        result := ComCall(5, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", riid, "ptr*", &ppDataSource := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", riid, "ptr*", &ppDataSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDataSource)
     }
 
@@ -86,7 +98,11 @@ class IDataInitialize extends IUnknown{
         pwszReserved := pwszReserved is String ? StrPtr(pwszReserved) : pwszReserved
 
         rgmqResults := MULTI_QI()
-        result := ComCall(6, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", pServerInfo, "uint", cmq, "ptr", rgmqResults, "HRESULT")
+        result := ComCall(6, this, "ptr", clsidProvider, "ptr", pUnkOuter, "uint", dwClsCtx, "ptr", pwszReserved, "ptr", pServerInfo, "uint", cmq, "ptr", rgmqResults, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgmqResults
     }
 
@@ -98,7 +114,11 @@ class IDataInitialize extends IUnknown{
     LoadStringFromStorage(pwszFileName) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
-        result := ComCall(7, this, "ptr", pwszFileName, "ptr*", &ppwszInitializationString := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszFileName, "ptr*", &ppwszInitializationString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszInitializationString
     }
 
@@ -113,7 +133,11 @@ class IDataInitialize extends IUnknown{
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
         pwszInitializationString := pwszInitializationString is String ? StrPtr(pwszInitializationString) : pwszInitializationString
 
-        result := ComCall(8, this, "ptr", pwszFileName, "ptr", pwszInitializationString, "uint", dwCreationDisposition, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszFileName, "ptr", pwszInitializationString, "uint", dwCreationDisposition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

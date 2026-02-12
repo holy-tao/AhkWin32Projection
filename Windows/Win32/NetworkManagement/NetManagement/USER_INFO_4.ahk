@@ -16,7 +16,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-user_info_3">USER_INFO_3</a> structure on Windows XP and later. It is recommended that applications use 
  * the <b>USER_INFO_4</b> structure instead of the 
  * <b>USER_INFO_3</b> structure with the above functions on Windows XP and later.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_4
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/ns-lmaccess-user_info_4
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

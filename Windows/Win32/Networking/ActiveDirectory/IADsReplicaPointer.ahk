@@ -7,7 +7,7 @@
 
 /**
  * The IADsReplicaPointer interface provides methods for an ADSI client to access the Replica Pointer attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsreplicapointer
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsreplicapointer
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -78,7 +78,11 @@ class IADsReplicaPointer extends IDispatch{
      */
     get_ServerName() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -88,9 +92,16 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ServerName(bstrServerName) {
-        bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
+        if(bstrServerName is String) {
+            pin := BSTR.Alloc(bstrServerName)
+            bstrServerName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrServerName, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrServerName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +110,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {Integer} 
      */
     get_ReplicaType() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -109,7 +124,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ReplicaType(lnReplicaType) {
-        result := ComCall(10, this, "int", lnReplicaType, "HRESULT")
+        result := ComCall(10, this, "int", lnReplicaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +137,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {Integer} 
      */
     get_ReplicaNumber() {
-        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -128,7 +151,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ReplicaNumber(lnReplicaNumber) {
-        result := ComCall(12, this, "int", lnReplicaNumber, "HRESULT")
+        result := ComCall(12, this, "int", lnReplicaNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,7 +164,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -147,7 +178,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Count(lnCount) {
-        result := ComCall(14, this, "int", lnCount, "HRESULT")
+        result := ComCall(14, this, "int", lnCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +192,11 @@ class IADsReplicaPointer extends IDispatch{
      */
     get_ReplicaAddressHints() {
         retval := VARIANT()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        result := ComCall(15, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -167,7 +206,11 @@ class IADsReplicaPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ReplicaAddressHints(vReplicaAddressHints) {
-        result := ComCall(16, this, "ptr", vReplicaAddressHints, "HRESULT")
+        result := ComCall(16, this, "ptr", vReplicaAddressHints, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

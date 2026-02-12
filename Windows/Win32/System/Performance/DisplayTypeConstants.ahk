@@ -10,7 +10,7 @@
  * <li><b>sysmonChartArea</b></li>
  * <li><b>sysmonChartStackedArea</b></li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-displaytypeconstants
+ * @see https://learn.microsoft.com/windows/win32/api//content/isysmon/ne-isysmon-displaytypeconstants
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

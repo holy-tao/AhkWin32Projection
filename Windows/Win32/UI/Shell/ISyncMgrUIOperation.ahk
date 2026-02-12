@@ -6,7 +6,6 @@
 /**
  * Exposes a method through which a sync handler or sync item can display a UI object when requested to do so by Sync Center.
  * @remarks
- * 
  * Handlers implement <b>ISyncMgrUIOperation</b> to provide UI for a particular action. Each separate action (browse, schedule, enable/disable, activate/deactivate, and delete) requires a separate implementation.
  * 
  * A handler should only implement this interface for operations for which it wants to present UI.
@@ -34,8 +33,7 @@
  * By implementing the UI as a separate interface, the display of the UI can be performed independently of synchronization. <b>ISyncMgrUIOperation</b> should be implemented on a different object than either <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrhandler">ISyncMgrHandler</a> or <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a>.
  * 
  * If the user requests an action, then requests that same action again before the first has completed, the UI for the initial action is activated and brought to the foreground.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgruioperation
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgruioperation
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -62,13 +60,15 @@ class ISyncMgrUIOperation extends IUnknown{
 
     /**
      * Performs the actual display of UI for a handler or sync item when requested to do so by Sync Center.
+     * @remarks
+     * The handler itself, not the UI, is expected to use the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrcontrol">ISyncMgrControl</a> interface to notify Sync Center of changes to its state that come about through choices made by the user in the UI.
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * A handle to the window used to display the UI.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise. Returns S_FALSE or another error code if this method is called to confirm an operation, such as activating a handler or disabling a sync item, but that operation should not be executed.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgruioperation-run
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgruioperation-run
      */
     Run(hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner

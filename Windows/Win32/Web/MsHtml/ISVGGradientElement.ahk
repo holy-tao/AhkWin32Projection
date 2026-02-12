@@ -63,7 +63,11 @@ class ISVGGradientElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_gradientUnits(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +76,11 @@ class ISVGGradientElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_gradientUnits() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -82,7 +90,11 @@ class ISVGGradientElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_gradientTransform(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +103,11 @@ class ISVGGradientElement extends IDispatch{
      * @returns {ISVGAnimatedTransformList} 
      */
     get_gradientTransform() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedTransformList(p)
     }
 
@@ -101,7 +117,11 @@ class ISVGGradientElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_spreadMethod(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +130,11 @@ class ISVGGradientElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_spreadMethod() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 }

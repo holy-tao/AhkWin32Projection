@@ -5,7 +5,7 @@
 
 /**
  * Note  This interface is deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//ddstream/nn-ddstream-idirectdrawstreamsample
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nn-ddstream-idirectdrawstreamsample
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,18 +32,28 @@ class IDirectDrawStreamSample extends IStreamSample{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves pointers to the current sample's DirectDraw surface and associated clipping rectangle.
+     * @remarks
+     * Both parameters are optional. All implementations of this interface must support <b>NULL</b> values as valid parameters. If you retrieve a surface pointer, this method increments its reference count, so you must release the reference.
      * @param {Pointer<IDirectDrawSurface>} ppDirectDrawSurface Address of a pointer to an <b>IDirectDrawSurface</b> interface that specifies the sample's new surface. Set this parameter to <b>NULL</b> if you don't want to specify a new surface.
      * @param {Pointer<RECT>} pRect Pointer to a <b>RECT</b> structure that will contain the current sample's clipping rectangle. Set this parameter to <b>NULL</b> if you don't want to retrieve the clipping rectangle.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawstreamsample-getsurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawstreamsample-getsurface
      */
     GetSurface(ppDirectDrawSurface, pRect) {
-        result := ComCall(8, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, "ptr*", ppDirectDrawSurface, "ptr", pRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Changes the clipping rectangle for a sample.
+     * @remarks
+     * Both parameters are optional; set either to <b>NULL</b> to avoid changing that value. If the surface format doesn't match the stream format, this method fails.
+     * 
+     * If the new rectangle's size isn't the same as the current rectangle, a call to this method will fail.
      * @param {Pointer<RECT>} pRect Pointer to a <b>RECT</b> structure that specifies the stream's new clipping rectangle.
      * @returns {HRESULT} Returns one of the following values.
      * 
@@ -119,10 +129,14 @@ class IDirectDrawStreamSample extends IStreamSample{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawstreamsample-setrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawstreamsample-setrect
      */
     SetRect(pRect) {
-        result := ComCall(9, this, "ptr", pRect, "HRESULT")
+        result := ComCall(9, this, "ptr", pRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

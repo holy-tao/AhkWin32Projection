@@ -45,7 +45,11 @@ class IPMExtensionFileSavePickerInfo extends IUnknown{
         pcTypesMarshal := pcTypes is VarRef ? "uint*" : "ptr"
         ppTypesMarshal := ppTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcTypesMarshal, pcTypes, ppTypesMarshal, ppTypes, "HRESULT")
+        result := ComCall(3, this, pcTypesMarshal, pcTypes, ppTypesMarshal, ppTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class IPMExtensionFileSavePickerInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_SupportsAllFileTypes() {
-        result := ComCall(4, this, "int*", &pSupportsAllTypes := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pSupportsAllTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSupportsAllTypes
     }
 }

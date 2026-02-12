@@ -29,14 +29,19 @@ class ITableRename extends IUnknown{
     static VTableNames => ["RenameColumn", "RenameTable"]
 
     /**
-     * 
+     * Learn more about: RenameColumnGrbit enumeration
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pOldColumnId 
      * @param {Pointer<DBID>} pNewColumnId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     RenameColumn(pTableId, pOldColumnId, pNewColumnId) {
-        result := ComCall(3, this, "ptr", pTableId, "ptr", pOldColumnId, "ptr", pNewColumnId, "HRESULT")
+        result := ComCall(3, this, "ptr", pTableId, "ptr", pOldColumnId, "ptr", pNewColumnId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +54,11 @@ class ITableRename extends IUnknown{
      * @returns {HRESULT} 
      */
     RenameTable(pOldTableId, pOldIndexId, pNewTableId, pNewIndexId) {
-        result := ComCall(4, this, "ptr", pOldTableId, "ptr", pOldIndexId, "ptr", pNewTableId, "ptr", pNewIndexId, "HRESULT")
+        result := ComCall(4, this, "ptr", pOldTableId, "ptr", pOldIndexId, "ptr", pNewTableId, "ptr", pNewIndexId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

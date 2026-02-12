@@ -13,7 +13,7 @@
  * 
  * > [!Note]  
  * > An **InkRectangle** cannot be used if it is larger than LONG\_MAX (2^31 - 1) in either dimension.
- * @see https://learn.microsoft.com/windows/win32/tablet/inkrectangle-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/inkrectangle-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Provides data about the frame buffer size and format and allows the contents to be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiframebuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiframebuffer
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -60,30 +60,42 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
     /**
      * Width, in pixels, of the frame buffer.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width
      */
     get_Width() {
-        result := ComCall(7, this, "int*", &plWidth := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plWidth
     }
 
     /**
      * Height, in pixels, of the frame buffer.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_height
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_height
      */
     get_Height() {
-        result := ComCall(8, this, "int*", &plHeight := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plHeight := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plHeight
     }
 
     /**
      * The bits per pixel for the frame buffer.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_bpp
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_bpp
      */
     get_Bpp() {
-        result := ComCall(9, this, "int*", &plBpp := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plBpp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plBpp
     }
 
@@ -92,12 +104,16 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
      * @param {Integer} x The x coordinate of the requested area of the frame.
      * @param {Integer} y The y coordinate of the requested area of the frame.
      * @param {Integer} Width The width of the requested area of the frame.
-     * @param {Integer} Heigth The height of the requested area of the frame.
+     * @param {Integer} Heigth 
      * @returns {Pointer<SAFEARRAY>} The contents of the frame buffer in the specified area.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
      */
     GetFrameBufferBits(x, y, Width, Heigth) {
-        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, "ptr*", &ppBits := 0, "HRESULT")
+        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, "ptr*", &ppBits := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppBits
     }
 }

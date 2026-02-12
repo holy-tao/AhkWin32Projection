@@ -44,7 +44,11 @@ class IWbemLevel1Login extends IUnknown{
     EstablishPosition(wszLocaleList, dwNumLocales) {
         wszLocaleList := wszLocaleList is String ? StrPtr(wszLocaleList) : wszLocaleList
 
-        result := ComCall(3, this, "ptr", wszLocaleList, "uint", dwNumLocales, "uint*", &reserved := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wszLocaleList, "uint", dwNumLocales, "uint*", &reserved := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return reserved
     }
 
@@ -58,7 +62,11 @@ class IWbemLevel1Login extends IUnknown{
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszUser := wszUser is String ? StrPtr(wszUser) : wszUser
 
-        result := ComCall(4, this, "ptr", wszNetworkResource, "ptr", wszUser, "char*", &Nonce := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", wszNetworkResource, "ptr", wszUser, "char*", &Nonce := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Nonce
     }
 
@@ -75,7 +83,11 @@ class IWbemLevel1Login extends IUnknown{
 
         AccessTokenMarshal := AccessToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", wszPreferredLocale, AccessTokenMarshal, AccessToken, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", wszPreferredLocale, AccessTokenMarshal, AccessToken, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemServices(ppNamespace)
     }
 
@@ -91,7 +103,11 @@ class IWbemLevel1Login extends IUnknown{
         wszNetworkResource := wszNetworkResource is String ? StrPtr(wszNetworkResource) : wszNetworkResource
         wszPreferredLocale := wszPreferredLocale is String ? StrPtr(wszPreferredLocale) : wszPreferredLocale
 
-        result := ComCall(6, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", wszNetworkResource, "ptr", wszPreferredLocale, "int", lFlags, "ptr", pCtx, "ptr*", &ppNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemServices(ppNamespace)
     }
 }

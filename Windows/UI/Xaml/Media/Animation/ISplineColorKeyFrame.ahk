@@ -1,0 +1,66 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include .\KeySpline.ahk
+#Include ..\..\..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.UI.Xaml.Media.Animation
+ * @version WindowsRuntime 1.4
+ */
+class ISplineColorKeyFrame extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for ISplineColorKeyFrame
+     * @type {Guid}
+     */
+    static IID => Guid("{1a4a5941-1fe0-473a-8efe-4316d8c86229}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_KeySpline", "put_KeySpline"]
+
+    /**
+     * @type {KeySpline} 
+     */
+    KeySpline {
+        get => this.get_KeySpline()
+        set => this.put_KeySpline(value)
+    }
+
+    /**
+     * 
+     * @returns {KeySpline} 
+     */
+    get_KeySpline() {
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return KeySpline(value)
+    }
+
+    /**
+     * 
+     * @param {KeySpline} value 
+     * @returns {HRESULT} 
+     */
+    put_KeySpline(value) {
+        result := ComCall(7, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

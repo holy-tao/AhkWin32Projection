@@ -35,7 +35,11 @@ class ISpeechCommandProvider extends IUnknown{
      * @returns {IEnumSpeechCommands} 
      */
     EnumSpeechCommands(langid) {
-        result := ComCall(3, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ushort", langid, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSpeechCommands(ppEnum)
     }
 
@@ -49,7 +53,11 @@ class ISpeechCommandProvider extends IUnknown{
     ProcessCommand(pszCommand, cch, langid) {
         pszCommand := pszCommand is String ? StrPtr(pszCommand) : pszCommand
 
-        result := ComCall(4, this, "ptr", pszCommand, "uint", cch, "ushort", langid, "HRESULT")
+        result := ComCall(4, this, "ptr", pszCommand, "uint", cch, "ushort", langid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

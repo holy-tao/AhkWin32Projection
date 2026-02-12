@@ -67,7 +67,7 @@ class QUERY_PATH_REQUEST_EX extends Win32Struct
     }
 
     /**
-     * @type {PESILO}
+     * @type {Pointer<PESILO>}
      */
     Silo {
         get => NumGet(this, 64, "ptr")

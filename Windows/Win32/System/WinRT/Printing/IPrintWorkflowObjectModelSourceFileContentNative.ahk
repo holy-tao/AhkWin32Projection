@@ -42,7 +42,11 @@ class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown{
      * @returns {HRESULT} 
      */
     StartXpsOMGeneration(receiver) {
-        result := ComCall(3, this, "ptr", receiver, "HRESULT")
+        result := ComCall(3, this, "ptr", receiver, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown{
      * @returns {IXpsOMObjectFactory1} 
      */
     get_ObjectFactory() {
-        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMObjectFactory1(value)
     }
 }

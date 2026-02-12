@@ -41,7 +41,11 @@ class INetCfgPnpReconfigCallback extends IUnknown{
         pszwUpper := pszwUpper is String ? StrPtr(pszwUpper) : pszwUpper
         pszwLower := pszwLower is String ? StrPtr(pszwLower) : pszwLower
 
-        result := ComCall(3, this, "int", Layer, "ptr", pszwUpper, "ptr", pszwLower, "ptr", pvData, "uint", dwSizeOfData, "HRESULT")
+        result := ComCall(3, this, "int", Layer, "ptr", pszwUpper, "ptr", pszwLower, "ptr", pvData, "uint", dwSizeOfData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

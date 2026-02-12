@@ -14,7 +14,7 @@
  * <div class="alert"><b>Note</b>  On <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> 9.x, you can't compile a shader with the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmp">SampleCmp</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-to-samplecmplevelzero">SampleCmpLevelZero</a> intrinsic functions by using older versions of the compiler. For example,  you can't use the <a href="https://docs.microsoft.com/windows/desktop/direct3dtools/fxc">fxc.exe</a> compiler that ships with the DirectX SDK or use the <b>D3DCompile**</b> functions (like <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompilefromfile">D3DCompileFromFile</a>) that are implemented in D3DCompiler_43.dll and earlier. These intrinsic functions on feature level 9.x are only supported in the fxc.exe compiler that ships with the Windows 8 SDK and later and with the <b>D3DCompile**</b> functions that are implemented in D3DCompiler_44.dll and later.
  * But these intrinsic functions are present in shader models for feature levels higher than 9.x.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d9_shadow_support
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_feature_data_d3d9_shadow_support
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

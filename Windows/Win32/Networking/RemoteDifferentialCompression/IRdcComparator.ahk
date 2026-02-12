@@ -5,7 +5,7 @@
 
 /**
  * Used to compare two signature streams (seed and source) and produce the list of source and seed file data chunks needed to create the target file.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdccomparator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-irdccomparator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -38,6 +38,11 @@ class IRdcComparator extends IUnknown{
 
     /**
      * Compares two signature streams (seed and source) and produces a needs list, which describes the chunks of file data needed to create the target file.
+     * @remarks
+     * On successful return, iterate through each <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneed">RdcNeed</a> structure 
+     *    returned in the array pointed to by the <b>m_Data</b> member of the 
+     *    <i>outputBuffer</i> parameter, and copy the specified chunk of the source or seed data to the 
+     *    target data.
      * @param {BOOL} endOfInput Set to <b>TRUE</b> if the <i>inputBuffer</i> parameter contains all 
      *       remaining input.
      * @param {Pointer<BOOL>} endOfOutput Address of a <b>BOOL</b> that on successful completion is set to 
@@ -52,20 +57,24 @@ class IRdcComparator extends IUnknown{
      *       must be zero. On output the <b>m_Used</b> member will contain the number of 
      *       <b>RdcNeed</b> structures in the array pointed to by the 
      *       <b>m_Data</b> member.
-     * @param {Pointer<Integer>} rdc_ErrorCode The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
+     * @param {Pointer<Integer>} rdc_ErrorCode_ The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
      *       filled with an RDC specific error code if the return value from the 
      *       <b>Process</b> method is 
      *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
      *       return value of the <b>Process</b> method contains the 
      *       specific error code.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdccomparator-process
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdccomparator-process
      */
-    Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, rdc_ErrorCode) {
+    Process(endOfInput, endOfOutput, inputBuffer, outputBuffer, rdc_ErrorCode_) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
-        rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
+        rdc_ErrorCode_Marshal := rdc_ErrorCode_ is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
+        result := ComCall(3, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "ptr", outputBuffer, rdc_ErrorCode_Marshal, rdc_ErrorCode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -35,7 +35,11 @@ class IPrintDocumentPageSource extends IUnknown{
      * @returns {IPrintPreviewPageCollection} 
      */
     GetPreviewPageCollection(docPackageTarget) {
-        result := ComCall(3, this, "ptr", docPackageTarget, "ptr*", &docPageCollection := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", docPackageTarget, "ptr*", &docPageCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintPreviewPageCollection(docPageCollection)
     }
 
@@ -46,7 +50,11 @@ class IPrintDocumentPageSource extends IUnknown{
      * @returns {HRESULT} 
      */
     MakeDocument(printTaskOptions, docPackageTarget) {
-        result := ComCall(4, this, "ptr", printTaskOptions, "ptr", docPackageTarget, "HRESULT")
+        result := ComCall(4, this, "ptr", printTaskOptions, "ptr", docPackageTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

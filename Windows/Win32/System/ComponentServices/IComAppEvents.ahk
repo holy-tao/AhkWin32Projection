@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if a COM+ server application is started, shut down, or forced to shut down.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomappevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomappevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IComAppEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomappevents-onappactivation
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomappevents-onappactivation
      */
     OnAppActivation(pInfo, guidApp) {
-        result := ComCall(3, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "ptr", guidApp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,10 +51,14 @@ class IComAppEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomappevents-onappshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomappevents-onappshutdown
      */
     OnAppShutdown(pInfo, guidApp) {
-        result := ComCall(4, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "ptr", guidApp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,10 +67,14 @@ class IComAppEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomappevents-onappforceshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomappevents-onappforceshutdown
      */
     OnAppForceShutdown(pInfo, guidApp) {
-        result := ComCall(5, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
+        result := ComCall(5, this, "ptr", pInfo, "ptr", guidApp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

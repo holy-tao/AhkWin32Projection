@@ -34,7 +34,11 @@ class IMapMIMEToCLSID extends IUnknown{
      * @returns {HRESULT} 
      */
     EnableDefaultMappings(bEnable) {
-        result := ComCall(3, this, "int", bEnable, "HRESULT")
+        result := ComCall(3, this, "int", bEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IMapMIMEToCLSID extends IUnknown{
     MapMIMEToCLSID(pszMIMEType, pCLSID) {
         pszMIMEType := pszMIMEType is String ? StrPtr(pszMIMEType) : pszMIMEType
 
-        result := ComCall(4, this, "ptr", pszMIMEType, "ptr", pCLSID, "HRESULT")
+        result := ComCall(4, this, "ptr", pszMIMEType, "ptr", pCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class IMapMIMEToCLSID extends IUnknown{
     SetMapping(pszMIMEType, dwMapMode, clsid) {
         pszMIMEType := pszMIMEType is String ? StrPtr(pszMIMEType) : pszMIMEType
 
-        result := ComCall(5, this, "ptr", pszMIMEType, "uint", dwMapMode, "ptr", clsid, "HRESULT")
+        result := ComCall(5, this, "ptr", pszMIMEType, "uint", dwMapMode, "ptr", clsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

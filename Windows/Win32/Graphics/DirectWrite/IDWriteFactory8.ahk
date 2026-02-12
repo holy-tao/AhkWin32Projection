@@ -32,17 +32,21 @@ class IDWriteFactory8 extends IDWriteFactory7{
     /**
      * 
      * @param {D2D_POINT_2F} baselineOrigin 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 
      * @param {Integer} desiredGlyphImageFormats 
      * @param {Integer} paintFeatureLevel 
      * @param {Integer} measuringMode 
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
      * @param {Integer} colorPaletteIndex 
-     * @returns {IDWriteColorGlyphRunEnumerator1} 
+     * @returns {Pointer<IDWriteColorGlyphRunEnumerator1>} 
      */
-    TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, paintFeatureLevel, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
-        result := ComCall(57, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", paintFeatureLevel, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorEnumerator := 0, "HRESULT")
-        return IDWriteColorGlyphRunEnumerator1(colorEnumerator)
+    TranslateColorGlyphRun(baselineOrigin, glyphRun_, glyphRunDescription, desiredGlyphImageFormats, paintFeatureLevel, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
+        result := ComCall(57, this, "ptr", baselineOrigin, "ptr", glyphRun_, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", paintFeatureLevel, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return colorEnumerator
     }
 }

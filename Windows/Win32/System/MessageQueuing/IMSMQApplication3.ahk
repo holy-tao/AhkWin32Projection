@@ -79,7 +79,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
      */
     get_ActiveQueues() {
         pvActiveQueues := VARIANT()
-        result := ComCall(15, this, "ptr", pvActiveQueues, "HRESULT")
+        result := ComCall(15, this, "ptr", pvActiveQueues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvActiveQueues
     }
 
@@ -89,7 +93,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
      */
     get_PrivateQueues() {
         pvPrivateQueues := VARIANT()
-        result := ComCall(16, this, "ptr", pvPrivateQueues, "HRESULT")
+        result := ComCall(16, this, "ptr", pvPrivateQueues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvPrivateQueues
     }
 
@@ -99,7 +107,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
      */
     get_DirectoryServiceServer() {
         pbstrDirectoryServiceServer := BSTR()
-        result := ComCall(17, this, "ptr", pbstrDirectoryServiceServer, "HRESULT")
+        result := ComCall(17, this, "ptr", pbstrDirectoryServiceServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDirectoryServiceServer
     }
 
@@ -108,7 +120,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
      * @returns {VARIANT_BOOL} 
      */
     get_IsConnected() {
-        result := ComCall(18, this, "short*", &pfIsConnected := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &pfIsConnected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsConnected
     }
 
@@ -118,7 +134,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
      */
     get_BytesInAllQueues() {
         pvBytesInAllQueues := VARIANT()
-        result := ComCall(19, this, "ptr", pvBytesInAllQueues, "HRESULT")
+        result := ComCall(19, this, "ptr", pvBytesInAllQueues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvBytesInAllQueues
     }
 
@@ -128,9 +148,16 @@ class IMSMQApplication3 extends IMSMQApplication2{
      * @returns {HRESULT} 
      */
     put_Machine(bstrMachine) {
-        bstrMachine := bstrMachine is String ? BSTR.Alloc(bstrMachine).Value : bstrMachine
+        if(bstrMachine is String) {
+            pin := BSTR.Alloc(bstrMachine)
+            bstrMachine := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", bstrMachine, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrMachine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,25 +167,41 @@ class IMSMQApplication3 extends IMSMQApplication2{
      */
     get_Machine() {
         pbstrMachine := BSTR()
-        result := ComCall(21, this, "ptr", pbstrMachine, "HRESULT")
+        result := ComCall(21, this, "ptr", pbstrMachine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMachine
     }
 
     /**
-     * 
+     * Represents a connection between two shapes in a drawing, such as a line and a box in an organization chart.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/connect-element-connects_type-complextypevisio-xml
      */
     Connect() {
-        result := ComCall(22, this, "HRESULT")
+        result := ComCall(22, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,7 +210,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
      * @returns {HRESULT} 
      */
     Tidy() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

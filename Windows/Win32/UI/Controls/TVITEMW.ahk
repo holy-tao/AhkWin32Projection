@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is identical to the TV_ITEM structure, but it has been renamed to follow current naming conventions. New applications should use this structure. (Unicode)
  * @remarks
  * > [!NOTE]
  * > The commctrl.h header defines TVITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvitemw
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-tvitemw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode
@@ -32,9 +34,12 @@ class TVITEMW extends Win32Struct
      * Handle to the item.
      * @type {HTREEITEM}
      */
-    hItem {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hItem{
+        get {
+            if(!this.HasProp("__hItem"))
+                this.__hItem := HTREEITEM(8, this)
+            return this.__hItem
+        }
     }
 
     /**
@@ -143,8 +148,11 @@ class TVITEMW extends Win32Struct
      * A value to associate with the item.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(48, this)
+            return this.__lParam
+        }
     }
 }

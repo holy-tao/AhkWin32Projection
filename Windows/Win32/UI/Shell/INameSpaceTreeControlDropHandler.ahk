@@ -5,7 +5,7 @@
 
 /**
  * Exposes handler methods for drag-and-drop.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreecontroldrophandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-inamespacetreecontroldrophandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
 
     /**
      * Called on drag enter to set drag effect, as specified.
+     * @remarks
+     * Failing this method blocks the drag operation in the namespace tree control (NSTC).
      * @param {IShellItem} psiOver Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface representing the item underneath the mouse cursor. Optional.
@@ -49,18 +51,24 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * On success, contains a pointer to the drag effect value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragenter
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragenter
      */
     OnDragEnter(psiOver, psiaData, fOutsideSource, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, "int", fOutsideSource, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(3, this, "ptr", psiOver, "ptr", psiaData, "int", fOutsideSource, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called on drag over to set drag effect, as specified.
+     * @remarks
+     * Failing this method blocks the drag operation in the namespace tree control (NSTC).
      * @param {IShellItem} psiOver Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface representing the item underneath the mouse cursor. Optional.
@@ -75,18 +83,24 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * On success, contains a pointer to the drag effect value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragover
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragover
      */
     OnDragOver(psiOver, psiaData, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(4, this, "ptr", psiOver, "ptr", psiaData, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called when the item is being dragged within the same level (within the same parent folder) in the tree.
+     * @remarks
+     * Failing this method prevents the item rearrangement.
      * @param {IShellItem} psiOver Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface representing the item underneath the mouse cursor. Optional.
@@ -101,16 +115,23 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * The old position.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragposition
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragposition
      */
     OnDragPosition(psiOver, psiaData, iNewPosition, iOldPosition) {
-        result := ComCall(5, this, "ptr", psiOver, "ptr", psiaData, "int", iNewPosition, "int", iOldPosition, "HRESULT")
+        result := ComCall(5, this, "ptr", psiOver, "ptr", psiaData, "int", iNewPosition, "int", iOldPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called on drop to set drop effect, as specified.
+     * @remarks
+     * <div class="alert"><b>Note</b>  To overwrite the default drop behavior, a client should fail this method; success proceeds with the default drop operation.</div>
+     * <div> </div>
      * @param {IShellItem} psiOver Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface representing the item underneath the mouse cursor. Optional.
@@ -128,18 +149,24 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * A pointer to the drop effect value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondrop
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondrop
      */
     OnDrop(psiOver, psiaData, iPosition, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, "int", iPosition, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(6, this, "ptr", psiOver, "ptr", psiaData, "int", iPosition, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called when the item is being dropped within the same level (within the same parent folder) in the tree.
+     * @remarks
+     * Failing this method prevents the item rearrangement from happening.
      * @param {IShellItem} psiOver Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface representing the item underneath the mouse cursor. Optional.
@@ -154,11 +181,15 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * Specifies old position.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondropposition
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondropposition
      */
     OnDropPosition(psiOver, psiaData, iNewPosition, iOldPosition) {
-        result := ComCall(7, this, "ptr", psiOver, "ptr", psiaData, "int", iNewPosition, "int", iOldPosition, "HRESULT")
+        result := ComCall(7, this, "ptr", psiOver, "ptr", psiaData, "int", iNewPosition, "int", iOldPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,11 +200,15 @@ class INameSpaceTreeControlDropHandler extends IUnknown{
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface representing the item underneath the mouse cursor. Optional.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragleave
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-inamespacetreecontroldrophandler-ondragleave
      */
     OnDragLeave(psiOver) {
-        result := ComCall(8, this, "ptr", psiOver, "HRESULT")
+        result := ComCall(8, this, "ptr", psiOver, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

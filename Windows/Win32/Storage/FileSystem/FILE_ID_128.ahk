@@ -3,7 +3,7 @@
 
 /**
  * Defines a 128-bit file identifier.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-file_id_128
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-file_id_128
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

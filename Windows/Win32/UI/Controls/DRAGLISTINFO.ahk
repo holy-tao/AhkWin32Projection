@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a drag event. The pointer to DRAGLISTINFO is passed as the lParam parameter of the drag list message.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-draglistinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-draglistinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The ICCOMPRESSFRAMES structure contains compression parameters used with the ICM_COMPRESS_FRAMES_INFO message.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-iccompressframes
+ * @see https://learn.microsoft.com/windows/win32/api//content/vfw/ns-vfw-iccompressframes
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -35,9 +36,12 @@ class ICCOMPRESSFRAMES extends Win32Struct
      * Reserved; do not use.
      * @type {LPARAM}
      */
-    lOutput {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lOutput{
+        get {
+            if(!this.HasProp("__lOutput"))
+                this.__lOutput := LPARAM(16, this)
+            return this.__lOutput
+        }
     }
 
     /**
@@ -53,9 +57,12 @@ class ICCOMPRESSFRAMES extends Win32Struct
      * Reserved; do not use.
      * @type {LPARAM}
      */
-    lInput {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lInput{
+        get {
+            if(!this.HasProp("__lInput"))
+                this.__lInput := LPARAM(32, this)
+            return this.__lInput
+        }
     }
 
     /**

@@ -38,17 +38,26 @@ class IDebugDocumentTextExternalAuthor extends IUnknown{
     GetPathName(pbstrLongName, pfIsOriginalFile) {
         pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-getfilenamefrombrowse
      */
     GetFileName() {
         pbstrShortName := BSTR()
-        result := ComCall(4, this, "ptr", pbstrShortName, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrShortName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrShortName
     }
 
@@ -57,7 +66,11 @@ class IDebugDocumentTextExternalAuthor extends IUnknown{
      * @returns {HRESULT} 
      */
     NotifyChanged() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

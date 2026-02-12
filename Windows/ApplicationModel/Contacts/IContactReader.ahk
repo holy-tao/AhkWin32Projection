@@ -1,0 +1,61 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Foundation\IAsyncOperation.ahk
+#Include .\ContactBatch.ahk
+#Include ..\..\Foundation\Collections\IVectorView.ahk
+#Include .\ContactMatchReason.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.ApplicationModel.Contacts
+ * @version WindowsRuntime 1.4
+ */
+class IContactReader extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IContactReader
+     * @type {Guid}
+     */
+    static IID => Guid("{d397e42e-1488-42f2-bf64-253f4884bfed}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["ReadBatchAsync", "GetMatchingPropertiesWithMatchReason"]
+
+    /**
+     * 
+     * @returns {IAsyncOperation<ContactBatch>} 
+     */
+    ReadBatchAsync() {
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncOperation(ContactBatch, value)
+    }
+
+    /**
+     * 
+     * @param {Contact} contact_ 
+     * @returns {IVectorView<ContactMatchReason>} 
+     */
+    GetMatchingPropertiesWithMatchReason(contact_) {
+        result := ComCall(7, this, "ptr", contact_, "ptr*", &ppRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IVectorView(ContactMatchReason, ppRetVal)
+    }
+}

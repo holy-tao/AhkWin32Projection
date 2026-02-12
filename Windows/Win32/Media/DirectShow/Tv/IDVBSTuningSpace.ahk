@@ -7,11 +7,8 @@
 /**
  * The IDVBSTuningSpace interface is implemented on the DVBTuningSpace object and provides methods for working with tuning spaces with a DVBS network type.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBSTuningSpace)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idvbstuningspace
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-idvbstuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -85,10 +82,14 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
     /**
      * The get_LowOscillator method retrieves the low oscillator frequency.
      * @returns {Integer} Receives the low oscillator frequency, in kilohertz (kHz).
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-get_lowoscillator
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-get_lowoscillator
      */
     get_LowOscillator() {
-        result := ComCall(30, this, "int*", &LowOscillator := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &LowOscillator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LowOscillator
     }
 
@@ -96,20 +97,28 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
      * The put_LowOscillator method sets the low oscillator frequency.
      * @param {Integer} LowOscillator Specifies the low oscillator frequency, in kilohertz (kHz).
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-put_lowoscillator
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-put_lowoscillator
      */
     put_LowOscillator(LowOscillator) {
-        result := ComCall(31, this, "int", LowOscillator, "HRESULT")
+        result := ComCall(31, this, "int", LowOscillator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_HighOscillator method retrieves the high oscillator frequency.
      * @returns {Integer} Receives the high oscillator frequency, in kilohertz (kHz).
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-get_highoscillator
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-get_highoscillator
      */
     get_HighOscillator() {
-        result := ComCall(32, this, "int*", &HighOscillator := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &HighOscillator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return HighOscillator
     }
 
@@ -117,20 +126,28 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
      * The put_HighOscillator method sets the high oscillator frequency.
      * @param {Integer} HighOscillator Specifies the high oscillator frequency, in kilohertz (kHz).
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-put_highoscillator
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-put_highoscillator
      */
     put_HighOscillator(HighOscillator) {
-        result := ComCall(33, this, "int", HighOscillator, "HRESULT")
+        result := ComCall(33, this, "int", HighOscillator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_LNBSwitch method retrieves the LNB switch.
      * @returns {Integer} Receives the LNB switch frequency, in kilohertz (kHz).
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-get_lnbswitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-get_lnbswitch
      */
     get_LNBSwitch() {
-        result := ComCall(34, this, "int*", &LNBSwitch := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &LNBSwitch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LNBSwitch
     }
 
@@ -138,21 +155,29 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
      * The put_LNBSwitch method sets the LNB switch frequency.
      * @param {Integer} LNBSwitch Specifies the LNB switch frequency, in kilohertz (kHz).
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-put_lnbswitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-put_lnbswitch
      */
     put_LNBSwitch(LNBSwitch) {
-        result := ComCall(35, this, "int", LNBSwitch, "HRESULT")
+        result := ComCall(35, this, "int", LNBSwitch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_InputRange method retrieves an integer indicating which option or switch contains the requested signal source.
      * @returns {BSTR} Receives the input range.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-get_inputrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-get_inputrange
      */
     get_InputRange() {
         InputRange := BSTR()
-        result := ComCall(36, this, "ptr", InputRange, "HRESULT")
+        result := ComCall(36, this, "ptr", InputRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return InputRange
     }
 
@@ -160,22 +185,33 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
      * The put_InputRange method sets a value indicating which option or switch contains the requested signal source.
      * @param {BSTR} InputRange Specifies which option or switch contains the requested signal source.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-put_inputrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-put_inputrange
      */
     put_InputRange(InputRange) {
-        InputRange := InputRange is String ? BSTR.Alloc(InputRange).Value : InputRange
+        if(InputRange is String) {
+            pin := BSTR.Alloc(InputRange)
+            InputRange := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", InputRange, "HRESULT")
+        result := ComCall(37, this, "ptr", InputRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_SpectralInversion method retrieves an integer indicating the spectral inversion.
      * @returns {Integer} Receives the spectral inversion.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-get_spectralinversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-get_spectralinversion
      */
     get_SpectralInversion() {
-        result := ComCall(38, this, "int*", &SpectralInversionVal := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &SpectralInversionVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SpectralInversionVal
     }
 
@@ -183,10 +219,14 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
      * The put_SpectralInversion method sets a value indicating the spectral inversion.
      * @param {Integer} SpectralInversionVal The spectral inversion.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbstuningspace-put_spectralinversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idvbstuningspace-put_spectralinversion
      */
     put_SpectralInversion(SpectralInversionVal) {
-        result := ComCall(39, this, "int", SpectralInversionVal, "HRESULT")
+        result := ComCall(39, this, "int", SpectralInversionVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

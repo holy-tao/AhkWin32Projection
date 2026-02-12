@@ -11,7 +11,7 @@
  * BYTE glyphBits[8] = {0x80, 0x40, 0x20, 0x10, 0x8, 0x4, 0x2, 0x1};
  * result = (pga->aGlyphAttr[hg / 8]) & (glyphBits[hg % 8]);
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_glyphattr
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-fd_glyphattr
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

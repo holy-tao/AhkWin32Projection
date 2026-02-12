@@ -5,7 +5,7 @@
 
 /**
  * Gets data from an Integrated Services Digital Broadcasting (ISDB) entitlement management message (EMM) table.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-iisdb_emm
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-iisdb_emm
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -35,31 +35,43 @@ class IISDB_EMM extends IUnknown{
      * @param {ISectionList} pSectionList Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-isectionlist">ISectionList</a> interface for the
      * MPEG-2 ISDB EMM section list.
      * @param {IMpeg2Data} pMPEGData Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-impeg2data">IMpeg2Data</a> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg-2-sections-and-tables-filter">MPEG-2 Sections and Tables</a> filter.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-initialize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the version number for an Integrated Services Digital Broadcasting (ISDB) entitlement management message (EMM) table.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionnumber
      */
     GetVersionNumber() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets a table_id_extension field identifying a subtable within an Integrated Services Digital Broadcasting (ISDB) entitlement management message (EMM) table.
      * @returns {Integer} Receives the table_id field value.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-gettableidextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-gettableidextension
      */
     GetTableIdExtension() {
-        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -69,12 +81,16 @@ class IISDB_EMM extends IUnknown{
      * @returns {Integer} Receives the data from the EMM table.
      * The allocated size of this buffer must be greater than or equal to the value
      * that the <i>pwBufferLength</i> parameter points to.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-getdatabytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-getdatabytes
      */
     GetDataBytes(pwBufferLength) {
         pwBufferLengthMarshal := pwBufferLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, pwBufferLengthMarshal, pwBufferLength, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(6, this, pwBufferLengthMarshal, pwBufferLength, "char*", &pbBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbBuffer
     }
 
@@ -83,14 +99,18 @@ class IISDB_EMM extends IUnknown{
      * @param {Pointer<Integer>} pwLength Receives the length of the buffer required to hold the message.
      * @param {Pointer<Pointer<Integer>>} ppbMessage Pointer to a memory block allocated to receive the shared message object.
      *   The caller is responsible for freeing this memory.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-getsharedemmmessage
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-getsharedemmmessage
      */
     GetSharedEmmMessage(pwLength, ppbMessage) {
         pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
         ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "HRESULT")
+        result := ComCall(7, this, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,24 +120,32 @@ class IISDB_EMM extends IUnknown{
      * @param {Pointer<Integer>} pwLength Receives the length of the buffer required to hold the message.
      * @param {Pointer<Pointer<Integer>>} ppbMessage Pointer to a memory block allocated to receive the message object.
      *   The caller is responsible for freeing this memory.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-getindividualemmmessage
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-getindividualemmmessage
      */
     GetIndividualEmmMessage(pUnknown, pwLength, ppbMessage) {
         pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
         ppbMessageMarshal := ppbMessage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pUnknown, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "HRESULT")
+        result := ComCall(8, this, "ptr", pUnknown, pwLengthMarshal, pwLength, ppbMessageMarshal, ppbMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns a hash value for this instance of an Integrated Services Digital Broadcasting (ISDB) entitlement management message (EMM) table.
      * @returns {Integer} Receives the hash value.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdb_emm-getversionhash
      */
     GetVersionHash() {
-        result := ComCall(9, this, "uint*", &pdwVersionHash := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pdwVersionHash := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVersionHash
     }
 }

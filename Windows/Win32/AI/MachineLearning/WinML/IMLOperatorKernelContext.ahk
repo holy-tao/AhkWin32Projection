@@ -32,11 +32,15 @@ class IMLOperatorKernelContext extends IUnknown{
     /**
      * 
      * @param {Integer} inputIndex 
-     * @returns {IMLOperatorTensor} 
+     * @returns {Pointer<IMLOperatorTensor>} 
      */
     GetInputTensor(inputIndex) {
-        result := ComCall(3, this, "uint", inputIndex, "ptr*", &tensor := 0, "HRESULT")
-        return IMLOperatorTensor(tensor)
+        result := ComCall(3, this, "uint", inputIndex, "ptr*", &tensor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return tensor
     }
 
     /**
@@ -44,33 +48,45 @@ class IMLOperatorKernelContext extends IUnknown{
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @param {Pointer<Integer>} dimensionSizes 
-     * @returns {IMLOperatorTensor} 
+     * @returns {Pointer<IMLOperatorTensor>} 
      */
     GetOutputTensor(outputIndex, dimensionCount, dimensionSizes) {
         dimensionSizesMarshal := dimensionSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", &tensor := 0, "HRESULT")
-        return IMLOperatorTensor(tensor)
+        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", &tensor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return tensor
     }
 
     /**
      * 
      * @param {Integer} outputIndex 
-     * @returns {IMLOperatorTensor} 
+     * @returns {Pointer<IMLOperatorTensor>} 
      */
     GetOutputTensor1(outputIndex) {
-        result := ComCall(5, this, "uint", outputIndex, "ptr*", &tensor := 0, "HRESULT")
-        return IMLOperatorTensor(tensor)
+        result := ComCall(5, this, "uint", outputIndex, "ptr*", &tensor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return tensor
     }
 
     /**
      * 
-     * @param {Pointer} size 
-     * @returns {IUnknown} 
+     * @param {Pointer} size_ 
+     * @returns {Pointer<IUnknown>} 
      */
-    AllocateTemporaryData(size) {
-        result := ComCall(6, this, "ptr", size, "ptr*", &data := 0, "HRESULT")
-        return IUnknown(data)
+    AllocateTemporaryData(size_) {
+        result := ComCall(6, this, "ptr", size_, "ptr*", &data := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return data
     }
 
     /**

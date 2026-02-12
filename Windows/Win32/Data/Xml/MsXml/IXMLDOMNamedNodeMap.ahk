@@ -51,9 +51,16 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     getNamedItem(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", name, "ptr*", &namedItem := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "ptr*", &namedItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(namedItem)
     }
 
@@ -63,7 +70,11 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     setNamedItem(newItem) {
-        result := ComCall(8, this, "ptr", newItem, "ptr*", &nameItem := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", newItem, "ptr*", &nameItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(nameItem)
     }
 
@@ -73,9 +84,16 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     removeNamedItem(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", name, "ptr*", &namedItem := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", name, "ptr*", &namedItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(namedItem)
     }
 
@@ -85,7 +103,11 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     get_item(index) {
-        result := ComCall(10, this, "int", index, "ptr*", &listItem := 0, "HRESULT")
+        result := ComCall(10, this, "int", index, "ptr*", &listItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(listItem)
     }
 
@@ -94,7 +116,11 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(11, this, "int*", &listLength := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &listLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return listLength
     }
 
@@ -105,10 +131,20 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     getQualifiedItem(baseName, namespaceURI) {
-        baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(baseName is String) {
+            pin := BSTR.Alloc(baseName)
+            baseName := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(qualifiedItem)
     }
 
@@ -119,10 +155,20 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     removeQualifiedItem(baseName, namespaceURI) {
-        baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(baseName is String) {
+            pin := BSTR.Alloc(baseName)
+            baseName := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", baseName, "ptr", namespaceURI, "ptr*", &qualifiedItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(qualifiedItem)
     }
 
@@ -131,7 +177,11 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     nextNode() {
-        result := ComCall(14, this, "ptr*", &nextItem := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &nextItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(nextItem)
     }
 
@@ -140,7 +190,11 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,7 +203,11 @@ class IXMLDOMNamedNodeMap extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(16, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 }

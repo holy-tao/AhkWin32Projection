@@ -3,7 +3,7 @@
 
 /**
  * Identifies whether conservative rasterization is on or off. (D3D11_CONSERVATIVE_RASTERIZATION_MODE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ne-d3d11_3-d3d11_conservative_rasterization_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/ne-d3d11_3-d3d11_conservative_rasterization_mode
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

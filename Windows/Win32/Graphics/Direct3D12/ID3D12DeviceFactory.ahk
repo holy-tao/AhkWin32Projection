@@ -33,7 +33,11 @@ class ID3D12DeviceFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     InitializeFromGlobalState() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,12 +46,23 @@ class ID3D12DeviceFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     ApplyToGlobalState() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
+     * @remarks
+     * Prior to Microsoft Windows XP Tablet PC Edition Development Kit 1.7, Tablet PC Input Panel performed smart spacing. Starting with Tablet PC SDK 1.7, Input Panel continues to produce results with preliminary spacing recommendations. Tablet PC Input Panel's spacing results may however be changed by the recognizer's recommendations (results). The recognizer is able to do this by using text contextual information (based on the <a href="https://docs.microsoft.com/windows/desktop/api/recapis/nf-recapis-settextcontext">SetTextContext</a> call made by Input Panel) and its internal language model rules.
+     * 
+     * Input Panel is able to determine whether the recognizer is capable of doing auto-spacing by calling this function with the RECOFLAG_AUTOSPACE flag set. If the recognizer does not support auto-spacing, E_INVALIDARG is returned.
+     * 
+     * <div class="alert"><b>Note</b>  Only line mode is supported in the <b>SetFlags</b> function. Boxed mode, free mode, and single-line mode are not supported.</div>
+     * <div> </div>
      * @param {Integer} flags 
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -124,10 +139,14 @@ class ID3D12DeviceFactory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setflags
      */
     SetFlags(flags) {
-        result := ComCall(5, this, "int", flags, "HRESULT")
+        result := ComCall(5, this, "int", flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,10 +163,14 @@ class ID3D12DeviceFactory extends IUnknown{
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} iid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetConfigurationInterface(clsid, iid) {
-        result := ComCall(7, this, "ptr", clsid, "ptr", iid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", clsid, "ptr", iid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -163,19 +186,28 @@ class ID3D12DeviceFactory extends IUnknown{
         pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
         pConfigurationStructSizesMarshal := pConfigurationStructSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", NumFeatures, "ptr", pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "HRESULT")
+        result := ComCall(8, this, "uint", NumFeatures, "ptr", pIIDs, pConfigurationStructsMarshal, pConfigurationStructs, pConfigurationStructSizesMarshal, pConfigurationStructSizes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {IUnknown} adapter 
+     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
+     * @param {IUnknown} adapter_ 
      * @param {Integer} FeatureLevel 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
-    CreateDevice(adapter, FeatureLevel, riid) {
-        result := ComCall(9, this, "ptr", adapter, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "HRESULT")
+    CreateDevice(adapter_, FeatureLevel, riid) {
+        result := ComCall(9, this, "ptr", adapter_, "int", FeatureLevel, "ptr", riid, "ptr*", &ppvDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvDevice
     }
 }

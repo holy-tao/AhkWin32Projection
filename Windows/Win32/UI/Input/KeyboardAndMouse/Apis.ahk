@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include .\HKL.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
@@ -157,87 +159,87 @@ class KeyboardAndMouse {
     static DIARESIS_TONOS => 901
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszGRAVE => "̀"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszACUTE => "́"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCIRCUMFLEX => "̂"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszTILDE => "̃"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszMACRON => "̄"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOVERSCORE => "̅"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszBREVE => "̆"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDOT_ABOVE => "̇"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszUMLAUT => "̈"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszHOOK_ABOVE => "̉"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszRING => "̊"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDOUBLE_ACUTE => "̋"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszHACEK => "̌"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCEDILLA => "̧"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOGONEK => "̨"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszTONOS => "΄"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDIARESIS_TONOS => "΅"
 
@@ -688,7 +690,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-_trackmouseevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/nf-commctrl-_trackmouseevent
      * @since windows5.0
      */
     static _TrackMouseEvent(lpEventTrack) {
@@ -722,7 +724,7 @@ class KeyboardAndMouse {
      * If the function fails, the return value is NULL. This can occur if the layout library is loaded from the application directory.
      * 
      * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadkeyboardlayouta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-loadkeyboardlayouta
      * @since windows5.0
      */
     static LoadKeyboardLayoutA(pwszKLID, Flags) {
@@ -765,7 +767,7 @@ class KeyboardAndMouse {
      * If the function fails, the return value is NULL. This can occur if the layout library is loaded from the application directory.
      * 
      * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadkeyboardlayoutw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-loadkeyboardlayoutw
      * @since windows5.0
      */
     static LoadKeyboardLayoutW(pwszKLID, Flags) {
@@ -793,7 +795,7 @@ class KeyboardAndMouse {
      * When multiple IMEs are allowed for each locale, passing an input locale identifier in which the high word (the device handle) is zero activates the first IME in the list belonging to the locale.
      * 
      * The <b>KLF_RESET</b> and <b>KLF_SHIFTLOCK</b> flags alter the method by which the Caps Lock state is turned off. By default, the Caps Lock state is turned off by hitting the Caps Lock key again. If only <b>KLF_RESET</b> is set, the default state is reestablished. If <b>KLF_RESET</b> and <b>KLF_SHIFTLOCK</b> are set, the Caps Lock state is turned off by pressing either Caps Lock key. This feature is used to conform to local keyboard behavior standards as well as for personal preferences.
-     * @param {HKL} hkl Type: <b>HKL</b>
+     * @param {HKL} hkl_ Type: <b>HKL</b>
      * 
      * Input locale identifier to be activated.
      * @param {Integer} Flags Type: <b>UINT</b>
@@ -803,15 +805,15 @@ class KeyboardAndMouse {
      *       <b>HKL</b>. If the function succeeds, the return value is the previous input locale identifier. Otherwise, it is zero.
      * 
      * To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-activatekeyboardlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-activatekeyboardlayout
      * @since windows5.0
      */
-    static ActivateKeyboardLayout(hkl, Flags) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    static ActivateKeyboardLayout(hkl_, Flags) {
+        hkl_ := hkl_ is Win32Handle ? NumGet(hkl_, "ptr") : hkl_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ActivateKeyboardLayout", "ptr", hkl, "uint", Flags, "ptr")
+        result := DllCall("USER32.dll\ActivateKeyboardLayout", "ptr", hkl_, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -906,7 +908,7 @@ class KeyboardAndMouse {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tounicodeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-tounicodeex
      * @since windows5.0
      */
     static ToUnicodeEx(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags, dwhkl) {
@@ -925,7 +927,7 @@ class KeyboardAndMouse {
      * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input. 
      * 
      * <b>UnloadKeyboardLayout</b> cannot unload the system default input locale identifier if it is the only keyboard layout loaded. You must first load another input locale identifier before unloading the default input locale identifier.
-     * @param {HKL} hkl Type: <b>HKL</b>
+     * @param {HKL} hkl_ Type: <b>HKL</b>
      * 
      * The input locale identifier to be unloaded.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -940,15 +942,15 @@ class KeyboardAndMouse {
      * <li>The input locale identifier is in use.</li>
      * </ul>
      * To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unloadkeyboardlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-unloadkeyboardlayout
      * @since windows5.0
      */
-    static UnloadKeyboardLayout(hkl) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    static UnloadKeyboardLayout(hkl_) {
+        hkl_ := hkl_ is Win32Handle ? NumGet(hkl_, "ptr") : hkl_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl, "int")
+        result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -979,7 +981,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardlayoutnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardlayoutnamea
      * @since windows5.0
      */
     static GetKeyboardLayoutNameA(pwszKLID) {
@@ -1018,7 +1020,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardlayoutnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardlayoutnamew
      * @since windows5.0
      */
     static GetKeyboardLayoutNameW(pwszKLID) {
@@ -1052,7 +1054,7 @@ class KeyboardAndMouse {
      *       <i>nBuff</i> is zero, the return value is the size, in array elements, of the buffer needed to receive all current input locale identifiers.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardlayoutlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardlayoutlist
      * @since windows5.0
      */
     static GetKeyboardLayoutList(nBuff, lpList) {
@@ -1082,7 +1084,7 @@ class KeyboardAndMouse {
      * @returns {HKL} Type: <b>HKL</b>
      * 
      * The return value is the input locale identifier for the thread. The low word contains a <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> for the input language and the high word contains a device handle to the physical layout of the keyboard.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardlayout
      * @since windows5.0
      */
     static GetKeyboardLayout(idThread) {
@@ -1175,7 +1177,7 @@ class KeyboardAndMouse {
      * 
      * If the function succeeds, the return value is the number of points in the buffer. Otherwise, the function returns 
      * 						–1. For extended error information, your application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmousemovepointsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getmousemovepointsex
      * @since windows5.0
      */
     static GetMouseMovePointsEx(cbSize, lppt, lpptBuf, nBufPoints, resolution) {
@@ -1228,7 +1230,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero . 
      * 
      * If the function fails, return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-trackmouseevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-trackmouseevent
      * @since windows5.0
      */
     static TrackMouseEvent(lpEventTrack) {
@@ -1258,7 +1260,7 @@ class KeyboardAndMouse {
      * The F12 key is reserved for use by the debugger at all times, so it should not be registered as a hot key. Even when you are not debugging an application, F12 is reserved in case a kernel-mode debugger or a just-in-time debugger is resident.
      * 
      * An application must specify an id value in the range 0x0000 through 0xBFFF. A shared DLL must specify a value in the range 0xC000 through 0xFFFF (the range returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function). To avoid conflicts with hot-key identifiers defined by other shared DLLs, a DLL should use the <b>GlobalAddAtom</b> function to obtain the hot-key identifier.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the window that will receive <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-hotkey">WM_HOTKEY</a> messages generated by the hot key. If this parameter is <b>NULL</b>, <b>WM_HOTKEY</b> messages are posted to the message queue of the calling thread and must be processed in the message loop.
      * @param {Integer} id Type: <b>int</b>
@@ -1275,15 +1277,15 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerhotkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-registerhotkey
      * @since windows6.0.6000
      */
-    static RegisterHotKey(hWnd, id, fsModifiers, vk) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegisterHotKey(hWnd_, id, fsModifiers, vk) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd, "int", id, "uint", fsModifiers, "uint", vk, "int")
+        result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd_, "int", id, "uint", fsModifiers, "uint", vk, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1293,7 +1295,7 @@ class KeyboardAndMouse {
 
     /**
      * Frees a hot key previously registered by the calling thread.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the window associated with the hot key to be freed. This parameter should be <b>NULL</b> if the hot key is not associated with a window.
      * @param {Integer} id Type: <b>int</b>
@@ -1304,15 +1306,15 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unregisterhotkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-unregisterhotkey
      * @since windows5.0
      */
-    static UnregisterHotKey(hWnd, id) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static UnregisterHotKey(hWnd_, id) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd, "int", id, "int")
+        result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd_, "int", id, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1332,7 +1334,7 @@ class KeyboardAndMouse {
      * If the meaning of the mouse buttons was reversed previously, before the function was called, the return value is nonzero.
      * 
      * If the meaning of the mouse buttons was not reversed, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-swapmousebutton
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-swapmousebutton
      * @since windows5.0
      */
     static SwapMouseButton(fSwap) {
@@ -1345,7 +1347,7 @@ class KeyboardAndMouse {
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The return value specifies the current double-click time, in milliseconds. The maximum return value is 5000 milliseconds.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdoubleclicktime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getdoubleclicktime
      * @since windows5.0
      */
     static GetDoubleClickTime() {
@@ -1363,7 +1365,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setdoubleclicktime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setdoubleclicktime
      * @since windows5.0
      */
     static SetDoubleClickTime(param0) {
@@ -1385,7 +1387,7 @@ class KeyboardAndMouse {
      * If a window is active but does not have the focus, any key pressed produces the [WM_SYSCHAR](/windows/desktop/menurc/wm-syschar), [WM_SYSKEYDOWN](/windows/desktop/inputdev/wm-syskeydown), or [WM_SYSKEYUP](/windows/desktop/inputdev/wm-syskeyup) message. If the VK_MENU key is also pressed, bit 30 of the *lParam* parameter of the message is set. Otherwise, the messages produced do not have this bit set.
      * 
      * By using the [AttachThreadInput function](nf-winuser-attachthreadinput.md), a thread can attach its input processing to another thread. This allows a thread to call SetFocus to set the keyboard focus to a window attached to another thread's message queue.
-     * @param {HWND} hWnd Type: **HWND**
+     * @param {HWND} hWnd_ Type: **HWND**
      * 
      * A handle to the window that will receive the keyboard input. If this parameter is NULL, keystrokes are ignored.
      * @returns {HWND} Type: **HWND**
@@ -1393,15 +1395,15 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
      * 
      * Extended error ERROR_INVALID_PARAMETER (0x57) means that window is in disabled state.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setfocus
      * @since windows5.0
      */
-    static SetFocus(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetFocus(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetFocus", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\SetFocus", "ptr", hWnd_, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1419,7 +1421,7 @@ class KeyboardAndMouse {
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle to the active window attached to the calling thread's message queue. Otherwise, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getactivewindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getactivewindow
      * @since windows5.0
      */
     static GetActiveWindow() {
@@ -1440,7 +1442,7 @@ class KeyboardAndMouse {
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle to the window with the keyboard focus. If the calling thread's message queue does not have an associated window with the keyboard focus, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getfocus
      * @since windows5.0
      */
     static GetFocus() {
@@ -1454,7 +1456,7 @@ class KeyboardAndMouse {
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The return value is an OEM code-page identifier, or it is the default identifier if the registry value is not readable. For a list of OEM code-page identifiers, see <a href="https://docs.microsoft.com/windows/desktop/Intl/code-page-identifiers">Code Page Identifiers</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkbcodepage
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkbcodepage
      * @since windows5.0
      */
     static GetKBCodePage() {
@@ -1496,7 +1498,7 @@ class KeyboardAndMouse {
      * <li>If the high-order bit is 1, the key is down; otherwise, it is up.</li>
      * <li>If the low-order bit is 1, the key is toggled. A key, such as the CAPS LOCK key, is toggled if it is turned on. The key is off and untoggled if the low-order bit is 0. A toggle key's indicator light (if any) on the keyboard will be on when the key is toggled, and off when the key is untoggled.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeystate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeystate
      * @since windows5.0
      */
     static GetKeyState(nVirtKey) {
@@ -1585,7 +1587,7 @@ class KeyboardAndMouse {
      * <li>The current desktop is not the active desktop</li>
      * <li>The foreground thread belongs to another process and the desktop does not allow the hook or the journal record.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getasynckeystate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getasynckeystate
      * @since windows5.0
      */
     static GetAsyncKeyState(vKey) {
@@ -1638,7 +1640,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardstate
      * @since windows5.0
      */
     static GetKeyboardState(lpKeyState) {
@@ -1666,7 +1668,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setkeyboardstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setkeyboardstate
      * @since windows5.0
      */
     static SetKeyboardState(lpKeyState) {
@@ -1692,7 +1694,7 @@ class KeyboardAndMouse {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetKeyNameText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} lParam Type: <b>LONG</b>
+     * @param {Integer} lParam_ Type: <b>LONG</b>
      * 
      * The second parameter of the keyboard message (such as <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>) to be processed. The function interprets the following bit positions in the <i>lParam</i>.
      * 
@@ -1714,15 +1716,15 @@ class KeyboardAndMouse {
      * If the function succeeds, a null-terminated string is copied into the specified buffer, and the return value is the length of the string, in characters, not counting the terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeynametexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeynametexta
      * @since windows5.0
      */
-    static GetKeyNameTextA(lParam, lpString, cchSize) {
+    static GetKeyNameTextA(lParam_, lpString, cchSize) {
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyNameTextA", "int", lParam, "ptr", lpString, "int", cchSize, "int")
+        result := DllCall("USER32.dll\GetKeyNameTextA", "int", lParam_, "ptr", lpString, "int", cchSize, "int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1740,7 +1742,7 @@ class KeyboardAndMouse {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetKeyNameText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} lParam Type: <b>LONG</b>
+     * @param {Integer} lParam_ Type: <b>LONG</b>
      * 
      * The second parameter of the keyboard message (such as <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>) to be processed. The function interprets the following bit positions in the <i>lParam</i>.
      * 
@@ -1762,15 +1764,15 @@ class KeyboardAndMouse {
      * If the function succeeds, a null-terminated string is copied into the specified buffer, and the return value is the length of the string, in characters, not counting the terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeynametextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeynametextw
      * @since windows5.0
      */
-    static GetKeyNameTextW(lParam, lpString, cchSize) {
+    static GetKeyNameTextW(lParam_, lpString, cchSize) {
         lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetKeyNameTextW", "int", lParam, "ptr", lpString, "int", cchSize, "int")
+        result := DllCall("USER32.dll\GetKeyNameTextW", "int", lParam_, "ptr", lpString, "int", cchSize, "int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -1797,7 +1799,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value specifies the requested information.
      * 
      * If the function fails and <i>nTypeFlag</i> is not 1, the return value is 0; 0 is a valid return value when <i>nTypeFlag</i> is 1 (keyboard subtype). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardtype
      * @since windows5.0
      */
     static GetKeyboardType(nTypeFlag) {
@@ -1883,7 +1885,7 @@ class KeyboardAndMouse {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-toascii
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-toascii
      * @since windows5.0
      */
     static ToAscii(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags) {
@@ -1970,7 +1972,7 @@ class KeyboardAndMouse {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-toasciiex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-toasciiex
      * @since windows5.0
      */
     static ToAsciiEx(uVirtKey, uScanCode, lpKeyState, lpChar, uFlags, dwhkl) {
@@ -2064,7 +2066,7 @@ class KeyboardAndMouse {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-tounicode
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-tounicode
      * @since windows5.0
      */
     static ToUnicode(wVirtKey, wScanCode, lpKeyState, pwszBuff, cchBuff, wFlags) {
@@ -2167,7 +2169,7 @@ class KeyboardAndMouse {
      * 
      * If the character cannot be produced by a single keystroke using the current keyboard layout, the return value is 
      * 						–1.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-oemkeyscan
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-oemkeyscan
      * @since windows5.0
      */
     static OemKeyScan(wOemChar) {
@@ -2273,7 +2275,7 @@ class KeyboardAndMouse {
      * 
      * If the function finds no key that translates to the passed character code, both the low-order and high-order bytes contain 
      *       –1.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-vkkeyscana
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-vkkeyscana
      * @since windows5.0
      */
     static VkKeyScanA(ch) {
@@ -2379,7 +2381,7 @@ class KeyboardAndMouse {
      * 
      * If the function finds no key that translates to the passed character code, both the low-order and high-order bytes contain 
      *       –1.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-vkkeyscanw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-vkkeyscanw
      * @since windows5.0
      */
     static VkKeyScanW(ch) {
@@ -2492,7 +2494,7 @@ class KeyboardAndMouse {
      * 
      * If the function finds no key that translates to the passed character code, both the low-order and high-order bytes contain 
      *       –1.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-vkkeyscanexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-vkkeyscanexa
      * @since windows5.0
      */
     static VkKeyScanExA(ch, dwhkl) {
@@ -2607,7 +2609,7 @@ class KeyboardAndMouse {
      * 
      * If the function finds no key that translates to the passed character code, both the low-order and high-order bytes contain 
      *       –1.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-vkkeyscanexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-vkkeyscanexw
      * @since windows5.0
      */
     static VkKeyScanExW(ch, dwhkl) {
@@ -2633,7 +2635,7 @@ class KeyboardAndMouse {
      * 
      * An additional value associated with the key stroke.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-keybd_event
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-keybd_event
      * @since windows5.0
      */
     static keybd_event(bVk, bScan, dwFlags, dwExtraInfo) {
@@ -2720,7 +2722,7 @@ class KeyboardAndMouse {
      * 
      * An additional value associated with the mouse event. An application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessageextrainfo">GetMessageExtraInfo</a> to obtain this extra information.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mouse_event
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-mouse_event
      * @since windows5.0
      */
     static mouse_event(dwFlags, dx, dy, dwData, dwExtraInfo) {
@@ -2753,7 +2755,7 @@ class KeyboardAndMouse {
      * The function returns the number of events that it successfully inserted into the keyboard or mouse input stream. If the function returns zero, the input was already blocked by another thread. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * This function fails when it is blocked by UIPI. Note that neither <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> nor the return value will indicate the failure was caused by UIPI blocking.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-sendinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-sendinput
      * @since windows5.0
      */
     static SendInput(cInputs, pInputs, cbSize) {
@@ -2781,7 +2783,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getlastinputinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getlastinputinfo
      * @since windows5.0
      */
     static GetLastInputInfo(plii) {
@@ -2830,7 +2832,7 @@ class KeyboardAndMouse {
      * @returns {Integer} Type: **UINT**
      * 
      * The return value is either a scan code, a virtual-key code, or a character value, depending on the value of *uCode* and *uMapType*. If there is no translation, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mapvirtualkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-mapvirtualkeya
      * @since windows5.0
      */
     static MapVirtualKeyA(uCode, uMapType) {
@@ -2879,7 +2881,7 @@ class KeyboardAndMouse {
      * @returns {Integer} Type: **UINT**
      * 
      * The return value is either a scan code, a virtual-key code, or a character value, depending on the value of *uCode* and *uMapType*. If there is no translation, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mapvirtualkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-mapvirtualkeyw
      * @since windows5.0
      */
     static MapVirtualKeyW(uCode, uMapType) {
@@ -2931,7 +2933,7 @@ class KeyboardAndMouse {
      * @returns {Integer} Type: **UINT**
      * 
      * The return value is either a scan code, a virtual-key code, or a character value, depending on the value of *uCode* and *uMapType*. If there is no translation, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mapvirtualkeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-mapvirtualkeyexa
      * @since windows5.0
      */
     static MapVirtualKeyExA(uCode, uMapType, dwhkl) {
@@ -2985,7 +2987,7 @@ class KeyboardAndMouse {
      * @returns {Integer} Type: **UINT**
      * 
      * The return value is either a scan code, a virtual-key code, or a character value, depending on the value of *uCode* and *uMapType*. If there is no translation, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-mapvirtualkeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-mapvirtualkeyexw
      * @since windows5.0
      */
     static MapVirtualKeyExW(uCode, uMapType, dwhkl) {
@@ -3004,7 +3006,7 @@ class KeyboardAndMouse {
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the capture window associated with the current thread. If no window in the thread has captured the mouse, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcapture
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getcapture
      * @since windows5.0
      */
     static GetCapture() {
@@ -3023,19 +3025,19 @@ class KeyboardAndMouse {
      * This function cannot be used to capture mouse input meant for another process. 
      * 
      * When the mouse is captured, menu hotkeys and other keyboard accelerators do not work.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the window in the current thread that is to capture the mouse.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the window that had previously captured the mouse. If there is no such window, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setcapture
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setcapture
      * @since windows5.0
      */
-    static SetCapture(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetCapture(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\SetCapture", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\SetCapture", "ptr", hWnd_, "ptr")
         resultHandle := HWND({Value: result}, True)
         return resultHandle
     }
@@ -3049,7 +3051,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-releasecapture
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-releasecapture
      * @since windows5.0
      */
     static ReleaseCapture() {
@@ -3073,7 +3075,7 @@ class KeyboardAndMouse {
      * By default, a window is enabled when it is created. To create a window that is initially disabled, an application can specify the <b>WS_DISABLED</b> style in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. After a window has been created, an application can use <b>EnableWindow</b> to enable or disable the window.
      * 
      * An application can use this function to enable or disable a control in a dialog box. A disabled control cannot receive the keyboard focus, nor can a user gain access to it.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the window to be enabled or disabled.
      * @param {BOOL} bEnable Type: <b>BOOL</b>
@@ -3084,13 +3086,13 @@ class KeyboardAndMouse {
      * If the window was previously disabled, the return value is nonzero.
      * 
      * If the window was not previously disabled, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enablewindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enablewindow
      * @since windows5.0
      */
-    static EnableWindow(hWnd, bEnable) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static EnableWindow(hWnd_, bEnable) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\EnableWindow", "ptr", hWnd, "int", bEnable, "int")
+        result := DllCall("USER32.dll\EnableWindow", "ptr", hWnd_, "int", bEnable, "int")
         return result
     }
 
@@ -3098,7 +3100,7 @@ class KeyboardAndMouse {
      * Determines whether the specified window is enabled for mouse and keyboard input.
      * @remarks
      * A child window receives input only if it is both enabled and visible.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -3106,13 +3108,13 @@ class KeyboardAndMouse {
      * If the window is enabled, the return value is nonzero.
      * 
      * If the window is not enabled, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-iswindowenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-iswindowenabled
      * @since windows5.0
      */
-    static IsWindowEnabled(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static IsWindowEnabled(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("USER32.dll\IsWindowEnabled", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\IsWindowEnabled", "ptr", hWnd_, "int")
         return result
     }
 
@@ -3120,7 +3122,7 @@ class KeyboardAndMouse {
      * Captures the mouse and tracks its movement until the user releases the left button, presses the ESC key, or moves the mouse outside the drag rectangle around the specified point.
      * @remarks
      * The system metrics for the drag rectangle are configurable, allowing for larger or smaller drag rectangles.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window receiving mouse input.
      * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
@@ -3131,13 +3133,13 @@ class KeyboardAndMouse {
      * If the user moved the mouse outside of the drag rectangle while holding down the left button, the return value is nonzero.
      * 
      * If the user did not move the mouse outside of the drag rectangle while holding down the left button, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-dragdetect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-dragdetect
      * @since windows5.0
      */
-    static DragDetect(hwnd, pt) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DragDetect(hwnd_, pt) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("USER32.dll\DragDetect", "ptr", hwnd, "ptr", pt, "int")
+        result := DllCall("USER32.dll\DragDetect", "ptr", hwnd_, "ptr", pt, "int")
         return result
     }
 
@@ -3149,7 +3151,7 @@ class KeyboardAndMouse {
      * If the window identified by the 
      *     <i>hWnd</i> parameter was created by the calling thread, the active window status of the calling thread is set to 
      *     <i>hWnd</i>. Otherwise, the active window status of the calling thread is set to <b>NULL</b>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the top-level window to be activated.
      * @returns {HWND} Type: <b>HWND</b>
@@ -3157,15 +3159,15 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is the handle to the window that was previously active.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setactivewindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setactivewindow
      * @since windows5.0
      */
-    static SetActiveWindow(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetActiveWindow(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetActiveWindow", "ptr", hWnd, "ptr")
+        result := DllCall("USER32.dll\SetActiveWindow", "ptr", hWnd_, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -3195,7 +3197,7 @@ class KeyboardAndMouse {
      * If the function succeeds, the return value is nonzero.
      * 
      * If input is already blocked, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-blockinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-blockinput
      * @since windows5.0
      */
     static BlockInput(fBlockIt) {

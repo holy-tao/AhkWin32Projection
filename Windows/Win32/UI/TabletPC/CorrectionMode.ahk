@@ -13,7 +13,7 @@
  * The post-insertion correction comb is used to correct text after it has been inserted into an application. Activate the post-insertion mode by placing the insertion point in or selecting text that was previously inserted.
  * 
  * The post-insertion correction comb may appear either above or below Input Panel or it may appear collapsed or expanded. In the collapsed state the post-insertion correction comb only shows a list of alternates. In the expanded state it includes both the alternates and an area to rewrite the word.
- * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode
+ * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/ne-peninputpanel-correctionmode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

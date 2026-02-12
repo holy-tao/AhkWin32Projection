@@ -41,7 +41,11 @@ class IPMLiveTileJobInfoEnumerator extends IUnknown{
      * @returns {IPMLiveTileJobInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppLiveTileJobInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppLiveTileJobInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMLiveTileJobInfo(ppLiveTileJobInfo)
     }
 }

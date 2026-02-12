@@ -42,7 +42,11 @@ class IBidiRequest extends IUnknown{
     SetSchema(pszSchema) {
         pszSchema := pszSchema is String ? StrPtr(pszSchema) : pszSchema
 
-        result := ComCall(3, this, "ptr", pszSchema, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSchema, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,16 +60,25 @@ class IBidiRequest extends IUnknown{
     SetInputData(dwType, pData, uSize) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwType, pDataMarshal, pData, "uint", uSize, "HRESULT")
+        result := ComCall(4, this, "uint", dwType, pDataMarshal, pData, "uint", uSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves a list of properties the recognizer can return for a result range.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getresultpropertylist
      */
     GetResult() {
-        result := ComCall(5, this, "int*", &phr := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &phr := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phr
     }
 
@@ -84,7 +97,11 @@ class IBidiRequest extends IUnknown{
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         uSizeMarshal := uSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwIndex, ppszSchemaMarshal, ppszSchema, pdwTypeMarshal, pdwType, ppDataMarshal, ppData, uSizeMarshal, uSize, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, ppszSchemaMarshal, ppszSchema, pdwTypeMarshal, pdwType, ppDataMarshal, ppData, uSizeMarshal, uSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +110,11 @@ class IBidiRequest extends IUnknown{
      * @returns {Integer} 
      */
     GetEnumCount() {
-        result := ComCall(7, this, "uint*", &pdwTotal := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwTotal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwTotal
     }
 }

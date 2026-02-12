@@ -3,7 +3,7 @@
 
 /**
  * Specifies which bytes are encrypted in a protected video surface.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dencrypted-block-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dencrypted-block-info
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

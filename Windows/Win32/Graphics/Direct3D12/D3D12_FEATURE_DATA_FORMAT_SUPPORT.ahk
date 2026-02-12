@@ -34,7 +34,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Hardware Support for Direct3D 10 Formats</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_format_support
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_feature_data_format_support
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

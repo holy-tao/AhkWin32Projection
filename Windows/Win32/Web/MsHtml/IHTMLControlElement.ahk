@@ -104,7 +104,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_tabIndex(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +117,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {Integer} 
      */
     get_tabIndex() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -122,7 +130,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     focus() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,9 +144,16 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_accessKey(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,7 +163,11 @@ class IHTMLControlElement extends IDispatch{
      */
     get_accessKey() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -154,7 +177,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onblur(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +191,11 @@ class IHTMLControlElement extends IDispatch{
      */
     get_onblur() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -174,7 +205,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onfocus(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +219,11 @@ class IHTMLControlElement extends IDispatch{
      */
     get_onfocus() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -194,7 +233,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onresize(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -204,7 +247,11 @@ class IHTMLControlElement extends IDispatch{
      */
     get_onresize() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -213,7 +260,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     blur() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,7 +274,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     addFilter(pUnk) {
-        result := ComCall(19, this, "ptr", pUnk, "HRESULT")
+        result := ComCall(19, this, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -233,7 +288,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {HRESULT} 
      */
     removeFilter(pUnk) {
-        result := ComCall(20, this, "ptr", pUnk, "HRESULT")
+        result := ComCall(20, this, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -242,7 +301,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {Integer} 
      */
     get_clientHeight() {
-        result := ComCall(21, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -251,7 +314,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {Integer} 
      */
     get_clientWidth() {
-        result := ComCall(22, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -260,7 +327,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {Integer} 
      */
     get_clientTop() {
-        result := ComCall(23, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -269,7 +340,11 @@ class IHTMLControlElement extends IDispatch{
      * @returns {Integer} 
      */
     get_clientLeft() {
-        result := ComCall(24, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

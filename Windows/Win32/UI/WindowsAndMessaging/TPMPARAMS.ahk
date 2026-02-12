@@ -4,7 +4,7 @@
 
 /**
  * Contains extended parameters for the TrackPopupMenuEx function.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-tpmparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-tpmparams
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

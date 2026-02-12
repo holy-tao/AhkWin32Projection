@@ -5,7 +5,7 @@
  * Represents a video encoder level setting.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_level_setting
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_level_setting
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

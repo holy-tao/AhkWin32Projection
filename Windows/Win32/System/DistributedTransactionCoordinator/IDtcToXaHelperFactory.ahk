@@ -29,18 +29,23 @@ class IDtcToXaHelperFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {PSTR} pszDSN 
      * @param {PSTR} pszClientDllName 
      * @param {Pointer<Guid>} pguidRm 
      * @param {Pointer<IDtcToXaHelper>} ppXaHelper 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(pszDSN, pszClientDllName, pguidRm, ppXaHelper) {
         pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
         pszClientDllName := pszClientDllName is String ? StrPtr(pszClientDllName) : pszClientDllName
 
-        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDllName, "ptr", pguidRm, "ptr*", ppXaHelper, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDllName, "ptr", pguidRm, "ptr*", ppXaHelper, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

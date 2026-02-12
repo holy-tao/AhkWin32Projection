@@ -7,7 +7,7 @@
  * The scaling parameter is used to interpolate between directivity behavior and omnidirectional; it determines how much attenuation is applied to the source outside of the directivity pattern and controls how directional the source is.
  * 
  * For fully directional sources, while direct path signal outside the directivity pattern will be fully attenuated, any environmental reflections will still be audible.
- * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivity
+ * @see https://learn.microsoft.com/windows/win32/api//content/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivity
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

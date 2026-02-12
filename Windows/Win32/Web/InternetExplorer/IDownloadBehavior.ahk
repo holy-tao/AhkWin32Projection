@@ -36,9 +36,16 @@ class IDownloadBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     startDownload(bstrUrl, pdispCallback) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrUrl, "ptr", pdispCallback, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrUrl, "ptr", pdispCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

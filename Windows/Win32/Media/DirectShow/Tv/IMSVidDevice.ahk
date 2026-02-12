@@ -7,11 +7,8 @@
 /**
  * The IMSVidDevice interface is the base interface for all the devices and features that the Video Control supports.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDevice)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsviddevice
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsviddevice
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -94,27 +91,41 @@ class IMSVidDevice extends IDispatch{
 
     /**
      * The get_Name method retrieves the friendly name of the device.
+     * @remarks
+     * The caller must free the returned string, using the <b>SysFreeString</b> function.
      * @returns {BSTR} Pointer to a variable that receives the friendly name.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get_name
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
     /**
      * The get_Status method retrieves status information about the device.
-     * @returns {Integer} Pointer to a variable of that receives the current status.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get_status
+     * @remarks
+     * Not all device types implement this method.
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get_status
      */
     get_Status() {
-        result := ComCall(8, this, "int*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(8, this, "int*", &Status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Status_
     }
 
     /**
      * The put_Power method turns the device on or off.
+     * @remarks
+     * Not all device types implement this method.
      * @param {VARIANT_BOOL} Power 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -146,64 +157,100 @@ class IMSVidDevice extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-put_power
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-put_power
      */
     put_Power(Power) {
-        result := ComCall(9, this, "short", Power, "HRESULT")
+        result := ComCall(9, this, "short", Power, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Power method queries whether the device is off or on.
+     * @remarks
+     * Not all device types implement this method.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get_power
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get_power
      */
     get_Power() {
-        result := ComCall(10, this, "short*", &Power := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &Power := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Power
     }
 
     /**
      * The get_Category method retrieves the category of the device as a BSTR.
+     * @remarks
+     * The device category is identified by a <b>GUID</b>. This method returns a string representation of the <b>GUID</b>.
+     * 
+     * This method is provided for Automation clients. C++ applications can use the <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsviddevice-get__category">IMSVidDevice::get__Category</a> method, which returns a <b>GUID</b> rather than a <b>BSTR</b>.
+     * 
+     * The caller must free the returned string, using the <b>SysFreeString</b> function.
      * @returns {BSTR} <b>BSTR</b> that receives the device category.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get_category
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get_category
      */
     get_Category() {
         Guid := BSTR()
-        result := ComCall(11, this, "ptr", Guid, "HRESULT")
+        result := ComCall(11, this, "ptr", Guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Guid
     }
 
     /**
      * The get_ClassID method retrieves the device's class identifier (CLSID) as a BSTR.
+     * @remarks
+     * This method is provided for Automation clients. C++ applications can use the <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsviddevice-get__classid">IMSVidDevice::get__ClassID</a> method, which returns a <b>GUID</b> rather than a <b>BSTR</b>.
+     * 
+     * The caller must free the returned string, using the <b>SysFreeString</b> function.
      * @returns {BSTR} Pointer to a variable that receives a string representation of the CLSID.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get_classid
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get_classid
      */
     get_ClassID() {
         Clsid := BSTR()
-        result := ComCall(12, this, "ptr", Clsid, "HRESULT")
+        result := ComCall(12, this, "ptr", Clsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Clsid
     }
 
     /**
      * The get__Category method retrieves the category of the device as a GUID.
      * @returns {Guid} Pointer to a variable of type <b>GUID</b> that receives the device category.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get__category
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get__category
      */
     get__Category() {
         Guid := Guid()
-        result := ComCall(13, this, "ptr", Guid, "HRESULT")
+        result := ComCall(13, this, "ptr", Guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Guid
     }
 
     /**
      * The get__ClassID method retrieves the device's class identifier (CLSID) as a GUID.
      * @returns {Guid} Pointer to a variable of type <b>GUID</b> that receives the CLSID.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-get__classid
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-get__classid
      */
     get__ClassID() {
         Clsid := Guid()
-        result := ComCall(14, this, "ptr", Clsid, "HRESULT")
+        result := ComCall(14, this, "ptr", Clsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Clsid
     }
 
@@ -211,10 +258,14 @@ class IMSVidDevice extends IDispatch{
      * The IsEqualDevice method queries whether this device and another device represent the same underlying hardware.
      * @param {IMSVidDevice} Device Pointer to the other device's <a href="https://docs.microsoft.com/windows/desktop/api/segment/nn-segment-imsviddevice">IMSVidDevice</a> interface.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice-isequaldevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice-isequaldevice
      */
     IsEqualDevice(Device) {
-        result := ComCall(15, this, "ptr", Device, "short*", &IsEqual := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", Device, "short*", &IsEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsEqual
     }
 }

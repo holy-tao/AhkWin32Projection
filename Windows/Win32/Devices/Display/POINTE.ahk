@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Identifies a change in the state of a button associated with a pointer.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ne-winuser-pointer_button_change_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

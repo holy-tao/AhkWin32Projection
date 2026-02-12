@@ -5,7 +5,7 @@
  * Contains parameters that are common for all Admin commands and NVM commands.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_dword0
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_command_dword0
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

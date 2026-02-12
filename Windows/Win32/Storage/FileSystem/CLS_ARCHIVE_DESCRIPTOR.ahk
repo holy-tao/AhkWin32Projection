@@ -4,7 +4,7 @@
 
 /**
  * Used by the GetNextLogArchiveExtent function to return information about log archive extents.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_archive_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/clfs/ns-clfs-cls_archive_descriptor
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

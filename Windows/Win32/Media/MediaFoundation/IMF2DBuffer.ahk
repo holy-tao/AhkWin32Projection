@@ -4,9 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents a buffer that contains a two-dimensional surface, such as a video frame.
+ * Represents a buffer that contains a two-dimensional surface, such as a video frame. (IMF2DBuffer)
  * @remarks
- * 
  * To get a pointer to this interface, call <b>QueryInterface</b> on the media buffer.
  * 
  * To use a 2-D buffer, it is important to know the <i>stride</i>, which is the number of bytes needed to go from one row of pixels to the next. The stride may be larger than the image width, because the surface may contain padding bytes after each row of pixels. Stride can also be negative, if the pixels are oriented bottom-up in memory. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
@@ -24,9 +23,7 @@
  * Call the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">Lock2D</a> method to access the 2-D buffer in its native format. The native format might not be contiguous. The buffer's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-lock">IMFMediaBuffer::Lock</a> method returns a contiguous representation of the buffer. However, this might require an internal copy from the native format. For 2-D buffers, therefore, you should use the <b>Lock2D</b> method and avoid the <b>Lock</b> method. Because the <b>Lock</b> method might cause up to two buffer copies, the <b>Lock2D</b> method is generally more efficient and should be used when possible. To find out if the underlying buffer is contiguous, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-iscontiguousformat">IMF2DBuffer::IsContiguousFormat</a>.
  * 
  * For uncompressed images, the amount of valid data in the buffer is determined by the width, height, and pixel layout of the image. For this reason, if you call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">Lock2D</a> to access the buffer, do not rely on the values returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength">IMFMediaBuffer::GetCurrentLength</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength">IMFMediaBuffer::GetMaxLength</a>. Similarly, if you modify the data in the buffer, you do not have to call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-setcurrentlength">IMFMediaBuffer::SetCurrentLength</a> to update the size. Generally, you should avoid mixing calls to <b>IMF2DBuffer</b> and <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> methods on the same media buffer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imf2dbuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imf2dbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -52,7 +49,17 @@ class IMF2DBuffer extends IUnknown{
     static VTableNames => ["Lock2D", "Unlock2D", "GetScanline0AndPitch", "IsContiguousFormat", "GetContiguousLength", "ContiguousCopyTo", "ContiguousCopyFrom"]
 
     /**
-     * Gives the caller access to the memory in the buffer.
+     * Gives the caller access to the memory in the buffer. (IMF2DBuffer.Lock2D)
+     * @remarks
+     * If <i>p</i> is a pointer to the first byte in a row of pixels, <i>p</i> + (*<i>plPitch</i>) points to the first byte in the next row of pixels. A buffer might contain padding after each row of pixels, so the stride might be wider than the width of the image in bytes. Do not access the memory that is reserved for padding bytes, because it might not be read-accessible or write-accessible. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
+     * 
+     * The pointer returned in <i>pbScanline0</i> remains valid as long as the caller holds the lock. When you are done accessing the memory, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-unlock2d">IMF2DBuffer::Unlock2D</a> to unlock the buffer. You must call <b>Unlock2D</b> once for each call to <b>Lock2D</b>. After you unlock the buffer, the pointer returned in <i>pbScanline0</i> is no longer valid and should not be used. Generally, it is best to call <b>Lock2D</b> only when you need to access the buffer memory, and not earlier.
+     * 
+     * The values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength">IMFMediaBuffer::GetCurrentLength</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength">IMFMediaBuffer::GetMaxLength</a> methods do not apply to the buffer that is returned by the <b>Lock2D</b> method. For the same reason, you do not need to call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-setcurrentlength">IMFMediaBuffer::SetCurrentLength</a> after manipulating the data in the buffer returned by the <b>Lock2D</b> method.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-lock">IMFMediaBuffer::Lock</a> method fails while the <b>Lock2D</b> lock is held, and vice-versa. Applications should use only one of these methods at a time.
+     * 
+     * When the underlying buffer is a Direct3D surface, the method fails if the surface is not lockable.
      * @param {Pointer<Pointer<Integer>>} ppbScanline0 Receives a pointer to the first byte of the top row of pixels in the image. The top row is defined as the top row when the image is presented to the viewer, and might not be the first row in memory.
      * @param {Pointer<Integer>} plPitch Receives the surface stride, in bytes. The stride might be negative, indicating that the image is oriented from the bottom up in memory.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -96,13 +103,17 @@ class IMF2DBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-lock2d
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-lock2d
      */
     Lock2D(ppbScanline0, plPitch) {
         ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
         plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, "HRESULT")
+        result := ComCall(3, this, ppbScanline0Marshal, ppbScanline0, plPitchMarshal, plPitch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,15 +138,21 @@ class IMF2DBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-unlock2d
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-unlock2d
      */
     Unlock2D() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a pointer to the buffer memory and the surface stride.
+     * @remarks
+     * Before calling this method, you must lock the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a>. The pointer returned in <i>plPitch</i> is valid only while the buffer remains locked.
      * @param {Pointer<Pointer<Integer>>} pbScanline0 Receives a pointer to the first byte of the top row of pixels in the image.
      * @param {Pointer<Integer>} plPitch Receives the stride, in bytes. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -168,38 +185,56 @@ class IMF2DBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-getscanline0andpitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-getscanline0andpitch
      */
     GetScanline0AndPitch(pbScanline0, plPitch) {
         pbScanline0Marshal := pbScanline0 is VarRef ? "ptr*" : "ptr"
         plPitchMarshal := plPitch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, pbScanline0Marshal, pbScanline0, plPitchMarshal, plPitch, "HRESULT")
+        result := ComCall(5, this, pbScanline0Marshal, pbScanline0, plPitchMarshal, plPitch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries whether the buffer is contiguous in its native format.
+     * @remarks
+     * For a definition of contiguous as it applies to 2-D buffers, see the Remarks section in <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface. For non-contiguous buffers, the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-lock">IMFMediaBuffer::Lock</a> method must perform an internal copy.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the buffer is contiguous, and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-iscontiguousformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-iscontiguousformat
      */
     IsContiguousFormat() {
-        result := ComCall(6, this, "int*", &pfIsContiguous := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pfIsContiguous := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsContiguous
     }
 
     /**
      * Retrieves the number of bytes needed to store the contents of the buffer in contiguous format.
+     * @remarks
+     * For a definition of contiguous as it applies to 2-D buffers, see the Remarks section in <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface.
      * @returns {Integer} Receives the number of bytes needed to store the contents of the buffer in contiguous format.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength
      */
     GetContiguousLength() {
-        result := ComCall(7, this, "uint*", &pcbLength := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pcbLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbLength
     }
 
     /**
      * Copies this buffer into the caller's buffer, converting the data to contiguous format.
+     * @remarks
+     * If the original buffer is not contiguous, this method converts the contents into contiguous format during the copy. For a definition of contiguous as it applies to 2-D buffers, see the Remarks section in <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface.
      * @param {Pointer} pbDestBuffer Pointer to the destination buffer where the data will be copied. The caller allocates the buffer.
      * @param {Integer} cbDestBuffer Size of the destination buffer, in bytes. To get the required size, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength">IMF2DBuffer::GetContiguousLength</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -232,15 +267,23 @@ class IMF2DBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-contiguouscopyto
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-contiguouscopyto
      */
     ContiguousCopyTo(pbDestBuffer, cbDestBuffer) {
-        result := ComCall(8, this, "ptr", pbDestBuffer, "uint", cbDestBuffer, "HRESULT")
+        result := ComCall(8, this, "ptr", pbDestBuffer, "uint", cbDestBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Copies data to this buffer from a buffer that has a contiguous format.
+     * @remarks
+     * This method copies the contents of the source buffer into the buffer that is managed by this <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> object. The source buffer must be in contiguous format. While copying, the method converts the contents into the destination buffer's native format, correcting for the buffer's pitch if necessary.
+     * 
+     * For a definition of contiguous as it applies to 2-D buffers, see the Remarks section in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface topic.
      * @param {Pointer} pbSrcBuffer Pointer to the source buffer. The caller allocates the buffer.
      * @param {Integer} cbSrcBuffer Size of the source buffer, in bytes. To get the maximum size of the buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength">IMF2DBuffer::GetContiguousLength</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -262,10 +305,14 @@ class IMF2DBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer-contiguouscopyfrom
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imf2dbuffer-contiguouscopyfrom
      */
     ContiguousCopyFrom(pbSrcBuffer, cbSrcBuffer) {
-        result := ComCall(9, this, "ptr", pbSrcBuffer, "uint", cbSrcBuffer, "HRESULT")
+        result := ComCall(9, this, "ptr", pbSrcBuffer, "uint", cbSrcBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

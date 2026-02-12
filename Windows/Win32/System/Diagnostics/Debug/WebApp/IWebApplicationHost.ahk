@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods and properties that are implemented by the WWAHost.
- * @see https://docs.microsoft.com/windows/win32/api//webapplication/nn-webapplication-iwebapplicationhost
+ * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nn-webapplication-iwebapplicationhost
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  * @version v4.0.30319
  */
@@ -46,34 +46,48 @@ class IWebApplicationHost extends IUnknown{
 
     /**
      * Gets the handle of the current WWAHost window.
-     * @param {Pointer<HWND>} hwnd 
+     * @param {Pointer<HWND>} hwnd_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationhost-get_hwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nf-webapplication-iwebapplicationhost-get_hwnd
      */
-    get_HWND(hwnd) {
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
+    get_HWND(hwnd_) {
+        result := ComCall(3, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the HTML document object model of the current top-level document.
      * @returns {IHTMLDocument2} 
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationhost-get_document
+     * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nf-webapplication-iwebapplicationhost-get_document
      */
     get_Document() {
-        result := ComCall(4, this, "ptr*", &htmlDocument := 0, "HRESULT")
-        return IHTMLDocument2(htmlDocument)
+        result := ComCall(4, this, "ptr*", &htmlDocument_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDocument2(htmlDocument_)
     }
 
     /**
      * Refreshes the current document without sending a 'Pragma:no-cache' HTTP header to the server.
+     * @remarks
+     * Use this method when the currently executing code is outside of the activation path. If the code is executing inside the activation path, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/webapplication/nf-webapplication-iwebapplicationactivation-cancelpendingactivation">IWebApplicationActivation::CancelPendingActivation</a> instead.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationhost-refresh
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nf-webapplication-iwebapplicationhost-refresh
      */
     Refresh() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,13 +104,17 @@ class IWebApplicationHost extends IUnknown{
      * A token that uniquely identifies this connection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationhost-advise
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nf-webapplication-iwebapplicationhost-advise
      */
     Advise(interfaceId, callback, cookie) {
         cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", interfaceId, "ptr", callback, cookieMarshal, cookie, "HRESULT")
+        result := ComCall(6, this, "ptr", interfaceId, "ptr", callback, cookieMarshal, cookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,11 +125,15 @@ class IWebApplicationHost extends IUnknown{
      * A connection token previously returned from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/debug_wwahost/iwebapplicationhost-advise">Advise</a> method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationhost-unadvise
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/webapplication/nf-webapplication-iwebapplicationhost-unadvise
      */
     Unadvise(cookie) {
-        result := ComCall(7, this, "uint", cookie, "HRESULT")
+        result := ComCall(7, this, "uint", cookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

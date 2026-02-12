@@ -36,9 +36,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {HRESULT} 
      */
     SetExperimentalFlag(bstrFlagString, vfFlag) {
-        bstrFlagString := bstrFlagString is String ? BSTR.Alloc(bstrFlagString).Value : bstrFlagString
+        if(bstrFlagString is String) {
+            pin := BSTR.Alloc(bstrFlagString)
+            bstrFlagString := pin.Value
+        }
 
-        result := ComCall(88, this, "ptr", bstrFlagString, "short", vfFlag, "HRESULT")
+        result := ComCall(88, this, "ptr", bstrFlagString, "short", vfFlag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,9 +55,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {VARIANT_BOOL} 
      */
     GetExperimentalFlag(bstrFlagString) {
-        bstrFlagString := bstrFlagString is String ? BSTR.Alloc(bstrFlagString).Value : bstrFlagString
+        if(bstrFlagString is String) {
+            pin := BSTR.Alloc(bstrFlagString)
+            bstrFlagString := pin.Value
+        }
 
-        result := ComCall(89, this, "ptr", bstrFlagString, "short*", &vfFlag := 0, "HRESULT")
+        result := ComCall(89, this, "ptr", bstrFlagString, "short*", &vfFlag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return vfFlag
     }
 
@@ -61,9 +75,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {HRESULT} 
      */
     SetExperimentalValue(bstrValueString, dwValue) {
-        bstrValueString := bstrValueString is String ? BSTR.Alloc(bstrValueString).Value : bstrValueString
+        if(bstrValueString is String) {
+            pin := BSTR.Alloc(bstrValueString)
+            bstrValueString := pin.Value
+        }
 
-        result := ComCall(90, this, "ptr", bstrValueString, "uint", dwValue, "HRESULT")
+        result := ComCall(90, this, "ptr", bstrValueString, "uint", dwValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,9 +94,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {Integer} 
      */
     GetExperimentalValue(bstrValueString) {
-        bstrValueString := bstrValueString is String ? BSTR.Alloc(bstrValueString).Value : bstrValueString
+        if(bstrValueString is String) {
+            pin := BSTR.Alloc(bstrValueString)
+            bstrValueString := pin.Value
+        }
 
-        result := ComCall(91, this, "ptr", bstrValueString, "uint*", &pdwValue := 0, "HRESULT")
+        result := ComCall(91, this, "ptr", bstrValueString, "uint*", &pdwValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwValue
     }
 
@@ -84,7 +112,11 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {HRESULT} 
      */
     ResetAllExperimentalFlagsAndValues() {
-        result := ComCall(92, this, "HRESULT")
+        result := ComCall(92, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,9 +126,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {VARIANT_BOOL} 
      */
     GetNeedIEAutoLaunchFlag(bstrUrl) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(93, this, "ptr", bstrUrl, "short*", &flag := 0, "HRESULT")
+        result := ComCall(93, this, "ptr", bstrUrl, "short*", &flag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flag
     }
 
@@ -107,9 +146,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {HRESULT} 
      */
     SetNeedIEAutoLaunchFlag(bstrUrl, flag) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(94, this, "ptr", bstrUrl, "short", flag, "HRESULT")
+        result := ComCall(94, this, "ptr", bstrUrl, "short", flag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,9 +165,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {VARIANT_BOOL} 
      */
     HasNeedIEAutoLaunchFlag(bstrUrl) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(95, this, "ptr", bstrUrl, "short*", &exists := 0, "HRESULT")
+        result := ComCall(95, this, "ptr", bstrUrl, "short*", &exists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return exists
     }
 
@@ -132,9 +185,16 @@ class IShellUIHelper7 extends IShellUIHelper6{
      * @returns {HRESULT} 
      */
     LaunchIE(bstrUrl, automated) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(96, this, "ptr", bstrUrl, "short", automated, "HRESULT")
+        result := ComCall(96, this, "ptr", bstrUrl, "short", automated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

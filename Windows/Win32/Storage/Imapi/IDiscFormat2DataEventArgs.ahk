@@ -4,8 +4,8 @@
 #Include .\IWriteEngine2EventArgs.ahk
 
 /**
- * Use this interface to retrieve information about the current write operation.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscformat2dataeventargs
+ * Use this interface to retrieve information about the current write operation. (IDiscFormat2DataEventArgs)
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-idiscformat2dataeventargs
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -59,42 +59,62 @@ class IDiscFormat2DataEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * Retrieves the total elapsed time of the write operation.
+     * Retrieves the total elapsed time of the write operation. (IDiscFormat2DataEventArgs.get_ElapsedTime)
      * @returns {Integer} Elapsed time, in seconds, of the write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_elapsedtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscformat2dataeventargs-get_elapsedtime
      */
     get_ElapsedTime() {
-        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
-     * Retrieves the estimated remaining time of the write operation.
+     * Retrieves the estimated remaining time of the write operation. (IDiscFormat2DataEventArgs.get_RemainingTime)
+     * @remarks
+     * The estimate for a single write operation can vary as the operation progresses. The drive provides updated information that can affect the projected duration of the write operation.
      * @returns {Integer} Estimated time, in seconds, needed for the remainder of the write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_remainingtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscformat2dataeventargs-get_remainingtime
      */
     get_RemainingTime() {
-        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the estimated total time for write operation.
+     * @remarks
+     * The estimate for a single write operation can vary as the operation progresses. The drive provides updated information that can affect the projected duration of the write operation.
      * @returns {Integer} Estimated time, in seconds, for write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_totaltime
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscformat2dataeventargs-get_totaltime
      */
     get_TotalTime() {
-        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
-     * Retrieves the current write action being performed.
+     * Retrieves the current write action being performed. (IDiscFormat2DataEventArgs.get_CurrentAction)
      * @returns {Integer} Current write action being performed. For a list of possible actions, see  the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_data_write_action">IMAPI_FORMAT2_DATA_WRITE_ACTION</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_currentaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscformat2dataeventargs-get_currentaction
      */
     get_CurrentAction() {
-        result := ComCall(17, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

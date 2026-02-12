@@ -28,7 +28,11 @@ class IPrintAsyncNotifyServerReferral extends IUnknown{
      * @returns {PWSTR} 
      */
     GetServerReferral() {
-        result := ComCall(3, this, "ptr*", &param0 := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &param0 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return param0
     }
 
@@ -38,7 +42,11 @@ class IPrintAsyncNotifyServerReferral extends IUnknown{
      * @returns {HRESULT} 
      */
     AsyncGetServerReferral(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +58,11 @@ class IPrintAsyncNotifyServerReferral extends IUnknown{
     SetServerReferral(pRmtServerReferral) {
         pRmtServerReferral := pRmtServerReferral is String ? StrPtr(pRmtServerReferral) : pRmtServerReferral
 
-        result := ComCall(5, this, "ptr", pRmtServerReferral, "HRESULT")
+        result := ComCall(5, this, "ptr", pRmtServerReferral, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

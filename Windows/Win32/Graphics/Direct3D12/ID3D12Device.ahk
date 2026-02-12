@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_RESOURCE_ALLOCATION_INFO.ahk
+#Include .\D3D12_HEAP_PROPERTIES.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\LUID.ahk
 #Include .\ID3D12Object.ahk
 
 /**
  * Represents a virtual adapter; it is used to create command allocators, command lists, command queues, fences, resources, pipeline state objects, heaps, root signatures, samplers, and many resource views.
  * @remarks
- * 
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice">D3D12CreateDevice</a> to create a device. 
  * 
  * For Windows 10 Anniversary some additional functionality is available through <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12device1">ID3D12Device1</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12device
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12device
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -41,10 +40,10 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Reports the number of physical adapters (nodes) that are associated with this device.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of physical adapters (nodes) that this device has.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getnodecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getnodecount
      */
     GetNodeCount() {
         result := ComCall(7, this, "uint")
@@ -53,24 +52,32 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Creates a command queue.
-     * @param {Pointer<D3D12_COMMAND_QUEUE_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc">D3D12_COMMAND_QUEUE_DESC</a>*</b>
+     * @remarks
+     * The <b>REFIID</b>, or <b>GUID</b>, of the interface to the command queue can be obtained by using the __uuidof() macro. For example, __uuidof(ID3D12CommandQueue) will get the <b>GUID</b> of the interface to a command queue.
+     * @param {Pointer<D3D12_COMMAND_QUEUE_DESC>} pDesc Type: [in] <b>const <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc">D3D12_COMMAND_QUEUE_DESC</a>*</b>
      * 
-     * Specifies a D3D12_COMMAND_QUEUE_DESC that describes the command queue.
+     * Specifies a **D3D12_COMMAND_QUEUE_DESC** that describes the command queue.
      * @param {Pointer<Guid>} riid Type: <b><b>REFIID</b></b>
      * 
-     * The globally unique identifier (GUID) for the command queue interface. See remarks.  An input parameter.
-     * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
+     * The globally unique identifier (GUID) for the command queue interface. See **Remarks**. An input parameter.
+     * @returns {Pointer<Pointer<Void>>} Type: [out] <b><b>void</b>**</b>
      * 
-     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue">ID3D12CommandQueue</a> interface for the command queue.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createcommandqueue
+     * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandqueue">ID3D12CommandQueue</a> interface for the command queue.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createcommandqueue
      */
     CreateCommandQueue(pDesc, riid) {
-        result := ComCall(8, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppCommandQueue := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppCommandQueue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCommandQueue
     }
 
     /**
      * Creates a command allocator object.
+     * @remarks
+     * The device creates command lists from the command allocator.
      * @param {Integer} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a>-typed value that specifies the type of command allocator to create.
@@ -80,13 +87,17 @@ class ID3D12Device extends ID3D12Object{
      * The globally unique identifier (<b>GUID</b>) for the command allocator interface (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandallocator">ID3D12CommandAllocator</a>).
      *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the command allocator can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(ID3D12CommandAllocator) will get the <b>GUID</b> of the interface to a command allocator.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandallocator">ID3D12CommandAllocator</a> interface for the command allocator.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createcommandallocator
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createcommandallocator
      */
     CreateCommandAllocator(type, riid) {
-        result := ComCall(9, this, "int", type, "ptr", riid, "ptr*", &ppCommandAllocator := 0, "HRESULT")
+        result := ComCall(9, this, "int", type, "ptr", riid, "ptr*", &ppCommandAllocator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCommandAllocator
     }
 
@@ -100,14 +111,18 @@ class ID3D12Device extends ID3D12Object{
      * The globally unique identifier (<b>GUID</b>) for the pipeline state interface (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a>).
      *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the pipeline state can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(ID3D12PipelineState) will get the <b>GUID</b> of the interface to a pipeline state.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> interface for the pipeline state object.
      *             The pipeline state object is an immutable state object.  It contains no methods.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate
      */
     CreateGraphicsPipelineState(pDesc, riid) {
-        result := ComCall(10, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppPipelineState
     }
 
@@ -121,19 +136,25 @@ class ID3D12Device extends ID3D12Object{
      * The globally unique identifier (<b>GUID</b>) for the pipeline state interface (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a>).
      *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the pipeline state can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(ID3D12PipelineState) will get the <b>GUID</b> of the interface to a pipeline state.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> interface for the pipeline state object.
      *             The pipeline state object is an immutable state object.  It contains no methods.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createcomputepipelinestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate
      */
     CreateComputePipelineState(pDesc, riid) {
-        result := ComCall(11, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppPipelineState
     }
 
     /**
      * Creates a command list.
+     * @remarks
+     * The device creates command lists from the command allocator.
      * @param {Integer} nodeMask Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * 
      * For single-GPU operation, set this to zero. If there are multiple GPU nodes, then set a bit to identify the node (the device's physical adapter) for which to create the command list. Each bit in the mask corresponds to a single node. Only one bit must be set. Also see [Multi-adapter systems](/windows/win32/direct3d12/multi-engine).
@@ -145,24 +166,59 @@ class ID3D12Device extends ID3D12Object{
      * A pointer to the command allocator object from which the device creates command lists.
      * @param {ID3D12PipelineState} pInitialState Type: **[ID3D12PipelineState](./nn-d3d12-id3d12pipelinestate.md)\***
      * 
-     * An optional pointer to the pipeline state object that contains the initial pipeline state for the command list. If it is `nulltpr`, then the runtime sets a dummy initial pipeline state, so that drivers don't have to deal with undefined state. The overhead for this is low, particularly for a command list, for which the overall cost of recording the command list likely dwarfs the cost of a single initial state setting. So there's little cost in not setting the initial pipeline state parameter, if doing so is inconvenient.
+     * An optional pointer to the pipeline state object that contains the initial pipeline state for the command list. If it is `nullptr`, then the runtime sets a dummy initial pipeline state, so that drivers don't have to deal with undefined state. The overhead for this is low, particularly for a command list, for which the overall cost of recording the command list likely dwarfs the cost of a single initial state setting. So there's little cost in not setting the initial pipeline state parameter, if doing so is inconvenient.
      * 
      * For bundles, on the other hand, it might make more sense to try to set the initial state parameter (since bundles are likely smaller overall, and can be reused frequently).
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * A reference to the globally unique identifier (**GUID**) of the command list interface to return in *ppCommandList*.
-     * @returns {Pointer<Void>} Type: **void\*\***
+     * @returns {Pointer<Pointer<Void>>} Type: **void\*\***
      * 
      * A pointer to a memory block that receives a pointer to the [ID3D12CommandList](./nn-d3d12-id3d12commandlist.md) or [ID3D12GraphicsCommandList](./nn-d3d12-id3d12graphicscommandlist.md) interface for the command list.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createcommandlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createcommandlist
      */
     CreateCommandList(nodeMask, type, pCommandAllocator, pInitialState, riid) {
-        result := ComCall(12, this, "uint", nodeMask, "int", type, "ptr", pCommandAllocator, "ptr", pInitialState, "ptr", riid, "ptr*", &ppCommandList := 0, "HRESULT")
+        result := ComCall(12, this, "uint", nodeMask, "int", type, "ptr", pCommandAllocator, "ptr", pInitialState, "ptr", riid, "ptr*", &ppCommandList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCommandList
     }
 
     /**
-     * Gets information about the features that are supported by the current graphics driver.
+     * Gets information about the features that are supported by the current graphics driver. (ID3D12Device.CheckFeatureSupport)
+     * @remarks
+     * As a usage example, to check for ray tracing support, specify the <a href="../d3d12/ns-d3d12-d3d12_feature_data_d3d12_options5.md">D3D12_FEATURE_DATA_D3D12_OPTIONS5</a> structure in the <i>pFeatureSupportData</i> parameter. When the function completes successfully, access the <i>RaytracingTier</i> field (which specifies the supported ray tracing tier) of the now-populated <b>D3D12_FEATURE_DATA_D3D12_OPTIONS5</b> structure.
+     * 
+     * For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d12/capability-querying">Capability Querying</a>.
+     * 
+     * <h3><a id="Hardware_support_for_DXGI_Formats"></a><a id="hardware_support_for_dxgi_formats"></a><a id="HARDWARE_SUPPORT_FOR_DXGI_FORMATS"></a>Hardware support for DXGI Formats</h3>
+     * To view tables of DXGI formats and hardware features, refer to:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-1-formats">DXGI Format  Support for Direct3D Feature Level 12.1 Hardware</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-0-formats">DXGI Format  Support for Direct3D Feature Level 12.0 Hardware</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-1-feature-level-hardware">DXGI Format  Support for Direct3D Feature Level 11.1 Hardware</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-0-feature-level-hardware">DXGI Format  Support for Direct3D Feature Level 11.0 Hardware</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/ff471324(v=vs.85)">Hardware Support for Direct3D 10Level9 Formats</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-1-hardware">Format Support for Direct3D Feature Level 10.1 Hardware</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Format Support for Direct3D Feature Level 10.0 Hardware</a>
+     * </li>
+     * </ul>
      * @param {Integer} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a></b>
      * 
      * A constant from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a> enumeration describing the feature(s) that you want to query for support.
@@ -172,18 +228,24 @@ class ID3D12Device extends ID3D12Object{
      * @param {Integer} FeatureSupportDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The size of the structure pointed to by the <i>pFeatureSupportData</i> parameter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful. Returns <b>E_INVALIDARG</b> if an unsupported data type is passed to the <i>pFeatureSupportData</i> parameter or if a size mismatch is detected for the <i>FeatureSupportDataSize</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-checkfeaturesupport
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(13, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(13, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a descriptor heap object.
+     * @remarks
+     * The <b>REFIID</b>, or <b>GUID</b>, of the interface to the descriptor heap can be obtained by using the __uuidof() macro. For example, __uuidof(<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12descriptorheap">ID3D12DescriptorHeap</a>) will get the <b>GUID</b> of the interface to a descriptor heap.
      * @param {Pointer<D3D12_DESCRIPTOR_HEAP_DESC>} pDescriptorHeapDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc">D3D12_DESCRIPTOR_HEAP_DESC</a> structure that describes the heap.
@@ -191,23 +253,29 @@ class ID3D12Device extends ID3D12Object{
      * 
      * The globally unique identifier (<b>GUID</b>) for the descriptor heap interface. See Remarks.
      *             An input parameter.
-     * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the descriptor heap.
      *             <i>ppvHeap</i> can be NULL, to enable capability testing.
      *             When <i>ppvHeap</i> is NULL, no object will be created and S_FALSE will be returned when <i>pDescriptorHeapDesc</i> is valid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createdescriptorheap
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createdescriptorheap
      */
     CreateDescriptorHeap(pDescriptorHeapDesc, riid) {
-        result := ComCall(14, this, "ptr", pDescriptorHeapDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pDescriptorHeapDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvHeap
     }
 
     /**
      * Gets the size of the handle increment for the given type of descriptor heap. This value is typically used to increment a handle into a descriptor array by the correct amount.
+     * @remarks
+     * The descriptor size returned by this method is used as one input to the helper structures <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-cpu-descriptor-handle">CD3DX12_CPU_DESCRIPTOR_HANDLE</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-gpu-descriptor-handle">CD3DX12_GPU_DESCRIPTOR_HANDLE</a>.
      * @param {Integer} DescriptorHeapType The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a>-typed value that specifies the type of descriptor heap to get the size of the handle increment for.
      * @returns {Integer} Returns the size of the handle increment for the given type of descriptor heap, including any necessary padding.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize
      */
     GetDescriptorHandleIncrementSize(DescriptorHeapType) {
         result := ComCall(15, this, "int", DescriptorHeapType, "uint")
@@ -216,6 +284,13 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Creates a root signature layout.
+     * @remarks
+     * If an application procedurally generates a <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> data structure, it must pass a pointer to this <b>D3D12_ROOT_SIGNATURE_DESC</b> in a call to <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature">D3D12SerializeRootSignature</a> to make the serialized form.
+     *         The application then passes the serialized form to <i>pBlobWithRootSignature</i> in a call to <b>ID3D12Device::CreateRootSignature</b>.
+     *       
+     * 
+     * The <b>REFIID</b>, or <b>GUID</b>, of the interface to the root signature layout can be obtained by using the __uuidof() macro.
+     *         For example, __uuidof(<a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12rootsignature">ID3D12RootSignature</a>) will get the <b>GUID</b> of the interface to a root signature.
      * @param {Integer} nodeMask Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT</a></b>
      * 
      * For single GPU operation, set this to zero. If there are multiple GPU nodes, set bits to identify the nodes (the  device's physical adapters) to which the root signature is to apply.
@@ -231,15 +306,19 @@ class ID3D12Device extends ID3D12Object{
      * 
      * The globally unique identifier (<b>GUID</b>) for the root signature interface. See Remarks.
      *             An input parameter.
-     * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createrootsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createrootsignature
      */
     CreateRootSignature(nodeMask, pBlobWithRootSignature, blobLengthInBytes, riid) {
         pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, "ptr*", &ppvRootSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvRootSignature
     }
 
@@ -252,23 +331,19 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Describes the CPU descriptor handle that represents the start of the heap that holds the constant-buffer view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createconstantbufferview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createconstantbufferview
      */
     CreateConstantBufferView(pDesc, DestDescriptor) {
         ComCall(17, this, "ptr", pDesc, "ptr", DestDescriptor)
     }
 
     /**
-     * Creates a shader-resource view for accessing data in a resource.
+     * Creates a shader-resource view for accessing data in a resource. (ID3D12Device.CreateShaderResourceView)
      * @remarks
-     * 
      * <h3><a id="Processing_YUV_4_2_0_video_formats"></a><a id="processing_yuv_4_2_0_video_formats"></a><a id="PROCESSING_YUV_4_2_0_VIDEO_FORMATS"></a>Processing YUV 4:2:0 video formats</h3>
      * An app must map the luma (Y) plane separately from the chroma (UV) planes. Developers do this by calling <b>CreateShaderResourceView</b> twice for the same texture and passing in 1-channel and 2-channel formats. Passing in a 1-channel format compatible with the Y plane maps only the Y plane. Passing in a 2-channel format compatible with the UV planes (together) maps only the U and V planes as a single resource view.
      * 
      * YUV 4:2:0 formats are listed in <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>.
-     * 
-     * 
-     * 
      * @param {ID3D12Resource} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> object that represents the shader resource.
@@ -284,7 +359,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Describes the CPU descriptor handle that represents the shader-resource view. This handle can be created in a shader-visible or non-shader-visible descriptor heap.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createshaderresourceview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createshaderresourceview
      */
     CreateShaderResourceView(pResource, pDesc, DestDescriptor) {
         ComCall(18, this, "ptr", pResource, "ptr", pDesc, "ptr", DestDescriptor)
@@ -332,14 +407,14 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Describes the CPU descriptor handle that represents the start of the heap that holds the unordered-access view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createunorderedaccessview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createunorderedaccessview
      */
     CreateUnorderedAccessView(pResource, pCounterResource, pDesc, DestDescriptor) {
         ComCall(19, this, "ptr", pResource, "ptr", pCounterResource, "ptr", pDesc, "ptr", DestDescriptor)
     }
 
     /**
-     * Creates a render-target view for accessing resource data.
+     * Creates a render-target view for accessing resource data. (ID3D12Device.CreateRenderTargetView)
      * @param {ID3D12Resource} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> object that represents the render target.
@@ -356,7 +431,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Describes the CPU descriptor handle that represents the destination where the newly-created render target view will reside.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createrendertargetview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createrendertargetview
      */
     CreateRenderTargetView(pResource, pDesc, DestDescriptor) {
         ComCall(20, this, "ptr", pResource, "ptr", pDesc, "ptr", DestDescriptor)
@@ -381,7 +456,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Describes the CPU descriptor handle that represents the start of the heap that holds the depth-stencil view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createdepthstencilview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createdepthstencilview
      */
     CreateDepthStencilView(pResource, pDesc, DestDescriptor) {
         ComCall(21, this, "ptr", pResource, "ptr", pDesc, "ptr", DestDescriptor)
@@ -396,19 +471,16 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Describes the CPU descriptor handle that represents the start of the heap that holds the sampler.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createsampler
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createsampler
      */
     CreateSampler(pDesc, DestDescriptor) {
         ComCall(22, this, "ptr", pDesc, "ptr", DestDescriptor)
     }
 
     /**
-     * Copies descriptors from a source to a destination.
+     * Copies descriptors from a source to a destination. (ID3D12Device.CopyDescriptors)
      * @remarks
-     * 
      * Where applicable, prefer [**ID3D12Device::CopyDescriptorsSimple**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptorssimple) to this method. It can have a better CPU cache miss rate due to the linear nature of the copy.
-     * 
-     * 
      * @param {Integer} NumDestDescriptorRanges Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of destination descriptor ranges to copy to.
@@ -438,7 +510,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Both the source and destination descriptor heaps must have the same type, else the debug layer will emit an error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-copydescriptors
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-copydescriptors
      */
     CopyDescriptors(NumDestDescriptorRanges, pDestDescriptorRangeStarts, pDestDescriptorRangeSizes, NumSrcDescriptorRanges, pSrcDescriptorRangeStarts, pSrcDescriptorRangeSizes, DescriptorHeapsType) {
         pDestDescriptorRangeSizesMarshal := pDestDescriptorRangeSizes is VarRef ? "uint*" : "ptr"
@@ -448,12 +520,9 @@ class ID3D12Device extends ID3D12Object{
     }
 
     /**
-     * Copies descriptors from a source to a destination.
+     * Copies descriptors from a source to a destination. (ID3D12Device.CopyDescriptorsSimple)
      * @remarks
-     * 
      * Where applicable, prefer this method to [**ID3D12Device::CopyDescriptors**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptors). It can have a better CPU cache miss rate due to the linear nature of the copy.
-     * 
-     * 
      * @param {Integer} NumDescriptors Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of descriptors to copy.
@@ -474,7 +543,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Both the source and destination descriptor heaps must have the same type, else the debug layer will emit an error.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-copydescriptorssimple
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-copydescriptorssimple
      */
     CopyDescriptorsSimple(NumDescriptors, DestDescriptorRangeStart, SrcDescriptorRangeStart, DescriptorHeapsType) {
         ComCall(24, this, "uint", NumDescriptors, "ptr", DestDescriptorRangeStart, "ptr", SrcDescriptorRangeStart, "int", DescriptorHeapsType)
@@ -482,6 +551,16 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Gets the size and alignment of memory required for a collection of resources on this adapter.
+     * @remarks
+     * When you're using [CreatePlacedResource](./nf-d3d12-id3d12device-createplacedresource.md), your application must use **GetResourceAllocationInfo** in order to understand the size and alignment characteristics of texture resources. The results of this method vary depending on the particular adapter, and must be treated as unique to this adapter and driver version.
+     * 
+     * Your application can't use the output of **GetResourceAllocationInfo** to understand packed mip properties of textures. To understand packed mip properties of textures, your application must use [GetResourceTiling](./nf-d3d12-id3d12device-getresourcetiling.md).
+     * 
+     * Texture resource sizes significantly differ from the information returned by **GetResourceTiling**, because some adapter architectures allocate extra memory for textures to reduce the effective bandwidth during common rendering scenarios. This even includes textures that have constraints on their texture layouts, or have standardized texture layouts. That extra memory can't be sparsely mapped nor remapped by an application using [CreateReservedResource](./nf-d3d12-id3d12device-createreservedresource.md) and [UpdateTileMappings](./nf-d3d12-id3d12commandqueue-updatetilemappings.md), so it isn't reported by **GetResourceTiling**.
+     * 
+     * Your application can forgo using **GetResourceAllocationInfo** for buffer resources ([D3D12_RESOURCE_DIMENSION_BUFFER](./ne-d3d12-d3d12_resource_dimension.md)). Buffers have the same size on all adapters, which is merely the smallest multiple of 64KB that's greater or equal to [D3D12_RESOURCE_DESC::Width](./ns-d3d12-d3d12_resource_desc.md).
+     * 
+     * When multiple resource descriptions are passed in, the C++ algorithm for calculating a structure size and alignment are used. For example, a three-element array with two tiny 64KB-aligned resources and a tiny 4MB-aligned resource, reports differing sizes based on the order of the array. If the 4MB aligned resource is in the middle, then the resulting **Size** is 12MB. Otherwise, the resulting **Size** is 8MB. The **Alignment** returned would always be 4MB, because it's the superset of all alignments in the resource array.
      * @param {Integer} visibleMask Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * 
      * For single-GPU operation, set this to zero. If there are multiple GPU nodes, then set bits to identify the nodes (the device's physical adapters). Each bit in the mask corresponds to a single node. Also see [Multi-adapter systems](/windows/win32/direct3d12/multi-engine).
@@ -494,7 +573,9 @@ class ID3D12Device extends ID3D12Object{
      * @returns {D3D12_RESOURCE_ALLOCATION_INFO} Type: **[D3D12_RESOURCE_ALLOCATION_INFO](./ns-d3d12-d3d12_resource_allocation_info.md)**
      * 
      * A [D3D12_RESOURCE_ALLOCATION_INFO](./ns-d3d12-d3d12_resource_allocation_info.md) structure that provides info about video memory allocated for the specified array of resources.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getresourceallocationinfo
+     * 
+     * If an error occurs, then **D3D12_RESOURCE_ALLOCATION_INFO::SizeInBytes** equals **UINT64_MAX**.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo
      */
     GetResourceAllocationInfo(visibleMask, numResourceDescs, pResourceDescs) {
         result := ComCall(25, this, "uint", visibleMask, "uint", numResourceDescs, "ptr", pResourceDescs, "ptr")
@@ -514,13 +595,13 @@ class ID3D12Device extends ID3D12Object{
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a>-typed value that specifies the heap to get properties for.
      *           D3D12_HEAP_TYPE_CUSTOM is not supported as a parameter value.
-     * @returns {D3D12_HEAP_PROPERTIES} Type: <b><a href="/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a></b>
+     * @returns {D3D12_HEAP_PROPERTIES} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a> structure that provides properties for the specified heap.
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a> structure that provides properties for the specified heap.
      *             The <b>Type</b> member of the returned D3D12_HEAP_PROPERTIES is always D3D12_HEAP_TYPE_CUSTOM.
      *           
      * 
-     * When <a href="/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture">D3D12_FEATURE_DATA_ARCHITECTURE</a>::UMA is FALSE, the returned D3D12_HEAP_PROPERTIES members convert as follows:
+     * When <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture">D3D12_FEATURE_DATA_ARCHITECTURE</a>::UMA is FALSE, the returned D3D12_HEAP_PROPERTIES members convert as follows:
      *           
      * 
      * <table>
@@ -596,7 +677,7 @@ class ID3D12Device extends ID3D12Object{
      *               </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getcustomheapproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getcustomheapproperties
      */
     GetCustomHeapProperties(nodeMask, heapType) {
         result := ComCall(26, this, "uint", nodeMask, "int", heapType, "ptr")
@@ -605,6 +686,14 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Creates both a resource and an implicit heap, such that the heap is big enough to contain the entire resource, and the resource is mapped to the heap.
+     * @remarks
+     * This method creates both a resource and a heap, such that the heap is big enough to contain the entire resource, and the resource is mapped to the heap. The created heap is known as an implicit heap, because the heap object can't be obtained by the application. Before releasing the final reference on the resource, your application must ensure that the GPU will no longer read nor write to this resource.
+     * 
+     * The implicit heap is made resident for GPU access before the method returns control to your application. Also see [Residency](/windows/win32/direct3d12/residency).
+     * 
+     * The resource GPU VA mapping can't be changed. See [ID3D12CommandQueue::UpdateTileMappings](./nf-d3d12-id3d12commandqueue-updatetilemappings.md) and [Volume tiled resources](/windows/win32/direct3d12/volume-tiled-resources).
+     * 
+     * This method may be called by multiple threads concurrently.
      * @param {Pointer<D3D12_HEAP_PROPERTIES>} pHeapProperties Type: **const [D3D12_HEAP_PROPERTIES](./ns-d3d12-d3d12_heap_properties.md)\***
      * 
      * A pointer to a **D3D12_HEAP_PROPERTIES** structure that provides properties for the resource's heap.
@@ -633,20 +722,30 @@ class ID3D12Device extends ID3D12Object{
      * A reference to the globally unique identifier (**GUID**) of the resource interface to return in *ppvResource*.
      * 
      * While *riidResource* is most commonly the **GUID** of [ID3D12Resource](./nn-d3d12-id3d12resource.md), it may be the **GUID** of any interface. If the resource object doesn't support the interface for this **GUID**, then creation fails with **E_NOINTERFACE**.
-     * @returns {Pointer<Void>} Type: **void\*\***
+     * @returns {Pointer<Pointer<Void>>} Type: **void\*\***
      * 
      * An optional pointer to a memory block that receives the requested interface pointer to the created resource object.
      * 
      * *ppvResource* can be `nullptr`, to enable capability testing. When *ppvResource* is `nullptr`, no object is created, and **S_FALSE** is returned when *pDesc* is valid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createcommittedresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createcommittedresource
      */
     CreateCommittedResource(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, riidResource) {
-        result := ComCall(27, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", riidResource, "ptr*", &ppvResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvResource
     }
 
     /**
      * Creates a heap that can be used with placed resources and reserved resources.
+     * @remarks
+     * **CreateHeap** creates a heap that can be used with placed resources and reserved resources.
+     * 
+     * Before releasing the final reference on the heap, your application must ensure that the GPU will no longer read or write to this heap.
+     * 
+     * A placed resource object holds a reference on the heap it is created on; but a reserved resource doesn't hold a reference for each mapping made to a heap.
      * @param {Pointer<D3D12_HEAP_DESC>} pDesc Type: **const [D3D12_HEAP_DESC](./ns-d3d12-d3d12_heap_desc.md)\***
      * 
      * A pointer to a constant **D3D12_HEAP_DESC** structure that describes the heap.
@@ -655,20 +754,30 @@ class ID3D12Device extends ID3D12Object{
      * A reference to the globally unique identifier (**GUID**) of the heap interface to return in *ppvHeap*.
      * 
      * While *riidResource* is most commonly the **GUID** of [ID3D12Heap](./nn-d3d12-id3d12heap.md), it may be the **GUID** of any interface. If the resource object doesn't support the interface for this **GUID**, then creation fails with **E_NOINTERFACE**.
-     * @returns {Pointer<Void>} Type: **void\*\***
+     * @returns {Pointer<Pointer<Void>>} Type: **void\*\***
      * 
      * An optional pointer to a memory block that receives the requested interface pointer to the created heap object.
      * 
      * *ppvHeap* can be `nullptr`, to enable capability testing. When *ppvHeap* is `nullptr`, no object is created, and **S_FALSE** is returned when *pDesc* is valid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createheap
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createheap
      */
     CreateHeap(pDesc, riid) {
-        result := ComCall(28, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvHeap
     }
 
     /**
      * Creates a resource that is placed in a specific heap. Placed resources are the lightest weight resource objects available, and are the fastest to create and destroy.
+     * @remarks
+     * **CreatePlacedResource** is similar to fully mapping a reserved resource to an offset within a heap; but the virtual address space associated with a heap may be reused as well.
+     * 
+     * Placed resources are lighter weight to create and destroy than committed resources are. This is because no heap is created nor destroyed during those operations. In addition, placed resources enable an even lighter weight technique to reuse memory than resource creation and destruction&mdash;that is, reuse through aliasing, and aliasing barriers. Multiple placed resources may simultaneously overlap each other on the same heap, but only a single overlapping resource can be used at a time.
+     * 
+     * There are two placed resource usage semantics&mdash;a simple model, and an advanced model. We recommend that you choose the simple model (it maximizes graphics tool support across the diverse ecosystem of GPUs), unless and until you find that you need the advanced model for your app.
      * @param {ID3D12Heap} pHeap Type: [in] **<a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12heap">ID3D12Heap</a>***
      * 
      * A pointer to the **ID3D12Heap** interface that represents the heap in which the resource is placed.
@@ -697,18 +806,28 @@ class ID3D12Device extends ID3D12Object{
      * The globally unique identifier (**GUID**) for the resource interface. This is an input parameter.
      * 
      * The **REFIID**, or **GUID**, of the interface to the resource can be obtained by using the `__uuidof` macro. For example, `__uuidof(ID3D12Resource)` gets the **GUID** of the interface to a resource. Although **riid** is, most commonly, the GUID for <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource">**ID3D12Resource**</a>, it may be any **GUID** for any interface. If the resource object doesn't support the interface for this **GUID**, then creation fails with **E_NOINTERFACE**.
-     * @returns {Pointer<Void>} Type: [out, optional] **void****
+     * @returns {Pointer<Pointer<Void>>} Type: [out, optional] **void****
      * 
      * A pointer to a memory block that receives a pointer to the resource. *ppvResource* can be NULL, to enable capability testing. When *ppvResource* is NULL, no object will be created and S_FALSE will be returned when *pResourceDesc* and other parameters are valid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createplacedresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createplacedresource
      */
     CreatePlacedResource(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvResource
     }
 
     /**
      * Creates a resource that is reserved, and not yet mapped to any pages in a heap.
+     * @remarks
+     * **CreateReservedResource** is equivalent to [D3D11_RESOURCE_MISC_TILED](../d3d11/ne-d3d11-d3d11_resource_misc_flag.md) in Direct3D 11. It creates a resource with virtual memory only, no backing store.
+     * 
+     * You need to map the resource to physical memory (that is, to a heap) using <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings">CopyTileMappings</a> and <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings">UpdateTileMappings</a>.
+     * 
+     * These resource types can only be created when the adapter supports tiled resource tier 1 or greater. The tiled resource tier defines the behavior of accessing a resource that is not mapped to a heap.
      * @param {Pointer<D3D12_RESOURCE_DESC>} pDesc Type: **const [D3D12_RESOURCE_DESC](./ns-d3d12-d3d12_resource_desc.md)\***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC** structure that describes the resource.
@@ -727,20 +846,30 @@ class ID3D12Device extends ID3D12Object{
      * A reference to the globally unique identifier (**GUID**) of the resource interface to return in *ppvResource*. See **Remarks**.
      * 
      * While *riidResource* is most commonly the **GUID** of [ID3D12Resource](./nn-d3d12-id3d12resource.md), it may be the **GUID** of any interface. If the resource object doesn't support the interface for this **GUID**, then creation fails with **E_NOINTERFACE**.
-     * @returns {Pointer<Void>} Type: **void\*\***
+     * @returns {Pointer<Pointer<Void>>} Type: **void\*\***
      * 
      * An optional pointer to a memory block that receives the requested interface pointer to the created resource object.
      * 
      * *ppvResource* can be `nullptr`, to enable capability testing. When *ppvResource* is `nullptr`, no object is created, and **S_FALSE** is returned when *pDesc* is valid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createreservedresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createreservedresource
      */
     CreateReservedResource(pDesc, InitialState, pOptimizedClearValue, riid) {
-        result := ComCall(30, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvResource
     }
 
     /**
-     * Creates a shared handle to an heap, resource, or fence object.
+     * Creates a shared handle to a heap, resource, or fence object.
+     * @remarks
+     * Both heaps and committed resources can be shared. Sharing a committed resource shares the implicit heap along with the committed resource description, such that a compatible resource description can be mapped to the heap from another device.
+     * 
+     * For Direct3D 11 and Direct3D 12 interop scenarios, a shared fence is opened in DirectX 11 with the <a href="https://docs.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence">ID3D11Device5::OpenSharedFence</a> method, and a shared resource is opened with the <a href="https://docs.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11device1-opensharedresource1">ID3D11Device::OpenSharedResource1</a> method.
+     * 
+     * For Direct3D 12, a shared handle is opened with the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-opensharedhandle">ID3D12Device::OpenSharedHandle</a> or the ID3D12Device::OpenSharedHandleByName method.
      * @param {ID3D12DeviceChild} pObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12devicechild">ID3D12DeviceChild</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12devicechild">ID3D12DeviceChild</a> interface that represents the heap, resource, or fence object to create for sharing.
@@ -760,7 +889,7 @@ class ID3D12Device extends ID3D12Object{
      * </ul>
      * @param {Pointer<SECURITY_ATTRIBUTES>} pAttributes Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>structure that contains two separate but related data members: an optional security descriptor, and a <b>Boolean</b>value that determines whether child processes can inherit the returned handle.
+     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that contains two separate but related data members: an optional security descriptor, and a <b>Boolean</b> value that determines whether child processes can inherit the returned handle.
      *             
      * 
      * Set this parameter to <b>NULL</b> if you want child processes that the
@@ -802,13 +931,17 @@ class ID3D12Device extends ID3D12Object{
      * 
      * A pointer to a variable that receives the NT HANDLE value to the resource to share.
      *             You can use this handle in calls to access the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createsharedhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createsharedhandle
      */
     CreateSharedHandle(pObject, pAttributes, Access, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
         pHandle := HANDLE()
-        result := ComCall(31, this, "ptr", pObject, "ptr", pAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "HRESULT")
+        result := ComCall(31, this, "ptr", pObject, "ptr", pAttributes, "uint", Access, "ptr", Name, "ptr", pHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHandle
     }
 
@@ -836,7 +969,7 @@ class ID3D12Device extends ID3D12Object{
      * </ul>
      * The <b>REFIID</b>, or <b>GUID</b>, of the interface can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(ID3D12Heap) will get the <b>GUID</b> of the interface to a resource.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to one of the following interfaces:
      *             
@@ -852,12 +985,16 @@ class ID3D12Device extends ID3D12Object{
      * <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-opensharedhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-opensharedhandle
      */
     OpenSharedHandle(NTHandle, riid) {
         NTHandle := NTHandle is Win32Handle ? NumGet(NTHandle, "ptr") : NTHandle
 
-        result := ComCall(32, this, "ptr", NTHandle, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", NTHandle, "ptr", riid, "ptr*", &ppvObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObj
     }
 
@@ -874,18 +1011,41 @@ class ID3D12Device extends ID3D12Object{
      * @returns {HANDLE} Type: <b>HANDLE*</b>
      * 
      * Pointer to the shared handle.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-opensharedhandlebyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-opensharedhandlebyname
      */
     OpenSharedHandleByName(Name, Access) {
         Name := Name is String ? StrPtr(Name) : Name
 
         pNTHandle := HANDLE()
-        result := ComCall(33, this, "ptr", Name, "uint", Access, "ptr", pNTHandle, "HRESULT")
+        result := ComCall(33, this, "ptr", Name, "uint", Access, "ptr", pNTHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNTHandle
     }
 
     /**
      * Makes objects resident for the device.
+     * @remarks
+     * <b>MakeResident</b> loads the data associated with a resource from disk, and re-allocates the memory from the resource's appropriate memory pool. This method should be called on the object which owns the physical memory.
+     * 
+     * 
+     * Use this method, and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict">Evict</a>, to manage GPU video memory, noting that this was done automatically in D3D11, but now has to be done by the app in D3D12.
+     * 
+     * <b>MakeResident</b> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict">Evict</a> can help applications manage the residency budget on many adapters. <b>MakeResident</b> explicitly pages-in data and, then, precludes page-out so the GPU can access the data. <b>Evict</b> enables page-out.
+     * 
+     * Some GPU architectures do not benefit from residency manipulation, due to the lack of sufficient GPU virtual address space. Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support">D3D12_FEATURE_DATA_GPU_VIRTUAL_ADDRESS_SUPPORT</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo">IDXGIAdapter3::QueryVideoMemoryInfo</a> to recognize when the maximum GPU VA space per-process is too small or roughly the same size as the residency budget. For such architectures, the residency budget will always be constrained by the amount of GPU virtual address space. <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict">Evict</a> will not free-up any residency budget on such systems.
+     * 
+     * 
+     * Applications must handle <b>MakeResident</b> failures, even if there appears to be enough residency budget available. Physical memory fragmentation and adapter architecture quirks can preclude the utilization of large contiguous ranges. Applications should free up more residency budget before trying again.
+     * 
+     * 
+     * <b>MakeResident</b> is ref-counted, such that <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict">Evict</a> must be called the same amount of times as <b>MakeResident</b> before <b>Evict</b> takes effect. Objects that support residency are made resident during creation, so a single <b>Evict</b> call will actually evict the object. 
+     * 
+     * Applications must use fences to ensure the GPU doesn't use non-resident objects. <b>MakeResident</b> must return before the GPU executes a command list that references the object. <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict">Evict</a> must be called after the GPU finishes executing a command list that references the object.
+     * 
+     * Evicted objects still consume the same GPU virtual address and same amount of GPU virtual address space. Therefore, resource descriptors and other GPU virtual address references are not invalidated after <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict">Evict</a>.
      * @param {Integer} NumObjects Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of objects  in the <i>ppObjects</i> array to make resident for the device.
@@ -896,18 +1056,27 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Even though most D3D12 objects inherit from <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pageable">ID3D12Pageable</a>, residency changes are only supported on the following objects:
      * Descriptor Heaps, Heaps, Committed Resources, and Query Heaps
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-makeresident
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-makeresident
      */
     MakeResident(NumObjects, ppObjects) {
-        result := ComCall(34, this, "uint", NumObjects, "ptr*", ppObjects, "HRESULT")
+        result := ComCall(34, this, "uint", NumObjects, "ptr*", ppObjects, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables the page-out of data, which precludes GPU access of that data.
+     * @remarks
+     * <b>Evict</b> persists the data associated with a resource to disk, and then removes the resource from the memory pool where it was located. This method should be called on the object which owns the physical memory: either a committed resource (which owns both virtual  and physical memory assignments) or a heap - noting that reserved resources do not have physical memory, and placed resources are borrowing memory from a heap.
+     * 
+     * 
+     * Refer to the remarks for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-makeresident">MakeResident</a>.
      * @param {Integer} NumObjects Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of objects in the <i>ppObjects</i> array to evict from the device.
@@ -918,18 +1087,22 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Even though most D3D12 objects inherit from <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pageable">ID3D12Pageable</a>, residency changes are only supported on the following objects:
      * Descriptor Heaps, Heaps, Committed Resources, and Query Heaps
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-evict
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-evict
      */
     Evict(NumObjects, ppObjects) {
-        result := ComCall(35, this, "uint", NumObjects, "ptr*", ppObjects, "HRESULT")
+        result := ComCall(35, this, "uint", NumObjects, "ptr*", ppObjects, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a fence object.
+     * Creates a fence object. (ID3D12Device.CreateFence)
      * @param {Integer} InitialValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The initial value for the fence.
@@ -942,42 +1115,45 @@ class ID3D12Device extends ID3D12Object{
      * The globally unique identifier (<b>GUID</b>) for the fence interface (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a>).
      *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the fence can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(ID3D12Fence) will get the <b>GUID</b> of the interface to a fence.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a> interface that is used to access the fence.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createfence
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createfence
      */
     CreateFence(InitialValue, Flags, riid) {
-        result := ComCall(36, this, "uint", InitialValue, "int", Flags, "ptr", riid, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(36, this, "uint", InitialValue, "int", Flags, "ptr", riid, "ptr*", &ppFence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppFence
     }
 
     /**
      * Gets the reason that the device was removed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns the reason that the device was removed.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getdeviceremovedreason
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getdeviceremovedreason
      */
     GetDeviceRemovedReason() {
-        result := ComCall(37, this, "HRESULT")
+        result := ComCall(37, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a resource layout that can be copied. Helps the app fill-in D3D12_PLACED_SUBRESOURCE_FOOTPRINT and D3D12_SUBRESOURCE_FOOTPRINT when suballocating space in upload heaps.
      * @remarks
-     * 
      * This routine assists the application in filling out
      *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint">D3D12_PLACED_SUBRESOURCE_FOOTPRINT</a> and
      *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_subresource_footprint">D3D12_SUBRESOURCE_FOOTPRINT</a> structures, when suballocating space in upload heaps.
      *           The resulting structures are GPU adapter-agnostic, meaning that the values will not vary from one GPU adapter to the next.
      *           <b>GetCopyableFootprints</b> uses specified details about resource formats, texture layouts, and alignment requirements (from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a> structure)  to fill out the subresource structures.
      *           Applications have access to all these details, so this method, or a variation of it, could be  written as part of the app.
-     *         
-     * 
-     * 
-     * 
      * @param {Pointer<D3D12_RESOURCE_DESC>} pResourceDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a>*</b>
      * 
      * A description of the resource, as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a> structure.
@@ -1012,7 +1188,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * A pointer to an integer variable, to be filled with the total size, in bytes.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getcopyablefootprints
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getcopyablefootprints
      */
     GetCopyableFootprints(pResourceDesc, FirstSubresource, NumSubresources, BaseOffset, pLayouts, pNumRows, pRowSizeInBytes, pTotalBytes) {
         pNumRowsMarshal := pNumRows is VarRef ? "uint*" : "ptr"
@@ -1024,36 +1200,52 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Creates a query heap. A query heap contains an array of queries.
+     * @remarks
+     * Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/queries">Queries</a> for more information.
      * @param {Pointer<D3D12_QUERY_HEAP_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_query_heap_desc">D3D12_QUERY_HEAP_DESC</a>*</b>
      * 
      * Specifies the query heap in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_query_heap_desc">D3D12_QUERY_HEAP_DESC</a> structure.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Specifies a REFIID that uniquely identifies the heap.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Specifies a pointer to the heap, that will be returned on successful completion of the method.
      *             <i>ppvHeap</i> can be NULL, to enable capability testing.
      *             When <i>ppvHeap</i> is NULL, no object will be created and S_FALSE will be returned when <i>pDesc</i> is valid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createqueryheap
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createqueryheap
      */
     CreateQueryHeap(pDesc, riid) {
-        result := ComCall(39, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "HRESULT")
+        result := ComCall(39, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppvHeap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvHeap
     }
 
     /**
      * A development-time aid for certain types of profiling and experimental prototyping.
+     * @remarks
+     * This method is only useful during the development of applications. It enables developers to profile GPU usage of multiple algorithms without experiencing artifacts from <a href="https://en.wikipedia.org/wiki/Dynamic_frequency_scaling">dynamic frequency scaling</a>.
+     * 
+     * Do not call this method in normal execution for a shipped application. This method only works while the machine is in <a href="https://docs.microsoft.com/windows/uwp/get-started/enable-your-device-for-development">developer mode</a>. If developer mode is not enabled, then device removal will occur. Instead, call this method in response to an off-by-default, developer-facing switch. Calling it in response to command line parameters, config files, registry keys, and developer console commands are reasonable usage scenarios. 
+     * 
+     * A stable power state typically fixes GPU clock rates at a slower setting that is significantly lower than that experienced by users under normal application load. This reduction in clock rate affects the entire system. Slow clock rates are required to ensure processors don’t exhaust power, current, and thermal limits. Normal usage scenarios commonly leverage a processors ability to dynamically over-clock. Any conclusions made by comparing two designs under a stable power state should be double-checked with supporting results from real usage scenarios.
      * @param {BOOL} Enable Type: <b>BOOL</b>
      * 
      * Specifies a BOOL that turns the stable power state on or off.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-setstablepowerstate
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-setstablepowerstate
      */
     SetStablePowerState(Enable) {
-        result := ComCall(40, this, "int", Enable, "HRESULT")
+        result := ComCall(40, this, "int", Enable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1073,27 +1265,28 @@ class ID3D12Device extends ID3D12Object{
      * The globally unique identifier (<b>GUID</b>) for the command signature interface (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandsignature">ID3D12CommandSignature</a>).
      *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the command signature can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(<b>ID3D12CommandSignature</b>) will get the <b>GUID</b> of the interface to a command signature.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Specifies a pointer, that on successful completion of the method will point to the created command signature (<a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandsignature">ID3D12CommandSignature</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-createcommandsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-createcommandsignature
      */
     CreateCommandSignature(pDesc, pRootSignature, riid) {
-        result := ComCall(41, this, "ptr", pDesc, "ptr", pRootSignature, "ptr", riid, "ptr*", &ppvCommandSignature := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", pDesc, "ptr", pRootSignature, "ptr", riid, "ptr*", &ppvCommandSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvCommandSignature
     }
 
     /**
-     * Gets info about how a tiled resource is broken into tiles.
+     * Gets info about how a tiled resource is broken into tiles. (ID3D12Device.GetResourceTiling)
      * @remarks
-     * 
      * To estimate the total resource size of textures needed when calculating heap sizes and calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a>, use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo">GetResourceAllocationInfo</a> instead of <b>GetResourceTiling</b>.
      *           <b>GetResourceTiling</b> cannot be used for this.
      *         
      * 
      * For more information on tiled resources, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/volume-tiled-resources">Volume Tiled Resources</a>.
-     * 
-     * 
      * @param {ID3D12Resource} pTiledResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>*</b>
      * 
      * Specifies a tiled <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>  to get info about.
@@ -1116,7 +1309,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_subresource_tiling">D3D12_SUBRESOURCE_TILING</a> structure that <b>GetResourceTiling</b> fills with info about subresource tiles. If subresource tiles are part of packed mipmaps, <b>GetResourceTiling</b> sets the members of D3D12_SUBRESOURCE_TILING to zeros, except the <i>StartTileIndexInOverallResource</i> member, which <b>GetResourceTiling</b> sets to D3D12_PACKED_TILE (0xffffffff). The D3D12_PACKED_TILE constant indicates that the whole <b>D3D12_SUBRESOURCE_TILING</b> structure is meaningless for this situation, and the info that the <i>pPackedMipDesc</i> parameter points to applies.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getresourcetiling
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getresourcetiling
      */
     GetResourceTiling(pTiledResource, pNumTilesForEntireResource, pPackedMipDesc, pStandardTileShapeForNonPackedMips, pNumSubresourceTilings, FirstSubresourceTilingToGet, pSubresourceTilingsForNonPackedMips) {
         pNumTilesForEntireResourceMarshal := pNumTilesForEntireResource is VarRef ? "uint*" : "ptr"
@@ -1127,10 +1320,17 @@ class ID3D12Device extends ID3D12Object{
 
     /**
      * Gets a locally unique identifier for the current device (adapter).
-     * @returns {LUID} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LUID</a></b>
+     * @remarks
+     * This method returns a unique identifier for the adapter that is specific to the adapter hardware.
+     *           Applications can use this identifier to define robust mappings across various APIs (Direct3D 12, DXGI).
+     *         
+     * 
+     * A locally unique identifier (LUID) is a 64-bit value that is guaranteed to be unique only on the system on which it was generated.
+     *           The uniqueness of a locally unique identifier (LUID) is guaranteed only until the system is restarted.
+     * @returns {LUID} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LUID</a></b>
      * 
      * The locally unique identifier for the adapter.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device-getadapterluid
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12device-getadapterluid
      */
     GetAdapterLuid() {
         result := ComCall(43, this, "ptr")

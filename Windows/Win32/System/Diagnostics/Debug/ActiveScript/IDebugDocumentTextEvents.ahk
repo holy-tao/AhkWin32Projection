@@ -33,7 +33,11 @@ class IDebugDocumentTextEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onDestroy() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IDebugDocumentTextEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onInsertText(cCharacterPosition, cNumToInsert) {
-        result := ComCall(4, this, "uint", cCharacterPosition, "uint", cNumToInsert, "HRESULT")
+        result := ComCall(4, this, "uint", cCharacterPosition, "uint", cNumToInsert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IDebugDocumentTextEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onRemoveText(cCharacterPosition, cNumToRemove) {
-        result := ComCall(5, this, "uint", cCharacterPosition, "uint", cNumToRemove, "HRESULT")
+        result := ComCall(5, this, "uint", cCharacterPosition, "uint", cNumToRemove, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +78,11 @@ class IDebugDocumentTextEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onReplaceText(cCharacterPosition, cNumToReplace) {
-        result := ComCall(6, this, "uint", cCharacterPosition, "uint", cNumToReplace, "HRESULT")
+        result := ComCall(6, this, "uint", cCharacterPosition, "uint", cNumToReplace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +93,11 @@ class IDebugDocumentTextEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onUpdateTextAttributes(cCharacterPosition, cNumToUpdate) {
-        result := ComCall(7, this, "uint", cCharacterPosition, "uint", cNumToUpdate, "HRESULT")
+        result := ComCall(7, this, "uint", cCharacterPosition, "uint", cNumToUpdate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +107,11 @@ class IDebugDocumentTextEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onUpdateDocumentAttributes(textdocattr) {
-        result := ComCall(8, this, "uint", textdocattr, "HRESULT")
+        result := ComCall(8, this, "uint", textdocattr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

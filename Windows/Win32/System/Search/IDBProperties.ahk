@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * IDBProperties (Native Client OLE DB provider)
+ * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-ole-db-interfaces/idbproperties-ole-db
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -40,25 +42,38 @@ class IDBProperties extends IUnknown{
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
         prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertyInfoSets 
      * @param {Pointer<Pointer<DBPROPINFOSET>>} prgPropertyInfoSets 
      * @param {Pointer<Pointer<Integer>>} ppDescBuffer 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is a pointer to the property.
+     * 
+     * If the function is unsuccessful, the return value is **NULL**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(cPropertyIDSets, rgPropertyIDSets, pcPropertyInfoSets, prgPropertyInfoSets, ppDescBuffer) {
         pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : "ptr"
         prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : "ptr"
         ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +84,11 @@ class IDBProperties extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProperties(cPropertySets, rgPropertySets) {
-        result := ComCall(5, this, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(5, this, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

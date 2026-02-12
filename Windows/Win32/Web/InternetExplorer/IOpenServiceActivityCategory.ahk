@@ -36,7 +36,11 @@ class IOpenServiceActivityCategory extends IUnknown{
      * @returns {BOOL} 
      */
     HasDefaultActivity() {
-        result := ComCall(3, this, "int*", &pfHasDefaultActivity := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfHasDefaultActivity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasDefaultActivity
     }
 
@@ -45,30 +49,43 @@ class IOpenServiceActivityCategory extends IUnknown{
      * @returns {IOpenServiceActivity} 
      */
     GetDefaultActivity() {
-        result := ComCall(4, this, "ptr*", &ppDefaultActivity := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppDefaultActivity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpenServiceActivity(ppDefaultActivity)
     }
 
     /**
      * 
      * @param {IOpenServiceActivity} pActivity 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {HRESULT} 
      */
-    SetDefaultActivity(pActivity, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetDefaultActivity(pActivity, hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(5, this, "ptr", pActivity, "ptr", hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", pActivity, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         pbstrName := BSTR()
-        result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(6, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -79,7 +96,11 @@ class IOpenServiceActivityCategory extends IUnknown{
      * @returns {IEnumOpenServiceActivity} 
      */
     GetActivityEnumerator(pInput, pOutput) {
-        result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "ptr*", &ppEnumActivity := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "ptr*", &ppEnumActivity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumOpenServiceActivity(ppEnumActivity)
     }
 }

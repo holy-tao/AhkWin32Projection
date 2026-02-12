@@ -7,11 +7,8 @@
 /**
  * This interface adds some memory residency methods, for budgeting and reserving physical memory.
  * @remarks
- * 
  * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nn-dxgi1_4-idxgiadapter3
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nn-dxgi1_4-idxgiadapter3
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -38,18 +35,26 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
 
     /**
      * Registers to receive notification of hardware content protection teardown events.
+     * @remarks
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps">ID3D11VideoDevice::GetContentProtectionCaps</a>() to check for the presence of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_content_protection_caps">D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_TEARDOWN</a>  capability to know whether the hardware contains an automatic teardown mechanism.
+     * 
+     * After the event is signaled, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-checkcryptosessionstatus">ID3D11VideoContext1::CheckCryptoSessionStatus</a> to determine the impact of the hardware teardown for a specific <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> interface.
      * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
      * A handle to the event object that the operating system sets when hardware content protection teardown occurs. The <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openeventa">OpenEvent</a> function returns this handle.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a key value that an application can pass to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus">IDXGIAdapter3::UnregisterHardwareContentProtectionTeardownStatus</a> method to unregister the notification event that <i>hEvent</i> specifies.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent
      */
     RegisterHardwareContentProtectionTeardownStatusEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(12, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -59,7 +64,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
      * 
      * A key value for the window or event to unregister. The  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent">IDXGIAdapter3::RegisterHardwareContentProtectionTeardownStatusEvent</a> method returns this value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus
      */
     UnregisterHardwareContentProtectionTeardownStatus(dwCookie) {
         ComCall(13, this, "uint", dwCookie)
@@ -67,6 +72,9 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
 
     /**
      * This method informs the process of the current budget and process usage.
+     * @remarks
+     * Applications must explicitly manage their usage of physical memory explicitly and keep usage within the budget assigned to the application process.
+     *           Processes that cannot kept their usage within their assigned budgets will likely experience stuttering, as they are intermittently frozen and paged-out to allow other processes to run.
      * @param {Integer} NodeIndex Type: <b>UINT</b>
      * 
      * Specifies the device's physical adapter for which the video memory information is queried.
@@ -79,16 +87,23 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
      * @returns {DXGI_QUERY_VIDEO_MEMORY_INFO} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ns-dxgi1_4-dxgi_query_video_memory_info">DXGI_QUERY_VIDEO_MEMORY_INFO</a>*</b>
      * 
      * Fills in a DXGI_QUERY_VIDEO_MEMORY_INFO structure with the current values.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo
      */
     QueryVideoMemoryInfo(NodeIndex, MemorySegmentGroup) {
         pVideoMemoryInfo := DXGI_QUERY_VIDEO_MEMORY_INFO()
-        result := ComCall(14, this, "uint", NodeIndex, "int", MemorySegmentGroup, "ptr", pVideoMemoryInfo, "HRESULT")
+        result := ComCall(14, this, "uint", NodeIndex, "int", MemorySegmentGroup, "ptr", pVideoMemoryInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVideoMemoryInfo
     }
 
     /**
      * This method sends the minimum required physical memory for an application, to the OS.
+     * @remarks
+     * Applications are encouraged to set a video reservation to denote the amount of physical memory they cannot go without.
+     *           This value helps the OS quickly minimize the impact of large memory pressure situations.
      * @param {Integer} NodeIndex Type: <b>UINT</b>
      * 
      * Specifies the device's physical adapter for which the video memory information is being set.
@@ -101,46 +116,53 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
      * @param {Integer} Reservation Type: <b>UINT64</b>
      * 
      * Specifies a UINT64 that sets the minimum required physical memory, in bytes.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK if successful; an error code otherwise.
-     *             For a list of error codes, see <a href="/windows/win32/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-setvideomemoryreservation
+     *             For a list of error codes, see <a href="https://docs.microsoft.com/windows/win32/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgiadapter3-setvideomemoryreservation
      */
     SetVideoMemoryReservation(NodeIndex, MemorySegmentGroup, Reservation) {
-        result := ComCall(15, this, "uint", NodeIndex, "int", MemorySegmentGroup, "uint", Reservation, "HRESULT")
+        result := ComCall(15, this, "uint", NodeIndex, "int", MemorySegmentGroup, "uint", Reservation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This method establishes a correlation between a CPU synchronization object and the budget change event.
+     * @remarks
+     * Instead of calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo">QueryVideoMemoryInfo</a> regularly, applications can use CPU synchronization objects to efficiently wake threads when budget changes occur.
      * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
      * Specifies a HANDLE for the event.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A key value for the window or event to unregister. The  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent">IDXGIAdapter3::RegisterHardwareContentProtectionTeardownStatusEvent</a> method returns this value.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent
      */
     RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(16, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
     /**
      * This method stops notifying a CPU synchronization object whenever a budget change occurs. An application may switch back to polling the information regularly.
      * @remarks
-     * 
      * An application may switch back to polling for the information regularly.
-     * 
-     * 
      * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
      * A key value for the window or event to unregister. The  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent">IDXGIAdapter3::RegisterHardwareContentProtectionTeardownStatusEvent</a> method returns this value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregistervideomemorybudgetchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregistervideomemorybudgetchangenotification
      */
     UnregisterVideoMemoryBudgetChangeNotification(dwCookie) {
         ComCall(17, this, "uint", dwCookie)

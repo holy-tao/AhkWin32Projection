@@ -5,7 +5,7 @@
 
 /**
  * Implement the IPhotoAcquirePlugin interface when you want to create a plug-in to run alongside the Windows Vista user interface (UI) for image acquisition. Registry settings are required to enable the plug-in.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquireplugin
+ * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nn-photoacquire-iphotoacquireplugin
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -64,10 +64,14 @@ class IPhotoAcquirePlugin extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireplugin-initialize
      */
     Initialize(pPhotoAcquireSource, pPhotoAcquireProgressCB) {
-        result := ComCall(3, this, "ptr", pPhotoAcquireSource, "ptr", pPhotoAcquireProgressCB, "HRESULT")
+        result := ComCall(3, this, "ptr", pPhotoAcquireSource, "ptr", pPhotoAcquireProgressCB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,12 +133,16 @@ class IPhotoAcquirePlugin extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-processitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireplugin-processitem
      */
     ProcessItem(dwAcquireStage, pPhotoAcquireItem, pOriginalItemStream, pszFinalFilename, pPropertyStore) {
         pszFinalFilename := pszFinalFilename is String ? StrPtr(pszFinalFilename) : pszFinalFilename
 
-        result := ComCall(4, this, "uint", dwAcquireStage, "ptr", pPhotoAcquireItem, "ptr", pOriginalItemStream, "ptr", pszFinalFilename, "ptr", pPropertyStore, "HRESULT")
+        result := ComCall(4, this, "uint", dwAcquireStage, "ptr", pPhotoAcquireItem, "ptr", pOriginalItemStream, "ptr", pszFinalFilename, "ptr", pPropertyStore, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,10 +179,14 @@ class IPhotoAcquirePlugin extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-transfercomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireplugin-transfercomplete
      */
     TransferComplete(hr) {
-        result := ComCall(5, this, "int", hr, "HRESULT")
+        result := ComCall(5, this, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -211,12 +223,16 @@ class IPhotoAcquirePlugin extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-displayconfiguredialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireplugin-displayconfiguredialog
      */
     DisplayConfigureDialog(hWndParent) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
-        result := ComCall(6, this, "ptr", hWndParent, "HRESULT")
+        result := ComCall(6, this, "ptr", hWndParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

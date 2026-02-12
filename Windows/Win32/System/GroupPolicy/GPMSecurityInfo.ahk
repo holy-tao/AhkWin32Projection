@@ -118,7 +118,7 @@
  * 
  * For more information about policy-related permissions, see 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpm-createpermission">IGPM::CreatePermission</a>.
- * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmsecurityinfo
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

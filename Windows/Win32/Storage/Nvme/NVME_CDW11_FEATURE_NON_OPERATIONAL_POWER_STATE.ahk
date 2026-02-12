@@ -5,7 +5,7 @@
  * Contains parameters for the Non-Operational Power State Feature that indicates whether permissive mode is enabled for a non-operational power state.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_non_operational_power_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_feature_non_operational_power_state
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

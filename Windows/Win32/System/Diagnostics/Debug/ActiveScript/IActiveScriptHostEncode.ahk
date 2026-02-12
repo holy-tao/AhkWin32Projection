@@ -38,10 +38,20 @@ class IActiveScriptHostEncode extends IUnknown{
      * @returns {HRESULT} 
      */
     EncodeScriptHostFile(bstrInFile, pbstrOutFile, cFlags, bstrDefaultLang) {
-        bstrInFile := bstrInFile is String ? BSTR.Alloc(bstrInFile).Value : bstrInFile
-        bstrDefaultLang := bstrDefaultLang is String ? BSTR.Alloc(bstrDefaultLang).Value : bstrDefaultLang
+        if(bstrInFile is String) {
+            pin := BSTR.Alloc(bstrInFile)
+            bstrInFile := pin.Value
+        }
+        if(bstrDefaultLang is String) {
+            pin := BSTR.Alloc(bstrDefaultLang)
+            bstrDefaultLang := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrInFile, "ptr", pbstrOutFile, "uint", cFlags, "ptr", bstrDefaultLang, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrInFile, "ptr", pbstrOutFile, "uint", cFlags, "ptr", bstrDefaultLang, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -174,7 +174,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_QueueGuid() {
         pbstrGuidQueue := BSTR()
-        result := ComCall(7, this, "ptr", pbstrGuidQueue, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrGuidQueue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGuidQueue
     }
 
@@ -184,7 +188,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_ServiceTypeGuid() {
         pbstrGuidServiceType := BSTR()
-        result := ComCall(8, this, "ptr", pbstrGuidServiceType, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrGuidServiceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGuidServiceType
     }
 
@@ -194,9 +202,16 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ServiceTypeGuid(bstrGuidServiceType) {
-        bstrGuidServiceType := bstrGuidServiceType is String ? BSTR.Alloc(bstrGuidServiceType).Value : bstrGuidServiceType
+        if(bstrGuidServiceType is String) {
+            pin := BSTR.Alloc(bstrGuidServiceType)
+            bstrGuidServiceType := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrGuidServiceType, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrGuidServiceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -206,7 +221,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_Label() {
         pbstrLabel := BSTR()
-        result := ComCall(10, this, "ptr", pbstrLabel, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrLabel
     }
 
@@ -216,9 +235,16 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Label(bstrLabel) {
-        bstrLabel := bstrLabel is String ? BSTR.Alloc(bstrLabel).Value : bstrLabel
+        if(bstrLabel is String) {
+            pin := BSTR.Alloc(bstrLabel)
+            bstrLabel := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrLabel, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -228,7 +254,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_PathName() {
         pbstrPathName := BSTR()
-        result := ComCall(12, this, "ptr", pbstrPathName, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrPathName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrPathName
     }
 
@@ -238,9 +268,16 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PathName(bstrPathName) {
-        bstrPathName := bstrPathName is String ? BSTR.Alloc(bstrPathName).Value : bstrPathName
+        if(bstrPathName is String) {
+            pin := BSTR.Alloc(bstrPathName)
+            bstrPathName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrPathName, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrPathName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -250,7 +287,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_FormatName() {
         pbstrFormatName := BSTR()
-        result := ComCall(14, this, "ptr", pbstrFormatName, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstrFormatName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormatName
     }
 
@@ -260,9 +301,16 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_FormatName(bstrFormatName) {
-        bstrFormatName := bstrFormatName is String ? BSTR.Alloc(bstrFormatName).Value : bstrFormatName
+        if(bstrFormatName is String) {
+            pin := BSTR.Alloc(bstrFormatName)
+            bstrFormatName := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrFormatName, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrFormatName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,7 +319,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_IsTransactional() {
-        result := ComCall(16, this, "short*", &pisTransactional := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &pisTransactional := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pisTransactional
     }
 
@@ -280,7 +332,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_PrivLevel() {
-        result := ComCall(17, this, "int*", &plPrivLevel := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &plPrivLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPrivLevel
     }
 
@@ -290,7 +346,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PrivLevel(lPrivLevel) {
-        result := ComCall(18, this, "int", lPrivLevel, "HRESULT")
+        result := ComCall(18, this, "int", lPrivLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -299,7 +359,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Journal() {
-        result := ComCall(19, this, "int*", &plJournal := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &plJournal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plJournal
     }
 
@@ -309,7 +373,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Journal(lJournal) {
-        result := ComCall(20, this, "int", lJournal, "HRESULT")
+        result := ComCall(20, this, "int", lJournal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -318,7 +386,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Quota() {
-        result := ComCall(21, this, "int*", &plQuota := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &plQuota := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plQuota
     }
 
@@ -328,7 +400,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Quota(lQuota) {
-        result := ComCall(22, this, "int", lQuota, "HRESULT")
+        result := ComCall(22, this, "int", lQuota, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -337,7 +413,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_BasePriority() {
-        result := ComCall(23, this, "int*", &plBasePriority := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &plBasePriority := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plBasePriority
     }
 
@@ -347,7 +427,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_BasePriority(lBasePriority) {
-        result := ComCall(24, this, "int", lBasePriority, "HRESULT")
+        result := ComCall(24, this, "int", lBasePriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -357,7 +441,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_CreateTime() {
         pvarCreateTime := VARIANT()
-        result := ComCall(25, this, "ptr", pvarCreateTime, "HRESULT")
+        result := ComCall(25, this, "ptr", pvarCreateTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarCreateTime
     }
 
@@ -367,7 +455,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_ModifyTime() {
         pvarModifyTime := VARIANT()
-        result := ComCall(26, this, "ptr", pvarModifyTime, "HRESULT")
+        result := ComCall(26, this, "ptr", pvarModifyTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarModifyTime
     }
 
@@ -376,7 +468,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Authenticate() {
-        result := ComCall(27, this, "int*", &plAuthenticate := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &plAuthenticate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAuthenticate
     }
 
@@ -386,7 +482,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Authenticate(lAuthenticate) {
-        result := ComCall(28, this, "int", lAuthenticate, "HRESULT")
+        result := ComCall(28, this, "int", lAuthenticate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -395,7 +495,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_JournalQuota() {
-        result := ComCall(29, this, "int*", &plJournalQuota := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &plJournalQuota := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plJournalQuota
     }
 
@@ -405,7 +509,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_JournalQuota(lJournalQuota) {
-        result := ComCall(30, this, "int", lJournalQuota, "HRESULT")
+        result := ComCall(30, this, "int", lJournalQuota, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -414,56 +522,95 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {Integer} 
      */
     get_IsWorldReadable() {
-        result := ComCall(31, this, "short*", &pisWorldReadable := 0, "HRESULT")
+        result := ComCall(31, this, "short*", &pisWorldReadable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pisWorldReadable
     }
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {Pointer<VARIANT>} IsTransactional 
      * @param {Pointer<VARIANT>} IsWorldReadable 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(IsTransactional, IsWorldReadable) {
-        result := ComCall(32, this, "ptr", IsTransactional, "ptr", IsWorldReadable, "HRESULT")
+        result := ComCall(32, this, "ptr", IsTransactional, "ptr", IsWorldReadable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(33, this, "HRESULT")
+        result := ComCall(33, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Open Method (ADO MD)
+     * @remarks
+     * The **Open** method generates an error if either of its parameters is omitted and its corresponding property value has not been set prior to attempting to open the **Cellset**.
      * @param {Integer} Access 
      * @param {Integer} ShareMode 
      * @returns {IMSMQQueue2} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-md-api/open-method-ado-md
      */
     Open(Access, ShareMode) {
-        result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", &ppq := 0, "HRESULT")
+        result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", &ppq := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueue2(ppq)
     }
 
     /**
-     * 
+     * Refresh Method (RDS)
+     * @remarks
+     * You must set the [Connect](./connect-property-rds.md), [Server](./server-property-rds.md), and [SQL](./sql-property.md) properties before you use the **Refresh** method. All data-bound controls on the form associated with an **RDS.DataControl** object will reflect the new set of records. Any pre-existing [Recordset](../ado-api/recordset-object-ado.md) object is released, and any unsaved changes are discarded. The **Refresh** method automatically makes the first record the current record.  
+     *   
+     *  It is a good idea to call the **Refresh** method periodically when you work with data. If you retrieve data, and then leave it on a client computer for a while, it is likely to become out of date. It is possible that any changes that you make will fail, because someone else might have changed the record and submitted changes before you.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/refresh-method-rds
      */
     Refresh() {
-        result := ComCall(35, this, "HRESULT")
+        result := ComCall(35, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: Update constructor
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/update-constructor
      */
     Update() {
-        result := ComCall(36, this, "HRESULT")
+        result := ComCall(36, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -473,7 +620,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_PathNameDNS() {
         pbstrPathNameDNS := BSTR()
-        result := ComCall(37, this, "ptr", pbstrPathNameDNS, "HRESULT")
+        result := ComCall(37, this, "ptr", pbstrPathNameDNS, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrPathNameDNS
     }
 
@@ -482,7 +633,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(38, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(38, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 
@@ -492,7 +647,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      */
     get_Security() {
         pvarSecurity := VARIANT()
-        result := ComCall(39, this, "ptr", pvarSecurity, "HRESULT")
+        result := ComCall(39, this, "ptr", pvarSecurity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarSecurity
     }
 
@@ -502,7 +661,11 @@ class IMSMQQueueInfo2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Security(varSecurity) {
-        result := ComCall(40, this, "ptr", varSecurity, "HRESULT")
+        result := ComCall(40, this, "ptr", varSecurity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

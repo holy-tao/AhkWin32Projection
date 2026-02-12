@@ -36,7 +36,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
      * @returns {HRESULT} 
      */
     ReJITCompilationStarted(functionId, rejitId, fIsSafeToBlock) {
-        result := ComCall(83, this, "ptr", functionId, "ptr", rejitId, "int", fIsSafeToBlock, "HRESULT")
+        result := ComCall(83, this, "ptr", functionId, "ptr", rejitId, "int", fIsSafeToBlock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
      * @returns {HRESULT} 
      */
     GetReJITParameters(moduleId, methodId, pFunctionControl) {
-        result := ComCall(84, this, "ptr", moduleId, "uint", methodId, "ptr", pFunctionControl, "HRESULT")
+        result := ComCall(84, this, "ptr", moduleId, "uint", methodId, "ptr", pFunctionControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
      * @returns {HRESULT} 
      */
     ReJITCompilationFinished(functionId, rejitId, hrStatus, fIsSafeToBlock) {
-        result := ComCall(85, this, "ptr", functionId, "ptr", rejitId, "int", hrStatus, "int", fIsSafeToBlock, "HRESULT")
+        result := ComCall(85, this, "ptr", functionId, "ptr", rejitId, "int", hrStatus, "int", fIsSafeToBlock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +86,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
      * @returns {HRESULT} 
      */
     ReJITError(moduleId, methodId, functionId, hrStatus) {
-        result := ComCall(86, this, "ptr", moduleId, "uint", methodId, "ptr", functionId, "int", hrStatus, "HRESULT")
+        result := ComCall(86, this, "ptr", moduleId, "uint", methodId, "ptr", functionId, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +107,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
         newObjectIDRangeStartMarshal := newObjectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(87, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(87, this, "uint", cMovedObjectIDRanges, oldObjectIDRangeStartMarshal, oldObjectIDRangeStart, newObjectIDRangeStartMarshal, newObjectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +126,11 @@ class ICorProfilerCallback4 extends ICorProfilerCallback3{
         objectIDRangeStartMarshal := objectIDRangeStart is VarRef ? "ptr*" : "ptr"
         cObjectIDRangeLengthMarshal := cObjectIDRangeLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(88, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "HRESULT")
+        result := ComCall(88, this, "uint", cSurvivingObjectIDRanges, objectIDRangeStartMarshal, objectIDRangeStart, cObjectIDRangeLengthMarshal, cObjectIDRangeLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

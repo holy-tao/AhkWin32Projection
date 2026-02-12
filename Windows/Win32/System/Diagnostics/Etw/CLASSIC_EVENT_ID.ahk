@@ -7,7 +7,7 @@
  * To enable the [read](/windows/desktop/ETW/diskio-typegroup1) event type for
  * [disk IO](/windows/desktop/ETW/diskio) events, set **GUID** to
  * `3d6fa8d4-fe05-11d0-9dda-00c04fd7ba7c` and **Type** to 10.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-classic_event_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-classic_event_id
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

@@ -37,7 +37,11 @@ class IStemSink extends IUnknown{
     PutAltWord(pwcInBuf, cwc) {
         pwcInBuf := pwcInBuf is String ? StrPtr(pwcInBuf) : pwcInBuf
 
-        result := ComCall(3, this, "ptr", pwcInBuf, "uint", cwc, "HRESULT")
+        result := ComCall(3, this, "ptr", pwcInBuf, "uint", cwc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IStemSink extends IUnknown{
     PutWord(pwcInBuf, cwc) {
         pwcInBuf := pwcInBuf is String ? StrPtr(pwcInBuf) : pwcInBuf
 
-        result := ComCall(4, this, "ptr", pwcInBuf, "uint", cwc, "HRESULT")
+        result := ComCall(4, this, "ptr", pwcInBuf, "uint", cwc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

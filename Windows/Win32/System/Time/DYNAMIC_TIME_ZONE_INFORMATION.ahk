@@ -82,7 +82,7 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/ns-timezoneapi-time_zone_information">TIME_ZONE_INFORMATION</a>.
  * 
  *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
- * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/timezoneapi/ns-timezoneapi-dynamic_time_zone_information
  * @namespace Windows.Win32.System.Time
  * @version v4.0.30319
  */

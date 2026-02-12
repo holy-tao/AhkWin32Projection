@@ -126,7 +126,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmstartsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmstartsession
      * @since windows6.0.6000
      */
     static RmStartSession(pSessionHandle, strSessionKey) {
@@ -238,7 +238,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmjoinsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmjoinsession
      * @since windows6.0.6000
      */
     static RmJoinSession(pSessionHandle, strSessionKey) {
@@ -321,7 +321,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmendsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmendsession
      * @since windows6.0.6000
      */
     static RmEndSession(dwSessionHandle) {
@@ -420,7 +420,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmregisterresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmregisterresources
      * @since windows6.0.6000
      */
     static RmRegisterResources(dwSessionHandle, nFiles, rgsFileNames, nApplications, rgApplications, nServices, rgsServiceNames) {
@@ -542,7 +542,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmgetlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmgetlist
      * @since windows6.0.6000
      */
     static RmGetList(dwSessionHandle, pnProcInfoNeeded, pnProcInfo, rgAffectedApps, lpdwRebootReasons) {
@@ -710,7 +710,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmshutdown
      * @since windows6.0.6000
      */
     static RmShutdown(dwSessionHandle, lActionFlags, fnStatus) {
@@ -851,7 +851,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmrestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmrestart
      * @since windows6.0.6000
      */
     static RmRestart(dwSessionHandle, fnStatus) {
@@ -920,7 +920,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmcancelcurrenttask
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmcancelcurrenttask
      * @since windows6.0.6000
      */
     static RmCancelCurrentTask(dwSessionHandle) {
@@ -979,7 +979,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmaddfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmaddfilter
      * @since windows6.0.6000
      */
     static RmAddFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortName, FilterAction) {
@@ -1040,7 +1040,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmremovefilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmremovefilter
      * @since windows6.0.6000
      */
     static RmRemoveFilter(dwSessionHandle, strModuleName, pProcess, strServiceShortName) {
@@ -1115,7 +1115,7 @@ class RestartManager {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/restartmanager/nf-restartmanager-rmgetfilterlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/nf-restartmanager-rmgetfilterlist
      * @since windows6.0.6000
      */
     static RmGetFilterList(dwSessionHandle, pbFilterBuf, cbFilterBuf, cbFilterBufNeeded) {

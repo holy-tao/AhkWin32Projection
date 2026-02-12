@@ -3,7 +3,7 @@
 
 /**
  * The PropertyConditionFlags (uiautomationclient.h) enumeration contains values used in creating property conditions.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-propertyconditionflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/ne-uiautomationclient-propertyconditionflags
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

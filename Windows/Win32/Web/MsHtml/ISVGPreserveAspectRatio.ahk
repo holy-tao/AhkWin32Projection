@@ -56,7 +56,11 @@ class ISVGPreserveAspectRatio extends IDispatch{
      * @returns {HRESULT} 
      */
     put_align(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class ISVGPreserveAspectRatio extends IDispatch{
      * @returns {Integer} 
      */
     get_align() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -75,7 +83,11 @@ class ISVGPreserveAspectRatio extends IDispatch{
      * @returns {HRESULT} 
      */
     put_meetOrSlice(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +96,11 @@ class ISVGPreserveAspectRatio extends IDispatch{
      * @returns {Integer} 
      */
     get_meetOrSlice() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

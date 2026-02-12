@@ -4,8 +4,8 @@
 #Include .\JOYRANGE.ahk
 
 /**
- * The JOYREGHWVALUES (dinputd.h) structure contains the range of values returned by the hardware (filled in by calibration).
- * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-joyreghwvalues
+ * The JOYREGHWVALUES (mmddk.h) structure contains the range of values returned by the hardware (filled in by calibration).
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmddk/ns-mmddk-joyreghwvalues
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

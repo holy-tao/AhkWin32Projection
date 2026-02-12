@@ -5,7 +5,7 @@
 
 /**
  * The IWMDMStorageControl3 interface extends IWMDMStorageControl2 by providing an Insert method that accepts an IWMDMMetaData interface pointer.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmstoragecontrol3
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iwmdmstoragecontrol3
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,16 @@ class IWMDMStorageControl3 extends IWMDMStorageControl2{
 
     /**
      * The Insert3 method puts content into/next to the storage. This method extends IWMDMStorageControl2::Insert2 by allowing the application to explicitly specify the metadata and type of the object being sent.
+     * @remarks
+     * Although you can set metadata on a storage after sending it to the device, it is more efficient to set this information in the <i>pMetaData</i> parameter of this method. Doing so provides additional information to the device to enable it to transfer and handle the file appropriately (for example, by storing it in the correct place) or display useful information (such as a user-written description of a picture).
+     * 
+     * To set properties for a Windows Portable Devices (WPD) device, an application would create an <b>IPortableDeviceValues</b> object and set each property into this collection. Then, the application would serialize the collection to a binary large object (BLOB). Once the data is serialized, the application would add it to the <b>IWMDMMetaData</b> referenced by the <i>pMetadata</i> argument using the g_wszWPDPassthroughPropertyValues metadata constant.
+     * 
+     * If the WMDM_MODE_THREAD flag is specified, you should obtain completion status by calling either <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2">IWMDMProgress2::End2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3">IWMDMProgress3::End3</a>. These methods will ensure that the operation is complete and will also return an HRESULT with success or failure information.
+     * 
+     * If an application uses WMDM_MODE_THREAD and passes a non-<b>null</b><i>pProgress</i> parameter, the application must ensure that the object to which <i>pProgress</i> belongs is not destroyed until the read operation completes, because Windows Media Device Manager will send progress notifications to this object. This object can be destroyed only after it receives an end notification. Failure to do this will result in access violations.
+     * 
+     * When creating a playlist or other reference object, the object being "inserted" actually contains no data but is simply stored on the device as a group of metadata references to other objects (such as music files). Creating such an "abstract" object on the playlist is described in <a href="https://docs.microsoft.com/windows/desktop/WMDM/creating-a-playlist-on-the-device">Creating a Playlist on the Device</a>.
      * @param {Integer} fuMode Processing mode used for the <b>Insert3</b> operation. The following table lists the processing modes that can be specified in the <i>fuMode</i> parameter. You must specify exactly one of the first two modes, exactly one of the STORAGECONTROL modes, and exactly one of the CONTENT modes. If both WMDM_MODE_BLOCK and WMDM_MODE_THREAD are specified, block mode is used. Specifying the WMDM_FILE_ATTR* flags in this function is more efficient than calling this function first, then setting these attributes on the file after it has been created or sent.
      * 
      * <table>
@@ -156,14 +166,18 @@ class IWMDMStorageControl3 extends IWMDMStorageControl2{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstoragecontrol3-insert3
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstoragecontrol3-insert3
      */
     Insert3(fuMode, fuType, pwszFileSource, pwszFileDest, pOperation, pProgress, pMetaData, pUnknown, ppNewObject) {
         pwszFileSource := pwszFileSource is String ? StrPtr(pwszFileSource) : pwszFileSource
         pwszFileDest := pwszFileDest is String ? StrPtr(pwszFileDest) : pwszFileDest
 
-        result := ComCall(9, this, "uint", fuMode, "uint", fuType, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pMetaData, "ptr", pUnknown, "ptr*", ppNewObject, "HRESULT")
+        result := ComCall(9, this, "uint", fuMode, "uint", fuType, "ptr", pwszFileSource, "ptr", pwszFileDest, "ptr", pOperation, "ptr", pProgress, "ptr", pMetaData, "ptr", pUnknown, "ptr*", ppNewObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

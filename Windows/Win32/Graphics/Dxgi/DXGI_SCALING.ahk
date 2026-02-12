@@ -38,7 +38,7 @@
  * ```
  * 
  * Note that <i>outputWidth</i> and <i>outputHeight</i> are the pixel sizes of the presentation target size. In the case of <b>CoreWindow</b>, this requires converting the <i>logicalWidth</i> and <i>logicalHeight</i> values from DIPS to pixels using the window's DPI property.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_scaling
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_2/ne-dxgi1_2-dxgi_scaling
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

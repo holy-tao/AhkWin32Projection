@@ -17,7 +17,7 @@
  * 
  * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwAvailableMediaModes</b> are available only to applications that request an API version of 2.0 or later when calling 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetaddresscaps">lineGetAddressCaps</a>.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineaddresscaps
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-lineaddresscaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

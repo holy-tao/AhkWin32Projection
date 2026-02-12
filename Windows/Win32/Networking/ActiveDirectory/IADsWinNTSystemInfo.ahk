@@ -6,7 +6,7 @@
 
 /**
  * The IADsWinNTSystemInfo interface retrieves the WinNT system information about a computer. Such system information includes user account name, user domain, host name, and the primary domain controller of the host computer.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadswinntsysteminfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadswinntsysteminfo
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -65,7 +65,11 @@ class IADsWinNTSystemInfo extends IDispatch{
      */
     get_UserName() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -75,7 +79,11 @@ class IADsWinNTSystemInfo extends IDispatch{
      */
     get_ComputerName() {
         retval := BSTR()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        result := ComCall(8, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -85,7 +93,11 @@ class IADsWinNTSystemInfo extends IDispatch{
      */
     get_DomainName() {
         retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -95,7 +107,11 @@ class IADsWinNTSystemInfo extends IDispatch{
      */
     get_PDC() {
         retval := BSTR()
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
+        result := ComCall(10, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

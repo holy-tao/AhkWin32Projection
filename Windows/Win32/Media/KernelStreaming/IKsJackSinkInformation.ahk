@@ -6,7 +6,7 @@
 
 /**
  * The IKsJackSinkInformation interface provides access to jack sink information if the jack is supported by the hardware.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iksjacksinkinformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nn-devicetopology-iksjacksinkinformation
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class IKsJackSinkInformation extends IUnknown{
     /**
      * The GetJackSinkInformation method retrieves the sink information for the specified jack.
      * @returns {KSJACK_SINK_INFORMATION} Pointer to a caller-allocated buffer that receives the sink information of the jack in a <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_sink_information">KSJACK_SINK_INFORMATION</a> structure. The buffer size must be at least <c>sizeof(KSJACK_SINK_INFORMATION)</c>.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjacksinkinformation-getjacksinkinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iksjacksinkinformation-getjacksinkinformation
      */
     GetJackSinkInformation() {
         pJackSinkInformation := KSJACK_SINK_INFORMATION()
-        result := ComCall(3, this, "ptr", pJackSinkInformation, "HRESULT")
+        result := ComCall(3, this, "ptr", pJackSinkInformation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pJackSinkInformation
     }
 }

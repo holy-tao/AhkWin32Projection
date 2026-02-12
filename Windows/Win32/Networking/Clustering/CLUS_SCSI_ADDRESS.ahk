@@ -12,7 +12,7 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> when 
  *      <i>dwControlCode</i> is set to 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-storage-get-available-disks">CLUSCTL_RESOURCE_TYPE_STORAGE_GET_AVAILABLE_DISKS</a>.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_scsi_address
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clus_scsi_address
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

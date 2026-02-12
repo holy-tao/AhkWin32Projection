@@ -18,7 +18,7 @@
  * 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getippathentry">GetIpPathEntry</a> function retrieves a single IP path entry and returns this information in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_table">MIB_IPPATH_TABLE</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ippath_row
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-mib_ippath_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

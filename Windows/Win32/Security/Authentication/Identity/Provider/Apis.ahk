@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
@@ -11,22 +13,22 @@ class Provider {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IDENTITY_KEYWORD_ASSOCIATED => "associated"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IDENTITY_KEYWORD_LOCAL => "local"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IDENTITY_KEYWORD_HOMEGROUP => "homegroup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IDENTITY_KEYWORD_CONNECTED => "connected"
 
@@ -36,37 +38,37 @@ class Provider {
     static OID_OAssociatedIdentityProviderObject => Guid("{98c5a3dd-db68-4f1a-8d2b-9079cdfeaf61}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_OUT_OF_BOX_EXPERIENCE => "OutOfBoxExperience"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_MODERN_SETTINGS_ADD_USER => "ModernSettingsAddUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_OUT_OF_BOX_UPGRADE_EXPERIENCE => "OutOfBoxUpgradeExperience"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_COMPLETE_ACCOUNT => "CompleteAccount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_NTH_USER_FIRST_AUTH => "NthUserFirstAuth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_USER_NAME => "Username"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PROPERTY_STORE => "PropertyStore"
 ;@endregion Constants

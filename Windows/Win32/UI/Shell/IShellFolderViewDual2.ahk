@@ -4,13 +4,10 @@
 #Include .\IShellFolderViewDual.ahk
 
 /**
- * Exposes methods that modify the view and select items in the current folder.
+ * Exposes methods that modify the view and select items in the current folder. (IShellFolderViewDual2)
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-ishellfolderviewdual">IShellFolderViewDual</a> interface, from which it inherits.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shldisp/nn-shldisp-ishellfolderviewdual2
+ * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nn-shldisp-ishellfolderviewdual2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -48,10 +45,14 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
      * @returns {Integer} Type: <b>uint*</b>
      * 
      * When this method returns, contains a pointer to an unsigned integer that represents the current view mode. For a list of possible values see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual2-get_currentviewmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual2-get_currentviewmode
      */
     get_CurrentViewMode() {
-        result := ComCall(16, this, "uint*", &pViewMode := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &pViewMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pViewMode
     }
 
@@ -62,26 +63,36 @@ class IShellFolderViewDual2 extends IShellFolderViewDual{
      * Sets the current view mode. For a list of possible values see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual2-put_currentviewmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual2-put_currentviewmode
      */
     put_CurrentViewMode(ViewMode) {
-        result := ComCall(17, this, "uint", ViewMode, "HRESULT")
+        result := ComCall(17, this, "uint", ViewMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Selects an item relative to the current item.
+     * @remarks
+     * The current item is defined as the item in the view with the SVSI_SELECTIONMARK state. If there is no item with SVSI_SELECTIONMARK, the method returns S_FALSE and does nothing.
      * @param {Integer} iRelative Type: <b>int</b>
      * 
      * The offset of the item to be selected in relation to the current item.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-ishellfolderviewdual2-selectitemrelative
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shldisp/nf-shldisp-ishellfolderviewdual2-selectitemrelative
      */
     SelectItemRelative(iRelative) {
-        result := ComCall(18, this, "int", iRelative, "HRESULT")
+        result := ComCall(18, this, "int", iRelative, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

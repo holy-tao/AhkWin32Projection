@@ -39,11 +39,15 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @param {Integer} height 
      * @param {Integer} backBufferCount 
      * @param {Integer} format 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {ISurfacePresenterFlip} 
      */
-    CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", &ppSPFlip := 0, "HRESULT")
+    CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, mode_) {
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode_, "ptr*", &ppSPFlip := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISurfacePresenterFlip(ppSPFlip)
     }
 
@@ -53,7 +57,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      */
     GetDeviceLuid() {
         pLuid := LUID()
-        result := ComCall(4, this, "ptr", pLuid, "HRESULT")
+        result := ComCall(4, this, "ptr", pLuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLuid
     }
 
@@ -62,7 +70,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @returns {HRESULT} 
      */
     EnterFullScreen() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +83,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @returns {HRESULT} 
      */
     ExitFullScreen() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @returns {BOOL} 
      */
     IsFullScreen() {
-        result := ComCall(7, this, "int*", &pfFullScreen := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pfFullScreen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfFullScreen
     }
 
@@ -90,7 +110,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      */
     GetBoundingRect() {
         pRect := RECT()
-        result := ComCall(8, this, "ptr", pRect, "HRESULT")
+        result := ComCall(8, this, "ptr", pRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRect
     }
 
@@ -106,7 +130,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
         pScaleXMarshal := pScaleX is VarRef ? "float*" : "ptr"
         pScaleYMarshal := pScaleY is VarRef ? "float*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pPos, "ptr", pSize, pScaleXMarshal, pScaleX, pScaleYMarshal, pScaleY, "HRESULT")
+        result := ComCall(9, this, "ptr", pPos, "ptr", pSize, pScaleXMarshal, pScaleX, pScaleYMarshal, pScaleY, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +144,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
      */
     GetFullScreenSize() {
         pSize := SIZE()
-        result := ComCall(10, this, "ptr", pSize, "HRESULT")
+        result := ComCall(10, this, "ptr", pSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSize
     }
 }

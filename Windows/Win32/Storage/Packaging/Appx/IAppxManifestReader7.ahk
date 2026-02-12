@@ -36,7 +36,11 @@ class IAppxManifestReader7 extends IUnknown{
      * @returns {IAppxManifestDriverDependenciesEnumerator} 
      */
     GetDriverDependencies() {
-        result := ComCall(3, this, "ptr*", &driverDependencies := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &driverDependencies := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestDriverDependenciesEnumerator(driverDependencies)
     }
 
@@ -45,7 +49,11 @@ class IAppxManifestReader7 extends IUnknown{
      * @returns {IAppxManifestOSPackageDependenciesEnumerator} 
      */
     GetOSPackageDependencies() {
-        result := ComCall(4, this, "ptr*", &osPackageDependencies := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &osPackageDependencies := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestOSPackageDependenciesEnumerator(osPackageDependencies)
     }
 
@@ -54,7 +62,11 @@ class IAppxManifestReader7 extends IUnknown{
      * @returns {IAppxManifestHostRuntimeDependenciesEnumerator} 
      */
     GetHostRuntimeDependencies() {
-        result := ComCall(5, this, "ptr*", &hostRuntimeDependencies := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &hostRuntimeDependencies := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestHostRuntimeDependenciesEnumerator(hostRuntimeDependencies)
     }
 }

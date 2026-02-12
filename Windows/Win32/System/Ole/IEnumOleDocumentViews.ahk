@@ -6,7 +6,7 @@
 
 /**
  * Enumerates the views supported by a document object.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/nn-docobj-ienumoledocumentviews
+ * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nn-docobj-ienumoledocumentviews
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -32,7 +32,9 @@ class IEnumOleDocumentViews extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * Retrieves the specified number of items in the enumeration sequence. (IEnumOleDocumentViews.Next)
+     * @remarks
+     * E_NOTIMPL is not allowed as a return value. If an error value is returned, no entries in the <i>rgpView</i> array are valid and no calls to Release are required.
      * @param {Integer} cViews The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
      * 
      * If <i>pcFetched</i> is <b>NULL</b>, this parameter must be 1.
@@ -41,43 +43,61 @@ class IEnumOleDocumentViews extends IUnknown{
      * The enumerator is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>, and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through each pointer enumerated. If <i>cViews</i> is greater than 1, the caller must also pass a non-<b>NULL</b> pointer passed to <i>pcFetched</i> to know how many pointers to release.
      * @param {Pointer<Integer>} pcFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested. This parameter can be <b>NULL</b>, in which case the <i>cViews</i> parameter must be 1.
      * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-ienumoledocumentviews-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nf-docobj-ienumoledocumentviews-next
      */
     Next(cViews, rgpView, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cViews, "ptr*", rgpView, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cViews, "ptr*", rgpView, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * Skips over the specified number of items in the enumeration sequence. (IEnumOleDocumentViews.Skip)
      * @param {Integer} cViews The number of items to be skipped.
      * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-ienumoledocumentviews-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nf-docobj-ienumoledocumentviews-skip
      */
     Skip(cViews) {
-        result := ComCall(4, this, "uint", cViews, "HRESULT")
+        result := ComCall(4, this, "uint", cViews, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumOleDocumentViews.Reset)
+     * @remarks
+     * There is no guarantee that the same set of objects will be enumerated after the reset operation has completed. A static collection is reset to the beginning, but it can be too expensive for some collections, such as files in a directory, to guarantee this condition.
      * @returns {HRESULT} This method returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-ienumoledocumentviews-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nf-docobj-ienumoledocumentviews-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * Creates a new enumerator that contains the same enumeration state as the current one. (IEnumOleDocumentViews.Clone)
      * @returns {IEnumOleDocumentViews} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-ienumoledocumentviews">IEnumOleDocumentViews</a> interface pointer on the newly created enumerator. The caller must release this enumerator separately from the one from which it was cloned.
-     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-ienumoledocumentviews-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nf-docobj-ienumoledocumentviews-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumOleDocumentViews(ppEnum)
     }
 }

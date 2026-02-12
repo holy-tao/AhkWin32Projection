@@ -7,13 +7,10 @@
 /**
  * Represents a trigger that starts a job based on a monthly schedule.
  * @remarks
- * 
  * The time of day that the task is started is set by the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary">StartBoundary</a> property.
  * 
  * When reading or writing your own XML for a task, a monthly trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebymonth-calendartriggertype-element">ScheduleByMonth </a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-imonthlytrigger
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-imonthlytrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -67,9 +64,8 @@ class IMonthlyTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the days of the month during which the task runs.
+     * Gets or sets the days of the month during which the task runs. (Get)
      * @remarks
-     * 
      * <table>
      * <tr>
      * <th>Day of month</th>
@@ -242,23 +238,24 @@ class IMonthlyTrigger extends ITrigger{
      * 
      * 
      * When reading or writing your own XML for a task, the days of the month are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-daysofmonth-monthlyscheduletype-element">DaysOfMonth</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-get_daysofmonth
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-get_daysofmonth
      */
     get_DaysOfMonth(pDays) {
         pDaysMarshal := pDays is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, pDaysMarshal, pDays, "HRESULT")
+        result := ComCall(20, this, pDaysMarshal, pDays, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the days of the month during which the task runs.
+     * Gets or sets the days of the month during which the task runs. (Put)
      * @remarks
-     * 
      * <table>
      * <tr>
      * <th>Day of month</th>
@@ -431,21 +428,22 @@ class IMonthlyTrigger extends ITrigger{
      * 
      * 
      * When reading or writing your own XML for a task, the days of the month are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-daysofmonth-monthlyscheduletype-element">DaysOfMonth</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Integer} days 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-put_daysofmonth
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-put_daysofmonth
      */
     put_DaysOfMonth(days) {
-        result := ComCall(21, this, "int", days, "HRESULT")
+        result := ComCall(21, this, "int", days, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the months of the year during which the task runs.
+     * Gets or sets the months of the year during which the task runs. (IMonthlyTrigger.get_MonthsOfYear)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask that is used by this property.<table>
      * <tr>
      * <th>Month</th>
@@ -518,23 +516,24 @@ class IMonthlyTrigger extends ITrigger{
      * 
      * 
      * When reading or writing your own XML for a task, the months of the year are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-months-monthlyscheduletype-element">Months </a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<Integer>} pMonths 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-get_monthsofyear
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-get_monthsofyear
      */
     get_MonthsOfYear(pMonths) {
         pMonthsMarshal := pMonths is VarRef ? "short*" : "ptr"
 
-        result := ComCall(22, this, pMonthsMarshal, pMonths, "HRESULT")
+        result := ComCall(22, this, pMonthsMarshal, pMonths, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the months of the year during which the task runs.
+     * Gets or sets the months of the year during which the task runs. (IMonthlyTrigger.put_MonthsOfYear)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask that is used by this property.<table>
      * <tr>
      * <th>Month</th>
@@ -607,62 +606,83 @@ class IMonthlyTrigger extends ITrigger{
      * 
      * 
      * When reading or writing your own XML for a task, the months of the year are specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-months-monthlyscheduletype-element">Months </a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Integer} months 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-put_monthsofyear
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-put_monthsofyear
      */
     put_MonthsOfYear(months) {
-        result := ComCall(23, this, "short", months, "HRESULT")
+        result := ComCall(23, this, "short", months, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a Boolean value that indicates that the task runs on the last day of the month.
+     * Gets or sets a Boolean value that indicates that the task runs on the last day of the month. (Get)
      * @param {Pointer<VARIANT_BOOL>} pLastDay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-get_runonlastdayofmonth
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-get_runonlastdayofmonth
      */
     get_RunOnLastDayOfMonth(pLastDay) {
         pLastDayMarshal := pLastDay is VarRef ? "short*" : "ptr"
 
-        result := ComCall(24, this, pLastDayMarshal, pLastDay, "HRESULT")
+        result := ComCall(24, this, pLastDayMarshal, pLastDay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a Boolean value that indicates that the task runs on the last day of the month.
+     * Gets or sets a Boolean value that indicates that the task runs on the last day of the month. (Put)
      * @param {VARIANT_BOOL} lastDay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-put_runonlastdayofmonth
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-put_runonlastdayofmonth
      */
     put_RunOnLastDayOfMonth(lastDay) {
-        result := ComCall(25, this, "short", lastDay, "HRESULT")
+        result := ComCall(25, this, "short", lastDay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a delay time that is randomly added to the start time of the trigger.
+     * Gets or sets a delay time that is randomly added to the start time of the trigger. (IMonthlyTrigger.get_RandomDelay)
      * @param {Pointer<BSTR>} pRandomDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-get_randomdelay
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-get_randomdelay
      */
     get_RandomDelay(pRandomDelay) {
-        result := ComCall(26, this, "ptr", pRandomDelay, "HRESULT")
+        result := ComCall(26, this, "ptr", pRandomDelay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a delay time that is randomly added to the start time of the trigger.
+     * Gets or sets a delay time that is randomly added to the start time of the trigger. (IMonthlyTrigger.put_RandomDelay)
      * @param {BSTR} randomDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlytrigger-put_randomdelay
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-imonthlytrigger-put_randomdelay
      */
     put_RandomDelay(randomDelay) {
-        randomDelay := randomDelay is String ? BSTR.Alloc(randomDelay).Value : randomDelay
+        if(randomDelay is String) {
+            pin := BSTR.Alloc(randomDelay)
+            randomDelay := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", randomDelay, "HRESULT")
+        result := ComCall(27, this, "ptr", randomDelay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

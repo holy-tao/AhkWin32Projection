@@ -24,12 +24,19 @@ class ISpNotifyCallback extends Win32ComInterface{
 
     /**
      * 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {WPARAM} wParam_ 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    NotifyCallback(wParam, lParam) {
-        result := ComCall(0, this, "ptr", wParam, "ptr", lParam, "HRESULT")
+    NotifyCallback(wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(0, this, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

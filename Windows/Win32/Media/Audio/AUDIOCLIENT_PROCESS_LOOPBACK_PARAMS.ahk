@@ -5,7 +5,7 @@
  * Specifies parameters for a call to ActivateAudioInterfaceAsync where loopback activation is requested.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_process_loopback_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioclientactivationparams/ns-audioclientactivationparams-audioclient_process_loopback_params
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

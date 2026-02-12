@@ -35,7 +35,11 @@ class ICLRPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDefaultAction(operation, action) {
-        result := ComCall(3, this, "int", operation, "int", action, "HRESULT")
+        result := ComCall(3, this, "int", operation, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ICLRPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTimeout(operation, dwMilliseconds) {
-        result := ComCall(4, this, "int", operation, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(4, this, "int", operation, "uint", dwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class ICLRPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetActionOnTimeout(operation, action) {
-        result := ComCall(5, this, "int", operation, "int", action, "HRESULT")
+        result := ComCall(5, this, "int", operation, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class ICLRPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTimeoutAndAction(operation, dwMilliseconds, action) {
-        result := ComCall(6, this, "int", operation, "uint", dwMilliseconds, "int", action, "HRESULT")
+        result := ComCall(6, this, "int", operation, "uint", dwMilliseconds, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class ICLRPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetActionOnFailure(failure, action) {
-        result := ComCall(7, this, "int", failure, "int", action, "HRESULT")
+        result := ComCall(7, this, "int", failure, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class ICLRPolicyManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetUnhandledExceptionPolicy(policy) {
-        result := ComCall(8, this, "int", policy, "HRESULT")
+        result := ComCall(8, this, "int", policy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -41,7 +41,11 @@ class IDebugExpressionContext extends IUnknown{
         pstrCode := pstrCode is String ? StrPtr(pstrCode) : pstrCode
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(3, this, "ptr", pstrCode, "uint", nRadix, "ptr", pstrDelimiter, "uint", dwFlags, "ptr*", &ppe := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrCode, "uint", nRadix, "ptr", pstrDelimiter, "uint", dwFlags, "ptr*", &ppe := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugExpression(ppe)
     }
 
@@ -52,7 +56,11 @@ class IDebugExpressionContext extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLanguageInfo(pbstrLanguageName, pLanguageID) {
-        result := ComCall(4, this, "ptr", pbstrLanguageName, "ptr", pLanguageID, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrLanguageName, "ptr", pLanguageID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

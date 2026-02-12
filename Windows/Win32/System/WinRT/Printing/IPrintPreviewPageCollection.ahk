@@ -29,13 +29,18 @@ class IPrintPreviewPageCollection extends IUnknown{
     static VTableNames => ["Paginate", "MakePage"]
 
     /**
-     * 
+     * Initializes a new instance of the [PaginateEventArgs](paginateeventargs.md) class.
      * @param {Integer} currentJobPage 
      * @param {IInspectable} printTaskOptions 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.printing.paginateeventargs.#ctor
      */
     Paginate(currentJobPage, printTaskOptions) {
-        result := ComCall(3, this, "uint", currentJobPage, "ptr", printTaskOptions, "HRESULT")
+        result := ComCall(3, this, "uint", currentJobPage, "ptr", printTaskOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +52,11 @@ class IPrintPreviewPageCollection extends IUnknown{
      * @returns {HRESULT} 
      */
     MakePage(desiredJobPage, width, height) {
-        result := ComCall(4, this, "uint", desiredJobPage, "float", width, "float", height, "HRESULT")
+        result := ComCall(4, this, "uint", desiredJobPage, "float", width, "float", height, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

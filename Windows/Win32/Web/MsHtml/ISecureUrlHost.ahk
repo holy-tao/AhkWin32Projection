@@ -37,7 +37,11 @@ class ISecureUrlHost extends IUnknown{
     ValidateSecureUrl(pchUrlInQuestion, dwFlags) {
         pchUrlInQuestion := pchUrlInQuestion is String ? StrPtr(pchUrlInQuestion) : pchUrlInQuestion
 
-        result := ComCall(3, this, "int*", &pfAllow := 0, "ptr", pchUrlInQuestion, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "int*", &pfAllow := 0, "ptr", pchUrlInQuestion, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAllow
     }
 }

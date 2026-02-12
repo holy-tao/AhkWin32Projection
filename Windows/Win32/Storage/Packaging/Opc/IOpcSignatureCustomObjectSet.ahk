@@ -8,7 +8,6 @@
 /**
  * An unordered set of IOpcSignatureCustomObject interface pointers that contain the XML markup of application-specific Object elements.
  * @remarks
- * 
  * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer provides access to the XML markup of the <b>Object</b> element it represents. To access the XML markup of the  <b>Object</b> element, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml">IOpcSignatureCustomObject::GetXml</a> method.
  * 
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer is created and added to the set, the <b>Object</b>  it represents is saved when the package is saved.
@@ -16,10 +15,7 @@
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer is deleted from the set, the <b>Object</b> it represents is not saved when the package is saved.
  * 
  * To create an <b>IOpcSignatureCustomObjectSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getcustomobjectset">IOpcSigningOptions::GetCustomObjectSet</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturecustomobjectset
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcsignaturecustomobjectset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -46,6 +42,10 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
 
     /**
      * Creates an IOpcSignatureCustomObject interface pointer to represent an application-specific Object element in the signature, and adds the new interface to the set.
+     * @remarks
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer provides access to the XML markup of the <b>Object</b> element it represents. To access the XML markup of the  <b>Object</b> element, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml">IOpcSignatureCustomObject::GetXml</a> method.
+     * 
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer is created and added to the set, the <b>Object</b>  it represents is saved when the package is saved.
      * @param {Pointer<Integer>} xmlMarkup A buffer that contains the XML markup for the <b>Object</b> element to be represented.
      * 
      * This XML markup must include the opening <b>Object</b> and closing <b>/Object</b> tags.
@@ -78,17 +78,23 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
      * @returns {IOpcSignatureCustomObject} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer that represents the application-specific <b>Object</b> element.
      * 
      * This parameter can be <b>NULL</b> if a pointer to the  new interface is not needed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectset-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectset-create
      */
     Create(xmlMarkup, count) {
         xmlMarkupMarshal := xmlMarkup is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, "uint", count, "ptr*", &customObject := 0, "HRESULT")
+        result := ComCall(3, this, xmlMarkupMarshal, xmlMarkup, "uint", count, "ptr*", &customObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignatureCustomObject(customObject)
     }
 
     /**
      * Deletes a specified IOpcSignatureCustomObject interface pointer from the set.
+     * @remarks
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer is deleted from the set, the <b>Object</b> it represents is not saved when the package is saved.
      * @param {IOpcSignatureCustomObject} customObject An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -120,20 +126,28 @@ class IOpcSignatureCustomObjectSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectset-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectset-delete
      */
     Delete(customObject) {
-        result := ComCall(4, this, "ptr", customObject, "HRESULT")
+        result := ComCall(4, this, "ptr", customObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an enumerator of IOpcSignatureCustomObject interface pointers in the set.
      * @returns {IOpcSignatureCustomObjectEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointers in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectset-getenumerator
      */
     GetEnumerator() {
-        result := ComCall(5, this, "ptr*", &customObjectEnumerator := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &customObjectEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignatureCustomObjectEnumerator(customObjectEnumerator)
     }
 }

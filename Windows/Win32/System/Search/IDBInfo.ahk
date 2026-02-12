@@ -33,7 +33,11 @@ class IDBInfo extends IUnknown{
      * @returns {PWSTR} 
      */
     GetKeywords() {
-        result := ComCall(3, this, "ptr*", &ppwszKeywords := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppwszKeywords := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszKeywords
     }
 
@@ -52,7 +56,11 @@ class IDBInfo extends IUnknown{
         prgLiteralInfoMarshal := prgLiteralInfo is VarRef ? "ptr*" : "ptr"
         ppCharBufferMarshal := ppCharBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, prgLiteralInfoMarshal, prgLiteralInfo, ppCharBufferMarshal, ppCharBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, prgLiteralInfoMarshal, prgLiteralInfo, ppCharBufferMarshal, ppCharBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -8,11 +8,8 @@
 /**
  * Manages attendee objects.
  * @remarks
- * 
  * The lifetime of the objects in this collection is controlled by the network layer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiattendeemanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiattendeemanager
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -53,26 +50,31 @@ class IRDPSRAPIAttendeeManager extends IDispatch{
     /**
      * An enumerator interface for the attendee collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
      * An item in the attendee collection.
      * @remarks
-     * 
      * If the identifier matches the object identifier of one of the attendee objects, the object is returned.
-     * 
-     * 
      * @param {Integer} id 
      * @returns {IRDPSRAPIAttendee} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get_item
      */
     get_Item(id) {
-        result := ComCall(8, this, "int", id, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(8, this, "int", id, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIAttendee(ppItem)
     }
 }

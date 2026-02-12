@@ -5,13 +5,10 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Contains the functionality of Automatic Updates.
+ * Contains the functionality of Automatic Updates. (IAutomaticUpdates)
  * @remarks
- * 
  * You can create an instance of this interface by using the AutomaticUpdates coclass. Use the Microsoft.Update.AutoUpdate program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iautomaticupdates
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iautomaticupdates
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -58,6 +55,8 @@ class IAutomaticUpdates extends IDispatch{
 
     /**
      * Begins the Automatic Updates detection task if Automatic Updates is enabled. If any updates are detected, the installation behavior is determined by the NotificationLevel property of the IAutomaticUpdatesSettings interface.
+     * @remarks
+     * This method returns <b>WU_E_AU_NOSERVICE</b> if Automatic Updates is disabled, initializing, uninitializing, or not configured.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
      * This method can also return the following error codes.
@@ -99,21 +98,38 @@ class IAutomaticUpdates extends IDispatch{
      * You cannot search for updates if the following conditions are true:
      * 
      * <ul>
-     * <li>The <a href="/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssManagedServer</a> or <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssDefault</a>.</li>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssManagedServer</a> or <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssDefault</a>.</li>
      * <li>The managed server on a computer is a Microsoft Software Update Services (SUS) version 1.0 server.</li>
      * </ul>
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-detectnow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-detectnow
      */
     DetectNow() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Pauses automatic updates.
+     * @remarks
+     * This method requires administrator permissions.
+     * 
+     * Automatic Updates can be paused for only eight hours.  This limit  varies in different binary versions. 
+     *     Callers should call the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdates-resume">Resume</a> method after 
+     *     calling <b>Pause</b> as soon as they no longer need to 
+     *     pause automatic updating.
+     * 
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the 
+     *     interface is locked down.
+     * 
+     * This method returns <b>WU_E_AU_NOSERVICE</b> if Automatic Updates is disabled, 
+     *     initializing, uninitializing, or not configured.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
      * 
      * This method can also return the following error codes.
@@ -177,21 +193,33 @@ class IAutomaticUpdates extends IDispatch{
      * You cannot search for updates if the following conditions are true:
      * 
      * <ul>
-     * <li>The <a href="/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssManagedServer</a> or <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssDefault</a>.</li>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssManagedServer</a> or <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssDefault</a>.</li>
      * <li>The managed server on a computer is a Microsoft Software Update Services (SUS) 1.0 server.</li>
      * </ul>
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-pause
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-pause
      */
     Pause() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Restarts automatic updating if automatic updating is paused.
+     * @remarks
+     * This method requires administrator permissions.
+     * 
+     * Callers should call <b>Resume</b> after calling the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdates-pause">Pause</a> method as soon as they no longer need to pause automatic updating.
+     * 
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the interface has been locked down.
+     * 
+     *  This method returns <b>WU_E_AU_NOSERVICE</b> if Automatic Updates is disabled, initializing, uninitializing, or not configured.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
      * This method can also return the following error codes.
@@ -255,21 +283,32 @@ class IAutomaticUpdates extends IDispatch{
      * You cannot search for updates if the following conditions are true:
      * 
      * <ul>
-     * <li>The <a href="/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssManagedServer</a> or <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssDefault</a>.</li>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssManagedServer</a> or <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssDefault</a>.</li>
      * <li>The managed server on a computer is a Microsoft Software Update Services (SUS) 1.0 server.</li>
      * </ul>
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-resume
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-resume
      */
     Resume() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Displays a dialog box that contains settings for Automatic Updates.
+     * @remarks
+     * A call to <b>ShowSettingsDialog</b>  fails if the calling user is not logged on or does not have a desktop.
+     * A caller can also programmatically modify Automatic Updates settings by using the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdates-get_settings">Settings</a> property.
+     * 
+     * The settings in the dialog box are read-only if the caller has insufficient security permissions or if the settings are enforced by a domain administrator who is using Group Policy settings.
+     * 
+     *  This method returns <b>WU_E_AU_NOSERVICE</b> if Automatic Updates is disabled, initializing, uninitializing, or not configured.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
      * This method can also return the following error codes.
@@ -322,46 +361,59 @@ class IAutomaticUpdates extends IDispatch{
      * You cannot search for updates if the following conditions are true:
      * 
      * <ul>
-     * <li>The <a href="/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssManagedServer</a> or <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssDefault</a>.</li>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssManagedServer</a> or <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssDefault</a>.</li>
      * <li>The managed server on a computer is a Microsoft Software Update Services (SUS) 1.0 server.</li>
      * </ul>
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-showsettingsdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-showsettingsdialog
      */
     ShowSettingsDialog() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the configuration settings for Automatic Updates.
      * @remarks
-     * 
      * The returned interface can be used to change the current settings and to read the current settings.
-     * 
-     * 
      * @returns {IAutomaticUpdatesSettings} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-get_settings
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-get_settings
      */
     get_Settings() {
-        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAutomaticUpdatesSettings(retval)
     }
 
     /**
      * Gets a Boolean value that indicates whether all the components that Automatic Updates requires are available.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-get_serviceenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-get_serviceenabled
      */
     get_ServiceEnabled() {
-        result := ComCall(12, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Enables all the components that Automatic Updates requires.
+     * @remarks
+     * This method requires administrator permissions.
+     * 
+     * This method returns <b>WU_E_AU_NOSERVICE</b> if Automatic Updates is disabled, initializing, uninitializing, or not configured.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
      * This method can also return the following error codes.
@@ -414,16 +466,20 @@ class IAutomaticUpdates extends IDispatch{
      * You cannot search for updates if the following conditions are true:
      * 
      * <ul>
-     * <li>The <a href="/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a>  property of the <a href="/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssManagedServer</a> or <a href="/windows/desktop/api/wuapicommon/ne-wuapicommon-serverselection">ssDefault</a>.</li>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection">ServerSelection</a>  property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface is set to <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssManagedServer</a> or <a href="https://github.com/MicrosoftDocs/sdk-api/blob/docs/sdk-api-src/content/wuapicommon/ne-wuapicommon-serverselection.md">ssDefault</a>.</li>
      * <li>The managed server on a computer is a Microsoft Software Update Services (SUS) 1.0 server.</li>
      * </ul>
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates-enableservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdates-enableservice
      */
     EnableService() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

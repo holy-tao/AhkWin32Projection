@@ -6,12 +6,9 @@
 /**
  * Implemented by the text analyzer's client to provide text to the analyzer.
  * @remarks
- * 
  * If any of these callbacks returns an error, then the analysis functions will stop prematurely and return a callback error. Note that rather than return E_NOTIMPL,
  *  an application should stub the method and return a constant/null and S_OK.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextanalysissource
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritetextanalysissource
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,6 +35,10 @@ class IDWriteTextAnalysisSource extends IUnknown{
 
     /**
      * Gets a block of text starting at the specified text position.
+     * @remarks
+     * Returning <b>NULL</b> indicates the end of text, which is the position after the last character. This function is called iteratively for each consecutive block, tying together several fragmented blocks in the backing store into a virtual contiguous string.
+     * 
+     * Although applications can implement sparse textual content that  maps only part of the backing store, the application must map any text that is in the range passed to any analysis functions.
      * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
      * The first position of the piece to obtain. All
@@ -53,19 +54,30 @@ class IDWriteTextAnalysisSource extends IUnknown{
      *          For example, querying for a position that is 75 positions into a 100-position block would return 25.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissource-gettextatposition
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalysissource-gettextatposition
      */
     GetTextAtPosition(textPosition, textString, textLength) {
         textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
+        result := ComCall(3, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a block of text immediately preceding the specified position.
+     * @remarks
+     * NULL indicates no chunk available at the specified position, either because <i>textPosition</i> equals 0,  <i>textPosition</i> is greater than the entire text content length, or the queried position is not mapped into the application's backing
+     *      store.
+     * 
+     * Although applications can implement sparse textual content that  maps only part of
+     *      the backing store, the application must map any text that is in the range passed
+     *      to any analysis functions.
      * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
      * The position immediately after the last position of the block of text to obtain.
@@ -79,23 +91,27 @@ class IDWriteTextAnalysisSource extends IUnknown{
      *          the block.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissource-gettextbeforeposition
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalysissource-gettextbeforeposition
      */
     GetTextBeforePosition(textPosition, textString, textLength) {
         textStringMarshal := textString is VarRef ? "ptr*" : "ptr"
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "HRESULT")
+        result := ComCall(4, this, "uint", textPosition, textStringMarshal, textString, textLengthMarshal, textLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the paragraph reading direction.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
      * 
      * The reading direction of the current paragraph.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissource-getparagraphreadingdirection
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalysissource-getparagraphreadingdirection
      */
     GetParagraphReadingDirection() {
         result := ComCall(5, this, "int")
@@ -104,6 +120,8 @@ class IDWriteTextAnalysisSource extends IUnknown{
 
     /**
      * Gets the locale name on the range affected by the text analysis.
+     * @remarks
+     * The <i>localeName</i> pointer must remain valid until the next call or until the analysis returns.
      * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
      * The text position to examine.
@@ -115,37 +133,49 @@ class IDWriteTextAnalysisSource extends IUnknown{
      * Contains an address of a  pointer to an array of characters which receives the locale name from the text affected by the text analysis. The array of characters is null-terminated.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissource-getlocalename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalysissource-getlocalename
      */
     GetLocaleName(textPosition, textLength, localeName) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
         localeNameMarshal := localeName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", textPosition, textLengthMarshal, textLength, localeNameMarshal, localeName, "HRESULT")
+        result := ComCall(6, this, "uint", textPosition, textLengthMarshal, textLength, localeNameMarshal, localeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number substitution from the text range affected by the text analysis.
+     * @remarks
+     * Any implementation should return the number substitution with an incremented reference count, and the analysis will release when finished
+     *      with it (either before the next call or before it returns). However,
+     *      the sink callback may hold onto it after that.
      * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
      * The starting position from which to report.
      * @param {Pointer<Integer>} textLength Type: <b>UINT32*</b>
      * 
      * Contains  the length of the text, in characters, remaining in the text range up to the next differing number substitution.
-     * @param {Pointer<IDWriteNumberSubstitution>} numberSubstitution Type: <b><a href="https://docs.microsoft.com/windows/win32/DirectWrite/idwritenumbersubstitution">IDWriteNumberSubstitution</a>**</b>
+     * @param {Pointer<Pointer<IDWriteNumberSubstitution>>} numberSubstitution Type: <b><a href="https://docs.microsoft.com/windows/win32/DirectWrite/idwritenumbersubstitution">IDWriteNumberSubstitution</a>**</b>
      * 
      * Contains an address of a pointer to an object, which was created with <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createnumbersubstitution">IDWriteFactory::CreateNumberSubstitution</a>, that holds the appropriate digits and numeric punctuation for a given locale.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissource-getnumbersubstitution
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritetextanalysissource-getnumbersubstitution
      */
     GetNumberSubstitution(textPosition, textLength, numberSubstitution) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", textPosition, textLengthMarshal, textLength, "ptr*", numberSubstitution, "HRESULT")
+        result := ComCall(7, this, "uint", textPosition, textLengthMarshal, textLength, "ptr*", numberSubstitution, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

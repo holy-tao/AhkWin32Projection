@@ -6,11 +6,8 @@
 /**
  * Updates the attributes of one or more nodes in the Media Session's current topology.
  * @remarks
- * 
  * Currently the only attribute that can be updated is the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-mediastop-attribute">MF_TOPONODE_MEDIASTOP</a> attribute.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftopologynodeattributeeditor
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imftopologynodeattributeeditor
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IMFTopologyNodeAttributeEditor extends IUnknown{
 
     /**
      * Updates the attributes of one or more nodes in the current topology.
+     * @remarks
+     * Currently the only attribute that can be updated is the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-mediastop-attribute">MF_TOPONODE_MEDIASTOP</a> attribute. The method ignores any other attributes.
      * @param {Integer} TopoId Reserved.
      * @param {Integer} cUpdates The number of elements in the <i>pUpdates</i> array.
      * @param {Pointer<MFTOPONODE_ATTRIBUTE_UPDATE>} pUpdates Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mftoponode_attribute_update">MFTOPONODE_ATTRIBUTE_UPDATE</a> structures. Each element of the array updates one attribute on a node.
@@ -59,10 +58,14 @@ class IMFTopologyNodeAttributeEditor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopologynodeattributeeditor-updatenodeattributes
      */
     UpdateNodeAttributes(TopoId, cUpdates, pUpdates) {
-        result := ComCall(3, this, "uint", TopoId, "uint", cUpdates, "ptr", pUpdates, "HRESULT")
+        result := ComCall(3, this, "uint", TopoId, "uint", cUpdates, "ptr", pUpdates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

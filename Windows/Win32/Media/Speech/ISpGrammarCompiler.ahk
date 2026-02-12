@@ -45,7 +45,11 @@ class ISpGrammarCompiler extends IUnknown{
      * @returns {HRESULT} 
      */
     CompileStream(pSource, pDest, pHeader, pReserved, pErrorLog, dwFlags) {
-        result := ComCall(3, this, "ptr", pSource, "ptr", pDest, "ptr", pHeader, "ptr", pReserved, "ptr", pErrorLog, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pSource, "ptr", pDest, "ptr", pHeader, "ptr", pReserved, "ptr", pErrorLog, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -21,7 +21,7 @@
  * </li>
  * </ol>
  * Until these steps are completed, all further calls to <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> return MF_E_TRANSFORM_STREAM_CHANGE.
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_process_output_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/mftransform/ne-mftransform-_mft_process_output_status
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

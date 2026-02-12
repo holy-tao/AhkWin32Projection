@@ -132,7 +132,7 @@ class PasswordManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mschapp/nf-mschapp-mschapsrvchangepassword
+     * @see https://learn.microsoft.com/windows/win32/api//content/mschapp/nf-mschapp-mschapsrvchangepassword
      * @since windows5.1.2600
      */
     static MSChapSrvChangePassword(ServerName, UserName, LmOldPresent, LmOldOwfPassword, LmNewOwfPassword, NtOldOwfPassword, NtNewOwfPassword) {
@@ -256,7 +256,7 @@ class PasswordManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mschapp/nf-mschapp-mschapsrvchangepassword2
+     * @see https://learn.microsoft.com/windows/win32/api//content/mschapp/nf-mschapp-mschapsrvchangepassword2
      * @since windows5.1.2600
      */
     static MSChapSrvChangePassword2(ServerName, UserName, NewPasswordEncryptedWithOldNt, OldNtOwfPasswordEncryptedWithNewNt, LmPresent, NewPasswordEncryptedWithOldLm, OldLmOwfPasswordEncryptedWithNewLmOrNt) {

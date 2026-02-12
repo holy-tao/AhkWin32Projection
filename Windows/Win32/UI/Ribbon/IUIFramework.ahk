@@ -7,17 +7,14 @@
 /**
  * The IUIFramework interface is implemented by the Windows Ribbon framework and defines the methods that provide the core functionality for the framework.
  * @remarks
- * 
  * This interface is used to initialize and dismantle the Ribbon framework.
  * 
  * Ribbon framework UI functionality is differentiated by Views, which are essentially 
  * 				built-in core controls, such as the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
  * 
- * To get an interface pointer to the implementation of IUIFramework, use <a href="https://docs.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>to 
+ * To get an interface pointer to the implementation of IUIFramework, use <a href="https://docs.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> to 
  * 			create a COM object with the class identifier (CLSID) of CLSID_UIRibbonFramework.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuiframework
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nn-uiribbon-iuiframework
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -44,10 +41,29 @@ class IUIFramework extends IUnknown{
 
     /**
      * Connects the host application to the Windows Ribbon framework.
+     * @remarks
+     * This method must be called by the host application for each top-level window that requires a ribbon.
+     * 			
+     * 
+     * This method is used to set up the hooks that enable the Ribbon framework to invoke callbacks in the host application.
+     * 
+     * To initialize the Ribbon successfully, a compiled Ribbon markup file must be available as a resource and specified in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-loadui">IUIFramework::LoadUI</a>. This markup file is an integral component of the framework; it specifies the controls to be used and their layout.
+     * 
+     * If <b>IUIFramework::Initialize</b> returns successfully: 
+     * 
+     * <ul>
+     * <li>To eliminate inconsistency, redundancy, and incompatibility between Ribbon and traditional command models, the Ribbon framework removes  the standard menu bar of the top-level window in the host application.</li>
+     * <li>The framework removes references to the WS_EX_CLIENTEDGE style. <div class="alert"><b>Note</b>  The WS_EX_CLIENTEDGE style specifies that a window has a border with a sunken edge. This style visually interferes with the integration of the Ribbon and the host application.</div>
+     * <div> </div>
+     * </li>
+     * <li>The framework requires that the WS_SYSMENU style be enabled. If WS_SYSMENU is not enabled, the framework does not provide alternate functionality and unpredictable rendering of the Ribbon may result.<div class="alert"><b>Note</b>  The WS_SYSMENU style specifies that the application window has a system menu on its title bar. By association, the WS_CAPTION style must also be specified (see ERROR_INVALID_WINDOW_HANDLE in <b>Return Values</b> above).</div>
+     * <div> </div>
+     * </li>
+     * </ul>
      * @param {HWND} frameWnd Type: <b>HWND</b>
      * 
      * Handle to the top-level window that will contain the Ribbon.
-     * @param {IUIApplication} application Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiapplication">IUIApplication</a>*</b>
+     * @param {IUIApplication} application_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiapplication">IUIApplication</a>*</b>
      * 
      * Pointer to the IUIApplication implementation of the host application.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -76,29 +92,49 @@ class IUIFramework extends IUnknown{
      * <td><i>application</i> is <b>NULL</b> or an invalid pointer.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-initialize
      */
-    Initialize(frameWnd, application) {
+    Initialize(frameWnd, application_) {
         frameWnd := frameWnd is Win32Handle ? NumGet(frameWnd, "ptr") : frameWnd
 
-        result := ComCall(3, this, "ptr", frameWnd, "ptr", application, "HRESULT")
+        result := ComCall(3, this, "ptr", frameWnd, "ptr", application_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Terminates and releases all objects, hooks, and references for an instance of the Windows Ribbon framework.
+     * @remarks
+     * This method must be called once for each instance of <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiframework">IUIFramework</a>.
+     * 			
+     * 
+     * If  <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-initialize">IUIFramework::Initialize</a> was called, then <b>IUIFramework::Destroy</b> must be called to free resources and ensure proper dismantling of the framework. Failure to call <b>IUIFramework::Destroy</b> may cause a memory leak.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-destroy
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-destroy
      */
     Destroy() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Loads the Windows Ribbon framework UI resource, or compiled markup, file.
+     * @remarks
+     * <b>IUIFramework::LoadUI</b> should be called upon initialization. This method can be called multiple times during the lifecycle of an application, for example, to show or hide a Ribbon, provided that <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-destroy">IUIFramework::Destroy</a> is called in between. 
+     * 			
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiapplication-oncreateuicommand">OnCreateUICommand</a> and <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiapplication-onviewchanged">OnViewChanged</a> 
+     * 				are called during the execution of <b>IUIFramework::LoadUI</b>.
      * @param {HINSTANCE} instance Type: <b>HINSTANCE</b>
      * 
      * A handle to the Ribbon application instance.
@@ -112,19 +148,38 @@ class IUIFramework extends IUnknown{
      * <div> </div>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-loadui
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-loadui
      */
     LoadUI(instance, resourceName) {
         instance := instance is Win32Handle ? NumGet(instance, "ptr") : instance
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
 
-        result := ComCall(5, this, "ptr", instance, "ptr", resourceName, "HRESULT")
+        result := ComCall(5, this, "ptr", instance, "ptr", resourceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the address of a pointer to an interface that represents a Windows Ribbon framework View, such as IUIRibbon or IUIContextualUI.
+     * @remarks
+     * Ribbon framework UI functionality is differentiated by Views, which are essentially built-in core frameworks, 
+     * 				such as the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-ribbon">Ribbon</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
+     * 			
+     * 
+     * Rather than maintaining a pointer to an interface throughout the life of an application,
+     * 				<b>IUIFramework::GetView</b> enables a host application to create a temporary interface pointer 
+     * 				and call methods as necessary. 
+     * 				
+     * 
+     * <div class="alert"><b>Note</b>  The host application must call <a href="https://docs.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the temporary interface pointer to avoid a memory leak.</div>
+     * <div> </div>
+     * For example, each time there is a change to the size of the ribbon, a host application calls 
+     * 				<a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiribbon-getheight">GetHeight</a> to adjust the size of the host client area 
+     * 				appropriately.
      * @param {Integer} viewId Type: <b>UINT32</b>
      * 
      * The ID for the View. 
@@ -137,10 +192,14 @@ class IUIFramework extends IUnknown{
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiribbon">IUIRibbon</a> 
      * 					or an <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuicontextualui">IUIContextualUI</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-getview
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-getview
      */
     GetView(viewId, riid) {
-        result := ComCall(6, this, "uint", viewId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "uint", viewId, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -155,16 +214,24 @@ class IUIFramework extends IUnknown{
      * @returns {PROPVARIANT} Type: <b>PROPVARIANT*</b>
      * 
      * When this method returns, contains the property, value, or state.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-getuicommandproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-getuicommandproperty
      */
     GetUICommandProperty(commandId, key) {
         value := PROPVARIANT()
-        result := ComCall(7, this, "uint", commandId, "ptr", key, "ptr", value, "HRESULT")
+        result := ComCall(7, this, "uint", commandId, "ptr", key, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets a command property, value, or state.
+     * @remarks
+     * A limited number of property keys can be set using <b>IUIFramework::SetUICommandProperty</b>. For those properties where <b>IUIFramework::SetUICommandProperty</b> returns <b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b>, <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand">IUIFramework::InvalidateUICommand</a> should be used instead.
+     * 
+     * For more information on how to set a property key for a specific control, see the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-entry">Windows Ribbon Framework Control Library</a> page for that control.
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the Markup resource file.
@@ -194,15 +261,33 @@ class IUIFramework extends IUnknown{
      * <td>The operation failed.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-setuicommandproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-setuicommandproperty
      */
     SetUICommandProperty(commandId, key, value) {
-        result := ComCall(8, this, "uint", commandId, "ptr", key, "ptr", value, "HRESULT")
+        result := ComCall(8, this, "uint", commandId, "ptr", key, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Invalidates a Windows Ribbon framework Command property, value, or state.
+     * @remarks
+     * Resources defined in the Ribbon framework markup are stored in a resource table that is created 
+     * 				when the markup file is compiled into binary format. A resource cannot be reinstated from the Markup resource table after it has been invalidated.
+     * 
+     * After invalidation, the framework queries the host application for the resource details. 
+     * 				
+     * 			
+     * 
+     * When a Command value is invalidated (<i>flags</i> contains UI_INVALIDATIONS_VALUE) the value of <i>key</i> is <b>NULL</b>.
+     * 
+     * If <b>IUIFramework::InvalidateUICommand</b> is called multiple times
+     * 				and the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_invalidations">UI_INVALIDATIONS</a> 
+     * 				value passed in each call specifies overlapping properties, such as <b>UI_INVALIDATIONS_STATE</b> 
+     * 				and <b>UI_INVALIDATIONS_ALLPROPERTIES</b>, then only one callback to the host application is created.
      * @param {Integer} commandId Type: <b>UINT32</b>
      * 
      * The ID for the Command, which is specified in the markup resource file.
@@ -240,10 +325,14 @@ class IUIFramework extends IUnknown{
      * 				</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-invalidateuicommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand
      */
     InvalidateUICommand(commandId, flags, key) {
-        result := ComCall(9, this, "uint", commandId, "int", flags, "ptr", key, "HRESULT")
+        result := ComCall(9, this, "uint", commandId, "int", flags, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -252,25 +341,50 @@ class IUIFramework extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful; otherwise, an error value.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-flushpendinginvalidations
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-flushpendinginvalidations
      */
     FlushPendingInvalidations() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the application modes to enable.
+     * @remarks
+     * A mode indicates the functionality required and, therefore, which elements should be displayed (or 
+     * 				hidden) at run time, depending on the state or context of an application. For example, network connectivity 
+     * 				may directly impact the functionality of an application and require a "Network" mode of 
+     * 				network-related commands whenever a connection is detected.
+     * 			
+     * 
+     * Modes are specified for elements in the Ribbon markup and bound to individual controls at run time.
+     * 			
+     * 
+     * Modes can be applied to a Ribbon <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-tab">Tab</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-group">Group</a>. 
+     * 				
+     * 
+     * <div class="alert"><b>Note</b>  Modes can be applied to <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-button">Button</a>, <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-splitbutton">SplitButton</a>, and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-dropdownbutton">DropDownButton</a> controls when hosted in the left 
+     * 				column of the Application Menu. 
+     * 				</div>
+     * <div> </div>
      * @param {Integer} iModes Type: <b>INT32</b>
      * 
      * A bit mask that identifies the modes.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiframework-setmodes
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiframework-setmodes
      */
     SetModes(iModes) {
-        result := ComCall(11, this, "int", iModes, "HRESULT")
+        result := ComCall(11, this, "int", iModes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -33,7 +33,11 @@ class IActiveScriptParse64 extends IUnknown{
      * @returns {HRESULT} 
      */
     InitNew() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +64,11 @@ class IActiveScriptParse64 extends IUnknown{
         pstrEventName := pstrEventName is String ? StrPtr(pstrEventName) : pstrEventName
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(4, this, "ptr", pstrDefaultName, "ptr", pstrCode, "ptr", pstrItemName, "ptr", pstrSubItemName, "ptr", pstrEventName, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, "ptr", pbstrName, "ptr", pexcepinfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrDefaultName, "ptr", pstrCode, "ptr", pstrItemName, "ptr", pstrSubItemName, "ptr", pstrEventName, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, "ptr", pbstrName, "ptr", pexcepinfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +90,11 @@ class IActiveScriptParse64 extends IUnknown{
         pstrItemName := pstrItemName is String ? StrPtr(pstrItemName) : pstrItemName
         pstrDelimiter := pstrDelimiter is String ? StrPtr(pstrDelimiter) : pstrDelimiter
 
-        result := ComCall(5, this, "ptr", pstrCode, "ptr", pstrItemName, "ptr", punkContext, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, "ptr", pvarResult, "ptr", pexcepinfo, "HRESULT")
+        result := ComCall(5, this, "ptr", pstrCode, "ptr", pstrItemName, "ptr", punkContext, "ptr", pstrDelimiter, "uint", dwSourceContextCookie, "uint", ulStartingLineNumber, "uint", dwFlags, "ptr", pvarResult, "ptr", pexcepinfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -54,7 +54,11 @@ class IDOMMSManipulationEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_lastState() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -63,7 +67,11 @@ class IDOMMSManipulationEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_currentState() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -79,9 +87,16 @@ class IDOMMSManipulationEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMSManipulationEvent(eventType, canBubble, cancelable, viewArg, detailArg, lastState, currentState) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", lastState, "int", currentState, "HRESULT")
+        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", lastState, "int", currentState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

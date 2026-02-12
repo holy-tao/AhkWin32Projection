@@ -2,13 +2,14 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function. (ANSI)
  * @remarks
  * > [!NOTE]
  * > The cryptdlg.h header defines CERT_SELECT_STRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-cert_select_struct_a
+ * @see https://learn.microsoft.com/windows/win32/api//content/cryptdlg/ns-cryptdlg-cert_select_struct_a
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  * @charset ANSI
@@ -166,9 +167,12 @@ class CERT_SELECT_STRUCT_A extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function.
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(88, this)
+            return this.__lCustData
+        }
     }
 
     /**

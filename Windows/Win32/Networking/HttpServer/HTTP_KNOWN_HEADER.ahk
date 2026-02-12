@@ -9,7 +9,7 @@
  * 
  * For more information about the structure and usage of HTTP headers, see the 
  * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_known_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_known_header
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

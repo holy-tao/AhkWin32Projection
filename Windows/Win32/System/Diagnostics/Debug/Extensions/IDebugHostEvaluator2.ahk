@@ -33,11 +33,15 @@ class IDebugHostEvaluator2 extends IDebugHostEvaluator{
      * @param {IModelObject} assignmentReference 
      * @param {IModelObject} assignmentValue 
      * @param {Pointer<IModelObject>} assignmentResult 
-     * @param {Pointer<IKeyStore>} assignmentMetadata 
+     * @param {Pointer<Pointer<IKeyStore>>} assignmentMetadata 
      * @returns {HRESULT} 
      */
     AssignTo(assignmentReference, assignmentValue, assignmentResult, assignmentMetadata) {
-        result := ComCall(5, this, "ptr", assignmentReference, "ptr", assignmentValue, "ptr*", assignmentResult, "ptr*", assignmentMetadata, "HRESULT")
+        result := ComCall(5, this, "ptr", assignmentReference, "ptr", assignmentValue, "ptr*", assignmentResult, "ptr*", assignmentMetadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

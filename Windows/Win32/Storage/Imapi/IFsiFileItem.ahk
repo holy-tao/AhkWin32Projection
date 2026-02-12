@@ -7,13 +7,10 @@
 /**
  * Use this interface to identify the file size and data stream of the file contents.
  * @remarks
- * 
  * Data streams for files contained within the file system image are read-only.  File data can only be replaced by overwriting an existing file item.
  * 
  * This is an <b>FsiFileItem</b> object in script.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsifileitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-ifsifileitem
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -76,45 +73,69 @@ class IFsiFileItem extends IFsiItem{
     /**
      * Retrieves the number of bytes in the file.
      * @returns {Integer} Size, in bytes, of the file.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize
      */
     get_DataSize() {
-        result := ComCall(19, this, "int64*", &pVal := 0, "HRESULT")
+        result := ComCall(19, this, "int64*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the least significant 32 bits of the IFsiFileItem::get_DataSize property.
+     * @remarks
+     * This property and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh">IFsiFileItem::get_DataSize32BitHigh</a> together  provide the size of the file as two 32-bit numbers for languages that do not support 64-bit values, such as VBScript and Visual Basic 6.
      * @returns {Integer} Least significant 32 bits of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize">IFsiFileItem::get_DataSize</a> property.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow
      */
     get_DataSize32BitLow() {
-        result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the most significant 32 bits of the IFsiFileItem::get_DataSize property.
+     * @remarks
+     * This property and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bitlow">IFsiFileItem::get_DataSize32BitLow</a> together  provide the size of the file as two 32-bit numbers for languages that do not support 64-bit values, such as VBScript and Visual Basic 6.
      * @returns {Integer} Most significant 32 bits of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize">IFsiFileItem::get_DataSize</a> property.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem-get_datasize32bithigh
      */
     get_DataSize32BitHigh() {
-        result := ComCall(21, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the data stream of the file's content.
+     * @remarks
+     * The contents of the file becomes read-only once the file item is added to file system image.
      * @returns {IStream} An <b>IStream</b> interface of the contents of the file.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-get_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem-get_data
      */
     get_Data() {
-        result := ComCall(22, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(pVal)
     }
 
     /**
      * Sets the data stream of the file's content.
+     * @remarks
+     * The contents of the file becomes read-only once the file item is added to file system image.
      * @param {IStream} newVal An <b>IStream</b> interface of the content of the file to add to the file system image.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -150,10 +171,14 @@ class IFsiFileItem extends IFsiItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsifileitem-put_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsifileitem-put_data
      */
     put_Data(newVal) {
-        result := ComCall(23, this, "ptr", newVal, "HRESULT")
+        result := ComCall(23, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

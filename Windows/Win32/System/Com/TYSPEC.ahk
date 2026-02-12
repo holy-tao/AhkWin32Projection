@@ -32,7 +32,7 @@
  *             } ByObjectId;
  *     } uCLSSPEC;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-tyspec
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtypes/ne-wtypes-tyspec
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

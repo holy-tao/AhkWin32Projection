@@ -50,7 +50,11 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pVal)
     }
 
@@ -62,10 +66,20 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @returns {IDynamicPortMapping} 
      */
     get_Item(bstrRemoteHost, lExternalPort, bstrProtocol) {
-        bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
-        bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
+        if(bstrRemoteHost is String) {
+            pin := BSTR.Alloc(bstrRemoteHost)
+            bstrRemoteHost := pin.Value
+        }
+        if(bstrProtocol is String) {
+            pin := BSTR.Alloc(bstrProtocol)
+            bstrProtocol := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", &ppDPM := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "ptr*", &ppDPM := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDynamicPortMapping(ppDPM)
     }
 
@@ -74,27 +88,42 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(bstrRemoteHost, lExternalPort, bstrProtocol) {
-        bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
-        bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
+        if(bstrRemoteHost is String) {
+            pin := BSTR.Alloc(bstrRemoteHost)
+            bstrRemoteHost := pin.Value
+        }
+        if(bstrProtocol is String) {
+            pin := BSTR.Alloc(bstrProtocol)
+            bstrProtocol := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
      * @param {BSTR} bstrRemoteHost 
      * @param {Integer} lExternalPort 
      * @param {BSTR} bstrProtocol 
@@ -104,14 +133,31 @@ class IDynamicPortMappingCollection extends IDispatch{
      * @param {BSTR} bstrDescription 
      * @param {Integer} lLeaseDuration 
      * @returns {IDynamicPortMapping} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
     Add(bstrRemoteHost, lExternalPort, bstrProtocol, lInternalPort, bstrInternalClient, bEnabled, bstrDescription, lLeaseDuration) {
-        bstrRemoteHost := bstrRemoteHost is String ? BSTR.Alloc(bstrRemoteHost).Value : bstrRemoteHost
-        bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
-        bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrRemoteHost is String) {
+            pin := BSTR.Alloc(bstrRemoteHost)
+            bstrRemoteHost := pin.Value
+        }
+        if(bstrProtocol is String) {
+            pin := BSTR.Alloc(bstrProtocol)
+            bstrProtocol := pin.Value
+        }
+        if(bstrInternalClient is String) {
+            pin := BSTR.Alloc(bstrInternalClient)
+            bstrInternalClient := pin.Value
+        }
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "int", lLeaseDuration, "ptr*", &ppDPM := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrRemoteHost, "int", lExternalPort, "ptr", bstrProtocol, "int", lInternalPort, "ptr", bstrInternalClient, "short", bEnabled, "ptr", bstrDescription, "int", lLeaseDuration, "ptr*", &ppDPM := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDynamicPortMapping(ppDPM)
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * In the Text Object Model (TOM), applications access text-range attributes by using a pair of dual interfaces, ITextFont and ITextPara.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextfont2
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/nn-tom-itextfont2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class ITextFont2 extends ITextFont{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The count of extra properties in this collection.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getcount
      */
     GetCount() {
-        result := ComCall(62, this, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(62, this, "int*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -67,10 +71,14 @@ class ITextFont2 extends ITextFont{
      * <td>The AutoLigatures property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getautoligatures
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getautoligatures
      */
     GetAutoLigatures() {
-        result := ComCall(63, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(63, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -102,13 +110,17 @@ class ITextFont2 extends ITextFont{
      * <td>The AutoLigatures property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setautoligatures
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setautoligatures
      */
     SetAutoLigatures(Value) {
-        result := ComCall(64, this, "int", Value, "HRESULT")
+        result := ComCall(64, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,10 +148,14 @@ class ITextFont2 extends ITextFont{
      * <td>The AutospaceAlpha property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getautospacealpha
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getautospacealpha
      */
     GetAutospaceAlpha() {
-        result := ComCall(65, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(65, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -171,13 +187,17 @@ class ITextFont2 extends ITextFont{
      * <td>The AutospaceAlpha property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setautospacealpha
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setautospacealpha
      */
     SetAutospaceAlpha(Value) {
-        result := ComCall(66, this, "int", Value, "HRESULT")
+        result := ComCall(66, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,10 +225,14 @@ class ITextFont2 extends ITextFont{
      * <td>The AutospaceNumeric property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getautospacenumeric
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getautospacenumeric
      */
     GetAutospaceNumeric() {
-        result := ComCall(67, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(67, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -240,13 +264,17 @@ class ITextFont2 extends ITextFont{
      * <td>The AutospaceNumeric property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setautospacenumeric
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setautospacenumeric
      */
     SetAutospaceNumeric(Value) {
-        result := ComCall(68, this, "int", Value, "HRESULT")
+        result := ComCall(68, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -274,10 +302,14 @@ class ITextFont2 extends ITextFont{
      * <td>The AutospaceParens property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getautospaceparens
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getautospaceparens
      */
     GetAutospaceParens() {
-        result := ComCall(69, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(69, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -309,23 +341,31 @@ class ITextFont2 extends ITextFont{
      * <td>The AutospaceParens property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setautospaceparens
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setautospaceparens
      */
     SetAutospaceParens(Value) {
-        result := ComCall(70, this, "int", Value, "HRESULT")
+        result := ComCall(70, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the character repertoire (writing system).
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getcharrep
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getcharrep
      */
     GetCharRep() {
-        result := ComCall(71, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(71, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -334,13 +374,17 @@ class ITextFont2 extends ITextFont{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new character repertoire. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont2-getcharrep">ITextFont2::GetCharRep</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setcharrep
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setcharrep
      */
     SetCharRep(Value) {
-        result := ComCall(72, this, "int", Value, "HRESULT")
+        result := ComCall(72, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -356,10 +400,14 @@ class ITextFont2 extends ITextFont{
      * <a id="tomCompressNone__default_"></a>
      * <a id="tomcompressnone__default_"></a>
      * <a id="TOMCOMPRESSNONE__DEFAULT_"></a>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getcompressionmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getcompressionmode
      */
     GetCompressionMode() {
-        result := ComCall(73, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(73, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -375,40 +423,56 @@ class ITextFont2 extends ITextFont{
      * <a id="tomCompressNone__default_"></a>
      * <a id="tomcompressnone__default_"></a>
      * <a id="TOMCOMPRESSNONE__DEFAULT_"></a>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setcompressionmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setcompressionmode
      */
     SetCompressionMode(Value) {
-        result := ComCall(74, this, "int", Value, "HRESULT")
+        result := ComCall(74, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the client cookie.
+     * @remarks
+     * This value is purely for the use of the client and has no meaning to the Text Object Model (TOM) engine. There are exceptions where different values correspond to different character format runs.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The client cookie.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getcookie
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getcookie
      */
     GetCookie() {
-        result := ComCall(75, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(75, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the client cookie.
+     * @remarks
+     * This value is purely for the use of the client. It has no meaning to the Text Object Model (TOM) engine except that different values correspond to different character format runs.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The client cookie.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setcookie
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setcookie
      */
     SetCookie(Value) {
-        result := ComCall(76, this, "int", Value, "HRESULT")
+        result := ComCall(76, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -436,10 +500,14 @@ class ITextFont2 extends ITextFont{
      * <td>The DoubleStrike property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getdoublestrike
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getdoublestrike
      */
     GetDoubleStrike() {
-        result := ComCall(77, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(77, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -471,13 +539,17 @@ class ITextFont2 extends ITextFont{
      * <td>The DoubleStrike property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setdoublestrike
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setdoublestrike
      */
     SetDoubleStrike(Value) {
-        result := ComCall(78, this, "int", Value, "HRESULT")
+        result := ComCall(78, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -486,21 +558,29 @@ class ITextFont2 extends ITextFont{
      * @returns {ITextFont2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont2">ITextFont2</a>**</b>
      * 
      * The duplicate character format object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getduplicate2
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getduplicate2
      */
     GetDuplicate2() {
-        result := ComCall(79, this, "ptr*", &ppFont := 0, "HRESULT")
+        result := ComCall(79, this, "ptr*", &ppFont := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextFont2(ppFont)
     }
 
     /**
      * Sets the properties of this object by copying the properties of another text font object.
+     * @remarks
+     * Values with the <b>tomUndefined</b> attribute have no effect.
+     * 
+     * For an example of how to use font duplicates, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setfont">ITextRange::SetFont</a>.
      * @param {ITextFont2} pFont Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont2">ITextFont2</a>*</b>
      * 
      * The text font object to copy from.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes.  For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -530,20 +610,28 @@ class ITextFont2 extends ITextFont{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setduplicate2
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setduplicate2
      */
     SetDuplicate2(pFont) {
-        result := ComCall(80, this, "ptr", pFont, "HRESULT")
+        result := ComCall(80, this, "ptr", pFont, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the link type.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getlinktype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getlinktype
      */
     GetLinkType() {
-        result := ComCall(81, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(81, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -571,10 +659,14 @@ class ITextFont2 extends ITextFont{
      * <td>The MathZone property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getmathzone
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getmathzone
      */
     GetMathZone() {
-        result := ComCall(82, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(82, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -606,13 +698,17 @@ class ITextFont2 extends ITextFont{
      * <td>The MathZone property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setmathzone
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setmathzone
      */
     SetMathZone(Value) {
-        result := ComCall(83, this, "int", Value, "HRESULT")
+        result := ComCall(83, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -640,10 +736,14 @@ class ITextFont2 extends ITextFont{
      * <td>The ModWidthPairs property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getmodwidthpairs
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getmodwidthpairs
      */
     GetModWidthPairs() {
-        result := ComCall(84, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(84, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -675,13 +775,17 @@ class ITextFont2 extends ITextFont{
      * <td>The ModWidthPairs property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setmodwidthpairs
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setmodwidthpairs
      */
     SetModWidthPairs(Value) {
-        result := ComCall(85, this, "int", Value, "HRESULT")
+        result := ComCall(85, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -709,10 +813,14 @@ class ITextFont2 extends ITextFont{
      * <td>The ModWidthSpace property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getmodwidthspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getmodwidthspace
      */
     GetModWidthSpace() {
-        result := ComCall(86, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(86, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -744,13 +852,17 @@ class ITextFont2 extends ITextFont{
      * <td>The ModWidthSpace property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setmodwidthspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setmodwidthspace
      */
     SetModWidthSpace(Value) {
-        result := ComCall(87, this, "int", Value, "HRESULT")
+        result := ComCall(87, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -778,10 +890,14 @@ class ITextFont2 extends ITextFont{
      * <td>The OldNumbers property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getoldnumbers
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getoldnumbers
      */
     GetOldNumbers() {
-        result := ComCall(88, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(88, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -813,13 +929,17 @@ class ITextFont2 extends ITextFont{
      * <td>The OldNumbers property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setoldnumbers
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setoldnumbers
      */
     SetOldNumbers(Value) {
-        result := ComCall(89, this, "int", Value, "HRESULT")
+        result := ComCall(89, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -847,10 +967,14 @@ class ITextFont2 extends ITextFont{
      * <td>The Overlapping property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getoverlapping
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getoverlapping
      */
     GetOverlapping() {
-        result := ComCall(90, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(90, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -882,25 +1006,37 @@ class ITextFont2 extends ITextFont{
      * <td>The Overlapping property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setoverlapping
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setoverlapping
      */
     SetOverlapping(Value) {
-        result := ComCall(91, this, "int", Value, "HRESULT")
+        result := ComCall(91, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the subscript or superscript position relative to the baseline.
+     * @remarks
+     * The subscript or superscript position is relative to the baseline as a percent of the font height.
+     * 
+     * Subscripts and superscripts in math zones are handled using the <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-objecttype">tomSubscript</a>, <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-objecttype">tomSuperscript</a>, <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-objecttype">tomSubSup</a>, and <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-objecttype">tomLeftSubSup</a> mathematical objects. See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-getinlineobject">ITextRange2::GetInlineObject</a>.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The subscript or superscript position relative to the baseline.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getpositionsubsuper
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getpositionsubsuper
      */
     GetPositionSubSuper() {
-        result := ComCall(92, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(92, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -909,25 +1045,35 @@ class ITextFont2 extends ITextFont{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new subscript or superscript position.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setpositionsubsuper
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setpositionsubsuper
      */
     SetPositionSubSuper(Value) {
-        result := ComCall(93, this, "int", Value, "HRESULT")
+        result := ComCall(93, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the font horizontal scaling percentage.
+     * @remarks
+     * The font horizontal scaling percentage can range from 200, which doubles the widths of characters, to 0, where no scaling is performed.  When the percentage is increased the height does not change.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The scaling percentage.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getscaling
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getscaling
      */
     GetScaling() {
-        result := ComCall(94, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(94, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -936,13 +1082,17 @@ class ITextFont2 extends ITextFont{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The scaling percentage. Values from 0 through 255 are valid. For example, a value of 200 doubles the widths of characters while retaining the same height. A value of 0 has the same effect as a value of 100; that is, it turns scaling off.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setscaling
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setscaling
      */
     SetScaling(Value) {
-        result := ComCall(95, this, "int", Value, "HRESULT")
+        result := ComCall(95, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -951,10 +1101,14 @@ class ITextFont2 extends ITextFont{
      * @returns {Float} Type: <b>float*</b>
      * 
      * The space extension, in floating-point points.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getspaceextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getspaceextension
      */
     GetSpaceExtension() {
-        result := ComCall(96, this, "float*", &pValue := 0, "HRESULT")
+        result := ComCall(96, this, "float*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -963,36 +1117,48 @@ class ITextFont2 extends ITextFont{
      * @param {Float} Value Type: <b>float</b>
      * 
      * The new space extension, in floating-points.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setspaceextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setspaceextension
      */
     SetSpaceExtension(Value) {
-        result := ComCall(97, this, "float", Value, "HRESULT")
+        result := ComCall(97, this, "float", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the underline position mode.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getunderlinepositionmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getunderlinepositionmode
      */
     GetUnderlinePositionMode() {
-        result := ComCall(98, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(98, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the underline position mode.
      * @param {Integer} Value Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setunderlinepositionmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setunderlinepositionmode
      */
     SetUnderlinePositionMode(Value) {
-        result := ComCall(99, this, "int", Value, "HRESULT")
+        result := ComCall(99, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1008,16 +1174,20 @@ class ITextFont2 extends ITextFont{
      * @param {Pointer<Integer>} pMask Type: <b>long*</b>
      * 
      * The differences in these flags over the range. A value of zero indicates that the properties are the same over the range. For an insertion point, this value is always zero.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-geteffects
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-geteffects
      */
     GetEffects(pValue, pMask) {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
         pMaskMarshal := pMask is VarRef ? "int*" : "ptr"
 
-        result := ComCall(100, this, pValueMarshal, pValue, pMaskMarshal, pMask, "HRESULT")
+        result := ComCall(100, this, pValueMarshal, pValue, pMaskMarshal, pMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1033,21 +1203,27 @@ class ITextFont2 extends ITextFont{
      * @param {Pointer<Integer>} pMask Type: <b>long*</b>
      * 
      * The differences in these flags over the range. Zero values indicate that the properties are the same over the range. For an insertion point, this value is always zero.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-geteffects2
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-geteffects2
      */
     GetEffects2(pValue, pMask) {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
         pMaskMarshal := pMask is VarRef ? "int*" : "ptr"
 
-        result := ComCall(101, this, pValueMarshal, pValue, pMaskMarshal, pMask, "HRESULT")
+        result := ComCall(101, this, pValueMarshal, pValue, pMaskMarshal, pMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the value of the specified property.
+     * Gets the value of the specified property. (ITextFont2.GetProperty)
+     * @remarks
+     * Property IDs are defined by the Text Object Model (TOM).  Here are how some of the TOM values are obtained:
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The property ID of the value to return.
@@ -1055,15 +1231,19 @@ class ITextFont2 extends ITextFont{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The property value.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(102, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(102, this, "int", Type, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Gets the property type and value of the specified extra propety.
+     * Gets the property type and value of the specified extra property.
      * @param {Integer} Index Type: <b>long</b>
      * 
      * The collection index of the extra property.
@@ -1073,36 +1253,50 @@ class ITextFont2 extends ITextFont{
      * @param {Pointer<Integer>} pValue Type: <b>long*</b>
      * 
      * The property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-getpropertyinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-getpropertyinfo
      */
     GetPropertyInfo(Index, pType, pValue) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(103, this, "int", Index, pTypeMarshal, pType, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(103, this, "int", Index, pTypeMarshal, pType, pValueMarshal, pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Determines whether this text font object has the same properties as the specified text font object.
+     * Determines whether this text font object has the same properties as the specified text font object. (ITextFont2.IsEqual2)
+     * @remarks
+     * For two text font objects to be equal, both must belong to the same Text Object Model (TOM) object. 
+     * 
+     * The <b>ITextFont::IsEqual2</b> method ignores entries for which either font object has a <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomUndefined</a> value.
      * @param {ITextFont2} pFont Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont2">ITextFont2</a>*</b>
      * 
      * The text font object to compare against.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-rich-edit-controls">tomBool</a> value that is <b>tomTrue</b> if the font objects have the same properties, or <b>tomFalse</b> if they don't. This parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-isequal2
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-isequal2
      */
     IsEqual2(pFont) {
-        result := ComCall(104, this, "ptr", pFont, "int*", &pB := 0, "HRESULT")
+        result := ComCall(104, this, "ptr", pFont, "int*", &pB := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pB
     }
 
     /**
      * Sets the character format effects.
+     * @remarks
+     * Only effects with the corresponding mask flag set are modified.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * A combination of the following character format values.
@@ -1113,18 +1307,24 @@ class ITextFont2 extends ITextFont{
      * @param {Integer} Mask Type: <b>long</b>
      * 
      * The desired mask, which can be a combination of the <i>Value</i> flags. Only effects with the corresponding mask flag set are modified.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-seteffects
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-seteffects
      */
     SetEffects(Value, Mask) {
-        result := ComCall(105, this, "int", Value, "int", Mask, "HRESULT")
+        result := ComCall(105, this, "int", Value, "int", Mask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the additional character format effects.
+     * @remarks
+     * Only effects with the corresponding mask flag set are modified.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * A combination of the following character format flags.
@@ -1135,31 +1335,39 @@ class ITextFont2 extends ITextFont{
      * @param {Integer} Mask Type: <b>long</b>
      * 
      * The desired mask, which can be a combination of the <i>Value</i> flags. Only effects with the corresponding mask flag set are modified.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-seteffects2
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-seteffects2
      */
     SetEffects2(Value, Mask) {
-        result := ComCall(106, this, "int", Value, "int", Mask, "HRESULT")
+        result := ComCall(106, this, "int", Value, "int", Mask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the value of the specified property.
+     * Sets the value of the specified property. (ITextFont2.SetProperty)
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The ID of the property value to set. Types are defined by TOM. For a list of types, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont2-getproperty">ITextFont2::GetProperty</a>.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextfont2-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextfont2-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(107, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(107, this, "int", Type, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,6 @@
 /**
  * Represents a single group of sprites with their associated drawing properties.
  * @remarks
- * 
  * Create a new sprite batch using <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch">ID2D1DeviceContext3::CreateSpriteBatch</a>. 
  *           Use [ID2D1DeviceContext3::DrawSpriteBatch](./nf-d2d1_3-id2d1devicecontext3-createspritebatch.md) to draw them.
  *         
@@ -15,9 +14,7 @@
  *         They are commonly used to render characters and backgrounds in 2D games, or to render particle systems such as smoke and flames. 
  *         If your app has performance demands and needs to draw hundreds or thousands of images every frame, then consider taking advantage of sprite batches and the fine-grained control they offer, 
  *         instead of the general-purpose DrawImage method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1spritebatch
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1spritebatch
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -44,6 +41,16 @@ class ID2D1SpriteBatch extends ID2D1Resource{
 
     /**
      * Adds the given sprites to the end of this sprite batch.
+     * @remarks
+     * In Direct2D, a sprite is defined by four properties: a destination rectangle, a source rectangle, a color, and a transform. 
+     *         Destination rectangles are mandatory, but the remaining properties are optional.
+     * 
+     * <div class="alert"><b>Note</b>  Always omit or pass a null value for properties you do not wish to use. This allows Direct2D to avoid storing values for those properties and to skip their handling entirely, 
+     *         which improves drawing speed. For example, suppose you have a batch of 500 sprites, and you do not wish to transform any of their destination rectangles. 
+     *         Rather than passing an array of identity matrices, simply omit the transforms parameter. This allows Direct2D to avoid storing any transforms and will yield the fastest drawing performance. 
+     *         On the other hand, if any sprite in the batch has any value set for a property, then internally 
+     *         Direct2D must allocate space for that property array and assign every sprite a value for that property (even if it’s just the default value).</div>
+     * <div> </div>
      * @param {Integer} spriteCount Type: <b>UINT32</b>
      * 
      * The number of sprites to be added. This determines how many strides into each given array Direct2D will read.
@@ -89,13 +96,17 @@ class ID2D1SpriteBatch extends ID2D1Resource{
      * 
      * Specifies the distance, in bytes, between each transform in the transforms array (if that array is given). 
      *           If you provide a stride of 0, then the same transform will be used for each added sprite.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-addsprites
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1spritebatch-addsprites
      */
     AddSprites(spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
-        result := ComCall(4, this, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "HRESULT")
+        result := ComCall(4, this, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,13 +162,17 @@ class ID2D1SpriteBatch extends ID2D1Resource{
      * 
      * Specifies the distance, in bytes, between each transform in the transforms array (if that array is given). 
      *           If you provide a stride of 0, then the same transform will be used for each updated sprite.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK on success. Returns E_INVALIDARG if an invalid value was passed to the method. In this case, no sprites are modified by this call to SetSprites.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-setsprites
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1spritebatch-setsprites
      */
     SetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
-        result := ComCall(5, this, "uint", startIndex, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "HRESULT")
+        result := ComCall(5, this, "uint", startIndex, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,13 +208,17 @@ class ID2D1SpriteBatch extends ID2D1Resource{
      *             
      * 
      * The identity matrix is returned for any sprites that were not assigned a transform.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-getsprites
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1spritebatch-getsprites
      */
     GetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms) {
-        result := ComCall(6, this, "uint", startIndex, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "HRESULT")
+        result := ComCall(6, this, "uint", startIndex, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +227,7 @@ class ID2D1SpriteBatch extends ID2D1Resource{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of sprites in this sprite batch
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-getspritecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1spritebatch-getspritecount
      */
     GetSpriteCount() {
         result := ComCall(7, this, "uint")
@@ -218,7 +237,7 @@ class ID2D1SpriteBatch extends ID2D1Resource{
     /**
      * Removes all sprites from this sprite batch.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1spritebatch-clear
      */
     Clear() {
         ComCall(8, this)

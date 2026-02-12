@@ -7,7 +7,7 @@
 
 /**
  * Provides information and control for a collection of folders that contain tasks.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskfoldercollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itaskfoldercollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -49,36 +49,45 @@ class ITaskFolderCollection extends IDispatch{
     /**
      * Gets the number of folders in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskfoldercollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskfoldercollection-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * Gets the specified folder from the collection.
      * @remarks
-     * 
      * Collections are 1-based. That is, the index for the first item in the collection is 1.
-     * 
-     * 
      * @param {VARIANT} index 
      * @returns {ITaskFolder} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskfoldercollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskfoldercollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &ppFolder := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppFolder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITaskFolder(ppFolder)
     }
 
     /**
      * Gets the collection enumerator for the folder collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskfoldercollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskfoldercollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppEnum)
     }
 }

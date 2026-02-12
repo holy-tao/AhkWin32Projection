@@ -40,7 +40,11 @@ class AsyncIFtpLogProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Log(pLoggingParameters) {
-        result := ComCall(3, this, "ptr", pLoggingParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pLoggingParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIFtpLogProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Log() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

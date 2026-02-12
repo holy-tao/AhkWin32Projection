@@ -6,7 +6,7 @@
 
 /**
  * Represents an attribute that contains the certificate being renewed. This attribute is automatically placed in the PKCS
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509attributerenewalcertificate
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-ix509attributerenewalcertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IX509AttributeRenewalCertificate extends IX509Attribute{
 
     /**
      * Initializes the attribute by using the certificate to be renewed.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) for this attribute is <b>XCN_OID_RENEWAL_CERTIFICATE</b> (1.3.6.1.4.1.311.13.1). For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a>.
+     * 
+     * You must call either <b>InitializeEncode</b> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-initializedecode">InitializeDecode</a> before you can use an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509attributerenewalcertificate">IX509AttributeRenewalCertificate</a> object. The two methods complement each other. The <b>InitializeEncode</b> method enables you to construct an encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) structure from raw data, and the <b>InitializeDecode</b> method enables you to initialize raw data from an encoded ASN.1 structure. You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-get_renewalcertificate">RenewalCertificate</a> property to retrieve the raw data.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the certificate contained in the <i>strCert</i> parameter.
      * @param {BSTR} strCert A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
@@ -47,18 +51,31 @@ class IX509AttributeRenewalCertificate extends IX509Attribute{
      * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributerenewalcertificate-initializeencode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributerenewalcertificate-initializeencode
      */
     InitializeEncode(Encoding, strCert) {
-        strCert := strCert is String ? BSTR.Alloc(strCert).Value : strCert
+        if(strCert is String) {
+            pin := BSTR.Alloc(strCert)
+            strCert := pin.Value
+        }
 
-        result := ComCall(10, this, "int", Encoding, "ptr", strCert, "HRESULT")
+        result := ComCall(10, this, "int", Encoding, "ptr", strCert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes the object from a Distinguished Encoding Rules (DER) encoded byte array that contains the certificate to be renewed.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) for this attribute is <b>XCN_OID_RENEWAL_CERTIFICATE</b> (1.3.6.1.4.1.311.13.1). For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a>.
+     * 
+     * You can use this method if you have a DER-encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) object that contains the attribute value. You must supply the DER-encoded object in a Unicode encoded string. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ibinaryconverter">IBinaryConverter</a> interface.
+     * 
+     * You must call either <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-initializeencode">InitializeEncode</a> or <b>InitializeDecode</b> before you can use an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509attributerenewalcertificate">IX509AttributeRenewalCertificate</a> object. The two methods complement each other. The <b>InitializeEncode</b> method enables you to construct an encoded ASN.1 structure from raw data, and the <b>InitializeDecode</b> method enables you to initialize raw data from an encoded ASN.1 structure. You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-get_renewalcertificate">RenewalCertificate</a> property to retrieve the raw data.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
@@ -73,30 +90,38 @@ class IX509AttributeRenewalCertificate extends IX509Attribute{
      * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributerenewalcertificate-initializedecode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributerenewalcertificate-initializedecode
      */
     InitializeDecode(Encoding, strEncodedData) {
-        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+        if(strEncodedData is String) {
+            pin := BSTR.Alloc(strEncodedData)
+            strEncodedData := pin.Value
+        }
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the certificate to be renewed.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributerenewalcertificate-initializedecode">InitializeDecode</a> method to initialize the <b>RenewalCertificate</b> property.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributerenewalcertificate-get_renewalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributerenewalcertificate-get_renewalcertificate
      */
     get_RenewalCertificate(Encoding) {
         pValue := BSTR()
-        result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(12, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

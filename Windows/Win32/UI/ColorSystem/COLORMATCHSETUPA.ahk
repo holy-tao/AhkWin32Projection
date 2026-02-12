@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box. (ANSI)
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-colormatchsetupa
+ * @see https://learn.microsoft.com/windows/win32/api//content/icm/ns-icm-colormatchsetupa
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  * @charset ANSI
@@ -210,9 +211,12 @@ class COLORMATCHSETUPA extends Win32Struct
      * If the CMS\_USEHOOK flag is set, this member is passed to the application-provided hook procedure as the *lParam* parameter when the WM\_INITDIALOG message is processed.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(112, this)
+            return this.__lParam
+        }
     }
 
     /**
@@ -228,8 +232,11 @@ class COLORMATCHSETUPA extends Win32Struct
      * Contains a value that will be passed to the function **ApplyCallbackFunction** through its *lParam* parameter. The meaning and content of the value is specified by the application.
      * @type {LPARAM}
      */
-    lParamApplyCallback {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    lParamApplyCallback{
+        get {
+            if(!this.HasProp("__lParamApplyCallback"))
+                this.__lParamApplyCallback := LPARAM(128, this)
+            return this.__lParamApplyCallback
+        }
     }
 }

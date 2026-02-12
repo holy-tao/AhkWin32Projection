@@ -55,7 +55,11 @@ class IRTCProfileEvent extends IDispatch{
      * @returns {IRTCProfile} 
      */
     get_Profile() {
-        result := ComCall(7, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile(ppProfile)
     }
 
@@ -64,7 +68,11 @@ class IRTCProfileEvent extends IDispatch{
      * @returns {Pointer} 
      */
     get_Cookie() {
-        result := ComCall(8, this, "ptr*", &plCookie := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &plCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCookie
     }
 
@@ -73,7 +81,11 @@ class IRTCProfileEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 }

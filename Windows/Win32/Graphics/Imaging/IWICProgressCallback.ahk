@@ -5,7 +5,7 @@
 
 /**
  * IWICProgressCallback interface is documented only for compliance; its use is not recommended and may be altered or unavailable in the future. Instead, and use RegisterProgressNotification.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicprogresscallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicprogresscallback
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -43,11 +43,15 @@ class IWICProgressCallback extends IUnknown{
      * The progress value ranging from is 0.0 to 1.0. 0.0 indicates the beginning of the operation. 1.0 indicates the end of the operation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicprogresscallback-notify
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicprogresscallback-notify
      */
     Notify(uFrameNum, operation, dblProgress) {
-        result := ComCall(3, this, "uint", uFrameNum, "int", operation, "double", dblProgress, "HRESULT")
+        result := ComCall(3, this, "uint", uFrameNum, "int", operation, "double", dblProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

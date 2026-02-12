@@ -74,7 +74,11 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {Integer} 
      */
     get_screenLeft() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -83,7 +87,11 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {Integer} 
      */
     get_screenTop() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -94,9 +102,16 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     attachEvent(event, pDisp) {
-        event := event is String ? BSTR.Alloc(event).Value : event
+        if(event is String) {
+            pin := BSTR.Alloc(event)
+            event := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -107,9 +122,16 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     detachEvent(event, pDisp) {
-        event := event is String ? BSTR.Alloc(event).Value : event
+        if(event is String) {
+            pin := BSTR.Alloc(event)
+            event := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", event, "ptr", pDisp, "HRESULT")
+        result := ComCall(10, this, "ptr", event, "ptr", pDisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +143,11 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {Integer} 
      */
     setTimeout(expression, msec, language) {
-        result := ComCall(11, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return timerID
     }
 
@@ -133,16 +159,27 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {Integer} 
      */
     setInterval(expression, msec, language) {
-        result := ComCall(12, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return timerID
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Submits a custom shader message to the information queue.
+     * @remarks
+     * This operation does nothing on devices that do not support it.
+     * @returns {HRESULT} This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/printf
      */
     print() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +189,11 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onbeforeprint(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +203,11 @@ class IHTMLWindow3 extends IDispatch{
      */
     get_onbeforeprint() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -172,7 +217,11 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onafterprint(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -182,7 +231,11 @@ class IHTMLWindow3 extends IDispatch{
      */
     get_onafterprint() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -191,7 +244,11 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {IHTMLDataTransfer} 
      */
     get_clipboardData() {
-        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDataTransfer(p)
     }
 
@@ -203,9 +260,16 @@ class IHTMLWindow3 extends IDispatch{
      * @returns {IHTMLWindow2} 
      */
     showModelessDialog(url, varArgIn, options) {
-        url := url is String ? BSTR.Alloc(url).Value : url
+        if(url is String) {
+            pin := BSTR.Alloc(url)
+            url := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", url, "ptr", varArgIn, "ptr", options, "ptr*", &pDialog := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", url, "ptr", varArgIn, "ptr", options, "ptr*", &pDialog := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(pDialog)
     }
 }

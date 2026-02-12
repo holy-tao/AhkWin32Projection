@@ -34,7 +34,11 @@ class IActiveScriptProfilerCallback3 extends IActiveScriptProfilerCallback2{
      * @returns {HRESULT} 
      */
     SetWebWorkerId(webWorkerId) {
-        result := ComCall(11, this, "uint", webWorkerId, "HRESULT")
+        result := ComCall(11, this, "uint", webWorkerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

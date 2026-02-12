@@ -4,9 +4,8 @@
 #Include .\IDirect3DResource9.ahk
 
 /**
- * Applications use the methods of the IDirect3DIndexBuffer9 interface to manipulate an index buffer resource.
+ * The IDirect3DIndexBuffer9 (d3d9.h) interface applications use the methods of the IDirect3DIndexBuffer9 interface to manipulate an index buffer resource.
  * @remarks
- * 
  * The <b>IDirect3DIndexBuffer9</b> interface is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-createindexbuffer">IDirect3DDevice9::CreateIndexBuffer</a> method.
  * 
  * This interface inherits additional functionality from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dresource9">IDirect3DResource9</a> interface.
@@ -21,9 +20,7 @@
  * typedef struct IDirect3DIndexBuffer9 *LPDIRECT3DINDEXBUFFER9, *PDIRECT3DINDEXBUFFER9;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dindexbuffer9
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nn-d3d9-idirect3dindexbuffer9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -49,7 +46,13 @@ class IDirect3DIndexBuffer9 extends IDirect3DResource9{
     static VTableNames => ["Lock", "Unlock", "GetDesc"]
 
     /**
-     * Locks a range of index data and obtains a pointer to the index buffer memory.
+     * The IDirect3DIndexBuffer9::Lock method (d3d9helper.h) locks a range of index data and obtains a pointer to the index buffer memory.
+     * @remarks
+     * As a general rule, do not hold a lock across more than one frame. When working with index buffers, you are allowed to make multiple lock calls. However, you must ensure that the number of lock calls match the number of unlock calls. <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-drawindexedprimitive">IDirect3DDevice9::DrawIndexedPrimitive</a> calls will not succeed with any outstanding lock count on any currently set index buffer. 
+     * 
+     * The D3DLOCK_DISCARD and D3DLOCK_NOOVERWRITE flags are valid only on buffers created with D3DUSAGE_DYNAMIC.
+     * 
+     * See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/programming-tips">Programming Tips (Direct3D 9)</a> for information about using D3DLOCK_DISCARD or D3DLOCK_NOOVERWRITE.
      * @param {Integer} OffsetToLock Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Offset into the index data to lock, in bytes. Lock the entire index buffer by specifying 0 for both parameters, SizeToLock and OffsetToLock.
@@ -73,42 +76,54 @@ class IDirect3DIndexBuffer9 extends IDirect3DResource9{
      * <li>D3DLOCK_NOOVERWRITE</li>
      * </ul>
      * For a description of the flags, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dindexbuffer9-lock
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dindexbuffer9-lock
      */
     Lock(OffsetToLock, SizeToLock, ppbData, Flags) {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "uint", OffsetToLock, "uint", SizeToLock, ppbDataMarshal, ppbData, "uint", Flags, "HRESULT")
+        result := ComCall(11, this, "uint", OffsetToLock, "uint", SizeToLock, ppbDataMarshal, ppbData, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Unlocks index data.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * The IDirect3DIndexBuffer9::Unlock method (d3d9helper.h) unlocks index data.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dindexbuffer9-unlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dindexbuffer9-unlock
      */
     Unlock() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves a description of the index buffer resource.
+     * The IDirect3DIndexBuffer9::GetDesc method (d3d9helper.h) retrieves a description of the index buffer resource.
      * @param {Pointer<D3DINDEXBUFFER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dindexbuffer-desc">D3DINDEXBUFFER_DESC</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dindexbuffer-desc">D3DINDEXBUFFER_DESC</a> structure, describing the returned index buffer.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if the argument is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dindexbuffer9-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dindexbuffer9-getdesc
      */
     GetDesc(pDesc) {
-        result := ComCall(13, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(13, this, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

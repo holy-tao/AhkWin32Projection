@@ -6,7 +6,7 @@
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_CURRENTENCRYPTIONWHENACCESSIBLE query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryuncompressedencryptionlevel-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-queryuncompressedencryptionlevel-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

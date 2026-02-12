@@ -3,8 +3,8 @@
 #Include .\GROUP_FAILURE_INFO.ahk
 
 /**
- * The GROUP_FAILURE_INFO_BUFFER structure represents a buffer for a GROUP_FAILURE_INFO structure. (GROUP_FAILURE_INFO_BUFFER)
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-group_failure_info_buffer
+ * The GROUP_FAILURE_INFO_BUFFER (clusapi.h) structure represents a buffer for a GROUP_FAILURE_INFO structure.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-group_failure_info_buffer
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

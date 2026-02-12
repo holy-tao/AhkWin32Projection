@@ -5,7 +5,7 @@
  * The structure containing the common data for an attestation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_common_attestation
+ * @see https://learn.microsoft.com/windows/win32/api//content/webauthn/ns-webauthn-webauthn_common_attestation
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

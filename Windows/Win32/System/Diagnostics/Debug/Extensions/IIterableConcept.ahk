@@ -35,7 +35,11 @@ class IIterableConcept extends IUnknown{
      * @returns {Integer} 
      */
     GetDefaultIndexDimensionality(contextObject) {
-        result := ComCall(3, this, "ptr", contextObject, "uint*", &dimensionality := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "uint*", &dimensionality := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dimensionality
     }
 
@@ -45,7 +49,11 @@ class IIterableConcept extends IUnknown{
      * @returns {IModelIterator} 
      */
     GetIterator(contextObject) {
-        result := ComCall(4, this, "ptr", contextObject, "ptr*", &iterator := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", contextObject, "ptr*", &iterator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IModelIterator(iterator)
     }
 }

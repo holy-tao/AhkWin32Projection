@@ -9,7 +9,7 @@
  * The Set method is used to indicate which phase of copy protection negotiation the filter is entering. Specify these by setting the required flag in the <a href="https://docs.microsoft.com/windows/desktop/api/dvdmedia/ne-dvdmedia-am_dvdcopystate">AM_DVDCOPYSTATE</a> enumerated type.
  * 
  * The AM_PROPERTY_DVDCOPY_SET_COPY_STATE property uses this structure.
- * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_set_copy_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvdmedia/ns-dvdmedia-am_dvdcopy_set_copy_state
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

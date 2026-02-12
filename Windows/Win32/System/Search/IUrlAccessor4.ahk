@@ -5,7 +5,7 @@
 
 /**
  * Extends the functionality of the IUrlAccessor3 interface with the IUrlAccessor4::ShouldIndexItemContent method that identifies whether the content of the item should be indexed.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-iurlaccessor4
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-iurlaccessor4
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IUrlAccessor4 extends IUrlAccessor3{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a <b>BOOL</b> value that indicates whether the item's content should be indexed.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor4-shouldindexitemcontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-iurlaccessor4-shouldindexitemcontent
      */
     ShouldIndexItemContent() {
-        result := ComCall(20, this, "int*", &pfIndexContent := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pfIndexContent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIndexContent
     }
 
@@ -46,10 +50,14 @@ class IUrlAccessor4 extends IUrlAccessor3{
      * Identifies whether a property should be indexed.
      * @param {Pointer<PROPERTYKEY>} key The property to index.
      * @returns {BOOL} A pointer to a value that indicates whether a property should be indexed.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-iurlaccessor4-shouldindexproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-iurlaccessor4-shouldindexproperty
      */
     ShouldIndexProperty(key) {
-        result := ComCall(21, this, "ptr", key, "int*", &pfIndexProperty := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", key, "int*", &pfIndexProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIndexProperty
     }
 }

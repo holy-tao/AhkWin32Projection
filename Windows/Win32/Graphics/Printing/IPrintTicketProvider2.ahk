@@ -35,7 +35,11 @@ class IPrintTicketProvider2 extends IPrintTicketProvider{
      * @returns {IXMLDOMDocument2} 
      */
     GetPrintDeviceCapabilities(pPrintTicket) {
-        result := ComCall(10, this, "ptr", pPrintTicket, "ptr*", &ppDeviceCapabilities := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pPrintTicket, "ptr*", &ppDeviceCapabilities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocument2(ppDeviceCapabilities)
     }
 
@@ -48,7 +52,11 @@ class IPrintTicketProvider2 extends IPrintTicketProvider{
     GetPrintDeviceResources(pszLocaleName, pPrintTicket) {
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(11, this, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr*", &ppDeviceResources := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr*", &ppDeviceResources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocument2(ppDeviceResources)
     }
 }

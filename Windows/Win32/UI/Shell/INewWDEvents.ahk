@@ -35,9 +35,16 @@ class INewWDEvents extends IWebWizardHost{
      * @returns {VARIANT_BOOL} 
      */
     PassportAuthenticate(bstrSignInUrl) {
-        bstrSignInUrl := bstrSignInUrl is String ? BSTR.Alloc(bstrSignInUrl).Value : bstrSignInUrl
+        if(bstrSignInUrl is String) {
+            pin := BSTR.Alloc(bstrSignInUrl)
+            bstrSignInUrl := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrSignInUrl, "short*", &pvfAuthenitcated := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrSignInUrl, "short*", &pvfAuthenitcated := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvfAuthenitcated
     }
 }

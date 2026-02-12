@@ -34,7 +34,11 @@ class IPrintWorkflowXpsReceiver2 extends IPrintWorkflowXpsReceiver{
      * @returns {HRESULT} 
      */
     Failed(XpsError) {
-        result := ComCall(8, this, "int", XpsError, "HRESULT")
+        result := ComCall(8, this, "int", XpsError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

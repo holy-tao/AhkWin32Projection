@@ -6,7 +6,7 @@
  * See reference information about the CONSOLE_FONT_INFOEX structure, which contains extended information for a console font.
  * @remarks
  * To obtain the size of the font, pass the font index to the [**GetConsoleFontSize**](getconsolefontsize.md) function.
- * @see https://learn.microsoft.com/windows/console/console-font-infoex
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/console-font-infoex
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

@@ -33,7 +33,11 @@ class IWebAppDiagnosticsSetup extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     DiagnosticsSupported() {
-        result := ComCall(3, this, "short*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, "short*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
@@ -46,7 +50,11 @@ class IWebAppDiagnosticsSetup extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateObjectWithSiteAtWebApp(rclsid, dwClsContext, riid, hPassToObject) {
-        result := ComCall(4, this, "ptr", rclsid, "uint", dwClsContext, "ptr", riid, "ptr", hPassToObject, "HRESULT")
+        result := ComCall(4, this, "ptr", rclsid, "uint", dwClsContext, "ptr", riid, "ptr", hPassToObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

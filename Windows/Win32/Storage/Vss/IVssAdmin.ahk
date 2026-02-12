@@ -6,7 +6,7 @@
 
 /**
  * The IVssAdmin interface manages providers registered with VSS.
- * @see https://docs.microsoft.com/windows/win32/api//vsadmin/nn-vsadmin-ivssadmin
+ * @see https://learn.microsoft.com/windows/win32/api//content/vsadmin/nn-vsadmin-ivssadmin
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -33,6 +33,15 @@ class IVssAdmin extends IUnknown{
 
     /**
      * Registers a new shadow copy provider.
+     * @remarks
+     * If the hardware provider is updated, the setup application should call the 
+     *    <a href="https://docs.microsoft.com/windows/desktop/api/vsadmin/nf-vsadmin-ivssadmin-unregisterprovider">UnregisterProvider</a> method to unregister the 
+     *    outdated version, and then call  the 
+     *    <b>RegisterProvider</b> method to register the 
+     *    updated provider.
+     * 
+     * <div class="alert"><b>Note</b>  Hardware providers can only be registered on Windows Server operating systems.</div>
+     * <div> </div>
      * @param {Guid} pProviderId The <b>VSS_ID</b> that uniquely and persistently identifies the provider. After it is 
      *      defined, the <i>ProviderId</i> parameter should remain the same, even when the software 
      *      revision is updated. A <i>ProviderId</i> parameter should be changed only when the 
@@ -118,20 +127,24 @@ class IVssAdmin extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsadmin/nf-vsadmin-ivssadmin-registerprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsadmin/nf-vsadmin-ivssadmin-registerprovider
      */
     RegisterProvider(pProviderId, ClassId, pwszProviderName, eProviderType, pwszProviderVersion, ProviderVersionId) {
         pwszProviderNameMarshal := pwszProviderName is VarRef ? "ushort*" : "ptr"
         pwszProviderVersionMarshal := pwszProviderVersion is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pProviderId, "ptr", ClassId, pwszProviderNameMarshal, pwszProviderName, "int", eProviderType, pwszProviderVersionMarshal, pwszProviderVersion, "ptr", ProviderVersionId, "HRESULT")
+        result := ComCall(3, this, "ptr", pProviderId, "ptr", ClassId, pwszProviderNameMarshal, pwszProviderName, "int", eProviderType, pwszProviderVersionMarshal, pwszProviderVersion, "ptr", ProviderVersionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -197,38 +210,57 @@ class IVssAdmin extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsadmin/nf-vsadmin-ivssadmin-unregisterprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsadmin/nf-vsadmin-ivssadmin-unregisterprovider
      */
     UnregisterProvider(ProviderId) {
-        result := ComCall(4, this, "ptr", ProviderId, "HRESULT")
+        result := ComCall(4, this, "ptr", ProviderId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries all registered providers.
+     * @remarks
+     * Calling the <a href="https://docs.microsoft.com/windows/desktop/api/vss/nf-vss-ivssenumobject-next">IVssEnumObject::Next</a> method on the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> interface returned though the 
+     *     <i>ppEnum</i>  parameter will return 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structures containing a 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_provider_prop">VSS_PROVIDER_PROP</a> structure for each registered 
+     *     provider.
      * @returns {IVssEnumObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> interface pointer, 
      *       which is initialized on return. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vsadmin/nf-vsadmin-ivssadmin-queryproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsadmin/nf-vsadmin-ivssadmin-queryproviders
      */
     QueryProviders() {
-        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVssEnumObject(ppEnum)
     }
 
     /**
      * This method is reserved for system use.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//vsadmin/nf-vsadmin-ivssadmin-abortallsnapshotsinprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsadmin/nf-vsadmin-ivssadmin-abortallsnapshotsinprogress
      */
     AbortAllSnapshotsInProgress() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

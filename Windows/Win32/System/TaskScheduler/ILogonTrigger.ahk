@@ -7,14 +7,10 @@
 /**
  * Represents a trigger that starts a task when a user logs on.
  * @remarks
- * 
  * If you want a task to be triggered when any member of a group logs on to the computer rather than when  a specific user logs on, then do not assign a value to the  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ilogontrigger-get_userid">UserId</a> property.  Instead, create a logon trigger with an empty <b>UserId</b> property and assign a value to the principal for the task using the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_groupid">GroupId</a> property.
  * 
  * When reading or writing XML for a task, a logon trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-logontrigger-triggergroup-element">LogonTrigger</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-ilogontrigger
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-ilogontrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -54,74 +50,84 @@ class ILogonTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a value that indicates the amount of time between when the user logs on and when the task is started.
+     * Gets or sets a value that indicates the amount of time between when the user logs on and when the task is started. (Get)
      * @remarks
-     * 
      * When reading or writing XML for a task, the logon trigger delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-logontriggertype-element">Delay</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ilogontrigger-get_delay
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ilogontrigger-get_delay
      */
     get_Delay(pDelay) {
-        result := ComCall(20, this, "ptr", pDelay, "HRESULT")
+        result := ComCall(20, this, "ptr", pDelay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a value that indicates the amount of time between when the user logs on and when the task is started.
+     * Gets or sets a value that indicates the amount of time between when the user logs on and when the task is started. (Put)
      * @remarks
-     * 
      * When reading or writing XML for a task, the logon trigger delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-logontriggertype-element">Delay</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ilogontrigger-put_delay
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ilogontrigger-put_delay
      */
     put_Delay(delay) {
-        delay := delay is String ? BSTR.Alloc(delay).Value : delay
+        if(delay is String) {
+            pin := BSTR.Alloc(delay)
+            delay := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", delay, "HRESULT")
+        result := ComCall(21, this, "ptr", delay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the identifier of the user.
+     * Gets or sets the identifier of the user. (Get)
      * @remarks
-     * 
      * If you want a task to be triggered when any member of a group logs on to the computer rather than when  a specific user logs on, then do not assign a value to the  <b>UserId</b> property.  Instead, create a logon trigger with an empty <b>UserId</b> property and assign a value to the principal for the task using the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_groupid">GroupId</a> property.
      * 
      * When reading or writing XML for a task, the logon user identifier is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-userid-logontriggertype-element">UserId</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pUser 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ilogontrigger-get_userid
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ilogontrigger-get_userid
      */
     get_UserId(pUser) {
-        result := ComCall(22, this, "ptr", pUser, "HRESULT")
+        result := ComCall(22, this, "ptr", pUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the identifier of the user.
+     * Gets or sets the identifier of the user. (Put)
      * @remarks
-     * 
      * If you want a task to be triggered when any member of a group logs on to the computer rather than when  a specific user logs on, then do not assign a value to the  <b>UserId</b> property.  Instead, create a logon trigger with an empty <b>UserId</b> property and assign a value to the principal for the task using the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_groupid">GroupId</a> property.
      * 
      * When reading or writing XML for a task, the logon user identifier is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-userid-logontriggertype-element">UserId</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} user 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ilogontrigger-put_userid
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ilogontrigger-put_userid
      */
     put_UserId(user) {
-        user := user is String ? BSTR.Alloc(user).Value : user
+        if(user is String) {
+            pin := BSTR.Alloc(user)
+            user := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", user, "HRESULT")
+        result := ComCall(23, this, "ptr", user, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

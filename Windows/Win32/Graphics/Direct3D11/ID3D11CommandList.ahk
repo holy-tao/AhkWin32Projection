@@ -6,11 +6,8 @@
 /**
  * The ID3D11CommandList interface encapsulates a list of graphics commands for play back.
  * @remarks
- * 
  * There is no explicit creation method, simply declare an <b>ID3D11CommandList</b> interface, then call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-finishcommandlist">ID3D11DeviceContext::FinishCommandList</a> to record commands or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-executecommandlist">ID3D11DeviceContext::ExecuteCommandList</a> to play back commands.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11commandlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nn-d3d11-id3d11commandlist
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -37,10 +34,12 @@ class ID3D11CommandList extends ID3D11DeviceChild{
 
     /**
      * Gets the initialization flags associated with the deferred context that created the command list.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @remarks
+     * The GetContextFlags method gets the flags that were supplied to the <i>ContextFlags</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createdeferredcontext">ID3D11Device::CreateDeferredContext</a>; however, the context flag is reserved for future use.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The context flag is reserved for future use and is always 0.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11commandlist-getcontextflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11commandlist-getcontextflags
      */
     GetContextFlags() {
         result := ComCall(7, this, "uint")

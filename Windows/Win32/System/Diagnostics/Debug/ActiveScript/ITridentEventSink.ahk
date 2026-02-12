@@ -39,7 +39,11 @@ class ITridentEventSink extends IUnknown{
     FireEvent(pstrEvent, pdp, pvarRes, pei) {
         pstrEvent := pstrEvent is String ? StrPtr(pstrEvent) : pstrEvent
 
-        result := ComCall(3, this, "ptr", pstrEvent, "ptr", pdp, "ptr", pvarRes, "ptr", pei, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrEvent, "ptr", pdp, "ptr", pvarRes, "ptr", pei, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

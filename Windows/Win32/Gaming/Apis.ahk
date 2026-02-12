@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include ..\System\WinRT\HSTRING.ahk
+#Include ..\System\WinRT\Apis.ahk
 
 /**
  * @namespace Windows.Win32.Gaming
@@ -10,12 +12,12 @@ class Gaming {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ID_GDF_XML_STR => "__GDF_XML"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ID_GDF_THUMBNAIL_STR => "__GDF_THUMBNAIL"
 ;@endregion Constants
@@ -30,7 +32,7 @@ class Gaming {
      * 
      * The app must be in the foreground and have focus before exclusive resources are granted.
      * @returns {BOOL} True if  the app is running in Game Mode; otherwise, false.
-     * @see https://learn.microsoft.com/windows/win32/api/expandedresources/nf-expandedresources-hasexpandedresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/expandedresources/nf-expandedresources-hasexpandedresources
      */
     static HasExpandedResources() {
         result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "int*", &hasExpandedResources := 0, "int")
@@ -52,7 +54,7 @@ class Gaming {
      * 
      * The app must be in the foreground and have focus before exclusive resources are granted.
      * @returns {Integer} The expected number of exclusive CPU sets that are available to the app when in Game Mode.
-     * @see https://learn.microsoft.com/windows/win32/api/expandedresources/nf-expandedresources-getexpandedresourceexclusivecpucount
+     * @see https://learn.microsoft.com/windows/win32/api//content/expandedresources/nf-expandedresources-getexpandedresourceexclusivecpucount
      */
     static GetExpandedResourceExclusiveCpuCount() {
         result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\GetExpandedResourceExclusiveCpuCount", "uint*", &exclusiveCpuCount := 0, "int")
@@ -93,7 +95,7 @@ class Gaming {
      * 
      * The app must be in the foreground and have focus before exclusive resources are granted.
      * @returns {HRESULT} The result of the operation.
-     * @see https://learn.microsoft.com/windows/win32/api/expandedresources/nf-expandedresources-releaseexclusivecpusets
+     * @see https://learn.microsoft.com/windows/win32/api//content/expandedresources/nf-expandedresources-releaseexclusivecpusets
      */
     static ReleaseExclusiveCpuSets() {
         result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\ReleaseExclusiveCpuSets", "int")
@@ -114,7 +116,7 @@ class Gaming {
      * If the game is running in an emulation mode, the type of device being emulated is returned. For example, if the game is running on an Xbox One X dev kit in Xbox One emulation mode, <b>GAMING_DEVICE_DEVICE_ID_XBOX_ONE</b> is returned.
      * @param {Pointer<GAMING_DEVICE_MODEL_INFORMATION>} information A structure containing information about the device that the game is running on.
      * @returns {HRESULT} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingdeviceinformation/nf-gamingdeviceinformation-getgamingdevicemodelinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingdeviceinformation/nf-gamingdeviceinformation-getgamingdevicemodelinformation
      */
     static GetGamingDeviceModelInformation(information) {
         result := DllCall("api-ms-win-gaming-deviceinformation-l1-1-0.dll\GetGamingDeviceModelInformation", "ptr", information, "int")
@@ -142,23 +144,23 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
+     * @param {Pointer<Void>} context_ Type: <b>void*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showgameinviteui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-showgameinviteui
      */
-    static ShowGameInviteUI(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, context) {
+    static ShowGameInviteUI(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, context_) {
         serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
         sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
         sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowGameInviteUI", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowGameInviteUI", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -192,20 +194,20 @@ class Gaming {
      * @param {Pointer<PlayerPickerUICompletionRoutine>} completionRoutine Type: <b>PlayerPickerUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
+     * @param {Pointer<Void>} context_ Type: <b>void*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showplayerpickerui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-showplayerpickerui
      */
-    static ShowPlayerPickerUI(promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context) {
+    static ShowPlayerPickerUI(promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context_) {
         promptDisplayText := promptDisplayText is Win32Handle ? NumGet(promptDisplayText, "ptr") : promptDisplayText
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -221,20 +223,20 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
+     * @param {Pointer<Void>} context_ Type: <b>void*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showprofilecardui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-showprofilecardui
      */
-    static ShowProfileCardUI(targetUserXuid, completionRoutine, context) {
+    static ShowProfileCardUI(targetUserXuid, completionRoutine, context_) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowProfileCardUI", "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowProfileCardUI", "ptr", targetUserXuid, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -250,20 +252,20 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
+     * @param {Pointer<Void>} context_ Type: <b>void*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showchangefriendrelationshipui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-showchangefriendrelationshipui
      */
-    static ShowChangeFriendRelationshipUI(targetUserXuid, completionRoutine, context) {
+    static ShowChangeFriendRelationshipUI(targetUserXuid, completionRoutine, context_) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowChangeFriendRelationshipUI", "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowChangeFriendRelationshipUI", "ptr", targetUserXuid, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -279,18 +281,18 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
+     * @param {Pointer<Void>} context_ Type: <b>void*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-showtitleachievementsui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-showtitleachievementsui
      */
-    static ShowTitleAchievementsUI(titleId, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowTitleAchievementsUI(titleId, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowTitleAchievementsUI", "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowTitleAchievementsUI", "uint", titleId, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -306,7 +308,7 @@ class Gaming {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-processpendinggameui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-processpendinggameui
      */
     static ProcessPendingGameUI(waitForCompletion) {
         result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ProcessPendingGameUI", "int", waitForCompletion, "int")
@@ -322,7 +324,7 @@ class Gaming {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-trycancelpendinggameui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-trycancelpendinggameui
      */
     static TryCancelPendingGameUI() {
         result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\TryCancelPendingGameUI", "int")
@@ -346,22 +348,22 @@ class Gaming {
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} context Type: <b>void*</b>
+     * @param {Pointer<Void>} context_ Type: <b>void*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/nf-gamingtcui-checkgamingprivilegewithui
+     * @see https://learn.microsoft.com/windows/win32/api//content/gamingtcui/nf-gamingtcui-checkgamingprivilegewithui
      */
-    static CheckGamingPrivilegeWithUI(privilegeId, scope, policy, friendlyMessage, completionRoutine, context) {
+    static CheckGamingPrivilegeWithUI(privilegeId, scope, policy, friendlyMessage, completionRoutine, context_) {
         scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
         policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
         friendlyMessage := friendlyMessage is Win32Handle ? NumGet(friendlyMessage, "ptr") : friendlyMessage
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -396,18 +398,18 @@ class Gaming {
      * @param {HSTRING} sessionId 
      * @param {HSTRING} invitationDisplayText 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowGameInviteUIForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, context) {
+    static ShowGameInviteUIForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, context_) {
         serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
         sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
         sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowGameInviteUIForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowGameInviteUIForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -426,15 +428,15 @@ class Gaming {
      * @param {Pointer} minSelectionCount 
      * @param {Pointer} maxSelectionCount 
      * @param {Pointer<PlayerPickerUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowPlayerPickerUIForUser(user, promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context) {
+    static ShowPlayerPickerUIForUser(user, promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context_) {
         promptDisplayText := promptDisplayText is Win32Handle ? NumGet(promptDisplayText, "ptr") : promptDisplayText
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -447,15 +449,15 @@ class Gaming {
      * @param {IInspectable} user 
      * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowProfileCardUIForUser(user, targetUserXuid, completionRoutine, context) {
+    static ShowProfileCardUIForUser(user, targetUserXuid, completionRoutine, context_) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowProfileCardUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowProfileCardUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -468,15 +470,15 @@ class Gaming {
      * @param {IInspectable} user 
      * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowChangeFriendRelationshipUIForUser(user, targetUserXuid, completionRoutine, context) {
+    static ShowChangeFriendRelationshipUIForUser(user, targetUserXuid, completionRoutine, context_) {
         targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowChangeFriendRelationshipUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowChangeFriendRelationshipUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -489,13 +491,13 @@ class Gaming {
      * @param {IInspectable} user 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowTitleAchievementsUIForUser(user, titleId, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowTitleAchievementsUIForUser(user, titleId, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowTitleAchievementsUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowTitleAchievementsUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -511,17 +513,17 @@ class Gaming {
      * @param {HSTRING} policy 
      * @param {HSTRING} friendlyMessage 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static CheckGamingPrivilegeWithUIForUser(user, privilegeId, scope, policy, friendlyMessage, completionRoutine, context) {
+    static CheckGamingPrivilegeWithUIForUser(user, privilegeId, scope, policy, friendlyMessage, completionRoutine, context_) {
         scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
         policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
         friendlyMessage := friendlyMessage is Win32Handle ? NumGet(friendlyMessage, "ptr") : friendlyMessage
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -557,19 +559,19 @@ class Gaming {
      * @param {HSTRING} invitationDisplayText 
      * @param {HSTRING} customActivationContext 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowGameInviteUIWithContext(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, context) {
+    static ShowGameInviteUIWithContext(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, context_) {
         serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
         sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
         sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
         customActivationContext := customActivationContext is Win32Handle ? NumGet(customActivationContext, "ptr") : customActivationContext
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContext", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContext", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -586,19 +588,19 @@ class Gaming {
      * @param {HSTRING} invitationDisplayText 
      * @param {HSTRING} customActivationContext 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowGameInviteUIWithContextForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, context) {
+    static ShowGameInviteUIWithContextForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, context_) {
         serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
         sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
         sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
         invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
         customActivationContext := customActivationContext is Win32Handle ? NumGet(customActivationContext, "ptr") : customActivationContext
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContextForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContextForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -610,13 +612,13 @@ class Gaming {
      * 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowGameInfoUI(titleId, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowGameInfoUI(titleId, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUI", "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUI", "uint", titleId, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -629,13 +631,13 @@ class Gaming {
      * @param {IInspectable} user 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowGameInfoUIForUser(user, titleId, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowGameInfoUIForUser(user, titleId, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowGameInfoUIForUser", "ptr", user, "uint", titleId, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -646,48 +648,13 @@ class Gaming {
     /**
      * 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowFindFriendsUI(completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowFindFriendsUI(completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUI", "ptr", completionRoutine, contextMarshal, context, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {IInspectable} user 
-     * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
-     * @returns {HRESULT} 
-     */
-    static ShowFindFriendsUIForUser(user, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUIForUser", "ptr", user, "ptr", completionRoutine, contextMarshal, context, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
-     * @returns {HRESULT} 
-     */
-    static ShowCustomizeUserProfileUI(completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUI", "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUI", "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -699,13 +666,13 @@ class Gaming {
      * 
      * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowCustomizeUserProfileUIForUser(user, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowFindFriendsUIForUser(user, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUIForUser", "ptr", user, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowFindFriendsUIForUser", "ptr", user, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -716,13 +683,13 @@ class Gaming {
     /**
      * 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowUserSettingsUI(completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowCustomizeUserProfileUI(completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUI", "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUI", "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -734,13 +701,48 @@ class Gaming {
      * 
      * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @returns {HRESULT} 
      */
-    static ShowUserSettingsUIForUser(user, completionRoutine, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static ShowCustomizeUserProfileUIForUser(user, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUIForUser", "ptr", user, "ptr", completionRoutine, contextMarshal, context, "int")
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowCustomizeUserProfileUIForUser", "ptr", user, "ptr", completionRoutine, context_Marshal, context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
+     * @param {Pointer<Void>} context_ 
+     * @returns {HRESULT} 
+     */
+    static ShowUserSettingsUI(completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUI", "ptr", completionRoutine, context_Marshal, context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {IInspectable} user 
+     * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
+     * @param {Pointer<Void>} context_ 
+     * @returns {HRESULT} 
+     */
+    static ShowUserSettingsUIForUser(user, completionRoutine, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-4.dll\ShowUserSettingsUIForUser", "ptr", user, "ptr", completionRoutine, context_Marshal, context_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

@@ -7,7 +7,7 @@
 
 /**
  * Exposes methods used to access a group of effects.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectgroup
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nn-mileffects-imilbitmapeffectgroup
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -40,10 +40,14 @@ class IMILBitmapEffectGroup extends IUnknown{
      * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
      * 
      * A pointer that receives a pointer to the desired effects input connector.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroup-getinteriorinputconnector
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectgroup-getinteriorinputconnector
      */
     GetInteriorInputConnector(uiIndex) {
-        result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMILBitmapEffectOutputConnector(ppConnector)
     }
 
@@ -55,10 +59,14 @@ class IMILBitmapEffectGroup extends IUnknown{
      * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
      * 
      * A pointer that receives a pointer to the desired effects output connector.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroup-getinterioroutputconnector
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectgroup-getinterioroutputconnector
      */
     GetInteriorOutputConnector(uiIndex) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMILBitmapEffectInputConnector(ppConnector)
     }
 
@@ -69,11 +77,15 @@ class IMILBitmapEffectGroup extends IUnknown{
      * A pointer to the effect to add to the group.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroup-add
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectgroup-add
      */
     Add(pEffect) {
-        result := ComCall(5, this, "ptr", pEffect, "HRESULT")
+        result := ComCall(5, this, "ptr", pEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

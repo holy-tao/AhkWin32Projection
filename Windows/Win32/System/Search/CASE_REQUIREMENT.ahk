@@ -5,7 +5,7 @@
  * Specifies the case requirements of keywords, if any, for a query.
  * @remarks
  * Keywords include Boolean operators such as AND, NOT, and OR.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-case_requirement
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/ne-structuredquery-case_requirement
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

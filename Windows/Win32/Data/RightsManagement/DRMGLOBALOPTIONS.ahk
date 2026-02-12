@@ -7,7 +7,7 @@
  * Applications cannot toggle between the WinHTTP and WinINet protocols.
  * 
  * WinINet cannot be used under the network service account. If an application will be run under the network service account, the application must specify the <b>DRMGLOBALOPTIONS_USE_WINHTTP</b> option.
- * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmglobaloptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/msdrmdefs/ne-msdrmdefs-drmglobaloptions
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

@@ -33,10 +33,14 @@ class IParentRowset extends IUnknown{
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} iOrdinal 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetChildRowset(pUnkOuter, iOrdinal, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", iOrdinal, "ptr", riid, "ptr*", &ppRowset := 0, "HRESULT")
-        return IUnknown(ppRowset)
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", iOrdinal, "ptr", riid, "ptr*", &ppRowset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppRowset
     }
 }

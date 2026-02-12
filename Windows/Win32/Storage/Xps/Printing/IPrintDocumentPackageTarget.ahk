@@ -5,7 +5,7 @@
 
 /**
  * Allows users to enumerate the supported package target types and to create one with a given type ID. IPrintDocumentPackageTarget also supports the tracking of the package printing progress and cancelling.
- * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nn-documenttarget-iprintdocumentpackagetarget
+ * @see https://learn.microsoft.com/windows/win32/api//content/documenttarget/nn-documenttarget-iprintdocumentpackagetarget
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */
@@ -38,16 +38,22 @@ class IPrintDocumentPackageTarget extends IUnknown{
 
     /**
      * Enumerates the supported target types.
+     * @remarks
+     * In the case of a multi-format driver, the first GUID returned in the <i>targetTypes</i> array is the XPS format preferred by the driver.
      * @param {Pointer<Integer>} targetCount The number of supported target types.
      * @param {Pointer<Pointer<Guid>>} targetTypes The array of supported target types. An array of GUIDs.
      * @returns {HRESULT} If the <b>GetPackageTargetTypes</b> method completes successfully, it returns an S_OK. Otherwise it returns the appropriate HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes
      */
     GetPackageTargetTypes(targetCount, targetTypes) {
         targetCountMarshal := targetCount is VarRef ? "uint*" : "ptr"
         targetTypesMarshal := targetTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, targetCountMarshal, targetCount, targetTypesMarshal, targetTypes, "HRESULT")
+        result := ComCall(3, this, targetCountMarshal, targetCount, targetTypesMarshal, targetTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,21 +61,29 @@ class IPrintDocumentPackageTarget extends IUnknown{
      * Retrieves the pointer to the specific document package target, which allows the client to add a document with the given target type. Clients can call this method multiple times but they always have to use the same target ID.
      * @param {Pointer<Guid>} guidTargetType The target type GUID obtained from <a href="https://docs.microsoft.com/windows/desktop/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetargettypes">GetPackageTargetTypes</a>.
      * @param {Pointer<Guid>} riid The identifier of the interface being requested.
-     * @returns {Pointer<Void>} The requested document target interface. The returned pointer is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsdocumentpackagetarget">IXpsDocumentPackageTarget</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetarget
+     * @returns {Pointer<Pointer<Void>>} The requested document target interface. The returned pointer is a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsdocumentpackagetarget">IXpsDocumentPackageTarget</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetarget
      */
     GetPackageTarget(guidTargetType, riid) {
-        result := ComCall(4, this, "ptr", guidTargetType, "ptr", riid, "ptr*", &ppvTarget := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", guidTargetType, "ptr", riid, "ptr*", &ppvTarget := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvTarget
     }
 
     /**
      * Cancels the current print job.
      * @returns {HRESULT} If the <b>Cancel</b> method completes successfully, it returns an S_OK. Otherwise it returns the appropriate HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetarget-cancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-cancel
      */
     Cancel() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

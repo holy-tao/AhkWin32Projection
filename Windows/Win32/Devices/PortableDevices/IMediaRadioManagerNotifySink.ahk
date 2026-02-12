@@ -35,7 +35,11 @@ class IMediaRadioManagerNotifySink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnInstanceAdd(pRadioInstance) {
-        result := ComCall(3, this, "ptr", pRadioInstance, "HRESULT")
+        result := ComCall(3, this, "ptr", pRadioInstance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,9 +49,16 @@ class IMediaRadioManagerNotifySink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnInstanceRemove(bstrRadioInstanceId) {
-        bstrRadioInstanceId := bstrRadioInstanceId is String ? BSTR.Alloc(bstrRadioInstanceId).Value : bstrRadioInstanceId
+        if(bstrRadioInstanceId is String) {
+            pin := BSTR.Alloc(bstrRadioInstanceId)
+            bstrRadioInstanceId := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrRadioInstanceId, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrRadioInstanceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,9 +69,16 @@ class IMediaRadioManagerNotifySink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnInstanceRadioChange(bstrRadioInstanceId, radioState) {
-        bstrRadioInstanceId := bstrRadioInstanceId is String ? BSTR.Alloc(bstrRadioInstanceId).Value : bstrRadioInstanceId
+        if(bstrRadioInstanceId is String) {
+            pin := BSTR.Alloc(bstrRadioInstanceId)
+            bstrRadioInstanceId := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", bstrRadioInstanceId, "int", radioState, "HRESULT")
+        result := ComCall(5, this, "ptr", bstrRadioInstanceId, "int", radioState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

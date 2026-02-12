@@ -5,7 +5,7 @@
 
 /**
  * Defines a classifier module.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduledefinition
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nn-fsrmpipeline-ifsrmclassifiermoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -55,99 +55,105 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
-     * The list of property names that the classifier can affect.
+     * The list of property names that the classifier can affect. (Get)
      * @remarks
-     * 
      * This list is optional. Specify a list of properties only if you want to limit the properties that this classifier can affect; otherwise, if the list is empty, the classifier can affect any property in the file.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesaffected
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesaffected
      */
     get_PropertiesAffected() {
-        result := ComCall(31, this, "ptr*", &propertiesAffected := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &propertiesAffected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return propertiesAffected
     }
 
     /**
-     * The list of property names that the classifier can affect.
+     * The list of property names that the classifier can affect. (Put)
      * @remarks
-     * 
      * This list is optional. Specify a list of properties only if you want to limit the properties that this classifier can affect; otherwise, if the list is empty, the classifier can affect any property in the file.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} propertiesAffected 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_propertiesaffected
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_propertiesaffected
      */
     put_PropertiesAffected(propertiesAffected) {
-        result := ComCall(32, this, "ptr", propertiesAffected, "HRESULT")
+        result := ComCall(32, this, "ptr", propertiesAffected, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The list of property names that the classifier inspects.
+     * The list of property names that the classifier inspects. (Get)
      * @remarks
-     * 
      * The classifier may inspect the properties to determine the property value or if it should perform other processes.
      * 
      * The list is optional. Specify a list of properties only if you want to limit the properties that this classifier can inspect; otherwise, if the list is empty, the classifier can inspect any property in the file.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesused
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesused
      */
     get_PropertiesUsed() {
-        result := ComCall(33, this, "ptr*", &propertiesUsed := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &propertiesUsed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return propertiesUsed
     }
 
     /**
-     * The list of property names that the classifier inspects.
+     * The list of property names that the classifier inspects. (Put)
      * @remarks
-     * 
      * The classifier may inspect the properties to determine the property value or if it should perform other processes.
      * 
      * The list is optional. Specify a list of properties only if you want to limit the properties that this classifier can inspect; otherwise, if the list is empty, the classifier can inspect any property in the file.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} propertiesUsed 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_propertiesused
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_propertiesused
      */
     put_PropertiesUsed(propertiesUsed) {
-        result := ComCall(34, this, "ptr", propertiesUsed, "HRESULT")
+        result := ComCall(34, this, "ptr", propertiesUsed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Determines whether a rule that uses the classifier needs to provide the value for the classification property.
+     * Determines whether a rule that uses the classifier needs to provide the value for the classification property. (Get)
      * @remarks
-     * 
      * If this value is <b>VARIANT_FALSE</b>, the classifier determines and provides the value.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_needsexplicitvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_needsexplicitvalue
      */
     get_NeedsExplicitValue() {
-        result := ComCall(35, this, "short*", &needsExplicitValue := 0, "HRESULT")
+        result := ComCall(35, this, "short*", &needsExplicitValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return needsExplicitValue
     }
 
     /**
-     * Determines whether a rule that uses the classifier needs to provide the value for the classification property.
+     * Determines whether a rule that uses the classifier needs to provide the value for the classification property. (Put)
      * @remarks
-     * 
      * If this value is <b>VARIANT_FALSE</b>, the classifier determines and provides the value.
-     * 
-     * 
      * @param {VARIANT_BOOL} needsExplicitValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_needsexplicitvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-put_needsexplicitvalue
      */
     put_NeedsExplicitValue(needsExplicitValue) {
-        result := ComCall(36, this, "short", needsExplicitValue, "HRESULT")
+        result := ComCall(36, this, "short", needsExplicitValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

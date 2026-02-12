@@ -34,7 +34,11 @@ class IChapteredRowset extends IUnknown{
      * @returns {Integer} 
      */
     AddRefChapter(hChapter) {
-        result := ComCall(3, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRefCount
     }
 
@@ -44,7 +48,11 @@ class IChapteredRowset extends IUnknown{
      * @returns {Integer} 
      */
     ReleaseChapter(hChapter) {
-        result := ComCall(4, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hChapter, "uint*", &pcRefCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRefCount
     }
 }

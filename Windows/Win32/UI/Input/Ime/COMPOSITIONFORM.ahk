@@ -4,10 +4,10 @@
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
- * The COMPOSITIONFORM structure (immdev.h) contains style and position information for a composition window.
+ * The COMPOSITIONFORM (imm.h) structure contains style and position information for a composition window.
  * @remarks
  * Some IME windows adjust the composition window position specified by the system or the application. The CFS_FORCE_POSITION directs the IME window to skip this adjustment.
- * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-compositionform
+ * @see https://learn.microsoft.com/windows/win32/api//content/imm/ns-imm-compositionform
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

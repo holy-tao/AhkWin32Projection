@@ -133,7 +133,7 @@ class EventNotificationService {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sensapi/nf-sensapi-isdestinationreachablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensapi/nf-sensapi-isdestinationreachablea
      * @since windows5.1.2600
      */
     static IsDestinationReachableA(lpszDestination, lpQOCInfo) {
@@ -210,7 +210,7 @@ class EventNotificationService {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sensapi/nf-sensapi-isdestinationreachablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensapi/nf-sensapi-isdestinationreachablew
      * @since windows5.1.2600
      */
     static IsDestinationReachableW(lpszDestination, lpQOCInfo) {
@@ -272,7 +272,7 @@ class EventNotificationService {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/sensapi/nf-sensapi-isnetworkalive
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensapi/nf-sensapi-isnetworkalive
      * @since windows5.1.2600
      */
     static IsNetworkAlive(lpdwFlags) {

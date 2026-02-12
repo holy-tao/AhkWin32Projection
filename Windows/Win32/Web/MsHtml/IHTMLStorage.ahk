@@ -55,7 +55,11 @@ class IHTMLStorage extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -64,18 +68,30 @@ class IHTMLStorage extends IDispatch{
      * @returns {Integer} 
      */
     get_remainingSpace() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * Synthesizes a keystroke.
+     * @remarks
+     * An application can simulate a press of the PRINTSCRN key in order to obtain a screen snapshot and save it to the clipboard. To do this, call <b>keybd_event</b> with the 
+     * 				<i>bVk</i> parameter set to <b>VK_SNAPSHOT</b>.
      * @param {Integer} lIndex 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-keybd_event
      */
     key(lIndex) {
         __MIDL__IHTMLStorage0000 := BSTR()
-        result := ComCall(9, this, "int", lIndex, "ptr", __MIDL__IHTMLStorage0000, "HRESULT")
+        result := ComCall(9, this, "int", lIndex, "ptr", __MIDL__IHTMLStorage0000, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IHTMLStorage0000
     }
 
@@ -85,10 +101,17 @@ class IHTMLStorage extends IDispatch{
      * @returns {VARIANT} 
      */
     getItem(bstrKey) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
 
         __MIDL__IHTMLStorage0001 := VARIANT()
-        result := ComCall(10, this, "ptr", bstrKey, "ptr", __MIDL__IHTMLStorage0001, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrKey, "ptr", __MIDL__IHTMLStorage0001, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IHTMLStorage0001
     }
 
@@ -99,10 +122,20 @@ class IHTMLStorage extends IDispatch{
      * @returns {HRESULT} 
      */
     setItem(bstrKey, bstrValue) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
-        bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
+        if(bstrValue is String) {
+            pin := BSTR.Alloc(bstrValue)
+            bstrValue := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrKey, "ptr", bstrValue, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrKey, "ptr", bstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,18 +145,32 @@ class IHTMLStorage extends IDispatch{
      * @returns {HRESULT} 
      */
     removeItem(bstrKey) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrKey, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * clearBatch Method (SQLServerStatement)
+     * @remarks
+     * This clearBatch method is specified by the clearBatch method in the java.sql.Statement interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/clearbatch-method-sqlserverstatement
      */
     clear() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

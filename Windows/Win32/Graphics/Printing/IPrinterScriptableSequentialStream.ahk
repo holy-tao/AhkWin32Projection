@@ -29,22 +29,32 @@ class IPrinterScriptableSequentialStream extends IDispatch{
     static VTableNames => ["Read", "Write"]
 
     /**
-     * 
+     * Learn how to read a FILESTREAM column to a file using the IBCPSession interface in OLE DB Driver for SQL Server and write a format file with this example.
      * @param {Integer} cbRead 
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/filestream/read-a-filestream-column-to-file-using-ibcpsession-ole-db
      */
     Read(cbRead) {
-        result := ComCall(7, this, "int", cbRead, "ptr*", &ppArray := 0, "HRESULT")
+        result := ComCall(7, this, "int", cbRead, "ptr*", &ppArray := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppArray)
     }
 
     /**
-     * 
+     * This article helps you to configure the Script Task.
      * @param {IDispatch} pArray 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/integration-services/extending-packages-scripting-task-examples/write-event-log-script-task
      */
     Write(pArray) {
-        result := ComCall(8, this, "ptr", pArray, "int*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pArray, "int*", &pcbWritten := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbWritten
     }
 }

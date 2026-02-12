@@ -5,7 +5,7 @@
  * Contains fields that specify the information in an Endurance Group Information log page that indicates the amount of data being read from and written to an Endurance Group.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_endurance_group_log
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_endurance_group_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

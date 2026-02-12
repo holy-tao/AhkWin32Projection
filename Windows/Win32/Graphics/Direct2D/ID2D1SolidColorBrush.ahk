@@ -1,22 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\D2D1_COLOR_F.ahk
 #Include .\ID2D1Brush.ahk
 
 /**
  * Paints an area with a solid color.
  * @remarks
- * 
  * <h3><a id="Creating_ID2D1SolidColorBrush_Objects"></a><a id="creating_id2d1solidcolorbrush_objects"></a><a id="CREATING_ID2D1SOLIDCOLORBRUSH_OBJECTS"></a>Creating ID2D1SolidColorBrush Objects</h3>
  * 
  * To create a solid color brush, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsolidcolorbrush(constd2d1_color_f__id2d1solidcolorbrush)">ID2D1RenderTarget::CreateSolidColorBrush</a> method of the render target on which the brush will be used. The brush can only be used with the render target that created it or with the compatible targets for that render target.
  * 
  * 
  * A solid color brush is a device-dependent resource. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1solidcolorbrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nn-d2d1-id2d1solidcolorbrush
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -42,21 +39,23 @@ class ID2D1SolidColorBrush extends ID2D1Brush{
     static VTableNames => ["SetColor", "GetColor"]
 
     /**
-     * 
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * Specifies the color of this solid color brush.
+     * @remarks
+     * To help create colors, Direct2D provides the [**ColorF**](/windows/win32/api/d2d1helper/nl-d2d1helper-colorf) class. It offers several helper methods for creating colors and provides a set or predefined colors.
+     * @param {Pointer<D2D1_COLOR_F>} color_ 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1solidcolorbrush-setcolor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1solidcolorbrush-setcolor
      */
-    SetColor(color) {
-        ComCall(8, this, "ptr", color)
+    SetColor(color_) {
+        ComCall(8, this, "ptr", color_)
     }
 
     /**
      * Retrieves the color of the solid color brush.
-     * @returns {D2D1_COLOR_F} Type: <b><a href="/windows/win32/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
+     * @returns {D2D1_COLOR_F} Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
      * 
      * The color of this solid color brush.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1solidcolorbrush-getcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1solidcolorbrush-getcolor
      */
     GetColor() {
         result := ComCall(9, this, "ptr")

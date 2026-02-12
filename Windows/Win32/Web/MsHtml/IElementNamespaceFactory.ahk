@@ -29,12 +29,17 @@ class IElementNamespaceFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {IElementNamespace} pNamespace 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(pNamespace) {
-        result := ComCall(3, this, "ptr", pNamespace, "HRESULT")
+        result := ComCall(3, this, "ptr", pNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

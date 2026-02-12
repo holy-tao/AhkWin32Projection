@@ -3,7 +3,7 @@
 
 /**
  * The DiagnosticsInfo structure contains the estimate of diagnosis time, and flags for invocation.
- * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-diagnosticsinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndhelper/ns-ndhelper-diagnosticsinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

@@ -12,7 +12,6 @@
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.
  * @remarks
- * 
  * Multiple text ranges can be active and work cooperatively on the same story and evolve with the story. For example, if one text range deletes specified text before another text range, the latter tracks the change. In this sense, text ranges are similar to Microsoft Word bookmarks, which also track editing changes. However, bookmarks cannot edit text, while text ranges can. In addition, ranges let you manipulate text without changing the selection or Clipboard, both of which are valuable to end users. The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextselection">ITextSelection</a> interface inherits from <b>ITextRange</b> and adds some UI-oriented methods and properties as described in the section on <b>ITextSelection</b>.
  * 
  * You can look at a text range using methods based on character positions. Specifically, a text range is characterized by:
@@ -159,9 +158,7 @@
  * Applications typically do not implement the <b>ITextRange</b> interface. Microsoft text solutions, such as rich edit controls, implement <b>ITextRange</b> as part of their TOM implementation.
  * 
  * Applications can retrieve an <b>ITextRange</b> pointer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-range">Range</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextrange
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/nn-tom-itextrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -188,25 +185,53 @@ class ITextRange extends IDispatch{
 
     /**
      * Gets the plain text in this range. The Text property is the default property of the ITextRange interface.
+     * @remarks
+     * The <b>ITextRange::GetText</b> method returns the plain text in the range. The Text property is the default property for <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>; this is, it is automatically invoked for a range, as  in the following Microsoft Visual Basic for Applications (VBA) example.
+     * 
+     * <c>print range</c>
+     * 
+     * Some of the examples below use this fact. The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">ITextRange::SetText</a> method substitutes <i>bstr</i> for the range text. For processing a single character, the Char property is more efficient than the Text property and does not require creating a single character range for storing a character. If the range is degenerate, the Text property lets you insert text easily. You can also delete the text in a range, as shown in the following VBA examples.
+     *             
+     * 
+     * <c>range.delete</c>
+     * 
+     * <c>range = ""</c>
+     * 
+     * You can use the <b>Text</b> property to copy plain text from one place to another, simply by setting one range equal to another. (This is quite different from the <b>Duplicate</b> property; for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-getduplicate">ITextRange::GetDuplicate</a>). The following Microsoft Visual Basic example statement
+     *                 sets the text in the range1 to that in range2.
+     * 
+     * <c>range1 = range2            ' Replace range1's text by range2's</c>
+     * 
+     * The ranges can be in different stories or even in different applications. However, they do imply copying the text first into a <b>BSTR</b> and then from that string to the target location. For large amounts of text, the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-copy">ITextRange::Copy</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-paste">ITextRange::Paste</a> methods can be faster, since they can perform the copy directly from source to target and with any format supported by the source and target.
+     * 
+     * The text returned by the Text property is given in Unicode. The end-of-paragraph mark may be given by 0x2029 (the Unicode Paragraph Separator), or by carriage return/line feed (CR/LF) (0xd, 0xa), or by a carriage return alone, depending on the original file. Microsoft Word uses a carriage return alone, unless it reads another choice in from a file, the clipboard, or an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>. The placeholder for an embedded object is given by the special character, <b>WCH_EMBEDDING</b>, which has the Unicode value 0xFFFC.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * The text.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-gettext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-gettext
      */
     GetText() {
         pbstr := BSTR()
-        result := ComCall(7, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * Sets the text in this range.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * @remarks
+     * <b>ITextRange::SetText</b> replaces the text in the range with the new text. In contrast, <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-typetext">TypeText</a> replaces the selection with the text <i>bstr</i> and leaves the selection as an insertion point just following the inserted text, just as if you had typed the text in. For UI selection behavior, see <b>TypeText</b>.
+     * 
+     * If, after you call <b>ITextRange::SetText</b>, you call <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-gettext">ITextRange::GetText</a>, you get back the same text that you set with the <b>ITextRange::SetText</b> method (unless some other range has changed that text in between the calls).
+     * @param {BSTR} bstr_ Type: <b>BSTR</b>
      * 
      * Text that replaces the current text in this range. If null, the current text is deleted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -247,35 +272,99 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-settext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-settext
      */
-    SetText(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    SetText(bstr_) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstr, "HRESULT")
+        result := ComCall(8, this, "ptr", bstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the character at the start position of the range.
+     * @remarks
+     * The following Microsoft Visual Basic example sets <i>ch</i> equal to the character at the start of the range.
+     * 
+     *     			
+     * 
+     * <c>ch = r.Char</c>
+     * 
+     * Similarly, <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setchar">ITextRange::SetChar</a> overwrites the character at the start of the range with the specified character. The characters retrieved and set by these methods are <b>LONG</b> variables, which hide the way that they are stored in the backing store (as bytes, words, variable-length, and so forth), and they do not require using a <b>BSTR</b>.
+     * 
+     * The Char property, which can do most things that a characters collection can, has two big advantages: 
+     * 
+     * <ul>
+     * <li>It can reference any character in the parent story instead of being limited to the parent range. </li>
+     * <li>It is significantly faster, since <b>LONG</b>s are involved instead of range objects. </li>
+     * </ul>
+     * Accordingly, the Text Object Model (TOM) does not support a characters collection.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The start character position of the range.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getchar
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getchar
      */
     GetChar() {
-        result := ComCall(9, this, "int*", &pChar := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pChar := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pChar
     }
 
     /**
      * Sets the character at the starting position of the range.
-     * @param {Integer} Char Type: <b>long</b>
+     * @remarks
+     * <b>ITextRange::SetChar</b> lets you specify the precise character code to use. However, string literals with similar looking glyphs can be misleading. 
+     * 
+     * The characters set by this method are <b>LONG</b> instead of a <b>BSTR</b>. This hides the way that they are stored in the backing store, (as bytes, words, variable-length, and so forth). 
+     * 
+     * Frequently on systems that do not have automatic word-wrapping, documents have hard carriage returns inserted just for line breaks. The following code shows a simple, but not perfect, way to convert such hard carriage returns back to blanks for the story that is associated with the range r. 
+     * 
+     * 
+     * 
+     * 
+     * ```
+     *     Sub EnableWrap(r As ITextRange)   // Convert false hard CRs to soft
+     *         r.SetRange 0, 0               // r is set at start of story
+     *         While r.Move(tomParagraph)    // Go to start of next paragraph
+     *             If r.MoveWhile(C1_WHITE, 1) = 0 Then    // Next char isn't white space
+     *                 r.Move tomCharacter, -1
+     *                 r.SetChar = Asc(" ")    // Replace CR by blank
+     *             End If
+     *         Wend        // Loop till no more CRs in story
+     *     End Sub
+     * ```
+     * 
+     * 
+     * Alternatively, you could use the following inside the IF loop.
+     * 
+     * 
+     * ```
+     * r.MoveStart tomCharacter, -1        // Select previous char (the CR)
+     * r = " "        // Replace it with a blank
+     * ```
+     * 
+     * 
+     * This approach enables you to wrap the text to other widths. However, the algorithm isn't perfect: it assumes that a hard carriage return that is followed by anything other than white space (blank, tab, line feed, carriage return, and so forth) should be replaced by a blank. The algorithm also assumes that the carriage return character is a single character like carriage return  or the Unicode end-of-paragraph (EOP) 0x2029 character. And, the combination carriage return and line feed isn't matched and would require writing and executing more code (or use <c>FindText(^p)</c>). Another caution is that there are other cases, such as mixed code and documentation, where the algorithm does not work correctly. 
+     * 
+     * However, <b>ITextRange::SetChar</b> is more efficient than a replace operation that is accomplished by a delete followed by an insertion. Thus, rewriting the code without using <b>ITextRange::SetChar</b> would probably be much slower. 
+     * 
+     * The <i>Char</i> property, which can do most things that a characters collection can, has two big advantages: it can reference any character in the parent story instead of being limited to the parent range, and it's significantly faster, since <b>LONG</b>s rather than range objects are involved. Because of these advantages, the Text Object Model (TOM) does not support a characters collection.
+     * @param {Integer} Char_ Type: <b>long</b>
      * 
      * New value for character at the starting position.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -305,45 +394,74 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setchar
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setchar
      */
-    SetChar(Char) {
-        result := ComCall(10, this, "int", Char, "HRESULT")
+    SetChar(Char_) {
+        result := ComCall(10, this, "int", Char_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a duplicate of this range object.
+     * @remarks
+     * To create an insertion point in order to traverse a range, first duplicate the range and then collapse the duplicate at its start character position. Note, a range is characterized by start and end character positions, and the story it belongs to.
+     * 
+     * Even if the range is actually an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextselection">ITextSelection</a>, the duplicate returned is an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>. For an example, see the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-findtext">ITextRange::FindText</a> method.
      * @returns {ITextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>**</b>
      * 
      * The duplicate of the range.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getduplicate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getduplicate
      */
     GetDuplicate() {
-        result := ComCall(11, this, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextRange(ppRange)
     }
 
     /**
      * Gets an ITextRange object with the specified range's formatted text.
+     * @remarks
+     * This method, which amounts to an alias for the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-getduplicate">ITextRange::GetDuplicate</a> method, is included to be Microsoft Visual Basic for Applications (VBA)-friendly. The method returns the formatted text in a range. If the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> does not belong to the same Text Object Model (TOM) engine, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> for an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface. 
+     * 
+     * Among the formats typically supported by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> are <b>CF_TEXT</b> and <b>CF_RTF</b>. In addition, private formats can be used to reference a text solution's own internal rich-text formats. The following Microsoft Visual Basic example uses the <b>FormattedText</b> property to replace the text in a range2, by the formatted text in range1. 
+     *             
+     * 
+     * <c>range2.FormattedText = range1.FormattedText</c>
      * @returns {ITextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>**</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> object with the formatted text.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getformattedtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getformattedtext
      */
     GetFormattedText() {
-        result := ComCall(12, this, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextRange(ppRange)
     }
 
     /**
      * Sets the formatted text of this range text to the formatted text of the specified range.
+     * @remarks
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> does not belong to the same Text Object Model (TOM) engine, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> for an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface.
+     * 
+     * Among the formats typically supported by the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> are CF_TEXT and CF_RTF. In addition, private formats can be used to reference a text solution's own internal rich-text formats. The following Microsoft Visual Basic example uses the <b>FormattedText</b> property to replace the text in range2 with the formatted text in range1.
+     * 
+     * <c>range2.FormattedText = range1.FormattedText</c>
      * @param {ITextRange} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>*</b>
      * 
      * The formatted text to replace this range's text.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -384,10 +502,14 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setformattedtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setformattedtext
      */
     SetFormattedText(pRange) {
-        result := ComCall(13, this, "ptr", pRange, "HRESULT")
+        result := ComCall(13, this, "ptr", pRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -396,75 +518,139 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The start character position.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getstart
      */
     GetStart() {
-        result := ComCall(14, this, "int*", &pcpFirst := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pcpFirst := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcpFirst
     }
 
     /**
      * Sets the character position for the start of this range.
+     * @remarks
+     * Note that if <i>cpFirst</i> is greater than the range's end position, this method sets the end position equal to <i>cpFirst</i>, making the range an insertion point. If this range is the selection, the start position becomes the active end and is scrolled into view if the display isn't frozen.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setend">ITextRange::SetEnd</a> sets the range's end position, and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setrange">ITextRange::SetRange</a> sets both range ends simultaneously. The following example shows how to convert a nondegenerate range into a degenerate one (insertion point).
+     * 
+     * <c>range.End = range.Start</c>
+     * 
+     * Similarly, <c>range.Start = range.End</c> converts the range into an insertion point at the end position.
+     * 
+     * The following example adds 1 to the end position, if it is not at the end of the story.
+     * 
+     * <c>range.End = range.End + 1</c>
+     * 
+     * This also makes the end position the active end of the range, and it can turn a degenerate range into a nondegenerate one.
      * @param {Integer} cpFirst Type: <b>long</b>
      * 
      * The new character position for the start of the range.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setstart
      */
     SetStart(cpFirst) {
-        result := ComCall(15, this, "int", cpFirst, "HRESULT")
+        result := ComCall(15, this, "int", cpFirst, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the end character position of the range.
+     * @remarks
+     * Although a pointer to a range remains valid when the text is edited, this is not the case for the 
+     * 				character position. A 
+     * 				character position is volatile; that is, it becomes invalid as soon as text is inserted or deleted before the 
+     * 				character position. Be careful about using methods that return 
+     * 				character position values, especially if the values are to be stored for any duration. 
+     * 
+     * This method is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-getstart">ITextRange::GetStart</a> method which gets the start character position of the range.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The end character position.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getend
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getend
      */
     GetEnd() {
-        result := ComCall(16, this, "int*", &pcpLim := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pcpLim := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcpLim
     }
 
     /**
      * Sets the end position of the range.
+     * @remarks
+     * If the new end position is less than the start position, this method also sets the start position to  <i>cp</i>; that is, the range becomes an insertion point.
+     * 
+     * If this range is actually the selection, the end position becomes the active end and, if the display is not frozen, it is scrolled into view.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setstart">ITextRange::SetStart</a> sets the range's start position and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setrange">ITextRange::SetRange</a> sets both range ends simultaneously. To convert a nondegenerate range, r, into a degenerate one (insertion point) at  the start position, use
+     * 
+     * <c>r.End = r.Start</c>
+     * 
+     * Similarly, r.Start = r.End converts r into an insertion point at the end position.
+     * 
+     * To add 1 to the end position, unless it is at the end of the story, use:
+     * 
+     * <c>r.End = r.End + 1</c>
+     * 
+     * This also makes end position the active end, and it can turn a degenerate range into a nondegenerate one.
      * @param {Integer} cpLim Type: <b>long</b>
      * 
      * The new end position.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setend
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setend
      */
     SetEnd(cpLim) {
-        result := ComCall(17, this, "int", cpLim, "HRESULT")
+        result := ComCall(17, this, "int", cpLim, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an ITextFont object with the character attributes of the specified range.
+     * @remarks
+     * For plain-text controls, these objects do not vary from range to range, but in rich-text solutions, they do. See the section on <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a> for further details.
      * @returns {ITextFont} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a>**</b>
      * 
      * The pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getfont
      */
     GetFont() {
-        result := ComCall(18, this, "ptr*", &ppFont := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppFont := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextFont(ppFont)
     }
 
     /**
      * Sets this range's character attributes to those of the specified ITextFont object.
+     * @remarks
+     * For occasional format changes, use the <b>ITextRange::SetFont</b> method. However, to make a number of character formatting changes, it is more efficient to use a font duplicate. This is because every time you execute a statement like <c>range.font.bold = tomTrue</c>, a font object is allocated and freed. However, a font duplicate can be allocated once and used many times. Furthermore, you can save the font duplicate, reset it to the default or undefined states with the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-reset">Reset</a> method, and give it values as needed for your rich-text processing. For sample code that shows how to use font duplicates, see <a href="https://docs.microsoft.com/windows/desktop/Controls/using-the-text-object-model">Using a Font Duplicate</a>.
      * @param {ITextFont} pFont Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont">ITextFont</a>*</b>
      * 
      * A font object with the desired character format.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -516,22 +702,32 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setfont
      */
     SetFont(pFont) {
-        result := ComCall(19, this, "ptr", pFont, "HRESULT")
+        result := ComCall(19, this, "ptr", pFont, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an ITextPara object with the paragraph attributes of the specified range.
+     * @remarks
+     * For plain-text controls, these objects do not vary from range to range, but in rich-text solutions, they do. See the section on <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara">ITextPara</a> for further details.
      * @returns {ITextPara} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara">ITextPara</a>**</b>
      * 
      * The pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara">ITextPara</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getpara
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getpara
      */
     GetPara() {
-        result := ComCall(20, this, "ptr*", &ppPara := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppPara := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITextPara(ppPara)
     }
 
@@ -542,7 +738,7 @@ class ITextRange extends IDispatch{
      * The paragraph object with the desired paragraph format.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -583,10 +779,14 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setpara
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setpara
      */
     SetPara(pPara) {
-        result := ComCall(21, this, "ptr", pPara, "HRESULT")
+        result := ComCall(21, this, "ptr", pPara, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -595,20 +795,28 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The count of characters in the range's story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getstorylength
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getstorylength
      */
     GetStoryLength() {
-        result := ComCall(22, this, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * Get the type of the range's story.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getstorytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getstorytype
      */
     GetStoryType() {
-        result := ComCall(23, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -650,46 +858,66 @@ class ITextRange extends IDispatch{
      * 
      * This method returns an 
      * 						<b>HRESULT</b> value. If successful, it returns <b>S_OK</b>. Otherwise, it returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-collapse
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-collapse
      */
     Collapse(bStart) {
-        result := ComCall(24, this, "int", bStart, "HRESULT")
+        result := ComCall(24, this, "int", bStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Expands this range so that any partial units it contains are completely contained.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * For example, if an insertion point is at the beginning, the end, or within a word, <b>ITextRange::Expand</b> expands the range to include that word. If the range already includes one word and part of another, <b>ITextRange::Expand</b> expands the range to include both words. <b>ITextRange::Expand</b> expands the range to include the visible portion of the range's story.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit to include, if it is partially within the range. The default value is <c>tomWord</c>. For a list of the other <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The count of characters added to the range. The value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-expand
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-expand
      */
-    Expand(Unit) {
-        result := ComCall(25, this, "int", Unit, "int*", &pDelta := 0, "HRESULT")
+    Expand(Unit_) {
+        result := ComCall(25, this, "int", Unit_, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Retrieves the story index of the Unit parameter at the specified range Start character position.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * The <b>ITextRange::GetIndex</b> method retrieves the story index of a word, line, sentence, paragraph, and so forth, at the range Start. <i>Unit</i> specifies which kind of entity to index, such as words (<b>tomWord</b>), lines (<b>tomLine</b>), sentences (<b>tomSentence</b>), or paragraphs (<b>tomParagraph</b>). For example, <b>ITextRange::GetIndex</b> sets <i>pIndex</i> equal to the line number of the first line in the range. For a range at the end of the story, <b>ITextRange::GetIndex</b>, returns the number of <i>Unit</i>s in the story. Thus, you can get the number of words, lines, objects, and so forth, in a story.
+     * 
+     * The index value returned by the <b>ITextRange::GetIndex</b> method is not valid if the text is subsequently edited. Thus, users should be careful about using methods that return index values, especially if the values are to be stored for any duration. This is in contrast to a pointer to a range, which does remain valid when the text is edited.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit that is indexed. For a list of possible <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The index value. The value is zero if <i>Unit</i> does not exist.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getindex
      */
-    GetIndex(Unit) {
-        result := ComCall(26, this, "int", Unit, "int*", &pIndex := 0, "HRESULT")
+    GetIndex(Unit_) {
+        result := ComCall(26, this, "int", Unit_, "int*", &pIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIndex
     }
 
     /**
      * Changes this range to the specified unit of the story.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * This method allows an application to work with line-oriented text, such as programs, in a convenient way. For example, <c>SetIndex(tomLine, 10, 0)</c> converts a range to an insertion point at the start of the tenth line.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit used to index the range. For a list of unit values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Index Type: <b>long</b>
@@ -700,7 +928,7 @@ class ITextRange extends IDispatch{
      * Flag that indicates the extent of the range. If zero (the default), the range is collapsed to an insertion point at the start position of the specified <i>Unit</i>. If nonzero, the range is set to the entire <i>Unit</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -741,15 +969,26 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setindex
      */
-    SetIndex(Unit, Index, Extend) {
-        result := ComCall(27, this, "int", Unit, "int", Index, "int", Extend, "HRESULT")
+    SetIndex(Unit_, Index, Extend) {
+        result := ComCall(27, this, "int", Unit_, "int", Index, "int", Extend, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adjusts the range endpoints to the specified values.
+     * @remarks
+     * This method sets the range's start position to <c>min(cpActive, cpAnchor)</code>, and the end position to <code>max(cpActive, cpAnchor)</c>. If the range is a nondegenerate selection, <i>cpAnchor</i> is the active end, and <i>cpAnchor</i> is the anchor end.  If the range is a degenerate selection, the selection is displayed at the start of the line, rather than at the end of the previous line.
+     * 
+     * This method removes any other subranges this range may have. To preserve the current subranges, use <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-setactivesubrange">ITextRange2::SetActiveSubrange</a>. 
+     * 
+     * 
+     * If the text range is a selection, you can set the attributes of the selection by using the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-setflags">ITextSelection::SetFlags</a> method.
      * @param {Integer} cpAnchor Type: <b>long</b>
      * 
      * The character position for the anchor end of the range.
@@ -758,26 +997,60 @@ class ITextRange extends IDispatch{
      * The character position for the active end of the range.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setrange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setrange
      */
     SetRange(cpAnchor, cpActive) {
-        result := ComCall(28, this, "int", cpAnchor, "int", cpActive, "HRESULT")
+        result := ComCall(28, this, "int", cpAnchor, "int", cpActive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether this range is within or at the same text as a specified range.
+     * @remarks
+     * For range2 to be contained in range1, both ranges must be in the same story, and the limits of 
+     * 				range2 must satisfy 
+     * 				either of the following statements. 
+     * 
+     * <ul>
+     * <li>The start and end character positions of range1 are the same as range2. That is, both ranges are degenerate and have identical insertion points. </li>
+     * <li>Range2 is a nondegenerate range with start and end character positions at or within those of range1. </li>
+     * </ul>
+     * The following example shows how to walk one range with another. 
+     * 
+     * 
+     * ```
+     *     range2 = range1.Duplicate
+     *     range2.End = range2.Start       ' Collapse range2 to its start position 
+     *     While range2.InRange(range1)    ' Iterate so long as range2 remains within range1
+     *          ...   ' This code would change the range2 character positions 
+     *     Wend
+     * ```
+     * 
+     * 
+     * When the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-findtext">ITextRange::FindText</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-movewhile">ITextRange::MoveWhile</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveuntil">ITextRange::MoveUntil</a> method families are used, you can use one range to walk another by specifying the appropriate limit count of characters (for an example, see the Remarks in 
+     * 				<b>ITextRange::Find</b>).
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-isequal">ITextRange::IsEqual</a> is a special case of <b>ITextRange::InRange</b> that returns <i>pB</i> <b>tomTrue</b> if the <i>pRange</i> has the same start and end character positions and belongs to the same story.
      * @param {ITextRange} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>*</b>
      * 
      * Text that is compared to the current range.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The comparison result. The pointer can be null. The method returns <i>pB</i> is <b>tomTrue</b> only if the range is in or at the same text as <i>pRange</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-inrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-inrange
      */
     InRange(pRange) {
-        result := ComCall(29, this, "ptr", pRange, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", pRange, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -789,59 +1062,88 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The comparison result. The pointer can be null. The <i>pB</i> parameter receives <b>tomTrue</b> if this range's story is the same as that of the <i>pRange</i>; otherwise it receives <b>tomFalse</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-instory
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-instory
      */
     InStory(pRange) {
-        result := ComCall(30, this, "ptr", pRange, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", pRange, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Determines whether this range has the same character positions and story as those of a specified range.
+     * @remarks
+     * The 
+     * 				<b>ITextRange::IsEqual</b> method returns <b>tomTrue</b> only if the range points at the same text as <i>pRange</i>. See <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Finding Rich Text</a> for code that compares two different pieces of text to see if they contain the same plain text and the same character formatting.
      * @param {ITextRange} pRange Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> object that is compared to this range.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The comparison result. The pointer can be null. The <i>pB</i> parameter receives <b>tomTrue</b> if this range points at the same text (has the same start and end character positions and story) as <i>pRange</i>; otherwise it returns <b>tomFalse</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-isequal
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-isequal
      */
     IsEqual(pRange) {
-        result := ComCall(31, this, "ptr", pRange, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", pRange, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the start and end positions, and story values of the active selection, to those of this range.
+     * @remarks
+     * The active end of the new selection is at the end position. 
+     * 
+     * The caret for an ambiguous character position is displayed at the beginning of the line.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-select
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-select
      */
     Select() {
-        result := ComCall(32, this, "HRESULT")
+        result := ComCall(32, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Moves the range ends to the start of the first overlapping Unit in the range.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * If the range is an insertion point on a boundary between <i>Unit</i>s, <b>ITextRange::StartOf</b> does not change the start position. 
+     * 
+     * The <b>ITextRange::StartOf</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-endof">ITextRange::EndOf</a> methods differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-homekey">HomeKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-endkey">EndKey</a> methods in that the latter extend from the active end, whereas <b>ITextRange::StartOf</b> extends from the start position and <b>ITextRange::EndOf</b> extends from the end position.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit to use in the move operation. For a list of <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Extend Type: <b>long</b>
      * @returns {Integer} Type: <b>long*</b>
      * 
      * Pointer to a variable that receives the number of characters that the start position is moved. It can be null. On return, <i>pDelta</i> is the signed number of characters that the insertion point or start position is moved. This value is always less than or equal to zero, because the motion is always toward the beginning of the story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-startof
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-startof
      */
-    StartOf(Unit, Extend) {
-        result := ComCall(33, this, "int", Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+    StartOf(Unit_, Extend) {
+        result := ComCall(33, this, "int", Unit_, "int", Extend, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves this range's ends to the end of the last overlapping Unit in the range.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * For comparison, the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">ITextRange::StartOf</a> method moves the range ends to the beginning of the first overlapping <i>Unit</i> in the range. Note, the <b>ITextRange::StartOf</b> and <b>ITextRange::EndOf</b> methods differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-homekey">HomeKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-endkey">EndKey</a> methods in that the latter extend from the active end, whereas <b>ITextRange::StartOf</b> extends from Start and <b>ITextRange::EndOf</b> extends from End. If the range is an insertion point on a boundary between <i>Unit</i>s, <b>ITextRange::EndOf</b> does not change End. In particular, calling <b>ITextRange::EndOf</b> (<i>tomCharacter</i>, *, *) does not change End except for an insertion point at the beginning of a story.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit to use. Default value: <i>tomWord</i>. For a list of the other <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Extend Type: <b>long</b>
@@ -868,16 +1170,46 @@ class ITextRange extends IDispatch{
      * 					<i>pDelta</i> is set to 
      * 					–1, to indicate that the collapse occurred 
      * 					<i>before</i> the end of the range (because an insertion point cannot exist beyond the final CR).
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-endof
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-endof
      */
-    EndOf(Unit, Extend) {
-        result := ComCall(34, this, "int", Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+    EndOf(Unit_, Extend) {
+        result := ComCall(34, this, "int", Unit_, "int", Extend, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves the insertion point forward or backward a specified number of units. If the range is nondegenerate, the range is collapsed to an insertion point at either end, depending on Count, and then is moved.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * If the range is degenerate (an insertion point), this method tries to move the insertion point <i>Count</i> <i>Unit</i>s. 
+     * 
+     * If the range is nondegenerate and <i>Count</i> is greater than zero, this method collapses the range at the end character position, moves the resulting insertion point forward to a <i>Unit</i> boundary (if it is not already at one), and then tries to move <i>Count</i> - 1 <i>Unit</i>s forward. If the range is nondegenerate and <i>Count</i> is less than zero, this method collapses the range at the start character position, moves the resulting insertion point backward to a <i>Unit</i> boundary (if it isn't already at one), and then tries to move |<i>Count</i>| - 1 <i>Unit</i>s backward. Thus, in both cases, collapsing a nondegenerate range to an insertion point, whether moving to the start or end of the <i>Unit</i> following the collapse, counts as a <i>Unit</i>.
+     * 
+     * The <b>ITextRange::Move</b> method returns <i>pDelta</i> = number of <i>Unit</i>s actually moved. This method never moves the insertion point beyond the story of this range. If <i>Count</i><i>Unit</i>s would move the insertion point before the beginning of the story, it is moved to the story beginning and <i>pDelta</i> is set accordingly. Similarly, if <i>Count</i> 
+     * 				<i>Unit</i>s would move it beyond the end of the story, it is moved to the story end.
+     * 
+     * The <b>ITextRange::Move</b> method works similarly to the UI-oriented <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> methods, except that the direction of motion is logical rather than geometrical. That is, with <b>ITextRange::Move</b> the direction is either toward the end or toward the start of the story. Depending on the language, moving toward the end of the story could be moving to the left or to the right. To get a feel for <i>Count</i>, press Ctrl+Right Arrow in a Microsoft Word document for a variety of selections. In left-to-right text, this keystroke behaves the same as <c>Move(tomWord, 1)</code>, and <code>MoveRight(tomWord, 1)</c>. <i>Count</i> corresponds to the number of times you press Ctrl+Right Arrow.
+     * 
+     * For example, if you press Ctrl+Right Arrow for the selections shown in both of the following figures, you end up with an insertion point at character position 8, since this command collapses the selections at their end character positions (7 and 8, respectively) and moves to the next <b>tomWord</b> boundary.
+     * 
+     * <img alt="Character positions for text string" src="./images/textpos3.png"/>
+     * <img alt="Character positions for text string" src="./images/textpos3.png"/>
+     * The first selection does not include the blank space at character position 7, so Ctrl+Right Arrow moves past the space to the <b>tomWord</b> boundary at character position 8. The end character position is already at a <b>tomWord</b> boundary for the second selection, so Ctrl+Right Arrow just collapses the selection at that boundary. Similarly, Ctrl+Left Arrow, which for this text acts like <c>Move(tomWord, -1)</code>, and <code>MoveLeft(tomWord, 1)</c> collapses the first selection at character position 5, which is already at a <b>tomWord</b> boundary, so no more motion occurs. But Ctrl+Left Arrow collapses the second selection at character position 4 and then moves to zero, since that's the next <b>tomWord</b> boundary in the direction of motion.
+     * 
+     * The return argument, <i>pDelta</i>, is set equal to the number of <i>Unit</i>s that the insertion point is moved including one <i>Unit</i> for collapsing a nondegenerate range and moving it to a <i>Unit</i> boundary. So, if no motion and no collapse occur, as when the range is an insertion point at the end of the story, <i>pDelta</i> is set equal to zero. This approach is useful for controlling program loops that process a whole story.
+     * 
+     * In both of the cases mentioned above, calling <c>Move(tomWord, 1)</code> sets <i>pDelta</i> equal to 1 because the ranges were collapsed. Similarly, calling <code>Move(tomWord, -1)</c> sets <i>pDelta</i> equal to -1 for both cases. Collapsing, with or without moving part of a <i>Unit</i> to a <i>Unit</i> boundary, counts as a <i>Unit</i> moved.
+     * 
+     * The direction of motion refers to the logical character ordering in the plain-text backing store. This approach avoids the problems of geometrical ordering, such as left versus right and up versus down, in international software. Such geometrical methods are still needed in the edit engine, of course, since keyboards have arrow keys to invoke them. If the range is really an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextselection">ITextSelection</a> object, then methods like <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveleft">MoveLeft</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-moveright">MoveRight</a> can be used.
+     * 
+     * If <i>Unit</i> specifies characters (<b>tomCharacter</b>), the Text Object Model (TOM) uses the Unicode character set. To convert between Unicode and multibyte character sets the <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-multibytetowidechar">MultiByteToWideChar</a> and <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-widechartomultibyte">WideCharToMultiByte</a> functions provide easy ways to convert between Unicode and multibyte character sets on import and export, respectively. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-open">Open</a>. In this connection, the use of a carriage return/line feed (CR/LF) to separate paragraphs is as problematic as double-byte character set (DBCS). The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextselection">ITextSelection</a> UI methods back up over a CR/LF as if it were a single character, but the <b>ITextRange::Move</b> methods count CR/LFs as two characters. It's clearly better to use a single character as a paragraph separator, which in TOM is represented by a character return, although the Unicode paragraph separator character, 0x2029, is accepted. In general, TOM engines should support CR/LF, carriage return (CR), line feed (LF), vertical tab, form feed, and 0x2029. Microsoft Rich Edit 2.0 also supports CR/CR/LF for backward compatibility.
+     * 
+     * See also the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-movestart">ITextRange::MoveStart</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveend">ITextRange::MoveEnd</a> methods, which move the range Start or End position <i>Count</i> 
+     * 				<i>Unit</i>s, respectively.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit to use. The default value is <b>tomCharacter</b>. For information on other values, see the discussion in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Count Type: <b>long</b>
@@ -886,16 +1218,26 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual number of <i>Unit</i>s the insertion point moves past. The pointer can be <b>NULL</b>. For more information, see the Remarks section.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-move
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-move
      */
-    Move(Unit, Count) {
-        result := ComCall(35, this, "int", Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+    Move(Unit_, Count) {
+        result := ComCall(35, this, "int", Unit_, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
-     * Moves the start postion of the range the specified number of units in the specified direction.
-     * @param {Integer} Unit Type: <b>long</b>
+     * Moves the start position of the range the specified number of units in the specified direction.
+     * @remarks
+     * If the new start follows the old end, the new end is set equal to the new start.
+     * 
+     * The motion described by <b>ITextRange::MoveStart</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit used in the move. The default value is <b>tomCharacter</b>. For a list of the other <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Count Type: <b>long</b>
@@ -904,16 +1246,26 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual number of units that the end is moved. The value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-movestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-movestart
      */
-    MoveStart(Unit, Count) {
-        result := ComCall(36, this, "int", Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+    MoveStart(Unit_, Count) {
+        result := ComCall(36, this, "int", Unit_, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves the end position of the range.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * If the new end position precedes the old start position, the new start position is set equal to the new end position; that is, it becomes a degenerate range or an insertion point.
+     * 
+     * The motion described by <b>ITextRange::MoveEnd</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * The units by which to move the end of the range. The default value is <b>tomCharacter</b>. For a list of the other unit values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Count Type: <b>long</b>
@@ -922,15 +1274,69 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual number of units that the end position of the range is moved past. The value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-moveend
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-moveend
      */
-    MoveEnd(Unit, Count) {
-        result := ComCall(37, this, "int", Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+    MoveEnd(Unit_, Count) {
+        result := ComCall(37, this, "int", Unit_, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Starts at a specified end of a range and searches while the characters belong to the set specified by Cset and while the number of characters is less than or equal to Count.
+     * @remarks
+     * The motion described by <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveuntil">ITextRange::MoveUntil</a> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see the discussion in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
+     * 
+     * The <b>ITextRange::MoveWhile</b> method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveuntil">ITextRange::MoveUntil</a>, but <b>MoveWhile</b> searches as long as it finds members of the set specified by <i>Cset</i>, and there is no additional increment to the value <i>pDelta</i>.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-movestartwhile">ITextRange::MoveStartWhile</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveendwhile">ITextRange::MoveEndWhile</a> methods move the start and end, respectively, just past all contiguous characters that are found in set of characters specified by the <i>Cset</i> parameter.
+     * 
+     * The <b>VARIANT</b> type is primarily intended to be used with <b>IDispatch</b> scenarios like Microsoft Visual Basic for Applications (VBA), but it can be readily used from C or C++ as well. The following C++ code illustrates how to initialize and use the <b>VARIANT</b> argument  for matching a span of digits in the range r.
+     * 
+     * 
+     * ```
+     * VariantInit(&varg);
+     * varg.vt = VT_I4;
+     * varg.lVal = C1_DIGIT;
+     * hr = r.MoveWhile(&varg, tomForward, pDelta); // Move IP past span of digits
+     * 
+     * ```
+     * 
+     * 
+     * Alternatively, an explicit string could be used, as in the following sample.
+     * 
+     * 
+     * ```
+     * VariantInit(&varg);
+     * bstr = SysAllocString("0123456789");
+     * varg.vt = VT_BSTR;
+     * varg.bstr = bstr;
+     * hr =r.MoveWhile(&varg, tomForward, pDelta);    // Move IP past span of digits
+     * 
+     * ```
+     * 
+     * 
+     * The following VBA example code matches the body of the next Standard Generalized Markup Language (SGML) entry in a range, r. SGML entries start with &lt;
+     * 				<c>keyword ...</c>&gt; and end with &lt;/
+     * 				<c>keyword</c>&gt;. 
+     * 
+     * 
+     * ```
+     * r.Find <                  // Get to start of next tag
+     * r.MoveWhile C1_SPACE      // Bypass any space characters
+     * r.MoveEndWhile C1_ALPHA   // Match keyword
+     * s$ = </ + r               // Create VBA string to search for
+     * r.Find >                  // Bypass remainder of start tag
+     * r.FindEnd s$              // Match up to end of closing keyword
+     * r.FindEnd <, tomStart     // Back up to start of end tag
+     *                           // r has body of SGML entry
+     *                            
+     * ```
      * @param {Pointer<VARIANT>} Cset Type: <b>VARIANT*</b>
      * 
      * The character set to use in the match. This could be an explicit string of characters or a character-set index. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Character Match Sets</a>.
@@ -940,15 +1346,25 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual count of characters end is moved. This parameter can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-movewhile
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-movewhile
      */
     MoveWhile(Cset, Count) {
-        result := ComCall(38, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(38, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves the start position of the range either Count characters, or just past all contiguous characters that are found in the set of characters specified by Cset, whichever is less.
+     * @remarks
+     * If the new start follows the old end, the new end is set equal to the new start.
+     * 
+     * The motion described by <b>ITextRange::MoveStartWhile</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
      * @param {Pointer<VARIANT>} Cset Type: <b>VARIANT*</b>
      * 
      * The character set to use in the match. This could be an explicit string of characters or a character-set index. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Character Match Sets</a>.
@@ -958,15 +1374,25 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual count of characters that the start position is moved. This parameter can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-movestartwhile
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-movestartwhile
      */
     MoveStartWhile(Cset, Count) {
-        result := ComCall(39, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(39, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves the end of the range either Count characters or just past all contiguous characters that are found in the set of characters specified by Cset, whichever is less.
+     * @remarks
+     * If the new end precedes the old start, the new start is set equal to the new end.
+     * 
+     * The motion described by <b>ITextRange::MoveEndWhile</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
      * @param {Pointer<VARIANT>} Cset Type: <b>VARIANT*</b>
      * 
      * The character set to use in the match. This could be an explicit string of characters or a character-set index. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Character Match Sets</a>.
@@ -976,15 +1402,64 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual number of characters that the end is moved. The value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-moveendwhile
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-moveendwhile
      */
     MoveEndWhile(Cset, Count) {
-        result := ComCall(40, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(40, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Searches up to Count characters for the first character in the set of characters specified by Cset. If a character is found, the range is collapsed to that point. The start of the search and the direction are also specified by Count.
+     * @remarks
+     * If no character is matched, the range is unchanged.
+     * 
+     * The motion described by <b>ITextRange::MoveUntil</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see the discussion in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-movestartuntil">ITextRange::MoveStartUntil</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveenduntil">ITextRange::MoveEndUntil</a> methods move the start and end, respectively, until it finds the first character that is also in the set specified by the <i>Cset</i> parameter.
+     * 
+     * The <b>ITextRange::MoveUntil</b> method is similar to <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-movewhile">ITextRange::MoveWhile</a>, but there are two differences. First, <b>MoveUntil</b> moves an insertion point <i>until</i> it finds the first character that belongs to the character set specified by <i>Cset</i>. Second, in <b>MoveUntil</b> the character matched counts as an additional character in the value returned in <i>pDelta</i>. This lets you know that the character at one end of the range or the other belongs to the <i>Cset</i> even though the insertion point stays at one of the range ends. 
+     * 
+     * For example, suppose the range, r, is an insertion point. To see if the character at r (that is, given by r.<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-getchar">GetChar</a>()) is in <i>Cset</i>, call 
+     * 				
+     * 
+     * 
+     * ```
+     * r.MoveUntil(Cset, 1)
+     * ```
+     * 
+     * 
+     * If the character is in <i>Cset</i>, the return value is 1 and the insertion point does not move. Similarly, to see if the character preceding r is in <i>Cset</i>, call 
+     * 
+     * 				
+     * 
+     * 
+     * ```
+     * r.MoveUntil(Cset, -1)
+     * ```
+     * 
+     * 
+     * If the character is in <i>Cset</i>, the return value is –1.
+     * 
+     * The following Microsoft Visual Basic for Applications (VBA) subroutine prints all numbers in the story identified by the range, r.
+     * 				
+     * 
+     * 
+     * ```
+     * Sub PrintNumbers (r As ITextRange)
+     *    r.SetRange 0, 0    // r = insertion point at start of story
+     *    While r.MoveUntil(C1_DIGIT)  // Move r to 1st digit in next number
+     *       r.MoveEndWhile C1_DIGIT  // Select number (span of digits)
+     *       Print r    // Print it
+     *    Wend
+     * End Sub
+     * ```
      * @param {Pointer<VARIANT>} Cset Type: <b>VARIANT*</b>
      * 
      * The character set used in the match. This could be an explicit string of characters or a character-set index. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Character Match Sets</a>.
@@ -994,15 +1469,29 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The number of characters the insertion point is moved, plus 1 for a match if <i>Count</i> is greater than zero, and –1 for a match if <i>Count</i> less than zero. The pointer can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-moveuntil
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-moveuntil
      */
     MoveUntil(Cset, Count) {
-        result := ComCall(41, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves the start position of the range the position of the first character found that is in the set of characters specified by Cset, provided that the character is found within Count characters of the start position.
+     * @remarks
+     * If no character from 
+     * 				<i>Cset</i> is found within 
+     * 				<i>Count</i> positions of the start position, the range is left unchanged. 
+     * 
+     * If the new start follows the old end, the new end is set equal to the new start.
+     * 
+     * The motion described by <b>ITextRange::MoveStartUntil</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
      * @param {Pointer<VARIANT>} Cset Type: <b>VARIANT*</b>
      * 
      * The character set to use in the match. This could be an explicit string of characters or a character-set index. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Character Match Sets</a>.
@@ -1012,15 +1501,25 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual number of characters the start of the range is moved, plus 1 for a match if <i>Count</i> is greater than zero, and –1 for a match if <i>Count</i> is less than zero. The value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-movestartuntil
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-movestartuntil
      */
     MoveStartUntil(Cset, Count) {
-        result := ComCall(42, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(42, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Moves the range's end to the character position of the first character found that is in the set of characters specified by Cset, provided that the character is found within Count characters of the range's end.
+     * @remarks
+     * If no character from the set specified by <i>Cset</i> is found within <i>Count</i> positions of the range's end, the range is left unchanged. If the new end precedes the old start, the new start is set equal to the new end.
+     * 
+     * The motion described by <b>ITextRange::MoveEndUntil</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
      * @param {Pointer<VARIANT>} Cset Type: <b>VARIANT*</b>
      * 
      * The character set to use in the match. This could be an explicit string of characters or a character-set index. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">Character Match Sets</a>.
@@ -1030,16 +1529,116 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The actual number of characters that the range end is moved, plus 1 for a match if <i>Count</i> is greater than zero, and –1 for a match if <i>Count</i> is less than zero. The value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-moveenduntil
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-moveenduntil
      */
     MoveEndUntil(Cset, Count) {
-        result := ComCall(43, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", Cset, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
     /**
      * Searches up to Count characters for the text given by bstr. The starting position and direction are also specified by Count, and the matching criteria are given by Flags.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * @remarks
+     * The <b>ITextRange::FindText</b> method can also match special characters by using a caret (^) followed by a special letter. For a list of special characters, see the Special list available in the Microsoft Word 
+     * 				<b>Find and Replace</b> dialog box. For example, <c>^p</code> matches the next paragraph mark. Note, <code>^c</code> can be used to represent the Clipboard contents in the string to be replaced. Thus, using <code>^c</c> in the find string enables you to search for rich text. For more details, see the Word Help files. 
+     * 
+     * As a comparison with the <b>ITextRange::FindText</b> method, the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-findtextstart">ITextRange::FindTextStart</a> method searches forward or backward from the range's Start 
+     * 				<i>cp</i>, and the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-findtextend">ITextRange::FindTextEnd</a> method searches forward or backward from the range's End 
+     * 				<i>cp</i>. For more details, see the descriptions of these methods.
+     * 
+     * The following are several code snippets that show the <b>ITextRange::FindText</b> methods.
+     * 
+     * Example #1. The following Microsoft Visual Basic for Applications (VBA) program prints all the // ...  comments in a story identified by the range r.
+     * 
+     * 
+     * 
+     * 
+     * ```
+     * Sub PrintComments (r As ITextRange)
+     *     r.SetRange 0, 0                                      'r = insertion pt at start of story
+     *     Do While r.FindText("//") And r.FindTextEnd("")    'Select comment
+     *         r.MoveStart tomCharacter, 2                      'But do not include the opening or 
+     *                                                          'closing comment brackets
+     *         r.MoveEnd tomCharacter, -2                       
+     *         Print r                                          'Show the folks
+     *     Loop
+     * End Sub
+     * ```
+     * 
+     * 
+     * Instead of these comments being printed, they could be inserted into another edit instance and saved to a file, or they could be inserted into separate cells in a table or spreadsheet.
+     * 
+     * To print all lines containing one or more occurrences of the word "laser", replace the loop by the following code:
+     * 
+     * 
+     * ```
+     *     While r.FindText("laser")            // Select next occurrence of "laser"
+     *         r.Expand tomLine                // Select enclosing line    
+     *         Print r                    // Print the line
+     *     Wend
+     * ```
+     * 
+     * 
+     * Example #2. The following program prints a telephone list, given a story that contains an address list. The address list entries are separated by two or more paragraph marks, and each entry has the following form.
+     * 
+     * 
+     * ```
+     * Person/Business Name
+     * Address (one or more lines)
+     * (area code) telephone number 
+     * ```
+     * 
+     * 
+     * Note the use of the character <c>^p</c> in the <b>FindText</b> string argument to locate a pair of consecutive paragraph marks.
+     * 
+     * 
+     * ```
+     * Sub PrintTelephoneList (r As ITextRange)
+     *     r.SetRange 0, 0                 // r = insertion point at start of story
+     *     r.MoveWhile C1_WHITE            // Bypass any initial white space
+     *     Do
+     *         r.EndOf tomParagraph, 1     // Select next para (line): has name
+     *         Print r                    // Print it
+     *         Do
+     *             r.MoveWhile C1_SPACE        // Bypass possible space chars
+     *             If r.Char = Asc("(") Then Exit Do    // Look for start of telephone #
+     *         Loop While r.Move(tomParagraph)    // Go to next paragraph
+     *         r.EndOf tomParagraph, 1        // Select line with telephone number
+     *         Print r                    // Print it
+     *     Loop While r.FindText("^p^p")        // Find two consecutive para marks
+     * End Sub
+     * ```
+     * 
+     * 
+     * Example #3. The following subroutine replaces all occurrences of the string, str1, in a range by str2:
+     * 
+     * 
+     * ```
+     * Sub Replace ( tr As ITextRange, str1 As String, str2 As String )
+     *     Dim r As ITextRange
+     *     r = tr.Duplicate                // Copy tr parameters to r
+     *     r.End = r.Start                    // Convert to insertion point at Start
+     *     While r.FindText(str1, tr.End - r.End)        // Match next occurrence of str
+     *         r = str2                // Replace it with rep
+     *     Wend                        // Iterate till no more matches
+     * End Sub
+     * ```
+     * 
+     * 
+     * Example #4. The following line of code inserts a blank before the first occurrence of a right parenthesis, "(", that follows an occurrence of HRESULT. 
+     * 
+     * 
+     * ```
+     *     If r.FindText("HRESULT") And r.FindText("(") Then r = " ("
+     * ```
+     * 
+     * 
+     * To do this for all such occurrences, change the If into a While/Wend loop in the above line of code. This an example of a <b>FIND/REPLACE</b> macro that cannot be run with <b>Find and Replace</b> dialog boxes.
+     * @param {BSTR} bstr_ Type: <b>BSTR</b>
      * 
      * String to find.
      * @param {Integer} Count Type: <b>long</b>
@@ -1076,18 +1675,25 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The length of string matched.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-findtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-findtext
      */
-    FindText(bstr, Count, Flags) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    FindText(bstr_, Count, Flags) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(44, this, "ptr", bstr, "int", Count, "int", Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(44, this, "ptr", bstr_, "int", Count, "int", Flags, "int*", &pLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLength
     }
 
     /**
      * Searches up to Count characters for the string, bstr, starting at the range's Start cp (cpFirst).
-     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * @param {BSTR} bstr_ Type: <b>BSTR</b>
      * 
      * The string to search for.
      * @param {Integer} Count Type: <b>long</b>
@@ -1113,18 +1719,25 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The length of the matched string.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-findtextstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-findtextstart
      */
-    FindTextStart(bstr, Count, Flags) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    FindTextStart(bstr_, Count, Flags) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", bstr, "int", Count, "int", Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", bstr_, "int", Count, "int", Flags, "int*", &pLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLength
     }
 
     /**
      * Searches up to Count characters for the string, bstr, starting from the range's End cp.
-     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * @param {BSTR} bstr_ Type: <b>BSTR</b>
      * 
      * String to search for.
      * @param {Integer} Count Type: <b>long</b>
@@ -1152,18 +1765,55 @@ class ITextRange extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The length of string matched.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-findtextend
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-findtextend
      */
-    FindTextEnd(bstr, Count, Flags) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    FindTextEnd(bstr_, Count, Flags) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", bstr, "int", Count, "int", Flags, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", bstr_, "int", Count, "int", Flags, "int*", &pLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLength
     }
 
     /**
      * Mimics the DELETE and BACKSPACE keys, with and without the CTRL key depressed.
-     * @param {Integer} Unit Type: <b>long</b>
+     * @remarks
+     * If 
+     * 				<i>Count</i> = zero, this method deletes the text in the range, that is, it deletes nothing if the range is only an insertion point. 
+     * 
+     * If 
+     * 				<i>Count</i> is not zero, and the range is an insertion point (that is, degenerate), |
+     * 				<i>Count</i>| (absolute value of 
+     * 				<i>Count</i>)
+     * 				<i>Unit</i>s are deleted in the logical direction given by the sign of 
+     * 				<i>Count</i>, where a positive value is the direction toward the end of the story, and a negative value is toward the start of the story. 
+     * 
+     * If 
+     * 				<i>Count</i> is not zero, and the range is nondegenerate (contains text), the text in the range is deleted (regardless of the values of 
+     * 				<i>Unit </i> and 
+     * 				<i>Count</i>), thereby creating an insertion point. Then, |
+     * 				<i>Count</i>| - 1
+     * 				 
+     * 				<i>Unit</i>s are deleted in the logical direction given by the sign of 
+     * 				<i>Count</i>. 
+     * 
+     * The text in the range can also be deleted by assigning a null string to the range (executing statement r = where r is the range). However, <b>ITextRange::Delete</b> does not require allocating a <b>BSTR</b>.
+     * 
+     * Deleting the end-of-paragraph mark (CR) results in the special behavior of the Microsoft Word UI. Four cases are of particular interest: 
+     * 
+     * <ul>
+     * <li>If you delete just the CR but the paragraph includes text, then the CR is deleted, and the following paragraph gets the same paragraph formatting as current one. </li>
+     * <li>If you delete the CR as well as some, but not all, of the characters in the following paragraph, the characters left over from the current paragraph get the paragraph formatting of the following paragraph. </li>
+     * <li>If you select to the end of a paragraph, but not the whole paragraph, the CR is not deleted. </li>
+     * <li>If you delete the whole paragraph (from the beginning through the CR), you delete the CR as well (unless it is the final CR in the file). </li>
+     * </ul>
+     * @param {Integer} Unit_ Type: <b>long</b>
      * 
      * Unit to use. 
      * 					<i>Unit</i> can be <i>tomCharacter</i> (the default value) or <i>tomWord</i>.
@@ -1182,10 +1832,14 @@ class ITextRange extends IDispatch{
      * 					<i>pDelta</i> parameter is set equal to the number of 
      * 					<i>Unit</i>s deleted. Deleting the text in a nondegenerate range counts as one 
      * 					<i>Unit</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-delete
      */
-    Delete(Unit, Count) {
-        result := ComCall(47, this, "int", Unit, "int", Count, "int*", &pDelta := 0, "HRESULT")
+    Delete(Unit_, Count) {
+        result := ComCall(47, this, "int", Unit_, "int", Count, "int*", &pDelta := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDelta
     }
 
@@ -1204,16 +1858,32 @@ class ITextRange extends IDispatch{
      * <li>pVar-&gt;ppunkVal is not null </li>
      * </ul>
      * Otherwise, the clipboard is used.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-cut
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-cut
      */
     Cut() {
         pVar := VARIANT()
-        result := ComCall(48, this, "ptr", pVar, "HRESULT")
+        result := ComCall(48, this, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 
     /**
      * Copies the text to a data object.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-cut">ITextRange::Cut</a>, 
+     * 				<b>ITextRange::Copy</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-paste">ITextRange::Paste</a> methods let you perform the usual 
+     * 				<b>Cut</b>, <b>Copy</b>, and 
+     * 				<b>Paste</b> operations on a range object using an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, thereby not changing the contents of the clipboard. Among clipboard formats typically supported are <b>CF_TEXT</b> and <b>CF_RTF</b>. In addition, private clipboard formats can be used to reference a text solution's own internal rich text formats.
+     * 
+     * To copy and replace plain text, you can use the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-gettext">ITextRange::GetText</a> 
+     * 				<b></b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-settext">ITextRange::SetText</a> 
+     * 				<b></b> methods. To copy formatted text from range r1 to range r2 without using the clipboard, you can use <b>Copy</b> and 
+     * 				<b>Paste</b> and also the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-getformattedtext">ITextRange::GetFormattedText</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-setformattedtext">ITextRange::SetFormattedText</a> methods, as shown in the following Microsoft Visual Basic example:
+     * 
+     * <c>r2.GetFormattedText = r1.GetFormattedText</c>
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * The copied text. 
@@ -1227,16 +1897,22 @@ class ITextRange extends IDispatch{
      * <li>pVar-&gt;ppunkVal is not null </li>
      * </ul>
      * Otherwise, the clipboard is used.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-copy
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-copy
      */
     Copy() {
         pVar := VARIANT()
-        result := ComCall(49, this, "ptr", pVar, "HRESULT")
+        result := ComCall(49, this, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 
     /**
      * Pastes text from a specified data object.
+     * @remarks
+     * For more information, see<a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-copy">ITextRange::Copy</a>.
      * @param {Pointer<VARIANT>} pVar Type: <b>VARIANT*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> to paste. However, the contents of the clipboard are used if any of the following are true.
@@ -1254,7 +1930,7 @@ class ITextRange extends IDispatch{
      * The clipboard format to use in the paste operation. Zero is best format, which usually is RTF, but <b>CF_UNICODETEXT</b> and other formats are also possible. The default value is zero. For more information, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/clipboard-formats">Clipboard Formats</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1284,10 +1960,14 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-paste
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-paste
      */
     Paste(pVar, Format) {
-        result := ComCall(50, this, "ptr", pVar, "int", Format, "HRESULT")
+        result := ComCall(50, this, "ptr", pVar, "int", Format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1313,22 +1993,32 @@ class ITextRange extends IDispatch{
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that is <b>tomTrue</b> only if the data object identified by 
      * 					<i>pVar</i> can be pasted, using the specified format, into the range. This parameter can null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-canpaste
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-canpaste
      */
     CanPaste(pVar, Format) {
-        result := ComCall(51, this, "ptr", pVar, "int", Format, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(51, this, "ptr", pVar, "int", Format, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Determines whether the specified range can be edited.
+     * @remarks
+     * The range cannot be edited if any part of it is protected or if the document is read-only.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value indicating whether the range can be edited. It is <b>tomTrue</b> only if the specified range can be edited. The pointer can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-canedit
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-canedit
      */
     CanEdit() {
-        result := ComCall(52, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(52, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -1408,15 +2098,21 @@ class ITextRange extends IDispatch{
      * 
      * This method returns an 
      * 						<b>HRESULT</b> value. If successful, it returns <b>S_OK</b>. Otherwise, it returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-changecase
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-changecase
      */
     ChangeCase(Type) {
-        result := ComCall(53, this, "int", Type, "HRESULT")
+        result := ComCall(53, this, "int", Type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves screen coordinates for the start or end character position in the text range, along with the intra-line position.
+     * @remarks
+     * The <b>ITextRange::GetPoint</b> method gives <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> the ability to emulate UI-pointer commands; it is also handy for accessibility purposes.
      * @param {Integer} Type Type: <b>long</b>
      * 
      * Flag that indicates the position to retrieve. This parameter can include one value from each of the following tables. The default value is tomStart + TA_BASELINE + TA_LEFT.
@@ -1432,7 +2128,7 @@ class ITextRange extends IDispatch{
      * The y-coordinate.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -1462,18 +2158,24 @@ class ITextRange extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getpoint
      */
     GetPoint(Type, px, py) {
         pxMarshal := px is VarRef ? "int*" : "ptr"
         pyMarshal := py is VarRef ? "int*" : "ptr"
 
-        result := ComCall(54, this, "int", Type, pxMarshal, px, pyMarshal, py, "HRESULT")
+        result := ComCall(54, this, "int", Type, pxMarshal, px, pyMarshal, py, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Changes the range based on a specified point at or up through (depending on Extend) the point (x, y) aligned according to Type.
+     * @remarks
+     * An application can use the specified point in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-windowfrompoint">WindowFromPoint</a> function to get the handle  of the window, which usually can be used to find the client-rectangle coordinates (although a notable exception is with <a href="https://docs.microsoft.com/windows/desktop/Controls/windowless-rich-edit-controls">Windowless Controls</a>).
      * @param {Integer} x Type: <b>long</b>
      * 
      * Horizontal coordinate of the specified point, in absolute screen coordinates.
@@ -1501,10 +2203,14 @@ class ITextRange extends IDispatch{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-setpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-setpoint
      */
     SetPoint(x, y, Type, Extend) {
-        result := ComCall(55, this, "int", x, "int", y, "int", Type, "int", Extend, "HRESULT")
+        result := ComCall(55, this, "int", x, "int", y, "int", Type, "int", Extend, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1557,22 +2263,32 @@ class ITextRange extends IDispatch{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-scrollintoview
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-scrollintoview
      */
     ScrollIntoView(Value) {
-        result := ComCall(56, this, "int", Value, "HRESULT")
+        result := ComCall(56, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a pointer to the embedded object at the start of the specified range, that is, at cpFirst. The range must either be an insertion point or it must select only the embedded object.
+     * @remarks
+     * If the start of this range does not have an embedded object or if the range selects more than a single object, <i>ppObject</i> is set equal to <b>NULL</b>.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The pointer to the object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrange-getembeddedobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrange-getembeddedobject
      */
     GetEmbeddedObject() {
-        result := ComCall(57, this, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(57, this, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppObject)
     }
 }

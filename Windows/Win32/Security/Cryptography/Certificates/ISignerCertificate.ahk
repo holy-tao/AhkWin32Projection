@@ -8,7 +8,7 @@
 
 /**
  * Represents a signing certificate that enables you to sign a certificate request.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-isignercertificate
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-isignercertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -80,6 +80,29 @@ class ISignerCertificate extends IDispatch{
 
     /**
      * Initializes the object from a signing certificate.
+     * @remarks
+     * The <b>Initialize</b> method:<ul>
+     * <li>Verifies whether the private key associated with the certificate exists.</li>
+     * <li>Creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509signatureinformation">IX509SignatureInformation</a> object and assigns it to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificate">ISignerCertificate</a> object.</li>
+     * <li>Retrieves the public key algorithm from the private key.</li>
+     * <li>Assigns the public key algorithm to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509signatureinformation">IX509SignatureInformation</a> object.</li>
+     * </ul>
+     * 
+     * 
+     * Set the following properties before calling <b>Initialize</b>:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_parentwindow">ParentWindow</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-put_pin">Pin</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_silent">Silent</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
+     * </li>
+     * </ul>
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> variable that indicates whether to search the local computer certificate store context or the user context to find the certificate identified by the <i>strCertificate</i> parameter. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
      * @param {Integer} VerifyType An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509privatekeyverify">X509PrivateKeyVerify</a> enumeration value that specifies whether the private key used to sign the certificate must be verified and, if so, whether the verification must be silent or allows user input.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) encoded certificate string.
@@ -97,7 +120,7 @@ class ISignerCertificate extends IDispatch{
      * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -112,24 +135,30 @@ class ISignerCertificate extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-isignercertificate">ISignerCertificate</a> object has already been initialized.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificate">ISignerCertificate</a> object has already been initialized.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-initialize
      */
     Initialize(MachineContext, VerifyType, Encoding, strCertificate) {
-        strCertificate := strCertificate is String ? BSTR.Alloc(strCertificate).Value : strCertificate
+        if(strCertificate is String) {
+            pin := BSTR.Alloc(strCertificate)
+            strCertificate := pin.Value
+        }
 
-        result := ComCall(7, this, "short", MachineContext, "int", VerifyType, "int", Encoding, "ptr", strCertificate, "HRESULT")
+        result := ComCall(7, this, "short", MachineContext, "int", VerifyType, "int", Encoding, "ptr", strCertificate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a Distinguished Encoding Rules (DER) encoded byte array that contains the certificate.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method to specify the certificate. You can also call the following properties to retrieve information about the signing certificate object:
      * 
      * <ul>
@@ -149,22 +178,23 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-get_certificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-get_certificate
      */
     get_Certificate(Encoding) {
         pValue := BSTR()
-        result := ComCall(8, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(8, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the private key associated with the ISignerCertificate object.
      * @remarks
-     * 
      * When you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method the Certificate Enrollment Control retrieves the signing certificate from the personal store and uses it to find an associated private key. You can also call the following properties to retrieve information about the signing certificate object:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_certificate">Certificate</a>
@@ -185,20 +215,21 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IX509PrivateKey} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-get_privatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-get_privatekey
      */
     get_PrivateKey() {
-        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509PrivateKey(ppValue)
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the user is notified when the private key is used to sign a certificate request.
+     * Specifies or retrieves a Boolean value that indicates whether the user is notified when the private key is used to sign a certificate request. (Get)
      * @remarks
-     * 
      * Call this property to specify a value before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. Setting this property also sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_silent">Silent</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object. You can retrieve the private key object by calling <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_privatekey">PrivateKey</a>. You can call the following properties to retrieve additional information about the signing certificate object:
      * 
      * <ul>
@@ -218,20 +249,21 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-get_silent
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-get_silent
      */
     get_Silent() {
-        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the user is notified when the private key is used to sign a certificate request.
+     * Specifies or retrieves a Boolean value that indicates whether the user is notified when the private key is used to sign a certificate request. (Put)
      * @remarks
-     * 
      * Call this property to specify a value before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. Setting this property also sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_silent">Silent</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object. You can retrieve the private key object by calling <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_privatekey">PrivateKey</a>. You can call the following properties to retrieve additional information about the signing certificate object:
      * 
      * <ul>
@@ -251,21 +283,22 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-put_silent
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(11, this, "short", Value, "HRESULT")
+        result := ComCall(11, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the ID of the window used to display signing certificate information.
+     * Specifies or retrieves the ID of the window used to display signing certificate information. (Get)
      * @remarks
-     * 
      * Call this property to specify a window ID before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. The <b>ParentWindow</b> property internally sets the window ID on the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object. You can retrieve the private key object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_privatekey">PrivateKey</a> property. You can call the following properties to retrieve additional information about the signing certificate object:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_certificate">Certificate</a>
@@ -283,20 +316,21 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-get_parentwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-get_parentwindow
      */
     get_ParentWindow() {
-        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the ID of the window used to display signing certificate information.
+     * Specifies or retrieves the ID of the window used to display signing certificate information. (Put)
      * @remarks
-     * 
      * Call this property to specify a window ID before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. The <b>ParentWindow</b> property internally sets the window ID on the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object. You can retrieve the private key object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_privatekey">PrivateKey</a> property. You can call the following properties to retrieve additional information about the signing certificate object:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_certificate">Certificate</a>
@@ -314,21 +348,22 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-put_parentwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-put_parentwindow
      */
     put_ParentWindow(Value) {
-        result := ComCall(13, this, "int", Value, "HRESULT")
+        result := ComCall(13, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a string that contains user interface text associated with the signing certificate.
+     * Specifies or retrieves a string that contains user interface text associated with the signing certificate. (Get)
      * @remarks
-     * 
      * Call this property to specify a value before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. You can also call the following properties to retrieve additional information about the signing certificate object:
      * 
      * <ul>
@@ -351,21 +386,22 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_silent">Silent</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-get_uicontextmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage
      */
     get_UIContextMessage() {
         pValue := BSTR()
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        result := ComCall(14, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a string that contains user interface text associated with the signing certificate.
+     * Specifies or retrieves a string that contains user interface text associated with the signing certificate. (Put)
      * @remarks
-     * 
      * Call this property to specify a value before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. You can also call the following properties to retrieve additional information about the signing certificate object:
      * 
      * <ul>
@@ -388,23 +424,27 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_silent">Silent</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-put_uicontextmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-put_uicontextmessage
      */
     put_UIContextMessage(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", Value, "HRESULT")
+        result := ComCall(15, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies a personal identification number (PIN) used to authenticate a smart card user.
      * @remarks
-     * 
      * Call this property to specify a value before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method. The <b>Pin</b> property internally sets the pin number on the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object. You can retrieve the private key object by calling <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_privatekey">PrivateKey</a>. You can call the following properties to retrieve additional information about the signing certificate object:
      * 
      * <ul>
@@ -424,23 +464,27 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-put_pin
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-put_pin
      */
     put_Pin(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", Value, "HRESULT")
+        result := ComCall(16, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an IX509SignatureInformation object that contains information about the certificate signature.
      * @remarks
-     * 
      * When you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-initialize">Initialize</a> method the Certificate Enrollment Control creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509signatureinformation">IX509SignatureInformation</a> object. You can also call the following properties to retrieve information about the signing certificate object:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_certificate">Certificate</a>
@@ -461,13 +505,15 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IX509SignatureInformation} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificate-get_signatureinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-isignercertificate-get_signatureinformation
      */
     get_SignatureInformation() {
-        result := ComCall(17, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509SignatureInformation(ppValue)
     }
 }

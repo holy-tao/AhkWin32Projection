@@ -5,7 +5,7 @@
 
 /**
  * This optional, application-implemented IWMDMOperation interface allows the application to control how data is read from or written to the computer during a file transfer.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmoperation
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iwmdmoperation
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMDMOperation extends IUnknown{
 
     /**
      * The BeginRead method indicates that a &quot;read from device&quot; action is beginning. Windows Media Device Manager only calls this method if the application calls IWMDMStorageControl::Read and passes in this IWMDMOperation interface.
+     * @remarks
+     * This method is called just before the Windows Media Device Manager calls <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmoperation-transferobjectdata">IWMDMOperation::TransferObjectData</a>.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
      * <table>
@@ -73,15 +75,21 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-beginread
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-beginread
      */
     BeginRead() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The BeginWrite method indicates that a &quot;write to device&quot; action is beginning. Windows Media Device Manager only calls this method if the application calls IWMDMStorageControl/2/3::Insert/2/3 and passes in this interface.
+     * @remarks
+     * This method is called just before the Windows Media Device Manager calls <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmoperation-transferobjectdata">IWMDMOperation::TransferObjectData</a> to begin writing data to the device.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
      * 
      * <table>
@@ -123,15 +131,21 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-beginwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-beginwrite
      */
     BeginWrite() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Windows Media Device Manager calls GetObjectName before an object is written to the device in order to know what it should be named on the device.
+     * @remarks
+     * This method is only called if the application did not specify the name as a parameter in the <b>Insert</b> method.
      * @param {PWSTR} pwszName Pointer to a wide-character null-terminated string that specifies the object name. The name should include a file extension, if required. Windows Media Device Manager allocates and releases this buffer. <i>nMaxChars</i> specifies the maximum number of characters, including the terminating null character.
      * @param {Integer} nMaxChars Integer specifying the number of characters in <i>pwszName</i>, including the terminating null character.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
@@ -175,17 +189,23 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-getobjectname
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-getobjectname
      */
     GetObjectName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(5, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszName, "uint", nMaxChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetObjectName method assigns a name to the content being read or written. This method is currently not called by Windows Media Device Manager.
+     * @remarks
+     * This method is called after <b>BeginRead</b> is called.
      * @param {PWSTR} pwszName Pointer to a wide-character null-terminated string specifying the object name.
      * @param {Integer} nMaxChars Integer specifying the maximum number of characters that this string can hold.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
@@ -229,28 +249,40 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-setobjectname
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-setobjectname
      */
     SetObjectName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(6, this, "ptr", pwszName, "uint", nMaxChars, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszName, "uint", nMaxChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetObjectAttributes method allows the application to specify attributes for an object being written to a device. Windows Media Device Manager calls this method before a file is written to the device in order to learn the file's attributes.
+     * @remarks
+     * When transferring data to the device, you should provide object attributes for optimal transference.
      * @param {Pointer<WAVEFORMATEX>} pFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structure that specifies the audio format for files with audio data attributes.
      * @returns {Integer} Pointer to a <b>DWORD</b> that specifies the attributes defined in the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-getattributes">IWMDMStorage::GetAttributes</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes
      */
     GetObjectAttributes(pFormat) {
-        result := ComCall(7, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwAttributes
     }
 
     /**
      * The SetObjectAttributes method specifies the file attributes. This method is currently not called by Windows Media Device Manager.
+     * @remarks
+     * Audio attributes include the number of samples per second, the number of bytes per sample, and so on.
      * @param {Integer} dwAttributes <b>DWORD</b> specifying the object attributes as defined in the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-setattributes">IWMDMStorage::SetAttributes</a> method.
      * @param {Pointer<WAVEFORMATEX>} pFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structure specifying the format for files with audio data attributes. If the file contains audio data, this parameter should be filled.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
@@ -294,15 +326,21 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-setobjectattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-setobjectattributes
      */
     SetObjectAttributes(dwAttributes, pFormat) {
-        result := ComCall(8, this, "uint", dwAttributes, "ptr", pFormat, "HRESULT")
+        result := ComCall(8, this, "uint", dwAttributes, "ptr", pFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Windows Media Device Manager calls GetObjectTotalSize before a file is written to the device in order to retrieve the total size of the object, in bytes.
+     * @remarks
+     * This method is called after the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmoperation-getobjectattributes">GetObjectAttributes</a> method has been called. When transferring, the object implementing this interface is passed the total size of the content being sent.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> that, on return, specifies the low-order bits of the object size in bytes.
      * @param {Pointer<Integer>} pdwSizeHigh Pointer to a <b>DWORD</b> that, on return, specifies the high-order bits of the object size in bytes.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
@@ -346,18 +384,24 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-getobjecttotalsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-getobjecttotalsize
      */
     GetObjectTotalSize(pdwSize, pdwSizeHigh) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         pdwSizeHighMarshal := pdwSizeHigh is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwSizeMarshal, pdwSize, pdwSizeHighMarshal, pdwSizeHigh, "HRESULT")
+        result := ComCall(9, this, pdwSizeMarshal, pdwSize, pdwSizeHighMarshal, pdwSizeHigh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetObjectTotalSize method assigns the total size in bytes of an object. This method is currently not called by Windows Media Device Manager.
+     * @remarks
+     * This method is called after <b>SetObjectAttributes</b>.
      * @param {Integer} dwSize <b>DWORD</b> specifying the low-order bits of the object size, in bytes.
      * @param {Integer} dwSizeHigh <b>DWORD</b> specifying the high-order bits of the object size, in bytes.
      * @returns {HRESULT} The application should return one of the following <b>HRESULT</b> values.
@@ -401,15 +445,21 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-setobjecttotalsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-setobjecttotalsize
      */
     SetObjectTotalSize(dwSize, dwSizeHigh) {
-        result := ComCall(10, this, "uint", dwSize, "uint", dwSizeHigh, "HRESULT")
+        result := ComCall(10, this, "uint", dwSize, "uint", dwSizeHigh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The TransferObjectData method is called to allow the application to transfer a block of data to or from the computer.
+     * @remarks
+     * The application can determine whether data is being read from or written to the device by monitoring whether <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmoperation-beginread">BeginRead</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmoperation-beginwrite">BeginWrite</a> was called just before this method was called.
      * @param {Pointer<Integer>} pData Pointer to a buffer containing the data. This buffer is always allocated and freed by Windows Media Device Manager. Your application should never allocate or free this buffer.
      * 
      * <b>BeginRead</b>[in] During a read from device, incoming data that must be decrypted using the <a href="https://docs.microsoft.com/previous-versions/bb231586(v=vs.85)">CSecureChannelClient::DecryptParam</a> method. The application does not need to deallocate the buffer.
@@ -466,19 +516,25 @@ class IWMDMOperation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-transferobjectdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-transferobjectdata
      */
     TransferObjectData(pData, pdwSize, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
+        result := ComCall(11, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The End method indicates that a read or write operation is finished, whether successful or not, and it returns a completion code.
+     * @remarks
+     * The <b>End</b> method is called whether or not the transfer was successful, and is the last <b>IWMDMOperation</b> method called. This method can be used to signal the application to close all file handles and other objects required by the read or write operation.
      * @param {Pointer<HRESULT>} phCompletionCode Completion code for the operation.
      * @param {IUnknown} pNewObject When sending to a device, a pointer to a new <b>IWMDMStorage</b> object representing the new object that has been sent to the device. When reading from a device, a pointer to the <b>IWMDMStorage</b> object that was read from the device.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -488,13 +544,17 @@ class IWMDMOperation extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmoperation-end
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmoperation-end
      */
     End(phCompletionCode, pNewObject) {
         phCompletionCodeMarshal := phCompletionCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, phCompletionCodeMarshal, phCompletionCode, "ptr", pNewObject, "HRESULT")
+        result := ComCall(12, this, phCompletionCodeMarshal, phCompletionCode, "ptr", pNewObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

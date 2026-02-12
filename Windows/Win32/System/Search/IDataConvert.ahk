@@ -49,7 +49,11 @@ class IDataConvert extends IUnknown{
         pDstMarshal := pDst is VarRef ? "ptr" : "ptr"
         pdbsStatusMarshal := pdbsStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ushort", wSrcType, "ushort", wDstType, "ptr", cbSrcLength, pcbDstLengthMarshal, pcbDstLength, "ptr", pSrc, pDstMarshal, pDst, "ptr", cbDstMaxLength, "uint", dbsSrcStatus, pdbsStatusMarshal, pdbsStatus, "char", bPrecision, "char", bScale, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ushort", wSrcType, "ushort", wDstType, "ptr", cbSrcLength, pcbDstLengthMarshal, pcbDstLength, "ptr", pSrc, pDstMarshal, pDst, "ptr", cbDstMaxLength, "uint", dbsSrcStatus, pdbsStatusMarshal, pdbsStatus, "char", bPrecision, "char", bScale, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +64,11 @@ class IDataConvert extends IUnknown{
      * @returns {HRESULT} 
      */
     CanConvert(wSrcType, wDstType) {
-        result := ComCall(4, this, "ushort", wSrcType, "ushort", wDstType, "HRESULT")
+        result := ComCall(4, this, "ushort", wSrcType, "ushort", wDstType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +83,11 @@ class IDataConvert extends IUnknown{
     GetConversionSize(wSrcType, wDstType, pcbSrcLength, pSrc) {
         pcbSrcLengthMarshal := pcbSrcLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, "ptr", pSrc, "HRESULT")
+        result := ComCall(5, this, "ushort", wSrcType, "ushort", wDstType, pcbSrcLengthMarshal, pcbSrcLength, "ptr*", &pcbDstLength := 0, "ptr", pSrc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbDstLength
     }
 }

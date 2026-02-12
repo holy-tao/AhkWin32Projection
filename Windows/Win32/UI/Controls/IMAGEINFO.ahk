@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an image in an image list. This structure is used with the IImageList::GetImageInfo function. (IMAGEINFO)
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-imageinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-imageinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -43,10 +43,20 @@ class IDOMParser extends IDispatch{
      * @returns {IHTMLDocument2} 
      */
     parseFromString(xmlSource, mimeType) {
-        xmlSource := xmlSource is String ? BSTR.Alloc(xmlSource).Value : xmlSource
-        mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
+        if(xmlSource is String) {
+            pin := BSTR.Alloc(xmlSource)
+            xmlSource := pin.Value
+        }
+        if(mimeType is String) {
+            pin := BSTR.Alloc(mimeType)
+            mimeType := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", xmlSource, "ptr", mimeType, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", xmlSource, "ptr", mimeType, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(ppNode)
     }
 }

@@ -33,7 +33,11 @@ class IActiveScriptProfilerControl2 extends IActiveScriptProfilerControl{
      * @returns {HRESULT} 
      */
     CompleteProfilerStart() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IActiveScriptProfilerControl2 extends IActiveScriptProfilerControl{
      * @returns {HRESULT} 
      */
     PrepareProfilerStop() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

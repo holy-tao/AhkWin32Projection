@@ -3,8 +3,8 @@
 #Include .\RESOURCE_FAILURE_INFO.ahk
 
 /**
- * The RESOURCE_FAILURE_INFO_BUFFER structure represents a buffer for a resource failure. (RESOURCE_FAILURE_INFO_BUFFER)
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-resource_failure_info_buffer
+ * The RESOURCE_FAILURE_INFO_BUFFER (clusapi.h) structure represents the buffer for a resource failure.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-resource_failure_info_buffer
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

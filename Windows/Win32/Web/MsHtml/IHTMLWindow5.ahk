@@ -43,7 +43,11 @@ class IHTMLWindow5 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_XMLHttpRequest(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class IHTMLWindow5 extends IDispatch{
      */
     get_XMLHttpRequest() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

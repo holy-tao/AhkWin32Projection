@@ -7,7 +7,7 @@
  * These metrics help identify when a driver is waiting and what it is waiting for. High percentages are not necessarily a problem.
  * 
  * These system-global metrics may or may not be implemented. Depending on the specific hardware, these metrics may not support multiple queries simultaneously.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-d3d9interfacetimings
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddevinfo-d3d9interfacetimings
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

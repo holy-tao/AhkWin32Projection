@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method that retireves system id data.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsystemid
+ * Provides a method that retrieves system id data.
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfsystemid
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IMFSystemId extends IUnknown{
 
     /**
      * Retrieves system id data.
-     * @param {Pointer<Integer>} size The size in bytes of the returned data.
+     * @param {Pointer<Integer>} size_ The size in bytes of the returned data.
      * @param {Pointer<Pointer<Integer>>} data Receives the returned data.  The caller must free this buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -53,13 +53,17 @@ class IMFSystemId extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsystemid-getdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsystemid-getdata
      */
-    GetData(size, data) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
+    GetData(size_, data) {
+        size_Marshal := size_ is VarRef ? "uint*" : "ptr"
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, sizeMarshal, size, dataMarshal, data, "HRESULT")
+        result := ComCall(3, this, size_Marshal, size_, dataMarshal, data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,14 +74,18 @@ class IMFSystemId extends IUnknown{
      * @param {Pointer} pbIn The input buffer.
      * @param {Pointer<Integer>} pcbOut Size of output buffer.
      * @param {Pointer<Pointer<Integer>>} ppbOut The output buffer.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsystemid-setup
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsystemid-setup
      */
     Setup(stage, cbIn, pbIn, pcbOut, ppbOut) {
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
         ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "HRESULT")
+        result := ComCall(4, this, "uint", stage, "uint", cbIn, "ptr", pbIn, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

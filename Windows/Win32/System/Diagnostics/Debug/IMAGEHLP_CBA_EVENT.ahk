@@ -3,7 +3,7 @@
 
 /**
  * The IMAGEHLP_CBA_EVENT structure (dbghelp.h) contains information about a debugging event.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_cba_event
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbghelp/ns-dbghelp-imagehlp_cba_event
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  * @charset ANSI

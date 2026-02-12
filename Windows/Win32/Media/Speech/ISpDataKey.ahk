@@ -47,16 +47,23 @@ class ISpDataKey extends IUnknown{
 
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszValueName, "uint", cbData, pDataMarshal, pData, "HRESULT")
+        result := ComCall(3, this, "ptr", pszValueName, "uint", cbData, pDataMarshal, pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetDataProviderDSO Method
+     * @remarks
+     * This method does not addref the interface pointer. If the caller plans to hold the pointer, the caller must do the required addref and release.
      * @param {PWSTR} pszValueName 
      * @param {Pointer<Integer>} pcbData 
      * @param {Pointer<Integer>} pData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getdataproviderdso-method
      */
     GetData(pszValueName, pcbData, pData) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
@@ -64,21 +71,32 @@ class ISpDataKey extends IUnknown{
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszValueName, pcbDataMarshal, pcbData, pDataMarshal, pData, "HRESULT")
+        result := ComCall(4, this, "ptr", pszValueName, pcbDataMarshal, pcbData, pDataMarshal, pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * SetStringValue Method (SqlServiceAdvancedProperty class)
+     * @remarks
+     * The property value type must be **string** to be able to set the property to a string value.
      * @param {PWSTR} pszValueName 
      * @param {PWSTR} pszValue 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/wmi-provider-configuration-classes/sqlserviceadvancedproperty-class/setstringvalue-method-sqlserviceadvancedproperty-class
      */
     SetStringValue(pszValueName, pszValue) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(5, this, "ptr", pszValueName, "ptr", pszValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pszValueName, "ptr", pszValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +108,11 @@ class ISpDataKey extends IUnknown{
     GetStringValue(pszValueName) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(6, this, "ptr", pszValueName, "ptr*", &ppszValue := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszValueName, "ptr*", &ppszValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszValue
     }
 
@@ -103,7 +125,11 @@ class ISpDataKey extends IUnknown{
     SetDWORD(pszValueName, dwValue) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(7, this, "ptr", pszValueName, "uint", dwValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pszValueName, "uint", dwValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +144,11 @@ class ISpDataKey extends IUnknown{
 
         pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pszValueName, pdwValueMarshal, pdwValue, "HRESULT")
+        result := ComCall(8, this, "ptr", pszValueName, pdwValueMarshal, pdwValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +160,11 @@ class ISpDataKey extends IUnknown{
     OpenKey(pszSubKeyName) {
         pszSubKeyName := pszSubKeyName is String ? StrPtr(pszSubKeyName) : pszSubKeyName
 
-        result := ComCall(9, this, "ptr", pszSubKeyName, "ptr*", &ppSubKey := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pszSubKeyName, "ptr*", &ppSubKey := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpDataKey(ppSubKey)
     }
 
@@ -142,19 +176,43 @@ class ISpDataKey extends IUnknown{
     CreateKey(pszSubKey) {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := ComCall(10, this, "ptr", pszSubKey, "ptr*", &ppSubKey := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pszSubKey, "ptr*", &ppSubKey := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpDataKey(ppSubKey)
     }
 
     /**
-     * 
+     * Deletes a given key protector for the volume.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {PWSTR} pszSubKey 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
+     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
+     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
+     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
+     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/deletekeyprotector-win32-encryptablevolume
      */
     DeleteKey(pszSubKey) {
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := ComCall(11, this, "ptr", pszSubKey, "HRESULT")
+        result := ComCall(11, this, "ptr", pszSubKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +224,11 @@ class ISpDataKey extends IUnknown{
     DeleteValue(pszValueName) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
-        result := ComCall(12, this, "ptr", pszValueName, "HRESULT")
+        result := ComCall(12, this, "ptr", pszValueName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -176,7 +238,11 @@ class ISpDataKey extends IUnknown{
      * @returns {PWSTR} 
      */
     EnumKeys(Index) {
-        result := ComCall(13, this, "uint", Index, "ptr*", &ppszSubKeyName := 0, "HRESULT")
+        result := ComCall(13, this, "uint", Index, "ptr*", &ppszSubKeyName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszSubKeyName
     }
 
@@ -186,7 +252,11 @@ class ISpDataKey extends IUnknown{
      * @returns {PWSTR} 
      */
     EnumValues(Index) {
-        result := ComCall(14, this, "uint", Index, "ptr*", &ppszValueName := 0, "HRESULT")
+        result := ComCall(14, this, "uint", Index, "ptr*", &ppszValueName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszValueName
     }
 }

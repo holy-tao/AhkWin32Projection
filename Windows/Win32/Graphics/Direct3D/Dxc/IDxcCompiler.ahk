@@ -31,7 +31,7 @@ class IDxcCompiler extends IUnknown{
     static VTableNames => ["Compile", "Preprocess", "Disassemble"]
 
     /**
-     * 
+     * This section contains information about the following Direct3D HLSL compiler functions
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {PWSTR} pEntryPoint 
@@ -41,7 +41,8 @@ class IDxcCompiler extends IUnknown{
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
-     * @returns {IDxcOperationResult} 
+     * @returns {Pointer<IDxcOperationResult>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-d3dcompiler-reference-functions
      */
     Compile(pSource, pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount, pIncludeHandler) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
@@ -50,12 +51,20 @@ class IDxcCompiler extends IUnknown{
 
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcOperationResult(ppResult)
+        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
-     * 
+     * Parses an argument string and verifies that all required tags are present.
+     * @remarks
+     * The 
+     * <b>PreprocessCommand</b> function is typically called by command functions. This function parses all arguments, matching arguments with tags, and leaves the type (tag index) of each argument in the <i>pdwTagType</i> array, where <i>pdwTagType</i>[0] corresponds to the type of <i>ppwcArguments</i>[<i>dwCurrentIndex</i>]. The 
+     * <b>PreprocessCommand</b> function also ensures that tags required to be present are present.
      * @param {IDxcBlob} pSource 
      * @param {PWSTR} pSourceName 
      * @param {Pointer<PWSTR>} pArguments 
@@ -63,24 +72,33 @@ class IDxcCompiler extends IUnknown{
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
-     * @returns {IDxcOperationResult} 
+     * @returns {Pointer<IDxcOperationResult>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/netsh/nf-netsh-preprocesscommand
      */
     Preprocess(pSource, pSourceName, pArguments, argCount, pDefines, defineCount, pIncludeHandler) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcOperationResult(ppResult)
+        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
      * @param {IDxcBlob} pSource 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     Disassemble(pSource) {
-        result := ComCall(5, this, "ptr", pSource, "ptr*", &ppDisassembly := 0, "HRESULT")
-        return IDxcBlobEncoding(ppDisassembly)
+        result := ComCall(5, this, "ptr", pSource, "ptr*", &ppDisassembly := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppDisassembly
     }
 }

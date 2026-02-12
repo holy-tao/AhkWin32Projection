@@ -5,7 +5,7 @@
 
 /**
  * Defines objects that are used to paint graphical objects. Classes that derive from IXpsOMBrush describe how the area is painted.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -32,18 +32,28 @@ class IXpsOMBrush extends IXpsOMShareable{
 
     /**
      * Gets the opacity of the brush.
+     * @remarks
+     * <i>opacity</i> is expressed as a value between 0.0 and 1.0; 0.0 indicates that the brush is completely transparent, 0.5  that it is 50 percent opaque, and 1.0 that it is completely opaque.
      * @returns {Float} The opacity value of the brush.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-getopacity
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-getopacity
      */
     GetOpacity() {
-        result := ComCall(5, this, "float*", &opacity := 0, "HRESULT")
+        result := ComCall(5, this, "float*", &opacity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return opacity
     }
 
     /**
      * Sets the opacity of the brush.
+     * @remarks
+     * <i>opacity</i> is expressed as a value between 0.0 and 1.0; 0.0 indicates that the brush is completely transparent, 0.5  that it is 50 percent opaque, and 1.0 that it is completely opaque.
+     * 
+     * If <i>opacity</i> is less than 0.0 or greater than 1.0, the method  returns an error.
      * @param {Float} opacity The opacity value of the brush.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -73,10 +83,14 @@ class IXpsOMBrush extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-setopacity
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-setopacity
      */
     SetOpacity(opacity) {
-        result := ComCall(6, this, "float", opacity, "HRESULT")
+        result := ComCall(6, this, "float", opacity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

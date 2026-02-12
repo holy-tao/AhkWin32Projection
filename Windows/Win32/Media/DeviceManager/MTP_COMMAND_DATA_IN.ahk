@@ -8,7 +8,7 @@
  * 
  * 
  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/mtpext/ns-mtpext-mtp_command_data_in
+ * @see https://learn.microsoft.com/windows/win32/api//content/mtpext/ns-mtpext-mtp_command_data_in
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

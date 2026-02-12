@@ -7,11 +7,8 @@
 /**
  * Represents a font file stream, parts of which may be non-local.
  * @remarks
- * 
  * For more information, see the description of IDWriteRemoteFontFileLoader.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriteremotefontfilestream
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwriteremotefontfilestream
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -41,10 +38,14 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
      * @returns {Integer} Type: <b>UINT64*</b>
      * 
      * Receives the local size of the file.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocalfilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocalfilesize
      */
     GetLocalFileSize() {
-        result := ComCall(7, this, "uint*", &localFileSize := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &localFileSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return localFileSize
     }
 
@@ -62,21 +63,25 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Receives TRUE if the first byte of the fragment is local, FALSE if not.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getfilefragmentlocality
      */
     GetFileFragmentLocality(fileOffset, fragmentSize, partialSize) {
         partialSizeMarshal := partialSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, "int*", &isLocal := 0, partialSizeMarshal, partialSize, "HRESULT")
+        result := ComCall(8, this, "uint", fileOffset, "uint", fragmentSize, "int*", &isLocal := 0, partialSizeMarshal, partialSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isLocal
     }
 
     /**
      * Gets the current locality of the file.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
      * Returns the current locality (i.e., remote, partial, or local).
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocality
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocality
      */
     GetLocality() {
         result := ComCall(9, this, "int")
@@ -92,15 +97,19 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
      * @param {Integer} fragmentCount Type: <b>UINT32</b>
      * 
      * Number of elements in the fileFragments array. This can be zero to just download file information, such as the size.
-     * @returns {IDWriteAsyncResult} Type: <b>_COM_Outptr_result_maybenull_</b>
+     * @returns {Pointer<IDWriteAsyncResult>} Type: <b>_COM_Outptr_result_maybenull_</b>
      * 
      * Receives an object that can be used to wait for the asynchronous download to complete and to get the download result upon 
      *           completion. The result may be NULL if the download completes synchronously. For example, this can happen if method determines that the requested data
      *           is already local.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload
      */
     BeginDownload(downloadOperationID, fileFragments, fragmentCount) {
-        result := ComCall(10, this, "ptr", downloadOperationID, "ptr", fileFragments, "uint", fragmentCount, "ptr*", &asyncResult := 0, "HRESULT")
-        return IDWriteAsyncResult(asyncResult)
+        result := ComCall(10, this, "ptr", downloadOperationID, "ptr", fileFragments, "uint", fragmentCount, "ptr*", &asyncResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return asyncResult
     }
 }

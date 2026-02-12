@@ -7,7 +7,7 @@
 
 /**
  * The IEnumPhone interface provides COM-standard enumeration methods for the ITPhone interface. The ITAddress2::EnumeratePhones and ITTAPI2::EnumeratePhones methods return a pointer to IEnumPhone.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ienumphone
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-ienumphone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,22 +33,30 @@ class IEnumPhone extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * The Next method gets the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages. (IEnumPhone.Next)
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface returned by <b>IEnumPhone::Next</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITPhone</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {ITPhone} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> list of pointers returned.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumphone-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ienumphone-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITPhone(ppElements)
     }
 
     /**
-     * The Reset method resets the enumeration sequence to the beginning. This method is hidden from Visual Basic and scripting languages.
+     * The Reset method resets the enumeration sequence to the beginning. This method is hidden from Visual Basic and scripting languages. (IEnumPhone.Reset)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -79,15 +87,19 @@ class IEnumPhone extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumphone-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ienumphone-reset
      */
     Reset() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages. (IEnumPhone.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -130,21 +142,33 @@ class IEnumPhone extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumphone-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ienumphone-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one. This method is hidden from Visual Basic and scripting languages.
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. This method is hidden from Visual Basic and scripting languages. (IEnumPhone.Clone)
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface returned by <b>IEnumPhone::Clone</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumPhone</b> interface to free resources associated with it.
      * @returns {IEnumPhone} Pointer to new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumphone-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-ienumphone-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumPhone(ppEnum)
     }
 }

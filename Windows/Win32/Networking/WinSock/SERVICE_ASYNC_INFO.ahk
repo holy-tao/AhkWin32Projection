@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -23,9 +24,12 @@ class SERVICE_ASYNC_INFO extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(8, this)
+            return this.__lParam
+        }
     }
 
     /**

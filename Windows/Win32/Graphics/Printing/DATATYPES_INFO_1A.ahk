@@ -3,7 +3,7 @@
 
 /**
  * The DATATYPES\_INFO\_1 structure contains information about the data type used to record a print job.
- * @see https://learn.microsoft.com/windows/win32/printdocs/datatypes-info-1
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/datatypes-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

@@ -3,7 +3,7 @@
 
 /**
  * Direction of network traffic.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_direction
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwptypes/ne-fwptypes-fwp_direction
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

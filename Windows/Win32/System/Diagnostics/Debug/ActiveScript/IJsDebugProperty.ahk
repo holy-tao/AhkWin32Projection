@@ -31,13 +31,20 @@ class IJsDebugProperty extends IUnknown{
     static VTableNames => ["GetPropertyInfo", "GetMembers"]
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} nRadix 
      * @returns {JsDebugPropertyInfo} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(nRadix) {
         pPropertyInfo := JsDebugPropertyInfo()
-        result := ComCall(3, this, "uint", nRadix, "ptr", pPropertyInfo, "HRESULT")
+        result := ComCall(3, this, "uint", nRadix, "ptr", pPropertyInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPropertyInfo
     }
 
@@ -47,7 +54,11 @@ class IJsDebugProperty extends IUnknown{
      * @returns {IJsEnumDebugProperty} 
      */
     GetMembers(members) {
-        result := ComCall(4, this, "int", members, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, "int", members, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IJsEnumDebugProperty(ppEnum)
     }
 }

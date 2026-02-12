@@ -3,7 +3,7 @@
 
 /**
  * Contains data used by SHAddToRecentDocs to identify both an item�in this case as an IShellItem�and the process that it is associated with.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shardappidinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/ns-shlobj_core-shardappidinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

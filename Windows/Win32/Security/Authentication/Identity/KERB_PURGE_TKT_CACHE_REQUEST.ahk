@@ -10,7 +10,7 @@
  * 
  * 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> does not return this buffer. It returns STATUS_SUCCESS if one or more tickets are deleted. If no tickets are found, the function returns SEC_E_NO_CREDENTIALS.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_purge_tkt_cache_request
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntsecapi/ns-ntsecapi-kerb_purge_tkt_cache_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

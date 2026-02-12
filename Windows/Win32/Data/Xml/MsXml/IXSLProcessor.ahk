@@ -89,7 +89,11 @@ class IXSLProcessor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_input(var) {
-        result := ComCall(7, this, "ptr", var, "HRESULT")
+        result := ComCall(7, this, "ptr", var, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +103,11 @@ class IXSLProcessor extends IDispatch{
      */
     get_input() {
         pVar := VARIANT()
-        result := ComCall(8, this, "ptr", pVar, "HRESULT")
+        result := ComCall(8, this, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 
@@ -108,21 +116,35 @@ class IXSLProcessor extends IDispatch{
      * @returns {IXSLTemplate} 
      */
     get_ownerTemplate() {
-        result := ComCall(9, this, "ptr*", &ppTemplate := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppTemplate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXSLTemplate(ppTemplate)
     }
 
     /**
      * 
-     * @param {BSTR} mode 
+     * @param {BSTR} mode_ 
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
      */
-    setStartMode(mode, namespaceURI) {
-        mode := mode is String ? BSTR.Alloc(mode).Value : mode
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+    setStartMode(mode_, namespaceURI) {
+        if(mode_ is String) {
+            pin := BSTR.Alloc(mode_)
+            mode_ := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", mode, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(10, this, "ptr", mode_, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,9 +153,13 @@ class IXSLProcessor extends IDispatch{
      * @returns {BSTR} 
      */
     get_startMode() {
-        mode := BSTR()
-        result := ComCall(11, this, "ptr", mode, "HRESULT")
-        return mode
+        mode_ := BSTR()
+        result := ComCall(11, this, "ptr", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return mode_
     }
 
     /**
@@ -142,7 +168,11 @@ class IXSLProcessor extends IDispatch{
      */
     get_startModeURI() {
         namespaceURI := BSTR()
-        result := ComCall(12, this, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(12, this, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return namespaceURI
     }
 
@@ -152,7 +182,11 @@ class IXSLProcessor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_output(output) {
-        result := ComCall(13, this, "ptr", output, "HRESULT")
+        result := ComCall(13, this, "ptr", output, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +196,11 @@ class IXSLProcessor extends IDispatch{
      */
     get_output() {
         pOutput := VARIANT()
-        result := ComCall(14, this, "ptr", pOutput, "HRESULT")
+        result := ComCall(14, this, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOutput
     }
 
@@ -171,7 +209,11 @@ class IXSLProcessor extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     transform() {
-        result := ComCall(15, this, "short*", &pDone := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &pDone := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDone
     }
 
@@ -180,7 +222,11 @@ class IXSLProcessor extends IDispatch{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +235,11 @@ class IXSLProcessor extends IDispatch{
      * @returns {Integer} 
      */
     get_readyState() {
-        result := ComCall(17, this, "int*", &pReadyState := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pReadyState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pReadyState
     }
 
@@ -201,10 +251,20 @@ class IXSLProcessor extends IDispatch{
      * @returns {HRESULT} 
      */
     addParameter(baseName, parameter, namespaceURI) {
-        baseName := baseName is String ? BSTR.Alloc(baseName).Value : baseName
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(baseName is String) {
+            pin := BSTR.Alloc(baseName)
+            baseName := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", baseName, "ptr", parameter, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(18, this, "ptr", baseName, "ptr", parameter, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,9 +275,16 @@ class IXSLProcessor extends IDispatch{
      * @returns {HRESULT} 
      */
     addObject(obj, namespaceURI) {
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", obj, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(19, this, "ptr", obj, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +293,11 @@ class IXSLProcessor extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     get_stylesheet() {
-        result := ComCall(20, this, "ptr*", &stylesheet := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &stylesheet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(stylesheet)
     }
 }

@@ -6,11 +6,9 @@
 /**
  * Extends the IObjectArray interface by providing methods that enable clients to add and remove objects that support IUnknown in a collection.
  * @remarks
- * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * Use this interface to interact with a collection of generic objects.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objectarray/nn-objectarray-iobjectcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/objectarray/nn-objectarray-iobjectcollection
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */
@@ -42,11 +40,15 @@ class IObjectCollection extends IObjectArray{
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object to be added to the collection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-addobject
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/objectarray/nf-objectarray-iobjectcollection-addobject
      */
     AddObject(punk) {
-        result := ComCall(5, this, "ptr", punk, "HRESULT")
+        result := ComCall(5, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,11 +59,15 @@ class IObjectCollection extends IObjectArray{
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objectarray/nn-objectarray-iobjectarray">IObjectArray</a> whose contents are to be added to the collection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-addfromarray
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/objectarray/nf-objectarray-iobjectcollection-addfromarray
      */
     AddFromArray(poaSource) {
-        result := ComCall(6, this, "ptr", poaSource, "HRESULT")
+        result := ComCall(6, this, "ptr", poaSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,23 +78,31 @@ class IObjectCollection extends IObjectArray{
      * A pointer to the index of the object within the collection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-removeobjectat
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/objectarray/nf-objectarray-iobjectcollection-removeobjectat
      */
     RemoveObjectAt(uiIndex) {
-        result := ComCall(7, this, "uint", uiIndex, "HRESULT")
+        result := ComCall(7, this, "uint", uiIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Removes all objects from the collection.
+     * Removes all objects from the collection. (IObjectCollection.Clear)
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-clear
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/objectarray/nf-objectarray-iobjectcollection-clear
      */
     Clear() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

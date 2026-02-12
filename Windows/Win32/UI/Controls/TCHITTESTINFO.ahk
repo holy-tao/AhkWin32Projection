@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a hit test. This structure supersedes the TC_HITTESTINFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tchittestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-tchittestinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

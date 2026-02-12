@@ -36,12 +36,17 @@ class IModelObject extends IUnknown{
     static VTableNames => ["GetContext", "GetKind", "GetIntrinsicValue", "GetIntrinsicValueAs", "GetKeyValue", "SetKeyValue", "EnumerateKeyValues", "GetRawValue", "EnumerateRawValues", "Dereference", "TryCastToRuntimeType", "GetConcept", "GetLocation", "GetTypeInfo", "GetTargetInfo", "GetNumberOfParentModels", "GetParentModel", "AddParentModel", "RemoveParentModel", "GetKey", "GetKeyReference", "SetKey", "ClearKeys", "EnumerateKeys", "EnumerateKeyReferences", "SetConcept", "ClearConcepts", "GetRawReference", "EnumerateRawReferences", "SetContextForDataModel", "GetContextForDataModel", "Compare", "IsEqualTo"]
 
     /**
-     * 
-     * @returns {IDebugHostContext} 
+     * Gets the context preference flags.
+     * @returns {Pointer<IDebugHostContext>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getcontextpreferenceflags
      */
     GetContext() {
-        result := ComCall(3, this, "ptr*", &context := 0, "HRESULT")
-        return IDebugHostContext(context)
+        result := ComCall(3, this, "ptr*", &context_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return context_
     }
 
     /**
@@ -49,7 +54,11 @@ class IModelObject extends IUnknown{
      * @returns {Integer} 
      */
     GetKind() {
-        result := ComCall(4, this, "int*", &kind := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &kind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return kind
     }
 
@@ -59,7 +68,11 @@ class IModelObject extends IUnknown{
      */
     GetIntrinsicValue() {
         intrinsicData := VARIANT()
-        result := ComCall(5, this, "ptr", intrinsicData, "HRESULT")
+        result := ComCall(5, this, "ptr", intrinsicData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return intrinsicData
     }
 
@@ -70,44 +83,60 @@ class IModelObject extends IUnknown{
      */
     GetIntrinsicValueAs(vt) {
         intrinsicData := VARIANT()
-        result := ComCall(6, this, "ushort", vt, "ptr", intrinsicData, "HRESULT")
+        result := ComCall(6, this, "ushort", vt, "ptr", intrinsicData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return intrinsicData
     }
 
     /**
      * 
      * @param {PWSTR} key 
-     * @param {Pointer<IModelObject>} object 
-     * @param {Pointer<IKeyStore>} metadata 
+     * @param {Pointer<IModelObject>} object_ 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
      * @returns {HRESULT} 
      */
-    GetKeyValue(key, object, metadata) {
+    GetKeyValue(key, object_, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(7, this, "ptr", key, "ptr*", object, "ptr*", metadata, "HRESULT")
+        result := ComCall(7, this, "ptr", key, "ptr*", object_, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {PWSTR} key 
-     * @param {IModelObject} object 
+     * @param {IModelObject} object_ 
      * @returns {HRESULT} 
      */
-    SetKeyValue(key, object) {
+    SetKeyValue(key, object_) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(8, this, "ptr", key, "ptr", object, "HRESULT")
+        result := ComCall(8, this, "ptr", key, "ptr", object_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateKeyValues() {
-        result := ComCall(9, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(9, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
@@ -120,19 +149,27 @@ class IModelObject extends IUnknown{
     GetRawValue(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(10, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &object_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IModelObject(object_)
     }
 
     /**
      * 
      * @param {Integer} kind 
      * @param {Integer} searchFlags 
-     * @returns {IRawEnumerator} 
+     * @returns {Pointer<IRawEnumerator>} 
      */
     EnumerateRawValues(kind, searchFlags) {
-        result := ComCall(11, this, "int", kind, "uint", searchFlags, "ptr*", &enumerator := 0, "HRESULT")
-        return IRawEnumerator(enumerator)
+        result := ComCall(11, this, "int", kind, "uint", searchFlags, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
@@ -140,8 +177,12 @@ class IModelObject extends IUnknown{
      * @returns {IModelObject} 
      */
     Dereference() {
-        result := ComCall(12, this, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(12, this, "ptr*", &object_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IModelObject(object_)
     }
 
     /**
@@ -149,19 +190,27 @@ class IModelObject extends IUnknown{
      * @returns {IModelObject} 
      */
     TryCastToRuntimeType() {
-        result := ComCall(13, this, "ptr*", &runtimeTypedObject := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &runtimeTypedObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IModelObject(runtimeTypedObject)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} conceptId 
-     * @param {Pointer<IUnknown>} conceptInterface 
-     * @param {Pointer<IKeyStore>} conceptMetadata 
+     * @param {Pointer<Pointer<IUnknown>>} conceptInterface 
+     * @param {Pointer<Pointer<IKeyStore>>} conceptMetadata 
      * @returns {HRESULT} 
      */
     GetConcept(conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(14, this, "ptr", conceptId, "ptr*", conceptInterface, "ptr*", conceptMetadata, "HRESULT")
+        result := ComCall(14, this, "ptr", conceptId, "ptr*", conceptInterface, "ptr*", conceptMetadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,9 +219,13 @@ class IModelObject extends IUnknown{
      * @returns {Location} 
      */
     GetLocation() {
-        location := Location()
-        result := ComCall(15, this, "ptr", location, "HRESULT")
-        return location
+        location_ := Location()
+        result := ComCall(15, this, "ptr", location_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return location_
     }
 
     /**
@@ -180,18 +233,26 @@ class IModelObject extends IUnknown{
      * @returns {IDebugHostType} 
      */
     GetTypeInfo() {
-        result := ComCall(16, this, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(type)
     }
 
     /**
      * 
-     * @param {Pointer<Location>} location 
+     * @param {Pointer<Location>} location_ 
      * @param {Pointer<IDebugHostType>} type 
      * @returns {HRESULT} 
      */
-    GetTargetInfo(location, type) {
-        result := ComCall(17, this, "ptr", location, "ptr*", type, "HRESULT")
+    GetTargetInfo(location_, type) {
+        result := ComCall(17, this, "ptr", location_, "ptr*", type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -200,19 +261,27 @@ class IModelObject extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberOfParentModels() {
-        result := ComCall(18, this, "uint*", &numModels := 0, "HRESULT")
+        result := ComCall(18, this, "uint*", &numModels := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return numModels
     }
 
     /**
      * 
      * @param {Integer} i 
-     * @param {Pointer<IModelObject>} model 
-     * @param {Pointer<IModelObject>} contextObject 
+     * @param {Pointer<Pointer<IModelObject>>} model 
+     * @param {Pointer<Pointer<IModelObject>>} contextObject 
      * @returns {HRESULT} 
      */
     GetParentModel(i, model, contextObject) {
-        result := ComCall(19, this, "uint", i, "ptr*", model, "ptr*", contextObject, "HRESULT")
+        result := ComCall(19, this, "uint", i, "ptr*", model, "ptr*", contextObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -224,7 +293,11 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     AddParentModel(model, contextObject, override) {
-        result := ComCall(20, this, "ptr", model, "ptr", contextObject, "char", override, "HRESULT")
+        result := ComCall(20, this, "ptr", model, "ptr", contextObject, "char", override, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,21 +307,40 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveParentModel(model) {
-        result := ComCall(21, this, "ptr", model, "HRESULT")
+        result := ComCall(21, this, "ptr", model, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves the active input locale identifier (formerly called the keyboard layout).
+     * @remarks
+     * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.
      * 
+     * Since the keyboard layout can be dynamically changed, applications that cache information about the current keyboard layout should process the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-inputlangchange">WM_INPUTLANGCHANGE</a> message to be informed of changes in the input language.
+     * 
+     * To get the KLID (keyboard layout ID) of the currently active HKL, call the  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getkeyboardlayoutnamea">GetKeyboardLayoutName</a>.
+     * 
+     * <b>Beginning in Windows 8:</b> The preferred method to retrieve the language associated with the current keyboard layout or input method is a call to <a href="https://docs.microsoft.com/uwp/api/windows.globalization.language.currentinputmethodlanguagetag">Windows.Globalization.Language.CurrentInputMethodLanguageTag</a>. If your app passes language tags from <b>CurrentInputMethodLanguageTag</b> to any <a href="https://docs.microsoft.com/windows/desktop/Intl/national-language-support-functions">National Language Support</a> functions, it must first convert the tags by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-resolvelocalename">ResolveLocaleName</a>.
      * @param {PWSTR} key 
-     * @param {Pointer<IModelObject>} object 
-     * @param {Pointer<IKeyStore>} metadata 
-     * @returns {HRESULT} 
+     * @param {Pointer<IModelObject>} object_ 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
+     * @returns {HRESULT} Type: <b>HKL</b>
+     * 
+     * The return value is the input locale identifier for the thread. The low word contains a <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> for the input language and the high word contains a device handle to the physical layout of the keyboard.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getkeyboardlayout
      */
-    GetKey(key, object, metadata) {
+    GetKey(key, object_, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(22, this, "ptr", key, "ptr*", object, "ptr*", metadata, "HRESULT")
+        result := ComCall(22, this, "ptr", key, "ptr*", object_, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -256,27 +348,42 @@ class IModelObject extends IUnknown{
      * 
      * @param {PWSTR} key 
      * @param {Pointer<IModelObject>} objectReference 
-     * @param {Pointer<IKeyStore>} metadata 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
      * @returns {HRESULT} 
      */
     GetKeyReference(key, objectReference, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(23, this, "ptr", key, "ptr*", objectReference, "ptr*", metadata, "HRESULT")
+        result := ComCall(23, this, "ptr", key, "ptr*", objectReference, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Copies an array of keyboard key states into the calling thread's keyboard input-state table. This is the same table accessed by the GetKeyboardState and GetKeyState functions. Changes made to this table do not affect keyboard input to any other thread.
+     * @remarks
+     * Because the <b>SetKeyboardState</b> function alters the input state of the calling thread and not the global input state of the system, an application cannot use <b>SetKeyboardState</b> to set the NUM LOCK, CAPS LOCK, or SCROLL LOCK (or the Japanese KANA) indicator lights on the keyboard. These can be set or cleared using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendinput">SendInput</a> to simulate keystrokes.
      * @param {PWSTR} key 
-     * @param {IModelObject} object 
+     * @param {IModelObject} object_ 
      * @param {IKeyStore} metadata 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setkeyboardstate
      */
-    SetKey(key, object, metadata) {
+    SetKey(key, object_, metadata) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(24, this, "ptr", key, "ptr", object, "ptr", metadata, "HRESULT")
+        result := ComCall(24, this, "ptr", key, "ptr", object_, "ptr", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -285,26 +392,38 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     ClearKeys() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateKeys() {
-        result := ComCall(26, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(26, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
      * 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateKeyReferences() {
-        result := ComCall(27, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IKeyEnumerator(enumerator)
+        result := ComCall(27, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
@@ -315,7 +434,11 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConcept(conceptId, conceptInterface, conceptMetadata) {
-        result := ComCall(28, this, "ptr", conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "HRESULT")
+        result := ComCall(28, this, "ptr", conceptId, "ptr", conceptInterface, "ptr", conceptMetadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -324,7 +447,11 @@ class IModelObject extends IUnknown{
      * @returns {HRESULT} 
      */
     ClearConcepts() {
-        result := ComCall(29, this, "HRESULT")
+        result := ComCall(29, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -338,29 +465,41 @@ class IModelObject extends IUnknown{
     GetRawReference(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(30, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(30, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &object_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IModelObject(object_)
     }
 
     /**
      * 
      * @param {Integer} kind 
      * @param {Integer} searchFlags 
-     * @returns {IRawEnumerator} 
+     * @returns {Pointer<IRawEnumerator>} 
      */
     EnumerateRawReferences(kind, searchFlags) {
-        result := ComCall(31, this, "int", kind, "uint", searchFlags, "ptr*", &enumerator := 0, "HRESULT")
-        return IRawEnumerator(enumerator)
+        result := ComCall(31, this, "int", kind, "uint", searchFlags, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 
     /**
      * 
      * @param {IModelObject} dataModelObject 
-     * @param {IUnknown} context 
+     * @param {IUnknown} context_ 
      * @returns {HRESULT} 
      */
-    SetContextForDataModel(dataModelObject, context) {
-        result := ComCall(32, this, "ptr", dataModelObject, "ptr", context, "HRESULT")
+    SetContextForDataModel(dataModelObject, context_) {
+        result := ComCall(32, this, "ptr", dataModelObject, "ptr", context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -370,18 +509,31 @@ class IModelObject extends IUnknown{
      * @returns {IUnknown} 
      */
     GetContextForDataModel(dataModelObject) {
-        result := ComCall(33, this, "ptr", dataModelObject, "ptr*", &context := 0, "HRESULT")
-        return IUnknown(context)
+        result := ComCall(33, this, "ptr", dataModelObject, "ptr*", &context_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IUnknown(context_)
     }
 
     /**
+     * The CompareAddresses function compares two addresses, indicating that one of the addresses is greater than, less than, or equal to the other address.
+     * @remarks
+     * An address that is less than another address indicates a previous frame. An address that is greater than another address indicates a later frame.
      * 
+     * Network Monitor provides two other functions, [CompareFrameDestAddress](compareframedestaddress.md) and [CompareFrameSourceAddress](compareframesourceaddress.md), which you can use to compare addresses. The **CompareFrameDestAddress** function compares a given address to the frame's destination address, and the **CompareFrameSourceAddress** function compares a given address to the frame's source address.
      * @param {IModelObject} other 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/compareaddresses
      */
     Compare(other) {
-        result := ComCall(34, this, "ptr", other, "ptr*", &ppResult := 0, "HRESULT")
-        return IModelObject(ppResult)
+        result := ComCall(34, this, "ptr", other, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
@@ -390,7 +542,11 @@ class IModelObject extends IUnknown{
      * @returns {Boolean} 
      */
     IsEqualTo(other) {
-        result := ComCall(35, this, "ptr", other, "int*", &equal := 0, "HRESULT")
+        result := ComCall(35, this, "ptr", other, "int*", &equal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return equal
     }
 }

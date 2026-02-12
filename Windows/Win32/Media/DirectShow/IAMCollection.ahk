@@ -48,17 +48,31 @@ class IAMCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
-     * @param {Integer} lItem 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
+     * @param {Integer} lItem_ 
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
-    Item(lItem) {
-        result := ComCall(8, this, "int", lItem, "ptr*", &ppUnk := 0, "HRESULT")
+    Item(lItem_) {
+        result := ComCall(8, this, "int", lItem_, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
@@ -67,7 +81,11 @@ class IAMCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 }

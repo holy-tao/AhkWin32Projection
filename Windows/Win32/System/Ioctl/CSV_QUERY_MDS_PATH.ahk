@@ -9,7 +9,7 @@
  *     value of <b>CsvControlQueryMdsPath</b>, or if the control code is used with an 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-csv_control_param">CSV_CONTROL_PARAM</a> structure containing that enumeration 
  *     value.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_mds_path
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-csv_query_mds_path
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Used to report events associated with transparently cached items.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesevents3
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefilesevents3
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -39,13 +39,17 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
      * @param {BOOL} bModifiedAttributes <b>TRUE</b> if one or more of the item's attributes were modified, <b>FALSE</b> otherwise.
      * @param {PWSTR} pzsOldPath The original UNC path string for the item.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents3-transparentcacheitemnotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesevents3-transparentcacheitemnotify
      */
     TransparentCacheItemNotify(pszPath, EventType, ItemType, bModifiedData, bModifiedAttributes, pzsOldPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pzsOldPath := pzsOldPath is String ? StrPtr(pzsOldPath) : pzsOldPath
 
-        result := ComCall(37, this, "ptr", pszPath, "int", EventType, "int", ItemType, "int", bModifiedData, "int", bModifiedAttributes, "ptr", pzsOldPath, "HRESULT")
+        result := ComCall(37, this, "ptr", pszPath, "int", EventType, "int", ItemType, "int", bModifiedData, "int", bModifiedAttributes, "ptr", pzsOldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,12 +57,16 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
      * Reports that a file prefetch operation has begun.
      * @param {PWSTR} pszPath The UNC path of the file.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents3-prefetchfilebegin
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesevents3-prefetchfilebegin
      */
     PrefetchFileBegin(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(38, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(38, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,12 +75,16 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
      * @param {PWSTR} pszPath The UNC path of the file.
      * @param {HRESULT} hrResult Receives the result of the operation. Contains <b>S_OK</b> if the operation completed successfully or an error value otherwise.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents3-prefetchfileend
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesevents3-prefetchfileend
      */
     PrefetchFileEnd(pszPath, hrResult) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(39, this, "ptr", pszPath, "int", hrResult, "HRESULT")
+        result := ComCall(39, this, "ptr", pszPath, "int", hrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

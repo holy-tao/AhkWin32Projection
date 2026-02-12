@@ -4,8 +4,8 @@
 #Include ..\IInspectable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.devices.alljoyn.interop/nn-windows-devices-alljoyn-interop-iwindowsdevicesalljoynbusattachmentinterop
+ * This interface allows for retrieval of the underlying alljoyn_busattachment object.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.devices.alljoyn.interop/nn-windows-devices-alljoyn-interop-iwindowsdevicesalljoynbusattachmentinterop
  * @namespace Windows.Win32.System.WinRT.AllJoyn
  * @version v4.0.30319
  */
@@ -42,7 +42,11 @@ class IWindowsDevicesAllJoynBusAttachmentInterop extends IInspectable{
      * @returns {Integer} 
      */
     get_Win32Handle() {
-        result := ComCall(6, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * The CLUSTER_VALIDATE_PATH (clusapi.h) structure passes in the network name to validate, with more information to be determined.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_validate_path
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-cluster_validate_path
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

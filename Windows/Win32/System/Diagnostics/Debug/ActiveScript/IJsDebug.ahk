@@ -37,7 +37,11 @@ class IJsDebug extends IUnknown{
      * @returns {IJsDebugProcess} 
      */
     OpenVirtualProcess(processId, runtimeJsBaseAddress, pDataTarget) {
-        result := ComCall(3, this, "uint", processId, "uint", runtimeJsBaseAddress, "ptr", pDataTarget, "ptr*", &ppProcess := 0, "HRESULT")
+        result := ComCall(3, this, "uint", processId, "uint", runtimeJsBaseAddress, "ptr", pDataTarget, "ptr*", &ppProcess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IJsDebugProcess(ppProcess)
     }
 }

@@ -7,8 +7,7 @@
  * Communicates detailed error information between a client and an object.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-ierrorlog
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nn-oaidl-ierrorlog
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -34,16 +33,20 @@ class IErrorLog extends IUnknown{
     static VTableNames => ["AddError"]
 
     /**
-     * 
-     * @param {PWSTR} pszPropName 
-     * @param {Pointer<EXCEPINFO>} pExcepInfo 
+     * Adds an error for the specified property to the error log.
+     * @param {PWSTR} pszPropName The address of the name of the property to read. This cannot be NULL.
+     * @param {Pointer<EXCEPINFO>} pExcepInfo Pointer to an array of [EXCEPINFO](ns-oaidl-excepinfo.md) structures.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-ierrorlog-adderror
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-ierrorlog-adderror
      */
     AddError(pszPropName, pExcepInfo) {
         pszPropName := pszPropName is String ? StrPtr(pszPropName) : pszPropName
 
-        result := ComCall(3, this, "ptr", pszPropName, "ptr", pExcepInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPropName, "ptr", pExcepInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

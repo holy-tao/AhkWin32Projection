@@ -5,7 +5,7 @@
  * The APC_CALLBACK_DATA structure (processthreadsapi.h) specifies the data for a user-mode asynchronous procedure call (APC) object.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-apc_callback_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/ns-processthreadsapi-apc_callback_data
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

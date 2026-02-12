@@ -31,27 +31,45 @@ class IPrinterPropertyBag extends IDispatch{
     static VTableNames => ["GetBool", "SetBool", "GetInt32", "SetInt32", "GetString", "SetString", "GetBytes", "SetBytes", "GetReadStream", "GetWriteStream"]
 
     /**
-     * 
+     * Retrieves a named Boolean value from a BLOB.
      * @param {BSTR} bstrName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getboolfromblob
      */
     GetBool(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrName, "int*", &pbValue := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrName, "int*", &pbValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbValue
     }
 
     /**
-     * 
+     * The SetBoolInBlob function sets a Boolean value at a given location within a BLOB.
      * @param {BSTR} bstrName 
      * @param {BOOL} bValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
+     * 
+     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/setboolinblob
      */
     SetBool(bstrName, bValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrName, "int", bValue, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrName, "int", bValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,9 +79,16 @@ class IPrinterPropertyBag extends IDispatch{
      * @returns {Integer} 
      */
     GetInt32(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrName, "int*", &pnValue := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrName, "int*", &pnValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnValue
     }
 
@@ -74,36 +99,66 @@ class IPrinterPropertyBag extends IDispatch{
      * @returns {HRESULT} 
      */
     SetInt32(bstrName, nValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrName, "int", nValue, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrName, "int", nValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetString Method Example (VC++)
      * @param {BSTR} bstrName 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getstring-method-example-vc
      */
     GetString(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
         pbstrValue := BSTR()
-        result := ComCall(11, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrName, "ptr", pbstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrValue
     }
 
     /**
-     * 
+     * Sets a string at a given location within a BLOB.
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
+     * 
+     * If the function is unsuccessful, the return value is a NMERR value that indicates the problem.
+     * 
+     * If the specified **Owner**, **Category**, or **Tag** information does not exist, the return value is NMERR\_BLOB\_ENTRY\_DOES\_NOT\_EXIST.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/setstringinblob
      */
     SetString(bstrName, bstrValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrValue is String) {
+            pin := BSTR.Alloc(bstrValue)
+            bstrValue := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrName, "ptr", bstrValue, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrName, "ptr", bstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,12 +170,19 @@ class IPrinterPropertyBag extends IDispatch{
      * @returns {HRESULT} 
      */
     GetBytes(bstrName, pcbValue, ppValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", bstrName, pcbValueMarshal, pcbValue, ppValueMarshal, ppValue, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrName, pcbValueMarshal, pcbValue, ppValueMarshal, ppValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,11 +194,18 @@ class IPrinterPropertyBag extends IDispatch{
      * @returns {HRESULT} 
      */
     SetBytes(bstrName, cbValue, pValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(14, this, "ptr", bstrName, "uint", cbValue, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrName, "uint", cbValue, pValueMarshal, pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,9 +215,16 @@ class IPrinterPropertyBag extends IDispatch{
      * @returns {IStream} 
      */
     GetReadStream(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrName, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrName, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppValue)
     }
 
@@ -158,9 +234,16 @@ class IPrinterPropertyBag extends IDispatch{
      * @returns {IStream} 
      */
     GetWriteStream(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrName, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrName, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppValue)
     }
 }

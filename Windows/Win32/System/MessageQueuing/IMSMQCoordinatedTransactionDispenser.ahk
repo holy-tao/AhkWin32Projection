@@ -36,11 +36,16 @@ class IMSMQCoordinatedTransactionDispenser extends IDispatch{
     static VTableNames => ["BeginTransaction"]
 
     /**
-     * 
+     * Learn more about: BeginTransactionGrbit enumeration
      * @returns {IMSMQTransaction} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/begintransactiongrbit-enumeration
      */
     BeginTransaction() {
-        result := ComCall(7, this, "ptr*", &ptransaction := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ptransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQTransaction(ptransaction)
     }
 }

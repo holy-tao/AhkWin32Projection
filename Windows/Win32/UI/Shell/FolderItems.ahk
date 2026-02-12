@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/folderitems
+ * Represents the collection of items in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitems
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -64,7 +64,11 @@ class FolderItems extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
@@ -73,7 +77,11 @@ class FolderItems extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Application() {
-        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -82,28 +90,40 @@ class FolderItems extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(9, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
     /**
-     * 
+     * Retrieves the FolderItem object for a specified item in the collection.
      * @param {VARIANT} index 
      * @returns {FolderItem} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitems-item
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitems-item
      */
     Item(index) {
-        result := ComCall(10, this, "ptr", index, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", index, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItem(ppid)
     }
 
     /**
-     * 
+     * Creates and returns a new FolderItems object that is a copy of this FolderItemsss object.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitems--newenum
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitems--newenum
      */
     _NewEnum() {
-        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 }

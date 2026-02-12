@@ -2,6 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Returns the date and time value represented by datetime or expression.
+ * @remarks
+ * If _datetime_  is missing or cannot be interpreted as a valid date or time, DATETIME returns a #VALUE! error.
+ *   
+ * The returned value is formatted according to the short date style and time style in the system's current Regional Settings.
+ *   
+ * The DATETIME function also accepts a single number value for _expression_  where the integer portion of the result represents the number of days since December 30, 1899, and the decimal portion represents the fraction of a day since midnight.
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/datetime-function
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

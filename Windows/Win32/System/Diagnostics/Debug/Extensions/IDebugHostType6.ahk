@@ -40,7 +40,11 @@ class IDebugHostType6 extends IDebugHostType5{
     GetTaggedUnionTag(pTagType, pTagOffset, pTagMask) {
         pTagOffsetMarshal := pTagOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "ptr*", pTagType, pTagOffsetMarshal, pTagOffset, "ptr", pTagMask, "HRESULT")
+        result := ComCall(39, this, "ptr*", pTagType, pTagOffsetMarshal, pTagOffset, "ptr", pTagMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IDebugHostType6 extends IDebugHostType5{
      * @returns {IDebugHostTaggedUnionRangeEnumerator} 
      */
     GetTaggedUnionTagRanges() {
-        result := ComCall(40, this, "ptr*", &pTagRangeEnumerator := 0, "HRESULT")
+        result := ComCall(40, this, "ptr*", &pTagRangeEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostTaggedUnionRangeEnumerator(pTagRangeEnumerator)
     }
 
@@ -59,7 +67,11 @@ class IDebugHostType6 extends IDebugHostType5{
      * @returns {IDebugHostType} 
      */
     UpcastToTaggedUnionType(pTaggedUnionType) {
-        result := ComCall(41, this, "ptr", pTaggedUnionType, "ptr*", &pUpcastedCaseType := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", pTaggedUnionType, "ptr*", &pUpcastedCaseType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(pUpcastedCaseType)
     }
 }

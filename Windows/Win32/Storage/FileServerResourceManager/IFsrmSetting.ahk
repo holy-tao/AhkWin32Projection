@@ -7,12 +7,8 @@
 /**
  * Used to configure FSRM.
  * @remarks
- * 
  * To create this object from a script, use the program identifier, "Fsrm.FsrmSetting".
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmsetting
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmsetting
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -84,142 +80,158 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
-     * Retrieves or sets the SMTP server that FSRM uses to send email.
+     * Retrieves or sets the SMTP server that FSRM uses to send email. (Get)
      * @remarks
-     * 
      * This property must be set in order for FSRM to send email. To verify settings, call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-emailtest">IFsrmSetting::EmailTest</a> method.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
      */
     get_SmtpServer() {
         smtpServer := BSTR()
-        result := ComCall(7, this, "ptr", smtpServer, "HRESULT")
+        result := ComCall(7, this, "ptr", smtpServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return smtpServer
     }
 
     /**
-     * Retrieves or sets the SMTP server that FSRM uses to send email.
+     * Retrieves or sets the SMTP server that FSRM uses to send email. (Put)
      * @remarks
-     * 
      * This property must be set in order for FSRM to send email. To verify settings, call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-emailtest">IFsrmSetting::EmailTest</a> method.
-     * 
-     * 
-     * 
      * @param {BSTR} smtpServer 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_smtpserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-put_smtpserver
      */
     put_SmtpServer(smtpServer) {
-        smtpServer := smtpServer is String ? BSTR.Alloc(smtpServer).Value : smtpServer
+        if(smtpServer is String) {
+            pin := BSTR.Alloc(smtpServer)
+            smtpServer := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", smtpServer, "HRESULT")
+        result := ComCall(8, this, "ptr", smtpServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the default email address from which email messages are sent.
+     * Retrieves or sets the default email address from which email messages are sent. (Get)
      * @remarks
-     * 
      * The default is" FSRM@<i>local machine name</i>". You cannot set this to 
      *     "[Admin Email]".
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
      */
     get_MailFrom() {
         mailFrom := BSTR()
-        result := ComCall(9, this, "ptr", mailFrom, "HRESULT")
+        result := ComCall(9, this, "ptr", mailFrom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return mailFrom
     }
 
     /**
-     * Retrieves or sets the default email address from which email messages are sent.
+     * Retrieves or sets the default email address from which email messages are sent. (Put)
      * @remarks
-     * 
      * The default is" FSRM@<i>local machine name</i>". You cannot set this to 
      *     "[Admin Email]".
-     * 
-     * 
-     * 
      * @param {BSTR} mailFrom 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_mailfrom
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-put_mailfrom
      */
     put_MailFrom(mailFrom) {
-        mailFrom := mailFrom is String ? BSTR.Alloc(mailFrom).Value : mailFrom
+        if(mailFrom is String) {
+            pin := BSTR.Alloc(mailFrom)
+            mailFrom := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", mailFrom, "HRESULT")
+        result := ComCall(10, this, "ptr", mailFrom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the email address for the administrator.
+     * Retrieves or sets the email address for the administrator. (Get)
      * @remarks
-     * 
      * The address is used if a configured email address contains the string "[Admin Email]".
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_adminemail
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-get_adminemail
      */
     get_AdminEmail() {
         adminEmail := BSTR()
-        result := ComCall(11, this, "ptr", adminEmail, "HRESULT")
+        result := ComCall(11, this, "ptr", adminEmail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return adminEmail
     }
 
     /**
-     * Retrieves or sets the email address for the administrator.
+     * Retrieves or sets the email address for the administrator. (Put)
      * @remarks
-     * 
      * The address is used if a configured email address contains the string "[Admin Email]".
-     * 
-     * 
-     * 
      * @param {BSTR} adminEmail 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_adminemail
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-put_adminemail
      */
     put_AdminEmail(adminEmail) {
-        adminEmail := adminEmail is String ? BSTR.Alloc(adminEmail).Value : adminEmail
+        if(adminEmail is String) {
+            pin := BSTR.Alloc(adminEmail)
+            adminEmail := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", adminEmail, "HRESULT")
+        result := ComCall(12, this, "ptr", adminEmail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that determines whether FSRM prevents command line actions from running.
+     * Retrieves or sets a value that determines whether FSRM prevents command line actions from running. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_disablecommandline
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-get_disablecommandline
      */
     get_DisableCommandLine() {
-        result := ComCall(13, this, "short*", &disableCommandLine := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &disableCommandLine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return disableCommandLine
     }
 
     /**
-     * Retrieves or sets a value that determines whether FSRM prevents command line actions from running.
+     * Retrieves or sets a value that determines whether FSRM prevents command line actions from running. (Put)
      * @param {VARIANT_BOOL} disableCommandLine 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_disablecommandline
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-put_disablecommandline
      */
     put_DisableCommandLine(disableCommandLine) {
-        result := ComCall(14, this, "short", disableCommandLine, "HRESULT")
+        result := ComCall(14, this, "short", disableCommandLine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that determines whether FSRM keeps audit records of the file screen violations.
+     * Retrieves or sets a value that determines whether FSRM keeps audit records of the file screen violations. (Get)
      * @remarks
-     * 
      * The records are included in a File Screen Audit report. An audit record contains the following items:
      * 
      * <ul>
@@ -236,21 +248,21 @@ class IFsrmSetting extends IDispatch{
      * If this property is false and a report specifies the 
      *     <b>FsrmReportType_FileScreenAudit</b> report type, the report will succeed but will not 
      *     contain any audit information (or will contain audits that were done before auditing was disabled).
-     * 
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_enablescreeningaudit
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-get_enablescreeningaudit
      */
     get_EnableScreeningAudit() {
-        result := ComCall(15, this, "short*", &enableScreeningAudit := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &enableScreeningAudit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return enableScreeningAudit
     }
 
     /**
-     * Retrieves or sets a value that determines whether FSRM keeps audit records of the file screen violations.
+     * Retrieves or sets a value that determines whether FSRM keeps audit records of the file screen violations. (Put)
      * @remarks
-     * 
      * The records are included in a File Screen Audit report. An audit record contains the following items:
      * 
      * <ul>
@@ -267,40 +279,63 @@ class IFsrmSetting extends IDispatch{
      * If this property is false and a report specifies the 
      *     <b>FsrmReportType_FileScreenAudit</b> report type, the report will succeed but will not 
      *     contain any audit information (or will contain audits that were done before auditing was disabled).
-     * 
-     * 
-     * 
      * @param {VARIANT_BOOL} enableScreeningAudit 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_enablescreeningaudit
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-put_enablescreeningaudit
      */
     put_EnableScreeningAudit(enableScreeningAudit) {
-        result := ComCall(16, this, "short", enableScreeningAudit, "HRESULT")
+        result := ComCall(16, this, "short", enableScreeningAudit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Send an email message to the specified email address.
+     * @remarks
+     * Use this method to test the SMTP server specified in the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver">SmtpServer</a> property. The sender is specified in 
+     *     the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom">MailFrom</a> property (cannot be set to 
+     *     "[Admin Email]").
+     * 
+     * The subject and message body are predefined, localized text.
      * @param {BSTR} mailTo The email address. The string is limited to 255 characters.
      * @returns {HRESULT} The method returns the following return codes:
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-emailtest
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-emailtest
      */
     EmailTest(mailTo) {
-        mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
+        if(mailTo is String) {
+            pin := BSTR.Alloc(mailTo)
+            mailTo := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(17, this, "ptr", mailTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the time that an action that uses the global run limit interval must wait before the action is run again.
+     * @remarks
+     * Applies to actions that have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval">IFsrmAction::RunLimitInterval</a> property set to –1.
+     * 
+     * This property specifies the interval that should occur before the action is run again if the global run limit interval is used. For example, if the interval has expired since the action last ran, the server will run the action again in response to an event; otherwise, the server cannot run the action again.
      * @param {Integer} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * @param {Integer} delayTimeMinutes The run limit interval, in minutes, to use for the action. The default is 60 minutes.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
      */
     SetActionRunLimitInterval(actionType, delayTimeMinutes) {
-        result := ComCall(18, this, "int", actionType, "int", delayTimeMinutes, "HRESULT")
+        result := ComCall(18, this, "int", actionType, "int", delayTimeMinutes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -308,10 +343,14 @@ class IFsrmSetting extends IDispatch{
      * Gets the time that an action that uses the global run limit interval must wait before the action is run again.
      * @param {Integer} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * @returns {Integer} The run limit interval, in minutes, that is used for the action.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
      */
     GetActionRunLimitInterval(actionType) {
-        result := ComCall(19, this, "int", actionType, "int*", &delayTimeMinutes := 0, "HRESULT")
+        result := ComCall(19, this, "int", actionType, "int*", &delayTimeMinutes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return delayTimeMinutes
     }
 }

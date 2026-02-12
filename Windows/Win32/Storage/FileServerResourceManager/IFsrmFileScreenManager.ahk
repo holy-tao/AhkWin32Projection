@@ -10,7 +10,6 @@
 /**
  * Used to manage file screen objects.
  * @remarks
- * 
  * file screen restricts the types of files that can be stored in a specific directory and its subdirectories. 
  *     For each file screen, there is a configurable list of blocked file groups that define a set of patterns (that are 
  *     based on file name) that will be restricted. When a file is created or renamed, the server evaluates whether the 
@@ -28,9 +27,7 @@
  * 
  * To create this object from a script, use the "Fsrm.FsrmFileScreenManager" program 
  *     identifier.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreenmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -76,62 +73,85 @@ class IFsrmFileScreenManager extends IDispatch{
     }
 
     /**
-     * Retrieves a list of macros that you can specify in action property values.
+     * Retrieves a list of macros that you can specify in action property values. (IFsrmFileScreenManager.get_ActionVariables)
      * @remarks
-     * 
      * FSRM parses the action property for the macros and substitutes the macro string with the values that are 
      *     specific to the event and computer on which the action occurred.  For example, the following shows how you can 
      *     format the message text for email: 
      *     "User [Source Io Owner] has reached the quota limit for quota on [Quota Path] on server [Server]. The quota limit is [Quota Limit MB] MB and the current usage is [Quota Used MB] MB ([Quota Used Percent]% of limit)."
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariables
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariables
      */
     get_ActionVariables() {
-        result := ComCall(7, this, "ptr*", &variables := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &variables := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return variables
     }
 
     /**
      * Retrieves the descriptions for the macros contained in the IFsrmFileScreenManager::ActionVariables property.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariabledescriptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariabledescriptions
      */
     get_ActionVariableDescriptions() {
-        result := ComCall(8, this, "ptr*", &descriptions := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &descriptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return descriptions
     }
 
     /**
      * Creates a file screen object.
-     * @param {BSTR} path The local directory path to which the file screen applies. The string is limited to 260 characters.
+     * @remarks
+     * The screen applies to the directory and all its subdirectories (recursively). For example, a screen on P:&#92;<i>directory</i> that blocks *.mp3 also blocks MP3 files on P:&#92;<i>directory</i>&#92;<i>subdirectory</i>.
+     * 
+     * If you create a file screen on P:&#92;<i>directory</i>&#92;<i>subdirectory</i>, the screen that you created on P:&#92;<i>directory</i> still applies to P:&#92;<i>directory</i>&#92;<i>subdirectory</i>. If you do not want the screen on P:&#92;<i>directory</i> to  apply to P:&#92;<i>directory</i>&#92;<i>subdirectory</i>, you need to create a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreenexception">file screen exception</a>.
+     * @param {BSTR} path_ The local directory path to which the file screen applies. The string is limited to 260 characters.
      * @returns {IFsrmFileScreen} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreen">IFsrmFileScreen</a> interface of the newly created file screen. To add the file screen to FSRM, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileScreen::Commit</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreen
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreen
      */
-    CreateFileScreen(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    CreateFileScreen(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", path, "ptr*", &fileScreen := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", path_, "ptr*", &fileScreen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmFileScreen(fileScreen)
     }
 
     /**
      * Retrieves the specified file screen.
-     * @param {BSTR} path The local directory path associated with the file screen that you want to retrieve. The path is limited to 260 characters.
+     * @param {BSTR} path_ The local directory path associated with the file screen that you want to retrieve. The path is limited to 260 characters.
      * @returns {IFsrmFileScreen} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreen">IFsrmFileScreen</a> interface to the file screen.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-getfilescreen
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-getfilescreen
      */
-    GetFileScreen(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    GetFileScreen(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", path, "ptr*", &fileScreen := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", path_, "ptr*", &fileScreen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmFileScreen(fileScreen)
     }
 
     /**
      * Enumerates the file screens for the specified directory and its subdirectories.
-     * @param {BSTR} path The local directory path associated with the file screen that you want to retrieve.
+     * @param {BSTR} path_ The local directory path associated with the file screen that you want to retrieve.
      * 
      * If the path ends with "\*", retrieve all file screens associated with the immediate subdirectories of the path (does not include the file screen associated with the path).
      * 
@@ -148,44 +168,67 @@ class IFsrmFileScreenManager extends IDispatch{
      * The collection contains only committed file screens; the collection will not contain newly created file screens that have not been committed.
      * 
      * The collection is empty if the path does not contain file screens.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-enumfilescreens
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-enumfilescreens
      */
-    EnumFileScreens(path, options) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    EnumFileScreens(path_, options) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", path, "int", options, "ptr*", &fileScreens := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", path_, "int", options, "ptr*", &fileScreens := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCommittableCollection(fileScreens)
     }
 
     /**
      * Creates a file screen exception object.
-     * @param {BSTR} path The local directory path to which the file screen exception applies. The path is limited to 260 characters.
+     * @remarks
+     * You can use the exception to allow files to be saved in a directory when a file screen would otherwise prevent it. For example, if P:&#92;<i>directory</i> contains a file screen that blocks *.mp3, you could create an exception that allows MP3 files on P:&#92;<i>directory</i>&#92;<i>subdirectory</i>.
+     * @param {BSTR} path_ The local directory path to which the file screen exception applies. The path is limited to 260 characters.
      * @returns {IFsrmFileScreenException} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenexception">IFsrmFileScreenException</a> interface of the newly created file screen exception. To add the exception to FSRM, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileScreenException::Commit</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreenexception
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreenexception
      */
-    CreateFileScreenException(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    CreateFileScreenException(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", path, "ptr*", &fileScreenException := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", path_, "ptr*", &fileScreenException := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmFileScreenException(fileScreenException)
     }
 
     /**
      * Retrieves the specified file screen exception.
-     * @param {BSTR} path The local directory path associated with the file screen exception that you want to retrieve. The path is limited to 260 characters.
+     * @param {BSTR} path_ The local directory path associated with the file screen exception that you want to retrieve. The path is limited to 260 characters.
      * @returns {IFsrmFileScreenException} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreenexception">IFsrmFileScreenException</a> interface to the file screen exception.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-getfilescreenexception
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-getfilescreenexception
      */
-    GetFileScreenException(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    GetFileScreenException(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", path, "ptr*", &fileScreenException := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", path_, "ptr*", &fileScreenException := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmFileScreenException(fileScreenException)
     }
 
     /**
      * Enumerates the file screen exceptions for the specified directory and its subdirectories.
-     * @param {BSTR} path The local directory path associated with the file screen exception that you want to retrieve.
+     * @param {BSTR} path_ The local directory path associated with the file screen exception that you want to retrieve.
      * 
      * If the path ends with "\*", retrieve all exceptions associated with the immediate subdirectories of the path (does not include the exceptions associated with the path).
      * 
@@ -202,22 +245,35 @@ class IFsrmFileScreenManager extends IDispatch{
      * The collection contains only committed exceptions; the collection will not contain newly created exceptions that have not been committed.
      * 
      * The collection is empty if the path does not contain file screen exceptions.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-enumfilescreenexceptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-enumfilescreenexceptions
      */
-    EnumFileScreenExceptions(path, options) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    EnumFileScreenExceptions(path_, options) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", path, "int", options, "ptr*", &fileScreenExceptions := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", path_, "int", options, "ptr*", &fileScreenExceptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCommittableCollection(fileScreenExceptions)
     }
 
     /**
      * Creates an empty collection to which you can add file screens.
+     * @remarks
+     * After adding the file screens to the collection, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit">IFsrmCommittableCollection::Commit</a> method.
      * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface to the newly created collection. To add an object to the collection, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmmutablecollection-add">IFsrmMutableCollection::Add</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreencollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreencollection
      */
     CreateFileScreenCollection() {
-        result := ComCall(15, this, "ptr*", &collection := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &collection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCommittableCollection(collection)
     }
 }

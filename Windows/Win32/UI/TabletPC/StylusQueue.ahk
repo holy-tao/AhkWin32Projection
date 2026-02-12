@@ -17,7 +17,7 @@
  * <li>The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object checks for any pending packet data from the Pen Input Service. If there is pending packet data, it is picked up and processed from step 1.</li>
  * <li>Repeat steps 3 and 4.</li>
  * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/rtscom/ne-rtscom-stylusqueue
+ * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/ne-rtscom-stylusqueue
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The DISPLAYCONFIG_DEVICE_INFO_TYPE enumeration specifies the type of display device info to configure or obtain through the DisplayConfigSetDeviceInfo or DisplayConfigGetDeviceInfo function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_device_info_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ne-wingdi-displayconfig_device_info_type
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

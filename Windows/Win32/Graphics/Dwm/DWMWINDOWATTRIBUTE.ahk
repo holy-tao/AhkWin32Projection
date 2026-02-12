@@ -3,7 +3,7 @@
 
 /**
  * Flags used by the [DwmGetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmgetwindowattribute) and [DwmSetWindowAttribute](/windows/desktop/api/dwmapi/nf-dwmapi-dwmsetwindowattribute) functions.
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmwindowattribute
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwmapi/ne-dwmapi-dwmwindowattribute
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

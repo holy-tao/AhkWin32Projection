@@ -86,7 +86,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      */
     get_BidiNotification() {
         pbstrBidiNotification := BSTR()
-        result := ComCall(11, this, "ptr", pbstrBidiNotification, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrBidiNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrBidiNotification
     }
 
@@ -96,7 +100,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      */
     get_ReasonId() {
         pReasonId := Guid()
-        result := ComCall(12, this, "ptr", pReasonId, "HRESULT")
+        result := ComCall(12, this, "ptr", pReasonId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pReasonId
     }
 
@@ -105,7 +113,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      * @returns {IPrinterExtensionRequest} 
      */
     get_Request() {
-        result := ComCall(13, this, "ptr*", &ppRequest := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppRequest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterExtensionRequest(ppRequest)
     }
 
@@ -115,7 +127,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      */
     get_SourceApplication() {
         pbstrApplication := BSTR()
-        result := ComCall(14, this, "ptr", pbstrApplication, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstrApplication, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrApplication
     }
 
@@ -125,7 +141,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      */
     get_DetailedReasonId() {
         pDetailedReasonId := Guid()
-        result := ComCall(15, this, "ptr", pDetailedReasonId, "HRESULT")
+        result := ComCall(15, this, "ptr", pDetailedReasonId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDetailedReasonId
     }
 
@@ -134,7 +154,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      * @returns {BOOL} 
      */
     get_WindowModal() {
-        result := ComCall(16, this, "int*", &pbModal := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pbModal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbModal
     }
 
@@ -144,7 +168,11 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
      */
     get_WindowParent() {
         phwndParent := HANDLE()
-        result := ComCall(17, this, "ptr", phwndParent, "HRESULT")
+        result := ComCall(17, this, "ptr", phwndParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phwndParent
     }
 }

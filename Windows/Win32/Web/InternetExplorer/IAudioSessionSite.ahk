@@ -34,7 +34,11 @@ class IAudioSessionSite extends IUnknown{
      */
     GetAudioSessionGuid() {
         audioSessionGuid := Guid()
-        result := ComCall(3, this, "ptr", audioSessionGuid, "HRESULT")
+        result := ComCall(3, this, "ptr", audioSessionGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return audioSessionGuid
     }
 
@@ -46,7 +50,11 @@ class IAudioSessionSite extends IUnknown{
     OnAudioStreamCreated(endpointID) {
         endpointID := endpointID is String ? StrPtr(endpointID) : endpointID
 
-        result := ComCall(4, this, "ptr", endpointID, "HRESULT")
+        result := ComCall(4, this, "ptr", endpointID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +66,11 @@ class IAudioSessionSite extends IUnknown{
     OnAudioStreamDestroyed(endpointID) {
         endpointID := endpointID is String ? StrPtr(endpointID) : endpointID
 
-        result := ComCall(5, this, "ptr", endpointID, "HRESULT")
+        result := ComCall(5, this, "ptr", endpointID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

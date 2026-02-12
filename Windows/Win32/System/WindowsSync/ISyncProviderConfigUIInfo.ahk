@@ -7,11 +7,8 @@
 /**
  * Represents the information and properties needed to create an instance of a synchronization provider configuration UI.
  * @remarks
- * 
- * You can get and set the properties of a  synchronization provider configuration UI by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui">GetSyncProviderConfigUI</a>method and manipulating the configuration UI's <b>IPropertyStore</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nn-syncregistration-isyncproviderconfiguiinfo
+ * You can get and set the properties of a  synchronization provider configuration UI by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui">GetSyncProviderConfigUI</a> method and manipulating the configuration UI's <b>IPropertyStore</b>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncregistration/nn-syncregistration-isyncproviderconfiguiinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -40,10 +37,14 @@ class ISyncProviderConfigUIInfo extends IPropertyStore{
      * Creates an instance of a synchronization provider configuration UI.
      * @param {Integer} dwClsContext The context in which the code that manages the newly created object will run. The only context supported is <b>CLSCTX_INPROC_SERVER</b>.
      * @returns {ISyncProviderConfigUI} The instance of the synchronization provider configuration UI.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui
      */
     GetSyncProviderConfigUI(dwClsContext) {
-        result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProviderConfigUI := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProviderConfigUI := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncProviderConfigUI(ppSyncProviderConfigUI)
     }
 }

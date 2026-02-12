@@ -7,7 +7,6 @@
 /**
  * Enabled applications to create and delete custom catalogs in the Windows Search indexer.
  * @remarks
- * 
  * ISearchManager interface ref: [../searchapi/nn-searchapi-isearchmanager.md](../searchapi/nn-searchapi-isearchmanager.md)
  * Managing the Index ref: [/windows/win32/search/-search-3x-wds-mngidx-overview](/windows/win32/search/-search-3x-wds-mngidx-overview)
  * 
@@ -16,9 +15,7 @@
  * Errors are returned through HRESULTs returned on each method in the standard way COM. ISupportErrorInfo / IErrorInfo are not supported. No exceptions are thrown.
  * 
  * These methods can be called in any COM apartment, and the behavior will not be impacted by the type of apartment. These APIs is safe to call on a UI thread but this is not recommended practice as the APIs involve cross-process IO and other potentially long-running operations.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchmanager2
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-isearchmanager2
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -45,18 +42,25 @@ class ISearchManager2 extends ISearchManager{
 
     /**
      * Creates a new custom catalog in the Windows Search indexer and returns a reference to it.
+     * @remarks
+     * Called to create a new catalog in the Windows Search indexer.
+     * After creation, the methods on the returned  <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalog</a> manager can be used to add locations to be indexed, monitor indexing process, and construct queries to send to the indexer and get results. For more information, see [Managing the Index](/windows/win32/search/-search-3x-wds-mngidx-overview).
      * @param {PWSTR} pszCatalog Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * Name of catalog to create. Can be any name selected by the caller, must contain only standard alphanumeric characters and underscore.
      * @returns {ISearchCatalogManager} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalogManager</a>**</b>
      * 
      * On success a reference to the created catalog is returned as an <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nn-searchapi-isearchcatalogmanager">ISearchCatalogManager</a> interface pointer. The Release() must be called on this interface after the calling application has finished using it.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager2-createcatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchmanager2-createcatalog
      */
     CreateCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(16, this, "ptr", pszCatalog, "ptr*", &ppCatalogManager := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pszCatalog, "ptr*", &ppCatalogManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISearchCatalogManager(ppCatalogManager)
     }
 
@@ -100,12 +104,16 @@ class ISearchManager2 extends ISearchManager{
      *  
      * 
      * FAILED HRESULT: Failure deleting catalog or invalid arguments passed.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchmanager2-deletecatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchmanager2-deletecatalog
      */
     DeleteCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(17, this, "ptr", pszCatalog, "HRESULT")
+        result := ComCall(17, this, "ptr", pszCatalog, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

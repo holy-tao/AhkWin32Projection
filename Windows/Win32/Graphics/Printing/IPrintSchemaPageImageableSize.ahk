@@ -75,7 +75,11 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_ImageableSizeWidthInMicrons() {
-        result := ComCall(10, this, "uint*", &pulImageableSizeWidth := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pulImageableSizeWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulImageableSizeWidth
     }
 
@@ -84,7 +88,11 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_ImageableSizeHeightInMicrons() {
-        result := ComCall(11, this, "uint*", &pulImageableSizeHeight := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pulImageableSizeHeight := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulImageableSizeHeight
     }
 
@@ -93,7 +101,11 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_OriginWidthInMicrons() {
-        result := ComCall(12, this, "uint*", &pulOriginWidth := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pulOriginWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulOriginWidth
     }
 
@@ -102,7 +114,11 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_OriginHeightInMicrons() {
-        result := ComCall(13, this, "uint*", &pulOriginHeight := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pulOriginHeight := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulOriginHeight
     }
 
@@ -111,7 +127,11 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_ExtentWidthInMicrons() {
-        result := ComCall(14, this, "uint*", &pulExtentWidth := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pulExtentWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulExtentWidth
     }
 
@@ -120,7 +140,11 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_ExtentHeightInMicrons() {
-        result := ComCall(15, this, "uint*", &pulExtentHeight := 0, "HRESULT")
+        result := ComCall(15, this, "uint*", &pulExtentHeight := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulExtentHeight
     }
 }

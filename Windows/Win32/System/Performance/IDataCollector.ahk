@@ -9,7 +9,6 @@
 /**
  * Sets and retrieves collector properties using XML, specifies the log file name, and retrieves the location of the log file.This interface is an abstract class from which the following data collectors derive:IAlertDataCollectorIApiTracingDataCollectorIConfigurationDataCollectorIPerformanceCounterDataCollectorITraceDataCollector
  * @remarks
- * 
  * The following example shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> property to create one of the derived data collectors. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">IDataCollector::Xml</a> property also returns this XML.
  * 
  * 
@@ -51,14 +50,13 @@
  *     <TaskArguments/>
  *     <TaskUserTextArguments/>
  *     <TaskSetWorkingDirectory/>
- *     <TriggerDataCollectorSet/>
+ *     <tr>
  * </AlertDataCollector>
  * ```
  * 
  * 
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <b>IDataCollector</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-idatacollector
+ * @see https://learn.microsoft.com/windows/win32/api//content/pla/nn-pla-idatacollector
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -187,10 +185,14 @@ class IDataCollector extends IDispatch{
     /**
      * Retrieves the data collector set to which this data collector belongs.
      * @returns {IDataCollectorSet} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_datacollectorset
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_datacollectorset
      */
     get_DataCollectorSet() {
-        result := ComCall(7, this, "ptr*", &group := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &group := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataCollectorSet(group)
     }
 
@@ -200,29 +202,33 @@ class IDataCollector extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DataCollectorSet(group) {
-        result := ComCall(8, this, "ptr", group, "HRESULT")
+        result := ComCall(8, this, "ptr", group, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the type of this data collector, for example, a performance data collector.
      * @remarks
-     * 
      * PLA sets the type when you create the data collector.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_datacollectortype
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_datacollectortype
      */
     get_DataCollectorType() {
-        result := ComCall(9, this, "int*", &type := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return type
     }
 
     /**
-     * Retrieves or sets the base name of the file that will contain the data collector data.
+     * Retrieves or sets the base name of the file that will contain the data collector data. (Get)
      * @remarks
-     * 
      * The actual file name used could be different if you specified formatting options in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformat">IDataCollector::FileNameFormat</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_latestoutputlocation">IDataCollector::LatestOutputLocation</a> property contains the actual file name used. 
      * 
      * Do not include the path in the file name; the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectory">IDataCollectorSet::Subdirectory</a> properties determine the path to the file.
@@ -250,21 +256,22 @@ class IDataCollector extends IDispatch{
      *  
      * 
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logappend">IDataCollector::LogAppend</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logoverwrite">IDataCollector::LogOverwrite</a> properties determine the action taken if the file already exists.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_filename
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_filename
      */
     get_FileName() {
         name := BSTR()
-        result := ComCall(10, this, "ptr", name, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * Retrieves or sets the base name of the file that will contain the data collector data.
+     * Retrieves or sets the base name of the file that will contain the data collector data. (Put)
      * @remarks
-     * 
      * The actual file name used could be different if you specified formatting options in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformat">IDataCollector::FileNameFormat</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_latestoutputlocation">IDataCollector::LatestOutputLocation</a> property contains the actual file name used. 
      * 
      * Do not include the path in the file name; the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_subdirectory">IDataCollectorSet::Subdirectory</a> properties determine the path to the file.
@@ -292,54 +299,60 @@ class IDataCollector extends IDispatch{
      *  
      * 
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logappend">IDataCollector::LogAppend</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logoverwrite">IDataCollector::LogOverwrite</a> properties determine the action taken if the file already exists.
-     * 
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_filename
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_filename
      */
     put_FileName(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", name, "HRESULT")
+        result := ComCall(11, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets flags that describe how to decorate the file name.
+     * Retrieves or sets flags that describe how to decorate the file name. (Get)
      * @remarks
-     * 
      * PLA appends the decoration to the file name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the file name. If the file name is MyFile, the result could be MyFile110816.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_filenameformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_filenameformat
      */
     get_FileNameFormat() {
-        result := ComCall(12, this, "int*", &format := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &format := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return format
     }
 
     /**
-     * Retrieves or sets flags that describe how to decorate the file name.
+     * Retrieves or sets flags that describe how to decorate the file name. (Put)
      * @remarks
-     * 
      * PLA appends the decoration to the file name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the file name. If the file name is MyFile, the result could be MyFile110816.
-     * 
-     * 
      * @param {Integer} format 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_filenameformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_filenameformat
      */
     put_FileNameFormat(format) {
-        result := ComCall(13, this, "int", format, "HRESULT")
+        result := ComCall(13, this, "int", format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the format pattern to use when decorating the file name.
+     * Retrieves or sets the format pattern to use when decorating the file name. (Get)
      * @remarks
-     * 
      * PLA uses the pattern only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformat">IDataCollector::FileNameFormat</a> property is set to <b>plaPattern</b>.
      * 
      * PLA appends the decoration to the file name. Use the following pattern characters to define your own pattern. For example, the pattern "MMMM d, yyyy \a\t h:mmTt" could yield "January 31, 2005 at 4:20AM". If the file name is MyFile, the decorated file name would be "MyFile January 31, 2005 at 4:20AM".
@@ -458,21 +471,22 @@ class IDataCollector extends IDispatch{
      * <td>Escaped character, where <i>c</i> is any character. Unrecognized characters, excluding white space, that are not escaped will result in an error.</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_filenameformatpattern
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_filenameformatpattern
      */
     get_FileNameFormatPattern() {
         pattern := BSTR()
-        result := ComCall(14, this, "ptr", pattern, "HRESULT")
+        result := ComCall(14, this, "ptr", pattern, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pattern
     }
 
     /**
-     * Retrieves or sets the format pattern to use when decorating the file name.
+     * Retrieves or sets the format pattern to use when decorating the file name. (Put)
      * @remarks
-     * 
      * PLA uses the pattern only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_filenameformat">IDataCollector::FileNameFormat</a> property is set to <b>plaPattern</b>.
      * 
      * PLA appends the decoration to the file name. Use the following pattern characters to define your own pattern. For example, the pattern "MMMM d, yyyy \a\t h:mmTt" could yield "January 31, 2005 at 4:20AM". If the file name is MyFile, the decorated file name would be "MyFile January 31, 2005 at 4:20AM".
@@ -591,186 +605,227 @@ class IDataCollector extends IDispatch{
      * <td>Escaped character, where <i>c</i> is any character. Unrecognized characters, excluding white space, that are not escaped will result in an error.</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {BSTR} pattern 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_filenameformatpattern
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_filenameformatpattern
      */
     put_FileNameFormatPattern(pattern) {
-        pattern := pattern is String ? BSTR.Alloc(pattern).Value : pattern
+        if(pattern is String) {
+            pin := BSTR.Alloc(pattern)
+            pattern := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", pattern, "HRESULT")
+        result := ComCall(15, this, "ptr", pattern, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the fully decorated file name that PLA used the last time it created the file.
+     * Retrieves or sets the fully decorated file name that PLA used the last time it created the file. (IDataCollector.get_LatestOutputLocation)
      * @remarks
-     * 
      * Typically, you do not set this property. When the data collector starts, PLA sets this property using the value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_outputlocation">IDataCollector::OutputLocation</a> property.
      * 
      * You can set this property to empty if the file has been deleted.
      * 
      * For trace data collectors only, you can set this property to the name of the file to use. If it is not set, PLA creates it as it would for any other data collector.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_latestoutputlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_latestoutputlocation
      */
     get_LatestOutputLocation() {
-        path := BSTR()
-        result := ComCall(16, this, "ptr", path, "HRESULT")
-        return path
+        path_ := BSTR()
+        result := ComCall(16, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 
     /**
-     * Retrieves or sets the fully decorated file name that PLA used the last time it created the file.
+     * Retrieves or sets the fully decorated file name that PLA used the last time it created the file. (IDataCollector.put_LatestOutputLocation)
      * @remarks
-     * 
      * Typically, you do not set this property. When the data collector starts, PLA sets this property using the value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_outputlocation">IDataCollector::OutputLocation</a> property.
      * 
      * You can set this property to empty if the file has been deleted.
      * 
      * For trace data collectors only, you can set this property to the name of the file to use. If it is not set, PLA creates it as it would for any other data collector.
-     * 
-     * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_latestoutputlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_latestoutputlocation
      */
-    put_LatestOutputLocation(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    put_LatestOutputLocation(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", path, "HRESULT")
+        result := ComCall(17, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should append the collected data to the current file.
+     * Retrieves or sets a value that indicates if PLA should append the collected data to the current file. (Get)
      * @remarks
-     * 
      * A validation error occurs if this property conflicts with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">IDataCollector::LogCircular</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logoverwrite">IDataCollector::LogOverwrite</a> properties.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_logappend
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_logappend
      */
     get_LogAppend() {
-        result := ComCall(18, this, "short*", &append := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &append := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return append
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should append the collected data to the current file.
+     * Retrieves or sets a value that indicates if PLA should append the collected data to the current file. (Put)
      * @remarks
-     * 
      * A validation error occurs if this property conflicts with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">IDataCollector::LogCircular</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logoverwrite">IDataCollector::LogOverwrite</a> properties.
-     * 
-     * 
      * @param {VARIANT_BOOL} append 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_logappend
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_logappend
      */
     put_LogAppend(append) {
-        result := ComCall(19, this, "short", append, "HRESULT")
+        result := ComCall(19, this, "short", append, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should create a circular file.
+     * Retrieves or sets a value that indicates if PLA should create a circular file. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_logcircular
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_logcircular
      */
     get_LogCircular() {
-        result := ComCall(20, this, "short*", &circular := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &circular := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return circular
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should create a circular file.
+     * Retrieves or sets a value that indicates if PLA should create a circular file. (Put)
      * @param {VARIANT_BOOL} circular 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_logcircular
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_logcircular
      */
     put_LogCircular(circular) {
-        result := ComCall(21, this, "short", circular, "HRESULT")
+        result := ComCall(21, this, "short", circular, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should overwrite the current file.
+     * Retrieves or sets a value that indicates if PLA should overwrite the current file. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_logoverwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_logoverwrite
      */
     get_LogOverwrite() {
-        result := ComCall(22, this, "short*", &overwrite := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &overwrite := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return overwrite
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should overwrite the current file.
+     * Retrieves or sets a value that indicates if PLA should overwrite the current file. (Put)
      * @param {VARIANT_BOOL} overwrite 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_logoverwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_logoverwrite
      */
     put_LogOverwrite(overwrite) {
-        result := ComCall(23, this, "short", overwrite, "HRESULT")
+        result := ComCall(23, this, "short", overwrite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the name of the data collector.
+     * Retrieves or sets the name of the data collector. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_name
      */
     get_Name() {
         name := BSTR()
-        result := ComCall(24, this, "ptr", name, "HRESULT")
+        result := ComCall(24, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * Retrieves or sets the name of the data collector.
+     * Retrieves or sets the name of the data collector. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-put_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-put_name
      */
     put_Name(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", name, "HRESULT")
+        result := ComCall(25, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the decorated file name if PLA were to create it now.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_latestoutputlocation">IDataCollector::LatestOutputLocation</a> property contains the decorated file name used the last time the collector ran.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_outputlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_outputlocation
      */
     get_OutputLocation() {
-        path := BSTR()
-        result := ComCall(26, this, "ptr", path, "HRESULT")
-        return path
+        path_ := BSTR()
+        result := ComCall(26, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 
     /**
      * Retrieves the index value of the data collector. The index value identifies the data collector within the data collector set.
      * @remarks
-     * 
      * PLA sets the index value when you add the data collector to a data collector set.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_index
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_index
      */
     get_Index() {
-        result := ComCall(27, this, "int*", &index := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &index := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return index
     }
 
@@ -780,36 +835,73 @@ class IDataCollector extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Index(index) {
-        result := ComCall(28, this, "int", index, "HRESULT")
+        result := ComCall(28, this, "int", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an XML string that describes the values of the data collector properties.
      * @remarks
-     * 
      * For details on the property elements contained in the XML string, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-get_xml
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-get_xml
      */
     get_Xml() {
         Xml := BSTR()
-        result := ComCall(29, this, "ptr", Xml, "HRESULT")
+        result := ComCall(29, this, "ptr", Xml, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Xml
     }
 
     /**
-     * Sets the property values of those properties included in the XML.
+     * Sets the property values of those properties included in the XML. (IDataCollector.SetXml)
+     * @remarks
+     * If the XML syntax is valid, this API will return S_OK, even if one or more properties are not valid.  Those properties whose values are valid are set. Those properties whose values are not valid are set to their default value.
+     * 
+     * You can also initialize the collector properties by passing the XML to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> property when you create the data collector.
+     * 
+     * The method fails if the collector element specified in the XML does not match the collector type of the interface.
+     * 
+     * To determine the errors that occurred, retrieve the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemapitem">IValueMapItem</a> interface for each error. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemapitem-get_key">IValueMapItem::Key</a> property contains the XPath of the element in error  (for example, /AlertDataCollector/TaskArguments), the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemapitem-get_value">IValueMapItem::Value</a> property contains the HRESULT associated with the error, and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemapitem-get_description">IValueMapItem::Description</a> property contains the message text associated with the error.
+     * 
+     * Typically, any errors that occur will be one of the following HRESULT values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>PLA_S_PROPERTY_IGNORED</td>
+     * <td>PLA ignored the property element because the data collector does not contain the specified property.</td>
+     * </tr>
+     * <tr>
+     * <td>PLA_E_PROPERTY_CONFLICT</td>
+     * <td>The property conflicts with another property, for example, both <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logappend">LogAppend</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">LogCircular</a> are VARIANT_TRUE.</td>
+     * </tr>
+     * </table>
      * @param {BSTR} Xml XML that contains the collector properties to set. For details on specifying the XML string, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
      * @returns {IValueMap} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve the validation error of each property whose value is not valid. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollector-setxml
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollector-setxml
      */
     SetXml(Xml) {
-        Xml := Xml is String ? BSTR.Alloc(Xml).Value : Xml
+        if(Xml is String) {
+            pin := BSTR.Alloc(Xml)
+            Xml := pin.Value
+        }
 
-        result := ComCall(30, this, "ptr", Xml, "ptr*", &Validation := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", Xml, "ptr*", &Validation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IValueMap(Validation)
     }
 
@@ -819,8 +911,12 @@ class IDataCollector extends IDispatch{
      * @returns {BSTR} 
      */
     CreateOutputLocation(Latest) {
-        Location := BSTR()
-        result := ComCall(31, this, "short", Latest, "ptr", Location, "HRESULT")
-        return Location
+        Location_ := BSTR()
+        result := ComCall(31, this, "short", Latest, "ptr", Location_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Location_
     }
 }

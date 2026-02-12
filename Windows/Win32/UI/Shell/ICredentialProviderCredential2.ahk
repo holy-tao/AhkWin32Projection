@@ -6,7 +6,6 @@
 /**
  * Extends the ICredentialProviderCredential interface by adding a method that retrieves the security identifier (SID) of a user. The credential is associated with that user and can be grouped under the user's tile.
  * @remarks
- * 
  * This class is required for creating a V2 credential provider. V2 credential providers provide a personalized log on experience for the user. This occurs by the credential provider telling the Logon UI what sign in options are available for a user. It is recommended that new credential providers should be V2 credential providers. 
  * 
  * In order to create an <b>ICredentialProviderCredential2</b> instance, a valid SID needs to be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid">GetUserSid</a> function. Valid is defined by the returned SID being for one of the users currently enumerated by the Logon UI.
@@ -21,9 +20,7 @@
  * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * Implement this interface to associate credential tiles with specific user tiles in the Logon UI.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialprovidercredential2
+ * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nn-credentialprovider-icredentialprovidercredential2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -50,11 +47,17 @@ class ICredentialProviderCredential2 extends ICredentialProviderCredential{
 
     /**
      * Retrieves the security identifier (SID) of the user that is associated with this credential.
-     * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the user's SID.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
+     * @remarks
+     * The Logon UI will use the returned SID from this method to associate the credential tile with a user tile. To associate the credential with the "Other user" user tile in the Logon UI, this method should return <b>S_FALSE</b> and a null SID. The "Other user" tile is normally only valid when the PC is joined to a domain.
+     * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
      */
     GetUserSid() {
-        result := ComCall(20, this, "ptr*", &sid := 0, "HRESULT")
-        return sid
+        result := ComCall(20, this, "ptr*", &sid_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return sid_
     }
 }

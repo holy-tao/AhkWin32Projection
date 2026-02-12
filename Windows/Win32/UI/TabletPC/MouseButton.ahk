@@ -3,7 +3,7 @@
 
 /**
  * Specifies which mouse button was pressed. (MouseButton)
- * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-mousebutton
+ * @see https://learn.microsoft.com/windows/win32/api//content/inked/ne-inked-mousebutton
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

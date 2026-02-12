@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that allow the runtime to disconnect a custom client in RemoteApp and Desktop Connection.
- * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nn-workspaceruntimeclientext-iworkspaceclientext
+ * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntimeclientext/nn-workspaceruntimeclientext-iworkspaceclientext
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,32 +34,44 @@ class IWorkspaceClientExt extends IUnknown{
     /**
      * Returns the ID of the custom client in RemoteApp and Desktop Connection.
      * @returns {BSTR} A pointer to a <b>BSTR</b> variable to receive the ID of the custom client.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourceid
      */
     GetResourceId() {
         bstrWorkspaceId := BSTR()
-        result := ComCall(3, this, "ptr", bstrWorkspaceId, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrWorkspaceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrWorkspaceId
     }
 
     /**
      * Returns the display name of the custom client in RemoteApp and Desktop Connection.
      * @returns {BSTR} A pointer to a <b>BSTR</b> variable to receive the display name.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourcedisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-getresourcedisplayname
      */
     GetResourceDisplayName() {
         bstrWorkspaceDisplayName := BSTR()
-        result := ComCall(4, this, "ptr", bstrWorkspaceDisplayName, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrWorkspaceDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrWorkspaceDisplayName
     }
 
     /**
      * Disconnects the custom client in RemoteApp and Desktop Connection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-issuedisconnect
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntimeclientext/nf-workspaceruntimeclientext-iworkspaceclientext-issuedisconnect
      */
     IssueDisconnect() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Specifies flags for creating an I/O ring with a call to CreateIoRing.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_create_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/ns-ioringapi-ioring_create_flags
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

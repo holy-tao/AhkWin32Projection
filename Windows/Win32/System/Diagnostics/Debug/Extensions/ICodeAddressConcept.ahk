@@ -35,7 +35,11 @@ class ICodeAddressConcept extends IUnknown{
      * @returns {IDebugHostSymbol} 
      */
     GetContainingSymbol(pContextObject) {
-        result := ComCall(3, this, "ptr", pContextObject, "ptr*", &ppSymbol := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pContextObject, "ptr*", &ppSymbol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostSymbol(ppSymbol)
     }
 }

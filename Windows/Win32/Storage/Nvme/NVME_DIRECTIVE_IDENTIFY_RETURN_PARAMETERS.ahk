@@ -6,7 +6,7 @@
  * Contains fields that describe return parameters for the Identify Directive.
  * @remarks
  * This data structure is 4KB in size.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_identify_return_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_directive_identify_return_parameters
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

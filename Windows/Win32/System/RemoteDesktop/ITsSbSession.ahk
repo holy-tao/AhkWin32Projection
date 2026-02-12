@@ -8,7 +8,7 @@
 
 /**
  * Exposes properties that store information about a user session.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbsession
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbsession
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -113,21 +113,29 @@ class ITsSbSession extends IUnknown{
     /**
      * Retrieves the session ID.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_sessionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_sessionid
      */
     get_SessionId() {
-        result := ComCall(3, this, "uint*", &pVal := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the name of the target on which this session was created.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_targetname
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_targetname
      */
     get_TargetName() {
         targetName := BSTR()
-        result := ComCall(4, this, "ptr", targetName, "HRESULT")
+        result := ComCall(4, this, "ptr", targetName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return targetName
     }
 
@@ -137,163 +145,229 @@ class ITsSbSession extends IUnknown{
      * @returns {HRESULT} 
      */
     put_TargetName(targetName) {
-        targetName := targetName is String ? BSTR.Alloc(targetName).Value : targetName
+        if(targetName is String) {
+            pin := BSTR.Alloc(targetName)
+            targetName := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", targetName, "HRESULT")
+        result := ComCall(5, this, "ptr", targetName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the user name for this session.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_username
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_username
      */
     get_Username() {
         userName := BSTR()
-        result := ComCall(6, this, "ptr", userName, "HRESULT")
+        result := ComCall(6, this, "ptr", userName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return userName
     }
 
     /**
      * Retrieves the domain name of the user.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_domain
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_domain
      */
     get_Domain() {
         domain := BSTR()
-        result := ComCall(7, this, "ptr", domain, "HRESULT")
+        result := ComCall(7, this, "ptr", domain, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return domain
     }
 
     /**
-     * Retrieves or specifies the session state.
+     * Retrieves or specifies the session state. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_state
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_state
      */
     get_State() {
-        result := ComCall(8, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 
     /**
-     * Retrieves or specifies the session state.
+     * Retrieves or specifies the session state. (Put)
      * @param {Integer} State 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_state
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-put_state
      */
     put_State(State) {
-        result := ComCall(9, this, "int", State, "HRESULT")
+        result := ComCall(9, this, "int", State, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or specifies the time the session was created.
+     * Retrieves or specifies the time the session was created. (Get)
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_createtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_createtime
      */
     get_CreateTime() {
         pTime := FILETIME()
-        result := ComCall(10, this, "ptr", pTime, "HRESULT")
+        result := ComCall(10, this, "ptr", pTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTime
     }
 
     /**
-     * Retrieves or specifies the time the session was created.
+     * Retrieves or specifies the time the session was created. (Put)
      * @param {FILETIME} Time 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_createtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-put_createtime
      */
     put_CreateTime(Time) {
-        result := ComCall(11, this, "ptr", Time, "HRESULT")
+        result := ComCall(11, this, "ptr", Time, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or specifies the time the session was disconnected.
+     * Retrieves or specifies the time the session was disconnected. (Get)
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_disconnecttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_disconnecttime
      */
     get_DisconnectTime() {
         pTime := FILETIME()
-        result := ComCall(12, this, "ptr", pTime, "HRESULT")
+        result := ComCall(12, this, "ptr", pTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTime
     }
 
     /**
-     * Retrieves or specifies the time the session was disconnected.
+     * Retrieves or specifies the time the session was disconnected. (Put)
      * @param {FILETIME} Time 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_disconnecttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-put_disconnecttime
      */
     put_DisconnectTime(Time) {
-        result := ComCall(13, this, "ptr", Time, "HRESULT")
+        result := ComCall(13, this, "ptr", Time, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or specifies the initial program for this session.
+     * Retrieves or specifies the initial program for this session. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_initialprogram
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_initialprogram
      */
     get_InitialProgram() {
         app := BSTR()
-        result := ComCall(14, this, "ptr", app, "HRESULT")
+        result := ComCall(14, this, "ptr", app, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return app
     }
 
     /**
-     * Retrieves or specifies the initial program for this session.
-     * @param {BSTR} Application 
+     * Retrieves or specifies the initial program for this session. (Put)
+     * @param {BSTR} Application_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_initialprogram
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-put_initialprogram
      */
-    put_InitialProgram(Application) {
-        Application := Application is String ? BSTR.Alloc(Application).Value : Application
+    put_InitialProgram(Application_) {
+        if(Application_ is String) {
+            pin := BSTR.Alloc(Application_)
+            Application_ := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", Application, "HRESULT")
+        result := ComCall(15, this, "ptr", Application_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or specifies information about the display device of the client computer.
+     * Retrieves or specifies information about the display device of the client computer. (Get)
      * @returns {CLIENT_DISPLAY} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_clientdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_clientdisplay
      */
     get_ClientDisplay() {
         pClientDisplay := CLIENT_DISPLAY()
-        result := ComCall(16, this, "ptr", pClientDisplay, "HRESULT")
+        result := ComCall(16, this, "ptr", pClientDisplay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pClientDisplay
     }
 
     /**
-     * Retrieves or specifies information about the display device of the client computer.
+     * Retrieves or specifies information about the display device of the client computer. (Put)
      * @param {CLIENT_DISPLAY} pClientDisplay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_clientdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-put_clientdisplay
      */
     put_ClientDisplay(pClientDisplay) {
-        result := ComCall(17, this, "ptr", pClientDisplay, "HRESULT")
+        result := ComCall(17, this, "ptr", pClientDisplay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or specifies the protocol type for the session.
+     * Retrieves or specifies the protocol type for the session. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-get_protocoltype
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-get_protocoltype
      */
     get_ProtocolType() {
-        result := ComCall(18, this, "uint*", &pVal := 0, "HRESULT")
+        result := ComCall(18, this, "uint*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Retrieves or specifies the protocol type for the session.
-     * @param {Integer} Val 
+     * Retrieves or specifies the protocol type for the session. (Put)
+     * @param {Integer} Val_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbsession-put_protocoltype
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbsession-put_protocoltype
      */
-    put_ProtocolType(Val) {
-        result := ComCall(19, this, "uint", Val, "HRESULT")
+    put_ProtocolType(Val_) {
+        result := ComCall(19, this, "uint", Val_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

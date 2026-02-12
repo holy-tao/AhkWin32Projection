@@ -8,16 +8,12 @@
 /**
  * Represents an action that sends an email message.
  * @remarks
- * 
  * The email action must have a valid value for the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iemailaction-get_server">Server</a>, <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iemailaction-get_from">From</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iemailaction-get_to">To</a> or <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iemailaction-get_cc">Cc</a> properties for the task to register and run correctly.
  * 
  * When reading or writing your own XML for a task, an email action is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-sendemail-actiongroup-element">SendEmail</a> element of the Task Scheduler schema.
  * 
  * <b>Windows 8 and Windows Server 2012:  </b>This interface has been removed. Please use IExecAction with the  powershell <a href="https://docs.microsoft.com/powershell/module/microsoft.powershell.utility/send-mailmessage">Send-MailMessage</a> cmdlet as a workaround.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iemailaction
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-iemailaction
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -114,279 +110,359 @@ class IEmailAction extends IAction{
     }
 
     /**
-     * Gets or sets the name of the SMTP server that you use to send email from.
+     * Gets or sets the name of the SMTP server that you use to send email from. (Get)
      * @remarks
-     * 
      * Make sure the SMTP server that sends the email is setup correctly. E-mail is sent using NTLM authentication for Windows SMTP servers, which means that the security credentials used for running the task must also have privileges on the SMTP server to send email message. If the SMTP server is a non-Windows based server, then the email will be sent if the server allows anonymous access.  For information about setting up the SMTP server, see <a href="https://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/e4cf06f5-9a36-474b-ba78-3f287a2b88f2.mspx?mfr=true">SMTP Server Setup</a>, and for information about managing SMTP server settings, see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc758258(v=ws.10)">SMTP Administration</a>.
-     * 
-     * 
      * @param {Pointer<BSTR>} pServer 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_server
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_server
      */
     get_Server(pServer) {
-        result := ComCall(10, this, "ptr", pServer, "HRESULT")
+        result := ComCall(10, this, "ptr", pServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the name of the SMTP server that you use to send email from.
+     * Gets or sets the name of the SMTP server that you use to send email from. (Put)
      * @remarks
-     * 
      * Make sure the SMTP server that sends the email is setup correctly. E-mail is sent using NTLM authentication for Windows SMTP servers, which means that the security credentials used for running the task must also have privileges on the SMTP server to send email message. If the SMTP server is a non-Windows based server, then the email will be sent if the server allows anonymous access.  For information about setting up the SMTP server, see <a href="https://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/e4cf06f5-9a36-474b-ba78-3f287a2b88f2.mspx?mfr=true">SMTP Server Setup</a>, and for information about managing SMTP server settings, see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc758258(v=ws.10)">SMTP Administration</a>.
-     * 
-     * 
      * @param {BSTR} server 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_server
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_server
      */
     put_Server(server) {
-        server := server is String ? BSTR.Alloc(server).Value : server
+        if(server is String) {
+            pin := BSTR.Alloc(server)
+            server := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", server, "HRESULT")
+        result := ComCall(11, this, "ptr", server, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the subject of the email message.
+     * Gets or sets the subject of the email message. (Get)
      * @remarks
-     * 
      * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
-     * 
-     * 
      * @param {Pointer<BSTR>} pSubject 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_subject
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_subject
      */
     get_Subject(pSubject) {
-        result := ComCall(12, this, "ptr", pSubject, "HRESULT")
+        result := ComCall(12, this, "ptr", pSubject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the subject of the email message.
+     * Gets or sets the subject of the email message. (Put)
      * @remarks
-     * 
      * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
-     * 
-     * 
      * @param {BSTR} subject 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_subject
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_subject
      */
     put_Subject(subject) {
-        subject := subject is String ? BSTR.Alloc(subject).Value : subject
+        if(subject is String) {
+            pin := BSTR.Alloc(subject)
+            subject := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", subject, "HRESULT")
+        result := ComCall(13, this, "ptr", subject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address or addresses that you want to send the email to.
+     * Gets or sets the email address or addresses that you want to send the email to. (Get)
      * @param {Pointer<BSTR>} pTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_to
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_to
      */
     get_To(pTo) {
-        result := ComCall(14, this, "ptr", pTo, "HRESULT")
+        result := ComCall(14, this, "ptr", pTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address or addresses that you want to send the email to.
+     * Gets or sets the email address or addresses that you want to send the email to. (Put)
      * @param {BSTR} to 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_to
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_to
      */
     put_To(to) {
-        to := to is String ? BSTR.Alloc(to).Value : to
+        if(to is String) {
+            pin := BSTR.Alloc(to)
+            to := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", to, "HRESULT")
+        result := ComCall(15, this, "ptr", to, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address or addresses that you want to Cc in the email message.
+     * Gets or sets the email address or addresses that you want to Cc in the email message. (Get)
      * @param {Pointer<BSTR>} pCc 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_cc
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_cc
      */
     get_Cc(pCc) {
-        result := ComCall(16, this, "ptr", pCc, "HRESULT")
+        result := ComCall(16, this, "ptr", pCc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address or addresses that you want to Cc in the email message.
+     * Gets or sets the email address or addresses that you want to Cc in the email message. (Put)
      * @param {BSTR} cc 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_cc
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_cc
      */
     put_Cc(cc) {
-        cc := cc is String ? BSTR.Alloc(cc).Value : cc
+        if(cc is String) {
+            pin := BSTR.Alloc(cc)
+            cc := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", cc, "HRESULT")
+        result := ComCall(17, this, "ptr", cc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address or addresses that you want to Bcc in the email message.
+     * Gets or sets the email address or addresses that you want to Bcc in the email message. (Get)
      * @param {Pointer<BSTR>} pBcc 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_bcc
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_bcc
      */
     get_Bcc(pBcc) {
-        result := ComCall(18, this, "ptr", pBcc, "HRESULT")
+        result := ComCall(18, this, "ptr", pBcc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address or addresses that you want to Bcc in the email message.
+     * Gets or sets the email address or addresses that you want to Bcc in the email message. (Put)
      * @param {BSTR} bcc 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_bcc
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_bcc
      */
     put_Bcc(bcc) {
-        bcc := bcc is String ? BSTR.Alloc(bcc).Value : bcc
+        if(bcc is String) {
+            pin := BSTR.Alloc(bcc)
+            bcc := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bcc, "HRESULT")
+        result := ComCall(19, this, "ptr", bcc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address that you want to reply to.
+     * Gets or sets the email address that you want to reply to. (Get)
      * @param {Pointer<BSTR>} pReplyTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_replyto
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_replyto
      */
     get_ReplyTo(pReplyTo) {
-        result := ComCall(20, this, "ptr", pReplyTo, "HRESULT")
+        result := ComCall(20, this, "ptr", pReplyTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address that you want to reply to.
+     * Gets or sets the email address that you want to reply to. (Put)
      * @param {BSTR} replyTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_replyto
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_replyto
      */
     put_ReplyTo(replyTo) {
-        replyTo := replyTo is String ? BSTR.Alloc(replyTo).Value : replyTo
+        if(replyTo is String) {
+            pin := BSTR.Alloc(replyTo)
+            replyTo := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", replyTo, "HRESULT")
+        result := ComCall(21, this, "ptr", replyTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address that you want to send the email from.
+     * Gets or sets the email address that you want to send the email from. (Get)
      * @param {Pointer<BSTR>} pFrom 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_from
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_from
      */
     get_From(pFrom) {
-        result := ComCall(22, this, "ptr", pFrom, "HRESULT")
+        result := ComCall(22, this, "ptr", pFrom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the email address that you want to send the email from.
+     * Gets or sets the email address that you want to send the email from. (Put)
      * @param {BSTR} from 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_from
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_from
      */
     put_From(from) {
-        from := from is String ? BSTR.Alloc(from).Value : from
+        if(from is String) {
+            pin := BSTR.Alloc(from)
+            from := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", from, "HRESULT")
+        result := ComCall(23, this, "ptr", from, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the header information in the email message to send.
+     * Gets or sets the header information in the email message to send. (Get)
      * @returns {ITaskNamedValueCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_headerfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_headerfields
      */
     get_HeaderFields() {
-        result := ComCall(24, this, "ptr*", &ppHeaderFields := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &ppHeaderFields := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITaskNamedValueCollection(ppHeaderFields)
     }
 
     /**
-     * Gets or sets the header information in the email message to send.
+     * Gets or sets the header information in the email message to send. (Put)
      * @param {ITaskNamedValueCollection} pHeaderFields 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_headerfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_headerfields
      */
     put_HeaderFields(pHeaderFields) {
-        result := ComCall(25, this, "ptr", pHeaderFields, "HRESULT")
+        result := ComCall(25, this, "ptr", pHeaderFields, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the body of the email that contains the email message.
+     * Gets or sets the body of the email that contains the email message. (Get)
      * @remarks
-     * 
      * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
-     * 
-     * 
      * @param {Pointer<BSTR>} pBody 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_body
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_body
      */
     get_Body(pBody) {
-        result := ComCall(26, this, "ptr", pBody, "HRESULT")
+        result := ComCall(26, this, "ptr", pBody, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the body of the email that contains the email message.
+     * Gets or sets the body of the email that contains the email message. (Put)
      * @remarks
-     * 
      * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
-     * 
-     * 
      * @param {BSTR} body 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_body
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_body
      */
     put_Body(body) {
-        body := body is String ? BSTR.Alloc(body).Value : body
+        if(body is String) {
+            pin := BSTR.Alloc(body)
+            body := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", body, "HRESULT")
+        result := ComCall(27, this, "ptr", body, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the pointer to an array of attachments that is sent with the email message.
+     * Gets or sets the pointer to an array of attachments that is sent with the email message. (Get)
      * @remarks
-     * 
      * A maximum of eight attachments can be in the array of attachments.
-     * 
-     * 
      * @param {Pointer<Pointer<SAFEARRAY>>} pAttachements 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-get_attachments
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-get_attachments
      */
     get_Attachments(pAttachements) {
         pAttachementsMarshal := pAttachements is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, pAttachementsMarshal, pAttachements, "HRESULT")
+        result := ComCall(28, this, pAttachementsMarshal, pAttachements, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the pointer to an array of attachments that is sent with the email message.
+     * Gets or sets the pointer to an array of attachments that is sent with the email message. (Put)
      * @remarks
-     * 
      * A maximum of eight attachments can be in the array of attachments.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} pAttachements 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iemailaction-put_attachments
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iemailaction-put_attachments
      */
     put_Attachments(pAttachements) {
-        result := ComCall(29, this, "ptr", pAttachements, "HRESULT")
+        result := ComCall(29, this, "ptr", pAttachements, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

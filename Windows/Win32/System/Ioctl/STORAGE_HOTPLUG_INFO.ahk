@@ -25,7 +25,7 @@
  *     <b>ExpectSurpriseRemoval</b> and all levels of caching are disabled. If the value of that 
  *     member is not set, the removal policy of the specified device is set 
  *     to <b>ExpectOrderlyRemoval</b>, and caching may be selectively enabled.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hotplug_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_hotplug_info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

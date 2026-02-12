@@ -6,11 +6,8 @@
 /**
  * Contains data that is needed to implement the IMFAsyncResult interface.
  * @remarks
- * 
  * Any custom implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface must inherit this structure. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/custom-asynchronous-result-objects">Custom Asynchronous Result Objects</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfapi/ns-mfapi-mfasyncresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ns-mfapi-mfasyncresult
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -6,7 +6,6 @@
 /**
  * Defines a transition, which determines how an animation variable changes over time.
  * @remarks
- * 
  * <b>IUIAnimationTransition</b> is one of the primary interfaces used to add animation to an application,
  *          along with 
  *          the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationvariable">IUIAnimationVariable</a> and 
@@ -15,9 +14,7 @@
  * 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317028(v=vs.85)">UIAnimationTransitionLibrary</a> implements
  *          a library of standard transitions.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationtransition
+ * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nn-uianimation-iuianimationtransition
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -44,29 +41,43 @@ class IUIAnimationTransition extends IUnknown{
 
     /**
      * Sets the initial value for the transition.
+     * @remarks
+     * This method should not be called after the transition has been added to a storyboard.
      * @param {Float} value The initial value for the transition.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-setinitialvalue
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtransition-setinitialvalue
      */
     SetInitialValue(value) {
-        result := ComCall(3, this, "double", value, "HRESULT")
+        result := ComCall(3, this, "double", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the initial velocity for the transition.
+     * @remarks
+     * This method should not be called after the transition has been added to a storyboard.
      * @param {Float} velocity The initial velocity for the transition.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-setinitialvelocity
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtransition-setinitialvelocity
      */
     SetInitialVelocity(velocity) {
-        result := ComCall(4, this, "double", velocity, "HRESULT")
+        result := ComCall(4, this, "double", velocity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether a transition's duration is currently known.
-     * @returns {HRESULT} Returns S_OK if the duration is known, S_FALSE if the duration is not known, or an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @remarks
+     * This method should not be called when the storyboard to which the transition has been added is scheduled or playing.
+     * @returns {HRESULT} Returns S_OK if the duration is known, S_FALSE if the duration is not known, or an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
      * <table>
      * <tr>
@@ -85,20 +96,30 @@ class IUIAnimationTransition extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-isdurationknown
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtransition-isdurationknown
      */
     IsDurationKnown() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the duration of the transition.
+     * Gets the duration of the transition. (IUIAnimationTransition.GetDuration)
+     * @remarks
+     * An application should typically call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtransition-isdurationknown">IUIAnimationTransition::IsDurationKnown</a> method before calling this method. This method should not be called when the storyboard to which the transition has been added is scheduled or playing.
      * @returns {Float} The duration of the transition, in seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtransition-getduration
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtransition-getduration
      */
     GetDuration() {
-        result := ComCall(6, this, "double*", &duration := 0, "HRESULT")
+        result := ComCall(6, this, "double*", &duration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return duration
     }
 }

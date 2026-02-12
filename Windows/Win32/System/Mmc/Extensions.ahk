@@ -6,8 +6,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/SecCertEnroll/extensions
+ * The X.509 version 3 certificate format identifies multiple extensions that can be added to a certificate.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCertEnroll/extensions
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -57,19 +57,27 @@ class Extensions extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
-     * 
+     * The Item property retrieves an extension, by index, from the collection. This is the default property.
      * @param {Integer} Index 
      * @returns {Extension} 
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/extensions-item
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/extensions-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Extension := 0, "HRESULT")
-        return Extension(Extension)
+        result := ComCall(8, this, "int", Index, "ptr*", &Extension_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Extension(Extension_)
     }
 
     /**
@@ -77,7 +85,11 @@ class Extensions extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 }

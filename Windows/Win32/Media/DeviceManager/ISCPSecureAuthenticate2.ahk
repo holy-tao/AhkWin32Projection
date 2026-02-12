@@ -6,7 +6,7 @@
 
 /**
  * The ISCPSecureAuthenticate2 interface extends ISCPSecureAuthenticate by providing a way to get a session object.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iscpsecureauthenticate2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iscpsecureauthenticate2
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -33,11 +33,17 @@ class ISCPSecureAuthenticate2 extends ISCPSecureAuthenticate{
 
     /**
      * The GetSCPSession method is used to obtain a pointer to the ISCPSecureQuery interface that represents a session object.
+     * @remarks
+     * This method is used to obtain a secure content provider (SCP) session. An SCP session is useful during transfer of multiple files, where the session can help SCP do some of the operations only once instead of once for every file transfer. This results in better transfer performance.
      * @returns {ISCPSession} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iscpsession">ISCPSession</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecureauthenticate2-getscpsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iscpsecureauthenticate2-getscpsession
      */
     GetSCPSession() {
-        result := ComCall(4, this, "ptr*", &ppSCPSession := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppSCPSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCPSession(ppSCPSession)
     }
 }

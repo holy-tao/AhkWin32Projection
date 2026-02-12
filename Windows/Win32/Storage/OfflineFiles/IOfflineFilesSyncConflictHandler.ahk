@@ -5,7 +5,7 @@
 
 /**
  * Used by a client calling the IOfflineFilesCache::Synchronize method to prescribe a conflict resolution strategy for sync conflicts as they are detected.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilessyncconflicthandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefilessyncconflicthandler
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -59,7 +59,7 @@ class IOfflineFilesSyncConflictHandler extends IUnknown{
      * </ul>
      * This description is provided only to illustrate how the Offline Files conflict handler in Sync Center creates new file names.  An implementation of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilessyncconflicthandler">IOfflineFilesSyncConflictHandler</a> is free to use any name format that it wishes to define.
      * @returns {HRESULT} The return value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessyncconflicthandler-resolveconflict
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilessyncconflicthandler-resolveconflict
      */
     ResolveConflict(pszPath, fStateKnown, state, fChangeDetails, pConflictResolution, ppszNewName) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -67,7 +67,11 @@ class IOfflineFilesSyncConflictHandler extends IUnknown{
         pConflictResolutionMarshal := pConflictResolution is VarRef ? "int*" : "ptr"
         ppszNewNameMarshal := ppszNewName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszPath, "uint", fStateKnown, "int", state, "uint", fChangeDetails, pConflictResolutionMarshal, pConflictResolution, ppszNewNameMarshal, ppszNewName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPath, "uint", fStateKnown, "int", state, "uint", fChangeDetails, pConflictResolutionMarshal, pConflictResolution, ppszNewNameMarshal, ppszNewName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

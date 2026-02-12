@@ -16,7 +16,7 @@
  * example.WeeksInterval = 2;
  * example.rgfDaysOfTheWeek = TASK_SUNDAY | TASK_WEDNESDAY | TASK_FRIDAY;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-weekly
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstask/ns-mstask-weekly
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

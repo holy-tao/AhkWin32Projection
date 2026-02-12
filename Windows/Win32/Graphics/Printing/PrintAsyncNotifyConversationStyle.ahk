@@ -7,7 +7,7 @@
  * Even when the communication is bidirectional, applications cannot initiate communication. They can only reply to notifications sent by the Print Spooler-hosted components.
  * 
  * When multiple applications listen for bidirectional notifications, they receive only the first notification sent through a bidirectional channel. The Print Spooler maintains the channel only with the first listening application that responded, and discards all subsequent replies from other listeners.
- * @see https://learn.microsoft.com/windows/win32/api/prnasnot/ne-prnasnot-printasyncnotifyconversationstyle
+ * @see https://learn.microsoft.com/windows/win32/api//content/prnasnot/ne-prnasnot-printasyncnotifyconversationstyle
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

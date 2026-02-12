@@ -14,7 +14,7 @@
  *  the adapter is not UMA:
  * D3D12_MEMORY_POOL_L0 and DXGI_MEMORY_SEGMENT_GROUP_NON_LOCAL refer to the same memory.
  * D3D12_MEMORY_POOL_L1 and DXGI_MEMORY_SEGMENT_GROUP_LOCAL refer to the same memory.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_memory_pool
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ne-d3d12-d3d12_memory_pool
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

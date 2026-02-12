@@ -36,7 +36,11 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
     GetFilterCount(pdwFilterCount) {
         pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwFilterCountMarshal, pdwFilterCount, "HRESULT")
+        result := ComCall(4, this, pdwFilterCountMarshal, pdwFilterCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
      * @returns {ISyncFilterInfo} 
      */
     GetFilterInfo(dwFilterIndex) {
-        result := ComCall(5, this, "uint", dwFilterIndex, "ptr*", &ppIFilterInfo := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwFilterIndex, "ptr*", &ppIFilterInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncFilterInfo(ppIFilterInfo)
     }
 
@@ -58,7 +66,11 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
     GetFilterCombinationType(pFilterCombinationType) {
         pFilterCombinationTypeMarshal := pFilterCombinationType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, pFilterCombinationTypeMarshal, pFilterCombinationType, "HRESULT")
+        result := ComCall(6, this, pFilterCombinationTypeMarshal, pFilterCombinationType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

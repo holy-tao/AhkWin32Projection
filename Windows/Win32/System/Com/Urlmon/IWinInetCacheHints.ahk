@@ -45,7 +45,11 @@ class IWinInetCacheHints extends IUnknown{
         pdwWinInetErrorMarshal := pdwWinInetError is VarRef ? "uint*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwzExt, pszCacheFileMarshal, pszCacheFile, pcbCacheFileMarshal, pcbCacheFile, pdwWinInetErrorMarshal, pdwWinInetError, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzExt, pszCacheFileMarshal, pszCacheFile, pcbCacheFileMarshal, pcbCacheFile, pdwWinInetErrorMarshal, pdwWinInetError, pdwReservedMarshal, pdwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

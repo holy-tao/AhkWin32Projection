@@ -56,9 +56,16 @@ class IHTMLCSSMediaList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_mediaText(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +75,11 @@ class IHTMLCSSMediaList extends IDispatch{
      */
     get_mediaText() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -77,7 +88,11 @@ class IHTMLCSSMediaList extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -88,7 +103,11 @@ class IHTMLCSSMediaList extends IDispatch{
      */
     item(index) {
         pbstrMedium := BSTR()
-        result := ComCall(10, this, "int", index, "ptr", pbstrMedium, "HRESULT")
+        result := ComCall(10, this, "int", index, "ptr", pbstrMedium, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMedium
     }
 
@@ -98,9 +117,16 @@ class IHTMLCSSMediaList extends IDispatch{
      * @returns {HRESULT} 
      */
     appendMedium(bstrMedium) {
-        bstrMedium := bstrMedium is String ? BSTR.Alloc(bstrMedium).Value : bstrMedium
+        if(bstrMedium is String) {
+            pin := BSTR.Alloc(bstrMedium)
+            bstrMedium := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrMedium, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrMedium, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,9 +136,16 @@ class IHTMLCSSMediaList extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteMedium(bstrMedium) {
-        bstrMedium := bstrMedium is String ? BSTR.Alloc(bstrMedium).Value : bstrMedium
+        if(bstrMedium is String) {
+            pin := BSTR.Alloc(bstrMedium)
+            bstrMedium := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrMedium, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrMedium, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

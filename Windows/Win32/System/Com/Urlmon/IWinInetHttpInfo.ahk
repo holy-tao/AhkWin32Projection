@@ -29,13 +29,24 @@ class IWinInetHttpInfo extends IWinInetInfo{
     static VTableNames => ["QueryInfo"]
 
     /**
+     * Retrieves limit and job state information from the job object.
+     * @remarks
+     * Use 
+     * <b>QueryInformationJobObject</b> to obtain the current limits and modify them. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function to set new limits.
      * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} dwOption 
      * @param {Pointer<Void>} pBuffer 
      * @param {Pointer<Integer>} pcbBuf 
      * @param {Pointer<Integer>} pdwFlags 
      * @param {Pointer<Integer>} pdwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-queryinformationjobobject
      */
     QueryInfo(dwOption, pBuffer, pcbBuf, pdwFlags, pdwReserved) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
@@ -43,7 +54,11 @@ class IWinInetHttpInfo extends IWinInetInfo{
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(4, this, "uint", dwOption, pBufferMarshal, pBuffer, pcbBufMarshal, pcbBuf, pdwFlagsMarshal, pdwFlags, pdwReservedMarshal, pdwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

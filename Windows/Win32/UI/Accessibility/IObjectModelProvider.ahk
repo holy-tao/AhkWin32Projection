@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides access to the underlying object model implemented by a control or application.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iobjectmodelprovider
+ * Provides access to the underlying object model implemented by a control or application. (IObjectModelProvider)
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-iobjectmodelprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -31,14 +31,20 @@ class IObjectModelProvider extends IUnknown{
     static VTableNames => ["GetUnderlyingObjectModel"]
 
     /**
-     * Retrieves an interface used to access the underlying object model of the provider.
+     * Retrieves an interface used to access the underlying object model of the provider. (IObjectModelProvider.GetUnderlyingObjectModel)
+     * @remarks
+     * Client applications can use the object model to directly access the content of the control or application.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * Receives an interface for accessing the underlying object model.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iobjectmodelprovider-getunderlyingobjectmodel
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-iobjectmodelprovider-getunderlyingobjectmodel
      */
     GetUnderlyingObjectModel() {
-        result := ComCall(3, this, "ptr*", &ppUnknown := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnknown)
     }
 }

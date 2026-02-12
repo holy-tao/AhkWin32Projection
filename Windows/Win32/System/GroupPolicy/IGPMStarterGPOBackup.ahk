@@ -7,7 +7,7 @@
 
 /**
  * The IGPMStarterGPOBackup interface supports methods that allow you to delete GPMStarterGPOBackup objects and to retrieve various properties of GPMStarterGPOBackup objects.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmstartergpobackup
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmstartergpobackup
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -100,7 +100,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      */
     get_BackupDir() {
         pbstrBackupDir := BSTR()
-        result := ComCall(7, this, "ptr", pbstrBackupDir, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrBackupDir, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrBackupDir
     }
 
@@ -110,7 +114,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      */
     get_Comment() {
         pbstrComment := BSTR()
-        result := ComCall(8, this, "ptr", pbstrComment, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrComment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrComment
     }
 
@@ -120,7 +128,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      */
     get_DisplayName() {
         pbstrDisplayName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDisplayName, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDisplayName
     }
 
@@ -130,7 +142,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      */
     get_Domain() {
         pbstrTemplateDomain := BSTR()
-        result := ComCall(10, this, "ptr", pbstrTemplateDomain, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrTemplateDomain, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTemplateDomain
     }
 
@@ -140,7 +156,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      */
     get_StarterGPOID() {
         pbstrTemplateID := BSTR()
-        result := ComCall(11, this, "ptr", pbstrTemplateID, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrTemplateID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTemplateID
     }
 
@@ -150,7 +170,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      */
     get_ID() {
         pbstrID := BSTR()
-        result := ComCall(12, this, "ptr", pbstrID, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrID
     }
 
@@ -159,7 +183,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      * @returns {Float} 
      */
     get_Timestamp() {
-        result := ComCall(13, this, "double*", &pTimestamp := 0, "HRESULT")
+        result := ComCall(13, this, "double*", &pTimestamp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTimestamp
     }
 
@@ -168,7 +196,11 @@ class IGPMStarterGPOBackup extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(14, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
@@ -179,40 +211,55 @@ class IGPMStarterGPOBackup extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpobackup-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmstartergpobackup-delete
      */
     Delete() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GenerateReport method gets the report for the backup GPO.
-     * @param {Integer} gpmReportType Specifies whether the report is in XML or HTML.
+     * @param {Integer} gpmReportType_ Specifies whether the report is in XML or HTML.
      * @param {Pointer<VARIANT>} pvarGPMProgress Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface. If <i>pvarGPMProgress</i> is null, the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackup-generatereport">GenerateReport</a> is handled synchronously. If  not null, the call to <b>GenerateReport</b> is handled asynchronously and <i>pvarGPMCancel</i> returns a pointer to   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a>.
      * @param {Pointer<VARIANT>} pvarGPMCancel Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface. A value for this parameter is returned only when <i>pvarGPMProgress</i> is specified and is not null.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a>. The Result property contains  a string of XML or HTML. The Status property contains a reference to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpobackup-generatereport
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmstartergpobackup-generatereport
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(16, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+    GenerateReport(gpmReportType_, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(16, this, "int", gpmReportType_, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMResult(ppIGPMResult)
     }
 
     /**
      * The GenerateReportToFile gets the report for the backup Starter GPO and saves it to a file at a specified path.
-     * @param {Integer} gpmReportType Specifies whether the report is in XML or HTML.
+     * @param {Integer} gpmReportType_ Specifies whether the report is in XML or HTML.
      * @param {BSTR} bstrTargetFilePath Binary string that contains the path to the file where the report is being saved. Use null-terminated string.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface. The <b>Status</b> property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
      * 
      * <div class="alert"><b>Note</b>  The value of the <b>Result</b> property is indeterminate and should not be relied upon.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpobackup-generatereporttofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmstartergpobackup-generatereporttofile
      */
-    GenerateReportToFile(gpmReportType, bstrTargetFilePath) {
-        bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
+    GenerateReportToFile(gpmReportType_, bstrTargetFilePath) {
+        if(bstrTargetFilePath is String) {
+            pin := BSTR.Alloc(bstrTargetFilePath)
+            bstrTargetFilePath := pin.Value
+        }
 
-        result := ComCall(17, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(17, this, "int", gpmReportType_, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMResult(ppIGPMResult)
     }
 }

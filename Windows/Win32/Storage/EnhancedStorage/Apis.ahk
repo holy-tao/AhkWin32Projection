@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.EnhancedStorage
@@ -860,37 +862,37 @@ class EnhancedStorage {
     static CERT_MAX_CAPABILITY => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSA_1024_OID => "1.2.840.113549.1.1.1,1024"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSA_2048_OID => "1.2.840.113549.1.1.1,2048"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSA_3072_OID => "1.2.840.113549.1.1.1,3072"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSASSA_PSS_SHA1_OID => "1.2.840.113549.1.1.10,1.3.14.3.2.26"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSASSA_PSS_SHA256_OID => "1.2.840.113549.1.1.10,2.16.840.1.101.3.4.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSASSA_PSS_SHA384_OID => "1.2.840.113549.1.1.10,2.16.840.1.101.3.4.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSASSA_PSS_SHA512_OID => "1.2.840.113549.1.1.10,2.16.840.1.101.3.4.2.3"
 
@@ -5133,117 +5135,117 @@ class EnhancedStorage {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_CALENDAR => "calendar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_COMMUNICATION => "communication"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_CONTACT => "contact"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_DOCUMENT => "document"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_EMAIL => "email"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_FEED => "feed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_FOLDER => "folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_GAME => "game"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_INSTANTMESSAGE => "instantmessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_JOURNAL => "journal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_LINK => "link"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_MOVIE => "movie"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_MUSIC => "music"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_NOTE => "note"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_PICTURE => "picture"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_PLAYLIST => "playlist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_PROGRAM => "program"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_RECORDEDTV => "recordedtv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_SEARCHFOLDER => "searchfolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_TASK => "task"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_VIDEO => "video"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_WEBHISTORY => "webhistory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KIND_UNKNOWN => "unknown"
 
@@ -6225,27 +6227,27 @@ class EnhancedStorage {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_PROVIDER_SHARE_STATUS_PRIVATE => "Private"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_PROVIDER_SHARE_STATUS_SHARED => "Shared"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_PROVIDER_SHARE_STATUS_PUBLIC => "Public"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_PROVIDER_SHARE_STATUS_GROUP => "Group"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_PROVIDER_SHARE_STATUS_OWNER => "Owner"
 
@@ -10952,22 +10954,22 @@ class EnhancedStorage {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFB_ALPHA => "alpha"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFB_BETA => "beta"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFB_GAMMA => "gamma"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFB_DELTA => "delta"
 
@@ -10985,22 +10987,22 @@ class EnhancedStorage {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFS_ALPHA => "alpha"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFS_BETA => "beta"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFS_GAMMA => "gamma"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LAYOUTPATTERN_CVMFS_DELTA => "delta"
 
@@ -15246,62 +15248,62 @@ class EnhancedStorage {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_FILESYS => "filesys"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_FILEANC => "fileanc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_STORAGEANC => "storageanc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_STREAM => "stream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_LINK => "link"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_HIDDEN => "hidden"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_SUPERHIDDEN => "superhidden"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_FOLDER => "folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_NONENUM => "nonenum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_BROWSABLE => "browsable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_SYSTEM => "system"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFGAOSTR_PLACEHOLDER => "placeholder"
 

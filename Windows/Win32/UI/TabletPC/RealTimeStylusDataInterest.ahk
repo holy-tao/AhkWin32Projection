@@ -21,7 +21,7 @@
  * <li>RTSDI_SystemEvents</li>
  * <li>RTSDI_CustomStylusDataAdded</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/rtscom/ne-rtscom-realtimestylusdatainterest
+ * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/ne-rtscom-realtimestylusdatainterest
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

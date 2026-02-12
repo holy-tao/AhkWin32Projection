@@ -7,10 +7,8 @@
 /**
  * Exposes methods used by a wizard extension to navigate the borders between itself and the rest of the wizard.
  * @remarks
- * 
  * When the user backs out or cancels the extension, or when the extension finishes displaying its pages, the extension then communicates to the wizard that it must navigate in and out of the stack of pages.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iwizardsite
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iwizardsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -40,11 +38,15 @@ class IWizardSite extends IUnknown{
      * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE*</b>
      * 
      * A pointer to a variable handle of type <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> that represents the wizard page that comes immediately before the wizard extension page.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwizardsite-getpreviouspage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iwizardsite-getpreviouspage
      */
     GetPreviousPage() {
         phpage := HPROPSHEETPAGE()
-        result := ComCall(3, this, "ptr", phpage, "HRESULT")
+        result := ComCall(3, this, "ptr", phpage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phpage
     }
 
@@ -53,11 +55,15 @@ class IWizardSite extends IUnknown{
      * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE*</b>
      * 
      * A pointer to a handle variable of type <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> for the wizard page following the extension page.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwizardsite-getnextpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iwizardsite-getnextpage
      */
     GetNextPage() {
         phpage := HPROPSHEETPAGE()
-        result := ComCall(4, this, "ptr", phpage, "HRESULT")
+        result := ComCall(4, this, "ptr", phpage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phpage
     }
 
@@ -66,11 +72,15 @@ class IWizardSite extends IUnknown{
      * @returns {HPROPSHEETPAGE} Type: <b>HPROPSHEETPAGE*</b>
      * 
      * A pointer to a handle variable of type <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> that receives the wizard page to display when the user cancels navigation while in the wizard extension.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwizardsite-getcancelledpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iwizardsite-getcancelledpage
      */
     GetCancelledPage() {
         phpage := HPROPSHEETPAGE()
-        result := ComCall(5, this, "ptr", phpage, "HRESULT")
+        result := ComCall(5, this, "ptr", phpage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phpage
     }
 }

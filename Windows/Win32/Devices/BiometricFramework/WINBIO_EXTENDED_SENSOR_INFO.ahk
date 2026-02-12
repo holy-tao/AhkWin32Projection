@@ -5,7 +5,7 @@
 
 /**
  * Contains information about the capabilities and enrollment requirements of the sensor adapter for a biometric unit.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-sensor-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-extended-sensor-info
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

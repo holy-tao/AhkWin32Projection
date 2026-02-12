@@ -5,7 +5,7 @@
  * Contains information about a property or attribute processing problem that occurred during the encoding or decoding of a TNEF stream.
  * @remarks
  * If an **STnefProblem** structure is not generated during the processing of an attribute or property, the application can continue under the assumption that the processing of that attribute or property succeeded. The only exception occurs when the problem arose during decoding of an encapsulation block. In this case, the decoding of the component corresponding to the block is stopped and decoding is continued in another component.
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/stnefproblem
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/stnefproblem
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

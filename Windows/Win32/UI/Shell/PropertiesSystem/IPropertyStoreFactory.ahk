@@ -6,11 +6,8 @@
 /**
  * Exposes methods to get an IPropertyStore object.
  * @remarks
- * 
  * This interface is typically obtained through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject">IShellFolder::BindToObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler">IShellItem::BindToHandler</a>. It is useful for data source implementers who want to avoid the additional overhead of creating a property store through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore">IShellItem2::GetPropertyStore</a>. However, <b>IShellItem2::GetPropertyStore</b> is the recommended method to obtain a property store unless you are implementing a data source through a Shell folder extension.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertystorefactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nn-propsys-ipropertystorefactory
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IPropertyStoreFactory extends IUnknown{
 
     /**
      * Gets an IPropertyStore object that corresponds to the supplied flags.
+     * @remarks
+     * It is recommended that you use the IID_PPV_ARGS macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error.
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * 
@@ -47,18 +46,24 @@ class IPropertyStoreFactory extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to IID of the object to create.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorefactory-getpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertystorefactory-getpropertystore
      */
     GetPropertyStore(flags, pUnkFactory, riid) {
-        result := ComCall(3, this, "int", flags, "ptr", pUnkFactory, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "int", flags, "ptr", pUnkFactory, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Gets an IPropertyStore object, given a set of property keys. This provides an alternative, possibly faster, method of getting an IPropertyStore object compared to calling IPropertyStoreFactory::GetPropertyStore.
+     * @remarks
+     * It is recommended that you use the IID_PPV_ARGS macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error.
      * @param {Pointer<PROPERTYKEY>} rgKeys Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures.
@@ -72,13 +77,17 @@ class IPropertyStoreFactory extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to IID of the object to create.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorefactory-getpropertystoreforkeys
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertystorefactory-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
-        result := ComCall(4, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

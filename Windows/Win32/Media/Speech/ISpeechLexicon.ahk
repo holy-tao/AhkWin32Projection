@@ -43,7 +43,11 @@ class ISpeechLexicon extends IDispatch{
      * @returns {Integer} 
      */
     get_GenerationId() {
-        result := ComCall(7, this, "int*", &GenerationId := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &GenerationId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return GenerationId
     }
 
@@ -57,7 +61,11 @@ class ISpeechLexicon extends IDispatch{
     GetWords(Flags, GenerationID, Words) {
         GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "int", Flags, GenerationIDMarshal, GenerationID, "ptr*", Words, "HRESULT")
+        result := ComCall(8, this, "int", Flags, GenerationIDMarshal, GenerationID, "ptr*", Words, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,10 +78,20 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     AddPronunciation(bstrWord, LangId, PartOfSpeech, bstrPronunciation) {
-        bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
-        bstrPronunciation := bstrPronunciation is String ? BSTR.Alloc(bstrPronunciation).Value : bstrPronunciation
+        if(bstrWord is String) {
+            pin := BSTR.Alloc(bstrWord)
+            bstrWord := pin.Value
+        }
+        if(bstrPronunciation is String) {
+            pin := BSTR.Alloc(bstrPronunciation)
+            bstrPronunciation := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", bstrPronunciation, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", bstrPronunciation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,9 +104,16 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     AddPronunciationByPhoneIds(bstrWord, LangId, PartOfSpeech, PhoneIds) {
-        bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
+        if(bstrWord is String) {
+            pin := BSTR.Alloc(bstrWord)
+            bstrWord := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", PhoneIds, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", PhoneIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,10 +126,20 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     RemovePronunciation(bstrWord, LangId, PartOfSpeech, bstrPronunciation) {
-        bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
-        bstrPronunciation := bstrPronunciation is String ? BSTR.Alloc(bstrPronunciation).Value : bstrPronunciation
+        if(bstrWord is String) {
+            pin := BSTR.Alloc(bstrWord)
+            bstrWord := pin.Value
+        }
+        if(bstrPronunciation is String) {
+            pin := BSTR.Alloc(bstrPronunciation)
+            bstrPronunciation := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", bstrPronunciation, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", bstrPronunciation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,9 +152,16 @@ class ISpeechLexicon extends IDispatch{
      * @returns {HRESULT} 
      */
     RemovePronunciationByPhoneIds(bstrWord, LangId, PartOfSpeech, PhoneIds) {
-        bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
+        if(bstrWord is String) {
+            pin := BSTR.Alloc(bstrWord)
+            bstrWord := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", PhoneIds, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrWord, "int", LangId, "int", PartOfSpeech, "ptr", PhoneIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,13 +169,20 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} TypeFlags 
+     * @param {Integer} TypeFlags_ 
      * @returns {ISpeechLexiconPronunciations} 
      */
-    GetPronunciations(bstrWord, LangId, TypeFlags) {
-        bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
+    GetPronunciations(bstrWord, LangId, TypeFlags_) {
+        if(bstrWord is String) {
+            pin := BSTR.Alloc(bstrWord)
+            bstrWord := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrWord, "int", LangId, "int", TypeFlags, "ptr*", &ppPronunciations := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrWord, "int", LangId, "int", TypeFlags_, "ptr*", &ppPronunciations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechLexiconPronunciations(ppPronunciations)
     }
 
@@ -145,7 +194,11 @@ class ISpeechLexicon extends IDispatch{
     GetGenerationChange(GenerationID) {
         GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, GenerationIDMarshal, GenerationID, "ptr*", &ppWords := 0, "HRESULT")
+        result := ComCall(14, this, GenerationIDMarshal, GenerationID, "ptr*", &ppWords := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechLexiconWords(ppWords)
     }
 }

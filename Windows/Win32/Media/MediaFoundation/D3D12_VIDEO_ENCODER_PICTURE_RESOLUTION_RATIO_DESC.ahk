@@ -5,7 +5,7 @@
  * Defines a resolution ratio as an irreducible fraction.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_resolution_ratio_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_resolution_ratio_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

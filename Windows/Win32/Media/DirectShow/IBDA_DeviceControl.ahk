@@ -6,11 +6,8 @@
 /**
  * The IBDA_DeviceControl interface is implemented on all BDA device filters.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DeviceControl)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_devicecontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_devicecontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,31 +34,47 @@ class IBDA_DeviceControl extends IUnknown{
 
     /**
      * The StartChanges method is called by a Network Provider before it begins to modify a set of properties on a BDA device filter.
+     * @remarks
+     * The device filter validates and accumulates all changes requested after <b>StartChanges</b>. It makes the accumulated list of changes when <b>CommitChanges</b> is called.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-startchanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_devicecontrol-startchanges
      */
     StartChanges() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CheckChanges method queries the device filter as to whether the changes that are pending would succeed if they were committed.
+     * @remarks
+     * This method provides a means to determine whether a particular set of changes would be successful, without actually modifying any parameters on the device.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-checkchanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_devicecontrol-checkchanges
      */
     CheckChanges() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CommitChanges method instructs the device to perform the changes specified in the previous call to StartChanges.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-commitchanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_devicecontrol-commitchanges
      */
     CommitChanges() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,12 +82,16 @@ class IBDA_DeviceControl extends IUnknown{
      * The GetChangeState method returns a value indicating whether any uncommitted changes are currently pending in the filter.
      * @param {Pointer<Integer>} pState Receives the current state of the filter. See BDA_CHANGE_STATE in the Windows DDK for possible values.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_devicecontrol-getchangestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_devicecontrol-getchangestate
      */
     GetChangeState(pState) {
         pStateMarshal := pState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pStateMarshal, pState, "HRESULT")
+        result := ComCall(6, this, pStateMarshal, pState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

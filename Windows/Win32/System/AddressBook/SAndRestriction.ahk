@@ -7,7 +7,7 @@
  * The result of the **SAndRestriction** is TRUE if all its child restrictions evaluate to TRUE. It is FALSE if any child restriction evaluates to FALSE. 
  *   
  * For a description of types of restrictions, how to build them, and sample code, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sandrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sandrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

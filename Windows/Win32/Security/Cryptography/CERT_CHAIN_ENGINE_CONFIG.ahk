@@ -16,7 +16,7 @@
  * hOther is <b>hRestrictedOther</b> plus hRoot or, if <b>hRestrictedTrust</b> is non-<b>NULL</b>, the hWorld collection store plus the store handle from <b>hRestrictedTrust</b>.
  * 
  * Exclusive trust mode allows applications to specify trust anchors and peer-trusted certificates  for certificate chain validation. In the exclusive trust mode, the root store and the trusted people store on the system are ignored, and the anchors and certificates pointed to by the <b>hExclusiveRoot</b> and <b>hExclusiveTrustedPeople</b> members are used instead.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_engine_config
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_chain_engine_config
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Provides an additional method used by VSS to notify hardware providers of LUN state changes.
- * @see https://docs.microsoft.com/windows/win32/api//vsprov/nn-vsprov-ivsshardwaresnapshotproviderex
+ * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nn-vsprov-ivsshardwaresnapshotproviderex
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -32,12 +32,16 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider{
     static VTableNames => ["GetProviderCapabilities", "OnLunStateChange", "ResyncLuns", "OnReuseLuns"]
 
     /**
-     * This method is reserved for future use.
+     * This method is reserved for future use. (IVssHardwareSnapshotProviderEx.GetProviderCapabilities)
      * @returns {Integer} This parameter is reserved for future use.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-getprovidercapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-getprovidercapabilities
      */
     GetProviderCapabilities() {
-        result := ComCall(9, this, "uint*", &pllOriginalCapabilityMask := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pllOriginalCapabilityMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pllOriginalCapabilityMask
     }
 
@@ -155,36 +159,60 @@ class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onlunstatechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onlunstatechange
      */
     OnLunStateChange(pSnapshotLuns, pOriginalLuns, dwCount, dwFlags) {
-        result := ComCall(10, this, "ptr", pSnapshotLuns, "ptr", pOriginalLuns, "uint", dwCount, "uint", dwFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pSnapshotLuns, "ptr", pOriginalLuns, "uint", dwCount, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The VSS service calls this method to notify hardware providers that a LUN resynchronization is needed.
+     * @remarks
+     * The destination LUNs can be the LUNs that contribute to the original production volume from which the shadow copy was created, or they can be new or existing LUNs that are used to replace an original volume  that is removed from production.
+     * 
+     * The provider must perform the resynchronization by copying data at the LUN array level, not at the host level.  This means that the provider cannot implement LUN resynchronization by simply copying the contents of the source LUN to the destination LUN. The I/O that is required to perform the LUN resynchronization must be performed in the hardware, through the disk devices of the resynchronized LUNs, and not through the host computer. This I/O should be completely transparent to the host computer.
+     * 
+     * When the resynchronization is complete, the LUNs are fully functional and are available for I/O operations.
+     * 
+     * The underlying disk hardware must support unique page 83 device identifiers.
+     * 
+     * If the destination LUN is larger than the source LUN, the provider must resize the destination LUN if necessary to ensure that it matches the source LUN after resynchronization.
+     * 
+     * This method cannot be called in WinPE, and it cannot be called in Safe mode. Before calling this method, the caller must use the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-initializeforrestore">IVssBackupComponents::InitializeForRestore</a> method to prepare for the resynchronization.
      * @param {Pointer<VDS_LUN_INFORMATION>} pSourceLuns A pointer to an array of <i>dwCount</i> <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structures,  one for each LUN that contributes to the shadow copy volume.
      * @param {Pointer<VDS_LUN_INFORMATION>} pTargetLuns A pointer to an array of <i>dwCount</i> <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structures,  one for each LUN that contributes to the destination volume where the contents of the shadow copy volume are to be copied.
      * @param {Integer} dwCount The number of elements in the <i>pSourceLuns</i> array. This is also the number of elements in the <i>pTargetLuns</i> array.
      * @returns {IVssAsync} A pointer to a location that will receive an <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> interface pointer that can be used to retrieve the status of the resynchronization operation. When the operation is complete, the caller must release the interface pointer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-resyncluns
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-resyncluns
      */
     ResyncLuns(pSourceLuns, pTargetLuns, dwCount) {
-        result := ComCall(11, this, "ptr", pSourceLuns, "ptr", pTargetLuns, "uint", dwCount, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pSourceLuns, "ptr", pTargetLuns, "uint", dwCount, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVssAsync(ppAsync)
     }
 
     /**
-     * This method is reserved for future use.
+     * This method is reserved for future use. (IVssHardwareSnapshotProviderEx.OnReuseLuns)
      * @param {Pointer<VDS_LUN_INFORMATION>} pSnapshotLuns This parameter is reserved for future use.
      * @param {Pointer<VDS_LUN_INFORMATION>} pOriginalLuns This parameter is reserved for future use.
      * @param {Integer} dwCount This parameter is reserved for future use.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onreuseluns
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/vsprov/nf-vsprov-ivsshardwaresnapshotproviderex-onreuseluns
      */
     OnReuseLuns(pSnapshotLuns, pOriginalLuns, dwCount) {
-        result := ComCall(12, this, "ptr", pSnapshotLuns, "ptr", pOriginalLuns, "uint", dwCount, "HRESULT")
+        result := ComCall(12, this, "ptr", pSnapshotLuns, "ptr", pOriginalLuns, "uint", dwCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

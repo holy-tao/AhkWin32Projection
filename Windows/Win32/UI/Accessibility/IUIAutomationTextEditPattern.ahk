@@ -6,7 +6,7 @@
 
 /**
  * Provides access to a control that modifies text, for example a control that performs auto-correction or enables input composition through an Input Method Editor (IME).
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtexteditpattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationtexteditpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -32,26 +32,36 @@ class IUIAutomationTextEditPattern extends IUIAutomationTextPattern{
     static VTableNames => ["GetActiveComposition", "GetConversionTarget"]
 
     /**
-     * Returns the active composition.
+     * Returns the active composition. (IUIAutomationTextEditPattern.GetActiveComposition)
+     * @remarks
+     * Active composition is relevant to Input Method Editors (IMEs).
      * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
      * 
      * Pointer to the range of the current conversion (none if there is no conversion).
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getactivecomposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getactivecomposition
      */
     GetActiveComposition() {
-        result := ComCall(9, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTextRange(range)
     }
 
     /**
-     * Returns the current conversion target range.
+     * Returns the current conversion target range. (IUIAutomationTextEditPattern.GetConversionTarget)
      * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
      * 
      * Pointer to the conversion target range (none if there is no conversion).
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getconversiontarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtexteditpattern-getconversiontarget
      */
     GetConversionTarget() {
-        result := ComCall(10, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTextRange(range)
     }
 }

@@ -25,7 +25,7 @@
  * If the **ulPRSetProperty** member is not set to **PR_NULL**, the list is a single selection list. The initial value of **ulPRSetProperty** determines the first selected row. When a user selects one of the rows, the **ulPRSetProperty** member is set to the selected value and this value is written back to the property interface implementation with a call to [IMAPIProp::SetProps](imapiprop-setprops.md). 
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtbllbx
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtbllbx
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

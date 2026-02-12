@@ -34,7 +34,11 @@ class IDebugHostType4 extends IDebugHostType3{
      * @returns {Integer} 
      */
     GetExtendedArrayHeaderSize() {
-        result := ComCall(35, this, "uint*", &headerSize := 0, "HRESULT")
+        result := ComCall(35, this, "uint*", &headerSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return headerSize
     }
 
@@ -45,7 +49,11 @@ class IDebugHostType4 extends IDebugHostType3{
      */
     GetExtendedArrayDimensions(dimensions) {
         pDimensions := ExtendedArrayDimension()
-        result := ComCall(36, this, "uint", dimensions, "ptr", pDimensions, "HRESULT")
+        result := ComCall(36, this, "uint", dimensions, "ptr", pDimensions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDimensions
     }
 
@@ -54,7 +62,11 @@ class IDebugHostType4 extends IDebugHostType3{
      * @returns {Integer} 
      */
     GetUDTKind() {
-        result := ComCall(37, this, "int*", &udtKind := 0, "HRESULT")
-        return udtKind
+        result := ComCall(37, this, "int*", &udtKind_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return udtKind_
     }
 }

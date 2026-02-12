@@ -35,7 +35,11 @@ class IActiveScriptErrorDebug extends IActiveScriptError{
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContext() {
-        result := ComCall(6, this, "ptr*", &ppssc := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppssc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocumentContext(ppssc)
     }
 
@@ -44,7 +48,11 @@ class IActiveScriptErrorDebug extends IActiveScriptError{
      * @returns {IDebugStackFrame} 
      */
     GetStackFrame() {
-        result := ComCall(7, this, "ptr*", &ppdsf := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppdsf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugStackFrame(ppdsf)
     }
 }

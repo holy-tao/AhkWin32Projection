@@ -35,7 +35,11 @@ class IMDDataset extends IUnknown{
      * @returns {HRESULT} 
      */
     FreeAxisInfo(cAxes, rgAxisInfo) {
-        result := ComCall(3, this, "ptr", cAxes, "ptr", rgAxisInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", cAxes, "ptr", rgAxisInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IMDDataset extends IUnknown{
     GetAxisInfo(pcAxes) {
         pcAxesMarshal := pcAxes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcAxesMarshal, pcAxes, "ptr*", &prgAxisInfo := 0, "HRESULT")
+        result := ComCall(4, this, pcAxesMarshal, pcAxes, "ptr*", &prgAxisInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prgAxisInfo
     }
 
@@ -58,34 +66,46 @@ class IMDDataset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetAxisRowset(pUnkOuter, iAxis, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", iAxis, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
-        return IUnknown(ppRowset)
+        result := ComCall(5, this, "ptr", pUnkOuter, "ptr", iAxis, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppRowset
     }
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer} ulStartCell 
      * @param {Pointer} ulEndCell 
      * @returns {Void} 
      */
-    GetCellData(hAccessor, ulStartCell, ulEndCell) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetCellData(hAccessor_, ulStartCell, ulEndCell) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
-        result := ComCall(6, this, "ptr", hAccessor, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hAccessor_, "ptr", ulStartCell, "ptr", ulEndCell, "ptr", &pData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetSpecification(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &ppSpecification := 0, "HRESULT")
-        return IUnknown(ppSpecification)
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppSpecification := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppSpecification
     }
 }

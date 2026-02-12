@@ -3,7 +3,7 @@
 
 /**
  * The WMDM\_SESSION\_TYPE enumeration type defines the session type.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-session-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-session-type
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

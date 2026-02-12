@@ -7,8 +7,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for performing query and configuration operations on a LUN plex.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdslunplex
+ * The IVdsLunPlex interface (vds.h) provides methods for performing query and configuration operations on a LUN plex.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdslunplex
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -34,32 +34,42 @@ class IVdsLunPlex extends IUnknown{
     static VTableNames => ["GetProperties", "GetLun", "QueryExtents", "QueryHints", "ApplyHints"]
 
     /**
-     * Returns the properties of the LUN plex.
+     * The IVdsLunPlex::GetProperties method (vds.h) returns the properties of the LUN plex.
      * @returns {VDS_LUN_PLEX_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop">VDS_LUN_PLEX_PROP</a> structure allocated and passed in by the caller.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdslunplex-getproperties
      */
     GetProperties() {
         pPlexProp := VDS_LUN_PLEX_PROP()
-        result := ComCall(3, this, "ptr", pPlexProp, "HRESULT")
+        result := ComCall(3, this, "ptr", pPlexProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPlexProp
     }
 
     /**
-     * Returns the LUN to which the plex belongs.
-     * @returns {IVdsLun} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdslun">IVdsLun</a>interface pointer. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-getlun
+     * The IVdsLunPlex::GetLun method (vds.h) returns the LUN to which the plex belongs.
+     * @returns {IVdsLun} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdslun">IVdsLun</a> interface pointer. Callers must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdslunplex-getlun
      */
     GetLun() {
-        result := ComCall(4, this, "ptr*", &ppLun := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppLun := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsLun(ppLun)
     }
 
     /**
-     * Returns an array of the drive extents that contribute to the plex.
+     * The IVdsLunPlex::QueryExtents method (vds.h) returns an array of the drive extents that contribute to the plex.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsdrive-queryextents">IVdsDrive::QueryExtents</a> method to get the extents on a given drive.
      * @param {Pointer<Pointer<VDS_DRIVE_EXTENT>>} ppExtentArray A pointer to the array of pointers to drive extents passed in by the caller. These are the extents that contribute to the plex. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_extent">VDS_DRIVE_EXTENT</a> structure. Callers must free this array by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Integer>} plNumberOfExtents A pointer to the number of drive extents returned in <i>ppExtentArray</i>.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -74,7 +84,7 @@ class IVdsLunPlex extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
      * 
      * </td>
      * </tr>
@@ -116,31 +126,45 @@ class IVdsLunPlex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-queryextents
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdslunplex-queryextents
      */
     QueryExtents(ppExtentArray, plNumberOfExtents) {
         ppExtentArrayMarshal := ppExtentArray is VarRef ? "ptr*" : "ptr"
         plNumberOfExtentsMarshal := plNumberOfExtents is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "HRESULT")
+        result := ComCall(5, this, ppExtentArrayMarshal, ppExtentArray, plNumberOfExtentsMarshal, plNumberOfExtents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Returns the hints that are currently applied to the LUN plex.
+     * The IVdsLunPlex::QueryHints method (vds.h) returns the hints that are currently applied to the LUN plex.
+     * @remarks
+     * Callers can specify hints by passing in the <i>pHints</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a> method when creating a LUN, or  by using the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-applyhints">IVdsLunPlex::ApplyHints</a> method to apply a set of new hints to an existing plex.
+     * 
+     * Note that calls to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-applyhints">IVdsLun::ApplyHints</a> method can impact the plexes that contribute to the LUN. To view hints for the entire LUN, use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-queryhints">IVdsLun::QueryHints</a> method.
      * @returns {VDS_HINTS} Pointer to the returned plex hints. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints">VDS_HINTS</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-queryhints
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdslunplex-queryhints
      */
     QueryHints() {
         pHints := VDS_HINTS()
-        result := ComCall(6, this, "ptr", pHints, "HRESULT")
+        result := ComCall(6, this, "ptr", pHints, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHints
     }
 
     /**
-     * Applies a new set of hints to the LUN plex. Hints applied to a plex affect neither the LUN nor its other plexes.
+     * The IVdsLunPlex::ApplyHints method (vds.h) applies a new set of hints to the LUN plex. Hints applied to a plex affect neither the LUN nor its other plexes.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-queryhints">IVdsLunPlex::QueryHints</a> method to get the current hints for the LUN plex.
      * @param {Pointer<VDS_HINTS>} pHints Pointer to the hints to be applied to the LUN plex. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints">VDS_HINTS</a> structure. Only fields relevant to a LUN plex are expected to be set; irrelevant fields are ignored.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -155,7 +179,7 @@ class IVdsLunPlex extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
      * 
      * </td>
      * </tr>
@@ -208,10 +232,14 @@ class IVdsLunPlex extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslunplex-applyhints
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdslunplex-applyhints
      */
     ApplyHints(pHints) {
-        result := ComCall(7, this, "ptr", pHints, "HRESULT")
+        result := ComCall(7, this, "ptr", pHints, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

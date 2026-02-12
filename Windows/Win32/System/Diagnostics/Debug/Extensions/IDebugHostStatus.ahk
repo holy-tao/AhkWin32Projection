@@ -33,7 +33,11 @@ class IDebugHostStatus extends IUnknown{
      * @returns {Boolean} 
      */
     PollUserInterrupt() {
-        result := ComCall(3, this, "int*", &interruptRequested := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &interruptRequested := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return interruptRequested
     }
 }

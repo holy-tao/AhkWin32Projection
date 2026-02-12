@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\Apis.ahk
 #Include .\HKEY.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Registry
@@ -97,452 +99,452 @@ class Registry {
     static REG_ALLOW_UNSECURE_CONNECTION => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_CLASS => "Class"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_CONFIG => "Config"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_ENUM => "Enum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_ROOTENUM => "Root"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_BIOSENUM => "BIOS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_ACPIENUM => "ACPI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PCMCIAENUM => "PCMCIA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PCIENUM => "PCI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_VPOWERDENUM => "VPOWERD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_ISAENUM => "ISAPnP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EISAENUM => "EISA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_LOGCONFIG => "LogConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_SYSTEMBOARD => "*PNP0C01"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_APM => "*PNP0C05"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_INIUPDATE => "IniUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REG_KEY_INSTDEV => "Installed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DOSOPTCDROM => "CD-ROM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DOSOPTMOUSE => "MOUSE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_KNOWNDOCKINGSTATES => "Hardware Profiles"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DEVICEPARAMETERS => "Device Parameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DRIVERPARAMETERS => "Driver Parameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_DEFAULT_INSTANCE => "0000"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SETUP => "Software\Microsoft\Windows\CurrentVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DRIVERSIGN => "Software\Microsoft\Driver Signing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NONDRIVERSIGN => "Software\Microsoft\Non-Driver Signing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DRIVERSIGN_POLICY => "Software\Policies\Microsoft\Windows NT\Driver Signing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NONDRIVERSIGN_POLICY => "Software\Policies\Microsoft\Windows NT\Non-Driver Signing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PIFCONVERT => "Software\Microsoft\Windows\CurrentVersion\PIFConvert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_MSDOSOPTS => "Software\Microsoft\Windows\CurrentVersion\MS-DOSOptions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NOSUGGMSDOS => "Software\Microsoft\Windows\CurrentVersion\NoMSDOSWarn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NEWDOSBOX => "Software\Microsoft\Windows\CurrentVersion\MS-DOSSpecialConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RUNONCE => "Software\Microsoft\Windows\CurrentVersion\RunOnce"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RUNONCEEX => "Software\Microsoft\Windows\CurrentVersion\RunOnceEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RUN => "Software\Microsoft\Windows\CurrentVersion\Run"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RUNSERVICESONCE => "Software\Microsoft\Windows\CurrentVersion\RunServicesOnce"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RUNSERVICES => "Software\Microsoft\Windows\CurrentVersion\RunServices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_EXPLORER => "Software\Microsoft\Windows\CurrentVersion\Explorer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PROPERTYSYSTEM => "Software\Microsoft\Windows\CurrentVersion\PropertySystem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DETECT => "Software\Microsoft\Windows\CurrentVersion\Detect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_APPPATHS => "Software\Microsoft\Windows\CurrentVersion\App Paths"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_UNINSTALL => "Software\Microsoft\Windows\CurrentVersion\Uninstall"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_REALMODENET => "Software\Microsoft\Windows\CurrentVersion\Network\Real Mode Net"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NETEQUIV => "Software\Microsoft\Windows\CurrentVersion\Network\Equivalent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CVNETWORK => "Software\Microsoft\Windows\CurrentVersion\Network"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_WMI_SECURITY => "System\CurrentControlSet\Control\Wmi\Security"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RELIABILITY => "Software\Microsoft\Windows\CurrentVersion\Reliability"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RELIABILITY_POLICY => "Software\Policies\Microsoft\Windows NT\Reliability"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RELIABILITY_POLICY_SHUTDOWNREASONUI => "ShutdownReasonUI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RELIABILITY_POLICY_SNAPSHOT => "Snapshot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_RELIABILITY_POLICY_REPORTSNAPSHOT => "ReportSnapshot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_REINSTALL => "SOFTWARE\Microsoft\Windows\CurrentVersion\Reinstall"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NT_CURRENTVERSION => "Software\Microsoft\Windows NT\CurrentVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VOLUMECACHE => "Software\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPLAY => "display"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_IDCONFIGDB => "System\CurrentControlSet\Control\IDConfigDB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CRITICALDEVICEDATABASE => "System\CurrentControlSet\Control\CriticalDeviceDatabase"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CLASS => "System\CurrentControlSet\Services\Class"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DISPLAYSETTINGS => "Display\Settings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_FONTS => "Display\Fonts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_ENUM => "Enum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_ROOT => "Enum\Root"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CURRENTCONTROLSET => "System\CurrentControlSet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SYSTEMENUM => "System\CurrentControlSet\Enum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_HWPROFILES => "System\CurrentControlSet\Hardware Profiles"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_HWPROFILESCURRENT => "System\CurrentControlSet\Hardware Profiles\Current"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CLASS_NT => "System\CurrentControlSet\Control\Class"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PER_HW_ID_STORAGE => "Software\Microsoft\Windows NT\CurrentVersion\PerHwIdStorage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DEVICE_CLASSES => "System\CurrentControlSet\Control\DeviceClasses"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CODEVICEINSTALLERS => "System\CurrentControlSet\Control\CoDeviceInstallers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_BUSINFORMATION => "System\CurrentControlSet\Control\PnP\BusInformation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SERVICES => "System\CurrentControlSet\Services"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VXD => "System\CurrentControlSet\Services\VxD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_IOS => "System\CurrentControlSet\Services\VxD\IOS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VMM => "System\CurrentControlSet\Services\VxD\VMM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VPOWERD => "System\CurrentControlSet\Services\VxD\VPOWERD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VNETSUP => "System\CurrentControlSet\Services\VxD\VNETSUP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NWREDIR => "System\CurrentControlSet\Services\VxD\NWREDIR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NCPSERVER => "System\CurrentControlSet\Services\NcpServer\Parameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VCOMM => "System\CurrentControlSet\Services\VxD\VCOMM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_IOARB => "System\CurrentControlSet\Services\Arbitrators\IOArb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_ADDRARB => "System\CurrentControlSet\Services\Arbitrators\AddrArb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DMAARB => "System\CurrentControlSet\Services\Arbitrators\DMAArb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_IRQARB => "System\CurrentControlSet\Services\Arbitrators\IRQArb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CODEPAGE => "System\CurrentControlSet\Control\Nls\Codepage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_FILESYSTEM => "System\CurrentControlSet\Control\FileSystem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_FILESYSTEM_NOVOLTRACK => "System\CurrentControlSet\Control\FileSystem\NoVolTrack"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CDFS => "System\CurrentControlSet\Control\FileSystem\CDFS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_WINBOOT => "System\CurrentControlSet\Control\WinBoot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_INSTALLEDFILES => "System\CurrentControlSet\Control\InstalledFiles"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_VMM32FILES => "System\CurrentControlSet\Control\VMM32Files"
 
@@ -552,357 +554,357 @@ class Registry {
     static REGSTR_MAX_VALUE_LENGTH => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DEVICE_PROPERTIES => "Properties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SERVICE => "Service"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CLASSGUID => "ClassGUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISABLECOUNT => "DisableCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOCKSTATE => "DockState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICE_INSTANCE => "DeviceInstance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYMBOLIC_LINK => "SymbolicLink"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEFAULT => "Default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOWERFILTERS => "LowerFilters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UPPERFILTERS => "UpperFilters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOCATION_INFORMATION => "LocationInformation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UI_NUMBER => "UINumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UI_NUMBER_DESC_FORMAT => "UINumberDescFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CAPABILITIES => "Capabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ADDRESS => "Address"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICE_TYPE => "DeviceType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICE_CHARACTERISTICS => "DeviceCharacteristics"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICE_SECURITY_DESCRIPTOR => "Security"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICE_EXCLUSIVE => "Exclusive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESOURCE_PICKER_TAGS => "ResourcePickerTags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESOURCE_PICKER_EXCEPTIONS => "ResourcePickerExceptions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CUSTOM_PROPERTY_CACHE_DATE => "CustomPropertyCacheDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CUSTOM_PROPERTY_HW_ID_KEY => "CustomPropertyHwIdKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LAST_UPDATE_TIME => "LastUpdateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONTAINERID => "ContainerID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EJECT_PRIORITY => "EjectPriority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_CONTROL => "Control"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ACTIVESERVICE => "ActiveService"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LINKED => "Linked"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PHYSICALDEVICEOBJECT => "PhysicalDeviceObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REMOVAL_POLICY => "RemovalPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_FILTERS => "Filters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOWER_FILTER_DEFAULT_LEVEL => "LowerFilterDefaultLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UPPER_FILTER_DEFAULT_LEVEL => "UpperFilterDefaultLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_LOWER_FILTER_LEVEL_DEFAULT => "*Lower"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_UPPER_FILTER_LEVEL_DEFAULT => "*Upper"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOWER_FILTER_LEVELS => "LowerFilterLevels"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UPPER_FILTER_LEVELS => "UpperFilterLevels"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURRENT_VERSION => "CurrentVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURRENT_BUILD => "CurrentBuildNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURRENT_CSDVERSION => "CSDVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURRENT_TYPE => "CurrentType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BITSPERPIXEL => "BitsPerPixel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESOLUTION => "Resolution"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DPILOGICALX => "DPILogicalX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DPILOGICALY => "DPILogicalY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DPIPHYSICALX => "DPIPhysicalX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DPIPHYSICALY => "DPIPhysicalY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REFRESHRATE => "RefreshRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPLAYFLAGS => "DisplayFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CONTROLPANEL => "Control Panel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CONTROLSFOLDER => "Software\Microsoft\Windows\CurrentVersion\Controls Folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOSCP => "OEMCP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WINCP => "ACP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DONTUSEMEM => "DontAllocLastMem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTEMROOT => "SystemRoot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BOOTCOUNT => "BootCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REALNETSTART => "RealNetStart"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MEDIA => "MediaPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONFIG => "ConfigPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICEPATH => "DevicePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SRCPATH => "SourcePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVERCACHEPATH => "DriverCachePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_OLDWINDIR => "OldWinDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SETUPFLAGS => "SetupFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REGOWNER => "RegisteredOwner"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REGORGANIZATION => "RegisteredOrganization"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LICENSINGINFO => "LicensingInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_OLDMSDOSVER => "OldMSDOSVer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FIRSTINSTALLDATETIME => "FirstInstallDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INSTALLTYPE => "InstallType"
 
@@ -927,187 +929,187 @@ class Registry {
     static IT_CUSTOM => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WRAPPER => "Wrapper"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_RUNHISTORY => "RunHistory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVEINTERVAL => "TimeStampInterval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DIRTYSHUTDOWN => "DirtyShutdown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DIRTYSHUTDOWNTIME => "DirtyShutdownTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BT => "6005BT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTCOMPUTERNAME => "LastComputerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVEBT => "LastAliveBT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVESTAMP => "LastAliveStamp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVESTAMPFORCED => "LastAliveStampForced"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVESTAMPINTERVAL => "LastAliveStampInterval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVESTAMPPOLICYINTERVAL => "LastAliveStampPolicyInterval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVEUPTIME => "LastAliveUptime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTALIVEPMPOLICY => "LastAlivePMPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REASONCODE => "ReasonCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMMENT => "Comment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNREASON => "ShutdownReason"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNREASON_CODE => "ShutdownReasonCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNREASON_COMMENT => "ShutdownReasonComment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNREASON_PROCESS => "ShutdownReasonProcess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWNREASON_USERNAME => "ShutdownReasonUserName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWREASONUI => "ShutdownReasonUI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWN_IGNORE_PREDEFINED => "ShutdownIgnorePredefinedReasons"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWN_STATE_SNAPSHOT => "ShutdownStateSnapshot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_SETUP => "\Setup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BOOTDIR => "BootDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WINBOOTDIR => "WinbootDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WINDIR => "WinDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APPINSTPATH => "AppInstallPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EBDFILESLOCAL => "EBDFilesLocale"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EBDFILESKEYBOARD => "EBDFilesKeyboard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EBDAUTOEXECBATLOCAL => "EBDAutoexecBatLocale"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EBDAUTOEXECBATKEYBOARD => "EBDAutoexecBatKeyboard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EBDCONFIGSYSLOCAL => "EBDConfigSysLocale"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EBDCONFIGSYSKEYBOARD => "EBDConfigSysKeyboard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_POLICY => "Policy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BEHAVIOR_ON_FAILED_VERIFY => "BehaviorOnFailedVerify"
 
@@ -1127,17 +1129,17 @@ class Registry {
     static DRIVERSIGN_BLOCKING => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MSDOSMODE => "MSDOSMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MSDOSMODEDISCARD => "Discard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOSOPTGLOBALFLAGS => "GlobalFlags"
 
@@ -1147,32 +1149,32 @@ class Registry {
     static DOSOPTGF_DEFCLEAN => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOSOPTFLAGS => "Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_OPTORDER => "Order"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONFIGSYS => "Config.Sys"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTOEXEC => "Autoexec.Bat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_STDDOSOPTION => "StdOption"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOSOPTTIP => "TipText"
 
@@ -1262,17 +1264,17 @@ class Registry {
     static SUF_SBSCOPYOK => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOSPAGER => "DOSPager"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VXDGROUPS => "VXDGroups"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VPOWERDFLAGS => "Flags"
 
@@ -1317,542 +1319,542 @@ class Registry {
     static BIF_RAWDEVICENEEDSDRIVER => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WORKGROUP => "Workgroup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DIRECTHOST => "DirectHost"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FILESHARING => "FileSharing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRINTSHARING => "PrintSharing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FIRSTNETDRIVE => "FirstNetworkDrive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MAXCONNECTIONS => "MaxConnections"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APISUPPORT => "APISupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MAXRETRY => "MaxRetry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MINRETRY => "MinRetry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SUPPORTLFN => "SupportLFN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SUPPORTBURST => "SupportBurst"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SUPPORTTUNNELLING => "SupportTunnelling"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FULLTRACE => "FullTrace"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_READCACHING => "ReadCaching"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWDOTS => "ShowDots"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_GAPTIME => "GapTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SEARCHMODE => "SearchMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHELLVERSION => "ShellVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MAXLIP => "MaxLIP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRESERVECASE => "PreserveCase"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_OPTIMIZESFN => "OptimizeSFN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NCP_BROWSEMASTER => "BrowseMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NCP_USEPEERBROWSING => "Use_PeerBrowsing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NCP_USESAP => "Use_Sap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCCARD_POWER => "EnablePowerManagement"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WIN31FILESYSTEM => "Win31FileSystem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRESERVELONGNAMES => "PreserveLongNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVEWRITEBEHIND => "DriveWriteBehind"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ASYNCFILECOMMIT => "AsyncFileCommit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PATHCACHECOUNT => "PathCache"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NAMECACHECOUNT => "NameCache"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONTIGFILEALLOC => "ContigFileAllocSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FREESPACERATIO => "FreeSpaceRatio"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VOLIDLETIMEOUT => "VolumeIdleTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BUFFIDLETIMEOUT => "BufferIdleTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BUFFAGETIMEOUT => "BufferAgeTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NAMENUMERICTAIL => "NameNumericTail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_READAHEADTHRESHOLD => "ReadAheadThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOUBLEBUFFER => "DoubleBuffer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SOFTCOMPATMODE => "SoftCompatMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVESPINDOWN => "DriveSpinDown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCEPMIO => "ForcePMIO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCERMIO => "ForceRMIO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTBOOTPMDRVS => "LastBootPMDrvs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ACSPINDOWNPREVIOUS => "ACSpinDownPrevious"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BATSPINDOWNPREVIOUS => "BatSpinDownPrevious"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VIRTUALHDIRQ => "VirtualHDIRQ"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SRVNAMECACHECOUNT => "ServerNameCacheMax"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SRVNAMECACHE => "ServerNameCache"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SRVNAMECACHENETPROV => "ServerNameCacheNumNets"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTOMOUNT => "AutoMountDrives"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMPRESSIONMETHOD => "CompressionAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMPRESSIONTHRESHOLD => "CompressionThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ACDRIVESPINDOWN => "ACDriveSpinDown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BATDRIVESPINDOWN => "BatDriveSpinDown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDCACHESIZE => "CacheSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDPREFETCH => "Prefetch"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDPREFETCHTAIL => "PrefetchTail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDRAWCACHE => "RawCache"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDEXTERRORS => "ExtendedErrors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDSVDSENSE => "SVDSense"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDSHOWVERSIONS => "ShowVersions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDCOMPATNAMES => "MSCDEXCompatNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDNOREADAHEAD => "NoReadAhead"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCSI => "SCSI\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ESDI => "ESDI\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FLOP => "FLOP\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISK => "GenDisk"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDROM => "GenCD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TAPE => "TAPE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCANNER => "SCANNER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FLOPPY => "FLOPPY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCSITID => "SCSITargetID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCSILUN => "SCSILUN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REVLEVEL => "RevisionLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRODUCTID => "ProductId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRODUCTTYPE => "ProductType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVTYPE => "DeviceType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REMOVABLE => "Removable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURDRVLET => "CurrentDriveLetterAssignment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USRDRVLET => "UserDriveLetterAssignment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYNCDATAXFER => "SyncDataXfer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTOINSNOTE => "AutoInsertNotification"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISCONNECT => "Disconnect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INT13 => "Int13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PMODE_INT13 => "PModeInt13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USERSETTINGS => "AdapterSettings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOIDE => "NoIDE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISKCLASSNAME => "DiskDrive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CDROMCLASSNAME => "CDROM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCELOAD => "ForceLoadPD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCEFIFO => "ForceFIFO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCECL => "ForceChangeLine"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOUSECLASS => "NoUseClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOINSTALLCLASS => "NoInstallClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NODISPLAYCLASS => "NoDisplayClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SILENTINSTALL => "SilentInstall"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FSFILTERCLASS => "FSFilterClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PCMCIA_CLASS => "PCMCIA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_SCSI_CLASS => "SCSIAdapter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PORTS_CLASS => "ports"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_MEDIA_CLASS => "MEDIA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DISPLAY_CLASS => "Display"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_KEYBOARD_CLASS => "Keyboard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_MOUSE_CLASS => "Mouse"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_MONITOR_CLASS => "Monitor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_MODEM_CLASS => "Modem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCMCIA_OPT => "Options"
 
@@ -1882,7 +1884,7 @@ class Registry {
     static PCMCIA_OPT_NO_APMREMOVE => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCMCIA_MEM => "Memory"
 
@@ -1902,17 +1904,17 @@ class Registry {
     static PCMCIA_DEF_MEMLEN => 4096
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCMCIA_ALLOC => "AllocMemWin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCMCIA_ATAD => "ATADelay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCMCIA_SIZ => "MinRegionSize"
 
@@ -1922,37 +1924,37 @@ class Registry {
     static PCMCIA_DEF_MIN_REGION => 65536
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_P1284MDL => "Model"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_P1284MFG => "Manufacturer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ISAPNP => "ISAPNP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ISAPNP_RDP_OVERRIDE => "RDPOverRide"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCI => "PCI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PCI_OPTIONS => "Options"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PCI_DUAL_IDE => "PCIDualIDE"
 
@@ -2012,142 +2014,142 @@ class Registry {
     static AGP_FLAG_SPECIAL_RESERVE => 1015808
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_CRASHES => "Crashes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DANGERS => "Dangers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DETMODVARS => "DetModVars"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_NDISINFO => "NDISInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROTINIPATH => "ProtIniPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESOURCES => "Resources"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CRASHFUNCS => "CrashFuncs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CLASS => "Class"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CLASSDESC => "ClassDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVDESC => "DeviceDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BOOTCONFIG => "BootConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DETFUNC => "DetFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DETFLAGS => "DetFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMPATIBLEIDS => "CompatibleIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DETCONFIG => "DetConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VERIFYKEY => "VerifyKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMINFO => "ComInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INFNAME => "InfName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CARDSPECIFIC => "CardSpecific"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETOSTYPE => "NetOSType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_DATA_NETOS_NDIS => "NDIS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_DATA_NETOS_ODI => "ODI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_DATA_NETOS_IPX => "IPX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MFG => "Mfg"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCAN_ONLY_FIRST => "ScanOnlyFirstDrive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARE_IRQ => "ForceIRQSharing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NONSTANDARD_ATAPI => "NonStandardATAPI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_IDE_FORCE_SERIALIZE => "ForceSerialization"
 
@@ -2157,12 +2159,12 @@ class Registry {
     static REGSTR_VAL_MAX_HCID_LEN => 1024
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HWREV => "HWRevision"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLEINTS => "EnableInts"
 
@@ -2232,157 +2234,157 @@ class Registry {
     static REGDF_NOTVERIFIED => 2147483648
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APMBIOSVER => "APMBiosVer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APMFLAGS => "APMFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SLSUPPORT => "SLSupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MACHINETYPE => "MachineType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SETUPMACHINETYPE => "SetupMachineType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_UNKNOWN => "Unknown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPC => "IBM PC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPCJR => "IBM PCjr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPCCONV => "IBM PC Convertible"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPCXT => "IBM PC/XT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPCXT_286 => "IBM PC/XT 286"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPCAT => "IBM PC/AT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_25 => "IBM PS/2-25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_30_286 => "IBM PS/2-30 286"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_30 => "IBM PS/2-30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_50 => "IBM PS/2-50"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_50Z => "IBM PS/2-50Z"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_55SX => "IBM PS/2-55SX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_60 => "IBM PS/2-60"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_65SX => "IBM PS/2-65SX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_70 => "IBM PS/2-70"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_P70 => "IBM PS/2-P70"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_70_80 => "IBM PS/2-70/80"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_80 => "IBM PS/2-80"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS2_90 => "IBM PS/2-90"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_IBMPS1 => "IBM PS/1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_PHOENIX_PCAT => "Phoenix PC/AT Compatible"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_HP_VECTRA => "HP Vectra"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_ATT_PC => "AT&T PC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_MACHTYPE_ZENITH_PC => "Zenith PC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APMMENUSUSPEND => "APMMenuSuspend"
 
@@ -2407,12 +2409,12 @@ class Registry {
     static APMMENUSUSPEND_NOCHANGE => 128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APMACTIMEOUT => "APMACTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APMBATTIMEOUT => "APMBatTimeout"
 
@@ -2422,137 +2424,137 @@ class Registry {
     static APMTIMEOUT_DISABLED => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_APMSHUTDOWNPOWER => "APMShutDownPower"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BUSTYPE => "BusType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CPU => "CPU"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NDP => "NDP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PNPBIOSVER => "PnPBIOSVer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PNPSTRUCOFFSET => "PnPStrucOffset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCIBIOSVER => "PCIBIOSVer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HWMECHANISM => "HWMechanism"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LASTPCIBUSNUM => "LastPCIBusNum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONVMEM => "ConvMem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EXTMEM => "ExtMem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMPUTERNAME => "ComputerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BIOSNAME => "BIOSName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BIOSVERSION => "BIOSVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BIOSDATE => "BIOSDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MODEL => "Model"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SUBMODEL => "Submodel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REVISION => "Revision"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FIFODEPTH => "FIFODepth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RDINTTHRESHOLD => "RDIntThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WRINTTHRESHOLD => "WRIntThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRIORITY => "Priority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVER => "Driver"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FUNCDESC => "FunctionDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCEDCONFIG => "ForcedConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONFIGFLAGS => "ConfigFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CSCONFIGFLAGS => "CSConfigFlags"
 
@@ -2582,27 +2584,27 @@ class Registry {
     static DMSTATEFLAG_APPLYTOALL => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ROOT_DEVNODE => "HTREE\ROOT\0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESERVED_DEVNODE => "HTREE\RESERVED\0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_MULTI_FUNCTION => "MF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESOURCE_MAP => "ResourceMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHILD_PREFIX => "Child"
 
@@ -2612,7 +2614,7 @@ class Registry {
     static NUM_RESOURCE_MAP => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MF_FLAGS => "MFFlags"
 
@@ -2637,27 +2639,27 @@ class Registry {
     static MF_FLAGS_CREATE_BUT_NO_SHOW_DISABLED => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EISA_RANGES => "EISARanges"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EISA_FUNCTIONS => "EISAFunctions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EISA_FUNCTIONS_MASK => "EISAFunctionsMask"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EISA_FLAGS => "EISAFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EISA_SIMULATE_INT15 => "EISASimulateInt15"
 
@@ -2682,422 +2684,422 @@ class Registry {
     static NUM_EISA_RANGES => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRVDESC => "DriverDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVLOADER => "DevLoader"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_STATICVXD => "StaticVxD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROPERTIES => "Properties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MANUFACTURER => "Manufacturer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_EXISTS => "Exists"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CMENUMFLAGS => "CMEnumFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CMDRIVFLAGS => "CMDrivFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENUMERATOR => "Enumerator"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEVICEDRIVER => "DeviceDriver"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PORTNAME => "PortName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INFPATH => "InfPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INFSECTION => "InfSection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INFSECTIONEXT => "InfSectionExt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_POLLING => "Polling"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DONTLOADIFCONFLICT => "DontLoadIfConflict"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PORTSUBCLASS => "PortSubClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETCLEAN => "NetClean"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_IDE_NO_SERIALIZE => "IDENoSerialize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOCMOSORFDPT => "NoCMOSorFDPT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMVERIFYBASE => "COMVerifyBase"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MATCHINGDEVID => "MatchingDeviceId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVERDATE => "DriverDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVERDATEDATA => "DriverDateData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVERVERSION => "DriverVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOCATION_INFORMATION_OVERRIDE => "LocationInformationOverride"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_OVERRIDE => "Override"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONFIGMG => "CONFIGMG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSDM => "SysDM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSDMFUNC => "SysDMFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRIVATE => "Private"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRIVATEFUNC => "PrivateFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DETECT => "Detect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DETECTFUNC => "DetectFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ASKFORCONFIG => "AskForConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ASKFORCONFIGFUNC => "AskForConfigFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WAITFORUNDOCK => "WaitForUndock"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WAITFORUNDOCKFUNC => "WaitForUndockFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REMOVEROMOKAY => "RemoveRomOkay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REMOVEROMOKAYFUNC => "RemoveRomOkayFunc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURCONFIG => "CurrentConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FRIENDLYNAME => "FriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURRENTCONFIG => "CurrentConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MAP => "Map"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ID => "CurrentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOCKED => "CurrentDockedState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CHECKSUM => "CurrentChecksum"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HWDETECT => "HardwareDetect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INHIBITRESULTS => "InhibitResults"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROFILEFLAGS => "ProfileFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PCMCIA => "PCMCIA\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PCUNKNOWN => "UNKNOWN_MANUFACTURER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCSSDRIVER => "Driver"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PCMTD => "MTD-"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCMTDRIVER => "MTD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HARDWAREID => "HardwareID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INSTALLER => "Installer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INSTALLER_32 => "Installer32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INSICON => "Icon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENUMPROPPAGES => "EnumPropPages"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENUMPROPPAGES_32 => "EnumPropPages32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BASICPROPERTIES => "BasicProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BASICPROPERTIES_32 => "BasicProperties32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COINSTALLERS_32 => "CoInstallers32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRIVATEPROBLEM => "PrivateProblem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_CURRENT => "Current"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DEFAULT => "Default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_MODES => "Modes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MODE => "Mode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BPP => "BPP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HRES => "HRes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VRES => "VRes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FONTSIZE => "FontSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRV => "drv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_GRB => "grb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VDD => "vdd"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VER => "Ver"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MAXRES => "MaxResolution"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DPMS => "DPMS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESUMERESET => "ResumeReset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_SYSTEM => "System"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_USER => "User"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DPI => "dpi"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCICOPTIONS => "PCICOptions"
 
@@ -3112,842 +3114,842 @@ class Registry {
     static PCIC_DEFAULT_NUMSOCKETS => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PCICIRQMAP => "PCICIRQMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_APPEARANCE => "Control Panel\Appearance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_LOOKSCHEMES => "Control Panel\Appearance\Schemes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CUSTOMCOLORS => "CustomColors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SCREENSAVE => "Control Panel\Desktop"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_USESCRPASSWORD => "ScreenSaveUsePassword"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_SCRPASSWORD => "ScreenSave_Data"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_LOWPOWERTIMEOUT => "ScreenSaveLowPowerTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_POWEROFFTIMEOUT => "ScreenSavePowerOffTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_LOWPOWERACTIVE => "ScreenSaveLowPowerActive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_POWEROFFACTIVE => "ScreenSavePowerOffActive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_WINDOWSAPPLETS => "Software\Microsoft\Windows\CurrentVersion\Applets"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SYSTRAY => "Software\Microsoft\Windows\CurrentVersion\Applets\SysTray"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTRAYSVCS => "Services"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTRAYBATFLAGS => "PowerFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTRAYPCCARDFLAGS => "PCMCIAFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_NETWORK_USERSETTINGS => "Network"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_NETWORK_PERSISTENT => "\Persistent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_NETWORK_RECENT => "\Recent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REMOTE_PATH => "RemotePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USER_NAME => "UserName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROVIDER_NAME => "ProviderName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CONNECTION_TYPE => "ConnectionType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UPGRADE => "Upgrade"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_LOGON => "\Logon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MUSTBEVALIDATED => "MustBeValidated"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RUNLOGINSCRIPT => "ProcessLoginScript"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_NETWORKPROVIDER => "\NetworkProvider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTHENT_AGENT => "AuthenticatingAgent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PREFREDIR => "PreferredRedir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTOSTART => "AutoStart"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTOLOGON => "AutoLogon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETCARD => "Netcard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TRANSPORT => "Transport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DYNAMIC => "Dynamic"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TRANSITION => "Transition"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_STATICDRIVE => "StaticDrive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOADHI => "LoadHi"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOADRMDRIVERS => "LoadRMDrivers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SETUPN => "SetupN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SETUPNPATH => "SetupNPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WRKGRP_FORCEMAPPING => "WrkgrpForceMapping"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WRKGRP_REQUIRED => "WrkgrpRequired"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CURRENT_CONTROL_SET => "System\CurrentControlSet\Control"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CURRENT_USER => "Current User"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PWDPROVIDER => "System\CurrentControlSet\Control\PwdProvider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_PATH => "ProviderPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_DESC => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_CHANGEPWD => "ChangePassword"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_CHANGEPWDHWND => "ChangePasswordHwnd"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_GETPWDSTATUS => "GetPasswordStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_ISNP => "NetworkProvider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDPROVIDER_CHANGEORDER => "ChangeOrder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_POLICIES => "Software\Microsoft\Windows\CurrentVersion\Policies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_UPDATE => "System\CurrentControlSet\Control\Update"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_ENABLE => "Enable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_VERBOSE => "Verbose"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_NETPATH => "NetworkPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VALUE_DEFAULTLOC => "UseDefaultNetLocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_NETWORK => "Network"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PRINTERS => "Printers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_WINOLDAPP => "WinOldApp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_EXPLORER => "Explorer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOFILESHARING => "NoFileSharing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOPRINTSHARING => "NoPrintSharing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOFILESHARINGCTRL => "NoFileSharingControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOPRINTSHARINGCTRL => "NoPrintSharingControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HIDESHAREPWDS => "HideSharePwds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISABLEPWDCACHING => "DisablePwdCaching"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ALPHANUMPWDS => "AlphanumPwds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETSETUP_DISABLE => "NoNetSetup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETSETUP_NOCONFIGPAGE => "NoNetSetupConfigPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETSETUP_NOIDPAGE => "NoNetSetupIDPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NETSETUP_NOSECURITYPAGE => "NoNetSetupSecurityPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTEMCPL_NOVIRTMEMPAGE => "NoVirtMemPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTEMCPL_NODEVMGRPAGE => "NoDevMgrPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTEMCPL_NOCONFIGPAGE => "NoConfigPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SYSTEMCPL_NOFILESYSPAGE => "NoFileSysPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPCPL_NODISPCPL => "NoDispCPL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPCPL_NOBACKGROUNDPAGE => "NoDispBackgroundPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPCPL_NOSCRSAVPAGE => "NoDispScrSavPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPCPL_NOAPPEARANCEPAGE => "NoDispAppearancePage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISPCPL_NOSETTINGSPAGE => "NoDispSettingsPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECCPL_NOSECCPL => "NoSecCPL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECCPL_NOPWDPAGE => "NoPwdPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECCPL_NOADMINPAGE => "NoAdminPage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECCPL_NOPROFILEPAGE => "NoProfilePage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRINTERS_HIDETABS => "NoPrinterTabs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRINTERS_NODELETE => "NoDeletePrinter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRINTERS_NOADD => "NoAddPrinter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WINOLDAPP_DISABLED => "Disabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WINOLDAPP_NOREALMODE => "NoRealMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOENTIRENETWORK => "NoEntireNetwork"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NOWORKGROUPCONTENTS => "NoWorkgroupContents"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UNDOCK_WITHOUT_LOGON => "UndockWithoutLogon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MINPWDLEN => "MinPwdLen"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PWDEXPIRATION => "PwdExpiration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WIN31PROVIDER => "Win31Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISABLEREGTOOLS => "DisableRegistryTools"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_WINLOGON => "Software\Microsoft\Windows\CurrentVersion\Winlogon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LEGALNOTICECAPTION => "LegalNoticeCaption"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LEGALNOTICETEXT => "LegalNoticeText"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DRIVE_SPINDOWN => "NoDispSpinDown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHUTDOWN_FLAGS => "ShutdownFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RESTRICTRUN => "RestrictRun"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_POL_USERS => "Users"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_POL_COMPUTERS => "Computers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_POL_USERGROUPS => "UserGroups"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_POL_DEFAULT => ".default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_POL_USERGROUPDATA => "GroupData\UserGroups\Priority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_TIMEZONE => "System\CurrentControlSet\Control\TimeZoneInformation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZBIAS => "Bias"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZDLTBIAS => "DaylightBias"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZSTDBIAS => "StandardBias"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZACTBIAS => "ActiveTimeBias"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZDLTFLAG => "DaylightFlag"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZSTDSTART => "StandardStart"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZDLTSTART => "DaylightStart"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZDLTNAME => "DaylightName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZSTDNAME => "StandardName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZNOCHANGESTART => "NoChangeStart"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZNOCHANGEEND => "NoChangeEnd"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TZNOAUTOTIME => "DisableAutoDaylightTimeSet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_FLOATINGPOINTPROCESSOR => "HARDWARE\DESCRIPTION\System\FloatingPointProcessor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_FLOATINGPOINTPROCESSOR0 => "HARDWARE\DESCRIPTION\System\FloatingPointProcessor\0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_COMPUTRNAME => "System\CurrentControlSet\Control\ComputerName\ComputerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COMPUTRNAME => "ComputerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SHUTDOWN => "System\CurrentControlSet\Control\Shutdown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FORCEREBOOT => "ForceReboot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SETUPPROGRAMRAN => "SetupProgramRan"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOES_POLLING => "PollingSupportNeeded"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_KNOWNDLLS => "System\CurrentControlSet\Control\SessionManager\KnownDLLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_KNOWN16DLLS => "System\CurrentControlSet\Control\SessionManager\Known16DLLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHECKVERDLLS => "System\CurrentControlSet\Control\SessionManager\CheckVerDLLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_WARNVERDLLS => "System\CurrentControlSet\Control\SessionManager\WarnVerDLLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_HACKINIFILE => "System\CurrentControlSet\Control\SessionManager\HackIniFiles"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHECKBADAPPS => "System\CurrentControlSet\Control\SessionManager\CheckBadApps"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_APPPATCH => "System\CurrentControlSet\Control\SessionManager\AppPatches"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHECKBADAPPS400 => "System\CurrentControlSet\Control\SessionManager\CheckBadApps400"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_KNOWNVXDS => "System\CurrentControlSet\Control\SessionManager\KnownVxDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UNINSTALLER_DISPLAYNAME => "DisplayName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_UNINSTALLER_COMMANDLINE => "UninstallString"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REINSTALL_DISPLAYNAME => "DisplayName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REINSTALL_STRING => "ReinstallString"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REINSTALL_DEVICEINSTANCEIDS => "DeviceInstanceIds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DESKTOP => "Control Panel\Desktop"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_MOUSE => "Control Panel\Mouse"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_KEYBOARD => "Control Panel\Keyboard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_COLORS => "Control Panel\Colors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SOUND => "Control Panel\Sound"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_METRICS => "Control Panel\Desktop\WindowMetrics"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_ICONS => "Control Panel\Icons"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CURSORS => "Control Panel\Cursors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHECKDISK => "Software\Microsoft\Windows\CurrentVersion\Applets\Check Drive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHECKDISKSET => "Settings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHECKDISKUDRVS => "NoUnknownDDErrDrvs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_FAULT => "Software\Microsoft\Windows\CurrentVersion\Fault"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FAULT_LOGFILE => "LogFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_AEDEBUG => "Software\Microsoft\Windows NT\CurrentVersion\AeDebug"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AEDEBUG_DEBUGGER => "Debugger"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AEDEBUG_AUTO => "Auto"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_GRPCONV => "Software\Microsoft\Windows\CurrentVersion\GrpConv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REGITEMDELETEMESSAGE => "Removal Message"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_LASTCHECK => "Software\Microsoft\Windows\CurrentVersion\Explorer\LastCheck"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_LASTOPTIMIZE => "Software\Microsoft\Windows\CurrentVersion\Explorer\LastOptimize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_LASTBACKUP => "Software\Microsoft\Windows\CurrentVersion\Explorer\LastBackup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHKLASTCHECK => "Software\Microsoft\Windows\CurrentVersion\Applets\Check Drive\LastCheck"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CHKLASTSURFAN => "Software\Microsoft\Windows\CurrentVersion\Applets\Check Drive\LastSurfaceAnalysis"
 
@@ -3972,337 +3974,337 @@ class Registry {
     static DTRESULTPART => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_SHARES => "Software\Microsoft\Windows\CurrentVersion\Network\LanMan"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARES_FLAGS => "Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARES_TYPE => "Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARES_PATH => "Path"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARES_REMARK => "Remark"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARES_RW_PASS => "Parm1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHARES_RO_PASS => "Parm2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PRINT => "System\CurrentControlSet\Control\Print"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PRINTERS => "System\CurrentControlSet\Control\Print\Printers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PROVIDERS => "System\CurrentControlSet\Control\Print\Providers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_MONITORS => "System\CurrentControlSet\Control\Print\Monitors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_ENVIRONMENTS => "System\CurrentControlSet\Control\Print\Environments"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_START_ON_BOOT => "StartOnBoot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRINTERS_MASK => "PrintersMask"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DOS_SPOOL_MASK => "DOSSpoolMask"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_CURRENT_ENV => "\Windows 4.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DRIVERS => "\Drivers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_PRINT_PROC => "\Print Processors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_EVENTLABELS => "AppEvents\EventLabels"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SCHEMES => "AppEvents\Schemes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_MULTIMEDIA_AUDIO => "Software\Microsoft\Multimedia\Audio"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_JOYCURR => "CurrentJoystickSettings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_JOYSETTINGS => "JoystickSettings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYUSERVALUES => "JoystickUserValues"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYCALLOUT => "JoystickCallout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYNCONFIG => "Joystick%dConfiguration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYNOEMNAME => "Joystick%dOEMName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYNOEMCALLOUT => "Joystick%dOEMCallout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCALLOUT => "OEMCallout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMNAME => "OEMName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMDATA => "OEMData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMXYLABEL => "OEMXYLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMZLABEL => "OEMZLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMRLABEL => "OEMRLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMPOVLABEL => "OEMPOVLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMULABEL => "OEMULabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMVLABEL => "OEMVLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMTESTMOVEDESC => "OEMTestMoveDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMTESTBUTTONDESC => "OEMTestButtonDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMTESTMOVECAP => "OEMTestMoveCap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMTESTBUTTONCAP => "OEMTestButtonCap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMTESTWINCAP => "OEMTestWinCap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCALCAP => "OEMCalCap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCALWINCAP => "OEMCalWinCap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL1 => "OEMCal1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL2 => "OEMCal2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL3 => "OEMCal3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL4 => "OEMCal4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL5 => "OEMCal5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL6 => "OEMCal6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL7 => "OEMCal7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL8 => "OEMCal8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL9 => "OEMCal9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL10 => "OEMCal10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL11 => "OEMCal11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JOYOEMCAL12 => "OEMCal12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUDIO_BITMAP => "bitmap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUDIO_ICON => "icon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DEVICEINSTALLER => "Software\Microsoft\Windows\CurrentVersion\Device Installer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DIFX => "Software\Microsoft\Windows\CurrentVersion\DIFX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SEARCHOPTIONS => "SearchOptions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_BIOSINFO => "System\CurrentControlSet\Control\BiosInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_PCIIR => "System\CurrentControlSet\Control\Pnp\PciIrqRouting"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_OPTIONS => "Options"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_STAT => "Status"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TABLE_STAT => "TableStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MINIPORT_STAT => "MiniportStatus"
 
@@ -4437,12 +4439,12 @@ class Registry {
     static PIR_STATUS_MINIPORT_MAX => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_LASTGOOD => "System\LastKnownGoodRecovery\LastGood"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_LASTGOODTMP => "System\LastKnownGoodRecovery\LastGood.Tmp"
 
@@ -4472,20 +4474,20 @@ class Registry {
      * <b>RegCloseKey</b> function does not necessarily write information to the registry before returning; it can take as much as several seconds for the cache to be flushed to the hard disk. If an application must explicitly write registry information to the hard disk, it can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regflushkey">RegFlushKey</a> function. 
      * <b>RegFlushKey</b>, however, uses many system resources and should be called only when necessary.
-     * @param {HKEY} hKey A handle to the open key to be closed. The handle must have been opened by the 
+     * @param {HKEY} hKey_ A handle to the open key to be closed. The handle must have been opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regclosekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regclosekey
      * @since windows5.0
      */
-    static RegCloseKey(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegCloseKey(hKey_) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ADVAPI32.dll\RegCloseKey", "ptr", hKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegCloseKey", "ptr", hKey_, "uint")
         return result
     }
 
@@ -4503,7 +4505,7 @@ class Registry {
      * After the call to 
      * <b>RegOverridePredefKey</b>, you can safely call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> to close the <i>hNewHKey</i> handle. The system maintains its own reference to <i>hNewHKey</i>.
-     * @param {HKEY} hKey A handle to one of the following 
+     * @param {HKEY} hKey_ A handle to one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
      * - <b>HKEY_CLASSES_ROOT</b>
@@ -4520,14 +4522,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regoverridepredefkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regoverridepredefkey
      * @since windows5.0
      */
-    static RegOverridePredefKey(hKey, hNewHKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegOverridePredefKey(hKey_, hNewHKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         hNewHKey := hNewHKey is Win32Handle ? NumGet(hNewHKey, "ptr") : hNewHKey
 
-        result := DllCall("ADVAPI32.dll\RegOverridePredefKey", "ptr", hKey, "ptr", hNewHKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegOverridePredefKey", "ptr", hKey_, "ptr", hNewHKey, "uint")
         return result
     }
 
@@ -4565,7 +4567,7 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenuserclassesroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenuserclassesroot
      * @since windows5.0
      */
     static RegOpenUserClassesRoot(hToken, samDesired, phkResult) {
@@ -4590,7 +4592,7 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopencurrentuser
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopencurrentuser
      * @since windows5.0
      */
     static RegOpenCurrentUser(samDesired, phkResult) {
@@ -4607,7 +4609,7 @@ class Registry {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdisablepredefinedcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdisablepredefinedcache
      * @since windows5.0
      */
     static RegDisablePredefinedCache() {
@@ -4628,7 +4630,7 @@ class Registry {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdisablepredefinedcacheex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdisablepredefinedcacheex
      * @since windows6.0.6000
      */
     static RegDisablePredefinedCacheEx() {
@@ -4671,7 +4673,7 @@ class Registry {
      * The caller must have access to the remote computer or the function fails.
      * 
      * If this parameter is <b>NULL</b>, the local computer name is used.
-     * @param {HKEY} hKey A predefined registry handle. This parameter can be one of the following 
+     * @param {HKEY} hKey_ A predefined registry handle. This parameter can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a> on the remote computer. 
      * 
      * 
@@ -4685,14 +4687,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regconnectregistrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regconnectregistrya
      * @since windows5.0
      */
-    static RegConnectRegistryA(lpMachineName, hKey, phkResult) {
+    static RegConnectRegistryA(lpMachineName, hKey_, phkResult) {
         lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ADVAPI32.dll\RegConnectRegistryA", "ptr", lpMachineName, "ptr", hKey, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegConnectRegistryA", "ptr", lpMachineName, "ptr", hKey_, "ptr", phkResult, "uint")
         return result
     }
 
@@ -4731,7 +4733,7 @@ class Registry {
      * The caller must have access to the remote computer or the function fails.
      * 
      * If this parameter is <b>NULL</b>, the local computer name is used.
-     * @param {HKEY} hKey A predefined registry handle. This parameter can be one of the following 
+     * @param {HKEY} hKey_ A predefined registry handle. This parameter can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a> on the remote computer. 
      * 
      * 
@@ -4745,46 +4747,46 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regconnectregistryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regconnectregistryw
      * @since windows5.0
      */
-    static RegConnectRegistryW(lpMachineName, hKey, phkResult) {
+    static RegConnectRegistryW(lpMachineName, hKey_, phkResult) {
         lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ADVAPI32.dll\RegConnectRegistryW", "ptr", lpMachineName, "ptr", hKey, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegConnectRegistryW", "ptr", lpMachineName, "ptr", hKey_, "ptr", phkResult, "uint")
         return result
     }
 
     /**
      * 
      * @param {PSTR} lpMachineName 
-     * @param {HKEY} hKey 
+     * @param {HKEY} hKey_ 
      * @param {Integer} Flags 
      * @param {Pointer<HKEY>} phkResult 
      * @returns {Integer} 
      */
-    static RegConnectRegistryExA(lpMachineName, hKey, Flags, phkResult) {
+    static RegConnectRegistryExA(lpMachineName, hKey_, Flags, phkResult) {
         lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ADVAPI32.dll\RegConnectRegistryExA", "ptr", lpMachineName, "ptr", hKey, "uint", Flags, "ptr", phkResult, "int")
+        result := DllCall("ADVAPI32.dll\RegConnectRegistryExA", "ptr", lpMachineName, "ptr", hKey_, "uint", Flags, "ptr", phkResult, "int")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} lpMachineName 
-     * @param {HKEY} hKey 
+     * @param {HKEY} hKey_ 
      * @param {Integer} Flags 
      * @param {Pointer<HKEY>} phkResult 
      * @returns {Integer} 
      */
-    static RegConnectRegistryExW(lpMachineName, hKey, Flags, phkResult) {
+    static RegConnectRegistryExW(lpMachineName, hKey_, Flags, phkResult) {
         lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ADVAPI32.dll\RegConnectRegistryExW", "ptr", lpMachineName, "ptr", hKey, "uint", Flags, "ptr", phkResult, "int")
+        result := DllCall("ADVAPI32.dll\RegConnectRegistryExW", "ptr", lpMachineName, "ptr", hKey_, "uint", Flags, "ptr", phkResult, "int")
         return result
     }
 
@@ -4808,7 +4810,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegCreateKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -4838,14 +4840,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcreatekeya
      * @since windows5.0
      */
-    static RegCreateKeyA(hKey, lpSubKey, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegCreateKeyA(hKey_, lpSubKey, phkResult) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegCreateKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegCreateKeyA", "ptr", hKey_, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
     }
 
@@ -4869,7 +4871,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegCreateKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -4899,14 +4901,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcreatekeyw
      * @since windows5.0
      */
-    static RegCreateKeyW(hKey, lpSubKey, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegCreateKeyW(hKey_, lpSubKey, phkResult) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegCreateKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegCreateKeyW", "ptr", hKey_, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
     }
 
@@ -4936,7 +4938,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegCreateKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that modify the registry if allowed by its security descriptor.
@@ -5009,19 +5011,19 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcreatekeyexa
      * @since windows5.0
      */
-    static RegCreateKeyExA(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
+    static RegCreateKeyExA(hKey_, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegCreateKeyExA", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "uint")
+        result := DllCall("ADVAPI32.dll\RegCreateKeyExA", "ptr", hKey_, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "uint")
         return result
     }
 
@@ -5051,7 +5053,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegCreateKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that modify the registry if allowed by its security descriptor.
@@ -5124,19 +5126,19 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcreatekeyexw
      * @since windows5.0
      */
-    static RegCreateKeyExW(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
+    static RegCreateKeyExW(hKey_, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegCreateKeyExW", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "uint")
+        result := DllCall("ADVAPI32.dll\RegCreateKeyExW", "ptr", hKey_, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "uint")
         return result
     }
 
@@ -5166,7 +5168,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegCreateKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that create keys if allowed by its security descriptor.
@@ -5240,20 +5242,20 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeytransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcreatekeytransacteda
      * @since windows6.0.6000
      */
-    static RegCreateKeyTransactedA(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
+    static RegCreateKeyTransactedA(hKey_, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
         static Reserved := 0, pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedA", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
+        result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedA", "ptr", hKey_, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
     }
 
@@ -5283,7 +5285,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegCreateKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that create keys if allowed by its security descriptor.
@@ -5357,20 +5359,20 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcreatekeytransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcreatekeytransactedw
      * @since windows6.0.6000
      */
-    static RegCreateKeyTransactedW(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
+    static RegCreateKeyTransactedW(hKey_, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
         static Reserved := 0, pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         lpdwDispositionMarshal := lpdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedW", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
+        result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedW", "ptr", hKey_, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, lpdwDispositionMarshal, lpdwDisposition, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
     }
 
@@ -5381,7 +5383,7 @@ class Registry {
      * 
      * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
-     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5406,14 +5408,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. To get a generic description of the error, you can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeya
      * @since windows5.0
      */
-    static RegDeleteKeyA(hKey, lpSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteKeyA(hKey_, lpSubKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyA", "ptr", hKey, "ptr", lpSubKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyA", "ptr", hKey_, "ptr", lpSubKey, "uint")
         return result
     }
 
@@ -5424,7 +5426,7 @@ class Registry {
      * 
      * The subkey to be deleted must not have subkeys. To delete a key and all its subkeys, you need to enumerate the subkeys and delete them individually. To delete keys recursively, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdeletetreea">RegDeleteTree</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shdeletekeya">SHDeleteKey</a> function.
-     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5449,14 +5451,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. To get a generic description of the error, you can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeyw
      * @since windows5.0
      */
-    static RegDeleteKeyW(hKey, lpSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteKeyW(hKey_, lpSubKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyW", "ptr", hKey, "ptr", lpSubKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyW", "ptr", hKey_, "ptr", lpSubKey, "uint")
         return result
     }
 
@@ -5479,7 +5481,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5532,16 +5534,16 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeyexa
      * @since windows6.0.6000
      */
-    static RegDeleteKeyExA(hKey, lpSubKey, samDesired) {
+    static RegDeleteKeyExA(hKey_, lpSubKey, samDesired) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyExA", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyExA", "ptr", hKey_, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "uint")
         return result
     }
 
@@ -5564,7 +5566,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5617,16 +5619,16 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeyexw
      * @since windows6.0.6000
      */
-    static RegDeleteKeyExW(hKey, lpSubKey, samDesired) {
+    static RegDeleteKeyExW(hKey_, lpSubKey, samDesired) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyExW", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyExW", "ptr", hKey_, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "uint")
         return result
     }
 
@@ -5648,7 +5650,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5702,17 +5704,17 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeytransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeytransacteda
      * @since windows6.0.6000
      */
-    static RegDeleteKeyTransactedA(hKey, lpSubKey, samDesired, hTransaction) {
+    static RegDeleteKeyTransactedA(hKey_, lpSubKey, samDesired, hTransaction) {
         static Reserved := 0, pExtendedParameter := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyTransactedA", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "ptr", hTransaction, "ptr", pExtendedParameter, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyTransactedA", "ptr", hKey_, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "ptr", hTransaction, "ptr", pExtendedParameter, "uint")
         return result
     }
 
@@ -5734,7 +5736,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5788,17 +5790,17 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeytransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeytransactedw
      * @since windows6.0.6000
      */
-    static RegDeleteKeyTransactedW(hKey, lpSubKey, samDesired, hTransaction) {
+    static RegDeleteKeyTransactedW(hKey_, lpSubKey, samDesired, hTransaction) {
         static Reserved := 0, pExtendedParameter := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyTransactedW", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "ptr", hTransaction, "ptr", pExtendedParameter, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyTransactedW", "ptr", hKey_, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "ptr", hTransaction, "ptr", pExtendedParameter, "uint")
         return result
     }
 
@@ -5816,7 +5818,7 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdisablereflectionkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdisablereflectionkey
      * @since windows6.0.6000
      */
     static RegDisableReflectionKey(hBase) {
@@ -5838,7 +5840,7 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenablereflectionkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenablereflectionkey
      * @since windows6.0.6000
      */
     static RegEnableReflectionKey(hBase) {
@@ -5868,7 +5870,7 @@ class Registry {
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the
      *        FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryreflectionkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryreflectionkey
      * @since windows6.0.6000
      */
     static RegQueryReflectionKey(hBase, bIsReflectionDisabled) {
@@ -5885,7 +5887,7 @@ class Registry {
      * @remarks
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5915,14 +5917,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletevaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletevaluea
      * @since windows5.0
      */
-    static RegDeleteValueA(hKey, lpValueName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteValueA(hKey_, lpValueName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegDeleteValueA", "ptr", hKey, "ptr", lpValueName, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteValueA", "ptr", hKey_, "ptr", lpValueName, "uint")
         return result
     }
 
@@ -5931,7 +5933,7 @@ class Registry {
      * @remarks
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5961,14 +5963,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletevaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletevaluew
      * @since windows5.0
      */
-    static RegDeleteValueW(hKey, lpValueName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteValueW(hKey_, lpValueName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegDeleteValueW", "ptr", hKey, "ptr", lpValueName, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteValueW", "ptr", hKey_, "ptr", lpValueName, "uint")
         return result
     }
 
@@ -5991,7 +5993,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegEnumKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6029,14 +6031,14 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenumkeya
      * @since windows5.0
      */
-    static RegEnumKeyA(hKey, dwIndex, lpName, cchName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegEnumKeyA(hKey_, dwIndex, lpName, cchName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("ADVAPI32.dll\RegEnumKeyA", "ptr", hKey, "uint", dwIndex, "ptr", lpName, "uint", cchName, "uint")
+        result := DllCall("ADVAPI32.dll\RegEnumKeyA", "ptr", hKey_, "uint", dwIndex, "ptr", lpName, "uint", cchName, "uint")
         return result
     }
 
@@ -6059,7 +6061,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegEnumKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6097,14 +6099,14 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenumkeyw
      * @since windows5.0
      */
-    static RegEnumKeyW(hKey, dwIndex, lpName, cchName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegEnumKeyW(hKey_, dwIndex, lpName, cchName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
-        result := DllCall("ADVAPI32.dll\RegEnumKeyW", "ptr", hKey, "uint", dwIndex, "ptr", lpName, "uint", cchName, "uint")
+        result := DllCall("ADVAPI32.dll\RegEnumKeyW", "ptr", hKey_, "uint", dwIndex, "ptr", lpName, "uint", cchName, "uint")
         return result
     }
 
@@ -6125,7 +6127,7 @@ class Registry {
      * 
      * > [!NOTE] 
      * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -6166,20 +6168,20 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenumkeyexa
      * @since windows5.0
      */
-    static RegEnumKeyExA(hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
+    static RegEnumKeyExA(hKey_, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
         lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegEnumKeyExA", "ptr", hKey, "uint", dwIndex, "ptr", lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "ptr", lpftLastWriteTime, "uint")
+        result := DllCall("ADVAPI32.dll\RegEnumKeyExA", "ptr", hKey_, "uint", dwIndex, "ptr", lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "ptr", lpftLastWriteTime, "uint")
         return result
     }
 
@@ -6197,7 +6199,7 @@ class Registry {
      * <b>RegEnumKeyEx</b> function, it should not make calls to any registration functions that might change the key being enumerated.
      * 
      * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -6238,20 +6240,20 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more subkeys available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpName</i> buffer is too small to receive the name of the key, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumkeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenumkeyexw
      * @since windows5.0
      */
-    static RegEnumKeyExW(hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
+    static RegEnumKeyExW(hKey_, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpcchNameMarshal := lpcchName is VarRef ? "uint*" : "ptr"
         lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegEnumKeyExW", "ptr", hKey, "uint", dwIndex, "ptr", lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "ptr", lpftLastWriteTime, "uint")
+        result := DllCall("ADVAPI32.dll\RegEnumKeyExW", "ptr", hKey_, "uint", dwIndex, "ptr", lpName, lpcchNameMarshal, lpcchName, "uint*", lpReserved, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "ptr", lpftLastWriteTime, "uint")
         return result
     }
 
@@ -6275,7 +6277,7 @@ class Registry {
      * 
      * > [!NOTE] 
      * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6332,20 +6334,20 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more values available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the buffer specified by <i>lpValueName</i> or <i>lpData</i> is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenumvaluea
      * @since windows5.0
      */
-    static RegEnumValueA(hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
+    static RegEnumValueA(hKey_, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
         lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
         lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegEnumValueA", "ptr", hKey, "uint", dwIndex, "ptr", lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegEnumValueA", "ptr", hKey_, "uint", dwIndex, "ptr", lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -6366,7 +6368,7 @@ class Registry {
      * 
      * To determine the maximum size of the name and data buffers, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6421,20 +6423,20 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If there are no more values available, the function returns ERROR_NO_MORE_ITEMS.
      * 
      * If the <i>lpData</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regenumvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regenumvaluew
      * @since windows5.0
      */
-    static RegEnumValueW(hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
+    static RegEnumValueW(hKey_, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
         lpcchValueNameMarshal := lpcchValueName is VarRef ? "uint*" : "ptr"
         lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegEnumValueW", "ptr", hKey, "uint", dwIndex, "ptr", lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegEnumValueW", "ptr", hKey_, "uint", dwIndex, "ptr", lpValueName, lpcchValueNameMarshal, lpcchValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -6452,7 +6454,7 @@ class Registry {
      * <b>RegFlushKey</b> function writes out the data for other keys in the hive that have been modified since the last lazy flush or system start.
      * 
      *  After <b>RegFlushKey</b> returns, use <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> to close the handle to the registry key.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6473,13 +6475,13 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regflushkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regflushkey
      * @since windows5.0
      */
-    static RegFlushKey(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegFlushKey(hKey_) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ADVAPI32.dll\RegFlushKey", "ptr", hKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegFlushKey", "ptr", hKey_, "uint")
         return result
     }
 
@@ -6491,7 +6493,7 @@ class Registry {
      * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) from the key's security descriptor, the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the key or the key's DACL must grant the access.
      * 
      * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the key was opened. The correct way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
-     * @param {HKEY} hKey A handle to an open key for which to retrieve the security descriptor.
+     * @param {HKEY} hKey_ A handle to an open key for which to retrieve the security descriptor.
      * @param {Integer} SecurityInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that indicates the requested security information.
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the requested security descriptor.
@@ -6501,15 +6503,15 @@ class Registry {
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-reggetkeysecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-reggetkeysecurity
      * @since windows5.1.2600
      */
-    static RegGetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegGetKeySecurity(hKey_, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegGetKeySecurity", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\RegGetKeySecurity", "ptr", hKey_, "uint", SecurityInformation, "ptr", pSecurityDescriptor, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "uint")
         return result
     }
 
@@ -6530,7 +6532,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
+     * @param {HKEY} hKey_ A handle to the key where the subkey will be created. This can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, or one of the following predefined handles: 
      * 
      * 
@@ -6554,15 +6556,15 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regloadkeya
      * @since windows5.0
      */
-    static RegLoadKeyA(hKey, lpSubKey, lpFile) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegLoadKeyA(hKey_, lpSubKey, lpFile) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegLoadKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpFile, "uint")
+        result := DllCall("ADVAPI32.dll\RegLoadKeyA", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpFile, "uint")
         return result
     }
 
@@ -6583,7 +6585,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
+     * @param {HKEY} hKey_ A handle to the key where the subkey will be created. This can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, or one of the following predefined handles: 
      * 
      * 
@@ -6607,15 +6609,15 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regloadkeyw
      * @since windows5.0
      */
-    static RegLoadKeyW(hKey, lpSubKey, lpFile) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegLoadKeyW(hKey_, lpSubKey, lpFile) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegLoadKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpFile, "uint")
+        result := DllCall("ADVAPI32.dll\RegLoadKeyW", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpFile, "uint")
         return result
     }
 
@@ -6649,7 +6651,7 @@ class Registry {
      * To monitor registry operations in more detail, see <a href="https://docs.microsoft.com/windows/desktop/ETW/registry">Registry</a>.
      * 
      * <b>Windows XP/2000:  </b>When <b>RegNotifyChangeKeyValue</b> is called for a particular key handle, change notifications occur for as long as the key handle is valid. This causes a second call to <b>RegNotifyChangeKeyValue</b> to return immediately, if any changes occur in the interim between the first and second calls. If the function is being used asynchronously, the passed event handle will be signaled immediately if any changes occur in the interim.
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
@@ -6679,14 +6681,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regnotifychangekeyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regnotifychangekeyvalue
      * @since windows5.0
      */
-    static RegNotifyChangeKeyValue(hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronous) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegNotifyChangeKeyValue(hKey_, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronous) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", "ptr", hKey, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr", hEvent, "int", fAsynchronous, "uint")
+        result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", "ptr", hKey_, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr", hEvent, "int", fAsynchronous, "uint")
         return result
     }
 
@@ -6707,7 +6709,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegOpenKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6731,14 +6733,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenkeya
      * @since windows5.0
      */
-    static RegOpenKeyA(hKey, lpSubKey, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegOpenKeyA(hKey_, lpSubKey, phkResult) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegOpenKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegOpenKeyA", "ptr", hKey_, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
     }
 
@@ -6759,7 +6761,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegOpenKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6783,14 +6785,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenkeyw
      * @since windows5.0
      */
-    static RegOpenKeyW(hKey, lpSubKey, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegOpenKeyW(hKey_, lpSubKey, phkResult) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegOpenKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegOpenKeyW", "ptr", hKey_, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
     }
 
@@ -6806,7 +6808,7 @@ class Registry {
      * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
      * 
      * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <b>RegOpenKeyEx</b> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -6860,14 +6862,14 @@ class Registry {
      * 
      * > [!NOTE] 
      * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenkeyexa
      * @since windows5.0
      */
-    static RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegOpenKeyExA(hKey_, lpSubKey, ulOptions, samDesired, phkResult) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegOpenKeyExA", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegOpenKeyExA", "ptr", hKey_, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "uint")
         return result
     }
 
@@ -6883,7 +6885,7 @@ class Registry {
      * If your service or application impersonates different users, do not use this function with <b>HKEY_CURRENT_USER</b>. Instead, call the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopencurrentuser">RegOpenCurrentUser</a> function.
      * 
      * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <b>RegOpenKeyEx</b> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -6934,14 +6936,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenkeyexw
      * @since windows5.0
      */
-    static RegOpenKeyExW(hKey, lpSubKey, ulOptions, samDesired, phkResult) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegOpenKeyExW(hKey_, lpSubKey, ulOptions, samDesired, phkResult) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegOpenKeyExW", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "uint")
+        result := DllCall("ADVAPI32.dll\RegOpenKeyExW", "ptr", hKey_, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "uint")
         return result
     }
 
@@ -6968,7 +6970,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegOpenKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      *  <b>RegOpenKeyTransacted</b> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6999,17 +7001,17 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeytransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenkeytransacteda
      * @since windows6.0.6000
      */
-    static RegOpenKeyTransactedA(hKey, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
+    static RegOpenKeyTransactedA(hKey_, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
         static pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
-        result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedA", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
+        result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedA", "ptr", hKey_, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
     }
 
@@ -7036,7 +7038,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegOpenKeyTransacted as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      *  <b>RegOpenKeyTransacted</b> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -7067,17 +7069,17 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regopenkeytransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regopenkeytransactedw
      * @since windows6.0.6000
      */
-    static RegOpenKeyTransactedW(hKey, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
+    static RegOpenKeyTransactedW(hKey_, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
         static pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
-        result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedW", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
+        result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedW", "ptr", hKey_, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
     }
 
@@ -7086,7 +7088,7 @@ class Registry {
      * @remarks
      * > [!NOTE] 
      * > On legacy versions of Windows, this API is also exposed by kernel32.dll.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7131,13 +7133,13 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpClass</i> buffer is too small to receive the name of the class, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryinfokeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryinfokeya
      * @since windows5.0
      */
-    static RegQueryInfoKeyA(hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
+    static RegQueryInfoKeyA(hKey_, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
@@ -7149,7 +7151,7 @@ class Registry {
         lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryInfoKeyA", "ptr", hKey, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryInfoKeyA", "ptr", hKey_, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
         return result
     }
 
@@ -7158,7 +7160,7 @@ class Registry {
      * @remarks
      * > [!NOTE]
      * > The winreg.h header defines RegQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7203,13 +7205,13 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpClass</i> buffer is too small to receive the name of the class, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryinfokeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryinfokeyw
      * @since windows5.0
      */
-    static RegQueryInfoKeyW(hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
+    static RegQueryInfoKeyW(hKey_, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
 
         lpcchClassMarshal := lpcchClass is VarRef ? "uint*" : "ptr"
@@ -7221,7 +7223,7 @@ class Registry {
         lpcbMaxValueLenMarshal := lpcbMaxValueLen is VarRef ? "uint*" : "ptr"
         lpcbSecurityDescriptorMarshal := lpcbSecurityDescriptor is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryInfoKeyW", "ptr", hKey, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryInfoKeyW", "ptr", hKey_, "ptr", lpClass, lpcchClassMarshal, lpcchClass, "uint*", lpReserved, lpcSubKeysMarshal, lpcSubKeys, lpcbMaxSubKeyLenMarshal, lpcbMaxSubKeyLen, lpcbMaxClassLenMarshal, lpcbMaxClassLen, lpcValuesMarshal, lpcValues, lpcbMaxValueNameLenMarshal, lpcbMaxValueNameLen, lpcbMaxValueLenMarshal, lpcbMaxValueLen, lpcbSecurityDescriptorMarshal, lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
         return result
     }
 
@@ -7240,7 +7242,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegQueryValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7284,16 +7286,16 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpValue</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryvaluea
      * @since windows5.0
      */
-    static RegQueryValueA(hKey, lpSubKey, lpData, lpcbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegQueryValueA(hKey_, lpSubKey, lpData, lpcbData) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
         lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryValueA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryValueA", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -7312,7 +7314,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegQueryValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7356,16 +7358,16 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
      * 
      * If the <i>lpValue</i> buffer is too small to receive the value, the function returns ERROR_MORE_DATA.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryvaluew
      * @since windows5.0
      */
-    static RegQueryValueW(hKey, lpSubKey, lpData, lpcbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegQueryValueW(hKey_, lpSubKey, lpData, lpcbData) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
         lpcbDataMarshal := lpcbData is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryValueW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryValueW", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -7385,7 +7387,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegQueryMultipleValues as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -7464,15 +7466,15 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regquerymultiplevaluesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regquerymultiplevaluesa
      * @since windows5.0
      */
-    static RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegQueryMultipleValuesA(hKey_, val_list, num_vals, lpValueBuf, ldwTotsize) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         ldwTotsizeMarshal := ldwTotsize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesA", "ptr", hKey, "ptr", val_list, "uint", num_vals, "ptr", lpValueBuf, ldwTotsizeMarshal, ldwTotsize, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesA", "ptr", hKey_, "ptr", val_list, "uint", num_vals, "ptr", lpValueBuf, ldwTotsizeMarshal, ldwTotsize, "uint")
         return result
     }
 
@@ -7492,7 +7494,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegQueryMultipleValues as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7568,15 +7570,15 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regquerymultiplevaluesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regquerymultiplevaluesw
      * @since windows5.0
      */
-    static RegQueryMultipleValuesW(hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegQueryMultipleValuesW(hKey_, val_list, num_vals, lpValueBuf, ldwTotsize) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         ldwTotsizeMarshal := ldwTotsize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesW", "ptr", hKey, "ptr", val_list, "uint", num_vals, "ptr", lpValueBuf, ldwTotsizeMarshal, ldwTotsize, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesW", "ptr", hKey_, "ptr", val_list, "uint", num_vals, "ptr", lpValueBuf, ldwTotsizeMarshal, ldwTotsize, "uint")
         return result
     }
 
@@ -7594,7 +7596,7 @@ class Registry {
      * <b>RegQueryValueEx</b> function, you should always expect to walk the returned data structure to look for the requested object.
      * 
      * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7653,19 +7655,19 @@ class Registry {
      * If the <i>lpData</i> buffer is too small to receive the data, the function returns ERROR_MORE_DATA.
      * 
      * If the <i>lpValueName</i> registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvalueexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryvalueexa
      * @since windows5.0
      */
-    static RegQueryValueExA(hKey, lpValueName, lpType, lpData, lpcbData) {
+    static RegQueryValueExA(hKey_, lpValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
         lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryValueExA", "ptr", hKey, "ptr", lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryValueExA", "ptr", hKey_, "ptr", lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -7683,7 +7685,7 @@ class Registry {
      * <b>RegQueryValueEx</b> function, you should always expect to walk the returned data structure to look for the requested object.
      * 
      * Note that operations that access certain registry keys are redirected. For more information,  see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-virtualization">Registry Virtualization</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/32-bit-and-64-bit-application-data-in-the-registry">32-bit and 64-bit Application Data in the Registry</a>.
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7742,19 +7744,19 @@ class Registry {
      * If the <i>lpData</i> buffer is too small to receive the data, the function returns ERROR_MORE_DATA.
      * 
      * If the <i>lpValueName</i> registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regqueryvalueexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regqueryvalueexw
      * @since windows5.0
      */
-    static RegQueryValueExW(hKey, lpValueName, lpType, lpData, lpcbData) {
+    static RegQueryValueExW(hKey_, lpValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
         lpTypeMarshal := lpType is VarRef ? "uint*" : "ptr"
         lpcbDataMarshal := lpcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegQueryValueExW", "ptr", hKey, "ptr", lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegQueryValueExW", "ptr", hKey_, "ptr", lpValueName, "uint*", lpReserved, lpTypeMarshal, lpType, "ptr", lpData, lpcbDataMarshal, lpcbData, "uint")
         return result
     }
 
@@ -7777,7 +7779,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegReplaceKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -7807,16 +7809,16 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regreplacekeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regreplacekeya
      * @since windows5.0
      */
-    static RegReplaceKeyA(hKey, lpSubKey, lpNewFile, lpOldFile) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegReplaceKeyA(hKey_, lpSubKey, lpNewFile, lpOldFile) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpNewFile := lpNewFile is String ? StrPtr(lpNewFile) : lpNewFile
         lpOldFile := lpOldFile is String ? StrPtr(lpOldFile) : lpOldFile
 
-        result := DllCall("ADVAPI32.dll\RegReplaceKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, "uint")
+        result := DllCall("ADVAPI32.dll\RegReplaceKeyA", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, "uint")
         return result
     }
 
@@ -7839,7 +7841,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegReplaceKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -7869,16 +7871,16 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regreplacekeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regreplacekeyw
      * @since windows5.0
      */
-    static RegReplaceKeyW(hKey, lpSubKey, lpNewFile, lpOldFile) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegReplaceKeyW(hKey_, lpSubKey, lpNewFile, lpOldFile) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpNewFile := lpNewFile is String ? StrPtr(lpNewFile) : lpNewFile
         lpOldFile := lpOldFile is String ? StrPtr(lpOldFile) : lpOldFile
 
-        result := DllCall("ADVAPI32.dll\RegReplaceKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, "uint")
+        result := DllCall("ADVAPI32.dll\RegReplaceKeyW", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, "uint")
         return result
     }
 
@@ -7906,7 +7908,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegRestoreKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
@@ -7926,14 +7928,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regrestorekeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regrestorekeya
      * @since windows5.0
      */
-    static RegRestoreKeyA(hKey, lpFile, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegRestoreKeyA(hKey_, lpFile, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegRestoreKeyA", "ptr", hKey, "ptr", lpFile, "uint", dwFlags, "uint")
+        result := DllCall("ADVAPI32.dll\RegRestoreKeyA", "ptr", hKey_, "ptr", lpFile, "uint", dwFlags, "uint")
         return result
     }
 
@@ -7961,7 +7963,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegRestoreKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey_ A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
@@ -7981,14 +7983,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regrestorekeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regrestorekeyw
      * @since windows5.0
      */
-    static RegRestoreKeyW(hKey, lpFile, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegRestoreKeyW(hKey_, lpFile, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegRestoreKeyW", "ptr", hKey, "ptr", lpFile, "uint", dwFlags, "uint")
+        result := DllCall("ADVAPI32.dll\RegRestoreKeyW", "ptr", hKey_, "ptr", lpFile, "uint", dwFlags, "uint")
         return result
     }
 
@@ -7996,7 +7998,7 @@ class Registry {
      * Changes the name of the specified registry key. (RegRenameKey)
      * @remarks
      * This function can be used to rename an entire registry subtree. The caller must have KEY_CREATE_SUB_KEY access to the parent of the specified key and DELETE access to the entire subtree being renamed.
-     * @param {HKEY} hKey A handle to the key to be renamed. The handle must be opened with the KEY_WRITE access right. For more information, see [Registry Key Security and Access Rights](/windows/win32/SysInfo/registry-key-security-and-access-rights).
+     * @param {HKEY} hKey_ A handle to the key to be renamed. The handle must be opened with the KEY_WRITE access right. For more information, see [Registry Key Security and Access Rights](/windows/win32/SysInfo/registry-key-security-and-access-rights).
      * 
      * This handle is returned by the [RegCreateKeyEx](nf-winreg-regcreatekeyexa.md) or [RegOpenKeyEx](nf-winreg-regopenkeyexa.md) function, or it can be one of the following [Predefined Keys](/windows/win32/SysInfo/predefined-keys):
      * 
@@ -8010,14 +8012,14 @@ class Registry {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/desktop/api/winbase/nf-winbase-formatmessage) function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error. An error code of STATUS_ACCESS_DENIED indicates that the caller does not have the necessary access rights to the specified registry key or subkeys.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regrenamekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regrenamekey
      */
-    static RegRenameKey(hKey, lpSubKeyName, lpNewKeyName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegRenameKey(hKey_, lpSubKeyName, lpNewKeyName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKeyName := lpSubKeyName is String ? StrPtr(lpSubKeyName) : lpSubKeyName
         lpNewKeyName := lpNewKeyName is String ? StrPtr(lpNewKeyName) : lpNewKeyName
 
-        result := DllCall("ADVAPI32.dll\RegRenameKey", "ptr", hKey, "ptr", lpSubKeyName, "ptr", lpNewKeyName, "uint")
+        result := DllCall("ADVAPI32.dll\RegRenameKey", "ptr", hKey_, "ptr", lpSubKeyName, "ptr", lpNewKeyName, "uint")
         return result
     }
 
@@ -8053,7 +8055,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSaveKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey_ A handle to an open registry key. 
      * 
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
@@ -8079,14 +8081,14 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If the file already exists, the function fails with the ERROR_ALREADY_EXISTS error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsavekeya
      * @since windows5.0
      */
-    static RegSaveKeyA(hKey, lpFile, lpSecurityAttributes) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSaveKeyA(hKey_, lpFile, lpSecurityAttributes) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegSaveKeyA", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint")
+        result := DllCall("ADVAPI32.dll\RegSaveKeyA", "ptr", hKey_, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint")
         return result
     }
 
@@ -8122,7 +8124,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSaveKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey_ A handle to an open registry key. 
      * 
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
@@ -8148,14 +8150,14 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If the file already exists, the function fails with the ERROR_ALREADY_EXISTS error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsavekeyw
      * @since windows5.0
      */
-    static RegSaveKeyW(hKey, lpFile, lpSecurityAttributes) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSaveKeyW(hKey_, lpFile, lpSecurityAttributes) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegSaveKeyW", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint")
+        result := DllCall("ADVAPI32.dll\RegSaveKeyW", "ptr", hKey_, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint")
         return result
     }
 
@@ -8163,7 +8165,7 @@ class Registry {
      * Sets the security of an open registry key.
      * @remarks
      * If <i>hKey</i> is one of the predefined keys, use  the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close the predefined key to  ensure that the new security information is in effect the next time the predefined key is referenced.
-     * @param {HKEY} hKey A handle to an open key for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> is set.
+     * @param {HKEY} hKey_ A handle to an open key for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> is set.
      * @param {Integer} SecurityInformation A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
@@ -8174,14 +8176,14 @@ class Registry {
      * 
      * If the function fails, it returns a nonzero error code defined in WinError.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetkeysecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetkeysecurity
      * @since windows5.1.2600
      */
-    static RegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSetKeySecurity(hKey_, SecurityInformation, pSecurityDescriptor) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("ADVAPI32.dll\RegSetKeySecurity", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetKeySecurity", "ptr", hKey_, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
         return result
     }
 
@@ -8199,7 +8201,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8231,14 +8233,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetvaluea
      * @since windows5.0
      */
-    static RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSetValueA(hKey_, lpSubKey, dwType, lpData, cbData) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegSetValueA", "ptr", hKey, "ptr", lpSubKey, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetValueA", "ptr", hKey_, "ptr", lpSubKey, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -8256,7 +8258,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8288,14 +8290,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetvaluew
      * @since windows5.0
      */
-    static RegSetValueW(hKey, lpSubKey, dwType, lpData, cbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSetValueW(hKey_, lpSubKey, dwType, lpData, cbData) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegSetValueW", "ptr", hKey, "ptr", lpSubKey, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetValueW", "ptr", hKey_, "ptr", lpSubKey, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -8314,7 +8316,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSetValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * This handle is returned by the 
@@ -8351,16 +8353,16 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvalueexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetvalueexa
      * @since windows5.0
      */
-    static RegSetValueExA(hKey, lpValueName, dwType, lpData, cbData) {
+    static RegSetValueExA(hKey_, lpValueName, dwType, lpData, cbData) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegSetValueExA", "ptr", hKey, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetValueExA", "ptr", hKey_, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -8379,7 +8381,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSetValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * This handle is returned by the 
@@ -8416,16 +8418,16 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvalueexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetvalueexw
      * @since windows5.0
      */
-    static RegSetValueExW(hKey, lpValueName, dwType, lpData, cbData) {
+    static RegSetValueExW(hKey_, lpValueName, dwType, lpData, cbData) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegSetValueExW", "ptr", hKey, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetValueExW", "ptr", hKey_, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -8443,7 +8445,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegUnLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
+     * @param {HKEY} hKey_ A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function or one of the following predefined handles: 
      * 
      * 
@@ -8465,14 +8467,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regunloadkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regunloadkeya
      * @since windows5.0
      */
-    static RegUnLoadKeyA(hKey, lpSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegUnLoadKeyA(hKey_, lpSubKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegUnLoadKeyA", "ptr", hKey, "ptr", lpSubKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegUnLoadKeyA", "ptr", hKey_, "ptr", lpSubKey, "uint")
         return result
     }
 
@@ -8490,7 +8492,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegUnLoadKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
+     * @param {HKEY} hKey_ A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function or one of the following predefined handles: 
      * 
      * * HKEY_LOCAL_MACHINE
@@ -8509,14 +8511,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regunloadkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regunloadkeyw
      * @since windows5.0
      */
-    static RegUnLoadKeyW(hKey, lpSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegUnLoadKeyW(hKey_, lpSubKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegUnLoadKeyW", "ptr", hKey, "ptr", lpSubKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegUnLoadKeyW", "ptr", hKey_, "ptr", lpSubKey, "uint")
         return result
     }
 
@@ -8533,7 +8535,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8557,15 +8559,15 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeyvaluea
      * @since windows6.0.6000
      */
-    static RegDeleteKeyValueA(hKey, lpSubKey, lpValueName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteKeyValueA(hKey_, lpSubKey, lpValueName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyValueA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyValueA", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpValueName, "uint")
         return result
     }
 
@@ -8582,7 +8584,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8606,15 +8608,15 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletekeyvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletekeyvaluew
      * @since windows6.0.6000
      */
-    static RegDeleteKeyValueW(hKey, lpSubKey, lpValueName) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteKeyValueW(hKey_, lpSubKey, lpValueName) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegDeleteKeyValueW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteKeyValueW", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpValueName, "uint")
         return result
     }
 
@@ -8630,7 +8632,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSetKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8662,15 +8664,15 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetkeyvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetkeyvaluea
      * @since windows6.0.6000
      */
-    static RegSetKeyValueA(hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSetKeyValueA(hKey_, lpSubKey, lpValueName, dwType, lpData, cbData) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegSetKeyValueA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetKeyValueA", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -8686,7 +8688,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSetKeyValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8718,15 +8720,15 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetkeyvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsetkeyvaluew
      * @since windows6.0.6000
      */
-    static RegSetKeyValueW(hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSetKeyValueW(hKey_, lpSubKey, lpValueName, dwType, lpData, cbData) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
 
-        result := DllCall("ADVAPI32.dll\RegSetKeyValueW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegSetKeyValueW", "ptr", hKey_, "ptr", lpSubKey, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
     }
 
@@ -8745,7 +8747,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteTree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the
@@ -8766,14 +8768,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletetreea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletetreea
      * @since windows6.0.6000
      */
-    static RegDeleteTreeA(hKey, lpSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteTreeA(hKey_, lpSubKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegDeleteTreeA", "ptr", hKey, "ptr", lpSubKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteTreeA", "ptr", hKey_, "ptr", lpSubKey, "uint")
         return result
     }
 
@@ -8792,7 +8794,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegDeleteTree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the
@@ -8813,14 +8815,14 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regdeletetreew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regdeletetreew
      * @since windows6.0.6000
      */
-    static RegDeleteTreeW(hKey, lpSubKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegDeleteTreeW(hKey_, lpSubKey) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
 
-        result := DllCall("ADVAPI32.dll\RegDeleteTreeW", "ptr", hKey, "ptr", lpSubKey, "uint")
+        result := DllCall("ADVAPI32.dll\RegDeleteTreeW", "ptr", hKey_, "ptr", lpSubKey, "uint")
         return result
     }
 
@@ -8860,7 +8862,7 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcopytreea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcopytreea
      * @since windows6.0.6000
      */
     static RegCopyTreeA(hKeySrc, lpSubKey, hKeyDest) {
@@ -8892,7 +8894,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hkey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -8954,18 +8956,18 @@ class Registry {
      * If the lpValue registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
      * 
      * If <i>dwFlags</i> specifies a combination of both <b>RRF_SUBKEY_WOW6464KEY</b> and  <b>RRF_SUBKEY_WOW6432KEY</b>, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-reggetvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-reggetvaluea
      * @since windows6.0.6000
      */
-    static RegGetValueA(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static RegGetValueA(hkey_, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegGetValueA", "ptr", hkey, "ptr", lpSubKey, "ptr", lpValue, "uint", dwFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegGetValueA", "ptr", hkey_, "ptr", lpSubKey, "ptr", lpValue, "uint", dwFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -8989,7 +8991,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hkey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -9051,18 +9053,18 @@ class Registry {
      * If the lpValue registry value does not exist, the function returns ERROR_FILE_NOT_FOUND.
      * 
      * If <i>dwFlags</i> specifies a combination of both <b>RRF_SUBKEY_WOW6464KEY</b> and  <b>RRF_SUBKEY_WOW6432KEY</b>, the function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-reggetvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-reggetvaluew
      * @since windows6.0.6000
      */
-    static RegGetValueW(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static RegGetValueW(hkey_, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegGetValueW", "ptr", hkey, "ptr", lpSubKey, "ptr", lpValue, "uint", dwFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("ADVAPI32.dll\RegGetValueW", "ptr", hkey_, "ptr", lpSubKey, "ptr", lpValue, "uint", dwFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -9102,7 +9104,7 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regcopytreew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regcopytreew
      * @since windows6.0.6000
      */
     static RegCopyTreeW(hKeySrc, lpSubKey, hKeyDest) {
@@ -9128,7 +9130,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegLoadMUIString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -9180,17 +9182,17 @@ class Registry {
      * If the <i>pcbData</i> buffer is too small to receive the string, the function returns ERROR_MORE_DATA.
      * 
      * The ANSI version of this function returns ERROR_CALL_NOT_IMPLEMENTED.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadmuistringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regloadmuistringa
      * @since windows6.0.6000
      */
-    static RegLoadMUIStringA(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegLoadMUIStringA(hKey_, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
 
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegLoadMUIStringA", "ptr", hKey, "ptr", pszValue, "ptr", pszOutBuf, "uint", cbOutBuf, pcbDataMarshal, pcbData, "uint", Flags, "ptr", pszDirectory, "uint")
+        result := DllCall("ADVAPI32.dll\RegLoadMUIStringA", "ptr", hKey_, "ptr", pszValue, "ptr", pszOutBuf, "uint", cbOutBuf, pcbDataMarshal, pcbData, "uint", Flags, "ptr", pszDirectory, "uint")
         return result
     }
 
@@ -9208,7 +9210,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegLoadMUIString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey_ A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -9260,17 +9262,17 @@ class Registry {
      * If the <i>pcbData</i> buffer is too small to receive the string, the function returns ERROR_MORE_DATA.
      * 
      * The ANSI version of this function returns ERROR_CALL_NOT_IMPLEMENTED.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadmuistringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regloadmuistringw
      * @since windows6.0.6000
      */
-    static RegLoadMUIStringW(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegLoadMUIStringW(hKey_, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
 
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\RegLoadMUIStringW", "ptr", hKey, "ptr", pszValue, "ptr", pszOutBuf, "uint", cbOutBuf, pcbDataMarshal, pcbData, "uint", Flags, "ptr", pszDirectory, "uint")
+        result := DllCall("ADVAPI32.dll\RegLoadMUIStringW", "ptr", hKey_, "ptr", pszValue, "ptr", pszOutBuf, "uint", cbOutBuf, pcbDataMarshal, pcbData, "uint", Flags, "ptr", pszDirectory, "uint")
         return result
     }
 
@@ -9311,7 +9313,7 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadappkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regloadappkeya
      * @since windows6.0.6000
      */
     static RegLoadAppKeyA(lpFile, phkResult, samDesired, dwOptions) {
@@ -9360,7 +9362,7 @@ class Registry {
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regloadappkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regloadappkeyw
      * @since windows6.0.6000
      */
     static RegLoadAppKeyW(lpFile, phkResult, samDesired, dwOptions) {
@@ -9406,7 +9408,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSaveKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey_ A handle to an open registry key. 
      * 
      * This function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
      * @param {PSTR} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
@@ -9426,14 +9428,14 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If more than one of the possible values listed above for the <i>Flags</i> parameter is specified in one call to this function—for example, if two or more values are OR'ed— or if REG_NO_COMPRESSION is specified and <i>hKey</i> specifies a key that is not the root of a hive, this function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsavekeyexa
      * @since windows5.1.2600
      */
-    static RegSaveKeyExA(hKey, lpFile, lpSecurityAttributes, Flags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSaveKeyExA(hKey_, lpFile, lpSecurityAttributes, Flags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegSaveKeyExA", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint", Flags, "uint")
+        result := DllCall("ADVAPI32.dll\RegSaveKeyExA", "ptr", hKey_, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint", Flags, "uint")
         return result
     }
 
@@ -9471,7 +9473,7 @@ class Registry {
      * 
      * > [!NOTE]
      * > The winreg.h header defines RegSaveKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey_ A handle to an open registry key. 
      * 
      * This function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
      * @param {PWSTR} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
@@ -9491,14 +9493,14 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
      * 
      * If more than one of the possible values listed above for the <i>Flags</i> parameter is specified in one call to this function—for example, if two or more values are OR'ed— or if REG_NO_COMPRESSION is specified and <i>hKey</i> specifies a key that is not the root of a hive, this function returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-regsavekeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-regsavekeyexw
      * @since windows5.1.2600
      */
-    static RegSaveKeyExW(hKey, lpFile, lpSecurityAttributes, Flags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static RegSaveKeyExW(hKey_, lpFile, lpSecurityAttributes, Flags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
-        result := DllCall("ADVAPI32.dll\RegSaveKeyExW", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint", Flags, "uint")
+        result := DllCall("ADVAPI32.dll\RegSaveKeyExW", "ptr", hKey_, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint", Flags, "uint")
         return result
     }
 

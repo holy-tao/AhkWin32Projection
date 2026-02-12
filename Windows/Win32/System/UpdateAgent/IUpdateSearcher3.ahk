@@ -4,8 +4,8 @@
 #Include .\IUpdateSearcher2.ahk
 
 /**
- * Searches for updates on a server.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatesearcher3
+ * Searches for updates on a server. (IUpdateSearcher3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdatesearcher3
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -43,7 +43,11 @@ class IUpdateSearcher3 extends IUpdateSearcher2{
      * @returns {Integer} 
      */
     get_SearchScope() {
-        result := ComCall(27, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -53,7 +57,11 @@ class IUpdateSearcher3 extends IUpdateSearcher2{
      * @returns {HRESULT} 
      */
     put_SearchScope(value) {
-        result := ComCall(28, this, "int", value, "HRESULT")
+        result := ComCall(28, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

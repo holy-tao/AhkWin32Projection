@@ -11,7 +11,7 @@
  * Currently, the only supported <b>VSS_SUBSCRIBE_MASK</b> 
  *     bit mask is ( <b>VSS_SM_BACKUP_EVENTS_FLAG</b> | 
  *     <b>VSS_SM_RESTORE_EVENTS_FLAG</b>).
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_subscribe_mask
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/ne-vswriter-vss_subscribe_mask
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

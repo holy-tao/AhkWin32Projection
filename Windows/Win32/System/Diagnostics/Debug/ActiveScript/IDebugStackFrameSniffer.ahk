@@ -34,7 +34,11 @@ class IDebugStackFrameSniffer extends IUnknown{
      * @returns {IEnumDebugStackFrames} 
      */
     EnumStackFrames() {
-        result := ComCall(3, this, "ptr*", &ppedsf := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppedsf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDebugStackFrames(ppedsf)
     }
 }

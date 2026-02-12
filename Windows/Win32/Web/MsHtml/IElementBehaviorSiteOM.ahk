@@ -30,15 +30,25 @@ class IElementBehaviorSiteOM extends IUnknown{
     static VTableNames => ["RegisterEvent", "GetEventCookie", "FireEvent", "CreateEventObject", "RegisterName", "RegisterUrn"]
 
     /**
+     * Retrieves a registered handle to the specified event log. (Unicode)
+     * @remarks
+     * If the source name cannot be found, the event logging service uses the <b>Application</b> log. Although events will be reported , the events will not include descriptions because there are no message and category message files for looking up descriptions related to the event identifiers.
      * 
+     * To close the handle to the event log, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deregistereventsource">DeregisterEventSource</a> function.
      * @param {PWSTR} pchEvent 
      * @param {Integer} lFlags 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-registereventsourcew
      */
     RegisterEvent(pchEvent, lFlags) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, "int*", &plCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCookie
     }
 
@@ -50,7 +60,11 @@ class IElementBehaviorSiteOM extends IUnknown{
     GetEventCookie(pchEvent) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        result := ComCall(4, this, "ptr", pchEvent, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pchEvent, "int*", &plCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCookie
     }
 
@@ -61,7 +75,11 @@ class IElementBehaviorSiteOM extends IUnknown{
      * @returns {HRESULT} 
      */
     FireEvent(lCookie, pEventObject) {
-        result := ComCall(5, this, "int", lCookie, "ptr", pEventObject, "HRESULT")
+        result := ComCall(5, this, "int", lCookie, "ptr", pEventObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +88,11 @@ class IElementBehaviorSiteOM extends IUnknown{
      * @returns {IHTMLEventObj} 
      */
     CreateEventObject() {
-        result := ComCall(6, this, "ptr*", &ppEventObject := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEventObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLEventObj(ppEventObject)
     }
 
@@ -82,7 +104,11 @@ class IElementBehaviorSiteOM extends IUnknown{
     RegisterName(pchName) {
         pchName := pchName is String ? StrPtr(pchName) : pchName
 
-        result := ComCall(7, this, "ptr", pchName, "HRESULT")
+        result := ComCall(7, this, "ptr", pchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +120,11 @@ class IElementBehaviorSiteOM extends IUnknown{
     RegisterUrn(pchUrn) {
         pchUrn := pchUrn is String ? StrPtr(pchUrn) : pchUrn
 
-        result := ComCall(8, this, "ptr", pchUrn, "HRESULT")
+        result := ComCall(8, this, "ptr", pchUrn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

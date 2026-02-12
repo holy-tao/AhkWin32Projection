@@ -57,7 +57,7 @@ class DeveloperLicensing {
      * </table>
      * @param {Pointer<FILETIME>} pExpiration Indicates when the developer license expires.
      * @returns {HRESULT} Returns an <a href="https://docs.microsoft.com/uwp/api/windows.foundation.hresult">HResult structure</a> with any error codes that occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/wsdevlicensing/nf-wsdevlicensing-checkdeveloperlicense
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdevlicensing/nf-wsdevlicensing-checkdeveloperlicense
      */
     static CheckDeveloperLicense(pExpiration) {
         result := DllCall("WSClient.dll\CheckDeveloperLicense", "ptr", pExpiration, "int")
@@ -110,7 +110,7 @@ class DeveloperLicensing {
      * @param {HWND} hwndParent The handler to the parent window.
      * @param {Pointer<FILETIME>} pExpiration Indicates when the developer license expires.
      * @returns {HRESULT} Returns an <a href="https://docs.microsoft.com/uwp/api/windows.foundation.hresult">HResult structure</a> with any error codes that occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/wsdevlicensing/nf-wsdevlicensing-acquiredeveloperlicense
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdevlicensing/nf-wsdevlicensing-acquiredeveloperlicense
      */
     static AcquireDeveloperLicense(hwndParent, pExpiration) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -164,7 +164,7 @@ class DeveloperLicensing {
      * </table>
      * @param {HWND} hwndParent The handler to the parent window.
      * @returns {HRESULT} Returns an <a href="https://docs.microsoft.com/uwp/api/windows.foundation.hresult">HResult structure</a> with any error codes that occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/wsdevlicensing/nf-wsdevlicensing-removedeveloperlicense
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdevlicensing/nf-wsdevlicensing-removedeveloperlicense
      */
     static RemoveDeveloperLicense(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

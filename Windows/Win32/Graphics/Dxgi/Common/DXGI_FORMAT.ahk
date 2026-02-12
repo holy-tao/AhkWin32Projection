@@ -154,7 +154,7 @@
  * <li>New Block-Compressed 1-2 channel UNORM/SNORM formats</li>
  * </ul>
  * The block compression formats can be used for any of the 2D or 3D texture types ( Texture2D, Texture2DArray, Texture3D, or TextureCube) including mipmap surfaces. The block compression techniques require texture dimensions to be a multiple of 4 (since the implementation compresses on blocks of 4x4 texels). In the texture sampler, compressed formats are always decompressed before texture filtering.
- * @see https://learn.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgiformat/ne-dxgiformat-dxgi_format
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */

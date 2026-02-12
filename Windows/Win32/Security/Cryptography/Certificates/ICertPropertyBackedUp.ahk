@@ -5,7 +5,7 @@
 
 /**
  * Represents an external certificate property that identifies whether a certificate has been backed up and, if so, the date and time that it was saved.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertybackedup
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icertpropertybackedup
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -46,10 +46,16 @@ class ICertPropertyBackedUp extends ICertProperty{
 
     /**
      * Initializes the property from a Boolean value and the current system date and time.
+     * @remarks
+     * Internally, the <b>InitializeFromCurrentTime</b> calls the <b>GetSystemTimeAsFileTime</b> function in the Windows SDK. The date is stored as an 8-byte real value, representing a date between January 1, 1900 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents 12:00 on January 1, 1900; 3.25 represents 06:00 on January 2, 1900.
+     * 
+     * For dates between 1950 and 2049 inclusive, the date and time is encoded UTC-time in the form YYMMDDHHMMSS. For dates before 1950 or after 2049, encoded generalized time is used. Encoded generalized time is in the form YYYYMMDDHHMMSSMMM, using a four digit year, and is precise to milliseconds.
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. To retrieve the date, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-get_backeduptime">BackedUpTime</a> property. To retrieve the Boolean value that identifies whether a certificate was backed up, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-get_backedupvalue">BackedUpValue</a> property.
      * @param {VARIANT_BOOL} BackedUpValue A <b>VARIANT_BOOL</b> variable that identifies whether the certificate has been backed up.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -81,20 +87,30 @@ class ICertPropertyBackedUp extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertybackedup-initializefromcurrenttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertybackedup-initializefromcurrenttime
      */
     InitializeFromCurrentTime(BackedUpValue) {
-        result := ComCall(14, this, "short", BackedUpValue, "HRESULT")
+        result := ComCall(14, this, "short", BackedUpValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes the object from a Boolean value and a date.
+     * @remarks
+     * The date is stored as an 8-byte real value, representing a date between January 1, 1900 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents 12:00 on January 1, 1900; 3.25 represents 06:00 on January 2, 1900.
+     * 
+     * For dates between 1950 and 2049 inclusive, the date and time is encoded UTC-time in the form YYMMDDHHMMSS. For dates before 1950 or after 2049, encoded generalized time is used. Encoded generalized time is in the form YYYYMMDDHHMMSSMMM, using a four digit year, and is precise to milliseconds.
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. To retrieve the date, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-get_backeduptime">BackedUpTime</a> property. To retrieve the Boolean value that identifies whether a certificate was backed up, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-get_backedupvalue">BackedUpValue</a> property.
      * @param {VARIANT_BOOL} BackedUpValue A <b>VARIANT_BOOL</b> variable that identifies whether the certificate has been backed up.
      * @param {Float} Date A <b>DATE</b> variable that identifies when a certificate was last backed up.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -126,44 +142,50 @@ class ICertPropertyBackedUp extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertybackedup-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertybackedup-initialize
      */
     Initialize(BackedUpValue, Date) {
-        result := ComCall(15, this, "short", BackedUpValue, "double", Date, "HRESULT")
+        result := ComCall(15, this, "short", BackedUpValue, "double", Date, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a Boolean value that identifies whether the certificate was backed up.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-initialize">Initialize</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-initializefromcurrenttime">InitializeFromCurrentTime</a> method to set the <b>BackedUpValue</b> property value.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertybackedup-get_backedupvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertybackedup-get_backedupvalue
      */
     get_BackedUpValue() {
-        result := ComCall(16, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the date and time at which the certificate was backed up.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-initialize">Initialize</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertybackedup-initializefromcurrenttime">InitializeFromCurrentTime</a> method to set the <b>BackedUpTime</b> value.
      * 
      * The date is stored as an 8-byte real value, representing a date between January 1, 1900 and December 31, 9999, inclusive. The value 2.0 represents January 1, 1900; 3.0 represents January 2, 1900. Adding 1 to the value increments the date by a day. The fractional part of the value represents the time of day. Therefore, 2.5 represents 12:00 on January 1, 1900; 3.25 represents 06:00 on January 2, 1900.
      * 
      * For dates between 1950 and 2049 inclusive, the date and time is encoded UTC-time in the form YYMMDDHHMMSS. For dates before 1950 or after 2049, encoded generalized time is used. Encoded generalized time is in the form YYYYMMDDHHMMSSMMM, using a four digit year, and is precise to milliseconds.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertybackedup-get_backeduptime
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertybackedup-get_backeduptime
      */
     get_BackedUpTime() {
-        result := ComCall(17, this, "double*", &pDate := 0, "HRESULT")
+        result := ComCall(17, this, "double*", &pDate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDate
     }
 }

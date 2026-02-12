@@ -38,7 +38,13 @@ class IInternetProtocolEx extends IInternetProtocol{
      * @returns {HRESULT} 
      */
     StartEx(pUri, pOIProtSink, pOIBindInfo, grfPI, dwReserved) {
-        result := ComCall(13, this, "ptr", pUri, "ptr", pOIProtSink, "ptr", pOIBindInfo, "uint", grfPI, "ptr", dwReserved, "HRESULT")
+        dwReserved := dwReserved is Win32Handle ? NumGet(dwReserved, "ptr") : dwReserved
+
+        result := ComCall(13, this, "ptr", pUri, "ptr", pOIProtSink, "ptr", pOIBindInfo, "uint", grfPI, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

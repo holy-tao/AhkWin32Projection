@@ -6,7 +6,7 @@
 
 /**
  * Defines operations and session settings.
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmansession
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nn-wsmandisp-iwsmansession
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -68,11 +68,15 @@ class IWSManSession extends IDispatch{
      * </ul>
      * @param {Integer} flags Reserved for future use. Must be set to 0.
      * @returns {BSTR} A value that, upon success, is an XML representation of the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-get
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-get
      */
     Get(resourceUri, flags) {
         resource := BSTR()
-        result := ComCall(7, this, "ptr", resourceUri, "int", flags, "ptr", resource, "HRESULT")
+        result := ComCall(7, this, "ptr", resourceUri, "int", flags, "ptr", resource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return resource
     }
 
@@ -91,18 +95,32 @@ class IWSManSession extends IDispatch{
      * @param {BSTR} resource The updated resource content.
      * @param {Integer} flags Reserved for future use. Must be set to 0.
      * @returns {BSTR} The XML stream that contains the updated resource content.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-put
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-put
      */
     Put(resourceUri, resource, flags) {
-        resource := resource is String ? BSTR.Alloc(resource).Value : resource
+        if(resource is String) {
+            pin := BSTR.Alloc(resource)
+            resource := pin.Value
+        }
 
         resultResource := BSTR()
-        result := ComCall(8, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", resultResource, "HRESULT")
+        result := ComCall(8, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", resultResource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return resultResource
     }
 
     /**
      * Creates a new instance of a resource and returns the endpoint reference (EPR) of the new object.
+     * @remarks
+     * <b>IWSManSession::Create</b> is only used for creating new 
+     *     instances of a resource. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmansession-put">IWSManSession::Put</a> method to 
+     *     update existing instances of a resource. After you obtain the new resource URI, you can call 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmansession-get">IWSManSession::Get</a> to retrieve the new object. The new object 
+     *     contains any properties that the resource provider assigns when creating the new object. For example, if you 
+     *     create a new WS-Management protocol<a href="https://docs.microsoft.com/windows/desktop/WinRM/windows-remote-management-glossary">listener</a> and retrieve the listener object using <a href="https://docs.microsoft.com/windows/desktop/WinRM/session-get">Session.Get</a>, then you also obtain the <b>Port</b>, <b>Enabled</b>, and <b>ListeningOn</b> properties.
      * @param {VARIANT} resourceUri The identifier of the resource to create.
      * 
      * This parameter can contain one of the following:
@@ -116,13 +134,20 @@ class IWSManSession extends IDispatch{
      * @param {BSTR} resource An XML string that contains resource content.
      * @param {Integer} flags Reserved. Must be set to 0.
      * @returns {BSTR} The EPR of the new resource.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-create
      */
     Create(resourceUri, resource, flags) {
-        resource := resource is String ? BSTR.Alloc(resource).Value : resource
+        if(resource is String) {
+            pin := BSTR.Alloc(resource)
+            resource := pin.Value
+        }
 
         newUri := BSTR()
-        result := ComCall(9, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", newUri, "HRESULT")
+        result := ComCall(9, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", newUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return newUri
     }
 
@@ -130,11 +155,15 @@ class IWSManSession extends IDispatch{
      * Deletes the resource specified in the resource URI.
      * @param {VARIANT} resourceUri The URI of the resource to be deleted. You can also use an <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanresourcelocator">IWSManResourceLocator</a> object to specify the resource.
      * @param {Integer} flags Reserved for future use. Must be set to 0.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-delete
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-delete
      */
     Delete(resourceUri, flags) {
-        result := ComCall(10, this, "ptr", resourceUri, "int", flags, "HRESULT")
+        result := ComCall(10, this, "ptr", resourceUri, "int", flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,20 +182,40 @@ class IWSManSession extends IDispatch{
      * </ul>
      * @param {BSTR} parameters An XML representation of the input for the method. This string must be supplied or this method will fail.
      * @param {Integer} flags Reserved for future use. Must be set to 0.
-     * @returns {BSTR} An XML representation of the method output.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-invoke
+     * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-invoke
      */
     Invoke(actionUri, resourceUri, parameters, flags) {
-        actionUri := actionUri is String ? BSTR.Alloc(actionUri).Value : actionUri
-        parameters := parameters is String ? BSTR.Alloc(parameters).Value : parameters
+        if(actionUri is String) {
+            pin := BSTR.Alloc(actionUri)
+            actionUri := pin.Value
+        }
+        if(parameters is String) {
+            pin := BSTR.Alloc(parameters)
+            parameters := pin.Value
+        }
 
-        result := BSTR()
-        result := ComCall(11, this, "ptr", actionUri, "ptr", resourceUri, "ptr", parameters, "int", flags, "ptr", result, "HRESULT")
-        return result
+        result_ := BSTR()
+        result := ComCall(11, this, "ptr", actionUri, "ptr", resourceUri, "ptr", parameters, "int", flags, "ptr", result_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
      * Enumerates a table, data collection, or log resource.
+     * @remarks
+     * Call <b>IWSManSession::Enumerate</b> to start an enumeration operation. Thereafter, call <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem">IWSManEnumerator::ReadItem</a> using the returned <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanenumerator">IWSManEnumerator</a> object until the end of items is indicated by the <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream">AtEndOfStream</a> property.
+     * 
+     * Be aware that if the flags include the <a href="https://docs.microsoft.com/windows/desktop/WinRM/enumeration-constants">Enumeration Constants</a> <b>WSManFlagHierarchyDeepBasePropsOnly</b> or <b>WSManFlagHierarchyShallow</b> then Windows Remote Management service returns the error code <b>ERROR_WSMAN_POLYMORPHISM_MODE_UNSUPPORTED</b>.
+     * 
+     * For more information about limiting network calls during an enumeration, see the <a href="https://docs.microsoft.com/windows/desktop/WinRM/session-batchitems">BatchItems</a> property.
+     * 
+     * If a filter is specified, it must be a valid document with respect to the schema of the resource. The dialect parameter is optional. However, if the filter string begins with &lt;, but is not an XML fragment, then  either  include the <i>dialect</i> parameter or set the <b>WSManFlagNonXmlText</b> flag in the <i>flags</i> parameter. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinRM/enumeration-constants">Enumeration Constants</a>.
+     * 
+     * The corresponding scripting method is <a href="https://docs.microsoft.com/windows/desktop/WinRM/session-enumerate">Session.Enumerate</a>.
      * @param {VARIANT} resourceUri The identifier of the resource to be retrieved.
      * 
      * The following list contains identifiers that this parameter can contain:
@@ -184,88 +233,116 @@ class IWSManSession extends IDispatch{
      * If you have a <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanresourcelocator">IWSManResourceLocator</a> object for the <i>resourceURI</i> parameter, then this parameter should not be used. Instead, use the selector and fragment functionality of  <b>IWSManResourceLocator</b>.
      * @param {Integer} flags This parameter must contain a flag in the <b>__WSManEnumFlags</b> enumeration. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinRM/enumeration-constants">Enumeration Constants</a>.
      * @returns {IDispatch} An <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanenumerator">IWSManEnumerator</a> object that contains the results of the enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-enumerate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-enumerate
      */
     Enumerate(resourceUri, filter, dialect, flags) {
-        filter := filter is String ? BSTR.Alloc(filter).Value : filter
-        dialect := dialect is String ? BSTR.Alloc(dialect).Value : dialect
+        if(filter is String) {
+            pin := BSTR.Alloc(filter)
+            filter := pin.Value
+        }
+        if(dialect is String) {
+            pin := BSTR.Alloc(dialect)
+            dialect := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", resourceUri, "ptr", filter, "ptr", dialect, "int", flags, "ptr*", &resultSet := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", resourceUri, "ptr", filter, "ptr", dialect, "int", flags, "ptr*", &resultSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(resultSet)
     }
 
     /**
      * Queries a remote computer to determine if it supports the WS-Management protocol.
      * @param {Integer} flags The only flag that is accepted is <b>WSManFlagUseNoAuthentication</b>.
-     * @returns {BSTR} A value that, upon success, is an XML string that specifies the WS-Management protocol version, the operating system vendor and, if the request was sent authenticated, the operating system version.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-identify
+     * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-identify
      */
     Identify(flags) {
-        result := BSTR()
-        result := ComCall(13, this, "int", flags, "ptr", result, "HRESULT")
-        return result
+        result_ := BSTR()
+        result := ComCall(13, this, "int", flags, "ptr", result_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
      * Gets additional error information in an XML stream for the preceding call to an IWSManSession object method.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-get_error
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-get_error
      */
     get_Error() {
         value := BSTR()
-        result := ComCall(14, this, "ptr", value, "HRESULT")
+        result := ComCall(14, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
-     * Sets and gets the number of items in each enumeration batch.
+     * Sets and gets the number of items in each enumeration batch. (Get)
      * @remarks
-     * 
      * This is an optimization feature that controls how often network calls are made between the client and the server. Currently, it is used only for enumerations. For more information about enumerating resources, see  <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanenumerator">IWSManEnumerator</a>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems
      */
     get_BatchItems() {
-        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
-     * Sets and gets the number of items in each enumeration batch.
+     * Sets and gets the number of items in each enumeration batch. (Put)
      * @remarks
-     * 
      * This is an optimization feature that controls how often network calls are made between the client and the server. Currently, it is used only for enumerations. For more information about enumerating resources, see  <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanenumerator">IWSManEnumerator</a>.
-     * 
-     * 
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-put_batchitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-put_batchitems
      */
     put_BatchItems(value) {
-        result := ComCall(16, this, "int", value, "HRESULT")
+        result := ComCall(16, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets and gets the maximum amount of time, in milliseconds, that the client application waits for Windows Remote Management to complete its operations.
+     * Sets and gets the maximum amount of time, in milliseconds, that the client application waits for Windows Remote Management to complete its operations. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-get_timeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-get_timeout
      */
     get_Timeout() {
-        result := ComCall(17, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
-     * Sets and gets the maximum amount of time, in milliseconds, that the client application waits for Windows Remote Management to complete its operations.
+     * Sets and gets the maximum amount of time, in milliseconds, that the client application waits for Windows Remote Management to complete its operations. (Put)
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmansession-put_timeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmansession-put_timeout
      */
     put_Timeout(value) {
-        result := ComCall(18, this, "int", value, "HRESULT")
+        result := ComCall(18, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

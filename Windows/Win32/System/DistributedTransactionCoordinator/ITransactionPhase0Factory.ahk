@@ -30,12 +30,17 @@ class ITransactionPhase0Factory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {ITransactionPhase0NotifyAsync} pPhase0Notify 
      * @returns {ITransactionPhase0EnlistmentAsync} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(pPhase0Notify) {
-        result := ComCall(3, this, "ptr", pPhase0Notify, "ptr*", &ppPhase0Enlistment := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pPhase0Notify, "ptr*", &ppPhase0Enlistment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionPhase0EnlistmentAsync(ppPhase0Enlistment)
     }
 }

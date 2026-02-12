@@ -35,7 +35,11 @@ class CIE4ConnectionPoint extends IConnectionPoint{
         pfMarshal := pf is VarRef ? "int*" : "ptr"
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, pfMarshal, pf, ppvMarshal, ppv, "int", dispid, "ptr", pdispparams, "HRESULT")
+        result := ComCall(8, this, pfMarshal, pf, ppvMarshal, ppv, "int", dispid, "ptr", pdispparams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class CIE4ConnectionPoint extends IConnectionPoint{
      * @returns {HRESULT} 
      */
     DoInvokePIDLIE4(dispid, pidl, fCanCancel) {
-        result := ComCall(9, this, "int", dispid, "ptr", pidl, "int", fCanCancel, "HRESULT")
+        result := ComCall(9, this, "int", dispid, "ptr", pidl, "int", fCanCancel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

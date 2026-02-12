@@ -6,7 +6,7 @@
  * @remarks
  * The DFS functions use the 
  * <b>DFS_INFO_1</b> structure to retrieve information about a DFS root or link.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_1
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_info_1
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

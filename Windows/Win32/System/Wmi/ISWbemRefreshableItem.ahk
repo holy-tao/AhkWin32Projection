@@ -77,7 +77,11 @@ class ISWbemRefreshableItem extends IDispatch{
      * @returns {Integer} 
      */
     get_Index() {
-        result := ComCall(7, this, "int*", &iIndex := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &iIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iIndex
     }
 
@@ -86,7 +90,11 @@ class ISWbemRefreshableItem extends IDispatch{
      * @returns {ISWbemRefresher} 
      */
     get_Refresher() {
-        result := ComCall(8, this, "ptr*", &objWbemRefresher := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &objWbemRefresher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemRefresher(objWbemRefresher)
     }
 
@@ -95,7 +103,11 @@ class ISWbemRefreshableItem extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsSet() {
-        result := ComCall(9, this, "short*", &bIsSet := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &bIsSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsSet
     }
 
@@ -104,7 +116,11 @@ class ISWbemRefreshableItem extends IDispatch{
      * @returns {ISWbemObjectEx} 
      */
     get_Object() {
-        result := ComCall(10, this, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &objWbemObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObjectEx(objWbemObject)
     }
 
@@ -113,17 +129,26 @@ class ISWbemRefreshableItem extends IDispatch{
      * @returns {ISWbemObjectSet} 
      */
     get_ObjectSet() {
-        result := ComCall(11, this, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &objWbemObjectSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(iFlags) {
-        result := ComCall(12, this, "int", iFlags, "HRESULT")
+        result := ComCall(12, this, "int", iFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

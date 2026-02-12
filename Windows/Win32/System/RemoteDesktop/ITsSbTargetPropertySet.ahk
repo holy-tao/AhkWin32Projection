@@ -5,7 +5,7 @@
 
 /**
  * Derive from this interface to define a custom target property set.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbtargetpropertyset
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbtargetpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

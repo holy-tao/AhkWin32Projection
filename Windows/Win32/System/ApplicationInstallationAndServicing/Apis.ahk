@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\MSIHANDLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -283,192 +285,192 @@ class ApplicationInstallationAndServicing {
     static MAX_FEATURE_CHARS => 38
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PACKAGENAME => "PackageName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_TRANSFORMS => "Transforms"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_LANGUAGE => "Language"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PRODUCTNAME => "ProductName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_ASSIGNMENTTYPE => "AssignmentType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_INSTANCETYPE => "InstanceType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_AUTHORIZED_LUA_APP => "AuthorizedLUAApp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PACKAGECODE => "PackageCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_VERSION => "Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PRODUCTICON => "ProductIcon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_INSTALLEDPRODUCTNAME => "InstalledProductName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_VERSIONSTRING => "VersionString"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_HELPLINK => "HelpLink"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_HELPTELEPHONE => "HelpTelephone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_INSTALLLOCATION => "InstallLocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_INSTALLSOURCE => "InstallSource"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_INSTALLDATE => "InstallDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PUBLISHER => "Publisher"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_LOCALPACKAGE => "LocalPackage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_URLINFOABOUT => "URLInfoAbout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_URLUPDATEINFO => "URLUpdateInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_VERSIONMINOR => "VersionMinor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_VERSIONMAJOR => "VersionMajor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PRODUCTID => "ProductID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_REGCOMPANY => "RegCompany"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_REGOWNER => "RegOwner"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_INSTALLEDLANGUAGE => "InstalledLanguage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_UNINSTALLABLE => "Uninstallable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PRODUCTSTATE => "State"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PATCHSTATE => "State"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_PATCHTYPE => "PatchType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_LUAENABLED => "LUAEnabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_DISPLAYNAME => "DisplayName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_MOREINFOURL => "MoreInfoURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_LASTUSEDSOURCE => "LastUsedSource"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_LASTUSEDTYPE => "LastUsedType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_MEDIAPACKAGEPATH => "MediaPackagePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INSTALLPROPERTY_DISKPROMPT => "DiskPrompt"
 
@@ -608,1132 +610,1132 @@ class ApplicationInstallationAndServicing {
     static SFC_QUOTA_DEFAULT => 50
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SFC_IDLE_TRIGGER => "WFP_IDLE_TRIGGER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRODUCTNAME => "ProductName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRODUCTCODE => "ProductCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRODUCTVERSION => "ProductVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INSTALLLANGUAGE => "ProductLanguage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MANUFACTURER => "Manufacturer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_UPGRADECODE => "UpgradeCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PIDTEMPLATE => "PIDTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DISKPROMPT => "DiskPrompt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_LEFTUNIT => "LeftUnit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ADMIN_PROPERTIES => "AdminProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DEFAULTUIFONT => "DefaultUIFont"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ALLOWEDPROPERTIES => "SecureCustomProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ENABLEUSERCONTROL => "EnableUserControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_HIDDEN_PROPERTIES => "MsiHiddenProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_USERNAME => "USERNAME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMPANYNAME => "COMPANYNAME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PIDKEY => "PIDKEY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PATCH => "PATCH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIPATCHREMOVE => "MSIPATCHREMOVE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TARGETDIR => "TARGETDIR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ACTION => "ACTION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_LIMITUI => "LIMITUI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_LOGACTION => "LOGACTION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ALLUSERS => "ALLUSERS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INSTALLLEVEL => "INSTALLLEVEL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REBOOT => "REBOOT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REBOOTPROMPT => "REBOOTPROMPT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_EXECUTEMODE => "EXECUTEMODE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_EXECUTEMODE_NONE => "NONE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_EXECUTEMODE_SCRIPT => "SCRIPT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_EXECUTEACTION => "EXECUTEACTION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SOURCELIST => "SOURCELIST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ROOTDRIVE => "ROOTDRIVE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TRANSFORMS => "TRANSFORMS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TRANSFORMSATSOURCE => "TRANSFORMSATSOURCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TRANSFORMSSECURE => "TRANSFORMSSECURE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SEQUENCE => "SEQUENCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SHORTFILENAMES => "SHORTFILENAMES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRIMARYFOLDER => "PRIMARYFOLDER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_AFTERREBOOT => "AFTERREBOOT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NOCOMPANYNAME => "NOCOMPANYNAME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NOUSERNAME => "NOUSERNAME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DISABLEROLLBACK => "DISABLEROLLBACK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_AVAILABLEFREEREG => "AVAILABLEFREEREG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DISABLEADVTSHORTCUTS => "DISABLEADVTSHORTCUTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PATCHNEWPACKAGECODE => "PATCHNEWPACKAGECODE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PATCHNEWSUMMARYSUBJECT => "PATCHNEWSUMMARYSUBJECT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PATCHNEWSUMMARYCOMMENTS => "PATCHNEWSUMMARYCOMMENTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRODUCTLANGUAGE => "PRODUCTLANGUAGE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_CHECKCRCS => "MSICHECKCRCS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSINODISABLEMEDIA => "MSINODISABLEMEDIA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_CARRYINGNDP => "CARRYINGNDP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE__CARRYINGNDP_URTREINSTALL => "URTREINSTALL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE__CARRYINGNDP_URTUPGRADE => "URTUPGRADE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ENFORCE_UPGRADE_COMPONENT_RULES => "MSIENFORCEUPGRADECOMPONENTRULES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSINEWINSTANCE => "MSINEWINSTANCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIINSTANCEGUID => "MSIINSTANCEGUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIPACKAGEDOWNLOADLOCALCOPY => "MSIPACKAGEDOWNLOADLOCALCOPY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIPATCHDOWNLOADLOCALCOPY => "MSIPATCHDOWNLOADLOCALCOPY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIDISABLELUAPATCHING => "MSIDISABLELUAPATCHING"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSILOGGINGMODE => "MsiLogging"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSILOGFILELOCATION => "MsiLogFileLocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_RM_CONTROL => "MSIRESTARTMANAGERCONTROL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_MSI_RM_CONTROL_DISABLE => "Disable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_MSI_RM_CONTROL_DISABLESHUTDOWN => "DisableShutdown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_RM_SESSION_KEY => "MsiRestartManagerSessionKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_REBOOT_PENDING => "MsiSystemRebootPending"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_RM_SHUTDOWN => "MSIRMSHUTDOWN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_RM_DISABLE_RESTART => "MSIDISABLERMRESTART"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_UAC_DEPLOYMENT_COMPLIANT => "MSIDEPLOYMENTCOMPLIANT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_USE_REAL_ADMIN_DETECTION => "MSIUSEREALADMINDETECTION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_UNINSTALL_SUPERSEDED_COMPONENTS => "MSIUNINSTALLSUPERSEDEDCOMPONENTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIDISABLEEEUI => "MSIDISABLEEEUI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSI_FASTINSTALL => "MSIFASTINSTALL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INSTALLPERUSER => "MSIINSTALLPERUSER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INTERNALINSTALLEDPERUSER => "MSIINTERNALINSTALLEDPERUSER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPAUTHORIZEDCDFPREFIX => "ARPAUTHORIZEDCDFPREFIX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPCOMMENTS => "ARPCOMMENTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPCONTACT => "ARPCONTACT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPHELPLINK => "ARPHELPLINK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPHELPTELEPHONE => "ARPHELPTELEPHONE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPINSTALLLOCATION => "ARPINSTALLLOCATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPNOMODIFY => "ARPNOMODIFY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPNOREMOVE => "ARPNOREMOVE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPNOREPAIR => "ARPNOREPAIR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPREADME => "ARPREADME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPSIZE => "ARPSIZE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPSYSTEMCOMPONENT => "ARPSYSTEMCOMPONENT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPURLINFOABOUT => "ARPURLINFOABOUT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPURLUPDATEINFO => "ARPURLUPDATEINFO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPPRODUCTICON => "ARPPRODUCTICON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPSETTINGSIDENTIFIER => "MSIARPSETTINGSIDENTIFIER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPSHIMFLAGS => "SHIMFLAGS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPSHIMVERSIONNT => "SHIMVERSIONNT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARPSHIMSERVICEPACKLEVEL => "SHIMSERVICEPACKLEVEL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INSTALLED => "Installed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRODUCTSTATE => "ProductState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRESELECTED => "Preselected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_RESUME => "RESUME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_UPDATESTARTED => "UpdateStarted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRODUCTID => "ProductID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_OUTOFDISKSPACE => "OutOfDiskSpace"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_OUTOFNORBDISKSPACE => "OutOfNoRbDiskSpace"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COSTINGCOMPLETE => "CostingComplete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SOURCEDIR => "SourceDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REPLACEDINUSEFILES => "ReplacedInUseFiles"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRIMARYFOLDER_PATH => "PrimaryVolumePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRIMARYFOLDER_SPACEAVAILABLE => "PrimaryVolumeSpaceAvailable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRIMARYFOLDER_SPACEREQUIRED => "PrimaryVolumeSpaceRequired"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRIMARYFOLDER_SPACEREMAINING => "PrimaryVolumeSpaceRemaining"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ISADMINPACKAGE => "IsAdminPackage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ROLLBACKDISABLED => "RollbackDisabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_RESTRICTEDUSERCONTROL => "RestrictedUserControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SOURCERESONLY => "MsiUISourceResOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_HIDECANCEL => "MsiUIHideCancel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PROGRESSONLY => "MsiUIProgressOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_UACONLY => "MsiUIUACOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TIME => "Time"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DATE => "Date"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DATETIME => "DateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARM => "Arm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ARM64 => "Arm64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INTEL => "Intel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEMPLATE_AMD64 => "AMD64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEMPLATE_X64 => "x64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIAMD64 => "MsiAMD64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSIX64 => "Msix64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_INTEL64 => "Intel64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_IA64 => "IA64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEXTHEIGHT => "TextHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEXTINTERNALLEADING => "TextInternalLeading"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SCREENX => "ScreenX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SCREENY => "ScreenY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_CAPTIONHEIGHT => "CaptionHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_BORDERTOP => "BorderTop"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_BORDERSIDE => "BorderSide"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COLORBITS => "ColorBits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PHYSICALMEMORY => "PhysicalMemory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_VIRTUALMEMORY => "VirtualMemory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEXTHEIGHT_CORRECTION => "TextHeightCorrection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MSITABLETPC => "MsiTabletPC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_VERSIONNT => "VersionNT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_VERSION9X => "Version9X"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_VERSIONNT64 => "VersionNT64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_WINDOWSBUILD => "WindowsBuild"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SERVICEPACKLEVEL => "ServicePackLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SERVICEPACKLEVELMINOR => "ServicePackLevelMinor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SHAREDWINDOWS => "SharedWindows"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMPUTERNAME => "ComputerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SHELLADVTSUPPORT => "ShellAdvtSupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_OLEADVTSUPPORT => "OLEAdvtSupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SYSTEMLANGUAGEID => "SystemLanguageID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TTCSUPPORT => "TTCSupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TERMSERVER => "TerminalServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REMOTEADMINTS => "RemoteAdminTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REDIRECTEDDLLSUPPORT => "RedirectedDllSupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTPRODUCTTYPE => "MsiNTProductType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITEBACKOFFICE => "MsiNTSuiteBackOffice"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITEDATACENTER => "MsiNTSuiteDataCenter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITEENTERPRISE => "MsiNTSuiteEnterprise"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITESMALLBUSINESS => "MsiNTSuiteSmallBusiness"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITESMALLBUSINESSRESTRICTED => "MsiNTSuiteSmallBusinessRestricted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITEPERSONAL => "MsiNTSuitePersonal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NTSUITEWEBSERVER => "MsiNTSuiteWebServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NETASSEMBLYSUPPORT => "MsiNetAssemblySupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_WIN32ASSEMBLYSUPPORT => "MsiWin32AssemblySupport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_LOGONUSER => "LogonUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_USERSID => "UserSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ADMINUSER => "AdminUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_USERLANGUAGEID => "UserLanguageID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRIVILEGED => "Privileged"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_RUNNINGELEVATED => "MsiRunningElevated"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TRUEADMINUSER => "MsiTrueAdminUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_WINDOWS_FOLDER => "WindowsFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SYSTEM_FOLDER => "SystemFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SYSTEM16_FOLDER => "System16Folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_WINDOWS_VOLUME => "WindowsVolume"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEMP_FOLDER => "TempFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PROGRAMFILES_FOLDER => "ProgramFilesFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMMONFILES_FOLDER => "CommonFilesFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SYSTEM64_FOLDER => "System64Folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PROGRAMFILES64_FOLDER => "ProgramFiles64Folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMMONFILES64_FOLDER => "CommonFiles64Folder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_STARTMENU_FOLDER => "StartMenuFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PROGRAMMENU_FOLDER => "ProgramMenuFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_STARTUP_FOLDER => "StartupFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_NETHOOD_FOLDER => "NetHoodFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PERSONAL_FOLDER => "PersonalFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_SENDTO_FOLDER => "SendToFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_DESKTOP_FOLDER => "DesktopFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_TEMPLATE_FOLDER => "TemplateFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FONTS_FOLDER => "FontsFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FAVORITES_FOLDER => "FavoritesFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_RECENT_FOLDER => "RecentFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_APPDATA_FOLDER => "AppDataFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PRINTHOOD_FOLDER => "PrintHoodFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_ADMINTOOLS_FOLDER => "AdminToolsFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMMONAPPDATA_FOLDER => "CommonAppDataFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_LOCALAPPDATA_FOLDER => "LocalAppDataFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_MYPICTURES_FOLDER => "MyPicturesFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FEATUREADDLOCAL => "ADDLOCAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FEATUREADDSOURCE => "ADDSOURCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FEATUREADDDEFAULT => "ADDDEFAULT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FEATUREREMOVE => "REMOVE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FEATUREADVERTISE => "ADVERTISE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_FEATURE_ALL => "ALL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMPONENTADDLOCAL => "COMPADDLOCAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMPONENTADDSOURCE => "COMPADDSOURCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_COMPONENTADDDEFAULT => "COMPADDDEFAULT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FILEADDLOCAL => "FILEADDLOCAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FILEADDSOURCE => "FILEADDSOURCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_FILEADDDEFAULT => "FILEADDDEFAULT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REINSTALL => "REINSTALL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_REINSTALLMODE => "REINSTALLMODE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_PROMPTROLLBACKCOST => "PROMPTROLLBACKCOST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_RBCOST_PROMPT => "P"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_RBCOST_SILENT => "D"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPVALUE_RBCOST_FAIL => "F"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IPROPNAME_CUSTOMACTIONDATA => "CustomActionData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IACTIONNAME_INSTALL => "INSTALL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IACTIONNAME_ADVERTISE => "ADVERTISE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IACTIONNAME_ADMIN => "ADMIN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IACTIONNAME_SEQUENCE => "SEQUENCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IACTIONNAME_COLLECTUSERINFO => "CollectUserInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IACTIONNAME_FIRSTRUN => "FirstRun"
 
@@ -3172,7 +3174,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiclosehandle
      * @since windows8.0
      */
     static MsiCloseHandle(hAny) {
@@ -3191,7 +3193,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a> function opens a handle to a package and the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a> function opens a handle to a product. These function are for use with functions that access the product database.
      * @returns {Integer} This function returns 0 if all handles are closed. Otherwise, the function returns the number of handles open prior to its call.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msicloseallhandles
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msicloseallhandles
      * @since windows8.0
      */
     static MsiCloseAllHandles() {
@@ -3209,7 +3211,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwUILevel 
      * @param {Pointer<HWND>} phWnd Pointer to a window. This window becomes the owner of any user interface created. A pointer to the previous owner of the user interface is returned. If this parameter is null, the owner of the user interface does not change.
      * @returns {Integer} The previous user interface level is returned. If an invalid <i>dwUILevel </i> is passed, then <b>INSTALLUILEVEL_NOCHANGE</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetinternalui
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisetinternalui
      * @since windows8.0
      */
     static MsiSetInternalUI(dwUILevel, phWnd) {
@@ -3439,7 +3441,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Pointer<Void>} pvContext Pointer to an application context that is passed to the callback function. This parameter can be used for error checking.
      * @returns {Pointer<INSTALLUI_HANDLERA>} The return value is the previously set external handler, or zero (0) if there was no previously set handler.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetexternaluia
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisetexternaluia
      * @since windows8.0
      */
     static MsiSetExternalUIA(puiHandler, dwMessageFilter, pvContext) {
@@ -3671,7 +3673,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Pointer<Void>} pvContext Pointer to an application context that is passed to the callback function. This parameter can be used for error checking.
      * @returns {Pointer<INSTALLUI_HANDLERW>} The return value is the previously set external handler, or zero (0) if there was no previously set handler.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetexternaluiw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisetexternaluiw
      * @since windows8.0
      */
     static MsiSetExternalUIW(puiHandler, dwMessageFilter, pvContext) {
@@ -3948,7 +3950,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetexternaluirecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisetexternaluirecord
      * @since windows8.0
      */
     static MsiSetExternalUIRecord(puiHandler, dwMessageFilter, pvContext, ppuiPrevHandler) {
@@ -4031,7 +4033,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienableloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienableloga
      * @since windows8.0
      */
     static MsiEnableLogA(dwLogMode, szLogFile, dwLogAttributes) {
@@ -4114,7 +4116,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienablelogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienablelogw
      * @since windows8.0
      */
     static MsiEnableLogW(dwLogMode, szLogFile, dwLogAttributes) {
@@ -4195,7 +4197,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryproductstatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiqueryproductstatea
      * @since windows8.0
      */
     static MsiQueryProductStateA(szProduct) {
@@ -4276,7 +4278,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryproductstatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiqueryproductstatew
      * @since windows8.0
      */
     static MsiQueryProductStateW(szProduct) {
@@ -4649,7 +4651,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductinfoa
      * @since windows8.0
      */
     static MsiGetProductInfoA(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -5026,7 +5028,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductinfow
      * @since windows8.0
      */
     static MsiGetProductInfoW(szProduct, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -5502,7 +5504,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfoexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductinfoexa
      * @since windows8.0
      */
     static MsiGetProductInfoExA(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
@@ -5979,7 +5981,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfoexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductinfoexw
      * @since windows8.0
      */
     static MsiGetProductInfoExW(szProductCode, szUserSid, dwContext, szProperty, szValue, pcchValue) {
@@ -6067,7 +6069,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallproducta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiinstallproducta
      * @since windows8.0
      */
     static MsiInstallProductA(szPackagePath, szCommandLine) {
@@ -6151,7 +6153,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallproductw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiinstallproductw
      * @since windows8.0
      */
     static MsiInstallProductW(szPackagePath, szCommandLine) {
@@ -6232,7 +6234,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproducta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiconfigureproducta
      * @since windows8.0
      */
     static MsiConfigureProductA(szProduct, iInstallLevel, eInstallState) {
@@ -6312,7 +6314,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproductw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiconfigureproductw
      * @since windows8.0
      */
     static MsiConfigureProductW(szProduct, iInstallLevel, eInstallState) {
@@ -6397,7 +6399,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproductexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiconfigureproductexa
      * @since windows8.0
      */
     static MsiConfigureProductExA(szProduct, iInstallLevel, eInstallState, szCommandLine) {
@@ -6483,7 +6485,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigureproductexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiconfigureproductexw
      * @since windows8.0
      */
     static MsiConfigureProductExW(szProduct, iInstallLevel, eInstallState, szCommandLine) {
@@ -6588,7 +6590,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallproducta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msireinstallproducta
      * @since windows8.0
      */
     static MsiReinstallProductA(szProduct, szReinstallMode) {
@@ -6692,7 +6694,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallproductw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msireinstallproductw
      * @since windows8.0
      */
     static MsiReinstallProductW(szProduct, szReinstallMode) {
@@ -6874,7 +6876,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproductexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertiseproductexa
      * @since windows8.0
      */
     static MsiAdvertiseProductExA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
@@ -7058,7 +7060,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproductexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertiseproductexw
      * @since windows8.0
      */
     static MsiAdvertiseProductExW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage, dwPlatform, dwOptions) {
@@ -7162,7 +7164,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproducta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertiseproducta
      * @since windows8.0
      */
     static MsiAdvertiseProductA(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
@@ -7266,7 +7268,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertiseproductw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertiseproductw
      * @since windows8.0
      */
     static MsiAdvertiseProductW(szPackagePath, szScriptfilePath, szTransforms, lgidLanguage) {
@@ -7362,7 +7364,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprocessadvertisescripta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprocessadvertisescripta
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptA(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
@@ -7458,7 +7460,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprocessadvertisescriptw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprocessadvertisescriptw
      * @since windows8.0
      */
     static MsiProcessAdvertiseScriptW(szScriptFile, szIconFolder, hRegData, fShortcuts, fRemoveItems) {
@@ -7558,7 +7560,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertisescripta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertisescripta
      * @since windows8.0
      */
     static MsiAdvertiseScriptA(szScriptFile, dwFlags, phRegData, fRemoveItems) {
@@ -7656,7 +7658,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiadvertisescriptw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertisescriptw
      * @since windows8.0
      */
     static MsiAdvertiseScriptW(szScriptFile, dwFlags, phRegData, fRemoveItems) {
@@ -7741,7 +7743,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfofromscripta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductinfofromscripta
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptA(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
@@ -7834,7 +7836,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductinfofromscriptw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductinfofromscriptw
      * @since windows8.0
      */
     static MsiGetProductInfoFromScriptW(szScriptFile, lpProductBuf39, plgidLanguage, pdwVersion, lpNameBuf, pcchNameBuf, lpPackageBuf, pcchPackageBuf) {
@@ -7930,7 +7932,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductcodea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductcodea
      * @since windows8.0
      */
     static MsiGetProductCodeA(szComponent, lpBuf39) {
@@ -8019,7 +8021,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductcodew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductcodew
      * @since windows8.0
      */
     static MsiGetProductCodeW(szComponent, lpBuf39) {
@@ -8118,7 +8120,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetuserinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetuserinfoa
      * @since windows8.0
      */
     static MsiGetUserInfoA(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
@@ -8223,7 +8225,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetuserinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetuserinfow
      * @since windows8.0
      */
     static MsiGetUserInfoW(szProduct, lpUserNameBuf, pcchUserNameBuf, lpOrgNameBuf, pcchOrgNameBuf, lpSerialBuf, pcchSerialBuf) {
@@ -8316,7 +8318,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msicollectuserinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msicollectuserinfoa
      * @since windows8.0
      */
     static MsiCollectUserInfoA(szProduct) {
@@ -8402,7 +8404,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msicollectuserinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msicollectuserinfow
      * @since windows8.0
      */
     static MsiCollectUserInfoW(szProduct) {
@@ -8545,7 +8547,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplypatcha
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiapplypatcha
      * @since windows8.0
      */
     static MsiApplyPatchA(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
@@ -8690,7 +8692,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplypatchw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiapplypatchw
      * @since windows8.0
      */
     static MsiApplyPatchW(szPatchPackage, szInstallPackage, eInstallType, szCommandLine) {
@@ -8823,7 +8825,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetpatchinfoa
      * @since windows8.0
      */
     static MsiGetPatchInfoA(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -8958,7 +8960,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetpatchinfow
      * @since windows8.0
      */
     static MsiGetPatchInfoW(szPatch, szAttribute, lpValueBuf, pcchValueBuf) {
@@ -9054,7 +9056,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumpatchesa
      * @since windows8.0
      */
     static MsiEnumPatchesA(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
@@ -9150,7 +9152,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumpatchesw
      * @since windows8.0
      */
     static MsiEnumPatchesW(szProduct, iPatchIndex, lpPatchBuf, lpTransformsBuf, pcchTransformsBuf) {
@@ -9316,7 +9318,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiremovepatchesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiremovepatchesa
      * @since windows8.0
      */
     static MsiRemovePatchesA(szPatchList, szProductCode, eUninstallType, szPropertyList) {
@@ -9480,7 +9482,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiremovepatchesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiremovepatchesw
      * @since windows8.0
      */
     static MsiRemovePatchesW(szPatchList, szProductCode, eUninstallType, szPropertyList) {
@@ -9597,7 +9599,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiextractpatchxmldataa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiextractpatchxmldataa
      * @since windows6.0.6000
      */
     static MsiExtractPatchXMLDataA(szPatchPath, szXMLData, pcchXMLData) {
@@ -9717,7 +9719,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiextractpatchxmldataw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiextractpatchxmldataw
      * @since windows6.0.6000
      */
     static MsiExtractPatchXMLDataW(szPatchPath, szXMLData, pcchXMLData) {
@@ -10024,7 +10026,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfoexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetpatchinfoexa
      * @since windows8.0
      */
     static MsiGetPatchInfoExA(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
@@ -10332,7 +10334,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchinfoexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetpatchinfoexw
      * @since windows8.0
      */
     static MsiGetPatchInfoExW(szPatchCode, szProductCode, szUserSid, dwContext, szProperty, lpValue, pcchValue) {
@@ -10457,7 +10459,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplymultiplepatchesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiapplymultiplepatchesa
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesA(szPatchPackages, szProductCode, szPropertiesList) {
@@ -10578,7 +10580,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiapplymultiplepatchesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiapplymultiplepatchesw
      * @since windows8.0
      */
     static MsiApplyMultiplePatchesW(szPatchPackages, szProductCode, szPropertiesList) {
@@ -10828,7 +10830,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msideterminepatchsequencea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msideterminepatchsequencea
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceA(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
@@ -11077,7 +11079,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msideterminepatchsequencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msideterminepatchsequencew
      * @since windows8.0
      */
     static MsiDeterminePatchSequenceW(szProductCode, szUserSid, dwContext, cPatchInfo, pPatchInfo) {
@@ -11219,7 +11221,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msidetermineapplicablepatchesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msidetermineapplicablepatchesa
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesA(szProductPackagePath, cPatchInfo, pPatchInfo) {
@@ -11360,7 +11362,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msidetermineapplicablepatchesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msidetermineapplicablepatchesw
      * @since windows8.0
      */
     static MsiDetermineApplicablePatchesW(szProductPackagePath, cPatchInfo, pPatchInfo) {
@@ -11626,7 +11628,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumpatchesexa
      * @since windows8.0
      */
     static MsiEnumPatchesExA(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
@@ -11899,7 +11901,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumpatchesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumpatchesexw
      * @since windows8.0
      */
     static MsiEnumPatchesExW(szProductCode, szUserSid, dwContext, dwFilter, dwIndex, szPatchCode, szTargetProductCode, pdwTargetProductContext, szTargetUserSid, pcchTargetUserSid) {
@@ -12006,7 +12008,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiqueryfeaturestatea
      * @since windows8.0
      */
     static MsiQueryFeatureStateA(szProduct, szFeature) {
@@ -12107,7 +12109,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiqueryfeaturestatew
      * @since windows8.0
      */
     static MsiQueryFeatureStateW(szProduct, szFeature) {
@@ -12331,7 +12333,7 @@ class ApplicationInstallationAndServicing {
      * 
      *  For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestateexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiqueryfeaturestateexa
      * @since windows8.0
      */
     static MsiQueryFeatureStateExA(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
@@ -12558,7 +12560,7 @@ class ApplicationInstallationAndServicing {
      * 
      *  For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiqueryfeaturestateexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiqueryfeaturestateexw
      * @since windows8.0
      */
     static MsiQueryFeatureStateExW(szProductCode, szUserSid, dwContext, szFeature, pdwState) {
@@ -12676,7 +12678,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeaturea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiusefeaturea
      * @since windows8.0
      */
     static MsiUseFeatureA(szProduct, szFeature) {
@@ -12791,7 +12793,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeaturew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiusefeaturew
      * @since windows8.0
      */
     static MsiUseFeatureW(szProduct, szFeature) {
@@ -12900,7 +12902,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeatureexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiusefeatureexa
      * @since windows8.0
      */
     static MsiUseFeatureExA(szProduct, szFeature, dwInstallMode) {
@@ -13011,7 +13013,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiusefeatureexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiusefeatureexw
      * @since windows8.0
      */
     static MsiUseFeatureExW(szProduct, szFeature, dwInstallMode) {
@@ -13117,7 +13119,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureusagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfeatureusagea
      * @since windows8.0
      */
     static MsiGetFeatureUsageA(szProduct, szFeature, pdwUseCount, pwDateUsed) {
@@ -13224,7 +13226,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureusagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfeatureusagew
      * @since windows8.0
      */
     static MsiGetFeatureUsageW(szProduct, szFeature, pdwUseCount, pwDateUsed) {
@@ -13297,7 +13299,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigurefeaturea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiconfigurefeaturea
      * @since windows8.0
      */
     static MsiConfigureFeatureA(szProduct, szFeature, eInstallState) {
@@ -13367,7 +13369,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiconfigurefeaturew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiconfigurefeaturew
      * @since windows8.0
      */
     static MsiConfigureFeatureW(szProduct, szFeature, eInstallState) {
@@ -13484,7 +13486,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallfeaturea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msireinstallfeaturea
      * @since windows8.0
      */
     static MsiReinstallFeatureA(szProduct, szFeature, dwReinstallMode) {
@@ -13601,7 +13603,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msireinstallfeaturew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msireinstallfeaturew
      * @since windows8.0
      */
     static MsiReinstallFeatureW(szProduct, szFeature, dwReinstallMode) {
@@ -13784,7 +13786,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovidecomponenta
      * @since windows8.0
      */
     static MsiProvideComponentA(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -13971,7 +13973,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidecomponentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovidecomponentw
      * @since windows8.0
      */
     static MsiProvideComponentW(szProduct, szFeature, szComponent, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -14086,7 +14088,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovidequalifiedcomponenta
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentA(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -14200,7 +14202,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovidequalifiedcomponentw
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentW(szCategory, szQualifier, dwInstallMode, lpPathBuf, pcchPathBuf) {
@@ -14316,7 +14318,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovidequalifiedcomponentexa
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentExA(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
@@ -14435,7 +14437,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovidequalifiedcomponentexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovidequalifiedcomponentexw
      * @since windows8.0
      */
     static MsiProvideQualifiedComponentExW(szCategory, szQualifier, dwInstallMode, szProduct, lpPathBuf, pcchPathBuf) {
@@ -14638,7 +14640,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetcomponentpatha
      * @since windows8.0
      */
     static MsiGetComponentPathA(szProduct, szComponent, lpPathBuf, pcchBuf) {
@@ -14838,7 +14840,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetcomponentpathw
      * @since windows8.0
      */
     static MsiGetComponentPathW(szProduct, szComponent, lpPathBuf, pcchBuf) {
@@ -15095,7 +15097,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpathexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetcomponentpathexa
      * @since windows8.0
      */
     static MsiGetComponentPathExA(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
@@ -15353,7 +15355,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetcomponentpathexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetcomponentpathexw
      * @since windows8.0
      */
     static MsiGetComponentPathExW(szProductCode, szComponentCode, szUserSid, dwContext, lpOutPathBuffer, pcchOutPathBuffer) {
@@ -15549,7 +15551,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblya
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovideassemblya
      * @since windows8.0
      */
     static MsiProvideAssemblyA(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
@@ -15744,7 +15746,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiprovideassemblyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovideassemblyw
      * @since windows8.0
      */
     static MsiProvideAssemblyW(szAssemblyName, szAppContext, dwInstallMode, dwAssemblyInfo, lpPathBuf, pcchPathBuf) {
@@ -15963,7 +15965,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiquerycomponentstatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiquerycomponentstatea
      * @since windows8.0
      */
     static MsiQueryComponentStateA(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
@@ -16182,7 +16184,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiquerycomponentstatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiquerycomponentstatew
      * @since windows8.0
      */
     static MsiQueryComponentStateW(szProductCode, szUserSid, dwContext, szComponentCode, pdwState) {
@@ -16276,7 +16278,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumproductsa
      * @since windows8.0
      */
     static MsiEnumProductsA(iProductIndex, lpProductBuf) {
@@ -16366,7 +16368,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumproductsw
      * @since windows8.0
      */
     static MsiEnumProductsW(iProductIndex, lpProductBuf) {
@@ -16586,7 +16588,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumproductsexa
      * @since windows8.0
      */
     static MsiEnumProductsExA(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
@@ -16812,7 +16814,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumproductsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumproductsexw
      * @since windows8.0
      */
     static MsiEnumProductsExW(szProductCode, szUserSid, dwContext, dwIndex, szInstalledProductCode, pdwInstalledContext, szSid, pcchSid) {
@@ -16911,7 +16913,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumrelatedproductsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumrelatedproductsa
      * @since windows8.0
      */
     static MsiEnumRelatedProductsA(lpUpgradeCode, iProductIndex, lpProductBuf) {
@@ -17007,7 +17009,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumrelatedproductsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumrelatedproductsw
      * @since windows8.0
      */
     static MsiEnumRelatedProductsW(lpUpgradeCode, iProductIndex, lpProductBuf) {
@@ -17114,7 +17116,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumfeaturesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumfeaturesa
      * @since windows8.0
      */
     static MsiEnumFeaturesA(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
@@ -17220,7 +17222,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumfeaturesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumfeaturesw
      * @since windows8.0
      */
     static MsiEnumFeaturesW(szProduct, iFeatureIndex, lpFeatureBuf, lpParentBuf) {
@@ -17317,7 +17319,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumcomponentsa
      * @since windows8.0
      */
     static MsiEnumComponentsA(iComponentIndex, lpComponentBuf) {
@@ -17412,7 +17414,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumcomponentsw
      * @since windows8.0
      */
     static MsiEnumComponentsW(iComponentIndex, lpComponentBuf) {
@@ -17684,7 +17686,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumcomponentsexa
      * @since windows8.0
      */
     static MsiEnumComponentsExA(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
@@ -17961,7 +17963,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumcomponentsexw
      * @since windows8.0
      */
     static MsiEnumComponentsExW(szUserSid, dwContext, dwIndex, szInstalledComponentCode, pdwInstalledContext, szSid, pcchSid) {
@@ -18068,7 +18070,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumclientsa
      * @since windows8.0
      */
     static MsiEnumClientsA(szComponent, iProductIndex, lpProductBuf) {
@@ -18171,7 +18173,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumclientsw
      * @since windows8.0
      */
     static MsiEnumClientsW(szComponent, iProductIndex, lpProductBuf) {
@@ -18360,7 +18362,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumclientsexa
      * @since windows8.0
      */
     static MsiEnumClientsExA(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
@@ -18554,7 +18556,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumclientsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumclientsexw
      * @since windows8.0
      */
     static MsiEnumClientsExW(szComponent, szUserSid, dwContext, dwProductIndex, szProductBuf, pdwInstalledContext, szSid, pcchSid) {
@@ -18681,7 +18683,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentqualifiersa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumcomponentqualifiersa
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersA(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
@@ -18807,7 +18809,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msienumcomponentqualifiersw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msienumcomponentqualifiersw
      * @since windows8.0
      */
     static MsiEnumComponentQualifiersW(szComponent, iIndex, lpQualifierBuf, pcchQualifierBuf, lpApplicationDataBuf, pcchApplicationDataBuf) {
@@ -18905,7 +18907,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenproducta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiopenproducta
      * @since windows8.0
      */
     static MsiOpenProductA(szProduct, hProduct) {
@@ -18998,7 +19000,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenproductw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiopenproductw
      * @since windows8.0
      */
     static MsiOpenProductW(szProduct, hProduct) {
@@ -19086,7 +19088,7 @@ class ApplicationInstallationAndServicing {
      * 
      * If this function fails, it may return a system error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiopenpackagea
      * @since windows8.0
      */
     static MsiOpenPackageA(szPackagePath, hProduct) {
@@ -19174,7 +19176,7 @@ class ApplicationInstallationAndServicing {
      * 
      * If this function fails, it may return a system error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiopenpackagew
      * @since windows8.0
      */
     static MsiOpenPackageW(szPackagePath, hProduct) {
@@ -19354,7 +19356,7 @@ class ApplicationInstallationAndServicing {
      * 
      * If this function fails, it may return a system error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackageexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiopenpackageexa
      * @since windows8.0
      */
     static MsiOpenPackageExA(szPackagePath, dwOptions, hProduct) {
@@ -19534,7 +19536,7 @@ class ApplicationInstallationAndServicing {
      * 
      * If this function fails, it may return a system error code. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiopenpackageexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiopenpackageexw
      * @since windows8.0
      */
     static MsiOpenPackageExW(szPackagePath, dwOptions, hProduct) {
@@ -19609,7 +19611,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchfilelista
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetpatchfilelista
      * @since windows8.0
      */
     static MsiGetPatchFileListA(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
@@ -19688,7 +19690,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetpatchfilelistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetpatchfilelistw
      * @since windows8.0
      */
     static MsiGetPatchFileListW(szProductCode, szPatchPackages, pcFiles, pphFileRecords) {
@@ -19783,7 +19785,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductpropertya
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductpropertya
      * @since windows8.0
      */
     static MsiGetProductPropertyA(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
@@ -19878,7 +19880,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetproductpropertyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetproductpropertyw
      * @since windows8.0
      */
     static MsiGetProductPropertyW(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
@@ -19952,7 +19954,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiverifypackagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiverifypackagea
      * @since windows8.0
      */
     static MsiVerifyPackageA(szPackagePath) {
@@ -20022,7 +20024,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiverifypackagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiverifypackagew
      * @since windows8.0
      */
     static MsiVerifyPackageW(szPackagePath) {
@@ -20117,7 +20119,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfeatureinfoa
      * @since windows8.0
      */
     static MsiGetFeatureInfoA(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
@@ -20219,7 +20221,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfeatureinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfeatureinfow
      * @since windows8.0
      */
     static MsiGetFeatureInfoW(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
@@ -20349,7 +20351,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information about error messages, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingcomponenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiinstallmissingcomponenta
      * @since windows8.0
      */
     static MsiInstallMissingComponentA(szProduct, szComponent, eInstallState) {
@@ -20473,7 +20475,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information about error messages, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingcomponentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiinstallmissingcomponentw
      * @since windows8.0
      */
     static MsiInstallMissingComponentW(szProduct, szComponent, eInstallState) {
@@ -20596,7 +20598,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information about error messages, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiinstallmissingfilea
      * @since windows8.0
      */
     static MsiInstallMissingFileA(szProduct, szFile) {
@@ -20719,7 +20721,7 @@ class ApplicationInstallationAndServicing {
      * 
      * For more information about error messages, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/displayed-error-messages">Displayed Error Messages</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiinstallmissingfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiinstallmissingfilew
      * @since windows8.0
      */
     static MsiInstallMissingFileW(szProduct, szFile) {
@@ -20865,7 +20867,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msilocatecomponenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msilocatecomponenta
      * @since windows8.0
      */
     static MsiLocateComponentA(szComponent, lpPathBuf, pcchBuf) {
@@ -21013,7 +21015,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msilocatecomponentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msilocatecomponentw
      * @since windows8.0
      */
     static MsiLocateComponentW(szComponent, lpPathBuf, pcchBuf) {
@@ -21149,7 +21151,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearalla
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearalla
      * @since windows8.0
      */
     static MsiSourceListClearAllA(szProduct, szUserName) {
@@ -21285,7 +21287,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearallw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearallw
      * @since windows8.0
      */
     static MsiSourceListClearAllW(szProduct, szUserName) {
@@ -21426,7 +21428,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistaddsourcea
      * @since windows8.0
      */
     static MsiSourceListAddSourceA(szProduct, szUserName, szSource) {
@@ -21568,7 +21570,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistaddsourcew
      * @since windows8.0
      */
     static MsiSourceListAddSourceW(szProduct, szUserName, szSource) {
@@ -21701,7 +21703,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistforceresolutiona
      * @since windows8.0
      */
     static MsiSourceListForceResolutionA(szProduct, szUserName) {
@@ -21833,7 +21835,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistforceresolutionw
      * @since windows8.0
      */
     static MsiSourceListForceResolutionW(szProduct, szUserName) {
@@ -22037,7 +22039,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistaddsourceexa
      * @since windows8.0
      */
     static MsiSourceListAddSourceExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
@@ -22240,7 +22242,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddsourceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistaddsourceexw
      * @since windows8.0
      */
     static MsiSourceListAddSourceExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource, dwIndex) {
@@ -22434,7 +22436,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddmediadiska
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistaddmediadiska
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
@@ -22629,7 +22631,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistaddmediadiskw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistaddmediadiskw
      * @since windows8.0
      */
     static MsiSourceListAddMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId, szVolumeLabel, szDiskPrompt) {
@@ -22837,7 +22839,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearsourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearsourcea
      * @since windows8.0
      */
     static MsiSourceListClearSourceA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
@@ -23044,7 +23046,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearsourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearsourcew
      * @since windows8.0
      */
     static MsiSourceListClearSourceW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szSource) {
@@ -23235,7 +23237,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearmediadiska
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearmediadiska
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
@@ -23425,7 +23427,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearmediadiskw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearmediadiskw
      * @since windows8.0
      */
     static MsiSourceListClearMediaDiskW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwDiskId) {
@@ -23608,7 +23610,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearallexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearallexa
      * @since windows8.0
      */
     static MsiSourceListClearAllExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -23791,7 +23793,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistclearallexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistclearallexw
      * @since windows8.0
      */
     static MsiSourceListClearAllExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -23947,7 +23949,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutionexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistforceresolutionexa
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -24103,7 +24105,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistforceresolutionexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistforceresolutionexw
      * @since windows8.0
      */
     static MsiSourceListForceResolutionExW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions) {
@@ -24324,7 +24326,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistsetinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistsetinfoa
      * @since windows8.0
      */
     static MsiSourceListSetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
@@ -24547,7 +24549,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistsetinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistsetinfow
      * @since windows8.0
      */
     static MsiSourceListSetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue) {
@@ -24760,7 +24762,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistgetinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistgetinfoa
      * @since windows8.0
      */
     static MsiSourceListGetInfoA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
@@ -24975,7 +24977,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistgetinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistgetinfow
      * @since windows8.0
      */
     static MsiSourceListGetInfoW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, szProperty, szValue, pcchValue) {
@@ -25220,7 +25222,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenumsourcesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistenumsourcesa
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
@@ -25464,7 +25466,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenumsourcesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistenumsourcesw
      * @since windows8.0
      */
     static MsiSourceListEnumSourcesW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, szSource, pcchSource) {
@@ -25697,7 +25699,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenummediadisksa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistenummediadisksa
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksA(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
@@ -25933,7 +25935,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisourcelistenummediadisksw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisourcelistenummediadisksw
      * @since windows8.0
      */
     static MsiSourceListEnumMediaDisksW(szProductCodeOrPatchCode, szUserSid, dwContext, dwOptions, dwIndex, pdwDiskId, szVolumeLabel, pcchVolumeLabel, szDiskPrompt, pcchDiskPrompt) {
@@ -26040,7 +26042,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfileversiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfileversiona
      * @since windows8.0
      */
     static MsiGetFileVersionA(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
@@ -26145,7 +26147,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfileversionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfileversionw
      * @since windows8.0
      */
     static MsiGetFileVersionW(szFilePath, lpVersionBuf, pcchVersionBuf, lpLangBuf, pcchLangBuf) {
@@ -26234,7 +26236,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilehasha
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfilehasha
      * @since windows8.0
      */
     static MsiGetFileHashA(szFilePath, dwOptions, pHash) {
@@ -26318,7 +26320,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilehashw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfilehashw
      * @since windows8.0
      */
     static MsiGetFileHashW(szFilePath, dwOptions, pHash) {
@@ -26376,7 +26378,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
      * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
      * @returns {Pointer<CERT_CONTEXT>} Returned signer certificate context
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilesignatureinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfilesignatureinformationa
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationA(szSignedObjectPath, dwFlags, pbHashData, pcbHashData) {
@@ -26440,7 +26442,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
      * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
      * @returns {Pointer<CERT_CONTEXT>} Returned signer certificate context
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilesignatureinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetfilesignatureinformationw
      * @since windows8.0
      */
     static MsiGetFileSignatureInformationW(szSignedObjectPath, dwFlags, pbHashData, pcbHashData) {
@@ -26477,7 +26479,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetshortcuttargeta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetshortcuttargeta
      * @since windows8.0
      */
     static MsiGetShortcutTargetA(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
@@ -26511,7 +26513,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szComponentCode A GUID of the component code. This string buffer must be 39 characters long. The first 38 characters are for the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">GUID</a>, and the last character is for the terminating null character. This parameter can be null.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetshortcuttargetw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msigetshortcuttargetw
      * @since windows8.0
      */
     static MsiGetShortcutTargetW(szShortcutPath, szProductCode, szFeatureId, szComponentCode) {
@@ -26600,7 +26602,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiisproductelevateda
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiisproductelevateda
      * @since windows8.0
      */
     static MsiIsProductElevatedA(szProduct, pfElevated) {
@@ -26688,7 +26690,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiisproductelevatedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiisproductelevatedw
      * @since windows8.0
      */
     static MsiIsProductElevatedW(szProduct, pfElevated) {
@@ -26765,7 +26767,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msinotifysidchangea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msinotifysidchangea
      * @since windows8.0
      */
     static MsiNotifySidChangeA(pOldSid, pNewSid) {
@@ -26841,7 +26843,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msinotifysidchangew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msinotifysidchangew
      * @since windows8.0
      */
     static MsiNotifySidChangeW(pOldSid, pNewSid) {
@@ -26944,7 +26946,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msibegintransactiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msibegintransactiona
      * @since windows8.0
      */
     static MsiBeginTransactionA(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
@@ -27046,7 +27048,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msibegintransactionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msibegintransactionw
      * @since windows8.0
      */
     static MsiBeginTransactionW(szName, dwTransactionAttributes, phTransactionHandle, phChangeOfOwnerEvent) {
@@ -27141,7 +27143,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msiendtransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiendtransaction
      * @since windows8.0
      */
     static MsiEndTransaction(dwTransactionState) {
@@ -27251,7 +27253,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msijointransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msijointransaction
      * @since windows8.0
      */
     static MsiJoinTransaction(hTransactionHandle, dwTransactionAttributes, phChangeOfOwnerEvent) {
@@ -27291,7 +27293,7 @@ class ApplicationInstallationAndServicing {
      * ERROR_SUCCESS if successful, and the view handle which the phView [out] parameter points to is set.
      * 
      * ERROR_INVALID_HANDLE, ERROR_INVALID_HANDLE_STATE, ERROR_BAD_QUERY_SYNTAX or ERROR_GEN_FAILURE if failure, and sets the error record, accessible via MsiGetLastErrorRecord.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseopenviewa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseopenviewa
      * @since windows8.0
      */
     static MsiDatabaseOpenViewA(hDatabase, szQuery, phView) {
@@ -27328,7 +27330,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<MSIHANDLE>} phView Pointer to a handle for the returned view.
      * @returns {Integer} The 
      * <b>MsiDatabaseOpenView</b> function  returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseopenvieww
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseopenvieww
      * @since windows8.0
      */
     static MsiDatabaseOpenViewW(hDatabase, szQuery, phView) {
@@ -27740,7 +27742,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgeterrora
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewgeterrora
      * @since windows8.0
      */
     static MsiViewGetErrorA(hView, szColumnNameBuffer, pcchBuf) {
@@ -28154,7 +28156,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgeterrorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewgeterrorw
      * @since windows8.0
      */
     static MsiViewGetErrorW(hView, szColumnNameBuffer, pcchBuf) {
@@ -28193,7 +28195,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hRecord Handle to a record that supplies the parameters. This parameter contains values to replace the parameter tokens in the SQL query. It is optional, so <i>hRecord</i> can be zero. For a reference on syntax, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sql-syntax">SQL Syntax</a>.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewexecute
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewexecute
      * @since windows8.0
      */
     static MsiViewExecute(hView, hRecord) {
@@ -28217,7 +28219,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hView Handle to the view to fetch from.
      * @param {Pointer<MSIHANDLE>} phRecord Pointer to the handle for the fetched record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewfetch
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewfetch
      * @since windows8.0
      */
     static MsiViewFetch(hView, phRecord) {
@@ -28253,7 +28255,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiViewModify</b> function returns the following values:
      * 
      * Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewmodify
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewmodify
      * @since windows8.0
      */
     static MsiViewModify(hView, eModifyMode, hRecord) {
@@ -28277,7 +28279,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} eColumnInfo 
      * @param {Pointer<MSIHANDLE>} phRecord Pointer to a handle to receive the column information data record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgetcolumninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewgetcolumninfo
      * @since windows8.0
      */
     static MsiViewGetColumnInfo(hView, eColumnInfo, phRecord) {
@@ -28296,7 +28298,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiviewfetch">MsiViewFetch</a> function.
      * @param {MSIHANDLE} hView Handle to a view that is set to release.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiviewclose
      * @since windows8.0
      */
     static MsiViewClose(hView) {
@@ -28330,7 +28332,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szTableName Specifies the name of the table from which to obtain primary key names.
      * @param {Pointer<MSIHANDLE>} phRecord Pointer to the handle of the record that holds the primary key names.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegetprimarykeysa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasegetprimarykeysa
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysA(hDatabase, szTableName, phRecord) {
@@ -28365,7 +28367,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szTableName Specifies the name of the table from which to obtain primary key names.
      * @param {Pointer<MSIHANDLE>} phRecord Pointer to the handle of the record that holds the primary key names.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegetprimarykeysw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasegetprimarykeysw
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysW(hDatabase, szTableName, phRecord) {
@@ -28384,7 +28386,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {PSTR} szTableName Specifies the name of the relevant table.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseistablepersistenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseistablepersistenta
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentA(hDatabase, szTableName) {
@@ -28403,7 +28405,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {PWSTR} szTableName Specifies the name of the relevant table.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseistablepersistentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseistablepersistentw
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentW(hDatabase, szTableName) {
@@ -28444,7 +28446,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<MSIHANDLE>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
      * @returns {Integer} The 
      * <b>MsiGetSummaryInformation</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsummaryinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetsummaryinformationa
      * @since windows8.0
      */
     static MsiGetSummaryInformationA(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
@@ -28485,7 +28487,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<MSIHANDLE>} phSummaryInfo Pointer to the location from which to receive the summary information handle.
      * @returns {Integer} The 
      * <b>MsiGetSummaryInformation</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsummaryinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetsummaryinformationw
      * @since windows8.0
      */
     static MsiGetSummaryInformationW(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
@@ -28501,7 +28503,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @param {Pointer<Integer>} puiPropertyCount Location to receive the total property count.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfogetpropertycount
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisummaryinfogetpropertycount
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyCount(hSummaryInfo, puiPropertyCount) {
@@ -28527,7 +28529,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szValue Specifies the text value.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoSetProperty</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfosetpropertya
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisummaryinfosetpropertya
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyA(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
@@ -28552,7 +28554,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szValue Specifies the text value.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoSetProperty</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfosetpropertyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisummaryinfosetpropertyw
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyW(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
@@ -28589,7 +28591,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfogetpropertya
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisummaryinfogetpropertya
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyA(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
@@ -28630,7 +28632,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiSummaryInfoGetProperty</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfogetpropertyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisummaryinfogetpropertyw
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyW(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
@@ -28649,7 +28651,7 @@ class ApplicationInstallationAndServicing {
      * The MsiSummaryInfoPersist function writes changed summary information back to the summary information stream.
      * @param {MSIHANDLE} hSummaryInfo Handle to summary information.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisummaryinfopersist
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisummaryinfopersist
      * @since windows8.0
      */
     static MsiSummaryInfoPersist(hSummaryInfo) {
@@ -28757,7 +28759,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<MSIHANDLE>} phDatabase Pointer to the location of the returned database handle.
      * @returns {Integer} The 
      * <b>MsiOpenDatabase</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiopendatabasea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiopendatabasea
      * @since windows8.0
      */
     static MsiOpenDatabaseA(szDatabasePath, szPersist, phDatabase) {
@@ -28866,7 +28868,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<MSIHANDLE>} phDatabase Pointer to the location of the returned database handle.
      * @returns {Integer} The 
      * <b>MsiOpenDatabase</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiopendatabasew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiopendatabasew
      * @since windows8.0
      */
     static MsiOpenDatabaseW(szDatabasePath, szPersist, phDatabase) {
@@ -28902,7 +28904,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szFileName Specifies the name of the file to import.
      * @returns {Integer} The 
      * <b>MsiDatabaseImport</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseimporta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseimporta
      * @since windows8.0
      */
     static MsiDatabaseImportA(hDatabase, szFolderPath, szFileName) {
@@ -28939,7 +28941,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szFileName Specifies the name of the file to import.
      * @returns {Integer} The 
      * <b>MsiDatabaseImport</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseimportw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseimportw
      * @since windows8.0
      */
     static MsiDatabaseImportW(hDatabase, szFolderPath, szFileName) {
@@ -29038,7 +29040,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseexporta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseexporta
      * @since windows8.0
      */
     static MsiDatabaseExportA(hDatabase, szTableName, szFolderPath, szFileName) {
@@ -29138,7 +29140,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseexportw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseexportw
      * @since windows8.0
      */
     static MsiDatabaseExportW(hDatabase, szTableName, szFolderPath, szFileName) {
@@ -29276,7 +29278,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasemergea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasemergea
      * @since windows8.0
      */
     static MsiDatabaseMergeA(hDatabase, hDatabaseMerge, szTableName) {
@@ -29413,7 +29415,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasemergew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasemergew
      * @since windows8.0
      */
     static MsiDatabaseMergeW(hDatabase, hDatabaseMerge, szTableName) {
@@ -29458,7 +29460,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
      * @returns {Integer} The 
      * <b>MsiDatabaseGenerateTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegeneratetransforma
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasegeneratetransforma
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
@@ -29503,7 +29505,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iReserved2 This is a reserved argument and must be set to 0.
      * @returns {Integer} The 
      * <b>MsiDatabaseGenerateTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasegeneratetransformw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasegeneratetransformw
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
@@ -29628,7 +29630,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @returns {Integer} The 
      * <b>MsiDatabaseApplyTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseapplytransforma
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseapplytransforma
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformA(hDatabase, szTransformFile, iErrorConditions) {
@@ -29752,7 +29754,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @returns {Integer} The 
      * <b>MsiDatabaseApplyTransform</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseapplytransformw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabaseapplytransformw
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformW(hDatabase, szTransformFile, iErrorConditions) {
@@ -29788,7 +29790,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iErrorConditions 
      * @param {Integer} iValidation 
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msicreatetransformsummaryinfoa
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoA(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
@@ -29825,7 +29827,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iErrorConditions 
      * @param {Integer} iValidation 
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msicreatetransformsummaryinfow
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoW(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
@@ -29848,7 +29850,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @returns {Integer} The 
      * <b>MsiDatabaseCommit</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabasecommit
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidatabasecommit
      * @since windows8.0
      */
     static MsiDatabaseCommit(hDatabase) {
@@ -29865,7 +29867,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiGetDatabaseState</b> function returns the update state of the database.
      * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
      * @returns {Integer} This function returns MSIDBSTATE.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetdatabasestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetdatabasestate
      * @since windows8.0
      */
     static MsiGetDatabaseState(hDatabase) {
@@ -29887,7 +29889,7 @@ class ApplicationInstallationAndServicing {
      * @returns {MSIHANDLE} If the function succeeds, the return value is handle to a new record object.
      * 
      * If the function fails, the return value is null.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreaterecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msicreaterecord
      * @since windows8.0
      */
     static MsiCreateRecord(cParams) {
@@ -29903,7 +29905,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hRecord Handle to a record.
      * @param {Integer} iField Specifies the field to check.
      * @returns {BOOL} This function returns BOOL.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordisnull
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordisnull
      * @since windows8.0
      */
     static MsiRecordIsNull(hRecord, iField) {
@@ -29925,7 +29927,7 @@ class ApplicationInstallationAndServicing {
      * If the data is in string format, the function returns the character count (not including the null character).
      * 
      * If the data is in stream format, the function returns the byte count.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecorddatasize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecorddatasize
      * @since windows8.0
      */
     static MsiRecordDataSize(hRecord, iField) {
@@ -29960,7 +29962,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {Integer} iValue Specifies the value to which to set the field.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetinteger
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordsetinteger
      * @since windows8.0
      */
     static MsiRecordSetInteger(hRecord, iField, iValue) {
@@ -29988,7 +29990,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {PSTR} szValue Specifies the string value of the field.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordsetstringa
      * @since windows8.0
      */
     static MsiRecordSetStringA(hRecord, iField, szValue) {
@@ -30017,7 +30019,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iField Specifies the field of the record to set.
      * @param {PWSTR} szValue Specifies the string value of the field.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordsetstringw
      * @since windows8.0
      */
     static MsiRecordSetStringW(hRecord, iField, szValue) {
@@ -30036,7 +30038,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hRecord Handle to a record.
      * @param {Integer} iField Specifies the field of the record from which to obtain the value.
      * @returns {Integer} If the function succeeds, the return value is the integer value of the field.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetinteger
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordgetinteger
      * @since windows8.0
      */
     static MsiRecordGetInteger(hRecord, iField) {
@@ -30063,7 +30065,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetstringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordgetstringa
      * @since windows8.0
      */
     static MsiRecordGetStringA(hRecord, iField, szValueBuf, pcchValueBuf) {
@@ -30093,7 +30095,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchValueBuf</i>.
      * @returns {Integer} The 
      * <b>MsiRecordGetString</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetstringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordgetstringw
      * @since windows8.0
      */
     static MsiRecordGetStringW(hRecord, iField, szValueBuf, pcchValueBuf) {
@@ -30113,7 +30115,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiRecordGetFieldCount</b> parameter does not include field 0. Read access to fields beyond this count returns null values. Write access fails.
      * @param {MSIHANDLE} hRecord Handle to a record.
      * @returns {Integer} If the function succeeds, the return value is the number of fields in the record.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordgetfieldcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordgetfieldcount
      * @since windows8.0
      */
     static MsiRecordGetFieldCount(hRecord) {
@@ -30147,7 +30149,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szFilePath Specifies the path to the file containing the stream.
      * @returns {Integer} The 
      * <b>MsiRecordSetStream</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstreama
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordsetstreama
      * @since windows8.0
      */
     static MsiRecordSetStreamA(hRecord, iField, szFilePath) {
@@ -30182,7 +30184,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szFilePath Specifies the path to the file containing the stream.
      * @returns {Integer} The 
      * <b>MsiRecordSetStream</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordsetstreamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordsetstreamw
      * @since windows8.0
      */
     static MsiRecordSetStreamW(hRecord, iField, szFilePath) {
@@ -30229,7 +30231,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer} szDataBuf A buffer to receive the stream field. You should ensure the destination buffer is the same size or larger than the source buffer. See the Remarks section.
      * @param {Pointer<Integer>} pcbDataBuf Specifies the in and out buffer count. On input, this is the full size of the buffer. On output, this is the number of bytes that were actually written to the buffer. See the Remarks section.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordreadstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordreadstream
      * @since windows8.0
      */
     static MsiRecordReadStream(hRecord, iField, szDataBuf, pcbDataBuf) {
@@ -30245,7 +30247,7 @@ class ApplicationInstallationAndServicing {
      * The MsiRecordClearData function sets all fields in a record to null.
      * @param {MSIHANDLE} hRecord Handle to the record.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordcleardata
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msirecordcleardata
      * @since windows8.0
      */
     static MsiRecordClearData(hRecord) {
@@ -30265,7 +30267,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {MSIHANDLE} If the function succeeds, it returns a read-only handle to the database currently in use by the installer. If the function fails, the function returns zero, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetactivedatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetactivedatabase
      * @since windows8.0
      */
     static MsiGetActiveDatabase(hInstall) {
@@ -30292,7 +30294,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szName Specifies the name of the property.
      * @param {PSTR} szValue Specifies the value of the property.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetpropertya
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetpropertya
      * @since windows8.0
      */
     static MsiSetPropertyA(hInstall, szName, szValue) {
@@ -30320,7 +30322,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szName Specifies the name of the property.
      * @param {PWSTR} szValue Specifies the value of the property.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetpropertyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetpropertyw
      * @since windows8.0
      */
     static MsiSetPropertyW(hInstall, szName, szValue) {
@@ -30388,7 +30390,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i> will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i> contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetpropertya
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetpropertya
      * @since windows8.0
      */
     static MsiGetPropertyA(hInstall, szName, szValueBuf, pcchValueBuf) {
@@ -30458,7 +30460,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szValueBuf Pointer to the buffer that receives the null terminated string containing the value of the property. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szValueBuf</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function will then return ERROR_MORE_DATA and <i>pchValueBuf </i> will contain the required buffer size in TCHARs, not including the terminating null character. On return of ERROR_SUCCESS, <i>pcchValueBuf </i> contains the number of TCHARs written to the buffer, not including the terminating null character.
      * @param {Pointer<Integer>} pcchValueBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szValueBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szValueBuf</i>, not including the terminating null character. If <i>szValueBuf </i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pchValueBuf</i>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetpropertyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetpropertyw
      * @since windows8.0
      */
     static MsiGetPropertyW(hInstall, szName, szValueBuf, pcchValueBuf) {
@@ -30481,7 +30483,7 @@ class ApplicationInstallationAndServicing {
      * @returns {Integer} If the function succeeds, the return value is the numeric LANGID for the install.
      * 
      * If the function fails, the return value can be the following value.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetlanguage
      * @since windows8.0
      */
     static MsiGetLanguage(hInstall) {
@@ -30502,7 +30504,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} <b>TRUE</b> indicates the specific property passed into the function is currently set.
      * 
      * <b>FALSE</b> indicates the specific property passed into the function is currently not set.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetmode
      * @since windows8.0
      */
     static MsiGetMode(hInstall, eRunMode) {
@@ -30518,7 +30520,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} eRunMode 
      * @param {BOOL} fState Specifies the state to set to <b>TRUE</b> or <b>FALSE</b>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetmode
      * @since windows8.0
      */
     static MsiSetMode(hInstall, eRunMode, fState) {
@@ -30589,7 +30591,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiformatrecorda
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiformatrecorda
      * @since windows8.0
      */
     static MsiFormatRecordA(hInstall, hRecord, szResultBuf, pcchResultBuf) {
@@ -30664,7 +30666,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchResultBuf Pointer to the variable that specifies the size, in <b>TCHAR</b>s, of the buffer pointed to by the variable <i>szResultBuf</i>. When the function returns <b>ERROR_SUCCESS</b>, this variable contains the size of the data copied to <i>szResultBuf</i>, not including the terminating null character. If <i>szResultBuf</i> is not large enough, the function returns <b>ERROR_MORE_DATA</b> and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchResultBuf</i>.
      * @returns {Integer} The 
      * <b>MsiFormatRecord</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiformatrecordw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiformatrecordw
      * @since windows8.0
      */
     static MsiFormatRecordW(hInstall, hRecord, szResultBuf, pcchResultBuf) {
@@ -30705,7 +30707,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szAction Specifies the action to execute.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidoactiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidoactiona
      * @since windows8.0
      */
     static MsiDoActionA(hInstall, szAction) {
@@ -30743,7 +30745,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szAction Specifies the action to execute.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidoactionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msidoactionw
      * @since windows8.0
      */
     static MsiDoActionW(hInstall, szAction) {
@@ -30781,7 +30783,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szTable Specifies the name of the table containing the action sequence.
      * @param {Integer} iSequenceMode This parameter is currently unimplemented. It is reserved for future use and must be 0.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisequencea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisequencea
      * @since windows8.0
      */
     static MsiSequenceA(hInstall, szTable, iSequenceMode) {
@@ -30819,7 +30821,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szTable Specifies the name of the table containing the action sequence.
      * @param {Integer} iSequenceMode This parameter is currently unimplemented. It is reserved for future use and must be 0.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisequencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisequencew
      * @since windows8.0
      */
     static MsiSequenceW(hInstall, szTable, iSequenceMode) {
@@ -31146,7 +31148,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {MSIHANDLE} hRecord Handle to a record containing message format and data.
      * @returns {Integer} This function returns int.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiprocessmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiprocessmessage
      * @since windows8.0
      */
     static MsiProcessMessage(hInstall, eMessageType, hRecord) {
@@ -31203,7 +31205,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msievaluateconditiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msievaluateconditiona
      * @since windows8.0
      */
     static MsiEvaluateConditionA(hInstall, szCondition) {
@@ -31260,7 +31262,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
      * @returns {Integer} This function returns MSICONDITION.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msievaluateconditionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msievaluateconditionw
      * @since windows8.0
      */
     static MsiEvaluateConditionW(hInstall, szCondition) {
@@ -31291,7 +31293,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturestatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetfeaturestatea
      * @since windows8.0
      */
     static MsiGetFeatureStateA(hInstall, szFeature, piInstalled, piAction) {
@@ -31325,7 +31327,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturestatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetfeaturestatew
      * @since windows8.0
      */
     static MsiGetFeatureStateW(hInstall, szFeature, piInstalled, piAction) {
@@ -31375,7 +31377,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeaturestatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetfeaturestatea
      * @since windows8.0
      */
     static MsiSetFeatureStateA(hInstall, szFeature, iState) {
@@ -31422,7 +31424,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeaturestatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetfeaturestatew
      * @since windows8.0
      */
     static MsiSetFeatureStateW(hInstall, szFeature, iState) {
@@ -31535,7 +31537,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeatureattributesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetfeatureattributesa
      * @since windows8.0
      */
     static MsiSetFeatureAttributesA(hInstall, szFeature, dwAttributes) {
@@ -31648,7 +31650,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeatureattributesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetfeatureattributesw
      * @since windows8.0
      */
     static MsiSetFeatureAttributesW(hInstall, szFeature, dwAttributes) {
@@ -31679,7 +31681,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetcomponentstatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetcomponentstatea
      * @since windows8.0
      */
     static MsiGetComponentStateA(hInstall, szComponent, piInstalled, piAction) {
@@ -31713,7 +31715,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetcomponentstatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetcomponentstatew
      * @since windows8.0
      */
     static MsiGetComponentStateW(hInstall, szComponent, piInstalled, piAction) {
@@ -31750,7 +31752,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetcomponentstatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetcomponentstatea
      * @since windows8.0
      */
     static MsiSetComponentStateA(hInstall, szComponent, iState) {
@@ -31784,7 +31786,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetcomponentstatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetcomponentstatew
      * @since windows8.0
      */
     static MsiSetComponentStateW(hInstall, szComponent, iState) {
@@ -31857,7 +31859,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturecosta
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetfeaturecosta
      * @since windows8.0
      */
     static MsiGetFeatureCostA(hInstall, szFeature, iCostTree, iState, piCost) {
@@ -31932,7 +31934,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturecostw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetfeaturecostw
      * @since windows8.0
      */
     static MsiGetFeatureCostW(hInstall, szFeature, iCostTree, iState, piCost) {
@@ -32069,7 +32071,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msienumcomponentcostsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msienumcomponentcostsa
      * @since windows8.0
      */
     static MsiEnumComponentCostsA(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
@@ -32209,7 +32211,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msienumcomponentcostsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msienumcomponentcostsw
      * @since windows8.0
      */
     static MsiEnumComponentCostsW(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
@@ -32250,7 +32252,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} iInstallLevel The installation level.
      * @returns {Integer} The 
      * <b>MsiSetInstallLevel</b> function returns one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetinstalllevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisetinstalllevel
      * @since windows8.0
      */
     static MsiSetInstallLevel(hInstall, iInstallLevel) {
@@ -32305,7 +32307,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturevalidstatesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetfeaturevalidstatesa
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesA(hInstall, szFeature, lpInstallStates) {
@@ -32363,7 +32365,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} lpInstallStates 
      * @returns {Integer} The 
      * <b>MsiGetFeatureValidStates</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturevalidstatesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetfeaturevalidstatesw
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesW(hInstall, szFeature, lpInstallStates) {
@@ -32401,7 +32403,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsourcepatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetsourcepatha
      * @since windows8.0
      */
     static MsiGetSourcePathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32440,7 +32442,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szPathBuf</i>. When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetSourcePath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetsourcepathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetsourcepathw
      * @since windows8.0
      */
     static MsiGetSourcePathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32486,7 +32488,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigettargetpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigettargetpatha
      * @since windows8.0
      */
     static MsiGetTargetPathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32532,7 +32534,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchPathBuf Pointer to the variable that specifies the size, in <b>TCHARs</b>, of the buffer pointed to by the variable <i>szPathBuf</i> When the function returns ERROR_SUCCESS, this variable contains the size of the data copied to <i>szPathBuf</i>, not including the terminating null character. If <i>szPathBuf</i> is not large enough, the function returns ERROR_MORE_DATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchPathBuf</i>.
      * @returns {Integer} The 
      * <b>MsiGetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigettargetpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigettargetpathw
      * @since windows8.0
      */
     static MsiGetTargetPathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
@@ -32577,7 +32579,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szFolderPath Specifies the full path for the folder, ending in a directory separator.
      * @returns {Integer} The 
      * <b>MsiSetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisettargetpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisettargetpatha
      * @since windows8.0
      */
     static MsiSetTargetPathA(hInstall, szFolder, szFolderPath) {
@@ -32620,7 +32622,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szFolderPath Specifies the full path for the folder, ending in a directory separator.
      * @returns {Integer} The 
      * <b>MsiSetTargetPath</b> function returns the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisettargetpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msisettargetpathw
      * @since windows8.0
      */
     static MsiSetTargetPathW(hInstall, szFolder, szFolderPath) {
@@ -32639,7 +32641,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/calling-database-functions-from-programs">Calling Database Functions From Programs</a>.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiverifydiskspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msiverifydiskspace
      * @since windows8.0
      */
     static MsiVerifyDiskSpace(hInstall) {
@@ -32657,7 +32659,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabase Handle to the database.
      * @param {Pointer<MSIHANDLE>} phPreview Pointer to a returned handle for user-interface preview capability.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msienableuipreview
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msienableuipreview
      * @since windows8.0
      */
     static MsiEnableUIPreview(hDatabase, phPreview) {
@@ -32682,7 +32684,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hPreview Handle to the preview.
      * @param {PSTR} szDialogName Specifies the name of the dialog box to preview.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewdialoga
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msipreviewdialoga
      * @since windows8.0
      */
     static MsiPreviewDialogA(hPreview, szDialogName) {
@@ -32708,7 +32710,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hPreview Handle to the preview.
      * @param {PWSTR} szDialogName Specifies the name of the dialog box to preview.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewdialogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msipreviewdialogw
      * @since windows8.0
      */
     static MsiPreviewDialogW(hPreview, szDialogName) {
@@ -32735,7 +32737,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szControlName Specifies the name of the host control.
      * @param {PSTR} szBillboard Specifies the name of the billboard to display.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewbillboarda
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msipreviewbillboarda
      * @since windows8.0
      */
     static MsiPreviewBillboardA(hPreview, szControlName, szBillboard) {
@@ -32763,7 +32765,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szControlName Specifies the name of the host control.
      * @param {PWSTR} szBillboard Specifies the name of the billboard to display.
      * @returns {Integer} This function returns UINT.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msipreviewbillboardw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msipreviewbillboardw
      * @since windows8.0
      */
     static MsiPreviewBillboardW(hPreview, szControlName, szBillboard) {
@@ -32869,7 +32871,7 @@ class ApplicationInstallationAndServicing {
      * ```cpp
      * @returns {MSIHANDLE} A handle to the error record. If the last function was successful, 
      * <b>MsiGetLastErrorRecord</b> returns a null <b>MSIHANDLE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetlasterrorrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/msiquery/nf-msiquery-msigetlasterrorrecord
      * @since windows8.0
      */
     static MsiGetLastErrorRecord() {
@@ -32899,7 +32901,7 @@ class ApplicationInstallationAndServicing {
      * 
      * If there are no more protected files to enumerate, the return value is zero and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NO_MORE_FILES. If the function fails, <b>GetLastError</b> will return a different error code.
-     * @see https://learn.microsoft.com/windows/win32/api/sfc/nf-sfc-sfcgetnextprotectedfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/sfc/nf-sfc-sfcgetnextprotectedfile
      * @since windows5.1.2600
      */
     static SfcGetNextProtectedFile(RpcHandle, ProtFileData) {
@@ -32922,7 +32924,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} If the file is protected, the return value is a nonzero value.
      * 
      * If the file is not protected, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/sfc/nf-sfc-sfcisfileprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/sfc/nf-sfc-sfcisfileprotected
      * @since windows5.1.2600
      */
     static SfcIsFileProtected(RpcHandle, ProtFileName) {
@@ -33012,7 +33014,7 @@ class ApplicationInstallationAndServicing {
      * @returns {BOOL} If the key is protected, the return value is a nonzero value.
      * 
      * If the key is not protected, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/sfc/nf-sfc-sfciskeyprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/sfc/nf-sfc-sfciskeyprotected
      * @since windows6.0.6000
      */
     static SfcIsKeyProtected(KeyHandle, SubKeyName, KeySam) {
@@ -33103,7 +33105,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback Pointer to application-defined progress callback.
      * @param {Pointer<Void>} CallbackContext Pointer to application-defined context.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/patchapi-createpatchfileex
      */
     static CreatePatchFileExA(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
@@ -33126,7 +33128,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<PPATCH_PROGRESS_CALLBACK>} ProgressCallback Pointer to application-defined progress callback.
      * @param {Pointer<Void>} CallbackContext Pointer to application-defined context.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-createpatchfileex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/patchapi-createpatchfileex
      */
     static CreatePatchFileExW(OldFileCount, OldFileInfoArray, NewFileName, PatchFileName, OptionFlags, OptionData, ProgressCallback, CallbackContext) {
         NewFileName := NewFileName is String ? StrPtr(NewFileName) : NewFileName
@@ -33165,7 +33167,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} PatchFileName The name of the delta containing the header.
      * @param {PSTR} PatchHeaderFileName The name of the header file that is to be created.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/patchapi-extractpatchheadertofile
      */
     static ExtractPatchHeaderToFileA(PatchFileName, PatchHeaderFileName) {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
@@ -33180,7 +33182,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} PatchFileName The name of the delta containing the header.
      * @param {PWSTR} PatchHeaderFileName The name of the header file that is to be created.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/patchapi-extractpatchheadertofile
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/patchapi-extractpatchheadertofile
      */
     static ExtractPatchHeaderToFileW(PatchFileName, PatchHeaderFileName) {
         PatchFileName := PatchFileName is String ? StrPtr(PatchFileName) : PatchFileName
@@ -33568,7 +33570,7 @@ class ApplicationInstallationAndServicing {
      * @param {DELTA_INPUT} Delta [in] A [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure containing a pointer to the buffer containing the delta data.
      * @param {Pointer<DELTA_OUTPUT>} lpTarget [out] Pointer to the [DELTA_OUTPUT](/previous-versions/bb417345(v=msdn.10)#delta-output-structure) structure where the target is to be written.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltab
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/msdelta-applydeltab
      */
     static ApplyDeltaB(ApplyFlags, Source, Delta, lpTarget) {
         result := DllCall("msdelta.dll\ApplyDeltaB", "int64", ApplyFlags, "ptr", Source, "ptr", Delta, "ptr", lpTarget, "int")
@@ -33613,7 +33615,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} lpDeltaName 
      * @param {PWSTR} lpTargetName 
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-applydeltaw
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/msdelta-applydeltaw
      */
     static ApplyDeltaW(ApplyFlags, lpSourceName, lpDeltaName, lpTargetName) {
         lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
@@ -33641,7 +33643,7 @@ class ApplicationInstallationAndServicing {
      * - 32 = 32-bit CRC defined in msdelta.dll
      * @param {Pointer<DELTA_OUTPUT>} lpDelta [out] Pointer to the [DELTA_OUTPUT](/previous-versions/bb417345(v=msdn.10)#delta-output-structure) structure where the delta is to be written.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltab
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/msdelta-createdeltab
      */
     static CreateDeltaB(FileTypeSet, SetFlags, ResetFlags, Source, Target, SourceOptions, TargetOptions, GlobalOptions, lpTargetFileTime, HashAlgId, lpDelta) {
         result := DllCall("msdelta.dll\CreateDeltaB", "int64", FileTypeSet, "int64", SetFlags, "int64", ResetFlags, "ptr", Source, "ptr", Target, "ptr", SourceOptions, "ptr", TargetOptions, "ptr", GlobalOptions, "ptr", lpTargetFileTime, "uint", HashAlgId, "ptr", lpDelta, "int")
@@ -33691,7 +33693,7 @@ class ApplicationInstallationAndServicing {
      * - 32 = 32-bit CRC defined in msdelta.dll
      * @param {PWSTR} lpDeltaName 
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-createdeltaw
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/msdelta-createdeltaw
      */
     static CreateDeltaW(FileTypeSet, SetFlags, ResetFlags, lpSourceName, lpTargetName, lpSourceOptionsName, lpTargetOptionsName, GlobalOptions, lpTargetFileTime, HashAlgId, lpDeltaName) {
         lpSourceName := lpSourceName is String ? StrPtr(lpSourceName) : lpSourceName
@@ -33765,7 +33767,7 @@ class ApplicationInstallationAndServicing {
      * Frees the specified memory block.
      * @param {Pointer<Void>} lpMemory [in] Memory block to be freed.
      * @returns {BOOL} This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**. When the function returns **FALSE**, you can call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the corresponding Win32 system error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/msdelta-deltafree
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/msdelta-deltafree
      */
     static DeltaFree(lpMemory) {
         lpMemoryMarshal := lpMemory is VarRef ? "ptr" : "ptr"
@@ -33797,7 +33799,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createactctxa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createactctxa
      * @since windows5.1.2600
      */
     static CreateActCtxA(pActCtx) {
@@ -33836,7 +33838,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createactctxw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createactctxw
      * @since windows5.1.2600
      */
     static CreateActCtxW(pActCtx) {
@@ -33859,7 +33861,7 @@ class ApplicationInstallationAndServicing {
      * @param {HANDLE} hActCtx Handle to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context for which the reference count is to be incremented.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addrefactctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-addrefactctx
      * @since windows5.1.2600
      */
     static AddRefActCtx(hActCtx) {
@@ -33877,7 +33879,7 @@ class ApplicationInstallationAndServicing {
      * @param {HANDLE} hActCtx Handle to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-actctxa">ACTCTX</a> structure that contains information on the activation context for which the reference count is to be decremented.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-releaseactctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-releaseactctx
      * @since windows5.1.2600
      */
     static ReleaseActCtx(hActCtx) {
@@ -33897,7 +33899,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-zombifyactctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-zombifyactctx
      * @since windows5.1.2600
      */
     static ZombifyActCtx(hActCtx) {
@@ -33933,7 +33935,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-activateactctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-activateactctx
      * @since windows5.1.2600
      */
     static ActivateActCtx(hActCtx, lpCookie) {
@@ -34012,7 +34014,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deactivateactctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-deactivateactctx
      * @since windows5.1.2600
      */
     static DeactivateActCtx(dwFlags, ulCookie) {
@@ -34038,7 +34040,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentactctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcurrentactctx
      * @since windows5.1.2600
      */
     static GetCurrentActCtx(lphActCtx) {
@@ -34107,7 +34109,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findactctxsectionstringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findactctxsectionstringa
      * @since windows5.1.2600
      */
     static FindActCtxSectionStringA(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
@@ -34180,7 +34182,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findactctxsectionstringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findactctxsectionstringw
      * @since windows5.1.2600
      */
     static FindActCtxSectionStringW(dwFlags, ulSectionId, lpStringToFind, ReturnedData) {
@@ -34250,7 +34252,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findactctxsectionguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findactctxsectionguid
      * @since windows5.1.2600
      */
     static FindActCtxSectionGuid(dwFlags, ulSectionId, lpGuidToFind, ReturnedData) {
@@ -34487,7 +34489,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-queryactctxw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-queryactctxw
      * @since windows5.1.2600
      */
     static QueryActCtxW(dwFlags, hActCtx, pvSubInstance, ulInfoClass, pvBuffer, cbBuffer, pcbWrittenOrRequired) {
@@ -34524,7 +34526,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-queryactctxsettingsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-queryactctxsettingsw
      * @since windows6.0.6000
      */
     static QueryActCtxSettingsW(dwFlags, hActCtx, settingsNameSpace, settingName, pvBuffer, dwBuffer, pdwWrittenOrRequired) {

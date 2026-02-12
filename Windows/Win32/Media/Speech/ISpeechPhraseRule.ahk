@@ -93,7 +93,11 @@ class ISpeechPhraseRule extends IDispatch{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -102,7 +106,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {Integer} 
      */
     get_Id() {
-        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -111,7 +119,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {Integer} 
      */
     get_FirstElement() {
-        result := ComCall(9, this, "int*", &FirstElement := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &FirstElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FirstElement
     }
 
@@ -120,7 +132,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {Integer} 
      */
     get_NumberOfElements() {
-        result := ComCall(10, this, "int*", &NumberOfElements := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &NumberOfElements := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfElements
     }
 
@@ -129,7 +145,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {ISpeechPhraseRule} 
      */
     get_Parent() {
-        result := ComCall(11, this, "ptr*", &Parent := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &Parent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseRule(Parent)
     }
 
@@ -138,7 +158,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {ISpeechPhraseRules} 
      */
     get_Children() {
-        result := ComCall(12, this, "ptr*", &Children := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &Children := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseRules(Children)
     }
 
@@ -147,7 +171,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {Integer} 
      */
     get_Confidence() {
-        result := ComCall(13, this, "int*", &ActualConfidence := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &ActualConfidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ActualConfidence
     }
 
@@ -156,7 +184,11 @@ class ISpeechPhraseRule extends IDispatch{
      * @returns {Float} 
      */
     get_EngineConfidence() {
-        result := ComCall(14, this, "float*", &EngineConfidence := 0, "HRESULT")
+        result := ComCall(14, this, "float*", &EngineConfidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EngineConfidence
     }
 }

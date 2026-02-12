@@ -34,7 +34,11 @@ class IDebugInputCallbacks extends IUnknown{
      * @returns {HRESULT} 
      */
     StartInput(BufferSize) {
-        result := ComCall(3, this, "uint", BufferSize, "HRESULT")
+        result := ComCall(3, this, "uint", BufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IDebugInputCallbacks extends IUnknown{
      * @returns {HRESULT} 
      */
     EndInput() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -29,7 +29,7 @@
  * <td>WTS_EXTRACTDONOTCACHE</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/thumbcache/ne-thumbcache-wts_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/thumbcache/ne-thumbcache-wts_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

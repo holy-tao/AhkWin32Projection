@@ -34,7 +34,7 @@
  * In some situations, you can set the format block to <b>NULL</b> and the format type to GUID_NULL, resulting in a <i>partial media type</i>. This enables you to specify a range of possible formats. For example, you can specify 24-bit RGB (MEDIASUBTYPE_RGB24) without giving an exact width or height.
  * 
  * To obtain detailed information about a specified media type for debugging purposes, use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/displaytype">DisplayType</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_media_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-am_media_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

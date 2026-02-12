@@ -6,7 +6,7 @@
 
 /**
  * Supports the methods to retrieve the TCP connection information on the viewer and on the sharer side.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapitcpconnectioninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapitcpconnectioninfo
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -75,52 +75,72 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch{
     /**
      * Retrieves the protocol that is being used by the sharer or by the viewer for communication.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_protocol
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_protocol
      */
     get_Protocol() {
-        result := ComCall(7, this, "int*", &plProtocol := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plProtocol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plProtocol
     }
 
     /**
      * Retrieves the local port that is being used by the sharer or by the viewer in communication.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localport
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localport
      */
     get_LocalPort() {
-        result := ComCall(8, this, "int*", &plPort := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plPort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPort
     }
 
     /**
      * Retrieves the local IP address that is being used by the sharer or by the viewer for communication.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localip
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localip
      */
     get_LocalIP() {
         pbsrLocalIP := BSTR()
-        result := ComCall(9, this, "ptr", pbsrLocalIP, "HRESULT")
+        result := ComCall(9, this, "ptr", pbsrLocalIP, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbsrLocalIP
     }
 
     /**
      * Retrieves the remote port that is being used by the sharer or by the viewer in communication.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerport
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerport
      */
     get_PeerPort() {
-        result := ComCall(10, this, "int*", &plPort := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plPort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPort
     }
 
     /**
      * Retrieves the remote IP address that is being used by the sharer or by the viewer in communication.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerip
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerip
      */
     get_PeerIP() {
         pbstrIP := BSTR()
-        result := ComCall(11, this, "ptr", pbstrIP, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrIP, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrIP
     }
 }

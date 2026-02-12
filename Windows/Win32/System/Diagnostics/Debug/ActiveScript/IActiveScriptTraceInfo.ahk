@@ -35,7 +35,11 @@ class IActiveScriptTraceInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     StartScriptTracing(pSiteTraceInfo, guidContextID) {
-        result := ComCall(3, this, "ptr", pSiteTraceInfo, "ptr", guidContextID, "HRESULT")
+        result := ComCall(3, this, "ptr", pSiteTraceInfo, "ptr", guidContextID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IActiveScriptTraceInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     StopScriptTracing() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

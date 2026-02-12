@@ -6,8 +6,8 @@
 #Include .\IMFAttributes.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsensorstream
+ * . (IMFSensorStream)
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfsensorstream
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,31 +35,43 @@ class IMFSensorStream extends IMFAttributes{
     /**
      * Gets the count of media types supported by the sensor stream.
      * @returns {Integer} If the call completes successfully, receives the count of media types supported by the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorstream-getmediatypecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsensorstream-getmediatypecount
      */
     GetMediaTypeCount() {
-        result := ComCall(33, this, "uint*", &pdwCount := 0, "HRESULT")
+        result := ComCall(33, this, "uint*", &pdwCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCount
     }
 
     /**
      * Retrieves an IMFMediaType representing a supported media type for the sensor stream.
      * @param {Integer} dwIndex The 0-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> to retrieve. This value must be between 0 and the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensorstream-getmediatypecount">GetMediaTypeCount</a> - 1.
-     * @returns {IMFMediaType} The retrieved media type.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorstream-getmediatype
+     * @returns {Pointer<IMFMediaType>} The retrieved media type.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsensorstream-getmediatype
      */
     GetMediaType(dwIndex) {
-        result := ComCall(34, this, "uint", dwIndex, "ptr*", &ppMediaType := 0, "HRESULT")
-        return IMFMediaType(ppMediaType)
+        result := ComCall(34, this, "uint", dwIndex, "ptr*", &ppMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppMediaType
     }
 
     /**
      * Clones the IMFSensorStream.
-     * @returns {IMFSensorStream} If the call is successful, <i>ppStream</i> receives the cloned <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorstream">IMFSensorStream</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensorstream-clonesensorstream
+     * @returns {Pointer<IMFSensorStream>} If the call is successful, <i>ppStream</i> receives the cloned <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensorstream">IMFSensorStream</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsensorstream-clonesensorstream
      */
     CloneSensorStream() {
-        result := ComCall(35, this, "ptr*", &ppStream := 0, "HRESULT")
-        return IMFSensorStream(ppStream)
+        result := ComCall(35, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppStream
     }
 }

@@ -32,7 +32,7 @@
  *      sample antialiasing (MSAA) is not supported; you must set the <b>BufferCount</b> member to 
  *      from two to sixteen. For more info about flip-model swap chain, see 
  *      DXGI Flip Model.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

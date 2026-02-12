@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * A controller is reported as physically present on the subsystem. The <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_controller_status">VDS_CONTROLLER_STATUS</a> value associated with this notification should be any value except <b>VDS_CS_REMOVED</b>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_controller_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

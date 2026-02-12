@@ -34,7 +34,11 @@ class IDebugCookie extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDebugCookie(dwDebugAppCookie) {
-        result := ComCall(3, this, "uint", dwDebugAppCookie, "HRESULT")
+        result := ComCall(3, this, "uint", dwDebugAppCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

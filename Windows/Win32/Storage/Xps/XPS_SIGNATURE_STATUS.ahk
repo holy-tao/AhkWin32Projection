@@ -12,7 +12,7 @@
  * 
  * and countries.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

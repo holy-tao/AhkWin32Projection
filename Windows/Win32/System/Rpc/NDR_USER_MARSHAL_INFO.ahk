@@ -10,7 +10,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Midl/user-marshal">user_marshal</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/Midl/wire-marshal">wire_marshal</a> helper functions &lt;type&gt;_UserSize, &lt;type&gt;_UserMarshal, &lt;type&gt;_UserUnmarshal, and &lt;type&gt;_UserFree. This information supplements the <i>pFlags</i> parameter that is passed to these helper functions. Not all of these fields will contain valid information in all contexts. Level1.pRpcChannelBuffer is only valid for COM interfaces, and the buffer fields are only valid when 
  * <b>NdrGetUserMarshalInfo</b> is called from &lt;type&gt;_UserMarshal or &lt;type&gt;_UserUnmarshal.
- * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-ndr_user_marshal_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcndr/ns-rpcndr-ndr_user_marshal_info
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

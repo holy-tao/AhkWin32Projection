@@ -11,7 +11,7 @@
  * 
  * <div class="alert"><b>Note</b>  Values other than the ones defined in the enumeration are considered to be invalid, and are rejected by font API functions.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/ne-dwrite-dwrite_font_stretch
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

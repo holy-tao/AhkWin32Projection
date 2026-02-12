@@ -5,7 +5,7 @@
 
 /**
  * The IGraphVersion interface is implemented on the Filter Graph Manager to provide a way for plug-in distributors and applications to know when the graph has changed.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-igraphversion
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-igraphversion
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,11 +32,17 @@ class IGraphVersion extends IUnknown{
 
     /**
      * The QueryVersion method retrieves the current graph version number.
+     * @remarks
+     * The version number is incremented every time there is a change in the set of filters in the graph or in their connections. If the version number has changed since the last enumeration, the graph must be re-enumerated.
      * @returns {Integer} Pointer to the current graph version.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphversion-queryversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-igraphversion-queryversion
      */
     QueryVersion() {
-        result := ComCall(3, this, "int*", &pVersion := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVersion
     }
 }

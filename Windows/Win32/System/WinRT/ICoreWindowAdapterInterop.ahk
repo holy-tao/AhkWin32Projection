@@ -83,7 +83,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_AppActivationClientAdapter() {
-        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -92,7 +96,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_ApplicationViewClientAdapter() {
-        result := ComCall(7, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -101,7 +109,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_CoreApplicationViewClientAdapter() {
-        result := ComCall(8, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -110,7 +122,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_HoloViewClientAdapter() {
-        result := ComCall(9, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -119,7 +135,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_PositionerClientAdapter() {
-        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -128,7 +148,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_SystemNavigationClientAdapter() {
-        result := ComCall(11, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -137,7 +161,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {IUnknown} 
      */
     get_TitleBarClientAdapter() {
-        result := ComCall(12, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(value)
     }
 
@@ -147,7 +175,11 @@ class ICoreWindowAdapterInterop extends IInspectable{
      * @returns {HRESULT} 
      */
     SetWindowClientAdapter(value) {
-        result := ComCall(13, this, "ptr", value, "HRESULT")
+        result := ComCall(13, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

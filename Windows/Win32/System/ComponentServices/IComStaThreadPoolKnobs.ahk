@@ -34,7 +34,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMinThreadCount(minThreads) {
-        result := ComCall(3, this, "uint", minThreads, "HRESULT")
+        result := ComCall(3, this, "uint", minThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     GetMinThreadCount() {
-        result := ComCall(4, this, "uint*", &minThreads := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &minThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minThreads
     }
 
@@ -53,7 +61,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMaxThreadCount(maxThreads) {
-        result := ComCall(5, this, "uint", maxThreads, "HRESULT")
+        result := ComCall(5, this, "uint", maxThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +74,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     GetMaxThreadCount() {
-        result := ComCall(6, this, "uint*", &maxThreads := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &maxThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxThreads
     }
 
@@ -72,7 +88,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     SetActivityPerThread(activitiesPerThread) {
-        result := ComCall(7, this, "uint", activitiesPerThread, "HRESULT")
+        result := ComCall(7, this, "uint", activitiesPerThread, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +101,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     GetActivityPerThread() {
-        result := ComCall(8, this, "uint*", &activitiesPerThread := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &activitiesPerThread := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return activitiesPerThread
     }
 
@@ -91,7 +115,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     SetActivityRatio(activityRatio) {
-        result := ComCall(9, this, "double", activityRatio, "HRESULT")
+        result := ComCall(9, this, "double", activityRatio, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +128,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {Float} 
      */
     GetActivityRatio() {
-        result := ComCall(10, this, "double*", &activityRatio := 0, "HRESULT")
+        result := ComCall(10, this, "double*", &activityRatio := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return activityRatio
     }
 
@@ -109,7 +141,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     GetThreadCount() {
-        result := ComCall(11, this, "uint*", &pdwThreads := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pdwThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwThreads
     }
 
@@ -118,7 +154,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {Integer} 
      */
     GetQueueDepth() {
-        result := ComCall(12, this, "uint*", &pdwQDepth := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pdwQDepth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwQDepth
     }
 
@@ -128,7 +168,11 @@ class IComStaThreadPoolKnobs extends IUnknown{
      * @returns {HRESULT} 
      */
     SetQueueDepth(dwQDepth) {
-        result := ComCall(13, this, "int", dwQDepth, "HRESULT")
+        result := ComCall(13, this, "int", dwQDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

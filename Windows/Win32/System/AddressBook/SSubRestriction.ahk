@@ -9,7 +9,7 @@
  * If an implementation does not support sub-object restrictions, it returns MAPI_E_TOO_COMPLEX from its [IMAPITable::Restrict](imapitable-restrict.md) or [IMAPITable::FindRow](imapitable-findrow.md) methods.
  *   
  * For a general discussion of how restrictions work, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssubrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/ssubrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

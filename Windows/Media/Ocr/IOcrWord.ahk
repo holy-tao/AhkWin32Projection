@@ -1,0 +1,74 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Win32\Foundation\RECT.ahk
+#Include ..\..\Win32\System\WinRT\HSTRING.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Media.Ocr
+ * @version WindowsRuntime 1.4
+ */
+class IOcrWord extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IOcrWord
+     * @type {Guid}
+     */
+    static IID => Guid("{3c2a477a-5cd9-3525-ba2a-23d1e0a68a1d}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_BoundingRect", "get_Text"]
+
+    /**
+     * @type {RECT} 
+     */
+    BoundingRect {
+        get => this.get_BoundingRect()
+    }
+
+    /**
+     * @type {HSTRING} 
+     */
+    Text {
+        get => this.get_Text()
+    }
+
+    /**
+     * 
+     * @returns {RECT} 
+     */
+    get_BoundingRect() {
+        value := RECT()
+        result := ComCall(6, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @returns {HSTRING} 
+     */
+    get_Text() {
+        value := HSTRING()
+        result := ComCall(7, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+}

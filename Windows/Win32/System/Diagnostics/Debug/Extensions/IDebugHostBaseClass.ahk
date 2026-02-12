@@ -33,7 +33,11 @@ class IDebugHostBaseClass extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetOffset() {
-        result := ComCall(10, this, "uint*", &offset := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return offset
     }
 }

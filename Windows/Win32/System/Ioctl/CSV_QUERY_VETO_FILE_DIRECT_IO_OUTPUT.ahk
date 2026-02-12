@@ -6,7 +6,7 @@
  * @remarks
  * CSV writes the troubleshooting strings to a diagnostic log that, when filtered, can provide hints as to why 
  *     a volume is in a redirected mode.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_veto_file_direct_io_output
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-csv_query_veto_file_direct_io_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

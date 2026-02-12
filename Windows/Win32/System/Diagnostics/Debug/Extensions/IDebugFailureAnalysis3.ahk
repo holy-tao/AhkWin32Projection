@@ -60,9 +60,10 @@ class IDebugFailureAnalysis3 extends IUnknown{
     }
 
     /**
-     * 
+     * Get Mutual Kerberos Authentication
      * @param {Integer} Tag 
      * @returns {Pointer<FA_ENTRY>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-odbc-how-to/get-mutual-kerberos-authentication
      */
     Get(Tag) {
         result := ComCall(6, this, "int", Tag, "ptr")
@@ -70,11 +71,24 @@ class IDebugFailureAnalysis3 extends IUnknown{
     }
 
     /**
+     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
+     * @remarks
+     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
+     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
+     * 
+     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
+     * 
+     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<FA_ENTRY>} Entry 
      * @param {Integer} Tag 
      * @param {Integer} TagMask 
-     * @returns {Pointer<FA_ENTRY>} 
+     * @returns {Pointer<FA_ENTRY>} Type: <b>HWND</b>
+     * 
+     * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
+     * 
+     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getnextdlggroupitem
      */
     GetNext(Entry, Tag, TagMask) {
         result := ComCall(7, this, "ptr", Entry, "int", Tag, "int", TagMask, "ptr")
@@ -82,11 +96,12 @@ class IDebugFailureAnalysis3 extends IUnknown{
     }
 
     /**
-     * 
+     * GetString Method Example (VC++)
      * @param {Integer} Tag 
      * @param {PSTR} Str 
      * @param {Integer} MaxSize 
      * @returns {Pointer<FA_ENTRY>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getstring-method-example-vc
      */
     GetString(Tag, Str, MaxSize) {
         Str := Str is String ? StrPtr(Str) : Str
@@ -96,14 +111,19 @@ class IDebugFailureAnalysis3 extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
+     * @remarks
+     * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
      * @param {Integer} Tag 
      * @param {Pointer} Buf 
-     * @param {Integer} Size 
-     * @returns {Pointer<FA_ENTRY>} 
+     * @param {Integer} Size_ 
+     * @returns {Pointer<FA_ENTRY>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. If an error occurs, <i>ppbBuffer</i>  is set to <b>NULL</b> and <i>pcxRow</i> is set to zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uxtheme/nf-uxtheme-getbufferedpaintbits
      */
-    GetBuffer(Tag, Buf, Size) {
-        result := ComCall(9, this, "int", Tag, "ptr", Buf, "uint", Size, "ptr")
+    GetBuffer(Tag, Buf, Size_) {
+        result := ComCall(9, this, "int", Tag, "ptr", Buf, "uint", Size_, "ptr")
         return result
     }
 
@@ -144,10 +164,15 @@ class IDebugFailureAnalysis3 extends IUnknown{
     }
 
     /**
-     * 
+     * Sets a string at a given location within a BLOB.
      * @param {Integer} Tag 
      * @param {PSTR} Str 
-     * @returns {Pointer<FA_ENTRY>} 
+     * @returns {Pointer<FA_ENTRY>} If the function is successful, the return value is NMERR\_SUCCESS.
+     * 
+     * If the function is unsuccessful, the return value is a NMERR value that indicates the problem.
+     * 
+     * If the specified **Owner**, **Category**, or **Tag** information does not exist, the return value is NMERR\_BLOB\_ENTRY\_DOES\_NOT\_EXIST.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/setstringinblob
      */
     SetString(Tag, Str) {
         Str := Str is String ? StrPtr(Str) : Str
@@ -159,13 +184,13 @@ class IDebugFailureAnalysis3 extends IUnknown{
     /**
      * 
      * @param {Integer} Tag 
-     * @param {PSTR} Extension 
+     * @param {PSTR} Extension_ 
      * @returns {Pointer<FA_ENTRY>} 
      */
-    SetExtensionCommand(Tag, Extension) {
-        Extension := Extension is String ? StrPtr(Extension) : Extension
+    SetExtensionCommand(Tag, Extension_) {
+        Extension_ := Extension_ is String ? StrPtr(Extension_) : Extension_
 
-        result := ComCall(14, this, "int", Tag, "ptr", Extension, "ptr")
+        result := ComCall(14, this, "int", Tag, "ptr", Extension_, "ptr")
         return result
     }
 
@@ -192,15 +217,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | SetBufferFullnessBits
      * @param {Integer} Tag 
      * @param {Integer} EntryType 
      * @param {Pointer} Buf 
-     * @param {Integer} Size 
+     * @param {Integer} Size_ 
      * @returns {Pointer<FA_ENTRY>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecleakybucket-setbufferfullnessbits
      */
-    SetBuffer(Tag, EntryType, Buf, Size) {
-        result := ComCall(17, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", Size, "ptr")
+    SetBuffer(Tag, EntryType, Buf, Size_) {
+        result := ComCall(17, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", Size_, "ptr")
         return result
     }
 
@@ -220,13 +246,13 @@ class IDebugFailureAnalysis3 extends IUnknown{
     /**
      * 
      * @param {Integer} Tag 
-     * @param {PSTR} Extension 
+     * @param {PSTR} Extension_ 
      * @returns {Pointer<FA_ENTRY>} 
      */
-    AddExtensionCommand(Tag, Extension) {
-        Extension := Extension is String ? StrPtr(Extension) : Extension
+    AddExtensionCommand(Tag, Extension_) {
+        Extension_ := Extension_ is String ? StrPtr(Extension_) : Extension_
 
-        result := ComCall(19, this, "int", Tag, "ptr", Extension, "ptr")
+        result := ComCall(19, this, "int", Tag, "ptr", Extension_, "ptr")
         return result
     }
 
@@ -257,11 +283,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @param {Integer} Tag 
      * @param {Integer} EntryType 
      * @param {Pointer} Buf 
-     * @param {Integer} Size 
+     * @param {Integer} Size_ 
      * @returns {Pointer<FA_ENTRY>} 
      */
-    AddBuffer(Tag, EntryType, Buf, Size) {
-        result := ComCall(22, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", Size, "ptr")
+    AddBuffer(Tag, EntryType, Buf, Size_) {
+        result := ComCall(22, this, "int", Tag, "int", EntryType, "ptr", Buf, "uint", Size_, "ptr")
         return result
     }
 
@@ -270,7 +296,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {IDebugFAEntryTags} 
      */
     GetDebugFATagControl() {
-        result := ComCall(23, this, "ptr*", &FATagControl := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &FATagControl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugFAEntryTags(FATagControl)
     }
 
@@ -279,7 +309,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {IXMLDOMElement} 
      */
     GetAnalysisXml() {
-        result := ComCall(24, this, "ptr*", &ppXMLDOMElement := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &ppXMLDOMElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMElement(ppXMLDOMElement)
     }
 
@@ -290,7 +324,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddStructuredAnalysisData(Tag, Analysis) {
-        result := ComCall(25, this, "int", Tag, "ptr", Analysis, "HRESULT")
+        result := ComCall(25, this, "int", Tag, "ptr", Analysis, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -300,7 +338,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddThreads(pDebugFailureThreadEnum) {
-        result := ComCall(26, this, "ptr", pDebugFailureThreadEnum, "HRESULT")
+        result := ComCall(26, this, "ptr", pDebugFailureThreadEnum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -311,7 +353,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      */
     AttributeGet(nIndex) {
         pValue := VARIANT()
-        result := ComCall(27, this, "uint", nIndex, "ptr", pValue, "HRESULT")
+        result := ComCall(27, this, "uint", nIndex, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -322,7 +368,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      */
     AttributeGetName(nIndex) {
         pName := BSTR()
-        result := ComCall(28, this, "uint", nIndex, "ptr", pName, "HRESULT")
+        result := ComCall(28, this, "uint", nIndex, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pName
     }
 
@@ -333,7 +383,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     AttributeSet(nIndex, Value) {
-        result := ComCall(29, this, "uint", nIndex, "ptr", Value, "HRESULT")
+        result := ComCall(29, this, "uint", nIndex, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -343,9 +397,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     BlameApplication(Postfix) {
-        Postfix := Postfix is String ? BSTR.Alloc(Postfix).Value : Postfix
+        if(Postfix is String) {
+            pin := BSTR.Alloc(Postfix)
+            Postfix := pin.Value
+        }
 
-        result := ComCall(30, this, "ptr", Postfix, "HRESULT")
+        result := ComCall(30, this, "ptr", Postfix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -355,9 +416,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     BlameProcess(Postfix) {
-        Postfix := Postfix is String ? BSTR.Alloc(Postfix).Value : Postfix
+        if(Postfix is String) {
+            pin := BSTR.Alloc(Postfix)
+            Postfix := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", Postfix, "HRESULT")
+        result := ComCall(31, this, "ptr", Postfix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -367,7 +435,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     BlameThread(pThread) {
-        result := ComCall(32, this, "ptr", pThread, "HRESULT")
+        result := ComCall(32, this, "ptr", pThread, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -378,29 +450,44 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     BlameStitch(pThread, Stitch) {
-        Stitch := Stitch is String ? BSTR.Alloc(Stitch).Value : Stitch
+        if(Stitch is String) {
+            pin := BSTR.Alloc(Stitch)
+            Stitch := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", pThread, "ptr", Stitch, "HRESULT")
+        result := ComCall(33, this, "ptr", pThread, "ptr", Stitch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} Address 
+     * @param {Integer} Address_ 
      * @returns {HRESULT} 
      */
-    BlameTEB(Address) {
-        result := ComCall(34, this, "uint", Address, "HRESULT")
+    BlameTEB(Address_) {
+        result := ComCall(34, this, "uint", Address_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} Address 
+     * @param {Integer} Address_ 
      * @returns {HRESULT} 
      */
-    BlameETHREAD(Address) {
-        result := ComCall(35, this, "uint", Address, "HRESULT")
+    BlameETHREAD(Address_) {
+        result := ComCall(35, this, "uint", Address_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -410,7 +497,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     ProblemClassIsSet(nIndex) {
-        result := ComCall(36, this, "uint", nIndex, "short*", &pSet := 0, "HRESULT")
+        result := ComCall(36, this, "uint", nIndex, "short*", &pSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSet
     }
 
@@ -420,7 +511,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     ProblemClassDelete(nIndex) {
-        result := ComCall(37, this, "uint", nIndex, "HRESULT")
+        result := ComCall(37, this, "uint", nIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -430,7 +525,11 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     ProblemClassSet(nIndex) {
-        result := ComCall(38, this, "uint", nIndex, "HRESULT")
+        result := ComCall(38, this, "uint", nIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -441,9 +540,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     ProblemClassSetBSTR(nIndex, Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(39, this, "uint", nIndex, "ptr", Value, "HRESULT")
+        result := ComCall(39, this, "uint", nIndex, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -454,9 +560,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAdditionalXML(Key, pXMLDOMElement) {
-        Key := Key is String ? BSTR.Alloc(Key).Value : Key
+        if(Key is String) {
+            pin := BSTR.Alloc(Key)
+            Key := pin.Value
+        }
 
-        result := ComCall(40, this, "ptr", Key, "ptr", pXMLDOMElement, "HRESULT")
+        result := ComCall(40, this, "ptr", Key, "ptr", pXMLDOMElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -466,9 +579,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {IUnknown} 
      */
     GetAdditionalXML(Key) {
-        Key := Key is String ? BSTR.Alloc(Key).Value : Key
+        if(Key is String) {
+            pin := BSTR.Alloc(Key)
+            Key := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", Key, "ptr*", &ppXMLDOMElement := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", Key, "ptr*", &ppXMLDOMElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppXMLDOMElement)
     }
 
@@ -478,9 +598,16 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteAdditionalXML(Key) {
-        Key := Key is String ? BSTR.Alloc(Key).Value : Key
+        if(Key is String) {
+            pin := BSTR.Alloc(Key)
+            Key := pin.Value
+        }
 
-        result := ComCall(42, this, "ptr", Key, "HRESULT")
+        result := ComCall(42, this, "ptr", Key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

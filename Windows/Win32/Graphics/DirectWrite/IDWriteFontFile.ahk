@@ -6,7 +6,7 @@
 
 /**
  * Represents a font file. Applications such as font managers or font viewers can call IDWriteFontFile::Analyze to find out if a particular file is a font file, and whether it is a font type that is supported by the font system.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontfile
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritefontfile
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -41,31 +41,46 @@ class IDWriteFontFile extends IUnknown{
      * When this method returns, contains the size of the font file reference key in bytes. This parameter is passed uninitialized.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfile-getreferencekey
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfile-getreferencekey
      */
     GetReferenceKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         fontFileReferenceKeyMarshal := fontFileReferenceKey is VarRef ? "ptr*" : "ptr"
         fontFileReferenceKeySizeMarshal := fontFileReferenceKeySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, fontFileReferenceKeyMarshal, fontFileReferenceKey, fontFileReferenceKeySizeMarshal, fontFileReferenceKeySize, "HRESULT")
+        result := ComCall(3, this, fontFileReferenceKeyMarshal, fontFileReferenceKey, fontFileReferenceKeySizeMarshal, fontFileReferenceKeySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Obtains the file loader associated with a font file object.
-     * @returns {IDWriteFontFileLoader} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileloader">IDWriteFontFileLoader</a>**</b>
+     * @returns {Pointer<IDWriteFontFileLoader>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileloader">IDWriteFontFileLoader</a>**</b>
      * 
      * When this method returns, contains the address of  a pointer to the font file loader associated with the font file object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfile-getloader
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfile-getloader
      */
     GetLoader() {
-        result := ComCall(4, this, "ptr*", &fontFileLoader := 0, "HRESULT")
-        return IDWriteFontFileLoader(fontFileLoader)
+        result := ComCall(4, this, "ptr*", &fontFileLoader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFileLoader
     }
 
     /**
      * Analyzes a file and returns whether it represents a font, and whether the font type is supported by the font system.
+     * @remarks
+     * <div class="alert"><b>Important</b>  Certain font file types are recognized, but not supported by the font system.
+     *      For example, the font system will recognize a file as a Type 1 font file
+     *      but will not be able to construct a font face object from it. In such situations, <b>Analyze</b> will set
+     *      <i>isSupportedFontType</i> output parameter to <b>FALSE</b>.
+     *     </div>
+     * <div> </div>
      * @param {Pointer<BOOL>} isSupportedFontType Type: <b>BOOL*</b>
      * 
      * <b>TRUE</b> if the font type is supported by the font system; otherwise, <b>FALSE</b>.
@@ -81,8 +96,8 @@ class IDWriteFontFile extends IUnknown{
      * When this method returns, contains the number of font faces contained in the font file.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfile-analyze
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfile-analyze
      */
     Analyze(isSupportedFontType, fontFileType, fontFaceType, numberOfFaces) {
         isSupportedFontTypeMarshal := isSupportedFontType is VarRef ? "int*" : "ptr"
@@ -90,7 +105,11 @@ class IDWriteFontFile extends IUnknown{
         fontFaceTypeMarshal := fontFaceType is VarRef ? "int*" : "ptr"
         numberOfFacesMarshal := numberOfFaces is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, isSupportedFontTypeMarshal, isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "HRESULT")
+        result := ComCall(5, this, isSupportedFontTypeMarshal, isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

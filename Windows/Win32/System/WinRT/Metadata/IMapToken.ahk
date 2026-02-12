@@ -29,13 +29,18 @@ class IMapToken extends IUnknown{
     static VTableNames => ["Map"]
 
     /**
-     * 
+     * Find out how to automate creating a map, adding a map layer, or changing map layer options with the Map Wizards or Map Layer Wizard in Report Builder.
      * @param {Integer} tkImp 
      * @param {Integer} tkEmit 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/reporting-services/report-design/map-wizard-and-map-layer-wizard-report-builder-and-ssrs
      */
     Map(tkImp, tkEmit) {
-        result := ComCall(3, this, "uint", tkImp, "uint", tkEmit, "HRESULT")
+        result := ComCall(3, this, "uint", tkImp, "uint", tkEmit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

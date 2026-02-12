@@ -5,7 +5,7 @@
 
 /**
  * Wraps a range of an application-managed descriptor heap, and is used by DirectML to create bindings for resources. To create this object, call IDMLDevice::CreateBindingTable.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmlbindingtable
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/nn-directml-idmlbindingtable
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IDMLBindingTable extends IDMLDeviceChild{
      * 
      * An optional pointer to a constant array of [DML_BINDING_DESC](/windows/win32/api/directml/ns-directml-dml_binding_desc) containing descriptions of the tensor resources to bind.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlbindingtable-bindinputs
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmlbindingtable-bindinputs
      */
     BindInputs(bindingCount, bindings) {
         ComCall(8, this, "uint", bindingCount, "ptr", bindings)
@@ -54,7 +54,7 @@ class IDMLBindingTable extends IDMLDeviceChild{
      * 
      * An optional pointer to a constant array of [DML_BINDING_DESC](/windows/win32/api/directml/ns-directml-dml_binding_desc) containing descriptions of the tensor resources to bind.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlbindingtable-bindoutputs
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmlbindingtable-bindoutputs
      */
     BindOutputs(bindingCount, bindings) {
         ComCall(9, this, "uint", bindingCount, "ptr", bindings)
@@ -66,7 +66,7 @@ class IDMLBindingTable extends IDMLDeviceChild{
      * 
      * An optional pointer to a [DML_BINDING_DESC](/windows/win32/api/directml/ns-directml-dml_binding_desc) containing the description of a tensor resource to bind.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlbindingtable-bindtemporaryresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmlbindingtable-bindtemporaryresource
      */
     BindTemporaryResource(binding) {
         ComCall(10, this, "ptr", binding)
@@ -78,7 +78,7 @@ class IDMLBindingTable extends IDMLDeviceChild{
      * 
      * An optional pointer to a [DML_BINDING_DESC](/windows/win32/api/directml/ns-directml-dml_binding_desc) containing the description of a tensor resource to bind.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlbindingtable-bindpersistentresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmlbindingtable-bindpersistentresource
      */
     BindPersistentResource(binding) {
         ComCall(11, this, "ptr", binding)
@@ -92,10 +92,14 @@ class IDMLBindingTable extends IDMLDeviceChild{
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmlbindingtable-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmlbindingtable-reset
      */
     Reset(desc) {
-        result := ComCall(12, this, "ptr", desc, "HRESULT")
+        result := ComCall(12, this, "ptr", desc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

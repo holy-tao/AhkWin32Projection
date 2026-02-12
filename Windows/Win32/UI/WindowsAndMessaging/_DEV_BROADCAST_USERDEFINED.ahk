@@ -9,7 +9,7 @@
  * 
  * 
  * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-_dev_broadcast_userdefined
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbt/ns-dbt-_dev_broadcast_userdefined
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

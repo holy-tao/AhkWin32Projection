@@ -21,7 +21,7 @@
  * Each <b>ACL</b> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure begins on a <b>DWORD</b> boundary.
  * 
  * The maximum size for an ACL, including its ACEs, is 64 KB.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-acl
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-acl
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

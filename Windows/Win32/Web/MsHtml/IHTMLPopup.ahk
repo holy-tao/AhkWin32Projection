@@ -50,16 +50,21 @@ class IHTMLPopup extends IDispatch{
     }
 
     /**
-     * 
+     * Lists DACLs for the specified reserved URL or all reserved URLs.
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} w 
      * @param {Integer} h 
      * @param {Pointer<VARIANT>} pElement 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/show-urlacl
      */
     show(x, y, w, h, pElement) {
-        result := ComCall(7, this, "int", x, "int", y, "int", w, "int", h, "ptr", pElement, "HRESULT")
+        result := ComCall(7, this, "int", x, "int", y, "int", w, "int", h, "ptr", pElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +73,11 @@ class IHTMLPopup extends IDispatch{
      * @returns {HRESULT} 
      */
     hide() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +86,11 @@ class IHTMLPopup extends IDispatch{
      * @returns {IHTMLDocument} 
      */
     get_document() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument(p)
     }
 
@@ -86,7 +99,11 @@ class IHTMLPopup extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_isOpen() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -68,7 +68,7 @@
  * 
  * <div class="alert"><b>Note</b>  If a driver implements a <i>DrvXxx</i> graphics DDI that is not supported in all versions of Windows, the driver cannot specify a DRVFN entry for that graphics DDI when running on versions of Windows that do not support it. If the driver does specify a DRVFN entry for such a graphics DDI, Windows will reject the driver. The <i>permedia2</i> sample demonstrates how to specify different DRVFN structures for different versions of Windows.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-drvenabledata
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-drvenabledata
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

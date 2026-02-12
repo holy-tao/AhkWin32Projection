@@ -5,7 +5,7 @@
 
 /**
  * Provides a mechanism for recipients of published events to restrict the number of event instances they receive.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefileseventsfilter
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefileseventsfilter
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -35,13 +35,17 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @param {Pointer<PWSTR>} ppszFilter Receives a fully qualified UNC path string identifying the path associated with the filter. The memory for this string must be allocated using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function.
      * @param {Pointer<Integer>} pMatch Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_pathfilter_match">OFFLINEFILES_PATHFILTER_MATCH</a> enumeration  value indicating which descendants of the filter path are to be included in the set of events delivered to the event sink.
      * @returns {HRESULT} Return <b>S_OK</b> if implemented, <b>E_NOTIMPL</b> if not implemented.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileseventsfilter-getpathfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileseventsfilter-getpathfilter
      */
     GetPathFilter(ppszFilter, pMatch) {
         ppszFilterMarshal := ppszFilter is VarRef ? "ptr*" : "ptr"
         pMatchMarshal := pMatch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, ppszFilterMarshal, ppszFilter, pMatchMarshal, pMatch, "HRESULT")
+        result := ComCall(3, this, ppszFilterMarshal, ppszFilter, pMatchMarshal, pMatch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,13 +55,17 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @param {Pointer<Integer>} prgEvents Contains the address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_events">OFFLINEFILES_EVENTS</a> enumeration values.  Place the <b>OFFLINEFILES_EVENT_XXXXXX</b> identifier in an array entry to specify that the corresponding event is desired by this event sink.
      * @param {Pointer<Integer>} pcEvents Receives the actual number of elements written to the array referenced by the <i>prgEvents</i> parameter.
      * @returns {HRESULT} Return <b>S_OK</b> if implemented, <b>E_NOTIMPL</b> if not implemented.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileseventsfilter-getincludedevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileseventsfilter-getincludedevents
      */
     GetIncludedEvents(cElements, prgEvents, pcEvents) {
         prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
         pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
+        result := ComCall(4, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,13 +75,17 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @param {Pointer<Integer>} prgEvents Contains the address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_events">OFFLINEFILES_EVENTS</a> enumeration values.  Place the <b>OFFLINEFILES_EVENT_XXXXXX</b> identifier in an array entry to specify that the corresponding event is not desired by this event sink.
      * @param {Pointer<Integer>} pcEvents Receives the actual number of elements written to the array referenced by the <i>prgEvents</i> parameter.
      * @returns {HRESULT} Return <b>S_OK</b> if implemented, <b>E_NOTIMPL</b> if not implemented.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileseventsfilter-getexcludedevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileseventsfilter-getexcludedevents
      */
     GetExcludedEvents(cElements, prgEvents, pcEvents) {
         prgEventsMarshal := prgEvents is VarRef ? "int*" : "ptr"
         pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "HRESULT")
+        result := ComCall(5, this, "uint", cElements, prgEventsMarshal, prgEvents, pcEventsMarshal, pcEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

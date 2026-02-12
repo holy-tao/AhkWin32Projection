@@ -6,7 +6,7 @@
 
 /**
  * The IWMPMedia3 interface provides methods that supplement the IWMPMedia2 interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpmedia3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpmedia3
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -33,6 +33,12 @@ class IWMPMedia3 extends IWMPMedia2{
 
     /**
      * The getAttributeCountByType method retrieves the number of attributes associated with the specified attribute type.
+     * @remarks
+     * This method is used to determine the number of attributes corresponding to a particular attribute name for a given media item. Index numbers can then be passed to the <b>getItemInfoByType</b> method. This is useful, for example, when a media item has been categorized under multiple genres.
+     * 
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method always retrieves a <b>long</b> set to 0.
      * @param {BSTR} bstrType <b>BSTR</b> containing the type.
      * @param {BSTR} bstrLanguage <b>BSTR</b> containing the language. If the value is set to null or "" (empty string), the current locale string is used. Otherwise, the value must be a valid RFC 1766 language string such as "en-us".
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count of attributes that are associated with the type.
@@ -55,20 +61,44 @@ class IWMPMedia3 extends IWMPMedia2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia3-getattributecountbytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmedia3-getattributecountbytype
      */
     getAttributeCountByType(bstrType, bstrLanguage, plCount) {
-        bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
-        bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
+        if(bstrType is String) {
+            pin := BSTR.Alloc(bstrType)
+            bstrType := pin.Value
+        }
+        if(bstrLanguage is String) {
+            pin := BSTR.Alloc(bstrLanguage)
+            bstrLanguage := pin.Value
+        }
 
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(26, this, "ptr", bstrType, "ptr", bstrLanguage, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrType, "ptr", bstrLanguage, plCountMarshal, plCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The getItemInfoByType method retrieves the value of the attribute corresponding to the specified attribute type and index.
+     * @remarks
+     * This method retrieves the metadata for an individual digital media item or a media item that is part of a playlist.
+     * 
+     * This method supports attributes with multiple values and attributes with complex values. The <b>getItemInfo</b> method does not support attributes with multiple values and attributes with complex values.
+     * 
+     * The <b>attributeCount</b> method retrieves the number of attribute names available for a given media item. Index numbers can then be used with the <b>getAttributeName</b> method to determine the name of each available attribute. Individual attribute names can be passed to the <i>name</i> parameter of <b>getItemInfoByType</b>.
+     * 
+     * The <b>getAttributeCountByType</b> method returns the number of attributes that correspond to a particular attribute name for a given media item. Index numbers can then be passed to the <i>index</i> parameter of <b>getItemInfoByType</b>. This is useful when a media item has been categorized under multiple genres, for example.
+     * 
+     * The set of attributes available from sources other than the local library (remote libraries, portable devices, or CDs is defined by the other sources.
+     * 
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method always returns E_INVALIDARG.
      * @param {BSTR} bstrType <b>BSTR</b> containing the type.
      * @param {BSTR} bstrLanguage <b>BSTR</b> containing the language. If the value is set to null or "" (empty string), the current locale string is used. Otherwise, the value must be a valid RFC 1766 language string such as "en-us".
      * @param {Integer} lIndex <b>long</b> containing the index.
@@ -92,13 +122,23 @@ class IWMPMedia3 extends IWMPMedia2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia3-getiteminfobytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmedia3-getiteminfobytype
      */
     getItemInfoByType(bstrType, bstrLanguage, lIndex, pvarValue) {
-        bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
-        bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
+        if(bstrType is String) {
+            pin := BSTR.Alloc(bstrType)
+            bstrType := pin.Value
+        }
+        if(bstrLanguage is String) {
+            pin := BSTR.Alloc(bstrLanguage)
+            bstrLanguage := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrType, "ptr", bstrLanguage, "int", lIndex, "ptr", pvarValue, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrType, "ptr", bstrLanguage, "int", lIndex, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

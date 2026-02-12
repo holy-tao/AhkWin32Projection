@@ -35,7 +35,11 @@ class IMetaDataValidate extends IUnknown{
      * @returns {HRESULT} 
      */
     ValidatorInit(dwModuleType, pUnk) {
-        result := ComCall(3, this, "uint", dwModuleType, "ptr", pUnk, "HRESULT")
+        result := ComCall(3, this, "uint", dwModuleType, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IMetaDataValidate extends IUnknown{
      * @returns {HRESULT} 
      */
     ValidateMetaData() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

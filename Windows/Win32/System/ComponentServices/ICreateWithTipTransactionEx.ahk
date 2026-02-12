@@ -6,7 +6,7 @@
 
 /**
  * Creates an object that is enlisted within a manual transaction using the Transaction Internet Protocol (TIP).
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icreatewithtiptransactionex
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icreatewithtiptransactionex
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -36,13 +36,20 @@ class ICreateWithTipTransactionEx extends IUnknown{
      * @param {BSTR} bstrTipUrl The Transaction Internet Protocol (TIP) URL of the existing transaction in which you want to create the COM+ object.
      * @param {Pointer<Guid>} rclsid The CLSID of the type of object to be instantiated.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned by the <i>ppvObj</i> parameter.
-     * @returns {Pointer<Void>} A reference to a new object of the type specified by the <i>rclsid</i> argument, through the interface specified by the <i>riid</i> argument.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icreatewithtiptransactionex-createinstance
+     * @returns {Pointer<Pointer<Void>>} A reference to a new object of the type specified by the <i>rclsid</i> argument, through the interface specified by the <i>riid</i> argument.
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icreatewithtiptransactionex-createinstance
      */
     CreateInstance(bstrTipUrl, rclsid, riid) {
-        bstrTipUrl := bstrTipUrl is String ? BSTR.Alloc(bstrTipUrl).Value : bstrTipUrl
+        if(bstrTipUrl is String) {
+            pin := BSTR.Alloc(bstrTipUrl)
+            bstrTipUrl := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrTipUrl, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrTipUrl, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pObject
     }
 }

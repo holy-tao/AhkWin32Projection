@@ -22,7 +22,7 @@ class FLT_CALLBACK_DATA extends Win32Struct
     }
 
     /**
-     * @type {PETHREAD}
+     * @type {Pointer<PETHREAD>}
      */
     Thread {
         get => NumGet(this, 8, "ptr")

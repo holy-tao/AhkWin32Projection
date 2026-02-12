@@ -6,11 +6,8 @@
 /**
  * The IAMCameraControl interface controls camera settings such as zoom, pan, aperture adjustment, or shutter speed. To obtain this interface, query the filter that controls the camera.
  * @remarks
- * 
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-cameracontrol">PROPSETID_VIDCAP_CAMERACONTROL</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamcameracontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamcameracontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,52 +34,66 @@ class IAMCameraControl extends IUnknown{
 
     /**
      * The GetRange method gets the range and default value of a specified camera property.
-     * @param {Integer} Property Specifies the property to query, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
+     * @param {Integer} Property_ Specifies the property to query, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
      * @param {Pointer<Integer>} pMin Receives the minimum value of the property.
      * @param {Pointer<Integer>} pMax Receives the maximum value of the property.
      * @param {Pointer<Integer>} pSteppingDelta Receives the step size for the property. The step size is the smallest increment by which the property can change.
      * @param {Pointer<Integer>} pDefault Receives the default value of the property.
      * @param {Pointer<Integer>} pCapsFlags Receives a member of the [CameraControlFlags](/windows/desktop/api/strmif/ne-strmif-cameracontrolflags) enumeration, indicating whether the property is controlled automatically or manually.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamcameracontrol-getrange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamcameracontrol-getrange
      */
-    GetRange(Property, pMin, pMax, pSteppingDelta, pDefault, pCapsFlags) {
+    GetRange(Property_, pMin, pMax, pSteppingDelta, pDefault, pCapsFlags) {
         pMinMarshal := pMin is VarRef ? "int*" : "ptr"
         pMaxMarshal := pMax is VarRef ? "int*" : "ptr"
         pSteppingDeltaMarshal := pSteppingDelta is VarRef ? "int*" : "ptr"
         pDefaultMarshal := pDefault is VarRef ? "int*" : "ptr"
         pCapsFlagsMarshal := pCapsFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", Property, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagsMarshal, pCapsFlags, "HRESULT")
+        result := ComCall(3, this, "int", Property_, pMinMarshal, pMin, pMaxMarshal, pMax, pSteppingDeltaMarshal, pSteppingDelta, pDefaultMarshal, pDefault, pCapsFlagsMarshal, pCapsFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Set method sets a specified property on the camera.
-     * @param {Integer} Property Specifies the property to set, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
+     * @remarks
+     * If the <i>Flags</i> parameter is <b>CameraControl_Flags_Auto</b>, the method ignores the <i>lValue</i> parameter.
+     * @param {Integer} Property_ Specifies the property to set, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
      * @param {Integer} lValue Specifies the new value of the property.
      * @param {Integer} Flags Specifies the desired control setting, as a member of the [CameraControlFlags](/windows/desktop/api/strmif/ne-strmif-cameracontrolflags) enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamcameracontrol-set
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamcameracontrol-set
      */
-    Set(Property, lValue, Flags) {
-        result := ComCall(4, this, "int", Property, "int", lValue, "int", Flags, "HRESULT")
+    Set(Property_, lValue, Flags) {
+        result := ComCall(4, this, "int", Property_, "int", lValue, "int", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Get method gets the current setting of a camera property.
-     * @param {Integer} Property Specifies the property to retrieve, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
+     * @param {Integer} Property_ Specifies the property to retrieve, as a value from the [CameraControlProperty](/windows/desktop/api/strmif/ne-strmif-cameracontrolproperty) enumeration.
      * @param {Pointer<Integer>} lValue Receives the value of the property.
      * @param {Pointer<Integer>} Flags Receives a member of the [CameraControlFlags](/windows/desktop/api/strmif/ne-strmif-cameracontrolflags) enumeration. The returned value indicates whether the setting is controlled manually or automatically.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamcameracontrol-get
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamcameracontrol-get
      */
-    Get(Property, lValue, Flags) {
+    Get(Property_, lValue, Flags) {
         lValueMarshal := lValue is VarRef ? "int*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int", Property, lValueMarshal, lValue, FlagsMarshal, Flags, "HRESULT")
+        result := ComCall(5, this, "int", Property_, lValueMarshal, lValue, FlagsMarshal, Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

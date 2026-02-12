@@ -6,7 +6,7 @@
 
 /**
  * The EMRPOLYPOLYLINE16 and EMRPOLYPOLYGON16 structures contain members for the PolyPolyline and PolyPolygon enhanced metafile records.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolypolyline16
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-emrpolypolyline16
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

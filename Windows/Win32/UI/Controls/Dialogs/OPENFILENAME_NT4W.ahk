@@ -2,10 +2,11 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400. (Unicode)
- * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilename_nt4w
+ * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/ns-commdlg-openfilename_nt4w
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode
@@ -179,9 +180,12 @@ class OPENFILENAME_NT4W extends Win32Struct
      * 
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(112, this)
+            return this.__lCustData
+        }
     }
 
     /**

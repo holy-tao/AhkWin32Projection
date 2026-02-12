@@ -5,7 +5,7 @@
 
 /**
  * Accesses web restrictions settings for the user.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcwebsettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nn-wpcapi-iwpcwebsettings
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -33,29 +33,37 @@ class IWPCWebSettings extends IWPCSettings{
     /**
      * Retrieves the web restrictions settings.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
      */
     GetSettings() {
-        result := ComCall(6, this, "int*", &pdwSettings := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pdwSettings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwSettings
     }
 
     /**
      * Requests that the Parental Controls web restrictions subsystem set the specified primary and sub URLs to the allowed state.
-     * @param {HWND} hWnd A handle to the parent window. This is  needed for proper User Account Control (UAC) dialog box behavior.
+     * @param {HWND} hWnd_ A handle to the parent window. This is  needed for proper User Account Control (UAC) dialog box behavior.
      * @param {PWSTR} pcszURL A pointer to primary URL for override.
      * @param {Integer} cURLs The number of entries in <i>ppcszSubURLs</i>.
      * @param {Pointer<PWSTR>} ppcszSubURLs Pointers to URLs that include pages with the primary URL.
      * @returns {BOOL} Pointer to flag notifying completion of override changed status. This parameter is 1 if the status is changed, and 0 otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcwebsettings-requesturloverride
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcwebsettings-requesturloverride
      */
-    RequestURLOverride(hWnd, pcszURL, cURLs, ppcszSubURLs) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    RequestURLOverride(hWnd_, pcszURL, cURLs, ppcszSubURLs) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
         ppcszSubURLsMarshal := ppcszSubURLs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hWnd, "ptr", pcszURL, "uint", cURLs, ppcszSubURLsMarshal, ppcszSubURLs, "int*", &pfChanged := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", hWnd_, "ptr", pcszURL, "uint", cURLs, ppcszSubURLsMarshal, ppcszSubURLs, "int*", &pfChanged := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfChanged
     }
 }

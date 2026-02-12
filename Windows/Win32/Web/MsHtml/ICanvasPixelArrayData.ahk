@@ -38,7 +38,11 @@ class ICanvasPixelArrayData extends IUnknown{
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pBufferLengthMarshal := pBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, ppBufferMarshal, ppBuffer, pBufferLengthMarshal, pBufferLength, "HRESULT")
+        result := ComCall(3, this, ppBufferMarshal, ppBuffer, pBufferLengthMarshal, pBufferLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

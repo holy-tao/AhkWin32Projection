@@ -8,7 +8,7 @@
  * 
  * See the Bluetooth specification at 
  * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for Class Of Device information.
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_cod_pairs
+ * @see https://learn.microsoft.com/windows/win32/api//content/bluetoothapis/ns-bluetoothapis-bluetooth_cod_pairs
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

@@ -6,8 +6,8 @@
 #Include .\FolderItems2.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/folderitems3-object
+ * Extends the FolderItems2 object. This object supports an additional method and property.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitems3-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,16 +46,25 @@ class FolderItems3 extends FolderItems2{
     }
 
     /**
+     * Sets a wildcard filter to apply to the items returned.
+     * @param {Integer} grfFlags Type: **Integer**
      * 
-     * @param {Integer} grfFlags 
+     * This parameter can be one of the flags listed in [**SHCONTF**](/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf).
      * @param {BSTR} bstrFileSpec 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitems3-filter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitems3-filter
      */
     Filter(grfFlags, bstrFileSpec) {
-        bstrFileSpec := bstrFileSpec is String ? BSTR.Alloc(bstrFileSpec).Value : bstrFileSpec
+        if(bstrFileSpec is String) {
+            pin := BSTR.Alloc(bstrFileSpec)
+            bstrFileSpec := pin.Value
+        }
 
-        result := ComCall(13, this, "int", grfFlags, "ptr", bstrFileSpec, "HRESULT")
+        result := ComCall(13, this, "int", grfFlags, "ptr", bstrFileSpec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +73,11 @@ class FolderItems3 extends FolderItems2{
      * @returns {FolderItemVerbs} 
      */
     get_Verbs() {
-        result := ComCall(14, this, "ptr*", &ppfic := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppfic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItemVerbs(ppfic)
     }
 }

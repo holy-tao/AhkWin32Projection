@@ -5,7 +5,7 @@
 
 /**
  * IDirectDrawKernel interface
- * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nn-ddkernel-idirectdrawkernel
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nn-ddkernel-idirectdrawkernel
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -74,10 +74,14 @@ class IDirectDrawKernel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawkernel-getcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nf-ddkernel-idirectdrawkernel-getcaps
      */
     GetCaps(param0) {
-        result := ComCall(3, this, "ptr", param0, "HRESULT")
+        result := ComCall(3, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,12 +129,16 @@ class IDirectDrawKernel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawkernel-getkernelhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nf-ddkernel-idirectdrawkernel-getkernelhandle
      */
     GetKernelHandle(param0) {
         param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(4, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,10 +185,14 @@ class IDirectDrawKernel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawkernel-releasekernelhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddkernel/nf-ddkernel-idirectdrawkernel-releasekernelhandle
      */
     ReleaseKernelHandle() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

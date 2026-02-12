@@ -5,7 +5,7 @@
 
 /**
  * Represents a change to the registration of a synchronization provider or a synchronization provider configuration UI. The changes are reported as registration events.
- * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nn-syncregistration-isyncregistrationchange
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncregistration/nn-syncregistration-isyncregistrationchange
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -33,21 +33,29 @@ class ISyncRegistrationChange extends IUnknown{
     /**
      * Gets the next pending registration event.
      * @returns {Integer} The registration event.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncregistrationchange-getevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncregistration/nf-syncregistration-isyncregistrationchange-getevent
      */
     GetEvent() {
-        result := ComCall(3, this, "int*", &psreEvent := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &psreEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psreEvent
     }
 
     /**
      * Gets the instance ID of the synchronization provider or synchronization provider configuration UI associated with the event.
      * @returns {Guid} The instance ID.
-     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncregistrationchange-getinstanceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncregistration/nf-syncregistration-isyncregistrationchange-getinstanceid
      */
     GetInstanceId() {
         pguidInstanceId := Guid()
-        result := ComCall(4, this, "ptr", pguidInstanceId, "HRESULT")
+        result := ComCall(4, this, "ptr", pguidInstanceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidInstanceId
     }
 }

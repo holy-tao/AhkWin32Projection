@@ -5,7 +5,7 @@
 
 /**
  * The IADsSyntax interface specifies methods to identify and modify the available Automation data types used to represent its data.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadssyntax
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadssyntax
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -43,7 +43,11 @@ class IADsSyntax extends IADs{
      * @returns {Integer} 
      */
     get_OleAutoDataType() {
-        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -53,7 +57,11 @@ class IADsSyntax extends IADs{
      * @returns {HRESULT} 
      */
     put_OleAutoDataType(lnOleAutoDataType) {
-        result := ComCall(21, this, "int", lnOleAutoDataType, "HRESULT")
+        result := ComCall(21, this, "int", lnOleAutoDataType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

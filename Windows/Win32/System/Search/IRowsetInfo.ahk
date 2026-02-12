@@ -40,7 +40,11 @@ class IRowsetInfo extends IUnknown{
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
         prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IRowsetInfo extends IUnknown{
      * @returns {IUnknown} 
      */
     GetReferencedRowset(iOrdinal, riid) {
-        result := ComCall(4, this, "ptr", iOrdinal, "ptr", riid, "ptr*", &ppReferencedRowset := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", iOrdinal, "ptr", riid, "ptr*", &ppReferencedRowset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppReferencedRowset)
     }
 
@@ -61,7 +69,11 @@ class IRowsetInfo extends IUnknown{
      * @returns {IUnknown} 
      */
     GetSpecification(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &ppSpecification := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppSpecification := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppSpecification)
     }
 }

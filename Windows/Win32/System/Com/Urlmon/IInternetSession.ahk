@@ -43,7 +43,11 @@ class IInternetSession extends IUnknown{
 
         ppwzPatternsMarshal := ppwzPatterns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pCF, "ptr", rclsid, "ptr", pwzProtocol, "uint", cPatterns, ppwzPatternsMarshal, ppwzPatterns, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pCF, "ptr", rclsid, "ptr", pwzProtocol, "uint", cPatterns, ppwzPatternsMarshal, ppwzPatterns, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class IInternetSession extends IUnknown{
     UnregisterNameSpace(pCF, pszProtocol) {
         pszProtocol := pszProtocol is String ? StrPtr(pszProtocol) : pszProtocol
 
-        result := ComCall(4, this, "ptr", pCF, "ptr", pszProtocol, "HRESULT")
+        result := ComCall(4, this, "ptr", pCF, "ptr", pszProtocol, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +78,11 @@ class IInternetSession extends IUnknown{
     RegisterMimeFilter(pCF, rclsid, pwzType) {
         pwzType := pwzType is String ? StrPtr(pwzType) : pwzType
 
-        result := ComCall(5, this, "ptr", pCF, "ptr", rclsid, "ptr", pwzType, "HRESULT")
+        result := ComCall(5, this, "ptr", pCF, "ptr", rclsid, "ptr", pwzType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +95,11 @@ class IInternetSession extends IUnknown{
     UnregisterMimeFilter(pCF, pwzType) {
         pwzType := pwzType is String ? StrPtr(pwzType) : pwzType
 
-        result := ComCall(6, this, "ptr", pCF, "ptr", pwzType, "HRESULT")
+        result := ComCall(6, this, "ptr", pCF, "ptr", pwzType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +116,11 @@ class IInternetSession extends IUnknown{
     CreateBinding(pBC, szUrl, pUnkOuter, ppUnk, ppOInetProt, dwOption) {
         szUrl := szUrl is String ? StrPtr(szUrl) : szUrl
 
-        result := ComCall(7, this, "ptr", pBC, "ptr", szUrl, "ptr", pUnkOuter, "ptr*", ppUnk, "ptr*", ppOInetProt, "uint", dwOption, "HRESULT")
+        result := ComCall(7, this, "ptr", pBC, "ptr", szUrl, "ptr", pUnkOuter, "ptr*", ppUnk, "ptr*", ppOInetProt, "uint", dwOption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +135,11 @@ class IInternetSession extends IUnknown{
     SetSessionOption(dwOption, pBuffer, dwBufferLength, dwReserved) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", dwOption, pBufferMarshal, pBuffer, "uint", dwBufferLength, "uint", dwReserved, "HRESULT")
+        result := ComCall(8, this, "uint", dwOption, pBufferMarshal, pBuffer, "uint", dwBufferLength, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +155,11 @@ class IInternetSession extends IUnknown{
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwOption, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, "uint", dwReserved, "HRESULT")
+        result := ComCall(9, this, "uint", dwOption, pBufferMarshal, pBuffer, pdwBufferLengthMarshal, pdwBufferLength, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

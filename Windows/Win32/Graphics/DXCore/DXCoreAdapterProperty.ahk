@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify DXCore adapter properties.
- * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxcore_interface/ne-dxcore_interface-dxcoreadapterproperty
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

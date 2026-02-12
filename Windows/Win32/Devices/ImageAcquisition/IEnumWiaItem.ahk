@@ -8,7 +8,6 @@
 /**
  * The IEnumWiaItem interface is used by applications to enumerate IWiaItem objects in the tree's current folder.
  * @remarks
- * 
  * The <b>IEnumWiaItem</b> interface is a specific implementation for WIA of the standard Component Object Model (COM) enumeration interface. For details, see <a href="https://docs.microsoft.com/previous-versions/ms680089(v=vs.85)">IEnumXXXX</a>.
  * 
  * Applications obtain a pointer to the <b>IEnumWiaItem</b> interface by invoking the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiaitem-enumchilditems">IWiaItem::EnumChildItems</a> method.
@@ -39,9 +38,7 @@
  * <td>Decrements reference count.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-ienumwiaitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nn-wia_xp-ienumwiaitem
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -68,6 +65,14 @@ class IEnumWiaItem extends IUnknown{
 
     /**
      * The IEnumWiaItem::Next method fills an array of pointers to IWiaItem interfaces.
+     * @remarks
+     * The Windows Image Acquisition (WIA) run-time system represents WIA hardware devices as a hierarchical tree of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> objects. Applications use the <b>IEnumWiaItem::Next</b> method to obtain an <b>IWiaItem</b> interface pointer for each item in the current folder of a hardware device's <b>IWiaItem</b> object tree. 
+     * 
+     * To obtain the list of pointers, the application passes an array of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interface pointers that it allocates. It also passes the number of array elements in the <i>celt</i> parameter. The <b>IEnumWiaItem::Next</b> method fills the array with pointers to <b>IWiaItem</b> interfaces. 
+     * 
+     * Until the enumeration process completes, the <b>IEnumWiaItem::Next</b> method returns S_OK. Each time it does, it sets the value pointed to by <i>pceltFetched</i> to the number of items it inserted into the array. When <b>IEnumWiaItem::Next</b> finishes the process of enumerating <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> objects, it returns S_FALSE and sets the memory location pointed to by <i>pceltFetched</i> to zero.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIWiaItem</i> parameter.
      * @param {Integer} celt Type: <b>ULONG</b>
      * 
      * Specifies the number of array elements in the array indicated by the <i>ppIWiaItem</i> parameter.
@@ -77,12 +82,16 @@ class IEnumWiaItem extends IUnknown{
      * @returns {IWiaItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a>**</b>
      * 
      * Receives the address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interface pointers. <b>IEnumWiaItem::Next</b> fills this array with interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwiaitem-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-ienumwiaitem-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", &ppIWiaItem := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppIWiaItem := 0, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaItem(ppIWiaItem)
     }
 
@@ -94,10 +103,14 @@ class IEnumWiaItem extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the method returns S_OK. If it is unable to skip the specified number of items, it returns S_FALSE. If the method fails, it returns a standard COM error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwiaitem-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-ienumwiaitem-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,23 +118,33 @@ class IEnumWiaItem extends IUnknown{
      * The IEnumWiaItem::Reset method is used by applications to restart the enumeration of item information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwiaitem-reset
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-ienumwiaitem-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IEnumWiaItem::Clone method creates an additional instance of the IEnumWiaItem interface and sends back a pointer to it.
+     * @remarks
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIEnum</i> parameter.
      * @returns {IEnumWiaItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwiaitem">IEnumWiaItem</a>**</b>
      * 
      * Pointer  to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwiaitem">IEnumWiaItem</a> interface. Receives the address of the <b>IEnumWiaItem</b> interface instance that <b>IEnumWiaItem::Clone</b> creates.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwiaitem-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-ienumwiaitem-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumWiaItem(ppIEnum)
     }
 
@@ -130,10 +153,14 @@ class IEnumWiaItem extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Pointer to a <b>ULONG</b> that receives the number of elements in the enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-ienumwiaitem-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-ienumwiaitem-getcount
      */
     GetCount() {
-        result := ComCall(7, this, "uint*", &celt := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &celt := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return celt
     }
 }

@@ -32,10 +32,14 @@ class IDxcAssembler extends IUnknown{
     /**
      * 
      * @param {IDxcBlob} pShader 
-     * @returns {IDxcOperationResult} 
+     * @returns {Pointer<IDxcOperationResult>} 
      */
     AssembleToContainer(pShader) {
-        result := ComCall(3, this, "ptr", pShader, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcOperationResult(ppResult)
+        result := ComCall(3, this, "ptr", pShader, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 }

@@ -6,11 +6,8 @@
 /**
  * Enables the quality manager to adjust the audio or video quality of a component in the pipeline.
  * @remarks
- * 
  * The quality manager typically obtains this interface when the quality manager's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfqualitymanager-notifytopology">IMFQualityManager::NotifyTopology</a> method is called.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfqualityadvise
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfqualityadvise
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IMFQualityAdvise extends IUnknown{
 
     /**
      * Sets the drop mode. In drop mode, a component drops samples, more or less aggressively depending on the level of the drop mode.
+     * @remarks
+     * If this method is called on a media source, the media source might switch between thinned and non-thinned output. If that occurs, the affected streams will send an <a href="https://docs.microsoft.com/windows/desktop/medfound/mestreamthinmode">MEStreamThinMode</a> event to indicate the transition. The operation is asynchronous; after <b>SetDropMode</b> returns, you might receive samples that were queued before the transition. The MEStreamThinMode event marks the exact point in the stream where the transition occurs.
      * @param {Integer} eDropMode Requested drop mode, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_drop_mode">MF_QUALITY_DROP_MODE</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -68,10 +67,14 @@ class IMFQualityAdvise extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise-setdropmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfqualityadvise-setdropmode
      */
     SetDropMode(eDropMode) {
-        result := ComCall(3, this, "int", eDropMode, "HRESULT")
+        result := ComCall(3, this, "int", eDropMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,35 +111,53 @@ class IMFQualityAdvise extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise-setqualitylevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfqualityadvise-setqualitylevel
      */
     SetQualityLevel(eQualityLevel) {
-        result := ComCall(4, this, "int", eQualityLevel, "HRESULT")
+        result := ComCall(4, this, "int", eQualityLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the current drop mode.
      * @returns {Integer} Receives the drop mode, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_drop_mode">MF_QUALITY_DROP_MODE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise-getdropmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfqualityadvise-getdropmode
      */
     GetDropMode() {
-        result := ComCall(5, this, "int*", &peDropMode := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &peDropMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peDropMode
     }
 
     /**
      * Retrieves the current quality level.
      * @returns {Integer} Receives the quality level, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mf_quality_level">MF_QUALITY_LEVEL</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise-getqualitylevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfqualityadvise-getqualitylevel
      */
     GetQualityLevel() {
-        result := ComCall(6, this, "int*", &peQualityLevel := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &peQualityLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peQualityLevel
     }
 
     /**
      * Drops samples over a specified interval of time.
+     * @remarks
+     * Ideally the quality manager can prevent a renderer from falling behind. But if this does occur, then simply lowering quality does not guarantee the renderer will ever catch up. As a result, audio and video might fall out of sync. To correct this problem, the quality manager can call <b>DropTime</b> to request that the renderer drop samples quickly over a specified time interval. After that period, the renderer stops dropping samples.
+     * 
+     * This method is primarily intended for the video renderer. Dropped audio samples cause audio glitching, which is not desirable.
+     * 
+     * If a component does not support this method, it should return MF_E_DROPTIME_NOT_SUPPORTED.
      * @param {Integer} hnsAmountToDrop Amount of time to drop, in 100-nanosecond units. This value is always absolute. If the method is called multiple times, do not add the times from previous calls.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -168,10 +189,14 @@ class IMFQualityAdvise extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualityadvise-droptime
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfqualityadvise-droptime
      */
     DropTime(hnsAmountToDrop) {
-        result := ComCall(7, this, "int64", hnsAmountToDrop, "HRESULT")
+        result := ComCall(7, this, "int64", hnsAmountToDrop, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

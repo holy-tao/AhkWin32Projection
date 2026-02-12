@@ -16,7 +16,7 @@
  *     applications. To use the symbolic constants as a good programming practice, create explicit declarations of such 
  *     constants, as done here, in your VBScript applications.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_user_flag_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/ne-iads-ads_user_flag_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that provide basic information about the registered metadata handler.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwicmetadatahandlerinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nn-wincodecsdk-iwicmetadatahandlerinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -35,11 +35,15 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * Pointer that receives the metadata format GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getmetadataformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getmetadataformat
      */
     GetMetadataFormat() {
         pguidMetadataFormat := Guid()
-        result := ComCall(11, this, "ptr", pguidMetadataFormat, "HRESULT")
+        result := ComCall(11, this, "ptr", pguidMetadataFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidMetadataFormat
     }
 
@@ -57,10 +61,14 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      *                
      * 
      * To obtain the number of supported container formats, pass <c>NULL</c> to <i>pguidContainerFormats</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getcontainerformats
      */
     GetContainerFormats(cContainerFormats, pguidContainerFormats) {
-        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(12, this, "uint", cContainerFormats, "ptr", pguidContainerFormats, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
@@ -75,12 +83,16 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual string buffer length needed to obtain the entire name of the device manufacturer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemanufacturer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemanufacturer
      */
     GetDeviceManufacturer(cchDeviceManufacturer, wzDeviceManufacturer) {
         wzDeviceManufacturer := wzDeviceManufacturer is String ? StrPtr(wzDeviceManufacturer) : wzDeviceManufacturer
 
-        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(13, this, "uint", cchDeviceManufacturer, "ptr", wzDeviceManufacturer, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
@@ -95,12 +107,16 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual length needed to retrieve the device models.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemodels
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-getdevicemodels
      */
     GetDeviceModels(cchDeviceModels, wzDeviceModels) {
         wzDeviceModels := wzDeviceModels is String ? StrPtr(wzDeviceModels) : wzDeviceModels
 
-        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(14, this, "uint", cchDeviceModels, "ptr", wzDeviceModels, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
@@ -109,10 +125,14 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer that receives <b>TRUE</b> if a full stream is required; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefullstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefullstream
      */
     DoesRequireFullStream() {
-        result := ComCall(15, this, "int*", &pfRequiresFullStream := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pfRequiresFullStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRequiresFullStream
     }
 
@@ -121,10 +141,14 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer that receives <b>TRUE</b> if padding is supported; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doessupportpadding
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doessupportpadding
      */
     DoesSupportPadding() {
-        result := ComCall(16, this, "int*", &pfSupportsPadding := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pfSupportsPadding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfSupportsPadding
     }
 
@@ -133,10 +157,14 @@ class IWICMetadataHandlerInfo extends IWICComponentInfo{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer that receives <b>TRUE</b> if a fixed size is required; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefixedsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatahandlerinfo-doesrequirefixedsize
      */
     DoesRequireFixedSize() {
-        result := ComCall(17, this, "int*", &pfFixedSize := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pfFixedSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfFixedSize
     }
 }

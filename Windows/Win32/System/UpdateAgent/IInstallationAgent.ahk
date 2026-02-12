@@ -6,7 +6,7 @@
 
 /**
  * Records the result for an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iinstallationagent
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iinstallationagent
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -34,15 +34,22 @@ class IInstallationAgent extends IDispatch{
     /**
      * Records the result for an update. The result is specified by an IStringCollection object.
      * @param {BSTR} installationResultCookie A string value that identifies the result cookie.
-     * @param {Integer} hresult The identifier of the result.
+     * @param {Integer} hresult_ The identifier of the result.
      * @param {IStringCollection} extendedReportingData An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-istringcollection">IStringCollection</a> interface that represents a collection of strings that contain the result for an update.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationagent-recordinstallationresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iinstallationagent-recordinstallationresult
      */
-    RecordInstallationResult(installationResultCookie, hresult, extendedReportingData) {
-        installationResultCookie := installationResultCookie is String ? BSTR.Alloc(installationResultCookie).Value : installationResultCookie
+    RecordInstallationResult(installationResultCookie, hresult_, extendedReportingData) {
+        if(installationResultCookie is String) {
+            pin := BSTR.Alloc(installationResultCookie)
+            installationResultCookie := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", installationResultCookie, "int", hresult, "ptr", extendedReportingData, "HRESULT")
+        result := ComCall(7, this, "ptr", installationResultCookie, "int", hresult_, "ptr", extendedReportingData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

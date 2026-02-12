@@ -34,7 +34,11 @@ class IHTMLPainterOverlay extends IUnknown{
      * @returns {HRESULT} 
      */
     OnMove(rcDevice) {
-        result := ComCall(3, this, "ptr", rcDevice, "HRESULT")
+        result := ComCall(3, this, "ptr", rcDevice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

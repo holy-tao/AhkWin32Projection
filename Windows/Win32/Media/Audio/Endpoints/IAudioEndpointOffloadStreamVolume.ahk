@@ -5,7 +5,7 @@
 
 /**
  * The IAudioEndpointOffloadStreamVolume interface allows the client application to manipulate the volume level of the offloaded audio stream.
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioendpointoffloadstreamvolume
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nn-audioengineendpoint-iaudioendpointoffloadstreamvolume
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
     /**
      * The GetVolumeChannelCount method retrieves the number of available audio channels in the offloaded stream.
      * @returns {Integer} A pointer to the number of available audio channels in the offloaded stream.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getvolumechannelcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getvolumechannelcount
      */
     GetVolumeChannelCount() {
-        result := ComCall(3, this, "uint*", &pu32ChannelCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pu32ChannelCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pu32ChannelCount
     }
 
@@ -47,24 +51,32 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
      * @param {Integer} u32CurveType A value from the [AUDIO_CURVE_TYPE](/windows-hardware/drivers/ddi/content/ksmedia/ne-ksmedia-audio_curve_type) enumeration specifying the curve to use when changing the channel volumes.
      * @param {Pointer<Integer>} pCurveDuration A **LONGLONG** value specifying the curve duration in hundred nanosecond units.
      * @returns {HRESULT} The <b>SetChannelVolumes</b> method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes
      */
     SetChannelVolumes(u32ChannelCount, pf32Volumes, u32CurveType, pCurveDuration) {
         pf32VolumesMarshal := pf32Volumes is VarRef ? "float*" : "ptr"
         pCurveDurationMarshal := pCurveDuration is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, "int", u32CurveType, pCurveDurationMarshal, pCurveDuration, "HRESULT")
+        result := ComCall(4, this, "uint", u32ChannelCount, pf32VolumesMarshal, pf32Volumes, "int", u32CurveType, pCurveDurationMarshal, pCurveDuration, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetChannelVolumes method retrieves the volume levels for the various audio channels in the offloaded stream.
-     * @param {Integer} u32ChannelCount Indicates the numer of available audio channels in the offloaded stream.
+     * @param {Integer} u32ChannelCount Indicates the number of available audio channels in the offloaded stream.
      * @returns {Float} A pointer to the volume levels for the various  audio channels in the offloaded stream.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getchannelvolumes
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-getchannelvolumes
      */
     GetChannelVolumes(u32ChannelCount) {
-        result := ComCall(5, this, "uint", u32ChannelCount, "float*", &pf32Volumes := 0, "HRESULT")
+        result := ComCall(5, this, "uint", u32ChannelCount, "float*", &pf32Volumes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pf32Volumes
     }
 }

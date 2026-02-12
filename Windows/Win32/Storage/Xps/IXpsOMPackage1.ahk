@@ -6,14 +6,11 @@
 /**
  * Inherits from IXpsOMPackage.
  * @remarks
- * 
  * <h3><a id="Additional_References"></a><a id="additional_references"></a><a id="ADDITIONAL_REFERENCES"></a>Additional References</h3>
  * The base interface is defined and documented in Windows 7 SDK.
  * 
  * [IXpsOMPackage interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackage)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompackage1
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompackage1
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -40,16 +37,24 @@ class IXpsOMPackage1 extends IXpsOMPackage{
 
     /**
      * Gets the document type of the data that was used to initialize this package. This method is used to determine whether a document is the XPS or OpenXPS type. For more information, see XPS Documents.
+     * @remarks
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompackage1">IXpsOMPackage1</a> instance was not loaded from a stream or a  file, the document type is unspecified (XPS_DOCUMENT_TYPE_UNSPECIFIED). Otherwise, the document type returned is that of the stream or file used to initialize the <b>IXpsOMPackage1</b> instance.
      * @returns {Integer} [out, retval] The document type of the source data used to initialize this package. A document type value of XPS_DOCUMENT_TYPE_UNSPECIFIED is returned if the package was created in memory.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-getdocumenttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-getdocumenttype
      */
     GetDocumentType() {
-        result := ComCall(13, this, "int*", &documentType := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &documentType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return documentType
     }
 
     /**
      * Writes an XPS OM to a file as an XPS package of a specified type.
+     * @remarks
+     * The caller must ensure that all image resources in the package are supported by the package type. For example, JpegXR images cannot be used in an MSXPS document type because they are incompatible.
      * @param {PWSTR} fileName [in, string]    The name of the file to be created. This parameter must not be <b>NULL</b>.
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes [in, unique]    The SECURITY_ATTRIBUTES structure, which contains two distinct but related data members:
      * 
@@ -78,12 +83,16 @@ class IXpsOMPackage1 extends IXpsOMPackage{
      * E_INVALIDARG:  The document type was specified as XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * 
      * XPS_E_INVALID_CONTENT_TYPE:  An image resource in the package is of a type that is not supported by the document type specified in documentType.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-writetofile1
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-writetofile1
      */
     WriteToFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(14, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", documentType, "HRESULT")
+        result := ComCall(14, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", documentType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,10 +114,14 @@ class IXpsOMPackage1 extends IXpsOMPackage{
      * E_INVALIDARG: documentType was set to XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * 
      * XPS_E_INVALID_CONTENT_TYPE: An image resource in the package is of a type that is not supported by the document type specified in documentType.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-writetostream1
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-writetostream1
      */
     WriteToStream1(outputStream, optimizeMarkupSize, documentType) {
-        result := ComCall(15, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", documentType, "HRESULT")
+        result := ComCall(15, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", documentType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

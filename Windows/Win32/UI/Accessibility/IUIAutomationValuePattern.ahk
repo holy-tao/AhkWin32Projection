@@ -6,7 +6,7 @@
 
 /**
  * Provides access to a control that contains a value that does not span a range and that can be represented as a string.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationvaluepattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationvaluepattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -61,83 +61,97 @@ class IUIAutomationValuePattern extends IUnknown{
 
     /**
      * Sets the value of the element.
-     * @param {BSTR} val Type: <b>BSTR</b>
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisenabled">CurrentIsEnabled</a> property must be <b>TRUE</b>, and the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentisreadonly">IUIAutomationValuePattern::CurrentIsReadOnly</a> property must be <b>FALSE</b>.
+     * @param {BSTR} val_ Type: <b>BSTR</b>
      * 
      * The value to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-setvalue
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-setvalue
      */
-    SetValue(val) {
-        val := val is String ? BSTR.Alloc(val).Value : val
+    SetValue(val_) {
+        if(val_ is String) {
+            pin := BSTR.Alloc(val_)
+            val_ := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", val, "HRESULT")
+        result := ComCall(3, this, "ptr", val_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the value of the element.
      * @remarks
-     * 
      * Single-line edit controls support programmatic access to their contents through <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationvaluepattern">IUIAutomationValuePattern</a>. However, multiline edit controls do not support this control pattern, and their contents must be retrieved by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern">IUIAutomationTextPattern</a>.
      * 
      * This property does not support the retrieval of formatting information or substring values. <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern">IUIAutomationTextPattern</a> must be used in these scenarios as well.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentvalue
      */
     get_CurrentValue() {
         retVal := BSTR()
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
+        result := ComCall(4, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Indicates whether the value of the element is read-only.
      * @remarks
-     * 
      * This property must be <b>TRUE</b> for <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-setvalue">IUIAutomationValuePattern::SetValue</a> to succeed.
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentisreadonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_currentisreadonly
      */
     get_CurrentIsReadOnly() {
-        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the cached value of the element.
      * @remarks
-     * 
      * Single-line edit controls support programmatic access to their contents through <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationvaluepattern">IUIAutomationValuePattern</a>. However, multiline edit controls do not support this control pattern, and their contents must be retrieved by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern">IUIAutomationTextPattern</a>.
      * 
      * This property does not support the retrieval of formatting information or substring values. <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern">IUIAutomationTextPattern</a> must be used in these scenarios as well.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedvalue
      */
     get_CachedValue() {
         retVal := BSTR()
-        result := ComCall(6, this, "ptr", retVal, "HRESULT")
+        result := ComCall(6, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves a cached value that indicates whether the value of the element is read-only.
      * @remarks
-     * 
      * This property must be <b>TRUE</b> for <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-setvalue">IUIAutomationValuePattern::SetValue</a> to succeed.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedisreadonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-get_cachedisreadonly
      */
     get_CachedIsReadOnly() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

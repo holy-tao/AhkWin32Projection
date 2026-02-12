@@ -35,7 +35,11 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @returns {Integer} 
      */
     SetFX(dwEffectsCount, pDSFXDesc) {
-        result := ComCall(21, this, "uint", dwEffectsCount, "ptr", pDSFXDesc, "uint*", &pdwResultCodes := 0, "HRESULT")
+        result := ComCall(21, this, "uint", dwEffectsCount, "ptr", pDSFXDesc, "uint*", &pdwResultCodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwResultCodes
     }
 
@@ -46,7 +50,11 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @returns {Integer} 
      */
     AcquireResources(dwFlags, dwEffectsCount) {
-        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, "uint*", &pdwResultCodes := 0, "HRESULT")
+        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, "uint*", &pdwResultCodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwResultCodes
     }
 
@@ -58,7 +66,11 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @returns {Pointer<Void>} 
      */
     GetObjectInPath(rguidObject, dwIndex, rguidInterface) {
-        result := ComCall(23, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppObject
     }
 }

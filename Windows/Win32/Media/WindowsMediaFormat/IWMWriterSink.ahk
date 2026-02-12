@@ -6,7 +6,7 @@
 
 /**
  * The IWMWriterSink interface is the basic interface of all writer sinks, including the file, network, and push sinks defined in the Windows Media Format SDK, and custom sinks.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmwritersink
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmwritersink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,54 +33,76 @@ class IWMWriterSink extends IUnknown{
 
     /**
      * The OnHeader method is called by the writer when the ASF header is ready for the sink.
-     * @param {INSSBuffer} pHeader Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object containing the ASF header.
+     * @remarks
+     * The ASF header will always be sent before any data units, as the header is required for reading the content. The writer may send the header more than once for a given file. If possible, your sink should write any headers received.
+     * @param {INSSBuffer} pHeader Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object containing the ASF header.
      * @returns {HRESULT} This method is implemented by the application. It should always return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwritersink-onheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwritersink-onheader
      */
     OnHeader(pHeader) {
-        result := ComCall(3, this, "ptr", pHeader, "HRESULT")
+        result := ComCall(3, this, "ptr", pHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IsRealTime is called by the writer to determine whether the sink needs data units to be delivered in real time. It is up to you to decide whether your custom sink requires real-time delivery.
      * @returns {BOOL} Pointer to a Boolean value that is True if the sink requires real time data unit delivery.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwritersink-isrealtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwritersink-isrealtime
      */
     IsRealTime() {
-        result := ComCall(4, this, "int*", &pfRealTime := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfRealTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRealTime
     }
 
     /**
      * The AllocateDataUnit method is called by the writer object when it needs a buffer to deliver a data unit.
      * @param {Integer} cbDataUnit Size of the data unit that the writer needs to deliver, in bytes. The buffer you assign to <i>ppDataUnit</i> must be this size or bigger.
-     * @returns {INSSBuffer} On return, set to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface of a buffer object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwritersink-allocatedataunit
+     * @returns {INSSBuffer} On return, set to a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface of a buffer object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwritersink-allocatedataunit
      */
     AllocateDataUnit(cbDataUnit) {
-        result := ComCall(5, this, "uint", cbDataUnit, "ptr*", &ppDataUnit := 0, "HRESULT")
+        result := ComCall(5, this, "uint", cbDataUnit, "ptr*", &ppDataUnit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INSSBuffer(ppDataUnit)
     }
 
     /**
      * The OnDataUnit method is called by the writer when a data unit is ready for the sink. How your application handles the data unit depends upon the destination of the content.
-     * @param {INSSBuffer} pDataUnit Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object containing the data unit.
+     * @param {INSSBuffer} pDataUnit Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object containing the data unit.
      * @returns {HRESULT} This method is implemented by the application. It should always return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwritersink-ondataunit
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwritersink-ondataunit
      */
     OnDataUnit(pDataUnit) {
-        result := ComCall(6, this, "ptr", pDataUnit, "HRESULT")
+        result := ComCall(6, this, "ptr", pDataUnit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OnEndWriting method is called by the writer when writing is complete. This method should conclude operations for your sink. For example, the writer file sink closes and indexes the file.
      * @returns {HRESULT} This method is implemented by the application. It should always return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwritersink-onendwriting
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwritersink-onendwriting
      */
     OnEndWriting() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

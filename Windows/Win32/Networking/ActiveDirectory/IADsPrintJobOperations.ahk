@@ -5,7 +5,7 @@
 
 /**
  * The IADsPrintJobOperations interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsprintjoboperations
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsprintjoboperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -64,7 +64,11 @@ class IADsPrintJobOperations extends IADs{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -73,7 +77,11 @@ class IADsPrintJobOperations extends IADs{
      * @returns {Integer} 
      */
     get_TimeElapsed() {
-        result := ComCall(21, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -82,7 +90,11 @@ class IADsPrintJobOperations extends IADs{
      * @returns {Integer} 
      */
     get_PagesPrinted() {
-        result := ComCall(22, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -91,7 +103,11 @@ class IADsPrintJobOperations extends IADs{
      * @returns {Integer} 
      */
     get_Position() {
-        result := ComCall(23, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -101,27 +117,39 @@ class IADsPrintJobOperations extends IADs{
      * @returns {HRESULT} 
      */
     put_Position(lnPosition) {
-        result := ComCall(24, this, "int", lnPosition, "HRESULT")
+        result := ComCall(24, this, "int", lnPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsPrintJobOperations::Pause method halts the processing of the current print job. Call the IADsPrintJobOperations::Resume method to continue the processing.
-     * @returns {HRESULT} This method supports standard return values. For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintjoboperations-pause
+     * @returns {HRESULT} This method supports standard return values. For other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsprintjoboperations-pause
      */
     Pause() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsPrintJobOperations::Resume method continues the print job halted by the IADsPrintJobOperations::Pause method.
-     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintjoboperations-resume
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsprintjoboperations-resume
      */
     Resume() {
-        result := ComCall(26, this, "HRESULT")
+        result := ComCall(26, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

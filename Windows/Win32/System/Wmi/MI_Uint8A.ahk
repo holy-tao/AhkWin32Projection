@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Uint8 types. (MI_Uint8A)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_uint8a
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_uint8a
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

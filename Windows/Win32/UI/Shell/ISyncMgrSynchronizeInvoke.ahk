@@ -6,14 +6,12 @@
 /**
  * Exposes methods that enable a registered application to invoke the synchronization manager to update items.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * This interface is implemented by the synchronization manager.
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * A registered application calls the methods of this interface to update all items or to update specific items.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrsynchronizeinvoke
+ * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nn-mobsync-isyncmgrsynchronizeinvoke
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -84,17 +82,23 @@ class ISyncMgrSynchronizeInvoke extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems
      */
     UpdateItems(dwInvokeFlags, clsid, cbCookie, pCookie) {
         pCookieMarshal := pCookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwInvokeFlags, "ptr", clsid, "uint", cbCookie, pCookieMarshal, pCookie, "HRESULT")
+        result := ComCall(3, this, "uint", dwInvokeFlags, "ptr", clsid, "uint", cbCookie, pCookieMarshal, pCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Programmatically starts an update for all items.
+     * @remarks
+     * This method returns immediately and the synchronization manager performs the synchronizations in a separate process from the calling application.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method can return one of these values.
@@ -116,10 +120,14 @@ class ISyncMgrSynchronizeInvoke extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateall
+     * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateall
      */
     UpdateAll() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

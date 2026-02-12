@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Authenticate against the HTTP Proxy. This value is uncommon.
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcdce/ns-rpcdce-rpc_http_transport_credentials_a
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

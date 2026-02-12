@@ -11,7 +11,7 @@
  *     data then becomes private to the resource as it cannot be retrieved by the calling program using the 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-query-maintenance-mode">CLUSCTL_RESOURCE_QUERY_MAINTENANCE_MODE</a> 
  *     control code.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_maintenance_mode_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clus_maintenance_mode_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

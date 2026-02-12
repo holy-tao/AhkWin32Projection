@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\alljoyn_interfacedescription.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -14,9 +15,12 @@ class alljoyn_interfacedescription_member extends Win32Struct
     /**
      * @type {alljoyn_interfacedescription}
      */
-    iface {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    iface{
+        get {
+            if(!this.HasProp("__iface"))
+                this.__iface := alljoyn_interfacedescription(0, this)
+            return this.__iface
+        }
     }
 
     /**

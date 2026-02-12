@@ -5,7 +5,7 @@
 
 /**
  * An extension to IProvideClassInfo2 that makes it faster and easier to retrieve type information from a component that may have multiple coclasses that determine its behavior.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-iprovidemultipleclassinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-iprovidemultipleclassinfo
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2{
     /**
      * Retrieves the number of type information blocks that this object must provide.
      * @returns {Integer} The number of type information blocks that this object must provide.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iprovidemultipleclassinfo-getmultitypeinfocount
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iprovidemultipleclassinfo-getmultitypeinfocount
      */
     GetMultiTypeInfoCount() {
-        result := ComCall(5, this, "uint*", &pcti := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pcti := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcti
     }
 
@@ -46,17 +50,21 @@ class IProvideMultipleClassInfo extends IProvideClassInfo2{
      * @param {Integer} dwFlags 
      * @param {Pointer<ITypeInfo>} pptiCoClass The <a href="https://msdn.microsoft.com/">coclass</a> type information for the requested contributor. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a>.
      * @param {Pointer<Integer>} pdwTIFlags The bitfield flag.
-     * @param {Pointer<Integer>} pcdispidReserved The mumber of DISPIDs the default interface of <i>pptiCoClass</i> reserves for its own use. This number can be used to calculate the amount to offset DISPIDs in the reserved range implemented by the object this class is extending.
+     * @param {Pointer<Integer>} pcdispidReserved The number of DISPIDs the default interface of <i>pptiCoClass</i> reserves for its own use. This number can be used to calculate the amount to offset DISPIDs in the reserved range implemented by the object this class is extending.
      * @param {Pointer<Guid>} piidPrimary The IID of the primary interface for the requested contributor.
      * @param {Pointer<Guid>} piidSource The IID of the default source interface for the requested contributor.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_POINTER, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iprovidemultipleclassinfo-getinfoofindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iprovidemultipleclassinfo-getinfoofindex
      */
     GetInfoOfIndex(iti, dwFlags, pptiCoClass, pdwTIFlags, pcdispidReserved, piidPrimary, piidSource) {
         pdwTIFlagsMarshal := pdwTIFlags is VarRef ? "uint*" : "ptr"
         pcdispidReservedMarshal := pcdispidReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", iti, "uint", dwFlags, "ptr*", pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, "ptr", piidPrimary, "ptr", piidSource, "HRESULT")
+        result := ComCall(6, this, "uint", iti, "uint", dwFlags, "ptr*", pptiCoClass, pdwTIFlagsMarshal, pdwTIFlags, pcdispidReservedMarshal, pcdispidReserved, "ptr", piidPrimary, "ptr", piidSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -35,7 +35,7 @@
  *     <b>DS_GENERIC_EXECUTE</b>, and <b>DS_GENERIC_ALL</b>. For more 
  *     information about how to use the  Access Right and Access Masks, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_rights_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/ne-iads-ads_rights_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

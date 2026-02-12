@@ -5,7 +5,7 @@
 
 /**
  * The IAudioEndpointVolumeEx interface provides volume controls on the audio stream to or from a device endpoint.
- * @see https://docs.microsoft.com/windows/win32/api//endpointvolume/nn-endpointvolume-iaudioendpointvolumeex
+ * @see https://learn.microsoft.com/windows/win32/api//content/endpointvolume/nn-endpointvolume-iaudioendpointvolumeex
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319
  */
@@ -55,14 +55,18 @@ class IAudioEndpointVolumeEx extends IAudioEndpointVolume{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//endpointvolume/nf-endpointvolume-iaudioendpointvolumeex-getvolumerangechannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/endpointvolume/nf-endpointvolume-iaudioendpointvolumeex-getvolumerangechannel
      */
     GetVolumeRangeChannel(iChannel, pflVolumeMindB, pflVolumeMaxdB, pflVolumeIncrementdB) {
         pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : "ptr"
         pflVolumeMaxdBMarshal := pflVolumeMaxdB is VarRef ? "float*" : "ptr"
         pflVolumeIncrementdBMarshal := pflVolumeIncrementdB is VarRef ? "float*" : "ptr"
 
-        result := ComCall(21, this, "uint", iChannel, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "HRESULT")
+        result := ComCall(21, this, "uint", iChannel, pflVolumeMindBMarshal, pflVolumeMindB, pflVolumeMaxdBMarshal, pflVolumeMaxdB, pflVolumeIncrementdBMarshal, pflVolumeIncrementdB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

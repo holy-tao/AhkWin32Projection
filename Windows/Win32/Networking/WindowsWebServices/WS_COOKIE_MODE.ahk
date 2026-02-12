@@ -3,7 +3,7 @@
 
 /**
  * An enumeration used to specify how to handle HTTP cookies.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_cookie_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_cookie_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

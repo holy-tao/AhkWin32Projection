@@ -55,7 +55,7 @@ class OB_POST_OPERATION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {POBJECT_TYPE}
+     * @type {Pointer<POBJECT_TYPE>}
      */
     ObjectType {
         get => NumGet(this, 16, "ptr")

@@ -43,7 +43,11 @@ class ISpStream extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     SetBaseStream(pStream, rguidFormat, pWaveFormatEx) {
-        result := ComCall(15, this, "ptr", pStream, "ptr", rguidFormat, "ptr", pWaveFormatEx, "HRESULT")
+        result := ComCall(15, this, "ptr", pStream, "ptr", rguidFormat, "ptr", pWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISpStream extends ISpStreamFormat{
      * @returns {IStream} 
      */
     GetBaseStream() {
-        result := ComCall(16, this, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppStream)
     }
 
@@ -68,16 +76,25 @@ class ISpStream extends ISpStreamFormat{
     BindToFile(pszFileName, eMode, pFormatId, pWaveFormatEx, ullEventInterest) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(17, this, "ptr", pszFileName, "int", eMode, "ptr", pFormatId, "ptr", pWaveFormatEx, "uint", ullEventInterest, "HRESULT")
+        result := ComCall(17, this, "ptr", pszFileName, "int", eMode, "ptr", pFormatId, "ptr", pWaveFormatEx, "uint", ullEventInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

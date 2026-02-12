@@ -8,7 +8,7 @@
  * 
  * NPS passes this structure to the Extension DLL when it calls the Extension DLL's implementation of 
  * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_2">RadiusExtensionProcess2</a>.
- * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_extension_control_block
+ * @see https://learn.microsoft.com/windows/win32/api//content/authif/ns-authif-radius_extension_control_block
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

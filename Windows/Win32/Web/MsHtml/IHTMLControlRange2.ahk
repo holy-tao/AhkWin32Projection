@@ -34,7 +34,11 @@ class IHTMLControlRange2 extends IDispatch{
      * @returns {HRESULT} 
      */
     addElement(item) {
-        result := ComCall(7, this, "ptr", item, "HRESULT")
+        result := ComCall(7, this, "ptr", item, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

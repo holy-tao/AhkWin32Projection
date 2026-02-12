@@ -3,7 +3,7 @@
 
 /**
  * The DML_BATCH_NORMALIZATION_OPERATOR_DESC structure (directml.h) performs a batch normalization on the input.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_batch_normalization_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_batch_normalization_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

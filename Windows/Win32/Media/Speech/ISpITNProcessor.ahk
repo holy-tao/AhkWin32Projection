@@ -42,7 +42,11 @@ class ISpITNProcessor extends IUnknown{
     LoadITNGrammar(pszCLSID) {
         pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
-        result := ComCall(3, this, "ptr", pszCLSID, "HRESULT")
+        result := ComCall(3, this, "ptr", pszCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISpITNProcessor extends IUnknown{
      * @returns {HRESULT} 
      */
     ITNPhrase(pPhrase) {
-        result := ComCall(4, this, "ptr", pPhrase, "HRESULT")
+        result := ComCall(4, this, "ptr", pPhrase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

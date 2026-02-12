@@ -39,7 +39,11 @@ class ISelectionServices extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSelectionType(eType, pIListener) {
-        result := ComCall(3, this, "int", eType, "ptr", pIListener, "HRESULT")
+        result := ComCall(3, this, "int", eType, "ptr", pIListener, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class ISelectionServices extends IUnknown{
      * @returns {IMarkupContainer} 
      */
     GetMarkupContainer() {
-        result := ComCall(4, this, "ptr*", &ppIContainer := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppIContainer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupContainer(ppIContainer)
     }
 
@@ -59,7 +67,11 @@ class ISelectionServices extends IUnknown{
      * @returns {ISegment} 
      */
     AddSegment(pIStart, pIEnd) {
-        result := ComCall(5, this, "ptr", pIStart, "ptr", pIEnd, "ptr*", &ppISegmentAdded := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pIStart, "ptr", pIEnd, "ptr*", &ppISegmentAdded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISegment(ppISegmentAdded)
     }
 
@@ -69,7 +81,11 @@ class ISelectionServices extends IUnknown{
      * @returns {IElementSegment} 
      */
     AddElementSegment(pIElement) {
-        result := ComCall(6, this, "ptr", pIElement, "ptr*", &ppISegmentAdded := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pIElement, "ptr*", &ppISegmentAdded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IElementSegment(ppISegmentAdded)
     }
 
@@ -79,7 +95,11 @@ class ISelectionServices extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveSegment(pISegment) {
-        result := ComCall(7, this, "ptr", pISegment, "HRESULT")
+        result := ComCall(7, this, "ptr", pISegment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +108,11 @@ class ISelectionServices extends IUnknown{
      * @returns {ISelectionServicesListener} 
      */
     GetSelectionServicesListener() {
-        result := ComCall(8, this, "ptr*", &ppISelectionServicesListener := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppISelectionServicesListener := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISelectionServicesListener(ppISelectionServicesListener)
     }
 }

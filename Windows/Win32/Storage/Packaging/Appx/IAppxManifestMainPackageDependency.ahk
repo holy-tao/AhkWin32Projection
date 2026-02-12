@@ -5,7 +5,7 @@
 
 /**
  * Provides access to attribute values of the main package dependency.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestmainpackagedependency
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxmanifestmainpackagedependency
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,30 +33,42 @@ class IAppxManifestMainPackageDependency extends IUnknown{
     /**
      * Gets the name of the main package dependency from the AppxManifest.xml.
      * @returns {PWSTR} The name of the main package dependency.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &name := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Gets the publisher of the main package dependency from the AppxManifest.xml.
      * @returns {PWSTR} The publisher of the main package dependency.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpublisher
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpublisher
      */
     GetPublisher() {
-        result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &publisher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return publisher
     }
 
     /**
      * Gets the package family name of the main package dependency from the AppxManifest.xml.
      * @returns {PWSTR} The package family name of the main package dependency.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpackagefamilyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestmainpackagedependency-getpackagefamilyname
      */
     GetPackageFamilyName() {
-        result := ComCall(5, this, "ptr*", &packageFamilyName := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &packageFamilyName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return packageFamilyName
     }
 }

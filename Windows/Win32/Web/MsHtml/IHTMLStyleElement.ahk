@@ -105,9 +105,16 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_type(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +124,11 @@ class IHTMLStyleElement extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -127,7 +138,11 @@ class IHTMLStyleElement extends IDispatch{
      */
     get_readyState() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -137,7 +152,11 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +166,11 @@ class IHTMLStyleElement extends IDispatch{
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -157,7 +180,11 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,7 +194,11 @@ class IHTMLStyleElement extends IDispatch{
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -177,7 +208,11 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -187,7 +222,11 @@ class IHTMLStyleElement extends IDispatch{
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -196,7 +235,11 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheet(p)
     }
 
@@ -206,7 +249,11 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(17, this, "short", v, "HRESULT")
+        result := ComCall(17, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,7 +262,11 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -225,9 +276,16 @@ class IHTMLStyleElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_media(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,7 +295,11 @@ class IHTMLStyleElement extends IDispatch{
      */
     get_media() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

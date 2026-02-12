@@ -33,7 +33,11 @@ class IContainerActivationHelper extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     CanActivateClientVM() {
-        result := ComCall(3, this, "short*", &isAllowed := 0, "HRESULT")
+        result := ComCall(3, this, "short*", &isAllowed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isAllowed
     }
 }

@@ -21,7 +21,7 @@
  * <c>BYTE Y = BYTE(max(min(1.0, Upper), 0.0) * 255.0)</c>
  * 
  * Note that the value is clamped to the range [0...1] before multiplying by 255.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_luma_key_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_stream_state_luma_key_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

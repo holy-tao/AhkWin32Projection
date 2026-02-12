@@ -37,7 +37,11 @@ class ISpRecoResult extends ISpPhrase{
      * @returns {HRESULT} 
      */
     GetResultTimes(pTimes) {
-        result := ComCall(7, this, "ptr", pTimes, "HRESULT")
+        result := ComCall(7, this, "ptr", pTimes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,18 +56,27 @@ class ISpRecoResult extends ISpPhrase{
     GetAlternates(ulStartElement, cElements, ulRequestCount, pcPhrasesReturned) {
         pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", &ppPhrases := 0, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
+        result := ComCall(8, this, "uint", ulStartElement, "uint", cElements, "uint", ulRequestCount, "ptr*", &ppPhrases := 0, pcPhrasesReturnedMarshal, pcPhrasesReturned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpPhraseAlt(ppPhrases)
     }
 
     /**
-     * 
+     * The GetAudioLanguage method retrieves a string indicating which language is available on the specified audio stream.
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/getaudiolanguage-method
      */
     GetAudio(ulStartElement, cElements) {
-        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpStreamFormat(ppStream)
     }
 
@@ -78,7 +91,11 @@ class ISpRecoResult extends ISpPhrase{
     SpeakAudio(ulStartElement, cElements, dwFlags, pulStreamNumber) {
         pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", ulStartElement, "uint", cElements, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
+        result := ComCall(10, this, "uint", ulStartElement, "uint", cElements, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +107,11 @@ class ISpRecoResult extends ISpPhrase{
     Serialize(ppCoMemSerializedResult) {
         ppCoMemSerializedResultMarshal := ppCoMemSerializedResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, ppCoMemSerializedResultMarshal, ppCoMemSerializedResult, "HRESULT")
+        result := ComCall(11, this, ppCoMemSerializedResultMarshal, ppCoMemSerializedResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +122,11 @@ class ISpRecoResult extends ISpPhrase{
      * @returns {HRESULT} 
      */
     ScaleAudio(pAudioFormatId, pWaveFormatEx) {
-        result := ComCall(12, this, "ptr", pAudioFormatId, "ptr", pWaveFormatEx, "HRESULT")
+        result := ComCall(12, this, "ptr", pAudioFormatId, "ptr", pWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +135,11 @@ class ISpRecoResult extends ISpPhrase{
      * @returns {ISpRecoContext} 
      */
     GetRecoContext() {
-        result := ComCall(13, this, "ptr*", &ppRecoContext := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppRecoContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecoContext(ppRecoContext)
     }
 }

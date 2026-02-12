@@ -6,11 +6,8 @@
 /**
  * Represents information about a recoverable error.
  * @remarks
- * 
  * To communicate additional information that is not supported by this interface, implement an object that inherits from <b>IRecoverableErrorData</b> and also from a custom interface. When the application receives the <b>IRecoverableErrorData</b> object in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onrecoverableerror">ISyncCallback::OnRecoverableError</a> method, the application can call <b>QueryInterface</b> on the <b>IRecoverableErrorData</b> object to obtain the custom interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-irecoverableerrordata
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-irecoverableerrordata
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -74,13 +71,17 @@ class IRecoverableErrorData extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerrordata-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-irecoverableerrordata-initialize
      */
     Initialize(pcszItemDisplayName, pcszErrorDescription) {
         pcszItemDisplayName := pcszItemDisplayName is String ? StrPtr(pcszItemDisplayName) : pcszItemDisplayName
         pcszErrorDescription := pcszErrorDescription is String ? StrPtr(pcszErrorDescription) : pcszErrorDescription
 
-        result := ComCall(3, this, "ptr", pcszItemDisplayName, "ptr", pcszErrorDescription, "HRESULT")
+        result := ComCall(3, this, "ptr", pcszItemDisplayName, "ptr", pcszErrorDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,14 +138,18 @@ class IRecoverableErrorData extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerrordata-getitemdisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-irecoverableerrordata-getitemdisplayname
      */
     GetItemDisplayName(pszItemDisplayName, pcchItemDisplayName) {
         pszItemDisplayName := pszItemDisplayName is String ? StrPtr(pszItemDisplayName) : pszItemDisplayName
 
         pcchItemDisplayNameMarshal := pcchItemDisplayName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszItemDisplayName, pcchItemDisplayNameMarshal, pcchItemDisplayName, "HRESULT")
+        result := ComCall(4, this, "ptr", pszItemDisplayName, pcchItemDisplayNameMarshal, pcchItemDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,14 +206,18 @@ class IRecoverableErrorData extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerrordata-geterrordescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-irecoverableerrordata-geterrordescription
      */
     GetErrorDescription(pszErrorDescription, pcchErrorDescription) {
         pszErrorDescription := pszErrorDescription is String ? StrPtr(pszErrorDescription) : pszErrorDescription
 
         pcchErrorDescriptionMarshal := pcchErrorDescription is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszErrorDescription, pcchErrorDescriptionMarshal, pcchErrorDescription, "HRESULT")
+        result := ComCall(5, this, "ptr", pszErrorDescription, pcchErrorDescriptionMarshal, pcchErrorDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

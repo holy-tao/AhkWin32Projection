@@ -33,7 +33,11 @@ class ISearchCatalogManager3 extends ISearchCatalogManager2{
      * @returns {BOOL} 
      */
     IsContainsSemanticSupported() {
-        result := ComCall(30, this, "int*", &isContainsSemanticSupported := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &isContainsSemanticSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isContainsSemanticSupported
     }
 }

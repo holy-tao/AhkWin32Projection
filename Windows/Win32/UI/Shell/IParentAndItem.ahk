@@ -6,10 +6,8 @@
 /**
  * Exposes methods that get and set the parent and the parent's child ID. While IParentAndItem is typically implemented on IShellItems, it is not specific to IShellItem.
  * @remarks
- * 
  * The performance improvement using this interface can be noted in comparison with <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistidlist">IPersistIDList</a>, an interface that uses absolute item identifier lists. Subsequent operations on objects that implement <b>IPersistIDList</b> may require <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject">IShellFolder::BindToObject</a> calls, and these calls may impact performance.  In the case of IShellItems and participating IShellFolders that implement <b>IParentAndItem</b>, the parent <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> may already be cached. By implementing <b>IParentAndItem</b> and then getting/setting the parent <b>IShellFolder</b> directly, the call to <b>IShellFolder::BindToObject</b> on the item identifier list to retrieve the <b>IShellFolder</b> interface is eliminated.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iparentanditem
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iparentanditem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -36,6 +34,8 @@ class IParentAndItem extends IUnknown{
 
     /**
      * Sets the parent of an item and the parent's child ID.
+     * @remarks
+     * While <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iparentanditem">IParentAndItem</a> is typically implemented on IShellItems, it is not specific to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @param {Pointer<ITEMIDLIST>} pidlParent Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A pointer of the parent.
@@ -47,16 +47,22 @@ class IParentAndItem extends IUnknown{
      * A PIDL that is a child relative to <i>psf</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iparentanditem-setparentanditem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iparentanditem-setparentanditem
      */
     SetParentAndItem(pidlParent, psf, pidlChild) {
-        result := ComCall(3, this, "ptr", pidlParent, "ptr", psf, "ptr", pidlChild, "HRESULT")
+        result := ComCall(3, this, "ptr", pidlParent, "ptr", psf, "ptr", pidlChild, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the parent of an item and the parent's child ID.
+     * @remarks
+     * While <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iparentanditem">IParentAndItem</a> is typically implemented on IShellItems, it is not specific to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
      * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlParent Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns, contains the address of a PIDL that specifies the parent.
@@ -68,14 +74,18 @@ class IParentAndItem extends IUnknown{
      * When this method returns, contains the address of a child PIDL that identifies the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iparentanditem">IParentAndItem</a> object relative to that specified by <i>ppsf</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iparentanditem-getparentanditem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iparentanditem-getparentanditem
      */
     GetParentAndItem(ppidlParent, ppsf, ppidlChild) {
         ppidlParentMarshal := ppidlParent is VarRef ? "ptr*" : "ptr"
         ppidlChildMarshal := ppidlChild is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, "ptr*", ppsf, ppidlChildMarshal, ppidlChild, "HRESULT")
+        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, "ptr*", ppsf, ppidlChildMarshal, ppidlChild, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

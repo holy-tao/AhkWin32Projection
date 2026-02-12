@@ -33,7 +33,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_custom_rate_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

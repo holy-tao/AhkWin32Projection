@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber when an unhandled exception occurs in the user's code.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomexceptionevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomexceptionevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,15 +34,19 @@ class IComExceptionEvents extends IUnknown{
      * Generated for transactional components when an unhandled exception occurs in the user's code.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} code The exception code.
-     * @param {Integer} address The address of the exception.
+     * @param {Integer} address_ The address of the exception.
      * @param {PWSTR} pszStackTrace The stack trace.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomexceptionevents-onexceptionuser
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomexceptionevents-onexceptionuser
      */
-    OnExceptionUser(pInfo, code, address, pszStackTrace) {
+    OnExceptionUser(pInfo, code, address_, pszStackTrace) {
         pszStackTrace := pszStackTrace is String ? StrPtr(pszStackTrace) : pszStackTrace
 
-        result := ComCall(3, this, "ptr", pInfo, "uint", code, "uint", address, "ptr", pszStackTrace, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "uint", code, "uint", address_, "ptr", pszStackTrace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

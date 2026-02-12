@@ -37,7 +37,11 @@ class IHTMLCommentElement3 extends IDispatch{
      */
     substringData(offset, Count) {
         pbstrsubString := BSTR()
-        result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
+        result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrsubString
     }
 
@@ -48,9 +52,16 @@ class IHTMLCommentElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     insertData(offset, bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(8, this, "int", offset, "ptr", bstrstring, "HRESULT")
+        result := ComCall(8, this, "int", offset, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +72,11 @@ class IHTMLCommentElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteData(offset, Count) {
-        result := ComCall(9, this, "int", offset, "int", Count, "HRESULT")
+        result := ComCall(9, this, "int", offset, "int", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,9 +88,16 @@ class IHTMLCommentElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     replaceData(offset, Count, bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(10, this, "int", offset, "int", Count, "ptr", bstrstring, "HRESULT")
+        result := ComCall(10, this, "int", offset, "int", Count, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

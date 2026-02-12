@@ -34,7 +34,11 @@ class IRowsetCopyRows extends IUnknown{
      * @returns {HRESULT} 
      */
     CloseSource(hSourceID) {
-        result := ComCall(3, this, "ushort", hSourceID, "HRESULT")
+        result := ComCall(3, this, "ushort", hSourceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IRowsetCopyRows extends IUnknown{
     CopyByHROWS(hSourceID, hReserved, cRows, rghRows, bFlags) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint", bFlags, "HRESULT")
+        result := ComCall(4, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint", bFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class IRowsetCopyRows extends IUnknown{
      * @returns {Pointer} 
      */
     CopyRows(hSourceID, hReserved, cRows, bFlags) {
-        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, "ptr*", &pcRowsCopied := 0, "HRESULT")
+        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, "ptr*", &pcRowsCopied := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRowsCopied
     }
 
@@ -79,7 +91,11 @@ class IRowsetCopyRows extends IUnknown{
         rgSourceColumnsMarshal := rgSourceColumns is VarRef ? "ptr*" : "ptr"
         rgTargetColumnsMarshal := rgTargetColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, "ushort*", &phSourceID := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, "ushort*", &phSourceID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phSourceID
     }
 }

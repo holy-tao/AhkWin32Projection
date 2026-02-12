@@ -7,7 +7,7 @@
 
 /**
  * Can be used to create any of the following objects on a webpage.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509enrollmentwebclassfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-ix509enrollmentwebclassfactory
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -285,12 +285,19 @@ class IX509EnrollmentWebClassFactory extends IDispatch{
      * </tr>
      * </table>
      * @returns {IUnknown} Address of a variable that receives a pointer to an  <b>IUnknown</b> interface that represents the created object.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentwebclassfactory-createobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509enrollmentwebclassfactory-createobject
      */
     CreateObject(strProgID) {
-        strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID
+        if(strProgID is String) {
+            pin := BSTR.Alloc(strProgID)
+            strProgID := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strProgID, "ptr*", &ppIUnknown := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", strProgID, "ptr*", &ppIUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIUnknown)
     }
 }

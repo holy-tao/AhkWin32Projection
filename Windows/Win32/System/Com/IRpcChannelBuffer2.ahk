@@ -33,7 +33,11 @@ class IRpcChannelBuffer2 extends IRpcChannelBuffer{
      * @returns {Integer} 
      */
     GetProtocolVersion() {
-        result := ComCall(8, this, "uint*", &pdwVersion := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVersion
     }
 }

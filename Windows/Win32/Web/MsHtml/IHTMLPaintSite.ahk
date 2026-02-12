@@ -35,20 +35,34 @@ class IHTMLPaintSite extends IUnknown{
      * @returns {HRESULT} 
      */
     InvalidatePainterInfo() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The InvalidateRect function adds a rectangle to the specified window's update region. The update region represents the portion of the window's client area that must be redrawn.
+     * @remarks
+     * The invalidated areas accumulate in the update region until the region is processed when the next <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message occurs or until the region is validated by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validaterect">ValidateRect</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-validatergn">ValidateRgn</a> function.
+     * 
+     * The system sends a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a> message to a window whenever its update region is not empty and there are no other messages in the application queue for that window.
+     * 
+     * If the <i>bErase</i> parameter is <b>TRUE</b> for any part of the update region, the background is erased in the entire region, not just in the specified part.
      * @param {Pointer<RECT>} prcInvalid 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-invalidaterect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-invalidaterect
      */
     InvalidateRect(prcInvalid) {
-        result := ComCall(4, this, "ptr", prcInvalid, "HRESULT")
+        result := ComCall(4, this, "ptr", prcInvalid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +74,11 @@ class IHTMLPaintSite extends IUnknown{
     InvalidateRegion(rgnInvalid) {
         rgnInvalid := rgnInvalid is Win32Handle ? NumGet(rgnInvalid, "ptr") : rgnInvalid
 
-        result := ComCall(5, this, "ptr", rgnInvalid, "HRESULT")
+        result := ComCall(5, this, "ptr", rgnInvalid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +89,11 @@ class IHTMLPaintSite extends IUnknown{
      */
     GetDrawInfo(lFlags) {
         pDrawInfo := HTML_PAINT_DRAW_INFO()
-        result := ComCall(6, this, "int", lFlags, "ptr", pDrawInfo, "HRESULT")
+        result := ComCall(6, this, "int", lFlags, "ptr", pDrawInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDrawInfo
     }
 
@@ -82,7 +104,11 @@ class IHTMLPaintSite extends IUnknown{
      */
     TransformGlobalToLocal(ptGlobal) {
         pptLocal := POINT()
-        result := ComCall(7, this, "ptr", ptGlobal, "ptr", pptLocal, "HRESULT")
+        result := ComCall(7, this, "ptr", ptGlobal, "ptr", pptLocal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pptLocal
     }
 
@@ -93,7 +119,11 @@ class IHTMLPaintSite extends IUnknown{
      */
     TransformLocalToGlobal(ptLocal) {
         pptGlobal := POINT()
-        result := ComCall(8, this, "ptr", ptLocal, "ptr", pptGlobal, "HRESULT")
+        result := ComCall(8, this, "ptr", ptLocal, "ptr", pptGlobal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pptGlobal
     }
 
@@ -102,7 +132,11 @@ class IHTMLPaintSite extends IUnknown{
      * @returns {Integer} 
      */
     GetHitTestCookie() {
-        result := ComCall(9, this, "int*", &plCookie := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCookie
     }
 }

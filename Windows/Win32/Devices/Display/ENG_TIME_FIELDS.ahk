@@ -5,7 +5,7 @@
  * The ENG_TIME_FIELDS structure is used by the EngQueryLocalTime function to return the local time.
  * @remarks
  * The driver is responsible for allocating the ENG_TIME_FIELDS structure and passing its pointer to <b>EngQueryLocalTime</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-eng_time_fields
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-eng_time_fields
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

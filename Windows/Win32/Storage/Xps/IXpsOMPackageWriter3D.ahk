@@ -5,7 +5,7 @@
 
 /**
  * Contains methods that support model textures and print ticket.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_2/nn-xpsobjectmodel_2-ixpsompackagewriter3d
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_2/nn-xpsobjectmodel_2-ixpsompackagewriter3d
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -32,25 +32,37 @@ class IXpsOMPackageWriter3D extends IXpsOMPackageWriter{
 
     /**
      * Creates a new 3D model texture from the specified texture part and stream.
+     * @remarks
+     * Each time this method is called, it creates a new part with a specified name, content and hardcoded content type “application/vnd.ms-package.3dmanufacturing-3dmodeltexture”. That part is linked from the model part with relationship type “http://schemas.microsoft.com/3dmanufacturing/2013/01/3dmodeltexture”.
      * @param {IOpcPartUri} texturePartName The Open Package Convention (OPC)  name of the texture part. This part is added to the package and becomes a relationship target of the model part.
      * @param {IStream} textureData A readable stream which holds 3D model texture. When calling this method, you must provide PNG or JPEG data.
      * @returns {HRESULT} Returns the appropriate HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-addmodeltexture
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-addmodeltexture
      */
     AddModelTexture(texturePartName, textureData) {
-        result := ComCall(8, this, "ptr", texturePartName, "ptr", textureData, "HRESULT")
+        result := ComCall(8, this, "ptr", texturePartName, "ptr", textureData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a print ticket with the specified part.
+     * @remarks
+     * Call this method at most once per package writer. Calling this method creates a part with content type “application/vnd.ms-printing.printticket+xml”. It is linked from model part with relationship type “http://schemas.microsoft.com/3dmanufacturing/2013/01/printticket” .
      * @param {IOpcPartUri} printTicketPartName The part is added to package and becomes a target of relationship from model part.
      * @param {IStream} printTicketData A readable stream that  holds the 3D model print ticket.
      * @returns {HRESULT} Returns the appropriate HRESULT error code. Calling this method more than once per package writer returns the error XPS_E_MULTIPLE_PRINTICKETS_ON_DOCUMENT.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-setmodelprintticket
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel_2/nf-xpsobjectmodel_2-ixpsompackagewriter3d-setmodelprintticket
      */
     SetModelPrintTicket(printTicketPartName, printTicketData) {
-        result := ComCall(9, this, "ptr", printTicketPartName, "ptr", printTicketData, "HRESULT")
+        result := ComCall(9, this, "ptr", printTicketPartName, "ptr", printTicketData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

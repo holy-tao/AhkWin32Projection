@@ -8,7 +8,6 @@
 /**
  * This interface describes a gradient that is made up of gradient stops. Classes that inherit from IXpsOMGradientBrush specify different ways of interpreting gradient stops.
  * @remarks
- * 
  * The methods of this interface define the basic parameters of a gradient. The gradient type, which can be linear or radial,  determines how these parameters are applied.
  * 
  * As shown in the figure that follows, the start and end points of a linear gradient mark the end points of the gradient path. The gradient path is the straight line that connects the start and end points. The gradient region of a linear gradient consists of the area between the start and end points, including those points, and extends in both directions at a right angle to the gradient path. The spread area is the area outside the gradient region.
@@ -23,9 +22,7 @@
  * 
  * <img alt="An illustration that shows examples of the spread method" src="./images/XPS_Spread_Method.png"/>
  *  The transform  determines how the resulting gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the gradient brush.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientbrush
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -52,16 +49,29 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
 
     /**
      * Gets a pointer to an IXpsOMGradientStopCollection interface that contains the collection of IXpsOMGradientStop interfaces that define the gradient.
+     * @remarks
+     * Gradient stops, which are  described  in the XPS OM by an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interface, are used to define the color at a specific location along a gradient path; the color is interpolated between the gradient stops. The illustration that follows shows the gradient path and gradient stops of a linear gradient.
+     * 
+     * <img alt="A figure that shows the terms used in a linear gradient" src="./images/LinearGradient2.png"/>
+     * The illustration that follows shows the gradient stops of a radial gradient. In this example, the gradient region is the area enclosed by the outer ellipse, and the radial gradient is using the <b>XPS_SPREAD_METHOD_REFLECT</b> spread method to fill the space outside of the gradient region.
+     * 
+     * <img alt="A figure that shows the terms used in a radial gradient" src="./images/RadialGradient2.png"/>
      * @returns {IXpsOMGradientStopCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstopcollection">IXpsOMGradientStopCollection</a> interface that contains the collection of <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgradientstop">IXpsOMGradientStop</a> interfaces.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getgradientstops
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getgradientstops
      */
     GetGradientStops() {
-        result := ComCall(7, this, "ptr*", &gradientStops := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &gradientStops := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMGradientStopCollection(gradientStops)
     }
 
     /**
-     * Gets a pointer to the IXpsOMMatrixTransform interface that contains the resolved matrix transform for the brush.
+     * Gets a pointer to the IXpsOMMatrixTransform interface that contains the resolved matrix transform for the brush. (IXpsOMGradientBrush.GetTransform)
+     * @remarks
+     * The transform  determines how the gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the gradient brush.
      * @returns {IXpsOMMatrixTransform} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface that contains the resolved matrix transform for the brush. If  the  transform has not been set, a <b>NULL</b> pointer is returned.
      * 
      * The value that is returned in this parameter depends on which method has been most recently called to set the transform.
@@ -106,15 +116,21 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransform
      */
     GetTransform() {
-        result := ComCall(8, this, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &transform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * Gets a pointer to the IXpsOMMatrixTransform interface that contains the local, unshared, resolved matrix transform for the brush.
+     * @remarks
+     * The transform  determines how the gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the gradient brush.
      * @returns {IXpsOMMatrixTransform} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface  that contains the local, unshared, resolved matrix transform for the brush. If  the transform has not been set or if a matrix transform lookup key has been set, a <b>NULL</b> pointer is returned.
      * 
      * The value that is returned in this parameter depends on which method has been most recently called to set the transform.
@@ -159,17 +175,94 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal
      */
     GetTransformLocal() {
-        result := ComCall(9, this, "ptr*", &transform := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &transform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * Sets the IXpsOMMatrixTransform interface pointer to a local, unshared matrix transform that is to be used for the brush.
+     * @remarks
+     * After you call <b>SetTransformLocal</b>, the transform lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal">GetTransformLocal</a> returns a <b>NULL</b> pointer in the <i>transform</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransform">GetTransform</a>
+     * </th>
+     * <th>Object that is returned in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal">GetTransformLocal</a>
+     * </th>
+     * <th>Object that is returned in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlookup">GetTransformLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetTransformLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <b>SetTransformLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <b>SetTransformLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlookup">SetTransformLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared transform retrieved, with a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlookup">SetTransformLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlookup">SetTransformLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetTransformLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlookup">SetTransformLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     *  The transform passed in <i>transform</i>  determines how the gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the gradient brush.
      * @param {IXpsOMMatrixTransform} transform A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface of the local, unshared matrix transform that is to be used for the brush. A <b>NULL</b> pointer releases any previously set interface.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -199,15 +292,25 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlocal
      */
     SetTransformLocal(transform) {
-        result := ComCall(10, this, "ptr", transform, "HRESULT")
+        result := ComCall(10, this, "ptr", transform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the name of the lookup key of the shared matrix transform interface that is to be used for the brush.
+     * @remarks
+     * This method does not return an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface pointer; to retrieve this pointer  from the dictionary, call <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getbykey">IXpsOMDictionary::GetByKey</a>.
+     * 
+     *  The transform  determines how the gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the gradient brush.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The name of the lookup key  of the shared matrix transform interface that is to be used for the brush. If the lookup key name has not been set or if the local matrix transform has  been set, a <b>NULL</b> pointer is returned.
      * 
      * The value that is returned in this parameter depends on which method has been most recently called to set the lookup key or the transform.
@@ -252,17 +355,94 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(11, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return key
     }
 
     /**
      * Sets the name of the lookup key of a shared matrix transform that is to be used for the brush.
+     * @remarks
+     * After you call <b>SetTransformLookup</b>, the local transform is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal">GetTransformLocal</a> returns a <b>NULL</b> pointer in the <i>transform</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransform">GetTransform</a>
+     * </th>
+     * <th>Object that is returned  in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlocal">GetTransformLocal</a>
+     * </th>
+     * <th>Object that is returned  in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-gettransformlookup">GetTransformLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlocal">SetTransformLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlocal">SetTransformLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlocal">SetTransformLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetTransformLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared transform retrieved, with a lookup key that matches the key that is set by <b>SetTransformLookup</b>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetTransformLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlocal">SetTransformLocal</a> nor <b>SetTransformLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     *  The transform referenced by <i>key</i>  determines how the gradient is transformed. The visible part of the gradient that is ultimately rendered in the image is determined by the path, stroke, or glyph that is using the brush.
      * @param {PWSTR} key The name of the lookup key of the matrix transform that is to be used for the brush.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -314,29 +494,41 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-settransformlookup
      */
     SetTransformLookup(key) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(12, this, "ptr", key, "HRESULT")
+        result := ComCall(12, this, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the XPS_SPREAD_METHOD value, which describes how the area outside of the gradient region will be rendered.
+     * @remarks
+     * For more information about different types of spread methods, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a>.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value that describes how the area outside of the gradient region will be rendered. The gradient region is defined by the linear-gradient brush or radial-gradient brush that inherits this interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getspreadmethod
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getspreadmethod
      */
     GetSpreadMethod() {
-        result := ComCall(13, this, "int*", &spreadMethod := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &spreadMethod := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return spreadMethod
     }
 
     /**
      * Sets the XPS_SPREAD_METHOD value, which describes how the area outside of the gradient region is to be rendered.
+     * @remarks
+     * For more information about different types of spread methods, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a>.
      * @param {Integer} spreadMethod The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value that describes how the area outside of the gradient region  is to be rendered. The gradient region is defined by the linear-gradient brush or radial-gradient brush that inherits this interface.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -361,25 +553,33 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>spreadMethod</i> parameter was not a valid <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value.
+     * The <i>spreadMethod</i> parameter was not a valid <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_spread_method">XPS_SPREAD_METHOD</a> value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setspreadmethod
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setspreadmethod
      */
     SetSpreadMethod(spreadMethod) {
-        result := ComCall(14, this, "int", spreadMethod, "HRESULT")
+        result := ComCall(14, this, "int", spreadMethod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the gamma function to be used for color interpolation.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation">XPS_COLOR_INTERPOLATION</a> value that describes the gamma function to be used for color interpolation.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getcolorinterpolationmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-getcolorinterpolationmode
      */
     GetColorInterpolationMode() {
-        result := ComCall(15, this, "int*", &colorInterpolationMode := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &colorInterpolationMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return colorInterpolationMode
     }
 
@@ -387,10 +587,14 @@ class IXpsOMGradientBrush extends IXpsOMBrush{
      * Sets the XPS_COLOR_INTERPOLATION value, which describes the gamma function to be used for color interpolation.
      * @param {Integer} colorInterpolationMode The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation">XPS_COLOR_INTERPOLATION</a> value, which describes the gamma function to be used for color interpolation.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setcolorinterpolationmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientbrush-setcolorinterpolationmode
      */
     SetColorInterpolationMode(colorInterpolationMode) {
-        result := ComCall(16, this, "int", colorInterpolationMode, "HRESULT")
+        result := ComCall(16, this, "int", colorInterpolationMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

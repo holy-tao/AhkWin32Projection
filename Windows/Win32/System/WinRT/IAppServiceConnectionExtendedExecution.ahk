@@ -31,10 +31,14 @@ class IAppServiceConnectionExtendedExecution extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     OpenForExtendedExecutionAsync(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &operation := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &operation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return operation
     }
 }

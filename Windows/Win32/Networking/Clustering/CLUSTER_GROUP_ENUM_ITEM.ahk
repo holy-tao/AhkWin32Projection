@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CLUSTER_GROUP_ENUM_ITEM structure contains the properties of a cluster group. (CLUSTER_GROUP_ENUM_ITEM)
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_group_enum_item
+ * CLUSTER_GROUP_ENUM_ITEM (clusapi.h) contains the properties of a cluster group and is used to enumerate cluster groups in the ClusterGroupEnumEx function.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-cluster_group_enum_item
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

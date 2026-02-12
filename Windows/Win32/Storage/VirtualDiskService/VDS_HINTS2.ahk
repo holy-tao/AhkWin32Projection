@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_HINTS2 structure (vdshwprv.h) contains the automagic hints for a LUN in a storage pool.
+ * The VDS_HINTS2 structure (vds.h) contains the automagic hints for a LUN in a storage pool.
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwproviderstoragepools-createluninstoragepool">IVdsHwProviderStoragePools::CreateLunInStoragePool</a> method passes 
  *     this structure as a parameter to provide hints for creating a LUN in a storage pool. It is passed as a parameter in the 
@@ -14,7 +14,7 @@
  * Hints are not directives to implementers. While implementers are in general expected to do their best to take hints into consideration, 
  *      they are not obligated to follow them. Implementers can opt for alternatives when unable to follow specified hints for
  *      technical reasons or when following them can result in a poor configuration.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hints2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_hints2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

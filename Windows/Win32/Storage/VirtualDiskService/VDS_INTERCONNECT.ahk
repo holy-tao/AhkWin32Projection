@@ -6,7 +6,7 @@
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure includes this 
  *     structure as a member to specify an interconnect by which a LUN can be accessed.
- * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_interconnect
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdslun/ns-vdslun-vds_interconnect
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

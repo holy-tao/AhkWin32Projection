@@ -7,7 +7,7 @@
  * If you do not specify <b>usoNonVolatileService</b>, the service registration is automatically removed when you release the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateservice">IUpdateService</a> interface.
  * 
  * The <b>UpdateServiceOption</b> enumeration  may require that you update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updateserviceoption
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/ne-wuapi-updateserviceoption
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

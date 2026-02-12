@@ -3,7 +3,7 @@
 
 /**
  * Used by methods of the ITransferSource and ITransferDestination interfaces to control their file operations.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_transfer_source_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ne-shobjidl_core-_transfer_source_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

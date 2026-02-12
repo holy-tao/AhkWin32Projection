@@ -73,7 +73,11 @@ class ISVGLength extends IDispatch{
      * @returns {HRESULT} 
      */
     put_unitType(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +86,11 @@ class ISVGLength extends IDispatch{
      * @returns {Integer} 
      */
     get_unitType() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -92,7 +100,11 @@ class ISVGLength extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +113,11 @@ class ISVGLength extends IDispatch{
      * @returns {Float} 
      */
     get_value() {
-        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -111,7 +127,11 @@ class ISVGLength extends IDispatch{
      * @returns {HRESULT} 
      */
     put_valueInSpecifiedUnits(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +140,11 @@ class ISVGLength extends IDispatch{
      * @returns {Float} 
      */
     get_valueInSpecifiedUnits() {
-        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -130,9 +154,16 @@ class ISVGLength extends IDispatch{
      * @returns {HRESULT} 
      */
     put_valueAsString(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,7 +173,11 @@ class ISVGLength extends IDispatch{
      */
     get_valueAsString() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -153,7 +188,11 @@ class ISVGLength extends IDispatch{
      * @returns {HRESULT} 
      */
     newValueSpecifiedUnits(unitType, valueInSpecifiedUnits) {
-        result := ComCall(15, this, "short", unitType, "float", valueInSpecifiedUnits, "HRESULT")
+        result := ComCall(15, this, "short", unitType, "float", valueInSpecifiedUnits, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +202,11 @@ class ISVGLength extends IDispatch{
      * @returns {HRESULT} 
      */
     convertToSpecifiedUnits(unitType) {
-        result := ComCall(16, this, "short", unitType, "HRESULT")
+        result := ComCall(16, this, "short", unitType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

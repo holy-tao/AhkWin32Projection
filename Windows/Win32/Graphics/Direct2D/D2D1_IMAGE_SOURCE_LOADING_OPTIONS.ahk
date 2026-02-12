@@ -6,7 +6,7 @@
  * @remarks
  * D2D1_IMAGE_SOURCE_CREATION_OPTIONS_RELEASE_SOURCE causes the image source to not retain a reference to the source object used to create it.  
  *       It can decrease the quality and efficiency of printing.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ne-d2d1_3-d2d1_image_source_loading_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/ne-d2d1_3-d2d1_image_source_loading_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

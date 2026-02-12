@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Windows Portable Devices supports the following contact properties.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/contact-properties
+ * The following constants are used by applications or UI frameworks to identify how UI feedback is processed when an input contact is detected.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/winmsg/contact-visualization
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */

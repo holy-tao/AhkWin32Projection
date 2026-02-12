@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfUIElements interface is implemented by TSF manager and used by applications or textservices. This interface can be retrieved by ITfUIElementMgr::EnumUIElements and enumerates the registered UI elements.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtfuielements
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-ienumtfuielements
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IEnumTfUIElements extends IUnknown{
     /**
      * The IEnumTfUIElements::Clone method creates a copy of the enumerator object.
      * @returns {IEnumTfUIElements} [out] A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfuielements">IEnumTfUIElements</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfuielements-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfuielements-clone
      */
     Clone() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfUIElements(ppEnum)
     }
 
@@ -87,12 +91,16 @@ class IEnumTfUIElements extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfuielements-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfuielements-next
      */
     Next(ulCount, ppElement, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppElement, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, "ptr*", ppElement, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,10 +125,14 @@ class IEnumTfUIElements extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfuielements-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfuielements-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,10 +169,14 @@ class IEnumTfUIElements extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfuielements-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfuielements-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

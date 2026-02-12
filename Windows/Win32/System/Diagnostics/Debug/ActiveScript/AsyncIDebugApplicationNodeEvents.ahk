@@ -40,7 +40,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_onAddChild(prddpChild) {
-        result := ComCall(3, this, "ptr", prddpChild, "HRESULT")
+        result := ComCall(3, this, "ptr", prddpChild, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_onAddChild() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_onRemoveChild(prddpChild) {
-        result := ComCall(5, this, "ptr", prddpChild, "HRESULT")
+        result := ComCall(5, this, "ptr", prddpChild, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_onRemoveChild() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +93,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_onDetach() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +106,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_onDetach() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +120,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_onAttach(prddpParent) {
-        result := ComCall(9, this, "ptr", prddpParent, "HRESULT")
+        result := ComCall(9, this, "ptr", prddpParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +133,11 @@ class AsyncIDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_onAttach() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

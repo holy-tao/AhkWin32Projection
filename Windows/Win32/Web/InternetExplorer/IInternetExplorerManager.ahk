@@ -29,16 +29,23 @@ class IInternetExplorerManager extends IUnknown{
     static VTableNames => ["CreateObject"]
 
     /**
-     * 
+     * CreateObject Method (RDS)
+     * @remarks
+     * The *HTTP protocol* is the standard Web protocol; *HTTPS* is a secure Web protocol. Use the *DCOM protocol* when running a local-area network without HTTP. The *in-process* protocol is a local dynamic-link library (DLL); it does not use a network.
      * @param {Integer} dwConfig 
      * @param {PWSTR} pszURL 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/createobject-method-rds
      */
     CreateObject(dwConfig, pszURL, riid) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(3, this, "uint", dwConfig, "ptr", pszURL, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwConfig, "ptr", pszURL, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

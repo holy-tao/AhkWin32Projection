@@ -5,8 +5,8 @@
 #Include .\IShellLinkDual.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/ishelllinkdual2-object
+ * Extends the ShellLinkObject object and supports one additional property.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/ishelllinkdual2-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,7 +43,11 @@ class IShellLinkDual2 extends IShellLinkDual{
      * @returns {FolderItem} 
      */
     get_Target() {
-        result := ComCall(23, this, "ptr*", &ppfi := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &ppfi := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItem(ppfi)
     }
 }

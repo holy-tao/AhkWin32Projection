@@ -4,7 +4,7 @@
 
 /**
  * Specifies information about a series of fingerprint or palm samples.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bdb-ansi-381-header
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-bdb-ansi-381-header
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

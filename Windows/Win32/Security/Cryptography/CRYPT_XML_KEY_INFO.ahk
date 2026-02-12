@@ -4,7 +4,7 @@
 
 /**
  * Encapsulates key information data.
- * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/ns-cryptxml-crypt_xml_key_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

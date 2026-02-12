@@ -5,7 +5,7 @@
  * Contains parameters for the Firmware Image Download command that is used to copy a new firmware image (in whole or in part) to the controller.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_firmware_download
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_firmware_download
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

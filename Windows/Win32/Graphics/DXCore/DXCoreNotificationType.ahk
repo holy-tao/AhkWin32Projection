@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify types of notifications raised by [IDXCoreAdapter](/windows/win32/dxcore/dxcore_interface/nn-dxcore_interface-idxcoreadapter) or [IDXCoreAdapterList](/windows/win32/dxcore/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist) objects.
- * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

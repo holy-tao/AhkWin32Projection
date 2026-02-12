@@ -5,7 +5,7 @@
 
 /**
  * Specifies a rectangular area within a video frame.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoarea
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/ns-mfobjects-mfvideoarea
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

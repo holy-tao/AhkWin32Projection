@@ -46,7 +46,11 @@ class IStorageProviderBanners extends IUnknown{
         subscriptionId := subscriptionId is String ? StrPtr(subscriptionId) : subscriptionId
         contentId := contentId is String ? StrPtr(contentId) : contentId
 
-        result := ComCall(3, this, "ptr", providerIdentity, "ptr", subscriptionId, "ptr", contentId, "HRESULT")
+        result := ComCall(3, this, "ptr", providerIdentity, "ptr", subscriptionId, "ptr", contentId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +64,11 @@ class IStorageProviderBanners extends IUnknown{
         providerIdentity := providerIdentity is String ? StrPtr(providerIdentity) : providerIdentity
         subscriptionId := subscriptionId is String ? StrPtr(subscriptionId) : subscriptionId
 
-        result := ComCall(4, this, "ptr", providerIdentity, "ptr", subscriptionId, "HRESULT")
+        result := ComCall(4, this, "ptr", providerIdentity, "ptr", subscriptionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IStorageProviderBanners extends IUnknown{
     ClearAllBanners(providerIdentity) {
         providerIdentity := providerIdentity is String ? StrPtr(providerIdentity) : providerIdentity
 
-        result := ComCall(5, this, "ptr", providerIdentity, "HRESULT")
+        result := ComCall(5, this, "ptr", providerIdentity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +98,11 @@ class IStorageProviderBanners extends IUnknown{
         providerIdentity := providerIdentity is String ? StrPtr(providerIdentity) : providerIdentity
         subscriptionId := subscriptionId is String ? StrPtr(subscriptionId) : subscriptionId
 
-        result := ComCall(6, this, "ptr", providerIdentity, "ptr", subscriptionId, "ptr*", &contentId := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", providerIdentity, "ptr", subscriptionId, "ptr*", &contentId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return contentId
     }
 }

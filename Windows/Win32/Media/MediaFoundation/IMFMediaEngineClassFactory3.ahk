@@ -35,12 +35,19 @@ class IMFMediaEngineClassFactory3 extends IUnknown{
      * @param {BSTR} keySystem 
      * @param {Pointer<IPropertyStore>} ppSupportedConfigurationsArray 
      * @param {Integer} uSize 
-     * @returns {IMFMediaKeySystemAccess} 
+     * @returns {Pointer<IMFMediaKeySystemAccess>} 
      */
     CreateMediaKeySystemAccess(keySystem, ppSupportedConfigurationsArray, uSize) {
-        keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
+        if(keySystem is String) {
+            pin := BSTR.Alloc(keySystem)
+            keySystem := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", keySystem, "ptr*", ppSupportedConfigurationsArray, "uint", uSize, "ptr*", &ppKeyAccess := 0, "HRESULT")
-        return IMFMediaKeySystemAccess(ppKeyAccess)
+        result := ComCall(3, this, "ptr", keySystem, "ptr*", ppSupportedConfigurationsArray, "uint", uSize, "ptr*", &ppKeyAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppKeyAccess
     }
 }

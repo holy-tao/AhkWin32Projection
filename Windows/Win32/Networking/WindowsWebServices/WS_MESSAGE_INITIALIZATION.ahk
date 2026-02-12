@@ -3,7 +3,7 @@
 
 /**
  * Specifies what headers the WsInitializeMessageshould add to the message.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_message_initialization
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_message_initialization
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

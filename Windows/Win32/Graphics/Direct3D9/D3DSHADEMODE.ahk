@@ -11,7 +11,7 @@
  * -   For a triangle fan, the first vertex of the triangle i is vertex i + 1.
  * 
  * The members of this enumerated type define the vales for the D3DRS\_SHADEMODE render state.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dshademode
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dshademode
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

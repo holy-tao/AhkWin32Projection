@@ -3,7 +3,7 @@
 
 /**
  * The DHCP_SCAN_ITEM structure defines a desynchronized client lease address stored on a DHCPv4 server, and the location in which it should be fixed (in-memory cache or database).
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_item
+ * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/ns-dhcpsapi-dhcp_scan_item
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

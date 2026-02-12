@@ -7,15 +7,11 @@
 /**
  * Represents the set of users that will appear in the logon or credential UI. This information enables the credential provider to enumerate the set to retrieve property information about each user to populate fields or filter the set.
  * @remarks
- * 
  * This object is provided by the Windows credential provider framework to your credential provider through the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidersetuserarray-setuserarray">ICredentialProviderSetUserArray::SetUserArray</a> method. Ownership of this object remains with the credential provider framework.
  * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * Third-parties do not implement this interface. An implementation is included with Windows.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialprovideruserarray
+ * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nn-credentialprovider-icredentialprovideruserarray
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -42,43 +38,63 @@ class ICredentialProviderUserArray extends IUnknown{
 
     /**
      * Limits the set of users in the array to either local accounts or Microsoft accounts.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">ICredentialProviderUserArray</a> object contains all of the available users in the current <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">scenario</a>. This method enables your credential provider to specify a particular subset of those users. For example, if your credential provider handles only Microsoft account users from a specific connected provider, it can call this method with the Microsoft account provider's ID to filter out users that belong to other providers.
+     * 
+     * This method can only be called once, to filter for a single account provider. If the method is called again, the call will fail with a return value of E_UNEXPECTED.
      * @param {Pointer<Guid>} guidProviderToFilterTo Set this parameter to Identity_LocalUserProvider for the local accounts credential provider; otherwise set it to the GUID of the Microsoft account provider.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-setproviderfilter
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-setproviderfilter
      */
     SetProviderFilter(guidProviderToFilterTo) {
-        result := ComCall(3, this, "ptr", guidProviderToFilterTo, "HRESULT")
+        result := ComCall(3, this, "ptr", guidProviderToFilterTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a value that indicates whether the &quot;Other user&quot; tile for local or Microsoft accounts is shown in the logon or credential UI.
      * @returns {Integer} A pointer to a value that, when this method returns successfully, receives one or more flags that specify which empty tiles are shown by the logon or credential UI.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
      */
     GetAccountOptions() {
-        result := ComCall(4, this, "int*", &credentialProviderAccountOptions := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &credentialProviderAccountOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return credentialProviderAccountOptions
     }
 
     /**
      * Retrieves the number of ICredentialProviderUser objects in the user array.
      * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the number of users in the array.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount
      */
     GetCount() {
-        result := ComCall(5, this, "uint*", &userCount := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &userCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return userCount
     }
 
     /**
      * Retrieves a specified user from the array.
      * @param {Integer} userIndex The 0-based array index of the user. The size of the array can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount">GetCount</a> method.
-     * @returns {ICredentialProviderUser} The address of a pointer to an object that, when this method returns successfully, represents the specified user. It is the responsibility of the caller to free this object when it is no longer needed by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getat
+     * @returns {Pointer<ICredentialProviderUser>} The address of a pointer to an object that, when this method returns successfully, represents the specified user. It is the responsibility of the caller to free this object when it is no longer needed by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
+     * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getat
      */
     GetAt(userIndex) {
-        result := ComCall(6, this, "uint", userIndex, "ptr*", &user := 0, "HRESULT")
-        return ICredentialProviderUser(user)
+        result := ComCall(6, this, "uint", userIndex, "ptr*", &user := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return user
     }
 }

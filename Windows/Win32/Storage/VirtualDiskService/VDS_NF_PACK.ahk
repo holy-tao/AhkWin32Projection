@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * A new pack arrived.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_pack_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -1,0 +1,213 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\IReference.ahk
+#Include ..\..\..\Foundation\IPropertyValue.ahk
+#Include ..\..\..\Win32\System\WinRT\HSTRING.ahk
+#Include ..\..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Web.Http.Headers
+ * @version WindowsRuntime 1.4
+ */
+class IHttpCacheDirectiveHeaderValueCollection extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IHttpCacheDirectiveHeaderValueCollection
+     * @type {Guid}
+     */
+    static IID => Guid("{9a586b89-d5d0-4fbe-bd9d-b5b3636811b4}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_MaxAge", "put_MaxAge", "get_MaxStale", "put_MaxStale", "get_MinFresh", "put_MinFresh", "get_SharedMaxAge", "put_SharedMaxAge", "ParseAdd", "TryParseAdd"]
+
+    /**
+     * @type {IReference<TimeSpan>} 
+     */
+    MaxAge {
+        get => this.get_MaxAge()
+        set => this.put_MaxAge(value)
+    }
+
+    /**
+     * @type {IReference<TimeSpan>} 
+     */
+    MaxStale {
+        get => this.get_MaxStale()
+        set => this.put_MaxStale(value)
+    }
+
+    /**
+     * @type {IReference<TimeSpan>} 
+     */
+    MinFresh {
+        get => this.get_MinFresh()
+        set => this.put_MinFresh(value)
+    }
+
+    /**
+     * @type {IReference<TimeSpan>} 
+     */
+    SharedMaxAge {
+        get => this.get_SharedMaxAge()
+        set => this.put_SharedMaxAge(value)
+    }
+
+    /**
+     * 
+     * @returns {IReference<TimeSpan>} 
+     */
+    get_MaxAge() {
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IReference((ptr) => IPropertyValue(ptr).GetTimeSpan(), value)
+    }
+
+    /**
+     * 
+     * @param {IReference<TimeSpan>} value 
+     * @returns {HRESULT} 
+     */
+    put_MaxAge(value) {
+        result := ComCall(7, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {IReference<TimeSpan>} 
+     */
+    get_MaxStale() {
+        result := ComCall(8, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IReference((ptr) => IPropertyValue(ptr).GetTimeSpan(), value)
+    }
+
+    /**
+     * 
+     * @param {IReference<TimeSpan>} value 
+     * @returns {HRESULT} 
+     */
+    put_MaxStale(value) {
+        result := ComCall(9, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {IReference<TimeSpan>} 
+     */
+    get_MinFresh() {
+        result := ComCall(10, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IReference((ptr) => IPropertyValue(ptr).GetTimeSpan(), value)
+    }
+
+    /**
+     * 
+     * @param {IReference<TimeSpan>} value 
+     * @returns {HRESULT} 
+     */
+    put_MinFresh(value) {
+        result := ComCall(11, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {IReference<TimeSpan>} 
+     */
+    get_SharedMaxAge() {
+        result := ComCall(12, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IReference((ptr) => IPropertyValue(ptr).GetTimeSpan(), value)
+    }
+
+    /**
+     * 
+     * @param {IReference<TimeSpan>} value 
+     * @returns {HRESULT} 
+     */
+    put_SharedMaxAge(value) {
+        result := ComCall(13, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {HSTRING} input_ 
+     * @returns {HRESULT} 
+     */
+    ParseAdd(input_) {
+        if(input_ is String) {
+            pin := HSTRING.Create(input_)
+            input_ := pin.Value
+        }
+        input_ := input_ is Win32Handle ? NumGet(input_, "ptr") : input_
+
+        result := ComCall(14, this, "ptr", input_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {HSTRING} input_ 
+     * @returns {Boolean} 
+     */
+    TryParseAdd(input_) {
+        if(input_ is String) {
+            pin := HSTRING.Create(input_)
+            input_ := pin.Value
+        }
+        input_ := input_ is Win32Handle ? NumGet(input_, "ptr") : input_
+
+        result := ComCall(15, this, "ptr", input_, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
+    }
+}

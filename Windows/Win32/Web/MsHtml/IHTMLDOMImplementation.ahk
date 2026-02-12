@@ -38,13 +38,20 @@ class IHTMLDOMImplementation extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrfeature 
-     * @param {VARIANT} version 
+     * @param {VARIANT} version_ 
      * @returns {VARIANT_BOOL} 
      */
-    hasFeature(bstrfeature, version) {
-        bstrfeature := bstrfeature is String ? BSTR.Alloc(bstrfeature).Value : bstrfeature
+    hasFeature(bstrfeature, version_) {
+        if(bstrfeature is String) {
+            pin := BSTR.Alloc(bstrfeature)
+            bstrfeature := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrfeature, "ptr", version, "short*", &pfHasFeature := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrfeature, "ptr", version_, "short*", &pfHasFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasFeature
     }
 }

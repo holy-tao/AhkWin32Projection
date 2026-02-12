@@ -7,7 +7,7 @@
 
 /**
  * Wraps an application-defined inline graphic, allowing DWrite to query metrics as if the graphic were a glyph inline with the text.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwriteinlineobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwriteinlineobject
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -57,13 +57,17 @@ class IDWriteInlineObject extends IUnknown{
      * The drawing effect set in <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setdrawingeffect">IDWriteTextLayout::SetDrawingEffect</a>.  Usually this effect is a foreground brush that  is used in glyph drawing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-draw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwriteinlineobject-draw
      */
     Draw(clientDrawingContext, renderer, originX, originY, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "HRESULT")
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", renderer, "float", originX, "float", originY, "int", isSideways, "int", isRightToLeft, "ptr", clientDrawingEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,11 +77,15 @@ class IDWriteInlineObject extends IUnknown{
      * 
      * When this method returns, contains a structure describing the geometric measurement of an
      * application-defined inline object.  These metrics are in relation to the baseline of the adjacent text.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-getmetrics
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwriteinlineobject-getmetrics
      */
     GetMetrics() {
         metrics := DWRITE_INLINE_OBJECT_METRICS()
-        result := ComCall(4, this, "ptr", metrics, "HRESULT")
+        result := ComCall(4, this, "ptr", metrics, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return metrics
     }
 
@@ -86,11 +94,15 @@ class IDWriteInlineObject extends IUnknown{
      * @returns {DWRITE_OVERHANG_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_overhang_metrics">DWRITE_OVERHANG_METRICS</a>*</b>
      * 
      * Overshoot of visible extents (in DIPs) outside the object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-getoverhangmetrics
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwriteinlineobject-getoverhangmetrics
      */
     GetOverhangMetrics() {
         overhangs := DWRITE_OVERHANG_METRICS()
-        result := ComCall(5, this, "ptr", overhangs, "HRESULT")
+        result := ComCall(5, this, "ptr", overhangs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return overhangs
     }
 
@@ -104,14 +116,18 @@ class IDWriteInlineObject extends IUnknown{
      * When this method returns, contains a value which indicates the line-breaking condition between the object and the content immediately following it.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions
      */
     GetBreakConditions(breakConditionBefore, breakConditionAfter) {
         breakConditionBeforeMarshal := breakConditionBefore is VarRef ? "int*" : "ptr"
         breakConditionAfterMarshal := breakConditionAfter is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, breakConditionBeforeMarshal, breakConditionBefore, breakConditionAfterMarshal, breakConditionAfter, "HRESULT")
+        result := ComCall(6, this, breakConditionBeforeMarshal, breakConditionBefore, breakConditionAfterMarshal, breakConditionAfter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

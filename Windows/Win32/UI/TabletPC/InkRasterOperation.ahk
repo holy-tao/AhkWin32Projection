@@ -9,7 +9,7 @@
  * <div class="alert"><b>Note</b>  Many printers do not support many of the available raster operations. Because of this, the colors you see on the display may be different from the colors that you would see if they were printed on paper. This is directly related to the printer drivers or printer hardware. You may need to experiment to determine which printers can produce the correct output when various raster operations are set on ink.</div>
  * <div> </div>
  * When the <b>RasterOperation</b> value is set to anything other than CopyPen, all drawing attributes (anti-aliasing, smoothing, transparency, and pressure) are ignored.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrasteroperation
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-inkrasteroperation
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

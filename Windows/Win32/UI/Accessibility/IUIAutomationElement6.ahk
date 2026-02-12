@@ -6,7 +6,7 @@
 
 /**
  * Extends the IUIAutomationElement5 interface to provide access to current and cached full descriptions.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelement6
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationelement6
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -48,22 +48,30 @@ class IUIAutomationElement6 extends IUIAutomationElement5{
     /**
      * Gets the current full description of the automation element.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription
      */
     get_CurrentFullDescription() {
         retVal := BSTR()
-        result := ComCall(108, this, "ptr", retVal, "HRESULT")
+        result := ComCall(108, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Gets the cached full description of the automation element.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_cachedfulldescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_cachedfulldescription
      */
     get_CachedFullDescription() {
         retVal := BSTR()
-        result := ComCall(109, this, "ptr", retVal, "HRESULT")
+        result := ComCall(109, this, "ptr", retVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

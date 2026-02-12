@@ -7,7 +7,7 @@
 
 /**
  * Represents an algorithm implemented by a cryptographic provider.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icspalgorithm
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icspalgorithm
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -97,6 +97,8 @@ class ICspAlgorithm extends IDispatch{
 
     /**
      * Retrieves the algorithm object identifier (OID). This method is web enabled.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromname">InitializeFromName</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromtype">InitializeFromType</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface before calling <b>GetAlgorithmOid</b>.
      * @param {Integer} Length A <b>LONG</b> variable that identifies the required key size of the symmetric encryption algorithm. Use this parameter to retrieve a specific AES algorithm from a Cryptography API: Next Generation (CNG) key storage provider (KSP). A KSP may list only one algorithm named AES but support all of the AES variants in the following list:<ul>
      * <li>szOID_NIST_AES128_CBC (2.16.840.1.101.3.4.1.2)</li>
      * <li>szOID_NIST_AES192_CBC (2.16.840.1.101.3.4.1.22)</li>
@@ -111,17 +113,20 @@ class ICspAlgorithm extends IDispatch{
      * <div> </div>
      * @param {Integer} AlgFlags 
      * @returns {IObjectId} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that represents the algorithm OID.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-getalgorithmoid
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-getalgorithmoid
      */
     GetAlgorithmOid(Length, AlgFlags) {
-        result := ComCall(7, this, "int", Length, "int", AlgFlags, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(7, this, "int", Length, "int", AlgFlags, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IObjectId(ppValue)
     }
 
     /**
      * Retrieves the default length of a key.
      * @remarks
-     * 
      * You can use this property to retrieve the default size, in bits, of a key. The <b>DefaultLength</b>, <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_incrementlength">IncrementLength</a>, <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_maxlength">MaxLength</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_minlength">MinLength</a> properties can vary by algorithm and provider. The following table lists a few algorithms for which multiple key sizes can be set. The list is not inclusive.<table>
      * <tr>
      * <th>Algorithm OID</th>
@@ -281,21 +286,22 @@ class ICspAlgorithm extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_defaultlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_defaultlength
      */
     get_DefaultLength() {
-        result := ComCall(8, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves a value, in bits, that can be used to determine valid incremental key lengths for algorithms that support multiple key sizes.
      * @remarks
-     * 
-     * You can use the value of this property to determine valid key sizes for generated keys. For example, if the minimum key length of an DSA signing key is 512 bits, the maximum length is 1,024 bits, and the increment is 64 bits, valid key sizes include 512, 576, 640 and so in 64 bit increments up to  1,024.
+     * You can use the value of this property to determine valid key sizes for generated keys. For example, if the minimum key length of a DSA signing key is 512 bits, the maximum length is 1,024 bits, and the increment is 64 bits, valid key sizes include 512, 576, 640 and so in 64 bit increments up to  1,024.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_defaultlength">DefaultLength</a>, <b>IncrementLength</b>, <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_maxlength">MaxLength</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_minlength">MinLength</a> properties can vary by algorithm and provider. The following table lists a few algorithms for which multiple key sizes can be set. The list is not inclusive.<table>
      * <tr>
@@ -456,20 +462,21 @@ class ICspAlgorithm extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_incrementlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_incrementlength
      */
     get_IncrementLength() {
-        result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the full name of the algorithm.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_name">Name</a> property retrieves a short algorithm name. Call the <b>LongName</b> property to retrieve a more descriptive name. The names are not localized. Examples are shown in the following table.
      * 
      * <div class="alert"><b>Note</b>  Cryptography API: Next Generation (CNG) key storage providers (KSPs) do not support the long name concept. The <b>LongName</b> property and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_name">Name</a> property return an abbreviated name.</div>
@@ -522,21 +529,22 @@ class ICspAlgorithm extends IDispatch{
      * <td>Diffie-Hellman Key Exchange Algorithm</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_longname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_longname
      */
     get_LongName() {
         pValue := BSTR()
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
+        result := ComCall(10, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves a Boolean value that specifies whether the algorithm object is valid.
      * @remarks
-     * 
      * If a template refers to an algorithm that is not supported by the specified cryptographic provider, the enrollment process creates a placeholder <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithm">ICspAlgorithm</a> object, sets the <b>Valid</b> property to false, and sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_name">Name</a> property. No other property values are defined.
      * 
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromname">InitializeFromName</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromtype">InitializeFromType</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface before calling this property.
@@ -550,20 +558,21 @@ class ICspAlgorithm extends IDispatch{
      * <li>If the first number is 0 or 1, the second number must be between 0 and 39 inclusive.</li>
      * <li>If the first number is 2, the second number can be any value.</li>
      * </ul>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_valid
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_valid
      */
     get_Valid() {
-        result := ComCall(11, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the maximum permitted length for a key.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_defaultlength">DefaultLength</a>, <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_incrementlength">IncrementLength</a>, <b>MaxLength</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_minlength">MinLength</a> properties can vary by algorithm and provider. The following table lists a few example maximum, minimum and default key sizes.<table>
      * <tr>
      * <th>Algorithm OID</th>
@@ -681,20 +690,21 @@ class ICspAlgorithm extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_maxlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_maxlength
      */
     get_MaxLength() {
-        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the minimum permitted length for a key.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_defaultlength">DefaultLength</a>, <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_incrementlength">IncrementLength</a>, <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_maxlength">MaxLength</a>, and <b>MinLength</b> properties can vary by algorithm and provider. The following table lists a few example maximum, minimum and default key sizes.<table>
      * <tr>
      * <th>Algorithm OID</th>
@@ -800,20 +810,21 @@ class ICspAlgorithm extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_minlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_minlength
      */
     get_MinLength() {
-        result := ComCall(13, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the abbreviated algorithm name.
      * @remarks
-     * 
      * The <b>Name</b> property retrieves a shortened algorithm name. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_longname">LongName</a> property to retrieve a more descriptive name. The names are not localized. Examples are shown in the following table.
      * 
      * <div class="alert"><b>Note</b>  Cryptography API: Next Generation (CNG) key storage providers (KSPs) do not support the long name concept. The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_longname">LongName</a> property and <b>Name</b> property return an abbreviated name.</div>
@@ -866,44 +877,48 @@ class ICspAlgorithm extends IDispatch{
      * <td>Diffie-Hellman Key Exchange Algorithm</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_name
      */
     get_Name() {
         pValue := BSTR()
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        result := ComCall(14, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the algorithm type.
      * @remarks
-     * 
      * The main difference between the <b>Type</b> property and the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_operations">Operations</a> property is that the latter contains a bitfield in which multiple bits can be set. Because many algorithms can be used for multiple purposes, the <b>Operations</b> property is often more useful. The <b>Type</b> value can correspond to only one of the <b>Operations</b> value bits. For example, if the <b>Operations</b> property returns XCN_NCRYPT_SIGNATURE_OPERATION | XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION, the <b>Type</b> property may return XCN_BCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_type
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_type
      */
     get_Type() {
-        result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the operations that can be performed by the algorithm.
      * @remarks
-     * 
      * The main difference between the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_type">Type</a> property and the <b>Operations</b> property is that the latter contains a bitfield in which multiple bits can be set. Because many algorithms can be used for multiple purposes, the <b>Operations</b> property is often more useful. The <b>Type</b> value can correspond to only one of the <b>Operations</b> value bits. For example, if the <b>Operations</b> property returns XCN_NCRYPT_SIGNATURE_OPERATION | XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION, the <b>Type</b> property may return XCN_BCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithm-get_operations
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icspalgorithm-get_operations
      */
     get_Operations() {
-        result := ComCall(16, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

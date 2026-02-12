@@ -30,11 +30,15 @@ class IBaseVideoMixer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} iPin 
+     * @param {Integer} iPin_ 
      * @returns {HRESULT} 
      */
-    SetLeadPin(iPin) {
-        result := ComCall(3, this, "int", iPin, "HRESULT")
+    SetLeadPin(iPin_) {
+        result := ComCall(3, this, "int", iPin_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {Integer} 
      */
     GetLeadPin() {
-        result := ComCall(4, this, "int*", &piPin := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &piPin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piPin
     }
 
@@ -52,7 +60,11 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {Integer} 
      */
     GetInputPinCount() {
-        result := ComCall(5, this, "int*", &piPinCount := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &piPinCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piPinCount
     }
 
@@ -61,7 +73,11 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {Integer} 
      */
     IsUsingClock() {
-        result := ComCall(6, this, "int*", &pbValue := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pbValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbValue
     }
 
@@ -71,7 +87,11 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetUsingClock(bValue) {
-        result := ComCall(7, this, "int", bValue, "HRESULT")
+        result := ComCall(7, this, "int", bValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +100,11 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {Integer} 
      */
     GetClockPeriod() {
-        result := ComCall(8, this, "int*", &pbValue := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pbValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbValue
     }
 
@@ -90,7 +114,11 @@ class IBaseVideoMixer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetClockPeriod(bValue) {
-        result := ComCall(9, this, "int", bValue, "HRESULT")
+        result := ComCall(9, this, "int", bValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

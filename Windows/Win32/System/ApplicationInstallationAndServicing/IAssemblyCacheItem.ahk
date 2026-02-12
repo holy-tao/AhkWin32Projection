@@ -6,7 +6,7 @@
 
 /**
  * The IAssemblyCacheItem interface can be used to install side-by-side assemblies into the side-by-side store using a stream-based installation.
- * @see https://docs.microsoft.com/windows/win32/api//winsxs/nn-winsxs-iassemblycacheitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nn-winsxs-iassemblycacheitem
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -86,14 +86,18 @@ class IAssemblyCacheItem extends IUnknown{
      * @param {Integer} dwFormatFlags Reserved.
      * @param {Pointer<Integer>} puliMaxSize Reserved.
      * @returns {IStream} Pointer to the location that contains the pointer to the IStream interface that receives the information.
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycacheitem-createstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblycacheitem-createstream
      */
     CreateStream(dwFlags, pszStreamName, dwFormat, dwFormatFlags, puliMaxSize) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
         puliMaxSizeMarshal := puliMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", &ppIStream := 0, puliMaxSizeMarshal, puliMaxSize, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszStreamName, "uint", dwFormat, "uint", dwFormatFlags, "ptr*", &ppIStream := 0, puliMaxSizeMarshal, puliMaxSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppIStream)
     }
 
@@ -193,12 +197,16 @@ class IAssemblyCacheItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycacheitem-commit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblycacheitem-commit
      */
     Commit(dwFlags, pulDisposition) {
         pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwFlags, pulDispositionMarshal, pulDisposition, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, pulDispositionMarshal, pulDisposition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +215,11 @@ class IAssemblyCacheItem extends IUnknown{
      * @returns {HRESULT} 
      */
     AbortItem() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

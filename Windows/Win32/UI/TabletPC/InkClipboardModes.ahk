@@ -11,7 +11,7 @@
  * To remove the pointer from the clipboard, the parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olesetclipboard">OleSetClipboard</a> should be <b>NULL</b>. For the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idataobjectprovider-setdataobject">SetDataObject</a> method, the <i>data</i> parameter should be <b>NULL</b>, and the <i>copy</i> parameter should be <b>TRUE</b>.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olesetclipboard">OleSetClipboard</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idataobjectprovider-setdataobject">SetDataObject</a> methods replace the contents of the clipboard.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkclipboardmodes
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-inkclipboardmodes
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

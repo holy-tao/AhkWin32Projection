@@ -6,13 +6,11 @@
 /**
  * Exposes a method that determines whether a property can be edited in the UI by the user.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Property handlers implement this interface to disable a user's ability to edit specific properties. These properties are typically editable in the UI, but are not supported for writing by the property handler. For example, the property System.Author is typically editable. If a property handler author created a file type that exposed <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-author">System.Author</a> for reading, but could not support writing this property back, the handler author could return S_FALSE from <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-ipropertystorecapabilities-ispropertywritable">IPropertyStoreCapabilities::IsPropertyWritable</a> for System.Author.
  * 
  * The Shell user interfaces that allow property editing, such as the <b>Details Pane</b> and <b>Details Tab</b> of the Properties dialog, call this method as part of determining whether to allow editing of a specific property. This allows the Shell property editing UI to disable controls rather than showing errors when the property handler fails to set or commit the property value.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertystorecapabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nn-propsys-ipropertystorecapabilities
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -39,6 +37,8 @@ class IPropertyStoreCapabilities extends IUnknown{
 
     /**
      * Queries whether the property handler allows a specific property to be edited in the UI by the user.
+     * @remarks
+     * The Shell disables the editing of controls by the user as appropriate through this method. A handler that does not support <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystorecapabilities">IPropertyStoreCapabilities</a> is assumed to support writing of any property.
      * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
      * A reference to <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that represents the property being queried.
@@ -74,7 +74,7 @@ class IPropertyStoreCapabilities extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertystorecapabilities-ispropertywritable
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertystorecapabilities-ispropertywritable
      */
     IsPropertyWritable(key) {
         result := ComCall(3, this, "ptr", key, "int")

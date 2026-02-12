@@ -30,6 +30,13 @@ class IHostThreadpoolManager extends IUnknown{
 
     /**
      * Queues a work item to a worker thread in the thread pool.
+     * @remarks
+     * If a function in a DLL is queued to a worker thread, be sure that the function has completed execution before the DLL is unloaded.
+     * 
+     * By default, the thread pool has a maximum of 512 threads per process. To raise the queue limit, use the <b>WT_SET_MAX_THREADPOOL_THREAD</b> macro defined in WinNT.h.
+     * 
+     * 
+     * ``` syntax
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function A pointer to the application-defined callback function of type <b>LPTHREAD_START_ROUTINE</b> to be executed by the thread in the thread pool. This value represents the starting address of the thread. This callback function must not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminatethread">TerminateThread</a> function. 
      * 
@@ -37,18 +44,22 @@ class IHostThreadpoolManager extends IUnknown{
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
-     * @param {Pointer<Void>} Context A single parameter value to be passed to the thread function.
+     * @param {Pointer<Void>} Context_ A single parameter value to be passed to the thread function.
      * @param {Integer} Flags 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/threadpoollegacyapiset/nf-threadpoollegacyapiset-queueuserworkitem
      */
-    QueueUserWorkItem(Function, Context, Flags) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    QueueUserWorkItem(Function, Context_, Flags) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Function, ContextMarshal, Context, "uint", Flags, "HRESULT")
+        result := ComCall(3, this, "ptr", Function, Context_Marshal, Context_, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +69,11 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMaxThreads(dwMaxWorkerThreads) {
-        result := ComCall(4, this, "uint", dwMaxWorkerThreads, "HRESULT")
+        result := ComCall(4, this, "uint", dwMaxWorkerThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +82,11 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {Integer} 
      */
     GetMaxThreads() {
-        result := ComCall(5, this, "uint*", &pdwMaxWorkerThreads := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwMaxWorkerThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMaxWorkerThreads
     }
 
@@ -76,7 +95,11 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {Integer} 
      */
     GetAvailableThreads() {
-        result := ComCall(6, this, "uint*", &pdwAvailableWorkerThreads := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwAvailableWorkerThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwAvailableWorkerThreads
     }
 
@@ -86,7 +109,11 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMinThreads(dwMinIOCompletionThreads) {
-        result := ComCall(7, this, "uint", dwMinIOCompletionThreads, "HRESULT")
+        result := ComCall(7, this, "uint", dwMinIOCompletionThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +122,11 @@ class IHostThreadpoolManager extends IUnknown{
      * @returns {Integer} 
      */
     GetMinThreads() {
-        result := ComCall(8, this, "uint*", &pdwMinIOCompletionThreads := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwMinIOCompletionThreads := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMinIOCompletionThreads
     }
 }

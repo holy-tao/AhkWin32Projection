@@ -2,11 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\DDEML_MSG_HOOK_DATA.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) message. A DDE monitoring application can use this structure to obtain information about a DDE message that was sent or posted.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monmsgstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/ns-ddeml-monmsgstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */
@@ -83,9 +85,12 @@ class MONMSGSTRUCT extends Win32Struct
      * The <b>wParam</b> parameter of the DDE message.
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(40, this)
+            return this.__wParam
+        }
     }
 
     /**
@@ -94,9 +99,12 @@ class MONMSGSTRUCT extends Win32Struct
      * The <b>lParam</b> parameter of the DDE message.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(48, this)
+            return this.__lParam
+        }
     }
 
     /**

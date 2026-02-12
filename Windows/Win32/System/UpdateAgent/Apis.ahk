@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent
@@ -2406,12 +2408,12 @@ class UpdateAgent {
     static WU_E_TRUST_PROVIDER_UNKNOWN => -2145078524
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static c_szUpdatePropertyName_ContainsUpdateBootstrapper => "ContainsUpdateBootstrapper"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static c_szUpdatePropertyName_DoesUpdateRequireReboot => "DoesUpdateRequireReboot"
 ;@endregion Constants

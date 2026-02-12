@@ -49,7 +49,11 @@ class ITableCreation extends ITableDefinition{
         prgConstraintDescsMarshal := prgConstraintDescs is VarRef ? "ptr*" : "ptr"
         ppwszStringBufferMarshal := ppwszStringBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTableID, pcColumnDescsMarshal, pcColumnDescs, prgColumnDescsMarshal, prgColumnDescs, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, pcConstraintDescsMarshal, pcConstraintDescs, prgConstraintDescsMarshal, prgConstraintDescs, ppwszStringBufferMarshal, ppwszStringBuffer, "HRESULT")
+        result := ComCall(7, this, "ptr", pTableID, pcColumnDescsMarshal, pcColumnDescs, prgColumnDescsMarshal, prgColumnDescs, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, pcConstraintDescsMarshal, pcConstraintDescs, prgConstraintDescsMarshal, prgConstraintDescs, ppwszStringBufferMarshal, ppwszStringBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

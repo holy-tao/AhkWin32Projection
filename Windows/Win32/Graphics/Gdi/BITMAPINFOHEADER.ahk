@@ -45,7 +45,7 @@
  * Then the video renderer proposes the modified format by calling <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-queryaccept">IPin::QueryAccept</a> on the upstream pin. For more information about this mechanism, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dynamic-format-changes">Dynamic Format Changes</a>.
  * 
  * If there is padding in the image buffer, never dereference a pointer into the memory that has been reserved for the padding. If the image buffer has been allocated in video memory, the padding might not be readable memory.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-bitmapinfoheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

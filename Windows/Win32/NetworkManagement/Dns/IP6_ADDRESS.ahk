@@ -3,7 +3,7 @@
 
 /**
  * The IP6_ADDRESS structure stores an IPv6 address. (IP6_ADDRESS)
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-ip6_address
+ * @see https://learn.microsoft.com/windows/win32/api//content/windns/ns-windns-ip6_address
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

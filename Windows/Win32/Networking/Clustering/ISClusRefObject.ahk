@@ -40,7 +40,11 @@ class ISClusRefObject extends IDispatch{
      * @returns {Pointer} 
      */
     get_Handle() {
-        result := ComCall(7, this, "ptr*", &phandle := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &phandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phandle
     }
 }

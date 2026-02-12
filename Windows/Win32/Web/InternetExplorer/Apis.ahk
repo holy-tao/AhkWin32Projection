@@ -6,6 +6,8 @@
 #Include .\IMapMIMEToCLSID.ahk
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -1056,37 +1058,37 @@ class InternetExplorer {
     static TF_NAVIGATE => 2142153644
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TARGET_NOTIFY_OBJECT_NAME => "863a99a0-21bc-11d0-82b4-00a0c90c29c5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IEPROCESS_MODULE_NAME => "IERtUtil.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IEGetProcessModule_PROC_NAME => "IEGetProcessModule"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IEGetTabWindowExports_PROC_NAME => "IEGetTabWindowExports"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZMICROSOFTPATH => "Software\Microsoft"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_MAIN => "Main"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SMOOTHSCROLL => "SmoothScroll"
 
@@ -1096,47 +1098,47 @@ class InternetExplorer {
     static REGSTR_VAL_SMOOTHSCROLL_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWTOOLBAR => "Show_ToolBar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWADDRESSBAR => "Show_URLToolBar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_STARTPAGE => "Start Page"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTRA_VAL_STARTPAGE => "Start Page"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SEARCHPAGE => "Search Page"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOCALPAGE => "Local Page"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USESTYLESHEETS => "Use Stylesheets"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USESTYLESHEETS_DEF => "yes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEICM => "UseICM"
 
@@ -1146,242 +1148,242 @@ class InternetExplorer {
     static REGSTR_VAL_USEICM_DEF => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWFOCUS => "Tabstop - MouseDown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWFOCUS_DEF => "no"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LOADIMAGES => "Display Inline Images"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PLAYSOUNDS => "Play_Background_Sounds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PLAYVIDEOS => "Display Inline Videos"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ANCHORUNDERLINE => "Anchor Underline"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEDLGCOLORS => "Use_DlgBox_Colors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CHECKASSOC => "Check_Associations"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SHOWFULLURLS => "Show_FullURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTOSEARCH => "Do404Search"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTONAVIGATE => "SearchForExtensions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HTTP_ERRORS => "Friendly http errors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEIBAR => "UseBar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_SETTINGS => "Settings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_IE_CUSTOMCOLORS => "Custom Colors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ANCHORCOLOR => "Anchor Color"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ANCHORCOLORVISITED => "Anchor Color Visited"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BACKGROUNDCOLOR => "Background Color"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TEXTCOLOR => "Text Color"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ANCHORCOLORHOVER => "Anchor Color Hover"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEHOVERCOLOR => "Use Anchor Hover Color"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_SECURITY => "Security"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SAFETYWARNINGLEVEL => "Safety Warning Level"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_DEFAULT_HTML_EDITOR => "Default HTML Editor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEAUTOAPPEND => "Append Completion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEAUTOSUGGEST => "AutoSuggest"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USEAUTOCOMPLETE => "Use AutoComplete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_IBAR => "Bar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_IBAR_BANDS => "Bands"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_USERAGENT => "User Agent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INTERNETENTRY => "InternetProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INTERNETPROFILE => "InternetProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INTERNETENTRYBKUP => "BackupInternetProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CODEDOWNLOAD => "Code Download"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CODEDOWNLOAD_DEF => "yes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_INETCPL_RESTRICTIONS => "Software\Policies\Microsoft\Internet Explorer\Control Panel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_GENERALTAB => "GeneralTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_SECURITYTAB => "SecurityTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_CONTENTTAB => "ContentTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_CONNECTIONSTAB => "ConnectionsTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_PROGRAMSTAB => "ProgramsTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_ADVANCEDTAB => "AdvancedTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_PRIVACYTAB => "PrivacyTab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETCPL_IEAK => "IEAKContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DIRECTORY => "Directory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NEWDIRECTORY => "NewDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CACHEPREFIX => "CachePrefix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_SEARCHSTRINGS => "UrlTemplate"
 
@@ -1391,157 +1393,157 @@ class InternetExplorer {
     static MAX_SEARCH_FORMAT_STRING => 255
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_IE_THRESHOLDS => "ErrorThresholds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ACCESSMEDIUM => "AccessMedium"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ACCESSTYPE => "AccessType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTODIALDLLNAME => "AutodialDllName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTODIALFCNNAME => "AutodialFcnName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTODIAL_MONITORCLASSNAME => "MS_AutodialMonitor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTODIAL_TRYONLYONCE => "TryAutodialOnce"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_REMOTEACCESS => "RemoteAccess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_REMOTEACESS => "RemoteAccess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_RNAINSTALLED => "Installed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLEAUTODIAL => "EnableAutodial"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLEUNATTENDED => "EnableUnattended"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_NONETAUTODIAL => "NoNetAutodial"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REDIALATTEMPTS => "RedialAttempts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_REDIALINTERVAL => "RedialWait"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLEAUTODIALDISCONNECT => "EnableAutodisconnect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLEAUTODISCONNECT => "EnableAutodisconnect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLEEXITDISCONNECT => "EnableExitDisconnect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENABLESECURITYCHECK => "EnableSecurityCheck"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_COVEREXCLUDE => "CoverExclude"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DISCONNECTIDLETIME => "DisconnectIdleTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_MOSDISCONNECT => "DisconnectTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROXYENABLE => "ProxyEnable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROXYSERVER => "ProxyServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROXYOVERRIDE => "ProxyOverride"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BYPASSAUTOCONFIG => "BypassAutoconfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZTRUSTWARNLEVEL => "Trust Warning Level"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TRUSTWARNINGLEVEL_HIGH => "High"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TRUSTWARNINGLEVEL_MED => "Medium"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_TRUSTWARNINGLEVEL_LOW => "No Security"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYWARNONSEND => "WarnOnPost"
 
@@ -1551,7 +1553,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYWARNONSEND_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYWARNONSENDALWAYS => "WarnAlwaysOnPost"
 
@@ -1561,7 +1563,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYWARNONSENDALWAYS_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYWARNONVIEW => "WarnOnView"
 
@@ -1571,7 +1573,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYWARNONVIEW_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYALLOWCOOKIES => "AllowCookies"
 
@@ -1581,7 +1583,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYALLOWCOOKIES_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYWARNONZONECROSSING => "WarnOnZoneCrossing"
 
@@ -1591,7 +1593,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYWARNONZONECROSSING_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYWARNONBADCERTVIEWING => "WarnOnBadCertRecving"
 
@@ -1601,7 +1603,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYWARNONBADCERTVIEWING_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYWARNONBADCERTSENDING => "WarnOnBadCertSending"
 
@@ -1611,7 +1613,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYWARNONBADCERTSENDING_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYDISABLECACHINGOFSSLPAGES => "DisableCachingOfSSLPages"
 
@@ -1621,7 +1623,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYDISABLECACHINGOFSSLPAGES_DEF => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYACTIVEX => "Security_RunActiveXControls"
 
@@ -1631,7 +1633,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYACTIVEX_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYACTICEXSCRIPTS => "Security_RunScripts"
 
@@ -1641,7 +1643,7 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYACTICEXSCRIPTS_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SECURITYJAVA => "Security_RunJavaApplets"
 
@@ -1651,12 +1653,12 @@ class InternetExplorer {
     static REGSTR_VAL_SECURITYJAVA_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZJAVAVMPATH => "\Java VM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JAVAJIT => "EnableJIT"
 
@@ -1666,7 +1668,7 @@ class InternetExplorer {
     static REGSTR_VAL_JAVAJIT_DEF => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_JAVALOGGING => "EnableLogging"
 
@@ -1676,27 +1678,27 @@ class InternetExplorer {
     static REGSTR_VAL_JAVALOGGING_DEF => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZTOOLBAR => "\Toolbar"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DAYSTOKEEP => "DaysToKeep"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZNOTEXT => "NoText"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZVISIBLE => "VisibleBands"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_VISIBLEBANDS => "VisibleBands"
 
@@ -1721,27 +1723,27 @@ class InternetExplorer {
     static LINKSBAND => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZBACKBITMAP => "BackBitmap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BACKBITMAP => "BackBitmap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_SHIFTQUICKSUFFIX => "ShiftQuickCompleteSuffix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZSCHANNELPATH => "SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCHANNELENABLEPROTOCOL => "Enabled"
 
@@ -1751,17 +1753,17 @@ class InternetExplorer {
     static REGSTR_VAL_SCHANNELENABLEPROTOCOL_DEF => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZINTERNETCLIENTSPATH => "Software\Microsoft\Internet Explorer\Unix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DEFAULT => "default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_CURRENT => "current"
 
@@ -1771,7 +1773,7 @@ class InternetExplorer {
     static IE_USE_OE_PRESENT_HKEY => -2147483646
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IE_USE_OE_PRESENT_KEY => "Software\Microsoft\Windows\CurrentVersion\app.paths\msimn.exe"
 
@@ -1781,12 +1783,12 @@ class InternetExplorer {
     static IE_USE_OE_MAIL_HKEY => -2147483647
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IE_USE_OE_MAIL_KEY => "Software\Microsoft\Internet Explorer\Mail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IE_USE_OE_MAIL_VALUE => "Use Outlook Express"
 
@@ -1796,112 +1798,112 @@ class InternetExplorer {
     static IE_USE_OE_NEWS_HKEY => -2147483647
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IE_USE_OE_NEWS_KEY => "Software\Microsoft\Internet Explorer\News"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IE_USE_OE_NEWS_VALUE => "Use Outlook Express"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZPROTOCOLSPATH => "Protocols\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZMAILTOPROTOCOL => "mailto"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZNEWSPROTOCOL => "news"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZCALLTOPROTOCOL => "callto"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZLDAPPROTOCOL => "ldap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZCALENDARPROTOCOL => "unk"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TSZVSOURCEPROTOCOL => "view source"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEFAULT_CODEPAGE => "Default_CodePage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEFAULT_SCRIPT => "Default_Script"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ACCEPT_LANGUAGE => "AcceptLanguage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FONT_SCRIPTS => "Scripts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FONT_SCRIPT => "Script"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FONT_SCRIPT_NAME => "Script"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEF_ENCODING => "Default_Encoding"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DEF_INETENCODING => "Default_InternetEncoding"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FIXED_FONT => "IEFixedFontName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCRIPT_FIXED_FONT => "IEFixedFontName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROP_FONT => "IEPropFontName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_SCRIPT_PROP_FONT => "IEPropFontName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FONT_SIZE => "IEFontSize"
 
@@ -1911,77 +1913,77 @@ class InternetExplorer {
     static REGSTR_VAL_FONT_SIZE_DEF => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_AUTODETECT => "AutoDetect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_MIME_DATABASE => "MIME\Database"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_CODEPAGE => "CodePage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_INETENCODING => "InternetEncoding"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FAMILY => "Family"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_LEVEL => "Level"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ALIASTO => "AliasForCharset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_ENCODENAME => "EncodingName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_DESCRIPTION => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_WEBCHARSET => "WebCharset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_BODYCHARSET => "BodyCharset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_HEADERCHARSET => "HeaderCharset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_FIXEDWIDTHFONT => "FixedWidthFont"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PROPORTIONALFONT => "ProportionalFont"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_VAL_PRIVCONVERTER => "PrivConverter"
 
@@ -2355,7 +2357,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PWSTR} lpwstrInitialFileName 
      * @param {PWSTR} lpwstrInitialDir 
      * @param {PWSTR} lpwstrFilter 
@@ -2366,8 +2368,8 @@ class InternetExplorer {
      * @param {Pointer<HANDLE>} phState 
      * @returns {HRESULT} 
      */
-    static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static IEShowSaveFileDialog(hwnd_, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpwstrInitialFileName := lpwstrInitialFileName is String ? StrPtr(lpwstrInitialFileName) : lpwstrInitialFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
@@ -2375,7 +2377,7 @@ class InternetExplorer {
 
         lppwstrDestinationFilePathMarshal := lppwstrDestinationFilePath is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, "ptr", phState, "int")
+        result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd_, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, lppwstrDestinationFilePathMarshal, lppwstrDestinationFilePath, "ptr", phState, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2385,7 +2387,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PWSTR} lpwstrFileName 
      * @param {Integer} cchMaxFileName 
      * @param {PWSTR} lpwstrInitialDir 
@@ -2395,15 +2397,15 @@ class InternetExplorer {
      * @param {Integer} dwFlags 
      * @returns {HANDLE} 
      */
-    static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static IEShowOpenFileDialog(hwnd_, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpwstrFileName := lpwstrFileName is String ? StrPtr(lpwstrFileName) : lpwstrFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
 
         phFile := HANDLE()
-        result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
+        result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd_, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -3218,17 +3220,17 @@ class InternetExplorer {
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} cx 
-     * @param {Integer} cy 
+     * @param {Integer} cy_ 
      * @param {Integer} lDestTrans 
      * @param {Integer} lSrcTrans 
      * @returns {HRESULT} 
      */
-    static DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, cy, lDestTrans, lSrcTrans) {
+    static DitherTo8(pDestBits, nDestPitch, pSrcBits, nSrcPitch, bfidSrc, prgbDestColors, prgbSrcColors, pbDestInvMap, x, y, cx, cy_, lDestTrans, lSrcTrans) {
         pDestBitsMarshal := pDestBits is VarRef ? "char*" : "ptr"
         pSrcBitsMarshal := pSrcBits is VarRef ? "char*" : "ptr"
         pbDestInvMapMarshal := pbDestInvMap is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ImgUtil.dll\DitherTo8", pDestBitsMarshal, pDestBits, "int", nDestPitch, pSrcBitsMarshal, pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, pbDestInvMapMarshal, pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy, "int", lDestTrans, "int", lSrcTrans, "int")
+        result := DllCall("ImgUtil.dll\DitherTo8", pDestBitsMarshal, pDestBits, "int", nDestPitch, pSrcBitsMarshal, pSrcBits, "int", nSrcPitch, "ptr", bfidSrc, "ptr", prgbDestColors, "ptr", prgbSrcColors, pbDestInvMapMarshal, pbDestInvMap, "int", x, "int", y, "int", cx, "int", cy_, "int", lDestTrans, "int", lSrcTrans, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

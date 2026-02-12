@@ -35,7 +35,11 @@ class IWaitMultiple extends IUnknown{
      * @returns {ISynchronize} 
      */
     WaitMultiple(timeout) {
-        result := ComCall(3, this, "uint", timeout, "ptr*", &pSync := 0, "HRESULT")
+        result := ComCall(3, this, "uint", timeout, "ptr*", &pSync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISynchronize(pSync)
     }
 
@@ -45,7 +49,11 @@ class IWaitMultiple extends IUnknown{
      * @returns {HRESULT} 
      */
     AddSynchronize(pSync) {
-        result := ComCall(4, this, "ptr", pSync, "HRESULT")
+        result := ComCall(4, this, "ptr", pSync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

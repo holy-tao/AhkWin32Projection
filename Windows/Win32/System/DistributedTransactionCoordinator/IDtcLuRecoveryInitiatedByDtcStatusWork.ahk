@@ -34,7 +34,11 @@ class IDtcLuRecoveryInitiatedByDtcStatusWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleCheckLuStatus(lRecoverySeqNum) {
-        result := ComCall(3, this, "int", lRecoverySeqNum, "HRESULT")
+        result := ComCall(3, this, "int", lRecoverySeqNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

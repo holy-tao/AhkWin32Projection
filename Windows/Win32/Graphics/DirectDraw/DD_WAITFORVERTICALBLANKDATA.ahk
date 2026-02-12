@@ -3,7 +3,7 @@
 
 /**
  * The DD_WAITFORVERTICALBLANKDATA structure contains information necessary to obtain the monitor's vertical blank information.D
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_waitforverticalblankdata
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_waitforverticalblankdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -2,13 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains and receives tree-view item information needed to display a tooltip for an item. This structure is used with the TVN_GETINFOTIP notification code. (ANSI)
  * @remarks
  * > [!NOTE]
  * > The commctrl.h header defines NMTVGETINFOTIP as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvgetinfotipa
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmtvgetinfotipa
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI
@@ -64,9 +66,12 @@ class NMTVGETINFOTIPA extends Win32Struct
      * Tree handle to the item for which the tooltip is being displayed.
      * @type {HTREEITEM}
      */
-    hItem {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hItem{
+        get {
+            if(!this.HasProp("__hItem"))
+                this.__hItem := HTREEITEM(40, this)
+            return this.__hItem
+        }
     }
 
     /**
@@ -75,8 +80,11 @@ class NMTVGETINFOTIPA extends Win32Struct
      * Application-defined data associated with the item for which the tooltip is being displayed.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(48, this)
+            return this.__lParam
+        }
     }
 }

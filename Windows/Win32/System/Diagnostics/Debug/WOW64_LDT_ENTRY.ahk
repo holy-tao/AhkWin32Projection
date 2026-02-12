@@ -12,7 +12,7 @@
  * The limit of a segment is the address of the last byte that can be addressed in the segment. To calculate this value, combine the <b>LimitLow</b> and <b>LimitHi</b> members.
  * 
  * The <b>WOW64_LDT_ENTRY</b> structure has the same layout for a 64-bit process as the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ldt_entry">LDT_ENTRY</a> structure has for a 32-bit process.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_ldt_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-wow64_ldt_entry
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

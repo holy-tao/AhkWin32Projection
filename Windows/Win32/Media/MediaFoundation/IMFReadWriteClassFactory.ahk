@@ -6,7 +6,6 @@
 /**
  * Creates an instance of either the sink writer or the source reader.
  * @remarks
- * 
  * To get a pointer to this interface, call the <b>CoCreateInstance</b> function. The CLSID is <b>CLSID_MFReadWriteClassFactory</b>. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfstartup">MFStartup</a> function before using  the interface.
  * 
  * As an alternative to using this interface, you can call any of the following functions:
@@ -31,9 +30,7 @@
  * Internally, these functions use the <b>IMFReadWriteClassFactory</b> interface.
  * 
  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfreadwriteclassfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nn-mfreadwrite-imfreadwriteclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -60,6 +57,8 @@ class IMFReadWriteClassFactory extends IUnknown{
 
     /**
      * Creates an instance of the sink writer or source reader, given a URL.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Pointer<Guid>} clsid The CLSID of the object to create.
      * 
      * <table>
@@ -101,18 +100,24 @@ class IMFReadWriteClassFactory extends IUnknown{
      * </ul>
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid The IID of the requested interface.
-     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromurl
+     * @returns {Pointer<Pointer<Void>>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromurl
      */
     CreateInstanceFromURL(clsid, pwszURL, pAttributes, riid) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", clsid, "ptr", pwszURL, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", clsid, "ptr", pwszURL, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 
     /**
      * Creates an instance of the sink writer or source reader, given an IUnknown pointer.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Pointer<Guid>} clsid The CLSID of the object to create.
      * 
      * <table>
@@ -195,11 +200,15 @@ class IMFReadWriteClassFactory extends IUnknown{
      * </ul>
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<Guid>} riid The IID of the requested interface.
-     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromobject
+     * @returns {Pointer<Pointer<Void>>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromobject
      */
     CreateInstanceFromObject(clsid, punkObject, pAttributes, riid) {
-        result := ComCall(4, this, "ptr", clsid, "ptr", punkObject, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", clsid, "ptr", punkObject, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 }

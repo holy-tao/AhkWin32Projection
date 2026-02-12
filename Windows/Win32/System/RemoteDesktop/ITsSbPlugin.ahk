@@ -6,7 +6,6 @@
 /**
  * Exposes methods that initialize and terminate plug-ins.
  * @remarks
- * 
  * Two different types of plugins are supported - filters and resources. Resource plugins are for supporting new 
  *      types of resources (for example VMs running on different hypervisors). Filter plugins allow the plugins to change 
  *      the information passed to other plugins (for example passing resource requests to the least utilized node.)
@@ -14,7 +13,7 @@
  * To register a resource filter, add these values to the registry.
  * 
  * 
- * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ * <pre><b>HKEY_LOCAL_MACHINE</b>
  *    <b>SYSTEM</b>
  *       <b>CurrentControlSet</b>
  *          <b>Services</b>
@@ -23,7 +22,7 @@
  *                   <b>Plugins</b>
  *                      <b>Resource</b>
  *                         <i>YOUR_RESOURCE_PLUGIN_NAME</i>
- *                            <b>CLSID</b> = {<i>CLSID of your resouce provider</i>}<dl>
+ *                            <b>CLSID</b> = {<i>CLSID of your resource provider</i>}<dl>
  * <dt>                           Data type</dt>
  * <dd>                           REG_SZ</dd>
  * </dl>
@@ -46,7 +45,7 @@
  * To register a filter provider, add these values to the registry.
  * 
  * 
- * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ * <pre><b>HKEY_LOCAL_MACHINE</b>
  *    <b>SYSTEM</b>
  *       <b>CurrentControlSet</b>
  *          <b>Services</b>
@@ -84,9 +83,7 @@
  * 
  * 
  * First the system will load Filter 1, then load Filter 2, etc..
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbplugin
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbplugin
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -113,25 +110,35 @@ class ITsSbPlugin extends IUnknown{
 
     /**
      * Initializes the plug-in.
+     * @remarks
+     * Plug-ins should call <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nf-sbtsv-itssbpluginnotifysink-oninitialized">OnInitialized</a> on the specified <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbpluginnotifysink">ITsSbPluginNotifySink</a> sink object.
      * @param {ITsSbProvider} pProvider A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovider">ITsSbProvider</a> provider object.
      * @param {ITsSbPluginNotifySink} pNotifySink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbpluginnotifysink">ITsSbPluginNotifySink</a> notify sink object.
      * @param {ITsSbPluginPropertySet} pPropertySet A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbpluginpropertyset">ITsSbPluginPropertySet</a> plug-in property set object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbplugin-initialize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbplugin-initialize
      */
     Initialize(pProvider, pNotifySink, pPropertySet) {
-        result := ComCall(3, this, "ptr", pProvider, "ptr", pNotifySink, "ptr", pPropertySet, "HRESULT")
+        result := ComCall(3, this, "ptr", pProvider, "ptr", pNotifySink, "ptr", pPropertySet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Performs clean-up and unloads the plug-in.
      * @param {HRESULT} hr Specifies the reason for termination. The plug-in should specify a standard <b>HRESULT</b> error code.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbplugin-terminate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbplugin-terminate
      */
     Terminate(hr) {
-        result := ComCall(4, this, "int", hr, "HRESULT")
+        result := ComCall(4, this, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

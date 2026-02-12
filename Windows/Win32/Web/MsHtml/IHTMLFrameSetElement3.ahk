@@ -75,7 +75,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onhashchange(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +89,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      */
     get_onhashchange() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -95,7 +103,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmessage(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +117,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      */
     get_onmessage() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -115,7 +131,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onoffline(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +145,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      */
     get_onoffline() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -135,7 +159,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ononline(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,7 +173,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      */
     get_ononline() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -155,7 +187,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onstorage(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +201,11 @@ class IHTMLFrameSetElement3 extends IDispatch{
      */
     get_onstorage() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

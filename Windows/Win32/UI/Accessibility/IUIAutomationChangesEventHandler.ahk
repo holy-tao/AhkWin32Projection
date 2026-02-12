@@ -6,11 +6,8 @@
 /**
  * Exposes a method to handle one or more Microsoft UI Automation change events.
  * @remarks
- * 
  * This interface is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler">AddChangesEventHandler</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationchangeseventhandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationchangeseventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -37,14 +34,20 @@ class IUIAutomationChangesEventHandler extends IUnknown{
 
     /**
      * Handles one or more Microsoft UI Automation change events.
+     * @remarks
+     * This method is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler">AddChangesEventHandler</a>.
      * @param {IUIAutomationElement} sender A pointer to the element that raised the event.
      * @param {Pointer<UiaChangeInfo>} uiaChanges A collection of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures.
      * @param {Integer} changesCount The number of changes that occurred. This is the number of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo">UiaChangeInfo</a> structures pointed to by the <i>uiaChanges</i> parameter.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationchangeseventhandler-handlechangesevent
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationchangeseventhandler-handlechangesevent
      */
     HandleChangesEvent(sender, uiaChanges, changesCount) {
-        result := ComCall(3, this, "ptr", sender, "ptr", uiaChanges, "int", changesCount, "HRESULT")
+        result := ComCall(3, this, "ptr", sender, "ptr", uiaChanges, "int", changesCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

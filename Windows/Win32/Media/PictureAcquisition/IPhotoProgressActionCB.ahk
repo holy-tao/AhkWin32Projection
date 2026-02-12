@@ -36,7 +36,11 @@ class IPhotoProgressActionCB extends IUnknown{
     DoAction(hWndParent) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
-        result := ComCall(3, this, "ptr", hWndParent, "HRESULT")
+        result := ComCall(3, this, "ptr", hWndParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

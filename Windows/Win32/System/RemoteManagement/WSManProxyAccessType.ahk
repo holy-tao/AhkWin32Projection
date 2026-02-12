@@ -9,7 +9,7 @@
  * If the Windows Remote Management API is called from a service,  <b>WSMAN_OPTION_PROXY_WINHTTP_PROXY_CONFIG</b> or <b>WSMAN_OPTION_PROXY_AUTO_DETECT</b> should be used if a proxy is required.
  * 
  * The <b>WSMAN_OPTION_PROXY_WINHTTP_PROXY_CONFIG</b> option translates into the <b>WINHTTP_ACCESS_TYPE_DEFAULT_PROXY</b> option in WinHTTP. WinHTTP retrieves the static proxy or direct configuration from the registry. <b>WINHTTP_ACCESS_TYPE_DEFAULT_PROXY</b> does not inherit browser proxy settings. WinHTTP does not share any proxy settings with Internet Explorer. This option gets the WinHTTP proxy configuration set by the ProxyCfg.exe utility.
- * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmanproxyaccesstype
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsman/ne-wsman-wsmanproxyaccesstype
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */

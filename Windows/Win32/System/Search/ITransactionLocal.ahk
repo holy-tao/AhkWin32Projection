@@ -34,7 +34,11 @@ class ITransactionLocal extends ITransaction{
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
-        result := ComCall(6, this, "ptr*", &ppOptions := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionOptions(ppOptions)
     }
 
@@ -46,7 +50,11 @@ class ITransactionLocal extends ITransaction{
      * @returns {Integer} 
      */
     StartTransaction(isoLevel, isoFlags, pOtherOptions) {
-        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "uint*", &pulTransactionLevel := 0, "HRESULT")
+        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "uint*", &pulTransactionLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulTransactionLevel
     }
 }

@@ -33,7 +33,11 @@ class IShellUIHelper9 extends IShellUIHelper8{
      * @returns {Integer} 
      */
     GetOSSku() {
-        result := ComCall(104, this, "uint*", &pdwResult := 0, "HRESULT")
+        result := ComCall(104, this, "uint*", &pdwResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwResult
     }
 }

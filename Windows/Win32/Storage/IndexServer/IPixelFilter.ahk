@@ -34,9 +34,13 @@ class IPixelFilter extends IFilter{
      * @returns {IMAGE_INFO} 
      */
     GetImageInfo() {
-        imageInfo := IMAGE_INFO()
-        result := ComCall(8, this, "ptr", imageInfo, "HRESULT")
-        return imageInfo
+        imageInfo_ := IMAGE_INFO()
+        result := ComCall(8, this, "ptr", imageInfo_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return imageInfo_
     }
 
     /**
@@ -47,7 +51,11 @@ class IPixelFilter extends IFilter{
      * @returns {Integer} 
      */
     GetPixelsForImage(scalingFactor, sourceRect, pixelBufferSize) {
-        result := ComCall(9, this, "float", scalingFactor, "ptr", sourceRect, "uint", pixelBufferSize, "char*", &pixelBuffer := 0, "HRESULT")
+        result := ComCall(9, this, "float", scalingFactor, "ptr", sourceRect, "uint", pixelBufferSize, "char*", &pixelBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pixelBuffer
     }
 }

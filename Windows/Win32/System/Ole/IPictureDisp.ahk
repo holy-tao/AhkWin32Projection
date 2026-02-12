@@ -6,7 +6,6 @@
 /**
  * Exposes the picture object's properties through Automation. It provides a subset of the functionality available through IPicture methods.
  * @remarks
- * 
  * The following table describes the dispIDs for the various picture properties.
  * 
  * <table>
@@ -102,9 +101,7 @@
  * Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles. As with the standard font object, the system provides a standard implementation of the picture object. Its primary interfaces are <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicture">IPicture</a> and <b>IPictureDisp</b>. A picture object is created with <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatepictureindirect">OleCreatePictureIndirect</a> and supports both the <b>IPicture</b> and the <b>IPictureDisp</b> interfaces.
  * 
  * The OLE-provided picture object implements the complete semantics of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicture">IPicture</a> and <b>IPictureDisp</b> interfaces.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ipicturedisp
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-ipicturedisp
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

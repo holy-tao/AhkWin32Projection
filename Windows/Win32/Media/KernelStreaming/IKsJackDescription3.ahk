@@ -34,7 +34,11 @@ class IKsJackDescription3 extends IUnknown{
      * @returns {Integer} 
      */
     GetJackCount() {
-        result := ComCall(3, this, "uint*", &pcJacks := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcJacks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcJacks
     }
 
@@ -45,7 +49,11 @@ class IKsJackDescription3 extends IUnknown{
      */
     GetJackDescription3(nJack) {
         pDescription3 := KSJACK_DESCRIPTION3()
-        result := ComCall(4, this, "uint", nJack, "ptr", pDescription3, "HRESULT")
+        result := ComCall(4, this, "uint", nJack, "ptr", pDescription3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDescription3
     }
 }

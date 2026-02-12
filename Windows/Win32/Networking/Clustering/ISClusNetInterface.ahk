@@ -92,7 +92,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
-        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -101,7 +105,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
-        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -110,7 +118,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
-        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -119,7 +131,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
-        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -129,7 +145,11 @@ class ISClusNetInterface extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -138,7 +158,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {Pointer} 
      */
     get_Handle() {
-        result := ComCall(12, this, "ptr*", &phandle := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &phandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phandle
     }
 
@@ -147,7 +171,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(13, this, "int*", &dwState := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &dwState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwState
     }
 
@@ -156,7 +184,11 @@ class ISClusNetInterface extends IDispatch{
      * @returns {ISCluster} 
      */
     get_Cluster() {
-        result := ComCall(14, this, "ptr*", &ppCluster := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppCluster := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCluster(ppCluster)
     }
 }

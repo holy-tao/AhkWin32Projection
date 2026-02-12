@@ -31,6 +31,19 @@ class IStillImageW extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {HINSTANCE} hinst 
      * @param {Integer} dwVersion 
      * @returns {HRESULT} <ul>
@@ -44,12 +57,16 @@ class IStillImageW extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(hinst, dwVersion) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
-        result := ComCall(3, this, "ptr", hinst, "uint", dwVersion, "HRESULT")
+        result := ComCall(3, this, "ptr", hinst, "uint", dwVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +82,11 @@ class IStillImageW extends IUnknown{
         pdwItemsReturnedMarshal := pdwItemsReturned is VarRef ? "uint*" : "ptr"
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, ppBufferMarshal, ppBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", dwType, "uint", dwFlags, pdwItemsReturnedMarshal, pdwItemsReturned, ppBufferMarshal, ppBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,21 +98,30 @@ class IStillImageW extends IUnknown{
     GetDeviceInfo(pwszDeviceName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(5, this, "ptr", pwszDeviceName, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszDeviceName, "ptr*", &ppBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppBuffer
     }
 
     /**
-     * 
+     * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
      * @param {PWSTR} pwszDeviceName 
      * @param {Integer} dwMode 
      * @param {IUnknown} punkOuter 
      * @returns {IStiDevice} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nf-deviceaccess-createdeviceaccessinstance
      */
     CreateDevice(pwszDeviceName, dwMode, punkOuter) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(6, this, "ptr", pwszDeviceName, "uint", dwMode, "ptr*", &pDevice := 0, "ptr", punkOuter, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszDeviceName, "uint", dwMode, "ptr*", &pDevice := 0, "ptr", punkOuter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStiDevice(pDevice)
     }
 
@@ -109,7 +139,11 @@ class IStillImageW extends IUnknown{
 
         cbDataMarshal := cbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", &pType := 0, "ptr", pData, cbDataMarshal, cbData, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", &pType := 0, "ptr", pData, cbDataMarshal, cbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
@@ -126,7 +160,11 @@ class IStillImageW extends IUnknown{
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        result := ComCall(8, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,7 +178,11 @@ class IStillImageW extends IUnknown{
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pwszEventName := pwszEventName is String ? StrPtr(pwszEventName) : pwszEventName
 
-        result := ComCall(9, this, "ptr", pwszDeviceName, "uint*", &pdwEventCode := 0, "ptr", pwszEventName, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszDeviceName, "uint*", &pdwEventCode := 0, "ptr", pwszEventName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwEventCode
     }
 
@@ -154,7 +196,11 @@ class IStillImageW extends IUnknown{
         pwszAppName := pwszAppName is String ? StrPtr(pwszAppName) : pwszAppName
         pwszCommandLine := pwszCommandLine is String ? StrPtr(pwszCommandLine) : pwszCommandLine
 
-        result := ComCall(10, this, "ptr", pwszAppName, "ptr", pwszCommandLine, "HRESULT")
+        result := ComCall(10, this, "ptr", pwszAppName, "ptr", pwszCommandLine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +212,11 @@ class IStillImageW extends IUnknown{
     UnregisterLaunchApplication(pwszAppName) {
         pwszAppName := pwszAppName is String ? StrPtr(pwszAppName) : pwszAppName
 
-        result := ComCall(11, this, "ptr", pwszAppName, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszAppName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +229,11 @@ class IStillImageW extends IUnknown{
     EnableHwNotifications(pwszDeviceName, bNewState) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(12, this, "ptr", pwszDeviceName, "int", bNewState, "HRESULT")
+        result := ComCall(12, this, "ptr", pwszDeviceName, "int", bNewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +245,11 @@ class IStillImageW extends IUnknown{
     GetHwNotificationState(pwszDeviceName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(13, this, "ptr", pwszDeviceName, "int*", &pbCurrentState := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pwszDeviceName, "int*", &pbCurrentState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbCurrentState
     }
 
@@ -203,7 +261,11 @@ class IStillImageW extends IUnknown{
     RefreshDeviceBus(pwszDeviceName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(14, this, "ptr", pwszDeviceName, "HRESULT")
+        result := ComCall(14, this, "ptr", pwszDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -218,7 +280,11 @@ class IStillImageW extends IUnknown{
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pwszAppName := pwszAppName is String ? StrPtr(pwszAppName) : pwszAppName
 
-        result := ComCall(15, this, "ptr", pwszDeviceName, "ptr", pwszAppName, "ptr", pStiNotify, "HRESULT")
+        result := ComCall(15, this, "ptr", pwszDeviceName, "ptr", pwszAppName, "ptr", pStiNotify, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -228,7 +294,11 @@ class IStillImageW extends IUnknown{
      * @returns {HRESULT} 
      */
     SetupDeviceParameters(param0) {
-        result := ComCall(16, this, "ptr", param0, "HRESULT")
+        result := ComCall(16, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -241,7 +311,11 @@ class IStillImageW extends IUnknown{
     WriteToErrorLog(dwMessageType, pszMessage) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
 
-        result := ComCall(17, this, "uint", dwMessageType, "ptr", pszMessage, "HRESULT")
+        result := ComCall(17, this, "uint", dwMessageType, "ptr", pszMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

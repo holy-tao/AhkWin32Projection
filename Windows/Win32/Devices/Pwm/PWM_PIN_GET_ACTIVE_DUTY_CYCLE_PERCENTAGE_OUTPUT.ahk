@@ -3,7 +3,7 @@
 
 /**
  * Contains the current duty cycle percentage for a pin or channel in a Pulse Width Modulation (PWM) controller.
- * @see https://learn.microsoft.com/windows/win32/DevIO/pwm-pin-get-active-duty-cycle-percentage-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DevIO/pwm-pin-get-active-duty-cycle-percentage-output
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

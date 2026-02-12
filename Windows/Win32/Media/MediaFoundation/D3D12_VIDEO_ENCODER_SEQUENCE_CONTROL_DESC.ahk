@@ -12,7 +12,7 @@
  * The D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC represents parameters for the input of the video encoding operation at a sequence level.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_sequence_control_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_sequence_control_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -7,8 +7,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a read-only object model for manifests of bundle packages.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlemanifestreader
+ * Provides a read-only object model for manifests of bundle packages. (IAppxBundleManifestReader)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxbundlemanifestreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -35,13 +35,19 @@ class IAppxBundleManifestReader extends IUnknown{
 
     /**
      * Retrieves an object that represents the &lt;Identity&gt; element under the root &lt;Bundle&gt; element.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method when you have finished using the <i>packageId</i> object.
      * @returns {IAppxManifestPackageId} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestpackageid">IAppxManifestPackageId</a>**</b>
      * 
      * The package identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageid
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageid
      */
     GetPackageId() {
-        result := ComCall(3, this, "ptr*", &packageId := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &packageId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestPackageId(packageId)
     }
 
@@ -50,22 +56,32 @@ class IAppxBundleManifestReader extends IUnknown{
      * @returns {IAppxBundleManifestPackageInfoEnumerator} Type: <b>IAppxBundleManifestPackageInfoEnumerator**</b>
      * 
      *  An enumerator over all payload packages in a &lt;Packages&gt; element of a bundle.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageinfoitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageinfoitems
      */
     GetPackageInfoItems() {
-        result := ComCall(4, this, "ptr*", &packageInfoItems := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &packageInfoItems := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleManifestPackageInfoEnumerator(packageInfoItems)
     }
 
     /**
      * Gets the raw XML document without any preprocessing.
+     * @remarks
+     * The raw XML stream is the entire source stream and might contain elements and attributes in other namespaces that are ignored by the manifest reader.  For example, the XML stream might have elements in other namespaces that were marked in the <b>IgnorableNamespaces</b> attribute in the <b>Package</b> element, which were not validated. So, we recommend not to trust or parse this XML without security testing.
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * The read-only stream that represents the XML content of the manifest.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getstream
      */
     GetStream() {
-        result := ComCall(5, this, "ptr*", &manifestStream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &manifestStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(manifestStream)
     }
 }

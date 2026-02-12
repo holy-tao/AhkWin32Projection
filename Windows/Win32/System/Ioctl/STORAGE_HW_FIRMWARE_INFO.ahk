@@ -4,7 +4,7 @@
 
 /**
  * STORAGE_HW_FIRMWARE_INFO structure - This structure contains information about the device firmware.
- * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/FileIO/storage-hw-firmware-info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

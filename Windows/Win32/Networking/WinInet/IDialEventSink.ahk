@@ -35,7 +35,11 @@ class IDialEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     OnEvent(dwEvent, dwStatus) {
-        result := ComCall(3, this, "uint", dwEvent, "uint", dwStatus, "HRESULT")
+        result := ComCall(3, this, "uint", dwEvent, "uint", dwStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

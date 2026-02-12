@@ -65,7 +65,11 @@ class IHTMLOListElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_compact(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +78,11 @@ class IHTMLOListElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -84,7 +92,11 @@ class IHTMLOListElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_start(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +105,11 @@ class IHTMLOListElement extends IDispatch{
      * @returns {Integer} 
      */
     get_start() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -103,9 +119,16 @@ class IHTMLOListElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_type(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +138,11 @@ class IHTMLOListElement extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

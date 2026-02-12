@@ -1,0 +1,108 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Win32\System\WinRT\HSTRING.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.ApplicationModel.Email
+ * @version WindowsRuntime 1.4
+ */
+class IEmailMailboxAutoReply extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IEmailMailboxAutoReply
+     * @type {Guid}
+     */
+    static IID => Guid("{e223254c-8ab4-485b-b31f-04d15476bd59}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_IsEnabled", "put_IsEnabled", "get_Response", "put_Response"]
+
+    /**
+     * @type {Boolean} 
+     */
+    IsEnabled {
+        get => this.get_IsEnabled()
+        set => this.put_IsEnabled(value)
+    }
+
+    /**
+     * @type {HSTRING} 
+     */
+    Response {
+        get => this.get_Response()
+        set => this.put_Response(value)
+    }
+
+    /**
+     * 
+     * @returns {Boolean} 
+     */
+    get_IsEnabled() {
+        result := ComCall(6, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @param {Boolean} value 
+     * @returns {HRESULT} 
+     */
+    put_IsEnabled(value) {
+        result := ComCall(7, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HSTRING} 
+     */
+    get_Response() {
+        value := HSTRING()
+        result := ComCall(8, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @param {HSTRING} value 
+     * @returns {HRESULT} 
+     */
+    put_Response(value) {
+        if(value is String) {
+            pin := HSTRING.Create(value)
+            value := pin.Value
+        }
+        value := value is Win32Handle ? NumGet(value, "ptr") : value
+
+        result := ComCall(9, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

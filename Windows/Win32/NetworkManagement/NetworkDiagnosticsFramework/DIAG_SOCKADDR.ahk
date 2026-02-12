@@ -6,7 +6,7 @@
  * @remarks
  * This data structure is designed to be used as a 
  *     <b>SOCKADDR</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-diag_sockaddr
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndattrib/ns-ndattrib-diag_sockaddr
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

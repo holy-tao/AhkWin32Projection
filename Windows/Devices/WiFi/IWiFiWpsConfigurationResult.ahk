@@ -1,0 +1,72 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Foundation\Collections\IVectorView.ahk
+#Include ..\..\Foundation\IPropertyValue.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Devices.WiFi
+ * @version WindowsRuntime 1.4
+ */
+class IWiFiWpsConfigurationResult extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IWiFiWpsConfigurationResult
+     * @type {Guid}
+     */
+    static IID => Guid("{67b49871-17ee-42d1-b14f-5a11f1226fb5}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_Status", "get_SupportedWpsKinds"]
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {IVectorView<Integer>} 
+     */
+    SupportedWpsKinds {
+        get => this.get_SupportedWpsKinds()
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    get_Status() {
+        result := ComCall(6, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @returns {IVectorView<Integer>} 
+     */
+    get_SupportedWpsKinds() {
+        result := ComCall(7, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IVectorView((ptr) => IPropertyValue(ptr).GetInt32(), value)
+    }
+}

@@ -6,7 +6,7 @@
 
 /**
  * Used to notify the Remote Desktop Connection (RDC) client plug-in about incoming requests on a particular listener.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtslistenercallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nn-tsvirtualchannels-iwtslistenercallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -42,15 +42,22 @@ class IWTSListenerCallback extends IUnknown{
      * @param {Pointer<IWTSVirtualChannelCallback>} ppCallback Receives an 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback">IWTSVirtualChannelCallback</a> object that 
      *       receives notifications for the connection. This object is created by the plug-in.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtslistenercallback-onnewchannelconnection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nf-tsvirtualchannels-iwtslistenercallback-onnewchannelconnection
      */
     OnNewChannelConnection(pChannel, data, pbAccept, ppCallback) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
         pbAcceptMarshal := pbAccept is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pChannel, "ptr", data, pbAcceptMarshal, pbAccept, "ptr*", ppCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", pChannel, "ptr", data, pbAcceptMarshal, pbAccept, "ptr*", ppCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

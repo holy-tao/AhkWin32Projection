@@ -9,11 +9,8 @@
 /**
  * Extension for the IMFMediaEngineClassFactory interface.
  * @remarks
- * 
  * This class is implemented by the Media Engine (CLSID_MFMediaEngineClassFactory).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactoryex
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactoryex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -54,27 +51,43 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
      * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mse-activelist-callback">MF_MSE_ACTIVELIST_CALLBACK</a>
      * </li>
      * </ul>
-     * @returns {IMFMediaSourceExtension} The <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension">IMFMediaSourceExtension</a> which was created.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediasourceextension
+     * @returns {Pointer<IMFMediaSourceExtension>} The <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediasourceextension">IMFMediaSourceExtension</a> which was created.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediasourceextension
      */
     CreateMediaSourceExtension(dwFlags, pAttr) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppMSE := 0, "HRESULT")
-        return IMFMediaSourceExtension(ppMSE)
+        result := ComCall(6, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppMSE := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppMSE
     }
 
     /**
-     * Creates a media keys object based on the specified key system.
+     * Creates a media keys object based on the specified key system. (IMFMediaEngineClassFactoryEx.CreateMediaKeys)
+     * @remarks
+     * Checks if <i>keySystem</i> is a supported key system and creates the related Content Decryption Module (CDM).
      * @param {BSTR} keySystem The media keys system.
      * @param {BSTR} cdmStorePath Points to a location to store Content Decryption Module (CDM) data which might be locked by multiple process and so might be incompatible with store app suspension.
-     * @returns {IMFMediaKeys} The media keys.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediakeys
+     * @returns {Pointer<IMFMediaKeys>} The media keys.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediakeys
      */
     CreateMediaKeys(keySystem, cdmStorePath) {
-        keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
-        cdmStorePath := cdmStorePath is String ? BSTR.Alloc(cdmStorePath).Value : cdmStorePath
+        if(keySystem is String) {
+            pin := BSTR.Alloc(keySystem)
+            keySystem := pin.Value
+        }
+        if(cdmStorePath is String) {
+            pin := BSTR.Alloc(cdmStorePath)
+            cdmStorePath := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", keySystem, "ptr", cdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
-        return IMFMediaKeys(ppKeys)
+        result := ComCall(7, this, "ptr", keySystem, "ptr", cdmStorePath, "ptr*", &ppKeys := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppKeys
     }
 
     /**
@@ -82,13 +95,23 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
      * @param {BSTR} type The MIME type to check support for.
      * @param {BSTR} keySystem The key system to check support for.
      * @returns {BOOL} <b>true</b> if type is supported by <i>keySystem</i>; otherwise, <b>false.</b>
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-istypesupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-istypesupported
      */
     IsTypeSupported(type, keySystem) {
-        type := type is String ? BSTR.Alloc(type).Value : type
-        keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
+        if(type is String) {
+            pin := BSTR.Alloc(type)
+            type := pin.Value
+        }
+        if(keySystem is String) {
+            pin := BSTR.Alloc(keySystem)
+            keySystem := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", type, "ptr", keySystem, "int*", &isSupported := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", type, "ptr", keySystem, "int*", &isSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isSupported
     }
 }

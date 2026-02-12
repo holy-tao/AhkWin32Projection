@@ -6,7 +6,7 @@
 
 /**
  * Represents a collection of sensors, such as all the sensors connected to a computer.
- * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-isensorcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nn-sensorsapi-isensorcollection
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
@@ -41,20 +41,28 @@ class ISensorCollection extends IUnknown{
      * Retrieves the sensor at the specified index in the collection.
      * @param {Integer} ulIndex <b>ULONG</b> containing the index of the sensor to retrieve.
      * @returns {ISensor} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> pointer that receives the pointer to the specified sensor.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-getat
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nf-sensorsapi-isensorcollection-getat
      */
     GetAt(ulIndex) {
-        result := ComCall(3, this, "uint", ulIndex, "ptr*", &ppSensor := 0, "HRESULT")
+        result := ComCall(3, this, "uint", ulIndex, "ptr*", &ppSensor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISensor(ppSensor)
     }
 
     /**
      * Retrieves the count of sensors in the collection.
      * @returns {Integer} Address of a <b>ULONG</b> that receives the count.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nf-sensorsapi-isensorcollection-getcount
      */
     GetCount() {
-        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -92,10 +100,14 @@ class ISensorCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nf-sensorsapi-isensorcollection-add
      */
     Add(pSensor) {
-        result := ComCall(5, this, "ptr", pSensor, "HRESULT")
+        result := ComCall(5, this, "ptr", pSensor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,10 +144,14 @@ class ISensorCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nf-sensorsapi-isensorcollection-remove
      */
     Remove(pSensor) {
-        result := ComCall(6, this, "ptr", pSensor, "HRESULT")
+        result := ComCall(6, this, "ptr", pSensor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,15 +188,21 @@ class ISensorCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-removebyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nf-sensorsapi-isensorcollection-removebyid
      */
     RemoveByID(sensorID) {
-        result := ComCall(7, this, "ptr", sensorID, "HRESULT")
+        result := ComCall(7, this, "ptr", sensorID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Empties the sensor collection.
+     * @remarks
+     * This method calls <b>Release</b> on all sensor interface pointers in the collection and frees any memory used by the collection.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -200,10 +222,14 @@ class ISensorCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorcollection-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensorsapi/nf-sensorsapi-isensorcollection-clear
      */
     Clear() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

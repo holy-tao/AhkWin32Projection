@@ -9,7 +9,7 @@
  * OCSP responder applications encode this structure and store it in an <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_basic_signed_response_info">OCSP_BASIC_SIGNED_RESPONSE_INFO</a> <b>ToBeSigned</b> member. Conversely, OCSP client applications decode the <b>OCSP_BASIC_SIGNED_RESPONSE_INFO</b> structure to obtain this structure.
  * 
  * OCSP applications can encode or decode this structure by using <b>X509_ASN_ENCODING</b> or <b>PKCS_7_ASN_ENCODING</b>.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_basic_response_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-ocsp_basic_response_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

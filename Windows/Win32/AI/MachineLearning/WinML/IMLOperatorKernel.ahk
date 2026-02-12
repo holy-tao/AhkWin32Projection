@@ -29,12 +29,17 @@ class IMLOperatorKernel extends IUnknown{
     static VTableNames => ["Compute"]
 
     /**
-     * 
-     * @param {IMLOperatorKernelContext} context 
+     * Compute System Samples
+     * @param {IMLOperatorKernelContext} context_ 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/ComputeSystemSample
      */
-    Compute(context) {
-        result := ComCall(3, this, "ptr", context, "HRESULT")
+    Compute(context_) {
+        result := ComCall(3, this, "ptr", context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -65,7 +65,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_send_buff_rod_v0
+ * @see https://learn.microsoft.com/windows/win32/api//content/tcpestats/ns-tcpestats-tcp_estats_send_buff_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

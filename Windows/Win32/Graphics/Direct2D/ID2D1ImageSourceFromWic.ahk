@@ -6,11 +6,9 @@
 /**
  * Produces 2D pixel data that has been sourced from WIC.
  * @remarks
- * 
  * Create an an instance of ID2D1ImageSourceFromWic 
  *           using [ID2D1DeviceContext2::CreateImageSourceFromWic](./nf-d2d1_3-id2d1devicecontext2-createimagesourcefromwic(iwicbitmapsource_d2d1_image_source_loading_options_d2d1_alpha_mode_id2d1imagesourcefromwic).md).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1imagesourcefromwic
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1imagesourcefromwic
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,24 +34,32 @@ class ID2D1ImageSourceFromWic extends ID2D1ImageSource{
     static VTableNames => ["EnsureCached", "TrimCache", "GetSource"]
 
     /**
-     * 
+     * Loads image data into caches of image sources if that data is not already cached.
      * @param {Pointer<D2D_RECT_U>} rectangleToFill 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-ensurecached(constd2d1_rect_u_)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1imagesourcefromwic-ensurecached-overload
      */
     EnsureCached(rectangleToFill) {
-        result := ComCall(6, this, "ptr", rectangleToFill, "HRESULT")
+        result := ComCall(6, this, "ptr", rectangleToFill, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Trims the populated regions of the image source cache to just the specified rectangle.
      * @param {Pointer<D2D_RECT_U>} rectangleToPreserve 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-trimcache(constd2d1_rect_u)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1imagesourcefromwic-trimcache-overload
      */
     TrimCache(rectangleToPreserve) {
-        result := ComCall(7, this, "ptr", rectangleToPreserve, "HRESULT")
+        result := ComCall(7, this, "ptr", rectangleToPreserve, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +69,7 @@ class ID2D1ImageSourceFromWic extends ID2D1ImageSource{
      * 
      * On return contains the bitmap image source.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-getsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1imagesourcefromwic-getsource
      */
     GetSource(wicBitmapSource) {
         ComCall(8, this, "ptr*", wicBitmapSource)

@@ -5,7 +5,7 @@
 
 /**
  * Controls the object construction process by passing in parameters from other methods or objects.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectconstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iobjectconstruct
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IObjectConstruct extends IUnknown{
      * Constructs an object using the specified parameters.
      * @param {IDispatch} pCtorObj A reference to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iobjectconstructstring">IObjectConstructString</a> interface.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectconstruct-construct
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iobjectconstruct-construct
      */
     Construct(pCtorObj) {
-        result := ComCall(3, this, "ptr", pCtorObj, "HRESULT")
+        result := ComCall(3, this, "ptr", pCtorObj, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

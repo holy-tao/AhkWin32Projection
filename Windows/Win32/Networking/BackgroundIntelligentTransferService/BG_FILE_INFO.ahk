@@ -26,7 +26,7 @@
  * <b>IIS 5.0:  </b>Downloads are limited to 4 GB.
  * 
  * <b>BITS 1.2 and earlier:  </b>For HTTP downloads, the maximum file size you can transfer is 4 GB; BITS cannot guarantee the successful transfer of files over 4 GB. If the  URL contains Unicode characters that are not in the US-ASCII character set, encode the Unicode string in UTF-8 before passing it as the remote file name to BITS. If you do not encode the string, the HTTP server may receive an incorrect URL and the job may enter the error state.
- * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_file_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits/ns-bits-bg_file_info
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

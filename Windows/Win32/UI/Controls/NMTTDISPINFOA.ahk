@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used in handling the TTN_GETDISPINFO notification code. This structure supersedes the TOOLTIPTEXT structure. (ANSI)
@@ -14,7 +15,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines NMTTDISPINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmttdispinfoa
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmttdispinfoa
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI
@@ -134,8 +135,11 @@ class NMTTDISPINFOA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 4.70</a>. Application-defined data associated with the tool.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(128, this)
+            return this.__lParam
+        }
     }
 }

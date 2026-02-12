@@ -4,12 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Exposes a method that represents a modal window. This interface is used in the Windows XP Passport Wizard.
+ * Exposes a method that represents a modal window.
  * @remarks
- * 
  * <b>IModalWindow</b>'s IID is IID_IModalWindow.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-imodalwindow
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-imodalwindow
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -51,7 +49,7 @@ class IModalWindow extends IUnknown{
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b><a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a>(ERROR_CANCELLED)</b></dt>
+     * <dt><b><a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a>(ERROR_CANCELLED)</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -60,12 +58,16 @@ class IModalWindow extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-imodalwindow-show
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-imodalwindow-show
      */
     Show(hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(3, this, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(3, this, "ptr", hwndOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

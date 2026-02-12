@@ -11,7 +11,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-object-types-in-multi-select">CCF_OBJECT_TYPES_IN_MULTI_SELECT</a> clipboard format.
  * 
  * Each multiselection data object also holds a list that contains the selected items owned by a particular snap-in. Each snap-in is responsible for defining the format and method of retrieval of the list of its selected items.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-smmcdataobjects
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-smmcdataobjects
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

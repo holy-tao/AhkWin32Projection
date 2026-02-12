@@ -78,7 +78,11 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {VARIANT_BOOL} 
      */
     get_isAbstract() {
-        result := ComCall(31, this, "short*", &abstract := 0, "HRESULT")
+        result := ComCall(31, this, "short*", &abstract := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return abstract
     }
 
@@ -87,7 +91,11 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {ISchemaAny} 
      */
     get_anyAttribute() {
-        result := ComCall(32, this, "ptr*", &anyAttribute := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &anyAttribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaAny(anyAttribute)
     }
 
@@ -96,7 +104,11 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
-        result := ComCall(33, this, "ptr*", &attributes := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &attributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(attributes)
     }
 
@@ -105,7 +117,11 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {Integer} 
      */
     get_contentType() {
-        result := ComCall(34, this, "int*", &contentType := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &contentType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return contentType
     }
 
@@ -114,7 +130,11 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {ISchemaModelGroup} 
      */
     get_contentModel() {
-        result := ComCall(35, this, "ptr*", &contentModel := 0, "HRESULT")
+        result := ComCall(35, this, "ptr*", &contentModel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaModelGroup(contentModel)
     }
 
@@ -123,7 +143,11 @@ class ISchemaComplexType extends ISchemaType{
      * @returns {Integer} 
      */
     get_prohibitedSubstitutions() {
-        result := ComCall(36, this, "int*", &prohibited := 0, "HRESULT")
+        result := ComCall(36, this, "int*", &prohibited := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prohibited
     }
 }

@@ -7,7 +7,7 @@
  * The <b>NET_ADDRESS_FORMAT</b> enumeration is defined on Windows Vista and later. 
  * 
  * The [NET_ADDRESS_INFO](/windows/desktop/api/iphlpapi/ns-iphlpapi-net_address_info) structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-parsenetworkstring">ParseNetworkString</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ne-iphlpapi-net_address_format
+ * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/ne-iphlpapi-net_address_format
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

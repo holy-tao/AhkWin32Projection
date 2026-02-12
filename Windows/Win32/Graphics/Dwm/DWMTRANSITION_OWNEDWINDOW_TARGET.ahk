@@ -3,7 +3,7 @@
 
 /**
  * Identifies the target.
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwmtransition_ownedwindow_target
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwmapi/ne-dwmapi-dwmtransition_ownedwindow_target
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Represents a file name.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-find_by_sid_output
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-find_by_sid_output
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

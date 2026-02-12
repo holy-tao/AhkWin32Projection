@@ -91,7 +91,11 @@ class IPinInfo extends IDispatch{
      * @returns {IUnknown} 
      */
     get_Pin() {
-        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
@@ -100,7 +104,11 @@ class IPinInfo extends IDispatch{
      * @returns {IDispatch} 
      */
     get_ConnectedTo() {
-        result := ComCall(8, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 
@@ -109,7 +117,11 @@ class IPinInfo extends IDispatch{
      * @returns {IDispatch} 
      */
     get_ConnectionMediaType() {
-        result := ComCall(9, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 
@@ -118,7 +130,11 @@ class IPinInfo extends IDispatch{
      * @returns {IDispatch} 
      */
     get_FilterInfo() {
-        result := ComCall(10, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 
@@ -128,7 +144,11 @@ class IPinInfo extends IDispatch{
      */
     get_Name() {
         ppUnk := BSTR()
-        result := ComCall(11, this, "ptr", ppUnk, "HRESULT")
+        result := ComCall(11, this, "ptr", ppUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppUnk
     }
 
@@ -137,7 +157,11 @@ class IPinInfo extends IDispatch{
      * @returns {Integer} 
      */
     get_Direction() {
-        result := ComCall(12, this, "int*", &ppDirection := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &ppDirection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppDirection
     }
 
@@ -147,7 +171,11 @@ class IPinInfo extends IDispatch{
      */
     get_PinID() {
         strPinID := BSTR()
-        result := ComCall(13, this, "ptr", strPinID, "HRESULT")
+        result := ComCall(13, this, "ptr", strPinID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strPinID
     }
 
@@ -156,17 +184,26 @@ class IPinInfo extends IDispatch{
      * @returns {IDispatch} 
      */
     get_MediaTypes() {
-        result := ComCall(14, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 
     /**
-     * 
+     * Represents a connection between two shapes in a drawing, such as a line and a box in an organization chart.
      * @param {IUnknown} pPin 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/connect-element-connects_type-complextypevisio-xml
      */
     Connect(pPin) {
-        result := ComCall(15, this, "ptr", pPin, "HRESULT")
+        result := ComCall(15, this, "ptr", pPin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -176,7 +213,11 @@ class IPinInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     ConnectDirect(pPin) {
-        result := ComCall(16, this, "ptr", pPin, "HRESULT")
+        result := ComCall(16, this, "ptr", pPin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -187,25 +228,60 @@ class IPinInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     ConnectWithType(pPin, pMediaType) {
-        result := ComCall(17, this, "ptr", pPin, "ptr", pMediaType, "HRESULT")
+        result := ComCall(17, this, "ptr", pPin, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The Render method initializes the DVD filter graph.
+     * @remarks
+     * The `Render` method enables the **MSWebDVD** object to fully initialize the underlying DirectShow filter graph on startup. This eliminates the slight delay that otherwise occurs when the user issues the first command to play a disc or show a menu. There is no case in which `Render` needs to be called before calling any other method. For example, if the application calls [**PlayTitle**](playtitle-method.md) before the filter graph has been initialized, the **MSWebDVD** object calls `Render` automatically before attempting to play the disc.
+     * @returns {HRESULT} <span id="iRender"></span><span id="irender"></span><span id="IRENDER"></span>*iRender*
      * 
-     * @returns {HRESULT} 
+     * Specifies an integer value indicating whether the filter graph will be destroyed and rebuilt.
+     * 
+     * 
+     * 
+     * | Value | Description                                                                                         |
+     * |-------|-----------------------------------------------------------------------------------------------------|
+     * | 0     | The filter graph will not be destroyed and rebuilt if it already exists. This is the default value. |
+     * | 1     | The filter graph will be destroyed and rebuilt if it already exists.                                |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * 
+     * No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/render-method
      */
     Render() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

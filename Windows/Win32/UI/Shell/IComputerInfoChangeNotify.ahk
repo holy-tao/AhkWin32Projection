@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Not supported. This interface may be absent in later versions of Windows.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-icomputerinfochangenotify
+ * Not supported. This interface may be absent in later versions of Windows. (IComputerInfoChangeNotify)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-icomputerinfochangenotify
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -31,14 +31,18 @@ class IComputerInfoChangeNotify extends IUnknown{
     static VTableNames => ["ComputerInfoChanged"]
 
     /**
-     * Not supported. This interface may be absent in later versions of Windows.
+     * Not supported. This interface may be absent in later versions of Windows. (IComputerInfoChangeNotify.ComputerInfoChanged)
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icomputerinfochangenotify-computerinfochanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-icomputerinfochangenotify-computerinfochanged
      */
     ComputerInfoChanged() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

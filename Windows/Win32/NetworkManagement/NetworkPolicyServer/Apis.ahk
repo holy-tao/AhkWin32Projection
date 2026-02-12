@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
@@ -10,47 +12,47 @@ class NetworkPolicyServer {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RADIUS_EXTENSION_INIT => "RadiusExtensionInit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RADIUS_EXTENSION_TERM => "RadiusExtensionTerm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RADIUS_EXTENSION_PROCESS => "RadiusExtensionProcess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RADIUS_EXTENSION_PROCESS_EX => "RadiusExtensionProcessEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RADIUS_EXTENSION_FREE_ATTRIBUTES => "RadiusExtensionFreeAttributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static AUTHSRV_PARAMETERS_KEY_W => "System\CurrentControlSet\Services\AuthSrv\Parameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static AUTHSRV_EXTENSIONS_VALUE_W => "ExtensionDLLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static AUTHSRV_AUTHORIZATION_VALUE_W => "AuthorizationDLLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static AUTHSRV_ENFORCE_NP_FOR_PAP_CHALLENGE_RESPONSE_VALUE_W => "EnforceNetworkPolicyForPAPBasedChallengeResponse"
 
@@ -60,7 +62,7 @@ class NetworkPolicyServer {
     static RADIUS_EXTENSION_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RADIUS_EXTENSION_PROCESS2 => "RadiusExtensionProcess2"
 ;@endregion Constants

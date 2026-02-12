@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>  An item that is excluded by the filter in one replica, but is still tracked in the other replica is known as a "ghost".</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-filtering_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/ne-winsync-filtering_type
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

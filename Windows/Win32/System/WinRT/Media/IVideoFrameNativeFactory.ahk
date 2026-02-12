@@ -4,8 +4,8 @@
 #Include ..\IInspectable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.media.core.interop/nn-windows-media-core-interop-ivideoframenativefactory
+ * Creates instances of IVideoFrameNative.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.media.core.interop/nn-windows-media-core-interop-ivideoframenativefactory
  * @namespace Windows.Win32.System.WinRT.Media
  * @version v4.0.30319
  */
@@ -40,10 +40,14 @@ class IVideoFrameNativeFactory extends IInspectable{
      * @param {Pointer<MFVideoArea>} minDisplayAperture 
      * @param {IMFDXGIDeviceManager} device 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateFromMFSample(data, subtype, width, height, forceReadOnly, minDisplayAperture, device, riid) {
-        result := ComCall(6, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", device, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", device, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

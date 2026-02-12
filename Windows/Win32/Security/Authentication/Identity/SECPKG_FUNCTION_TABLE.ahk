@@ -3,7 +3,7 @@
 
 /**
  * The SECPKG_FUNCTION_TABLE structure contains pointers to the LSA functions that a security package must implement. The Local Security Authority (LSA) obtains this structure from an SSP/AP DLL when it calls the SpLsaModeInitialize function.
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_function_table
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntsecpkg/ns-ntsecpkg-secpkg_function_table
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

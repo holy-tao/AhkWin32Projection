@@ -6,7 +6,7 @@
 
 /**
  * Provides methods for getting product information for an individual provider to interact with Windows Security Center.
- * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nn-iwscapi-iwscproduct
+ * @see https://learn.microsoft.com/windows/win32/api//content/iwscapi/nn-iwscapi-iwscproduct
  * @namespace Windows.Win32.System.SecurityCenter
  * @version v4.0.30319
  */
@@ -83,53 +83,73 @@ class IWscProduct extends IDispatch{
     /**
      * Returns the current product information for the security product.
      * @returns {BSTR} A pointer to the name of the security product. This is displayed in the Windows Security Center user interface.
-     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_productname
+     * @see https://learn.microsoft.com/windows/win32/api//content/iwscapi/nf-iwscapi-iwscproduct-get_productname
      */
     get_ProductName() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Returns the current state of the signature data for the security product.
      * @returns {Integer} A pointer to the state value of the signature of the security product.
-     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_productstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/iwscapi/nf-iwscapi-iwscproduct-get_productstate
      */
     get_ProductState() {
-        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Returns the current status of the signature data for the security product.
      * @returns {Integer} A pointer to the status value of the signature of the security product. If the security product is a Firewall product, the return value is always <b>WSC_SECURITY_PRODUCT_UP_TO_DATE</b> because firewalls do not contain signature data.
-     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_signaturestatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/iwscapi/nf-iwscapi-iwscproduct-get_signaturestatus
      */
     get_SignatureStatus() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Returns the current remediation path for the security product.
      * @returns {BSTR} A pointer to the remediation path for the security product. This is displayed in the Windows Security Center user interface.
-     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproduct-get_remediationpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/iwscapi/nf-iwscapi-iwscproduct-get_remediationpath
      */
     get_RemediationPath() {
         pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproduct-get_productstatetimestamp
+     * Returns the current time stamp for the security product.
+     * @returns {BSTR} A pointer to the time stamp of the security product. This is displayed in the Windows Security Center user interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iwscapi/nf-iwscapi-iwscproduct-get_productstatetimestamp
      */
     get_ProductStateTimestamp() {
         pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        result := ComCall(11, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -139,7 +159,11 @@ class IWscProduct extends IDispatch{
      */
     get_ProductGuid() {
         pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        result := ComCall(12, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -148,7 +172,11 @@ class IWscProduct extends IDispatch{
      * @returns {BOOL} 
      */
     get_ProductIsDefault() {
-        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

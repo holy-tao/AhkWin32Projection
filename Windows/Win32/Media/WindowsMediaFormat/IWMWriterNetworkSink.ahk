@@ -5,7 +5,7 @@
 
 /**
  * The IWMWriterNetworkSink interface is used to deliver streams to the network.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmwriternetworksink
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmwriternetworksink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -63,26 +63,34 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-setmaximumclients
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-setmaximumclients
      */
     SetMaximumClients(dwMaxClients) {
-        result := ComCall(8, this, "uint", dwMaxClients, "HRESULT")
+        result := ComCall(8, this, "uint", dwMaxClients, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetMaximumClients method retrieves the maximum number of clients that can connect to this sink.
      * @returns {Integer} Pointer to a variable that receives the maximum number of clients. The default value is 5.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getmaximumclients
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getmaximumclients
      */
     GetMaximumClients() {
-        result := ComCall(9, this, "uint*", &pdwMaxClients := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pdwMaxClients := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMaxClients
     }
 
     /**
      * The SetNetworkProtocol method sets the network protocol that the network sink uses. Currently, HTTP is the only protocol supported by the network sink.
-     * @param {Integer} protocol Specifies the procotcol, as a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
+     * @param {Integer} protocol Specifies the protocol, as a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -113,25 +121,35 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-setnetworkprotocol
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-setnetworkprotocol
      */
     SetNetworkProtocol(protocol) {
-        result := ComCall(10, this, "int", protocol, "HRESULT")
+        result := ComCall(10, this, "int", protocol, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNetworkProtocol method retrieves the network protocol that the network sink uses. Currently, HTTP is the only protocol the network sink supports.
      * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getnetworkprotocol
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getnetworkprotocol
      */
     GetNetworkProtocol() {
-        result := ComCall(11, this, "int*", &pProtocol := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pProtocol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProtocol
     }
 
     /**
      * The GetHostURL method retrieves the URL from which the stream is broadcast. Clients will access the stream from this URL.
+     * @remarks
+     * You should make two calls to <b>GetHostURL</b>. On the first call, pass <b>NULL</b> as <i>pwszURL</i>. On return, the value pointed to by <i>pcchURL</i> is set to the number of characters, including the terminating <b>null</b> character, required to hold the URL. Then you can allocate the required amount of memory for the string and pass a pointer to it as <i>pwszURL</i> on the second call.
      * @param {PWSTR} pwszURL Pointer to buffer that receives a string containing the URL. To retrieve the length of the string, set this parameter to <b>NULL</b>.
      * @param {Pointer<Integer>} pcchURL On input, pointer to the size of <i>pwszURL</i>, in characters. On output, this parameter receives the length of the URL in characters, including the terminating <b>null</b> character.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, the values shown in the following table.
@@ -186,19 +204,27 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-gethosturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-gethosturl
      */
     GetHostURL(pwszURL, pcchURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "HRESULT")
+        result := ComCall(12, this, "ptr", pwszURL, pcchURLMarshal, pcchURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Open method opens a network port, and starts listening for network connections.
+     * @remarks
+     * This method binds the port. To release the port, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-close">IWMWriterNetworkSink::Close</a>.
+     * 
+     * See the Remarks and Example Code sections for <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a>.
      * @param {Pointer<Integer>} pdwPortNum On input, pointer to a variable that specifies the port number. Set this value to zero if you want the network sink to select a suitable port. On output, the variable receives the port number that was used.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, the values shown in the following table.
      * 
@@ -252,17 +278,23 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-open
      */
     Open(pdwPortNum) {
         pdwPortNumMarshal := pdwPortNum is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, pdwPortNumMarshal, pdwPortNum, "HRESULT")
+        result := ComCall(13, this, pdwPortNumMarshal, pdwPortNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Disconnect method disconnects all clients from the network sink.
+     * @remarks
+     * This method is equivalent to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-close">IWMWriterNetworkSink::Close</a> method, except that it does not release the port.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -282,15 +314,21 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-disconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-disconnect
      */
     Disconnect() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Close method disconnects all clients from the network sink, and releases the port.
+     * @remarks
+     * See the Remarks and Example Code sections for <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -321,10 +359,14 @@ class IWMWriterNetworkSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-close
      */
     Close() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -33,7 +33,7 @@
  * <c>psh.dwSize = PROPSHEETHEADER_V1_SIZE;</c>
  * 
  * The PSH_WIZARD, PSH_WIZARD97, and PSH_WIZARD_LITE styles are mutually incompatible. Only one of these style flags should be set. PSH_AEROWIZARD should be combined with PSH_WIZARD.
- * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetheadera_v2
+ * @see https://learn.microsoft.com/windows/win32/api//content/prsht/ns-prsht-propsheetheadera_v2
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

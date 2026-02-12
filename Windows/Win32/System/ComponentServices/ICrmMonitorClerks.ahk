@@ -7,7 +7,7 @@
 
 /**
  * Retrieves information about the state of clerks.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icrmmonitorclerks
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icrmmonitorclerks
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -50,31 +50,43 @@ class ICrmMonitorClerks extends IDispatch{
      * Retrieves the instance CLSID of the CRM clerk for the specified index.
      * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>.
      * @returns {VARIANT} A pointer to <b>Variant</b> string returning the instance CLSID corresponding to this numeric index.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-item
      */
     Item(Index) {
         pItem := VARIANT()
-        result := ComCall(7, this, "ptr", Index, "ptr", pItem, "HRESULT")
+        result := ComCall(7, this, "ptr", Index, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItem
     }
 
     /**
      * Retrieves an enumerator for the instance CLSIDs of the CRM clerks.
      * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pVal)
     }
 
     /**
      * Retrieves the count of CRM clerks in the collection.
      * @returns {Integer} The number of CRM clerks.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -82,11 +94,15 @@ class ICrmMonitorClerks extends IDispatch{
      * Retrieves the ProgId of the CRM Compensator for the specified index.
      * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
      * @returns {VARIANT} The ProgId of the CRM Compensator.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-progidcompensator
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-progidcompensator
      */
     ProgIdCompensator(Index) {
         pItem := VARIANT()
-        result := ComCall(10, this, "ptr", Index, "ptr", pItem, "HRESULT")
+        result := ComCall(10, this, "ptr", Index, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItem
     }
 
@@ -94,11 +110,15 @@ class ICrmMonitorClerks extends IDispatch{
      * Retrieves the description of the CRM Compensator for the specified index.
      * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
      * @returns {VARIANT} The description string originally provided by <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icrmlogcontrol-registercompensator">ICrmLogControl::RegisterCompensator</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-description
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-description
      */
     Description(Index) {
         pItem := VARIANT()
-        result := ComCall(11, this, "ptr", Index, "ptr", pItem, "HRESULT")
+        result := ComCall(11, this, "ptr", Index, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItem
     }
 
@@ -106,11 +126,15 @@ class ICrmMonitorClerks extends IDispatch{
      * Retrieves the unit of work (UOW) of the transaction for the specified index.
      * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
      * @returns {VARIANT} The transaction UOW.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-transactionuow
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-transactionuow
      */
     TransactionUOW(Index) {
         pItem := VARIANT()
-        result := ComCall(12, this, "ptr", Index, "ptr", pItem, "HRESULT")
+        result := ComCall(12, this, "ptr", Index, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItem
     }
 
@@ -118,11 +142,15 @@ class ICrmMonitorClerks extends IDispatch{
      * Retrieves the activity ID of the CRM Worker for the specified index.
      * @param {VARIANT} Index The index of the required CRM clerk as a numeric <b>Variant</b>, or the instance CLSID as a <b>Variant</b> string.
      * @returns {VARIANT} The activity ID of the CRM Worker.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmmonitorclerks-activityid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icrmmonitorclerks-activityid
      */
     ActivityId(Index) {
         pItem := VARIANT()
-        result := ComCall(13, this, "ptr", Index, "ptr", pItem, "HRESULT")
+        result := ComCall(13, this, "ptr", Index, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItem
     }
 }

@@ -7,10 +7,8 @@
 /**
  * Enumerates the items of a collection of settings and attributes.
  * @remarks
- * 
  * SMI and SMI collections are not thread-safe. Modifying a collection will not invalidate an enumerator. Further operations on the enumerator do not result in exceptions, and could encounter an enumerator in an inconsistent state.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-iitemenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nn-wcmconfig-iitemenumerator
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
@@ -37,32 +35,50 @@ class IItemEnumerator extends IUnknown{
 
     /**
      * Retrieves an item from the current position of the enumerator.
+     * @remarks
+     * <div class="alert"><b>Note</b>  When the item is no longer required, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> to free the resources associated with the item.</div>
+     * <div> </div>
      * @returns {VARIANT} A variant that contains the key value for the collection. For most collections, the key is the name of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-iitemenumerator-current
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-iitemenumerator-current
      */
     Current() {
         Item := VARIANT()
-        result := ComCall(3, this, "ptr", Item, "HRESULT")
+        result := ComCall(3, this, "ptr", Item, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Item
     }
 
     /**
      * Moves the current position to the next item in the enumerator if available.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method always returns <b>S_OK</b> on success, regardless of the state of the enumeration. If there are no more items, <i>ItemValid</i> is set to <b>False</b>, and this is how to determine if the end of the enumeration has been reached.</div>
+     * <div> </div>
      * @returns {BOOL} Returns <b>True</b> if a valid item is found in the position after the move.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-iitemenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-iitemenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(4, this, "int*", &ItemValid := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &ItemValid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ItemValid
     }
 
     /**
      * Resets the state of the enumerator to its initialized state. You must immediately follow IItemEnumerator::Reset with a call to IItemEnumerator::MoveNext on the enumerator in order to set the current pointer at the first position in the enumeration.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-iitemenumerator-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-iitemenumerator-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

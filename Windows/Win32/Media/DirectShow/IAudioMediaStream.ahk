@@ -7,7 +7,7 @@
 
 /**
  * Note  This interface is deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//austream/nn-austream-iaudiomediastream
+ * @see https://learn.microsoft.com/windows/win32/api//content/austream/nn-austream-iaudiomediastream
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,12 +34,18 @@ class IAudioMediaStream extends IMediaStream{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the stream data's current format.
+     * @remarks
+     * Currently, Microsoft DirectShow supports only PCM wave data.
      * @returns {WAVEFORMATEX} Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that contains the stream data's current format.
-     * @see https://docs.microsoft.com/windows/win32/api//austream/nf-austream-iaudiomediastream-getformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/austream/nf-austream-iaudiomediastream-getformat
      */
     GetFormat() {
         pWaveFormatCurrent := WAVEFORMATEX()
-        result := ComCall(9, this, "ptr", pWaveFormatCurrent, "HRESULT")
+        result := ComCall(9, this, "ptr", pWaveFormatCurrent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pWaveFormatCurrent
     }
 
@@ -60,7 +66,7 @@ class IAudioMediaStream extends IMediaStream{
      * </dl>
      * </td>
      * <td width="60%">
-     * Format of the <a href="/windows/desktop/api/austream/nn-austream-iaudiodata">IAudioData</a> object is not compatible with stream.
+     * Format of the <a href="https://docs.microsoft.com/windows/desktop/api/austream/nn-austream-iaudiodata">IAudioData</a> object is not compatible with stream.
      * 
      * </td>
      * </tr>
@@ -98,22 +104,32 @@ class IAudioMediaStream extends IMediaStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//austream/nf-austream-iaudiomediastream-setformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/austream/nf-austream-iaudiomediastream-setformat
      */
     SetFormat(lpWaveFormat) {
-        result := ComCall(10, this, "ptr", lpWaveFormat, "HRESULT")
+        result := ComCall(10, this, "ptr", lpWaveFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Creates an audio stream sample for use with the specified stream.
+     * @remarks
+     * The <i>pAudioData</i> object defines the data's format.
      * @param {IAudioData} pAudioData Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/austream/nn-austream-iaudiodata">IAudioData</a> container. <b>IAudioData</b> objects can be referenced by samples in more than one stream.
      * @param {Integer} dwFlags Reserved for flag data. Must be zero.
      * @returns {IAudioStreamSample} Address of a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/austream/nn-austream-iaudiostreamsample">IAudioStreamSample</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//austream/nf-austream-iaudiomediastream-createsample
+     * @see https://learn.microsoft.com/windows/win32/api//content/austream/nf-austream-iaudiomediastream-createsample
      */
     CreateSample(pAudioData, dwFlags) {
-        result := ComCall(11, this, "ptr", pAudioData, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pAudioData, "uint", dwFlags, "ptr*", &ppSample := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAudioStreamSample(ppSample)
     }
 }

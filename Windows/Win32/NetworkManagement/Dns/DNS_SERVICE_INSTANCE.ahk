@@ -12,7 +12,7 @@
  * 
  *  
  * `values`. A pointer to an array of string values that represent the corresponding property values.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_service_instance
+ * @see https://learn.microsoft.com/windows/win32/api//content/windns/ns-windns-dns_service_instance
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

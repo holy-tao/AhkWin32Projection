@@ -37,10 +37,20 @@ class IEventServerTrace extends IDispatch{
      * @returns {HRESULT} 
      */
     StartTraceGuid(bstrguidEvent, bstrguidFilter, lPidFilter) {
-        bstrguidEvent := bstrguidEvent is String ? BSTR.Alloc(bstrguidEvent).Value : bstrguidEvent
-        bstrguidFilter := bstrguidFilter is String ? BSTR.Alloc(bstrguidFilter).Value : bstrguidFilter
+        if(bstrguidEvent is String) {
+            pin := BSTR.Alloc(bstrguidEvent)
+            bstrguidEvent := pin.Value
+        }
+        if(bstrguidFilter is String) {
+            pin := BSTR.Alloc(bstrguidFilter)
+            bstrguidFilter := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrguidEvent, "ptr", bstrguidFilter, "int", lPidFilter, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrguidEvent, "ptr", bstrguidFilter, "int", lPidFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,10 +62,20 @@ class IEventServerTrace extends IDispatch{
      * @returns {HRESULT} 
      */
     StopTraceGuid(bstrguidEvent, bstrguidFilter, lPidFilter) {
-        bstrguidEvent := bstrguidEvent is String ? BSTR.Alloc(bstrguidEvent).Value : bstrguidEvent
-        bstrguidFilter := bstrguidFilter is String ? BSTR.Alloc(bstrguidFilter).Value : bstrguidFilter
+        if(bstrguidEvent is String) {
+            pin := BSTR.Alloc(bstrguidEvent)
+            bstrguidEvent := pin.Value
+        }
+        if(bstrguidFilter is String) {
+            pin := BSTR.Alloc(bstrguidFilter)
+            bstrguidFilter := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrguidEvent, "ptr", bstrguidFilter, "int", lPidFilter, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrguidEvent, "ptr", bstrguidFilter, "int", lPidFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +88,11 @@ class IEventServerTrace extends IDispatch{
     EnumTraceGuid(plCntGuids, pbstrGuidList) {
         plCntGuidsMarshal := plCntGuids is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, plCntGuidsMarshal, plCntGuids, "ptr", pbstrGuidList, "HRESULT")
+        result := ComCall(9, this, plCntGuidsMarshal, plCntGuids, "ptr", pbstrGuidList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -49,21 +49,36 @@ class IRTCReInviteEvent extends IDispatch{
      * @returns {IRTCSession2} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession2 := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession2 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession2(ppSession2)
     }
 
     /**
-     * 
+     * Creates a default instance of [AcceptedVoipPhoneCallOptions](./acceptedvoipphonecalloptions.md).
      * @param {BSTR} bstrContentType 
      * @param {BSTR} bstrSessionDescription 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.applicationmodel.calls.acceptedvoipphonecalloptions.#ctor
      */
     Accept(bstrContentType, bstrSessionDescription) {
-        bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
-        bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
+        if(bstrContentType is String) {
+            pin := BSTR.Alloc(bstrContentType)
+            bstrContentType := pin.Value
+        }
+        if(bstrSessionDescription is String) {
+            pin := BSTR.Alloc(bstrSessionDescription)
+            bstrSessionDescription := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +87,11 @@ class IRTCReInviteEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     Reject() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +100,11 @@ class IRTCReInviteEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 
@@ -92,7 +115,11 @@ class IRTCReInviteEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     GetRemoteSessionDescription(pbstrContentType, pbstrSessionDescription) {
-        result := ComCall(11, this, "ptr", pbstrContentType, "ptr", pbstrSessionDescription, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrContentType, "ptr", pbstrSessionDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

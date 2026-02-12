@@ -4,8 +4,8 @@
 #Include .\IDXGIFactory3.ahk
 
 /**
- * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nn-dxgi1_4-idxgifactory4
+ * Enables creating Microsoft DirectX Graphics Infrastructure (DXGI) objects. (IDXGIFactory4)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nn-dxgi1_4-idxgifactory4
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -32,6 +32,11 @@ class IDXGIFactory4 extends IDXGIFactory3{
 
     /**
      * Outputs the IDXGIAdapter for the specified LUID.
+     * @remarks
+     * For Direct3D 12, it's no longer possible to backtrack from a device to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> that was used to create it.
+     *           <b>IDXGIFactory4::EnumAdapterByLuid</b> enables an app to retrieve information about the adapter where a D3D12 device was created.
+     *           <b>IDXGIFactory4::EnumAdapterByLuid</b> is designed to be paired with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getadapterluid">ID3D12Device::GetAdapterLuid</a>.
+     *           For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-4-improvements">DXGI 1.4 Improvements</a>.
      * @param {LUID} AdapterLuid Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549708(v=vs.85)">LUID</a></b>
      * 
      * A unique value that identifies the adapter.
@@ -40,30 +45,40 @@ class IDXGIFactory4 extends IDXGIFactory3{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> object referenced by the <i>ppvAdapter</i> parameter.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> interface pointer to the adapter.
      *             This parameter must not be NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgifactory4-enumadapterbyluid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgifactory4-enumadapterbyluid
      */
     EnumAdapterByLuid(AdapterLuid, riid) {
-        result := ComCall(26, this, "ptr", AdapterLuid, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", AdapterLuid, "ptr", riid, "ptr*", &ppvAdapter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvAdapter
     }
 
     /**
      * Provides an adapter which can be provided to D3D12CreateDevice to use the WARP renderer.
+     * @remarks
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-4-improvements">DXGI 1.4 Improvements</a>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The globally unique identifier (GUID) of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> object referenced by the <i>ppvAdapter</i> parameter.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> interface pointer to the adapter.
      *             This parameter must not be NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgifactory4-enumwarpadapter
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_4/nf-dxgi1_4-idxgifactory4-enumwarpadapter
      */
     EnumWarpAdapter(riid) {
-        result := ComCall(27, this, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", riid, "ptr*", &ppvAdapter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvAdapter
     }
 }

@@ -49,7 +49,11 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
      * @returns {IHTMLStyleSheetRule} 
      */
     item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &ppHTMLStyleSheetRule := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &ppHTMLStyleSheetRule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRule(ppHTMLStyleSheetRule)
     }
 
@@ -58,7 +62,11 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -68,9 +76,16 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
      * @returns {IHTMLStyleSheetRule} 
      */
     propertyAppliedBy(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", name, "ptr*", &ppRule := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", name, "ptr*", &ppRule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRule(ppRule)
     }
 
@@ -81,9 +96,16 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
      * @returns {IHTMLStyleSheetRule} 
      */
     propertyAppliedTrace(name, index) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", name, "int", index, "ptr*", &ppRule := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "int", index, "ptr*", &ppRule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRule(ppRule)
     }
 
@@ -93,9 +115,16 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
      * @returns {Integer} 
      */
     propertyAppliedTraceLength(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", name, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", name, "int*", &pLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLength
     }
 }

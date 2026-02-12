@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The ITunerCap interface provides information about the capabilities of a BDA device filter that represents a TV tuner.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITunerCap)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-itunercap
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-itunercap
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -40,40 +37,55 @@ class ITunerCap extends IUnknown{
      * @param {Integer} ulcNetworkTypesMax The maximum number of network-type GUIDs that the <i>pguidNetworkTypes</i> buffer can hold.
      * @param {Pointer<Guid>} pguidNetworkTypes Receives an array of network-type GUIDs. For the list of valid network-type GUIDs, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/default-tuning-spaces">Default Tuning Spaces</a>.
      * @returns {Integer} Receives a count of the number of network-type GUIDs actually written to the <i>pguidNetworkTypes</i> buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunercap-get_supportednetworktypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-itunercap-get_supportednetworktypes
      */
     get_SupportedNetworkTypes(ulcNetworkTypesMax, pguidNetworkTypes) {
-        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, "ptr", pguidNetworkTypes, "HRESULT")
+        result := ComCall(3, this, "uint", ulcNetworkTypesMax, "uint*", &pulcNetworkTypes := 0, "ptr", pguidNetworkTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulcNetworkTypes
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
-     * @param {Pointer<Integer>} pulAMTunerModeType Receives a bitmask that indicates the frequency ranges that are supported by the BDA device filter. For a list of valid mask bits, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-amtunermodetype">AMTunerModeType Enumeration</a>.
-     * @param {Pointer<Integer>} pulAnalogVideoStandard Receives a bitmask that indicates the analog television signal formats that are supported by the BDA device filter. For a list of valid mask bits, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard Enumeration</a>.
+     * @param {Pointer<Integer>} pulAMTunerModeType Receives a bitmask that indicates the frequency ranges that are supported by the BDA device filter. For a list of valid mask bits, see <a href="https://docs.microsoft.com/previous-versions/ms778981(v=vs.85)">AMTunerModeType Enumeration</a>.
+     * @param {Pointer<Integer>} pulAnalogVideoStandard Receives a bitmask that indicates the analog television signal formats that are supported by the BDA device filter. For a list of valid mask bits, see <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard Enumeration</a>.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunercap-get_supportedvideoformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-itunercap-get_supportedvideoformats
      */
     get_SupportedVideoFormats(pulAMTunerModeType, pulAnalogVideoStandard) {
         pulAMTunerModeTypeMarshal := pulAMTunerModeType is VarRef ? "uint*" : "ptr"
         pulAnalogVideoStandardMarshal := pulAnalogVideoStandard is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pulAMTunerModeTypeMarshal, pulAMTunerModeType, pulAnalogVideoStandardMarshal, pulAnalogVideoStandard, "HRESULT")
+        result := ComCall(4, this, pulAMTunerModeTypeMarshal, pulAMTunerModeType, pulAnalogVideoStandardMarshal, pulAnalogVideoStandard, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The <i>pulCompositeCount</i> and <i>pulSvideoCount</i> parameters are marked in the IDL file as [in, out] but are used as [out] parameters. To preserve binary compatibility with previous versions, they have not been changed.</div>
+     * <div> </div>
      * @param {Pointer<Integer>} pulCompositeCount Receives a count of the number of composite-video input connectors on the device.
      * @param {Pointer<Integer>} pulSvideoCount Receives a count of the number of S-video input connectors on the device.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunercap-get_auxinputcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-itunercap-get_auxinputcount
      */
     get_AuxInputCount(pulCompositeCount, pulSvideoCount) {
         pulCompositeCountMarshal := pulCompositeCount is VarRef ? "uint*" : "ptr"
         pulSvideoCountMarshal := pulSvideoCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pulCompositeCountMarshal, pulCompositeCount, pulSvideoCountMarshal, pulSvideoCount, "HRESULT")
+        result := ComCall(5, this, pulCompositeCountMarshal, pulCompositeCount, pulSvideoCountMarshal, pulSvideoCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

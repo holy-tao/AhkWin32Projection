@@ -42,7 +42,11 @@ class ISpPhraseBuilder extends ISpPhrase{
      * @returns {HRESULT} 
      */
     InitFromPhrase(pPhrase) {
-        result := ComCall(7, this, "ptr", pPhrase, "HRESULT")
+        result := ComCall(7, this, "ptr", pPhrase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISpPhraseBuilder extends ISpPhrase{
      * @returns {HRESULT} 
      */
     InitFromSerializedPhrase(pPhrase) {
-        result := ComCall(8, this, "ptr", pPhrase, "HRESULT")
+        result := ComCall(8, this, "ptr", pPhrase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class ISpPhraseBuilder extends ISpPhrase{
      * @returns {HRESULT} 
      */
     AddElements(cElements, pElement) {
-        result := ComCall(9, this, "uint", cElements, "ptr", pElement, "HRESULT")
+        result := ComCall(9, this, "uint", cElements, "ptr", pElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +89,11 @@ class ISpPhraseBuilder extends ISpPhrase{
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
 
         phNewRule := SPPHRASERULEHANDLE()
-        result := ComCall(10, this, "ptr", hParent, "ptr", pRule, "ptr", phNewRule, "HRESULT")
+        result := ComCall(10, this, "ptr", hParent, "ptr", pRule, "ptr", phNewRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phNewRule
     }
 
@@ -91,7 +107,11 @@ class ISpPhraseBuilder extends ISpPhrase{
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
 
         phNewProperty := SPPHRASEPROPERTYHANDLE()
-        result := ComCall(11, this, "ptr", hParent, "ptr", pProperty, "ptr", phNewProperty, "HRESULT")
+        result := ComCall(11, this, "ptr", hParent, "ptr", pProperty, "ptr", phNewProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phNewProperty
     }
 
@@ -102,7 +122,11 @@ class ISpPhraseBuilder extends ISpPhrase{
      * @returns {HRESULT} 
      */
     AddReplacements(cReplacements, pReplacements) {
-        result := ComCall(12, this, "uint", cReplacements, "ptr", pReplacements, "HRESULT")
+        result := ComCall(12, this, "uint", cReplacements, "ptr", pReplacements, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

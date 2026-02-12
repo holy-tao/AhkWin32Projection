@@ -14,7 +14,7 @@
  * </ul>
  * <div class="alert"><b>Note</b>  The parameters as specified can't result in a scale. The encoder can use a larger portion of the input image based on the passed in DPI and the pixel width and height.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicimageparameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/ns-wincodec-wicimageparameters
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

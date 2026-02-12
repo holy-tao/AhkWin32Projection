@@ -90,7 +90,11 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Feeds() {
-        result := ComCall(7, this, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -99,7 +103,11 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Subfolders() {
-        result := ComCall(8, this, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -110,10 +118,20 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     CreateFeed(feedName, feedUrl) {
-        feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
-        feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
+        if(feedName is String) {
+            pin := BSTR.Alloc(feedName)
+            feedName := pin.Value
+        }
+        if(feedUrl is String) {
+            pin := BSTR.Alloc(feedUrl)
+            feedUrl := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", feedName, "ptr", feedUrl, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", feedName, "ptr", feedUrl, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -123,9 +141,16 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     CreateSubfolder(folderName) {
-        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+        if(folderName is String) {
+            pin := BSTR.Alloc(folderName)
+            folderName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", folderName, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", folderName, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -135,9 +160,16 @@ class IFeedFolder extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     ExistsFeed(feedName) {
-        feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
+        if(feedName is String) {
+            pin := BSTR.Alloc(feedName)
+            feedName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", feedName, "short*", &exists := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", feedName, "short*", &exists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return exists
     }
 
@@ -147,9 +179,16 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     GetFeed(feedName) {
-        feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
+        if(feedName is String) {
+            pin := BSTR.Alloc(feedName)
+            feedName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", feedName, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", feedName, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -159,9 +198,16 @@ class IFeedFolder extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     ExistsSubfolder(folderName) {
-        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+        if(folderName is String) {
+            pin := BSTR.Alloc(folderName)
+            folderName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", folderName, "short*", &exists := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", folderName, "short*", &exists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return exists
     }
 
@@ -171,18 +217,34 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     GetSubfolder(folderName) {
-        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+        if(folderName is String) {
+            pin := BSTR.Alloc(folderName)
+            folderName := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", folderName, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", folderName, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -192,19 +254,31 @@ class IFeedFolder extends IDispatch{
      */
     get_Name() {
         folderName := BSTR()
-        result := ComCall(16, this, "ptr", folderName, "HRESULT")
+        result := ComCall(16, this, "ptr", folderName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return folderName
     }
 
     /**
-     * 
+     * Learn more about: RenameColumnGrbit enumeration
      * @param {BSTR} folderName 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(folderName) {
-        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+        if(folderName is String) {
+            pin := BSTR.Alloc(folderName)
+            folderName := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", folderName, "HRESULT")
+        result := ComCall(17, this, "ptr", folderName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -214,19 +288,31 @@ class IFeedFolder extends IDispatch{
      */
     get_Path() {
         folderPath := BSTR()
-        result := ComCall(18, this, "ptr", folderPath, "HRESULT")
+        result := ComCall(18, this, "ptr", folderPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return folderPath
     }
 
     /**
-     * 
+     * Move Method Example (VC++)
      * @param {BSTR} newParentPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/move-method-example-vc
      */
     Move(newParentPath) {
-        newParentPath := newParentPath is String ? BSTR.Alloc(newParentPath).Value : newParentPath
+        if(newParentPath is String) {
+            pin := BSTR.Alloc(newParentPath)
+            newParentPath := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", newParentPath, "HRESULT")
+        result := ComCall(19, this, "ptr", newParentPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -235,7 +321,11 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(20, this, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -244,7 +334,11 @@ class IFeedFolder extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsRoot() {
-        result := ComCall(21, this, "short*", &isRoot := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &isRoot := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isRoot
     }
 
@@ -253,7 +347,11 @@ class IFeedFolder extends IDispatch{
      * @returns {Integer} 
      */
     get_TotalUnreadItemCount() {
-        result := ComCall(22, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
@@ -262,7 +360,11 @@ class IFeedFolder extends IDispatch{
      * @returns {Integer} 
      */
     get_TotalItemCount() {
-        result := ComCall(23, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
@@ -273,7 +375,11 @@ class IFeedFolder extends IDispatch{
      * @returns {IDispatch} 
      */
     GetWatcher(scope, mask) {
-        result := ComCall(24, this, "int", scope, "int", mask, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(24, this, "int", scope, "int", mask, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 }

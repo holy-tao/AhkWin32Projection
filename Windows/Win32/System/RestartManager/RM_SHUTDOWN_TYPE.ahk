@@ -9,7 +9,7 @@
  * 
  * 
  * The time to wait before initiating a forced shutdown of services is specified by the following registry key. <b>HKLM</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Control</b>&#92;<b>WaitToKillServiceTimeout</b>
- * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_shutdown_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/restartmanager/ne-restartmanager-rm_shutdown_type
  * @namespace Windows.Win32.System.RestartManager
  * @version v4.0.30319
  */

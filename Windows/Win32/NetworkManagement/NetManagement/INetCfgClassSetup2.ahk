@@ -36,7 +36,11 @@ class INetCfgClassSetup2 extends INetCfgClassSetup{
     UpdateNonEnumeratedComponent(pIComp) {
         static dwSetupFlags := 0, dwUpgradeFromBuildNo := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(6, this, "ptr", pIComp, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "HRESULT")
+        result := ComCall(6, this, "ptr", pIComp, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

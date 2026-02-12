@@ -5,7 +5,7 @@
 
 /**
  * See reference information about the CONSOLE_SELECTION_INFO structure, which contains information for a console selection.
- * @see https://learn.microsoft.com/windows/console/console-selection-info-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/console-selection-info-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

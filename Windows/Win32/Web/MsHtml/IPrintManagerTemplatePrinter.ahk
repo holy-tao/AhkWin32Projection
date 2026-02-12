@@ -35,7 +35,11 @@ class IPrintManagerTemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     startPrint() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IPrintManagerTemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     drawPreviewPage(pElemDisp, nPage) {
-        result := ComCall(8, this, "ptr", pElemDisp, "int", nPage, "HRESULT")
+        result := ComCall(8, this, "ptr", pElemDisp, "int", nPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class IPrintManagerTemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     setPageCount(nPage) {
-        result := ComCall(9, this, "int", nPage, "HRESULT")
+        result := ComCall(9, this, "int", nPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +77,11 @@ class IPrintManagerTemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     invalidatePreview() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,10 +91,17 @@ class IPrintManagerTemplatePrinter extends IDispatch{
      * @returns {VARIANT} 
      */
     getPrintTaskOptionValue(bstrKey) {
-        bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
+        if(bstrKey is String) {
+            pin := BSTR.Alloc(bstrKey)
+            bstrKey := pin.Value
+        }
 
         pvarin := VARIANT()
-        result := ComCall(11, this, "ptr", bstrKey, "ptr", pvarin, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrKey, "ptr", pvarin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarin
     }
 
@@ -87,7 +110,11 @@ class IPrintManagerTemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     endPrint() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

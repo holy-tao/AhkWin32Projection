@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that is used to initialize the Link tab of the Object Properties dialog box. (ANSI)
  * @remarks
  * > [!NOTE]
  * > The oledlg.h header defines OLEUILINKPROPS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuilinkpropsa
+ * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/ns-oledlg-oleuilinkpropsa
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  * @charset ANSI
@@ -60,9 +61,12 @@ class OLEUILINKPROPSA extends Win32Struct
      * Custom data to pass to hook (not used in this dialog box).
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(24, this)
+            return this.__lCustData
+        }
     }
 
     /**

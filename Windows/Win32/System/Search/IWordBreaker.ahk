@@ -6,13 +6,11 @@
 /**
  * Parses text and identifies individual words and phrases. This interface is a language-specific language resource component. It is used in background processes and must be optimized for both throughput and minimal use of resources.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Implement this interface to create a custom word breaker for a language. Windows Search calls the methods of this interface when it builds content indexes and runs queries.
  * 
  * Word breaker components for Windows Search run in the Local Security context. They should be written to manage buffers and the stack correctly. All string copies must have explicit checks to guard against buffer overruns. You should always verify the allocated size of the buffer and test the size of the data against the size of the buffer.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-iwordbreaker
+ * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nn-indexsrv-iwordbreaker
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -39,6 +37,8 @@ class IWordBreaker extends IUnknown{
 
     /**
      * Initializes the IWordBreaker implementation and indicates the mode in which the component operates.
+     * @remarks
+     * The functionality of the word breaker is similar in both index creation and querying. Differences are language dependent. If <i>pfLicense</i> is <b>TRUE</b>, and if you want more information about possible license restrictions, call the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-istemmer-getlicensetouse">IWordBreaker::GetLicenseToUse</a> method.
      * @param {BOOL} fQuery Type: <b>BOOL</b>
      * 
      * Flag that indicates the mode in which a word breaker operates. <b>TRUE</b> indicates query-time word breaking. <b>FALSE</b> indicates index-time word breaking.
@@ -102,17 +102,27 @@ class IWordBreaker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iwordbreaker-init
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-iwordbreaker-init
      */
     Init(fQuery, ulMaxTokenSize, pfLicense) {
         pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "int", fQuery, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
+        result := ComCall(3, this, "int", fQuery, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Parses text to identify words and phrases and provides the results to the IWordSink and IPhraseSink objects.
+     * @remarks
+     * Because word breakers more commonly parse for words than phrases, you should optimize for <i>pPhraseSink</i> = 0. Either <i>pWordSink</i> or <i>pPhraseSink</i> can be <b>NULL</b>, but not both.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/search/iwordsink">IWordSink</a> object holds the words and their alternative forms for the word breaker. Alternative forms of words, if they exist, are put in the <b>IWordSink</b> object first, by using the <b>WordSink::PutAltWord</b> method, and the root word is added last, by using the <b>WordSink::PutWord</b> method.
+     * 
+     * Use <b>pfnFillTextBuffer</b>, the function pointer element in the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/ns-indexsrv-text_source">TEXT_SOURCE</a> structure, to replenish the source text. The <b>IWordBreaker::BreakText</b> method must handle all <b>pfnFillTextBuffer</b> return values. If an error occurs, finish processing the text in the buffer before handling the error.
      * @param {Pointer<TEXT_SOURCE>} pTextSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/ns-indexsrv-text_source">TEXT_SOURCE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/ns-indexsrv-text_source">TEXT_SOURCE</a> structure that contains Unicode text.
@@ -154,15 +164,19 @@ class IWordBreaker extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iwordbreaker-breaktext
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-iwordbreaker-breaktext
      */
     BreakText(pTextSource, pWordSink, pPhraseSink) {
-        result := ComCall(4, this, "ptr", pTextSource, "ptr", pWordSink, "ptr", pPhraseSink, "HRESULT")
+        result := ComCall(4, this, "ptr", pTextSource, "ptr", pWordSink, "ptr", pPhraseSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not supported.
+     * Not supported. (IWordBreaker.ComposePhrase)
      * @param {PWSTR} pwcNoun TBD
      * @param {Integer} cwcNoun TBD
      * @param {PWSTR} pwcModifier TBD
@@ -172,8 +186,8 @@ class IWordBreaker extends IUnknown{
      * @param {Pointer<Integer>} pcwcPhrase TBD
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iwordbreaker-composephrase
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-iwordbreaker-composephrase
      */
     ComposePhrase(pwcNoun, cwcNoun, pwcModifier, cwcModifier, ulAttachmentType, pwcPhrase, pcwcPhrase) {
         pwcNoun := pwcNoun is String ? StrPtr(pwcNoun) : pwcNoun
@@ -182,7 +196,11 @@ class IWordBreaker extends IUnknown{
 
         pcwcPhraseMarshal := pcwcPhrase is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwcNoun, "uint", cwcNoun, "ptr", pwcModifier, "uint", cwcModifier, "uint", ulAttachmentType, "ptr", pwcPhrase, pcwcPhraseMarshal, pcwcPhrase, "HRESULT")
+        result := ComCall(5, this, "ptr", pwcNoun, "uint", cwcNoun, "ptr", pwcModifier, "uint", cwcModifier, "uint", ulAttachmentType, "ptr", pwcPhrase, pcwcPhraseMarshal, pcwcPhrase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,13 +211,17 @@ class IWordBreaker extends IUnknown{
      * Pointer to a variable that receives a pointer to the license information for this <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iwordbreaker-getlicensetouse
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/nf-indexsrv-iwordbreaker-getlicensetouse
      */
     GetLicenseToUse(ppwcsLicense) {
         ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, ppwcsLicenseMarshal, ppwcsLicense, "HRESULT")
+        result := ComCall(6, this, ppwcsLicenseMarshal, ppwcsLicense, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

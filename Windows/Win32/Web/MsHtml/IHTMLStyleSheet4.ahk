@@ -88,7 +88,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -98,7 +102,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      */
     get_href() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -108,7 +116,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      */
     get_title() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +129,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_ownerNode() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -126,7 +142,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      * @returns {IHTMLCSSRule} 
      */
     get_ownerRule() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLCSSRule(p)
     }
 
@@ -135,7 +155,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_cssRules() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRulesCollection(p)
     }
 
@@ -145,7 +169,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      */
     get_media() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -156,9 +184,16 @@ class IHTMLStyleSheet4 extends IDispatch{
      * @returns {Integer} 
      */
     insertRule(bstrRule, lIndex) {
-        bstrRule := bstrRule is String ? BSTR.Alloc(bstrRule).Value : bstrRule
+        if(bstrRule is String) {
+            pin := BSTR.Alloc(bstrRule)
+            bstrRule := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrRule, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrRule, "int", lIndex, "int*", &plNewIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNewIndex
     }
 
@@ -168,7 +203,11 @@ class IHTMLStyleSheet4 extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteRule(lIndex) {
-        result := ComCall(15, this, "int", lIndex, "HRESULT")
+        result := ComCall(15, this, "int", lIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

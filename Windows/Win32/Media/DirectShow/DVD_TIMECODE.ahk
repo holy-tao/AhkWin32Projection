@@ -16,7 +16,7 @@
  * <li>F is tens of frames</li>
  * <li>f is frames</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_timecode
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-dvd_timecode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

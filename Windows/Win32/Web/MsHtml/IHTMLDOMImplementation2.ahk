@@ -39,9 +39,16 @@ class IHTMLDOMImplementation2 extends IDispatch{
      * @returns {IDOMDocumentType} 
      */
     createDocumentType(bstrQualifiedName, pvarPublicId, pvarSystemId) {
-        bstrQualifiedName := bstrQualifiedName is String ? BSTR.Alloc(bstrQualifiedName).Value : bstrQualifiedName
+        if(bstrQualifiedName is String) {
+            pin := BSTR.Alloc(bstrQualifiedName)
+            bstrQualifiedName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrQualifiedName, "ptr", pvarPublicId, "ptr", pvarSystemId, "ptr*", &newDocumentType := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrQualifiedName, "ptr", pvarPublicId, "ptr", pvarSystemId, "ptr*", &newDocumentType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDOMDocumentType(newDocumentType)
     }
 
@@ -53,7 +60,11 @@ class IHTMLDOMImplementation2 extends IDispatch{
      * @returns {IHTMLDocument7} 
      */
     createDocument(pvarNS, pvarTagName, pDocumentType) {
-        result := ComCall(8, this, "ptr", pvarNS, "ptr", pvarTagName, "ptr", pDocumentType, "ptr*", &ppnewDocument := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pvarNS, "ptr", pvarTagName, "ptr", pDocumentType, "ptr*", &ppnewDocument := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument7(ppnewDocument)
     }
 
@@ -63,22 +74,36 @@ class IHTMLDOMImplementation2 extends IDispatch{
      * @returns {IHTMLDocument7} 
      */
     createHTMLDocument(bstrTitle) {
-        bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
+        if(bstrTitle is String) {
+            pin := BSTR.Alloc(bstrTitle)
+            bstrTitle := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrTitle, "ptr*", &ppnewDocument := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrTitle, "ptr*", &ppnewDocument := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument7(ppnewDocument)
     }
 
     /**
      * 
      * @param {BSTR} bstrfeature 
-     * @param {VARIANT} version 
+     * @param {VARIANT} version_ 
      * @returns {VARIANT_BOOL} 
      */
-    hasFeature(bstrfeature, version) {
-        bstrfeature := bstrfeature is String ? BSTR.Alloc(bstrfeature).Value : bstrfeature
+    hasFeature(bstrfeature, version_) {
+        if(bstrfeature is String) {
+            pin := BSTR.Alloc(bstrfeature)
+            bstrfeature := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrfeature, "ptr", version, "short*", &pfHasFeature := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrfeature, "ptr", version_, "short*", &pfHasFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasFeature
     }
 }

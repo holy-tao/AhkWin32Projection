@@ -35,7 +35,11 @@ class IMFExtendedCameraIntrinsicsDistortionModelArcTan extends IUnknown{
      */
     GetDistortionModel() {
         pDistortionModel := MFCameraIntrinsic_DistortionModelArcTan()
-        result := ComCall(3, this, "ptr", pDistortionModel, "HRESULT")
+        result := ComCall(3, this, "ptr", pDistortionModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDistortionModel
     }
 
@@ -45,7 +49,11 @@ class IMFExtendedCameraIntrinsicsDistortionModelArcTan extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDistortionModel(pDistortionModel) {
-        result := ComCall(4, this, "ptr", pDistortionModel, "HRESULT")
+        result := ComCall(4, this, "ptr", pDistortionModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

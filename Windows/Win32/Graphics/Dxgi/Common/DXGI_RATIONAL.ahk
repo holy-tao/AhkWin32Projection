@@ -13,7 +13,7 @@
  * <li>0/anything is interpreted as zero.</li>
  * <li>If you are representing a whole number, the denominator should be 1.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ns-dxgicommon-dxgi_rational
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgicommon/ns-dxgicommon-dxgi_rational
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */

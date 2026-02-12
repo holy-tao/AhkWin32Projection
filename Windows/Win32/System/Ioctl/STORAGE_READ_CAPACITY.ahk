@@ -5,7 +5,7 @@
  * Contains information about the size of a device. This is returned from the IOCTL\_STORAGE\_READ\_CAPACITY control code.
  * @remarks
  * The header file Ntddstor.h is available in the Windows Driver Kit (WDK).
- * @see https://learn.microsoft.com/windows/win32/DevIO/storage-read-capacity
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DevIO/storage-read-capacity
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

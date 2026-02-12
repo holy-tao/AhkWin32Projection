@@ -9,7 +9,7 @@
 
 /**
  * The base interface for path, canvas, and glyph interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -80,10 +80,14 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransform
      */
     GetTransform() {
-        result := ComCall(5, this, "ptr*", &matrixTransform := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &matrixTransform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMMatrixTransform(matrixTransform)
     }
 
@@ -131,17 +135,92 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlocal
      */
     GetTransformLocal() {
-        result := ComCall(6, this, "ptr*", &matrixTransform := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &matrixTransform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMMatrixTransform(matrixTransform)
     }
 
     /**
-     * Sets the local, unshared matrix transform.
+     * Sets the local, unshared matrix transform. (IXpsOMVisual.SetTransformLocal)
+     * @remarks
+     * After you call <b>SetTransformLocal</b>, the transform lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup">GetTransformLookup</a> returns a <b>NULL</b> pointer in the <i>key</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object  that is returned in <i>transform</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransform">GetTransform</a>
+     * </th>
+     * <th>Object  that is returned in <i>matrixTransform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlocal">GetTransformLocal</a>
+     * </th>
+     * <th>Object that is returned in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup">GetTransformLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetTransformLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <b>SetTransformLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local transform set by <b>SetTransformLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlookup">SetTransformLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared transform that gets retrieved, with a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlookup">SetTransformLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlookup">SetTransformLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetTransformLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlookup">SetTransformLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMMatrixTransform} matrixTransform A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface to be set as the local, unshared matrix transform. A <b>NULL</b> pointer releases the previously assigned transform.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -171,15 +250,21 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlocal
      */
     SetTransformLocal(matrixTransform) {
-        result := ComCall(7, this, "ptr", matrixTransform, "HRESULT")
+        result := ComCall(7, this, "ptr", matrixTransform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the lookup key name of the IXpsOMMatrixTransform interface in a resource dictionary that contains the resolved matrix transform for the visual.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The lookup key name for the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface in a resource dictionary that contains the resolved matrix transform for the visual. If a matrix transform lookup key has not been set, or if a local matrix transform has  been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -222,17 +307,92 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup
      */
     GetTransformLookup() {
-        result := ComCall(8, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return key
     }
 
     /**
-     * Sets the lookup key name of a shared matrix transform in a resource dictionary.
+     * Sets the lookup key name of a shared matrix transform in a resource dictionary. (IXpsOMVisual.SetTransformLookup)
+     * @remarks
+     * After you call <b>SetTransformLookup</b>, the local transform is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlocal">GetTransformLocal</a> returns a <b>NULL</b> pointer in the <i>matrixTransform</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>transform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransform">GetTransform</a>
+     * </th>
+     * <th>Object that is returned in <i>matrixTransform</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlocal">GetTransformLocal</a>
+     * </th>
+     * <th>Object that is returned in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup">GetTransformLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlocal">SetTransformLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlocal">SetTransformLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local transform that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlocal">SetTransformLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetTransformLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared transform that gets retrieved—with a lookup key that matches the key that is set by <b>SetTransformLookup</b>—from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetTransformLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlocal">SetTransformLocal</a> nor <b>SetTransformLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} key The lookup key name of the matrix transform in the dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -284,12 +444,16 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-settransformlookup
      */
     SetTransformLookup(key) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(9, this, "ptr", key, "HRESULT")
+        result := ComCall(9, this, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -339,10 +503,14 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometry
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometry
      */
     GetClipGeometry() {
-        result := ComCall(10, this, "ptr*", &clipGeometry := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &clipGeometry := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMGeometry(clipGeometry)
     }
 
@@ -390,17 +558,91 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylocal
      */
     GetClipGeometryLocal() {
-        result := ComCall(11, this, "ptr*", &clipGeometry := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &clipGeometry := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMGeometry(clipGeometry)
     }
 
     /**
      * Sets the local, unshared clipping region for the visual.
+     * @remarks
+     * After you call <b>SetClipGeometryLocal</b>, the clip geometry lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup">GetClipGeometryLookup</a> returns a <b>NULL</b> pointer in the <i>key</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>clipGeometry</i>   by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometry">GetClipGeometry</a>
+     * </th>
+     * <th>Object that is returned in <i>clipGeometry</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylocal">GetClipGeometryLocal</a>
+     * </th>
+     * <th>String that is returned in <i>key</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup">GetClipGeometryLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetClipGeometryLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local clip geometry that is set by <b>SetClipGeometryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local clip geometry that is set by <b>SetClipGeometryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylookup">SetClipGeometryLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared clip geometry that gets retrieved, with a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylookup">SetClipGeometryLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylookup">SetClipGeometryLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylookup">SetClipGeometryLookup</a> nor <b>SetClipGeometryLocal</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMGeometry} clipGeometry A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgeometry">IXpsOMGeometry</a> interface to be set as the local, unshared clipping region for the visual. A <b>NULL</b> pointer releases the previously assigned geometry interface.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -430,15 +672,21 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylocal
      */
     SetClipGeometryLocal(clipGeometry) {
-        result := ComCall(12, this, "ptr", clipGeometry, "HRESULT")
+        result := ComCall(12, this, "ptr", clipGeometry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the lookup key for the IXpsOMGeometry interface in a resource dictionary that contains the visual's clipping region.
+     * @remarks
+     * This method allocates the memory that is used by the string returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the  SignatureDefinitions   function to free the memory.
      * @returns {PWSTR} The lookup key for the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgeometry">IXpsOMGeometry</a> interface in a resource dictionary that contains the visual's clipping region. If a lookup key for the  clip geometry  has not been set, or if a local clip geometry has  been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -481,17 +729,92 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup
      */
     GetClipGeometryLookup() {
-        result := ComCall(13, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return key
     }
 
     /**
      * Sets the lookup key name of a shared clip geometry in a resource dictionary.
+     * @remarks
+     * After you call <b>SetClipGeometryLookup</b>, the local clip geometry is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylocal">GetClipGeometryLocal</a> returns a <b>NULL</b> pointer in the <i>clipGeometry</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>clipGeometry</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometry">GetClipGeometry</a>
+     * </th>
+     * <th>Object that is returned in <i>clipGeometry</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylocal">GetClipGeometryLocal</a>
+     * </th>
+     * <th>String that is returned in <i>key</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup">GetClipGeometryLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylocal">SetClipGeometryLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local clip geometry that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylocal">SetClipGeometryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local clip geometry that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylocal">SetClipGeometryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetClipGeometryLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared clip geometry that gets retrieved, with a lookup key that matches the key that is set by <b>SetClipGeometryLookup</b>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetClipGeometryLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetClipGeometryLookup</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylocal">SetClipGeometryLocal</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} key The lookup key name of the clip geometry in the dictionary. A <b>NULL</b> pointer clears the previously assigned key name.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -543,22 +866,30 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setclipgeometrylookup
      */
     SetClipGeometryLookup(key) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(14, this, "ptr", key, "HRESULT")
+        result := ComCall(14, this, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the opacity value of this visual.
      * @returns {Float} The opacity value.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacity
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacity
      */
     GetOpacity() {
-        result := ComCall(15, this, "float*", &opacity := 0, "HRESULT")
+        result := ComCall(15, this, "float*", &opacity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return opacity
     }
 
@@ -567,7 +898,7 @@ class IXpsOMVisual extends IXpsOMShareable{
      * @param {Float} opacity The opacity value to be set for the visual. 
      * 
      * The range of allowed values for this parameter is 0.0  to 1.0; with 0.0 the visual is completely transparent, and with 1.0 it is completely opaque.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      *           
      * 
      * <table>
@@ -599,10 +930,14 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacity
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacity
      */
     SetOpacity(opacity) {
-        result := ComCall(16, this, "float", opacity, "HRESULT")
+        result := ComCall(16, this, "float", opacity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -652,10 +987,14 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrush
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrush
      */
     GetOpacityMaskBrush() {
-        result := ComCall(17, this, "ptr*", &opacityMaskBrush := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &opacityMaskBrush := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMBrush(opacityMaskBrush)
     }
 
@@ -703,17 +1042,92 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlocal
      */
     GetOpacityMaskBrushLocal() {
-        result := ComCall(18, this, "ptr*", &opacityMaskBrush := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &opacityMaskBrush := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMBrush(opacityMaskBrush)
     }
 
     /**
      * Sets the IXpsOMBrush interface pointer as the local, unshared opacity mask brush.
+     * @remarks
+     * After you call <b>SetOpacityMaskBrushLocal</b>, the opacity mask brush lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup">GetOpacityMaskBrushLookup</a> returns a <b>NULL</b> pointer in the <i>key</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>opacityMaskBrush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrush">GetOpacityMaskBrush</a>
+     * </th>
+     * <th>Object that is returned in <i>opacityMaskBrush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlocal">GetOpacityMaskBrushLocal</a>
+     * </th>
+     * <th>String that is returned in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup">GetOpacityMaskBrushLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetOpacityMaskBrushLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local opacity mask brush that is set by <b>SetOpacityMaskBrushLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local opacity mask brush that is set by <b>SetOpacityMaskBrushLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlookup">SetOpacityMaskBrushLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared opacity mask brush that gets retrieved, with a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlookup">SetOpacityMaskBrushLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlookup">SetOpacityMaskBrushLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetOpacityMaskBrushLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlookup">SetOpacityMaskBrushLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMBrush} opacityMaskBrush A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a> interface to be set as the local, unshared opacity mask brush. A <b>NULL</b> pointer clears the previously assigned opacity mask brush.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -743,15 +1157,21 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlocal
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlocal
      */
     SetOpacityMaskBrushLocal(opacityMaskBrush) {
-        result := ComCall(19, this, "ptr", opacityMaskBrush, "HRESULT")
+        result := ComCall(19, this, "ptr", opacityMaskBrush, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the name of the lookup key of the shared opacity mask brush in a resource dictionary.
+     * @remarks
+     * This method allocates the memory that is used by the string returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The name of the lookup key  of the shared opacity mask brush in a resource dictionary. If the lookup key of an opacity mask brush  has not been set, or if a local opacity mask brush has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -794,17 +1214,92 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup
      */
     GetOpacityMaskBrushLookup() {
-        result := ComCall(20, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return key
     }
 
     /**
      * Sets the lookup key name of a shared opacity mask brush in a resource dictionary.
+     * @remarks
+     * After you call <b>SetOpacityMaskBrushLookup</b>, the local opacity mask brush is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlocal">GetOpacityMaskBrushLocal</a> returns a <b>NULL</b> pointer in the <i>opacityMaskBrush</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>opacityMaskBrush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrush">GetOpacityMaskBrush</a>
+     * </th>
+     * <th>Object that is returned in <i>opacityMaskBrush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlocal">GetOpacityMaskBrushLocal</a>
+     * </th>
+     * <th>String that is  returned in <i>key</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup">GetOpacityMaskBrushLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlocal">SetOpacityMaskBrushLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local opacity mask brush that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlocal">SetOpacityMaskBrushLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local opacity mask brush that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlocal">SetOpacityMaskBrushLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetOpacityMaskBrushLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared opacity mask brush that gets retrieved—with a lookup key that matches the key that is set by <b>SetOpacityMaskBrushLookup</b>—from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetOpacityMaskBrushLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlocal">SetOpacityMaskBrushLocal</a> nor <b>SetOpacityMaskBrushLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} key The lookup key name of the opacity mask brush in the dictionary.  A <b>NULL</b> pointer clears the previously assigned key name.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -856,29 +1351,43 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlookup
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setopacitymaskbrushlookup
      */
     SetOpacityMaskBrushLookup(key) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(21, this, "ptr", key, "HRESULT")
+        result := ComCall(21, this, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the Name property of the visual.
+     * @remarks
+     * This method allocates the memory that is used by the string returned in <i>name</i>.  If <i>name</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The <b>Name</b> property string. If  the <b>Name</b> property has not been set, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getname
      */
     GetName() {
-        result := ComCall(22, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &name := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Sets the Name property of the visual.
+     * @remarks
+     * Names must be unique.
+     * 
+     * Clearing the <b>Name</b> property by passing a <b>NULL</b> pointer in <i>name</i> sets the <b>IsHyperlinkTarget</b> property to <b>FALSE</b>.
      * @param {PWSTR} name The name of the visual. A <b>NULL</b> pointer clears the <b>Name</b> property.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      *           
      * 
      * <table>
@@ -910,12 +1419,16 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setname
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setname
      */
     SetName(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(23, this, "ptr", name, "HRESULT")
+        result := ComCall(23, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -949,15 +1462,21 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getishyperlinktarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getishyperlinktarget
      */
     GetIsHyperlinkTarget() {
-        result := ComCall(24, this, "int*", &isHyperlink := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &isHyperlink := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isHyperlink
     }
 
     /**
      * Specifies whether the visual is the target of a hyperlink.
+     * @remarks
+     * The visual must be named before it can  be set as the target of a  hyperlink.
      * @param {BOOL} isHyperlink The Boolean value that specifies whether the visual is the target of a hyperlink.
      * 
      * <table>
@@ -986,7 +1505,7 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -1016,10 +1535,14 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setishyperlinktarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setishyperlinktarget
      */
     SetIsHyperlinkTarget(isHyperlink) {
-        result := ComCall(25, this, "int", isHyperlink, "HRESULT")
+        result := ComCall(25, this, "int", isHyperlink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1027,38 +1550,60 @@ class IXpsOMVisual extends IXpsOMShareable{
      * Gets a pointer to the IUri interface to which this visual object links.
      * @returns {IUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface that contains the destination URI for the link. 
      * 				If  a URI has not been set for this object, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gethyperlinknavigateuri
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gethyperlinknavigateuri
      */
     GetHyperlinkNavigateUri() {
-        result := ComCall(26, this, "ptr*", &hyperlinkUri := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &hyperlinkUri := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUri(hyperlinkUri)
     }
 
     /**
      * Sets the destination URI of the visual's hyperlink.
+     * @remarks
+     * Setting an object's URI makes the object a hyperlink. When activated or clicked, the object   will navigate to the destination that is  specified by the URI in <i>hyperlinkUri</i>.
      * @param {IUri} hyperlinkUri The <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface that contains the destination URI of the visual's hyperlink.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-sethyperlinknavigateuri
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-sethyperlinknavigateuri
      */
     SetHyperlinkNavigateUri(hyperlinkUri) {
-        result := ComCall(27, this, "ptr", hyperlinkUri, "HRESULT")
+        result := ComCall(27, this, "ptr", hyperlinkUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the Language property of the visual and of its contents.
+     * @remarks
+     * The <b>Language</b> property that is set by this method specifies the language of the resource content.
+     * 
+     * This method allocates the memory that is used by the string returned in <i>language</i>.  If <i>language</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
+     * 
+     * Internet Engineering Task Force (IETF) RFC 3066 specifies the recommended encoding for the <b>Language</b> property.
      * @returns {PWSTR} The language string that specifies the language of the page. If a language has not been set, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getlanguage
      */
     GetLanguage() {
-        result := ComCall(28, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &language := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return language
     }
 
     /**
      * Sets the Language property of the visual.
+     * @remarks
+     * The recommended encoding for the <b>Language</b> property is specified in Internet Engineering Task Force (IETF) RFC 3066r.
      * @param {PWSTR} language The language string that specifies the language of the visual and of its contents. A <b>NULL</b> pointer clears the   <b>Language</b> property.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -1088,12 +1633,16 @@ class IXpsOMVisual extends IXpsOMShareable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-setlanguage
      */
     SetLanguage(language) {
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(29, this, "ptr", language, "HRESULT")
+        result := ComCall(29, this, "ptr", language, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

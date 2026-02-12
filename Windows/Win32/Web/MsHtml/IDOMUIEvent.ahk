@@ -55,7 +55,11 @@ class IDOMUIEvent extends IDispatch{
      * @returns {IHTMLWindow2} 
      */
     get_view() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -64,7 +68,11 @@ class IDOMUIEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_detail() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -73,14 +81,21 @@ class IDOMUIEvent extends IDispatch{
      * @param {BSTR} eventType 
      * @param {VARIANT_BOOL} canBubble 
      * @param {VARIANT_BOOL} cancelable 
-     * @param {IHTMLWindow2} view 
+     * @param {IHTMLWindow2} view_ 
      * @param {Integer} detail 
      * @returns {HRESULT} 
      */
-    initUIEvent(eventType, canBubble, cancelable, view, detail) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+    initUIEvent(eventType, canBubble, cancelable, view_, detail) {
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", view, "int", detail, "HRESULT")
+        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", view_, "int", detail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -40,7 +40,11 @@ class IAppxPackagingDiagnosticEventSinkManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSinkForProcess(sink) {
-        result := ComCall(3, this, "ptr", sink, "HRESULT")
+        result := ComCall(3, this, "ptr", sink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

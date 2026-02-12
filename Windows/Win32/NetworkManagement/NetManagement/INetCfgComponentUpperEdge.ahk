@@ -39,7 +39,11 @@ class INetCfgComponentUpperEdge extends IUnknown{
         pdwNumInterfacesMarshal := pdwNumInterfaces is VarRef ? "uint*" : "ptr"
         ppguidInterfaceIdsMarshal := ppguidInterfaceIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pAdapter, pdwNumInterfacesMarshal, pdwNumInterfaces, ppguidInterfaceIdsMarshal, ppguidInterfaceIds, "HRESULT")
+        result := ComCall(3, this, "ptr", pAdapter, pdwNumInterfacesMarshal, pdwNumInterfaces, ppguidInterfaceIdsMarshal, ppguidInterfaceIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class INetCfgComponentUpperEdge extends IUnknown{
      * @returns {HRESULT} 
      */
     AddInterfacesToAdapter(pAdapter, dwNumInterfaces) {
-        result := ComCall(4, this, "ptr", pAdapter, "uint", dwNumInterfaces, "HRESULT")
+        result := ComCall(4, this, "ptr", pAdapter, "uint", dwNumInterfaces, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +70,11 @@ class INetCfgComponentUpperEdge extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveInterfacesFromAdapter(pAdapter, dwNumInterfaces, pguidInterfaceIds) {
-        result := ComCall(5, this, "ptr", pAdapter, "uint", dwNumInterfaces, "ptr", pguidInterfaceIds, "HRESULT")
+        result := ComCall(5, this, "ptr", pAdapter, "uint", dwNumInterfaces, "ptr", pguidInterfaceIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

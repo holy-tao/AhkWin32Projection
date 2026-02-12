@@ -9,6 +9,8 @@
 #Include ..\NCRYPT_STREAM_HANDLE.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
 #Include .\NCRYPT_HASH_HANDLE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 #Include .\BCRYPT_ALG_HANDLE.ahk
 
 /**
@@ -40,32 +42,32 @@ class Cryptography {
     static BCRYPT_OBJECT_ALIGNMENT => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KDF_HASH => "HASH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KDF_HMAC => "HMAC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KDF_TLS_PRF => "TLS_PRF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KDF_SP80056A_CONCAT => "SP800_56A_CONCAT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KDF_RAW_SECRET => "TRUNCATE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KDF_HKDF => "HKDF"
 
@@ -195,22 +197,22 @@ class Cryptography {
     static BCRYPT_AUTH_MODE_IN_PROGRESS_FLAG => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_OPAQUE_KEY_BLOB => "OpaqueKeyBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KEY_DATA_BLOB => "KeyDataBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_AES_WRAP_KEY_BLOB => "Rfc3565KeyWrapBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PKCS11_RSA_AES_WRAP_KEY_BLOB => "PKCS11RsaAesWrapBlob"
 
@@ -220,197 +222,197 @@ class Cryptography {
     static BCRYPT_PKCS11_RSA_AES_WRAP_BLOB_MAGIC => 1464877394
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_OBJECT_LENGTH => "ObjectLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ALGORITHM_NAME => "AlgorithmName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PROVIDER_HANDLE => "ProviderHandle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAINING_MODE => "ChainingMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_BLOCK_LENGTH => "BlockLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KEY_LENGTH => "KeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KEY_OBJECT_LENGTH => "KeyObjectLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KEY_STRENGTH => "KeyStrength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KEY_LENGTHS => "KeyLengths"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_BLOCK_SIZE_LIST => "BlockSizeList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_EFFECTIVE_KEY_LENGTH => "EffectiveKeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HASH_LENGTH => "HashDigestLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HASH_OID_LIST => "HashOIDList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PADDING_SCHEMES => "PaddingSchemes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SIGNATURE_LENGTH => "SignatureLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HASH_BLOCK_LENGTH => "HashBlockLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_AUTH_TAG_LENGTH => "AuthTagLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_FUNCTION_NAME_STRING => "FunctionNameString"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CUSTOMIZATION_STRING => "CustomizationString"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PRIMITIVE_TYPE => "PrimitiveType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_IS_KEYED_HASH => "IsKeyedHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_IS_REUSABLE_HASH => "IsReusableHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_MESSAGE_BLOCK_LENGTH => "MessageBlockLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PUBLIC_KEY_LENGTH => "PublicKeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PCP_PLATFORM_TYPE_PROPERTY => "PCP_PLATFORM_TYPE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PCP_PROVIDER_VERSION_PROPERTY => "PCP_PROVIDER_VERSION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_MULTI_OBJECT_LENGTH => "MultiObjectLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_IS_IFX_TPM_WEAK_KEY => "IsIfxTpmWeakKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HKDF_HASH_ALGORITHM => "HkdfHashAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HKDF_SALT_AND_FINALIZE => "HkdfSaltAndFinalize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HKDF_PRK_AND_FINALIZE => "HkdfPrkAndFinalize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_INITIALIZATION_VECTOR => "IV"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_NA => "ChainingModeN/A"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_CBC => "ChainingModeCBC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_ECB => "ChainingModeECB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_CFB => "ChainingModeCFB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_CCM => "ChainingModeCCM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_GCM => "ChainingModeGCM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHAIN_MODE_KWP => "ChainingModeKWP"
 
@@ -455,77 +457,77 @@ class Cryptography {
     static BCRYPTBUFFER_VERSION => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PUBLIC_KEY_BLOB => "PUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PRIVATE_KEY_BLOB => "PRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RSAPUBLIC_BLOB => "RSAPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RSAPRIVATE_BLOB => "RSAPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_RSAPUBLIC_BLOB => "CAPIPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_RSAPRIVATE_BLOB => "CAPIPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RSAFULLPRIVATE_BLOB => "RSAFULLPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_GLOBAL_PARAMETERS => "SecretAgreementParam"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PRIVATE_KEY => "PrivKeyVal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECCPUBLIC_BLOB => "ECCPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECCPRIVATE_BLOB => "ECCPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECCFULLPUBLIC_BLOB => "ECCFULLPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECCFULLPRIVATE_BLOB => "ECCFULLPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSL_ECCPUBLIC_BLOB => "SSLECCPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TLS_13_PRE_SHARED_KEY => "TLS13PRESHAREDKEY"
 
@@ -615,27 +617,27 @@ class Cryptography {
     static BCRYPT_ECC_FULLKEY_BLOB_V1 => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DH_PUBLIC_BLOB => "DHPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DH_PRIVATE_BLOB => "DHPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_DH_PUBLIC_BLOB => "CAPIDHPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_DH_PRIVATE_BLOB => "CAPIDHPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DH_PARAMETERS => "DHParameters"
 
@@ -645,32 +647,32 @@ class Cryptography {
     static BCRYPT_DH_PARAMETERS_MAGIC => 1297107012
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DSA_PUBLIC_BLOB => "DSAPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DSA_PRIVATE_BLOB => "DSAPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_DSA_PUBLIC_BLOB => "CAPIDSAPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_DSA_PRIVATE_BLOB => "CAPIDSAPRIVATEBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_DSA_V2_PUBLIC_BLOB => "V2CAPIDSAPUBLICBLOB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LEGACY_DSA_V2_PRIVATE_BLOB => "V2CAPIDSAPRIVATEBLOB"
 
@@ -695,7 +697,7 @@ class Cryptography {
     static BCRYPT_KEY_DATA_BLOB_VERSION1 => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DSA_PARAMETERS => "DSAParameters"
 
@@ -710,17 +712,17 @@ class Cryptography {
     static BCRYPT_DSA_PARAMETERS_MAGIC_V2 => 843927620
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_PARAMETERS => "ECCParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NAME => "ECCCurveName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NAME_LIST => "ECCCurveNameList"
 
@@ -730,472 +732,472 @@ class Cryptography {
     static BCRYPT_ECC_PARAMETERS_MAGIC => 1346585413
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP160R1 => "brainpoolP160r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP160T1 => "brainpoolP160t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP192R1 => "brainpoolP192r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP192T1 => "brainpoolP192t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP224R1 => "brainpoolP224r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP224T1 => "brainpoolP224t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP256R1 => "brainpoolP256r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP256T1 => "brainpoolP256t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP320R1 => "brainpoolP320r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP320T1 => "brainpoolP320t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP384R1 => "brainpoolP384r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP384T1 => "brainpoolP384t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP512R1 => "brainpoolP512r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_BRAINPOOLP512T1 => "brainpoolP512t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_25519 => "curve25519"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_EC192WAPI => "ec192wapi"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NISTP192 => "nistP192"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NISTP224 => "nistP224"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NISTP256 => "nistP256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NISTP384 => "nistP384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NISTP521 => "nistP521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NUMSP256T1 => "numsP256t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NUMSP384T1 => "numsP384t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_NUMSP512T1 => "numsP512t1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP160K1 => "secP160k1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP160R1 => "secP160r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP160R2 => "secP160r2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP192K1 => "secP192k1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP192R1 => "secP192r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP224K1 => "secP224k1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP224R1 => "secP224r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP256K1 => "secP256k1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP256R1 => "secP256r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP384R1 => "secP384r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_SECP521R1 => "secP521r1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_WTLS7 => "wtls7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_WTLS9 => "wtls9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_WTLS12 => "wtls12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P192V1 => "x962P192v1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P192V2 => "x962P192v2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P192V3 => "x962P192v3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P239V1 => "x962P239v1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P239V2 => "x962P239v2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P239V3 => "x962P239v3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECC_CURVE_X962P256V1 => "x962P256v1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_PRIMITIVE_PROVIDER => "Microsoft Primitive Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_PLATFORM_CRYPTO_PROVIDER => "Microsoft Platform Crypto Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RSA_ALGORITHM => "RSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RSA_SIGN_ALGORITHM => "RSA_SIGN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DH_ALGORITHM => "DH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DSA_ALGORITHM => "DSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RC2_ALGORITHM => "RC2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RC4_ALGORITHM => "RC4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_AES_ALGORITHM => "AES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DES_ALGORITHM => "DES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_DESX_ALGORITHM => "DESX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_3DES_ALGORITHM => "3DES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_3DES_112_ALGORITHM => "3DES_112"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_MD2_ALGORITHM => "MD2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_MD4_ALGORITHM => "MD4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_MD5_ALGORITHM => "MD5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA1_ALGORITHM => "SHA1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA256_ALGORITHM => "SHA256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA384_ALGORITHM => "SHA384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA512_ALGORITHM => "SHA512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_AES_GMAC_ALGORITHM => "AES-GMAC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_AES_CMAC_ALGORITHM => "AES-CMAC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDSA_P256_ALGORITHM => "ECDSA_P256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDSA_P384_ALGORITHM => "ECDSA_P384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDSA_P521_ALGORITHM => "ECDSA_P521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDH_P256_ALGORITHM => "ECDH_P256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDH_P384_ALGORITHM => "ECDH_P384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDH_P521_ALGORITHM => "ECDH_P521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RNG_ALGORITHM => "RNG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RNG_FIPS186_DSA_ALGORITHM => "FIPS186DSARNG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_RNG_DUAL_EC_ALGORITHM => "DUALECRNG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SP800108_CTR_HMAC_ALGORITHM => "SP800_108_CTR_HMAC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SP80056A_CONCAT_ALGORITHM => "SP800_56A_CONCAT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_PBKDF2_ALGORITHM => "PBKDF2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CAPI_KDF_ALGORITHM => "CAPI_KDF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_TLS1_1_KDF_ALGORITHM => "TLS1_1_KDF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_TLS1_2_KDF_ALGORITHM => "TLS1_2_KDF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDSA_ALGORITHM => "ECDSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_ECDH_ALGORITHM => "ECDH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_XTS_AES_ALGORITHM => "XTS-AES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_HKDF_ALGORITHM => "HKDF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CHACHA20_POLY1305_ALGORITHM => "CHACHA20_POLY1305"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA3_256_ALGORITHM => "SHA3-256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA3_384_ALGORITHM => "SHA3-384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_SHA3_512_ALGORITHM => "SHA3-512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CSHAKE128_ALGORITHM => "CSHAKE128"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_CSHAKE256_ALGORITHM => "CSHAKE256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KMAC128_ALGORITHM => "KMAC128"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BCRYPT_KMAC256_ALGORITHM => "KMAC256"
 
@@ -1645,147 +1647,147 @@ class Cryptography {
     static CRYPT_PRIORITY_BOTTOM => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_DEFAULT_CONTEXT => "Default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszXMLNS_DIGSIG => "http://www.w3.org/2000/09/xmldsig#"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszXMLNS_DIGSIG_SignatureProperties => "http://www.w3.org/2000/09/xmldsig#SignatureProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszXMLNS_DIGSIG_Id => "Id"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_BASE64 => "http://www.w3.org/2000/09/xmldsig#base64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_SHA1 => "http://www.w3.org/2000/09/xmldsig#sha1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_SHA256 => "http://www.w3.org/2001/04/xmlenc#sha256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_SHA384 => "http://www.w3.org/2001/04/xmldsig-more#sha384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_SHA512 => "http://www.w3.org/2001/04/xmlenc#sha512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_RSA_SHA1 => "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_DSA_SHA1 => "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_RSA_SHA256 => "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_RSA_SHA384 => "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_RSA_SHA512 => "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_ECDSA_SHA1 => "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_ECDSA_SHA256 => "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_ECDSA_SHA384 => "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_ECDSA_SHA512 => "http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_HMAC_SHA1 => "http://www.w3.org/2000/09/xmldsig#hmac-sha1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_HMAC_SHA256 => "http://www.w3.org/2001/04/xmldsig-more#hmac-sha256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_HMAC_SHA384 => "http://www.w3.org/2001/04/xmldsig-more#hmac-sha384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_DIGSIG_HMAC_SHA512 => "http://www.w3.org/2001/04/xmldsig-more#hmac-sha512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_CANONICALIZATION_C14N => "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_CANONICALIZATION_C14NC => "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_CANONICALIZATION_EXSLUSIVE_C14N => "http://www.w3.org/2001/10/xml-exc-c14n#"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_CANONICALIZATION_EXSLUSIVE_C14NC => "http://www.w3.org/2001/10/xml-exc-c14n#WithComments"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_TRANSFORM_XPATH => "http://www.w3.org/TR/1999/REC-xpath-19991116"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_TRANSFORM_BASE64 => "http://www.w3.org/2000/09/xmldsig#base64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_XMLNS_TRANSFORM_ENVELOPED => "http://www.w3.org/2000/09/xmldsig#enveloped-signature"
 
@@ -1990,7 +1992,7 @@ class Cryptography {
     static CRYPT_XML_ALGORITHM_INFO_FIND_BY_CNG_SIGN_ALGID => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szFORCE_KEY_PROTECTION => "ForceKeyProtection"
 
@@ -2115,187 +2117,187 @@ class Cryptography {
     static NCRYPT_MAX_ALG_ID_LENGTH => 512
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_KEY_STORAGE_PROVIDER => "Microsoft Software Key Storage Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_SMART_CARD_KEY_STORAGE_PROVIDER => "Microsoft Smart Card Key Storage Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_PLATFORM_KEY_STORAGE_PROVIDER => "Microsoft Platform Crypto Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_NGC_KEY_STORAGE_PROVIDER => "Microsoft Passport Key Storage Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_PLUTON_CRYPTO_PROVIDER => "Microsoft Pluton Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TPM_RSA_SRK_SEAL_KEY => "MICROSOFT_PCP_KSP_RSA_SEAL_KEY_3BD1C4BF-004E-4E2F-8A4D-0BF633DCB074"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_RSA_ALGORITHM => "RSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_RSA_SIGN_ALGORITHM => "RSA_SIGN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DH_ALGORITHM => "DH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DSA_ALGORITHM => "DSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_MD2_ALGORITHM => "MD2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_MD4_ALGORITHM => "MD4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_MD5_ALGORITHM => "MD5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SHA1_ALGORITHM => "SHA1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SHA256_ALGORITHM => "SHA256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SHA384_ALGORITHM => "SHA384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SHA512_ALGORITHM => "SHA512"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDSA_P256_ALGORITHM => "ECDSA_P256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDSA_P384_ALGORITHM => "ECDSA_P384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDSA_P521_ALGORITHM => "ECDSA_P521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDH_P256_ALGORITHM => "ECDH_P256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDH_P384_ALGORITHM => "ECDH_P384"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDH_P521_ALGORITHM => "ECDH_P521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_AES_ALGORITHM => "AES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_RC2_ALGORITHM => "RC2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_3DES_ALGORITHM => "3DES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DES_ALGORITHM => "DES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DESX_ALGORITHM => "DESX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_3DES_112_ALGORITHM => "3DES_112"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SP800108_CTR_HMAC_ALGORITHM => "SP800_108_CTR_HMAC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SP80056A_CONCAT_ALGORITHM => "SP800_56A_CONCAT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PBKDF2_ALGORITHM => "PBKDF2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_CAPI_KDF_ALGORITHM => "CAPI_KDF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDSA_ALGORITHM => "ECDSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDH_ALGORITHM => "ECDH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_STORAGE_ALGORITHM => "KEY_STORAGE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_HMAC_SHA256_ALGORITHM => "HMAC-SHA256"
 
@@ -2310,47 +2312,47 @@ class Cryptography {
     static NCRYPT_KEY_PROTECTION_INTERFACE => 65540
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_RSA_ALGORITHM_GROUP => "RSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DH_ALGORITHM_GROUP => "DH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DSA_ALGORITHM_GROUP => "DSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDSA_ALGORITHM_GROUP => "ECDSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECDH_ALGORITHM_GROUP => "ECDH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_AES_ALGORITHM_GROUP => "AES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_RC2_ALGORITHM_GROUP => "RC2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DES_ALGORITHM_GROUP => "DES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_DERIVATION_GROUP => "KEY_DERIVATION"
 
@@ -2870,502 +2872,502 @@ class Cryptography {
     static NCRYPT_EXTENDED_ERRORS_FLAG => 268435456
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_NAME_PROPERTY => "Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_EPHEMERAL_NAME_PROPERTY => "Ephemeral Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_UNIQUE_NAME_PROPERTY => "Unique Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ALGORITHM_PROPERTY => "Algorithm Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_LENGTH_PROPERTY => "Length"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_LENGTHS_PROPERTY => "Lengths"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_BLOCK_LENGTH_PROPERTY => "Block Length"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PUBLIC_LENGTH_PROPERTY => "PublicKeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SIGNATURE_LENGTH_PROPERTY => "SignatureLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_CHAINING_MODE_PROPERTY => "Chaining Mode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_AUTH_TAG_LENGTH => "AuthTagLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_UI_POLICY_PROPERTY => "UI Policy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_EXPORT_POLICY_PROPERTY => "Export Policy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_WINDOW_HANDLE_PROPERTY => "HWND Handle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_USE_CONTEXT_PROPERTY => "Use Context"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_IMPL_TYPE_PROPERTY => "Impl Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_USAGE_PROPERTY => "Key Usage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_TYPE_PROPERTY => "Key Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_VERSION_PROPERTY => "Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY => "Security Descr Support"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SECURITY_DESCR_PROPERTY => "Security Descr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_USE_COUNT_ENABLED_PROPERTY => "Enabled Use Count"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_USE_COUNT_PROPERTY => "Use Count"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_LAST_MODIFIED_PROPERTY => "Modified"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_MAX_NAME_LENGTH_PROPERTY => "Max Name Length"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ALGORITHM_GROUP_PROPERTY => "Algorithm Group"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DH_PARAMETERS_PROPERTY => "DHParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECC_PARAMETERS_PROPERTY => "ECCParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECC_CURVE_NAME_PROPERTY => "ECCCurveName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY => "ECCCurveNameList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY => "Virtual Iso"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_USE_PER_BOOT_KEY_PROPERTY => "Per Boot Key"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PROVIDER_HANDLE_PROPERTY => "Provider Handle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_PROPERTY => "SmartCardPin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_READER_PROPERTY => "SmartCardReader"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SMARTCARD_GUID_PROPERTY => "SmartCardGuid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_CERTIFICATE_PROPERTY => "SmartCardKeyCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_PROMPT_PROPERTY => "SmartCardPinPrompt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_USER_CERTSTORE_PROPERTY => "SmartCardUserCertStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ROOT_CERTSTORE_PROPERTY => "SmartcardRootCertStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SECURE_PIN_PROPERTY => "SmartCardSecurePin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ASSOCIATED_ECDH_KEY => "SmartCardAssociatedECDHKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SCARD_PIN_ID => "SmartCardPinId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SCARD_PIN_INFO => "SmartCardPinInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_READER_ICON_PROPERTY => "SmartCardReaderIcon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KDF_SECRET_VALUE => "KDFKeySecret"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY => "SmartCardDismissUITimeoutSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_VBS_ROOT_PUB_PROPERTY => "VBS_ROOT_PUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_CERTIFICATE_FROM_NVRAM_PROPERTY => "KeyCertificateFromTpmNvram"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PKCS11_KWP_AES_KEY_BITS_PROPERTY => "Pkcs11AesKeyBits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PKCS11_KWP_OAEP_HASH_ALGO_PROPERTY => "Pkcs11OaepHashAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PKCS11_KWP_OAEP_LABEL_PROPERTY => "Pkcs11OaepLabel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PLATFORM_TYPE_PROPERTY => "PCP_PLATFORM_TYPE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PROVIDER_VERSION_PROPERTY => "PCP_PROVIDER_VERSION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_EKPUB_PROPERTY => "PCP_EKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_EKCERT_PROPERTY => "PCP_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_EKNVCERT_PROPERTY => "PCP_EKNVCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_RSA_EKPUB_PROPERTY => "PCP_RSA_EKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_RSA_EKCERT_PROPERTY => "PCP_RSA_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_RSA_EKNVCERT_PROPERTY => "PCP_RSA_EKNVCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_ECC_EKPUB_PROPERTY => "PCP_ECC_EKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_ECC_EKCERT_PROPERTY => "PCP_ECC_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_ECC_EKNVCERT_PROPERTY => "PCP_ECC_EKNVCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_SRKPUB_PROPERTY => "PCP_SRKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PCRTABLE_PROPERTY => "PCP_PCRTABLE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_CHANGEPASSWORD_PROPERTY => "PCP_CHANGEPASSWORD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY => "PCP_PASSWORD_REQUIRED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_USAGEAUTH_PROPERTY => "PCP_USAGEAUTH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY => "PCP_MIGRATIONPASSWORD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY => "PCP_EXPORT_ALLOWED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_STORAGEPARENT_PROPERTY => "PCP_STORAGEPARENT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PROVIDERHANDLE_PROPERTY => "PCP_PROVIDERMHANDLE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PLATFORMHANDLE_PROPERTY => "PCP_PLATFORMHANDLE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY => "PCP_PLATFORM_BINDING_PCRMASK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY => "PCP_PLATFORM_BINDING_PCRDIGESTLIST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY => "PCP_PLATFORM_BINDING_PCRDIGEST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY => "PCP_KEY_USAGE_POLICY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_RSA_SCHEME_PROPERTY => "PCP_RSA_SCHEME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM12_IDBINDING_PROPERTY => "PCP_TPM12_IDBINDING"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY => "PCP_TPM12_IDBINDING_DYNAMIC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY => "PCP_TPM12_IDACTIVATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_KEYATTESTATION_PROPERTY => "PCP_TPM12_KEYATTESTATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY => "PCP_ALTERNATE_KEY_STORAGE_LOCATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY => "PCP_PLATFORM_BINDING_PCRALGID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_HMAC_AUTH_POLICYREF => "PCP_HMAC_AUTH_POLICYREF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_HMAC_AUTH_POLICYINFO => "PCP_HMAC_AUTH_POLICYINFO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_HMAC_AUTH_NONCE => "PCP_HMAC_AUTH_NONCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_HMAC_AUTH_SIGNATURE => "PCP_HMAC_AUTH_SIGNATURE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_HMAC_AUTH_TICKET => "PCP_HMAC_AUTH_TICKET"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY => "PCP_NO_DA_PROTECTION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY => "PCP_TPM_MANUFACTURER_ID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM_FW_VERSION_PROPERTY => "PCP_TPM_FW_VERSION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM2BNAME_PROPERTY => "PCP_TPM2BNAME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM_VERSION_PROPERTY => "PCP_TPM_VERSION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY => "PCP_RAW_POLICYDIGEST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY => "PCP_KEY_CREATIONHASH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY => "PCP_KEY_CREATIONTICKET"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY => "PCP_RSA_SCHEME_HASH_ALG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY => "PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY => "PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY"
 
@@ -3385,12 +3387,12 @@ class Cryptography {
     static IFX_RSA_KEYGEN_VUL_AFFECTED_LEVEL_2 => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_SESSIONID_PROPERTY => "PCP_SESSIONID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY => "PSS Salt Size"
 
@@ -3410,17 +3412,17 @@ class Cryptography {
     static NCRYPT_TPM_PSS_SALT_SIZE_HASHSIZE => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY => "PCP_INTERMEDIATE_CA_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY => "PCP_PCRTABLE_ALGORITHM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY => "PCP_SYMMETRIC_KEYBITS"
 
@@ -3460,72 +3462,72 @@ class Cryptography {
     static NCRYPT_PCP_HMACVERIFICATION_KEY => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_SCARD_NGC_KEY_NAME => "SmartCardNgcKeyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_EKCERT_PROPERTY => "PLUTON_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_EKPUB_PROPERTY => "PLUTON_EKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_RSA_EKCERT_PROPERTY => "PLUTON_RSA_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_RSA_EKPUB_PROPERTY => "PLUTON_RSA_EKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_ECC_EKCERT_PROPERTY => "PLUTON_ECC_EKCERT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_ECC_EKPUB_PROPERTY => "PLUTON_ECC_EKPUB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_SESSION_ID_PROPERTY => "PLUTON_SESSION_ID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_KDF_PARENT_KEY_UNIQUE_NAME_PROPERTY => "PlutonKdfParentKeyUniqueName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PLUTON_KDF_PARAMS_BUFFER_DESC_PROPERTY => "PlutonKdfParamsBufferDesc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_INITIALIZATION_VECTOR => "IV"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_CHANGEPASSWORD_PROPERTY => "PCP_CHANGEPASSWORD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY => "PCP_ALTERNATE_KEY_STORAGE_LOCATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_ACCESS_POLICY_PROPERTY => "Key Access Policy"
 
@@ -3650,12 +3652,12 @@ class Cryptography {
     static NCRYPT_UI_APPCONTAINER_ACCESS_MEDIUM_FLAG => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY => "PinCacheFreeApplicationTicket"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_FLAGS_PROPERTY => "PinCacheFlags"
 
@@ -3665,27 +3667,27 @@ class Cryptography {
     static NCRYPT_PIN_CACHE_DISABLE_DPL_FLAG => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY => "PinCacheApplicationTicket"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY => "PinCacheApplicationImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY => "PinCacheApplicationStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_PIN_PROPERTY => "PinCachePin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY => "PinCacheIsGestureRequired"
 
@@ -3700,7 +3702,7 @@ class Cryptography {
     static NCRYPT_PIN_CACHE_APPLICATION_TICKET_BYTE_LENGTH => 90
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PIN_CACHE_CLEAR_PROPERTY => "PinCacheClear"
 
@@ -3735,22 +3737,22 @@ class Cryptography {
     static NCRYPT_PROTECTED_KEY_BLOB_MAGIC => 1263817296
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_CIPHER_KEY_BLOB => "CipherKeyBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KDF_KEY_BLOB => "KDFKeyBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PROTECTED_KEY_BLOB => "ProtectedKeyBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_TPM_LOADABLE_KEY_BLOB => "PcpTpmProtectedKeyBlob"
 
@@ -3760,7 +3762,7 @@ class Cryptography {
     static NCRYPT_TPM_LOADABLE_KEY_BLOB_MAGIC => 1297371211
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_TPM_PERSISTENT_KEY_BLOB => "PcpTpmPersistentKeyBlob"
 
@@ -3770,97 +3772,97 @@ class Cryptography {
     static NCRYPT_TPM_PERSISTENT_KEY_BLOB_MAGIC => 1297371211
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PKCS7_ENVELOPE_BLOB => "PKCS7_ENVELOPE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_PKCS8_PRIVATE_KEY_BLOB => "PKCS8_PRIVATEKEY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_OPAQUETRANSPORT_BLOB => "OpaqueTransport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB => "ISOLATED_KEY_ENVELOPE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DESCR_DELIMITER_OR => "OR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DESCR_DELIMITER_AND => "AND"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_DESCR_EQUAL => "="
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_KEY_PROTECTION_PROVIDER => "Microsoft Key Protection Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_ALGORITHM_SID => "SID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_ALGORITHM_LOCAL => "LOCAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_LOCAL_LOGON => "logon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_LOCAL_USER => "user"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_LOCAL_MACHINE => "machine"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_ALGORITHM_SDDL => "SDDL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_ALGORITHM_WEBCREDENTIALS => "WEBCREDENTIALS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_ALGORITHM_LOCKEDCREDENTIALS => "LOCKEDCREDENTIALS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_ALGORITHM_CERTIFICATE => "CERTIFICATE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_CERT_HASHID => "HashId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NCRYPT_KEY_PROTECTION_CERT_CERTBLOB => "CertBlob"
 
@@ -5090,182 +5092,182 @@ class Cryptography {
     static PROV_STT_ISS => 11
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_PROV_A => "Microsoft Base Cryptographic Provider v1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_PROV_W => "Microsoft Base Cryptographic Provider v1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_PROV => "Microsoft Base Cryptographic Provider v1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENHANCED_PROV_A => "Microsoft Enhanced Cryptographic Provider v1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENHANCED_PROV_W => "Microsoft Enhanced Cryptographic Provider v1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENHANCED_PROV => "Microsoft Enhanced Cryptographic Provider v1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_STRONG_PROV_A => "Microsoft Strong Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_STRONG_PROV_W => "Microsoft Strong Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_STRONG_PROV => "Microsoft Strong Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_RSA_SIG_PROV_A => "Microsoft RSA Signature Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_RSA_SIG_PROV_W => "Microsoft RSA Signature Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_RSA_SIG_PROV => "Microsoft RSA Signature Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_RSA_SCHANNEL_PROV_A => "Microsoft RSA SChannel Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_RSA_SCHANNEL_PROV_W => "Microsoft RSA SChannel Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_RSA_SCHANNEL_PROV => "Microsoft RSA SChannel Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DSS_PROV_A => "Microsoft Base DSS Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DSS_PROV_W => "Microsoft Base DSS Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DSS_PROV => "Microsoft Base DSS Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DSS_DH_PROV_A => "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DSS_DH_PROV_W => "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DSS_DH_PROV => "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_DSS_DH_PROV_A => "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_DSS_DH_PROV_W => "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_DSS_DH_PROV => "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DH_SCHANNEL_PROV_A => "Microsoft DH SChannel Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DH_SCHANNEL_PROV_W => "Microsoft DH SChannel Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_DEF_DH_SCHANNEL_PROV => "Microsoft DH SChannel Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_SCARD_PROV_A => "Microsoft Base Smart Card Crypto Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_SCARD_PROV_W => "Microsoft Base Smart Card Crypto Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_SCARD_PROV => "Microsoft Base Smart Card Crypto Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_RSA_AES_PROV_A => "Microsoft Enhanced RSA and AES Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_RSA_AES_PROV_W => "Microsoft Enhanced RSA and AES Cryptographic Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_RSA_AES_PROV_XP_A => "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_RSA_AES_PROV_XP_W => "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_RSA_AES_PROV_XP => "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_ENH_RSA_AES_PROV => "Microsoft Enhanced RSA and AES Cryptographic Provider"
 
@@ -5275,32 +5277,32 @@ class Cryptography {
     static MAXUIDLEN => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EXPO_OFFLOAD_REG_VALUE => "ExpoOffload"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EXPO_OFFLOAD_FUNC_NAME => "OffloadModExpo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS => "Software\Policies\Microsoft\Cryptography"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szKEY_CACHE_ENABLED => "CachePrivateKeys"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szKEY_CACHE_SECONDS => "PrivateKeyLifetimeSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szPRIV_KEY_CACHE_MAX_ITEMS => "PrivKeyCacheMaxItems"
 
@@ -5310,7 +5312,7 @@ class Cryptography {
     static cPRIV_KEY_CACHE_MAX_ITEMS_DEFAULT => 20
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS => "PrivKeyCachePurgeIntervalSeconds"
 
@@ -5340,1232 +5342,1232 @@ class Cryptography {
     static INTERNATIONAL_USAGE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA => "1.2.840.113549"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS => "1.2.840.113549.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_HASH => "1.2.840.113549.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_ENCRYPT => "1.2.840.113549.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_1 => "1.2.840.113549.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_2 => "1.2.840.113549.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_3 => "1.2.840.113549.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_4 => "1.2.840.113549.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_5 => "1.2.840.113549.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_6 => "1.2.840.113549.1.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7 => "1.2.840.113549.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_8 => "1.2.840.113549.1.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_9 => "1.2.840.113549.1.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_10 => "1.2.840.113549.1.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12 => "1.2.840.113549.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_RSA => "1.2.840.113549.1.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MD2RSA => "1.2.840.113549.1.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MD4RSA => "1.2.840.113549.1.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MD5RSA => "1.2.840.113549.1.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SHA1RSA => "1.2.840.113549.1.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SETOAEP_RSA => "1.2.840.113549.1.1.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSAES_OAEP => "1.2.840.113549.1.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MGF1 => "1.2.840.113549.1.1.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_PSPECIFIED => "1.2.840.113549.1.1.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SSA_PSS => "1.2.840.113549.1.1.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SHA256RSA => "1.2.840.113549.1.1.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SHA384RSA => "1.2.840.113549.1.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SHA512RSA => "1.2.840.113549.1.1.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_DH => "1.2.840.113549.1.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_data => "1.2.840.113549.1.7.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_signedData => "1.2.840.113549.1.7.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_envelopedData => "1.2.840.113549.1.7.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_signEnvData => "1.2.840.113549.1.7.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_digestedData => "1.2.840.113549.1.7.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_hashedData => "1.2.840.113549.1.7.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_encryptedData => "1.2.840.113549.1.7.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_emailAddr => "1.2.840.113549.1.9.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_unstructName => "1.2.840.113549.1.9.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_contentType => "1.2.840.113549.1.9.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_messageDigest => "1.2.840.113549.1.9.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_signingTime => "1.2.840.113549.1.9.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_counterSign => "1.2.840.113549.1.9.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_challengePwd => "1.2.840.113549.1.9.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_unstructAddr => "1.2.840.113549.1.9.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_extCertAttrs => "1.2.840.113549.1.9.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_certExtensions => "1.2.840.113549.1.9.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SMIMECapabilities => "1.2.840.113549.1.9.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_preferSignedData => "1.2.840.113549.1.9.15.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TIMESTAMP_TOKEN => "1.2.840.113549.1.9.16.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RFC3161_counterSign => "1.3.6.1.4.1.311.3.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RFC3161v21_counterSign => "1.3.6.1.4.1.311.3.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RFC3161v21_thumbprints => "1.3.6.1.4.1.311.3.3.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SMIMEalg => "1.2.840.113549.1.9.16.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SMIMEalgESDH => "1.2.840.113549.1.9.16.3.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SMIMEalgCMS3DESwrap => "1.2.840.113549.1.9.16.3.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_SMIMEalgCMSRC2wrap => "1.2.840.113549.1.9.16.3.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MD2 => "1.2.840.113549.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MD4 => "1.2.840.113549.2.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_MD5 => "1.2.840.113549.2.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_RC2CBC => "1.2.840.113549.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_RC4 => "1.2.840.113549.3.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_DES_EDE3_CBC => "1.2.840.113549.3.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RSA_RC5_CBCPad => "1.2.840.113549.3.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ANSI_X942 => "1.2.840.10046"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ANSI_X942_DH => "1.2.840.10046.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_X957 => "1.2.840.10040"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_X957_DSA => "1.2.840.10040.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_X957_SHA1DSA => "1.2.840.10040.4.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_PUBLIC_KEY => "1.2.840.10045.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_P256 => "1.2.840.10045.3.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_P384 => "1.3.132.0.34"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_P521 => "1.3.132.0.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP160R1 => "1.3.36.3.3.2.8.1.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP160T1 => "1.3.36.3.3.2.8.1.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP192R1 => "1.3.36.3.3.2.8.1.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP192T1 => "1.3.36.3.3.2.8.1.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP224R1 => "1.3.36.3.3.2.8.1.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP224T1 => "1.3.36.3.3.2.8.1.1.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP256R1 => "1.3.36.3.3.2.8.1.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP256T1 => "1.3.36.3.3.2.8.1.1.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP320R1 => "1.3.36.3.3.2.8.1.1.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP320T1 => "1.3.36.3.3.2.8.1.1.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP384R1 => "1.3.36.3.3.2.8.1.1.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP384T1 => "1.3.36.3.3.2.8.1.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP512R1 => "1.3.36.3.3.2.8.1.1.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_BRAINPOOLP512T1 => "1.3.36.3.3.2.8.1.1.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_EC192WAPI => "1.2.156.11235.1.1.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CN_ECDSA_SHA256 => "1.2.156.11235.1.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_NISTP192 => "1.2.840.10045.3.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_NISTP224 => "1.3.132.0.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_NISTP256 => "1.2.840.10045.3.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_NISTP384 => "1.3.132.0.34"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_NISTP521 => "1.3.132.0.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP160K1 => "1.3.132.0.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP160R1 => "1.3.132.0.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP160R2 => "1.3.132.0.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP192K1 => "1.3.132.0.31"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP192R1 => "1.2.840.10045.3.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP224K1 => "1.3.132.0.32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP224R1 => "1.3.132.0.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP256K1 => "1.3.132.0.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP256R1 => "1.2.840.10045.3.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP384R1 => "1.3.132.0.34"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_SECP521R1 => "1.3.132.0.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_WTLS7 => "1.3.132.0.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_WTLS9 => "2.23.43.1.4.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_WTLS12 => "1.3.132.0.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P192V1 => "1.2.840.10045.3.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P192V2 => "1.2.840.10045.3.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P192V3 => "1.2.840.10045.3.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P239V1 => "1.2.840.10045.3.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P239V2 => "1.2.840.10045.3.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P239V3 => "1.2.840.10045.3.1.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECC_CURVE_X962P256V1 => "1.2.840.10045.3.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECDSA_SHA1 => "1.2.840.10045.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECDSA_SPECIFIED => "1.2.840.10045.4.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECDSA_SHA256 => "1.2.840.10045.4.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECDSA_SHA384 => "1.2.840.10045.4.3.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ECDSA_SHA512 => "1.2.840.10045.4.3.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_AES128_CBC => "2.16.840.1.101.3.4.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_AES192_CBC => "2.16.840.1.101.3.4.1.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_AES256_CBC => "2.16.840.1.101.3.4.1.42"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_AES128_WRAP => "2.16.840.1.101.3.4.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_AES192_WRAP => "2.16.840.1.101.3.4.1.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_AES256_WRAP => "2.16.840.1.101.3.4.1.45"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF => "1.3.133.16.840.63.0.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF => "1.3.132.1.11.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF => "1.3.132.1.11.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DS => "2.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DSALG => "2.5.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DSALG_CRPT => "2.5.8.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DSALG_HASH => "2.5.8.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DSALG_SIGN => "2.5.8.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DSALG_RSA => "2.5.8.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIW => "1.3.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC => "1.3.14.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_md4RSA => "1.3.14.3.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_md5RSA => "1.3.14.3.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_md4RSA2 => "1.3.14.3.2.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_desECB => "1.3.14.3.2.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_desCBC => "1.3.14.3.2.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_desOFB => "1.3.14.3.2.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_desCFB => "1.3.14.3.2.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_desMAC => "1.3.14.3.2.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_rsaSign => "1.3.14.3.2.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_dsa => "1.3.14.3.2.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_shaDSA => "1.3.14.3.2.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_mdc2RSA => "1.3.14.3.2.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_shaRSA => "1.3.14.3.2.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_dhCommMod => "1.3.14.3.2.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_desEDE => "1.3.14.3.2.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_sha => "1.3.14.3.2.18"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_mdc2 => "1.3.14.3.2.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_dsaComm => "1.3.14.3.2.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_dsaCommSHA => "1.3.14.3.2.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_rsaXchg => "1.3.14.3.2.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_keyHashSeal => "1.3.14.3.2.23"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_md2RSASign => "1.3.14.3.2.24"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_md5RSASign => "1.3.14.3.2.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_sha1 => "1.3.14.3.2.26"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_dsaSHA1 => "1.3.14.3.2.27"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_dsaCommSHA1 => "1.3.14.3.2.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWSEC_sha1RSASign => "1.3.14.3.2.29"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWDIR => "1.3.14.7.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWDIR_CRPT => "1.3.14.7.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWDIR_HASH => "1.3.14.7.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWDIR_SIGN => "1.3.14.7.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWDIR_md2 => "1.3.14.7.2.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OIWDIR_md2RSA => "1.3.14.7.2.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC => "2.16.840.1.101.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_sdnsSignature => "2.16.840.1.101.2.1.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicSignature => "2.16.840.1.101.2.1.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_sdnsConfidentiality => "2.16.840.1.101.2.1.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicConfidentiality => "2.16.840.1.101.2.1.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_sdnsIntegrity => "2.16.840.1.101.2.1.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicIntegrity => "2.16.840.1.101.2.1.1.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_sdnsTokenProtection => "2.16.840.1.101.2.1.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicTokenProtection => "2.16.840.1.101.2.1.1.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_sdnsKeyManagement => "2.16.840.1.101.2.1.1.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicKeyManagement => "2.16.840.1.101.2.1.1.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_sdnsKMandSig => "2.16.840.1.101.2.1.1.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicKMandSig => "2.16.840.1.101.2.1.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_SuiteASignature => "2.16.840.1.101.2.1.1.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_SuiteAConfidentiality => "2.16.840.1.101.2.1.1.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_SuiteAIntegrity => "2.16.840.1.101.2.1.1.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_SuiteATokenProtection => "2.16.840.1.101.2.1.1.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_SuiteAKeyManagement => "2.16.840.1.101.2.1.1.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_SuiteAKMandSig => "2.16.840.1.101.2.1.1.18"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicUpdatedSig => "2.16.840.1.101.2.1.1.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicKMandUpdSig => "2.16.840.1.101.2.1.1.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INFOSEC_mosaicUpdatedInteg => "2.16.840.1.101.2.1.1.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_sha256 => "2.16.840.1.101.3.4.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_sha384 => "2.16.840.1.101.3.4.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NIST_sha512 => "2.16.840.1.101.3.4.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_COMMON_NAME => "2.5.4.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUR_NAME => "2.5.4.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DEVICE_SERIAL_NUMBER => "2.5.4.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_COUNTRY_NAME => "2.5.4.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LOCALITY_NAME => "2.5.4.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_STATE_OR_PROVINCE_NAME => "2.5.4.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_STREET_ADDRESS => "2.5.4.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ORGANIZATION_NAME => "2.5.4.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ORGANIZATIONAL_UNIT_NAME => "2.5.4.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TITLE => "2.5.4.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DESCRIPTION => "2.5.4.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SEARCH_GUIDE => "2.5.4.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_BUSINESS_CATEGORY => "2.5.4.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_POSTAL_ADDRESS => "2.5.4.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_POSTAL_CODE => "2.5.4.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_POST_OFFICE_BOX => "2.5.4.18"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PHYSICAL_DELIVERY_OFFICE_NAME => "2.5.4.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TELEPHONE_NUMBER => "2.5.4.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TELEX_NUMBER => "2.5.4.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TELETEXT_TERMINAL_IDENTIFIER => "2.5.4.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_FACSIMILE_TELEPHONE_NUMBER => "2.5.4.23"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_X21_ADDRESS => "2.5.4.24"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INTERNATIONAL_ISDN_NUMBER => "2.5.4.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_REGISTERED_ADDRESS => "2.5.4.26"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DESTINATION_INDICATOR => "2.5.4.27"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PREFERRED_DELIVERY_METHOD => "2.5.4.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PRESENTATION_ADDRESS => "2.5.4.29"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUPPORTED_APPLICATION_CONTEXT => "2.5.4.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_MEMBER => "2.5.4.31"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OWNER => "2.5.4.32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ROLE_OCCUPANT => "2.5.4.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SEE_ALSO => "2.5.4.34"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_USER_PASSWORD => "2.5.4.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_USER_CERTIFICATE => "2.5.4.36"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CA_CERTIFICATE => "2.5.4.37"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_AUTHORITY_REVOCATION_LIST => "2.5.4.38"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERTIFICATE_REVOCATION_LIST => "2.5.4.39"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CROSS_CERTIFICATE_PAIR => "2.5.4.40"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_GIVEN_NAME => "2.5.4.42"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INITIALS => "2.5.4.43"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DN_QUALIFIER => "2.5.4.46"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DOMAIN_COMPONENT => "0.9.2342.19200300.100.1.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_FRIENDLY_NAME_ATTR => "1.2.840.113549.1.9.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_LOCAL_KEY_ID => "1.2.840.113549.1.9.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR => "1.3.6.1.4.1.311.17.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LOCAL_MACHINE_KEYSET => "1.3.6.1.4.1.311.17.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_EXTENDED_ATTRIBUTES => "1.3.6.1.4.1.311.17.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID => "1.3.6.1.4.1.311.17.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KEYID_RDN => "1.3.6.1.4.1.311.10.7.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_EV_RDN_LOCALE => "1.3.6.1.4.1.311.60.2.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_EV_RDN_STATE_OR_PROVINCE => "1.3.6.1.4.1.311.60.2.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_EV_RDN_COUNTRY => "1.3.6.1.4.1.311.60.2.1.3"
 
@@ -6610,17 +6612,17 @@ class Cryptography {
     static CERT_RDN_ENABLE_PUNYCODE_FLAG => 33554432
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RSA_PUBLIC_KEY_OBJID => "1.2.840.113549.1.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DEFAULT_OID_PUBLIC_KEY_SIGN => "1.2.840.113549.1.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DEFAULT_OID_PUBLIC_KEY_XCHG => "1.2.840.113549.1.1.1"
 
@@ -7390,782 +7392,782 @@ class Cryptography {
     static CMS_SIGNER_INFO => 501
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_AUTHORITY_KEY_IDENTIFIER => "2.5.29.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KEY_ATTRIBUTES => "2.5.29.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_POLICIES_95 => "2.5.29.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KEY_USAGE_RESTRICTION => "2.5.29.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUBJECT_ALT_NAME => "2.5.29.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ISSUER_ALT_NAME => "2.5.29.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_BASIC_CONSTRAINTS => "2.5.29.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KEY_USAGE => "2.5.29.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PRIVATEKEY_USAGE_PERIOD => "2.5.29.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_BASIC_CONSTRAINTS2 => "2.5.29.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_POLICIES => "2.5.29.32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ANY_CERT_POLICY => "2.5.29.32.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INHIBIT_ANY_POLICY => "2.5.29.54"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_AUTHORITY_KEY_IDENTIFIER2 => "2.5.29.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUBJECT_KEY_IDENTIFIER => "2.5.29.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUBJECT_ALT_NAME2 => "2.5.29.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ISSUER_ALT_NAME2 => "2.5.29.18"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CRL_REASON_CODE => "2.5.29.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_REASON_CODE_HOLD => "2.5.29.23"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CRL_DIST_POINTS => "2.5.29.31"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENHANCED_KEY_USAGE => "2.5.29.37"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ANY_ENHANCED_KEY_USAGE => "2.5.29.37.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CRL_NUMBER => "2.5.29.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DELTA_CRL_INDICATOR => "2.5.29.27"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ISSUING_DIST_POINT => "2.5.29.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_FRESHEST_CRL => "2.5.29.46"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NAME_CONSTRAINTS => "2.5.29.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_POLICY_MAPPINGS => "2.5.29.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LEGACY_POLICY_MAPPINGS => "2.5.29.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_POLICY_CONSTRAINTS => "2.5.29.36"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RENEWAL_CERTIFICATE => "1.3.6.1.4.1.311.13.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLLMENT_NAME_VALUE_PAIR => "1.3.6.1.4.1.311.13.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLLMENT_CSP_PROVIDER => "1.3.6.1.4.1.311.13.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OS_VERSION => "1.3.6.1.4.1.311.13.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLLMENT_AGENT => "1.3.6.1.4.1.311.20.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX => "1.3.6.1.5.5.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_PE => "1.3.6.1.5.5.7.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_AUTHORITY_INFO_ACCESS => "1.3.6.1.5.5.7.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUBJECT_INFO_ACCESS => "1.3.6.1.5.5.7.1.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_BIOMETRIC_EXT => "1.3.6.1.5.5.7.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_QC_STATEMENTS_EXT => "1.3.6.1.5.5.7.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LOGOTYPE_EXT => "1.3.6.1.5.5.7.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TLS_FEATURES_EXT => "1.3.6.1.5.5.7.1.24"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_EXTENSIONS => "1.3.6.1.4.1.311.2.1.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NEXT_UPDATE_LOCATION => "1.3.6.1.4.1.311.10.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_REMOVE_CERTIFICATE => "1.3.6.1.4.1.311.10.8.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CROSS_CERT_DIST_POINTS => "1.3.6.1.4.1.311.10.9.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CTL => "1.3.6.1.4.1.311.10.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SORTED_CTL => "1.3.6.1.4.1.311.10.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SERIALIZED => "1.3.6.1.4.1.311.10.3.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NT_PRINCIPAL_NAME => "1.3.6.1.4.1.311.20.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INTERNATIONALIZED_EMAIL_ADDRESS => "1.3.6.1.4.1.311.20.2.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PRODUCT_UPDATE => "1.3.6.1.4.1.311.31.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ANY_APPLICATION_POLICY => "1.3.6.1.4.1.311.10.12.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_AUTO_ENROLL_CTL_USAGE => "1.3.6.1.4.1.311.20.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_CERTTYPE_EXTENSION => "1.3.6.1.4.1.311.20.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_MANIFOLD => "1.3.6.1.4.1.311.20.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERTSRV_CA_VERSION => "1.3.6.1.4.1.311.21.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERTSRV_PREVIOUS_CERT_HASH => "1.3.6.1.4.1.311.21.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CRL_VIRTUAL_BASE => "1.3.6.1.4.1.311.21.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CRL_NEXT_PUBLISH => "1.3.6.1.4.1.311.21.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_CA_EXCHANGE => "1.3.6.1.4.1.311.21.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_PRIVACY_CA => "1.3.6.1.4.1.311.21.36"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_KEY_RECOVERY_AGENT => "1.3.6.1.4.1.311.21.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERTIFICATE_TEMPLATE => "1.3.6.1.4.1.311.21.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENTERPRISE_OID_ROOT => "1.3.6.1.4.1.311.21.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_DUMMY_SIGNER => "1.3.6.1.4.1.311.21.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_APPLICATION_CERT_POLICIES => "1.3.6.1.4.1.311.21.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_APPLICATION_POLICY_MAPPINGS => "1.3.6.1.4.1.311.21.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_APPLICATION_POLICY_CONSTRAINTS => "1.3.6.1.4.1.311.21.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ARCHIVED_KEY_ATTR => "1.3.6.1.4.1.311.21.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CRL_SELF_CDP => "1.3.6.1.4.1.311.21.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_REQUIRE_CERT_CHAIN_POLICY => "1.3.6.1.4.1.311.21.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ARCHIVED_KEY_CERT_HASH => "1.3.6.1.4.1.311.21.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ISSUED_CERT_HASH => "1.3.6.1.4.1.311.21.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DS_EMAIL_REPLICATION => "1.3.6.1.4.1.311.21.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_REQUEST_CLIENT_INFO => "1.3.6.1.4.1.311.21.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENCRYPTED_KEY_HASH => "1.3.6.1.4.1.311.21.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERTSRV_CROSSCA_VERSION => "1.3.6.1.4.1.311.21.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NTDS_REPLICATION => "1.3.6.1.4.1.311.25.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NTDS_CA_SECURITY_EXT => "1.3.6.1.4.1.311.25.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NTDS_OBJECTSID => "1.3.6.1.4.1.311.25.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszURI_NTDS_OBJECTSID_PREFIX => "tag:microsoft.com,2022-09-14:sid:"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SUBJECT_DIR_ATTRS => "2.5.29.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP => "1.3.6.1.5.5.7.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_SERVER_AUTH => "1.3.6.1.5.5.7.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_CLIENT_AUTH => "1.3.6.1.5.5.7.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_CODE_SIGNING => "1.3.6.1.5.5.7.3.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_EMAIL_PROTECTION => "1.3.6.1.5.5.7.3.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_IPSEC_END_SYSTEM => "1.3.6.1.5.5.7.3.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_IPSEC_TUNNEL => "1.3.6.1.5.5.7.3.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_IPSEC_USER => "1.3.6.1.5.5.7.3.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_TIMESTAMP_SIGNING => "1.3.6.1.5.5.7.3.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_KP_OCSP_SIGNING => "1.3.6.1.5.5.7.3.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_OCSP_NOCHECK => "1.3.6.1.5.5.7.48.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_OCSP_NONCE => "1.3.6.1.5.5.7.48.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_IPSEC_KP_IKE_INTERMEDIATE => "1.3.6.1.5.5.8.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKINIT_KP_KDC => "1.3.6.1.5.2.3.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_CTL_USAGE_SIGNING => "1.3.6.1.4.1.311.10.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_TIME_STAMP_SIGNING => "1.3.6.1.4.1.311.10.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SERVER_GATED_CRYPTO => "1.3.6.1.4.1.311.10.3.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SGC_NETSCAPE => "2.16.840.1.113730.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_EFS => "1.3.6.1.4.1.311.10.3.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_EFS_RECOVERY => "1.3.6.1.4.1.311.10.3.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WHQL_CRYPTO => "1.3.6.1.4.1.311.10.3.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ATTEST_WHQL_CRYPTO => "1.3.6.1.4.1.311.10.3.5.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NT5_CRYPTO => "1.3.6.1.4.1.311.10.3.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_OEM_WHQL_CRYPTO => "1.3.6.1.4.1.311.10.3.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_EMBEDDED_NT_CRYPTO => "1.3.6.1.4.1.311.10.3.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ROOT_LIST_SIGNER => "1.3.6.1.4.1.311.10.3.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_QUALIFIED_SUBORDINATION => "1.3.6.1.4.1.311.10.3.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_KEY_RECOVERY => "1.3.6.1.4.1.311.10.3.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_DOCUMENT_SIGNING => "1.3.6.1.4.1.311.10.3.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_LIFETIME_SIGNING => "1.3.6.1.4.1.311.10.3.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_MOBILE_DEVICE_SOFTWARE => "1.3.6.1.4.1.311.10.3.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_SMART_DISPLAY => "1.3.6.1.4.1.311.10.3.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_CSP_SIGNATURE => "1.3.6.1.4.1.311.10.3.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_FLIGHT_SIGNING => "1.3.6.1.4.1.311.10.3.27"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PLATFORM_MANIFEST_BINARY_ID => "1.3.6.1.4.1.311.10.3.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DRM => "1.3.6.1.4.1.311.10.5.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DRM_INDIVIDUALIZATION => "1.3.6.1.4.1.311.10.5.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LICENSES => "1.3.6.1.4.1.311.10.6.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LICENSE_SERVER => "1.3.6.1.4.1.311.10.6.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_SMARTCARD_LOGON => "1.3.6.1.4.1.311.20.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_KERNEL_MODE_CODE_SIGNING => "1.3.6.1.4.1.311.61.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_KERNEL_MODE_TRUSTED_BOOT_SIGNING => "1.3.6.1.4.1.311.61.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_REVOKED_LIST_SIGNER => "1.3.6.1.4.1.311.10.3.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WINDOWS_KITS_SIGNER => "1.3.6.1.4.1.311.10.3.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WINDOWS_RT_SIGNER => "1.3.6.1.4.1.311.10.3.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PROTECTED_PROCESS_LIGHT_SIGNER => "1.3.6.1.4.1.311.10.3.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WINDOWS_TCB_SIGNER => "1.3.6.1.4.1.311.10.3.23"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PROTECTED_PROCESS_SIGNER => "1.3.6.1.4.1.311.10.3.24"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WINDOWS_THIRD_PARTY_COMPONENT_SIGNER => "1.3.6.1.4.1.311.10.3.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WINDOWS_SOFTWARE_EXTENSION_SIGNER => "1.3.6.1.4.1.311.10.3.26"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DISALLOWED_LIST => "1.3.6.1.4.1.311.10.3.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PIN_RULES_SIGNER => "1.3.6.1.4.1.311.10.3.31"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PIN_RULES_CTL => "1.3.6.1.4.1.311.10.3.32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PIN_RULES_EXT => "1.3.6.1.4.1.311.10.3.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PIN_RULES_DOMAIN_NAME => "1.3.6.1.4.1.311.10.3.34"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PIN_RULES_LOG_END_DATE_EXT => "1.3.6.1.4.1.311.10.3.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_IUM_SIGNING => "1.3.6.1.4.1.311.10.3.37"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_EV_WHQL_CRYPTO => "1.3.6.1.4.1.311.10.3.39"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_BIOMETRIC_SIGNING => "1.3.6.1.4.1.311.10.3.41"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENCLAVE_SIGNING => "1.3.6.1.4.1.311.10.3.42"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SYNC_ROOT_CTL_EXT => "1.3.6.1.4.1.311.10.3.50"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_FLIGHT_CTL_EXT => "1.3.6.1.4.1.311.10.3.51"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_LOG_LIST_EXT => "1.3.6.1.4.1.311.10.3.52"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_HPKP_DOMAIN_NAME_CTL => "1.3.6.1.4.1.311.10.3.60"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_HPKP_HEADER_VALUE_CTL => "1.3.6.1.4.1.311.10.3.61"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_KERNEL_MODE_HAL_EXTENSION_SIGNING => "1.3.6.1.4.1.311.61.5.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_WINDOWS_STORE_SIGNER => "1.3.6.1.4.1.311.76.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DYNAMIC_CODE_GEN_SIGNER => "1.3.6.1.4.1.311.76.5.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_MICROSOFT_PUBLISHER_SIGNER => "1.3.6.1.4.1.311.76.8.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_YESNO_TRUST_ATTR => "1.3.6.1.4.1.311.10.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SITE_PIN_RULES_INDEX_ATTR => "1.3.6.1.4.1.311.10.4.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SITE_PIN_RULES_FLAGS_ATTR => "1.3.6.1.4.1.311.10.4.3"
 
@@ -8175,17 +8177,17 @@ class Cryptography {
     static SITE_PIN_RULES_ALL_SUBDOMAINS_FLAG => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_POLICY_QUALIFIER_CPS => "1.3.6.1.5.5.7.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_POLICY_QUALIFIER_USERNOTICE => "1.3.6.1.5.5.7.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ROOT_PROGRAM_FLAGS => "1.3.6.1.4.1.311.60.1.1"
 
@@ -8200,177 +8202,177 @@ class Cryptography {
     static CERT_ROOT_PROGRAM_FLAG_ADDRESS => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_POLICIES_95_QUALIFIER1 => "2.16.840.1.113733.1.7.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_TPM_MANUFACTURER => "2.23.133.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_TPM_MODEL => "2.23.133.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_TPM_VERSION => "2.23.133.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_TCG_PLATFORM_MANUFACTURER => "2.23.133.2.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_TCG_PLATFORM_MODEL => "2.23.133.2.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_RDN_TCG_PLATFORM_VERSION => "2.23.133.2.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CT_CERT_SCTLIST => "1.3.6.1.4.1.11129.2.4.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_EK_INFO => "1.3.6.1.4.1.311.21.23"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_AIK_INFO => "1.3.6.1.4.1.311.21.39"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_ATTESTATION_STATEMENT => "1.3.6.1.4.1.311.21.24"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_KSP_NAME => "1.3.6.1.4.1.311.21.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_EKPUB_CHALLENGE => "1.3.6.1.4.1.311.21.26"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_CAXCHGCERT_HASH => "1.3.6.1.4.1.311.21.27"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_ATTESTATION_CHALLENGE => "1.3.6.1.4.1.311.21.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_ENCRYPTION_ALGORITHM => "1.3.6.1.4.1.311.21.29"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_TPM_EK_CERTIFICATE => "2.23.133.8.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_TPM_PLATFORM_CERTIFICATE => "2.23.133.8.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_KP_TPM_AIK_CERTIFICATE => "2.23.133.8.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_EKVERIFYKEY => "1.3.6.1.4.1.311.21.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_EKVERIFYCERT => "1.3.6.1.4.1.311.21.31"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_EKVERIFYCREDS => "1.3.6.1.4.1.311.21.32"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_ERROR => "1.3.6.1.4.1.311.21.33"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_SERVER_STATE => "1.3.6.1.4.1.311.21.34"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_CHALLENGE_ANSWER => "1.3.6.1.4.1.311.21.35"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_CLIENT_REQUEST => "1.3.6.1.4.1.311.21.37"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_SERVER_MESSAGE => "1.3.6.1.4.1.311.21.38"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_SERVER_SECRET => "1.3.6.1.4.1.311.21.40"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_KEY_AFFINITY => "1.3.6.1.4.1.311.21.41"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_SCEP_SIGNER_HASH => "1.3.6.1.4.1.311.21.42"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENROLL_EK_CA_KEYID => "1.3.6.1.4.1.311.21.43"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ATTR_SUPPORTED_ALGORITHMS => "2.5.4.52"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ATTR_TPM_SPECIFICATION => "2.23.133.2.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ATTR_PLATFORM_SPECIFICATION => "2.23.133.2.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ATTR_TPM_SECURITY_ASSERTIONS => "2.23.133.2.18"
 
@@ -8495,27 +8497,27 @@ class Cryptography {
     static CERT_END_ENTITY_SUBJECT_FLAG => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_ACC_DESCR => "1.3.6.1.5.5.7.48"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_OCSP => "1.3.6.1.5.5.7.48.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_CA_ISSUERS => "1.3.6.1.5.5.7.48.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_TIME_STAMPING => "1.3.6.1.5.5.7.48.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_CA_REPOSITORY => "1.3.6.1.5.5.7.48.5"
 
@@ -8670,12 +8672,12 @@ class Cryptography {
     static CRYPT_RC2_128BIT_VERSION => 58
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_QC_EU_COMPLIANCE => "0.4.0.1862.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_QC_SSCD => "0.4.0.1862.1.4"
 
@@ -8685,112 +8687,112 @@ class Cryptography {
     static PKCS_RSA_SSA_PSS_TRAILER_FIELD_BC => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_VERISIGN_PRIVATE_6_9 => "2.16.840.1.113733.1.6.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_VERISIGN_ONSITE_JURISDICTION_HASH => "2.16.840.1.113733.1.6.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_VERISIGN_BITSTRING_6_13 => "2.16.840.1.113733.1.6.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_VERISIGN_ISS_STRONG_CRYPTO => "2.16.840.1.113733.1.8.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOIDVerisign_MessageType => "2.16.840.1.113733.1.9.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOIDVerisign_PkiStatus => "2.16.840.1.113733.1.9.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOIDVerisign_FailInfo => "2.16.840.1.113733.1.9.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOIDVerisign_SenderNonce => "2.16.840.1.113733.1.9.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOIDVerisign_RecipientNonce => "2.16.840.1.113733.1.9.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOIDVerisign_TransactionID => "2.16.840.1.113733.1.9.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE => "2.16.840.1.113730"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_CERT_EXTENSION => "2.16.840.1.113730.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_CERT_TYPE => "2.16.840.1.113730.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_BASE_URL => "2.16.840.1.113730.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_REVOCATION_URL => "2.16.840.1.113730.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_CA_REVOCATION_URL => "2.16.840.1.113730.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_CERT_RENEWAL_URL => "2.16.840.1.113730.1.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_CA_POLICY_URL => "2.16.840.1.113730.1.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_SSL_SERVER_NAME => "2.16.840.1.113730.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_COMMENT => "2.16.840.1.113730.1.13"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_DATA_TYPE => "2.16.840.1.113730.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NETSCAPE_CERT_SEQUENCE => "2.16.840.1.113730.2.5"
 
@@ -8830,127 +8832,127 @@ class Cryptography {
     static NETSCAPE_SIGN_CA_CERT_TYPE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CT_PKI_DATA => "1.3.6.1.5.5.7.12.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CT_PKI_RESPONSE => "1.3.6.1.5.5.7.12.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_NO_SIGNATURE => "1.3.6.1.5.5.7.6.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC => "1.3.6.1.5.5.7.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_STATUS_INFO => "1.3.6.1.5.5.7.7.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_IDENTIFICATION => "1.3.6.1.5.5.7.7.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_IDENTITY_PROOF => "1.3.6.1.5.5.7.7.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_DATA_RETURN => "1.3.6.1.5.5.7.7.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_TRANSACTION_ID => "1.3.6.1.5.5.7.7.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_SENDER_NONCE => "1.3.6.1.5.5.7.7.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_RECIPIENT_NONCE => "1.3.6.1.5.5.7.7.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_ADD_EXTENSIONS => "1.3.6.1.5.5.7.7.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_ENCRYPTED_POP => "1.3.6.1.5.5.7.7.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_DECRYPTED_POP => "1.3.6.1.5.5.7.7.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_LRA_POP_WITNESS => "1.3.6.1.5.5.7.7.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_GET_CERT => "1.3.6.1.5.5.7.7.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_GET_CRL => "1.3.6.1.5.5.7.7.16"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_REVOKE_REQUEST => "1.3.6.1.5.5.7.7.17"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_REG_INFO => "1.3.6.1.5.5.7.7.18"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_RESPONSE_INFO => "1.3.6.1.5.5.7.7.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_QUERY_PENDING => "1.3.6.1.5.5.7.7.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_ID_POP_LINK_RANDOM => "1.3.6.1.5.5.7.7.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_ID_POP_LINK_WITNESS => "1.3.6.1.5.5.7.7.23"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_ID_CONFIRM_CERT_ACCEPTANCE => "1.3.6.1.5.5.7.7.24"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CMC_ADD_ATTRIBUTES => "1.3.6.1.4.1.311.10.10.1"
 
@@ -9065,12 +9067,12 @@ class Cryptography {
     static CMC_FAIL_TRY_LATER => 12
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_LOYALTY_OTHER_LOGOTYPE => "1.3.6.1.5.5.7.20.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_BACKGROUND_OTHER_LOGOTYPE => "1.3.6.1.5.5.7.20.2"
 
@@ -9120,7 +9122,7 @@ class Cryptography {
     static OCSP_UNAUTHORIZED_RESPONSE => 6
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKIX_OCSP_BASIC_SIGNED_RESPONSE => "1.3.6.1.5.5.7.48.1.1"
 
@@ -9155,87 +9157,87 @@ class Cryptography {
     static OCSP_BASIC_BY_KEY_RESPONDER_ID => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_ENCODE_OBJECT_FUNC => "CryptDllEncodeObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_DECODE_OBJECT_FUNC => "CryptDllDecodeObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_ENCODE_OBJECT_EX_FUNC => "CryptDllEncodeObjectEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_DECODE_OBJECT_EX_FUNC => "CryptDllDecodeObjectEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_CREATE_COM_OBJECT_FUNC => "CryptDllCreateCOMObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_VERIFY_REVOCATION_FUNC => "CertDllVerifyRevocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_VERIFY_CTL_USAGE_FUNC => "CertDllVerifyCTLUsage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_FORMAT_OBJECT_FUNC => "CryptDllFormatObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_FIND_OID_INFO_FUNC => "CryptDllFindOIDInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_FIND_LOCALIZED_NAME_FUNC => "CryptDllFindLocalizedName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REGPATH => "Software\Microsoft\Cryptography\OID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REG_ENCODING_TYPE_PREFIX => "EncodingType "
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REG_DLL_VALUE_NAME => "Dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REG_FUNC_NAME_VALUE_NAME => "FuncName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REG_FUNC_NAME_VALUE_NAME_A => "FuncName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REG_FLAGS_VALUE_NAME => "CryptFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_DEFAULT_OID => "DEFAULT"
 
@@ -9275,37 +9277,37 @@ class Cryptography {
     static CALG_OID_INFO_PARAMETERS => 4294967294
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_HASH_PARAMETERS_ALGORITHM => "CryptOIDInfoHashParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_ECC_PARAMETERS_ALGORITHM => "CryptOIDInfoECCParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_MGF1_PARAMETERS_ALGORITHM => "CryptOIDInfoMgf1Parameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_NO_SIGN_ALGORITHM => "CryptOIDInfoNoSign"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_OAEP_PARAMETERS_ALGORITHM => "CryptOIDInfoOAEPParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_ECC_WRAP_PARAMETERS_ALGORITHM => "CryptOIDInfoECCWrapParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_INFO_NO_PARAMETERS_ALGORITHM => "CryptOIDInfoNoParameters"
 
@@ -9475,12 +9477,12 @@ class Cryptography {
     static CRYPT_LOCALIZED_NAME_ENCODING_TYPE => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_LOCALIZED_NAME_OID => "LocalizedNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_STRONG_SIGN_ECDSA_ALGORITHM => "ECDSA"
 
@@ -9495,72 +9497,72 @@ class Cryptography {
     static CERT_STRONG_SIGN_OID_INFO_CHOICE => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_STRONG_SIGN_OS_PREFIX => "1.3.6.1.4.1.311.72.1."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_STRONG_SIGN_OS_1 => "1.3.6.1.4.1.311.72.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_STRONG_SIGN_OS_CURRENT => "1.3.6.1.4.1.311.72.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_STRONG_KEY_OS_PREFIX => "1.3.6.1.4.1.311.72.2."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_STRONG_KEY_OS_1 => "1.3.6.1.4.1.311.72.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_STRONG_KEY_OS_CURRENT => "1.3.6.1.4.1.311.72.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7_DATA => "1.2.840.113549.1.7.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7_SIGNED => "1.2.840.113549.1.7.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7_ENVELOPED => "1.2.840.113549.1.7.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7_SIGNEDANDENVELOPED => "1.2.840.113549.1.7.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7_DIGESTED => "1.2.840.113549.1.7.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_7_ENCRYPTED => "1.2.840.113549.1.7.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_9_CONTENT_TYPE => "1.2.840.113549.1.9.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_9_MESSAGE_DIGEST => "1.2.840.113549.1.9.4"
 
@@ -10065,17 +10067,17 @@ class Cryptography {
     static CMSG_VERIFY_COUNTER_SIGN_ENABLE_STRONG_FLAG => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_GEN_ENCRYPT_KEY_FUNC => "CryptMsgDllGenEncryptKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_EXPORT_ENCRYPT_KEY_FUNC => "CryptMsgDllExportEncryptKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_IMPORT_ENCRYPT_KEY_FUNC => "CryptMsgDllImportEncryptKey"
 
@@ -10105,17 +10107,17 @@ class Cryptography {
     static CMSG_CONTENT_ENCRYPT_RELEASE_CONTEXT_FLAG => 32768
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_GEN_CONTENT_ENCRYPT_KEY_FUNC => "CryptMsgDllGenContentEncryptKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_GEN_CONTENT_ENCRYPT_KEY_FUNC => "CryptMsgDllGenContentEncryptKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CNG_GEN_CONTENT_ENCRYPT_KEY_FUNC => "CryptMsgDllCNGGenContentEncryptKey"
 
@@ -10130,17 +10132,17 @@ class Cryptography {
     static CMSG_KEY_TRANS_ENCRYPT_FREE_OBJID_FLAG => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_EXPORT_KEY_TRANS_FUNC => "CryptMsgDllExportKeyTrans"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_EXPORT_KEY_TRANS_FUNC => "CryptMsgDllExportKeyTrans"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CNG_EXPORT_KEY_TRANS_FUNC => "CryptMsgDllCNGExportKeyTrans"
 
@@ -10175,17 +10177,17 @@ class Cryptography {
     static CMSG_KEY_AGREE_ENCRYPT_FREE_OBJID_FLAG => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_EXPORT_KEY_AGREE_FUNC => "CryptMsgDllExportKeyAgree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_EXPORT_KEY_AGREE_FUNC => "CryptMsgDllExportKeyAgree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CNG_EXPORT_KEY_AGREE_FUNC => "CryptMsgDllCNGExportKeyAgree"
 
@@ -10200,57 +10202,57 @@ class Cryptography {
     static CMSG_MAIL_LIST_ENCRYPT_FREE_OBJID_FLAG => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_EXPORT_MAIL_LIST_FUNC => "CryptMsgDllExportMailList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_EXPORT_MAIL_LIST_FUNC => "CryptMsgDllExportMailList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_IMPORT_KEY_TRANS_FUNC => "CryptMsgDllImportKeyTrans"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_IMPORT_KEY_TRANS_FUNC => "CryptMsgDllImportKeyTrans"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_IMPORT_KEY_AGREE_FUNC => "CryptMsgDllImportKeyAgree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_IMPORT_KEY_AGREE_FUNC => "CryptMsgDllImportKeyAgree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_IMPORT_MAIL_LIST_FUNC => "CryptMsgDllImportMailList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CAPI1_IMPORT_MAIL_LIST_FUNC => "CryptMsgDllImportMailList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CNG_IMPORT_KEY_TRANS_FUNC => "CryptMsgDllCNGImportKeyTrans"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CNG_IMPORT_KEY_AGREE_FUNC => "CryptMsgDllCNGImportKeyAgree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMSG_OID_CNG_IMPORT_CONTENT_ENCRYPT_KEY_FUNC => "CryptMsgDllCNGImportContentEncryptKey"
 
@@ -10760,52 +10762,52 @@ class Cryptography {
     static CERT_LAST_USER_PROP_ID => 65535
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_PROP_ID_PREFIX => "1.3.6.1.4.1.311.10.11."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_KEY_IDENTIFIER_PROP_ID => "1.3.6.1.4.1.311.10.11.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_ISSUER_SERIAL_NUMBER_MD5_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_SUBJECT_NAME_MD5_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.29"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_MD5_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_SHA256_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.107"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_SIGNATURE_HASH_PROP_ID => "1.3.6.1.4.1.311.10.11.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_DISALLOWED_HASH => "1.3.6.1.4.1.311.10.11.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_DISALLOWED_FILETIME_PROP_ID => "1.3.6.1.4.1.311.10.11.104"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CERT_DISALLOWED_CA_FILETIME_PROP_ID => "1.3.6.1.4.1.311.10.11.128"
 
@@ -10835,17 +10837,17 @@ class Cryptography {
     static CERT_ACCESS_STATE_SHARED_USER_FLAG => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ROOT_PROGRAM_AUTO_UPDATE_CA_REVOCATION => "1.3.6.1.4.1.311.60.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ROOT_PROGRAM_AUTO_UPDATE_END_REVOCATION => "1.3.6.1.4.1.311.60.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ROOT_PROGRAM_NO_OCSP_FAILOVER_TO_CRL => "1.3.6.1.4.1.311.60.3.3"
 
@@ -10965,87 +10967,87 @@ class Cryptography {
     static CERT_STORE_PROV_PKCS12 => 17
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_MEMORY => "Memory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_FILENAME_W => "File"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_FILENAME => "File"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SYSTEM_W => "System"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SYSTEM => "System"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_PKCS7 => "PKCS7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_PKCS12 => "PKCS12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SERIALIZED => "Serialized"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_COLLECTION => "Collection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SYSTEM_REGISTRY_W => "SystemRegistry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SYSTEM_REGISTRY => "SystemRegistry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_PHYSICAL_W => "Physical"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_PHYSICAL => "Physical"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SMART_CARD_W => "SmartCard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_SMART_CARD => "SmartCard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_LDAP_W => "Ldap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static sz_CERT_STORE_PROV_LDAP => "Ldap"
 
@@ -11165,17 +11167,17 @@ class Cryptography {
     static CERT_SYSTEM_STORE_LOCAL_MACHINE_WCOS_ID => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_GROUP_POLICY_SYSTEM_STORE_REGPATH => "Software\Policies\Microsoft\SystemCertificates"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_EFSBLOB_VALUE_NAME => "EFSBlob"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PROT_ROOT_FLAGS_VALUE_NAME => "Flags"
 
@@ -11220,22 +11222,22 @@ class Cryptography {
     static CERT_PROT_ROOT_DISABLE_PEER_TRUST => 65536
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PROT_ROOT_PEER_USAGES_VALUE_NAME => "PeerUsages"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PROT_ROOT_PEER_USAGES_VALUE_NAME_A => "PeerUsages"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_LOCAL_MACHINE_SYSTEM_STORE_REGPATH => "Software\Microsoft\SystemCertificates"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_TRUST_PUB_AUTHENTICODE_FLAGS_VALUE_NAME => "AuthenticodeFlags"
 
@@ -11270,52 +11272,52 @@ class Cryptography {
     static CERT_TRUST_PUB_CHECK_TIMESTAMP_REV_FLAG => 512
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_OCM_SUBCOMPONENTS_LOCAL_MACHINE_REGPATH => "SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\OC Manager\Subcomponents"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_OCM_SUBCOMPONENTS_ROOT_AUTO_UPDATE_VALUE_NAME => "RootAutoUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISABLE_ROOT_AUTO_UPDATE_VALUE_NAME => "DisableRootAutoUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_ENABLE_DISALLOWED_CERT_AUTO_UPDATE_VALUE_NAME => "EnableDisallowedCertAutoUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISABLE_PIN_RULES_AUTO_UPDATE_VALUE_NAME => "DisablePinRulesAutoUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTO_UPDATE_ROOT_DIR_URL_VALUE_NAME => "RootDirUrl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTO_UPDATE_SYNC_FROM_DIR_URL_VALUE_NAME => "SyncFromDirUrl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_AUTO_UPDATE_ROOT_DIR_URL_VALUE_NAME => "RootDirUrl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME => "SyncDeltaTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_AUTO_UPDATE_FLAGS_VALUE_NAME => "Flags"
 
@@ -11335,107 +11337,107 @@ class Cryptography {
     static CERT_AUTO_UPDATE_DISABLE_RANDOM_QUERY_STRING_FLAG => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME => "LastSyncTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME => "EncodedCtl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_CTL_FILENAME => "authroot.stl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_CTL_FILENAME_A => "authroot.stl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_CAB_FILENAME => "authrootstl.cab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_SEQ_FILENAME => "authrootseq.txt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_AUTH_ROOT_CERT_EXT => ".crt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME => "DisallowedCertSyncDeltaTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME => "DisallowedCertLastSyncTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME => "DisallowedCertEncodedCtl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_CTL_FILENAME => "disallowedcert.stl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_CTL_FILENAME_A => "disallowedcert.stl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_CAB_FILENAME => "disallowedcertstl.cab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_DISALLOWED_CERT_AUTO_UPDATE_LIST_IDENTIFIER => "DisallowedCert_AutoUpdate_1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME => "PinRulesSyncDeltaTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME => "PinRulesLastSyncTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME => "PinRulesEncodedCtl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_CTL_FILENAME => "pinrules.stl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_CTL_FILENAME_A => "pinrules.stl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_CAB_FILENAME => "pinrulesstl.cab"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PIN_RULES_AUTO_UPDATE_LIST_IDENTIFIER => "PinRules_AutoUpdate_1"
 
@@ -11475,7 +11477,7 @@ class Cryptography {
     static CERT_REGISTRY_STORE_EXTERNAL_FLAG => 1048576
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_IE_DIRTY_FLAGS_REGPATH => "Software\Microsoft\Cryptography\IEDirtyFlags"
 
@@ -11505,7 +11507,7 @@ class Cryptography {
     static CERT_LDAP_STORE_UNBIND_FLAG => 524288
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_OPEN_STORE_PROV_FUNC => "CertDllOpenStoreProv"
 
@@ -11990,82 +11992,82 @@ class Cryptography {
     static CERT_PHYSICAL_STORE_PREDEFINED_ENUM_FLAG => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_DEFAULT_NAME => ".Default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_GROUP_POLICY_NAME => ".GroupPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_LOCAL_MACHINE_NAME => ".LocalMachine"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_DS_USER_CERTIFICATE_NAME => ".UserCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_LOCAL_MACHINE_GROUP_POLICY_NAME => ".LocalMachineGroupPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_ENTERPRISE_NAME => ".Enterprise"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_AUTH_ROOT_NAME => ".AuthRoot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_PHYSICAL_STORE_SMART_CARD_NAME => ".SmartCard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_OPEN_SYSTEM_STORE_PROV_FUNC => "CertDllOpenSystemStoreProv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REGISTER_SYSTEM_STORE_FUNC => "CertDllRegisterSystemStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_UNREGISTER_SYSTEM_STORE_FUNC => "CertDllUnregisterSystemStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_ENUM_SYSTEM_STORE_FUNC => "CertDllEnumSystemStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_REGISTER_PHYSICAL_STORE_FUNC => "CertDllRegisterPhysicalStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_UNREGISTER_PHYSICAL_STORE_FUNC => "CertDllUnregisterPhysicalStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_ENUM_PHYSICAL_STORE_FUNC => "CertDllEnumPhysicalStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_SYSTEM_STORE_LOCATION_VALUE_NAME => "SystemStoreLocation"
 
@@ -12215,52 +12217,52 @@ class Cryptography {
     static CRYPT_VERIFY_CERT_SIGN_CHECK_WEAK_HASH_FLAG => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC => "CryptDllExtractEncodedSignatureParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_SIGN_AND_ENCODE_HASH_FUNC => "CryptDllSignAndEncodeHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_VERIFY_ENCODED_SIGNATURE_FUNC => "CryptDllVerifyEncodedSignature"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FUNC => "CryptDllExportPublicKeyInfoEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC => "CryptDllExportPublicKeyInfoEx2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC => "CryptDllExportPublicKeyInfoFromBCryptKeyHandle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_FUNC => "CryptDllImportPublicKeyInfoEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC => "CryptDllImportPublicKeyInfoEx2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_IMPORT_PRIVATE_KEY_INFO_FUNC => "CryptDllImportPrivateKeyInfoEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_EXPORT_PRIVATE_KEY_INFO_FUNC => "CryptDllExportPrivateKeyInfoEx"
 
@@ -12435,17 +12437,17 @@ class Cryptography {
     static CREDENTIAL_OID_PASSWORD_CREDENTIALS => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SCHEME_OID_RETRIEVE_ENCODED_OBJECT_FUNC => "SchemeDllRetrieveEncodedObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SCHEME_OID_RETRIEVE_ENCODED_OBJECTW_FUNC => "SchemeDllRetrieveEncodedObjectW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONTEXT_OID_CREATE_OBJECT_CONTEXT_FUNC => "ContextDllCreateObjectContext"
 
@@ -12700,7 +12702,7 @@ class Cryptography {
     static CRYPT_PARAM_CANCEL_ASYNC_RETRIEVAL => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static URL_OID_GET_OBJECT_URL_FUNC => "UrlDllGetObjectUrl"
 
@@ -12770,7 +12772,7 @@ class Cryptography {
     static URL_OID_CERTIFICATE_ONLY_OCSP => 13
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TIME_VALID_OID_GET_OBJECT_FUNC => "TimeValidDllGetObject"
 
@@ -12800,7 +12802,7 @@ class Cryptography {
     static TIME_VALID_OID_GET_FRESHEST_CRL_FROM_CRL => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TIME_VALID_OID_FLUSH_OBJECT_FUNC => "TimeValidDllFlushObject"
 
@@ -12850,37 +12852,37 @@ class Cryptography {
     static CRYPT_KEYID_SET_NEW_FLAG => 8192
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_CONFIG_REGPATH => "Software\Microsoft\Cryptography\OID\EncodingType 0\CertDllCreateCertificateChainEngine\Config"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MAX_URL_RETRIEVAL_BYTE_COUNT_VALUE_NAME => "MaxUrlRetrievalByteCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_CACHE_RESYNC_FILETIME_VALUE_NAME => "ChainCacheResyncFiletime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_MANDATORY_BASIC_CONSTRAINTS_VALUE_NAME => "DisableMandatoryBasicConstraints"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_CA_NAME_CONSTRAINTS_VALUE_NAME => "DisableCANameConstraints"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_UNSUPPORTED_CRITICAL_EXTENSIONS_VALUE_NAME => "DisableUnsupportedCriticalExtensions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MAX_AIA_URL_COUNT_IN_CERT_VALUE_NAME => "MaxAIAUrlCountInCert"
 
@@ -12890,7 +12892,7 @@ class Cryptography {
     static CERT_CHAIN_MAX_AIA_URL_COUNT_IN_CERT_DEFAULT => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_COUNT_PER_CHAIN_VALUE_NAME => "MaxAIAUrlRetrievalCountPerChain"
 
@@ -12900,7 +12902,7 @@ class Cryptography {
     static CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_COUNT_PER_CHAIN_DEFAULT => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_BYTE_COUNT_VALUE_NAME => "MaxAIAUrlRetrievalByteCount"
 
@@ -12910,7 +12912,7 @@ class Cryptography {
     static CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_BYTE_COUNT_DEFAULT => 100000
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_CERT_COUNT_VALUE_NAME => "MaxAIAUrlRetrievalCertCount"
 
@@ -12920,27 +12922,27 @@ class Cryptography {
     static CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_CERT_COUNT_DEFAULT => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_OCSP_VALIDITY_SECONDS_VALUE_NAME => "OcspValiditySeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_SERIAL_CHAIN_VALUE_NAME => "DisableSerialChain"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_SERIAL_CHAIN_LOG_FILE_NAME_VALUE_NAME => "SerialChainLogFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_SYNC_WITH_SSL_TIME_VALUE_NAME => "DisableSyncWithSslTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MAX_SSL_TIME_UPDATED_EVENT_COUNT_VALUE_NAME => "MaxSslTimeUpdatedEventCount"
 
@@ -12955,12 +12957,12 @@ class Cryptography {
     static CERT_CHAIN_MAX_SSL_TIME_UPDATED_EVENT_COUNT_DISABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_SSL_HANDSHAKE_LOG_FILE_NAME_VALUE_NAME => "SslHandshakeLogFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_ENABLE_WEAK_SIGNATURE_FLAGS_VALUE_NAME => "EnableWeakSignatureFlags"
 
@@ -12985,7 +12987,7 @@ class Cryptography {
     static CERT_CHAIN_ENABLE_ONLY_WEAK_LOGGING_FLAG => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MIN_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME => "MinRsaPubKeyBitLength"
 
@@ -13000,7 +13002,7 @@ class Cryptography {
     static CERT_CHAIN_MIN_RSA_PUB_KEY_BIT_LENGTH_DISABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MIN_WEAK_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME => "MinWeakRsaPubKeyBitLength"
 
@@ -13015,7 +13017,7 @@ class Cryptography {
     static CERT_CHAIN_MIN_WEAK_RSA_PUB_KEY_BIT_LENGTH_DISABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_MIN_TELEMETRY_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME => "MinTelemetryRsaPubKeyBitLength"
 
@@ -13030,67 +13032,67 @@ class Cryptography {
     static CERT_CHAIN_MIN_TELEMETRY_RSA_PUB_KEY_BIT_LENGTH_DISABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_RSA_PUB_KEY_TIME_VALUE_NAME => "WeakRsaPubKeyTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_SIGNATURE_LOG_DIR_VALUE_NAME => "WeakSignatureLogDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DEFAULT_CONFIG_SUBDIR => "Default"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_PREFIX_NAME => "Weak"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_THIRD_PARTY_CONFIG_NAME => "ThirdParty"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_ALL_CONFIG_NAME => "All"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_FLAGS_NAME => "Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_HYGIENE_NAME => "Hygiene"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_AFTER_TIME_NAME => "AfterTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_FILE_HASH_AFTER_TIME_NAME => "FileHashAfterTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_TIMESTAMP_HASH_AFTER_TIME_NAME => "TimestampHashAfterTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_MIN_BIT_LENGTH_NAME => "MinBitLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_WEAK_SHA256_ALLOW_NAME => "Sha256Allow"
 
@@ -13245,7 +13247,7 @@ class Cryptography {
     static CERT_CHAIN_AUTO_HPKP_RULE_INFO => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_AUTO_FLAGS_VALUE_NAME => "AutoFlags"
 
@@ -13270,52 +13272,52 @@ class Cryptography {
     static CERT_CHAIN_AUTO_LOG_FLUSH_FLAG => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_AUTO_FLUSH_FIRST_DELTA_SECONDS_VALUE_NAME => "AutoFlushFirstDeltaSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_AUTO_FLUSH_NEXT_DELTA_SECONDS_VALUE_NAME => "AutoFlushNextDeltaSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_AUTO_LOG_FILE_NAME_VALUE_NAME => "AutoLogFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_AUTO_FLUSH_PROCESS_NAME_LIST_VALUE_NAME => "DisableAutoFlushProcessNameList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_VALUE_NAME => "SrvOcspRespMinValiditySeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME => "SrvOcspRespUrlRetrievalTimeoutMilliseconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME => "SrvOcspRespMaxBeforeNextUpdateSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME => "SrvOcspRespMinBeforeNextUpdateSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME => "SrvOcspRespMinAfterNextUpdateSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_MIN_SYNC_CERT_FILE_SECONDS_VALUE_NAME => "SrvOcspRespMinSyncCertFileSeconds"
 
@@ -13325,12 +13327,12 @@ class Cryptography {
     static CERT_SRV_OCSP_RESP_MIN_SYNC_CERT_FILE_SECONDS_DEFAULT => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_SRV_OCSP_RESP_MAX_SYNC_CERT_FILE_SECONDS_VALUE_NAME => "SrvOcspRespMaxSyncCertFileSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_MAX_CACHED_OCSP_PER_CRL_COUNT_VALUE_NAME => "CryptnetMaxCachedOcspPerCrlCount"
 
@@ -13345,27 +13347,27 @@ class Cryptography {
     static CRYPTNET_OCSP_AFTER_CRL_DISABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_URL_CACHE_DEFAULT_FLUSH_EXEMPT_SECONDS_VALUE_NAME => "CryptnetDefaultFlushExemptSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_MIN_MAX_AGE_SECONDS_VALUE_NAME => "CryptnetPreFetchMinMaxAgeSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_MAX_MAX_AGE_SECONDS_VALUE_NAME => "CryptnetPreFetchMaxMaxAgeSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_MIN_OCSP_VALIDITY_PERIOD_SECONDS_VALUE_NAME => "CryptnetPreFetchMinOcspValidityPeriodSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_AFTER_PUBLISH_PRE_FETCH_DIVISOR_VALUE_NAME => "CryptnetPreFetchAfterPublishPreFetchDivisor"
 
@@ -13375,7 +13377,7 @@ class Cryptography {
     static CRYPTNET_PRE_FETCH_AFTER_PUBLISH_PRE_FETCH_DIVISOR_DEFAULT => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_BEFORE_NEXT_UPDATE_PRE_FETCH_DIVISOR_VALUE_NAME => "CryptnetPreFetchBeforeNextUpdatePreFetchDivisor"
 
@@ -13385,12 +13387,12 @@ class Cryptography {
     static CRYPTNET_PRE_FETCH_BEFORE_NEXT_UPDATE_PRE_FETCH_DIVISOR_DEFAULT => 20
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME => "CryptnetPreFetchMinBeforeNextUpdatePreFetchSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_VALIDITY_PERIOD_AFTER_NEXT_UPDATE_PRE_FETCH_DIVISOR_VALUE_NAME => "CryptnetPreFetchValidityPeriodAfterNextUpdatePreFetchDivisor"
 
@@ -13400,22 +13402,22 @@ class Cryptography {
     static CRYPTNET_PRE_FETCH_VALIDITY_PERIOD_AFTER_NEXT_UPDATE_PRE_FETCH_DIVISOR_DEFAULT => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_MAX_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME => "CryptnetPreFetchMaxAfterNextUpdatePreFetchPeriodSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME => "CryptnetPreFetchMinAfterNextUpdatePreFetchPeriodSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_AFTER_CURRENT_TIME_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME => "CryptnetPreFetchAfterCurrentTimePreFetchPeriodSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_TRIGGER_PERIOD_SECONDS_VALUE_NAME => "CryptnetPreFetchTriggerPeriodSeconds"
 
@@ -13425,7 +13427,7 @@ class Cryptography {
     static CRYPTNET_PRE_FETCH_TRIGGER_DISABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_SCAN_AFTER_TRIGGER_DELAY_SECONDS_VALUE_NAME => "CryptnetPreFetchScanAfterTriggerDelaySeconds"
 
@@ -13435,92 +13437,92 @@ class Cryptography {
     static CRYPTNET_PRE_FETCH_SCAN_AFTER_TRIGGER_DELAY_SECONDS_DEFAULT => 60
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_PRE_FETCH_RETRIEVAL_TIMEOUT_SECONDS_VALUE_NAME => "CryptnetPreFetchRetrievalTimeoutSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_PROCESS_NAME_LIST_VALUE_NAME => "ProcessNameList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_URL_LIST_VALUE_NAME => "PreFetchUrlList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_DISABLE_INFORMATION_EVENTS_VALUE_NAME => "DisableInformationEvents"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_LOG_FILE_NAME_VALUE_NAME => "LogFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_TIMEOUT_SECONDS_VALUE_NAME => "TimeoutSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_VALUE_NAME => "MaxAgeSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_PUBLISH_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME => "PublishBeforeNextUpdateSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_PUBLISH_RANDOM_INTERVAL_SECONDS_VALUE_NAME => "PublishRandomIntervalSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME => "MinBeforeNextUpdateSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CRL_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME => "MinAfterNextUpdateSeconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME => "ChainUrlRetrievalTimeoutMilliseconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_REV_ACCUMULATIVE_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME => "ChainRevAccumulativeUrlRetrievalTimeoutMilliseconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RETR_BEHAVIOR_INET_AUTH_VALUE_NAME => "EnableInetUnknownAuth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RETR_BEHAVIOR_INET_STATUS_VALUE_NAME => "EnableInetLocal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RETR_BEHAVIOR_FILE_VALUE_NAME => "AllowFileUrlScheme"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_RETR_BEHAVIOR_LDAP_VALUE_NAME => "DisableLDAPSignAndEncrypt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTNET_CACHED_OCSP_SWITCH_TO_CRL_COUNT_VALUE_NAME => "CryptnetCachedOcspSwitchToCrlCount"
 
@@ -13535,12 +13537,12 @@ class Cryptography {
     static CRYPTNET_CRL_BEFORE_OCSP_ENABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_DISABLE_AIA_URL_RETRIEVAL_VALUE_NAME => "DisableAIAUrlRetrieval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_OPTIONS_VALUE_NAME => "Options"
 
@@ -13555,12 +13557,12 @@ class Cryptography {
     static CERT_CHAIN_OPTION_ENABLE_SIA_URL_RETRIEVAL => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_CROSS_CERT_DOWNLOAD_INTERVAL_HOURS_VALUE_NAME => "CrossCertDownloadIntervalHours"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CERT_CHAIN_CRL_VALIDITY_EXT_PERIOD_HOURS_VALUE_NAME => "CRLValidityExtensionPeriod"
 
@@ -13985,7 +13987,7 @@ class Cryptography {
     static CERT_CHAIN_FIND_BY_ISSUER => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_OID_VERIFY_CERTIFICATE_CHAIN_POLICY_FUNC => "CertDllVerifyCertificateChainPolicy"
 
@@ -14325,47 +14327,47 @@ class Cryptography {
     static CRYPT_STRING_NOCR => 2147483648
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_PbeIds => "1.2.840.113549.1.12.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_pbeWithSHA1And128BitRC4 => "1.2.840.113549.1.12.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_pbeWithSHA1And40BitRC4 => "1.2.840.113549.1.12.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_pbeWithSHA1And3KeyTripleDES => "1.2.840.113549.1.12.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_pbeWithSHA1And2KeyTripleDES => "1.2.840.113549.1.12.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_pbeWithSHA1And128BitRC2 => "1.2.840.113549.1.12.1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_12_pbeWithSHA1And40BitRC2 => "1.2.840.113549.1.12.1.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_5_PBKDF2 => "1.2.840.113549.1.5.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_5_PBES2 => "1.2.840.113549.1.5.13"
 
@@ -14405,12 +14407,12 @@ class Cryptography {
     static PKCS12_ONLY_CERTIFICATES_PROVIDER_TYPE => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_ONLY_CERTIFICATES_PROVIDER_NAME => "PfxProvider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_ONLY_CERTIFICATES_CONTAINER_NAME => "PfxContainer"
 
@@ -14470,37 +14472,37 @@ class Cryptography {
     static PKCS12_EXPORT_RESERVED_MASK => 4294901760
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_PBKDF2_ID_HMAC_SHA1 => "1.2.840.113549.2.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_PBKDF2_ID_HMAC_SHA256 => "1.2.840.113549.2.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_PBKDF2_ID_HMAC_SHA384 => "1.2.840.113549.2.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_PBKDF2_ID_HMAC_SHA512 => "1.2.840.113549.2.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_PBES2_ALG_AES256_SHA256 => "AES256-SHA256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_CONFIG_REGPATH => "Software\Microsoft\Windows\CurrentVersion\PFX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PKCS12_ENCRYPT_CERTIFICATES_VALUE_NAME => "EncryptCertificates"
 
@@ -14680,17 +14682,17 @@ class Cryptography {
     static CRYPT_OBJECT_LOCATOR_LAST_RESERVED_USER_NAME_TYPE => 65535
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSL_OBJECT_LOCATOR_PFX_FUNC => "SslObjectLocatorInitializePfx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSL_OBJECT_LOCATOR_ISSUER_LIST_FUNC => "SslObjectLocatorInitializeIssuerList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSL_OBJECT_LOCATOR_CERT_VALIDATION_CONFIG_FUNC => "SslObjectLocatorInitializeCertValidationConfig"
 
@@ -14900,7 +14902,7 @@ class Cryptography {
     static BCRYPT_COPY_AFTER_PADDING_CHECK_FAILURE_FLAG => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_SCHANNEL_PROVIDER => "Microsoft SSL Protocol Provider"
 
@@ -15250,17 +15252,17 @@ class Cryptography {
     static TLS_ECC_P521_CURVE_KEY_TYPE => 25
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSL_ECDSA_ALGORITHM => "ECDSA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TLS_PSK_EXCHANGE => "PSK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TLS_RSA_PSK_EXCHANGE => "RSA_PSK"
 
@@ -15315,7 +15317,7 @@ class Cryptography {
     static NCRYPT_SSL_EAP_FAST_ID => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSL_KEY_TYPE_PROPERTY => "KEYTYPE"
 
@@ -15370,7 +15372,7 @@ class Cryptography {
     static CRYPT_SIG_RESOURCE_NUMBER => 666
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_SIG_RESOURCE => "#666"
 
@@ -15380,7 +15382,7 @@ class Cryptography {
     static CRYPT_MAC_RESOURCE_NUMBER => 667
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPT_MAC_RESOURCE => "#667"
 
@@ -15400,62 +15402,62 @@ class Cryptography {
     static ROLE_PUK => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_CARD_CAPABILITY_CONTAINER => "PIV CCC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_CARD_HOLDER_UNIQUE_IDENTIFIER => "PIV CHUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_CARD_HOLDER_UNSIGNED_UNIQUE_IDENTIFIER => "PIV UCHUID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_FINGERPRINT => "PIV Fingerprint"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_SECURITY_OBJECT => "PIV Security Object"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_FACIAL_IMAGE => "PIV Facial Image"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_PRINTED_INFORMATION => "PIV Printed Information"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_GENERATE_KEY => "PIV Generate Key"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_PIV => "PIV Card"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_CERTIFICATE => "PIV Certificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_PUBLIC_KEY => "PIV Public Key"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIV_KEY_HISTORY_OBJECT => "PIV Key History Object"
 
@@ -15555,77 +15557,77 @@ class Cryptography {
     static CARD_DATA_VALUE_UNKNOWN => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szBASE_CSP_DIR => "mscp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szINTERMEDIATE_CERTS_DIR => "mscerts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szCACHE_FILE => "cardcf"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szCARD_IDENTIFIER_FILE => "cardid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szCONTAINER_MAP_FILE => "cmapfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szROOT_STORE_FILE => "msroots"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szUSER_SIGNATURE_CERT_PREFIX => "ksc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szUSER_KEYEXCHANGE_CERT_PREFIX => "kxc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szUSER_SIGNATURE_PRIVATE_KEY_PREFIX => "kss"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szUSER_SIGNATURE_PUBLIC_KEY_PREFIX => "ksp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szUSER_KEYEXCHANGE_PRIVATE_KEY_PREFIX => "kxs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szUSER_KEYEXCHANGE_PUBLIC_KEY_PREFIX => "kxp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCARD_USER_EVERYONE => "anonymous"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCARD_USER_USER => "user"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCARD_USER_ADMIN => "admin"
 
@@ -15900,97 +15902,97 @@ class Cryptography {
     static CARD_RETURN_KEY_HANDLE => 16777216
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CCP_CONTAINER_INFO => "Container Info"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CCP_PIN_IDENTIFIER => "PIN Identifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CCP_ASSOCIATED_ECDH_KEY => "Associated ECDH Key"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_FREE_SPACE => "Free Space"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_CAPABILITIES => "Capabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_KEYSIZES => "Key Sizes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_READ_ONLY => "Read Only Mode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_CACHE_MODE => "Cache Mode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_SUPPORTS_WIN_X509_ENROLLMENT => "Supports Windows x.509 Enrollment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_GUID => "Card Identifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_SERIAL_NO => "Card Serial Number"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_PIN_INFO => "PIN Information"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_LIST_PINS => "PIN List"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_AUTHENTICATED_STATE => "Authenticated State"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_PIN_STRENGTH_VERIFY => "PIN Strength Verify"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_PIN_STRENGTH_CHANGE => "PIN Strength Change"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CARD_PIN_STRENGTH_UNBLOCK => "PIN Strength Unblock"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PARENT_WINDOW => "Parent Window"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PIN_CONTEXT_STRING => "PIN Context String"
 
@@ -16030,22 +16032,22 @@ class Cryptography {
     static CARD_ASYMMETRIC_OPERATION => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CARD_3DES_112_ALGORITHM => "3DES_112"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CARD_3DES_ALGORITHM => "3DES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CARD_AES_ALGORITHM => "AES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CARD_CHAIN_MODE_CBC => "ChainingModeCBC"
 
@@ -16100,52 +16102,52 @@ class Cryptography {
     static CARD_AUTHENTICATE_RESPONSE_CURRENT_VERSION => 7
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_KEY_IMPORT_SUPPORT => "Key Import Support"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_ENUM_ALGORITHMS => "Algorithms"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_PADDING_SCHEMES => "Padding Schemes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CP_CHAINING_MODES => "Chaining Modes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CSF_IMPORT_KEYPAIR => "Import Key Pair"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CSF_CHANGE_AUTHENTICATOR => "Change Authenticator"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CSF_AUTHENTICATE => "Authenticate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CKP_CHAINING_MODE => "ChainingMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CKP_INITIALIZATION_VECTOR => "IV"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CKP_BLOCK_LENGTH => "BlockLength"
 
@@ -16181,7 +16183,7 @@ class Cryptography {
      * @param {Pointer} pbRandomData A pointer to a buffer that receives the retrieved bytes.
      * @param {Pointer} cbRandomData The number of bytes to retrieve.
      * @returns {BOOL} Always returns **TRUE**.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/systemprng
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/systemprng
      */
     static SystemPrng(pbRandomData, cbRandomData) {
         result := DllCall("BCryptPrimitives.dll\SystemPrng", "ptr", pbRandomData, "ptr", cbRandomData, "int")
@@ -16193,7 +16195,7 @@ class Cryptography {
      * @param {Pointer} pbData A pointer to a buffer that receives the retrieved bytes.
      * @param {Pointer} cbData The number of bytes to retrieve.
      * @returns {BOOL} Always returns **TRUE**.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/processprng
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/processprng
      */
     static ProcessPrng(pbData, cbData) {
         result := DllCall("BCryptPrimitives.dll\ProcessPrng", "ptr", pbData, "ptr", cbData, "int")
@@ -16610,7 +16612,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptacquirecontexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptacquirecontexta
      * @since windows5.1.2600
      */
     static CryptAcquireContextA(phProv, szContainer, szProvider, dwProvType, dwFlags) {
@@ -17039,7 +17041,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptacquirecontextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptacquirecontextw
      * @since windows5.1.2600
      */
     static CryptAcquireContextW(phProv, szContainer, szProvider, dwProvType, dwFlags) {
@@ -17133,7 +17135,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptreleasecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptreleasecontext
      * @since windows5.1.2600
      */
     static CryptReleaseContext(hProv, dwFlags) {
@@ -17445,7 +17447,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgenkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgenkey
      * @since windows5.1.2600
      */
     static CryptGenKey(hProv, Algid, dwFlags, phKey) {
@@ -17837,7 +17839,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptderivekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptderivekey
      * @since windows5.1.2600
      */
     static CryptDeriveKey(hProv, Algid, hBaseData, dwFlags, phKey) {
@@ -17859,7 +17861,7 @@ class Cryptography {
      * Keys take up both operating system's memory space and the CSP's memory space. Some CSPs are implemented in hardware with limited memory resources. Applications must destroy all keys with the <b>CryptDestroyKey</b> function when they are finished with them.
      * 
      * All key handles that have been created or imported by using a specific CSP must be destroyed before that CSP handle is released with the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptreleasecontext">CryptReleaseContext</a> function.
-     * @param {Pointer} hKey The handle of the key to be destroyed.
+     * @param {Pointer} hKey_ The handle of the key to be destroyed.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For extended error information, call 
@@ -17928,13 +17930,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdestroykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdestroykey
      * @since windows5.1.2600
      */
-    static CryptDestroyKey(hKey) {
+    static CryptDestroyKey(hKey_) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDestroyKey", "ptr", hKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDestroyKey", "ptr", hKey_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -17946,7 +17948,7 @@ class Cryptography {
      * Customizes various aspects of a session key's operations.
      * @remarks
      * If the KP_Q, KP_P, or KP_X parameters are set on a PREGEN Diffie-Hellman or DSS key, the key lengths must be compatible with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key length</a> set using the upper 16 bits of the <i>dwFlags</i> parameter when the key was created using <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>. If no key length was set in <b>CryptGenKey</b>, the default key length was used. This will create an error if a nondefault key length is used to set P, Q, or X.
-     * @param {Pointer} hKey A handle to the key for which values are to be set.
+     * @param {Pointer} hKey_ A handle to the key for which values are to be set.
      * @param {Integer} dwParam The following tables contain predefined values that can be used.
      * @param {Pointer<Integer>} pbData A pointer to a buffer initialized with the value to be set before calling <b>CryptSetKeyParam</b>. The form of this data varies depending on the value of <i>dwParam</i>.
      * @param {Integer} dwFlags Used only when <i>dwParam</i> is KP_ALGID. The <i>dwFlags</i> parameter is used to pass in flag values for the enabled key. The <i>dwFlags</i> parameter can hold values such as the key size and the other flag values allowed when generating the same type of key with <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a>. For information about allowable flag values, see 
@@ -18052,15 +18054,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetkeyparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetkeyparam
      * @since windows5.1.2600
      */
-    static CryptSetKeyParam(hKey, dwParam, pbData, dwFlags) {
+    static CryptSetKeyParam(hKey_, dwParam, pbData, dwFlags) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptSetKeyParam", "ptr", hKey_, "uint", dwParam, pbDataMarshal, pbData, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -18070,7 +18072,7 @@ class Cryptography {
 
     /**
      * Retrieves data that governs the operations of a key.
-     * @param {Pointer} hKey The handle of the key being queried.
+     * @param {Pointer} hKey_ The handle of the key being queried.
      * @param {Integer} dwParam Specifies the type of query being made.
      * @param {Pointer} pbData A pointer to a buffer that receives the data. The form of this data depends on the value of <i>dwParam</i>.
      * 
@@ -18171,15 +18173,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetkeyparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetkeyparam
      * @since windows5.1.2600
      */
-    static CryptGetKeyParam(hKey, dwParam, pbData, pdwDataLen, dwFlags) {
+    static CryptGetKeyParam(hKey_, dwParam, pbData, pdwDataLen, dwFlags) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptGetKeyParam", "ptr", hKey_, "uint", dwParam, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -18306,7 +18308,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsethashparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsethashparam
      * @since windows5.1.2600
      */
     static CryptSetHashParam(hHash, dwParam, pbData, dwFlags) {
@@ -18480,7 +18482,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgethashparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgethashparam
      * @since windows5.1.2600
      */
     static CryptGetHashParam(hHash, dwParam, pbData, pdwDataLen, dwFlags) {
@@ -18600,7 +18602,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetprovparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetprovparam
      * @since windows5.1.2600
      */
     static CryptSetProvParam(hProv, dwParam, pbData, dwFlags) {
@@ -19395,7 +19397,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetprovparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetprovparam
      * @since windows5.1.2600
      */
     static CryptGetProvParam(hProv, dwParam, pbData, pdwDataLen, dwFlags) {
@@ -19487,7 +19489,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgenrandom
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgenrandom
      * @since windows5.1.2600
      */
     static CryptGenRandom(hProv, dwLen, pbBuffer) {
@@ -19581,7 +19583,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetuserkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetuserkey
      * @since windows5.1.2600
      */
     static CryptGetUserKey(hProv, dwKeySpec, phUserKey) {
@@ -19620,7 +19622,7 @@ class Cryptography {
      * <td>192 bits</td>
      * </tr>
      * </table>
-     * @param {Pointer} hKey A handle to the key to be exported.
+     * @param {Pointer} hKey_ A handle to the key to be exported.
      * @param {Pointer} hExpKey A handle to a cryptographic key of the destination user. The key data within the exported <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">key BLOB</a> is encrypted using this key. This ensures that only the destination user is able to make use of the key BLOB.  Both <i>hExpKey</i> and <i>hKey</i> must come from the same CSP.
      * 
      * 
@@ -19849,15 +19851,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptexportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptexportkey
      * @since windows5.1.2600
      */
-    static CryptExportKey(hKey, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
+    static CryptExportKey(hKey_, hExpKey, dwBlobType, dwFlags, pbData, pdwDataLen) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptExportKey", "ptr", hKey_, "ptr", hExpKey, "uint", dwBlobType, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20044,7 +20046,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptimportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptimportkey
      * @since windows5.1.2600
      */
     static CryptImportKey(hProv, pbData, dwDataLen, hPubKey, dwFlags, phKey) {
@@ -20101,7 +20103,7 @@ class Cryptography {
      * ```
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-enhanced-cryptographic-provider">Microsoft Enhanced Cryptographic Provider</a> supports direct encryption with <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public keys</a> and decryption with RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private keys</a>. The encryption uses PKCS #1 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a>. On decryption, this padding is verified. The length of plaintext data that can be encrypted with a call to <b>CryptEncrypt</b> with an RSA key is the length of the key modulus minus eleven bytes. The eleven bytes is the chosen minimum for PKCS #1 padding. The ciphertext is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">little-endian</a> format.
-     * @param {Pointer} hKey A handle to the encryption key. An application obtains this handle by using either the 
+     * @param {Pointer} hKey_ A handle to the encryption key. An application obtains this handle by using either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a> or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a> function.
      * 
@@ -20308,15 +20310,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptencrypt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptencrypt
      * @since windows5.1.2600
      */
-    static CryptEncrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) {
+    static CryptEncrypt(hKey_, hHash, Final, dwFlags, pbData, pdwDataLen, dwBufLen) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptEncrypt", "ptr", hKey_, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "uint", dwBufLen, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20365,7 +20367,7 @@ class Cryptography {
      * ```
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/microsoft-enhanced-cryptographic-provider">Microsoft Enhanced Cryptographic Provider</a> supports direct encryption with <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">RSA</a> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public keys</a> and decryption with RSA <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private keys</a>. The encryption uses PKCS #1 <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">padding</a>. On decryption, this padding is verified. The length of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">ciphertext</a> data to be decrypted must be the same length as the modulus of the RSA key used to decrypt the data. If the ciphertext has zeros in the most significant bytes, these bytes must be included in the input data buffer and in the input buffer length. The ciphertext must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">little-endian</a> format.
-     * @param {Pointer} hKey A handle to the key to use for the decryption. An application obtains this handle by using either the 
+     * @param {Pointer} hKey_ A handle to the key to use for the decryption. An application obtains this handle by using either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenkey">CryptGenKey</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptimportkey">CryptImportKey</a> function. 
      * 
@@ -20563,15 +20565,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecrypt
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdecrypt
      * @since windows5.1.2600
      */
-    static CryptDecrypt(hKey, hHash, Final, dwFlags, pbData, pdwDataLen) {
+    static CryptDecrypt(hKey_, hHash, Final, dwFlags, pbData, pdwDataLen) {
         pdwDataLenMarshal := pdwDataLen is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
+        result := DllCall("ADVAPI32.dll\CryptDecrypt", "ptr", hKey_, "ptr", hHash, "int", Final, "uint", dwFlags, "ptr", pbData, pdwDataLenMarshal, pdwDataLen, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20606,7 +20608,7 @@ class Cryptography {
      * @param {Integer} Algid An <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that identifies  the hash algorithm to use.
      * 
      * Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see  Remarks.
-     * @param {Pointer} hKey If the type of hash algorithm is a keyed hash, such as the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">Hash-Based Message Authentication Code</a> (HMAC) or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) algorithm, the key for the hash is passed in this parameter. For nonkeyed algorithms, this parameter must be set to zero.
+     * @param {Pointer} hKey_ If the type of hash algorithm is a keyed hash, such as the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">Hash-Based Message Authentication Code</a> (HMAC) or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) algorithm, the key for the hash is passed in this parameter. For nonkeyed algorithms, this parameter must be set to zero.
      * 
      * For keyed algorithms, the key must be to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">block cipher</a> key, such as RC2, that has a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher mode</a> of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Cipher Block Chaining</a> (CBC).
      * @param {Integer} dwFlags The following flag value is defined.
@@ -20719,15 +20721,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcreatehash
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptcreatehash
      * @since windows5.1.2600
      */
-    static CryptCreateHash(hProv, Algid, hKey, dwFlags, phHash) {
+    static CryptCreateHash(hProv, Algid, hKey_, dwFlags, phHash) {
         phHashMarshal := phHash is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey, "uint", dwFlags, phHashMarshal, phHash, "int")
+        result := DllCall("ADVAPI32.dll\CryptCreateHash", "ptr", hProv, "uint", Algid, "ptr", hKey_, "uint", dwFlags, phHashMarshal, phHash, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20904,7 +20906,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashdata
      * @since windows5.1.2600
      */
     static CryptHashData(hHash, pbData, dwDataLen, dwFlags) {
@@ -20921,7 +20923,7 @@ class Cryptography {
     /**
      * Computes the cryptographic hash of a session key object.
      * @param {Pointer} hHash A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">hash object</a>.
-     * @param {Pointer} hKey A handle to the key object to be hashed.
+     * @param {Pointer} hKey_ A handle to the key object to be hashed.
      * @param {Integer} dwFlags The following flag value is defined. 
      * 
      * 
@@ -21058,13 +21060,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashsessionkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashsessionkey
      * @since windows5.1.2600
      */
-    static CryptHashSessionKey(hHash, hKey, dwFlags) {
+    static CryptHashSessionKey(hHash, hKey_, dwFlags) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptHashSessionKey", "ptr", hHash, "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("ADVAPI32.dll\CryptHashSessionKey", "ptr", hHash, "ptr", hKey_, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21161,7 +21163,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdestroyhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdestroyhash
      * @since windows5.1.2600
      */
     static CryptDestroyHash(hHash) {
@@ -21389,7 +21391,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsignhasha
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsignhasha
      * @since windows5.1.2600
      */
     static CryptSignHashA(hHash, dwKeySpec, szDescription, dwFlags, pbSignature, pdwSigLen) {
@@ -21621,7 +21623,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsignhashw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsignhashw
      * @since windows5.1.2600
      */
     static CryptSignHashW(hHash, dwKeySpec, szDescription, dwFlags, pbSignature, pdwSigLen) {
@@ -21808,7 +21810,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifysignaturea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifysignaturea
      * @since windows5.1.2600
      */
     static CryptVerifySignatureA(hHash, pbSignature, dwSigLen, hPubKey, szDescription, dwFlags) {
@@ -21993,7 +21995,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifysignaturew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifysignaturew
      * @since windows5.1.2600
      */
     static CryptVerifySignatureW(hHash, pbSignature, dwSigLen, hPubKey, szDescription, dwFlags) {
@@ -22073,7 +22075,7 @@ class Cryptography {
      *  
      * 
      * Errors can also be propagated from internal calls to <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetprovidera
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetprovidera
      * @since windows5.1.2600
      */
     static CryptSetProviderA(pszProvName, dwProvType) {
@@ -22153,7 +22155,7 @@ class Cryptography {
      *  
      * 
      * Errors can also be propagated from internal calls to <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetproviderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetproviderw
      * @since windows5.1.2600
      */
     static CryptSetProviderW(pszProvName, dwProvType) {
@@ -22258,7 +22260,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetproviderexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetproviderexa
      * @since windows5.1.2600
      */
     static CryptSetProviderExA(pszProvName, dwProvType, dwFlags) {
@@ -22365,7 +22367,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetproviderexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetproviderexw
      * @since windows5.1.2600
      */
     static CryptSetProviderExW(pszProvName, dwProvType, dwFlags) {
@@ -22516,7 +22518,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetdefaultprovidera
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetdefaultprovidera
      * @since windows5.1.2600
      */
     static CryptGetDefaultProviderA(dwProvType, dwFlags, pszProvName, pcbProvName) {
@@ -22667,7 +22669,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetdefaultproviderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetdefaultproviderw
      * @since windows5.1.2600
      */
     static CryptGetDefaultProviderW(dwProvType, dwFlags, pszProvName, pcbProvName) {
@@ -22764,7 +22766,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumprovidertypesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumprovidertypesa
      * @since windows5.1.2600
      */
     static CryptEnumProviderTypesA(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTypeName) {
@@ -22862,7 +22864,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumprovidertypesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumprovidertypesw
      * @since windows5.1.2600
      */
     static CryptEnumProviderTypesW(dwIndex, dwFlags, pdwProvType, szTypeName, pcbTypeName) {
@@ -22965,7 +22967,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumprovidersa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumprovidersa
      * @since windows5.1.2600
      */
     static CryptEnumProvidersA(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvName) {
@@ -23068,7 +23070,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumprovidersw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumprovidersw
      * @since windows5.1.2600
      */
     static CryptEnumProvidersW(dwIndex, dwFlags, pdwProvType, szProvName, pcbProvName) {
@@ -23118,7 +23120,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcontextaddref
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptcontextaddref
      * @since windows5.1.2600
      */
     static CryptContextAddRef(hProv, dwFlags) {
@@ -23142,7 +23144,7 @@ class Cryptography {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> must be called to destroy any keys that are created by using <b>CryptDuplicateKey</b>. Destroying the original key does not cause the duplicate key to be destroyed. After a duplicate key is made, it is separate from the original key. There is no shared state between the two keys.
-     * @param {Pointer} hKey A handle to the key to be duplicated.
+     * @param {Pointer} hKey_ A handle to the key to be duplicated.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Pointer>} phKey Address of the handle to the duplicated key. When you have finished using the key, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroykey">CryptDestroyKey</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE).
@@ -23191,17 +23193,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptduplicatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptduplicatekey
      * @since windows5.1.2600
      */
-    static CryptDuplicateKey(hKey, dwFlags, phKey) {
+    static CryptDuplicateKey(hKey_, dwFlags, phKey) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
         phKeyMarshal := phKey is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, "int")
+        result := DllCall("ADVAPI32.dll\CryptDuplicateKey", "ptr", hKey_, "uint*", pdwReserved, "uint", dwFlags, phKeyMarshal, phKey, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -23264,7 +23266,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptduplicatehash
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptduplicatehash
      * @since windows5.1.2600
      */
     static CryptDuplicateHash(hHash, dwFlags, phHash) {
@@ -23396,7 +23398,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptopenalgorithmprovider
      * @since windows6.0.6000
      */
     static BCryptOpenAlgorithmProvider(phAlgorithm, pszAlgId, pszImplementation, dwFlags) {
@@ -23461,7 +23463,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptenumalgorithms
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptenumalgorithms
      * @since windows6.0.6000
      */
     static BCryptEnumAlgorithms(dwAlgOperations, pAlgCount, ppAlgList, dwFlags) {
@@ -23526,7 +23528,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptenumproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptenumproviders
      * @since windows6.0.6000
      */
     static BCryptEnumProviders(pszAlgId, pImplCount, ppImplList, dwFlags) {
@@ -23621,7 +23623,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptgetproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptgetproperty
      * @since windows6.0.6000
      */
     static BCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, pcbResult, dwFlags) {
@@ -23702,7 +23704,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptsetproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptsetproperty
      * @since windows6.0.6000
      */
     static BCryptSetProperty(hObject, pszProperty, pbInput, cbInput, dwFlags) {
@@ -23756,7 +23758,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptclosealgorithmprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptclosealgorithmprovider
      * @since windows6.0.6000
      */
     static BCryptCloseAlgorithmProvider(hAlgorithm, dwFlags) {
@@ -23774,7 +23776,7 @@ class Cryptography {
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
      * @param {Pointer<Void>} pvBuffer A pointer to the memory buffer to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptfreebuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptfreebuffer
      * @since windows6.0.6000
      */
     static BCryptFreeBuffer(pvBuffer) {
@@ -23862,7 +23864,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey
      * @since windows6.0.6000
      */
     static BCryptGenerateSymmetricKey(hAlgorithm, phKey, pbKeyObject, cbKeyObject, pbSecret, cbSecret, dwFlags) {
@@ -24038,7 +24040,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptgeneratekeypair
      * @since windows6.0.6000
      */
     static BCryptGenerateKeyPair(hAlgorithm, phKey, dwLength, dwFlags) {
@@ -24056,7 +24058,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptEncrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptEncrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to encrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
      * @param {Pointer} pbInput The address of a buffer that contains the plaintext to be encrypted. The <i>cbInput</i> parameter contains the size of the plaintext to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
@@ -24179,16 +24181,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptencrypt
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptencrypt
      * @since windows6.0.6000
      */
-    static BCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptEncrypt(hKey_, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptEncrypt", "ptr", hKey_, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24200,7 +24202,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDecrypt</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDecrypt</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to decrypt the data. This handle is obtained from one of the key creation functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratesymmetrickey">BCryptGenerateSymmetricKey</a>, <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptimportkey">BCryptImportKey</a>.
      * @param {Pointer} pbInput The address of a buffer that contains the ciphertext to be decrypted. The <i>cbInput</i> parameter contains the size of the ciphertext to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. This parameter is only used with asymmetric keys and authenticated encryption modes. If an  authenticated encryption mode is used, this parameter must point to a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_authenticated_cipher_mode_info">BCRYPT_AUTHENTICATED_CIPHER_MODE_INFO</a> structure. If asymmetric keys are used, the type of structure this parameter points to is determined by the value of the <i>dwFlags</i> parameter. Otherwise, the parameter  must be set to <b>NULL</b>.
@@ -24330,16 +24332,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdecrypt
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptdecrypt
      * @since windows6.0.6000
      */
-    static BCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDecrypt(hKey_, pbInput, cbInput, pPaddingInfo, pbIV, cbIV, pbOutput, cbOutput, pcbResult, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDecrypt", "ptr", hKey_, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbIV, "uint", cbIV, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24349,7 +24351,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptExportKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptExportKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to export.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to export.
      * @param {BCRYPT_KEY_HANDLE} hExportKey The handle of the key with which to wrap the exported key. Use this parameter when exporting BLOBs of type <b>BCRYPT_AES_WRAP_KEY_BLOB</b>; otherwise, set it to <b>NULL</b>.<div class="alert"><b>Note</b>  The <i>hExportKey</i> handle must be supplied by the same provider that supplied the <i>hKey</i> handle, and <i>hExportKey</i> must be a handle to a symmetric key that can be used in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Advanced Encryption Standard</a> (AES) key wrap algorithm. When the <i>hKey</i> handle is from the Microsoft provider, <i>hExportKey</i> must be an AES key handle.</div>
      * <div> </div>
      * 
@@ -24428,17 +24430,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptexportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptexportkey
      * @since windows6.0.6000
      */
-    static BCryptExportKey(hKey, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptExportKey(hKey_, hExportKey, pszBlobType, pbOutput, cbOutput, pcbResult, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         hExportKey := hExportKey is Win32Handle ? NumGet(hExportKey, "ptr") : hExportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptExportKey", "ptr", hKey_, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -24531,7 +24533,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptimportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptimportkey
      * @since windows6.0.6000
      */
     static BCryptImportKey(hAlgorithm, hImportKey, pszBlobType, phKey, pbKeyObject, cbKeyObject, pbInput, cbInput, dwFlags) {
@@ -24630,7 +24632,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptimportkeypair
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptimportkeypair
      * @since windows6.0.6000
      */
     static BCryptImportKeyPair(hAlgorithm, hImportKey, pszBlobType, phKey, pbInput, cbInput, dwFlags) {
@@ -24648,7 +24650,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDuplicateKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptDuplicateKey</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to duplicate. This must be a handle to a symmetric key.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to duplicate. This must be a handle to a symmetric key.
      * @param {Pointer<BCRYPT_KEY_HANDLE>} phNewKey A pointer to a <b>BCRYPT_KEY_HANDLE</b> variable that receives the handle of the duplicate key. This handle is used in subsequent functions that require a key, such as <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptencrypt">BCryptEncrypt</a>. This handle must be released when it is no longer needed by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
      * @param {Pointer} pbKeyObject A pointer to a buffer that receives the duplicate key object. The <i>cbKeyObject</i> parameter contains the size of this buffer. The required size of this buffer can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_OBJECT_LENGTH</b> property. This will provide the size of the key object for the specified algorithm.
      * 
@@ -24712,13 +24714,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptduplicatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptduplicatekey
      * @since windows6.0.6000
      */
-    static BCryptDuplicateKey(hKey, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDuplicateKey(hKey_, phNewKey, pbKeyObject, cbKeyObject, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("bcrypt.dll\BCryptDuplicateKey", "ptr", hKey, "ptr", phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptDuplicateKey", "ptr", hKey_, "ptr", phNewKey, "ptr", pbKeyObject, "uint", cbKeyObject, "uint", dwFlags, "int")
         return result
     }
 
@@ -24728,7 +24730,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptFinalizeKeyPair</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> function.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgeneratekeypair">BCryptGenerateKeyPair</a> function.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. No flags are currently defined, so this parameter should be zero.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
@@ -24787,13 +24789,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptfinalizekeypair
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptfinalizekeypair
      * @since windows6.0.6000
      */
-    static BCryptFinalizeKeyPair(hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptFinalizeKeyPair(hKey_, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptFinalizeKeyPair", "ptr", hKey_, "uint", dwFlags, "int")
         return result
     }
 
@@ -24803,7 +24805,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptDestroyKey</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to destroy.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to destroy.
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
      * 
      * 
@@ -24839,13 +24841,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdestroykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptdestroykey
      * @since windows6.0.6000
      */
-    static BCryptDestroyKey(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptDestroyKey(hKey_) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("bcrypt.dll\BCryptDestroyKey", "ptr", hKey, "int")
+        result := DllCall("bcrypt.dll\BCryptDestroyKey", "ptr", hKey_, "int")
         return result
     }
 
@@ -24891,7 +24893,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdestroysecret
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptdestroysecret
      * @since windows6.0.6000
      */
     static BCryptDestroySecret(hSecret) {
@@ -24911,7 +24913,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptSignHash</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened with the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptSignHash</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to sign the hash.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to sign the hash.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbInput A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to sign.
@@ -24991,16 +24993,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptsignhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptsignhash
      * @since windows6.0.6000
      */
-    static BCryptSignHash(hKey, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptSignHash(hKey_, pPaddingInfo, pbInput, cbInput, pbOutput, cbOutput, pcbResult, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptSignHash", "ptr", hKey_, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -25014,7 +25016,7 @@ class Cryptography {
      * Depending on what processor modes a provider supports, <b>BCryptVerifySignature</b> can be called either from user mode or kernel mode. Kernel mode callers can execute either at <b>PASSIVE_LEVEL</b> <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">IRQL</a> or <b>DISPATCH_LEVEL</b> IRQL. If the current IRQL level is <b>DISPATCH_LEVEL</b>, the handle provided in the <i>hKey</i> parameter must be derived from an algorithm handle returned by a provider that was opened by using the <b>BCRYPT_PROV_DISPATCH</b> flag, and any pointers passed to the <b>BCryptVerifySignature</b> function must refer to nonpaged (or locked) memory.
      * 
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptsignhash">BCryptSignHash</a> function.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbHash The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHash The size, in bytes, of the <i>pbHash</i> buffer.
@@ -25102,15 +25104,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptverifysignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptverifysignature
      * @since windows6.0.6000
      */
-    static BCryptVerifySignature(hKey, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptVerifySignature(hKey_, pPaddingInfo, pbHash, cbHash, pbSignature, cbSignature, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptVerifySignature", "ptr", hKey_, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHash, "uint", cbHash, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
         return result
     }
 
@@ -25181,7 +25183,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptsecretagreement
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptsecretagreement
      * @since windows6.0.6000
      */
     static BCryptSecretAgreement(hPrivKey, hPubKey, phAgreedSecret, dwFlags) {
@@ -25320,7 +25322,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptderivekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptderivekey
      * @since windows6.0.6000
      */
     static BCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
@@ -25345,7 +25347,7 @@ class Cryptography {
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
      * To call this function in kernel mode, use Cng.lib, which is part of the Driver Development Kit (DDK). <b>Windows Server 2008 and Windows Vista:  </b>To call this function in kernel mode, use Ksecdd.lib.
-     * @param {BCRYPT_KEY_HANDLE} hKey Handle of the input key.
+     * @param {BCRYPT_KEY_HANDLE} hKey_ Handle of the input key.
      * @param {Pointer<BCryptBufferDesc>} pParameterList Pointer to a  <b>BCryptBufferDesc</b> structure that contains the KDF parameters. This parameter is optional and can be <b>NULL</b> if it is not needed. 
      * The parameters can be specific to a key derivation function (KDF) or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft Primitive provider.
      * 
@@ -25470,15 +25472,15 @@ class Cryptography {
      * </tr>
      * </table>
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function.
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptkeyderivation
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptkeyderivation
      * @since windows8.0
      */
-    static BCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static BCryptKeyDerivation(hKey_, pParameterList, pbDerivedKey, cbDerivedKey, pcbResult, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pcbResultMarshal := pcbResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
+        result := DllCall("bcrypt.dll\BCryptKeyDerivation", "ptr", hKey_, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, pcbResultMarshal, pcbResult, "uint", dwFlags, "int")
         return result
     }
 
@@ -25588,7 +25590,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptcreatehash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptcreatehash
      * @since windows6.0.6000
      */
     static BCryptCreateHash(hAlgorithm, phHash, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
@@ -25656,7 +25658,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcrypthashdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcrypthashdata
      * @since windows6.0.6000
      */
     static BCryptHashData(hHash, pbInput, cbInput, dwFlags) {
@@ -25724,7 +25726,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptfinishhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptfinishhash
      * @since windows6.0.6000
      */
     static BCryptFinishHash(hHash, pbOutput, cbOutput, dwFlags) {
@@ -25777,7 +25779,7 @@ class Cryptography {
      * |--------|--------|
      * | **BCRYPT_HASH_REUSABLE_FLAG** | Creates a reusable hashing object. The object can be used for a new hashing operation immediately after calling [BCryptFinishHash](nf-bcrypt-bcryptfinishhash.md). For more information, see [Creating a Hash with CNG](/windows/win32/SecCNG/creating-a-hash-with-cng). |
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function. If the method succeeds, it will return `STATUS_SUCCESS`. For other **NTSTATUS** values, see [NTSTATUS Values](/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55).
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptcreatemultihash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptcreatemultihash
      * @since windows8.1
      */
     static BCryptCreateMultiHash(hAlgorithm, phHash, nHashes, pbHashObject, cbHashObject, pbSecret, cbSecret, dwFlags) {
@@ -25809,7 +25811,7 @@ class Cryptography {
      * 
      * Specify a value of zero (`0`).
      * @returns {NTSTATUS} Returns a status code that indicates the success or failure of the function. If the method succeeds, it will return `STATUS_SUCCESS`. For other **NTSTATUS** values, see [NTSTATUS Values](/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55).
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptprocessmultioperations
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptprocessmultioperations
      * @since windows8.1
      */
     static BCryptProcessMultiOperations(hObject, operationType, pOperations, cbOperations, dwFlags) {
@@ -25891,7 +25893,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptduplicatehash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptduplicatehash
      * @since windows6.0.6000
      */
     static BCryptDuplicateHash(hHash, phNewHash, pbHashObject, cbHashObject, dwFlags) {
@@ -25943,7 +25945,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdestroyhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptdestroyhash
      * @since windows6.0.6000
      */
     static BCryptDestroyHash(hHash) {
@@ -25965,7 +25967,7 @@ class Cryptography {
      * 
      * The size can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptgetproperty">BCryptGetProperty</a> function to get the <b>BCRYPT_HASH_LENGTH</b> property. This will provide the size of the hash or MAC value for the specified algorithm.
      * @returns {NTSTATUS} A status code indicating success or failure.
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcrypthash
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcrypthash
      * @since windows10.0.10240
      */
     static BCryptHash(hAlgorithm, pbSecret, cbSecret, pbInput, cbInput, pbOutput, cbOutput) {
@@ -26072,7 +26074,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptgenrandom
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptgenrandom
      * @since windows6.0.6000
      */
     static BCryptGenRandom(hAlgorithm, pbBuffer, cbBuffer, dwFlags) {
@@ -26152,7 +26154,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptderivekeycapi
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptderivekeycapi
      * @since windows6.1
      */
     static BCryptDeriveKeyCapi(hHash, hTargetAlg, pbDerivedKey, cbDerivedKey, dwFlags) {
@@ -26239,7 +26241,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptderivekeypbkdf2
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptderivekeypbkdf2
      * @since windows6.1
      */
     static BCryptDeriveKeyPBKDF2(hPrf, pbPassword, cbPassword, pbSalt, cbSalt, cIterations, pbDerivedKey, cbDerivedKey, dwFlags) {
@@ -26325,7 +26327,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptqueryproviderregistration
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptqueryproviderregistration
      * @since windows6.0.6000
      */
     static BCryptQueryProviderRegistration(pszProvider, dwMode, dwInterface, pcbBuffer, ppBuffer) {
@@ -26423,7 +26425,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptenumregisteredproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptenumregisteredproviders
      * @since windows6.0.6000
      */
     static BCryptEnumRegisteredProviders(pcbBuffer, ppBuffer) {
@@ -26487,7 +26489,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptcreatecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptcreatecontext
      * @since windows6.0.6000
      */
     static BCryptCreateContext(dwTable, pszContext, pConfig) {
@@ -26549,7 +26551,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptdeletecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptdeletecontext
      * @since windows6.0.6000
      */
     static BCryptDeleteContext(dwTable, pszContext) {
@@ -26629,7 +26631,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptenumcontexts
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptenumcontexts
      * @since windows6.0.6000
      */
     static BCryptEnumContexts(dwTable, pcbBuffer, ppBuffer) {
@@ -26693,7 +26695,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptconfigurecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptconfigurecontext
      * @since windows6.0.6000
      */
     static BCryptConfigureContext(dwTable, pszContext, pConfig) {
@@ -26804,7 +26806,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptquerycontextconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptquerycontextconfiguration
      * @since windows6.0.6000
      */
     static BCryptQueryContextConfiguration(dwTable, pszContext, pcbBuffer, ppBuffer) {
@@ -26885,7 +26887,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptaddcontextfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptaddcontextfunction
      * @since windows6.0.6000
      */
     static BCryptAddContextFunction(dwTable, pszContext, dwInterface, pszFunction, dwPosition) {
@@ -26950,7 +26952,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptremovecontextfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptremovecontextfunction
      * @since windows6.0.6000
      */
     static BCryptRemoveContextFunction(dwTable, pszContext, dwInterface, pszFunction) {
@@ -27044,7 +27046,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptenumcontextfunctions
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptenumcontextfunctions
      * @since windows6.0.6000
      */
     static BCryptEnumContextFunctions(dwTable, pszContext, dwInterface, pcbBuffer, ppBuffer) {
@@ -27112,7 +27114,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptconfigurecontextfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptconfigurecontextfunction
      * @since windows6.0.6000
      */
     static BCryptConfigureContextFunction(dwTable, pszContext, dwInterface, pszFunction, pConfig) {
@@ -27228,7 +27230,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptquerycontextfunctionconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptquerycontextfunctionconfiguration
      * @since windows6.0.6000
      */
     static BCryptQueryContextFunctionConfiguration(dwTable, pszContext, dwInterface, pszFunction, pcbBuffer, ppBuffer) {
@@ -27326,7 +27328,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptenumcontextfunctionproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptenumcontextfunctionproviders
      * @since windows6.0.6000
      */
     static BCryptEnumContextFunctionProviders(dwTable, pszContext, dwInterface, pszFunction, pcbBuffer, ppBuffer) {
@@ -27419,7 +27421,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptsetcontextfunctionproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptsetcontextfunctionproperty
      * @since windows6.0.6000
      */
     static BCryptSetContextFunctionProperty(dwTable, pszContext, dwInterface, pszFunction, pszProperty, cbValue, pbValue) {
@@ -27516,7 +27518,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptquerycontextfunctionproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptquerycontextfunctionproperty
      * @since windows6.0.6000
      */
     static BCryptQueryContextFunctionProperty(dwTable, pszContext, dwInterface, pszFunction, pszProperty, pcbValue, ppbValue) {
@@ -27584,7 +27586,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptregisterconfigchangenotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptregisterconfigchangenotify
      * @since windows6.0.6000
      */
     static BCryptRegisterConfigChangeNotify(phEvent) {
@@ -27643,7 +27645,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptunregisterconfigchangenotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptunregisterconfigchangenotify
      * @since windows6.0.6000
      */
     static BCryptUnregisterConfigChangeNotify(hEvent) {
@@ -27730,7 +27732,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptresolveproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptresolveproviders
      * @since windows6.0.6000
      */
     static BCryptResolveProviders(pszContext, dwInterface, pszFunction, pszProvider, dwMode, dwFlags, pcbBuffer, ppBuffer) {
@@ -27785,7 +27787,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/bcrypt/nf-bcrypt-bcryptgetfipsalgorithmmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/nf-bcrypt-bcryptgetfipsalgorithmmode
      * @since windows6.0.6000
      */
     static BCryptGetFipsAlgorithmMode(pfEnabled) {
@@ -27844,7 +27846,7 @@ class Cryptography {
      * </table>
      * @param {Integer} dwFlags Flags that modify the behavior of the function. No flags are defined for this function.
      * @returns {NCRYPT_PROV_HANDLE} A pointer to a <b>NCRYPT_PROV_HANDLE</b> variable that receives the provider handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptopenstorageprovider
      * @since windows6.0.6000
      */
     static NCryptOpenStorageProvider(pszProviderName, dwFlags) {
@@ -27863,7 +27865,7 @@ class Cryptography {
      * Obtains the names of the algorithms that are supported by the specified key storage provider.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to enumerate the algorithms for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider to enumerate the algorithms for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {Integer} dwAlgOperations 
      * @param {Pointer<Integer>} pdwAlgCount The address of a <b>DWORD</b> that receives the number of elements in the <i>ppAlgList</i> array.
      * @param {Pointer<Pointer<NCryptAlgorithmName>>} ppAlgList The address of an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncryptalgorithmname">NCryptAlgorithmName</a> structure pointer that receives an array of the registered algorithm names. The variable pointed to by the <i>pdwAlgCount</i> parameter receives the number of elements in this array.
@@ -27955,16 +27957,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptenumalgorithms
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptenumalgorithms
      * @since windows6.0.6000
      */
-    static NCryptEnumAlgorithms(hProvider, dwAlgOperations, pdwAlgCount, ppAlgList, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptEnumAlgorithms(hProvider_, dwAlgOperations, pdwAlgCount, ppAlgList, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
 
         pdwAlgCountMarshal := pdwAlgCount is VarRef ? "uint*" : "ptr"
         ppAlgListMarshal := ppAlgList is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider, "uint", dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptEnumAlgorithms", "ptr", hProvider_, "uint", dwAlgOperations, pdwAlgCountMarshal, pdwAlgCount, ppAlgListMarshal, ppAlgList, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27978,7 +27980,7 @@ class Cryptography {
      * If the provider supports the algorithm, this function returns <b>ERROR_SUCCESS</b>. If the provider does not support the algorithm, and no other errors occurred, this function returns <b>NTE_NOT_SUPPORTED</b>.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that identifies the cryptographic algorithm in question. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {Integer} dwFlags Flags that modify function behavior. This can be zero (0) or the following value.
      * 
@@ -28066,14 +28068,14 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptisalgsupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptisalgsupported
      * @since windows6.0.6000
      */
-    static NCryptIsAlgSupported(hProvider, pszAlgId, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptIsAlgSupported(hProvider_, pszAlgId, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
 
-        result := DllCall("ncrypt.dll\NCryptIsAlgSupported", "ptr", hProvider, "ptr", pszAlgId, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptIsAlgSupported", "ptr", hProvider_, "ptr", pszAlgId, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28087,23 +28089,23 @@ class Cryptography {
      * This function retrieves only one item each time it is called. The state of the enumeration is stored in the variable pointed to by the <i>ppEnumState</i> parameter, so this must be preserved between calls to this function. When the last key stored by the provider has been retrieved, this function will return <b>NTE_NO_MORE_ITEMS</b> the next time it is called. To start the enumeration over, set the variable pointed to by the <i>ppEnumState</i> parameter to <b>NULL</b>, free the memory pointed to by the <i>ppKeyName</i> parameter, if it is not <b>NULL</b>, and call this function again.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to enumerate the keys for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider to enumerate the keys for. This handle is obtained with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {PWSTR} pszScope This parameter is not currently used and must be <b>NULL</b>.
      * @param {Pointer<Pointer<Void>>} ppEnumState The address of a <b>VOID</b> pointer that receives enumeration state information that is used in subsequent calls to this function. This information only has meaning to the key storage provider and is opaque to the caller. The key storage provider uses this information to determine which item is next in the enumeration. If the variable pointed to by this parameter contains <b>NULL</b>, the enumeration is started from the beginning.
      * 
      * When this memory is no longer needed, it must be freed by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreebuffer">NCryptFreeBuffer</a> function.
      * @param {Integer} dwFlags 
      * @returns {Pointer<NCryptKeyName>} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncryptkeyname">NCryptKeyName</a> structure that receives the name of the retrieved key. When the application has finished using this memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreebuffer">NCryptFreeBuffer</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptenumkeys
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptenumkeys
      * @since windows6.0.6000
      */
-    static NCryptEnumKeys(hProvider, pszScope, ppEnumState, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptEnumKeys(hProvider_, pszScope, ppEnumState, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
         pszScope := pszScope is String ? StrPtr(pszScope) : pszScope
 
         ppEnumStateMarshal := ppEnumState is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEnumKeys", "ptr", hProvider, "ptr", pszScope, "ptr*", &ppKeyName := 0, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptEnumKeys", "ptr", hProvider_, "ptr", pszScope, "ptr*", &ppKeyName := 0, ppEnumStateMarshal, ppEnumState, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28194,7 +28196,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptenumstorageproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptenumstorageproviders
      * @since windows6.0.6000
      */
     static NCryptEnumStorageProviders(pdwProviderCount, ppProviderList, dwFlags) {
@@ -28249,7 +28251,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreebuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptfreebuffer
      * @since windows6.0.6000
      */
     static NCryptFreeBuffer(pvInput) {
@@ -28269,20 +28271,20 @@ class Cryptography {
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
      * 
      * For performance reasons, Microsoft software-based KSPs cache private key material in the Local Security Authority (LSA) for as long as a handle to the key is open. The LSA is a privileged system process. Therefore, other users cannot access this cached copy of the key unless the user possesses administrator privileges on the system. This behavior cannot be altered through configuration.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to open the key from.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider to open the key from.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key to retrieve.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
      * @returns {NCRYPT_KEY_HANDLE} A pointer to a <b>NCRYPT_KEY_HANDLE</b> variable that receives the key handle. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptopenkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptopenkey
      * @since windows6.0.6000
      */
-    static NCryptOpenKey(hProvider, pszKeyName, dwLegacyKeySpec, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptOpenKey(hProvider_, pszKeyName, dwLegacyKeySpec, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
         phKey := NCRYPT_KEY_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", hProvider, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptOpenKey", "ptr", hProvider_, "ptr", phKey, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28296,22 +28298,22 @@ class Cryptography {
      * If you are creating an RSA key pair, you can also have the key stored in legacy storage so that it can be used with the CryptoAPI by passing the <b>NCRYPT_WRITE_KEY_TO_LEGACY_STORE_FLAG</b> flag to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfinalizekey">NCryptFinalizeKey</a> function when the key is finalized.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider to create the key in. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider to create the key in. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {PWSTR} pszAlgId A pointer to a null-terminated Unicode string that contains the identifier of the cryptographic algorithm to create the key. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
      * @param {PWSTR} pszKeyName A pointer to a null-terminated Unicode string that contains the name of the key. If this parameter is <b>NULL</b>, this function will create an ephemeral key that is not persisted.
      * @param {Integer} dwLegacyKeySpec 
      * @param {Integer} dwFlags 
      * @returns {NCRYPT_KEY_HANDLE} The address of an <b>NCRYPT_KEY_HANDLE</b> variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function. To delete the key file on disk, pass the handle to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptdeletekey">NCryptDeleteKey</a> function. This will also release the handle. So applications may pass the handle to either <b>NCryptFreeObject</b> or <b>NCryptDeleteKey</b>, but not both.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptcreatepersistedkey
      * @since windows6.0.6000
      */
-    static NCryptCreatePersistedKey(hProvider, pszAlgId, pszKeyName, dwLegacyKeySpec, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptCreatePersistedKey(hProvider_, pszAlgId, pszKeyName, dwLegacyKeySpec, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
         pszAlgId := pszAlgId is String ? StrPtr(pszAlgId) : pszAlgId
         pszKeyName := pszKeyName is String ? StrPtr(pszKeyName) : pszKeyName
 
         phKey := NCRYPT_KEY_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", hProvider, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptCreatePersistedKey", "ptr", hProvider_, "ptr", phKey, "ptr", pszAlgId, "ptr", pszKeyName, "uint", dwLegacyKeySpec, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28358,7 +28360,7 @@ class Cryptography {
      * @returns {Integer} A pointer to a **DWORD** variable that receives the number of bytes that were copied to the _pbOutput_ buffer.
      * 
      * If the _pbOutput_ parameter is **NULL**, the size, in bytes, required for the buffer is placed in the location pointed to by this parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptgetproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptgetproperty
      * @since windows6.0.6000
      */
     static NCryptGetProperty(hObject, pszProperty, pbOutput, cbOutput, dwFlags) {
@@ -28461,7 +28463,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptsetproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptsetproperty
      * @since windows6.0.6000
      */
     static NCryptSetProperty(hObject, pszProperty, pbInput, cbInput, dwFlags) {
@@ -28480,7 +28482,7 @@ class Cryptography {
      * Completes a CNG key storage key.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey">NCryptCreatePersistedKey</a> function.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to complete. This handle is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptcreatepersistedkey">NCryptCreatePersistedKey</a> function.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * 
@@ -28528,13 +28530,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptfinalizekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptfinalizekey
      * @since windows6.0.6000
      */
-    static NCryptFinalizeKey(hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptFinalizeKey(hKey_, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ncrypt.dll\NCryptFinalizeKey", "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptFinalizeKey", "ptr", hKey_, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28548,7 +28550,7 @@ class Cryptography {
      * The <i>pbInput</i> and <i>pbOutput</i> parameters can point to the same buffer. In this case, this function will perform the encryption in place. It is possible that the encrypted data size will be larger than the unencrypted data size, so the buffer must be large enough to hold the encrypted data.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to encrypt the data.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to encrypt the data.
      * @param {Pointer} pbInput The address of a buffer that contains the data to be encrypted. The <i>cbInput</i> parameter contains the size of the data to encrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to encrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
@@ -28558,15 +28560,15 @@ class Cryptography {
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
      * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * @returns {Integer} A pointer to a <b>DWORD</b> variable that receives the number of bytes copied to the <i>pbOutput</i> buffer. If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the ciphertext.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptencrypt
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptencrypt
      * @since windows6.0.6000
      */
-    static NCryptEncrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptEncrypt(hKey_, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptEncrypt", "ptr", hKey_, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28580,7 +28582,7 @@ class Cryptography {
      * The <i>pbInput</i> and <i>pbOutput</i> parameters can point to the same buffer. In this case, this function will perform the decryption in place.
      * 
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the data.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to decrypt the data.
      * @param {Pointer} pbInput The address of a buffer that contains the data to be decrypted. The <i>cbInput</i> parameter contains the size of the data to decrypt. For more information, see Remarks.
      * @param {Integer} cbInput The number of bytes in the <i>pbInput</i> buffer to decrypt.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
@@ -28590,15 +28592,15 @@ class Cryptography {
      * @param {Integer} cbOutput The size, in bytes, of the <i>pbOutput</i> buffer. This parameter is ignored if the <i>pbOutput</i> parameter is <b>NULL</b>.
      * @param {Integer} dwFlags Flags that modify function behavior. The allowed set of flags depends on the type of key specified by the <i>hKey</i> parameter.
      * @returns {Integer} A pointer to a <b>DWORD</b> variable that receives the number of bytes copied to the <i>pbOutput</i> buffer. If <i>pbOutput</i> is <b>NULL</b>, this receives the size, in bytes, required for the decrypted data.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptdecrypt
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptdecrypt
      * @since windows6.0.6000
      */
-    static NCryptDecrypt(hKey, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptDecrypt(hKey_, pbInput, cbInput, pPaddingInfo, pbOutput, cbOutput, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptDecrypt", "ptr", hKey_, "ptr", pbInput, "uint", cbInput, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28615,7 +28617,7 @@ class Cryptography {
      * 
      * - **Microsoft Software KSP**
      * - **Microsoft Smart Card KSP**
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider.
      * @param {NCRYPT_KEY_HANDLE} hImportKey The handle of the [cryptographic key](/windows/win32/SecGloss/c-gly) with which the key data within the imported [key BLOB](/windows/win32/SecGloss/k-gly) was encrypted. This must be a handle to the same key that was passed in the _hExportKey_ parameter of the [NCryptExportKey](/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey) function. If this parameter is **NULL**, the key BLOB is assumed to not be encrypted.
      * @param {PWSTR} pszBlobType A null-terminated Unicode string that contains an identifier that specifies the format of the key BLOB. These formats are specific to a particular key storage provider. For the BLOB formats supported by Microsoft providers, see Remarks.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that points to an array of buffers that contain parameter information for the key.
@@ -28623,16 +28625,16 @@ class Cryptography {
      * @param {Integer} cbData The size, in bytes, of the _pbData_ buffer.
      * @param {Integer} dwFlags 
      * @returns {NCRYPT_KEY_HANDLE} The address of an **NCRYPT_KEY_HANDLE** variable that receives the handle of the key. When you have finished using this handle, release it by passing it to the [NCryptFreeObject](/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreeobject) function.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptimportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptimportkey
      * @since windows6.0.6000
      */
-    static NCryptImportKey(hProvider, hImportKey, pszBlobType, pParameterList, pbData, cbData, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptImportKey(hProvider_, hImportKey, pszBlobType, pParameterList, pbData, cbData, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
         hImportKey := hImportKey is Win32Handle ? NumGet(hImportKey, "ptr") : hImportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
         phKey := NCRYPT_KEY_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", hProvider, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptImportKey", "ptr", hProvider_, "ptr", hImportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", phKey, "ptr", pbData, "uint", cbData, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28644,7 +28646,7 @@ class Cryptography {
      * Exports a CNG key to a memory BLOB.
      * @remarks
      * A service must not call this function from its [StartService Function](/windows/win32/api/winsvc/nf-winsvc-startservicea). If a service calls this function from its **StartService** function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey A handle of the key to export.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ A handle of the key to export.
      * @param {NCRYPT_KEY_HANDLE} hExportKey A handle to a cryptographic key of the destination user. The key data within the exported key BLOB is encrypted by using this key. This ensures that only the destination user is able to make use of the key BLOB.
      * @param {PWSTR} pszBlobType 
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of an [NCryptBufferDesc](/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc) structure that receives parameter information for the key. This parameter can be **NULL** if this information is not needed.
@@ -28652,15 +28654,15 @@ class Cryptography {
      * @param {Integer} cbOutput The size, in bytes, of the _pbOutput_ buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} The address of a **DWORD** variable that receives the number of bytes copied to the _pbOutput_ buffer. If the _pbOutput_ parameter is **NULL**, this function will place the required size, in bytes, in the **DWORD** pointed to by this parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptexportkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptexportkey
      * @since windows6.0.6000
      */
-    static NCryptExportKey(hKey, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptExportKey(hKey_, hExportKey, pszBlobType, pParameterList, pbOutput, cbOutput, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         hExportKey := hExportKey is Win32Handle ? NumGet(hExportKey, "ptr") : hExportKey
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptExportKey", "ptr", hKey_, "ptr", hExportKey, "ptr", pszBlobType, "ptr", pParameterList, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28672,7 +28674,7 @@ class Cryptography {
      * Creates a signature of a hash value. (NCryptSignHash)
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to sign the hash.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to sign the hash.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbHashValue A pointer to a buffer that contains the hash value to sign. The <i>cbInput</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The number of bytes in the <i>pbHashValue</i> buffer to sign.
@@ -28686,15 +28688,15 @@ class Cryptography {
      * @returns {Integer} A pointer to a <b>DWORD</b> variable that receives the number of bytes copied to the <i>pbSignature</i> buffer. 
      * 
      * If <i>pbSignature</i> is <b>NULL</b>, this receives the size, in bytes, required for the signature.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptsignhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptsignhash
      * @since windows6.0.6000
      */
-    static NCryptSignHash(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptSignHash(hKey_, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptSignHash", "ptr", hKey_, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28706,7 +28708,7 @@ class Cryptography {
      * Verifies that the specified signature matches the specified hash. (NCryptVerifySignature)
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to use to decrypt the signature. This must be an identical key or the public key portion of the key pair used to sign the data with the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsignhash">NCryptSignHash</a> function.
      * @param {Pointer<Void>} pPaddingInfo A pointer to a structure that contains padding information. The actual type of structure this parameter points to depends on the value of the <i>dwFlags</i> parameter. This parameter is only used with asymmetric keys and must be <b>NULL</b> otherwise.
      * @param {Pointer} pbHashValue The address of a buffer that contains the hash of the data. The <i>cbHash</i> parameter contains the size of this buffer.
      * @param {Integer} cbHashValue The size, in bytes, of the <i>pbHash</i> buffer.
@@ -28783,15 +28785,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptverifysignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptverifysignature
      * @since windows6.0.6000
      */
-    static NCryptVerifySignature(hKey, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptVerifySignature(hKey_, pPaddingInfo, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         pPaddingInfoMarshal := pPaddingInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptVerifySignature", "ptr", hKey, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptVerifySignature", "ptr", hKey_, pPaddingInfoMarshal, pPaddingInfo, "ptr", pbHashValue, "uint", cbHashValue, "ptr", pbSignature, "uint", cbSignature, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28803,7 +28805,7 @@ class Cryptography {
      * Deletes a CNG key.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to delete. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to delete. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
      * 
      * <div class="alert"><b>Note</b>  The <b>NCryptDeleteKey</b> function frees the handle. Applications must not use the handle or attempt to call the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function on it after calling the <b>NCryptDeleteKey</b> function.</div>
      * <div> </div>
@@ -28871,13 +28873,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptdeletekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptdeletekey
      * @since windows6.0.6000
      */
-    static NCryptDeleteKey(hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptDeleteKey(hKey_, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ncrypt.dll\NCryptDeleteKey", "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptDeleteKey", "ptr", hKey_, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -28925,7 +28927,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptfreeobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptfreeobject
      * @since windows6.0.6000
      */
     static NCryptFreeObject(hObject) {
@@ -28943,15 +28945,15 @@ class Cryptography {
      * Determines if the specified handle is a CNG key handle.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to test.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to test.
      * @returns {BOOL} Returns a nonzero value if the handle is a key handle or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptiskeyhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptiskeyhandle
      * @since windows6.0.6000
      */
-    static NCryptIsKeyHandle(hKey) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptIsKeyHandle(hKey_) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ncrypt.dll\NCryptIsKeyHandle", "ptr", hKey, "int")
+        result := DllCall("ncrypt.dll\NCryptIsKeyHandle", "ptr", hKey_, "int")
         return result
     }
 
@@ -29036,7 +29038,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncrypttranslatehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncrypttranslatehandle
      * @since windows6.0.6000
      */
     static NCryptTranslateHandle(phProvider, phKey, hLegacyProv, hLegacyKey, dwLegacyKeySpec, dwFlags) {
@@ -29052,7 +29054,7 @@ class Cryptography {
      * Creates or removes a key change notification.
      * @remarks
      * A service must not call this function from its <a href="https://docs.microsoft.com/windows/win32/api/winsvc/nf-winsvc-startservicea">StartService Function</a>. If a service calls this function from its StartService function, a deadlock can occur, and the service may stop responding.
-     * @param {NCRYPT_PROV_HANDLE} hProvider The handle of the key storage provider. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
+     * @param {NCRYPT_PROV_HANDLE} hProvider_ The handle of the key storage provider. This handle is obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
      * @param {Pointer<HANDLE>} phEvent The address of a <b>HANDLE</b> variable that either receives or contains the key change notification event handle. This is the same handle that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</a> function. For more information, see the <i>dwFlags</i> parameter description.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
@@ -29112,13 +29114,13 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptnotifychangekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptnotifychangekey
      * @since windows6.0.6000
      */
-    static NCryptNotifyChangeKey(hProvider, phEvent, dwFlags) {
-        hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+    static NCryptNotifyChangeKey(hProvider_, phEvent, dwFlags) {
+        hProvider_ := hProvider_ is Win32Handle ? NumGet(hProvider_, "ptr") : hProvider_
 
-        result := DllCall("ncrypt.dll\NCryptNotifyChangeKey", "ptr", hProvider, "ptr", phEvent, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptNotifyChangeKey", "ptr", hProvider_, "ptr", phEvent, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -29134,7 +29136,7 @@ class Cryptography {
      * @param {NCRYPT_KEY_HANDLE} hPubKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to create the secret agreement value. This key and the <i>hPrivKey</i> key must come from the same key storage provider.
      * @param {Integer} dwFlags 
      * @returns {NCRYPT_SECRET_HANDLE} A pointer to an <b>NCRYPT_SECRET_HANDLE</b> variable that receives a handle that represents the secret agreement value. When this handle is no longer needed, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptfreeobject">NCryptFreeObject</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptsecretagreement
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptsecretagreement
      * @since windows6.0.6000
      */
     static NCryptSecretAgreement(hPrivKey, hPubKey, dwFlags) {
@@ -29215,7 +29217,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @returns {Integer} A pointer to a <b>DWORD</b> that receives the number of bytes that were copied to the <i>pbDerivedKey</i> buffer. If the <i>pbDerivedKey</i> parameter is <b>NULL</b>, this function will place the required size, in bytes, in the <b>DWORD</b> pointed to by this parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptderivekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptderivekey
      * @since windows6.0.6000
      */
     static NCryptDeriveKey(hSharedSecret, pwszKDF, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
@@ -29241,7 +29243,7 @@ class Cryptography {
      * <li><b>BCRYPT_SP80056A_CONCAT_ALGORITHM</b></li>
      * <li><b>BCRYPT_PBKDF2_ALGORITHM</b></li>
      * </ul>
-     * @param {NCRYPT_KEY_HANDLE} hKey Handle of the key derivation function (KDF) key.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ Handle of the key derivation function (KDF) key.
      * @param {Pointer<BCryptBufferDesc>} pParameterList The address of a <a href="https://docs.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc">NCryptBufferDesc</a> structure that contains the KDF parameters. The parameters can be specific to a KDF or generic. The following table shows the required and optional parameters for specific KDFs implemented by the Microsoft software key storage provider.
      * 
      * <table>
@@ -29373,13 +29375,13 @@ class Cryptography {
      * </tr>
      * </table>
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives the number of bytes copied to the buffer pointed to by the <i>pbDerivedKey</i> parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptkeyderivation
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptkeyderivation
      * @since windows8.0
      */
-    static NCryptKeyDerivation(hKey, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static NCryptKeyDerivation(hKey_, pParameterList, pbDerivedKey, cbDerivedKey, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\NCryptKeyDerivation", "ptr", hKey_, "ptr", pParameterList, "ptr", pbDerivedKey, "uint", cbDerivedKey, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -29397,7 +29399,7 @@ class Cryptography {
      * @param {Integer} cbClaimBlob 
      * @param {Integer} dwFlags As of Windows 10, no  flags are defined. This parameter should be set to 0.
      * @returns {Integer} The output of the created claim blob.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptcreateclaim
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptcreateclaim
      * @since windows10.0.10240
      */
     static NCryptCreateClaim(hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, dwFlags) {
@@ -29423,7 +29425,7 @@ class Cryptography {
      * @param {Pointer<BCryptBufferDesc>} pOutput The output blob.
      * @param {Integer} dwFlags As of Windows 10, no  flags are defined. This parameter should be set to 0.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
-     * @see https://learn.microsoft.com/windows/win32/api/ncrypt/nf-ncrypt-ncryptverifyclaim
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncrypt/nf-ncrypt-ncryptverifyclaim
      * @since windows10.0.10240
      */
     static NCryptVerifyClaim(hSubjectKey, hAuthorityKey, dwClaimType, pParameterList, pbClaimBlob, cbClaimBlob, pOutput, dwFlags) {
@@ -29683,7 +29685,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  When processing the data returned in the buffer, applications need to use the actual size of the data returned. The actual size may be slightly smaller than the size of the buffer specified on input. (On input, buffer sizes are usually specified large enough to ensure that the largest possible output data will fit into the buffer.) On output, the variable pointed to by this parameter is updated to reflect the actual size of the data copied to the buffer.</div>
      * <div> </div>
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If it does not succeed, the return value is <b>FALSE</b>. To retrieve extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptformatobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptformatobject
      * @since windows5.1.2600
      */
     static CryptFormatObject(dwCertEncodingType, dwFormatType, dwFormatStrType, pFormatStruct, lpszStructType, pbEncoded, cbEncoded, pbFormat, pcbFormat) {
@@ -29866,7 +29868,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptencodeobjectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptencodeobjectex
      * @since windows5.1.2600
      */
     static CryptEncodeObjectEx(dwCertEncodingType, lpszStructType, pvStructInfo, dwFlags, pEncodePara, pvEncoded, pcbEncoded) {
@@ -29964,7 +29966,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptencodeobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptencodeobject
      * @since windows5.1.2600
      */
     static CryptEncodeObject(dwCertEncodingType, lpszStructType, pvStructInfo, pbEncoded, pcbEncoded) {
@@ -30233,7 +30235,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecodeobjectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdecodeobjectex
      * @since windows5.1.2600
      */
     static CryptDecodeObjectEx(dwCertEncodingType, lpszStructType, pbEncoded, cbEncoded, dwFlags, pDecodePara, pvStructInfo, pcbStructInfo) {
@@ -30391,7 +30393,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecodeobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdecodeobject
      * @since windows5.1.2600
      */
     static CryptDecodeObject(dwCertEncodingType, lpszStructType, pbEncoded, cbEncoded, dwFlags, pvStructInfo, pcbStructInfo) {
@@ -30411,7 +30413,7 @@ class Cryptography {
 
     /**
      * The CryptInstallOIDFunctionAddress function installs a set of callable object identifier (OID) function addresses.
-     * @param {HMODULE} hModule This parameter is updated with the <i>hModule</i> parameter passed to <b>DllMain</b> to prevent the DLL that contains the function addresses from being unloaded by 
+     * @param {HMODULE} hModule_ This parameter is updated with the <i>hModule</i> parameter passed to <b>DllMain</b> to prevent the DLL that contains the function addresses from being unloaded by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress">CryptGetOIDFunctionAddress</a> or
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress">CryptFreeOIDFunctionAddress</a>. This would be the case when the DLL has also registered OID functions through 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>.
@@ -30428,14 +30430,14 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress
      * @since windows5.1.2600
      */
-    static CryptInstallOIDFunctionAddress(hModule, dwEncodingType, pszFuncName, cFuncEntry, rgFuncEntry, dwFlags) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    static CryptInstallOIDFunctionAddress(hModule_, dwEncodingType, pszFuncName, cFuncEntry, rgFuncEntry, dwFlags) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         pszFuncName := pszFuncName is String ? StrPtr(pszFuncName) : pszFuncName
 
-        result := DllCall("CRYPT32.dll\CryptInstallOIDFunctionAddress", "ptr", hModule, "uint", dwEncodingType, "ptr", pszFuncName, "uint", cFuncEntry, "ptr", rgFuncEntry, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CryptInstallOIDFunctionAddress", "ptr", hModule_, "uint", dwEncodingType, "ptr", pszFuncName, "uint", cFuncEntry, "ptr", rgFuncEntry, "uint", dwFlags, "int")
         return result
     }
 
@@ -30444,7 +30446,7 @@ class Cryptography {
      * @param {PSTR} pszFuncName Name of the OID function set.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @returns {Pointer<Void>} Returns the handle of the OID function set identified by <i>pszFuncName</i>, or <b>NULL</b> if the function fails.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptinitoidfunctionset
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptinitoidfunctionset
      * @since windows5.1.2600
      */
     static CryptInitOIDFunctionSet(pszFuncName, dwFlags) {
@@ -30502,7 +30504,7 @@ class Cryptography {
      * 
      * If the function fails or no match is found, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetoidfunctionaddress
      * @since windows5.1.2600
      */
     static CryptGetOIDFunctionAddress(hFuncSet, dwEncodingType, pszOID, dwFlags, ppvFuncAddr, phFuncAddr) {
@@ -30571,7 +30573,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetdefaultoiddlllist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetdefaultoiddlllist
      * @since windows5.1.2600
      */
     static CryptGetDefaultOIDDllList(hFuncSet, dwEncodingType, pwszDllList, pcchDllList) {
@@ -30618,7 +30620,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetdefaultoidfunctionaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetdefaultoidfunctionaddress
      * @since windows5.1.2600
      */
     static CryptGetDefaultOIDFunctionAddress(hFuncSet, dwEncodingType, pwszDll, dwFlags, ppvFuncAddr, phFuncAddr) {
@@ -30643,7 +30645,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptfreeoidfunctionaddress
      * @since windows5.1.2600
      */
     static CryptFreeOIDFunctionAddress(hFuncAddr, dwFlags) {
@@ -30668,7 +30670,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptregisteroidfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptregisteroidfunction
      * @since windows5.1.2600
      */
     static CryptRegisterOIDFunction(dwEncodingType, pszFuncName, pszOID, pwszDll, pszOverrideFuncName) {
@@ -30695,7 +30697,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptunregisteroidfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptunregisteroidfunction
      * @since windows5.1.2600
      */
     static CryptUnregisterOIDFunction(dwEncodingType, pszFuncName, pszOID) {
@@ -30718,7 +30720,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptregisterdefaultoidfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptregisterdefaultoidfunction
      * @since windows5.1.2600
      */
     static CryptRegisterDefaultOIDFunction(dwEncodingType, pszFuncName, dwIndex, pwszDll) {
@@ -30740,7 +30742,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptunregisterdefaultoidfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptunregisterdefaultoidfunction
      * @since windows5.1.2600
      */
     static CryptUnregisterDefaultOIDFunction(dwEncodingType, pszFuncName, pwszDll) {
@@ -30766,7 +30768,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetoidfunctionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetoidfunctionvalue
      * @since windows5.1.2600
      */
     static CryptSetOIDFunctionValue(dwEncodingType, pszFuncName, pszOID, pwszValueName, dwValueType, pbValueData, cbValueData) {
@@ -30869,7 +30871,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetoidfunctionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetoidfunctionvalue
      * @since windows5.1.2600
      */
     static CryptGetOIDFunctionValue(dwEncodingType, pszFuncName, pszOID, pwszValueName, pdwValueType, pbValueData, pcbValueData) {
@@ -30914,7 +30916,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumoidfunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumoidfunction
      * @since windows5.1.2600
      */
     static CryptEnumOIDFunction(dwEncodingType, pszFuncName, pszOID, dwFlags, pvArg, pfnEnumOIDFunc) {
@@ -30993,7 +30995,7 @@ class Cryptography {
      * 
      * The bit length shifted left 16 bits can be specified in the <i>dwGroupId</i> parameter by using the logical <b>OR</b> operator (|). For more information, see Remarks.
      * @returns {Pointer<CRYPT_OID_INFO>} Returns a pointer to a constant structure of type <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_oid_info">CRYPT_OID_INFO</a>. The returned pointer must not be freed. When the specified key and group is not found, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptfindoidinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptfindoidinfo
      * @since windows5.1.2600
      */
     static CryptFindOIDInfo(dwKeyType, pvKey, dwGroupId) {
@@ -31018,7 +31020,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE).
      * 
      * If the function fails, the return value is zero (FALSE).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptregisteroidinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptregisteroidinfo
      * @since windows5.1.2600
      */
     static CryptRegisterOIDInfo(pInfo, dwFlags) {
@@ -31032,7 +31034,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE).
      * 
      * If the function fails, the return value is zero (FALSE).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptunregisteroidinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptunregisteroidinfo
      * @since windows5.1.2600
      */
     static CryptUnregisterOIDInfo(pInfo) {
@@ -31072,7 +31074,7 @@ class Cryptography {
      * @returns {BOOL} If the callback function  completes the enumeration, this function returns <b>TRUE</b>. 
      * 
      * If the callback function has stopped the enumeration, this function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumoidinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumoidinfo
      * @since windows5.1.2600
      */
     static CryptEnumOIDInfo(dwGroupId, dwFlags, pvArg, pfnEnumOIDInfo) {
@@ -31144,7 +31146,7 @@ class Cryptography {
      * 						
      * 
      * If the specified name is not found, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptfindlocalizedname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptfindlocalizedname
      * @since windows5.1.2600
      */
     static CryptFindLocalizedName(pwszCryptName) {
@@ -31370,7 +31372,7 @@ class Cryptography {
      * 
      * If <i>dwMsgType</i> is CMSG_HASHED, errors can be propagated from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptcreatehash">CryptCreateHash</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgopentoencode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgopentoencode
      * @since windows5.1.2600
      */
     static CryptMsgOpenToEncode(dwMsgEncodingType, dwFlags, dwMsgType, pvMsgEncodeInfo, pszInnerContentObjID, pStreamInfo) {
@@ -31588,7 +31590,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgcalculateencodedlength
      * @since windows5.1.2600
      */
     static CryptMsgCalculateEncodedLength(dwMsgEncodingType, dwFlags, dwMsgType, pvMsgEncodeInfo, pszInnerContentObjID, cbData) {
@@ -31783,7 +31785,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgopentodecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgopentodecode
      * @since windows5.1.2600
      */
     static CryptMsgOpenToDecode(dwMsgEncodingType, dwFlags, dwMsgType, hCryptProv, pStreamInfo) {
@@ -31808,7 +31810,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> are required to actually release the handle.
      * @param {Pointer<Void>} hCryptMsg Handle of the cryptographic message to be duplicated. Duplication is done by incrementing the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> of the message. A copy of the message is not made.
      * @returns {Pointer<Void>} The returned handle is the same as the handle input. A copy of the message is not created. When you have finished using the duplicated message handle, decrease the reference count by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgclose">CryptMsgClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgduplicate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgduplicate
      * @since windows5.1.2600
      */
     static CryptMsgDuplicate(hCryptMsg) {
@@ -31825,7 +31827,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgclose
      * @since windows5.1.2600
      */
     static CryptMsgClose(hCryptMsg) {
@@ -31980,7 +31982,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgupdate
      * @since windows5.1.2600
      */
     static CryptMsgUpdate(hCryptMsg, pbData, cbData, fFinal) {
@@ -32601,7 +32603,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsggetparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsggetparam
      * @since windows5.1.2600
      */
     static CryptMsgGetParam(hCryptMsg, dwParamType, dwIndex, pvData, pcbData) {
@@ -33162,7 +33164,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgcontrol
      * @since windows5.1.2600
      */
     static CryptMsgControl(hCryptMsg, dwFlags, dwCtrlType, pvCtrlPara) {
@@ -33302,7 +33304,7 @@ class Cryptography {
      * </ul>
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgverifycountersignatureencoded
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgverifycountersignatureencoded
      * @since windows5.1.2600
      */
     static CryptMsgVerifyCountersignatureEncoded(hCryptProv, dwEncodingType, pbSignerInfo, cbSignerInfo, pbSignerInfoCountersignature, cbSignerInfoCountersignature, pciCountersigner) {
@@ -33505,7 +33507,7 @@ class Cryptography {
      * </ul>
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgverifycountersignatureencodedex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgverifycountersignatureencodedex
      * @since windows5.1.2600
      */
     static CryptMsgVerifyCountersignatureEncodedEx(hCryptProv, dwEncodingType, pbSignerInfo, cbSignerInfo, pbSignerInfoCountersignature, cbSignerInfoCountersignature, dwSignerType, pvSigner, dwFlags, pvExtra) {
@@ -33586,7 +33588,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgcountersign
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgcountersign
      * @since windows5.1.2600
      */
     static CryptMsgCountersign(hCryptMsg, dwIndex, cCountersigners, rgCountersigners) {
@@ -33693,7 +33695,7 @@ class Cryptography {
      * </ul>
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgcountersignencoded
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgcountersignencoded
      * @since windows5.1.2600
      */
     static CryptMsgCountersignEncoded(dwEncodingType, pbSignerInfo, cbSignerInfo, cCountersigners, rgCountersigners, pbCountersignature, pcbCountersignature) {
@@ -34036,7 +34038,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>, <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a>, or registry errors might be propagated and their error codes returned. <b>CertOpenStore</b> has a single error code of its own, the ERROR_FILE_NOT_FOUND code, which indicates that the function was unable to find the provider specified by the <i>lpszStoreProvider</i> parameter.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certopenstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certopenstore
      * @since windows5.1.2600
      */
     static CertOpenStore(lpszStoreProvider, dwEncodingType, dwFlags, pvPara) {
@@ -34059,22 +34061,22 @@ class Cryptography {
 
     /**
      * Duplicates a store handle by incrementing the store's reference count.
-     * @param {HCERTSTORE} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
+     * @param {HCERTSTORE} hCertStore_ A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
      * @returns {HCERTSTORE} Currently, a copy is not made of the handle, and the returned handle is the same as the handle that was input. If <b>NULL</b> is passed in, the called function will raise an access violation exception.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatestore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certduplicatestore
      * @since windows5.1.2600
      */
-    static CertDuplicateStore(hCertStore) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertDuplicateStore(hCertStore_) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
-        result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", hCertStore, "ptr")
+        result := DllCall("CRYPT32.dll\CertDuplicateStore", "ptr", hCertStore_, "ptr")
         resultHandle := HCERTSTORE({Value: result}, True)
         return resultHandle
     }
 
     /**
      * Saves the certificate store to a file or to a memory BLOB.
-     * @param {HCERTSTORE} hCertStore The handle of the certificate store to be saved.
+     * @param {HCERTSTORE} hCertStore_ The handle of the certificate store to be saved.
      * @param {Integer} dwEncodingType Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a> and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a>. Encoding is used only when <i>dwSaveAs</i> contains <b>CERT_STORE_SAVE_AS_PKCS7</b>. Otherwise, the <i>dwMsgAndCertEncodingType</i> parameter is not used.
      * @param {Integer} dwSaveAs Specifies how to save the certificate store.
      * @param {Integer} dwSaveTo Specifies where and how to save the certificate store. The contents of this parameter determines the format of the <i>pvSaveToPara</i> parameter.
@@ -34086,17 +34088,17 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Note that <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefile">WriteFile</a> errors can be propagated to this function. One possible error code is <b>CRYPT_E_FILE_ERROR</b> which indicates that an error occurred while writing to the file.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsavestore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsavestore
      * @since windows5.1.2600
      */
-    static CertSaveStore(hCertStore, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPara, dwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertSaveStore(hCertStore_, dwEncodingType, dwSaveAs, dwSaveTo, pvSaveToPara, dwFlags) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvSaveToParaMarshal := pvSaveToPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", hCertStore, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertSaveStore", "ptr", hCertStore_, "uint", dwEncodingType, "uint", dwSaveAs, "uint", dwSaveTo, pvSaveToParaMarshal, pvSaveToPara, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -34120,7 +34122,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_PENDING_CLOSE. Note that the store is still closed when <b>FALSE</b> is returned and the memory for any active contexts is not freed.
      * 
      * If CERT_STORE_NO_CRYPT_RELEASE_FLAG was not set when the store was opened, closing a store releases its CSP handle.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store to be closed.
+     * @param {HCERTSTORE} hCertStore_ Handle of the certificate store to be closed.
      * @param {Integer} dwFlags Typically, this parameter uses the default value zero. The default is to close the store with memory remaining allocated for contexts that have not been freed. In this case, no check is made to determine whether memory for contexts remains allocated. 
      * 
      * 
@@ -34165,15 +34167,15 @@ class Cryptography {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> is set to CRYPT_E_PENDING_CLOSE if memory for contexts associated with the store remains allocated. Any existing value returned by <b>GetLastError</b> is preserved unless CERT_CLOSE_STORE_CHECK_FLAG is set.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certclosestore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certclosestore
      * @since windows5.1.2600
      */
-    static CertCloseStore(hCertStore, dwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertCloseStore(hCertStore_, dwFlags) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertCloseStore", "ptr", hCertStore, "uint", dwFlags, "int")
+        result := DllCall("CRYPT32.dll\CertCloseStore", "ptr", hCertStore_, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -34185,7 +34187,7 @@ class Cryptography {
      * Returns from a certificate store a subject certificate context uniquely identified by its issuer and serial number.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate certificate.
-     * @param {HCERTSTORE} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} hCertStore_ A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwCertEncodingType The type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -34222,15 +34224,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetsubjectcertificatefromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetsubjectcertificatefromstore
      * @since windows5.1.2600
      */
-    static CertGetSubjectCertificateFromStore(hCertStore, dwCertEncodingType, pCertId) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetSubjectCertificateFromStore(hCertStore_, dwCertEncodingType, pCertId) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetSubjectCertificateFromStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pCertId, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetSubjectCertificateFromStore", "ptr", hCertStore_, "uint", dwCertEncodingType, "ptr", pCertId, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -34246,7 +34248,7 @@ class Cryptography {
      * 
      * A duplicate of the currently enumerated certificate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a>.
-     * @param {HCERTSTORE} hCertStore A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} hCertStore_ A handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CERT_CONTEXT>} pPrevCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> of the previous <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a> found.
      * 
@@ -34299,15 +34301,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumcertificatesinstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumcertificatesinstore
      * @since windows5.1.2600
      */
-    static CertEnumCertificatesInStore(hCertStore, pPrevCertContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertEnumCertificatesInStore(hCertStore_, pPrevCertContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumCertificatesInStore", "ptr", hCertStore, "ptr", pPrevCertContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertEnumCertificatesInStore", "ptr", hCertStore_, "ptr", pPrevCertContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -34333,7 +34335,7 @@ class Cryptography {
      * 
      * The returned pointer is freed when passed as the <i>pPrevCertContext</i> parameter on a subsequent call to the function. Otherwise, the pointer must be explicitly freed by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a>. A <i>pPrevCertContext</i> that is not <b>NULL</b> is always freed by <b>CertFindCertificateInStore</b> using a call to <b>CertFreeCertificateContext</b>, even if there is an error in the function.
-     * @param {HCERTSTORE} hCertStore A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> to be searched.
+     * @param {HCERTSTORE} hCertStore_ A handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> to be searched.
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -34385,17 +34387,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindcertificateinstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindcertificateinstore
      * @since windows5.1.2600
      */
-    static CertFindCertificateInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCertContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindCertificateInStore(hCertStore_, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCertContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCertificateInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCertContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCertificateInStore", "ptr", hCertStore_, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCertContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -34413,7 +34415,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext">CertDuplicateCertificateContext</a> can be called to make a duplicate of the issuer certificate.
      * 
      * The hexadecimal values for <i>dwFlags</i> can be combined using a bitwise-<b>OR</b> operation to enable multiple verifications. For example, to enable both signature and time validity, the value 0x00000003 is passed in <i>dwFlags</i> on input. In this case, if CERT_STORE_SIGNATURE_FLAG verification succeeds but CERT_STORE_TIME_VALIDITY_FLAG verification fails, <i>dwFlags</i> returns as 0x00000002 on output.
-     * @param {HCERTSTORE} hCertStore Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} hCertStore_ Handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Pointer<CERT_CONTEXT>} pSubjectContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the subject information. This parameter can be obtained from any certificate store or can be created by the calling application using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a> function.
@@ -34544,17 +34546,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetissuercertificatefromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetissuercertificatefromstore
      * @since windows5.1.2600
      */
-    static CertGetIssuerCertificateFromStore(hCertStore, pSubjectContext, pPrevIssuerContext, pdwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetIssuerCertificateFromStore(hCertStore_, pSubjectContext, pPrevIssuerContext, pdwFlags) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, pdwFlagsMarshal, pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetIssuerCertificateFromStore", "ptr", hCertStore_, "ptr", pSubjectContext, "ptr", pPrevIssuerContext, pdwFlagsMarshal, pdwFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -34646,7 +34648,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifysubjectcertificatecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifysubjectcertificatecontext
      * @since windows5.1.2600
      */
     static CertVerifySubjectCertificateContext(pSubject, pIssuer, pdwFlags) {
@@ -34667,7 +34669,7 @@ class Cryptography {
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is incremented.
      * @returns {Pointer<CERT_CONTEXT>} Currently, a copy is not made of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>, and the returned pointer to a context has the same value as the pointer to a context that was input. If the pointer passed into this function is <b>NULL</b>, <b>NULL</b> is returned. When you have finished using the duplicate context, decrease its reference count by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatecertificatecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certduplicatecertificatecontext
      * @since windows5.1.2600
      */
     static CertDuplicateCertificateContext(pCertContext) {
@@ -34721,7 +34723,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatecertificatecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreatecertificatecontext
      * @since windows5.1.2600
      */
     static CertCreateCertificateContext(dwCertEncodingType, pbCertEncoded, cbCertEncoded) {
@@ -34740,7 +34742,7 @@ class Cryptography {
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> to be freed.
      * @returns {BOOL} The function always returns nonzero.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreecertificatecontext
      * @since windows5.1.2600
      */
     static CertFreeCertificateContext(pCertContext) {
@@ -34857,7 +34859,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsetcertificatecontextproperty
      * @since windows5.1.2600
      */
     static CertSetCertificateContextProperty(pCertContext, dwPropId, dwFlags, pvData) {
@@ -34935,7 +34937,7 @@ class Cryptography {
      * 
      * Errors from the called function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-crypthashcertificate">CryptHashCertificate</a> can be propagated to this function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetcertificatecontextproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetcertificatecontextproperty
      * @since windows5.1.2600
      */
     static CertGetCertificateContextProperty(pCertContext, dwPropId, pvData, pcbData) {
@@ -34965,7 +34967,7 @@ class Cryptography {
      * Applications can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatecontextproperty">CertGetCertificateContextProperty</a> with the <i>dwPropId</i> returned by this function to retrieve that property's data.
      * @returns {Integer} The return value is a <b>DWORD</b> value that identifies a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context's</a> property. The <b>DWORD</b> value returned by one call of the function can be supplied as the <i>dwPropId</i> in a subsequent call to the function. If there are no more properties to be enumerated or if the function fails, zero is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumcertificatecontextproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumcertificatecontextproperties
      * @since windows5.1.2600
      */
     static CertEnumCertificateContextProperties(pCertContext, dwPropId) {
@@ -34985,7 +34987,7 @@ class Cryptography {
      * 
      * If the function fails, it returns  zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatectlentryfromcertificatecontextproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreatectlentryfromcertificatecontextproperties
      * @since windows5.1.2600
      */
     static CertCreateCTLEntryFromCertificateContextProperties(pCertContext, cOptAttr, rgOptAttr, dwFlags, pCtlEntry, pcbCtlEntry) {
@@ -35012,7 +35014,7 @@ class Cryptography {
      * 
      *   If the function fails, it returns zero.  For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetcertificatecontextpropertiesfromctlentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsetcertificatecontextpropertiesfromctlentry
      * @since windows5.1.2600
      */
     static CertSetCertificateContextPropertiesFromCTLEntry(pCertContext, pCtlEntry, dwFlags) {
@@ -35032,7 +35034,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate CRL.
      * 
      * The hexadecimal values of the flags can be combined using a bitwise-<b>OR</b> operation to enable both verifications. For example, to enable both verifications, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to value CERT_STORE_SIGNATURE_FLAG | CERT_STORE_TIME_VALIDITY_FLAG. If the CERT_STORE_SIGNATURE_FLAG verification succeeded, but CERT_STORE_TIME_VALIDITY_FLAG verification failed, the <b>DWORD</b> value pointed to by <i>pdwFlags</i> is set to CERT_STORE_TIME_VALIDITY_FLAG when the function returns.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Pointer<CERT_CONTEXT>} pIssuerContext A pointer to an issuer 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a>. The <i>pIssuerContext</i> pointer can come from this store or another store, or could have been created by the calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcreatecertificatecontext">CertCreateCertificateContext</a>. If <b>NULL</b> is passed for this parameter, all the CRLs in the store are found.
@@ -35141,17 +35143,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetcrlfromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetcrlfromstore
      * @since windows5.1.2600
      */
-    static CertGetCRLFromStore(hCertStore, pIssuerContext, pPrevCrlContext, pdwFlags) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetCRLFromStore(hCertStore_, pIssuerContext, pPrevCrlContext, pdwFlags) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore, "ptr", pIssuerContext, "ptr", pPrevCrlContext, pdwFlagsMarshal, pdwFlags, "ptr")
+        result := DllCall("CRYPT32.dll\CertGetCRLFromStore", "ptr", hCertStore_, "ptr", pIssuerContext, "ptr", pPrevCrlContext, pdwFlagsMarshal, pdwFlags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -35167,7 +35169,7 @@ class Cryptography {
      * 
      * A duplicate of the CRL <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a> returned by this function can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Pointer<CRL_CONTEXT>} pPrevCrlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure found. The <i>pPrevCrlContext</i> parameter must be <b>NULL</b> to get the first CRL in the store. Successive CRLs are enumerated by setting <i>pPrevCrlContext</i> to the pointer returned by a previous call to the function.  This function frees the <b>CRL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CRLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a>.
@@ -35205,15 +35207,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumcrlsinstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumcrlsinstore
      * @since windows5.1.2600
      */
-    static CertEnumCRLsInStore(hCertStore, pPrevCrlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertEnumCRLsInStore(hCertStore_, pPrevCrlContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumCRLsInStore", "ptr", hCertStore, "ptr", pPrevCrlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertEnumCRLsInStore", "ptr", hCertStore_, "ptr", pPrevCrlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -35231,7 +35233,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a> can be called to make a duplicate of the returned context. The returned CRL context can be added to a different certificate store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrlcontexttostore">CertAddCRLContextToStore</a>, or a link to that CRL context can be added to a noncollection store by using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddcrllinktostore">CertAddCRLLinkToStore</a>.
-     * @param {HCERTSTORE} hCertStore A handle of the certificate store to be searched.
+     * @param {HCERTSTORE} hCertStore_ A handle of the certificate store to be searched.
      * @param {Integer} dwCertEncodingType This parameter is not currently used. It must be set to zero.
      * @param {Integer} dwFindFlags If <i>dwFindType</i> is CRL_FIND_ISSUED_BY, by default, only issuer name matching is done. The following flags can be used to do additional filtering.
      * 
@@ -35400,17 +35402,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindcrlinstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindcrlinstore
      * @since windows5.1.2600
      */
-    static CertFindCRLInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCrlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindCRLInStore(hCertStore_, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCrlContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCRLInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCrlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCRLInStore", "ptr", hCertStore_, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCrlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -35423,7 +35425,7 @@ class Cryptography {
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
      * @returns {Pointer<CRL_CONTEXT>} Currently, a copy is not made of the context, and the returned context is the same as the context that was input. If the pointer passed into this function is <b>NULL</b>, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatecrlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certduplicatecrlcontext
      * @since windows5.1.2600
      */
     static CertDuplicateCRLContext(pCrlContext) {
@@ -35477,7 +35479,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatecrlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreatecrlcontext
      * @since windows5.1.2600
      */
     static CertCreateCRLContext(dwCertEncodingType, pbCrlEncoded, cbCrlEncoded) {
@@ -35496,7 +35498,7 @@ class Cryptography {
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> to be freed.
      * @returns {BOOL} The function always returns <b>TRUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecrlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreecrlcontext
      * @since windows5.1.2600
      */
     static CertFreeCRLContext(pCrlContext) {
@@ -35904,7 +35906,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetcrlcontextproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsetcrlcontextproperty
      * @since windows5.1.2600
      */
     static CertSetCRLContextProperty(pCrlContext, dwPropId, dwFlags, pvData) {
@@ -36325,7 +36327,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetcrlcontextproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetcrlcontextproperty
      * @since windows5.1.2600
      */
     static CertGetCRLContextProperty(pCrlContext, dwPropId, pvData, pcbData) {
@@ -36353,7 +36355,7 @@ class Cryptography {
      * Applications can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcrlcontextproperty">CertGetCRLContextProperty</a> with the <i>dwPropId</i> returned by this function to retrieve that property's data.
      * @returns {Integer} The return value is a <b>DWORD</b> value that identifies a CRL context's property. The <b>DWORD</b> value returned by one call of the function can be supplied as the <i>dwPropId</i> in a subsequent call to the function. If there are no more properties to be enumerated or if the function fails, zero is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumcrlcontextproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumcrlcontextproperties
      * @since windows5.1.2600
      */
     static CertEnumCRLContextProperties(pCrlContext, dwPropId) {
@@ -36370,7 +36372,7 @@ class Cryptography {
      * @param {Integer} dwFlags Reserved for future use. Must be set to zero.
      * @param {Pointer<Pointer<CRL_ENTRY>>} ppCrlEntry If the certificate is found in the CRL, this pointer is updated with a pointer to the entry. Otherwise, it is set to <b>NULL</b>. The returned entry is not allocated and must not be freed.
      * @returns {BOOL} <b>TRUE</b> if the list was searched; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindcertificateincrl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindcertificateincrl
      * @since windows5.1.2600
      */
     static CertFindCertificateInCRL(pCert, pCrlContext, dwFlags, ppCrlEntry) {
@@ -36390,7 +36392,7 @@ class Cryptography {
      * @param {Pointer<CRL_CONTEXT>} pCrl A pointer to a CRL. The function checks this CRL to determine whether it could contain the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate context</a> pointed to by <i>pCert</i>. The function does not look for the certificate in the CRL.
      * @param {Integer} dwFlags Currently not used and must be set to zero.
      * @returns {BOOL} The function returns <b>TRUE</b> if the CRL is a valid CRL to be searched for the specific certificate. It returns <b>FALSE</b> if the CRL is not a valid CRL for searching for the certificate.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certisvalidcrlforcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certisvalidcrlforcertificate
      * @since windows5.1.2600
      */
     static CertIsValidCRLForCertificate(pCert, pCrl, dwFlags) {
@@ -36402,7 +36404,7 @@ class Cryptography {
 
     /**
      * Creates a certificate context from an encoded certificate and adds it to the certificate store.
-     * @param {HCERTSTORE} hCertStore A handle to the certificate store.
+     * @param {HCERTSTORE} hCertStore_ A handle to the certificate store.
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -36513,17 +36515,17 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  returns an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedcertificatetostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddencodedcertificatetostore
      * @since windows5.1.2600
      */
-    static CertAddEncodedCertificateToStore(hCertStore, dwCertEncodingType, pbCertEncoded, cbCertEncoded, dwAddDisposition, ppCertContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddEncodedCertificateToStore(hCertStore_, dwCertEncodingType, pbCertEncoded, cbCertEncoded, dwAddDisposition, ppCertContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, "uint", dwAddDisposition, ppCertContextMarshal, ppCertContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddEncodedCertificateToStore", "ptr", hCertStore_, "uint", dwCertEncodingType, "ptr", pbCertEncoded, "uint", cbCertEncoded, "uint", dwAddDisposition, ppCertContextMarshal, ppCertContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -36543,7 +36545,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  The order of the certificate context may not be preserved within the store. 
      * To access a specific certificate you must iterate across the certificates in the store.</div>
      * <div> </div>
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -36696,17 +36698,17 @@ class Cryptography {
      * Errors from the called functions, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddencodedcertificatetostore">CertAddEncodedCertificateToStore</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certsetcertificatecontextproperty">CertSetCertificateContextProperty</a>, can be propagated to this function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcertificatecontexttostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddcertificatecontexttostore
      * @since windows5.1.2600
      */
-    static CertAddCertificateContextToStore(hCertStore, pCertContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCertificateContextToStore(hCertStore_, pCertContext, dwAddDisposition, ppStoreContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", "ptr", hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCertificateContextToStore", "ptr", hCertStore_, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -36716,7 +36718,7 @@ class Cryptography {
 
     /**
      * Adds a serialized certificate, certificate revocation list (CRL), or certificate trust list (CTL) element to the store.
-     * @param {HCERTSTORE} hCertStore The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the created certificate will be stored. If <i>hCertStore</i> is <b>NULL</b>, the function creates a copy of a certificate, CRL, or CTL context with its extended properties, but the certificate, CRL, or CTL is not persisted in any store.
+     * @param {HCERTSTORE} hCertStore_ The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the created certificate will be stored. If <i>hCertStore</i> is <b>NULL</b>, the function creates a copy of a certificate, CRL, or CTL context with its extended properties, but the certificate, CRL, or CTL is not persisted in any store.
      * @param {Pointer} pbElement A pointer to a buffer that contains the certificate, CRL, or CTL information to be serialized and added to the certificate store.
      * @param {Integer} cbElement The size, in bytes, of the <i>pbElement</i> buffer.
      * @param {Integer} dwAddDisposition Specifies the action to take if the certificate, CRL, or CTL already exists in the store. Currently defined disposition values are shown in the following table.
@@ -36940,18 +36942,18 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddserializedelementtostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddserializedelementtostore
      * @since windows5.1.2600
      */
-    static CertAddSerializedElementToStore(hCertStore, pbElement, cbElement, dwAddDisposition, dwFlags, dwContextTypeFlags, pdwContextType, ppvContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddSerializedElementToStore(hCertStore_, pbElement, cbElement, dwAddDisposition, dwFlags, dwContextTypeFlags, pdwContextType, ppvContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pdwContextTypeMarshal := pdwContextType is VarRef ? "uint*" : "ptr"
         ppvContextMarshal := ppvContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddSerializedElementToStore", "ptr", hCertStore_, "ptr", pbElement, "uint", cbElement, "uint", dwAddDisposition, "uint", dwFlags, "uint", dwContextTypeFlags, pdwContextTypeMarshal, pdwContextType, ppvContextMarshal, ppvContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -36990,7 +36992,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certdeletecertificatefromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certdeletecertificatefromstore
      * @since windows5.1.2600
      */
     static CertDeleteCertificateFromStore(pCertContext) {
@@ -37006,7 +37008,7 @@ class Cryptography {
 
     /**
      * Creates a certificate revocation list (CRL) context from an encoded CRL and adds it to the certificate store.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Integer} dwCertEncodingType Specifies the type of encoding used. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -37144,17 +37146,17 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedcrltostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddencodedcrltostore
      * @since windows5.1.2600
      */
-    static CertAddEncodedCRLToStore(hCertStore, dwCertEncodingType, pbCrlEncoded, cbCrlEncoded, dwAddDisposition, ppCrlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddEncodedCRLToStore(hCertStore_, dwCertEncodingType, pbCrlEncoded, cbCrlEncoded, dwAddDisposition, ppCrlContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppCrlContextMarshal := ppCrlContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", "ptr", hCertStore, "uint", dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, "uint", dwAddDisposition, ppCrlContextMarshal, ppCrlContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddEncodedCRLToStore", "ptr", hCertStore_, "uint", dwCertEncodingType, "ptr", pbCrlEncoded, "uint", cbCrlEncoded, "uint", dwAddDisposition, ppCrlContextMarshal, ppCrlContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -37169,7 +37171,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatecrlcontext">CertDuplicateCRLContext</a>. Instead, a new copy is created and added to the store. In addition to copying the encoded CRL, the function copies the context's properties.
      * 
      * To remove the CRL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be added.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -37298,17 +37300,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcrlcontexttostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddcrlcontexttostore
      * @since windows5.1.2600
      */
-    static CertAddCRLContextToStore(hCertStore, pCrlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCRLContextToStore(hCertStore_, pCrlContext, dwAddDisposition, ppStoreContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", "ptr", hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCRLContextToStore", "ptr", hCertStore_, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -37347,7 +37349,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certdeletecrlfromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certdeletecrlfromstore
      * @since windows5.1.2600
      */
     static CertDeleteCRLFromStore(pCrlContext) {
@@ -37384,7 +37386,7 @@ class Cryptography {
      * 
      * If the function fails, the return value is <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certserializecertificatestoreelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certserializecertificatestoreelement
      * @since windows5.1.2600
      */
     static CertSerializeCertificateStoreElement(pCertContext, dwFlags, pbElement, pcbElement) {
@@ -37423,7 +37425,7 @@ class Cryptography {
      * 
      * If the function fails, the return value is <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certserializecrlstoreelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certserializecrlstoreelement
      * @since windows5.1.2600
      */
     static CertSerializeCRLStoreElement(pCrlContext, dwFlags, pbElement, pcbElement) {
@@ -37444,7 +37446,7 @@ class Cryptography {
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> is being incremented.
      * @returns {Pointer<CTL_CONTEXT>} Currently, a copy is not made of the context, and the returned pointer to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> is the same as pointer input. If the pointer passed into this function is <b>NULL</b>, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatectlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certduplicatectlcontext
      * @since windows5.1.2600
      */
     static CertDuplicateCTLContext(pCtlContext) {
@@ -37498,7 +37500,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatectlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreatectlcontext
      * @since windows5.1.2600
      */
     static CertCreateCTLContext(dwMsgAndCertEncodingType, pbCtlEncoded, cbCtlEncoded) {
@@ -37517,7 +37519,7 @@ class Cryptography {
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> to be freed.
      * @returns {BOOL} The function always returns <b>TRUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreectlcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreectlcontext
      * @since windows5.1.2600
      */
     static CertFreeCTLContext(pCtlContext) {
@@ -37817,7 +37819,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetctlcontextproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsetctlcontextproperty
      * @since windows5.1.2600
      */
     static CertSetCTLContextProperty(pCtlContext, dwPropId, dwFlags, pvData) {
@@ -38140,7 +38142,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetctlcontextproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetctlcontextproperty
      * @since windows5.1.2600
      */
     static CertGetCTLContextProperty(pCtlContext, dwPropId, pvData, pcbData) {
@@ -38168,7 +38170,7 @@ class Cryptography {
      * Applications can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetctlcontextproperty">CertGetCTLContextProperty</a> with the <i>dwPropId</i> returned by this function to retrieved that property's data.
      * @returns {Integer} The return value is a <b>DWORD</b> value that identifies a CTL context's property. The <b>DWORD</b> value returned by one call of the function can be supplied as the <i>dwPropId</i> in a subsequent call to the function. If there are no more properties to be enumerated or if the function fails, zero is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumctlcontextproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumctlcontextproperties
      * @since windows5.1.2600
      */
     static CertEnumCTLContextProperties(pCtlContext, dwPropId) {
@@ -38184,7 +38186,7 @@ class Cryptography {
      * 
      * A duplicate can be made by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Pointer<CTL_CONTEXT>} pPrevCtlContext A pointer to the previous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure found. It must be <b>NULL</b> to get the first CTL in the store. Successive CTLs are enumerated by setting <i>pPrevCtlContext</i> to the pointer returned by a previous call. This function frees the <b>CTL_CONTEXT</b> referenced by non-<b>NULL</b> values of this parameter. The enumeration skips any CTLs previously deleted by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a>.
@@ -38224,15 +38226,15 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumctlsinstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumctlsinstore
      * @since windows5.1.2600
      */
-    static CertEnumCTLsInStore(hCertStore, pPrevCtlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertEnumCTLsInStore(hCertStore_, pPrevCtlContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertEnumCTLsInStore", "ptr", hCertStore, "ptr", pPrevCtlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertEnumCTLsInStore", "ptr", hCertStore_, "ptr", pPrevCtlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -38334,7 +38336,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindsubjectinctl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindsubjectinctl
      * @since windows5.1.2600
      */
     static CertFindSubjectInCTL(dwEncodingType, dwSubjectType, pvSubject, pCtlContext, dwFlags) {
@@ -38360,7 +38362,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a> can be called to make a duplicate of the returned context. The returned CTL context can be added to a different certificate store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctlcontexttostore">CertAddCTLContextToStore</a>, or a link to that CTL context can be added to a noncollection store using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certaddctllinktostore">CertAddCTLLinkToStore</a>. If a CTL matching the search criteria is not found, <b>NULL</b> is returned.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store to be searched.
+     * @param {HCERTSTORE} hCertStore_ Handle of the certificate store to be searched.
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used on the CTL. It is always acceptable to specify both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING Currently defined encoding types are:
@@ -38411,17 +38413,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindctlinstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindctlinstore
      * @since windows5.1.2600
      */
-    static CertFindCTLInStore(hCertStore, dwMsgAndCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCtlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindCTLInStore(hCertStore_, dwMsgAndCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevCtlContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertFindCTLInStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCtlContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindCTLInStore", "ptr", hCertStore_, "uint", dwMsgAndCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevCtlContext, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -38431,7 +38433,7 @@ class Cryptography {
 
     /**
      * Creates a certificate trust list (CTL) context from an encoded CTL and adds it to the certificate store.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Integer} dwMsgAndCertEncodingType Specifies the type of encoding used. Both the certificate and <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding types</a> must be specified by combining them with a bitwise-<b>OR</b> operation as shown in the following example:
      * 
      * X509_ASN_ENCODING | PKCS_7_ASN_ENCODING
@@ -38581,17 +38583,17 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedctltostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddencodedctltostore
      * @since windows5.1.2600
      */
-    static CertAddEncodedCTLToStore(hCertStore, dwMsgAndCertEncodingType, pbCtlEncoded, cbCtlEncoded, dwAddDisposition, ppCtlContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddEncodedCTLToStore(hCertStore_, dwMsgAndCertEncodingType, pbCtlEncoded, cbCtlEncoded, dwAddDisposition, ppCtlContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppCtlContextMarshal := ppCtlContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", "ptr", hCertStore, "uint", dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, "uint", dwAddDisposition, ppCtlContextMarshal, ppCtlContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddEncodedCTLToStore", "ptr", hCertStore_, "uint", dwMsgAndCertEncodingType, "ptr", pbCtlEncoded, "uint", cbCtlEncoded, "uint", dwAddDisposition, ppCtlContextMarshal, ppCtlContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -38606,7 +38608,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certduplicatectlcontext">CertDuplicateCTLContext</a>. Instead, a new copy is created and added to the store. In addition to the encoded CTL, the context's properties are copied.
      * 
      * To remove the CTL context from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be added to the store.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -38732,17 +38734,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddctlcontexttostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddctlcontexttostore
      * @since windows5.1.2600
      */
-    static CertAddCTLContextToStore(hCertStore, pCtlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCTLContextToStore(hCertStore_, pCtlContext, dwAddDisposition, ppStoreContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", "ptr", hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCTLContextToStore", "ptr", hCertStore_, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -38773,7 +38775,7 @@ class Cryptography {
      * 
      * If the function fails, the return value is <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certserializectlstoreelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certserializectlstoreelement
      * @since windows5.1.2600
      */
     static CertSerializeCTLStoreElement(pCtlContext, dwFlags, pbElement, pcbElement) {
@@ -38820,7 +38822,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certdeletectlfromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certdeletectlfromstore
      * @since windows5.1.2600
      */
     static CertDeleteCTLFromStore(pCtlContext) {
@@ -38848,7 +38850,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store that uses links must be closed before the store that contains the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the certificate context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecertificatefromstore">CertDeleteCertificateFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the link is to be added.
+     * @param {HCERTSTORE} hCertStore_ A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> where the link is to be added.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action if a matching certificate or a link to a matching certificate already exists in the store. Currently defined disposition values and their uses are as follows. 
@@ -38940,17 +38942,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcertificatelinktostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddcertificatelinktostore
      * @since windows5.1.2600
      */
-    static CertAddCertificateLinkToStore(hCertStore, pCertContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCertificateLinkToStore(hCertStore_, pCertContext, dwAddDisposition, ppStoreContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", "ptr", hCertStore, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCertificateLinkToStore", "ptr", hCertStore_, "ptr", pCertContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -38972,7 +38974,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts can be closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CRL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletecrlfromstore">CertDeleteCRLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of a certificate store where the link is to be added.
+     * @param {HCERTSTORE} hCertStore_ Handle of a certificate store where the link is to be added.
      * @param {Pointer<CRL_CONTEXT>} pCrlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_context">CRL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CRL or a link to a matching CRL exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39075,17 +39077,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddcrllinktostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddcrllinktostore
      * @since windows5.1.2600
      */
-    static CertAddCRLLinkToStore(hCertStore, pCrlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCRLLinkToStore(hCertStore_, pCrlContext, dwAddDisposition, ppStoreContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", "ptr", hCertStore, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCRLLinkToStore", "ptr", hCertStore_, "ptr", pCrlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -39107,7 +39109,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> is called with CERT_CLOSE_STORE_FORCE_FLAG, the store using links must be closed before the store containing the original contexts is closed. If CERT_CLOSE_STORE_FORCE_FLAG is not used, the two stores can be closed in either order.
      * 
      * To remove the CTL context link from the certificate store, use the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certdeletectlfromstore">CertDeleteCTLFromStore</a> function.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store where the link is to be added.
+     * @param {HCERTSTORE} hCertStore_ Handle of the certificate store where the link is to be added.
      * @param {Pointer<CTL_CONTEXT>} pCtlContext A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_context">CTL_CONTEXT</a> structure to be linked.
      * @param {Integer} dwAddDisposition Specifies the action to take if a matching CTL or a link to a matching CTL already exists in the store. Currently defined disposition values and their uses are as follows.
@@ -39232,17 +39234,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddctllinktostore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddctllinktostore
      * @since windows5.1.2600
      */
-    static CertAddCTLLinkToStore(hCertStore, pCtlContext, dwAddDisposition, ppStoreContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertAddCTLLinkToStore(hCertStore_, pCtlContext, dwAddDisposition, ppStoreContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         ppStoreContextMarshal := ppStoreContext is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", "ptr", hCertStore, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
+        result := DllCall("CRYPT32.dll\CertAddCTLLinkToStore", "ptr", hCertStore_, "ptr", pCtlContext, "uint", dwAddDisposition, ppStoreContextMarshal, ppStoreContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -39267,7 +39269,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero and a new store is added to the collection of stores.
      * 
      * If the function fails, it returns zero and the store was not added.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddstoretocollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddstoretocollection
      * @since windows5.1.2600
      */
     static CertAddStoreToCollection(hCollectionStore, hSiblingStore, dwUpdateFlags, dwPriority) {
@@ -39283,7 +39285,7 @@ class Cryptography {
      * @param {HCERTSTORE} hCollectionStore A handle of the collection certificate store.
      * @param {HCERTSTORE} hSiblingStore Handle of the sibling certificate store to be removed from the collection store.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certremovestorefromcollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certremovestorefromcollection
      * @since windows5.1.2600
      */
     static CertRemoveStoreFromCollection(hCollectionStore, hSiblingStore) {
@@ -39301,7 +39303,7 @@ class Cryptography {
      * CERT_STORE_CTRL_NOTIFY_CHANGE is supported on registry-based store providers by using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regnotifychangekeyvalue">RegNotifyChangeKeyValue</a> function.
      * 
      * <b>CertControlStore</b> using CERT_STORE_CTRL_NOTIFY_CHANGE is called once for each event handle to be passed with CERT_STORE_CTRL_RESYNC. These calls using CERT_STORE_CTRL_NOTIFY_CHANGE must be made after each event is created and not after an event has been signaled.
-     * @param {HCERTSTORE} hCertStore Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} hCertStore_ Handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwFlags 
      * @param {Integer} dwCtrlType Control action to be taken by <b>CertControlStore</b>. The interpretations of <i>pvCtrlPara</i> and <i>dwFlags</i> depend on the value of <i>dwCtrlType</i>. Currently, the following  actions are defined.
      * 
@@ -39384,17 +39386,17 @@ class Cryptography {
      * If <i>dwCtrlType</i> is CERT_STORE_CTRL_COMMIT, the function returns nonzero to indicate the successful completion of the commit to persisted storage. The function returns zero if the commit failed.
      * 
      * Some providers might not support specific control types. In these cases, <b>CertControlStore</b> returns zero and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> is set to the ERROR_NOT_SUPPORTED code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcontrolstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcontrolstore
      * @since windows5.1.2600
      */
-    static CertControlStore(hCertStore, dwFlags, dwCtrlType, pvCtrlPara) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertControlStore(hCertStore_, dwFlags, dwCtrlType, pvCtrlPara) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvCtrlParaMarshal := pvCtrlPara is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertControlStore", "ptr", hCertStore, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
+        result := DllCall("CRYPT32.dll\CertControlStore", "ptr", hCertStore_, "uint", dwFlags, "uint", dwCtrlType, pvCtrlParaMarshal, pvCtrlPara, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -39406,7 +39408,7 @@ class Cryptography {
      * The CertSetStoreProperty function sets a store property.
      * @remarks
      * Store property identifiers are properties applicable to an entire store. They are not properties for an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CRL</a>, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">CTL</a> context. Currently, no store properties are persisted.
-     * @param {HCERTSTORE} hCertStore Handle for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} hCertStore_ Handle for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwPropId Indicates one of a range of store properties. Values for user-defined properties must be outside the current range of predefined context property values. Currently, user-defined <i>dwPropId</i> values begin at 4,096. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * @param {Integer} dwFlags Reserved for future use and must be zero.
      * @param {Pointer<Void>} pvData The type definition for <i>pvData</i> depends on the <i>dwPropId</i> value. If <i>dwPropId</i> is CERT_STORE_LOCALIZED_NAME_PROP_ID, <i>pvData</i> points to a 
@@ -39423,15 +39425,15 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetstoreproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsetstoreproperty
      * @since windows5.1.2600
      */
-    static CertSetStoreProperty(hCertStore, dwPropId, dwFlags, pvData) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertSetStoreProperty(hCertStore_, dwPropId, dwFlags, pvData) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPT32.dll\CertSetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
+        result := DllCall("CRYPT32.dll\CertSetStoreProperty", "ptr", hCertStore_, "uint", dwPropId, "uint", dwFlags, pvDataMarshal, pvData, "int")
         return result
     }
 
@@ -39441,7 +39443,7 @@ class Cryptography {
      * Store property identifiers are properties applicable to an entire store. They are not properties on an individual <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation list</a> (CRL), or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate trust list</a> (CTL) context. Currently, no store properties are persisted.
      * 
      * To find the localized name of a store, you can also use the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptfindlocalizedname">CryptFindLocalizedName</a> function.
-     * @param {HCERTSTORE} hCertStore A handle of an open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
+     * @param {HCERTSTORE} hCertStore_ A handle of an open <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a>.
      * @param {Integer} dwPropId Indicates one of a range of store properties. There is one predefined store property, CERT_STORE_LOCALIZED_NAME_PROP_ID, the localized name of the store.
      * 
      * User defined properties must be outside the current range of values for predefined context properties. Currently, user defined <i>dwPropId</i> values begin at 4,096.
@@ -39456,17 +39458,17 @@ class Cryptography {
      * 
      * If the store property is found, the function returns nonzero, <i>pvData</i> points to the property, and <i>pcbData</i> points to the length of the string. If the store property is not found, the function returns zero and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns CRYPT_E_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetstoreproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetstoreproperty
      * @since windows5.1.2600
      */
-    static CertGetStoreProperty(hCertStore, dwPropId, pvData, pcbData) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertGetStoreProperty(hCertStore_, dwPropId, pvData, pcbData) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
+        result := DllCall("CRYPT32.dll\CertGetStoreProperty", "ptr", hCertStore_, "uint", dwPropId, "ptr", pvData, pcbDataMarshal, pcbData, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -39591,7 +39593,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_CANCELLED</b>, this means that the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cert_create_context_sort_func">PFN_CERT_CREATE_CONTEXT_SORT_FUNC</a> callback function returned <b>FALSE</b> to stop the sort.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreatecontext
      * @since windows5.1.2600
      */
     static CertCreateContext(dwContextType, dwEncodingType, pbEncoded, cbEncoded, dwFlags, pCreatePara) {
@@ -39739,7 +39741,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certregistersystemstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certregistersystemstore
      * @since windows5.1.2600
      */
     static CertRegisterSystemStore(pvSystemStore, dwFlags, pStoreInfo) {
@@ -39797,7 +39799,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certregisterphysicalstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certregisterphysicalstore
      * @since windows5.1.2600
      */
     static CertRegisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName, pStoreInfo) {
@@ -39854,7 +39856,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certunregistersystemstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certunregistersystemstore
      * @since windows5.1.2600
      */
     static CertUnregisterSystemStore(pvSystemStore, dwFlags) {
@@ -39913,7 +39915,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certunregisterphysicalstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certunregisterphysicalstore
      * @since windows5.1.2600
      */
     static CertUnregisterPhysicalStore(pvSystemStore, dwFlags, pwszStoreName) {
@@ -39937,7 +39939,7 @@ class Cryptography {
      * 						
      * 
      * If the function fails, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumsystemstorelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumsystemstorelocation
      * @since windows5.1.2600
      */
     static CertEnumSystemStoreLocation(dwFlags, pvArg, pfnEnum) {
@@ -39983,7 +39985,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns  <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumsystemstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumsystemstore
      * @since windows5.1.2600
      */
     static CertEnumSystemStore(dwFlags, pvSystemStoreLocationPara, pvArg, pfnEnum) {
@@ -40023,7 +40025,7 @@ class Cryptography {
      * 
      * If the function fails and another physical store was not found, the return value is <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumphysicalstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumphysicalstore
      * @since windows5.1.2600
      */
     static CertEnumPhysicalStore(pvSystemStore, dwFlags, pvArg, pfnEnum) {
@@ -40099,7 +40101,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetenhancedkeyusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetenhancedkeyusage
      * @since windows5.1.2600
      */
     static CertGetEnhancedKeyUsage(pCertContext, dwFlags, pUsage, pcbUsage) {
@@ -40125,7 +40127,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certsetenhancedkeyusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsetenhancedkeyusage
      * @since windows5.1.2600
      */
     static CertSetEnhancedKeyUsage(pCertContext, pUsage) {
@@ -40148,7 +40150,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddenhancedkeyusageidentifier
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddenhancedkeyusageidentifier
      * @since windows5.1.2600
      */
     static CertAddEnhancedKeyUsageIdentifier(pCertContext, pszUsageIdentifier) {
@@ -40173,7 +40175,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certremoveenhancedkeyusageidentifier
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certremoveenhancedkeyusageidentifier
      * @since windows5.1.2600
      */
     static CertRemoveEnhancedKeyUsageIdentifier(pCertContext, pszUsageIdentifier) {
@@ -40199,7 +40201,7 @@ class Cryptography {
      * @param {Pointer<Integer>} pcbOIDs A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>rghOIDs</i> array and the strings pointed to. When the function returns, the <b>DWORD</b> value contains the number of bytes needed for the array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetvalidusages
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetvalidusages
      * @since windows5.1.2600
      */
     static CertGetValidUsages(cCerts, rghCerts, cNumOIDs, rghOIDs, pcbOIDs) {
@@ -40271,7 +40273,7 @@ class Cryptography {
      * 
      * If the function fails, the return value is zero (FALSE). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsggetandverifysigner
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsggetandverifysigner
      * @since windows5.1.2600
      */
     static CryptMsgGetAndVerifySigner(hCryptMsg, cSignerStore, rghSignerStore, dwFlags, ppSigner, pdwSignerIndex) {
@@ -40323,7 +40325,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. This function can return errors propagated from calls to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgupdate">CryptMsgUpdate</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgsignctl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgsignctl
      * @since windows5.1.2600
      */
     static CryptMsgSignCTL(dwMsgEncodingType, pbCtlContent, cbCtlContent, pSignInfo, dwFlags, pbEncoded, pcbEncoded) {
@@ -40375,7 +40377,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Errors can be propagated from calls to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgupdate">CryptMsgUpdate</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmsgencodeandsignctl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmsgencodeandsignctl
      * @since windows5.1.2600
      */
     static CryptMsgEncodeAndSignCTL(dwMsgEncodingType, pCtlInfo, pSignInfo, dwFlags, pbEncoded, pcbEncoded) {
@@ -40402,7 +40404,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds and the subject identifier exists in the CTL, the return value is <b>TRUE</b>.
      * 
      * If the function fails and does not locate a matching subject identifier, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindsubjectinsortedctl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindsubjectinsortedctl
      * @since windows5.1.2600
      */
     static CertFindSubjectInSortedCTL(pSubjectIdentifier, pCtlContext, dwFlags, pEncodedAttributes) {
@@ -40427,7 +40429,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>, with <i>ppvNextSubject</i> updated to point to the next TrustedSubject in the encoded sequence.
      * 
      * If the function fails, the return value is <b>FALSE</b>. The return value is <b>FALSE</b> if there are no more subjects or there is an argument that is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certenumsubjectinsortedctl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certenumsubjectinsortedctl
      * @since windows5.1.2600
      */
     static CertEnumSubjectInSortedCTL(pCtlContext, ppvNextSubject, pSubjectIdentifier, pEncodedAttributes) {
@@ -40544,7 +40546,7 @@ class Cryptography {
      *  
      * 
      * The <b>dwError</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_verify_usage_para">CTL_VERIFY_USAGE_PARA</a> pointed to by <i>pVerifyUsageStatus</i> is set to the same error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifyctlusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifyctlusage
      * @since windows5.1.2600
      */
     static CertVerifyCTLUsage(dwEncodingType, dwSubjectType, pvSubject, pSubjectUsage, dwFlags, pVerifyUsagePara, pVerifyUsageStatus) {
@@ -40726,7 +40728,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifyrevocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifyrevocation
      * @since windows5.1.2600
      */
     static CertVerifyRevocation(dwEncodingType, dwRevType, cContext, rgpvContext, dwFlags, pRevPara, pRevStatus) {
@@ -40783,7 +40785,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcompareintegerblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcompareintegerblob
      * @since windows5.1.2600
      */
     static CertCompareIntegerBlob(pInt1, pInt2) {
@@ -40813,7 +40815,7 @@ class Cryptography {
      * @returns {BOOL} If the certificates are identical and the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcomparecertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcomparecertificate
      * @since windows5.1.2600
      */
     static CertCompareCertificate(dwCertEncodingType, pCertId1, pCertId2) {
@@ -40837,7 +40839,7 @@ class Cryptography {
      * @returns {BOOL} If the names are identical and the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcomparecertificatename
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcomparecertificatename
      * @since windows5.1.2600
      */
     static CertCompareCertificateName(dwCertEncodingType, pCertName1, pCertName2) {
@@ -40913,7 +40915,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certisrdnattrsincertificatename
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certisrdnattrsincertificatename
      * @since windows5.1.2600
      */
     static CertIsRDNAttrsInCertificateName(dwCertEncodingType, dwFlags, pCertName, pRDN) {
@@ -40943,7 +40945,7 @@ class Cryptography {
      * @returns {BOOL} If the public keys are identical and the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcomparepublickeyinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcomparepublickeyinfo
      * @since windows5.1.2600
      */
     static CertComparePublicKeyInfo(dwCertEncodingType, pPublicKey1, pPublicKey2) {
@@ -40965,7 +40967,7 @@ class Cryptography {
      * @returns {Integer} Returns the length of the public/private keys in bits. If unable to determine the key's length, returns zero.
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to see the reason for any failures.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetpublickeylength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetpublickeylength
      * @since windows5.1.2600
      */
     static CertGetPublicKeyLength(dwCertEncodingType, pPublicKey) {
@@ -41074,7 +41076,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifycertificatesignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifycertificatesignature
      * @since windows5.1.2600
      */
     static CryptVerifyCertificateSignature(hCryptProv, dwCertEncodingType, pbEncoded, cbEncoded, pPublicKey) {
@@ -41299,7 +41301,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifycertificatesignatureex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifycertificatesignatureex
      * @since windows5.1.2600
      */
     static CryptVerifyCertificateSignatureEx(hCryptProv, dwCertEncodingType, dwSubjectType, pvSubject, dwIssuerType, pvIssuer, dwFlags, pvExtra) {
@@ -41373,7 +41375,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certisstronghashtosign
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certisstronghashtosign
      * @since windows8.0
      */
     static CertIsStrongHashToSign(pStrongSignPara, pwszCNGHashAlgid, pSigningCert) {
@@ -41471,7 +41473,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashtobesigned
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashtobesigned
      * @since windows5.1.2600
      */
     static CryptHashToBeSigned(hCryptProv, dwCertEncodingType, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
@@ -41529,7 +41531,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgethashparam">CryptGetHashParam</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-crypthashdata">CryptHashData</a> might be propagated to this function.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashcertificate
      * @since windows5.1.2600
      */
     static CryptHashCertificate(hCryptProv, Algid, dwFlags, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
@@ -41575,7 +41577,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptfinishhash">BCryptFinishHash</a>
      * </dd>
      * </dl>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashcertificate2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashcertificate2
      * @since windows6.0.6000
      */
     static CryptHashCertificate2(pwszCNGHashAlgid, dwFlags, pbEncoded, cbEncoded, pbComputedHash, pcbComputedHash) {
@@ -41671,7 +41673,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsigncertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsigncertificate
      * @since windows5.1.2600
      */
     static CryptSignCertificate(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pbEncodedToBeSigned, cbEncodedToBeSigned, pSignatureAlgorithm, pvHashAuxInfo, pbSignature, pcbSignature) {
@@ -41849,7 +41851,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsignandencodecertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsignandencodecertificate
      * @since windows5.1.2600
      */
     static CryptSignAndEncodeCertificate(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, lpszStructType, pvStructInfo, pSignatureAlgorithm, pvHashAuxInfo, pbEncoded, pcbEncoded) {
@@ -41877,7 +41879,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure of the certificate for which the time is being verified.
      * @returns {Integer} Returns a minus one if the comparison time is before the <b>NotBefore</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure. Returns a plus one if the comparison time is after the <b>NotAfter</b> member. Returns zero for valid time for the certificate.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifytimevalidity
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifytimevalidity
      * @since windows5.1.2600
      */
     static CertVerifyTimeValidity(pTimeToVerify, pCertInfo) {
@@ -41891,7 +41893,7 @@ class Cryptography {
      * @param {Pointer<CRL_INFO>} pCrlInfo A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_info">CRL_INFO</a> structure containing the CRL for which the time is to be verified.
      * @returns {Integer} Returns a minus one (–1) if the comparison time is before the <b>ThisUpdate</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_info">CRL_INFO</a> pointed to by <i>pCrlInfo</i>. Returns a plus one (+1) if the comparison time is after the <b>NextUpdate</b> time. Returns zero for valid time for the CRL.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifycrltimevalidity
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifycrltimevalidity
      * @since windows5.1.2600
      */
     static CertVerifyCRLTimeValidity(pTimeToVerify, pCrlInfo) {
@@ -41905,7 +41907,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure of the subject certificate.
      * @param {Pointer<CERT_INFO>} pIssuerInfo A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure of the issuer certificate.
      * @returns {BOOL} Returns <b>TRUE</b> if the <b>NotBefore</b> time of the subject's certificate is after the <b>NotBefore</b> time of the issuer's certificate and the <b>NotAfter</b> time of the subject's certificate is not after the <b>NotAfter</b> time of the issuer's certificate. Otherwise, returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifyvaliditynesting
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifyvaliditynesting
      * @since windows5.1.2600
      */
     static CertVerifyValidityNesting(pSubjectInfo, pIssuerInfo) {
@@ -41934,7 +41936,7 @@ class Cryptography {
      * 						
      * 
      * It returns <b>FALSE</b> if the certificate is on the list and therefore has been revoked and is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifycrlrevocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifycrlrevocation
      * @since windows5.1.2600
      */
     static CertVerifyCRLRevocation(dwCertEncodingType, pCertId, cCrlInfo, rgpCrlInfo) {
@@ -41950,7 +41952,7 @@ class Cryptography {
      * @returns {PSTR} If the function succeeds, the function returns the null-terminated OID string.
      * 
      * If no OID string corresponds to the algorithm identifier, the function returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certalgidtooid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certalgidtooid
      * @since windows5.1.2600
      */
     static CertAlgIdToOID(dwAlgId) {
@@ -41963,7 +41965,7 @@ class Cryptography {
      * @param {PSTR} pszObjId Pointer to the ASN.1 OID to be converted to an algorithm identifier.
      * @returns {Integer} Returns the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> that corresponds to the object identifier (OID) or zero if no <b>ALG_ID</b> corresponds to the OID.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certoidtoalgid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certoidtoalgid
      * @since windows5.1.2600
      */
     static CertOIDToAlgId(pszObjId) {
@@ -41980,7 +41982,7 @@ class Cryptography {
      * @param {Pointer<CERT_EXTENSION>} rgExtensions Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a> structures.
      * @returns {Pointer<CERT_EXTENSION>} Returns a pointer to the extension, if one is found. Otherwise, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindextension
      * @since windows5.1.2600
      */
     static CertFindExtension(pszObjId, cExtensions, rgExtensions) {
@@ -41997,7 +41999,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_ATTRIBUTE>} rgAttr Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attribute">CRYPT_ATTRIBUTE</a> structures.
      * @returns {Pointer<CRYPT_ATTRIBUTE>} Returns a pointer to the attribute, if one is found. Otherwise, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindattribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindattribute
      * @since windows5.1.2600
      */
     static CertFindAttribute(pszObjId, cAttr, rgAttr) {
@@ -42013,7 +42015,7 @@ class Cryptography {
      * @param {Pointer<CERT_NAME_INFO>} pName A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_name_info">CERT_NAME_INFO</a> structure containing the list of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">Relative Distinguished Names</a> to be searched.
      * @returns {Pointer<CERT_RDN_ATTR>} Returns a pointer to the attribute, if one is found. Otherwise, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindrdnattr
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindrdnattr
      * @since windows5.1.2600
      */
     static CertFindRDNAttr(pszObjId, pName) {
@@ -42054,7 +42056,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetintendedkeyusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetintendedkeyusage
      * @since windows5.1.2600
      */
     static CertGetIntendedKeyUsage(dwCertEncodingType, pCertInfo, pbKeyUsage, cbKeyUsage) {
@@ -42082,7 +42084,7 @@ class Cryptography {
      * @param {Pointer<Pointer<Void>>} phDefaultContext The address of an <b>HCRYPTDEFAULTCONTEXT</b> variable that receives the default context handle. This handle is passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptuninstalldefaultcontext">CryptUninstallDefaultContext</a> function to uninstall the default context provider.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE). If the function fails, the return value is zero (FALSE). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptinstalldefaultcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptinstalldefaultcontext
      * @since windows5.1.2600
      */
     static CryptInstallDefaultContext(hCryptProv, dwDefaultType, pvDefaultPara, dwFlags, phDefaultContext) {
@@ -42107,7 +42109,7 @@ class Cryptography {
      * @param {Integer} dwFlags Reserved for future use.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (TRUE) .If the function fails, the return value is zero (FALSE). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptuninstalldefaultcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptuninstalldefaultcontext
      * @since windows5.1.2600
      */
     static CryptUninstallDefaultContext(hDefaultContext, dwFlags) {
@@ -42192,7 +42194,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptexportpublickeyinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptexportpublickeyinfo
      * @since windows5.1.2600
      */
     static CryptExportPublicKeyInfo(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pInfo, pcbInfo) {
@@ -42312,7 +42314,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptexportpublickeyinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptexportpublickeyinfoex
      * @since windows5.1.2600
      */
     static CryptExportPublicKeyInfoEx(hCryptProvOrNCryptKey, dwKeySpec, dwCertEncodingType, pszPublicKeyObjId, dwFlags, pvAuxInfo, pInfo, pcbInfo) {
@@ -42391,7 +42393,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
      * @param {Pointer<Integer>} pcbInfo A pointer to a <b>DWORD</b> that contains the size, in bytes, of the buffer pointed to by the <i>pInfo</i> parameter. When the function returns, the <b>DWORD</b> contains the number of bytes stored in the buffer.
      * @returns {BOOL} The function returns <b>TRUE</b> if it succeeds; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptexportpublickeyinfofrombcryptkeyhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptexportpublickeyinfofrombcryptkeyhandle
      * @since windows6.1
      */
     static CryptExportPublicKeyInfoFromBCryptKeyHandle(hBCryptKey, dwCertEncodingType, pszPublicKeyObjId, dwFlags, pvAuxInfo, pInfo, pcbInfo) {
@@ -42476,7 +42478,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptimportpublickeyinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptimportpublickeyinfo
      * @since windows5.1.2600
      */
     static CryptImportPublicKeyInfo(hCryptProv, dwCertEncodingType, pInfo, phKey) {
@@ -42568,7 +42570,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptimportpublickeyinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptimportpublickeyinfoex
      * @since windows5.1.2600
      */
     static CryptImportPublicKeyInfoEx(hCryptProv, dwCertEncodingType, pInfo, aiKeyAlg, dwFlags, pvAuxInfo, phKey) {
@@ -42650,7 +42652,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptimportpublickeyinfoex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptimportpublickeyinfoex2
      * @since windows6.0.6000
      */
     static CryptImportPublicKeyInfoEx2(dwCertEncodingType, pInfo, dwFlags, pvAuxInfo, phKey) {
@@ -42724,7 +42726,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptacquirecertificateprivatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptacquirecertificateprivatekey
      * @since windows5.1.2600
      */
     static CryptAcquireCertificatePrivateKey(pCert, dwFlags, pvParameters, phCryptProvOrNCryptKey, pdwKeySpec, pfCallerFreeProvOrNCryptKey) {
@@ -42771,7 +42773,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptfindcertificatekeyprovinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptfindcertificatekeyprovinfo
      * @since windows5.1.2600
      */
     static CryptFindCertificateKeyProvInfo(pCert, dwFlags) {
@@ -42831,7 +42833,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptimportpkcs8
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptimportpkcs8
      * @since windows5.1.2600
      */
     static CryptImportPKCS8(sPrivateKeyAndParams, dwFlags, phCryptProv, pvAuxInfo) {
@@ -42933,7 +42935,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  may return an ASN.1 encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptexportpkcs8
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptexportpkcs8
      * @since windows5.1.2600
      */
     static CryptExportPKCS8(hCryptProv, dwKeySpec, pszPrivateKeyObjId, dwFlags, pvAuxInfo, pbPrivateKeyBlob, pcbPrivateKeyBlob) {
@@ -43024,7 +43026,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashpublickeyinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashpublickeyinfo
      * @since windows5.1.2600
      */
     static CryptHashPublicKeyInfo(hCryptProv, Algid, dwFlags, dwCertEncodingType, pInfo, pbComputedHash, pcbComputedHash) {
@@ -43059,7 +43061,7 @@ class Cryptography {
      * @param {PSTR} psz A pointer to a buffer to receive the returned string.
      * @param {Integer} csz Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
      * @returns {Integer} Returns the number of characters converted, including the terminating <b>NULL</b> character. If <i>psz</i> is <b>NULL</b> or <i>csz</i> is zero, returns the required size of the destination string.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certrdnvaluetostra
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certrdnvaluetostra
      * @since windows5.1.2600
      */
     static CertRDNValueToStrA(dwValueType, pValue, psz, csz) {
@@ -43086,7 +43088,7 @@ class Cryptography {
      * @param {PWSTR} psz A pointer to a buffer to receive the returned string.
      * @param {Integer} csz Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
      * @returns {Integer} Returns the number of characters converted, including the terminating <b>NULL</b> character. If <i>psz</i> is <b>NULL</b> or <i>csz</i> is zero, returns the required size of the destination string.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certrdnvaluetostrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certrdnvaluetostrw
      * @since windows5.1.2600
      */
     static CertRDNValueToStrW(dwValueType, pValue, psz, csz) {
@@ -43215,7 +43217,7 @@ class Cryptography {
      * @returns {Integer} Returns the number of characters converted, including the terminating null character. 
      * 
      * If <i>psz</i> is <b>NULL</b> or <i>csz</i> is zero, returns the required size of the destination string.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certnametostra
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certnametostra
      * @since windows5.1.2600
      */
     static CertNameToStrA(dwCertEncodingType, pName, dwStrType, psz, csz) {
@@ -43344,7 +43346,7 @@ class Cryptography {
      * @returns {Integer} Returns the number of characters converted, including the terminating null character. 
      * 
      * If <i>psz</i> is <b>NULL</b> or <i>csz</i> is zero, returns the required size of the destination string.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certnametostrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certnametostrw
      * @since windows5.1.2600
      */
     static CertNameToStrW(dwCertEncodingType, pName, dwStrType, psz, csz) {
@@ -43714,7 +43716,7 @@ class Cryptography {
      * 
      * For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certstrtonamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certstrtonamea
      * @since windows5.1.2600
      */
     static CertStrToNameA(dwCertEncodingType, pszX500, dwStrType, pbEncoded, pcbEncoded, ppszError) {
@@ -44095,7 +44097,7 @@ class Cryptography {
      * 
      * For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certstrtonamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certstrtonamew
      * @since windows5.1.2600
      */
     static CertStrToNameW(dwCertEncodingType, pszX500, dwStrType, pbEncoded, pcbEncoded, ppszError) {
@@ -44311,7 +44313,7 @@ class Cryptography {
      * If <b>CERT_NAME_SEARCH_ALL_NAMES_FLAG</b> is specified in the <i>dwFlags</i> parameter and <b>CERT_NAME_DNS_TYPE</b> is set in the <i>dwType</i> parameter, the returned string will contain all of the DNS names that apply. Each string in the output string is null-terminated and the last string will be double null-terminated. If no DNS names are found, a single null-terminated empty string is returned.
      * @param {Integer} cchNameString Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
      * @returns {Integer} Returns the number of characters converted, including the terminating zero character. If <i>pszNameString</i> is <b>NULL</b> or <i>cchNameString</i> is zero, returns the required size of the destination string (including the terminating <b>NULL</b> character). If the specified name type is not found, returns a <b>null</b>-terminated empty string with a returned character count of 1.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetnamestringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetnamestringa
      * @since windows5.1.2600
      */
     static CertGetNameStringA(pCertContext, dwType, dwFlags, pvTypePara, pszNameString, cchNameString) {
@@ -44518,7 +44520,7 @@ class Cryptography {
      * If <b>CERT_NAME_SEARCH_ALL_NAMES_FLAG</b> is specified in the <i>dwFlags</i> parameter and <b>CERT_NAME_DNS_TYPE</b> is set in the <i>dwType</i> parameter, the returned string will contain all of the DNS names that apply. Each string in the output string is null-terminated and the last string will be double null-terminated. If no DNS names are found, a single null-terminated empty string is returned.
      * @param {Integer} cchNameString Size, in characters, allocated for the returned string. The size must include the terminating <b>NULL</b> character.
      * @returns {Integer} Returns the number of characters converted, including the terminating zero character. If <i>pszNameString</i> is <b>NULL</b> or <i>cchNameString</i> is zero, returns the required size of the destination string (including the terminating <b>NULL</b> character). If the specified name type is not found, returns a <b>null</b>-terminated empty string with a returned character count of 1.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetnamestringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetnamestringw
      * @since windows5.1.2600
      */
     static CertGetNameStringW(pCertContext, dwType, dwFlags, pvTypePara, pszNameString, cchNameString) {
@@ -44610,7 +44612,7 @@ class Cryptography {
      * <div> </div>
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsignmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsignmessage
      * @since windows5.1.2600
      */
     static CryptSignMessage(pSignPara, fDetachedSignature, cToBeSigned, rgpbToBeSigned, rgcbToBeSigned, pbSignedBlob, pcbSignedBlob) {
@@ -44747,7 +44749,7 @@ class Cryptography {
      * 
      * </div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifymessagesignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifymessagesignature
      * @since windows5.1.2600
      */
     static CryptVerifyMessageSignature(pVerifyPara, dwSignerIndex, pbSignedBlob, cbSignedBlob, pbDecoded, pcbDecoded, ppSignerCert) {
@@ -44804,7 +44806,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetmessagesignercount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetmessagesignercount
      * @since windows5.1.2600
      */
     static CryptGetMessageSignerCount(dwMsgEncodingType, pbSignedBlob, cbSignedBlob) {
@@ -44871,7 +44873,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetmessagecertificates
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetmessagecertificates
      * @since windows5.1.2600
      */
     static CryptGetMessageCertificates(dwMsgAndCertEncodingType, hCryptProv, dwFlags, pbSignedBlob, cbSignedBlob) {
@@ -44982,7 +44984,7 @@ class Cryptography {
      * 
      * </div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifydetachedmessagesignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifydetachedmessagesignature
      * @since windows5.1.2600
      */
     static CryptVerifyDetachedMessageSignature(pVerifyPara, dwSignerIndex, pbDetachedSignBlob, cbDetachedSignBlob, cToBeSigned, rgpbToBeSigned, rgcbToBeSigned, ppSignerCert) {
@@ -45070,7 +45072,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptencryptmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptencryptmessage
      * @since windows5.1.2600
      */
     static CryptEncryptMessage(pEncryptPara, cRecipientCert, rgpRecipientCert, pbToBeEncrypted, cbToBeEncrypted, pbEncryptedBlob, pcbEncryptedBlob) {
@@ -45187,7 +45189,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecryptmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdecryptmessage
      * @since windows5.1.2600
      */
     static CryptDecryptMessage(pDecryptPara, pbEncryptedBlob, cbEncryptedBlob, pbDecrypted, pcbDecrypted, ppXchgCert) {
@@ -45262,7 +45264,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptsignmessage">CryptSignMessage</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptencryptmessage">CryptEncryptMessage</a> might be propagated to this function.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsignandencryptmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsignandencryptmessage
      * @since windows5.1.2600
      */
     static CryptSignAndEncryptMessage(pSignPara, pEncryptPara, cRecipientCert, rgpRecipientCert, pbToBeSignedAndEncrypted, cbToBeSignedAndEncrypted, pbSignedAndEncryptedBlob, pcbSignedAndEncryptedBlob) {
@@ -45338,7 +45340,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecryptandverifymessagesignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdecryptandverifymessagesignature
      * @since windows5.1.2600
      */
     static CryptDecryptAndVerifyMessageSignature(pDecryptPara, pVerifyPara, dwSignerIndex, pbEncryptedBlob, cbEncryptedBlob, pbDecrypted, pcbDecrypted, ppXchgCert, ppSignerCert) {
@@ -45452,7 +45454,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptdecodemessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptdecodemessage
      * @since windows5.1.2600
      */
     static CryptDecodeMessage(dwMsgTypeFlags, pDecryptPara, pVerifyPara, dwSignerIndex, pbEncodedBlob, cbEncodedBlob, dwPrevInnerContentType, pdwMsgType, pdwInnerContentType, pbDecoded, pcbDecoded, ppXchgCert, ppSignerCert) {
@@ -45547,7 +45549,7 @@ class Cryptography {
      * 
      * If the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> may return an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) encoding/decoding error. For information about these errors, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/asn-1-encoding-decoding-return-values">ASN.1 Encoding/Decoding Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-crypthashmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-crypthashmessage
      * @since windows5.1.2600
      */
     static CryptHashMessage(pHashPara, fDetachedHash, cToBeHashed, rgpbToBeHashed, rgcbToBeHashed, pbHashedBlob, pcbHashedBlob, pbComputedHash, pcbComputedHash) {
@@ -45654,7 +45656,7 @@ class Cryptography {
      * 
      * </div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifymessagehash
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifymessagehash
      * @since windows5.1.2600
      */
     static CryptVerifyMessageHash(pHashPara, pbHashedBlob, cbHashedBlob, pbToBeHashed, pcbToBeHashed, pbComputedHash, pcbComputedHash) {
@@ -45753,7 +45755,7 @@ class Cryptography {
      * 
      * </div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifydetachedmessagehash
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifydetachedmessagehash
      * @since windows5.1.2600
      */
     static CryptVerifyDetachedMessageHash(pHashPara, pbDetachedHashBlob, cbDetachedHashBlob, cToBeHashed, rgpbToBeHashed, rgcbToBeHashed, pbComputedHash, pcbComputedHash) {
@@ -45840,7 +45842,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsignmessagewithkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsignmessagewithkey
      * @since windows5.1.2600
      */
     static CryptSignMessageWithKey(pSignPara, pbToBeSigned, cbToBeSigned, pbSignedBlob, pcbSignedBlob) {
@@ -45958,7 +45960,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifymessagesignaturewithkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifymessagesignaturewithkey
      * @since windows5.1.2600
      */
     static CryptVerifyMessageSignatureWithKey(pVerifyPara, pPublicKeyInfo, pbSignedBlob, cbSignedBlob, pbDecoded, pcbDecoded) {
@@ -46041,7 +46043,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  Errors from the called function <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> are propagated to this function.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certopensystemstorea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certopensystemstorea
      * @since windows5.1.2600
      */
     static CertOpenSystemStoreA(hProv, szSubsystemProtocol) {
@@ -46126,7 +46128,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  Errors from the called function <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenstore">CertOpenStore</a> are propagated to this function.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certopensystemstorew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certopensystemstorew
      * @since windows5.1.2600
      */
     static CertOpenSystemStoreW(hProv, szSubsystemProtocol) {
@@ -46202,7 +46204,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. <b>CertAddEncodedCertificateToSystemStore</b> depends on the functions listed in the following remarks for error handling. Refer to those function topics for their respective error handling behaviors. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedcertificatetosystemstorea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddencodedcertificatetosystemstorea
      * @since windows5.1.2600
      */
     static CertAddEncodedCertificateToSystemStoreA(szCertStoreName, pbCertEncoded, cbCertEncoded) {
@@ -46276,7 +46278,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. <b>CertAddEncodedCertificateToSystemStore</b> depends on the functions listed in the following remarks for error handling. Refer to those function topics for their respective error handling behaviors. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddencodedcertificatetosystemstorew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddencodedcertificatetosystemstorew
      * @since windows5.1.2600
      */
     static CertAddEncodedCertificateToSystemStoreW(szCertStoreName, pbCertEncoded, cbCertEncoded) {
@@ -46435,7 +46437,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptqueryobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptqueryobject
      * @since windows5.1.2600
      */
     static CryptQueryObject(dwObjectType, pvObject, dwExpectedContentTypeFlags, dwExpectedFormatTypeFlags, dwFlags, pdwMsgAndCertEncodingType, pdwContentType, pdwFormatType, phCertStore, phMsg, ppvContext) {
@@ -46460,7 +46462,7 @@ class Cryptography {
      * The CryptMemAlloc function allocates memory for a buffer. It is used by all Crypt32.lib functions that return allocated buffers.
      * @param {Integer} cbSize Number of bytes to be allocated.
      * @returns {Pointer<Void>} Returns a pointer to the buffer allocated. If the function fails, <b>NULL</b> is returned. When you have finished using the buffer, free the memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmemalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmemalloc
      * @since windows5.1.2600
      */
     static CryptMemAlloc(cbSize) {
@@ -46473,7 +46475,7 @@ class Cryptography {
      * @param {Pointer<Void>} pv A pointer to a currently allocated buffer.
      * @param {Integer} cbSize Number of bytes to be allocated.
      * @returns {Pointer<Void>} Returns a pointer to the buffer allocated. If the function fails, <b>NULL</b> is returned. When you have finished using the buffer, free the memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmemrealloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmemrealloc
      * @since windows5.1.2600
      */
     static CryptMemRealloc(pv, cbSize) {
@@ -46487,7 +46489,7 @@ class Cryptography {
      * The CryptMemFree function frees memory allocated by CryptMemAlloc or CryptMemRealloc.
      * @param {Pointer<Void>} pv A pointer to the buffer to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptmemfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptmemfree
      * @since windows5.1.2600
      */
     static CryptMemFree(pv) {
@@ -46501,7 +46503,7 @@ class Cryptography {
      * @param {Integer} dwFlags Handle creation flags.
      * @param {Pointer<HCRYPTASYNC>} phAsync Receives a pointer to the created async handle.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcreateasynchandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptcreateasynchandle
      */
     static CryptCreateAsyncHandle(dwFlags, phAsync) {
         result := DllCall("CRYPT32.dll\CryptCreateAsyncHandle", "uint", dwFlags, "ptr", phAsync, "int")
@@ -46513,17 +46515,17 @@ class Cryptography {
      * @param {HCRYPTASYNC} hAsync An async handle.
      * @param {PSTR} pszParamOid The parameter ID.
      * @param {Pointer<Void>} pvParam The parameter value.
-     * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} pfnFree A callback function called when the parameter is freed.
+     * @param {Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>} pfnFree_ A callback function called when the parameter is freed.
      * @returns {BOOL} S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetasyncparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetasyncparam
      */
-    static CryptSetAsyncParam(hAsync, pszParamOid, pvParam, pfnFree) {
+    static CryptSetAsyncParam(hAsync, pszParamOid, pvParam, pfnFree_) {
         hAsync := hAsync is Win32Handle ? NumGet(hAsync, "ptr") : hAsync
         pszParamOid := pszParamOid is String ? StrPtr(pszParamOid) : pszParamOid
 
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPT32.dll\CryptSetAsyncParam", "ptr", hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, "ptr", pfnFree, "int")
+        result := DllCall("CRYPT32.dll\CryptSetAsyncParam", "ptr", hAsync, "ptr", pszParamOid, pvParamMarshal, pvParam, "ptr", pfnFree_, "int")
         return result
     }
 
@@ -46534,7 +46536,7 @@ class Cryptography {
      * @param {Pointer<Pointer<Void>>} ppvParam Receives the parameter value.
      * @param {Pointer<Pointer<PFN_CRYPT_ASYNC_PARAM_FREE_FUNC>>} ppfnFree A callback function called when the parameter is freed.
      * @returns {BOOL} S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetasyncparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetasyncparam
      */
     static CryptGetAsyncParam(hAsync, pszParamOid, ppvParam, ppfnFree) {
         hAsync := hAsync is Win32Handle ? NumGet(hAsync, "ptr") : hAsync
@@ -46551,7 +46553,7 @@ class Cryptography {
      * The CryptCloseAsyncHandle function (wincrypt.h) closes an async handle.
      * @param {HCRYPTASYNC} hAsync The async handle to close.
      * @returns {BOOL} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcloseasynchandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptcloseasynchandle
      */
     static CryptCloseAsyncHandle(hAsync) {
         hAsync := hAsync is Win32Handle ? NumGet(hAsync, "ptr") : hAsync
@@ -46803,7 +46805,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptretrieveobjectbyurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptretrieveobjectbyurla
      * @since windows5.1.2600
      */
     static CryptRetrieveObjectByUrlA(pszUrl, pszObjectOid, dwRetrievalFlags, dwTimeout, ppvObject, hAsyncRetrieve, pCredentials, pvVerify, pAuxInfo) {
@@ -47062,7 +47064,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptretrieveobjectbyurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptretrieveobjectbyurlw
      * @since windows5.1.2600
      */
     static CryptRetrieveObjectByUrlW(pszUrl, pszObjectOid, dwRetrievalFlags, dwTimeout, ppvObject, hAsyncRetrieve, pCredentials, pvVerify, pAuxInfo) {
@@ -47129,7 +47131,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetobjecturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetobjecturl
      * @since windows5.1.2600
      */
     static CryptGetObjectUrl(pszUrlOid, pvPara, dwFlags, pUrlArray, pcbUrlArray, pUrlInfo, pcbUrlInfo) {
@@ -47172,7 +47174,7 @@ class Cryptography {
      * @param {Pointer<CERT_EXTENSIONS>} pExtensions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extensions">CERT_EXTENSIONS</a> array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_extension">CERT_EXTENSION</a> structures. By default, the array is empty. An alternate subject name, if desired, can be specified as one of these extensions.
      * @returns {Pointer<CERT_CONTEXT>} If the function succeeds, a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">PCCERT_CONTEXT</a> variable that points to the created certificate is returned. If the function fails, it returns <b>NULL</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreateselfsigncertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreateselfsigncertificate
      * @since windows5.1.2600
      */
     static CertCreateSelfSignCertificate(hCryptProvOrNCryptKey, pSubjectIssuerBlob, dwFlags, pKeyProvInfo, pSignatureAlgorithm, pStartTime, pEndTime, pExtensions) {
@@ -47254,7 +47256,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptgetkeyidentifierproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptgetkeyidentifierproperty
      * @since windows5.1.2600
      */
     static CryptGetKeyIdentifierProperty(pKeyIdentifier, dwPropId, dwFlags, pwszComputerName, pvData, pcbData) {
@@ -47334,7 +47336,7 @@ class Cryptography {
      * 
      * <div class="alert"><b>Note</b>  If CRYPT_KEYID_SET_NEW_FLAG is set and the property already exists, <b>FALSE</b> is returned with the last error code set to CRYPT_E_EXISTS.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptsetkeyidentifierproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptsetkeyidentifierproperty
      * @since windows5.1.2600
      */
     static CryptSetKeyIdentifierProperty(pKeyIdentifier, dwPropId, dwFlags, pwszComputerName, pvData) {
@@ -47391,7 +47393,7 @@ class Cryptography {
      * To continue enumeration, the function returns <b>TRUE</b>.
      * 
      * To stop enumeration, the function returns <b>FALSE</b> and sets the last error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptenumkeyidentifierproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptenumkeyidentifierproperties
      * @since windows5.1.2600
      */
     static CryptEnumKeyIdentifierProperties(pKeyIdentifier, dwPropId, dwFlags, pwszComputerName, pvArg, pfnEnum) {
@@ -47438,7 +47440,7 @@ class Cryptography {
      * If the function fails, it returns zero (<b>FALSE</b>).
      * For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptcreatekeyidentifierfromcsp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptcreatekeyidentifierfromcsp
      * @since windows5.1.2600
      */
     static CryptCreateKeyIdentifierFromCSP(dwCertEncodingType, pszPubKeyOID, pPubKeyStruc, cbPubKeyStruc, dwFlags, pbHash, pcbHash) {
@@ -47469,7 +47471,7 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The <i>phChainEngine</i> parameter returns the chain engine handle.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcreatecertificatechainengine
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcreatecertificatechainengine
      * @since windows5.1.2600
      */
     static CertCreateCertificateChainEngine(pConfig, phChainEngine) {
@@ -47487,7 +47489,7 @@ class Cryptography {
      * The CertFreeCertificateChainEngine function frees a certificate trust engine.
      * @param {HCERTCHAINENGINE} hChainEngine Handle of the chain engine to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatechainengine
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreecertificatechainengine
      * @since windows5.1.2600
      */
     static CertFreeCertificateChainEngine(hChainEngine) {
@@ -47503,7 +47505,7 @@ class Cryptography {
      * 
      * If the function fails, it returns zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certresynccertificatechainengine
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certresynccertificatechainengine
      * @since windows10.0.10240
      */
     static CertResyncCertificateChainEngine(hChainEngine) {
@@ -47769,7 +47771,7 @@ class Cryptography {
      * 
      * If the function fails, it returns  zero (<b>FALSE</b>). For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetcertificatechain
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetcertificatechain
      * @since windows5.1.2600
      */
     static CertGetCertificateChain(hChainEngine, pCertContext, pTime, hAdditionalStore, pChainPara, dwFlags, ppChainContext) {
@@ -47795,7 +47797,7 @@ class Cryptography {
      * @param {Pointer<CERT_CHAIN_CONTEXT>} pChainContext A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> certificate chain context to be freed. If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">reference count</a> on the context reaches zero, the storage allocated for the context is freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatechain
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreecertificatechain
      * @since windows5.1.2600
      */
     static CertFreeCertificateChain(pChainContext) {
@@ -47809,7 +47811,7 @@ class Cryptography {
      * @returns {Pointer<CERT_CHAIN_CONTEXT>} If the function succeeds, a pointer is returned to the chain context. This pointer has the same value as the <i>pChainContext</i> passed into the function. When you have finished using the chain context, release the chain context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function.
      * 
      * If the function fails, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certduplicatecertificatechain
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certduplicatecertificatechain
      * @since windows5.1.2600
      */
     static CertDuplicateCertificateChain(pChainContext) {
@@ -47821,7 +47823,7 @@ class Cryptography {
      * Finds the first or next certificate in a store that meets the specified criteria.
      * @remarks
      * The <i>pPrevChainContext</i> parameter must be <b>NULL</b> on the first call to build the chain context. To build the next chain context, the <i>pPrevChainContext</i> is set to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure returned by a previous call. If <i>pPrevChainContext</i> is not <b>NULL</b>, the structure is always freed by this function by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function, even if an error occurs.
-     * @param {HCERTSTORE} hCertStore The handle of the store to be searched for a certificate upon which a chain is built. This handle is passed as an additional store to 
+     * @param {HCERTSTORE} hCertStore_ The handle of the store to be searched for a certificate upon which a chain is built. This handle is passed as an additional store to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatechain">CertGetCertificateChain</a> function as the chain is built.
      * @param {Integer} dwCertEncodingType The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate encoding type</a>   that was used to encode the store. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">message encoding type</a> identifier, contained in the high <b>WORD</b> of this value, is ignored by this function.
      * 
@@ -47857,15 +47859,15 @@ class Cryptography {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure returned from a previous call to this function. The search is begun from this certificate. For the first call to this function, this parameter must be <b>NULL</b>. In subsequent calls, it is the pointer returned by the previous call to the function.  If this parameter is not <b>NULL</b>, this function will free this structure.
      * @returns {Pointer<CERT_CHAIN_CONTEXT>} If the first or next chain context is not built, <b>NULL</b> is returned. Otherwise, a pointer to a read-only <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structure is returned. The <b>CERT_CHAIN_CONTEXT</b> structure is freed when passed as the <i>pPrevChainContext</i> parameter on a subsequent call to this function. Otherwise, the <b>CERT_CHAIN_CONTEXT</b> structure must be freed explicitly by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfindchaininstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfindchaininstore
      * @since windows5.1.2600
      */
-    static CertFindChainInStore(hCertStore, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevChainContext) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
+    static CertFindChainInStore(hCertStore_, dwCertEncodingType, dwFindFlags, dwFindType, pvFindPara, pPrevChainContext) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
 
         pvFindParaMarshal := pvFindPara is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPT32.dll\CertFindChainInStore", "ptr", hCertStore, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevChainContext, "ptr")
+        result := DllCall("CRYPT32.dll\CertFindChainInStore", "ptr", hCertStore_, "uint", dwCertEncodingType, "uint", dwFindFlags, "uint", dwFindType, pvFindParaMarshal, pvFindPara, "ptr", pPrevChainContext, "ptr")
         return result
     }
 
@@ -48039,7 +48041,7 @@ class Cryptography {
      * If the chain cannot be validated, the return value is  <b>TRUE</b> and you need to verify the <i>pPolicyStatus</i> parameter for the actual error.
      * 
      * A value of <b>FALSE</b>  indicates that the function wasn't able to check for the policy.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certverifycertificatechainpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certverifycertificatechainpolicy
      * @since windows5.1.2600
      */
     static CertVerifyCertificateChainPolicy(pszPolicyOID, pChainContext, pPolicyPara, pPolicyStatus) {
@@ -48102,7 +48104,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptstringtobinarya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptstringtobinarya
      * @since windows5.1.2600
      */
     static CryptStringToBinaryA(pszString, cchString, dwFlags, pbBinary, pcbBinary, pdwSkip, pdwFlags) {
@@ -48175,7 +48177,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptstringtobinaryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptstringtobinaryw
      * @since windows5.1.2600
      */
     static CryptStringToBinaryW(pszString, cchString, dwFlags, pbBinary, pcbBinary, pdwSkip, pdwFlags) {
@@ -48214,7 +48216,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptbinarytostringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptbinarytostringa
      * @since windows5.1.2600
      */
     static CryptBinaryToStringA(pbBinary, cbBinary, dwFlags, pszString, pcchString) {
@@ -48245,7 +48247,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns nonzero (<b>TRUE</b>).
      * 
      * If the function fails, it returns zero (<b>FALSE</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptbinarytostringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptbinarytostringw
      * @since windows5.1.2600
      */
     static CryptBinaryToStringW(pbBinary, cbBinary, dwFlags, pszString, pcchString) {
@@ -48332,7 +48334,7 @@ class Cryptography {
      * @returns {HCERTSTORE} If the function succeeds, the function returns a handle to a certificate store that contains the imported certificates, including available private keys.
      * 
      * If the function fails, that is, if the password parameter does not contain an exact match with the password used to encrypt the exported packet or if there were any other problems decoding the PFX BLOB, the function returns **NULL**, and an error code can be found by calling the [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-pfximportcertstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-pfximportcertstore
      * @since windows5.1.2600
      */
     static PFXImportCertStore(pPFX, szPassword, dwFlags) {
@@ -48353,7 +48355,7 @@ class Cryptography {
      * The PFXIsPFXBlob function attempts to decode the outer layer of a BLOB as a PFX packet.
      * @param {Pointer<CRYPT_INTEGER_BLOB>} pPFX A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that the function will attempt to decode as a PFX packet.
      * @returns {BOOL} The function returns <b>TRUE</b> if the BLOB can be decoded as a PFX packet. If the outer layer of the BLOB cannot be decoded as a PFX packet, the function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-pfxispfxblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-pfxispfxblob
      * @since windows5.1.2600
      */
     static PFXIsPFXBlob(pPFX) {
@@ -48373,7 +48375,7 @@ class Cryptography {
      * When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {Integer} dwFlags Reserved for future use.
      * @returns {BOOL} The function return <b>TRUE</b> if the password appears correct; otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-pfxverifypassword
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-pfxverifypassword
      * @since windows5.1.2600
      */
     static PFXVerifyPassword(pPFX, szPassword, dwFlags) {
@@ -48488,7 +48490,7 @@ class Cryptography {
      * </table>
      * @returns {BOOL} Returns <b>TRUE</b> (nonzero) if the function succeeds, and <b>FALSE</b> (zero) if the function fails. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-pfxexportcertstoreex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-pfxexportcertstoreex
      * @since windows5.1.2600
      */
     static PFXExportCertStoreEx(hStore, pPFX, szPassword, pvPara, dwFlags) {
@@ -48552,7 +48554,7 @@ class Cryptography {
      * </table>
      * @returns {BOOL} Returns <b>TRUE</b> (nonzero) if the function succeeds, and <b>FALSE</b> (zero) if the function fails. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-pfxexportcertstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-pfxexportcertstore
      * @since windows5.1.2600
      */
     static PFXExportCertStore(hStore, pPFX, szPassword, dwFlags) {
@@ -48725,7 +48727,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certopenserverocspresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certopenserverocspresponse
      * @since windows6.0.6000
      */
     static CertOpenServerOcspResponse(pChainContext, dwFlags, pOpenPara) {
@@ -48745,7 +48747,7 @@ class Cryptography {
      * Each <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenserverocspresponse">CertOpenServerOcspResponse</a> and <b>CertAddRefServerOcspResponse</b> requires a corresponding <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcloseserverocspresponse">CertCloseServerOcspResponse</a>.
      * @param {Pointer<Void>} hServerOcspResponse A handle to an <b>HCERT_SERVER_OCSP_RESPONSE</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certopenserverocspresponse">CertOpenServerOcspResponse</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddrefserverocspresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddrefserverocspresponse
      * @since windows6.0.6000
      */
     static CertAddRefServerOcspResponse(hServerOcspResponse) {
@@ -48761,7 +48763,7 @@ class Cryptography {
      * @param {Pointer<Void>} hServerOcspResponse The handle to close for an OCSP server response.
      * @param {Integer} dwFlags This parameter is not used and must be zero.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certcloseserverocspresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certcloseserverocspresponse
      * @since windows6.0.6000
      */
     static CertCloseServerOcspResponse(hServerOcspResponse, dwFlags) {
@@ -48783,7 +48785,7 @@ class Cryptography {
      * CRYPT_E_REVOCATION_OFFLINE.
      * 
      * If the certificate is unknown by the OCSP responder, this function returns <b>NULL</b> with the last error set to CRYPT_E_REVOCATION_OFFLINE.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certgetserverocspresponsecontext
      * @since windows6.0.6000
      */
     static CertGetServerOcspResponseContext(hServerOcspResponse, dwFlags) {
@@ -48801,7 +48803,7 @@ class Cryptography {
      * Each call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext">CertGetServerOcspResponseContext</a> and <b>CertAddRefServerOcspResponseContext</b> requires a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreeserverocspresponsecontext">CertFreeServerOcspResponseContext</a>.
      * @param {Pointer<CERT_SERVER_OCSP_RESPONSE_CONTEXT>} pServerOcspResponseContext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_server_ocsp_response_context">CERT_SERVER_OCSP_RESPONSE_CONTEXT</a> returned by <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext">CertGetServerOcspResponseContext</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certaddrefserverocspresponsecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certaddrefserverocspresponsecontext
      * @since windows6.0.6000
      */
     static CertAddRefServerOcspResponseContext(pServerOcspResponseContext) {
@@ -48812,7 +48814,7 @@ class Cryptography {
      * Decrements the reference count for a CERT_SERVER_OCSP_RESPONSE_CONTEXT structure.
      * @param {Pointer<CERT_SERVER_OCSP_RESPONSE_CONTEXT>} pServerOcspResponseContext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_server_ocsp_response_context">CERT_SERVER_OCSP_RESPONSE_CONTEXT</a> structure that contains a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetserverocspresponsecontext">CertGetServerOcspResponseContext</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreeserverocspresponsecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreeserverocspresponsecontext
      * @since windows6.0.6000
      */
     static CertFreeServerOcspResponseContext(pServerOcspResponseContext) {
@@ -48971,7 +48973,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certretrievelogoorbiometricinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certretrievelogoorbiometricinfo
      * @since windows6.0.6000
      */
     static CertRetrieveLogoOrBiometricInfo(pCertContext, lpszLogoOrBiometricType, dwRetrievalFlags, dwTimeout, dwFlags, ppbData, pcbData, ppwszMimeType) {
@@ -49142,7 +49144,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  If the selection does not yield any results, the <b>CertSelectCertificateChains</b> function returns <b>TRUE</b>, but the value pointed to by <i>pcSelection</i> parameter is set to zero.
      * </div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certselectcertificatechains
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certselectcertificatechains
      * @since windows6.1
      */
     static CertSelectCertificateChains(pSelectionContext, dwFlags, pChainParameters, cCriteria, rgpCriteria, hStore, pcSelection, pprgpSelection) {
@@ -49167,7 +49169,7 @@ class Cryptography {
      * Before calling the <b>CertFreeCertificateChainList</b> function, you must call the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatechain">CertFreeCertificateChain</a> function on each chain context within the array pointed to by the <i>prgpSelection</i> parameter.
      * @param {Pointer<Pointer<CERT_CHAIN_CONTEXT>>} prgpSelection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">PCCERT_CHAIN_CONTEXT</a> structure returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certselectcertificatechains">CertSelectCertificateChains</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-certfreecertificatechainlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certfreecertificatechainlist
      * @since windows6.1
      */
     static CertFreeCertificateChainList(prgpSelection) {
@@ -49242,7 +49244,7 @@ class Cryptography {
      * 
      * This parameter can be <b>NULL</b> if the TSA supporting certificates are not needed. When you have finished using this handle,  release it by passing it to  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
      * @returns {BOOL} If the function is unable to retrieve, decode, and validate the time stamp context, it returns <b>FALSE</b>. For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptretrievetimestamp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptretrievetimestamp
      * @since windows6.1
      */
     static CryptRetrieveTimeStamp(wszUrl, dwRetrievalFlags, dwTimeout, pszHashId, pPara, pbData, cbData, ppTsContext, ppTsSigner, phStore) {
@@ -49285,7 +49287,7 @@ class Cryptography {
      * 
      * This parameter can be <b>NULL</b> if the TSA supporting certificates are not needed. When you have finished using this handle,  you  must release it by passing it to  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certclosestore">CertCloseStore</a> function.
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>. For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptverifytimestampsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-cryptverifytimestampsignature
      * @since windows6.1
      */
     static CryptVerifyTimeStampSignature(pbTSContentInfo, cbTSContentInfo, pbData, cbData, hAdditionalStore, ppTsContext, ppTsSigner, phStore) {
@@ -49387,7 +49389,7 @@ class Cryptography {
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/dpapi/nf-dpapi-cryptprotectdata
      * @since windows5.1.2600
      */
     static CryptProtectData(pDataIn, szDataDescr, pOptionalEntropy, pPromptStruct, dwFlags, pDataOut) {
@@ -49455,7 +49457,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns  <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/dpapi/nf-dpapi-cryptunprotectdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/dpapi/nf-dpapi-cryptunprotectdata
      * @since windows5.1.2600
      */
     static CryptUnprotectData(pDataIn, ppszDataDescr, pOptionalEntropy, pPromptStruct, dwFlags, pDataOut) {
@@ -49537,7 +49539,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dpapi/nf-dpapi-cryptupdateprotectedstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/dpapi/nf-dpapi-cryptupdateprotectedstate
      * @since windows6.0.6000
      */
     static CryptUpdateProtectedState(pOldSid, pwszOldPassword, dwFlags, pdwSuccessCount, pdwFailureCount) {
@@ -49611,7 +49613,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dpapi/nf-dpapi-cryptprotectmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/dpapi/nf-dpapi-cryptprotectmemory
      * @since windows6.0.6000
      */
     static CryptProtectMemory(pDataIn, cbDataIn, dwFlags) {
@@ -49680,7 +49682,7 @@ class Cryptography {
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dpapi/nf-dpapi-cryptunprotectmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/dpapi/nf-dpapi-cryptunprotectmemory
      * @since windows6.0.6000
      */
     static CryptUnprotectMemory(pDataIn, cbDataIn, dwFlags) {
@@ -49744,7 +49746,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname
      * @since windows8.0
      */
     static NCryptRegisterProtectionDescriptorName(pwszName, pwszDescriptorString, dwFlags) {
@@ -49808,7 +49810,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptqueryprotectiondescriptorname
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptqueryprotectiondescriptorname
      * @since windows8.0
      */
     static NCryptQueryProtectionDescriptorName(pwszName, pwszDescriptorString, pcDescriptorString, dwFlags) {
@@ -49874,7 +49876,7 @@ class Cryptography {
      * <div class="alert"><b>Note</b>  To associate a descriptor rule with a display name and save both in the registry, call the <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/nf-ncryptprotect-ncryptregisterprotectiondescriptorname">NCryptRegisterProtectionDescriptorName</a> function.</div>
      * <div> </div>
      * @returns {NCRYPT_DESCRIPTOR_HANDLE} Pointer to a protection descriptor object handle.
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptcreateprotectiondescriptor
      * @since windows8.0
      */
     static NCryptCreateProtectionDescriptor(pwszDescriptorString, dwFlags) {
@@ -49922,7 +49924,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptcloseprotectiondescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptcloseprotectiondescriptor
      * @since windows8.0
      */
     static NCryptCloseProtectionDescriptor(hDescriptor) {
@@ -49959,7 +49961,7 @@ class Cryptography {
      * </tr>
      * </table>
      * @returns {Pointer<Void>} Pointer to the descriptor information.
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptgetprotectiondescriptorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptgetprotectiondescriptorinfo
      * @since windows8.0
      */
     static NCryptGetProtectionDescriptorInfo(hDescriptor, pMemPara, dwInfoType) {
@@ -49999,7 +50001,7 @@ class Cryptography {
      * @param {Pointer} pbData Pointer to the byte array to be protected.
      * @param {Integer} cbData Number of bytes in the binary array specified by the <i>pbData</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbProtectedBlob</i> parameter.
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} hWnd_ Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<Pointer<Integer>>} ppbProtectedBlob Address of a variable that receives a pointer to the encrypted data.
      * @param {Pointer<Integer>} pcbProtectedBlob Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the encrypted data pointed to by the <i>ppbProtectedBlob</i> variable.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -50056,17 +50058,17 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptprotectsecret
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptprotectsecret
      * @since windows8.0
      */
-    static NCryptProtectSecret(hDescriptor, dwFlags, pbData, cbData, pMemPara, hWnd, ppbProtectedBlob, pcbProtectedBlob) {
+    static NCryptProtectSecret(hDescriptor, dwFlags, pbData, cbData, pMemPara, hWnd_, ppbProtectedBlob, pcbProtectedBlob) {
         hDescriptor := hDescriptor is Win32Handle ? NumGet(hDescriptor, "ptr") : hDescriptor
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         ppbProtectedBlobMarshal := ppbProtectedBlob is VarRef ? "ptr*" : "ptr"
         pcbProtectedBlobMarshal := pcbProtectedBlob is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd, ppbProtectedBlobMarshal, ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "int")
+        result := DllCall("ncrypt.dll\NCryptProtectSecret", "ptr", hDescriptor, "uint", dwFlags, "ptr", pbData, "uint", cbData, "ptr", pMemPara, "ptr", hWnd_, ppbProtectedBlobMarshal, ppbProtectedBlob, pcbProtectedBlobMarshal, pcbProtectedBlob, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50083,7 +50085,7 @@ class Cryptography {
      * @param {Pointer} pbProtectedBlob Pointer to an array of bytes that contains the data to decrypt.
      * @param {Integer} cbProtectedBlob The number of bytes in the array pointed to by the <i>pbProtectedBlob</i> parameter.
      * @param {Pointer<NCRYPT_ALLOC_PARA>} pMemPara Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/ns-ncrypt-ncrypt_alloc_para">NCRYPT_ALLOC_PARA</a> structure that you can use to specify custom memory management functions. If you set this argument to <b>NULL</b>, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localalloc">LocalAlloc</a> function is used internally to allocate memory and your application must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> to release memory pointed to by the <i>ppbData</i> parameter.
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} hWnd_ Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<Pointer<Integer>>} ppbData Address of a variable that receives a pointer to the decrypted data.
      * @param {Pointer<Integer>} pcbData Pointer to a <b>ULONG</b> variable that contains the size, in bytes, of the decrypted data pointed to by the <i>ppbData</i> variable.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function. Possible return codes include, but are not limited to, the following.
@@ -50129,16 +50131,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptunprotectsecret
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptunprotectsecret
      * @since windows8.0
      */
-    static NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtectedBlob, pMemPara, hWnd, ppbData, pcbData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static NCryptUnprotectSecret(phDescriptor, dwFlags, pbProtectedBlob, cbProtectedBlob, pMemPara, hWnd_, ppbData, pcbData) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "int")
+        result := DllCall("ncrypt.dll\NCryptUnprotectSecret", "ptr", phDescriptor, "uint", dwFlags, "ptr", pbProtectedBlob, "uint", cbProtectedBlob, "ptr", pMemPara, "ptr", hWnd_, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50173,18 +50175,18 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} hWnd_ Handle to the parent window of the user interface, if any, to be displayed.
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO>} pStreamInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info">NCRYPT_PROTECT_STREAM_INFO</a> structure that contains the address of a user defined callback function to receive the encrypted data and a pointer to user-defined context data.
      * @returns {NCRYPT_STREAM_HANDLE} Pointer to the stream object handle.
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptstreamopentoprotect
      * @since windows8.0
      */
-    static NCryptStreamOpenToProtect(hDescriptor, dwFlags, hWnd, pStreamInfo) {
+    static NCryptStreamOpenToProtect(hDescriptor, dwFlags, hWnd_, pStreamInfo) {
         hDescriptor := hDescriptor is Win32Handle ? NumGet(hDescriptor, "ptr") : hDescriptor
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         phStream := NCRYPT_STREAM_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", "ptr", hDescriptor, "uint", dwFlags, "ptr", hWnd, "ptr", pStreamInfo, "ptr", phStream, "int")
+        result := DllCall("ncrypt.dll\NCryptStreamOpenToProtect", "ptr", hDescriptor, "uint", dwFlags, "ptr", hWnd_, "ptr", pStreamInfo, "ptr", phStream, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50219,16 +50221,16 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hWnd Handle to the parent window of the user interface, if any, to be displayed.
+     * @param {HWND} hWnd_ Handle to the parent window of the user interface, if any, to be displayed.
      * @returns {NCRYPT_STREAM_HANDLE} Pointer to the handle of the decrypted stream of data.
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotect
      * @since windows8.0
      */
-    static NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static NCryptStreamOpenToUnprotect(pStreamInfo, dwFlags, hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         phStream := NCRYPT_STREAM_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd, "ptr", phStream, "int")
+        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotect", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd_, "ptr", phStream, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50240,16 +50242,16 @@ class Cryptography {
      * Opens a stream object that can be used to decrypt large amounts of data to the same protection descriptor used for encryption. (NCryptStreamOpenToUnprotectEx)
      * @param {Pointer<NCRYPT_PROTECT_STREAM_INFO_EX>} pStreamInfo A pointer to NCRYPT_PROTECT_STREAM_INFO_EX.
      * @param {Integer} dwFlags Only the NCRYPT_SILENT_FLAG is supported.
-     * @param {HWND} hWnd A window handle to be used as the parent of any user
+     * @param {HWND} hWnd_ A window handle to be used as the parent of any user
      *         interface that is displayed.
      * @returns {NCRYPT_STREAM_HANDLE} Receives a pointer to a stream handle.
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptstreamopentounprotectex
      */
-    static NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static NCryptStreamOpenToUnprotectEx(pStreamInfo, dwFlags, hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         phStream := NCRYPT_STREAM_HANDLE()
-        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd, "ptr", phStream, "int")
+        result := DllCall("ncrypt.dll\NCryptStreamOpenToUnprotectEx", "ptr", pStreamInfo, "uint", dwFlags, "ptr", hWnd_, "ptr", phStream, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50374,7 +50376,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptstreamupdate
      * @since windows8.0
      */
     static NCryptStreamUpdate(hStream, pbData, cbData, fFinal) {
@@ -50421,7 +50423,7 @@ class Cryptography {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/nf-ncryptprotect-ncryptstreamclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/ncryptprotect/nf-ncryptprotect-ncryptstreamclose
      * @since windows8.0
      */
     static NCryptStreamClose(hStream) {
@@ -50443,7 +50445,7 @@ class Cryptography {
      * If the method succeeds, it returns **S\_OK**.
      * 
      * If the method fails, it returns an **HRESULT** value that indicates the error. For a list of common error codes, see [Common HRESULT Values](common-hresult-values.md).
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signerror
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signerror
      */
     static SignError() {
         result := DllCall("Mssign32.dll\SignError", "int")
@@ -50460,7 +50462,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns S\_OK.
      * 
      * If the function fails, it returns an **HRESULT** value that indicates the error. For a list of common error codes, see [Common HRESULT Values](common-hresult-values.md).
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signerfreesignercontext
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signerfreesignercontext
      */
     static SignerFreeSignerContext(pSignerContext) {
         result := DllCall("Mssign32.dll\SignerFreeSignerContext", "ptr", pSignerContext, "int")
@@ -50485,7 +50487,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns S\_OK.
      * 
      * If the function fails, it returns an **HRESULT** value that indicates the error. For a list of common error codes, see [Common HRESULT Values](common-hresult-values.md).
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signersign
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signersign
      */
     static SignerSign(pSubjectInfo, pSignerCert, pSignatureInfo, pProviderInfo, pwszHttpTimeStamp, psRequest, pSipData) {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
@@ -50525,7 +50527,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_ATTRIBUTES>} psRequest A pointer to an array of [**CRYPT\_ATTRIBUTE**](/windows/desktop/api/Wincrypt/ns-wincrypt-crypt_attribute) structures that are added to a sign request. This parameter is ignored if the *pwszHttpTimeStamp* parameter does not contain a valid value that is not **NULL**.
      * @param {Pointer<Void>} pSipData A 32-bit value that is passed as additional data to SIP functions. The format and content of this is defined by the SIP provider.
      * @returns {Pointer<SIGNER_CONTEXT>} The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed [*BLOB*](../secgloss/b-gly.md). When you have finished using the **SIGNER\_CONTEXT** structure, free the **SIGNER\_CONTEXT** structure by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signersignex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signersignex
      */
     static SignerSignEx(dwFlags, pSubjectInfo, pSignerCert, pSignatureInfo, pProviderInfo, pwszHttpTimeStamp, psRequest, pSipData) {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
@@ -50582,7 +50584,7 @@ class Cryptography {
      * @param {Pointer<Void>} pSipData A 32-bit value that is passed as additional data to SIP functions. The format and content of this is defined by the SIP provider.
      * @param {Pointer<CERT_STRONG_SIGN_PARA>} pCryptoPolicy If present, a pointer to a [**CERT\_STRONG\_SIGN\_PARA**](/windows/desktop/api/Wincrypt/ns-wincrypt-cert_strong_sign_para) structure that contains the parameters used to check for strong signatures. If either a certificate or its chain does not pass, the file is not altered in any way. If a URL is passed in to specify a Time Stamping Authority (TSA), this policy is also applied to the time stamp.
      * @returns {Pointer<SIGNER_CONTEXT>} The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed [*BLOB*](../secgloss/b-gly.md). When you have finished using the **SIGNER\_CONTEXT** structure, free the **SIGNER\_CONTEXT** structure by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signersignex2
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signersignex2
      */
     static SignerSignEx2(dwFlags, pSubjectInfo, pSignerCert, pSignatureInfo, pProviderInfo, dwTimestampFlags, pszTimestampAlgorithmOid, pwszHttpTimeStamp, psRequest, pSipData, pCryptoPolicy) {
         static pReserved := 0 ;Reserved parameters must always be NULL
@@ -50641,7 +50643,7 @@ class Cryptography {
      * 
      *  </dd> <dt>
      * @returns {Pointer<SIGNER_CONTEXT>} The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed [*BLOB*](../secgloss/b-gly.md). When you have finished using the **SIGNER\_CONTEXT** structure, free the **SIGNER\_CONTEXT** structure by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signersignex3
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signersignex3
      */
     static SignerSignEx3(dwFlags, pSubjectInfo, pSignerCert, pSignatureInfo, pProviderInfo, dwTimestampFlags, pszTimestampAlgorithmOid, pwszHttpTimeStamp, psRequest, pSipData, pCryptoPolicy, pDigestSignInfo) {
         static pReserved := 0 ;Reserved parameters must always be NULL
@@ -50672,7 +50674,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns S\_OK.
      * 
      * If the function fails, it returns an **HRESULT** value that indicates the error. For a list of common error codes, see [Common HRESULT Values](common-hresult-values.md).
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signertimestamp
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signertimestamp
      */
     static SignerTimeStamp(pSubjectInfo, pwszHttpTimeStamp, psRequest, pSipData) {
         pwszHttpTimeStamp := pwszHttpTimeStamp is String ? StrPtr(pwszHttpTimeStamp) : pwszHttpTimeStamp
@@ -50698,7 +50700,7 @@ class Cryptography {
      * 
      * This parameter is optional and can be **NULL** if it is not included.
      * @returns {Pointer<SIGNER_CONTEXT>} Optional. The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed BLOB. When you have finished using the **SIGNER\_CONTEXT** structure, free it by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signertimestampex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signertimestampex
      */
     static SignerTimeStampEx(pSubjectInfo, pwszHttpTimeStamp, psRequest, pSipData) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
@@ -50727,7 +50729,7 @@ class Cryptography {
      * 
      * This parameter is optional and can be **NULL** if it is not included.
      * @returns {Pointer<SIGNER_CONTEXT>} Optional. The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed BLOB. When you have finished using the **SIGNER\_CONTEXT** structure, free it by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signertimestampex2
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signertimestampex2
      */
     static SignerTimeStampEx2(pSubjectInfo, pwszHttpTimeStamp, dwAlgId, psRequest, pSipData) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
@@ -50767,7 +50769,7 @@ class Cryptography {
      * This parameter is optional and can be **NULL** if it is not included.
      * @param {Pointer<CERT_STRONG_SIGN_PARA>} pCryptoPolicy If present, a pointer to a [**CERT\_STRONG\_SIGN\_PARA**](/windows/desktop/api/Wincrypt/ns-wincrypt-cert_strong_sign_para) structure that contains the parameters used to check for strong signatures. The time stamp must pass this cryptographic policy.
      * @returns {Pointer<SIGNER_CONTEXT>} Optional. The address of a pointer to the [**SIGNER\_CONTEXT**](signer-context.md) structure that contains the signed BLOB. When you have finished using the **SIGNER\_CONTEXT** structure, free it by calling the [**SignerFreeSignerContext**](signerfreesignercontext.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/signertimestampex3
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signertimestampex3
      */
     static SignerTimeStampEx3(dwFlags, dwIndex, pSubjectInfo, pwszHttpTimeStamp, pszAlgorithmOid, psRequest, pSipData, pCryptoPolicy) {
         static pReserved := 0 ;Reserved parameters must always be NULL
@@ -50793,7 +50795,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlclose
      * @since windows6.1
      */
     static CryptXmlClose(hCryptXml) {
@@ -50810,7 +50812,7 @@ class Cryptography {
     /**
      * Returns information about the default transform chain engine.
      * @returns {Pointer<CRYPT_XML_TRANSFORM_CHAIN_CONFIG>} A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_transform_chain_config">CRYPT_XML_TRANSFORM_CHAIN_CONFIG</a> structure to receive the returned transform information.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgettransforms
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlgettransforms
      * @since windows6.1
      */
     static CryptXmlGetTransforms() {
@@ -50829,16 +50831,16 @@ class Cryptography {
      * @param {PWSTR} wszId A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute of the <b>Signature</b> element.
      * If this parameter is <b>NULL</b>, then a new GUID is generated. If this parameter is an empty string, then no <b>Id</b> attribute is produced.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that specify additional properties.
-     * @param {Integer} cProperty The number of elements in the array pointed to by the <i>rgProperty</i> parameter.
+     * @param {Integer} cProperty_ The number of elements in the array pointed to by the <i>rgProperty</i> parameter.
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the signature to encode.
      * @returns {Pointer<Void>} The handle to the <b>Signature</b> element.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlopentoencode
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlopentoencode
      * @since windows6.1
      */
-    static CryptXmlOpenToEncode(pConfig, dwFlags, wszId, rgProperty, cProperty, pEncoded) {
+    static CryptXmlOpenToEncode(pConfig, dwFlags, wszId, rgProperty, cProperty_, pEncoded) {
         wszId := wszId is String ? StrPtr(wszId) : wszId
 
-        result := DllCall("CRYPTXML.dll\CryptXmlOpenToEncode", "ptr", pConfig, "uint", dwFlags, "ptr", wszId, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", &phSignature := 0, "int")
+        result := DllCall("CRYPTXML.dll\CryptXmlOpenToEncode", "ptr", pConfig, "uint", dwFlags, "ptr", wszId, "ptr", rgProperty, "uint", cProperty_, "ptr", pEncoded, "ptr*", &phSignature := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50853,14 +50855,14 @@ class Cryptography {
      *     used to apply transforms.
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that contain additional properties.
-     * @param {Integer} cProperty The number of items in the array pointed to by the <i>rgProperty</i> parameter.
+     * @param {Integer} cProperty_ The number of items in the array pointed to by the <i>rgProperty</i> parameter.
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the signature to decode.
      * @returns {Pointer<Void>} The handle of a Document Context object.  When you have finished using the handle, release it by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/nf-cryptxml-cryptxmlclose">CryptXmlClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlopentodecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlopentodecode
      * @since windows6.1
      */
-    static CryptXmlOpenToDecode(pConfig, dwFlags, rgProperty, cProperty, pEncoded) {
-        result := DllCall("CRYPTXML.dll\CryptXmlOpenToDecode", "ptr", pConfig, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", &phCryptXml := 0, "int")
+    static CryptXmlOpenToDecode(pConfig, dwFlags, rgProperty, cProperty_, pEncoded) {
+        result := DllCall("CRYPTXML.dll\CryptXmlOpenToDecode", "ptr", pConfig, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty_, "ptr", pEncoded, "ptr*", &phCryptXml := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50902,17 +50904,17 @@ class Cryptography {
      * </tr>
      * </table>
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to  a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structure that specifies additional properties used to decode the <b>Object</b> element.
-     * @param {Integer} cProperty The number of elements in the array pointed to by the <i>rgProperty</i> property.
+     * @param {Integer} cProperty_ The number of elements in the array pointed to by the <i>rgProperty</i> property.
      * @param {Pointer<CRYPT_XML_BLOB>} pEncoded A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_blob">CRYPT_XML_BLOB</a> structure that contains the <b>Object</b> element.
      * @returns {Pointer<CRYPT_XML_OBJECT>} A pointer to  a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_object">CRYPT_XML_OBJECT</a> structure to receive the decoded structure.
      *     This parameter must be <b>NULL</b> when the <i>hSignatureOrObject</i> parameter contains a handle to the Object.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmladdobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmladdobject
      * @since windows6.1
      */
-    static CryptXmlAddObject(hSignatureOrObject, dwFlags, rgProperty, cProperty, pEncoded) {
+    static CryptXmlAddObject(hSignatureOrObject, dwFlags, rgProperty, cProperty_, pEncoded) {
         hSignatureOrObjectMarshal := hSignatureOrObject is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty, "ptr", pEncoded, "ptr*", &ppObject := 0, "int")
+        result := DllCall("CRYPTXML.dll\CryptXmlAddObject", hSignatureOrObjectMarshal, hSignatureOrObject, "uint", dwFlags, "ptr", rgProperty, "uint", cProperty_, "ptr", pEncoded, "ptr*", &ppObject := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -50963,7 +50965,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_XML_ALGORITHM>} rgTransform A pointer to an ordered array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structures that contain transform algorithms to be applied to
      *     the reference data before the digest calculation.
      * @returns {Pointer<Void>} A pointer to a reference handle.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlcreatereference
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlcreatereference
      * @since windows6.1
      */
     static CryptXmlCreateReference(hCryptXml, dwFlags, wszId, wszURI, wszType, pDigestMethod, cTransform, rgTransform) {
@@ -51020,7 +51022,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmldigestreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmldigestreference
      * @since windows6.1
      */
     static CryptXmlDigestReference(hReference, dwFlags, pDataProviderIn) {
@@ -51043,7 +51045,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlsethmacsecret
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlsethmacsecret
      * @since windows6.1
      */
     static CryptXmlSetHMACSecret(hSignature, pbSecret, cbSecret) {
@@ -51062,7 +51064,7 @@ class Cryptography {
      * @remarks
      * If a certificate cannot be found CryptXmlSign will create a UI for certificate selection. If this window is generated from a process running in [session 0](https://techcommunity.microsoft.com/t5/ask-the-performance-team/application-compatibility-session-0-isolation/ba-p/372361), the application may unexpectedly terminate.
      * @param {Pointer<Void>} hSignature The handle to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_signature">CRYPT_XML_SIGNATURE</a> structure.
-     * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hKey The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> used to sign the <b>SignedInfo</b> element.
+     * @param {HCRYPTPROV_OR_NCRYPT_KEY_HANDLE} hKey_ The handle of a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> used to sign the <b>SignedInfo</b> element.
      *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
      * @param {Integer} dwKeySpec 
      * @param {Integer} dwFlags 
@@ -51110,16 +51112,16 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlsign
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlsign
      * @since windows6.1
      */
-    static CryptXmlSign(hSignature, hKey, dwKeySpec, dwFlags, dwKeyInfoSpec, pvKeyInfoSpec, pSignatureMethod, pCanonicalization) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static CryptXmlSign(hSignature, hKey_, dwKeySpec, dwFlags, dwKeyInfoSpec, pvKeyInfoSpec, pSignatureMethod, pCanonicalization) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
         pvKeyInfoSpecMarshal := pvKeyInfoSpec is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlSign", hSignatureMarshal, hSignature, "ptr", hKey, "uint", dwKeySpec, "uint", dwFlags, "int", dwKeyInfoSpec, pvKeyInfoSpecMarshal, pvKeyInfoSpec, "ptr", pSignatureMethod, "ptr", pCanonicalization, "int")
+        result := DllCall("CRYPTXML.dll\CryptXmlSign", hSignatureMarshal, hSignature, "ptr", hKey_, "uint", dwKeySpec, "uint", dwFlags, "int", dwKeyInfoSpec, pvKeyInfoSpecMarshal, pvKeyInfoSpec, "ptr", pSignatureMethod, "ptr", pCanonicalization, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -51132,7 +51134,7 @@ class Cryptography {
      * @param {Integer} dwFlags 
      * @param {Pointer<CRYPT_XML_KEY_VALUE>} pKeyValue A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_key_value">CRYPT_XML_KEY_VALUE</a> structure to receive the imported key.
      * @returns {BCRYPT_KEY_HANDLE} A pointer to the handle of the key to import.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlimportpublickey
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlimportpublickey
      * @since windows6.1
      */
     static CryptXmlImportPublicKey(dwFlags, pKeyValue) {
@@ -51148,22 +51150,22 @@ class Cryptography {
     /**
      * Performs a cryptographic signature validation of a SignedInfo element.
      * @param {Pointer<Void>} hSignature The handle of a <b>Signature</b> element.
-     * @param {BCRYPT_KEY_HANDLE} hKey The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to verify the signature value on 
+     * @param {BCRYPT_KEY_HANDLE} hKey_ The handle of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> to use to verify the signature value on 
      *     the <b>SignedInfo</b> element.
      *     This parameter must be <b>NULL</b> for HMAC-based signature algorithms.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlverifysignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlverifysignature
      * @since windows6.1
      */
-    static CryptXmlVerifySignature(hSignature, hKey, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static CryptXmlVerifySignature(hSignature, hKey_, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
         hSignatureMarshal := hSignature is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlVerifySignature", hSignatureMarshal, hSignature, "ptr", hKey, "uint", dwFlags, "int")
+        result := DllCall("CRYPTXML.dll\CryptXmlVerifySignature", hSignatureMarshal, hSignature, "ptr", hKey_, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -51175,7 +51177,7 @@ class Cryptography {
      * Returns the document context specified by the supplied handle.
      * @param {Pointer<Void>} hCryptXml The handle of the document context to retrieve.
      * @returns {Pointer<CRYPT_XML_DOC_CTXT>} A pointer to a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_doc_ctxt">CRYPT_XML_DOC_CTXT</a> structure that contains the returned document context.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgetdoccontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlgetdoccontext
      * @since windows6.1
      */
     static CryptXmlGetDocContext(hCryptXml) {
@@ -51193,7 +51195,7 @@ class Cryptography {
      * Returns an XML Signature element.
      * @param {Pointer<Void>} hCryptXml The handle of the <b>Signature</b> element.
      * @returns {Pointer<CRYPT_XML_SIGNATURE>} A pointer to a  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_signature">CRYPT_XML_SIGNATURE</a> structure to receive the signature.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgetsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlgetsignature
      * @since windows6.1
      */
     static CryptXmlGetSignature(hCryptXml) {
@@ -51211,7 +51213,7 @@ class Cryptography {
      * Returns the Reference element specified by the supplied handle.
      * @param {Pointer<Void>} hCryptXml The handle of the <b>Reference</b> element to retrieve.
      * @returns {Pointer<CRYPT_XML_REFERENCE>} A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_reference">CRYPT_XML_REFERENCE</a> structure that contains the returned <b>Reference</b> element.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgetreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlgetreference
      * @since windows6.1
      */
     static CryptXmlGetReference(hCryptXml) {
@@ -51233,7 +51235,7 @@ class Cryptography {
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgetstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlgetstatus
      * @since windows6.1
      */
     static CryptXmlGetStatus(hCryptXml, pStatus) {
@@ -51252,20 +51254,20 @@ class Cryptography {
      * @param {Pointer<Void>} hCryptXml The handle of the object to be serialized. The handle can be of <b>Signature</b>, <b>Object</b>, or <b>Reference</b> types.
      * @param {Integer} dwCharset A value of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ne-cryptxml-crypt_xml_charset">CRYPT_XML_CHARSET</a> enumeration that specifies the character set of the encoded XML.
      * @param {Pointer<CRYPT_XML_PROPERTY>} rgProperty A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_property">CRYPT_XML_PROPERTY</a> structures that contain additional properties.
-     * @param {Integer} cProperty A <b>ULONG</b> value that specifies the number of entries in the array pointed to by the <i>rgProperty</i> parameter.
+     * @param {Integer} cProperty_ A <b>ULONG</b> value that specifies the number of entries in the array pointed to by the <i>rgProperty</i> parameter.
      * @param {Pointer<Void>} pvCallbackState A pointer to an application defined argument that is passed to the XML writer callback function pointed to by the <i>pfnWrite</i> parameter.
-     * @param {Pointer<PFN_CRYPT_XML_WRITE_CALLBACK>} pfnWrite An XML writer callback function to receive the application defined argument pointed to by the <i>pvCallbackState</i> parameter.
+     * @param {Pointer<PFN_CRYPT_XML_WRITE_CALLBACK>} pfnWrite_ An XML writer callback function to receive the application defined argument pointed to by the <i>pvCallbackState</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns zero.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlencode
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlencode
      * @since windows6.1
      */
-    static CryptXmlEncode(hCryptXml, dwCharset, rgProperty, cProperty, pvCallbackState, pfnWrite) {
+    static CryptXmlEncode(hCryptXml, dwCharset, rgProperty, cProperty_, pvCallbackState, pfnWrite_) {
         hCryptXmlMarshal := hCryptXml is VarRef ? "ptr" : "ptr"
         pvCallbackStateMarshal := pvCallbackState is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, "int", dwCharset, "ptr", rgProperty, "uint", cProperty, pvCallbackStateMarshal, pvCallbackState, "ptr", pfnWrite, "int")
+        result := DllCall("CRYPTXML.dll\CryptXmlEncode", hCryptXmlMarshal, hCryptXml, "int", dwCharset, "ptr", rgProperty, "uint", cProperty_, pvCallbackStateMarshal, pvCallbackState, "ptr", pfnWrite_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -51278,7 +51280,7 @@ class Cryptography {
      * @param {Pointer<CRYPT_XML_ALGORITHM>} pXmlAlgorithm A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the algorithm about which to return information.
      * @param {Integer} dwFlags 
      * @returns {Pointer<CRYPT_XML_ALGORITHM_INFO>} A pointer to a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm_info">CRYPT_XML_ALGORITHM_INFO</a> structure. When you have finished using the memory pointed to by the <i>ppAlgInfo</i> parameter, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptxml/nf-cryptxml-cryptxmlgetalgorithminfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/nf-cryptxml-cryptxmlgetalgorithminfo
      * @since windows6.1
      */
     static CryptXmlGetAlgorithmInfo(pXmlAlgorithm, dwFlags) {
@@ -51325,12 +51327,16 @@ class Cryptography {
     }
 
     /**
-     * 
+     * Retrieves a specified type of information about an access token. The calling process must have appropriate access rights to obtain the information.
      * @param {Integer} cPolicyChain 
      * @param {Pointer<POLICY_ELEMENT>} pPolicyChain 
      * @param {Pointer<Pointer<GENERIC_XML_TOKEN>>} securityToken 
      * @param {Pointer<Pointer<INFORMATIONCARD_CRYPTO_HANDLE>>} phProofTokenCrypto 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-gettokeninformation
      */
     static GetToken(cPolicyChain, pPolicyChain, securityToken, phProofTokenCrypto) {
         securityTokenMarshal := securityToken is VarRef ? "ptr*" : "ptr"
@@ -51389,7 +51395,7 @@ class Cryptography {
      * @param {Pointer} pInData 
      * @param {Pointer} ppOutData 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/encrypt-win32-encryptablevolume
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/encrypt-win32-encryptablevolume
      */
     static Encrypt(hCrypto, fOAEP, cbInData, pInData, ppOutData) {
         result := DllCall("infocardapi.dll\Encrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "int")
@@ -51416,7 +51422,7 @@ class Cryptography {
      * @param {Pointer} pInData 
      * @param {Pointer} ppOutData 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/SecProv/decrypt-win32-encryptablevolume
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/decrypt-win32-encryptablevolume
      */
     static Decrypt(hCrypto, fOAEP, cbInData, pInData, ppOutData) {
         result := DllCall("infocardapi.dll\Decrypt", "ptr", hCrypto, "int", fOAEP, "uint", cbInData, "ptr", pInData, "uint*", &pcbOutData := 0, "ptr", ppOutData, "int")
@@ -51471,16 +51477,16 @@ class Cryptography {
     /**
      * 
      * @param {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} hSymmetricCrypto 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @param {Integer} padding 
      * @param {Integer} feedbackSize 
-     * @param {Integer} direction 
+     * @param {Integer} direction_ 
      * @param {Integer} cbIV 
      * @param {Pointer} pIV 
      * @returns {Pointer<INFORMATIONCARD_CRYPTO_HANDLE>} 
      */
-    static GetCryptoTransform(hSymmetricCrypto, mode, padding, feedbackSize, direction, cbIV, pIV) {
-        result := DllCall("infocardapi.dll\GetCryptoTransform", "ptr", hSymmetricCrypto, "uint", mode, "int", padding, "uint", feedbackSize, "int", direction, "uint", cbIV, "ptr", pIV, "ptr*", &pphTransform := 0, "int")
+    static GetCryptoTransform(hSymmetricCrypto, mode_, padding, feedbackSize, direction_, cbIV, pIV) {
+        result := DllCall("infocardapi.dll\GetCryptoTransform", "ptr", hSymmetricCrypto, "uint", mode_, "int", padding, "uint", feedbackSize, "int", direction_, "uint", cbIV, "ptr", pIV, "ptr*", &pphTransform := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -51832,7 +51838,7 @@ class Cryptography {
      * @returns {NTSTATUS} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [HRESULT](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/desktop/com/com-error-codes-10).
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/ncrypt/nf-ncrypt-getkeystorageinterface
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/ncrypt/nf-ncrypt-getkeystorageinterface
      */
     static GetKeyStorageInterface(pszProviderName, ppFunctionTable, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
@@ -51848,7 +51854,7 @@ class Cryptography {
      * @param {HANDLE} hEvent This parameter is reserved for future use.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {HRESULT} Returns **NTE\_NOT\_SUPPORTED**.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslchangenotify
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslchangenotify
      */
     static SslChangeNotify(hEvent, dwFlags) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -51875,7 +51881,7 @@ class Cryptography {
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} A pointer to a **DWORD** value that specifies the length, in bytes, of the hash written to the *pbOutput* buffer.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcomputeclientauthhash
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslcomputeclientauthhash
      */
     static SslComputeClientAuthHash(hSslProvider, hMasterKey, hHandshakeHash, pszAlgId, pbOutput, cbOutput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -51901,7 +51907,7 @@ class Cryptography {
      * @param {Integer} cbOutput The length, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags Set to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
      * @returns {Integer} A pointer to a **DWORD** value that specifies the length, in bytes, of the hash written to the *pbOutput* buffer.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcomputeeapkeyblock
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslcomputeeapkeyblock
      */
     static SslComputeEapKeyBlock(hSslProvider, hMasterKey, pbRandoms, cbRandoms, pbOutput, cbOutput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -51949,7 +51955,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                                | Description                                          |
      * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>2148073510 (0x80090026)</dt> </dl> | One of the supplied handles is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcomputefinishedhash
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslcomputefinishedhash
      */
     static SslComputeFinishedHash(hSslProvider, hMasterKey, hHandshakeHash, pbOutput, cbOutput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -51979,7 +51985,7 @@ class Cryptography {
      * @param {Integer} cbParams The length, in bytes, of the data in the *pbParams* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {NCRYPT_KEY_HANDLE} The handle of the ephemeral key.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreateephemeralkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslcreateephemeralkey
      */
     static SslCreateEphemeralKey(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, dwKeyBitLen, pbParams, cbParams, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52009,7 +52015,7 @@ class Cryptography {
      * @param {Integer} dwCipherSuite One of the [**CNG SSL Provider Cipher Suite Identifier**](https://msdn.microsoft.com/library/Hh971253(v=VS.85).aspx) values.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {NCRYPT_HASH_HANDLE} A hash handle that can be passed to other SSL provider functions.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreatehandshakehash
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslcreatehandshakehash
      */
     static SslCreateHandshakeHash(hSslProvider, dwProtocol, dwCipherSuite, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52028,7 +52034,7 @@ class Cryptography {
      * @remarks
      * The length of the packet can be zero, such as when a "HelloRequest" message is decrypted.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle to the key that is used to decrypt the packet.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle to the key that is used to decrypt the packet.
      * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be decrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
      * @param {Pointer} pbOutput A pointer to a buffer to contain the decrypted packet.
@@ -52036,13 +52042,13 @@ class Cryptography {
      * @param {Integer} SequenceNumber The sequence number that corresponds to this packet.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} The number of bytes written to the *pbOutput* buffer.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/ssldecryptpacket
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/ssldecryptpacket
      */
-    static SslDecryptPacket(hSslProvider, hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwFlags) {
+    static SslDecryptPacket(hSslProvider, hKey_, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslDecryptPacket", "ptr", hSslProvider, "ptr", hKey_, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -52053,7 +52059,7 @@ class Cryptography {
     /**
      * Encrypts a single Secure Sockets Layer protocol (SSL) packet.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle to the key that is used to encrypt the packet.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle to the key that is used to encrypt the packet.
      * @param {Pointer} pbInput A pointer to the buffer that contains the packet to be encrypted.
      * @param {Integer} cbInput The length, in bytes, of the *pbInput* buffer.
      * @param {Pointer} pbOutput A pointer to a buffer to receive the encrypted packet.
@@ -52071,13 +52077,13 @@ class Cryptography {
      * | <span id="CT_APPLICATIONDATA"></span><span id="ct_applicationdata"></span><dl> <dt>**CT\_APPLICATIONDATA**</dt> <dt>23</dt> </dl>            | Indicates that the packet contains application data.<br/>                  |
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} The number of bytes written to the *pbOutput* buffer.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslencryptpacket
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslencryptpacket
      */
-    static SslEncryptPacket(hSslProvider, hKey, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwContentType, dwFlags) {
+    static SslEncryptPacket(hSslProvider, hKey_, pbInput, cbInput, pbOutput, cbOutput, SequenceNumber, dwContentType, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
 
-        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslEncryptPacket", "ptr", hSslProvider, "ptr", hKey_, "ptr", pbInput, "uint", cbInput, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", SequenceNumber, "uint", dwContentType, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -52103,7 +52109,7 @@ class Cryptography {
      * When there are no more cipher suites available, you should free *ppEnumState* by calling the [**SslFreeBuffer**](sslfreebuffer.md) function.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Pointer<NCRYPT_SSL_CIPHER_SUITE>} A pointer to a **NCRYPT\_SSL\_CIPHER\_SUITE** structure to receive the address of the next cipher suite in the list.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslenumciphersuites
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslenumciphersuites
      */
     static SslEnumCipherSuites(hSslProvider, hPrivateKey, ppEnumState, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52183,7 +52189,7 @@ class Cryptography {
      * | <dl> <dt>**NTE\_BAD\_FLAGS**</dt> <dt>0x80090009L</dt> </dl>         | The *dwFlags* parameter is not zero.<br/>                              |
      * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/>     |
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *pdwProviderCount* or *ppProviderList* parameter is **NULL**.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslenumprotocolproviders
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslenumprotocolproviders
      */
     static SslEnumProtocolProviders(pdwProviderCount, ppProviderList, dwFlags) {
         pdwProviderCountMarshal := pdwProviderCount is VarRef ? "uint*" : "ptr"
@@ -52206,7 +52212,7 @@ class Cryptography {
      * 
      * When exporting the public portion of an ephemeral key the BLOB type must be the appropriate type, such as **NCRYPT\_DH\_PUBLIC\_BLOB** or **NCRYPT\_ECCPUBLIC\_BLOB**.
      * @param {NCRYPT_PROV_HANDLE} hSslProvider The handle of the SSL protocol provider instance.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the key to export.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the key to export.
      * 
      * When you are not specifying a key, set this parameter to **NULL**.
      * 
@@ -52226,14 +52232,14 @@ class Cryptography {
      * @param {Integer} cbOutput The size, in bytes, of the *pbOutput* buffer.
      * @param {Integer} dwFlags Reserved for future use.
      * @returns {Integer} The address of a **DWORD** variable that receives the number of bytes copied to the *pbOutput* buffer. If the *pbOutput* parameter is set to **NULL** when the function is called, the required size for the *pbOutput* buffer, in bytes, is returned in the **DWORD** pointed to by this parameter.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslexportkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslexportkey
      */
-    static SslExportKey(hSslProvider, hKey, pszBlobType, pbOutput, cbOutput, dwFlags) {
+    static SslExportKey(hSslProvider, hKey_, pszBlobType, pbOutput, cbOutput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pszBlobType := pszBlobType is String ? StrPtr(pszBlobType) : pszBlobType
 
-        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslExportKey", "ptr", hSslProvider, "ptr", hKey_, "ptr", pszBlobType, "ptr", pbOutput, "uint", cbOutput, "uint*", &pcbResult := 0, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -52255,7 +52261,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                       | Description                                                                  |
      * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *pdwProviderCount* or *ppProviderList* parameter is **NULL**.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslfreebuffer
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslfreebuffer
      */
     static SslFreeBuffer(pvInput) {
         pvInputMarshal := pvInput is VarRef ? "ptr" : "ptr"
@@ -52284,7 +52290,7 @@ class Cryptography {
      * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | An internal handle is not valid.<br/>  |
      * | <dl> <dt>**STATUS\_INVALID\_HANDLE**</dt> <dt>0xC0000008L</dt> </dl> | The provided handle is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslfreeobject
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslfreeobject
      */
     static SslFreeObject(hObject, dwFlags) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
@@ -52333,7 +52339,7 @@ class Cryptography {
      * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | One of the provided handles is not valid.<br/>                     |
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phMasterKey* or *hPublicKey* parameter is not valid.<br/>     |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgeneratemasterkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslgeneratemasterkey
      */
     static SslGenerateMasterKey(hSslProvider, hPrivateKey, hPublicKey, phMasterKey, dwProtocol, dwCipherSuite, pParameterList, pbOutput, cbOutput, pcbResult, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52371,7 +52377,7 @@ class Cryptography {
      * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | One of the provided handles is not valid.<br/>                     |
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *phReadKey* or *phWriteKey* parameter is null.<br/>            |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgeneratesessionkeys
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslgeneratesessionkeys
      */
     static SslGenerateSessionKeys(hSslProvider, hMasterKey, phReadKey, phWriteKey, pParameterList, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52387,7 +52393,7 @@ class Cryptography {
 
     /**
      * Retrieves the value of a named property for a Secure Sockets Layer protocol (SSL) provider key object.
-     * @param {NCRYPT_KEY_HANDLE} hKey The handle of the SSL provider.
+     * @param {NCRYPT_KEY_HANDLE} hKey_ The handle of the SSL provider.
      * @param {PWSTR} pszProperty A pointer to a null-terminated Unicode string that contains the name of the property to retrieve. This can be one of the predefined [**Key Storage Property Identifiers**](key-storage-property-identifiers.md) or a custom property identifier.
      * @param {Pointer<Pointer<Integer>>} ppbOutput A pointer to a buffer that receives the property value. The caller of the function must free this buffer by calling the [**SslFreeBuffer**](sslfreebuffer.md) function.
      * @param {Pointer<Integer>} pcbOutput The size, in bytes, of the *pbOutput* buffer.
@@ -52404,16 +52410,16 @@ class Cryptography {
      * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | One of the provided handles is not valid.<br/>    |
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | One of the supplied parameters is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgetkeyproperty
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslgetkeyproperty
      */
-    static SslGetKeyProperty(hKey, pszProperty, ppbOutput, pcbOutput, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SslGetKeyProperty(hKey_, pszProperty, ppbOutput, pcbOutput, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pszProperty := pszProperty is String ? StrPtr(pszProperty) : pszProperty
 
         ppbOutputMarshal := ppbOutput is VarRef ? "ptr*" : "ptr"
         pcbOutputMarshal := pcbOutput is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, "uint", dwFlags, "int")
+        result := DllCall("ncrypt.dll\SslGetKeyProperty", "ptr", hKey_, "ptr", pszProperty, ppbOutputMarshal, ppbOutput, pcbOutputMarshal, pcbOutput, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -52446,7 +52452,7 @@ class Cryptography {
      * | <dl> <dt>**NTE\_NO\_MEMORY**</dt> <dt>0x8009000EL</dt> </dl>         | Not enough memory is available to allocate necessary buffers.<br/> |
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* handle is not valid.<br/>                       |
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | One of the supplied parameters is not valid.<br/>                  |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgetproviderproperty
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslgetproviderproperty
      */
     static SslGetProviderProperty(hSslProvider, pszProperty, ppbOutput, pcbOutput, ppEnumState, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52478,7 +52484,7 @@ class Cryptography {
      * @param {Integer} cbInput The size, in bytes, of the *pbInput* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {HRESULT} If the function succeeds, it returns zero.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslhashhandshake
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslhashhandshake
      */
     static SslHashHandshake(hSslProvider, hHandshakeHash, pbInput, cbInput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52511,7 +52517,7 @@ class Cryptography {
      * @param {Integer} cbKeyBlob The size, in bytes, of the *pbKeyBlob* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {NCRYPT_KEY_HANDLE} A pointer to the handle of the [*cryptographic key*](/windows/desktop/SecGloss/c-gly) to receive the imported key.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslimportkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslimportkey
      */
     static SslImportKey(hSslProvider, pszBlobType, pbKeyBlob, cbKeyBlob, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52542,7 +52548,7 @@ class Cryptography {
      * @param {Integer} cbEncryptedKey The size, in bytes, of the *pbEncryptedKey* buffer.
      * @param {Integer} dwFlags Set this parameter to **NCRYPT\_SSL\_SERVER\_FLAG** to indicate that this is a server call.
      * @returns {NCRYPT_KEY_HANDLE} A pointer to the handle to receive the [*master key*](/windows/desktop/SecGloss/m-gly).
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslimportmasterkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslimportmasterkey
      */
     static SslImportMasterKey(hSslProvider, hPrivateKey, dwProtocol, dwCipherSuite, pParameterList, pbEncryptedKey, cbEncryptedKey, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52576,7 +52582,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                    | Description                                        |
      * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl> | The *hSslProvider* handle is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/ssllookupciphersuiteinfo
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/ssllookupciphersuiteinfo
      */
     static SslLookupCipherSuiteInfo(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, pCipherSuite, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52599,7 +52605,7 @@ class Cryptography {
      * @returns {NCRYPT_KEY_HANDLE} The address of a buffer in which to write the handle to the private key.
      * 
      * When you have finished using the key, you should free *phPrivateKey* by calling the [**SslFreeObject**](sslfreeobject.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslopenprivatekey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslopenprivatekey
      */
     static SslOpenPrivateKey(hSslProvider, pCertContext, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52620,7 +52626,7 @@ class Cryptography {
      * @returns {NCRYPT_PROV_HANDLE} The address of an **NCRYPT\_PROV\_HANDLE** in which to write the provider handle.
      * 
      * When you have finished using the handle, you should free it by calling the [**SslFreeObject**](sslfreeobject.md) function.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslopenprovider
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslopenprovider
      */
     static SslOpenProvider(pszProviderName, dwFlags) {
         pszProviderName := pszProviderName is String ? StrPtr(pszProviderName) : pszProviderName
@@ -52644,7 +52650,7 @@ class Cryptography {
      * @param {Integer} cbSignature The size, in bytes, of the *pbSignature* buffer.
      * @param {Integer} dwFlags This parameter is reserved for future use.
      * @returns {Integer} A pointer to a value that, upon completion, contains the actual number of bytes written to the *pbSignature* buffer.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslsignhash
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslsignhash
      */
     static SslSignHash(hSslProvider, hPrivateKey, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52682,7 +52688,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                    | Description                                          |
      * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl> | One of the provided handles is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslverifysignature
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslverifysignature
      */
     static SslVerifySignature(hSslProvider, hPublicKey, pbHashValue, cbHashValue, pbSignature, cbSignature, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52720,7 +52726,7 @@ class Cryptography {
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl>    | The *hSslProvider* parameter contains a pointer that is not valid.<br/>                                                      |
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *pCipherLengths* parameter is set to **NULL** or the buffer length specified by the *cbCipherLengths* is too short.<br/> |
      * | <dl> <dt>**NTE\_BAD\_FLAGS**</dt> <dt>0x80090009L</dt> </dl>         | The *dwFlags* parameter must be set to zero.<br/>                                                                            |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/ssllookupcipherlengths
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/ssllookupcipherlengths
      */
     static SslLookupCipherLengths(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, pCipherLengths, cbCipherLengths, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52743,7 +52749,7 @@ class Cryptography {
      * @param {PWSTR} pszHashAlgId One of the [**CNG Algorithm Identifiers**](cng-algorithm-identifiers.md) values.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {NCRYPT_HASH_HANDLE} A pointer to an **NCRYPT\_HASH\_HANDLE** variable to receive the hash handle.
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslcreateclientauthhash
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslcreateclientauthhash
      */
     static SslCreateClientAuthHash(hSslProvider, dwProtocol, dwCipherSuite, pszHashAlgId, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52782,7 +52788,7 @@ class Cryptography {
      * | <dl> <dt>**NTE\_INVALID\_PARAMETER**</dt> <dt>0x80090027L</dt> </dl> | The *szPRFHash* parameter is set to **NULL**.<br/>                                     |
      * | <dl> <dt>**NTE\_NOT\_SUPPORTED**</dt> <dt>0x80090029L</dt> </dl>     | The selected function is not supported in the specified version of the interface.<br/> |
      * | <dl> <dt>**NTE\_BAD\_FLAGS**</dt> <dt>0x80090009L</dt> </dl>         | The *dwFlags* parameter must be set to zero.<br/>                                      |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslgetciphersuiteprfhashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslgetciphersuiteprfhashalgorithm
      */
     static SslGetCipherSuitePRFHashAlgorithm(hSslProvider, dwProtocol, dwCipherSuite, dwKeyType, szPRFHash, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -52869,7 +52875,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                    | Description                                          |
      * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl> | One of the provided handles is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslexportkeyingmaterial
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslexportkeyingmaterial
      */
     static SslExportKeyingMaterial(hSslProvider, hMasterKey, sLabel, pbRandoms, cbRandoms, pbContextValue, cbContextValue, pbOutput, cbOutput, dwFlags) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -53138,7 +53144,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                    | Description                                        |
      * |----------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
      * | <dl> <dt>**NTE\_INVALID\_HANDLE**</dt> <dt>0x80090026L</dt> </dl> | The *hSslProvider* handle is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/sslincrementproviderreferencecount
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/sslincrementproviderreferencecount
      */
     static SslIncrementProviderReferenceCount(hSslProvider) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider
@@ -53165,7 +53171,7 @@ class Cryptography {
      * | Return code/value                                                                                                                                                        | Description                                      |
      * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
      * | <dl> <dt>**STATUS\_INVALID\_HANDLE** </dt> <dt>0xC0000008L</dt> </dl> | The SSL provider handle is not valid.<br/> |
-     * @see https://learn.microsoft.com/windows/win32/SecCNG/ssldecrementproviderreferencecount
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/ssldecrementproviderreferencecount
      */
     static SslDecrementProviderReferenceCount(hSslProvider) {
         hSslProvider := hSslProvider is Win32Handle ? NumGet(hSslProvider, "ptr") : hSslProvider

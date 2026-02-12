@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -2166,7 +2168,7 @@ class Usb {
     static MS_POWER_DESCRIPTOR_INDEX => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_OS_STRING_SIGNATURE => "MSFT100"
 
@@ -2196,7 +2198,7 @@ class Usb {
     static USB4_HRD_DEBUG_INTERFACE => Guid("{981fca05-60d3-4bb3-898e-497c580c4fb3}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static USB4_HRD_DEBUG_INTERFACE_REFERENCE_STRING => "\DEBUGINTERFACE"
 
@@ -2211,22 +2213,22 @@ class Usb {
     static IOCTL_USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE => 6295980
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KREGUSBFNENUMPATH => "\Registry\Machine\SYSTEM\CurrentControlSet\Control\USBFN\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static UREGUSBFNENUMPATH => "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\USBFN\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KREGMANUSBFNENUMPATH => "\Registry\Machine\SYSTEM\CurrentControlSet\Control\ManufacturingMode\Current\USBFN\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static UREGMANUSBFNENUMPATH => "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ManufacturingMode\Current\USBFN\"
 
@@ -2818,7 +2820,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_initialize
      */
     static WinUsb_Initialize(DeviceHandle, InterfaceHandle) {
         DeviceHandle := DeviceHandle is Win32Handle ? NumGet(DeviceHandle, "ptr") : DeviceHandle
@@ -2837,7 +2839,7 @@ class Usb {
      * The WinUsb_Free function releases all of the resources that WinUsb_Initialize allocated. This is a synchronous operation.
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @returns {BOOL} <b>WinUsb_Free</b> returns <b>TRUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_free
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_free
      */
     static WinUsb_Free(InterfaceHandle) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -2923,7 +2925,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getassociatedinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getassociatedinterface
      */
     static WinUsb_GetAssociatedInterface(InterfaceHandle, AssociatedInterfaceIndex, AssociatedInterfaceHandle) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -2954,7 +2956,7 @@ class Usb {
      * @param {Integer} DescriptorType A value that specifies the type of descriptor to return. This parameter corresponds to the <b>bDescriptorType</b> field of a standard device descriptor, whose values are described in the <i>Universal Serial Bus </i> specification. Some of these values are listed in the description of the <b>DescriptorType</b> member of the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_urb_control_descriptor_request">_URB_CONTROL_DESCRIPTOR_REQUEST</a> structure.
      * @param {Integer} Index The descriptor index. For an explanation of the descriptor index, see the <i>Universal Serial Bus</i> specification (www.usb.org).
      * @param {Integer} LanguageID A value that specifies the language identifier, if the requested descriptor is a string descriptor.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A caller-allocated buffer that receives the requested descriptor.
      * @param {Integer} BufferLength The length, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred The number of bytes that were copied into <i>Buffer</i>.
      * @returns {BOOL} <b>WinUsb_GetDescriptor</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
@@ -2981,16 +2983,16 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getdescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getdescriptor
      */
-    static WinUsb_GetDescriptor(InterfaceHandle, DescriptorType, Index, LanguageID, Buffer_R, BufferLength, LengthTransferred) {
+    static WinUsb_GetDescriptor(InterfaceHandle, DescriptorType, Index, LanguageID, Buffer_, BufferLength, LengthTransferred) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", "ptr", InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", Buffer_R, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetDescriptor", "ptr", InterfaceHandle, "char", DescriptorType, "char", Index, "ushort", LanguageID, "ptr", Buffer_, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3044,7 +3046,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_queryinterfacesettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_queryinterfacesettings
      */
     static WinUsb_QueryInterfaceSettings(InterfaceHandle, AlternateInterfaceNumber, UsbAltInterfaceDescriptor) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3066,7 +3068,9 @@ class Usb {
      * 
      * On input, <i>InformationType</i> must have the following value: DEVICE_SPEED (0x01).
      * @param {Pointer<Integer>} BufferLength The maximum number of bytes to read. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>. On output, <i>BufferLength</i> is set to the actual number of bytes that were copied into <i>Buffer</i>.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A caller-allocated buffer that receives the requested value.
+     * 
+     * If <i>InformationType</i> is DEVICE_SPEED, on successful return, <i>Buffer</i> indicates the operating speed of the device. 0x03 indicates high-speed or higher; 0x01 indicates full-speed or lower.
      * @returns {BOOL} <b>WinUsb_QueryDeviceInformation</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3091,16 +3095,16 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_querydeviceinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_querydeviceinformation
      */
-    static WinUsb_QueryDeviceInformation(InterfaceHandle, InformationType, BufferLength, Buffer_R) {
+    static WinUsb_QueryDeviceInformation(InterfaceHandle, InformationType, BufferLength, Buffer_) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         BufferLengthMarshal := BufferLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", "ptr", InterfaceHandle, "uint", InformationType, BufferLengthMarshal, BufferLength, "ptr", Buffer_R, "int")
+        result := DllCall("WINUSB.dll\WinUsb_QueryDeviceInformation", "ptr", InterfaceHandle, "uint", InformationType, BufferLengthMarshal, BufferLength, "ptr", Buffer_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3140,7 +3144,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_setcurrentalternatesetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_setcurrentalternatesetting
      */
     static WinUsb_SetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3183,7 +3187,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getcurrentalternatesetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getcurrentalternatesetting
      */
     static WinUsb_GetCurrentAlternateSetting(InterfaceHandle, SettingNumber) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3258,7 +3262,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_querypipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_querypipe
      */
     static WinUsb_QueryPipe(InterfaceHandle, AlternateInterfaceNumber, PipeIndex, PipeInformation) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3329,7 +3333,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_querypipeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_querypipeex
      */
     static WinUsb_QueryPipeEx(InterfaceHandle, AlternateSettingNumber, PipeIndex, PipeInformationEx) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3399,7 +3403,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_setpipepolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_setpipepolicy
      */
     static WinUsb_SetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Value) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3447,7 +3451,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getpipepolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getpipepolicy
      */
     static WinUsb_GetPipePolicy(InterfaceHandle, PipeID, PolicyType, ValueLength, Value) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3483,10 +3487,10 @@ class Usb {
      * 
      * To read data from the pipe associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID <i>PipeID</i> corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor. For information about the layout of this field, see <b>Table 9-13</b> in "Universal Serial Bus Specification Revision 2.0" at <a href="https://www.microsoft.com/whdc/connect/usb/default.mspx">USB Technology</a>. In the <b>bEndpointAddress</b> field, Bit 7 indicates the direction of the endpoint: 0 for OUT; 1 for IN.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A caller-allocated buffer that receives the data that is read.
      * @param {Integer} BufferLength The maximum number of bytes to read. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred A pointer to a ULONG variable that receives the actual number of bytes that were copied into <i>Buffer</i>. For more information, see Remarks.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to an OVERLAPPED structure that is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ReadPipe</b> returns immediately rather than waiting synchronously for the operation to complete before returning. An event is signaled when the operation is complete.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to an OVERLAPPED structure that is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ReadPipe</b> returns immediately rather than waiting synchronously for the operation to complete before returning. An event is signaled when the operation is complete.
      * @returns {BOOL} <b>WinUsb_ReadPipe</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3544,16 +3548,16 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_readpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_readpipe
      */
-    static WinUsb_ReadPipe(InterfaceHandle, PipeID, Buffer_R, BufferLength, LengthTransferred, Overlapped) {
+    static WinUsb_ReadPipe(InterfaceHandle, PipeID, Buffer_, BufferLength, LengthTransferred, Overlapped_) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer_R, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ReadPipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer_, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3583,10 +3587,10 @@ class Usb {
      * 
      * To write to  a pipe that is associated with an endpoint in the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, use the handle to the target interface, retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID <i>PipeID</i> corresponds to the <b>bEndpointAddress</b> field in the endpoint descriptor. For information about the layout of this field, see <b>Table 9-13</b> in "Universal Serial Bus Specification Revision 2.0" at <a href="https://www.microsoft.com/whdc/connect/usb/default.mspx">USB Technology</a>. In the <b>bEndpointAddress</b> field, Bit 7 indicates the direction of the endpoint: 0 for OUT; 1 for IN.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A caller-allocated buffer that contains the data to write.
      * @param {Integer} BufferLength The number of bytes to write. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred A pointer to a ULONG variable that receives the actual number of bytes that were written to the pipe. For more information, see Remarks.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to an OVERLAPPED structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_WritePipe</b> immediately returns, and the event is signaled when the operation is complete.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to an OVERLAPPED structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_WritePipe</b> immediately returns, and the event is signaled when the operation is complete.
      * @returns {BOOL} <b>WinUsb_WritePipe</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this function returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3644,16 +3648,16 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_writepipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_writepipe
      */
-    static WinUsb_WritePipe(InterfaceHandle, PipeID, Buffer_R, BufferLength, LengthTransferred, Overlapped) {
+    static WinUsb_WritePipe(InterfaceHandle, PipeID, Buffer_, BufferLength, LengthTransferred, Overlapped_) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WritePipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer_R, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_WritePipe", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer_, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3683,11 +3687,11 @@ class Usb {
      * 
      * To specify the recipient of  a control request as the entire device or the first interface, use the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a>. For all other interfaces, obtain the handle to the target interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>, and then call <b>WinUsb_ControlTransfer</b> by specifying the obtained interface handle.
      * @param {WINUSB_SETUP_PACKET} SetupPacket The 8-byte setup packet of type <a href="https://docs.microsoft.com/windows/desktop/api/winusb/ns-winusb-winusb_setup_packet">WINUSB_SETUP_PACKET</a>.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A caller-allocated buffer that contains the data to transfer. The length of this buffer must not exceed 4KB.
      * @param {Integer} BufferLength The number of bytes to transfer, not including the setup packet. This number must be less than or equal to the size, in bytes, of <i>Buffer</i>.
      * @param {Pointer<Integer>} LengthTransferred A pointer to a ULONG variable that receives the actual number of transferred bytes. If the application does not expect any data to be transferred during the
      *         data phase (<i>BufferLength</i> is zero),  <i>LengthTransferred</i> can be <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ControlTransfer</b> immediately returns, and the event is signaled when the operation is complete. If <i>Overlapped</i> is not supplied, the <b>WinUsb_ControlTransfer</b> function transfers data synchronously.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, which is used for asynchronous operations. If this parameter is specified, <b>WinUsb_ControlTransfer</b> immediately returns, and the event is signaled when the operation is complete. If <i>Overlapped</i> is not supplied, the <b>WinUsb_ControlTransfer</b> function transfers data synchronously.
      * @returns {BOOL} <b>WinUsb_ControlTransfer</b> returns <b>TRUE</b> if the operation succeeds. Otherwise, this routine returns <b>FALSE</b>, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * 
@@ -3723,16 +3727,16 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_controltransfer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_controltransfer
      */
-    static WinUsb_ControlTransfer(InterfaceHandle, SetupPacket, Buffer_R, BufferLength, LengthTransferred, Overlapped) {
+    static WinUsb_ControlTransfer(InterfaceHandle, SetupPacket, Buffer_, BufferLength, LengthTransferred, Overlapped_) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         LengthTransferredMarshal := LengthTransferred is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", "ptr", InterfaceHandle, "ptr", SetupPacket, "ptr", Buffer_R, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ControlTransfer", "ptr", InterfaceHandle, "ptr", SetupPacket, "ptr", Buffer_, "uint", BufferLength, LengthTransferredMarshal, LengthTransferred, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3770,7 +3774,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_resetpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_resetpipe
      */
     static WinUsb_ResetPipe(InterfaceHandle, PipeID) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3815,7 +3819,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_abortpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_abortpipe
      */
     static WinUsb_AbortPipe(InterfaceHandle, PipeID) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3858,7 +3862,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_flushpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_flushpipe
      */
     static WinUsb_FlushPipe(InterfaceHandle, PipeID) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -3989,7 +3993,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_setpowerpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_setpowerpolicy
      */
     static WinUsb_SetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -4075,7 +4079,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getpowerpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getpowerpolicy
      */
     static WinUsb_GetPowerPolicy(InterfaceHandle, PolicyType, ValueLength, Value) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -4109,7 +4113,7 @@ class Usb {
      * @param {Pointer<Integer>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes that were actually transferred by a read or write operation.
      * @param {BOOL} bWait If this parameter is <b>TRUE</b>, the function does not return until the operation has been completed. If this parameter is <b>FALSE</b> and the operation is still pending, the function returns <b>FALSE</b> and the <b>GetLastError</b> function returns ERROR_IO_INCOMPLETE.
      * @returns {BOOL} If the function succeeds, the return value is any number other than zero. If the function fails, the return value is zero. To get extended error information, call <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getoverlappedresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getoverlappedresult
      */
     static WinUsb_GetOverlappedResult(InterfaceHandle, lpOverlapped, lpNumberOfBytesTransferred, bWait) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
@@ -4177,20 +4181,20 @@ class Usb {
      * The caller may compare the PerformanceCount with the value returned by the Win32 function <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> to determine if there has been a delay in transitioning back to user-mode after the frame number was read.  The caller can then adjust the starting frame number as needed.
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle The handle to the device that <b>CreateFile</b> returned.
      * @param {Pointer<Integer>} CurrentFrameNumber The current frame number value.
-     * @param {Pointer<Integer>} TimeStamp The time stamp value when the current frame was read.
+     * @param {Pointer<Integer>} TimeStamp_ The time stamp value when the current frame was read.
      * @returns {BOOL} <b>WinUsb_GetCurrentFrameNumber</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getcurrentframenumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getcurrentframenumber
      * @since windows8.1
      */
-    static WinUsb_GetCurrentFrameNumber(InterfaceHandle, CurrentFrameNumber, TimeStamp) {
+    static WinUsb_GetCurrentFrameNumber(InterfaceHandle, CurrentFrameNumber, TimeStamp_) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         CurrentFrameNumberMarshal := CurrentFrameNumber is VarRef ? "uint*" : "ptr"
-        TimeStampMarshal := TimeStamp is VarRef ? "int64*" : "ptr"
+        TimeStamp_Marshal := TimeStamp_ is VarRef ? "int64*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumber", "ptr", InterfaceHandle, CurrentFrameNumberMarshal, CurrentFrameNumber, TimeStampMarshal, TimeStamp, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetCurrentFrameNumber", "ptr", InterfaceHandle, CurrentFrameNumberMarshal, CurrentFrameNumber, TimeStamp_Marshal, TimeStamp_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4201,17 +4205,17 @@ class Usb {
     /**
      * The WinUsb_GetAdjustedFrameNumber function computes what the current USB frame number should be based on the frame number value and timestamp.
      * @param {Pointer<Integer>} CurrentFrameNumber The frame number to be adjusted.
-     * @param {Integer} TimeStamp The timestamp recorded at the time the frame        number was returned.
+     * @param {Integer} TimeStamp_ The timestamp recorded at the time the frame        number was returned.
      * @returns {BOOL} <b>WinUsb_GetAdjustedFrameNumber</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getadjustedframenumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getadjustedframenumber
      * @since windows8.1
      */
-    static WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, TimeStamp) {
+    static WinUsb_GetAdjustedFrameNumber(CurrentFrameNumber, TimeStamp_) {
         CurrentFrameNumberMarshal := CurrentFrameNumber is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", CurrentFrameNumberMarshal, CurrentFrameNumber, "int64", TimeStamp, "int")
+        result := DllCall("WINUSB.dll\WinUsb_GetAdjustedFrameNumber", CurrentFrameNumberMarshal, CurrentFrameNumber, "int64", TimeStamp_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4225,23 +4229,23 @@ class Usb {
      * Prior to initiating isochronous transfers to or from a buffer, the caller must register the buffer with <b>WinUsb_RegisterIsochBuffer</b>.  This call allows the Winusb.sys to pre-map and lock the buffer after for all subsequent transfers using the buffer.
      * @param {WINUSB_INTERFACE_HANDLE} InterfaceHandle An opaque handle to an interface in the selected configuration. That handle must be created by a previous call to  <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_initialize">WinUsb_Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_getassociatedinterface">WinUsb_GetAssociatedInterface</a>.
      * @param {Integer} PipeID Derived from Bit 3...0 of the <b>bEndpointAddress</b> field in the endpoint descriptor.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to the transfer buffer to be registered.
      * @param {Integer} BufferLength Length, in bytes, of the transfer buffer pointed to by <i>Buffer</i>.
      * @param {Pointer<Pointer<Void>>} IsochBufferHandle Receives an opaque handle to the registered buffer. This handle is required by other WinUSB functions that perform isochronous transfers. To release the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_unregisterisochbuffer">WinUsb_UnregisterIsochBuffer</a> function.
      * @returns {BOOL} <b>WinUsb_RegisterIsochBuffer</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * If the caller sets <i>ContinueStream</i> to TRUE, The transfer fails if Winusb.sys is unable to schedule the transfer to continue the stream without dropping one or more frames.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_registerisochbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_registerisochbuffer
      * @since windows8.1
      */
-    static WinUsb_RegisterIsochBuffer(InterfaceHandle, PipeID, Buffer_R, BufferLength, IsochBufferHandle) {
+    static WinUsb_RegisterIsochBuffer(InterfaceHandle, PipeID, Buffer_, BufferLength, IsochBufferHandle) {
         InterfaceHandle := InterfaceHandle is Win32Handle ? NumGet(InterfaceHandle, "ptr") : InterfaceHandle
 
         IsochBufferHandleMarshal := IsochBufferHandle is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer_R, "uint", BufferLength, IsochBufferHandleMarshal, IsochBufferHandle, "int")
+        result := DllCall("WINUSB.dll\WinUsb_RegisterIsochBuffer", "ptr", InterfaceHandle, "char", PipeID, "ptr", Buffer_, "uint", BufferLength, IsochBufferHandleMarshal, IsochBufferHandle, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4255,7 +4259,7 @@ class Usb {
      * The caller must ensure that there are no pending transfers that is currently using the buffer before calling <b>WinUsb_UnregisterIsochBuffer</b>.  If there are pending transfers, <b>WinUsb_UnregisterIsochBuffer</b> blocks until those transfers are complete.
      * @param {Pointer<Void>} IsochBufferHandle An opaque handle to the transfer buffer that was registered by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winusb/nf-winusb-winusb_registerisochbuffer">WinUsb_RegisterIsochBuffer</a>.
      * @returns {BOOL} <b>WinUsb_UnregisterIsochBuffer</b> returns TRUE if the operation succeeds.  Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_unregisterisochbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_unregisterisochbuffer
      * @since windows8.1
      */
     static WinUsb_UnregisterIsochBuffer(IsochBufferHandle) {
@@ -4283,18 +4287,18 @@ class Usb {
      * @param {Integer} Offset Offset into the buffer relative to the start the transfer.
      * @param {Integer} Length Length in bytes of the transfer buffer.
      * @param {Pointer<Integer>} FrameNumber On input, indicates the starting frame number for the transfer. On output, contains the frame number of the frame that follows the last frame used in the transfer.
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_WriteIsochPipe</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_writeisochpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_writeisochpipe
      * @since windows8.1
      */
-    static WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, Overlapped) {
+    static WinUsb_WriteIsochPipe(BufferHandle, Offset, Length, FrameNumber, Overlapped_) {
         BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
         FrameNumberMarshal := FrameNumber is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, FrameNumberMarshal, FrameNumber, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipe", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, FrameNumberMarshal, FrameNumber, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4316,18 +4320,18 @@ class Usb {
      * @param {Pointer<Integer>} FrameNumber On input, indicates the starting frame number for the transfer. On output, contains the frame number of the frame that follows the last frame used in the transfer.
      * @param {Integer} NumberOfPackets Total number of isochronous packets required to hold the transfer buffer. Also indicates the number of elements in the array pointed to by <i>IsoPacketDescriptors</i>.
      * @param {Pointer<USBD_ISO_PACKET_DESCRIPTOR>} IsoPacketDescriptors An array of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_usbd_iso_packet_descriptor">USBD_ISO_PACKET_DESCRIPTOR</a> structures.  After the transfer completes, each element contains the status and size of the isochronous packet.
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_ReadIsochPipe</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_readisochpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_readisochpipe
      * @since windows8.1
      */
-    static WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfPackets, IsoPacketDescriptors, Overlapped) {
+    static WinUsb_ReadIsochPipe(BufferHandle, Offset, Length, FrameNumber, NumberOfPackets, IsoPacketDescriptors, Overlapped_) {
         BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
         FrameNumberMarshal := FrameNumber is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, FrameNumberMarshal, FrameNumber, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipe", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, FrameNumberMarshal, FrameNumber, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4350,19 +4354,19 @@ class Usb {
      * @param {Integer} Offset Offset into the buffer relative to the start the transfer.
      * @param {Integer} Length Length in bytes of the transfer buffer.
      * @param {BOOL} ContinueStream Indicates that the transfer should only be submitted if it can be scheduled in the first frame after the last pending transfer.
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_WriteIsochPipeAsap</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * If the caller sets <i>ContinueStream</i> to TRUE, The transfer fails if Winusb.sys is unable to schedule the transfer to continue the stream without dropping one or more frames.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_writeisochpipeasap
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_writeisochpipeasap
      * @since windows8.1
      */
-    static WinUsb_WriteIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, Overlapped) {
+    static WinUsb_WriteIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, Overlapped_) {
         BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, "int", ContinueStream, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_WriteIsochPipeAsap", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, "int", ContinueStream, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4388,19 +4392,19 @@ class Usb {
      * @param {BOOL} ContinueStream Indicates that the transfer  should only be submitted if it can be scheduled in the first frame after the last pending transfer.
      * @param {Integer} NumberOfPackets Total number of isochronous packets required to hold the transfer buffer. Also indicates the number of elements in the array pointed to by <i>IsoPacketDescriptors</i>.
      * @param {Pointer<USBD_ISO_PACKET_DESCRIPTOR>} IsoPacketDescriptors An array of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ns-usb-_usbd_iso_packet_descriptor">USBD_ISO_PACKET_DESCRIPTOR</a> that receives the details of each isochronous packet in the transfer.
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ns-shobjidl-overlapped">OVERLAPPED</a> structure used for asynchronous operations.
      * @returns {BOOL} <b>WinUsb_ReadIsochPipeAsap</b> returns TRUE if the operation succeeds. Otherwise this function returns FALSE, and the caller can retrieve the logged error by calling <b>GetLastError</b>.
      * 
      * If the caller sets <i>ContinueStream</i> to TRUE, The transfer fails if Winusb.sys is unable to schedule the transfer to continue the stream without dropping one or more frames.
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_readisochpipeasap
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_readisochpipeasap
      * @since windows8.1
      */
-    static WinUsb_ReadIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, NumberOfPackets, IsoPacketDescriptors, Overlapped) {
+    static WinUsb_ReadIsochPipeAsap(BufferHandle, Offset, Length, ContinueStream, NumberOfPackets, IsoPacketDescriptors, Overlapped_) {
         BufferHandleMarshal := BufferHandle is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, "int", ContinueStream, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped, "int")
+        result := DllCall("WINUSB.dll\WinUsb_ReadIsochPipeAsap", BufferHandleMarshal, BufferHandle, "uint", Offset, "uint", Length, "int", ContinueStream, "uint", NumberOfPackets, "ptr", IsoPacketDescriptors, "ptr", Overlapped_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4437,7 +4441,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_starttrackingfortimesync
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_starttrackingfortimesync
      * @since windows10.0.10240
      */
     static WinUsb_StartTrackingForTimeSync(InterfaceHandle, StartTrackingInfo) {
@@ -4483,7 +4487,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_getcurrentframenumberandqpc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_getcurrentframenumberandqpc
      * @since windows10.0.10240
      */
     static WinUsb_GetCurrentFrameNumberAndQpc(InterfaceHandle, FrameQpcInfo) {
@@ -4527,7 +4531,7 @@ class Usb {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winusb/nf-winusb-winusb_stoptrackingfortimesync
+     * @see https://learn.microsoft.com/windows/win32/api//content/winusb/nf-winusb-winusb_stoptrackingfortimesync
      * @since windows10.0.10240
      */
     static WinUsb_StopTrackingForTimeSync(InterfaceHandle, StopTrackingInfo) {

@@ -9,7 +9,7 @@
  * The 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linemediacontrolmedia">LINEMEDIACONTROLMEDIA</a> structure defines a triple &lt;digit, digit mode(s), media-control action&gt;. An array of these triples is passed to the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetmediacontrol">lineSetMediaControl</a> function to set the media control actions triggered by digits detected on a given call. When a listed digit is detected, then the corresponding action on the media stream is invoked.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontroldigit
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linemediacontroldigit
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

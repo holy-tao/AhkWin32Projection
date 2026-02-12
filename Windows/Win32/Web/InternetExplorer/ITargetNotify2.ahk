@@ -34,7 +34,11 @@ class ITargetNotify2 extends ITargetNotify{
      * @returns {HRESULT} 
      */
     GetOptionString(pbstrOptions) {
-        result := ComCall(5, this, "ptr", pbstrOptions, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

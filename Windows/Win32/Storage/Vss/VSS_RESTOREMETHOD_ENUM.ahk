@@ -56,7 +56,7 @@
  * For more information on backup and restore file locations under VSS, see 
  *     <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore 
  *     Locations</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_restoremethod_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/ne-vswriter-vss_restoremethod_enum
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

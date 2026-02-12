@@ -30,7 +30,7 @@
  *     DWORD     __alignment2;
  * } MEMORY_BASIC_INFORMATION64, *PMEMORY_BASIC_INFORMATION64;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-memory_basic_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-memory_basic_information
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

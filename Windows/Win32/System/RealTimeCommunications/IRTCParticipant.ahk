@@ -71,7 +71,11 @@ class IRTCParticipant extends IUnknown{
      */
     get_UserURI() {
         pbstrUserURI := BSTR()
-        result := ComCall(3, this, "ptr", pbstrUserURI, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrUserURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserURI
     }
 
@@ -81,7 +85,11 @@ class IRTCParticipant extends IUnknown{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -90,7 +98,11 @@ class IRTCParticipant extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_Removable() {
-        result := ComCall(5, this, "short*", &pfRemovable := 0, "HRESULT")
+        result := ComCall(5, this, "short*", &pfRemovable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRemovable
     }
 
@@ -99,7 +111,11 @@ class IRTCParticipant extends IUnknown{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(6, this, "int*", &penState := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &penState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penState
     }
 
@@ -108,7 +124,11 @@ class IRTCParticipant extends IUnknown{
      * @returns {IRTCSession} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession(ppSession)
     }
 }

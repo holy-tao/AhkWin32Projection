@@ -6,7 +6,7 @@
  * @remarks
  * A requester sets the roll-forward operation type and specifies the restore point for partial roll-forward operations using 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponentsex2-setrollforward">IVssBackupComponentsEx2::SetRollForward</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_rollforward_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_rollforward_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

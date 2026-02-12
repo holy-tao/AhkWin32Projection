@@ -79,7 +79,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {IRTCEnumUserSearchResults} 
      */
     EnumerateResults() {
-        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumUserSearchResults(ppEnum)
     }
 
@@ -88,7 +92,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {IRTCCollection} 
      */
     get_Results() {
-        result := ComCall(8, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppCollection)
     }
 
@@ -97,7 +105,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
-        result := ComCall(9, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile2(ppProfile)
     }
 
@@ -106,7 +118,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {IRTCUserSearchQuery} 
      */
     get_Query() {
-        result := ComCall(10, this, "ptr*", &ppQuery := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppQuery := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCUserSearchQuery(ppQuery)
     }
 
@@ -115,7 +131,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {Pointer} 
      */
     get_Cookie() {
-        result := ComCall(11, this, "ptr*", &plCookie := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &plCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCookie
     }
 
@@ -124,7 +144,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(12, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 
@@ -133,7 +157,11 @@ class IRTCUserSearchResultsEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_MoreAvailable() {
-        result := ComCall(13, this, "short*", &pfMoreAvailable := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &pfMoreAvailable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfMoreAvailable
     }
 }

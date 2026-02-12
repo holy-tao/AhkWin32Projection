@@ -4,6 +4,8 @@
 #Include ..\..\..\Win32Handle.ahk
 
 /**
+ * Frees resources on the server side when called by RPC stub files. (BSTR_UserFree)
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_userfree
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

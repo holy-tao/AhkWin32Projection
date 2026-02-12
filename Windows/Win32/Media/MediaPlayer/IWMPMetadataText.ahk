@@ -5,7 +5,7 @@
 
 /**
  * The IWMPMetadataText interface provides methods for retrieving information about complex textual metadata attributes.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpmetadatatext
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpmetadatatext
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -44,6 +44,10 @@ class IWMPMetadataText extends IDispatch{
 
     /**
      * The get_description method retrieves a description of the metadata text.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
      * @param {Pointer<BSTR>} pbstrDescription Pointer to a BSTR containing the description.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
@@ -64,15 +68,23 @@ class IWMPMetadataText extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatatext-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmetadatatext-get_description
      */
     get_description(pbstrDescription) {
-        result := ComCall(7, this, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_text method retrieves the metadata text.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
      * @param {Pointer<BSTR>} pbstrText Pointer to a <b>BSTR</b> containing the text.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -93,10 +105,14 @@ class IWMPMetadataText extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatatext-get_text
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmetadatatext-get_text
      */
     get_text(pbstrText) {
-        result := ComCall(8, this, "ptr", pbstrText, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -39,7 +39,11 @@ class IAnchorClick extends IDispatch{
      * @returns {HRESULT} 
      */
     ProcOnClick() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

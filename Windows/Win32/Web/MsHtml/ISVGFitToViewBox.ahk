@@ -49,7 +49,11 @@ class ISVGFitToViewBox extends IDispatch{
      * @returns {ISVGAnimatedRect} 
      */
     get_viewBox() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedRect(p)
     }
 
@@ -59,7 +63,11 @@ class ISVGFitToViewBox extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_preserveAspectRatio(v) {
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class ISVGFitToViewBox extends IDispatch{
      * @returns {ISVGAnimatedPreserveAspectRatio} 
      */
     get_preserveAspectRatio() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedPreserveAspectRatio(p)
     }
 }

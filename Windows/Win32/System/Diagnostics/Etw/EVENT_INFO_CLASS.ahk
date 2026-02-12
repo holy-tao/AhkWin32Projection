@@ -3,7 +3,7 @@
 
 /**
  * The EVENT_INFO_CLASS enumeration type is used with the EventSetInformation function to specify the configuration operation to be performed on an ETW event provider registration.
- * @see https://learn.microsoft.com/windows/win32/api/evntprov/ne-evntprov-event_info_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntprov/ne-evntprov-event_info_class
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

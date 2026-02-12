@@ -5,7 +5,7 @@
  * The AM_OVERLAY_NOTIFY_FLAGS enumeration indicates what the overlay has changed, or is about to change.
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideocallback-onupdateoverlay">IDDrawExclModeVideoCallback::OnUpdateOverlay</a> method uses these flags to indicate how the overlay has changed, so that applications can take the necessary steps.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_overlay_notify_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-_am_overlay_notify_flags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

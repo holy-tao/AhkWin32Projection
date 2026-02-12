@@ -4,15 +4,12 @@
 #Include .\ID3D11View.ahk
 
 /**
- * A render-target-view interface identifies the render-target subresources that can be accessed during rendering.
+ * A render-target-view interface identifies the render-target subresources that can be accessed during rendering. (ID3D11RenderTargetView)
  * @remarks
- * 
  * To create a render-target view, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createrendertargetview">ID3D11Device::CreateRenderTargetView</a>. To bind a render-target view to the pipeline, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-omsetrendertargets">ID3D11DeviceContext::OMSetRenderTargets</a>.
  * 
  * A rendertarget is a resource that can be written by the output-merger stage at the end of a render pass. Each render-target should also have a corresponding depth-stencil view.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11rendertargetview
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nn-d3d11-id3d11rendertargetview
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -38,12 +35,12 @@ class ID3D11RenderTargetView extends ID3D11View{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get the properties of a render target view.
+     * Get the properties of a render target view. (ID3D11RenderTargetView.GetDesc)
      * @param {Pointer<D3D11_RENDER_TARGET_VIEW_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_render_target_view_desc">D3D11_RENDER_TARGET_VIEW_DESC</a>*</b>
      * 
      * Pointer to the description of a render target view (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_render_target_view_desc">D3D11_RENDER_TARGET_VIEW_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11rendertargetview-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11rendertargetview-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

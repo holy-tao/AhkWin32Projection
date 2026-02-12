@@ -9,7 +9,7 @@
 
 /**
  * Contains connection setting information for a remote session. (WRDS_CONNECTION_SETTINGS_1)
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_connection_settings_1
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsdefs/ns-wtsdefs-wrds_connection_settings_1
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

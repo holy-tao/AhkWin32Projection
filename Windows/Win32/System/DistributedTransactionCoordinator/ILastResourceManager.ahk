@@ -37,7 +37,11 @@ class ILastResourceManager extends IUnknown{
     TransactionCommitted(pPrepInfo, cbPrepInfo) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "HRESULT")
+        result := ComCall(3, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ILastResourceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     RecoveryDone() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IScriptInvocationContext extends IUnknown{
      * @returns {Integer} 
      */
     GetContextType() {
-        result := ComCall(3, this, "int*", &pInvocationContextType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pInvocationContextType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInvocationContextType
     }
 
@@ -44,7 +48,11 @@ class IScriptInvocationContext extends IUnknown{
      */
     GetContextDescription() {
         pDescription := BSTR()
-        result := ComCall(4, this, "ptr", pDescription, "HRESULT")
+        result := ComCall(4, this, "ptr", pDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDescription
     }
 
@@ -53,7 +61,11 @@ class IScriptInvocationContext extends IUnknown{
      * @returns {IUnknown} 
      */
     GetContextObject() {
-        result := ComCall(5, this, "ptr*", &ppContextObject := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppContextObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppContextObject)
     }
 }

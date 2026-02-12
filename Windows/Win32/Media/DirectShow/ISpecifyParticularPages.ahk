@@ -36,7 +36,11 @@ class ISpecifyParticularPages extends IUnknown{
      */
     GetPages(guidWhatPages) {
         pPages := CAUUID()
-        result := ComCall(3, this, "ptr", guidWhatPages, "ptr", pPages, "HRESULT")
+        result := ComCall(3, this, "ptr", guidWhatPages, "ptr", pPages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPages
     }
 }

@@ -3,8 +3,10 @@
 #Include .\IAgileReference.ahk
 #Include .\HSTRING.ahk
 #Include .\IInspectable.ahk
+#Include .\RO_REGISTRATION_COOKIE.ahk
 #Include ..\Com\Marshal\IMarshal.ahk
 #Include .\IRestrictedErrorInfo.ahk
+#Include .\Apis.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT
@@ -20,17 +22,17 @@ class WinRT {
     static MAX_ERROR_MESSAGE_CHARS => 512
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CastingSourceInfo_Property_PreferredSourceUriScheme => "PreferredSourceUriScheme"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CastingSourceInfo_Property_CastingTypes => "CastingTypes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CastingSourceInfo_Property_ProtectedMedia => "ProtectedMedia"
 ;@endregion Constants
@@ -89,7 +91,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-codecodeproxy
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-codecodeproxy
      */
     static CoDecodeProxy(dwClientPid, ui64ProxyAddress, pServerInformation) {
         result := DllCall("OLE32.dll\CoDecodeProxy", "uint", dwClientPid, "uint", ui64ProxyAddress, "ptr", pServerInformation, "int")
@@ -114,7 +116,7 @@ class WinRT {
      * @param {Pointer<Guid>} riid The interface ID of the object for which an agile reference is being obtained.
      * @param {IUnknown} pUnk Pointer to the interface to be encapsulated in an agile reference. It must be the same type as <i>riid</i>. It may be a pointer to an in-process object or a pointer to a proxy of an object.
      * @returns {Pointer<IAgileReference>} The agile reference for the object. Call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/iagilereference-resolve">Resolve</a> method to localize the object into the apartment in which <b>Resolve</b> is called.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-rogetagilereference
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-rogetagilereference
      * @since windows8.1
      */
     static RoGetAgileReference(options, riid, pUnk) {
@@ -132,7 +134,7 @@ class WinRT {
      * @param {Integer} param1 
      * @param {Pointer<HSTRING>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize
      * @since windows8.0
      */
     static HSTRING_UserSize(param0, param1, param2) {
@@ -148,7 +150,7 @@ class WinRT {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HSTRING>} param2 
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal
      * @since windows8.0
      */
     static HSTRING_UserMarshal(param0, param1, param2) {
@@ -194,7 +196,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userunmarshal
      * @since windows8.0
      */
     static HSTRING_UserUnmarshal(param0, param1, param2) {
@@ -210,7 +212,7 @@ class WinRT {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HSTRING>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
      * @since windows8.0
      */
     static HSTRING_UserFree(param0, param1) {
@@ -225,7 +227,7 @@ class WinRT {
      * @param {Integer} param1 
      * @param {Pointer<HSTRING>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usersize64
      * @since windows8.0
      */
     static HSTRING_UserSize64(param0, param1, param2) {
@@ -241,7 +243,7 @@ class WinRT {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HSTRING>} param2 
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_usermarshal64
      * @since windows8.0
      */
     static HSTRING_UserMarshal64(param0, param1, param2) {
@@ -287,7 +289,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userunmarshal64
      * @since windows8.0
      */
     static HSTRING_UserUnmarshal64(param0, param1, param2) {
@@ -303,7 +305,7 @@ class WinRT {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HSTRING>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree64
      * @since windows8.0
      */
     static HSTRING_UserFree64(param0, param1) {
@@ -329,19 +331,19 @@ class WinRT {
      * 
      * The length of <i>sourceString</i>, in Unicode characters. Must be 0 if <i>sourceString</i> is <b>NULL</b>.
      * @returns {HSTRING} 
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscreatestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowscreatestring
      * @since windows8.0
      */
     static WindowsCreateString(sourceString, length) {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
-        string_R := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string_R, "int")
+        string_ := HSTRING()
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateString", "ptr", sourceString, "uint", length, "ptr", string_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return string_R
+        return string_
     }
 
     /**
@@ -366,36 +368,38 @@ class WinRT {
      * 
      * A pointer to a structure that the Windows Runtime uses to identify <i>string</i> as a string reference, or fast-pass string.
      * @returns {HSTRING} 
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscreatestringreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowscreatestringreference
      * @since windows8.0
      */
     static WindowsCreateStringReference(sourceString, length, hstringHeader) {
         sourceString := sourceString is String ? StrPtr(sourceString) : sourceString
 
-        string_R := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string_R, "int")
+        string_ := HSTRING()
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCreateStringReference", "ptr", sourceString, "uint", length, "ptr", hstringHeader, "ptr", string_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return string_R
+        return string_
     }
 
     /**
      * Decrements the reference count of a string buffer.
      * @remarks
      * Use the <b>WindowsDeleteString</b> function to de-allocate an [**HSTRING**](/windows/win32/winrt/hstring). Calling <b>WindowsDeleteString</b> decrements the reference count of the backing buffer, and if the reference count reaches 0, the Windows Runtime de-allocates the buffer.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string to be deleted. If <i>string</i> is a fast-pass string created by <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a>, or if <i>string</i> is <b>NULL</b> or empty, no action is taken and <b>S_OK</b> is returned.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This function always returns <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsdeletestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsdeletestring
      * @since windows8.0
      */
-    static WindowsDeleteString(string_R) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsDeleteString(string_) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", "ptr", string_R, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDeleteString", "ptr", string_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -409,18 +413,20 @@ class WinRT {
      * Use the <b>WindowsDuplicateString</b>  function to copy an [**HSTRING**](/windows/win32/winrt/hstring). If <i>string</i> was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestring">WindowsCreateString</a> function, the reference count of the backing buffer is incremented. If <i>string</i> was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowscreatestringreference">WindowsCreateStringReference</a> function,  the Windows Runtime copies its source string to a new buffer and starts a reference count, which means that  <i>newString</i> is not a fast-pass string. 
      * 
      * Each call to the <b>WindowsDuplicateString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string to be copied.
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A copy of <i>string</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsduplicatestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsduplicatestring
      * @since windows8.0
      */
-    static WindowsDuplicateString(string_R) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsDuplicateString(string_) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", string_R, "ptr", newString, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsDuplicateString", "ptr", string_, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -430,17 +436,19 @@ class WinRT {
 
     /**
      * Gets the length, in Unicode characters, of the specified string.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string whose length is to be found.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The number of Unicode characters in <i>string</i>, including embedded null characters, but excluding the terminating null; or 0 if <i>string</i> is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsgetstringlen
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsgetstringlen
      * @since windows8.0
      */
-    static WindowsGetStringLen(string_R) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsGetStringLen(string_) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringLen", "ptr", string_R, "uint")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringLen", "ptr", string_, "uint")
         return result
     }
 
@@ -450,54 +458,60 @@ class WinRT {
      * Use the <b>WindowsGetStringRawBuffer</b> function to obtain a pointer to the backing buffer of an[**HSTRING**](/windows/win32/winrt/hstring).
      * 
      * Don't change the contents of the buffer&mdash;an [**HSTRING**](/windows/win32/winrt/hstring) is required to be immutable.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in, optional] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * An optional string for which the backing buffer is to be retrieved. Can be **NULL**.
      * @param {Pointer<Integer>} length Type: [out, optional] **UINT32 \***
      * 
      * An optional pointer to a **UINT32**. If **NULL** is passed for *length*, then it is ignored. If *length* is a valid pointer to a **UINT32**, and *string* is a valid [**HSTRING**](/windows/win32/winrt/hstring), then on successful completion the function sets the value pointed to by *length* to the number of Unicode characters in the backing buffer for *string* (including embedded null characters, but excluding the terminating null). If *length* is a valid pointer to a **UINT32**, and *string* is **NULL**, then the value pointed to by *length* is set to 0.
      * @returns {PWSTR} Type: <b>PCWSTR</b>
      * 
      * A pointer to the buffer that provides the backing store for <i>string</i>, or the empty string if <i>string</i> is <b>NULL</b> or the empty string.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsgetstringrawbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsgetstringrawbuffer
      * @since windows8.0
      */
-    static WindowsGetStringRawBuffer(string_R, length) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsGetStringRawBuffer(string_, length) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", "ptr", string_R, lengthMarshal, length, "ptr")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsGetStringRawBuffer", "ptr", string_, lengthMarshal, length, "ptr")
         return result
     }
 
     /**
      * Indicates whether the specified string is the empty string.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string to be tested for content.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if <i>string</i> is <b>NULL</b> or the empty string; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsisstringempty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsisstringempty
      * @since windows8.0
      */
-    static WindowsIsStringEmpty(string_R) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsIsStringEmpty(string_) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsIsStringEmpty", "ptr", string_R, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsIsStringEmpty", "ptr", string_, "int")
         return result
     }
 
     /**
      * Indicates whether the specified string has embedded null characters.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string to test for embedded null characters.
      * @returns {BOOL} Type: [out] <b>BOOL*</b>
      * 
      * <b>TRUE</b> if <i>string</i> has one or more embedded null characters; otherwise, <b>FALSE</b>. <b>FALSE</b> if  <i>string</i> is <b>NULL</b> or the empty string.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsstringhasembeddednull
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsstringhasembeddednull
      * @since windows8.0
      */
-    static WindowsStringHasEmbeddedNull(string_R) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsStringHasEmbeddedNull(string_) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string_R, "int*", &hasEmbedNull := 0, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsStringHasEmbeddedNull", "ptr", string_, "int*", &hasEmbedNull := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -534,43 +548,43 @@ class WinRT {
      * @param {HSTRING} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The second string to compare.
-     * @returns {Integer} Type: [out] <b>INT32*</b>
-     * 
-     * A value that indicates the lexical relationship between <i>string1</i> and <i>string2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowscomparestringordinal
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowscomparestringordinal
      * @since windows8.0
      */
     static WindowsCompareStringOrdinal(string1, string2) {
         string1 := string1 is Win32Handle ? NumGet(string1, "ptr") : string1
         string2 := string2 is Win32Handle ? NumGet(string2, "ptr") : string2
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "int*", &result := 0, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsCompareStringOrdinal", "ptr", string1, "ptr", string2, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
      * Retrieves a substring from the specified string. The substring starts at the specified character position.
      * @remarks
      * Each call to the <b>WindowsSubstring</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The original string.
      * @param {Integer} startIndex Type: [in] <b>UINT32</b>
      * 
      * The zero-based starting character position of a substring in this instance.
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowssubstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowssubstring
      * @since windows8.0
      */
-    static WindowsSubstring(string_R, startIndex) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsSubstring(string_, startIndex) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", string_R, "uint", startIndex, "ptr", newString, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstring", "ptr", string_, "uint", startIndex, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -582,7 +596,9 @@ class WinRT {
      * Retrieves a substring from the specified string. The substring starts at a specified character position and has a specified length.
      * @remarks
      * Each call to the <b>WindowsSubstringWithSpecifiedLength</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The original string.
      * @param {Integer} startIndex Type: [in] <b>UINT32</b>
      * 
      * The zero-based starting character position of a substring in this instance.
@@ -592,14 +608,14 @@ class WinRT {
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the substring that begins at <i>startIndex</i> in <i>string</i>, or <b>NULL</b> if <i>startIndex</i> is equal to the length of <i>string</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowssubstringwithspecifiedlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowssubstringwithspecifiedlength
      * @since windows8.0
      */
-    static WindowsSubstringWithSpecifiedLength(string_R, startIndex, length) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsSubstringWithSpecifiedLength(string_, startIndex, length) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", string_R, "uint", startIndex, "uint", length, "ptr", newString, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsSubstringWithSpecifiedLength", "ptr", string_, "uint", startIndex, "uint", length, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -620,7 +636,7 @@ class WinRT {
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The concatenation of <i>string1</i> and <i>string2</i>. If <i>string1</i> and <i>string2</i> are <b>NULL</b>, <i>newString</i> is <b>NULL</b>. If either <i>string1</i> or <i>string2</i> is <b>NULL</b>, <i>newString</i> is a copy of the non-null string.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsconcatstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsconcatstring
      * @since windows8.0
      */
     static WindowsConcatString(string1, string2) {
@@ -640,7 +656,9 @@ class WinRT {
      * Replaces all occurrences of a set of characters in the specified string with another set of characters to create a new string.
      * @remarks
      * Each call to the <b>WindowsReplaceString</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The original string.
      * @param {HSTRING} stringReplaced Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The string to be replaced.
@@ -651,16 +669,16 @@ class WinRT {
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * A string that is equivalent to the original, except that all instances of <i>stringReplaced</i> are replaced with <i>stringReplaceWith</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsreplacestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsreplacestring
      * @since windows8.0
      */
-    static WindowsReplaceString(string_R, stringReplaced, stringReplaceWith) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsReplaceString(string_, stringReplaced, stringReplaceWith) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
         stringReplaced := stringReplaced is Win32Handle ? NumGet(stringReplaced, "ptr") : stringReplaced
         stringReplaceWith := stringReplaceWith is Win32Handle ? NumGet(stringReplaceWith, "ptr") : stringReplaceWith
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", string_R, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsReplaceString", "ptr", string_, "ptr", stringReplaced, "ptr", stringReplaceWith, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -672,22 +690,24 @@ class WinRT {
      * Removes all leading occurrences of a specified set of characters from the source string.
      * @remarks
      * Each call to the <b>WindowsTrimStringStart</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string to be trimmed.
      * @param {HSTRING} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The characters to remove from <i>string</i>.
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the start of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowstrimstringstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowstrimstringstart
      * @since windows8.0
      */
-    static WindowsTrimStringStart(string_R, trimString) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsTrimStringStart(string_, trimString) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", string_R, "ptr", trimString, "ptr", newString, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringStart", "ptr", string_, "ptr", trimString, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -699,22 +719,24 @@ class WinRT {
      * Removes all trailing occurrences of a specified set of characters from the source string.
      * @remarks
      * Each call to the <b>WindowsTrimStringEnd</b> function must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a>.
-     * @param {HSTRING} string_R 
+     * @param {HSTRING} string_ Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
+     * 
+     * The string to be trimmed.
      * @param {HSTRING} trimString Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The characters to remove from <i>string</i>.
      * @returns {HSTRING} Type: [out] <b>[**HSTRING**](/windows/win32/winrt/hstring)*</b>
      * 
      * The string that remains after all occurrences of characters in the <i>trimString</i> parameter are removed from the end of <i>string</i>, or <b>NULL</b> if <i>trimString</i> contains all of the characters in <i>string</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowstrimstringend
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowstrimstringend
      * @since windows8.0
      */
-    static WindowsTrimStringEnd(string_R, trimString) {
-        string_R := string_R is Win32Handle ? NumGet(string_R, "ptr") : string_R
+    static WindowsTrimStringEnd(string_, trimString) {
+        string_ := string_ is Win32Handle ? NumGet(string_, "ptr") : string_
         trimString := trimString is Win32Handle ? NumGet(trimString, "ptr") : trimString
 
         newString := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", string_R, "ptr", trimString, "ptr", newString, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsTrimStringEnd", "ptr", string_, "ptr", trimString, "ptr", newString, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -792,7 +814,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspreallocatestringbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowspreallocatestringbuffer
      * @since windows8.0
      */
     static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
@@ -818,19 +840,19 @@ class WinRT {
      * 
      * The buffer to use for the new [**HSTRING**](/windows/win32/winrt/hstring). You must use the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowspreallocatestringbuffer">WindowsPreallocateStringBuffer</a> function to create the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>.
      * @returns {HSTRING} 
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowspromotestringbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowspromotestringbuffer
      * @since windows8.0
      */
     static WindowsPromoteStringBuffer(bufferHandle) {
         bufferHandle := bufferHandle is Win32Handle ? NumGet(bufferHandle, "ptr") : bufferHandle
 
-        string_R := HSTRING()
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string_R, "int")
+        string_ := HSTRING()
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPromoteStringBuffer", "ptr", bufferHandle, "ptr", string_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return string_R
+        return string_
     }
 
     /**
@@ -875,7 +897,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsdeletestringbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsdeletestringbuffer
      * @since windows8.0
      */
     static WindowsDeleteStringBuffer(bufferHandle) {
@@ -898,7 +920,7 @@ class WinRT {
      * @param {Pointer<PINSPECT_HSTRING_CALLBACK>} callback [in]
      * 
      * A callback function to read the string buffer from the target address space. This function is called before the <i>length</i> and <i>targetStringAddress</i> parameters are computed by the <b>WindowsInspectString</b> function.
-     * @param {Pointer<Void>} context [in, optional]
+     * @param {Pointer<Void>} context_ [in, optional]
      * 
      * Custom context data passed to the callback.
      * @param {Pointer<Integer>} length [out]
@@ -931,15 +953,15 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsinspectstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsinspectstring
      * @since windows8.0
      */
-    static WindowsInspectString(targetHString, machine, callback, context, length, targetStringAddress) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static WindowsInspectString(targetHString, machine, callback, context_, length, targetStringAddress) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
         targetStringAddressMarshal := targetStringAddress is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, contextMarshal, context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsInspectString", "ptr", targetHString, "ushort", machine, "ptr", callback, context_Marshal, context_, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -960,7 +982,7 @@ class WinRT {
      * @param {Pointer<PINSPECT_HSTRING_CALLBACK2>} callback [in]
      * 
      * A callback function to read the string buffer from the target address space. This function is called before the <i>length</i> and <i>targetStringAddress</i> parameters are computed by the <b>WindowsInspectString2</b> function.
-     * @param {Pointer<Void>} context [in, optional]
+     * @param {Pointer<Void>} context_ [in, optional]
      * 
      * Custom context data passed to the callback.
      * @param {Pointer<Integer>} length [out]
@@ -992,15 +1014,15 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winstring/nf-winstring-windowsinspectstring2
+     * @see https://learn.microsoft.com/windows/win32/api//content/winstring/nf-winstring-windowsinspectstring2
      * @since windows8.0
      */
-    static WindowsInspectString2(targetHString, machine, callback, context, length, targetStringAddress) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static WindowsInspectString2(targetHString, machine, callback, context_, length, targetStringAddress) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
         targetStringAddressMarshal := targetStringAddress is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, contextMarshal, context, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-1.dll\WindowsInspectString2", "uint", targetHString, "ushort", machine, "ptr", callback, context_Marshal, context_, lengthMarshal, length, targetStringAddressMarshal, targetStringAddress, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1031,10 +1053,10 @@ class WinRT {
      * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> is a WinRT object.</div>
      * <div> </div>
      * @returns {HRESULT} <b>S_OK</b> for success; otherwise a failure code.
-     * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
+     * @see https://learn.microsoft.com/windows/win32/api//content/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
     static CreateDispatcherQueueController(options, dispatcherQueueController) {
-        result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr", dispatcherQueueController, "int")
+        result := DllCall("CoreMessaging.dll\CreateDispatcherQueueController", "ptr", options, "ptr*", dispatcherQueueController, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1094,7 +1116,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-roinitialize
      * @since windows8.0
      */
     static RoInitialize(initType) {
@@ -1113,7 +1135,7 @@ class WinRT {
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roinitialize">RoInitialize</a> function to initialize a thread in the Windows Runtime.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rouninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-rouninitialize
      * @since windows8.0
      */
     static RoUninitialize() {
@@ -1130,7 +1152,7 @@ class WinRT {
      * @returns {Pointer<IInspectable>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a>**</b>
      * 
      * A pointer to the activated instance of the runtime class.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roactivateinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-roactivateinstance
      * @since windows8.0
      */
     static RoActivateInstance(activatableClassId) {
@@ -1160,13 +1182,14 @@ class WinRT {
      * @returns {RO_REGISTRATION_COOKIE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/ro-registration-cookie">RO_REGISTRATION_COOKIE</a>*</b>
      * 
      * A cookie that identifies the registered factories.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisteractivationfactories
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-roregisteractivationfactories
      * @since windows8.0
      */
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count) {
         activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr*", &cookie := 0, "int")
+        cookie := RO_REGISTRATION_COOKIE()
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr", cookie, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1180,10 +1203,12 @@ class WinRT {
      * Call the <b>RoRevokeActivationFactories</b> function remove the activation factories represented in the  <i>cookie</i> array from the Windows Runtime.
      * @param {RO_REGISTRATION_COOKIE} cookie Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/ro-registration-cookie">RO_REGISTRATION_COOKIE</a></b>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rorevokeactivationfactories
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-rorevokeactivationfactories
      * @since windows8.0
      */
     static RoRevokeActivationFactories(cookie) {
+        cookie := cookie is Win32Handle ? NumGet(cookie, "ptr") : cookie
+
         DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRevokeActivationFactories", "ptr", cookie)
     }
 
@@ -1198,7 +1223,7 @@ class WinRT {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The activation factory.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetactivationfactory
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-rogetactivationfactory
      * @since windows8.0
      */
     static RoGetActivationFactory(activatableClassId, iid) {
@@ -1224,7 +1249,7 @@ class WinRT {
      * @param {Pointer<Integer>} apartmentIdentifier The identifier for the current apartment.
      * @param {Pointer<APARTMENT_SHUTDOWN_REGISTRATION_COOKIE>} regCookie A cookie that you can use to unregister the callback.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-roregisterforapartmentshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-roregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoRegisterForApartmentShutdown(callbackObject, apartmentIdentifier, regCookie) {
@@ -1248,7 +1273,7 @@ class WinRT {
      * Don't call the <b>RoUnregisterForApartmentShutdown</b> function from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iapartmentshutdown-onuninitialize">OnUninitialize</a> callback.
      * @param {APARTMENT_SHUTDOWN_REGISTRATION_COOKIE} regCookie A registration cookie obtained from a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rounregisterforapartmentshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-rounregisterforapartmentshutdown
      * @since windows8.0
      */
     static RoUnregisterForApartmentShutdown(regCookie) {
@@ -1265,7 +1290,7 @@ class WinRT {
     /**
      * Gets a unique identifier for the current apartment.
      * @returns {Integer} A process-unique identifier for the current apartment.
-     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-rogetapartmentidentifier
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-rogetapartmentidentifier
      * @since windows8.0
      */
     static RoGetApartmentIdentifier() {
@@ -1286,7 +1311,7 @@ class WinRT {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imarshal">IMarshal</a> implementation clones its contents to the original instance when the caller sets the Length property.
      * @returns {IMarshal} pointer to Windows Runtime IBuffer marshaler
-     * @see https://learn.microsoft.com/windows/win32/api/robuffer/nf-robuffer-rogetbuffermarshaler
+     * @see https://learn.microsoft.com/windows/win32/api//content/robuffer/nf-robuffer-rogetbuffermarshaler
      * @since windows8.0
      */
     static RoGetBufferMarshaler() {
@@ -1305,7 +1330,7 @@ class WinRT {
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * A pointer to the bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/ne-roerrorapi-roerrorreportingflags">RO_ERROR_REPORTING_FLAGS</a> values that represents the current error-reporting behavior.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogeterrorreportingflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rogeterrorreportingflags
      * @since windows8.0
      */
     static RoGetErrorReportingFlags() {
@@ -1356,7 +1381,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roseterrorreportingflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roseterrorreportingflags
      * @since windows8.0
      */
     static RoSetErrorReportingFlags(flags) {
@@ -1372,19 +1397,19 @@ class WinRT {
      * Returns the IRestrictedErrorInfo interface pointer based on the given reference.
      * @remarks
      * The <b>RoResolveRestrictedErrorInfoReference</b> function is useful primarily for debugger development. A debugger receives the reference  string and uses the reference to identify the associated <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object, which allows the debugger to retrieve the detailed error message by calling the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails">GetErrorDetails</a> method.
-     * @param {PWSTR} reference Type: <b>PCWSTR</b>
+     * @param {PWSTR} reference_ Type: <b>PCWSTR</b>
      * 
      * Identifies an error object which contains relevant information for the specific error.
      * @returns {IRestrictedErrorInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a>**</b>
      * 
      * The output parameter for the object associated with the given reference.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roresolverestrictederrorinforeference
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roresolverestrictederrorinforeference
      * @since windows8.0
      */
-    static RoResolveRestrictedErrorInfoReference(reference) {
-        reference := reference is String ? StrPtr(reference) : reference
+    static RoResolveRestrictedErrorInfoReference(reference_) {
+        reference_ := reference_ is String ? StrPtr(reference_) : reference_
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr*", &ppRestrictedErrorInfo := 0, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference_, "ptr*", &ppRestrictedErrorInfo := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1402,7 +1427,7 @@ class WinRT {
      * The <b>SetRestrictedErrorInfo</b>  function releases the existing restricted error information object, if one exists, and sets <i>pRestrictedErrorInfo</i>.  For more info, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-seterrorinfo">SetErrorInfo</a> function.
      * @param {IRestrictedErrorInfo} pRestrictedErrorInfo The restricted error information object associated with the current thread.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-setrestrictederrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-setrestrictederrorinfo
      * @since windows8.0
      */
     static SetRestrictedErrorInfo(pRestrictedErrorInfo) {
@@ -1427,7 +1452,7 @@ class WinRT {
      * 
      * Calling the <b>GetRestrictedErrorInfo</b>  function fails if <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> isn't the system implementation. To create an <b>IRestrictedErrorInfo</b> object, call  the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">OriginateError</a>, <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rotransformerror">TransformError</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> functions.
      * @returns {IRestrictedErrorInfo} The restricted error info object associated with the current thread.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-getrestrictederrorinfo
      * @since windows8.0
      */
     static GetRestrictedErrorInfo() {
@@ -1499,7 +1524,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rooriginateerrorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rooriginateerrorw
      * @since windows8.0
      */
     static RoOriginateErrorW(error, cchMax, message) {
@@ -1563,7 +1588,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rooriginateerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rooriginateerror
      * @since windows8.0
      */
     static RoOriginateError(error, message) {
@@ -1633,7 +1658,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rotransformerrorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rotransformerrorw
      * @since windows8.0
      */
     static RoTransformErrorW(oldError, newError, cchMax, message) {
@@ -1696,7 +1721,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rotransformerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rotransformerror
      * @since windows8.0
      */
     static RoTransformError(oldError, newError, message) {
@@ -1714,7 +1739,7 @@ class WinRT {
      * To use <b>RoCaptureErrorContext</b> function with <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rooriginateerror">RoOriginateError</a>, call <b>RoOriginateError</b> first, and then call <b>RoCaptureErrorContext</b>.  Calling in the reverse order may cause the error context to be lost.
      * @param {HRESULT} hr The <b>HRESULT</b> associated with the error.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rocaptureerrorcontext
      * @since windows8.0
      */
     static RoCaptureErrorContext(hr) {
@@ -1738,7 +1763,7 @@ class WinRT {
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-rocaptureerrorcontext">RoCaptureErrorContext</a> function to save an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object that's associated with the current thread. The <b>RoFailFastWithErrorContext</b> function uses this contextual information to report the error call stack to the Windows Error Reporting service (WER), if it's enabled.
      * @param {HRESULT} hrError The <b>HRESULT</b> associated with the current error. The exception is raised for any value of <i>hrError</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rofailfastwitherrorcontext
      * @since windows8.0
      */
     static RoFailFastWithErrorContext(hrError) {
@@ -1790,7 +1815,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rooriginatelanguageexception
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rooriginatelanguageexception
      * @since windows8.1
      */
     static RoOriginateLanguageException(error, message, languageException) {
@@ -1805,7 +1830,7 @@ class WinRT {
      * @remarks
      * Call the <b>RoClearError</b> function to remove existing thread error information from the thread environment block (TEB). If COM is not initialized, this call does nothing to create the TEB slot for this information. Language projections call this function to ensure there's no stale error information on the thread.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roclearerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roclearerror
      * @since windows8.1
      */
     static RoClearError() {
@@ -1818,7 +1843,7 @@ class WinRT {
      * The <b>RoReportUnhandledError</b> function enables language projections to trigger execution of the Global Error Handler when an exception reaches the top of the stack, which normally would terminate the application.
      * @param {IRestrictedErrorInfo} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportunhandlederror
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roreportunhandlederror
      */
     static RoReportUnhandledError(pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportUnhandledError", "ptr", pRestrictedErrorInfo, "int")
@@ -1836,15 +1861,15 @@ class WinRT {
      * @param {Pointer} targetTebAddress The target thread environment block (TEB).
      * @param {Integer} machine The machine to debug.
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
-     * @param {Pointer<Void>} context Custom context data.
+     * @param {Pointer<Void>} context_ Custom context data.
      * @returns {Pointer} The address of the error object.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo
      * @since windows8.1
      */
-    static RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static RoInspectThreadErrorInfo(targetTebAddress, machine, readMemoryCallback, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, contextMarshal, context, "ptr*", &targetErrorInfoAddress := 0, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectThreadErrorInfo", "ptr", targetTebAddress, "ushort", machine, "ptr", readMemoryCallback, context_Marshal, context_, "ptr*", &targetErrorInfoAddress := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1861,19 +1886,19 @@ class WinRT {
      * @param {Pointer} targetErrorInfoAddress The address of the error info object in the target process. Get the <i>targetErrorInfoAddress</i> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo">RoInspectThreadErrorInfo</a> function.
      * @param {Integer} machine The machine to debug.
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
-     * @param {Pointer<Void>} context Custom context data.
+     * @param {Pointer<Void>} context_ Custom context data.
      * @param {Pointer<Integer>} frameCount The number of stack frames stored in the error object.
      * @param {Pointer<Pointer>} targetBackTraceAddress The stack back trace address in the target process.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace
      * @since windows8.1
      */
-    static RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemoryCallback, context, frameCount, targetBackTraceAddress) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static RoInspectCapturedStackBackTrace(targetErrorInfoAddress, machine, readMemoryCallback, context_, frameCount, targetBackTraceAddress) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
         frameCountMarshal := frameCount is VarRef ? "uint*" : "ptr"
         targetBackTraceAddressMarshal := targetBackTraceAddress is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, contextMarshal, context, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoInspectCapturedStackBackTrace", "ptr", targetErrorInfoAddress, "ushort", machine, "ptr", readMemoryCallback, context_Marshal, context_, frameCountMarshal, frameCount, targetBackTraceAddressMarshal, targetBackTraceAddress, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1887,7 +1912,7 @@ class WinRT {
      * The function checks to see if current error info matches the *hrIn* value passed in and, if not, it originates a matching error info.
      * @param {HRESULT} hrIn An HRESULT representing the error for which restricted error info is retrieved.
      * @returns {Pointer<IRestrictedErrorInfo>} Receives an instance of [IRestrictedErrorInfo](../restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo.md) representing the details of an error, including restricted error information.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
      */
     static RoGetMatchingRestrictedErrorInfo(hrIn) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr*", &ppRestrictedErrorInfo := 0, "int")
@@ -1903,7 +1928,7 @@ class WinRT {
      * @param {IUnknown} punkDelegate The delegate to report.
      * @param {IRestrictedErrorInfo} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-roreportfaileddelegate
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-roreportfaileddelegate
      */
     static RoReportFailedDelegate(punkDelegate, pRestrictedErrorInfo) {
         result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoReportFailedDelegate", "ptr", punkDelegate, "ptr", pRestrictedErrorInfo, "int")
@@ -1949,7 +1974,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-iserrorpropagationenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/roerrorapi/nf-roerrorapi-iserrorpropagationenabled
      * @since windows8.0
      */
     static IsErrorPropagationEnabled() {
@@ -2002,7 +2027,7 @@ class WinRT {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/roregistrationapi/nf-roregistrationapi-rogetserveractivatableclasses
+     * @see https://learn.microsoft.com/windows/win32/api//content/roregistrationapi/nf-roregistrationapi-rogetserveractivatableclasses
      * @since windows8.0
      */
     static RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
@@ -2029,7 +2054,7 @@ class WinRT {
      * @param {Integer} accessMode An <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">AccessMode</a> value that specifies the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates the file.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
-     * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamonfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/shcore/nf-shcore-createrandomaccessstreamonfile
      * @since windows8.0
      */
     static CreateRandomAccessStreamOnFile(filePath, accessMode, riid) {
@@ -2055,7 +2080,7 @@ class WinRT {
      * @param {Integer} options One of the <a href="https://docs.microsoft.com/windows/desktop/api/shcore/ne-shcore-bsos_options">BSOS_OPTIONS</a> options that specify the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
      * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createrandomaccessstreamoverstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/shcore/nf-shcore-createrandomaccessstreamoverstream
      * @since windows8.0
      */
     static CreateRandomAccessStreamOverStream(stream, options, riid) {
@@ -2074,7 +2099,7 @@ class WinRT {
      * @param {IUnknown} randomAccessStream The source <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStream. This object encapsulates <i>randomAccessStream</i>.
      * @returns {Pointer<Pointer<Void>>} When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shcore/nf-shcore-createstreamoverrandomaccessstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/shcore/nf-shcore-createstreamoverrandomaccessstream
      * @since windows8.0
      */
     static CreateStreamOverRandomAccessStream(randomAccessStream, riid) {
@@ -2094,7 +2119,7 @@ class WinRT {
      * If the call is successful, the  caller can call <b>QueryInterface</b> on the returned <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/corewindow/nn-corewindow-icoreinputinterop">ICoreInputInterop</a> object that created it.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
      * @returns {Pointer<Pointer<Void>>} Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid) {
         result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr*", &ppv := 0, "CDecl int")
@@ -2121,7 +2146,7 @@ class WinRT {
      * @param {IUnknown} pCoreWindow Pointer to the parent <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> to which the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object will be attached. This parameter can’t be NULL.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
      * @returns {Pointer<Pointer<Void>>} Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-createcontrolinputex
+     * @see https://learn.microsoft.com/windows/win32/api//content/corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid) {
         result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr*", &ppv := 0, "CDecl int")

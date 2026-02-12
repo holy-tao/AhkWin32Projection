@@ -5,7 +5,7 @@
  * Represents an HTTP request header as a name/value string pair.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_extended_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_extended_header
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

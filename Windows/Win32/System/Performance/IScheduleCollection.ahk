@@ -7,7 +7,7 @@
 
 /**
  * Manages a collection of Schedule objects.To get this interface, access the IDataCollectorSet::Schedules property.
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-ischedulecollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/pla/nn-pla-ischedulecollection
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -49,45 +49,51 @@ class IScheduleCollection extends IDispatch{
     /**
      * Retrieves the number of schedules in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the requested schedule from the collection.
      * @remarks
-     * 
      * This property is the object's default property.
-     * 
-     * 
      * @param {VARIANT} index 
      * @returns {ISchedule} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &ppSchedule := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", index, "ptr*", &ppSchedule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchedule(ppSchedule)
     }
 
     /**
-     * Retrieves an interface to the enumeration.
+     * Retrieves an interface to the enumeration. (IScheduleCollection.get__NewEnum)
      * @remarks
-     * 
-     *  C++ programmers use this property.
+     * C++ programmers use this property.
      * 
      * The enumeration is a snapshot of the collection at the time of the call.
      * 
      * The items of the enumeration are variants whose type is VT_UNKNOWN. To query for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedule">ISchedule</a> interface, use the <b>punkVal</b> member of the variant.
-     * 
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ienum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ienum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ienum)
     }
 
@@ -95,31 +101,45 @@ class IScheduleCollection extends IDispatch{
      * Adds a schedule to the collection.
      * @param {ISchedule} pSchedule An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedule">ISchedule</a> interface of the schedule to add to the collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-add
      */
     Add(pSchedule) {
-        result := ComCall(10, this, "ptr", pSchedule, "HRESULT")
+        result := ComCall(10, this, "ptr", pSchedule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a schedule from the collection.
+     * @remarks
+     * If the variant type is VT_DISPATCH, pass the <b>IDispatch</b> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedule">ISchedule</a> interface to be removed.
      * @param {VARIANT} vSchedule The zero-based index of the schedule to remove from the collection. The variant type can be VT_I4, VT_UI4, or VT_DISPATCH.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-remove
      */
     Remove(vSchedule) {
-        result := ComCall(11, this, "ptr", vSchedule, "HRESULT")
+        result := ComCall(11, this, "ptr", vSchedule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes all schedules from the collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,20 +147,28 @@ class IScheduleCollection extends IDispatch{
      * Adds one or more schedules to the collection.
      * @param {IScheduleCollection} pSchedules An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedulecollection">IScheduleCollection</a> interface to a collection of one or more schedules to add to this collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-addrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-addrange
      */
     AddRange(pSchedules) {
-        result := ComCall(13, this, "ptr", pSchedules, "HRESULT")
+        result := ComCall(13, this, "ptr", pSchedules, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a schedule object.
-     * @returns {ISchedule} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ischedule">ISchedule</a> interface that you use to specify when the data collector set runs.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedulecollection-createschedule
+     * @returns {ISchedule} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ischedulecollection-createschedule
      */
     CreateSchedule() {
-        result := ComCall(14, this, "ptr*", &Schedule := 0, "HRESULT")
-        return ISchedule(Schedule)
+        result := ComCall(14, this, "ptr*", &Schedule_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ISchedule(Schedule_)
     }
 }

@@ -7,11 +7,8 @@
 /**
  * Provides access to a control that acts as a container for a collection of child elements.
  * @remarks
- * 
  * This control pattern is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationgridpattern">IUIAutomationGridPattern</a> with the distinction that any control that supports <b>IUIAutomationTablePattern</b> also exposes a column or row header relationship, or both, for each child element. Controls that support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtableitem">Table</a> control pattern also support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggrid">Grid</a> control pattern in order to provide access to the inherent grid functionality of a table.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtablepattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationtablepattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -55,10 +52,14 @@ class IUIAutomationTablePattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of row headers. The default is an empty array.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcurrentrowheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcurrentrowheaders
      */
     GetCurrentRowHeaders() {
-        result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
@@ -67,20 +68,28 @@ class IUIAutomationTablePattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of column headers. The default is an empty array.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcurrentcolumnheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcurrentcolumnheaders
      */
     GetCurrentColumnHeaders() {
-        result := ComCall(4, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
     /**
      * Retrieves the primary direction of traversal for the table.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-get_currentroworcolumnmajor
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-get_currentroworcolumnmajor
      */
     get_CurrentRowOrColumnMajor() {
-        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
@@ -89,10 +98,14 @@ class IUIAutomationTablePattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of cached row headers. The default is an empty array.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcachedrowheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcachedrowheaders
      */
     GetCachedRowHeaders() {
-        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
@@ -101,20 +114,28 @@ class IUIAutomationTablePattern extends IUnknown{
      * @returns {IUIAutomationElementArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray">IUIAutomationElementArray</a>**</b>
      * 
      * Receives a pointer to the collection of cached column headers. The default is an empty array.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcachedcolumnheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-getcachedcolumnheaders
      */
     GetCachedColumnHeaders() {
-        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElementArray(retVal)
     }
 
     /**
      * Retrieves the cached primary direction of traversal for the table.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-get_cachedroworcolumnmajor
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-get_cachedroworcolumnmajor
      */
     get_CachedRowOrColumnMajor() {
-        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

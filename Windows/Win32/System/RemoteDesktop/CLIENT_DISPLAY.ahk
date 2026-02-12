@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the display of a Remote Desktop Connection (RDC) client. (CLIENT_DISPLAY)
- * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ns-sessdirpublictypes-client_display
+ * @see https://learn.microsoft.com/windows/win32/api//content/sessdirpublictypes/ns-sessdirpublictypes-client_display
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

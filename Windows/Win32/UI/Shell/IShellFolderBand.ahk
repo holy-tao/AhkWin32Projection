@@ -5,7 +5,7 @@
 
 /**
  * IShellFolderBand may be altered or unavailable.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-ishellfolderband
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nn-shlobj-ishellfolderband
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -40,11 +40,15 @@ class IShellFolderBand extends IUnknown{
      * A PIDL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ishellfolderband-initializesfb
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-ishellfolderband-initializesfb
      */
     InitializeSFB(psf, pidl) {
-        result := ComCall(3, this, "ptr", psf, "ptr", pidl, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, "ptr", pidl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,10 +60,14 @@ class IShellFolderBand extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ishellfolderband-setbandinfosfb
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-ishellfolderband-setbandinfosfb
      */
     SetBandInfoSFB(pbi) {
-        result := ComCall(4, this, "ptr", pbi, "HRESULT")
+        result := ComCall(4, this, "ptr", pbi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,10 +79,14 @@ class IShellFolderBand extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ishellfolderband-getbandinfosfb
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-ishellfolderband-getbandinfosfb
      */
     GetBandInfoSFB(pbi) {
-        result := ComCall(5, this, "ptr", pbi, "HRESULT")
+        result := ComCall(5, this, "ptr", pbi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

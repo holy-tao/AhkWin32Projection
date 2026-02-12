@@ -6,10 +6,8 @@
 /**
  * Initializes a device endpoint object and gets the capabilities of the device that it represents.
  * @remarks
- * 
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudiodeviceendpoint
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nn-audioengineendpoint-iaudiodeviceendpoint
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -36,6 +34,8 @@ class IAudioDeviceEndpoint extends IUnknown{
 
     /**
      * Initializes the endpoint and creates a buffer based on the format of the endpoint into which the audio data is streamed.
+     * @remarks
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
      * @param {Integer} MaxPeriod The processing time, in 
      *     100-nanosecond units, of the audio endpoint.
      * @param {Integer} u32LatencyCoefficient The latency coefficient for the audio          device. This value is used to calculate the latency. Latency = <i>u32LatencyCoefficient</i> * <i>MaxPeriod</i>.
@@ -48,35 +48,67 @@ class IAudioDeviceEndpoint extends IUnknown{
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If it fails, possible return codes include, but are not limited to, the following.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-setbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-setbuffer
      */
     SetBuffer(MaxPeriod, u32LatencyCoefficient) {
-        result := ComCall(3, this, "int64", MaxPeriod, "uint", u32LatencyCoefficient, "HRESULT")
+        result := ComCall(3, this, "int64", MaxPeriod, "uint", u32LatencyCoefficient, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries whether the audio device is real-time (RT)-capable. This method is not used in Remote Desktop Services implementations of IAudioDeviceEndpoint.
+     * @remarks
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
      * @returns {BOOL} Receives <b>TRUE</b> if the audio device is RT-capable, or <b>FALSE</b> otherwise. Remote Desktop Services implementations should always return <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-getrtcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-getrtcaps
      */
     GetRTCaps() {
-        result := ComCall(4, this, "int*", &pbIsRTCapable := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pbIsRTCapable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsRTCapable
     }
 
     /**
      * Indicates whether the device endpoint is event driven. The device endpoint controls the period of the audio engine by setting events that signal buffer availability.
+     * @remarks
+     * Call the <b>GetEventDrivenCapable</b> method before calling the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-setbuffer">IAudioDeviceEndpoint::SetBuffer</a> method, which initializes the device endpoint and creates a buffer. This allows the device endpoint to set up the structures needed for driving events.
+     * 
+     * If the audio engine requires an event driven device endpoint, it will:
+     * 
+     * <ul>
+     * <li>Create an event and set the event handle on the device endpoint by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-seteventhandle">IAudioEndpoint::SetEventHandle</a> method.</li>
+     * <li>Specify event driven mode by setting the <b>AUDCLNT_STREAMFLAGS_EVENTCALLBACK</b> flag on the device endpoint by calling the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-setstreamflags">IAudioEndpoint::SetStreamFlags</a> method.</li>
+     * </ul>
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
      * @returns {BOOL} A value of <b>TRUE</b> indicates that the device endpoint is event driven. A value of <b>FALSE</b> indicates that it is not event driven. If the endpoint device is event driven, the audio engine can receive events from an audio device endpoint.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-geteventdrivencapable
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-geteventdrivencapable
      */
     GetEventDrivenCapable() {
-        result := ComCall(5, this, "int*", &pbisEventCapable := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pbisEventCapable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbisEventCapable
     }
 
     /**
      * Creates and writes the exclusive-mode parameters to shared memory.
+     * @remarks
+     * This method is used to provide handles and parameters of the audio service of the endpoint to the client 
+     *     process for use in exclusive mode. This method fails if the endpoint object is fully initialized through the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-setbuffer">IAudioDeviceEndpoint::SetBuffer</a> 
+     *     method call.
+     * 
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
+     *     applications.
      * @param {Pointer} hTargetProcess The handle of the process for which the handles
      *     will be duplicated.
      * @param {Integer} hnsPeriod The periodicity, in 100-nanosecond units, of the device. This value must fall within the range of the 
@@ -88,13 +120,17 @@ class IAudioDeviceEndpoint extends IUnknown{
      * @param {Pointer<Integer>} pu32SharedMemorySize Receives the size of the memory area shared by the service and the process.
      * @param {Pointer<Pointer>} phSharedMemory Receives a handle to the memory area shared by the service and the process.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-writeexclusivemodeparameterstosharedmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudiodeviceendpoint-writeexclusivemodeparameterstosharedmemory
      */
     WriteExclusiveModeParametersToSharedMemory(hTargetProcess, hnsPeriod, hnsBufferDuration, u32LatencyCoefficient, pu32SharedMemorySize, phSharedMemory) {
         pu32SharedMemorySizeMarshal := pu32SharedMemorySize is VarRef ? "uint*" : "ptr"
         phSharedMemoryMarshal := phSharedMemory is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", hTargetProcess, "int64", hnsPeriod, "int64", hnsBufferDuration, "uint", u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "HRESULT")
+        result := ComCall(6, this, "ptr", hTargetProcess, "int64", hnsPeriod, "int64", hnsBufferDuration, "uint", u32LatencyCoefficient, pu32SharedMemorySizeMarshal, pu32SharedMemorySize, phSharedMemoryMarshal, phSharedMemory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

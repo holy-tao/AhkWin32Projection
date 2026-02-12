@@ -41,7 +41,11 @@ class IBindStatusCallbackEx extends IBindStatusCallback{
         grfBINDF2Marshal := grfBINDF2 is VarRef ? "uint*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, grfBINDFMarshal, grfBINDF, "ptr", pbindinfo, grfBINDF2Marshal, grfBINDF2, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(11, this, grfBINDFMarshal, grfBINDF, "ptr", pbindinfo, grfBINDF2Marshal, grfBINDF2, pdwReservedMarshal, pdwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

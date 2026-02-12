@@ -45,16 +45,38 @@ class IWbemClientTransport extends IUnknown{
      * @returns {IWbemServices} 
      */
     ConnectServer(strAddressType, dwBinaryAddressLength, abBinaryAddress, strNetworkResource, strUser, strPassword, strLocale, lSecurityFlags, strAuthority, pCtx) {
-        strAddressType := strAddressType is String ? BSTR.Alloc(strAddressType).Value : strAddressType
-        strNetworkResource := strNetworkResource is String ? BSTR.Alloc(strNetworkResource).Value : strNetworkResource
-        strUser := strUser is String ? BSTR.Alloc(strUser).Value : strUser
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
-        strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
-        strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
+        if(strAddressType is String) {
+            pin := BSTR.Alloc(strAddressType)
+            strAddressType := pin.Value
+        }
+        if(strNetworkResource is String) {
+            pin := BSTR.Alloc(strNetworkResource)
+            strNetworkResource := pin.Value
+        }
+        if(strUser is String) {
+            pin := BSTR.Alloc(strUser)
+            strUser := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
+        if(strLocale is String) {
+            pin := BSTR.Alloc(strLocale)
+            strLocale := pin.Value
+        }
+        if(strAuthority is String) {
+            pin := BSTR.Alloc(strAuthority)
+            strAuthority := pin.Value
+        }
 
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemServices(ppNamespace)
     }
 }

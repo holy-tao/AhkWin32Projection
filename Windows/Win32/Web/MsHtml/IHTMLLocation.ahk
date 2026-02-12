@@ -105,9 +105,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_href(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +124,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_href() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -127,9 +138,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_protocol(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +157,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_protocol() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -149,9 +171,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_host(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +190,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_host() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -171,9 +204,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hostname(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +223,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_hostname() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -193,9 +237,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_port(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +256,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_port() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -215,9 +270,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pathname(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +289,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_pathname() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -237,9 +303,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_search(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -249,7 +322,11 @@ class IHTMLLocation extends IDispatch{
      */
     get_search() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -259,9 +336,16 @@ class IHTMLLocation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hash(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,51 +355,91 @@ class IHTMLLocation extends IDispatch{
      */
     get_hash() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
+     * Reloads an IME configuration from the HKCU registry, in Japanese IME only.
+     * @remarks
+     * If no registry value is present in HKCU, the **reload\_config** function writes initial data to the registry.
      * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {VARIANT_BOOL} flag 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * This function returns **TRUE** if it succeeds; otherwise, it returns **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/reload-config
      */
     reload(flag) {
-        result := ComCall(23, this, "short", flag, "HRESULT")
+        result := ComCall(23, this, "short", flag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * replace value of (XML DML)
+     * @param {BSTR} bstr_ 
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/t-sql/xml/replace-value-of-xml-dml
+     */
+    replace(bstr_) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
+
+        result := ComCall(24, this, "ptr", bstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} bstr 
+     * @param {BSTR} bstr_ 
      * @returns {HRESULT} 
      */
-    replace(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
+    assign(bstr_) {
+        if(bstr_ is String) {
+            pin := BSTR.Alloc(bstr_)
+            bstr_ := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", bstr, "HRESULT")
+        result := ComCall(25, this, "ptr", bstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {BSTR} bstr 
-     * @returns {HRESULT} 
-     */
-    assign(bstr) {
-        bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
-
-        result := ComCall(25, this, "ptr", bstr, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        string := BSTR()
-        result := ComCall(26, this, "ptr", string, "HRESULT")
-        return string
+        string_ := BSTR()
+        result := ComCall(26, this, "ptr", string_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return string_
     }
 }

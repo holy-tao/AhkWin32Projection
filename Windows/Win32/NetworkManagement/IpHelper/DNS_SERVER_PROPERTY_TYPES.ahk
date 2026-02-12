@@ -5,7 +5,7 @@
  * Contains a pointer to a DNS server property. The type of the property depends on the value of [DNS_SERVER_PROPERTY::Type](/windows/win32/api/netioapi/ns-netioapi-dns_server_property).
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_server_property_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-dns_server_property_types
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

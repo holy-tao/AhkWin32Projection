@@ -4,8 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraocclusionstatereportcallback
+ * Implemented by applications to receive camera occlusion state change notifications.
+ * @remarks
+ * Register the callback interface when you create the camera occlusion state monitor with a call to [MFCreateCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfcameraocclusionstatereportcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,13 +33,21 @@ class IMFCameraOcclusionStateReportCallback extends IUnknown{
     static VTableNames => ["OnOcclusionStateReport"]
 
     /**
+     * Called by the system when the camera occlusion state changes.
+     * @remarks
+     * To avoid any possible circular locking situation do not call any IMFCameraOcclusionStateMonitor object methods from this callback function.
      * 
-     * @param {IMFCameraOcclusionStateReport} occlusionStateReport 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraocclusionstatereportcallback-onocclusionstatereport
+     * Register the callback interface by calling [MFCreateCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
+     * @param {IMFCameraOcclusionStateReport} occlusionStateReport An [IMFCameraOcclusionStateReport](nn-mfidl-imfcameraocclusionstatereport.md) that can be used to obtain the new camera occlusion state.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfcameraocclusionstatereportcallback-onocclusionstatereport
      */
     OnOcclusionStateReport(occlusionStateReport) {
-        result := ComCall(3, this, "ptr", occlusionStateReport, "HRESULT")
+        result := ComCall(3, this, "ptr", occlusionStateReport, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

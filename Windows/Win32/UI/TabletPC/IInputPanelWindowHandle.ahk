@@ -49,7 +49,11 @@ class IInputPanelWindowHandle extends IUnknown{
      * @returns {Integer} 
      */
     get_AttachedEditWindow32() {
-        result := ComCall(3, this, "int*", &AttachedEditWindow := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &AttachedEditWindow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AttachedEditWindow
     }
 
@@ -59,7 +63,11 @@ class IInputPanelWindowHandle extends IUnknown{
      * @returns {HRESULT} 
      */
     put_AttachedEditWindow32(AttachedEditWindow) {
-        result := ComCall(4, this, "int", AttachedEditWindow, "HRESULT")
+        result := ComCall(4, this, "int", AttachedEditWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IInputPanelWindowHandle extends IUnknown{
      * @returns {Integer} 
      */
     get_AttachedEditWindow64() {
-        result := ComCall(5, this, "int64*", &AttachedEditWindow := 0, "HRESULT")
+        result := ComCall(5, this, "int64*", &AttachedEditWindow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AttachedEditWindow
     }
 
@@ -78,7 +90,11 @@ class IInputPanelWindowHandle extends IUnknown{
      * @returns {HRESULT} 
      */
     put_AttachedEditWindow64(AttachedEditWindow) {
-        result := ComCall(6, this, "int64", AttachedEditWindow, "HRESULT")
+        result := ComCall(6, this, "int64", AttachedEditWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

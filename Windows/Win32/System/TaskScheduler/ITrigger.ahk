@@ -8,7 +8,6 @@
 /**
  * Provides the common properties that are inherited by all trigger objects.
  * @remarks
- * 
  * Task Scheduler provides the following individual interfaces for the different triggers that a task can use: 
  * 
  * <ul>
@@ -48,11 +47,8 @@
  * </ul>
  * 
  * 
- * When reading or writing XML, the triggers of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema. 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itrigger
+ * When reading or writing XML, the triggers of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema.
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -130,227 +126,253 @@ class ITrigger extends IDispatch{
      * Gets the type of the trigger.
      * @param {Pointer<Integer>} pType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_type
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_type
      */
     get_Type(pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(7, this, pTypeMarshal, pType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the identifier for the trigger.
+     * Gets or sets the identifier for the trigger. (Get)
      * @remarks
-     * 
      * When reading or writing XML for a task, the trigger identifier is specified in the Id attribute of the individual trigger elements (for example, the Id attribute of the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-boottrigger-triggergroup-element">BootTrigger</a> element) of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pId 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_id
      */
     get_Id(pId) {
-        result := ComCall(8, this, "ptr", pId, "HRESULT")
+        result := ComCall(8, this, "ptr", pId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the identifier for the trigger.
+     * Gets or sets the identifier for the trigger. (Put)
      * @remarks
-     * 
      * When reading or writing XML for a task, the trigger identifier is specified in the Id attribute of the individual trigger elements (for example, the Id attribute of the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-boottrigger-triggergroup-element">BootTrigger</a> element) of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} id 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-put_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-put_id
      */
     put_Id(id) {
-        id := id is String ? BSTR.Alloc(id).Value : id
+        if(id is String) {
+            pin := BSTR.Alloc(id)
+            id := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", id, "HRESULT")
+        result := ComCall(9, this, "ptr", id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a value that indicates how often the task is run and how long the repetition pattern is repeated after the task is started.
+     * Gets or sets a value that indicates how often the task is run and how long the repetition pattern is repeated after the task is started. (Get)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the repetition pattern for a trigger is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-repetition-triggerbasetype-element">Repetition</a> element of the Task Scheduler schema.
-     * 
-     * 
-     * 
      * @returns {IRepetitionPattern} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_repetition
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_repetition
      */
     get_Repetition() {
-        result := ComCall(10, this, "ptr*", &ppRepeat := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppRepeat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRepetitionPattern(ppRepeat)
     }
 
     /**
-     * Gets or sets a value that indicates how often the task is run and how long the repetition pattern is repeated after the task is started.
+     * Gets or sets a value that indicates how often the task is run and how long the repetition pattern is repeated after the task is started. (Put)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the repetition pattern for a trigger is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-repetition-triggerbasetype-element">Repetition</a> element of the Task Scheduler schema.
-     * 
-     * 
-     * 
      * @param {IRepetitionPattern} pRepeat 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-put_repetition
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-put_repetition
      */
     put_Repetition(pRepeat) {
-        result := ComCall(11, this, "ptr", pRepeat, "HRESULT")
+        result := ComCall(11, this, "ptr", pRepeat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the maximum amount of time that the task launched by this trigger is allowed to run.
+     * Gets or sets the maximum amount of time that the task launched by this trigger is allowed to run. (Get)
      * @remarks
-     * 
      * The format for this string is PnYnMnDTnHnMnS, where nY is the number of years, nM is the number of months, nD is the number of days, 'T' is the date/time separator, nH is the number of hours, nM is the number of minutes, and nS is the number of seconds (for example, PT5M specifies 5 minutes and P1M4DT2H5M specifies one month, four days, two hours, and five minutes).
      * 
      * When reading or writing XML for a task, the execution time limit is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-executiontimelimit-triggerbasetype-element">ExecutionTimeLimit</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pTimeLimit 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_executiontimelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_executiontimelimit
      */
     get_ExecutionTimeLimit(pTimeLimit) {
-        result := ComCall(12, this, "ptr", pTimeLimit, "HRESULT")
+        result := ComCall(12, this, "ptr", pTimeLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the maximum amount of time that the task launched by this trigger is allowed to run.
+     * Gets or sets the maximum amount of time that the task launched by this trigger is allowed to run. (Put)
      * @remarks
-     * 
      * The format for this string is PnYnMnDTnHnMnS, where nY is the number of years, nM is the number of months, nD is the number of days, 'T' is the date/time separator, nH is the number of hours, nM is the number of minutes, and nS is the number of seconds (for example, PT5M specifies 5 minutes and P1M4DT2H5M specifies one month, four days, two hours, and five minutes).
      * 
      * When reading or writing XML for a task, the execution time limit is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-executiontimelimit-triggerbasetype-element">ExecutionTimeLimit</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} timelimit 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-put_executiontimelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-put_executiontimelimit
      */
     put_ExecutionTimeLimit(timelimit) {
-        timelimit := timelimit is String ? BSTR.Alloc(timelimit).Value : timelimit
+        if(timelimit is String) {
+            pin := BSTR.Alloc(timelimit)
+            timelimit := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", timelimit, "HRESULT")
+        result := ComCall(13, this, "ptr", timelimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the date and time when the trigger is activated.
+     * Gets or sets the date and time when the trigger is activated. (Get)
      * @remarks
-     * 
      * The date and time must be in the following format: YYYY-MM-DDTHH:MM:SS(+-)HH:MM. The (+-)HH:MM section of the format defines a certain number of hours and minutes ahead or behind Coordinated Universal Time (UTC). For example the date October 11th, 2005 at 1:21:17 with an offset of eight hours behind UTC would be written as 2005-10-11T13:21:17-08:00. If Z is specified for the UTC offset (for example, 2005-10-11T13:21:17Z), then the no offset from UTC will be used. If you do not specify any offset time or Z for the offset (for example, 2005-10-11T13:21:17), then the time zone and daylight saving information that is set on the local computer will be used.  When an offset is specified (using hours and minutes or Z), then the time and offset are always used regardless of the time zone and daylight saving settings on the local computer.
      * 
      * When reading or writing XML for a task, the trigger start boundary is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element">StartBoundary</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pStart 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_startboundary
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_startboundary
      */
     get_StartBoundary(pStart) {
-        result := ComCall(14, this, "ptr", pStart, "HRESULT")
+        result := ComCall(14, this, "ptr", pStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the date and time when the trigger is activated.
+     * Gets or sets the date and time when the trigger is activated. (Put)
      * @remarks
-     * 
      * The date and time must be in the following format: YYYY-MM-DDTHH:MM:SS(+-)HH:MM. The (+-)HH:MM section of the format defines a certain number of hours and minutes ahead or behind Coordinated Universal Time (UTC). For example the date October 11th, 2005 at 1:21:17 with an offset of eight hours behind UTC would be written as 2005-10-11T13:21:17-08:00. If Z is specified for the UTC offset (for example, 2005-10-11T13:21:17Z), then the no offset from UTC will be used. If you do not specify any offset time or Z for the offset (for example, 2005-10-11T13:21:17), then the time zone and daylight saving information that is set on the local computer will be used.  When an offset is specified (using hours and minutes or Z), then the time and offset are always used regardless of the time zone and daylight saving settings on the local computer.
      * 
      * When reading or writing XML for a task, the trigger start boundary is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-startboundary-triggerbasetype-element">StartBoundary</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} start 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-put_startboundary
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-put_startboundary
      */
     put_StartBoundary(start) {
-        start := start is String ? BSTR.Alloc(start).Value : start
+        if(start is String) {
+            pin := BSTR.Alloc(start)
+            start := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", start, "HRESULT")
+        result := ComCall(15, this, "ptr", start, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the date and time when the trigger is deactivated.
+     * Gets or sets the date and time when the trigger is deactivated. (Get)
      * @remarks
-     * 
      * The date and time must be in the following format: YYYY-MM-DDTHH:MM:SS(+-)HH:MM. The (+-)HH:MM section of the format defines a certain number of hours and minutes ahead or behind Coordinated Universal Time (UTC). For example the date October 11th, 2005 at 1:21:17 with an offset of eight hours behind UTC would be written as 2005-10-11T13:21:17-08:00. If Z is specified for the UTC offset (for example, 2005-10-11T13:21:17Z), then the no offset from UTC will be used. If you do not specify any offset time or Z for the offset (for example, 2005-10-11T13:21:17), then the time zone and daylight saving information that is set on the local computer will be used.  When an offset is specified (using hours and minutes or Z), then the time and offset are always used regardless of the time zone and daylight saving settings on the local computer.
      * 
      * When reading or writing XML for a task, the trigger end boundary is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-endboundary-triggerbasetype-element">EndBoundary</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pEnd 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_endboundary
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_endboundary
      */
     get_EndBoundary(pEnd) {
-        result := ComCall(16, this, "ptr", pEnd, "HRESULT")
+        result := ComCall(16, this, "ptr", pEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the date and time when the trigger is deactivated.
+     * Gets or sets the date and time when the trigger is deactivated. (Put)
      * @remarks
-     * 
      * The date and time must be in the following format: YYYY-MM-DDTHH:MM:SS(+-)HH:MM. The (+-)HH:MM section of the format defines a certain number of hours and minutes ahead or behind Coordinated Universal Time (UTC). For example the date October 11th, 2005 at 1:21:17 with an offset of eight hours behind UTC would be written as 2005-10-11T13:21:17-08:00. If Z is specified for the UTC offset (for example, 2005-10-11T13:21:17Z), then the no offset from UTC will be used. If you do not specify any offset time or Z for the offset (for example, 2005-10-11T13:21:17), then the time zone and daylight saving information that is set on the local computer will be used.  When an offset is specified (using hours and minutes or Z), then the time and offset are always used regardless of the time zone and daylight saving settings on the local computer.
      * 
      * When reading or writing XML for a task, the trigger end boundary is specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-endboundary-triggerbasetype-element">EndBoundary</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} end 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-put_endboundary
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-put_endboundary
      */
     put_EndBoundary(end) {
-        end := end is String ? BSTR.Alloc(end).Value : end
+        if(end is String) {
+            pin := BSTR.Alloc(end)
+            end := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", end, "HRESULT")
+        result := ComCall(17, this, "ptr", end, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a Boolean value that indicates whether the trigger is enabled.
+     * Gets or sets a Boolean value that indicates whether the trigger is enabled. (Get)
      * @remarks
-     * 
      * When reading or writing XML for a task, the enabled property is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-enabled-triggerbasetype-element">Enabled</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<VARIANT_BOOL>} pEnabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-get_enabled
      */
     get_Enabled(pEnabled) {
         pEnabledMarshal := pEnabled is VarRef ? "short*" : "ptr"
 
-        result := ComCall(18, this, pEnabledMarshal, pEnabled, "HRESULT")
+        result := ComCall(18, this, pEnabledMarshal, pEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a Boolean value that indicates whether the trigger is enabled.
+     * Gets or sets a Boolean value that indicates whether the trigger is enabled. (Put)
      * @remarks
-     * 
      * When reading or writing XML for a task, the enabled property is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-enabled-triggerbasetype-element">Enabled</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itrigger-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itrigger-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(19, this, "short", enabled, "HRESULT")
+        result := ComCall(19, this, "short", enabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

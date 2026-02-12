@@ -6,11 +6,8 @@
 /**
  * The IVPNotify2 interface inherits from IVPNotify and is implemented by the Overlay Mixer filter.
  * @remarks
- * 
  * Include Vptype.h before Vpnotify.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nn-vpnotify-ivpnotify2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vpnotify/nn-vpnotify-ivpnotify2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,25 +34,37 @@ class IVPNotify2 extends IVPNotify{
 
     /**
      * The SetVPSyncMaster method sets whether the video port controls vertical synchronization of the VGA.
+     * @remarks
+     * Include Vptype.h before Vpnotify.h.
      * @param {BOOL} bVPSyncMaster Value specifying whether the video port controls the vertical synchronization of the VGA monitor. <b>TRUE</b> if the port controls the monitor's synchronization; <b>FALSE</b> otherwise.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify2-setvpsyncmaster
+     * @see https://learn.microsoft.com/windows/win32/api//content/vpnotify/nf-vpnotify-ivpnotify2-setvpsyncmaster
      */
     SetVPSyncMaster(bVPSyncMaster) {
-        result := ComCall(6, this, "int", bVPSyncMaster, "HRESULT")
+        result := ComCall(6, this, "int", bVPSyncMaster, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetVPSyncMaster method checks whether the video port controls the synchronization of the VGA.
+     * @remarks
+     * Include Vptype.h before Vpnotify.h.
      * @param {Pointer<BOOL>} pbVPSyncMaster Pointer to a value indicating whether the video port controls the vertical synchronization of the VGA monitor. <b>TRUE</b> if the port controls the monitor's synchronization; <b>FALSE</b> otherwise.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify2-getvpsyncmaster
+     * @see https://learn.microsoft.com/windows/win32/api//content/vpnotify/nf-vpnotify-ivpnotify2-getvpsyncmaster
      */
     GetVPSyncMaster(pbVPSyncMaster) {
         pbVPSyncMasterMarshal := pbVPSyncMaster is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pbVPSyncMasterMarshal, pbVPSyncMaster, "HRESULT")
+        result := ComCall(7, this, pbVPSyncMasterMarshal, pbVPSyncMaster, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

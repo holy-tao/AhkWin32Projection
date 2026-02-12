@@ -7,7 +7,7 @@
  * Add a session token to a client context by using this structure as the value of the <i>pInput</i> parameter in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-applycontroltoken">ApplyControlToken</a> function.
  * 
  * This API only applies to Session ID-based reconnects.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_session_token
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-schannel_session_token
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

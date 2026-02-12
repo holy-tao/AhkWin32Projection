@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -25,15 +26,19 @@ class ISpThreadTask extends Win32ComInterface{
     /**
      * 
      * @param {Pointer<Void>} pvTaskData 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {HRESULT} 
      */
-    InitThread(pvTaskData, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    InitThread(pvTaskData, hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, "ptr", hwnd, "HRESULT")
+        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,25 +59,32 @@ class ISpThreadTask extends Win32ComInterface{
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
         pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
 
-        result := ComCall(1, this, pvTaskDataMarshal, pvTaskData, "ptr", hExitThreadEvent, "ptr", hNotifyEvent, "ptr", hwndWorker, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
+        result := ComCall(1, this, pvTaskDataMarshal, pvTaskData, "ptr", hExitThreadEvent, "ptr", hNotifyEvent, "ptr", hwndWorker, pfContinueProcessingMarshal, pfContinueProcessing, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} pvTaskData 
-     * @param {HWND} hWnd 
-     * @param {Integer} Msg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {HWND} hWnd_ 
+     * @param {Integer} Msg_ 
+     * @param {WPARAM} wParam_ 
+     * @param {LPARAM} lParam_ 
      * @returns {LRESULT} 
      */
-    WindowMessage(pvTaskData, hWnd, Msg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    WindowMessage(pvTaskData, hWnd_, Msg_, wParam_, lParam_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
-        return result
+        result := ComCall(2, this, pvTaskDataMarshal, pvTaskData, "ptr", hWnd_, "uint", Msg_, "ptr", wParam_, "ptr", lParam_, "ptr")
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 }

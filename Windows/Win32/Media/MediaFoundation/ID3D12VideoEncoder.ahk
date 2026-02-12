@@ -4,8 +4,10 @@
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoencoder
+ * Represents a Direct3D 12 video encoder.
+ * @remarks
+ * Get an instance of this class by calling [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nn-d3d12video-id3d12videoencoder
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,9 +33,9 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
     static VTableNames => ["GetNodeMask", "GetEncoderFlags", "GetCodec", "GetCodecProfile", "GetCodecConfiguration", "GetInputFormat", "GetMaxMotionEstimationPrecision"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getnodemask
+     * Gets the node mask for the video encoder.
+     * @returns {Integer} The node mask value specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getnodemask
      */
     GetNodeMask() {
         result := ComCall(8, this, "uint")
@@ -41,9 +43,9 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getencoderflags
+     * Gets the encoder flags with which the video encoder was initialized.
+     * @returns {Integer} The bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_FLAGS](ne-d3d12video-d3d12_video_encoder_flags.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getencoderflags
      */
     GetEncoderFlags() {
         result := ComCall(9, this, "int")
@@ -51,9 +53,9 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getcodec
+     * Gets the codec associated with the video encoder.
+     * @returns {Integer} The value from the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getcodec
      */
     GetCodec() {
         result := ComCall(10, this, "int")
@@ -61,31 +63,39 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @param {D3D12_VIDEO_ENCODER_PROFILE_DESC} dstProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getcodecprofile
+     * Gets the codec profile associated with the video encoder.
+     * @param {D3D12_VIDEO_ENCODER_PROFILE_DESC} dstProfile Receives a [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure representing the codec profile specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @returns {HRESULT} Returns S_OK on success.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getcodecprofile
      */
     GetCodecProfile(dstProfile) {
-        result := ComCall(11, this, "ptr", dstProfile, "HRESULT")
+        result := ComCall(11, this, "ptr", dstProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION} dstCodecConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getcodecconfiguration
+     * Gets the codec configuration parameters associated with the video encoder.
+     * @param {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION} dstCodecConfig Receives a [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION](ns-d3d12video-d3d12_video_encoder_codec_configuration.md) structure representing the codec configuration parameters specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @returns {HRESULT} Returns S_OK on success.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getcodecconfiguration
      */
     GetCodecConfiguration(dstCodecConfig) {
-        result := ComCall(12, this, "ptr", dstCodecConfig, "HRESULT")
+        result := ComCall(12, this, "ptr", dstCodecConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getinputformat
+     * Gets the input format of the video encoder.
+     * @returns {Integer} The [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) value specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getinputformat
      */
     GetInputFormat() {
         result := ComCall(13, this, "int")
@@ -93,9 +103,9 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getmaxmotionestimationprecision
+     * Gets the maximum motion estimation precision of the video encoder.
+     * @returns {Integer} The value from the [D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE](ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencoder-getmaxmotionestimationprecision
      */
     GetMaxMotionEstimationPrecision() {
         result := ComCall(14, this, "int")

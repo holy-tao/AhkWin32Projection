@@ -40,7 +40,11 @@ class IHTMLStyleSheetRuleApplied extends IDispatch{
      * @returns {Integer} 
      */
     get_msSpecificity() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -50,7 +54,11 @@ class IHTMLStyleSheetRuleApplied extends IDispatch{
      * @returns {Integer} 
      */
     msGetSpecificity(index) {
-        result := ComCall(8, this, "int", index, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int", index, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

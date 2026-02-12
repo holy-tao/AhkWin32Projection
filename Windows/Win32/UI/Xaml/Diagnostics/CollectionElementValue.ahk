@@ -4,7 +4,7 @@
 
 /**
  * Represents an element in a collection.
- * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-collectionelementvalue
+ * @see https://learn.microsoft.com/windows/win32/api//content/xamlom/ns-xamlom-collectionelementvalue
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */

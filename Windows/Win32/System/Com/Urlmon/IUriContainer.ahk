@@ -34,7 +34,11 @@ class IUriContainer extends IUnknown{
      * @returns {IUri} 
      */
     GetIUri() {
-        result := ComCall(3, this, "ptr*", &ppIUri := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppIUri := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUri(ppIUri)
     }
 }

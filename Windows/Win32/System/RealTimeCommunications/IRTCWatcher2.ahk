@@ -48,7 +48,11 @@ class IRTCWatcher2 extends IRTCWatcher{
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
-        result := ComCall(13, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile2(ppProfile)
     }
 
@@ -57,7 +61,11 @@ class IRTCWatcher2 extends IRTCWatcher{
      * @returns {Integer} 
      */
     get_Scope() {
-        result := ComCall(14, this, "int*", &penScope := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &penScope := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penScope
     }
 }

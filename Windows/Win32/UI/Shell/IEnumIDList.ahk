@@ -7,12 +7,10 @@
 /**
  * Exposes a standard set of methods used to enumerate the pointers to item identifier lists (PIDLs) of the items in a Shell folder.
  * @remarks
- * 
  * All Shell folder objects must be able to respond to a call to their <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-enumobjects">IShellFolder::EnumObjects</a> method by creating an enumeration object that exports <b>IEnumIDList</b>. The Shell, in particular, uses these objects to enumerate the items in a folder.
  * 
  * Use this interface to enumerate the contents of a Shell folder object. Call the folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-enumobjects">IShellFolder::EnumObjects</a> method and use the returned <b>IEnumIDList</b> pointer to enumerate the PIDLs of the items in the folder.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ienumidlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ienumidlist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,6 +37,10 @@ class IEnumIDList extends IUnknown{
 
     /**
      * Retrieves the specified number of item identifiers in the enumeration sequence and advances the current position by the number of items retrieved.
+     * @remarks
+     * If this method returns a Component Object Model (COM) error code (as determined by the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macro), then no entries in the <i>rgelt</i> array are valid on exit. If this method returns a success code (such as S_OK or S_FALSE), then the <b>ULONG</b> pointed to by the <i>pceltFetched</i> parameter determines how many entries in the <i>rgelt</i> array are valid on exit.
+     * 
+     * The distinction is important in the case where <i>celt</i> &gt; 1. For example, if you pass <i>celt</i>=10 and there are only 3 elements left, *<i>pceltFetched</i> will be 3 and the method will return S_FALSE meaning that you reached the end of the file. The three fetched elements will be stored into <i>rgelt</i> and are valid.
      * @param {Integer} celt Type: <b>ULONG</b>
      * 
      * The number of elements in the array referenced by the <i>rgelt</i> parameter.
@@ -61,7 +63,7 @@ class IEnumIDList extends IUnknown{
      * S_FALSE indicates that more items were requested than remained in the enumeration. The value pointed to by the <i>pceltFetched</i> parameter specifies the actual number of items retrieved. Note that the value will be 0 if there are no more items to retrieve.
      * 
      * Returns a COM-defined error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumidlist-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ienumidlist-next
      */
     Next(celt, rgelt, pceltFetched) {
         rgeltMarshal := rgelt is VarRef ? "ptr*" : "ptr"
@@ -79,7 +81,7 @@ class IEnumIDList extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumidlist-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ienumidlist-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -91,7 +93,7 @@ class IEnumIDList extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumidlist-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ienumidlist-reset
      */
     Reset() {
         result := ComCall(5, this, "int")
@@ -99,11 +101,13 @@ class IEnumIDList extends IUnknown{
     }
 
     /**
-     * Creates a new item enumeration object with the same contents and state as the current one.
+     * Creates a new item enumeration object with the same contents and state as the current one. (IEnumIDList.Clone)
+     * @remarks
+     * This method makes it possible to record a particular point in the enumeration sequence and then return to that point at a later time.
      * @returns {IEnumIDList} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumidlist">IEnumIDList</a>**</b>
      * 
      * The address of a pointer to the new enumeration object. The calling application must eventually free the new object by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> member function.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumidlist-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ienumidlist-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "int")

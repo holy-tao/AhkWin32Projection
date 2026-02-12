@@ -3,7 +3,7 @@
 
 /**
  * The DRMTIMETYPE enumeration specifies a time type.
- * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ne-msdrmdefs-drmtimetype
+ * @see https://learn.microsoft.com/windows/win32/api//content/msdrmdefs/ne-msdrmdefs-drmtimetype
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

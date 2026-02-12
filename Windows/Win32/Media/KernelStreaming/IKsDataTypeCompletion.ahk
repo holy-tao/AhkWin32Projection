@@ -38,7 +38,11 @@ class IKsDataTypeCompletion extends IUnknown{
     KsCompleteMediaType(FilterHandle, PinFactoryId, AmMediaType) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        result := ComCall(3, this, "ptr", FilterHandle, "uint", PinFactoryId, "ptr", AmMediaType, "HRESULT")
+        result := ComCall(3, this, "ptr", FilterHandle, "uint", PinFactoryId, "ptr", AmMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

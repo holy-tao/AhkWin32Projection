@@ -22,7 +22,7 @@
  * Create a shader-resource-view description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nf-d3d10_1-id3d10device1-createshaderresourceview1">ID3D10Device1::CreateShaderResourceView1</a>. To view a shader-resource-view description, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10shaderresourceview-getdesc">ID3D10ShaderResourceView::GetDesc</a>.
  * 
  * This structure requires Windows Vista Service Pack 1.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_shader_resource_view_desc1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10_1/ns-d3d10_1-d3d10_shader_resource_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

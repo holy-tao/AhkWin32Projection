@@ -41,7 +41,11 @@ class IPMExtensionInfoEnumerator extends IUnknown{
      * @returns {IPMExtensionInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppExtensionInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppExtensionInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMExtensionInfo(ppExtensionInfo)
     }
 }

@@ -5,7 +5,7 @@
  * Specifies flags for a 3D12_VIDEO_ENCODER_RATE_CONTROL structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_rate_control_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_rate_control_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

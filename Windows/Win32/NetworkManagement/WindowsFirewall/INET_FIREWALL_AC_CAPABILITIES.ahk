@@ -3,7 +3,7 @@
 
 /**
  * The INET_FIREWALL_AC_CAPABILITIES structure contains information about the capabilities of an app container.
- * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_ac_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/ns-netfw-inet_firewall_ac_capabilities
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

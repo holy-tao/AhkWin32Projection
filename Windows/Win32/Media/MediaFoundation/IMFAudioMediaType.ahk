@@ -6,7 +6,6 @@
 /**
  * IMFAudioMediaType is no longer available for use as of Windows 7.
  * @remarks
- * 
  * <b>Windows Server 2008 and Windows Vista:  </b>If the major type of a media type is <b>MFMediaType_Audio</b>, you can query the media type object for the <b>IMFAudioMediaType</b> interface.
  * 
  * To convert an audio media type into a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatewaveformatexfrommfmediatype">MFCreateWaveFormatExFromMFMediaType</a>.
@@ -17,9 +16,7 @@
  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfaudiomediatype
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imfaudiomediatype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -46,8 +43,19 @@ class IMFAudioMediaType extends IMFMediaType{
 
     /**
      * GetAudioFormat is no longer available for use as of Windows 7.
-     * @returns {Pointer<WAVEFORMATEX>} This method returns a pointer to a <a href="/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfaudiomediatype-getaudioformat
+     * @remarks
+     * If you need to convert the media type into a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatewaveformatexfrommfmediatype">MFCreateWaveFormatExFromMFMediaType</a>.
+     * 
+     * There are no guarantees about how long the returned pointer is valid.
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
+     * @returns {Pointer<WAVEFORMATEX>} This method returns a pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfaudiomediatype-getaudioformat
      */
     GetAudioFormat() {
         result := ComCall(38, this, "ptr")

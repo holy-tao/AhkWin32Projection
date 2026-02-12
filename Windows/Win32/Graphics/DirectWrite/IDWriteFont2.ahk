@@ -4,8 +4,8 @@
 #Include .\IDWriteFont1.ahk
 
 /**
- * Represents a physical font in a font collection.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritefont2
+ * Represents a physical font in a font collection. (IDWriteFont2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nn-dwrite_2-idwritefont2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IDWriteFont2 extends IDWriteFont1{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the font has color information (COLR and CPAL tables); otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefont2-iscolorfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefont2-iscolorfont
      */
     IsColorFont() {
         result := ComCall(18, this, "int")

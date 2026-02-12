@@ -15,7 +15,7 @@
  * D:(A;;GX;;;S-1-0-0)(A;;GA;;;S-1-5-11)
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_urlacl_param
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_service_config_urlacl_param
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

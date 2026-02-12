@@ -34,7 +34,11 @@ class IWrappedProtocol extends IUnknown{
      * @returns {Integer} 
      */
     GetWrapperCode(dwReserved) {
-        result := ComCall(3, this, "int*", &pnCode := 0, "ptr", dwReserved, "HRESULT")
+        result := ComCall(3, this, "int*", &pnCode := 0, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnCode
     }
 }

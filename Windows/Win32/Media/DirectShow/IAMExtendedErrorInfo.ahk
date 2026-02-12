@@ -6,12 +6,10 @@
 /**
  * The IAMExtendedErrorInfo interface is used to obtain error information. Note  This interface is not implemented by any default components in DirectShow. .
  * @remarks
- * 
  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
  * 
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-iamextendederrorinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nn-qnetwork-iamextendederrorinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -56,25 +54,37 @@ class IAMExtendedErrorInfo extends IDispatch{
 
     /**
      * The get_HasError method queries whether an error occurred.
+     * @remarks
+     * If <i>pHasError</i> is true, you can call the <b>get_ErrorCode</b> and <b>get_ErrorDescription</b> methods to determine the nature of the error.
      * @param {Pointer<VARIANT_BOOL>} pHasError 
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendederrorinfo-get_haserror
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamextendederrorinfo-get_haserror
      */
     get_HasError(pHasError) {
         pHasErrorMarshal := pHasError is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, pHasErrorMarshal, pHasError, "HRESULT")
+        result := ComCall(7, this, pHasErrorMarshal, pHasError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_ErrorDescription method retrieves the extended error description.
+     * @remarks
+     * The caller must release the returned <b>BSTR</b> by calling <b>SysFreeString</b>.
      * @param {Pointer<BSTR>} pbstrErrorDescription Pointer to a variable that receives the error description.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendederrorinfo-get_errordescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamextendederrorinfo-get_errordescription
      */
     get_ErrorDescription(pbstrErrorDescription) {
-        result := ComCall(8, this, "ptr", pbstrErrorDescription, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrErrorDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,12 +92,16 @@ class IAMExtendedErrorInfo extends IDispatch{
      * The get_ErrorCode method retrieves the current error code.
      * @param {Pointer<Integer>} pErrorCode Pointer to a variable that receives the error code.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendederrorinfo-get_errorcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamextendederrorinfo-get_errorcode
      */
     get_ErrorCode(pErrorCode) {
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pErrorCodeMarshal, pErrorCode, "HRESULT")
+        result := ComCall(9, this, pErrorCodeMarshal, pErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

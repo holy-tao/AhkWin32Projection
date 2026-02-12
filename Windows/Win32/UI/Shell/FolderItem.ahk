@@ -6,8 +6,8 @@
 #Include .\FolderItemVerbs.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/folderitem
+ * Represents an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the item.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -136,7 +136,11 @@ class FolderItem extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Application() {
-        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -145,7 +149,11 @@ class FolderItem extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -155,7 +163,11 @@ class FolderItem extends IDispatch{
      */
     get_Name() {
         pbs := BSTR()
-        result := ComCall(9, this, "ptr", pbs, "HRESULT")
+        result := ComCall(9, this, "ptr", pbs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbs
     }
 
@@ -165,9 +177,16 @@ class FolderItem extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Name(bs) {
-        bs := bs is String ? BSTR.Alloc(bs).Value : bs
+        if(bs is String) {
+            pin := BSTR.Alloc(bs)
+            bs := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bs, "HRESULT")
+        result := ComCall(10, this, "ptr", bs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +196,11 @@ class FolderItem extends IDispatch{
      */
     get_Path() {
         pbs := BSTR()
-        result := ComCall(11, this, "ptr", pbs, "HRESULT")
+        result := ComCall(11, this, "ptr", pbs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbs
     }
 
@@ -186,7 +209,11 @@ class FolderItem extends IDispatch{
      * @returns {IDispatch} 
      */
     get_GetLink() {
-        result := ComCall(12, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -195,7 +222,11 @@ class FolderItem extends IDispatch{
      * @returns {IDispatch} 
      */
     get_GetFolder() {
-        result := ComCall(13, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -204,7 +235,11 @@ class FolderItem extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsLink() {
-        result := ComCall(14, this, "short*", &pb := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &pb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pb
     }
 
@@ -213,7 +248,11 @@ class FolderItem extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsFolder() {
-        result := ComCall(15, this, "short*", &pb := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &pb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pb
     }
 
@@ -222,7 +261,11 @@ class FolderItem extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsFileSystem() {
-        result := ComCall(16, this, "short*", &pb := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &pb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pb
     }
 
@@ -231,7 +274,11 @@ class FolderItem extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsBrowsable() {
-        result := ComCall(17, this, "short*", &pb := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &pb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pb
     }
 
@@ -240,7 +287,11 @@ class FolderItem extends IDispatch{
      * @returns {Float} 
      */
     get_ModifyDate() {
-        result := ComCall(18, this, "double*", &pdt := 0, "HRESULT")
+        result := ComCall(18, this, "double*", &pdt := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdt
     }
 
@@ -250,7 +301,11 @@ class FolderItem extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ModifyDate(dt) {
-        result := ComCall(19, this, "double", dt, "HRESULT")
+        result := ComCall(19, this, "double", dt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -259,7 +314,11 @@ class FolderItem extends IDispatch{
      * @returns {Integer} 
      */
     get_Size() {
-        result := ComCall(20, this, "int*", &pul := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pul := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pul
     }
 
@@ -269,28 +328,46 @@ class FolderItem extends IDispatch{
      */
     get_Type() {
         pbs := BSTR()
-        result := ComCall(21, this, "ptr", pbs, "HRESULT")
+        result := ComCall(21, this, "ptr", pbs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbs
     }
 
     /**
-     * 
+     * Retrieves the item's FolderItemVerbs object. This object is the collection of verbs that can be executed on the item.
      * @returns {FolderItemVerbs} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitem-verbs
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitem-verbs
      */
     Verbs() {
-        result := ComCall(22, this, "ptr*", &ppfic := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &ppfic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItemVerbs(ppfic)
     }
 
     /**
+     * Executes a verb on the item.
+     * @remarks
+     * A verb is a string used to specify a particular action that an item supports. Invoking a verb is equivalent to selecting a command from an item's shortcut menu. Typically, invoking a verb launches a related application. For example, invoking the "open" verb on a .txt file opens the file with a text editor, usually Microsoft Notepad. See [Launching Applications](launch.md) for further discussion of verbs.
      * 
-     * @param {VARIANT} vVerb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitem-invokeverb
+     * The [**FolderItemVerbs**](folderitemverbs.md) object represents the collection of verbs associated with the item. The default verb may vary for different items, but it is typically "open".
+     * @param {VARIANT} vVerb Type: **Variant**
+     * 
+     * A string that specifies the verb to be executed. It must be one of the values returned by the item's [**FolderItemVerb.Name**](folderitemverb-name.md) property. If no verb is specified, the default verb will be invoked.
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitem-invokeverb
      */
     InvokeVerb(vVerb) {
-        result := ComCall(23, this, "ptr", vVerb, "HRESULT")
+        result := ComCall(23, this, "ptr", vVerb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

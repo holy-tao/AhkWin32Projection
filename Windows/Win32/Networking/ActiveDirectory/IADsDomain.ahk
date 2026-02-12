@@ -6,11 +6,8 @@
 /**
  * The IADsDomain interface is a dual interface that inherits from IADs.
  * @remarks
- * 
  * For the WinNT provider supplied by Microsoft, this interface is implemented on the <b>WinNTDomain</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsdomain
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsdomain
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -111,7 +108,11 @@ class IADsDomain extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_IsWorkgroup() {
-        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -120,7 +121,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_MinPasswordLength() {
-        result := ComCall(21, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -130,7 +135,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_MinPasswordLength(lnMinPasswordLength) {
-        result := ComCall(22, this, "int", lnMinPasswordLength, "HRESULT")
+        result := ComCall(22, this, "int", lnMinPasswordLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +148,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_MinPasswordAge() {
-        result := ComCall(23, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -149,7 +162,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_MinPasswordAge(lnMinPasswordAge) {
-        result := ComCall(24, this, "int", lnMinPasswordAge, "HRESULT")
+        result := ComCall(24, this, "int", lnMinPasswordAge, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +175,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_MaxPasswordAge() {
-        result := ComCall(25, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -168,7 +189,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_MaxPasswordAge(lnMaxPasswordAge) {
-        result := ComCall(26, this, "int", lnMaxPasswordAge, "HRESULT")
+        result := ComCall(26, this, "int", lnMaxPasswordAge, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +202,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_MaxBadPasswordsAllowed() {
-        result := ComCall(27, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -187,7 +216,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_MaxBadPasswordsAllowed(lnMaxBadPasswordsAllowed) {
-        result := ComCall(28, this, "int", lnMaxBadPasswordsAllowed, "HRESULT")
+        result := ComCall(28, this, "int", lnMaxBadPasswordsAllowed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +229,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_PasswordHistoryLength() {
-        result := ComCall(29, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -206,7 +243,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_PasswordHistoryLength(lnPasswordHistoryLength) {
-        result := ComCall(30, this, "int", lnPasswordHistoryLength, "HRESULT")
+        result := ComCall(30, this, "int", lnPasswordHistoryLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,7 +256,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_PasswordAttributes() {
-        result := ComCall(31, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -225,7 +270,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_PasswordAttributes(lnPasswordAttributes) {
-        result := ComCall(32, this, "int", lnPasswordAttributes, "HRESULT")
+        result := ComCall(32, this, "int", lnPasswordAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,7 +283,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_AutoUnlockInterval() {
-        result := ComCall(33, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(33, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -244,7 +297,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_AutoUnlockInterval(lnAutoUnlockInterval) {
-        result := ComCall(34, this, "int", lnAutoUnlockInterval, "HRESULT")
+        result := ComCall(34, this, "int", lnAutoUnlockInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +310,11 @@ class IADsDomain extends IADs{
      * @returns {Integer} 
      */
     get_LockoutObservationInterval() {
-        result := ComCall(35, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(35, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -263,7 +324,11 @@ class IADsDomain extends IADs{
      * @returns {HRESULT} 
      */
     put_LockoutObservationInterval(lnLockoutObservationInterval) {
-        result := ComCall(36, this, "int", lnLockoutObservationInterval, "HRESULT")
+        result := ComCall(36, this, "int", lnLockoutObservationInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

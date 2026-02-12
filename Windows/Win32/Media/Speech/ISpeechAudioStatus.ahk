@@ -69,7 +69,11 @@ class ISpeechAudioStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_FreeBufferSpace() {
-        result := ComCall(7, this, "int*", &FreeBufferSpace := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &FreeBufferSpace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FreeBufferSpace
     }
 
@@ -78,7 +82,11 @@ class ISpeechAudioStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_NonBlockingIO() {
-        result := ComCall(8, this, "int*", &NonBlockingIO := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &NonBlockingIO := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NonBlockingIO
     }
 
@@ -87,7 +95,11 @@ class ISpeechAudioStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(9, this, "int*", &State := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &State := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return State
     }
 
@@ -97,7 +109,11 @@ class ISpeechAudioStatus extends IDispatch{
      */
     get_CurrentSeekPosition() {
         CurrentSeekPosition := VARIANT()
-        result := ComCall(10, this, "ptr", CurrentSeekPosition, "HRESULT")
+        result := ComCall(10, this, "ptr", CurrentSeekPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return CurrentSeekPosition
     }
 
@@ -107,7 +123,11 @@ class ISpeechAudioStatus extends IDispatch{
      */
     get_CurrentDevicePosition() {
         CurrentDevicePosition := VARIANT()
-        result := ComCall(11, this, "ptr", CurrentDevicePosition, "HRESULT")
+        result := ComCall(11, this, "ptr", CurrentDevicePosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return CurrentDevicePosition
     }
 }

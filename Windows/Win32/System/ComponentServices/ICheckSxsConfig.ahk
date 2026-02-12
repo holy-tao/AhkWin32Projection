@@ -4,8 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-ichecksxsconfig
+ * Used to check the configuration of the current side-by-side assembly.
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-ichecksxsconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -66,14 +66,18 @@ class ICheckSxsConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ichecksxsconfig-issamesxsconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-ichecksxsconfig-issamesxsconfig
      */
     IsSameSxsConfig(wszSxsName, wszSxsDirectory, wszSxsAppName) {
         wszSxsName := wszSxsName is String ? StrPtr(wszSxsName) : wszSxsName
         wszSxsDirectory := wszSxsDirectory is String ? StrPtr(wszSxsDirectory) : wszSxsDirectory
         wszSxsAppName := wszSxsAppName is String ? StrPtr(wszSxsAppName) : wszSxsAppName
 
-        result := ComCall(3, this, "ptr", wszSxsName, "ptr", wszSxsDirectory, "ptr", wszSxsAppName, "HRESULT")
+        result := ComCall(3, this, "ptr", wszSxsName, "ptr", wszSxsDirectory, "ptr", wszSxsAppName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

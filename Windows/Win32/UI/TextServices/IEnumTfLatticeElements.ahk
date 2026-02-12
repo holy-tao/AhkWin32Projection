@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfLatticeElements interface is implemented by the TSF manager to provide an enumeration of lattice elements.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-ienumtflatticeelements
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-ienumtflatticeelements
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IEnumTfLatticeElements extends IUnknown{
     /**
      * IEnumTfLatticeElements::Clone method
      * @returns {IEnumTfLatticeElements} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-ienumtflatticeelements">IEnumTfLatticeElements</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-ienumtflatticeelements-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-ienumtflatticeelements-clone
      */
     Clone() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfLatticeElements(ppEnum)
     }
 
@@ -89,12 +93,16 @@ class IEnumTfLatticeElements extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-ienumtflatticeelements-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-ienumtflatticeelements-next
      */
     Next(ulCount, rgsElements, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr", rgsElements, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, "ptr", rgsElements, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,10 +127,14 @@ class IEnumTfLatticeElements extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-ienumtflatticeelements-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-ienumtflatticeelements-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -159,10 +171,14 @@ class IEnumTfLatticeElements extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-ienumtflatticeelements-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-ienumtflatticeelements-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

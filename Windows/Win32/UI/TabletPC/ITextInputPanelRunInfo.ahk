@@ -6,11 +6,8 @@
 /**
  * Provides a method to determine if the Text Input Panel is currently running.
  * @remarks
- * 
  * This element is declared in Peninputpanel.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nn-peninputpanel-itextinputpanelruninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nn-peninputpanel-itextinputpanelruninfo
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -38,10 +35,14 @@ class ITextInputPanelRunInfo extends IUnknown{
     /**
      * Indicates if the Tablet PC Input Panel is running at the time the method is called.
      * @returns {BOOL} <b>TRUE</b> if the Input Panel was running, otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpanelruninfo-istiprunning
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpanelruninfo-istiprunning
      */
     IsTipRunning() {
-        result := ComCall(3, this, "int*", &pfRunning := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfRunning := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRunning
     }
 }

@@ -66,7 +66,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {Integer} 
      */
     get_HardwareKeyUsage() {
-        result := ComCall(65, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(65, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -76,7 +80,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     put_HardwareKeyUsage(Value) {
-        result := ComCall(66, this, "int", Value, "HRESULT")
+        result := ComCall(66, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +94,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      */
     get_AlternateStorageLocation() {
         pValue := BSTR()
-        result := ComCall(67, this, "ptr", pValue, "HRESULT")
+        result := ComCall(67, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -96,9 +108,16 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     put_AlternateStorageLocation(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(68, this, "ptr", Value, "HRESULT")
+        result := ComCall(68, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +127,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      */
     get_AlgorithmName() {
         pValue := BSTR()
-        result := ComCall(69, this, "ptr", pValue, "HRESULT")
+        result := ComCall(69, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -118,9 +141,16 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     put_AlgorithmName(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(70, this, "ptr", Value, "HRESULT")
+        result := ComCall(70, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +161,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      */
     get_AlgorithmParameters(Encoding) {
         pValue := BSTR()
-        result := ComCall(71, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(71, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -142,9 +176,16 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     put_AlgorithmParameters(Encoding, Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(72, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(72, this, "int", Encoding, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +194,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {Integer} 
      */
     get_ParametersExportType() {
-        result := ComCall(73, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(73, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -163,7 +208,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
      * @returns {HRESULT} 
      */
     put_ParametersExportType(Value) {
-        result := ComCall(74, this, "int", Value, "HRESULT")
+        result := ComCall(74, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

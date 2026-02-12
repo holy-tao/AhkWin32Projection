@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SP_CLASSINSTALL_HEADER.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -71,9 +72,12 @@ class SP_INSTALLWIZARD_DATA extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    PrivateData {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+    PrivateData{
+        get {
+            if(!this.HasProp("__PrivateData"))
+                this.__PrivateData := LPARAM(192, this)
+            return this.__PrivateData
+        }
     }
 
     /**

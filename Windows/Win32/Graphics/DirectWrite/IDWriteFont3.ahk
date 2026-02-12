@@ -7,7 +7,7 @@
 
 /**
  * Represents a font in a font collection.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefont3
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefont3
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,42 +33,50 @@ class IDWriteFont3 extends IDWriteFont2{
     static VTableNames => ["CreateFontFace", "Equals", "GetFontFaceReference", "HasCharacter", "GetLocality"]
 
     /**
-     * Creates a font face object for the font.
-     * @returns {IDWriteFontFace3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3">IDWriteFontFace3</a>**</b>
+     * Creates a font face object for the font. (IDWriteFont3.CreateFontFace)
+     * @returns {Pointer<IDWriteFontFace3>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3">IDWriteFontFace3</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3">IDWriteFontFace3</a> interface for the newly created font face object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefont3-createfontface
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefont3-createfontface
      */
     CreateFontFace() {
-        result := ComCall(19, this, "ptr*", &fontFace := 0, "HRESULT")
-        return IDWriteFontFace3(fontFace)
+        result := ComCall(19, this, "ptr*", &fontFace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFace
     }
 
     /**
      * Compares two instances of font references for equality.
-     * @param {IDWriteFont} font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
+     * @param {IDWriteFont} font_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> interface for the other font instance to compare to this font instance.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether the two instances of font references are equal. Returns <b>TRUE</b> if the two instances are equal; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefont3-equals
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefont3-equals
      */
-    Equals(font) {
-        result := ComCall(20, this, "ptr", font, "int")
+    Equals(font_) {
+        result := ComCall(20, this, "ptr", font_, "int")
         return result
     }
 
     /**
-     * Gets a font face reference that identifies this font.
-     * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
+     * Gets a font face reference that identifies this font. (IDWriteFont3.GetFontFaceReference)
+     * @returns {Pointer<IDWriteFontFaceReference>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a> interface for the newly created font face reference object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefont3-getfontfacereference
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefont3-getfontfacereference
      */
     GetFontFaceReference() {
-        result := ComCall(21, this, "ptr*", &fontFaceReference := 0, "HRESULT")
-        return IDWriteFontFaceReference(fontFaceReference)
+        result := ComCall(21, this, "ptr*", &fontFaceReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFaceReference
     }
 
     /**
@@ -83,10 +91,12 @@ class IDWriteFont3 extends IDWriteFont2{
 
     /**
      * Gets the current locality of the font.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * @remarks
+     * For fully local files, the result will always  be DWRITE_LOCALITY_LOCAL. A downloadable file may be any of the states, and this function may change between calls.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
      * Returns the current locality of the font.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefont3-getlocality
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefont3-getlocality
      */
     GetLocality() {
         result := ComCall(23, this, "int")

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -31421,7 +31423,7 @@ class MsHtml {
     static CMDID_SCRIPTSITE_BASEIURI => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_HTML_CLIENTSITE_OBJECTPARAM => "{d4db6850-5385-11d0-89e9-00a0c90a90ac}"
 

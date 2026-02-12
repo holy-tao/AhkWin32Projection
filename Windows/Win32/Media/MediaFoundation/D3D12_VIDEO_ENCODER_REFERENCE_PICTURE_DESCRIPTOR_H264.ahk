@@ -5,7 +5,7 @@
  * Represents a reference picture descriptor for H.264 video encoding.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_reference_picture_descriptor_h264
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_reference_picture_descriptor_h264
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

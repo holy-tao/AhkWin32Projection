@@ -43,7 +43,11 @@ class IMetaDataWinMDImport extends IUnknown{
         ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : "ptr"
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(3, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

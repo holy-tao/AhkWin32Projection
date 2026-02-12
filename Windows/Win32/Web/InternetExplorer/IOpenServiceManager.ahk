@@ -43,7 +43,11 @@ class IOpenServiceManager extends IUnknown{
     InstallService(pwzServiceUrl) {
         pwzServiceUrl := pwzServiceUrl is String ? StrPtr(pwzServiceUrl) : pwzServiceUrl
 
-        result := ComCall(3, this, "ptr", pwzServiceUrl, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzServiceUrl, "ptr*", &ppService := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpenService(ppService)
     }
 
@@ -53,7 +57,11 @@ class IOpenServiceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     UninstallService(pService) {
-        result := ComCall(4, this, "ptr", pService, "HRESULT")
+        result := ComCall(4, this, "ptr", pService, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class IOpenServiceManager extends IUnknown{
     GetServiceByID(pwzID) {
         pwzID := pwzID is String ? StrPtr(pwzID) : pwzID
 
-        result := ComCall(5, this, "ptr", pwzID, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwzID, "ptr*", &ppService := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpenService(ppService)
     }
 }

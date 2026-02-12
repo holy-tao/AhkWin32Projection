@@ -34,7 +34,11 @@ class IActiveScriptSIPInfo extends IUnknown{
      */
     GetSIPOID() {
         poid_sip := Guid()
-        result := ComCall(3, this, "ptr", poid_sip, "HRESULT")
+        result := ComCall(3, this, "ptr", poid_sip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return poid_sip
     }
 }

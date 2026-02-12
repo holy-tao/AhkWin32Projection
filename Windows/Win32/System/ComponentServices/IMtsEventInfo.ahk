@@ -8,7 +8,7 @@
 
 /**
  * Describes user-defined events.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-imtseventinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-imtseventinfo
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -64,42 +64,58 @@ class IMtsEventInfo extends IDispatch{
     /**
      * Retrieves an enumerator for the names of the data values.
      * @returns {IUnknown} An interface pointer to the enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtseventinfo-get_names
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtseventinfo-get_names
      */
     get_Names() {
-        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pUnk)
     }
 
     /**
      * Retrieves the display name of the object.
      * @returns {BSTR} The display name of the object.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtseventinfo-get_displayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtseventinfo-get_displayname
      */
     get_DisplayName() {
         sDisplayName := BSTR()
-        result := ComCall(8, this, "ptr", sDisplayName, "HRESULT")
+        result := ComCall(8, this, "ptr", sDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return sDisplayName
     }
 
     /**
      * Retrieves the event identifier of the object.
      * @returns {BSTR} The event identifier of the object. This is a GUID converted to a string.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtseventinfo-get_eventid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtseventinfo-get_eventid
      */
     get_EventID() {
         sGuidEventID := BSTR()
-        result := ComCall(9, this, "ptr", sGuidEventID, "HRESULT")
+        result := ComCall(9, this, "ptr", sGuidEventID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return sGuidEventID
     }
 
     /**
      * Retrieves the number of data values from the object.
      * @returns {Integer} The number of data values from the object.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtseventinfo-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtseventinfo-get_count
      */
     get_Count() {
-        result := ComCall(10, this, "int*", &lCount := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &lCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lCount
     }
 
@@ -107,13 +123,20 @@ class IMtsEventInfo extends IDispatch{
      * Retrieves the value of the specified user-defined event.
      * @param {BSTR} sKey The name or ordinal of the value.
      * @returns {VARIANT} The value of the user-defined event.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtseventinfo-get_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imtseventinfo-get_value
      */
     get_Value(sKey) {
-        sKey := sKey is String ? BSTR.Alloc(sKey).Value : sKey
+        if(sKey is String) {
+            pin := BSTR.Alloc(sKey)
+            sKey := pin.Value
+        }
 
         pVal := VARIANT()
-        result := ComCall(11, this, "ptr", sKey, "ptr", pVal, "HRESULT")
+        result := ComCall(11, this, "ptr", sKey, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

@@ -41,7 +41,11 @@ class IVBSAXXMLFilter extends IDispatch{
      * @returns {IVBSAXXMLReader} 
      */
     get_parent() {
-        result := ComCall(7, this, "ptr*", &oReader := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &oReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVBSAXXMLReader(oReader)
     }
 
@@ -51,7 +55,11 @@ class IVBSAXXMLFilter extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_parent(oReader) {
-        result := ComCall(8, this, "ptr", oReader, "HRESULT")
+        result := ComCall(8, this, "ptr", oReader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

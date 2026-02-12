@@ -32,14 +32,24 @@ class IXMLDOMImplementation extends IDispatch{
     /**
      * 
      * @param {BSTR} feature 
-     * @param {BSTR} version 
+     * @param {BSTR} version_ 
      * @returns {VARIANT_BOOL} 
      */
-    hasFeature(feature, version) {
-        feature := feature is String ? BSTR.Alloc(feature).Value : feature
-        version := version is String ? BSTR.Alloc(version).Value : version
+    hasFeature(feature, version_) {
+        if(feature is String) {
+            pin := BSTR.Alloc(feature)
+            feature := pin.Value
+        }
+        if(version_ is String) {
+            pin := BSTR.Alloc(version_)
+            version_ := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", feature, "ptr", version, "short*", &hasFeature := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", feature, "ptr", version_, "short*", &hasFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasFeature
     }
 }

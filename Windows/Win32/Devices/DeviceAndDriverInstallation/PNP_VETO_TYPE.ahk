@@ -140,7 +140,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/cfg/ne-cfg-pnp_veto_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfg/ne-cfg-pnp_veto_type
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

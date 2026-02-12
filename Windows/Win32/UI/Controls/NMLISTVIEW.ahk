@@ -3,10 +3,11 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about a list-view notification message. This structure is the same as the NM_LISTVIEW structure but has been renamed to fit standard naming conventions.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlistview
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmlistview
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -108,8 +109,11 @@ class NMLISTVIEW extends Win32Struct
      * Application-defined value of the item. This member is undefined for notification messages that do not use it.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(56, this)
+            return this.__lParam
+        }
     }
 }

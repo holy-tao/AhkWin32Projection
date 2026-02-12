@@ -5,7 +5,7 @@
 
 /**
  * The IWMReaderTimecode interface provides access to information about SMPTE (Society of Motion Picture and Television Engineers) time code ranges.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreadertimecode
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmreadertimecode
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IWMReaderTimecode extends IUnknown{
      * The GetTimecodeRangeCount method retrieves the total number of SMTPE time code ranges in a specified stream.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. This stream must be indexed by time code.
      * @returns {Integer} Pointer to a <b>WORD</b> containing the number of ranges. If this parameter is 0 on method return, no SMPTE ranges exist in the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
      */
     GetTimecodeRangeCount(wStreamNum) {
-        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pwRangeCount := 0, "HRESULT")
+        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pwRangeCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwRangeCount
     }
 
@@ -66,13 +70,17 @@ class IWMReaderTimecode extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangebounds
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangebounds
      */
     GetTimecodeRangeBounds(wStreamNum, wRangeNum, pStartTimecode, pEndTimecode) {
         pStartTimecodeMarshal := pStartTimecode is VarRef ? "uint*" : "ptr"
         pEndTimecodeMarshal := pEndTimecode is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ushort", wStreamNum, "ushort", wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "HRESULT")
+        result := ComCall(4, this, "ushort", wStreamNum, "ushort", wRangeNum, pStartTimecodeMarshal, pStartTimecode, pEndTimecodeMarshal, pEndTimecode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

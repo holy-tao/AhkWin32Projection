@@ -5,7 +5,7 @@
 
 /**
  * The IMMNotificationClient interface provides notifications when an audio endpoint device is added or removed, when the state or properties of an endpoint device change, or when there is a change in the default role assigned to an endpoint device.
- * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nn-mmdeviceapi-immnotificationclient
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nn-mmdeviceapi-immnotificationclient
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IMMNotificationClient extends IUnknown{
 
     /**
      * The OnDeviceStateChanged method indicates that the state of an audio endpoint device has changed.
+     * @remarks
+     * For a code example that implements the <b>OnDeviceStateChanged</b> method, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-events">Device Events</a>.
      * @param {PWSTR} pwstrDeviceId Pointer to the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/endpoint-id-strings">endpoint ID string</a> that identifies the audio endpoint device. This parameter points to a null-terminated, wide-character string containing the endpoint ID. The string remains valid for the duration of the call.
      * @param {Integer} dwNewState Specifies the new state of the endpoint device. The value of this parameter is one of the following <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX</a> constants:
      * 
@@ -43,43 +45,67 @@ class IMMNotificationClient extends IUnknown{
      * 
      * DEVICE_STATE_UNPLUGGED
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondevicestatechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondevicestatechanged
      */
     OnDeviceStateChanged(pwstrDeviceId, dwNewState) {
         pwstrDeviceId := pwstrDeviceId is String ? StrPtr(pwstrDeviceId) : pwstrDeviceId
 
-        result := ComCall(3, this, "ptr", pwstrDeviceId, "uint", dwNewState, "HRESULT")
+        result := ComCall(3, this, "ptr", pwstrDeviceId, "uint", dwNewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OnDeviceAdded method indicates that a new audio endpoint device has been added.
+     * @remarks
+     * For a code example that implements the <b>OnDeviceAdded</b> method, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-events">Device Events</a>.
      * @param {PWSTR} pwstrDeviceId Pointer to the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/endpoint-id-strings">endpoint ID string</a> that identifies the audio endpoint device. This parameter points to a null-terminated, wide-character string containing the endpoint ID. The string remains valid for the duration of the call.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondeviceadded
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondeviceadded
      */
     OnDeviceAdded(pwstrDeviceId) {
         pwstrDeviceId := pwstrDeviceId is String ? StrPtr(pwstrDeviceId) : pwstrDeviceId
 
-        result := ComCall(4, this, "ptr", pwstrDeviceId, "HRESULT")
+        result := ComCall(4, this, "ptr", pwstrDeviceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OnDeviceRemoved method indicates that an audio endpoint device has been removed.
+     * @remarks
+     * For a code example that implements the <b>OnDeviceRemoved</b> method, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-events">Device Events</a>.
      * @param {PWSTR} pwstrDeviceId Pointer to the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/endpoint-id-strings">endpoint ID string</a> that identifies the audio endpoint device. This parameter points to a null-terminated, wide-character string containing the endpoint ID. The string remains valid for the duration of the call.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondeviceremoved
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondeviceremoved
      */
     OnDeviceRemoved(pwstrDeviceId) {
         pwstrDeviceId := pwstrDeviceId is String ? StrPtr(pwstrDeviceId) : pwstrDeviceId
 
-        result := ComCall(5, this, "ptr", pwstrDeviceId, "HRESULT")
+        result := ComCall(5, this, "ptr", pwstrDeviceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OnDefaultDeviceChanged method notifies the client that the default audio endpoint device for a particular device role has changed.
+     * @remarks
+     * The three input parameters specify the data-flow direction, device role, and endpoint ID string of the new default audio endpoint device.
+     * 
+     * In Windows Vista, the MMDevice API supports device roles but the system-supplied user interface programs do not. The user interface in Windows Vista enables the user to select a default audio device for rendering and a default audio device for capture. When the user changes the default rendering or capture device, the system assigns all three device roles (eConsole, eMultimedia, and eCommunications) to the new device. Thus, when the user changes the default rendering or capture device, the system calls the client's <b>OnDefaultDeviceChanged</b> method three times—once for each of the three device roles.
+     * 
+     * In a future version of Windows, the user interface might enable the user to assign individual roles to different devices. In that case, if the user changes the assignment of only one or two device roles to a new rendering or capture device, the system will call the client's <b>OnDefaultDeviceChanged</b> method only once or twice (that is, one call per changed role). Depending on how the <b>OnDefaultDeviceChanged</b> method responds to role changes, the behavior of an audio application developed to run in Windows Vista might change when run in a future version of Windows. For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles-in-windows-vista">Device Roles in Windows Vista</a>.
+     * 
+     * For a code example that implements the <b>OnDefaultDeviceChanged</b> method, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-events">Device Events</a>.
      * @param {Integer} flow The data-flow direction of the endpoint device. This parameter is set to one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration values:
      * 
      * eRender
@@ -96,26 +122,40 @@ class IMMNotificationClient extends IUnknown{
      * eCommunications
      * @param {PWSTR} pwstrDefaultDeviceId Pointer to the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/endpoint-id-strings">endpoint ID string</a> that identifies the audio endpoint device. This parameter points to a null-terminated, wide-character string containing the endpoint ID. The string remains valid for the duration of the call. If the user has removed or disabled the default device for a particular role, and no other device is available to assume that role, then <i>pwstrDefaultDevice</i> is <b>NULL</b>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondefaultdevicechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-immnotificationclient-ondefaultdevicechanged
      */
     OnDefaultDeviceChanged(flow, role, pwstrDefaultDeviceId) {
         pwstrDefaultDeviceId := pwstrDefaultDeviceId is String ? StrPtr(pwstrDefaultDeviceId) : pwstrDefaultDeviceId
 
-        result := ComCall(6, this, "int", flow, "int", role, "ptr", pwstrDefaultDeviceId, "HRESULT")
+        result := ComCall(6, this, "int", flow, "int", role, "ptr", pwstrDefaultDeviceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OnPropertyValueChanged method indicates that the value of a property belonging to an audio endpoint device has changed.
+     * @remarks
+     * A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb761475(v=vs.85)">IPropertyStore::SetValue</a> method that successfully changes the value of a property of an audio endpoint device generates a call to <b>OnPropertyValueChanged</b>. For more information about <b>IPropertyStore::SetValue</b>, see the Windows SDK documentation.
+     * 
+     * A client can use the <i>key</i> parameter to retrieve the new property value. For a code example that uses a property key to retrieve a property value from the property store of an endpoint device, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-properties">Device Properties</a>.
+     * 
+     * For a code example that implements the <b>OnPropertyValueChanged</b> method, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-events">Device Events</a>.
      * @param {PWSTR} pwstrDeviceId Pointer to the <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/endpoint-id-strings">endpoint ID string</a> that identifies the audio endpoint device. This parameter points to a null-terminated, wide-character string that contains the endpoint ID. The string remains valid for the duration of the call.
      * @param {PROPERTYKEY} key A <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that specifies the property. The structure contains the property-set GUID and an index identifying a property within the set. The structure is passed by value. It remains valid for the duration of the call. For more information about <b>PROPERTYKEY</b>, see the Windows SDK documentation.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immnotificationclient-onpropertyvaluechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-immnotificationclient-onpropertyvaluechanged
      */
     OnPropertyValueChanged(pwstrDeviceId, key) {
         pwstrDeviceId := pwstrDeviceId is String ? StrPtr(pwstrDeviceId) : pwstrDeviceId
 
-        result := ComCall(7, this, "ptr", pwstrDeviceId, "ptr", key, "HRESULT")
+        result := ComCall(7, this, "ptr", pwstrDeviceId, "ptr", key, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

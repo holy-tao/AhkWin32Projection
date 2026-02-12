@@ -7,7 +7,7 @@
 
 /**
  * Exposes properties that the Remote Desktop Connection Broker uses to set a plugin’s queue.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbtaskinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbtaskinfo
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -98,97 +98,133 @@ class ITsSbTaskInfo extends IUnknown{
     /**
      * Retrieves the target identifier.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_targetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_targetid
      */
     get_TargetId() {
         pName := BSTR()
-        result := ComCall(3, this, "ptr", pName, "HRESULT")
+        result := ComCall(3, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pName
     }
 
     /**
      * Retrieves the earliest time the task agent can start the task.
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_starttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_starttime
      */
     get_StartTime() {
         pStartTime := FILETIME()
-        result := ComCall(4, this, "ptr", pStartTime, "HRESULT")
+        result := ComCall(4, this, "ptr", pStartTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStartTime
     }
 
     /**
      * Retrieves the latest time the task agent can start the task.
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_endtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_endtime
      */
     get_EndTime() {
         pEndTime := FILETIME()
-        result := ComCall(5, this, "ptr", pEndTime, "HRESULT")
+        result := ComCall(5, this, "ptr", pEndTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEndTime
     }
 
     /**
      * Retrieves the time by which the task must be initiated. This is used to prioritize patches. The patch with the earliest deadline will get initiated first.
      * @returns {FILETIME} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_deadline
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_deadline
      */
     get_Deadline() {
         pDeadline := FILETIME()
-        result := ComCall(6, this, "ptr", pDeadline, "HRESULT")
+        result := ComCall(6, this, "ptr", pDeadline, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDeadline
     }
 
     /**
      * Retrieves a GUID that is used as a unique identifier by the task agent.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_identifier
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_identifier
      */
     get_Identifier() {
         pIdentifier := BSTR()
-        result := ComCall(7, this, "ptr", pIdentifier, "HRESULT")
+        result := ComCall(7, this, "ptr", pIdentifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIdentifier
     }
 
     /**
      * Retrieves the label that describes the purpose of the task.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_label
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_label
      */
     get_Label() {
         pLabel := BSTR()
-        result := ComCall(8, this, "ptr", pLabel, "HRESULT")
+        result := ComCall(8, this, "ptr", pLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLabel
     }
 
     /**
      * Retrieves the context bytes associated with the task.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_context
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_context
      */
     get_Context() {
-        result := ComCall(9, this, "ptr*", &pContext := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &pContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pContext
     }
 
     /**
      * Retrieves the display name of the task agent.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_plugin
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_plugin
      */
     get_Plugin() {
         pPlugin := BSTR()
-        result := ComCall(10, this, "ptr", pPlugin, "HRESULT")
+        result := ComCall(10, this, "ptr", pPlugin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPlugin
     }
 
     /**
      * Retrieves an RDV_TASK_STATUS enumeration value that represents the state of the task.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskinfo-get_status
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskinfo-get_status
      */
     get_Status() {
-        result := ComCall(11, this, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 }

@@ -6,7 +6,6 @@
 /**
  * Callback interface to receive data from the capture engine.
  * @remarks
- * 
  * To set the callback interface, call one of the following methods.
  * 
  * <ul>
@@ -20,9 +19,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturerecordsink-setsamplecallback">IMFCaptureRecordSink::SetSampleCallback</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -50,11 +47,15 @@ class IMFCaptureEngineOnSampleCallback extends IUnknown{
     /**
      * Called when the capture sink receives a sample.
      * @param {IMFSample} pSample A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface. Use this interface to get the time stamp, duration, and stream data. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-samples">Media Samples</a>. This parameter can be <b>NULL</b>, so make sure to check for a <b>NULL</b> value before you dereference the pointer.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback-onsample
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback-onsample
      */
     OnSample(pSample) {
-        result := ComCall(3, this, "ptr", pSample, "HRESULT")
+        result := ComCall(3, this, "ptr", pSample, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

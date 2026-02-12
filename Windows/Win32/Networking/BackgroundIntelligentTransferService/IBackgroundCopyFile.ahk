@@ -6,7 +6,7 @@
 
 /**
  * IBackgroundCopyFile contains information about a file that is part of a job. For example, you can use IBackgroundCopyFile methods to retrieve the local and remote names of the file and transfer progress information.
- * @see https://docs.microsoft.com/windows/win32/api//bits/nn-bits-ibackgroundcopyfile
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits/nn-bits-ibackgroundcopyfile
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -33,23 +33,43 @@ class IBackgroundCopyFile extends IUnknown{
 
     /**
      * Retrieves the remote name of the file.
+     * @remarks
+     * The remote file name is set when you call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-addfile">AddFile</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-addfileset">AddFileSet</a> methods of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob</a> interface.
+     * 
+     * To change the remote file name, call the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_0/nf-bits2_0-ibackgroundcopyfile2-setremotename">IBackgroundCopyFile2::SetRemoteName</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_0/nf-bits2_0-ibackgroundcopyjob3-replaceremoteprefix">IBackgroundCopyJob3::ReplaceRemotePrefix</a> method.
      * @returns {PWSTR} Null-terminated string that contains the remote name of the file to transfer. The name is fully qualified. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppName</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopyfile-getremotename
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits/nf-bits-ibackgroundcopyfile-getremotename
      */
     GetRemoteName() {
-        result := ComCall(3, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the local name of the file.
+     * @remarks
+     * The local file name is set when you call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-addfile">AddFile</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-addfileset">AddFileSet</a> methods of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob</a> interface.
      * @returns {PWSTR} Null-terminated string that contains the name of the file on the client. The name is fully qualified. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppName</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopyfile-getlocalname
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits/nf-bits-ibackgroundcopyfile-getlocalname
      */
     GetLocalName() {
-        result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -57,11 +77,15 @@ class IBackgroundCopyFile extends IUnknown{
      * Retrieves information on the progress of the file transfer.
      * @returns {BG_FILE_PROGRESS} Structure whose members indicate the progress of the file transfer. For details on the type of progress information available, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ns-bits-bg_file_progress">BG_FILE_PROGRESS</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopyfile-getprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits/nf-bits-ibackgroundcopyfile-getprogress
      */
     GetProgress() {
         pVal := BG_FILE_PROGRESS()
-        result := ComCall(5, this, "ptr", pVal, "HRESULT")
+        result := ComCall(5, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

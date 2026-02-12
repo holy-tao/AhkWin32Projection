@@ -5,8 +5,8 @@
 #Include .\ID3D11DeviceChild.ahk
 
 /**
- * Represents a fence, an object used for synchronization of the CPU and one or more GPUs.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nn-d3d11_3-id3d11fence
+ * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D11Fence)
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nn-d3d11_3-id3d11fence
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -33,9 +33,11 @@ class ID3D11Fence extends ID3D11DeviceChild{
 
     /**
      * Creates a shared handle to a fence object.
+     * @remarks
+     * In order to to create a shared handle for the specified fence, the fence must have been created with either the <b>D3D11_FENCE_FLAG_SHARED</b> or <b>D3D11_FENCE_FLAG_SHARED_CROSS_ADAPTER</b> flags. For more information see the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_fence_flag">D3D11_FENCE_FLAG</a> enumeration.
      * @param {Pointer<SECURITY_ATTRIBUTES>} pAttributes Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>structure that contains two separate but related data members: an optional security descriptor, and a <b>Boolean</b>value that determines whether child processes can inherit the returned handle.
+     * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that contains two separate but related data members: an optional security descriptor, and a <b>Boolean</b> value that determines whether child processes can inherit the returned handle.
      *             
      * 
      * Set this parameter to <b>NULL</b> if you want child processes that the
@@ -77,22 +79,26 @@ class ID3D11Fence extends ID3D11DeviceChild{
      * 
      * A pointer to a variable that receives the NT HANDLE value to the resource to share.
      *             You can use this handle in calls to access the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11fence-createsharedhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11fence-createsharedhandle
      */
     CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
         pHandle := HANDLE()
-        result := ComCall(7, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "HRESULT")
+        result := ComCall(7, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHandle
     }
 
     /**
-     * Gets the current value of the fence.
-     * @returns {Integer} Type: <b><a href="/windows/win32/WinProg/windows-data-types">UINT64</a></b>
+     * Gets the current value of the fence. (ID3D11Fence.GetCompletedValue)
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT64</a></b>
      * 
      * Returns the current value of the fence.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11fence-getcompletedvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11fence-getcompletedvalue
      */
     GetCompletedValue() {
         result := ComCall(8, this, "uint")
@@ -100,7 +106,7 @@ class ID3D11Fence extends ID3D11DeviceChild{
     }
 
     /**
-     * Specifies an event that should be fired when the fence reaches a certain value.
+     * Specifies an event that should be fired when the fence reaches a certain value. (ID3D11Fence.SetEventOnCompletion)
      * @param {Integer} Value Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The fence value when the event is to be signaled.
@@ -109,13 +115,17 @@ class ID3D11Fence extends ID3D11DeviceChild{
      * A handle to the event object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * This method returns <b>E_OUTOFMEMORY</b> if the kernel components don’t have sufficient memory to store the event in a list. See <a href="/windows/win32/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a> for other possible return values.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11fence-seteventoncompletion
+     * This method returns <b>E_OUTOFMEMORY</b> if the kernel components don’t have sufficient memory to store the event in a list. See <a href="https://docs.microsoft.com/windows/win32/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a> for other possible return values.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11fence-seteventoncompletion
      */
     SetEventOnCompletion(Value, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(9, this, "uint", Value, "ptr", hEvent, "HRESULT")
+        result := ComCall(9, this, "uint", Value, "ptr", hEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

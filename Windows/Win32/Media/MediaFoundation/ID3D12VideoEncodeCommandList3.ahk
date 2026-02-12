@@ -4,8 +4,10 @@
 #Include .\ID3D12VideoEncodeCommandList2.ahk
 
 /**
+ * Encapsulates a list of graphics commands for video encoding.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoencodecommandlist3
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nn-d3d12video-id3d12videoencodecommandlist3
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,11 +33,11 @@ class ID3D12VideoEncodeCommandList3 extends ID3D12VideoEncodeCommandList2{
     static VTableNames => ["Barrier"]
 
     /**
-     * 
-     * @param {Integer} NumBarrierGroups 
-     * @param {Pointer<D3D12_BARRIER_GROUP>} pBarrierGroups 
+     * Adds a collection of barriers into a video encode command list recording.
+     * @param {Integer} NumBarrierGroups Number of barrier groups pointed to by *pBarrierGroups*.
+     * @param {Pointer<D3D12_BARRIER_GROUP>} pBarrierGroups Pointer to an array of [D3D12_BARRIER_GROUP](/windows/win32/api/d3d12/ns-d3d12-d3d12_barrier_group) objects.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist3-barrier
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/nf-d3d12video-id3d12videoencodecommandlist3-barrier
      */
     Barrier(NumBarrierGroups, pBarrierGroups) {
         ComCall(29, this, "uint", NumBarrierGroups, "ptr", pBarrierGroups)

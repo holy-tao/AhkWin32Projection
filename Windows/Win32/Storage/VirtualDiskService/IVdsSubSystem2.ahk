@@ -7,8 +7,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for performing query and configuration operations on a subsystem using the VDS_HINTS2 and VDS_SUB_SYSTEM_PROP2 structures.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdssubsystem2
+ * The IVdsSubSystem2 interface (vds.h) provides methods for performing query and configuration operations on a subsystem using the VDS_HINTS2 and VDS_SUB_SYSTEM_PROP2 structures.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdssubsystem2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -34,36 +34,63 @@ class IVdsSubSystem2 extends IUnknown{
     static VTableNames => ["GetProperties2", "GetDrive2", "CreateLun2", "QueryMaxLunCreateSize2"]
 
     /**
-     * Returns the properties of a subsystem. This method is identical to the IVdsSubSystem::GetProperties method, except that it returns a VDS_SUB_SYSTEM_PROP2 structure instead of a VDS_SUB_SYSTEM_PROP structure.
+     * The IVdsSubSystem2::GetProperties2 method (vds.h) returns the properties of a subsystem.
      * @returns {VDS_SUB_SYSTEM_PROP2} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop2">VDS_SUB_SYSTEM_PROP2</a> 
      *       structure allocated and passed in by the caller. VDS allocates memory for the 
      *       <b>pwszFriendlyName</b> and <b>pwszIdentification</b> member strings. 
      *       Callers must free the strings by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem2-getproperties2
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem2-getproperties2
      */
     GetProperties2() {
         pSubSystemProp2 := VDS_SUB_SYSTEM_PROP2()
-        result := ComCall(3, this, "ptr", pSubSystemProp2, "HRESULT")
+        result := ComCall(3, this, "ptr", pSubSystemProp2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSubSystemProp2
     }
 
     /**
-     * Returns the specified drive. This method is identical to the IVdsSubSystem::GetDrive method, except that it includes the enclosure number as a parameter.
+     * The IVdsSubSystem2::GetDrive2 method (vds.h) returns the specified drive and includes the enclosure number as a parameter.
      * @param {Integer} sBusNumber The number of the bus to which the drive is connected.
      * @param {Integer} sSlotNumber The number of the slot the drive occupies.
      * @param {Integer} ulEnclosureNumber The number of the enclosure that contains the drive. This parameter corresponds to the <b>ulEnclosureNumber</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_prop2">VDS_DRIVE_PROP2</a> structure.
      * @returns {IVdsDrive} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsdrive">IVdsDrive</a> interface pointer. Callers 
      *       must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem2-getdrive2
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem2-getdrive2
      */
     GetDrive2(sBusNumber, sSlotNumber, ulEnclosureNumber) {
-        result := ComCall(4, this, "short", sBusNumber, "short", sSlotNumber, "uint", ulEnclosureNumber, "ptr*", &ppDrive := 0, "HRESULT")
+        result := ComCall(4, this, "short", sBusNumber, "short", sSlotNumber, "uint", ulEnclosureNumber, "ptr*", &ppDrive := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsDrive(ppDrive)
     }
 
     /**
-     * Creates a LUN. This method is identical to the IVdsSubSystem::CreateLun method, except that automagic hints are provided using a VDS_HINTS2 structure instead of a VDS_HINTS structure.
+     * The IVdsSubSystem2::CreateLun2 method (vds.h) creates a LUN. Automagic hints are provided using a VDS_HINTS2 structure instead of a VDS_HINTS structure.
+     * @remarks
+     * By choosing appropriate values for the <i>type</i> and <i>pHints2</i> parameters, the caller can specify the attributes of the LUN wholly, partially, or minimally. The provider can 
+     *     automatically include unspecified attributes, based on the automagic hints specified in the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints2">VDS_HINTS2</a> structure that the <i>pHints</i> parameter points to.
+     * 
+     * <b>Notes to implementers:  </b>The provider must return an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer in the <i>ppAsync</i> parameter, even if the call to this method does not initiate an asynchronous operation.
+     * 
+     * The list of WWNs and IQNs in the <i>pwszUnmaskingList</i> parameter may contain duplicate names. It is the provider's responsibility to validate all names in the list and remove duplicates if necessary.
+     * 
+     * In response to the <b>CreateLun2</b> method and 
+     *     before unmasking the new LUN to any host, the provider should fill the first and last megabytes with zeros, 
+     *     leaving the LUN uninitialized.
+     * 
+     * There is a subtle difference between the <b>E_INVALIDARG</b> and 
+     *     <b>VDS_E_NOT_SUPPORTED</b> return values. Providers are not expected to implement every feature that the VDS 
+     *     API can present to a client. For example, the 
+     *     <b>CreateLun2</b> method exposes the ability to 
+     *     create many different types of LUNs (for example, simple, mirror, striped, and parity). However, providers are not required to support all 
+     *     types of LUNs. If the caller specifies a value for the <i>type</i> parameter that is not a valid <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value, the provider should return <b>E_INVALIDARG</b>. If the caller specifies a valid <i>type</i> value that the provider does not support, the provider should return VDS_E_NOT_SUPPORTED.
      * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type. The new 
      *       LUN can be an automagic type or a specific RAID type, but not both. If the caller specifies an automagic type, one or more automagic hints should be specified in the <i>pHints</i> parameter. 
      * 
@@ -131,17 +158,21 @@ class IVdsSubSystem2 extends IUnknown{
      * If <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called on the returned interface pointer and a success HRESULT value is returned, 
      *       the interfaces returned in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> 
      *       structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem2-createlun2
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem2-createlun2
      */
     CreateLun2(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints2) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(5, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints2, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(5, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints2, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsAsync(ppAsync)
     }
 
     /**
-     * Returns the size of the maximum LUN that can be created using the specified LUN type and hints.
+     * The IVdsSubSystem2::QueryMaxLunCreateSize2 method (vds.h) returns the size of the maximum LUN that can be created using the specified LUN type and hints.
      * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type.
      * @param {Pointer<Guid>} pDriveIdArray A pointer to an array containing a <b>VDS_OBJECT_ID</b> for each of the drives to be 
      *       used in the LUN creation. The provider should attempt to use the drives in the order provided. This parameter 
@@ -151,10 +182,14 @@ class IVdsSubSystem2 extends IUnknown{
      * @param {Pointer<VDS_HINTS2>} pHints2 A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints2">VDS_HINTS2</a> structure used for creating the LUN. The 
      *       hints always take lower priority than parameters listed before. This parameter is required and cannot be <b>NULL</b>.
      * @returns {Integer} A pointer to a buffer containing the maximum size of the LUN in bytes. This parameter is required and cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem2-querymaxluncreatesize2
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem2-querymaxluncreatesize2
      */
     QueryMaxLunCreateSize2(type, pDriveIdArray, lNumberOfDrives, pHints2) {
-        result := ComCall(6, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints2, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        result := ComCall(6, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints2, "uint*", &pullMaxLunSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pullMaxLunSize
     }
 }

@@ -94,7 +94,7 @@
  *      <b>IP_ADAPTER_ADDRESSES</b> structure, the 
  *      <i>Winsock2.h</i> header file must be included before the 
  *      <i>Iphlpapi.h</i> header file.
- * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
+ * @see https://learn.microsoft.com/windows/win32/api//content/iptypes/ns-iptypes-ip_adapter_addresses_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

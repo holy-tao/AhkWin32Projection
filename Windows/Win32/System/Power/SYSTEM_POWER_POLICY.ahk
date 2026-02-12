@@ -5,7 +5,7 @@
 
 /**
  * Contains information about the current system power policy.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-system_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

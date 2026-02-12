@@ -3,7 +3,7 @@
 
 /**
  * Contains process mitigation policy settings for restricting dynamic code generation and modification.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-process_mitigation_dynamic_code_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-process_mitigation_dynamic_code_policy
  * @namespace Windows.Win32.System.SystemServices
  * @version v4.0.30319
  */

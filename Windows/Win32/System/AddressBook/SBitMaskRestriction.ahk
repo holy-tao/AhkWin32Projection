@@ -7,7 +7,7 @@
  * The **SBitMaskRestriction** structure performs a bitwise **AND** operation using the bitmask described in the **ulMask** member and the value of the property described by the **ulPropTag** member. If the result is zero, BMR_EQZ is satisfied. If it is nonzero, that is, if the property value has at least one of the same bits set as **ulMask**, then BMR_NEZ is satisfied.
  *   
  * For more information about the **SBitMaskRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbitmaskrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sbitmaskrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

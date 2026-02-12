@@ -33,10 +33,14 @@ class IXFeed2 extends IXFeed{
      * 
      * @param {Integer} uiEffectiveId 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetItemByEffectiveId(uiEffectiveId, riid) {
-        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -46,39 +50,107 @@ class IXFeed2 extends IXFeed{
      */
     LastItemDownloadTime() {
         pstLastItemDownloadTime := SYSTEMTIME()
-        result := ComCall(48, this, "ptr", pstLastItemDownloadTime, "HRESULT")
+        result := ComCall(48, this, "ptr", pstLastItemDownloadTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstLastItemDownloadTime
     }
 
     /**
-     * 
+     * Learn about the Username element, which identifies the user that's being authenticated. See a syntax example and view additional available resources.
+     * @remarks
+     * If the **Username** element is not present, the user name is obtained from winlogon. This element is optional.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/eaphost/mschapv2userpropertiesv1schema-username-element
      */
     Username() {
-        result := ComCall(49, this, "ptr*", &ppszUsername := 0, "HRESULT")
+        result := ComCall(49, this, "ptr*", &ppszUsername := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszUsername
     }
 
     /**
-     * 
+     * Learn about the Password (EapType) element. This element identifies the password of the user or machine being authenticated.
+     * @remarks
+     * If the **Password (EapType)** element is not present, the password hash is obtained from winlogon. This element is optional.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/eaphost/mschapv2userpropertiesv1schema-password-eaptype-element
      */
     Password() {
-        result := ComCall(50, this, "ptr*", &ppszPassword := 0, "HRESULT")
+        result := ComCall(50, this, "ptr*", &ppszPassword := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszPassword
     }
 
     /**
-     * 
+     * Sets the attributes of a credential, such as the name associated with the credential. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszUsername 
      * @param {PWSTR} pszPassword 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
+     * 
+     * If the function fails, the return value may be one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handle passed to the function is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not enough memory is available to complete the request.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/sspi/nf-sspi-setcredentialsattributesw
      */
     SetCredentials(pszUsername, pszPassword) {
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := ComCall(51, this, "ptr", pszUsername, "ptr", pszPassword, "HRESULT")
+        result := ComCall(51, this, "ptr", pszUsername, "ptr", pszPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +159,11 @@ class IXFeed2 extends IXFeed{
      * @returns {HRESULT} 
      */
     ClearCredentials() {
-        result := ComCall(52, this, "HRESULT")
+        result := ComCall(52, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -71,28 +71,64 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     EnablePresence(fUseStorage, varStorage) {
-        result := ComCall(3, this, "short", fUseStorage, "ptr", varStorage, "HRESULT")
+        result := ComCall(3, this, "short", fUseStorage, "ptr", varStorage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * An application-defined callback function used with ReadEncryptedFileRaw.
+     * @remarks
+     * You can use the application-defined context block for internal tracking of information such as the file handle 
+     *      and the current offset in the file.
      * @param {VARIANT} varStorage 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>.
+     * 
+     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
+     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
+     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nc-winbase-pfe_export_func
      */
     Export(varStorage) {
-        result := ComCall(4, this, "ptr", varStorage, "HRESULT")
+        result := ComCall(4, this, "ptr", varStorage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * An application-defined callback function used with WriteEncryptedFileRaw. The system calls ImportCallback one or more times, each time to retrieve a portion of a backup file's data.
+     * @remarks
+     * The system calls the <b>ImportCallback</b> function until the 
+     *      callback function indicates there is no more data to restore. To indicate that there is no more data to be 
+     *      restored, set <i>*ulLength</i> to 0 and use a return code of 
+     *      <b>ERROR_SUCCESS</b>. You can use the application-defined context block for internal tracking 
+     *      of information such as the file handle and the current offset in the file.
      * @param {VARIANT} varStorage 
      * @param {VARIANT_BOOL} fReplaceAll 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, it must set the return value to <b>ERROR_SUCCESS</b>, and set 
+     *        the value pointed to by the <i>ulLength</i> parameter to the number of bytes copied into 
+     *        <i>pbData</i>.
+     * 
+     * When the end of the backup file is reached, set <i>ulLength</i> to zero to tell the system 
+     *        that the entire file has been processed.
+     * 
+     * If the function fails, set the return value to a nonzero error code defined in WinError.h. For 
+     *        example, if this function fails because an API that it calls fails, you can set the return value to the value 
+     *        returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for the failed API.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nc-winbase-pfe_import_func
      */
     Import(varStorage, fReplaceAll) {
-        result := ComCall(5, this, "ptr", varStorage, "short", fReplaceAll, "HRESULT")
+        result := ComCall(5, this, "ptr", varStorage, "short", fReplaceAll, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +137,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCEnumBuddies} 
      */
     EnumerateBuddies() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumBuddies(ppEnum)
     }
 
@@ -110,7 +150,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCCollection} 
      */
     get_Buddies() {
-        result := ComCall(7, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppCollection)
     }
 
@@ -120,9 +164,16 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCBuddy} 
      */
     get_Buddy(bstrPresentityURI) {
-        bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
+        if(bstrPresentityURI is String) {
+            pin := BSTR.Alloc(bstrPresentityURI)
+            bstrPresentityURI := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrPresentityURI, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrPresentityURI, "ptr*", &ppBuddy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCBuddy(ppBuddy)
     }
 
@@ -137,11 +188,24 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCBuddy} 
      */
     AddBuddy(bstrPresentityURI, bstrUserName, bstrData, fPersistent, pProfile, lFlags) {
-        bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
-        bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
+        if(bstrPresentityURI is String) {
+            pin := BSTR.Alloc(bstrPresentityURI)
+            bstrPresentityURI := pin.Value
+        }
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
+        if(bstrData is String) {
+            pin := BSTR.Alloc(bstrData)
+            bstrData := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCBuddy(ppBuddy)
     }
 
@@ -151,7 +215,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveBuddy(pBuddy) {
-        result := ComCall(10, this, "ptr", pBuddy, "HRESULT")
+        result := ComCall(10, this, "ptr", pBuddy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +228,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCEnumWatchers} 
      */
     EnumerateWatchers() {
-        result := ComCall(11, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumWatchers(ppEnum)
     }
 
@@ -169,7 +241,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCCollection} 
      */
     get_Watchers() {
-        result := ComCall(12, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppCollection)
     }
 
@@ -179,9 +255,16 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCWatcher} 
      */
     get_Watcher(bstrPresentityURI) {
-        bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
+        if(bstrPresentityURI is String) {
+            pin := BSTR.Alloc(bstrPresentityURI)
+            bstrPresentityURI := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrPresentityURI, "ptr*", &ppWatcher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCWatcher(ppWatcher)
     }
 
@@ -195,11 +278,24 @@ class IRTCClientPresence extends IUnknown{
      * @returns {IRTCWatcher} 
      */
     AddWatcher(bstrPresentityURI, bstrUserName, bstrData, fBlocked, fPersistent) {
-        bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
-        bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
+        if(bstrPresentityURI is String) {
+            pin := BSTR.Alloc(bstrPresentityURI)
+            bstrPresentityURI := pin.Value
+        }
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
+        if(bstrData is String) {
+            pin := BSTR.Alloc(bstrData)
+            bstrData := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fBlocked, "short", fPersistent, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fBlocked, "short", fPersistent, "ptr*", &ppWatcher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCWatcher(ppWatcher)
     }
 
@@ -209,7 +305,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveWatcher(pWatcher) {
-        result := ComCall(15, this, "ptr", pWatcher, "HRESULT")
+        result := ComCall(15, this, "ptr", pWatcher, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -220,9 +320,16 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     SetLocalPresenceInfo(enStatus, bstrNotes) {
-        bstrNotes := bstrNotes is String ? BSTR.Alloc(bstrNotes).Value : bstrNotes
+        if(bstrNotes is String) {
+            pin := BSTR.Alloc(bstrNotes)
+            bstrNotes := pin.Value
+        }
 
-        result := ComCall(16, this, "int", enStatus, "ptr", bstrNotes, "HRESULT")
+        result := ComCall(16, this, "int", enStatus, "ptr", bstrNotes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -231,7 +338,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {Integer} 
      */
     get_OfferWatcherMode() {
-        result := ComCall(17, this, "int*", &penMode := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &penMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penMode
     }
 
@@ -241,7 +352,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     put_OfferWatcherMode(enMode) {
-        result := ComCall(18, this, "int", enMode, "HRESULT")
+        result := ComCall(18, this, "int", enMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -250,7 +365,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {Integer} 
      */
     get_PrivacyMode() {
-        result := ComCall(19, this, "int*", &penMode := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &penMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penMode
     }
 
@@ -260,7 +379,11 @@ class IRTCClientPresence extends IUnknown{
      * @returns {HRESULT} 
      */
     put_PrivacyMode(enMode) {
-        result := ComCall(20, this, "int", enMode, "HRESULT")
+        result := ComCall(20, this, "int", enMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

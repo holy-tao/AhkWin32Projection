@@ -52,13 +52,22 @@ class IHTMLElementCollection extends IDispatch{
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        String := BSTR()
-        result := ComCall(7, this, "ptr", String, "HRESULT")
-        return String
+        String_ := BSTR()
+        result := ComCall(7, this, "ptr", String_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return String_
     }
 
     /**
@@ -67,7 +76,11 @@ class IHTMLElementCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     put_length(v) {
-        result := ComCall(8, this, "int", v, "HRESULT")
+        result := ComCall(8, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +89,11 @@ class IHTMLElementCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -85,7 +102,11 @@ class IHTMLElementCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -96,7 +117,11 @@ class IHTMLElementCollection extends IDispatch{
      * @returns {IDispatch} 
      */
     item(name, index) {
-        result := ComCall(11, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 
@@ -106,7 +131,11 @@ class IHTMLElementCollection extends IDispatch{
      * @returns {IDispatch} 
      */
     tags(tagName) {
-        result := ComCall(12, this, "ptr", tagName, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", tagName, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation for Secure Socket Tunneling Protocol (SSTP), Point-to-Point Tunneling Protocol (PPTP), and Layer 2 Tunneling Protocol (L2TP). (PPP_PROJECTION_INFO2)
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_projection_info2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-ppp_projection_info2
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

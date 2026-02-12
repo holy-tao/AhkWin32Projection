@@ -3,7 +3,7 @@
 
 /**
  * Performs a one-layer simple recurrent neural network (RNN) function on the input. This function is often referred to as the Input Gate. This operator performs this function multiple times in a loop, dictated by the sequence length dimension and the *SequenceLengthsTensor*.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_rnn_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_rnn_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

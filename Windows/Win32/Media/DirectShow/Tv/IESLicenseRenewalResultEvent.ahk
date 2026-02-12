@@ -7,10 +7,8 @@
 /**
  * Implements methods that get information from a LicenseRenewalResult event.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESLicenseRenewalResultEvent)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ieslicenserenewalresultevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-ieslicenserenewalresultevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,41 +36,57 @@ class IESLicenseRenewalResultEvent extends IESEvent{
     /**
      * Gets a unique identifier from a LicenseRenewalResult event that identifies the caller.
      * @returns {Integer} Receives the caller identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getcallersid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getcallersid
      */
     GetCallersId() {
-        result := ComCall(8, this, "uint*", &pdwCallersId := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwCallersId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCallersId
     }
 
     /**
      * Gets the file name for the license to renew from a LicenseRenewalResult event.
      * @returns {BSTR} Pointer to a buffer that receives the file name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getfilename
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getfilename
      */
     GetFileName() {
         pbstrFilename := BSTR()
-        result := ComCall(9, this, "ptr", pbstrFilename, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrFilename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFilename
     }
 
     /**
      * Gets a flag from a LicenseRenewalResult event that indicates whether the renewal was successful. In the event of failure, a client can call the GetRenewalResultCode or GetRenewalHResult method to get information about the reason for the failure.
      * @returns {BOOL} Receives the renewal success flag: 1 indicates success; 0 indicates failure.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-isrenewalsuccessful
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-isrenewalsuccessful
      */
     IsRenewalSuccessful() {
-        result := ComCall(10, this, "int*", &pfRenewalSuccessful := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pfRenewalSuccessful := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRenewalSuccessful
     }
 
     /**
      * Gets a flag from a LicenseRenewalResult event that indicates whether the client should check the entitlement token from the license. The client can call the IBDA_ConditionalAccessEx::CheckEntitlementToken method to validate the entitlement token.
      * @returns {BOOL} Receives the check entitlement token flag: 1 indicates that a check is needed; 0 indicates that no check is needed.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-ischeckentitlementcallrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-ischeckentitlementcallrequired
      */
     IsCheckEntitlementCallRequired() {
-        result := ComCall(11, this, "int*", &pfCheckEntTokenCallNeeded := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pfCheckEntTokenCallNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCheckEntTokenCallNeeded
     }
 
@@ -405,70 +419,98 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getdescrambledstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getdescrambledstatus
      */
     GetDescrambledStatus() {
-        result := ComCall(12, this, "uint*", &pDescrambledStatus := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pDescrambledStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDescrambledStatus
     }
 
     /**
      * Gets a constant from a Protected Broadcast Driver Architecture (PBDA) LicenseRenewalResult event that indicates which step in the renewal process caused the renewal to succeed or fail.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalresultcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalresultcode
      */
     GetRenewalResultCode() {
-        result := ComCall(13, this, "uint*", &pdwRenewalResultCode := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pdwRenewalResultCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwRenewalResultCode
     }
 
     /**
      * Gets a code from a LicenseRenewalResult event that indicates the reason for the failure in the conditional access system (CAS).
      * @returns {Integer} Receives the CAS failure code. This code is defined by the CAS that is used.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getcasfailurecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getcasfailurecode
      */
     GetCASFailureCode() {
-        result := ComCall(14, this, "uint*", &pdwCASFailureCode := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pdwCASFailureCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCASFailureCode
     }
 
     /**
      * Gets the final HRESULT value from a LicenseRenewalResult event that is returned by a call to a COM interface method during the renewal process.
      * @returns {HRESULT} Receives the <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalhresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getrenewalhresult
      */
     GetRenewalHResult() {
-        result := ComCall(15, this, "int*", &phr := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &phr := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phr
     }
 
     /**
      * Gets the length of the entitlement token in a protected-content license from a LicenseRenewalResult event.
      * @returns {Integer} Receives the length of the entitlement token, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtokenlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtokenlength
      */
     GetEntitlementTokenLength() {
-        result := ComCall(16, this, "uint*", &pdwLength := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &pdwLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwLength
     }
 
     /**
      * Gets the entitlement token in a protected-content license from a LicenseRenewalResult event. Clients can call the GetEntitlementTokenLength method to get the number of bytes to read from this buffer.
      * @returns {Pointer<SAFEARRAY>} Pointer to a buffer that receives the entitlement token.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtoken
      */
     GetEntitlementToken() {
-        result := ComCall(17, this, "ptr*", &pbData := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &pbData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbData
     }
 
     /**
      * Gets the expiry date of a renewed protected-content license from a LicenseRenewalResult event.
      * @returns {Integer} Receives the expiry date in number of seconds since epoch.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieslicenserenewalresultevent-getexpirydate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ieslicenserenewalresultevent-getexpirydate
      */
     GetExpiryDate() {
-        result := ComCall(18, this, "uint*", &pqwExpiryDate := 0, "HRESULT")
+        result := ComCall(18, this, "uint*", &pqwExpiryDate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pqwExpiryDate
     }
 }

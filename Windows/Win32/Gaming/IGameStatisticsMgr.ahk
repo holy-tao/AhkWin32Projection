@@ -41,7 +41,11 @@ class IGameStatisticsMgr extends IUnknown{
 
         pOpenResultMarshal := pOpenResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", GDFBinaryPath, "int", openType, pOpenResultMarshal, pOpenResult, "ptr*", ppiStats, "HRESULT")
+        result := ComCall(3, this, "ptr", GDFBinaryPath, "int", openType, pOpenResultMarshal, pOpenResult, "ptr*", ppiStats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class IGameStatisticsMgr extends IUnknown{
     RemoveGameStatistics(GDFBinaryPath) {
         GDFBinaryPath := GDFBinaryPath is String ? StrPtr(GDFBinaryPath) : GDFBinaryPath
 
-        result := ComCall(4, this, "ptr", GDFBinaryPath, "HRESULT")
+        result := ComCall(4, this, "ptr", GDFBinaryPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

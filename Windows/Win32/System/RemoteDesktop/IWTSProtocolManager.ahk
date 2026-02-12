@@ -6,7 +6,7 @@
 
 /**
  * IWTSProtocolManager is no longer available. Instead, use IWRdsProtocolManager.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwtsprotocolmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nn-wtsprotocol-iwtsprotocolmanager
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -33,14 +33,30 @@ class IWTSProtocolManager extends IUnknown{
 
     /**
      * IWTSProtocolManager::CreateListener is no longer available. Instead, use IWRdsProtocolManager::CreateListener.
+     * @remarks
+     * The <b>CreateListener</b> method is the first call the Remote Desktop Services service  makes into your  protocol provider. The service looks in the registry under the following key to find the GUID of the listener to create:
+     * 
+     * 
+     * <pre><b>HKEY_LOCAL_MACHINE</b>
+     *    <b>System</b>
+     *       <b>CurrentControlSet</b>
+     *          <b>Control</b>
+     *             <b>Terminal Server</b>
+     *                <b>WinStations</b>
+     *                   <b><i>ListenerName</i></b>
+     *                      <b>LoadableProtocol_Object</b></pre>
      * @param {PWSTR} wszListenerName A pointer to a string that contains the registry GUID that specifies the listener to create.
      * @returns {IWTSProtocolListener} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nn-wtsprotocol-iwtsprotocollistener">IWTSProtocolListener</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-createlistener
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-createlistener
      */
     CreateListener(wszListenerName) {
         wszListenerName := wszListenerName is String ? StrPtr(wszListenerName) : wszListenerName
 
-        result := ComCall(3, this, "ptr", wszListenerName, "ptr*", &pProtocolListener := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wszListenerName, "ptr*", &pProtocolListener := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWTSProtocolListener(pProtocolListener)
     }
 
@@ -48,33 +64,45 @@ class IWTSProtocolManager extends IUnknown{
      * IWTSProtocolManager::NotifyServiceStateChange is no longer available. Instead, use IWRdsProtocolManager::NotifyServiceStateChange.
      * @param {Pointer<WTS_SERVICE_STATE>} pTSServiceStateChange A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_service_state">WTS_SERVICE_STATE</a> structure that specifies 
      * whether the service is starting, stopping, or changing its drain state.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifyservicestatechange
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifyservicestatechange
      */
     NotifyServiceStateChange(pTSServiceStateChange) {
-        result := ComCall(4, this, "ptr", pTSServiceStateChange, "HRESULT")
+        result := ComCall(4, this, "ptr", pTSServiceStateChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IWTSProtocolManager::NotifySessionOfServiceStart is no longer available. Instead, use IWRdsProtocolManager::NotifySessionOfServiceStart.
      * @param {Pointer<WTS_SESSION_ID>} SessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_session_id">WTS_SESSION_ID</a> structure that uniquely identifies the session.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionofservicestart
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionofservicestart
      */
     NotifySessionOfServiceStart(SessionId) {
-        result := ComCall(5, this, "ptr", SessionId, "HRESULT")
+        result := ComCall(5, this, "ptr", SessionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IWTSProtocolManager::NotifySessionOfServiceStop is no longer available. Instead, use IWRdsProtocolManager::NotifySessionOfServiceStop.
      * @param {Pointer<WTS_SESSION_ID>} SessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_session_id">WTS_SESSION_ID</a> structure that uniquely identifies the session.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionofservicestop
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionofservicestop
      */
     NotifySessionOfServiceStop(SessionId) {
-        result := ComCall(6, this, "ptr", SessionId, "HRESULT")
+        result := ComCall(6, this, "ptr", SessionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,11 +110,15 @@ class IWTSProtocolManager extends IUnknown{
      * IWTSProtocolManager::NotifySessionStateChange is no longer available. Instead, use IWRdsProtocolManager::NotifySessionStateChange.
      * @param {Pointer<WTS_SESSION_ID>} SessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_session_id">WTS_SESSION_ID</a> structure that uniquely identifies the session.
      * @param {Integer} EventId An integer that contains the event ID. The following IDs can be found in Winuser.h.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionstatechange
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-notifysessionstatechange
      */
     NotifySessionStateChange(SessionId, EventId) {
-        result := ComCall(7, this, "ptr", SessionId, "uint", EventId, "HRESULT")
+        result := ComCall(7, this, "ptr", SessionId, "uint", EventId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

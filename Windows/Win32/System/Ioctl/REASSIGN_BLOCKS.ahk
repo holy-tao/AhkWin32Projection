@@ -16,7 +16,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_reassign_blocks">IOCTL_DISK_REASSIGN_BLOCKS</a> control code and 
  *     <b>REASSIGN_BLOCKS</b> structure should be used where 
  *     possible.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-reassign_blocks
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

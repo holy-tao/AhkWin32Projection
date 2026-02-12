@@ -35,7 +35,11 @@ class IPMExtensionContractInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pAUMID, pArgs) {
-        result := ComCall(3, this, "ptr", pAUMID, "ptr", pArgs, "HRESULT")
+        result := ComCall(3, this, "ptr", pAUMID, "ptr", pArgs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

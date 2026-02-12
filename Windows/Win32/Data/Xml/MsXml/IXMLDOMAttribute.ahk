@@ -51,7 +51,11 @@ class IXMLDOMAttribute extends IXMLDOMNode{
      */
     get_name() {
         attributeName := BSTR()
-        result := ComCall(43, this, "ptr", attributeName, "HRESULT")
+        result := ComCall(43, this, "ptr", attributeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return attributeName
     }
 
@@ -61,7 +65,11 @@ class IXMLDOMAttribute extends IXMLDOMNode{
      */
     get_value() {
         attributeValue := VARIANT()
-        result := ComCall(44, this, "ptr", attributeValue, "HRESULT")
+        result := ComCall(44, this, "ptr", attributeValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return attributeValue
     }
 
@@ -71,7 +79,11 @@ class IXMLDOMAttribute extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_value(attributeValue) {
-        result := ComCall(45, this, "ptr", attributeValue, "HRESULT")
+        result := ComCall(45, this, "ptr", attributeValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,11 +6,8 @@
 /**
  * Represents a generic collection of IUnknown pointers.
  * @remarks
- * 
  * To create an empty collection object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatecollection">MFCreateCollection</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imfcollection
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,28 +33,40 @@ class IMFCollection extends IUnknown{
     static VTableNames => ["GetElementCount", "GetElement", "AddElement", "RemoveElement", "InsertElementAt", "RemoveAllElements"]
 
     /**
-     * Retrieves the number of objects in the collection.
+     * Retrieves the number of objects in the collection. (IMFCollection.GetElementCount)
      * @returns {Integer} Receives the number of objects in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfcollection-getelementcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfcollection-getelementcount
      */
     GetElementCount() {
-        result := ComCall(3, this, "uint*", &pcElements := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcElements := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcElements
     }
 
     /**
      * Retrieves an object in the collection.
+     * @remarks
+     * This method does not remove the object from the collection. To remove an object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfcollection-removeelement">IMFCollection::RemoveElement</a>.
      * @param {Integer} dwElementIndex Zero-based index of the object to retrieve. Objects are indexed in the order in which they were added to the collection.
      * @returns {IUnknown} Receives a pointer to the object's <b>IUnknown</b> interface. The caller must release the interface. The retrieved pointer value might be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfcollection-getelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfcollection-getelement
      */
     GetElement(dwElementIndex) {
-        result := ComCall(4, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkElement)
     }
 
     /**
-     * Adds an object to the collection.
+     * Adds an object to the collection. (IMFCollection.AddElement)
+     * @remarks
+     * If <i>pUnkElement</i> is <b>NULL</b>, a <b>NULL</b> pointer is added to the collection.
      * @param {IUnknown} pUnkElement Pointer to the object's <b>IUnknown</b> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -78,10 +87,14 @@ class IMFCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfcollection-addelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfcollection-addelement
      */
     AddElement(pUnkElement) {
-        result := ComCall(5, this, "ptr", pUnkElement, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnkElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,10 +102,14 @@ class IMFCollection extends IUnknown{
      * Removes an object from the collection.
      * @param {Integer} dwElementIndex Zero-based index of the object to remove. Objects are indexed in the order in which they were added to the collection.
      * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface of the object. The caller must release the interface. This parameter cannot be <b>NULL</b>, but the retrieved pointer value might be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfcollection-removeelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfcollection-removeelement
      */
     RemoveElement(dwElementIndex) {
-        result := ComCall(6, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkElement)
     }
 
@@ -119,10 +136,14 @@ class IMFCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfcollection-insertelementat
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfcollection-insertelementat
      */
     InsertElementAt(dwIndex, pUnknown) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr", pUnknown, "HRESULT")
+        result := ComCall(7, this, "uint", dwIndex, "ptr", pUnknown, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,10 +168,14 @@ class IMFCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfcollection-removeallelements
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfcollection-removeallelements
      */
     RemoveAllElements() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -42,7 +42,11 @@ class IFtpRoleProvider extends IUnknown{
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszRole := pszRole is String ? StrPtr(pszRole) : pszRole
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszRole, "int*", &pfIsInRole := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszRole, "int*", &pfIsInRole := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsInRole
     }
 }

@@ -7,10 +7,8 @@
 /**
  * Defines various methods that provide configuration options for the fax service.
  * @remarks
- * 
  * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxconfiguration">FaxConfiguration</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxconfiguration
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -208,452 +206,613 @@ class IFaxConfiguration extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a value that indicates whether faxes should be archived.
+     * Sets or retrieves a value that indicates whether faxes should be archived. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_usearchive
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_usearchive
      */
     get_UseArchive() {
-        result := ComCall(7, this, "short*", &pbUseArchive := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &pbUseArchive := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbUseArchive
     }
 
     /**
-     * Sets or retrieves a value that indicates whether faxes should be archived.
+     * Sets or retrieves a value that indicates whether faxes should be archived. (Put)
      * @param {VARIANT_BOOL} bUseArchive 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_usearchive
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_usearchive
      */
     put_UseArchive(bUseArchive) {
-        result := ComCall(8, this, "short", bUseArchive, "HRESULT")
+        result := ComCall(8, this, "short", bUseArchive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the location of the archive on the server.
+     * Sets or retrieves a value that indicates the location of the archive on the server. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_archivelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivelocation
      */
     get_ArchiveLocation() {
         pbstrArchiveLocation := BSTR()
-        result := ComCall(9, this, "ptr", pbstrArchiveLocation, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrArchiveLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrArchiveLocation
     }
 
     /**
-     * Sets or retrieves a value that indicates the location of the archive on the server.
+     * Sets or retrieves a value that indicates the location of the archive on the server. (Put)
      * @param {BSTR} bstrArchiveLocation 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_archivelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_archivelocation
      */
     put_ArchiveLocation(bstrArchiveLocation) {
-        bstrArchiveLocation := bstrArchiveLocation is String ? BSTR.Alloc(bstrArchiveLocation).Value : bstrArchiveLocation
+        if(bstrArchiveLocation is String) {
+            pin := BSTR.Alloc(bstrArchiveLocation)
+            bstrArchiveLocation := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrArchiveLocation, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrArchiveLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the size quota warning is turned on.
+     * Sets or retrieves a value that indicates whether the size quota warning is turned on. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_sizequotawarning
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_sizequotawarning
      */
     get_SizeQuotaWarning() {
-        result := ComCall(11, this, "short*", &pbSizeQuotaWarning := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &pbSizeQuotaWarning := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSizeQuotaWarning
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the size quota warning is turned on.
+     * Sets or retrieves a value that indicates whether the size quota warning is turned on. (Put)
      * @param {VARIANT_BOOL} bSizeQuotaWarning 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_sizequotawarning
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_sizequotawarning
      */
     put_SizeQuotaWarning(bSizeQuotaWarning) {
-        result := ComCall(12, this, "short", bSizeQuotaWarning, "HRESULT")
+        result := ComCall(12, this, "short", bSizeQuotaWarning, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the maximum allotted size of a watermark.
+     * Sets or retrieves a value that indicates the maximum allotted size of a watermark. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_highquotawatermark
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_highquotawatermark
      */
     get_HighQuotaWaterMark() {
-        result := ComCall(13, this, "int*", &plHighQuotaWaterMark := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plHighQuotaWaterMark := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plHighQuotaWaterMark
     }
 
     /**
-     * Sets or retrieves a value that indicates the maximum allotted size of a watermark.
+     * Sets or retrieves a value that indicates the maximum allotted size of a watermark. (Put)
      * @param {Integer} lHighQuotaWaterMark 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_highquotawatermark
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_highquotawatermark
      */
     put_HighQuotaWaterMark(lHighQuotaWaterMark) {
-        result := ComCall(14, this, "int", lHighQuotaWaterMark, "HRESULT")
+        result := ComCall(14, this, "int", lHighQuotaWaterMark, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the minimum size of a watermark.
+     * Sets or retrieves a value that indicates the minimum size of a watermark. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_lowquotawatermark
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_lowquotawatermark
      */
     get_LowQuotaWaterMark() {
-        result := ComCall(15, this, "int*", &plLowQuotaWaterMark := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &plLowQuotaWaterMark := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plLowQuotaWaterMark
     }
 
     /**
-     * Sets or retrieves a value that indicates the minimum size of a watermark.
+     * Sets or retrieves a value that indicates the minimum size of a watermark. (Put)
      * @param {Integer} lLowQuotaWaterMark 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_lowquotawatermark
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_lowquotawatermark
      */
     put_LowQuotaWaterMark(lLowQuotaWaterMark) {
-        result := ComCall(16, this, "int", lLowQuotaWaterMark, "HRESULT")
+        result := ComCall(16, this, "int", lLowQuotaWaterMark, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates how long a fax message is kept on the server.
+     * Sets or retrieves a value that indicates how long a fax message is kept on the server. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_archiveagelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_archiveagelimit
      */
     get_ArchiveAgeLimit() {
-        result := ComCall(17, this, "int*", &plArchiveAgeLimit := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &plArchiveAgeLimit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plArchiveAgeLimit
     }
 
     /**
-     * Sets or retrieves a value that indicates how long a fax message is kept on the server.
+     * Sets or retrieves a value that indicates how long a fax message is kept on the server. (Put)
      * @param {Integer} lArchiveAgeLimit 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_archiveagelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_archiveagelimit
      */
     put_ArchiveAgeLimit(lArchiveAgeLimit) {
-        result := ComCall(18, this, "int", lArchiveAgeLimit, "HRESULT")
+        result := ComCall(18, this, "int", lArchiveAgeLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The value that specifies the low-order 32-bit value (in bytes) for the size of the fax message archive.
      * @remarks
-     * 
      * Because the archive may exceed 4 gigabytes (GB) in size, the archive size is described using two long values. <b>ArchiveSizeLow</b> is the low 32-bit value of the archive size. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizehigh">ArchiveSizeHigh</a> is the high 32-bit value of the archive size. The size of the archive is: <b>ArchiveSizeLow</b> + 4 GB * <b>ArchiveSizeHigh</b>. 
      * 
      * If both the <b>ArchiveSizeLow</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizehigh">ArchiveSizeHigh</a> properties have the value 0xffffffff, they specify an invalid archive size, and you should ignore both property values.
      * 
      * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizelow
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizelow
      */
     get_ArchiveSizeLow() {
-        result := ComCall(19, this, "int*", &plSizeLow := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &plSizeLow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSizeLow
     }
 
     /**
      * The value that specifies the high-order 32-bit value (in bytes) for the size of the fax message archive.
      * @remarks
-     * 
      * Because the archive may exceed 4 gigabytes (GB) in size, the archive size is described using two long values. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizelow">ArchiveSizeLow</a> is the low 32-bit value of the archive size. <b>ArchiveSizeHigh</b> is the high 32-bit value of the archive size. The size of the archive is: <b>ArchiveSizeLow</b> + 4 GB * <b>ArchiveSizeHigh</b>. 
      * 
      * If both the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizelow">ArchiveSizeLow</a> and <b>ArchiveSizeHigh</b> properties have the value 0xffffffff, they specify an invalid archive size, and you should ignore both property values.
      * 
      * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizehigh
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_archivesizehigh
      */
     get_ArchiveSizeHigh() {
-        result := ComCall(20, this, "int*", &plSizeHigh := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &plSizeHigh := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSizeHigh
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the fax server queue for outgoing faxes has been blocked.
+     * Sets or retrieves a value that indicates whether the fax server queue for outgoing faxes has been blocked. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueueblocked
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueueblocked
      */
     get_OutgoingQueueBlocked() {
-        result := ComCall(21, this, "short*", &pbOutgoingBlocked := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &pbOutgoingBlocked := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbOutgoingBlocked
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the fax server queue for outgoing faxes has been blocked.
+     * Sets or retrieves a value that indicates whether the fax server queue for outgoing faxes has been blocked. (Put)
      * @param {VARIANT_BOOL} bOutgoingBlocked 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueueblocked
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueueblocked
      */
     put_OutgoingQueueBlocked(bOutgoingBlocked) {
-        result := ComCall(22, this, "short", bOutgoingBlocked, "HRESULT")
+        result := ComCall(22, this, "short", bOutgoingBlocked, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the outgoing queue has been paused.
+     * Sets or retrieves a value that indicates whether the outgoing queue has been paused. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueuepaused
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueuepaused
      */
     get_OutgoingQueuePaused() {
-        result := ComCall(23, this, "short*", &pbOutgoingPaused := 0, "HRESULT")
+        result := ComCall(23, this, "short*", &pbOutgoingPaused := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbOutgoingPaused
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the outgoing queue has been paused.
+     * Sets or retrieves a value that indicates whether the outgoing queue has been paused. (Put)
      * @param {VARIANT_BOOL} bOutgoingPaused 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueuepaused
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueuepaused
      */
     put_OutgoingQueuePaused(bOutgoingPaused) {
-        result := ComCall(24, this, "short", bOutgoingPaused, "HRESULT")
+        result := ComCall(24, this, "short", bOutgoingPaused, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether personal cover pages are allowed.
+     * Sets or retrieves a value that indicates whether personal cover pages are allowed. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_allowpersonalcoverpages
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_allowpersonalcoverpages
      */
     get_AllowPersonalCoverPages() {
-        result := ComCall(25, this, "short*", &pbAllowPersonalCoverPages := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &pbAllowPersonalCoverPages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAllowPersonalCoverPages
     }
 
     /**
-     * Sets or retrieves a value that indicates whether personal cover pages are allowed.
+     * Sets or retrieves a value that indicates whether personal cover pages are allowed. (Put)
      * @param {VARIANT_BOOL} bAllowPersonalCoverPages 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_allowpersonalcoverpages
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_allowpersonalcoverpages
      */
     put_AllowPersonalCoverPages(bAllowPersonalCoverPages) {
-        result := ComCall(26, this, "short", bAllowPersonalCoverPages, "HRESULT")
+        result := ComCall(26, this, "short", bAllowPersonalCoverPages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the transmitting station identifier (TSID) is used.
+     * Sets or retrieves a value that indicates whether the transmitting station identifier (TSID) is used. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_usedevicetsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_usedevicetsid
      */
     get_UseDeviceTSID() {
-        result := ComCall(27, this, "short*", &pbUseDeviceTSID := 0, "HRESULT")
+        result := ComCall(27, this, "short*", &pbUseDeviceTSID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbUseDeviceTSID
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the transmitting station identifier (TSID) is used.
+     * Sets or retrieves a value that indicates whether the transmitting station identifier (TSID) is used. (Put)
      * @param {VARIANT_BOOL} bUseDeviceTSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_usedevicetsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_usedevicetsid
      */
     put_UseDeviceTSID(bUseDeviceTSID) {
-        result := ComCall(28, this, "short", bUseDeviceTSID, "HRESULT")
+        result := ComCall(28, this, "short", bUseDeviceTSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the number of redial attempts for a given fax job.
+     * Sets or retrieves a value that indicates the number of redial attempts for a given fax job. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_retries
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_retries
      */
     get_Retries() {
-        result := ComCall(29, this, "int*", &plRetries := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &plRetries := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRetries
     }
 
     /**
-     * Sets or retrieves a value that indicates the number of redial attempts for a given fax job.
+     * Sets or retrieves a value that indicates the number of redial attempts for a given fax job. (Put)
      * @param {Integer} lRetries 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_retries
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_retries
      */
     put_Retries(lRetries) {
-        result := ComCall(30, this, "int", lRetries, "HRESULT")
+        result := ComCall(30, this, "int", lRetries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the length of time the fax service should wait before retrying a failed fax transmission.
+     * Sets or retrieves a value that indicates the length of time the fax service should wait before retrying a failed fax transmission. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_retrydelay
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_retrydelay
      */
     get_RetryDelay() {
-        result := ComCall(31, this, "int*", &plRetryDelay := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &plRetryDelay := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRetryDelay
     }
 
     /**
-     * Sets or retrieves a value that indicates the length of time the fax service should wait before retrying a failed fax transmission.
+     * Sets or retrieves a value that indicates the length of time the fax service should wait before retrying a failed fax transmission. (Put)
      * @param {Integer} lRetryDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_retrydelay
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_retrydelay
      */
     put_RetryDelay(lRetryDelay) {
-        result := ComCall(32, this, "int", lRetryDelay, "HRESULT")
+        result := ComCall(32, this, "int", lRetryDelay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the time at which the discount rate period begins.
+     * Sets or retrieves a value that indicates the time at which the discount rate period begins. (Get)
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_discountratestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_discountratestart
      */
     get_DiscountRateStart() {
-        result := ComCall(33, this, "double*", &pdateDiscountRateStart := 0, "HRESULT")
+        result := ComCall(33, this, "double*", &pdateDiscountRateStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateDiscountRateStart
     }
 
     /**
-     * Sets or retrieves a value that indicates the time at which the discount rate period begins.
+     * Sets or retrieves a value that indicates the time at which the discount rate period begins. (Put)
      * @param {Float} dateDiscountRateStart 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_discountratestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_discountratestart
      */
     put_DiscountRateStart(dateDiscountRateStart) {
-        result := ComCall(34, this, "double", dateDiscountRateStart, "HRESULT")
+        result := ComCall(34, this, "double", dateDiscountRateStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the time at which the discount rate period ends.
+     * Sets or retrieves a value that indicates the time at which the discount rate period ends. (Get)
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_discountrateend
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_discountrateend
      */
     get_DiscountRateEnd() {
-        result := ComCall(35, this, "double*", &pdateDiscountRateEnd := 0, "HRESULT")
+        result := ComCall(35, this, "double*", &pdateDiscountRateEnd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateDiscountRateEnd
     }
 
     /**
-     * Sets or retrieves a value that indicates the time at which the discount rate period ends.
+     * Sets or retrieves a value that indicates the time at which the discount rate period ends. (Put)
      * @param {Float} dateDiscountRateEnd 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_discountrateend
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_discountrateend
      */
     put_DiscountRateEnd(dateDiscountRateEnd) {
-        result := ComCall(36, this, "double", dateDiscountRateEnd, "HRESULT")
+        result := ComCall(36, this, "double", dateDiscountRateEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates the length of time that an undeliverable fax message is kept on the fax server before it is deleted.
+     * Sets or retrieves a value that indicates the length of time that an undeliverable fax message is kept on the fax server before it is deleted. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueueagelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_outgoingqueueagelimit
      */
     get_OutgoingQueueAgeLimit() {
-        result := ComCall(37, this, "int*", &plOutgoingQueueAgeLimit := 0, "HRESULT")
+        result := ComCall(37, this, "int*", &plOutgoingQueueAgeLimit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plOutgoingQueueAgeLimit
     }
 
     /**
-     * Sets or retrieves a value that indicates the length of time that an undeliverable fax message is kept on the fax server before it is deleted.
+     * Sets or retrieves a value that indicates the length of time that an undeliverable fax message is kept on the fax server before it is deleted. (Put)
      * @param {Integer} lOutgoingQueueAgeLimit 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueueagelimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_outgoingqueueagelimit
      */
     put_OutgoingQueueAgeLimit(lOutgoingQueueAgeLimit) {
-        result := ComCall(38, this, "int", lOutgoingQueueAgeLimit, "HRESULT")
+        result := ComCall(38, this, "int", lOutgoingQueueAgeLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the fax server generates a branding mark on outgoing faxes.
+     * Sets or retrieves a value that indicates whether the fax server generates a branding mark on outgoing faxes. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_branding
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_branding
      */
     get_Branding() {
-        result := ComCall(39, this, "short*", &pbBranding := 0, "HRESULT")
+        result := ComCall(39, this, "short*", &pbBranding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbBranding
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the fax server generates a branding mark on outgoing faxes.
+     * Sets or retrieves a value that indicates whether the fax server generates a branding mark on outgoing faxes. (Put)
      * @param {VARIANT_BOOL} bBranding 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_branding
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_branding
      */
     put_Branding(bBranding) {
-        result := ComCall(40, this, "short", bBranding, "HRESULT")
+        result := ComCall(40, this, "short", bBranding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the fax server queue for incoming faxes has been blocked.
+     * Sets or retrieves a value that indicates whether the fax server queue for incoming faxes has been blocked. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_incomingqueueblocked
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_incomingqueueblocked
      */
     get_IncomingQueueBlocked() {
-        result := ComCall(41, this, "short*", &pbIncomingBlocked := 0, "HRESULT")
+        result := ComCall(41, this, "short*", &pbIncomingBlocked := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIncomingBlocked
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the fax server queue for incoming faxes has been blocked.
+     * Sets or retrieves a value that indicates whether the fax server queue for incoming faxes has been blocked. (Put)
      * @param {VARIANT_BOOL} bIncomingBlocked 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_incomingqueueblocked
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_incomingqueueblocked
      */
     put_IncomingQueueBlocked(bIncomingBlocked) {
-        result := ComCall(42, this, "short", bIncomingBlocked, "HRESULT")
+        result := ComCall(42, this, "short", bIncomingBlocked, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the server automatically creates a fax account once a connection is initiated.
+     * Sets or retrieves a value that indicates whether the server automatically creates a fax account once a connection is initiated. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_autocreateaccountonconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_autocreateaccountonconnect
      */
     get_AutoCreateAccountOnConnect() {
-        result := ComCall(43, this, "short*", &pbAutoCreateAccountOnConnect := 0, "HRESULT")
+        result := ComCall(43, this, "short*", &pbAutoCreateAccountOnConnect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAutoCreateAccountOnConnect
     }
 
     /**
-     * Sets or retrieves a value that indicates whether the server automatically creates a fax account once a connection is initiated.
+     * Sets or retrieves a value that indicates whether the server automatically creates a fax account once a connection is initiated. (Put)
      * @param {VARIANT_BOOL} bAutoCreateAccountOnConnect 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_autocreateaccountonconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_autocreateaccountonconnect
      */
     put_AutoCreateAccountOnConnect(bAutoCreateAccountOnConnect) {
-        result := ComCall(44, this, "short", bAutoCreateAccountOnConnect, "HRESULT")
+        result := ComCall(44, this, "short", bAutoCreateAccountOnConnect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether incoming faxes are either viewable by everyone or private.
+     * Indicates whether incoming faxes are either viewable by everyone or private. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-get_incomingfaxesarepublic
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-get_incomingfaxesarepublic
      */
     get_IncomingFaxesArePublic() {
-        result := ComCall(45, this, "short*", &pbIncomingFaxesArePublic := 0, "HRESULT")
+        result := ComCall(45, this, "short*", &pbIncomingFaxesArePublic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIncomingFaxesArePublic
     }
 
     /**
-     * Indicates whether incoming faxes are either viewable by everyone or private.
+     * Indicates whether incoming faxes are either viewable by everyone or private. (Put)
      * @param {VARIANT_BOOL} bIncomingFaxesArePublic 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-put_incomingfaxesarepublic
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-put_incomingfaxesarepublic
      */
     put_IncomingFaxesArePublic(bIncomingFaxesArePublic) {
-        result := ComCall(46, this, "short", bIncomingFaxesArePublic, "HRESULT")
+        result := ComCall(46, this, "short", bIncomingFaxesArePublic, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Refreshes the object.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-refresh
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-refresh
      */
     Refresh() {
-        result := ComCall(47, this, "HRESULT")
+        result := ComCall(47, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -661,11 +820,15 @@ class IFaxConfiguration extends IDispatch{
      * Saves the object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxconfiguration-save
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxconfiguration-save
      */
     Save() {
-        result := ComCall(48, this, "HRESULT")
+        result := ComCall(48, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

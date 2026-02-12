@@ -8,14 +8,10 @@
 /**
  * Represents a trigger that starts a task when a system event occurs.
  * @remarks
- * 
  * A maximum of 500 tasks with event subscriptions can be created. An event subscription that queries for a variety of events can be used to trigger a task that uses the same action in response to the events being logged.
  * 
  * When reading or writing your own XML for a task, an event trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-eventtrigger-triggergroup-element">EventTrigger</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-ieventtrigger
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-ieventtrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -63,83 +59,90 @@ class IEventTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a query string that identifies the event that fires the trigger.
+     * Gets or sets a query string that identifies the event that fires the trigger. (Get)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the event subscription is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-subscription-eventtriggertype-element">Subscription</a> element of the Task Scheduler schema.
      * 
      * For more information about writing a query string for certain events, see <a href="https://docs.microsoft.com/previous-versions//aa385231(v=vs.85)">Event Selection</a> and <a href="https://docs.microsoft.com/windows/win32/wes/subscribing-to-events">Subscribing to Events</a>.
-     * 
-     * 
-     * 
      * @param {Pointer<BSTR>} pQuery 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ieventtrigger-get_subscription
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ieventtrigger-get_subscription
      */
     get_Subscription(pQuery) {
-        result := ComCall(20, this, "ptr", pQuery, "HRESULT")
+        result := ComCall(20, this, "ptr", pQuery, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a query string that identifies the event that fires the trigger.
+     * Gets or sets a query string that identifies the event that fires the trigger. (Put)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the event subscription is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-subscription-eventtriggertype-element">Subscription</a> element of the Task Scheduler schema.
      * 
      * For more information about writing a query string for certain events, see <a href="https://docs.microsoft.com/previous-versions//aa385231(v=vs.85)">Event Selection</a> and <a href="https://docs.microsoft.com/windows/win32/wes/subscribing-to-events">Subscribing to Events</a>.
-     * 
-     * 
-     * 
      * @param {BSTR} query 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ieventtrigger-put_subscription
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ieventtrigger-put_subscription
      */
     put_Subscription(query) {
-        query := query is String ? BSTR.Alloc(query).Value : query
+        if(query is String) {
+            pin := BSTR.Alloc(query)
+            query := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", query, "HRESULT")
+        result := ComCall(21, this, "ptr", query, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a value that indicates the amount of time between when the event occurs and when the task is started.
+     * Gets or sets a value that indicates the amount of time between when the event occurs and when the task is started. (Get)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the event delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-eventtriggertype-element">Delay</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ieventtrigger-get_delay
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ieventtrigger-get_delay
      */
     get_Delay(pDelay) {
-        result := ComCall(22, this, "ptr", pDelay, "HRESULT")
+        result := ComCall(22, this, "ptr", pDelay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a value that indicates the amount of time between when the event occurs and when the task is started.
+     * Gets or sets a value that indicates the amount of time between when the event occurs and when the task is started. (Put)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the event delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-eventtriggertype-element">Delay</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ieventtrigger-put_delay
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ieventtrigger-put_delay
      */
     put_Delay(delay) {
-        delay := delay is String ? BSTR.Alloc(delay).Value : delay
+        if(delay is String) {
+            pin := BSTR.Alloc(delay)
+            delay := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", delay, "HRESULT")
+        result := ComCall(23, this, "ptr", delay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a collection of named XPath queries. Each query in the collection is applied to the last matching event XML returned from the subscription query specified in the Subscription property.
+     * Gets or sets a collection of named XPath queries. Each query in the collection is applied to the last matching event XML returned from the subscription query specified in the Subscription property. (Get)
      * @remarks
-     * 
      * The name of the query can be used as a variable in the following action properties:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ishowmessageaction-get_messagebody">MessageBody property of IShowMessageAction</a>
@@ -186,26 +189,31 @@ class IEventTrigger extends ITrigger{
      * The following  code example strings show two name-value pairs that can  be used in a name-value collection.
      * The values returned by the XPath queries can replace variables in an action property. The values are referenced by name,  with $(user) and $(machine), in the action property. For example, if the $(user) and $(machine) variables are used in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ishowmessageaction-get_messagebody">MessageBody property of IShowMessageAction</a>, then the value of the XPath queries will replace the variables in the string.
      * 
-     * <pre class="syntax" xml:space="preserve"><code>name: user
+     * 
+     * ``` syntax
+     * name: user
      * value: Event/UserData/SubjectUserName
      * 
      * name: machine
-     * value: Event/UserData/MachineName</code></pre>
+     * value: Event/UserData/MachineName
+     * ```
+     * 
      * For more information about writing a query string for certain events, see <a href="https://docs.microsoft.com/previous-versions//aa385231(v=vs.85)">Event Selection</a> and <a href="https://docs.microsoft.com/windows/win32/wes/subscribing-to-events">Subscribing to Events</a>.
-     * 
-     * 
      * @returns {ITaskNamedValueCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ieventtrigger-get_valuequeries
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ieventtrigger-get_valuequeries
      */
     get_ValueQueries() {
-        result := ComCall(24, this, "ptr*", &ppNamedXPaths := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &ppNamedXPaths := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITaskNamedValueCollection(ppNamedXPaths)
     }
 
     /**
-     * Gets or sets a collection of named XPath queries. Each query in the collection is applied to the last matching event XML returned from the subscription query specified in the Subscription property.
+     * Gets or sets a collection of named XPath queries. Each query in the collection is applied to the last matching event XML returned from the subscription query specified in the Subscription property. (Put)
      * @remarks
-     * 
      * The name of the query can be used as a variable in the following action properties:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ishowmessageaction-get_messagebody">MessageBody property of IShowMessageAction</a>
@@ -252,20 +260,26 @@ class IEventTrigger extends ITrigger{
      * The following  code example strings show two name-value pairs that can  be used in a name-value collection.
      * The values returned by the XPath queries can replace variables in an action property. The values are referenced by name,  with $(user) and $(machine), in the action property. For example, if the $(user) and $(machine) variables are used in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ishowmessageaction-get_messagebody">MessageBody property of IShowMessageAction</a>, then the value of the XPath queries will replace the variables in the string.
      * 
-     * <pre class="syntax" xml:space="preserve"><code>name: user
+     * 
+     * ``` syntax
+     * name: user
      * value: Event/UserData/SubjectUserName
      * 
      * name: machine
-     * value: Event/UserData/MachineName</code></pre>
+     * value: Event/UserData/MachineName
+     * ```
+     * 
      * For more information about writing a query string for certain events, see <a href="https://docs.microsoft.com/previous-versions//aa385231(v=vs.85)">Event Selection</a> and <a href="https://docs.microsoft.com/windows/win32/wes/subscribing-to-events">Subscribing to Events</a>.
-     * 
-     * 
      * @param {ITaskNamedValueCollection} pNamedXPaths 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ieventtrigger-put_valuequeries
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-ieventtrigger-put_valuequeries
      */
     put_ValueQueries(pNamedXPaths) {
-        result := ComCall(25, this, "ptr", pNamedXPaths, "HRESULT")
+        result := ComCall(25, this, "ptr", pNamedXPaths, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -80,7 +80,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_currentTimeDouble(v) {
-        result := ComCall(7, this, "double", v, "HRESULT")
+        result := ComCall(7, this, "double", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +93,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {Float} 
      */
     get_currentTimeDouble() {
-        result := ComCall(8, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -98,7 +106,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {Float} 
      */
     get_initialTimeDouble() {
-        result := ComCall(9, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -107,7 +119,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {Float} 
      */
     get_durationDouble() {
-        result := ComCall(10, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +133,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_defaultPlaybackRateDouble(v) {
-        result := ComCall(11, this, "double", v, "HRESULT")
+        result := ComCall(11, this, "double", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,7 +146,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {Float} 
      */
     get_defaultPlaybackRateDouble() {
-        result := ComCall(12, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -136,7 +160,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_playbackRateDouble(v) {
-        result := ComCall(13, this, "double", v, "HRESULT")
+        result := ComCall(13, this, "double", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,7 +173,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {Float} 
      */
     get_playbackRateDouble() {
-        result := ComCall(14, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -155,7 +187,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_volumeDouble(v) {
-        result := ComCall(15, this, "double", v, "HRESULT")
+        result := ComCall(15, this, "double", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +200,11 @@ class IHTMLMediaElement2 extends IDispatch{
      * @returns {Float} 
      */
     get_volumeDouble() {
-        result := ComCall(16, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

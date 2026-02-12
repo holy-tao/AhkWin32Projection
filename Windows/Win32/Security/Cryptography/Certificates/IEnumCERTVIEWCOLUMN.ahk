@@ -6,7 +6,7 @@
 
 /**
  * Represents a column-enumeration sequence that contains the column data for the current row of the enumeration sequence.
- * @see https://docs.microsoft.com/windows/win32/api//certview/nn-certview-ienumcertviewcolumn
+ * @see https://learn.microsoft.com/windows/win32/api//content/certview/nn-certview-ienumcertviewcolumn
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,172 +33,374 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
 
     /**
      * Moves to the next column in the column-enumeration sequence.
+     * @remarks
+     * Upon successful completion of this method, the information in the column can be obtained by calling one of the following methods:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getname">IEnumCERTVIEWCOLUMN::GetName</a>: Retrieves the nonlocalized name of the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getdisplayname">IEnumCERTVIEWCOLUMN::GetDisplayName</a>: Retrieves the localized name of the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getvalue">IEnumCERTVIEWCOLUMN::GetValue</a>: Retrieves the data in the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-gettype">IEnumCERTVIEWCOLUMN::GetType</a>: Retrieves the type of data in the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getmaxlength">IEnumCERTVIEWCOLUMN::GetMaxLength</a>: Retrieves the maximum length, in bytes, of the column.</li>
+     * </ul>
      * @param {Pointer<Integer>} pIndex A pointer to a variable that  contains the index value of the next column referenced by the column-enumeration sequence. If there are no more columns to enumerate, this variable is set to –1. This method will fail if <i>pIndex</i> is <b>NULL</b>.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK and the next column in the column-enumeration sequence is now being referenced. If there are no more columns to enumerate, the method returns S_FALSE, and the <i>pIndex</i> parameter is set to a value of –1.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  The return value is the index value of the column that is now referenced by the column-enumeration sequence. If there are no more columns to enumerate, the return value is –1.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-next
      */
     Next(pIndex) {
         pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pIndexMarshal, pIndex, "HRESULT")
+        result := ComCall(7, this, pIndexMarshal, pIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the nonlocalized name of the current column in the column-enumeration sequence.
+     * @remarks
+     * This method is used to retrieve the nonlocalized name of the  column currently referenced by the 
+     * column-enumeration sequence.
+     * 
+     * If the column-enumeration sequence is not referencing a valid column, <b>GetName</b> will fail. Use one of the following methods to navigate through the enumeration:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-reset">IEnumCERTVIEWCOLUMN::Reset</a>: Moves to the beginning of the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a>: Moves to the next column in the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
+     * </ul>
      * @param {Pointer<BSTR>} pstrOut A pointer to a variable of <b>BSTR</b> type that  contains the name of the column.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK  and the <i>pstrOut</i> parameter contains the name of the column.
      * 
-     * To use this method, create a variable of <b>BSTR</b> type, set the variable equal to <b>NULL</b>, and pass the address of this variable as <i>pstrOut</i>. When you have finished using the <b>BSTR</b>, free it by calling the <a href="/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * To use this method, create a variable of <b>BSTR</b> type, set the variable equal to <b>NULL</b>, and pass the address of this variable as <i>pstrOut</i>. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  The return value is a <b>String</b> that contains the name of the column.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-getname
      */
     GetName(pstrOut) {
-        result := ComCall(8, this, "ptr", pstrOut, "HRESULT")
+        result := ComCall(8, this, "ptr", pstrOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the localized name of the current column in the column-enumeration sequence.
+     * @remarks
+     * This method is used to retrieve the localized name of the column currently referenced by the 
+     * column-enumeration sequence.
+     * 
+     * If the column-enumeration sequence is  not referencing a valid column, <b>GetDisplayName</b> will fail. Use one of the following methods to navigate through the enumeration:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-reset">IEnumCERTVIEWCOLUMN::Reset</a>: Moves to the beginning of the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a>: Moves to the next column in the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
+     * </ul>
      * @param {Pointer<BSTR>} pstrOut A pointer to a variable of <b>BSTR</b> type that contains the localized name of the column.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK and the <i>pstrOut</i> parameter contains the localized name of the column.
      * 
-     * To use this method, create a variable of <b>BSTR</b> type, set the variable equal to <b>NULL</b>, and pass the address of this variable as <i>pstrOut</i>. When you have finished using the <b>BSTR</b>, free it by calling the <a href="/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * To use this method, create a variable of <b>BSTR</b> type, set the variable equal to <b>NULL</b>, and pass the address of this variable as <i>pstrOut</i>. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  The return value is a <b>String</b> that contains the localized name of the column.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-getdisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-getdisplayname
      */
     GetDisplayName(pstrOut) {
-        result := ComCall(9, this, "ptr", pstrOut, "HRESULT")
+        result := ComCall(9, this, "ptr", pstrOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the data type of the current column in the column-enumeration sequence.
+     * @remarks
+     * This method is used to determine the data type of the  column currently referenced by the 
+     * column-enumeration sequence. The valid data types are listed in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Data type</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>PROPTYPE_BINARY</td>
+     * <td>Binary data</td>
+     * </tr>
+     * <tr>
+     * <td>PROPTYPE_DATE</td>
+     * <td>Date/time</td>
+     * </tr>
+     * <tr>
+     * <td>PROPTYPE_LONG</td>
+     * <td>Signed long</td>
+     * </tr>
+     * <tr>
+     * <td>PROPTYPE_STRING</td>
+     * <td><a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> string</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * If the column-enumeration sequence is not referencing a valid column, <b>GetType</b> will fail. Use one of the following methods to navigate through the enumeration:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-reset">IEnumCERTVIEWCOLUMN::Reset</a>: Moves to the beginning of the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a>: Moves to the next column in the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
+     * </ul>
      * @param {Pointer<Integer>} pType A pointer to a variable of <b>LONG</b> type that denotes the data type of the column referenced by the column-enumeration sequence.  For a table of the valid data types, see Remarks. This method  fails if the <i>pType</i> parameter is set to <b>NULL</b>.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  The return value represents the data type of the column. For a table of the valid data types, see Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-gettype
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-gettype
      */
     GetType(pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(10, this, pTypeMarshal, pType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Reports whether the data in the column is indexed.
+     * @remarks
+     * This method is used to determine whether the data of the current column referenced by the column-enumeration sequence is indexed.
+     * 
+     * If the column-enumeration sequence is not referencing a valid column, <b>IsIndexed</b> will fail. Use one of the following methods to navigate through the enumeration:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-reset">IEnumCERTVIEWCOLUMN::Reset</a>: Moves to the beginning of the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a>: Moves to the next column in the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
+     * </ul>
      * @param {Pointer<Integer>} pIndexed A pointer to a variable of type <b>LONG</b> that indicates <b>TRUE</b> if the data is indexed and <b>FALSE</b> if the data is not indexed. This method fails if <i>pIndexed</i> is set to <b>NULL</b>.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK and the <i>pIndexed</i> is set to <b>TRUE</b> or <b>FALSE</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  One if the column is indexed; otherwise, zero.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-isindexed
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-isindexed
      */
     IsIndexed(pIndexed) {
         pIndexedMarshal := pIndexed is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, pIndexedMarshal, pIndexed, "HRESULT")
+        result := ComCall(11, this, pIndexedMarshal, pIndexed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the maximum allowable length, in bytes, for the column data.
+     * @remarks
+     * This method is used to determine the maximum allowable data length for the column currently being referenced by the 
+     * column-enumeration sequence.
+     * 
+     * If the column-enumeration sequence is not referencing a valid column, <b>GetMaxLength</b> will fail. Use one of the following methods to navigate through the enumeration:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-reset">IEnumCERTVIEWCOLUMN::Reset</a>: Moves to the beginning of the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a>: Moves to the next column in the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
+     * </ul>
+     * To determine whether the column data is indexed, call the <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-isindexed">IEnumCERTVIEWCOLUMN::IsIndexed</a> method.
      * @param {Pointer<Integer>} pMaxLength A pointer to a value of <b>LONG</b> type  that  contains the maximum allowable length for the column data. This function will fail if <i>pMaxLength</i> is <b>NULL</b>.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK and the <i>pMaxLength</i> is set to the  maximum allowable length for the column data.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  The return value is the maximum allowable length, in bytes, for the column data.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-getmaxlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-getmaxlength
      */
     GetMaxLength(pMaxLength) {
         pMaxLengthMarshal := pMaxLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, pMaxLengthMarshal, pMaxLength, "HRESULT")
+        result := ComCall(12, this, pMaxLengthMarshal, pMaxLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the data value contained in the current column in the column-enumeration sequence.
+     * @remarks
+     * This method is used to retrieve the data in the column currently being referenced by the 
+     * column-enumeration sequence.
+     * 
+     * If the column-enumeration sequence is not referencing a valid column, <b>GetValue</b> will fail. Use one of the following methods to navigate through the enumeration:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-reset">IEnumCERTVIEWCOLUMN::Reset</a>: Moves to the beginning of the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a>: Moves to the next column in the enumeration sequence.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
+     * </ul>
      * @param {Integer} Flags 
      * @param {Pointer<VARIANT>} pvarValue A pointer to value of <b>VARIANT</b> type that contains the data column. This method fails if <i>pvarValue</i> is <b>NULL</b>. Upon successful completion of this method, <i>pvarValue</i> contains the data in the  column. The caller is responsible for calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> when done with this data.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <h3>VB</h3>
      *  The return value is a <b>Variant</b> that represents the data in the column.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-getvalue
      */
     GetValue(Flags, pvarValue) {
-        result := ComCall(13, this, "int", Flags, "ptr", pvarValue, "HRESULT")
+        result := ComCall(13, this, "int", Flags, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Skips a specified number of columns in the column-enumeration sequence.
+     * @remarks
+     * Upon successful completion of this function, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a> method to reference the current column in the column-enumeration sequence. After this second call is made, the information in the column can be obtained by calling one of the following methods:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getname">IEnumCERTVIEWCOLUMN::GetName</a>: Retrieves the nonlocalized name of the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getdisplayname">IEnumCERTVIEWCOLUMN::GetDisplayName</a>: Retrieves the localized name of the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getvalue">IEnumCERTVIEWCOLUMN::GetValue</a>: Retrieves the data in the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-gettype">IEnumCERTVIEWCOLUMN::GetType</a>: Retrieves the type of data in the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getmaxlength">IEnumCERTVIEWCOLUMN::GetMaxLength</a>: Retrieves the maximum length, in bytes, of the column.</li>
+     * </ul>
+     * The column-enumeration sequence maintains an internal  zero-based index. The call to the <b>Skip</b> method causes this index to increase or decrease based on the setting of the <i>celt</i> parameter.
+     * 
+     * If a negative value of the <i>celt</i> parameter causes the index to be less than zero, the behavior of subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">Next</a> is undefined.
+     * 
+     * If a positive value of the <i>celt</i> parameter causes the index to exceed the last row in the enumeration sequence, a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">Next</a> method will fail.
      * @param {Integer} celt The number of columns to skip. A positive value for the <i>celt</i> parameter causes the column-enumeration sequence to skip forward in the enumeration sequence. A negative value causes column-enumeration to skip backward in the enumeration sequence.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
      * A return value of E_INVALIDARG indicates that a negative value in the   <i>celt</i> parameter caused the column-enumeration sequence index to become less than zero.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-skip
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-skip
      */
     Skip(celt) {
-        result := ComCall(14, this, "int", celt, "HRESULT")
+        result := ComCall(14, this, "int", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Moves to the beginning of the column-enumeration sequence.
+     * @remarks
+     * Upon successful completion of this method, call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-next">IEnumCERTVIEWCOLUMN::Next</a> method to reference the first column in the enumeration. After this second call is made, the information in the column can be obtained by calling one of the following methods:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getname">IEnumCERTVIEWCOLUMN::GetName</a>: Retrieves the nonlocalized name of the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getdisplayname">IEnumCERTVIEWCOLUMN::GetDisplayName</a>: Retrieves the localized name of the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getvalue">IEnumCERTVIEWCOLUMN::GetValue</a>: Retrieves the data in the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-gettype">IEnumCERTVIEWCOLUMN::GetType</a>: Retrieves the type of data in the column.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-getmaxlength">IEnumCERTVIEWCOLUMN::GetMaxLength</a>: Retrieves the maximum length, in bytes, of the column.</li>
+     * </ul>
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-reset
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-reset
      */
     Reset() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a copy of the column-enumeration sequence.
+     * @remarks
+     * The column-enumeration sequence is obtained by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewrow-enumcertviewcolumn">IEnumCERTVIEWROW::EnumCertViewColumn</a> method.
      * @returns {IEnumCERTVIEWCOLUMN} A pointer to a pointer of <a href="https://docs.microsoft.com/windows/desktop/api/certview/nn-certview-ienumcertviewcolumn">IEnumCERTVIEWCOLUMN</a> type. This method will fail if the <i>ppenum</i> is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-ienumcertviewcolumn-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/certview/nf-certview-ienumcertviewcolumn-clone
      */
     Clone() {
-        result := ComCall(16, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumCERTVIEWCOLUMN(ppenum)
     }
 }

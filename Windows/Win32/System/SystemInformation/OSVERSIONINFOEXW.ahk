@@ -182,7 +182,7 @@
  * <td><b>SM_TABLETPC</b></td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-osversioninfoexw
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-osversioninfoexw
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  * @charset Unicode

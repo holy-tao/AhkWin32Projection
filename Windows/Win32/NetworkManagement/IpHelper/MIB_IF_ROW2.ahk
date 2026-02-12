@@ -10,7 +10,7 @@
  * The values for the <b>Type</b> field are defined in the <i>Ipifcons.h</i> header file. Only the possible values listed in the description of the <b>Type</b> member are currently supported.
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-mib_if_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

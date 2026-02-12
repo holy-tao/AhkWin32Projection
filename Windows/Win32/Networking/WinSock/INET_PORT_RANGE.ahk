@@ -11,7 +11,7 @@
  * 
  * The 
  * <b>INET_PORT_RANGE</b> structure is typedefed to the <b>INET_PORT_RESERVATION</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-inet_port_range
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstcpip/ns-mstcpip-inet_port_range
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

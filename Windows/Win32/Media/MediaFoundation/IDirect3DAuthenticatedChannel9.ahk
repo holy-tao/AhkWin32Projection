@@ -5,7 +5,7 @@
 
 /**
  * Provides a communication channel with the graphics driver or the Direct3D runtime.To get a pointer to this interface, call IDirect3DDevice9Video::CreateAuthenticatedChannel.
- * @see https://docs.microsoft.com/windows/win32/api//d3d9/nn-d3d9-idirect3dauthenticatedchannel9
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nn-d3d9-idirect3dauthenticatedchannel9
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,75 +31,109 @@ class IDirect3DAuthenticatedChannel9 extends IUnknown{
     static VTableNames => ["GetCertificateSize", "GetCertificate", "NegotiateKeyExchange", "Query", "Configure"]
 
     /**
-     * Gets the size of the driver's certificate chain.
+     * Gets the size of the driver's certificate chain. (IDirect3DAuthenticatedChannel9.GetCertificateSize)
+     * @remarks
+     * To get the certificate chain, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificate">IDirect3DAuthenticatedChannel9::GetCertificate</a>.
+     * 
+     * This method fails if the channel type is <b>D3DAUTHENTICATEDCHANNEL_D3D9</b>, because the Direct3D 9 channel does not support authentication.
      * @param {Pointer<Integer>} pCertificateSize Receives the size of the certificate chain, in bytes.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificatesize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificatesize
      */
     GetCertificateSize(pCertificateSize) {
         pCertificateSizeMarshal := pCertificateSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pCertificateSizeMarshal, pCertificateSize, "HRESULT")
+        result := ComCall(3, this, pCertificateSizeMarshal, pCertificateSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the driver's certificate chain.
+     * Gets the driver's certificate chain. (IDirect3DAuthenticatedChannel9.GetCertificate)
+     * @remarks
+     * You can use the certificate chain to verify that the driver's certificate was signed by Microsoft and has not been revoked. The driver's certificate also contains the driver's public key. Use the public key to establish a session key, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-negotiatekeyexchange">IDirect3DAuthenticatedChannel9::NegotiateKeyExchange</a> method.
+     * 
+     * This method fails if the channel type is <b>D3DAUTHENTICATEDCHANNEL_D3D9</b>, because the Direct3D 9 channel does not support authentication.
      * @param {Integer} CertifacteSize The size of the <i>ppCertificate</i> array, in bytes. To get the size of the certificate chain, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificatesize">IDirect3DAuthenticatedChannel9::GetCertificateSize</a>.
      * @param {Pointer<Integer>} ppCertificate A pointer to a byte array that receives the driver's X.509 certificate chain. The caller must allocate the array.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-getcertificate
      */
     GetCertificate(CertifacteSize, ppCertificate) {
         ppCertificateMarshal := ppCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", CertifacteSize, ppCertificateMarshal, ppCertificate, "HRESULT")
+        result := ComCall(4, this, "uint", CertifacteSize, ppCertificateMarshal, ppCertificate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Establishes a session key for the authenticated channel.
+     * @remarks
+     * This method fails if the channel type is <b>D3DAUTHENTICATEDCHANNEL_D3D9</b>, because the Direct3D 9 channel does not support authentication.
      * @param {Integer} DataSize The size of the data in the <i>pData</i> array, in bytes.
      * @param {Pointer<Void>} pData A pointer to a byte array that contains the encrypted session key. The buffer must contain 256 bytes of data, encrypted using RSA Encryption Scheme - Optimal Asymmetric Encryption Padding (RSAES-OAEP).
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dauthenticatedchannel9-negotiatekeyexchange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-negotiatekeyexchange
      */
     NegotiateKeyExchange(DataSize, pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", DataSize, pDataMarshal, pData, "HRESULT")
+        result := ComCall(5, this, "uint", DataSize, pDataMarshal, pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a query to the authenticated channel.
+     * @remarks
+     * For a list of queries, see <a href="https://docs.microsoft.com/windows/desktop/medfound/content-protection-queries">Content Protection Queries</a>.
      * @param {Integer} InputSize The size of the <i>pInput</i> array, in bytes.
      * @param {Pointer<Void>} pInput A pointer to a byte array that contains input data for the query. This array always starts with a <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchannel-query-input">D3DAUTHENTICATEDCHANNEL_QUERY_INPUT</a> structure. The <b>QueryType</b> member of the structure specifies the query and defines the meaning of the rest of the array.
      * @param {Integer} OutputSize The size of the <i>pOutput</i> array, in bytes.
      * @param {Pointer<Void>} pOutput A pointer to a byte array that receives the result of the query. This array always starts with a <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchannel-query-output">D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT</a> structure. The meaning of the rest of the array depends on the query.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dauthenticatedchannel9-query
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-query
      */
     Query(InputSize, pInput, OutputSize, pOutput) {
         pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
         pOutputMarshal := pOutput is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", InputSize, pInputMarshal, pInput, "uint", OutputSize, pOutputMarshal, pOutput, "HRESULT")
+        result := ComCall(6, this, "uint", InputSize, pInputMarshal, pInput, "uint", OutputSize, pOutputMarshal, pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a configuration command to the authenticated channel.
+     * @remarks
+     * For a list of commands, see <a href="https://docs.microsoft.com/windows/desktop/medfound/content-protection-commands">Content Protection Commands</a>.
      * @param {Integer} InputSize The size of the <i>pInput</i> array, in bytes.
      * @param {Pointer<Void>} pInput A pointer to a byte array that contains input data for the command. This buffer always starts with a <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchannel-configure-input">D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT</a> structure. The <b>ConfigureType</b> member of the structure specifies the command and defines the meaning of the rest of the buffer.
      * @param {Pointer<D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT>} pOutput A pointer to a <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchannel-configure-output">D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT</a> structure that receives the response to the command.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3dauthenticatedchannel9-configure
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-idirect3dauthenticatedchannel9-configure
      */
     Configure(InputSize, pInput, pOutput) {
         pInputMarshal := pInput is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "uint", InputSize, pInputMarshal, pInput, "ptr", pOutput, "HRESULT")
+        result := ComCall(7, this, "uint", InputSize, pInputMarshal, pInput, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

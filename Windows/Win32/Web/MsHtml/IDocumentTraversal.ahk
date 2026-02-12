@@ -39,7 +39,11 @@ class IDocumentTraversal extends IDispatch{
      * @returns {IDOMNodeIterator} 
      */
     createNodeIterator(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion) {
-        result := ComCall(7, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", &ppNodeIterator := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", &ppNodeIterator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDOMNodeIterator(ppNodeIterator)
     }
 
@@ -52,7 +56,11 @@ class IDocumentTraversal extends IDispatch{
      * @returns {IDOMTreeWalker} 
      */
     createTreeWalker(pRootNode, ulWhatToShow, pFilter, fEntityReferenceExpansion) {
-        result := ComCall(8, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", &ppTreeWalker := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pRootNode, "int", ulWhatToShow, "ptr", pFilter, "short", fEntityReferenceExpansion, "ptr*", &ppTreeWalker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDOMTreeWalker(ppTreeWalker)
     }
 }

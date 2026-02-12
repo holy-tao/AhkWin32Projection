@@ -139,7 +139,11 @@ class IClientCaps extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_javaEnabled() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -148,7 +152,11 @@ class IClientCaps extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -158,7 +166,11 @@ class IClientCaps extends IDispatch{
      */
     get_cpuClass() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -168,7 +180,11 @@ class IClientCaps extends IDispatch{
      */
     get_systemLanguage() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -178,7 +194,11 @@ class IClientCaps extends IDispatch{
      */
     get_userLanguage() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -188,7 +208,11 @@ class IClientCaps extends IDispatch{
      */
     get_platform() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -197,7 +221,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_connectionSpeed() {
-        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -206,7 +234,11 @@ class IClientCaps extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -215,7 +247,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_colorDepth() {
-        result := ComCall(15, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -224,7 +260,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_bufferDepth() {
-        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -233,7 +273,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_width() {
-        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -242,7 +286,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_height() {
-        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -251,7 +299,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_availHeight() {
-        result := ComCall(19, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -260,7 +312,11 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     get_availWidth() {
-        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -270,7 +326,11 @@ class IClientCaps extends IDispatch{
      */
     get_connectionType() {
         p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -282,11 +342,24 @@ class IClientCaps extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     isComponentInstalled(bstrName, bstrUrl, bStrVer) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
-        bStrVer := bStrVer is String ? BSTR.Alloc(bStrVer).Value : bStrVer
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
+        if(bStrVer is String) {
+            pin := BSTR.Alloc(bStrVer)
+            bStrVer := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "short*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -297,11 +370,21 @@ class IClientCaps extends IDispatch{
      * @returns {BSTR} 
      */
     getComponentVersion(bstrName, bstrUrl) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
         pbstrVer := BSTR()
-        result := ComCall(23, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", pbstrVer, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", pbstrVer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVer
     }
 
@@ -312,10 +395,20 @@ class IClientCaps extends IDispatch{
      * @returns {Integer} 
      */
     compareVersions(bstrVer1, bstrVer2) {
-        bstrVer1 := bstrVer1 is String ? BSTR.Alloc(bstrVer1).Value : bstrVer1
-        bstrVer2 := bstrVer2 is String ? BSTR.Alloc(bstrVer2).Value : bstrVer2
+        if(bstrVer1 is String) {
+            pin := BSTR.Alloc(bstrVer1)
+            bstrVer1 := pin.Value
+        }
+        if(bstrVer2 is String) {
+            pin := BSTR.Alloc(bstrVer2)
+            bstrVer2 := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", bstrVer1, "ptr", bstrVer2, "int*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrVer1, "ptr", bstrVer2, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -327,11 +420,24 @@ class IClientCaps extends IDispatch{
      * @returns {HRESULT} 
      */
     addComponentRequest(bstrName, bstrUrl, bStrVer) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
-        bStrVer := bStrVer is String ? BSTR.Alloc(bStrVer).Value : bStrVer
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
+        if(bStrVer is String) {
+            pin := BSTR.Alloc(bStrVer)
+            bStrVer := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -340,7 +446,11 @@ class IClientCaps extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     doComponentRequest() {
-        result := ComCall(26, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(26, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -349,7 +459,11 @@ class IClientCaps extends IDispatch{
      * @returns {HRESULT} 
      */
     clearComponentRequest() {
-        result := ComCall(27, this, "HRESULT")
+        result := ComCall(27, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

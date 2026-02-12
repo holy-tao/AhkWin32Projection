@@ -38,7 +38,11 @@ class IIsolatedEnvironmentInterop extends IUnknown{
         containerHwnd := containerHwnd is Win32Handle ? NumGet(containerHwnd, "ptr") : containerHwnd
 
         hostHwnd := HWND()
-        result := ComCall(3, this, "ptr", containerHwnd, "ptr", hostHwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", containerHwnd, "ptr", hostHwnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hostHwnd
     }
 }

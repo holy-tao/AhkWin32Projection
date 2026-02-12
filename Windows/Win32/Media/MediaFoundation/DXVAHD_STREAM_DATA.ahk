@@ -56,7 +56,7 @@
  * </ul>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_stream_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

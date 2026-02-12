@@ -5,7 +5,7 @@
  * Contains the base memory address of the Admin Completion Queue.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_admin_completion_queue_base_address
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_admin_completion_queue_base_address
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

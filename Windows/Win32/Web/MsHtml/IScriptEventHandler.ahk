@@ -36,7 +36,11 @@ class IScriptEventHandler extends IUnknown{
      */
     FunctionName() {
         pbstrFunctionName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrFunctionName, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrFunctionName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFunctionName
     }
 
@@ -45,7 +49,11 @@ class IScriptEventHandler extends IUnknown{
      * @returns {IUnknown} 
      */
     DebugDocumentContext() {
-        result := ComCall(4, this, "ptr*", &ppDebugDocumentContext := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppDebugDocumentContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDebugDocumentContext)
     }
 
@@ -54,7 +62,11 @@ class IScriptEventHandler extends IUnknown{
      * @returns {IDispatch} 
      */
     EventHandlerDispatch() {
-        result := ComCall(5, this, "ptr*", &ppDispHandler := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppDispHandler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDispHandler)
     }
 
@@ -63,7 +75,11 @@ class IScriptEventHandler extends IUnknown{
      * @returns {BOOL} 
      */
     UsesCapture() {
-        result := ComCall(6, this, "int*", &pfUsesCapture := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pfUsesCapture := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfUsesCapture
     }
 
@@ -72,7 +88,11 @@ class IScriptEventHandler extends IUnknown{
      * @returns {Integer} 
      */
     Cookie() {
-        result := ComCall(7, this, "uint*", &pullCookie := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pullCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pullCookie
     }
 }

@@ -7,7 +7,7 @@
  * This is the structure that holds all callback function pointers. Fill in the ones 
  * you want to receive. All callbacks are CIM extensions for tracking
  * logging and error messages.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sessioncallbacks
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_sessioncallbacks
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -8,7 +8,7 @@
  *     structure except for the 
  *     <b>ss_family</b> member. Instead, a pointer to a SOCKADDR_STORAGE structure is normally cast to a pointer
  *     to the specific SOCKADDR structure type that corresponds to a particular address family.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-sockaddr_storage_xp
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-sockaddr_storage_xp
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -7,11 +7,8 @@
 /**
  * The IStreamBufferDataCounters interface returns performance statistics for the Stream Buffer filters. This interface is exposed by the pins on the Stream Buffer Sink filter and the Stream Buffer Source filter.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferDataCounters)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferdatacounters
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nn-sbe-istreambufferdatacounters
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -39,11 +36,15 @@ class IStreamBufferDataCounters extends IUnknown{
     /**
      * The GetData method returns performance data for the Stream Buffer Engine.
      * @returns {SBE_PIN_DATA} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/ns-sbe-sbe_pin_data">SBE_PIN_DATA</a> structure. The method fills the structure with the current performance data.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferdatacounters-getdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-istreambufferdatacounters-getdata
      */
     GetData() {
         pPinData := SBE_PIN_DATA()
-        result := ComCall(3, this, "ptr", pPinData, "HRESULT")
+        result := ComCall(3, this, "ptr", pPinData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPinData
     }
 
@@ -68,10 +69,14 @@ class IStreamBufferDataCounters extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferdatacounters-resetdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-istreambufferdatacounters-resetdata
      */
     ResetData() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

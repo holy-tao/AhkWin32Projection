@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
@@ -1390,17 +1392,17 @@ class Dhcp {
     static SHAREDSECRET => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DHCP_CALLOUT_LIST_KEY => "System\CurrentControlSet\Services\DHCPServer\Parameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DHCP_CALLOUT_LIST_VALUE => "CalloutDlls"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DHCP_CALLOUT_ENTRY_POINT => "DhcpServerCalloutEntry"
 
@@ -1643,21 +1645,21 @@ class Dhcp {
 ;@region Methods
     /**
      * The Dhcpv6CApiInitialize function must be the first function call made by users of DHCPv6.
-     * @param {Pointer<Integer>} Version Pointer to the DHCPv6 version implemented by the client.  If a valid pointer is passed, the DHCPv6 client will be returned through it.
+     * @param {Pointer<Integer>} Version_ Pointer to the DHCPv6 version implemented by the client.  If a valid pointer is passed, the DHCPv6 client will be returned through it.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capiinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capiinitialize
      * @since windows6.0.6000
      */
-    static Dhcpv6CApiInitialize(Version) {
-        VersionMarshal := Version is VarRef ? "uint*" : "ptr"
+    static Dhcpv6CApiInitialize(Version_) {
+        Version_Marshal := Version_ is VarRef ? "uint*" : "ptr"
 
-        DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", VersionMarshal, Version)
+        DllCall("dhcpcsvc6.dll\Dhcpv6CApiInitialize", Version_Marshal, Version_)
     }
 
     /**
      * The Dhcpv6CApiCleanup function enables DHCPv6 to properly clean up resources allocated throughout the use of DHCPv6 function calls. The Dhcpv6CApiCleanup function must only be called if a previous call to Dhcpv6CApiInitialize executed successfully.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capicleanup
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6capicleanup
      * @since windows6.0.6000
      */
     static Dhcpv6CApiCleanup() {
@@ -1671,7 +1673,7 @@ class Dhcp {
      * @param {PWSTR} adapterName GUID of the adapter for which this request is meant.  This parameter must not be <b>NULL</b>.
      * @param {Pointer<DHCPV6CAPI_CLASSID>} classId Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid">DHCPV6CAPI_CLASSID</a> structure that contains the binary ClassId information to use to send on the wire. This parameter is optional.
      * @param {DHCPV6CAPI_PARAMS_ARRAY} recdParams A <a href="https://docs.microsoft.com/windows/desktop/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array">DHCPV6CAPI_PARAMS_ARRAY</a> structure that contains the parameters to be received from the DHCPV6 server.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} buffer_ A buffer to contain information returned by some pointers in <i>recdParams</i>.
      * @param {Pointer<Integer>} pSize Size of the buffer.  When the function returns ERROR_MORE_DATA, this parameter will contain the size, in bytes, required to complete the operation.  If the function is successful, this parameter contains the number of bytes used.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
      * 
@@ -1722,17 +1724,17 @@ class Dhcp {
      * </tr>
      * 
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6requestparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6requestparams
      * @since windows6.0.6000
      */
-    static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer_R, pSize) {
+    static Dhcpv6RequestParams(forceNewInform, reserved, adapterName, classId, recdParams, buffer_, pSize) {
         adapterName := adapterName is String ? StrPtr(adapterName) : adapterName
 
         reservedMarshal := reserved is VarRef ? "ptr" : "ptr"
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        buffer_Marshal := buffer_ is VarRef ? "char*" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, reservedMarshal, reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, buffer_RMarshal, buffer_R, pSizeMarshal, pSize, "uint")
+        result := DllCall("dhcpcsvc6.dll\Dhcpv6RequestParams", "int", forceNewInform, reservedMarshal, reserved, "ptr", adapterName, "ptr", classId, "ptr", recdParams, buffer_Marshal, buffer_, pSizeMarshal, pSize, "uint")
         return result
     }
 
@@ -1825,7 +1827,7 @@ class Dhcp {
      * </tr>
      * 
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6requestprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6requestprefix
      * @since windows6.0.6000
      */
     static Dhcpv6RequestPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait) {
@@ -1895,7 +1897,7 @@ class Dhcp {
      * </tr>
      * 
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6renewprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6renewprefix
      * @since windows6.0.6000
      */
     static Dhcpv6RenewPrefix(adapterName, pclassId, prefixleaseInfo, pdwTimeToWait, bValidatePrefix) {
@@ -1959,7 +1961,7 @@ class Dhcp {
      * </tr>
      * 
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6releaseprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpv6csdk/nf-dhcpv6csdk-dhcpv6releaseprefix
      * @since windows6.0.6000
      */
     static Dhcpv6ReleasePrefix(adapterName, classId, leaseInfo) {
@@ -1971,22 +1973,22 @@ class Dhcp {
 
     /**
      * The DhcpCApiInitialize function must be the first function call made by users of DHCP; it prepares the system for all other DHCP function calls. Other DHCP functions should only be called if the DhcpCApiInitialize function executes successfully.
-     * @param {Pointer<Integer>} Version Pointer to the DHCP version implemented by the client.
+     * @param {Pointer<Integer>} Version_ Pointer to the DHCP version implemented by the client.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpcapiinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcpcapiinitialize
      * @since windows5.0
      */
-    static DhcpCApiInitialize(Version) {
-        VersionMarshal := Version is VarRef ? "uint*" : "ptr"
+    static DhcpCApiInitialize(Version_) {
+        Version_Marshal := Version_ is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", VersionMarshal, Version, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpCApiInitialize", Version_Marshal, Version_, "uint")
         return result
     }
 
     /**
      * The DhcpCApiCleanup function enables DHCP to properly clean up resources allocated throughout the use of DHCP function calls. The DhcpCApiCleanup function must only be called if a previous call to DhcpCApiInitialize executed successfully.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpcapicleanup
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcpcapicleanup
      * @since windows5.0
      */
     static DhcpCApiCleanup() {
@@ -2047,7 +2049,7 @@ class Dhcp {
      * @param {DHCPCAPI_PARAMS_ARRAY} SendParams Optional data to be requested, in addition to the data requested in the <i>RecdParams</i> array. The <i>SendParams</i> parameter cannot contain any of the standard options that the DHCP client sends by default.
      * @param {DHCPCAPI_PARAMS_ARRAY} RecdParams Array of DHCP data the caller is interested in receiving. This array must be empty prior to the 
      * <b>DhcpRequestParams</b> function call.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Buffer used for storing the data associated with requests made in <i>RecdParams</i>.
      * @param {Pointer<Integer>} pSize Size of <i>Buffer</i>. 
      * 
      * 
@@ -2091,17 +2093,17 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcprequestparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcprequestparams
      * @since windows5.0
      */
-    static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, Buffer_R, pSize, RequestIdStr) {
+    static DhcpRequestParams(Flags, Reserved, AdapterName, ClassId, SendParams, RecdParams, Buffer_, pSize, RequestIdStr) {
         AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
         RequestIdStr := RequestIdStr is String ? StrPtr(RequestIdStr) : RequestIdStr
 
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, ReservedMarshal, Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer_R, pSizeMarshal, pSize, "ptr", RequestIdStr, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpRequestParams", "uint", Flags, ReservedMarshal, Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", SendParams, "ptr", RecdParams, "ptr", Buffer_, pSizeMarshal, pSize, "ptr", RequestIdStr, "uint")
         return result
     }
 
@@ -2117,7 +2119,7 @@ class Dhcp {
      * @param {PWSTR} RequestIdStr Application identifier (ID) originally used to make a persistent request. This string must match the <i>RequestIdStr</i> parameter used in the 
      * <b>DhcpRequestParams</b> function call that obtained the corresponding persistent request. Note that this must match the previous application identifier (ID) used, and must be a printable string with no special characters (commas, backslashes, colons, or other illegal characters may not be used).
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion. Otherwise, returns a Windows error code.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpundorequestparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcpundorequestparams
      * @since windows5.0
      */
     static DhcpUndoRequestParams(AdapterName, RequestIdStr) {
@@ -2138,7 +2140,7 @@ class Dhcp {
      * @param {PWSTR} AdapterName GUID of the adapter for which event notification is being requested.  Must be under 256 characters.
      * @param {Pointer<DHCPCAPI_CLASSID>} ClassId Reserved. Must be set to <b>NULL</b>.
      * @param {DHCPCAPI_PARAMS_ARRAY} Params Parameters for which the client is interested in registering for notification, in the form of a <a href="https://docs.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_params_array">DHCPCAPI_PARAMS_ARRAY</a> structure.
-     * @param {Pointer<Void>} Handle Attributes of <i>Handle</i> are determined by the value of <i>Flags</i>. In version 2 of the DHCP API, <i>Flags</i> must be set to DHCPCAPI_REGISTER_HANDLE_EVENT, and therefore, <i>Handle</i> must be a pointer to a <b>HANDLE</b> variable that will hold the handle to a Windows event that gets signaled when parameters specified in <i>Params</i> change. Note that this <b>HANDLE</b> variable is used in a subsequent call to the 
+     * @param {Pointer<Void>} Handle_ Attributes of <i>Handle</i> are determined by the value of <i>Flags</i>. In version 2 of the DHCP API, <i>Flags</i> must be set to DHCPCAPI_REGISTER_HANDLE_EVENT, and therefore, <i>Handle</i> must be a pointer to a <b>HANDLE</b> variable that will hold the handle to a Windows event that gets signaled when parameters specified in <i>Params</i> change. Note that this <b>HANDLE</b> variable is used in a subsequent call to the 
      * <b>DhcpDeRegisterParamChange</b> function to deregister event notifications associated with this particular call to the 
      * <b>DhcpRegisterParamChange</b> function.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion. Otherwise, returns Windows error codes.
@@ -2160,17 +2162,17 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpregisterparamchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcpregisterparamchange
      * @since windows5.0
      */
-    static DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, Handle) {
+    static DhcpRegisterParamChange(Flags, AdapterName, ClassId, Params, Handle_) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         AdapterName := AdapterName is String ? StrPtr(AdapterName) : AdapterName
 
-        HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
+        Handle_Marshal := Handle_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("dhcpcsvc.dll\DhcpRegisterParamChange", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", Params, HandleMarshal, Handle, "uint")
+        result := DllCall("dhcpcsvc.dll\DhcpRegisterParamChange", "uint", Flags, "ptr", Reserved, "ptr", AdapterName, "ptr", ClassId, "ptr", Params, Handle_Marshal, Handle_, "uint")
         return result
     }
 
@@ -2187,7 +2189,7 @@ class Dhcp {
      * @param {Pointer<Void>} Event Must be the same value as the <b>HANDLE</b> variable in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpcsdk/nf-dhcpcsdk-dhcpregisterparamchange">DhcpRegisterParamChange</a> function call for which the client is deregistering event notification.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion. Otherwise, returns Windows error codes.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpderegisterparamchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcpderegisterparamchange
      * @since windows5.0
      */
     static DhcpDeRegisterParamChange(Flags, Reserved, Event) {
@@ -2201,7 +2203,7 @@ class Dhcp {
     /**
      * The DhcpRemoveDNSRegistrations function removes all DHCP-initiated DNS registrations for the client.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/nf-dhcpcsdk-dhcpremovednsregistrations
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpcsdk/nf-dhcpcsdk-dhcpremovednsregistrations
      * @since windows5.0
      */
     static DhcpRemoveDNSRegistrations() {
@@ -2272,7 +2274,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpaddfilterv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpaddfilterv4
      * @since windowsserver2008
      */
     static DhcpAddFilterV4(ServerIpAddress, AddFilterInfo, ForceFlag) {
@@ -2338,7 +2340,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeletefilterv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeletefilterv4
      * @since windowsserver2008
      */
     static DhcpDeleteFilterV4(ServerIpAddress, DeleteFilterInfo) {
@@ -2395,7 +2397,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetfilterv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetfilterv4
      * @since windowsserver2008
      */
     static DhcpSetFilterV4(ServerIpAddress, GlobalFilterInfo) {
@@ -2439,7 +2441,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetfilterv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetfilterv4
      * @since windowsserver2008
      */
     static DhcpGetFilterV4(ServerIpAddress, GlobalFilterInfo) {
@@ -2510,7 +2512,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumfilterv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumfilterv4
      * @since windowsserver2008
      */
     static DhcpEnumFilterV4(ServerIpAddress, ResumeHandle, PreferredMaximum, ListType, EnumFilterInfo, ElementsRead, ElementsTotal) {
@@ -2530,7 +2532,7 @@ class Dhcp {
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet's gateway.
      * @param {Pointer<DHCP_SUBNET_INFO>} SubnetInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info">DHCP_SUBNET_INFO</a> structure that contains specific settings for the subnet, including the subnet mask and IP address of the  subnet gateway.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreatesubnet
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreatesubnet
      * @since windowsserver2000
      */
     static DhcpCreateSubnet(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -2546,7 +2548,7 @@ class Dhcp {
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that specifies the IP address of the subnet gateway, as well as uniquely identifies the subnet.
      * @param {Pointer<DHCP_SUBNET_INFO>} SubnetInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info">DHCP_SUBNET_INFO</a> structure that contains the information about the subnet.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetinfo
      * @since windowsserver2000
      */
     static DhcpSetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -2569,7 +2571,7 @@ class Dhcp {
      * </div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfo
      * @since windowsserver2000
      */
     static DhcpGetSubnetInfo(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -2594,7 +2596,7 @@ class Dhcp {
      * @param {Pointer<Integer>} ElementsRead Pointer to a <b>DWORD</b> value that specifies the number of subnet addresses returned in <i>EnumInfo</i>.
      * @param {Pointer<Integer>} ElementsTotal Pointer to a <b>DWORD</b> value that specifies the  number of subnets defined on the DHCP server that have not yet been enumerated.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. If a call is made with the same <i>ResumeHandle</i> value and all items on the server have been enumerated, this method returns <b>ERROR_NO_MORE_ITEMS</b> with <i>ElementsRead</i> and <i>ElementsTotal</i> set to 0. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnets
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnets
      * @since windowsserver2000
      */
     static DhcpEnumSubnets(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
@@ -2721,7 +2723,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelement
      * @since windowsserver2008
      */
     static DhcpAddSubnetElement(ServerIpAddress, SubnetAddress, AddElementInfo) {
@@ -2797,7 +2799,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelements
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelements
      * @since windowsserver2000
      */
     static DhcpEnumSubnetElements(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
@@ -2884,7 +2886,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelement
      * @since windowsserver2008
      */
     static DhcpRemoveSubnetElement(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
@@ -2902,7 +2904,7 @@ class Dhcp {
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> value that contains the IP address of the subnet gateway used to identify the subnet.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates the type of delete operation to perform (full force, failover force, or no force).
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeletesubnet
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeletesubnet
      * @since windowsserver2000
      */
     static DhcpDeleteSubnet(ServerIpAddress, SubnetAddress, ForceFlag) {
@@ -2949,7 +2951,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateoption
      * @since windowsserver2008
      */
     static DhcpCreateOption(ServerIpAddress, OptionID, OptionInfo) {
@@ -2994,7 +2996,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptioninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptioninfo
      * @since windowsserver2008
      */
     static DhcpSetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
@@ -3044,7 +3046,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetoptioninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetoptioninfo
      * @since windowsserver2008
      */
     static DhcpGetOptionInfo(ServerIpAddress, OptionID, OptionInfo) {
@@ -3111,7 +3113,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumoptions
      * @since windowsserver2008
      */
     static DhcpEnumOptions(ServerIpAddress, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
@@ -3160,7 +3162,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremoveoption
      * @since windowsserver2008
      */
     static DhcpRemoveOption(ServerIpAddress, OptionID) {
@@ -3241,7 +3243,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvalue
      * @since windowsserver2008
      */
     static DhcpSetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
@@ -3321,7 +3323,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvalues
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvalues
      * @since windowsserver2008
      */
     static DhcpSetOptionValues(ServerIpAddress, ScopeInfo, OptionValues) {
@@ -3345,7 +3347,7 @@ class Dhcp {
      * </div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetoptionvalue
      * @since windowsserver2000
      */
     static DhcpGetOptionValue(ServerIpAddress, OptionID, ScopeInfo, OptionValue) {
@@ -3433,7 +3435,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumoptionvalues
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumoptionvalues
      * @since windowsserver2008
      */
     static DhcpEnumOptionValues(ServerIpAddress, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
@@ -3505,7 +3507,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvalue
      * @since windowsserver2008
      */
     static DhcpRemoveOptionValue(ServerIpAddress, OptionID, ScopeInfo) {
@@ -3562,7 +3564,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfovq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfovq
      * @since windowsserver2008
      */
     static DhcpCreateClientInfoVQ(ServerIpAddress, ClientInfo) {
@@ -3617,7 +3619,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfovq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfovq
      * @since windowsserver2008
      */
     static DhcpSetClientInfoVQ(ServerIpAddress, ClientInfo) {
@@ -3664,7 +3666,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfovq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfovq
      * @since windowsserver2008
      */
     static DhcpGetClientInfoVQ(ServerIpAddress, SearchInfo, ClientInfo) {
@@ -3730,7 +3732,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsvq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsvq
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsVQ(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -3795,7 +3797,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsfilterstatusinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsfilterstatusinfo
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsFilterStatusInfo(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -3817,7 +3819,7 @@ class Dhcp {
      * @param {PWSTR} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO>} ClientInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO</a> structure that contains information about the DHCP client, including the assigned IP address, subnet mask, and host.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfo
      * @since windowsserver2000
      */
     static DhcpCreateClientInfo(ServerIpAddress, ClientInfo) {
@@ -3834,7 +3836,7 @@ class Dhcp {
      * @param {PWSTR} ServerIpAddress Pointer to a Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_CLIENT_INFO>} ClientInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO</a> structure that contains the information on a client in a subnet served by the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfo
      * @since windowsserver2000
      */
     static DhcpSetClientInfo(ServerIpAddress, ClientInfo) {
@@ -3857,7 +3859,7 @@ class Dhcp {
      * </div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfo
      * @since windowsserver2000
      */
     static DhcpGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
@@ -3876,7 +3878,7 @@ class Dhcp {
      * @param {PWSTR} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Pointer<DHCP_SEARCH_INFO>} ClientInfo <a href="https://docs.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_search_info">DHCP_SEARCH_INFO</a> union structure that contains one of the following items used to search the DHCP client record database: the client IP address, the client MAC address, or the client network name. All records matching the value will be deleted; for example, if a client IP address of 192.1.1.10 is supplied, all records with this address in the <b>ClientIpAddress</b> field will be deleted.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeleteclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeleteclientinfo
      * @since windowsserver2000
      */
     static DhcpDeleteClientInfo(ServerIpAddress, ClientInfo) {
@@ -3903,7 +3905,7 @@ class Dhcp {
      * <div class="alert"><b>Note</b>  This value is set to the correct value during the final enumeration call; however, prior calls to this function set the value as "0x7FFFFFFF".</div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_MORE_DATA</b> upon a successful call. The final call to this method with the last set of subnet clients returns <b>ERROR_SUCCESS</b>. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclients
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclients
      * @since windowsserver2000
      */
     static DhcpEnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -3948,7 +3950,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetclientoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetclientoptions
      * @since windowsserver2008
      */
     static DhcpGetClientOptions(ServerIpAddress, ClientIpAddress, ClientSubnetMask, ClientOptions) {
@@ -3961,10 +3963,58 @@ class Dhcp {
     }
 
     /**
+     * Obtains a MIB data structure that contains current statistics about the specified DHCP server.
+     * @param {PWSTR} ServerIpAddress Pointer to a zero-delimited string that contains the IPv4 address of the DHCP server for which statistical information is to be retrieved. This value is specified in the format "*.*.*.*". 
      * 
-     * @param {PWSTR} ServerIpAddress 
-     * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo 
-     * @returns {Integer} 
+     * If this parameter is <b>NULL</b>, then the local DHCP server process is queried.
+     * @param {Pointer<Pointer<DHCP_MIB_INFO>>} MibInfo Pointer to the address of a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_mib_info_v5">DHCP_MIB_INFO_V5</a> structure that contains statistical information about the DHCP server specified in the <i>ServerIpAddress</i> parameter.
+     * 
+     * <div class="alert"><b>Note</b>  <p class="note">The memory for this parameter must be free using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory">DhcpRpcFreeMemory</a>.
+     * 
+     * </div>
+     * <div> </div>
+     * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This call was performed by a client who is not a member of the "DHCP Administrators" security group.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_DHCP_JET_ERROR</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred while accessing the DHCP server's database.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters provides an invalid value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov5
      */
     static DhcpGetMibInfo(ServerIpAddress, MibInfo) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
@@ -4095,7 +4145,7 @@ class Dhcp {
      * </table>
      * @param {Pointer<DHCP_SERVER_CONFIG_INFO>} ConfigInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info">DHCP_SERVER_CONFIG_INFO</a> structure that contains the specific configuration information to set on the DHCP server, as indicated by the flags specified in <i>FieldsToSet</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserversetconfig
      * @since windowsserver2008
      */
     static DhcpServerSetConfig(ServerIpAddress, FieldsToSet, ConfigInfo) {
@@ -4115,7 +4165,7 @@ class Dhcp {
      * </div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpservergetconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpservergetconfig
      * @since windowsserver2008
      */
     static DhcpServerGetConfig(ServerIpAddress, ConfigInfo) {
@@ -4178,7 +4228,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpscandatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpscandatabase
      * @since windowsserver2008
      */
     static DhcpScanDatabase(ServerIpAddress, SubnetAddress, FixFlag, ScanList) {
@@ -4196,7 +4246,7 @@ class Dhcp {
      * This function should be called to release the memory consumed by any structures.
      * @param {Pointer<Void>} BufferPointer Pointer to an address that contains a structure (or structures, in the case of an array) returned as a parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcprpcfreememory
      * @since windowsserver2000
      */
     static DhcpRpcFreeMemory(BufferPointer) {
@@ -4211,7 +4261,7 @@ class Dhcp {
      * @param {Pointer<Integer>} MajorVersion Specifies the major version number of the DHCP server.
      * @param {Pointer<Integer>} MinorVersion Specifies the minor version number of the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetversion
      * @since windowsserver2000
      */
     static DhcpGetVersion(ServerIpAddress, MajorVersion, MinorVersion) {
@@ -4347,7 +4397,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv4
      * @since windowsserver2008
      */
     static DhcpAddSubnetElementV4(ServerIpAddress, SubnetAddress, AddElementInfo) {
@@ -4423,7 +4473,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelementsv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelementsv4
      * @since windowsserver2000
      */
     static DhcpEnumSubnetElementsV4(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
@@ -4510,7 +4560,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelementv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelementv4
      * @since windowsserver2008
      */
     static DhcpRemoveSubnetElementV4(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
@@ -4545,7 +4595,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfov4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateclientinfov4
      * @since windowsserver2008
      */
     static DhcpCreateClientInfoV4(ServerIpAddress, ClientInfo) {
@@ -4589,7 +4639,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfov4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfov4
      * @since windowsserver2008
      */
     static DhcpSetClientInfoV4(ServerIpAddress, ClientInfo) {
@@ -4639,7 +4689,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfov4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfov4
      * @since windowsserver2008
      */
     static DhcpGetClientInfoV4(ServerIpAddress, SearchInfo, ClientInfo) {
@@ -4718,7 +4768,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv4
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsV4(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -4918,7 +4968,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetconfigv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserversetconfigv4
      * @since windowsserver2008
      */
     static DhcpServerSetConfigV4(ServerIpAddress, FieldsToSet, ConfigInfo) {
@@ -4978,7 +5028,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpservergetconfigv4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpservergetconfigv4
      * @since windowsserver2008
      */
     static DhcpServerGetConfigV4(ServerIpAddress, ConfigInfo) {
@@ -5039,7 +5089,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetsuperscopev4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetsuperscopev4
      * @since windowsserver2008
      */
     static DhcpSetSuperScopeV4(ServerIpAddress, SubnetAddress, SuperScopeName, ChangeExisting) {
@@ -5097,7 +5147,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeletesuperscopev4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeletesuperscopev4
      * @since windowsserver2008
      */
     static DhcpDeleteSuperScopeV4(ServerIpAddress, SuperScopeName) {
@@ -5138,7 +5188,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetsuperscopeinfov4
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetsuperscopeinfov4
      * @since windowsserver2008
      */
     static DhcpGetSuperScopeInfoV4(ServerIpAddress, SuperScopeTable) {
@@ -5204,7 +5254,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv5
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsV5(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -5308,7 +5358,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateoptionv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateoptionv5
      * @since windowsserver2008
      */
     static DhcpCreateOptionV5(ServerIpAddress, Flags, OptionId, ClassName, VendorName, OptionInfo) {
@@ -5386,7 +5436,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptioninfov5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptioninfov5
      * @since windowsserver2008
      */
     static DhcpSetOptionInfoV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
@@ -5503,7 +5553,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetoptioninfov5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetoptioninfov5
      * @since windowsserver2008
      */
     static DhcpGetOptionInfoV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
@@ -5587,7 +5637,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumoptionsv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumoptionsv5
      * @since windowsserver2008
      */
     static DhcpEnumOptionsV5(ServerIpAddress, Flags, ClassName, VendorName, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
@@ -5692,7 +5742,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionv5
      * @since windowsserver2008
      */
     static DhcpRemoveOptionV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName) {
@@ -5741,7 +5791,7 @@ class Dhcp {
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns 
      *        one of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvaluev5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvaluev5
      * @since windowsserver2000
      */
     static DhcpSetOptionValueV5(ServerIpAddress, Flags, OptionId, ClassName, VendorName, ScopeInfo, OptionValue) {
@@ -5826,7 +5876,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvaluesv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvaluesv5
      * @since windowsserver2008
      */
     static DhcpSetOptionValuesV5(ServerIpAddress, Flags, ClassName, VendorName, ScopeInfo, OptionValues) {
@@ -5944,7 +5994,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetoptionvaluev5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetoptionvaluev5
      * @since windowsserver2008
      */
     static DhcpGetOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo, OptionValue) {
@@ -6061,7 +6111,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetoptionvaluev6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetoptionvaluev6
      * @since windowsserver2008
      */
     static DhcpGetOptionValueV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo, OptionValue) {
@@ -6168,7 +6218,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumoptionvaluesv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumoptionvaluesv5
      * @since windowsserver2008
      */
     static DhcpEnumOptionValuesV5(ServerIpAddress, Flags, ClassName, VendorName, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
@@ -6211,7 +6261,7 @@ class Dhcp {
      * @param {PWSTR} VendorName Unicode string that specifies the vendor of the option. This parameter is optional, and should be <b>NULL</b> when <i>Flags</i> is not set to DHCP_FLAGS_OPTION_IS_VENDOR.
      * @param {Pointer<DHCP_OPTION_SCOPE_INFO>} ScopeInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info">DHCP_OPTION_SCOPE_INFO</a> structure that contains information describing the specific scope to remove the option value from.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvaluev5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvaluev5
      * @since windowsserver2000
      */
     static DhcpRemoveOptionValueV5(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo) {
@@ -6269,7 +6319,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateclass
      * @since windowsserver2008
      */
     static DhcpCreateClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
@@ -6347,7 +6397,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpmodifyclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpmodifyclass
      * @since windowsserver2008
      */
     static DhcpModifyClass(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
@@ -6414,7 +6464,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeleteclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeleteclass
      * @since windowsserver2008
      */
     static DhcpDeleteClass(ServerIpAddress, ReservedMustBeZero, ClassName) {
@@ -6486,7 +6536,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetclassinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetclassinfo
      * @since windowsserver2008
      */
     static DhcpGetClassInfo(ServerIpAddress, ReservedMustBeZero, PartialClassInfo, FilledClassInfo) {
@@ -6537,7 +6587,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumclasses
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumclasses
      * @since windowsserver2008
      */
     static DhcpEnumClasses(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
@@ -6600,7 +6650,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetalloptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetalloptions
      * @since windowsserver2008
      */
     static DhcpGetAllOptions(ServerIpAddress, Flags, OptionStruct) {
@@ -6691,7 +6741,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetalloptionsv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetalloptionsv6
      * @since windowsserver2008
      */
     static DhcpGetAllOptionsV6(ServerIpAddress, Flags, OptionStruct) {
@@ -6774,7 +6824,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetalloptionvalues
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetalloptionvalues
      * @since windowsserver2008
      */
     static DhcpGetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
@@ -6866,7 +6916,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetalloptionvaluesv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetalloptionvaluesv6
      * @since windowsserver2008
      */
     static DhcpGetAllOptionValuesV6(ServerIpAddress, Flags, ScopeInfo, Values) {
@@ -6886,7 +6936,7 @@ class Dhcp {
      * @param {Pointer<Void>} CallbackFn Pointer to the callback function that will be called when the server add operation completes. This field should be null.
      * @param {Pointer<Void>} CallbackData Pointer to a data block containing the formatted structure for callback information. This field should be null.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumservers
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumservers
      * @since windowsserver2000
      */
     static DhcpEnumServers(Flags, IdInfo, Servers, CallbackFn, CallbackData) {
@@ -6907,7 +6957,7 @@ class Dhcp {
      * @param {Pointer<Void>} CallbackFn Pointer to the callback function that will be called when the server add operation completes. This field should be null.
      * @param {Pointer<Void>} CallbackData Pointer to a data block containing the formatted structure for callback information. This field should be null.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpaddserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpaddserver
      * @since windowsserver2000
      */
     static DhcpAddServer(Flags, IdInfo, NewServer, CallbackFn, CallbackData) {
@@ -6927,7 +6977,7 @@ class Dhcp {
      * @param {Pointer<Void>} CallbackFn Pointer to the function to call after this operation is executed. Set to null.
      * @param {Pointer<Void>} CallbackData Pointer to the list of data that will be passed to the callback function specified in <i>CallbackFn</i>. Set to null.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeleteserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeleteserver
      * @since windowsserver2000
      */
     static DhcpDeleteServer(Flags, IdInfo, NewServer, CallbackFn, CallbackData) {
@@ -6970,7 +7020,7 @@ class Dhcp {
      * </div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetserverbindinginfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetserverbindinginfo
      * @since windowsserver2000
      */
     static DhcpGetServerBindingInfo(ServerIpAddress, Flags, BindElementsInfo) {
@@ -7008,7 +7058,7 @@ class Dhcp {
      * </table>
      * @param {Pointer<DHCP_BIND_ELEMENT_ARRAY>} BindElementInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_bind_element_array">DHCP_BIND_ELEMENT_ARRAY</a> structure that contains the endpoint bindings for the DHCP server.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetserverbindinginfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetserverbindinginfo
      * @since windowsserver2000
      */
     static DhcpSetServerBindingInfo(ServerIpAddress, Flags, BindElementInfo) {
@@ -7026,7 +7076,7 @@ class Dhcp {
      * @param {Integer} SubnetAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_IP_ADDRESS</a> structure that contains the IP address of the subnet.
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V5>} AddElementInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v5">DHCP_SUBNET_ELEMENT_DATA_V5</a> structure that contains the element data to add to the subnet. The V5 structure adds support for BOOTP clients.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv5
      * @since windowsserver2000
      */
     static DhcpAddSubnetElementV5(ServerIpAddress, SubnetAddress, AddElementInfo) {
@@ -7093,7 +7143,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelementsv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelementsv5
      * @since windowsserver2000
      */
     static DhcpEnumSubnetElementsV5(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
@@ -7117,7 +7167,7 @@ class Dhcp {
      * @param {Pointer<DHCP_SUBNET_ELEMENT_DATA_V5>} RemoveElementInfo <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data_v5">DHCP_SUBNET_ELEMENT_DATA_V5</a> structure that contains information used to find the element that will be removed from subnet specified in <i>SubnetAddress</i>.
      * @param {Integer} ForceFlag <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_force_flag">DHCP_FORCE_FLAG</a> enumeration value that indicates whether or not the clients affected by the removal of the subnet element should also be deleted.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelementv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelementv5
      * @since windowsserver2000
      */
     static DhcpRemoveSubnetElementV5(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
@@ -7194,7 +7244,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4enumsubnetreservations
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4enumsubnetreservations
      * @since windowsserver2012
      */
     static DhcpV4EnumSubnetReservations(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
@@ -7275,7 +7325,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateoptionv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateoptionv6
      * @since windowsserver2008
      */
     static DhcpCreateOptionV6(ServerIpAddress, Flags, OptionId, ClassName, VendorName, OptionInfo) {
@@ -7341,7 +7391,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionv6
      * @since windowsserver2008
      */
     static DhcpRemoveOptionV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName) {
@@ -7433,7 +7483,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumoptionsv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumoptionsv6
      * @since windowsserver2008
      */
     static DhcpEnumOptionsV6(ServerIpAddress, Flags, ClassName, VendorName, ResumeHandle, PreferredMaximum, Options, OptionsRead, OptionsTotal) {
@@ -7505,7 +7555,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvaluev6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremoveoptionvaluev6
      * @since windowsserver2008
      */
     static DhcpRemoveOptionValueV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, ScopeInfo) {
@@ -7599,7 +7649,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetoptioninfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetoptioninfov6
      * @since windowsserver2008
      */
     static DhcpGetOptionInfoV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
@@ -7668,7 +7718,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptioninfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptioninfov6
      * @since windowsserver2008
      */
     static DhcpSetOptionInfoV6(ServerIpAddress, Flags, OptionID, ClassName, VendorName, OptionInfo) {
@@ -7736,7 +7786,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvaluev6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetoptionvaluev6
      * @since windowsserver2008
      */
     static DhcpSetOptionValueV6(ServerIpAddress, Flags, OptionId, ClassName, VendorName, ScopeInfo, OptionValue) {
@@ -7810,7 +7860,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfovq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfovq
      * @since windowsserver2008
      */
     static DhcpGetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -7868,7 +7918,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreatesubnetvq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreatesubnetvq
      * @since windowsserver2008
      */
     static DhcpCreateSubnetVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -7924,7 +7974,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetinfovq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetinfovq
      * @since windowsserver2008
      */
     static DhcpSetSubnetInfoVQ(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -8015,7 +8065,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumoptionvaluesv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumoptionvaluesv6
      * @since windowsserver2008
      */
     static DhcpEnumOptionValuesV6(ServerIpAddress, Flags, ClassName, VendorName, ScopeInfo, ResumeHandle, PreferredMaximum, OptionValues, OptionsRead, OptionsTotal) {
@@ -8037,7 +8087,7 @@ class Dhcp {
      * @remarks
      * This function is called once per process.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdsinit
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdsinit
      * @since windowsserver2000
      */
     static DhcpDsInit() {
@@ -8048,7 +8098,7 @@ class Dhcp {
     /**
      * The DhcpDsCleanup function frees up directory service resources allocated for DHCP services by DhcpDsInit. This function should be called exactly once for each corresponding DHCP service process, and only when the process is terminated.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdscleanup
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdscleanup
      * @since windowsserver2000
      */
     static DhcpDsCleanup() {
@@ -8090,7 +8140,7 @@ class Dhcp {
      * </table>
      * @param {Pointer<Void>} Reserved Reserved. This parameter must be set to <b>NULL</b>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetthreadoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetthreadoptions
      * @since windowsserver2008
      */
     static DhcpSetThreadOptions(Flags, Reserved) {
@@ -8133,7 +8183,7 @@ class Dhcp {
      * </table>
      * @param {Pointer<Void>} Reserved Reserved. This parameter must be set to null.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetthreadoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetthreadoptions
      * @since windowsserver2008
      */
     static DhcpGetThreadOptions(pFlags, Reserved) {
@@ -8155,7 +8205,7 @@ class Dhcp {
      * @param {Integer} DhcpAttribId <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_ATTRIB_ID</a> value that specifies the particular DHCP server attribute to retrieve.
      * @param {Pointer<Pointer<DHCP_ATTRIB>>} pDhcpAttrib Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_attrib">DHCP_ATTRIB</a> structure that contains the location and type of the queried DHCP server attribute.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverqueryattribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserverqueryattribute
      * @since windowsserver2008
      */
     static DhcpServerQueryAttribute(ServerIpAddr, dwReserved, DhcpAttribId, pDhcpAttrib) {
@@ -8179,7 +8229,7 @@ class Dhcp {
      * @param {Pointer<Integer>} pDhcpAttribs Specifies an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_ATTRIB_ID</a> values (of length <i>dwAttribCount</i>) to retrieve the corresponding attribute information from.
      * @param {Pointer<Pointer<DHCP_ATTRIB_ARRAY>>} pDhcpAttribArr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_attrib_array">DHCP_ATTRIB_ARRAY</a> structure that contains the attributes directly corresponding to the attribute ID values specified in <i>pDhcpAttribs[]</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverqueryattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserverqueryattributes
      * @since windowsserver2008
      */
     static DhcpServerQueryAttributes(ServerIpAddr, dwReserved, dwAttribCount, pDhcpAttribs, pDhcpAttribArr) {
@@ -8199,7 +8249,7 @@ class Dhcp {
      * @param {PWSTR} ServerIpAddr Unicode string that specifies the IP address or hostname of the DHCP server.
      * @param {Integer} dwReserved Reserved. This parameter should be set to 0.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverredoauthorization
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserverredoauthorization
      * @since windowsserver2000
      */
     static DhcpServerRedoAuthorization(ServerIpAddr, dwReserved) {
@@ -8236,7 +8286,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpauditlogsetparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpauditlogsetparams
      * @since windowsserver2008
      */
     static DhcpAuditLogSetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
@@ -8285,7 +8335,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpauditloggetparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpauditloggetparams
      * @since windowsserver2008
      */
     static DhcpAuditLogGetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
@@ -8310,7 +8360,7 @@ class Dhcp {
      * @param {Integer} DomainSize Unsigned 32-bit integer that indicates the size, in bytes, to allocate for the data returned in the <i>Domain</i> buffer.
      * @param {PWSTR} Domain Pointer to a null-terminated Unicode string that contains the domain name for the DNS server credentials. The size of this value cannot be larger than the size specified in <i>DomainSize</i>.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverquerydnsregcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserverquerydnsregcredentials
      * @since windowsserver2008
      */
     static DhcpServerQueryDnsRegCredentials(ServerIpAddress, UnameSize, Uname, DomainSize, Domain) {
@@ -8323,12 +8373,13 @@ class Dhcp {
     }
 
     /**
-     * 
-     * @param {PWSTR} ServerIpAddress 
-     * @param {PWSTR} Uname 
-     * @param {PWSTR} Domain 
-     * @param {PWSTR} Passwd 
-     * @returns {Integer} 
+     * Sets the credentials used by the DHCP server to create Domain Name System (DNS) registrations for the DHCP client lease record.
+     * @param {PWSTR} ServerIpAddress <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-type-definitions">DHCP_SRV_HANDLE</a> that specifies the RPC binding to the DHCP server  on which the DNS credentials will be set.
+     * @param {PWSTR} Uname Pointer to a null-terminated Unicode string that specifies the user name for the DNS credentials.
+     * @param {PWSTR} Domain Pointer to a null-terminated Unicode string that specifies the domain name for the DNS credentials.
+     * @param {PWSTR} Passwd Pointer to a null-terminated   Unicode string that specifies the password for the DNS credentials. The password can be unencrypted.
+     * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5
      */
     static DhcpServerSetDnsRegCredentials(ServerIpAddress, Uname, Domain, Passwd) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
@@ -8347,7 +8398,7 @@ class Dhcp {
      * @param {PWSTR} Domain Pointer to a null-terminated Unicode string that specifies the domain name for the DNS credentials.
      * @param {PWSTR} Passwd Pointer to a null-terminated   Unicode string that specifies the password for the DNS credentials. The password can be unencrypted.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserversetdnsregcredentialsv5
      * @since windowsserver2008
      */
     static DhcpServerSetDnsRegCredentialsV5(ServerIpAddress, Uname, Domain, Passwd) {
@@ -8363,7 +8414,7 @@ class Dhcp {
     /**
      * Backs up the DHCP server database configuration, settings, and DHCP client lease record to a specified file location.
      * @param {PWSTR} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {PWSTR} Path Unicode string that specifies the absolute path to the file where the DHCP server database will be backed up.
+     * @param {PWSTR} Path_ Unicode string that specifies the absolute path to the file where the DHCP server database will be backed up.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -8394,21 +8445,21 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverbackupdatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserverbackupdatabase
      * @since windowsserver2008
      */
-    static DhcpServerBackupDatabase(ServerIpAddress, Path) {
+    static DhcpServerBackupDatabase(ServerIpAddress, Path_) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
 
-        result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", "ptr", ServerIpAddress, "ptr", Path, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpServerBackupDatabase", "ptr", ServerIpAddress, "ptr", Path_, "uint")
         return result
     }
 
     /**
      * Restores the settings, configuration, and records for a client lease database from a specific backup location (path).
      * @param {PWSTR} ServerIpAddress Unicode string that specifies the IP address or hostname of the DHCP server.
-     * @param {PWSTR} Path Unicode string that specifies the full absolute path and filename to the backup file from which the registry configuration file and client lease database will be restored. Note that this operation will overwrite any database currently held in memory.
+     * @param {PWSTR} Path_ Unicode string that specifies the full absolute path and filename to the backup file from which the registry configuration file and client lease database will be restored. Note that this operation will overwrite any database currently held in memory.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
      * 
      * <table>
@@ -8439,14 +8490,14 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserverrestoredatabase
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserverrestoredatabase
      * @since windowsserver2008
      */
-    static DhcpServerRestoreDatabase(ServerIpAddress, Path) {
+    static DhcpServerRestoreDatabase(ServerIpAddress, Path_) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
 
-        result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", "ptr", ServerIpAddress, "ptr", Path, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpServerRestoreDatabase", "ptr", ServerIpAddress, "ptr", Path_, "uint")
         return result
     }
 
@@ -8484,7 +8535,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetconfigvq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserversetconfigvq
      * @since windowsserver2008
      */
     static DhcpServerSetConfigVQ(ServerIpAddress, FieldsToSet, ConfigInfo) {
@@ -8519,7 +8570,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpservergetconfigvq
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpservergetconfigvq
      * @since windowsserver2008
      */
     static DhcpServerGetConfigVQ(ServerIpAddress, ConfigInfo) {
@@ -8559,7 +8610,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetserverspecificstrings
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetserverspecificstrings
      * @since windowsserver2008
      */
     static DhcpGetServerSpecificStrings(ServerIpAddress, ServerSpecificStrings) {
@@ -8615,7 +8666,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreatesubnetv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreatesubnetv6
      * @since windowsserver2008
      */
     static DhcpCreateSubnetV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -8660,7 +8711,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeletesubnetv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeletesubnetv6
      * @since windowsserver2008
      */
     static DhcpDeleteSubnetV6(ServerIpAddress, SubnetAddress, ForceFlag) {
@@ -8730,7 +8781,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetsv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetsv6
      * @since windowsserver2008
      */
     static DhcpEnumSubnetsV6(ServerIpAddress, ResumeHandle, PreferredMaximum, EnumInfo, ElementsRead, ElementsTotal) {
@@ -8780,7 +8831,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpaddsubnetelementv6
      * @since windowsserver2008
      */
     static DhcpAddSubnetElementV6(ServerIpAddress, SubnetAddress, AddElementInfo) {
@@ -8826,7 +8877,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelementv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpremovesubnetelementv6
      * @since windowsserver2008
      */
     static DhcpRemoveSubnetElementV6(ServerIpAddress, SubnetAddress, RemoveElementInfo, ForceFlag) {
@@ -8898,7 +8949,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelementsv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetelementsv6
      * @since windowsserver2008
      */
     static DhcpEnumSubnetElementsV6(ServerIpAddress, SubnetAddress, EnumElementType, ResumeHandle, PreferredMaximum, EnumElementInfo, ElementsRead, ElementsTotal) {
@@ -8924,7 +8975,7 @@ class Dhcp {
      * </div>
      * <div> </div>
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetinfov6
      * @since windowsserver2008
      */
     static DhcpGetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -8997,7 +9048,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv6
      * @since windowsserver2008
      */
     static DhcpEnumSubnetClientsV6(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -9051,7 +9102,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpservergetconfigv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpservergetconfigv6
      * @since windowsserver2008
      */
     static DhcpServerGetConfigV6(ServerIpAddress, ScopeInfo, ConfigInfo) {
@@ -9205,7 +9256,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpserversetconfigv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpserversetconfigv6
      * @since windowsserver2008
      */
     static DhcpServerSetConfigV6(ServerIpAddress, ScopeInfo, FieldsToSet, ConfigInfo) {
@@ -9261,7 +9312,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetinfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetinfov6
      * @since windowsserver2008
      */
     static DhcpSetSubnetInfoV6(ServerIpAddress, SubnetAddress, SubnetInfo) {
@@ -9321,7 +9372,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov6
      * @since windowsserver2008
      */
     static DhcpGetMibInfoV6(ServerIpAddress, MibInfo) {
@@ -9370,7 +9421,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetserverbindinginfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetserverbindinginfov6
      * @since windowsserver2008
      */
     static DhcpGetServerBindingInfoV6(ServerIpAddress, Flags, BindElementsInfo) {
@@ -9439,7 +9490,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetserverbindinginfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetserverbindinginfov6
      * @since windowsserver2008
      */
     static DhcpSetServerBindingInfoV6(ServerIpAddress, Flags, BindElementInfo) {
@@ -9486,7 +9537,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetclientinfov6
      * @since windowsserver2008
      */
     static DhcpSetClientInfoV6(ServerIpAddress, ClientInfo) {
@@ -9547,7 +9598,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetclientinfov6
      * @since windowsserver2008
      */
     static DhcpGetClientInfoV6(ServerIpAddress, SearchInfo, ClientInfo) {
@@ -9615,7 +9666,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeleteclientinfov6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeleteclientinfov6
      * @since windowsserver2008
      */
     static DhcpDeleteClientInfoV6(ServerIpAddress, ClientInfo) {
@@ -9671,7 +9722,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpcreateclassv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpcreateclassv6
      * @since windowsserver2008
      */
     static DhcpCreateClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
@@ -9749,7 +9800,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpmodifyclassv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpmodifyclassv6
      * @since windowsserver2008
      */
     static DhcpModifyClassV6(ServerIpAddress, ReservedMustBeZero, ClassInfo) {
@@ -9816,7 +9867,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpdeleteclassv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpdeleteclassv6
      * @since windowsserver2008
      */
     static DhcpDeleteClassV6(ServerIpAddress, ReservedMustBeZero, ClassName) {
@@ -9868,7 +9919,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpenumclassesv6
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpenumclassesv6
      * @since windowsserver2008
      */
     static DhcpEnumClassesV6(ServerIpAddress, ReservedMustBeZero, ResumeHandle, PreferredMaximum, ClassInfoArray, nRead, nTotal) {
@@ -9940,7 +9991,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetdelayoffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpsetsubnetdelayoffer
      * @since windowsserver2008
      */
     static DhcpSetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
@@ -10001,7 +10052,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetdelayoffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetsubnetdelayoffer
      * @since windowsserver2008
      */
     static DhcpGetSubnetDelayOffer(ServerIpAddress, SubnetAddress, TimeDelayInMilliseconds) {
@@ -10065,7 +10116,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov5
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpgetmibinfov5
      * @since windowsserver2008
      */
     static DhcpGetMibInfoV5(ServerIpAddress, MibInfo) {
@@ -10194,7 +10245,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4getoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4getoptionvalue
      * @since windowsserver2012
      */
     static DhcpV4GetOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, VendorName, ScopeInfo, OptionValue) {
@@ -10311,7 +10362,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4setoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4setoptionvalue
      * @since windowsserver2012
      */
     static DhcpV4SetOptionValue(ServerIpAddress, Flags, OptionId, PolicyName, VendorName, ScopeInfo, OptionValue) {
@@ -10409,7 +10460,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4setoptionvalues
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4setoptionvalues
      * @since windowsserver2012
      */
     static DhcpV4SetOptionValues(ServerIpAddress, Flags, PolicyName, VendorName, ScopeInfo, OptionValues) {
@@ -10523,7 +10574,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4removeoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4removeoptionvalue
      * @since windowsserver2012
      */
     static DhcpV4RemoveOptionValue(ServerIpAddress, Flags, OptionID, PolicyName, VendorName, ScopeInfo) {
@@ -10595,7 +10646,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4getalloptionvalues
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4getalloptionvalues
      * @since windowsserver2012
      */
     static DhcpV4GetAllOptionValues(ServerIpAddress, Flags, ScopeInfo, Values) {
@@ -10687,7 +10738,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovercreaterelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovercreaterelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverCreateRelationship(ServerIpAddress, pRelationship) {
@@ -10807,7 +10858,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failoversetrelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failoversetrelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverSetRelationship(ServerIpAddress, Flags, pRelationship) {
@@ -10853,7 +10904,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failoverdeleterelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failoverdeleterelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverDeleteRelationship(ServerIpAddress, pRelationshipName) {
@@ -10906,7 +10957,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetrelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetrelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetRelationship(ServerIpAddress, pRelationshipName, pRelationship) {
@@ -10973,7 +11024,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failoverenumrelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failoverenumrelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverEnumRelationship(ServerIpAddress, ResumeHandle, PreferredMaximum, pRelationship, RelationshipRead, RelationshipTotal) {
@@ -11057,7 +11108,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failoveraddscopetorelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failoveraddscopetorelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverAddScopeToRelationship(ServerIpAddress, pRelationship) {
@@ -11125,7 +11176,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failoverdeletescopefromrelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failoverdeletescopefromrelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverDeleteScopeFromRelationship(ServerIpAddress, pRelationship) {
@@ -11177,7 +11228,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetscoperelationship
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetscoperelationship
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetScopeRelationship(ServerIpAddress, ScopeId, pRelationship) {
@@ -11220,7 +11271,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetscopestatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetscopestatistics
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetScopeStatistics(ServerIpAddress, ScopeId, pStats) {
@@ -11275,7 +11326,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetclientinfo
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
@@ -11313,7 +11364,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetsystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetsystemtime
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetSystemTime(ServerIpAddress, pTime, pMaxAllowedDeltaTime) {
@@ -11385,7 +11436,7 @@ class Dhcp {
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following or an error code from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetaddressstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovergetaddressstatus
      * @since windowsserver2012
      */
     static DhcpV4FailoverGetAddressStatus(ServerIpAddress, SubnetAddress, pStatus) {
@@ -11444,7 +11495,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4failovertriggeraddrallocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4failovertriggeraddrallocation
      * @since windowsserver2012
      */
     static DhcpV4FailoverTriggerAddrAllocation(ServerIpAddress, pFailRelName) {
@@ -11497,7 +11548,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprcreatev4policy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprcreatev4policy
      * @since windowsserver2012
      */
     static DhcpHlprCreateV4Policy(PolicyName, fGlobalPolicy, Subnet, ProcessingOrder, RootOperator, Description, Enabled, Policy) {
@@ -11581,7 +11632,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlpraddv4policyexpr
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlpraddv4policyexpr
      * @since windowsserver2012
      */
     static DhcpHlprAddV4PolicyExpr(Policy, ParentExpr, Operator, ExprIndex) {
@@ -11646,7 +11697,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlpraddv4policycondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlpraddv4policycondition
      * @since windowsserver2012
      */
     static DhcpHlprAddV4PolicyCondition(Policy, ParentExpr, Type, OptionID, SubOptionID, VendorName, Operator, Value, ValueLength, ConditionIndex) {
@@ -11694,7 +11745,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlpraddv4policyrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlpraddv4policyrange
      * @since windowsserver2012
      */
     static DhcpHlprAddV4PolicyRange(Policy, Range) {
@@ -11726,7 +11777,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprresetv4policyexpr
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprresetv4policyexpr
      * @since windowsserver2012
      */
     static DhcpHlprResetV4PolicyExpr(Policy) {
@@ -11759,7 +11810,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprmodifyv4policyexpr
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprmodifyv4policyexpr
      * @since windowsserver2012
      */
     static DhcpHlprModifyV4PolicyExpr(Policy, Operator) {
@@ -11771,7 +11822,7 @@ class Dhcp {
      * Frees the memory of all the data structures within a DHCP server policy structure.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the policy structure  to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprfreev4policy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprfreev4policy
      * @since windowsserver2012
      */
     static DhcpHlprFreeV4Policy(Policy) {
@@ -11807,11 +11858,11 @@ class Dhcp {
 
     /**
      * 
-     * @param {Pointer<DHCP_PROPERTY>} Property 
+     * @param {Pointer<DHCP_PROPERTY>} Property_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static DhcpHlprFreeV4DhcpProperty(Property) {
-        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property)
+    static DhcpHlprFreeV4DhcpProperty(Property_) {
+        DllCall("DHCPSAPI.dll\DhcpHlprFreeV4DhcpProperty", "ptr", Property_)
     }
 
     /**
@@ -11839,7 +11890,7 @@ class Dhcp {
      * Verifies that a DHCP server policy is based on a single user class.
      * @param {Pointer<DHCP_POLICY>} Policy Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the policy to verify.
      * @returns {BOOL} The API returns <b>TRUE</b> if there is a single condition associated with the specified policy. This condition should be based on one of the user classes defined on the DHCP server. Otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprisv4policysingleuc
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprisv4policysingleuc
      * @since windowsserver2012
      */
     static DhcpHlprIsV4PolicySingleUC(Policy) {
@@ -11890,7 +11941,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4querypolicyenforcement
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4querypolicyenforcement
      * @since windowsserver2012
      */
     static DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enabled) {
@@ -11940,7 +11991,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4setpolicyenforcement
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4setpolicyenforcement
      * @since windowsserver2012
      */
     static DhcpV4SetPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enable) {
@@ -11965,7 +12016,7 @@ class Dhcp {
      * </ol>
      * @param {Pointer<DHCP_POLICY>} pPolicy Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_policy">DHCP_POLICY</a> structure that contains the policy to verify
      * @returns {BOOL} The API returns <b>TRUE</b> if the specified policy satisfies the conditions in the <b>Remarks</b> below. Otherwise, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprisv4policywellformed
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprisv4policywellformed
      * @since windowsserver2012
      */
     static DhcpHlprIsV4PolicyWellFormed(pPolicy) {
@@ -12053,7 +12104,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcphlprisv4policyvalid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcphlprisv4policyvalid
      * @since windowsserver2012
      */
     static DhcpHlprIsV4PolicyValid(pPolicy) {
@@ -12174,7 +12225,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4createpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4createpolicy
      * @since windowsserver2012
      */
     static DhcpV4CreatePolicy(ServerIpAddress, pPolicy) {
@@ -12236,7 +12287,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4getpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4getpolicy
      * @since windowsserver2012
      */
     static DhcpV4GetPolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyName, Policy) {
@@ -12355,7 +12406,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4setpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4setpolicy
      * @since windowsserver2012
      */
     static DhcpV4SetPolicy(ServerIpAddress, FieldsModified, fGlobalPolicy, SubnetAddress, PolicyName, Policy) {
@@ -12415,7 +12466,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4deletepolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4deletepolicy
      * @since windowsserver2012
      */
     static DhcpV4DeletePolicy(ServerIpAddress, fGlobalPolicy, SubnetAddress, PolicyName) {
@@ -12474,7 +12525,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4enumpolicies
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4enumpolicies
      * @since windowsserver2012
      */
     static DhcpV4EnumPolicies(ServerIpAddress, ResumeHandle, PreferredMaximum, fGlobalPolicy, SubnetAddress, EnumInfo, ElementsRead, ElementsTotal) {
@@ -12549,7 +12600,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4addpolicyrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4addpolicyrange
      * @since windowsserver2012
      */
     static DhcpV4AddPolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range) {
@@ -12620,7 +12671,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4removepolicyrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4removepolicyrange
      * @since windowsserver2012
      */
     static DhcpV4RemovePolicyRange(ServerIpAddress, SubnetAddress, PolicyName, Range) {
@@ -12671,7 +12722,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv6setstatelessstoreparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv6setstatelessstoreparams
      * @since windowsserver2012
      */
     static DhcpV6SetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, FieldModified, Params) {
@@ -12722,7 +12773,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv6getstatelessstoreparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv6getstatelessstoreparams
      * @since windowsserver2012
      */
     static DhcpV6GetStatelessStoreParams(ServerIpAddress, fServerLevel, SubnetAddress, Params) {
@@ -12741,7 +12792,7 @@ class Dhcp {
      * @param {PWSTR} ServerIpAddress Pointer to a null-terminated Unicode string that represents the IP address or hostname of the DHCP server.
      * @param {Pointer<Pointer<DHCPV6_STATELESS_STATS>>} StatelessStats Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_stats">DHCPV6_STATELESS_STATS</a> structure that contain DHCPv6 stateless server IPv6 subnet statistics.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> upon a successful call. Otherwise, it returns one of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dhcp/dhcp-server-management-api-error-codes">DHCP Server Management API Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv6getstatelessstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv6getstatelessstatistics
      * @since windowsserver2012
      */
     static DhcpV6GetStatelessStatistics(ServerIpAddress, StatelessStats) {
@@ -12815,7 +12866,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4createclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4createclientinfo
      * @since windowsserver2012
      */
     static DhcpV4CreateClientInfo(ServerIpAddress, ClientInfo) {
@@ -12890,7 +12941,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4enumsubnetclients
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4enumsubnetclients
      * @since windowsserver2012
      */
     static DhcpV4EnumSubnetClients(ServerIpAddress, SubnetAddress, ResumeHandle, PreferredMaximum, ClientInfo, ClientsRead, ClientsTotal) {
@@ -12957,7 +13008,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4getclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4getclientinfo
      * @since windowsserver2012
      */
     static DhcpV4GetClientInfo(ServerIpAddress, SearchInfo, ClientInfo) {
@@ -13027,7 +13078,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv6createclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv6createclientinfo
      * @since windowsserver2012
      */
     static DhcpV6CreateClientInfo(ServerIpAddress, ClientInfo) {
@@ -13094,7 +13145,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv4getfreeipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv4getfreeipaddress
      * @since windowsserver2012
      */
     static DhcpV4GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeAddrReq, IPAddrList) {
@@ -13163,7 +13214,7 @@ class Dhcp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/nf-dhcpsapi-dhcpv6getfreeipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/nf-dhcpsapi-dhcpv6getfreeipaddress
      * @since windowsserver2012
      */
     static DhcpV6GetFreeIPAddress(ServerIpAddress, ScopeId, StartIP, EndIP, NumFreeAddrReq, IPAddrList) {

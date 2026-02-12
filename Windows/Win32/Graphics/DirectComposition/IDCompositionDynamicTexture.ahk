@@ -36,7 +36,11 @@ class IDCompositionDynamicTexture extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTexture(pTexture, pRects, rectCount) {
-        result := ComCall(3, this, "ptr", pTexture, "ptr", pRects, "ptr", rectCount, "HRESULT")
+        result := ComCall(3, this, "ptr", pTexture, "ptr", pRects, "ptr", rectCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IDCompositionDynamicTexture extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTexture1(pTexture) {
-        result := ComCall(4, this, "ptr", pTexture, "HRESULT")
+        result := ComCall(4, this, "ptr", pTexture, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

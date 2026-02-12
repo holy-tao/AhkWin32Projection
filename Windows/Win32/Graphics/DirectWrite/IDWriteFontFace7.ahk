@@ -43,10 +43,14 @@ class IDWriteFontFace7 extends IDWriteFontFace6{
      * 
      * @param {Integer} glyphImageFormat 
      * @param {Integer} paintFeatureLevel 
-     * @returns {IDWritePaintReader} 
+     * @returns {Pointer<IDWritePaintReader>} 
      */
     CreatePaintReader(glyphImageFormat, paintFeatureLevel) {
-        result := ComCall(61, this, "int", glyphImageFormat, "int", paintFeatureLevel, "ptr*", &paintReader := 0, "HRESULT")
-        return IDWritePaintReader(paintReader)
+        result := ComCall(61, this, "int", glyphImageFormat, "int", paintFeatureLevel, "ptr*", &paintReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return paintReader
     }
 }

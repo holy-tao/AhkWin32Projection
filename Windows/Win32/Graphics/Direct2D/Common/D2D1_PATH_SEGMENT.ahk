@@ -3,7 +3,7 @@
 
 /**
  * Indicates whether a segment should be stroked and whether the join between this segment and the previous one should be smooth. This enumeration allows a bitwise combination of its member values.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_path_segment
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ne-d2d1-d2d1_path_segment
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

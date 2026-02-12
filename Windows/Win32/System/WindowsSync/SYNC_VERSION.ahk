@@ -10,7 +10,7 @@
  * <li>The replica key of the local replica. This will typically be zero.</li>
  * <li>The current value of the tick count of the local replica.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_version
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/ns-winsync-sync_version
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

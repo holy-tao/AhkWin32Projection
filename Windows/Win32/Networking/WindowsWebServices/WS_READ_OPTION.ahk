@@ -41,7 +41,7 @@
  * </ul>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_read_option
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_read_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

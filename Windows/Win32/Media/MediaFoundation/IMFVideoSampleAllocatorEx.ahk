@@ -6,7 +6,6 @@
 /**
  * Allocates video samples that contain Microsoft Direct3D 11 texture surfaces.
  * @remarks
- * 
  * You can use this interface to allocate Direct3D 11 video samples, rather than allocate the texture surfaces and media samples directly. To get a pointer to this interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatevideosampleallocatorex">MFCreateVideoSampleAllocatorEx</a> function. 
  * 
  * To allocate video samples, perform the following steps:
@@ -19,9 +18,7 @@
  * <li>Set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-usage">MF_SA_D3D11_USAGE</a> and <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sa-d3d11-bindflags">MF_SA_D3D11_BINDFLAGS</a> attributes.</li>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex">IMFVideoSampleAllocator::InitializeSampleAllocatorEx</a>.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideosampleallocatorex
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfvideosampleallocatorex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -70,11 +67,15 @@ class IMFVideoSampleAllocatorEx extends IMFVideoSampleAllocator{
      * </li>
      * </ul>
      * @param {IMFMediaType} pMediaType A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of a media type that describes the video format.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfvideosampleallocatorex-initializesampleallocatorex
      */
     InitializeSampleAllocatorEx(cInitialSamples, cMaximumSamples, pAttributes, pMediaType) {
-        result := ComCall(7, this, "uint", cInitialSamples, "uint", cMaximumSamples, "ptr", pAttributes, "ptr", pMediaType, "HRESULT")
+        result := ComCall(7, this, "uint", cInitialSamples, "uint", cMaximumSamples, "ptr", pAttributes, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Defines an instance of a property.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nn-fsrmpipeline-ifsrmproperty
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -60,49 +60,62 @@ class IFsrmProperty extends IDispatch{
     }
 
     /**
-     * The name of the property.
+     * The name of the property. (IFsrmProperty.get_Name)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_name
      */
     get_Name() {
         name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * The value of the property.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_value
      */
     get_Value() {
         value := BSTR()
-        result := ComCall(8, this, "ptr", value, "HRESULT")
+        result := ComCall(8, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * The modules and rules that have set the value.
      * @remarks
-     * 
      * The format of the source string is  "<i>module_name</i>,<i>rule_name</i>".
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_sources
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_sources
      */
     get_Sources() {
-        result := ComCall(9, this, "ptr*", &sources := 0, "HRESULT")
-        return sources
+        result := ComCall(9, this, "ptr*", &sources_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return sources_
     }
 
     /**
      * Flag values that provides additional information about a property.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_propertyflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_propertyflags
      */
     get_PropertyFlags() {
-        result := ComCall(10, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 }

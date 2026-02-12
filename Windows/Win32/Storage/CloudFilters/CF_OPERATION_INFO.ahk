@@ -6,7 +6,7 @@
  * Information about an operation on a placeholder file or folder.
  * @remarks
  * The platform provides the *ConnectionKey*, *TransferKey*, and *CorrelationVector* to all callback functions registered via [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md). Additionally, sync providers can obtain a *TransferKey* using [CfGetTransferKey](nf-cfapi-cfgettransferkey.md) and a *CorrelationVector* using [CfGetCorrelationVector](nf-cfapi-cfgetcorrelationvector.md).
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_operation_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ns-cfapi-cf_operation_info
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

@@ -39,7 +39,11 @@ class IBindHost extends IUnknown{
     CreateMoniker(szName, pBC, dwReserved) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "ptr", pBC, "ptr*", &ppmk := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, "ptr", pBC, "ptr*", &ppmk := 0, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMoniker(ppmk)
     }
 
@@ -52,7 +56,11 @@ class IBindHost extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     MonikerBindToStorage(pMk, pBC, pBSC, riid) {
-        result := ComCall(4, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", &ppvObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObj
     }
 
@@ -65,7 +73,11 @@ class IBindHost extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     MonikerBindToObject(pMk, pBC, pBSC, riid) {
-        result := ComCall(5, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", &ppvObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObj
     }
 }

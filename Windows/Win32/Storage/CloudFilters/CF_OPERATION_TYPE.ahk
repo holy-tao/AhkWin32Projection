@@ -3,7 +3,7 @@
 
 /**
  * The types of operations that can be performed on placeholder files and directories.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_operation_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_operation_type
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

@@ -36,7 +36,11 @@ class IActiveScriptProfilerControl extends IUnknown{
      * @returns {HRESULT} 
      */
     StartProfiling(clsidProfilerObject, dwEventMask, dwContext) {
-        result := ComCall(3, this, "ptr", clsidProfilerObject, "uint", dwEventMask, "uint", dwContext, "HRESULT")
+        result := ComCall(3, this, "ptr", clsidProfilerObject, "uint", dwEventMask, "uint", dwContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IActiveScriptProfilerControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProfilerEventMask(dwEventMask) {
-        result := ComCall(4, this, "uint", dwEventMask, "HRESULT")
+        result := ComCall(4, this, "uint", dwEventMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class IActiveScriptProfilerControl extends IUnknown{
      * @returns {HRESULT} 
      */
     StopProfiling(hrShutdownReason) {
-        result := ComCall(5, this, "int", hrShutdownReason, "HRESULT")
+        result := ComCall(5, this, "int", hrShutdownReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

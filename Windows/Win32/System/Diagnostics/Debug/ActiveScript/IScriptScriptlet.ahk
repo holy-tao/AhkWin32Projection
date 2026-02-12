@@ -35,7 +35,11 @@ class IScriptScriptlet extends IScriptEntry{
      */
     GetSubItemName() {
         pbstr := BSTR()
-        result := ComCall(24, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(24, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
@@ -47,7 +51,11 @@ class IScriptScriptlet extends IScriptEntry{
     SetSubItemName(psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(25, this, "ptr", psz, "HRESULT")
+        result := ComCall(25, this, "ptr", psz, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class IScriptScriptlet extends IScriptEntry{
      */
     GetEventName() {
         pbstr := BSTR()
-        result := ComCall(26, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(26, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
@@ -69,7 +81,11 @@ class IScriptScriptlet extends IScriptEntry{
     SetEventName(psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(27, this, "ptr", psz, "HRESULT")
+        result := ComCall(27, this, "ptr", psz, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +95,11 @@ class IScriptScriptlet extends IScriptEntry{
      */
     GetSimpleEventName() {
         pbstr := BSTR()
-        result := ComCall(28, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(28, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
@@ -91,7 +111,11 @@ class IScriptScriptlet extends IScriptEntry{
     SetSimpleEventName(psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(29, this, "ptr", psz, "HRESULT")
+        result := ComCall(29, this, "ptr", psz, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

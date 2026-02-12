@@ -6,7 +6,7 @@
  * @remarks
  * For more information on RFC 2863, see 
  *     <a href="https://www.ietf.org/rfc/rfc2863.txt">"The Interfaces Group MIB"</a>.
- * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_admin_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/ifdef/ne-ifdef-net_if_admin_status
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

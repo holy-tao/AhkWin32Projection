@@ -40,7 +40,11 @@ class AsyncIFtpPostprocessProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_HandlePostprocess(pPostProcessParameters) {
-        result := ComCall(3, this, "ptr", pPostProcessParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pPostProcessParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIFtpPostprocessProvider extends IUnknown{
      * @returns {Integer} 
      */
     Finish_HandlePostprocess() {
-        result := ComCall(4, this, "int*", &pFtpProcessStatus := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pFtpProcessStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFtpProcessStatus
     }
 }

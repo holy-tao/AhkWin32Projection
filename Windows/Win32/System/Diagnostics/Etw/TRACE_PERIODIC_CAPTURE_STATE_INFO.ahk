@@ -42,7 +42,7 @@
  *    **TracePeriodicCaptureStateListInfo** from the
  *    [TRACE_INFO_CLASS](/windows/win32/api/evntrace/ne-evntrace-trace_query_info_class),
  *    NULL for the **TraceInformation**, and 0 as the **InformationLength**.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_periodic_capture_state_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-trace_periodic_capture_state_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

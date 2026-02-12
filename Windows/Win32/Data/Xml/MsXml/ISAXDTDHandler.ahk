@@ -43,7 +43,11 @@ class ISAXDTDHandler extends IUnknown{
         pwchPublicId := pwchPublicId is String ? StrPtr(pwchPublicId) : pwchPublicId
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
-        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class ISAXDTDHandler extends IUnknown{
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
         pwchNotationName := pwchNotationName is String ? StrPtr(pwchNotationName) : pwchNotationName
 
-        result := ComCall(4, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "ptr", pwchNotationName, "int", cchNotationName, "HRESULT")
+        result := ComCall(4, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "ptr", pwchNotationName, "int", cchNotationName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

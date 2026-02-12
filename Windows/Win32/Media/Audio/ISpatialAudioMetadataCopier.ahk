@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for copying all or subsets of metadata items from a source SpatialAudioMetadataItems into a destination SpatialAudioMetadataItems.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatacopier
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatacopier
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -47,7 +47,7 @@ class ISpatialAudioMetadataCopier extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * <b>Open</b> has already been called on the supplied <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> since the object was created or since the last call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
+     * <b>Open</b> has already been called on the supplied <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> since the object was created or since the last call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
      * 
      * </td>
      * </tr>
@@ -63,10 +63,14 @@ class ISpatialAudioMetadataCopier extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open
      */
     Open(metadataItems) {
-        result := ComCall(3, this, "ptr", metadataItems, "HRESULT")
+        result := ComCall(3, this, "ptr", metadataItems, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,15 +80,19 @@ class ISpatialAudioMetadataCopier extends IUnknown{
      * @param {Integer} copyMode A value that specifies the copy mode for the operation.
      * @param {ISpatialAudioMetadataItems} dstMetadataItems A pointer to the  destination <b>SpatialAudioMetadataItems</b> for the copy operation.
      * @returns {Integer} Receives number of metadata items copied in the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-copymetadataforframes
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-copymetadataforframes
      */
     CopyMetadataForFrames(copyFrameCount, copyMode, dstMetadataItems) {
-        result := ComCall(4, this, "ushort", copyFrameCount, "int", copyMode, "ptr", dstMetadataItems, "ushort*", &itemsCopied := 0, "HRESULT")
+        result := ComCall(4, this, "ushort", copyFrameCount, "int", copyMode, "ptr", dstMetadataItems, "ushort*", &itemsCopied := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return itemsCopied
     }
 
     /**
-     * Completes any necessary operations on the SpatialAudioMetadataItems object and releases the object.
+     * Completes any necessary operations on the SpatialAudioMetadataItems object and releases the object. (ISpatialAudioMetadataCopier.Close)
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -99,15 +107,19 @@ class ISpatialAudioMetadataCopier extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for reading with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-open">Open</a> or the object has been closed for writing with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-close">Close</a>.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for reading with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-open">Open</a> or the object has been closed for writing with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-close">Close</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close
      */
     Close() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

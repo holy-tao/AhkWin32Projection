@@ -11,7 +11,7 @@
  * The <b>strName</b>, <b>clsConnectsToFilter</b>, and <b>strConnectsToPin</b> members are obsolete. Their values are not added to the registry.
  * 
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/how-to-register-directshow-filters">How to Register DirectShow Filters</a>.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilterpins
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-regfilterpins
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

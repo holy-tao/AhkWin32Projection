@@ -3,7 +3,7 @@
 
 /**
  * Describes a focus event in a console INPUT\_RECORD structure. These events are used internally and should be ignored.
- * @see https://learn.microsoft.com/windows/console/focus-event-record-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/focus-event-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Identifies the importance of a resource’s content when you call the IDXGIDevice2::OfferResources method to offer the resource.
  * @remarks
  * Priority determines how likely the operating system is to discard an offered resource.  Resources offered with lower priority are discarded first.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

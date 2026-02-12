@@ -37,7 +37,11 @@ class ITargetFramePriv extends IUnknown{
     FindFrameDownwards(pszTargetName, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(3, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkTargetFrame)
     }
 
@@ -51,7 +55,11 @@ class ITargetFramePriv extends IUnknown{
     FindFrameInContext(pszTargetName, punkContextFrame, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(4, this, "ptr", pszTargetName, "ptr", punkContextFrame, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszTargetName, "ptr", punkContextFrame, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkTargetFrame)
     }
 
@@ -61,7 +69,11 @@ class ITargetFramePriv extends IUnknown{
      * @returns {HRESULT} 
      */
     OnChildFrameActivate(pUnkChildFrame) {
-        result := ComCall(5, this, "ptr", pUnkChildFrame, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnkChildFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +83,11 @@ class ITargetFramePriv extends IUnknown{
      * @returns {HRESULT} 
      */
     OnChildFrameDeactivate(pUnkChildFrame) {
-        result := ComCall(6, this, "ptr", pUnkChildFrame, "HRESULT")
+        result := ComCall(6, this, "ptr", pUnkChildFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +106,11 @@ class ITargetFramePriv extends IUnknown{
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszLocation := pszLocation is String ? StrPtr(pszLocation) : pszLocation
 
-        result := ComCall(7, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pszUrl, "ptr", pszLocation, "HRESULT")
+        result := ComCall(7, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pszTargetName, "ptr", pszUrl, "ptr", pszLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +120,11 @@ class ITargetFramePriv extends IUnknown{
      * @returns {IUnknown} 
      */
     FindBrowserByIndex(dwID) {
-        result := ComCall(8, this, "uint", dwID, "ptr*", &ppunkBrowser := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwID, "ptr*", &ppunkBrowser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkBrowser)
     }
 }

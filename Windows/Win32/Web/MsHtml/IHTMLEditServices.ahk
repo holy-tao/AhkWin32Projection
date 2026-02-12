@@ -35,7 +35,11 @@ class IHTMLEditServices extends IUnknown{
      * @returns {HRESULT} 
      */
     AddDesigner(pIDesigner) {
-        result := ComCall(3, this, "ptr", pIDesigner, "HRESULT")
+        result := ComCall(3, this, "ptr", pIDesigner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IHTMLEditServices extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveDesigner(pIDesigner) {
-        result := ComCall(4, this, "ptr", pIDesigner, "HRESULT")
+        result := ComCall(4, this, "ptr", pIDesigner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IHTMLEditServices extends IUnknown{
      * @returns {ISelectionServices} 
      */
     GetSelectionServices(pIContainer) {
-        result := ComCall(5, this, "ptr", pIContainer, "ptr*", &ppSelSvc := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pIContainer, "ptr*", &ppSelSvc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISelectionServices(ppSelSvc)
     }
 
@@ -65,7 +77,11 @@ class IHTMLEditServices extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToSelectionAnchor(pIStartAnchor) {
-        result := ComCall(6, this, "ptr", pIStartAnchor, "HRESULT")
+        result := ComCall(6, this, "ptr", pIStartAnchor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +91,11 @@ class IHTMLEditServices extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToSelectionEnd(pIEndAnchor) {
-        result := ComCall(7, this, "ptr", pIEndAnchor, "HRESULT")
+        result := ComCall(7, this, "ptr", pIEndAnchor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +107,11 @@ class IHTMLEditServices extends IUnknown{
      * @returns {HRESULT} 
      */
     SelectRange(pStart, pEnd, eType) {
-        result := ComCall(8, this, "ptr", pStart, "ptr", pEnd, "int", eType, "HRESULT")
+        result := ComCall(8, this, "ptr", pStart, "ptr", pEnd, "int", eType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

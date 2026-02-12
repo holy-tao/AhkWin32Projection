@@ -3,7 +3,7 @@
 
 /**
  * Describes the subresource from a 2D texture to use in a shader-resource view. (D3D11_TEX2D_SRV1)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_tex2d_srv1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/ns-d3d11_3-d3d11_tex2d_srv1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

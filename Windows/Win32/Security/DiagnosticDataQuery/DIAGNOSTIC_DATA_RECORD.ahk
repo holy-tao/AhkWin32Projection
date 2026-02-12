@@ -9,7 +9,7 @@
  * - For information about how a tag is defined, see [**DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION**](./ns-diagnosticdataquerytypes-diagnostic_data_event_tag_description.md).
  * - For information about how a category is defined, see [**DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION**](./ns-diagnosticdataquerytypes-diagnostic_data_event_category_description.md).
  * - For more details on what is core data, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
- * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_record
+ * @see https://learn.microsoft.com/windows/win32/api//content/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_record
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Provides access to items (cells) in a spreadsheet.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-ispreadsheetprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-ispreadsheetprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -33,18 +33,24 @@ class ISpreadsheetProvider extends IUnknown{
 
     /**
      * Exposes a UI Automation element that represents the spreadsheet cell that has the specified name.
+     * @remarks
+     * A spreadsheet cell typically has a name such as “c5” or “a15”.  A name can also apply to a range of cells.
      * @param {PWSTR} name Type: <b>LPCWSTR</b>
      * 
      * The name of the target cell.
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives the element that represents the target cell.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-ispreadsheetprovider-getitembyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-ispreadsheetprovider-getitembyname
      */
     GetItemByName(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "ptr*", &pRetVal := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", name, "ptr*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderSimple(pRetVal)
     }
 }

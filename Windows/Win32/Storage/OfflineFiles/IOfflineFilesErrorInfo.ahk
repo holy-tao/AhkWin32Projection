@@ -5,7 +5,7 @@
 
 /**
  * Provides a text description and raw data block associated with an error.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefileserrorinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefileserrorinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,21 +32,31 @@ class IOfflineFilesErrorInfo extends IUnknown{
 
     /**
      * Retrieves a block of bytes containing internal data associated with the error.
+     * @remarks
+     * The BYTE_BLOB structure is defined in Wtypes.h.
      * @returns {Pointer<BYTE_BLOB>} Receives the address of a BYTE_BLOB structure describing the raw data.  The caller must free this memory block by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileserrorinfo-getrawdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileserrorinfo-getrawdata
      */
     GetRawData() {
-        result := ComCall(3, this, "ptr*", &ppBlob := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppBlob := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppBlob
     }
 
     /**
      * Retrieves a text string describing the error.
      * @returns {PWSTR} Receives the address of a text string describing the error.  The caller must free this memory block by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefileserrorinfo-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefileserrorinfo-getdescription
      */
     GetDescription() {
-        result := ComCall(4, this, "ptr*", &ppszDescription := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszDescription := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszDescription
     }
 }

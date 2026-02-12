@@ -5,7 +5,7 @@
  * Contains parameters for the Create IO Submission Queue command, that is used to create IO Submission Queues.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_create_io_sq
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_create_io_sq
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

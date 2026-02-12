@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods to set default icons associated with an object.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idefaultextracticoninit
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,28 +37,38 @@ class IDefaultExtractIconInit extends IUnknown{
      * Specifies return flags to get icon location.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setflags
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setflags
      */
     SetFlags(uFlags) {
-        result := ComCall(3, this, "uint", uFlags, "HRESULT")
+        result := ComCall(3, this, "uint", uFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the registry key from which to load the &quot;DefaultIcon&quot; value.
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @remarks
+     * It is recommended that any call to <b>IDefaultExtractIconInit::SetKey</b> come before any calls to the SetXxxIcon methods.
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the registry key.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setkey
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setkey
      */
-    SetKey(hkey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    SetKey(hkey_) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
 
-        result := ComCall(4, this, "ptr", hkey, "HRESULT")
+        result := ComCall(4, this, "ptr", hkey_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,13 +82,17 @@ class IDefaultExtractIconInit extends IUnknown{
      * A Shell icon ID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setnormalicon
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setnormalicon
      */
     SetNormalIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(5, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(5, this, "ptr", pszFile, "int", iIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,13 +106,17 @@ class IDefaultExtractIconInit extends IUnknown{
      * Shell icon ID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setopenicon
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setopenicon
      */
     SetOpenIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(6, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFile, "int", iIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,13 +130,17 @@ class IDefaultExtractIconInit extends IUnknown{
      * Shell icon ID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setshortcuticon
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setshortcuticon
      */
     SetShortcutIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(7, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(7, this, "ptr", pszFile, "int", iIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,13 +154,17 @@ class IDefaultExtractIconInit extends IUnknown{
      * The Shell icon ID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setdefaulticon
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setdefaulticon
      */
     SetDefaultIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := ComCall(8, this, "ptr", pszFile, "int", iIcon, "HRESULT")
+        result := ComCall(8, this, "ptr", pszFile, "int", iIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

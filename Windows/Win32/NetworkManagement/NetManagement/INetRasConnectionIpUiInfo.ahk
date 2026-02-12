@@ -35,7 +35,11 @@ class INetRasConnectionIpUiInfo extends IUnknown{
      */
     GetUiInfo() {
         pInfo := RASCON_IPUI()
-        result := ComCall(3, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInfo
     }
 }

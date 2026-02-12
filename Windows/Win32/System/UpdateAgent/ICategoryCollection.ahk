@@ -7,7 +7,7 @@
 
 /**
  * Represents an ordered read-only list of ICategory interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-icategorycollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-icategorycollection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -50,30 +50,42 @@ class ICategoryCollection extends IDispatch{
      * Gets an ICategory interface from the collection.
      * @param {Integer} index 
      * @returns {ICategory} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-icategorycollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-icategorycollection-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICategory(retval)
     }
 
     /**
-     * Gets an IEnumVARIANT interface that can be used to enumerate the collection.
+     * Gets an IEnumVARIANT interface that can be used to enumerate the collection. (ICategoryCollection.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-icategorycollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-icategorycollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
-     * Gets the number of elements in the collection.
+     * Gets the number of elements in the collection. (ICategoryCollection.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-icategorycollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-icategorycollection-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

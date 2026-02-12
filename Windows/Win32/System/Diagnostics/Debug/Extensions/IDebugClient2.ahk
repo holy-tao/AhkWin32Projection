@@ -41,20 +41,28 @@ class IDebugClient2 extends IUnknown{
     AttachKernel(Flags, ConnectOptions) {
         ConnectOptions := ConnectOptions is String ? StrPtr(ConnectOptions) : ConnectOptions
 
-        result := ComCall(3, this, "uint", Flags, "ptr", ConnectOptions, "HRESULT")
+        result := ComCall(3, this, "uint", Flags, "ptr", ConnectOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetKernelConnectionOptions(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetKernelConnectionOptions(Buffer_, BufferSize) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := ComCall(4, this, "ptr", Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", Buffer_, "uint", BufferSize, "uint*", &OptionsSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return OptionsSize
     }
 
@@ -66,7 +74,11 @@ class IDebugClient2 extends IUnknown{
     SetKernelConnectionOptions(Options) {
         Options := Options is String ? StrPtr(Options) : Options
 
-        result := ComCall(5, this, "ptr", Options, "HRESULT")
+        result := ComCall(5, this, "ptr", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +93,11 @@ class IDebugClient2 extends IUnknown{
 
         Options := Options is String ? StrPtr(Options) : Options
 
-        result := ComCall(6, this, "uint", Flags, "ptr", Options, "ptr", Reserved, "HRESULT")
+        result := ComCall(6, this, "uint", Flags, "ptr", Options, "ptr", Reserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +109,11 @@ class IDebugClient2 extends IUnknown{
     ConnectProcessServer(RemoteOptions) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := ComCall(7, this, "ptr", RemoteOptions, "uint*", &Server := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", RemoteOptions, "uint*", &Server := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Server
     }
 
@@ -103,7 +123,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     DisconnectProcessServer(Server) {
-        result := ComCall(8, this, "uint", Server, "HRESULT")
+        result := ComCall(8, this, "uint", Server, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +143,11 @@ class IDebugClient2 extends IUnknown{
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
         ActualCountMarshal := ActualCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "uint", Server, IdsMarshal, Ids, "uint", Count, ActualCountMarshal, ActualCount, "HRESULT")
+        result := ComCall(9, this, "uint", Server, IdsMarshal, Ids, "uint", Count, ActualCountMarshal, ActualCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,7 +161,11 @@ class IDebugClient2 extends IUnknown{
     GetRunningProcessSystemIdByExecutableName(Server, ExeName, Flags) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := ComCall(10, this, "uint", Server, "ptr", ExeName, "uint", Flags, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(10, this, "uint", Server, "ptr", ExeName, "uint", Flags, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -157,7 +189,11 @@ class IDebugClient2 extends IUnknown{
         ActualExeNameSizeMarshal := ActualExeNameSize is VarRef ? "uint*" : "ptr"
         ActualDescriptionSizeMarshal := ActualDescriptionSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "HRESULT")
+        result := ComCall(11, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, ActualExeNameSizeMarshal, ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, ActualDescriptionSizeMarshal, ActualDescriptionSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,27 +205,92 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     AttachProcess(Server, ProcessId, AttachFlags) {
-        result := ComCall(12, this, "uint", Server, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(12, this, "uint", Server, "uint", ProcessId, "uint", AttachFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a new process and its primary thread. The new process runs in the security context of the calling process.
+     * Creates a new process and its primary thread. The new process runs in the security context of the calling process. (ANSI)
+     * @remarks
+     * The process is assigned a process identifier. The identifier is valid until the process terminates. It can be used to identify the process, or specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess">OpenProcess</a> function to open a handle to the process. The initial thread in the process is also assigned a thread identifier. It can be specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthread">OpenThread</a> function to open a handle to the thread. The identifier is valid until the thread terminates and can be used to uniquely identify the thread within the system. These identifiers are returned in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> structure.
+     * 
+     * The name of the executable in the command line that the operating system provides to a process is not necessarily identical to that in the command line that the calling process gives to the 
+     * <b>CreateProcess</b> function. The operating system may prepend a fully qualified path to an executable name that is provided without a fully qualified path.
+     * 
+     * The calling thread can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-waitforinputidle">WaitForInputIdle</a> function to wait until the new process has finished its initialization and is waiting for user input with no input pending. This can be useful for synchronization between parent and child processes, because 
+     * <b>CreateProcess</b> returns without waiting for the new process to finish its initialization. For example, the creating process would use 
+     * <b>WaitForInputIdle</b> before trying to find a window associated with the new process.
+     * 
+     * The preferred way to shut down a process is by using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> function, because this function sends notification of approaching termination to all DLLs attached to the process. Other means of shutting down a process do not notify the attached DLLs. Note that when a thread calls 
+     * <b>ExitProcess</b>, other threads of the process are terminated without an opportunity to execute any additional code (including the thread termination code of attached DLLs). For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/terminating-a-process">Terminating a Process</a>.
+     * 
+     * A  parent process can directly alter the environment variables of a child process during process creation.  This is the only  situation when a process can directly change the environment settings of another process. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/changing-environment-variables">Changing Environment Variables</a>.
+     * 
+     * If an application provides an environment block, the current directory information of the system drives is not automatically propagated to the new process. For example, there is an environment variable named =C: whose value is the current directory on drive C. An application must manually pass the current directory information to the new process. To do so, the application must explicitly create these environment variable strings, sort them alphabetically (because the system uses a sorted environment), and put them into the environment block. Typically, they will go at the front of the environment block, due to the environment block sort order.
+     * 
+     * One way to obtain the current directory information for a drive X is to make the following call: 
+     * <c>GetFullPathName("X:", ...)</c>. That avoids an application having to scan the environment block. If the full path returned is X:\, there is no need to pass that value on as environment data, since the root directory is the default current directory for drive X of a new process.
+     * 
+     * When a process is created with <b>CREATE_NEW_PROCESS_GROUP</b> specified, an implicit call to 
+     * <a href="https://docs.microsoft.com/windows/console/setconsolectrlhandler">SetConsoleCtrlHandler</a>(<b>NULL</b>,<b>TRUE</b>) is made on behalf of the new process; this means that the new process has CTRL+C disabled. This lets shells handle CTRL+C themselves, and selectively pass that signal on to sub-processes. CTRL+BREAK is not disabled, and may be used to interrupt the process/process group.
+     * 
+     * By default, passing <b>TRUE</b> as the value of the <i>bInheritHandles</i> parameter causes all inheritable handles to be inherited by the new process.
+     * This can be problematic for applications which create processes from multiple threads simultaneously
+     * yet desire each process to inherit different handles.
+     * Applications can use the
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute">UpdateProcThreadAttributeList</a> function
+     * with the <b>PROC_THREAD_ATTRIBUTE_HANDLE_LIST</b> parameter
+     * to provide a list of handles to be inherited by a particular process.
+     * 
+     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
+     * The first parameter, <i>lpApplicationName</i>, can be <b>NULL</b>, in which case the executable name must be in the  white space–delimited string pointed to by <i>lpCommandLine</i>. If the executable or path name has a space in it, there is a risk that a different executable could be run because of the way the function parses spaces. The following example is dangerous because the function will attempt to run "Program.exe", if it exists, instead of "MyApp.exe".
+     * 
+     * 
+     * ``` syntax
+     * 	LPTSTR szCmdline = _tcsdup(TEXT("C:\\Program Files\\MyApp -L -S"));
+     * 	CreateProcess(NULL, szCmdline, // ... );
+     * ```
+     * 
+     * If a malicious user were to create an application called "Program.exe" on a system, any program that incorrectly calls 
+     * <b>CreateProcess</b> using the Program Files directory will run this application instead of the intended application.
+     * 
+     * To avoid this problem, do not pass <b>NULL</b> for <i>lpApplicationName</i>. If you do pass <b>NULL</b> for <i>lpApplicationName</i>, use quotation marks around the executable path in <i>lpCommandLine</i>, as shown in the example below.
+     * 
+     * 
+     * ``` syntax
+     * 	LPTSTR szCmdline[] = _tcsdup(TEXT("\"C:\\Program Files\\MyApp\" -L -S"));
+     * 	CreateProcess(NULL, szCmdline, //...);
+     * ```
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
      * @param {Integer} CreateFlags 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
-     * Note that the function returns before the process has finished initialization. If a required DLL cannot be located or fails to initialize, the process is terminated. To get the termination status of a process, call <a href="/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-createprocessa
+     * Note that the function returns before the process has finished initialization. If a required DLL cannot be located or fails to initialize, the process is terminated. To get the termination status of a process, call <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-createprocessa
      */
     CreateProcessA(Server, CommandLine, CreateFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(13, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "HRESULT")
+        result := ComCall(13, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +306,11 @@ class IDebugClient2 extends IUnknown{
     CreateProcessAndAttach(Server, CommandLine, CreateFlags, ProcessId, AttachFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
-        result := ComCall(14, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
+        result := ComCall(14, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "uint", ProcessId, "uint", AttachFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -214,7 +319,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {Integer} 
      */
     GetProcessOptions() {
-        result := ComCall(15, this, "uint*", &Options := 0, "HRESULT")
+        result := ComCall(15, this, "uint*", &Options := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Options
     }
 
@@ -224,7 +333,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddProcessOptions(Options) {
-        result := ComCall(16, this, "uint", Options, "HRESULT")
+        result := ComCall(16, this, "uint", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,7 +347,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveProcessOptions(Options) {
-        result := ComCall(17, this, "uint", Options, "HRESULT")
+        result := ComCall(17, this, "uint", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,7 +361,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProcessOptions(Options) {
-        result := ComCall(18, this, "uint", Options, "HRESULT")
+        result := ComCall(18, this, "uint", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -256,7 +377,11 @@ class IDebugClient2 extends IUnknown{
     OpenDumpFile(DumpFile) {
         DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
 
-        result := ComCall(19, this, "ptr", DumpFile, "HRESULT")
+        result := ComCall(19, this, "ptr", DumpFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +394,11 @@ class IDebugClient2 extends IUnknown{
     WriteDumpFile(DumpFile, Qualifier) {
         DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
 
-        result := ComCall(20, this, "ptr", DumpFile, "uint", Qualifier, "HRESULT")
+        result := ComCall(20, this, "ptr", DumpFile, "uint", Qualifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,7 +409,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     ConnectSession(Flags, HistoryLimit) {
-        result := ComCall(21, this, "uint", Flags, "uint", HistoryLimit, "HRESULT")
+        result := ComCall(21, this, "uint", Flags, "uint", HistoryLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -292,7 +425,11 @@ class IDebugClient2 extends IUnknown{
     StartServer(Options) {
         Options := Options is String ? StrPtr(Options) : Options
 
-        result := ComCall(22, this, "ptr", Options, "HRESULT")
+        result := ComCall(22, this, "ptr", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -306,7 +443,11 @@ class IDebugClient2 extends IUnknown{
     OutputServers(OutputControl, Machine, Flags) {
         Machine := Machine is String ? StrPtr(Machine) : Machine
 
-        result := ComCall(23, this, "uint", OutputControl, "ptr", Machine, "uint", Flags, "HRESULT")
+        result := ComCall(23, this, "uint", OutputControl, "ptr", Machine, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -315,7 +456,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     TerminateProcesses() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -324,26 +469,53 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     DetachProcesses() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: EndSessionGrbit enumeration
      * @param {Integer} Flags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/endsessiongrbit-enumeration
      */
     EndSession(Flags) {
-        result := ComCall(26, this, "uint", Flags, "HRESULT")
+        result := ComCall(26, this, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves the termination status of the specified process.
+     * @remarks
+     * This function returns immediately. If the process has not terminated and the function succeeds, the status returned is <b>STILL_ACTIVE</b> (a macro for **STATUS_PENDING** (minwinbase.h)). If the process has terminated and the function succeeds, the status returned is one of the following values:
      * 
+     * <ul>
+     * <li>The exit value specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminateprocess">TerminateProcess</a> function.</li>
+     * <li>The return value from the <a href="https://docs.microsoft.com/cpp/cpp/main-function-command-line-args">main</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> function of the process.</li>
+     * <li>The exception value for an unhandled exception that caused the process to terminate.</li>
+     * </ul>
+     * 
+     * > [!IMPORTANT]
+     * > The **GetExitCodeProcess** function returns a valid error code defined by the application only after the thread terminates. Therefore, an application should not use **STILL_ACTIVE** (259) as an error code (**STILL_ACTIVE** is a macro for **STATUS_PENDING** (minwinbase.h)). If a thread returns **STILL_ACTIVE** (259) as an error code, then applications that test for that value could interpret it to mean that the thread is still running, and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getexitcodeprocess
      */
     GetExitCode() {
-        result := ComCall(27, this, "uint*", &Code := 0, "HRESULT")
+        result := ComCall(27, this, "uint*", &Code := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Code
     }
 
@@ -353,7 +525,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     DispatchCallbacks(Timeout) {
-        result := ComCall(28, this, "uint", Timeout, "HRESULT")
+        result := ComCall(28, this, "uint", Timeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -363,7 +539,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     ExitDispatch(Client) {
-        result := ComCall(29, this, "ptr", Client, "HRESULT")
+        result := ComCall(29, this, "ptr", Client, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -372,7 +552,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {IDebugClient} 
      */
     CreateClient() {
-        result := ComCall(30, this, "ptr*", &Client := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &Client := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugClient(Client)
     }
 
@@ -381,7 +565,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {IDebugInputCallbacks} 
      */
     GetInputCallbacks() {
-        result := ComCall(31, this, "ptr*", &Callbacks := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &Callbacks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugInputCallbacks(Callbacks)
     }
 
@@ -391,7 +579,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetInputCallbacks(Callbacks) {
-        result := ComCall(32, this, "ptr", Callbacks, "HRESULT")
+        result := ComCall(32, this, "ptr", Callbacks, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -400,7 +592,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {IDebugOutputCallbacks} 
      */
     GetOutputCallbacks() {
-        result := ComCall(33, this, "ptr*", &Callbacks := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &Callbacks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugOutputCallbacks(Callbacks)
     }
 
@@ -410,7 +606,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOutputCallbacks(Callbacks) {
-        result := ComCall(34, this, "ptr", Callbacks, "HRESULT")
+        result := ComCall(34, this, "ptr", Callbacks, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -419,7 +619,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {Integer} 
      */
     GetOutputMask() {
-        result := ComCall(35, this, "uint*", &Mask := 0, "HRESULT")
+        result := ComCall(35, this, "uint*", &Mask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Mask
     }
 
@@ -429,7 +633,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOutputMask(Mask) {
-        result := ComCall(36, this, "uint", Mask, "HRESULT")
+        result := ComCall(36, this, "uint", Mask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -439,7 +647,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {Integer} 
      */
     GetOtherOutputMask(Client) {
-        result := ComCall(37, this, "ptr", Client, "uint*", &Mask := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", Client, "uint*", &Mask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Mask
     }
 
@@ -450,7 +662,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOtherOutputMask(Client, Mask) {
-        result := ComCall(38, this, "ptr", Client, "uint", Mask, "HRESULT")
+        result := ComCall(38, this, "ptr", Client, "uint", Mask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -459,30 +675,42 @@ class IDebugClient2 extends IUnknown{
      * @returns {Integer} 
      */
     GetOutputWidth() {
-        result := ComCall(39, this, "uint*", &Columns := 0, "HRESULT")
-        return Columns
+        result := ComCall(39, this, "uint*", &Columns_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Columns_
     }
 
     /**
      * 
-     * @param {Integer} Columns 
+     * @param {Integer} Columns_ 
      * @returns {HRESULT} 
      */
-    SetOutputWidth(Columns) {
-        result := ComCall(40, this, "uint", Columns, "HRESULT")
+    SetOutputWidth(Columns_) {
+        result := ComCall(40, this, "uint", Columns_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOutputLinePrefix(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetOutputLinePrefix(Buffer_, BufferSize) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := ComCall(41, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", Buffer_, "uint", BufferSize, "uint*", &PrefixSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PrefixSize
     }
 
@@ -494,20 +722,28 @@ class IDebugClient2 extends IUnknown{
     SetOutputLinePrefix(Prefix) {
         Prefix := Prefix is String ? StrPtr(Prefix) : Prefix
 
-        result := ComCall(42, this, "ptr", Prefix, "HRESULT")
+        result := ComCall(42, this, "ptr", Prefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetIdentity(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetIdentity(Buffer_, BufferSize) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := ComCall(43, this, "ptr", Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", Buffer_, "uint", BufferSize, "uint*", &IdentitySize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IdentitySize
     }
 
@@ -521,7 +757,11 @@ class IDebugClient2 extends IUnknown{
     OutputIdentity(OutputControl, Flags, Format) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := ComCall(44, this, "uint", OutputControl, "uint", Flags, "ptr", Format, "HRESULT")
+        result := ComCall(44, this, "uint", OutputControl, "uint", Flags, "ptr", Format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -530,7 +770,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {IDebugEventCallbacks} 
      */
     GetEventCallbacks() {
-        result := ComCall(45, this, "ptr*", &Callbacks := 0, "HRESULT")
+        result := ComCall(45, this, "ptr*", &Callbacks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugEventCallbacks(Callbacks)
     }
 
@@ -540,7 +784,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventCallbacks(Callbacks) {
-        result := ComCall(46, this, "ptr", Callbacks, "HRESULT")
+        result := ComCall(46, this, "ptr", Callbacks, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -549,7 +797,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     FlushCallbacks() {
-        result := ComCall(47, this, "HRESULT")
+        result := ComCall(47, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -565,7 +817,11 @@ class IDebugClient2 extends IUnknown{
         DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
         Comment := Comment is String ? StrPtr(Comment) : Comment
 
-        result := ComCall(48, this, "ptr", DumpFile, "uint", Qualifier, "uint", FormatFlags, "ptr", Comment, "HRESULT")
+        result := ComCall(48, this, "ptr", DumpFile, "uint", Qualifier, "uint", FormatFlags, "ptr", Comment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -578,7 +834,11 @@ class IDebugClient2 extends IUnknown{
     AddDumpInformationFile(InfoFile, Type) {
         InfoFile := InfoFile is String ? StrPtr(InfoFile) : InfoFile
 
-        result := ComCall(49, this, "ptr", InfoFile, "uint", Type, "HRESULT")
+        result := ComCall(49, this, "ptr", InfoFile, "uint", Type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -588,7 +848,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     EndProcessServer(Server) {
-        result := ComCall(50, this, "uint", Server, "HRESULT")
+        result := ComCall(50, this, "uint", Server, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -598,7 +862,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     WaitForProcessServerEnd(Timeout) {
-        result := ComCall(51, this, "uint", Timeout, "HRESULT")
+        result := ComCall(51, this, "uint", Timeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -607,7 +875,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     IsKernelDebuggerEnabled() {
-        result := ComCall(52, this, "HRESULT")
+        result := ComCall(52, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -616,7 +888,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     TerminateCurrentProcess() {
-        result := ComCall(53, this, "HRESULT")
+        result := ComCall(53, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -625,7 +901,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     DetachCurrentProcess() {
-        result := ComCall(54, this, "HRESULT")
+        result := ComCall(54, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -634,7 +914,11 @@ class IDebugClient2 extends IUnknown{
      * @returns {HRESULT} 
      */
     AbandonCurrentProcess() {
-        result := ComCall(55, this, "HRESULT")
+        result := ComCall(55, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

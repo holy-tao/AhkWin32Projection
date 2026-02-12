@@ -43,9 +43,16 @@ class IHTMLFormElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_acceptCharset(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +62,11 @@ class IHTMLFormElement2 extends IDispatch{
      */
     get_acceptCharset() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -65,7 +76,11 @@ class IHTMLFormElement2 extends IDispatch{
      * @returns {IDispatch} 
      */
     urns(urn) {
-        result := ComCall(9, this, "ptr", urn, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", urn, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 }

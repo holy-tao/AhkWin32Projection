@@ -6,11 +6,8 @@
 /**
  * This topic applies to Windows XP Media Center Edition 2004 and later.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogRadioTuningSpace2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ianalogradiotuningspace2
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-ianalogradiotuningspace2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -46,10 +43,14 @@ class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
     /**
      * This topic applies to Windows XP Media Center Edition 2004 and later.
      * @returns {Integer} Pointer to a variable that receives the country/region code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace2-get_countrycode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ianalogradiotuningspace2-get_countrycode
      */
     get_CountryCode() {
-        result := ComCall(32, this, "int*", &CountryCodeVal := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &CountryCodeVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return CountryCodeVal
     }
 
@@ -57,10 +58,14 @@ class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
      * This topic applies to Windows XP Media Center Edition 2004 and later.
      * @param {Integer} NewCountryCodeVal The country/region code.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved by using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace2-put_countrycode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ianalogradiotuningspace2-put_countrycode
      */
     put_CountryCode(NewCountryCodeVal) {
-        result := ComCall(33, this, "int", NewCountryCodeVal, "HRESULT")
+        result := ComCall(33, this, "int", NewCountryCodeVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -38,7 +38,11 @@ class IDxcBlobEncoding extends IDxcBlob{
         pKnownMarshal := pKnown is VarRef ? "int*" : "ptr"
         pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pKnownMarshal, pKnown, pCodePageMarshal, pCodePage, "HRESULT")
+        result := ComCall(5, this, pKnownMarshal, pKnown, pCodePageMarshal, pCodePage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

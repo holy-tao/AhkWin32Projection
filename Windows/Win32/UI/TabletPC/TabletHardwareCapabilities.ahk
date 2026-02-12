@@ -9,7 +9,7 @@
  * The value is 0 if the tablet device cannot provide this information.
  * 
  * This enumeration is a flag.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-tablethardwarecapabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-tablethardwarecapabilities
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

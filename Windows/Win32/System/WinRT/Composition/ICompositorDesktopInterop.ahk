@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\UI\Composition\Desktop\DesktopWindowTarget.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -37,8 +38,12 @@ class ICompositorDesktopInterop extends IUnknown{
     CreateDesktopWindowTarget(hwndTarget, isTopmost) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
-        result := ComCall(3, this, "ptr", hwndTarget, "int", isTopmost, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwndTarget, "int", isTopmost, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return DesktopWindowTarget(result_)
     }
 
     /**
@@ -47,7 +52,11 @@ class ICompositorDesktopInterop extends IUnknown{
      * @returns {HRESULT} 
      */
     EnsureOnThread(threadId) {
-        result := ComCall(4, this, "uint", threadId, "HRESULT")
+        result := ComCall(4, this, "uint", threadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

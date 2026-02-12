@@ -4,7 +4,7 @@
 
 /**
  * Describes the creation parameters for a device.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevice-creation-parameters
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddevice-creation-parameters
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

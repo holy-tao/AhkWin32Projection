@@ -5,7 +5,7 @@
 
 /**
  * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS1)
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_layer_parameters1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/ns-d2d1_1-d2d1_layer_parameters1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

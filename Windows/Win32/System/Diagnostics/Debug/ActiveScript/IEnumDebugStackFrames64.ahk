@@ -38,7 +38,11 @@ class IEnumDebugStackFrames64 extends IEnumDebugStackFrames{
     Next64(celt, prgdsfd, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", celt, "ptr", prgdsfd, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(7, this, "uint", celt, "ptr", prgdsfd, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

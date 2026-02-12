@@ -6,7 +6,6 @@
 /**
  * Registers Media Foundation transforms (MFTs) in the caller's process.
  * @remarks
- * 
  * This interface requires the Media Session. If you are not using the Media Session for playback, call one of the following functions instead:
  * 
  * <ul>
@@ -17,9 +16,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocalbyclsid">MFTRegisterLocalByCLSID</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imflocalmftregistration
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imflocalmftregistration
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -46,13 +43,30 @@ class IMFLocalMFTRegistration extends IUnknown{
 
     /**
      * Registers one or more Media Foundation transforms (MFTs) in the caller's process.
+     * @remarks
+     * This method is similar to the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocalbyclsid">MFTRegisterLocalByCLSID</a> function. It registers one or more MFTs in the caller's process. These MFTs can be enumerated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftenumex">MFTEnumEx</a> function with the <b>MFT_ENUM_FLAG_LOCALMFT</b> flag.
+     * 
+     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregisterlocalbyclsid">MFTRegisterLocalByCLSID</a>, however, this method also makes the MFT available in the Protected Media Path (PMP) process, and is therefore useful if you are using the Media Session inside the PMP. For more information, see the following topics:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatepmpmediasession">MFCreatePMPMediaSession</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/protected-media-path">Protected Media Path</a>
+     * </li>
+     * </ul>
      * @param {Pointer<MFT_REGISTRATION_INFO>} pMFTs A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mft_registration_info">MFT_REGISTRATION_INFO</a> structures.
      * @param {Integer} cMFTs The number of elements in the <i>pMFTs</i> array.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imflocalmftregistration-registermfts
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imflocalmftregistration-registermfts
      */
     RegisterMFTs(pMFTs, cMFTs) {
-        result := ComCall(3, this, "ptr", pMFTs, "uint", cMFTs, "HRESULT")
+        result := ComCall(3, this, "ptr", pMFTs, "uint", cMFTs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

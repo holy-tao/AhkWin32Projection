@@ -34,7 +34,11 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2{
      * @returns {HRESULT} 
      */
     UnauthorizeEx(dwFlags) {
-        result := ComCall(11, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(11, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2{
      * @returns {BOOL} 
      */
     IsQueueFrozen() {
-        result := ComCall(12, this, "int*", &pIsQueueFrozen := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pIsQueueFrozen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsQueueFrozen
     }
 
@@ -52,7 +60,11 @@ class IEnhancedStorageACT3 extends IEnhancedStorageACT2{
      * @returns {BOOL} 
      */
     GetShellExtSupport() {
-        result := ComCall(13, this, "int*", &pShellExtSupport := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pShellExtSupport := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pShellExtSupport
     }
 }

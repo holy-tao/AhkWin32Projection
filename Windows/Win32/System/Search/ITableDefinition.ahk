@@ -29,7 +29,9 @@ class ITableDefinition extends IUnknown{
     static VTableNames => ["CreateTable", "DropTable", "AddColumn", "DropColumn"]
 
     /**
-     * 
+     * CreateTable creates structures and an object handle for an ITableData object which can be used to create table contents.
+     * @remarks
+     * The _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ input parameters point to the [MAPIAllocateBuffer](mapiallocatebuffer.md), [MAPIAllocateMore](mapiallocatemore.md), and [MAPIFreeBuffer](mapifreebuffer.md) functions, respectively. A client application calling **CreateTable** passes in pointers to the MAPI functions just named; a service provider passes the pointers to these functions that it received in its initialization call or retrieved with a call to the [IMAPISupport::GetMemAllocRoutines](imapisupport-getmemallocroutines.md) method.
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer} cColumnDescs 
@@ -39,12 +41,19 @@ class ITableDefinition extends IUnknown{
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @param {Pointer<Pointer<DBID>>} ppTableID 
      * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} S_OK
+     *   
+     * > The call succeeded and has returned the expected value or values.
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/createtable
      */
     CreateTable(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
         ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +63,11 @@ class ITableDefinition extends IUnknown{
      * @returns {HRESULT} 
      */
     DropTable(pTableID) {
-        result := ComCall(4, this, "ptr", pTableID, "HRESULT")
+        result := ComCall(4, this, "ptr", pTableID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +78,11 @@ class ITableDefinition extends IUnknown{
      * @returns {Pointer<DBID>} 
      */
     AddColumn(pTableID, pColumnDesc) {
-        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, "ptr*", &ppColumnID := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pTableID, "ptr", pColumnDesc, "ptr*", &ppColumnID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppColumnID
     }
 
@@ -76,7 +93,11 @@ class ITableDefinition extends IUnknown{
      * @returns {HRESULT} 
      */
     DropColumn(pTableID, pColumnID) {
-        result := ComCall(6, this, "ptr", pTableID, "ptr", pColumnID, "HRESULT")
+        result := ComCall(6, this, "ptr", pTableID, "ptr", pColumnID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

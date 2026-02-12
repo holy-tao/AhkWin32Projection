@@ -5,7 +5,7 @@
  * DHCP_IPV6_ADDRESS structure contains an IPv6 address.
  * @remarks
  * An alternate name for this structure is <b>DHCP_RESUME_IPV6_HANDLE</b>.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address
+ * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/ns-dhcpsapi-dhcp_ipv6_address
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

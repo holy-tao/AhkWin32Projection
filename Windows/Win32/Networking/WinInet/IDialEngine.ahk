@@ -30,6 +30,19 @@ class IDialEngine extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {PWSTR} pwzConnectoid 
      * @param {IDialEventSink} pIDES 
      * @returns {HRESULT} <ul>
@@ -43,50 +56,77 @@ class IDialEngine extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(pwzConnectoid, pIDES) {
         pwzConnectoid := pwzConnectoid is String ? StrPtr(pwzConnectoid) : pwzConnectoid
 
-        result := ComCall(3, this, "ptr", pwzConnectoid, "ptr", pIDES, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzConnectoid, "ptr", pIDES, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {PWSTR} pwzProperty 
      * @param {PWSTR} pwzValue 
      * @param {Integer} dwBufSize 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is the handle to the property.
+     * 
+     * If the function is unsuccessful, the return value is **NULL**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getproperty
      */
     GetProperty(pwzProperty, pwzValue, dwBufSize) {
         pwzProperty := pwzProperty is String ? StrPtr(pwzProperty) : pwzProperty
         pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
-        result := ComCall(4, this, "ptr", pwzProperty, "ptr", pwzValue, "uint", dwBufSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzProperty, "ptr", pwzValue, "uint", dwBufSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets Interaction Context object properties.
      * @param {PWSTR} pwzProperty 
      * @param {PWSTR} pwzValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      */
     SetProperty(pwzProperty, pwzValue) {
         pwzProperty := pwzProperty is String ? StrPtr(pwzProperty) : pwzProperty
         pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
-        result := ComCall(5, this, "ptr", pwzProperty, "ptr", pwzValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pwzProperty, "ptr", pwzValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Gets the current status of the application on the remote device.
+     * @returns {HRESULT} The app status, a value from [DialAppStateDetails](dialappstatedetails.md).
+     * @see https://learn.microsoft.com/uwp/api/windows.media.dialprotocol.dialapp.getappstateasync
      */
     Dial() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +135,11 @@ class IDialEngine extends IUnknown{
      * @returns {HRESULT} 
      */
     HangUp() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +148,11 @@ class IDialEngine extends IUnknown{
      * @returns {Integer} 
      */
     GetConnectedState() {
-        result := ComCall(8, this, "uint*", &pdwState := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwState
     }
 
@@ -113,7 +161,11 @@ class IDialEngine extends IUnknown{
      * @returns {Pointer} 
      */
     GetConnectHandle() {
-        result := ComCall(9, this, "ptr*", &pdwHandle := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &pdwHandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwHandle
     }
 }

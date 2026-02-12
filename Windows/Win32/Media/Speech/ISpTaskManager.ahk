@@ -37,7 +37,11 @@ class ISpTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetThreadPoolInfo(pPoolInfo) {
-        result := ComCall(3, this, "ptr", pPoolInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pPoolInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ISpTaskManager extends IUnknown{
      */
     GetThreadPoolInfo() {
         pPoolInfo := SPTMTHREADINFO()
-        result := ComCall(4, this, "ptr", pPoolInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pPoolInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPoolInfo
     }
 
@@ -65,7 +73,11 @@ class ISpTaskManager extends IUnknown{
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
         pdwGroupIdMarshal := pdwGroupId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, pdwGroupIdMarshal, pdwGroupId, "uint*", &pTaskID := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, pdwGroupIdMarshal, pdwGroupId, "uint*", &pTaskID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTaskID
     }
 
@@ -81,7 +93,11 @@ class ISpTaskManager extends IUnknown{
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, "ptr*", &ppTaskCtrl := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, "ptr*", &ppTaskCtrl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpNotifySink(ppTaskCtrl)
     }
 
@@ -95,7 +111,11 @@ class ISpTaskManager extends IUnknown{
     CreateThreadControl(pTask, pvTaskData, nPriority) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "int", nPriority, "ptr*", &ppTaskCtrl := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "int", nPriority, "ptr*", &ppTaskCtrl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpThreadControl(ppTaskCtrl)
     }
 
@@ -106,7 +126,11 @@ class ISpTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     TerminateTask(dwTaskId, ulWaitPeriod) {
-        result := ComCall(8, this, "uint", dwTaskId, "uint", ulWaitPeriod, "HRESULT")
+        result := ComCall(8, this, "uint", dwTaskId, "uint", ulWaitPeriod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +141,11 @@ class ISpTaskManager extends IUnknown{
      * @returns {HRESULT} 
      */
     TerminateTaskGroup(dwGroupId, ulWaitPeriod) {
-        result := ComCall(9, this, "uint", dwGroupId, "uint", ulWaitPeriod, "HRESULT")
+        result := ComCall(9, this, "uint", dwGroupId, "uint", ulWaitPeriod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

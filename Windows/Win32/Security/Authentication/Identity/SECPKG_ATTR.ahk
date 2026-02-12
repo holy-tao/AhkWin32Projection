@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * The <i>pBuffer</i> parameter contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkgcontext_accesstoken">SecPkgContext_AccessToken</a> structure.
+  * 
+  * Returns a handle to the access token.
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/nf-sspi-querycontextattributesexa
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

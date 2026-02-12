@@ -5,7 +5,7 @@
 
 /**
  * The IDVB_EIT2 interface enables an application to get information from a Digital Video Broadcasting (DVB) event information table (EIT). The IDvbSiParser2::GetEIT2 method returns a pointer to this interface. This interface extends the IDVB_EIT interface.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvb_eit2
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvb_eit2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -70,18 +70,22 @@ class IDVB_EIT2 extends IDVB_EIT{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_eit-initialize">Initialize</a> method was not called.
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_eit-initialize">Initialize</a> method was not called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_eit2-getsegmentinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_eit2-getsegmentinfo
      */
     GetSegmentInfo(pbTid, pbSegment) {
         pbTidMarshal := pbTid is VarRef ? "char*" : "ptr"
         pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(24, this, pbTidMarshal, pbTid, pbSegmentMarshal, pbSegment, "HRESULT")
+        result := ComCall(24, this, pbTidMarshal, pbTid, pbSegmentMarshal, pbSegment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,10 +93,14 @@ class IDVB_EIT2 extends IDVB_EIT{
      * Gets the number of a section containing an event information table (EIT) record.
      * @param {Integer} dwRecordIndex The record number, indexed from 0. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvb_eit-getcountofrecords">IDVB_EIT::GetCountOfRecords</a> to get the number of records in the EIT.
      * @returns {Integer} Receives the number of the section containing the specified record. A value of 0 indicates the present section; a value of 1 indicates the following section.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_eit2-getrecordsection
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvb_eit2-getrecordsection
      */
     GetRecordSection(dwRecordIndex) {
-        result := ComCall(25, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(25, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Contains the size and visibility information about the about the console cursor.
- * @see https://learn.microsoft.com/windows/console/console-cursor-info-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/console-cursor-info-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

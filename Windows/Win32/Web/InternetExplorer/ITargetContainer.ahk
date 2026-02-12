@@ -34,7 +34,11 @@ class ITargetContainer extends IUnknown{
      * @returns {PWSTR} 
      */
     GetFrameUrl() {
-        result := ComCall(3, this, "ptr*", &ppszFrameSrc := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszFrameSrc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszFrameSrc
     }
 
@@ -43,7 +47,11 @@ class ITargetContainer extends IUnknown{
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
-        result := ComCall(4, this, "ptr*", &ppContainer := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppContainer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOleContainer(ppContainer)
     }
 }

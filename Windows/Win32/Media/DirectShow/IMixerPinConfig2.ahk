@@ -5,7 +5,7 @@
 
 /**
  * The IMixerPinConfig2 interface is exposed on the input pins of the Overlay Mixer and contains methods that manipulate video color controls, if the VGA chip supports it.This interface derives from the IMixerPinConfig interface.Applications use this interface to get and set video color controls when mixing multiple video streams.
- * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nn-mpconfig-imixerpinconfig2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpconfig/nn-mpconfig-imixerpinconfig2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IMixerPinConfig2 extends IMixerPinConfig{
      * Sets the color control settings associated with the specified overlay surface.
      * @param {Pointer<DDCOLORCONTROL>} pColorControl Address of a pointer to the <b>DDCOLORCONTROL</b> structure containing the new values to be applied to the specified surface.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. If the allocator on the pin is not using an overlay surface, the method returns E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig2-setoverlaysurfacecolorcontrols
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpconfig/nf-mpconfig-imixerpinconfig2-setoverlaysurfacecolorcontrols
      */
     SetOverlaySurfaceColorControls(pColorControl) {
-        result := ComCall(15, this, "ptr", pColorControl, "HRESULT")
+        result := ComCall(15, this, "ptr", pColorControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,10 +49,14 @@ class IMixerPinConfig2 extends IMixerPinConfig{
      * The GetOverlaySurfaceColorControls method retrieves the color control settings associated with the specified overlay surface.
      * @param {Pointer<DDCOLORCONTROL>} pColorControl Address of a pointer to the <b>DDCOLORCONTROL</b> structure containing the color values currently applied to the specified surface.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. If the allocator on the pin is not using an overlay surface, the method returns E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//mpconfig/nf-mpconfig-imixerpinconfig2-getoverlaysurfacecolorcontrols
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpconfig/nf-mpconfig-imixerpinconfig2-getoverlaysurfacecolorcontrols
      */
     GetOverlaySurfaceColorControls(pColorControl) {
-        result := ComCall(16, this, "ptr", pColorControl, "HRESULT")
+        result := ComCall(16, this, "ptr", pColorControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

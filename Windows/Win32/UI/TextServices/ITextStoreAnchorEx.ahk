@@ -37,7 +37,11 @@ class ITextStoreAnchorEx extends IUnknown{
      * @returns {HRESULT} 
      */
     ScrollToRect(pStart, pEnd, rc, dwPosition) {
-        result := ComCall(3, this, "ptr", pStart, "ptr", pEnd, "ptr", rc, "uint", dwPosition, "HRESULT")
+        result := ComCall(3, this, "ptr", pStart, "ptr", pEnd, "ptr", rc, "uint", dwPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

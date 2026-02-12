@@ -7,13 +7,10 @@
 /**
  * Exposes methods that allow an application to retrieve information about a known folder's category, type, GUID, pointer to an item identifier list (PIDL) value, redirection capabilities, and definition.
  * @remarks
- * 
  * <b>IKnownFolder</b> objects can be obtained through several methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iknownfoldermanager">IKnownFolderManager</a> interface, such as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolder">IKnownFolderManager::GetFolder</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-findfolderfromidlist">IKnownFolderManager::FindFolderFromIDList</a>.
  * 
  * Third parties do not implement <b>IKnownFolder</b>. Use the provided implementation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iknownfolder
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iknownfolder
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,11 +40,15 @@ class IKnownFolder extends IUnknown{
      * @returns {Guid} Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a>*</b>
      * 
      * When this method returns, returns the <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> value of the known folder. Note, <b>KNOWNFOLDERID</b> values are GUIDs.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getid
      */
     GetId() {
         pkfid := Guid()
-        result := ComCall(3, this, "ptr", pkfid, "HRESULT")
+        result := ComCall(3, this, "ptr", pkfid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pkfid
     }
 
@@ -56,10 +57,14 @@ class IKnownFolder extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a>*</b>
      * 
      * When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a> of the selected folder.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getcategory
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getcategory
      */
     GetCategory() {
-        result := ComCall(4, this, "int*", &pCategory := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pCategory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCategory
     }
 
@@ -71,33 +76,49 @@ class IKnownFolder extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getshellitem
      */
     GetShellItem(dwFlags, riid) {
-        result := ComCall(5, this, "uint", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Retrieves the path of a known folder as a string.
+     * @remarks
+     * Equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a>
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify special retrieval options. This value can be 0; otherwise, one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated buffer that contains the path. The calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free this resource when it is no longer needed.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getpath
      */
     GetPath(dwFlags) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr*", &ppszPath := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwFlags, "ptr*", &ppszPath := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszPath
     }
 
     /**
      * Assigns a new path to a known folder.
+     * @remarks
+     * This method cannot be called on folders of type <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY_FIXED</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY_VIRTUAL</a>.
+     * 
+     * To call this method on a folder of type <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY_COMMON</a>, the calling application must be running with elevated privileges.
+     * 
+     * This method is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shsetknownfolderpath">SHSetKnownFolderPath</a>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Either zero or the following value:
@@ -106,28 +127,38 @@ class IKnownFolder extends IUnknown{
      * Pointer to the folder's new path. This is a null-terminated Unicode string of length MAX_PATH. This path cannot be of zero length. If this value is <b>NULL</b>, the <b>IKnownFolder::SetPath</b> sets the path to the default value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-setpath
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-setpath
      */
     SetPath(dwFlags, pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszPath, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the location of the Shell namespace folder in the IDList (ITEMIDLIST) form.
+     * @remarks
+     * Equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderidlist">SHGetKnownFolderIDList</a>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify special retrieval options. This value can be 0; otherwise, one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns, contains the address of an absolute PIDL. This parameter is passed uninitialized. The calling application is responsible for freeing this resource when it is no longer needed.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getidlist
      */
     GetIDList(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppidl := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppidl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppidl
     }
 
@@ -136,11 +167,15 @@ class IKnownFolder extends IUnknown{
      * @returns {Guid} Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a>*</b>
      * 
      * When this returns, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a> (a GUID) that identifies the known folder type.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getfoldertype
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getfoldertype
      */
     GetFolderType() {
         pftid := Guid()
-        result := ComCall(9, this, "ptr", pftid, "HRESULT")
+        result := ComCall(9, this, "ptr", pftid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pftid
     }
 
@@ -149,23 +184,35 @@ class IKnownFolder extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirection_capabilities">KF_REDIRECTION_CAPABILITIES</a>*</b>
      * 
      * When this method returns, contains a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirection_capabilities">KF_REDIRECTION_CAPABILITIES</a> value that indicates the redirection capabilities for this folder.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getredirectioncapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getredirectioncapabilities
      */
     GetRedirectionCapabilities() {
-        result := ComCall(10, this, "uint*", &pCapabilities := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pCapabilities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCapabilities
     }
 
     /**
      * Retrieves a structure that contains the defining elements of a known folder, which includes the folder's category, name, path, description, tooltip, icon, and other properties.
+     * @remarks
+     * When a third-party application creates their own known folder, they do so by defining it with a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-knownfolder_definition">KNOWNFOLDER_DEFINITION</a> structure, then registering it with the system. Any registered known folder definition information—system-provided or application-created—can be retrieved through this method.
+     * 
+     * To call this method, the caller must have at least User privileges.
      * @returns {KNOWNFOLDER_DEFINITION} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-knownfolder_definition">KNOWNFOLDER_DEFINITION</a>*</b>
      * 
      * When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-knownfolder_definition">KNOWNFOLDER_DEFINITION</a> structure. When no longer needed, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-freeknownfolderdefinitionfields">FreeKnownFolderDefinitionFields</a> to free this resource.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iknownfolder-getfolderdefinition
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iknownfolder-getfolderdefinition
      */
     GetFolderDefinition() {
         pKFD := KNOWNFOLDER_DEFINITION()
-        result := ComCall(11, this, "ptr", pKFD, "HRESULT")
+        result := ComCall(11, this, "ptr", pKFD, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pKFD
     }
 }

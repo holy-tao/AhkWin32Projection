@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Asynchronously converts a [Contact](contact.md) to a vCard.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/uwp/api/windows.applicationmodel.contacts.contactmanager.convertcontacttovcardasync
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */

@@ -56,7 +56,11 @@ class IPrintWorkflowConfigurationNative extends IUnknown{
      * @returns {IPrinterQueue} 
      */
     get_PrinterQueue() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterQueue(value)
     }
 
@@ -65,7 +69,11 @@ class IPrintWorkflowConfigurationNative extends IUnknown{
      * @returns {IPrinterPropertyBag} 
      */
     get_DriverProperties() {
-        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterPropertyBag(value)
     }
 
@@ -74,7 +82,11 @@ class IPrintWorkflowConfigurationNative extends IUnknown{
      * @returns {IPrinterPropertyBag} 
      */
     get_UserProperties() {
-        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterPropertyBag(value)
     }
 }

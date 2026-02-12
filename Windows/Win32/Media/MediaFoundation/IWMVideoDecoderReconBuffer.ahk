@@ -5,7 +5,7 @@
 
 /**
  * Note  This interface is obsolete and should not be used. Manages reconstructed video frames.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderreconbuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderreconbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -52,12 +52,16 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframesize
      */
     GetReconstructedVideoFrameSize(pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(3, this, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,10 +87,14 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-getreconstructedvideoframe
      */
     GetReconstructedVideoFrame(pBuf) {
-        result := ComCall(4, this, "ptr", pBuf, "HRESULT")
+        result := ComCall(4, this, "ptr", pBuf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,10 +120,14 @@ class IWMVideoDecoderReconBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-setreconstructedvideoframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderreconbuffer-setreconstructedvideoframe
      */
     SetReconstructedVideoFrame(pBuf) {
-        result := ComCall(5, this, "ptr", pBuf, "HRESULT")
+        result := ComCall(5, this, "ptr", pBuf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

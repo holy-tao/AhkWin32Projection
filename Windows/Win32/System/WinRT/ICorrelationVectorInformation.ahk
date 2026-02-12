@@ -50,7 +50,11 @@ class ICorrelationVectorInformation extends IInspectable{
      */
     get_LastCorrelationVectorForThread() {
         cv := HSTRING()
-        result := ComCall(6, this, "ptr", cv, "HRESULT")
+        result := ComCall(6, this, "ptr", cv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return cv
     }
 
@@ -60,7 +64,11 @@ class ICorrelationVectorInformation extends IInspectable{
      */
     get_NextCorrelationVectorForThread() {
         cv := HSTRING()
-        result := ComCall(7, this, "ptr", cv, "HRESULT")
+        result := ComCall(7, this, "ptr", cv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return cv
     }
 
@@ -70,9 +78,17 @@ class ICorrelationVectorInformation extends IInspectable{
      * @returns {HRESULT} 
      */
     put_NextCorrelationVectorForThread(cv) {
+        if(cv is String) {
+            pin := HSTRING.Create(cv)
+            cv := pin.Value
+        }
         cv := cv is Win32Handle ? NumGet(cv, "ptr") : cv
 
-        result := ComCall(8, this, "ptr", cv, "HRESULT")
+        result := ComCall(8, this, "ptr", cv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

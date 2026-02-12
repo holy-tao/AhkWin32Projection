@@ -37,10 +37,20 @@ class IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities{
      * @returns {IPrintSchemaParameterDefinition} 
      */
     GetParameterDefinition(bstrName, bstrNamespaceUri) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrNamespaceUri is String) {
+            pin := BSTR.Alloc(bstrNamespaceUri)
+            bstrNamespaceUri := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppParameterDefinition := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppParameterDefinition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaParameterDefinition(ppParameterDefinition)
     }
 }

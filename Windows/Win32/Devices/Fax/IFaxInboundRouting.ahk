@@ -8,10 +8,8 @@
 /**
  * The IFaxInboundRouting interface defines a configuration object used by a fax client application to access the inbound routing extensions registered with the fax service, represented by FaxInboundRoutingExtensions objects, and the routing methods the extensions expose, represented by FaxInboundRoutingMethods objects.
  * @remarks
- * 
  * A default implementation of <b>IFaxInboundRouting</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundrouting">FaxInboundRouting</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxinboundrouting
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxinboundrouting
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -44,25 +42,39 @@ class IFaxInboundRouting extends IDispatch{
 
     /**
      * The GetExtensions method retrieves the collection of inbound routing extensions registered with the fax service.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {IFaxInboundRoutingExtensions} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingextensions">IFaxInboundRoutingExtensions</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingextensions">IFaxInboundRoutingExtensions</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundrouting-getextensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundrouting-getextensions
      */
     GetExtensions() {
-        result := ComCall(7, this, "ptr*", &pFaxInboundRoutingExtensions := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pFaxInboundRoutingExtensions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxInboundRoutingExtensions(pFaxInboundRoutingExtensions)
     }
 
     /**
      * The IFaxInboundRouting::GetMethods method retrieves the ordered collection of all the inbound routing methods exposed by all the inbound routing extensions currently registered with the fax service.
+     * @remarks
+     * Order is based on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-priority">Priority</a> property of each routing method. The priority is associated with the order in which the fax service calls the routing method when the service receives a fax job.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {IFaxInboundRoutingMethods} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethods">IFaxInboundRoutingMethods</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethods">IFaxInboundRoutingMethods</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundrouting-getmethods
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundrouting-getmethods
      */
     GetMethods() {
-        result := ComCall(8, this, "ptr*", &pFaxInboundRoutingMethods := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pFaxInboundRoutingMethods := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxInboundRoutingMethods(pFaxInboundRoutingMethods)
     }
 }

@@ -25,7 +25,7 @@
  * </li>
  * </ol>
  * <div class="alert"><b>Note</b>  The installer does not have to set the DNF_REQUESTADDITIONALSOFTWARE flag if the INF file for the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/difxapi/driverpackagepreinstall">driver package</a> has set the <b>RequestAdditionalSoftware </b> flag in the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-controlflags-section">INF ControlFlags Section</a>.</div>
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_drvinstall_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/setupapi/ns-setupapi-sp_drvinstall_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

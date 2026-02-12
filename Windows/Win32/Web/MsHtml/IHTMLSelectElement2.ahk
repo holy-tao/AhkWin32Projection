@@ -34,7 +34,11 @@ class IHTMLSelectElement2 extends IDispatch{
      * @returns {IDispatch} 
      */
     urns(urn) {
-        result := ComCall(7, this, "ptr", urn, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", urn, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 }

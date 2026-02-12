@@ -4,7 +4,7 @@
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-updatelayeredwindowinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-updatelayeredwindowinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

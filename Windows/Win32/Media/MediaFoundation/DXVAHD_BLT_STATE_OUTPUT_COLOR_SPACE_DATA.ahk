@@ -11,7 +11,7 @@
  * If the device supports extended YCbCr, it sets the <b>DXVAHD_DEVICE_CAPS_xvYCC</b> capability flag in the <b>DeviceCaps</b>  member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. Otherwise, the device ignores the value of the <b>YCbCr_xvYCC</b> member and treats all YCbCr output as conventional YCbCr. To get the device's capabilities, call <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a>.
  * 
  * If the output format is a wide-gamut RGB format, output might fall outside the nominal [0...1] range of sRGB. This is particularly true if one or more input streams use extended YCbCr.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_output_color_space_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_blt_state_output_color_space_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

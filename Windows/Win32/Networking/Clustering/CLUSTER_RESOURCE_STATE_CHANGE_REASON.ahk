@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * CLUSTER_RESOURCE_STATE_CHANGE_REASON (msclus.h) is used by two specific control codes to describe the reason for a resource state change.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_state_change_reason
+ * CLUSTER_RESOURCE_STATE_CHANGE_REASON (clusapi.h) is used by control codes to describe the reason for a resource state change.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_resource_state_change_reason
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

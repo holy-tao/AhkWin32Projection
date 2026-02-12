@@ -56,7 +56,11 @@ class ISVGAnimatedInteger extends IDispatch{
      * @returns {HRESULT} 
      */
     put_baseVal(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class ISVGAnimatedInteger extends IDispatch{
      * @returns {Integer} 
      */
     get_baseVal() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -75,7 +83,11 @@ class ISVGAnimatedInteger extends IDispatch{
      * @returns {HRESULT} 
      */
     put_animVal(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +96,11 @@ class ISVGAnimatedInteger extends IDispatch{
      * @returns {Integer} 
      */
     get_animVal() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

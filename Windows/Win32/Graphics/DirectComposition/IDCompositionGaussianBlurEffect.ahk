@@ -5,7 +5,7 @@
 
 /**
  * The Gaussian blur effect is used to blur an image by a Gaussian function, typically to reduce image noise and reduce detail.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiongaussianblureffect
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositiongaussianblureffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -31,39 +31,59 @@ class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetStandardDeviation", "SetStandardDeviation1", "SetBorderMode"]
 
     /**
+     * The IDCompositionGaussianBlurEffect::SetStandardDeviation(IDCompositionAnimation) method sets the amount of blur to be applied to the image.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(float)
+     * An animation that represents how the amount of blur changes over time. You can compute the blur radius of the kernel by multiplying the standard deviation by 3. 
+     *           The units of both the standard deviation and blur radius are DIPs. A value of zero DIPs disables this effect entirely. 
+     *           This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(idcompositionanimation)
      */
     SetStandardDeviation(animation) {
-        result := ComCall(4, this, "ptr", animation, "HRESULT")
+        result := ComCall(4, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IDCompositionGaussianBlurEffect::SetStandardDeviation(IDCompositionAnimation) method sets the amount of blur to be applied to the image.
      * @param {Float} amount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(idcompositionanimation)
      */
     SetStandardDeviation1(amount) {
-        result := ComCall(5, this, "float", amount, "HRESULT")
+        result := ComCall(5, this, "float", amount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the mode used to calculate the border of the image.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/gaussian-blur">D2D1_BORDER_MODE</a></b>
+     * @param {Integer} mode_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/gaussian-blur">D2D1_BORDER_MODE</a></b>
      * 
      * The mode used to calculate the border of the image.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiongaussianblureffect-setbordermode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiongaussianblureffect-setbordermode
      */
-    SetBorderMode(mode) {
-        result := ComCall(6, this, "int", mode, "HRESULT")
+    SetBorderMode(mode_) {
+        result := ComCall(6, this, "int", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -46,7 +46,11 @@ class AsyncIFtpHomeDirectoryProvider extends IUnknown{
         pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class AsyncIFtpHomeDirectoryProvider extends IUnknown{
      * @returns {PWSTR} 
      */
     Finish_GetUserHomeDirectoryData() {
-        result := ComCall(4, this, "ptr*", &ppszHomeDirectoryData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszHomeDirectoryData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszHomeDirectoryData
     }
 }

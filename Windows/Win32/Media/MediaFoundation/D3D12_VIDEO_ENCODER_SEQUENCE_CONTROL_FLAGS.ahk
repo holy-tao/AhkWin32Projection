@@ -5,7 +5,7 @@
  * Specifies flags for video encoder sequence control properties.
  * @remarks
  * Note that depending on the codec, a request for reconfiguration might need to insert an IDR in the bitstream and new SPS headers.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_sequence_control_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_sequence_control_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

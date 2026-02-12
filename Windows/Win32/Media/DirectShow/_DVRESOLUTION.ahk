@@ -46,7 +46,7 @@
  *     DVDECODERRESOLUTION_88x60       =   1003
  * };
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvresolution
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-_dvresolution
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

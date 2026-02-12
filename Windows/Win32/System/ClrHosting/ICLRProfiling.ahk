@@ -43,7 +43,11 @@ class ICLRProfiling extends IUnknown{
 
         pvClientDataMarshal := pvClientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", dwProfileeProcessID, "uint", dwMillisecondsMax, "ptr", pClsidProfiler, "ptr", wszProfilerPath, pvClientDataMarshal, pvClientData, "uint", cbClientData, "HRESULT")
+        result := ComCall(3, this, "uint", dwProfileeProcessID, "uint", dwMillisecondsMax, "ptr", pClsidProfiler, "ptr", wszProfilerPath, pvClientDataMarshal, pvClientData, "uint", cbClientData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

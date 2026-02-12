@@ -3,7 +3,7 @@
 
 /**
  * Used by IQueryAssociations::GetString to define the type of string that is to be returned.
- * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assocstr
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/ne-shlwapi-assocstr
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

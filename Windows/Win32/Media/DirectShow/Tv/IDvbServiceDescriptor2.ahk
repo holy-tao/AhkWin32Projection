@@ -6,7 +6,7 @@
 
 /**
  * Implements methods that get the string values from fields in a Digital Video Broadcast (DVB) service descriptor. The service descriptor describes the service type, and provides the names of the service provider and the service in text form.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbservicedescriptor2
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbservicedescriptor2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -35,11 +35,15 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
      * Gets a string containing the service provider name from a Digital Video Broadcast (DVB) service descriptor.
      * @param {Integer} convMode 
      * @returns {BSTR} Receives the service provider name string as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
      */
     GetServiceProviderNameW(convMode) {
         pbstrName := BSTR()
-        result := ComCall(11, this, "int", convMode, "ptr", pbstrName, "HRESULT")
+        result := ComCall(11, this, "int", convMode, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -47,11 +51,15 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
      * Gets a string containing the service name from a Digital Video Broadcast (DVB) service descriptor.
      * @param {Integer} convMode 
      * @returns {BSTR} Receives the service name string as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
      */
     GetServiceNameW(convMode) {
         pbstrName := BSTR()
-        result := ComCall(12, this, "int", convMode, "ptr", pbstrName, "HRESULT")
+        result := ComCall(12, this, "int", convMode, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 }

@@ -35,7 +35,11 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown{
      */
     GetModel() {
         pIntrinsicModel := MFExtendedCameraIntrinsic_IntrinsicModel()
-        result := ComCall(3, this, "ptr", pIntrinsicModel, "HRESULT")
+        result := ComCall(3, this, "ptr", pIntrinsicModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIntrinsicModel
     }
 
@@ -45,7 +49,11 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown{
      * @returns {HRESULT} 
      */
     SetModel(pIntrinsicModel) {
-        result := ComCall(4, this, "ptr", pIntrinsicModel, "HRESULT")
+        result := ComCall(4, this, "ptr", pIntrinsicModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IMFExtendedCameraIntrinsicModel extends IUnknown{
      * @returns {Integer} 
      */
     GetDistortionModelType() {
-        result := ComCall(5, this, "int*", &pDistortionModelType := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pDistortionModelType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDistortionModelType
     }
 }

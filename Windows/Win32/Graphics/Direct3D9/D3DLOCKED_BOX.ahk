@@ -5,7 +5,7 @@
  * Describes a locked box (volume).
  * @remarks
  * Volumes can be visualized as being organized into slices of width x height 2D surfaces stacked up to make a width x height x depth volume. For more information, see [Volume Texture Resources (Direct3D 9)](volume-texture-resources.md).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlocked-box
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dlocked-box
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

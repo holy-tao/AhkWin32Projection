@@ -5,7 +5,7 @@
  * BLUETOOTH_OOB_DATA_INFO structure contains data used to authenticate prior to establishing an Out-of-Band device pairing.
  * @remarks
  * For more details regarding the creation of keys for OOB authentication, see the [Bluetooth Core Specification](https://www.bluetooth.com/specifications/specs/core-specification-5-3/).
- * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_oob_data_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/bluetoothapis/ns-bluetoothapis-bluetooth_oob_data_info
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319
  */

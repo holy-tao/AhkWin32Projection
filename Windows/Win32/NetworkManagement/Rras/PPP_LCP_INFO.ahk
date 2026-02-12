@@ -3,7 +3,7 @@
 
 /**
  * The PPP_LCP_INFO structure contains information that describes the results of a PPP Link Control Protocol (LCP) negotiation.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_lcp_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-ppp_lcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

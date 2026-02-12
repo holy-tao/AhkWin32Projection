@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IMSVidAnalogTuner2 interface represents an analog-only tuner card that does not support the Broadcast Driver Architecture (BDA).
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidAnalogTuner2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidanalogtuner2
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidanalogtuner2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -148,10 +145,14 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
      * <td>Combination (N) PAL standard (Argentina)</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner2-get_tvformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidanalogtuner2-get_tvformats
      */
     get_TVFormats() {
-        result := ComCall(31, this, "int*", &Formats := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &Formats := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Formats
     }
 
@@ -183,20 +184,34 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
      * <td>AM radio tuner mode.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner2-get_tunermodes
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidanalogtuner2-get_tunermodes
      */
     get_TunerModes() {
-        result := ComCall(32, this, "int*", &Modes := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &Modes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Modes
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * A crossbar filter exposes two auxiliary inputs for each audio input that it supports. That is, each audio input pin has two corresponding auxiliary input pins: S-video and composite video.
+     * 
+     * The number of auxiliary inputs returned by this method includes all auxiliary inputs, even if the physical input jacks are combined in some manner (for example, with some sort of proprietary or overloaded jack).
+     * 
+     * The first S-video input is channel 0 and the first composite input is channel 1. Additional S-video inputs are on even-numbered channels and additional composite inputs are on odd-numbered channels.
      * @returns {Integer} Pointer to a variable that receives the number of auxiliary inputs.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner2-get_numauxinputs
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidanalogtuner2-get_numauxinputs
      */
     get_NumAuxInputs() {
-        result := ComCall(33, this, "int*", &Inputs := 0, "HRESULT")
+        result := ComCall(33, this, "int*", &Inputs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Inputs
     }
 }

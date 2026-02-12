@@ -4,8 +4,10 @@
 #Include .\IDWriteTextLayout3.ahk
 
 /**
+ * Represents a block of text after it has been fully analyzed and formatted.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritetextlayout4
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritetextlayout4
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,7 +40,11 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3{
      * @returns {HRESULT} 
      */
     SetFontAxisValues(fontAxisValues, fontAxisValueCount, textRange) {
-        result := ComCall(84, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", textRange, "HRESULT")
+        result := ComCall(84, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", textRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +67,11 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3{
      * @returns {HRESULT} 
      */
     GetFontAxisValues(currentPosition, fontAxisValues, fontAxisValueCount, textRange) {
-        result := ComCall(86, this, "uint", currentPosition, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", textRange, "HRESULT")
+        result := ComCall(86, this, "uint", currentPosition, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr", textRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +90,11 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3{
      * @returns {HRESULT} 
      */
     SetAutomaticFontAxes(automaticFontAxes) {
-        result := ComCall(88, this, "int", automaticFontAxes, "HRESULT")
+        result := ComCall(88, this, "int", automaticFontAxes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

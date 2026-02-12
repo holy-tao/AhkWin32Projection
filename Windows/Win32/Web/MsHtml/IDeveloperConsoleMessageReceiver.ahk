@@ -29,18 +29,23 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
     static VTableNames => ["Write", "WriteWithUrl", "WriteWithUrlAndLine", "WriteWithUrlLineAndColumn"]
 
     /**
-     * 
+     * This article helps you to configure the Script Task.
      * @param {PWSTR} source 
      * @param {Integer} level 
      * @param {Integer} messageId 
      * @param {PWSTR} messageText 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/integration-services/extending-packages-scripting-task-examples/write-event-log-script-task
      */
     Write(source, level, messageId, messageText) {
         source := source is String ? StrPtr(source) : source
         messageText := messageText is String ? StrPtr(messageText) : messageText
 
-        result := ComCall(3, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "HRESULT")
+        result := ComCall(3, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +63,11 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(4, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "HRESULT")
+        result := ComCall(4, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +86,11 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(5, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "HRESULT")
+        result := ComCall(5, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,15 +102,19 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
      * @param {PWSTR} messageText 
      * @param {PWSTR} fileUrl 
      * @param {Integer} line 
-     * @param {Integer} column 
+     * @param {Integer} column_ 
      * @returns {HRESULT} 
      */
-    WriteWithUrlLineAndColumn(source, level, messageId, messageText, fileUrl, line, column) {
+    WriteWithUrlLineAndColumn(source, level, messageId, messageText, fileUrl, line, column_) {
         source := source is String ? StrPtr(source) : source
         messageText := messageText is String ? StrPtr(messageText) : messageText
         fileUrl := fileUrl is String ? StrPtr(fileUrl) : fileUrl
 
-        result := ComCall(6, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "uint", column, "HRESULT")
+        result := ComCall(6, this, "ptr", source, "int", level, "int", messageId, "ptr", messageText, "ptr", fileUrl, "uint", line, "uint", column_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

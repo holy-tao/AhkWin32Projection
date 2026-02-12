@@ -6,12 +6,9 @@
 /**
  * Represents a request for a sample from a MediaStreamSource.
  * @remarks
- * 
  * <b>MFMediaStreamSourceSampleRequest</b> is implemented by the
  *      <a href="https://docs.microsoft.com/uwp/api/windows.media.core.mediastreamsourcesamplerequest">Windows.Media.Core.MediaStreamSourceSampleRequest</a> runtime class.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediastreamsourcesamplerequest
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfmediastreamsourcesamplerequest
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,11 +36,15 @@ class IMFMediaStreamSourceSampleRequest extends IUnknown{
     /**
      * Sets the sample for the media stream source.
      * @param {IMFSample} value The sample for the media stream source.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediastreamsourcesamplerequest-setsample
+     * @returns {HRESULT} If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/imfmediastreamsourcesamplerequest-setsample
      */
     SetSample(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
+        result := ComCall(3, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

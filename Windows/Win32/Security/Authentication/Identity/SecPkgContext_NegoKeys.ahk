@@ -5,7 +5,7 @@
  * Holds the negotiated security package keys.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negokeys
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-secpkgcontext_negokeys
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

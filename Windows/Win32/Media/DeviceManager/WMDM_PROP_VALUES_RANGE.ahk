@@ -34,7 +34,7 @@
  * The WMDM\_PROP\_VALUES\_RANGE structure describes a range of valid values for a particular property in a particular property configuration.
  * @remarks
  * This structure is used in the [**WMDM\_PROP\_DESC**](wmdm-prop-desc.md) structure to describe a range of valid values. A range of valid values is applicable when WMDM\_ENUM\_PROP\_VALID\_VALUES\_ENUM is selected from the [**WMDM\_ENUM\_PROP\_VALID\_VALUES\_FORM**](wmdm-enum-prop-valid-values-form.md) enumeration.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-values-range
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-prop-values-range
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Controls the DirectML debug layers.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmldebugdevice
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/nn-directml-idmldebugdevice
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IDMLDebugDevice extends IUnknown{
      * 
      * If <b>TRUE</b>, DirectML is muted, and it will not send messages to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a>. If <b>FALSE</b>, DirectML is not muted, and it will send messages to the <b>ID3D12InfoQueue</b>. The default value is <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldebugdevice-setmutedebugoutput
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmldebugdevice-setmutedebugoutput
      */
     SetMuteDebugOutput(mute) {
         ComCall(3, this, "int", mute)

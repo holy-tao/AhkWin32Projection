@@ -5,7 +5,7 @@
 
 /**
  * The IWMCredentialCallback interface is a callback interface used by the reader object to acquire user credentials.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmcredentialcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmcredentialcallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMCredentialCallback extends IUnknown{
 
     /**
      * The AcquireCredentials method acquires the credentials of the user, to verify that the user has permission to access a remote site.
+     * @remarks
+     * This method is used when a request for a remote URL requires authentication.
+     * 
+     * The reader object calls the <b>AcquireCredentials</b> method on the application to retrieve the user name and password of the user.
      * @param {PWSTR} pwszRealm Pointer to a wide-character null-terminated string that contains the name of the realm.
      * @param {PWSTR} pwszSite Pointer to a wide-character null-terminated string containing the name of the site. The site is the name of the remote server.
      * @param {PWSTR} pwszUser Pointer to a buffer for the user name. The application should copy the user name into this buffer. When this method is first called, the buffer is empty. If the method is called again — for example, if the user typed his or her credentials incorrectly — the buffer may contain the name from the previous invocation.
@@ -40,7 +44,7 @@ class IWMCredentialCallback extends IUnknown{
      * @param {Integer} cchPassword Specifies the size of the <i>pwszPassword</i> buffer, in number of wide characters.
      * @param {HRESULT} hrStatus Specifies an <b>HRESULT</b> return code.
      * @returns {Integer} Pointer to a <b>DWORD</b> containing a bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_credential_flags">WMT_CREDENTIAL_FLAGS</a> enumeration type. On input, the caller sets whichever flags are relevant. On output, the application should clear the flags that were set by the caller, and set any additional flags, as appropriate. For details, see <b>WMT_CREDENTIAL_FLAGS</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcredentialcallback-acquirecredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmcredentialcallback-acquirecredentials
      */
     AcquireCredentials(pwszRealm, pwszSite, pwszUser, cchUser, pwszPassword, cchPassword, hrStatus) {
         pwszRealm := pwszRealm is String ? StrPtr(pwszRealm) : pwszRealm
@@ -48,7 +52,11 @@ class IWMCredentialCallback extends IUnknown{
         pwszUser := pwszUser is String ? StrPtr(pwszUser) : pwszUser
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 }

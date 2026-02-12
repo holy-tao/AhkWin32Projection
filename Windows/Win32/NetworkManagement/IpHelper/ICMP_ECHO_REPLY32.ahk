@@ -13,7 +13,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getiperrorstring">GetIpErrorString</a> function can be used to retrieve the IP helper error string for the <b>IP_STATUS</b> error code in the <b>Status</b> member.
  * 
  * The <b>ICMP_ECHO_REPLY32</b> structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmp_echo_reply32
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipexport/ns-ipexport-icmp_echo_reply32
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

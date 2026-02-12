@@ -17,7 +17,7 @@
  * A component must set the <b>InstallFunction</b> member before passing a class install parameters structure to <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdisetclassinstallparamsa">SetupDiSetClassInstallParams</a>. 
  * 
  * However, a component does not have to set this field when passing class install parameters to <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetclassinstallparamsa">SetupDiGetClassInstallParams</a>. This function sets the <b>InstallFunction</b> member in the structure it passes back to the caller. It sets <b>InstallFunction</b> to the DIF_<i>XXX</i> code for the currently active device installation request.
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_classinstall_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/setupapi/ns-setupapi-sp_classinstall_header
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

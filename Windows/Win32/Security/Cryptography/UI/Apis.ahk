@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -221,7 +223,7 @@ class UI {
     static CERT_CERTIFICATE_ACTION_VERIFY => Guid("{7801ebd0-cf4b-11d0-851f-0060979387ea}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szCERT_CERTIFICATE_ACTION_VERIFY => "{7801ebd0-cf4b-11d0-851f-0060979387ea}"
 
@@ -458,29 +460,29 @@ class UI {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvContext A pointer to a certificate, CRL, or CTL context to be displayed.
-     * @param {HWND} hwnd Handle of the window for the display. If <b>NULL</b>, the display defaults to the desktop window.
+     * @param {HWND} hwnd_ Handle of the window for the display. If <b>NULL</b>, the display defaults to the desktop window.
      * @param {PWSTR} pwszTitle Display title string. If <b>NULL</b>, the default context type is used as the title.
      * @param {Integer} dwFlags Currently not used and should be set to 0.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
      * @returns {BOOL} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcontext
      * @since windows5.1.2600
      */
-    static CryptUIDlgViewContext(dwContextType, pvContext, hwnd, pwszTitle, dwFlags, pvReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static CryptUIDlgViewContext(dwContextType, pvContext, hwnd_, pwszTitle, dwFlags, pvReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, pvContextMarshal, pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, pvContextMarshal, pvContext, "ptr", hwnd_, "ptr", pwszTitle, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
         return result
     }
 
     /**
      * Displays a dialog box that allows the selection of a certificate from a specified store.
-     * @param {HCERTSTORE} hCertStore Handle of the certificate store to be searched.
-     * @param {HWND} hwnd Handle of the window for the display. If <b>NULL</b>, defaults to the desktop window.
+     * @param {HCERTSTORE} hCertStore_ Handle of the certificate store to be searched.
+     * @param {HWND} hwnd_ Handle of the window for the display. If <b>NULL</b>, defaults to the desktop window.
      * @param {PWSTR} pwszTitle String used as the title of the dialog box. If <b>NULL</b>, the default title, "Select Certificate," is used.
      * @param {PWSTR} pwszDisplayString Text statement in the selection dialog box. If <b>NULL</b>, the default phrase, "Select a certificate you want to use," is used.
      * @param {Integer} dwDontUseColumn Flags that can be combined to exclude columns of the display. 
@@ -558,18 +560,18 @@ class UI {
      * @param {Integer} dwFlags Currently not used and should be set to 0.
      * @param {Pointer<Void>} pvReserved Reserved for future use.
      * @returns {Pointer<CERT_CONTEXT>} Returns a pointer to the selected certificate context. If no certificate was selected, <b>NULL</b> is returned. When you have finished using the certificate, free the certificate context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgselectcertificatefromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuidlgselectcertificatefromstore
      * @since windows5.1.2600
      */
-    static CryptUIDlgSelectCertificateFromStore(hCertStore, hwnd, pwszTitle, pwszDisplayString, dwDontUseColumn, dwFlags, pvReserved) {
-        hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static CryptUIDlgSelectCertificateFromStore(hCertStore_, hwnd_, pwszTitle, pwszDisplayString, dwDontUseColumn, dwFlags, pvReserved) {
+        hCertStore_ := hCertStore_ is Win32Handle ? NumGet(hCertStore_, "ptr") : hCertStore_
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
         pwszDisplayString := pwszDisplayString is String ? StrPtr(pwszDisplayString) : pwszDisplayString
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", hCertStore, "ptr", hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr")
+        result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", hCertStore_, "ptr", hwnd_, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr")
         return result
     }
 
@@ -649,7 +651,7 @@ class UI {
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>. 
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. 	If both <b>hStore</b> and <b>prgpChain</b> parameters are not <b>NULL</b>, return <b>E_INVALIDARG</b>. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-certselectiongetserializedblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-certselectiongetserializedblob
      * @since windows6.1
      */
     static CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
@@ -668,7 +670,7 @@ class UI {
      * Displays a dialog box that allows the user to manage certificates.
      * @param {Pointer<CRYPTUI_CERT_MGR_STRUCT>} pCryptUICertMgr A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cryptui_cert_mgr_struct">CRYPTUI_CERT_MGR_STRUCT</a> structure that contains information about how to create the dialog box.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE.</b>
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgcertmgr
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuidlgcertmgr
      * @since windows5.1.2600
      */
     static CryptUIDlgCertMgr(pCryptUICertMgr) {
@@ -704,7 +706,7 @@ class UI {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizdigitalsign
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuiwizdigitalsign
      * @since windows5.1.2600
      */
     static CryptUIWizDigitalSign(dwFlags, hwndParent, pwszWizardTitle, pDigitalSignInfo, ppSignContext) {
@@ -723,7 +725,7 @@ class UI {
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizfreedigitalsigncontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuiwizfreedigitalsigncontext
      * @since windows5.1.2600
      */
     static CryptUIWizFreeDigitalSignContext(pSignContext) {
@@ -742,7 +744,7 @@ class UI {
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). For extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatew
      * @since windows5.1.2600
      */
     static CryptUIDlgViewCertificateW(pCertViewInfo, pfPropertiesChanged) {
@@ -769,7 +771,7 @@ class UI {
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). For extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuidlgviewcertificatea
      * @since windows5.1.2600
      */
     static CryptUIDlgViewCertificateA(pCertViewInfo, pfPropertiesChanged) {
@@ -798,7 +800,7 @@ class UI {
      * 
      * If the function fails, it returns zero. For extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizexport
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuiwizexport
      * @since windows5.1.2600
      */
     static CryptUIWizExport(dwFlags, hwndParent, pwszWizardTitle, pExportInfo, pvoid) {
@@ -844,7 +846,7 @@ class UI {
      * 
      * If the function fails, it returns zero. For extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/nf-cryptuiapi-cryptuiwizimport
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptuiapi/nf-cryptuiapi-cryptuiwizimport
      * @since windows5.1.2600
      */
     static CryptUIWizImport(dwFlags, hwndParent, pwszWizardTitle, pImportSrc, hDestCertStore) {

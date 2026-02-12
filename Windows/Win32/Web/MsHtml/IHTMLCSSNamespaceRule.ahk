@@ -55,7 +55,11 @@ class IHTMLCSSNamespaceRule extends IDispatch{
      */
     get_namespaceURI() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -65,7 +69,11 @@ class IHTMLCSSNamespaceRule extends IDispatch{
      */
     get_prefix() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

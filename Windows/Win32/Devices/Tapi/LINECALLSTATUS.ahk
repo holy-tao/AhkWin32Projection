@@ -12,7 +12,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetcallstatus">lineGetCallStatus</a>.
  * 
  * The members <b>dwCallFeatures2</b> and <b>tStateEntryTime</b> are available only to applications that open the line device with an API version of 2.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallstatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linecallstatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

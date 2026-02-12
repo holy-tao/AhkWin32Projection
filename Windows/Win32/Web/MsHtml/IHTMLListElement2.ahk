@@ -42,7 +42,11 @@ class IHTMLListElement2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_compact(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IHTMLListElement2 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_compact() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

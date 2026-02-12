@@ -35,18 +35,32 @@ class ITrackingProtection extends IUnknown{
      * @returns {BOOL} 
      */
     EvaluateUrl(bstrUrl) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrUrl, "int*", &pfAllowed := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrUrl, "int*", &pfAllowed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAllowed
     }
 
     /**
-     * 
+     * The GetEnabledProtocols function returns a table of all protocols that are marked Enabled.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetEnabledProtocols** function.
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getenabledprotocols
      */
     GetEnabled() {
-        result := ComCall(4, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 }

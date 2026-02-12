@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\PLDAPSearch.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
@@ -310,12 +313,12 @@ class Ldap {
     static LDAP_OPT_RETURN_REFS => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CONTROL_REFERRALS_W => "1.2.840.113556.1.4.616"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CONTROL_REFERRALS => "1.2.840.113556.1.4.616"
 
@@ -675,12 +678,12 @@ class Ldap {
     static LDAP_VERSION_MAX => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_VENDOR_NAME => "Microsoft Corporation."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_VENDOR_NAME_W => "Microsoft Corporation."
 
@@ -695,52 +698,52 @@ class Ldap {
     static LDAP_FEATURE_INFO_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SORT_OID => "1.2.840.113556.1.4.473"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SORT_OID_W => "1.2.840.113556.1.4.473"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_RESP_SORT_OID => "1.2.840.113556.1.4.474"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_RESP_SORT_OID_W => "1.2.840.113556.1.4.474"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_PAGED_RESULT_OID_STRING => "1.2.840.113556.1.4.319"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_PAGED_RESULT_OID_STRING_W => "1.2.840.113556.1.4.319"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CONTROL_VLVREQUEST => "2.16.840.1.113730.3.4.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CONTROL_VLVREQUEST_W => "2.16.840.1.113730.3.4.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CONTROL_VLVRESPONSE => "2.16.840.1.113730.3.4.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CONTROL_VLVRESPONSE_W => "2.16.840.1.113730.3.4.10"
 
@@ -755,22 +758,22 @@ class Ldap {
     static LDAP_VLVINFO_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_START_TLS_OID => "1.3.6.1.4.1.1466.20037"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_START_TLS_OID_W => "1.3.6.1.4.1.1466.20037"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_TTL_EXTENDED_OP_OID => "1.3.6.1.4.1.1466.101.119.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_TTL_EXTENDED_OP_OID_W => "1.3.6.1.4.1.1466.101.119.1"
 
@@ -795,312 +798,312 @@ class Ldap {
     static LDAP_OPT_REF_DEREF_CONN_PER_MSG => 148
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_FORCE_UPDATE_OID => "1.2.840.113556.1.4.1974"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_FORCE_UPDATE_OID_W => "1.2.840.113556.1.4.1974"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_PERMISSIVE_MODIFY_OID => "1.2.840.113556.1.4.1413"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_PERMISSIVE_MODIFY_OID_W => "1.2.840.113556.1.4.1413"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHOW_DELETED_OID => "1.2.840.113556.1.4.417"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHOW_DELETED_OID_W => "1.2.840.113556.1.4.417"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHOW_RECYCLED_OID => "1.2.840.113556.1.4.2064"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHOW_RECYCLED_OID_W => "1.2.840.113556.1.4.2064"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_EXPECTED_ENTRY_COUNT_OID => "1.2.840.113556.1.4.2211"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_EXPECTED_ENTRY_COUNT_OID_W => "1.2.840.113556.1.4.2211"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SEARCH_HINTS_OID => "1.2.840.113556.1.4.2206"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SEARCH_HINTS_OID_W => "1.2.840.113556.1.4.2206"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SEARCH_HINT_INDEX_ONLY_OID => "1.2.840.113556.1.4.2207"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SEARCH_HINT_INDEX_ONLY_OID_W => "1.2.840.113556.1.4.2207"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SEARCH_HINT_SOFT_SIZE_LIMIT_OID => "1.2.840.113556.1.4.2210"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SEARCH_HINT_SOFT_SIZE_LIMIT_OID_W => "1.2.840.113556.1.4.2210"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SEARCH_HINT_REQUIRED_INDEX_OID => "1.2.840.113556.1.4.2306"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SEARCH_HINT_REQUIRED_INDEX_OID_W => "1.2.840.113556.1.4.2306"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_UPDATE_STATS_OID => "1.2.840.113556.1.4.2205"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_UPDATE_STATS_OID_W => "1.2.840.113556.1.4.2205"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_UPDATE_STATS_USN_OID => "1.2.840.113556.1.4.2208"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_UPDATE_STATS_USN_OID_W => "1.2.840.113556.1.4.2208"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_UPDATE_STATS_INVOCATIONID_OID => "1.2.840.113556.1.4.2209"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_UPDATE_STATS_INVOCATIONID_OID_W => "1.2.840.113556.1.4.2209"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_GET_STATS_OID => "1.2.840.113556.1.4.970"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_GET_STATS_OID_W => "1.2.840.113556.1.4.970"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHOW_DEACTIVATED_LINK_OID => "1.2.840.113556.1.4.2065"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHOW_DEACTIVATED_LINK_OID_W => "1.2.840.113556.1.4.2065"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_POLICY_HINTS_DEPRECATED_OID => "1.2.840.113556.1.4.2066"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_POLICY_HINTS_DEPRECATED_OID_W => "1.2.840.113556.1.4.2066"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_POLICY_HINTS_OID => "1.2.840.113556.1.4.2239"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_POLICY_HINTS_OID_W => "1.2.840.113556.1.4.2239"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_RANGE_OPTION_OID => "1.2.840.113556.1.4.802"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_RANGE_OPTION_OID_W => "1.2.840.113556.1.4.802"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_CROSSDOM_MOVE_TARGET_OID => "1.2.840.113556.1.4.521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_CROSSDOM_MOVE_TARGET_OID_W => "1.2.840.113556.1.4.521"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_NOTIFICATION_OID => "1.2.840.113556.1.4.528"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_NOTIFICATION_OID_W => "1.2.840.113556.1.4.528"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHUTDOWN_NOTIFY_OID => "1.2.840.113556.1.4.1907"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SHUTDOWN_NOTIFY_OID_W => "1.2.840.113556.1.4.1907"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_LAZY_COMMIT_OID => "1.2.840.113556.1.4.619"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_LAZY_COMMIT_OID_W => "1.2.840.113556.1.4.619"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SD_FLAGS_OID => "1.2.840.113556.1.4.801"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SD_FLAGS_OID_W => "1.2.840.113556.1.4.801"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_TREE_DELETE_EX_OID => "1.2.840.113556.1.4.2204"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_TREE_DELETE_EX_OID_W => "1.2.840.113556.1.4.2204"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_TREE_DELETE_OID => "1.2.840.113556.1.4.805"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_TREE_DELETE_OID_W => "1.2.840.113556.1.4.805"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_ASQ_OID => "1.2.840.113556.1.4.1504"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_ASQ_OID_W => "1.2.840.113556.1.4.1504"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DIRSYNC_OID => "1.2.840.113556.1.4.841"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DIRSYNC_OID_W => "1.2.840.113556.1.4.841"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DIRSYNC_EX_OID => "1.2.840.113556.1.4.2090"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DIRSYNC_EX_OID_W => "1.2.840.113556.1.4.2090"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_EXTENDED_DN_OID => "1.2.840.113556.1.4.529"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_EXTENDED_DN_OID_W => "1.2.840.113556.1.4.529"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_VERIFY_NAME_OID => "1.2.840.113556.1.4.1338"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_VERIFY_NAME_OID_W => "1.2.840.113556.1.4.1338"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DOMAIN_SCOPE_OID => "1.2.840.113556.1.4.1339"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DOMAIN_SCOPE_OID_W => "1.2.840.113556.1.4.1339"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SEARCH_OPTIONS_OID => "1.2.840.113556.1.4.1340"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SEARCH_OPTIONS_OID_W => "1.2.840.113556.1.4.1340"
 
@@ -1115,492 +1118,492 @@ class Ldap {
     static SERVER_SEARCH_FLAG_PHANTOM_ROOT => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_QUOTA_CONTROL_OID => "1.2.840.113556.1.4.1852"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_QUOTA_CONTROL_OID_W => "1.2.840.113556.1.4.1852"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_RANGE_RETRIEVAL_NOERR_OID => "1.2.840.113556.1.4.1948"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_RANGE_RETRIEVAL_NOERR_OID_W => "1.2.840.113556.1.4.1948"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DN_INPUT_OID => "1.2.840.113556.1.4.2026"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_DN_INPUT_OID_W => "1.2.840.113556.1.4.2026"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SET_OWNER_OID => "1.2.840.113556.1.4.2255"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_SET_OWNER_OID_W => "1.2.840.113556.1.4.2255"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_BYPASS_QUOTA_OID => "1.2.840.113556.1.4.2256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_BYPASS_QUOTA_OID_W => "1.2.840.113556.1.4.2256"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_LINK_TTL_OID => "1.2.840.113556.1.4.2309"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_LINK_TTL_OID_W => "1.2.840.113556.1.4.2309"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_DOM_MASTER => "becomeDomainMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_DOM_MASTER_W => "becomeDomainMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_RID_MASTER => "becomeRidMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_RID_MASTER_W => "becomeRidMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_SCHEMA_MASTER => "becomeSchemaMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_SCHEMA_MASTER_W => "becomeSchemaMaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_RECALC_HIERARCHY => "recalcHierarchy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_RECALC_HIERARCHY_W => "recalcHierarchy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SCHEMA_UPDATE_NOW => "schemaUpdateNow"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SCHEMA_UPDATE_NOW_W => "schemaUpdateNow"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_PDC => "becomePdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_BECOME_PDC_W => "becomePdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_FIXUP_INHERITANCE => "fixupInheritance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_FIXUP_INHERITANCE_W => "fixupInheritance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_INVALIDATE_RID_POOL => "invalidateRidPool"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_INVALIDATE_RID_POOL_W => "invalidateRidPool"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_ABANDON_REPL => "abandonReplication"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_ABANDON_REPL_W => "abandonReplication"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DO_GARBAGE_COLLECTION => "doGarbageCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DO_GARBAGE_COLLECTION_W => "doGarbageCollection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUBSCHEMA_SUBENTRY => "subschemaSubentry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUBSCHEMA_SUBENTRY_W => "subschemaSubentry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_CURRENT_TIME => "currentTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_CURRENT_TIME_W => "currentTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SERVER_NAME => "serverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SERVER_NAME_W => "serverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_NAMING_CONTEXTS => "namingContexts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_NAMING_CONTEXTS_W => "namingContexts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DEFAULT_NAMING_CONTEXT => "defaultNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DEFAULT_NAMING_CONTEXT_W => "defaultNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_CONTROL => "supportedControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_CONTROL_W => "supportedControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_HIGHEST_COMMITTED_USN => "highestCommitedUSN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_HIGHEST_COMMITTED_USN_W => "highestCommitedUSN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_LDAP_VERSION => "supportedLDAPVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_LDAP_VERSION_W => "supportedLDAPVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_LDAP_POLICIES => "supportedLDAPPolicies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_LDAP_POLICIES_W => "supportedLDAPPolicies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SCHEMA_NAMING_CONTEXT => "schemaNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SCHEMA_NAMING_CONTEXT_W => "schemaNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_CONFIG_NAMING_CONTEXT => "configurationNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_CONFIG_NAMING_CONTEXT_W => "configurationNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_ROOT_DOMAIN_NAMING_CONTEXT => "rootDomainNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_ROOT_DOMAIN_NAMING_CONTEXT_W => "rootDomainNamingContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_SASL_MECHANISM => "supportedSASLMechanisms"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_SASL_MECHANISM_W => "supportedSASLMechanisms"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DNS_HOST_NAME => "dnsHostName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DNS_HOST_NAME_W => "dnsHostName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_LDAP_SERVICE_NAME => "ldapServiceName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_LDAP_SERVICE_NAME_W => "ldapServiceName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DS_SERVICE_NAME => "dsServiceName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_DS_SERVICE_NAME_W => "dsServiceName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_CAPABILITIES => "supportedCapabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_OPATT_SUPPORTED_CAPABILITIES_W => "supportedCapabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_OID => "1.2.840.113556.1.4.800"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_OID_W => "1.2.840.113556.1.4.800"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V51_OID => "1.2.840.113556.1.4.1670"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V51_OID_W => "1.2.840.113556.1.4.1670"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_LDAP_INTEG_OID => "1.2.840.113556.1.4.1791"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_LDAP_INTEG_OID_W => "1.2.840.113556.1.4.1791"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_ADAM_OID => "1.2.840.113556.1.4.1851"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_ADAM_OID_W => "1.2.840.113556.1.4.1851"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_PARTIAL_SECRETS_OID => "1.2.840.113556.1.4.1920"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_PARTIAL_SECRETS_OID_W => "1.2.840.113556.1.4.1920"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V60_OID => "1.2.840.113556.1.4.1935"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V60_OID_W => "1.2.840.113556.1.4.1935"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V61_OID => "1.2.840.113556.1.4.1935"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V61_OID_W => "1.2.840.113556.1.4.1935"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V61_R2_OID => "1.2.840.113556.1.4.2080"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_V61_R2_OID_W => "1.2.840.113556.1.4.2080"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_W8_OID => "1.2.840.113556.1.4.2237"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_CAP_ACTIVE_DIRECTORY_W8_OID_W => "1.2.840.113556.1.4.2237"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_BIT_AND => "1.2.840.113556.1.4.803"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_BIT_AND_W => "1.2.840.113556.1.4.803"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_BIT_OR => "1.2.840.113556.1.4.804"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_BIT_OR_W => "1.2.840.113556.1.4.804"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_TRANSITIVE_EVALUATION => "1.2.840.113556.1.4.1941"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_TRANSITIVE_EVALUATION_W => "1.2.840.113556.1.4.1941"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_DN_BINARY_COMPLEX => "1.2.840.113556.1.4.2253"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_MATCHING_RULE_DN_BINARY_COMPLEX_W => "1.2.840.113556.1.4.2253"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_FAST_BIND_OID => "1.2.840.113556.1.4.1781"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_FAST_BIND_OID_W => "1.2.840.113556.1.4.1781"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_WHO_AM_I_OID => "1.3.6.1.4.1.4203.1.11.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_WHO_AM_I_OID_W => "1.3.6.1.4.1.4203.1.11.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_BATCH_REQUEST_OID => "1.2.840.113556.1.4.2212"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LDAP_SERVER_BATCH_REQUEST_OID_W => "1.2.840.113556.1.4.2212"
 
@@ -1667,7 +1670,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b>. Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> function to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_openw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_openw
      * @since windows6.0.6000
      */
     static ldap_openW(HostName, PortNumber) {
@@ -1702,7 +1705,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b>. Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> function to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_opena
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_opena
      * @since windows6.0.6000
      */
     static ldap_openA(HostName, PortNumber) {
@@ -1756,7 +1759,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b>. Use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_initw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_initw
      * @since windows6.0.6000
      */
     static ldap_initW(HostName, PortNumber) {
@@ -1804,7 +1807,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b>. Use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_inita
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_inita
      * @since windows6.0.6000
      */
     static ldap_initA(HostName, PortNumber) {
@@ -1843,7 +1846,7 @@ class Ldap {
      * 
      * If the function fails, the return value is <b>NULL</b>. Use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sslinitw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sslinitw
      * @since windows6.0.6000
      */
     static ldap_sslinitW(HostName, PortNumber, secure) {
@@ -1875,7 +1878,7 @@ class Ldap {
      * 
      * If the function fails, the return value is <b>NULL</b>. Use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sslinita
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sslinita
      * @since windows6.0.6000
      */
     static ldap_sslinitA(HostName, PortNumber, secure) {
@@ -1900,7 +1903,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_connect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_connect
      * @since windows6.0.6000
      */
     static ldap_connect(ld, timeout) {
@@ -1933,7 +1936,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b>. Use the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> function to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_open
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_open
      * @since windows6.0.6000
      */
     static ldap_open(HostName, PortNumber) {
@@ -1981,7 +1984,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b>. Use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_init
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_init
      * @since windows6.0.6000
      */
     static ldap_init(HostName, PortNumber) {
@@ -2013,7 +2016,7 @@ class Ldap {
      * 
      * If the function fails, the return value is <b>NULL</b>. Use 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sslinit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sslinit
      * @since windows6.0.6000
      */
     static ldap_sslinit(HostName, PortNumber, secure) {
@@ -2048,7 +2051,7 @@ class Ldap {
      * If the function fails, the return value is <b>NULL</b>. To get the error code, call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> or the Win32 function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-cldap_openw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-cldap_openw
      * @since windows6.0.6000
      */
     static cldap_openW(HostName, PortNumber) {
@@ -2083,7 +2086,7 @@ class Ldap {
      * If the function fails, the return value is <b>NULL</b>. To get the error code, call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> or the Win32 function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-cldap_opena
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-cldap_opena
      * @since windows6.0.6000
      */
     static cldap_openA(HostName, PortNumber) {
@@ -2118,7 +2121,7 @@ class Ldap {
      * If the function fails, the return value is <b>NULL</b>. To get the error code, call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a> or the Win32 function 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-cldap_open
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-cldap_open
      * @since windows6.0.6000
      */
     static cldap_open(HostName, PortNumber) {
@@ -2149,7 +2152,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_unbind
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_unbind
      * @since windows6.0.6000
      */
     static ldap_unbind(ld) {
@@ -2173,7 +2176,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_unbind_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_unbind_s
      * @since windows6.0.6000
      */
     static ldap_unbind_s(ld) {
@@ -2197,7 +2200,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_option
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_option
      * @since windows6.0.6000
      */
     static ldap_get_option(ld, option, outvalue) {
@@ -2230,7 +2233,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_optionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_optionw
      * @since windows6.0.6000
      */
     static ldap_get_optionW(ld, option, outvalue) {
@@ -2263,7 +2266,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_set_option
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_set_option
      * @since windows6.0.6000
      */
     static ldap_set_option(ld, option, invalue) {
@@ -2296,7 +2299,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_set_optionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_set_optionw
      * @since windows6.0.6000
      */
     static ldap_set_optionW(ld, option, invalue) {
@@ -2341,7 +2344,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the operation initiated.
      * 
      * If the function fails, it returns -1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_simple_bindw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_simple_bindw
      * @since windows6.0.6000
      */
     static ldap_simple_bindW(ld, dn, passwd) {
@@ -2380,7 +2383,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the operation initiated.
      * 
      * If the function fails, it returns -1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_simple_binda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_simple_binda
      * @since windows6.0.6000
      */
     static ldap_simple_bindA(ld, dn, passwd) {
@@ -2419,7 +2422,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_simple_bind_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_simple_bind_sw
      * @since windows6.0.6000
      */
     static ldap_simple_bind_sW(ld, dn, passwd) {
@@ -2451,7 +2454,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_simple_bind_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_simple_bind_sa
      * @since windows6.0.6000
      */
     static ldap_simple_bind_sA(ld, dn, passwd) {
@@ -2505,7 +2508,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the return value is the message ID of the initiated operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_bindw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_bindw
      * @since windows6.0.6000
      */
     static ldap_bindW(ld, dn, cred, method) {
@@ -2552,7 +2555,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the return value is the message ID of the initiated operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_binda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_binda
      * @since windows6.0.6000
      */
     static ldap_bindA(ld, dn, cred, method) {
@@ -2707,7 +2710,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_bind_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_bind_sw
      * @since windows6.0.6000
      */
     static ldap_bind_sW(ld, dn, cred, method) {
@@ -2855,7 +2858,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_bind_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_bind_sa
      * @since windows6.0.6000
      */
     static ldap_bind_sA(ld, dn, cred, method) {
@@ -2891,7 +2894,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sasl_binda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sasl_binda
      * @since windows6.0.6000
      */
     static ldap_sasl_bindA(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, MessageNumber) {
@@ -2931,7 +2934,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sasl_bindw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sasl_bindw
      * @since windows6.0.6000
      */
     static ldap_sasl_bindW(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, MessageNumber) {
@@ -2971,7 +2974,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sasl_bind_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sasl_bind_sa
      * @since windows6.0.6000
      */
     static ldap_sasl_bind_sA(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, ServerData) {
@@ -3011,7 +3014,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_sasl_bind_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_sasl_bind_sw
      * @since windows6.0.6000
      */
     static ldap_sasl_bind_sW(ExternalHandle, DistName, AuthMechanism, cred, ServerCtrls, ClientCtrls, ServerData) {
@@ -3054,7 +3057,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the operation initiated.
      * 
      * If the function fails, it returns -1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_simple_bind
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_simple_bind
      * @since windows6.0.6000
      */
     static ldap_simple_bind(ld, dn, passwd) {
@@ -3086,7 +3089,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_simple_bind_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_simple_bind_s
      * @since windows6.0.6000
      */
     static ldap_simple_bind_s(ld, dn, passwd) {
@@ -3133,7 +3136,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the return value is the message ID of the initiated operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_bind
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_bind
      * @since windows6.0.6000
      */
     static ldap_bind(ld, dn, cred, method) {
@@ -3281,7 +3284,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_bind_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_bind_s
      * @since windows6.0.6000
      */
     static ldap_bind_s(ld, dn, cred, method) {
@@ -3333,7 +3336,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the search operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_searchw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_searchw
      * @since windows6.0.6000
      */
     static ldap_searchW(ld, base, scope, filter, attrs, attrsonly) {
@@ -3381,7 +3384,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the search operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_searcha
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_searcha
      * @since windows6.0.6000
      */
     static ldap_searchA(ld, base, scope, filter, attrs, attrsonly) {
@@ -3476,7 +3479,7 @@ class Ldap {
      * 
      * If the function fails it returns an error code, however <b>ldap_search_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_sw
      * @since windows6.0.6000
      */
     static ldap_search_sW(ld, base, scope, filter, attrs, attrsonly, res) {
@@ -3564,7 +3567,7 @@ class Ldap {
      * 
      * If the function fails it returns an error code, however <b>ldap_search_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_sa
      * @since windows6.0.6000
      */
     static ldap_search_sA(ld, base, scope, filter, attrs, attrsonly, res) {
@@ -3663,7 +3666,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_st</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_stw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_stw
      * @since windows6.0.6000
      */
     static ldap_search_stW(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
@@ -3754,7 +3757,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_st</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_sta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_sta
      * @since windows6.0.6000
      */
     static ldap_search_stA(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
@@ -3813,7 +3816,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_extw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_extw
      * @since windows6.0.6000
      */
     static ldap_search_extW(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, TimeLimit, SizeLimit, MessageNumber) {
@@ -3867,7 +3870,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_exta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_exta
      * @since windows6.0.6000
      */
     static ldap_search_extA(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, TimeLimit, SizeLimit, MessageNumber) {
@@ -3975,7 +3978,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_ext_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code will allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_ext_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_ext_sw
      * @since windows6.0.6000
      */
     static ldap_search_ext_sW(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, timeout, SizeLimit, res) {
@@ -4075,7 +4078,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_ext_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code will allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_ext_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_ext_sa
      * @since windows6.0.6000
      */
     static ldap_search_ext_sA(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, timeout, SizeLimit, res) {
@@ -4126,7 +4129,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the search operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search
      * @since windows6.0.6000
      */
     static ldap_search(ld, base, scope, filter, attrs, attrsonly) {
@@ -4213,7 +4216,7 @@ class Ldap {
      * 
      * If the function fails it returns an error code, however <b>ldap_search_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_s
      * @since windows6.0.6000
      */
     static ldap_search_s(ld, base, scope, filter, attrs, attrsonly, res) {
@@ -4304,7 +4307,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_st</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_st
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_st
      * @since windows6.0.6000
      */
     static ldap_search_st(ld, base, scope, filter, attrs, attrsonly, timeout, res) {
@@ -4356,7 +4359,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_ext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_ext
      * @since windows6.0.6000
      */
     static ldap_search_ext(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, TimeLimit, SizeLimit, MessageNumber) {
@@ -4456,7 +4459,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_ext_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code will allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_ext_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_ext_s
      * @since windows6.0.6000
      */
     static ldap_search_ext_s(ld, base, scope, filter, attrs, attrsonly, ServerControls, ClientControls, timeout, SizeLimit, res) {
@@ -4489,7 +4492,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_check_filterw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_check_filterw
      * @since windows6.0.6000
      */
     static ldap_check_filterW(ld, SearchFilter) {
@@ -4516,7 +4519,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_check_filtera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_check_filtera
      * @since windows6.0.6000
      */
     static ldap_check_filterA(ld, SearchFilter) {
@@ -4560,7 +4563,7 @@ class Ldap {
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modifyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modifyw
      * @since windows6.0.6000
      */
     static ldap_modifyW(ld, dn, mods) {
@@ -4600,7 +4603,7 @@ class Ldap {
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modifya
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modifya
      * @since windows6.0.6000
      */
     static ldap_modifyA(ld, dn, mods) {
@@ -4636,7 +4639,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_sw
      * @since windows6.0.6000
      */
     static ldap_modify_sW(ld, dn, mods) {
@@ -4666,7 +4669,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_sa
      * @since windows6.0.6000
      */
     static ldap_modify_sA(ld, dn, mods) {
@@ -4708,7 +4711,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_extw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_extw
      * @since windows6.0.6000
      */
     static ldap_modify_extW(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
@@ -4746,7 +4749,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_exta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_exta
      * @since windows6.0.6000
      */
     static ldap_modify_extA(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
@@ -4786,7 +4789,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_ext_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_ext_sw
      * @since windows6.0.6000
      */
     static ldap_modify_ext_sW(ld, dn, mods, ServerControls, ClientControls) {
@@ -4818,7 +4821,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_ext_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_ext_sa
      * @since windows6.0.6000
      */
     static ldap_modify_ext_sA(ld, dn, mods, ServerControls, ClientControls) {
@@ -4860,7 +4863,7 @@ class Ldap {
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify
      * @since windows6.0.6000
      */
     static ldap_modify(ld, dn, mods) {
@@ -4890,7 +4893,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_s
      * @since windows6.0.6000
      */
     static ldap_modify_s(ld, dn, mods) {
@@ -4925,7 +4928,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_ext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_ext
      * @since windows6.0.6000
      */
     static ldap_modify_ext(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
@@ -4958,7 +4961,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modify_ext_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modify_ext_s
      * @since windows6.0.6000
      */
     static ldap_modify_ext_s(ld, dn, mods, ServerControls, ClientControls) {
@@ -5004,7 +5007,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn2w
      * @since windows6.0.6000
      */
     static ldap_modrdn2W(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
@@ -5041,7 +5044,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn2a
      * @since windows6.0.6000
      */
     static ldap_modrdn2A(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
@@ -5087,7 +5090,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdnw
      * @since windows6.0.6000
      */
     static ldap_modrdnW(ExternalHandle, DistinguishedName, NewDistinguishedName) {
@@ -5127,7 +5130,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdna
      * @since windows6.0.6000
      */
     static ldap_modrdnA(ExternalHandle, DistinguishedName, NewDistinguishedName) {
@@ -5163,7 +5166,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn2_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn2_sw
      * @since windows6.0.6000
      */
     static ldap_modrdn2_sW(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
@@ -5193,7 +5196,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn2_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn2_sa
      * @since windows6.0.6000
      */
     static ldap_modrdn2_sA(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
@@ -5229,7 +5232,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn_sw
      * @since windows6.0.6000
      */
     static ldap_modrdn_sW(ExternalHandle, DistinguishedName, NewDistinguishedName) {
@@ -5258,7 +5261,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn_sa
      * @since windows6.0.6000
      */
     static ldap_modrdn_sA(ExternalHandle, DistinguishedName, NewDistinguishedName) {
@@ -5295,7 +5298,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn2
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn2
      * @since windows6.0.6000
      */
     static ldap_modrdn2(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
@@ -5335,7 +5338,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn
      * @since windows6.0.6000
      */
     static ldap_modrdn(ExternalHandle, DistinguishedName, NewDistinguishedName) {
@@ -5365,7 +5368,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn2_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn2_s
      * @since windows6.0.6000
      */
     static ldap_modrdn2_s(ExternalHandle, DistinguishedName, NewDistinguishedName, DeleteOldRdn) {
@@ -5394,7 +5397,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_modrdn_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_modrdn_s
      * @since windows6.0.6000
      */
     static ldap_modrdn_s(ExternalHandle, DistinguishedName, NewDistinguishedName) {
@@ -5431,7 +5434,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_rename_extw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_rename_extw
      * @since windows6.0.6000
      */
     static ldap_rename_extW(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls, MessageNumber) {
@@ -5466,7 +5469,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_rename_exta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_rename_exta
      * @since windows6.0.6000
      */
     static ldap_rename_extA(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls, MessageNumber) {
@@ -5504,7 +5507,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_rename_ext_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_rename_ext_sw
      * @since windows6.0.6000
      */
     static ldap_rename_ext_sW(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls) {
@@ -5534,7 +5537,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_rename_ext_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_rename_ext_sa
      * @since windows6.0.6000
      */
     static ldap_rename_ext_sA(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls) {
@@ -5568,7 +5571,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_rename_ext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_rename_ext
      * @since windows6.0.6000
      */
     static ldap_rename_ext(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls, MessageNumber) {
@@ -5599,7 +5602,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_rename_ext_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_rename_ext_s
      * @since windows6.0.6000
      */
     static ldap_rename_ext_s(ld, dn, NewRDN, NewParent, DeleteOldRdn, ServerControls, ClientControls) {
@@ -5650,7 +5653,7 @@ class Ldap {
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. To retrieve the error data, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_addw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_addw
      * @since windows6.0.6000
      */
     static ldap_addW(ld, dn, attrs) {
@@ -5692,7 +5695,7 @@ class Ldap {
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. To retrieve the error data, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_adda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_adda
      * @since windows6.0.6000
      */
     static ldap_addA(ld, dn, attrs) {
@@ -5734,7 +5737,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_sw
      * @since windows6.0.6000
      */
     static ldap_add_sW(ld, dn, attrs) {
@@ -5770,7 +5773,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_sa
      * @since windows6.0.6000
      */
     static ldap_add_sA(ld, dn, attrs) {
@@ -5821,7 +5824,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/functions">Error Handling</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_extw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_extw
      * @since windows6.0.6000
      */
     static ldap_add_extW(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
@@ -5868,7 +5871,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/functions">Error Handling</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_exta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_exta
      * @since windows6.0.6000
      */
     static ldap_add_extA(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
@@ -5918,7 +5921,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_ext_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_ext_sw
      * @since windows6.0.6000
      */
     static ldap_add_ext_sW(ld, dn, attrs, ServerControls, ClientControls) {
@@ -5960,7 +5963,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_ext_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_ext_sa
      * @since windows6.0.6000
      */
     static ldap_add_ext_sA(ld, dn, attrs, ServerControls, ClientControls) {
@@ -6004,7 +6007,7 @@ class Ldap {
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. To retrieve the error data, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add
      * @since windows6.0.6000
      */
     static ldap_add(ld, dn, attrs) {
@@ -6040,7 +6043,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_s
      * @since windows6.0.6000
      */
     static ldap_add_s(ld, dn, attrs) {
@@ -6084,7 +6087,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/functions">Error Handling</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_ext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_ext
      * @since windows6.0.6000
      */
     static ldap_add_ext(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
@@ -6127,7 +6130,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_add_ext_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_add_ext_s
      * @since windows6.0.6000
      */
     static ldap_add_ext_s(ld, dn, attrs, ServerControls, ClientControls) {
@@ -6178,7 +6181,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the message ID of the compare operation is returned.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP structure. This error can then be retrieved using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_comparew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_comparew
      * @since windows6.0.6000
      */
     static ldap_compareW(ld, dn, attr, value) {
@@ -6221,7 +6224,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the message ID of the compare operation is returned.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP structure. This error can then be retrieved using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_comparea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_comparea
      * @since windows6.0.6000
      */
     static ldap_compareA(ld, dn, attr, value) {
@@ -6268,7 +6271,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_sw
      * @since windows6.0.6000
      */
     static ldap_compare_sW(ld, dn, attr, value) {
@@ -6309,7 +6312,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_sa
      * @since windows6.0.6000
      */
     static ldap_compare_sA(ld, dn, attr, value) {
@@ -6352,7 +6355,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the message ID of the compare operation is returned.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP structure. This error can then be retrieved using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare
      * @since windows6.0.6000
      */
     static ldap_compare(ld, dn, attr, value) {
@@ -6393,7 +6396,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_s
      * @since windows6.0.6000
      */
     static ldap_compare_s(ld, dn, attr, value) {
@@ -6438,7 +6441,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_extw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_extw
      * @since windows6.0.6000
      */
     static ldap_compare_extW(ld, dn, Attr, Value, Data, ServerControls, ClientControls, MessageNumber) {
@@ -6480,7 +6483,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_exta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_exta
      * @since windows6.0.6000
      */
     static ldap_compare_extA(ld, dn, Attr, Value, Data, ServerControls, ClientControls, MessageNumber) {
@@ -6524,7 +6527,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_ext_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_ext_sw
      * @since windows6.0.6000
      */
     static ldap_compare_ext_sW(ld, dn, Attr, Value, Data, ServerControls, ClientControls) {
@@ -6560,7 +6563,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_ext_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_ext_sa
      * @since windows6.0.6000
      */
     static ldap_compare_ext_sA(ld, dn, Attr, Value, Data, ServerControls, ClientControls) {
@@ -6601,7 +6604,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_ext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_ext
      * @since windows6.0.6000
      */
     static ldap_compare_ext(ld, dn, Attr, Value, Data, ServerControls, ClientControls, MessageNumber) {
@@ -6638,7 +6641,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_compare_ext_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_compare_ext_s
      * @since windows6.0.6000
      */
     static ldap_compare_ext_s(ld, dn, Attr, Value, Data, ServerControls, ClientControls) {
@@ -6684,7 +6687,7 @@ class Ldap {
      * 
      * If the function fails, the return value is –1 and the function sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. To retrieve this value, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_deletew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_deletew
      * @since windows6.0.6000
      */
     static ldap_deleteW(ld, dn) {
@@ -6719,7 +6722,7 @@ class Ldap {
      * 
      * If the function fails, the return value is –1 and the function sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. To retrieve this value, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_deletea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_deletea
      * @since windows6.0.6000
      */
     static ldap_deleteA(ld, dn) {
@@ -6754,7 +6757,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_sw
      * @since windows6.0.6000
      */
     static ldap_delete_sW(ld, dn) {
@@ -6783,7 +6786,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_sa
      * @since windows6.0.6000
      */
     static ldap_delete_sA(ld, dn) {
@@ -6824,7 +6827,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_extw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_extw
      * @since windows6.0.6000
      */
     static ldap_delete_extW(ld, dn, ServerControls, ClientControls, MessageNumber) {
@@ -6862,7 +6865,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_exta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_exta
      * @since windows6.0.6000
      */
     static ldap_delete_extA(ld, dn, ServerControls, ClientControls, MessageNumber) {
@@ -6902,7 +6905,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_ext_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_ext_sw
      * @since windows6.0.6000
      */
     static ldap_delete_ext_sW(ld, dn, ServerControls, ClientControls) {
@@ -6934,7 +6937,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_ext_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_ext_sa
      * @since windows6.0.6000
      */
     static ldap_delete_ext_sA(ld, dn, ServerControls, ClientControls) {
@@ -6972,7 +6975,7 @@ class Ldap {
      * 
      * If the function fails, the return value is –1 and the function sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure. To retrieve this value, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldapgetlasterror">LdapGetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete
      * @since windows6.0.6000
      */
     static ldap_delete(ld, dn) {
@@ -7001,7 +7004,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_s
      * @since windows6.0.6000
      */
     static ldap_delete_s(ld, dn) {
@@ -7035,7 +7038,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_ext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_ext
      * @since windows6.0.6000
      */
     static ldap_delete_ext(ld, dn, ServerControls, ClientControls, MessageNumber) {
@@ -7068,7 +7071,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_delete_ext_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_delete_ext_s
      * @since windows6.0.6000
      */
     static ldap_delete_ext_s(ld, dn, ServerControls, ClientControls) {
@@ -7095,7 +7098,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, that is, if the cancel operation is successful, the return value is zero.
      * 
      * If the function fails, the return value is –1.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_abandon
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_abandon
      * @since windows6.0.6000
      */
     static ldap_abandon(ld, msgid) {
@@ -7119,7 +7122,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns one of the following values to indicate the type of the first result in the <i>res</i> parameter. If the time-out expires, the function returns 0.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_result
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_result
      * @since windows6.0.6000
      */
     static ldap_result(ld, msgid, all, timeout, res) {
@@ -7135,7 +7138,7 @@ class Ldap {
      * Call <b>ldap_msgfree</b> to free the result structure pointed to by the <i>res</i> parameter.
      * @param {Pointer<LDAPMessage>} res The result, or chain of results, to free.
      * @returns {Integer} Returns <b>LDAP_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_msgfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_msgfree
      * @since windows6.0.6000
      */
     static ldap_msgfree(res) {
@@ -7158,7 +7161,7 @@ class Ldap {
      * If the function fails, it returns an error code. For more information, see 
      * 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_result2error
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_result2error
      * @since windows6.0.6000
      */
     static ldap_result2error(ld, res, freeit) {
@@ -7182,7 +7185,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7196,17 +7199,17 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_resultw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_resultw
      * @since windows6.0.6000
      */
-    static ldap_parse_resultW(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+    static ldap_parse_resultW(Connection_, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
         MatchedDNsMarshal := MatchedDNs is VarRef ? "ptr*" : "ptr"
         ErrorMessageMarshal := ErrorMessage is VarRef ? "ptr*" : "ptr"
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection_, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7219,7 +7222,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a>. Free the <i>Referrals</i> array by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>. Free the <i>ServerControls</i> by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_controls_free">ldap_controls_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7233,17 +7236,17 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_resulta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_resulta
      * @since windows6.0.6000
      */
-    static ldap_parse_resultA(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+    static ldap_parse_resultA(Connection_, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
         MatchedDNsMarshal := MatchedDNs is VarRef ? "ptr*" : "ptr"
         ErrorMessageMarshal := ErrorMessage is VarRef ? "ptr*" : "ptr"
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection_, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7260,7 +7263,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_extended_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
@@ -7273,14 +7276,14 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_extended_resulta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_extended_resulta
      * @since windows6.0.6000
      */
-    static ldap_parse_extended_resultA(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
+    static ldap_parse_extended_resultA(Connection_, ResultMessage, ResultOID, ResultData, Freeit) {
         ResultOIDMarshal := ResultOID is VarRef ? "ptr*" : "ptr"
         ResultDataMarshal := ResultData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection_, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7299,7 +7302,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_extended_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
@@ -7312,14 +7315,14 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_extended_resultw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_extended_resultw
      * @since windows6.0.6000
      */
-    static ldap_parse_extended_resultW(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
+    static ldap_parse_extended_resultW(Connection_, ResultMessage, ResultOID, ResultData, Freeit) {
         ResultOIDMarshal := ResultOID is VarRef ? "ptr*" : "ptr"
         ResultDataMarshal := ResultData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection_, "ptr", ResultMessage, ResultOIDMarshal, ResultOID, ResultDataMarshal, ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7338,7 +7341,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_controls_freea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_controls_freea
      * @since windows6.0.6000
      */
     static ldap_controls_freeA(Controls) {
@@ -7364,7 +7367,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_control_freea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_control_freea
      * @since windows6.0.6000
      */
     static ldap_control_freeA(Controls) {
@@ -7393,7 +7396,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_controls_freew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_controls_freew
      * @since windows6.0.6000
      */
     static ldap_controls_freeW(Control) {
@@ -7425,7 +7428,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_control_freew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_control_freew
      * @since windows6.0.6000
      */
     static ldap_control_freeW(Control) {
@@ -7443,7 +7446,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_free_controlsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_free_controlsw
      * @since windows6.0.6000
      */
     static ldap_free_controlsW(Controls) {
@@ -7460,7 +7463,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_free_controlsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_free_controlsa
      * @since windows6.0.6000
      */
     static ldap_free_controlsA(Controls) {
@@ -7479,7 +7482,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a>. Free the <i>Referrals</i> array by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>. Free the <i>ServerControls</i> by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_controls_free">ldap_controls_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7493,17 +7496,17 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_result
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_result
      * @since windows6.0.6000
      */
-    static ldap_parse_result(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
+    static ldap_parse_result(Connection_, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
         ReturnCodeMarshal := ReturnCode is VarRef ? "uint*" : "ptr"
         MatchedDNsMarshal := MatchedDNs is VarRef ? "ptr*" : "ptr"
         ErrorMessageMarshal := ErrorMessage is VarRef ? "ptr*" : "ptr"
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection_, "ptr", ResultMessage, ReturnCodeMarshal, ReturnCode, MatchedDNsMarshal, MatchedDNs, ErrorMessageMarshal, ErrorMessage, ReferralsMarshal, Referrals, ServerControlsMarshal, ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -7522,7 +7525,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_controls_free
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_controls_free
      * @since windows6.0.6000
      */
     static ldap_controls_free(Controls) {
@@ -7548,7 +7551,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_control_free
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_control_free
      * @since windows6.0.6000
      */
     static ldap_control_free(Control) {
@@ -7563,7 +7566,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_free_controls
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_free_controls
      * @since windows6.0.6000
      */
     static ldap_free_controls(Controls) {
@@ -7590,7 +7593,7 @@ class Ldap {
      * @returns {PWSTR} If the function succeeds, a pointer to a null-terminated character string that describes the error, is returned.
      * 
      * If the function fails, a pointer to <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_err2stringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_err2stringw
      * @since windows6.0.6000
      */
     static ldap_err2stringW(err) {
@@ -7608,7 +7611,7 @@ class Ldap {
      * @returns {PSTR} If the function succeeds, a pointer to a null-terminated character string that describes the error, is returned.
      * 
      * If the function fails, a pointer to <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_err2stringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_err2stringa
      * @since windows6.0.6000
      */
     static ldap_err2stringA(err) {
@@ -7626,7 +7629,7 @@ class Ldap {
      * @returns {PSTR} If the function succeeds, a pointer to a null-terminated character string that describes the error, is returned.
      * 
      * If the function fails, a pointer to <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_err2string
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_err2string
      * @since windows6.0.6000
      */
     static ldap_err2string(err) {
@@ -7637,15 +7640,15 @@ class Ldap {
     /**
      * Obsolete function. It exists only for compatibility.
      * @param {Pointer<LDAP>} ld Session handle.
-     * @param {PSTR} msg A message.
+     * @param {PSTR} msg_ A message.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_perror
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_perror
      * @since windows6.0.6000
      */
-    static ldap_perror(ld, msg) {
-        msg := msg is String ? StrPtr(msg) : msg
+    static ldap_perror(ld, msg_) {
+        msg_ := msg_ is String ? StrPtr(msg_) : msg_
 
-        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", msg, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", msg_, "CDecl ")
     }
 
     /**
@@ -7659,7 +7662,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} res The search result, as obtained by a call to one of the synchronous search routines or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a>.
      * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the first result entry. If no entry or reference exists in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_entry
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_first_entry
      * @since windows6.0.6000
      */
     static ldap_first_entry(ld, res) {
@@ -7678,7 +7681,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} entry The entry returned by a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_entry">ldap_first_entry</a> or <b>ldap_next_entry</b>.
      * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the next result entry in the results set. If no further entries or references exist in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_entry
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_next_entry
      * @since windows6.0.6000
      */
     static ldap_next_entry(ld, entry) {
@@ -7701,7 +7704,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the number of entries.
      * 
      * If the function fails, the return value is –1 and the function sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_count_entries
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_count_entries
      * @since windows6.0.6000
      */
     static ldap_count_entries(ld, res) {
@@ -7744,7 +7747,7 @@ class Ldap {
      * @returns {PWSTR} A pointer to a null-terminated string. If the function succeeds, it returns a pointer to an allocated buffer that contains the current attribute name. When there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_attributew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_first_attributew
      * @since windows6.0.6000
      */
     static ldap_first_attributeW(ld, entry, ptr) {
@@ -7782,7 +7785,7 @@ class Ldap {
      * @returns {PSTR} A pointer to a null-terminated string. If the function succeeds, it returns a pointer to an allocated buffer that contains the current attribute name. When there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_attributea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_first_attributea
      * @since windows6.0.6000
      */
     static ldap_first_attributeA(ld, entry, ptr) {
@@ -7820,7 +7823,7 @@ class Ldap {
      * @returns {PSTR} A pointer to a null-terminated string. If the function succeeds, it returns a pointer to an allocated buffer that contains the current attribute name. When there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_attribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_first_attribute
      * @since windows6.0.6000
      */
     static ldap_first_attribute(ld, entry, ptr) {
@@ -7864,7 +7867,7 @@ class Ldap {
      * @returns {PWSTR} If the function succeeds, it returns a pointer to a null-terminated string that contains the current attribute name. If there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_attributew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_next_attributew
      * @since windows6.0.6000
      */
     static ldap_next_attributeW(ld, entry, ptr) {
@@ -7899,7 +7902,7 @@ class Ldap {
      * @returns {PSTR} If the function succeeds, it returns a pointer to a null-terminated string that contains the current attribute name. If there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_attributea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_next_attributea
      * @since windows6.0.6000
      */
     static ldap_next_attributeA(ld, entry, ptr) {
@@ -7934,7 +7937,7 @@ class Ldap {
      * @returns {PSTR} If the function succeeds, it returns a pointer to a null-terminated string that contains the current attribute name. If there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_attribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_next_attribute
      * @since windows6.0.6000
      */
     static ldap_next_attribute(ld, entry, ptr) {
@@ -7972,7 +7975,7 @@ class Ldap {
      * @returns {Pointer<PWSTR>} If the function succeeds, it returns a null-terminated list of pointers to values. If no attribute values were found, it usually returns <b>NULL</b>. But in some cases it may return a list one pointer that is <b>NULL</b>. Always make sure to use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_count_values">ldap_count_values</a> to get the count of values in the returned list, as noted in Remarks. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_valuesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_valuesw
      * @since windows6.0.6000
      */
     static ldap_get_valuesW(ld, entry, attr) {
@@ -8005,7 +8008,7 @@ class Ldap {
      * @returns {Pointer<PSTR>} If the function succeeds, it returns a null-terminated list of pointers to values. If no attribute values were found, it usually returns <b>NULL</b>. But in some cases it may return a list one pointer that is <b>NULL</b>. Always make sure to use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_count_values">ldap_count_values</a> to get the count of values in the returned list, as noted in Remarks. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_valuesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_valuesa
      * @since windows6.0.6000
      */
     static ldap_get_valuesA(ld, entry, attr) {
@@ -8038,7 +8041,7 @@ class Ldap {
      * @returns {Pointer<PSTR>} If the function succeeds, it returns a null-terminated list of pointers to values. If no attribute values were found, it usually returns <b>NULL</b>. But in some cases it may return a list one pointer that is <b>NULL</b>. Always make sure to use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_count_values">ldap_count_values</a> to get the count of values in the returned list, as noted in Remarks. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_values
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_values
      * @since windows6.0.6000
      */
     static ldap_get_values(ld, entry, attr) {
@@ -8077,7 +8080,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that contain the values of the specified attribute. If no attribute values were found, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_values_lenw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_values_lenw
      * @since windows6.0.6000
      */
     static ldap_get_values_lenW(ExternalHandle, Message, attr) {
@@ -8109,7 +8112,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that contain the values of the specified attribute. If no attribute values were found, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_values_lena
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_values_lena
      * @since windows6.0.6000
      */
     static ldap_get_values_lenA(ExternalHandle, Message, attr) {
@@ -8141,7 +8144,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that contain the values of the specified attribute. If no attribute values were found, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_values_len
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_values_len
      * @since windows6.0.6000
      */
     static ldap_get_values_len(ExternalHandle, Message, attr) {
@@ -8169,7 +8172,7 @@ class Ldap {
      * @returns {Integer} This function returns the number of values in the array. There is no error return.
      * 
      * If a <b>NULL</b> pointer is passed as the argument, 0 is returned. If an invalid argument is passed, the value returned is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_count_valuesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_count_valuesw
      * @since windows6.0.6000
      */
     static ldap_count_valuesW(vals) {
@@ -8190,7 +8193,7 @@ class Ldap {
      * @returns {Integer} This function returns the number of values in the array. There is no error return.
      * 
      * If a <b>NULL</b> pointer is passed as the argument, 0 is returned. If an invalid argument is passed, the value returned is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_count_valuesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_count_valuesa
      * @since windows6.0.6000
      */
     static ldap_count_valuesA(vals) {
@@ -8211,7 +8214,7 @@ class Ldap {
      * @returns {Integer} This function returns the number of values in the array. There is no error return.
      * 
      * If a <b>NULL</b> pointer is passed as the argument, 0 is returned. If an invalid argument is passed, the value returned is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_count_values
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_count_values
      * @since windows6.0.6000
      */
     static ldap_count_values(vals) {
@@ -8232,7 +8235,7 @@ class Ldap {
      * @returns {Integer} This function returns the number of values in the array. There is no error return.
      * 
      * If a <b>NULL</b> pointer is passed as the argument, 0 is returned. If an invalid argument is passed, the value returned is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_count_values_len
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_count_values_len
      * @since windows6.0.6000
      */
     static ldap_count_values_len(vals) {
@@ -8257,7 +8260,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_value_freew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_value_freew
      * @since windows6.0.6000
      */
     static ldap_value_freeW(vals) {
@@ -8275,7 +8278,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_value_freea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_value_freea
      * @since windows6.0.6000
      */
     static ldap_value_freeA(vals) {
@@ -8293,7 +8296,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_value_free
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_value_free
      * @since windows6.0.6000
      */
     static ldap_value_free(vals) {
@@ -8312,7 +8315,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_value_free_len
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_value_free_len
      * @since windows6.0.6000
      */
     static ldap_value_free_len(vals) {
@@ -8342,7 +8345,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_dnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_dnw
      * @since windows6.0.6000
      */
     static ldap_get_dnW(ld, entry) {
@@ -8363,7 +8366,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_dna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_dna
      * @since windows6.0.6000
      */
     static ldap_get_dnA(ld, entry) {
@@ -8384,7 +8387,7 @@ class Ldap {
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameters in the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_dn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_dn
      * @since windows6.0.6000
      */
     static ldap_get_dn(ld, entry) {
@@ -8409,7 +8412,7 @@ class Ldap {
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name to explode.  The string that this pointer refers to cannot be a constant string.
      * @param {Integer} notypes Indicates whether the type information components should be removed.
      * @returns {Pointer<PWSTR>} If the function succeeds, it returns a null-terminated character array containing the relative distinguished name components of the distinguished name supplied.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_explode_dnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_explode_dnw
      * @since windows6.0.6000
      */
     static ldap_explode_dnW(dn, notypes) {
@@ -8429,7 +8432,7 @@ class Ldap {
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name to explode.  The string that this pointer refers to cannot be a constant string.
      * @param {Integer} notypes Indicates whether the type information components should be removed.
      * @returns {Pointer<PSTR>} If the function succeeds, it returns a null-terminated character array containing the relative distinguished name components of the distinguished name supplied.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_explode_dna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_explode_dna
      * @since windows6.0.6000
      */
     static ldap_explode_dnA(dn, notypes) {
@@ -8449,7 +8452,7 @@ class Ldap {
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name to explode.  The string that this pointer refers to cannot be a constant string.
      * @param {Integer} notypes Indicates whether the type information components should be removed.
      * @returns {Pointer<PSTR>} If the function succeeds, it returns a null-terminated character array containing the relative distinguished name components of the distinguished name supplied.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_explode_dn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_explode_dn
      * @since windows6.0.6000
      */
     static ldap_explode_dn(dn, notypes) {
@@ -8475,7 +8478,7 @@ class Ldap {
      * @returns {PWSTR} If the function is successful, the user-friendly name is returned as a pointer to a null-terminated character string.
      * 
      * If the function fails, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_dn2ufnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_dn2ufnw
      * @since windows6.0.6000
      */
     static ldap_dn2ufnW(dn) {
@@ -8494,7 +8497,7 @@ class Ldap {
      * @returns {PSTR} If the function is successful, the user-friendly name is returned as a pointer to a null-terminated character string.
      * 
      * If the function fails, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_dn2ufna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_dn2ufna
      * @since windows6.0.6000
      */
     static ldap_dn2ufnA(dn) {
@@ -8513,7 +8516,7 @@ class Ldap {
      * @returns {PSTR} If the function is successful, the user-friendly name is returned as a pointer to a null-terminated character string.
      * 
      * If the function fails, <b>NULL</b> is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_dn2ufn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_dn2ufn
      * @since windows6.0.6000
      */
     static ldap_dn2ufn(dn) {
@@ -8539,7 +8542,7 @@ class Ldap {
      * > The winldap.h header defines ldap_memfree as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} Block A pointer to a null-terminated string that contains a pointer to memory allocated by the LDAP library.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_memfreew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_memfreew
      * @since windows6.0.6000
      */
     static ldap_memfreeW(Block) {
@@ -8557,7 +8560,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_values">ldap_get_values</a>, and others.
      * @param {PSTR} Block A pointer to a null-terminated string that contains a pointer to memory allocated by the LDAP library.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_memfreea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_memfreea
      * @since windows6.0.6000
      */
     static ldap_memfreeA(Block) {
@@ -8567,12 +8570,12 @@ class Ldap {
     }
 
     /**
-     * The ber_bvfree function (winldap.h) frees a berval structure, which represents arbitrary binary data that is encoded according to Basic Encoding Rules (BER).
+     * The ber_bvfree function (winber.h) frees a berval structure.
      * @remarks
      * Applications should not call this function to free <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that they themselves have allocated.
-     * @param {Pointer<LDAP_BERVAL>} bv TBD
+     * @param {Pointer<LDAP_BERVAL>} bv 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ber_bvfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_bvfree
      * @since windows6.0.6000
      */
     static ber_bvfree(bv) {
@@ -8588,7 +8591,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_values">ldap_get_values</a>, and others.
      * @param {PSTR} Block A pointer to a null-terminated string that contains a pointer to memory allocated by the LDAP library.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_memfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_memfree
      * @since windows6.0.6000
      */
     static ldap_memfree(Block) {
@@ -8617,7 +8620,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_ufn2dnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_ufn2dnw
      * @since windows6.0.6000
      */
     static ldap_ufn2dnW(ufn, pDn) {
@@ -8642,7 +8645,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_ufn2dna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_ufn2dna
      * @since windows6.0.6000
      */
     static ldap_ufn2dnA(ufn, pDn) {
@@ -8667,7 +8670,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_ufn2dn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_ufn2dn
      * @since windows6.0.6000
      */
     static ldap_ufn2dn(ufn, pDn) {
@@ -8681,12 +8684,12 @@ class Ldap {
 
     /**
      * 
-     * @param {Pointer<LDAP_VERSION_INFO>} version 
+     * @param {Pointer<LDAP_VERSION_INFO>} version_ 
      * @param {Pointer<HANDLE>} Instance 
      * @returns {Integer} 
      */
-    static ldap_startup(version, Instance) {
-        result := DllCall("WLDAP32.dll\ldap_startup", "ptr", version, "ptr", Instance, "CDecl uint")
+    static ldap_startup(version_, Instance) {
+        result := DllCall("WLDAP32.dll\ldap_startup", "ptr", version_, "ptr", Instance, "CDecl uint")
         return result
     }
 
@@ -8696,18 +8699,18 @@ class Ldap {
      * <div class="alert"><b>Warning</b>  The <b>ldap_cleanup</b> function may cause 
      *     unpredictable behavior at the DLL unload time.  Use is not recommended and is at your own risk.</div>
      * <div> </div>
-     * @param {HANDLE} hInstance This parameter is ignored.
+     * @param {HANDLE} hInstance_ This parameter is ignored.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_cleanup
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_cleanup
      * @since windows6.0.6000
      */
-    static ldap_cleanup(hInstance) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static ldap_cleanup(hInstance_) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
 
-        result := DllCall("WLDAP32.dll\ldap_cleanup", "ptr", hInstance, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_cleanup", "ptr", hInstance_, "CDecl uint")
         return result
     }
 
@@ -8734,7 +8737,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_escape_filter_elementw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_escape_filter_elementw
      * @since windows6.0.6000
      */
     static ldap_escape_filter_elementW(sourceFilterElement, sourceLength, destFilterElement, destLength) {
@@ -8759,7 +8762,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_escape_filter_elementa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_escape_filter_elementa
      * @since windows6.0.6000
      */
     static ldap_escape_filter_elementA(sourceFilterElement, sourceLength, destFilterElement, destLength) {
@@ -8784,7 +8787,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_escape_filter_element
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_escape_filter_element
      * @since windows6.0.6000
      */
     static ldap_escape_filter_element(sourceFilterElement, sourceLength, destFilterElement, destLength) {
@@ -8821,7 +8824,7 @@ class Ldap {
      *       If the <i>lpDestStr</i> buffer is too small, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * 
      * When the <i>cchDest</i> parameter is zero, the required size of the destination buffer is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldaputf8tounicode
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldaputf8tounicode
      * @since windows6.0.6000
      */
     static LdapUTF8ToUnicode(lpSrcStr, cchSrc, lpDestStr, cchDest) {
@@ -8848,7 +8851,7 @@ class Ldap {
      *       If the <i>lpDestStr</i> buffer is too small, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * 
      * When the <i>cchDest</i> parameter is zero, the required size of the destination buffer is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldapunicodetoutf8
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldapunicodetoutf8
      * @since windows6.0.6000
      */
     static LdapUnicodeToUTF8(lpSrcStr, cchSrc, lpDestStr, cchDest) {
@@ -8882,7 +8885,7 @@ class Ldap {
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search. 0 ==&gt; FALSE, !0 ==&gt; TRUE.
      * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_sort_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_sort_controla
      * @since windows6.0.6000
      */
     static ldap_create_sort_controlA(ExternalHandle, SortKeys, IsCritical, Control) {
@@ -8917,7 +8920,7 @@ class Ldap {
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search. 0 ==&gt; FALSE, !0 ==&gt; TRUE.
      * @param {Pointer<Pointer<LDAPControlW>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_sort_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_sort_controlw
      * @since windows6.0.6000
      */
     static ldap_create_sort_controlW(ExternalHandle, SortKeys, IsCritical, Control) {
@@ -8938,21 +8941,21 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
      * @param {Pointer<Pointer<LDAPControlA>>} Control The control returned from the server, as obtained from a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<Integer>} Result The result code.
+     * @param {Pointer<Integer>} Result_ The result code.
      * @param {Pointer<PSTR>} Attribute A pointer to a null-terminated string that contains the name of the attribute that caused the operation to fail.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_sort_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_sort_controla
      * @since windows6.0.6000
      */
-    static ldap_parse_sort_controlA(ExternalHandle, Control, Result, Attribute) {
+    static ldap_parse_sort_controlA(ExternalHandle, Control, Result_, Attribute) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
-        ResultMarshal := Result is VarRef ? "uint*" : "ptr"
+        Result_Marshal := Result_ is VarRef ? "uint*" : "ptr"
         AttributeMarshal := Attribute is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, ControlMarshal, Control, ResultMarshal, Result, AttributeMarshal, Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, ControlMarshal, Control, Result_Marshal, Result_, AttributeMarshal, Attribute, "CDecl uint")
         return result
     }
 
@@ -8973,21 +8976,21 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
      * @param {Pointer<Pointer<LDAPControlW>>} Control The control returned from the server, as obtained from a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<Integer>} Result The result code.
+     * @param {Pointer<Integer>} Result_ The result code.
      * @param {Pointer<PWSTR>} Attribute A pointer to a null-terminated string that contains the name of the attribute that caused the operation to fail.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_sort_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_sort_controlw
      * @since windows6.0.6000
      */
-    static ldap_parse_sort_controlW(ExternalHandle, Control, Result, Attribute) {
+    static ldap_parse_sort_controlW(ExternalHandle, Control, Result_, Attribute) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
-        ResultMarshal := Result is VarRef ? "uint*" : "ptr"
+        Result_Marshal := Result_ is VarRef ? "uint*" : "ptr"
         AttributeMarshal := Attribute is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, ControlMarshal, Control, ResultMarshal, Result, AttributeMarshal, Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, ControlMarshal, Control, Result_Marshal, Result_, AttributeMarshal, Attribute, "CDecl uint")
         return result
     }
 
@@ -9008,7 +9011,7 @@ class Ldap {
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search. 0 ==&gt; FALSE, !0 ==&gt; TRUE.
      * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_sort_control
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_sort_control
      * @since windows6.0.6000
      */
     static ldap_create_sort_control(ExternalHandle, SortKeys, IsCritical, Control) {
@@ -9029,21 +9032,21 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
      * @param {Pointer<Pointer<LDAPControlA>>} Control The control returned from the server, as obtained from a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<Integer>} Result The result code.
+     * @param {Pointer<Integer>} Result_ The result code.
      * @param {Pointer<PSTR>} Attribute A pointer to a null-terminated string that contains the name of the attribute that caused the operation to fail.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_sort_control
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_sort_control
      * @since windows6.0.6000
      */
-    static ldap_parse_sort_control(ExternalHandle, Control, Result, Attribute) {
+    static ldap_parse_sort_control(ExternalHandle, Control, Result_, Attribute) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
-        ResultMarshal := Result is VarRef ? "uint*" : "ptr"
+        Result_Marshal := Result_ is VarRef ? "uint*" : "ptr"
         AttributeMarshal := Attribute is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, ControlMarshal, Control, ResultMarshal, Result, AttributeMarshal, Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, ControlMarshal, Control, Result_Marshal, Result_, AttributeMarshal, Attribute, "CDecl uint")
         return result
     }
 
@@ -9058,7 +9061,7 @@ class Ldap {
      * @param {Pointer<LDAPControlW>} Control Pointer to the new control.
      * @param {BOOLEAN} Criticality Notifies the server whether this control is critical to the search.
      * @returns {Integer} If the call completed successfully, <b>LDAP_SUCCESS</b> is returned. Other standard LDAP return values, such as <b>LDAP_NO_MEMORY</b> or <b>LDAP_PARAM_ERROR</b>, may also be returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_encode_sort_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_encode_sort_controlw
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlW(ExternalHandle, SortKeys, Control, Criticality) {
@@ -9076,7 +9079,7 @@ class Ldap {
      * @param {Pointer<LDAPControlA>} Control Pointer to the new control.
      * @param {BOOLEAN} Criticality Notifies the server whether this control is critical to the search.
      * @returns {Integer} If the call completed successfully, <b>LDAP_SUCCESS</b> is returned. Other standard LDAP return values, such as <b>LDAP_NO_MEMORY</b> or <b>LDAP_PARAM_ERROR</b>, may also be returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_encode_sort_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_encode_sort_controla
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlA(ExternalHandle, SortKeys, Control, Criticality) {
@@ -9116,7 +9119,7 @@ class Ldap {
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search.
      * @param {Pointer<Pointer<LDAPControlW>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_page_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_page_controlw
      * @since windows6.0.6000
      */
     static ldap_create_page_controlW(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
@@ -9149,7 +9152,7 @@ class Ldap {
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search.
      * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_page_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_page_controla
      * @since windows6.0.6000
      */
     static ldap_create_page_controlA(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
@@ -9180,7 +9183,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_page_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_page_controlw
      * @since windows6.0.6000
      */
     static ldap_parse_page_controlW(ExternalHandle, ServerControls, TotalCount, Cookie) {
@@ -9206,7 +9209,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_page_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_page_controla
      * @since windows6.0.6000
      */
     static ldap_parse_page_controlA(ExternalHandle, ServerControls, TotalCount, Cookie) {
@@ -9241,7 +9244,7 @@ class Ldap {
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search.
      * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_page_control
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_page_control
      * @since windows6.0.6000
      */
     static ldap_create_page_control(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
@@ -9265,7 +9268,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_page_control
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_page_control
      * @since windows6.0.6000
      */
     static ldap_parse_page_control(ExternalHandle, ServerControls, TotalCount, Cookie) {
@@ -9316,7 +9319,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * 
      * Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_search_abandon_page">ldap_search_abandon_page</a> to free the returned structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_init_pagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_init_pagew
      * @since windows6.0.6000
      */
     static ldap_search_init_pageW(ExternalHandle, DistinguishedName, ScopeOfSearch, SearchFilter, AttributeList, AttributesOnly, ServerControls, ClientControls, PageTimeLimit, TotalSizeLimit, SortKeys) {
@@ -9335,7 +9338,8 @@ class Ldap {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        resultHandle := PLDAPSearch({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9370,7 +9374,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * 
      * Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_search_abandon_page">ldap_search_abandon_page</a> to free the returned structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_init_pagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_init_pagea
      * @since windows6.0.6000
      */
     static ldap_search_init_pageA(ExternalHandle, DistinguishedName, ScopeOfSearch, SearchFilter, AttributeList, AttributesOnly, ServerControls, ClientControls, PageTimeLimit, TotalSizeLimit, SortKeys) {
@@ -9389,7 +9393,8 @@ class Ldap {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        resultHandle := PLDAPSearch({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9424,7 +9429,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * 
      * Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_search_abandon_page">ldap_search_abandon_page</a> to free the returned structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_init_page
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_init_page
      * @since windows6.0.6000
      */
     static ldap_search_init_page(ExternalHandle, DistinguishedName, ScopeOfSearch, SearchFilter, AttributeList, AttributesOnly, ServerControls, ClientControls, PageTimeLimit, TotalSizeLimit, SortKeys) {
@@ -9443,7 +9448,8 @@ class Ldap {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        resultHandle := PLDAPSearch({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9468,10 +9474,12 @@ class Ldap {
      * 
      * If the function fails, it returns an error code return value. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_next_page
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_next_page
      * @since windows6.0.6000
      */
     static ldap_get_next_page(ExternalHandle, SearchHandle, PageSize, MessageNumber) {
+        SearchHandle := SearchHandle is Win32Handle ? NumGet(SearchHandle, "ptr") : SearchHandle
+
         MessageNumberMarshal := MessageNumber is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WLDAP32.dll\ldap_get_next_page", "ptr", ExternalHandle, "ptr", SearchHandle, "uint", PageSize, MessageNumberMarshal, MessageNumber, "CDecl uint")
@@ -9505,10 +9513,12 @@ class Ldap {
      * 
      * If the function otherwise fails, it returns the error code return value related to the failure. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_next_page_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_next_page_s
      * @since windows6.0.6000
      */
     static ldap_get_next_page_s(ExternalHandle, SearchHandle, timeout, PageSize, TotalCount, Results) {
+        SearchHandle := SearchHandle is Win32Handle ? NumGet(SearchHandle, "ptr") : SearchHandle
+
         TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
         ResultsMarshal := Results is VarRef ? "ptr*" : "ptr"
 
@@ -9534,10 +9544,12 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_get_paged_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_get_paged_count
      * @since windows6.0.6000
      */
     static ldap_get_paged_count(ExternalHandle, SearchBlock, TotalCount, Results) {
+        SearchBlock := SearchBlock is Win32Handle ? NumGet(SearchBlock, "ptr") : SearchBlock
+
         TotalCountMarshal := TotalCount is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WLDAP32.dll\ldap_get_paged_count", "ptr", ExternalHandle, "ptr", SearchBlock, TotalCountMarshal, TotalCount, "ptr", Results, "CDecl uint")
@@ -9554,10 +9566,12 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_search_abandon_page
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_search_abandon_page
      * @since windows6.0.6000
      */
     static ldap_search_abandon_page(ExternalHandle, SearchBlock) {
+        SearchBlock := SearchBlock is Win32Handle ? NumGet(SearchBlock, "ptr") : SearchBlock
+
         result := DllCall("WLDAP32.dll\ldap_search_abandon_page", "ptr", ExternalHandle, "ptr", SearchBlock, "CDecl uint")
         return result
     }
@@ -9582,7 +9596,7 @@ class Ldap {
      * @param {Pointer<Pointer<LDAPControlW>>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
      * @returns {Integer} The <b>ldap_create_vlv_control</b> function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> to indicate failure, or LDAP_SUCCESS if successful.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_vlv_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_vlv_controlw
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlW(ExternalHandle, VlvInfo, IsCritical, Control) {
@@ -9612,7 +9626,7 @@ class Ldap {
      * @param {Pointer<Pointer<LDAPControlA>>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
      * @returns {Integer} The <b>ldap_create_vlv_control</b> function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> to indicate failure, or LDAP_SUCCESS if successful.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_create_vlv_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_create_vlv_controla
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlA(ExternalHandle, VlvInfo, IsCritical, Control) {
@@ -9642,7 +9656,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
      * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
      * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context_ The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
      * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
@@ -9664,17 +9678,17 @@ class Ldap {
      * <b>LDAP_OTHER</b>
      * 
      * In addition, the following two codes have been added to support VLV:
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_vlv_controlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_vlv_controlw
      * @since windows6.0.6000
      */
-    static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
+    static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, Context_, ErrCode) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         TargetPosMarshal := TargetPos is VarRef ? "uint*" : "ptr"
         ListCountMarshal := ListCount is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
         ErrCodeMarshal := ErrCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, ContextMarshal, Context, ErrCodeMarshal, ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, Context_Marshal, Context_, ErrCodeMarshal, ErrCode, "CDecl int")
         return result
     }
 
@@ -9698,7 +9712,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
      * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
      * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context_ The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
      * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
@@ -9720,17 +9734,17 @@ class Ldap {
      * <b>LDAP_OTHER</b>
      * 
      * In addition, the following two codes have been added to support VLV:
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_vlv_controla
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_vlv_controla
      * @since windows6.0.6000
      */
-    static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
+    static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, Context_, ErrCode) {
         ControlMarshal := Control is VarRef ? "ptr*" : "ptr"
         TargetPosMarshal := TargetPos is VarRef ? "uint*" : "ptr"
         ListCountMarshal := ListCount is VarRef ? "uint*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
         ErrCodeMarshal := ErrCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, ContextMarshal, Context, ErrCodeMarshal, ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, ControlMarshal, Control, TargetPosMarshal, TargetPos, ListCountMarshal, ListCount, Context_Marshal, Context_, ErrCodeMarshal, ErrCode, "CDecl int")
         return result
     }
 
@@ -9755,20 +9769,20 @@ class Ldap {
      * > The winldap.h header defines ldap_start_tls_s as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<LDAP>} ExternalHandle A pointer to an <b>LDAP</b> structure that represents the current session.
      * @param {Pointer<Integer>} ServerReturnValue Optional. A pointer to a <b>ULONG</b> that may contain a server error code. This parameter should be consulted if <b>LDAP_OTHER</b> is returned in the return value.  Pass in <b>NULL</b> if you do not wish to use it.
-     * @param {Pointer<Pointer<LDAPMessage>>} result Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
+     * @param {Pointer<Pointer<LDAPMessage>>} result_ Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
      * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. A NULL-terminated array of pointers to  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent server controls.  Pass in <b>NULL</b> if you do not want to specify server  controls.
      * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. A NULL-terminated array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent client controls.  Pass in <b>NULL</b> if you do not want to specify client controls.
      * @returns {Integer} If the function call succeeds, <b>LDAP_SUCCESS</b> is returned. <b>LDAP_UNWILLING_TO_PERFORM</b> is returned if a TLD/SSL session is already in progress, or if a bind is currently in progress, or if there is an outstanding LDAP request on the connection. If the server rejects the extended operation, <b>LDAP_OTHER</b> is returned and the <i>ServerReturnValue</i> parameter should be checked for the server error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_start_tls_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_start_tls_sw
      * @since windows6.0.6000
      */
-    static ldap_start_tls_sW(ExternalHandle, ServerReturnValue, result, ServerControls, ClientControls) {
+    static ldap_start_tls_sW(ExternalHandle, ServerReturnValue, result_, ServerControls, ClientControls) {
         ServerReturnValueMarshal := ServerReturnValue is VarRef ? "uint*" : "ptr"
-        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+        result_Marshal := result_ is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
         ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_start_tls_sW", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, resultMarshal, result, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_start_tls_sW", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, result_Marshal, result_, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -9790,20 +9804,20 @@ class Ldap {
      * > The winldap.h header defines ldap_start_tls_s as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<LDAP>} ExternalHandle A pointer to an <b>LDAP</b> structure that represents the current session.
      * @param {Pointer<Integer>} ServerReturnValue Optional. A pointer to a <b>ULONG</b> that may contain a server error code. This parameter should be consulted if <b>LDAP_OTHER</b> is returned in the return value.  Pass in <b>NULL</b> if you do not wish to use it.
-     * @param {Pointer<Pointer<LDAPMessage>>} result Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
+     * @param {Pointer<Pointer<LDAPMessage>>} result_ Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
      * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A NULL-terminated array of pointers to  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent server controls.  Pass in <b>NULL</b> if you do not want to specify server  controls.
      * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A NULL-terminated array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent client controls.  Pass in <b>NULL</b> if you do not want to specify client controls.
      * @returns {Integer} If the function call succeeds, <b>LDAP_SUCCESS</b> is returned. <b>LDAP_UNWILLING_TO_PERFORM</b> is returned if a TLD/SSL session is already in progress, or if a bind is currently in progress, or if there is an outstanding LDAP request on the connection. If the server rejects the extended operation, <b>LDAP_OTHER</b> is returned and the <i>ServerReturnValue</i> parameter should be checked for the server error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_start_tls_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_start_tls_sa
      * @since windows6.0.6000
      */
-    static ldap_start_tls_sA(ExternalHandle, ServerReturnValue, result, ServerControls, ClientControls) {
+    static ldap_start_tls_sA(ExternalHandle, ServerReturnValue, result_, ServerControls, ClientControls) {
         ServerReturnValueMarshal := ServerReturnValue is VarRef ? "uint*" : "ptr"
-        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+        result_Marshal := result_ is VarRef ? "ptr*" : "ptr"
         ServerControlsMarshal := ServerControls is VarRef ? "ptr*" : "ptr"
         ClientControlsMarshal := ClientControls is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_start_tls_sA", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, resultMarshal, result, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_start_tls_sA", "ptr", ExternalHandle, ServerReturnValueMarshal, ServerReturnValue, result_Marshal, result_, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "CDecl uint")
         return result
     }
 
@@ -9813,7 +9827,7 @@ class Ldap {
      * The <b>ldap_stop_tls_s</b> function should only be called on a connection for which TLS (SSL) was established by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_start_tls_sa">ldap_start_tls_s</a>. It should not be called on a TLS (SSL) connection established by some other function, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_sslinit">ldap_sslinit</a>. Any outstanding requests on the connection will be abandoned before TLS encryption is terminated. If this function fails, that is, returns <b>FALSE</b>, close the connection by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind">ldap_unbind</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_unbind_s">ldap_unbind_s</a> because the connection can be left in an indeterminate state.
      * @param {Pointer<LDAP>} ExternalHandle A pointer to an <b>LDAP</b> structure that represents the current session.
      * @returns {BOOLEAN} Returns <b>TRUE</b> if the function call succeeds. Returns <b>FALSE</b> if a bind is currently in progress on the connection, if the connection is not actively connected to the server, or if TLS (SSL) negotiation is in progress on the connection.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_stop_tls_s
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_stop_tls_s
      * @since windows6.0.6000
      */
     static ldap_stop_tls_s(ExternalHandle) {
@@ -9835,7 +9849,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} res The search result, as obtained by a call to one of the synchronous search routines or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a>.
      * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the first result reference. If no entry or reference exists in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_first_reference
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_first_reference
      * @since windows6.0.6000
      */
     static ldap_first_reference(ld, res) {
@@ -9857,7 +9871,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} entry The entry returned by a previous call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_reference">ldap_first_reference</a> or <b>ldap_next_reference</b>.
      * @returns {Pointer<LDAPMessage>} If the search returned valid results, this function returns a pointer to the next result entry in the results set. If no further entries or references exist in the result set, it returns <b>NULL</b>. This is the only error return; the session error parameter in the LDAP data structure is cleared to 0 in either case.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_next_reference
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_next_reference
      * @since windows6.0.6000
      */
     static ldap_next_reference(ld, entry) {
@@ -9880,7 +9894,7 @@ class Ldap {
      * @returns {Integer} If the function succeeds, it returns the number of references.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_count_references
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_count_references
      * @since windows6.0.6000
      */
     static ldap_count_references(ld, res) {
@@ -9902,7 +9916,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_reference as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
      * @param {Pointer<Pointer<PWSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
@@ -9910,13 +9924,13 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_referencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_referencew
      * @since windows6.0.6000
      */
-    static ldap_parse_referenceW(Connection, ResultMessage, Referrals) {
+    static ldap_parse_referenceW(Connection_, ResultMessage, Referrals) {
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection_, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -9928,7 +9942,7 @@ class Ldap {
      * 
      * When it is no longer needed, free the <i>Referrals</i> pointer by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
@@ -9938,13 +9952,13 @@ class Ldap {
      * If the function fails, it returns an error code. See 
      * 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_referencea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_referencea
      * @since windows6.0.6000
      */
-    static ldap_parse_referenceA(Connection, ResultMessage, Referrals) {
+    static ldap_parse_referenceA(Connection_, ResultMessage, Referrals) {
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection_, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -9956,7 +9970,7 @@ class Ldap {
      * 
      * When it is no longer needed, free the <i>Referrals</i> pointer by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
-     * @param {Pointer<LDAP>} Connection The session handle.
+     * @param {Pointer<LDAP>} Connection_ The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
      * @param {Pointer<Pointer<PSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
@@ -9964,13 +9978,13 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. See 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_parse_reference
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_parse_reference
      * @since windows6.0.6000
      */
-    static ldap_parse_reference(Connection, ResultMessage, Referrals) {
+    static ldap_parse_reference(Connection_, ResultMessage, Referrals) {
         ReferralsMarshal := Referrals is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection_, "ptr", ResultMessage, ReferralsMarshal, Referrals, "CDecl uint")
         return result
     }
 
@@ -10004,7 +10018,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_extended_operationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_extended_operationw
      * @since windows6.0.6000
      */
     static ldap_extended_operationW(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
@@ -10041,7 +10055,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_extended_operationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_extended_operationa
      * @since windows6.0.6000
      */
     static ldap_extended_operationA(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
@@ -10091,7 +10105,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_extended_operation_sa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_extended_operation_sa
      * @since windows6.0.6000
      */
     static ldap_extended_operation_sA(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
@@ -10142,7 +10156,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_extended_operation_sw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_extended_operation_sw
      * @since windows6.0.6000
      */
     static ldap_extended_operation_sW(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
@@ -10180,7 +10194,7 @@ class Ldap {
      * 
      * If the function fails, an error code is returned. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_extended_operation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_extended_operation
      * @since windows6.0.6000
      */
     static ldap_extended_operation(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
@@ -10206,7 +10220,7 @@ class Ldap {
      * 
      * If the function fails, it returns an error code. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_close_extended_op
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_close_extended_op
      * @since windows6.0.6000
      */
     static ldap_close_extended_op(ld, MessageNumber) {
@@ -10222,7 +10236,7 @@ class Ldap {
      * 
      * Multithreading: The <b>LdapGetLastError</b> function is thread-safe.
      * @returns {Integer} An LDAP error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldapgetlasterror
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldapgetlasterror
      * @since windows6.0.6000
      */
     static LdapGetLastError() {
@@ -10234,7 +10248,7 @@ class Ldap {
      * The LdapMapErrorToWin32 function translates an LdapError value to the closest Win32 error code.
      * @param {Integer} LdapError The error code returned from an LDAP function.
      * @returns {Integer} Returns the corresponding Win32 error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldapmaperrortowin32
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldapmaperrortowin32
      * @since windows6.0.6000
      */
     static LdapMapErrorToWin32(LdapError) {
@@ -10257,7 +10271,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_REF_DEREF_CONN_PER_MSG</a> session option had been previously set for the message session.
      * @param {Pointer<LDAPMessage>} res The <b>LDAP</b> message queried.  If <b>NULL</b> is passed for this parameter, then the function will respond with a <b>NULL</b> return value.
      * @returns {Pointer<LDAP>} The return value is the <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldap">LDAP</a> session handle (connection pointer) where the message originated from. This function returns <b>NULL</b> if the originating session has closed or if a <b>NULL</b> <b>LDAPMessage</b> pointer is passed to the function and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">LDAP_OPT_REF_DEREF_CONN_PER_MSG</a> session option was not previously set for the message session.
-     * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_conn_from_msg
+     * @see https://learn.microsoft.com/windows/win32/api//content/winldap/nf-winldap-ldap_conn_from_msg
      * @since windows6.0.6000
      */
     static ldap_conn_from_msg(PrimaryConn, res) {
@@ -10274,7 +10288,7 @@ class Ldap {
      * @returns {Pointer<BerElement>} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * 
      * If the function fails, it returns a <b>NULL</b> pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_init
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_init
      * @since windows6.0.6000
      */
     static ber_init(pBerVal) {
@@ -10289,7 +10303,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_attribute">ldap_first_attribute</a>/
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_next_attribute">ldap_next_attribute</a>, otherwise it must be set to 1.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_free
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_free
      * @since windows6.0.6000
      */
     static ber_free(pBerElement, fbuf) {
@@ -10305,7 +10319,7 @@ class Ldap {
      * An application should not call this function to free a <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that it has allocated.
      * @param {Pointer<Pointer<LDAP_BERVAL>>} pBerVal Pointer to a NULL-terminated array of <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures to be deallocated.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_bvecfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_bvecfree
      * @since windows6.0.6000
      */
     static ber_bvecfree(pBerVal) {
@@ -10322,7 +10336,7 @@ class Ldap {
      * @returns {Pointer<LDAP_BERVAL>} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure.
      * 
      * If the function fails, it returns a <b>NULL</b> pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_bvdup
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_bvdup
      * @since windows6.0.6000
      */
     static ber_bvdup(pBerVal) {
@@ -10342,7 +10356,7 @@ class Ldap {
      * @returns {Pointer<BerElement>} If the function succeeds, the return value is a pointer to the newly allocated <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * 
      * If the function fails, it returns a <b>NULL</b> pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_alloc_t
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_alloc_t
      * @since windows6.0.6000
      */
     static ber_alloc_t(options) {
@@ -10359,7 +10373,7 @@ class Ldap {
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {Pointer<Integer>} pLen Returns the length of the skipped element.
      * @returns {Integer} Returns the tag of the next element in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to read.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_skip_tag
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_skip_tag
      * @since windows6.0.6000
      */
     static ber_skip_tag(pBerElement, pLen) {
@@ -10376,7 +10390,7 @@ class Ldap {
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {Pointer<Integer>} pLen Returns the length of the next element to be parsed.
      * @returns {Integer} Returns the tag of the next element to be read in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to be read.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_peek_tag
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_peek_tag
      * @since windows6.0.6000
      */
     static ber_peek_tag(pBerElement, pLen) {
@@ -10395,7 +10409,7 @@ class Ldap {
      * @param {Pointer<Pointer<CHAR>>} ppOpaque Returns a pointer to a cookie that is passed to subsequent calls of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_next_element">ber_next_element</a> function.
      * @returns {Integer} Returns the tag of the next element to be read in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to be read.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_first_element
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_first_element
      * @since windows6.0.6000
      */
     static ber_first_element(pBerElement, pLen, ppOpaque) {
@@ -10415,7 +10429,7 @@ class Ldap {
      * @param {PSTR} opaque An opaque cookie used internally that was returned by the initial call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_first_element">ber_first_element</a> function.
      * @returns {Integer} Returns the tag of the next element to be read in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to be read.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_next_element
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_next_element
      * @since windows6.0.6000
      */
     static ber_next_element(pBerElement, pLen, opaque) {
@@ -10435,7 +10449,7 @@ class Ldap {
      * @param {Pointer<Pointer<LDAP_BERVAL>>} pBerVal Pointer to the newly allocated <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure, which should be freed using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_bvfree">ber_bvfree</a>.
      * @returns {Integer} The function returns 0 on success and -1 on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_flatten
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_flatten
      * @since windows6.0.6000
      */
     static ber_flatten(pBerElement, pBerVal) {
@@ -10518,7 +10532,7 @@ class Ldap {
      * @param {Pointer<BerElement>} pBerElement A pointer to the encoded <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {PSTR} fmt An encoding format string. For more information, see Remarks.
      * @returns {Integer} If the function succeeds, a non-negative number is returned. If the function fails,  -1 is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_printf
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_printf
      * @since windows6.0.6000
      */
     static ber_printf(pBerElement, fmt) {
@@ -10607,7 +10621,7 @@ class Ldap {
      * @param {Pointer<BerElement>} pBerElement Pointer to the decoded <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {PSTR} fmt Encoding format string. For more information, see Remarks section.
      * @returns {Integer} On error, the function returns LBER_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_scanf
+     * @see https://learn.microsoft.com/windows/win32/api//content/winber/nf-winber-ber_scanf
      * @since windows6.0.6000
      */
     static ber_scanf(pBerElement, fmt) {

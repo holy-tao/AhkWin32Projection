@@ -5,6 +5,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Gets the next element in the specified direction within the logical UI tree.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.automation.provider.icustomnavigationprovider.navigatecustom
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -30,12 +34,17 @@ class ICustomNavigationProvider extends IUnknown{
     static VTableNames => ["Navigate"]
 
     /**
-     * 
-     * @param {Integer} direction 
+     * Gets the next element in the specified direction within the logical UI tree.
+     * @param {Integer} direction_ The specified direction.
      * @returns {IRawElementProviderSimple} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.automation.provider.icustomnavigationprovider.navigatecustom
      */
-    Navigate(direction) {
-        result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
+    Navigate(direction_) {
+        result := ComCall(3, this, "int", direction_, "ptr*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderSimple(pRetVal)
     }
 }

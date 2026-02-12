@@ -3,7 +3,7 @@
 
 /**
  * Contains the current signal generation state of a pin.
- * @see https://learn.microsoft.com/windows/win32/DevIO/pwm-pin-is-started-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DevIO/pwm-pin-is-started-output
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

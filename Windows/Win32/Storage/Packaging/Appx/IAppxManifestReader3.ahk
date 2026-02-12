@@ -36,7 +36,11 @@ class IAppxManifestReader3 extends IAppxManifestReader2{
      * @returns {IAppxManifestCapabilitiesEnumerator} 
      */
     GetCapabilitiesByCapabilityClass(capabilityClass) {
-        result := ComCall(13, this, "int", capabilityClass, "ptr*", &capabilities := 0, "HRESULT")
+        result := ComCall(13, this, "int", capabilityClass, "ptr*", &capabilities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestCapabilitiesEnumerator(capabilities)
     }
 
@@ -45,7 +49,11 @@ class IAppxManifestReader3 extends IAppxManifestReader2{
      * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
     GetTargetDeviceFamilies() {
-        result := ComCall(14, this, "ptr*", &targetDeviceFamilies := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &targetDeviceFamilies := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestTargetDeviceFamiliesEnumerator(targetDeviceFamilies)
     }
 }

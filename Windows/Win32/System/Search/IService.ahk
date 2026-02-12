@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Used to call the batch work that is submitted through the activity created by CoCreateActivity.
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iserviceactivity
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -29,12 +31,19 @@ class IService extends IUnknown{
     static VTableNames => ["InvokeService"]
 
     /**
-     * 
+     * InvokeService (RDS)
+     * @remarks
+     * The RDS cursor engine implementation of **InvokeService** takes the input rowset (or multiple results object), populates the cursor engine from the input rowset, and then returns a pointer on itself.
      * @param {IUnknown} pUnkInner 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} An HRESULT value that indicates if the call to the **InvokeService** method was successful.
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/invokeservice-rds
      */
     InvokeService(pUnkInner) {
-        result := ComCall(3, this, "ptr", pUnkInner, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkInner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

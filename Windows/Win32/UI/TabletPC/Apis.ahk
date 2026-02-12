@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
@@ -11,22 +13,22 @@ class TabletPC {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MICROSOFT_URL_EXPERIENCE_PROPERTY => "Microsoft TIP URL Experience"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MICROSOFT_TIP_NO_INSERT_BUTTON_PROPERTY => "Microsoft TIP No Insert Option"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MICROSOFT_TIP_COMBOBOXLIST_PROPERTY => "Microsoft TIP ComboBox List Window Identifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MICROSOFT_TIP_OPENING_MSG => "TabletInputPanelOpening"
 
@@ -331,327 +333,327 @@ class TabletPC {
     static IP_MARGIN => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INK_SERIALIZED_FORMAT => "Ink Serialized Format"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_X => "{598A6A8F-52C0-4BA0-93AF-AF357411A561}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_Y => "{B53F9F75-04E0-4498-A7EE-C30DBB5A9011}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_Z => "{735ADB30-0EBB-4788-A0E4-0F316490055D}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_PAKETSTATUS => "{6E0E07BF-AFE7-4CF7-87D1-AF6446208418}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_TIMERTICK => "{436510C5-FED3-45D1-8B76-71D3EA7A829D}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_SERIALNUMBER => "{78A81B56-0935-4493-BAAE-00541A8A16C4}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_NORMALPRESSURE => "{7307502D-F9F4-4E18-B3F2-2CE1B1A3610C}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_TANGENTPRESSURE => "{6DA4488B-5244-41EC-905B-32D89AB80809}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_BUTTONPRESSURE => "{8B7FEFC4-96AA-4BFE-AC26-8A5F0BE07BF5}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_XTILTORIENTATION => "{A8D07B3A-8BF0-40B0-95A9-B80A6BB787BF}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_YTILTORIENTATION => "{0E932389-1D77-43AF-AC00-5B950D6D4B2D}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_AZIMUTHORIENTATION => "{029123B4-8828-410B-B250-A0536595E5DC}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_ALTITUDEORIENTATION => "{82DEC5C7-F6BA-4906-894F-66D68DFC456C}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_TWISTORIENTATION => "{0D324960-13B2-41E4-ACE6-7AE9D43D2D3B}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_PITCHROTATION => "{7F7E57B7-BE37-4BE1-A356-7A84160E1893}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_ROLLROTATION => "{5D5D5E56-6BA9-4C5B-9FB0-851C91714E56}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_YAWROTATION => "{6A849980-7C3A-45B7-AA82-90A262950E89}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_WIDTH => "{BAABE94D-2712-48F5-BE9D-8F8B5EA0711A}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_HEIGHT => "{E61858D2-E447-4218-9D3F-18865C203DF4}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_FINGERCONTACTCONFIDENCE => "{E706C804-57F0-4F00-8A0C-853D57789BE9}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GUID_DEVICE_CONTACT_ID => "{02585B91-049B-4750-9615-DF8948AB3C9C}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_LINENUMBER => "{DBF29F2C-5289-4BE8-B3D8-6EF63246253E}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_BOXNUMBER => "{2C243E3A-F733-4EB6-B1F8-B5DC5C2C4CDA}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_SEGMENTATION => "{B3C0FE6C-FB51-4164-BA2F-844AF8F983DA}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_HOTPOINT => "{CA6F40DC-5292-452a-91FB-2181C0BEC0DE}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_MAXIMUMSTROKECOUNT => "{BF0EEC4E-4B7D-47a9-8CFA-234DD24BD22A}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_POINTSPERINCH => "{7ED16B76-889C-468e-8276-0021B770187E}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_CONFIDENCELEVEL => "{7DFE11A7-FB5D-4958-8765-154ADF0D833F}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKRECOGNITIONPROPERTY_LINEMETRICS => "{8CC24B27-30A9-4b96-9056-2D3A90DA0727}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_NONE => "NONE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_DEFAULT => "DEFAULT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_SYSTEMDICTIONARY => "SYSDICT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_WORDLIST => "WORDLIST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_EMAIL => "EMAIL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_WEB => "WEB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_ONECHAR => "ONECHAR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_NUMBER => "NUMBER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_DIGIT => "DIGIT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_NUMBERSIMPLE => "NUMSIMPLE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_CURRENCY => "CURRENCY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_POSTALCODE => "POSTALCODE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_PERCENT => "PERCENT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_DATE => "DATE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_TIME => "TIME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_TELEPHONE => "TELEPHONE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_FILENAME => "FILENAME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_UPPERCHAR => "UPPERCHAR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_LOWERCHAR => "LOWERCHAR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_PUNCCHAR => "PUNCCHAR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_JAPANESECOMMON => "JPN_COMMON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_CHINESESIMPLECOMMON => "CHS_COMMON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_CHINESETRADITIONALCOMMON => "CHT_COMMON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_KOREANCOMMON => "KOR_COMMON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_HIRAGANA => "HIRAGANA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_KATAKANA => "KATAKANA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_KANJICOMMON => "KANJI_COMMON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_KANJIRARE => "KANJI_RARE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_BOPOMOFO => "BOPOMOFO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_JAMO => "JAMO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_HANGULCOMMON => "HANGUL_COMMON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FACTOID_HANGULRARE => "HANGUL_RARE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MICROSOFT_PENINPUT_PANEL_PROPERTY_T => "Microsoft PenInputPanel 1.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKEDIT_CLASSW => "INKEDIT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INKEDIT_CLASS => "INKEDIT"
 
@@ -1744,7 +1746,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createrecognizer
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-createrecognizer
      * @since windows5.1.2600
      */
     static CreateRecognizer(pCLSID, phrec) {
@@ -1811,7 +1813,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroyrecognizer
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-destroyrecognizer
      * @since windows5.1.2600
      */
     static DestroyRecognizer(hrec) {
@@ -1887,7 +1889,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getrecoattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getrecoattributes
      * @since windows5.1.2600
      */
     static GetRecoAttributes(hrec, pRecoAttrs) {
@@ -1968,7 +1970,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-createcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-createcontext
      * @since windows5.1.2600
      */
     static CreateContext(hrec, phrc) {
@@ -2037,7 +2039,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroycontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-destroycontext
      * @since windows5.1.2600
      */
     static DestroyContext(hrc) {
@@ -2119,7 +2121,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getresultpropertylist
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getresultpropertylist
      * @since windows5.1.2600
      */
     static GetResultPropertyList(hrec, pPropertyCount, pPropertyGuid) {
@@ -2208,7 +2210,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getpreferredpacketdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getpreferredpacketdescription
      * @since windows5.1.2600
      */
     static GetPreferredPacketDescription(hrec, pPacketDescription) {
@@ -2309,7 +2311,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getunicoderanges
      * @since windows5.1.2600
      */
     static GetUnicodeRanges(hrec, pcRanges, pcr) {
@@ -2423,7 +2425,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-addstroke
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-addstroke
      * @since windows5.1.2600
      */
     static AddStroke(hrc, pPacketDesc, cbPacket, pPacket, pXForm) {
@@ -2531,7 +2533,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getbestresultstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getbestresultstring
      * @since windows5.1.2600
      */
     static GetBestResultString(hrc, pcSize, pwcBestResult) {
@@ -2570,7 +2572,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroyalternate
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-destroyalternate
      * @since windows5.1.2600
      */
     static DestroyAlternate(hrcalt) {
@@ -2665,7 +2667,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setguide
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setguide
      * @since windows5.1.2600
      */
     static SetGuide(hrc, pGuide, iIndex) {
@@ -2747,7 +2749,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getguide
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getguide
      * @since windows5.1.2600
      */
     static GetGuide(hrc, pGuide, piIndex) {
@@ -2825,7 +2827,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-adviseinkchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-adviseinkchange
      * @since windows5.1.2600
      */
     static AdviseInkChange(hrc, bNewStroke) {
@@ -2956,7 +2958,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setcacmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setcacmode
      * @since windows5.1.2600
      */
     static SetCACMode(hrc, iMode) {
@@ -3032,7 +3034,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-endinkinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-endinkinput
      * @since windows5.1.2600
      */
     static EndInkInput(hrc) {
@@ -3115,7 +3117,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-clonecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-clonecontext
      * @since windows5.1.2600
      */
     static CloneContext(hrc, pCloneHrc) {
@@ -3173,7 +3175,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-resetcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-resetcontext
      * @since windows5.1.2600
      */
     static ResetContext(hrc) {
@@ -3269,7 +3271,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-process
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-process
      */
     static Process(hrc, pbPartialProcessing) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
@@ -3389,7 +3391,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setfactoid
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setfactoid
      * @since windows5.1.2600
      */
     static SetFactoid(hrc, cwcFactoid, pwcFactoid) {
@@ -3570,7 +3572,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setflags
      * @since windows5.1.2600
      */
     static SetFlags(hrc, dwFlags) {
@@ -3673,7 +3675,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getlatticeptr
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getlatticeptr
      * @since windows5.1.2600
      */
     static GetLatticePtr(hrc, ppLattice) {
@@ -3776,7 +3778,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-settextcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-settextcontext
      * @since windows5.1.2600
      */
     static SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
@@ -3877,7 +3879,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getenabledunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getenabledunicoderanges
      * @since windows5.1.2600
      */
     static GetEnabledUnicodeRanges(hrc, pcRanges, pcr) {
@@ -3969,7 +3971,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setenabledunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setenabledunicoderanges
      * @since windows5.1.2600
      */
     static SetEnabledUnicodeRanges(hrc, cRanges, pcr) {
@@ -4055,7 +4057,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpropertylist
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getcontextpropertylist
      * @since windows5.1.2600
      */
     static GetContextPropertyList(hrc, pcProperties, pPropertyGUIDS) {
@@ -4168,7 +4170,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getcontextpropertyvalue
      * @since windows5.1.2600
      */
     static GetContextPropertyValue(hrc, pGuid, pcbSize, pProperty) {
@@ -4267,7 +4269,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setcontextpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setcontextpropertyvalue
      * @since windows5.1.2600
      */
     static SetContextPropertyValue(hrc, pGuid, cbSize, pProperty) {
@@ -4372,7 +4374,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-isstringsupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-isstringsupported
      * @since windows5.1.2600
      */
     static IsStringSupported(hrc, wcString, pwcString) {
@@ -4471,7 +4473,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-setwordlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-setwordlist
      * @since windows5.1.2600
      */
     static SetWordList(hrc, hwl) {
@@ -4491,7 +4493,7 @@ class TabletPC {
      * @param {HRECOCONTEXT} hrc The handle to the recognizer context.
      * @param {Pointer<Integer>} pdwContextPreferenceFlags The handle to the context preference flags.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getcontextpreferenceflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getcontextpreferenceflags
      * @since windows5.1.2600
      */
     static GetContextPreferenceFlags(hrc, pdwContextPreferenceFlags) {
@@ -4513,7 +4515,7 @@ class TabletPC {
      * @param {Pointer<Integer>} pcSize A pointer to the size of the right separator.
      * @param {PWSTR} pwcRightSeparator A pointer to the right separator.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getrightseparator
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getrightseparator
      * @since windows5.1.2600
      */
     static GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
@@ -4536,7 +4538,7 @@ class TabletPC {
      * @param {Pointer<Integer>} pcSize A pointer to the size of the left separator.
      * @param {PWSTR} pwcLeftSeparator A pointer to the left separator.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getleftseparator
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getleftseparator
      * @since windows5.1.2600
      */
     static GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
@@ -4608,7 +4610,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-destroywordlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-destroywordlist
      * @since windows5.1.2600
      */
     static DestroyWordList(hwl) {
@@ -4678,7 +4680,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-addwordstowordlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-addwordstowordlist
      * @since windows5.1.2600
      */
     static AddWordsToWordList(hwl, pwcWords) {
@@ -4772,7 +4774,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-makewordlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-makewordlist
      * @since windows5.1.2600
      */
     static MakeWordList(hrec, pBuffer, phwl) {
@@ -4843,7 +4845,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getallrecognizers
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getallrecognizers
      * @since windows5.1.2600
      */
     static GetAllRecognizers(recognizerClsids, count) {
@@ -4914,7 +4916,7 @@ class TabletPC {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-loadcachedattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-loadcachedattributes
      * @since windows5.1.2600
      */
     static LoadCachedAttributes(clsid, pRecoAttributes) {

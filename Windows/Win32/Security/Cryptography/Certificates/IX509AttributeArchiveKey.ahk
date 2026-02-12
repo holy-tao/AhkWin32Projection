@@ -7,7 +7,7 @@
 
 /**
  * Represents an attribute that contains an encrypted private key to be archived by a certification authority.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509attributearchivekey
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-ix509attributearchivekey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -48,6 +48,20 @@ class IX509AttributeArchiveKey extends IX509Attribute{
 
     /**
      * Initializes the attribute from an IX509PrivateKey object, the certification authority encryption certificate, and the symmetric encryption algorithm object identifier (OID).
+     * @remarks
+     * The object identifier for this attribute is <b>XCN_OID_ARCHIVED_KEY_ATTR</b> (1.3.6.1.4.1.311.21.13). For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a>.
+     * 
+     * You must call either <b>InitializeEncode</b> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializedecode">InitializeDecode</a> before you can use an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509attributearchivekey">IX509AttributeArchiveKey</a> object. The two methods complement each other. The <b>InitializeEncode</b> method enables you to construct an encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) structure from raw data, and the <b>InitializeDecode</b> method enables you to initialize raw data from an encoded ASN.1 structure. You can call the following properties to retrieve the raw data:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionalgorithm">EncryptionAlgorithm</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob">EncryptedKeyBlob</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength">EncryptionStrength</a>
+     * </li>
+     * </ul>
      * @param {IX509PrivateKey} pKey Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface that represents the key.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string that contains the encrypted key.
      * @param {BSTR} strCAXCert A <b>BSTR</b> variable that contains the certification authority encryption certificate that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> used to encrypt the private key.
@@ -64,36 +78,65 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * @param {Integer} EncryptionStrength A <b>LONG</b> variable that contains the encryption strength of the algorithm identified by the <i>pAlgorithm</i> parameter. This parameter is not currently used because the Certificate Enrollment SDK does not support any algorithms for which the OID does not already imply the strength (key length). For example, AES has multiple strengths but strength each is already indicated by the OID.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributearchivekey-initializeencode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributearchivekey-initializeencode
      */
     InitializeEncode(pKey, Encoding, strCAXCert, pAlgorithm, EncryptionStrength) {
-        strCAXCert := strCAXCert is String ? BSTR.Alloc(strCAXCert).Value : strCAXCert
+        if(strCAXCert is String) {
+            pin := BSTR.Alloc(strCAXCert)
+            strCAXCert := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", pKey, "int", Encoding, "ptr", strCAXCert, "ptr", pAlgorithm, "int", EncryptionStrength, "HRESULT")
+        result := ComCall(10, this, "ptr", pKey, "int", Encoding, "ptr", strCAXCert, "ptr", pAlgorithm, "int", EncryptionStrength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes the object from a Distinguished Encoding Rules (DER) encoded byte array that contains the encrypted private key.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) for this attribute is <b>XCN_OID_ARCHIVED_KEY_ATTR</b> (1.3.6.1.4.1.311.21.13). For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a>.
+     * 
+     * You can use this method if you have a DER-encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) object that contains the attribute value. You must supply the DER-encoded object in a Unicode encoded string. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ibinaryconverter">IBinaryConverter</a> interface.
+     * 
+     * You must call either <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializeencode">InitializeEncode</a> or <b>InitializeDecode</b> before you can use an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509attributearchivekey">IX509AttributeArchiveKey</a> object. The two methods complement each other. The <b>InitializeEncode</b> method enables you to construct an encoded ASN.1 structure from raw data, and the <b>InitializeDecode</b> method enables you to initialize raw data from an encoded ASN.1 structure. You can call the following properties to retrieve the raw data:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionalgorithm">EncryptionAlgorithm</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob">EncryptedKeyBlob</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength">EncryptionStrength</a>
+     * </li>
+     * </ul>
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded attribute.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributearchivekey-initializedecode
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributearchivekey-initializedecode
      */
     InitializeDecode(Encoding, strEncodedData) {
-        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+        if(strEncodedData is String) {
+            pin := BSTR.Alloc(strEncodedData)
+            strEncodedData := pin.Value
+        }
 
-        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "HRESULT")
+        result := ComCall(11, this, "int", Encoding, "ptr", strEncodedData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a byte array that contains the encrypted key.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializedecode">InitializeDecode</a> method to initialize the <b>EncryptedKeyBlob</b> property. You can call the following properties to retrieve the raw data:
      * 
      * <ul>
@@ -104,22 +147,23 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength">EncryptionStrength</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob
      */
     get_EncryptedKeyBlob(Encoding) {
         pValue := BSTR()
-        result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(12, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves the object identifier (OID) of the symmetric encryption algorithm used to encrypt the private key.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializedecode">InitializeDecode</a> method to initialize the <b>EncryptionAlgorithm</b> property. You can call the following properties to retrieve the raw data:
      * 
      * <ul>
@@ -130,20 +174,21 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength">EncryptionStrength</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionalgorithm
      */
     get_EncryptionAlgorithm() {
-        result := ComCall(13, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IObjectId(ppValue)
     }
 
     /**
      * Retrieves an integer that contains the encryption strength of the symmetric algorithm used to encrypt the key.
      * @remarks
-     * 
      * You can specify this property by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializeencode">InitializeEncode</a> method or the  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-initializedecode">InitializeDecode</a> method. However, the property is currently ignored and zero is returned because the Certificate Enrollment SDK does not support any algorithms for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) does not already imply the encryption strength (key length). For example, AES has multiple strengths, but each strength is already indicated by the OID. 
      * 
      * You can call the following properties to retrieve the raw data:<ul>
@@ -154,13 +199,15 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob">EncryptedKeyBlob</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength
      */
     get_EncryptionStrength() {
-        result := ComCall(14, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

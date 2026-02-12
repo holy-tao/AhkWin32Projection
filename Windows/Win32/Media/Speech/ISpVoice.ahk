@@ -44,7 +44,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetOutput(pUnkOutput, fAllowFormatChanges) {
-        result := ComCall(13, this, "ptr", pUnkOutput, "int", fAllowFormatChanges, "HRESULT")
+        result := ComCall(13, this, "ptr", pUnkOutput, "int", fAllowFormatChanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {ISpObjectToken} 
      */
     GetOutputObjectToken() {
-        result := ComCall(14, this, "ptr*", &ppObjectToken := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppObjectToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectToken(ppObjectToken)
     }
 
@@ -62,25 +70,41 @@ class ISpVoice extends ISpEventSource{
      * @returns {ISpStreamFormat} 
      */
     GetOutputStream() {
-        result := ComCall(15, this, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpStreamFormat(ppStream)
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/pause-method
      */
     Pause() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/resume-method
      */
     Resume() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +114,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetVoice(pToken) {
-        result := ComCall(18, this, "ptr", pToken, "HRESULT")
+        result := ComCall(18, this, "ptr", pToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +127,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {ISpObjectToken} 
      */
     GetVoice() {
-        result := ComCall(19, this, "ptr*", &ppToken := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &ppToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpObjectToken(ppToken)
     }
 
@@ -112,7 +144,11 @@ class ISpVoice extends ISpEventSource{
     Speak(pwcs, dwFlags) {
         pwcs := pwcs is String ? StrPtr(pwcs) : pwcs
 
-        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStreamNumber
     }
 
@@ -123,7 +159,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {Integer} 
      */
     SpeakStream(pStream, dwFlags) {
-        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStreamNumber
     }
 
@@ -133,45 +173,171 @@ class ISpVoice extends ISpEventSource{
      * @returns {PWSTR} 
      */
     GetStatus(pStatus) {
-        result := ComCall(22, this, "ptr", pStatus, "ptr*", &ppszLastBookmark := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", pStatus, "ptr*", &ppszLastBookmark := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszLastBookmark
     }
 
     /**
-     * 
+     * SkipLine Method
+     * @remarks
+     * All characters up to and including the next line separator are skipped. By default, the [LineSeparator](./lineseparator-property-ado.md) is **adCRLF**. If you attempt to skip past [EOS](./eos-property.md), the current position will remain at **EOS**.  
+     *   
+     *  The **SkipLine** method is used with text streams ([Type](./type-property-ado-stream.md) is **adTypeText**).
      * @param {PWSTR} pItemType 
      * @param {Integer} lNumItems 
      * @param {Pointer<Integer>} pulNumSkipped 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/skipline-method
      */
     Skip(pItemType, lNumItems, pulNumSkipped) {
         pItemType := pItemType is String ? StrPtr(pItemType) : pItemType
 
         pulNumSkippedMarshal := pulNumSkipped is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "ptr", pItemType, "int", lNumItems, pulNumSkippedMarshal, pulNumSkipped, "HRESULT")
+        result := ComCall(23, this, "ptr", pItemType, "int", lNumItems, pulNumSkippedMarshal, pulNumSkipped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the priority class for the specified process. This value together with the priority value of each thread of the process determines each thread's base priority level.
+     * @remarks
+     * Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The system uses the base priority level of all executable threads to determine which thread gets the next slice of CPU time. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadpriority">SetThreadPriority</a> function enables setting the base priority level of a thread relative to the priority class of its process. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>.
      * 
+     * The <b>*_PRIORITY_CLASS</b> values affect the CPU scheduling priority of the process. For processes that perform background work such as file I/O, network I/O, or data processing, it is not sufficient to adjust the CPU scheduling priority; even an idle CPU priority process can easily interfere with system responsiveness when it uses the disk and memory. Processes that perform background work should use the <b>PROCESS_MODE_BACKGROUND_BEGIN</b> and <b>PROCESS_MODE_BACKGROUND_END</b> values to adjust their resource scheduling priorities; processes that interact with the user should not use <b>PROCESS_MODE_BACKGROUND_BEGIN</b>.
+     * 
+     * If a process is in background processing mode, the new threads it creates will also be in background processing mode. When a thread is in background processing mode, it should minimize sharing resources such as critical sections, heaps, and handles with other threads in the process, otherwise priority inversions can occur. If there are threads executing at high priority, a thread in background processing mode may not be scheduled promptly, but it will never be starved.
+     * 
+     * Each  thread can enter background processing mode independently using <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadpriority">SetThreadPriority</a>. Do not call <b>SetPriorityClass</b> to enter background processing mode after a thread in the process has called <b>SetThreadPriority</b> to enter background processing mode. After a process ends background processing mode, it resets all threads in the process; however, it is not possible for the process to know which threads were already in background processing mode.
      * @param {Integer} ePriority 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-setpriorityclass
      */
     SetPriority(ePriority) {
-        result := ComCall(24, this, "int", ePriority, "HRESULT")
+        result := ComCall(24, this, "int", ePriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process, determines each thread's base priority level.
+     * @remarks
+     * Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system uses the base priority level of all executable threads to determine which thread gets the next slice of CPU time. Threads are scheduled in a round-robin fashion at each priority level, and only when there are no executable threads at a higher level will scheduling of threads at a lower level take place.
      * 
+     * For a table that shows the base priority levels for each combination of priority class and thread priority value, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>.
+     * 
+     * Priority class is maintained by the executive, so all processes have a priority class that can be queried.
      * @param {Pointer<Integer>} pePriority 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is the priority class of the specified process.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * 
+     * The process's priority class is one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ABOVE_NORMAL_PRIORITY_CLASS</b></dt>
+     * <dt>0x00008000</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Process that has priority above <b>NORMAL_PRIORITY_CLASS</b> but below <b>HIGH_PRIORITY_CLASS</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>BELOW_NORMAL_PRIORITY_CLASS</b></dt>
+     * <dt>0x00004000</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  Process that has priority above <b>IDLE_PRIORITY_CLASS</b> but below <b>NORMAL_PRIORITY_CLASS</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HIGH_PRIORITY_CLASS</b></dt>
+     * <dt>0x00000080</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Process that performs time-critical tasks that must be executed immediately for it to run correctly. The threads of a high-priority class process preempt the threads of normal or idle priority class processes. An example is the Task List, which must respond quickly when called by the user, regardless of the load on the operating system. Use extreme care when using the high-priority class, because a high-priority class CPU-bound application can use nearly all available cycles.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>IDLE_PRIORITY_CLASS</b></dt>
+     * <dt>0x00000040</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Process whose threads run only when the system is idle and are preempted by the threads of any process running in a higher priority class. An example is a screen saver. The idle priority class is inherited by child processes.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NORMAL_PRIORITY_CLASS</b></dt>
+     * <dt>0x00000020</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Process with no special scheduling needs.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>REALTIME_PRIORITY_CLASS</b></dt>
+     * <dt>0x00000100</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Process that has the highest possible priority. The threads of a real-time priority class process preempt the threads of all other processes, including operating system processes performing important tasks. For example, a real-time process that executes for more than a very brief interval can cause disk caches not to flush or cause the mouse to be unresponsive.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getpriorityclass
      */
     GetPriority(pePriority) {
         pePriorityMarshal := pePriority is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, pePriorityMarshal, pePriority, "HRESULT")
+        result := ComCall(25, this, pePriorityMarshal, pePriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,7 +347,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetAlertBoundary(eBoundary) {
-        result := ComCall(26, this, "int", eBoundary, "HRESULT")
+        result := ComCall(26, this, "int", eBoundary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +363,11 @@ class ISpVoice extends ISpEventSource{
     GetAlertBoundary(peBoundary) {
         peBoundaryMarshal := peBoundary is VarRef ? "int*" : "ptr"
 
-        result := ComCall(27, this, peBoundaryMarshal, peBoundary, "HRESULT")
+        result := ComCall(27, this, peBoundaryMarshal, peBoundary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +377,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetRate(RateAdjust) {
-        result := ComCall(28, this, "int", RateAdjust, "HRESULT")
+        result := ComCall(28, this, "int", RateAdjust, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,29 +393,227 @@ class ISpVoice extends ISpEventSource{
     GetRate(pRateAdjust) {
         pRateAdjustMarshal := pRateAdjust is VarRef ? "int*" : "ptr"
 
-        result := ComCall(29, this, pRateAdjustMarshal, pRateAdjust, "HRESULT")
+        result := ComCall(29, this, pRateAdjustMarshal, pRateAdjust, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the label of a file system volume. (Unicode)
+     * @remarks
+     * The maximum volume label length is 32 characters.
      * 
+     * <b>FAT filesystems:  </b>The maximum volume label length is 11 characters.
+     * 
+     * A label is a user-friendly name that a user assigns to a volume to make it easier to recognize. A volume can 
+     *     have a label, a drive letter, both, or neither. For more information, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-volume">Naming a Volume</a>.
+     * 
+     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
+     * 
+     * <table>
+     * <tr>
+     * <th>Technology</th>
+     * <th>Supported</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Server Message Block (SMB) 3.0 protocol
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * SMB 3.0 Transparent Failover (TFO)
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * SMB 3.0 with Scale-out File Shares (SO)
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Cluster Shared Volume File System (CsvFS)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Resilient File System (ReFS)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * SMB does not support volume management functions.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winbase.h header defines SetVolumeLabel as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} usVolume 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setvolumelabelw
      */
     SetVolume(usVolume) {
-        result := ComCall(30, this, "ushort", usVolume, "HRESULT")
+        result := ComCall(30, this, "ushort", usVolume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves information about the file system and volume associated with the specified root directory. (Unicode)
+     * @remarks
+     * When a user attempts to get information about a floppy drive that does not have a floppy disk, or a CD-ROM
+     *      drive that does not have a compact disc, the system displays a message box for the user to insert a floppy disk
+     *      or a compact disc, respectively. To prevent the system from displaying this message box, call the
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-seterrormode">SetErrorMode</a> function with
+     *      <b>SEM_FAILCRITICALERRORS</b>.
      * 
+     * The <b>FILE_VOL_IS_COMPRESSED</b> flag is the only indicator of volume-based compression. The
+     *      file system name is not altered to indicate compression, for example, this flag is returned set on a DoubleSpace
+     *      volume. When compression is volume-based, an entire volume is  compressed or not compressed.
+     * 
+     * The <b>FILE_FILE_COMPRESSION</b> flag indicates whether a file system supports file-based
+     *      compression. When compression is file-based, individual files can be compressed or not compressed.
+     * 
+     * The <b>FILE_FILE_COMPRESSION</b> and <b>FILE_VOL_IS_COMPRESSED</b> flags are
+     *      mutually exclusive. Both bits cannot be returned set.
+     * 
+     * The maximum component length value that is stored in <i>lpMaximumComponentLength</i> is the
+     *      only indicator that a volume supports longer-than-normal FAT file system (or other file system) file names. The
+     *      file system name is not altered to indicate support for long file names.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getcompressedfilesizea">GetCompressedFileSize</a> function obtains the
+     *      compressed size of a file. The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>
+     *      function can determine whether an individual file is compressed.
+     * 
+     * Symbolic link behavior—
+     * 
+     * If the path points to a symbolic link, the function returns volume information for the target.
+     * 
+     * Starting with Windows 8 and Windows Server 2012, this function is supported by the following technologies.
+     * 
+     * <table>
+     * <tr>
+     * <th>Technology</th>
+     * <th>Supported</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Server Message Block (SMB) 3.0 protocol
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * SMB 3.0 Transparent Failover (TFO)
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * SMB 3.0 with Scale-out File Shares (SO)
+     * 
+     * </td>
+     * <td>
+     * No
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Cluster Shared Volume File System (CsvFS)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Resilient File System (ReFS)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * SMB does not support volume management functions.
+     * 
+     * <h3><a id="Transacted_Operations"></a><a id="transacted_operations"></a><a id="TRANSACTED_OPERATIONS"></a>Transacted Operations</h3>
+     * If the volume supports file system transactions, the function returns
+     *       <b>FILE_SUPPORTS_TRANSACTIONS</b> in <i>lpFileSystemFlags</i>.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The fileapi.h header defines GetVolumeInformation as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pusVolume 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If all the requested information is retrieved, the return value is nonzero.
+     * 
+     * If not all the requested information is retrieved, the return value is zero. To get extended error
+     *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumeinformationw
      */
     GetVolume(pusVolume) {
         pusVolumeMarshal := pusVolume is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(31, this, pusVolumeMarshal, pusVolume, "HRESULT")
+        result := ComCall(31, this, pusVolumeMarshal, pusVolume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -247,7 +623,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     WaitUntilDone(msTimeout) {
-        result := ComCall(32, this, "uint", msTimeout, "HRESULT")
+        result := ComCall(32, this, "uint", msTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -257,7 +637,11 @@ class ISpVoice extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetSyncSpeakTimeout(msTimeout) {
-        result := ComCall(33, this, "uint", msTimeout, "HRESULT")
+        result := ComCall(33, this, "uint", msTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +653,11 @@ class ISpVoice extends ISpEventSource{
     GetSyncSpeakTimeout(pmsTimeout) {
         pmsTimeoutMarshal := pmsTimeout is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(34, this, pmsTimeoutMarshal, pmsTimeout, "HRESULT")
+        result := ComCall(34, this, pmsTimeoutMarshal, pmsTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -279,7 +667,8 @@ class ISpVoice extends ISpEventSource{
      */
     SpeakCompleteEvent() {
         result := ComCall(35, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -296,7 +685,11 @@ class ISpVoice extends ISpEventSource{
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
         pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
+        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -316,7 +709,11 @@ class ISpVoice extends ISpEventSource{
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(37, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "HRESULT")
+        result := ComCall(37, this, "ptr", hwndParent, "ptr", pszTitle, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

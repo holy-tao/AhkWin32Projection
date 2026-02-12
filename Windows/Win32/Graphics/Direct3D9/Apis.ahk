@@ -3517,7 +3517,7 @@ class Direct3D9 {
      * @returns {IDirect3D9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a>*</b>
      * 
      * If successful, this function returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a> interface; otherwise, a <b>NULL</b> pointer is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-direct3dcreate9
      */
     static Direct3DCreate9(SDKVersion) {
         result := DllCall("d3d9.dll\Direct3DCreate9", "uint", SDKVersion, "ptr")
@@ -3533,7 +3533,7 @@ class Direct3D9 {
      * @param {Integer} col Event color. This is the color to display the event in the event view.
      * @param {PWSTR} wszName Event name.
      * @returns {Integer} The zero-based level of the hierarchy that this event is starting in. If an error occurs, the return value will be negative.
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_beginevent
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_beginevent
      */
     static D3DPERF_BeginEvent(col, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -3545,7 +3545,7 @@ class Direct3D9 {
     /**
      * Marks the end of a user-defined event. PIX can use this event to trigger an action.
      * @returns {Integer} The level of the hierarchy in which the event is ending. If an error occurs, this value is negative.
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_endevent
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_endevent
      */
     static D3DPERF_EndEvent() {
         result := DllCall("d3d9.dll\D3DPERF_EndEvent", "int")
@@ -3559,7 +3559,7 @@ class Direct3D9 {
      * @param {Integer} col Event color. This is the color to display the event in the event view.
      * @param {PWSTR} wszName Event name.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setmarker
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_setmarker
      */
     static D3DPERF_SetMarker(col, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -3574,7 +3574,7 @@ class Direct3D9 {
      * @param {Integer} col Event color. This is the color to display the event in the event view.
      * @param {PWSTR} wszName Event name.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setregion
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_setregion
      */
     static D3DPERF_SetRegion(col, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -3587,7 +3587,7 @@ class Direct3D9 {
      * @remarks
      * The function should be called immediately after **IDirect3DDevice9::Present** is called.
      * @returns {BOOL} If the return value is TRUE, the caller should repeat the same sequence of calls. If FALSE, the caller should continue.
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_queryrepeatframe
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_queryrepeatframe
      */
     static D3DPERF_QueryRepeatFrame() {
         result := DllCall("d3d9.dll\D3DPERF_QueryRepeatFrame", "int")
@@ -3598,7 +3598,7 @@ class Direct3D9 {
      * Set profiler options specified by the target program.
      * @param {Integer} dwOptions User options recognizable by PIX. Set this to 1 to notify PIX that the target program does not give permission to be profiled.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setoptions
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_setoptions
      */
     static D3DPERF_SetOptions(dwOptions) {
         DllCall("d3d9.dll\D3DPERF_SetOptions", "uint", dwOptions)
@@ -3607,7 +3607,7 @@ class Direct3D9 {
     /**
      * Determine the current state of the profiler from the target program.
      * @returns {Integer} A non-zero value when PIX is profiling the target program; otherwise, zero.
-     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_getstatus
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3d9/nf-d3d9-d3dperf_getstatus
      */
     static D3DPERF_GetStatus() {
         result := DllCall("d3d9.dll\D3DPERF_GetStatus", "uint")
@@ -3640,7 +3640,7 @@ class Direct3D9 {
      * 
      * The value of this parameter should be <b>D3D_SDK_VERSION</b>. See Remarks.
      * @returns {IDirect3D9Ex} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9ex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d9/nf-d3d9-direct3dcreate9ex
      */
     static Direct3DCreate9Ex(SDKVersion) {
         result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", &param1 := 0, "int")

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_GROUP_STATE enumeration (msclus.h) enumerates the possible states of a group.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_state
+ * CLUSTER_GROUP_STATE (clusapi.h) enumerates the possible states of a group.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_group_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

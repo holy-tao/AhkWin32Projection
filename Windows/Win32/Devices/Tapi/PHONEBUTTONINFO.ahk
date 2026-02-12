@@ -14,7 +14,7 @@
  * New service providers (which support the new API version) must examine the API version passed in. If the API version is less than the highest version supported by the provider, the service provider must not fill in fields not supported in older API versions, as these would fall in the variable portion of the older structure.
  * 
  * New applications must be cognizant of the API version negotiated, and not examine the contents of fields in the fixed portion beyond the original end of the fixed portion of the structure for the negotiated API version.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phonebuttoninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-phonebuttoninfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

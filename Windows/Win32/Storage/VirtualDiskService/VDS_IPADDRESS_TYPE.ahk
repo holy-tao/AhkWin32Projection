@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_IPADDRESS_TYPE enumeration (vdshwprv.h) defines the set of valid types for an IP address.
+ * The VDS_IPADDRESS_TYPE (vds.h) enumeration defines the set of valid types for an IP address.
  * @remarks
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_IPADDRESS_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_IPADDRESS_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_ipaddress_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_ipaddress_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Contains a user buffer, which is to become part of a log record, and its length.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_write_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/clfs/ns-clfs-cls_write_entry
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
  * @remarks
  * The 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/ns-ws2spi-wsc_provider_audit_info">WSC_PROVIDER_AUDIT_INFO</a> structure is not currently used.
- * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ne-ws2spi-wsc_provider_info_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2spi/ne-ws2spi-wsc_provider_info_type
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

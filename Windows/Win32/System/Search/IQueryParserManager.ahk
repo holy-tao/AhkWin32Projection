@@ -6,11 +6,8 @@
 /**
  * Provides methods to create, initialize, and change options for an IQueryParser object.
  * @remarks
- * 
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-iqueryparsermanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-iqueryparsermanager
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -43,6 +40,8 @@ class IQueryParserManager extends IUnknown{
 
     /**
      * Creates a new instance of a IQueryParser interface implementation. This instance of the query parser is loaded with the schema for the specified catalog and is localized to a specified language. All other settings are initialized to default settings.
+     * @remarks
+     * If %LOCALAPPDATA% is not available, then this method fails. You should call <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nf-structuredquery-iqueryparsermanager-setoption">IQueryParserManager::SetOption</a> to point to a different folder like %ProgramData%.
      * @param {PWSTR} pszCatalog Type: <b>LPCWSTR</b>
      * 
      * The name of the catalog to use. Permitted values are <c>SystemIndex</c> and an empty string (for a trivial schema with no properties).
@@ -52,15 +51,19 @@ class IQueryParserManager extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iqueryparser">IQueryParser</a> interface implementation.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to the newly created parser. The calling application must release it by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparsermanager-createloadedparser
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparsermanager-createloadedparser
      */
     CreateLoadedParser(pszCatalog, langidForKeywords, riid) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, "ptr*", &ppQueryParser := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszCatalog, "ushort", langidForKeywords, "ptr", riid, "ptr*", &ppQueryParser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppQueryParser
     }
 
@@ -77,11 +80,15 @@ class IQueryParserManager extends IUnknown{
      * Pointer to the query parser object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparsermanager-initializeoptions
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparsermanager-initializeoptions
      */
     InitializeOptions(fUnderstandNQS, fAutoWildCard, pQueryParser) {
-        result := ComCall(4, this, "int", fUnderstandNQS, "int", fAutoWildCard, "ptr", pQueryParser, "HRESULT")
+        result := ComCall(4, this, "int", fUnderstandNQS, "int", fAutoWildCard, "ptr", pQueryParser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,11 +102,15 @@ class IQueryParserManager extends IUnknown{
      * A pointer to the value to use for the option selected.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparsermanager-setoption
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparsermanager-setoption
      */
     SetOption(option, pOptionValue) {
-        result := ComCall(5, this, "int", option, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(5, this, "int", option, "ptr", pOptionValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

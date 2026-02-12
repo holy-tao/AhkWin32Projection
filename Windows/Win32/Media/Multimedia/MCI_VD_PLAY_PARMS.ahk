@@ -7,7 +7,7 @@
  * When assigning data to the members of this structure, set the corresponding flags in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the members.
  * 
  * You can use the [**MCI\_PLAY\_PARMS**](mci-play-parms.md) structure instead of **MCI\_VD\_PLAY\_PARMS** if you are not using the extended data members.
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-vd-play-parms
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/mci-vd-play-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

@@ -8,7 +8,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> posts a <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-char">WM_CHAR</a> message with the Unicode character originally specified by <b>wScan</b>. This Unicode character will automatically be converted to the appropriate ANSI value if it is posted to an ANSI window.
  * 
  * Set the <b>KEYEVENTF_SCANCODE</b> flag to define keyboard input in terms of the scan code. This is useful for simulating a physical keystroke regardless of which keyboard is currently being used. You can also pass the <b>KEYEVENTF_EXTENDEDKEY</b> flag if the scan code is an extended key. The virtual key value of a key can change depending on the current keyboard layout or what other keys were pressed, but the scan code will always be the same.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-keybdinput
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-keybdinput
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319
  */

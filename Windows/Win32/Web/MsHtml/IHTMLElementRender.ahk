@@ -31,27 +31,38 @@ class IHTMLElementRender extends IUnknown{
 
     /**
      * 
-     * @param {HDC} hDC 
+     * @param {HDC} hDC_ 
      * @returns {HRESULT} 
      */
-    DrawToDC(hDC) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    DrawToDC(hDC_) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := ComCall(3, this, "ptr", hDC, "HRESULT")
+        result := ComCall(3, this, "ptr", hDC_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {BSTR} bstrPrinterName 
-     * @param {HDC} hDC 
+     * @param {HDC} hDC_ 
      * @returns {HRESULT} 
      */
-    SetDocumentPrinter(bstrPrinterName, hDC) {
-        bstrPrinterName := bstrPrinterName is String ? BSTR.Alloc(bstrPrinterName).Value : bstrPrinterName
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    SetDocumentPrinter(bstrPrinterName, hDC_) {
+        if(bstrPrinterName is String) {
+            pin := BSTR.Alloc(bstrPrinterName)
+            bstrPrinterName := pin.Value
+        }
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := ComCall(4, this, "ptr", bstrPrinterName, "ptr", hDC, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrPrinterName, "ptr", hDC_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

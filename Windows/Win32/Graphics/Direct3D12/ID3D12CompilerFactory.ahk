@@ -37,7 +37,11 @@ class ID3D12CompilerFactory extends IUnknown{
      */
     EnumerateAdapterFamilies(AdapterFamilyIndex) {
         pAdapterFamily := D3D12_ADAPTER_FAMILY()
-        result := ComCall(3, this, "uint", AdapterFamilyIndex, "ptr", pAdapterFamily, "HRESULT")
+        result := ComCall(3, this, "uint", AdapterFamilyIndex, "ptr", pAdapterFamily, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAdapterFamily
     }
 
@@ -50,7 +54,11 @@ class ID3D12CompilerFactory extends IUnknown{
     EnumerateAdapterFamilyABIVersions(AdapterFamilyIndex, pNumABIVersions) {
         pNumABIVersionsMarshal := pNumABIVersions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, "uint*", &pABIVersions := 0, "HRESULT")
+        result := ComCall(4, this, "uint", AdapterFamilyIndex, pNumABIVersionsMarshal, pNumABIVersions, "uint*", &pABIVersions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pABIVersions
     }
 
@@ -61,7 +69,11 @@ class ID3D12CompilerFactory extends IUnknown{
      */
     EnumerateAdapterFamilyCompilerVersion(AdapterFamilyIndex) {
         pCompilerVersion := D3D12_VERSION_NUMBER()
-        result := ComCall(5, this, "uint", AdapterFamilyIndex, "ptr", pCompilerVersion, "HRESULT")
+        result := ComCall(5, this, "uint", AdapterFamilyIndex, "ptr", pCompilerVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCompilerVersion
     }
 
@@ -73,7 +85,11 @@ class ID3D12CompilerFactory extends IUnknown{
      */
     GetApplicationProfileVersion(pTarget, pApplicationDesc) {
         pApplicationProfileVersion := D3D12_VERSION_NUMBER()
-        result := ComCall(6, this, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", pApplicationProfileVersion, "HRESULT")
+        result := ComCall(6, this, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", pApplicationProfileVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pApplicationProfileVersion
     }
 
@@ -84,10 +100,14 @@ class ID3D12CompilerFactory extends IUnknown{
      * @param {Pointer<D3D12_COMPILER_TARGET>} pTarget 
      * @param {Pointer<D3D12_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateCompilerCacheSession(pPaths, NumPaths, pTarget, pApplicationDesc, riid) {
-        result := ComCall(7, this, "ptr", pPaths, "uint", NumPaths, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", riid, "ptr*", &ppCompilerCacheSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pPaths, "uint", NumPaths, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", riid, "ptr*", &ppCompilerCacheSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCompilerCacheSession
     }
 
@@ -95,10 +115,14 @@ class ID3D12CompilerFactory extends IUnknown{
      * 
      * @param {ID3D12CompilerCacheSession} pCompilerCacheSession 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateCompiler(pCompilerCacheSession, riid) {
-        result := ComCall(8, this, "ptr", pCompilerCacheSession, "ptr", riid, "ptr*", &ppCompiler := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pCompilerCacheSession, "ptr", riid, "ptr*", &ppCompiler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCompiler
     }
 }

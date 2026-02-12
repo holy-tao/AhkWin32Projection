@@ -32,13 +32,17 @@ class IRemoteSystemAdditionalInfoProvider extends IUnknown{
      * 
      * @param {Pointer<HSTRING>} deduplicationId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} mapView 
+     * @param {Pointer<Pointer<Pointer<Void>>>} mapView 
      * @returns {HRESULT} 
      */
     GetAdditionalInfo(deduplicationId, riid, mapView) {
         mapViewMarshal := mapView is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", deduplicationId, "ptr", riid, mapViewMarshal, mapView, "HRESULT")
+        result := ComCall(3, this, "ptr", deduplicationId, "ptr", riid, mapViewMarshal, mapView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

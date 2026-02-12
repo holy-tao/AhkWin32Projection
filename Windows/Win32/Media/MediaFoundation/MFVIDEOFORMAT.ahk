@@ -19,7 +19,7 @@
  * To initialize a media type object from an <b>MFVIDEOFORMAT</b> structure, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfinitmediatypefrommfvideoformat">MFInitMediaTypeFromMFVideoFormat</a>.
  * 
  * You can use the <b>MFVIDEOFORMAT</b> structure as the format block for a DirectShow media type. Set the format GUID to FORMAT_MFVideoFormat.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/ns-mfobjects-mfvideoformat
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

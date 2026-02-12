@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_gs_input_primitive
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_gs_input_primitive
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

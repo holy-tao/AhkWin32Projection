@@ -5,7 +5,7 @@
 
 /**
  * Used to manage a COM+ object pool.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iservicepool
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iservicepool
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -65,15 +65,19 @@ class IServicePool extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/comsvcs/nf-comsvcs-iservicepool-initialize">Initialize</a> has already been called.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iservicepool-initialize">Initialize</a> has already been called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicepool-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iservicepool-initialize
      */
     Initialize(pPoolConfig) {
-        result := ComCall(3, this, "ptr", pPoolConfig, "HRESULT")
+        result := ComCall(3, this, "ptr", pPoolConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,22 +137,30 @@ class IServicePool extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicepool-getobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iservicepool-getobject
      */
     GetObject(riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Shuts down an object pool.
      * @returns {HRESULT} This method returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicepool-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iservicepool-shutdown
      */
     Shutdown() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -39,7 +39,11 @@ class ICommandCost extends IUnknown{
 
         pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr*", &prgCostLimits := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr*", &prgCostLimits := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prgCostLimits
     }
 
@@ -55,7 +59,11 @@ class ICommandCost extends IUnknown{
 
         pcCostEstimatesMarshal := pcCostEstimates is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwszRowsetName, pcCostEstimatesMarshal, pcCostEstimates, "ptr", prgCostEstimates, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszRowsetName, pcCostEstimatesMarshal, pcCostEstimates, "ptr", prgCostEstimates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +79,11 @@ class ICommandCost extends IUnknown{
 
         pcCostGoalsMarshal := pcCostGoals is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwszRowsetName, pcCostGoalsMarshal, pcCostGoals, "ptr", prgCostGoals, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszRowsetName, pcCostGoalsMarshal, pcCostGoals, "ptr", prgCostGoals, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +99,11 @@ class ICommandCost extends IUnknown{
 
         pcCostLimitsMarshal := pcCostLimits is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr", prgCostLimits, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszRowsetName, pcCostLimitsMarshal, pcCostLimits, "ptr", prgCostLimits, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +117,11 @@ class ICommandCost extends IUnknown{
     SetCostGoals(pwszRowsetName, cCostGoals, rgCostGoals) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(7, this, "ptr", pwszRowsetName, "uint", cCostGoals, "ptr", rgCostGoals, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszRowsetName, "uint", cCostGoals, "ptr", rgCostGoals, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +136,11 @@ class ICommandCost extends IUnknown{
     SetCostLimits(pwszRowsetName, cCostLimits, prgCostLimits, dwExecutionFlags) {
         pwszRowsetName := pwszRowsetName is String ? StrPtr(pwszRowsetName) : pwszRowsetName
 
-        result := ComCall(8, this, "ptr", pwszRowsetName, "uint", cCostLimits, "ptr", prgCostLimits, "uint", dwExecutionFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszRowsetName, "uint", cCostLimits, "ptr", prgCostLimits, "uint", dwExecutionFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,11 +7,8 @@
 /**
  * The IEnumStreamBufferRecordingAttrib interface enumerates a collection of attributes on a stream buffer file.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEnumStreamBufferRecordingAttrib)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-ienumstreambufferrecordingattrib
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nn-sbe-ienumstreambufferrecordingattrib
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,13 +35,19 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
 
     /**
      * The Next method returns a specified number of attributes in the enumeration sequence.
+     * @remarks
+     * The caller allocates the array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/ns-sbe-streambuffer_attribute">STREAMBUFFER_ATTRIBUTE</a> structures, but the method allocates buffers for the attributes and the attribute names, which are contained in the <b>pszName</b> and <b>pbAttribute</b> members of each structure. The caller must release those buffers, by calling <b>CoTaskMemFree</b>.
      * @param {Integer} cRequest The number of attributes to retrieve.
      * @param {Pointer<STREAMBUFFER_ATTRIBUTE>} pStreamBufferAttribute Pointer to an array of size <i>cRequest</i>. The array is filled with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/ns-sbe-streambuffer_attribute">STREAMBUFFER_ATTRIBUTE</a> structures.
      * @returns {Integer} Pointer to a variable that receives the number of attributes that are returned in the <i>pStreamBufferAttribute</i> array. This parameter can be <b>NULL</b> if <i>cRequest</i> is 1.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-ienumstreambufferrecordingattrib-next
      */
     Next(cRequest, pStreamBufferAttribute) {
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, "uint*", &pcReceived := 0, "HRESULT")
+        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, "uint*", &pcReceived := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcReceived
     }
 
@@ -81,30 +84,42 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-ienumstreambufferrecordingattrib-skip
      */
     Skip(cRecords) {
-        result := ComCall(4, this, "uint", cRecords, "HRESULT")
+        result := ComCall(4, this, "uint", cRecords, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Reset method resets the enumeration sequence to the beginning.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-ienumstreambufferrecordingattrib-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Clone method makes a copy of the enumerator object. The returned object starts with the same enumeration state as the original.
      * @returns {IEnumStreamBufferRecordingAttrib} Address of a variable that receives a pointer to the <b>IEnumStreamBufferRecordingAttrib</b> interface of the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-ienumstreambufferrecordingattrib-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-ienumstreambufferrecordingattrib-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumStreamBufferRecordingAttrib(ppIEnumStreamBufferAttrib)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * See reference information about the CONSOLE_SCREEN_BUFFER_INFO structure, which contains information about a console screen buffer.
- * @see https://learn.microsoft.com/windows/console/console-screen-buffer-info-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/console-screen-buffer-info-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

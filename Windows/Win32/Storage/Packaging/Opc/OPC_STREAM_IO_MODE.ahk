@@ -8,7 +8,7 @@
  * 
  * </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_stream_io_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/ne-msopc-opc_stream_io_mode
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

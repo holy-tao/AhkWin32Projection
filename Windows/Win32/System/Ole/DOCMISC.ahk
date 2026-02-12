@@ -9,7 +9,7 @@
  * A combination of values from <b>DOCMISC</b> is returned at the location specified by the <i>pdwStatus</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-ioledocument-getdocmiscstatus">IOleDocument::GetDocMiscStatus</a>.
  * 
  * If an object requires none of these flags, it must write a zero to the <i>pdwStatus</i> parameter.
- * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-docmisc
+ * @see https://learn.microsoft.com/windows/win32/api//content/docobj/ne-docobj-docmisc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

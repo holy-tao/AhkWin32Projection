@@ -40,7 +40,11 @@ class IMetaDataInfo extends IUnknown{
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
         pdwMappingTypeMarshal := pdwMappingType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, ppvDataMarshal, ppvData, pcbDataMarshal, pcbData, pdwMappingTypeMarshal, pdwMappingType, "HRESULT")
+        result := ComCall(3, this, ppvDataMarshal, ppvData, pcbDataMarshal, pcbData, pdwMappingTypeMarshal, pdwMappingType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

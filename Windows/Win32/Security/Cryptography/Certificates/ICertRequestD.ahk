@@ -30,7 +30,7 @@ class ICertRequestD extends IUnknown{
     static VTableNames => ["Request", "GetCACert", "Ping"]
 
     /**
-     * 
+     * Specifies the type of application that created a certificate request.
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pdwRequestId 
@@ -41,6 +41,7 @@ class ICertRequestD extends IUnknown{
      * @param {Pointer<CERTTRANSBLOB>} pctbEncodedCert 
      * @param {Pointer<CERTTRANSBLOB>} pctbDispositionMessage 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/ne-certenroll-requestclientinfoclientid
      */
     Request(dwFlags, pwszAuthority, pdwRequestId, pdwDisposition, pwszAttributes, pctbRequest, pctbCertChain, pctbEncodedCert, pctbDispositionMessage) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
@@ -49,7 +50,11 @@ class ICertRequestD extends IUnknown{
         pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
         pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbCertChain, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pwszAuthority, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbCertChain, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,19 +68,30 @@ class ICertRequestD extends IUnknown{
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
         pctbOut := CERTTRANSBLOB()
-        result := ComCall(4, this, "uint", fchain, "ptr", pwszAuthority, "ptr", pctbOut, "HRESULT")
+        result := ComCall(4, this, "uint", fchain, "ptr", pwszAuthority, "ptr", pctbOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pctbOut
     }
 
     /**
-     * 
+     * Use the Ping packet to establish a connection and negotiate security with the server.
+     * @remarks
+     * The **Ping** packet is optional. Instead of sending a **Ping** packet, you can use the [**Create-Session**](create-session.md) packet to establish a connection and negotiate security. However, it is more efficient to use the **Ping** packet for this purpose.
      * @param {PWSTR} pwszAuthority 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Bits/ping
      */
     Ping(pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
-        result := ComCall(5, this, "ptr", pwszAuthority, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszAuthority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

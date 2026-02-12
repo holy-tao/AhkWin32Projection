@@ -5,7 +5,7 @@
 
 /**
  * The ITfActiveLanguageProfileNotifySink interface is implemented by an application to receive a notification when the active language or text service changes.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfactivelanguageprofilenotifysink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfactivelanguageprofilenotifysink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,14 +32,21 @@ class ITfActiveLanguageProfileNotifySink extends IUnknown{
 
     /**
      * ITfActiveLanguageProfileNotifySink::OnActivated method
-     * @param {Pointer<Guid>} clsid CLSID of the TSF text service activated or deactivated. This will be **NULL** for a language change.
+     * @param {Pointer<Guid>} clsid Called when the active language or text service changes.
+     * 
+     * 
+     * CLSID of the TSF text service activated or deactivated. This will be **NULL** for a language change.
      * @param {Pointer<Guid>} guidProfile Profile GUID for the TSF text service. This is specified by the TSF text service when it is installed. This will be <b>NULL</b> for a language change.
      * @param {BOOL} fActivated TRUE if the TSF text service is activated or FALSE if the TSF text service is deactivated.
      * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfactivelanguageprofilenotifysink-onactivated
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfactivelanguageprofilenotifysink-onactivated
      */
     OnActivated(clsid, guidProfile, fActivated) {
-        result := ComCall(3, this, "ptr", clsid, "ptr", guidProfile, "int", fActivated, "HRESULT")
+        result := ComCall(3, this, "ptr", clsid, "ptr", guidProfile, "int", fActivated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

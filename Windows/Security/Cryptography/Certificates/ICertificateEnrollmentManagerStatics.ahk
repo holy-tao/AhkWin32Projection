@@ -1,0 +1,104 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\IAsyncOperation.ahk
+#Include ..\..\..\Foundation\IPropertyValue.ahk
+#Include ..\..\..\Foundation\IAsyncAction.ahk
+#Include ..\..\..\Win32\System\WinRT\HSTRING.ahk
+#Include ..\..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Security.Cryptography.Certificates
+ * @version WindowsRuntime 1.4
+ */
+class ICertificateEnrollmentManagerStatics extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for ICertificateEnrollmentManagerStatics
+     * @type {Guid}
+     */
+    static IID => Guid("{8846ef3f-a986-48fb-9fd7-9aec06935bf1}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["CreateRequestAsync", "InstallCertificateAsync", "ImportPfxDataAsync"]
+
+    /**
+     * 
+     * @param {CertificateRequestProperties} request 
+     * @returns {IAsyncOperation<HSTRING>} 
+     */
+    CreateRequestAsync(request) {
+        result := ComCall(6, this, "ptr", request, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncOperation((ptr) => HSTRING({ Value: ptr }), value)
+    }
+
+    /**
+     * 
+     * @param {HSTRING} certificate_ 
+     * @param {Integer} installOption 
+     * @returns {IAsyncAction} 
+     */
+    InstallCertificateAsync(certificate_, installOption) {
+        if(certificate_ is String) {
+            pin := HSTRING.Create(certificate_)
+            certificate_ := pin.Value
+        }
+        certificate_ := certificate_ is Win32Handle ? NumGet(certificate_, "ptr") : certificate_
+
+        result := ComCall(7, this, "ptr", certificate_, "uint", installOption, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncAction(value)
+    }
+
+    /**
+     * 
+     * @param {HSTRING} pfxData 
+     * @param {HSTRING} password 
+     * @param {Integer} exportable 
+     * @param {Integer} keyProtectionLevel_ 
+     * @param {Integer} installOption 
+     * @param {HSTRING} friendlyName 
+     * @returns {IAsyncAction} 
+     */
+    ImportPfxDataAsync(pfxData, password, exportable, keyProtectionLevel_, installOption, friendlyName) {
+        if(pfxData is String) {
+            pin := HSTRING.Create(pfxData)
+            pfxData := pin.Value
+        }
+        pfxData := pfxData is Win32Handle ? NumGet(pfxData, "ptr") : pfxData
+        if(password is String) {
+            pin := HSTRING.Create(password)
+            password := pin.Value
+        }
+        password := password is Win32Handle ? NumGet(password, "ptr") : password
+        if(friendlyName is String) {
+            pin := HSTRING.Create(friendlyName)
+            friendlyName := pin.Value
+        }
+        friendlyName := friendlyName is Win32Handle ? NumGet(friendlyName, "ptr") : friendlyName
+
+        result := ComCall(8, this, "ptr", pfxData, "ptr", password, "int", exportable, "int", keyProtectionLevel_, "uint", installOption, "ptr", friendlyName, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncAction(value)
+    }
+}

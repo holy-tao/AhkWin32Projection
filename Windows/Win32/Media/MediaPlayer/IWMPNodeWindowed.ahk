@@ -30,11 +30,15 @@ class IWMPNodeWindowed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} hwnd 
+     * @param {Pointer} hwnd_ 
      * @returns {HRESULT} 
      */
-    SetOwnerWindow(hwnd) {
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
+    SetOwnerWindow(hwnd_) {
+        result := ComCall(3, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IWMPNodeWindowed extends IUnknown{
     GetOwnerWindow(phwnd) {
         phwndMarshal := phwnd is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, phwndMarshal, phwnd, "HRESULT")
+        result := ComCall(4, this, phwndMarshal, phwnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

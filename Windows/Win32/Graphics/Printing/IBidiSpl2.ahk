@@ -39,7 +39,11 @@ class IBidiSpl2 extends IUnknown{
     BindDevice(pszDeviceName, dwAccess) {
         pszDeviceName := pszDeviceName is String ? StrPtr(pszDeviceName) : pszDeviceName
 
-        result := ComCall(3, this, "ptr", pszDeviceName, "uint", dwAccess, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDeviceName, "uint", dwAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class IBidiSpl2 extends IUnknown{
      * @returns {HRESULT} 
      */
     UnbindDevice() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,10 +66,17 @@ class IBidiSpl2 extends IUnknown{
      * @returns {BSTR} 
      */
     SendRecvXMLString(bstrRequest) {
-        bstrRequest := bstrRequest is String ? BSTR.Alloc(bstrRequest).Value : bstrRequest
+        if(bstrRequest is String) {
+            pin := BSTR.Alloc(bstrRequest)
+            bstrRequest := pin.Value
+        }
 
         pbstrResponse := BSTR()
-        result := ComCall(5, this, "ptr", bstrRequest, "ptr", pbstrResponse, "HRESULT")
+        result := ComCall(5, this, "ptr", bstrRequest, "ptr", pbstrResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrResponse
     }
 
@@ -71,7 +86,11 @@ class IBidiSpl2 extends IUnknown{
      * @returns {IStream} 
      */
     SendRecvXMLStream(pSRequest) {
-        result := ComCall(6, this, "ptr", pSRequest, "ptr*", &ppSResponse := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pSRequest, "ptr*", &ppSResponse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppSResponse)
     }
 }

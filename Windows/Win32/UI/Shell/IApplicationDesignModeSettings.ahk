@@ -7,7 +7,6 @@
 /**
  * Enables development tool applications to dynamically spoof system and user states, such as native display resolution, device scale factor, and application view state, for the purpose of testing Windows Store apps running in design mode for a wide range of form factors without the need for the actual hardware. Also enables testing of changes in normally user-controlled state to test Windows Store apps under a variety of scenarios.
  * @remarks
- * 
  * This interface is acquired by cocreating CLSID_ApplicationDesignModeSettings.
  * 
  * Users will normally follow a usage pattern similar to the following:
@@ -17,7 +16,7 @@
  * <ol>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with CLSID_ApplicationDesignModeSettings to create the application design mode settings object on a thread in the Windows Store app process.</li>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the application design mode settings object to obtain an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iinitializewithwindow">IInitializeWithWindow</a> object.</li>
- * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">Initialize</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iinitializewithwindow">IInitializeWithWindow</a> object, passing in the HWND for the proxy core window. This must be done before any "set" methods are called and will only succeed once per process.</li>
+ * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">Initialize</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iinitializewithwindow">IInitializeWithWindow</a> object, passing in the HWND for the proxy core window. This must be done before any "set" methods are called, and will succeed only once per process. For a code example, see [Display WinRT UI objects that depend on CoreWindow](/windows/apps/develop/ui-input/display-ui-objects#winui-3-with-c).</li>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for <b>IApplicationDesignModeSettings</b> and spoof the necessary test state by calling its appropriate methods (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setnativedisplaysize">SetNativeDisplaySize</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setscalefactor">SetScaleFactor</a>, etc.). These methods will trigger the appropriate Windows Runtime events to fire for the Windows Store app.</li>
  * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-computeapplicationsize">ComputeApplicationSize</a> method to determine the proper size for the app, based on the currently spoofed state. All layout "set" methods must have already been called or this call will fail. The developer tool application is responsible for positioning and sizing the app windows, when appropriate.</li>
  * </ol>
@@ -26,10 +25,7 @@
  * 
  * <h3><a id="When_to_use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to use</h3>
  * Use the methods of this interface to test your Windows Store app under various spoofed configurations and scenarios.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -62,7 +58,7 @@ class IApplicationDesignModeSettings extends IUnknown{
 
     /**
      * Sets a spoofed native display size to be used for a Windows Store app running in design mode.
-     * @param {SIZE} nativeDisplaySizePixels The native size of the display to spoof, as a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure. The specified size will be normalized to a landscape orientation. To spoof orientation, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate">SetApplicationViewState</a>.
+     * @param {SIZE} nativeDisplaySizePixels The native size of the display to spoof, as a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure. The specified size will be normalized to a landscape orientation. To spoof orientation, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate">SetApplicationViewState</a>.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
      * <table>
@@ -78,7 +74,7 @@ class IApplicationDesignModeSettings extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
      * 
      * </td>
      * </tr>
@@ -94,10 +90,14 @@ class IApplicationDesignModeSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setnativedisplaysize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setnativedisplaysize
      */
     SetNativeDisplaySize(nativeDisplaySizePixels) {
-        result := ComCall(3, this, "ptr", nativeDisplaySizePixels, "HRESULT")
+        result := ComCall(3, this, "ptr", nativeDisplaySizePixels, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,15 +119,19 @@ class IApplicationDesignModeSettings extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setscalefactor
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setscalefactor
      */
     SetScaleFactor(scaleFactor) {
-        result := ComCall(4, this, "int", scaleFactor, "HRESULT")
+        result := ComCall(4, this, "int", scaleFactor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,26 +153,34 @@ class IApplicationDesignModeSettings extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-setapplicationviewstate
      */
     SetApplicationViewState(viewState) {
-        result := ComCall(5, this, "int", viewState, "HRESULT")
+        result := ComCall(5, this, "int", viewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the size of the Windows Store app, based on the current set of spoofed settings.
      * @returns {SIZE} When this method returns successfully, receives a pointer to the size that the Windows Store app should occupy, based on the current set of spoofed settings.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-computeapplicationsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-computeapplicationsize
      */
     ComputeApplicationSize() {
         applicationSizePixels := SIZE()
-        result := ComCall(6, this, "ptr", applicationSizePixels, "HRESULT")
+        result := ComCall(6, this, "ptr", applicationSizePixels, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return applicationSizePixels
     }
 
@@ -178,10 +190,14 @@ class IApplicationDesignModeSettings extends IUnknown{
      * @param {SIZE} nativeDisplaySizePixels The native size of the display to spoof.
      * @param {Integer} scaleFactor One of the enumeration values that indicates the device scale factor to spoof.
      * @returns {BOOL} When this method returns successfully, receives a pointer to a Boolean value which is set to <b>TRUE</b> if the application view state is supported for the given display size and scale factor, and <b>FALSE</b> if it is not.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
      */
     IsApplicationViewStateSupported(viewState, nativeDisplaySizePixels, scaleFactor) {
-        result := ComCall(7, this, "int", viewState, "ptr", nativeDisplaySizePixels, "int", scaleFactor, "int*", &supported := 0, "HRESULT")
+        result := ComCall(7, this, "int", viewState, "ptr", nativeDisplaySizePixels, "int", scaleFactor, "int*", &supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return supported
     }
 
@@ -203,15 +219,19 @@ class IApplicationDesignModeSettings extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize">IInitializeWithWindow::Initialize</a> has not been called to set a proxy core window.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-triggeredgegesture
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-triggeredgegesture
      */
     TriggerEdgeGesture(edgeGestureKind) {
-        result := ComCall(8, this, "int", edgeGestureKind, "HRESULT")
+        result := ComCall(8, this, "int", edgeGestureKind, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

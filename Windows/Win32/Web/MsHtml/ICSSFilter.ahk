@@ -34,7 +34,11 @@ class ICSSFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSite(pSink) {
-        result := ComCall(3, this, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, "ptr", pSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ICSSFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     OnAmbientPropertyChange(dispid) {
-        result := ComCall(4, this, "int", dispid, "HRESULT")
+        result := ComCall(4, this, "int", dispid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

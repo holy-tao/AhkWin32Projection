@@ -36,9 +36,16 @@ class IPrinterScriptablePropertyBag2 extends IPrinterScriptablePropertyBag{
      * @returns {IUnknown} 
      */
     GetReadStreamAsXML(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrName, "ptr*", &ppXmlNode := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrName, "ptr*", &ppXmlNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppXmlNode)
     }
 }

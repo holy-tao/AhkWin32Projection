@@ -3,7 +3,7 @@
 
 /**
  * Sent with the CLUSCTL_RESOURCE_STATE_CHANGE_REASON control code to provide the reason for a resource state change.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusctl_resource_state_change_reason_struct
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clusctl_resource_state_change_reason_struct
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

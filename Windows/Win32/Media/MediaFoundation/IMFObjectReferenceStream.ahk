@@ -5,7 +5,7 @@
 
 /**
  * Marshals an interface pointer to and from a stream.Stream objects that support IStream can expose this interface to provide custom marshaling for interface pointers.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfobjectreferencestream
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfobjectreferencestream
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -53,10 +53,14 @@ class IMFObjectReferenceStream extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfobjectreferencestream-savereference
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfobjectreferencestream-savereference
      */
     SaveReference(riid, pUnk) {
-        result := ComCall(3, this, "ptr", riid, "ptr", pUnk, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,10 +68,14 @@ class IMFObjectReferenceStream extends IUnknown{
      * Marshals an interface from data stored in the stream.
      * @param {Pointer<Guid>} riid Interface identifier of the interface to marshal.
      * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfobjectreferencestream-loadreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfobjectreferencestream-loadreference
      */
     LoadReference(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

@@ -33,7 +33,11 @@ class IXblIdpAuthTokenResult2 extends IUnknown{
      * @returns {PWSTR} 
      */
     GetModernGamertag() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -42,7 +46,11 @@ class IXblIdpAuthTokenResult2 extends IUnknown{
      * @returns {PWSTR} 
      */
     GetModernGamertagSuffix() {
-        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -51,7 +59,11 @@ class IXblIdpAuthTokenResult2 extends IUnknown{
      * @returns {PWSTR} 
      */
     GetUniqueModernGamertag() {
-        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

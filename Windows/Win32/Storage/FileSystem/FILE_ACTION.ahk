@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The file was added to the directory.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-file_notify_extended_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
  * @remarks
  * The 
  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-iasproperties">IASPROPERTIES</a> enumeration type contains the value PROPERTY_IAS_RADIUSSERVERGROUPS_COLLECTION, which corresponds to the collection of RADIUS server groups.
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusservergroupproperties
+ * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/ne-sdoias-radiusservergroupproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

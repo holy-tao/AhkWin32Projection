@@ -6,7 +6,7 @@
  * @remarks
  * To a delete a pre-shared key, call 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacesetcredentials">MprAdminInterfaceSetCredentials</a> with the <b>MPR_CREDENTIALSEX_1.dwSize</b> member set to zero.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_credentialsex_1
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-mpr_credentialsex_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

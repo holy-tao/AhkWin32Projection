@@ -3,7 +3,7 @@
 
 /**
  * Describes the size of a tiled region. (D3D11_TILE_REGION_SIZE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_tile_region_size
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_2/ns-d3d11_2-d3d11_tile_region_size
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

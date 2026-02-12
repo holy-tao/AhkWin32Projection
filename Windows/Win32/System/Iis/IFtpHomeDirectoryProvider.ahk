@@ -40,7 +40,11 @@ class IFtpHomeDirectoryProvider extends IUnknown{
         pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr*", &ppszHomeDirectoryData := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr*", &ppszHomeDirectoryData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszHomeDirectoryData
     }
 }

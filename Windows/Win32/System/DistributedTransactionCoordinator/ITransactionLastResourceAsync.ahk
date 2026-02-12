@@ -34,7 +34,11 @@ class ITransactionLastResourceAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     DelegateCommit(grfRM) {
-        result := ComCall(3, this, "uint", grfRM, "HRESULT")
+        result := ComCall(3, this, "uint", grfRM, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ITransactionLastResourceAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     ForgetRequest(pNewUOW) {
-        result := ComCall(4, this, "ptr", pNewUOW, "HRESULT")
+        result := ComCall(4, this, "ptr", pNewUOW, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

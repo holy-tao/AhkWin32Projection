@@ -41,7 +41,11 @@ class IMSMQEvent2 extends IMSMQEvent{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(7, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 }

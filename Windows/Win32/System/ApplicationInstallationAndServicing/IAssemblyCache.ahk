@@ -6,7 +6,7 @@
 
 /**
  * The IAssemblyCache interface can be used to install, uninstall, or query a side-by-side assembly. An instance of IAssemblyCache is obtained by calling the CreateAssemblyCache function.
- * @see https://docs.microsoft.com/windows/win32/api//winsxs/nn-winsxs-iassemblycache
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nn-winsxs-iassemblycache
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -70,14 +70,18 @@ class IAssemblyCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-uninstallassembly
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblycache-uninstallassembly
      */
     UninstallAssembly(dwFlags, pszAssemblyName, pRefData, pulDisposition) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
         pulDispositionMarshal := pulDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pRefData, pulDispositionMarshal, pulDisposition, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pRefData, pulDispositionMarshal, pulDisposition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,12 +120,16 @@ class IAssemblyCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-queryassemblyinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblycache-queryassemblyinfo
      */
     QueryAssemblyInfo(dwFlags, pszAssemblyName, pAsmInfo) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
-        result := ComCall(4, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pAsmInfo, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, "ptr", pszAssemblyName, "ptr", pAsmInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,23 +139,32 @@ class IAssemblyCache extends IUnknown{
      * @param {Pointer<Void>} pvReserved Reserved.
      * @param {PWSTR} pszAssemblyName Pointer to a null-terminated string value containing the fully-specified strong name of the assembly that is being installed. The name provided is verified to match the name of the assembly in the manifest. Partial names return <b>FUSION_E_INVALID_NAME</b>. If this parameter is null, the name is not verified.
      * @returns {IAssemblyCacheItem} Pointer to a location containing the pointer to the instance of the <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nn-winsxs-iassemblycacheitem">IAssemblyCacheItem</a> that receives the information.
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-createassemblycacheitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblycache-createassemblycacheitem
      */
     CreateAssemblyCacheItem(dwFlags, pvReserved, pszAssemblyName) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr*", &ppAsmItem := 0, "ptr", pszAssemblyName, "HRESULT")
+        result := ComCall(5, this, "uint", dwFlags, pvReservedMarshal, pvReserved, "ptr*", &ppAsmItem := 0, "ptr", pszAssemblyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAssemblyCacheItem(ppAsmItem)
     }
 
     /**
-     * 
+     * The following words are reserved for use by the HLSL language. Do not use them to name variables or functions in your HLSL code.
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-appendix-reserved-words
      */
     Reserved() {
-        result := ComCall(6, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
@@ -218,12 +235,16 @@ class IAssemblyCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-installassembly
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblycache-installassembly
      */
     InstallAssembly(dwFlags, pszManifestFilePath, pRefData) {
         pszManifestFilePath := pszManifestFilePath is String ? StrPtr(pszManifestFilePath) : pszManifestFilePath
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszManifestFilePath, "ptr", pRefData, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "ptr", pszManifestFilePath, "ptr", pRefData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

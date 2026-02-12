@@ -84,7 +84,7 @@
  * 
  * > [!NOTE]
  * > The shellapi.h header defines SHFILEOPSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shfileopstructw
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/ns-shellapi-shfileopstructw
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset Unicode

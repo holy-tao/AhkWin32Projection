@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information for the property sheet notification messages.
- * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-pshnotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/prsht/ns-prsht-pshnotify
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -35,8 +36,11 @@ class PSHNOTIFY extends Win32Struct
      * Additional information about this notification. To determine what, if any, information is contained in this member, see the description of the particular notification message.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(24, this)
+            return this.__lParam
+        }
     }
 }

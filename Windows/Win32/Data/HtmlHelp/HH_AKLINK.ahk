@@ -24,7 +24,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/hh-keyword-lookup-command">HH_KEYWORD_LOOKUP</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_aklink
+ * @see https://learn.microsoft.com/windows/win32/api//content/htmlhelp/ns-htmlhelp-hh_aklink
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The TTVALIDATIONTESTSPARAMS structure contains parameters for testing a Microsoft OpenType font.
- * @see https://learn.microsoft.com/windows/win32/api/t2embapi/ns-t2embapi-ttvalidationtestsparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/t2embapi/ns-t2embapi-ttvalidationtestsparams
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

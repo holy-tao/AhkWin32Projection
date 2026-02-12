@@ -134,9 +134,16 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     put_title(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +153,11 @@ class IHTMLStyleSheet extends IDispatch{
      */
     get_title() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -155,7 +166,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {IHTMLStyleSheet} 
      */
     get_parentStyleSheet() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheet(p)
     }
 
@@ -164,7 +179,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_owningElement() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -174,7 +193,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(11, this, "short", v, "HRESULT")
+        result := ComCall(11, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +206,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -192,7 +219,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_readOnly() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -201,7 +232,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {IHTMLStyleSheetsCollection} 
      */
     get_imports() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetsCollection(p)
     }
 
@@ -211,9 +246,16 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     put_href(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,7 +265,11 @@ class IHTMLStyleSheet extends IDispatch{
      */
     get_href() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -233,7 +279,11 @@ class IHTMLStyleSheet extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -243,7 +293,11 @@ class IHTMLStyleSheet extends IDispatch{
      */
     get_id() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -254,9 +308,16 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {Integer} 
      */
     addImport(bstrURL, lIndex) {
-        bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
+        if(bstrURL is String) {
+            pin := BSTR.Alloc(bstrURL)
+            bstrURL := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, "int*", &plIndex := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, "int*", &plIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plIndex
     }
 
@@ -268,10 +329,20 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {Integer} 
      */
     addRule(bstrSelector, bstrStyle, lIndex) {
-        bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
-        bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
+        if(bstrSelector is String) {
+            pin := BSTR.Alloc(bstrSelector)
+            bstrSelector := pin.Value
+        }
+        if(bstrStyle is String) {
+            pin := BSTR.Alloc(bstrStyle)
+            bstrStyle := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNewIndex
     }
 
@@ -281,7 +352,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     removeImport(lIndex) {
-        result := ComCall(21, this, "int", lIndex, "HRESULT")
+        result := ComCall(21, this, "int", lIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -291,7 +366,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     removeRule(lIndex) {
-        result := ComCall(22, this, "int", lIndex, "HRESULT")
+        result := ComCall(22, this, "int", lIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -301,9 +380,16 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     put_media(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -313,7 +399,11 @@ class IHTMLStyleSheet extends IDispatch{
      */
     get_media() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -323,9 +413,16 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {HRESULT} 
      */
     put_cssText(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -335,7 +432,11 @@ class IHTMLStyleSheet extends IDispatch{
      */
     get_cssText() {
         p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -344,7 +445,11 @@ class IHTMLStyleSheet extends IDispatch{
      * @returns {IHTMLStyleSheetRulesCollection} 
      */
     get_rules() {
-        result := ComCall(27, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetRulesCollection(p)
     }
 }

@@ -4,7 +4,7 @@
 
 /**
  * The WMDMRIGHTS structure describes content-use rights.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmrights
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdmrights
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

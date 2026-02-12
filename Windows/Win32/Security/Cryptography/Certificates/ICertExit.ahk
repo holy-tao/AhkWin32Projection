@@ -7,7 +7,6 @@
 /**
  * Provides communications between the Certificate Services server and an exit module.
  * @remarks
- * 
  * Implementers of <b>ICertExit</b> should also implement 
  * <a href="https://docs.microsoft.com/windows/desktop/api/certmod/nn-certmod-icertmanagemodule">ICertManageModule</a>. Additionally, the ProgID for a class implementing <b>ICertExit</b> must conform to a naming convention. Specifically, the ProgID must be of the form:
  * 
@@ -55,9 +54,7 @@
  * <b>"</b><i>MyApp</i><b>"</b>
  * 
  * Where <i>MyApp</i> is a specifier that identifies the application; further, the class implementing <b>ICertExit</b> must be named <b>"Exit"</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//certexit/nn-certexit-icertexit
+ * @see https://learn.microsoft.com/windows/win32/api//content/certexit/nn-certexit-icertexit
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -84,20 +81,33 @@ class ICertExit extends IDispatch{
 
     /**
      * Called by the server engine when it initializes itself.
+     * @remarks
+     * When you write a custom exit module, implement this method.
      * @param {BSTR} strConfig Represents the name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig2">ICertConfig2</a>.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certexit/nf-certexit-icertexit-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certexit/nf-certexit-icertexit-initialize
      */
     Initialize(strConfig) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strConfig, "uint*", &pEventMask := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", strConfig, "uint*", &pEventMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEventMask
     }
 
     /**
      * Called by the server engine to notify an exit module that an event has occurred.
+     * @remarks
+     * If a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> is using multiple exit modules, Certificate Services will notify each exit module of the event (provided the exit module requested notification by means of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certexit/nf-certexit-icertexit-initialize">Initialize</a>). The order in which the exit modules are notified should not be assumed, nor should one exit module depend on the processing of another exit module. Each notified exit module must return from 
+     * <b>Notify</b> before the next exit module will be notified.
      * @param {Integer} ExitEvent A mask that indicates the kind of exit event that has occurred. The mask can have one of the following flag-bits set.
      * 
      * <table>
@@ -177,27 +187,37 @@ class ICertExit extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} Context Specifies a context handle that can be used to get properties associated with the event from the 
+     * @param {Integer} Context_ Specifies a context handle that can be used to get properties associated with the event from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nn-certif-icertserverexit">ICertServerExit</a> interface.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certexit/nf-certexit-icertexit-notify
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certexit/nf-certexit-icertexit-notify
      */
-    Notify(ExitEvent, Context) {
-        result := ComCall(8, this, "int", ExitEvent, "int", Context, "HRESULT")
+    Notify(ExitEvent, Context_) {
+        result := ComCall(8, this, "int", ExitEvent, "int", Context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns a human-readable description of the exit module and its function.
+     * @remarks
+     * When you write a custom exit module, implement this method.
      * @returns {BSTR} A pointer to the <b>BSTR</b> that describes the exit module.
-     * @see https://docs.microsoft.com/windows/win32/api//certexit/nf-certexit-icertexit-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/certexit/nf-certexit-icertexit-getdescription
      */
     GetDescription() {
         pstrDescription := BSTR()
-        result := ComCall(9, this, "ptr", pstrDescription, "HRESULT")
+        result := ComCall(9, this, "ptr", pstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrDescription
     }
 }

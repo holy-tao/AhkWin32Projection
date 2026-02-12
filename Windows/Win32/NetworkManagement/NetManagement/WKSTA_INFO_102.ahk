@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a workstation environment, including platform-specific information, the name of the domain and the local computer, and information concerning the operating system. (WKSTA_INFO_102)
- * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_info_102
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/ns-lmwksta-wksta_info_102
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

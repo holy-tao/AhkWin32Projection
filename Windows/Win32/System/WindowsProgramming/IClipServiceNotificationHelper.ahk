@@ -39,13 +39,32 @@ class IClipServiceNotificationHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowToast(titleText, bodyText, packageName, appId, launchCommand) {
-        titleText := titleText is String ? BSTR.Alloc(titleText).Value : titleText
-        bodyText := bodyText is String ? BSTR.Alloc(bodyText).Value : bodyText
-        packageName := packageName is String ? BSTR.Alloc(packageName).Value : packageName
-        appId := appId is String ? BSTR.Alloc(appId).Value : appId
-        launchCommand := launchCommand is String ? BSTR.Alloc(launchCommand).Value : launchCommand
+        if(titleText is String) {
+            pin := BSTR.Alloc(titleText)
+            titleText := pin.Value
+        }
+        if(bodyText is String) {
+            pin := BSTR.Alloc(bodyText)
+            bodyText := pin.Value
+        }
+        if(packageName is String) {
+            pin := BSTR.Alloc(packageName)
+            packageName := pin.Value
+        }
+        if(appId is String) {
+            pin := BSTR.Alloc(appId)
+            appId := pin.Value
+        }
+        if(launchCommand is String) {
+            pin := BSTR.Alloc(launchCommand)
+            launchCommand := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", titleText, "ptr", bodyText, "ptr", packageName, "ptr", appId, "ptr", launchCommand, "HRESULT")
+        result := ComCall(3, this, "ptr", titleText, "ptr", bodyText, "ptr", packageName, "ptr", appId, "ptr", launchCommand, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

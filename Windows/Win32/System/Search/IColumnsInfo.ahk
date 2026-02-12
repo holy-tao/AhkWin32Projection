@@ -40,7 +40,11 @@ class IColumnsInfo extends IUnknown{
         prgInfoMarshal := prgInfo is VarRef ? "ptr*" : "ptr"
         ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcColumnsMarshal, pcColumns, prgInfoMarshal, prgInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
+        result := ComCall(3, this, pcColumnsMarshal, pcColumns, prgInfoMarshal, prgInfo, ppStringsBufferMarshal, ppStringsBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IColumnsInfo extends IUnknown{
      * @returns {Pointer} 
      */
     MapColumnIDs(cColumnIDs, rgColumnIDs) {
-        result := ComCall(4, this, "ptr", cColumnIDs, "ptr", rgColumnIDs, "ptr*", &rgColumns := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", cColumnIDs, "ptr", rgColumnIDs, "ptr*", &rgColumns := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgColumns
     }
 }

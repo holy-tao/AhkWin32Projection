@@ -26,7 +26,7 @@
  * <b>addrinfoex2</b> structure, the <b>ai_family</b>, <b>ai_socktype</b>, and <b>ai_protocol</b> members correspond to respective arguments in a 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-socket">socket</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasocketa">WSASocket</a> function call. Also, the <b>ai_addr</b> member in each returned 
  * <b>addrinfoex2</b> structure points to a filled-in socket address structure, the length of which is specified in its <b>ai_addrlen</b> member.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex2a
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-addrinfoex2a
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  * @charset ANSI

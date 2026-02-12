@@ -13,7 +13,7 @@
  * For example, an address book provider might include a modifiable check box control in its configuration dialog box to adjust the setting of a recipient's **PR_SEND_RICH_INFO** ([PidTagSendRichInfo](pidtagsendrichinfo-canonical-property.md)) property. When the user selects the check box, MAPI sets this property to TRUE. When the check box is unselected, the property is set to FALSE.
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md). For information about property types, see [MAPI Property Type Overview](mapi-property-type-overview.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblcheckbox
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblcheckbox
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

@@ -7,10 +7,8 @@
 /**
  * Do not use. Enumerates the contacts known by the IContactManager.
  * @remarks
- * 
  * This interface does not support deletion of contacts during an enumeration. Adding or removing contacts by other means during an enumeration results in undefined behavior. Modifying contact properties during enumeration is allowed.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontactcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nn-icontact-icontactcollection
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */
@@ -37,18 +35,26 @@ class IContactCollection extends IUnknown{
 
     /**
      * Resets the enumerator to before the logical first element.
+     * @remarks
+     * A call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactcollection-getcurrent">IContactCollection::GetCurrent</a> immediately after <b>IContactCollection::Reset</b> is undefined. To get the first contact, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactcollection-next">IContactCollection::Next</a> first to ensure that there is one.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactcollection-reset
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactcollection-reset
      */
     Reset() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Moves to the next contact.
+     * @remarks
+     * After S_FALSE is returned, calls to GetCurrent will fail.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following values:
@@ -81,22 +87,32 @@ class IContactCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactcollection-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactcollection-next
      */
     Next() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the current contact in the enumeration.
+     * @remarks
+     * After reset, a call to <b>IContactCollection::GetCurrent</b> without first calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactcollection-next">IContactCollection::Next</a> will fail.
      * @returns {IContact} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a>**</b>
      * 
      * If successful, contains the current contact.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactcollection-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/icontact/nf-icontact-icontactcollection-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &ppContact := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppContact := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IContact(ppContact)
     }
 }

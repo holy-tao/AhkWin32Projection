@@ -5,7 +5,7 @@
  * Retrieves a value indicating if the specified rate control mode is supported for video encoding with the specified codec
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_rate_control_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_rate_control_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

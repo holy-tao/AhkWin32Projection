@@ -30,13 +30,18 @@ class IDebugDocumentInfo extends IUnknown{
     static VTableNames => ["GetName", "GetDocumentClassId"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @param {Integer} dnt 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName(dnt) {
         pbstrName := BSTR()
-        result := ComCall(3, this, "int", dnt, "ptr", pbstrName, "HRESULT")
+        result := ComCall(3, this, "int", dnt, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -46,7 +51,11 @@ class IDebugDocumentInfo extends IUnknown{
      */
     GetDocumentClassId() {
         pclsidDocument := Guid()
-        result := ComCall(4, this, "ptr", pclsidDocument, "HRESULT")
+        result := ComCall(4, this, "ptr", pclsidDocument, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pclsidDocument
     }
 }

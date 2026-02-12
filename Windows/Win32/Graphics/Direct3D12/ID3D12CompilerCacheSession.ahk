@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_COMPILER_TARGET.ahk
 #Include .\ID3D12CompilerFactoryChild.ahk
 
 /**
@@ -34,7 +35,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {Integer} 
      */
     FindGroup(pGroupKey) {
-        result := ComCall(4, this, "ptr", pGroupKey, "uint*", &pGroupVersion := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pGroupKey, "uint*", &pGroupVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGroupVersion
     }
 
@@ -50,7 +55,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
         pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(5, this, "ptr", pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "ptr", CallbackFunc, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +76,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
         pExpectedGroupVersionMarshal := pExpectedGroupVersion is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "int", ValueTypeFlags, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(6, this, "ptr", pGroupKey, pExpectedGroupVersionMarshal, pExpectedGroupVersion, "int", ValueTypeFlags, "ptr", CallbackFunc, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +96,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
     FindValue(pValueKey, pTypedValues, NumTypedValues, pCallbackFunc, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pValueKey, "ptr", pTypedValues, "uint", NumTypedValues, "ptr", pCallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(7, this, "ptr", pValueKey, "ptr", pTypedValues, "uint", NumTypedValues, "ptr", pCallbackFunc, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -123,7 +140,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     StoreGroupValueKeys(pGroupKey, GroupVersion, pValueKeys, NumValueKeys) {
-        result := ComCall(11, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pValueKeys, "uint", NumValueKeys, "HRESULT")
+        result := ComCall(11, this, "ptr", pGroupKey, "uint", GroupVersion, "ptr", pValueKeys, "uint", NumValueKeys, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +156,11 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * @returns {HRESULT} 
      */
     StoreValue(pValueKey, pTypedValues, NumTypedValues) {
-        result := ComCall(12, this, "ptr", pValueKey, "ptr", pTypedValues, "uint", NumTypedValues, "HRESULT")
+        result := ComCall(12, this, "ptr", pValueKey, "ptr", pTypedValues, "uint", NumTypedValues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

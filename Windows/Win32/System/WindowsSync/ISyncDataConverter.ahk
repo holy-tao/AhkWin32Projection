@@ -35,7 +35,11 @@ class ISyncDataConverter extends IUnknown{
      * @returns {IUnknown} 
      */
     ConvertDataRetrieverFromProviderFormat(pUnkDataRetrieverIn, pEnumSyncChanges) {
-        result := ComCall(3, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", &ppUnkDataOut := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", &ppUnkDataOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkDataOut)
     }
 
@@ -46,7 +50,11 @@ class ISyncDataConverter extends IUnknown{
      * @returns {IUnknown} 
      */
     ConvertDataRetrieverToProviderFormat(pUnkDataRetrieverIn, pEnumSyncChanges) {
-        result := ComCall(4, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", &ppUnkDataOut := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", &ppUnkDataOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkDataOut)
     }
 
@@ -57,7 +65,11 @@ class ISyncDataConverter extends IUnknown{
      * @returns {IUnknown} 
      */
     ConvertDataFromProviderFormat(pDataContext, pUnkDataIn) {
-        result := ComCall(5, this, "ptr", pDataContext, "ptr", pUnkDataIn, "ptr*", &ppUnkDataOut := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pDataContext, "ptr", pUnkDataIn, "ptr*", &ppUnkDataOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkDataOut)
     }
 
@@ -68,7 +80,11 @@ class ISyncDataConverter extends IUnknown{
      * @returns {IUnknown} 
      */
     ConvertDataToProviderFormat(pDataContext, pUnkDataOut) {
-        result := ComCall(6, this, "ptr", pDataContext, "ptr", pUnkDataOut, "ptr*", &ppUnkDataout := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pDataContext, "ptr", pUnkDataOut, "ptr*", &ppUnkDataout := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkDataout)
     }
 }

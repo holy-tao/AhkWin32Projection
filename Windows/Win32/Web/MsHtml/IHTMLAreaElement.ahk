@@ -170,9 +170,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_shape(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -182,7 +189,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_shape() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -192,9 +203,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_coords(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -204,7 +222,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_coords() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -214,9 +236,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_href(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +255,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_href() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -236,9 +269,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_target(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -248,7 +288,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_target() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -258,9 +302,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_alt(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -270,7 +321,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_alt() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -280,7 +335,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_noHref(v) {
-        result := ComCall(17, this, "short", v, "HRESULT")
+        result := ComCall(17, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -289,7 +348,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_noHref() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -299,9 +362,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_host(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -311,7 +381,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_host() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -321,9 +395,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hostname(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -333,7 +414,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_hostname() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -343,9 +428,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pathname(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -355,7 +447,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_pathname() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -365,9 +461,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_port(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -377,7 +480,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_port() {
         p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -387,9 +494,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_protocol(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -399,7 +513,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_protocol() {
         p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -409,9 +527,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_search(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -421,7 +546,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_search() {
         p := BSTR()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -431,9 +560,16 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_hash(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -443,7 +579,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_hash() {
         p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -453,7 +593,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onblur(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -463,7 +607,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_onblur() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -473,7 +621,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onfocus(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -483,7 +635,11 @@ class IHTMLAreaElement extends IDispatch{
      */
     get_onfocus() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -493,7 +649,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_tabIndex(v) {
-        result := ComCall(37, this, "short", v, "HRESULT")
+        result := ComCall(37, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -502,7 +662,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {Integer} 
      */
     get_tabIndex() {
-        result := ComCall(38, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(38, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -511,7 +675,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     focus() {
-        result := ComCall(39, this, "HRESULT")
+        result := ComCall(39, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -520,7 +688,11 @@ class IHTMLAreaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     blur() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

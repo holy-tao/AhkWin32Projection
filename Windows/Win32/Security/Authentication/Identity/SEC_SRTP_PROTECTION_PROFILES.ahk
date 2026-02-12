@@ -5,7 +5,7 @@
  * Stores the SRTP protection profiles.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_srtp_protection_profiles
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_srtp_protection_profiles
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

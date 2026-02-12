@@ -3,10 +3,11 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about an LVN_ITEMACTIVATE notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmitemactivate
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmitemactivate
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -108,9 +109,12 @@ class NMITEMACTIVATE extends Win32Struct
      * Application-defined value of the item. This member is undefined for notification codes that do not use it.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(56, this)
+            return this.__lParam
+        }
     }
 
     /**

@@ -3,7 +3,7 @@
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator supports a number of standard convolution configurations.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_convolution_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_convolution_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

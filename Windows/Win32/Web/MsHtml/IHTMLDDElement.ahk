@@ -48,7 +48,11 @@ class IHTMLDDElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_noWrap(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class IHTMLDDElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

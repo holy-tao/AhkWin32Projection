@@ -36,7 +36,11 @@ class IRemoteDebugApplication110 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDebuggerOptions(mask, value) {
-        result := ComCall(3, this, "int", mask, "int", value, "HRESULT")
+        result := ComCall(3, this, "int", mask, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IRemoteDebugApplication110 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentDebuggerOptions() {
-        result := ComCall(4, this, "int*", &pCurrentOptions := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pCurrentOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCurrentOptions
     }
 
@@ -54,7 +62,11 @@ class IRemoteDebugApplication110 extends IUnknown{
      * @returns {IRemoteDebugApplicationThread} 
      */
     GetMainThread() {
-        result := ComCall(5, this, "ptr*", &ppThread := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppThread := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRemoteDebugApplicationThread(ppThread)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the sharing mode of an IMFSensorDevice.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/ne-mfidl-mfsensordevicemode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

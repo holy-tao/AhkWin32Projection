@@ -6,7 +6,7 @@
  * @remarks
  * Adapter numbers are base zero, so if there are eight adapters on a given computer, they are numbered 0-7. To determine the number of adapters present on the computer, call the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function with IPX_MAX_ADAPTER_NUM.
- * @see https://learn.microsoft.com/windows/win32/api/wsnwlink/ns-wsnwlink-ipx_address_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsnwlink/ns-wsnwlink-ipx_address_data
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

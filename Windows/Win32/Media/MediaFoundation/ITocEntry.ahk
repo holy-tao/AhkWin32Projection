@@ -5,7 +5,7 @@
 
 /**
  * The ITocEntry interface represents an individual entry in a table of contents. It provides methods for setting and retrieving descriptive information for the entry.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-itocentry
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nn-wmcodecdsp-itocentry
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -52,12 +52,16 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-settitle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-settitle
      */
     SetTitle(pwszTitle) {
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
-        result := ComCall(3, this, "ptr", pwszTitle, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,14 +99,18 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-gettitle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-gettitle
      */
     GetTitle(pwTitleSize, pwszTitle) {
         pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
         pwTitleSizeMarshal := pwTitleSize is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, pwTitleSizeMarshal, pwTitleSize, "ptr", pwszTitle, "HRESULT")
+        result := ComCall(4, this, pwTitleSizeMarshal, pwTitleSize, "ptr", pwszTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,10 +136,14 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptor
      */
     SetDescriptor(pDescriptor) {
-        result := ComCall(5, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(5, this, "ptr", pDescriptor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,10 +169,14 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptor
      */
     GetDescriptor(pDescriptor) {
-        result := ComCall(6, this, "ptr", pDescriptor, "HRESULT")
+        result := ComCall(6, this, "ptr", pDescriptor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -187,12 +203,16 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-setsubentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-setsubentries
      */
     SetSubEntries(dwNumSubEntries, pwSubEntryIndices) {
         pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
+        result := ComCall(7, this, "uint", dwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,18 +250,26 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-getsubentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-getsubentries
      */
     GetSubEntries(pdwNumSubEntries, pwSubEntryIndices) {
         pdwNumSubEntriesMarshal := pdwNumSubEntries is VarRef ? "uint*" : "ptr"
         pwSubEntryIndicesMarshal := pwSubEntryIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, pdwNumSubEntriesMarshal, pdwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "HRESULT")
+        result := ComCall(8, this, pdwNumSubEntriesMarshal, pdwNumSubEntries, pwSubEntryIndicesMarshal, pwSubEntryIndices, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetDescriptionData method associates a caller-supplied data block with the entry.
+     * @remarks
+     * You can use this method to associate any information of your choice with the entry. The nature of the information you store in the description data block is completely up to you. TOC Parser does not inspect or interpret the description data block.
+     * 
+     * You can associate only one description data block with a given entry at a given time. However, you might want to design different types of description data blocks and identify each type of block with a globally unique identifier (GUID). That way, you could associate description data of a certain type with some of your entries and description data of a different type with other entries. If you do not need to distinguish between different types of description data blocks, you can set <i>pguidType</i> to <b>NULL</b>.
      * @param {Integer} dwDescriptionDataSize The size, in bytes, of the data block.
      * @param {Pointer<Integer>} pbtDescriptionData Pointer to the first byte of the data block.
      * @param {Pointer<Guid>} pguidType Pointer to a <b>GUID</b> that identifies the type of data in the block. This parameter can be <b>NULL</b>. See Remarks.
@@ -264,17 +292,23 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptiondata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptiondata
      */
     SetDescriptionData(dwDescriptionDataSize, pbtDescriptionData, pguidType) {
         pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pguidType, "HRESULT")
+        result := ComCall(9, this, "uint", dwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pguidType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetDescriptionData method gets a description data block that was previously associated with the entry by a call to SetDescriptionData.
+     * @remarks
+     * You can associate only one description data block with a given entry at a given time. However, you might want to design different types of description data blocks and identify each type of block with a globally unique identifier (GUID). That way, when you call <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itocentry-setdescriptiondata">SetDescriptionData</a>, you can mark the data block as being of a specific type. When you call <b>GetDescriptionData</b>, you can determine the type of the data block retrieved by inspecting the value returned in <i>pGuidType</i>.
      * @param {Pointer<Integer>} pdwDescriptionDataSize If <i>pbtDescriptionData</i> is <b>NULL</b>, this is an output parameter that receives the size, in bytes, of the description data block. If <i>pbtDescriptionData</i> is not <b>NULL</b>, this is an input parameter that specifies the size, in bytes, of the caller-allocated buffer pointed to by <i>pbtDescriptionData</i>.
      * @param {Pointer<Integer>} pbtDescriptionData NULL, or a pointer to a caller-allocated buffer that, on successful completion, receives the description data block.
      * @param {Pointer<Guid>} pGuidType Pointer to a variable that receives a globally unique identifier (GUID) that identifies the type of data in the description data block. See Remarks.
@@ -308,13 +342,17 @@ class ITocEntry extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptiondata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-itocentry-getdescriptiondata
      */
     GetDescriptionData(pdwDescriptionDataSize, pbtDescriptionData, pGuidType) {
         pdwDescriptionDataSizeMarshal := pdwDescriptionDataSize is VarRef ? "uint*" : "ptr"
         pbtDescriptionDataMarshal := pbtDescriptionData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pdwDescriptionDataSizeMarshal, pdwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pGuidType, "HRESULT")
+        result := ComCall(10, this, pdwDescriptionDataSizeMarshal, pdwDescriptionDataSize, pbtDescriptionDataMarshal, pbtDescriptionData, "ptr", pGuidType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

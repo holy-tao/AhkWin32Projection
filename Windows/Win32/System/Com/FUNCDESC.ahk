@@ -34,7 +34,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-funcdesc
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/ns-oaidl-funcdesc
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

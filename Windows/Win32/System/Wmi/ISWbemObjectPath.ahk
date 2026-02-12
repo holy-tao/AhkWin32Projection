@@ -142,7 +142,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_Path() {
         strPath := BSTR()
-        result := ComCall(7, this, "ptr", strPath, "HRESULT")
+        result := ComCall(7, this, "ptr", strPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strPath
     }
 
@@ -152,9 +156,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Path(strPath) {
-        strPath := strPath is String ? BSTR.Alloc(strPath).Value : strPath
+        if(strPath is String) {
+            pin := BSTR.Alloc(strPath)
+            strPath := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strPath, "HRESULT")
+        result := ComCall(8, this, "ptr", strPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +175,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_RelPath() {
         strRelPath := BSTR()
-        result := ComCall(9, this, "ptr", strRelPath, "HRESULT")
+        result := ComCall(9, this, "ptr", strRelPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strRelPath
     }
 
@@ -174,9 +189,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_RelPath(strRelPath) {
-        strRelPath := strRelPath is String ? BSTR.Alloc(strRelPath).Value : strRelPath
+        if(strRelPath is String) {
+            pin := BSTR.Alloc(strRelPath)
+            strRelPath := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", strRelPath, "HRESULT")
+        result := ComCall(10, this, "ptr", strRelPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,7 +208,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_Server() {
         strServer := BSTR()
-        result := ComCall(11, this, "ptr", strServer, "HRESULT")
+        result := ComCall(11, this, "ptr", strServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strServer
     }
 
@@ -196,9 +222,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Server(strServer) {
-        strServer := strServer is String ? BSTR.Alloc(strServer).Value : strServer
+        if(strServer is String) {
+            pin := BSTR.Alloc(strServer)
+            strServer := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", strServer, "HRESULT")
+        result := ComCall(12, this, "ptr", strServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +241,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_Namespace() {
         strNamespace := BSTR()
-        result := ComCall(13, this, "ptr", strNamespace, "HRESULT")
+        result := ComCall(13, this, "ptr", strNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strNamespace
     }
 
@@ -218,9 +255,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Namespace(strNamespace) {
-        strNamespace := strNamespace is String ? BSTR.Alloc(strNamespace).Value : strNamespace
+        if(strNamespace is String) {
+            pin := BSTR.Alloc(strNamespace)
+            strNamespace := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strNamespace, "HRESULT")
+        result := ComCall(14, this, "ptr", strNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +274,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_ParentNamespace() {
         strParentNamespace := BSTR()
-        result := ComCall(15, this, "ptr", strParentNamespace, "HRESULT")
+        result := ComCall(15, this, "ptr", strParentNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strParentNamespace
     }
 
@@ -240,7 +288,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_DisplayName() {
         strDisplayName := BSTR()
-        result := ComCall(16, this, "ptr", strDisplayName, "HRESULT")
+        result := ComCall(16, this, "ptr", strDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strDisplayName
     }
 
@@ -250,9 +302,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DisplayName(strDisplayName) {
-        strDisplayName := strDisplayName is String ? BSTR.Alloc(strDisplayName).Value : strDisplayName
+        if(strDisplayName is String) {
+            pin := BSTR.Alloc(strDisplayName)
+            strDisplayName := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", strDisplayName, "HRESULT")
+        result := ComCall(17, this, "ptr", strDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -262,7 +321,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_Class() {
         strClass := BSTR()
-        result := ComCall(18, this, "ptr", strClass, "HRESULT")
+        result := ComCall(18, this, "ptr", strClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strClass
     }
 
@@ -272,9 +335,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Class(strClass) {
-        strClass := strClass is String ? BSTR.Alloc(strClass).Value : strClass
+        if(strClass is String) {
+            pin := BSTR.Alloc(strClass)
+            strClass := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", strClass, "HRESULT")
+        result := ComCall(19, this, "ptr", strClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -283,7 +353,11 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsClass() {
-        result := ComCall(20, this, "short*", &bIsClass := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &bIsClass := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsClass
     }
 
@@ -292,7 +366,11 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     SetAsClass() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -301,7 +379,11 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsSingleton() {
-        result := ComCall(22, this, "short*", &bIsSingleton := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &bIsSingleton := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsSingleton
     }
 
@@ -310,7 +392,11 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     SetAsSingleton() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -319,7 +405,11 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {ISWbemNamedValueSet} 
      */
     get_Keys() {
-        result := ComCall(24, this, "ptr*", &objWbemNamedValueSet := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &objWbemNamedValueSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemNamedValueSet(objWbemNamedValueSet)
     }
 
@@ -328,7 +418,11 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
-        result := ComCall(25, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &objWbemSecurity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemSecurity(objWbemSecurity)
     }
 
@@ -338,7 +432,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_Locale() {
         strLocale := BSTR()
-        result := ComCall(26, this, "ptr", strLocale, "HRESULT")
+        result := ComCall(26, this, "ptr", strLocale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strLocale
     }
 
@@ -348,9 +446,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Locale(strLocale) {
-        strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
+        if(strLocale is String) {
+            pin := BSTR.Alloc(strLocale)
+            strLocale := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", strLocale, "HRESULT")
+        result := ComCall(27, this, "ptr", strLocale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -360,7 +465,11 @@ class ISWbemObjectPath extends IDispatch{
      */
     get_Authority() {
         strAuthority := BSTR()
-        result := ComCall(28, this, "ptr", strAuthority, "HRESULT")
+        result := ComCall(28, this, "ptr", strAuthority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strAuthority
     }
 
@@ -370,9 +479,16 @@ class ISWbemObjectPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Authority(strAuthority) {
-        strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
+        if(strAuthority is String) {
+            pin := BSTR.Alloc(strAuthority)
+            strAuthority := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", strAuthority, "HRESULT")
+        result := ComCall(29, this, "ptr", strAuthority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

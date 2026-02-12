@@ -6,7 +6,7 @@
 
 /**
  * The IADsPostalAddress interface provides methods for an ADSI client to access the Postal Address attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadspostaladdress
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadspostaladdress
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -45,7 +45,11 @@ class IADsPostalAddress extends IDispatch{
      */
     get_PostalAddress() {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -55,7 +59,11 @@ class IADsPostalAddress extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PostalAddress(vPostalAddress) {
-        result := ComCall(8, this, "ptr", vPostalAddress, "HRESULT")
+        result := ComCall(8, this, "ptr", vPostalAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

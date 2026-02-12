@@ -213,7 +213,7 @@ class Printing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-startxpsprintjob
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsprint/nf-xpsprint-startxpsprintjob
      * @since windows6.1
      */
     static StartXpsPrintJob(printerName, jobName, outputFileName, progressEvent, completionEvent, printablePagesOn, printablePagesOnCount, xpsPrintJob, documentStream, printTicketStream) {
@@ -323,7 +323,7 @@ class Printing {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-startxpsprintjob1
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsprint/nf-xpsprint-startxpsprintjob1
      * @since windows6.1
      */
     static StartXpsPrintJob1(printerName, jobName, outputFileName, progressEvent, completionEvent, xpsPrintJob, printContentReceiver) {

@@ -6,7 +6,7 @@
 
 /**
  * Encapsulates the exception that is thrown when an invalid license is detected for a product.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iinvalidproductlicenseexception
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iinvalidproductlicenseexception
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -41,11 +41,15 @@ class IInvalidProductLicenseException extends IUpdateException{
     /**
      * Gets the language-invariant name of the product.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product
      */
     get_Product() {
         retval := BSTR()
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
+        result := ComCall(10, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

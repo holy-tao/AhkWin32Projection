@@ -3,7 +3,7 @@
 
 /**
  * Describes options for the caching network credentials.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetcredentialoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/ne-mfidl-mfnetcredentialoptions
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

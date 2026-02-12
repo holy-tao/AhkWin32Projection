@@ -6,7 +6,7 @@
 
 /**
  * Represents a list of fonts. **IDWriteFontList2** adds new facilities, including retrieving the underlying font set used by the list.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontlist2
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefontlist2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,12 +32,18 @@ class IDWriteFontList2 extends IDWriteFontList1{
     static VTableNames => ["GetFontSet"]
 
     /**
+     * Retrieves the underlying font set used by this list.
+     * @returns {Pointer<IDWriteFontSet1>} Type: **[IDWriteFontSet1](./nn-dwrite_3-idwritefontset1.md)\*\***
      * 
-     * @returns {IDWriteFontSet1} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist2-getfontset
+     * The address of a pointer to an [IDWriteFontSet1](./nn-dwrite_3-idwritefontset1.md) interface. On successful completion, the function sets the pointer to the font set used by the list.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontlist2-getfontset
      */
     GetFontSet() {
-        result := ComCall(9, this, "ptr*", &fontSet := 0, "HRESULT")
-        return IDWriteFontSet1(fontSet)
+        result := ComCall(9, this, "ptr*", &fontSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontSet
     }
 }

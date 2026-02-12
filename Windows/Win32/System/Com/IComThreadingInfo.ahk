@@ -4,12 +4,10 @@
 #Include .\IUnknown.ahk
 
 /**
- * Enables you to obtain the following information about the apartment and thread that the caller is executing in:\_apartment type, thread type, and thread GUID. It also allows you to specify a thread GUID.
+ * The IComThreadingInfo interface (objidl.h) enables you to obtain the apartment type, thread type, and thread GUID for the apartment and thread that the caller is executing in.
  * @remarks
- * 
- *  An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-icomthreadinginfo
+ * An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-icomthreadinginfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -35,38 +33,50 @@ class IComThreadingInfo extends IUnknown{
     static VTableNames => ["GetCurrentApartmentType", "GetCurrentThreadType", "GetCurrentLogicalThreadId", "SetCurrentLogicalThreadId"]
 
     /**
-     * Retrieves the type of apartment in which the caller is executing.
+     * The IComThreadingInfo::GetCurrentApartmentType method (objidl.h) retrieves the type of apartment in which the caller is executing.
      * @returns {Integer} A points to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-apttype">APTTYPE</a> enumeration value that characterizes the caller's apartment.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icomthreadinginfo-getcurrentapartmenttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-icomthreadinginfo-getcurrentapartmenttype
      */
     GetCurrentApartmentType() {
-        result := ComCall(3, this, "int*", &pAptType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pAptType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAptType
     }
 
     /**
-     * Retrieves the type of thread in which the caller is executing.
+     * The IComThreadingInfo::GetCurrentThreadType method (objidl.h) retrieves the type of thread in which the caller is executing.
      * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-thdtype">THDTYPE</a> enumeration value that characterizes the caller's thread.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icomthreadinginfo-getcurrentthreadtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-icomthreadinginfo-getcurrentthreadtype
      */
     GetCurrentThreadType() {
-        result := ComCall(4, this, "int*", &pThreadType := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pThreadType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pThreadType
     }
 
     /**
-     * Retrieves the GUID of the thread in which the caller is executing.
+     * The IComThreadingInfo::GetCurrentLogicalThreadId method (objidl.h) retrieves the GUID of the thread in which the caller is executing.
      * @returns {Guid} A pointer to the GUID of the caller's thread.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icomthreadinginfo-getcurrentlogicalthreadid
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-icomthreadinginfo-getcurrentlogicalthreadid
      */
     GetCurrentLogicalThreadId() {
         pguidLogicalThreadId := Guid()
-        result := ComCall(5, this, "ptr", pguidLogicalThreadId, "HRESULT")
+        result := ComCall(5, this, "ptr", pguidLogicalThreadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidLogicalThreadId
     }
 
     /**
-     * Sets the GUID of the thread in which the caller is executing.
+     * The IComThreadingInfo::SetCurrentLogicalThreadId method (objidl.h) sets the GUID of the thread in which the caller is executing.
      * @param {Pointer<Guid>} rguid A reference to a GUID for the caller's thread.
      * @returns {HRESULT} This method can return the following values.
      * 
@@ -98,10 +108,14 @@ class IComThreadingInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-icomthreadinginfo-setcurrentlogicalthreadid
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-icomthreadinginfo-setcurrentlogicalthreadid
      */
     SetCurrentLogicalThreadId(rguid) {
-        result := ComCall(6, this, "ptr", rguid, "HRESULT")
+        result := ComCall(6, this, "ptr", rguid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

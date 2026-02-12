@@ -34,7 +34,11 @@ class IPrintPipelineProgressReport extends IUnknown{
      * @returns {HRESULT} 
      */
     ReportProgress(update) {
-        result := ComCall(3, this, "int", update, "HRESULT")
+        result := ComCall(3, this, "int", update, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

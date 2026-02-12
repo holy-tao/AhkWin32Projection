@@ -5,7 +5,7 @@
  * The PRINTER\_INFO\_8 structure specifies the global default printer settings.
  * @remarks
  * The global defaults are set by the administrator of a printer that can be used by anyone. In contrast, the per-user defaults will affect a particular user or anyone else who uses the profile. For per-user defaults, use [**PRINTER\_INFO\_9**](printer-info-9.md).
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-8
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-info-8
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

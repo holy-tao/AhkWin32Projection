@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * This interface is not supported.
- * @see https://docs.microsoft.com/windows/win32/api//evr9/nn-evr9-ievrvideostreamcontrol
+ * This interface is not supported. (IEVRVideoStreamControl)
+ * @see https://learn.microsoft.com/windows/win32/api//content/evr9/nn-evr9-ievrvideostreamcontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,21 +33,29 @@ class IEVRVideoStreamControl extends IUnknown{
     /**
      * IEVRVideoStreamControl::SetStreamActiveState method
      * @param {BOOL} fActive 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-ievrvideostreamcontrol-setstreamactivestate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/evr9/nf-evr9-ievrvideostreamcontrol-setstreamactivestate
      */
     SetStreamActiveState(fActive) {
-        result := ComCall(3, this, "int", fActive, "HRESULT")
+        result := ComCall(3, this, "int", fActive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IEVRVideoStreamControl::GetStreamActiveState method
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//evr9/nf-evr9-ievrvideostreamcontrol-getstreamactivestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/evr9/nf-evr9-ievrvideostreamcontrol-getstreamactivestate
      */
     GetStreamActiveState() {
-        result := ComCall(4, this, "int*", &lpfActive := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &lpfActive := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpfActive
     }
 }

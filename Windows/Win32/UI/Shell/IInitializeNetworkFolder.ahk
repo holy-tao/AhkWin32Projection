@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that initializes the network data source CLSID_NetworkPlaces as specified.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iinitializenetworkfolder
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iinitializenetworkfolder
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -49,14 +49,18 @@ class IInitializeNetworkFolder extends IUnknown{
      * Optional network provider, as in the <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a>.<i>lpProvider</i> field.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iinitializenetworkfolder-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iinitializenetworkfolder-initialize
      */
     Initialize(pidl, pidlTarget, uDisplayType, pszResName, pszProvider) {
         pszResName := pszResName is String ? StrPtr(pszResName) : pszResName
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-        result := ComCall(3, this, "ptr", pidl, "ptr", pidlTarget, "uint", uDisplayType, "ptr", pszResName, "ptr", pszProvider, "HRESULT")
+        result := ComCall(3, this, "ptr", pidl, "ptr", pidlTarget, "uint", uDisplayType, "ptr", pszResName, "ptr", pszProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

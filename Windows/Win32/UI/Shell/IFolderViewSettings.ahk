@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods to obtain folder view settings.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifolderviewsettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ifolderviewsettings
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,13 +33,17 @@ class IFolderViewSettings extends IUnknown{
     /**
      * Gets an ordered list of columns that corresponds to the column enumerated.
      * @param {Pointer<Guid>} riid A reference to the interface identifier (IID) of the IPropertyDescriptionList.
-     * @returns {Pointer<Void>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a>**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getcolumnpropertylist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getcolumnpropertylist
      */
     GetColumnPropertyList(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -53,13 +57,17 @@ class IFolderViewSettings extends IUnknown{
      * A pointer to a value indicating whether grouping order is ascending.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupbyproperty
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupbyproperty
      */
     GetGroupByProperty(pkey, pfGroupAscending) {
         pfGroupAscendingMarshal := pfGroupAscending is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pkey, pfGroupAscendingMarshal, pfGroupAscending, "HRESULT")
+        result := ComCall(4, this, "ptr", pkey, pfGroupAscendingMarshal, pfGroupAscending, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,10 +76,14 @@ class IFolderViewSettings extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a> value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getviewmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getviewmode
      */
     GetViewMode() {
-        result := ComCall(5, this, "int*", &plvm := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &plvm := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plvm
     }
 
@@ -80,10 +92,14 @@ class IFolderViewSettings extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer to the icon size.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-geticonsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-geticonsize
      */
     GetIconSize() {
-        result := ComCall(6, this, "uint*", &puIconSize := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &puIconSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puIconSize
     }
 
@@ -97,14 +113,18 @@ class IFolderViewSettings extends IUnknown{
      * A pointer to a flag for folder view options.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getfolderflags
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getfolderflags
      */
     GetFolderFlags(pfolderMask, pfolderFlags) {
         pfolderMaskMarshal := pfolderMask is VarRef ? "int*" : "ptr"
         pfolderFlagsMarshal := pfolderFlags is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pfolderMaskMarshal, pfolderMask, pfolderFlagsMarshal, pfolderFlags, "HRESULT")
+        result := ComCall(7, this, pfolderMaskMarshal, pfolderMask, pfolderFlagsMarshal, pfolderFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,13 +141,17 @@ class IFolderViewSettings extends IUnknown{
      * A pointer to the <i>rgSortColumns</i> array length.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getsortcolumns
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getsortcolumns
      */
     GetSortColumns(rgSortColumns, cColumnsIn, pcColumnsOut) {
         pcColumnsOutMarshal := pcColumnsOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", rgSortColumns, "uint", cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "HRESULT")
+        result := ComCall(8, this, "ptr", rgSortColumns, "uint", cColumnsIn, pcColumnsOutMarshal, pcColumnsOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,10 +160,14 @@ class IFolderViewSettings extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer to group count.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupsubsetcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupsubsetcount
      */
     GetGroupSubsetCount() {
-        result := ComCall(9, this, "uint*", &pcVisibleRows := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pcVisibleRows := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcVisibleRows
     }
 }

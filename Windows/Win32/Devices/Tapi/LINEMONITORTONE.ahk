@@ -11,7 +11,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemonitortones">lineMonitorTones</a> function which monitors these tones and sends a LINE_MONITORTONE message to the application when a detection is made.
  * 
  * A tone with all frequencies set to zero corresponds to silence. An application can thus monitor the call's information stream for silence.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemonitortone
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linemonitortone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

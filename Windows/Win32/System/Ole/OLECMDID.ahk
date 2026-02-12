@@ -76,7 +76,7 @@
  * NULL) // pointer to command output
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdid
+ * @see https://learn.microsoft.com/windows/win32/api//content/docobj/ne-docobj-olecmdid
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

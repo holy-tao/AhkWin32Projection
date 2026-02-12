@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
@@ -96,27 +98,27 @@ class MediaPlayer {
     static SA_BUFFER_SIZE => 1024
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_INSTALLREGKEY => "Software\Microsoft\MediaPlayer\UIPlugins"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_INSTALLREGKEY_FRIENDLYNAME => "FriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_INSTALLREGKEY_DESCRIPTION => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_INSTALLREGKEY_CAPABILITIES => "Capabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_INSTALLREGKEY_UNINSTALL => "UninstallPath"
 
@@ -181,67 +183,67 @@ class MediaPlayer {
     static PLUGIN_FLAGS_HIDDEN => 33554432
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_MISC_PRESETCOUNT => "PresetCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_MISC_PRESETNAMES => "PresetNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_MISC_CURRENTPRESET => "CurrentPreset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_RESIZABLE => "Resizable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_DEFAULTWIDTH => "DefaultWidth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_DEFAULTHEIGHT => "DefaultHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_MINWIDTH => "MinWidth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_MINHEIGHT => "MinHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_MAXWIDTH => "MaxWidth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_SEPARATEWINDOW_MAXHEIGHT => "MaxHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_MISC_QUERYDESTROY => "QueryDestroy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_ALL_MEDIASENDTO => "MediaSendTo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PLUGIN_ALL_PLAYLISTSENDTO => "PlaylistSendTo"
 
@@ -296,12 +298,12 @@ class MediaPlayer {
     static SUBSCRIPTION_CAP_UILESSMODE_ALLOWPLAY => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WMP_SUBSCR_DL_TYPE_BACKGROUND => "background"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WMP_SUBSCR_DL_TYPE_REALTIME => "real time"
 
@@ -2756,377 +2758,377 @@ class MediaPlayer {
     static kfltTimedLevelMinimumFrequency => 20
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_LoginState => "LoginState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_MediaPlayerAccountType => "MediaPlayerAccountType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_AccountType => "AccountType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_HasCachedCredentials => "HasCachedCredentials"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_LicenseRefreshAdvanceWarning => "LicenseRefreshAdvanceWarning"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_PurchasedTrackRequiresReDownload => "PurchasedTrackRequiresReDownload"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_MaximumTrackPurchasePerPurchase => "MaximumNumberOfTracksPerPurchase"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_AccountBalance => "AccountBalance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPartnerInfo_UserName => "UserName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szMediaPlayerTask_Burn => "Burn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szMediaPlayerTask_Browse => "Browse"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szMediaPlayerTask_Sync => "Sync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_PopupURL => "Popup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_AuthenticationSuccessURL => "AuthenticationSuccessURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_LoginFailureURL => "LoginFailureURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_HTMLViewURL => "HTMLViewURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_PopupCaption => "PopupCaption"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ALTLoginURL => "ALTLoginURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ALTLoginCaption => "ALTLoginCaption"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ForgetPasswordURL => "ForgotPassword"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_CreateAccountURL => "CreateAccount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ArtistArtURL => "ArtistArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_AlbumArtURL => "AlbumArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ListArtURL => "ListArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_GenreArtURL => "GenreArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_SubGenreArtURL => "SubGenreArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_RadioArtURL => "RadioArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_TreeListIconURL => "CPListIDIcon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ErrorDescription => "CPErrorDescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ErrorURL => "CPErrorURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szItemInfo_ErrorURLLinkText => "CPErrorURLLinkText"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szUnknownLocation => "UnknownLocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szRootLocation => "RootLocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szFlyoutMenu => "FlyoutMenu"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szOnlineStore => "OnlineStore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szVideoRecent => "VideoRecent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szVideoRoot => "VideoRoot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPListID => "CPListID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPListIDs => "AllCPListIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPTrackID => "CPTrackID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPTrackIDs => "AllCPTrackIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPArtistID => "CPArtistID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPArtistIDs => "AllCPArtistIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPAlbumID => "CPAlbumID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPAlbumIDs => "AllCPAlbumIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPGenreID => "CPGenreID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPGenreIDs => "AllCPGenreIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPAlbumSubGenreID => "CPAlbumSubGenreID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPAlbumSubGenreIDs => "AllCPAlbumSubGenreIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szReleaseDateYear => "ReleaseDateYear"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllReleaseDateYears => "AllReleaseDateYears"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szCPRadioID => "CPRadioID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllCPRadioIDs => "AllCPRadioIDs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAuthor => "Author"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllAuthors => "AllAuthors"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szWMParentalRating => "WMParentalRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllWMParentalRatings => "AllWMParentalRatings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szAllUserEffectiveRatingStarss => "AllUserEffectiveRatingStarss"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szUserEffectiveRatingStars => "UserEffectiveRatingStars"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szUserPlaylist => "UserPlaylist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szViewMode_Report => "ViewModeReport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szViewMode_Details => "ViewModeDetails"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szViewMode_Icon => "ViewModeIcon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szViewMode_Tile => "ViewModeTile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szViewMode_OrderedList => "ViewModeOrderedList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPrice_Unknown => "PriceUnknown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPrice_CannotBuy => "PriceCannotBuy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szContentPrice_Free => "PriceFree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szRefreshLicensePlay => "RefreshForPlay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szRefreshLicenseBurn => "RefreshForBurn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szRefreshLicenseSync => "RefreshForSync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szVerifyPermissionSync => "VerifyPermissionSync"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szStationEvent_Started => "TrackStarted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szStationEvent_Complete => "TrackComplete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_szStationEvent_Skipped => "TrackSkipped"
 

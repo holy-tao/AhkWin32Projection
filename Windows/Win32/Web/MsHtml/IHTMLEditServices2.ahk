@@ -34,7 +34,11 @@ class IHTMLEditServices2 extends IHTMLEditServices{
      * @returns {HRESULT} 
      */
     MoveToSelectionAnchorEx(pIStartAnchor) {
-        result := ComCall(9, this, "ptr", pIStartAnchor, "HRESULT")
+        result := ComCall(9, this, "ptr", pIStartAnchor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IHTMLEditServices2 extends IHTMLEditServices{
      * @returns {HRESULT} 
      */
     MoveToSelectionEndEx(pIEndAnchor) {
-        result := ComCall(10, this, "ptr", pIEndAnchor, "HRESULT")
+        result := ComCall(10, this, "ptr", pIEndAnchor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IHTMLEditServices2 extends IHTMLEditServices{
      * @returns {HRESULT} 
      */
     FreezeVirtualCaretPos(fReCompute) {
-        result := ComCall(11, this, "int", fReCompute, "HRESULT")
+        result := ComCall(11, this, "int", fReCompute, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class IHTMLEditServices2 extends IHTMLEditServices{
      * @returns {HRESULT} 
      */
     UnFreezeVirtualCaretPos(fReset) {
-        result := ComCall(12, this, "int", fReset, "HRESULT")
+        result := ComCall(12, this, "int", fReset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

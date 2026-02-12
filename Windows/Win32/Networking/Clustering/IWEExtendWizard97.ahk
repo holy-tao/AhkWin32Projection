@@ -6,11 +6,8 @@
 /**
  * Implement the IWEExtendWizard97 interface to add Wizard97-style wizard pages to a Failover Cluster Administrator wizard.
  * @remarks
- * 
  * To create non-Wizard97 pages, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard">IWEExtendWizard</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iweextendwizard97
+ * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nn-cluadmex-iweextendwizard97
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -37,6 +34,36 @@ class IWEExtendWizard97 extends IUnknown{
 
     /**
      * Allows you to create Wizard97 property pages and add them to a Failover Cluster Administrator Wizard.
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * If your extension has no Wizard97 pages but does have non-Wizard97 pages, you can either:
+     * 
+     * <ul>
+     * <li>Support only the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard">IWEExtendWizard</a> interface.</li>
+     * <li>Support both the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard">IWEExtendWizard</a> and 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard97">IWEExtendWizard97</a> interfaces, but in your 
+     *        implementation of <b>IWEExtendWizard97</b>, query for the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iwcwizardcallback">IWCWizardCallback</a> interface from the interface 
+     *        passed in by way of the <i>piCallback</i> parameter.</li>
+     * </ul>
+     * <p class="proch"><b>For each Wizard97 property page to be added</b>
+     * 
+     * <ol>
+     * <li>Use <i>piData</i> to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> and retrieve an 
+     *        interface pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">object</a> associated with the new 
+     *        page. For example, if you are adding a property page for a resource, you want to retrieve a pointer to the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-igetclusterresourceinfo">IGetClusterResourceInfo</a> interface. 
+     *        Although it is possible to successfully query for interfaces that retrieve data unrelated to the object being 
+     *        extended, you should expect to receive errors when you attempt to call the methods.</li>
+     * <li>To create the page, call the function 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a>. To produce pages 
+     *        that look like the pages provided by Cluster Administrator, each new wizard97 page should be no larger than 293 
+     *        dialog units wide and 172 dialog units high, and should contain a static control positioned at (38,12) with a 
+     *        size of (247,10).</li>
+     * <li>To add the page to a Cluster Administrator Wizard, call 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iwcwizard97callback-addwizard97page">IWCWizard97Callback::AddWizard97Page</a> 
+     *        using the <i>piCallback</i> pointer.</li>
+     * </ol>
      * @param {IUnknown} piData <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer for retrieving information 
      *        relating to the wizard97 pages to be added. By calling 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> with the 
@@ -120,10 +147,14 @@ class IWEExtendWizard97 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iweextendwizard97-createwizard97pages
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-iweextendwizard97-createwizard97pages
      */
     CreateWizard97Pages(piData, piCallback) {
-        result := ComCall(3, this, "ptr", piData, "ptr", piCallback, "HRESULT")
+        result := ComCall(3, this, "ptr", piData, "ptr", piCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

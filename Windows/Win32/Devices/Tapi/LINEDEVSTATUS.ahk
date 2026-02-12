@@ -7,7 +7,7 @@
  * Device-specific extensions should use the DevSpecific (<b>dwDevSpecificSize</b> and <b>dwDevSpecificOffset</b>) variably sized area of this data structure.
  * 
  * The members <b>dwAvailableMediaModes</b> through <b>dwAppInfoOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linedevstatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linedevstatus
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

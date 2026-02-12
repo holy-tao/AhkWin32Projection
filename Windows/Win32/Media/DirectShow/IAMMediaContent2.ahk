@@ -7,12 +7,10 @@
 /**
  * The IAMMediaContent2 interface retrieves custom parameters and playlists from ASX files. This interface is not implemented by any default components in DirectShow.
  * @remarks
- * 
  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
  * 
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-iammediacontent2
+ * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nn-qnetwork-iammediacontent2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -45,6 +43,8 @@ class IAMMediaContent2 extends IDispatch{
 
     /**
      * The get_MediaParameter method retrieves the value of a custom parameter in the ASX file.
+     * @remarks
+     * The caller must release the <b>BSTR</b> returned in <i>pbstrValue</i>, by calling <b>SysFreeString</b>.
      * @param {Integer} EntryNum Specifies the location of the parameter in the ASX file.
      * 
      * <table>
@@ -66,17 +66,26 @@ class IAMMediaContent2 extends IDispatch{
      * @param {BSTR} bstrName Specifies the name of the parameter.
      * @param {Pointer<BSTR>} pbstrValue Pointer to a variable that receives the value of the parameter.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iammediacontent2-get_mediaparameter
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iammediacontent2-get_mediaparameter
      */
     get_MediaParameter(EntryNum, bstrName, pbstrValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(7, this, "int", EntryNum, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(7, this, "int", EntryNum, "ptr", bstrName, "ptr", pbstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_MediaParameterName method retrieves the name of a custom parameter in an ASX file.
+     * @remarks
+     * The caller must release the returned <b>BSTR</b> by calling <b>SysFreeString</b>.
      * @param {Integer} EntryNum Specifies the location of the parameter in the ASX file.
      * 
      * <table>
@@ -98,10 +107,14 @@ class IAMMediaContent2 extends IDispatch{
      * @param {Integer} Index Specifies the index of the parameter to retrieve, indexed from 1.
      * @param {Pointer<BSTR>} pbstrName Pointer to a variable that receives the parameter name.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iammediacontent2-get_mediaparametername
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iammediacontent2-get_mediaparametername
      */
     get_MediaParameterName(EntryNum, Index, pbstrName) {
-        result := ComCall(8, this, "int", EntryNum, "int", Index, "ptr", pbstrName, "HRESULT")
+        result := ComCall(8, this, "int", EntryNum, "int", Index, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,12 +122,16 @@ class IAMMediaContent2 extends IDispatch{
      * The get_PlaylistCount method retrieves the number of entries in an ASX file.
      * @param {Pointer<Integer>} pNumberEntries Pointer to a variable that receives the number of entries.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iammediacontent2-get_playlistcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iammediacontent2-get_playlistcount
      */
     get_PlaylistCount(pNumberEntries) {
         pNumberEntriesMarshal := pNumberEntries is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pNumberEntriesMarshal, pNumberEntries, "HRESULT")
+        result := ComCall(9, this, pNumberEntriesMarshal, pNumberEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

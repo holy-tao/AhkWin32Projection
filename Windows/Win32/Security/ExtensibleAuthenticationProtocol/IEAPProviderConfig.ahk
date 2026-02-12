@@ -5,7 +5,7 @@
 
 /**
  * UI for EAP provider.
- * @see https://docs.microsoft.com/windows/win32/api//rrascfg/nn-rrascfg-ieapproviderconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/rrascfg/nn-rrascfg-ieapproviderconfig
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */
@@ -32,20 +32,34 @@ class IEAPProviderConfig extends IUnknown{
 
     /**
      * The system calls the Initialize method to initialize an EAP configuration session with the specified computer.
+     * @remarks
+     * The configuration UI should allow the user to configure the EAP provider on a remote computer. Establish the connection to the remote computer during the call to <b>Initialize</b>.
+     * 
+     * The DLL that implements 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">IEAPProviderConfig</a> can support more than one authentication protocol. The <i>dwEapTypeId</i> parameter specifies the  authentication protocol to initialize a configuration session for.
      * @param {PWSTR} pszMachineName Pointer to a null-terminated string that contains the name of the computer on which to configure EAP. String length is not limited.
      * @param {Integer} dwEapTypeId Specifies the EAP for which to initialize a configuration session.
      * @returns {Pointer} Pointer to an unsigned integer variable. On successful return, the value of this variable identifies this configuration session.
-     * @see https://docs.microsoft.com/windows/win32/api//rrascfg/nf-rrascfg-ieapproviderconfig-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/rrascfg/nf-rrascfg-ieapproviderconfig-initialize
      */
     Initialize(pszMachineName, dwEapTypeId) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, "ptr*", &puConnectionParam := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, "ptr*", &puConnectionParam := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puConnectionParam
     }
 
     /**
      * The system calls the Uninitialize method to shut down the specified EAP configuration session.
+     * @remarks
+     * The configuration UI should allow the user to configure the EAP provider on a remote computer. Delete the connection to the remote computer during the call to <b>Uninitialize</b>.
+     * 
+     * The DLL that implements 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">IEAPProviderConfig</a> may support more than one authentication protocol. The <i>dwEapTypeId</i> parameter specifies the authentication protocol to shut down the configuration session for.
      * @param {Integer} dwEapTypeId Specifies the EAP for which to shut down the configuration session.
      * @param {Pointer} uConnectionParam Specifies the configuration session to shut down.
      * @returns {HRESULT} If the function succeeds, the return value should be <b>S_OK</b>.
@@ -102,18 +116,25 @@ class IEAPProviderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rrascfg/nf-rrascfg-ieapproviderconfig-uninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/rrascfg/nf-rrascfg-ieapproviderconfig-uninitialize
      */
     Uninitialize(dwEapTypeId, uConnectionParam) {
-        result := ComCall(4, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "HRESULT")
+        result := ComCall(4, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The system calls the ServerInvokeConfigUI method to invoke the configuration user interface for EAP authentication between a remote access client and server.
+     * @remarks
+     * The DLL that implements 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">IEAPProviderConfig</a> may support more than one authentication protocol. The <i>dwEapTypeId</i> parameter specifies for which authentication protocol to invoke the configuration user interface.
      * @param {Integer} dwEapTypeId Specifies the EAP for which to invoke the configuration user interface.
      * @param {Pointer} uConnectionParam Specifies the configuration session for which to invoke the user interface.
-     * @param {HWND} hWnd Handle to the parent window for the configuration user interface.
+     * @param {HWND} hWnd_ Handle to the parent window for the configuration user interface.
      * @param {Pointer} uReserved1 This parameter is reserved and should be zero.
      * @param {Pointer} uReserved2 This parameter is reserved and should be zero.
      * @returns {HRESULT} If the function succeeds, the return value should be <b>S_OK</b>.
@@ -170,12 +191,16 @@ class IEAPProviderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rrascfg/nf-rrascfg-ieapproviderconfig-serverinvokeconfigui
+     * @see https://learn.microsoft.com/windows/win32/api//content/rrascfg/nf-rrascfg-ieapproviderconfig-serverinvokeconfigui
      */
-    ServerInvokeConfigUI(dwEapTypeId, uConnectionParam, hWnd, uReserved1, uReserved2) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    ServerInvokeConfigUI(dwEapTypeId, uConnectionParam, hWnd_, uReserved1, uReserved2) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, "ptr", uReserved1, "ptr", uReserved2, "HRESULT")
+        result := ComCall(5, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd_, "ptr", uReserved1, "ptr", uReserved2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -243,7 +268,7 @@ class IEAPProviderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokeconfigui
+     * @see https://learn.microsoft.com/windows/win32/api//content/rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokeconfigui
      */
     RouterInvokeConfigUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, ppConnectionDataOut, pdwSizeOfConnectionDataOut) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -252,7 +277,11 @@ class IEAPProviderConfig extends IUnknown{
         ppConnectionDataOutMarshal := ppConnectionDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConnectionDataOutMarshal := pdwSizeOfConnectionDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "HRESULT")
+        result := ComCall(6, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, ppConnectionDataOutMarshal, ppConnectionDataOut, pdwSizeOfConnectionDataOutMarshal, pdwSizeOfConnectionDataOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -322,7 +351,7 @@ class IEAPProviderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokecredentialsui
+     * @see https://learn.microsoft.com/windows/win32/api//content/rrascfg/nf-rrascfg-ieapproviderconfig-routerinvokecredentialsui
      */
     RouterInvokeCredentialsUI(dwEapTypeId, uConnectionParam, hwndParent, dwFlags, pConnectionDataIn, dwSizeOfConnectionDataIn, pUserDataIn, dwSizeOfUserDataIn, ppUserDataOut, pdwSizeOfUserDataOut) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -332,7 +361,11 @@ class IEAPProviderConfig extends IUnknown{
         ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, "uint", dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "HRESULT")
+        result := ComCall(7, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hwndParent, "uint", dwFlags, pConnectionDataInMarshal, pConnectionDataIn, "uint", dwSizeOfConnectionDataIn, pUserDataInMarshal, pUserDataIn, "uint", dwSizeOfUserDataIn, ppUserDataOutMarshal, ppUserDataOut, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

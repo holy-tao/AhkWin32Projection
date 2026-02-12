@@ -165,7 +165,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_x(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -174,7 +178,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -184,7 +192,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_y(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +205,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -203,7 +219,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_width(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,7 +232,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -222,7 +246,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_height(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -231,7 +259,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -241,9 +273,16 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_contentScriptType(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +292,11 @@ class ISVGSVGElement extends IDispatch{
      */
     get_contentScriptType() {
         p := BSTR()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -263,9 +306,16 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_contentStyleType(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -275,7 +325,11 @@ class ISVGSVGElement extends IDispatch{
      */
     get_contentStyleType() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -285,7 +339,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_viewport(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -294,7 +352,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGRect} 
      */
     get_viewport() {
-        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGRect(p)
     }
 
@@ -304,7 +366,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pixelUnitToMillimeterX(v) {
-        result := ComCall(21, this, "float", v, "HRESULT")
+        result := ComCall(21, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -313,7 +379,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Float} 
      */
     get_pixelUnitToMillimeterX() {
-        result := ComCall(22, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -323,7 +393,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pixelUnitToMillimeterY(v) {
-        result := ComCall(23, this, "float", v, "HRESULT")
+        result := ComCall(23, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -332,7 +406,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Float} 
      */
     get_pixelUnitToMillimeterY() {
-        result := ComCall(24, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -342,7 +420,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_screenPixelToMillimeterX(v) {
-        result := ComCall(25, this, "float", v, "HRESULT")
+        result := ComCall(25, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -351,7 +433,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Float} 
      */
     get_screenPixelToMillimeterX() {
-        result := ComCall(26, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(26, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -361,7 +447,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_screenPixelToMillimeterY(v) {
-        result := ComCall(27, this, "float", v, "HRESULT")
+        result := ComCall(27, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -370,7 +460,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Float} 
      */
     get_screenPixelToMillimeterY() {
-        result := ComCall(28, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(28, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -380,7 +474,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_useCurrentView(v) {
-        result := ComCall(29, this, "short", v, "HRESULT")
+        result := ComCall(29, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -389,7 +487,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_useCurrentView() {
-        result := ComCall(30, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(30, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -399,7 +501,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_currentView(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -408,7 +514,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGViewSpec} 
      */
     get_currentView() {
-        result := ComCall(32, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGViewSpec(p)
     }
 
@@ -418,7 +528,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_currentScale(v) {
-        result := ComCall(33, this, "float", v, "HRESULT")
+        result := ComCall(33, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -427,7 +541,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Float} 
      */
     get_currentScale() {
-        result := ComCall(34, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(34, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -437,7 +555,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_currentTranslate(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -446,7 +568,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGPoint} 
      */
     get_currentTranslate() {
-        result := ComCall(36, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(36, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(p)
     }
 
@@ -456,7 +582,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Integer} 
      */
     suspendRedraw(maxWaitMilliseconds) {
-        result := ComCall(37, this, "uint", maxWaitMilliseconds, "uint*", &pResult := 0, "HRESULT")
+        result := ComCall(37, this, "uint", maxWaitMilliseconds, "uint*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -466,7 +596,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     unsuspendRedraw(suspendHandeID) {
-        result := ComCall(38, this, "uint", suspendHandeID, "HRESULT")
+        result := ComCall(38, this, "uint", suspendHandeID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -475,7 +609,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     unsuspendRedrawAll() {
-        result := ComCall(39, this, "HRESULT")
+        result := ComCall(39, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -484,7 +622,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     forceRedraw() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -493,7 +635,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     pauseAnimations() {
-        result := ComCall(41, this, "HRESULT")
+        result := ComCall(41, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -502,7 +648,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     unpauseAnimations() {
-        result := ComCall(42, this, "HRESULT")
+        result := ComCall(42, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -511,7 +661,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     animationsPaused() {
-        result := ComCall(43, this, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(43, this, "short*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -520,7 +674,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {Float} 
      */
     getCurrentTime() {
-        result := ComCall(44, this, "float*", &pResult := 0, "HRESULT")
+        result := ComCall(44, this, "float*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -530,53 +688,73 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     setCurrentTime(seconds) {
-        result := ComCall(45, this, "float", seconds, "HRESULT")
+        result := ComCall(45, this, "float", seconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} rect_ 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
      */
-    getIntersectionList(rect, referenceElement) {
+    getIntersectionList(rect_, referenceElement) {
         pResult := VARIANT()
-        result := ComCall(46, this, "ptr", rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
+        result := ComCall(46, this, "ptr", rect_, "ptr", referenceElement, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
     /**
      * 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} rect_ 
      * @param {ISVGElement} referenceElement 
      * @returns {VARIANT} 
      */
-    getEnclosureList(rect, referenceElement) {
+    getEnclosureList(rect_, referenceElement) {
         pResult := VARIANT()
-        result := ComCall(47, this, "ptr", rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
+        result := ComCall(47, this, "ptr", rect_, "ptr", referenceElement, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
     /**
      * 
      * @param {ISVGElement} element 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} rect_ 
      * @returns {VARIANT_BOOL} 
      */
-    checkIntersection(element, rect) {
-        result := ComCall(48, this, "ptr", element, "ptr", rect, "short*", &pResult := 0, "HRESULT")
+    checkIntersection(element, rect_) {
+        result := ComCall(48, this, "ptr", element, "ptr", rect_, "short*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
     /**
      * 
      * @param {ISVGElement} element 
-     * @param {ISVGRect} rect 
+     * @param {ISVGRect} rect_ 
      * @returns {VARIANT_BOOL} 
      */
-    checkEnclosure(element, rect) {
-        result := ComCall(49, this, "ptr", element, "ptr", rect, "short*", &pResult := 0, "HRESULT")
+    checkEnclosure(element, rect_) {
+        result := ComCall(49, this, "ptr", element, "ptr", rect_, "short*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -585,7 +763,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {HRESULT} 
      */
     deselectAll() {
-        result := ComCall(50, this, "HRESULT")
+        result := ComCall(50, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -594,7 +776,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGNumber} 
      */
     createSVGNumber() {
-        result := ComCall(51, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(51, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGNumber(pResult)
     }
 
@@ -603,7 +789,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGLength} 
      */
     createSVGLength() {
-        result := ComCall(52, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(52, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGLength(pResult)
     }
 
@@ -612,7 +802,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGAngle} 
      */
     createSVGAngle() {
-        result := ComCall(53, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(53, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAngle(pResult)
     }
 
@@ -621,7 +815,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGPoint} 
      */
     createSVGPoint() {
-        result := ComCall(54, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(54, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(pResult)
     }
 
@@ -630,7 +828,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGMatrix} 
      */
     createSVGMatrix() {
-        result := ComCall(55, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(55, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGMatrix(pResult)
     }
 
@@ -639,7 +841,11 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGRect} 
      */
     createSVGRect() {
-        result := ComCall(56, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(56, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGRect(pResult)
     }
 
@@ -648,17 +854,25 @@ class ISVGSVGElement extends IDispatch{
      * @returns {ISVGTransform} 
      */
     createSVGTransform() {
-        result := ComCall(57, this, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(57, this, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGTransform(pResult)
     }
 
     /**
      * 
-     * @param {ISVGMatrix} matrix 
+     * @param {ISVGMatrix} matrix_ 
      * @returns {ISVGTransform} 
      */
-    createSVGTransformFromMatrix(matrix) {
-        result := ComCall(58, this, "ptr", matrix, "ptr*", &pResult := 0, "HRESULT")
+    createSVGTransformFromMatrix(matrix_) {
+        result := ComCall(58, this, "ptr", matrix_, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGTransform(pResult)
     }
 
@@ -668,9 +882,16 @@ class ISVGSVGElement extends IDispatch{
      * @returns {IHTMLElement} 
      */
     getElementById(elementId) {
-        elementId := elementId is String ? BSTR.Alloc(elementId).Value : elementId
+        if(elementId is String) {
+            pin := BSTR.Alloc(elementId)
+            elementId := pin.Value
+        }
 
-        result := ComCall(59, this, "ptr", elementId, "ptr*", &pResult := 0, "HRESULT")
+        result := ComCall(59, this, "ptr", elementId, "ptr*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(pResult)
     }
 }

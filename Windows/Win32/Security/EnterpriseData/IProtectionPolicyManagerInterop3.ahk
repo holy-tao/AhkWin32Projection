@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 #Include ..\..\System\WinRT\IInspectable.ahk
 
 /**
@@ -37,15 +38,31 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RequestAccessWithBehaviorForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+        if(sourceIdentity is String) {
+            pin := HSTRING.Create(sourceIdentity)
+            sourceIdentity := pin.Value
+        }
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
+        if(targetIdentity is String) {
+            pin := HSTRING.Create(targetIdentity)
+            targetIdentity := pin.Value
+        }
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
+        if(messageFromApp is String) {
+            pin := HSTRING.Create(messageFromApp)
+            messageFromApp := pin.Value
+        }
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 
@@ -58,15 +75,31 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RequestAccessForAppWithBehaviorForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+        if(sourceIdentity is String) {
+            pin := HSTRING.Create(sourceIdentity)
+            sourceIdentity := pin.Value
+        }
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
+        if(appPackageFamilyName is String) {
+            pin := HSTRING.Create(appPackageFamilyName)
+            appPackageFamilyName := pin.Value
+        }
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
+        if(messageFromApp is String) {
+            pin := HSTRING.Create(messageFromApp)
+            messageFromApp := pin.Value
+        }
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 
@@ -77,13 +110,21 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} appPackageFamilyName 
      * @param {IUnknown} auditInfoUnk 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RequestAccessToFilesForAppForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+        if(appPackageFamilyName is String) {
+            pin := HSTRING.Create(appPackageFamilyName)
+            appPackageFamilyName := pin.Value
+        }
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
 
-        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 
@@ -96,14 +137,26 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+        if(appPackageFamilyName is String) {
+            pin := HSTRING.Create(appPackageFamilyName)
+            appPackageFamilyName := pin.Value
+        }
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
+        if(messageFromApp is String) {
+            pin := HSTRING.Create(messageFromApp)
+            messageFromApp := pin.Value
+        }
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 
@@ -114,12 +167,16 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {Integer} processId 
      * @param {IUnknown} auditInfoUnk 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RequestAccessToFilesForProcessForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 
@@ -132,13 +189,21 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+        if(messageFromApp is String) {
+            pin := HSTRING.Create(messageFromApp)
+            messageFromApp := pin.Value
+        }
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(11, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 }

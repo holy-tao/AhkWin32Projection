@@ -11,7 +11,7 @@
  * DDSURFACEDESC2* pddsd = (DDSURFACEDESC2*)pccsd->lpDDSurfaceDesc;
  * DWORD dwStage = pddsd->dwTextureStage;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_cancreatesurfacedata
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_cancreatesurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

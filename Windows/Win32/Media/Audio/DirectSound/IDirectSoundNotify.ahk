@@ -35,7 +35,11 @@ class IDirectSoundNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNotificationPositions(dwPositionNotifies, pcPositionNotifies) {
-        result := ComCall(3, this, "uint", dwPositionNotifies, "ptr", pcPositionNotifies, "HRESULT")
+        result := ComCall(3, this, "uint", dwPositionNotifies, "ptr", pcPositionNotifies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

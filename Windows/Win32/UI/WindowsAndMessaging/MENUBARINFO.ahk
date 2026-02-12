@@ -6,7 +6,7 @@
 
 /**
  * Contains menu bar information.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menubarinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-menubarinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

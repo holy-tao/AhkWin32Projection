@@ -35,7 +35,11 @@ class IWMFrameInterpProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFrameRateIn(lFrameRate, lScale) {
-        result := ComCall(3, this, "int", lFrameRate, "int", lScale, "HRESULT")
+        result := ComCall(3, this, "int", lFrameRate, "int", lScale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IWMFrameInterpProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFrameRateOut(lFrameRate, lScale) {
-        result := ComCall(4, this, "int", lFrameRate, "int", lScale, "HRESULT")
+        result := ComCall(4, this, "int", lFrameRate, "int", lScale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class IWMFrameInterpProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFrameInterpEnabled(bFIEnabled) {
-        result := ComCall(5, this, "int", bFIEnabled, "HRESULT")
+        result := ComCall(5, this, "int", bFIEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +78,11 @@ class IWMFrameInterpProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetComplexityLevel(iComplexity) {
-        result := ComCall(6, this, "int", iComplexity, "HRESULT")
+        result := ComCall(6, this, "int", iComplexity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

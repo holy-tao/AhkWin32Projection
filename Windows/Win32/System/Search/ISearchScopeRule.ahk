@@ -6,11 +6,8 @@
 /**
  * Provides methods to define scope rules for crawling and indexing.
  * @remarks
- * 
  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchscoperule
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-isearchscoperule
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -65,37 +62,61 @@ class ISearchScopeRule extends IUnknown{
 
     /**
      * Gets the pattern or URL for the rule. The scope rules determine what URLs or paths to include or exclude.
+     * @remarks
+     * A standard URL might look like this: <c> outlookexpress://{User sid}/{Identity}/Inbox)</c>
+     * 
+     * A pattern might look like this: <c> file:///c:\documents and settings\*\application data\* </c>
+     * 
+     * Only exclusion rules use patterns.
+     * 
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * On return, contains the address of a pointer to a null-terminated, Unicode buffer that contains the pattern or URL string.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchscoperule-get_patternorurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchscoperule-get_patternorurl
      */
     get_PatternOrURL() {
-        result := ComCall(3, this, "ptr*", &ppszPatternOrURL := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszPatternOrURL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszPatternOrURL
     }
 
     /**
      * Gets a value identifying whether this rule is an inclusion rule. Inclusion rules identify scopes that should be included in the crawl scope.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, points to <b>TRUE</b> if this rule is an inclusion rule, <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchscoperule-get_isincluded
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchscoperule-get_isincluded
      */
     get_IsIncluded() {
-        result := ComCall(4, this, "int*", &pfIsIncluded := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfIsIncluded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsIncluded
     }
 
     /**
      * Gets a value that identifies whether this is a default rule.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, points to the <b>TRUE</b> for default rules and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchscoperule-get_isdefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchscoperule-get_isdefault
      */
     get_IsDefault() {
-        result := ComCall(5, this, "int*", &pfIsDefault := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pfIsDefault := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsDefault
     }
 
@@ -104,10 +125,14 @@ class ISearchScopeRule extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Returns a pointer to a value that contains the follow flags.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchscoperule-get_followflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchscoperule-get_followflags
      */
     get_FollowFlags() {
-        result := ComCall(6, this, "uint*", &pFollowFlags := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pFollowFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFollowFlags
     }
 }

@@ -34,7 +34,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_documentLocator(oLocator) {
-        result := ComCall(7, this, "ptr", oLocator, "HRESULT")
+        result := ComCall(7, this, "ptr", oLocator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     startDocument() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     endDocument() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +75,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     startPrefixMapping(strPrefix, strURI) {
-        result := ComCall(10, this, "ptr", strPrefix, "ptr", strURI, "HRESULT")
+        result := ComCall(10, this, "ptr", strPrefix, "ptr", strURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +89,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     endPrefixMapping(strPrefix) {
-        result := ComCall(11, this, "ptr", strPrefix, "HRESULT")
+        result := ComCall(11, this, "ptr", strPrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +106,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     startElement(strNamespaceURI, strLocalName, strQName, oAttributes) {
-        result := ComCall(12, this, "ptr", strNamespaceURI, "ptr", strLocalName, "ptr", strQName, "ptr", oAttributes, "HRESULT")
+        result := ComCall(12, this, "ptr", strNamespaceURI, "ptr", strLocalName, "ptr", strQName, "ptr", oAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +122,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     endElement(strNamespaceURI, strLocalName, strQName) {
-        result := ComCall(13, this, "ptr", strNamespaceURI, "ptr", strLocalName, "ptr", strQName, "HRESULT")
+        result := ComCall(13, this, "ptr", strNamespaceURI, "ptr", strLocalName, "ptr", strQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +136,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     characters(strChars) {
-        result := ComCall(14, this, "ptr", strChars, "HRESULT")
+        result := ComCall(14, this, "ptr", strChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +150,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     ignorableWhitespace(strChars) {
-        result := ComCall(15, this, "ptr", strChars, "HRESULT")
+        result := ComCall(15, this, "ptr", strChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +165,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     processingInstruction(strTarget, strData) {
-        result := ComCall(16, this, "ptr", strTarget, "ptr", strData, "HRESULT")
+        result := ComCall(16, this, "ptr", strTarget, "ptr", strData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +179,11 @@ class IVBSAXContentHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     skippedEntity(strName) {
-        result := ComCall(17, this, "ptr", strName, "HRESULT")
+        result := ComCall(17, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

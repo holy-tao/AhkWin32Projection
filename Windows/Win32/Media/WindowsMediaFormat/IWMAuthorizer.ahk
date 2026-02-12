@@ -5,7 +5,7 @@
 
 /**
  * Provides access to certificates.
- * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nn-wmsecure-iwmauthorizer
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nn-wmsecure-iwmauthorizer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class IWMAuthorizer extends IUnknown{
     /**
      * Get the number of certificates.
      * @returns {Integer} Receives a pointer to a count of certs.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmauthorizer-getcertcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmauthorizer-getcertcount
      */
     GetCertCount() {
-        result := ComCall(3, this, "uint*", &pcCerts := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcCerts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcCerts
     }
 
@@ -44,10 +48,14 @@ class IWMAuthorizer extends IUnknown{
      * Retrieves the specified certificate.
      * @param {Integer} dwIndex The index of the certification to retrieve.
      * @returns {Pointer<Integer>} An address of a pointer to certification data. <i>ppbCertData</i> is allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and must be released by the user.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmauthorizer-getcert
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmauthorizer-getcert
      */
     GetCert(dwIndex) {
-        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppbCertData := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, "ptr*", &ppbCertData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppbCertData
     }
 
@@ -57,13 +65,17 @@ class IWMAuthorizer extends IUnknown{
      * @param {Pointer<Integer>} pbSharedData 
      * @param {Pointer<Integer>} pbCert 
      * @returns {Pointer<Integer>} An address of a pointer to certification data. <i>ppbCertData</i> is allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and must be released by the user.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmauthorizer-getshareddata
      */
     GetSharedData(dwCertIndex, pbSharedData, pbCert) {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
         pbCertMarshal := pbCert is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", &ppbSharedData := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, pbCertMarshal, pbCert, "ptr*", &ppbSharedData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppbSharedData
     }
 }

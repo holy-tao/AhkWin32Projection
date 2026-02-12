@@ -10,7 +10,7 @@
  * ```
  *     wcFirst + 65536 * wcSecond.
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_kerningpair
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-fd_kerningpair
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

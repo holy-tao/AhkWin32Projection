@@ -6,12 +6,9 @@
 /**
  * Provides a mechanism for a media source to implement content protection functionality in a Windows Store apps.
  * @remarks
- * 
  * <b>When to implement:</b> 
  * A media source implements <b>IMFPMPClientApp</b> in order to implement content protection functionality for Windows Store apps.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpmpclientapp
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfpmpclientapp
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,11 +36,15 @@ class IMFPMPClientApp extends IUnknown{
     /**
      * Sets a pointer to the IMFPMPHostApp interface allowing a media source to create objects in the PMP process.
      * @param {IMFPMPHostApp} pPMPHost A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpmphostapp">IMFPMPHostApp</a> interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpclientapp-setpmphost
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfpmpclientapp-setpmphost
      */
     SetPMPHost(pPMPHost) {
-        result := ComCall(3, this, "ptr", pPMPHost, "HRESULT")
+        result := ComCall(3, this, "ptr", pPMPHost, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

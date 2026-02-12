@@ -3,7 +3,7 @@
 
 /**
  * Describes a menu event in a console INPUT\_RECORD structure. These events are used internally and should be ignored.
- * @see https://learn.microsoft.com/windows/console/menu-event-record-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/menu-event-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The IGPMMapEntryCollection interface enables applications to access map entry objects.
- * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmapentrycollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmmapentrycollection
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

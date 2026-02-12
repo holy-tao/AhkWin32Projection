@@ -16,7 +16,7 @@
  * Last-to-First means "visit the previous sibling from the child".
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-treetraversaloptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/ne-uiautomationclient-treetraversaloptions
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

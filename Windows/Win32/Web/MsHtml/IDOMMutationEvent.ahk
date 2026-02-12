@@ -75,7 +75,11 @@ class IDOMMutationEvent extends IDispatch{
      * @returns {IDispatch} 
      */
     get_relatedNode() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -85,7 +89,11 @@ class IDOMMutationEvent extends IDispatch{
      */
     get_prevValue() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -95,7 +103,11 @@ class IDOMMutationEvent extends IDispatch{
      */
     get_newValue() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -105,7 +117,11 @@ class IDOMMutationEvent extends IDispatch{
      */
     get_attrName() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -114,7 +130,11 @@ class IDOMMutationEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_attrChange() {
-        result := ComCall(11, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -131,12 +151,28 @@ class IDOMMutationEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMutationEvent(eventType, canBubble, cancelable, relatedNodeArg, prevValueArg, newValueArg, attrNameArg, attrChangeArg) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        prevValueArg := prevValueArg is String ? BSTR.Alloc(prevValueArg).Value : prevValueArg
-        newValueArg := newValueArg is String ? BSTR.Alloc(newValueArg).Value : newValueArg
-        attrNameArg := attrNameArg is String ? BSTR.Alloc(attrNameArg).Value : attrNameArg
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(prevValueArg is String) {
+            pin := BSTR.Alloc(prevValueArg)
+            prevValueArg := pin.Value
+        }
+        if(newValueArg is String) {
+            pin := BSTR.Alloc(newValueArg)
+            newValueArg := pin.Value
+        }
+        if(attrNameArg is String) {
+            pin := BSTR.Alloc(attrNameArg)
+            attrNameArg := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", relatedNodeArg, "ptr", prevValueArg, "ptr", newValueArg, "ptr", attrNameArg, "ushort", attrChangeArg, "HRESULT")
+        result := ComCall(12, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", relatedNodeArg, "ptr", prevValueArg, "ptr", newValueArg, "ptr", attrNameArg, "ushort", attrChangeArg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -57,14 +57,36 @@ class ISWbemLocator extends IDispatch{
      * @returns {ISWbemServices} 
      */
     ConnectServer(strServer, strNamespace, strUser, strPassword, strLocale, strAuthority, iSecurityFlags, objWbemNamedValueSet) {
-        strServer := strServer is String ? BSTR.Alloc(strServer).Value : strServer
-        strNamespace := strNamespace is String ? BSTR.Alloc(strNamespace).Value : strNamespace
-        strUser := strUser is String ? BSTR.Alloc(strUser).Value : strUser
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
-        strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
-        strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
+        if(strServer is String) {
+            pin := BSTR.Alloc(strServer)
+            strServer := pin.Value
+        }
+        if(strNamespace is String) {
+            pin := BSTR.Alloc(strNamespace)
+            strNamespace := pin.Value
+        }
+        if(strUser is String) {
+            pin := BSTR.Alloc(strUser)
+            strUser := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
+        if(strLocale is String) {
+            pin := BSTR.Alloc(strLocale)
+            strLocale := pin.Value
+        }
+        if(strAuthority is String) {
+            pin := BSTR.Alloc(strAuthority)
+            strAuthority := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strServer, "ptr", strNamespace, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "ptr", strAuthority, "int", iSecurityFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemServices := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", strServer, "ptr", strNamespace, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "ptr", strAuthority, "int", iSecurityFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemServices := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemServices(objWbemServices)
     }
 
@@ -73,7 +95,11 @@ class ISWbemLocator extends IDispatch{
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
-        result := ComCall(8, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &objWbemSecurity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemSecurity(objWbemSecurity)
     }
 }

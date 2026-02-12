@@ -36,9 +36,16 @@ class IElementNamespaceFactory2 extends IElementNamespaceFactory{
      * @returns {HRESULT} 
      */
     CreateWithImplementation(pNamespace, bstrImplementation) {
-        bstrImplementation := bstrImplementation is String ? BSTR.Alloc(bstrImplementation).Value : bstrImplementation
+        if(bstrImplementation is String) {
+            pin := BSTR.Alloc(bstrImplementation)
+            bstrImplementation := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", pNamespace, "ptr", bstrImplementation, "HRESULT")
+        result := ComCall(4, this, "ptr", pNamespace, "ptr", bstrImplementation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

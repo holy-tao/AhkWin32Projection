@@ -37,9 +37,16 @@ class IEventTarget extends IDispatch{
      * @returns {HRESULT} 
      */
     addEventListener(type, listener, useCapture) {
-        type := type is String ? BSTR.Alloc(type).Value : type
+        if(type is String) {
+            pin := BSTR.Alloc(type)
+            type := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", type, "ptr", listener, "short", useCapture, "HRESULT")
+        result := ComCall(7, this, "ptr", type, "ptr", listener, "short", useCapture, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,9 +58,16 @@ class IEventTarget extends IDispatch{
      * @returns {HRESULT} 
      */
     removeEventListener(type, listener, useCapture) {
-        type := type is String ? BSTR.Alloc(type).Value : type
+        if(type is String) {
+            pin := BSTR.Alloc(type)
+            type := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", type, "ptr", listener, "short", useCapture, "HRESULT")
+        result := ComCall(8, this, "ptr", type, "ptr", listener, "short", useCapture, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +77,11 @@ class IEventTarget extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     dispatchEvent(evt) {
-        result := ComCall(9, this, "ptr", evt, "short*", &pfResult := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", evt, "short*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 }

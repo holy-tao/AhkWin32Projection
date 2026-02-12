@@ -11,7 +11,7 @@
  * ```
  * typedef NET_IF_MEDIA_CONNECT_STATE NDIS_MEDIA_CONNECT_STATE, *PNDIS_MEDIA_CONNECT_STATE;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_media_connect_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/ifdef/ne-ifdef-net_if_media_connect_state
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

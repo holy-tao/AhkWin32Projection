@@ -37,10 +37,20 @@ class IRTCSession2 extends IRTCSession{
      * @returns {HRESULT} 
      */
     SendInfo(bstrInfoHeader, bstrInfo, lCookie) {
-        bstrInfoHeader := bstrInfoHeader is String ? BSTR.Alloc(bstrInfoHeader).Value : bstrInfoHeader
-        bstrInfo := bstrInfo is String ? BSTR.Alloc(bstrInfo).Value : bstrInfo
+        if(bstrInfoHeader is String) {
+            pin := BSTR.Alloc(bstrInfoHeader)
+            bstrInfoHeader := pin.Value
+        }
+        if(bstrInfo is String) {
+            pin := BSTR.Alloc(bstrInfo)
+            bstrInfo := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrInfoHeader, "ptr", bstrInfo, "ptr", lCookie, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrInfoHeader, "ptr", bstrInfo, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +61,11 @@ class IRTCSession2 extends IRTCSession{
      * @returns {HRESULT} 
      */
     put_PreferredSecurityLevel(enSecurityType, enSecurityLevel) {
-        result := ComCall(24, this, "int", enSecurityType, "int", enSecurityLevel, "HRESULT")
+        result := ComCall(24, this, "int", enSecurityType, "int", enSecurityLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +75,11 @@ class IRTCSession2 extends IRTCSession{
      * @returns {Integer} 
      */
     get_PreferredSecurityLevel(enSecurityType) {
-        result := ComCall(25, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        result := ComCall(25, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penSecurityLevel
     }
 
@@ -71,7 +89,11 @@ class IRTCSession2 extends IRTCSession{
      * @returns {VARIANT_BOOL} 
      */
     IsSecurityEnabled(enSecurityType) {
-        result := ComCall(26, this, "int", enSecurityType, "short*", &pfSecurityEnabled := 0, "HRESULT")
+        result := ComCall(26, this, "int", enSecurityType, "short*", &pfSecurityEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfSecurityEnabled
     }
 
@@ -82,10 +104,20 @@ class IRTCSession2 extends IRTCSession{
      * @returns {HRESULT} 
      */
     AnswerWithSessionDescription(bstrContentType, bstrSessionDescription) {
-        bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
-        bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
+        if(bstrContentType is String) {
+            pin := BSTR.Alloc(bstrContentType)
+            bstrContentType := pin.Value
+        }
+        if(bstrSessionDescription is String) {
+            pin := BSTR.Alloc(bstrSessionDescription)
+            bstrSessionDescription := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,10 +129,20 @@ class IRTCSession2 extends IRTCSession{
      * @returns {HRESULT} 
      */
     ReInviteWithSessionDescription(bstrContentType, bstrSessionDescription, lCookie) {
-        bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
-        bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
+        if(bstrContentType is String) {
+            pin := BSTR.Alloc(bstrContentType)
+            bstrContentType := pin.Value
+        }
+        if(bstrSessionDescription is String) {
+            pin := BSTR.Alloc(bstrSessionDescription)
+            bstrSessionDescription := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", lCookie, "HRESULT")
+        result := ComCall(28, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

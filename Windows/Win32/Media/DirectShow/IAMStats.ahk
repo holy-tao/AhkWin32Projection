@@ -7,7 +7,6 @@
 /**
  * The IAMStats interface retrieves performance data from the Filter Graph Manager.
  * @remarks
- * 
  * Each statistic is defined by a name and an index. Use the <b>GetIndex</b> method to find the index from the name. Values are always <b>double</b> types. The following statistics are predefined.
  * 
  * <table>
@@ -37,9 +36,7 @@
  *  
  * 
  * For each of these statistics, the values represent time in milliseconds.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//control/nn-control-iamstats
+ * @see https://learn.microsoft.com/windows/win32/api//content/control/nn-control-iamstats
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -74,25 +71,37 @@ class IAMStats extends IDispatch{
     /**
      * The Reset method resets all statistics to zero.
      * @returns {HRESULT} Returns S_OK if successful, or an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iamstats-reset
      */
     Reset() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Count method retrieves the number of statistics.
      * @returns {Integer} Receives the number of statistics.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iamstats-get_count
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
      * The GetValueByIndex method retrieves a statistic, by index.
+     * @remarks
+     * The caller must free the string returned in <i>szName</i>, by calling the <b>SysFreeString</b> function.
+     * 
+     * To get the number of statistics, call [IAMStats::GetIndex](/windows/desktop/api/control/nf-control-iamstats-getindex).
      * @param {Integer} lIndex Zero-based index of the statistic.
      * @param {Pointer<BSTR>} szName Pointer to a variable that receives the name of the statistic.
      * @param {Pointer<Integer>} lCount Pointer to a variable that receives the number of values that were recorded.
@@ -153,7 +162,7 @@ class IAMStats extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-getvaluebyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iamstats-getvaluebyindex
      */
     GetValueByIndex(lIndex, szName, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
         lCountMarshal := lCount is VarRef ? "int*" : "ptr"
@@ -163,7 +172,11 @@ class IAMStats extends IDispatch{
         dMinMarshal := dMin is VarRef ? "double*" : "ptr"
         dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
 
-        result := ComCall(9, this, "int", lIndex, "ptr", szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
+        result := ComCall(9, this, "int", lIndex, "ptr", szName, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -218,10 +231,13 @@ class IAMStats extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-getvaluebyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iamstats-getvaluebyname
      */
     GetValueByName(szName, lIndex, lCount, dLast, dAverage, dStdDev, dMin, dMax) {
-        szName := szName is String ? BSTR.Alloc(szName).Value : szName
+        if(szName is String) {
+            pin := BSTR.Alloc(szName)
+            szName := pin.Value
+        }
 
         lIndexMarshal := lIndex is VarRef ? "int*" : "ptr"
         lCountMarshal := lCount is VarRef ? "int*" : "ptr"
@@ -231,7 +247,11 @@ class IAMStats extends IDispatch{
         dMinMarshal := dMin is VarRef ? "double*" : "ptr"
         dMaxMarshal := dMax is VarRef ? "double*" : "ptr"
 
-        result := ComCall(10, this, "ptr", szName, lIndexMarshal, lIndex, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "HRESULT")
+        result := ComCall(10, this, "ptr", szName, lIndexMarshal, lIndex, lCountMarshal, lCount, dLastMarshal, dLast, dAverageMarshal, dAverage, dStdDevMarshal, dStdDev, dMinMarshal, dMin, dMaxMarshal, dMax, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -240,12 +260,19 @@ class IAMStats extends IDispatch{
      * @param {BSTR} szName Specifies the name of the statistic.
      * @param {Integer} lCreate Specifies whether to create the statistic, if it is not defined already. If the value is <b>TRUE</b>, the method creates a new index for the statistic when it cannot find an existing entry with that name. If the value is <b>FALSE</b>, the method fails when the statistic does not already exist.
      * @returns {Integer} Receives the index.
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-getindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iamstats-getindex
      */
     GetIndex(szName, lCreate) {
-        szName := szName is String ? BSTR.Alloc(szName).Value : szName
+        if(szName is String) {
+            pin := BSTR.Alloc(szName)
+            szName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", szName, "int", lCreate, "int*", &plIndex := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", szName, "int", lCreate, "int*", &plIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plIndex
     }
 
@@ -283,10 +310,14 @@ class IAMStats extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//control/nf-control-iamstats-addvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/control/nf-control-iamstats-addvalue
      */
     AddValue(lIndex, dValue) {
-        result := ComCall(12, this, "int", lIndex, "double", dValue, "HRESULT")
+        result := ComCall(12, this, "int", lIndex, "double", dValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

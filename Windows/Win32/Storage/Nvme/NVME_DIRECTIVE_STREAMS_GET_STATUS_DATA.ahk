@@ -5,7 +5,7 @@
  * Contains the identifiers of streams that are currently open.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_streams_get_status_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_directive_streams_get_status_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

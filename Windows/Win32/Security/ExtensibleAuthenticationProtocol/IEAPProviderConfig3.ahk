@@ -32,7 +32,7 @@ class IEAPProviderConfig3 extends IEAPProviderConfig2{
      * 
      * @param {Integer} dwEapTypeId 
      * @param {Pointer} uConnectionParam 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Pointer<Integer>} pConfigDataIn 
      * @param {Integer} dwSizeOfConfigDataIn 
      * @param {Pointer<Pointer<Integer>>} ppConfigDataOut 
@@ -40,14 +40,18 @@ class IEAPProviderConfig3 extends IEAPProviderConfig2{
      * @param {Pointer} uReserved 
      * @returns {HRESULT} 
      */
-    ServerInvokeCertificateConfigUI(dwEapTypeId, uConnectionParam, hWnd, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut, uReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    ServerInvokeCertificateConfigUI(dwEapTypeId, uConnectionParam, hWnd_, pConfigDataIn, dwSizeOfConfigDataIn, ppConfigDataOut, pdwSizeOfConfigDataOut, uReserved) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         pConfigDataInMarshal := pConfigDataIn is VarRef ? "char*" : "ptr"
         ppConfigDataOutMarshal := ppConfigDataOut is VarRef ? "ptr*" : "ptr"
         pdwSizeOfConfigDataOutMarshal := pdwSizeOfConfigDataOut is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "ptr", uReserved, "HRESULT")
+        result := ComCall(10, this, "uint", dwEapTypeId, "ptr", uConnectionParam, "ptr", hWnd_, pConfigDataInMarshal, pConfigDataIn, "uint", dwSizeOfConfigDataIn, ppConfigDataOutMarshal, ppConfigDataOut, pdwSizeOfConfigDataOutMarshal, pdwSizeOfConfigDataOut, "ptr", uReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

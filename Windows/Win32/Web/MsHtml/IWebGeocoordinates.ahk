@@ -89,7 +89,11 @@ class IWebGeocoordinates extends IDispatch{
      * @returns {Float} 
      */
     get_latitude() {
-        result := ComCall(7, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -98,7 +102,11 @@ class IWebGeocoordinates extends IDispatch{
      * @returns {Float} 
      */
     get_longitude() {
-        result := ComCall(8, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -108,7 +116,11 @@ class IWebGeocoordinates extends IDispatch{
      */
     get_altitude() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +129,11 @@ class IWebGeocoordinates extends IDispatch{
      * @returns {Float} 
      */
     get_accuracy() {
-        result := ComCall(10, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -127,7 +143,11 @@ class IWebGeocoordinates extends IDispatch{
      */
     get_altitudeAccuracy() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -137,7 +157,11 @@ class IWebGeocoordinates extends IDispatch{
      */
     get_heading() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -147,7 +171,11 @@ class IWebGeocoordinates extends IDispatch{
      */
     get_speed() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Provides the methods that enable a site object to manage each embedded control within a container.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-iolecontrolsite
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-iolecontrolsite
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -34,15 +34,21 @@ class IOleControlSite extends IUnknown{
     /**
      * Informs the container that the control's CONTROLINFO structure has changed and that the container should call the control's IOleControl::GetControlInfo for an update.
      * @returns {HRESULT} This method returns S_OK in all cases.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-oncontrolinfochanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-oncontrolinfochanged
      */
     OnControlInfoChanged() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether a control should remain in-place active. Calls to this method typically nest an event to ensure that the object's activation state remains stable throughout the processing of the event.
+     * @remarks
+     * This method affects the control's in-place active state but not its UI-active state.
      * @param {BOOL} fLock Indicates whether to ensure the in-place active state (<b>TRUE</b>) or to allow activation to change (<b>FALSE</b>). When <b>TRUE</b>, a supporting container must not deactivate the in-place object until this method is called again with <b>FALSE</b>.
      * @returns {HRESULT} This method can return the following values.
      * 
@@ -74,26 +80,43 @@ class IOleControlSite extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-lockinplaceactive
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-lockinplaceactive
      */
     LockInPlaceActive(fLock) {
-        result := ComCall(4, this, "int", fLock, "HRESULT")
+        result := ComCall(4, this, "int", fLock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an IDispatch pointer to the extended control that the container uses to wrap the real control.
+     * @remarks
+     * This method gives the real control access to whatever properties and methods the container maintains in the extended control. These properties and methods would otherwise be inaccessible to the control.
+     * 
+     * 
+     * 
+     * <h3><a id="Notes_to_Callers"></a><a id="notes_to_callers"></a><a id="NOTES_TO_CALLERS"></a>Notes to Callers</h3>
+     * The returned pointer is the responsibility of the caller, which must release it when it is no longer needed.
      * @returns {IDispatch} A pointer to an <b>IDispatch</b> pointer variable that receives the interface pointer to the extended control. If an error occurs, the implementation must set *<i>ppDisp</i> to <b>NULL</b>. On success, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> when *<i>ppDisp</i> is no longer needed.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-getextendedcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-getextendedcontrol
      */
     GetExtendedControl() {
-        result := ComCall(5, this, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppDisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDisp)
     }
 
     /**
      * Converts coordinates expressed in HIMETRIC units (as is standard in OLE) to the units specified by the container.
-     * @param {Pointer<POINTL>} pPtlHimetric Address of a <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a> structure containing coordinates expressed in <b>HIMETRIC</b> units. This is an [in] parameter when <i>dwFlags</i> contains XFORMCOORDS_HIMETRICTOCONTAINER; it is an [out] parameter with XFORMCOORDS_CONTAINERTOHIMETRIC. In the latter case, the contents are undefined on error.
+     * @remarks
+     * A control uses this method when it has to send coordinates to a container within an event or some other custom call or when the control has container coordinates that it needs to convert into <b>HIMETRIC</b> units.
+     * @param {Pointer<POINTL>} pPtlHimetric Address of a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure containing coordinates expressed in <b>HIMETRIC</b> units. This is an [in] parameter when <i>dwFlags</i> contains XFORMCOORDS_HIMETRICTOCONTAINER; it is an [out] parameter with XFORMCOORDS_CONTAINERTOHIMETRIC. In the latter case, the contents are undefined on error.
      * @param {Pointer<POINTF>} pPtfContainer Address of a caller-allocated <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-pointf">POINTF</a> structure that receives the converted coordinates. This is an [in] parameter when <i>dwFlags</i> contains XFORMCOORDS_CONTAINERTOHIMETRIC; it is an [out] parameter with XFORMCOORDS_HIMETRICTOCONTAINER. In the latter case, the contents are undefined on error.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG and E_UNEXPECTED, as well as the following values.
@@ -138,15 +161,21 @@ class IOleControlSite extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-transformcoords
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-transformcoords
      */
     TransformCoords(pPtlHimetric, pPtfContainer, dwFlags) {
-        result := ComCall(6, this, "ptr", pPtlHimetric, "ptr", pPtfContainer, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pPtlHimetric, "ptr", pPtfContainer, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Passes a keystroke to the control site for processing.
+     * @remarks
+     * This method is called by a control that can be UI-active. In such cases, a control can process all keystrokes first through <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplaceactiveobject-translateaccelerator">IOleInPlaceActiveObject::TranslateAccelerator</a>, according to normal OLE Compound Document rules. Inside that method, the control can give the container certain messages to process first by calling <b>IOleControlSite::TranslateAccelerator</b> and using the return value to determine if any processing took place. Otherwise, the control always processes the message first. If the control does not use the keystroke as an accelerator, it passes the keystroke to the container through this method.
      * @param {Pointer<MSG>} pMsg A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure describing the keystroke to be processed.
      * @param {Integer} grfModifiers Flags describing the state of the Control, Alt, and Shift keys. The value of the flag can be any valid <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms683763(v=vs.85)">KEYMODIFIERS</a> enumeration values.
      * @returns {HRESULT} This method can return the following values.
@@ -190,26 +219,38 @@ class IOleControlSite extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-translateaccelerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-translateaccelerator
      */
     TranslateAccelerator(pMsg, grfModifiers) {
-        result := ComCall(7, this, "ptr", pMsg, "uint", grfModifiers, "HRESULT")
+        result := ComCall(7, this, "ptr", pMsg, "uint", grfModifiers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether the control managed by this control site has gained or lost the focus.
+     * @remarks
+     * The container uses this information to update the state of <b>Default</b> and <b>Cancel</b> buttons according to how the control with the focus processes Return or Esc keys. A control's behavior regarding the Return and Esc keys is specified in the control's <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-controlinfo">CONTROLINFO</a> structure. See <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iolecontrol-getcontrolinfo">IOleControl::GetControlInfo</a> for more information.
      * @param {BOOL} fGotFocus Indicates whether the control gained (TRUE) or lost the focus (FALSE).
      * @returns {HRESULT} This method returns S_OK in all cases.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-onfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-onfocus
      */
     OnFocus(fGotFocus) {
-        result := ComCall(8, this, "int", fGotFocus, "HRESULT")
+        result := ComCall(8, this, "int", fGotFocus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Instructs a container to display a property sheet for the control embedded in this site.
+     * @remarks
+     * A control must always call this method in the container first when it intends to show its own property pages. Calling this method gives the container a chance to have those property pages work with the container's extended controls. The container may include its own property pages as well in such cases, which doesn't affect the control at all. If the container does not implement this method or if it returns a failure of any kind, the control can show its property pages directly. Otherwise, the container has shown the pages.
      * @returns {HRESULT} This method can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
@@ -240,10 +281,14 @@ class IOleControlSite extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iolecontrolsite-showpropertyframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iolecontrolsite-showpropertyframe
      */
     ShowPropertyFrame() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

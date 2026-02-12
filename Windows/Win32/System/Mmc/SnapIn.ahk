@@ -85,7 +85,11 @@ class SnapIn extends IDispatch{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -95,7 +99,11 @@ class SnapIn extends IDispatch{
      */
     get_Vendor() {
         Vendor := BSTR()
-        result := ComCall(8, this, "ptr", Vendor, "HRESULT")
+        result := ComCall(8, this, "ptr", Vendor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Vendor
     }
 
@@ -104,9 +112,13 @@ class SnapIn extends IDispatch{
      * @returns {BSTR} 
      */
     get_Version() {
-        Version := BSTR()
-        result := ComCall(9, this, "ptr", Version, "HRESULT")
-        return Version
+        Version_ := BSTR()
+        result := ComCall(9, this, "ptr", Version_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Version_
     }
 
     /**
@@ -114,8 +126,12 @@ class SnapIn extends IDispatch{
      * @returns {Extensions} 
      */
     get_Extensions() {
-        result := ComCall(10, this, "ptr*", &Extensions := 0, "HRESULT")
-        return Extensions(Extensions)
+        result := ComCall(10, this, "ptr*", &Extensions_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Extensions(Extensions_)
     }
 
     /**
@@ -124,7 +140,11 @@ class SnapIn extends IDispatch{
      */
     get_SnapinCLSID() {
         SnapinCLSID := BSTR()
-        result := ComCall(11, this, "ptr", SnapinCLSID, "HRESULT")
+        result := ComCall(11, this, "ptr", SnapinCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SnapinCLSID
     }
 
@@ -133,8 +153,12 @@ class SnapIn extends IDispatch{
      * @returns {Properties} 
      */
     get_Properties() {
-        result := ComCall(12, this, "ptr*", &Properties := 0, "HRESULT")
-        return Properties(Properties)
+        result := ComCall(12, this, "ptr*", &Properties_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Properties(Properties_)
     }
 
     /**
@@ -143,7 +167,11 @@ class SnapIn extends IDispatch{
      * @returns {HRESULT} 
      */
     EnableAllExtensions(Enable) {
-        result := ComCall(13, this, "int", Enable, "HRESULT")
+        result := ComCall(13, this, "int", Enable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

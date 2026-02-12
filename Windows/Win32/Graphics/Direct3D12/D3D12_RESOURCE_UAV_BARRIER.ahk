@@ -13,7 +13,7 @@
  * You don't need to insert a UAV barrier between 2 draw or dispatch calls that only read a UAV.
  *         Additionally, you don't need to insert a UAV barrier between 2 draw or dispatch calls that write to the same UAV if you know that it's safe to execute the UAV accesses in any order.
  *         The resource can be <b>NULL</b>, which indicates that any UAV access could require the barrier.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_uav_barrier
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_resource_uav_barrier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

@@ -64,7 +64,11 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {IRulesApplied} 
      */
     item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &ppRulesApplied := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRulesApplied(ppRulesApplied)
     }
 
@@ -73,7 +77,11 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -82,7 +90,11 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_element() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -92,9 +104,16 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {IRulesApplied} 
      */
     propertyInheritedFrom(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", name, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "ptr*", &ppRulesApplied := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRulesApplied(ppRulesApplied)
     }
 
@@ -103,7 +122,11 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_propertyCount() {
-        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -114,7 +137,11 @@ class IRulesAppliedCollection extends IDispatch{
      */
     property(index) {
         pbstrProperty := BSTR()
-        result := ComCall(12, this, "int", index, "ptr", pbstrProperty, "HRESULT")
+        result := ComCall(12, this, "int", index, "ptr", pbstrProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProperty
     }
 
@@ -125,9 +152,16 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {IRulesApplied} 
      */
     propertyInheritedTrace(name, index) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", name, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", name, "int", index, "ptr*", &ppRulesApplied := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRulesApplied(ppRulesApplied)
     }
 
@@ -137,9 +171,16 @@ class IRulesAppliedCollection extends IDispatch{
      * @returns {Integer} 
      */
     propertyInheritedTraceLength(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", name, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", name, "int*", &pLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLength
     }
 }

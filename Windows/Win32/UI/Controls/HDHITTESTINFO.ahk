@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a hit test. This structure is used with the HDM_HITTEST message and it supersedes the HD_HITTESTINFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hdhittestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-hdhittestinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -27,7 +27,7 @@
  * Some encoders might encode slices in parallel and so performance could be affected depending on the slice control settings. For example, encoding a frame as a single slice might be slower than if the frame was encoded as multiple slices.
  * 
  * The slice control settings are dynamic and can be changed during the encoding session.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencslicecontrolsize
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencslicecontrolsize
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

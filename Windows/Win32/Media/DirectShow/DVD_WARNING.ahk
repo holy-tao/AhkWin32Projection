@@ -3,7 +3,7 @@
 
 /**
  * Specifies DVD warning conditions.
- * @see https://learn.microsoft.com/windows/win32/api/dvdevcod/ne-dvdevcod-dvd_warning
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvdevcod/ne-dvdevcod-dvd_warning
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

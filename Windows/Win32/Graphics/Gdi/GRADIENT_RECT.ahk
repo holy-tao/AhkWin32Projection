@@ -10,7 +10,7 @@
  * 
  * <img alt="Illustration of a rectangle that shades from dark on the left side to light on the right side" border="0" src="images/GradientFillRectangle.png"/>
  * <img alt="Illustration of a rectangle that shades from dark on the top to light on the bottom" border="0" src="images/GradientFillRectangle2.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-gradient_rect
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-gradient_rect
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

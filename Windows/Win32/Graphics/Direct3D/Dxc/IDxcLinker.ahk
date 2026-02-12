@@ -38,19 +38,24 @@ class IDxcLinker extends IUnknown{
     RegisterLibrary(pLibName, pLib) {
         pLibName := pLibName is String ? StrPtr(pLibName) : pLibName
 
-        result := ComCall(3, this, "ptr", pLibName, "ptr", pLib, "HRESULT")
+        result := ComCall(3, this, "ptr", pLibName, "ptr", pLib, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * These methods add linked items to a database, get the name of an item for a linked item, get items linked to an item, and set a catalog item for a linked item.
      * @param {PWSTR} pEntryName 
      * @param {PWSTR} pTargetProfile 
      * @param {Pointer<PWSTR>} pLibNames 
      * @param {Integer} libCount 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
-     * @returns {IDxcOperationResult} 
+     * @returns {Pointer<IDxcOperationResult>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/reporting-services/report-server-web-service/methods/linked-reports-methods
      */
     Link(pEntryName, pTargetProfile, pLibNames, libCount, pArguments, argCount) {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
@@ -59,7 +64,11 @@ class IDxcLinker extends IUnknown{
         pLibNamesMarshal := pLibNames is VarRef ? "ptr*" : "ptr"
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, "uint", libCount, pArgumentsMarshal, pArguments, "uint", argCount, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcOperationResult(ppResult)
+        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, "uint", libCount, pArgumentsMarshal, pArguments, "uint", argCount, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 }

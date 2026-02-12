@@ -8,7 +8,7 @@
 
 /**
  * The ITStreamControl interface represents the media streaming features of a call and exposes methods that allow an application to enumerate, create, or remove streams.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itstreamcontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itstreamcontrol
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -42,21 +42,37 @@ class ITStreamControl extends IDispatch{
 
     /**
      * The CreateStream method creates a new media stream.
+     * @remarks
+     * Many MSPs do not support dynamic creation of streams, and simply return TAPI_E_MAXSTREAMS in their implementation of this method. Default streams are automatically available when a call is created, so most applications do not have to use this method.
+     * 
+     * Stream creation or removal may involve interaction with a remote endpoint, resulting in a CMC_REMOTE_REQUEST rather than the CMC_LOCAL_REQUEST messages that are received when a stream is stopped or started.
+     * 
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface returned by <b>ITStreamControl::CreateStream</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITStream</b> interface to free resources associated with it.
      * @param {Integer} lMediaType Indicates 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> for stream.
      * @param {Integer} td Indicates the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a>.
      * @returns {ITStream} Pointer to pointer for newly created 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-createstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itstreamcontrol-createstream
      */
     CreateStream(lMediaType, td) {
-        result := ComCall(7, this, "int", lMediaType, "int", td, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(7, this, "int", lMediaType, "int", td, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITStream(ppStream)
     }
 
     /**
      * The RemoveStream method removes a media stream.
+     * @remarks
+     * Some MSPs may not support the advanced concept of creating and removing streams, and simply return TAPI_E_NOTSUPPORTED.
+     * 
+     * Stream creation or removal may involve interaction with a remote endpoint, resulting in a CMC_REMOTE_REQUEST rather than the CMC_LOCAL_REQUEST messages that are received when a stream is stopped or started.
      * @param {ITStream} pStream Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface.
      * @returns {HRESULT} This method can return one of these values.
@@ -100,34 +116,54 @@ class ITStreamControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-removestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itstreamcontrol-removestream
      */
     RemoveStream(pStream) {
-        result := ComCall(8, this, "ptr", pStream, "HRESULT")
+        result := ComCall(8, this, "ptr", pStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EnumerateStreams method enumerates currently available media streams. Provided for C and C++ applications. Automation client applications such as Visual Basic must use the get_Streams method.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumstream">IEnumStream</a> interface returned by <b>ITStreamControl::EnumerateStreams</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumStream</b> interface to free resources associated with it.
      * @returns {IEnumStream} Pointer to pointer for 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumstream">IEnumStream</a> enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-enumeratestreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itstreamcontrol-enumeratestreams
      */
     EnumerateStreams() {
-        result := ComCall(9, this, "ptr*", &ppEnumStream := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnumStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumStream(ppEnumStream)
     }
 
     /**
      * The get_Streams method creates a collection of media streams currently available on the call. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateStreams method.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface returned by <b>ITStreamControl::get_Stream</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITStream</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-get_streams
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itstreamcontrol-get_streams
      */
     get_Streams() {
         pVariant := VARIANT()
-        result := ComCall(10, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(10, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 }

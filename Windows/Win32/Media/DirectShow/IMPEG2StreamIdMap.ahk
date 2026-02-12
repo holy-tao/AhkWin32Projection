@@ -6,7 +6,7 @@
 
 /**
  * This interface is implemented on each output pin of the MPEG-2 Demultiplexer filter (Demux) and is used in program stream mode only.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-impeg2streamidmap
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-impeg2streamidmap
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,39 +33,57 @@ class IMPEG2StreamIdMap extends IUnknown{
 
     /**
      * The MapStreamId method maps the Stream ID of an elementary stream within an MPEG-2 program stream to a media content type and substream filtering information.
+     * @remarks
+     * The Stream ID mapped by this method is the stream ID in the PES header. Substream filtering is most commonly used to provide multiple channels on a single audio stream.
      * @param {Integer} ulStreamId The stream ID of the PES stream.
      * @param {Integer} MediaSampleContent Specifies the contents of the stream. Currently the only value supported is MPEG2_PROGRAM_ELEMENTARY_STREAM (defined as 0x00000001 in axextend.idl).
      * @param {Integer} ulSubstreamFilterValue Specifies which substream within this elementary stream to pass on to the downstream decoder. Only the low-order byte can contain a valid filter value. If <i>iDataOffset</i> = 0, this parameter is ignored.
      * @param {Integer} iDataOffset The byte offset into the payload at which the substream begins.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, an error code is returned. If a Stream ID of MEDIA_PROGRAM_STREAM_MAP, MEDIA_PROGRAM_DIRECTORY_PES_PACKET or MEDIA_PROGRAM_PACK_HEADER is attempted, this method returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2streamidmap-mapstreamid
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-impeg2streamidmap-mapstreamid
      */
     MapStreamId(ulStreamId, MediaSampleContent, ulSubstreamFilterValue, iDataOffset) {
-        result := ComCall(3, this, "uint", ulStreamId, "uint", MediaSampleContent, "uint", ulSubstreamFilterValue, "int", iDataOffset, "HRESULT")
+        result := ComCall(3, this, "uint", ulStreamId, "uint", MediaSampleContent, "uint", ulSubstreamFilterValue, "int", iDataOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The UnmapStreamId method unmaps the Stream ID mapping created in a previous call to MapStreamId.
+     * @remarks
+     * There is typically only one stream ID mapped to a given pin, therefore <i>pulStreamID</i> will typically contain a single element.
      * @param {Integer} culStreamId The number of elements in the <i>pulStreamID</i> array.
      * @param {Pointer<Integer>} pulStreamId Array of Stream IDs mapped for this pin.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2streamidmap-unmapstreamid
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-impeg2streamidmap-unmapstreamid
      */
     UnmapStreamId(culStreamId, pulStreamId) {
         pulStreamIdMarshal := pulStreamId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", culStreamId, pulStreamIdMarshal, pulStreamId, "HRESULT")
+        result := ComCall(4, this, "uint", culStreamId, pulStreamIdMarshal, pulStreamId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EnumStreamIdMap method returns a collection of all the mapped Stream IDs on this pin.
+     * @remarks
+     * Currently, there is only one stream ID mapped to a given pin, therefore this collection will contain a single item.
      * @returns {IEnumStreamIdMap} <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ienumstreamidmap">IEnumStreamIdMap</a> interface pointer that will be set to the returned collection.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-impeg2streamidmap-enumstreamidmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-impeg2streamidmap-enumstreamidmap
      */
     EnumStreamIdMap() {
-        result := ComCall(5, this, "ptr*", &ppIEnumStreamIdMap := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppIEnumStreamIdMap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumStreamIdMap(ppIEnumStreamIdMap)
     }
 }

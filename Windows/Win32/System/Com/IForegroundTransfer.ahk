@@ -5,7 +5,7 @@
 
 /**
  * Transfers the foreground window to the process hosting the COM server.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iforegroundtransfer
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iforegroundtransfer
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -62,12 +62,16 @@ class IForegroundTransfer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iforegroundtransfer-allowforegroundtransfer
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iforegroundtransfer-allowforegroundtransfer
      */
     AllowForegroundTransfer() {
         static lpvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, "ptr", lpvReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", lpvReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

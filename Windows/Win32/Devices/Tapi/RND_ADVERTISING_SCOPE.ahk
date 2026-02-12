@@ -34,7 +34,7 @@
  * <td>127</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/rend/ne-rend-rnd_advertising_scope
+ * @see https://learn.microsoft.com/windows/win32/api//content/rend/ne-rend-rnd_advertising_scope
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

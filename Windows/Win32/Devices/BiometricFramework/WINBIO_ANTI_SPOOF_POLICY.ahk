@@ -3,7 +3,7 @@
 
 /**
  * Represents the antispoofing policy for a user.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-anti-spoof-policy
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-anti-spoof-policy
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

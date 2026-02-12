@@ -5,7 +5,7 @@
 
 /**
  * Configures a network scheme plug-in.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetschemehandlerconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfnetschemehandlerconfig
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class IMFNetSchemeHandlerConfig extends IUnknown{
     /**
      * Retrieves the number of protocols supported by the network scheme plug-in.
      * @returns {Integer} Receives the number of protocols.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetschemehandlerconfig-getnumberofsupportedprotocols
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetschemehandlerconfig-getnumberofsupportedprotocols
      */
     GetNumberOfSupportedProtocols() {
-        result := ComCall(3, this, "uint*", &pcProtocols := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcProtocols := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcProtocols
     }
 
@@ -44,20 +48,28 @@ class IMFNetSchemeHandlerConfig extends IUnknown{
      * Retrieves a supported protocol by index.
      * @param {Integer} nProtocolIndex Zero-based index of the protocol to retrieve. To get the number of supported protocols, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfnetschemehandlerconfig-getnumberofsupportedprotocols">IMFNetSchemeHandlerConfig::GetNumberOfSupportedProtocols</a>.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfnetsource_protocol_type">MFNETSOURCE_PROTOCOL_TYPE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetschemehandlerconfig-getsupportedprotocoltype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetschemehandlerconfig-getsupportedprotocoltype
      */
     GetSupportedProtocolType(nProtocolIndex) {
-        result := ComCall(4, this, "uint", nProtocolIndex, "int*", &pnProtocolType := 0, "HRESULT")
+        result := ComCall(4, this, "uint", nProtocolIndex, "int*", &pnProtocolType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnProtocolType
     }
 
     /**
-     * Not implemented in this release.
+     * Not implemented in this release. (IMFNetSchemeHandlerConfig.ResetProtocolRolloverSettings)
      * @returns {HRESULT} This method returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetschemehandlerconfig-resetprotocolrolloversettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetschemehandlerconfig-resetprotocolrolloversettings
      */
     ResetProtocolRolloverSettings() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

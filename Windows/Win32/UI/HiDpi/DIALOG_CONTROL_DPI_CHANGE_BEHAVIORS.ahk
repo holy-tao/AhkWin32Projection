@@ -7,7 +7,7 @@
  * This enum is used with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdialogcontroldpichangebehavior">SetDialogControlDpiChangeBehavior</a> in order to override the default per-monitor DPI scaling behavior for a child window within a dialog.
  * 
  * These settings only apply to individual controls within dialogs. The dialog-wide per-monitor DPI scaling behavior of a dialog is controlled by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ne-winuser-dialog_dpi_change_behaviors">DIALOG_DPI_CHANGE_BEHAVIORS</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-dialog_control_dpi_change_behaviors
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ne-winuser-dialog_control_dpi_change_behaviors
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */

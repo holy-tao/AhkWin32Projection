@@ -3,7 +3,7 @@
 
 /**
  * Represents the type of information in the SYSTEM\_CPU\_SET\_INFORMATION structure.
- * @see https://learn.microsoft.com/windows/win32/ProcThread/cpu-set-information-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/ProcThread/cpu-set-information-type
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

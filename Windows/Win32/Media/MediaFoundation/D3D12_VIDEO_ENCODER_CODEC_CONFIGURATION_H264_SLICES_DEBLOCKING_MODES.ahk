@@ -5,7 +5,7 @@
  * Specifies the slice deblocking mode as defined by the *disable_deblocking_filter_idc* syntax in the H.264 specification.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_codec_configuration_h264_slices_deblocking_modes
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_codec_configuration_h264_slices_deblocking_modes
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

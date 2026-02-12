@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Learn how improvements allow ICommandWithParameters::GetParameterInfo to obtain more accurate descriptions of expected results for OLE DB Driver for SQL Server.
+ * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-interfaces/icommandwithparameters
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -40,7 +42,11 @@ class ICommandWithParameters extends IUnknown{
         prgParamInfoMarshal := prgParamInfo is VarRef ? "ptr*" : "ptr"
         ppNamesBufferMarshal := ppNamesBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcParamsMarshal, pcParams, prgParamInfoMarshal, prgParamInfo, ppNamesBufferMarshal, ppNamesBuffer, "HRESULT")
+        result := ComCall(3, this, pcParamsMarshal, pcParams, prgParamInfoMarshal, prgParamInfo, ppNamesBufferMarshal, ppNamesBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +59,11 @@ class ICommandWithParameters extends IUnknown{
     MapParameterNames(cParamNames, rgParamNames) {
         rgParamNamesMarshal := rgParamNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cParamNames, rgParamNamesMarshal, rgParamNames, "ptr*", &rgParamOrdinals := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", cParamNames, rgParamNamesMarshal, rgParamNames, "ptr*", &rgParamOrdinals := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgParamOrdinals
     }
 
@@ -67,7 +77,11 @@ class ICommandWithParameters extends IUnknown{
     SetParameterInfo(cParams, rgParamOrdinals, rgParamBindInfo) {
         rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cParams, rgParamOrdinalsMarshal, rgParamOrdinals, "ptr", rgParamBindInfo, "HRESULT")
+        result := ComCall(5, this, "ptr", cParams, rgParamOrdinalsMarshal, rgParamOrdinals, "ptr", rgParamBindInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

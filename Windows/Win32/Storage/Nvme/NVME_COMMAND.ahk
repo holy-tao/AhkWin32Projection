@@ -95,7 +95,7 @@
  * The Admin Command Set defines the commands that may be submitted to the Admin Submission Queue.
  * 
  * For all Admin commands, DWord 14 and DWord 15 are I/O Command Set specific.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_command
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

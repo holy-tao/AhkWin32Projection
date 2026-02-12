@@ -5,7 +5,7 @@
 
 /**
  * The IWMPMetadataPicture interface provides methods for retrieving information about the WM/Picture metadata attribute.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpmetadatapicture
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpmetadatapicture
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -56,6 +56,10 @@ class IWMPMetadataPicture extends IDispatch{
 
     /**
      * The get_mimeType method retrieves a pointer to a string specifying the MIME type of the metadata image.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
      * @param {Pointer<BSTR>} pbstrMimeType Pointer to a <b>BSTR</b> containing the mime type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -76,15 +80,23 @@ class IWMPMetadataPicture extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_mimetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmetadatapicture-get_mimetype
      */
     get_mimeType(pbstrMimeType) {
-        result := ComCall(7, this, "ptr", pbstrMimeType, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrMimeType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_pictureType method retrieves a pointer to a string specifying the picture type of the metadata image.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
      * @param {Pointer<BSTR>} pbstrPictureType Pointer to a <b>BSTR</b> containing the picture type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -105,15 +117,23 @@ class IWMPMetadataPicture extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_picturetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmetadatapicture-get_picturetype
      */
     get_pictureType(pbstrPictureType) {
-        result := ComCall(8, this, "ptr", pbstrPictureType, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrPictureType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_description method retrieves a pointer to the description of the metadata image.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
+     * 
+     * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
      * @param {Pointer<BSTR>} pbstrDescription Pointer to a <b>BSTR</b> containing the description.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -134,10 +154,14 @@ class IWMPMetadataPicture extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmetadatapicture-get_description
      */
     get_description(pbstrDescription) {
-        result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,10 +187,14 @@ class IWMPMetadataPicture extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmetadatapicture-get_url
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpmetadatapicture-get_url
      */
     get_URL(pbstrURL) {
-        result := ComCall(10, this, "ptr", pbstrURL, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

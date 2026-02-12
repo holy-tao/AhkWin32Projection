@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
@@ -31,7 +33,7 @@ class IscsiDisc {
     static FILE_DEVICE_SCSI => 27
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DD_SCSI_DEVICE_NAME => "\Device\ScsiPort"
 
@@ -166,57 +168,57 @@ class IscsiDisc {
     static ATA_FLAGS_NO_MULTIPLE => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_SCSIDISK => "SCSIDISK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_HYBRDISK => "HYBRDISK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_DSM_NOTIFICATION => "MPDSM   "
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_DSM_GENERAL => "MPDSMGEN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_FIRMWARE => "FIRMWARE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_QUERY_PROTOCOL => "PROTOCOL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_SET_PROTOCOL => "SETPROTO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_QUERY_TEMPERATURE => "TEMPERAT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_SET_TEMPERATURE_THRESHOLD => "SETTEMPT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_QUERY_PHYSICAL_TOPOLOGY => "TOPOLOGY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IOCTL_MINIPORT_SIGNATURE_ENDURANCE_INFO => "ENDURINF"
 
@@ -791,97 +793,97 @@ class IscsiDisc {
     static MAX_RADIUS_ADDRESS_LEN => 41
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_TUNNEL_MODE_PREFERRED => "0x00000040"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_TRANSPORT_MODE_PREFERRED => "0x00000020"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_PFS_ENABLED => "0x00000010"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_AGGRESSIVE_MODE_ENABLED => "0x00000008"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_MAIN_MODE_ENABLED => "0x00000004"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_IKE_IPSEC_ENABLED => "0x00000002"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_SECURITY_FLAG_VALID => "0x00000001"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_HEADER_DIGEST => "0x00000001"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_DATA_DIGEST => "0x00000002"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_MAXIMUM_CONNECTIONS => "0x00000004"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_DEFAULT_TIME_2_WAIT => "0x00000008"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_DEFAULT_TIME_2_RETAIN => "0x00000010"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_USERNAME => "0x00000020"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_PASSWORD => "0x00000040"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ISCSI_LOGIN_OPTIONS_AUTH_TYPE => "0x00000080"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ID_IPV4_ADDR => "1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ID_FQDN => "2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ID_USER_FQDN => "3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ID_IPV6_ADDR => "5"
 
@@ -936,7 +938,7 @@ class IscsiDisc {
      * GetIscsiVersionInformation function retrieves information about the initiator version.
      * @param {Pointer<ISCSI_VERSION_INFO>} VersionInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_version_info">ISCSI_VERSION_INFO</a> structure that contains  initiator version information.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiversioninformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsiversioninformation
      * @since windows6.0.6000
      */
     static GetIScsiVersionInformation(VersionInfo) {
@@ -965,19 +967,19 @@ class IscsiDisc {
      * @param {PWSTR} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
      * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
      * @param {Pointer<Integer>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ The buffer that contains the output data. The output data consists in <b>null</b>-terminated strings, with a double <b>null</b> termination after the last string.
      * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
      * @since windows6.0.6000
      */
-    static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_R) {
+    static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationW", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -1002,19 +1004,19 @@ class IscsiDisc {
      * @param {PSTR} DiscoveryMechanism A text description of the mechanism that was used to discover the target (for example, "iSNS:", "SendTargets:" or "HBA:"). A value of <b>null</b> indicates that no discovery mechanism is specified.
      * @param {Integer} InfoClass A value of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ne-iscsidsc-target_information_class">TARGET_INFORMATION_CLASS</a> that indicates the type of information to retrieve.
      * @param {Pointer<Integer>} BufferSize A pointer to a location that, on input, contains the size (in bytes) of the buffer that <i>Buffer</i> points to. If the operation succeeds, the location receives the number of bytes retrieved. If the operation fails, the location receives the size of the buffer required to contain the output data.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ The buffer that contains the output data. The output data consists in <b>null</b>-terminated strings, with a double <b>null</b> termination after the last string.
      * @returns {Integer} Returns ERROR_SUCCESS if successful and ERROR_INSUFFICIENT_BUFFER if the buffer size at Buffer was insufficient to contain the output data. Otherwise, <b>GetIscsiTargetInformation</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
      * @since windows6.0.6000
      */
-    static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_R) {
+    static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer_) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
         DiscoveryMechanism := DiscoveryMechanism is String ? StrPtr(DiscoveryMechanism) : DiscoveryMechanism
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\GetIScsiTargetInformationA", "ptr", TargetName, "ptr", DiscoveryMechanism, "int", InfoClass, BufferSizeMarshal, BufferSize, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -1119,7 +1121,7 @@ class IscsiDisc {
      * @param {PSTR} Key If the IPsec security policy between the initiator and the target portal is already configured as a result of the portal group policy or a previous connection to the portal, the existing key takes precedence over the key currently specified in this member.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a>-type structure that, on output, receives an opaque value that uniquely identifies the connection that was added to the session.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsiconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addiscsiconnectionw
      * @since windows6.0.6000
      */
     static AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
@@ -1232,7 +1234,7 @@ class IscsiDisc {
      * @param {PSTR} Key If the IPsec security policy between the initiator and the target portal is already configured as a result of the portal group policy or a previous connection to the portal, the existing key takes precedence over the key currently specified in this member.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a>-type structure that, on output, receives an opaque value that uniquely identifies the connection that was added to the session.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsiconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addiscsiconnectiona
      * @since windows6.0.6000
      */
     static AddIScsiConnectionA(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
@@ -1251,7 +1253,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that specifies the unique session identifier of the session that the connection belongs to.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a> that specifies the connection to remove.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsiconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsiconnection
      * @since windows6.0.6000
      */
     static RemoveIScsiConnection(UniqueSessionId, ConnectionId) {
@@ -1266,17 +1268,17 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOLEAN} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ Pointer to a buffer that receives and contains the list of targets. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsitargetsw
      * @since windows6.0.6000
      */
-    static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsW", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -1287,17 +1289,17 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiTargets as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOLEAN} ForceUpdate If <b>true</b>, the iSCSI initiator service updates the list of discovered targets before returning the target list data to the caller.
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} Buffer_ Pointer to a buffer that receives and contains the list of targets. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size is insufficient to contain  the output data. Otherwise, <b>ReportIscsiTargets</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsitargetsa
      * @since windows6.0.6000
      */
-    static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiTargetsA", "char", ForceUpdate, BufferSizeMarshal, BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -1354,7 +1356,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the default login parameters that an initiator uses to login to a target.
      * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPW>} PortalGroup A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_groupa">ISCSI_TARGET_PORTAL_GROUP</a> that indicates the group of portals that an initiator can use login to the target.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsistatictargetw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addiscsistatictargetw
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetW(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
@@ -1418,7 +1420,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> that contains the options that specify the default login parameters that an initiator uses to login to a target.
      * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPA>} PortalGroup A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_groupa">ISCSI_TARGET_PORTAL_GROUP</a> that indicates the group of portals that an initiator can use login to the target.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsistatictargeta
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addiscsistatictargeta
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetA(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
@@ -1436,7 +1438,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines RemoveIScsiStaticTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} TargetName The name of the iSCSI target to remove from the static list.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsistatictargetw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsistatictargetw
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetW(TargetName) {
@@ -1453,7 +1455,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines RemoveIScsiStaticTarget as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} TargetName The name of the iSCSI target to remove from the static list.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsistatictargeta
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsistatictargeta
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetA(TargetName) {
@@ -1560,7 +1562,7 @@ class IscsiDisc {
      * </table>
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that indicates the portal to which SendTargets will be sent for target discovery.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsisendtargetportalw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addiscsisendtargetportalw
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
@@ -1667,7 +1669,7 @@ class IscsiDisc {
      * </table>
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that indicates the portal to which SendTargets will be sent for target discovery.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsisendtargetportala
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addiscsisendtargetportala
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
@@ -1686,7 +1688,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber The port number on the HBA that the iSCSI initiator service use to perform <b>SendTargets</b> requests.
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that specifies the target portal that the iSCSI initiator service removes from its list of portals.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsisendtargetportalw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsisendtargetportalw
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1705,7 +1707,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber The port number on the HBA that the iSCSI initiator service use to perform <b>SendTargets</b> requests.
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a> that specifies the target portal that the iSCSI initiator service removes from its list of portals.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsisendtargetportala
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsisendtargetportala
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1724,7 +1726,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber The port number on the HBA to use for the <b>SendTargets</b> request. If the value is <b>ISCSI_ALL_INITIATOR_PORTS</b>, the initiator HBA will choose the appropriate port based upon current routing information.
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a>  indicating the portal to which the iSCSI initiator service sends the <b>SendTargets</b> request to refresh the list of targets.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportalw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportalw
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1743,7 +1745,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber The port number on the HBA to use for the <b>SendTargets</b> request. If the value is <b>ISCSI_ALL_INITIATOR_PORTS</b>, the initiator HBA will choose the appropriate port based upon current routing information.
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portala">ISCSI_TARGET_PORTAL</a>  indicating the portal to which the iSCSI initiator service sends the <b>SendTargets</b> request to refresh the list of targets.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1761,7 +1763,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} PortalCount A pointer to a location that, on input, contains the number of entries in the <i>PortalInfo</i> array. On output, this parameter specifies the number of elements that contain return data.
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFOW>} PortalInfo Pointer to an array of elements contained in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO</a> structures that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsw
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsW(PortalCount, PortalInfo) {
@@ -1779,7 +1781,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} PortalCount A pointer to a location that, on input, contains the number of entries in the <i>PortalInfo</i> array. On output, this parameter specifies the number of elements that contain return data.
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFOA>} PortalInfo Pointer to an array of elements contained in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO</a> structures that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsa
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsA(PortalCount, PortalInfo) {
@@ -1798,7 +1800,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} PortalInfoSize A pointer to a location that, on input, contains the byte-size of the buffer specified by <i>PortalInfo</i>. On output, this parameter specifies the number of bytes retrieved.
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXW>} PortalInfo Pointer to an array of elements contained in a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO_EX</a> structure that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>PortalInfo</i> is insufficient to contain the output data. Otherwise, <b>ReportIscsiSendTargetPortalsEx</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexw
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsExW(PortalCount, PortalInfoSize, PortalInfo) {
@@ -1818,7 +1820,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} PortalInfoSize A pointer to a location that, on input, contains the byte-size of the buffer specified by <i>PortalInfo</i>. On output, this parameter specifies the number of bytes retrieved.
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXA>} PortalInfo Pointer to an array of elements contained in a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_infoa">ISCSI_TARGET_PORTAL_INFO_EX</a> structure that describe the portals that the iSCSI initiator service utilizes to perform discovery with <b>SendTargets</b> requests.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>PortalInfo</i> is insufficient to contain the output data. Otherwise, <b>ReportIscsiSendTargetPortalsEx</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexa
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsExA(PortalCount, PortalInfoSize, PortalInfo) {
@@ -1951,7 +1953,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that, on return, contains a unique session identifier for the login session.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a> that, on return, contains a unique connection identifier for the login session.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-loginiscsitargetw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-loginiscsitargetw
      * @since windows6.0.6000
      */
     static LoginIScsiTargetW(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
@@ -2085,7 +2087,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that, on return, contains a unique session identifier for the login session.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId A pointer to a structure of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb870817(v=vs.85)">ISCSI_UNIQUE_CONNECTION_ID</a> that, on return, contains a unique connection identifier for the login session.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-loginiscsitargeta
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-loginiscsitargeta
      * @since windows6.0.6000
      */
     static LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
@@ -2114,7 +2116,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>PersistentLoginInfo</i> is insufficient to contain the output data. 
      * 
      * Otherwise, <b>ReportIscsiPersistentLogins</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsw
      * @since windows6.0.6000
      */
     static ReportIScsiPersistentLoginsW(Count, PersistentLoginInfo, BufferSizeInBytes) {
@@ -2142,7 +2144,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>PersistentLoginInfo</i> is insufficient to contain the output data. 
      * 
      * Otherwise, <b>ReportIscsiPersistentLogins</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsa
      * @since windows6.0.6000
      */
     static ReportIScsiPersistentLoginsA(Count, PersistentLoginInfo, BufferSizeInBytes) {
@@ -2159,7 +2161,7 @@ class IscsiDisc {
      * If the login session is not for informational purposes, the iSCSI initiator service ensures that all devices associated with the session can be safely removed from the device stack before allowing the initiator to close the session. If the session is an informational session, the iSCSI initiator service closes the session immediately.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a structure of type <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> that contains a unique session identifier for the login session end.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-logoutiscsitarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-logoutiscsitarget
      * @since windows6.0.6000
      */
     static LogoutIScsiTarget(UniqueSessionId) {
@@ -2177,7 +2179,7 @@ class IscsiDisc {
      * @param {PWSTR} TargetName The name of the target.
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal The portal through which the initiator connects to the target. If <i>Portal</i> is <b>null</b> or contains no information, the miniport driver for the initiator HBA removes persistent logins for the target on all portals.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsipersistenttargetw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsipersistenttargetw
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetW(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
@@ -2198,7 +2200,7 @@ class IscsiDisc {
      * @param {PSTR} TargetName The name of the target.
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal The portal through which the initiator connects to the target. If <i>Portal</i> is <b>null</b> or contains no information, the miniport driver for the initiator HBA removes persistent logins for the target on all portals.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsipersistenttargeta
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeiscsipersistenttargeta
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetA(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
@@ -2230,7 +2232,7 @@ class IscsiDisc {
      *  
      * 
      * Otherwise, <b>SendScsiInquiry</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-sendscsiinquiry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-sendscsiinquiry
      * @since windows6.0.6000
      */
     static SendScsiInquiry(UniqueSessionId, Lun, EvpdCmddt, PageCode, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
@@ -2262,7 +2264,7 @@ class IscsiDisc {
      *  
      * 
      * Otherwise, this function returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-sendscsireadcapacity
      * @since windows6.0.6000
      */
     static SendScsiReadCapacity(UniqueSessionId, Lun, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
@@ -2293,7 +2295,7 @@ class IscsiDisc {
      *  
      * 
      * Otherwise, this function returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-sendscsireportluns
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-sendscsireportluns
      * @since windows6.0.6000
      */
     static SendScsiReportLuns(UniqueSessionId, ScsiStatus, ResponseSize, ResponseBuffer, SenseSize, SenseBuffer) {
@@ -2314,19 +2316,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ A buffer that, on output, is filled with the list of initiator names. Each initiator name is a <b>null</b>-terminated string, except for the last initiator name, which is double-<b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
      *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlistw
      * @since windows6.0.6000
      */
-    static ReportIScsiInitiatorListW(BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiInitiatorListW(BufferSize, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListW", BufferSizeMarshal, BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -2337,19 +2339,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportIScsiInitiatorList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSize A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of elements, that corresponds to the retreived data.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} Buffer_ A buffer that, on output, is filled with the list of initiator names. Each initiator name is a <b>null</b>-terminated string, except for the last initiator name, which is double-<b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer size of Buffer is insufficient to contain the output data.
      * 
      *  Otherwise, <b>ReportIscsiInitiatorList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlista
      * @since windows6.0.6000
      */
-    static ReportIScsiInitiatorListA(BufferSize, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportIScsiInitiatorListA(BufferSize, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeMarshal := BufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportIScsiInitiatorListA", BufferSizeMarshal, BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -2372,7 +2374,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is not large enough.
      * 
      * Otherwise, <b>ReportActiveIscsiTargetMappings</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsw
      * @since windows6.0.6000
      */
     static ReportActiveIScsiTargetMappingsW(BufferSize, MappingCount, Mappings) {
@@ -2402,7 +2404,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is not large enough.
      * 
      * Otherwise, <b>ReportActiveIscsiTargetMappings</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsa
      * @since windows6.0.6000
      */
     static ReportActiveIScsiTargetMappingsA(BufferSize, MappingCount, Mappings) {
@@ -2424,7 +2426,7 @@ class IscsiDisc {
      * @param {PWSTR} OuterModeAddress The tunnel-mode outer address to associate with indicated initiators and ports.
      * @param {BOOLEAN} Persist When <b>true</b>, this parameter indicates that the iSCSI initiator service stores the tunnel-mode outer address in non-volatile memory and that the address will persist across restarts of the initiator and the iSCSI initiator service.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds.Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressw
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressW(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
@@ -2447,7 +2449,7 @@ class IscsiDisc {
      * @param {PSTR} OuterModeAddress The tunnel-mode outer address to associate with indicated initiators and ports.
      * @param {BOOLEAN} Persist When <b>true</b>, this parameter indicates that the iSCSI initiator service stores the tunnel-mode outer address in non-volatile memory and that the address will persist across restarts of the initiator and the iSCSI initiator service.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds.Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressa
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
@@ -2469,7 +2471,7 @@ class IscsiDisc {
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains the authentication method. Currently, only the IKE_AUTHENTICATION_PRESHARED_KEY_METHOD is supported.
      * @param {BOOLEAN} Persist If <b>true</b>, this parameter indicates that the preshared key information will be stored in non-volatile memory and will persist across restarts of the computer or the iSCSI initiator service.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiikeinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsiikeinfow
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
@@ -2489,7 +2491,7 @@ class IscsiDisc {
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains the authentication method. Currently, only the IKE_AUTHENTICATION_PRESHARED_KEY_METHOD is supported.
      * @param {BOOLEAN} Persist If <b>true</b>, this parameter indicates that the preshared key information will be stored in non-volatile memory and will persist across restarts of the computer or the iSCSI initiator service.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiikeinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsiikeinfoa
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
@@ -2509,7 +2511,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} Reserved This value is reserved.
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains data specifying the authentication method. Currently, only the <b>IKE_AUTHENTICATION_PRESHARED_KEY_METHOD</b> is supported.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiikeinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsiikeinfow
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
@@ -2531,7 +2533,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} Reserved This value is reserved.
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-ike_authentication_information">IKE_AUTHENTICATION_INFORMATION</a> structure that contains data specifying the authentication method. Currently, only the <b>IKE_AUTHENTICATION_PRESHARED_KEY_METHOD</b> is supported.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiikeinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsiikeinfoa
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
@@ -2549,7 +2551,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} Key The buffer that contains the preshared key.
      * @param {BOOLEAN} Persist If <b>true</b>, this parameter indicates that the preshared key information will be stored in non-volatile memory and will persist across restarts of the computer or the iSCSI initiator service.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsigrouppresharedkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsigrouppresharedkey
      * @since windows6.0.6000
      */
     static SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
@@ -2568,7 +2570,7 @@ class IscsiDisc {
      * @param {Integer} SharedSecretLength The size, in bytes, of the shared secret contained by the buffer specified by <i>SharedSecret</i>. The shared secret must be at least 96 bits (12 bytes) for non-IPsec connections, at least 8 bits (1 byte) for IPsec connections, and less than 128 bits (16 bytes) for all connection types.
      * @param {Pointer<Integer>} SharedSecret The buffer that contains the shared secret.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatorchapsharedsecret
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsiinitiatorchapsharedsecret
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
@@ -2585,7 +2587,7 @@ class IscsiDisc {
      * @param {Integer} SharedSecretLength A <b>ULONG</b> value that represents the size, in bytes, of the shared secret contained by the buffer specified by SharedSecret. The shared secret must be at least 22 bytes, and less than, or equal to, 26 bytes in size.
      * @param {Pointer<Integer>} SharedSecret A string that specifies the buffer containing the shared secret.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatorradiussharedsecret
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsiinitiatorradiussharedsecret
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorRADIUSSharedSecret(SharedSecretLength, SharedSecret) {
@@ -2611,7 +2613,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines SetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} InitiatorNodeName The initiator node name. If this parameter is <b>null</b>, initiators use a default initiator node name based upon the computer name.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamew
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameW(InitiatorNodeName) {
@@ -2637,7 +2639,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines SetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} InitiatorNodeName The initiator node name. If this parameter is <b>null</b>, initiators use a default initiator node name based upon the computer name.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamea
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameA(InitiatorNodeName) {
@@ -2659,7 +2661,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines GetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} InitiatorNodeName A caller-allocated buffer that, on output, receives the node name. The buffer must be large enough to hold <b>MAX_ISCSI_NAME_LEN+1</b> bytes.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and the appropriate Win32 or iSCSI error code if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamew
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameW(InitiatorNodeName) {
@@ -2681,7 +2683,7 @@ class IscsiDisc {
      * > The iscsidsc.h header defines GetIScsiInitiatorNodeName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} InitiatorNodeName A caller-allocated buffer that, on output, receives the node name. The buffer must be large enough to hold <b>MAX_ISCSI_NAME_LEN+1</b> bytes.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and the appropriate Win32 or iSCSI error code if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamea
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameA(InitiatorNodeName) {
@@ -2704,15 +2706,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address IP address or the DNS name of the server.
+     * @param {PWSTR} Address_ IP address or the DNS name of the server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addisnsserverw
      * @since windows6.0.6000
      */
-    static AddISNSServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddISNSServerW(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\AddISNSServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddISNSServerW", "ptr", Address_, "uint")
         return result
     }
 
@@ -2729,15 +2731,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address IP address or the DNS name of the server.
+     * @param {PSTR} Address_ IP address or the DNS name of the server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. If the operation fails, because of a problem with a socket connection, <b>AddIsnsServer</b> returns a Winsock error code. If the Address parameter does not point to a valid iSNS server name, the <b>AddIsnsServer</b> routine returns ERROR_INVALID_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addisnsservera
      * @since windows6.0.6000
      */
-    static AddISNSServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddISNSServerA(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\AddISNSServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddISNSServerA", "ptr", Address_, "uint")
         return result
     }
 
@@ -2754,15 +2756,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address The DNS or IP Address of the server to remove.
+     * @param {PWSTR} Address_ The DNS or IP Address of the server to remove.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeisnsserverw
      * @since windows6.0.6000
      */
-    static RemoveISNSServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveISNSServerW(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\RemoveISNSServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveISNSServerW", "ptr", Address_, "uint")
         return result
     }
 
@@ -2779,15 +2781,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address The DNS or IP Address of the server to remove.
+     * @param {PSTR} Address_ The DNS or IP Address of the server to remove.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeisnsservera
      * @since windows6.0.6000
      */
-    static RemoveISNSServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveISNSServerA(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\RemoveISNSServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveISNSServerA", "ptr", Address_, "uint")
         return result
     }
 
@@ -2805,15 +2807,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address The DNS or IP Address of the iSNS server.
+     * @param {PWSTR} Address_ The DNS or IP Address of the iSNS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-refreshisnsserverw
      * @since windows6.0.6000
      */
-    static RefreshISNSServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RefreshISNSServerW(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\RefreshISNSServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RefreshISNSServerW", "ptr", Address_, "uint")
         return result
     }
 
@@ -2831,15 +2833,15 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines RefreshISNSServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address The DNS or IP Address of the iSNS server.
+     * @param {PSTR} Address_ The DNS or IP Address of the iSNS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-refreshisnsservera
      * @since windows6.0.6000
      */
-    static RefreshISNSServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RefreshISNSServerA(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\RefreshISNSServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RefreshISNSServerA", "ptr", Address_, "uint")
         return result
     }
 
@@ -2850,19 +2852,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ The buffer that holds the list of iSNS servers on output. Each server name is <b>null</b> terminated, except for the last server name, which is double <b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
      * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportisnsserverlistw
      * @since windows6.0.6000
      */
-    static ReportISNSServerListW(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportISNSServerListW(BufferSizeInChar, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportISNSServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -2873,19 +2875,19 @@ class IscsiDisc {
      * > The iscsidsc.h header defines ReportISNSServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter. 
      * If the operation succeeds, this location receives the size, represented by a number of  elements, that corresponds to the number of retrieved iSNS servers.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} Buffer_ The buffer that holds the list of iSNS servers on output. Each server name is <b>null</b> terminated, except for the last server name, which is double <b>null</b> terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer is too small to hold the output data. 
      * 
      * Otherwise, <b>ReportIsnsServerList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportisnsserverlista
      * @since windows6.0.6000
      */
-    static ReportISNSServerListA(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportISNSServerListA(BufferSizeInChar, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportISNSServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -2902,7 +2904,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>SessionInfo</i> was insufficient to hold the output data. 
      * 
      * Otherwise, <b>GetIscsiSessionList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsisessionlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsisessionlistw
      * @since windows6.0.6000
      */
     static GetIScsiSessionListW(BufferSize, SessionCount, SessionInfo) {
@@ -2926,7 +2928,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the size of the buffer at <i>SessionInfo</i> was insufficient to hold the output data. 
      * 
      * Otherwise, <b>GetIscsiSessionList</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsisessionlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getiscsisessionlista
      * @since windows6.0.6000
      */
     static GetIScsiSessionListA(BufferSize, SessionCount, SessionInfo) {
@@ -2963,7 +2965,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the caller allocated insufficient buffer space for the array in Devices. 
      * 
      * Otherwise, <b>GetDevicesForIscsiSession</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getdevicesforiscsisessionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getdevicesforiscsisessionw
      * @since windows6.0.6000
      */
     static GetDevicesForIScsiSessionW(UniqueSessionId, DeviceCount, Devices) {
@@ -2984,7 +2986,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the caller allocated insufficient buffer space for the array in Devices. 
      * 
      * Otherwise, <b>GetDevicesForIscsiSession</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getdevicesforiscsisessiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-getdevicesforiscsisessiona
      * @since windows6.0.6000
      */
     static GetDevicesForIScsiSessionA(UniqueSessionId, DeviceCount, Devices) {
@@ -3025,7 +3027,7 @@ class IscsiDisc {
      * <li>Use management software to call the <b>SetupPersistentIscsiDevices</b> routine, so that the iSCSI initiator service will add the volumes to its list of persistent volumes.</li>
      * </ul>
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setuppersistentiscsidevices
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-setuppersistentiscsidevices
      * @since windows6.0.6000
      */
     static SetupPersistentIScsiDevices() {
@@ -3069,7 +3071,7 @@ class IscsiDisc {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addpersistentiscsidevicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addpersistentiscsidevicew
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceW(DevicePath) {
@@ -3115,7 +3117,7 @@ class IscsiDisc {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addpersistentiscsidevicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addpersistentiscsidevicea
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceA(DevicePath) {
@@ -3134,7 +3136,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ISDSC_DEVICE_NOT_FOUND if the volume that is specified by <i>VolumePath</i> is not in the list of persistently bound volumes. 
      * 
      * Otherwise, <b>RemovePersistentIscsiDevice</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removepersistentiscsidevicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removepersistentiscsidevicew
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceW(DevicePath) {
@@ -3153,7 +3155,7 @@ class IscsiDisc {
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ISDSC_DEVICE_NOT_FOUND if the volume that is specified by <i>VolumePath</i> is not in the list of persistently bound volumes. 
      * 
      * Otherwise, <b>RemovePersistentIscsiDevice</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removepersistentiscsidevicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removepersistentiscsidevicea
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceA(DevicePath) {
@@ -3166,7 +3168,7 @@ class IscsiDisc {
     /**
      * ClearPersistentIscsiDevices function removes all volumes and devices from the list of persistently bound iSCSI volumes.
      * @returns {Integer} returns ERROR_SUCCESS if the operation succeeds and the appropriate Win32 or iSCSI error code if the operation fails.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-clearpersistentiscsidevices
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-clearpersistentiscsidevices
      * @since windows6.0.6000
      */
     static ClearPersistentIScsiDevices() {
@@ -3180,17 +3182,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ Pointer to a buffer that receives the list of volumes and devices that are persistently bound. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
      * @since windows6.0.6000
      */
-    static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -3200,17 +3202,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportPersistentIScsiDevices as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} Buffer_ Pointer to a buffer that receives the list of volumes and devices that are persistently bound. The list consists of <b>null</b>-terminated strings. The last string, however, is double <b>null</b>-terminated.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds or ERROR_INSUFFICIENT_BUFFER if the buffer was insufficient to receive the output data. Otherwise, <b>ReportPersistentiScsiDevices</b> returns the appropriate Win32 or iSCSI error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
      * @since windows6.0.6000
      */
-    static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportPersistentIScsiDevicesA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -3225,7 +3227,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} ElementCount A <b>ULONG</b> value that specifies the number of portals currently reported for the specified target.
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portals A variable-length array of an <b>ISCSI_TARGET_PORTALW</b> structure. The number of elements contained in this array is specified by the value of <i>ElementCount</i>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetportalsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsitargetportalsw
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsW(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
@@ -3250,7 +3252,7 @@ class IscsiDisc {
      * @param {Pointer<Integer>} ElementCount A <b>ULONG</b> value that specifies the number of portals currently reported for the specified target.
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portals A variable-length array of an <b>ISCSI_TARGET_PORTALW</b> structure. The number of elements contained in this array is specified by the value of <i>ElementCount</i>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetportalsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportiscsitargetportalsa
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsA(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
@@ -3275,7 +3277,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address A string that represents the IP address or DNS name associated with the RADIUS server.
+     * @param {PWSTR} Address_ A string that represents the IP address or DNS name associated with the RADIUS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
      * <table>
@@ -3295,13 +3297,13 @@ class IscsiDisc {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addradiusserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addradiusserverw
      * @since windows6.0.6000
      */
-    static AddRadiusServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddRadiusServerW(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\AddRadiusServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddRadiusServerW", "ptr", Address_, "uint")
         return result
     }
 
@@ -3316,7 +3318,7 @@ class IscsiDisc {
      * 
      * > [!NOTE]
      * > The iscsidsc.h header defines AddRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address A string that represents the IP address or DNS name associated with the RADIUS server.
+     * @param {PSTR} Address_ A string that represents the IP address or DNS name associated with the RADIUS server.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code. Other possible error values include:
      * 
      * <table>
@@ -3336,13 +3338,13 @@ class IscsiDisc {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addradiusservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-addradiusservera
      * @since windows6.0.6000
      */
-    static AddRadiusServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static AddRadiusServerA(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\AddRadiusServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\AddRadiusServerA", "ptr", Address_, "uint")
         return result
     }
 
@@ -3351,15 +3353,15 @@ class IscsiDisc {
      * @remarks
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PWSTR} Address A string that represents the IP address or RADIUS server name.
+     * @param {PWSTR} Address_ A string that represents the IP address or RADIUS server name.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeradiusserverw
      * @since windows6.0.6000
      */
-    static RemoveRadiusServerW(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveRadiusServerW(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerW", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerW", "ptr", Address_, "uint")
         return result
     }
 
@@ -3368,15 +3370,15 @@ class IscsiDisc {
      * @remarks
      * > [!NOTE]
      * > The iscsidsc.h header defines RemoveRadiusServer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {PSTR} Address A string that represents the IP address or RADIUS server name.
+     * @param {PSTR} Address_ A string that represents the IP address or RADIUS server name.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeradiusservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-removeradiusservera
      * @since windows6.0.6000
      */
-    static RemoveRadiusServerA(Address) {
-        Address := Address is String ? StrPtr(Address) : Address
+    static RemoveRadiusServerA(Address_) {
+        Address_ := Address_ is String ? StrPtr(Address_) : Address_
 
-        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerA", "ptr", Address, "uint")
+        result := DllCall("ISCSIDSC.dll\RemoveRadiusServerA", "ptr", Address_, "uint")
         return result
     }
 
@@ -3386,17 +3388,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ Pointer to a buffer that receives the list of Remote Authentication Dial-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportradiusserverlistw
      * @since windows6.0.6000
      */
-    static ReportRadiusServerListW(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportRadiusServerListW(BufferSizeInChar, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListW", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -3406,17 +3408,17 @@ class IscsiDisc {
      * > [!NOTE]
      * > The iscsidsc.h header defines ReportRadiusServerList as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} Buffer_ Pointer to a buffer that receives the list of Remote Authentication Dial-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
-     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportradiusserverlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/nf-iscsidsc-reportradiusserverlista
      * @since windows6.0.6000
      */
-    static ReportRadiusServerListA(BufferSizeInChar, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static ReportRadiusServerListA(BufferSizeInChar, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferSizeInCharMarshal := BufferSizeInChar is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_R, "uint")
+        result := DllCall("ISCSIDSC.dll\ReportRadiusServerListA", BufferSizeInCharMarshal, BufferSizeInChar, "ptr", Buffer_, "uint")
         return result
     }
 

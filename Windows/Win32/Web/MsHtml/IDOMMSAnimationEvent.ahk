@@ -55,7 +55,11 @@ class IDOMMSAnimationEvent extends IDispatch{
      */
     get_animationName() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -64,7 +68,11 @@ class IDOMMSAnimationEvent extends IDispatch{
      * @returns {Float} 
      */
     get_elapsedTime() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -78,10 +86,20 @@ class IDOMMSAnimationEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMSAnimationEvent(eventType, canBubble, cancelable, animationName, elapsedTime) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        animationName := animationName is String ? BSTR.Alloc(animationName).Value : animationName
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(animationName is String) {
+            pin := BSTR.Alloc(animationName)
+            animationName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", animationName, "float", elapsedTime, "HRESULT")
+        result := ComCall(9, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", animationName, "float", elapsedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

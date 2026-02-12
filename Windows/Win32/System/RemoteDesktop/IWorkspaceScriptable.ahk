@@ -5,8 +5,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections.
- * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nn-workspaceruntime-iworkspacescriptable
+ * Exposes methods that manage RemoteApp and Desktop Connection credentials and connections. (IWorkspaceScriptable)
+ * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nn-workspaceruntime-iworkspacescriptable
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,13 +34,20 @@ class IWorkspaceScriptable extends IDispatch{
     /**
      * Disconnects all existing connections associated with the specified connection ID.
      * @param {BSTR} bstrWorkspaceId A string that contains the connection ID of the connection to disconnect.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-disconnectworkspace
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-disconnectworkspace
      */
     DisconnectWorkspace(bstrWorkspaceId) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrWorkspaceId, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrWorkspaceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,15 +60,31 @@ class IWorkspaceScriptable extends IDispatch{
      * @param {Integer} lTimeout The time period, in minutes, after which the credentials are deleted.
      * @param {Integer} lFlags 
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-startworkspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-startworkspace
      */
     StartWorkspace(bstrWorkspaceId, bstrUserName, bstrPassword, bstrWorkspaceParams, lTimeout, lFlags) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
-        bstrWorkspaceParams := bstrWorkspaceParams is String ? BSTR.Alloc(bstrWorkspaceParams).Value : bstrWorkspaceParams
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
+        if(bstrWorkspaceParams is String) {
+            pin := BSTR.Alloc(bstrWorkspaceParams)
+            bstrWorkspaceParams := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrWorkspaceId, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrWorkspaceId, "ptr", bstrUserName, "ptr", bstrPassword, "ptr", bstrWorkspaceParams, "int", lTimeout, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,35 +93,55 @@ class IWorkspaceScriptable extends IDispatch{
      * @param {BSTR} bstrWorkspaceId A string that contains the connection ID.
      * @param {VARIANT_BOOL} bCountUnauthenticatedCredentials <b>VARIANT_TRUE</b> to specify that the <i>pbCredExist</i> parameter should return <b>VARIANT_TRUE</b> if credentials (authenticated or unauthenticated) exist for the connection ID specified in the <i>bstrWorkspaceId</i> parameter. <b>VARIANT_FALSE</b> to specify that the <i>pbCredExist</i> parameter should return <b>VARIANT_TRUE</b> only if authenticated credentials exist for the connection ID specified in the <i>bstrWorkspaceId</i> parameter.
      * @returns {VARIANT_BOOL} A pointer to a <b>VARIANT_BOOL</b> variable to receive whether credentials exist for the connection ID specified in the <i>bstrWorkspaceId</i> parameter. This value is <b>VARIANT_TRUE</b> if credentials exist; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacecredentialspecified
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacecredentialspecified
      */
     IsWorkspaceCredentialSpecified(bstrWorkspaceId, bCountUnauthenticatedCredentials) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrWorkspaceId, "short", bCountUnauthenticatedCredentials, "short*", &pbCredExist := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrWorkspaceId, "short", bCountUnauthenticatedCredentials, "short*", &pbCredExist := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbCredExist
     }
 
     /**
      * Determines whether single sign on (SSO) is enabled for RemoteApp and Desktop Connection.
      * @returns {VARIANT_BOOL} A pointer to a <b>VARIANT_BOOL</b> variable to receive  whether SSO is enabled. This value is <b>VARIANT_TRUE</b> if SSO is enabled; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacessoenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-isworkspacessoenabled
      */
     IsWorkspaceSSOEnabled() {
-        result := ComCall(10, this, "short*", &pbSSOEnabled := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pbSSOEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSSOEnabled
     }
 
     /**
      * Deletes the user credentials associated with the specified connection ID.
+     * @remarks
+     * If the connection ID has no active connections, it is removed from the credential store.
      * @param {BSTR} bstrWorkspaceId A string that contains a connection ID.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-clearworkspacecredential
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-clearworkspacecredential
      */
     ClearWorkspaceCredential(bstrWorkspaceId) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrWorkspaceId, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrWorkspaceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,27 +149,44 @@ class IWorkspaceScriptable extends IDispatch{
      * Marks the authentication of user credentials for the connection ID, and subsequently shows the connect notification in the taskbar notification area.
      * @param {BSTR} bstrWorkspaceId A string that contains the connection ID.
      * @param {BSTR} bstrUserName A string that contains a user name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-onauthenticated
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-onauthenticated
      */
     OnAuthenticated(bstrWorkspaceId, bstrUserName) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrWorkspaceId, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrWorkspaceId, "ptr", bstrUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Disconnects all existing connections associated with the connection that has the specified name.
      * @param {BSTR} bstrWorkspaceFriendlyName A string that contains the friendly name of the connection to disconnect.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable-disconnectworkspacebyfriendlyname
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspacescriptable-disconnectworkspacebyfriendlyname
      */
     DisconnectWorkspaceByFriendlyName(bstrWorkspaceFriendlyName) {
-        bstrWorkspaceFriendlyName := bstrWorkspaceFriendlyName is String ? BSTR.Alloc(bstrWorkspaceFriendlyName).Value : bstrWorkspaceFriendlyName
+        if(bstrWorkspaceFriendlyName is String) {
+            pin := BSTR.Alloc(bstrWorkspaceFriendlyName)
+            bstrWorkspaceFriendlyName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrWorkspaceFriendlyName, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrWorkspaceFriendlyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

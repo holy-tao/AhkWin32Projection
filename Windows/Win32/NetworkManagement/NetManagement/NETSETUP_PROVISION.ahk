@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * If the caller requires account creation by privilege, this option will cause a retry on failure using account creation functions enabling interoperability with domain controllers running on earlier versions of Windows. 
+  * 
+  * The <i>lpMachineAccountOU</i> is not supported when using downlevel privilege support.
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netprovisioncomputeraccount
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

@@ -24,7 +24,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ns-bits1_5-bg_basic_credentials
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits1_5/ns-bits1_5-bg_basic_credentials
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

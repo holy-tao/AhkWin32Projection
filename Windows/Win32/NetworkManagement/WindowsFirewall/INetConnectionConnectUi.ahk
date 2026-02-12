@@ -34,33 +34,49 @@ class INetConnectionConnectUi extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConnection(pCon) {
-        result := ComCall(3, this, "ptr", pCon, "HRESULT")
+        result := ComCall(3, this, "ptr", pCon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Represents a connection between two shapes in a drawing, such as a line and a box in an organization chart.
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/connect-element-connects_type-complextypevisio-xml
      */
     Connect(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(4, this, "ptr", hwndParent, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", hwndParent, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(5, this, "ptr", hwndParent, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", hwndParent, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

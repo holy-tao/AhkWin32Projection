@@ -23,7 +23,7 @@
  * </li>
  * </ul>
  * This format differs from the <b>WM_SYNCHRONISED_LYRICS</b> structure used in the Windows Media Format SDK. The <b>WM_SYNCHRONISED_LYRICS</b> structure contains internal pointers to two strings and the lyric data. If the structure is copied, these pointers become invalid. The <b>ASF_FLAT_SYNCHRONISED_LYRICS</b> structure does not contain internal pointers, so it is safe to copy the structure.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-asf_flat_synchronised_lyrics
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/ns-mfidl-asf_flat_synchronised_lyrics
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

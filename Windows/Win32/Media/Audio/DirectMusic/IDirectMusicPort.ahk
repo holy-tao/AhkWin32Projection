@@ -36,7 +36,11 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     PlayBuffer(pBuffer) {
-        result := ComCall(3, this, "ptr", pBuffer, "HRESULT")
+        result := ComCall(3, this, "ptr", pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,17 +52,26 @@ class IDirectMusicPort extends IUnknown{
     SetReadNotificationHandle(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(4, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(4, this, "ptr", hEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn how to read a FILESTREAM column to a file using the IBCPSession interface in OLE DB Driver for SQL Server and write a format file with this example.
      * @param {IDirectMusicBuffer} pBuffer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/filestream/read-a-filestream-column-to-file-using-ibcpsession-ole-db
      */
     Read(pBuffer) {
-        result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +83,11 @@ class IDirectMusicPort extends IUnknown{
      * @returns {IDirectMusicDownloadedInstrument} 
      */
     DownloadInstrument(pInstrument, pNoteRanges, dwNumNoteRanges) {
-        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, "ptr", pNoteRanges, "uint", dwNumNoteRanges, "HRESULT")
+        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, "ptr", pNoteRanges, "uint", dwNumNoteRanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectMusicDownloadedInstrument(ppDownloadedInstrument)
     }
 
@@ -80,7 +97,11 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     UnloadInstrument(pDownloadedInstrument) {
-        result := ComCall(7, this, "ptr", pDownloadedInstrument, "HRESULT")
+        result := ComCall(7, this, "ptr", pDownloadedInstrument, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +110,11 @@ class IDirectMusicPort extends IUnknown{
      * @returns {IReferenceClock} 
      */
     GetLatencyClock() {
-        result := ComCall(8, this, "ptr*", &ppClock := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppClock := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IReferenceClock(ppClock)
     }
 
@@ -99,16 +124,25 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRunningStats(pStats) {
-        result := ComCall(9, this, "ptr", pStats, "HRESULT")
+        result := ComCall(9, this, "ptr", pStats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: CompactGrbit enumeration
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/compactgrbit-enumeration
      */
     Compact() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,12 +152,71 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCaps(pPortCaps) {
-        result := ComCall(11, this, "ptr", pPortCaps, "HRESULT")
+        result := ComCall(11, this, "ptr", pPortCaps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a control code directly to a specified device driver, causing the corresponding device to perform the corresponding operation.
+     * @remarks
+     * To retrieve a handle to the device, you must call the 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function with either the name of a device or 
+     *      the name of the driver associated with a device. To specify a device name, use the following format:
+     * 
+     * \\\\.&#92;<i>DeviceName</i>
+     * 
+     * <b>DeviceIoControl</b> can accept a handle to a specific 
+     *      device. For example, to open a handle to the logical drive A: with 
+     *      <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>, specify \\\\.\a:. Alternatively, you can use the 
+     *      names \\\\.\PhysicalDrive0, \\\\.\PhysicalDrive1, and so on, to open handles to the physical drives on a system.
+     * 
+     * You should specify the <b>FILE_SHARE_READ</b> and 
+     *     <b>FILE_SHARE_WRITE</b> access flags when calling 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> to open a handle to a device driver. However, 
+     *     when you open a communications resource, such as a serial port, you must specify exclusive access. Use the other 
+     *     <b>CreateFile</b> parameters as follows when opening a device 
+     *     handle:
+     * 
+     * <ul>
+     * <li>The <i>fdwCreate</i> parameter must specify 
+     *       <b>OPEN_EXISTING</b>.</li>
+     * <li>The <i>hTemplateFile</i> parameter must be <b>NULL</b>.</li>
+     * <li>The <i>fdwAttrsAndFlags</i> parameter can specify 
+     *       <b>FILE_FLAG_OVERLAPPED</b> to indicate that the returned handle can be used in overlapped 
+     *       (asynchronous) I/O operations.</li>
+     * </ul>
+     * For lists of supported control codes, see the following topics:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows-hardware/drivers/storage/cd-rom-io-control-codes">CD-ROM Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/DevIO/communications-control-codes">Communications Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/DevIO/device-management-control-codes">Device Management Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/directory-management-control-codes">Directory Management Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/disk-management-control-codes">Disk Management Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/file-management-control-codes">File Management Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-control-codes">Power Management Control Codes</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/FileIO/volume-management-control-codes">Volume Management Control Codes</a>
+     * </li>
+     * </ul>
      * @param {Integer} dwIoControlCode The control code for the operation. This value identifies the specific operation to be performed and the 
      *        type of device on which to perform it.
      * 
@@ -186,18 +279,22 @@ class IDirectMusicPort extends IUnknown{
      *        <b>DeviceIoControl</b> returns immediately, and the event 
      *        object is signaled when the operation has been completed. Otherwise, the function does not return until the 
      *        operation has been completed or an error occurs.
-     * @returns {HRESULT} If the operation completes successfully, the return value is nonzero.
+     * @returns {HRESULT} If the operation completes successfully, the return value is nonzero (TRUE).
      * 
      * If the operation fails or is pending, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//ioapiset/nf-ioapiset-deviceiocontrol
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioapiset/nf-ioapiset-deviceiocontrol
      */
     DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesReturned, lpOverlapped) {
         lpInBufferMarshal := lpInBuffer is VarRef ? "ptr" : "ptr"
         lpOutBufferMarshal := lpOutBuffer is VarRef ? "ptr" : "ptr"
         lpBytesReturnedMarshal := lpBytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(12, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, "uint", nOutBufferSize, lpBytesReturnedMarshal, lpBytesReturned, "ptr", lpOverlapped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +304,11 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNumChannelGroups(dwChannelGroups) {
-        result := ComCall(13, this, "uint", dwChannelGroups, "HRESULT")
+        result := ComCall(13, this, "uint", dwChannelGroups, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -219,17 +320,40 @@ class IDirectMusicPort extends IUnknown{
     GetNumChannelGroups(pdwChannelGroups) {
         pdwChannelGroupsMarshal := pdwChannelGroups is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, pdwChannelGroupsMarshal, pdwChannelGroups, "HRESULT")
+        result := ComCall(14, this, pdwChannelGroupsMarshal, pdwChannelGroups, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The ActivateActCtx function activates the specified activation context.
+     * @remarks
+     * The <i>lpCookie</i> parameter is later passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
+     * <b>ActivateActCtx</b> and 
+     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
+     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
+     * 
+     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fActive 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * 
+     * This function sets errors that can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-activateactctx
      */
     Activate(fActive) {
-        result := ComCall(15, this, "int", fActive, "HRESULT")
+        result := ComCall(15, this, "int", fActive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -241,7 +365,11 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     SetChannelPriority(dwChannelGroup, dwChannel, dwPriority) {
-        result := ComCall(16, this, "uint", dwChannelGroup, "uint", dwChannel, "uint", dwPriority, "HRESULT")
+        result := ComCall(16, this, "uint", dwChannelGroup, "uint", dwChannel, "uint", dwPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,7 +383,11 @@ class IDirectMusicPort extends IUnknown{
     GetChannelPriority(dwChannelGroup, dwChannel, pdwPriority) {
         pdwPriorityMarshal := pdwPriority is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, pdwPriorityMarshal, pdwPriority, "HRESULT")
+        result := ComCall(17, this, "uint", dwChannelGroup, "uint", dwChannel, pdwPriorityMarshal, pdwPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,22 +398,31 @@ class IDirectMusicPort extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDirectSound(pDirectSound, pDirectSoundBuffer) {
-        result := ComCall(18, this, "ptr", pDirectSound, "ptr", pDirectSoundBuffer, "HRESULT")
+        result := ComCall(18, this, "ptr", pDirectSound, "ptr", pDirectSoundBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {Pointer<Integer>} pdwWaveFormatExSize 
      * @param {Pointer<Integer>} pdwBufferSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(pWaveFormatEx, pdwWaveFormatExSize, pdwBufferSize) {
         pdwWaveFormatExSizeMarshal := pdwWaveFormatExSize is VarRef ? "uint*" : "ptr"
         pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr", pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
+        result := ComCall(19, this, "ptr", pWaveFormatEx, pdwWaveFormatExSizeMarshal, pdwWaveFormatExSize, pdwBufferSizeMarshal, pdwBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

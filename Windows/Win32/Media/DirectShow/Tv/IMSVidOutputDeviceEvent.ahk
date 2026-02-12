@@ -6,11 +6,8 @@
 /**
  * Note  This topic applies to Windows XP or later. The IMSVidOutputDeviceEvent interface is the base interface for output device events.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidOutputDeviceEvent)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidoutputdeviceevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidoutputdeviceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

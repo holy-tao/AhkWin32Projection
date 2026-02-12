@@ -39,7 +39,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {Integer} 
      */
     MoveToPoint(ptPoint, eCoordSystem, pElementContext, dwHitTestOptions) {
-        result := ComCall(3, this, "ptr", ptPoint, "int", eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, "uint*", &pdwHitTestResults := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", ptPoint, "int", eCoordSystem, "ptr", pElementContext, "uint", dwHitTestOptions, "uint*", &pdwHitTestResults := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwHitTestResults
     }
 
@@ -50,7 +54,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveUnit(eMoveUnit, lXPos) {
-        result := ComCall(4, this, "int", eMoveUnit, "int", lXPos, "HRESULT")
+        result := ComCall(4, this, "int", eMoveUnit, "int", lXPos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     PositionMarkupPointer(pMarkupPointer) {
-        result := ComCall(5, this, "ptr", pMarkupPointer, "HRESULT")
+        result := ComCall(5, this, "ptr", pMarkupPointer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToPointer(pDispPointer) {
-        result := ComCall(6, this, "ptr", pDispPointer, "HRESULT")
+        result := ComCall(6, this, "ptr", pDispPointer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPointerGravity(eGravity) {
-        result := ComCall(7, this, "int", eGravity, "HRESULT")
+        result := ComCall(7, this, "int", eGravity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +109,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {Integer} 
      */
     GetPointerGravity() {
-        result := ComCall(8, this, "int*", &peGravity := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &peGravity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peGravity
     }
 
@@ -99,7 +123,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDisplayGravity(eGravity) {
-        result := ComCall(9, this, "int", eGravity, "HRESULT")
+        result := ComCall(9, this, "int", eGravity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +136,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {Integer} 
      */
     GetDisplayGravity() {
-        result := ComCall(10, this, "int*", &peGravity := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &peGravity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peGravity
     }
 
@@ -117,7 +149,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsPositioned() {
-        result := ComCall(11, this, "int*", &pfPositioned := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pfPositioned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPositioned
     }
 
@@ -126,7 +162,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     Unposition() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,7 +176,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsEqualTo(pDispPointer) {
-        result := ComCall(13, this, "ptr", pDispPointer, "int*", &pfIsEqual := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pDispPointer, "int*", &pfIsEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsEqual
     }
 
@@ -146,7 +190,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsLeftOf(pDispPointer) {
-        result := ComCall(14, this, "ptr", pDispPointer, "int*", &pfIsLeftOf := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pDispPointer, "int*", &pfIsLeftOf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsLeftOf
     }
 
@@ -156,7 +204,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsRightOf(pDispPointer) {
-        result := ComCall(15, this, "ptr", pDispPointer, "int*", &pfIsRightOf := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pDispPointer, "int*", &pfIsRightOf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsRightOf
     }
 
@@ -165,7 +217,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsAtBOL() {
-        result := ComCall(16, this, "int*", &pfBOL := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pfBOL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfBOL
     }
 
@@ -176,7 +232,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToMarkupPointer(pPointer, pDispLineContext) {
-        result := ComCall(17, this, "ptr", pPointer, "ptr", pDispLineContext, "HRESULT")
+        result := ComCall(17, this, "ptr", pPointer, "ptr", pDispLineContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +245,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     ScrollIntoView() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -194,7 +258,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {ILineInfo} 
      */
     GetLineInfo() {
-        result := ComCall(19, this, "ptr*", &ppLineInfo := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &ppLineInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ILineInfo(ppLineInfo)
     }
 
@@ -203,7 +271,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {IHTMLElement} 
      */
     GetFlowElement() {
-        result := ComCall(20, this, "ptr*", &ppLayoutElement := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppLayoutElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppLayoutElement)
     }
 
@@ -212,7 +284,11 @@ class IDisplayPointer extends IUnknown{
      * @returns {Integer} 
      */
     QueryBreaks() {
-        result := ComCall(21, this, "uint*", &pdwBreaks := 0, "HRESULT")
+        result := ComCall(21, this, "uint*", &pdwBreaks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwBreaks
     }
 }

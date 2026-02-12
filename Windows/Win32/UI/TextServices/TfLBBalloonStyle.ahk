@@ -13,7 +13,7 @@
  * The following image shows an example of a balloon with the TF_LB_BALLOON_MISS style. 
  * 
  * <img alt="TF_LB_BALLOON_MISS balloon" border="border" src="images/Balloon_MISS.gif"/>
- * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/ne-ctfutb-tflbballoonstyle
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

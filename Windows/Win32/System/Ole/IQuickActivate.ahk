@@ -6,7 +6,7 @@
 
 /**
  * Enables controls and containers to avoid performance bottlenecks on loading controls. It combines the load-time or initialization-time handshaking between the control and its container into a single call.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-iquickactivate
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-iquickactivate
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,13 +33,23 @@ class IQuickActivate extends IUnknown{
 
     /**
      * Quick activates a control.
+     * @remarks
+     * If the control does not support <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iquickactivate">IQuickActivate</a>, the container performs certain handshaking operations when it loads the control. The container calls certain interfaces on the control and the control, in turn, calls back to certain interfaces on the container's client site. First, the container creates the control object and calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to query for interfaces that it needs. Then, the container calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a> on the control, passing a pointer to its client site. Next, the control calls <b>QueryInterface</b> on this site, retrieving a pointer to additional necessary interfaces.
+     * 
+     * Using the <b>QuickActivate</b> method, the container passes a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-qacontainer">QACONTAINER</a> structure. The structure contains pointers to interfaces which are needed by the control and the values of some ambient properties that the control may need. Upon return, the control passes a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-qacontrol">QACONTROL</a> structure that contains pointers to its own interfaces that the container requires, and additional status information.
+     * 
+     * The <b>IPersist*::Load</b> and <b>IPersist*::InitNew</b> methods should be called after quick activation occurs. The control should establish its connections to the container's sinks during quick activation. However, these connections are not live until <b>IPersist*::Load</b> or <b>IPersist*::InitNew</b> has been called.
      * @param {Pointer<QACONTAINER>} pQaContainer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-qacontainer">QACONTAINER</a> structure containing information about the container.
      * @param {Pointer<QACONTROL>} pQaControl A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-qacontrol">QACONTROL</a> structure filled in by the control to return information about the control to the container. The container calling this method must reserve memory for this structure.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iquickactivate-quickactivate
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iquickactivate-quickactivate
      */
     QuickActivate(pQaContainer, pQaControl) {
-        result := ComCall(3, this, "ptr", pQaContainer, "ptr", pQaControl, "HRESULT")
+        result := ComCall(3, this, "ptr", pQaContainer, "ptr", pQaControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,21 +57,44 @@ class IQuickActivate extends IUnknown{
      * Sets the content extent of a control.
      * @param {Pointer<SIZE>} pSizel The size of the content extent.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iquickactivate-setcontentextent
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iquickactivate-setcontentextent
      */
     SetContentExtent(pSizel) {
-        result := ComCall(4, this, "ptr", pSizel, "HRESULT")
+        result := ComCall(4, this, "ptr", pSizel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the content extent of a control.
+     * @remarks
+     * The <b>SIZEL</b> structure is defined in Wtypes.h as follows.
+     * 
+     * 
+     * ``` syntax
+     * typedef struct tagSIZEL
+     *     {
+     *     LONG cx;
+     *     LONG cy;
+     *     } 	SIZEL;
+     * 
+     * typedef struct tagSIZEL *PSIZEL;
+     * 
+     * typedef struct tagSIZEL *LPSIZEL;
+     * ```
      * @returns {SIZE} A pointer to a structure that contains size of the content extent.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iquickactivate-getcontentextent
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iquickactivate-getcontentextent
      */
     GetContentExtent() {
         pSizel := SIZE()
-        result := ComCall(5, this, "ptr", pSizel, "HRESULT")
+        result := ComCall(5, this, "ptr", pSizel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSizel
     }
 }

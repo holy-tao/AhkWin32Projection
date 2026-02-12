@@ -4,7 +4,7 @@
 
 /**
  * Specifies the certificate store used to sign a document.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-cert-store-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-cert-store-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

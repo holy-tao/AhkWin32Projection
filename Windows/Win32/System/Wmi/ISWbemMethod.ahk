@@ -78,7 +78,11 @@ class ISWbemMethod extends IDispatch{
      */
     get_Name() {
         strName := BSTR()
-        result := ComCall(7, this, "ptr", strName, "HRESULT")
+        result := ComCall(7, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strName
     }
 
@@ -88,7 +92,11 @@ class ISWbemMethod extends IDispatch{
      */
     get_Origin() {
         strOrigin := BSTR()
-        result := ComCall(8, this, "ptr", strOrigin, "HRESULT")
+        result := ComCall(8, this, "ptr", strOrigin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strOrigin
     }
 
@@ -97,7 +105,11 @@ class ISWbemMethod extends IDispatch{
      * @returns {ISWbemObject} 
      */
     get_InParameters() {
-        result := ComCall(9, this, "ptr*", &objWbemInParameters := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &objWbemInParameters := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObject(objWbemInParameters)
     }
 
@@ -106,7 +118,11 @@ class ISWbemMethod extends IDispatch{
      * @returns {ISWbemObject} 
      */
     get_OutParameters() {
-        result := ComCall(10, this, "ptr*", &objWbemOutParameters := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &objWbemOutParameters := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObject(objWbemOutParameters)
     }
 
@@ -115,7 +131,11 @@ class ISWbemMethod extends IDispatch{
      * @returns {ISWbemQualifierSet} 
      */
     get_Qualifiers_() {
-        result := ComCall(11, this, "ptr*", &objWbemQualifierSet := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &objWbemQualifierSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemQualifierSet(objWbemQualifierSet)
     }
 }

@@ -34,7 +34,11 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
      * @returns {HRESULT} 
      */
     SetSdrWhiteLevel(fWhiteLevelInNits) {
-        result := ComCall(6, this, "float", fWhiteLevelInNits, "HRESULT")
+        result := ComCall(6, this, "float", fWhiteLevelInNits, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,17 +47,25 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
      * @returns {Float} 
      */
     GetSdrWhiteLevel() {
-        result := ComCall(7, this, "float*", &pfWhiteLevelInNits := 0, "HRESULT")
+        result := ComCall(7, this, "float*", &pfWhiteLevelInNits := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfWhiteLevelInNits
     }
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {HRESULT} 
      */
-    SetToneMappingMode(mode) {
-        result := ComCall(8, this, "int", mode, "HRESULT")
+    SetToneMappingMode(mode_) {
+        result := ComCall(8, this, "int", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,17 +74,25 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
      * @returns {Integer} 
      */
     GetToneMappingMode() {
-        result := ComCall(9, this, "int*", &mode := 0, "HRESULT")
-        return mode
+        result := ComCall(9, this, "int*", &mode_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return mode_
     }
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {BOOL} 
      */
-    DoesSupportToneMappingMode(mode) {
-        result := ComCall(10, this, "int", mode, "int*", &pfIsSupported := 0, "HRESULT")
+    DoesSupportToneMappingMode(mode_) {
+        result := ComCall(10, this, "int", mode_, "int*", &pfIsSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsSupported
     }
 }

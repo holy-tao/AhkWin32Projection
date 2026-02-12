@@ -47,7 +47,11 @@ class IDebugPlmClient extends IUnknown{
         ProcessIdMarshal := ProcessId is VarRef ? "uint*" : "ptr"
         ThreadIdMarshal := ThreadId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "HRESULT")
+        result := ComCall(3, this, "uint", Server, "uint", Timeout, "ptr", PackageFullName, "ptr", AppName, "ptr", Arguments, ProcessIdMarshal, ProcessId, ThreadIdMarshal, ThreadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -68,7 +68,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {HRESULT} 
      */
     put_selectionEnabled(v) {
-        result := ComCall(62, this, "short", v, "HRESULT")
+        result := ComCall(62, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +81,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {VARIANT_BOOL} 
      */
     get_selectionEnabled() {
-        result := ComCall(63, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(63, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -87,7 +95,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {HRESULT} 
      */
     put_frameActiveEnabled(v) {
-        result := ComCall(64, this, "short", v, "HRESULT")
+        result := ComCall(64, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +108,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {VARIANT_BOOL} 
      */
     get_frameActiveEnabled() {
-        result := ComCall(65, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(65, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -106,9 +122,16 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {HRESULT} 
      */
     put_orientation(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(66, this, "ptr", v, "HRESULT")
+        result := ComCall(66, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +141,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      */
     get_orientation() {
         p := BSTR()
-        result := ComCall(67, this, "ptr", p, "HRESULT")
+        result := ComCall(67, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -128,7 +155,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {HRESULT} 
      */
     put_usePrinterCopyCollate(v) {
-        result := ComCall(68, this, "short", v, "HRESULT")
+        result := ComCall(68, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,7 +168,11 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {VARIANT_BOOL} 
      */
     get_usePrinterCopyCollate() {
-        result := ComCall(69, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(69, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -147,10 +182,17 @@ class ITemplatePrinter2 extends ITemplatePrinter{
      * @returns {VARIANT} 
      */
     deviceSupports(bstrProperty) {
-        bstrProperty := bstrProperty is String ? BSTR.Alloc(bstrProperty).Value : bstrProperty
+        if(bstrProperty is String) {
+            pin := BSTR.Alloc(bstrProperty)
+            bstrProperty := pin.Value
+        }
 
         pvar := VARIANT()
-        result := ComCall(70, this, "ptr", bstrProperty, "ptr", pvar, "HRESULT")
+        result := ComCall(70, this, "ptr", bstrProperty, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvar
     }
 }

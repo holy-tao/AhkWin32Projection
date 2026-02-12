@@ -31,13 +31,17 @@ class IRowsetResynch extends IUnknown{
     /**
      * 
      * @param {Pointer} hRow 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @returns {Void} 
      */
-    GetVisibleData(hRow, hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetVisibleData(hRow, hAccessor_) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
-        result := ComCall(3, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hRow, "ptr", hAccessor_, "ptr", &pData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
@@ -56,7 +60,11 @@ class IRowsetResynch extends IUnknown{
         prghRowsResynchedMarshal := prghRowsResynched is VarRef ? "ptr*" : "ptr"
         prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, prghRowsResynchedMarshal, prghRowsResynched, prgRowStatusMarshal, prgRowStatus, "HRESULT")
+        result := ComCall(4, this, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, prghRowsResynchedMarshal, prghRowsResynched, prgRowStatusMarshal, prgRowStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

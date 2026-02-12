@@ -6,7 +6,7 @@
 
 /**
  * This interface is used to specify information of a TFTP client session currently active in the server.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransporttftpclient
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransporttftpclient
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -89,72 +89,100 @@ class IWdsTransportTftpClient extends IDispatch{
     /**
      * Retrieves the name of the file being transferred in the TFTP session.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filename
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filename
      */
     get_FileName() {
         pbszFileName := BSTR()
-        result := ComCall(7, this, "ptr", pbszFileName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbszFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszFileName
     }
 
     /**
      * Receives a string value containing the client’s IP address.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_ipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_ipaddress
      */
     get_IpAddress() {
         pbszIpAddress := BSTR()
-        result := ComCall(8, this, "ptr", pbszIpAddress, "HRESULT")
+        result := ComCall(8, this, "ptr", pbszIpAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszIpAddress
     }
 
     /**
      * Receives the timeout in seconds used to communicate with the client.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_timeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_timeout
      */
     get_Timeout() {
-        result := ComCall(9, this, "uint*", &pulTimeout := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pulTimeout := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulTimeout
     }
 
     /**
      * Receives the offset from the start of the file in bytes of the current block being transferred in the TFTP session.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_currentfileoffset
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_currentfileoffset
      */
     get_CurrentFileOffset() {
-        result := ComCall(10, this, "uint*", &pul64CurrentOffset := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pul64CurrentOffset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pul64CurrentOffset
     }
 
     /**
      * Receives the size in bytes of the file being transferred.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_filesize
      */
     get_FileSize() {
-        result := ComCall(11, this, "uint*", &pul64FileSize := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pul64FileSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pul64FileSize
     }
 
     /**
      * Retrieves the block size used in the TFTP session.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_blocksize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_blocksize
      */
     get_BlockSize() {
-        result := ComCall(12, this, "uint*", &pulBlockSize := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pulBlockSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulBlockSize
     }
 
     /**
      * Receives the current window size being used in the TFTP session. The window size used during a TFTP session can be updated by the client through ACK packets when using the variable-window TFTP extension.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_windowsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpclient-get_windowsize
      */
     get_WindowSize() {
-        result := ComCall(13, this, "uint*", &pulWindowSize := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pulWindowSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulWindowSize
     }
 }

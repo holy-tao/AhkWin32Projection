@@ -7,11 +7,8 @@
 /**
  * The IMSVidStreamBufferRecordingControl interface enables an application to manage a stream buffer recording object through the Video Control.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferRecordingControl)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambufferrecordingcontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidstreambufferrecordingcontrol
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -89,10 +86,14 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
     /**
      * The get_StartTime method retrieves the start time of the recording.
      * @returns {Integer} Pointer to a variable that receives the start time, in hundredths of seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-get_starttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_starttime
      */
     get_StartTime() {
-        result := ComCall(7, this, "int*", &rtStart := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &rtStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rtStart
     }
 
@@ -129,20 +130,28 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-put_starttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-put_starttime
      */
     put_StartTime(rtStart) {
-        result := ComCall(8, this, "int", rtStart, "HRESULT")
+        result := ComCall(8, this, "int", rtStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_StopTime method retrieves the stop time of the recording.
      * @returns {Integer} Pointer to a variable that receives the stop time, in hundredths of seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-get_stoptime
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_stoptime
      */
     get_StopTime() {
-        result := ComCall(9, this, "int*", &rtStop := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &rtStop := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rtStop
     }
 
@@ -179,50 +188,72 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-put_stoptime
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-put_stoptime
      */
     put_StopTime(rtStop) {
-        result := ComCall(10, this, "int", rtStop, "HRESULT")
+        result := ComCall(10, this, "int", rtStop, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_RecordingStopped method queries whether the recording has stopped.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstopped
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstopped
      */
     get_RecordingStopped() {
-        result := ComCall(11, this, "short*", &phResult := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &phResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phResult
     }
 
     /**
      * The get_RecordingStarted method queries whether the recording has started.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstarted
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstarted
      */
     get_RecordingStarted() {
-        result := ComCall(12, this, "short*", &phResult := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &phResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phResult
     }
 
     /**
      * The get_RecordingType method retrieves the type of recording, either content recording or reference recording.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingtype
      */
     get_RecordingType() {
-        result := ComCall(13, this, "int*", &dwType := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &dwType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwType
     }
 
     /**
      * The get_RecordingAttribute method retrieves the stream buffer Recording object that is controlled by this interface.
+     * @remarks
+     * The caller must release the returned <b>IUnknown</b> pointer.
      * @returns {IUnknown} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/recording-object">Recording</a> object's <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingattribute
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingattribute
      */
     get_RecordingAttribute() {
-        result := ComCall(14, this, "ptr*", &pRecordingAttribute := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &pRecordingAttribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pRecordingAttribute)
     }
 }

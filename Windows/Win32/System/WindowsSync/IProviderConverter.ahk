@@ -6,11 +6,8 @@
 /**
  * When implemented by a derived class, represents an object that can convert an ISyncProvider object to an IKnowledgeSyncProvider object.
  * @remarks
- * 
  * <b>IProviderConverter</b> is typically implemented by the developer of the custom provider that it converts.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iproviderconverter
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-iproviderconverter
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -65,10 +62,14 @@ class IProviderConverter extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iproviderconverter-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-iproviderconverter-initialize
      */
     Initialize(pISyncProvider) {
-        result := ComCall(3, this, "ptr", pISyncProvider, "HRESULT")
+        result := ComCall(3, this, "ptr", pISyncProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

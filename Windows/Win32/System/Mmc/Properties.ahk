@@ -7,8 +7,10 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Properties Property (ServerNetworkProtocolIPAddress Class)
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/com/properties-and-methods
+ * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/wmi-provider-configuration-classes/servernetworkprotocolipaddress-class/properties-property-servernetworkprotocolipaddress-class
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -58,20 +60,37 @@ class Properties extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {BSTR} Name 
      * @returns {Property} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(Name) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", Name, "ptr*", &Property := 0, "HRESULT")
-        return Property(Property)
+        result := ComCall(8, this, "ptr", Name, "ptr*", &Property_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Property(Property_)
     }
 
     /**
@@ -79,19 +98,31 @@ class Properties extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {BSTR} Name 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(Name) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", Name, "HRESULT")
+        result := ComCall(10, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

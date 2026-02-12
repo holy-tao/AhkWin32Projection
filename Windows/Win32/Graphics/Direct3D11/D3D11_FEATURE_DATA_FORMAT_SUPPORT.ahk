@@ -3,7 +3,7 @@
 
 /**
  * Describes which resources are supported by the current graphics driver for a given format. (D3D11_FEATURE_DATA_FORMAT_SUPPORT)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_format_support
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_feature_data_format_support
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -8,19 +8,15 @@
 /**
  * A read-only enumerator of IOpcRelationshipSelector interface pointers.
  * @remarks
- * 
  * When an enumerator is created, the current position precedes the first pointer.
  * 
- * To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext">MoveNext</a>method after creating the enumerator.
+ * To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext">MoveNext</a> method after creating the enumerator.
  * 
  * Changes to the set will invalidate the enumerator, and all subsequent calls to it will fail.
  * 
  * To get an 
  * 				 <b>IOpcRelationshipSelectorEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselectorset-getenumerator">IOpcRelationshipSelectorSet::GetEnumerator</a> or  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreference-getrelationshipselectorenumerator">IOpcSignatureRelationshipReference::GetRelationshipSelectorEnumerator</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationshipselectorenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcrelationshipselectorenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -79,16 +75,20 @@ class IOpcRelationshipSelectorEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcrelationshipselectorenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 
     /**
      * Moves the current position of the enumerator to the previous IOpcRelationshipSelectorinterface pointer.
-     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a>interface pointer at the current position.
+     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer at the current position.
      * 
      * The value of <i>hasPrevious</i> is only valid when the method succeeds.
      * 
@@ -120,30 +120,48 @@ class IOpcRelationshipSelectorEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorenumerator-moveprevious
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcrelationshipselectorenumerator-moveprevious
      */
     MovePrevious() {
-        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasPrevious
     }
 
     /**
      * Gets the IOpcRelationshipSelector interface pointer at the current position of the enumerator.
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer.
+     * 
+     * To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateenumerator-movenext">MoveNext</a> method after creating the enumerator.
      * @returns {IOpcRelationshipSelector} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer .
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcrelationshipselectorenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &relationshipSelector := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &relationshipSelector := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcRelationshipSelector(relationshipSelector)
     }
 
     /**
      * Creates a copy of the current IOpcRelationshipSelectorEnumeratorinterface pointer and all its descendants.
-     * @returns {IOpcRelationshipSelectorEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorenumerator">IOpcRelationshipSelectorEnumerator</a>interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipselectorenumerator-clone
+     * @remarks
+     * The copy has a current position  and set that are identical to the current enumerator.
+     * @returns {IOpcRelationshipSelectorEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselectorenumerator">IOpcRelationshipSelectorEnumerator</a> interface pointer.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcrelationshipselectorenumerator-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &copy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcRelationshipSelectorEnumerator(copy)
     }
 }

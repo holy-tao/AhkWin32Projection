@@ -6,7 +6,7 @@
 
 /**
  * The DIBSECTION structure contains information about a DIB created by calling the CreateDIBSection function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-dibsection
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-dibsection
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

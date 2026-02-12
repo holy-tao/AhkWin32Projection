@@ -5,7 +5,7 @@
  * The HEAP_SUMMARY structure (heapapi.h) represents a heap summary retrieved with a call to the HeapSummary function.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/heapapi/ns-heapapi-heap_summary
+ * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/ns-heapapi-heap_summary
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

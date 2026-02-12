@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
@@ -80,7 +82,7 @@ class AllJoyn {
     static ALLJOYN_PROXIMITY_NETWORK => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALLJOYN_NAMED_PIPE_CONNECT_SPEC => "npipe:"
 

@@ -14,7 +14,7 @@
  *       
  * 
  * See http://www.w3.org/TR/2005/REC-xop10-20050125/ for the MTOM specification.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_reader_mtom_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

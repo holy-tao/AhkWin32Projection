@@ -6,7 +6,7 @@
 
 /**
  * The IADsCaseIgnoreList interface provides methods for an ADSI client to access the Case Ignore List attribute. You can call the property methods of this interface to obtain and modify the attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadscaseignorelist
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadscaseignorelist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -45,7 +45,11 @@ class IADsCaseIgnoreList extends IDispatch{
      */
     get_CaseIgnoreList() {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -55,7 +59,11 @@ class IADsCaseIgnoreList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CaseIgnoreList(vCaseIgnoreList) {
-        result := ComCall(8, this, "ptr", vCaseIgnoreList, "HRESULT")
+        result := ComCall(8, this, "ptr", vCaseIgnoreList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

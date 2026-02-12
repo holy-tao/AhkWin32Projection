@@ -24,7 +24,7 @@
  *      <b>ICMPV6_ECHO_REPLY</b> structure is undefined.
  * 
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipexport/ns-ipexport-icmpv6_echo_reply_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

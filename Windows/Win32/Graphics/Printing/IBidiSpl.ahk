@@ -43,7 +43,11 @@ class IBidiSpl extends IUnknown{
     BindDevice(pszDeviceName, dwAccess) {
         pszDeviceName := pszDeviceName is String ? StrPtr(pszDeviceName) : pszDeviceName
 
-        result := ComCall(3, this, "ptr", pszDeviceName, "uint", dwAccess, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDeviceName, "uint", dwAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class IBidiSpl extends IUnknown{
      * @returns {HRESULT} 
      */
     UnbindDevice() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class IBidiSpl extends IUnknown{
     SendRecv(pszAction, pRequest) {
         pszAction := pszAction is String ? StrPtr(pszAction) : pszAction
 
-        result := ComCall(5, this, "ptr", pszAction, "ptr", pRequest, "HRESULT")
+        result := ComCall(5, this, "ptr", pszAction, "ptr", pRequest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class IBidiSpl extends IUnknown{
     MultiSendRecv(pszAction, pRequestContainer) {
         pszAction := pszAction is String ? StrPtr(pszAction) : pszAction
 
-        result := ComCall(6, this, "ptr", pszAction, "ptr", pRequestContainer, "HRESULT")
+        result := ComCall(6, this, "ptr", pszAction, "ptr", pRequestContainer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

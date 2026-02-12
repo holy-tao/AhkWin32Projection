@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ICCSubStreamFiltering)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-iccsubstreamfiltering
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-iccsubstreamfiltering
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -46,10 +43,14 @@ class ICCSubStreamFiltering extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives a bitwise OR of flags that specify the closed captioning services. For a list of flags, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ks-cc-substream">KS_CC_SUBSTREAM Constants</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-iccsubstreamfiltering-get_substreamtypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-iccsubstreamfiltering-get_substreamtypes
      */
     get_SubstreamTypes() {
-        result := ComCall(3, this, "int*", &pTypes := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTypes
     }
 
@@ -75,10 +76,14 @@ class ICCSubStreamFiltering extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-iccsubstreamfiltering-put_substreamtypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-iccsubstreamfiltering-put_substreamtypes
      */
     put_SubstreamTypes(Types) {
-        result := ComCall(4, this, "int", Types, "HRESULT")
+        result := ComCall(4, this, "int", Types, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

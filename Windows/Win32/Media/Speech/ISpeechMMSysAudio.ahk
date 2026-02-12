@@ -56,7 +56,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {Integer} 
      */
     get_DeviceId() {
-        result := ComCall(21, this, "int*", &DeviceId := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &DeviceId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DeviceId
     }
 
@@ -66,7 +70,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {HRESULT} 
      */
     put_DeviceId(DeviceId) {
-        result := ComCall(22, this, "int", DeviceId, "HRESULT")
+        result := ComCall(22, this, "int", DeviceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +83,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {Integer} 
      */
     get_LineId() {
-        result := ComCall(23, this, "int*", &LineId := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &LineId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LineId
     }
 
@@ -85,7 +97,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {HRESULT} 
      */
     put_LineId(LineId) {
-        result := ComCall(24, this, "int", LineId, "HRESULT")
+        result := ComCall(24, this, "int", LineId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +110,11 @@ class ISpeechMMSysAudio extends ISpeechAudio{
      * @returns {Integer} 
      */
     get_MMHandle() {
-        result := ComCall(25, this, "int*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(25, this, "int*", &Handle_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Handle_
     }
 }

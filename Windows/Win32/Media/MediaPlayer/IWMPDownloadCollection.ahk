@@ -50,7 +50,11 @@ class IWMPDownloadCollection extends IDispatch{
     get_id(plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, plIdMarshal, plId, "HRESULT")
+        result := ComCall(7, this, plIdMarshal, plId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,17 +66,25 @@ class IWMPDownloadCollection extends IDispatch{
     get_count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(8, this, plCountMarshal, plCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} lItem 
+     * @param {Integer} lItem_ 
      * @returns {IWMPDownloadItem2} 
      */
-    item(lItem) {
-        result := ComCall(9, this, "int", lItem, "ptr*", &ppDownload := 0, "HRESULT")
+    item(lItem_) {
+        result := ComCall(9, this, "int", lItem_, "ptr*", &ppDownload := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMPDownloadItem2(ppDownload)
     }
 
@@ -83,29 +95,52 @@ class IWMPDownloadCollection extends IDispatch{
      * @returns {IWMPDownloadItem2} 
      */
     startDownload(bstrSourceURL, bstrType) {
-        bstrSourceURL := bstrSourceURL is String ? BSTR.Alloc(bstrSourceURL).Value : bstrSourceURL
-        bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
+        if(bstrSourceURL is String) {
+            pin := BSTR.Alloc(bstrSourceURL)
+            bstrSourceURL := pin.Value
+        }
+        if(bstrType is String) {
+            pin := BSTR.Alloc(bstrType)
+            bstrType := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrSourceURL, "ptr", bstrType, "ptr*", &ppDownload := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrSourceURL, "ptr", bstrType, "ptr*", &ppDownload := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMPDownloadItem2(ppDownload)
     }
 
     /**
      * 
-     * @param {Integer} lItem 
+     * @param {Integer} lItem_ 
      * @returns {HRESULT} 
      */
-    removeItem(lItem) {
-        result := ComCall(11, this, "int", lItem, "HRESULT")
+    removeItem(lItem_) {
+        result := ComCall(11, this, "int", lItem_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Clear Method (ADO)
+     * @remarks
+     * Use the **Clear** method on the [Errors](./errors-collection-ado.md) collection to remove all existing [Error](./error-object.md) objects from the collection. When an error occurs, ADO automatically clears the **Errors** collection and fills it with **Error** objects based on the new error.  
+     *   
+     *  Some properties and methods return warnings that appear as **Error** objects in the **Errors** collection but do not halt a program's execution. Before you call the [Resync](./resync-method.md), [UpdateBatch](./updatebatch-method.md), or [CancelBatch](./cancelbatch-method-ado.md) methods on a [Recordset](./recordset-object-ado.md) object; the [Open](./open-method-ado-connection.md) method on a [Connection](./connection-object-ado.md) object; or set the [Filter](./filter-property.md) property on a **Recordset** object, call the **Clear** method on the **Errors** collection. That way, you can read the [Count](./count-property-ado.md) property of the **Errors** collection to test for returned warnings.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/clear-method-ado
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

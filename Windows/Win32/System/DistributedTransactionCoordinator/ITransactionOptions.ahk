@@ -34,7 +34,11 @@ class ITransactionOptions extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOptions(pOptions) {
-        result := ComCall(3, this, "ptr", pOptions, "HRESULT")
+        result := ComCall(3, this, "ptr", pOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ITransactionOptions extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOptions(pOptions) {
-        result := ComCall(4, this, "ptr", pOptions, "HRESULT")
+        result := ComCall(4, this, "ptr", pOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

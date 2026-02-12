@@ -11,7 +11,7 @@
  * Note that the job memory and process memory limits are very similar in operation, but they are independent. You could set a job-wide limit of 100 MB with a per-process limit of 10 MB. In this scenario, no single process could commit more than 10 MB, and the set of processes associated with a job could never exceed 100 MB.
  * 
  * To register for notifications  that a job has exceeded its peak memory limit while allowing processes to continue to commit memory, use the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function with the <b>JobObjectNotificationLimitInformation</b> information class.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_extended_limit_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-jobobject_extended_limit_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

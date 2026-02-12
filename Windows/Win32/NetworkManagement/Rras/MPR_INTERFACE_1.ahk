@@ -4,7 +4,7 @@
 
 /**
  * The MPR_INTERFACE_1 structure contains configuration and status information for a particular router interface.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_1
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-mpr_interface_1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

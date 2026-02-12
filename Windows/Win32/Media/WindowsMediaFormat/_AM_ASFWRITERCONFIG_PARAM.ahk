@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Important</b>  To receive the <b>EC_PREPROCESS_COMPLETE</b> event you must use the DirectShow <b>GetEvent</b> method as demonstrated in the DSCopy sample. The DirectShow <b>WaitForCompletion</b> method will not receive this particular event.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/dshowasf/ne-dshowasf-_am_asfwriterconfig_param
+ * @see https://learn.microsoft.com/windows/win32/api//content/dshowasf/ne-dshowasf-_am_asfwriterconfig_param
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */

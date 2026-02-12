@@ -6,10 +6,8 @@
 /**
  * Provides methods for accessing thesaurus information.
  * @remarks
- * 
  * A thesaurus file contains a word and a list of words to substitute when querying. It is specific to a catalog and can be defined in more than one file.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchlanguagesupport
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-isearchlanguagesupport
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -41,11 +39,15 @@ class ISearchLanguageSupport extends IUnknown{
      * A Boolean value that indicates whether the interface is sensitive to diacritics. The default setting is <b>FALSE</b>, indicating that the interface ignores diacritical characters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-setdiacriticsensitivity
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchlanguagesupport-setdiacriticsensitivity
      */
     SetDiacriticSensitivity(fDiacriticSensitive) {
-        result := ComCall(3, this, "int", fDiacriticSensitive, "HRESULT")
+        result := ComCall(3, this, "int", fDiacriticSensitive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,10 +56,14 @@ class ISearchLanguageSupport extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, contains a pointer to the sensitivity setting. <b>FALSE</b> indicates that the interface ignores diacritics; <b>TRUE</b> indicates the interface recognizes diacritics.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-getdiacriticsensitivity
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchlanguagesupport-getdiacriticsensitivity
      */
     GetDiacriticSensitivity() {
-        result := ComCall(4, this, "int*", &pfDiacriticSensitive := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfDiacriticSensitive := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfDiacriticSensitive
     }
 
@@ -69,7 +75,7 @@ class ISearchLanguageSupport extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the interface to be queried.
-     * @param {Pointer<Pointer<Void>>} ppWordBreaker Type: <b>void**</b>
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppWordBreaker Type: <b>void**</b>
      * 
      * On return, contains the address of a pointer to the interface of the LCID contained in <i>pLcidUsed</i>.
      * @param {Pointer<Integer>} pLcidUsed Type: <b>LCID*</b>
@@ -77,14 +83,18 @@ class ISearchLanguageSupport extends IUnknown{
      * On return, contains a pointer to the actual LCID used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
      */
     LoadWordBreaker(lcid, riid, ppWordBreaker, pLcidUsed) {
         ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", lcid, "ptr", riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(5, this, "uint", lcid, "ptr", riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +106,7 @@ class ISearchLanguageSupport extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the interface to be queried.
-     * @param {Pointer<Pointer<Void>>} ppStemmer Type: <b>void**</b>
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppStemmer Type: <b>void**</b>
      * 
      * On return, contains the address of a pointer to the interface of the LCID contained in <i>pLcidUsed</i>.
      * @param {Pointer<Integer>} pLcidUsed Type: <b>LCID*</b>
@@ -104,14 +114,18 @@ class ISearchLanguageSupport extends IUnknown{
      * On return, contains a pointer to the actual LCID used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
      */
     LoadStemmer(lcid, riid, ppStemmer, pLcidUsed) {
         ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", lcid, "ptr", riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(6, this, "uint", lcid, "ptr", riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,13 +146,17 @@ class ISearchLanguageSupport extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Returns a pointer to the number of characters matched in <i>pwcsDocumentToken</i>. Typically, but not necessarily, the number of characters in <i>pwcsQueryToken</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchlanguagesupport-isprefixnormalized
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchlanguagesupport-isprefixnormalized
      */
     IsPrefixNormalized(pwcsQueryToken, cwcQueryToken, pwcsDocumentToken, cwcDocumentToken) {
         pwcsQueryToken := pwcsQueryToken is String ? StrPtr(pwcsQueryToken) : pwcsQueryToken
         pwcsDocumentToken := pwcsDocumentToken is String ? StrPtr(pwcsDocumentToken) : pwcsDocumentToken
 
-        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, "uint*", &pulPrefixLength := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, "uint*", &pulPrefixLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulPrefixLength
     }
 }

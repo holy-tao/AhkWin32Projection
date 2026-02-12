@@ -8,7 +8,7 @@
  * The DDSURFACEDESC2 structure contains a description of a surface to be created by the driver.
  * @remarks
  * The relevant members differ for each potential type of surface. This structure is typically created and initialized by an application.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc2
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/ns-ddraw-ddsurfacedesc2
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

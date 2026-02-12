@@ -69,7 +69,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_x(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +82,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -88,7 +96,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_y(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +109,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -107,7 +123,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_width(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +136,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -126,7 +150,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_height(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +163,11 @@ class ISVGImageElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 }

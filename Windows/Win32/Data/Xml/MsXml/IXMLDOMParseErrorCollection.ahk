@@ -57,7 +57,11 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {IXMLDOMParseError2} 
      */
     get_item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &error := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &error := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMParseError2(error)
     }
 
@@ -66,7 +70,11 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &length := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -75,7 +83,11 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {IXMLDOMParseError2} 
      */
     get_next() {
-        result := ComCall(9, this, "ptr*", &error := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &error := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMParseError2(error)
     }
 
@@ -84,7 +96,11 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +109,11 @@ class IXMLDOMParseErrorCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 }

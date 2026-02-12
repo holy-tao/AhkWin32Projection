@@ -31,17 +31,29 @@ class IProvisioningProfileWireless extends IUnknown{
 
     /**
      * Creates a new user profile.
+     * @remarks
+     * The caller must have administrator privileges to call this function.
      * @param {BSTR} bstrXMLWirelessConfigProfile 
      * @param {BSTR} bstrXMLConnectionConfigProfile 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-createprofile
      */
     CreateProfile(bstrXMLWirelessConfigProfile, bstrXMLConnectionConfigProfile, pAdapterInstanceGuid) {
-        bstrXMLWirelessConfigProfile := bstrXMLWirelessConfigProfile is String ? BSTR.Alloc(bstrXMLWirelessConfigProfile).Value : bstrXMLWirelessConfigProfile
-        bstrXMLConnectionConfigProfile := bstrXMLConnectionConfigProfile is String ? BSTR.Alloc(bstrXMLConnectionConfigProfile).Value : bstrXMLConnectionConfigProfile
+        if(bstrXMLWirelessConfigProfile is String) {
+            pin := BSTR.Alloc(bstrXMLWirelessConfigProfile)
+            bstrXMLWirelessConfigProfile := pin.Value
+        }
+        if(bstrXMLConnectionConfigProfile is String) {
+            pin := BSTR.Alloc(bstrXMLConnectionConfigProfile)
+            bstrXMLConnectionConfigProfile := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrXMLWirelessConfigProfile, "ptr", bstrXMLConnectionConfigProfile, "ptr", pAdapterInstanceGuid, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrXMLWirelessConfigProfile, "ptr", bstrXMLConnectionConfigProfile, "ptr", pAdapterInstanceGuid, "uint*", &pulStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStatus
     }
 }

@@ -37,7 +37,11 @@ class IDiagnosticsScriptEngineProvider extends IUnknown{
      * @returns {IDiagnosticsScriptEngine} 
      */
     CreateDiagnosticsScriptEngine(pScriptSite, fDebuggingEnabled, ulProcessId) {
-        result := ComCall(3, this, "ptr", pScriptSite, "int", fDebuggingEnabled, "uint", ulProcessId, "ptr*", &ppEngine := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pScriptSite, "int", fDebuggingEnabled, "uint", ulProcessId, "ptr*", &ppEngine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiagnosticsScriptEngine(ppEngine)
     }
 }

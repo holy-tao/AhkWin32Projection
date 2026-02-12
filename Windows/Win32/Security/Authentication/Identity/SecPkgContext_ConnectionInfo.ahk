@@ -3,7 +3,7 @@
 
 /**
  * The SecPkgContext_ConnectionInfo structure contains protocol and cipher information. This structure is used by the InitializeSecurityContext (Schannel) function.This attribute is supported only by the Schannel security support provider (SSP).
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_connectioninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-secpkgcontext_connectioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

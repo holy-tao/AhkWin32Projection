@@ -24,7 +24,7 @@
  * 
  * This structure is defined in the Ipexport.h header file which is automatically included in the Iphlpapi.h 
  *      header file. The Ipexport.h header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ipv6_address_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipexport/ns-ipexport-ipv6_address_ex
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -32,10 +32,14 @@ class ITypeFactory extends IUnknown{
      * 
      * @param {ITypeInfo} pTypeInfo 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     CreateFromTypeInfo(pTypeInfo, riid) {
-        result := ComCall(3, this, "ptr", pTypeInfo, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
-        return IUnknown(ppv)
+        result := ComCall(3, this, "ptr", pTypeInfo, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppv
     }
 }

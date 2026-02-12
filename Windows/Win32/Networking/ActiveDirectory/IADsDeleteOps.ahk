@@ -5,7 +5,7 @@
 
 /**
  * The IADsDeleteOps interface specifies a method an object can use to delete itself from the underlying directory. For a container object, the method deletes its children and the entire subtree.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsdeleteops
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsdeleteops
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class IADsDeleteOps extends IDispatch{
     /**
      * The IADsDeleteOps::DeleteObject method deletes an ADSI object.
      * @param {Integer} lnFlags Reserved.
-     * @returns {HRESULT} This method supports standard return values, including S_OK for a successful operation. For more information about error codes, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsdeleteops-deleteobject
+     * @returns {HRESULT} This method supports standard return values, including S_OK for a successful operation. For more information about error codes, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsdeleteops-deleteobject
      */
     DeleteObject(lnFlags) {
-        result := ComCall(7, this, "int", lnFlags, "HRESULT")
+        result := ComCall(7, this, "int", lnFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

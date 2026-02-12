@@ -30,19 +30,28 @@ class IDxcOptimizerPass extends IUnknown{
 
     /**
      * 
-     * @returns {PWSTR} 
+     * @returns {Pointer<PWSTR>} 
      */
     GetOptionName() {
-        result := ComCall(3, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
+     * @returns {Pointer<PWSTR>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getdescription
      */
     GetDescription() {
-        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -51,27 +60,39 @@ class IDxcOptimizerPass extends IUnknown{
      * @returns {Integer} 
      */
     GetOptionArgCount() {
-        result := ComCall(5, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * 
      * @param {Integer} argIndex 
-     * @returns {PWSTR} 
+     * @returns {Pointer<PWSTR>} 
      */
     GetOptionArgName(argIndex) {
-        result := ComCall(6, this, "uint", argIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(6, this, "uint", argIndex, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
     /**
      * 
      * @param {Integer} argIndex 
-     * @returns {PWSTR} 
+     * @returns {Pointer<PWSTR>} 
      */
     GetOptionArgDescription(argIndex) {
-        result := ComCall(7, this, "uint", argIndex, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(7, this, "uint", argIndex, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 }

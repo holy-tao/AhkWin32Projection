@@ -5,7 +5,7 @@
 
 /**
  * Handles the notification that indicates a change in the progress of an asynchronous download operation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-idownloadprogresschangedcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-idownloadprogresschangedcallback
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IDownloadProgressChangedCallback extends IUnknown{
      * @param {IDownloadJob} downloadJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface that contains download information.
      * @param {IDownloadProgressChangedCallbackArgs} callbackArgs An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadprogresschangedcallbackargs">IDownloadProgressChangedCallbackArgs</a> interface that contains download progress data.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns   a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogresschangedcallback-invoke
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogresschangedcallback-invoke
      */
     Invoke(downloadJob, callbackArgs) {
-        result := ComCall(3, this, "ptr", downloadJob, "ptr", callbackArgs, "HRESULT")
+        result := ComCall(3, this, "ptr", downloadJob, "ptr", callbackArgs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

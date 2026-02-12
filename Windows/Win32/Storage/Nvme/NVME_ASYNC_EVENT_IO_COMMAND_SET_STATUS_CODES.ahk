@@ -5,7 +5,7 @@
  * Contains values that indicate an I/O Command Set event type.
  * @remarks
  * Values from this enumeration are used in the **NVME_ASYNC_EVENT_TYPE_IO_COMMAND_SET_STATUS** field of the [NVME_ASYNC_EVENT_TYPES](ne-nvme-nvme_async_event_types.md) enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_async_event_io_command_set_status_codes
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_async_event_io_command_set_status_codes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_CONTROL_OBJECT (msclus.h) is the 8-bit object component of a control code that indicates the cluster object type to which the control code applies.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_control_object
+ * CLUSTER_CONTROL_OBJECT (clusapi.h) is the 8-bit object component of a control code that indicates the type of cluster object to which the control code applies. For more information, see Control Code Architecture.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_control_object
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

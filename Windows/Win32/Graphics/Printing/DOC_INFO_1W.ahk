@@ -3,7 +3,7 @@
 
 /**
  * The DOC\_INFO\_1 structure describes a document that will be printed.
- * @see https://learn.microsoft.com/windows/win32/printdocs/doc-info-1
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/doc-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

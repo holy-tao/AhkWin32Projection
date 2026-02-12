@@ -41,17 +41,25 @@ class ISpGrammarBuilder2 extends IUnknown{
         hToState := hToState is Win32Handle ? NumGet(hToState, "ptr") : hToState
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(3, this, "ptr", hFromState, "ptr", hToState, "ptr", psz, "int", eMatchMode, "HRESULT")
+        result := ComCall(3, this, "ptr", hFromState, "ptr", hToState, "ptr", psz, "int", eMatchMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} phoneticALphabet 
+     * @param {Integer} phoneticALphabet_ 
      * @returns {HRESULT} 
      */
-    SetPhoneticAlphabet(phoneticALphabet) {
-        result := ComCall(4, this, "int", phoneticALphabet, "HRESULT")
+    SetPhoneticAlphabet(phoneticALphabet_) {
+        result := ComCall(4, this, "int", phoneticALphabet_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

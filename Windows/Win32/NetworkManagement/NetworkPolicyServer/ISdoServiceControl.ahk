@@ -6,13 +6,10 @@
 /**
  * Use the ISdoServiceControl interface to control the service being administered on the SDO computer.
  * @remarks
- * 
  * Use the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdomachine-getservicesdo">ISdoMachine::GetServiceSDO</a> method to retrieve a pointer to an 
  * <b>ISdoServiceControl</b> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/nn-sdoias-isdoservicecontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/nn-sdoias-isdoservicecontrol
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
@@ -39,13 +36,22 @@ class ISdoServiceControl extends IDispatch{
 
     /**
      * The StartService method starts the service administered through SDO.
+     * @remarks
+     * Calls to this method return almost immediately. NPS (IAS) takes several minutes to start up if its SDO configuration database contains a large number of objects.
+     * 
+     * <div class="alert"><b>Note</b>  Internet Authentication Service (IAS) was renamed Network Policy Server (NPS) starting with Windows Server 2008.</div>
+     * <div> </div>
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-startservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/nf-sdoias-isdoservicecontrol-startservice
      */
     StartService() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,32 +60,49 @@ class ISdoServiceControl extends IDispatch{
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-stopservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/nf-sdoias-isdoservicecontrol-stopservice
      */
     StopService() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetServiceStatus method retrieves the status of the service being administered through SDO.
-     * @returns {Integer} Pointer to a <b>LONG</b> variable that contains the status of the service. The status
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
      */
     GetServiceStatus() {
-        result := ComCall(9, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(9, this, "int*", &status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return status_
     }
 
     /**
      * The ResetService method resets the service administered by the SDO API. Resetting the service causes the service to refresh its data.
+     * @remarks
+     * The data refresh begins 5 seconds after the last call to 
+     *   <b>ISdoServiceControl::ResetService</b>. The 
+     *   amount of time it takes for the refresh to complete depends on the number of objects in the SDO configuration 
+     *   database.
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-resetservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/nf-sdoias-isdoservicecontrol-resetservice
      */
     ResetService() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

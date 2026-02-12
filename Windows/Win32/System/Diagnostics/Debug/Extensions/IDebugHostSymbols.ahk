@@ -44,7 +44,11 @@ class IDebugHostSymbols extends IUnknown{
         pwszMinVersion := pwszMinVersion is String ? StrPtr(pwszMinVersion) : pwszMinVersion
         pwszMaxVersion := pwszMaxVersion is String ? StrPtr(pwszMaxVersion) : pwszMaxVersion
 
-        result := ComCall(3, this, "ptr", pwszModuleName, "ptr", pwszMinVersion, "ptr", pwszMaxVersion, "ptr*", &ppModuleSignature := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszModuleName, "ptr", pwszMinVersion, "ptr", pwszMaxVersion, "ptr*", &ppModuleSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostModuleSignature(ppModuleSignature)
     }
 
@@ -57,7 +61,11 @@ class IDebugHostSymbols extends IUnknown{
     CreateTypeSignature(signatureSpecification, module) {
         signatureSpecification := signatureSpecification is String ? StrPtr(signatureSpecification) : signatureSpecification
 
-        result := ComCall(4, this, "ptr", signatureSpecification, "ptr", module, "ptr*", &typeSignature := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", signatureSpecification, "ptr", module, "ptr*", &typeSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostTypeSignature(typeSignature)
     }
 
@@ -75,55 +83,75 @@ class IDebugHostSymbols extends IUnknown{
         minVersion := minVersion is String ? StrPtr(minVersion) : minVersion
         maxVersion := maxVersion is String ? StrPtr(maxVersion) : maxVersion
 
-        result := ComCall(5, this, "ptr", signatureSpecification, "ptr", moduleName, "ptr", minVersion, "ptr", maxVersion, "ptr*", &typeSignature := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", signatureSpecification, "ptr", moduleName, "ptr", minVersion, "ptr", maxVersion, "ptr*", &typeSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostTypeSignature(typeSignature)
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @returns {IDebugHostSymbolEnumerator} 
+     * @param {IDebugHostContext} context_ 
+     * @returns {Pointer<IDebugHostSymbolEnumerator>} 
      */
-    EnumerateModules(context) {
-        result := ComCall(6, this, "ptr", context, "ptr*", &moduleEnum := 0, "HRESULT")
-        return IDebugHostSymbolEnumerator(moduleEnum)
+    EnumerateModules(context_) {
+        result := ComCall(6, this, "ptr", context_, "ptr*", &moduleEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return moduleEnum
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} context_ 
      * @param {PWSTR} moduleName 
-     * @returns {IDebugHostModule} 
+     * @returns {Pointer<IDebugHostModule>} 
      */
-    FindModuleByName(context, moduleName) {
+    FindModuleByName(context_, moduleName) {
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := ComCall(7, this, "ptr", context, "ptr", moduleName, "ptr*", &module := 0, "HRESULT")
-        return IDebugHostModule(module)
+        result := ComCall(7, this, "ptr", context_, "ptr", moduleName, "ptr*", &module := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return module
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} context_ 
      * @param {Location} moduleLocation 
-     * @returns {IDebugHostModule} 
+     * @returns {Pointer<IDebugHostModule>} 
      */
-    FindModuleByLocation(context, moduleLocation) {
-        result := ComCall(8, this, "ptr", context, "ptr", moduleLocation, "ptr*", &module := 0, "HRESULT")
-        return IDebugHostModule(module)
+    FindModuleByLocation(context_, moduleLocation) {
+        result := ComCall(8, this, "ptr", context_, "ptr", moduleLocation, "ptr*", &module := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return module
     }
 
     /**
      * 
      * @param {IDebugHostContext} pContext 
-     * @param {Location} location 
-     * @param {IDebugHostType} objectType 
+     * @param {Location} location_ 
+     * @param {IDebugHostType} objectType_ 
      * @param {Pointer<Location>} derivedLocation 
      * @param {Pointer<IDebugHostType>} derivedType 
      * @returns {HRESULT} 
      */
-    GetMostDerivedObject(pContext, location, objectType, derivedLocation, derivedType) {
-        result := ComCall(9, this, "ptr", pContext, "ptr", location, "ptr", objectType, "ptr", derivedLocation, "ptr*", derivedType, "HRESULT")
+    GetMostDerivedObject(pContext, location_, objectType_, derivedLocation, derivedType) {
+        result := ComCall(9, this, "ptr", pContext, "ptr", location_, "ptr", objectType_, "ptr", derivedLocation, "ptr*", derivedType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

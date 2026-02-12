@@ -29,14 +29,19 @@ class IDebugOutputStream extends IUnknown{
     static VTableNames => ["Write"]
 
     /**
-     * 
+     * This article helps you to configure the Script Task.
      * @param {PWSTR} psz 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/integration-services/extending-packages-scripting-task-examples/write-event-log-script-task
      */
     Write(psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := ComCall(3, this, "ptr", psz, "HRESULT")
+        result := ComCall(3, this, "ptr", psz, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

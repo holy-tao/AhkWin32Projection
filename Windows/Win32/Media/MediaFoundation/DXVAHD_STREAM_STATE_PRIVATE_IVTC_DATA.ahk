@@ -28,7 +28,7 @@
  * <li>At some point, query the device for the current IVTC statistics.</li>
  * <li>If the device detects telecined frames, use a custom frame rate to perform IVTC. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_custom_rate_data">DXVAHD_CUSTOM_RATE_DATA</a>.</li>
  * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

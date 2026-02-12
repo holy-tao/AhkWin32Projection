@@ -5,7 +5,7 @@
  * Reports the number of triangles that have been processed and clipped by the runtime's software vertex processing.
  * @remarks
  * Use the debug runtime and software vertex processing to get the number of non-clipped and clipped primitives for a particular scene. Primitives will typically be clipped based on a guard band (if one is present). The clipping guard band is set with parameters such as GuardBandLeft in [**D3DCAPS9**](/windows/desktop/api/D3D9Caps/ns-d3d9caps-d3dcaps9).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-d3dvertexstats
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddevinfo-d3dvertexstats
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

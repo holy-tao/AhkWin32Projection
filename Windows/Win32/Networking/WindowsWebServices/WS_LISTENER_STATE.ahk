@@ -17,7 +17,7 @@
  *                 <b>WS_E_INVALID_OPERATION</b> error being returned from
  *                 the function (or crash in the case of <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreelistener">WsFreeListener</a>).
  *             See <a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_listener_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_listener_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

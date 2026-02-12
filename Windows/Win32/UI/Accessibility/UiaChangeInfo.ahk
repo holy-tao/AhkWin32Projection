@@ -95,7 +95,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiachangeinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/ns-uiautomationcore-uiachangeinfo
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

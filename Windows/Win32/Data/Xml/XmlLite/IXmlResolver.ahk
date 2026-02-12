@@ -40,7 +40,11 @@ class IXmlResolver extends IUnknown{
         pwszPublicIdentifier := pwszPublicIdentifier is String ? StrPtr(pwszPublicIdentifier) : pwszPublicIdentifier
         pwszSystemIdentifier := pwszSystemIdentifier is String ? StrPtr(pwszSystemIdentifier) : pwszSystemIdentifier
 
-        result := ComCall(3, this, "ptr", pwszBaseUri, "ptr", pwszPublicIdentifier, "ptr", pwszSystemIdentifier, "ptr*", &ppResolvedInput := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszBaseUri, "ptr", pwszPublicIdentifier, "ptr", pwszSystemIdentifier, "ptr*", &ppResolvedInput := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppResolvedInput)
     }
 }

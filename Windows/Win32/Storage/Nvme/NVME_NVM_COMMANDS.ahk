@@ -5,7 +5,7 @@
  * Contains values that indicate a command in the NVM Command Set.
  * @remarks
  * NVM Commands are submitted by the host when the controller is ready as indicated in the [Controller Status](ns-nvme-nvme_controller_status.md) register and after the appropriate I/O Submission Queue(s) and I/O Completion Queue(s) have been created.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_nvm_commands
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_nvm_commands
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Provides simple frame controls that act as simple containers for other nested controls.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-isimpleframesite
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-isimpleframesite
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -32,8 +33,10 @@ class ISimpleFrameSite extends IUnknown{
 
     /**
      * Provides a site with the opportunity to process a message that is received by a control's own window before the control itself does any processing.
-     * @param {HWND} hWnd A handle of the control window receiving the message.
-     * @param {Integer} msg The message received by the simple frame site.
+     * @remarks
+     * Successful return values indicate whether the site wishes to allow further processing. S_OK indicates further processing, whereas S_FALSE means do not process further. S_OK also indicates that the control must later call <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-isimpleframesite-postmessagefilter">PostMessageFilter</a>.
+     * @param {HWND} hWnd_ A handle of the control window receiving the message.
+     * @param {Integer} msg_ The message received by the simple frame site.
      * @param {WPARAM} wp The <b>WPARAM</b> of the message.
      * @param {LPARAM} lp The <b>LPARAM</b> of the message.
      * @param {Pointer<LRESULT>} plResult A pointer to the variable that receives the result of the message processing.
@@ -90,32 +93,44 @@ class ISimpleFrameSite extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-isimpleframesite-premessagefilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-isimpleframesite-premessagefilter
      */
-    PreMessageFilter(hWnd, msg, wp, lp, plResult, pdwCookie) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    PreMessageFilter(hWnd_, msg_, wp, lp, plResult, pdwCookie) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        wp := wp is Win32Handle ? NumGet(wp, "ptr") : wp
+        lp := lp is Win32Handle ? NumGet(lp, "ptr") : lp
 
-        plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, plResultMarshal, plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", hWnd_, "uint", msg_, "ptr", wp, "ptr", lp, "ptr", plResult, pdwCookieMarshal, pdwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends the simple frame site a message that is received by a control's own window after the control has processed the message.
-     * @param {HWND} hWnd A handle of the control window receiving the message.
-     * @param {Integer} msg The message received by the simple frame site.
+     * @param {HWND} hWnd_ A handle of the control window receiving the message.
+     * @param {Integer} msg_ The message received by the simple frame site.
      * @param {WPARAM} wp The <b>WPARAM</b> of the message.
      * @param {LPARAM} lp The <b>LPARAM</b> of the message.
      * @param {Integer} dwCookie The value that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-isimpleframesite-premessagefilter">ISimpleFrameSite::PreMessageFilter</a> through its <i>pdwCookie</i> parameter.
      * @returns {LRESULT} A pointer to the variable that receives the result of the message processing.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-isimpleframesite-postmessagefilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-isimpleframesite-postmessagefilter
      */
-    PostMessageFilter(hWnd, msg, wp, lp, dwCookie) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    PostMessageFilter(hWnd_, msg_, wp, lp, dwCookie) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        wp := wp is Win32Handle ? NumGet(wp, "ptr") : wp
+        lp := lp is Win32Handle ? NumGet(lp, "ptr") : lp
 
-        result := ComCall(4, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, "ptr*", &plResult := 0, "uint", dwCookie, "HRESULT")
+        plResult := LRESULT()
+        result := ComCall(4, this, "ptr", hWnd_, "uint", msg_, "ptr", wp, "ptr", lp, "ptr", plResult, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plResult
     }
 }

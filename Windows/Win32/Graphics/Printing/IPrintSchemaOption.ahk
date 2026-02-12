@@ -49,7 +49,11 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
      * @returns {BOOL} 
      */
     get_Selected() {
-        result := ComCall(11, this, "int*", &pbIsSelected := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pbIsSelected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsSelected
     }
 
@@ -58,7 +62,11 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
      * @returns {Integer} 
      */
     get_Constrained() {
-        result := ComCall(12, this, "int*", &pSetting := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pSetting := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSetting
     }
 
@@ -69,10 +77,20 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
      * @returns {IUnknown} 
      */
     GetPropertyValue(bstrName, bstrNamespaceUri) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrNamespaceUri is String) {
+            pin := BSTR.Alloc(bstrNamespaceUri)
+            bstrNamespaceUri := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppXmlValueNode := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppXmlValueNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppXmlValueNode)
     }
 }

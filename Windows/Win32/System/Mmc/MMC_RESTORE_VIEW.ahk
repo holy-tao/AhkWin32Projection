@@ -8,7 +8,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-restore-view">MMCN_RESTORE_VIEW</a> notification that has a pointer to an 
  * MMC_RESTORE_VIEW structure as its arg parameter and a pointer to a BOOL as its param parameter. The snap-in should handle that notification by setting the appropriate menu item in the 
  * <b>View</b> context menu, setting its internal view type state, and performing any initialization necessary to display the result pane as it appeared at that point in the view history.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_restore_view
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-mmc_restore_view
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The certificate store can be saved as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">PKCS #7</a> signed message that does not include additional properties. The <i>dwEncodingType</i> parameter specifies the message encoding type.
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsavestore
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

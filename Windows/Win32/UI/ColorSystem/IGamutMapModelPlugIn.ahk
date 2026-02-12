@@ -7,7 +7,7 @@
 
 /**
  * Describes the methods that are defined for the IGamutMapModelPlugIn Component Object Model (COM) interface.
- * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nn-wcsplugin-igamutmapmodelplugin
+ * @see https://learn.microsoft.com/windows/win32/api//content/wcsplugin/nn-wcsplugin-igamutmapmodelplugin
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
@@ -42,12 +42,19 @@ class IGamutMapModelPlugIn extends IUnknown{
      * @returns {HRESULT} If this function succeeds, the return value is S_OK.
      * 
      * If this function fails, the return value is E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nf-wcsplugin-igamutmapmodelplugin-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcsplugin/nf-wcsplugin-igamutmapmodelplugin-initialize
      */
     Initialize(bstrXml, pSrcPlugIn, pDestPlugIn, pSrcGBD, pDestGBD) {
-        bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
+        if(bstrXml is String) {
+            pin := BSTR.Alloc(bstrXml)
+            bstrXml := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrXml, "ptr", pSrcPlugIn, "ptr", pDestPlugIn, "ptr", pSrcGBD, "ptr", pDestGBD, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrXml, "ptr", pSrcPlugIn, "ptr", pDestPlugIn, "ptr", pSrcGBD, "ptr", pDestGBD, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,11 +63,15 @@ class IGamutMapModelPlugIn extends IUnknown{
      * @param {Integer} cColors The number of colors in the <i>pXYZColors</i> and <i>pDeviceValues</i> arrays.
      * @param {Pointer<JChColorF>} pInputColors A pointer to the array of incoming colors to be gamut mapped.
      * @returns {JChColorF} A pointer to the array of outgoing colors.
-     * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
      */
     SourceToDestinationAppearanceColors(cColors, pInputColors) {
         pOutputColors := JChColorF()
-        result := ComCall(4, this, "uint", cColors, "ptr", pInputColors, "ptr", pOutputColors, "HRESULT")
+        result := ComCall(4, this, "uint", cColors, "ptr", pInputColors, "ptr", pOutputColors, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOutputColors
     }
 }

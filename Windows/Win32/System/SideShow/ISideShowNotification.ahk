@@ -81,7 +81,11 @@ class ISideShowNotification extends IUnknown{
      * @returns {Integer} 
      */
     get_NotificationId() {
-        result := ComCall(3, this, "uint*", &out_pNotificationId := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &out_pNotificationId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_pNotificationId
     }
 
@@ -91,7 +95,11 @@ class ISideShowNotification extends IUnknown{
      * @returns {HRESULT} 
      */
     put_NotificationId(in_notificationId) {
-        result := ComCall(4, this, "uint", in_notificationId, "HRESULT")
+        result := ComCall(4, this, "uint", in_notificationId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +108,11 @@ class ISideShowNotification extends IUnknown{
      * @returns {PWSTR} 
      */
     get_Title() {
-        result := ComCall(5, this, "ptr*", &out_ppwszTitle := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &out_ppwszTitle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_ppwszTitle
     }
 
@@ -112,7 +124,11 @@ class ISideShowNotification extends IUnknown{
     put_Title(in_pwszTitle) {
         in_pwszTitle := in_pwszTitle is String ? StrPtr(in_pwszTitle) : in_pwszTitle
 
-        result := ComCall(6, this, "ptr", in_pwszTitle, "HRESULT")
+        result := ComCall(6, this, "ptr", in_pwszTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +137,11 @@ class ISideShowNotification extends IUnknown{
      * @returns {PWSTR} 
      */
     get_Message() {
-        result := ComCall(7, this, "ptr*", &out_ppwszMessage := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &out_ppwszMessage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_ppwszMessage
     }
 
@@ -133,7 +153,11 @@ class ISideShowNotification extends IUnknown{
     put_Message(in_pwszMessage) {
         in_pwszMessage := in_pwszMessage is String ? StrPtr(in_pwszMessage) : in_pwszMessage
 
-        result := ComCall(8, this, "ptr", in_pwszMessage, "HRESULT")
+        result := ComCall(8, this, "ptr", in_pwszMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +167,11 @@ class ISideShowNotification extends IUnknown{
      */
     get_Image() {
         out_phIcon := HICON()
-        result := ComCall(9, this, "ptr", out_phIcon, "HRESULT")
+        result := ComCall(9, this, "ptr", out_phIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_phIcon
     }
 
@@ -155,7 +183,11 @@ class ISideShowNotification extends IUnknown{
     put_Image(in_hIcon) {
         in_hIcon := in_hIcon is Win32Handle ? NumGet(in_hIcon, "ptr") : in_hIcon
 
-        result := ComCall(10, this, "ptr", in_hIcon, "HRESULT")
+        result := ComCall(10, this, "ptr", in_hIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +197,11 @@ class ISideShowNotification extends IUnknown{
      */
     get_ExpirationTime() {
         out_pTime := SYSTEMTIME()
-        result := ComCall(11, this, "ptr", out_pTime, "HRESULT")
+        result := ComCall(11, this, "ptr", out_pTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_pTime
     }
 
@@ -175,7 +211,11 @@ class ISideShowNotification extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ExpirationTime(in_pTime) {
-        result := ComCall(12, this, "ptr", in_pTime, "HRESULT")
+        result := ComCall(12, this, "ptr", in_pTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

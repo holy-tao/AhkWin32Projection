@@ -34,7 +34,11 @@ class IElementSegment extends ISegment{
      * @returns {IHTMLElement} 
      */
     GetElement() {
-        result := ComCall(4, this, "ptr*", &ppIElement := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppIElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppIElement)
     }
 
@@ -44,7 +48,11 @@ class IElementSegment extends ISegment{
      * @returns {HRESULT} 
      */
     SetPrimary(fPrimary) {
-        result := ComCall(5, this, "int", fPrimary, "HRESULT")
+        result := ComCall(5, this, "int", fPrimary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IElementSegment extends ISegment{
      * @returns {BOOL} 
      */
     IsPrimary() {
-        result := ComCall(6, this, "int*", &pfPrimary := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pfPrimary := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPrimary
     }
 }

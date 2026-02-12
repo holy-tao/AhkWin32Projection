@@ -36,7 +36,11 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult{
      */
     GetXMLResult(Options) {
         pResult := BSTR()
-        result := ComCall(17, this, "int", Options, "ptr", pResult, "HRESULT")
+        result := ComCall(17, this, "int", Options, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -55,7 +59,11 @@ class ISpeechXMLRecoResult extends ISpeechRecoResult{
         ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
         IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
 
-        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

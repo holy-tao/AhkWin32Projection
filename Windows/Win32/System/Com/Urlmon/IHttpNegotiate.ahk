@@ -39,7 +39,11 @@ class IHttpNegotiate extends IUnknown{
         szURL := szURL is String ? StrPtr(szURL) : szURL
         szHeaders := szHeaders is String ? StrPtr(szHeaders) : szHeaders
 
-        result := ComCall(3, this, "ptr", szURL, "ptr", szHeaders, "uint", dwReserved, "ptr*", &pszAdditionalHeaders := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", szURL, "ptr", szHeaders, "uint", dwReserved, "ptr*", &pszAdditionalHeaders := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszAdditionalHeaders
     }
 
@@ -54,7 +58,11 @@ class IHttpNegotiate extends IUnknown{
         szResponseHeaders := szResponseHeaders is String ? StrPtr(szResponseHeaders) : szResponseHeaders
         szRequestHeaders := szRequestHeaders is String ? StrPtr(szRequestHeaders) : szRequestHeaders
 
-        result := ComCall(4, this, "uint", dwResponseCode, "ptr", szResponseHeaders, "ptr", szRequestHeaders, "ptr*", &pszAdditionalRequestHeaders := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwResponseCode, "ptr", szResponseHeaders, "ptr", szRequestHeaders, "ptr*", &pszAdditionalRequestHeaders := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszAdditionalRequestHeaders
     }
 }

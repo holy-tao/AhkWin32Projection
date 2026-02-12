@@ -97,7 +97,11 @@ class IDispCivicAddressReport extends IDispatch{
      */
     get_AddressLine1() {
         pAddress1 := BSTR()
-        result := ComCall(7, this, "ptr", pAddress1, "HRESULT")
+        result := ComCall(7, this, "ptr", pAddress1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAddress1
     }
 
@@ -107,7 +111,11 @@ class IDispCivicAddressReport extends IDispatch{
      */
     get_AddressLine2() {
         pAddress2 := BSTR()
-        result := ComCall(8, this, "ptr", pAddress2, "HRESULT")
+        result := ComCall(8, this, "ptr", pAddress2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAddress2
     }
 
@@ -117,7 +125,11 @@ class IDispCivicAddressReport extends IDispatch{
      */
     get_City() {
         pCity := BSTR()
-        result := ComCall(9, this, "ptr", pCity, "HRESULT")
+        result := ComCall(9, this, "ptr", pCity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCity
     }
 
@@ -127,7 +139,11 @@ class IDispCivicAddressReport extends IDispatch{
      */
     get_StateProvince() {
         pStateProvince := BSTR()
-        result := ComCall(10, this, "ptr", pStateProvince, "HRESULT")
+        result := ComCall(10, this, "ptr", pStateProvince, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStateProvince
     }
 
@@ -137,7 +153,11 @@ class IDispCivicAddressReport extends IDispatch{
      */
     get_PostalCode() {
         pPostalCode := BSTR()
-        result := ComCall(11, this, "ptr", pPostalCode, "HRESULT")
+        result := ComCall(11, this, "ptr", pPostalCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPostalCode
     }
 
@@ -147,7 +167,11 @@ class IDispCivicAddressReport extends IDispatch{
      */
     get_CountryRegion() {
         pCountryRegion := BSTR()
-        result := ComCall(12, this, "ptr", pCountryRegion, "HRESULT")
+        result := ComCall(12, this, "ptr", pCountryRegion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCountryRegion
     }
 
@@ -156,7 +180,11 @@ class IDispCivicAddressReport extends IDispatch{
      * @returns {Integer} 
      */
     get_DetailLevel() {
-        result := ComCall(13, this, "uint*", &pDetailLevel := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pDetailLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDetailLevel
     }
 
@@ -165,7 +193,11 @@ class IDispCivicAddressReport extends IDispatch{
      * @returns {Float} 
      */
     get_Timestamp() {
-        result := ComCall(14, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(14, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

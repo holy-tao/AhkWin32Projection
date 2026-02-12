@@ -46,7 +46,11 @@ class IPrintOemDriverUI extends IUnknown{
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
         pdwOptionsReturnedMarshal := pdwOptionsReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pciMarshal, pci, "ptr", Feature, pOutputMarshal, pOutput, "uint", cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, "HRESULT")
+        result := ComCall(3, this, pciMarshal, pci, "ptr", Feature, pOutputMarshal, pOutput, "uint", cbSize, pcbNeededMarshal, pcbNeeded, pdwOptionsReturnedMarshal, pdwOptionsReturned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +66,11 @@ class IPrintOemDriverUI extends IUnknown{
         pFeature := pFeature is String ? StrPtr(pFeature) : pFeature
         pOption := pOption is String ? StrPtr(pOption) : pOption
 
-        result := ComCall(4, this, "ptr", hPrinter, "ptr", pFeature, "ptr", pOption, "HRESULT")
+        result := ComCall(4, this, "ptr", hPrinter, "ptr", pFeature, "ptr", pOption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +86,11 @@ class IPrintOemDriverUI extends IUnknown{
         pciMarshal := pci is VarRef ? "ptr" : "ptr"
         pOptItemMarshal := pOptItem is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pciMarshal, pci, pOptItemMarshal, pOptItem, "uint", dwPreviousSelection, "uint", dwMode, "HRESULT")
+        result := ComCall(5, this, pciMarshal, pci, pOptItemMarshal, pOptItem, "uint", dwPreviousSelection, "uint", dwMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

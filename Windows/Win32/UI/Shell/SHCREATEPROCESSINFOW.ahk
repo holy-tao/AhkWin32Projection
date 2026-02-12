@@ -17,7 +17,7 @@
  * 
  * 
  * In this case, the application receives three parameters: <i>An, example:, and "quoted text"</i>.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shcreateprocessinfow
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/ns-shellapi-shcreateprocessinfow
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -97,42 +97,58 @@ class IGenericDescriptor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-initialize
      */
     Initialize(pbDesc, bCount) {
         pbDescMarshal := pbDesc is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbDescMarshal, pbDesc, "int", bCount, "HRESULT")
+        result := ComCall(3, this, pbDescMarshal, pbDesc, "int", bCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @returns {Integer} Receives the tag.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-gettag
      */
     GetTag() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @returns {Integer} Receives the length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getlength
      */
     GetLength() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @returns {Pointer<Integer>} Receives a pointer to a buffer. To get the size of the buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getlength">IGenericDescriptor::GetLength</a> method. The buffer contains the body of the descriptor, in network byte order (Big Endian). The caller is responsible for converting the data to Little Endian byte order. The caller must free the buffer by calling the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getbody
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-igenericdescriptor-getbody
      */
     GetBody() {
-        result := ComCall(6, this, "ptr*", &ppbVal := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppbVal
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Represents an item to exclude from a knowledge object.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isingleitemexception
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isingleitemexception
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -73,13 +73,17 @@ class ISingleItemException extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isingleitemexception-getitemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isingleitemexception-getitemid
      */
     GetItemId(pbItemId, pcbIdSize) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,12 +119,16 @@ class ISingleItemException extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isingleitemexception-getclockvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isingleitemexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, ppUnkMarshal, ppUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

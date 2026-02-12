@@ -6,11 +6,8 @@
 /**
  * Provides methods for manipulating a search root. Changes to property members are applied to any URL that falls under the search root. A URL falls under a search root if it matches the search root URL or is a hierarchical child of that URL.
  * @remarks
- * 
  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchroot
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-isearchroot
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -124,299 +121,451 @@ class ISearchRoot extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchRoot.put_Schedule)
      * @param {PWSTR} pszTaskArg Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated, Unicode buffer that contains the name of the task to be inserted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_schedule
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_schedule
      */
     put_Schedule(pszTaskArg) {
         pszTaskArg := pszTaskArg is String ? StrPtr(pszTaskArg) : pszTaskArg
 
-        result := ComCall(3, this, "ptr", pszTaskArg, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTaskArg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchRoot.get_Schedule)
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Returns the address of a pointer to a null-terminated, Unicode buffer that contains the name of the task.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_schedule
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_schedule
      */
     get_Schedule() {
-        result := ComCall(4, this, "ptr*", &ppszTaskArg := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszTaskArg := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszTaskArg
     }
 
     /**
      * Sets the URL of the current search root.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated, Unicode buffer that contains the URL of this search root.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_rooturl
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_rooturl
      */
     put_RootURL(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(5, this, "ptr", pszURL, "HRESULT")
+        result := ComCall(5, this, "ptr", pszURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the URL of the starting point for this search root.
+     * @remarks
+     * Use <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the memory from the returned string.
+     * 
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A null-terminated, Unicode buffer that contains the URL.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_rooturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_rooturl
      */
     get_RootURL() {
-        result := ComCall(6, this, "ptr*", &ppszURL := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppszURL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszURL
     }
 
     /**
      * Sets a value that indicates whether the search is rooted on a hierarchical tree structure.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {BOOL} fIsHierarchical Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> for hierarchical tree structures, <b>FALSE</b> for non-hierarchical systems such as websites.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_ishierarchical
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_ishierarchical
      */
     put_IsHierarchical(fIsHierarchical) {
-        result := ComCall(7, this, "int", fIsHierarchical, "HRESULT")
+        result := ComCall(7, this, "int", fIsHierarchical, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a value that indicates whether the search is rooted on a hierarchical tree structure.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, points to <b>TRUE</b> for hierarchical tree structures, and <b>FALSE</b> for other structures such as websites.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_ishierarchical
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_ishierarchical
      */
     get_IsHierarchical() {
-        result := ComCall(8, this, "int*", &pfIsHierarchical := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pfIsHierarchical := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsHierarchical
     }
 
     /**
      * Sets a value that indicates whether the search engine is notified (by protocol handlers or other applications) about changes to the URLs under the search root.
+     * @remarks
+     * That value that <b>ISearchRoot::put_ProvidesNotifications</b> sets is not protocol specific.
+     * 
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {BOOL} fProvidesNotifications Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if notifications are provided; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_providesnotifications
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_providesnotifications
      */
     put_ProvidesNotifications(fProvidesNotifications) {
-        result := ComCall(9, this, "int", fProvidesNotifications, "HRESULT")
+        result := ComCall(9, this, "int", fProvidesNotifications, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a value that indicates whether the search engine is notified (by protocol handlers or other applications) about changes to the URLs under the search root.
+     * @remarks
+     * The value <b>ISearchRoot::get_ProvidesNotifications</b> returns is not protocol specific.
+     * 
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, points to <b>TRUE</b> if this search root provides notifications; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_providesnotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_providesnotifications
      */
     get_ProvidesNotifications() {
-        result := ComCall(10, this, "int*", &pfProvidesNotifications := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pfProvidesNotifications := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfProvidesNotifications
     }
 
     /**
      * Sets a value that indicates whether this search root should be indexed only by notification and not crawled.
+     * @remarks
+     * For search root URLs in a custom data store or on a remote system, it can be useful to limit the search engine to indexing the URLs only if the store or system has sent notifications that something has changed. This might help to reduce traffic in the store or across the network by avoiding the incremental crawls when the store is unchanged.
+     * 
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line options for Crawl Scope Manager (CSM) indexing operations.
      * @param {BOOL} fUseNotificationsOnly Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if this search root should be indexed only by notification; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_usenotificationsonly
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_usenotificationsonly
      */
     put_UseNotificationsOnly(fUseNotificationsOnly) {
-        result := ComCall(11, this, "int", fUseNotificationsOnly, "HRESULT")
+        result := ComCall(11, this, "int", fUseNotificationsOnly, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a value that indicates whether this search root should be indexed only by notification and not crawled.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, points to <b>TRUE</b> if this search root should be indexed only by notification; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_usenotificationsonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_usenotificationsonly
      */
     get_UseNotificationsOnly() {
-        result := ComCall(12, this, "int*", &pfUseNotificationsOnly := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pfUseNotificationsOnly := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfUseNotificationsOnly
     }
 
     /**
      * Sets the enumeration depth for this search root.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {Integer} dwDepth Type: <b>DWORD</b>
      * 
      * The depth (number of levels) to enumerate.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_enumerationdepth
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_enumerationdepth
      */
     put_EnumerationDepth(dwDepth) {
-        result := ComCall(13, this, "uint", dwDepth, "HRESULT")
+        result := ComCall(13, this, "uint", dwDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the enumeration depth for this search root.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to the depth (number of levels) to enumerate.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_enumerationdepth
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_enumerationdepth
      */
     get_EnumerationDepth() {
-        result := ComCall(14, this, "uint*", &pdwDepth := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pdwDepth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwDepth
     }
 
     /**
      * Sets a value that indicates how far into a host tree to crawl when indexing.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {Integer} dwDepth Type: <b>DWORD</b>
      * 
      * The depth (number of levels) to crawl a host tree.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_hostdepth
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_hostdepth
      */
     put_HostDepth(dwDepth) {
-        result := ComCall(15, this, "uint", dwDepth, "HRESULT")
+        result := ComCall(15, this, "uint", dwDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a value that indicates how far into a host tree to crawl when indexing.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * On return, points to the depth (number of levels) to crawl in the host tree.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_hostdepth
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_hostdepth
      */
     get_HostDepth() {
-        result := ComCall(16, this, "uint*", &pdwDepth := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &pdwDepth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwDepth
     }
 
     /**
      * Sets a BOOL value that indicates whether the search engine should follow subdirectories and hierarchical scopes for this search root.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {BOOL} fFollowDirectories Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to follow directories or hierarchical scopes, otherwise <b>FALSE</b>. The default for this value is <b>TRUE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_followdirectories
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_followdirectories
      */
     put_FollowDirectories(fFollowDirectories) {
-        result := ComCall(17, this, "int", fFollowDirectories, "HRESULT")
+        result := ComCall(17, this, "int", fFollowDirectories, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a BOOL value that indicates whether the search engine follows subdirectories and hierarchical scopes.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * On return, points to <b>TRUE</b> if the search engine follows subdirectories and hierarchical scopes; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_followdirectories
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_followdirectories
      */
     get_FollowDirectories() {
-        result := ComCall(18, this, "int*", &pfFollowDirectories := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pfFollowDirectories := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfFollowDirectories
     }
 
     /**
      * Sets the type of authentication required to access the URLs under this search root.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @param {Integer} authType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a> enumeration that indicates the authentication type.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_authenticationtype
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_authenticationtype
      */
     put_AuthenticationType(authType) {
-        result := ComCall(19, this, "int", authType, "HRESULT")
+        result := ComCall(19, this, "int", authType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the type of authentication needed to access the URLs under this this search root.
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a>*</b>
      * 
      * A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a> enumeration that indicates the authentication type required to access URLs under this search root.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_authenticationtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_authenticationtype
      */
     get_AuthenticationType() {
-        result := ComCall(20, this, "int*", &pAuthType := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pAuthType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAuthType
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchRoot.put_User)
      * @param {PWSTR} pszUser This parameter is unused.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_user
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_user
      */
     put_User(pszUser) {
         pszUser := pszUser is String ? StrPtr(pszUser) : pszUser
 
-        result := ComCall(21, this, "ptr", pszUser, "HRESULT")
+        result := ComCall(21, this, "ptr", pszUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchRoot.get_User)
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {PWSTR} This parameter is unused.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_user
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_user
      */
     get_User() {
-        result := ComCall(22, this, "ptr*", &ppszUser := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &ppszUser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszUser
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchRoot.put_Password)
      * @param {PWSTR} pszPassword This parameter is unused.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-put_password
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-put_password
      */
     put_Password(pszPassword) {
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := ComCall(23, this, "ptr", pszPassword, "HRESULT")
+        result := ComCall(23, this, "ptr", pszPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchRoot.get_Password)
+     * @remarks
+     * <b>Windows 7 and later</b>: Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-crawlscopecommandline">CrawlScopeCommandLine code sample</a> to see how to define command line 
+     * options for Crawl Scope Manager (CSM) indexing operations.
      * @returns {PWSTR} This parameter is unused.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchroot-get_password
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchroot-get_password
      */
     get_Password() {
-        result := ComCall(24, this, "ptr*", &ppszPassword := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &ppszPassword := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszPassword
     }
 }

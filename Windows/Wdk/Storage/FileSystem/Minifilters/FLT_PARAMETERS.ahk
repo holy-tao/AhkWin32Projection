@@ -1278,7 +1278,7 @@ class FLT_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {PEPROCESS}
+         * @type {Pointer<PEPROCESS>}
          */
         ProcessId {
             get => NumGet(this, 24, "ptr")

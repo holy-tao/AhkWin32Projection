@@ -6,11 +6,8 @@
 /**
  * Enables retrieving an agile reference to an object.
  * @remarks
- * 
  * Call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-rogetagilereference">RoGetAgileReference</a> function to create an agile reference to an object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iagilereference
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iagilereference
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -36,13 +33,19 @@ class IAgileReference extends IUnknown{
     static VTableNames => ["Resolve"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/WinRT/iagilereference-resolve
+     * Gets the interface ID of an agile reference to an object.
+     * @remarks
+     * Call the [**RoGetAgileReference**](/windows/desktop/api/ComBaseApi/nf-combaseapi-rogetagilereference) function to create an agile reference to an object. Call the **Resolve** method to localize the object into the apartment in which **Resolve** is called.
+     * @param {Pointer<Guid>} riid The interface ID of the interface to be retrieved from the agile reference. It is not required to be the same as the registered interface.
+     * @returns {Pointer<Pointer<Void>>} On successful completion, \**ppvObjectReference* is a pointer to the interface specified by *riid*.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WinRT/iagilereference-resolve
      */
     Resolve(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObjectReference := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObjectReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObjectReference
     }
 }

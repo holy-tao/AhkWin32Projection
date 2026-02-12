@@ -22,7 +22,7 @@
  * And here is an illustration of a fixed width stroke which does not get transformed.
  * 
  * <img alt="An illustration of a fixed width stroke which does not get transformed." src="./images/fixedwidthstroke.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

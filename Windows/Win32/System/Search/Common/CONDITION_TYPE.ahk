@@ -7,7 +7,7 @@
  * In Windows 7, this enumeration is defined in structuredquerycondition.idl and structuredquerycondition.h. Prior to Windows 7 this enumeration was declared in structuredquery.h and structuredquery.idl.
  * 
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquerycondition/ne-structuredquerycondition-condition_type
  * @namespace Windows.Win32.System.Search.Common
  * @version v4.0.30319
  */

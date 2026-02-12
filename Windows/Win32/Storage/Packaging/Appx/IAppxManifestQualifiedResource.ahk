@@ -33,16 +33,29 @@ class IAppxManifestQualifiedResource extends IUnknown{
      * @returns {PWSTR} 
      */
     GetLanguage() {
-        result := ComCall(3, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &language := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return language
     }
 
     /**
+     * Gets the preferred scale factor for a display device.
+     * @remarks
+     * The default <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> is <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">SCALE_100_PERCENT</a>.
      * 
+     * Use the scale factor that is returned to scale point values for fonts and pixel values.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-getscalefactorfordevice
      */
     GetScale() {
-        result := ComCall(4, this, "uint*", &scale := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &scale := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return scale
     }
 
@@ -51,7 +64,11 @@ class IAppxManifestQualifiedResource extends IUnknown{
      * @returns {Integer} 
      */
     GetDXFeatureLevel() {
-        result := ComCall(5, this, "int*", &dxFeatureLevel := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &dxFeatureLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dxFeatureLevel
     }
 }

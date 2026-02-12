@@ -4,7 +4,7 @@
 
 /**
  * The SOCKADDR_IN (winsock.h) structure varies depending on the protocol selected.
- * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-sockaddr_in
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsock/ns-winsock-sockaddr_in
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

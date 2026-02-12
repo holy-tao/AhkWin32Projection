@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\..\Win32\System\WinRT\Apis.ahk
+#Include ..\..\..\Win32\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
@@ -236,12 +238,12 @@ class Direct3D {
     static SHARED_ALLOCATION_WRITE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DKMT_SUBKEY_DX9 => "DX9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DKMT_SUBKEY_OPENGL => "OpenGL"
 

@@ -6,7 +6,7 @@
 
 /**
  * Creates a partition on a basic disk.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdscreatepartitionex
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdscreatepartitionex
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -33,6 +33,23 @@ class IVdsCreatePartitionEx extends IUnknown{
 
     /**
      * Creates a partition on a basic disk. This method supersedes the IVdsAdvancedDisk::CreatePartition method.
+     * @remarks
+     * This method operates on basic disks having either a GPT or MBR 
+     *     partition scheme.
+     * 
+     * <b>Windows Server 2003:  </b>Callers can align only the first partition of a MBR disk and must place the starting offset in 
+     *     the first cylinder or the beginning of the second cylinder, at the cylinder boundary.
+     * 
+     * If the <i>ullOffset</i> parameter is specified and its value is not already aligned using the values under the <b>HKEY_LOCAL_MACHINE</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>Vds</b>&#92;<b>Alignment</b> registry subkey, its value will be aligned automatically using the following values: The default alignment is 1 MB if the disk is 4 GB or larger, or 64 KB if the disk is smaller than 4 GB.
+     * 
+     * <b>Windows Server 2003:  </b>Unaligned partition offsets are rounded to the nearest cylinder boundary for MBR disks, or to the nearest sector boundary for GPT disks.
+     * 
+     * If a dynamic disk is read-only and offline, it must be made read/write and brought online as follows before calling <b>CreatePartitionEx</b>:
+     * 
+     * <ol>
+     * <li>Clear the read-only bit. (This is the <b>VDS_DF_READ_ONLY</b> flag in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_disk_prop">VDS_DISK_PROP</a> structure.)</li>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdiskonline-online">IVdsDiskOnline::Online</a> method.</li>
+     * </ol>
      * @param {Integer} ullOffset The partition offset, in bytes. If the offset is not aligned and the <i>ulAlign</i> parameter is not specified, the offset is rounded up or down to the closest alignment boundary depending on the size of the disk on which the partition is created. For more information, see the following Remarks section. 
      * 
      * <b>Windows Server 2003:  </b>Only the first partition on a basic disk can be aligned; dynamic disks cannot be aligned. For other partitions on a basic disk, you cannot specify alignment using the <i>ulAlign</i> parameter; the offset is rounded to the nearest cylinder boundary for Master Boot Record (MBR) disks, or the nearest sector boundary for GUID Partition Table (GPT) disks.
@@ -54,10 +71,14 @@ class IVdsCreatePartitionEx extends IUnknown{
      * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer, which 
      *       VDS initializes on return. Callers must release the interface. Use this pointer to cancel, wait for, or query 
      *       the status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdscreatepartitionex-createpartitionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdscreatepartitionex-createpartitionex
      */
     CreatePartitionEx(ullOffset, ullSize, ulAlign, para) {
-        result := ComCall(3, this, "uint", ullOffset, "uint", ullSize, "uint", ulAlign, "ptr", para, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(3, this, "uint", ullOffset, "uint", ullSize, "uint", ulAlign, "ptr", para, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsAsync(ppAsync)
     }
 }

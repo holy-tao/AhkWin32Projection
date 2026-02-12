@@ -42,7 +42,11 @@ class IHTMLDOMConstructor extends IDispatch{
      * @returns {IDispatch} 
      */
     get_constructor() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -52,10 +56,17 @@ class IHTMLDOMConstructor extends IDispatch{
      * @returns {VARIANT} 
      */
     LookupGetter(propname) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
 
         ppDispHandler := VARIANT()
-        result := ComCall(8, this, "ptr", propname, "ptr", ppDispHandler, "HRESULT")
+        result := ComCall(8, this, "ptr", propname, "ptr", ppDispHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppDispHandler
     }
 
@@ -65,10 +76,17 @@ class IHTMLDOMConstructor extends IDispatch{
      * @returns {VARIANT} 
      */
     LookupSetter(propname) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
 
         ppDispHandler := VARIANT()
-        result := ComCall(9, this, "ptr", propname, "ptr", ppDispHandler, "HRESULT")
+        result := ComCall(9, this, "ptr", propname, "ptr", ppDispHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppDispHandler
     }
 
@@ -79,9 +97,16 @@ class IHTMLDOMConstructor extends IDispatch{
      * @returns {HRESULT} 
      */
     DefineGetter(propname, pdispHandler) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", propname, "ptr", pdispHandler, "HRESULT")
+        result := ComCall(10, this, "ptr", propname, "ptr", pdispHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,9 +117,16 @@ class IHTMLDOMConstructor extends IDispatch{
      * @returns {HRESULT} 
      */
     DefineSetter(propname, pdispHandler) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", propname, "ptr", pdispHandler, "HRESULT")
+        result := ComCall(11, this, "ptr", propname, "ptr", pdispHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

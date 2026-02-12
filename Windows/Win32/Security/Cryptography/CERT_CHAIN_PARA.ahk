@@ -26,7 +26,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_para
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_chain_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

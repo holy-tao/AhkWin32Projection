@@ -45,7 +45,11 @@ class IHTMLDOMTextNode3 extends IDispatch{
      */
     substringData(offset, Count) {
         pbstrsubString := BSTR()
-        result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "HRESULT")
+        result := ComCall(7, this, "int", offset, "int", Count, "ptr", pbstrsubString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrsubString
     }
 
@@ -56,9 +60,16 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * @returns {HRESULT} 
      */
     insertData(offset, bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(8, this, "int", offset, "ptr", bstrstring, "HRESULT")
+        result := ComCall(8, this, "int", offset, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +80,11 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteData(offset, Count) {
-        result := ComCall(9, this, "int", offset, "int", Count, "HRESULT")
+        result := ComCall(9, this, "int", offset, "int", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,9 +96,16 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * @returns {HRESULT} 
      */
     replaceData(offset, Count, bstrstring) {
-        bstrstring := bstrstring is String ? BSTR.Alloc(bstrstring).Value : bstrstring
+        if(bstrstring is String) {
+            pin := BSTR.Alloc(bstrstring)
+            bstrstring := pin.Value
+        }
 
-        result := ComCall(10, this, "int", offset, "int", Count, "ptr", bstrstring, "HRESULT")
+        result := ComCall(10, this, "int", offset, "int", Count, "ptr", bstrstring, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +115,11 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     splitText(offset) {
-        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "HRESULT")
+        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(pRetNode)
     }
 
@@ -103,7 +129,11 @@ class IHTMLDOMTextNode3 extends IDispatch{
      */
     get_wholeText() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -113,9 +143,16 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     replaceWholeText(bstrText) {
-        bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText
+        if(bstrText is String) {
+            pin := BSTR.Alloc(bstrText)
+            bstrText := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrText, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrText, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(ppRetNode)
     }
 
@@ -124,16 +161,36 @@ class IHTMLDOMTextNode3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     hasAttributes() {
-        result := ComCall(14, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &pfHasAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasAttributes
     }
 
     /**
+     * Normalizes the specified floating-point vector according to x / length(x).
+     * @remarks
+     * The **normalize** HLSL intrinsic function uses the following formula: *x* / [**length**](dx-graphics-hlsl-length.md)(*x*).
+     * @returns {HRESULT} | Item                                                   | Description                                            |
+     * |--------------------------------------------------------|--------------------------------------------------------|
+     * | <span id="x"></span><span id="X"></span>*x*<br/> | \[in\] The specified floating-point vector.<br/> |
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * The normalized *x* parameter. If the length of the *x* parameter is 0, the result is indefinite.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-normalize
      */
     normalize() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

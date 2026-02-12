@@ -4,8 +4,15 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * The IKsPin interface provides a method to retrieve the mediums supported by a pin on a kernel-mode filter. IKsPin has additional methods besides the one shown here, but they are not supported for DirectShow.
+ * @remarks
+ * The **IKsPin** interface inherits from the [**IUnknown**](/windows/win32/api/unknwn/nn-unknwn-iunknown) interface. **IKsPin** also has these types of members:
  * 
- * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin
+ * -   [Methods](#methods)
+ * 
+ * 
+ * You must include Ks.h before Ksproxy.h.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/ikspin
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
@@ -31,12 +38,22 @@ class IKsPin extends IUnknown{
     static VTableNames => ["KsQueryMediums", "KsQueryInterfaces", "KsCreateSinkPinHandle", "KsGetCurrentCommunication", "KsPropagateAcquire", "KsDeliver", "KsMediaSamplesCompleted", "KsPeekAllocator", "KsReceiveAllocator", "KsRenegotiateAllocator", "KsIncrementPendingIoCount", "KsDecrementPendingIoCount", "KsQualityNotify"]
 
     /**
+     * The KsQueryMediums method retrieves the mediums supported by a pin.
+     * @remarks
+     * This method returns a task-allocated [**KSMULTIPLE\_ITEM**](ksmultiple-item.md) structure, which is followed by zero or more [**REGPINMEDIUM**](/windows/desktop/api/strmif/ns-strmif-regpinmedium) structures. The **Count** member of the **KSMULTIPLE\_ITEM** structure specifies the number of **REGPINMEDIUM** structures. Each **REGPINMEDIUM** structure defines a medium supported by the pin.
      * 
+     * The caller must free the returned structures, using the **CoTaskMemFree** function.
+     * 
+     * You must include Ks.h before Ksproxy.h.
      * @returns {Pointer<KSMULTIPLE_ITEM>} 
-     * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin-ksquerymediums
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/ikspin-ksquerymediums
      */
     KsQueryMediums() {
-        result := ComCall(3, this, "ptr*", &MediumList := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &MediumList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MediumList
     }
 
@@ -45,32 +62,44 @@ class IKsPin extends IUnknown{
      * @returns {Pointer<KSMULTIPLE_ITEM>} 
      */
     KsQueryInterfaces() {
-        result := ComCall(4, this, "ptr*", &InterfaceList := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &InterfaceList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return InterfaceList
     }
 
     /**
      * 
-     * @param {Pointer<KSIDENTIFIER>} Interface 
+     * @param {Pointer<KSIDENTIFIER>} Interface_ 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
      */
-    KsCreateSinkPinHandle(Interface, Medium) {
-        result := ComCall(5, this, "ptr", Interface, "ptr", Medium, "HRESULT")
+    KsCreateSinkPinHandle(Interface_, Medium) {
+        result := ComCall(5, this, "ptr", Interface_, "ptr", Medium, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Integer>} Communication 
-     * @param {Pointer<KSIDENTIFIER>} Interface 
+     * @param {Pointer<KSIDENTIFIER>} Interface_ 
      * @param {Pointer<KSIDENTIFIER>} Medium 
      * @returns {HRESULT} 
      */
-    KsGetCurrentCommunication(Communication, Interface, Medium) {
+    KsGetCurrentCommunication(Communication, Interface_, Medium) {
         CommunicationMarshal := Communication is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, CommunicationMarshal, Communication, "ptr", Interface, "ptr", Medium, "HRESULT")
+        result := ComCall(6, this, CommunicationMarshal, Communication, "ptr", Interface_, "ptr", Medium, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +108,11 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsPropagateAcquire() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +123,11 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsDeliver(Sample, Flags) {
-        result := ComCall(8, this, "ptr", Sample, "uint", Flags, "HRESULT")
+        result := ComCall(8, this, "ptr", Sample, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +137,11 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsMediaSamplesCompleted(StreamSegment) {
-        result := ComCall(9, this, "ptr", StreamSegment, "HRESULT")
+        result := ComCall(9, this, "ptr", StreamSegment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +161,11 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsReceiveAllocator(MemAllocator) {
-        result := ComCall(11, this, "ptr", MemAllocator, "HRESULT")
+        result := ComCall(11, this, "ptr", MemAllocator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +174,11 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsRenegotiateAllocator() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +207,11 @@ class IKsPin extends IUnknown{
      * @returns {HRESULT} 
      */
     KsQualityNotify(Proportion, TimeDelta) {
-        result := ComCall(15, this, "uint", Proportion, "int64", TimeDelta, "HRESULT")
+        result := ComCall(15, this, "uint", Proportion, "int64", TimeDelta, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

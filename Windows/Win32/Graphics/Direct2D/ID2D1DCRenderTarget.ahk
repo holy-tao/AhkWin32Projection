@@ -6,7 +6,6 @@
 /**
  * Issues drawing commands to a GDI device context.
  * @remarks
- * 
  * <h3><a id="Creating_ID2D1DCRenderTarget_Objects"></a><a id="creating_id2d1dcrendertarget_objects"></a><a id="CREATING_ID2D1DCRENDERTARGET_OBJECTS"></a>Creating ID2D1DCRenderTarget Objects</h3>
  * To create an <b>ID2D1DCRenderTarget</b>, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createdcrendertarget">ID2D1Factory::CreateDCRenderTarget</a> method.
  * 
@@ -27,17 +26,13 @@
  * 
  * Depending on the type of content being rendered, you might want to prevent the inversion. If the Direct2D content includes ClearType text, this inversion will degrade the quality of the text.
  * 
- * You can control RTL rendering behavior by using the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setlayout">SetLayout</a> GDI function.  To  prevent the mirroring, call the <b>SetLayout</b> GDI function and specify <b>LAYOUT_BITMAPORIENTATIONPRESERVED</b>as the only value for the second parameter (do not combine it with <b>LAYOUT_RTL</b>), as shown in the following example:
+ * You can control RTL rendering behavior by using the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setlayout">SetLayout</a> GDI function.  To  prevent the mirroring, call the <b>SetLayout</b> GDI function and specify <b>LAYOUT_BITMAPORIENTATIONPRESERVED</b> as the only value for the second parameter (do not combine it with <b>LAYOUT_RTL</b>), as shown in the following example:
  * 
  * 
  * ```cpp
  * SetLayout(m_hwnd, LAYOUT_BITMAPORIENTATIONPRESERVED);
  * ```
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1dcrendertarget
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nn-d2d1-id2d1dcrendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -64,21 +59,27 @@ class ID2D1DCRenderTarget extends ID2D1RenderTarget{
 
     /**
      * Binds the render target to the device context to which it issues drawing commands.
-     * @param {HDC} hDC Type: <b>const HDC</b>
+     * @remarks
+     * Before you can render with the DC render target, you must use its <b>BindDC</b> method to associate it with a GDI DC.  You do this each time you  use a different DC, or the size of the area you want to draw to changes.
+     * @param {HDC} hDC_ Type: <b>const HDC</b>
      * 
      * The device context to which the render target issues drawing commands.
      * @param {Pointer<RECT>} pSubRect Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The dimensions of the handle to a device context (HDC) to which the render target is bound.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1dcrendertarget-binddc
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1dcrendertarget-binddc
      */
-    BindDC(hDC, pSubRect) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    BindDC(hDC_, pSubRect) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := ComCall(57, this, "ptr", hDC, "ptr", pSubRect, "HRESULT")
+        result := ComCall(57, this, "ptr", hDC_, "ptr", pSubRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

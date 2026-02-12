@@ -34,7 +34,11 @@ class IDCompositionDevice5 extends IDCompositionDevice4{
      * @returns {IDCompositionDynamicTexture} 
      */
     CreateDynamicTexture() {
-        result := ComCall(39, this, "ptr*", &compositionDynamicTexture := 0, "HRESULT")
+        result := ComCall(39, this, "ptr*", &compositionDynamicTexture := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionDynamicTexture(compositionDynamicTexture)
     }
 }

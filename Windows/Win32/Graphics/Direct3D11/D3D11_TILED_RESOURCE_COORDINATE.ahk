@@ -3,7 +3,7 @@
 
 /**
  * Describes the coordinates of a tiled resource. (D3D11_TILED_RESOURCE_COORDINATE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_tiled_resource_coordinate
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_2/ns-d3d11_2-d3d11_tiled_resource_coordinate
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

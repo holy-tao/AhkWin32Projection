@@ -6,7 +6,7 @@
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) short event descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbshorteventdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbshorteventdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -34,30 +34,42 @@ class IDvbShortEventDescriptor extends IUnknown{
     /**
      * Gets the tag that identifies a Digital Video Broadcast (DVB) short event descriptor.
      * @returns {Integer} Receives the identifier tag. For DVB short event descriptors, this value is "0x4D".
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the body length of a Digital Video Broadcast (DVB) short event descriptor.
      * @returns {Integer} Receives the descriptor length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the three-character ISO 639 language code from a Digital Video Broadcast (DVB) short event descriptor.
      * @returns {Integer} Receives the language code. For a list of language codes, refer to <a href="http://www.sil.org/ISO639-3/codes.asp">this document</a>. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-getlanguagecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-getlanguagecode
      */
     GetLanguageCode() {
-        result := ComCall(5, this, "char*", &pszCode := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pszCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszCode
     }
 
@@ -65,11 +77,15 @@ class IDvbShortEventDescriptor extends IUnknown{
      * Gets the event name in Unicode string format from a Digital Video Broadcast (DVB) short event descriptor.
      * @param {Integer} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the event name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-geteventnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-geteventnamew
      */
     GetEventNameW(convMode) {
         pbstrName := BSTR()
-        result := ComCall(6, this, "int", convMode, "ptr", pbstrName, "HRESULT")
+        result := ComCall(6, this, "int", convMode, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -77,11 +93,15 @@ class IDvbShortEventDescriptor extends IUnknown{
      * Gets the text that describes the event in Unicode string format from a Digital Video Broadcast (DVB) short event descriptor.
      * @param {Integer} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the event description text. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-gettextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbshorteventdescriptor-gettextw
      */
     GetTextW(convMode) {
         pbstrText := BSTR()
-        result := ComCall(7, this, "int", convMode, "ptr", pbstrText, "HRESULT")
+        result := ComCall(7, this, "int", convMode, "ptr", pbstrText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrText
     }
 }

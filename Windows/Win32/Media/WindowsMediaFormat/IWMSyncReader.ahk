@@ -6,7 +6,7 @@
 
 /**
  * The IWMSyncReader interface provides the ability to read ASF files using synchronous calls.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmsyncreader
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmsyncreader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,29 +33,45 @@ class IWMSyncReader extends IUnknown{
 
     /**
      * The Open method opens a file for reading. Unlike IWMReader::Open, this method is a synchronous call.
+     * @remarks
+     * The synchronous reader does not support streaming media. Passing a URL as <i>pwszFilename</i> results in an error.
      * @param {PWSTR} pwszFilename Pointer to a wide-character null-terminated string containing the file name to open. This must be a valid file name with an ASF file extension or an MP3 file name.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-open
      */
     Open(pwszFilename) {
         pwszFilename := pwszFilename is String ? StrPtr(pwszFilename) : pwszFilename
 
-        result := ComCall(3, this, "ptr", pwszFilename, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszFilename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Close method removes a file from the synchronous reader.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetRange method enables you to specify a start time and duration for playback by the synchronous reader.
+     * @remarks
+     * This method specifies a range for the whole file only. You cannot specify a range for an individual stream.
+     * 
+     * You can call <b>SetRange</b> at any time after a file has been loaded.
+     * 
+     * The start time you specify might not be the presentation time of the first sample received. The synchronous delivers video samples starting with the key frame before the specified time.
      * @param {Integer} cnsStartTime Offset into the file at which to start playback. This value is measured in 100-nanosecond units.
      * @param {Integer} cnsDuration Duration in 100-nanosecond units, or zero to continue playback to the end of the file.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -110,15 +126,29 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrange
      */
     SetRange(cnsStartTime, cnsDuration) {
-        result := ComCall(5, this, "uint", cnsStartTime, "int64", cnsDuration, "HRESULT")
+        result := ComCall(5, this, "uint", cnsStartTime, "int64", cnsDuration, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetRangeByFrame method configures the synchronous reader to read a portion of the file specified by a starting video frame number and a number of frames to read.
+     * @remarks
+     * If the call is successful, all streams are synchronized to the same position based on the presentation time of the selected frame. Subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample">GetNextSample</a> will retrieve samples for all active streams, not just the stream specified in the call to <b>SetRangeByFrame</b>. If you want to receive only samples for a single video stream by frame, you must call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setstreamsselected">SetStreamsSelected</a> and pass the desired stream number prior to calling <b>GetNextSample</b>.
+     * 
+     * To use <b>SetRangeByFrame</b>, the file in the synchronous reader must be indexed by frame numbers. You can configure the indexer object to index by frame numbers with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmindexer2-configure">IWMIndexer2::Configure</a>. Then make a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing">IWMIndexer::StartIndexing</a> to index the file with the new settings.
+     * 
+     * When you set a range for compressed sample delivery using a starting frame number, the synchronous reader will deliver samples starting at the first key frame before the specified frame. If you want to identify the presentation time of a frame, use <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader2-setrangebyframeex">IWMSyncReader2::SetRangeByFrameEx</a>.
+     * 
+     * Passing a negative number results in an error.
+     * 
+     * You can call <b>SetRangeByFrame</b> at any time after a file has been loaded in the synchronous reader.
      * @param {Integer} wStreamNum Stream number.
      * @param {Integer} qwFrameNumber Frame number at which to begin playback. The first frame in a file is number 1.
      * @param {Integer} cFramesToRead Count of frames to read. Pass 0 to continue playback to the end of the file.
@@ -152,16 +182,38 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrangebyframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrangebyframe
      */
     SetRangeByFrame(wStreamNum, qwFrameNumber, cFramesToRead) {
-        result := ComCall(6, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, "HRESULT")
+        result := ComCall(6, this, "ushort", wStreamNum, "uint", qwFrameNumber, "int64", cFramesToRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNextSample method retrieves the next sample from the file.
-     * @param {Integer} wStreamNum <b>WORD </b>containing the stream number for which you would like a sample. If you pass zero, the next sample in the file is returned, regardless of stream number.
+     * @remarks
+     * Both compressed and uncompressed samples are delivered by this method, depending upon whether you have called <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setreadstreamsamples">SetReadStreamSamples</a> for the streams in the file. This is the only method to retrieve samples using the synchronous reader.
+     * 
+     * To begin receiving samples from anywhere in the file other than the beginning, you must first specify a range for playback. To specify a playback range based on presentation times, use the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrange">SetRange</a> method. To set a range using frame numbers, use the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setrangebyframe">SetRangeByFrame</a> method. When you have received all of the samples in the file, or in the range if you specified one, the next call made to <b>GetNextSample</b> returns NS_E_NO_MORE_SAMPLES.
+     * 
+     * The timeline is presentation time if no output setting is specified. To get early delivery for a stream, use <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputsetting">SetOutputSetting</a>.
+     * 
+     * You can call <b>GetNextSample</b> in one of three ways:
+     * 
+     * <ul>
+     * <li>If you pass a non-zero value as <i>wStreamNum</i>, you will get the next sample for the specified stream number. In this case, you can pass <b>NULL</b> for both <i>pdwOutputNum</i> and <i>pwStreamNum</i>.</li>
+     * <li>If you pass zero as <i>wStreamNum</i>, and are using output numbers, you can pass <b>NULL</b> for <i>pwStreamNum</i>. In this case you must pass a valid address for <i>pdwOutputNum</i>.</li>
+     * <li>If you pass zero as <i>wStreamNum</i>, and are not using output numbers, you can pass <b>NULL</b> for <i>pdwOutputNum</i>. In this case you must pass a valid address for <i>pwStreamNum</i>.</li>
+     * </ul>
+     * You can also use <i>GetNextSample</i> to retrieve precise times for video frames when reading compressed data. For more information, see To Retrieve Accurate Presentation Times for Compressed Samples by Frame.
+     * 
+     * <div class="alert"><b>Note</b>  To ensure that you get correct sample durations from this method, you must configure the output for the stream. Call the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputsetting">SetOutputSetting</a> method to set the g_wszVideoSampleDurations setting to <b>TRUE</b>. Subsequent calls to <b>GetNextSample</b> will return correct sample durations.</div>
+     * <div> </div>
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which you would like a sample. If you pass zero, the next sample in the file is returned, regardless of stream number.
      * @param {Pointer<INSSBuffer>} ppSample Pointer to a buffer that receives the sample. Set to <b>NULL</b> to retrieve the sample time without getting the sample. If set to <b>NULL</b>, <i>pcnsDuration</i> and <i>pdwFlags</i> must both be set to <b>NULL</b> as well.
      * @param {Pointer<Integer>} pcnsSampleTime Pointer to a <b>QWORD</b> variable that receives the sample time in 100-nanosecond units.
      * @param {Pointer<Integer>} pcnsDuration Pointer to <b>QWORD</b> variable that receives the duration of the sample in 100-nanosecond units.
@@ -272,7 +324,7 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample
      */
     GetNextSample(wStreamNum, ppSample, pcnsSampleTime, pcnsDuration, pdwFlags, pdwOutputNum, pwStreamNum) {
         pcnsSampleTimeMarshal := pcnsSampleTime is VarRef ? "uint*" : "ptr"
@@ -281,12 +333,20 @@ class IWMSyncReader extends IUnknown{
         pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
         pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, "ushort", wStreamNum, "ptr*", ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
+        result := ComCall(7, this, "ushort", wStreamNum, "ptr*", ppSample, pcnsSampleTimeMarshal, pcnsSampleTime, pcnsDurationMarshal, pcnsDuration, pdwFlagsMarshal, pdwFlags, pdwOutputNumMarshal, pdwOutputNum, pwStreamNumMarshal, pwStreamNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetStreamsSelected method configures the samples to be delivered from a list of streams. Each stream can be set to deliver all samples, no samples, or only cleanpoint samples.
+     * @remarks
+     * You can call <b>SetStreamsSelects</b> at any time after a file has been loaded into the synchronous reader. You can continue making calls as needed during playback.
+     * 
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setstreamsselected">IWMReaderAdvanced::SetStreamsSelected</a> except that, in the synchronous reader, stream selection is always manual. Also, because <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getnextsample">IWMSyncReader::GetNextSample</a> includes a stream number output, you can select as many mutually exclusive streams as you like and receive samples for them.
      * @param {Integer} cStreamCount Count of streams listed at <i>pwStreamNumbers</i>.
      * @param {Pointer<Integer>} pwStreamNumbers Pointer to an array of <b>WORD</b> values containing the stream numbers.
      * @param {Pointer<Integer>} pSelections Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration values. These values correspond with the stream numbers listed at <i>pwStreamNumbers</i>. Each value specifies the samples to deliver for the appropriate stream.
@@ -346,29 +406,41 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-setstreamsselected
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setstreamsselected
      */
     SetStreamsSelected(cStreamCount, pwStreamNumbers, pSelections) {
         pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
         pSelectionsMarshal := pSelections is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "ushort", cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "HRESULT")
+        result := ComCall(8, this, "ushort", cStreamCount, pwStreamNumbersMarshal, pwStreamNumbers, pSelectionsMarshal, pSelections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetStreamSelected method retrieves a flag indicating whether a particular stream is currently selected.
+     * @remarks
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getstreamselected">IWMReaderAdvanced::GetStreamSelected</a>.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @returns {Integer} Pointer to a variable that receives one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration type on output. This value specifies the selection status for the specified stream.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamselected
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamselected
      */
     GetStreamSelected(wStreamNum) {
-        result := ComCall(9, this, "ushort", wStreamNum, "int*", &pSelection := 0, "HRESULT")
+        result := ComCall(9, this, "ushort", wStreamNum, "int*", &pSelection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSelection
     }
 
     /**
      * The SetReadStreamSamples method specifies whether samples from a stream will be delivered compressed or uncompressed.
+     * @remarks
+     * You can call <b>SetReadStreamSamples</b> at any time after a file has been loaded into the synchronous reader. You can continue making calls as needed during playback.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @param {BOOL} fCompressed Boolean value that is True if samples will be compressed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -423,26 +495,40 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-setreadstreamsamples
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setreadstreamsamples
      */
     SetReadStreamSamples(wStreamNum, fCompressed) {
-        result := ComCall(10, this, "ushort", wStreamNum, "int", fCompressed, "HRESULT")
+        result := ComCall(10, this, "ushort", wStreamNum, "int", fCompressed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetReadStreamSamples method ascertains whether a stream is configured to deliver compressed samples.
+     * @remarks
+     * To configure a stream to deliver compressed samples, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setreadstreamsamples">IWMSyncReader::SetReadStreamSamples</a>.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @returns {BOOL} Pointer to a flag that receives the status of compressed delivery for the stream specified.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getreadstreamsamples
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getreadstreamsamples
      */
     GetReadStreamSamples(wStreamNum) {
-        result := ComCall(11, this, "ushort", wStreamNum, "int*", &pfCompressed := 0, "HRESULT")
+        result := ComCall(11, this, "ushort", wStreamNum, "int*", &pfCompressed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCompressed
     }
 
     /**
      * The GetOutputSetting method retrieves a setting for a particular output by name.
+     * @remarks
+     * You should make two calls to <b>GetOutputSetting</b> for each setting you want to retrieve. On the first call, pass <b>NULL</b> as <i>pValue</i>. On return, the value of <i>pcbLength</i> is set to the buffer size required to hold the value of the specified setting. Then you can allocate the required amount of memory for the buffer and pass a pointer to it as <i>pValue</i> on the second call.
+     * 
+     * If you pass a buffer as <i>pValue</i> that is not large enough to contain the data, an error code of ASF_E_BUFFERTOOSMALL is returned. When returning this error code, the method still sets the value of <i>pcbLength</i> to the correct size of the value.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the name of the setting for which you want the value. For a list of global constants representing setting names, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/output-settings">Output Settings</a>.
      * @param {Pointer<Integer>} pType Pointer to a variable that receives one value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The value received specifies the type of data in <i>pValue</i>.
@@ -519,7 +605,7 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputsetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputsetting
      */
     GetOutputSetting(dwOutputNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -528,7 +614,11 @@ class IWMSyncReader extends IUnknown{
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(12, this, "uint", dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(12, this, "uint", dwOutputNum, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -595,40 +685,64 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputsetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputsetting
      */
     SetOutputSetting(dwOutputNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "HRESULT")
+        result := ComCall(13, this, "uint", dwOutputNum, "ptr", pszName, "int", Type, pValueMarshal, pValue, "ushort", cbLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetOutputCount method retrieves the number of outputs that exist for the file open in the synchronous reader.
+     * @remarks
+     * To enumerate the outputs, call <b>GetOutputCount</b> to get the number of outputs, and then call <b>GetOutputProps</b>.
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives the number of outputs in the file.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputcount
      */
     GetOutputCount() {
-        result := ComCall(14, this, "uint*", &pcOutputs := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pcOutputs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcOutputs
     }
 
     /**
      * The GetOutputProps method retrieves the current properties of an uncompressed output stream.
+     * @remarks
+     * Manipulating the object retrieved by a call to <b>GetOutputProps</b> has no effect on the output media stream, unless the application also calls <b>SetOutputProps</b>.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @returns {IWMOutputMediaProps} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmoutputmediaprops">IWMOutputMediaProps</a> interface, which is created by a successful call to this method.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputprops
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputprops
      */
     GetOutputProps(dwOutputNum) {
-        result := ComCall(15, this, "uint", dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
+        result := ComCall(15, this, "uint", dwOutputNum, "ptr*", &ppOutput := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMOutputMediaProps(ppOutput)
     }
 
     /**
      * The SetOutputProps method specifies the media properties of an uncompressed output stream.
+     * @remarks
+     * Manipulating an object retrieved by a call to <b>GetOutputProps</b> has no effect on the output media stream unless the application also calls <b>SetOutputProps</b>.
+     * 
+     * DirectX VA formats can be returned from <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformat">GetOutputFormat</a>, but if they are passed in to <b>SetOutputProps</b>, that method will fail because DirectX VA formats cannot be specified in this way. Therefore, your code should either examine the format before passing it to <b>SetOutputProps</b>, or else handle the case of that method failing by attempting the next format enumerated from <b>GetOutputFormat</b>.. For example code showing how to identify a DirectX VA format, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/enabling-directx-video-acceleration">Enabling DirectX Video Acceleration</a>.
+     * 
+     * You can call <b>SetOutputProps</b> at any time after a file has been loaded into the synchronous reader. You can continue making calls as needed during playback.
+     * 
+     * New output properties set with this method will take effect with the next call to <b>GetNextSample</b>.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {IWMOutputMediaProps} pOutput Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmoutputmediaprops">IWMOutputMediaProps</a> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -672,10 +786,14 @@ class IWMSyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputprops
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-setoutputprops
      */
     SetOutputProps(dwOutputNum, pOutput) {
-        result := ComCall(16, this, "uint", dwOutputNum, "ptr", pOutput, "HRESULT")
+        result := ComCall(16, this, "uint", dwOutputNum, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -683,66 +801,102 @@ class IWMSyncReader extends IUnknown{
      * The GetOutputFormatCount method is used to determine all possible format types supported by this output on the synchronous reader.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number for which you want to determine the number of supported formats.
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives the number of supported formats.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformatcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformatcount
      */
     GetOutputFormatCount(dwOutputNum) {
-        result := ComCall(17, this, "uint", dwOutputNum, "uint*", &pcFormats := 0, "HRESULT")
+        result := ComCall(17, this, "uint", dwOutputNum, "uint*", &pcFormats := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcFormats
     }
 
     /**
      * The GetOutputFormat method retrieves the supported formats for a specified output media stream.
+     * @remarks
+     * To enumerate the supported formats for an output media stream, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformatcount">GetOutputFormatCount</a> to get the number of formats, and then call <b>GetOutputFormat</b> in succession to get the formats.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {Integer} dwFormatNum <b>DWORD</b> containing the format number.
      * @returns {IWMOutputMediaProps} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmoutputmediaprops">IWMOutputMediaProps</a> interface. This object is created by a successful call to this method.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformat
      */
     GetOutputFormat(dwOutputNum, dwFormatNum) {
-        result := ComCall(18, this, "uint", dwOutputNum, "uint", dwFormatNum, "ptr*", &ppProps := 0, "HRESULT")
+        result := ComCall(18, this, "uint", dwOutputNum, "uint", dwFormatNum, "ptr*", &ppProps := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMOutputMediaProps(ppProps)
     }
 
     /**
      * The GetOutputNumberForStream method retrieves the output number that corresponds with the specified stream.
+     * @remarks
+     * More than one stream can be encompassed by an output, as in the case of multiple bit rate files.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which you want to retrieve the corresponding output number.
      * @returns {Integer} Pointer to a <b>DWORD</b> that will receive the output number that corresponds to the stream number specified in <i>wStreamNum</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputnumberforstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputnumberforstream
      */
     GetOutputNumberForStream(wStreamNum) {
-        result := ComCall(19, this, "ushort", wStreamNum, "uint*", &pdwOutputNum := 0, "HRESULT")
+        result := ComCall(19, this, "ushort", wStreamNum, "uint*", &pdwOutputNum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwOutputNum
     }
 
     /**
      * The GetStreamNumberForOutput method retrieves the stream number that corresponds with the specified output.
+     * @remarks
+     * In the case of outputs that equate to mutual exclusions, only the active stream number is retrieved. If you need to get all of the stream numbers associated with such an output, you must access the profile information for the file.
      * @param {Integer} dwOutputNum <b>DWORD</b> value specifying the output number for which you want to retrieve a stream number.
      * @returns {Integer} Pointer to a <b>WORD</b> value that receives the stream number that corresponds to the output specified by <i>dwOutput</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamnumberforoutput
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamnumberforoutput
      */
     GetStreamNumberForOutput(dwOutputNum) {
-        result := ComCall(20, this, "uint", dwOutputNum, "ushort*", &pwStreamNum := 0, "HRESULT")
+        result := ComCall(20, this, "uint", dwOutputNum, "ushort*", &pwStreamNum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwStreamNum
     }
 
     /**
      * The GetMaxOutputSampleSize method retrieves the maximum sample size for a specified output of the file open in the synchronous reader.
+     * @remarks
+     * In some scenarios, such as multiple bit rate streaming, the output encompasses several streams. The size returned is the maximum sample size for all of the streams associated with the specified output.
+     * 
+     * You can retrieve the maximum sample size for a specific stream by using <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxstreamsamplesize">IWMSyncReader::GetMaxStreamSampleSize</a>.
      * @param {Integer} dwOutput <b>DWORD</b> containing the output number for which you want to retrieve the maximum sample size.
      * @returns {Integer} Pointer to a <b>DWORD</b> value that receives the maximum sample size, in bytes, for the output specified in <i>dwOutput</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxoutputsamplesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxoutputsamplesize
      */
     GetMaxOutputSampleSize(dwOutput) {
-        result := ComCall(21, this, "uint", dwOutput, "uint*", &pcbMax := 0, "HRESULT")
+        result := ComCall(21, this, "uint", dwOutput, "uint*", &pcbMax := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbMax
     }
 
     /**
      * The GetMaxStreamSampleSize method retrieves the maximum sample size for a specified stream in the file that is open in the synchronous reader.
+     * @remarks
+     * This method retrieves the maximum sample size for an individual stream. The stream may be one of several in an output. If you are using output numbers, you should use <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxoutputsamplesize">IWMSyncReader::GetMaxOutputSampleSize</a> to retrieve the maximum sample size for the entire output.
      * @param {Integer} wStream <b>WORD</b> containing the stream number for which you want to retrieve the maximum sample size.
      * @returns {Integer} Pointer to a <b>DWORD</b> value that receives the maximum sample size, in bytes, for the stream specified in <i>wStream</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxstreamsamplesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxstreamsamplesize
      */
     GetMaxStreamSampleSize(wStream) {
-        result := ComCall(22, this, "ushort", wStream, "uint*", &pcbMax := 0, "HRESULT")
+        result := ComCall(22, this, "ushort", wStream, "uint*", &pcbMax := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbMax
     }
 
@@ -750,10 +904,14 @@ class IWMSyncReader extends IUnknown{
      * The OpenStream method opens a stream for reading.
      * @param {IStream} pStream Pointer to an <b>IStream</b> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmsyncreader-openstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmsyncreader-openstream
      */
     OpenStream(pStream) {
-        result := ComCall(23, this, "ptr", pStream, "HRESULT")
+        result := ComCall(23, this, "ptr", pStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

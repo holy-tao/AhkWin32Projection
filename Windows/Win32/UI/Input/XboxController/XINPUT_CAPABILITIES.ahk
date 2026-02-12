@@ -20,7 +20,7 @@
  * 
  * 
  * Older XUSB Windows drivers report incomplete capabilities information, particularly for wireless devices. The latest XUSB Windows driver provides full support for wired and wireless devices, and more complete and accurate capabilities flags.
- * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/xinput/ns-xinput-xinput_capabilities
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */

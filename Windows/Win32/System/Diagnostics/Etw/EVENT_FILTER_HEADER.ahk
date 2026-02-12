@@ -18,7 +18,7 @@
  * 
  * MY_FILTER FilterData;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntprov/ns-evntprov-event_filter_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

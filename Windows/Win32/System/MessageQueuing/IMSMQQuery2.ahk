@@ -50,7 +50,11 @@ class IMSMQQuery2 extends IDispatch{
      * @returns {IMSMQQueueInfos2} 
      */
     LookupQueue(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime) {
-        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", &ppqinfos := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", &ppqinfos := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfos2(ppqinfos)
     }
 
@@ -59,7 +63,11 @@ class IMSMQQuery2 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(8, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 }

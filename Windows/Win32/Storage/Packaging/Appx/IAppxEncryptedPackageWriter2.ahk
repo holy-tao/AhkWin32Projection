@@ -4,8 +4,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a write-only object model for encrypted app packages.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxencryptedpackagewriter2
+ * Provides a write-only object model for encrypted app packages. (IAppxEncryptedPackageWriter2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxencryptedpackagewriter2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class IAppxEncryptedPackageWriter2 extends IUnknown{
      * @param {Pointer<APPX_PACKAGE_WRITER_PAYLOAD_STREAM>} payloadFiles The payload files to be added.
      * @param {Integer} memoryLimit The memory limit in bytes.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter2-addpayloadfilesencrypted
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter2-addpayloadfilesencrypted
      */
     AddPayloadFilesEncrypted(fileCount, payloadFiles, memoryLimit) {
-        result := ComCall(3, this, "uint", fileCount, "ptr", payloadFiles, "uint", memoryLimit, "HRESULT")
+        result := ComCall(3, this, "uint", fileCount, "ptr", payloadFiles, "uint", memoryLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

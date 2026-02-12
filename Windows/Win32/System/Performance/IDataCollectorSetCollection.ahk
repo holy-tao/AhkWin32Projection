@@ -9,10 +9,8 @@
 /**
  * Manages a collection of DataCollectorSet objects.To get this interface, call the CoCreateInstance function, passing __uuidof(DataCollectorSetCollection) as the class identifier and __uuidof(IDataCollectorSetCollection) as the interface identifier.Then, to populate the collection, call the IDataCollectorSetCollection::GetDataCollectorSets method.
  * @remarks
- * 
  * To create the object from a script, use the Pla.DataCollectorSetCollection program identifier.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-idatacollectorsetcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/pla/nn-pla-idatacollectorsetcollection
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -60,45 +58,51 @@ class IDataCollectorSetCollection extends IDispatch{
     /**
      * Retrieves the number of data collector sets in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Retrieves the requested data collector set from the collection.
      * @remarks
-     * 
      * This property is the object's default property.
-     * 
-     * 
      * @param {VARIANT} index 
      * @returns {IDataCollectorSet} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "ptr", index, "ptr*", &set := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", index, "ptr*", &set := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataCollectorSet(set)
     }
 
     /**
-     * Retrieves an interface to the enumeration.
+     * Retrieves an interface to the enumeration. (IDataCollectorSetCollection.get__NewEnum)
      * @remarks
-     * 
      * C++ programmers use this property.
      * 
      * The enumeration is a snapshot of the collection at the time of the call.
      * 
      * The items of the enumeration are variants whose type is VT_UNKNOWN.  To query for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a> interface, use the <b>punkVal</b> member of the variant.
-     * 
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retVal)
     }
 
@@ -106,31 +110,47 @@ class IDataCollectorSetCollection extends IDispatch{
      * Adds a data collector set to the collection.
      * @param {IDataCollectorSet} set An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a> interface of the data collector set to add to this collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-add
      */
     Add(set) {
-        result := ComCall(10, this, "ptr", set, "HRESULT")
+        result := ComCall(10, this, "ptr", set, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a data collector set from the collection.
+     * @remarks
+     * If the variant type is VT_DISPATCH, pass the <b>IDispatch</b> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a> to be removed.
+     * 
+     * Note that by removing the set from the collection, you are also deleting the set from the hard disk.
      * @param {VARIANT} set The zero-based index of the data collector set to remove from the collection. The variant type can be VT_I4, VT_UI4, or VT_DISPATCH.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-remove
      */
     Remove(set) {
-        result := ComCall(11, this, "ptr", set, "HRESULT")
+        result := ComCall(11, this, "ptr", set, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes all data collector sets from the collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,15 +158,23 @@ class IDataCollectorSetCollection extends IDispatch{
      * Adds one or more data collector sets to the collection.
      * @param {IDataCollectorSetCollection} sets An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorsetcollection">IDataCollectorSetCollection</a> interface to a collection of one or more data collector sets to add to this collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-addrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-addrange
      */
     AddRange(sets) {
-        result := ComCall(13, this, "ptr", sets, "HRESULT")
+        result := ComCall(13, this, "ptr", sets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Populates the data collector set collection.
+     * @remarks
+     * The method enumerates only those sets that have been previously saved using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-commit">IDataCollectorSet::Commit</a>.
+     * 
+     *  The retrieved data collector sets overwrite the contents of this instance. The instance must be empty (newly created) or be from the same namespace.
      * @param {BSTR} server The computer whose data collector sets you want to enumerate. You can specify a computer name, a fully qualified domain name, or an IP address (IPv4 or IPv6 format). If <b>NULL</b>, PLA enumerates the sets on the local computer.
      * @param {BSTR} filter If empty, PLA enumerates sets from all namespaces; otherwise, specify a specific namespace to enumerate. The form is &lt;namespace&gt;\*. For possible namespace values, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-commit">IDataCollectorSet::Commit</a>.
      * @returns {HRESULT} Returns S_OK if successful. The following table shows possible error values.
@@ -179,13 +207,23 @@ class IDataCollectorSetCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorsetcollection-getdatacollectorsets
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-idatacollectorsetcollection-getdatacollectorsets
      */
     GetDataCollectorSets(server, filter) {
-        server := server is String ? BSTR.Alloc(server).Value : server
-        filter := filter is String ? BSTR.Alloc(filter).Value : filter
+        if(server is String) {
+            pin := BSTR.Alloc(server)
+            server := pin.Value
+        }
+        if(filter is String) {
+            pin := BSTR.Alloc(filter)
+            filter := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", server, "ptr", filter, "HRESULT")
+        result := ComCall(14, this, "ptr", server, "ptr", filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

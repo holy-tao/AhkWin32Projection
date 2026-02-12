@@ -5,7 +5,7 @@
  * Contains values that indicate the type of reservation notification in a Reservation Notification log page.
  * @remarks
  * Use this enumeration to specify values in the **NVME_LOG_PAGE_RESERVATION_NOTIFICATION** field of the [NVME_LOG_PAGES](ne-nvme-nvme_log_pages.md) enumeration that is used in the [NVME_ADMIN_COMMAND_GET_LOG_PAGE](ne-nvme-nvme_admin_commands.md) Admin command.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_reservation_notification_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_reservation_notification_types
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

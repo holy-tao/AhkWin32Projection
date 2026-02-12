@@ -41,15 +41,19 @@ class IDxcExtraOutputs extends IUnknown{
      * 
      * @param {Integer} uIndex 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @param {Pointer<IDxcBlobUtf16>} ppOutputType 
-     * @param {Pointer<IDxcBlobUtf16>} ppOutputName 
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppvObject 
+     * @param {Pointer<Pointer<IDxcBlobUtf16>>} ppOutputType 
+     * @param {Pointer<Pointer<IDxcBlobUtf16>>} ppOutputName 
      * @returns {HRESULT} 
      */
     GetOutput(uIndex, iid, ppvObject, ppOutputType, ppOutputName) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", uIndex, "ptr", iid, ppvObjectMarshal, ppvObject, "ptr*", ppOutputType, "ptr*", ppOutputName, "HRESULT")
+        result := ComCall(4, this, "uint", uIndex, "ptr", iid, ppvObjectMarshal, ppvObject, "ptr*", ppOutputType, "ptr*", ppOutputName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

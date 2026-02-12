@@ -36,7 +36,11 @@ class ICommandStream extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCommandStream(piid, pguidDialect, ppCommandStream) {
-        result := ComCall(3, this, "ptr", piid, "ptr", pguidDialect, "ptr*", ppCommandStream, "HRESULT")
+        result := ComCall(3, this, "ptr", piid, "ptr", pguidDialect, "ptr*", ppCommandStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class ICommandStream extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCommandStream(riid, rguidDialect, pCommandStream) {
-        result := ComCall(4, this, "ptr", riid, "ptr", rguidDialect, "ptr", pCommandStream, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "ptr", rguidDialect, "ptr", pCommandStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

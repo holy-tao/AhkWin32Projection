@@ -35,7 +35,11 @@ class IHlinkFrame extends IUnknown{
      * @returns {HRESULT} 
      */
     SetBrowseContext(pihlbc) {
-        result := ComCall(3, this, "ptr", pihlbc, "HRESULT")
+        result := ComCall(3, this, "ptr", pihlbc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,20 +48,29 @@ class IHlinkFrame extends IUnknown{
      * @returns {IHlinkBrowseContext} 
      */
     GetBrowseContext() {
-        result := ComCall(4, this, "ptr*", &ppihlbc := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppihlbc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHlinkBrowseContext(ppihlbc)
     }
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {Integer} grfHLNF 
      * @param {IBindCtx} pbc 
      * @param {IBindStatusCallback} pibsc 
      * @param {IHlink} pihlNavigate 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/navigate-element
      */
     Navigate(grfHLNF, pbc, pibsc, pihlNavigate) {
-        result := ComCall(5, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlNavigate, "HRESULT")
+        result := ComCall(5, this, "uint", grfHLNF, "ptr", pbc, "ptr", pibsc, "ptr", pihlNavigate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +87,11 @@ class IHlinkFrame extends IUnknown{
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(6, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint", dwreserved, "HRESULT")
+        result := ComCall(6, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint", dwreserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +107,11 @@ class IHlinkFrame extends IUnknown{
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(7, this, "uint", uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "HRESULT")
+        result := ComCall(7, this, "uint", uHLID, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

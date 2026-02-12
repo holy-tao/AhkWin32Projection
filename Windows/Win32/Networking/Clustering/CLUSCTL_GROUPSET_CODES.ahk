@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSCTL_GROUPSET_CODES enumeration (msclus.h) enumerates groupset control codes used by the ClusterGroupSetControl function.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_groupset_codes
+ * CLUSCTL_GROUPSET_CODES (clusapi.h) enumerates groupset control codes used by the ClusterGroupSetControl function.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clusctl_groupset_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -58,7 +58,7 @@ class CLUSCTL_GROUPSET_CODES extends Win32Enum{
     static CLUSCTL_GROUP_GET_PROVIDER_GROUPSETS => 134229377
 
     /**
-     * See CLCTL_GET_ID.
+     * See **CLCTL_GET_ID**.
      * @type {Integer (Int32)}
      */
     static CLUSCTL_GROUPSET_GET_ID => 134217785

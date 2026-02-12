@@ -6,11 +6,8 @@
 /**
  * Represents a clock vector element of a knowledge structure.
  * @remarks
- * 
  * The clock vector elements of a clock vector represent the changes that are contained in a knowledge structure. A change that is made by a particular replica is defined to be contained in the knowledge when the tick count for the change occurs between zero and the tick count contained in the <b>IClockVectorElement</b> that tracks that replica.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iclockvectorelement
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-iclockvectorelement
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -68,12 +65,16 @@ class IClockVectorElement extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iclockvectorelement-getreplicakey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-iclockvectorelement-getreplicakey
      */
     GetReplicaKey(pdwReplicaKey) {
         pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
+        result := ComCall(3, this, pdwReplicaKeyMarshal, pdwReplicaKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,12 +111,16 @@ class IClockVectorElement extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iclockvectorelement-gettickcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-iclockvectorelement-gettickcount
      */
     GetTickCount(pullTickCount) {
         pullTickCountMarshal := pullTickCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pullTickCountMarshal, pullTickCount, "HRESULT")
+        result := ComCall(4, this, pullTickCountMarshal, pullTickCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

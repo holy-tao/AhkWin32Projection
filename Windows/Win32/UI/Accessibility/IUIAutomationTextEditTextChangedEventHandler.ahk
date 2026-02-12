@@ -6,11 +6,8 @@
 /**
  * Exposes a method to handle events that occur when Microsoft UI Automation reports a text-changed event from text edit controls.
  * @remarks
- * 
  * This interface is implemented by the application to handle events that it has subscribed to by using <b>AddTextEditTextChangedEventHandler</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationtextedittextchangedeventhandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationtextedittextchangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -37,20 +34,34 @@ class IUIAutomationTextEditTextChangedEventHandler extends IUnknown{
 
     /**
      * Handles an event that is raised when a Microsoft UI Automation provider for a text-edit control reports a programmatic text change.
+     * @remarks
+     * This method is implemented by the application to handle events that it has subscribed to by using <b>AddTextEditTextChangedEventHandler</b>.
+     * 
+     * The event data contains different payloads for each text-edit change type:
+     * 
+     * <ul>
+     * <li><b>TextEditChangeType_AutoCorrect</b>: Data is the new corrected string .</li>
+     * <li><b>TextEditChangeType_Composition</b>: Data is the updated string in the composition (only the part that changed).</li>
+     * <li><b>TextEditChangeType_CompositionFinalized</b>: Data is the finalized string of the completed composition (this may be empty if composition was canceled or deleted).</li>
+     * </ul>
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {Integer} textEditChangeType 
+     * @param {Integer} textEditChangeType_ 
      * @param {Pointer<SAFEARRAY>} eventStrings Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
      * 
      * Event data passed by the event.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextedittextchangedeventhandler-handletextedittextchangedevent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationtextedittextchangedeventhandler-handletextedittextchangedevent
      */
-    HandleTextEditTextChangedEvent(sender, textEditChangeType, eventStrings) {
-        result := ComCall(3, this, "ptr", sender, "int", textEditChangeType, "ptr", eventStrings, "HRESULT")
+    HandleTextEditTextChangedEvent(sender, textEditChangeType_, eventStrings) {
+        result := ComCall(3, this, "ptr", sender, "int", textEditChangeType_, "ptr", eventStrings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

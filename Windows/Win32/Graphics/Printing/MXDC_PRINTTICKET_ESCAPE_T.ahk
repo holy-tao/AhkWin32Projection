@@ -29,7 +29,7 @@
  * 
  * 
  * If the **opCode** is set to **MXDCOP\_PRINTTICKET\_FIXED\_PAGE**, the call to [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) must occur between a call to [**StartPage**](/windows/desktop/api/Wingdi/nf-wingdi-startpage) and a call to [**EndPage**](/windows/desktop/api/Wingdi/nf-wingdi-endpage). If the **opCode** set to either **MXDCOP\_PRINTTICKET\_FIXED\_DOC** or **MXDCOP\_PRINTTICKET\_FIXED\_DOC\_SEQ**, the call to **ExtEscape** must occur between a call to [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) and a call to [**EndDoc**](/windows/desktop/api/Wingdi/nf-wingdi-enddoc).
- * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcprintticketescape
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/mxdcprintticketescape
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

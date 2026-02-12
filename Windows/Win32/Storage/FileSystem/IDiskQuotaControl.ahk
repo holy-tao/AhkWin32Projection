@@ -8,7 +8,7 @@
 
 /**
  * Controls the disk quota facilities of a single NTFS file system volume.
- * @see https://docs.microsoft.com/windows/win32/api//dskquota/nn-dskquota-idiskquotacontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nn-dskquota-idiskquotacontrol
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -113,7 +113,7 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>ERROR_NOTSUPPORTED</b></dt>
+     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
@@ -133,17 +133,23 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-initialize
      */
     Initialize(pszPath, bReadWrite) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(5, this, "ptr", pszPath, "int", bReadWrite, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPath, "int", bReadWrite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the state of the quota system.
+     * @remarks
+     * Not all state attributes can be modified. The enable, track, and enforce attributes can be modified.
      * @param {Integer} dwState State to be applied to the volume. Use the following macros to set the proper bits.
      * 					
      * 
@@ -258,10 +264,14 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-setquotastate
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-setquotastate
      */
     SetQuotaState(dwState) {
-        result := ComCall(6, this, "uint", dwState, "HRESULT")
+        result := ComCall(6, this, "uint", dwState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -415,12 +425,16 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-getquotastate
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-getquotastate
      */
     GetQuotaState(pdwState) {
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwStateMarshal, pdwState, "HRESULT")
+        result := ComCall(7, this, pdwStateMarshal, pdwState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -516,10 +530,14 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-setquotalogflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-setquotalogflags
      */
     SetQuotaLogFlags(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -626,12 +644,16 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-getquotalogflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-getquotalogflags
      */
     GetQuotaLogFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(9, this, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -712,10 +734,14 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-setdefaultquotathreshold
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-setdefaultquotathreshold
      */
     SetDefaultQuotaThreshold(llThreshold) {
-        result := ComCall(10, this, "int64", llThreshold, "HRESULT")
+        result := ComCall(10, this, "int64", llThreshold, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -807,12 +833,16 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotathreshold
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotathreshold
      */
     GetDefaultQuotaThreshold(pllThreshold) {
         pllThresholdMarshal := pllThreshold is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(11, this, pllThresholdMarshal, pllThreshold, "HRESULT")
+        result := ComCall(11, this, pllThresholdMarshal, pllThreshold, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -905,12 +935,16 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotathresholdtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotathresholdtext
      */
     GetDefaultQuotaThresholdText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(12, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(12, this, "ptr", pszText, "uint", cchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -991,10 +1025,14 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-setdefaultquotalimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-setdefaultquotalimit
      */
     SetDefaultQuotaLimit(llLimit) {
-        result := ComCall(13, this, "int64", llLimit, "HRESULT")
+        result := ComCall(13, this, "int64", llLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1086,12 +1124,16 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotalimit
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotalimit
      */
     GetDefaultQuotaLimit(pllLimit) {
         pllLimitMarshal := pllLimit is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(14, this, pllLimitMarshal, pllLimit, "HRESULT")
+        result := ComCall(14, this, pllLimitMarshal, pllLimit, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1184,45 +1226,64 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotalimittext
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-getdefaultquotalimittext
      */
     GetDefaultQuotaLimitText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(15, this, "ptr", pszText, "uint", cchText, "HRESULT")
+        result := ComCall(15, this, "ptr", pszText, "uint", cchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds a new quota entry on the volume for the specified user. The user is identified by security identifier (SID).
+     * @remarks
+     * The NTFS file system automatically creates a user quota entry when a user first writes to the volume. Entries that are created automatically are assigned the default warning threshold and hard quota limit values for the volume. This method allows you to create a user quota entry before a user has written information to the volume. Therefore, you can pre-assign a warning threshold or hard quota limit value different than the volume default settings.
      * @param {PSID} pUserSid The user's SID.
      * @param {Integer} fNameResolution 
      * @returns {IDiskQuotaUser} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the newly created quota user object.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-addusersid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-addusersid
      */
     AddUserSid(pUserSid, fNameResolution) {
-        result := ComCall(16, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiskQuotaUser(ppUser)
     }
 
     /**
      * Adds a new quota entry on the volume for the specified user. The user is identified by domain and account name.
+     * @remarks
+     * The NTFS file system automatically creates a user quota entry when a user first writes to the volume. Entries that are created automatically are assigned the default warning threshold and hard quota limit values for the volume. This method allows you to create a user quota entry before a user has written information to the volume. Therefore, you can pre-assign a warning threshold or hard quota limit value different than the volume default settings.
      * @param {PWSTR} pszLogonName The user's account logon name string.
      * @param {Integer} fNameResolution 
      * @returns {IDiskQuotaUser} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the newly created quota user object.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-addusername
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-addusername
      */
     AddUserName(pszLogonName, fNameResolution) {
         pszLogonName := pszLogonName is String ? StrPtr(pszLogonName) : pszLogonName
 
-        result := ComCall(17, this, "ptr", pszLogonName, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pszLogonName, "uint", fNameResolution, "ptr*", &ppUser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiskQuotaUser(ppUser)
     }
 
     /**
      * Removes a user entry from the volume quota information file.
+     * @remarks
+     * This method does not actually remove the quota entry from the volume. It marks the entry for deletion. The NTFS file system performs the actual deletion at a later time. Following a call to <b>IDiskQuotaControl::DeleteUser</b>, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface is still active. This method does not delete the user object from memory. To release the user object, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>.
      * @param {IDiskQuotaUser} pUser A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface of the user whose quota record is marked for deletion.
      * @returns {HRESULT} This method returns a file system error or one of the following values.
@@ -1321,37 +1382,53 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-deleteuser
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-deleteuser
      */
     DeleteUser(pUser) {
-        result := ComCall(18, this, "ptr", pUser, "HRESULT")
+        result := ComCall(18, this, "ptr", pUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Locates a specific user entry in the volume quota information.
+     * @remarks
+     * This method will return a user object even if there is no quota record for the user in the quota file. This is consistent with the idea of automatic user addition and default quota settings. If there is currently no quota entry for the requested user, and the user would be added to the quota file if he were to request disk space, the returned user object will have warning threshold and hard quota limits equal to the volume default settings.
      * @param {PSID} pUserSid A pointer to the user's SID.
      * @param {Integer} fNameResolution 
      * @returns {IDiskQuotaUser} Pointer to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the quota user object.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-findusersid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-findusersid
      */
     FindUserSid(pUserSid, fNameResolution) {
-        result := ComCall(19, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiskQuotaUser(ppUser)
     }
 
     /**
      * Locates a specific entry in the volume quota information.
+     * @remarks
+     * This method will return a user object even if there is no quota record for the user in the quota file. This is consistent with the idea of automatic user addition and default quota settings. If there is currently no quota entry for the requested user, and the user would be added to the quota file if he were to request disk space, the returned user object will have warning threshold and hard quota limits equal to the volume default settings.
      * @param {PWSTR} pszLogonName A pointer to the user's account logon name.
      * @returns {IDiskQuotaUser} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the quota user object.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-findusername
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-findusername
      */
     FindUserName(pszLogonName) {
         pszLogonName := pszLogonName is String ? StrPtr(pszLogonName) : pszLogonName
 
-        result := ComCall(20, this, "ptr", pszLogonName, "ptr*", &ppUser := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pszLogonName, "ptr*", &ppUser := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiskQuotaUser(ppUser)
     }
 
@@ -1362,12 +1439,16 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @param {Integer} fNameResolution 
      * @returns {IEnumDiskQuotaUsers} A pointer to a pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-ienumdiskquotausers">IEnumDiskQuotaUsers</a> enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-createenumusers
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-createenumusers
      */
     CreateEnumUsers(rgpUserSids, cpSids, fNameResolution) {
         rgpUserSidsMarshal := rgpUserSids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, "uint", cpSids, "uint", fNameResolution, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, "uint", cpSids, "uint", fNameResolution, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDiskQuotaUsers(ppEnum)
     }
 
@@ -1375,15 +1456,21 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * Creates a batching object for optimizing updates to the quota settings of multiple users simultaneously.
      * @returns {IDiskQuotaUserBatch} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauserbatch">IDiskQuotaUserBatch</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-createuserbatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-createuserbatch
      */
     CreateUserBatch() {
-        result := ComCall(22, this, "ptr*", &ppBatch := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &ppBatch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiskQuotaUserBatch(ppBatch)
     }
 
     /**
      * Invalidates the contents of the system's SID-to-name cache so subsequent requests for new user objects (IEnumDiskQuotaUsers::Next, IDiskQuotaControl::FindUserSid, and IDiskQuotaControl::FindUserName) must obtain user names from the domain controller.
+     * @remarks
+     * In general, there is no reason to call this method. It is included to provide a method for programmatically refreshing the entire SID-to-name cache.
      * @returns {HRESULT} This method returns one of the following values.
      * 
      * <table>
@@ -1447,10 +1534,14 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-invalidatesidnamecache
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-invalidatesidnamecache
      */
     InvalidateSidNameCache() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1510,20 +1601,48 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-giveusernameresolutionpriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-giveusernameresolutionpriority
      */
     GiveUserNameResolutionPriority(pUser) {
-        result := ComCall(24, this, "ptr", pUser, "HRESULT")
+        result := ComCall(24, this, "ptr", pUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Translates user security identifiers (SID) to user names.
+     * @remarks
+     * Asynchronous name resolution will also cease after the thread terminates. A subsequent call to the following methods can re-create the SID-to-name resolver thread:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-addusername">IDiskQuotaControl::AddUserName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-addusersid">IDiskQuotaControl::AddUserSid</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-createenumusers">IDiskQuotaControl::CreateEnumUsers</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-findusername">IDiskQuotaControl::FindUserName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotacontrol-findusersid">IDiskQuotaControl::FindUserSid</a>
+     * </li>
+     * </ul>
      * @returns {HRESULT} This method returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotacontrol-shutdownnameresolution
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotacontrol-shutdownnameresolution
      */
     ShutdownNameResolution() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

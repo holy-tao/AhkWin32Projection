@@ -6,7 +6,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
- * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nn-atscpsipparser-iatsc_vct
+ * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nn-atscpsipparser-iatsc_vct
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -76,61 +76,87 @@ class IATSC_VCT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getversionnumber
      */
     GetVersionNumber() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the transport_stream_id field. This value should match the value that appears in the program association table (PAT).
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-gettransportstreamid
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettransportstreamid
      */
     GetTransportStreamId() {
-        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the protocol_version field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getprotocolversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getprotocolversion
      */
     GetProtocolVersion() {
-        result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(6, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords
      */
     GetCountOfRecords() {
-        result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This method returns the short_name field.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {PWSTR} Receives a pointer to a wide-character string. The method allocates the buffer for the string. The caller must release the buffer by calling the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordname
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordname
      */
     GetRecordName(dwRecordIndex) {
-        result := ComCall(8, this, "uint", dwRecordIndex, "ptr*", &pwsName := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwRecordIndex, "ptr*", &pwsName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwsName
     }
 
@@ -138,10 +164,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the major channel number.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmajorchannelnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmajorchannelnumber
      */
     GetRecordMajorChannelNumber(dwRecordIndex) {
-        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -149,10 +179,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the minor channel number.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordminorchannelnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordminorchannelnumber
      */
     GetRecordMinorChannelNumber(dwRecordIndex) {
-        result := ComCall(10, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(10, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -160,10 +194,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the modulation_mode field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmodulationmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordmodulationmode
      */
     GetRecordModulationMode(dwRecordIndex) {
-        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -171,10 +209,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the carrier frequency, in Hz.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcarrierfrequency
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcarrierfrequency
      */
     GetRecordCarrierFrequency(dwRecordIndex) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(12, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -182,10 +224,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the channel_TSID field. This value represents the TSID associated with the transport stream that carries the MPEG-2 program for this virtual channel.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordtransportstreamid
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordtransportstreamid
      */
     GetRecordTransportStreamId(dwRecordIndex) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -193,10 +239,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the program_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordprogramnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordprogramnumber
      */
     GetRecordProgramNumber(dwRecordIndex) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(14, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -204,10 +254,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the ETM_location field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordetmlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordetmlocation
      */
     GetRecordEtmLocation(dwRecordIndex) {
-        result := ComCall(15, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(15, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -215,10 +269,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the access_controlled bit is set, indicating that this virtual channel might be access controlled. Otherwise, the value is <b>FALSE</b>, indicating that access is not restricted.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisaccesscontrolledbitset
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisaccesscontrolledbitset
      */
     GetRecordIsAccessControlledBitSet(dwRecordIndex) {
-        result := ComCall(16, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(16, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 
@@ -226,43 +284,65 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the hidden bit is set. Otherwise, the value is <b>FALSE</b>. Hidden channels are not accessed by the user; for example, they might be used for test signals.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishiddenbitset
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishiddenbitset
      */
     GetRecordIsHiddenBitSet(dwRecordIndex) {
-        result := ComCall(17, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(17, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This bit applies only to cable VCTs. If the VCT is a terrestrial VCT, the method returns MPEG2_E_NOT_PRESENT.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the path_select bit is set, or <b>FALSE</b> otherwise. The path_select bit indicates which physical input cable carries the transport stream.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordispathselectbitset
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordispathselectbitset
      */
     GetRecordIsPathSelectBitSet(dwRecordIndex) {
-        result := ComCall(18, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(18, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * This bit applies only to cable VCTs. If the VCT is a terrestrial VCT, the method returns MPEG2_E_NOT_PRESENT.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the out_of_band bit is set, indicating that this channel is carried on an out-of-band physical transmission channel. Otherwise, the value is <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisoutofbandbitset
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordisoutofbandbitset
      */
     GetRecordIsOutOfBandBitSet(dwRecordIndex) {
-        result := ComCall(19, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(19, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * If the hidden bit is set, the hide_guide bit may be set to 0, indicating that this virtual channel should appear in electronic program guide (EPG) displays. If the hidden bit is 0, the hide_guide bit is ignored.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the hide_guide bit is set, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishideguidebitset
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordishideguidebitset
      */
     GetRecordIsHideGuideBitSet(dwRecordIndex) {
-        result := ComCall(20, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(20, this, "uint", dwRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 
@@ -270,10 +350,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the service_type field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordservicetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordservicetype
      */
     GetRecordServiceType(dwRecordIndex) {
-        result := ComCall(21, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(21, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -281,10 +365,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the source_id field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordsourceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordsourceid
      */
     GetRecordSourceId(dwRecordIndex) {
-        result := ComCall(22, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(22, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -292,10 +380,14 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @returns {Integer} Receives the number of descriptors.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcountofdescriptors
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
-        result := ComCall(23, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(23, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -304,25 +396,35 @@ class IATSC_VCT extends IUnknown{
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecordcountofdescriptors">IATSC_VCT::GetRecordCountOfDescriptors</a> method to get the number of descriptors for a particular record.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
-        result := ComCall(24, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(24, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * If the value of <i>pdwCookie</i> is not <b>NULL</b>, the method returns either MPEG2_S_NO_MORE_DATA_AVAILABLE or MPEG2_S_MORE_DATA_AVAILABLE to indicate whether the record contains additional tags that match the search criteria.
      * @param {Integer} dwRecordIndex Specifies the record number, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountofrecords">IATSC_VCT::GetCountOfRecords</a> method to get the number of records in the VCT.
      * @param {Integer} bTag Specifies the descriptor tag for which to search.
      * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position in the descriptor list. This parameter is optional. If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in *<i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbytag
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(25, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGenericDescriptor(ppDescriptor)
     }
 
@@ -348,12 +450,16 @@ class IATSC_VCT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountoftabledescriptors
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors(pdwVal) {
         pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, pdwValMarshal, pdwVal, "HRESULT")
+        result := ComCall(26, this, pdwValMarshal, pdwVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -361,24 +467,34 @@ class IATSC_VCT extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} dwIndex Specifies which descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_vct-getcountoftabledescriptors">IATSC_VCT::GetCountOfTableDescriptors</a> method to get the number of table descriptors in the VCT.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
-        result := ComCall(27, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(27, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @remarks
+     * If the value of <i>pdwCookie</i> is not <b>NULL</b>, the method returns either MPEG2_S_NO_MORE_DATA_AVAILABLE or MPEG2_S_MORE_DATA_AVAILABLE to indicate whether the MGT contains additional tags that match the search criteria.
      * @param {Integer} bTag Specifies the descriptor tag for which to search.
      * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position in the descriptor list. This parameter is optional. If the value of <i>pdwCookie</i> is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in *<i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbytag
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsc_vct-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        result := ComCall(28, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGenericDescriptor(ppDescriptor)
     }
 }

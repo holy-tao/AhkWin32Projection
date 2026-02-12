@@ -7,7 +7,6 @@
 /**
  * The IADsFileServiceOperations interface is a dual interface that inherits from IADsServiceOperations.
  * @remarks
- * 
  * To bind to a file service operations object, use the ADsPath string that identifies the "LanmanServer" service on the host computer, as shown in the following code example.
  * 
  * 
@@ -36,9 +35,7 @@
  * 
  * 
  * For more information about active sessions and open resources, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssession">IADsSession</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsresource">IADsResource</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfileserviceoperations
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsfileserviceoperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -65,21 +62,33 @@ class IADsFileServiceOperations extends IADsServiceOperations{
 
     /**
      * The IADsFileServiceOperations::Sessions method gets a pointer to a pointer to the IADsCollection interface on a collection of the session objects that represent the current open sessions for this file service.
+     * @remarks
+     * Traditional directory services supply data only about directory service elements represented in the underlying data store. Data about sessions for file services may not be available from the underlying store.
      * @returns {IADsCollection} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface used to enumerate objects that implement the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssession">IADsSession</a> interface and represent the current open sessions for this file service.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsfileserviceoperations-sessions
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsfileserviceoperations-sessions
      */
     Sessions() {
-        result := ComCall(26, this, "ptr*", &ppSessions := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &ppSessions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IADsCollection(ppSessions)
     }
 
     /**
      * The IADsFileServiceOperations::Resources method gets a pointer to a pointer to the IADsCollection interface on a collection of the resource objects representing the current open resources on this file service.
+     * @remarks
+     * Traditional directory services supply data only about directory service elements  represented in the underlying data store. Data about resources for file services may not be available from the underlying directory store.
      * @returns {IADsCollection} Pointer to a  pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface that can then be used to enumerate objects implementing the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsresource">IADsResource</a> interface and representing the current open resources for this file service.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsfileserviceoperations-resources
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsfileserviceoperations-resources
      */
     Resources() {
-        result := ComCall(27, this, "ptr*", &ppResources := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &ppResources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IADsCollection(ppResources)
     }
 }

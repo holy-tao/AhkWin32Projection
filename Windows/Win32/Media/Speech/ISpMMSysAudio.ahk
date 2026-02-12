@@ -36,7 +36,11 @@ class ISpMMSysAudio extends ISpAudio{
     GetDeviceId(puDeviceId) {
         puDeviceIdMarshal := puDeviceId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, puDeviceIdMarshal, puDeviceId, "HRESULT")
+        result := ComCall(26, this, puDeviceIdMarshal, puDeviceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ISpMMSysAudio extends ISpAudio{
      * @returns {HRESULT} 
      */
     SetDeviceId(uDeviceId) {
-        result := ComCall(27, this, "uint", uDeviceId, "HRESULT")
+        result := ComCall(27, this, "uint", uDeviceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +66,11 @@ class ISpMMSysAudio extends ISpAudio{
     GetMMHandle(pHandle) {
         pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, pHandleMarshal, pHandle, "HRESULT")
+        result := ComCall(28, this, pHandleMarshal, pHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class ISpMMSysAudio extends ISpAudio{
     GetLineId(puLineId) {
         puLineIdMarshal := puLineId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, puLineIdMarshal, puLineId, "HRESULT")
+        result := ComCall(29, this, puLineIdMarshal, puLineId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class ISpMMSysAudio extends ISpAudio{
      * @returns {HRESULT} 
      */
     SetLineId(uLineId) {
-        result := ComCall(30, this, "uint", uLineId, "HRESULT")
+        result := ComCall(30, this, "uint", uLineId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

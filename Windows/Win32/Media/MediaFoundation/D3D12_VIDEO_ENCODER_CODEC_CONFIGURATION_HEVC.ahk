@@ -5,7 +5,7 @@
  * Represents codec configuration for HEVC encoding.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_codec_configuration_hevc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_codec_configuration_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

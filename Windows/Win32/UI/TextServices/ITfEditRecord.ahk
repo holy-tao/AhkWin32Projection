@@ -6,7 +6,7 @@
 
 /**
  * The ITfEditRecord interface is implemented by the TSF manager and is used by a text edit sink to determine what was changed during an edit session.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfeditrecord
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfeditrecord
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class ITfEditRecord extends IUnknown{
     /**
      * ITfEditRecord::GetSelectionStatus method
      * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives a value that indicates if the selection changed due to an edit session. Receives a nonzero value if the selection changed or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfeditrecord-getselectionstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfeditrecord-getselectionstatus
      */
     GetSelectionStatus() {
-        result := ComCall(3, this, "int*", &pfChanged := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfChanged := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfChanged
     }
 
@@ -53,12 +57,16 @@ class ITfEditRecord extends IUnknown{
      * 
      * This parameter can be zero if <i>dwFlags</i> contains TF_GTP_INCL_TEXT. This indicates that no property changes are obtained.
      * @returns {IEnumTfRanges} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfranges">IEnumTfRanges</a> interface pointer that receives the enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfeditrecord-gettextandpropertyupdates
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfeditrecord-gettextandpropertyupdates
      */
     GetTextAndPropertyUpdates(dwFlags, prgProperties, cProperties) {
         prgPropertiesMarshal := prgProperties is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwFlags, prgPropertiesMarshal, prgProperties, "uint", cProperties, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, prgPropertiesMarshal, prgProperties, "uint", cProperties, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfRanges(ppEnum)
     }
 }

@@ -30,7 +30,7 @@
  * 
  * <div class="alert"><b>Note</b>  The <b>PIP6_MREQ</b> derived structure is only defined on the Windows SDK released with Windows Vista and later. The <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-group_req">GROUP_REQ</a> and the <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-group_source_req">GROUP_SOURCE_REQ</a> structures and are the preferred socket options for multicast programming on Windows Vista and later.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ipv6_mreq
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2ipdef/ns-ws2ipdef-ipv6_mreq
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

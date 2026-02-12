@@ -6,7 +6,7 @@
 
 /**
  * Used to show the Access Denied Remediation (ADR) client user interface.
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmaccessdeniedremediationclient
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmaccessdeniedremediationclient
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -46,16 +46,28 @@ class IFsrmAccessDeniedRemediationClient extends IDispatch{
      * @param {Integer} flags Reserved. Set to 0.
      * @param {BSTR} windowTitle Optional text to display as the title of the dialog window that is opened.
      * @param {BSTR} windowMessage Optional text to display above the instructions in the dialog window that is opened.
-     * @returns {Integer} Address of a value that will receive a <b>HRESULT</b> containing the result of the 
-     *       operation.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmaccessdeniedremediationclient-show
      */
     Show(parentWnd, accessPath, errorType, flags, windowTitle, windowMessage) {
-        accessPath := accessPath is String ? BSTR.Alloc(accessPath).Value : accessPath
-        windowTitle := windowTitle is String ? BSTR.Alloc(windowTitle).Value : windowTitle
-        windowMessage := windowMessage is String ? BSTR.Alloc(windowMessage).Value : windowMessage
+        if(accessPath is String) {
+            pin := BSTR.Alloc(accessPath)
+            accessPath := pin.Value
+        }
+        if(windowTitle is String) {
+            pin := BSTR.Alloc(windowTitle)
+            windowTitle := pin.Value
+        }
+        if(windowMessage is String) {
+            pin := BSTR.Alloc(windowMessage)
+            windowMessage := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", parentWnd, "ptr", accessPath, "int", errorType, "int", flags, "ptr", windowTitle, "ptr", windowMessage, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 }

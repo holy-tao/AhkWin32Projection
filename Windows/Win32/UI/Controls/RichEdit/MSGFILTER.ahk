@@ -2,10 +2,12 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about a keyboard or mouse event. A rich edit control sends this structure to its parent window as part of an EN_MSGFILTER notification code, enabling the parent to change the message or prevent it from being processed.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-msgfilter
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-msgfilter
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -47,9 +49,12 @@ class MSGFILTER extends Win32Struct
      * 					<b>wParam</b> parameter of the message.
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(32, this)
+            return this.__wParam
+        }
     }
 
     /**
@@ -59,8 +64,11 @@ class MSGFILTER extends Win32Struct
      * 					<b>lParam</b> parameter of the message.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 }

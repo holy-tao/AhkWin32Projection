@@ -40,17 +40,30 @@ class IOmHistory extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * backupfile (Transact-SQL)
+     * @remarks
+     * RESTORE VERIFYONLY FROM *backup_device* WITH LOADHISTORY populates the columns of the **backupmediaset** table with the appropriate values from the media-set header.  
+     *   
+     *  To reduce the number of rows in this table and in other backup and history tables, execute the [sp_delete_backuphistory](../../relational-databases/system-stored-procedures/sp-delete-backuphistory-transact-sql.md) stored procedure.
      * @param {Pointer<VARIANT>} pvargdistance 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/system-tables/backupfile-transact-sql
      */
     back(pvargdistance) {
-        result := ComCall(8, this, "ptr", pvargdistance, "HRESULT")
+        result := ComCall(8, this, "ptr", pvargdistance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +73,11 @@ class IOmHistory extends IDispatch{
      * @returns {HRESULT} 
      */
     forward(pvargdistance) {
-        result := ComCall(9, this, "ptr", pvargdistance, "HRESULT")
+        result := ComCall(9, this, "ptr", pvargdistance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +87,11 @@ class IOmHistory extends IDispatch{
      * @returns {HRESULT} 
      */
     go(pvargdistance) {
-        result := ComCall(10, this, "ptr", pvargdistance, "HRESULT")
+        result := ComCall(10, this, "ptr", pvargdistance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

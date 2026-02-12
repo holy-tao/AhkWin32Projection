@@ -3,7 +3,7 @@
 
 /**
  * Specifies policy constraints for a channel.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_policy_constraints
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_policy_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

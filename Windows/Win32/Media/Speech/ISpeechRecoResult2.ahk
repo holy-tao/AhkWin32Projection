@@ -36,9 +36,16 @@ class ISpeechRecoResult2 extends ISpeechRecoResult{
      * @returns {HRESULT} 
      */
     SetTextFeedback(Feedback, WasSuccessful) {
-        Feedback := Feedback is String ? BSTR.Alloc(Feedback).Value : Feedback
+        if(Feedback is String) {
+            pin := BSTR.Alloc(Feedback)
+            Feedback := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", Feedback, "short", WasSuccessful, "HRESULT")
+        result := ComCall(17, this, "ptr", Feedback, "short", WasSuccessful, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

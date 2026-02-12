@@ -37,10 +37,20 @@ class IPrintSchemaTicket2 extends IPrintSchemaTicket{
      * @returns {IPrintSchemaParameterInitializer} 
      */
     GetParameterInitializer(bstrName, bstrNamespaceUri) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrNamespaceUri is String) {
+            pin := BSTR.Alloc(bstrNamespaceUri)
+            bstrNamespaceUri := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppParameterInitializer := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppParameterInitializer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaParameterInitializer(ppParameterInitializer)
     }
 }

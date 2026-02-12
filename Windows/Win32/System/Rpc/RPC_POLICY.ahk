@@ -16,7 +16,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Midl/ncadg-ip-udp">ncadg_ip_udp</a>) connections. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/Rpc/configuring-the-windows-xp-2000-nt-registry-for-port-allocations-and-selective-binding">Configuring the Registry for Port Allocations and Selective Binding</a>.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcdce/ns-rpcdce-rpc_policy
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

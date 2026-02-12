@@ -4,8 +4,8 @@
 #Include .\IDCompositionFilterEffect.ahk
 
 /**
- * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionaffinetransform2deffect
+ * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionAffineTransform2DEffect)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositionaffinetransform2deffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -32,16 +32,20 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the interpolation mode of the effect.
-     * @param {Integer} interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE</a></b>
+     * @param {Integer} interpolationMode_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE</a></b>
      * 
      * Specifies the interpolation mode of the effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setinterpolationmode
      */
-    SetInterpolationMode(interpolationMode) {
-        result := ComCall(4, this, "int", interpolationMode, "HRESULT")
+    SetInterpolationMode(interpolationMode_) {
+        result := ComCall(4, this, "int", interpolationMode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,13 +54,17 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Integer} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_BORDER_MODE</a></b>
      * 
      * Specifies the border mode to use with the effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setbordermode
      */
     SetBorderMode(borderMode) {
-        result := ComCall(5, this, "int", borderMode, "HRESULT")
+        result := ComCall(5, this, "int", borderMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,61 +73,101 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Pointer<D2D_MATRIX_3X2_F>} transformMatrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
      * Specifies the transform matrix for the effect to use.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrix
      */
     SetTransformMatrix(transformMatrix) {
-        result := ComCall(6, this, "ptr", transformMatrix, "HRESULT")
+        result := ComCall(6, this, "ptr", transformMatrix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets an element of the transform matrix of the effect. (overload 2/2)
+     * @param {Integer} row Type: <b>int</b>
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
+     * The row of the element.
+     * @param {Integer} column_ Type: <b>int</b>
+     * 
+     * The column of the element.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the element value changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
      */
-    SetTransformMatrixElement(row, column, animation) {
-        result := ComCall(7, this, "int", row, "int", column, "ptr", animation, "HRESULT")
+    SetTransformMatrixElement(row, column_, animation) {
+        result := ComCall(7, this, "int", row, "int", column_, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets an element of the transform matrix of the effect. (overload 2/2)
+     * @param {Integer} row Type: <b>int</b>
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
+     * The row of the element.
+     * @param {Integer} column_ Type: <b>int</b>
+     * 
+     * The column of the element.
      * @param {Float} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-settransformmatrixelement(int_int_idcompositionanimation)
      */
-    SetTransformMatrixElement1(row, column, value) {
-        result := ComCall(8, this, "int", row, "int", column, "float", value, "HRESULT")
+    SetTransformMatrixElement1(row, column_, value) {
+        result := ComCall(8, this, "int", row, "int", column_, "float", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the sharpness of the effect. (overload 1/2)
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(float)
+     * An animation that represents how the sharpness value changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(idcompositionanimation)
      */
     SetSharpness(animation) {
-        result := ComCall(9, this, "ptr", animation, "HRESULT")
+        result := ComCall(9, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets the sharpness of the effect. (overload 1/2)
      * @param {Float} sharpness 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionaffinetransform2deffect-setsharpness(idcompositionanimation)
      */
     SetSharpness1(sharpness) {
-        result := ComCall(10, this, "float", sharpness, "HRESULT")
+        result := ComCall(10, this, "float", sharpness, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

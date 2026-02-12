@@ -9,7 +9,7 @@
  * The **SCommentRestriction** structure can be used to keep application-specific information with a restriction when it is saved on disk. For example, a client saving the name of a named property used in a property restriction can do so in an **SCommentRestriction** structure. Saving a property name is not possible in a property restriction because the associated [SPropertyRestriction](spropertyrestriction.md) structure holds only the property tag. 
  *   
  * For more information about the **SCommentRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scommentrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/scommentrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

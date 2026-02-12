@@ -7,16 +7,13 @@
 /**
  * Provides an event queue for applications that need to implement the IMFMediaEventGenerator interface.
  * @remarks
- * 
  * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
  * 
  * <ul>
  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfmediaeventqueue
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imfmediaeventqueue
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -43,17 +40,35 @@ class IMFMediaEventQueue extends IUnknown{
 
     /**
      * Retrieves the next event in the queue. This method is synchronous.Call this method inside your implementation of IMFMediaEventGenerator::GetEvent. Pass the parameters from that method directly to this method.
+     * @remarks
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {Integer} dwFlags Specifies whether the method blocks until an event is queued. For a list of valid flags, see <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventgenerator-getevent">IMFMediaEventGenerator::GetEvent</a>.
      * @returns {IMFMediaEvent} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-getevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-getevent
      */
     GetEvent(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaEvent(ppEvent)
     }
 
     /**
      * Begins an asynchronous request for the next event in the queue.Call this method inside your implementation of IMFMediaEventGenerator::BeginGetEvent. Pass the parameters from that method directly to this method.
+     * @remarks
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object.
      * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -81,31 +96,55 @@ class IMFMediaEventQueue extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-begingetevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-begingetevent
      */
     BeginGetEvent(pCallback, punkState) {
-        result := ComCall(4, this, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(4, this, "ptr", pCallback, "ptr", punkState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Completes an asynchronous request for the next event in the queue.Call this method inside your implementation of IMFMediaEventGenerator::EndGetEvent. Pass the parameters from that method directly to this method.
+     * @remarks
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface.
      * @returns {IMFMediaEvent} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface of the event object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-endgetevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-endgetevent
      */
     EndGetEvent(pResult) {
-        result := ComCall(5, this, "ptr", pResult, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pResult, "ptr*", &ppEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaEvent(ppEvent)
     }
 
     /**
      * Puts an event in the queue.
+     * @remarks
+     * Call this method when your component needs to raise an event that contains attributes. To create the event object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediaevent">MFCreateMediaEvent</a>. Add attributes to the event by using methods from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. (The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface inherits <b>IMFAttributes</b>.)
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {IMFMediaEvent} pEvent Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaevent">IMFMediaEvent</a> interface of the event to be put in the queue.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -132,20 +171,31 @@ class IMFMediaEventQueue extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-queueevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-queueevent
      */
     QueueEvent(pEvent) {
-        result := ComCall(6, this, "ptr", pEvent, "HRESULT")
+        result := ComCall(6, this, "ptr", pEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates an event, sets a PROPVARIANT as the event data, and puts the event in the queue.Call this method inside your implementation of IMFMediaEventGenerator::QueueEvent.
+     * @remarks
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {Integer} met Specifies the type of the event to be added to the queue. The event type is returned by the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-gettype">IMFMediaEvent::GetType</a> method. For a list of event types, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-events">Media Foundation Events</a>.
      * @param {Pointer<Guid>} guidExtendedType The extended type of the event. If the event does not have an extended type, use the value GUID_NULL. The extended type is returned by the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getextendedtype">IMFMediaEvent::GetExtendedType</a> method.
      * @param {HRESULT} hrStatus A success or failure code indicating the status of the event. This value is returned by the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getstatus">IMFMediaEvent::GetStatus</a> method.
@@ -175,20 +225,33 @@ class IMFMediaEventQueue extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-queueeventparamvar
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-queueeventparamvar
      */
     QueueEventParamVar(met, guidExtendedType, hrStatus, pvValue) {
-        result := ComCall(7, this, "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pvValue, "HRESULT")
+        result := ComCall(7, this, "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pvValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates an event, sets an IUnknown pointer as the event data, and puts the event in the queue.
+     * @remarks
+     * Call this method when your component needs to raise an event that contains an <b>IUnknown</b> pointer value and no attributes. If the event contains attributes, use <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-queueevent">IMFMediaEventQueue::QueueEvent</a> instead.
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {Integer} met Specifies the event type of the event to be added to the queue. The event type is returned by the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-gettype">IMFMediaEvent::GetType</a> method. For a list of event types, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-events">Media Foundation Events</a>.
      * @param {Pointer<Guid>} guidExtendedType The extended type of the event. If the event does not have an extended type, use the value GUID_NULL. The extended type is returned by the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getextendedtype">IMFMediaEvent::GetExtendedType</a> method.
      * @param {HRESULT} hrStatus A success or failure code indicating the status of the event. This value is returned by the event's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaevent-getstatus">IMFMediaEvent::GetStatus</a> method.
@@ -218,20 +281,35 @@ class IMFMediaEventQueue extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown">Shutdown</a> method was called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-queueeventparamunk
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-queueeventparamunk
      */
     QueueEventParamUnk(met, guidExtendedType, hrStatus, pUnk) {
-        result := ComCall(8, this, "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pUnk, "HRESULT")
+        result := ComCall(8, this, "uint", met, "ptr", guidExtendedType, "int", hrStatus, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Shuts down the event queue.
+     * @remarks
+     * Call this method when your component shuts down. After this method is called, all <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediaeventqueue">IMFMediaEventQueue</a> methods return <b>MF_E_SHUTDOWN</b>.
+     * 
+     * This method removes all of the events from the queue.
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -251,10 +329,14 @@ class IMFMediaEventQueue extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfmediaeventqueue-shutdown
      */
     Shutdown() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

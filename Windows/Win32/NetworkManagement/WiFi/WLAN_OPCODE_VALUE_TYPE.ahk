@@ -5,7 +5,7 @@
  * The WLAN_OPCODE_VALUE_TYPE enumeration specifies the origin of automatic configuration (auto config) settings.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/ne-wlanapi-wlan_opcode_value_type~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

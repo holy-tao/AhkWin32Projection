@@ -6,7 +6,7 @@
 
 /**
  * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.
- * @see https://docs.microsoft.com/windows/win32/api//qmgr/nn-qmgr-ibackgroundcopyjob1
+ * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nn-qmgr-ibackgroundcopyjob1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -39,12 +39,16 @@ class IBackgroundCopyJob1 extends IUnknown{
     }
 
     /**
-     * 
+     * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyjob1
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nn-qmgr-ibackgroundcopyjob1
      */
     CancelJob() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,10 +93,14 @@ class IBackgroundCopyJob1 extends IUnknown{
      * </tr>
      * </table>
      * @returns {Integer} Progress of the download. The progress represents the number of bytes downloaded or the percent of the download that is complete, depending on <i>dwFlags</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopyjob1-getprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopyjob1-getprogress
      */
     GetProgress(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, "uint*", &pdwProgress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwProgress
     }
 
@@ -168,7 +176,7 @@ class IBackgroundCopyJob1 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopyjob1-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopyjob1-getstatus
      */
     GetStatus(pdwStatus, pdwWin32Result, pdwTransportResult, pdwNumOfRetries) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
@@ -176,7 +184,11 @@ class IBackgroundCopyJob1 extends IUnknown{
         pdwTransportResultMarshal := pdwTransportResult is VarRef ? "uint*" : "ptr"
         pdwNumOfRetriesMarshal := pdwNumOfRetries is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pdwStatusMarshal, pdwStatus, pdwWin32ResultMarshal, pdwWin32Result, pdwTransportResultMarshal, pdwTransportResult, pdwNumOfRetriesMarshal, pdwNumOfRetries, "HRESULT")
+        result := ComCall(5, this, pdwStatusMarshal, pdwStatus, pdwWin32ResultMarshal, pdwWin32Result, pdwTransportResultMarshal, pdwTransportResult, pdwNumOfRetriesMarshal, pdwNumOfRetries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -225,55 +237,77 @@ class IBackgroundCopyJob1 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopyjob1-addfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopyjob1-addfiles
      */
     AddFiles(cFileCount, ppFileSet) {
         ppFileSetMarshal := ppFileSet is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "uint", cFileCount, ppFileSetMarshal, ppFileSet, "HRESULT")
+        result := ComCall(6, this, "uint", cFileCount, ppFileSetMarshal, ppFileSet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Use the GetFile method to retrieve the remote and local file names for the given file in the job.
+     * @remarks
+     * Use with <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/nf-qmgr-ibackgroundcopyjob1-getfilecount">IBackgroundCopyJob1::GetFileCount</a> to iterate through the files of a job.
      * @param {Integer} cFileIndex Zero-based index that identifies the file in the job.
      * @returns {FILESETINFO} A <a href="https://docs.microsoft.com/windows/desktop/api/qmgr/ns-qmgr-filesetinfo">FILESETINFO</a> structure that contains the remote and local names of the file.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopyjob1-getfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopyjob1-getfile
      */
     GetFile(cFileIndex) {
         pFileInfo := FILESETINFO()
-        result := ComCall(7, this, "uint", cFileIndex, "ptr", pFileInfo, "HRESULT")
+        result := ComCall(7, this, "uint", cFileIndex, "ptr", pFileInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFileInfo
     }
 
     /**
      * Use the GetFileCount method to retrieve the number of files in the job.
      * @returns {Integer} Number of files in the job.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopyjob1-getfilecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopyjob1-getfilecount
      */
     GetFileCount() {
-        result := ComCall(8, this, "uint*", &pdwFileCount := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwFileCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFileCount
     }
 
     /**
-     * 
+     * Use the IBackgroundCopyJob1 interface to add files to the job and retrieve the job's status.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyjob1
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nn-qmgr-ibackgroundcopyjob1
      */
     SwitchToForeground() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Use the get_JobID method to retrieve the job's identifier.
      * @returns {Guid} GUID that uniquely identifies the job.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopyjob1-get_jobid
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopyjob1-get_jobid
      */
     get_JobID() {
         pguidJobID := Guid()
-        result := ComCall(10, this, "ptr", pguidJobID, "HRESULT")
+        result := ComCall(10, this, "ptr", pguidJobID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidJobID
     }
 }

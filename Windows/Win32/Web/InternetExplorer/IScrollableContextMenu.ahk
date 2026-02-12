@@ -37,7 +37,11 @@ class IScrollableContextMenu extends IUnknown{
     AddItem(itemText, cmdID) {
         itemText := itemText is String ? StrPtr(itemText) : itemText
 
-        result := ComCall(3, this, "ptr", itemText, "uint", cmdID, "HRESULT")
+        result := ComCall(3, this, "ptr", itemText, "uint", cmdID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class IScrollableContextMenu extends IUnknown{
      * @returns {Integer} 
      */
     ShowModal(x, y) {
-        result := ComCall(4, this, "int", x, "int", y, "uint*", &cmdID := 0, "HRESULT")
+        result := ComCall(4, this, "int", x, "int", y, "uint*", &cmdID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return cmdID
     }
 }

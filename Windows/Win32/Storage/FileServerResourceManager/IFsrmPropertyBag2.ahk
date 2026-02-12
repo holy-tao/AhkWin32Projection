@@ -7,7 +7,7 @@
 
 /**
  * IFsrmPropertyBag2 Interface
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpropertybag2
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertybag2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -40,11 +40,15 @@ class IFsrmPropertyBag2 extends IFsrmPropertyBag{
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * Returns the specified value.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag2-getfieldvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag2-getfieldvalue
      */
     GetFieldValue(field) {
         value := VARIANT()
-        result := ComCall(28, this, "int", field, "ptr", value, "HRESULT")
+        result := ComCall(28, this, "int", field, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -53,7 +57,11 @@ class IFsrmPropertyBag2 extends IFsrmPropertyBag{
      * @returns {IFsrmCollection} 
      */
     GetUntrustedInFileProperties() {
-        result := ComCall(29, this, "ptr*", &props := 0, "HRESULT")
+        result := ComCall(29, this, "ptr*", &props := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmCollection(props)
     }
 }

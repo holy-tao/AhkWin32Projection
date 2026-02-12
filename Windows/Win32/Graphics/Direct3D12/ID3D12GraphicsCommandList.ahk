@@ -6,13 +6,8 @@
 /**
  * Encapsulates a list of graphics commands for rendering. Includes APIs for instrumenting the command list execution, and for setting and clearing the pipeline state.
  * @remarks
- * 
  * This interface is new to D3D12, encapsulating much of the functionality of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11commandlist">ID3D11CommandList</a> interface, and including the new functionality described in <a href="https://docs.microsoft.com/windows/desktop/direct3d12/rendering">Rendering</a>.
- *         
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12graphicscommandlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12graphicscommandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -38,8 +33,10 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     static VTableNames => ["Close", "Reset", "ClearState", "DrawInstanced", "DrawIndexedInstanced", "Dispatch", "CopyBufferRegion", "CopyTextureRegion", "CopyResource", "CopyTiles", "ResolveSubresource", "IASetPrimitiveTopology", "RSSetViewports", "RSSetScissorRects", "OMSetBlendFactor", "OMSetStencilRef", "SetPipelineState", "ResourceBarrier", "ExecuteBundle", "SetDescriptorHeaps", "SetComputeRootSignature", "SetGraphicsRootSignature", "SetComputeRootDescriptorTable", "SetGraphicsRootDescriptorTable", "SetComputeRoot32BitConstant", "SetGraphicsRoot32BitConstant", "SetComputeRoot32BitConstants", "SetGraphicsRoot32BitConstants", "SetComputeRootConstantBufferView", "SetGraphicsRootConstantBufferView", "SetComputeRootShaderResourceView", "SetGraphicsRootShaderResourceView", "SetComputeRootUnorderedAccessView", "SetGraphicsRootUnorderedAccessView", "IASetIndexBuffer", "IASetVertexBuffers", "SOSetTargets", "OMSetRenderTargets", "ClearDepthStencilView", "ClearRenderTargetView", "ClearUnorderedAccessViewUint", "ClearUnorderedAccessViewFloat", "DiscardResource", "BeginQuery", "EndQuery", "ResolveQueryData", "SetPredication", "SetMarker", "BeginEvent", "EndEvent", "ExecuteIndirect"]
 
     /**
-     * Indicates that recording to the command list has finished.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * Indicates that recording to the command list has finished. (ID3D12GraphicsCommandList.Close)
+     * @remarks
+     * The runtime will validate that the command list has not previously been closed.  If an error was encountered during recording, the error code is returned here.  The runtime won't call the close device driver interface (DDI) in this case.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the following values:
      *               
@@ -52,16 +49,50 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * <li><b>E_INVALIDARG</b> if an invalid argument was passed to the command list API during recording.
      *               </li>
      * </ul>
-     * See <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-close
+     * See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-close
      */
     Close() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets a command list back to its initial state as if a new command list was just created.
+     * Resets a command list back to its initial state as if a new command list was just created. (ID3D12GraphicsCommandList.Reset)
+     * @remarks
+     * By using <b>Reset</b>, you can re-use command list tracking structures without any allocations. Unlike <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandallocator-reset">ID3D12CommandAllocator::Reset</a>, you can call <b>Reset</b> while the command list is still being executed. A typical pattern is to submit a command list and then immediately reset it to reuse the allocated memory for another command list. 
+     * 
+     * You can use <b>Reset</b> for both direct command lists and bundles.
+     *       
+     * 
+     * The command allocator that <b>Reset</b> takes as input can be associated with no more than one recording command list at a time.  The allocator type, direct command list or bundle, must match the type of command list that is being created.
+     *       
+     * 
+     * If a bundle doesn't specify a resource heap, it can't make changes to which descriptor tables are bound. Either way, bundles can't change the resource heap within the bundle. If a heap is specified for a bundle, the heap must match the calling 'parent' command list’s heap.
+     *       
+     * 
+     * <h3><a id="Runtime_validation"></a><a id="runtime_validation"></a><a id="RUNTIME_VALIDATION"></a>Runtime validation</h3>
+     * Before an app calls <b>Reset</b>, the command list must be in the "closed" state.  <b>Reset</b> will fail if the command list isn't in the "closed" state.
+     *           
+     * 
+     * <div class="alert"><b>Note</b>  If a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close">ID3D12GraphicsCommandList::Close</a> fails, the command list can never be reset.  Calling <b>Reset</b> will result in the same error being returned that <b>ID3D12GraphicsCommandList::Close</b> returned.
+     *           </div>
+     * <div> </div>
+     * After <b>Reset</b> succeeds, the command list is left in the "recording" state.  <b>Reset</b> will fail if it would cause the maximum concurrently recording command list limit, which is specified at device creation, to be exceeded.
+     *           
+     * 
+     * Apps must specify a command list allocator.  The runtime will ensure that an allocator is never associated with more than one recording command list at the same time.
+     *           
+     * 
+     * <b>Reset</b> fails for bundles that are referenced by a not yet submitted command list.
+     *           
+     * 
+     * <h3><a id="Debug_layer"></a><a id="debug_layer"></a><a id="DEBUG_LAYER"></a>Debug layer</h3>
+     * The debug layer will also track graphics processing unit (GPU) progress and issue an error if it can't prove that there are no outstanding executions of the command list.
      * @param {ID3D12CommandAllocator} pAllocator Type: <b>ID3D12CommandAllocator*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandallocator">ID3D12CommandAllocator</a> object that the device creates command lists from.
@@ -70,7 +101,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> object that contains the initial pipeline state for the command list.  This is optional and can be NULL.  If NULL, the runtime sets a dummy initial pipeline state so that drivers don't have to deal with undefined state.  The overhead for this is low, particularly for a command list, for which the overall cost of recording the command list likely dwarfs the cost of one initial state setting.  So there is little cost in  not setting the initial pipeline state parameter if it isn't convenient.  
      * 
      * For bundles on the other hand, it might make more sense to try to set the initial state parameter since bundles are likely smaller overall and can be reused frequently.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the following values:
      *               
@@ -83,18 +114,21 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * <li><b>E_INVALIDARG</b> if the allocator is currently being used with another command list in the "recording" state or if the specified allocator was created with the wrong type.
      *               </li>
      * </ul>
-     * See <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-reset
+     * See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-reset
      */
     Reset(pAllocator, pInitialState) {
-        result := ComCall(10, this, "ptr", pAllocator, "ptr", pInitialState, "HRESULT")
+        result := ComCall(10, this, "ptr", pAllocator, "ptr", pInitialState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the state of a direct command list back to the state it was in when the command list was created.
+     * Resets the state of a direct command list back to the state it was in when the command list was created. (ID3D12GraphicsCommandList.ClearState)
      * @remarks
-     * 
      * It is invalid to call <b>ClearState</b> on a bundle.  If an app calls <b>ClearState</b> on a bundle, the call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close">Close</a> will return <b>E_FAIL</b>.
      *       
      * 
@@ -102,13 +136,11 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      *       
      * 
      * The app-provided pipeline state object becomes bound as the currently set pipeline state object.
-     * 
-     * 
      * @param {ID3D12PipelineState} pPipelineState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> object that contains the initial pipeline state for the command list.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate
      */
     ClearState(pPipelineState) {
         ComCall(11, this, "ptr", pPipelineState)
@@ -117,7 +149,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Draws non-indexed, instanced primitives.
      * @remarks
-     * 
      * A draw API submits work to the rendering pipeline.
      *         
      * 
@@ -127,10 +158,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The vertex data for an instanced draw call typically comes from a vertex buffer that is bound to the pipeline.
      *           But, you could also provide the vertex data from a shader that has instanced data identified with a system-value semantic (SV_InstanceID).
-     *         
-     * 
-     * 
-     * 
      * @param {Integer} VertexCountPerInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of vertices to draw.
@@ -144,7 +171,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A value added to each index before reading per-instance data from a vertex buffer.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced
      */
     DrawInstanced(VertexCountPerInstance, InstanceCount, StartVertexLocation, StartInstanceLocation) {
         ComCall(12, this, "uint", VertexCountPerInstance, "uint", InstanceCount, "uint", StartVertexLocation, "uint", StartInstanceLocation)
@@ -153,15 +180,11 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Draws indexed, instanced primitives.
      * @remarks
-     * 
      * A draw API submits work to the rendering pipeline.
      * 
      * Instancing might extend performance by reusing the same geometry to draw multiple objects in a scene. One example of instancing could be 
      *       to draw the same object with different positions and colors. Instancing requires multiple vertex buffers: at least one for per-vertex data 
      *       and a second buffer for per-instance data.
-     * 
-     * 
-     * 
      * @param {Integer} IndexCountPerInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of indices read from the index buffer for each instance.
@@ -178,7 +201,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A value added to each index before reading per-instance data from a vertex buffer.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced
      */
     DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation) {
         ComCall(13, this, "uint", IndexCountPerInstance, "uint", InstanceCount, "uint", StartIndexLocation, "int", BaseVertexLocation, "uint", StartInstanceLocation)
@@ -187,13 +210,8 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Executes a compute shader on a thread group.
      * @remarks
-     * 
      * You call the <b>Dispatch</b> method to execute commands in a compute shader. A compute shader can be run on many threads in parallel, within a thread group. Index a particular thread, within a thread group using a 3D vector
      *           given by (x,y,z).
-     *         
-     * 
-     * 
-     * 
      * @param {Integer} ThreadGroupCountX Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of groups dispatched in the x direction. <i>ThreadGroupCountX</i> must be less than or equal to D3D11_CS_DISPATCH_MAX_THREAD_GROUPS_PER_DIMENSION (65535).
@@ -205,7 +223,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The number of groups dispatched in the z direction.  <i>ThreadGroupCountZ</i> must be less than or equal to D3D11_CS_DISPATCH_MAX_THREAD_GROUPS_PER_DIMENSION (65535).
      *             In feature level 10 the value for <i>ThreadGroupCountZ</i> must be 1.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch
      */
     Dispatch(ThreadGroupCountX, ThreadGroupCountY, ThreadGroupCountZ) {
         ComCall(14, this, "uint", ThreadGroupCountX, "uint", ThreadGroupCountY, "uint", ThreadGroupCountZ)
@@ -214,14 +232,10 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Copies a region of a buffer from one resource to another.
      * @remarks
-     * 
      * Consider using the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource">CopyResource</a> method when copying an entire resource, and use this method for copying regions of a resource.
      *         
      * 
      * <b>CopyBufferRegion</b> may be used to initialize resources which alias the same heap memory. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a> for more details.
-     * 
-     * 
-     * 
      * @param {ID3D12Resource} pDstBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>*</b>
      * 
      * Specifies the destination <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>.
@@ -238,7 +252,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies the number of bytes to copy.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion
      */
     CopyBufferRegion(pDstBuffer, DstOffset, pSrcBuffer, SrcOffset, NumBytes) {
         ComCall(15, this, "ptr", pDstBuffer, "uint", DstOffset, "ptr", pSrcBuffer, "uint", SrcOffset, "uint", NumBytes)
@@ -247,7 +261,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * This method uses the GPU to copy texture data between two locations. Both the source and the destination may reference texture data located within either a buffer resource or a texture resource.
      * @remarks
-     * 
      * The source box must be within the size of the source resource. The destination offsets, (x, y, and z), allow the source box to be offset when writing into the destination resource; however, the dimensions of the source box and the offsets must be within the size of the resource. If you try and copy outside the destination resource or specify a source box that is larger than the source resource, the behavior of <b>CopyTextureRegion</b> is undefined. If you created a device that supports the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">debug layer</a>, the debug output reports an error on this invalid <b>CopyTextureRegion</b> call. Invalid parameters to <b>CopyTextureRegion</b> cause undefined behavior and might result in incorrect rendering, clipping, no copy, or even the removal of the rendering device.
      *         
      * 
@@ -258,7 +271,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * <ul>
      * <li>Must be different subresources (although they can be from the same resource).</li>
-     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>s (identical or from the same type group). For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to an DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. <b>CopyTextureRegion</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.</li>
+     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>s (identical or from the same type group). For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to a DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. <b>CopyTextureRegion</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.</li>
      * </ul>
      * <b>CopyTextureRegion</b> only supports copy; it does not support any stretch, color key, or blend. <b>CopyTextureRegion</b> can reinterpret the resource data between a few format types.
      * 
@@ -290,9 +303,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * 
      * Notice, that for a 2D texture, front and back are set to 0 and 1 respectively.
-     * 
-     * 
-     * 
      * @param {Pointer<D3D12_TEXTURE_COPY_LOCATION>} pDst Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_texture_copy_location">D3D12_TEXTURE_COPY_LOCATION</a>*</b>
      * 
      * Specifies the destination <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_texture_copy_location">D3D12_TEXTURE_COPY_LOCATION</a>. The subresource referred to must be in the D3D12_RESOURCE_STATE_COPY_DEST state.
@@ -313,7 +323,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies an optional  D3D12_BOX that sets the size of the source texture to copy.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion
      */
     CopyTextureRegion(pDst, DstX, DstY, DstZ, pSrc, pSrcBox) {
         ComCall(16, this, "ptr", pDst, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrc, "ptr", pSrcBox)
@@ -322,60 +332,25 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Copies the entire contents of the source resource to the destination resource.
      * @remarks
+     * <b>CopyResource</b> operations are performed on the GPU, and do not incur a significant CPU workload linearly dependent on the size of the data to copy.
      * 
-     * <b>CopyResource</b> operations are performed on the GPU and do not incur a significant CPU workload linearly dependent on the size of the data to copy.
-     *         
-     * 
-     * <b>CopyResource</b> may be used to initialize resources which alias the same heap memory. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a> for more details.
-     * 
-     * <h3><a id="Debug_layer"></a><a id="debug_layer"></a><a id="DEBUG_LAYER"></a>Debug layer</h3>
-     * The debug layer will issue an error if the source subresource is not in the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_COPY_SOURCE</a> state.
-     *           
-     * 
-     * The debug layer will issue an error if the destination subresource is not in the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_COPY_DEST </a>state.
-     *           
-     * 
-     * This method has a few restrictions designed for improving performance. For instance, the source and destination resources:
-     * 
-     * <ul>
-     * <li>Must be different resources.</li>
-     * <li>Must be the same type.</li>
-     * <li>Must have identical dimensions (including width, height, depth, and size as appropriate).</li>
-     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI formats</a>, which means the formats must be identical or at least from the same type group. For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to an DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. <b>CopyResource</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.
-     *           </li>
-     * <li>Can't be currently mapped.</li>
-     * </ul>
-     * <b>CopyResource</b> only supports copy; it doesn't support any stretch, color key, or blend. <b>CopyResource</b> can reinterpret the resource data between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.
-     *         
-     * 
-     * You can use a   <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">depth-stencil</a> resource as either a source or a destination. Resources created with multi-sampling capability (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a>) can be used as source and destination only if both source and destination have identical multi-sampled count and quality. If source and destination differ in multi-sampled count and quality or if one is multi-sampled and the other is not multi-sampled, the call to <b>CopyResource</b> fails. Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource">ResolveSubresource</a> to resolve a multi-sampled resource to a resource that is not multi-sampled.
-     *         
-     * 
-     * The method is an asynchronous call, which may be added to the command-buffer queue. This attempts to remove pipeline stalls that may occur when copying data. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">performance considerations</a>.
-     *         
-     * 
-     * Consider using <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion">CopyTextureRegion</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion">CopyBufferRegion</a> if you only need to copy a portion of the data in a resource.
-     *         
-     * 
-     * 
-     * 
+     * <b>CopyResource</b> can be used to initialize resources that alias the same heap memory. See <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a> for more details.
      * @param {ID3D12Resource} pDstResource Type: <b>ID3D12Resource*</b>
      * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>interface that represents the destination resource.
+     * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> interface that represents the destination resource.
      * @param {ID3D12Resource} pSrcResource Type: <b>ID3D12Resource*</b>
      * 
-     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>interface that represents the source resource.
+     * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> interface that represents the source resource.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource
      */
     CopyResource(pDstResource, pSrcResource) {
         ComCall(17, this, "ptr", pDstResource, "ptr", pSrcResource)
     }
 
     /**
-     * Copies tiles from buffer to tiled resource or vice versa.
+     * Copies tiles from buffer to tiled resource or vice versa. (ID3D12GraphicsCommandList.CopyTiles)
      * @remarks
-     * 
      * <b>CopyTiles</b> drops write operations to 
      * 		  unmapped areas and handles read operations from unmapped areas 
      * 		  (except on Tier_1 tiled resources, 
@@ -395,8 +370,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * <b>CopyTiles</b> does copy data in a slightly different pattern than the standard copy methods.
      * 
      * The memory layout of the tiles in the non-tiled buffer resource side of the copy operation is linear in memory within 64 KB tiles, which the hardware and driver swizzle and de-swizzle per tile as appropriate when they transfer to and from a tiled resource. For multisample antialiasing (MSAA) surfaces, the hardware and driver traverse each pixel's samples in sample-index order before they move to the next pixel. For tiles that are partially filled on the right side (for a surface that has a width not a multiple of tile width in pixels), the pitch and stride to move down a row is the full size in bytes of the number pixels that would fit across the tile if the tile was full. So, there can be a gap between each row of pixels in memory. Mipmaps that are smaller than a tile are not packed together in the linear layout, which might seem to be a waste of memory space, but as mentioned you can't use <b>CopyTiles</b> to copy to mipmaps that the hardware packs together. You can just use generic copy APIs, like <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion">CopyTextureRegion</a>, to copy small mipmaps individually.
-     * 
-     * 
      * @param {ID3D12Resource} pTiledResource Type: <b>ID3D12Resource*</b>
      * 
      * A pointer to a tiled resource.
@@ -417,7 +390,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tile_copy_flags">D3D12_TILE_COPY_FLAGS</a>-typed values that are combined by using a bitwise OR operation and that identifies how to copy tiles.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles
      */
     CopyTiles(pTiledResource, pTileRegionStartCoordinate, pTileRegionSize, pBuffer, BufferStartOffsetInBytes, Flags) {
         ComCall(18, this, "ptr", pTiledResource, "ptr", pTileRegionStartCoordinate, "ptr", pTileRegionSize, "ptr", pBuffer, "uint", BufferStartOffsetInBytes, "int", Flags)
@@ -426,11 +399,10 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Copy a multi-sampled resource into a non-multi-sampled resource.
      * @remarks
-     * 
      * <h3><a id="Debug_layer"></a><a id="debug_layer"></a><a id="DEBUG_LAYER"></a>Debug layer</h3>
      * The debug layer will issue an error if the subresources referenced by the source view is not in the  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_RESOLVE_SOURCE</a> state.
      * 
-     * The debug layer will issue an error if the destination buffer is not in the  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_RESOLVE_DEST</a>state.
+     * The debug layer will issue an error if the destination buffer is not in the  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_RESOLVE_DEST</a> state.
      * 
      * The source and destination resources must be the same resource type and have the same dimensions. In addition, they must have compatible formats. There are three scenarios for this:
      * 
@@ -449,7 +421,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * </tr>
      * <tr>
      * <td>Source and destination are prestructured and typeless</td>
-     * <td>Both the source and desintation must have the same typeless format (i.e. both must have DXGI_FORMAT_R32_TYPELESS), and the Format parameter must specify a format that is compatible with the source and destination (i.e. if both are DXGI_FORMAT_R32_TYPELESS then DXGI_FORMAT_R32_FLOAT could be specified in the Format parameter).
+     * <td>Both the source and destination must have the same typeless format (i.e. both must have DXGI_FORMAT_R32_TYPELESS), and the Format parameter must specify a format that is compatible with the source and destination (i.e. if both are DXGI_FORMAT_R32_TYPELESS then DXGI_FORMAT_R32_FLOAT could be specified in the Format parameter).
      *               For example, given the DXGI_FORMAT_R16G16B16A16_TYPELESS format:
      *               
      * 
@@ -460,8 +432,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {ID3D12Resource} pDstResource Type: [in] <b>ID3D12Resource*</b>
      * 
      * Destination resource. Must be a created on a <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE_DEFAULT</a> heap and be single-sampled. See <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>.
@@ -478,39 +448,31 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> that indicates how the multisampled resource will be resolved to a single-sampled resource. See remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource
      */
     ResolveSubresource(pDstResource, DstSubresource, pSrcResource, SrcSubresource, Format) {
         ComCall(19, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, "int", Format)
     }
 
     /**
-     * Bind information about the primitive type, and data order that describes input data for the input assembler stage.
+     * Bind information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D12GraphicsCommandList.IASetPrimitiveTopology)
      * @param {Integer} PrimitiveTopology Type: <b>D3D12_PRIMITIVE_TOPOLOGY</b>
      * 
      * The type of primitive and ordering of the primitive data (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology">D3D_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-iasetprimitivetopology
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetprimitivetopology
      */
     IASetPrimitiveTopology(PrimitiveTopology) {
         ComCall(20, this, "int", PrimitiveTopology)
     }
 
     /**
-     * Bind an array of viewports to the rasterizer stage of the pipeline.
+     * Bind an array of viewports to the rasterizer stage of the pipeline. (ID3D12GraphicsCommandList.RSSetViewports)
      * @remarks
-     * 
      * All viewports must be set atomically as one operation. Any viewports not defined by the call are disabled.
      *         
      * 
      * Which viewport to use is determined by the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">SV_ViewportArrayIndex</a> semantic output by a geometry shader; if a geometry shader does not specify the semantic, Direct3D will use the first viewport in the array.
-     *         
-     * 
-     * <div class="alert"><b>Note</b>  Even though you specify float values to the members of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_viewport">D3D12_VIEWPORT</a> structure for the <i>pViewports</i> array in a call to  <b>RSSetViewports</b> for <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> 9_x, <b>RSSetViewports</b> uses DWORDs internally. Because of this behavior, when you use a negative top left corner for the viewport, the call to  <b>RSSetViewports</b> for feature levels 9_x fails. This failure occurs because <b>RSSetViewports</b> for 9_x casts the floating point values into unsigned integers without validation, which results in integer overflow.
-     *       </div>
-     * <div> </div>
-     * 
-     * 
      * @param {Integer} NumViewports Type: <b>UINT</b>
      * 
      * Number of viewports to bind.
@@ -519,7 +481,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_viewport">D3D12_VIEWPORT</a> structures to bind to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports
      */
     RSSetViewports(NumViewports, pViewports) {
         ComCall(21, this, "uint", NumViewports, "ptr", pViewports)
@@ -528,7 +490,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Binds an array of scissor rectangles to the rasterizer stage.
      * @remarks
-     * 
      * All scissor rectangles must be set atomically as one operation. Any scissor rectangles not defined by the call are disabled.
      *         
      * 
@@ -536,10 +497,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      *         
      * 
      * Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports">RSSetViewports</a>).
-     *         
-     * 
-     * 
-     * 
      * @param {Integer} NumRects Type: <b>UINT</b>
      * 
      * The number of scissor rectangles to bind.
@@ -547,7 +504,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * An array of scissor rectangles.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-rssetscissorrects
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetscissorrects
      */
     RSSetScissorRects(NumRects, pRects) {
         ComCall(22, this, "uint", NumRects, "ptr", pRects)
@@ -556,17 +513,14 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Sets the blend factor that modulate values for a pixel shader, render target, or both.
      * @remarks
-     * 
      * If you created the blend-state object with [D3D12_BLEND_BLEND_FACTOR](./ne-d3d12-d3d12_blend.md) or **D3D12_BLEND_INV_BLEND_FACTOR**, then the blending stage uses the non-NULL array of blend factors. Otherwise,the blending stage doesn't use the non-NULL array of blend factors; the runtime stores the blend factors.
      * 
      * If you pass NULL, then the runtime uses or stores a blend factor equal to `{ 1, 1, 1, 1 }`.
-     * 
-     * 
      * @param {Pointer<Float>} BlendFactor Type: <b>const FLOAT[4]</b>
      * 
      * Array of blend factors, one for each RGBA component.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-omsetblendfactor
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetblendfactor
      */
     OMSetBlendFactor(BlendFactor) {
         BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
@@ -580,7 +534,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Reference value to perform against when doing a depth-stencil test.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-omsetstencilref
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetstencilref
      */
     OMSetStencilRef(StencilRef) {
         ComCall(24, this, "uint", StencilRef)
@@ -592,15 +546,17 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> containing the pipeline state data.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setpipelinestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setpipelinestate
      */
     SetPipelineState(pPipelineState) {
         ComCall(25, this, "ptr", pPipelineState)
     }
 
     /**
-     * Notifies the driver that it needs to synchronize multiple accesses to resources.
+     * Notifies the driver that it needs to synchronize multiple accesses to resources. (ID3D12GraphicsCommandList.ResourceBarrier)
      * @remarks
+     * > [!NOTE]
+     * > A resource to be used for the [D3D12_RESOURCE_STATE_RAYTRACING_ACCELERATION_STRUCTURE](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) state must be created in that state, and then never transitioned out of it. Nor may a resource that was created not in that state be transitioned into it. For more info, see [Acceleration structure memory restrictions](https://microsoft.github.io/DirectX-Specs/d3d/Raytracing.html#acceleration-structure-memory-restrictions) in the DirectX raytracing (DXR) functional specification on GitHub.
      * 
      * There are three types of barrier descriptions:
      * 
@@ -707,12 +663,10 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The debug layer will issue warnings in the following cases:
      * 
      * <ul>
-     * <li>All of the cases where the D3D11 debug layer would issues warnings for <a href="https://docs.microsoft.com/windows/win32/api/d3d11_2/nf-d3d11_2-id3d11devicecontext2-tiledresourcebarrier">ID3D11DeviceContext2::TiledResourceBarrier</a>.
+     * <li>All of the cases where the D3D12 debug layer would issues warnings for <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier">ID3D12GraphicsCommandList::ResourceBarrier</a>.
      *             </li>
      * <li>If a depth buffer is used in a non-read-only mode while the resource has the D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE usage bit set.</li>
      * </ul>
-     * 
-     * 
      * @param {Integer} NumBarriers Type: <b>UINT</b>
      * 
      * The number of submitted barrier descriptions.
@@ -720,7 +674,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Pointer to an array of barrier descriptions.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier
      */
     ResourceBarrier(NumBarriers, pBarriers) {
         ComCall(26, this, "uint", NumBarriers, "ptr", pBarriers)
@@ -729,7 +683,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Executes a bundle.
      * @remarks
-     * 
      * Bundles inherit all state from the parent command list on which <b>ExecuteBundle</b> is called, except the pipeline state object and primitive topology.
      *         All of the state that is set in a bundle will affect the state of the parent command list.
      *         Note that <b>ExecuteBundle</b> is not a predicated operation.
@@ -747,15 +700,11 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      *           
      * 
      * The debug layer will also validate that the command allocator associated with the bundle has not been reset since <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close">Close</a> was called on the command list.  This validation occurs at <b>ExecuteBundle</b> time, and when the parent command list is executed on a command queue.
-     *           
-     * 
-     * 
-     * 
      * @param {ID3D12GraphicsCommandList} pCommandList Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist">ID3D12GraphicsCommandList</a>*</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist">ID3D12GraphicsCommandList</a> that determines the bundle to be executed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle
      */
     ExecuteBundle(pCommandList) {
         ComCall(27, this, "ptr", pCommandList)
@@ -764,14 +713,11 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Changes the currently bound descriptor heaps that are associated with a command list.
      * @remarks
-     * 
      * <b>SetDescriptorHeaps</b> can be called on a bundle, but the bundle descriptor heaps must match the calling command list descriptor heap. For more information on bundle restrictions, refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/recording-command-lists-and-bundles">Creating and Recording Command Lists and Bundles</a>.
      * 
      * All previously set heaps are unset by the call. At most one heap of each shader-visible type can be set in the call.
      * 
      * Changing descriptor heaps can incur a pipeline flush on some hardware. Because of this, it is recommended to use a single shader-visible heap of each type, and set it once per frame, rather than regularly changing the bound descriptor heaps. Instead, use [**ID3D12Device::CopyDescriptors**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptors) and [**ID3D12Device::CopyDescriptorsSimple**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-copydescriptorssimple) to copy the required descriptors from shader-opaque heaps to the single shader-visible heap as required during rendering.
-     * 
-     * 
      * @param {Integer} NumDescriptorHeaps Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of descriptor heaps to bind.
@@ -783,7 +729,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Only one descriptor heap of each type can be set at one time, which means a maximum of 2 heaps (one sampler, one CBV/SRV/UAV) can be set at one time.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps
      */
     SetDescriptorHeaps(NumDescriptorHeaps, ppDescriptorHeaps) {
         ComCall(28, this, "uint", NumDescriptorHeaps, "ptr*", ppDescriptorHeaps)
@@ -795,7 +741,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12rootsignature">ID3D12RootSignature</a> object.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootsignature
      */
     SetComputeRootSignature(pRootSignature) {
         ComCall(29, this, "ptr", pRootSignature)
@@ -807,7 +753,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12rootsignature">ID3D12RootSignature</a> object.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature
      */
     SetGraphicsRootSignature(pRootSignature) {
         ComCall(30, this, "ptr", pRootSignature)
@@ -822,7 +768,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A GPU_descriptor_handle object for the base descriptor to set.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable
      */
     SetComputeRootDescriptorTable(RootParameterIndex, BaseDescriptor) {
         ComCall(31, this, "uint", RootParameterIndex, "ptr", BaseDescriptor)
@@ -837,7 +783,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A GPU_descriptor_handle object for the base descriptor to set.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable
      */
     SetGraphicsRootDescriptorTable(RootParameterIndex, BaseDescriptor) {
         ComCall(32, this, "uint", RootParameterIndex, "ptr", BaseDescriptor)
@@ -855,7 +801,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The offset, in 32-bit values, to set the constant in the root signature.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstant
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstant
      */
     SetComputeRoot32BitConstant(RootParameterIndex, SrcData, DestOffsetIn32BitValues) {
         ComCall(33, this, "uint", RootParameterIndex, "uint", SrcData, "uint", DestOffsetIn32BitValues)
@@ -873,7 +819,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The offset, in 32-bit values, to set the constant in the root signature.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstant
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstant
      */
     SetGraphicsRoot32BitConstant(RootParameterIndex, SrcData, DestOffsetIn32BitValues) {
         ComCall(34, this, "uint", RootParameterIndex, "uint", SrcData, "uint", DestOffsetIn32BitValues)
@@ -894,7 +840,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The offset, in 32-bit values, to set the first constant of the group in the root signature.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstants
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstants
      */
     SetComputeRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
@@ -917,7 +863,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The offset, in 32-bit values, to set the first constant of the group in the root signature.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstants
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstants
      */
     SetGraphicsRoot32BitConstants(RootParameterIndex, Num32BitValuesToSet, pSrcData, DestOffsetIn32BitValues) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
@@ -934,7 +880,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies the D3D12_GPU_VIRTUAL_ADDRESS of the constant buffer.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootconstantbufferview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootconstantbufferview
      */
     SetComputeRootConstantBufferView(RootParameterIndex, BufferLocation) {
         ComCall(37, this, "uint", RootParameterIndex, "uint", BufferLocation)
@@ -950,7 +896,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The GPU virtual address of the constant buffer.
      *             D3D12_GPU_VIRTUAL_ADDRESS is a typedef'd alias of UINT64.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootconstantbufferview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootconstantbufferview
      */
     SetGraphicsRootConstantBufferView(RootParameterIndex, BufferLocation) {
         ComCall(38, this, "uint", RootParameterIndex, "uint", BufferLocation)
@@ -966,7 +912,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The GPU virtual address of the buffer.
      *             D3D12_GPU_VIRTUAL_ADDRESS is a typedef'd alias of UINT64.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootshaderresourceview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootshaderresourceview
      */
     SetComputeRootShaderResourceView(RootParameterIndex, BufferLocation) {
         ComCall(39, this, "uint", RootParameterIndex, "uint", BufferLocation)
@@ -982,7 +928,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The GPU virtual address of the Buffer.
      *             Textures are not supported. D3D12_GPU_VIRTUAL_ADDRESS is a typedef'd alias of UINT64.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootshaderresourceview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootshaderresourceview
      */
     SetGraphicsRootShaderResourceView(RootParameterIndex, BufferLocation) {
         ComCall(40, this, "uint", RootParameterIndex, "uint", BufferLocation)
@@ -998,7 +944,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The GPU virtual address of the buffer.
      *             D3D12_GPU_VIRTUAL_ADDRESS is a typedef'd alias of UINT64.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootunorderedaccessview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootunorderedaccessview
      */
     SetComputeRootUnorderedAccessView(RootParameterIndex, BufferLocation) {
         ComCall(41, this, "uint", RootParameterIndex, "uint", BufferLocation)
@@ -1014,7 +960,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The GPU virtual address of the buffer.
      *             D3D12_GPU_VIRTUAL_ADDRESS is a typedef'd alias of UINT64.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootunorderedaccessview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootunorderedaccessview
      */
     SetGraphicsRootUnorderedAccessView(RootParameterIndex, BufferLocation) {
         ComCall(42, this, "uint", RootParameterIndex, "uint", BufferLocation)
@@ -1023,16 +969,12 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Sets the view for the index buffer.
      * @remarks
-     * 
      * Only one index buffer can be bound to the graphics pipeline at any one time.
-     * 
-     * 
-     * 
      * @param {Pointer<D3D12_INDEX_BUFFER_VIEW>} pView Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_index_buffer_view">D3D12_INDEX_BUFFER_VIEW</a>*</b>
      * 
      * The view specifies the index buffer's address, size, and <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>, as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_index_buffer_view">D3D12_INDEX_BUFFER_VIEW</a> structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-iasetindexbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetindexbuffer
      */
     IASetIndexBuffer(pView) {
         ComCall(43, this, "ptr", pView)
@@ -1050,7 +992,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies the vertex buffer views in an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view">D3D12_VERTEX_BUFFER_VIEW</a> structures.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumViews, pViews) {
         ComCall(44, this, "uint", StartSlot, "uint", NumViews, "ptr", pViews)
@@ -1068,7 +1010,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies an array of  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_stream_output_buffer_view">D3D12_STREAM_OUTPUT_BUFFER_VIEW</a> structures.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-sosettargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-sosettargets
      */
     SOSetTargets(StartSlot, NumViews, pViews) {
         ComCall(45, this, "uint", StartSlot, "uint", NumViews, "ptr", pViews)
@@ -1097,35 +1039,29 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a> structure that describes the CPU descriptor handle that represents the start of the heap that holds the depth stencil descriptor. If this parameter is NULL, no depth stencil descriptor is bound.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets
      */
     OMSetRenderTargets(NumRenderTargetDescriptors, pRenderTargetDescriptors, RTsSingleHandleToDescriptorRange, pDepthStencilDescriptor) {
         ComCall(46, this, "uint", NumRenderTargetDescriptors, "ptr", pRenderTargetDescriptors, "int", RTsSingleHandleToDescriptorRange, "ptr", pDepthStencilDescriptor)
     }
 
     /**
-     * Clears the depth-stencil resource.
+     * Clears the depth-stencil resource. (ID3D12GraphicsCommandList.ClearDepthStencilView)
      * @remarks
+     * Only direct and bundle command lists support this operation.  
      * 
      * <b>ClearDepthStencilView</b> may be used to initialize resources which alias the same heap memory. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a> for more details.
      * 
      * <h3><a id="Runtime_validation"></a><a id="runtime_validation"></a><a id="RUNTIME_VALIDATION"></a>Runtime validation</h3>
      * For floating-point inputs, the runtime will set denormalized values to 0 (while preserving NANs).
-     *           
      * 
      * Validation failure will result in the call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close">Close</a> returning <b>E_INVALIDARG</b>.
-     *           
      * 
      * <h3><a id="Debug_layer"></a><a id="debug_layer"></a><a id="DEBUG_LAYER"></a>Debug layer</h3>
      * The debug layer will issue errors if the input colors are denormalized.
-     *           
      * 
      * The debug layer will issue an error if the subresources referenced by the view are not in the appropriate state.
      *             For <b>ClearDepthStencilView</b>, the state must be in the state <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_DEPTH_WRITE</a>.
-     *           
-     * 
-     * 
-     * 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} DepthStencilView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a></b>
      * 
      * Describes the CPU descriptor handle that represents the start of the heap for the depth stencil to be cleared.
@@ -1145,7 +1081,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * An array of <b>D3D12_RECT</b> structures for the rectangles in the resource view to clear. If <b>NULL</b>, <b>ClearDepthStencilView</b> clears the entire resource view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-cleardepthstencilview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-cleardepthstencilview
      */
     ClearDepthStencilView(DepthStencilView, ClearFlags, Depth, Stencil, NumRects, pRects) {
         ComCall(47, this, "ptr", DepthStencilView, "int", ClearFlags, "float", Depth, "char", Stencil, "uint", NumRects, "ptr", pRects)
@@ -1154,7 +1090,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Sets all the elements in a render target to one value.
      * @remarks
-     * 
      * <b>ClearRenderTargetView</b> may be used to initialize resources which alias the same heap memory. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource">CreatePlacedResource</a> for more details.
      * 
      * <h3><a id="Runtime_validation"></a><a id="runtime_validation"></a><a id="RUNTIME_VALIDATION"></a>Runtime validation</h3>
@@ -1168,10 +1103,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The debug layer will issue an error if the subresources referenced by the view are not in the appropriate state.
      *             For <b>ClearRenderTargetView</b>, the state must be <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_RENDER_TARGET</a>.
-     *           
-     * 
-     * 
-     * 
      * @param {D3D12_CPU_DESCRIPTOR_HANDLE} RenderTargetView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a></b>
      * 
      * Specifies a D3D12_CPU_DESCRIPTOR_HANDLE structure that describes the CPU descriptor handle that represents the start of the heap for the render target to be cleared.
@@ -1185,7 +1116,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * An array of <b>D3D12_RECT</b> structures for the rectangles in the resource view to clear. If <b>NULL</b>, <b>ClearRenderTargetView</b> clears the entire resource view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview
      */
     ClearRenderTargetView(RenderTargetView, ColorRGBA, NumRects, pRects) {
         ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
@@ -1203,7 +1134,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * A [D3D12_CPU_DESCRIPTOR_HANDLE](./ns-d3d12-d3d12_cpu_descriptor_handle.md) in a non-shader visible descriptor heap that references an initialized descriptor for the unordered-access view (UAV) that is to be cleared.
      *           
      * > [!IMPORTANT]
-     * > This descriptor must not be in a shader-visible descriptor heap. This is to allow drivers thath implement the clear as fixed-function hardware (rather than via a dispatch) to efficiently read from the descriptor, as shader-visible heaps may be created in **WRITE_BACK** memory (similar to **D3D12_HEAP_TYPE_UPLOAD** heap types), and CPU reads from this type of memory are prohibitively slow.
+     * > This descriptor must not be in a shader-visible descriptor heap. This is to allow drivers that implement the clear as a fixed-function hardware operation (rather than as a dispatch) to efficiently read from the descriptor, as shader-visible heaps may be created in **WRITE_BACK** memory (similar to **D3D12_HEAP_TYPE_UPLOAD** heap types), and CPU reads from this type of memory are prohibitively slow.
      * @param {ID3D12Resource} pResource Type: [in] **[ID3D12Resource](./nn-d3d12-id3d12resource.md)\***
      * 
      * A pointer to the [ID3D12Resource](./nn-d3d12-id3d12resource.md) interface that represents the unordered-access-view (UAV) resource to clear.
@@ -1217,7 +1148,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * An array of **D3D12_RECT** structures for the rectangles in the resource view to clear. If **NULL**, **ClearUnorderedAccessViewUint** clears the entire resource view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewuint
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewuint
      */
     ClearUnorderedAccessViewUint(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
         ValuesMarshal := Values is VarRef ? "uint*" : "ptr"
@@ -1235,7 +1166,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * A [D3D12_CPU_DESCRIPTOR_HANDLE](./ns-d3d12-d3d12_cpu_descriptor_handle.md) in a non-shader visible descriptor heap that references an initialized descriptor for the unordered-access view (UAV) that is to be cleared.
      *           
      * > [!IMPORTANT]
-     * > This descriptor must not be in a shader-visible descriptor heap. This is to allow drivers thath implement the clear as fixed-function hardware (rather than via a dispatch) to efficiently read from the descriptor, as shader-visible heaps may be created in **WRITE_BACK** memory (similar to **D3D12_HEAP_TYPE_UPLOAD** heap types), and CPU reads from this type of memory are prohibitively slow.
+     * > This descriptor must not be in a shader-visible descriptor heap. This is to allow drivers that implement the clear as a fixed-function hardware operation (rather than as a dispatch) to efficiently read from the descriptor, as shader-visible heaps may be created in **WRITE_BACK** memory (similar to **D3D12_HEAP_TYPE_UPLOAD** heap types), and CPU reads from this type of memory are prohibitively slow.
      * @param {ID3D12Resource} pResource Type: [in] **[ID3D12Resource](./nn-d3d12-id3d12resource.md)\***
      * 
      * A pointer to the [ID3D12Resource](./nn-d3d12-id3d12resource.md) interface that represents the unordered-access-view (UAV) resource to clear.
@@ -1249,7 +1180,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * An array of **D3D12_RECT** structures for the rectangles in the resource view to clear. If **NULL**, **ClearUnorderedAccessViewFloat** clears the entire resource view.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat
      */
     ClearUnorderedAccessViewFloat(ViewGPUHandleInCurrentHeap, ViewCPUHandle, pResource, Values, NumRects, pRects) {
         ValuesMarshal := Values is VarRef ? "float*" : "ptr"
@@ -1260,7 +1191,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Discards a resource.
      * @remarks
-     * 
      * The semantics of <b>DiscardResource</b> change based on the command list type.
      * 
      * For <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE_DIRECT</a>, the following two rules apply:
@@ -1276,8 +1206,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * <li>The resource must have the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_flags">D3D12_RESOURCE_FLAG_ALLOW_UNORDERED_ACCESS</a> flag, and <b>DiscardResource</b> must be called when the discarded subresource regions are in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_UNORDERED_ACCESS</a> resource barrier state.</li>
      * </ul>
      * <b>DiscardResource</b> is not supported on command lists with either <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE_BUNDLE</a> nor <b>D3D12_COMMAND_LIST_TYPE_COPY</b>.
-     * 
-     * 
      * @param {ID3D12Resource} pResource Type: [in] <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> interface for the resource to discard.
@@ -1285,21 +1213,16 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_discard_region">D3D12_DISCARD_REGION</a> structure that describes details for the discard-resource operation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource
      */
     DiscardResource(pResource, pRegion) {
         ComCall(51, this, "ptr", pResource, "ptr", pRegion)
     }
 
     /**
-     * Starts a query running.
+     * Starts a query running. (ID3D12GraphicsCommandList.BeginQuery)
      * @remarks
-     * 
      * See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/queries">Queries</a> for more information about D3D12 queries.
-     *           
-     * 
-     * 
-     * 
      * @param {ID3D12QueryHeap} pQueryHeap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a>*</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a> containing the query.
@@ -1310,7 +1233,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies the index of the query within the query heap.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery
      */
     BeginQuery(pQueryHeap, Type, Index) {
         ComCall(52, this, "ptr", pQueryHeap, "int", Type, "uint", Index)
@@ -1319,12 +1242,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Ends a running query.
      * @remarks
-     * 
      * See <a href="https://docs.microsoft.com/windows/desktop/direct3d12/queries">Queries</a> for more information about D3D12 queries.
-     *         
-     * 
-     * 
-     * 
      * @param {ID3D12QueryHeap} pQueryHeap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a>*</b>
      * 
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a> containing the query.
@@ -1335,7 +1253,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies the index of the query in the query heap.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-endquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery
      */
     EndQuery(pQueryHeap, Type, Index) {
         ComCall(53, this, "ptr", pQueryHeap, "int", Type, "uint", Index)
@@ -1344,13 +1262,12 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Extracts data from a query. ResolveQueryData works with all heap types (default, upload, and readback).  ResolveQueryData works with all heap types (default, upload, and readback). .
      * @remarks
-     * 
      * <b>ResolveQueryData</b> performs a batched operation that writes query data into a destination buffer.  Query data is written contiguously to the destination buffer, and the parameter.
      *         
-     * <b>ResolveQueryData</b> turns application-opaque query data in an application-opaque query heap into adapter-agnostic values usable by your application. Resolving queries within a heap that have not been completed (so have had [**ID3D12GraphicsCommandList::BeginQuery**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) called for them, but not [**ID3D12GraphicsCommandList::EndQuery**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)), or that have been uninitialized, results in undefined behaviour and might cause device hangs or removal. The debug layer will emit an error if it detects an application has resolved incomplete or uninitialized queries.
+     * <b>ResolveQueryData</b> turns application-opaque query data in an application-opaque query heap into adapter-agnostic values usable by your application. Resolving queries within a heap that have not been completed (so have had [**ID3D12GraphicsCommandList::BeginQuery**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) called for them, but not [**ID3D12GraphicsCommandList::EndQuery**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)), or that have been uninitialized, results in undefined behavior and might cause device hangs or removal. The debug layer will emit an error if it detects an application has resolved incomplete or uninitialized queries.
      * 
      * > [!NOTE]
-     * > Resolving incomplete or uninitialized queries is undefined behaviour because the driver might internally store GPUVAs or other data within unresolved queries. And so attempting to resolve these queries on uninitialized data could cause a page fault or device hang. Older versions of the debug layer didn't validate this behavior.
+     * > Resolving incomplete or uninitialized queries is undefined behavior because the driver might internally store GPUVAs or other data within unresolved queries. And so attempting to resolve these queries on uninitialized data could cause a page fault or device hang. Older versions of the debug layer didn't validate this behavior.
      * 
      * Binary occlusion queries write 64-bits per query. The least significant bit is either 0 (the object was entirely occluded) or 1 (at least 1 sample of the object would have been drawn). The rest of the bits are 0. Occlusion queries write 64-bits per query. The value is the number of samples that passed testing. Timestamp queries write 64-bits per query, which is a tick value that must be compared to the respective command queue frequency (see [Timing](/windows/win32/direct3d12/timing)).
      * 
@@ -1375,9 +1292,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * The debug layer will issue a warning if the destination buffer is not in the D3D12_RESOURCE_STATE_COPY_DEST state,
      * or if any queries being resolved have not had [**ID3D12GraphicsCommandList::EndQuery**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) called on them.
-     * 
-     * 
-     * 
      * @param {ID3D12QueryHeap} pQueryHeap Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a>*</b>
      * 
      * Specifies the  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12queryheap">ID3D12QueryHeap</a> containing the queries to resolve.
@@ -1399,7 +1313,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * Specifies an alignment offset into the destination buffer.
      *             Must be a multiple of 8 bytes.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata
      */
     ResolveQueryData(pQueryHeap, Type, StartIndex, NumQueries, pDestinationBuffer, AlignedDestinationBufferOffset) {
         ComCall(54, this, "ptr", pQueryHeap, "int", Type, "uint", StartIndex, "uint", NumQueries, "ptr", pDestinationBuffer, "uint", AlignedDestinationBufferOffset)
@@ -1408,7 +1322,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Sets a rendering predicate.
      * @remarks
-     * 
      * Use this method to denote that subsequent rendering and resource manipulation commands are not actually performed if the resulting predicate data of the predicate is equal to the operation specified.
      *         
      * 
@@ -1426,10 +1339,6 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      *           
      * 
      * Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/predication">Predication</a> for more information.
-     *         
-     * 
-     * 
-     * 
      * @param {ID3D12Resource} pBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>*</b>
      * 
      * The buffer, as an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a>, which must be in the [**D3D12_RESOURCE_STATE_PREDICATION**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) or [**D3D21_RESOURCE_STATE_INDIRECT_ARGUMENT**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) state (both values are identical, and provided as aliases for clarity), or **NULL** to disable predication.
@@ -1440,73 +1349,64 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op">D3D12_PREDICATION_OP</a>, such as D3D12_PREDICATION_OP_EQUAL_ZERO or D3D12_PREDICATION_OP_NOT_EQUAL_ZERO.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication
      */
     SetPredication(pBuffer, AlignedBufferOffset, Operation) {
         ComCall(55, this, "ptr", pBuffer, "uint", AlignedBufferOffset, "int", Operation)
     }
 
     /**
-     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command list.
+     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command list. (ID3D12GraphicsCommandList.SetMarker)
      * @remarks
-     * 
      * This is a support method used internally by the PIX event runtime.  It is not intended to be called directly.
      * 
      * To insert instrumentation markers at the current location within a D3D12 command list, use the <b>PIXSetMarker</b> function.  This is provided by the <a href="https://devblogs.microsoft.com/pix/winpixeventruntime/">WinPixEventRuntime</a> NuGet package.
-     * 
-     * 
      * @param {Integer} Metadata Type: <b>UINT</b>
      * 
      * Internal.
      * @param {Pointer} pData Type: <b>const void*</b>
      * 
      * Internal.
-     * @param {Integer} Size Type: <b>UINT</b>
+     * @param {Integer} Size_ Type: <b>UINT</b>
      * 
      * Internal.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-setmarker
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-setmarker
      */
-    SetMarker(Metadata, pData, Size) {
-        ComCall(56, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    SetMarker(Metadata, pData, Size_) {
+        ComCall(56, this, "uint", Metadata, "ptr", pData, "uint", Size_)
     }
 
     /**
-     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command list.
+     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command list. (ID3D12GraphicsCommandList.BeginEvent)
      * @remarks
-     * 
      * This is a support method used internally by the PIX event runtime.  It is not intended to be called directly.
      * 
      * To mark the start of an instrumentation region at the current location within a D3D12 command list, use the <b>PIXBeginEvent</b> function or <b>PIXScopedEvent</b> macro.  These are provided by the <a href="https://devblogs.microsoft.com/pix/winpixeventruntime/">WinPixEventRuntime</a> NuGet package.
-     * 
-     * 
      * @param {Integer} Metadata Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Internal.
      * @param {Pointer} pData Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">void</a>*</b>
      * 
      * Internal.
-     * @param {Integer} Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {Integer} Size_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Internal.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-beginevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-beginevent
      */
-    BeginEvent(Metadata, pData, Size) {
-        ComCall(57, this, "uint", Metadata, "ptr", pData, "uint", Size)
+    BeginEvent(Metadata, pData, Size_) {
+        ComCall(57, this, "uint", Metadata, "ptr", pData, "uint", Size_)
     }
 
     /**
-     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command list.
+     * Not intended to be called directly.  Use the PIX event runtime to insert events into a command list. (ID3D12GraphicsCommandList.EndEvent)
      * @remarks
-     * 
      * This is a support method used internally by the PIX event runtime.  It is not intended to be called directly.
      * 
      * To mark the end of an instrumentation region at the current location within a D3D12 command list, use the <b>PIXEndEvent</b> function or <b>PIXScopedEvent</b> macro.  These are provided by the <a href="https://devblogs.microsoft.com/pix/winpixeventruntime/">WinPixEventRuntime</a> NuGet package.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-endevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-endevent
      */
     EndEvent() {
         ComCall(58, this)
@@ -1515,42 +1415,49 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
     /**
      * Apps perform indirect draws/dispatches using the ExecuteIndirect method.
      * @remarks
-     * 
      * The semantics of this API are defined with the following pseudo-code:
      * 
      * Non-NULL pCountBuffer:
      * 
-     * <pre class="syntax" xml:space="preserve"><code>// Read draw count out of count buffer
-     * UINT CommandCount = pCountBuffer-&gt;ReadUINT32(CountBufferOffset);
+     * 
+     * ``` syntax
+     * // Read draw count out of count buffer
+     * UINT CommandCount = pCountBuffer->ReadUINT32(CountBufferOffset);
      * 
      * CommandCount = min(CommandCount, MaxCommandCount)
      * 
      * // Get pointer to first Commanding argument
-     * BYTE* Arguments = pArgumentBuffer-&gt;GetBase() + ArgumentBufferOffset;
+     * BYTE* Arguments = pArgumentBuffer->GetBase() + ArgumentBufferOffset;
      * 
-     * for(UINT CommandIndex = 0; CommandIndex &lt; CommandCount; CommandIndex++)
+     * for(UINT CommandIndex = 0; CommandIndex < CommandCount; CommandIndex++)
      * {
      *   // Interpret the data contained in *Arguments
      *   // according to the command signature
-     *   pCommandSignature-&gt;Interpret(Arguments);
+     *   pCommandSignature->Interpret(Arguments);
      * 
-     *   Arguments += pCommandSignature -&gt;GetByteStride();
+     *   Arguments += pCommandSignature->GetByteStride();
      * }
-     * </code></pre>
+     * 
+     * ```
+     * 
      * NULL pCountBuffer:
      * 
-     * <pre class="syntax" xml:space="preserve"><code>// Get pointer to first Commanding argument
-     * BYTE* Arguments = pArgumentBuffer-&gt;GetBase() + ArgumentBufferOffset;
      * 
-     * for(UINT CommandIndex = 0; CommandIndex &lt; MaxCommandCount; CommandIndex++)
+     * ``` syntax
+     * // Get pointer to first Commanding argument
+     * BYTE* Arguments = pArgumentBuffer->GetBase() + ArgumentBufferOffset;
+     * 
+     * for(UINT CommandIndex = 0; CommandIndex < MaxCommandCount; CommandIndex++)
      * {
      *   // Interpret the data contained in *Arguments
      *   // according to the command signature
-     *   pCommandSignature-&gt;Interpret(Arguments);
+     *   pCommandSignature->Interpret(Arguments);
      * 
-     *   Arguments += pCommandSignature -&gt;GetByteStride();
+     *   Arguments += pCommandSignature->GetByteStride();
      * }
-     * </code></pre>
+     * 
+     * ```
+     * 
      * The debug layer will issue an error if either the count buffer or the argument buffer are not in the D3D12_RESOURCE_STATE_INDIRECT_ARGUMENT state. The core runtime will validate:
      * 
      * <ul>
@@ -1578,10 +1485,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress">ID3D12Resource::GetGPUVirtualAddress</a> method enables an app to retrieve the GPU virtual address of a buffer.
      *               
      * 
-     * Apps are free to apply byte offsets to virtual addresses before placing them in an indirect argument buffer.  Note that all of the D3D12 alignment requirements for VB/IB/CB still apply to the resulting GPU virtual address. 
-     * 
-     * 
-     * 
+     * Apps are free to apply byte offsets to virtual addresses before placing them in an indirect argument buffer.  Note that all of the D3D12 alignment requirements for VB/IB/CB still apply to the resulting GPU virtual address.
      * @param {ID3D12CommandSignature} pCommandSignature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandsignature">ID3D12CommandSignature</a>*</b>
      * 
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12commandsignature">ID3D12CommandSignature</a>. The data referenced by <i>pArgumentBuffer</i> will be interpreted depending on the contents of the command signature. Refer to <a href="https://docs.microsoft.com/windows/desktop/direct3d12/indirect-drawing">Indirect Drawing</a> for the APIs that are used to create a command signature.
@@ -1608,7 +1512,7 @@ class ID3D12GraphicsCommandList extends ID3D12CommandList{
      * 
      * Specifies a UINT64 that is the offset into <i>pCountBuffer</i>, identifying the argument count.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect
      */
     ExecuteIndirect(pCommandSignature, MaxCommandCount, pArgumentBuffer, ArgumentBufferOffset, pCountBuffer, CountBufferOffset) {
         ComCall(59, this, "ptr", pCommandSignature, "uint", MaxCommandCount, "ptr", pArgumentBuffer, "uint", ArgumentBufferOffset, "ptr", pCountBuffer, "uint", CountBufferOffset)

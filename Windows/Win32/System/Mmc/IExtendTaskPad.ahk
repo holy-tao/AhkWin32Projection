@@ -8,7 +8,7 @@
 
 /**
  * The IExtendTaskPad interface is introduced in MMC 1.1.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-iextendtaskpad
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nn-mmc-iextendtaskpad
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -35,6 +35,13 @@ class IExtendTaskPad extends IUnknown{
 
     /**
      * The IExtendTaskPad::TaskNotify method enables MMC to notify the snap-in when a task is extended. If the taskpad is a list-view taskpad, MMC also calls IExtendTaskPad::TaskNotify when a list-view button is extended.
+     * @remarks
+     * The snap-in can identify the scope item that owns the taskpad using the pdo pointer; it then can identify the task by the VARIANT value returned in the arg parameter. If the taskpad is a list-view taskpad, the snap-in can identify the selected item (or items if multiselection is supported) in a result list using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iresultdata">IResultData</a> interface. Based on this data, the snap-in can perform the appropriate actions on the appropriate object.
+     * 
+     * If a taskpad list-view button is ed for a list-view taskpad, the snap-in can identify the button for the particular taskpad by the VARIANT value returned in the arg parameter.
+     * 
+     * A custom taskpad can pass any values that it determines should be sent in the arg and param parameters.
      * @param {IDataObject} pdo A pointer to the data object for the scope item that owns the taskpad. If your snap-in owns the item that displays the taskpad, pdo is a pointer to that item. If your snap-in is extending the taskpad of another snap-in, pdo is a pointer to the item in the snap-in that owns the taskpad.
      * @param {Pointer<VARIANT>} arg A pointer to a VARIANT structure that contains information passed back from the CIC control on the taskpad.
      * 
@@ -57,90 +64,128 @@ class IExtendTaskPad extends IUnknown{
      * TaskNotify method
      * @param {Pointer<VARIANT>} param2 
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendtaskpad-tasknotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iextendtaskpad-tasknotify
      */
     TaskNotify(pdo, arg, param2) {
-        result := ComCall(3, this, "ptr", pdo, "ptr", arg, "ptr", param2, "HRESULT")
+        result := ComCall(3, this, "ptr", pdo, "ptr", arg, "ptr", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IExtendTaskPad::EnumTasks method enables MMC to get a pointer to the IEnumTASK interface of the object that contains the snap-in's tasks.
+     * @remarks
+     * MMC calls this method each time a taskpad from the snap-in is displayed. MMC also calls the method if the snap-in extends another snap-in's taskpad in order to get a pointer to the snap-in's 
+     * IEnumTASK interface.
      * @param {IDataObject} pdo A pointer to the data object for the scope item that owns the taskpad.
      * @param {PWSTR} szTaskGroup A pointer to a null-terminated string that contains the group name that identifies the taskpad. The group name is the string that follows the hash (#) in the string passed in the ppViewType parameter when MMC calls <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a> to display the taskpad. If no group name is specified, szTaskGroup is a <b>NULL</b> string.
      * @returns {IEnumTASK} A pointer to address of 
      * IEnumTASK interface of the object that contains the snap-in's tasks.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendtaskpad-enumtasks
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iextendtaskpad-enumtasks
      */
     EnumTasks(pdo, szTaskGroup) {
         szTaskGroup := szTaskGroup is String ? StrPtr(szTaskGroup) : szTaskGroup
 
-        result := ComCall(4, this, "ptr", pdo, "ptr", szTaskGroup, "ptr*", &ppEnumTASK := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pdo, "ptr", szTaskGroup, "ptr*", &ppEnumTASK := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTASK(ppEnumTASK)
     }
 
     /**
      * The IExtendTaskPad::GetTitle method enables MMC to get the taskpad title text to display in taskpads that use MMC taskpad templates.
+     * @remarks
+     * Allocate the <i>pszTitle</i> string with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release it.
      * @param {PWSTR} pszGroup A pointer to a null-terminated string that contains the group name that identifies the taskpad. The group name is the string that follows the hash (#) in the string passed in the <i>ppViewType</i> parameter when MMC calls <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a> to display the taskpad. If no group name is specified, <i>pszGroup</i> is a <b>NULL</b> string.
      * @returns {PWSTR} A pointer to the address of a null-terminated string that contains the title for the taskpad specified by <i>pszGroup</i>. This text is displayed at the top of the taskpad as the title for the entire taskpad. If <i>pszTitle</i> points to a <b>NULL</b> string, no title is displayed.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendtaskpad-gettitle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iextendtaskpad-gettitle
      */
     GetTitle(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-        result := ComCall(5, this, "ptr", pszGroup, "ptr*", &pszTitle := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszGroup, "ptr*", &pszTitle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszTitle
     }
 
     /**
      * The IExtendTaskPad::GetDescriptiveText method enables MMC to get the taskpad's descriptive text to display in taskpads that use MMC taskpad templates.
+     * @remarks
+     * Allocate the pszDescriptiveText string with the COM API function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release it.
      * @param {PWSTR} pszGroup A pointer to a null-terminated string that contains the group name that identifies the taskpad. The group name is the string that follows the hash (#) in the string passed in the ppViewType parameter when MMC calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a> to display the taskpad. If no group name is specified, szGroup is a <b>NULL</b> string.
      * @returns {PWSTR} A pointer to the address of a null-terminated string that contains the descriptive text for the taskpad specified by pszGroup. This text is displayed at the top of the taskpad beneath the title for the entire taskpad. This text can be a phrase that serves as a subtitle or instructions (such as "Click an action to perform.").
      * 
      * If pszDescriptiveText points to a <b>NULL</b> string, no descriptive text is displayed.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendtaskpad-getdescriptivetext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iextendtaskpad-getdescriptivetext
      */
     GetDescriptiveText(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
-        result := ComCall(6, this, "ptr", pszGroup, "ptr*", &pszDescriptiveText := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszGroup, "ptr*", &pszDescriptiveText := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszDescriptiveText
     }
 
     /**
      * The IExtendTaskPad::GetBackground method enables MMC to get the taskpad's background image to display in taskpads that use MMC taskpad templates.
+     * @remarks
+     * Allocate the strings in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_bitmap">MMC_TASK_DISPLAY_BITMAP</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_symbol">MMC_TASK_DISPLAY_SYMBOL</a> structure specified in the pTDO parameter with the COM API function CoTaskMemAlloc (or the equivalent) and MMC will release it.
      * @param {PWSTR} pszGroup A pointer to a null-terminated string that contains the group name that identifies the taskpad. The group name is the string that follows the hash (#) in the string passed in the ppViewType parameter when MMC calls IComponent::GetResultViewType to display the taskpad. If no group name is specified, pszGroup is a <b>NULL</b> string.
      * @returns {MMC_TASK_DISPLAY_OBJECT} A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_object">MMC_TASK_DISPLAY_OBJECT</a> structure that the snap-in must fill in to specify the image to be displayed as the background for the taskpad specified by pszGroup.
      * 
      * Be aware that the caller (MMC) allocates the memory for the 
      * MMC_TASK_DISPLAY_OBJECT structure.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendtaskpad-getbackground
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iextendtaskpad-getbackground
      */
     GetBackground(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
         pTDO := MMC_TASK_DISPLAY_OBJECT()
-        result := ComCall(7, this, "ptr", pszGroup, "ptr", pTDO, "HRESULT")
+        result := ComCall(7, this, "ptr", pszGroup, "ptr", pTDO, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTDO
     }
 
     /**
      * The IExtendTaskPad::GetListPadInfo method is used for list-view taskpads only.
+     * @remarks
+     * If the snap-in is not a list-view taskpad, this method is not called by MMC.
      * @param {PWSTR} pszGroup A pointer to a null-terminated string that contains the group name that identifies the taskpad. The group name is the string that follows the hash (#) in the string passed in the ppViewType parameter when MMC calls <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a> to display the taskpad. If no group name is specified, szGroup is a <b>NULL</b> string.
      * @returns {MMC_LISTPAD_INFO} A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_listpad_info">MMC_LISTPAD_INFO</a> structure that the snap-in must fill in with the title text for the list control, the text for an optional button, and the command ID passed to <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendtaskpad-tasknotify">IExtendTaskPad::TaskNotify</a> when that optional button is clicked.
      * 
      * Be aware that the caller (MMC) allocates the memory for the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_listpad_info">MMC_LISTPAD_INFO</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendtaskpad-getlistpadinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iextendtaskpad-getlistpadinfo
      */
     GetListPadInfo(pszGroup) {
         pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
         lpListPadInfo := MMC_LISTPAD_INFO()
-        result := ComCall(8, this, "ptr", pszGroup, "ptr", lpListPadInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pszGroup, "ptr", lpListPadInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpListPadInfo
     }
 }

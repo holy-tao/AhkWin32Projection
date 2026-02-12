@@ -34,7 +34,11 @@ class IAppDomainBinding extends IUnknown{
      * @returns {HRESULT} 
      */
     OnAppDomain(pAppdomain) {
-        result := ComCall(3, this, "ptr", pAppdomain, "HRESULT")
+        result := ComCall(3, this, "ptr", pAppdomain, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * A dynamic virtual channel plug-in implements this interface to be notified when the size of the rendering area changes.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderercallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderercallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class IWTSBitmapRendererCallback extends IUnknown{
     /**
      * Called when the size of the render target has changed.
      * @param {RECT} rcNewSize A <b>RECT</b> structure that contains the new size of the render target.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderercallback-ontargetsizechanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderercallback-ontargetsizechanged
      */
     OnTargetSizeChanged(rcNewSize) {
-        result := ComCall(3, this, "ptr", rcNewSize, "HRESULT")
+        result := ComCall(3, this, "ptr", rcNewSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

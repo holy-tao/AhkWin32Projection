@@ -35,7 +35,11 @@ class IBanneredBar extends IUnknown{
      * @returns {HRESULT} 
      */
     SetIconSize(iIcon) {
-        result := ComCall(3, this, "uint", iIcon, "HRESULT")
+        result := ComCall(3, this, "uint", iIcon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,29 +48,47 @@ class IBanneredBar extends IUnknown{
      * @returns {Integer} 
      */
     GetIconSize() {
-        result := ComCall(4, this, "uint*", &piIcon := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &piIcon := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piIcon
     }
 
     /**
+     * The SetBitmapBits function sets the bits of color data for a bitmap to the specified values.
+     * @remarks
+     * The array identified by <i>lpBits</i> must be WORD aligned.
+     * @param {HBITMAP} hBitmap_ 
+     * @returns {HRESULT} If the function succeeds, the return value is the number of bytes used in setting the bitmap bits.
      * 
-     * @param {HBITMAP} hBitmap 
-     * @returns {HRESULT} 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setbitmapbits
      */
-    SetBitmap(hBitmap) {
-        hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
+    SetBitmap(hBitmap_) {
+        hBitmap_ := hBitmap_ is Win32Handle ? NumGet(hBitmap_, "ptr") : hBitmap_
 
-        result := ComCall(5, this, "ptr", hBitmap, "HRESULT")
+        result := ComCall(5, this, "ptr", hBitmap_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetBitmapBits function copies the bitmap bits of a specified device-dependent bitmap into a buffer.
      * @returns {HBITMAP} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getbitmapbits
      */
     GetBitmap() {
         phBitmap := HBITMAP()
-        result := ComCall(6, this, "ptr", phBitmap, "HRESULT")
+        result := ComCall(6, this, "ptr", phBitmap, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phBitmap
     }
 }

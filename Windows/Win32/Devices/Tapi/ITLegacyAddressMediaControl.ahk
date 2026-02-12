@@ -6,7 +6,7 @@
 
 /**
  * The ITLegacyAddressMediaControl interface is provided to support legacy applications that require direct access to a device and its configuration. It is exposed by the Address Object and can be created by calling QueryInterface on ITAddress.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itlegacyaddressmediacontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itlegacyaddressmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,6 +33,18 @@ class ITLegacyAddressMediaControl extends IUnknown{
 
     /**
      * The GetID method returns a device identifier for the specified device class associated with the current address.
+     * @remarks
+     * The application must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a> prior to calling this method.
+     * 
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDeviceClass</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * The application must call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory allocated for the <i>ppDeviceID</i> parameter.
+     * 
+     * <b>TAPI 2.1 Cross-References:  </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetdevconfig">lineSetDevConfig</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetid">lineGetID</a>
      * @param {BSTR} pDeviceClass Pointer to <b>BSTR</b> containing 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">TAPI device class</a> for which configuration information is needed.
      * @param {Pointer<Integer>} pdwSize Length of device identifier returned.
@@ -78,20 +90,42 @@ class ITLegacyAddressMediaControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-getid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-getid
      */
     GetID(pDeviceClass, pdwSize, ppDeviceID) {
-        pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
+        if(pDeviceClass is String) {
+            pin := BSTR.Alloc(pDeviceClass)
+            pDeviceClass := pin.Value
+        }
 
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
+        result := ComCall(3, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetDevConfig method returns an opaque data structure.
+     * @remarks
+     * This method is a COM wrapper for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">LineGetDevConfig</a> TAPI 2.1 function.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-getid">GetID</a> must be performed prior to calling this method.
+     * 
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDeviceClass</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * The application must call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory allocated for the <i>ppDeviceConfig</i> parameter.
+     * 
+     * <b>TAPI 2.1 Cross-References:  </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetdevconfig">lineSetDevConfig</a>
      * @param {BSTR} pDeviceClass Pointer to <b>BSTR</b> containing 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">TAPI device class</a> for which configuration information is needed.
      * @param {Pointer<Integer>} pdwSize Pointer to size of configuration array.
@@ -137,20 +171,39 @@ class ITLegacyAddressMediaControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-getdevconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-getdevconfig
      */
     GetDevConfig(pDeviceClass, pdwSize, ppDeviceConfig) {
-        pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
+        if(pDeviceClass is String) {
+            pin := BSTR.Alloc(pDeviceClass)
+            pDeviceClass := pin.Value
+        }
 
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppDeviceConfigMarshal := ppDeviceConfig is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceConfigMarshal, ppDeviceConfig, "HRESULT")
+        result := ComCall(4, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceConfigMarshal, ppDeviceConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetDevConfig function allows the application to restore the configuration of a media stream device on a line device to a setup previously obtained using GetDevConfig.
+     * @remarks
+     * This method is a COM wrapper for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetdevconfig">lineSetDevConfig</a> TAPI 2.1 function.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-getid">GetID</a> must be performed prior to calling this method.
+     * 
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDeviceClass</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * <b>TAPI 2.1 Cross-References:  </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetdevconfig">lineGetDevConfig</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetdevconfig">lineSetDevConfig</a>
      * @param {BSTR} pDeviceClass Pointer to <b>BSTR</b> containing 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">TAPI device class</a> for which configuration information is needed.
      * @param {Integer} dwSize Size of configuration array.
@@ -208,14 +261,21 @@ class ITLegacyAddressMediaControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-setdevconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol-setdevconfig
      */
     SetDevConfig(pDeviceClass, dwSize, pDeviceConfig) {
-        pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
+        if(pDeviceClass is String) {
+            pin := BSTR.Alloc(pDeviceClass)
+            pDeviceClass := pin.Value
+        }
 
         pDeviceConfigMarshal := pDeviceConfig is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pDeviceClass, "uint", dwSize, pDeviceConfigMarshal, pDeviceConfig, "HRESULT")
+        result := ComCall(5, this, "ptr", pDeviceClass, "uint", dwSize, pDeviceConfigMarshal, pDeviceConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The IAVIEditStream interface supports manipulating and modifying editable streams. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
- * @see https://docs.microsoft.com/windows/win32/api//vfw/nn-vfw-iavieditstream
+ * @see https://learn.microsoft.com/windows/win32/api//content/vfw/nn-vfw-iavieditstream
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -33,71 +33,144 @@ class IAVIEditStream extends IUnknown{
 
     /**
      * The Cut method removes a portion of a stream and places it in a temporary stream. Called when an application uses the EditStreamCut function.
+     * @remarks
+     * For handlers written in C++, <b>Cut</b> has the following syntax:
+     * 
+     * 
+     * ```cpp
+     * 
+     * HRESULT Cut(LONG *plStart, LONG *plLength, 
+     *     PAVISTREAM *ppResult); 
+     *  
+     * 
+     * ```
      * @param {Pointer<Integer>} plStart Pointer to a buffer that receives the starting position of the operation.
      * @param {Pointer<Integer>} plLength Pointer to a buffer that receives the length, in frames, of the operation.
      * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to the new stream.
-     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavieditstream-cut
+     * @see https://learn.microsoft.com/windows/win32/api//content/vfw/nf-vfw-iavieditstream-cut
      */
     Cut(plStart, plLength) {
         plStartMarshal := plStart is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAVIStream(ppResult)
     }
 
     /**
      * The Copy method copies a stream or a portion of it to a temporary stream. Called when an application uses the EditStreamCopy function.
+     * @remarks
+     * For handlers written in C++, <b>Copy</b> has the following syntax:
+     * 
+     * 
+     * ```cpp
+     * 
+     * HRESULT Copy(LONG *plStart, LONG *plLength, 
+     *     PAVISTREAM * ppResult); 
+     *  
+     * 
+     * ```
      * @param {Pointer<Integer>} plStart Pointer to a buffer that receives the starting position of the operation.
      * @param {Pointer<Integer>} plLength Pointer to a buffer that receives the length, in frames, of the operation.
      * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to the new stream.
-     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavieditstream-copy
+     * @see https://learn.microsoft.com/windows/win32/api//content/vfw/nf-vfw-iavieditstream-copy
      */
     Copy(plStart, plLength) {
         plStartMarshal := plStart is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAVIStream(ppResult)
     }
 
     /**
      * The Paste method copies a stream or a portion of it in another stream. Called when an application uses the EditStreamPaste function.
+     * @remarks
+     * For handlers written in C++, <b>Paste</b> has the following syntax:
+     * 
+     * 
+     * ```cpp
+     * 
+     * HRESULT Paste(LONG *plPos, LONG *plLength, 
+     *     PAVISTREAM pstream, LONG lStart, LONG lLength); 
+     *  
+     * 
+     * ```
      * @param {Pointer<Integer>} plPos Pointer to a buffer that receives the starting position of the operation.
      * @param {Pointer<Integer>} plLength Pointer to a buffer that receives the length, in bytes, of the data to paste from the source stream.
      * @param {IAVIStream} pstream Pointer to the interface to the source stream.
      * @param {Integer} lStart Starting position of the copy operation within the source stream.
      * @param {Integer} lEnd Ending position of the copy operation within the source stream.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
-     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavieditstream-paste
+     * @see https://learn.microsoft.com/windows/win32/api//content/vfw/nf-vfw-iavieditstream-paste
      */
     Paste(plPos, plLength, pstream, lStart, lEnd) {
         plPosMarshal := plPos is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, "int", lStart, "int", lEnd, "HRESULT")
+        result := ComCall(5, this, plPosMarshal, plPos, plLengthMarshal, plLength, "ptr", pstream, "int", lStart, "int", lEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Clone method duplicates a stream. Called when an application uses the EditStreamClone function.
+     * @remarks
+     * For handlers written in C++, <b>Clone</b> has the following syntax:
+     * 
+     * 
+     * ```cpp
+     * 
+     * HRESULT Clone(PAVISTREAM *ppResult); 
+     *  
+     * 
+     * ```
      * @returns {IAVIStream} Pointer to a buffer that receives a pointer to the interface to the new stream.
-     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavieditstream-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/vfw/nf-vfw-iavieditstream-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAVIStream(ppResult)
     }
 
     /**
      * The SetInfo method changes the characteristics of a stream. Called when an application uses the EditStreamSetInfo function.
+     * @remarks
+     * For handlers written in C++, <b>SetInfo</b> has the following syntax:
+     * 
+     * 
+     * ```cpp
+     * 
+     * HRESULT SetInfo(AVISTREAMINFO *lpInfo, LONG cbInfo); 
+     *  
+     * 
+     * ```
      * @param {Pointer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing the new stream characteristics.
      * @param {Integer} cbInfo Size, in bytes, of the buffer.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
-     * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-iavieditstream-setinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/vfw/nf-vfw-iavieditstream-setinfo
      */
     SetInfo(lpInfo, cbInfo) {
-        result := ComCall(7, this, "ptr", lpInfo, "int", cbInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", lpInfo, "int", cbInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

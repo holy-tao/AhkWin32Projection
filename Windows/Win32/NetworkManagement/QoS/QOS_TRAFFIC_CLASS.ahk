@@ -13,7 +13,7 @@
  * <dd>SERVICETYPE_NOCHANGE</dd>
  * <dd>SERVICETYPE_NOTRAFFIC</dd>
  * </dl>
- * @see https://learn.microsoft.com/windows/win32/api/qosobjs/ns-qosobjs-qos_traffic_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/qosobjs/ns-qosobjs-qos_traffic_class
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

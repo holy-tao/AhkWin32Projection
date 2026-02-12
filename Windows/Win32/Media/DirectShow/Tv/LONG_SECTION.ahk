@@ -21,7 +21,7 @@
  * BYTE VersionNumber = pSection->VersionNumber;
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-long_section
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2structs/ns-mpeg2structs-long_section
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

@@ -47,7 +47,11 @@ class IActiveScriptAuthorProcedure extends IUnknown{
         pszItemName := pszItemName is String ? StrPtr(pszItemName) : pszItemName
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(3, this, "ptr", pszCode, "ptr", pszFormalParams, "ptr", pszProcedureName, "ptr", pszItemName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "ptr", pdispFor, "HRESULT")
+        result := ComCall(3, this, "ptr", pszCode, "ptr", pszFormalParams, "ptr", pszProcedureName, "ptr", pszItemName, "ptr", pszDelimiter, "uint", dwCookie, "uint", dwFlags, "ptr", pdispFor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Defines constants that specify a domain authentication method.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_domain_authentication_kind
+ * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/ne-netlistmgr-nlm_domain_authentication_kind
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */

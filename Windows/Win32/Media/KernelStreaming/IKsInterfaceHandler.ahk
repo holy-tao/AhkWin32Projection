@@ -34,7 +34,11 @@ class IKsInterfaceHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetPin(KsPin) {
-        result := ComCall(3, this, "ptr", KsPin, "HRESULT")
+        result := ComCall(3, this, "ptr", KsPin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IKsInterfaceHandler extends IUnknown{
     KsProcessMediaSamples(KsDataTypeHandler, SampleList, SampleCount, IoOperation) {
         SampleCountMarshal := SampleCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", KsDataTypeHandler, "ptr*", SampleList, SampleCountMarshal, SampleCount, "int", IoOperation, "ptr*", &StreamSegment := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", KsDataTypeHandler, "ptr*", SampleList, SampleCountMarshal, SampleCount, "int", IoOperation, "ptr*", &StreamSegment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamSegment
     }
 
@@ -59,7 +67,11 @@ class IKsInterfaceHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsCompleteIo(StreamSegment) {
-        result := ComCall(5, this, "ptr", StreamSegment, "HRESULT")
+        result := ComCall(5, this, "ptr", StreamSegment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

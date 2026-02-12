@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ns-minidumpapiset-minidump_system_info">MINIDUMP_SYSTEM_INFO</see>, <see href="https://learn.microsoft.com/windows/win32/api//content/setupapi/ns-setupapi-sp_altplatform_info_v1">SP_ALTPLATFORM_INFO_V1</see>, <see href="https://learn.microsoft.com/windows/win32/api//content/setupapi/ns-setupapi-sp_altplatform_info_v2">SP_ALTPLATFORM_INFO_V2</see>.
+ * @see 
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

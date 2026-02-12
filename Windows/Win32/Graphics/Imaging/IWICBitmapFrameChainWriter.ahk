@@ -36,7 +36,11 @@ class IWICBitmapFrameChainWriter extends IUnknown{
      * @returns {IWICBitmapFrameEncode} 
      */
     AppendFrameToChain(chainType, ppIEncoderOptions) {
-        result := ComCall(3, this, "int", chainType, "ptr*", &ppIFrameEncode := 0, "ptr*", ppIEncoderOptions, "HRESULT")
+        result := ComCall(3, this, "int", chainType, "ptr*", &ppIFrameEncode := 0, "ptr*", ppIEncoderOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapFrameEncode(ppIFrameEncode)
     }
 
@@ -46,7 +50,11 @@ class IWICBitmapFrameChainWriter extends IUnknown{
      * @returns {BOOL} 
      */
     DoesSupportChainType(chainType) {
-        result := ComCall(4, this, "int", chainType, "int*", &pfIsSupported := 0, "HRESULT")
+        result := ComCall(4, this, "int", chainType, "int*", &pfIsSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsSupported
     }
 }

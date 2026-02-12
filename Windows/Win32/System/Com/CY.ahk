@@ -2,10 +2,16 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CY structure is useful for calculations involving money, or for any fixed-point calculation where accuracy is particularly important.
+ * Returns a currency value.
  * @remarks
- * 
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-cy~r1
+ * To specify a different currency, you must include a valid  *cyID*. For a list, see [About currency constants](about-currency-constants.md).
+ *   
+ * If  *value* is incompatible with the designated currency type, or if an invalid argument such as "not a number" is specified, a #VALUE! error is returned. If  _value_ is greater than 922,337,203,685,477.5807 or less than -922,337,203,685,477.5808, a #VALUE! error is returned.
+ *   
+ * For better precision with very large currency values that include fractions of a unit, such as 3.6 trillion, use string arguments for  *value*.
+ *   
+ * Specifying an invalid  *cyID* returns an error.
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/cy-function
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,7 +38,6 @@ class CY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     int64 {

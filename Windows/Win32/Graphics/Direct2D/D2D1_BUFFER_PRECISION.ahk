@@ -7,7 +7,7 @@
  * <div class="alert"><b>Note</b>   Feature level 9 may or may not support precision types other than 8BPC.
  * </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/ne-d2d1_1-d2d1_buffer_precision
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

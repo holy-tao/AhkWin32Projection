@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a Secure Socket Tunneling Protocol (SSTP) based certificate.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-sstp_cert_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-sstp_cert_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

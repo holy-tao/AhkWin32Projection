@@ -7,11 +7,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. The IMSVidDevice2 interface is implemented by some Video Control device objects.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDevice2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsviddevice2
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsviddevice2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -51,12 +48,18 @@ class IMSVidDevice2 extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
+     * @remarks
+     * This property is not a human-readable string, but is guaranteed to be unique per device. You can use this property to distinguish between two or more instances of the same model of device.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the device path. The caller must free the returned string, using the <b>SysFreeString</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsviddevice2-get_devicepath
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsviddevice2-get_devicepath
      */
     get_DevicePath() {
         DevPath := BSTR()
-        result := ComCall(3, this, "ptr", DevPath, "HRESULT")
+        result := ComCall(3, this, "ptr", DevPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DevPath
     }
 }

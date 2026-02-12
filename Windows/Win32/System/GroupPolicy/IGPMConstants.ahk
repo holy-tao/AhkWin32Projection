@@ -6,14 +6,11 @@
 /**
  * The IGPMConstants interface supports methods that retrieve the value of multiple Group Policy Management Console (GPMC) constants. To create a GPMConstants object, call the IGPM::GetConstants method.
  * @remarks
- * 
  * Properties that begin with <b>PermGPO</b> apply only to GPOs. Properties that begin with <b>PermWMIFilter</b> apply only to Windows Management Instrumentation (WMI) filters.
  * 
  * For more information about policy-related permissions, see 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpm-createpermission">IGPM::CreatePermission</a> (<b>GPM.CreatePermission</b>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmconstants
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmconstants
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -455,7 +452,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermGPOApply() {
-        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -464,7 +465,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermGPORead() {
-        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -473,7 +478,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermGPOEdit() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -482,7 +491,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermGPOEditSecurityAndDelete() {
-        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -491,7 +504,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermGPOCustom() {
-        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -500,7 +517,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermWMIFilterEdit() {
-        result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -509,7 +530,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermWMIFilterFullControl() {
-        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -518,7 +543,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermWMIFilterCustom() {
-        result := ComCall(14, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -527,7 +556,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermSOMLink() {
-        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -536,7 +569,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermSOMLogging() {
-        result := ComCall(16, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -545,7 +582,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermSOMPlanning() {
-        result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -554,7 +595,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermSOMGPOCreate() {
-        result := ComCall(18, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -563,7 +608,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermSOMWMICreate() {
-        result := ComCall(19, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -572,7 +621,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_PermSOMWMIFullControl() {
-        result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -581,7 +634,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPOPermissions() {
-        result := ComCall(21, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -590,7 +647,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPOEffectivePermissions() {
-        result := ComCall(22, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -599,7 +660,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPODisplayName() {
-        result := ComCall(23, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -608,7 +673,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPOWMIFilter() {
-        result := ComCall(24, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -617,7 +686,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPOID() {
-        result := ComCall(25, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -626,7 +699,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPOComputerExtensions() {
-        result := ComCall(26, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -635,7 +712,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPOUserExtensions() {
-        result := ComCall(27, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -644,7 +725,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertySOMLinks() {
-        result := ComCall(28, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -653,7 +738,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyGPODomain() {
-        result := ComCall(29, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -662,7 +751,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchPropertyBackupMostRecent() {
-        result := ComCall(30, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -671,7 +764,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchOpEquals() {
-        result := ComCall(31, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -680,7 +777,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchOpContains() {
-        result := ComCall(32, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -689,7 +790,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchOpNotContains() {
-        result := ComCall(33, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(33, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -698,7 +803,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SearchOpNotEquals() {
-        result := ComCall(34, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -707,7 +816,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_UsePDC() {
-        result := ComCall(35, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(35, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -716,7 +829,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_UseAnyDC() {
-        result := ComCall(36, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(36, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -725,7 +842,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_DoNotUseW2KDC() {
-        result := ComCall(37, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(37, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -734,7 +855,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SOMSite() {
-        result := ComCall(38, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -743,7 +868,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SOMDomain() {
-        result := ComCall(39, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(39, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -752,26 +881,31 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_SOMOU() {
-        result := ComCall(40, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(40, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the value of the SecurityFlags property, which represents the portion of the security descriptor to retrieve or set for a GPO.
      * @remarks
-     * 
      * For more information about access control lists (ACLs) and the security model for controlling access to objects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * 
-     * 
      * @param {VARIANT_BOOL} vbOwner 
      * @param {VARIANT_BOOL} vbGroup 
      * @param {VARIANT_BOOL} vbDACL 
      * @param {VARIANT_BOOL} vbSACL 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmconstants-get_securityflags
      */
     get_SecurityFlags(vbOwner, vbGroup, vbDACL, vbSACL) {
-        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(41, this, "short", vbOwner, "short", vbGroup, "short", vbDACL, "short", vbSACL, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -780,7 +914,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_DoNotValidateDC() {
-        result := ComCall(42, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(42, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -789,7 +927,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_ReportHTML() {
-        result := ComCall(43, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(43, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -798,7 +940,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_ReportXML() {
-        result := ComCall(44, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(44, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -807,7 +953,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RSOPModeUnknown() {
-        result := ComCall(45, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(45, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -816,7 +966,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RSOPModePlanning() {
-        result := ComCall(46, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(46, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -825,7 +979,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RSOPModeLogging() {
-        result := ComCall(47, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(47, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -834,7 +992,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeUser() {
-        result := ComCall(48, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(48, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -843,7 +1005,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeComputer() {
-        result := ComCall(49, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(49, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -852,7 +1018,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeLocalGroup() {
-        result := ComCall(50, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(50, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -861,7 +1031,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeGlobalGroup() {
-        result := ComCall(51, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(51, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -870,7 +1044,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeUniversalGroup() {
-        result := ComCall(52, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(52, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -879,7 +1057,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeUNCPath() {
-        result := ComCall(53, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(53, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -888,7 +1070,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_EntryTypeUnknown() {
-        result := ComCall(54, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(54, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -897,7 +1083,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_DestinationOptionSameAsSource() {
-        result := ComCall(55, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(55, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -906,7 +1096,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_DestinationOptionNone() {
-        result := ComCall(56, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(56, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -915,7 +1109,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_DestinationOptionByRelativeName() {
-        result := ComCall(57, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(57, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -924,7 +1122,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_DestinationOptionSet() {
-        result := ComCall(58, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(58, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -933,7 +1135,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_MigrationTableOnly() {
-        result := ComCall(59, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(59, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -942,7 +1148,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_ProcessSecurity() {
-        result := ComCall(60, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(60, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -951,7 +1161,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RsopLoggingNoComputer() {
-        result := ComCall(61, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(61, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -960,7 +1174,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RsopLoggingNoUser() {
-        result := ComCall(62, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(62, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -969,7 +1187,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeSlowLink() {
-        result := ComCall(63, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(63, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -979,7 +1201,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RsopPlanningLoopbackOption(vbMerge) {
-        result := ComCall(64, this, "short", vbMerge, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(64, this, "short", vbMerge, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -988,7 +1214,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeUserWQLFilterTrue() {
-        result := ComCall(65, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(65, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -997,7 +1227,11 @@ class IGPMConstants extends IDispatch{
      * @returns {Integer} 
      */
     get_RsopPlanningAssumeCompWQLFilterTrue() {
-        result := ComCall(66, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(66, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

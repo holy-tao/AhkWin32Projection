@@ -35,7 +35,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {VARIANT_BOOL} 
      */
     msIsSiteMode() {
-        result := ComCall(49, this, "short*", &pfSiteMode := 0, "HRESULT")
+        result := ComCall(49, this, "short*", &pfSiteMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfSiteMode
     }
 
@@ -44,7 +48,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeShowThumbBar() {
-        result := ComCall(50, this, "HRESULT")
+        result := ComCall(50, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,11 +63,21 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {VARIANT} 
      */
     msSiteModeAddThumbBarButton(bstrIconURL, bstrTooltip) {
-        bstrIconURL := bstrIconURL is String ? BSTR.Alloc(bstrIconURL).Value : bstrIconURL
-        bstrTooltip := bstrTooltip is String ? BSTR.Alloc(bstrTooltip).Value : bstrTooltip
+        if(bstrIconURL is String) {
+            pin := BSTR.Alloc(bstrIconURL)
+            bstrIconURL := pin.Value
+        }
+        if(bstrTooltip is String) {
+            pin := BSTR.Alloc(bstrTooltip)
+            bstrTooltip := pin.Value
+        }
 
         pvarButtonID := VARIANT()
-        result := ComCall(51, this, "ptr", bstrIconURL, "ptr", bstrTooltip, "ptr", pvarButtonID, "HRESULT")
+        result := ComCall(51, this, "ptr", bstrIconURL, "ptr", bstrTooltip, "ptr", pvarButtonID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarButtonID
     }
 
@@ -71,7 +89,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeUpdateThumbBarButton(ButtonID, fEnabled, fVisible) {
-        result := ComCall(52, this, "ptr", ButtonID, "short", fEnabled, "short", fVisible, "HRESULT")
+        result := ComCall(52, this, "ptr", ButtonID, "short", fEnabled, "short", fVisible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,9 +104,16 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeSetIconOverlay(IconUrl, pvarDescription) {
-        IconUrl := IconUrl is String ? BSTR.Alloc(IconUrl).Value : IconUrl
+        if(IconUrl is String) {
+            pin := BSTR.Alloc(IconUrl)
+            IconUrl := pin.Value
+        }
 
-        result := ComCall(53, this, "ptr", IconUrl, "ptr", pvarDescription, "HRESULT")
+        result := ComCall(53, this, "ptr", IconUrl, "ptr", pvarDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +122,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeClearIconOverlay() {
-        result := ComCall(54, this, "HRESULT")
+        result := ComCall(54, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +135,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msAddSiteMode() {
-        result := ComCall(55, this, "HRESULT")
+        result := ComCall(55, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,9 +149,16 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeCreateJumpList(bstrHeader) {
-        bstrHeader := bstrHeader is String ? BSTR.Alloc(bstrHeader).Value : bstrHeader
+        if(bstrHeader is String) {
+            pin := BSTR.Alloc(bstrHeader)
+            bstrHeader := pin.Value
+        }
 
-        result := ComCall(56, this, "ptr", bstrHeader, "HRESULT")
+        result := ComCall(56, this, "ptr", bstrHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,11 +171,24 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeAddJumpListItem(bstrName, bstrActionUri, bstrIconUri, pvarWindowType) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrActionUri := bstrActionUri is String ? BSTR.Alloc(bstrActionUri).Value : bstrActionUri
-        bstrIconUri := bstrIconUri is String ? BSTR.Alloc(bstrIconUri).Value : bstrIconUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrActionUri is String) {
+            pin := BSTR.Alloc(bstrActionUri)
+            bstrActionUri := pin.Value
+        }
+        if(bstrIconUri is String) {
+            pin := BSTR.Alloc(bstrIconUri)
+            bstrIconUri := pin.Value
+        }
 
-        result := ComCall(57, this, "ptr", bstrName, "ptr", bstrActionUri, "ptr", bstrIconUri, "ptr", pvarWindowType, "HRESULT")
+        result := ComCall(57, this, "ptr", bstrName, "ptr", bstrActionUri, "ptr", bstrIconUri, "ptr", pvarWindowType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,7 +197,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeClearJumpList() {
-        result := ComCall(58, this, "HRESULT")
+        result := ComCall(58, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,7 +210,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeShowJumpList() {
-        result := ComCall(59, this, "HRESULT")
+        result := ComCall(59, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,11 +226,21 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {VARIANT} 
      */
     msSiteModeAddButtonStyle(uiButtonID, bstrIconUrl, bstrTooltip) {
-        bstrIconUrl := bstrIconUrl is String ? BSTR.Alloc(bstrIconUrl).Value : bstrIconUrl
-        bstrTooltip := bstrTooltip is String ? BSTR.Alloc(bstrTooltip).Value : bstrTooltip
+        if(bstrIconUrl is String) {
+            pin := BSTR.Alloc(bstrIconUrl)
+            bstrIconUrl := pin.Value
+        }
+        if(bstrTooltip is String) {
+            pin := BSTR.Alloc(bstrTooltip)
+            bstrTooltip := pin.Value
+        }
 
         pvarStyleID := VARIANT()
-        result := ComCall(60, this, "ptr", uiButtonID, "ptr", bstrIconUrl, "ptr", bstrTooltip, "ptr", pvarStyleID, "HRESULT")
+        result := ComCall(60, this, "ptr", uiButtonID, "ptr", bstrIconUrl, "ptr", bstrTooltip, "ptr", pvarStyleID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarStyleID
     }
 
@@ -176,7 +251,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeShowButtonStyle(uiButtonID, uiStyleID) {
-        result := ComCall(61, this, "ptr", uiButtonID, "ptr", uiStyleID, "HRESULT")
+        result := ComCall(61, this, "ptr", uiButtonID, "ptr", uiStyleID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +264,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msSiteModeActivate() {
-        result := ComCall(62, this, "HRESULT")
+        result := ComCall(62, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +279,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      */
     msIsSiteModeFirstRun(fPreserveState) {
         puiFirstRun := VARIANT()
-        result := ComCall(63, this, "short", fPreserveState, "ptr", puiFirstRun, "HRESULT")
+        result := ComCall(63, this, "short", fPreserveState, "ptr", puiFirstRun, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiFirstRun
     }
 
@@ -207,10 +294,20 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {HRESULT} 
      */
     msAddTrackingProtectionList(URL, bstrFilterName) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
-        bstrFilterName := bstrFilterName is String ? BSTR.Alloc(bstrFilterName).Value : bstrFilterName
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
+        if(bstrFilterName is String) {
+            pin := BSTR.Alloc(bstrFilterName)
+            bstrFilterName := pin.Value
+        }
 
-        result := ComCall(64, this, "ptr", URL, "ptr", bstrFilterName, "HRESULT")
+        result := ComCall(64, this, "ptr", URL, "ptr", bstrFilterName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -219,7 +316,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {VARIANT_BOOL} 
      */
     msTrackingProtectionEnabled() {
-        result := ComCall(65, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(65, this, "short*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
@@ -228,7 +329,11 @@ class IShellUIHelper4 extends IShellUIHelper3{
      * @returns {VARIANT_BOOL} 
      */
     msActiveXFilteringEnabled() {
-        result := ComCall(66, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(66, this, "short*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 }

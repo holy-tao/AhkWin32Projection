@@ -6,7 +6,7 @@
 
 /**
  * Associates a class of event objects with the event interface those objects implement.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ieventclass
+ * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nn-eventsys-ieventclass
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -88,170 +88,247 @@ class IEventClass extends IDispatch{
     }
 
     /**
-     * The CLSID for the event class object.
+     * The CLSID for the event class object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_eventclassid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_eventclassid
      */
     get_EventClassID() {
         pbstrEventClassID := BSTR()
-        result := ComCall(7, this, "ptr", pbstrEventClassID, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrEventClassID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrEventClassID
     }
 
     /**
-     * The CLSID for the event class object.
+     * The CLSID for the event class object. (Put)
      * @param {BSTR} bstrEventClassID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_eventclassid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_eventclassid
      */
     put_EventClassID(bstrEventClassID) {
-        bstrEventClassID := bstrEventClassID is String ? BSTR.Alloc(bstrEventClassID).Value : bstrEventClassID
+        if(bstrEventClassID is String) {
+            pin := BSTR.Alloc(bstrEventClassID)
+            bstrEventClassID := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrEventClassID, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrEventClassID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The ProgID for the event class object.
+     * The ProgID for the event class object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_eventclassname
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_eventclassname
      */
     get_EventClassName() {
         pbstrEventClassName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrEventClassName, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrEventClassName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrEventClassName
     }
 
     /**
-     * The ProgID for the event class object.
+     * The ProgID for the event class object. (Put)
      * @param {BSTR} bstrEventClassName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_eventclassname
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_eventclassname
      */
     put_EventClassName(bstrEventClassName) {
-        bstrEventClassName := bstrEventClassName is String ? BSTR.Alloc(bstrEventClassName).Value : bstrEventClassName
+        if(bstrEventClassName is String) {
+            pin := BSTR.Alloc(bstrEventClassName)
+            bstrEventClassName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrEventClassName, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrEventClassName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The security ID of the event class object's creator. This property is supported only for backward compatibility.
+     * The security ID of the event class object's creator. This property is supported only for backward compatibility. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_ownersid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_ownersid
      */
     get_OwnerSID() {
         pbstrOwnerSID := BSTR()
-        result := ComCall(11, this, "ptr", pbstrOwnerSID, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrOwnerSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrOwnerSID
     }
 
     /**
-     * The security ID of the event class object's creator. This property is supported only for backward compatibility.
+     * The security ID of the event class object's creator. This property is supported only for backward compatibility. (Put)
      * @param {BSTR} bstrOwnerSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_ownersid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_ownersid
      */
     put_OwnerSID(bstrOwnerSID) {
-        bstrOwnerSID := bstrOwnerSID is String ? BSTR.Alloc(bstrOwnerSID).Value : bstrOwnerSID
+        if(bstrOwnerSID is String) {
+            pin := BSTR.Alloc(bstrOwnerSID)
+            bstrOwnerSID := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrOwnerSID, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrOwnerSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The ID of the event interface on the event class object. This property is supported only for backward compatibility.
+     * The ID of the event interface on the event class object. This property is supported only for backward compatibility. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
      */
     get_FiringInterfaceID() {
         pbstrFiringInterfaceID := BSTR()
-        result := ComCall(13, this, "ptr", pbstrFiringInterfaceID, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrFiringInterfaceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFiringInterfaceID
     }
 
     /**
-     * The ID of the event interface on the event class object. This property is supported only for backward compatibility.
+     * The ID of the event interface on the event class object. This property is supported only for backward compatibility. (Put)
      * @param {BSTR} bstrFiringInterfaceID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_firinginterfaceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_firinginterfaceid
      */
     put_FiringInterfaceID(bstrFiringInterfaceID) {
-        bstrFiringInterfaceID := bstrFiringInterfaceID is String ? BSTR.Alloc(bstrFiringInterfaceID).Value : bstrFiringInterfaceID
+        if(bstrFiringInterfaceID is String) {
+            pin := BSTR.Alloc(bstrFiringInterfaceID)
+            bstrFiringInterfaceID := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrFiringInterfaceID, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrFiringInterfaceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * A displayable text description of the event class object.
+     * A displayable text description of the event class object. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
-        result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(15, this, "ptr", pbstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDescription
     }
 
     /**
-     * A displayable text description of the event class object.
+     * A displayable text description of the event class object. (Put)
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_description
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility.
+     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_customconfigclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_customconfigclsid
      */
     get_CustomConfigCLSID() {
         pbstrCustomConfigCLSID := BSTR()
-        result := ComCall(17, this, "ptr", pbstrCustomConfigCLSID, "HRESULT")
+        result := ComCall(17, this, "ptr", pbstrCustomConfigCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCustomConfigCLSID
     }
 
     /**
-     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility.
+     * The CLSID of a component that can assist in adding properties into the property bag of a subscription object. This property is supported only for backward compatibility. (Put)
      * @param {BSTR} bstrCustomConfigCLSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_customconfigclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_customconfigclsid
      */
     put_CustomConfigCLSID(bstrCustomConfigCLSID) {
-        bstrCustomConfigCLSID := bstrCustomConfigCLSID is String ? BSTR.Alloc(bstrCustomConfigCLSID).Value : bstrCustomConfigCLSID
+        if(bstrCustomConfigCLSID is String) {
+            pin := BSTR.Alloc(bstrCustomConfigCLSID)
+            bstrCustomConfigCLSID := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrCustomConfigCLSID, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrCustomConfigCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The path of the type library that contains the description of the event interface.
+     * The path of the type library that contains the description of the event interface. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-get_typelib
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-get_typelib
      */
     get_TypeLib() {
         pbstrTypeLib := BSTR()
-        result := ComCall(19, this, "ptr", pbstrTypeLib, "HRESULT")
+        result := ComCall(19, this, "ptr", pbstrTypeLib, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTypeLib
     }
 
     /**
-     * The path of the type library that contains the description of the event interface.
+     * The path of the type library that contains the description of the event interface. (Put)
      * @param {BSTR} bstrTypeLib 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventclass-put_typelib
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventclass-put_typelib
      */
     put_TypeLib(bstrTypeLib) {
-        bstrTypeLib := bstrTypeLib is String ? BSTR.Alloc(bstrTypeLib).Value : bstrTypeLib
+        if(bstrTypeLib is String) {
+            pin := BSTR.Alloc(bstrTypeLib)
+            bstrTypeLib := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", bstrTypeLib, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrTypeLib, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

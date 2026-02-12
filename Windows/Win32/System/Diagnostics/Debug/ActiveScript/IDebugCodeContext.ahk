@@ -34,7 +34,11 @@ class IDebugCodeContext extends IUnknown{
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContext() {
-        result := ComCall(3, this, "ptr*", &ppsc := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppsc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocumentContext(ppsc)
     }
 
@@ -44,7 +48,11 @@ class IDebugCodeContext extends IUnknown{
      * @returns {HRESULT} 
      */
     SetBreakPoint(bps) {
-        result := ComCall(4, this, "int", bps, "HRESULT")
+        result := ComCall(4, this, "int", bps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

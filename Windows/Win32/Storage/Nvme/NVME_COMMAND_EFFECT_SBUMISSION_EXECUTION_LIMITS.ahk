@@ -5,7 +5,7 @@
  * Contains values that indicate the command submission and execution recommendations for the associated command.
  * @remarks
  * Use the values from this enumeration in the Command Submission and Execution (**CSE**) field of the [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_command_effect_sbumission_execution_limits
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_command_effect_sbumission_execution_limits
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

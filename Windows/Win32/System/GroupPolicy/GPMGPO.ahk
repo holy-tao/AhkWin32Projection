@@ -3,7 +3,7 @@
 
 /**
  * The IGPMGPO interface supports methods that enable you to manage Group Policy Objects (GPOs) in the directory service.
- * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmgpo
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmgpo
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

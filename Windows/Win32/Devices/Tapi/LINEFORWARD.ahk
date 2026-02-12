@@ -8,7 +8,7 @@
  * 
  * Each entry in the 
  * <b>LINEFORWARD</b> structure specifies a forwarding request.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforward
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-lineforward
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

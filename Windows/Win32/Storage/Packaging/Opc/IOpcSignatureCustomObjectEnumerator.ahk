@@ -8,16 +8,12 @@
 /**
  * A read-only enumerator of IOpcSignatureCustomObject interface pointers.
  * @remarks
- * 
- * When an enumerator is created, the current position precedes the first pointer of the enumerator. To set the current position to the first pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-movenext">MoveNext</a>method after creating the enumerator.
+ * When an enumerator is created, the current position precedes the first pointer of the enumerator. To set the current position to the first pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-movenext">MoveNext</a> method after creating the enumerator.
  * 
  * Changes to the set will invalidate the enumerator, and all subsequent calls to it will fail.
  * 
  * To get an <b>IOpcSignatureCustomObjectEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getcustomobjectenumerator">IOpcDigitalSignature::GetCustomObjectEnumerator</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobjectset-getenumerator">IOpcSignatureCustomObjectSet::GetEnumerator</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturecustomobjectenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcsignaturecustomobjectenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -76,16 +72,20 @@ class IOpcSignatureCustomObjectEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 
     /**
      * Moves the current position of the enumerator to the previous IOpcSignatureCustomObjectinterface pointer.
-     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a>interface pointer at the current position.
+     * @returns {BOOL} A Boolean value that indicates the status of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer at the current position.
      * 
      * The value of <i>hasPrevious</i> is only valid when the method succeeds.
      * 
@@ -117,30 +117,46 @@ class IOpcSignatureCustomObjectEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectenumerator-moveprevious
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-moveprevious
      */
     MovePrevious() {
-        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasPrevious
     }
 
     /**
      * Gets the IOpcSignatureCustomObject interface at the current position of the enumerator.
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer of the enumerator. To set the current position to the first pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-movenext">MoveNext</a> method after creating the enumerator.
      * @returns {IOpcSignatureCustomObject} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobject">IOpcSignatureCustomObject</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &customObject := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &customObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignatureCustomObject(customObject)
     }
 
     /**
      * Creates a copy of the current IOpcSignatureCustomObjectEnumerator interface pointer and all its descendants.
-     * @returns {IOpcSignatureCustomObjectEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobjectenumerator">IOpcSignatureCustomObjectEnumerator</a>interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobjectenumerator-clone
+     * @remarks
+     * The copy has a current position  and set that are identical to the current enumerator.
+     * @returns {IOpcSignatureCustomObjectEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobjectenumerator">IOpcSignatureCustomObjectEnumerator</a> interface pointer.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturecustomobjectenumerator-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &copy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignatureCustomObjectEnumerator(copy)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The INSSBuffer3 interface enhances the INSSBuffer interface by adding the ability to set and retrieve single properties for a sample.
- * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nn-wmsbuffer-inssbuffer3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nn-wmsbuffer-inssbuffer3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class INSSBuffer3 extends INSSBuffer2{
 
     /**
      * The SetProperty method is used to specify a property for the sample in the buffer. Buffer properties are used to pass information along with the sample to the writer object when writing ASF files. Sample properties are GUID values.
+     * @remarks
+     * If you set a buffer property with a size larger than that specified in your call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-adddataunitextension">IWMStreamConfig2::AddDataUnitExtension</a>, you will not get an error from <b>SetProperty</b>. However, when the writer writes the sample, NS_E_DATA_UNIT_EXTENSION_TOO_LARGE will be returned.
      * @param {Guid} guidBufferProperty <b>GUID</b> value identifying the property you want to set. The predefined buffer properties are described in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/sample-extension-types">Sample Extension Types</a> section of this documentation. You can also define your own sample extension schemes using your own GUID values.
      * @param {Pointer<Void>} pvBufferProperty Pointer to a buffer containing the property value.
      * @param {Integer} dwBufferPropertySize <b>DWORD</b> value containing the size of the buffer pointed to by <i>pvBufferProperty</i>.
@@ -65,12 +67,16 @@ class INSSBuffer3 extends INSSBuffer2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer3-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer3-setproperty
      */
     SetProperty(guidBufferProperty, pvBufferProperty, dwBufferPropertySize) {
         pvBufferPropertyMarshal := pvBufferProperty is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, "uint", dwBufferPropertySize, "HRESULT")
+        result := ComCall(10, this, "ptr", guidBufferProperty, pvBufferPropertyMarshal, pvBufferProperty, "uint", dwBufferPropertySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,12 +85,16 @@ class INSSBuffer3 extends INSSBuffer2{
      * @param {Guid} guidBufferProperty <b>GUID</b> value identifying the property to retrieve. The predefined buffer properties are described in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/sample-extension-types">Sample Extension Types</a> section of this documentation. You can also define your own sample extension schemes using your own GUID values.
      * @param {Pointer<Integer>} pdwBufferPropertySize Pointer to a <b>DWORD</b> value containing the size of the buffer pointed to by <i>pvBufferProperty</i>. If you pass <b>NULL</b> for <i>pvBufferProperty</i>, the method sets the value pointed to by this parameter to the size required to hold the property value. If you pass a non-<b>NULL</b> value for <i>pvBufferProperty</i>, the value pointed to by this parameter must equal the size of the buffer pointed to by <i>pvBufferProperty</i>.
      * @returns {Void} Pointer to a buffer that will receive the value of the property specified by <i>guidBufferProperty</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-inssbuffer3-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-inssbuffer3-getproperty
      */
     GetProperty(guidBufferProperty, pdwBufferPropertySize) {
         pdwBufferPropertySizeMarshal := pdwBufferPropertySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", guidBufferProperty, "ptr", &pvBufferProperty := 0, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "HRESULT")
+        result := ComCall(11, this, "ptr", guidBufferProperty, "ptr", &pvBufferProperty := 0, pdwBufferPropertySizeMarshal, pdwBufferPropertySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvBufferProperty
     }
 }

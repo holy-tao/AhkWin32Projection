@@ -10,7 +10,7 @@
  *     more understandable (for example, remove the attribute type name and if the <b>Flags</b> 
  *     member has any flag other than <b>LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_DATA</b> set then 
  *     an appropriate message should be displayed.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-lookup_stream_from_cluster_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-lookup_stream_from_cluster_entry
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

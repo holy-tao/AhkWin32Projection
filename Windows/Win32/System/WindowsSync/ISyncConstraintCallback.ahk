@@ -34,7 +34,11 @@ class ISyncConstraintCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     OnConstraintConflict(pConflict) {
-        result := ComCall(3, this, "ptr", pConflict, "HRESULT")
+        result := ComCall(3, this, "ptr", pConflict, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

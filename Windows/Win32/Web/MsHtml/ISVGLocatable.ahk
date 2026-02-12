@@ -50,7 +50,11 @@ class ISVGLocatable extends IDispatch{
      * @returns {ISVGElement} 
      */
     get_nearestViewportElement() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElement(p)
     }
 
@@ -59,7 +63,11 @@ class ISVGLocatable extends IDispatch{
      * @returns {ISVGElement} 
      */
     get_farthestViewportElement() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGElement(p)
     }
 
@@ -68,7 +76,11 @@ class ISVGLocatable extends IDispatch{
      * @returns {ISVGRect} 
      */
     getBBox() {
-        result := ComCall(9, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGRect(ppResult)
     }
 
@@ -77,7 +89,11 @@ class ISVGLocatable extends IDispatch{
      * @returns {ISVGMatrix} 
      */
     getCTM() {
-        result := ComCall(10, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGMatrix(ppResult)
     }
 
@@ -86,7 +102,11 @@ class ISVGLocatable extends IDispatch{
      * @returns {ISVGMatrix} 
      */
     getScreenCTM() {
-        result := ComCall(11, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGMatrix(ppResult)
     }
 
@@ -96,7 +116,11 @@ class ISVGLocatable extends IDispatch{
      * @returns {ISVGMatrix} 
      */
     getTransformToElement(pElement) {
-        result := ComCall(12, this, "ptr", pElement, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pElement, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGMatrix(ppResult)
     }
 }

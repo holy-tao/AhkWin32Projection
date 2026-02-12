@@ -7,7 +7,7 @@
  * Because the implementation of structure-change events depends on the underlying UI framework, UI Automation defines no strict rule governing when a provider must switch from sending individual ChildAdded or ChildRemoved events to the bulk equivalent. However, the switch typically occurs when two to five child elements are added or removed at once. The bulk events help to prevent clients from being flooded by individual ChildAdded and ChildRemoved events.
  * 
  * Except for ChildAdded, structure-change events are always associated with the container element that holds the children. The ChildAdded event is associated with the element that was just added.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-structurechangetype
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/ne-uiautomationcore-structurechangetype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

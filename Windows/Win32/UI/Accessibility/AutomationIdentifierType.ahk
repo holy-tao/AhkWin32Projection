@@ -3,7 +3,7 @@
 
 /**
  * Contains values used in the UiaLookupId function.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

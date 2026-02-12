@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The TRANSPORT_SETTING_ID structure (mstcpip.h) specifies the transport setting ID used by specific IOCTLs to apply or query the transport setting for a socket.
+ * The TRANSPORT_SETTING_ID (transportsettingcommon.h) structure specifies the transport setting ID used by the SIO_APPLY_TRANSPORT_SETTING and SIO_QUERY_TRANSPORT_SETTING IOCTLs.
  * @remarks
  * The only transport setting defined for Windows 8 and Windows Server 2012 is for the <b>REAL_TIME_NOTIFICATION_CAPABILITY</b> capability on a TCP socket. For Windows 10 and Windows Server 2016, there is another transport setting defined as <b>ASSOCIATE_NAMERES_CONTEXT</b>.
  * 
@@ -10,7 +10,7 @@
  *         IOCTLs. The <b>Guid</b> member determines what transport setting is applied or queried. 
  * 
  * The only transport setting currently defines is for the <b>REAL_TIME_NOTIFICATION_CAPABILITY</b> capability on a TCP socket.
- * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-transport_setting_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/transportsettingcommon/ns-transportsettingcommon-transport_setting_id
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

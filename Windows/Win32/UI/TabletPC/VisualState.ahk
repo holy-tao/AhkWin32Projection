@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Initializes a new instance of the [VisualState](visualstate.md) class.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.visualstate.#ctor
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -36,7 +36,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @returns {Integer} 
      */
     EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown) {
-        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, "uint*", &pSession := 0, "HRESULT")
+        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, "uint*", &pSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSession
     }
 
@@ -47,7 +51,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @returns {HRESULT} 
      */
     EventPipeAddProviderToSession(session, providerConfig) {
-        result := ComCall(102, this, "uint", session, "ptr", providerConfig, "HRESULT")
+        result := ComCall(102, this, "uint", session, "ptr", providerConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @returns {HRESULT} 
      */
     EventPipeStopSession(session) {
-        result := ComCall(103, this, "uint", session, "HRESULT")
+        result := ComCall(103, this, "uint", session, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     EventPipeCreateProvider(providerName) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        result := ComCall(104, this, "ptr", providerName, "ptr*", &pProvider := 0, "HRESULT")
+        result := ComCall(104, this, "ptr", providerName, "ptr*", &pProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProvider
     }
 
@@ -83,7 +99,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     EventPipeGetProviderInfo(provider, cchName, providerName) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        result := ComCall(105, this, "ptr", provider, "uint", cchName, "uint*", &pcchName := 0, "ptr", providerName, "HRESULT")
+        result := ComCall(105, this, "ptr", provider, "uint", cchName, "uint*", &pcchName := 0, "ptr", providerName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchName
     }
 
@@ -104,7 +124,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     EventPipeDefineEvent(provider, eventName, eventID, keywords, eventVersion, level, opcode, needStack, cParamDescs, pParamDescs) {
         eventName := eventName is String ? StrPtr(eventName) : eventName
 
-        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, "ptr*", &pEvent := 0, "HRESULT")
+        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, "ptr*", &pEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEvent
     }
 
@@ -118,7 +142,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @returns {HRESULT} 
      */
     EventPipeWriteEvent(event, cData, data, pActivityId, pRelatedActivityId) {
-        result := ComCall(107, this, "ptr", event, "uint", cData, "ptr", data, "ptr", pActivityId, "ptr", pRelatedActivityId, "HRESULT")
+        result := ComCall(107, this, "ptr", event, "uint", cData, "ptr", data, "ptr", pActivityId, "ptr", pRelatedActivityId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

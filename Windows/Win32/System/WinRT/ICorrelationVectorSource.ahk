@@ -42,7 +42,11 @@ class ICorrelationVectorSource extends IUnknown{
      */
     get_CorrelationVector() {
         cv := HSTRING()
-        result := ComCall(3, this, "ptr", cv, "HRESULT")
+        result := ComCall(3, this, "ptr", cv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return cv
     }
 }

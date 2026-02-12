@@ -68,7 +68,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     get_root() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -77,7 +81,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {Integer} 
      */
     get_whatToShow() {
-        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -86,7 +94,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     get_filter() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -95,7 +107,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -105,7 +121,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_currentNode(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,7 +134,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     get_currentNode() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -123,7 +147,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     parentNode() {
-        result := ComCall(13, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -132,7 +160,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     firstChild() {
-        result := ComCall(14, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -141,7 +173,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     lastChild() {
-        result := ComCall(15, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -150,7 +186,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     previousSibling() {
-        result := ComCall(16, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -159,7 +199,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     nextSibling() {
-        result := ComCall(17, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -168,7 +212,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     previousNode() {
-        result := ComCall(18, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -177,7 +225,11 @@ class IDOMTreeWalker extends IDispatch{
      * @returns {IDispatch} 
      */
     nextNode() {
-        result := ComCall(19, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 }

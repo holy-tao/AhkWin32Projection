@@ -29,26 +29,36 @@ class IMFHDCPStatus extends IUnknown{
     static VTableNames => ["Query", "Set"]
 
     /**
-     * 
+     * Query Notifications Event Category
      * @param {Pointer<Integer>} pStatus 
      * @param {Pointer<BOOL>} pfStatus 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/event-classes/query-notifications-event-category
      */
     Query(pStatus, pfStatus) {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
         pfStatusMarshal := pfStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pStatusMarshal, pStatus, pfStatusMarshal, pfStatus, "HRESULT")
+        result := ComCall(3, this, pStatusMarshal, pStatus, pfStatusMarshal, pfStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {Integer} status 
+     * Set Large Data (Native Client OLE DB provider)
+     * @param {Integer} status_ 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-ole-db-how-to/set-large-data-ole-db
      */
-    Set(status) {
-        result := ComCall(4, this, "int", status, "HRESULT")
+    Set(status_) {
+        result := ComCall(4, this, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

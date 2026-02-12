@@ -6,8 +6,17 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Represents a single certificate extension.
+ * @remarks
+ * The **Extension** object has these types of members:
  * 
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/extension
+ * -   [Properties](#properties)
+ * 
+ * 
+ * The **Extension** object cannot be created.
+ * 
+ * The **Extension** object is used by the [**Extensions**](extensions.md) collection object.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/extension
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -79,7 +88,11 @@ class Extension extends IDispatch{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -89,7 +102,11 @@ class Extension extends IDispatch{
      */
     get_Vendor() {
         Vendor := BSTR()
-        result := ComCall(8, this, "ptr", Vendor, "HRESULT")
+        result := ComCall(8, this, "ptr", Vendor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Vendor
     }
 
@@ -98,9 +115,13 @@ class Extension extends IDispatch{
      * @returns {BSTR} 
      */
     get_Version() {
-        Version := BSTR()
-        result := ComCall(9, this, "ptr", Version, "HRESULT")
-        return Version
+        Version_ := BSTR()
+        result := ComCall(9, this, "ptr", Version_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Version_
     }
 
     /**
@@ -108,8 +129,12 @@ class Extension extends IDispatch{
      * @returns {Extensions} 
      */
     get_Extensions() {
-        result := ComCall(10, this, "ptr*", &Extensions := 0, "HRESULT")
-        return Extensions(Extensions)
+        result := ComCall(10, this, "ptr*", &Extensions_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Extensions(Extensions_)
     }
 
     /**
@@ -118,7 +143,11 @@ class Extension extends IDispatch{
      */
     get_SnapinCLSID() {
         SnapinCLSID := BSTR()
-        result := ComCall(11, this, "ptr", SnapinCLSID, "HRESULT")
+        result := ComCall(11, this, "ptr", SnapinCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SnapinCLSID
     }
 
@@ -128,17 +157,32 @@ class Extension extends IDispatch{
      * @returns {HRESULT} 
      */
     EnableAllExtensions(Enable) {
-        result := ComCall(12, this, "int", Enable, "HRESULT")
+        result := ComCall(12, this, "int", Enable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Enables monitoring on a particular drive.
+     * @remarks
+     * The **Enable** method does not wait for monitoring to be enabled completely before it returns, because this could take a while. Instead, it returns immediately after starting the System Restore service and filter driver.
      * 
+     * To enable System Restore on a non-system drive, you must first enable System Restore on the system drive.
+     * 
+     * This method fails in safe mode.
      * @param {BOOL} Enable 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/sr/enable-systemrestore
      */
     Enable(Enable) {
-        result := ComCall(13, this, "int", Enable, "HRESULT")
+        result := ComCall(13, this, "int", Enable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

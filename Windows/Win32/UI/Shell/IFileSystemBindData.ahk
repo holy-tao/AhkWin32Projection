@@ -7,7 +7,6 @@
 /**
  * Exposes methods that store file system information for optimizing calls to IShellFolder::ParseDisplayName.
  * @remarks
- * 
  * <b>IFileSystemBindData</b> stores the file system information in a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure. The object that implements <b>IFileSystemBindData</b> is then stored in a bind context that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a>.
  * 
  * Implement <b>IFileSystemBindData</b> when you want to optimize calls to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a> and you already have the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure's file information available to you.
@@ -23,8 +22,7 @@
  * 
  * <div class="alert"><b>Note</b>  Prior to Windows Vista this interface was declared in Shlobj.h.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifilesystembinddata
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ifilesystembinddata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -51,29 +49,41 @@ class IFileSystemBindData extends IUnknown{
 
     /**
      * Stores file system information in a WIN32_FIND_DATA structure. This information is used by ParseDisplayName.
+     * @remarks
+     * After the client stores the file information, the instance of the object itself must be stored in a bind context by using the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-registerobjectparam">IBindCtx::RegisterObjectParam</a> method with the <i>pszKey</i> parameter set to <c>L"File System Bind Data"</c>.
      * @param {Pointer<WIN32_FIND_DATAW>} pfd Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that specifies the data you want to store.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata-setfinddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifilesystembinddata-setfinddata
      */
     SetFindData(pfd) {
-        result := ComCall(3, this, "ptr", pfd, "HRESULT")
+        result := ComCall(3, this, "ptr", pfd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the file system information stored in the WIN32_FIND_DATA structure.
+     * @remarks
+     * This method provides bind context information to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-parsedisplayname">IShellFolder::ParseDisplayName</a>. The client accesses the object by calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ibindctx-getobjectparam">IBindCtx::GetObjectParam</a> with the <i>pszKey</i> parameter set to the string "File System Bind Data".
      * @returns {WIN32_FIND_DATAW} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives the data.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata-getfinddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifilesystembinddata-getfinddata
      */
     GetFindData() {
         pfd := WIN32_FIND_DATAW()
-        result := ComCall(4, this, "ptr", pfd, "HRESULT")
+        result := ComCall(4, this, "ptr", pfd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfd
     }
 }

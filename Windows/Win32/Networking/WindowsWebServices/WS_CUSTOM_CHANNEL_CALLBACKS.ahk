@@ -11,7 +11,7 @@
  * Except where noted, each callback is responsible for validating all parameters and
  *                 that the operation requested is acceptable given the current
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_state">WS_CHANNEL_STATE</a>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_channel_callbacks
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_custom_channel_callbacks
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

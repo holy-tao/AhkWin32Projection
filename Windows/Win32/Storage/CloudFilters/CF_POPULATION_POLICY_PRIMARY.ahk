@@ -3,7 +3,7 @@
 
 /**
  * Allows a sync provider to control how placeholder directories and files should be created by the platform. This is the primary policy.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_population_policy_primary
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_population_policy_primary
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

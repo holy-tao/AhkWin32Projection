@@ -62,7 +62,7 @@
  * <td>PCIROOT(0)#PCI(1C00)#PCI(0000)#SCSI(P00T01L01)</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_prop2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_disk_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -80,8 +80,12 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {ISpeechAudioStatus} 
      */
     get_Status() {
-        result := ComCall(12, this, "ptr*", &Status := 0, "HRESULT")
-        return ISpeechAudioStatus(Status)
+        result := ComCall(12, this, "ptr*", &Status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ISpeechAudioStatus(Status_)
     }
 
     /**
@@ -89,7 +93,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {ISpeechAudioBufferInfo} 
      */
     get_BufferInfo() {
-        result := ComCall(13, this, "ptr*", &BufferInfo := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &BufferInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioBufferInfo(BufferInfo)
     }
 
@@ -98,7 +106,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {ISpeechAudioFormat} 
      */
     get_DefaultFormat() {
-        result := ComCall(14, this, "ptr*", &StreamFormat := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &StreamFormat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioFormat(StreamFormat)
     }
 
@@ -107,7 +119,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {Integer} 
      */
     get_Volume() {
-        result := ComCall(15, this, "int*", &Volume := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &Volume := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Volume
     }
 
@@ -117,7 +133,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     put_Volume(Volume) {
-        result := ComCall(16, this, "int", Volume, "HRESULT")
+        result := ComCall(16, this, "int", Volume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,7 +146,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {Integer} 
      */
     get_BufferNotifySize() {
-        result := ComCall(17, this, "int*", &BufferNotifySize := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &BufferNotifySize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BufferNotifySize
     }
 
@@ -136,7 +160,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     put_BufferNotifySize(BufferNotifySize) {
-        result := ComCall(18, this, "int", BufferNotifySize, "HRESULT")
+        result := ComCall(18, this, "int", BufferNotifySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,7 +173,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {Integer} 
      */
     get_EventHandle() {
-        result := ComCall(19, this, "int*", &EventHandle := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &EventHandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EventHandle
     }
 
@@ -155,7 +187,11 @@ class ISpeechAudio extends ISpeechBaseStream{
      * @returns {HRESULT} 
      */
     SetState(State) {
-        result := ComCall(20, this, "int", State, "HRESULT")
+        result := ComCall(20, this, "int", State, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

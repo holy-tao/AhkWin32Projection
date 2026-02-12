@@ -8,7 +8,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_query_info">PFSCE_QUERY_INFO</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nc-scesvc-pfsce_set_info">PFSCE_SET_INFO</a> functions use the 
  * <a href="https://docs.microsoft.com/windows/win32/api/scesvc/ns-scesvc-scesvc_analysis_info">SCESVC_ANALYSIS_INFO</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/scesvc/ns-scesvc-scesvc_configuration_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/scesvc/ns-scesvc-scesvc_configuration_info
  * @namespace Windows.Win32.Security.ConfigurationSnapin
  * @version v4.0.30319
  */

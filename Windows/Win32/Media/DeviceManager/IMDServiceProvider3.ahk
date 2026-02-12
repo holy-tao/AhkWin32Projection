@@ -5,7 +5,7 @@
 
 /**
  * The IMDServiceProvider3 interface extends the IMDServiceProvider2 interface by providing a method for setting the device enumeration preferences.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-imdserviceprovider3
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-imdserviceprovider3
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -31,7 +31,15 @@ class IMDServiceProvider3 extends IMDServiceProvider2{
     static VTableNames => ["SetDeviceEnumPreference"]
 
     /**
-     * The SetDeviceEnumPreference method sets the device enumeration preferences.
+     * The SetDeviceEnumPreference method sets the device enumeration preferences. (IMDServiceProvider3.SetDeviceEnumPreference)
+     * @remarks
+     * This API provides clients the ability to override the default device enumeration behavior of Windows Media Device Manager.
+     * 
+     * Client applications must call this method immediately after creating the device manager object by querying for the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdevicemanager">IWMDeviceManager</a> interface from Windows Media Device Manager. The call must be made before any enumeration occurs, either explicitly or implicitly as a result of another operation.
+     * 
+     * After a preference flag is set, it cannot be changed for the lifetime of the application (not just the lifetime of the Windows Media Device Manager object). Attempting to change a preference flag will result in an error. Calling this API again with the same flag settings does not return an error, and also does have any effect on enumeration.
+     * 
+     * The DO_NOT_VIRTUALIZE_STORAGES_AS_DEVICES flag has to be honored by the service provider to take effect. It is possible that, despite this flag, some devices are enumerated as a device-per-storage.
      * @param {Integer} dwEnumPref Contains a bitwise <b>OR</b> combination of one or more of the following bit values that specify enumeration preference. Each set bit enables the corresponding extended behavior, whereas the absence of that bit disables the extended behavior and specifies the default, backward-compatible enumeration behavior. The possible values for <i>dwEnumPref</i> are provided in the following table.
      * 
      * <table>
@@ -91,10 +99,14 @@ class IMDServiceProvider3 extends IMDServiceProvider2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdserviceprovider3-setdeviceenumpreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdserviceprovider3-setdeviceenumpreference
      */
     SetDeviceEnumPreference(dwEnumPref) {
-        result := ComCall(6, this, "uint", dwEnumPref, "HRESULT")
+        result := ComCall(6, this, "uint", dwEnumPref, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

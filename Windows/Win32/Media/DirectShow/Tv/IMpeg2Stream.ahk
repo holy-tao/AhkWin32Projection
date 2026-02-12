@@ -6,11 +6,8 @@
 /**
  * The IMpeg2Stream interface represents a stream of MPEG-2 data. The IMpeg2Data::GetStreamOfSections method returns a pointer to this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2Stream)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nn-mpeg2data-impeg2stream
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nn-mpeg2data-impeg2stream
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -102,17 +99,29 @@ class IMpeg2Stream extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-impeg2stream-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-impeg2stream-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, hDataReadyEvent) {
         hDataReadyEvent := hDataReadyEvent is Win32Handle ? NumGet(hDataReadyEvent, "ptr") : hDataReadyEvent
 
-        result := ComCall(3, this, "int", requestType, "ptr", pMpeg2Data, "ptr", pContext, "ushort", pid, "char", tid, "ptr", pFilter, "ptr", hDataReadyEvent, "HRESULT")
+        result := ComCall(3, this, "int", requestType, "ptr", pMpeg2Data, "ptr", pContext, "ushort", pid, "char", tid, "ptr", pFilter, "ptr", hDataReadyEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SupplyDataBuffer method provides a buffer for the Mpeg2Stream object to write data.
+     * @remarks
+     * The first time this method is called, it starts a worker thread that streams data to the buffer. When the data arrives, the <b>MPEG2Stream</b> object signals the event that was passed to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nf-mpeg2data-impeg2stream-initialize">IMpeg2Stream::Initialize</a> method. (Typically an application specifies the event handle when it calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nf-mpeg2data-impeg2data-getstreamofsections">IMpeg2Data::GetStreamOfSections</a>.)
+     * 
+     * When the event is signaled, examine the <b>hr</b> field of the <b>MPEG_STREAM_BUFFER</b> structure. If this value is a success code, the request was successful and the buffer contains valid data. To get more data, call the <b>SupplyDataBuffer</b> method again and wait for the event to be signaled.
+     * 
+     * The section headers are not converted from network byte order or otherwise processed.
+     * 
+     * If the object is still waiting for data, this method returns E_FAIL.
      * @param {Pointer<MPEG_STREAM_BUFFER>} pStreamBuffer Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_stream_buffer">MPEG_STREAM_BUFFER</a> structure allocated by the caller. This structure contains a pointer to the buffer, also allocated by the caller. The buffer must be at least 4096 bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -166,10 +175,14 @@ class IMpeg2Stream extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-impeg2stream-supplydatabuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-impeg2stream-supplydatabuffer
      */
     SupplyDataBuffer(pStreamBuffer) {
-        result := ComCall(4, this, "ptr", pStreamBuffer, "HRESULT")
+        result := ComCall(4, this, "ptr", pStreamBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

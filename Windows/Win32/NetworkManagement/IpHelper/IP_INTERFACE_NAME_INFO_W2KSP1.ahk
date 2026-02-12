@@ -9,7 +9,7 @@
  * The <b>MediaType</b>, <b>ConnectionType</b>, and <b>AccessType</b> members, definitions and assigned values are available from the Ipifcons.h header file.
  * 
  * The optional <b>InterfaceGuid</b> member is often set for dial-up interfaces, and can be used to distinguish multiple dial-up interfaces that share  the same  device GUID.
- * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1
+ * @see https://learn.microsoft.com/windows/win32/api//content/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -7,7 +7,6 @@
 /**
  * Exposes methods that provide an enumerator of sync handler IDs and instantiate those sync handlers.
  * @remarks
- * 
  * The author of a sync handler implements this interface to support multiple devices or computers and sync their details independently. Sync Center uses the handler collection to request instantiation of individual sync handlers. <b>ISyncMgrHandlerCollection</b> also allows a sync handler author to add handlers dynamically to Sync Center as opposed to registering each one individually in the registry.
  * 
  * The following example shows an outline implementation of this interface.
@@ -46,8 +45,7 @@
  * }
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrhandlercollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgrhandlercollection
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -74,33 +72,47 @@ class ISyncMgrHandlerCollection extends IUnknown{
 
     /**
      * Gets an enumerator that provides access to the IDs of sync handlers exposed to and managed by the user.
+     * @remarks
+     * A sync handler ID is a string that uniquely represents the handler. The ID must be unique across all handlers in the system and is limited to a maximum length of <b>MAX_SYNCMGR_ID</b>, including the terminating null character.
+     * 
+     * Earlier versions of Windows relied on GUIDs to represent handler and item IDs. Windows Vista uses strings for their greater flexibility. It is still recommended that the string contain a GUID to ensure uniqueness, but it can also contain other information of use to the handler, specific to the application or device.
      * @returns {IEnumString} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> that enumerates the IDs of known sync handlers.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrhandlercollection-gethandlerenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrhandlercollection-gethandlerenumerator
      */
     GetHandlerEnumerator() {
-        result := ComCall(3, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumString(ppenum)
     }
 
     /**
      * Instantiates a specified sync handler when called by Sync Center.
+     * @remarks
+     * It is possible for this method to be called by Sync Center without it first calling <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandlercollection-gethandlerenumerator">ISyncMgrHandlerCollection::GetHandlerEnumerator</a>. This is because Sync Center caches information about handlers and their items. The handler collection can return an interface pointer for an existing sync handler or it can create a new instance.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * The ID of the sync handler.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the requested interface. This will typically be IID_ISyncMgrHandler. If the method fails when passed IID_ISyncMgrHandler, it is recalled using IID_ISyncMgrSynchronize, the IID of the older <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrsynchronize">ISyncMgrSynchronize</a> interface. When the method returns successfully, a pointer to the requested interface is referenced in the <i>ppv</i> parameter.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains an address of a pointer to an interface representing the sync handler.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrhandlercollection-bindtohandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrhandlercollection-bindtohandler
      */
     BindToHandler(pszHandlerID, riid) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

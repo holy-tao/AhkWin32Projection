@@ -8,7 +8,7 @@
  *       
  * 
  * If rectangles are supplied in this structure, the resource must have 2D subresources with all specified subresources the same dimension.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_discard_region
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_discard_region
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

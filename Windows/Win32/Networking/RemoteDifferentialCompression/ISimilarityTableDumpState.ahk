@@ -5,7 +5,7 @@
 
 /**
  * Provides a method for retrieving information from the similarity traits list that was returned by the ISimilarityTraitsTable::BeginDump method.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-isimilaritytabledumpstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-isimilaritytabledumpstate
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -42,14 +42,18 @@ class ISimilarityTableDumpState extends IUnknown{
      * @param {Pointer<Integer>} resultsUsed A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata">SimilarityDumpData</a> structures that were returned in the buffer that the <i>results</i> parameter points to.
      * @param {Pointer<BOOL>} eof A pointer to a variable that receives <b>TRUE</b> if the end of the file is reached; otherwise, <b>FALSE</b>.
      * @param {Pointer<SimilarityDumpData>} results A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata">SimilarityDumpData</a> structures.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilaritytabledumpstate-getnextdata
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-isimilaritytabledumpstate-getnextdata
      */
     GetNextData(resultsSize, resultsUsed, eof, results) {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
         eofMarshal := eof is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", resultsSize, resultsUsedMarshal, resultsUsed, eofMarshal, eof, "ptr", results, "HRESULT")
+        result := ComCall(3, this, "uint", resultsSize, resultsUsedMarshal, resultsUsed, eofMarshal, eof, "ptr", results, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

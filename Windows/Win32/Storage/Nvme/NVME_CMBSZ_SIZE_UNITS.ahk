@@ -5,7 +5,7 @@
  * Contains values that specify the size units that indicate the size of the Controller Memory Buffer.
  * @remarks
  * The size of the Controller Memory Buffer indicated in the **SZ** member of the [NVME_CONTROLLER_MEMORY_BUFFER_SIZE](ns-nvme-nvme_controller_memory_buffer_size.md) structure is expressed in multiples of the size units value specified in the **SZU** member (offset 3Ch).
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_cmbsz_size_units
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_cmbsz_size_units
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

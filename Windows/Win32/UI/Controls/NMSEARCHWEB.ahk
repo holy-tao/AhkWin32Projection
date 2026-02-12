@@ -7,7 +7,7 @@
  * Contains information used to handle an [EN_SEARCHWEB](/windows/win32/controls/en-searchweb) notification code.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmsearchweb
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmsearchweb
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

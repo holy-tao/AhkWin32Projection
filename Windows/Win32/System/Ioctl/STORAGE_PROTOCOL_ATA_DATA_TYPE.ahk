@@ -15,7 +15,7 @@
  * * Set the **DataType** field to an enumeration value defined by **STORAGE_PROTOCOL_ATA_DATA_TYPE**:
  *   * Use **AtaDataTypeIdentify** to identify the ATA drive.
  *   * Use **AtaDataTypeLogPage** to get log pages from the ATA drive.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_protocol_ata_data_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ne-winioctl-storage_protocol_ata_data_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

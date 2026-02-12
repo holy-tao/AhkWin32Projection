@@ -1,10 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Defines the message parameters passed to a WH_CALLWNDPROCRET hook procedure, CallWndRetProc.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cwpretstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-cwpretstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */
@@ -21,9 +24,12 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {LRESULT}
      */
-    lResult {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    lResult{
+        get {
+            if(!this.HasProp("__lResult"))
+                this.__lResult := LRESULT(0, this)
+            return this.__lResult
+        }
     }
 
     /**
@@ -33,9 +39,12 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(8, this)
+            return this.__lParam
+        }
     }
 
     /**
@@ -45,9 +54,12 @@ class CWPRETSTRUCT extends Win32Struct
      * 					<b>message</b> value.
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(16, this)
+            return this.__wParam
+        }
     }
 
     /**

@@ -49,7 +49,11 @@ class IMediaTypeInfo extends IDispatch{
      */
     get_Type() {
         strType := BSTR()
-        result := ComCall(7, this, "ptr", strType, "HRESULT")
+        result := ComCall(7, this, "ptr", strType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strType
     }
 
@@ -59,7 +63,11 @@ class IMediaTypeInfo extends IDispatch{
      */
     get_Subtype() {
         strType := BSTR()
-        result := ComCall(8, this, "ptr", strType, "HRESULT")
+        result := ComCall(8, this, "ptr", strType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strType
     }
 }

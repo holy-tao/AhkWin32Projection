@@ -7,6 +7,167 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Applications use the methods of the IDirectDrawSurface7 interface to create DirectDrawSurface objects and work with system-level variables. This section is a reference to the methods of this interface.
+ * @remarks
+ * The methods of the <b>IDirectDrawSurface7</b> interface can be organized into the following groups:<table>
+ * <tr>
+ * <th>Group</th>
+ * <th>Methods</th>
+ * </tr>
+ * <tr>
+ * <td>Allocating memory</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-initialize">Initialize</a>,  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-islost">IsLost</a>,  
+ * and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-restore">Restore</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Attaching surfaces </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-addattachedsurface">AddAttachedSurface</a>,  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-deleteattachedsurface">DeleteAttachedSurface</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-enumattachedsurfaces">EnumAttachedSurfaces</a>,  
+ * and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getattachedsurface">GetAttachedSurface</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>BitBltting</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-blt">Blt</a>,  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltbatch">BltBatch</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltfast">BltFast</a>,  
+ *  and  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getbltstatus">GetBltStatus</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Color keying</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getcolorkey">GetColorKey</a>  
+ *   and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setcolorkey">SetColorKey</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Device contexts </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getdc">GetDC</a>  
+ *   and <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-releasedc">ReleaseDC</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Flipping</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-flip">Flip</a>  
+ *   and  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getflipstatus">GetFlipStatus</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Locking surfaces </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-lock">Lock</a>,  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-pagelock">PageLock</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-pageunlock">PageUnlock</a>,  
+ * and  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-unlock">Unlock</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Miscellaneous</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getddinterface">GetDDInterface</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Overlays </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-addoverlaydirtyrect">AddOverlayDirtyRect</a>,  
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-enumoverlayzorders">EnumOverlayZOrders</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getoverlayposition">GetOverlayPosition</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setoverlayposition">SetOverlayPosition</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlay">UpdateOverlay</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlaydisplay">UpdateOverlayDisplay</a>,  
+ * and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-updateoverlayzorder">UpdateOverlayZOrder</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Private surface data</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-freeprivatedata">FreePrivateData</a>, 
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getprivatedata">GetPrivateData</a>, 
+ * and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setprivatedata">SetPrivateData</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Surface capabilities </td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-getcaps">GetCaps</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Surface clipper</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getclipper">GetClipper</a>  
+ *   and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setclipper">SetClipper</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Surface characteristics</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-changeuniquenessvalue">ChangeUniquenessValue</a>, 
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getpixelformat">GetPixelFormat</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getsurfacedesc">GetSurfaceDesc</a>,  
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getuniquenessvalue">GetUniquenessValue</a>, 
+ * and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setsurfacedesc">SetSurfaceDesc</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Surface palettes</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getpalette">GetPalette</a>  
+ *   and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setpalette">SetPalette</a>
+ * </td>
+ * </tr>
+ * <tr>
+ * <td>Textures</td>
+ * <td>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getlod">GetLOD</a>, 
+ *   <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-getpriority">GetPriority</a>, 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setlod">SetLOD</a>, 
+ * and 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-setpriority">SetPriority</a>
+ * </td>
+ * </tr>
+ * </table>
+ *  
+ * 
+ * 
+ * 
+ * The <b>IDirectDrawSurface7</b> interface extends the features of previous versions of the interface by offering methods that offer better surface management and ease of use. Many methods in this interface accept slightly different parameters than their counterparts in former versions of the interface. Wherever an <b>IDirectDrawSurface3</b> interface method might accept a <a href="https://docs.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddsurfacedesc">DDSURFACEDESC</a> structure or an <b>IDirectDrawSurface3</b> interface, the methods in IDirectDrawSurface7 accept a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550340(v=vs.85)">DDSURFACEDESC2</a> structure or an <b>IDirectDrawSurface7</b> interface, instead.
+ * 
+ * 
+ * 
+ * Use the LPDIRECTDRAWSURFACE, LPDIRECTDRAWSURFACE2, LPDIRECTDRAWSURFACE3, LPDIRECTDRAWSURFACE4, or LPDIRECTDRAWSURFACE7 data type to declare a variable that points to various DirectDrawSurface object interfaces. The Ddraw.h header file declares these data types with the following code:
+ * 
+ * 
+ * 
+ * 
+ * ```
+ * 
+ * typedef struct IDirectDrawSurface     FAR *LPDIRECTDRAWSURFACE;
+ * typedef struct IDirectDrawSurface2    FAR *LPDIRECTDRAWSURFACE2;
+ * typedef struct IDirectDrawSurface3    FAR *LPDIRECTDRAWSURFACE3;
+ * typedef struct IDirectDrawSurface4    FAR *LPDIRECTDRAWSURFACE4;
+ * typedef struct IDirectDrawSurface7    FAR *LPDIRECTDRAWSURFACE7;
+ * 
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nn-ddraw-idirectdrawsurface7
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -37,7 +198,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     AddAttachedSurface(param0) {
-        result := ComCall(3, this, "ptr", param0, "HRESULT")
+        result := ComCall(3, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +212,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     AddOverlayDirtyRect(param0) {
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +230,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     Blt(param0, param1, param2, param3, param4) {
-        result := ComCall(5, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +246,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     BltBatch(param0, param1, param2) {
-        result := ComCall(6, this, "ptr", param0, "uint", param1, "uint", param2, "HRESULT")
+        result := ComCall(6, this, "ptr", param0, "uint", param1, "uint", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +264,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     BltFast(param0, param1, param2, param3, param4) {
-        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, "ptr", param3, "uint", param4, "HRESULT")
+        result := ComCall(7, this, "uint", param0, "uint", param1, "ptr", param2, "ptr", param3, "uint", param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +279,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteAttachedSurface(param0, param1) {
-        result := ComCall(8, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(8, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +296,11 @@ class IDirectDrawSurface extends IUnknown{
     EnumAttachedSurfaces(param0, param1) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "HRESULT")
+        result := ComCall(9, this, param0Marshal, param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,18 +314,27 @@ class IDirectDrawSurface extends IUnknown{
     EnumOverlayZOrders(param0, param1, param2) {
         param1Marshal := param1 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "HRESULT")
+        result := ComCall(10, this, "uint", param0, param1Marshal, param1, "ptr", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Initializes a new instance of the [FlipView](flipview.md) class.
      * @param {IDirectDrawSurface} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.controls.flipview.#ctor
      */
     Flip(param0, param1) {
-        result := ComCall(11, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(11, this, "ptr", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +344,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {IDirectDrawSurface} 
      */
     GetAttachedSurface(param0) {
-        result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawSurface(param1)
     }
 
@@ -156,7 +358,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBltStatus(param0) {
-        result := ComCall(13, this, "uint", param0, "HRESULT")
+        result := ComCall(13, this, "uint", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +372,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCaps(param0) {
-        result := ComCall(14, this, "ptr", param0, "HRESULT")
+        result := ComCall(14, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +385,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {IDirectDrawClipper} 
      */
     GetClipper() {
-        result := ComCall(15, this, "ptr*", &param0 := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &param0 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawClipper(param0)
     }
 
@@ -186,20 +400,34 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     GetColorKey(param0, param1) {
-        result := ComCall(16, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(16, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
+     * @remarks
+     * The <b>GetDC</b> function retrieves a common, class, or private DC depending on the class style of the specified window. For class and private DCs, <b>GetDC</b> leaves the previously assigned attributes unchanged. However, for common DCs, <b>GetDC</b> assigns default attributes to the DC each time it is retrieved. For example, the default font is System, which is a bitmap font. Because of this, the handle to a common DC returned by <b>GetDC</b> does not tell you what font, color, or brush was used when the window was drawn. To determine the font, call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextfacea">GetTextFace</a>.
+     * 
+     * Note that the handle to the DC can only be used by a single thread at any one time.
+     * 
+     * After painting with a common DC, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-releasedc">ReleaseDC</a> function must be called to release the DC. Class and private DCs do not have to be released. <b>ReleaseDC</b> must be called from the same thread that called <b>GetDC</b>. The number of DCs is limited only by available memory.
      * @param {Pointer<HDC>} param0 
      * @returns {HRESULT} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getdc
      */
     GetDC(param0) {
-        result := ComCall(17, this, "ptr", param0, "HRESULT")
+        result := ComCall(17, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -209,7 +437,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFlipStatus(param0) {
-        result := ComCall(18, this, "uint", param0, "HRESULT")
+        result := ComCall(18, this, "uint", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,16 +455,29 @@ class IDirectDrawSurface extends IUnknown{
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
         param1Marshal := param1 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(19, this, param0Marshal, param0, param1Marshal, param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The GetPaletteEntries function retrieves a specified range of palette entries from the given logical palette.
+     * @remarks
+     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * 
+     * If the <i>nEntries</i> parameter specifies more entries than exist in the palette, the remaining members of the <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structure are not altered.
      * @returns {IDirectDrawPalette} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getpaletteentries
      */
     GetPalette() {
-        result := ComCall(20, this, "ptr*", &param0 := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &param0 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawPalette(param0)
     }
 
@@ -241,11 +486,15 @@ class IDirectDrawSurface extends IUnknown{
      * @param {Pointer<DDPIXELFORMAT>} param0 
      * @returns {HRESULT} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getpixelformat
      */
     GetPixelFormat(param0) {
-        result := ComCall(21, this, "ptr", param0, "HRESULT")
+        result := ComCall(21, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,12 +504,29 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSurfaceDesc(param0) {
-        result := ComCall(22, this, "ptr", param0, "HRESULT")
+        result := ComCall(22, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {IDirectDraw} param0 
      * @param {Pointer<DDSURFACEDESC>} param1 
      * @returns {HRESULT} <ul>
@@ -274,10 +540,14 @@ class IDirectDrawSurface extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(param0, param1) {
-        result := ComCall(23, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -286,46 +556,84 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     IsLost() {
-        result := ComCall(24, this, "HRESULT")
+        result := ComCall(24, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Specifies whether shapes belonging to the layer are locked against being selected or edited.
+     * @remarks
+     * You can also set this value by selecting **Lock** in the **Layer Properties** dialog box (on the **Home** tab, in the **Editing** group, click **Layers**, and then click **Layer Properties**).
+     *   
+     * To get a reference to the Lock cell by name from another formula, or from a program using the **CellsU** property, use: 
+     *   
+     * ||Value |
+     * |:-----|:-----|
+     * |**Cell name:**  <br/> |Layers.Locked[ *i*  ] where  *i*  = <1>, 2, 3... |
+     *    
+     * To get a reference to the Lock cell by index from a program, use the **CellsSRC** property with the following arguments: 
+     *   
+     * ||Value |
+     * |:-----|:-----|
+     * |**Section index:**  <br/> |**visSectionLayer** <br/> |
+     * |**Row index:**  <br/> |**visRowLayer** +  *i*  where  *i*  = 0, 1, 2... |
+     * |**Cell index:**  <br/> |**visLayerLock** <br/> |
      * @param {Pointer<RECT>} param0 
      * @param {Pointer<DDSURFACEDESC>} param1 
      * @param {Integer} param2 
      * @param {HANDLE} param3 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/lock-cell-layers-section
      */
     Lock(param0, param1, param2, param3) {
         param3 := param3 is Win32Handle ? NumGet(param3, "ptr") : param3
 
-        result := ComCall(25, this, "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "HRESULT")
+        result := ComCall(25, this, "ptr", param0, "ptr", param1, "uint", param2, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
+     * @remarks
+     * The application must call the <b>ReleaseDC</b> function for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowdc">GetWindowDC</a> function and for each call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a> function that retrieves a common DC.
+     * 
+     * An application cannot use the <b>ReleaseDC</b> function to release a DC that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdca">CreateDC</a> function; instead, it must use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a> function. <b>ReleaseDC</b> must be called from the same thread that called <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a>.
      * @param {HDC} param0 
      * @returns {HRESULT} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
      * 
      * If the DC was not released, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-releasedc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-releasedc
      */
     ReleaseDC(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := ComCall(26, this, "ptr", param0, "HRESULT")
+        result := ComCall(26, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Initiates a system restore.
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/sr/restore-systemrestore
      */
     Restore() {
-        result := ComCall(27, this, "HRESULT")
+        result := ComCall(27, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -335,7 +643,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     SetClipper(param0) {
-        result := ComCall(28, this, "ptr", param0, "HRESULT")
+        result := ComCall(28, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -346,7 +658,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     SetColorKey(param0, param1) {
-        result := ComCall(29, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(29, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -357,29 +673,117 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOverlayPosition(param0, param1) {
-        result := ComCall(30, this, "int", param0, "int", param1, "HRESULT")
+        result := ComCall(30, this, "int", param0, "int", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The SetPaletteEntries function sets RGB (red, green, blue) color values and flags in a range of entries in a logical palette.
+     * @remarks
+     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
      * 
+     * Even if a logical palette has been selected and realized, changes to the palette do not affect the physical palette in the surface. <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> must be called again to set the new logical palette into the surface.
      * @param {IDirectDrawPalette} param0 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is the number of entries that were set in the logical palette.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setpaletteentries
      */
     SetPalette(param0) {
-        result := ComCall(31, this, "ptr", param0, "HRESULT")
+        result := ComCall(31, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Unlocks a region in an open file.
+     * @remarks
+     * This function always operates synchronously, but may not queue a completion entry when a completion port is associated with the file handle.
      * 
+     * Unlocking a region of a file releases a previously acquired lock on the file. The region to unlock must correspond exactly to an existing locked region. Two adjacent regions of a file cannot be locked separately and then unlocked using a single region that spans both locked regions.
+     * 
+     * If a process terminates with a portion of a file locked or closes a file that has outstanding locks, the locks are unlocked by the operating system. However, the time it takes for the operating system to unlock these locks depends upon available system resources. Therefore, it is recommended that your process explicitly unlock all files it has locked when it terminates. If this is not done, access to these files may be denied if the operating system has not yet unlocked them.
+     * 
+     * In Windows 8 and Windows Server 2012, this function is supported by the following technologies.
+     * 
+     * <table>
+     * <tr>
+     * <th>Technology</th>
+     * <th>Supported</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * Server Message Block (SMB) 3.0 protocol
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * SMB 3.0 Transparent Failover (TFO)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * SMB 3.0 with Scale-out File Shares (SO)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Cluster Shared Volume File System (CsvFS)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Resilient File System (ReFS)
+     * 
+     * </td>
+     * <td>
+     * Yes
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer<Void>} param0 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-unlockfile
      */
     Unlock(param0) {
         param0Marshal := param0 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(32, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(32, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -393,7 +797,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateOverlay(param0, param1, param2, param3, param4) {
-        result := ComCall(33, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "HRESULT")
+        result := ComCall(33, this, "ptr", param0, "ptr", param1, "ptr", param2, "uint", param3, "ptr", param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -403,7 +811,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateOverlayDisplay(param0) {
-        result := ComCall(34, this, "uint", param0, "HRESULT")
+        result := ComCall(34, this, "uint", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -414,7 +826,11 @@ class IDirectDrawSurface extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateOverlayZOrder(param0, param1) {
-        result := ComCall(35, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(35, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

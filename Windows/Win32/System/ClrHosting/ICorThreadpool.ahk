@@ -33,18 +33,22 @@ class ICorThreadpool extends IUnknown{
      * @param {Pointer<HANDLE>} phNewWaitObject 
      * @param {HANDLE} hWaitObject 
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Integer} timeout 
      * @param {BOOL} executeOnlyOnce 
      * @returns {BOOL} 
      */
-    CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, Context, timeout, executeOnlyOnce) {
+    CorRegisterWaitForSingleObject(phNewWaitObject, hWaitObject, Callback, Context_, timeout, executeOnlyOnce) {
         hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, ContextMarshal, Context, "uint", timeout, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", phNewWaitObject, "ptr", hWaitObject, "ptr", Callback, Context_Marshal, Context_, "uint", timeout, "int", executeOnlyOnce, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
@@ -57,22 +61,30 @@ class ICorThreadpool extends IUnknown{
         hWaitObject := hWaitObject is Win32Handle ? NumGet(hWaitObject, "ptr") : hWaitObject
         CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
 
-        result := ComCall(4, this, "ptr", hWaitObject, "ptr", CompletionEvent, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hWaitObject, "ptr", CompletionEvent, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
      * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {BOOL} executeOnlyOnce 
      * @returns {BOOL} 
      */
-    CorQueueUserWorkItem(Function, Context, executeOnlyOnce) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    CorQueueUserWorkItem(Function, Context_, executeOnlyOnce) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Function, ContextMarshal, Context, "int", executeOnlyOnce, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", Function, Context_Marshal, Context_, "int", executeOnlyOnce, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
@@ -87,8 +99,12 @@ class ICorThreadpool extends IUnknown{
     CorCreateTimer(phNewTimer, Callback, Parameter, DueTime, Period) {
         ParameterMarshal := Parameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", phNewTimer, "ptr", Callback, ParameterMarshal, Parameter, "uint", DueTime, "uint", Period, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
@@ -101,8 +117,12 @@ class ICorThreadpool extends IUnknown{
     CorChangeTimer(Timer, DueTime, Period) {
         Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
 
-        result := ComCall(7, this, "ptr", Timer, "uint", DueTime, "uint", Period, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", Timer, "uint", DueTime, "uint", Period, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
@@ -115,8 +135,12 @@ class ICorThreadpool extends IUnknown{
         Timer := Timer is Win32Handle ? NumGet(Timer, "ptr") : Timer
         CompletionEvent := CompletionEvent is Win32Handle ? NumGet(CompletionEvent, "ptr") : CompletionEvent
 
-        result := ComCall(8, this, "ptr", Timer, "ptr", CompletionEvent, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", Timer, "ptr", CompletionEvent, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
@@ -128,21 +152,29 @@ class ICorThreadpool extends IUnknown{
     CorBindIoCompletionCallback(fileHandle, callback) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
 
-        result := ComCall(9, this, "ptr", fileHandle, "ptr", callback, "HRESULT")
+        result := ComCall(9, this, "ptr", fileHandle, "ptr", callback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} Function 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @returns {BOOL} 
      */
-    CorCallOrQueueUserWorkItem(Function, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    CorCallOrQueueUserWorkItem(Function, Context_) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", Function, ContextMarshal, Context, "int*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", Function, Context_Marshal, Context_, "int*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
@@ -152,7 +184,11 @@ class ICorThreadpool extends IUnknown{
      * @returns {HRESULT} 
      */
     CorSetMaxThreads(MaxWorkerThreads, MaxIOCompletionThreads) {
-        result := ComCall(11, this, "uint", MaxWorkerThreads, "uint", MaxIOCompletionThreads, "HRESULT")
+        result := ComCall(11, this, "uint", MaxWorkerThreads, "uint", MaxIOCompletionThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +202,11 @@ class ICorThreadpool extends IUnknown{
         MaxWorkerThreadsMarshal := MaxWorkerThreads is VarRef ? "uint*" : "ptr"
         MaxIOCompletionThreadsMarshal := MaxIOCompletionThreads is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, MaxWorkerThreadsMarshal, MaxWorkerThreads, MaxIOCompletionThreadsMarshal, MaxIOCompletionThreads, "HRESULT")
+        result := ComCall(12, this, MaxWorkerThreadsMarshal, MaxWorkerThreads, MaxIOCompletionThreadsMarshal, MaxIOCompletionThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +220,11 @@ class ICorThreadpool extends IUnknown{
         AvailableWorkerThreadsMarshal := AvailableWorkerThreads is VarRef ? "uint*" : "ptr"
         AvailableIOCompletionThreadsMarshal := AvailableIOCompletionThreads is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, AvailableWorkerThreadsMarshal, AvailableWorkerThreads, AvailableIOCompletionThreadsMarshal, AvailableIOCompletionThreads, "HRESULT")
+        result := ComCall(13, this, AvailableWorkerThreadsMarshal, AvailableWorkerThreads, AvailableIOCompletionThreadsMarshal, AvailableIOCompletionThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

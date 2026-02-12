@@ -5,7 +5,7 @@
  * Computes the 2-argument arctangent for each element of *ATensor* and *BTensor*, where *ATensor* is the *Y-axis* and *BTensor* is the *X-axis*, placing the result into the corresponding element of *OutputTensor*.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_atan_yx_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_element_wise_atan_yx_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

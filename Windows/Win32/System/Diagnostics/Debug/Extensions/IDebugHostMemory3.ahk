@@ -31,13 +31,17 @@ class IDebugHostMemory3 extends IDebugHostMemory2{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
-     * @param {Location} location 
+     * @param {IDebugHostContext} context_ 
+     * @param {Location} location_ 
      * @returns {Location} 
      */
-    CanonicalizeLocation(context, location) {
+    CanonicalizeLocation(context_, location_) {
         pCanonicalizedLocation := Location()
-        result := ComCall(9, this, "ptr", context, "ptr", location, "ptr", pCanonicalizedLocation, "HRESULT")
+        result := ComCall(9, this, "ptr", context_, "ptr", location_, "ptr", pCanonicalizedLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCanonicalizedLocation
     }
 }

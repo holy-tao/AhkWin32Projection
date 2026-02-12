@@ -5,7 +5,7 @@
 
 /**
  * The IAMClockSlave interface controls the tolerance of an audio renderer when it is matching rates with another clock.If the audio renderer is matching rates with another clock, it allows the audio to drift up to the amount of the specified tolerance.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamclockslave
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamclockslave
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IAMClockSlave extends IUnknown{
 
     /**
      * The SetErrorTolerance method sets the audio renderer's rate-matching tolerance.
+     * @remarks
+     * Changing the tolerance has no effect unless the audio renderer is matching rates with a different clock. If the audio renderer is the reference clock, the audio is always synchronized to the clock (by definition).
+     * 
+     * This method fails if the filter graph is not stopped.
      * @param {Integer} dwTolerance Specifies the maximum tolerance, in milliseconds. The value must be from 1 to 1000, inclusive.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -74,20 +78,28 @@ class IAMClockSlave extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamclockslave-seterrortolerance
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamclockslave-seterrortolerance
      */
     SetErrorTolerance(dwTolerance) {
-        result := ComCall(3, this, "uint", dwTolerance, "HRESULT")
+        result := ComCall(3, this, "uint", dwTolerance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetErrorTolerance method retrieves the audio renderer's rate-matching tolerance.
      * @returns {Integer} Pointer to a variable that receives the maximum tolerance, in milliseconds.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamclockslave-geterrortolerance
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamclockslave-geterrortolerance
      */
     GetErrorTolerance() {
-        result := ComCall(4, this, "uint*", &pdwTolerance := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwTolerance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwTolerance
     }
 }

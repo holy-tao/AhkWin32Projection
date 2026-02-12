@@ -33,7 +33,11 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {BOOL} 
      */
     IsAtWordBreak() {
-        result := ComCall(24, this, "int*", &pfAtBreak := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &pfAtBreak := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAtBreak
     }
 
@@ -42,7 +46,11 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {Integer} 
      */
     GetMarkupPosition() {
-        result := ComCall(25, this, "int*", &plMP := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &plMP := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMP
     }
 
@@ -53,7 +61,11 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {HRESULT} 
      */
     MoveToMarkupPosition(pContainer, lMP) {
-        result := ComCall(26, this, "ptr", pContainer, "int", lMP, "HRESULT")
+        result := ComCall(26, this, "ptr", pContainer, "int", lMP, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {HRESULT} 
      */
     MoveUnitBounded(muAction, pIBoundary) {
-        result := ComCall(27, this, "int", muAction, "ptr", pIBoundary, "HRESULT")
+        result := ComCall(27, this, "int", muAction, "ptr", pIBoundary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +90,11 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {BOOL} 
      */
     IsInsideURL(pRight) {
-        result := ComCall(28, this, "ptr", pRight, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", pRight, "int*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -85,7 +105,11 @@ class IMarkupPointer2 extends IMarkupPointer{
      * @returns {HRESULT} 
      */
     MoveToContent(pIElement, fAtStart) {
-        result := ComCall(29, this, "ptr", pIElement, "int", fAtStart, "HRESULT")
+        result := ComCall(29, this, "ptr", pIElement, "int", fAtStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

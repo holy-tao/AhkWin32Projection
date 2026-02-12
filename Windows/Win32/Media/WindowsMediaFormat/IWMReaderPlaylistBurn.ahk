@@ -5,7 +5,7 @@
 
 /**
  * The IWMReaderPlaylistBurn interface verifies that the files in a playlist can be copied to CD, in the order in which they are specified.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderplaylistburn
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmreaderplaylistburn
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMReaderPlaylistBurn extends IUnknown{
 
     /**
      * The InitPlaylistBurn method initiates the playlist burning process, by checking the files in the playlist to ensure that they are licensed for copying as part of a playlist.
+     * @remarks
+     * This method executes asynchronously. When it is finished, a WMT_INIT_PLAYLIST_BURN message is sent to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">OnStatus</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface identified by the <i>pCallback</i> parameter.
+     * 
+     * The files are checked to determine whether they are DRM-protected. If a file is protected, its license is checked to verify that the license allows copying to CD as part of a playlist.
      * @param {Integer} cFiles Number of files in the playlist. This is also the number of members in the array of file names referenced by <i>pwszFilenames</i>.
      * @param {Pointer<PWSTR>} ppwszFilenames Address of an array of <b>WCHAR</b> strings. Each string contains the name of a file in the playlist. You must maintain the file order exactly as it exists in the playlist.
      * @param {IWMStatusCallback} pCallback Address of the <b>IWMStatusCallback</b> implementation that will receive the WMT_INIT_PLAYLIST_BURN status message.
@@ -55,29 +59,43 @@ class IWMReaderPlaylistBurn extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn
      */
     InitPlaylistBurn(cFiles, ppwszFilenames, pCallback, pvContext) {
         ppwszFilenamesMarshal := ppwszFilenames is VarRef ? "ptr*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", cFiles, ppwszFilenamesMarshal, ppwszFilenames, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, "uint", cFiles, ppwszFilenamesMarshal, ppwszFilenames, "ptr", pCallback, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetInitResults method retrieves the results of the playlist file check.
+     * @remarks
+     * This method should be called in response to a WMT_INIT_PLAYLIST_BURN message received by your implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> method. If you call <b>GetInitResults</b> without first calling <b>InitPlaylistBurn</b> and receiving the WMT_INIT_PLAYLIST_BURN message, <b>GetInitResults</b> will return an error code.
+     * 
+     * If, after calling this method, all members of the array referenced by <i>phrStati</i> are set to S_OK, you can begin copying the files in the playlist. However, you must use the same instance of the reader object for retrieving data that you used to get the <b>IWMReaderPlaylistBurn</b> interface.
      * @param {Integer} cFiles Number of files in the playlist. This is also the number of members in the array referenced by <i>phrStati</i>. This value must be the same as the number of files specified in the original call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn">InitPlaylistBurn</a>.
      * @returns {HRESULT} Address of an array of <b>HRESULT</b> values. The members of this array correspond to the file names passed in the original call to <b>InitPlaylistBurn</b>. On output, each member is set to S_OK if the corresponding file is approved for copying as part of the playlist. If a file in the playlist is not licensed for copying, or if an error is encountered, the corresponding member of this array is set to the appropriate <b>HRESULT</b> return code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-getinitresults
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-getinitresults
      */
     GetInitResults(cFiles) {
-        result := ComCall(4, this, "uint", cFiles, "int*", &phrStati := 0, "HRESULT")
+        result := ComCall(4, this, "uint", cFiles, "int*", &phrStati := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phrStati
     }
 
     /**
      * The Cancel method cancels an initiated playlist burn before initialization is finished.
+     * @remarks
+     * You should call this method to cancel the playlist burn process only after calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-initplaylistburn">InitPlaylistBurn</a> and before your status callback receives the WMT_INIT_PLAYLIST_BURN message. If you need to cancel the playlist burn after initialization is finished, you should call the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-endplaylistburn">EndPlaylistBurn</a> method and pass the E_ABORT error code.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -97,15 +115,21 @@ class IWMReaderPlaylistBurn extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-cancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-cancel
      */
     Cancel() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EndPlaylistBurn method completes the playlist burn process. This includes releasing resources and adjusting counts associated with rights in DRM licenses.
+     * @remarks
+     * To abort the playlist burn process after your status callback receives the WMT_INIT_PLAYLIST_BURN message, pass the E_ABORT error code. To stop the process before initialization is complete, call the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-cancel">Cancel</a> method.
      * @param {HRESULT} hrBurnResult Result of the playlist burn. Set to S_OK if the files in the playlist were successfully copied to CD. Otherwise, set to an appropriate <b>HRESULT</b> error code.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -126,10 +150,14 @@ class IWMReaderPlaylistBurn extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-endplaylistburn
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderplaylistburn-endplaylistburn
      */
     EndPlaylistBurn(hrBurnResult) {
-        result := ComCall(6, this, "int", hrBurnResult, "HRESULT")
+        result := ComCall(6, this, "int", hrBurnResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

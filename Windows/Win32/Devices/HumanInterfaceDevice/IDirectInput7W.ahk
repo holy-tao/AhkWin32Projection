@@ -40,7 +40,11 @@ class IDirectInput7W extends IDirectInput2W{
     CreateDeviceEx(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

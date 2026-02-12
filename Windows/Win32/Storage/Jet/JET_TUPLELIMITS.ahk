@@ -3,7 +3,7 @@
 
 /**
  * Learn more about: JET_TUPLELIMITS Structure
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-tuplelimits-structure
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-tuplelimits-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

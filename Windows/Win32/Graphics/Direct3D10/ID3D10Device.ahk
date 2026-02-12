@@ -24,11 +24,8 @@
 /**
  * The device interface represents a virtual adapter for Direct3D 10.0; it is used to perform rendering and create Direct3D resources.
  * @remarks
- * 
  * A device is created using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createdevice">D3D10CreateDevice</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10device
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nn-d3d10-id3d10device
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -56,10 +53,7 @@ class ID3D10Device extends IUnknown{
     /**
      * Set the constant buffers used by the vertex shader pipeline stage.
      * @remarks
-     * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting constant buffers to.
@@ -70,23 +64,20 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of constant buffers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) being given to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vssetconstantbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vssetconstantbuffers
      */
     VSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
         ComCall(3, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
     }
 
     /**
-     * Bind an array of shader resources to the pixel shader stage.
+     * Bind an array of shader resources to the pixel shader stage. (ID3D10Device.PSSetShaderResources)
      * @remarks
-     * 
      * If you bind a subresource as an input and an output, this API will fill the destination shader resource slot with <b>NULL</b>. The debug layer (when active) will alert you if this is true.
      * 
      * For information about creating shader-resource views, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createshaderresourceview">ID3D10Device::CreateShaderResourceView</a>.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting shader resources to.
@@ -97,33 +88,29 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">shader resource view</a> interfaces to set to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-pssetshaderresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-pssetshaderresources
      */
     PSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
         ComCall(4, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
     }
 
     /**
-     * Sets a pixel shader to the device.
+     * Sets a pixel shader to the device. (ID3D10Device.PSSetShader)
      * @remarks
-     * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10PixelShader} pPixelShader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader</a>*</b>
      * 
      * Pointer to a pixel shader (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader</a>). Passing in <b>NULL</b> disables the shader for this pipeline stage.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-pssetshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-pssetshader
      */
     PSSetShader(pPixelShader) {
         ComCall(5, this, "ptr", pPixelShader)
     }
 
     /**
-     * Set an array of sampler states to the pixel shader pipeline stage.
+     * Set an array of sampler states to the pixel shader pipeline stage. (ID3D10Device.PSSetSamplers)
      * @remarks
-     * 
      * Any sampler may be set to <b>NULL</b>; this invokes the default state, which is defined to be the following.
      * 
      * <table>
@@ -187,8 +174,6 @@ class ID3D10Device extends IUnknown{
      *  
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting samplers to.
@@ -199,63 +184,54 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to an array of sampler-state interfaces (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>). See Remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-pssetsamplers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-pssetsamplers
      */
     PSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
         ComCall(6, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
     }
 
     /**
-     * Set a vertex shader to the device.
+     * Set a vertex shader to the device. (ID3D10Device.VSSetShader)
      * @remarks
-     * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10VertexShader} pVertexShader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader</a>*</b>
      * 
      * Pointer to a vertex shader (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader</a>). Passing in <b>NULL</b> disables the shader for this pipeline stage.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vssetshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vssetshader
      */
     VSSetShader(pVertexShader) {
         ComCall(7, this, "ptr", pVertexShader)
     }
 
     /**
-     * Draw indexed, non-instanced primitives.
+     * Draw indexed, non-instanced primitives. (ID3D10Device.DrawIndexed)
      * @remarks
-     * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">draw API</a> submits work to the rendering pipeline.
      * 
      * If the sum of both indices is negative, the result of the function call is undefined.
-     * 
-     * 
      * @param {Integer} IndexCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of indices to draw.
      * @param {Integer} StartIndexLocation Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * Index of the first index to use when accesssing the vertex buffer; begin at <i>StartIndexLocation</i> to index vertices from the vertex buffer.
+     * Index of the first index to use when accessing the vertex buffer; begin at <i>StartIndexLocation</i> to index vertices from the vertex buffer.
      * @param {Integer} BaseVertexLocation Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
      * Offset from the start of the vertex buffer to the first vertex.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-drawindexed
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-drawindexed
      */
     DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation) {
         ComCall(8, this, "uint", IndexCount, "uint", StartIndexLocation, "int", BaseVertexLocation)
     }
 
     /**
-     * Draw non-indexed, non-instanced primitives.
+     * Draw non-indexed, non-instanced primitives. (ID3D10Device.Draw)
      * @remarks
-     * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">draw API</a> submits work to the rendering pipeline.
      * 
      * The vertex data for a draw call normally comes from a vertex buffer that is bound to the pipeline. However, you could also provide the vertex data from a shader that has vertex data marked with the <b>SV_VertexId</b> <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">system-value semantic</a>.
-     * 
-     * 
      * @param {Integer} VertexCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of vertices to draw.
@@ -263,7 +239,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Index of the first vertex, which is usually an offset in a vertex buffer; it could also be used as the first vertex id generated for a shader parameter marked with the <b>SV_TargetId</b> <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">system-value semantic</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-draw
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-draw
      */
     Draw(VertexCount, StartVertexLocation) {
         ComCall(9, this, "uint", VertexCount, "uint", StartVertexLocation)
@@ -272,10 +248,7 @@ class ID3D10Device extends IUnknown{
     /**
      * Set the constant buffers used by the pixel shader pipeline stage.
      * @remarks
-     * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting constant buffers to.
@@ -286,35 +259,31 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of constant buffers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) being given to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-pssetconstantbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-pssetconstantbuffers
      */
     PSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
         ComCall(10, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
     }
 
     /**
-     * Bind an input-layout object to the input-assembler stage.
+     * Bind an input-layout object to the input-assembler stage. (ID3D10Device.IASetInputLayout)
      * @remarks
-     * 
      * Input-layout objects describe how vertex buffer data is streamed into the IA pipeline stage. To create an input-layout object, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createinputlayout">ID3D10Device::CreateInputLayout</a>.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10InputLayout} pInputLayout Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10inputlayout">ID3D10InputLayout</a>*</b>
      * 
      * A pointer to the input-layout object (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10inputlayout">ID3D10InputLayout</a>), which describes the input buffers that will be read by the IA stage.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iasetinputlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iasetinputlayout
      */
     IASetInputLayout(pInputLayout) {
         ComCall(11, this, "ptr", pInputLayout)
     }
 
     /**
-     * Bind an array of vertex buffers to the input-assembler stage.
+     * Bind an array of vertex buffers to the input-assembler stage. (ID3D10Device.IASetVertexBuffers)
      * @remarks
-     * 
      * For information about creating vertex buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating">Create a Vertex Buffer</a>.
      * 
      * Calling this method using a buffer that is currently bound for writing (i.e. bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage">stream output</a> pipeline stage) will effectively bind <b>NULL</b> instead because a buffer cannot be bound as both an input and an output at the same time.
@@ -322,8 +291,6 @@ class ID3D10Device extends IUnknown{
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">Debug Layer</a> will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The first <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">input slot</a> for binding. The first vertex buffer is explicitly bound to the start slot; this causes each additional vertex buffer in the array to be implicitly bound to each subsequent input slot. A maximum of 16 or 32 input slots (ranges from 0 to either D3D10_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT - 1 or D3D10_1_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT - 1) are available; the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">maximum number of input slots depends on the feature level</a>.
@@ -340,7 +307,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to an array of offset values; one offset value for each buffer in the vertex-buffer array. Each offset is the number of bytes between the first element of a vertex buffer and the first element that will be used.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iasetvertexbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iasetvertexbuffers
      */
     IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets) {
         pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
@@ -350,9 +317,8 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Bind an index buffer to the input-assembler stage.
+     * Bind an index buffer to the input-assembler stage. (ID3D10Device.IASetIndexBuffer)
      * @remarks
-     * 
      * For information about creating index buffers, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating">Create an Index Buffer</a>.
      * 
      * Calling this method using a buffer that is currently bound for writing (i.e. bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage">stream output</a> pipeline stage) will effectively bind <b>NULL</b> instead because a buffer cannot be bound as both an input and an output at the same time.
@@ -360,8 +326,6 @@ class ID3D10Device extends IUnknown{
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">Debug Layer</a> will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10Buffer} pIndexBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>*</b>
      * 
      * A pointer to a buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) that contains indices. The index buffer must have been created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_INDEX_BUFFER</a> flag.
@@ -372,21 +336,18 @@ class ID3D10Device extends IUnknown{
      * 
      * Offset (in bytes) from the start of the index buffer to the first index to use.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iasetindexbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iasetindexbuffer
      */
     IASetIndexBuffer(pIndexBuffer, Format, Offset) {
         ComCall(13, this, "ptr", pIndexBuffer, "int", Format, "uint", Offset)
     }
 
     /**
-     * Draw indexed, instanced primitives.
+     * Draw indexed, instanced primitives. (ID3D10Device.DrawIndexedInstanced)
      * @remarks
-     * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">draw API</a> submits work to the rendering pipeline.
      * 
      * Instancing may extend performance by reusing the same geometry to draw multiple objects in a scene. One example of instancing could be to draw the same object with different positions and colors. Indexing requires multiple vertex buffers: at least one for per-vertex data and a second buffer for per-instance data. For an example of instancing, see the <a href="https://msdn.microsoft.com/library/Ee416415(v=VS.85).aspx">Instancing10 Sample</a>.
-     * 
-     * 
      * @param {Integer} IndexCountPerInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Size of the index buffer used in each instance.
@@ -403,23 +364,20 @@ class ID3D10Device extends IUnknown{
      * 
      * Index of the first instance.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-drawindexedinstanced
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-drawindexedinstanced
      */
     DrawIndexedInstanced(IndexCountPerInstance, InstanceCount, StartIndexLocation, BaseVertexLocation, StartInstanceLocation) {
         ComCall(14, this, "uint", IndexCountPerInstance, "uint", InstanceCount, "uint", StartIndexLocation, "int", BaseVertexLocation, "uint", StartInstanceLocation)
     }
 
     /**
-     * Draw non-indexed, instanced primitives.
+     * Draw non-indexed, instanced primitives. (ID3D10Device.DrawInstanced)
      * @remarks
-     * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">draw API</a> submits work to the rendering pipeline.
      * 
      * Instancing may extend performance by reusing the same geometry to draw multiple objects in a scene. One example of instancing could be to draw the same object with different positions and colors. For an example of instancing, see the <a href="https://msdn.microsoft.com/library/Ee416415(v=VS.85).aspx">Instancing10 Sample</a>.
      * 
      * The vertex data for an instanced draw call normally comes from a vertex buffer that is bound to the pipeline. However, you could also provide the vertex data from a shader that has instanced data identified with a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">system-value semantic</a> (SV_InstanceID).
-     * 
-     * 
      * @param {Integer} VertexCountPerInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of vertices to draw.
@@ -433,7 +391,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Index of the first instance.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-drawinstanced
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-drawinstanced
      */
     DrawInstanced(VertexCountPerInstance, InstanceCount, StartVertexLocation, StartInstanceLocation) {
         ComCall(15, this, "uint", VertexCountPerInstance, "uint", InstanceCount, "uint", StartVertexLocation, "uint", StartInstanceLocation)
@@ -442,10 +400,7 @@ class ID3D10Device extends IUnknown{
     /**
      * Set the constant buffers used by the geometry shader pipeline stage.
      * @remarks
-     * 
      * The method will not hold references to the interfaces passed in. For that reason, applications should be careful not to release interfaces currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting constant buffers to.
@@ -456,36 +411,33 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of constant buffers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) being given to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gssetconstantbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gssetconstantbuffers
      */
     GSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
         ComCall(16, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
     }
 
     /**
-     * Set a geometry shader to the device.
+     * Set a geometry shader to the device. (ID3D10Device.GSSetShader)
      * @remarks
-     * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10GeometryShader} pShader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>*</b>
      * 
      * Pointer to a geometry shader (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>). Passing in <b>NULL</b> disables the shader for this pipeline stage.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gssetshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gssetshader
      */
     GSSetShader(pShader) {
         ComCall(17, this, "ptr", pShader)
     }
 
     /**
-     * Bind information about the primitive type, and data order that describes input data for the input assembler stage.
+     * Bind information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D10Device.IASetPrimitiveTopology)
      * @param {Integer} Topology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a></b>
      * 
      * The type of primitive and ordering of the primitive data (see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iasetprimitivetopology
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iasetprimitivetopology
      */
     IASetPrimitiveTopology(Topology) {
         ComCall(18, this, "int", Topology)
@@ -494,14 +446,11 @@ class ID3D10Device extends IUnknown{
     /**
      * Bind an array of shader resources to the vertex shader stage.
      * @remarks
-     * 
      * If you bind a subresource as an input and an output, this API will fill the destination shader resource slot with <b>NULL</b>. The debug layer (when active) will alert you if this is true.
      * 
      * For information about creating shader-resource views, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createshaderresourceview">ID3D10Device::CreateShaderResourceView</a>.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting shader resources to.
@@ -512,16 +461,15 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">shader resource view</a> interfaces to set to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vssetshaderresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vssetshaderresources
      */
     VSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
         ComCall(19, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
     }
 
     /**
-     * Set an array of sampler states to the vertex shader pipeline stage.
+     * Set an array of sampler states to the vertex shader pipeline stage. (ID3D10Device.VSSetSamplers)
      * @remarks
-     * 
      * Any sampler may be set to <b>NULL</b>; this invokes the default state, which is defined to be the following.
      * 
      * 
@@ -547,8 +495,6 @@ class ID3D10Device extends IUnknown{
      * 
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting samplers to.
@@ -559,47 +505,41 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to an array of sampler-state interfaces (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>). See Remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vssetsamplers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vssetsamplers
      */
     VSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
         ComCall(20, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
     }
 
     /**
-     * Set a rendering predicate.
+     * Set a rendering predicate. (ID3D10Device.SetPredication)
      * @remarks
-     * 
      * The predicate must be in the "issued" or "signaled" state to be used for predication. While the predicate is set for predication, calls to <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-begin">ID3D10Asynchronous::Begin</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-end">ID3D10Asynchronous::End</a> are invalid.
      * 
      * This method is used to denote that subsequent rendering and resource manipulation commands are not actually performed if the resulting Predicate data of the Predicate is equal to the PredicateValue. However, some Predicates are only hints, so they may not actually prevent operations from being performed. 
      * 
-     * The primary usefulness of Predication is to allow an application to issue graphics commands without taking the performance hit of spinning, waiting for <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-getdata">ID3D10Asynchronous::GetData</a> to return. So, Predication can occur while <b>ID3D10Asynchronous::GetData</b> returns S_FALSE. Another way to think of it: an application can also use Predication as a fallback, if it is possible that <b>ID3D10Asynchronous::GetData</b> returns S_FALSE. If <b>ID3D10Asynchronous::GetData</b> returns S_OK, the application can skip calling the graphics commands manually with it's own application logic.
-     * 
-     * 
+     * The primary usefulness of Predication is to allow an application to issue graphics commands without taking the performance hit of spinning, waiting for <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-getdata">ID3D10Asynchronous::GetData</a> to return. So, Predication can occur while <b>ID3D10Asynchronous::GetData</b> returns S_FALSE. Another way to think of it: an application can also use Predication as a fallback, if it is possible that <b>ID3D10Asynchronous::GetData</b> returns S_FALSE. If <b>ID3D10Asynchronous::GetData</b> returns S_OK, the application can skip calling the graphics commands manually with its own application logic.
      * @param {ID3D10Predicate} pPredicate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate</a>*</b>
      * 
-     * Pointer to a predicate (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate</a>). A <b>NULL</b> value indicates "no" predication; in this case, the value of PredicateValue is irrelevent but will be preserved for <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-getpredication">ID3D10Device::GetPredication</a>.
+     * Pointer to a predicate (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate</a>). A <b>NULL</b> value indicates "no" predication; in this case, the value of PredicateValue is irrelevant but will be preserved for <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-getpredication">ID3D10Device::GetPredication</a>.
      * @param {BOOL} PredicateValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>TRUE</b>, rendering will be affected by when the predicate's conditions are met. If <b>FALSE</b>, rendering will be affected when the conditions are not met.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-setpredication
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-setpredication
      */
     SetPredication(pPredicate, PredicateValue) {
         ComCall(21, this, "ptr", pPredicate, "int", PredicateValue)
     }
 
     /**
-     * Bind an array of shader resources to the geometry shader stage.
+     * Bind an array of shader resources to the geometry shader stage. (ID3D10Device.GSSetShaderResources)
      * @remarks
-     * 
      * If you bind a subresource as an input and an output, this API will fill the destination shader resource slot with <b>NULL</b>. The debug layer (when active) will alert you if this is true.
      * 
      * For information about creating shader-resource views, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createshaderresourceview">ID3D10Device::CreateShaderResourceView</a>.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting shader resources to.
@@ -610,16 +550,15 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">shader resource view</a> interfaces to set to the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gssetshaderresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gssetshaderresources
      */
     GSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
         ComCall(22, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
     }
 
     /**
-     * Set an array of sampler states to the geometry shader pipeline stage.
+     * Set an array of sampler states to the geometry shader pipeline stage. (ID3D10Device.GSSetSamplers)
      * @remarks
-     * 
      * Any sampler may be set to <b>NULL</b>; this invokes the default state, which is defined to be the following.
      * 
      * 
@@ -645,8 +584,6 @@ class ID3D10Device extends IUnknown{
      * 
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin setting samplers to.
@@ -657,7 +594,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to an array of sampler-state interfaces (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>). See Remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gssetsamplers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gssetsamplers
      */
     GSSetSamplers(StartSlot, NumSamplers, ppSamplers) {
         ComCall(23, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
@@ -666,7 +603,6 @@ class ID3D10Device extends IUnknown{
     /**
      * Bind one or more render targets and the depth-stencil buffer to the output-merger stage.
      * @remarks
-     * 
      * A call to <b>OMSetRenderTargets</b> overrides all bounded render targets and the depth stencil target regardless of the number of render targets in <i>ppRenderTargetViews</i>.
      * 
      * The maximum number of render targets a device can have active at any given time is set by a #define in D3D10.h called D3D10_SIMULTANEOUS_RENDER_TARGET_COUNT. It is invalid to try to set the same <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresource</a> to multiple render target slots.
@@ -682,8 +618,6 @@ class ID3D10Device extends IUnknown{
      * Any combination of the eight slots for render targets can have a render target set or not set.
      * 
      * The same resource view cannot be bound to multiple render target slots simultaneously. However, you can set multiple non-overlapping resource views of a single resource as simultaneous multiple render targets.
-     * 
-     * 
      * @param {Integer} NumViews Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of render targets to bind.
@@ -694,16 +628,15 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to a depth-stencil view (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>) to bind to the device. If this parameter is <b>NULL</b>, the depth-stencil state is not bound.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-omsetrendertargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-omsetrendertargets
      */
     OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView) {
         ComCall(24, this, "uint", NumViews, "ptr*", ppRenderTargetViews, "ptr", pDepthStencilView)
     }
 
     /**
-     * Set the blend state of the output-merger stage.
+     * Set the blend state of the output-merger stage. (ID3D10Device.OMSetBlendState)
      * @remarks
-     * 
      * Blend state is used by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> to determine how to blend together two RGB pixel values and two alpha values. The two RGB pixel values and two alpha values are the RGB pixel value and alpha value that the pixel shader outputs and the RGB pixel value and alpha value already in the output render target. The <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_blend">blend option</a> controls the data source that the blending stage uses to modulate values for the pixel shader, render target, or both. The <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_blend_op">blend operation</a> controls how the blending stage mathematically combines these modulated values.
      * 
      * To create a blend-state interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createblendstate">ID3D10Device::CreateBlendState</a>.
@@ -757,8 +690,6 @@ class ID3D10Device extends IUnknown{
      * A sample mask determines which samples get updated in all the active render targets. The mapping of bits in a sample mask to samples in a multisample render target is the responsibility of an individual application. A sample mask is always applied; it is independent of whether multisampling is enabled, and does not depend on whether an application uses multisample render targets.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10BlendState} pBlendState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState</a>*</b>
      * 
      * Pointer to a blend-state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState</a>). Passing in <b>NULL</b> implies a default blend state. See remarks for further details.
@@ -769,7 +700,7 @@ class ID3D10Device extends IUnknown{
      * 
      * 32-bit sample coverage. The default value is 0xffffffff. See remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-omsetblendstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-omsetblendstate
      */
     OMSetBlendState(pBlendState, BlendFactor, SampleMask) {
         BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
@@ -778,9 +709,8 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Sets the depth-stencil state of the output-merger stage.
+     * Sets the depth-stencil state of the output-merger stage. (ID3D10Device.OMSetDepthStencilState)
      * @remarks
-     * 
      * To create a depth-stencil state interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilstate">ID3D10Device::CreateDepthStencilState</a>.
      * 
      * Depth-stencil state is used by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger</a> stage to 
@@ -789,8 +719,6 @@ class ID3D10Device extends IUnknown{
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an 
      *       interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10DepthStencilState} pDepthStencilState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState</a>*</b>
      * 
      * Pointer to a depth-stencil state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState</a>) to bind to the device.
@@ -798,7 +726,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Reference value to perform against when doing a depth-stencil test. See remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-omsetdepthstencilstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-omsetdepthstencilstate
      */
     OMSetDepthStencilState(pDepthStencilState, StencilRef) {
         ComCall(26, this, "ptr", pDepthStencilState, "uint", StencilRef)
@@ -807,7 +735,6 @@ class ID3D10Device extends IUnknown{
     /**
      * Set the target output buffers for the StreamOutput stage, which enables/disables the pipeline to stream-out data.
      * @remarks
-     * 
      * Call <b>ID3D10Device::SOSetTargets</b> (before any draw calls) to stream data out; call SOSetTargets with <b>NULL</b> to stop streaming data out. For an example, see Exercise 01 from the GDC 2007 workshop, which sets the stream output rendertargets before calling draw methods in the RenderInstanceToStream function.
      * 
      * An offset of -1 will cause the stream output buffer to be appended, continuing after the last location written to the buffer in a previous stream output pass.
@@ -817,8 +744,6 @@ class ID3D10Device extends IUnknown{
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-api-features-layers">Debug Layer</a> will generate a warning whenever a resource is prevented from being bound simultaneously as an input and an output, but this will not prevent invalid data from being used by the runtime.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {Integer} NumBuffers Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of buffer to bind to the device. A maximum of four output buffers can be set. If less than four are defined by the call, the remaining buffer slots are set to <b>NULL</b>. See Remarks.
@@ -829,7 +754,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of offsets to the output buffers from <i>ppSOTargets</i>, one offset for each buffer. The offset values must be in bytes.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-sosettargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-sosettargets
      */
     SOSetTargets(NumBuffers, ppSOTargets, pOffsets) {
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
@@ -840,7 +765,6 @@ class ID3D10Device extends IUnknown{
     /**
      * Draw geometry of an unknown size that was created by the geometry shader stage. See remarks.
      * @remarks
-     * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">draw API</a> submits work to the rendering pipeline.
      * 
      * After data has been streamed out to <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage">SO stage</a> buffers, those buffers can be again bound to the Input Assembler stage at input slot 0 and DrawAuto will draw them without the application needing to know the amount of data that was written to the buffers. A measurement of the amount of data written to the SO stage buffers is maintained internally when the data is streamed out. This means that the CPU does not need to fetch the measurement before re-binding the data that was streamed as input data. Although this amount is tracked internally, it is still the responsibility of applications to use input layouts to describe the format of the data in the SO stage buffers so that the layouts are available when the buffers are again bound to the input assembler.
@@ -858,43 +782,35 @@ class ID3D10Device extends IUnknown{
      * If an application needs to retrieve the size of the streaming-output buffer, it can query for statistics on streaming output by using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_query">D3D10_QUERY_SO_STATISTICS</a>.
      * 
      * Example of using DrawAuto can be found in the <a href="https://msdn.microsoft.com/library/Ee416421(v=VS.85).aspx">ParticlesGS Sample</a> and <a href="https://msdn.microsoft.com/library/Ee416423(v=VS.85).aspx">PipesGS Sample</a>.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-drawauto
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-drawauto
      */
     DrawAuto() {
         ComCall(28, this)
     }
 
     /**
-     * Set the rasterizer state for the rasterizer stage of the pipeline.
+     * Set the rasterizer state for the rasterizer stage of the pipeline. (ID3D10Device.RSSetState)
      * @remarks
-     * 
      * To create a rasterizer state interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createrasterizerstate">ID3D10Device::CreateRasterizerState</a>. For more details on setting up the rasterizer state, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-rasterizer-stage-getting-started">Set Rasterizer State</a>.
      * 
      * The method will not hold a reference to the interfaces passed in. For that reason, applications should be careful not to release an interface currently in use by the device.
-     * 
-     * 
      * @param {ID3D10RasterizerState} pRasterizerState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState</a>*</b>
      * 
      * Pointer to a rasterizer-state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState</a>) to bind to the pipeline.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-rssetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-rssetstate
      */
     RSSetState(pRasterizerState) {
         ComCall(29, this, "ptr", pRasterizerState)
     }
 
     /**
-     * Bind an array of viewports to the rasterizer stage of the pipeline.
+     * Bind an array of viewports to the rasterizer stage of the pipeline. (ID3D10Device.RSSetViewports)
      * @remarks
-     * 
      * All viewports must be set atomically as one operation. Any viewports not defined by the call are disabled.
      * 
      * Which viewport to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">shader semantic syntax</a>). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first viewport in the array.
-     * 
-     * 
      * @param {Integer} NumViewports Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of viewports to bind.
@@ -902,23 +818,20 @@ class ID3D10Device extends IUnknown{
      * 
      * An array of viewports (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_viewport">D3D10_VIEWPORT</a>) to bind to the device. Each viewport must have its extents within the allowed ranges: D3D10_VIEWPORT_BOUNDS_MIN, D3D10_VIEWPORT_BOUNDS_MAX, D3D10_MIN_DEPTH, and D3D10_MAX_DEPTH.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-rssetviewports
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-rssetviewports
      */
     RSSetViewports(NumViewports, pViewports) {
         ComCall(30, this, "uint", NumViewports, "ptr", pViewports)
     }
 
     /**
-     * Bind an array of scissor rectangles to the rasterizer stage.
+     * Bind an array of scissor rectangles to the rasterizer stage. (ID3D10Device.RSSetScissorRects)
      * @remarks
-     * 
      * The scissor rectangles will only be used if ScissorEnable is set to true in the rasterizer state (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>).
      * 
      * Which scissor rectangle to use is determined by the SV_ViewportArrayIndex semantic output by a geometry shader (see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-semantics">shader semantic syntax</a>). If a geometry shader does not make use of the SV_ViewportArrayIndex semantic then Direct3D will use the first scissor rectangle in the array.
      * 
      * Each scissor rectangle in the array corresponds to a viewport in an array of viewports (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-rssetviewports">ID3D10Device::RSSetViewports</a>).
-     * 
-     * 
      * @param {Integer} NumRects Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of scissor rectangles to bind.
@@ -926,16 +839,15 @@ class ID3D10Device extends IUnknown{
      * 
      * An array of scissor rectangles (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-rect">D3D10_RECT</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-rssetscissorrects
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-rssetscissorrects
      */
     RSSetScissorRects(NumRects, pRects) {
         ComCall(31, this, "uint", NumRects, "ptr", pRects)
     }
 
     /**
-     * Copy a region from a source resource to a destination resource.
+     * Copy a region from a source resource to a destination resource. (ID3D10Device.CopySubresourceRegion)
      * @remarks
-     * 
      * The source box must be within the size of the source resource. The destination location is an absolute value (not a relative value). The destination location can be offset from the source location; however, the size of the region to copy (including the destination location) must fit in the destination resource.
      * 
      * If the resources are buffers, all coordinates are in bytes; if the resources are textures, all coordinates are in texels. 
@@ -948,7 +860,7 @@ class ID3D10Device extends IUnknown{
      * <ul>
      * <li>Must be different subresources (although they can be from the same resource).</li>
      * <li>Must be the same <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">type</a>.</li>
-     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">formats</a> (the formats must either be identical or be from the same type group). For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to an DXGI_FORMAT_R32G32B32_UINT texture because both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. Beginning with Direct3D 10.1, <b>CopySubresourceRegion</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.</li>
+     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">formats</a> (the formats must either be identical or be from the same type group). For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to a DXGI_FORMAT_R32G32B32_UINT texture because both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. Beginning with Direct3D 10.1, <b>CopySubresourceRegion</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.</li>
      * <li>May not be currently <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">mapped</a>.</li>
      * </ul>
      * <b>CopySubresourceRegion</b>  supports only copy; it does not support any stretch, color key, blend, or format conversions. Beginning with Direct3D 10.1, <b>CopySubresourceRegion</b> can reinterpret the resource data between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.
@@ -984,7 +896,7 @@ class ID3D10Device extends IUnknown{
      * <div class="alert"><b>Note</b>  If you use <b>CopySubresourceRegion</b> with a depth-stencil buffer or a multisampled resource, you must copy the whole subresource. You must also pass 0 to the <i>DstX</i>, <i>DstY</i>, and <i>DstZ</i> parameters and <b>NULL</b> to the <i>pSrcBox</i> parameter. In addition, source and destination resources, which are represented by the <i>pSrcResource</i> and <i>pDstResource</i> parameters respectively, must have identical sample count values.</div>
      * <div> </div>
      * <h3><a id="Example"></a><a id="example"></a><a id="EXAMPLE"></a>Example</h3>
-     * The following code snippet copies a box (located at (120,100),(200,220)) from a source texture into a reqion (130,120),(210,240) in a destination texture.
+     * The following code snippet copies a box (located at (120,100),(200,220)) from a source texture into a region (130,120),(210,240) in a destination texture.
      * 
      * 
      * ```
@@ -1003,8 +915,6 @@ class ID3D10Device extends IUnknown{
      * 
      * 
      * Notice that, for a 2D texture, front and back are always set to 0 and 1 respectively.
-     * 
-     * 
      * @param {ID3D10Resource} pDstResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * A pointer to the destination resource (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>).
@@ -1034,23 +944,22 @@ class ID3D10Device extends IUnknown{
      * 
      * An empty box results in a no-op. A box is empty if the top value is greater than or equal to the bottom value, or the left value is greater than or equal to the right value, or the front value is greater than or equal to the back value. When the box is empty, <b>CopySubresourceRegion</b> doesn't perform a copy operation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-copysubresourceregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-copysubresourceregion
      */
     CopySubresourceRegion(pDstResource, DstSubresource, DstX, DstY, DstZ, pSrcResource, SrcSubresource, pSrcBox) {
         ComCall(32, this, "ptr", pDstResource, "uint", DstSubresource, "uint", DstX, "uint", DstY, "uint", DstZ, "ptr", pSrcResource, "uint", SrcSubresource, "ptr", pSrcBox)
     }
 
     /**
-     * Copy the entire contents of the source resource to the destination resource using the GPU.
+     * Copy the entire contents of the source resource to the destination resource using the GPU. (ID3D10Device.CopyResource)
      * @remarks
-     * 
      * This method is unusual in that it causes the GPU to perform the copy operation (similar to a memcpy by the CPU). As a result, it has a few restrictions designed for improving performance. For instance, the source and destination resources:
      * 
      * <ul>
      * <li>Must be different resources.</li>
      * <li>Must be the same <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">type</a>.</li>
      * <li>Must have identical dimensions (including width, height, depth, and size as appropriate).</li>
-     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">formats</a>, which means the formats must be identical or at least from the same type group. For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to an DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. Beginning with Direct3D 10.1, <b>CopyResource</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.</li>
+     * <li>Must have compatible <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">formats</a>, which means the formats must be identical or at least from the same type group. For example, a DXGI_FORMAT_R32G32B32_FLOAT texture can be copied to a DXGI_FORMAT_R32G32B32_UINT texture since both of these formats are in the DXGI_FORMAT_R32G32B32_TYPELESS group. Beginning with Direct3D 10.1, <b>CopyResource</b> can copy between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.</li>
      * <li>May not be currently <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">mapped</a>.</li>
      * </ul>
      * <b>CopyResource</b>  supports only copy; it does not support any stretch, color key, blend, or format conversions. Beginning with Direct3D 10.1, <b>CopyResource</b> can reinterpret the resource data between a few format types. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">Format Conversion using Direct3D 10.1</a>.
@@ -1074,8 +983,6 @@ class ID3D10Device extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {ID3D10Resource} pDstResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * A pointer to the destination resource (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>).
@@ -1083,7 +990,7 @@ class ID3D10Device extends IUnknown{
      * 
      * A pointer to the source resource (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-copyresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-copyresource
      */
     CopyResource(pDstResource, pSrcResource) {
         ComCall(33, this, "ptr", pDstResource, "ptr", pSrcResource)
@@ -1092,7 +999,6 @@ class ID3D10Device extends IUnknown{
     /**
      * The CPU copies data from memory to a subresource created in non-mappable memory. See remarks.
      * @remarks
-     * 
      * For a shader-constant buffer; set pDstBox to <b>NULL</b>. It is not possible to use this method to partially update a shader-constant buffer.
      * 
      * A resource cannot be used as a destination if:
@@ -1178,8 +1084,6 @@ class ID3D10Device extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {ID3D10Resource} pDstResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * A pointer to the destination resource (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource Interface</a>).
@@ -1201,7 +1105,7 @@ class ID3D10Device extends IUnknown{
      * 
      * The size of one depth slice of source data.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-updatesubresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-updatesubresource
      */
     UpdateSubresource(pDstResource, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
@@ -1210,9 +1114,8 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Set all the elements in a render target to one value.
+     * Set all the elements in a render target to one value. (ID3D10Device.ClearRenderTargetView)
      * @remarks
-     * 
      * Applications that wish to clear a render target to a specific integer value bit pattern should render a screen-aligned quad instead of using this method.  The reason for this is because this method accepts as input a floating point value, which may not have the same bit pattern as the original integer.
      * 
      * <table>
@@ -1228,8 +1131,6 @@ class ID3D10Device extends IUnknown{
      *  
      * 
      * When using <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-10level9">10Level9</a>, <b>ClearRenderTargetView</b> only clears the first array slice in the render target view. This can impact (for example) cube map rendering scenarios. Applications should create a render target view for each face or array slice, then clear each view individually.
-     * 
-     * 
      * @param {ID3D10RenderTargetView} pRenderTargetView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rendertargetview">ID3D10RenderTargetView</a>*</b>
      * 
      * Pointer to the render target.
@@ -1237,7 +1138,7 @@ class ID3D10Device extends IUnknown{
      * 
      * A 4-component array that represents the color to fill the render target with.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-clearrendertargetview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-clearrendertargetview
      */
     ClearRenderTargetView(pRenderTargetView, ColorRGBA) {
         ColorRGBAMarshal := ColorRGBA is VarRef ? "float*" : "ptr"
@@ -1246,9 +1147,8 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Clears the depth-stencil resource.
+     * Clears the depth-stencil resource. (ID3D10Device.ClearDepthStencilView)
      * @remarks
-     * 
      * <table>
      * <tr>
      * <td>
@@ -1259,8 +1159,6 @@ class ID3D10Device extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {ID3D10DepthStencilView} pDepthStencilView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>*</b>
      * 
      * Pointer to the depth stencil to be cleared.
@@ -1274,16 +1172,15 @@ class ID3D10Device extends IUnknown{
      * 
      * Clear the stencil buffer with this value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-cleardepthstencilview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-cleardepthstencilview
      */
     ClearDepthStencilView(pDepthStencilView, ClearFlags, Depth, Stencil) {
         ComCall(36, this, "ptr", pDepthStencilView, "uint", ClearFlags, "float", Depth, "char", Stencil)
     }
 
     /**
-     * Generates mipmaps for the given shader resource.
+     * Generates mipmaps for the given shader resource. (ID3D10Device.GenerateMips)
      * @remarks
-     * 
      * GenerateMips may be called on any ID3D10ShaderResourceView in order to generate the lower mipmap levels. GenerateMips uses the largest mipmap level of the view to recursively generate the lower levels of the mip, stopping with the smallest level specified by the view. If the base resource was not created with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_RENDER_TARGET</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_misc_flag">D3D10_RESOURCE_MISC_GENERATE_MIPS</a>, this call has no effect.
      * 
      * Video adapters that support <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> 9.1 and higher support generating mipmaps if you use any of these formats:
@@ -1353,13 +1250,11 @@ class ID3D10Device extends IUnknown{
      * 
      * 
      * For all other unsupported formats, this method will silently fail.
-     * 
-     * 
      * @param {ID3D10ShaderResourceView} pShaderResourceView Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>. The mipmaps will be generated for this shader resource.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-generatemips
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-generatemips
      */
     GenerateMips(pShaderResourceView) {
         ComCall(37, this, "ptr", pShaderResourceView)
@@ -1368,7 +1263,6 @@ class ID3D10Device extends IUnknown{
     /**
      * Copy a multisampled resource into a non-multisampled resource. This API is most useful when re-using the resulting rendertarget of one render pass as an input to a second render pass.
      * @remarks
-     * 
      * Both the source and destination resources must be the same <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">resource type</a> and have the same dimensions.
      * 
      * The source and destination must have compatible formats. There are three scenarios for this:
@@ -1388,11 +1282,9 @@ class ID3D10Device extends IUnknown{
      * </tr>
      * <tr>
      * <td>Source and destination are prestructured and typeless</td>
-     * <td>Both the source and desintation must have the same typeless format (i.e. both must have DXGI_FORMAT_R32_TYPELESS), and the Format parameter must specify a format that is compatible with the source and destination (i.e. if both are DXGI_FORMAT_R32_TYPELESS then DXGI_FORMAT_R32_FLOAT or DXGI_FORMAT_R32_UINT could be specified in the Format parameter).</td>
+     * <td>Both the source and destination must have the same typeless format (i.e. both must have DXGI_FORMAT_R32_TYPELESS), and the Format parameter must specify a format that is compatible with the source and destination (i.e. if both are DXGI_FORMAT_R32_TYPELESS then DXGI_FORMAT_R32_FLOAT or DXGI_FORMAT_R32_UINT could be specified in the Format parameter).</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {ID3D10Resource} pDstResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * Destination resource. Must be a created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE_DEFAULT</a> flag and be single-sampled. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>.
@@ -1410,19 +1302,16 @@ class ID3D10Device extends IUnknown{
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> that indicates how the multisampled resource will be resolved to a single-sampled resource. See remarks.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-resolvesubresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-resolvesubresource
      */
     ResolveSubresource(pDstResource, DstSubresource, pSrcResource, SrcSubresource, Format) {
         ComCall(38, this, "ptr", pDstResource, "uint", DstSubresource, "ptr", pSrcResource, "uint", SrcSubresource, "int", Format)
     }
 
     /**
-     * Get the constant buffers used by the vertex shader pipeline stage.
+     * Get the constant buffers used by the vertex shader pipeline stage. (ID3D10Device.VSGetConstantBuffers)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin retrieving constant buffers from.
@@ -1433,19 +1322,16 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of constant buffer interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) to be returned by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vsgetconstantbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vsgetconstantbuffers
      */
     VSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
         ComCall(39, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
     }
 
     /**
-     * Get the pixel shader resources.
+     * Get the pixel shader resources. (ID3D10Device.PSGetShaderResources)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin getting shader resources from.
@@ -1456,36 +1342,30 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">shader resource view</a> interfaces to be returned by the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-psgetshaderresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-psgetshaderresources
      */
     PSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
         ComCall(40, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
     }
 
     /**
-     * Get the pixel shader currently set on the device.
+     * Get the pixel shader currently set on the device. (ID3D10Device.PSGetShader)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10PixelShader>} ppPixelShader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader</a>**</b>
      * 
      * Address of a pointer to a pixel shader (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader</a>) to be returned by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-psgetshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-psgetshader
      */
     PSGetShader(ppPixelShader) {
         ComCall(41, this, "ptr*", ppPixelShader)
     }
 
     /**
-     * Get an array of sampler states from the pixel shader pipeline stage.
+     * Get an array of sampler states from the pixel shader pipeline stage. (ID3D10Device.PSGetSamplers)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin getting samplers from.
@@ -1494,38 +1374,32 @@ class ID3D10Device extends IUnknown{
      * Number of samplers to get from the device. Each pipeline stage has a total of 16 sampler slots available.
      * @param {Pointer<ID3D10SamplerState>} ppSamplers Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>**</b>
      * 
-     * Arry of sampler-state interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>) to be returned by the device.
+     * Array of sampler-state interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>) to be returned by the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-psgetsamplers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-psgetsamplers
      */
     PSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
         ComCall(42, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
     }
 
     /**
-     * Get the vertex shader currently set on the device.
+     * Get the vertex shader currently set on the device. (ID3D10Device.VSGetShader)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10VertexShader>} ppVertexShader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader</a>**</b>
      * 
      * Address of a pointer to a vertex shader (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader</a>) to be returned by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vsgetshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vsgetshader
      */
     VSGetShader(ppVertexShader) {
         ComCall(43, this, "ptr*", ppVertexShader)
     }
 
     /**
-     * Get the constant buffers used by the pixel shader pipeline stage.
+     * Get the constant buffers used by the pixel shader pipeline stage. (ID3D10Device.PSGetConstantBuffers)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin retrieving constant buffers from.
@@ -1536,38 +1410,32 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of constant buffer interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) to be returned by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-psgetconstantbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-psgetconstantbuffers
      */
     PSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
         ComCall(44, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
     }
 
     /**
-     * Get a pointer to the input-layout object that is bound to the input-assembler stage.
+     * Get a pointer to the input-layout object that is bound to the input-assembler stage. (ID3D10Device.IAGetInputLayout)
      * @remarks
-     * 
      * For information about creating an input-layout object, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Creating the Input-Layout Object</a>.
      * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10InputLayout>} ppInputLayout Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10inputlayout">ID3D10InputLayout</a>**</b>
      * 
      * A pointer to the input-layout object (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10inputlayout">ID3D10InputLayout</a>), which describes the input buffers that will be read by the IA stage.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iagetinputlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iagetinputlayout
      */
     IAGetInputLayout(ppInputLayout) {
         ComCall(45, this, "ptr*", ppInputLayout)
     }
 
     /**
-     * Get the vertex buffers bound to the input-assembler stage.
+     * Get the vertex buffers bound to the input-assembler stage. (ID3D10Device.IAGetVertexBuffers)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">input slot</a> of the first vertex buffer to get. The first vertex buffer is explicitly bound to the start slot; this causes each additional vertex buffer in the array to be implicitly bound to each subsequent input slot. A maximum of 16 or 32 input slots (ranges from 0 to either D3D10_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT - 1 or D3D10_1_IA_VERTEX_INPUT_RESOURCE_SLOT_COUNT - 1) are available; the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">maximum number of input slots depends on the feature level</a>.
@@ -1584,7 +1452,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to an array of offset values returned by the method; one offset value for each buffer in the vertex-buffer array. Each offset is the number of bytes between the first element of a vertex buffer and the first element that will be used.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iagetvertexbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iagetvertexbuffers
      */
     IAGetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets) {
         pStridesMarshal := pStrides is VarRef ? "uint*" : "ptr"
@@ -1594,12 +1462,9 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get a pointer to the index buffer that is bound to the input-assembler stage.
+     * Get a pointer to the index buffer that is bound to the input-assembler stage. (ID3D10Device.IAGetIndexBuffer)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10Buffer>} pIndexBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>**</b>
      * 
      * A pointer to an index buffer returned by the method (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>).
@@ -1610,7 +1475,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Offset (in bytes) from the start of the index buffer, to the first index to use.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iagetindexbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iagetindexbuffer
      */
     IAGetIndexBuffer(pIndexBuffer, Format, Offset) {
         FormatMarshal := Format is VarRef ? "int*" : "ptr"
@@ -1620,12 +1485,9 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get the constant buffers used by the geometry shader pipeline stage.
+     * Get the constant buffers used by the geometry shader pipeline stage. (ID3D10Device.GSGetConstantBuffers)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin retrieving constant buffers from.
@@ -1636,36 +1498,33 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of constant buffer interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>) to be returned by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gsgetconstantbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gsgetconstantbuffers
      */
     GSGetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers) {
         ComCall(48, this, "uint", StartSlot, "uint", NumBuffers, "ptr*", ppConstantBuffers)
     }
 
     /**
-     * Get the geometry shader currently set on the device.
+     * Get the geometry shader currently set on the device. (ID3D10Device.GSGetShader)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10GeometryShader>} ppGeometryShader Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>**</b>
      * 
      * Address of a pointer to a geometry shader (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>) to be returned by the method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gsgetshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gsgetshader
      */
     GSGetShader(ppGeometryShader) {
         ComCall(49, this, "ptr*", ppGeometryShader)
     }
 
     /**
-     * Get information about the primitive type, and data order that describes input data for the input assembler stage.
+     * Get information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D10Device.IAGetPrimitiveTopology)
      * @param {Pointer<Integer>} pTopology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>*</b>
      * 
      * A pointer to the type of primitive, and ordering of the primitive data (see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb205334(v=vs.85)">D3D10_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-iagetprimitivetopology
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-iagetprimitivetopology
      */
     IAGetPrimitiveTopology(pTopology) {
         pTopologyMarshal := pTopology is VarRef ? "int*" : "ptr"
@@ -1674,12 +1533,9 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get the vertex shader resources.
+     * Get the vertex shader resources. (ID3D10Device.VSGetShaderResources)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin getting shader resources from.
@@ -1690,19 +1546,16 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">shader resource view</a> interfaces to be returned by the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vsgetshaderresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vsgetshaderresources
      */
     VSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
         ComCall(51, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
     }
 
     /**
-     * Get an array of sampler states from the vertex shader pipeline stage.
+     * Get an array of sampler states from the vertex shader pipeline stage. (ID3D10Device.VSGetSamplers)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin getting samplers from.
@@ -1711,21 +1564,18 @@ class ID3D10Device extends IUnknown{
      * Number of samplers to get from the device. Each pipeline stage has a total of 16 sampler slots available.
      * @param {Pointer<ID3D10SamplerState>} ppSamplers Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>**</b>
      * 
-     * Arry of sampler-state interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>) to be returned by the device.
+     * Array of sampler-state interface pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>) to be returned by the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-vsgetsamplers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-vsgetsamplers
      */
     VSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
         ComCall(52, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
     }
 
     /**
-     * Get the rendering predicate state.
+     * Get the rendering predicate state. (ID3D10Device.GetPredication)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10Predicate>} ppPredicate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate</a>**</b>
      * 
      * Address of a pointer to a predicate (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate</a>). Value stored here will be <b>NULL</b> upon device creation.
@@ -1733,7 +1583,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Address of a boolean to fill with the predicate comparison value. <b>FALSE</b> upon device creation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-getpredication
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-getpredication
      */
     GetPredication(ppPredicate, pPredicateValue) {
         pPredicateValueMarshal := pPredicateValue is VarRef ? "int*" : "ptr"
@@ -1742,12 +1592,9 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get the geometry shader resources.
+     * Get the geometry shader resources. (ID3D10Device.GSGetShaderResources)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin getting shader resources from.
@@ -1758,7 +1605,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">shader resource view</a> interfaces to be returned by the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gsgetshaderresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gsgetshaderresources
      */
     GSGetShaderResources(StartSlot, NumViews, ppShaderResourceViews) {
         ComCall(54, this, "uint", StartSlot, "uint", NumViews, "ptr*", ppShaderResourceViews)
@@ -1767,10 +1614,7 @@ class ID3D10Device extends IUnknown{
     /**
      * Get an array of sampler states from the geometry shader pipeline stage.
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} StartSlot Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index into the device's zero-based array to begin getting samplers from.
@@ -1779,9 +1623,9 @@ class ID3D10Device extends IUnknown{
      * Number of samplers to get from the device. Each pipeline stage has a total of 16 sampler slots available.
      * @param {Pointer<ID3D10SamplerState>} ppSamplers Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>**</b>
      * 
-     * Arry of sampler-state pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>) to be returned by the device.
+     * Array of sampler-state pointers (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>) to be returned by the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gsgetsamplers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gsgetsamplers
      */
     GSGetSamplers(StartSlot, NumSamplers, ppSamplers) {
         ComCall(55, this, "uint", StartSlot, "uint", NumSamplers, "ptr*", ppSamplers)
@@ -1790,10 +1634,7 @@ class ID3D10Device extends IUnknown{
     /**
      * Get pointers to the render targets and the depth-stencil buffer that are available to the output-merger stage.
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} NumViews Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of render targets to retrieve.
@@ -1804,19 +1645,16 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to a depth-stencil view (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>) to be filled with the depth-stencil information from the device. Specify <b>NULL</b> for this parameter when retrieval of the depth-stencil view is not needed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-omgetrendertargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-omgetrendertargets
      */
     OMGetRenderTargets(NumViews, ppRenderTargetViews, ppDepthStencilView) {
         ComCall(56, this, "uint", NumViews, "ptr*", ppRenderTargetViews, "ptr*", ppDepthStencilView)
     }
 
     /**
-     * Get the blend state of the output-merger stage.
+     * Get the blend state of the output-merger stage. (ID3D10Device.OMGetBlendState)
      * @remarks
-     * 
      * The reference count of the returned interface will be incremented by one when the blend state is retrieved. Applications must release returned pointer(s) when they are no longer needed, or else there will be a memory leak.
-     * 
-     * 
      * @param {Pointer<ID3D10BlendState>} ppBlendState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState</a>**</b>
      * 
      * Address of a pointer to a blend-state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState</a>).
@@ -1827,7 +1665,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetblendstate">sample mask</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-omgetblendstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-omgetblendstate
      */
     OMGetBlendState(ppBlendState, BlendFactor, pSampleMask) {
         BlendFactorMarshal := BlendFactor is VarRef ? "float*" : "ptr"
@@ -1837,12 +1675,9 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Gets the depth-stencil state of the output-merger stage.
+     * Gets the depth-stencil state of the output-merger stage. (ID3D10Device.OMGetDepthStencilState)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10DepthStencilState>} ppDepthStencilState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState</a>**</b>
      * 
      * Address of a pointer to a depth-stencil state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState</a>) to be filled with information from the device.
@@ -1850,7 +1685,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Pointer to the stencil reference value used in the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">depth-stencil</a> test.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-omgetdepthstencilstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-omgetdepthstencilstate
      */
     OMGetDepthStencilState(ppDepthStencilState, pStencilRef) {
         pStencilRefMarshal := pStencilRef is VarRef ? "uint*" : "ptr"
@@ -1861,10 +1696,7 @@ class ID3D10Device extends IUnknown{
     /**
      * Get the target output buffers for the StreamOutput stage of the pipeline.
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Integer} NumBuffers Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Number of buffers to get. A maximum of four output buffers can be retrieved.
@@ -1875,7 +1707,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Array of offsets to the output buffers from <i>ppSOTargets</i>, one offset for each buffer. The offset values are in bytes.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-sogettargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-sogettargets
      */
     SOGetTargets(NumBuffers, ppSOTargets, pOffsets) {
         pOffsetsMarshal := pOffsets is VarRef ? "uint*" : "ptr"
@@ -1884,17 +1716,14 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get the rasterizer state from the rasterizer stage of the pipeline.
+     * Get the rasterizer state from the rasterizer stage of the pipeline. (ID3D10Device.RSGetState)
      * @remarks
-     * 
      * Any returned interfaces will have their reference count incremented by one. Applications should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the returned interfaces when they are no longer needed to avoid memory leaks.
-     * 
-     * 
      * @param {Pointer<ID3D10RasterizerState>} ppRasterizerState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState</a>**</b>
      * 
      * Address of a pointer to a rasterizer-state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState</a>) to fill with information from the device.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-rsgetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-rsgetstate
      */
     RSGetState(ppRasterizerState) {
         ComCall(60, this, "ptr*", ppRasterizerState)
@@ -1911,7 +1740,7 @@ class ID3D10Device extends IUnknown{
      * An array of viewports (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_viewport">D3D10_VIEWPORT</a>) to be filled with information from the device. If NumViewports is greater than 
      *         the actual number of viewports currently bound, then unused members of the array will contain 0.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-rsgetviewports
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-rsgetviewports
      */
     RSGetViewports(NumViewports, pViewports) {
         NumViewportsMarshal := NumViewports is VarRef ? "uint*" : "ptr"
@@ -1920,7 +1749,7 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get the array of scissor rectangles bound to the rasterizer stage.
+     * Get the array of scissor rectangles bound to the rasterizer stage. (ID3D10Device.RSGetScissorRects)
      * @param {Pointer<Integer>} NumRects Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Number of scissor rectangles to get. If pRects is <b>NULL</b>, this will be filled with the number of scissor rectangles currently bound.
@@ -1928,7 +1757,7 @@ class ID3D10Device extends IUnknown{
      * 
      * An array of scissor rectangles (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-rect">D3D10_RECT</a>). If NumRects is greater than the number of scissor rects currently bound, then unused members of the array will contain 0.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-rsgetscissorrects
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-rsgetscissorrects
      */
     RSGetScissorRects(NumRects, pRects) {
         NumRectsMarshal := NumRects is VarRef ? "uint*" : "ptr"
@@ -1937,8 +1766,8 @@ class ID3D10Device extends IUnknown{
     }
 
     /**
-     * Get the reason why the device was removed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * Get the reason why the device was removed. (ID3D10Device.GetDeviceRemovedReason)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Possible return values include: 
      * 
@@ -1952,35 +1781,49 @@ class ID3D10Device extends IUnknown{
      * <li>DXGI_ERROR_INVALID_CALL</li>
      * <li>S_OK</li>
      * </ul>
-     * For more detail on these return codes, see <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-getdeviceremovedreason
+     * For more detail on these return codes, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-getdeviceremovedreason
      */
     GetDeviceRemovedReason() {
-        result := ComCall(63, this, "HRESULT")
+        result := ComCall(63, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Get the exception-mode flags.
+     * Get the exception-mode flags. (ID3D10Device.SetExceptionMode)
+     * @remarks
+     * Set an exception-mode flag to elevate an error condition to a non-continuable exception. 
+     * 
+     * Whenever an error occurs, a Direct3D device enters the DEVICEREMOVED state and if the appropriate exception flag has been set, an exception is raised. A raised exception is designed to terminate an application. Before termination, the last chance an application has to persist data is by using an UnhandledExceptionFilter (see <a href="https://docs.microsoft.com/windows/desktop/Debug/structured-exception-handling">Structured Exception Handling</a>). In general, UnhandledExceptionFilters are leveraged to try to persist data when an application is crashing (to disk, for example). Any code that executes during an UnhandledExceptionFilter is not guaranteed to reliably execute (due to possible process corruption). Any data that the UnhandledExceptionFilter manages to persist, before the UnhandledExceptionFilter crashes again, should be treated as suspect, and therefore inspected by a new, non-corrupted process to see if it is usable.
      * @param {Integer} RaiseFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A value that contains one or more exception flags; each flag specifies a condition which will cause an exception to be raised. The flags are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_raise_flag">D3D10_RAISE_FLAG</a>. A default value of 0 means there are no flags.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-setexceptionmode
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-setexceptionmode
      */
     SetExceptionMode(RaiseFlags) {
-        result := ComCall(64, this, "uint", RaiseFlags, "HRESULT")
+        result := ComCall(64, this, "uint", RaiseFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Get the exception-mode flags.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * Get the exception-mode flags. (ID3D10Device.GetExceptionMode)
+     * @remarks
+     * An exception-mode flag is used to elevate an error condition to a non-continuable exception.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * A value that contains one or more exception flags; each flag specifies a condition which will cause an exception to be raised. The flags are listed in <a href="/windows/desktop/api/d3d10/ne-d3d10-d3d10_raise_flag">D3D10_RAISE_FLAG</a>. A default value of 0 means there are no flags.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-getexceptionmode
+     * A value that contains one or more exception flags; each flag specifies a condition which will cause an exception to be raised. The flags are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_raise_flag">D3D10_RAISE_FLAG</a>. A default value of 0 means there are no flags.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-getexceptionmode
      */
     GetExceptionMode() {
         result := ComCall(65, this, "uint")
@@ -1989,6 +1832,10 @@ class ID3D10Device extends IUnknown{
 
     /**
      * Get data from a device that is associated with a guid.
+     * @remarks
+     * The data stored in the device is set with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-setprivatedata">ID3D10Device::SetPrivateData</a>. 
+     * 
+     * The data retrieved and the guid will typically be application-defined.
      * @param {Pointer<Guid>} guid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Guid associated with the data.
@@ -1998,20 +1845,28 @@ class ID3D10Device extends IUnknown{
      * @param {Pointer} pData Type: <b>void*</b>
      * 
      * Pointer to the data stored with the device. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the guid will be destroyed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-getprivatedata
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-getprivatedata
      */
     GetPrivateData(guid, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "HRESULT")
+        result := ComCall(66, this, "ptr", guid, pDataSizeMarshal, pDataSize, "ptr", pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Set data to a device and associate that data with a guid.
+     * Set data to a device and associate that data with a guid. (ID3D10Device.SetPrivateData)
+     * @remarks
+     * The data stored in the device with this method can be retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-getprivatedata">ID3D10DeviceChild::GetPrivateData</a>.
+     * 
+     * The data and guid set with this method will typically be application-defined.
      * @param {Pointer<Guid>} guid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Guid associated with the data.
@@ -2021,38 +1876,48 @@ class ID3D10Device extends IUnknown{
      * @param {Pointer} pData Type: <b>const void*</b>
      * 
      * Pointer to the data to be stored with this device. If pData is <b>NULL</b>, DataSize must also be 0, and any data previously associated with the guid will be destroyed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-setprivatedata
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-setprivatedata
      */
     SetPrivateData(guid, DataSize, pData) {
-        result := ComCall(67, this, "ptr", guid, "uint", DataSize, "ptr", pData, "HRESULT")
+        result := ComCall(67, this, "ptr", guid, "uint", DataSize, "ptr", pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Associate an IUnknown-derived interface with this device and associate that interface with an application-defined guid.
+     * @remarks
+     * When this method is called ::addref() will be called on the IUnknown-derived interface, and when the device is destroyed ::release() will be called on the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>-derived interface.
      * @param {Pointer<Guid>} guid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Guid associated with the interface.
      * @param {IUnknown} pData Type: <b>const IUnknown*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>-derived interface to be associated with the device.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-setprivatedatainterface
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-setprivatedatainterface
      */
     SetPrivateDataInterface(guid, pData) {
-        result := ComCall(68, this, "ptr", guid, "ptr", pData, "HRESULT")
+        result := ComCall(68, this, "ptr", guid, "ptr", pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Restore all default device settings; return the device to the state it was in when it was created.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-clearstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-clearstate
      */
     ClearState() {
         ComCall(69, this)
@@ -2061,7 +1926,6 @@ class ID3D10Device extends IUnknown{
     /**
      * Send queued-up commands in the command buffer to the GPU.
      * @remarks
-     * 
      * Most applications will not need to call this method. Calling this method when not necessary will incur a performance penalty. Each call to <b>Flush</b> incurs a significant amount of overhead.
      * 
      * When Direct3D state-setting, present, or draw commands are called by an application, those commands are queued into an internal command buffer. <b>Flush</b> sends those commands to the GPU for processing. Normally, these commands are sent to the GPU automatically whenever Direct3D determines that they need to be, such as when the command buffer is full or when mapping a resource. <b>Flush</b> will send the commands manually.
@@ -2069,10 +1933,8 @@ class ID3D10Device extends IUnknown{
      * <b>Flush</b> should be used when the CPU waits for an arbitrary amount of time (such as when calling <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-sleep">Sleep</a>, <a href="https://docs.microsoft.com/windows/desktop/direct3d10/id3dx10threadpump-waitforallitems">ID3DX10ThreadPump::WaitForAllItems</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgioutput-waitforvblank">WaitForVBlank</a>.
      * 
      * For more information about how flushing works, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/accurately-profiling-direct3d-api-calls">Accurately Profiling Direct3D API Calls (Direct3D 9)</a>.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-flush
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-flush
      */
     Flush() {
         ComCall(70, this)
@@ -2080,6 +1942,17 @@ class ID3D10Device extends IUnknown{
 
     /**
      * Create a buffer (vertex buffer, index buffer, or shader-constant buffer).
+     * @remarks
+     * For example code, see:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating">Create a Vertex Buffer</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating">Create an Index Buffer</a>
+     * </li>
+     * </ul>
      * @param {Pointer<D3D10_BUFFER_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_buffer_desc">D3D10_BUFFER_DESC</a>*</b>
      * 
      * Pointer to a buffer description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_buffer_desc">D3D10_BUFFER_DESC</a>).
@@ -2089,15 +1962,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10Buffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer</a>**</b>
      * 
      * Address of a pointer to the buffer created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10buffer">ID3D10Buffer Interface</a>). Set this parameter to <b>NULL</b> to validate the other input parameters (S_FALSE indicates a pass).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createbuffer
      */
     CreateBuffer(pDesc, pInitialData) {
-        result := ComCall(71, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(71, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Buffer(ppBuffer)
     }
 
     /**
      * Create an array of 1D textures (see Texture1D).
+     * @remarks
+     * CreateTexture1D creates a 1D texture resource, which contains an array of 1D textures. The number of textures is specified in the texture description. All textures in a resource must have the same format, size, and number of mipmap levels.
+     * 
+     * All resources are made up of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresources</a>. To load data into the texture, applications may supply the data initially as part of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_subresource_data">D3D10_SUBRESOURCE_DATA</a> structure pointed to by pInitialData, or it may use one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-d3dx10-functions-texturing">Texturing Functions</a> supplied by the SDK.
      * @param {Pointer<D3D10_TEXTURE1D_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture1d_desc">D3D10_TEXTURE1D_DESC</a>*</b>
      * 
      * Pointer to a 1D texture description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture1d_desc">D3D10_TEXTURE1D_DESC</a>). To create a typeless resource that can be interpreted at runtime into different, compatible formats, specify a typeless format in the texture description. To generate mipmap levels automatically, set the number of mipmap levels to 0.
@@ -2107,15 +1988,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10Texture1D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10texture1d">ID3D10Texture1D</a>**</b>
      * 
      * Address of a pointer to the created texture (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10texture1d">ID3D10Texture1D Interface</a>). Set this parameter to <b>NULL</b> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createtexture1d
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createtexture1d
      */
     CreateTexture1D(pDesc, pInitialData) {
-        result := ComCall(72, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture1D := 0, "HRESULT")
+        result := ComCall(72, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture1D := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Texture1D(ppTexture1D)
     }
 
     /**
      * Create an array of 2D textures (see Texture2D).
+     * @remarks
+     * CreateTexture2D creates a 2D texture resource, which contains an array of 1D textures. The number of textures is specified in the texture description. All textures in a resource must have the same format, size, and number of mipmap levels.
+     * 
+     * All resources are made up of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresources</a>. To load data into the texture, applications may supply the data initially as part of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_subresource_data">D3D10_SUBRESOURCE_DATA</a> structure pointed to by pInitialData, or it may use one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-d3dx10-functions-texturing">Texturing Functions</a> supplied by the SDK.
      * @param {Pointer<D3D10_TEXTURE2D_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture2d_desc">D3D10_TEXTURE2D_DESC</a>*</b>
      * 
      * Pointer to a 2D texture description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture2d_desc">D3D10_TEXTURE2D_DESC</a>). To create a typeless resource that can be interpreted at runtime into different, compatible formats, specify a typeless format in the texture description. To generate mipmap levels automatically, set the number of mipmap levels to 0.
@@ -2125,15 +2014,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10Texture2D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10texture2d">ID3D10Texture2D</a>**</b>
      * 
      * Address of a pointer to the created texture (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10texture2d">ID3D10Texture2D Interface</a>). Set this parameter to <b>NULL</b> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createtexture2d
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createtexture2d
      */
     CreateTexture2D(pDesc, pInitialData) {
-        result := ComCall(73, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
+        result := ComCall(73, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture2D := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Texture2D(ppTexture2D)
     }
 
     /**
      * Create a single 3D texture (see Texture3D).
+     * @remarks
+     * CreateTexture3D creates a 3D texture resource, which contains an array of 1D textures. The number of textures is specified in the texture description. All textures in a resource must have the same format, size, and number of mipmap levels.
+     * 
+     * All resources are made up of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresources</a>. To load data into the texture, applications may supply the data initially as part of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_subresource_data">D3D10_SUBRESOURCE_DATA</a> structure pointed to by pInitialData, or it may use one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-d3dx10-functions-texturing">Texturing Functions</a> supplied by the SDK.
      * @param {Pointer<D3D10_TEXTURE3D_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture3d_desc">D3D10_TEXTURE3D_DESC</a>*</b>
      * 
      * Pointer to a 3D texture description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture3d_desc">D3D10_TEXTURE3D_DESC</a>). To create a typeless resource that can be interpreted at runtime into different, compatible formats, specify a typeless format in the texture description. To generate mipmap levels automatically, set the number of mipmap levels to 0.
@@ -2143,15 +2040,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10Texture3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10texture3d">ID3D10Texture3D</a>**</b>
      * 
      * Address of a pointer to the created texture (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10texture3d">ID3D10Texture3D Interface</a>). Set this parameter to <b>NULL</b> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createtexture3d
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createtexture3d
      */
     CreateTexture3D(pDesc, pInitialData) {
-        result := ComCall(74, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
+        result := ComCall(74, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture3D := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Texture3D(ppTexture3D)
     }
 
     /**
-     * Create a shader-resource view for accessing data in a resource.
+     * Create a shader-resource view for accessing data in a resource. (ID3D10Device.CreateShaderResourceView)
+     * @remarks
+     * A resource is made up of one or more <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresources</a>, a view identifies which subresources to allow the pipeline to access. In addition, each resource is bound to the pipeline using a view. A shader-resource view is designed to bind any buffer or texture resource to the <a href="https://docs.microsoft.com/previous-versions/bb205146(v=vs.85)">shader stages</a> using the following API methods: <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-vssetshaderresources">VSSetShaderResources</a>, <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-gssetshaderresources">GSSetShaderResources</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-pssetshaderresources">PSSetShaderResources</a>.
+     * 
+     * Since a view is fully typed, this means that typeless resources become fully typed when bound to the pipeline.
      * @param {ID3D10Resource} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">resource</a> that will serve as input to a shader. This resource must have been created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_SHADER_RESOURCE</a> flag.
@@ -2161,15 +2066,21 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10ShaderResourceView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10shaderresourceview">ID3D10ShaderResourceView</a>. Set this parameter to <b>NULL</b> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createshaderresourceview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createshaderresourceview
      */
     CreateShaderResourceView(pResource, pDesc) {
-        result := ComCall(75, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppSRView := 0, "HRESULT")
+        result := ComCall(75, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppSRView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10ShaderResourceView(ppSRView)
     }
 
     /**
      * Create a render-target view for accessing resource data.
+     * @remarks
+     * A rendertarget view can be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output merger stage</a> by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetrendertargets">ID3D10Device::OMSetRenderTargets</a>.
      * @param {ID3D10Resource} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">resource</a> that will serve as the render target. This resource must have been created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_RENDER_TARGET</a> flag.
@@ -2179,15 +2090,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10RenderTargetView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rendertargetview">ID3D10RenderTargetView</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rendertargetview">ID3D10RenderTargetView</a>. Set this parameter to <b>NULL</b> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createrendertargetview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createrendertargetview
      */
     CreateRenderTargetView(pResource, pDesc) {
-        result := ComCall(76, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppRTView := 0, "HRESULT")
+        result := ComCall(76, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppRTView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10RenderTargetView(ppRTView)
     }
 
     /**
-     * Create a depth-stencil view for accessing resource data.
+     * Create a depth-stencil view for accessing resource data. (ID3D10Device.CreateDepthStencilView)
+     * @remarks
+     * A depth-stencil view can be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetrendertargets">ID3D10Device::OMSetRenderTargets</a>.
+     * 
+     * For more background information, see the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-depth-stencil">programming guide page</a> about depth stencils.
      * @param {ID3D10Resource} pResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">resource</a> that will serve as the depth-stencil surface. This resource must have been created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_bind_flag">D3D10_BIND_DEPTH_STENCIL</a> flag.
@@ -2197,15 +2116,38 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10DepthStencilView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilview">ID3D10DepthStencilView</a>. Set this parameter to <b>NULL</b> to validate the other input parameters (the method will return S_FALSE if the other input parameters pass validation).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createdepthstencilview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createdepthstencilview
      */
     CreateDepthStencilView(pResource, pDesc) {
-        result := ComCall(77, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppDepthStencilView := 0, "HRESULT")
+        result := ComCall(77, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppDepthStencilView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10DepthStencilView(ppDepthStencilView)
     }
 
     /**
-     * Create an input-layout object to describe the input-buffer data for the input-assembler stage.
+     * Create an input-layout object to describe the input-buffer data for the input-assembler stage. (ID3D10Device.CreateInputLayout)
+     * @remarks
+     * After creating an input layout object, it must be bound to the input-assembler stage before calling a draw API. See <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-input-assembler-stage-getting-started">Getting Started with the Input-Assembler Stage (Direct3D 10)</a> for example code.
+     * 
+     * Once an input-layout object is created from a shader signature, the input-layout object can be reused with any other shader that has an identical input signature (semantics included). This can simplify the creation of input-layout objects when you are working with many shaders with identical inputs.
+     * 
+     * If a data type in the input-layout declaration does not match the data type in a shader-input signature, CreateInputLayout will generate a warning during compilation. The warning is simply to call attention to the fact that the data may be reinterpreted when read from a register. You may either disregard this warning (if reinterpretation is intentional) or make the data types match in both declarations to eliminate the warning.  The <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-data-conversion">Data Conversion Rules</a> overview describes the rules applied for data type conversion.
+     * 
+     * <table>
+     * <tr>
+     * <td>
+     * Differences between Direct3D 9 and Direct3D 10:
+     * 
+     * Mapping the vertex data to the shader inputs with an input layout is a new way of doing things in Direct3D 10 that improves performance.
+     * 
+     * In Direct3D 10 the vertex data is mapped to the shader inputs when the input layout object is created, whereas in Direct3D 9 this mapping was done at Draw time based on the currently bound vertex declarations, vertex buffers, and vertex shaders. Doing this mapping when the input layout object is created reduces or eliminates extra linkage work for drivers at Draw time because this re-mapping is no longer necessary.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer<D3D10_INPUT_ELEMENT_DESC>} pInputElementDescs Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_input_element_desc">D3D10_INPUT_ELEMENT_DESC</a>*</b>
      * 
      * An array of the input-assembler stage input data types; each type is described by an element description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_input_element_desc">D3D10_INPUT_ELEMENT_DESC</a>).
@@ -2221,17 +2163,21 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10InputLayout} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10inputlayout">ID3D10InputLayout</a>**</b>
      * 
      * A pointer to the input-layout object created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10inputlayout">ID3D10InputLayout Interface</a>). To validate the other input parameters, set this pointer to be <b>NULL</b> and verify that the method returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createinputlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createinputlayout
      */
     CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength) {
         pShaderBytecodeWithInputSignatureMarshal := pShaderBytecodeWithInputSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(78, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", &ppInputLayout := 0, "HRESULT")
+        result := ComCall(78, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", &ppInputLayout := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10InputLayout(ppInputLayout)
     }
 
     /**
-     * Create a vertex-shader object from a compiled shader.
+     * Create a vertex-shader object from a compiled shader. (ID3D10Device.CreateVertexShader)
      * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
@@ -2241,17 +2187,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10VertexShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader Interface</a>. If this is <b>NULL</b>, all other parameters will be validated, and if all parameters pass validation this API will return S_FALSE instead of S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createvertexshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createvertexshader
      */
     CreateVertexShader(pShaderBytecode, BytecodeLength) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(79, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppVertexShader := 0, "HRESULT")
+        result := ComCall(79, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppVertexShader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10VertexShader(ppVertexShader)
     }
 
     /**
-     * Create a geometry shader.
+     * Create a geometry shader. (ID3D10Device.CreateGeometryShader)
+     * @remarks
+     * Once created, the shader can be set to the device by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-gssetshader">ID3D10Device::GSSetShader</a>.
      * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
@@ -2261,17 +2213,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10GeometryShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader Interface</a>.  If this is <b>NULL</b>, all other parameters will be validated, and if all parameters pass validation this API will return S_FALSE instead of S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-creategeometryshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-creategeometryshader
      */
     CreateGeometryShader(pShaderBytecode, BytecodeLength) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(80, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        result := ComCall(80, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppGeometryShader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10GeometryShader(ppGeometryShader)
     }
 
     /**
-     * Creates a geometry shader that can write to streaming output buffers.
+     * Creates a geometry shader that can write to streaming output buffers. (ID3D10Device.CreateGeometryShaderWithStreamOutput)
+     * @remarks
+     * For more info about using <b>CreateGeometryShaderWithStreamOutput</b>, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-stream-stage-getting-started">Create a Geometry-Shader Object with Stream Output</a>.
      * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled geometry shader for a standard geometry shader plus stream output. For info on how to get this pointer, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
@@ -2292,17 +2250,23 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10GeometryShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader Interface</a>. If this is <b>NULL</b>, all other parameters will be validated, and if all parameters pass validation this API will return S_FALSE instead of S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-creategeometryshaderwithstreamoutput
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-creategeometryshaderwithstreamoutput
      */
     CreateGeometryShaderWithStreamOutput(pShaderBytecode, BytecodeLength, pSODeclaration, NumEntries, OutputStreamStride) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(81, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, "uint", OutputStreamStride, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        result := ComCall(81, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, "uint", OutputStreamStride, "ptr*", &ppGeometryShader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10GeometryShader(ppGeometryShader)
     }
 
     /**
-     * Create a pixel shader.
+     * Create a pixel shader. (ID3D10Device.CreatePixelShader)
+     * @remarks
+     * After creating the pixel shader, you can set it to the device using <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-pssetshader">ID3D10Device::PSSetShader</a>.
      * @param {Pointer<Void>} pShaderBytecode Type: <b>const void*</b>
      * 
      * A pointer to the compiled shader. To get this pointer see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-using-shaders-10">Getting a Pointer to a Compiled Shader</a>.
@@ -2312,122 +2276,172 @@ class ID3D10Device extends IUnknown{
      * @returns {ID3D10PixelShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader Interface</a>. If this is <b>NULL</b>, all other parameters will be validated, and if all parameters pass validation this API will return S_FALSE instead of S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createpixelshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createpixelshader
      */
     CreatePixelShader(pShaderBytecode, BytecodeLength) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(82, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppPixelShader := 0, "HRESULT")
+        result := ComCall(82, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppPixelShader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10PixelShader(ppPixelShader)
     }
 
     /**
-     * Create a blend-state object that encapsules blend state for the output-merger stage.
+     * Create a blend-state object that encapsulates blend state for the output-merger stage. (ID3D10Device.CreateBlendState)
+     * @remarks
+     * An application can create up to 4096 unique blend-state objects. For each object created, the runtime checks to see if a previous object has the same state. If such a previous object exists, the runtime will return a pointer to previous instance instead of creating a duplicate object.
      * @param {Pointer<D3D10_BLEND_DESC>} pBlendStateDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">D3D10_BLEND_DESC</a>*</b>
      * 
      * Pointer to a blend-state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">D3D10_BLEND_DESC</a>).
      * @returns {ID3D10BlendState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState</a>**</b>
      * 
      * Address of a pointer to the blend-state object created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createblendstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createblendstate
      */
     CreateBlendState(pBlendStateDesc) {
-        result := ComCall(83, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
+        result := ComCall(83, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10BlendState(ppBlendState)
     }
 
     /**
-     * Create a depth-stencil state object that encapsulates depth-stencil test information for the output-merger stage.
+     * Create a depth-stencil state object that encapsulates depth-stencil test information for the output-merger stage. (ID3D10Device.CreateDepthStencilState)
+     * @remarks
+     * 4096 unique depth-stencil state objects can be created on a device at a time.
+     * 
+     * If an application attempts to create a depth-stencil state with the same description as an already existing depth-stencil state, then the same interface with an incremented reference count will be returned and the total number of unique depth-stencil state objects will stay the same.
      * @param {Pointer<D3D10_DEPTH_STENCIL_DESC>} pDepthStencilDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a>*</b>
      * 
      * Pointer to a depth-stencil state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_depth_stencil_desc">D3D10_DEPTH_STENCIL_DESC</a>).
      * @returns {ID3D10DepthStencilState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState</a>**</b>
      * 
      * Address of a pointer to the depth-stencil state object created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10depthstencilstate">ID3D10DepthStencilState Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createdepthstencilstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createdepthstencilstate
      */
     CreateDepthStencilState(pDepthStencilDesc) {
-        result := ComCall(84, this, "ptr", pDepthStencilDesc, "ptr*", &ppDepthStencilState := 0, "HRESULT")
+        result := ComCall(84, this, "ptr", pDepthStencilDesc, "ptr*", &ppDepthStencilState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10DepthStencilState(ppDepthStencilState)
     }
 
     /**
-     * Create a rasterizer state object that tells the rasterizer stage how to behave.
+     * Create a rasterizer state object that tells the rasterizer stage how to behave. (ID3D10Device.CreateRasterizerState)
+     * @remarks
+     * 4096 unique rasterizer state objects can be created on a device at a time.
+     * 
+     * If an application attempts to create a rasterizer state with the same description as an already existing rasterizer state, then the same interface with an incremented reference count will be returned and the total number of unique rasterizer state objects will stay the same.
      * @param {Pointer<D3D10_RASTERIZER_DESC>} pRasterizerDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>*</b>
      * 
      * Pointer to a rasterizer state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>).
      * @returns {ID3D10RasterizerState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState</a>**</b>
      * 
      * Address of a pointer to the rasterizer state object created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createrasterizerstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createrasterizerstate
      */
     CreateRasterizerState(pRasterizerDesc) {
-        result := ComCall(85, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        result := ComCall(85, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10RasterizerState(ppRasterizerState)
     }
 
     /**
-     * Create a sampler-state object that encapsulates sampling information for a texture.
+     * Create a sampler-state object that encapsulates sampling information for a texture. (ID3D10Device.CreateSamplerState)
+     * @remarks
+     * 4096 unique sampler state objects can be created on a device at a time.
+     * 
+     * If an application attempts to create a sampler state with the same description as an already existing sampler state, then the same interface with an incremented reference count will be returned and the total number of unique sampler state objects will stay the same.
      * @param {Pointer<D3D10_SAMPLER_DESC>} pSamplerDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a>*</b>
      * 
      * Pointer to a sampler state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_sampler_desc">D3D10_SAMPLER_DESC</a>).
      * @returns {ID3D10SamplerState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState</a>**</b>
      * 
      * Address of a pointer to the sampler state object created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10samplerstate">ID3D10SamplerState Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createsamplerstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createsamplerstate
      */
     CreateSamplerState(pSamplerDesc) {
-        result := ComCall(86, this, "ptr", pSamplerDesc, "ptr*", &ppSamplerState := 0, "HRESULT")
+        result := ComCall(86, this, "ptr", pSamplerDesc, "ptr*", &ppSamplerState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10SamplerState(ppSamplerState)
     }
 
     /**
-     * This interface encapsulates methods for querying information from the GPU.
+     * This interface encapsulates methods for querying information from the GPU. (ID3D10Device.CreateQuery)
      * @param {Pointer<D3D10_QUERY_DESC>} pQueryDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>*</b>
      * 
      * Pointer to a query description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>).
      * @returns {ID3D10Query} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10query">ID3D10Query</a>**</b>
      * 
      * Address of a pointer to the query object created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10query">ID3D10Query Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createquery
      */
     CreateQuery(pQueryDesc) {
-        result := ComCall(87, this, "ptr", pQueryDesc, "ptr*", &ppQuery := 0, "HRESULT")
+        result := ComCall(87, this, "ptr", pQueryDesc, "ptr*", &ppQuery := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Query(ppQuery)
     }
 
     /**
-     * Creates a predicate.
+     * Creates a predicate. (ID3D10Device.CreatePredicate)
      * @param {Pointer<D3D10_QUERY_DESC>} pPredicateDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>*</b>
      * 
      * Pointer to a query description where the type of query must be a D3D10_QUERY_SO_OVERFLOW_PREDICATE or D3D10_QUERY_OCCLUSION_PREDICATE (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_query_desc">D3D10_QUERY_DESC</a>).
      * @returns {ID3D10Predicate} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate</a>**</b>
      * 
      * Address of a pointer to a predicate (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10predicate">ID3D10Predicate Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createpredicate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createpredicate
      */
     CreatePredicate(pPredicateDesc) {
-        result := ComCall(88, this, "ptr", pPredicateDesc, "ptr*", &ppPredicate := 0, "HRESULT")
+        result := ComCall(88, this, "ptr", pPredicateDesc, "ptr*", &ppPredicate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Predicate(ppPredicate)
     }
 
     /**
-     * Create a counter object for measuring GPU performance.
+     * Create a counter object for measuring GPU performance. (ID3D10Device.CreateCounter)
      * @param {Pointer<D3D10_COUNTER_DESC>} pCounterDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>*</b>
      * 
      * Pointer to a counter description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>).
      * @returns {ID3D10Counter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10counter">ID3D10Counter</a>**</b>
      * 
      * Address of a pointer to a counter (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10counter">ID3D10Counter Interface</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-createcounter
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-createcounter
      */
     CreateCounter(pCounterDesc) {
-        result := ComCall(89, this, "ptr", pCounterDesc, "ptr*", &ppCounter := 0, "HRESULT")
+        result := ComCall(89, this, "ptr", pCounterDesc, "ptr*", &ppCounter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10Counter(ppCounter)
     }
 
     /**
-     * Get the support of a given format on the installed video device.
+     * Get the support of a given format on the installed video device. (ID3D10Device.CheckFormatSupport)
+     * @remarks
+     * Most format support is based on the Direct3D feature level. Only a few specific use cases require checking for support. 
+     *       See <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Hardware Support for Direct3D 10 Formats</a> 
+     *       and <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-1-hardware">Hardware Support for Direct3D 10.1 Formats</a> for additional information.
      * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> enumeration that describes a format for which to check for support.
@@ -2435,15 +2449,28 @@ class ID3D10Device extends IUnknown{
      * 
      * A bitfield of <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_format_support">D3D10_FORMAT_SUPPORT</a> enumeration values describing how the specified format is supported on the installed device. 
      *         The values are ORed together.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-checkformatsupport
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-checkformatsupport
      */
     CheckFormatSupport(Format) {
-        result := ComCall(90, this, "int", Format, "uint*", &pFormatSupport := 0, "HRESULT")
+        result := ComCall(90, this, "int", Format, "uint*", &pFormatSupport := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFormatSupport
     }
 
     /**
-     * Get the number of quality levels available during multisampling.
+     * Get the number of quality levels available during multisampling. (ID3D10Device.CheckMultisampleQualityLevels)
+     * @remarks
+     * When multisampling a texture, the number of quality levels available for an adapter is dependent on the texture format used and the number of samples
+     *       requested. The maximum sample count defined by D3D10_MAX_MULTISAMPLE_SAMPLE_COUNT in d3d10.h is 32. If the returned value of
+     *       <i>pNumQualityLevels</i> is 0, the format and sample count combination is not supported for the installed adapter.
+     * 
+     * Furthermore, the definition of a quality level is up to each hardware vendor to define, however no facility is provided by Direct3D to help discover 
+     *       this information.
+     * 
+     * Direct3D 10.1 devices are required to support 4x MSAA for all formats except R32G32B32A32 and R32G32B32 formats.
      * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The texture format. See <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>.
@@ -2453,27 +2480,33 @@ class ID3D10Device extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Number of quality levels supported by the adapter. See remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-checkmultisamplequalitylevels
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-checkmultisamplequalitylevels
      */
     CheckMultisampleQualityLevels(Format, SampleCount) {
-        result := ComCall(91, this, "int", Format, "uint", SampleCount, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        result := ComCall(91, this, "int", Format, "uint", SampleCount, "uint*", &pNumQualityLevels := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNumQualityLevels
     }
 
     /**
-     * Get a counter's information.
+     * Get a counter's information. (ID3D10Device.CheckCounterInfo)
      * @param {Pointer<D3D10_COUNTER_INFO>} pCounterInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_info">D3D10_COUNTER_INFO</a>*</b>
      * 
      * Pointer to counter information (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_info">D3D10_COUNTER_INFO</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-checkcounterinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-checkcounterinfo
      */
     CheckCounterInfo(pCounterInfo) {
         ComCall(92, this, "ptr", pCounterInfo)
     }
 
     /**
-     * Get the type, name, units of measure, and a description of an existing counter.
+     * Get the type, name, units of measure, and a description of an existing counter. (ID3D10Device.CheckCounter)
+     * @remarks
+     * Length parameters can be <b>NULL</b>, which indicates the application is not interested in the length nor the corresponding string value. When a length parameter is non-<b>NULL</b> and the corresponding string is <b>NULL</b>, the input value of the length parameter is ignored, and the length of the corresponding string (including terminating <b>NULL</b>) will be returned through the length parameter. When length and the corresponding parameter are both non-<b>NULL</b>, the input value of length is checked to ensure there is enough room, and then the length of the string (including terminating <b>NULL</b> character) is passed out through the length parameter.
      * @param {Pointer<D3D10_COUNTER_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>*</b>
      * 
      * Pointer to a counter description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_desc">D3D10_COUNTER_DESC</a>). Specifies which counter information is to be retrieved about.
@@ -2501,10 +2534,10 @@ class ID3D10Device extends IUnknown{
      * @param {Pointer<Integer>} pDescriptionLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Length of the string returned to szDescription. Can be <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-checkcounter
+     * This method returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-checkcounter
      */
     CheckCounter(pDesc, pType, pActiveCounters, szName, pNameLength, szUnits, pUnitsLength, szDescription, pDescriptionLength) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -2517,16 +2550,20 @@ class ID3D10Device extends IUnknown{
         pUnitsLengthMarshal := pUnitsLength is VarRef ? "uint*" : "ptr"
         pDescriptionLengthMarshal := pDescriptionLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(93, this, "ptr", pDesc, pTypeMarshal, pType, pActiveCountersMarshal, pActiveCounters, "ptr", szName, pNameLengthMarshal, pNameLength, "ptr", szUnits, pUnitsLengthMarshal, pUnitsLength, "ptr", szDescription, pDescriptionLengthMarshal, pDescriptionLength, "HRESULT")
+        result := ComCall(93, this, "ptr", pDesc, pTypeMarshal, pType, pActiveCountersMarshal, pActiveCounters, "ptr", szName, pNameLengthMarshal, pNameLength, "ptr", szUnits, pUnitsLengthMarshal, pUnitsLength, "ptr", szDescription, pDescriptionLengthMarshal, pDescriptionLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Get the flags used during the call to create the device with D3D10CreateDevice.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * A bitfield containing the flags used to create the device. See <a href="/windows/desktop/api/d3d10/ne-d3d10-d3d10_create_device_flag">D3D10_CREATE_DEVICE_FLAG</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-getcreationflags
+     * A bitfield containing the flags used to create the device. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_create_device_flag">D3D10_CREATE_DEVICE_FLAG</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-getcreationflags
      */
     GetCreationFlags() {
         result := ComCall(94, this, "uint")
@@ -2535,7 +2572,62 @@ class ID3D10Device extends IUnknown{
 
     /**
      * Give a device access to a shared resource created on a different Direct3d device.
-     * @param {HANDLE} hResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
+     * @remarks
+     * To share a resource between two Direct3D 10 devices the resource must have been created with the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_misc_flag">D3D10_RESOURCE_MISC_SHARED</a> flag, if it was created using the ID3D10Device interface. 
+     *       If it was created using the IDXGIDevice interface, then the resource is always shared.
+     * 
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. 
+     *       For example, __uuidof(ID3D10Buffer) will get the GUID of the interface to a buffer resource.
+     * 
+     * When sharing a resource between two Direct3D 10 devices the unique handle of the resource can be obtained by querying the resource for the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interface and then calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiresource-getsharedhandle">GetSharedHandle</a>.
+     * 
+     * 
+     * ```
+     * 
+     * IDXGIResource* pOtherResource(NULL);
+     * hr = pOtherDeviceResource->QueryInterface( __uuidof(IDXGIResource), (void**)&pOtherResource );
+     * HANDLE sharedHandle;
+     * pOtherResource->GetSharedHandle(&sharedHandle);
+     *       
+     * ```
+     * 
+     * 
+     * The only resources that can be shared are 2D non-mipmapped textures.
+     * 
+     * To share a resource between a Direct3D 9 device and a Direct3D 10 device the texture must have been created using 
+     *       the <i>pSharedHandle</i> argument of <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9-createtexture">CreateTexture</a>.  
+     *       The shared Direct3D 9 handle is then passed to OpenSharedResource in the <i>hResource</i> argument.
+     * 
+     * The following code illustrates the method calls involved.
+     * 
+     * 
+     * ```
+     * 
+     * sharedHandle = NULL; // must be set to NULL to create, can use a valid handle here to open in D3D9 
+     * pDevice9->CreateTexture(..., pTex2D_9, &sharedHandle); 
+     * ... 
+     * pDevice10->OpenSharedResource(sharedHandle, __uuidof(ID3D10Resource), (void**)(&tempResource10)); 
+     * tempResource10->QueryInterface(__uuidof(ID3D10Texture2D), (void**)(&pTex2D_10)); 
+     * tempResource10->Release(); 
+     * // now use pTex2D_10 with pDevice10   
+     *       
+     * ```
+     * 
+     * 
+     * Textures being shared from D3D9 to D3D10 have the following restrictions.
+     * 
+     * <ul>
+     * <li>Textures must be 2D</li>
+     * <li>Only 1 mip level is allowed</li>
+     * <li>Texture must have default usage</li>
+     * <li>Texture must be write only</li>
+     * <li>MSAA textures are not allowed</li>
+     * <li>Bind flags must have SHADER_RESOURCE and RENDER_TARGET set</li>
+     * <li>Only R10G10B10A2_UNORM, R16G16B16A16_FLOAT and R8G8B8A8_UNORM formats are allowed</li>
+     * </ul>
+     * If a shared texture is updated on one device <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-flush">ID3D10Device::Flush</a> must be called on that device.
+     * @param {HANDLE} hResource_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
      * 
      * A resource handle. See remarks.
      * @param {Pointer<Guid>} ReturnedInterface Type: <b>REFIID</b>
@@ -2544,22 +2636,23 @@ class ID3D10Device extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer to the resource we are gaining access to.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-opensharedresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-opensharedresource
      */
-    OpenSharedResource(hResource, ReturnedInterface) {
-        hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
+    OpenSharedResource(hResource_, ReturnedInterface) {
+        hResource_ := hResource_ is Win32Handle ? NumGet(hResource_, "ptr") : hResource_
 
-        result := ComCall(95, this, "ptr", hResource, "ptr", ReturnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        result := ComCall(95, this, "ptr", hResource_, "ptr", ReturnedInterface, "ptr*", &ppResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResource
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (ID3D10Device.SetTextFilterSize)
      * @remarks
-     * 
      * This method is not implemented, and should not be used.
-     * 
-     * 
      * @param {Integer} Width Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Not applicable
@@ -2567,19 +2660,16 @@ class ID3D10Device extends IUnknown{
      * 
      * Not applicable
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-settextfiltersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-settextfiltersize
      */
     SetTextFilterSize(Width, Height) {
         ComCall(96, this, "uint", Width, "uint", Height)
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (ID3D10Device.GetTextFilterSize)
      * @remarks
-     * 
      * This method is not implemented, and should not be used.
-     * 
-     * 
      * @param {Pointer<Integer>} pWidth Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Not applicable
@@ -2587,7 +2677,7 @@ class ID3D10Device extends IUnknown{
      * 
      * Not applicable
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10device-gettextfiltersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10device-gettextfiltersize
      */
     GetTextFilterSize(pWidth, pHeight) {
         pWidthMarshal := pWidth is VarRef ? "uint*" : "ptr"

@@ -57,7 +57,11 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {Integer} 
      */
     get_MinNotification() {
-        result := ComCall(7, this, "int*", &MinNotification := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &MinNotification := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MinNotification
     }
 
@@ -67,7 +71,11 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     put_MinNotification(MinNotification) {
-        result := ComCall(8, this, "int", MinNotification, "HRESULT")
+        result := ComCall(8, this, "int", MinNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +84,11 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {Integer} 
      */
     get_BufferSize() {
-        result := ComCall(9, this, "int*", &BufferSize := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &BufferSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BufferSize
     }
 
@@ -86,7 +98,11 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     put_BufferSize(BufferSize) {
-        result := ComCall(10, this, "int", BufferSize, "HRESULT")
+        result := ComCall(10, this, "int", BufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +111,11 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {Integer} 
      */
     get_EventBias() {
-        result := ComCall(11, this, "int*", &EventBias := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &EventBias := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EventBias
     }
 
@@ -105,7 +125,11 @@ class ISpeechAudioBufferInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     put_EventBias(EventBias) {
-        result := ComCall(12, this, "int", EventBias, "HRESULT")
+        result := ComCall(12, this, "int", EventBias, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

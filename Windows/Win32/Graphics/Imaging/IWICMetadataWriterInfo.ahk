@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that provide basic information about the registered metadata writer.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwicmetadatawriterinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nn-wincodecsdk-iwicmetadatawriterinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -45,10 +45,14 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual size of the header.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
      */
     GetHeader(guidContainerFormat, cbSize, pHeader) {
-        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", &pcbActual := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", &pcbActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbActual
     }
 
@@ -57,10 +61,14 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo{
      * @returns {IWICMetadataWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>**</b>
      * 
      * Pointer that receives a pointer to a metadata writer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-createinstance
      */
     CreateInstance() {
-        result := ComCall(19, this, "ptr*", &ppIWriter := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &ppIWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataWriter(ppIWriter)
     }
 }

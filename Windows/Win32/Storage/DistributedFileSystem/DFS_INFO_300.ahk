@@ -6,7 +6,7 @@
  * @remarks
  * The DFS functions use the 
  * <b>DFS_INFO_300</b> structure to enumerate DFS namespaces hosted on a machine.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_300
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_info_300
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

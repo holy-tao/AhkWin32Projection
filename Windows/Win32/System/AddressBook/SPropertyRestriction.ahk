@@ -33,7 +33,7 @@
  * > `SPropertyRestriction.lpProp->ulPropTag = 0x8012001f; // the lpszW member of the Value property is valid`> `SPropertyRestriction.lpProp.Value->lpszW = L"My Category";`> Note that if the property type of the **ulPropTag** of **SPropValue** contains the MV_FLAG bit flag, the likely return is MAPI_E_TOO_COMPLEX.
  *   
  * For more information about the **SPropertyRestriction** structure, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropertyrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/spropertyrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

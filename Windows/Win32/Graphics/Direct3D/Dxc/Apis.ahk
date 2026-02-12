@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
@@ -21,107 +23,107 @@ class Dxc {
     static DXC_HASHFLAG_INCLUDES_SOURCE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_DEBUG => "-Zi"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_SKIP_VALIDATION => "-Vd"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_SKIP_OPTIMIZATIONS => "-Od"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_PACK_MATRIX_ROW_MAJOR => "-Zpr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_PACK_MATRIX_COLUMN_MAJOR => "-Zpc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_AVOID_FLOW_CONTROL => "-Gfa"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_PREFER_FLOW_CONTROL => "-Gfp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_ENABLE_STRICTNESS => "-Ges"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_ENABLE_BACKWARDS_COMPATIBILITY => "-Gec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_IEEE_STRICTNESS => "-Gis"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_OPTIMIZATION_LEVEL0 => "-O0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_OPTIMIZATION_LEVEL1 => "-O1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_OPTIMIZATION_LEVEL2 => "-O2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_OPTIMIZATION_LEVEL3 => "-O3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_WARNINGS_ARE_ERRORS => "-WX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_RESOURCES_MAY_ALIAS => "-res_may_alias"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_ALL_RESOURCES_BOUND => "-all_resources_bound"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_DEBUG_NAME_FOR_SOURCE => "-Zss"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_ARG_DEBUG_NAME_FOR_BINARY => "-Zsb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_EXTRA_OUTPUT_NAME_STDOUT => "*stdout*"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DXC_EXTRA_OUTPUT_NAME_STDERR => "*stderr*"
 

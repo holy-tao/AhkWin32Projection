@@ -15,7 +15,7 @@
  * 
  * <div class="alert"><b>Note</b>  The multi-threaded apartment is intended for use by non-GUI threads. Threads in multi-threaded apartments should not perform UI actions. This is because UI threads require a message pump, and COM does not pump messages for threads in a multi-threaded apartment.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/objbase/ne-objbase-coinit
+ * @see https://learn.microsoft.com/windows/win32/api//content/objbase/ne-objbase-coinit
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

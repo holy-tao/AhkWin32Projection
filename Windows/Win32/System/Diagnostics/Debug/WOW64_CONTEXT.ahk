@@ -25,7 +25,7 @@
  * <td>Windows Server 2012 R2</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_context
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-wow64_context
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

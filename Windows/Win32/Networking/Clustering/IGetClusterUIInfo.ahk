@@ -9,7 +9,6 @@
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about Failover Cluster Administrator's user interface.
  * @remarks
- * 
  * You can use the <b>IGetClusterUIInfo</b> interface when 
  *      Failover Cluster Administrator calls your implementations of the following methods:
  * 
@@ -42,9 +41,7 @@
  *      the operation is not valid in the context of the cluster, and the result is an interface that represents no real 
  *      cluster object. For an illustration, see 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-igetclusterresourceinfo">IGetClusterResourceInfo</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-igetclusteruiinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nn-cluadmex-igetclusteruiinfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -70,7 +67,12 @@ class IGetClusterUIInfo extends IUnknown{
     static VTableNames => ["GetClusterName", "GetLocale", "GetFont", "GetIcon"]
 
     /**
-     * Returns the name of the cluster.
+     * Returns the name of the cluster. (IGetClusterUIInfo.GetClusterName)
+     * @remarks
+     * If the <i>lpszName</i> parameter is set to <b>NULL</b> and the 
+     *      <i>pcchName</i> parameter is not set to <b>NULL</b>, the 
+     *      <b>GetClusterName</b> method returns 
+     *      <b>NOERROR</b>.
      * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the cluster, or 
      *        <b>NULL</b> to indicate that the caller is requesting only the length of the name. Although 
      *        declared as a <b>BSTR</b>, this parameter is implemented as an 
@@ -119,28 +121,40 @@ class IGetClusterUIInfo extends IUnknown{
      * </td>
      * <td width="60%">
      * The buffer pointed to by <i>lpszName</i> is too small to hold the requested name. 
-     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername">GetClusterName</a> returns the 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername">GetClusterName</a> returns the 
      *          required number of characters in the content of <i>pcchName</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername
      */
     GetClusterName(lpszName, pcchName) {
-        lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
+        if(lpszName is String) {
+            pin := BSTR.Alloc(lpszName)
+            lpszName := pin.Value
+        }
 
         pcchNameMarshal := pcchName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", lpszName, pcchNameMarshal, pcchName, "HRESULT")
+        result := ComCall(3, this, "ptr", lpszName, pcchNameMarshal, pcchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the locale identifier to be used with property and wizard pages.
+     * @remarks
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> extensions call the 
+     *      <b>GetLocale</b> method to retrieve the locale 
+     *      identifier that can be used for loading dialog resources. A single Failover Cluster Administrator extension DLL 
+     *      can support multiple languages.
      * @returns {Integer} <b>GetLocale</b> always returns the locale 
      *        identifier for the cluster.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-getlocale
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-igetclusteruiinfo-getlocale
      */
     GetLocale() {
         result := ComCall(4, this, "uint")
@@ -149,23 +163,33 @@ class IGetClusterUIInfo extends IUnknown{
 
     /**
      * Returns a handle to the font to be displayed on property and wizard pages.
+     * @remarks
+     * The <b>GetFont</b> method returns the font handle 
+     *      as <b>NULL</b>. 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> extensions should not 
+     *      use this return value in their user interface displays.
      * @returns {HFONT} If <b>GetFont</b> is successful, it returns a 
      *        font handle.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-getfont
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-igetclusteruiinfo-getfont
      */
     GetFont() {
         result := ComCall(5, this, "ptr")
-        return HFONT({Value: result}, True)
+        resultHandle := HFONT({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Returns a handle to the icon to use in the upper-left corner of property and wizard pages.
+     * @remarks
+     * With the <b>GetIcon</b> method, each property page 
+     *      or wizard page should have an icon control positioned at (8,7) with a size of (18,20).
      * @returns {HICON} <b>GetIcon</b> always returns a handle to an 
      *        icon.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-geticon
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-igetclusteruiinfo-geticon
      */
     GetIcon() {
         result := ComCall(6, this, "ptr")
-        return HICON({Value: result}, True)
+        resultHandle := HICON({Value: result}, True)
+        return resultHandle
     }
 }

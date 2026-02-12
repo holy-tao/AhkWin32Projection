@@ -34,7 +34,11 @@ class IFileOperation2 extends IFileOperation{
      * @returns {HRESULT} 
      */
     SetOperationFlags2(operationFlags2) {
-        result := ComCall(23, this, "int", operationFlags2, "HRESULT")
+        result := ComCall(23, this, "int", operationFlags2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

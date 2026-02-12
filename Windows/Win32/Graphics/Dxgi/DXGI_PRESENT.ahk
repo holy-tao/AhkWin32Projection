@@ -24,7 +24,7 @@
  * The DXGI\_PRESENT\_STEREO\_PREFER\_RIGHT and DXGI\_PRESENT\_STEREO\_TEMPORARY\_MONO flags apply only to stereo swap chains. If you use them when you present mono swap chains, an invalid operation occurs.
  * 
  * If you use the DXGI\_PRESENT\_STEREO\_TEMPORARY\_MONO flag when you present a stereo swap chain that does not support temporary mono, an error occurs, the swap chain does not display, and the presentation returns [DXGI\_ERROR\_INVALID\_CALL](dxgi-error.md).
- * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-present
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3ddxgi/dxgi-present
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

@@ -37,7 +37,11 @@ class IDOMEventRegistrationCallback extends IUnknown{
     OnDOMEventListenerAdded(pszEventType, pHandler) {
         pszEventType := pszEventType is String ? StrPtr(pszEventType) : pszEventType
 
-        result := ComCall(3, this, "ptr", pszEventType, "ptr", pHandler, "HRESULT")
+        result := ComCall(3, this, "ptr", pszEventType, "ptr", pHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IDOMEventRegistrationCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDOMEventListenerRemoved(ullCookie) {
-        result := ComCall(4, this, "uint", ullCookie, "HRESULT")
+        result := ComCall(4, this, "uint", ullCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

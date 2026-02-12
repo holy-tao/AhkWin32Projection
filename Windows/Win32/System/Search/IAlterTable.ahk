@@ -37,7 +37,11 @@ class IAlterTable extends IUnknown{
      * @returns {HRESULT} 
      */
     AlterColumn(pTableId, pColumnId, dwColumnDescFlags, pColumnDesc) {
-        result := ComCall(3, this, "ptr", pTableId, "ptr", pColumnId, "uint", dwColumnDescFlags, "ptr", pColumnDesc, "HRESULT")
+        result := ComCall(3, this, "ptr", pTableId, "ptr", pColumnId, "uint", dwColumnDescFlags, "ptr", pColumnDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IAlterTable extends IUnknown{
      * @returns {HRESULT} 
      */
     AlterTable(pTableId, pNewTableId, cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, "ptr", pTableId, "ptr", pNewTableId, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(4, this, "ptr", pTableId, "ptr", pNewTableId, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

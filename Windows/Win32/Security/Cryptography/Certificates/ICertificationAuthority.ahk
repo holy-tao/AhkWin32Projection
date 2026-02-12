@@ -6,7 +6,7 @@
 
 /**
  * The ICertificationAuthority interface represents a single certification authority. A collection of certification authorities is represented by the ICertificationAuthorities interface.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertificationauthority
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icertificationauthority
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,13 +33,17 @@ class ICertificationAuthority extends IDispatch{
 
     /**
      * Retrieves a certification authority property value.
-     * @param {Integer} property 
+     * @param {Integer} property_ 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthority-get_property
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertificationauthority-get_property
      */
-    get_Property(property) {
+    get_Property(property_) {
         pValue := VARIANT()
-        result := ComCall(7, this, "int", property, "ptr", pValue, "HRESULT")
+        result := ComCall(7, this, "int", property_, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

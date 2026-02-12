@@ -5,7 +5,7 @@
 
 /**
  * The IDDrawExclModeVideoCallback interface is a callback interface for the IDDrawExclModeVideo interface.This callback interface enables applications to get synchronous notification about changes to the overlay position, size, visibility, and so on, so that the application can adjust its video visibility, size, and position. This avoids any color key flash at the beginning, end, or during playback. The application must implement the interface. It is important that none of the methods block or slow down the video processing, because this will cause problems with playback.Use this interface if you are writing a filter that supports IDDrawExclModeVideo or needs to generate callbacks to enable an application to draw color keys at the right time.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iddrawexclmodevideocallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iddrawexclmodevideocallback
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDDrawExclModeVideoCallback extends IUnknown{
 
     /**
      * The OnUpdateOverlay method informs the application when the overlay surface for the video is about to become visible, invisible, change size, or change position, so that the application can repaint its window appropriately.
+     * @remarks
+     * The application should call this method once before the overlay-related change occurs and once after the changes are done. In the call before the change, the overlay change doesn't happen until the application completes executing this method.
      * @param {BOOL} bBefore Boolean value specifying whether the call is being made before or after the overlay-related change. <b>TRUE</b> specifies before, <b>FALSE</b> specifies after.
      * @param {Integer} dwFlags Value from the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_am_overlay_notify_flags">AM_OVERLAY_NOTIFY_FLAGS</a> enumeration that specifies what is about to change or what changed.
      * @param {BOOL} bOldVisible Boolean value specifying whether the old window is visible. <b>TRUE</b> means the old window is visible.
@@ -70,10 +72,14 @@ class IDDrawExclModeVideoCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideocallback-onupdateoverlay
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideocallback-onupdateoverlay
      */
     OnUpdateOverlay(bBefore, dwFlags, bOldVisible, prcOldSrc, prcOldDest, bNewVisible, prcNewSrc, prcNewDest) {
-        result := ComCall(3, this, "int", bBefore, "uint", dwFlags, "int", bOldVisible, "ptr", prcOldSrc, "ptr", prcOldDest, "int", bNewVisible, "ptr", prcNewSrc, "ptr", prcNewDest, "HRESULT")
+        result := ComCall(3, this, "int", bBefore, "uint", dwFlags, "int", bOldVisible, "ptr", prcOldSrc, "ptr", prcOldDest, "int", bNewVisible, "ptr", prcNewSrc, "ptr", prcNewDest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,24 +117,34 @@ class IDDrawExclModeVideoCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideocallback-onupdatecolorkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideocallback-onupdatecolorkey
      */
     OnUpdateColorKey(pKey, dwColor) {
-        result := ComCall(4, this, "ptr", pKey, "uint", dwColor, "HRESULT")
+        result := ComCall(4, this, "ptr", pKey, "uint", dwColor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The OnUpdateSize method informs the application that the size of the video rectangle is about to change.
+     * @remarks
+     * This method is called when the size of the rectangle in the video stream changes, for example from 704x480 to 640x480.
      * @param {Integer} dwWidth The new width, in pixels, of the video stream.
      * @param {Integer} dwHeight The new height, in pixels, of the video stream.
      * @param {Integer} dwARWidth The new horizontal value of the aspect ratio.
      * @param {Integer} dwARHeight The new vertical value of the aspect ratio.
      * @returns {HRESULT} Returns an HRESULT value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideocallback-onupdatesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideocallback-onupdatesize
      */
     OnUpdateSize(dwWidth, dwHeight, dwARWidth, dwARHeight) {
-        result := ComCall(5, this, "uint", dwWidth, "uint", dwHeight, "uint", dwARWidth, "uint", dwARHeight, "HRESULT")
+        result := ComCall(5, this, "uint", dwWidth, "uint", dwHeight, "uint", dwARWidth, "uint", dwARHeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

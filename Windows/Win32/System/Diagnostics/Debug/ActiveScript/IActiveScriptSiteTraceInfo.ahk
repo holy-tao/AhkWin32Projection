@@ -39,7 +39,11 @@ class IActiveScriptSiteTraceInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SendScriptTraceInfo(stiEventType, guidContextID, dwScriptContextCookie, lScriptStatementStart, lScriptStatementEnd, dwReserved) {
-        result := ComCall(3, this, "int", stiEventType, "ptr", guidContextID, "uint", dwScriptContextCookie, "int", lScriptStatementStart, "int", lScriptStatementEnd, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "int", stiEventType, "ptr", guidContextID, "uint", dwScriptContextCookie, "int", lScriptStatementStart, "int", lScriptStatementEnd, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

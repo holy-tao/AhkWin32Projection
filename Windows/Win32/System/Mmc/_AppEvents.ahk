@@ -36,106 +36,146 @@ class _AppEvents extends IDispatch{
 
     /**
      * 
-     * @param {_Application} Application 
+     * @param {_Application} Application_ 
      * @returns {HRESULT} 
      */
-    OnQuit(Application) {
-        result := ComCall(7, this, "ptr", Application, "HRESULT")
+    OnQuit(Application_) {
+        result := ComCall(7, this, "ptr", Application_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
+     * @param {Document} Document_ 
      * @param {BOOL} New 
      * @returns {HRESULT} 
      */
-    OnDocumentOpen(Document, New) {
-        result := ComCall(8, this, "ptr", Document, "int", New, "HRESULT")
+    OnDocumentOpen(Document_, New) {
+        result := ComCall(8, this, "ptr", Document_, "int", New, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
+     * @param {Document} Document_ 
      * @returns {HRESULT} 
      */
-    OnDocumentClose(Document) {
-        result := ComCall(9, this, "ptr", Document, "HRESULT")
+    OnDocumentClose(Document_) {
+        result := ComCall(9, this, "ptr", Document_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
-     * @param {SnapIn} SnapIn 
+     * @param {Document} Document_ 
+     * @param {SnapIn} SnapIn_ 
      * @returns {HRESULT} 
      */
-    OnSnapInAdded(Document, SnapIn) {
-        result := ComCall(10, this, "ptr", Document, "ptr", SnapIn, "HRESULT")
+    OnSnapInAdded(Document_, SnapIn_) {
+        result := ComCall(10, this, "ptr", Document_, "ptr", SnapIn_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Document} Document 
-     * @param {SnapIn} SnapIn 
+     * @param {Document} Document_ 
+     * @param {SnapIn} SnapIn_ 
      * @returns {HRESULT} 
      */
-    OnSnapInRemoved(Document, SnapIn) {
-        result := ComCall(11, this, "ptr", Document, "ptr", SnapIn, "HRESULT")
+    OnSnapInRemoved(Document_, SnapIn_) {
+        result := ComCall(11, this, "ptr", Document_, "ptr", SnapIn_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} View_ 
      * @returns {HRESULT} 
      */
-    OnNewView(View) {
-        result := ComCall(12, this, "ptr", View, "HRESULT")
+    OnNewView(View_) {
+        result := ComCall(12, this, "ptr", View_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} View_ 
      * @returns {HRESULT} 
      */
-    OnViewClose(View) {
-        result := ComCall(13, this, "ptr", View, "HRESULT")
+    OnViewClose(View_) {
+        result := ComCall(13, this, "ptr", View_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} View_ 
      * @param {Node} NewOwnerNode 
      * @returns {HRESULT} 
      */
-    OnViewChange(View, NewOwnerNode) {
-        result := ComCall(14, this, "ptr", View, "ptr", NewOwnerNode, "HRESULT")
+    OnViewChange(View_, NewOwnerNode) {
+        result := ComCall(14, this, "ptr", View_, "ptr", NewOwnerNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} View_ 
      * @param {Nodes} NewNodes 
      * @returns {HRESULT} 
      */
-    OnSelectionChange(View, NewNodes) {
-        result := ComCall(15, this, "ptr", View, "ptr", NewNodes, "HRESULT")
+    OnSelectionChange(View_, NewNodes) {
+        result := ComCall(15, this, "ptr", View_, "ptr", NewNodes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {MenuItem} MenuItem 
+     * @param {MenuItem} MenuItem_ 
      * @returns {HRESULT} 
      */
-    OnContextMenuExecuted(MenuItem) {
-        result := ComCall(16, this, "ptr", MenuItem, "HRESULT")
+    OnContextMenuExecuted(MenuItem_) {
+        result := ComCall(16, this, "ptr", MenuItem_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,17 +184,25 @@ class _AppEvents extends IDispatch{
      * @returns {HRESULT} 
      */
     OnToolbarButtonClicked() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {View} View 
+     * @param {View} View_ 
      * @returns {HRESULT} 
      */
-    OnListUpdated(View) {
-        result := ComCall(18, this, "ptr", View, "HRESULT")
+    OnListUpdated(View_) {
+        result := ComCall(18, this, "ptr", View_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

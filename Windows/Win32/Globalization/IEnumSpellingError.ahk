@@ -6,7 +6,7 @@
 
 /**
  * An enumeration of the spelling errors.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nn-spellcheck-ienumspellingerror
+ * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nn-spellcheck-ienumspellingerror
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -33,8 +33,11 @@ class IEnumSpellingError extends IUnknown{
 
     /**
      * Gets the next spelling error.
+     * @remarks
+     * If there are no spelling errors, this will return <b>S_FALSE</b>.
+     * This provides a way for a provider to implement spell checking lazily if desired—instead of doing the spell checking work on <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellchecker-check">ISpellCheckProvider::Check</a> and getting all the errors at once, you can do it only as needed when this method is called, getting one error per call.
      * @returns {ISpellingError} The spelling error (<a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ispellingerror">ISpellingError</a>) returned.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ienumspellingerror-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ienumspellingerror-next
      */
     Next() {
         result := ComCall(3, this, "ptr*", &value := 0, "int")

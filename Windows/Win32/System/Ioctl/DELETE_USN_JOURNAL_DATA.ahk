@@ -6,7 +6,7 @@
  * @remarks
  * For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-delete_usn_journal_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-delete_usn_journal_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -9,7 +9,7 @@
  *      be one of several structures depending on the value of the <b>PropertyId</b> member.  If the 
  *      <b>QueryType</b> member is set to <b>PropertyExistsQuery</b>, then no 
  *      structure is returned.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_property_query
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_property_query
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

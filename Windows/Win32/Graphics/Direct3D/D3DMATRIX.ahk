@@ -3,7 +3,7 @@
 
 /**
  * A 4x4 row-major matrix.
- * @see https://learn.microsoft.com/windows/win32/direct3d10/d3d10-d3dmatrix
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d10/d3d10-d3dmatrix
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

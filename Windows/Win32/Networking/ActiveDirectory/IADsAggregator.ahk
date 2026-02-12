@@ -34,7 +34,11 @@ class IADsAggregator extends IUnknown{
      * @returns {HRESULT} 
      */
     ConnectAsAggregator(pAggregatee) {
-        result := ComCall(3, this, "ptr", pAggregatee, "HRESULT")
+        result := ComCall(3, this, "ptr", pAggregatee, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IADsAggregator extends IUnknown{
      * @returns {HRESULT} 
      */
     DisconnectAsAggregator() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

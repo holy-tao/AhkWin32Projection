@@ -55,7 +55,7 @@ class IO_FOEXT_SILO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {PESILO}
+     * @type {Pointer<PESILO>}
      */
     SiloContext {
         get => NumGet(this, 8, "ptr")

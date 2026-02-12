@@ -15,7 +15,7 @@
  * <div class="alert"><b>Note</b>  Not all owner-draw menus in the Windows Explorer process conform to this convention.</div>
  * <div> </div>
  * Applications that probe owner-draw menu data must validate all data read from the process.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenuitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/ns-shlobj-aashellmenuitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

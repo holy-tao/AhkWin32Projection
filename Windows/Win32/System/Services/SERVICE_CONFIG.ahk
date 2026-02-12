@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The <i>lpInfo</i> parameter is a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_delayed_auto_start_info">SERVICE_DELAYED_AUTO_START_INFO</a> structure.
+  * 
+  * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/nf-winsvc-changeserviceconfig2a
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

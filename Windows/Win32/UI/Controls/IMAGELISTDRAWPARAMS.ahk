@@ -11,7 +11,7 @@
  * To extract the overlay image from the <b>fStyle</b>, use the bitwise <b>AND</b> operator to mask <b>fStyle</b> with the <a href="https://docs.microsoft.com/windows/desktop/Controls/imagelistdrawflags">ILD_OVERLAYMASK</a> value. 
  * 
  * Comctl32.dll version 6 is not redistributable.. To use Comctl32.dll version 6, you must specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-imagelistdrawparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-imagelistdrawparams
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

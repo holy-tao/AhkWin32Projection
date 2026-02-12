@@ -33,7 +33,11 @@ class IMetaDataFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     UnmarkAll() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IMetaDataFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     MarkToken(tk) {
-        result := ComCall(4, this, "uint", tk, "HRESULT")
+        result := ComCall(4, this, "uint", tk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class IMetaDataFilter extends IUnknown{
     IsTokenMarked(tk, pIsMarked) {
         pIsMarkedMarshal := pIsMarked is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", tk, pIsMarkedMarshal, pIsMarked, "HRESULT")
+        result := ComCall(5, this, "uint", tk, pIsMarkedMarshal, pIsMarked, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

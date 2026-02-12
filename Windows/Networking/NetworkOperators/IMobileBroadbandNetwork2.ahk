@@ -1,0 +1,67 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Foundation\IAsyncOperation.ahk
+#Include ..\..\Foundation\IPropertyValue.ahk
+#Include ..\..\Foundation\Collections\IVectorView.ahk
+#Include .\MobileBroadbandUiccApp.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Networking.NetworkOperators
+ * @version WindowsRuntime 1.4
+ */
+class IMobileBroadbandNetwork2 extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IMobileBroadbandNetwork2
+     * @type {Guid}
+     */
+    static IID => Guid("{5a55db22-62f7-4bdd-ba1d-477441960ba0}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["GetVoiceCallSupportAsync", "get_RegistrationUiccApps"]
+
+    /**
+     * @type {IVectorView<MobileBroadbandUiccApp>} 
+     */
+    RegistrationUiccApps {
+        get => this.get_RegistrationUiccApps()
+    }
+
+    /**
+     * 
+     * @returns {IAsyncOperation<Boolean>} 
+     */
+    GetVoiceCallSupportAsync() {
+        result := ComCall(6, this, "ptr*", &asyncInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAsyncOperation((ptr) => IPropertyValue(ptr).GetBoolean(), asyncInfo)
+    }
+
+    /**
+     * 
+     * @returns {IVectorView<MobileBroadbandUiccApp>} 
+     */
+    get_RegistrationUiccApps() {
+        result := ComCall(7, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IVectorView(MobileBroadbandUiccApp, value)
+    }
+}

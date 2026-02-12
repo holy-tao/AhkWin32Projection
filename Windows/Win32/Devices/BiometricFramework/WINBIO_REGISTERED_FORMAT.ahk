@@ -12,7 +12,7 @@
  * |---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
  * | WINBIO\_ANSI\_381\_FORMAT\_OWNER<br/> | InterNational Committee for Information Technology Standards (INCITS) technical committee M1 (biometrics).<br/> |
  * | WINBIO\_ANSI\_381\_FORMAT\_TYPE<br/>  | ANSI INCITS 381 finger image based data interchange format.<br/>                                                |
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-registered-format
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-registered-format
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

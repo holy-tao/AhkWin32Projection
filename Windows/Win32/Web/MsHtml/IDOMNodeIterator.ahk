@@ -61,7 +61,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {IDispatch} 
      */
     get_root() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -70,7 +74,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {Integer} 
      */
     get_whatToShow() {
-        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -79,7 +87,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {IDispatch} 
      */
     get_filter() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -88,7 +100,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_expandEntityReferences() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -97,7 +113,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {IDispatch} 
      */
     nextNode() {
-        result := ComCall(11, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -106,7 +126,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {IDispatch} 
      */
     previousNode() {
-        result := ComCall(12, this, "ptr*", &ppRetNode := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRetNode)
     }
 
@@ -115,7 +139,11 @@ class IDOMNodeIterator extends IDispatch{
      * @returns {HRESULT} 
      */
     detach() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

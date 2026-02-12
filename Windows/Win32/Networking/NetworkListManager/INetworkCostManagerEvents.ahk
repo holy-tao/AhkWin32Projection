@@ -5,7 +5,7 @@
 
 /**
  * This interface to notify an application of machine-wide cost and data plan related events.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nn-netlistmgr-inetworkcostmanagerevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nn-netlistmgr-inetworkcostmanagerevents
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class INetworkCostManagerEvents extends IUnknown{
      * @param {Integer} newCost A DWORD that represents the new cost of the connection. The lowest 16 bits represent the cost level, and the highest 16 bits represent the flags. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_cost">NLM_CONNECTION_COST</a> enumeration.
      * @param {Pointer<NLM_SOCKADDR>} pDestAddr An <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ns-netlistmgr-nlm_sockaddr">NLM_SOCKADDR</a> structure containing an IPv4/IPv6 address that identifies the destination on which the event occurred. If <i>destAddr</i> is NULL, the change is a machine-wide Internet connectivity change.
      * @returns {HRESULT} Returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkcostmanagerevents-costchanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkcostmanagerevents-costchanged
      */
     CostChanged(newCost, pDestAddr) {
-        result := ComCall(3, this, "uint", newCost, "ptr", pDestAddr, "HRESULT")
+        result := ComCall(3, this, "uint", newCost, "ptr", pDestAddr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,10 +50,14 @@ class INetworkCostManagerEvents extends IUnknown{
      * DataPlanStatusChanged method is called to indicate a change to the status of a data plan associated with either a connection used for machine-wide Internet connectivity, or the first-hop of routing to a specific destination on a connection.
      * @param {Pointer<NLM_SOCKADDR>} pDestAddr An <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ns-netlistmgr-nlm_sockaddr">NLM_SOCKADDR</a> structure containing an IPv4/IPv6 address that identifies the destination for which the event occurred. If <i>destAddr</i> is NULL, the change is a machine-wide Internet connectivity change.
      * @returns {HRESULT} Returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkcostmanagerevents-dataplanstatuschanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/netlistmgr/nf-netlistmgr-inetworkcostmanagerevents-dataplanstatuschanged
      */
     DataPlanStatusChanged(pDestAddr) {
-        result := ComCall(4, this, "ptr", pDestAddr, "HRESULT")
+        result := ComCall(4, this, "ptr", pDestAddr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

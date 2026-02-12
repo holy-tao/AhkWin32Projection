@@ -49,7 +49,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_numberOfItems(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,16 +62,27 @@ class ISVGPathSegList extends IDispatch{
      * @returns {Integer} 
      */
     get_numberOfItems() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * clearBatch Method (SQLServerStatement)
+     * @remarks
+     * This clearBatch method is specified by the clearBatch method in the java.sql.Statement interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/clearbatch-method-sqlserverstatement
      */
     clear() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +92,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {ISVGPathSeg} 
      */
     initialize(newItem) {
-        result := ComCall(10, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", newItem, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSeg(ppResult)
     }
 
@@ -87,7 +106,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {ISVGPathSeg} 
      */
     getItem(index) {
-        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSeg(ppResult)
     }
 
@@ -98,7 +121,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {ISVGPathSeg} 
      */
     insertItemBefore(newItem, index) {
-        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSeg(ppResult)
     }
 
@@ -109,7 +136,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {ISVGPathSeg} 
      */
     replaceItem(newItem, index) {
-        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSeg(ppResult)
     }
 
@@ -119,7 +150,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {ISVGPathSeg} 
      */
     removeItem(index) {
-        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSeg(ppResult)
     }
 
@@ -129,7 +164,11 @@ class ISVGPathSegList extends IDispatch{
      * @returns {ISVGPathSeg} 
      */
     appendItem(newItem) {
-        result := ComCall(15, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", newItem, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSeg(ppResult)
     }
 }

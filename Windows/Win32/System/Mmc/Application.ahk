@@ -12,7 +12,7 @@
  * 
  * 1.  [**Application.Commands**](windowsribbon-element-application-commands.md)
  * 2.  [**Application.Views**](windowsribbon-element-application-views.md)
- * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-application
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/windowsribbon/windowsribbon-element-application
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

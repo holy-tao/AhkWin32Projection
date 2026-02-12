@@ -33,7 +33,11 @@ class IQueryOEMWinSATCustomization extends IUnknown{
      * @returns {Integer} 
      */
     GetOEMPrePopulationInfo() {
-        result := ComCall(3, this, "int*", &state := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &state := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return state
     }
 }

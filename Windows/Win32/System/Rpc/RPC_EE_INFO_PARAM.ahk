@@ -7,7 +7,7 @@
  * @remarks
  * The 
  * <b>RPC_EE_INFO_PARAM</b> structure is used in conjunction with the <b>RpcError</b>* functions to investigate and create extended RPC error information.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_ee_info_param
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcasync/ns-rpcasync-rpc_ee_info_param
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

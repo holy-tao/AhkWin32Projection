@@ -4,7 +4,7 @@
 
 /**
  * Is used to store credential information specific to certificate authentication. (IKEEXT_CERTIFICATE_CREDENTIAL1)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_credential1
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_certificate_credential1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

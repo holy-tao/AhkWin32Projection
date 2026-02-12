@@ -5,7 +5,7 @@
 
 /**
  * Extends the IWizardExtension interface by exposing methods to set the wizard extension's initial URL, and a specific URL in case of an error.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iwebwizardextension
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iwebwizardextension
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,13 +37,17 @@ class IWebWizardExtension extends IWizardExtension{
      * The URL of the initial server-provided HTML page.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwebwizardextension-setinitialurl
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iwebwizardextension-setinitialurl
      */
     SetInitialURL(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(6, this, "ptr", pszURL, "HRESULT")
+        result := ComCall(6, this, "ptr", pszURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,13 +58,17 @@ class IWebWizardExtension extends IWizardExtension{
      * The URL of the page to display.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iwebwizardextension-seterrorurl
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iwebwizardextension-seterrorurl
      */
     SetErrorURL(pszErrorURL) {
         pszErrorURL := pszErrorURL is String ? StrPtr(pszErrorURL) : pszErrorURL
 
-        result := ComCall(7, this, "ptr", pszErrorURL, "HRESULT")
+        result := ComCall(7, this, "ptr", pszErrorURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

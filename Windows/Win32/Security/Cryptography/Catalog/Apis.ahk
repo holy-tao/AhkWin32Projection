@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Catalog
@@ -11,22 +13,22 @@ class Catalog {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CATALOG_LIST => "1.3.6.1.4.1.311.12.1.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CATALOG_LIST_MEMBER => "1.3.6.1.4.1.311.12.1.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_CATALOG_LIST_MEMBER2 => "1.3.6.1.4.1.311.12.1.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CRYPTCAT_FILEEXT => "CAT"
 
@@ -120,7 +122,7 @@ class Catalog {
      * @param {Integer} dwPublicVersion 
      * @param {Integer} dwEncodingType Encoding type used for the file. If this value is 0, then the encoding type is set to PKCS_7_ASN_ENCODING | X509_ASN_ENCODING.
      * @returns {HANDLE} Upon success, this function returns a handle to the open catalog. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatclose">CryptCATClose</a> function. The <b>CryptCATOpen</b> function returns INVALID_HANDLE_VALUE if it fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatopen
      * @since windows5.1.2600
      */
     static CryptCATOpen(pwszFileName, fdwOpenFlags, hProv, dwPublicVersion, dwEncodingType) {
@@ -135,7 +137,7 @@ class Catalog {
      * Closes a catalog handle opened previously by the CryptCATOpen function.
      * @param {HANDLE} hCatalog Handle opened previously by a call to the  <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatopen">CryptCATOpen</a> function.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatclose
      * @since windows5.1.2600
      */
     static CryptCATClose(hCatalog) {
@@ -149,7 +151,7 @@ class Catalog {
      * Retrieves a CRYPTCATSTORE structure from a catalog handle.
      * @param {HANDLE} hCatalog A handle to the catalog obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatopen">CryptCATOpen</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcathandlefromstore">CryptCATHandleFromStore</a> function.
      * @returns {Pointer<CRYPTCATSTORE>} A pointer to a [CRYPTCATSTORE](/windows/desktop/api/mscat/ns-mscat-cryptcatstore) structure that contains the catalog store. The caller must not free this pointer or any of its members.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatstorefromhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatstorefromhandle
      * @since windows5.1.2600
      */
     static CryptCATStoreFromHandle(hCatalog) {
@@ -163,7 +165,7 @@ class Catalog {
      * Retrieves a catalog handle from memory.
      * @param {Pointer<CRYPTCATSTORE>} pCatStore A pointer to a [CRYPTCATSTORE](/windows/desktop/api/mscat/ns-mscat-cryptcatstore) structure that contains the handle to retrieve.
      * @returns {HANDLE} A handle to the catalog.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcathandlefromstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcathandlefromstore
      * @since windows5.1.2600
      */
     static CryptCATHandleFromStore(pCatStore) {
@@ -220,7 +222,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatpersiststore
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatpersiststore
      * @since windows5.1.2600
      */
     static CryptCATPersistStore(hCatalog) {
@@ -376,7 +378,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatputcatattrinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatputcatattrinfo
      * @since windows5.1.2600
      */
     static CryptCATPutCatAttrInfo(hCatalog, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
@@ -402,7 +404,7 @@ class Catalog {
      * @param {HANDLE} hCatalog Handle for the catalog whose attributes are being enumerated. This value cannot be <b>NULL</b>.
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to the previously returned pointer to  the [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure from this function or pointer to <b>NULL</b> to start the enumeration.
      * @returns {Pointer<CRYPTCATATTRIBUTE>} The return value is a pointer to the  [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure that contains the attribute information or <b>NULL</b>, if no more attributes are in the enumeration or if an error is encountered. The returned pointer is passed in as the <i>pPrevAttr</i> parameter for subsequent calls to this function.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatenumeratecatattr
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatenumeratecatattr
      * @since windows5.1.2600
      */
     static CryptCATEnumerateCatAttr(hCatalog, pPrevAttr) {
@@ -419,7 +421,7 @@ class Catalog {
      * @param {HANDLE} hCatalog A handle to the catalog. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} pwszReferenceTag A pointer to a <b>null</b>-terminated string that represents the reference tag for the member information being retrieved.
      * @returns {Pointer<CRYPTCATMEMBER>} A pointer to the [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information or <b>NULL</b>, if no information can be found.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatgetmemberinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatgetmemberinfo
      * @since windows5.1.2600
      */
     static CryptCATGetMemberInfo(hCatalog, pwszReferenceTag) {
@@ -501,7 +503,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatgetattrinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatgetattrinfo
      * @since windows5.1.2600
      */
     static CryptCATGetAttrInfo(hCatalog, pCatMember, pwszReferenceTag) {
@@ -562,7 +564,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatputmemberinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatputmemberinfo
      * @since windows5.1.2600
      */
     static CryptCATPutMemberInfo(hCatalog, pwszFileName, pwszReferenceTag, pgSubjectType, dwCertVersion, cbSIPIndirectData, pbSIPIndirectData) {
@@ -709,7 +711,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatputattrinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatputattrinfo
      * @since windows5.1.2600
      */
     static CryptCATPutAttrInfo(hCatalog, pCatMember, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
@@ -735,7 +737,7 @@ class Catalog {
      * @param {HANDLE} hCatalog The handle of the catalog that contains the members to enumerate. This value cannot be <b>NULL</b>.
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember A pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that identifies which member of the catalog was last retrieved. If this parameter is <b>NULL</b>, this function will retrieve the first member of the catalog.
      * @returns {Pointer<CRYPTCATMEMBER>} This function returns a pointer to a [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that represents the next member of the catalog. If there are no more members in the catalog to enumerate, this function returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatenumeratemember
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatenumeratemember
      * @since windows5.1.2600
      */
     static CryptCATEnumerateMember(hCatalog, pPrevMember) {
@@ -753,7 +755,7 @@ class Catalog {
      * @param {Pointer<CRYPTCATMEMBER>} pCatMember A pointer to the [CRYPTCATMEMBER](/windows/desktop/api/mscat/ns-mscat-cryptcatmember) structure that identifies which member of the catalog is being enumerated.
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to the previously returned value from this function or pointer to <b>NULL</b> to start the enumeration.
      * @returns {Pointer<CRYPTCATATTRIBUTE>} The return value is a pointer to the  CRYPTCATATTRIBUTE structure that contains the attribute information or <b>NULL</b>, if no more attributes are in the enumeration or if an error is encountered. The returned pointer is passed in as the <i>pPrevAttr</i> parameter for subsequent calls to this function.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatenumerateattr
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatenumerateattr
      * @since windows5.1.2600
      */
     static CryptCATEnumerateAttr(hCatalog, pCatMember, pPrevAttr) {
@@ -868,7 +870,7 @@ class Catalog {
      * @param {PWSTR} pwszFilePath A pointer to a null-terminated string that contains the path of the CDF file to open.
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
      * @returns {Pointer<CRYPTCATCDF>} Upon success, this function returns a pointer to the newly created [CRYPTCATCDF](/windows/desktop/api/mscat/ns-mscat-cryptcatcdf) structure. The <b>CryptCATCDFOpen</b> function returns a <b>NULL</b> pointer if it fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatcdfopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatcdfopen
      * @since windows5.1.2600
      */
     static CryptCATCDFOpen(pwszFilePath, pfnParseError) {
@@ -884,7 +886,7 @@ class Catalog {
      * Before closing the catalog output file specified in  <i>pCDF</i>, the <b>CryptCATCDFClose</b> function signs and persists it to the file system.
      * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [CRYPTCATCDF](/windows/desktop/api/mscat/ns-mscat-cryptcatcdf) structure.
      * @returns {BOOL} Upon success, this function returns <b>TRUE</b>. The <b>CryptCATCDFClose</b> function returns <b>FALSE</b> with an <b>ERROR_INVALID_PARAMETER</b> error if it fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatcdfclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatcdfclose
      * @since windows5.1.2600
      */
     static CryptCATCDFClose(pCDF) {
@@ -900,7 +902,7 @@ class Catalog {
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure for a catalog attribute in the CDF pointed to by <i>pCDF</i>.
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
      * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [CRYPTCATATTRIBUTE](/windows/desktop/api/mscat/ns-mscat-cryptcatattribute) structure. The <b>CryptCATCDFEnumCatAttributes</b> function returns a <b>NULL</b> pointer if it fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatcdfenumcatattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatcdfenumcatattributes
      * @since windows5.1.2600
      */
     static CryptCATCDFEnumCatAttributes(pCDF, pPrevAttr, pfnParseError) {
@@ -909,11 +911,14 @@ class Catalog {
     }
 
     /**
-     * 
-     * @param {Pointer<CRYPTCATCDF>} pCDF 
+     * Enumerates the individual file members in the CatalogFiles section of a catalog definition file (CDF).
+     * @remarks
+     * You typically call this function in a loop to enumerate all of the catalog file members in a CDF. Before entering the loop, set *pwszPrevCDFTag* to **NULL**. The function returns a pointer to the first member. Set *pwszPrevCDFTag* to the return value of the function for subsequent iterations of the loop.
+     * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [**CRYPTCATCDF**](/windows/win32/api/mscat/ns-mscat-cryptcatcdf) structure.
      * @param {Pointer<CRYPTCATMEMBER>} pPrevMember 
-     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @returns {Pointer<CRYPTCATMEMBER>} 
+     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
+     * @returns {Pointer<CRYPTCATMEMBER>} Upon success, this function returns a pointer to a **null**-terminated string that identifies a file member in the **CatalogFiles** section of a CDF. The **CryptCATCDFEnumMembersByCDFTagEx** function returns a **NULL** pointer if it fails.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/cryptcatcdfenummembersbycdftagex
      */
     static CryptCATCDFEnumMembers(pCDF, pPrevMember, pfnParseError) {
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumMembers", "ptr", pCDF, "ptr", pPrevMember, "ptr", pfnParseError, "ptr")
@@ -921,12 +926,15 @@ class Catalog {
     }
 
     /**
-     * 
-     * @param {Pointer<CRYPTCATCDF>} pCDF 
-     * @param {Pointer<CRYPTCATMEMBER>} pMember 
-     * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr 
-     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError 
-     * @returns {Pointer<CRYPTCATATTRIBUTE>} 
+     * Enumerates the attributes of member files in the CatalogFiles section of a catalog definition file (CDF).
+     * @remarks
+     * You typically call this function in a loop to enumerate all of the catalog file member attributes in a CDF. Before entering the loop, set *pPrevAttr* to **NULL**. The function returns a pointer to the first attribute. Set *pPrevAttr* to the return value of the function for subsequent iterations of the loop.
+     * @param {Pointer<CRYPTCATCDF>} pCDF A pointer to a [**CRYPTCATCDF**](/windows/win32/api/mscat/ns-mscat-cryptcatcdf) structure.
+     * @param {Pointer<CRYPTCATMEMBER>} pMember A pointer to a [**CRYPTCATMEMBER**](/windows/win32/api/mscat/ns-mscat-cryptcatmember) structure that contains the member information.
+     * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure for a file member attribute in the CDF pointed to by *pCDF*.
+     * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
+     * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure. The **CryptCATCDFEnumAttributesWithCDFTag** function returns a **NULL** pointer if it fails.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/cryptcatcdfenumattributeswithcdftag
      */
     static CryptCATCDFEnumAttributes(pCDF, pMember, pPrevAttr, pfnParseError) {
         result := DllCall("WINTRUST.dll\CryptCATCDFEnumAttributes", "ptr", pCDF, "ptr", pMember, "ptr", pPrevAttr, "ptr", pfnParseError, "ptr")
@@ -938,7 +946,7 @@ class Catalog {
      * @param {HANDLE} hFile A handle to the file to check. This parameter is optional, but it must contain a valid handle if the <i>pwszFileName</i> parameter is <b>NULL</b>.
      * @param {PWSTR} pwszFileName A pointer to a null-terminated wide character string that contains the name of the file to check. This parameter is optional, but it must contain a valid file name if the <i>hFile</i> parameter is <b>NULL</b>.
      * @returns {BOOL} Returns nonzero if the specified file is a catalog file or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-iscatalogfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-iscatalogfile
      * @since windows5.1.2600
      */
     static IsCatalogFile(hFile, pwszFileName) {
@@ -956,7 +964,7 @@ class Catalog {
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
      * 
      * For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. For a complete list of error codes provided by the operating system, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminacquirecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminacquirecontext
      * @since windows5.1.2600
      */
     static CryptCATAdminAcquireContext(phCatAdmin, pgSubsystem) {
@@ -1030,7 +1038,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminacquirecontext2
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminacquirecontext2
      * @since windows8.0
      */
     static CryptCATAdminAcquireContext2(phCatAdmin, pgSubsystem, pwszHashAlgorithm, pStrongHashPolicy) {
@@ -1055,7 +1063,7 @@ class Catalog {
      * @param {Pointer} hCatAdmin Catalog administrator context handle previously  assigned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminacquirecontext">CryptCATAdminAcquireContext</a> function.
      * @param {Integer} dwFlags Not used; set to  zero.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminreleasecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminreleasecontext
      * @since windows5.1.2600
      */
     static CryptCATAdminReleaseContext(hCatAdmin, dwFlags) {
@@ -1069,7 +1077,7 @@ class Catalog {
      * @param {Pointer} hCatInfo Valid handle previously assigned by the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminaddcatalog">CryptCATAdminAddCatalog</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminenumcatalogfromhash">CryptCATAdminEnumCatalogFromHash</a> function.
      * @param {Integer} dwFlags This parameter is reserved for future use and must be set to zero.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminreleasecatalogcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminreleasecatalogcontext
      * @since windows5.1.2600
      */
     static CryptCATAdminReleaseCatalogContext(hCatAdmin, hCatInfo, dwFlags) {
@@ -1097,7 +1105,7 @@ class Catalog {
      * **Note:** The function returns a value of type **HCATINFO**, but this is simply a typedef for **HANDLE**. Because of this, it is easy to accidentally use the **HCATINFO** when calling a function that expects a different kind of **HANDLE**. In particular, this is not the same as a **HANDLE** returned from **CryptCATOpen**, even though the compiler will not prevent you from using the **HCATINFO** in any function that expects a catalog handle. 
      *   
      * To acquire a catalog handle from this function, first call [CryptCATCatalogInfoFromContext](/windows/win32/api/mscat/nf-mscat-cryptcatcataloginfofromcontext) to get the filename of the catalog, and then call [CryptCATOpen](/windows/win32/api/mscat/nf-mscat-cryptcatopen) with that filename to open the catalog.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminenumcatalogfromhash
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminenumcatalogfromhash
      * @since windows5.1.2600
      */
     static CryptCATAdminEnumCatalogFromHash(hCatAdmin, pbHash, cbHash, phPrevCatInfo) {
@@ -1121,7 +1129,7 @@ class Catalog {
      * @param {Pointer<Integer>} pcbHash A pointer to a <b>DWORD</b> variable that contains the number of bytes in <i>pbHash</i>. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is passed as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
      * @param {Pointer} pbHash A pointer to a <b>BYTE</b> buffer that receives the hash. If this parameter is passed in as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If <b>FALSE</b> is returned, call the <b>GetLastError</b> function to determine the reason for failure. If not enough memory has been allocated for <i>pbHash</i>, the <b>CryptCATAdminCalcHashFromFileHandle</b> function will set the last error to ERROR_INSUFFICIENT_BUFFER.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle
      * @since windows5.1.2600
      */
     static CryptCATAdminCalcHashFromFileHandle(hFile, pcbHash, pbHash) {
@@ -1195,7 +1203,7 @@ class Catalog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle2
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle2
      * @since windows8.0
      */
     static CryptCATAdminCalcHashFromFileHandle2(hCatAdmin, hFile, pcbHash, pbHash) {
@@ -1224,7 +1232,7 @@ class Catalog {
      * @returns {Pointer} If the function succeeds, the return value is a handle to the catalog information context. If the function fails, the return value is <b>NULL</b>. After you have finished using the returned handle, free it by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminreleasecatalogcontext">CryptCATAdminReleaseCatalogContext</a> function.
      * 
      * For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. For a complete list of error codes provided by the operating system, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminaddcatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminaddcatalog
      * @since windows5.1.2600
      */
     static CryptCATAdminAddCatalog(hCatAdmin, pwszCatalogFile, pwszSelectBaseName, dwFlags) {
@@ -1249,7 +1257,7 @@ class Catalog {
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
      * 
      * For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. For a complete list of error codes provided by the operating system, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminremovecatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminremovecatalog
      * @since windows5.1.2600
      */
     static CryptCATAdminRemoveCatalog(hCatAdmin, pwszCatalogFile, dwFlags) {
@@ -1273,7 +1281,7 @@ class Catalog {
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
      * 
      * For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. For a complete list of error codes provided by the operating system, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatcataloginfofromcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatcataloginfofromcontext
      * @since windows5.1.2600
      */
     static CryptCATCatalogInfoFromContext(hCatInfo, psCatInfo, dwFlags) {
@@ -1296,7 +1304,7 @@ class Catalog {
      * @returns {BOOL} Returns nonzero if successful or zero otherwise.
      * 
      * For extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. For a complete list of error codes provided by the operating system, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadminresolvecatalogpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/mscat/nf-mscat-cryptcatadminresolvecatalogpath
      * @since windows5.1.2600
      */
     static CryptCATAdminResolveCatalogPath(hCatAdmin, pwszCatalogFile, psCatInfo, dwFlags) {
@@ -1334,7 +1342,7 @@ class Catalog {
      * @param {BOOL} fContinueOnError A value that specifies whether to keep in memory a reference to the last enumerated member.
      * @param {Pointer<Void>} pvReserved This parameter is reserved; do not use it.
      * @returns {PWSTR} Upon success, this function returns a pointer to a **null**-terminated string that identifies a file member in the **CatalogFiles** section of a CDF. The **CryptCATCDFEnumMembersByCDFTagEx** function returns a **NULL** pointer if it fails.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenummembersbycdftagex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/cryptcatcdfenummembersbycdftagex
      */
     static CryptCATCDFEnumMembersByCDFTagEx(pCDF, pwszPrevCDFTag, pfnParseError, ppMember, fContinueOnError, pvReserved) {
         pwszPrevCDFTag := pwszPrevCDFTag is String ? StrPtr(pwszPrevCDFTag) : pwszPrevCDFTag
@@ -1356,7 +1364,7 @@ class Catalog {
      * @param {Pointer<CRYPTCATATTRIBUTE>} pPrevAttr A pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure for a file member attribute in the CDF pointed to by *pCDF*.
      * @param {Pointer<PFN_CDF_PARSE_ERROR_CALLBACK>} pfnParseError A pointer to a user-defined function to handle file parse errors.
      * @returns {Pointer<CRYPTCATATTRIBUTE>} Upon success, this function returns a pointer to a [**CRYPTCATATTRIBUTE**](/windows/win32/api/mscat/ns-mscat-cryptcatattribute) structure. The **CryptCATCDFEnumAttributesWithCDFTag** function returns a **NULL** pointer if it fails.
-     * @see https://learn.microsoft.com/windows/win32/SecCrypto/cryptcatcdfenumattributeswithcdftag
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/cryptcatcdfenumattributeswithcdftag
      */
     static CryptCATCDFEnumAttributesWithCDFTag(pCDF, pwszMemberTag, pMember, pPrevAttr, pfnParseError) {
         pwszMemberTag := pwszMemberTag is String ? StrPtr(pwszMemberTag) : pwszMemberTag

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * The AudioFXExtensionParams structure is passed to the system effects ControlPanel Extension PropertyPage via IShellPropSheetExt::AddPages.
- * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-audiofxextensionparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/ns-audioenginebaseapo-audiofxextensionparams
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -17,9 +18,12 @@ class AudioFXExtensionParams extends Win32Struct
      * Parameters for the Property Page extension.
      * @type {LPARAM}
      */
-    AddPageParam {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    AddPageParam{
+        get {
+            if(!this.HasProp("__AddPageParam"))
+                this.__AddPageParam := LPARAM(0, this)
+            return this.__AddPageParam
+        }
     }
 
     /**

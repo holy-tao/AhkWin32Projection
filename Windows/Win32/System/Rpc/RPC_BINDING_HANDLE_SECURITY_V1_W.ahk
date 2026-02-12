@@ -88,7 +88,7 @@
  * 
  * </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_security_v1_w
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcdce/ns-rpcdce-rpc_binding_handle_security_v1_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  * @charset Unicode

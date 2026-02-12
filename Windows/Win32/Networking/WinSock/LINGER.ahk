@@ -20,7 +20,7 @@
  * Note that enabling a nonzero timeout on a nonblocking socket is not recommended.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function can be called with the <i>optname</i> parameter set to <b>SO_LINGER</b> to retrieve the current value of the <b>linger</b> structure associated with a socket.
- * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-linger
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsock/ns-winsock-linger
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

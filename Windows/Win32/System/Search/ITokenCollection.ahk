@@ -5,7 +5,7 @@
 
 /**
  * Gets the tokens that result from using a word breaker.
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-itokencollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-itokencollection
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -37,13 +37,17 @@ class ITokenCollection extends IUnknown{
      * Receives the number of tokens within the collection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-itokencollection-numberoftokens
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-itokencollection-numberoftokens
      */
     NumberOfTokens(pCount) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
+        result := ComCall(3, this, pCountMarshal, pCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,15 +67,19 @@ class ITokenCollection extends IUnknown{
      * Receives the overriding text for this token if available, or <b>NULL</b> if there is none.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-itokencollection-gettoken
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-itokencollection-gettoken
      */
     GetToken(i, pBegin, pLength, ppsz) {
         pBeginMarshal := pBegin is VarRef ? "uint*" : "ptr"
         pLengthMarshal := pLength is VarRef ? "uint*" : "ptr"
         ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", i, pBeginMarshal, pBegin, pLengthMarshal, pLength, ppszMarshal, ppsz, "HRESULT")
+        result := ComCall(4, this, "uint", i, pBeginMarshal, pBegin, pLengthMarshal, pLength, ppszMarshal, ppsz, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

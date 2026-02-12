@@ -4,11 +4,12 @@
 #Include .\NMHDR.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\NMCUSTOMDRAW.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW (tree view) notification code sent by a tree-view control.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtvcustomdraw
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmtvcustomdraw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -35,7 +35,11 @@ class IDirectSoundFXChorus extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxChorus) {
-        result := ComCall(3, this, "ptr", pcDsFxChorus, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxChorus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXChorus extends IUnknown{
      */
     GetAllParameters() {
         pDsFxChorus := DSFXChorus()
-        result := ComCall(4, this, "ptr", pDsFxChorus, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxChorus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxChorus
     }
 }

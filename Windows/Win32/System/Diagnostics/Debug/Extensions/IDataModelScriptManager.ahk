@@ -33,11 +33,15 @@ class IDataModelScriptManager extends IUnknown{
 
     /**
      * 
-     * @returns {IDataModelNameBinder} 
+     * @returns {Pointer<IDataModelNameBinder>} 
      */
     GetDefaultNameBinder() {
-        result := ComCall(3, this, "ptr*", &ppNameBinder := 0, "HRESULT")
-        return IDataModelNameBinder(ppNameBinder)
+        result := ComCall(3, this, "ptr*", &ppNameBinder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppNameBinder
     }
 
     /**
@@ -46,7 +50,11 @@ class IDataModelScriptManager extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterScriptProvider(provider) {
-        result := ComCall(4, this, "ptr", provider, "HRESULT")
+        result := ComCall(4, this, "ptr", provider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,40 +64,56 @@ class IDataModelScriptManager extends IUnknown{
      * @returns {HRESULT} 
      */
     UnregisterScriptProvider(provider) {
-        result := ComCall(5, this, "ptr", provider, "HRESULT")
+        result := ComCall(5, this, "ptr", provider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {PWSTR} scriptType 
-     * @returns {IDataModelScriptProvider} 
+     * @returns {Pointer<IDataModelScriptProvider>} 
      */
     FindProviderForScriptType(scriptType) {
         scriptType := scriptType is String ? StrPtr(scriptType) : scriptType
 
-        result := ComCall(6, this, "ptr", scriptType, "ptr*", &provider := 0, "HRESULT")
-        return IDataModelScriptProvider(provider)
+        result := ComCall(6, this, "ptr", scriptType, "ptr*", &provider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return provider
     }
 
     /**
      * 
      * @param {PWSTR} scriptExtension 
-     * @returns {IDataModelScriptProvider} 
+     * @returns {Pointer<IDataModelScriptProvider>} 
      */
     FindProviderForScriptExtension(scriptExtension) {
         scriptExtension := scriptExtension is String ? StrPtr(scriptExtension) : scriptExtension
 
-        result := ComCall(7, this, "ptr", scriptExtension, "ptr*", &provider := 0, "HRESULT")
-        return IDataModelScriptProvider(provider)
+        result := ComCall(7, this, "ptr", scriptExtension, "ptr*", &provider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return provider
     }
 
     /**
      * 
-     * @returns {IDataModelScriptProviderEnumerator} 
+     * @returns {Pointer<IDataModelScriptProviderEnumerator>} 
      */
     EnumerateScriptProviders() {
-        result := ComCall(8, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IDataModelScriptProviderEnumerator(enumerator)
+        result := ComCall(8, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 }

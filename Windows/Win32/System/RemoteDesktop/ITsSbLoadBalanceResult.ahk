@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods and properties that store the target name returned by a load-balancing algorithm.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbloadbalanceresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbloadbalanceresult
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -41,11 +41,15 @@ class ITsSbLoadBalanceResult extends IUnknown{
     /**
      * Retrieves the target name returned by a load-balancing algorithm.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbloadbalanceresult-get_targetname
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbloadbalanceresult-get_targetname
      */
     get_TargetName() {
         pVal := BSTR()
-        result := ComCall(3, this, "ptr", pVal, "HRESULT")
+        result := ComCall(3, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

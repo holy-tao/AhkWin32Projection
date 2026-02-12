@@ -3,7 +3,7 @@
 
 /**
  * Specifies the display and encoding characteristics of a distinguished name or relative distinguished name (RDN).
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x500nameflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/ne-certenroll-x500nameflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

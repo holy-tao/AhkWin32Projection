@@ -5,7 +5,7 @@
  * Defines information about a counter set that a provider uses. The CTRPP tool automatically generates this structure based on the schema you specify.
  * @remarks
  * The memory block for this structure also contains one or more <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structures. The <b>NumCounter</b> member determines the number of <b>PERF_COUNTER_INFO</b> structures that follow this structure in memory.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counterset_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_counterset_info
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

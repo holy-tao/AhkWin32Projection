@@ -6,7 +6,7 @@
 
 /**
  * Provides the methods used to interact with the Remote Desktop Protocol (RDP) app container client control.
- * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclientactions
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclientactions
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -33,32 +33,44 @@ class IRemoteDesktopClientActions extends IDispatch{
 
     /**
      * Suspends screen updates being sent to the client.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-suspendscreenupdates
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-suspendscreenupdates
      */
     SuspendScreenUpdates() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Resumes screen updates being sent to the client.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-resumescreenupdates
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-resumescreenupdates
      */
     ResumeScreenUpdates() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Causes an action to be performed in the remote session.
      * @param {Integer} remoteAction 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-executeremoteaction
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-executeremoteaction
      */
     ExecuteRemoteAction(remoteAction) {
-        result := ComCall(9, this, "int", remoteAction, "HRESULT")
+        result := ComCall(9, this, "int", remoteAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,11 +81,15 @@ class IRemoteDesktopClientActions extends IDispatch{
      * @param {Integer} snapshotWidth The width, in pixels, of the snapshot.
      * @param {Integer} snapshotHeight The height, in pixels, of the snapshot.
      * @returns {BSTR} On return points to the snapshot.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-getsnapshot
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclientactions-getsnapshot
      */
     GetSnapshot(snapshotEncoding, snapshotFormat, snapshotWidth, snapshotHeight) {
         snapshotData := BSTR()
-        result := ComCall(10, this, "int", snapshotEncoding, "int", snapshotFormat, "uint", snapshotWidth, "uint", snapshotHeight, "ptr", snapshotData, "HRESULT")
+        result := ComCall(10, this, "int", snapshotEncoding, "int", snapshotFormat, "uint", snapshotWidth, "uint", snapshotHeight, "ptr", snapshotData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return snapshotData
     }
 }

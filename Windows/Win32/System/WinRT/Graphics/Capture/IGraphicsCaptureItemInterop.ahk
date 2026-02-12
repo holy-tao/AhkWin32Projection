@@ -4,6 +4,10 @@
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
+ * Targets a monitor(s) for the creation of a graphics capture item.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
  * @namespace Windows.Win32.System.WinRT.Graphics.Capture
  * @version v4.0.30319
  */
@@ -29,30 +33,46 @@ class IGraphicsCaptureItemInterop extends IUnknown{
     static VTableNames => ["CreateForWindow", "CreateForMonitor"]
 
     /**
+     * Targets a single window for the creation of a graphics capture item.
+     * @param {HWND} window Type: **HWND**
      * 
-     * @param {HWND} window 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createforwindow
+     * The window handle that represents the window to capture.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * GUID for the type returned. Supported value: [GraphicsCaptureItem](/uwp/api/windows.graphics.capture.graphicscaptureitem).
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createforwindow
      */
     CreateForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(3, this, "ptr", window, "ptr", riid, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", window, "ptr", riid, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
+     * Targets a monitor(s) for the creation of a graphics capture item.
+     * @param {HMONITOR} monitor_ Type: **HMONITOR**
      * 
-     * @param {HMONITOR} monitor 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
+     * The monitor handle that represents the monitor to capture.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * GUID for the type returned. Supported value: [GraphicsCaptureItem](/uwp/api/windows.graphics.capture.graphicscaptureitem).
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
      */
-    CreateForMonitor(monitor, riid) {
-        monitor := monitor is Win32Handle ? NumGet(monitor, "ptr") : monitor
+    CreateForMonitor(monitor_, riid) {
+        monitor_ := monitor_ is Win32Handle ? NumGet(monitor_, "ptr") : monitor_
 
-        result := ComCall(4, this, "ptr", monitor, "ptr", riid, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", monitor_, "ptr", riid, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 }

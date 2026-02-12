@@ -41,7 +41,11 @@ class IXpsRasterizationFactory2 extends IUnknown{
      * @returns {IXpsRasterizer} 
      */
     CreateRasterizer(xpsPage, DPIX, DPIY, nonTextRenderingMode, textRenderingMode, pixelFormat, backgroundColor) {
-        result := ComCall(3, this, "ptr", xpsPage, "float", DPIX, "float", DPIY, "int", nonTextRenderingMode, "int", textRenderingMode, "int", pixelFormat, "int", backgroundColor, "ptr*", &ppIXpsRasterizer := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", xpsPage, "float", DPIX, "float", DPIY, "int", nonTextRenderingMode, "int", textRenderingMode, "int", pixelFormat, "int", backgroundColor, "ptr*", &ppIXpsRasterizer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsRasterizer(ppIXpsRasterizer)
     }
 }

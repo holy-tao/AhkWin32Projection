@@ -44,7 +44,7 @@
  * 
  * When the channel is finished using the decoder instance it will free it via the 
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_decoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_channel_decoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

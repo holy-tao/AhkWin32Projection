@@ -33,7 +33,11 @@ class IWebBrowserEventsService extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     FireBeforeNavigate2Event() {
-        result := ComCall(3, this, "short*", &pfCancel := 0, "HRESULT")
+        result := ComCall(3, this, "short*", &pfCancel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCancel
     }
 
@@ -42,7 +46,11 @@ class IWebBrowserEventsService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireNavigateComplete2Event() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +59,11 @@ class IWebBrowserEventsService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireDownloadBeginEvent() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +72,11 @@ class IWebBrowserEventsService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireDownloadCompleteEvent() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +85,11 @@ class IWebBrowserEventsService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireDocumentCompleteEvent() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

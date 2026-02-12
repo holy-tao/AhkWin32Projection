@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Enumerator interface for ITAgent.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-ienumagent
+ * IEnumAgent (tapi3.h) is the Enumerator interface for ITAgent.
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/nn-tapi3-ienumagent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -32,7 +32,11 @@ class IEnumAgent extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The IEnumAgent::Next method (tapi3.h) gets the next specified number of elements in the enumeration sequence.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagent">ITAgent</a> interface returned by <b>IEnumAgent::Next</b>. The application must call <b>Release</b> on the 
+     * <b>ITAgent</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<ITAgent>} ppElements Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagent">ITAgent</a> pointer.
@@ -89,17 +93,21 @@ class IEnumAgent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagent-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/nf-tapi3-ienumagent-next
      */
     Next(celt, ppElements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Reset method resets the enumeration sequence to the beginning.
+     * The IEnumAgent::Reset method (tapi3.h) resets the enumeration sequence to the beginning.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -130,15 +138,19 @@ class IEnumAgent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagent-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/nf-tapi3-ienumagent-reset
      */
     Reset() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The IEnumAgent::Skip method (tapi3.h) skips over the next specified number of elements in the enumeration sequence.
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -181,21 +193,33 @@ class IEnumAgent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagent-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/nf-tapi3-ienumagent-skip
      */
     Skip(celt) {
-        result := ComCall(5, this, "uint", celt, "HRESULT")
+        result := ComCall(5, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The IEnumAgent::Clone method (tapi3.h) creates another enumerator that contains the same enumeration state as the current one.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagent">IEnumAgent</a> interface returned by <b>IEnumAgent::Clone</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumAgent</b> interface to free resources associated with it.
      * @returns {IEnumAgent} Pointer to new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagent">IEnumAgent</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagent-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/nf-tapi3-ienumagent-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumAgent(ppEnum)
     }
 }

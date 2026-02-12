@@ -6,7 +6,6 @@
 /**
  * Extends the IFileDialog interface by providing methods that allow the caller to name a specific, restricted location that can be browsed in the common file dialog as well as to specify alternate text to display as a label on the Cancel button.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialog">IFileDialog</a> interface, from which it inherits.
  * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
@@ -21,8 +20,7 @@
  * <li>When you want to restrict the dialog's navigation to a specific namespace.</li>
  * <li>When you need the dialog's <b>Cancel</b> button to be labeled differently in keeping with your functionality.</li>
  * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ifiledialog2
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ifiledialog2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -49,33 +47,47 @@ class IFileDialog2 extends IFileDialog{
 
     /**
      * Replaces the default text &quot;Cancel&quot; on the common file dialog's Cancel button.
+     * @remarks
+     * Changing the text on the Cancel button can be useful for situations where the IFileDialogEvents::OnFileOk method is used to accumulate items, and the button text should be Done instead of Cancel, for example.
      * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
      * 
      * Pointer to a string that contains the new text to display on the button.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialog2-setcancelbuttonlabel
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ifiledialog2-setcancelbuttonlabel
      */
     SetCancelButtonLabel(pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
 
-        result := ComCall(27, this, "ptr", pszLabel, "HRESULT")
+        result := ComCall(27, this, "ptr", pszLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies a top-level location from which to begin browsing a namespace, for instance in the Save dialog's Browse folder option. Users cannot navigate above this location.
+     * @remarks
+     * <b>SetNavigationRoot</b> can be used by applications that want to restrict navigation to a certain area of the Shell namespace. Items in the navigation pane are replaced with the supplied item, to guide the user from navigating outside of this part of the namespace.
+     * 
+     * This method cannot be called while the dialog is being displayed.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a></b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the navigation root.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialog2-setnavigationroot
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ifiledialog2-setnavigationroot
      */
     SetNavigationRoot(psi) {
-        result := ComCall(28, this, "ptr", psi, "HRESULT")
+        result := ComCall(28, this, "ptr", psi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

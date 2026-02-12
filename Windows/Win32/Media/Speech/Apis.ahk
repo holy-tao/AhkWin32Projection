@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -10,242 +12,242 @@ class Speech {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_EngineProperties => "EngineProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_AddRemoveWord => "AddRemoveWord"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_UserTraining => "UserTraining"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_MicTraining => "MicTraining"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_RecoProfileProperties => "RecoProfileProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_AudioProperties => "AudioProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_AudioVolume => "AudioVolume"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_UserEnrollment => "UserEnrollment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_ShareData => "ShareData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDUI_Tutorial => "Tutorial"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPREG_USER_ROOT => "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPREG_LOCAL_MACHINE_ROOT => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_AUDIOOUT => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioOutput"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_AUDIOIN => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioInput"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_VOICES => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_RECOGNIZERS => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Recognizers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_APPLEXICONS => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AppLexicons"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_PHONECONVERTERS => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\PhoneConverters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_TEXTNORMALIZERS => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\TextNormalizers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCAT_RECOPROFILES => "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech\RecoProfiles"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPMMSYS_AUDIO_IN_TOKEN_ID => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioInput\TokenEnums\MMAudioIn\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPMMSYS_AUDIO_OUT_TOKEN_ID => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\AudioOutput\TokenEnums\MMAudioOut\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCURRENT_USER_LEXICON_TOKEN_ID => "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech\CurrentUserLexicon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPCURRENT_USER_SHORTCUT_TOKEN_ID => "HKEY_CURRENT_USER\SOFTWARE\Microsoft\Speech\CurrentUserShortcut"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENVALUE_CLSID => "CLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_FILES => "Files"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_UI => "UI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_ATTRIBUTES => "Attributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_RETAINEDAUDIO => "SecondsPerRetainedAudioEvent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_AUDIO_LATENCY_WARNING => "LatencyWarningThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_AUDIO_LATENCY_TRUNCATE => "LatencyTruncateThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOKENKEY_AUDIO_LATENCY_UPDATE_INTERVAL => "LatencyUpdateInterval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPVOICECATEGORY_TTSRATE => "DefaultTTSRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_RESOURCE_USAGE => "ResourceUsage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_HIGH_CONFIDENCE_THRESHOLD => "HighConfidenceThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_NORMAL_CONFIDENCE_THRESHOLD => "NormalConfidenceThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_LOW_CONFIDENCE_THRESHOLD => "LowConfidenceThreshold"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_RESPONSE_SPEED => "ResponseSpeed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_COMPLEX_RESPONSE_SPEED => "ComplexResponseSpeed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_ADAPTATION_ON => "AdaptationOn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_PERSISTED_BACKGROUND_ADAPTATION => "PersistedBackgroundAdaptation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_PERSISTED_LANGUAGE_MODEL_ADAPTATION => "PersistedLanguageModelAdaptation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPPROP_UX_IS_LISTENING => "UXIsListening"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPTOPIC_SPELLING => "Spelling"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPWILDCARD => "..."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPDICTATION => "*"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPINFDICTATION => "*+"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPREG_SAFE_USER_TOKENS => "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\UserTokens"
 
@@ -300,17 +302,17 @@ class Speech {
     static SP_MAX_LANGIDS => 20
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPRECOEXTENSION => "RecoExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPALTERNATESCLSID => "AlternatesCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SR_LOCALIZED_DESCRIPTION => "Description"
 

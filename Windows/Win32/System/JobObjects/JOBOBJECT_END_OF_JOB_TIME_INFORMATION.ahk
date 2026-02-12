@@ -9,7 +9,7 @@
  * 
  * To associate a completion port with a job, use the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_associate_completion_port">JOBOBJECT_ASSOCIATE_COMPLETION_PORT</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_end_of_job_time_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-jobobject_end_of_job_time_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

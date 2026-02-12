@@ -13,7 +13,7 @@
  *     white paper on the Windows Hardware Developer Central (WHDC) website.
  * 
  * This structure must be aligned on a <b>LONGLONG</b> (8-byte) boundary.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_io_priority_hint_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-file_io_priority_hint_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

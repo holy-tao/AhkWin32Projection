@@ -7,7 +7,7 @@
  * Retrieves a value indicating if the specified frame subregion layout mode is supported for the specified code, profile, and level.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_frame_subregion_layout_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_frame_subregion_layout_mode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

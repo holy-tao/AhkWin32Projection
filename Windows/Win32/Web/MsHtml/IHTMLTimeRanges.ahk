@@ -46,27 +46,45 @@ class IHTMLTimeRanges extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * start Method (SQLServerXAResource)
+     * @remarks
+     * This start method is specified by the start method in the javax.transaction.xa.XAResource interface.
      * @param {Integer} index 
      * @returns {Float} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/start-method-sqlserverxaresource
      */
     start(index) {
-        result := ComCall(8, this, "int", index, "float*", &startTime := 0, "HRESULT")
+        result := ComCall(8, this, "int", index, "float*", &startTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return startTime
     }
 
     /**
-     * 
+     * end Method (SQLServerXAResource)
+     * @remarks
+     * This end method is specified by the end method in the javax.transaction.xa.XAResource interface.
      * @param {Integer} index 
      * @returns {Float} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/end-method-sqlserverxaresource
      */
     end(index) {
-        result := ComCall(9, this, "int", index, "float*", &endTime := 0, "HRESULT")
+        result := ComCall(9, this, "int", index, "float*", &endTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return endTime
     }
 }

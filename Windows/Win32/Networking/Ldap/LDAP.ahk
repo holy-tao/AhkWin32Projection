@@ -13,7 +13,7 @@
  * Although this is an opaque data type, it is documented in Winldap.h. This is primarily of value in porting applications written using other LDAP client implementations. Call 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_option">ldap_get_option</a> or 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_set_option">ldap_set_option</a> to access or change the values associated with the LDAP connection handle (this structure). Using these two functions also expose settings not directly accessible from the <b>LDAP</b> structure. For more information about session options, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">Session Options</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap
+ * @see https://learn.microsoft.com/windows/win32/api//content/winldap/ns-winldap-ldap
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

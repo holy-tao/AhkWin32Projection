@@ -5,7 +5,7 @@
  * Represents a DNS custom server. A **DNS_CUSTOM_SERVER** object is passed to [DnsQueryEx](/windows/win32/api/windns/nf-windns-dnsqueryex) via the [DNS_QUERY_REQUEST3](/windows/win32/api/windns/ns-windns-dns_query_request3) structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_custom_server
+ * @see https://learn.microsoft.com/windows/win32/api//content/windns/ns-windns-dns_custom_server
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

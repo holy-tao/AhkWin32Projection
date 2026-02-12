@@ -7,7 +7,6 @@
 /**
  * Exposes methods for retrieving metadata blocks and items from a decoder or its image frames using a metadata query expression.
  * @remarks
- * 
  * A metadata query reader uses metadata query expressions to access embedded metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
  * 
  * The benefit of the query reader is the ability to access a metadata item in a single step.
@@ -15,11 +14,7 @@
  * 
  * The query reader also provides the way to traverse the whole set of metadata hierarchy with the help of the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicmetadataqueryreader-getenumerator">GetEnumerator</a> method.
  * However, it is not recommended to use this method since <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatablockreader">IWICMetadataBlockReader</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a> provide a more convenient and cheaper way.
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicmetadataqueryreader
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicmetadataqueryreader
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -49,16 +44,27 @@ class IWICMetadataQueryReader extends IUnknown{
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * Pointer that receives the cointainer format GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getcontainerformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicmetadataqueryreader-getcontainerformat
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
-        result := ComCall(3, this, "ptr", pguidContainerFormat, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidContainerFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidContainerFormat
     }
 
     /**
      * Retrieves the current path relative to the root metadata block.
+     * @remarks
+     * If you pass <b>NULL</b> to <i>wzNamespace</i>, <b>GetLocation</b> ignores <i>cchMaxLength</i> and returns the required buffer length to store the path in the variable that <i>pcchActualLength</i> points to.
+     * 
+     * 
+     * If the query reader is relative to the top of the metadata hierarchy, it will return a single-char string.
+     * 
+     * If the query reader is relative to a nested metadata block, this method will return the path to the current query reader.
      * @param {Integer} cchMaxLength Type: <b>UINT</b>
      * 
      * The length of the <i>wzNamespace</i> buffer.
@@ -68,17 +74,25 @@ class IWICMetadataQueryReader extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual buffer length that was needed to retrieve the current namespace location.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicmetadataqueryreader-getlocation
      */
     GetLocation(cchMaxLength, wzNamespace) {
         wzNamespace := wzNamespace is String ? StrPtr(wzNamespace) : wzNamespace
 
-        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, "uint*", &pcchActualLength := 0, "HRESULT")
+        result := ComCall(4, this, "uint", cchMaxLength, "ptr", wzNamespace, "uint*", &pcchActualLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActualLength
     }
 
     /**
      * Retrieves the metadata block or item identified by a metadata query expression.
+     * @remarks
+     * <b>GetMetadataByName</b> uses metadata query expressions to access embedded metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
+     * 
+     * If multiple blocks or items exist that are expressed by the same query expression, the first metadata block or item found will be returned.
      * @param {PWSTR} wzName Type: <b>LPCWSTR</b>
      * 
      * The query expression to the requested metadata block or item.
@@ -87,25 +101,35 @@ class IWICMetadataQueryReader extends IUnknown{
      * When this method returns, contains the metadata block or item requested.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getmetadatabyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicmetadataqueryreader-getmetadatabyname
      */
     GetMetadataByName(wzName, pvarValue) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        result := ComCall(5, this, "ptr", wzName, "ptr", pvarValue, "HRESULT")
+        result := ComCall(5, this, "ptr", wzName, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an enumerator of all metadata items at the current relative location within the metadata hierarchy.
+     * @remarks
+     * The retrieved enumerator only contains query strings for the metadata blocks and items in the current level of the hierarchy.
      * @returns {IEnumString} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> interface for the enumerator that contains query strings that can be used in the current <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataqueryreader">IWICMetadataQueryReader</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicmetadataqueryreader-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicmetadataqueryreader-getenumerator
      */
     GetEnumerator() {
-        result := ComCall(6, this, "ptr*", &ppIEnumString := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppIEnumString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumString(ppIEnumString)
     }
 }

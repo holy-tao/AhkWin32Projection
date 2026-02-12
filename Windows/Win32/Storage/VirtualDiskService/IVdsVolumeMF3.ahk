@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods to perform additional file system management operations on the volume object.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsvolumemf3
+ * Provides methods to perform additional file system management operations on the volume object. (IVdsVolumeMF3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdsvolumemf3
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -33,9 +33,11 @@ class IVdsVolumeMF3 extends IUnknown{
 
     /**
      * Returns a list of volume GUID paths for the current volume.
+     * @remarks
+     * A volume GUID path is a string of the form "\\?\Volume{GUID}\" where GUID is a GUID that identifies the volume.
      * @param {Pointer<Pointer<PWSTR>>} pwszPathArray <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>
      * @param {Pointer<Integer>} pulNumberOfPaths A pointer to a variable that receives the number of volume GUID paths returned in the buffer pointed to by the <i>pwszPathArray</i> parameter.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -66,13 +68,17 @@ class IVdsVolumeMF3 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvolumemf3-queryvolumeguidpathnames
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsvolumemf3-queryvolumeguidpathnames
      */
     QueryVolumeGuidPathnames(pwszPathArray, pulNumberOfPaths) {
         pwszPathArrayMarshal := pwszPathArray is VarRef ? "ptr*" : "ptr"
         pulNumberOfPathsMarshal := pulNumberOfPaths is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pwszPathArrayMarshal, pwszPathArray, pulNumberOfPathsMarshal, pulNumberOfPaths, "HRESULT")
+        result := ComCall(3, this, pwszPathArrayMarshal, pwszPathArray, pulNumberOfPathsMarshal, pulNumberOfPaths, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,19 +90,34 @@ class IVdsVolumeMF3 extends IUnknown{
      * @param {PWSTR} pwszLabel A <b>null</b>-terminated Unicode string to assign to the new file system.  The maximum label size is file system dependent.
      * @param {Integer} Options A bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_format_option_flags">VDS_FORMAT_OPTION_FLAGS</a> enumeration values that specify formatting options.
      * @returns {IVdsAsync} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface that upon successful completion receives the <b>IVdsAsync</b> interface to monitor and control this operation.  Callers must release the interface received when they are done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvolumemf3-formatex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsvolumemf3-formatex2
      */
     FormatEx2(pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, Options) {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(4, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "uint", Options, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "uint", Options, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsAsync(ppAsync)
     }
 
     /**
      * Takes the volume offline by using the IOCTL_VOLUME_OFFLINE control code.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @remarks
+     * If the volume is already offline, the <b>OfflineVolume</b> method returns S_OK.
+     * 
+     * When a volume is offline, all read, write, and IOCTL requests fail with 
+     *     <b>ERROR_NOT_READY</b>. You cannot take the system or boot volume offline.
+     * 
+     * When a volume is online, all requests sent to the volume are honored.
+     * 
+     * When a volume that is online 
+     *     is dismounted, the next call to open the volume causes it to be mounted. Taking the volume offline prevents the 
+     *     dismounted volume from being mounted again. To dismount a volume, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-dismount">IVdsVolumeMF::Dismount</a> method.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -115,10 +136,14 @@ class IVdsVolumeMF3 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvolumemf3-offlinevolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsvolumemf3-offlinevolume
      */
     OfflineVolume() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Query types. (D3D10_QUERY)
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_query
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_query
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

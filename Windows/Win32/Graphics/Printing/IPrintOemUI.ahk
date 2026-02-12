@@ -34,7 +34,11 @@ class IPrintOemUI extends IPrintOemCommon{
      * @returns {HRESULT} 
      */
     PublishDriverInterface(pIUnknown) {
-        result := ComCall(5, this, "ptr", pIUnknown, "HRESULT")
+        result := ComCall(5, this, "ptr", pIUnknown, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,29 +49,45 @@ class IPrintOemUI extends IPrintOemCommon{
      * @returns {HRESULT} 
      */
     CommonUIProp(dwMode, pOemCUIPParam) {
-        result := ComCall(6, this, "uint", dwMode, "ptr", pOemCUIPParam, "HRESULT")
+        result := ComCall(6, this, "uint", dwMode, "ptr", pOemCUIPParam, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    DocumentPropertySheets(pPSUIInfo, lParam) {
-        result := ComCall(7, this, "ptr", pPSUIInfo, "ptr", lParam, "HRESULT")
+    DocumentPropertySheets(pPSUIInfo, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(7, this, "ptr", pPSUIInfo, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<PROPSHEETUI_INFO>} pPSUIInfo 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    DevicePropertySheets(pPSUIInfo, lParam) {
-        result := ComCall(8, this, "ptr", pPSUIInfo, "ptr", lParam, "HRESULT")
+    DevicePropertySheets(pPSUIInfo, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(8, this, "ptr", pPSUIInfo, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,12 +102,38 @@ class IPrintOemUI extends IPrintOemCommon{
     DevQueryPrintEx(poemuiobj, pDQPInfo, pPublicDM, pOEMDM) {
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", poemuiobj, "ptr", pDQPInfo, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "HRESULT")
+        result := ComCall(9, this, "ptr", poemuiobj, "ptr", pDQPInfo, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The DeviceCapabilities function retrieves the capabilities of a printer driver.
+     * The DeviceCapabilities function retrieves the capabilities of a printer driver. (ANSI)
+     * @remarks
+     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
+     * <div> </div>
+     * The <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure pointed to by the <i>pDevMode</i> parameter may be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/printdocs/documentproperties">DocumentProperties</a> function.
+     * 
+     * If a printer driver supports custom device capabilities, the driver must call the <a href="https://docs.microsoft.com/windows/desktop/printdocs/setprinterdata">SetPrinterData</a> function for each custom capability. The <b>SetPrinterData</b> function adds the appropriate printer data to the print system, which enables 32-bit applications to access the custom capabilities on 64-bit Windows installations.
+     * 
+     * For each custom capability, you must first add printer data that describes the type of the capability. To do this, when you call <b>SetPrinterData</b>, set the <i>pValueName</i> string to <b>CustomDeviceCapabilityType_Xxx</b>, where "Xxx" is the hexadecimal representation of the capability. For example, you might have "CustomDeviceCapabilityType_1234". The registry data that you set must be of the <b>REG_DWORD</b> type, and you must set its value to one of the following:
+     * 
+     * <ul>
+     * <li>0, if the custom capability is a <b>DWORD</b></li>
+     * <li>1, if the custom capability is a buffer of bytes</li>
+     * <li>2, if the custom capability is an array of items</li>
+     * </ul>
+     * If the custom capability is an array of items, you must call <b>SetPinterData</b> a second time to provide information about the size of an item in the array. To do this, when you call <b>SetPinterData</b>, the <i>pValueName</i> string that you provide must be "CustomDeviceCapabilitySize_Xxx" where Xxx is the hexadecimal representation of the capability. For example, you might have "CustomDeviceCapabilitySize_1234". The registry data that you set must be of the <b>REG_DWORD</b> type, and you must set its value to the size in bytes of an item in the array.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The wingdi.h header defines DeviceCapabilities as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {HANDLE} hPrinter 
      * @param {PWSTR} pDeviceName 
@@ -100,7 +146,7 @@ class IPrintOemUI extends IPrintOemCommon{
      * @returns {HRESULT} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
      * If the function returns -1, this may mean either that the capability is not supported or there was a general function failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-devicecapabilitiesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-devicecapabilitiesa
      */
     DeviceCapabilitiesA(poemuiobj, hPrinter, pDeviceName, wCapability, pOutput, pPublicDM, pOEMDM, dwOld, dwResult) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -110,7 +156,11 @@ class IPrintOemUI extends IPrintOemCommon{
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         dwResultMarshal := dwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", poemuiobj, "ptr", hPrinter, "ptr", pDeviceName, "ushort", wCapability, pOutputMarshal, pOutput, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", dwOld, dwResultMarshal, dwResult, "HRESULT")
+        result := ComCall(10, this, "ptr", poemuiobj, "ptr", hPrinter, "ptr", pDeviceName, "ushort", wCapability, pOutputMarshal, pOutput, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", dwOld, dwResultMarshal, dwResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -123,7 +173,11 @@ class IPrintOemUI extends IPrintOemCommon{
     UpgradePrinter(dwLevel, pDriverUpgradeInfo) {
         pDriverUpgradeInfoMarshal := pDriverUpgradeInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(11, this, "uint", dwLevel, pDriverUpgradeInfoMarshal, pDriverUpgradeInfo, "HRESULT")
+        result := ComCall(11, this, "uint", dwLevel, pDriverUpgradeInfoMarshal, pDriverUpgradeInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,13 +186,18 @@ class IPrintOemUI extends IPrintOemCommon{
      * @param {PWSTR} pPrinterName 
      * @param {Integer} iDriverEvent 
      * @param {Integer} dwFlags 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    PrinterEvent(pPrinterName, iDriverEvent, dwFlags, lParam) {
+    PrinterEvent(pPrinterName, iDriverEvent, dwFlags, lParam_) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, "ptr", lParam, "HRESULT")
+        result := ComCall(12, this, "ptr", pPrinterName, "int", iDriverEvent, "uint", dwFlags, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,13 +206,19 @@ class IPrintOemUI extends IPrintOemCommon{
      * @param {Integer} dwDriverEvent 
      * @param {Integer} dwLevel 
      * @param {Pointer<Integer>} pDriverInfo 
-     * @param {LPARAM} lParam 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, lParam) {
+    DriverEvent(dwDriverEvent, dwLevel, pDriverInfo, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         pDriverInfoMarshal := pDriverInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, "ptr", lParam, "HRESULT")
+        result := ComCall(13, this, "uint", dwDriverEvent, "uint", dwLevel, pDriverInfoMarshal, pDriverInfo, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,22 +242,32 @@ class IPrintOemUI extends IPrintOemCommon{
         pcbProfileDataMarshal := pcbProfileData is VarRef ? "uint*" : "ptr"
         pflProfileDataMarshal := pflProfileData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", hPrinter, "ptr", poemuiobj, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "HRESULT")
+        result := ComCall(14, this, "ptr", hPrinter, "ptr", poemuiobj, "ptr", pPublicDM, pOEMDMMarshal, pOEMDM, "uint", ulQueryMode, pvProfileDataMarshal, pvProfileData, pcbProfileDataMarshal, pcbProfileData, pflProfileDataMarshal, pflProfileData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Integer} usMsg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
+     * @param {WPARAM} wParam_ 
+     * @param {LPARAM} lParam_ 
      * @returns {HRESULT} 
      */
-    FontInstallerDlgProc(hWnd, usMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    FontInstallerDlgProc(hWnd_, usMsg, wParam_, lParam_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := ComCall(15, this, "ptr", hWnd, "uint", usMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(15, this, "ptr", hWnd_, "uint", usMsg, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +283,11 @@ class IPrintOemUI extends IPrintOemCommon{
         hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
         pwstrCartridges := pwstrCartridges is String ? StrPtr(pwstrCartridges) : pwstrCartridges
 
-        result := ComCall(16, this, "ptr", hPrinter, "ptr", hHeap, "ptr", pwstrCartridges, "HRESULT")
+        result := ComCall(16, this, "ptr", hPrinter, "ptr", hHeap, "ptr", pwstrCartridges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

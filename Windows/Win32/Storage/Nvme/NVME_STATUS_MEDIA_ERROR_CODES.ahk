@@ -5,7 +5,7 @@
  * Contains values that indicate an error associated with the NVM media or indicate a data integrity type error.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_media_error_codes
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_status_media_error_codes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

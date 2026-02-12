@@ -41,7 +41,11 @@ class ICorProfilerCallback5 extends ICorProfilerCallback4{
         valueRefIdsMarshal := valueRefIds is VarRef ? "ptr*" : "ptr"
         rootIdsMarshal := rootIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(89, this, "uint", cRootRefs, keyRefIdsMarshal, keyRefIds, valueRefIdsMarshal, valueRefIds, rootIdsMarshal, rootIds, "HRESULT")
+        result := ComCall(89, this, "uint", cRootRefs, keyRefIdsMarshal, keyRefIds, valueRefIdsMarshal, valueRefIds, rootIdsMarshal, rootIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

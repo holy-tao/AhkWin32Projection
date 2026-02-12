@@ -7,7 +7,7 @@
  * Values for all structure members are supplied by the **GetPrintProcessorCapabilities** function which is documented in the Windows Driver Kit.
  * 
  * When an application calls [**GetPrinterData**](getprinterdata.md), the spooler calls a print processor's **GetPrintProcessorCapabilities** function and specifies a value name that has a format of **PrintProcCaps\_***datatype*, where *datatype* is the name of an input data type.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printprocessor-caps-2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printprocessor-caps-2
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

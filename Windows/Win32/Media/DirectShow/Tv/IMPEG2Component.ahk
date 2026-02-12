@@ -6,11 +6,8 @@
 /**
  * The IMPEG2Component interface contains methods for getting and setting properties that describe an MPEG2 elementary stream.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2Component)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-impeg2component
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-impeg2component
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -68,10 +65,14 @@ class IMPEG2Component extends IComponent{
     /**
      * The get_PID method returns the packet identifier (PID) for this substream.
      * @returns {Integer} Pointer to a variable that receives the PID.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2component-get_pid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2component-get_pid
      */
     get_PID() {
-        result := ComCall(16, this, "int*", &PID := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &PID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PID
     }
 
@@ -79,20 +80,28 @@ class IMPEG2Component extends IComponent{
      * The put_PID method sets the packet identifier (PID) for this substream.
      * @param {Integer} PID Specifies the PID.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2component-put_pid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2component-put_pid
      */
     put_PID(PID) {
-        result := ComCall(17, this, "int", PID, "HRESULT")
+        result := ComCall(17, this, "int", PID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_PCRPID method returns the packet identifier (PID) for the packets that contain the PCR for this substream.
      * @returns {Integer} Pointer to a variable that receives the PCR PID.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2component-get_pcrpid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2component-get_pcrpid
      */
     get_PCRPID() {
-        result := ComCall(18, this, "int*", &PCRPID := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &PCRPID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PCRPID
     }
 
@@ -100,20 +109,28 @@ class IMPEG2Component extends IComponent{
      * The put_PCRPID method sets the packet identifier (PID) for the packets that contain the PCR for this substream.
      * @param {Integer} PCRPID Specifies the PCR PID.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2component-put_pcrpid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2component-put_pcrpid
      */
     put_PCRPID(PCRPID) {
-        result := ComCall(19, this, "int", PCRPID, "HRESULT")
+        result := ComCall(19, this, "int", PCRPID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_ProgramNumber method returns the program number for this substream.
      * @returns {Integer} Pointer to a variable that receives the program number.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2component-get_programnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2component-get_programnumber
      */
     get_ProgramNumber() {
-        result := ComCall(20, this, "int*", &ProgramNumber := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &ProgramNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ProgramNumber
     }
 
@@ -121,10 +138,14 @@ class IMPEG2Component extends IComponent{
      * The put_ProgramNumber method sets the program number for this substream.
      * @param {Integer} ProgramNumber Specifies the program number.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2component-put_programnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2component-put_programnumber
      */
     put_ProgramNumber(ProgramNumber) {
-        result := ComCall(21, this, "int", ProgramNumber, "HRESULT")
+        result := ComCall(21, this, "int", ProgramNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

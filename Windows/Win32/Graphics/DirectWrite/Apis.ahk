@@ -90,7 +90,7 @@ class DirectWrite {
      * @returns {Pointer<Pointer<Void>>} Type: <b>IUnknown**</b>
      * 
      * An address of a pointer to the newly created DirectWrite factory object.
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-dwritecreatefactory
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-dwritecreatefactory
      * @since windows6.1
      */
     static DWriteCreateFactory(factoryType, iid) {

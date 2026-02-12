@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Database operations are performed within the domain of the system. The calling application must have appropriate access permissions for any database actions.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winscard/nf-winscard-scardestablishcontext
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

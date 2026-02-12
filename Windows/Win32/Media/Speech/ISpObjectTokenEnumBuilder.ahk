@@ -38,7 +38,11 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens{
         pszReqAttribs := pszReqAttribs is String ? StrPtr(pszReqAttribs) : pszReqAttribs
         pszOptAttribs := pszOptAttribs is String ? StrPtr(pszOptAttribs) : pszOptAttribs
 
-        result := ComCall(9, this, "ptr", pszReqAttribs, "ptr", pszOptAttribs, "HRESULT")
+        result := ComCall(9, this, "ptr", pszReqAttribs, "ptr", pszOptAttribs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens{
      * @returns {HRESULT} 
      */
     AddTokens(cTokens, pToken) {
-        result := ComCall(10, this, "uint", cTokens, "ptr*", pToken, "HRESULT")
+        result := ComCall(10, this, "uint", cTokens, "ptr*", pToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +72,11 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens{
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
 
-        result := ComCall(11, this, "ptr", pDataKey, "ptr", pszSubKey, "ptr", pszCategoryId, "HRESULT")
+        result := ComCall(11, this, "ptr", pDataKey, "ptr", pszSubKey, "ptr", pszCategoryId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,19 +86,28 @@ class ISpObjectTokenEnumBuilder extends IEnumSpObjectTokens{
      * @returns {HRESULT} 
      */
     AddTokensFromTokenEnum(pTokenEnum) {
-        result := ComCall(12, this, "ptr", pTokenEnum, "HRESULT")
+        result := ComCall(12, this, "ptr", pTokenEnum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sort Warnings Event Class
      * @param {PWSTR} pszTokenIdToListFirst 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/event-classes/sort-warnings-event-class
      */
     Sort(pszTokenIdToListFirst) {
         pszTokenIdToListFirst := pszTokenIdToListFirst is String ? StrPtr(pszTokenIdToListFirst) : pszTokenIdToListFirst
 
-        result := ComCall(13, this, "ptr", pszTokenIdToListFirst, "HRESULT")
+        result := ComCall(13, this, "ptr", pszTokenIdToListFirst, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

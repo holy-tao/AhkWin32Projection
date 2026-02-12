@@ -36,7 +36,7 @@
  *             <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_architecture">D3D12_FEATURE_DATA_ARCHITECTURE</a>.
  *           </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_heap_properties
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

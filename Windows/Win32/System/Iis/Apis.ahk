@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -11,32 +13,32 @@ class Iis {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IISADMIN_EXTENSIONS_REG_KEYA => "SOFTWARE\Microsoft\InetStp\Extensions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IISADMIN_EXTENSIONS_REG_KEYW => "SOFTWARE\Microsoft\InetStp\Extensions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IISADMIN_EXTENSIONS_REG_KEY => "SOFTWARE\Microsoft\InetStp\Extensions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IISADMIN_EXTENSIONS_CLSID_MD_KEYA => "LM/IISADMIN/EXTENSIONS/DCOMCLSIDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IISADMIN_EXTENSIONS_CLSID_MD_KEYW => "LM/IISADMIN/EXTENSIONS/DCOMCLSIDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IISADMIN_EXTENSIONS_CLSID_MD_KEY => "LM/IISADMIN/EXTENSIONS/DCOMCLSIDS"
 
@@ -176,32 +178,32 @@ class Iis {
     static CLSID_IImgCtx => Guid("{3050f3d6-98b5-11cf-bb82-00aa00bdce0b}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_MD_LOCAL_MACHINE_PATH => "LM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_MD_INSTANCE_ROOT => "Root"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_MD_ISAPI_FILTERS => "/Filters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_MD_SVC_INFO_PATH => "Info"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_MD_ADSI_SCHEMA_PATH_A => "/Schema"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_MD_ADSI_SCHEMA_PATH_W => "/Schema"
 
@@ -3431,192 +3433,192 @@ class Iis {
     static MD_USER_ISOLATION_LAST => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_COMPUTER => "IIsComputer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_SERVICE => "IIsWebService"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_SERVER => "IIsWebServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_INFO => "IIsWebInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_DIR => "IIsWebDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_VDIR => "IIsWebVirtualDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_FILE => "IIsWebFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_SERVICE => "IIsFtpService"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_SERVER => "IIsFtpServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_INFO => "IIsFtpInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_VDIR => "IIsFtpVirtualDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FILTERS => "IIsFilters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FILTER => "IIsFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_LOG_MODULES => "IIsLogModules"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_LOG_MODULE => "IIsLogModule"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_MIMEMAP => "IIsMimeMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_CERTMAPPER => "IIsCertMapper"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_COMPRESS_SCHEMES => "IIsCompressionSchemes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_COMPRESS_SCHEME => "IIsCompressionScheme"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_COMPUTER_W => "IIsComputer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_SERVICE_W => "IIsWebService"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_SERVER_W => "IIsWebServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_INFO_W => "IIsWebInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_DIR_W => "IIsWebDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_VDIR_W => "IIsWebVirtualDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_WEB_FILE_W => "IIsWebFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_SERVICE_W => "IIsFtpService"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_SERVER_W => "IIsFtpServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_INFO_W => "IIsFtpInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FTP_VDIR_W => "IIsFtpVirtualDir"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FILTERS_W => "IIsFilters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_FILTER_W => "IIsFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_LOG_MODULES_W => "IIsLogModules"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_LOG_MODULE_W => "IIsLogModule"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_MIMEMAP_W => "IIsMimeMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_CERTMAPPER_W => "IIsCertMapper"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_COMPRESS_SCHEMES_W => "IIsCompressionSchemes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_CLASS_COMPRESS_SCHEME_W => "IIsCompressionScheme"
 
@@ -3631,12 +3633,12 @@ class Iis {
     static LIBID_IISRSTALib => Guid("{e8fb8614-588f-11d2-9d61-00c04f79c5fe}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_WEBSOCKET => "websockets"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IIS_WEBSOCKET_SERVER_VARIABLE => "IIS_WEBSOCK"
 
@@ -3771,7 +3773,7 @@ class Iis {
     static MD_BACKUP_MAX_LEN => 100
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MD_DEFAULT_BACKUP_LOCATION => "MDBackUp"
 
@@ -3806,12 +3808,12 @@ class Iis {
     static MD_IMPORT_MERGE => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MD_INSERT_PATH_STRINGA => "<%INSERT_PATH%>"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MD_INSERT_PATH_STRING => "<%INSERT_PATH%>"
 
@@ -4641,22 +4643,22 @@ class Iis {
     static GUID_IIS_ISAPI_TRACE_PROVIDER => Guid("{a1c2040e-8840-4c31-ba11-9871031a19ea}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WEB_CORE_DLL_NAME => "hwebcore.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WEB_CORE_ACTIVATE_DLL_ENTRY => "WebCoreActivate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WEB_CORE_SHUTDOWN_DLL_ENTRY => "WebCoreShutdown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WEB_CORE_SET_METADATA_DLL_ENTRY => "WebCoreSetMetadata"
 ;@endregion Constants

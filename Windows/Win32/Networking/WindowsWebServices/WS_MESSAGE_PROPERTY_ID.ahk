@@ -3,7 +3,7 @@
 
 /**
  * Each message property is of type WS_MESSAGE_PROPERTY, is identified by an ID, and has an associated value.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_message_property_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_message_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

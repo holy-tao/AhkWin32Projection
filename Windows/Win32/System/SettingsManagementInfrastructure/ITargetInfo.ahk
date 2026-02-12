@@ -8,7 +8,7 @@
 
 /**
  * Defines the offline target information, specifically, file and registry locations as well as wow64 information.
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-itargetinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nn-wcmconfig-itargetinfo
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class ITargetInfo extends IUnknown{
     /**
      * Gets the current target mode.
      * @returns {Integer} The current target mode. The target mode identifies the way in which the redirections from the target are handled.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
      */
     GetTargetMode() {
-        result := ComCall(3, this, "int*", &TargetMode := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &TargetMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return TargetMode
     }
 
@@ -47,21 +51,29 @@ class ITargetInfo extends IUnknown{
      * Sets the target mode.
      * @param {Integer} TargetMode The target mode.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settargetmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-settargetmode
      */
     SetTargetMode(TargetMode) {
-        result := ComCall(4, this, "int", TargetMode, "HRESULT")
+        result := ComCall(4, this, "int", TargetMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the current temporary store location.
      * @returns {BSTR} The current temporary store location.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-gettemporarystorelocation
      */
     GetTemporaryStoreLocation() {
         TemporaryStoreLocation := BSTR()
-        result := ComCall(5, this, "ptr", TemporaryStoreLocation, "HRESULT")
+        result := ComCall(5, this, "ptr", TemporaryStoreLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return TemporaryStoreLocation
     }
 
@@ -109,23 +121,31 @@ class ITargetInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settemporarystorelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-settemporarystorelocation
      */
     SetTemporaryStoreLocation(TemporaryStoreLocation) {
         TemporaryStoreLocation := TemporaryStoreLocation is String ? StrPtr(TemporaryStoreLocation) : TemporaryStoreLocation
 
-        result := ComCall(6, this, "ptr", TemporaryStoreLocation, "HRESULT")
+        result := ComCall(6, this, "ptr", TemporaryStoreLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the unique identifier associated with the current target.
      * @returns {BSTR} The unique identifier associated with the current target.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-gettargetid
      */
     GetTargetID() {
         TargetID := BSTR()
-        result := ComCall(7, this, "ptr", TargetID, "HRESULT")
+        result := ComCall(7, this, "ptr", TargetID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return TargetID
     }
 
@@ -133,21 +153,29 @@ class ITargetInfo extends IUnknown{
      * Sets the unique identifier associated with current target.
      * @param {Guid} TargetID The unique identifier associated with current target.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settargetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-settargetid
      */
     SetTargetID(TargetID) {
-        result := ComCall(8, this, "ptr", TargetID, "HRESULT")
+        result := ComCall(8, this, "ptr", TargetID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets processor architecture associated with the current target.
      * @returns {BSTR} The processor architecture associated with the current target.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-gettargetprocessorarchitecture
      */
     GetTargetProcessorArchitecture() {
         ProcessorArchitecture := BSTR()
-        result := ComCall(9, this, "ptr", ProcessorArchitecture, "HRESULT")
+        result := ComCall(9, this, "ptr", ProcessorArchitecture, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ProcessorArchitecture
     }
 
@@ -155,98 +183,129 @@ class ITargetInfo extends IUnknown{
      * Sets the processor architecture associated with the current target.
      * @param {PWSTR} ProcessorArchitecture The processor architecture associated with the current target.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success. Returns <b>HRESULT_FROM_WIN32</b> (<b>ERROR_INVALID_OPERATION</b>) if the target processor architecture has been set. May return <b>E_OUTOFMEMORY</b> if system resources are low.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-settargetprocessorarchitecture
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-settargetprocessorarchitecture
      */
     SetTargetProcessorArchitecture(ProcessorArchitecture) {
         ProcessorArchitecture := ProcessorArchitecture is String ? StrPtr(ProcessorArchitecture) : ProcessorArchitecture
 
-        result := ComCall(10, this, "ptr", ProcessorArchitecture, "HRESULT")
+        result := ComCall(10, this, "ptr", ProcessorArchitecture, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a property value for the offline installation location.
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} Property The name of the property.
+     * @param {PWSTR} Property_ The name of the property.
      * @returns {BSTR} The value of the property.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-getproperty
      */
-    GetProperty(Offline, Property) {
-        Property := Property is String ? StrPtr(Property) : Property
+    GetProperty(Offline, Property_) {
+        Property_ := Property_ is String ? StrPtr(Property_) : Property_
 
         Value := BSTR()
-        result := ComCall(11, this, "int", Offline, "ptr", Property, "ptr", Value, "HRESULT")
+        result := ComCall(11, this, "int", Offline, "ptr", Property_, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
     /**
      * Sets a property value for the offline installation location.
      * @param {BOOL} Offline <b>True</b> if installation location is offline.
-     * @param {PWSTR} Property The name of the property.
+     * @param {PWSTR} Property_ The name of the property.
      * @param {PWSTR} Value The value of the property.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-setproperty
      */
-    SetProperty(Offline, Property, Value) {
-        Property := Property is String ? StrPtr(Property) : Property
+    SetProperty(Offline, Property_, Value) {
+        Property_ := Property_ is String ? StrPtr(Property_) : Property_
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(12, this, "int", Offline, "ptr", Property, "ptr", Value, "HRESULT")
+        result := ComCall(12, this, "int", Offline, "ptr", Property_, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the enumerator used to access the collection of offline properties.
-     * @returns {IItemEnumerator} A pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> object that provides access to  the collection of offline properties.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
+     * @remarks
+     * <div class="alert"><b>Note</b>   This method is not implemented.</div>
+     * <div> </div>
+     * @returns {IItemEnumerator} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
      */
     GetEnumerator() {
-        result := ComCall(13, this, "ptr*", &Enumerator := 0, "HRESULT")
-        return IItemEnumerator(Enumerator)
+        result := ComCall(13, this, "ptr*", &Enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IItemEnumerator(Enumerator_)
     }
 
     /**
-     * Expands a location string to indicate the offline installation location.
+     * Expands a location string to indicate the offline installation location. (ITargetInfo.ExpandTarget)
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} Location The location string.
+     * @param {PWSTR} Location_ The location string.
      * @returns {BSTR} The expanded location string.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
      */
-    ExpandTarget(Offline, Location) {
-        Location := Location is String ? StrPtr(Location) : Location
+    ExpandTarget(Offline, Location_) {
+        Location_ := Location_ is String ? StrPtr(Location_) : Location_
 
         ExpandedLocation := BSTR()
-        result := ComCall(14, this, "int", Offline, "ptr", Location, "ptr", ExpandedLocation, "HRESULT")
+        result := ComCall(14, this, "int", Offline, "ptr", Location_, "ptr", ExpandedLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ExpandedLocation
     }
 
     /**
-     * Expands a location string to indicate the offline installation location.
+     * Expands a location string to indicate the offline installation location. (ITargetInfo.ExpandTargetPath)
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} Location The location string.
+     * @param {PWSTR} Location_ The location string.
      * @returns {BSTR} The expanded location target path.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
      */
-    ExpandTargetPath(Offline, Location) {
-        Location := Location is String ? StrPtr(Location) : Location
+    ExpandTargetPath(Offline, Location_) {
+        Location_ := Location_ is String ? StrPtr(Location_) : Location_
 
         ExpandedLocation := BSTR()
-        result := ComCall(15, this, "int", Offline, "ptr", Location, "ptr", ExpandedLocation, "HRESULT")
+        result := ComCall(15, this, "int", Offline, "ptr", Location_, "ptr", ExpandedLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ExpandedLocation
     }
 
     /**
      * Sets the module path for the offline installation location.
      * @param {PWSTR} Module The name of the module.
-     * @param {PWSTR} Path The module path.
+     * @param {PWSTR} Path_ The module path.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setmodulepath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-setmodulepath
      */
-    SetModulePath(Module, Path) {
+    SetModulePath(Module, Path_) {
         Module := Module is String ? StrPtr(Module) : Module
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
 
-        result := ComCall(16, this, "ptr", Module, "ptr", Path, "HRESULT")
+        result := ComCall(16, this, "ptr", Module, "ptr", Path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -254,45 +313,63 @@ class ITargetInfo extends IUnknown{
      * Loads the module from the offline installation location.
      * @param {PWSTR} Module The name of the module.
      * @returns {HMODULE} The module handle.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-loadmodule
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-loadmodule
      */
     LoadModule(Module) {
         Module := Module is String ? StrPtr(Module) : Module
 
         ModuleHandle := HMODULE()
-        result := ComCall(17, this, "ptr", Module, "ptr", ModuleHandle, "HRESULT")
+        result := ComCall(17, this, "ptr", Module, "ptr", ModuleHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ModuleHandle
     }
 
     /**
      * Sets an opaque context object for wow64 redirection.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method is for internal use.</div>
+     * <div> </div>
      * @param {PWSTR} InstallerModule The name of the installer module.
      * @param {Pointer<Integer>} Wow64Context The opaque context object for wow64 redirection.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setwow64context
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-setwow64context
      */
     SetWow64Context(InstallerModule, Wow64Context) {
         InstallerModule := InstallerModule is String ? StrPtr(InstallerModule) : InstallerModule
 
         Wow64ContextMarshal := Wow64Context is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "ptr", InstallerModule, Wow64ContextMarshal, Wow64Context, "HRESULT")
+        result := ComCall(18, this, "ptr", InstallerModule, Wow64ContextMarshal, Wow64Context, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Translates paths for wow64 redirection.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method is for internal use.</div>
+     * <div> </div>
      * @param {PWSTR} ClientArchitecture The name of the client architecture.
      * @param {PWSTR} Value The original path value.
      * @returns {BSTR} The translated path value.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-translatewow64
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-translatewow64
      */
     TranslateWow64(ClientArchitecture, Value) {
         ClientArchitecture := ClientArchitecture is String ? StrPtr(ClientArchitecture) : ClientArchitecture
         Value := Value is String ? StrPtr(Value) : Value
 
         TranslatedValue := BSTR()
-        result := ComCall(19, this, "ptr", ClientArchitecture, "ptr", Value, "ptr", TranslatedValue, "HRESULT")
+        result := ComCall(19, this, "ptr", ClientArchitecture, "ptr", Value, "ptr", TranslatedValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return TranslatedValue
     }
 
@@ -340,23 +417,31 @@ class ITargetInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setschemahivelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-setschemahivelocation
      */
     SetSchemaHiveLocation(pwzHiveDir) {
         pwzHiveDir := pwzHiveDir is String ? StrPtr(pwzHiveDir) : pwzHiveDir
 
-        result := ComCall(20, this, "ptr", pwzHiveDir, "HRESULT")
+        result := ComCall(20, this, "ptr", pwzHiveDir, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Get the location of the schema hive.
      * @returns {BSTR} A pointer to the schema hive location.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivelocation
      */
     GetSchemaHiveLocation() {
         pHiveLocation := BSTR()
-        result := ComCall(21, this, "ptr", pHiveLocation, "HRESULT")
+        result := ComCall(21, this, "ptr", pHiveLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHiveLocation
     }
 
@@ -364,23 +449,31 @@ class ITargetInfo extends IUnknown{
      * Sets the name of the mount location of the schema hive.
      * @param {PWSTR} pwzMountName The mount location of the schema hive.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success. May return <b>E_OUTOFMEMORY</b> if the system is low on resources.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-setschemahivemountname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-setschemahivemountname
      */
     SetSchemaHiveMountName(pwzMountName) {
         pwzMountName := pwzMountName is String ? StrPtr(pwzMountName) : pwzMountName
 
-        result := ComCall(22, this, "ptr", pwzMountName, "HRESULT")
+        result := ComCall(22, this, "ptr", pwzMountName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the name of the mount location of the schema hive.
      * @returns {BSTR} The name of the mount location of the schema hive. The value of <i>pMountName</i> is <b>NULL</b>  on return if the default name is to be used.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/nf-wcmconfig-itargetinfo-getschemahivemountname
      */
     GetSchemaHiveMountName() {
         pMountName := BSTR()
-        result := ComCall(23, this, "ptr", pMountName, "HRESULT")
+        result := ComCall(23, this, "ptr", pMountName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMountName
     }
 }

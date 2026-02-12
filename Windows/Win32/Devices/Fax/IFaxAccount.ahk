@@ -8,10 +8,8 @@
 /**
  * Represents a fax account on the fax server.
  * @remarks
- * 
  * A default implementation of <b>IFaxAccount</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccount">FaxAccount</a> object. The interface and the object are supported only on Windows Vista or later.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxaccount
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxaccount
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -66,30 +64,35 @@ class IFaxAccount extends IDispatch{
     /**
      * Retrieves the name of a particular fax account on the server.
      * @remarks
-     * 
      * If the account is not in the local domain, the format of name returned  is &lt;domain_name&gt;\&lt;user_name&gt;.
      * 
      * If the account is in the domain but not on the server, the format name returned is &lt;computer_name&gt;\&lt;user_name&gt; where &lt;computer_name&gt; is the name of the server that holds the account.
      * 
      * If the account is on the same server as the fax server, just the &lt;user_name&gt; of the account is returned.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-get_accountname
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccount-get_accountname
      */
     get_AccountName() {
         pbstrAccountName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrAccountName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrAccountName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrAccountName
     }
 
     /**
      * Represents the folders of the account, including the incoming and outgoing archives and the incoming and outgoing queues.
      * @returns {IFaxAccountFolders} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-get_folders
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccount-get_folders
      */
     get_Folders() {
-        result := ComCall(8, this, "ptr*", &ppFolders := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppFolders := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxAccountFolders(ppFolders)
     }
 
@@ -100,21 +103,29 @@ class IFaxAccount extends IDispatch{
      * A variable that specifies the types of events for which the account is listening.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-listentoaccountevents
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccount-listentoaccountevents
      */
     ListenToAccountEvents(EventTypes) {
-        result := ComCall(9, this, "int", EventTypes, "HRESULT")
+        result := ComCall(9, this, "int", EventTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * A set of flags indicating the type of events for which the account is listening.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccount-get_registeredevents
      */
     get_RegisteredEvents() {
-        result := ComCall(10, this, "int*", &pRegisteredEvents := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pRegisteredEvents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRegisteredEvents
     }
 }

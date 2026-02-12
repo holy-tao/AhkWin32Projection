@@ -34,7 +34,11 @@ class ITransportSettingsInternal extends IUnknown{
      * @returns {HRESULT} 
      */
     ApplySetting(Setting) {
-        result := ComCall(3, this, "ptr", Setting, "HRESULT")
+        result := ComCall(3, this, "ptr", Setting, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ITransportSettingsInternal extends IUnknown{
      * @returns {HRESULT} 
      */
     QuerySetting(Setting) {
-        result := ComCall(4, this, "ptr", Setting, "HRESULT")
+        result := ComCall(4, this, "ptr", Setting, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

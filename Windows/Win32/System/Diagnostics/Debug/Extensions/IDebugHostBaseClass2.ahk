@@ -33,7 +33,11 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass{
      * @returns {Boolean} 
      */
     IsVirtual() {
-        result := ComCall(11, this, "int*", &pIsVirtual := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pIsVirtual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsVirtual
     }
 
@@ -51,7 +55,11 @@ class IDebugHostBaseClass2 extends IDebugHostBaseClass{
         pSlotSizeMarshal := pSlotSize is VarRef ? "uint*" : "ptr"
         pSlotIsSignedMarshal := pSlotIsSigned is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, pTableOffsetMarshal, pTableOffset, pSlotOffsetMarshal, pSlotOffset, pSlotSizeMarshal, pSlotSize, pSlotIsSignedMarshal, pSlotIsSigned, "HRESULT")
+        result := ComCall(12, this, pTableOffsetMarshal, pTableOffset, pSlotOffsetMarshal, pSlotOffset, pSlotSizeMarshal, pSlotSize, pSlotIsSignedMarshal, pSlotIsSigned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

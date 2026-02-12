@@ -236,9 +236,16 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     startDoc(bstrTitle) {
-        bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
+        if(bstrTitle is String) {
+            pin := BSTR.Alloc(bstrTitle)
+            bstrTitle := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrTitle, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrTitle, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -247,7 +254,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     stopDoc() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -256,7 +267,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     printBlankPage() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +281,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     printPage(pElemDisp) {
-        result := ComCall(10, this, "ptr", pElemDisp, "HRESULT")
+        result := ComCall(10, this, "ptr", pElemDisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -275,7 +294,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     ensurePrintDialogDefaults() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -284,7 +307,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     showPrintDialog() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -293,7 +320,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     showPageSetupDialog() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -303,7 +334,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     printNonNative(pMarkup) {
-        result := ComCall(14, this, "ptr", pMarkup, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pMarkup, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -314,7 +349,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     printNonNativeFrames(pMarkup, fActiveFrame) {
-        result := ComCall(15, this, "ptr", pMarkup, "short", fActiveFrame, "HRESULT")
+        result := ComCall(15, this, "ptr", pMarkup, "short", fActiveFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -324,7 +363,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_framesetDocument(v) {
-        result := ComCall(16, this, "short", v, "HRESULT")
+        result := ComCall(16, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -333,7 +376,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_framesetDocument() {
-        result := ComCall(17, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -343,7 +390,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_frameActive(v) {
-        result := ComCall(18, this, "short", v, "HRESULT")
+        result := ComCall(18, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -352,7 +403,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_frameActive() {
-        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -362,7 +417,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_frameAsShown(v) {
-        result := ComCall(20, this, "short", v, "HRESULT")
+        result := ComCall(20, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -371,7 +430,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_frameAsShown() {
-        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -381,7 +444,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selection(v) {
-        result := ComCall(22, this, "short", v, "HRESULT")
+        result := ComCall(22, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -390,7 +457,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_selection() {
-        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -400,7 +471,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selectedPages(v) {
-        result := ComCall(24, this, "short", v, "HRESULT")
+        result := ComCall(24, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -409,7 +484,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_selectedPages() {
-        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -419,7 +498,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_currentPage(v) {
-        result := ComCall(26, this, "short", v, "HRESULT")
+        result := ComCall(26, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -428,7 +511,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_currentPage() {
-        result := ComCall(27, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -438,7 +525,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_currentPageAvail(v) {
-        result := ComCall(28, this, "short", v, "HRESULT")
+        result := ComCall(28, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -447,7 +538,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_currentPageAvail() {
-        result := ComCall(29, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(29, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -457,7 +552,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_collate(v) {
-        result := ComCall(30, this, "short", v, "HRESULT")
+        result := ComCall(30, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -466,7 +565,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_collate() {
-        result := ComCall(31, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(31, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -475,7 +578,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_duplex() {
-        result := ComCall(32, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(32, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -485,7 +592,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_copies(v) {
-        result := ComCall(33, this, "ushort", v, "HRESULT")
+        result := ComCall(33, this, "ushort", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -494,7 +605,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_copies() {
-        result := ComCall(34, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(34, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -504,7 +619,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pageFrom(v) {
-        result := ComCall(35, this, "ushort", v, "HRESULT")
+        result := ComCall(35, this, "ushort", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -513,7 +632,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_pageFrom() {
-        result := ComCall(36, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(36, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -523,7 +646,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pageTo(v) {
-        result := ComCall(37, this, "ushort", v, "HRESULT")
+        result := ComCall(37, this, "ushort", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -532,7 +659,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_pageTo() {
-        result := ComCall(38, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(38, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -542,7 +673,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_tableOfLinks(v) {
-        result := ComCall(39, this, "short", v, "HRESULT")
+        result := ComCall(39, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -551,7 +686,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_tableOfLinks() {
-        result := ComCall(40, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(40, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -561,7 +700,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_allLinkedDocuments(v) {
-        result := ComCall(41, this, "short", v, "HRESULT")
+        result := ComCall(41, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -570,7 +713,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_allLinkedDocuments() {
-        result := ComCall(42, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(42, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -580,9 +727,16 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_header(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -592,7 +746,11 @@ class ITemplatePrinter extends IDispatch{
      */
     get_header() {
         p := BSTR()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -602,9 +760,16 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_footer(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", v, "HRESULT")
+        result := ComCall(45, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -614,7 +779,11 @@ class ITemplatePrinter extends IDispatch{
      */
     get_footer() {
         p := BSTR()
-        result := ComCall(46, this, "ptr", p, "HRESULT")
+        result := ComCall(46, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -624,7 +793,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_marginLeft(v) {
-        result := ComCall(47, this, "int", v, "HRESULT")
+        result := ComCall(47, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -633,7 +806,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_marginLeft() {
-        result := ComCall(48, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(48, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -643,7 +820,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_marginRight(v) {
-        result := ComCall(49, this, "int", v, "HRESULT")
+        result := ComCall(49, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -652,7 +833,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_marginRight() {
-        result := ComCall(50, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(50, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -662,7 +847,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_marginTop(v) {
-        result := ComCall(51, this, "int", v, "HRESULT")
+        result := ComCall(51, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -671,7 +860,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_marginTop() {
-        result := ComCall(52, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(52, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -681,7 +874,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_marginBottom(v) {
-        result := ComCall(53, this, "int", v, "HRESULT")
+        result := ComCall(53, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -690,7 +887,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_marginBottom() {
-        result := ComCall(54, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(54, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -699,7 +900,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_pageWidth() {
-        result := ComCall(55, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(55, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -708,7 +913,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_pageHeight() {
-        result := ComCall(56, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(56, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -717,7 +926,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_unprintableLeft() {
-        result := ComCall(57, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(57, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -726,7 +939,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_unprintableTop() {
-        result := ComCall(58, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(58, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -735,7 +952,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_unprintableRight() {
-        result := ComCall(59, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(59, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -744,7 +965,11 @@ class ITemplatePrinter extends IDispatch{
      * @returns {Integer} 
      */
     get_unprintableBottom() {
-        result := ComCall(60, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(60, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -756,7 +981,11 @@ class ITemplatePrinter extends IDispatch{
     updatePageStatus(p) {
         pMarshal := p is VarRef ? "int*" : "ptr"
 
-        result := ComCall(61, this, pMarshal, p, "HRESULT")
+        result := ComCall(61, this, pMarshal, p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

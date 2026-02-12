@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of automatic actions a WDS transport server, running on Windows Server 2008 R2, should use to handle a client computer that is slowing the multicast transmission.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_slow_client_handling_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/ne-wdstptmgmt-wdstransport_slow_client_handling_type
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

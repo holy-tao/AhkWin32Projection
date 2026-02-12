@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include .\HCONVLIST.ahk
 #Include .\HCONV.ahk
 #Include .\HDDEDATA.ahk
@@ -7,6 +8,8 @@
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.DataExchange
@@ -197,42 +200,42 @@ class DataExchange {
     static QID_SYNC => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_TOPIC => "System"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_ITEM_TOPICS => "Topics"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_ITEM_SYSITEMS => "SysItems"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_ITEM_RTNMSG => "ReturnMessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_ITEM_STATUS => "Status"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_ITEM_FORMATS => "Formats"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDESYS_ITEM_HELP => "Help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZDDE_ITEM_ITEMLIST => "TopicItemList"
 
@@ -428,7 +431,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-ddesetqualityofservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/dde/nf-dde-ddesetqualityofservice
      * @since windows5.0
      */
     static DdeSetQualityOfService(hwndClient, pqosNew, pqosPrev) {
@@ -465,7 +468,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-impersonateddeclientwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/dde/nf-dde-impersonateddeclientwindow
      * @since windows5.0
      */
     static ImpersonateDdeClientWindow(hWndClient, hWndServer) {
@@ -488,7 +491,7 @@ class DataExchange {
      * The return value must be posted as the <i>lParam</i> parameter of a DDE message; it must not be used for any other purpose. After the application posts a return value, it need not perform any action to dispose of the <i>lParam</i> parameter.
      * 
      * An application should call this function only for posted DDE messages.
-     * @param {Integer} msg Type: <b>UINT</b>
+     * @param {Integer} msg_ Type: <b>UINT</b>
      * 
      * The DDE message to be posted.
      * @param {Pointer} uiLo Type: <b>UINT_PTR</b>
@@ -500,22 +503,23 @@ class DataExchange {
      * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value is the <i>lParam</i> value.
-     * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-packddelparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/dde/nf-dde-packddelparam
      * @since windows5.0
      */
-    static PackDDElParam(msg, uiLo, uiHi) {
-        result := DllCall("USER32.dll\PackDDElParam", "uint", msg, "ptr", uiLo, "ptr", uiHi, "ptr")
-        return result
+    static PackDDElParam(msg_, uiLo, uiHi) {
+        result := DllCall("USER32.dll\PackDDElParam", "uint", msg_, "ptr", uiLo, "ptr", uiHi, "ptr")
+        resultHandle := LPARAM({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Unpacks a Dynamic Data Exchange (DDE)lParam value received from a posted DDE message.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-packddelparam">PackDDElParam</a> eases the porting of 16-bit DDE applications to 32-bit DDE applications.
-     * @param {Integer} msg Type: <b>UINT</b>
+     * @param {Integer} msg_ Type: <b>UINT</b>
      * 
      * The posted DDE message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message that was received. The application must free the memory object specified by the 
@@ -533,14 +537,16 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-unpackddelparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/dde/nf-dde-unpackddelparam
      * @since windows5.0
      */
-    static UnpackDDElParam(msg, lParam, puiLo, puiHi) {
+    static UnpackDDElParam(msg_, lParam_, puiLo, puiHi) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
         puiLoMarshal := puiLo is VarRef ? "ptr*" : "ptr"
         puiHiMarshal := puiHi is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg, "ptr", lParam, puiLoMarshal, puiLo, puiHiMarshal, puiHi, "int")
+        result := DllCall("USER32.dll\UnpackDDElParam", "uint", msg_, "ptr", lParam_, puiLoMarshal, puiLo, puiHiMarshal, puiHi, "int")
         return result
     }
 
@@ -552,10 +558,10 @@ class DataExchange {
      * This function frees the memory specified by the 
      * 				<i>lParam</i> parameter. It does not free the contents of 
      * 				<i>lParam</i>.
-     * @param {Integer} msg Type: <b>UINT</b>
+     * @param {Integer} msg_ Type: <b>UINT</b>
      * 
      * The posted DDE message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message.
@@ -564,11 +570,13 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-freeddelparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/dde/nf-dde-freeddelparam
      * @since windows5.0
      */
-    static FreeDDElParam(msg, lParam) {
-        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg, "ptr", lParam, "int")
+    static FreeDDElParam(msg_, lParam_) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := DllCall("USER32.dll\FreeDDElParam", "uint", msg_, "ptr", lParam_, "int")
         return result
     }
 
@@ -585,7 +593,7 @@ class DataExchange {
      * 
      * This function allocates or frees 
      * 				<i>lParam</i> parameters as needed, depending on the packing requirements of the incoming and outgoing messages. This reduces reallocations in passing DDE messages.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message being reused.
@@ -608,12 +616,15 @@ class DataExchange {
      * 
      * The return value is the new 
      * 						<i>lParam</i> value.
-     * @see https://learn.microsoft.com/windows/win32/api/dde/nf-dde-reuseddelparam
+     * @see https://learn.microsoft.com/windows/win32/api//content/dde/nf-dde-reuseddelparam
      * @since windows5.0
      */
-    static ReuseDDElParam(lParam, msgIn, msgOut, uiLo, uiHi) {
-        result := DllCall("USER32.dll\ReuseDDElParam", "ptr", lParam, "uint", msgIn, "uint", msgOut, "ptr", uiLo, "ptr", uiHi, "ptr")
-        return result
+    static ReuseDDElParam(lParam_, msgIn, msgOut, uiLo, uiHi) {
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := DllCall("USER32.dll\ReuseDDElParam", "ptr", lParam_, "uint", msgIn, "uint", msgOut, "ptr", uiLo, "ptr", uiHi, "ptr")
+        resultHandle := LPARAM({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -645,7 +656,7 @@ class DataExchange {
      * If 
      * 					<i>pidInst</i> points to a nonzero value, reinitialization of the DDEML is implied. In this case, 
      * 					<i>pidInst</i> must point to a valid application-instance identifier.
-     * @param {Pointer<PFNCALLBACK>} pfnCallback Type: <b>PFNCALLBACK</b>
+     * @param {Pointer<PFNCALLBACK>} pfnCallback_ Type: <b>PFNCALLBACK</b>
      * 
      * A pointer to the application-defined DDE callback function. This function processes DDE transactions sent by the system. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> callback function.
      * @param {Integer} afCmd Type: <b>DWORD</b>
@@ -656,15 +667,15 @@ class DataExchange {
      * If the function succeeds, the return value is <b>DMLERR_NO_ERROR</b>. 
      * 
      * If the function fails, the return value is one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeinitializea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeinitializea
      * @since windows5.0
      */
-    static DdeInitializeA(pidInst, pfnCallback, afCmd) {
+    static DdeInitializeA(pidInst, pfnCallback_, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
         pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
+        result := DllCall("USER32.dll\DdeInitializeA", pidInstMarshal, pidInst, "ptr", pfnCallback_, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -697,7 +708,7 @@ class DataExchange {
      * If 
      * 					<i>pidInst</i> points to a nonzero value, reinitialization of the DDEML is implied. In this case, 
      * 					<i>pidInst</i> must point to a valid application-instance identifier.
-     * @param {Pointer<PFNCALLBACK>} pfnCallback Type: <b>PFNCALLBACK</b>
+     * @param {Pointer<PFNCALLBACK>} pfnCallback_ Type: <b>PFNCALLBACK</b>
      * 
      * A pointer to the application-defined DDE callback function. This function processes DDE transactions sent by the system. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> callback function.
      * @param {Integer} afCmd Type: <b>DWORD</b>
@@ -708,15 +719,15 @@ class DataExchange {
      * If the function succeeds, the return value is <b>DMLERR_NO_ERROR</b>. 
      * 
      * If the function fails, the return value is one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeinitializew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeinitializew
      * @since windows5.0
      */
-    static DdeInitializeW(pidInst, pfnCallback, afCmd) {
+    static DdeInitializeW(pidInst, pfnCallback_, afCmd) {
         static ulRes := 0 ;Reserved parameters must always be NULL
 
         pidInstMarshal := pidInst is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", pfnCallback, "uint", afCmd, "uint", ulRes, "uint")
+        result := DllCall("USER32.dll\DdeInitializeW", pidInstMarshal, pidInst, "ptr", pfnCallback_, "uint", afCmd, "uint", ulRes, "uint")
         return result
     }
 
@@ -732,7 +743,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeuninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeuninitialize
      * @since windows5.0
      */
     static DdeUninitialize(idInst) {
@@ -757,7 +768,7 @@ class DataExchange {
      * @param {HSZ} hszTopic Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the name of the topic on which a conversation is to be established. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. If this parameter is 0L, the system will attempt to establish conversations on all topics supported by the selected server (or servers).
-     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
+     * @param {HCONVLIST} hConvList_ Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list to be enumerated. This parameter should be 0L if a new conversation list is to be established.
      * @param {Pointer<CONVCONTEXT>} pCC Type: <b>PCONVCONTEXT</b>
@@ -772,22 +783,22 @@ class DataExchange {
      * If the function fails, the return value is 0L. The handle to the old conversation list is no longer valid. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeconnectlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeconnectlist
      * @since windows5.0
      */
-    static DdeConnectList(idInst, hszService, hszTopic, hConvList, pCC) {
+    static DdeConnectList(idInst, hszService, hszTopic, hConvList_, pCC) {
         hszService := hszService is Win32Handle ? NumGet(hszService, "ptr") : hszService
         hszTopic := hszTopic is Win32Handle ? NumGet(hszTopic, "ptr") : hszTopic
-        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+        hConvList_ := hConvList_ is Win32Handle ? NumGet(hConvList_, "ptr") : hConvList_
 
-        result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", hConvList, "ptr", pCC, "ptr")
+        result := DllCall("USER32.dll\DdeConnectList", "uint", idInst, "ptr", hszService, "ptr", hszTopic, "ptr", hConvList_, "ptr", pCC, "ptr")
         resultHandle := HCONVLIST({Value: result}, True)
         return resultHandle
     }
 
     /**
      * Retrieves the next conversation handle in the specified conversation list.
-     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
+     * @param {HCONVLIST} hConvList_ Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
      * @param {HCONV} hConvPrev Type: <b>HCONV</b>
@@ -796,14 +807,14 @@ class DataExchange {
      * @returns {HCONV} Type: <b>HCONV</b>
      * 
      * If the list contains any more conversation handles, the return value is the next conversation handle in the list; otherwise, it is 0L.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequerynextserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddequerynextserver
      * @since windows5.0
      */
-    static DdeQueryNextServer(hConvList, hConvPrev) {
-        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+    static DdeQueryNextServer(hConvList_, hConvPrev) {
+        hConvList_ := hConvList_ is Win32Handle ? NumGet(hConvList_, "ptr") : hConvList_
         hConvPrev := hConvPrev is Win32Handle ? NumGet(hConvPrev, "ptr") : hConvPrev
 
-        result := DllCall("USER32.dll\DdeQueryNextServer", "ptr", hConvList, "ptr", hConvPrev, "ptr")
+        result := DllCall("USER32.dll\DdeQueryNextServer", "ptr", hConvList_, "ptr", hConvPrev, "ptr")
         resultHandle := HCONV({Value: result}, True)
         return resultHandle
     }
@@ -812,7 +823,7 @@ class DataExchange {
      * Destroys the specified conversation list and terminates all conversations associated with the list.
      * @remarks
      * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddedisconnect">DdeDisconnect</a> function to terminate individual conversations in the list.
-     * @param {HCONVLIST} hConvList Type: <b>HCONVLIST</b>
+     * @param {HCONVLIST} hConvList_ Type: <b>HCONVLIST</b>
      * 
      * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -822,13 +833,13 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddedisconnectlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddedisconnectlist
      * @since windows5.0
      */
-    static DdeDisconnectList(hConvList) {
-        hConvList := hConvList is Win32Handle ? NumGet(hConvList, "ptr") : hConvList
+    static DdeDisconnectList(hConvList_) {
+        hConvList_ := hConvList_ is Win32Handle ? NumGet(hConvList_, "ptr") : hConvList_
 
-        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList, "int")
+        result := DllCall("USER32.dll\DdeDisconnectList", "ptr", hConvList_, "int")
         return result
     }
 
@@ -862,7 +873,7 @@ class DataExchange {
      * If the function fails, the return value is 0L. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeconnect
      * @since windows5.0
      */
     static DdeConnect(idInst, hszService, hszTopic, pCC) {
@@ -878,7 +889,7 @@ class DataExchange {
      * Terminates a conversation started by either the DdeConnect or DdeConnectList function and invalidates the specified conversation handle.
      * @remarks
      * Any incomplete transactions started before calling <b>DdeDisconnect</b> are immediately abandoned. The <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction is sent to the Dynamic Data Exchange (DDE) callback function of the partner in the conversation. Generally, only client applications must terminate conversations.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the active conversation to be terminated.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -888,19 +899,19 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddedisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddedisconnect
      * @since windows5.0
      */
-    static DdeDisconnect(hConv) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeDisconnect(hConv_) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
-        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv, "int")
+        result := DllCall("USER32.dll\DdeDisconnect", "ptr", hConv_, "int")
         return result
     }
 
     /**
      * Enables a client Dynamic Data Exchange Management Library (DDEML) application to attempt to reestablish a conversation with a service that has terminated a conversation with the client.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the conversation to be reestablished. A client must have obtained the conversation handle by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnect">DdeConnect</a> function or from an <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction.
      * @returns {HCONV} Type: <b>HCONV</b>
@@ -910,13 +921,13 @@ class DataExchange {
      * If the function fails, the return value is 0L. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddereconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddereconnect
      * @since windows5.0
      */
-    static DdeReconnect(hConv) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeReconnect(hConv_) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
-        result := DllCall("USER32.dll\DdeReconnect", "ptr", hConv, "ptr")
+        result := DllCall("USER32.dll\DdeReconnect", "ptr", hConv_, "ptr")
         resultHandle := HCONV({Value: result}, True)
         return resultHandle
     }
@@ -931,7 +942,7 @@ class DataExchange {
      * 				<i>hUser</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convinfo">CONVINFO</a> structure is associated with the conversation and can be used to hold data associated with the conversation. If 
      * 				<i>idTransaction</i> is the identifier of an asynchronous transaction, the 
      * 				<i>hUser</i> member is associated only with the current transaction and is valid only for the duration of the transaction.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the conversation.
      * @param {Integer} idTransaction Type: <b>DWORD</b>
@@ -948,19 +959,19 @@ class DataExchange {
      * If the function fails, the return value is <b>FALSE</b>. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequeryconvinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddequeryconvinfo
      * @since windows5.0
      */
-    static DdeQueryConvInfo(hConv, idTransaction, pConvInfo) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeQueryConvInfo(hConv_, idTransaction, pConvInfo) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
-        result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", hConv, "uint", idTransaction, "ptr", pConvInfo, "uint")
+        result := DllCall("USER32.dll\DdeQueryConvInfo", "ptr", hConv_, "uint", idTransaction, "ptr", pConvInfo, "uint")
         return result
     }
 
     /**
      * Associates an application-defined value with a conversation handle or a transaction identifier. This is useful for simplifying the processing of asynchronous transactions. An application can use the DdeQueryConvInfo function to retrieve this value.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the conversation.
      * @param {Integer} id Type: <b>DWORD</b>
@@ -979,13 +990,13 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddesetuserhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddesetuserhandle
      * @since windows5.0
      */
-    static DdeSetUserHandle(hConv, id, hUser) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeSetUserHandle(hConv_, id, hUser) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
-        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv, "uint", id, "ptr", hUser, "int")
+        result := DllCall("USER32.dll\DdeSetUserHandle", "ptr", hConv_, "uint", id, "ptr", hUser, "int")
         return result
     }
 
@@ -996,7 +1007,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the conversation in which the transaction was initiated. If this parameter is 0L, all transactions are abandoned (that is, the 
      * 					<i>idTransaction</i> parameter is ignored).
@@ -1010,13 +1021,13 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeabandontransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeabandontransaction
      * @since windows5.0
      */
-    static DdeAbandonTransaction(idInst, hConv, idTransaction) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeAbandonTransaction(idInst, hConv_, idTransaction) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
-        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv, "uint", idTransaction, "int")
+        result := DllCall("USER32.dll\DdeAbandonTransaction", "uint", idInst, "ptr", hConv_, "uint", idTransaction, "int")
         return result
     }
 
@@ -1044,7 +1055,7 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddepostadvise
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddepostadvise
      * @since windows5.0
      */
     static DdePostAdvise(idInst, hszTopic, hszItem) {
@@ -1066,7 +1077,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application-instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the conversation to enable or disable. If this parameter is <b>NULL</b>, the function affects all conversations.
      * @param {Integer} wCmd Type: <b>UINT</b>
@@ -1080,13 +1091,13 @@ class DataExchange {
      * 						<i>wCmd</i> parameter is <b>EC_QUERYWAITING</b>, and the application transaction queue contains one or more unprocessed transactions that are not being processed, the return value is <b>TRUE</b>; otherwise, it is <b>FALSE</b>.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeenablecallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeenablecallback
      * @since windows5.0
      */
-    static DdeEnableCallback(idInst, hConv, wCmd) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeEnableCallback(idInst, hConv_, wCmd) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
-        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv, "uint", wCmd, "int")
+        result := DllCall("USER32.dll\DdeEnableCallback", "uint", idInst, "ptr", hConv_, "uint", wCmd, "int")
         return result
     }
 
@@ -1099,7 +1110,7 @@ class DataExchange {
      * 
      * <h3><a id="Security_Considerations"></a><a id="security_considerations"></a><a id="SECURITY_CONSIDERATIONS"></a>Security Considerations</h3>
      * If the call to <b>DdeImpersonateClient</b> fails for any reason, the client is not impersonated and the client request is made in the security context of the calling process. If the calling process is running as a highly privileged account, such as LocalSystem, or as a member of an administrative group, the user may be able to perform actions that would otherwise be disallowed. Therefore it is important that you always check the return value of the call, and if it fails to raise an error, do not continue execution of the client request.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the DDE client conversation to be impersonated.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1107,15 +1118,15 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeimpersonateclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeimpersonateclient
      * @since windows5.0
      */
-    static DdeImpersonateClient(hConv) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeImpersonateClient(hConv_) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv, "int")
+        result := DllCall("USER32.dll\DdeImpersonateClient", "ptr", hConv_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1147,7 +1158,7 @@ class DataExchange {
      * If the function fails, the return value is 0L. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddenameservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddenameservice
      * @since windows5.0
      */
     static DdeNameService(idInst, hsz1, hsz2, afCmd) {
@@ -1184,7 +1195,7 @@ class DataExchange {
      * The length, in bytes, of the data pointed to by the 
      * 					<i>pData</i> parameter, including the terminating <b>NULL</b>, if the data is a string. A value of -1 indicates that 
      * 					<i>pData</i> is a data handle that identifies the data being sent.
-     * @param {HCONV} hConv Type: <b>HCONV</b>
+     * @param {HCONV} hConv_ Type: <b>HCONV</b>
      * 
      * A handle to the conversation in which the transaction is to take place.
      * @param {HSZ} hszItem Type: <b>HSZ</b>
@@ -1216,17 +1227,17 @@ class DataExchange {
      * If the function succeeds, the return value is a data handle that identifies the data for successful synchronous transactions in which the client expects data from the server. The return value is nonzero for successful asynchronous transactions and for synchronous transactions in which the client does not expect data. The return value is zero for all unsuccessful transactions. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeclienttransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeclienttransaction
      * @since windows5.0
      */
-    static DdeClientTransaction(pData, cbData, hConv, hszItem, wFmt, wType, dwTimeout, pdwResult) {
-        hConv := hConv is Win32Handle ? NumGet(hConv, "ptr") : hConv
+    static DdeClientTransaction(pData, cbData, hConv_, hszItem, wFmt, wType, dwTimeout, pdwResult) {
+        hConv_ := hConv_ is Win32Handle ? NumGet(hConv_, "ptr") : hConv_
         hszItem := hszItem is Win32Handle ? NumGet(hszItem, "ptr") : hszItem
 
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, "ptr", hConv, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, "ptr")
+        result := DllCall("USER32.dll\DdeClientTransaction", pDataMarshal, pData, "uint", cbData, "ptr", hConv_, "ptr", hszItem, "uint", wFmt, "uint", wType, "uint", dwTimeout, pdwResultMarshal, pdwResult, "ptr")
         resultHandle := HDDEDATA({Value: result}, True)
         return resultHandle
     }
@@ -1268,7 +1279,7 @@ class DataExchange {
      * If the function fails, the return value is 0L. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddecreatedatahandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddecreatedatahandle
      * @since windows5.0
      */
     static DdeCreateDataHandle(idInst, pSrc, cb, cbOff, hszItem, wFmt, afCmd) {
@@ -1304,7 +1315,7 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeadddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeadddata
      * @since windows5.0
      */
     static DdeAddData(hData, pSrc, cb, cbOff) {
@@ -1341,7 +1352,7 @@ class DataExchange {
      * 						<i>pDst</i> parameter is <b>NULL</b>, the return value is the size, in bytes, of the memory object associated with the data handle. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddegetdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddegetdata
      * @since windows5.0
      */
     static DdeGetData(hData, pDst, cbMax, cbOff) {
@@ -1371,7 +1382,7 @@ class DataExchange {
      * If the function fails, the return value is <b>NULL</b>. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeaccessdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeaccessdata
      * @since windows5.0
      */
     static DdeAccessData(hData, pcbDataSize) {
@@ -1395,7 +1406,7 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddeunaccessdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddeunaccessdata
      * @since windows5.0
      */
     static DdeUnaccessData(hData) {
@@ -1427,7 +1438,7 @@ class DataExchange {
      * If the function fails, the return value is zero. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddefreedatahandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddefreedatahandle
      * @since windows5.0
      */
     static DdeFreeDataHandle(hData) {
@@ -1678,7 +1689,7 @@ class DataExchange {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddegetlasterror
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddegetlasterror
      * @since windows5.0
      */
     static DdeGetLastError(idInst) {
@@ -1730,7 +1741,7 @@ class DataExchange {
      * If the function fails, the return value is 0L. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddecreatestringhandlea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddecreatestringhandlea
      * @since windows5.0
      */
     static DdeCreateStringHandleA(idInst, psz, iCodePage) {
@@ -1785,7 +1796,7 @@ class DataExchange {
      * If the function fails, the return value is 0L. 
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddegetlasterror">DdeGetLastError</a> function can be used to get the error code, which can be one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddecreatestringhandlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddecreatestringhandlew
      * @since windows5.0
      */
     static DdeCreateStringHandleW(idInst, psz, iCodePage) {
@@ -1815,7 +1826,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz_ Type: <b>HSZ</b>
      * 
      * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
      * @param {PSTR} psz Type: <b>LPTSTR</b>
@@ -1838,14 +1849,14 @@ class DataExchange {
      * 						characters, of the returned text (not including the terminating null character). If the 
      * 						<i>psz</i> parameter specified a <b>NULL</b> pointer, the return value is the length of the text associated with the 
      * 						<i>hsz</i> parameter (not including the terminating null character). If an error occurs, the return value is 0L.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequerystringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddequerystringa
      * @since windows5.0
      */
-    static DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeQueryStringA(idInst, hsz_, psz, cchMax, iCodePage) {
+        hsz_ := hsz_ is Win32Handle ? NumGet(hsz_, "ptr") : hsz_
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
+        result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", hsz_, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
     }
 
@@ -1868,7 +1879,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz_ Type: <b>HSZ</b>
      * 
      * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
      * @param {PWSTR} psz Type: <b>LPTSTR</b>
@@ -1891,14 +1902,14 @@ class DataExchange {
      * 						characters, of the returned text (not including the terminating null character). If the 
      * 						<i>psz</i> parameter specified a <b>NULL</b> pointer, the return value is the length of the text associated with the 
      * 						<i>hsz</i> parameter (not including the terminating null character). If an error occurs, the return value is 0L.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddequerystringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddequerystringw
      * @since windows5.0
      */
-    static DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeQueryStringW(idInst, hsz_, psz, cchMax, iCodePage) {
+        hsz_ := hsz_ is Win32Handle ? NumGet(hsz_, "ptr") : hsz_
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
+        result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", hsz_, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
     }
 
@@ -1909,7 +1920,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz_ Type: <b>HSZ</b>
      * 
      * A handle to the string handle to be freed. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1917,13 +1928,13 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddefreestringhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddefreestringhandle
      * @since windows5.0
      */
-    static DdeFreeStringHandle(idInst, hsz) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeFreeStringHandle(idInst, hsz_) {
+        hsz_ := hsz_ is Win32Handle ? NumGet(hsz_, "ptr") : hsz_
 
-        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz, "int")
+        result := DllCall("USER32.dll\DdeFreeStringHandle", "uint", idInst, "ptr", hsz_, "int")
         return result
     }
 
@@ -1932,7 +1943,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} hsz Type: <b>HSZ</b>
+     * @param {HSZ} hsz_ Type: <b>HSZ</b>
      * 
      * A handle to the string handle to be saved.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -1940,13 +1951,13 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddekeepstringhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddekeepstringhandle
      * @since windows5.0
      */
-    static DdeKeepStringHandle(idInst, hsz) {
-        hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+    static DdeKeepStringHandle(idInst, hsz_) {
+        hsz_ := hsz_ is Win32Handle ? NumGet(hsz_, "ptr") : hsz_
 
-        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz, "int")
+        result := DllCall("USER32.dll\DdeKeepStringHandle", "uint", idInst, "ptr", hsz_, "int")
         return result
     }
 
@@ -2005,7 +2016,7 @@ class DataExchange {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ddeml/nf-ddeml-ddecmpstringhandles
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/nf-ddeml-ddecmpstringhandles
      * @since windows5.0
      */
     static DdeCmpStringHandles(hsz1, hsz2) {
@@ -2033,7 +2044,7 @@ class DataExchange {
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to a memory-based enhanced metafile.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setwinmetafilebits
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setwinmetafilebits
      * @since windows5.0
      */
     static SetWinMetaFileBits(nSize, lpMeta16Data, hdcRef, lpMFP) {
@@ -2063,7 +2074,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-openclipboard
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-openclipboard
      * @since windows5.0
      */
     static OpenClipboard(hWndNewOwner) {
@@ -2090,7 +2101,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-closeclipboard
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-closeclipboard
      * @since windows5.0
      */
     static CloseClipboard() {
@@ -2111,7 +2122,7 @@ class DataExchange {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * The return value is the clipboard sequence number. If you do not have <b>WINSTA_ACCESSCLIPBOARD</b> access to the window station, the function returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipboardsequencenumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getclipboardsequencenumber
      * @since windows5.0
      */
     static GetClipboardSequenceNumber() {
@@ -2130,7 +2141,7 @@ class DataExchange {
      * If the function succeeds, the return value is the handle to the window that owns the clipboard. 
      * 
      * If the clipboard is not owned, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipboardowner
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getclipboardowner
      * @since windows5.0
      */
     static GetClipboardOwner() {
@@ -2159,7 +2170,7 @@ class DataExchange {
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value identifies the next window in the clipboard viewer chain. If an error occurs or there are no other windows in the clipboard viewer chain, the return value is NULL. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclipboardviewer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setclipboardviewer
      * @since windows5.0
      */
     static SetClipboardViewer(hWndNewViewer) {
@@ -2183,7 +2194,7 @@ class DataExchange {
      * If the function succeeds, the return value is the handle to the first window in the clipboard viewer chain. 
      * 
      * If there is no clipboard viewer, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipboardviewer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getclipboardviewer
      * @since windows5.0
      */
     static GetClipboardViewer() {
@@ -2216,7 +2227,7 @@ class DataExchange {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value indicates the result of passing the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-changecbchain">WM_CHANGECBCHAIN</a> message to the windows in the clipboard viewer chain. Because a window in the chain typically returns <b>FALSE</b> when it processes <b>WM_CHANGECBCHAIN</b>, the return value from <b>ChangeClipboardChain</b> is typically <b>FALSE</b>. If there is only one window in the chain, the return value is typically <b>TRUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changeclipboardchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-changeclipboardchain
      * @since windows5.0
      */
     static ChangeClipboardChain(hWndRemove, hWndNewNext) {
@@ -2250,7 +2261,7 @@ class DataExchange {
      * If the function succeeds, the return value is the handle to the data.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setclipboarddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setclipboarddata
      * @since windows5.0
      */
     static SetClipboardData(uFormat, hMem) {
@@ -2285,7 +2296,7 @@ class DataExchange {
      * If the function succeeds, the return value is the handle to a clipboard object in the specified format.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipboarddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getclipboarddata
      * @since windows5.0
      */
     static GetClipboardData(uFormat) {
@@ -2317,7 +2328,7 @@ class DataExchange {
      * If the function succeeds, the return value identifies the registered clipboard format.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerclipboardformata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-registerclipboardformata
      * @since windows5.0
      */
     static RegisterClipboardFormatA(lpszFormat) {
@@ -2350,7 +2361,7 @@ class DataExchange {
      * If the function succeeds, the return value identifies the registered clipboard format.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerclipboardformatw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-registerclipboardformatw
      * @since windows5.0
      */
     static RegisterClipboardFormatW(lpszFormat) {
@@ -2373,7 +2384,7 @@ class DataExchange {
      * If the function succeeds, the return value is the number of different data formats currently on the clipboard.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-countclipboardformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-countclipboardformats
      * @since windows5.0
      */
     static CountClipboardFormats() {
@@ -2413,7 +2424,7 @@ class DataExchange {
      * 
      * If there are no more clipboard formats to enumerate, the return value is zero. In this case, the 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns the value <b>ERROR_SUCCESS</b>. This lets you distinguish between function failure and the end of enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enumclipboardformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-enumclipboardformats
      * @since windows5.0
      */
     static EnumClipboardFormats(format) {
@@ -2448,7 +2459,7 @@ class DataExchange {
      * 						characters, of the string copied to the buffer.
      * 
      * If the function fails, the return value is zero, indicating that the requested format does not exist or is predefined. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipboardformatnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getclipboardformatnamea
      * @since windows5.0
      */
     static GetClipboardFormatNameA(format, lpszFormatName, cchMaxCount) {
@@ -2485,7 +2496,7 @@ class DataExchange {
      * 						characters, of the string copied to the buffer.
      * 
      * If the function fails, the return value is zero, indicating that the requested format does not exist or is predefined. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipboardformatnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getclipboardformatnamew
      * @since windows5.0
      */
     static GetClipboardFormatNameW(format, lpszFormatName, cchMaxCount) {
@@ -2510,7 +2521,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-emptyclipboard
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-emptyclipboard
      * @since windows5.0
      */
     static EmptyClipboard() {
@@ -2536,7 +2547,7 @@ class DataExchange {
      * If the clipboard format is available, the return value is nonzero.
      * 
      * If the clipboard format is not available, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-isclipboardformatavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-isclipboardformatavailable
      * @since windows5.0
      */
     static IsClipboardFormatAvailable(format) {
@@ -2562,7 +2573,7 @@ class DataExchange {
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the first clipboard format in the list for which data is available. If the clipboard is empty, the return value is NULL. If the clipboard contains data, but not in any of the specified formats, the return value is –1. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getpriorityclipboardformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getpriorityclipboardformat
      * @since windows5.0
      */
     static GetPriorityClipboardFormat(paFormatPriorityList, cFormats) {
@@ -2585,7 +2596,7 @@ class DataExchange {
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the window that has the clipboard open. If no window has the clipboard open, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getopenclipboardwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getopenclipboardwindow
      * @since windows5.0
      */
     static GetOpenClipboardWindow() {
@@ -2604,21 +2615,21 @@ class DataExchange {
      * Places the given window in the system-maintained clipboard format listener list.
      * @remarks
      * When a window has been added to the clipboard format listener list, it is posted a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-clipboardupdate">WM_CLIPBOARDUPDATE</a> message whenever the contents of the clipboard have changed.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window to be placed in the clipboard format listener list.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-addclipboardformatlistener
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-addclipboardformatlistener
      * @since windows6.0.6000
      */
-    static AddClipboardFormatListener(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AddClipboardFormatListener(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\AddClipboardFormatListener", "ptr", hwnd_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2630,21 +2641,21 @@ class DataExchange {
      * Removes the given window from the system-maintained clipboard format listener list.
      * @remarks
      * When a window has been removed from the clipboard format listener list, it will no longer receive <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-clipboardupdate">WM_CLIPBOARDUPDATE</a> messages.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window to remove from the clipboard format listener list.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-removeclipboardformatlistener
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-removeclipboardformatlistener
      * @since windows6.0.6000
      */
-    static RemoveClipboardFormatListener(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RemoveClipboardFormatListener(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd, "int")
+        result := DllCall("USER32.dll\RemoveClipboardFormatListener", "ptr", hwnd_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2666,7 +2677,7 @@ class DataExchange {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getupdatedclipboardformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getupdatedclipboardformats
      * @since windows6.0.6000
      */
     static GetUpdatedClipboardFormats(lpuiFormats, cFormats, pcFormatsOut) {
@@ -2699,7 +2710,7 @@ class DataExchange {
      * The function always returns (<b>ATOM</b>) 0. 
      * 
      * To determine whether the function has failed, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> with <b>ERROR_SUCCESS</b> before calling <b>GlobalDeleteAtom</b>, then call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the last error code is still <b>ERROR_SUCCESS</b>, <b>GlobalDeleteAtom</b> has succeeded.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaldeleteatom
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globaldeleteatom
      * @since windows5.0
      */
     static GlobalDeleteAtom(nAtom) {
@@ -2732,7 +2743,7 @@ class DataExchange {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-initatomtable
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-initatomtable
      * @since windows5.0
      */
     static InitAtomTable(nSize) {
@@ -2757,7 +2768,7 @@ class DataExchange {
      * 
      * If the function fails, the return value is the 
      * 						<i>nAtom</i> parameter. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deleteatom
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-deleteatom
      * @since windows5.0
      */
     static DeleteAtom(nAtom) {
@@ -2803,7 +2814,7 @@ class DataExchange {
      * If the function succeeds, the return value is the newly created atom.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaladdatoma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globaladdatoma
      * @since windows5.0
      */
     static GlobalAddAtomA(lpString) {
@@ -2851,7 +2862,7 @@ class DataExchange {
      * If the function succeeds, the return value is the newly created atom.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaladdatomw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globaladdatomw
      * @since windows5.0
      */
     static GlobalAddAtomW(lpString) {
@@ -2879,7 +2890,7 @@ class DataExchange {
      * @returns {Integer} If the function succeeds, the return value is the newly created atom.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaladdatomexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globaladdatomexa
      */
     static GlobalAddAtomExA(lpString, Flags) {
         lpString := lpString is String ? StrPtr(lpString) : lpString
@@ -2906,7 +2917,7 @@ class DataExchange {
      * @returns {Integer} If the function succeeds, the return value is the newly created atom.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globaladdatomexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globaladdatomexw
      */
     static GlobalAddAtomExW(lpString, Flags) {
         lpString := lpString is String ? StrPtr(lpString) : lpString
@@ -2945,7 +2956,7 @@ class DataExchange {
      * If the function succeeds, the return value is the global atom associated with the given string.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalfindatoma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalfindatoma
      * @since windows5.0
      */
     static GlobalFindAtomA(lpString) {
@@ -2985,7 +2996,7 @@ class DataExchange {
      * If the function succeeds, the return value is the global atom associated with the given string.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalfindatomw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalfindatomw
      * @since windows5.0
      */
     static GlobalFindAtomW(lpString) {
@@ -3031,7 +3042,7 @@ class DataExchange {
      * 						characters, not including the terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalgetatomnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalgetatomnamea
      * @since windows5.0
      */
     static GlobalGetAtomNameA(nAtom, lpBuffer, nSize) {
@@ -3077,7 +3088,7 @@ class DataExchange {
      * 						characters, not including the terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalgetatomnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalgetatomnamew
      * @since windows5.0
      */
     static GlobalGetAtomNameW(nAtom, lpBuffer, nSize) {
@@ -3121,7 +3132,7 @@ class DataExchange {
      * If the function succeeds, the return value is the newly created atom.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addatoma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-addatoma
      * @since windows5.0
      */
     static AddAtomA(lpString) {
@@ -3165,7 +3176,7 @@ class DataExchange {
      * If the function succeeds, the return value is the newly created atom.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addatomw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-addatomw
      * @since windows5.0
      */
     static AddAtomW(lpString) {
@@ -3205,7 +3216,7 @@ class DataExchange {
      * If the function succeeds, the return value is the atom associated with the given string. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findatoma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findatoma
      * @since windows5.0
      */
     static FindAtomA(lpString) {
@@ -3245,7 +3256,7 @@ class DataExchange {
      * If the function succeeds, the return value is the atom associated with the given string. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findatomw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findatomw
      * @since windows5.0
      */
     static FindAtomW(lpString) {
@@ -3291,7 +3302,7 @@ class DataExchange {
      * 						characters, not including the terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getatomnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getatomnamea
      * @since windows5.0
      */
     static GetAtomNameA(nAtom, lpBuffer, nSize) {
@@ -3337,7 +3348,7 @@ class DataExchange {
      * 						characters, not including the terminating null character.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getatomnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getatomnamew
      * @since windows5.0
      */
     static GetAtomNameW(nAtom, lpBuffer, nSize) {

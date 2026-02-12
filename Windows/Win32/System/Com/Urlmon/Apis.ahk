@@ -1587,7 +1587,7 @@ class Urlmon {
      * @param {IBindStatusCallback} pBSCb A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775060(v=vs.85)">IBindStatusCallback</a> interface used for receiving data availability and progress notification.
      * @param {IEnumFORMATETC} pEFetc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interface that can be used to enumerate formats for format negotiation during binding. This parameter can be <b>NULL</b>, in which case the caller is not interested in format negotiation during binding, and the default format of the object will be bound to.
      * @returns {IBindCtx} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>* pointer variable that receives the interface pointer to the new bind context.
-     * @see https://learn.microsoft.com/windows/win32/api/urlmon/nf-urlmon-createasyncbindctx
+     * @see https://learn.microsoft.com/windows/win32/api//content/urlmon/nf-urlmon-createasyncbindctx
      * @since windows5.0
      */
     static CreateAsyncBindCtx(reserved, pBSCb, pEFetc) {
@@ -1767,16 +1767,16 @@ class Urlmon {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Pointer<uCLSSPEC>} pClassSpec 
      * @param {Pointer<QUERYCONTEXT>} pQuery 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static FaultInIEFeature(hWnd, pClassSpec, pQuery, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FaultInIEFeature(hWnd_, pClassSpec, pQuery, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("urlmon.dll\FaultInIEFeature", "ptr", hWnd, "ptr", pClassSpec, "ptr", pQuery, "uint", dwFlags, "int")
+        result := DllCall("urlmon.dll\FaultInIEFeature", "ptr", hWnd_, "ptr", pClassSpec, "ptr", pQuery, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1852,7 +1852,7 @@ class Urlmon {
      * @param {Integer} cfmtetc Number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the static array specified by the <i>rgfmtetc</i> parameter. The <i>cfmtetc</i> parameter cannot be zero.
      * @param {Pointer<FORMATETC>} rgfmtetc Pointer to a static array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures.
      * @returns {IEnumFORMATETC} Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> pointer variable that receives the interface pointer to the enumerator object.
-     * @see https://learn.microsoft.com/windows/win32/api/urlmon/nf-urlmon-createformatenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/urlmon/nf-urlmon-createformatenumerator
      * @since windows5.0
      */
     static CreateFormatEnumerator(cfmtetc, rgfmtetc) {
@@ -2057,14 +2057,14 @@ class Urlmon {
     /**
      * 
      * @param {HANDLE} hObject 
-     * @param {Integer} ieObjectType 
+     * @param {Integer} ieObjectType_ 
      * @param {Integer} dwAccessMask 
      * @returns {HRESULT} 
      */
-    static SetAccessForIEAppContainer(hObject, ieObjectType, dwAccessMask) {
+    static SetAccessForIEAppContainer(hObject, ieObjectType_, dwAccessMask) {
         hObject := hObject is Win32Handle ? NumGet(hObject, "ptr") : hObject
 
-        result := DllCall("urlmon.dll\SetAccessForIEAppContainer", "ptr", hObject, "int", ieObjectType, "uint", dwAccessMask, "int")
+        result := DllCall("urlmon.dll\SetAccessForIEAppContainer", "ptr", hObject, "int", ieObjectType_, "uint", dwAccessMask, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2384,18 +2384,18 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} ParseAction 
+     * @param {Integer} ParseAction_ 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pszResult 
      * @param {Integer} cchResult 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */
-    static CoInternetParseUrl(pwzUrl, ParseAction, dwFlags, pszResult, cchResult, dwReserved) {
+    static CoInternetParseUrl(pwzUrl, ParseAction_, dwFlags, pszResult, cchResult, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pszResult := pszResult is String ? StrPtr(pszResult) : pszResult
 
-        result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", ParseAction, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "int")
+        result := DllCall("urlmon.dll\CoInternetParseUrl", "ptr", pwzUrl, "int", ParseAction_, "uint", dwFlags, "ptr", pszResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2406,18 +2406,18 @@ class Urlmon {
     /**
      * 
      * @param {IUri} pIUri 
-     * @param {Integer} ParseAction 
+     * @param {Integer} ParseAction_ 
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
      * @returns {Integer} 
      */
-    static CoInternetParseIUri(pIUri, ParseAction, dwFlags, pwzResult, cchResult) {
+    static CoInternetParseIUri(pIUri, ParseAction_, dwFlags, pwzResult, cchResult) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", ParseAction, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "ptr", dwReserved, "int")
+        result := DllCall("urlmon.dll\CoInternetParseIUri", "ptr", pIUri, "int", ParseAction_, "uint", dwFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "ptr", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2560,15 +2560,15 @@ class Urlmon {
     /**
      * 
      * @param {PWSTR} pwszUrl 
-     * @param {Integer} psuAction 
+     * @param {Integer} psuAction_ 
      * @returns {PWSTR} 
      */
-    static CoInternetGetSecurityUrl(pwszUrl, psuAction) {
+    static CoInternetGetSecurityUrl(pwszUrl, psuAction_) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := DllCall("urlmon.dll\CoInternetGetSecurityUrl", "ptr", pwszUrl, "ptr*", &ppwszSecUrl := 0, "int", psuAction, "uint", dwReserved, "int")
+        result := DllCall("urlmon.dll\CoInternetGetSecurityUrl", "ptr", pwszUrl, "ptr*", &ppwszSecUrl := 0, "int", psuAction_, "uint", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2579,13 +2579,13 @@ class Urlmon {
     /**
      * 
      * @param {IUri} pUri 
-     * @param {Integer} psuAction 
+     * @param {Integer} psuAction_ 
      * @returns {IUri} 
      */
-    static CoInternetGetSecurityUrlEx(pUri, psuAction) {
+    static CoInternetGetSecurityUrlEx(pUri, psuAction_) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("urlmon.dll\CoInternetGetSecurityUrlEx", "ptr", pUri, "ptr*", &ppSecUri := 0, "int", psuAction, "ptr", dwReserved, "int")
+        result := DllCall("urlmon.dll\CoInternetGetSecurityUrlEx", "ptr", pUri, "ptr*", &ppSecUri := 0, "int", psuAction_, "ptr", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

@@ -3,7 +3,7 @@
 
 /**
  * Specifies an algorithm identifier.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/alg-id
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/alg-id
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

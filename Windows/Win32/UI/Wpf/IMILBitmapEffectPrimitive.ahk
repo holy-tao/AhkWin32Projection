@@ -7,11 +7,9 @@
 /**
  * Exposes methods that create a bitmap effect's output. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.
  * @remarks
- * 
  * Effect clients, in general, should interact with the outer <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a> object rather than the <b>IMILBitmapEffectPrimitive</b> object.
  *             If the client needs to interact with the <b>IMILBitmapEffectPrimitive</b> directly the client will need to implement <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnections">IMILBitmapEffectConnections</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnectionsinfo">IMILBitmapEffectConnectionsInfo</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnectorinfo">IMILBitmapEffectConnectorInfo</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectprimitive
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nn-mileffects-imilbitmapeffectprimitive
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -38,6 +36,9 @@ class IMILBitmapEffectPrimitive extends IUnknown{
 
     /**
      * Performs pixel processing for the bitmap effect.
+     * @remarks
+     * If <i>pfModifyInPlace</i> is VARIANT_TRUE, the input image may be modified and returned.
+     *             If the custom effect does not support in place modifications, set <i>pfModifyInPlace</i> to VARIANT_FALSE to indicate a new image was created.
      * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
      * A zero based index value indicating which output pin to use for output.
@@ -50,12 +51,16 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * @returns {IWICBitmapSource} Type: <b>IWICBitmapSource**</b>
      * 
      * When this method returns, contains a pointer to the effect output.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-getoutput
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectprimitive-getoutput
      */
     GetOutput(uiIndex, pContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -76,10 +81,14 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * When this method returns, contains a value indicating whether the point transformed to a known location.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
      */
     TransformPoint(uiIndex, p, fForwardTransform, pContext) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "short*", &pfPointTransformed := 0, "HRESULT")
+        result := ComCall(4, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "short*", &pfPointTransformed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPointTransformed
     }
 
@@ -99,11 +108,15 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * The render context to use for the transformation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-transformrect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformrect
      */
     TransformRect(uiIndex, p, fForwardTransform, pContext) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "HRESULT")
+        result := ComCall(5, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,10 +128,14 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * When this method returns, contains a value indicating whether the effect has an affine transform.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
      */
     HasAffineTransform(uiIndex) {
-        result := ComCall(6, this, "uint", uiIndex, "short*", &pfAffine := 0, "HRESULT")
+        result := ComCall(6, this, "uint", uiIndex, "short*", &pfAffine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAffine
     }
 
@@ -130,15 +147,19 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * When this method returns, contains a value indicating whether the effect has an inverse transform.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
      */
     HasInverseTransform(uiIndex) {
-        result := ComCall(7, this, "uint", uiIndex, "short*", &pfHasInverse := 0, "HRESULT")
+        result := ComCall(7, this, "uint", uiIndex, "short*", &pfHasInverse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasInverse
     }
 
     /**
-     * Retrieves the affine transormation matrix for the effect.
+     * Retrieves the affine transformation matrix for the effect.
      * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
      * A zero based index value indicating the output pin through which to retrieve the affine matrix.
@@ -147,11 +168,15 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * When this method returns, contains a pointer to the affine matrix describing the effects transform.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectprimitive-getaffinematrix
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectprimitive-getaffinematrix
      */
     GetAffineMatrix(uiIndex, pMatrix) {
-        result := ComCall(8, this, "uint", uiIndex, "ptr", pMatrix, "HRESULT")
+        result := ComCall(8, this, "uint", uiIndex, "ptr", pMatrix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

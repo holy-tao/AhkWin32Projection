@@ -78,7 +78,11 @@ class ISpeechRecognizerStatus extends IDispatch{
      * @returns {ISpeechAudioStatus} 
      */
     get_AudioStatus() {
-        result := ComCall(7, this, "ptr*", &AudioStatus := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &AudioStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioStatus(AudioStatus)
     }
 
@@ -88,7 +92,11 @@ class ISpeechRecognizerStatus extends IDispatch{
      */
     get_CurrentStreamPosition() {
         pCurrentStreamPos := VARIANT()
-        result := ComCall(8, this, "ptr", pCurrentStreamPos, "HRESULT")
+        result := ComCall(8, this, "ptr", pCurrentStreamPos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCurrentStreamPos
     }
 
@@ -97,7 +105,11 @@ class ISpeechRecognizerStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_CurrentStreamNumber() {
-        result := ComCall(9, this, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &StreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamNumber
     }
 
@@ -106,7 +118,11 @@ class ISpeechRecognizerStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_NumberOfActiveRules() {
-        result := ComCall(10, this, "int*", &NumberOfActiveRules := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &NumberOfActiveRules := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfActiveRules
     }
 
@@ -116,7 +132,11 @@ class ISpeechRecognizerStatus extends IDispatch{
      */
     get_ClsidEngine() {
         ClsidEngine := BSTR()
-        result := ComCall(11, this, "ptr", ClsidEngine, "HRESULT")
+        result := ComCall(11, this, "ptr", ClsidEngine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ClsidEngine
     }
 
@@ -126,7 +146,11 @@ class ISpeechRecognizerStatus extends IDispatch{
      */
     get_SupportedLanguages() {
         SupportedLanguages := VARIANT()
-        result := ComCall(12, this, "ptr", SupportedLanguages, "HRESULT")
+        result := ComCall(12, this, "ptr", SupportedLanguages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SupportedLanguages
     }
 }

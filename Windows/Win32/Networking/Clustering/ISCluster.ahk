@@ -159,7 +159,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
-        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -168,7 +172,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
-        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -177,7 +185,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
-        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -186,7 +198,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
-        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -195,19 +211,33 @@ class ISCluster extends IDispatch{
      * @returns {Pointer} 
      */
     get_Handle() {
-        result := ComCall(11, this, "ptr*", &phandle := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &phandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phandle
     }
 
     /**
-     * 
+     * Open Method (ADO MD)
+     * @remarks
+     * The **Open** method generates an error if either of its parameters is omitted and its corresponding property value has not been set prior to attempting to open the **Cellset**.
      * @param {BSTR} bstrClusterName 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-md-api/open-method-ado-md
      */
     Open(bstrClusterName) {
-        bstrClusterName := bstrClusterName is String ? BSTR.Alloc(bstrClusterName).Value : bstrClusterName
+        if(bstrClusterName is String) {
+            pin := BSTR.Alloc(bstrClusterName)
+            bstrClusterName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrClusterName, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrClusterName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +247,11 @@ class ISCluster extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(13, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -227,9 +261,16 @@ class ISCluster extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Name(bstrClusterName) {
-        bstrClusterName := bstrClusterName is String ? BSTR.Alloc(bstrClusterName).Value : bstrClusterName
+        if(bstrClusterName is String) {
+            pin := BSTR.Alloc(bstrClusterName)
+            bstrClusterName := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrClusterName, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrClusterName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -238,7 +279,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusVersion} 
      */
     get_Version() {
-        result := ComCall(15, this, "ptr*", &ppClusVersion := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppClusVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusVersion(ppClusVersion)
     }
 
@@ -248,7 +293,11 @@ class ISCluster extends IDispatch{
      * @returns {HRESULT} 
      */
     put_QuorumResource(pClusterResource) {
-        result := ComCall(16, this, "ptr", pClusterResource, "HRESULT")
+        result := ComCall(16, this, "ptr", pClusterResource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -257,7 +306,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusResource} 
      */
     get_QuorumResource() {
-        result := ComCall(17, this, "ptr*", &pClusterResource := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &pClusterResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResource(pClusterResource)
     }
 
@@ -266,7 +319,11 @@ class ISCluster extends IDispatch{
      * @returns {Integer} 
      */
     get_QuorumLogSize() {
-        result := ComCall(18, this, "int*", &pnLogSize := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pnLogSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnLogSize
     }
 
@@ -276,7 +333,11 @@ class ISCluster extends IDispatch{
      * @returns {HRESULT} 
      */
     put_QuorumLogSize(nLogSize) {
-        result := ComCall(19, this, "int", nLogSize, "HRESULT")
+        result := ComCall(19, this, "int", nLogSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -286,7 +347,11 @@ class ISCluster extends IDispatch{
      */
     get_QuorumPath() {
         ppPath := BSTR()
-        result := ComCall(20, this, "ptr", ppPath, "HRESULT")
+        result := ComCall(20, this, "ptr", ppPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppPath
     }
 
@@ -296,9 +361,16 @@ class ISCluster extends IDispatch{
      * @returns {HRESULT} 
      */
     put_QuorumPath(pPath) {
-        pPath := pPath is String ? BSTR.Alloc(pPath).Value : pPath
+        if(pPath is String) {
+            pin := BSTR.Alloc(pPath)
+            pPath := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", pPath, "HRESULT")
+        result := ComCall(21, this, "ptr", pPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -307,7 +379,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusNodes} 
      */
     get_Nodes() {
-        result := ComCall(22, this, "ptr*", &ppNodes := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &ppNodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusNodes(ppNodes)
     }
 
@@ -316,7 +392,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusResGroups} 
      */
     get_ResourceGroups() {
-        result := ComCall(23, this, "ptr*", &ppClusterResourceGroups := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &ppClusterResourceGroups := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResGroups(ppClusterResourceGroups)
     }
 
@@ -325,7 +405,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusResources} 
      */
     get_Resources() {
-        result := ComCall(24, this, "ptr*", &ppClusterResources := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &ppClusterResources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResources(ppClusterResources)
     }
 
@@ -334,7 +418,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusResTypes} 
      */
     get_ResourceTypes() {
-        result := ComCall(25, this, "ptr*", &ppResourceTypes := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &ppResourceTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResTypes(ppResourceTypes)
     }
 
@@ -343,7 +431,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusNetworks} 
      */
     get_Networks() {
-        result := ComCall(26, this, "ptr*", &ppNetworks := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &ppNetworks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusNetworks(ppNetworks)
     }
 
@@ -352,7 +444,11 @@ class ISCluster extends IDispatch{
      * @returns {ISClusNetInterfaces} 
      */
     get_NetInterfaces() {
-        result := ComCall(27, this, "ptr*", &ppNetInterfaces := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &ppNetInterfaces := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusNetInterfaces(ppNetInterfaces)
     }
 }

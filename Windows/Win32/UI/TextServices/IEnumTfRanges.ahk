@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfRanges interface is implemented by the TSF manager to provide an enumeration of range objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtfranges
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-ienumtfranges
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IEnumTfRanges extends IUnknown{
     /**
      * IEnumTfRanges::Clone method
      * @returns {IEnumTfRanges} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfranges">IEnumTfRanges</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfranges-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfranges-clone
      */
     Clone() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfRanges(ppEnum)
     }
 
@@ -87,12 +91,16 @@ class IEnumTfRanges extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfranges-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfranges-next
      */
     Next(ulCount, ppRange, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppRange, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, "ptr*", ppRange, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,10 +125,14 @@ class IEnumTfRanges extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfranges-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfranges-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,10 +169,14 @@ class IEnumTfRanges extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfranges-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfranges-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -4,6 +4,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\WTS_CLOUD_AUTH_HANDLE.ahk
 #Include ..\..\Foundation\Apis.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
@@ -24,7 +26,7 @@ class RemoteDesktop {
     static WTS_CURRENT_SERVER_HANDLE => HANDLE({Value: 0}, false)
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WTS_CURRENT_SERVER_NAME => ""
 
@@ -999,7 +1001,7 @@ class RemoteDesktop {
     static RENDER_HINT_MAPPEDWINDOW => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WTS_PROPERTY_DEFAULT_CONFIG => "DefaultConfig"
 
@@ -1282,7 +1284,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsstopremotecontrolsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsstopremotecontrolsession
      * @since windows6.0.6000
      */
     static WTSStopRemoteControlSession(LogonId) {
@@ -1311,7 +1313,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessionw
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionW(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
@@ -1342,7 +1344,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsstartremotecontrolsessiona
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionA(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
@@ -1380,7 +1382,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsconnectsessiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsconnectsessiona
      * @since windows6.0.6000
      */
     static WTSConnectSessionA(LogonId, TargetLogonId, pPassword, bWait) {
@@ -1418,7 +1420,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsconnectsessionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsconnectsessionw
      * @since windows6.0.6000
      */
     static WTSConnectSessionW(LogonId, TargetLogonId, pPassword, bWait) {
@@ -1448,7 +1450,7 @@ class RemoteDesktop {
      * @param {PWSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
-     * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
+     * @param {Integer} Version_ Version of the enumeration request. The value of the parameter must be 1.
      * @param {Pointer<Pointer<WTS_SERVER_INFOW>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
@@ -1459,10 +1461,10 @@ class RemoteDesktop {
      * 
      *  If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateserversw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumerateserversw
      * @since windows6.0.6000
      */
-    static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
+    static WTSEnumerateServersW(pDomainName, Reserved, Version_, ppServerInfo, pCount) {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
         ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
@@ -1470,7 +1472,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version_, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1492,7 +1494,7 @@ class RemoteDesktop {
      * @param {PSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
-     * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
+     * @param {Integer} Version_ Version of the enumeration request. The value of the parameter must be 1.
      * @param {Pointer<Pointer<WTS_SERVER_INFOA>>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
@@ -1503,10 +1505,10 @@ class RemoteDesktop {
      * 
      *  If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateserversa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumerateserversa
      * @since windows6.0.6000
      */
-    static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
+    static WTSEnumerateServersA(pDomainName, Reserved, Version_, ppServerInfo, pCount) {
         pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
         ppServerInfoMarshal := ppServerInfo is VarRef ? "ptr*" : "ptr"
@@ -1514,7 +1516,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version_, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1540,7 +1542,7 @@ class RemoteDesktop {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsopenserverw
      * @since windows6.0.6000
      */
     static WTSOpenServerW(pServerName) {
@@ -1569,7 +1571,7 @@ class RemoteDesktop {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsopenservera
      * @since windows6.0.6000
      */
     static WTSOpenServerA(pServerName) {
@@ -1599,7 +1601,7 @@ class RemoteDesktop {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsopenserverexw
      * @since windows6.1
      */
     static WTSOpenServerExW(pServerName) {
@@ -1629,7 +1631,7 @@ class RemoteDesktop {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsopenserverexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsopenserverexa
      * @since windows6.1
      */
     static WTSOpenServerExA(pServerName) {
@@ -1652,7 +1654,7 @@ class RemoteDesktop {
      * 
      * Do not pass <b>WTS_CURRENT_SERVER_HANDLE</b> for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscloseserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtscloseserver
      * @since windows6.0.6000
      */
     static WTSCloseServer(hServer) {
@@ -1672,7 +1674,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
-     * @param {Integer} Version The version of the enumeration request. This parameter must be 1.
+     * @param {Integer} Version_ The version of the enumeration request. This parameter must be 1.
      * @param {Pointer<Pointer<WTS_SESSION_INFOW>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
@@ -1688,10 +1690,10 @@ class RemoteDesktop {
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumeratesessionsw
      * @since windows6.0.6000
      */
-    static WTSEnumerateSessionsW(hServer, Reserved, Version, ppSessionInfo, pCount) {
+    static WTSEnumerateSessionsW(hServer, Reserved, Version_, ppSessionInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
@@ -1699,7 +1701,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version_, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1718,7 +1720,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
      * <div> </div>
      * @param {Integer} Reserved This parameter is reserved. It must be zero.
-     * @param {Integer} Version The version of the enumeration request. This parameter must be 1.
+     * @param {Integer} Version_ The version of the enumeration request. This parameter must be 1.
      * @param {Pointer<Pointer<WTS_SESSION_INFOA>>} ppSessionInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_infoa">WTS_SESSION_INFO</a> structures that represent the retrieved sessions. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * 
@@ -1734,10 +1736,10 @@ class RemoteDesktop {
      * 
      * To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa
      * @since windows6.0.6000
      */
-    static WTSEnumerateSessionsA(hServer, Reserved, Version, ppSessionInfo, pCount) {
+    static WTSEnumerateSessionsA(hServer, Reserved, Version_, ppSessionInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppSessionInfoMarshal := ppSessionInfo is VarRef ? "ptr*" : "ptr"
@@ -1745,7 +1747,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version_, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1782,7 +1784,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexw
      * @since windows6.1
      */
     static WTSEnumerateSessionsExW(hServer, pLevel, Filter, ppSessionInfo, pCount) {
@@ -1831,7 +1833,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumeratesessionsexa
      * @since windows6.1
      */
     static WTSEnumerateSessionsExA(hServer, pLevel, Filter, ppSessionInfo, pCount) {
@@ -1868,7 +1870,7 @@ class RemoteDesktop {
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
-     * @param {Integer} Version Specifies the version of the enumeration request. Must be 1.
+     * @param {Integer} Version_ Specifies the version of the enumeration request. Must be 1.
      * @param {Pointer<Pointer<WTS_PROCESS_INFOW>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
@@ -1879,10 +1881,10 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumerateprocessesw
      * @since windows6.0.6000
      */
-    static WTSEnumerateProcessesW(hServer, Reserved, Version, ppProcessInfo, pCount) {
+    static WTSEnumerateProcessesW(hServer, Reserved, Version_, ppProcessInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
@@ -1890,7 +1892,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version_, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1915,7 +1917,7 @@ class RemoteDesktop {
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
      * @param {Integer} Reserved Reserved; must be zero.
-     * @param {Integer} Version Specifies the version of the enumeration request. Must be 1.
+     * @param {Integer} Version_ Specifies the version of the enumeration request. Must be 1.
      * @param {Pointer<Pointer<WTS_PROCESS_INFOA>>} ppProcessInfo Pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> structures. Each structure 
      *       in the array contains information about an active process on the specified RD Session Host server. To free the returned 
@@ -1926,10 +1928,10 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumerateprocessesa
      * @since windows6.0.6000
      */
-    static WTSEnumerateProcessesA(hServer, Reserved, Version, ppProcessInfo, pCount) {
+    static WTSEnumerateProcessesA(hServer, Reserved, Version_, ppProcessInfo, pCount) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         ppProcessInfoMarshal := ppProcessInfo is VarRef ? "ptr*" : "ptr"
@@ -1937,7 +1939,7 @@ class RemoteDesktop {
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version_, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1955,7 +1957,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsterminateprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsterminateprocess
      * @since windows6.0.6000
      */
     static WTSTerminateProcess(hServer, ProcessId, ExitCode) {
@@ -2024,7 +2026,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsquerysessioninformationw
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
@@ -2096,7 +2098,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationA(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
@@ -2147,7 +2149,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsqueryuserconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsqueryuserconfigw
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigW(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
@@ -2199,7 +2201,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsqueryuserconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsqueryuserconfiga
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigA(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
@@ -2271,7 +2273,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetuserconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtssetuserconfigw
      * @since windows6.0.6000
      */
     static WTSSetUserConfigW(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
@@ -2340,7 +2342,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetuserconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtssetuserconfiga
      * @since windows6.0.6000
      */
     static WTSSetUserConfigA(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
@@ -2400,7 +2402,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssendmessagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtssendmessagew
      * @since windows6.0.6000
      */
     static WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
@@ -2461,7 +2463,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssendmessagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtssendmessagea
      * @since windows6.0.6000
      */
     static WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
@@ -2495,7 +2497,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsdisconnectsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsdisconnectsession
      * @since windows6.0.6000
      */
     static WTSDisconnectSession(hServer, SessionId, bWait) {
@@ -2533,7 +2535,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtslogoffsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtslogoffsession
      * @since windows6.0.6000
      */
     static WTSLogoffSession(hServer, SessionId, bWait) {
@@ -2574,7 +2576,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsshutdownsystem
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsshutdownsystem
      * @since windows6.0.6000
      */
     static WTSShutdownSystem(hServer, ShutdownFlag) {
@@ -2594,7 +2596,7 @@ class RemoteDesktop {
      * Waits for a Remote Desktop Services event before returning to the caller.
      * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
-     * @param {Integer} EventMask Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
+     * @param {Integer} EventMask_ Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
      * @param {Pointer<Integer>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
      *       be a combination of the values from the previous list, or it can be <b>WTS_EVENT_NONE</b> if 
      *       the wait terminated because of a <b>WTSWaitSystemEvent</b> call with 
@@ -2603,17 +2605,17 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtswaitsystemevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtswaitsystemevent
      * @since windows6.0.6000
      */
-    static WTSWaitSystemEvent(hServer, EventMask, pEventFlags) {
+    static WTSWaitSystemEvent(hServer, EventMask_, pEventFlags) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         pEventFlagsMarshal := pEventFlags is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask, pEventFlagsMarshal, pEventFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask_, pEventFlagsMarshal, pEventFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2640,7 +2642,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen
      * @since windows6.0.6000
      */
     static WTSVirtualChannelOpen(SessionId, pVirtualName) {
@@ -2685,7 +2687,7 @@ class RemoteDesktop {
      *        combination with the <b>WTS_CHANNEL_OPTION_DYNAMIC</b> value.
      * @returns {HANDLE} <b>NULL</b> on error with 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> set.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopenex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelopenex
      * @since windows6.0.6000
      */
     static WTSVirtualChannelOpenEx(SessionId, pVirtualName, flags) {
@@ -2711,7 +2713,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelclose
      * @since windows6.0.6000
      */
     static WTSVirtualChannelClose(hChannelHandle) {
@@ -2741,7 +2743,21 @@ class RemoteDesktop {
      *       <b>WTSVirtualChannelRead</b> returns immediately 
      *       if there is no data to read. If <i>TimeOut</i> is INFINITE (defined in Winbase.h), the 
      *       function waits indefinitely until there is data to read.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a buffer that receives a chunk of data read from the server end of the virtual channel. The maximum 
+     *       amount of data that the server can receive in a single 
+     *       <b>WTSVirtualChannelRead</b> call is 
+     *       <b>CHANNEL_CHUNK_LENGTH</b> bytes. If the client's 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> call writes 
+     *       a larger block of data, the server must make multiple 
+     *       <b>WTSVirtualChannelRead</b> calls.
+     * 
+     * In certain cases, Remote Desktop Services places a 
+     * <b>CHANNEL_PDU_HEADER</b> structure at the beginning of each chunk of data read by the 
+     * <b>WTSVirtualChannelRead</b> function. This will occur if the 
+     * client DLL sets the <b>CHANNEL_OPTION_SHOW_PROTOCOL</b> option when it calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelinit">VirtualChannelInit</a> function to initialize the virtual channel. This will also occur if the channel is a dynamic virtual channel written to by using the <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write">IWTSVirtualChannel::Write</a> method. Otherwise, 
+     *        the buffer receives only the data written in the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelwrite">VirtualChannelWrite</a> call.
      * @param {Integer} BufferSize Specifies the size, in bytes, of <i>Buffer</i>. If the chunk of data in <i>Buffer</i> will be preceded by a <b>CHANNEL_PDU_HEADER</b> structure, the value of this parameter should be at least 
      *       <b>CHANNEL_PDU_LENGTH</b>. Otherwise, the value of this parameter should be at least <b>CHANNEL_CHUNK_LENGTH</b>.
      * @param {Pointer<Integer>} pBytesRead Pointer to a variable that receives the number of bytes read.
@@ -2749,17 +2765,17 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelread
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelread
      * @since windows6.0.6000
      */
-    static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer_R, BufferSize, pBytesRead) {
+    static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer_, BufferSize, pBytesRead) {
         hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
 
         pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer_R, "uint", BufferSize, pBytesReadMarshal, pBytesRead, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer_, "uint", BufferSize, pBytesReadMarshal, pBytesRead, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2777,24 +2793,24 @@ class RemoteDesktop {
      * <div> </div>
      * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a buffer containing the data to write to the virtual channel.
      * @param {Integer} Length Specifies the size, in bytes, of the data to write.
      * @param {Pointer<Integer>} pBytesWritten Pointer to a variable that receives the number of bytes written.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelwrite
      * @since windows6.0.6000
      */
-    static WTSVirtualChannelWrite(hChannelHandle, Buffer_R, Length, pBytesWritten) {
+    static WTSVirtualChannelWrite(hChannelHandle, Buffer_, Length, pBytesWritten) {
         hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
 
         pBytesWrittenMarshal := pBytesWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer_R, "uint", Length, pBytesWrittenMarshal, pBytesWritten, "int")
+        result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer_, "uint", Length, pBytesWrittenMarshal, pBytesWritten, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -2810,7 +2826,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeinput
      * @since windows6.0.6000
      */
     static WTSVirtualChannelPurgeInput(hChannelHandle) {
@@ -2834,7 +2850,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeoutput
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelpurgeoutput
      * @since windows6.0.6000
      */
     static WTSVirtualChannelPurgeOutput(hChannelHandle) {
@@ -2957,7 +2973,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsvirtualchannelquery
      * @since windows6.0.6000
      */
     static WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) {
@@ -2983,7 +2999,7 @@ class RemoteDesktop {
      * <b>WTSFreeMemory</b> function to free these buffers.
      * @param {Pointer<Void>} pMemory Pointer to the memory to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsfreememory
      * @since windows6.0.6000
      */
     static WTSFreeMemory(pMemory) {
@@ -3012,21 +3028,21 @@ class RemoteDesktop {
      * 
      * To receive session change notifications from a service, use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nc-winsvc-lphandler_function_ex">HandlerEx</a> function.
-     * @param {HWND} hWnd Handle of the window to receive session change notifications.
+     * @param {HWND} hWnd_ Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can be one of the following 
      *       values.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
      *        <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsregistersessionnotification
      * @since windows6.0.6000
      */
-    static WTSRegisterSessionNotification(hWnd, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static WTSRegisterSessionNotification(hWnd_, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotification", "ptr", hWnd, "uint", dwFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotification", "ptr", hWnd_, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3040,18 +3056,18 @@ class RemoteDesktop {
      * This function must be called once for every call to the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotification">WTSRegisterSessionNotification</a> 
      *     function.
-     * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @param {HWND} hWnd_ Handle of the window to be unregistered from receiving session notifications.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
      * @since windows6.0.6000
      */
-    static WTSUnRegisterSessionNotification(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static WTSUnRegisterSessionNotification(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotification", "ptr", hWnd, "int")
+        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotification", "ptr", hWnd_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3084,22 +3100,22 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {HWND} hWnd Handle of the window to receive session change notifications.
+     * @param {HWND} hWnd_ Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can only be 
      *       <b>NOTIFY_FOR_THIS_SESSION</b> if <i>hServer</i> is a remote server.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
      *        <b>FALSE</b>. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex
      * @since windows6.0.6000
      */
-    static WTSRegisterSessionNotificationEx(hServer, hWnd, dwFlags) {
+    static WTSRegisterSessionNotificationEx(hServer, hWnd_, dwFlags) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "uint", dwFlags, "int")
+        result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd_, "uint", dwFlags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3116,19 +3132,19 @@ class RemoteDesktop {
      * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @param {HWND} hWnd_ Handle of the window to be unregistered from receiving session notifications.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
      * @since windows6.0.6000
      */
-    static WTSUnRegisterSessionNotificationEx(hServer, hWnd) {
+    static WTSUnRegisterSessionNotificationEx(hServer, hWnd_) {
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "int")
+        result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -3165,7 +3181,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsqueryusertoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsqueryusertoken
      * @since windows6.0.6000
      */
     static WTSQueryUserToken(SessionId, phToken) {
@@ -3204,7 +3220,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememoryexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsfreememoryexw
      * @since windows6.1
      */
     static WTSFreeMemoryExW(WTSTypeClass, pMemory, NumberOfEntries) {
@@ -3245,7 +3261,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsfreememoryexa
      * @since windows6.1
      */
     static WTSFreeMemoryExA(WTSTypeClass, pMemory, NumberOfEntries) {
@@ -3289,7 +3305,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumerateprocessesexw
      * @since windows6.1
      */
     static WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
@@ -3337,7 +3353,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumerateprocessesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumerateprocessesexa
      * @since windows6.1
      */
     static WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
@@ -3388,7 +3404,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratelistenersw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumeratelistenersw
      * @since windows6.1
      */
     static WTSEnumerateListenersW(pReserved, Reserved, pListeners, pCount) {
@@ -3439,7 +3455,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenumeratelistenersa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenumeratelistenersa
      * @since windows6.1
      */
     static WTSEnumerateListenersA(pReserved, Reserved, pListeners, pCount) {
@@ -3478,7 +3494,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerylistenerconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsquerylistenerconfigw
      * @since windows6.1
      */
     static WTSQueryListenerConfigW(pReserved, Reserved, pListenerName, pBuffer) {
@@ -3517,7 +3533,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsquerylistenerconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsquerylistenerconfiga
      * @since windows6.1
      */
     static WTSQueryListenerConfigA(pReserved, Reserved, pListenerName, pBuffer) {
@@ -3561,7 +3577,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscreatelistenerw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtscreatelistenerw
      * @since windows6.1
      */
     static WTSCreateListenerW(pReserved, Reserved, pListenerName, pBuffer, flag) {
@@ -3605,7 +3621,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtscreatelistenera
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtscreatelistenera
      * @since windows6.1
      */
     static WTSCreateListenerA(pReserved, Reserved, pListenerName, pBuffer, flag) {
@@ -3641,7 +3657,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetlistenersecurityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtssetlistenersecurityw
      * @since windows6.1
      */
     static WTSSetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
@@ -3678,7 +3694,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtssetlistenersecuritya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtssetlistenersecuritya
      * @since windows6.1
      */
     static WTSSetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
@@ -3723,7 +3739,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsgetlistenersecurityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsgetlistenersecurityw
      * @since windows6.1
      */
     static WTSGetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -3769,7 +3785,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsgetlistenersecuritya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsgetlistenersecuritya
      * @since windows6.1
      */
     static WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
@@ -3880,7 +3896,7 @@ class RemoteDesktop {
      * For more information about child sessions, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/child-sessions">Child Sessions</a>.
      * @param {BOOL} bEnable Indicates whether to enable or disable child sessions. Pass <b>TRUE</b> if child sessions are to be enabled or <b>FALSE</b> otherwise.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsenablechildsessions
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsenablechildsessions
      * @since windows8.0
      */
     static WTSEnableChildSessions(bEnable) {
@@ -3894,7 +3910,7 @@ class RemoteDesktop {
      * For more information about child sessions, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/child-sessions">Child Sessions</a>.
      * @param {Pointer<BOOL>} pbEnabled The address of a <b>BOOL</b> variable that receives a nonzero value if child sessions are enabled or zero otherwise.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsischildsessionsenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsischildsessionsenabled
      * @since windows8.0
      */
     static WTSIsChildSessionsEnabled(pbEnabled) {
@@ -3910,7 +3926,7 @@ class RemoteDesktop {
      * For more information about child sessions, see <a href="https://docs.microsoft.com/windows/desktop/TermServ/child-sessions">Child Sessions</a>.
      * @param {Pointer<Integer>} pSessionId The address of a <b>ULONG</b> variable that receives the child session identifier. This will be (<b>ULONG</b>)–1 if there is no child session for the current session.
      * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/nf-wtsapi32-wtsgetchildsessionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/nf-wtsapi32-wtsgetchildsessionid
      * @since windows8.0
      */
     static WTSGetChildSessionId(pSessionId) {
@@ -3946,7 +3962,7 @@ class RemoteDesktop {
      * The format of this data is dependent upon the value passed in the <i>renderHintType</i> 
      *        parameter.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wtshintapi/nf-wtshintapi-wtssetrenderhint
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtshintapi/nf-wtshintapi-wtssetrenderhint
      * @since windows8.0
      */
     static WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLength, pHintData) {
@@ -3979,7 +3995,7 @@ class RemoteDesktop {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-processidtosessionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-processidtosessionid
      * @since windows6.0.6000
      */
     static ProcessIdToSessionId(dwProcessId, pSessionId) {
@@ -4005,7 +4021,7 @@ class RemoteDesktop {
      * @returns {Integer} The session identifier of the session that is attached to the physical console. If there is no session attached to the 
      *        physical console, (for example, if the physical console session is in the process of being attached or detached), this function 
      *        returns 0xFFFFFFFF.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-wtsgetactiveconsolesessionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-wtsgetactiveconsolesessionid
      * @since windows6.0.6000
      */
     static WTSGetActiveConsoleSessionId() {

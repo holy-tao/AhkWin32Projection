@@ -7,7 +7,7 @@
 
 /**
  * Represents an identity provider.
- * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nn-identityprovider-iidentityprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nn-identityprovider-iidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  * @version v4.0.30319
  */
@@ -38,10 +38,14 @@ class IIdentityProvider extends IUnknown{
      * @param {Pointer<PROPERTYKEY>} pFilterkey A pointer to a property key that specifies a property. If the value of this parameter is not <b>NULL</b>, only identities that support the property specified by this parameter are enumerated.
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue A pointer to a property value. If the values of this parameter and the <i>pFilterkey</i> parameter are not <b>NULL</b>, only identities that have the property value specified by this parameter are enumerated.
      * @returns {IEnumUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a> interface pointer that can be used to enumerate identities.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-getidentityenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-getidentityenum
      */
     GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "ptr*", &ppIdentityEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -50,12 +54,16 @@ class IIdentityProvider extends IUnknown{
      * @param {PWSTR} lpszUserName The user name with which to associate the new identity.
      * @param {Pointer<PROPVARIANT>} pKeywordsToAdd The properties to associate with the new identity.
      * @returns {IPropertyStore} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface that represents the property store associated with the new identity.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-create
      */
     Create(lpszUserName, pKeywordsToAdd) {
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
 
-        result := ComCall(4, this, "ptr", lpszUserName, "ptr*", &ppPropertyStore := 0, "ptr", pKeywordsToAdd, "HRESULT")
+        result := ComCall(4, this, "ptr", lpszUserName, "ptr*", &ppPropertyStore := 0, "ptr", pKeywordsToAdd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -64,11 +72,15 @@ class IIdentityProvider extends IUnknown{
      * @param {IPropertyStore} pPropertyStore A pointer to the <b>IPropertyStore</b> interface that specifies all information required to create the new identity on the system.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-import
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-import
      */
     Import(pPropertyStore) {
-        result := ComCall(5, this, "ptr", pPropertyStore, "HRESULT")
+        result := ComCall(5, this, "ptr", pPropertyStore, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,13 +90,17 @@ class IIdentityProvider extends IUnknown{
      * @param {Pointer<PROPVARIANT>} pKeywordsToDelete The names of properties to delete. If the value of this parameter is <b>NULL</b>, the identity is deleted.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-delete
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-delete
      */
     Delete(lpszUniqueID, pKeywordsToDelete) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", pKeywordsToDelete, "HRESULT")
+        result := ComCall(6, this, "ptr", lpszUniqueID, "ptr", pKeywordsToDelete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,22 +108,30 @@ class IIdentityProvider extends IUnknown{
      * Retrieves a pointer to the IPropertyStore interface instance associated with the specified identity.
      * @param {PWSTR} lpszUniqueID The unique identity to find.
      * @returns {IPropertyStore} A pointer to the instance of the <b>IPropertyStore</b> interface associated with the specified identity.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-findbyuniqueid
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-findbyuniqueid
      */
     FindByUniqueID(lpszUniqueID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(7, this, "ptr", lpszUniqueID, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", lpszUniqueID, "ptr*", &ppPropertyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
     /**
      * Retrieves a pointer to the IPropertyStore interface associated with the identity provider.
      * @returns {IPropertyStore} A pointer to the global <b>IPropertyStore</b> interface associated with this identity provider.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-getproviderpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-getproviderpropertystore
      */
     GetProviderPropertyStore() {
-        result := ComCall(8, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppPropertyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -116,10 +140,14 @@ class IIdentityProvider extends IUnknown{
      * @param {IIdentityAdvise} pIdentityAdvise A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/identityprovider/nn-identityprovider-iidentityadvise">IIdentityAdvise</a> interface implemented by the calling application. This interface provides a method that the identity provider can call when one of the events specified by the <i>dwIdentityUpdateEvents</i> parameter occurs.
      * @param {Integer} dwIdentityUpdateEvents 
      * @returns {Integer} A pointer to a value that identifies this connection. When you have finished using this connection, delete it by passing this value to the <a href="https://docs.microsoft.com/windows/desktop/api/identityprovider/nf-identityprovider-iidentityprovider-unadvise">UnAdvise</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-advise
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-advise
      */
     Advise(pIdentityAdvise, dwIdentityUpdateEvents) {
-        result := ComCall(9, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -128,11 +156,15 @@ class IIdentityProvider extends IUnknown{
      * @param {Integer} dwCookie A value that identifies the connection to delete.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityprovider-unadvise
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityprovider-unadvise
      */
     UnAdvise(dwCookie) {
-        result := ComCall(10, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(10, this, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

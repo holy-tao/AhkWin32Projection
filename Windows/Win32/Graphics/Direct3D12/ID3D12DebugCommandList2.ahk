@@ -36,7 +36,11 @@ class ID3D12DebugCommandList2 extends ID3D12DebugCommandList{
      * @returns {HRESULT} 
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(6, this, "int", Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(6, this, "int", Type, "ptr", pData, "uint", DataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class ID3D12DebugCommandList2 extends ID3D12DebugCommandList{
      * @returns {HRESULT} 
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(7, this, "int", Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(7, this, "int", Type, "ptr", pData, "uint", DataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

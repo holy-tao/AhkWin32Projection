@@ -3,7 +3,7 @@
 
 /**
  * The DD_CREATESURFACEDATA structure contains information necessary to create a surface--in the case of CreateD3DBuffer, a command or vertex buffer.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_createsurfacedata
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_createsurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

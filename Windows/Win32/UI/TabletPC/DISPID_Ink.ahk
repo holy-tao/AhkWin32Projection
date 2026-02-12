@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Specifies various ink editor states.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api//content/inked/ne-inked-dispid_inkedit
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

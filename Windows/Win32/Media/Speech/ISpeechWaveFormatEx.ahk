@@ -90,7 +90,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {Integer} 
      */
     get_FormatTag() {
-        result := ComCall(7, this, "short*", &FormatTag := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &FormatTag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FormatTag
     }
 
@@ -100,7 +104,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_FormatTag(FormatTag) {
-        result := ComCall(8, this, "short", FormatTag, "HRESULT")
+        result := ComCall(8, this, "short", FormatTag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +117,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {Integer} 
      */
     get_Channels() {
-        result := ComCall(9, this, "short*", &Channels := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &Channels := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Channels
     }
 
@@ -119,7 +131,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Channels(Channels) {
-        result := ComCall(10, this, "short", Channels, "HRESULT")
+        result := ComCall(10, this, "short", Channels, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +144,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {Integer} 
      */
     get_SamplesPerSec() {
-        result := ComCall(11, this, "int*", &SamplesPerSec := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &SamplesPerSec := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SamplesPerSec
     }
 
@@ -138,7 +158,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SamplesPerSec(SamplesPerSec) {
-        result := ComCall(12, this, "int", SamplesPerSec, "HRESULT")
+        result := ComCall(12, this, "int", SamplesPerSec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +171,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {Integer} 
      */
     get_AvgBytesPerSec() {
-        result := ComCall(13, this, "int*", &AvgBytesPerSec := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &AvgBytesPerSec := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AvgBytesPerSec
     }
 
@@ -157,7 +185,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AvgBytesPerSec(AvgBytesPerSec) {
-        result := ComCall(14, this, "int", AvgBytesPerSec, "HRESULT")
+        result := ComCall(14, this, "int", AvgBytesPerSec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +198,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {Integer} 
      */
     get_BlockAlign() {
-        result := ComCall(15, this, "short*", &BlockAlign := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &BlockAlign := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BlockAlign
     }
 
@@ -176,7 +212,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_BlockAlign(BlockAlign) {
-        result := ComCall(16, this, "short", BlockAlign, "HRESULT")
+        result := ComCall(16, this, "short", BlockAlign, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +225,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {Integer} 
      */
     get_BitsPerSample() {
-        result := ComCall(17, this, "short*", &BitsPerSample := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &BitsPerSample := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BitsPerSample
     }
 
@@ -195,7 +239,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_BitsPerSample(BitsPerSample) {
-        result := ComCall(18, this, "short", BitsPerSample, "HRESULT")
+        result := ComCall(18, this, "short", BitsPerSample, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +253,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      */
     get_ExtraData() {
         ExtraData := VARIANT()
-        result := ComCall(19, this, "ptr", ExtraData, "HRESULT")
+        result := ComCall(19, this, "ptr", ExtraData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ExtraData
     }
 
@@ -215,7 +267,11 @@ class ISpeechWaveFormatEx extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ExtraData(ExtraData) {
-        result := ComCall(20, this, "ptr", ExtraData, "HRESULT")
+        result := ComCall(20, this, "ptr", ExtraData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

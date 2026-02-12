@@ -42,7 +42,11 @@ class DataSourceListener extends IUnknown{
     dataMemberChanged(bstrDM) {
         bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, bstrDMMarshal, bstrDM, "HRESULT")
+        result := ComCall(3, this, bstrDMMarshal, bstrDM, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class DataSourceListener extends IUnknown{
     dataMemberAdded(bstrDM) {
         bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, bstrDMMarshal, bstrDM, "HRESULT")
+        result := ComCall(4, this, bstrDMMarshal, bstrDM, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class DataSourceListener extends IUnknown{
     dataMemberRemoved(bstrDM) {
         bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(5, this, bstrDMMarshal, bstrDM, "HRESULT")
+        result := ComCall(5, this, bstrDMMarshal, bstrDM, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

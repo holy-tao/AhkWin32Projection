@@ -6,10 +6,8 @@
 /**
  * Interface implemented by the client to receive callbacks when sensor activity reports are available.
  * @remarks
- * 
  * Register the callback by passing an implementation of this interface into <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesensoractivitymonitor">MFCreateSensorActivityMonitor</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsensoractivitiesreportcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfsensoractivitiesreportcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,11 +35,15 @@ class IMFSensorActivitiesReportCallback extends IUnknown{
     /**
      * Raised by the media pipeline when a new IMFSensorActivitiesReport is available.
      * @param {IMFSensorActivitiesReport} sensorActivitiesReport Receives a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreport">IMFSensorActivitiesReport</a>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensoractivitiesreportcallback-onactivitiesreport
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsensoractivitiesreportcallback-onactivitiesreport
      */
     OnActivitiesReport(sensorActivitiesReport) {
-        result := ComCall(3, this, "ptr", sensorActivitiesReport, "HRESULT")
+        result := ComCall(3, this, "ptr", sensorActivitiesReport, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The IADsHold interface provides methods for an ADSI client to access the Hold attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadshold
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadshold
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -53,7 +53,11 @@ class IADsHold extends IDispatch{
      */
     get_ObjectName() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -63,9 +67,16 @@ class IADsHold extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ObjectName(bstrObjectName) {
-        bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
+        if(bstrObjectName is String) {
+            pin := BSTR.Alloc(bstrObjectName)
+            bstrObjectName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrObjectName, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrObjectName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +85,11 @@ class IADsHold extends IDispatch{
      * @returns {Integer} 
      */
     get_Amount() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -84,7 +99,11 @@ class IADsHold extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Amount(lnAmount) {
-        result := ComCall(10, this, "int", lnAmount, "HRESULT")
+        result := ComCall(10, this, "int", lnAmount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

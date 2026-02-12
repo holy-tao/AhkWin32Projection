@@ -5,7 +5,7 @@
  * Describes the secure modes (S modes) for a Windows device.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_windows_lockdown_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/wldp/ne-wldp-wldp_windows_lockdown_mode
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

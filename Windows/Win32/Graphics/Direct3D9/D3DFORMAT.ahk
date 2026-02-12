@@ -26,7 +26,7 @@
  * Pixel formats have been chosen to enable the expression of hardware-vendor-defined extension formats, as well as to include the well-established FOURCC method. The set of formats understood by the Direct3D runtime is defined by D3DFORMAT.
  * 
  * Note that formats are supplied by independent hardware vendors (IHVs) and many FOURCC codes are not listed. The formats in this enumeration are unique in that they are sanctioned by the runtime, meaning that the reference rasterizer will operate on all these types. IHV-supplied formats will be supported by the individual IHVs on a card-by-card basis.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dformat
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dformat
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

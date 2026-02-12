@@ -77,7 +77,7 @@
  *           </li>
  * </ul>
  * Instead, components should use sample attributes to describe per-sample interlacing information, as described in the topic <a href="https://docs.microsoft.com/windows/desktop/medfound/video-interlacing">Video Interlacing</a>.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideoflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/ne-mfobjects-mfvideoflags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

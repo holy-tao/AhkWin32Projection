@@ -33,11 +33,15 @@ class IGetRow extends IUnknown{
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} hRow 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetRowFromHROW(pUnkOuter, hRow, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hRow, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
-        return IUnknown(ppUnk)
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", hRow, "ptr", riid, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppUnk
     }
 
     /**
@@ -46,7 +50,11 @@ class IGetRow extends IUnknown{
      * @returns {PWSTR} 
      */
     GetURLFromHROW(hRow) {
-        result := ComCall(4, this, "ptr", hRow, "ptr*", &ppwszURL := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", hRow, "ptr*", &ppwszURL := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszURL
     }
 }

@@ -5,7 +5,7 @@
  * Represents information about a volume change notification event. This structure is used by the AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2 structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_volume_notification_data2
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioengineextensionapo/ns-audioengineextensionapo-audio_volume_notification_data2
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

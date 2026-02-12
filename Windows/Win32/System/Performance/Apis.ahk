@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
@@ -161,12 +163,12 @@ class Performance {
     static PERF_WILDCARD_COUNTER => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PERF_WILDCARD_INSTANCE => "*"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PERF_AGGREGATE_INSTANCE => "_Total"
 
@@ -980,7 +982,7 @@ class Performance {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
-     * @see https://learn.microsoft.com/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter
+     * @see https://learn.microsoft.com/windows/win32/api//content/profileapi/nf-profileapi-queryperformancecounter
      * @since windows5.0
      */
     static QueryPerformanceCounter(lpPerformanceCount) {
@@ -1004,7 +1006,7 @@ class Performance {
      * @returns {BOOL} If the installed hardware supports a high-resolution performance counter, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
-     * @see https://learn.microsoft.com/windows/win32/api/profileapi/nf-profileapi-queryperformancefrequency
+     * @see https://learn.microsoft.com/windows/win32/api//content/profileapi/nf-profileapi-queryperformancefrequency
      * @since windows5.0
      */
     static QueryPerformanceFrequency(lpFrequency) {
@@ -1035,7 +1037,7 @@ class Performance {
      * @param {PWSTR} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
      * @param {Pointer} dwFlags This parameter can be <b>LOADPERF_FLAGS_DISPLAY_USER_MSGS</b> (<c>(ULONG_PTR) 8</c>).
      * @returns {Integer} If the function is successful, it returns <b>TRUE</b> and posts additional information in  an application event log. Otherwise, it returns an error code that represents the condition that caused the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-installperfdllw
+     * @see https://learn.microsoft.com/windows/win32/api//content/loadperf/nf-loadperf-installperfdllw
      */
     static InstallPerfDllW(szComputerName, lpIniFile, dwFlags) {
         szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
@@ -1060,7 +1062,7 @@ class Performance {
      * @param {PSTR} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
      * @param {Pointer} dwFlags This parameter can be <b>LOADPERF_FLAGS_DISPLAY_USER_MSGS</b> (<c>(ULONG_PTR) 8</c>).
      * @returns {Integer} If the function is successful, it returns <b>TRUE</b> and posts additional information in  an application event log. Otherwise, it returns an error code that represents the condition that caused the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-installperfdlla
+     * @see https://learn.microsoft.com/windows/win32/api//content/loadperf/nf-loadperf-installperfdlla
      */
     static InstallPerfDllA(szComputerName, lpIniFile, dwFlags) {
         szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
@@ -1090,7 +1092,7 @@ class Performance {
      * 
      * If the function fails, the return value is one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-loadperfcountertextstringsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/loadperf/nf-loadperf-loadperfcountertextstringsa
      * @since windows5.1.2600
      */
     static LoadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
@@ -1120,7 +1122,7 @@ class Performance {
      * 
      * If the function fails, the return value is one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-loadperfcountertextstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/loadperf/nf-loadperf-loadperfcountertextstringsw
      * @since windows5.1.2600
      */
     static LoadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
@@ -1148,7 +1150,7 @@ class Performance {
      * 
      * If the function fails, the return value is one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-unloadperfcountertextstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/loadperf/nf-loadperf-unloadperfcountertextstringsw
      * @since windows5.1.2600
      */
     static UnloadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
@@ -1176,7 +1178,7 @@ class Performance {
      * 
      * If the function fails, the return value is one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/loadperf/nf-loadperf-unloadperfcountertextstringsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/loadperf/nf-loadperf-unloadperfcountertextstringsa
      * @since windows5.1.2600
      */
     static UnloadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
@@ -1290,7 +1292,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfstartprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfstartprovider
      * @since windows6.0.6000
      */
     static PerfStartProvider(ProviderGuid, ControlCallback, phProvider) {
@@ -1314,7 +1316,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfstartproviderex
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfstartproviderex
      * @since windows6.0.6000
      */
     static PerfStartProviderEx(ProviderGuid, ProviderContext, Provider) {
@@ -1334,7 +1336,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfstopprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfstopprovider
      * @since windows6.0.6000
      */
     static PerfStopProvider(ProviderHandle) {
@@ -1360,7 +1362,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetcountersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfsetcountersetinfo
      * @since windows6.0.6000
      */
     static PerfSetCounterSetInfo(ProviderHandle, Template, TemplateSize) {
@@ -1402,7 +1404,7 @@ class Performance {
      * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the instance of the counter set or <b>NULL</b> if PERFLIB could not create the instance. Cache this pointer to use in later calls instead of calling <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfqueryinstance">PerfQueryInstance</a> to retrieve the pointer to the instance.
      * 
      * This function returns <b>NULL</b> if an error occurred. To determine the error that occurred, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfcreateinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfcreateinstance
      * @since windows6.0.6000
      */
     static PerfCreateInstance(ProviderHandle, CounterSetGuid, Name, Id) {
@@ -1434,7 +1436,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdeleteinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfdeleteinstance
      * @since windows6.0.6000
      */
     static PerfDeleteInstance(Provider, InstanceBlock) {
@@ -1461,7 +1463,7 @@ class Performance {
      * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance or <b>NULL</b> if the instance does not exist.
      * 
      * This function returns <b>NULL</b> if an error occurred. To determine the error that occurred, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfqueryinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfqueryinstance
      * @since windows6.0.6000
      */
     static PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
@@ -1491,7 +1493,7 @@ class Performance {
      * @param {Integer} CounterId Identifier that uniquely identifies the counter to update in the instance block. The identifier is defined in the <b>id</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counter--counterset--element">counter</a> element and must match the <b>CounterId</b> member of one of the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structures in the instance block. Use the counter ID constant that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the constant, see the <b>symbol</b> attribute of the <b>counter</b> element.
      * 
      * <b>Windows Vista:  </b>The counter ID constant is not available.
-     * @param {Pointer<Void>} Address Pointer to the actual counter data. 
+     * @param {Pointer<Void>} Address_ Pointer to the actual counter data. 
      * 
      * If <b>NULL</b>, the consumer receives ERROR_NO_DATA.
      * 
@@ -1501,15 +1503,15 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetcounterrefvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfsetcounterrefvalue
      * @since windows6.0.6000
      */
-    static PerfSetCounterRefValue(Provider, Instance, CounterId, Address) {
+    static PerfSetCounterRefValue(Provider, Instance, CounterId, Address_) {
         Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
 
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+        Address_Marshal := Address_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, AddressMarshal, Address, "uint")
+        result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, Address_Marshal, Address_, "uint")
         return result
     }
 
@@ -1532,7 +1534,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetulongcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfsetulongcountervalue
      * @since windows6.0.6000
      */
     static PerfSetULongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1561,7 +1563,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfsetulonglongcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfsetulonglongcountervalue
      * @since windows6.0.6000
      */
     static PerfSetULongLongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1592,7 +1594,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfincrementulongcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfincrementulongcountervalue
      * @since windows6.0.6000
      */
     static PerfIncrementULongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1623,7 +1625,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfincrementulonglongcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfincrementulonglongcountervalue
      * @since windows6.0.6000
      */
     static PerfIncrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1654,7 +1656,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdecrementulongcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfdecrementulongcountervalue
      * @since windows6.0.6000
      */
     static PerfDecrementULongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1685,7 +1687,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdecrementulonglongcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfdecrementulonglongcountervalue
      * @since windows6.0.6000
      */
     static PerfDecrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
@@ -1768,7 +1770,7 @@ class Performance {
      * 
      * For other types of failures, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfenumeratecounterset
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfenumeratecounterset
      * @since windows10.0.14393
      */
     static PerfEnumerateCounterSet(szMachine, pCounterSetIds, cCounterSetIds, pcCounterSetIdsActual) {
@@ -1864,7 +1866,7 @@ class Performance {
      * 
      * For other types of failures, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfenumeratecountersetinstances
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfenumeratecountersetinstances
      * @since windows10.0.14393
      */
     static PerfEnumerateCounterSetInstances(szMachine, pCounterSetId, pInstances, cbInstances, pcbInstancesActual) {
@@ -1964,7 +1966,7 @@ class Performance {
      * 
      * For other types of failures, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfquerycountersetregistrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfquerycountersetregistrationinfo
      * @since windows10.0.14393
      */
     static PerfQueryCounterSetRegistrationInfo(szMachine, pCounterSetId, requestCode, requestLangId, pbRegInfo, cbRegInfo, pcbRegInfoActual) {
@@ -1992,7 +1994,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfopenqueryhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfopenqueryhandle
      * @since windows10.0.14393
      */
     static PerfOpenQueryHandle(szMachine, phQuery) {
@@ -2010,7 +2012,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfclosequeryhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfclosequeryhandle
      * @since windows10.0.14393
      */
     static PerfCloseQueryHandle(hQuery) {
@@ -2105,7 +2107,7 @@ class Performance {
      * 
      * For other types of failures, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfquerycounterinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfquerycounterinfo
      * @since windows10.0.14393
      */
     static PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
@@ -2192,7 +2194,7 @@ class Performance {
      * 
      * For other types of failures, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfquerycounterdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfquerycounterdata
      * @since windows10.0.14393
      */
     static PerfQueryCounterData(hQuery, pCounterBlock, cbCounterBlock, pcbCounterBlockActual) {
@@ -2249,7 +2251,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfaddcounters
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfaddcounters
      * @since windows10.0.14393
      */
     static PerfAddCounters(hQuery, pCounters, cbCounters) {
@@ -2281,7 +2283,7 @@ class Performance {
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/perflib/nf-perflib-perfdeletecounters
+     * @see https://learn.microsoft.com/windows/win32/api//content/perflib/nf-perflib-perfdeletecounters
      * @since windows10.0.14393
      */
     static PerfDeleteCounters(hQuery, pCounters, cbCounters) {
@@ -2302,7 +2304,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>. The following are possible values.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdllversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdllversion
      * @since windows5.1.2600
      */
     static PdhGetDllVersion(lpdwVersion) {
@@ -2327,7 +2329,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenqueryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhopenqueryw
      * @since windows5.1.2600
      */
     static PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
@@ -2352,7 +2354,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenquerya
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhopenquerya
      * @since windows5.1.2600
      */
     static PdhOpenQueryA(szDataSource, dwUserData, phQuery) {
@@ -2490,7 +2492,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddcounterw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhaddcounterw
      * @since windows5.1.2600
      */
     static PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2631,7 +2633,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddcountera
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhaddcountera
      * @since windows5.1.2600
      */
     static PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2790,7 +2792,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddenglishcounterw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhaddenglishcounterw
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -2949,7 +2951,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhaddenglishcountera
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhaddenglishcountera
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
@@ -3015,7 +3017,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcollectquerydatawithtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhcollectquerydatawithtime
      * @since windows6.0.6000
      */
     static PdhCollectQueryDataWithTime(hQuery, pllTimeStamp) {
@@ -3115,7 +3117,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepathexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhvalidatepathexw
      * @since windows6.0.6000
      */
     static PdhValidatePathExW(hDataSource, szFullPathBuffer) {
@@ -3214,7 +3216,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepathexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhvalidatepathexa
      * @since windows6.0.6000
      */
     static PdhValidatePathExA(hDataSource, szFullPathBuffer) {
@@ -3270,7 +3272,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhremovecounter
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhremovecounter
      * @since windows5.1.2600
      */
     static PdhRemoveCounter(hCounter) {
@@ -3340,7 +3342,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcollectquerydata
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhcollectquerydata
      * @since windows5.1.2600
      */
     static PdhCollectQueryData(hQuery) {
@@ -3394,7 +3396,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhclosequery
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhclosequery
      * @since windows5.1.2600
      */
     static PdhCloseQuery(hQuery) {
@@ -3470,7 +3472,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetformattedcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetformattedcountervalue
      * @since windows5.1.2600
      */
     static PdhGetFormattedCounterValue(hCounter, dwFormat, lpdwType, pValue) {
@@ -3540,7 +3542,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetformattedcounterarraya
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetformattedcounterarraya
      * @since windows5.1.2600
      */
     static PdhGetFormattedCounterArrayA(hCounter, dwFormat, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3611,7 +3613,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetformattedcounterarrayw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetformattedcounterarrayw
      * @since windows5.1.2600
      */
     static PdhGetFormattedCounterArrayW(hCounter, dwFormat, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3671,7 +3673,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetrawcountervalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetrawcountervalue
      * @since windows5.1.2600
      */
     static PdhGetRawCounterValue(hCounter, lpdwType, pValue) {
@@ -3747,7 +3749,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetrawcounterarraya
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetrawcounterarraya
      * @since windows5.1.2600
      */
     static PdhGetRawCounterArrayA(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3824,7 +3826,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetrawcounterarrayw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetrawcounterarrayw
      * @since windows5.1.2600
      */
     static PdhGetRawCounterArrayW(hCounter, lpdwBufferSize, lpdwItemCount, ItemBuffer) {
@@ -3881,7 +3883,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcalculatecounterfromrawvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhcalculatecounterfromrawvalue
      * @since windows5.1.2600
      */
     static PdhCalculateCounterFromRawValue(hCounter, dwFormat, rawValue1, rawValue2, fmtValue) {
@@ -3936,7 +3938,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcomputecounterstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhcomputecounterstatistics
      * @since windows5.1.2600
      */
     static PdhComputeCounterStatistics(hCounter, dwFormat, dwFirstEntry, dwNumEntries, lpRawValueArray, data) {
@@ -4007,7 +4009,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetcounterinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetcounterinfow
      * @since windows5.1.2600
      */
     static PdhGetCounterInfoW(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
@@ -4080,7 +4082,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetcounterinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetcounterinfoa
      * @since windows5.1.2600
      */
     static PdhGetCounterInfoA(hCounter, bRetrieveExplainText, pdwBufferSize, lpBuffer) {
@@ -4130,7 +4132,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhsetcounterscalefactor
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhsetcounterscalefactor
      * @since windows5.1.2600
      */
     static PdhSetCounterScaleFactor(hCounter, lFactor) {
@@ -4187,7 +4189,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhconnectmachinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhconnectmachinew
      * @since windows5.1.2600
      */
     static PdhConnectMachineW(szMachineName) {
@@ -4246,7 +4248,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhconnectmachinea
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhconnectmachinea
      * @since windows5.1.2600
      */
     static PdhConnectMachineA(szMachineName) {
@@ -4305,7 +4307,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachinesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenummachinesw
      * @since windows5.1.2600
      */
     static PdhEnumMachinesW(szDataSource, mszMachineList, pcchBufferSize) {
@@ -4367,7 +4369,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachinesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenummachinesa
      * @since windows5.1.2600
      */
     static PdhEnumMachinesA(szDataSource, mszMachineList, pcchBufferSize) {
@@ -4464,7 +4466,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectsw
      * @since windows5.1.2600
      */
     static PdhEnumObjectsW(szDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -4562,7 +4564,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectsa
      * @since windows5.1.2600
      */
     static PdhEnumObjectsA(szDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -4675,7 +4677,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectitemsw
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsW(szDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -4791,7 +4793,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectitemsa
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsA(szDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -4863,7 +4865,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhmakecounterpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhmakecounterpathw
      * @since windows5.1.2600
      */
     static PdhMakeCounterPathW(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
@@ -4930,7 +4932,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhmakecounterpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhmakecounterpatha
      * @since windows5.1.2600
      */
     static PdhMakeCounterPathA(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
@@ -5015,7 +5017,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparsecounterpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhparsecounterpathw
      * @since windows5.1.2600
      */
     static PdhParseCounterPathW(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
@@ -5100,7 +5102,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparsecounterpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhparsecounterpatha
      * @since windows5.1.2600
      */
     static PdhParseCounterPathA(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
@@ -5185,7 +5187,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparseinstancenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhparseinstancenamew
      * @since windows5.1.2600
      */
     static PdhParseInstanceNameW(szInstanceString, szInstanceName, pcchInstanceNameLength, szParentName, pcchParentNameLength, lpIndex) {
@@ -5274,7 +5276,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhparseinstancenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhparseinstancenamea
      * @since windows5.1.2600
      */
     static PdhParseInstanceNameA(szInstanceString, szInstanceName, pcchInstanceNameLength, szParentName, pcchParentNameLength, lpIndex) {
@@ -5375,7 +5377,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhvalidatepathw
      * @since windows5.1.2600
      */
     static PdhValidatePathW(szFullPathBuffer) {
@@ -5470,7 +5472,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhvalidatepatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhvalidatepatha
      * @since windows5.1.2600
      */
     static PdhValidatePathA(szFullPathBuffer) {
@@ -5556,7 +5558,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfobjectw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectW(szDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -5646,7 +5648,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfobjecta
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectA(szDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -5769,7 +5771,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcounterw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfcounterw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterW(szDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -5892,7 +5894,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcountera
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfcountera
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterA(szDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -5922,7 +5924,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountersw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhbrowsecountersw
      * @since windows5.1.2600
      */
     static PdhBrowseCountersW(pBrowseDlgData) {
@@ -5945,7 +5947,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountersa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhbrowsecountersa
      * @since windows5.1.2600
      */
     static PdhBrowseCountersA(pBrowseDlgData) {
@@ -6045,7 +6047,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandcounterpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhexpandcounterpathw
      * @since windows5.1.2600
      */
     static PdhExpandCounterPathW(szWildCardPath, mszExpandedPathList, pcchPathListLength) {
@@ -6150,7 +6152,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandcounterpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhexpandcounterpatha
      * @since windows5.1.2600
      */
     static PdhExpandCounterPathA(szWildCardPath, mszExpandedPathList, pcchPathListLength) {
@@ -6231,7 +6233,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfnamebyindexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhlookupperfnamebyindexw
      * @since windows5.1.2600
      */
     static PdhLookupPerfNameByIndexW(szMachineName, dwNameIndex, szNameBuffer, pcchNameBufferSize) {
@@ -6312,7 +6314,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfnamebyindexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhlookupperfnamebyindexa
      * @since windows5.1.2600
      */
     static PdhLookupPerfNameByIndexA(szMachineName, dwNameIndex, szNameBuffer, pcchNameBufferSize) {
@@ -6357,7 +6359,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfindexbynamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhlookupperfindexbynamew
      * @since windows5.1.2600
      */
     static PdhLookupPerfIndexByNameW(szMachineName, szNameBuffer, pdwIndex) {
@@ -6402,7 +6404,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhlookupperfindexbynamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhlookupperfindexbynamea
      * @since windows5.1.2600
      */
     static PdhLookupPerfIndexByNameA(szMachineName, szNameBuffer, pdwIndex) {
@@ -6584,7 +6586,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhexpandwildcardpatha
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathA(szDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -6766,7 +6768,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhexpandwildcardpathw
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathW(szDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -6821,7 +6823,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenlogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhopenlogw
      * @since windows5.1.2600
      */
     static PdhOpenLogW(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
@@ -6876,7 +6878,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhopenloga
      * @since windows5.1.2600
      */
     static PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
@@ -6894,7 +6896,7 @@ class Performance {
      * Collects counter data for the current query and writes the data to the log file. (Unicode)
      * @remarks
      * If you are updating a log file from another log file, the comments from the other log file do not migrate.
-     * @param {PDH_HLOG} hLog Handle of a single log file to update. The 
+     * @param {PDH_HLOG} hLog_ Handle of a single log file to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
      * @param {PWSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -6932,14 +6934,14 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdatelogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhupdatelogw
      * @since windows5.1.2600
      */
-    static PdhUpdateLogW(hLog, szUserString) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhUpdateLogW(hLog_, szUserString) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
         szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
-        result := DllCall("pdh.dll\PdhUpdateLogW", "ptr", hLog, "ptr", szUserString, "uint")
+        result := DllCall("pdh.dll\PdhUpdateLogW", "ptr", hLog_, "ptr", szUserString, "uint")
         return result
     }
 
@@ -6947,7 +6949,7 @@ class Performance {
      * Collects counter data for the current query and writes the data to the log file. (ANSI)
      * @remarks
      * If you are updating a log file from another log file, the comments from the other log file do not migrate.
-     * @param {PDH_HLOG} hLog Handle of a single log file to update. The 
+     * @param {PDH_HLOG} hLog_ Handle of a single log file to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
      * @param {PSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -6985,14 +6987,14 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdateloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhupdateloga
      * @since windows5.1.2600
      */
-    static PdhUpdateLogA(hLog, szUserString) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhUpdateLogA(hLog_, szUserString) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
         szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
-        result := DllCall("pdh.dll\PdhUpdateLogA", "ptr", hLog, "ptr", szUserString, "uint")
+        result := DllCall("pdh.dll\PdhUpdateLogA", "ptr", hLog_, "ptr", szUserString, "uint")
         return result
     }
 
@@ -7004,7 +7006,7 @@ class Performance {
      * Catalogs should be updated when the data collection process is complete and the log file has been closed. The catalog can be updated during data collection, but doing this may disrupt the process of logging the performance data because updating the catalogs can be time consuming.
      * 
      * Perfmon, CSV, and TSV log files do not have catalogs. Specifying a handle to these log file types will result in a return value of PDH_NOT_IMPLEMENTED.
-     * @param {PDH_HLOG} hLog Handle to the log file containing the file catalog to update. The 
+     * @param {PDH_HLOG} hLog_ Handle to the log file containing the file catalog to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -7052,13 +7054,13 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhupdatelogfilecatalog
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhupdatelogfilecatalog
      * @since windows5.1.2600
      */
-    static PdhUpdateLogFileCatalog(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhUpdateLogFileCatalog(hLog_) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
-        result := DllCall("pdh.dll\PdhUpdateLogFileCatalog", "ptr", hLog, "uint")
+        result := DllCall("pdh.dll\PdhUpdateLogFileCatalog", "ptr", hLog_, "uint")
         return result
     }
 
@@ -7066,7 +7068,7 @@ class Performance {
      * Returns the size of the specified log file.
      * @remarks
      * If the log file handle points to multiple bound log files, the size is the sum of all the log files. If the log file is a SQL log file, the <i>llSize</i> parameter is the number of records in the log file.
-     * @param {PDH_HLOG} hLog Handle to the log file. The 
+     * @param {PDH_HLOG} hLog_ Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {Pointer<Integer>} llSize Size of the log file, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -7104,21 +7106,21 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetlogfilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetlogfilesize
      * @since windows5.1.2600
      */
-    static PdhGetLogFileSize(hLog, llSize) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhGetLogFileSize(hLog_, llSize) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         llSizeMarshal := llSize is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("pdh.dll\PdhGetLogFileSize", "ptr", hLog, llSizeMarshal, llSize, "uint")
+        result := DllCall("pdh.dll\PdhGetLogFileSize", "ptr", hLog_, llSizeMarshal, llSize, "uint")
         return result
     }
 
     /**
      * Closes the specified log file.
-     * @param {PDH_HLOG} hLog Handle to the log file to be closed. This handle is returned by the 
+     * @param {PDH_HLOG} hLog_ Handle to the log file to be closed. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @param {Integer} dwFlags You can specify the following flag. 
      * 
@@ -7164,13 +7166,13 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcloselog
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhcloselog
      * @since windows5.1.2600
      */
-    static PdhCloseLog(hLog, dwFlags) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhCloseLog(hLog_, dwFlags) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
-        result := DllCall("pdh.dll\PdhCloseLog", "ptr", hLog, "uint", dwFlags, "uint")
+        result := DllCall("pdh.dll\PdhCloseLog", "ptr", hLog_, "uint", dwFlags, "uint")
         return result
     }
 
@@ -7220,7 +7222,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhselectdatasourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhselectdatasourcew
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceW(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
@@ -7279,7 +7281,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhselectdatasourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhselectdatasourcea
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceA(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
@@ -7302,7 +7304,7 @@ class Performance {
      * 						
      * 
      * If the query is not a real-time query, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhisrealtimequery
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhisrealtimequery
      * @since windows5.1.2600
      */
     static PdhIsRealTimeQuery(hQuery) {
@@ -7356,7 +7358,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhsetquerytimerange
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhsetquerytimerange
      * @since windows5.1.2600
      */
     static PdhSetQueryTimeRange(hQuery, pInfo) {
@@ -7422,7 +7424,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdatasourcetimerangew
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdatasourcetimerangew
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeW(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
@@ -7491,7 +7493,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdatasourcetimerangea
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdatasourcetimerangea
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeA(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
@@ -7556,7 +7558,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhcollectquerydataex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhcollectquerydataex
      * @since windows5.1.2600
      */
     static PdhCollectQueryDataEx(hQuery, dwIntervalTime, hNewDataEvent) {
@@ -7586,7 +7588,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhformatfromrawvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhformatfromrawvalue
      * @since windows5.1.2600
      */
     static PdhFormatFromRawValue(dwCounterType, dwFormat, pTimeBase, pRawValue1, pRawValue2, pFmtValue) {
@@ -7644,7 +7646,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetcountertimebase
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetcountertimebase
      * @since windows5.1.2600
      */
     static PdhGetCounterTimeBase(hCounter, pTimeBase) {
@@ -7658,7 +7660,7 @@ class Performance {
      * Reads the information in the specified binary trace log file.
      * @remarks
      * You should call this function twice, the first time to get the required buffer size (set <i>pRawLogRecord</i> to <b>NULL</b> and <i>pdwBufferLength</i> to 0), and the second time to get the data.
-     * @param {PDH_HLOG} hLog Handle to the log file. The 
+     * @param {PDH_HLOG} hLog_ Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {FILETIME} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
      * @param {Pointer<PDH_RAW_LOG_RECORD>} pRawLogRecord Caller-allocated buffer that receives a 
@@ -7710,15 +7712,15 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhreadrawlogrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhreadrawlogrecord
      * @since windows5.1.2600
      */
-    static PdhReadRawLogRecord(hLog, ftRecord, pRawLogRecord, pdwBufferLength) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhReadRawLogRecord(hLog_, ftRecord, pRawLogRecord, pdwBufferLength) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pdwBufferLengthMarshal := pdwBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("pdh.dll\PdhReadRawLogRecord", "ptr", hLog, "ptr", ftRecord, "ptr", pRawLogRecord, pdwBufferLengthMarshal, pdwBufferLength, "uint")
+        result := DllCall("pdh.dll\PdhReadRawLogRecord", "ptr", hLog_, "ptr", ftRecord, "ptr", pRawLogRecord, pdwBufferLengthMarshal, pdwBufferLength, "uint")
         return result
     }
 
@@ -7753,7 +7755,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhsetdefaultrealtimedatasource
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhsetdefaultrealtimedatasource
      * @since windows5.1.2600
      */
     static PdhSetDefaultRealTimeDataSource(dwDataSourceId) {
@@ -7786,7 +7788,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbindinputdatasourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhbindinputdatasourcew
      * @since windows5.1.2600
      */
     static PdhBindInputDataSourceW(phDataSource, LogFileNameList) {
@@ -7821,7 +7823,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbindinputdatasourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhbindinputdatasourcea
      * @since windows5.1.2600
      */
     static PdhBindInputDataSourceA(phDataSource, LogFileNameList) {
@@ -7844,7 +7846,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhopenqueryh
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhopenqueryh
      * @since windows5.1.2600
      */
     static PdhOpenQueryH(hDataSource, dwUserData, phQuery) {
@@ -7904,7 +7906,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachineshw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenummachineshw
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHW(hDataSource, mszMachineList, pcchBufferSize) {
@@ -7967,7 +7969,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenummachinesha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenummachinesha
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHA(hDataSource, mszMachineList, pcchBufferSize) {
@@ -8062,7 +8064,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectshw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectshw
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHW(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -8158,7 +8160,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectsha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectsha
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHA(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
@@ -8276,7 +8278,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemshw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectitemshw
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHW(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -8397,7 +8399,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumobjectitemsha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumobjectitemsha
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHA(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
@@ -8570,7 +8572,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpathhw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhexpandwildcardpathhw
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHW(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -8740,7 +8742,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhexpandwildcardpathha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhexpandwildcardpathha
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
@@ -8808,7 +8810,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdatasourcetimerangeh
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdatasourcetimerangeh
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeH(hDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
@@ -8908,7 +8910,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjecthw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfobjecthw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHW(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -9009,7 +9011,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfobjectha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfobjectha
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHA(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
@@ -9131,7 +9133,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcounterhw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfcounterhw
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHW(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -9254,7 +9256,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhgetdefaultperfcounterha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhgetdefaultperfcounterha
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHA(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
@@ -9289,7 +9291,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountershw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhbrowsecountershw
      * @since windows5.1.2600
      */
     static PdhBrowseCountersHW(pBrowseDlgData) {
@@ -9317,7 +9319,7 @@ class Performance {
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhbrowsecountersha
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhbrowsecountersha
      * @since windows5.1.2600
      */
     static PdhBrowseCountersHA(pBrowseDlgData) {
@@ -9421,7 +9423,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumlogsetnamesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumlogsetnamesw
      * @since windows5.1.2600
      */
     static PdhEnumLogSetNamesW(szDataSource, mszDataSetNameList, pcchBufferLength) {
@@ -9482,7 +9484,7 @@ class Performance {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pdh/nf-pdh-pdhenumlogsetnamesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/pdh/nf-pdh-pdhenumlogsetnamesa
      * @since windows5.1.2600
      */
     static PdhEnumLogSetNamesA(szDataSource, mszDataSetNameList, pcchBufferLength) {
@@ -9497,30 +9499,30 @@ class Performance {
 
     /**
      * 
-     * @param {PDH_HLOG} hLog 
+     * @param {PDH_HLOG} hLog_ 
      * @param {Pointer<Guid>} pGuid 
      * @param {Pointer<Integer>} pRunId 
      * @returns {Integer} 
      */
-    static PdhGetLogSetGUID(hLog, pGuid, pRunId) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhGetLogSetGUID(hLog_, pGuid, pRunId) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pRunIdMarshal := pRunId is VarRef ? "int*" : "ptr"
 
-        result := DllCall("pdh.dll\PdhGetLogSetGUID", "ptr", hLog, "ptr", pGuid, pRunIdMarshal, pRunId, "uint")
+        result := DllCall("pdh.dll\PdhGetLogSetGUID", "ptr", hLog_, "ptr", pGuid, pRunIdMarshal, pRunId, "uint")
         return result
     }
 
     /**
      * 
-     * @param {PDH_HLOG} hLog 
+     * @param {PDH_HLOG} hLog_ 
      * @param {Integer} RunId 
      * @returns {Integer} 
      */
-    static PdhSetLogSetRunID(hLog, RunId) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PdhSetLogSetRunID(hLog_, RunId) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
-        result := DllCall("pdh.dll\PdhSetLogSetRunID", "ptr", hLog, "int", RunId, "uint")
+        result := DllCall("pdh.dll\PdhSetLogSetRunID", "ptr", hLog_, "int", RunId, "uint")
         return result
     }
 

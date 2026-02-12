@@ -41,7 +41,11 @@ class AsyncIMSAdminBaseSinkW extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_SinkNotify(dwMDNumElements, pcoChangeList) {
-        result := ComCall(3, this, "uint", dwMDNumElements, "ptr", pcoChangeList, "HRESULT")
+        result := ComCall(3, this, "uint", dwMDNumElements, "ptr", pcoChangeList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class AsyncIMSAdminBaseSinkW extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_SinkNotify() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class AsyncIMSAdminBaseSinkW extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_ShutdownNotify() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class AsyncIMSAdminBaseSinkW extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_ShutdownNotify() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -9,7 +9,7 @@
 
 /**
  * See reference information about the INPUT_RECORD structure, which describes an input event in the console input buffer.
- * @see https://learn.microsoft.com/windows/console/input-record-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/input-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

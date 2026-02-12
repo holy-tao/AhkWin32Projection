@@ -3,7 +3,7 @@
 
 /**
  * Specifies the pixel format, buffer, stride and size of a component plane for a planar pixel format.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicbitmapplane
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/ns-wincodec-wicbitmapplane
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

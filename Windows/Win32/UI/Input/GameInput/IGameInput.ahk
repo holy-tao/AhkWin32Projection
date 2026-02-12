@@ -44,11 +44,15 @@ class IGameInput extends IUnknown{
      * 
      * @param {Integer} inputKind 
      * @param {IGameInputDevice} device 
-     * @returns {IGameInputReading} 
+     * @returns {Pointer<IGameInputReading>} 
      */
     GetCurrentReading(inputKind, device) {
-        result := ComCall(4, this, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
-        return IGameInputReading(reading)
+        result := ComCall(4, this, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return reading
     }
 
     /**
@@ -56,11 +60,15 @@ class IGameInput extends IUnknown{
      * @param {IGameInputReading} referenceReading 
      * @param {Integer} inputKind 
      * @param {IGameInputDevice} device 
-     * @returns {IGameInputReading} 
+     * @returns {Pointer<IGameInputReading>} 
      */
     GetNextReading(referenceReading, inputKind, device) {
-        result := ComCall(5, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
-        return IGameInputReading(reading)
+        result := ComCall(5, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return reading
     }
 
     /**
@@ -68,22 +76,30 @@ class IGameInput extends IUnknown{
      * @param {IGameInputReading} referenceReading 
      * @param {Integer} inputKind 
      * @param {IGameInputDevice} device 
-     * @returns {IGameInputReading} 
+     * @returns {Pointer<IGameInputReading>} 
      */
     GetPreviousReading(referenceReading, inputKind, device) {
-        result := ComCall(6, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
-        return IGameInputReading(reading)
+        result := ComCall(6, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return reading
     }
 
     /**
      * 
-     * @param {Integer} timestamp 
+     * @param {Integer} timestamp_ 
      * @param {IGameInputDevice} device 
-     * @returns {IGameInputReading} 
+     * @returns {Pointer<IGameInputReading>} 
      */
-    GetTemporalReading(timestamp, device) {
-        result := ComCall(7, this, "uint", timestamp, "ptr", device, "ptr*", &reading := 0, "HRESULT")
-        return IGameInputReading(reading)
+    GetTemporalReading(timestamp_, device) {
+        result := ComCall(7, this, "uint", timestamp_, "ptr", device, "ptr*", &reading := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return reading
     }
 
     /**
@@ -91,14 +107,18 @@ class IGameInput extends IUnknown{
      * @param {IGameInputDevice} device 
      * @param {Integer} inputKind 
      * @param {Float} analogThreshold 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {Pointer<GameInputReadingCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterReadingCallback(device, inputKind, analogThreshold, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterReadingCallback(device, inputKind, analogThreshold, context_, callbackFunc) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, context_Marshal, context_, "ptr", callbackFunc, "uint*", &callbackToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return callbackToken
     }
 
@@ -108,14 +128,18 @@ class IGameInput extends IUnknown{
      * @param {Integer} inputKind 
      * @param {Integer} statusFilter 
      * @param {Integer} enumerationKind 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {Pointer<GameInputDeviceCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, context_, callbackFunc) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, context_Marshal, context_, "ptr", callbackFunc, "uint*", &callbackToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return callbackToken
     }
 
@@ -123,28 +147,36 @@ class IGameInput extends IUnknown{
      * 
      * @param {IGameInputDevice} device 
      * @param {Integer} buttonFilter 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {Pointer<GameInputSystemButtonCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterSystemButtonCallback(device, buttonFilter, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterSystemButtonCallback(device, buttonFilter, context_, callbackFunc) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(10, this, "ptr", device, "int", buttonFilter, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", device, "int", buttonFilter, context_Marshal, context_, "ptr", callbackFunc, "uint*", &callbackToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return callbackToken
     }
 
     /**
      * 
      * @param {IGameInputDevice} device 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {Pointer<GameInputKeyboardLayoutCallback>} callbackFunc 
      * @returns {Integer} 
      */
-    RegisterKeyboardLayoutCallback(device, context, callbackFunc) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    RegisterKeyboardLayoutCallback(device, context_, callbackFunc) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", device, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", device, context_Marshal, context_, "ptr", callbackFunc, "uint*", &callbackToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return callbackToken
     }
 
@@ -169,66 +201,106 @@ class IGameInput extends IUnknown{
     }
 
     /**
+     * Creates a DispatcherQueueController on the caller's thread. Use the created DispatcherQueueController to create and manage the lifetime of a DispatcherQueue to run queued tasks in priority order on the Dispatcher queue's thread.
+     * @remarks
+     * Introduced in Windows 10, version 1709.
      * 
-     * @returns {IGameInputDispatcher} 
+     *  If  <i>options.threadType</i> is <b>DQTYPE_THREAD_DEDICATED</b>, then this function  creates the dedicated thread and then creates the  <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> on that thread. The dispatcher queue event loop runs on the new dedicated thread.
+     * 
+     * An event loop runs asynchronously on a background thread to dispatch
+     * queued task items to the new dedicated thread.
+     * 
+     *  If <i>options.threadType</i> is  <b>DQTYPE_THREAD_CURRENT</b>, then the <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> instance is created on the current thread. An error results if there is already 
+     * a <b>IDispatcherQueueController</b> on the current thread. If you create a dispatcher queue on the current thread, ensure that there is a message pump running on the current thread so that the dispatcher queue can use it to dispatch tasks.
+     * 
+     * This call does not return until the new thread and <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a> are created. The new thread will be initialized using the specified COM apartment.
+     * 
+     * <div class="alert"><b>Important</b>  The <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueuecontroller">DispatcherQueueController</a>, and its associated <a href="https://docs.microsoft.com/uwp/api/windows.system.dispatcherqueue">DispatcherQueue</a>, are WinRT objects. See their documentation for usage details.</div>
+     * <div> </div>
+     * @returns {Pointer<IGameInputDispatcher>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/dispatcherqueue/nf-dispatcherqueue-createdispatcherqueuecontroller
      */
     CreateDispatcher() {
-        result := ComCall(14, this, "ptr*", &dispatcher := 0, "HRESULT")
-        return IGameInputDispatcher(dispatcher)
+        result := ComCall(14, this, "ptr*", &dispatcher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return dispatcher
     }
 
     /**
      * 
      * @param {Integer} inputKind 
-     * @returns {IGameInputDevice} 
+     * @returns {Pointer<IGameInputDevice>} 
      */
     CreateAggregateDevice(inputKind) {
-        result := ComCall(15, this, "int", inputKind, "ptr*", &device := 0, "HRESULT")
-        return IGameInputDevice(device)
+        result := ComCall(15, this, "int", inputKind, "ptr*", &device := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return device
     }
 
     /**
      * 
      * @param {Pointer<APP_LOCAL_DEVICE_ID>} value 
-     * @returns {IGameInputDevice} 
+     * @returns {Pointer<IGameInputDevice>} 
      */
     FindDeviceFromId(value) {
-        result := ComCall(16, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
-        return IGameInputDevice(device)
+        result := ComCall(16, this, "ptr", value, "ptr*", &device := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return device
     }
 
     /**
      * 
      * @param {IUnknown} value 
-     * @returns {IGameInputDevice} 
+     * @returns {Pointer<IGameInputDevice>} 
      */
     FindDeviceFromObject(value) {
-        result := ComCall(17, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
-        return IGameInputDevice(device)
+        result := ComCall(17, this, "ptr", value, "ptr*", &device := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return device
     }
 
     /**
      * 
      * @param {HANDLE} value 
-     * @returns {IGameInputDevice} 
+     * @returns {Pointer<IGameInputDevice>} 
      */
     FindDeviceFromPlatformHandle(value) {
         value := value is Win32Handle ? NumGet(value, "ptr") : value
 
-        result := ComCall(18, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
-        return IGameInputDevice(device)
+        result := ComCall(18, this, "ptr", value, "ptr*", &device := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return device
     }
 
     /**
      * 
      * @param {PWSTR} value 
-     * @returns {IGameInputDevice} 
+     * @returns {Pointer<IGameInputDevice>} 
      */
     FindDeviceFromPlatformString(value) {
         value := value is String ? StrPtr(value) : value
 
-        result := ComCall(19, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
-        return IGameInputDevice(device)
+        result := ComCall(19, this, "ptr", value, "ptr*", &device := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return device
     }
 
     /**
@@ -240,7 +312,11 @@ class IGameInput extends IUnknown{
      * @returns {HRESULT} 
      */
     EnableOemDeviceSupport(vendorId, productId, interfaceNumber, collectionNumber) {
-        result := ComCall(20, this, "ushort", vendorId, "ushort", productId, "char", interfaceNumber, "char", collectionNumber, "HRESULT")
+        result := ComCall(20, this, "ushort", vendorId, "ushort", productId, "char", interfaceNumber, "char", collectionNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

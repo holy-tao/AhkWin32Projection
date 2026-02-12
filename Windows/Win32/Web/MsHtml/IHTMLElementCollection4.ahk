@@ -42,7 +42,11 @@ class IHTMLElementCollection4 extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -52,7 +56,11 @@ class IHTMLElementCollection4 extends IDispatch{
      * @returns {IHTMLElement2} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &pNode := 0, "HRESULT")
+        result := ComCall(8, this, "int", index, "ptr*", &pNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement2(pNode)
     }
 
@@ -62,9 +70,16 @@ class IHTMLElementCollection4 extends IDispatch{
      * @returns {IHTMLElement2} 
      */
     namedItem(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", name, "ptr*", &pNode := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", name, "ptr*", &pNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement2(pNode)
     }
 }

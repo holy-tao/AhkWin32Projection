@@ -14,7 +14,7 @@
  * -   [**WinBioRemoveCredential**](/windows/desktop/api/Winbio/nf-winbio-winbioremovecredential)
  * -   [**WinBioVerify**](/windows/desktop/api/Winbio/nf-winbio-winbioverify)
  * -   [**WinBioVerifyWithCallback**](/windows/desktop/api/Winbio/nf-winbio-winbioverifywithcallback)
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-identity
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-identity
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

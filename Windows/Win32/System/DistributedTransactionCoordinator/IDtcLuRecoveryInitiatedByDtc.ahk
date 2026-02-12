@@ -38,7 +38,11 @@ class IDtcLuRecoveryInitiatedByDtc extends IUnknown{
         pWorkMarshal := pWork is VarRef ? "int*" : "ptr"
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pWorkMarshal, pWork, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(3, this, pWorkMarshal, pWork, ppvMarshal, ppv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -33,7 +33,11 @@ class IAppxBundleManifestPackageInfo4 extends IUnknown{
      * @returns {BOOL} 
      */
     GetIsStub() {
-        result := ComCall(3, this, "int*", &isStub := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &isStub := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isStub
     }
 }

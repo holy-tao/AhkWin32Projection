@@ -188,7 +188,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-mfp_event_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfplay/ne-mfplay-mfp_event_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

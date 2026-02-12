@@ -5,7 +5,7 @@
  * Contains the current state of the battery.
  * @remarks
  * The BATTERY\_CRITICAL flag in the **PowerState** member of this structure indicates a hardware "battery critical" condition. This critical level is set by the battery manufacturer, not by the user in the "critical battery alarm." It generally means that the battery system has calculated that the battery is totally drained, and any power being drawn is beyond what is expected.
- * @see https://learn.microsoft.com/windows/win32/Power/battery-status-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/battery-status-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

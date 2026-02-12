@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
@@ -10,12 +12,12 @@ class Certificates {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYNOSYSTEMCERTSVCPATH => "CurrentControlSet\Services\CertSvc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYCERTSVCPATH => "SYSTEM\CurrentControlSet\Services\CertSvc"
 
@@ -120,207 +122,207 @@ class Certificates {
     static IKF_OVERWRITE => 65536
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_CACERTIFICATE => "CACertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_HASHALGORITHMID => "HashAlgorithmId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_SIGNINGFLAGS => "SigningFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_REMINDERDURATION => "ReminderDuration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_SIGNINGCERTIFICATE => "SigningCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_CSPNAME => "CSPName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_KEYSPEC => "KeySpec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_ERRORCODE => "ErrorCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_PROVIDERCLSID => "ProviderCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_PROVIDERPROPERTIES => "Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_LOCALREVOCATIONINFORMATION => "LocalRevocationInformation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_SIGNINGCERTIFICATETEMPLATE => "SigningCertificateTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCAPROP_CACONFIG => "CAConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPPROP_LOGLEVEL => "LogLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPPROP_DEBUG => "Debug"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPPROP_AUDITFILTER => "AuditFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPPROP_ARRAYCONTROLLER => "ArrayController"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPPROP_ARRAYMEMBERS => "ArrayMembers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPPROP_ENROLLPOLLINTERVAL => "EnrollPollInterval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_VIRTUALROOTNAME => "VirtualRootName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_NUMOFTHREADS => "NumOfThreads"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_NUMOFBACKENDCONNECTIONS => "NumOfBackendConnections"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_REFRESHRATE => "RefreshRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_MAXNUMOFCACHEENTRIES => "MaxNumOfCacheEntries"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_MAXAGE => "MaxAge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPISAPIPROP_DEBUG => "ISAPIDebug"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCOMMONPROP_REQFLAGS => "RequestFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCOMMONPROP_MAXINCOMINGMESSAGESIZE => "MaxIncomingMessageSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPCOMMONPROP_MAXNUMOFREQUESTENTRIES => "MaxNumOfRequestEntries"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_CRLURLTIMEOUT => "CrlUrlTimeOut"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_BASECRLURLS => "BaseCrlUrls"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_SERIALNUMBERSDIRS => "IssuedSerialNumbersDirectories"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_BASECRL => "BaseCrl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_DELTACRLURLS => "DeltaCrlUrls"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_DELTACRL => "DeltaCrl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_REFRESHTIMEOUT => "RefreshTimeOut"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_ERRORCODE => "RevocationErrorCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_ALLOWUSERONLYCRLS => "AllowUserOnlyCrls"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszOCSPREVPROP_ALLOWCAONLYCRLS => "AllowCAOnlyCrls"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szBACKUPANNOTATION => "Cert Server Backup Interface"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szRESTOREANNOTATION => "Cert Server Restore Interface"
 
@@ -385,92 +387,92 @@ class Certificates {
     static CSCONTROL_RESTART => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_COMMONNAME => "CommonName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_ORGUNIT => "OrgUnit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_ORGANIZATION => "Organization"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_LOCALITY => "Locality"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_STATE => "State"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_COUNTRY => "Country"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_CONFIG => "Config"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_EXCHANGECERTIFICATE => "ExchangeCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_SIGNATURECERTIFICATE => "SignatureCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_DESCRIPTION => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_COMMENT => "Comment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_SERVER => "Server"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_AUTHORITY => "Authority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_SANITIZEDNAME => "SanitizedName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_SHORTNAME => "ShortName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_SANITIZEDSHORTNAME => "SanitizedShortName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_FLAGS => "Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCONFIG_WEBENROLLMENTSERVERS => "WebEnrollmentServers"
 
@@ -1030,107 +1032,107 @@ class Certificates {
     static DBG_CERTSRV => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszSERVICE_NAME => "CertSvc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYBASE => "SYSTEM\CurrentControlSet\Services\CertSvc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYCONFIG => "Configuration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGACTIVE => "Active"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDIRECTORY => "ConfigurationDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBDIRECTORY => "DBDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBLOGDIRECTORY => "DBLogDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBSYSDIRECTORY => "DBSystemDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBTEMPDIRECTORY => "DBTempDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBSESSIONCOUNT => "DBSessionCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBMAXREADSESSIONCOUNT => "DBMaxReadSessionCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBFLAGS => "DBFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBLASTFULLBACKUP => "DBLastFullBackup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBLASTINCREMENTALBACKUP => "DBLastIncrementalBackup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDBLASTRECOVERY => "DBLastRecovery"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGWEBCLIENTCAMACHINE => "WebClientCAMachine"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGVERSION => "Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGWEBCLIENTCANAME => "WebClientCAName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGWEBCLIENTCATYPE => "WebClientCAType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLDAPFLAGS => "LDAPFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCERTSRVDEBUG => "Debug"
 
@@ -1295,432 +1297,432 @@ class Certificates {
     static CSVER_MINOR => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYRESTOREINPROGRESS => "RestoreInProgress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYDBPARAMETERS => "DBParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCADESCRIPTION => "CADescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCACERTHASH => "CACertHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCASERIALNUMBER => "CACertSerialNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAXCHGCERTHASH => "CAXchgCertHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKRACERTHASH => "KRACertHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKRACERTCOUNT => "KRACertCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKRAFLAGS => "KRAFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCATYPE => "CAType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCERTENROLLCOMPATIBLE => "CertEnrollCompatible"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGENFORCEX500NAMELENGTHS => "EnforceX500NameLengths"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCOMMONNAME => "CommonName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCLOCKSKEWMINUTES => "ClockSkewMinutes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLNEXTPUBLISH => "CRLNextPublish"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLPERIODSTRING => "CRLPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLPERIODCOUNT => "CRLPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLOVERLAPPERIODSTRING => "CRLOverlapPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLOVERLAPPERIODCOUNT => "CRLOverlapUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLDELTANEXTPUBLISH => "CRLDeltaNextPublish"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLDELTAPERIODSTRING => "CRLDeltaPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLDELTAPERIODCOUNT => "CRLDeltaPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLDELTAOVERLAPPERIODSTRING => "CRLDeltaOverlapPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLDELTAOVERLAPPERIODCOUNT => "CRLDeltaOverlapUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLPUBLICATIONURLS => "CRLPublicationURLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCACERTPUBLICATIONURLS => "CACertPublicationURLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLMAXPARTITIONS => "CRLMaxPartitions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLSUSPENDEDPARTITIONS => "CRLSuspendedPartitions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLCURRENTPARTITION => "CRLCurrentPartition"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAXCHGVALIDITYPERIODSTRING => "CAXchgValidityPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAXCHGVALIDITYPERIODCOUNT => "CAXchgValidityPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAXCHGOVERLAPPERIODSTRING => "CAXchgOverlapPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAXCHGOVERLAPPERIODCOUNT => "CAXchgOverlapPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLPATH_OLD => "CRLPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLEDITFLAGS => "CRLEditFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLFLAGS => "CRLFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCRLATTEMPTREPUBLISH => "CRLAttemptRepublish"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGENABLED => "Enabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGFORCETELETEX => "ForceTeletex"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLOGLEVEL => "LogLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGHIGHSERIAL => "HighSerial"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPOLICYFLAGS => "PolicyFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGNAMESEPARATOR => "SubjectNameSeparator"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSUBJECTTEMPLATE => "SubjectTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAUSEDS => "UseDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGVALIDITYPERIODSTRING => "ValidityPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGVALIDITYPERIODCOUNT => "ValidityPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPARENTCAMACHINE => "ParentCAMachine"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPARENTCANAME => "ParentCAName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREQUESTFILENAME => "RequestFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREQUESTID => "RequestId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREQUESTKEYCONTAINER => "RequestKeyContainer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREQUESTKEYINDEX => "RequestKeyIndex"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCASERVERNAME => "CAServerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCACERTFILENAME => "CACertFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCASECURITY => "Security"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGAUDITFILTER => "AuditFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGOFFICERRIGHTS => "OfficerRights"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszENROLLMENTAGENTRIGHTS => "EnrollmentAgentRights"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGMAXINCOMINGMESSAGESIZE => "MaxIncomingMessageSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGMAXINCOMINGALLOCSIZE => "MaxIncomingAllocSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGROLESEPARATIONENABLED => "RoleSeparationEnabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGALTERNATEPUBLISHDOMAINS => "AlternatePublishDomains"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSETUPSTATUS => "SetupStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGINTERFACEFLAGS => "InterfaceFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDSCONFIGDN => "DSConfigDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDSDOMAINDN => "DSDomainDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGVIEWAGEMINUTES => "ViewAgeMinutes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGVIEWIDLEMINUTES => "ViewIdleMinutes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEKPUBLISTDIRECTORIES => "EndorsementKeyListDirectories"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERTIFICATETRANSPARENCYFLAGS => "CertificateTransparencyFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGMAXSCTLISTSIZE => "MaxSCTListSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCERTIFICATETRANSPARENCYINFOOID => "CTInformationExtensionOid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPROCESSINGFLAGS => "ProcessingFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGUSEDEFINEDCACERTINREQ => "UseDefinedCACertInRequest"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGENABLEDEKUFORDEFINEDCACERT => "EnabledEKUForDefinedCACert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEKUOIDSFORPUBLISHEXPIREDCERTINCRL => "EKUOIDsForPublishExpiredCertInCRL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCRTFILENAMEEXT => ".crt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPFXFILENAMEEXT => ".p12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDATFILENAMEEXT => ".dat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszLOGFILENAMEEXT => ".log"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDBFILENAMEEXT => ".edb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szDBBASENAMEPARM => "edb"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszLOGPATH => "CertLog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDBBACKUPSUBDIR => "DataBase"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszDBBACKUPCERTBACKDAT => "certbkxp.dat"
 
@@ -2125,332 +2127,332 @@ class Certificates {
     static CSURL_ADDTOIDP => 128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYCSP => "CSP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYENCRYPTIONCSP => "EncryptionCSP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYEXITMODULES => "ExitModules"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYPOLICYMODULES => "PolicyModules"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszSECUREDATTRIBUTES => "SignedAttributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszzDEFAULTSIGNEDATTRIBUTES => "RequesterName" Chr(0) ""
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGBACKUPLOGDIRECTORY => "BackupLogDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCHECKPOINTFILE => "CheckPointFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGHIGHLOGNUMBER => "HighLogNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLOWLOGNUMBER => "LowLogNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLOGPATH => "LogPath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGRESTOREMAPCOUNT => "RestoreMapCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGRESTOREMAP => "RestoreMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDATABASERECOVERED => "DatabaseRecovered"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGRESTORESTATUS => "RestoreStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGB2ICERTMANAGEMODULE => "ICertManageModule"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSP4DEFAULTCONFIGURATION => "DefaultConfiguration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSP4KEYSETNAME => "KeySetName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSP4SUBJECTNAMESEPARATOR => "SubjectNameSeparator"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSP4NAMES => "Names"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSP4QUERIES => "Queries"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGNETSCAPECERTTYPE => "NetscapeCertType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszNETSCAPEREVOCATIONTYPE => "Netscape"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPROVIDERTYPE => "ProviderType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPROVIDER => "Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszHASHALGORITHM => "HashAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszENCRYPTIONALGORITHM => "EncryptionAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszMACHINEKEYSET => "MachineKeyset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYSIZE => "KeySize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSYMMETRICKEYSIZE => "SymmetricKeySize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCNGPUBLICKEYALGORITHM => "CNGPublicKeyAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCNGHASHALGORITHM => "CNGHashAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCNGENCRYPTIONALGORITHM => "CNGEncryptionAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGALTERNATESIGNATUREALGORITHM => "AlternateSignatureAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szNAMESEPARATORDEFAULT => "" Chr(10) ""
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODYEARS => "Years"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODMONTHS => "Months"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODWEEKS => "Weeks"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODDAYS => "Days"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODHOURS => "Hours"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODMINUTES => "Minutes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPERIODSECONDS => "Seconds"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGISSUERCERTURLFLAGS => "IssuerCertURLFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEDITFLAGS => "EditFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGUPNMAP => "UPNMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSUBJECTALTNAME => "SubjectAltName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGSUBJECTALTNAME2 => "SubjectAltName2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREQUESTDISPOSITION => "RequestDisposition"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCAPATHLENGTH => "CAPathLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREVOCATIONTYPE => "RevocationType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLDAPREVOCATIONCRLURL_OLD => "LDAPRevocationCRLURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREVOCATIONCRLURL_OLD => "RevocationCRLURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGFTPREVOCATIONCRLURL_OLD => "FTPRevocationCRLURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGFILEREVOCATIONCRLURL_OLD => "FileRevocationCRLURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGREVOCATIONURL => "RevocationURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLDAPISSUERCERTURL_OLD => "LDAPIssuerCertURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGISSUERCERTURL_OLD => "IssuerCertURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGFTPISSUERCERTURL_OLD => "FTPIssuerCertURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGFILEISSUERCERTURL_OLD => "FileIssuerCertURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGENABLEREQUESTEXTENSIONLIST => "EnableRequestExtensionList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGENABLEENROLLEEREQUESTEXTENSIONLIST => "EnableEnrolleeRequestExtensionList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDISABLEEXTENSIONLIST => "DisableExtensionList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEKUOIDSFORVOLATILEREQUESTS => "EKUOIDsforVolatileRequests"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLDAPSESSIONOPTIONS => "LDAPSessionOptions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszLDAPSESSIONOPTIONVALUE => "LDAPSessionOptionValue"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGDEFAULTSMIME => "DefaultSMIME"
 
@@ -2720,22 +2722,22 @@ class Certificates {
     static EDITF_ENABLEKEYENCIPHERMENTCACERT => 134217728
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLDAPREVOCATIONDN_OLD => "LDAPRevocationDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGLDAPREVOCATIONDNTEMPLATE_OLD => "LDAPRevocationDNTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCRLPUBLISHRETRYCOUNT => "CRLPublishRetryCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGCERTPUBLISHFLAGS => "PublishCertFlags"
 
@@ -2765,782 +2767,782 @@ class Certificates {
     static EXITPUB_DEFAULT_STANDALONE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTADMIN => "CertificateAuthority.Admin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTCONFIG => "CertificateAuthority.Config"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTGETCONFIG => "CertificateAuthority.GetConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTENCODE => "CertificateAuthority.Encode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTDBMEM => "CertificateAuthority.DBMem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTREQUEST => "CertificateAuthority.Request"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTSERVEREXIT => "CertificateAuthority.ServerExit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTSERVERPOLICY => "CertificateAuthority.ServerPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCLASS_CERTVIEW => "CertificateAuthority.View"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszMICROSOFTCERTMODULE_PREFIX => "CertificateAuthority_MicrosoftDefault"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERTMANAGE_SUFFIX => "Manage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERTEXITMODULE_POSTFIX => ".Exit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERTPOLICYMODULE_POSTFIX => ".Policy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCAPOLICYFILE => "CAPolicy.inf"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_CDP => "CRLDistributionPoint"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_AIA => "AuthorityInformationAccess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_EKU => "EnhancedKeyUsageExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_CCDP => "CrossCertificateDistributionPointsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_CERTSERVER => "certsrv_server"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_RENEWALKEYLENGTH => "RenewalKeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_RENEWALVALIDITYPERIODSTRING => "RenewalValidityPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_RENEWALVALIDITYPERIODCOUNT => "RenewalValidityPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_UTF8 => "UTF8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CRLPERIODSTRING => "CRLPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CRLPERIODCOUNT => "CRLPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CRLDELTAPERIODSTRING => "CRLDeltaPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CRLDELTAPERIODCOUNT => "CRLDeltaPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_LOADDEFAULTTEMPLATES => "LoadDefaultTemplates"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ENABLEKEYCOUNTING => "EnableKeyCounting"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_FORCEUTF8 => "ForceUTF8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ALTERNATESIGNATUREALGORITHM => "AlternateSignatureAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SHOWALLCSPS => "ShowAllCSPs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CRITICAL => "Critical"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_EMPTY => "Empty"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CCDPSYNCDELTATIME => "SyncDeltaTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_CAPOLICY => "CAPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_POLICYSTATEMENT => "PolicyStatementExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_APPLICATIONPOLICYSTATEMENT => "ApplicationPolicyStatementExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_POLICIES => "Policies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_OID => "OID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_NOTICE => "Notice"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_FLAGS => "Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_REQUESTATTRIBUTES => "RequestAttributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_NAMECONSTRAINTS => "NameConstraintsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_INCLUDE => "Include"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_EXCLUDE => "Exclude"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SUBTREE => "SubTree"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_UPN => "UPN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_EMAIL => "EMail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_DNS => "DNS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_DIRECTORYNAME => "DirectoryName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_URL => "URL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_IPADDRESS => "IPAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_REGISTEREDID => "RegisteredId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_OTHERNAME => "OtherName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_POLICYMAPPINGS => "PolicyMappingsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_APPLICATIONPOLICYMAPPINGS => "ApplicationPolicyMappingsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_POLICYCONSTRAINTS => "PolicyConstraintsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_APPLICATIONPOLICYCONSTRAINTS => "ApplicationPolicyConstraintsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_REQUIREEXPLICITPOLICY => "RequireExplicitPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_INHIBITPOLICYMAPPING => "InhibitPolicyMapping"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_BASICCONSTRAINTS => "BasicConstraintsExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_PATHLENGTH => "PathLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_EXTENSIONS => "Extensions"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_PROPERTIES => "Properties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CONTINUE => "_continue_"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFSECTION_NEWREQUEST => "NewRequest"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SUBJECT => "Subject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SUBJECTNAMEFLAGS => "SubjectNameFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_X500NAMEFLAGS => "X500NameFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_EXPORTABLE => "Exportable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_EXPORTABLEENCRYPTED => "ExportableEncrypted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_HASHALGORITHM => "HashAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYALGORITHM => "KeyAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYALGORITHMPARMETERS => "KeyAlgorithmParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYCONTAINER => "KeyContainer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_READERNAME => "ReaderName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYLENGTH => "KeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_LEGACYKEYSPEC => "KeySpec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYUSAGEEXTENSION => "KeyUsage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYUSAGEPROPERTY => "KeyUsageProperty"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_MACHINEKEYSET => "MachineKeySet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_PRIVATEKEYARCHIVE => "PrivateKeyArchive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ENCRYPTIONALGORITHM => "EncryptionAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ENCRYPTIONLENGTH => "EncryptionLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_PROVIDERNAME => "ProviderName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_PROVIDERTYPE => "ProviderType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_RENEWALCERT => "RenewalCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_REQUESTTYPE => "RequestType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SECURITYDESCRIPTOR => "SecurityDescriptor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SILENT => "Silent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SMIME => "SMIME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SUPPRESSDEFAULTS => "SuppressDefaults"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_USEEXISTINGKEY => "UseExistingKeySet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_USERPROTECTED => "UserProtected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_KEYPROTECTION => "KeyProtection"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_UICONTEXTMESSAGE => "UIContextMessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_FRIENDLYNAME => "FriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_NOTBEFORE => "NotBefore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_NOTAFTER => "NotAfter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ATTESTPRIVATEKEY => "AttestPrivateKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_PUBLICKEY => "PublicKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_PUBLICKEYPARAMETERS => "PublicKeyParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS => "EccKeyParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_P => "EccKeyParameters_P"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_A => "EccKeyParameters_A"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_B => "EccKeyParameters_B"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_SEED => "EccKeyParameters_Seed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_BASE => "EccKeyParameters_Base"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_ORDER => "EccKeyParameters_Order"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERS_COFACTOR => "EccKeyParameters_Cofactor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_ECCKEYPARAMETERSTYPE => "EccKeyParametersType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_SERIALNUMBER => "SerialNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CATHUMBPRINT => "CAThumbprint"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CACERTS => "CACerts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CACAPABILITIES => "CACapabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFKEY_CHALLENGEPASSWORD => "ChallengePassword"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFVALUE_REQUESTTYPE_PKCS10 => "PKCS10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFVALUE_REQUESTTYPE_PKCS7 => "PKCS7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFVALUE_REQUESTTYPE_CMC => "CMC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFVALUE_REQUESTTYPE_CERT => "Cert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFVALUE_REQUESTTYPE_SCEP => "SCEP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszINFVALUE_ENDORSEMENTKEY => "EndorsementKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPKEY => "SMTP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPTEMPLATES => "Templates"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPEVENTFILTER => "EventFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPSERVER => "SMTPServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPAUTHENTICATE => "SMTPAuthenticate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITDENIEDKEY => "Denied"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITISSUEDKEY => "Issued"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITPENDINGKEY => "Pending"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITREVOKEDKEY => "Revoked"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITCRLISSUEDKEY => "CRLIssued"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSHUTDOWNKEY => "Shutdown"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSTARTUPKEY => "Startup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITIMPORTEDKEY => "Imported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPFROM => "From"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPTO => "To"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITSMTPCC => "Cc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITTITLEFORMAT => "TitleFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITTITLEARG => "TitleArg"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITBODYFORMAT => "BodyFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITBODYARG => "BodyArg"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGEXITPROPNOTFOUND => "???"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYENROLLMENT => "Software\Microsoft\Cryptography\AutoEnrollment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYGROUPPOLICYENROLLMENT => "Software\Policies\Microsoft\Cryptography\AutoEnrollment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGMAXPENDINGREQUESTDAYS => "MaxPendingRequestDays"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGAELOGLEVEL_OLD => "AEEventLogLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGENROLLFLAGS => "EnrollFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGVERIFYFLAGS => "VerifyFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGUNICODE => "Unicode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGAIKCLOUDCAURL => "AIKCloudCAURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGAIKKEYALGORITHM => "AIKKeyAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGAIKKEYLENGTH => "AIKKeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGPRESERVESCEPDUMMYCERTS => "PreserveSCEPDummyCerts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGALLPROVIDERS => "All"
 
@@ -3550,7 +3552,7 @@ class Certificates {
     static TP_MACHINEPOLICY => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszREGKEYREPAIR => "KeyRepair"
 
@@ -3565,17 +3567,17 @@ class Certificates {
     static KR_ENABLE_USER => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONFIGURATION_STATUS_PARENT_REG_PATH => "Software\Microsoft\ADCS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONFIGURATION_STATUS_REG_VALUE_NAME => "ConfigurationStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONFIGURATION_REG_EPTOKENCHECKVALUE => "EPTokenCheckValue"
 
@@ -3585,732 +3587,732 @@ class Certificates {
     static EP_TOKENCHECK_DEFAULT_VALUE => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONFIGURATION_REG_DISABLE_HTTPSONLY => "DisableHTTPSOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDISTINGUISHEDNAME => "DistinguishedName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPRAWNAME => "RawName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCOUNTRY => "Country"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPORGANIZATION => "Organization"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPORGUNIT => "OrgUnit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCOMMONNAME => "CommonName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPLOCALITY => "Locality"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSTATE => "State"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPTITLE => "Title"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPGIVENNAME => "GivenName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPINITIALS => "Initials"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSURNAME => "SurName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDOMAINCOMPONENT => "DomainComponent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEMAIL => "EMail"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSTREETADDRESS => "StreetAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPUNSTRUCTUREDNAME => "UnstructuredName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPUNSTRUCTUREDADDRESS => "UnstructuredAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDEVICESERIALNUMBER => "DeviceSerialNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSUBJECTDOT => "Subject."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTDOT => "Request."
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTREQUESTID => "RequestID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTRAWREQUEST => "RawRequest"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTRAWARCHIVEDKEY => "RawArchivedKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTARCHIVEDKEY => "ArchivedKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTKEYRECOVERYHASHES => "KeyRecoveryHashes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTRAWOLDCERTIFICATE => "RawOldCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTATTRIBUTES => "RequestAttributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTTYPE => "RequestType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTFLAGS => "RequestFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTSTATUSCODE => "StatusCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTDISPOSITION => "Disposition"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTDISPOSITIONMESSAGE => "DispositionMessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTSUBMITTEDWHEN => "SubmittedWhen"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTRESOLVEDWHEN => "ResolvedWhen"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTREVOKEDWHEN => "RevokedWhen"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTREVOKEDEFFECTIVEWHEN => "RevokedEffectiveWhen"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTREVOKEDREASON => "RevokedReason"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTERNAME => "RequesterName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCALLERNAME => "CallerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSIGNERPOLICIES => "SignerPolicies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSIGNERAPPLICATIONPOLICIES => "SignerApplicationPolicies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPOFFICER => "Officer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPPUBLISHEXPIREDCERTINCRL => "PublishExpiredCertInCRL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTERNAMEFROMOLDCERTIFICATE => "RequesterNameFromOldCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPATTESTATIONCHALLENGE => "AttestationChallenge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPENDORSEMENTKEYHASH => "EndorsementKeyHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPENDORSEMENTCERTIFICATEHASH => "EndorsementCertificateHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPRAWPRECERTIFICATE => "RawPrecertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLPARTITIONINDEX => "CRLPartitionIndex"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPLINTERCERTIFICATE => "LinterCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCHALLENGE => "Challenge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXPECTEDCHALLENGE => "ExpectedChallenge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDISPOSITION => "Disposition"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDISPOSITIONDENY => "Deny"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDISPOSITIONPENDING => "Pending"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPVALIDITYPERIODSTRING => "ValidityPeriod"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPVALIDITYPERIODCOUNT => "ValidityPeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXPIRATIONDATE => "ExpirationDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTTYPE => "CertType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTTEMPLATE => "CertificateTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTUSAGE => "CertificateUsage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTOSVERSION => "RequestOSVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTCSPPROVIDER => "RequestCSPProvider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXITCERTFILE => "CertFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCLIENTBROWSERMACHINE => "cbm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTCLIENTMACHINE => "ccm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCLIENTDCDNS => "cdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTMACHINEDNS => "rmd"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSUBJECTALTNAME2 => "san"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDNS => "dns"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDN => "dn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPURL => "url"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPIPADDRESS => "ipaddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPGUID => "guid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPOID => "oid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPUPN => "upn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szPROPASNTAG => "{asn}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRITICALTAG => "{critical}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPUTF8TAG => "{utf8}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPOCTETTAG => "{octet}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPHEXTAG => "{hex}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPTEXTTAG => "{text}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDECIMALTAG => "{decimal}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPFILETAG => "{file}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszAT_EKCERTINF => "@EKCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszAT_TESTROOT => "@TestRoot"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPLINTCERTIFICATE => "LintCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCATYPE => "CAType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSANITIZEDCANAME => "SanitizedCAName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSANITIZEDSHORTNAME => "SanitizedShortName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPMACHINEDNSNAME => "MachineDNSName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPMODULEREGLOC => "ModuleRegistryLocation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPUSEDS => "fUseDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDELTACRLSDISABLED => "fDeltaCRLsDisabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSERVERUPGRADED => "fServerUpgraded"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCONFIGDN => "ConfigDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDOMAINDN => "DomainDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPLOGLEVEL => "LogLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSESSIONCOUNT => "SessionCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPTEMPLATECHANGESEQUENCENUMBER => "TemplateChangeSequenceNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPVOLATILEMODE => "VolatileMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszLOCALIZEDTIMEPERIODUNITS => "LocalizedTimePeriodUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTERCAACCESS => "RequesterCAAccess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPUSERDN => "UserDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPKEYARCHIVED => "KeyArchived"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTCOUNT => "CertCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPRAWCACERTIFICATE => "RawCACertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTSTATE => "CertState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTSUFFIX => "CertSuffix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPRAWCRL => "RawCRL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPRAWDELTACRL => "RawDeltaCRL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLINDEX => "CRLIndex"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLSTATE => "CRLState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLSUFFIX => "CRLSuffix"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEVENTLOGTERSE => "EventLogTerse"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEVENTLOGERROR => "EventLogError"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEVENTLOGWARNING => "EventLogWarning"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEVENTLOGVERBOSE => "EventLogVerbose"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEVENTLOGEXHAUSTIVE => "EventLogExhaustive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPDCNAME => "DCName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCROSSFOREST => "CrossForest"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTERSAMNAME => "RequesterSAMName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTERUPN => "RequesterUPN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPREQUESTERDN => "RequesterDN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSEAUDITID => "SEAuditId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPSEAUDITFILTER => "SEAuditFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEREQUESTID => "RequestID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPRAWCERTIFICATE => "RawCertificate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEHASH => "CertificateHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATETEMPLATE => "CertificateTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEENROLLMENTFLAGS => "EnrollmentFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEGENERALFLAGS => "GeneralFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEPRIVATEKEYFLAGS => "PrivatekeyFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATESERIALNUMBER => "SerialNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATENOTBEFOREDATE => "NotBefore"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATENOTAFTERDATE => "NotAfter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATESUBJECTKEYIDENTIFIER => "SubjectKeyIdentifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATERAWPUBLICKEY => "RawPublicKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEPUBLICKEYLENGTH => "PublicKeyLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEPUBLICKEYALGORITHM => "PublicKeyAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATERAWPUBLICKEYALGORITHMPARAMETERS => "RawPublicKeyAlgorithmParameters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATEUPN => "UPN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATETYPE => "CertificateType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCERTIFICATERAWSMIMECAPABILITIES => "RawSMIMECapabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPNAMETYPE => "NameType"
 
@@ -4385,122 +4387,122 @@ class Certificates {
     static EXTENSION_ORIGIN_MASK => 983040
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXTREQUESTID => "ExtensionRequestId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXTNAME => "ExtensionName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXTFLAGS => "ExtensionFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPEXTRAWVALUE => "ExtensionRawValue"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPATTRIBREQUESTID => "AttributeRequestId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPATTRIBNAME => "AttributeName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPATTRIBVALUE => "AttributeValue"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLROWID => "CRLRowId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLNUMBER => "CRLNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLMINBASE => "CRLMinBase"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLNAMEID => "CRLNameId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLCOUNT => "CRLCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLTHISUPDATE => "CRLThisUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLNEXTUPDATE => "CRLNextUpdate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLTHISPUBLISH => "CRLThisPublish"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLNEXTPUBLISH => "CRLNextPublish"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLEFFECTIVE => "CRLEffective"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLPROPAGATIONCOMPLETE => "CRLPropagationComplete"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLLASTPUBLISHED => "CRLLastPublished"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLPUBLISHATTEMPTS => "CRLPublishAttempts"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLPUBLISHFLAGS => "CRLPublishFlags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLPUBLISHSTATUSCODE => "CRLPublishStatusCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLPUBLISHERROR => "CRLPublishError"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszPROPCRLRAWCRL => "CRLRawCRL"
 
@@ -4775,57 +4777,57 @@ class Certificates {
     static VR_INSTANT_BAD => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE => "RequestType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE_CLIENT => "Client"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE_SERVER => "Server"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE_CODESIGN => "CodeSign"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE_CUSTOMER => "SetCustomer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE_MERCHANT => "SetMerchant"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_TYPE_PAYMENT => "SetPayment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_VERSION => "Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_VERSION_1 => "1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_VERSION_2 => "2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCERT_VERSION_3 => "3"
 
@@ -4980,37 +4982,37 @@ class Certificates {
     static XECI_CERTREQ => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_NAME => "Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_DESCRIPTION => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_COPYRIGHT => "Copyright"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_FILEVER => "File Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_PRODUCTVER => "Product Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_DISPLAY_HWND => "HWND"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static wszCMM_PROP_ISMULTITHREADED => "IsMultiThreaded"
 ;@endregion Constants
@@ -5025,7 +5027,7 @@ class Certificates {
      * @param {PWSTR} pwszServerName A pointer to the NetBIOS or DNS machine name of the server to check for online status.
      * @param {Pointer<BOOL>} pfServerOnline A pointer to Boolean value which will be <b>TRUE</b> if the Certificate Services server is online and <b>FALSE</b> if it is not online.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. This function will fail if Certificate Services is not running. If Certificate Services is running and ready to accept requests, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>TRUE</b>. If Certificate Services is running in suspended (or paused) mode, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvisserveronlinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvisserveronlinew
      * @since windowsserver2003
      */
     static CertSrvIsServerOnlineW(pwszServerName, pfServerOnline) {
@@ -5053,7 +5055,7 @@ class Certificates {
      * Before calling this function, setting *<i>ppwszzFileList</i> to <b>NULL</b> is optional.
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzFileList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupgetdynamicfilelistw
      * @since windowsserver2003
      */
     static CertSrvBackupGetDynamicFileListW(hbc, ppwszzFileList, pcbSize) {
@@ -5086,7 +5088,7 @@ class Certificates {
      * @param {Integer} dwBackupFlags 
      * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> will be set to an <b>HCSBC</b> which can be used by other Certificate Services backup APIs.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuppreparew
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackuppreparew
      * @since windowsserver2003
      */
     static CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
@@ -5135,7 +5137,7 @@ class Certificates {
      * You must free this allocated memory when done by calling <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a>. Before calling this function, setting *<i>ppwszzAttachmentInformation</i> to <b>NULL</b> is optional.
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzAttachmentInformation</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw
      * @since windowsserver2003
      */
     static CertSrvBackupGetDatabaseNamesW(hbc, ppwszzAttachmentInformation, pcbSize) {
@@ -5168,7 +5170,7 @@ class Certificates {
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupopenfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupopenfilew
      * @since windowsserver2003
      */
     static CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSize) {
@@ -5196,7 +5198,7 @@ class Certificates {
      * @param {Integer} cbBuffer Size of the storage area referenced by <i>pvBuffer</i>.
      * @param {Pointer<Integer>} pcbRead A pointer to a <b>DWORD</b> value which represents the actual number of bytes read by <b>CertSrvBackupRead</b>. The number of bytes read can be less than the size of the storage area allocated to <i>pvBuffer</i> if the end of the file has been reached.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupread
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupread
      * @since windowsserver2003
      */
     static CertSrvBackupRead(hbc, pvBuffer, cbBuffer, pcbRead) {
@@ -5218,7 +5220,7 @@ class Certificates {
      * For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupopenfilew">CertSrvBackupOpenFile</a>, there should be a subsequent call to <b>CertSrvBackupClose</b>. Upon completion of backing up a  file, the file needs to be closed.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupclose
      * @since windowsserver2003
      */
     static CertSrvBackupClose(hbc) {
@@ -5243,7 +5245,7 @@ class Certificates {
      * @param {Pointer<PWSTR>} ppwszzBackupLogFiles 
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzBackupLogFiles</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
      * @since windowsserver2003
      */
     static CertSrvBackupGetBackupLogsW(hbc, ppwszzBackupLogFiles, pcbSize) {
@@ -5276,7 +5278,7 @@ class Certificates {
      * <div> </div>
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuptruncatelogs
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackuptruncatelogs
      * @since windowsserver2003
      */
     static CertSrvBackupTruncateLogs(hbc) {
@@ -5296,7 +5298,7 @@ class Certificates {
      * Upon completion of a backup session, the session needs to be terminated by means of <b>CertSrvBackupEnd</b>. For every successful call to <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackuppreparew">CertSrvBackupPrepare</a>, there should be a call to <b>CertSrvBackupEnd</b>.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupend
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupend
      * @since windowsserver2003
      */
     static CertSrvBackupEnd(hbc) {
@@ -5334,7 +5336,7 @@ class Certificates {
      * </ul>
      * @param {Pointer<Void>} pv A pointer to the memory to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackupfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvbackupfree
      * @since windowsserver2003
      */
     static CertSrvBackupFree(pv) {
@@ -5353,7 +5355,7 @@ class Certificates {
      * @param {Pointer<PWSTR>} ppwszzDatabaseLocationList 
      * @param {Pointer<Integer>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzDatabaseLocationList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
      * @since windowsserver2003
      */
     static CertSrvRestoreGetDatabaseLocationsW(hbc, ppwszzDatabaseLocationList, pcbSize) {
@@ -5401,7 +5403,7 @@ class Certificates {
      * </table>
      * @param {Pointer<Pointer<Void>>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success, and *<i>phbc</i> is set to an <b>HCSBC</b>, which can be used by other Certificate Services restore APIs.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestorepreparew
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvrestorepreparew
      * @since windowsserver2003
      */
     static CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
@@ -5439,7 +5441,7 @@ class Certificates {
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregisterw
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvrestoreregisterw
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterW(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
@@ -5474,7 +5476,7 @@ class Certificates {
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregisterthroughfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvrestoreregisterthroughfile
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
@@ -5500,7 +5502,7 @@ class Certificates {
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoreregisterw">CertSrvRestoreRegister</a> before using it in <b>CertSrvRestoreRegisterComplete</b>.
      * @param {HRESULT} hrRestoreState <b>HRESULT</b> value indicating the success code for the restore operation. Set this value to S_OK if the restore operation was successful.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreregistercomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvrestoreregistercomplete
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterComplete(hbc, hrRestoreState) {
@@ -5522,7 +5524,7 @@ class Certificates {
      * When a restore is complete, it is important that you make a new full backup of the Certificate Services database. This is necessary to truncate the restored log files and to establish a base backup set for future restores. Backups performed after a restore cannot be mixed with backups (full or incremental) taken before the restore; that is, after a certificate services database is restored and has progressed to a subsequent state, you cannot use the pre-restoration backups to restore the database to that subsequent state.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvrestoreend
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvrestoreend
      * @since windowsserver2003
      */
     static CertSrvRestoreEnd(hbc) {
@@ -5564,7 +5566,7 @@ class Certificates {
      * @param {Pointer<Integer>} pcbOut For future use, this parameter will be the number of bytes allocated to <i>ppbOut</i>. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
      * @param {Pointer<Pointer<Integer>>} ppbOut For future use, this parameter will be the pointer to pointer to bytes representing the output from the issued command. The current implementation does not allocate memory to <i>ppbOut</i>. You can set this value to <b>NULL</b>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
-     * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvservercontrolw
+     * @see https://learn.microsoft.com/windows/win32/api//content/certbcli/nf-certbcli-certsrvservercontrolw
      * @since windowsserver2003
      */
     static CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
@@ -5590,7 +5592,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstgettrustanchors
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpoleng/nf-certpoleng-pstgettrustanchors
      * @since windows6.1
      */
     static PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
@@ -5641,7 +5643,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstgetcertificates
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpoleng/nf-certpoleng-pstgetcertificates
      * @since windows6.1
      */
     static PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCertChainContextCount, ppCertChainContexts) {
@@ -5658,7 +5660,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstacquireprivatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpoleng/nf-certpoleng-pstacquireprivatekey
      * @since windows6.1
      */
     static PstAcquirePrivateKey(pCert) {
@@ -5677,7 +5679,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstvalidate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpoleng/nf-certpoleng-pstvalidate
      * @since windows6.1
      */
     static PstValidate(pTargetName, bIsClient, pRequestedIssuancePolicy, phAdditionalCertStore, pCert, pProvGUID) {
@@ -5693,7 +5695,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstmapcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpoleng/nf-certpoleng-pstmapcertificate
      * @since windows6.1
      */
     static PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
@@ -5711,7 +5713,7 @@ class Certificates {
      * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
-     * @see https://learn.microsoft.com/windows/win32/api/certpoleng/nf-certpoleng-pstgetusernameforcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpoleng/nf-certpoleng-pstgetusernameforcertificate
      * @since windows6.1
      */
     static PstGetUserNameForCertificate(pCertContext, UserName) {

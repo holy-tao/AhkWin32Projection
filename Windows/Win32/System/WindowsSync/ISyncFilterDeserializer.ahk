@@ -38,7 +38,11 @@ class ISyncFilterDeserializer extends IUnknown{
     DeserializeSyncFilter(pbSyncFilter, dwCbSyncFilter) {
         pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbSyncFilterMarshal, pbSyncFilter, "uint", dwCbSyncFilter, "ptr*", &ppISyncFilter := 0, "HRESULT")
+        result := ComCall(3, this, pbSyncFilterMarshal, pbSyncFilter, "uint", dwCbSyncFilter, "ptr*", &ppISyncFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncFilter(ppISyncFilter)
     }
 }

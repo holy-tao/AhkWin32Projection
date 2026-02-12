@@ -45,20 +45,34 @@ class IXMLDOMElement extends IXMLDOMNode{
      */
     get_tagName() {
         tagName := BSTR()
-        result := ComCall(43, this, "ptr", tagName, "HRESULT")
+        result := ComCall(43, this, "ptr", tagName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return tagName
     }
 
     /**
-     * 
+     * getAttributes Method (SQLServerDatabaseMetaData)
+     * @remarks
+     * This getAttributes method is specified by the getAttributes method in the java.sql.DatabaseMetaData interface.
      * @param {BSTR} name 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getattributes-method-sqlserverdatabasemetadata
      */
     getAttribute(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
         value := VARIANT()
-        result := ComCall(44, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(44, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -69,9 +83,16 @@ class IXMLDOMElement extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     setAttribute(name, value) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(45, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,9 +102,16 @@ class IXMLDOMElement extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     removeAttribute(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", name, "HRESULT")
+        result := ComCall(46, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,9 +121,16 @@ class IXMLDOMElement extends IXMLDOMNode{
      * @returns {IXMLDOMAttribute} 
      */
     getAttributeNode(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", name, "ptr*", &attributeNode := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", name, "ptr*", &attributeNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMAttribute(attributeNode)
     }
 
@@ -105,7 +140,11 @@ class IXMLDOMElement extends IXMLDOMNode{
      * @returns {IXMLDOMAttribute} 
      */
     setAttributeNode(DOMAttribute) {
-        result := ComCall(48, this, "ptr", DOMAttribute, "ptr*", &attributeNode := 0, "HRESULT")
+        result := ComCall(48, this, "ptr", DOMAttribute, "ptr*", &attributeNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMAttribute(attributeNode)
     }
 
@@ -115,7 +154,11 @@ class IXMLDOMElement extends IXMLDOMNode{
      * @returns {IXMLDOMAttribute} 
      */
     removeAttributeNode(DOMAttribute) {
-        result := ComCall(49, this, "ptr", DOMAttribute, "ptr*", &attributeNode := 0, "HRESULT")
+        result := ComCall(49, this, "ptr", DOMAttribute, "ptr*", &attributeNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMAttribute(attributeNode)
     }
 
@@ -125,18 +168,41 @@ class IXMLDOMElement extends IXMLDOMNode{
      * @returns {IXMLDOMNodeList} 
      */
     getElementsByTagName(tagName) {
-        tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
+        if(tagName is String) {
+            pin := BSTR.Alloc(tagName)
+            tagName := pin.Value
+        }
 
-        result := ComCall(50, this, "ptr", tagName, "ptr*", &resultList := 0, "HRESULT")
+        result := ComCall(50, this, "ptr", tagName, "ptr*", &resultList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNodeList(resultList)
     }
 
     /**
+     * Normalizes the specified floating-point vector according to x / length(x).
+     * @remarks
+     * The **normalize** HLSL intrinsic function uses the following formula: *x* / [**length**](dx-graphics-hlsl-length.md)(*x*).
+     * @returns {HRESULT} | Item                                                   | Description                                            |
+     * |--------------------------------------------------------|--------------------------------------------------------|
+     * | <span id="x"></span><span id="X"></span>*x*<br/> | \[in\] The specified floating-point vector.<br/> |
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * The normalized *x* parameter. If the length of the *x* parameter is 0, the result is indefinite.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-normalize
      */
     normalize() {
-        result := ComCall(51, this, "HRESULT")
+        result := ComCall(51, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

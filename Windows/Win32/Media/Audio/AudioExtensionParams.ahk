@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * This structure is passed to the Control Panel Endpoint Extension property page through IShellPropSheetExt::AddPages and is used to create endpoint PropertyPages.
- * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ns-mmdeviceapi-audioextensionparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/ns-mmdeviceapi-audioextensionparams
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -17,9 +18,12 @@ class AudioExtensionParams extends Win32Struct
      * The add page param.
      * @type {LPARAM}
      */
-    AddPageParam {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    AddPageParam{
+        get {
+            if(!this.HasProp("__AddPageParam"))
+                this.__AddPageParam := LPARAM(0, this)
+            return this.__AddPageParam
+        }
     }
 
     /**

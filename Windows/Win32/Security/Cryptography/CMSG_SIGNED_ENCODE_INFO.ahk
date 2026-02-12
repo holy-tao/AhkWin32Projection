@@ -3,7 +3,7 @@
 
 /**
  * Contains information to be passed to CryptMsgOpenToEncode if dwMsgType is CMSG_SIGNED.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_signed_encode_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmsg_signed_encode_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

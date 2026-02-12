@@ -6,12 +6,9 @@
 /**
  * Used to write metadata commands for spatial audio.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Many of the methods provided by this interface are implemented in the inherited <a href="https://docs.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectbase">ISpatialAudioObjectBase</a> interface.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadatacommands
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadatacommands
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -42,10 +39,14 @@ class ISpatialAudioObjectForMetadataCommands extends ISpatialAudioObjectBase{
      * @param {Pointer} valueBuffer The buffer containing the value data for the metadata command.
      * @param {Integer} valueBufferLength The length of the <i>valueBuffer</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadatacommands-writenextmetadatacommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectformetadatacommands-writenextmetadatacommand
      */
     WriteNextMetadataCommand(commandID, valueBuffer, valueBufferLength) {
-        result := ComCall(7, this, "char", commandID, "ptr", valueBuffer, "uint", valueBufferLength, "HRESULT")
+        result := ComCall(7, this, "char", commandID, "ptr", valueBuffer, "uint", valueBufferLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IDCompositionTexture extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSourceRect(sourceRect) {
-        result := ComCall(3, this, "ptr", sourceRect, "HRESULT")
+        result := ComCall(3, this, "ptr", sourceRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,10 +48,14 @@ class IDCompositionTexture extends IUnknown{
      * @returns {HRESULT} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
      * If this function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setcolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setcolorspace
      */
     SetColorSpace(colorSpace) {
-        result := ComCall(4, this, "int", colorSpace, "HRESULT")
+        result := ComCall(4, this, "int", colorSpace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class IDCompositionTexture extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAlphaMode(alphaMode) {
-        result := ComCall(5, this, "int", alphaMode, "HRESULT")
+        result := ComCall(5, this, "int", alphaMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,14 +77,18 @@ class IDCompositionTexture extends IUnknown{
      * 
      * @param {Pointer<Integer>} fenceValue 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} availableFence 
+     * @param {Pointer<Pointer<Pointer<Void>>>} availableFence 
      * @returns {HRESULT} 
      */
     GetAvailableFence(fenceValue, iid, availableFence) {
         fenceValueMarshal := fenceValue is VarRef ? "uint*" : "ptr"
         availableFenceMarshal := availableFence is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, fenceValueMarshal, fenceValue, "ptr", iid, availableFenceMarshal, availableFence, "HRESULT")
+        result := ComCall(6, this, fenceValueMarshal, fenceValue, "ptr", iid, availableFenceMarshal, availableFence, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

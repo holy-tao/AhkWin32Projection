@@ -34,7 +34,11 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * @returns {HRESULT} 
      */
     SetApplicationDesc(pApplicationDesc) {
-        result := ComCall(3, this, "ptr", pApplicationDesc, "HRESULT")
+        result := ComCall(3, this, "ptr", pApplicationDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ID3D12StateObjectDatabase extends IUnknown{
     GetApplicationDesc(CallbackFunc, pContext) {
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(4, this, "ptr", CallbackFunc, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,14 +63,18 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
-     * @param {Integer} Version 
+     * @param {Integer} Version_ 
      * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc 
      * @returns {HRESULT} 
      */
-    StorePipelineStateDesc(pKey, KeySize, Version, pDesc) {
+    StorePipelineStateDesc(pKey, KeySize, Version_, pDesc) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, "HRESULT")
+        result := ComCall(5, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version_, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class ID3D12StateObjectDatabase extends IUnknown{
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, pKeyMarshal, pKey, "uint", KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(6, this, pKeyMarshal, pKey, "uint", KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,17 +102,21 @@ class ID3D12StateObjectDatabase extends IUnknown{
      * 
      * @param {Pointer<Void>} pKey 
      * @param {Integer} KeySize 
-     * @param {Integer} Version 
+     * @param {Integer} Version_ 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
      * @param {Pointer<Void>} pStateObjectToGrowFromKey 
      * @param {Integer} StateObjectToGrowFromKeySize 
      * @returns {HRESULT} 
      */
-    StoreStateObjectDesc(pKey, KeySize, Version, pDesc, pStateObjectToGrowFromKey, StateObjectToGrowFromKeySize) {
+    StoreStateObjectDesc(pKey, KeySize, Version_, pDesc, pStateObjectToGrowFromKey, StateObjectToGrowFromKeySize) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pStateObjectToGrowFromKeyMarshal := pStateObjectToGrowFromKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version, "ptr", pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "HRESULT")
+        result := ComCall(7, this, pKeyMarshal, pKey, "uint", KeySize, "uint", Version_, "ptr", pDesc, pStateObjectToGrowFromKeyMarshal, pStateObjectToGrowFromKey, "uint", StateObjectToGrowFromKeySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +132,11 @@ class ID3D12StateObjectDatabase extends IUnknown{
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, pKeyMarshal, pKey, "uint", KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "HRESULT")
+        result := ComCall(8, this, pKeyMarshal, pKey, "uint", KeySize, "ptr", CallbackFunc, pContextMarshal, pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +149,11 @@ class ID3D12StateObjectDatabase extends IUnknown{
     FindObjectVersion(pKey, KeySize) {
         pKeyMarshal := pKey is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, pKeyMarshal, pKey, "uint", KeySize, "uint*", &pVersion := 0, "HRESULT")
+        result := ComCall(9, this, pKeyMarshal, pKey, "uint", KeySize, "uint*", &pVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVersion
     }
 }

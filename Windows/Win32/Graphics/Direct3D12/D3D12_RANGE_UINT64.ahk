@@ -10,7 +10,7 @@
  *       
  * 
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_subresource_range_uint64">D3D12_SUBRESOURCE_RANGE_UINT64</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_range_uint64
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_range_uint64
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

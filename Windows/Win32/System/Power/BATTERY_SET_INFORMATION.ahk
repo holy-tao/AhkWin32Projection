@@ -5,7 +5,7 @@
  * Contains battery information to be set.
  * @remarks
  * The **BATTERY\_SET\_INFORMATION** structure is a variable-length structure, and you must allocate a buffer of suitable size for the information to be included in the structure.
- * @see https://learn.microsoft.com/windows/win32/Power/battery-set-information-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/battery-set-information-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

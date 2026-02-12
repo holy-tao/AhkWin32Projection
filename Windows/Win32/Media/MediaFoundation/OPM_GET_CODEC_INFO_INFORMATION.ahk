@@ -4,7 +4,7 @@
 
 /**
  * OPM_GET_CODEC_INFO_INFORMATION (opmapi.h) contains the result from an OPM_GET_CODEC_INFO query.
- * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_get_codec_info_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/opmapi/ns-opmapi-opm_get_codec_info_information
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Note  This interface is deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//mmstream/nn-mmstream-istreamsample
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmstream/nn-mmstream-istreamsample
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,49 +32,101 @@ class IStreamSample extends IUnknown{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves a pointer to the media stream object that created the current sample.
+     * @remarks
+     * If successful, this method increments the reference count of the media stream specified by <i>ppMediaStream</i>.
      * @param {Pointer<IMediaStream>} ppMediaStream Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nn-mmstream-imediastream">IMediaStream</a> interface that will point to the media stream that created the current sample.
      * @returns {HRESULT} Returns S_OK if successful or E_POINTER if <i>ppMediaStream</i> is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-istreamsample-getmediastream
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmstream/nf-mmstream-istreamsample-getmediastream
      */
     GetMediaStream(ppMediaStream) {
-        result := ComCall(3, this, "ptr*", ppMediaStream, "HRESULT")
+        result := ComCall(3, this, "ptr*", ppMediaStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the current sample's start and end times. If the sample is updating, this method returns the times after the update completes.
+     * @remarks
+     * For streams that have a clock, the start and end times will be relative to the stream's current time. If the stream doesn't have a clock, the times are media-relative and the current time will be zero.
+     * 
+     * The <i>pCurrentTime</i> parameter enables you to conveniently track the media stream's current time, so you don't have to call <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nf-mmstream-imultimediastream-gettime">IMultiMediaStream::GetTime</a>. Unlike <b>GetTime</b>, however, this method returns S_OK if the stream doesn't have a clock; <b>GetTime</b> returns S_FALSE. The value assigned to <i>pCurrentTime</i> is the same as the value produced by the following code fragment.
+     * 
+     * 
+     * ```cpp
+     * 
+     * IMediaStream *pMediaStream = 0;
+     * hr = pSample->GetMediaStream(&pMediaStream);
+     * if (SUCCEEDED(hr))
+     * {
+     *   IMultiMediaStream *pMultiMediaStream = 0;
+     *   hr = pMediaStream->GetMultiMediaStream(&pMultiMediaStream);
+     *   pMediaStream->Release();
+     *   if (SUCCEEDED(hr))
+     *   {
+     *     STREAM_TIME CurrentTime = 0;
+     *     hr = pMultiMediaStream->GetTime(&CurrentTime);
+     *     pMultiMediaStream->Release();
+     *   }
+     * }
+     * 
+     * ```
      * @param {Pointer<Integer>} pStartTime Pointer to a STREAM_TIME value that will contain the sample's start time.
      * @param {Pointer<Integer>} pEndTime Pointer to a STREAM_TIME value that will contain the sample's end time.
      * @param {Pointer<Integer>} pCurrentTime Pointer to a STREAM_TIMEvalue that will contain the media stream's current media time.
      * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one of the parameters is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-istreamsample-getsampletimes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmstream/nf-mmstream-istreamsample-getsampletimes
      */
     GetSampleTimes(pStartTime, pEndTime, pCurrentTime) {
         pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
         pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
         pCurrentTimeMarshal := pCurrentTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, pCurrentTimeMarshal, pCurrentTime, "HRESULT")
+        result := ComCall(4, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, pCurrentTimeMarshal, pCurrentTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Sets the current sample's start and end times. You can call this method prior to updating the sample.
+     * @remarks
+     * For streams that have a clock, the times must be relative to the stream's current time. If the stream doesn't have a clock, the times should be relative to the media.
+     * 
+     * This method applies only to writable streams.
      * @param {Pointer<Integer>} pStartTime Pointer to a STREAM_TIME value that contains the sample's new start time.
      * @param {Pointer<Integer>} pEndTime Pointer to a STREAM_TIME value that contains the sample's new end time.
      * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one of the parameters is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-istreamsample-setsampletimes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmstream/nf-mmstream-istreamsample-setsampletimes
      */
     SetSampleTimes(pStartTime, pEndTime) {
         pStartTimeMarshal := pStartTime is VarRef ? "int64*" : "ptr"
         pEndTimeMarshal := pEndTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(5, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "HRESULT")
+        result := ComCall(5, this, pStartTimeMarshal, pStartTime, pEndTimeMarshal, pEndTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Performs a synchronous or an asynchronous update on the current sample.
+     * @remarks
+     * This method can be used to perform a synchronous or asynchronous update of a sample. If both <i>hEvent</i> and <i>pfnAPC</i> are <b>NULL</b> then the update will be synchronous unless either of the SSUPDATE_ASYNC or SSUPDATE_CONTINUOUS flags is specified. When a synchronous update returns, the result of the function contains the I/O completion status.
+     * 
+     * You can't specify values for both <i>hEvent</i> and <i>pfnAPC</i>; the method will fail.
+     * 
+     * Asynchronous updates might complete before the update returns; in that case, the return value is S_OK. If you specify an event and the update returns S_OK, this method sets the event on return. If you specify an APC function and the update returns S_OK, the APC will not be queued and the function will not be called.
+     * 
+     * Asynchronous updates that don't complete prior to returning will return a value of MS_S_PENDING.
+     * 
+     * If an application creates multiple streams, it must perform an asynchronous update on each stream. Call <b>WaitForMultipleObjects</b> to wait for each stream update to complete, before making the next update. Otherwise, the application might block.
      * @param {Integer} dwFlags Flag that specifies whether the update is synchronous or asynchronous. The SSUPDATE_ASYNC flag specifies an asynchronous update, which you can set if both <i>hEvent</i> and <i>pfnAPC</i> are <b>NULL</b>. Use SSUPDATE_CONTINUOUS to continuously update the sample until you call the <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nf-mmstream-istreamsample-completionstatus">IStreamSample::CompletionStatus</a> method.
      * @param {HANDLE} hEvent Handle to an event that this method will trigger when the update is complete.
      * @param {Pointer<PAPCFUNC>} pfnAPC Pointer to a Win32 asynchronous procedure call (APC) function that this method will call after it completes the sample update.
@@ -175,12 +227,16 @@ class IStreamSample extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-istreamsample-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmstream/nf-mmstream-istreamsample-update
      */
     Update(dwFlags, hEvent, pfnAPC, dwAPCData) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(6, this, "uint", dwFlags, "ptr", hEvent, "ptr", pfnAPC, "ptr", dwAPCData, "HRESULT")
+        result := ComCall(6, this, "uint", dwFlags, "ptr", hEvent, "ptr", pfnAPC, "ptr", dwAPCData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,10 +328,14 @@ class IStreamSample extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-istreamsample-completionstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmstream/nf-mmstream-istreamsample-completionstatus
      */
     CompletionStatus(dwFlags, dwMilliseconds) {
-        result := ComCall(7, this, "uint", dwFlags, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "uint", dwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

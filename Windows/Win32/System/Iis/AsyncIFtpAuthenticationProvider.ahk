@@ -48,7 +48,11 @@ class AsyncIFtpAuthenticationProvider extends IUnknown{
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszPassword, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +66,11 @@ class AsyncIFtpAuthenticationProvider extends IUnknown{
         ppszCanonicalUserNameMarshal := ppszCanonicalUserName is VarRef ? "ptr*" : "ptr"
         pfAuthenticatedMarshal := pfAuthenticated is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, ppszCanonicalUserNameMarshal, ppszCanonicalUserName, pfAuthenticatedMarshal, pfAuthenticated, "HRESULT")
+        result := ComCall(4, this, ppszCanonicalUserNameMarshal, ppszCanonicalUserName, pfAuthenticatedMarshal, pfAuthenticated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -8,7 +8,7 @@
  * the same values. Use both enumerations with the
  * [EnumerateTraceGuidsEx](/windows/desktop/ETW/enumeratetraceguidsex) function or
  * the [TraceSetInformation](/windows/desktop/ETW/tracesetinformation) function.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ne-evntrace-trace_query_info_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ne-evntrace-trace_query_info_class
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

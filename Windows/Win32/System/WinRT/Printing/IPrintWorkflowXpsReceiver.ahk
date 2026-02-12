@@ -34,7 +34,11 @@ class IPrintWorkflowXpsReceiver extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDocumentSequencePrintTicket(documentSequencePrintTicket) {
-        result := ComCall(3, this, "ptr", documentSequencePrintTicket, "HRESULT")
+        result := ComCall(3, this, "ptr", documentSequencePrintTicket, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IPrintWorkflowXpsReceiver extends IUnknown{
     SetDocumentSequenceUri(documentSequenceUri) {
         documentSequenceUri := documentSequenceUri is String ? StrPtr(documentSequenceUri) : documentSequenceUri
 
-        result := ComCall(4, this, "ptr", documentSequenceUri, "HRESULT")
+        result := ComCall(4, this, "ptr", documentSequenceUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,31 +68,45 @@ class IPrintWorkflowXpsReceiver extends IUnknown{
     AddDocumentData(documentId, documentPrintTicket, documentUri) {
         documentUri := documentUri is String ? StrPtr(documentUri) : documentUri
 
-        result := ComCall(5, this, "uint", documentId, "ptr", documentPrintTicket, "ptr", documentUri, "HRESULT")
+        result := ComCall(5, this, "uint", documentId, "ptr", documentPrintTicket, "ptr", documentUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Initializes a new instance of the [AddPagesEventArgs](addpageseventargs.md) class.
      * @param {Integer} documentId 
      * @param {Integer} pageId 
      * @param {IXpsOMPageReference} pageReference 
      * @param {PWSTR} pageUri 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.printing.addpageseventargs.#ctor
      */
     AddPage(documentId, pageId, pageReference, pageUri) {
         pageUri := pageUri is String ? StrPtr(pageUri) : pageUri
 
-        result := ComCall(6, this, "uint", documentId, "uint", pageId, "ptr", pageReference, "ptr", pageUri, "HRESULT")
+        result := ComCall(6, this, "uint", documentId, "uint", pageId, "ptr", pageReference, "ptr", pageUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

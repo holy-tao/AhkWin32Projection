@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\HSTRING.ahk
+#Include ..\..\..\..\Foundation\Collections\IPropertySet.ahk
+#Include ..\..\..\..\Storage\Streams\IPropertySetSerializer.ahk
 #Include .\ROPARAMIIDHANDLE.ahk
+#Include ..\Apis.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -27,32 +31,32 @@ class Metadata {
     static MAX_CONNECTION_NAME => 260
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MAIN_CLR_MODULE_NAME_W => "coreclr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MAIN_CLR_MODULE_NAME_A => "coreclr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MSCOREE_SHIM_W => "mscoree.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MSCOREE_SHIM_A => "mscoree.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_NATIVE_LINK_CUSTOM_VALUE => "COMPLUS_NativeLink"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_NATIVE_LINK_CUSTOM_VALUE_ANSI => "COMPLUS_NativeLink"
 
@@ -62,52 +66,52 @@ class Metadata {
     static COR_NATIVE_LINK_CUSTOM_VALUE_CC => 18
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_BASE_SECURITY_ATTRIBUTE_CLASS => "System.Security.Permissions.SecurityAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_BASE_SECURITY_ATTRIBUTE_CLASS_ANSI => "System.Security.Permissions.SecurityAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_SUPPRESS_UNMANAGED_CODE_CHECK_ATTRIBUTE => "System.Security.SuppressUnmanagedCodeSecurityAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_SUPPRESS_UNMANAGED_CODE_CHECK_ATTRIBUTE_ANSI => "System.Security.SuppressUnmanagedCodeSecurityAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_UNVER_CODE_ATTRIBUTE => "System.Security.UnverifiableCodeAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_UNVER_CODE_ATTRIBUTE_ANSI => "System.Security.UnverifiableCodeAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_REQUIRES_SECOBJ_ATTRIBUTE => "System.Security.DynamicSecurityMethodAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_REQUIRES_SECOBJ_ATTRIBUTE_ANSI => "System.Security.DynamicSecurityMethodAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_COMPILERSERVICE_DISCARDABLEATTRIBUTE => "System.Runtime.CompilerServices.DiscardableAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_COMPILERSERVICE_DISCARDABLEATTRIBUTE_ASNI => "System.Runtime.CompilerServices.DiscardableAttribute"
 
@@ -157,652 +161,652 @@ class Metadata {
     static COR_E_BADIMAGEFORMAT => -2147024885
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FRAMEWORK_REGISTRY_KEY => "Software\Microsoft\.NETFramework"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FRAMEWORK_REGISTRY_KEY_W => "Software\Microsoft\.NETFramework"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static USER_FRAMEWORK_REGISTRY_KEY => "Software\Microsoft\.NETFramework64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static USER_FRAMEWORK_REGISTRY_KEY_W => "Software\Microsoft\.NETFramework64"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_CTOR_METHOD_NAME => ".ctor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_CTOR_METHOD_NAME_W => ".ctor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_CCTOR_METHOD_NAME => ".cctor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_CCTOR_METHOD_NAME_W => ".cctor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_ENUM_FIELD_NAME => "value__"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_ENUM_FIELD_NAME_W => "value__"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_DELETED_NAME_A => "_Deleted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_DELETED_NAME_W => "_Deleted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_VTABLEGAP_NAME_A => "_VtblGap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COR_VTABLEGAP_NAME_W => "_VtblGap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DISPID_TYPE_W => "System.Runtime.InteropServices.DispIdAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DISPID_TYPE => "System.Runtime.InteropServices.DispIdAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_INTERFACETYPE_TYPE_W => "System.Runtime.InteropServices.InterfaceTypeAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_INTERFACETYPE_TYPE => "System.Runtime.InteropServices.InterfaceTypeAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_CLASSINTERFACE_TYPE_W => "System.Runtime.InteropServices.ClassInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_CLASSINTERFACE_TYPE => "System.Runtime.InteropServices.ClassInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMVISIBLE_TYPE_W => "System.Runtime.InteropServices.ComVisibleAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMVISIBLE_TYPE => "System.Runtime.InteropServices.ComVisibleAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMREGISTERFUNCTION_TYPE_W => "System.Runtime.InteropServices.ComRegisterFunctionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMREGISTERFUNCTION_TYPE => "System.Runtime.InteropServices.ComRegisterFunctionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMUNREGISTERFUNCTION_TYPE_W => "System.Runtime.InteropServices.ComUnregisterFunctionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMUNREGISTERFUNCTION_TYPE => "System.Runtime.InteropServices.ComUnregisterFunctionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IMPORTEDFROMTYPELIB_TYPE_W => "System.Runtime.InteropServices.ImportedFromTypeLibAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IMPORTEDFROMTYPELIB_TYPE => "System.Runtime.InteropServices.ImportedFromTypeLibAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_PRIMARYINTEROPASSEMBLY_TYPE_W => "System.Runtime.InteropServices.PrimaryInteropAssemblyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_PRIMARYINTEROPASSEMBLY_TYPE => "System.Runtime.InteropServices.PrimaryInteropAssemblyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IDISPATCHIMPL_TYPE_W => "System.Runtime.InteropServices.IDispatchImplAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IDISPATCHIMPL_TYPE => "System.Runtime.InteropServices.IDispatchImplAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMSOURCEINTERFACES_TYPE_W => "System.Runtime.InteropServices.ComSourceInterfacesAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMSOURCEINTERFACES_TYPE => "System.Runtime.InteropServices.ComSourceInterfacesAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMDEFAULTINTERFACE_TYPE_W => "System.Runtime.InteropServices.ComDefaultInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMDEFAULTINTERFACE_TYPE => "System.Runtime.InteropServices.ComDefaultInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMCONVERSIONLOSS_TYPE_W => "System.Runtime.InteropServices.ComConversionLossAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMCONVERSIONLOSS_TYPE => "System.Runtime.InteropServices.ComConversionLossAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_BESTFITMAPPING_TYPE_W => "System.Runtime.InteropServices.BestFitMappingAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_BESTFITMAPPING_TYPE => "System.Runtime.InteropServices.BestFitMappingAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBTYPE_TYPE_W => "System.Runtime.InteropServices.TypeLibTypeAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBTYPE_TYPE => "System.Runtime.InteropServices.TypeLibTypeAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBFUNC_TYPE_W => "System.Runtime.InteropServices.TypeLibFuncAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBFUNC_TYPE => "System.Runtime.InteropServices.TypeLibFuncAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBVAR_TYPE_W => "System.Runtime.InteropServices.TypeLibVarAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBVAR_TYPE => "System.Runtime.InteropServices.TypeLibVarAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_MARSHALAS_TYPE_W => "System.Runtime.InteropServices.MarshalAsAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_MARSHALAS_TYPE => "System.Runtime.InteropServices.MarshalAsAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMIMPORT_TYPE_W => "System.Runtime.InteropServices.ComImportAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMIMPORT_TYPE => "System.Runtime.InteropServices.ComImportAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_GUID_TYPE_W => "System.Runtime.InteropServices.GuidAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_GUID_TYPE => "System.Runtime.InteropServices.GuidAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DEFAULTMEMBER_TYPE_W => "System.Reflection.DefaultMemberAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DEFAULTMEMBER_TYPE => "System.Reflection.DefaultMemberAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMEMULATE_TYPE_W => "System.Runtime.InteropServices.ComEmulateAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMEMULATE_TYPE => "System.Runtime.InteropServices.ComEmulateAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_PRESERVESIG_TYPE_W => "System.Runtime.InteropServices.PreserveSigAttribure"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_PRESERVESIG_TYPE => "System.Runtime.InteropServices.PreserveSigAttribure"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IN_TYPE_W => "System.Runtime.InteropServices.InAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IN_TYPE => "System.Runtime.InteropServices.InAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_OUT_TYPE_W => "System.Runtime.InteropServices.OutAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_OUT_TYPE => "System.Runtime.InteropServices.OutAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMALIASNAME_TYPE_W => "System.Runtime.InteropServices.ComAliasNameAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMALIASNAME_TYPE => "System.Runtime.InteropServices.ComAliasNameAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_PARAMARRAY_TYPE_W => "System.ParamArrayAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_PARAMARRAY_TYPE => "System.ParamArrayAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_LCIDCONVERSION_TYPE_W => "System.Runtime.InteropServices.LCIDConversionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_LCIDCONVERSION_TYPE => "System.Runtime.InteropServices.LCIDConversionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMSUBSTITUTABLEINTERFACE_TYPE_W => "System.Runtime.InteropServices.ComSubstitutableInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMSUBSTITUTABLEINTERFACE_TYPE => "System.Runtime.InteropServices.ComSubstitutableInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DECIMALVALUE_TYPE_W => "System.Runtime.CompilerServices.DecimalConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DECIMALVALUE_TYPE => "System.Runtime.CompilerServices.DecimalConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DATETIMEVALUE_TYPE_W => "System.Runtime.CompilerServices.DateTimeConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_DATETIMEVALUE_TYPE => "System.Runtime.CompilerServices.DateTimeConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IUNKNOWNVALUE_TYPE_W => "System.Runtime.CompilerServices.IUnknownConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IUNKNOWNVALUE_TYPE => "System.Runtime.CompilerServices.IUnknownConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IDISPATCHVALUE_TYPE_W => "System.Runtime.CompilerServices.IDispatchConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_IDISPATCHVALUE_TYPE => "System.Runtime.CompilerServices.IDispatchConstantAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_AUTOPROXY_TYPE_W => "System.Runtime.InteropServices.AutomationProxyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_AUTOPROXY_TYPE => "System.Runtime.InteropServices.AutomationProxyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBIMPORTCLASS_TYPE_W => "System.Runtime.InteropServices.TypeLibImportClassAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBIMPORTCLASS_TYPE => "System.Runtime.InteropServices.TypeLibImportClassAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBVERSION_TYPE_W => "System.Runtime.InteropServices.TypeLibVersionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_TYPELIBVERSION_TYPE => "System.Runtime.InteropServices.TypeLibVersionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMCOMPATIBLEVERSION_TYPE_W => "System.Runtime.InteropServices.ComCompatibleVersionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMCOMPATIBLEVERSION_TYPE => "System.Runtime.InteropServices.ComCompatibleVersionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMEVENTINTERFACE_TYPE_W => "System.Runtime.InteropServices.ComEventInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COMEVENTINTERFACE_TYPE => "System.Runtime.InteropServices.ComEventInterfaceAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COCLASS_TYPE_W => "System.Runtime.InteropServices.CoClassAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_COCLASS_TYPE => "System.Runtime.InteropServices.CoClassAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_SERIALIZABLE_TYPE_W => "System.SerializableAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_SERIALIZABLE_TYPE => "System.SerializableAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_SETWIN32CONTEXTINIDISPATCHATTRIBUTE_TYPE_W => "System.Runtime.InteropServices.SetWin32ContextInIDispatchAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static INTEROP_SETWIN32CONTEXTINIDISPATCHATTRIBUTE_TYPE => "System.Runtime.InteropServices.SetWin32ContextInIDispatchAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FORWARD_INTEROP_STUB_METHOD_TYPE_W => "System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FORWARD_INTEROP_STUB_METHOD_TYPE => "System.Runtime.InteropServices.ManagedToNativeComInteropStubAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FRIEND_ASSEMBLY_TYPE_W => "System.Runtime.CompilerServices.InternalsVisibleToAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FRIEND_ASSEMBLY_TYPE => "System.Runtime.CompilerServices.InternalsVisibleToAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FRIEND_ACCESS_ALLOWED_ATTRIBUTE_TYPE_W => "System.Runtime.CompilerServices.FriendAccessAllowedAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FRIEND_ACCESS_ALLOWED_ATTRIBUTE_TYPE => "System.Runtime.CompilerServices.FriendAccessAllowedAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SUBJECT_ASSEMBLY_TYPE_W => "System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SUBJECT_ASSEMBLY_TYPE => "System.Runtime.CompilerServices.IgnoresAccessChecksToAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DISABLED_PRIVATE_REFLECTION_TYPE_W => "System.Runtime.CompilerServices.DisablePrivateReflectionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DISABLED_PRIVATE_REFLECTION_TYPE => "System.Runtime.CompilerServices.DisablePrivateReflectionAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDOMAIN_STA_TYPE_W => "System.STAThreadAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDOMAIN_STA_TYPE => "System.STAThreadAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDOMAIN_MTA_TYPE_W => "System.MTAThreadAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDOMAIN_MTA_TYPE => "System.MTAThreadAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDOMAIN_LOADEROPTIMIZATION_TYPE_W => "System.LoaderOptimizationAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDOMAIN_LOADEROPTIMIZATION_TYPE => "System.LoaderOptimizationAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NONVERSIONABLE_TYPE_W => "System.Runtime.Versioning.NonVersionableAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NONVERSIONABLE_TYPE => "System.Runtime.Versioning.NonVersionableAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COMPILATIONRELAXATIONS_TYPE_W => "System.Runtime.CompilerServices.CompilationRelaxationsAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COMPILATIONRELAXATIONS_TYPE => "System.Runtime.CompilerServices.CompilationRelaxationsAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RUNTIMECOMPATIBILITY_TYPE_W => "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RUNTIMECOMPATIBILITY_TYPE => "System.Runtime.CompilerServices.RuntimeCompatibilityAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDEPENDENCY_TYPE_W => "System.Runtime.CompilerServices.DefaultDependencyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEFAULTDEPENDENCY_TYPE => "System.Runtime.CompilerServices.DefaultDependencyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEPENDENCY_TYPE_W => "System.Runtime.CompilerServices.DependencyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEPENDENCY_TYPE => "System.Runtime.CompilerServices.DependencyAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TARGET_FRAMEWORK_TYPE_W => "System.Runtime.Versioning.TargetFrameworkAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TARGET_FRAMEWORK_TYPE => "System.Runtime.Versioning.TargetFrameworkAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ASSEMBLY_METADATA_TYPE_W => "System.Reflection.AssemblyMetadataAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ASSEMBLY_METADATA_TYPE => "System.Reflection.AssemblyMetadataAttribute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMOD_CALLCONV_NAMESPACE_OLD => "System.Runtime.InteropServices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMOD_CALLCONV_NAMESPACE => "System.Runtime.CompilerServices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMOD_CALLCONV_NAME_CDECL => "CallConvCdecl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMOD_CALLCONV_NAME_STDCALL => "CallConvStdcall"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMOD_CALLCONV_NAME_THISCALL => "CallConvThiscall"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMOD_CALLCONV_NAME_FASTCALL => "CallConvFastcall"
 
@@ -984,7 +988,7 @@ class Metadata {
      * @returns {Pointer<Void>} Type: <b>LPVOID*</b>
      * 
      * The dispenser class. The class implements <b>IMetaDataDispenser</b> or <b>IMetaDataDispenserEx.</b>
-     * @see https://learn.microsoft.com/windows/win32/api/rometadata/nf-rometadata-metadatagetdispenser
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadata/nf-rometadata-metadatagetdispenser
      * @since windows8.0
      */
     static MetaDataGetDispenser(rclsid, riid) {
@@ -1203,7 +1207,7 @@ class Metadata {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-rogetmetadatafile
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataresolution/nf-rometadataresolution-rogetmetadatafile
      * @since windows8.0
      */
     static RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
@@ -1390,7 +1394,7 @@ class Metadata {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roparsetypename
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataresolution/nf-rometadataresolution-roparsetypename
      * @since windows8.0
      */
     static RoParseTypeName(typeName, partsCount, typeNameParts) {
@@ -1493,7 +1497,7 @@ class Metadata {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roresolvenamespace
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataresolution/nf-rometadataresolution-roresolvenamespace
      * @since windows8.0
      */
     static RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packageGraphDirs, metaDataFilePathsCount, metaDataFilePaths, subNamespacesCount, subNamespaces) {
@@ -1529,7 +1533,7 @@ class Metadata {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roisapicontractpresent
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataresolution/nf-rometadataresolution-roisapicontractpresent
      * @since windows10.0.10240
      */
     static RoIsApiContractPresent(name, majorVersion, minorVersion) {
@@ -1556,7 +1560,7 @@ class Metadata {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @see https://learn.microsoft.com/windows/win32/api/rometadataresolution/nf-rometadataresolution-roisapicontractmajorversionpresent
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataresolution/nf-rometadataresolution-roisapicontractmajorversionpresent
      * @since windows10.0.10240
      */
     static RoIsApiContractMajorVersionPresent(name, majorVersion) {
@@ -1572,7 +1576,7 @@ class Metadata {
 
     /**
      * 
-     * @returns {Pointer<Pointer<IPropertySet>>} 
+     * @returns {Pointer<IPropertySet>} 
      */
     static RoCreateNonAgilePropertySet() {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr*", &ppPropertySet := 0, "int")
@@ -1585,7 +1589,7 @@ class Metadata {
 
     /**
      * 
-     * @returns {Pointer<Pointer<IPropertySetSerializer>>} 
+     * @returns {Pointer<IPropertySetSerializer>} 
      */
     static RoCreatePropertySetSerializer() {
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr*", &ppPropertySetSerializer := 0, "int")
@@ -1630,7 +1634,7 @@ class Metadata {
      * @returns {ROPARAMIIDHANDLE} Type: <b>ROPARAMIIDHANDLE*</b>
      * 
      * Handle to the IID that corresponds with <i>nameElements</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-rogetparameterizedtypeinstanceiid
+     * @see https://learn.microsoft.com/windows/win32/api//content/roparameterizediid/nf-roparameterizediid-rogetparameterizedtypeinstanceiid
      * @since windows8.0
      */
     static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid) {
@@ -1651,7 +1655,7 @@ class Metadata {
      * 
      * A handle to the IID.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-rofreeparameterizedtypeextra
+     * @see https://learn.microsoft.com/windows/win32/api//content/roparameterizediid/nf-roparameterizediid-rofreeparameterizedtypeextra
      * @since windows8.0
      */
     static RoFreeParameterizedTypeExtra(extra) {
@@ -1668,7 +1672,7 @@ class Metadata {
      * @returns {PSTR} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/nf-roparameterizediid-roparameterizedtypeextragettypesignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/roparameterizediid/nf-roparameterizediid-roparameterizedtypeextragettypesignature
      * @since windows8.0
      */
     static RoParameterizedTypeExtraGetTypeSignature(extra) {

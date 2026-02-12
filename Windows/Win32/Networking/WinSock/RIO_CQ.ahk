@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Win32Handle.ahk
 
 /**
  * Specifies a completion queue descriptor used for I/O completion notification by send and receive requests with the Winsock registered I/O extensions.
@@ -26,15 +27,21 @@
  * When a completion queue is no longer needed, an application can close it using the [**RIOCloseCompletionQueue**](/previous-versions/windows/desktop/legacy/hh448837(v=vs.85)) function.
  * 
  * The **RIO\_CQ** typedef is defined in the *Mswsockdef.h* header file which is automatically included in the *Mswsock.h* header file. The *Mswsockdef.h* header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/WinSock/riocqueue
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WinSock/riocqueue
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class RIO_CQ extends Win32Struct
+class RIO_CQ extends Win32Handle
 {
     static sizeof => 8
 
     static packingSize => 8
+
+    /**
+     * The list of values which indicate that the handle is invalid
+     * @type {Array<Integer>}
+     */
+    static invalidValues => []
 
     /**
      * @type {Pointer}

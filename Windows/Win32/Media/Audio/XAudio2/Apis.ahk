@@ -3,6 +3,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IXAudio2.ahk
 #Include .\IXAPO.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
@@ -198,32 +200,32 @@ class XAudio2 {
     static FXECHO_DEFAULT_DELAY => 500
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XAUDIO2_DLL_A => "xaudio2_9.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XAUDIO2_DLL_W => "xaudio2_9.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XAUDIO2D_DLL_A => "xaudio2_9d.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XAUDIO2D_DLL_W => "xaudio2_9d.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XAUDIO2_DLL => "xaudio2_9.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XAUDIO2D_DLL => "xaudio2_9d.dll"
 
@@ -1151,7 +1153,7 @@ class XAudio2 {
      * @param {Pointer} pInitDat 
      * @param {Integer} InitDataByteSize Size of <i>pInitData</i> in bytes. This is zero if <i>pInitData</i> is <b>NULL</b>.
      * @returns {IUnknown} Receives a pointer to the created XAPO instance. If <b>CreateFX</b> fails, <i>pEffect </i> is untouched.
-     * @see https://learn.microsoft.com/windows/win32/api/xapofx/nf-xapofx-createfx
+     * @see https://learn.microsoft.com/windows/win32/api//content/xapofx/nf-xapofx-createfx
      */
     static CreateFX(clsid, pInitDat, InitDataByteSize) {
         result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr*", &pEffect := 0, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
@@ -1221,7 +1223,7 @@ class XAudio2 {
      * Windows 10 (XAudio2.9);
      * @param {Pointer<HrtfApoInit>} init Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/ns-hrtfapoapi-hrtfapoinit">HrtfApoInit</a> struct. Specifies parameters for XAPO interface initialization.
      * @returns {Pointer<IXAPO>} The new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nn-xapo-ixapo">IXAPO</a> interface.
-     * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-createhrtfapo
+     * @see https://learn.microsoft.com/windows/win32/api//content/hrtfapoapi/nf-hrtfapoapi-createhrtfapo
      */
     static CreateHrtfApo(init) {
         result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr*", &xApo := 0, "int")

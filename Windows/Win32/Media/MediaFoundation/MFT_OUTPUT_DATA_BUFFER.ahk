@@ -61,7 +61,7 @@
  * Any other combinations are invalid and cause <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> to return E_INVALIDARG.
  * 
  * Each call to <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processoutput">ProcessOutput</a> can produce zero or more events and up to one sample per output stream.
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-mft_output_data_buffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/mftransform/ns-mftransform-mft_output_data_buffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

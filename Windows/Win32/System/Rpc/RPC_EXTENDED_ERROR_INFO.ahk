@@ -13,7 +13,7 @@
  * 
  * The 
  * <b>RPC_EXTENDED_ERROR_INFO</b> structure is used in conjunction with the <b>RpcError</b>* functions to investigate and create extended RPC error information.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_extended_error_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcasync/ns-rpcasync-rpc_extended_error_info
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

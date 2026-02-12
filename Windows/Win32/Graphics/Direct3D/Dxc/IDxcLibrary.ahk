@@ -38,7 +38,11 @@ class IDxcLibrary extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMalloc(pMalloc) {
-        result := ComCall(3, this, "ptr", pMalloc, "HRESULT")
+        result := ComCall(3, this, "ptr", pMalloc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,101 +51,137 @@ class IDxcLibrary extends IUnknown{
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
-     * @returns {IDxcBlob} 
+     * @returns {Pointer<IDxcBlob>} 
      */
     CreateBlobFromBlob(pBlob, offset, length) {
-        result := ComCall(4, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcBlob(ppResult)
+        result := ComCall(4, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<Integer>} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     CreateBlobFromFile(pFileName, codePage) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
         codePageMarshal := codePage is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pFileName, codePageMarshal, codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(pBlobEncoding)
+        result := ComCall(5, this, "ptr", pFileName, codePageMarshal, codePage, "ptr*", &pBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pBlobEncoding
     }
 
     /**
      * 
      * @param {Pointer} pText 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Integer} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
-    CreateBlobWithEncodingFromPinned(pText, size, codePage) {
-        result := ComCall(6, this, "ptr", pText, "uint", size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(pBlobEncoding)
+    CreateBlobWithEncodingFromPinned(pText, size_, codePage) {
+        result := ComCall(6, this, "ptr", pText, "uint", size_, "uint", codePage, "ptr*", &pBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pBlobEncoding
     }
 
     /**
      * 
      * @param {Pointer} pText 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Integer} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
-    CreateBlobWithEncodingOnHeapCopy(pText, size, codePage) {
-        result := ComCall(7, this, "ptr", pText, "uint", size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(pBlobEncoding)
+    CreateBlobWithEncodingOnHeapCopy(pText, size_, codePage) {
+        result := ComCall(7, this, "ptr", pText, "uint", size_, "uint", codePage, "ptr*", &pBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pBlobEncoding
     }
 
     /**
      * 
      * @param {Pointer} pText 
      * @param {IMalloc} pIMalloc 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Integer} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
-    CreateBlobWithEncodingOnMalloc(pText, pIMalloc, size, codePage) {
-        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", size, "uint", codePage, "ptr*", &pBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(pBlobEncoding)
+    CreateBlobWithEncodingOnMalloc(pText, pIMalloc, size_, codePage) {
+        result := ComCall(8, this, "ptr", pText, "ptr", pIMalloc, "uint", size_, "uint", codePage, "ptr*", &pBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pBlobEncoding
     }
 
     /**
      * 
-     * @returns {IDxcIncludeHandler} 
+     * @returns {Pointer<IDxcIncludeHandler>} 
      */
     CreateIncludeHandler() {
-        result := ComCall(9, this, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcIncludeHandler(ppResult)
+        result := ComCall(9, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @returns {IStream} 
+     * @returns {Pointer<IStream>} 
      */
     CreateStreamFromBlobReadOnly(pBlob) {
-        result := ComCall(10, this, "ptr", pBlob, "ptr*", &ppStream := 0, "HRESULT")
-        return IStream(ppStream)
+        result := ComCall(10, this, "ptr", pBlob, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppStream
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     GetBlobAsUtf8(pBlob) {
-        result := ComCall(11, this, "ptr", pBlob, "ptr*", &pBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(pBlobEncoding)
+        result := ComCall(11, this, "ptr", pBlob, "ptr*", &pBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pBlobEncoding
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     GetBlobAsWide(pBlob) {
-        result := ComCall(12, this, "ptr", pBlob, "ptr*", &pBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(pBlobEncoding)
+        result := ComCall(12, this, "ptr", pBlob, "ptr*", &pBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pBlobEncoding
     }
 }

@@ -117,7 +117,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdowna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-initiatesystemshutdowna
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
@@ -175,7 +175,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdownw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-initiatesystemshutdownw
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
@@ -212,7 +212,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-abortsystemshutdowna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-abortsystemshutdowna
      * @since windows5.1.2600
      */
     static AbortSystemShutdownA(lpMachineName) {
@@ -248,7 +248,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-abortsystemshutdownw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-abortsystemshutdownw
      * @since windows5.1.2600
      */
     static AbortSystemShutdownW(lpMachineName) {
@@ -325,7 +325,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdownexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-initiatesystemshutdownexa
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
@@ -403,7 +403,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiatesystemshutdownexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-initiatesystemshutdownexw
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
@@ -655,7 +655,7 @@ class Shutdown {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiateshutdowna
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-initiateshutdowna
      * @since windows6.0.6000
      */
     static InitiateShutdownA(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
@@ -901,7 +901,7 @@ class Shutdown {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winreg/nf-winreg-initiateshutdownw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winreg/nf-winreg-initiateshutdownw
      * @since windows6.0.6000
      */
     static InitiateShutdownW(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
@@ -963,7 +963,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-exitwindowsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-exitwindowsex
      * @since windows5.1.2600
      */
     static ExitWindowsEx(uFlags, dwReason) {
@@ -990,7 +990,7 @@ class Shutdown {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-lockworkstation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-lockworkstation
      * @since windows5.1.2600
      */
     static LockWorkStation() {
@@ -1012,22 +1012,22 @@ class Shutdown {
      * Applications should call this function as they begin an operation that cannot be interrupted, such as burning a CD or DVD. When the operation has completed, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasondestroy">ShutdownBlockReasonDestroy</a> function to indicate that the system can be shut down.
      * 
      * Because users are typically in a hurry when shutting down the system, they may spend only  a few seconds looking at the shutdown reasons that are displayed by the system. Therefore, it is important that your reason strings are short and clear. For example "A CD burn is in progress." is better than "This application is blocking system shutdown because a CD burn is in progress. Do not shut down."
-     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {HWND} hWnd_ A handle to the main window of the application.
      * @param {PWSTR} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasoncreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-shutdownblockreasoncreate
      * @since windows6.0.6000
      */
-    static ShutdownBlockReasonCreate(hWnd, pwszReason) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShutdownBlockReasonCreate(hWnd_, pwszReason) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pwszReason := pwszReason is String ? StrPtr(pwszReason) : pwszReason
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonCreate", "ptr", hWnd, "ptr", pwszReason, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonCreate", "ptr", hWnd_, "ptr", pwszReason, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1039,25 +1039,25 @@ class Shutdown {
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
      * @remarks
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
-     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {HWND} hWnd_ A handle to the main window of the application.
      * @param {PWSTR} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
      * @param {Pointer<Integer>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasonquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-shutdownblockreasonquery
      * @since windows6.0.6000
      */
-    static ShutdownBlockReasonQuery(hWnd, pwszBuff, pcchBuff) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShutdownBlockReasonQuery(hWnd_, pwszBuff, pcchBuff) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
         pcchBuffMarshal := pcchBuff is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd, "ptr", pwszBuff, pcchBuffMarshal, pcchBuff, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonQuery", "ptr", hWnd_, "ptr", pwszBuff, pcchBuffMarshal, pcchBuff, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1071,20 +1071,20 @@ class Shutdown {
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
      * 
      * If system shutdown has been previously blocked by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasoncreate">ShutdownBlockReasonCreate</a> function, this function frees the reason string. Otherwise, this function is a no-op.
-     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {HWND} hWnd_ A handle to the main window of the application.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-shutdownblockreasondestroy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-shutdownblockreasondestroy
      * @since windows6.0.6000
      */
-    static ShutdownBlockReasonDestroy(hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShutdownBlockReasonDestroy(hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\ShutdownBlockReasonDestroy", "ptr", hWnd, "int")
+        result := DllCall("USER32.dll\ShutdownBlockReasonDestroy", "ptr", hWnd_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }

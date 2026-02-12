@@ -7,10 +7,8 @@
 /**
  * Extends the capabilities of IShellView2 by providing a method to replace IShellView2::CreateViewWindow2.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview2">IShellView2</a> interfaces, from which it inherits.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ishellview3
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ishellview3
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -64,11 +62,15 @@ class IShellView3 extends IShellView2{
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A value that receives a pointer to the handle of the new Shell view window.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ishellview3-createviewwindow3
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ishellview3-createviewwindow3
      */
     CreateViewWindow3(psbOwner, psvPrev, dwViewFlags, dwMask, dwFlags, fvMode, pvid, prcView) {
         phwndView := HWND()
-        result := ComCall(20, this, "ptr", psbOwner, "ptr", psvPrev, "uint", dwViewFlags, "int", dwMask, "int", dwFlags, "int", fvMode, "ptr", pvid, "ptr", prcView, "ptr", phwndView, "HRESULT")
+        result := ComCall(20, this, "ptr", psbOwner, "ptr", psvPrev, "uint", dwViewFlags, "int", dwMask, "int", dwFlags, "int", fvMode, "ptr", pvid, "ptr", prcView, "ptr", phwndView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phwndView
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -340,7 +342,7 @@ class Rras {
     static RASIKEv2_AUTH_PSK => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDIALEVENT => "RasDialEvent"
 
@@ -790,72 +792,72 @@ class Rras {
     static RASFP_Ras => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Modem => "modem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Isdn => "isdn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_X25 => "x25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Vpn => "vpn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Pad => "pad"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Generic => "GENERIC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Serial => "SERIAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_FrameRelay => "FRAMERELAY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Atm => "ATM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Sonet => "SONET"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_SW56 => "SW56"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Irda => "IRDA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_Parallel => "PARALLEL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RASDT_PPPoE => "PPPoE"
 
@@ -1170,7 +1172,7 @@ class Rras {
     static RASDDFLAG_LinkFailure => 2147483648
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RRAS_SERVICE_NAME => "RemoteAccess"
 
@@ -1425,67 +1427,67 @@ class Rras {
     static MPRNP_Ipv6 => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Modem => "modem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Isdn => "isdn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_X25 => "x25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Vpn => "vpn"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Pad => "pad"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Generic => "GENERIC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Serial => "SERIAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_FrameRelay => "FRAMERELAY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Atm => "ATM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Sonet => "SONET"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_SW56 => "SW56"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Irda => "IRDA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MPRDT_Parallel => "PARALLEL"
 
@@ -3693,7 +3695,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdiala
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasdiala
      * @since windows5.0
      */
     static RasDialA(param0, param1, param2, param3, param4, param5) {
@@ -3782,7 +3784,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and a handle to the RAS connection is returned in the variable pointed to by <i>lphRasConn</i>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasdialw
      * @since windows5.0
      */
     static RasDialW(param0, param1, param2, param3, param4, param5) {
@@ -3827,7 +3829,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumconnectionsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumconnectionsa
      * @since windows5.0
      */
     static RasEnumConnectionsA(param0, param1, param2) {
@@ -3871,7 +3873,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumconnectionsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumconnectionsw
      * @since windows5.0
      */
     static RasEnumConnectionsW(param0, param1, param2) {
@@ -3945,7 +3947,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumentriesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumentriesa
      * @since windows5.0
      */
     static RasEnumEntriesA(param0, param1, param2, param3, param4) {
@@ -4022,7 +4024,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumentriesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumentriesw
      * @since windows5.0
      */
     static RasEnumEntriesW(param0, param1, param2, param3, param4) {
@@ -4075,7 +4077,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetconnectstatusa
      * @since windows5.0
      */
     static RasGetConnectStatusA(param0, param1) {
@@ -4124,7 +4126,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetconnectstatusw
      * @since windows5.0
      */
     static RasGetConnectStatusW(param0, param1) {
@@ -4165,7 +4167,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeterrorstringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgeterrorstringa
      * @since windows5.0
      */
     static RasGetErrorStringA(ResourceId, lpszString, InBufSize) {
@@ -4206,7 +4208,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeterrorstringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgeterrorstringw
      * @since windows5.0
      */
     static RasGetErrorStringW(ResourceId, lpszString, InBufSize) {
@@ -4266,7 +4268,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rashangupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rashangupa
      * @since windows5.0
      */
     static RasHangUpA(param0) {
@@ -4326,7 +4328,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rashangupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rashangupw
      * @since windows5.0
      */
     static RasHangUpW(param0) {
@@ -4423,7 +4425,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetprojectioninfoa
      * @since windows5.0
      */
     static RasGetProjectionInfoA(param0, param1, param2, param3) {
@@ -4523,7 +4525,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetprojectioninfow
      * @since windows5.0
      */
     static RasGetProjectionInfoW(param0, param1, param2, param3) {
@@ -4575,7 +4577,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rascreatephonebookentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rascreatephonebookentrya
      * @since windows5.0
      */
     static RasCreatePhonebookEntryA(param0, param1) {
@@ -4625,7 +4627,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rascreatephonebookentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rascreatephonebookentryw
      * @since windows5.0
      */
     static RasCreatePhonebookEntryW(param0, param1) {
@@ -4697,7 +4699,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-raseditphonebookentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-raseditphonebookentrya
      * @since windows5.0
      */
     static RasEditPhonebookEntryA(param0, param1, param2) {
@@ -4770,7 +4772,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-raseditphonebookentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-raseditphonebookentryw
      * @since windows5.0
      */
     static RasEditPhonebookEntryW(param0, param1, param2) {
@@ -4847,7 +4849,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrydialparamsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetentrydialparamsa
      * @since windows5.0
      */
     static RasSetEntryDialParamsA(param0, param1, param2) {
@@ -4922,7 +4924,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrydialparamsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetentrydialparamsw
      * @since windows5.0
      */
     static RasSetEntryDialParamsW(param0, param1, param2) {
@@ -4983,7 +4985,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrydialparamsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetentrydialparamsa
      * @since windows5.0
      */
     static RasGetEntryDialParamsA(param0, param1, param2) {
@@ -5046,7 +5048,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrydialparamsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetentrydialparamsw
      * @since windows5.0
      */
     static RasGetEntryDialParamsW(param0, param1, param2) {
@@ -5125,7 +5127,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumdevicesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumdevicesa
      * @since windows5.0
      */
     static RasEnumDevicesA(param0, param1, param2) {
@@ -5203,7 +5205,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumdevicesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumdevicesw
      * @since windows5.0
      */
     static RasEnumDevicesW(param0, param1, param2) {
@@ -5284,7 +5286,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcountryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetcountryinfoa
      * @since windows5.0
      */
     static RasGetCountryInfoA(param0, param1) {
@@ -5364,7 +5366,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcountryinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetcountryinfow
      * @since windows5.0
      */
     static RasGetCountryInfoW(param0, param1) {
@@ -5450,7 +5452,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetentrypropertiesa
      * @since windows5.0
      */
     static RasGetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
@@ -5541,7 +5543,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetentrypropertiesw
      * @since windows5.0
      */
     static RasGetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
@@ -5646,7 +5648,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetentrypropertiesa
      * @since windows5.0
      */
     static RasSetEntryPropertiesA(param0, param1, param2, param3, param4, param5) {
@@ -5749,7 +5751,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetentrypropertiesw
      * @since windows5.0
      */
     static RasSetEntryPropertiesW(param0, param1, param2, param3, param4, param5) {
@@ -5835,7 +5837,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasrenameentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasrenameentrya
      * @since windows5.0
      */
     static RasRenameEntryA(param0, param1, param2) {
@@ -5920,7 +5922,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasrenameentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasrenameentryw
      * @since windows5.0
      */
     static RasRenameEntryW(param0, param1, param2) {
@@ -5974,7 +5976,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeleteentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasdeleteentrya
      * @since windows5.0
      */
     static RasDeleteEntryA(param0, param1) {
@@ -6027,7 +6029,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeleteentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasdeleteentryw
      * @since windows5.0
      */
     static RasDeleteEntryW(param0, param1) {
@@ -6090,7 +6092,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasvalidateentrynamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasvalidateentrynamea
      * @since windows5.0
      */
     static RasValidateEntryNameA(param0, param1) {
@@ -6153,7 +6155,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasvalidateentrynamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasvalidateentrynamew
      * @since windows5.0
      */
     static RasValidateEntryNameW(param0, param1) {
@@ -6185,7 +6187,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasconnectionnotificationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasconnectionnotificationa
      * @since windows5.0
      */
     static RasConnectionNotificationA(param0, param1, param2) {
@@ -6217,7 +6219,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasconnectionnotificationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasconnectionnotificationw
      * @since windows5.0
      */
     static RasConnectionNotificationW(param0, param1, param2) {
@@ -6295,7 +6297,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentryhandlea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetsubentryhandlea
      * @since windows5.0
      */
     static RasGetSubEntryHandleA(param0, param1, param2) {
@@ -6372,7 +6374,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentryhandlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetsubentryhandlew
      * @since windows5.0
      */
     static RasGetSubEntryHandleW(param0, param1, param2) {
@@ -6473,7 +6475,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetcredentialsa
      * @since windows5.0
      */
     static RasGetCredentialsA(param0, param1, param2) {
@@ -6575,7 +6577,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetcredentialsw
      * @since windows5.0
      */
     static RasGetCredentialsW(param0, param1, param2) {
@@ -6703,7 +6705,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcredentialsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetcredentialsa
      * @since windows5.0
      */
     static RasSetCredentialsA(param0, param1, param2, param3) {
@@ -6831,7 +6833,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcredentialsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetcredentialsw
      * @since windows5.0
      */
     static RasSetCredentialsW(param0, param1, param2, param3) {
@@ -6929,7 +6931,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetsubentrypropertiesa
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
@@ -7031,7 +7033,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetsubentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetsubentrypropertiesw
      * @since windows5.0
      */
     static RasGetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
@@ -7122,7 +7124,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetsubentrypropertiesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetsubentrypropertiesa
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesA(param0, param1, param2, param3, param4, param5, param6) {
@@ -7211,7 +7213,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetsubentrypropertiesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetsubentrypropertiesw
      * @since windows5.0
      */
     static RasSetSubEntryPropertiesW(param0, param1, param2, param3, param4, param5, param6) {
@@ -7307,7 +7309,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialaddressa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetautodialaddressa
      * @since windows5.0
      */
     static RasGetAutodialAddressA(param0, param1, param2, param3, param4) {
@@ -7404,7 +7406,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialaddressw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetautodialaddressw
      * @since windows5.0
      */
     static RasGetAutodialAddressW(param0, param1, param2, param3, param4) {
@@ -7498,7 +7500,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialaddressa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetautodialaddressa
      * @since windows5.0
      */
     static RasSetAutodialAddressA(param0, param1, param2, param3, param4) {
@@ -7588,7 +7590,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialaddressw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetautodialaddressw
      * @since windows5.0
      */
     static RasSetAutodialAddressW(param0, param1, param2, param3, param4) {
@@ -7657,7 +7659,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumautodialaddressesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumautodialaddressesa
      * @since windows5.0
      */
     static RasEnumAutodialAddressesA(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
@@ -7727,7 +7729,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasenumautodialaddressesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasenumautodialaddressesw
      * @since windows5.0
      */
     static RasEnumAutodialAddressesW(lppRasAutodialAddresses, lpdwcbRasAutodialAddresses, lpdwcRasAutodialAddresses) {
@@ -7748,7 +7750,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialenablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetautodialenablea
      * @since windows5.0
      */
     static RasGetAutodialEnableA(param0, param1) {
@@ -7768,7 +7770,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialenablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetautodialenablew
      * @since windows5.0
      */
     static RasGetAutodialEnableW(param0, param1) {
@@ -7788,7 +7790,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialenablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetautodialenablea
      * @since windows5.0
      */
     static RasSetAutodialEnableA(param0, param1) {
@@ -7806,7 +7808,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is a non-zero error code from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialenablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetautodialenablew
      * @since windows5.0
      */
     static RasSetAutodialEnableW(param0, param1) {
@@ -7854,7 +7856,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialparama
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetautodialparama
      * @since windows5.0
      */
     static RasGetAutodialParamA(param0, param1, param2) {
@@ -7905,7 +7907,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetautodialparamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetautodialparamw
      * @since windows5.0
      */
     static RasGetAutodialParamW(param0, param1, param2) {
@@ -7956,7 +7958,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialparama
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetautodialparama
      * @since windows5.0
      */
     static RasSetAutodialParamA(param0, param1, param2) {
@@ -8006,7 +8008,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetautodialparamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetautodialparamw
      * @since windows5.0
      */
     static RasSetAutodialParamW(param0, param1, param2) {
@@ -8079,7 +8081,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasinvokeeapui
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasinvokeeapui
      * @since windows5.0
      */
     static RasInvokeEapUI(param0, param1, param2, param3) {
@@ -8092,7 +8094,7 @@ class Rras {
 
     /**
      * The RasGetLinkStatistics function retrieves accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use 
+     * @param {HRASCONN} hRasConn_ Handle to the connection. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to retrieve statistics.
@@ -8151,19 +8153,19 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetlinkstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetlinkstatistics
      * @since windows5.0
      */
-    static RasGetLinkStatistics(hRasConn, dwSubEntry, lpStatistics) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasGetLinkStatistics(hRasConn_, dwSubEntry, lpStatistics) {
+        hRasConn_ := hRasConn_ is Win32Handle ? NumGet(hRasConn_, "ptr") : hRasConn_
 
-        result := DllCall("RASAPI32.dll\RasGetLinkStatistics", "ptr", hRasConn, "uint", dwSubEntry, "ptr", lpStatistics, "uint")
+        result := DllCall("RASAPI32.dll\RasGetLinkStatistics", "ptr", hRasConn_, "uint", dwSubEntry, "ptr", lpStatistics, "uint")
         return result
     }
 
     /**
      * The RasGetConnectionStatistics function retrieves accumulated connection statistics for the specified connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
+     * @param {HRASCONN} hRasConn_ Handle to the connection. Use <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Pointer<RAS_STATS>} lpStatistics Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_stats">RAS_STATS</a> structure that, on output, receives the statistics. 
      * 
@@ -8218,19 +8220,19 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetconnectionstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetconnectionstatistics
      * @since windows5.0
      */
-    static RasGetConnectionStatistics(hRasConn, lpStatistics) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasGetConnectionStatistics(hRasConn_, lpStatistics) {
+        hRasConn_ := hRasConn_ is Win32Handle ? NumGet(hRasConn_, "ptr") : hRasConn_
 
-        result := DllCall("RASAPI32.dll\RasGetConnectionStatistics", "ptr", hRasConn, "ptr", lpStatistics, "uint")
+        result := DllCall("RASAPI32.dll\RasGetConnectionStatistics", "ptr", hRasConn_, "ptr", lpStatistics, "uint")
         return result
     }
 
     /**
      * The RasClearLinkStatistics functions clears any accumulated statistics for the specified link in a RAS multilink connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use 
+     * @param {HRASCONN} hRasConn_ Handle to the connection. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @param {Integer} dwSubEntry Specifies the subentry that corresponds to the link for which to clear statistics.
@@ -8300,19 +8302,19 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasclearlinkstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasclearlinkstatistics
      * @since windows5.0
      */
-    static RasClearLinkStatistics(hRasConn, dwSubEntry) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasClearLinkStatistics(hRasConn_, dwSubEntry) {
+        hRasConn_ := hRasConn_ is Win32Handle ? NumGet(hRasConn_, "ptr") : hRasConn_
 
-        result := DllCall("RASAPI32.dll\RasClearLinkStatistics", "ptr", hRasConn, "uint", dwSubEntry, "uint")
+        result := DllCall("RASAPI32.dll\RasClearLinkStatistics", "ptr", hRasConn_, "uint", dwSubEntry, "uint")
         return result
     }
 
     /**
      * The RasClearConnectionStatistics functions clears any accumulated statistics for the specified RAS connection.
-     * @param {HRASCONN} hRasConn Handle to the connection. Use 
+     * @param {HRASCONN} hRasConn_ Handle to the connection. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> to obtain this handle.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -8359,13 +8361,13 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasclearconnectionstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasclearconnectionstatistics
      * @since windows5.0
      */
-    static RasClearConnectionStatistics(hRasConn) {
-        hRasConn := hRasConn is Win32Handle ? NumGet(hRasConn, "ptr") : hRasConn
+    static RasClearConnectionStatistics(hRasConn_) {
+        hRasConn_ := hRasConn_ is Win32Handle ? NumGet(hRasConn_, "ptr") : hRasConn_
 
-        result := DllCall("RASAPI32.dll\RasClearConnectionStatistics", "ptr", hRasConn, "uint")
+        result := DllCall("RASAPI32.dll\RasClearConnectionStatistics", "ptr", hRasConn_, "uint")
         return result
     }
 
@@ -8453,7 +8455,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuserdataa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgeteapuserdataa
      * @since windows5.0
      */
     static RasGetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
@@ -8552,7 +8554,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuserdataw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgeteapuserdataw
      * @since windows5.0
      */
     static RasGetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
@@ -8632,7 +8634,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasseteapuserdataa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasseteapuserdataa
      * @since windows5.0
      */
     static RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
@@ -8711,7 +8713,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasseteapuserdataw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasseteapuserdataw
      * @since windows5.0
      */
     static RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
@@ -8808,7 +8810,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcustomauthdataa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetcustomauthdataa
      * @since windows5.0
      */
     static RasGetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
@@ -8904,7 +8906,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetcustomauthdataw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetcustomauthdataw
      * @since windows5.0
      */
     static RasGetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, pdwSizeofCustomAuthData) {
@@ -8983,7 +8985,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcustomauthdataa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetcustomauthdataa
      * @since windows5.0
      */
     static RasSetCustomAuthDataA(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
@@ -9060,7 +9062,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rassetcustomauthdataw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rassetcustomauthdataw
      * @since windows5.0
      */
     static RasSetCustomAuthDataW(pszPhonebook, pszEntry, pbCustomAuthData, dwSizeofCustomAuthData) {
@@ -9133,7 +9135,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
+     * @param {HWND} hwnd_ Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
      * @param {Pointer<Pointer<RASEAPUSERIDENTITYW>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -9206,17 +9208,17 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuseridentityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgeteapuseridentityw
      * @since windows5.0
      */
-    static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
+    static RasGetEapUserIdentityW(pszPhonebook, pszEntry, dwFlags, hwnd_, ppRasEapUserIdentity) {
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityW", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd_, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -9282,7 +9284,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} hwnd Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
+     * @param {HWND} hwnd_ Handle to the parent window for the UI dialog. If the <i>fInvokeUI</i> parameter is <b>FALSE</b>, then <i>hwnd</i> should be <b>NULL</b>.
      * @param {Pointer<Pointer<RASEAPUSERIDENTITYA>>} ppRasEapUserIdentity Pointer to a pointer that, on successful return, receives the address of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377247(v=vs.85)">RASEAPUSERIDENTITY</a> structure that contains EAP user identity information. 
      * <b>RasGetEapUserIdentity</b> allocates the memory buffer for the 
@@ -9355,17 +9357,17 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgeteapuseridentitya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgeteapuseridentitya
      * @since windows5.0
      */
-    static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, hwnd, ppRasEapUserIdentity) {
+    static RasGetEapUserIdentityA(pszPhonebook, pszEntry, dwFlags, hwnd_, ppRasEapUserIdentity) {
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         ppRasEapUserIdentityMarshal := ppRasEapUserIdentity is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
+        result := DllCall("RASAPI32.dll\RasGetEapUserIdentityA", "ptr", pszPhonebook, "ptr", pszEntry, "uint", dwFlags, "ptr", hwnd_, ppRasEapUserIdentityMarshal, ppRasEapUserIdentity, "uint")
         return result
     }
 
@@ -9385,7 +9387,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> function. 
      * <b>RasFreeEapUserIdentity</b> frees the memory occupied by this structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasfreeeapuseridentityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasfreeeapuseridentityw
      * @since windows5.0
      */
     static RasFreeEapUserIdentityW(pRasEapUserIdentity) {
@@ -9408,7 +9410,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasgeteapuseridentitya">RasGetEapUserIdentity</a> function. 
      * <b>RasFreeEapUserIdentity</b> frees the memory occupied by this structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasfreeeapuseridentitya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasfreeeapuseridentitya
      * @since windows5.0
      */
     static RasFreeEapUserIdentityA(pRasEapUserIdentity) {
@@ -9426,7 +9428,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeletesubentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasdeletesubentrya
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryA(pszPhonebook, pszEntry, dwSubentryId) {
@@ -9448,7 +9450,7 @@ class Rras {
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the following error codes or a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasdeletesubentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasdeletesubentryw
      * @since windows5.1.2600
      */
     static RasDeleteSubEntryW(pszPhonebook, pszEntry, dwSubEntryId) {
@@ -9463,20 +9465,20 @@ class Rras {
      * The RasUpdateConnection function updates the tunnel endpoints of an Internet Key Exchange version 2 (IKEv2) connection.
      * @remarks
      * Note that 32-bit applications that call <b>RasUpdateConnection</b> will fail when run on a 64-bit machine. The workaround is to write a 64-bit version of the application for 64-bit machines.
-     * @param {HRASCONN} hrasconn A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
+     * @param {HRASCONN} hrasconn_ A handle to the IKEv2 RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RASUPDATECONN>} lprasupdateconn A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd408110(v=vs.85)">RASUPDATECONN</a> structure that contains the new tunnel endpoints  for the RAS connection specified by <i>hrasconn</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is one of the error codes from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasupdateconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasupdateconnection
      * @since windows6.1
      */
-    static RasUpdateConnection(hrasconn, lprasupdateconn) {
-        hrasconn := hrasconn is Win32Handle ? NumGet(hrasconn, "ptr") : hrasconn
+    static RasUpdateConnection(hrasconn_, lprasupdateconn) {
+        hrasconn_ := hrasconn_ is Win32Handle ? NumGet(hrasconn_, "ptr") : hrasconn_
 
-        result := DllCall("RASAPI32.dll\RasUpdateConnection", "ptr", hrasconn, "ptr", lprasupdateconn, "uint")
+        result := DllCall("RASAPI32.dll\RasUpdateConnection", "ptr", hrasconn_, "ptr", lprasupdateconn, "uint")
         return result
     }
 
@@ -9487,7 +9489,7 @@ class Rras {
      * 
      * Remote access projection information is not available until the operating system has executed the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa376727(v=vs.85)">RASCS_Projected</a> state on the remote access connection. If 
      * <b>RasGetProjectionInfoEx</b> is called prior to the <b>RASCS_Projected</b> state, it returns <b>ERROR_PROJECTION_NOT_COMPLETE</b>.
-     * @param {HRASCONN} hrasconn A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
+     * @param {HRASCONN} hrasconn_ A handle to the RAS connection for which the tunnel endpoints are to be changed. This can be a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasdiala">RasDial</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ras/nf-ras-rasenumconnectionsa">RasEnumConnections</a> function.
      * @param {Pointer<RAS_PROJECTION_INFO>} pRasProjection A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ras/ns-ras-ras_projection_info">RAS_PROJECTION_INFO</a> structure that receives the projection information for the RAS connections.
@@ -9558,15 +9560,15 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ras/nf-ras-rasgetprojectioninfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ras/nf-ras-rasgetprojectioninfoex
      * @since windows6.1
      */
-    static RasGetProjectionInfoEx(hrasconn, pRasProjection, lpdwSize) {
-        hrasconn := hrasconn is Win32Handle ? NumGet(hrasconn, "ptr") : hrasconn
+    static RasGetProjectionInfoEx(hrasconn_, pRasProjection, lpdwSize) {
+        hrasconn_ := hrasconn_ is Win32Handle ? NumGet(hrasconn_, "ptr") : hrasconn_
 
         lpdwSizeMarshal := lpdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", "ptr", hrasconn, "ptr", pRasProjection, lpdwSizeMarshal, lpdwSize, "uint")
+        result := DllCall("RASAPI32.dll\RasGetProjectionInfoEx", "ptr", hrasconn_, "ptr", pRasProjection, lpdwSizeMarshal, lpdwSize, "uint")
         return result
     }
 
@@ -9596,7 +9598,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasphonebookdlga
+     * @see https://learn.microsoft.com/windows/win32/api//content/rasdlg/nf-rasdlg-rasphonebookdlga
      * @since windows5.0
      */
     static RasPhonebookDlgA(lpszPhonebook, lpszEntry, lpInfo) {
@@ -9633,7 +9635,7 @@ class Rras {
      * 
      * 
      * ```cpp
-     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasphonebookdlgw
+     * @see https://learn.microsoft.com/windows/win32/api//content/rasdlg/nf-rasdlg-rasphonebookdlgw
      * @since windows5.0
      */
     static RasPhonebookDlgW(lpszPhonebook, lpszEntry, lpInfo) {
@@ -9676,7 +9678,7 @@ class Rras {
      * 
      *  If an error occurs, <b>RasEntryDlg</b> sets the <b>dwError</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasentrydlga
+     * @see https://learn.microsoft.com/windows/win32/api//content/rasdlg/nf-rasdlg-rasentrydlga
      * @since windows5.0
      */
     static RasEntryDlgA(lpszPhonebook, lpszEntry, lpInfo) {
@@ -9719,7 +9721,7 @@ class Rras {
      * 
      *  If an error occurs, <b>RasEntryDlg</b> sets the <b>dwError</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377260(v=vs.85)">RASENTRYDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasentrydlgw
+     * @see https://learn.microsoft.com/windows/win32/api//content/rasdlg/nf-rasdlg-rasentrydlgw
      * @since windows5.0
      */
     static RasEntryDlgW(lpszPhonebook, lpszEntry, lpInfo) {
@@ -9758,7 +9760,7 @@ class Rras {
      * 
      * If an error occurs, <b>RasDialDlg</b> should set the <b>dwError</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasdialdlga
+     * @see https://learn.microsoft.com/windows/win32/api//content/rasdlg/nf-rasdlg-rasdialdlga
      * @since windows5.0
      */
     static RasDialDlgA(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
@@ -9798,7 +9800,7 @@ class Rras {
      * 
      * If an error occurs, <b>RasDialDlg</b> should set the <b>dwError</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa377023(v=vs.85)">RASDIALDLG</a> structure to a value from <a href="https://docs.microsoft.com/windows/desktop/RRAS/routing-and-remote-access-error-codes">Routing and Remote Access Error Codes</a> or Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/rasdlg/nf-rasdlg-rasdialdlgw
+     * @see https://learn.microsoft.com/windows/win32/api//content/rasdlg/nf-rasdlg-rasdialdlgw
      * @since windows5.0
      */
     static RasDialDlgW(lpszPhonebook, lpszEntry, lpszPhoneNumber, lpInfo) {
@@ -9887,7 +9889,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionenumex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminconnectionenumex
      * @since windows6.1
      */
     static MprAdminConnectionEnumEx(hRasServer, pObjectHeader, dwPreferedMaxLen, lpdwEntriesRead, lpdwTotalEntries, ppRasConn, lpdwResumeHandle) {
@@ -9963,7 +9965,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectiongetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminconnectiongetinfoex
      * @since windows6.1
      */
     static MprAdminConnectionGetInfoEx(hRasServer, hRasConnection, pRasConnection) {
@@ -10022,7 +10024,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminservergetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminservergetinfoex
      * @since windowsserver2008
      */
     static MprAdminServerGetInfoEx(hMprServer, pServerInfo) {
@@ -10078,7 +10080,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserversetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminserversetinfoex
      * @since windowsserver2008
      */
     static MprAdminServerSetInfoEx(hMprServer, pServerInfo) {
@@ -10148,7 +10150,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigservergetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigservergetinfoex
      * @since windowsserver2008
      */
     static MprConfigServerGetInfoEx(hMprConfig, pServerInfo) {
@@ -10220,7 +10222,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserversetinfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserversetinfoex
      * @since windowsserver2008
      */
     static MprConfigServerSetInfoEx(hMprConfig, pSetServerConfig) {
@@ -10318,7 +10320,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminisserviceinitialized
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminisserviceinitialized
      * @since windowsserver2008
      */
     static MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
@@ -10393,7 +10395,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacesetcustominfoex
      * @since windowsserver2012
      */
     static MprAdminInterfaceSetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
@@ -10460,7 +10462,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacegetcustominfoex
      * @since windowsserver2012
      */
     static MprAdminInterfaceGetCustomInfoEx(hMprServer, hInterface, pCustomInfo) {
@@ -10521,7 +10523,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacegetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacegetcustominfoex
      * @since windowsserver2012
      */
     static MprConfigInterfaceGetCustomInfoEx(hMprConfig, hRouterInterface, pCustomInfo) {
@@ -10573,7 +10575,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacesetcustominfoex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacesetcustominfoex
      * @since windowsserver2012
      */
     static MprConfigInterfaceSetCustomInfoEx(hMprConfig, hRouterInterface, pCustomInfo) {
@@ -10707,7 +10709,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminconnectionenum
      * @since windows5.0
      */
     static MprAdminConnectionEnum(hRasServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -10825,7 +10827,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminportenum
      * @since windows5.0
      */
     static MprAdminPortEnum(hRasServer, dwLevel, hRasConnection, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -10948,7 +10950,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectiongetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminconnectiongetinfo
      * @since windows5.0
      */
     static MprAdminConnectionGetInfo(hRasServer, dwLevel, hRasConnection, lplpbBuffer) {
@@ -11074,7 +11076,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminportgetinfo
      * @since windows5.0
      */
     static MprAdminPortGetInfo(hRasServer, dwLevel, hPort, lplpbBuffer) {
@@ -11167,7 +11169,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionclearstats
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminconnectionclearstats
      * @since windows5.0
      */
     static MprAdminConnectionClearStats(hRasServer, hRasConnection) {
@@ -11246,7 +11248,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportclearstats
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminportclearstats
      * @since windows5.0
      */
     static MprAdminPortClearStats(hRasServer, hPort) {
@@ -11325,7 +11327,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportreset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminportreset
      * @since windows5.0
      */
     static MprAdminPortReset(hRasServer, hPort) {
@@ -11405,7 +11407,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminportdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminportdisconnect
      * @since windows5.0
      */
     static MprAdminPortDisconnect(hRasServer, hPort) {
@@ -11474,7 +11476,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminconnectionremovequarantine
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminconnectionremovequarantine
      * @since windows6.0.6000
      */
     static MprAdminConnectionRemoveQuarantine(hRasServer, hRasConnection, fIsIpAddress) {
@@ -11566,7 +11568,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminusergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminusergetinfo
      * @since windows5.0
      */
     static MprAdminUserGetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
@@ -11660,7 +11662,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminusersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminusersetinfo
      * @since windows5.0
      */
     static MprAdminUserSetInfo(lpszServer, lpszUser, dwLevel, lpbBuffer) {
@@ -11734,7 +11736,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminsendusermessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminsendusermessage
      * @since windows5.0
      */
     static MprAdminSendUserMessage(hMprServer, hConnection, lpwszMessage) {
@@ -11800,7 +11802,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmingetpdcserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmingetpdcserver
      * @since windows5.0
      */
     static MprAdminGetPDCServer(lpszDomain, lpszServer, lpszPDCServer) {
@@ -11847,7 +11849,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminisservicerunning
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminisservicerunning
      * @since windowsserver2000
      */
     static MprAdminIsServiceRunning(lpwsServerName) {
@@ -11906,7 +11908,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserverconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminserverconnect
      * @since windowsserver2000
      */
     static MprAdminServerConnect(lpwsServerName, phMprServer) {
@@ -11923,7 +11925,7 @@ class Rras {
      * @param {Pointer} hMprServer Handle to the router from which to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserverdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminserverdisconnect
      * @since windowsserver2000
      */
     static MprAdminServerDisconnect(hMprServer) {
@@ -11994,7 +11996,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminservergetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminservergetcredentials
      * @since windowsserver2003
      */
     static MprAdminServerGetCredentials(hMprServer, dwLevel, lplpbBuffer) {
@@ -12070,7 +12072,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserversetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminserversetcredentials
      * @since windowsserver2003
      */
     static MprAdminServerSetCredentials(hMprServer, dwLevel, lpbBuffer) {
@@ -12104,7 +12106,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminbufferfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminbufferfree
      * @since windowsserver2000
      */
     static MprAdminBufferFree(pBuffer) {
@@ -12155,7 +12157,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmingeterrorstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmingeterrorstring
      * @since windowsserver2000
      */
     static MprAdminGetErrorString(dwError, lplpwsErrorString) {
@@ -12240,7 +12242,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminservergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminservergetinfo
      * @since windowsserver2000
      */
     static MprAdminServerGetInfo(hMprServer, dwLevel, lplpbBuffer) {
@@ -12369,7 +12371,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminserversetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminserversetinfo
      * @since windowsserver2003
      */
     static MprAdminServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
@@ -12438,7 +12440,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminestablishdomainrasserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminestablishdomainrasserver
      * @since windowsserver2003
      */
     static MprAdminEstablishDomainRasServer(pszDomain, pszMachine, bEnable) {
@@ -12510,7 +12512,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminisdomainrasserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminisdomainrasserver
      * @since windowsserver2003
      */
     static MprAdminIsDomainRasServer(pszDomain, pszMachine, pbIsRasServer) {
@@ -12632,7 +12634,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmintransportcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmintransportcreate
      * @since windowsserver2000
      */
     static MprAdminTransportCreate(hMprServer, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
@@ -12747,7 +12749,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmintransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmintransportsetinfo
      * @since windowsserver2000
      */
     static MprAdminTransportSetInfo(hMprServer, dwTransportId, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize) {
@@ -12873,7 +12875,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmintransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmintransportgetinfo
      * @since windowsserver2000
      */
     static MprAdminTransportGetInfo(hMprServer, dwTransportId, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize) {
@@ -12926,7 +12928,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmindeviceenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmindeviceenum
      * @since windowsserver2000
      */
     static MprAdminDeviceEnum(hMprServer, dwLevel, lplpbBuffer, lpdwTotalEntries) {
@@ -13003,7 +13005,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegethandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacegethandle
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetHandle(hMprServer, lpwsInterfaceName, phInterface, fIncludeClientInterfaces) {
@@ -13128,7 +13130,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacecreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacecreate
      * @since windowsserver2000
      */
     static MprAdminInterfaceCreate(hMprServer, dwLevel, lpbBuffer, phInterface) {
@@ -13260,7 +13262,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacegetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetInfo(hMprServer, hInterface, dwLevel, lplpbBuffer) {
@@ -13388,7 +13390,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacesetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetInfo(hMprServer, hInterface, dwLevel, lpbBuffer) {
@@ -13453,7 +13455,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacedelete
      * @since windowsserver2000
      */
     static MprAdminInterfaceDelete(hMprServer, hInterface) {
@@ -13563,7 +13565,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedevicegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacedevicegetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceDeviceGetInfo(hMprServer, hInterface, dwIndex, dwLevel, lplpBuffer) {
@@ -13669,7 +13671,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedevicesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacedevicesetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceDeviceSetInfo(hMprServer, hInterface, dwIndex, dwLevel, lpbBuffer) {
@@ -13780,7 +13782,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportremove
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacetransportremove
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportRemove(hMprServer, hInterface, dwTransportId) {
@@ -13883,7 +13885,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacetransportadd
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportAdd(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
@@ -14003,7 +14005,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacetransportgetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportGetInfo(hMprServer, hInterface, dwTransportId, ppInterfaceInfo, lpdwInterfaceInfoSize) {
@@ -14118,7 +14120,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacetransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacetransportsetinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceTransportSetInfo(hMprServer, hInterface, dwTransportId, pInterfaceInfo, dwInterfaceInfoSize) {
@@ -14200,7 +14202,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfaceenum
      * @since windowsserver2000
      */
     static MprAdminInterfaceEnum(hMprServer, dwLevel, lplpbBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -14305,7 +14307,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacesetcredentials
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsDomainName, lpwsPassword) {
@@ -14412,7 +14414,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacegetcredentials
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentials(lpwsServer, lpwsInterfaceName, lpwsUserName, lpwsPassword, lpwsDomainName) {
@@ -14520,7 +14522,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacesetcredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacesetcredentialsex
      * @since windowsserver2000
      */
     static MprAdminInterfaceSetCredentialsEx(hMprServer, hInterface, dwLevel, lpbBuffer) {
@@ -14628,7 +14630,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacegetcredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacegetcredentialsex
      * @since windowsserver2000
      */
     static MprAdminInterfaceGetCredentialsEx(hMprServer, hInterface, dwLevel, lplpbBuffer) {
@@ -14796,7 +14798,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfaceconnect
      * @since windowsserver2000
      */
     static MprAdminInterfaceConnect(hMprServer, hInterface, hEvent, fSynchronous) {
@@ -14879,7 +14881,7 @@ class Rras {
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfacecreate">MprAdminInterfaceCreate</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradmininterfaceconnect">MprAdminInterfaceConnect</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminserverconnect">MprAdminServerConnect</a>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacedisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacedisconnect
      * @since windowsserver2000
      */
     static MprAdminInterfaceDisconnect(hMprServer, hInterface) {
@@ -15014,7 +15016,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceupdateroutes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfaceupdateroutes
      * @since windowsserver2000
      */
     static MprAdminInterfaceUpdateRoutes(hMprServer, hInterface, dwProtocolId, hEvent) {
@@ -15139,7 +15141,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfacequeryupdateresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfacequeryupdateresult
      * @since windowsserver2000
      */
     static MprAdminInterfaceQueryUpdateResult(hMprServer, hInterface, dwProtocolId, lpdwUpdateResult) {
@@ -15260,7 +15262,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradmininterfaceupdatephonebookinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradmininterfaceupdatephonebookinfo
      * @since windowsserver2000
      */
     static MprAdminInterfaceUpdatePhonebookInfo(hMprServer, hInterface) {
@@ -15338,7 +15340,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminregisterconnectionnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminregisterconnectionnotification
      * @since windowsserver2000
      */
     static MprAdminRegisterConnectionNotification(hMprServer, hEventNotification) {
@@ -15412,7 +15414,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminderegisterconnectionnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminderegisterconnectionnotification
      * @since windowsserver2000
      */
     static MprAdminDeregisterConnectionNotification(hMprServer, hEventNotification) {
@@ -15427,7 +15429,7 @@ class Rras {
      * @param {PWSTR} lpwsServerName Pointer to a Unicode string that specifies the name of the remote server. If the caller specifies <b>NULL</b> for this parameter, the function returns a handle to the local server.
      * @param {Pointer<Pointer>} phMibServer Pointer to a handle variable. This variable receives a handle to the server.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibserverconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibserverconnect
      * @since windowsserver2000
      */
     static MprAdminMIBServerConnect(lpwsServerName, phMibServer) {
@@ -15444,7 +15446,7 @@ class Rras {
      * @param {Pointer} hMibServer Handle to the router from which to disconnect. Obtain this handle by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mpradminmibserverconnect">MprAdminMIBServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibserverdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibserverdisconnect
      * @since windowsserver2000
      */
     static MprAdminMIBServerDisconnect(hMibServer) {
@@ -15516,7 +15518,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrycreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibentrycreate
      * @since windowsserver2000
      */
     static MprAdminMIBEntryCreate(hMibServer, dwPid, dwRoutingPid, lpEntry, dwEntrySize) {
@@ -15580,7 +15582,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrydelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibentrydelete
      * @since windowsserver2000
      */
     static MprAdminMIBEntryDelete(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
@@ -15646,7 +15648,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentryset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibentryset
      * @since windowsserver2000
      */
     static MprAdminMIBEntrySet(hMibServer, dwProtocolId, dwRoutingPid, lpEntry, dwEntrySize) {
@@ -15727,7 +15729,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentryget
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibentryget
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGet(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
@@ -15810,7 +15812,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrygetfirst
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibentrygetfirst
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGetFirst(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
@@ -15893,7 +15895,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibentrygetnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibentrygetnext
      * @since windowsserver2000
      */
     static MprAdminMIBEntryGetNext(hMibServer, dwProtocolId, dwRoutingPid, lpInEntry, dwInEntrySize, lplpOutEntry, lpOutEntrySize) {
@@ -15933,7 +15935,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mpradminmibbufferfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mpradminmibbufferfree
      * @since windowsserver2000
      */
     static MprAdminMIBBufferFree(pBuffer) {
@@ -16001,7 +16003,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverinstall
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserverinstall
      * @since windowsserver2000
      */
     static MprConfigServerInstall(dwLevel, pBuffer) {
@@ -16063,7 +16065,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserverconnect
      * @since windowsserver2000
      */
     static MprConfigServerConnect(lpwsServerName, phMprConfig) {
@@ -16078,7 +16080,7 @@ class Rras {
      * @param {HANDLE} hMprConfig Handle to a router configuration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/nf-mprapi-mprconfigserverconnect">MprConfigServerConnect</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserverdisconnect
      * @since windowsserver2000
      */
     static MprConfigServerDisconnect(hMprConfig) {
@@ -16115,7 +16117,7 @@ class Rras {
      * where X stands for Server, 
      * <a href="https://docs.microsoft.com/windows/desktop/RRAS/interface">Interface</a>, Transport, or InterfaceTransport.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigbufferfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigbufferfree
      * @since windowsserver2000
      */
     static MprConfigBufferFree(pBuffer) {
@@ -16210,7 +16212,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigservergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigservergetinfo
      * @since windowsserver2000
      */
     static MprConfigServerGetInfo(hMprConfig, dwLevel, lplpbBuffer) {
@@ -16330,7 +16332,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserversetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserversetinfo
      * @since windowsserver2003
      */
     static MprConfigServerSetInfo(hMprServer, dwLevel, lpbBuffer) {
@@ -16393,7 +16395,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverbackup
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserverbackup
      * @since windowsserver2000
      */
     static MprConfigServerBackup(hMprConfig, lpwsPath) {
@@ -16457,7 +16459,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigserverrestore
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigserverrestore
      * @since windowsserver2000
      */
     static MprConfigServerRestore(hMprConfig, lpwsPath) {
@@ -16568,7 +16570,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigtransportcreate
      * @since windowsserver2000
      */
     static MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath, phRouterTransport) {
@@ -16635,7 +16637,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportdelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigtransportdelete
      * @since windowsserver2000
      */
     static MprConfigTransportDelete(hMprConfig, hRouterTransport) {
@@ -16735,7 +16737,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportgethandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigtransportgethandle
      * @since windowsserver2000
      */
     static MprConfigTransportGetHandle(hMprConfig, dwTransportId, phRouterTransport) {
@@ -16838,7 +16840,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigtransportsetinfo
      * @since windowsserver2000
      */
     static MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
@@ -16964,7 +16966,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigtransportgetinfo
      * @since windowsserver2000
      */
     static MprConfigTransportGetInfo(hMprConfig, hRouterTransport, ppGlobalInfo, lpdwGlobalInfoSize, ppClientInterfaceInfo, lpdwClientInterfaceInfoSize, lplpwsDLLPath) {
@@ -17076,7 +17078,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigtransportenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigtransportenum
      * @since windowsserver2000
      */
     static MprConfigTransportEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -17194,7 +17196,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacecreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacecreate
      * @since windowsserver2000
      */
     static MprConfigInterfaceCreate(hMprConfig, dwLevel, lpbBuffer, phRouterInterface) {
@@ -17262,7 +17264,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacedelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacedelete
      * @since windowsserver2000
      */
     static MprConfigInterfaceDelete(hMprConfig, hRouterInterface) {
@@ -17338,7 +17340,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacegethandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacegethandle
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetHandle(hMprConfig, lpwsInterfaceName, phRouterInterface) {
@@ -17450,7 +17452,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacegetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetInfo(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, lpdwBufferSize) {
@@ -17570,7 +17572,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacesetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceSetInfo(hMprConfig, hRouterInterface, dwLevel, lpbBuffer) {
@@ -17677,7 +17679,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfaceenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfaceenum
      * @since windowsserver2000
      */
     static MprConfigInterfaceEnum(hMprConfig, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -17794,7 +17796,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacetransportadd
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
@@ -17863,7 +17865,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportremove
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacetransportremove
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportRemove(hMprConfig, hRouterInterface, hRouterIfTransport) {
@@ -17976,7 +17978,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacetransportgethandle
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportGetHandle(hMprConfig, hRouterInterface, dwTransportId, phRouterIfTransport) {
@@ -18086,7 +18088,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacetransportgetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportGetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, ppInterfaceInfo, lpdwInterfaceInfoSize) {
@@ -18180,7 +18182,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacetransportsetinfo
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportSetInfo(hMprConfig, hRouterInterface, hRouterIfTransport, pInterfaceInfo, dwInterfaceInfoSize) {
@@ -18290,7 +18292,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiginterfacetransportenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiginterfacetransportenum
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportEnum(hMprConfig, hRouterInterface, dwLevel, lplpBuffer, dwPrefMaxLen, lpdwEntriesRead, lpdwTotalEntries, lpdwResumeHandle) {
@@ -18363,7 +18365,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiggetfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiggetfriendlyname
      * @since windowsserver2000
      */
     static MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize) {
@@ -18428,7 +18430,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfiggetguidname
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfiggetguidname
      * @since windowsserver2000
      */
     static MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize) {
@@ -18495,7 +18497,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigfiltergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigfiltergetinfo
      * @since windowsserver2008
      */
     static MprConfigFilterGetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
@@ -18562,7 +18564,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprconfigfiltersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprconfigfiltersetinfo
      * @since windowsserver2008
      */
     static MprConfigFilterSetInfo(hMprConfig, dwLevel, dwTransportId, lpBuffer) {
@@ -18626,7 +18628,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfocreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfocreate
      * @since windowsserver2000
      */
     static MprInfoCreate(dwVersion, lplpNewHeader) {
@@ -18676,7 +18678,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfodelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfodelete
      * @since windowsserver2000
      */
     static MprInfoDelete(lpHeader) {
@@ -18727,7 +18729,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinforemoveall
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinforemoveall
      * @since windowsserver2000
      */
     static MprInfoRemoveAll(lpHeader, lplpNewHeader) {
@@ -18790,7 +18792,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoduplicate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfoduplicate
      * @since windowsserver2000
      */
     static MprInfoDuplicate(lpHeader, lplpNewHeader) {
@@ -18848,7 +18850,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfoblockadd
      * @since windowsserver2000
      */
     static MprInfoBlockAdd(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
@@ -18915,7 +18917,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockremove
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfoblockremove
      * @since windowsserver2000
      */
     static MprInfoBlockRemove(lpHeader, dwInfoType, lplpNewHeader) {
@@ -18969,7 +18971,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfoblockset
      * @since windowsserver2000
      */
     static MprInfoBlockSet(lpHeader, dwInfoType, dwItemSize, dwItemCount, lpItemData, lplpNewHeader) {
@@ -19034,7 +19036,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockfind
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfoblockfind
      * @since windowsserver2000
      */
     static MprInfoBlockFind(lpHeader, dwInfoType, lpdwItemSize, lpdwItemCount, lplpItemData) {
@@ -19051,7 +19053,7 @@ class Rras {
      * The MprInfoBlockQuerySize function returns the returns the size of the information header.
      * @param {Pointer<Void>} lpHeader Pointer to the information header for which to return the size.
      * @returns {Integer} <b>MprInfoBlockQuerySize</b> returns the size of the information header.
-     * @see https://learn.microsoft.com/windows/win32/api/mprapi/nf-mprapi-mprinfoblockquerysize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/nf-mprapi-mprinfoblockquerysize
      * @since windowsserver2000
      */
     static MprInfoBlockQuerySize(lpHeader) {
@@ -19124,7 +19126,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmregistermprotocol
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmregistermprotocol
      * @since windowsserver2000
      */
     static MgmRegisterMProtocol(prpiInfo, dwProtocolId, dwComponentId, phProtocol) {
@@ -19175,7 +19177,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmderegistermprotocol
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmderegistermprotocol
      * @since windowsserver2000
      */
     static MgmDeRegisterMProtocol(hProtocol) {
@@ -19256,7 +19258,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmtakeinterfaceownership
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmtakeinterfaceownership
      * @since windowsserver2000
      */
     static MgmTakeInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
@@ -19316,7 +19318,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmreleaseinterfaceownership
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmreleaseinterfaceownership
      * @since windowsserver2000
      */
     static MgmReleaseInterfaceOwnership(hProtocol, dwIfIndex, dwIfNextHopAddr) {
@@ -19383,7 +19385,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetprotocoloninterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetprotocoloninterface
      * @since windowsserver2000
      */
     static MgmGetProtocolOnInterface(dwIfIndex, dwIfNextHopAddr, pdwIfProtocolId, pdwIfComponentId) {
@@ -19511,7 +19513,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmaddgroupmembershipentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmaddgroupmembershipentry
      * @since windowsserver2000
      */
     static MgmAddGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
@@ -19638,7 +19640,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmdeletegroupmembershipentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmdeletegroupmembershipentry
      * @since windowsserver2000
      */
     static MgmDeleteGroupMembershipEntry(hProtocol, dwSourceAddr, dwSourceMask, dwGroupAddr, dwGroupMask, dwIfIndex, dwIfNextHopIPAddr, dwFlags) {
@@ -19709,7 +19711,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetmfe
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetmfe
      * @since windowsserver2000
      */
     static MgmGetMfe(pimm, pdwBufferSize, pbBuffer) {
@@ -19813,7 +19815,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetfirstmfe
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetfirstmfe
      * @since windowsserver2000
      */
     static MgmGetFirstMfe(pdwBufferSize, pbBuffer, pdwNumEntries) {
@@ -19919,7 +19921,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetnextmfe
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetnextmfe
      * @since windowsserver2000
      */
     static MgmGetNextMfe(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries) {
@@ -20021,7 +20023,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetmfestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetmfestats
      * @since windowsserver2000
      */
     static MgmGetMfeStats(pimm, pdwBufferSize, pbBuffer, dwFlags) {
@@ -20151,7 +20153,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetfirstmfestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetfirstmfestats
      * @since windowsserver2000
      */
     static MgmGetFirstMfeStats(pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
@@ -20287,7 +20289,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgetnextmfestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgetnextmfestats
      * @since windowsserver2000
      */
     static MgmGetNextMfeStats(pimmStart, pdwBufferSize, pbBuffer, pdwNumEntries, dwFlags) {
@@ -20383,7 +20385,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgroupenumerationstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgroupenumerationstart
      * @since windowsserver2000
      */
     static MgmGroupEnumerationStart(hProtocol, metEnumType, phEnumHandle) {
@@ -20496,7 +20498,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgroupenumerationgetnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgroupenumerationgetnext
      * @since windowsserver2000
      */
     static MgmGroupEnumerationGetNext(hEnum, pdwBufferSize, pbBuffer, pdwNumEntries) {
@@ -20549,7 +20551,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/mgm/nf-mgm-mgmgroupenumerationend
+     * @see https://learn.microsoft.com/windows/win32/api//content/mgm/nf-mgm-mgmgroupenumerationend
      * @since windowsserver2000
      */
     static MgmGroupEnumerationEnd(hEnum) {
@@ -20577,13 +20579,13 @@ class Rras {
     /**
      * 
      * @param {Pointer<RTM_NET_ADDRESS>} pNetAddress 
-     * @param {IN6_ADDR} Address 
+     * @param {IN6_ADDR} Address_ 
      * @param {Integer} dwLength 
      * @param {Integer} dwAddressSize 
      * @returns {Integer} 
      */
-    static RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, Address, dwLength, dwAddressSize) {
-        result := DllCall("rtm.dll\RtmConvertIpv6AddressAndLengthToNetAddress", "ptr", pNetAddress, "ptr", Address, "uint", dwLength, "uint", dwAddressSize, "uint")
+    static RtmConvertIpv6AddressAndLengthToNetAddress(pNetAddress, Address_, dwLength, dwAddressSize) {
+        result := DllCall("rtm.dll\RtmConvertIpv6AddressAndLengthToNetAddress", "ptr", pNetAddress, "ptr", Address_, "uint", dwLength, "uint", dwAddressSize, "uint")
         return result
     }
 
@@ -20693,7 +20695,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmregisterentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmregisterentity
      * @since windowsserver2000
      */
     static RtmRegisterEntity(RtmEntityInfo, ExportMethods, EventCallback, ReserveOpaquePointer, RtmRegProfile, RtmRegHandle) {
@@ -20740,7 +20742,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmderegisterentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmderegisterentity
      * @since windowsserver2000
      */
     static RtmDeregisterEntity(RtmRegHandle) {
@@ -20800,7 +20802,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetregisteredentities
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetregisteredentities
      * @since windowsserver2000
      */
     static RtmGetRegisteredEntities(RtmRegHandle, NumEntities, EntityHandles, EntityInfos) {
@@ -20843,7 +20845,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaseentities
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleaseentities
      * @since windowsserver2000
      */
     static RtmReleaseEntities(RtmRegHandle, NumEntities, EntityHandles) {
@@ -20904,7 +20906,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmlockdestination
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmlockdestination
      * @since windowsserver2000
      */
     static RtmLockDestination(RtmRegHandle, DestHandle, Exclusive, LockDest) {
@@ -20962,7 +20964,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetopaqueinformationpointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetopaqueinformationpointer
      * @since windowsserver2000
      */
     static RtmGetOpaqueInformationPointer(RtmRegHandle, DestHandle, OpaqueInfoPointer) {
@@ -21018,7 +21020,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetentitymethods
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetentitymethods
      * @since windowsserver2000
      */
     static RtmGetEntityMethods(RtmRegHandle, EntityHandle, NumMethods, ExptMethods) {
@@ -21037,7 +21039,7 @@ class Rras {
      * @param {Pointer} RtmRegHandle Handle to the client obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmregisterentity">RtmRegisterEntity</a>.
      * @param {Pointer} EntityHandle Handle to the client whose methods are being invoked.
-     * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} Input Pointer to an 
+     * @param {Pointer<RTM_ENTITY_METHOD_INPUT>} Input_ Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_entity_method_input">RTM_ENTITY_METHOD_INPUT</a> structure that contains the method to be invoked and a common input buffer.
      * @param {Pointer<Integer>} OutputSize On input, <i>OutputSize</i> is a pointer to a <b>UINT</b> value that specifies the size, in bytes, of <i>Output</i>. 
      * 
@@ -21072,13 +21074,13 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtminvokemethod
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtminvokemethod
      * @since windowsserver2000
      */
-    static RtmInvokeMethod(RtmRegHandle, EntityHandle, Input, OutputSize, Output) {
+    static RtmInvokeMethod(RtmRegHandle, EntityHandle, Input_, OutputSize, Output) {
         OutputSizeMarshal := OutputSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmInvokeMethod", "ptr", RtmRegHandle, "ptr", EntityHandle, "ptr", Input, OutputSizeMarshal, OutputSize, "ptr", Output, "uint")
+        result := DllCall("rtm.dll\RtmInvokeMethod", "ptr", RtmRegHandle, "ptr", EntityHandle, "ptr", Input_, OutputSizeMarshal, OutputSize, "ptr", Output, "uint")
         return result
     }
 
@@ -21190,7 +21192,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmblockmethods
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmblockmethods
      * @since windowsserver2000
      */
     static RtmBlockMethods(RtmRegHandle, TargetHandle, TargetType, BlockingFlag) {
@@ -21237,7 +21239,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetentityinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetentityinfo
      * @since windowsserver2000
      */
     static RtmGetEntityInfo(RtmRegHandle, EntityHandle, EntityInfo) {
@@ -21296,7 +21298,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetdestinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetdestinfo
      * @since windowsserver2000
      */
     static RtmGetDestInfo(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInfo) {
@@ -21350,7 +21352,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetrouteinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetrouteinfo
      * @since windowsserver2000
      */
     static RtmGetRouteInfo(RtmRegHandle, RouteHandle, RouteInfo, DestAddress) {
@@ -21398,7 +21400,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetnexthopinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetnexthopinfo
      * @since windowsserver2000
      */
     static RtmGetNextHopInfo(RtmRegHandle, NextHopHandle, NextHopInfo) {
@@ -21437,7 +21439,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaseentityinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleaseentityinfo
      * @since windowsserver2000
      */
     static RtmReleaseEntityInfo(RtmRegHandle, EntityInfo) {
@@ -21476,7 +21478,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasedestinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleasedestinfo
      * @since windowsserver2000
      */
     static RtmReleaseDestInfo(RtmRegHandle, DestInfo) {
@@ -21516,7 +21518,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaserouteinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleaserouteinfo
      * @since windowsserver2000
      */
     static RtmReleaseRouteInfo(RtmRegHandle, RouteInfo) {
@@ -21556,7 +21558,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasenexthopinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleasenexthopinfo
      * @since windowsserver2000
      */
     static RtmReleaseNextHopInfo(RtmRegHandle, NextHopInfo) {
@@ -21698,7 +21700,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmaddroutetodest
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmaddroutetodest
      * @since windowsserver2000
      */
     static RtmAddRouteToDest(RtmRegHandle, RouteHandle, DestAddress, RouteInfo, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
@@ -21771,7 +21773,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeleteroutetodest
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmdeleteroutetodest
      * @since windowsserver2000
      */
     static RtmDeleteRouteToDest(RtmRegHandle, RouteHandle, ChangeFlags) {
@@ -21829,7 +21831,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmholddestination
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmholddestination
      * @since windowsserver2000
      */
     static RtmHoldDestination(RtmRegHandle, DestHandle, TargetViews, HoldTime) {
@@ -21886,7 +21888,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetroutepointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetroutepointer
      * @since windowsserver2000
      */
     static RtmGetRoutePointer(RtmRegHandle, RouteHandle, RoutePointer) {
@@ -21957,7 +21959,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmlockroute
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmlockroute
      * @since windowsserver2000
      */
     static RtmLockRoute(RtmRegHandle, RouteHandle, Exclusive, LockRoute, RoutePointer) {
@@ -22006,7 +22008,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmupdateandunlockroute
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmupdateandunlockroute
      * @since windowsserver2000
      */
     static RtmUpdateAndUnlockRoute(RtmRegHandle, RouteHandle, TimeToLive, RouteListHandle, NotifyType, NotifyHandle, ChangeFlags) {
@@ -22064,7 +22066,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetexactmatchdestination
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetexactmatchdestination
      * @since windowsserver2000
      */
     static RtmGetExactMatchDestination(RtmRegHandle, DestAddress, ProtocolId, TargetViews, DestInfo) {
@@ -22134,7 +22136,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetmostspecificdestination
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetmostspecificdestination
      * @since windowsserver2000
      */
     static RtmGetMostSpecificDestination(RtmRegHandle, DestAddress, ProtocolId, TargetViews, DestInfo) {
@@ -22223,7 +22225,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetlessspecificdestination
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetlessspecificdestination
      * @since windowsserver2000
      */
     static RtmGetLessSpecificDestination(RtmRegHandle, DestHandle, ProtocolId, TargetViews, DestInfo) {
@@ -22371,7 +22373,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetexactmatchroute
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetexactmatchroute
      * @since windowsserver2000
      */
     static RtmGetExactMatchRoute(RtmRegHandle, DestAddress, MatchingFlags, RouteInfo, InterfaceIndex, TargetViews, RouteHandle) {
@@ -22412,7 +22414,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmisbestroute
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmisbestroute
      * @since windowsserver2000
      */
     static RtmIsBestRoute(RtmRegHandle, RouteHandle, BestInViews) {
@@ -22482,7 +22484,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmaddnexthop
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmaddnexthop
      * @since windowsserver2000
      */
     static RtmAddNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, ChangeFlags) {
@@ -22549,7 +22551,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmfindnexthop
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmfindnexthop
      * @since windowsserver2000
      */
     static RtmFindNextHop(RtmRegHandle, NextHopInfo, NextHopHandle, NextHopPointer) {
@@ -22616,7 +22618,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeletenexthop
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmdeletenexthop
      * @since windowsserver2000
      */
     static RtmDeleteNextHop(RtmRegHandle, NextHopHandle, NextHopInfo) {
@@ -22671,7 +22673,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetnexthoppointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetnexthoppointer
      * @since windowsserver2000
      */
     static RtmGetNextHopPointer(RtmRegHandle, NextHopHandle, NextHopPointer) {
@@ -22732,7 +22734,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmlocknexthop
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmlocknexthop
      * @since windowsserver2000
      */
     static RtmLockNextHop(RtmRegHandle, NextHopHandle, Exclusive, LockNextHop, NextHopPointer) {
@@ -22862,7 +22864,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<RTM_NET_ADDRESS>} NetAddress Pointer to an 
+     * @param {Pointer<RTM_NET_ADDRESS>} NetAddress_ Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
      * @param {Integer} ProtocolId Specifies the protocol identifier used to determine the best route information returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/nf-rtmv2-rtmgetenumdests">RtmGetEnumDests</a> function. The <i>ProtocolID</i> is not part of the search criteria. The routing table manager uses this identifier to determine which route information to return (for example, if a client specifies the RIP protocol identifier, the best RIP route is returned, even if a non-RIP route is the best route to the destination). 
@@ -22923,13 +22925,13 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreatedestenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmcreatedestenum
      * @since windowsserver2000
      */
-    static RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, NetAddress, ProtocolId, RtmEnumHandle) {
+    static RtmCreateDestEnum(RtmRegHandle, TargetViews, EnumFlags, NetAddress_, ProtocolId, RtmEnumHandle) {
         RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmCreateDestEnum", "ptr", RtmRegHandle, "uint", TargetViews, "uint", EnumFlags, "ptr", NetAddress, "uint", ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
+        result := DllCall("rtm.dll\RtmCreateDestEnum", "ptr", RtmRegHandle, "uint", TargetViews, "uint", EnumFlags, "ptr", NetAddress_, "uint", ProtocolId, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
         return result
     }
 
@@ -22993,7 +22995,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetenumdests
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetenumdests
      * @since windowsserver2000
      */
     static RtmGetEnumDests(RtmRegHandle, EnumHandle, NumDests, DestInfos) {
@@ -23042,7 +23044,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasedests
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleasedests
      * @since windowsserver2000
      */
     static RtmReleaseDests(RtmRegHandle, NumDests, DestInfos) {
@@ -23313,7 +23315,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreaterouteenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmcreaterouteenum
      * @since windowsserver2000
      */
     static RtmCreateRouteEnum(RtmRegHandle, DestHandle, TargetViews, EnumFlags, StartDest, MatchingFlags, CriteriaRoute, CriteriaInterface, RtmEnumHandle) {
@@ -23395,7 +23397,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetenumroutes
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetenumroutes
      * @since windowsserver2000
      */
     static RtmGetEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
@@ -23438,7 +23440,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleaseroutes
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleaseroutes
      * @since windowsserver2000
      */
     static RtmReleaseRoutes(RtmRegHandle, NumRoutes, RouteHandles) {
@@ -23497,7 +23499,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<RTM_NET_ADDRESS>} NetAddress Pointer to an 
+     * @param {Pointer<RTM_NET_ADDRESS>} NetAddress_ Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rtmv2/ns-rtmv2-rtm_net_address">RTM_NET_ADDRESS</a> structure that contains the starting address of the enumeration. Specify <b>NULL</b> if <i>EnumFlags</i> contains RTM_ENUM_START.
      * @param {Pointer<Pointer>} RtmEnumHandle On input, <i>RtmEnumHandle</i> is a pointer to <b>NULL</b>. 
      * 
@@ -23544,13 +23546,13 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreatenexthopenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmcreatenexthopenum
      * @since windowsserver2000
      */
-    static RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, NetAddress, RtmEnumHandle) {
+    static RtmCreateNextHopEnum(RtmRegHandle, EnumFlags, NetAddress_, RtmEnumHandle) {
         RtmEnumHandleMarshal := RtmEnumHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("rtm.dll\RtmCreateNextHopEnum", "ptr", RtmRegHandle, "uint", EnumFlags, "ptr", NetAddress, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
+        result := DllCall("rtm.dll\RtmCreateNextHopEnum", "ptr", RtmRegHandle, "uint", EnumFlags, "ptr", NetAddress_, RtmEnumHandleMarshal, RtmEnumHandle, "uint")
         return result
     }
 
@@ -23612,7 +23614,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetenumnexthops
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetenumnexthops
      * @since windowsserver2000
      */
     static RtmGetEnumNextHops(RtmRegHandle, EnumHandle, NumNextHops, NextHopHandles) {
@@ -23655,7 +23657,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasenexthops
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleasenexthops
      * @since windowsserver2000
      */
     static RtmReleaseNextHops(RtmRegHandle, NumNextHops, NextHopHandles) {
@@ -23695,7 +23697,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeleteenumhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmdeleteenumhandle
      * @since windowsserver2000
      */
     static RtmDeleteEnumHandle(RtmRegHandle, EnumHandle) {
@@ -23832,7 +23834,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmregisterforchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmregisterforchangenotification
      * @since windowsserver2000
      */
     static RtmRegisterForChangeNotification(RtmRegHandle, TargetViews, NotifyFlags, NotifyContext, NotifyHandle) {
@@ -23911,7 +23913,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetchangeddests
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetchangeddests
      * @since windowsserver2000
      */
     static RtmGetChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
@@ -23965,7 +23967,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreleasechangeddests
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreleasechangeddests
      * @since windowsserver2000
      */
     static RtmReleaseChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
@@ -24004,7 +24006,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmignorechangeddests
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmignorechangeddests
      * @since windowsserver2000
      */
     static RtmIgnoreChangedDests(RtmRegHandle, NotifyHandle, NumDests, ChangedDests) {
@@ -24055,7 +24057,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetchangestatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetchangestatus
      * @since windowsserver2000
      */
     static RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) {
@@ -24098,7 +24100,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmmarkdestforchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmmarkdestforchangenotification
      * @since windowsserver2000
      */
     static RtmMarkDestForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, MarkDest) {
@@ -24135,7 +24137,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmismarkedforchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmismarkedforchangenotification
      * @since windowsserver2000
      */
     static RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, DestMarked) {
@@ -24176,7 +24178,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmderegisterfromchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmderegisterfromchangenotification
      * @since windowsserver2000
      */
     static RtmDeregisterFromChangeNotification(RtmRegHandle, NotifyHandle) {
@@ -24222,7 +24224,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreateroutelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmcreateroutelist
      * @since windowsserver2000
      */
     static RtmCreateRouteList(RtmRegHandle, RouteListHandle) {
@@ -24266,7 +24268,7 @@ class Rras {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtminsertinroutelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtminsertinroutelist
      * @since windowsserver2000
      */
     static RtmInsertInRouteList(RtmRegHandle, RouteListHandle, NumRoutes, RouteHandles) {
@@ -24319,7 +24321,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmcreateroutelistenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmcreateroutelistenum
      * @since windowsserver2000
      */
     static RtmCreateRouteListEnum(RtmRegHandle, RouteListHandle, RtmEnumHandle) {
@@ -24380,7 +24382,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmgetlistenumroutes
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmgetlistenumroutes
      * @since windowsserver2000
      */
     static RtmGetListEnumRoutes(RtmRegHandle, EnumHandle, NumRoutes, RouteHandles) {
@@ -24423,7 +24425,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmdeleteroutelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmdeleteroutelist
      * @since windowsserver2000
      */
     static RtmDeleteRouteList(RtmRegHandle, RouteListHandle) {
@@ -24467,7 +24469,7 @@ class Rras {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/rtmv2/nf-rtmv2-rtmreferencehandles
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtmv2/nf-rtmv2-rtmreferencehandles
      * @since windowsserver2000
      */
     static RtmReferenceHandles(RtmRegHandle, NumHandles, RtmHandles) {

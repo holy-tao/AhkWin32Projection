@@ -5,8 +5,8 @@
 #Include .\IWorkspaceRegistration.ahk
 
 /**
- * Exposes methods that add and remove references to custom clients in RemoteApp and Desktop Connection.
- * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nn-workspaceruntime-iworkspaceregistration2
+ * Exposes methods that add and remove references to custom clients in RemoteApp and Desktop Connection. (IWorkspaceRegistration2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nn-workspaceruntime-iworkspaceregistration2
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,24 +35,35 @@ class IWorkspaceRegistration2 extends IWorkspaceRegistration{
      * 
      * @param {IWorkspaceClientExt} pUnk 
      * @param {BSTR} bstrEventLogUploadAddress 
-     * @param {Guid} correlationId 
+     * @param {Guid} correlationId_ 
      * @returns {Integer} 
      */
-    AddResourceEx(pUnk, bstrEventLogUploadAddress, correlationId) {
-        bstrEventLogUploadAddress := bstrEventLogUploadAddress is String ? BSTR.Alloc(bstrEventLogUploadAddress).Value : bstrEventLogUploadAddress
+    AddResourceEx(pUnk, bstrEventLogUploadAddress, correlationId_) {
+        if(bstrEventLogUploadAddress is String) {
+            pin := BSTR.Alloc(bstrEventLogUploadAddress)
+            bstrEventLogUploadAddress := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", pUnk, "ptr", bstrEventLogUploadAddress, "uint*", &pdwCookie := 0, "ptr", correlationId, "HRESULT")
+        result := ComCall(5, this, "ptr", pUnk, "ptr", bstrEventLogUploadAddress, "uint*", &pdwCookie := 0, "ptr", correlationId_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
     /**
      * 
      * @param {Integer} dwCookieConnection 
-     * @param {Guid} correlationId 
+     * @param {Guid} correlationId_ 
      * @returns {HRESULT} 
      */
-    RemoveResourceEx(dwCookieConnection, correlationId) {
-        result := ComCall(6, this, "uint", dwCookieConnection, "ptr", correlationId, "HRESULT")
+    RemoveResourceEx(dwCookieConnection, correlationId_) {
+        result := ComCall(6, this, "uint", dwCookieConnection, "ptr", correlationId_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

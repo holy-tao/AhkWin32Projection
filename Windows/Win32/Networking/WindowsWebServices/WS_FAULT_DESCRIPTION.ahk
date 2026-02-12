@@ -3,7 +3,7 @@
 
 /**
  * Information about a mapping between a WS_FAULT and an XML element.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_fault_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

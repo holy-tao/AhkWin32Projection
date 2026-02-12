@@ -37,7 +37,11 @@ class IActionOnCLREvent extends IUnknown{
     OnEvent(event, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "int", event, dataMarshal, data, "HRESULT")
+        result := ComCall(3, this, "int", event, dataMarshal, data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

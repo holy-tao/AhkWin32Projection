@@ -13,7 +13,7 @@
  * To display an initial value for the edit control, MAPI calls [IMAPIProp::GetProps](imapiprop-getprops.md) to retrieve the property values for the display table. If one of the retrieved properties matches the property represented by the **ulPRPropertyName** member, its value becomes the initial value.
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblcombobox
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblcombobox
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

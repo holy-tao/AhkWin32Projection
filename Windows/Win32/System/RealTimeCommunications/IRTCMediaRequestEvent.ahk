@@ -62,7 +62,11 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {IRTCSession2} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession2(ppSession)
     }
 
@@ -71,7 +75,11 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_ProposedMedia() {
-        result := ComCall(8, this, "int*", &plMediaTypes := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plMediaTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMediaTypes
     }
 
@@ -80,17 +88,26 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_CurrentMedia() {
-        result := ComCall(9, this, "int*", &plMediaTypes := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plMediaTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMediaTypes
     }
 
     /**
-     * 
+     * Creates a default instance of [AcceptedVoipPhoneCallOptions](./acceptedvoipphonecalloptions.md).
      * @param {Integer} lMediaTypes 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.applicationmodel.calls.acceptedvoipphonecalloptions.#ctor
      */
     Accept(lMediaTypes) {
-        result := ComCall(10, this, "int", lMediaTypes, "HRESULT")
+        result := ComCall(10, this, "int", lMediaTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +117,11 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_RemotePreferredSecurityLevel(enSecurityType) {
-        result := ComCall(11, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        result := ComCall(11, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penSecurityLevel
     }
 
@@ -109,7 +130,11 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     Reject() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +143,11 @@ class IRTCMediaRequestEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(13, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 }

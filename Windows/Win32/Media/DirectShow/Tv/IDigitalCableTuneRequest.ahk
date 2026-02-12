@@ -6,7 +6,6 @@
 /**
  * The IDigitalCableTuneRequest interface provides methods for tuning to a channel in a digital cable network.
  * @remarks
- * 
  * This interface provides three ways to specify the program for the tune request:
  * 
  * <ul>
@@ -19,9 +18,7 @@
  * Note that the base channel number from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ichanneltunerequest">IChannelTuneRequest</a> has a different meaning when it is used in this interface than it does in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-iatscchanneltunerequest">IATSCChannelTuneRequest</a> interface. In this interface, the base channel number is the VCN, not the major channel.
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDigitalCableTuneRequest)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idigitalcabletunerequest
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-idigitalcabletunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -71,10 +68,14 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
     /**
      * The get_MajorChannel method retrieves the major channel number.
      * @returns {Integer} Receives the major channel number. If the value received is BDA_UNDEFINED_CHANNEL, the major channel number is not used.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletunerequest-get_majorchannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idigitalcabletunerequest-get_majorchannel
      */
     get_MajorChannel() {
-        result := ComCall(16, this, "int*", &pMajorChannel := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pMajorChannel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMajorChannel
     }
 
@@ -82,20 +83,28 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
      * The put_MajorChannel method sets the major channel number.
      * @param {Integer} MajorChannel Specifies the major channel number.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletunerequest-put_majorchannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idigitalcabletunerequest-put_majorchannel
      */
     put_MajorChannel(MajorChannel) {
-        result := ComCall(17, this, "int", MajorChannel, "HRESULT")
+        result := ComCall(17, this, "int", MajorChannel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_SourceID method retrieves the source identifier, which maps to a physical channel.
      * @returns {Integer} Receives the source identifier. If the value received is BDA_UNDEFINED_CHANNEL, the source identifier is not used.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletunerequest-get_sourceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idigitalcabletunerequest-get_sourceid
      */
     get_SourceID() {
-        result := ComCall(18, this, "int*", &pSourceID := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pSourceID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSourceID
     }
 
@@ -103,10 +112,14 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
      * The put_SourceID method sets the source identifier, which maps to a physical channel.
      * @param {Integer} SourceID Specifies the source identifier.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletunerequest-put_sourceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-idigitalcabletunerequest-put_sourceid
      */
     put_SourceID(SourceID) {
-        result := ComCall(19, this, "int", SourceID, "HRESULT")
+        result := ComCall(19, this, "int", SourceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

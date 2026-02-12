@@ -5,7 +5,7 @@
  * Specifies the type of an I/O ring operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ne-ntioring_x-ioring_op_code
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntioring_x/ne-ntioring_x-ioring_op_code
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

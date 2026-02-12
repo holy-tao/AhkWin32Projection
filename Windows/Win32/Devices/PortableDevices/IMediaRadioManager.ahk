@@ -34,7 +34,11 @@ class IMediaRadioManager extends IUnknown{
      * @returns {IRadioInstanceCollection} 
      */
     GetRadioInstances() {
-        result := ComCall(3, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRadioInstanceCollection(ppCollection)
     }
 
@@ -45,7 +49,11 @@ class IMediaRadioManager extends IUnknown{
      * @returns {HRESULT} 
      */
     OnSystemRadioStateChange(sysRadioState, uTimeoutSec) {
-        result := ComCall(4, this, "int", sysRadioState, "uint", uTimeoutSec, "HRESULT")
+        result := ComCall(4, this, "int", sysRadioState, "uint", uTimeoutSec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

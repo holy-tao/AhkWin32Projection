@@ -56,7 +56,11 @@ class ITpmVirtualSmartCardManager3 extends ITpmVirtualSmartCardManager2{
         pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
         pbPinPolicyMarshal := pbPinPolicy is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, pbPinPolicyMarshal, pbPinPolicy, "uint", cbPinPolicy, "int", attestationType, "int", fGenerate, "ptr", pStatusCallback, "ptr*", &ppszInstanceId := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, pbPinPolicyMarshal, pbPinPolicy, "uint", cbPinPolicy, "int", attestationType, "int", fGenerate, "ptr", pStatusCallback, "ptr*", &ppszInstanceId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszInstanceId
     }
 }

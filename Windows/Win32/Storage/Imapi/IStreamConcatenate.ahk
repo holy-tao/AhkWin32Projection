@@ -6,7 +6,6 @@
 /**
  * Use this interface to combine several data streams into a single stream.
  * @remarks
- * 
  * To create the  MsftStreamConcatenate object in a script, use IMAPI2.MsftStreamConcatenate as the program identifier when calling CreateObject.
  * 
  * When using this interface, the following  scenarios will result in undefined behaviors, and should be avoided:
@@ -15,9 +14,7 @@
  * <li>Each partial stream composing the MsftStreamConcatenate object is actually the same stream.</li>
  * <li>Any of the concatenated streams are modified (read from, written to, or seeked on) outside of IMAPI.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-istreamconcatenate
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-istreamconcatenate
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -44,6 +41,13 @@ class IStreamConcatenate extends IStream{
 
     /**
      * Initializes this stream from two input streams.
+     * @remarks
+     * When using the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-istreamconcatenate">IStreamConcatenate</a> interface, the following  scenarios will result in undefined behaviors, and should be avoided:
+     * 
+     * <ul>
+     * <li>Each partial stream composing the MsftStreamConcatenate object is actually the same stream.</li>
+     * <li>Any of the concatenated streams are modified (read from, written to, or seeked on) outside of IMAPI.</li>
+     * </ul>
      * @param {IStream} stream1 An <b>IStream</b> interface of the first stream to add to this stream.
      * @param {IStream} stream2 An <b>IStream</b> interface of the second stream to add to this stream.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -93,15 +97,26 @@ class IStreamConcatenate extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-istreamconcatenate-initialize
      */
     Initialize(stream1, stream2) {
-        result := ComCall(14, this, "ptr", stream1, "ptr", stream2, "HRESULT")
+        result := ComCall(14, this, "ptr", stream1, "ptr", stream2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes this stream from an array of input streams.
+     * @remarks
+     * When using the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-istreamconcatenate">IStreamConcatenate</a> interface, the following  scenarios will result in undefined behaviors, and should be avoided:
+     * 
+     * <ul>
+     * <li>Each partial stream composing the MsftStreamConcatenate object is actually the same stream.</li>
+     * <li>Any of the concatenated streams are modified (read from, written to, or seeked on) outside of IMAPI.</li>
+     * </ul>
      * @param {Pointer<IStream>} streams Array of  <b>IStream</b> interfaces of the streams to add to this stream.
      * @param {Integer} streamCount Number of streams in <i>streams</i>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -151,15 +166,23 @@ class IStreamConcatenate extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-initialize2
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-istreamconcatenate-initialize2
      */
     Initialize2(streams, streamCount) {
-        result := ComCall(15, this, "ptr*", streams, "uint", streamCount, "HRESULT")
+        result := ComCall(15, this, "ptr*", streams, "uint", streamCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Appends a stream to this stream.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-istreamconcatenate-initialize">IStreamConcatenate::Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-istreamconcatenate-initialize2">IStreamConcatenate::Initialize2</a> method prior to calling this method.
+     * 
+     * To append more than one stream to this stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-istreamconcatenate-append2">IStreamConcatenate::Append2</a> method.
      * @param {IStream} stream An <b>IStream</b> interface of the stream to append to this stream.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -182,15 +205,23 @@ class IStreamConcatenate extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-append
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-istreamconcatenate-append
      */
     Append(stream) {
-        result := ComCall(16, this, "ptr", stream, "HRESULT")
+        result := ComCall(16, this, "ptr", stream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Appends an array of streams to this stream.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-istreamconcatenate-initialize">IStreamConcatenate::Initialize</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-istreamconcatenate-initialize2">IStreamConcatenate::Initialize2</a> method prior to calling this method.
+     * 
+     * To append a single stream to this stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-istreamconcatenate-append">IStreamConcatenate::Append</a> method.
      * @param {Pointer<IStream>} streams Array of  <b>IStream</b> interfaces of the streams to append to this stream.
      * @param {Integer} streamCount Number of streams in <i>streams</i>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -214,10 +245,14 @@ class IStreamConcatenate extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-append2
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-istreamconcatenate-append2
      */
     Append2(streams, streamCount) {
-        result := ComCall(17, this, "ptr*", streams, "uint", streamCount, "HRESULT")
+        result := ComCall(17, this, "ptr*", streams, "uint", streamCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

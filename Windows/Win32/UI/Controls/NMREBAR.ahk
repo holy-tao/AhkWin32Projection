@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information used in handling various rebar notifications.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebar
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmrebar
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -82,8 +83,11 @@ class NMREBAR extends Win32Struct
      * 					<b>dwMask</b> contains RBNM_LPARAM.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 }

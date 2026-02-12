@@ -34,7 +34,11 @@ class ITridentTouchInputSite extends IUnknown{
      * @returns {HRESULT} 
      */
     SetManipulationMode(msTouchAction) {
-        result := ComCall(3, this, "int", msTouchAction, "HRESULT")
+        result := ComCall(3, this, "int", msTouchAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class ITridentTouchInputSite extends IUnknown{
      * @returns {HRESULT} 
      */
     ZoomToPoint(x, y) {
-        result := ComCall(4, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(4, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

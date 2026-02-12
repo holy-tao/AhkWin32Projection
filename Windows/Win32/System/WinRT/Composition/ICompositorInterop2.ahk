@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\UI\Composition\CompositionTexture.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -34,17 +35,25 @@ class ICompositorInterop2 extends IUnknown{
      * @returns {BOOL} 
      */
     CheckCompositionTextureSupport(renderingDevice) {
-        result := ComCall(3, this, "ptr", renderingDevice, "int*", &supportsCompositionTextures := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", renderingDevice, "int*", &supportsCompositionTextures := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return supportsCompositionTextures
     }
 
     /**
      * 
      * @param {IUnknown} d3dTexture 
-     * @returns {Pointer<CompositionTexture>} 
+     * @returns {CompositionTexture} 
      */
     CreateCompositionTexture(d3dTexture) {
-        result := ComCall(4, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "HRESULT")
-        return compositionTexture
+        result := ComCall(4, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return CompositionTexture(compositionTexture)
     }
 }

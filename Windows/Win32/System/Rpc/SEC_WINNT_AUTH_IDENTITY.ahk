@@ -7,7 +7,7 @@
  * When this structure is used with RPC, the structure must remain valid for the lifetime of the binding handle.
  * 
  * The strings may be ANSI or Unicode, depending on the value you assign to the <b>Flags</b> member.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_w
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_winnt_auth_identity_w
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

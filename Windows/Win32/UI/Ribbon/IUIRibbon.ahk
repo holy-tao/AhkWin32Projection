@@ -6,12 +6,9 @@
 /**
  * The IUIRibbon interface is implemented by the Windows Ribbon framework and provides the ability to specify settings and properties for a ribbon.
  * @remarks
- * 
  * A Ribbon is composed of several components that can include an <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-applicationmenu">Application Menu</a>, the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-quickaccesstoolbar">Quick Access Toolbar (QAT)</a>, 
  * 				<a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-tab">Tabs</a> (core and contextual), <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-group">Groups</a> (containers for controls), and a rich context menu  system (<a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-contextpopup">Context Popup</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuiribbon
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nn-uiribbon-iuiribbon
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -38,43 +35,69 @@ class IUIRibbon extends IUnknown{
 
     /**
      * Retrieves the height of the ribbon.
-     * @returns {Integer} Type: <b>UINT32*</b>
-     * 
-     * The height of the ribbon, in pixels.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiribbon-getheight
+     * @remarks
+     * The value returned for <i>cy</i> is based on a number of dependencies that
+     * 			include, but are not limited to, the width of the host window and the layout template declared 
+     * 			in the Ribbon markup.
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiribbon-getheight
      */
     GetHeight() {
-        result := ComCall(3, this, "uint*", &cy := 0, "HRESULT")
-        return cy
+        result := ComCall(3, this, "uint*", &cy_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cy_
     }
 
     /**
      * Reads ribbon settings from a binary stream.
+     * @remarks
+     * The stream is supplied by the host application.
+     * 			
+     * If the Windows Ribbon framework is unable to load a valid stream, the default ribbon layout is rendered instead.
+     * 			
+     * 
+     * The <b>LoadSettingsFromStream </b> method is useful for persisting ribbon state, such as Quick Access Toolbar (QAT) items, across application instances.
      * @param {IStream} pStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or E_FAIL if the format or content of the serialized stream is empty or cannot be verified by the Ribbon framework.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiribbon-loadsettingsfromstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiribbon-loadsettingsfromstream
      */
     LoadSettingsFromStream(pStream) {
-        result := ComCall(4, this, "ptr", pStream, "HRESULT")
+        result := ComCall(4, this, "ptr", pStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Writes ribbon settings to a binary stream.
+     * @remarks
+     * The stream is handed off to the host application for storage as appropriate.
+     * 			
+     * 
+     * The <b>SaveSettingsToStream</b> method is useful for persisting ribbon state, such as Quick Access Toolbar (QAT) items, across application instances.
      * @param {IStream} pStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuiribbon-savesettingstostream
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuiribbon-savesettingstostream
      */
     SaveSettingsToStream(pStream) {
-        result := ComCall(5, this, "ptr", pStream, "HRESULT")
+        result := ComCall(5, this, "ptr", pStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

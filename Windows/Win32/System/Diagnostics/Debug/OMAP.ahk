@@ -13,7 +13,7 @@
  * <li>Set delta = addrA – e.rva.</li>
  * <li>Set addrB = e.rvaTo + delta.</li>
  * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-omap
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbghelp/ns-dbghelp-omap
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

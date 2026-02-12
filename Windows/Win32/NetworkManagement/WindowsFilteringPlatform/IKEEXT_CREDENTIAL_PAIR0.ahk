@@ -4,7 +4,7 @@
 
 /**
  * Is used to store credential information used for the authentication. (IKEEXT_CREDENTIAL_PAIR0)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credential_pair0
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_credential_pair0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

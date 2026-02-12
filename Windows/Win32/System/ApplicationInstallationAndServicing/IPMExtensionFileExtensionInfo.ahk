@@ -47,7 +47,11 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Name(pName) {
-        result := ComCall(3, this, "ptr", pName, "HRESULT")
+        result := ComCall(3, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DisplayName(pDisplayName) {
-        result := ComCall(4, this, "ptr", pDisplayName, "HRESULT")
+        result := ComCall(4, this, "ptr", pDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Logo(LogoSize, pLogo) {
-        result := ComCall(5, this, "int", LogoSize, "ptr", pLogo, "HRESULT")
+        result := ComCall(5, this, "int", LogoSize, "ptr", pLogo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,9 +91,16 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ContentType(FileType, pContentType) {
-        FileType := FileType is String ? BSTR.Alloc(FileType).Value : FileType
+        if(FileType is String) {
+            pin := BSTR.Alloc(FileType)
+            FileType := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", FileType, "ptr", pContentType, "HRESULT")
+        result := ComCall(6, this, "ptr", FileType, "ptr", pContentType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,9 +111,16 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_FileType(ContentType, pFileType) {
-        ContentType := ContentType is String ? BSTR.Alloc(ContentType).Value : ContentType
+        if(ContentType is String) {
+            pin := BSTR.Alloc(ContentType)
+            ContentType := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", ContentType, "ptr", pFileType, "HRESULT")
+        result := ComCall(7, this, "ptr", ContentType, "ptr", pFileType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +131,11 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pImageUrn, pParameters) {
-        result := ComCall(8, this, "ptr", pImageUrn, "ptr", pParameters, "HRESULT")
+        result := ComCall(8, this, "ptr", pImageUrn, "ptr", pParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +149,11 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
         pcbTypesMarshal := pcbTypes is VarRef ? "uint*" : "ptr"
         ppTypesMarshal := ppTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, pcbTypesMarshal, pcbTypes, ppTypesMarshal, ppTypes, "HRESULT")
+        result := ComCall(9, this, pcbTypesMarshal, pcbTypes, ppTypesMarshal, ppTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

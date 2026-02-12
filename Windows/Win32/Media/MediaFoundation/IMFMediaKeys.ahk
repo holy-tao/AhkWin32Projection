@@ -8,7 +8,7 @@
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediakeys
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfmediakeys
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -48,44 +48,65 @@ class IMFMediaKeys extends IUnknown{
      * @param {Pointer} customData Custom data sent to the key system.
      * @param {Integer} cbCustomData The count in bytes of <i>cbCustomData</i>.
      * @param {IMFMediaKeySessionNotify} notify notify
-     * @returns {IMFMediaKeySession} The media key session.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-createsession
+     * @returns {Pointer<IMFMediaKeySession>} The media key session.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediakeys-createsession
      */
     CreateSession(mimeType, initData, cb, customData, cbCustomData, notify) {
-        mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
+        if(mimeType is String) {
+            pin := BSTR.Alloc(mimeType)
+            mimeType := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "HRESULT")
-        return IMFMediaKeySession(ppSession)
+        result := ComCall(3, this, "ptr", mimeType, "ptr", initData, "uint", cb, "ptr", customData, "uint", cbCustomData, "ptr", notify, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppSession
     }
 
     /**
      * Gets the key system string the IMFMediaKeys object was created with.
-     * @returns {BSTR} The string name of the key system.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
+     * @returns {Pointer<BSTR>} The string name of the key system.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediakeys-get_keysystem
      */
     get_KeySystem() {
         keySystem := BSTR()
-        result := ComCall(4, this, "ptr", keySystem, "HRESULT")
+        result := ComCall(4, this, "ptr", keySystem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return keySystem
     }
 
     /**
-     * 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-shutdown
+     * The IMFMediaKeys::Shutdown (mfmediaengine.h) method shuts down the associated Content Decryption Module (CDM).
+     * @remarks
+     * <b>Shutdown</b> should be called by the application before final release.  The Content Decryption Module (CDM) reference and any other resources is released at this point.  However, related sessions are not freed or closed.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediakeys-shutdown
      */
     Shutdown() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the suspend notify interface of the Content Decryption Module (CDM).
-     * @returns {IMFCdmSuspendNotify} The suspend notify interface of the Content Decryption Module (CDM).
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeys-getsuspendnotify
+     * @returns {Pointer<IMFCdmSuspendNotify>} The suspend notify interface of the Content Decryption Module (CDM).
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediakeys-getsuspendnotify
      */
     GetSuspendNotify() {
-        result := ComCall(6, this, "ptr*", &notify := 0, "HRESULT")
-        return IMFCdmSuspendNotify(notify)
+        result := ComCall(6, this, "ptr*", &notify := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return notify
     }
 }

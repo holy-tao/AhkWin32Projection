@@ -6,11 +6,8 @@
 /**
  * The ITfPreservedKeyNotifySink interface is implemented by an application or TSF text service to receive notifications when keys are preserved, unpreserved, or when a preserved key description changes.
  * @remarks
- * 
  * Preserved keys are keyboard shortcuts that an application or TSF text service can register with the TSF manager.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfpreservedkeynotifysink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfpreservedkeynotifysink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,12 +34,18 @@ class ITfPreservedKeyNotifySink extends IUnknown{
 
     /**
      * ITfPreservedKeyNotifySink::OnUpdated method
+     * @remarks
+     * To determine if the key is unpreserved, call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfkeystrokemgr-ispreservedkey">ITfKeystrokeMgr::IsPreservedKey</a>, passing <i>pprekey</i>. If the key is not found, it is unpreserved. If the key is found, it is either preserved or the description has changed. Unless you keep track of the current key description and compare the previous description with the current description in response to this notification, there is no way to determine if this notification is in response to a key preserved or the description changed.
      * @param {Pointer<TF_PRESERVEDKEY>} pprekey Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_preservedkey">TF_PRESERVEDKEY</a> structure that contains data about the key.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfpreservedkeynotifysink-onupdated
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfpreservedkeynotifysink-onupdated
      */
     OnUpdated(pprekey) {
-        result := ComCall(3, this, "ptr", pprekey, "HRESULT")
+        result := ComCall(3, this, "ptr", pprekey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

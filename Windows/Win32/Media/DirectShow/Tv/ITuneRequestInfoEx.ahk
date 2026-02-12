@@ -35,7 +35,11 @@ class ITuneRequestInfoEx extends ITuneRequestInfo{
      * @returns {IUnknown} 
      */
     CreateComponentListEx(CurrentRequest) {
-        result := ComCall(10, this, "ptr", CurrentRequest, "ptr*", &ppCurPMT := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", CurrentRequest, "ptr*", &ppCurPMT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppCurPMT)
     }
 }

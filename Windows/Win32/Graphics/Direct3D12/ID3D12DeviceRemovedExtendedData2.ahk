@@ -35,7 +35,11 @@ class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1{
      */
     GetPageFaultAllocationOutput2() {
         pOutput := D3D12_DRED_PAGE_FAULT_OUTPUT2()
-        result := ComCall(7, this, "ptr", pOutput, "HRESULT")
+        result := ComCall(7, this, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOutput
     }
 

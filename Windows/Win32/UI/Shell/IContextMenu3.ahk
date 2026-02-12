@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 #Include .\IContextMenu2.ahk
 
 /**
  * Exposes methods that either create or merge a shortcut menu associated with a Shell object. Allows client objects to handle messages associated with owner-drawn menu items and extends IContextMenu2 by accepting a return value from that message handling.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu2">IContextMenu2</a> interfaces, from which it inherits.
  * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
@@ -21,8 +21,7 @@
  * 
  * <div class="alert"><b>Note</b>  <b>Windows Vista and later.</b> Prior to Windows Vista this interface was declared in Shlobj.h.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icontextmenu3
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-icontextmenu3
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -49,22 +48,35 @@ class IContextMenu3 extends IContextMenu2{
 
     /**
      * Allows client objects of the IContextMenu3 interface to handle messages associated with owner-drawn menu items.
+     * @remarks
+     * <b>IContextMenu3::HandleMenuMsg2</b> generally replaces <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icontextmenu2-handlemenumsg">IContextMenu2::HandleMenuMsg</a>, and is called when <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> determines that <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu3">IContextMenu3</a> is supported and one of the supported messages (see <i>uMsg</i>) has been received. However, in some cases, <b>IContextMenu2::HandleMenuMsg</b> is still called. Context menu hosts may dispatch menu messages through either or both methods. Consequently, if a Shell extension implements both <b>IContextMenu2::HandleMenuMsg</b> and <b>IContextMenu3::HandleMenuMsg2</b>, it must be prepared for menu messages to arrive through either method.
+     * 
+     * <div class="alert"><b>Note</b>  If <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu3">IContextMenu3</a> is not implemented, there is no guarantee that <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu2">IContextMenu2</a> will be called in its place. In some cases, the absence of <b>IContextMenu3</b> is determined and then the process is halted.</div>
+     * <div> </div>
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed. In the case of some messages, such as WM_INITMENUPOPUP, WM_DRAWITEM, WM_MENUCHAR, or WM_MEASUREITEM, the client object being called may provide owner-drawn menu items.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT*</b>
      * 
      * The address of an <b>LRESULT</b> value that the owner of the menu will return from the message. This parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
      */
-    HandleMenuMsg2(uMsg, wParam, lParam) {
-        result := ComCall(7, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
+    HandleMenuMsg2(uMsg, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        plResult := LRESULT()
+        result := ComCall(7, this, "uint", uMsg, "ptr", wParam_, "ptr", lParam_, "ptr", plResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plResult
     }
 }

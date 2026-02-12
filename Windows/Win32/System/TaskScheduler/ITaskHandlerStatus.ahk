@@ -7,13 +7,10 @@
 /**
  * Provides the methods that are used by COM handlers to notify the Task Scheduler about the status of the handler.
  * @remarks
- * 
  * For information on specifying a COM handler action, see the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-icomhandleraction">IComHandlerAction</a> interface.
  * 
  * For information on the required interfaces that must be implemented by the handler, see the  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandler">ITaskHandler</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskhandlerstatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itaskhandlerstatus
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -42,24 +39,35 @@ class ITaskHandlerStatus extends IUnknown{
      * Tells the Task Scheduler about the percentage of completion of the COM handler.
      * @param {Integer} percentComplete A value that indicates the percentage of completion for the COM handler.
      * @param {BSTR} statusMessage The message that is displayed in the Task Scheduler UI.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandlerstatus-updatestatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskhandlerstatus-updatestatus
      */
     UpdateStatus(percentComplete, statusMessage) {
-        statusMessage := statusMessage is String ? BSTR.Alloc(statusMessage).Value : statusMessage
+        if(statusMessage is String) {
+            pin := BSTR.Alloc(statusMessage)
+            statusMessage := pin.Value
+        }
 
-        result := ComCall(3, this, "short", percentComplete, "ptr", statusMessage, "HRESULT")
+        result := ComCall(3, this, "short", percentComplete, "ptr", statusMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Tells the Task Scheduler that the COM handler is completed.
      * @param {HRESULT} taskErrCode The error code that the Task Scheduler will raise as an event.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandlerstatus-taskcompleted
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskhandlerstatus-taskcompleted
      */
     TaskCompleted(taskErrCode) {
-        result := ComCall(4, this, "int", taskErrCode, "HRESULT")
+        result := ComCall(4, this, "int", taskErrCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

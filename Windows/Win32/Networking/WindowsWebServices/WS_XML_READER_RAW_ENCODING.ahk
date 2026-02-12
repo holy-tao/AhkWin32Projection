@@ -18,7 +18,7 @@
  *         encoding. Using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadchars">WsReadChars</a>, for example, will cause the bytes to physically get 
  *         converted to their corresponding base64 characters.  In general reading the document using
  *         anything other than <b>WsReadBytes</b> will incur the base64 conversion.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_raw_encoding
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_reader_raw_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

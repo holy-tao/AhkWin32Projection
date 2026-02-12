@@ -8,7 +8,7 @@
  * This structure contains the caps bits added to the <b>DDCAPS.ddsCaps</b> structure in DirectX 6.0. See the DirectDraw SDK documentation for a description of the DDCAPS structure.
  * 
  * <b>Note for Microsoft Windows 98/Me:</b>  DD_MORESURFACECAPS is the definition for Windows 2000 and later versions. Drivers that run on Windows 98/Me use the name DDMORESURFACECAPS, which is aliased in <i>dx95type.h</i>.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_moresurfacecaps
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_moresurfacecaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

@@ -30,11 +30,15 @@ class IAsyncManager extends IUnknown{
 
     /**
      * 
-     * @param {HRESULT} Result 
+     * @param {HRESULT} Result_ 
      * @returns {HRESULT} 
      */
-    CompleteCall(Result) {
-        result := ComCall(3, this, "int", Result, "HRESULT")
+    CompleteCall(Result_) {
+        result := ComCall(3, this, "int", Result_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,16 +48,27 @@ class IAsyncManager extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetCallContext(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &pInterface := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "ptr*", &pInterface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInterface
     }
 
     /**
-     * 
+     * Gets current Interaction Context state and the time when the context will return to idle state.
+     * @remarks
+     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      */
     GetState() {
-        result := ComCall(5, this, "uint*", &pulStateFlags := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pulStateFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStateFlags
     }
 }

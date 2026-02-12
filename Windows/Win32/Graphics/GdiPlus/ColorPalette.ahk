@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Initializes a new instance of the [ColorPaletteResources](colorpaletteresources.md) class.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.colorpaletteresources.#ctor
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

@@ -6,7 +6,6 @@
 /**
  * Represents a synchronization provider that is able to report the date and time when an item or change unit was last changed. This ability is useful to an application that implements last-writer-wins conflict resolution.
  * @remarks
- * 
  * This interface is typically implemented by a provider. If a provider implements this interface, it must return a pointer to it when <b>IID_ISupportLastWriteTime</b> is passed to the <b>QueryInterface</b> method of its data transfer interface. The data transfer interface is the interface that a provider returns in response to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynchronousdataretriever-loadchangedata">ISynchronousDataRetriever::LoadChangeData</a> method.
  * 
  * To implement last-writer-wins conflict resolution, an application typically performs the following steps:
@@ -19,9 +18,7 @@
  * <li>Compares the date and time values to determine which change was made last.</li>
  * <li>Indicates which change to keep by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-ichangeconflict-setresolveactionforchange">IChangeConflict::SetResolveActionForChange</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-ichangeconflict-setresolveactionforchangeunit">IChangeConflict::SetResolveActionForChangeUnit</a> method.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isupportlastwritetime
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isupportlastwritetime
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -77,13 +74,17 @@ class ISupportLastWriteTime extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isupportlastwritetime-getitemchangetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isupportlastwritetime-getitemchangetime
      */
     GetItemChangeTime(pbItemId, pullTimestamp) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pullTimestampMarshal, pullTimestamp, "HRESULT")
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pullTimestampMarshal, pullTimestamp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,14 +120,18 @@ class ISupportLastWriteTime extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isupportlastwritetime-getchangeunitchangetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isupportlastwritetime-getchangeunitchangetime
      */
     GetChangeUnitChangeTime(pbItemId, pbChangeUnitId, pullTimestamp) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
         pullTimestampMarshal := pullTimestamp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, pullTimestampMarshal, pullTimestamp, "HRESULT")
+        result := ComCall(4, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, pullTimestampMarshal, pullTimestamp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

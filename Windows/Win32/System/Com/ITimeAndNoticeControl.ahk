@@ -35,7 +35,11 @@ class ITimeAndNoticeControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SuppressChanges(res1, res2) {
-        result := ComCall(3, this, "uint", res1, "uint", res2, "HRESULT")
+        result := ComCall(3, this, "uint", res1, "uint", res2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

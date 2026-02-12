@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that provide an object with a specified property bag in which the object can save its properties.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-inamedpropertybag
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nn-shlobj_core-inamedpropertybag
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,14 +43,18 @@ class INamedPropertyBag extends IUnknown{
      * The address of a <b>VARIANT</b> that, when this method returns successfully, receives the property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-inamedpropertybag-readpropertynpb
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-inamedpropertybag-readpropertynpb
      */
     ReadPropertyNPB(pszBagname, pszPropName, pVar) {
         pszBagname := pszBagname is String ? StrPtr(pszBagname) : pszBagname
         pszPropName := pszPropName is String ? StrPtr(pszPropName) : pszPropName
 
-        result := ComCall(3, this, "ptr", pszBagname, "ptr", pszPropName, "ptr", pVar, "HRESULT")
+        result := ComCall(3, this, "ptr", pszBagname, "ptr", pszPropName, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,14 +71,18 @@ class INamedPropertyBag extends IUnknown{
      * A pointer to a <b>VARIANT</b> that holds the new property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-inamedpropertybag-writepropertynpb
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-inamedpropertybag-writepropertynpb
      */
     WritePropertyNPB(pszBagname, pszPropName, pVar) {
         pszBagname := pszBagname is String ? StrPtr(pszBagname) : pszBagname
         pszPropName := pszPropName is String ? StrPtr(pszPropName) : pszPropName
 
-        result := ComCall(4, this, "ptr", pszBagname, "ptr", pszPropName, "ptr", pVar, "HRESULT")
+        result := ComCall(4, this, "ptr", pszBagname, "ptr", pszPropName, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,14 +96,18 @@ class INamedPropertyBag extends IUnknown{
      * A pointer to a string that contains the name of the property to remove.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-inamedpropertybag-removepropertynpb
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-inamedpropertybag-removepropertynpb
      */
     RemovePropertyNPB(pszBagname, pszPropName) {
         pszBagname := pszBagname is String ? StrPtr(pszBagname) : pszBagname
         pszPropName := pszPropName is String ? StrPtr(pszPropName) : pszPropName
 
-        result := ComCall(5, this, "ptr", pszBagname, "ptr", pszPropName, "HRESULT")
+        result := ComCall(5, this, "ptr", pszBagname, "ptr", pszPropName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

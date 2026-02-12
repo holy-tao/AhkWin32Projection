@@ -134,7 +134,7 @@ class IRP extends Win32Struct
             }
         
             /**
-             * @type {PETHREAD}
+             * @type {Pointer<PETHREAD>}
              */
             Thread {
                 get => NumGet(this, 32, "ptr")

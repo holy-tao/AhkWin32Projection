@@ -22,7 +22,7 @@
  *      with the <b>ResClass</b> member set to <b>CLUS_RESCLASS_STORAGE</b>, and 
  *      a second <b>CLUSPROP_REQUIRED_DEPENDENCY</b> 
  *      structure with the <b>ResTypeName</b> member set to "Network Name".
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_required_dependency
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clusprop_required_dependency
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

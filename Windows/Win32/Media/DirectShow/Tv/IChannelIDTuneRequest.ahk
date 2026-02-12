@@ -7,11 +7,8 @@
 /**
  * Implements methods that support channel requests using a string identifier.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IChannelIDTuneRequest)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ichannelidtunerequest
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-ichannelidtunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -53,11 +50,15 @@ class IChannelIDTuneRequest extends ITuneRequest{
     /**
      * Provider-defined channel identifier in string format.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichannelidtunerequest-get_channelid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ichannelidtunerequest-get_channelid
      */
     get_ChannelID() {
         ChannelID := BSTR()
-        result := ComCall(12, this, "ptr", ChannelID, "HRESULT")
+        result := ComCall(12, this, "ptr", ChannelID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ChannelID
     }
 
@@ -65,12 +66,19 @@ class IChannelIDTuneRequest extends ITuneRequest{
      * Provider-defined channel identifier in string format.
      * @param {BSTR} ChannelID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichannelidtunerequest-put_channelid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ichannelidtunerequest-put_channelid
      */
     put_ChannelID(ChannelID) {
-        ChannelID := ChannelID is String ? BSTR.Alloc(ChannelID).Value : ChannelID
+        if(ChannelID is String) {
+            pin := BSTR.Alloc(ChannelID)
+            ChannelID := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", ChannelID, "HRESULT")
+        result := ComCall(13, this, "ptr", ChannelID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

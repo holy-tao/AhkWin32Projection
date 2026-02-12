@@ -20,7 +20,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipnetentry2">GetIpNetEntry2</a> function retrieves a single neighbor IP address and returns this information in a <b>MIB_IPNET_ROW2</b> structure.
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipnet_row2
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-mib_ipnet_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

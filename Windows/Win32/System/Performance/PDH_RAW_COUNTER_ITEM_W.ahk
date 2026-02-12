@@ -5,7 +5,7 @@
 
 /**
  * The PDH_RAW_COUNTER_ITEM structure contains the instance name and raw value of a counter. (Unicode)
- * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_raw_counter_item_w
+ * @see https://learn.microsoft.com/windows/win32/api//content/pdh/ns-pdh-pdh_raw_counter_item_w
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  * @charset Unicode

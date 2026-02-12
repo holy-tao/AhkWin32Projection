@@ -68,7 +68,11 @@ class ILineInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_x() {
-        result := ComCall(3, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -77,7 +81,11 @@ class ILineInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_baseLine() {
-        result := ComCall(4, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -86,7 +94,11 @@ class ILineInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_textDescent() {
-        result := ComCall(5, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -95,7 +107,11 @@ class ILineInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_textHeight() {
-        result := ComCall(6, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -104,7 +120,11 @@ class ILineInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_lineDirection() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

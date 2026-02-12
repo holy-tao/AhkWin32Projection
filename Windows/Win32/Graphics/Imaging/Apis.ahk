@@ -1617,7 +1617,7 @@ class Imaging {
      * @returns {IWICBitmapSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
      * A pointer to the <b>null</b>-initialized destination bitmap pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicconvertbitmapsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-wicconvertbitmapsource
      * @since windows5.1.2600
      */
     static WICConvertBitmapSource(dstFormat, pISrc) {
@@ -1654,7 +1654,7 @@ class Imaging {
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives the bitmap.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wiccreatebitmapfromsection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-wiccreatebitmapfromsection
      * @since windows5.1.2600
      */
     static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset) {
@@ -1694,7 +1694,7 @@ class Imaging {
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives the bitmap.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wiccreatebitmapfromsectionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-wiccreatebitmapfromsectionex
      * @since windows6.1
      */
     static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel) {
@@ -1729,7 +1729,7 @@ class Imaging {
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual size needed to retrieve the entire short name associated with the GUID.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapguidtoshortname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-wicmapguidtoshortname
      * @since windows5.1.2600
      */
     static WICMapGuidToShortName(guid, cchName, wzName) {
@@ -1766,7 +1766,7 @@ class Imaging {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapshortnametoguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-wicmapshortnametoguid
      * @since windows5.1.2600
      */
     static WICMapShortNameToGuid(wzName, pguid) {
@@ -1812,7 +1812,7 @@ class Imaging {
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The actual buffer size needed to retrieve the entire schema name.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-wicmapschematoname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-wicmapschematoname
      * @since windows5.1.2600
      */
     static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName) {
@@ -1844,7 +1844,7 @@ class Imaging {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicmatchmetadatacontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-wicmatchmetadatacontent
      * @since windows5.1.2600
      */
     static WICMatchMetadataContent(guidContainerFormat, pguidVendor, pIStream, pguidMetadataFormat) {
@@ -1873,7 +1873,7 @@ class Imaging {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicserializemetadatacontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-wicserializemetadatacontent
      * @since windows5.1.2600
      */
     static WICSerializeMetadataContent(guidContainerFormat, pIWriter, dwPersistOptions, pIStream) {
@@ -1896,7 +1896,7 @@ class Imaging {
      * @returns {Integer} Type: <b>ULARGE_INTEGER*</b>
      * 
      * A pointer that receives the size of the metadata content.
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
      * @since windows5.1.2600
      */
     static WICGetMetadataContentSize(guidContainerFormat, pIWriter) {

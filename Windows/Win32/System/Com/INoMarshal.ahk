@@ -4,8 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Marks an object that doesn't support being marshaled or stored in the Global Interface Table.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-inomarshal
+ * The INoMarshal interface (objidl.h) marks an object that doesn't support being marshaled or stored in the Global Interface Table.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-inomarshal
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

@@ -63,7 +63,11 @@ class IRTCSessionReferredEvent extends IDispatch{
      * @returns {IRTCSession2} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession2(ppSession)
     }
 
@@ -73,7 +77,11 @@ class IRTCSessionReferredEvent extends IDispatch{
      */
     get_ReferredByURI() {
         pbstrReferredByURI := BSTR()
-        result := ComCall(8, this, "ptr", pbstrReferredByURI, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrReferredByURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrReferredByURI
     }
 
@@ -83,7 +91,11 @@ class IRTCSessionReferredEvent extends IDispatch{
      */
     get_ReferToURI() {
         pbstrReferoURI := BSTR()
-        result := ComCall(9, this, "ptr", pbstrReferoURI, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrReferoURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrReferoURI
     }
 
@@ -93,16 +105,25 @@ class IRTCSessionReferredEvent extends IDispatch{
      */
     get_ReferCookie() {
         pbstrReferCookie := BSTR()
-        result := ComCall(10, this, "ptr", pbstrReferCookie, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrReferCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrReferCookie
     }
 
     /**
-     * 
+     * Creates a default instance of [AcceptedVoipPhoneCallOptions](./acceptedvoipphonecalloptions.md).
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.applicationmodel.calls.acceptedvoipphonecalloptions.#ctor
      */
     Accept() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +132,11 @@ class IRTCSessionReferredEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     Reject() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +146,11 @@ class IRTCSessionReferredEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     SetReferredSessionState(enState) {
-        result := ComCall(13, this, "int", enState, "HRESULT")
+        result := ComCall(13, this, "int", enState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

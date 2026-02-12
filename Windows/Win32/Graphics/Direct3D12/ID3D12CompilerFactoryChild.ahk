@@ -31,10 +31,14 @@ class ID3D12CompilerFactoryChild extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetFactory(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppCompilerFactory := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppCompilerFactory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCompilerFactory
     }
 }

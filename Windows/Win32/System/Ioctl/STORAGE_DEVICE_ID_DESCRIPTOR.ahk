@@ -6,7 +6,7 @@
  * @remarks
  * The device ID descriptor consists of an array of device IDs taken from the SCSI-3 vital product data (VPD) 
  *     page 0x83 that was retrieved during discovery.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_id_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_device_id_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

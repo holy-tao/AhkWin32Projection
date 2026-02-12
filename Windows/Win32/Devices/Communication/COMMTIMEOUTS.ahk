@@ -19,7 +19,7 @@
  * <li>If no bytes arrive within the time specified by <b>ReadTotalTimeoutConstant</b>, 
  *       <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a> times out.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commtimeouts
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-commtimeouts
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

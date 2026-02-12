@@ -11,7 +11,7 @@
  * Providers should use unique instance names. If you do not, it makes it difficult for consumers to calculate and display performance values because they cannot tell if the current instance refers to the same instance that was queried previously (instances can come and go). 
  * 
  * Providers must allocate enough space for the instance name to ensure that <b>ByteLength</b> is aligned to an 8-byte boundary.
- * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_instance_definition
+ * @see https://learn.microsoft.com/windows/win32/api//content/winperf/ns-winperf-perf_instance_definition
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

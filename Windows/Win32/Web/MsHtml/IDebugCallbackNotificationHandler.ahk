@@ -34,7 +34,11 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @returns {Integer} 
      */
     RequestedCallbackTypes() {
-        result := ComCall(3, this, "uint*", &pCallbackMask := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pCallbackMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCallbackMask
     }
 
@@ -44,7 +48,11 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     BeforeDispatchEvent(pEvent) {
-        result := ComCall(4, this, "ptr", pEvent, "HRESULT")
+        result := ComCall(4, this, "ptr", pEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     DispatchEventComplete(pEvent, propagationStatus) {
-        result := ComCall(5, this, "ptr", pEvent, "uint", propagationStatus, "HRESULT")
+        result := ComCall(5, this, "ptr", pEvent, "uint", propagationStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     BeforeInvokeDomCallback(pEvent, pCallback, eStage, propagationStatus) {
-        result := ComCall(6, this, "ptr", pEvent, "ptr", pCallback, "int", eStage, "uint", propagationStatus, "HRESULT")
+        result := ComCall(6, this, "ptr", pEvent, "ptr", pCallback, "int", eStage, "uint", propagationStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +97,11 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     InvokeDomCallbackComplete(pEvent, pCallback, eStage, propagationStatus) {
-        result := ComCall(7, this, "ptr", pEvent, "ptr", pCallback, "int", eStage, "uint", propagationStatus, "HRESULT")
+        result := ComCall(7, this, "ptr", pEvent, "ptr", pCallback, "int", eStage, "uint", propagationStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,15 +113,22 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @param {Integer} ullHandlerCookie 
      * @param {BSTR} functionName 
      * @param {Integer} line 
-     * @param {Integer} column 
+     * @param {Integer} column_ 
      * @param {Integer} cchLength 
      * @param {IUnknown} pDebugDocumentContext 
      * @returns {HRESULT} 
      */
-    BeforeInvokeCallback(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, column, cchLength, pDebugDocumentContext) {
-        functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
+    BeforeInvokeCallback(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, column_, cchLength, pDebugDocumentContext) {
+        if(functionName is String) {
+            pin := BSTR.Alloc(functionName)
+            functionName := pin.Value
+        }
 
-        result := ComCall(8, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        result := ComCall(8, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", column_, "uint", cchLength, "ptr", pDebugDocumentContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,15 +140,22 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * @param {Integer} ullHandlerCookie 
      * @param {BSTR} functionName 
      * @param {Integer} line 
-     * @param {Integer} column 
+     * @param {Integer} column_ 
      * @param {Integer} cchLength 
      * @param {IUnknown} pDebugDocumentContext 
      * @returns {HRESULT} 
      */
-    InvokeCallbackComplete(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, column, cchLength, pDebugDocumentContext) {
-        functionName := functionName is String ? BSTR.Alloc(functionName).Value : functionName
+    InvokeCallbackComplete(eCallbackType, callbackCookie, pDispHandler, ullHandlerCookie, functionName, line, column_, cchLength, pDebugDocumentContext) {
+        if(functionName is String) {
+            pin := BSTR.Alloc(functionName)
+            functionName := pin.Value
+        }
 
-        result := ComCall(9, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", column, "uint", cchLength, "ptr", pDebugDocumentContext, "HRESULT")
+        result := ComCall(9, this, "int", eCallbackType, "uint", callbackCookie, "ptr", pDispHandler, "uint", ullHandlerCookie, "ptr", functionName, "uint", line, "uint", column_, "uint", cchLength, "ptr", pDebugDocumentContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Not supported.Supplies a caller with an event that will be signaled by the called object to denote cancellation of a task.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iobjectwithcancelevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iobjectwithcancelevent
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,14 +33,20 @@ class IObjectWithCancelEvent extends IUnknown{
 
     /**
      * Retrieves an event that will be sent when an operation is canceled.
+     * @remarks
+     * Call this function to retrieve an event that will be signaled when the called object cancels the operation it is performing. The caller is responsible for closing the returned handle.
      * @returns {HANDLE} Type: <b>HANDLE*</b>
      * 
      * Pointer to a handle that, when this method successfully returns, is the handle to the cancel event. The caller is responsible for closing this handle when it is no longer needed.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithcancelevent-getcancelevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iobjectwithcancelevent-getcancelevent
      */
     GetCancelEvent() {
         phEvent := HANDLE()
-        result := ComCall(3, this, "ptr", phEvent, "HRESULT")
+        result := ComCall(3, this, "ptr", phEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phEvent
     }
 }

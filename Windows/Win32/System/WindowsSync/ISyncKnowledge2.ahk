@@ -8,11 +8,8 @@
 /**
  * Represents additional information about the knowledge that a replica has about its item store.
  * @remarks
- * 
  * An <b>ISyncKnowledge2</b> object can be obtained by passing <b>IID_ISyncKnowledge2</b> to the <b>QueryInterface</b> method of an <b>ISyncKnowledge</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncknowledge2
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncknowledge2
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -38,7 +35,7 @@ class ISyncKnowledge2 extends ISyncKnowledge{
     static VTableNames => ["GetIdParameters", "ProjectOntoColumnSet", "SerializeWithOptions", "GetLowestUncontainedId", "GetInspector", "GetMinimumSupportedVersion", "GetStatistics", "ContainsKnowledgeForItem", "ContainsKnowledgeForChangeUnit", "ProjectOntoKnowledgeWithPrerequisite", "Complement", "IntersectsWithKnowledge", "GetKnowledgeCookie", "CompareToKnowledgeCookie"]
 
     /**
-     * Gets the ID format schema of the provider.
+     * Gets the ID format schema of the provider. (ISyncKnowledge2.GetIdParameters)
      * @param {Pointer<ID_PARAMETERS>} pIdParameters The ID format schema of the provider.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -65,7 +62,7 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>dwSize</i> member of <i>pIdParameters</i> is not equal to <code>sizeof(ID_PARAMETERS)</code>.
+     * The <i>dwSize</i> member of <i>pIdParameters</i> is not equal to <c>sizeof(ID_PARAMETERS)</c>.
      * 
      * 
      * </td>
@@ -82,29 +79,49 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-getidparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(27, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(27, this, "ptr", pIdParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the knowledge for the specified set of change units for all the items that are contained in this object.
+     * @remarks
+     * <b>ProjectOntoColumnSet</b> differs from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge-projectontochangeunit">ISyncKnowledge::ProjectOntoChangeUnit</a>. <b>ProjectOntoColumnSet</b> returns a knowledge object that contains information about the specified set of change units for all the items that are contained in the knowledge object. <b>ProjectOntoChangeUnit</b> returns a knowledge object that contains information about a single change unit that is contained in a single item.
      * @param {Pointer<Pointer<Integer>>} ppColumns The set of change unit IDs to look up.
      * @param {Integer} count The number of change unit IDs that are contained in <i>ppColumns</i>.
      * @returns {ISyncKnowledge2} A knowledge object that contains only the change units that are specified by <i>ppColumns</i> for all items contained in this object.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-projectontocolumnset
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-projectontocolumnset
      */
     ProjectOntoColumnSet(ppColumns, count) {
         ppColumnsMarshal := ppColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, ppColumnsMarshal, ppColumns, "uint", count, "ptr*", &ppiKnowledgeOut := 0, "HRESULT")
+        result := ComCall(28, this, ppColumnsMarshal, ppColumns, "uint", count, "ptr*", &ppiKnowledgeOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge2(ppiKnowledgeOut)
     }
 
     /**
      * Serializes the knowledge object data to a byte array based on the specified version and serialization options.
+     * @remarks
+     * <b>Note</b>  The <b>SYNC_SERIALIZE</b> flags are defined as follows:<c>#define SYNC_SERIALIZE_REPLICA_KEY_MAP                 0x00000001</c>
+     * 
+     * The value <b>SYNC_SERIALIZE_REPLICA_KEY_MAP</b> indicates that the replica key map is included in the serialized knowledge data.
+     * 
+     * 
+     * 
+     *  When <b>SYNC_SERIALIZE_REPLICA_KEY_MAP</b> is specified for flags, the <b>IReplicaKeyMap</b> object is serialized along with the knowledge data. When this flag is not specified, the <b>IReplicaKeyMap</b> data must be stored in some other way so that the knowledge object can be deserialized.
+     * 
+     * The value of <i>targetFormatVersion</i> determines the format of the serialized knowledge data and refers to the version of <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a>. For an overview of what is involved in building synchronization providers using  <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a>, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
      * @param {Integer} targetFormatVersion The serialized knowledge is compatible with this version.
      * @param {Integer} dwFlags Options that specify additional information about how to serialize the object. Must be zero or a combination of the values specified by the <b>SYNC_SERIALIZE</b> flags (see Remarks). When zero is specified, the replica key map is not included as part of the serialized knowledge data.
      * @param {Pointer<Integer>} pbBuffer The serialized knowledge object data is serialized to this buffer.
@@ -161,13 +178,17 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-serializewithoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
         pdwSerializedSizeMarshal := pdwSerializedSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "HRESULT")
+        result := ComCall(29, this, "int", targetFormatVersion, "uint", dwFlags, pbBufferMarshal, pbBuffer, pdwSerializedSizeMarshal, pdwSerializedSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -239,13 +260,17 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-getlowestuncontainedid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-getlowestuncontainedid
      */
     GetLowestUncontainedId(piSyncKnowledge, pbItemId, pcbItemIdSize) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "ptr", piSyncKnowledge, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "HRESULT")
+        result := ComCall(30, this, "ptr", piSyncKnowledge, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -294,17 +319,27 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-getinspector
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-getinspector
      */
     GetInspector(riid, ppiInspector) {
         ppiInspectorMarshal := ppiInspector is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(31, this, "ptr", riid, ppiInspectorMarshal, ppiInspector, "HRESULT")
+        result := ComCall(31, this, "ptr", riid, ppiInspectorMarshal, ppiInspector, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the minimum supported version of Microsoft Sync Framework components that can be used with this object.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method is used only with synchronization sessions that use <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a> components.</div>
+     * <div> </div>
+     * A knowledge object that has a version of <b>SYNC_SERIALIZATION_VERSION_V2</b> supports components that are compatible with Sync Framework 1.0 when the knowledge object contains only elements that are compatible with Sync Framework 1.0. In this situation, <b>GetMinSupportedVersion</b> returns a version of <b>SYNC_SERIALIZATION_VERSION_V1</b>.
+     * 
+     * For an overview of what is involved in building synchronization providers using  <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a>, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
      * @param {Pointer<Integer>} pVersion The minimum supported version of Microsoft Sync Framework components that can be used with this object.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -336,12 +371,16 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-getminimumsupportedversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-getminimumsupportedversion
      */
     GetMinimumSupportedVersion(pVersion) {
         pVersionMarshal := pVersion is VarRef ? "int*" : "ptr"
 
-        result := ComCall(32, this, pVersionMarshal, pVersion, "HRESULT")
+        result := ComCall(32, this, pVersionMarshal, pVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -391,17 +430,23 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-getstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-getstatistics
      */
     GetStatistics(which, pValue) {
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, "int", which, pValueMarshal, pValue, "HRESULT")
+        result := ComCall(33, this, "int", which, pValueMarshal, pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether the specified knowledge of the specified item is known by this knowledge.
+     * @remarks
+     * Another way to obtain the same result is to pass <i>pbItemId</i> to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge-projectontoitem">ISyncKnowledge::ProjectOntoItem</a> method of <i>pKnowledge</i>, and then take the resulting projected knowledge and pass it to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge-containsknowledge">ISyncKnowledge::ContainsKnowledge</a> method of this object.
      * @param {ISyncKnowledge} pKnowledge The knowledge object that contains knowledge about <i>pbItemId</i>.
      * @param {Pointer<Integer>} pbItemId The ID of the item to look up.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -457,17 +502,23 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-containsknowledgeforitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-containsknowledgeforitem
      */
     ContainsKnowledgeForItem(pKnowledge, pbItemId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(34, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, "HRESULT")
+        result := ComCall(34, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether the specified knowledge of the specified change unit is known by this knowledge.
+     * @remarks
+     * Another way to obtain the same result is to pass <i>pbItemId</i> and <i>pbChangeUnitId</i> to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge-containschangeunit">ISyncKnowledge::ContainsChangeUnit</a> method of <i>pKnowledge</i>, and then take the resulting projected knowledge and pass it to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge-containsknowledge">ISyncKnowledge::ContainsKnowledge</a> method of this object.
      * @param {ISyncKnowledge} pKnowledge The knowledge object that contains knowledge about <i>pbChangeUnitId</i>.
      * @param {Pointer<Integer>} pbItemId The ID of the item that contains the change unit to look up.
      * @param {Pointer<Integer>} pbChangeUnitId The ID of the change unit to look up.
@@ -526,36 +577,52 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-containsknowledgeforchangeunit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-containsknowledgeforchangeunit
      */
     ContainsKnowledgeForChangeUnit(pKnowledge, pbItemId, pbChangeUnitId) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(35, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "HRESULT")
+        result := ComCall(35, this, "ptr", pKnowledge, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns knowledge about the knowledge fragments that are specified by the template knowledge, when the template knowledge contains the prerequisite knowledge for the specified fragments.
+     * @remarks
+     * To calculate the knowledge that is returned in <i>ppProjectedKnowledge</i>, this method enumerates the knowledge fragments that are contained in <i>pTemplateKnowledge</i>. For each knowledge fragment in <i>pTemplateKnowledge</i>, this method checks whether the knowledge known by <i>pPrerequisiteKnowledge</i> about the fragment is contained in <i>pTemplateKnowledge</i>. If the prerequisite knowledge that is known about a fragment is contained by <i>pTemplateKnowledge</i>, the knowledge that is known about that fragment by this object is added to <i>ppProjectedKnowledge</i>. If the prerequisite knowledge that is known about a fragment is not contained by <i>pTemplateKnowledge</i>, then <i>ppProjectedKnowledge</i> contains no knowledge about that fragment.
      * @param {ISyncKnowledge} pPrerequisiteKnowledge Specifies the knowledge that <i>pTemplateKnowledge</i> must contain for knowledge to be added to <i>ppProjectedKnowledge</i>.
      * @param {ISyncKnowledge} pTemplateKnowledge Specifies the set of knowledge fragments to be added to <i>ppProjectedKnowledge</i>.
      * @returns {ISyncKnowledge} A knowledge object that contains the knowledge fragments that are specified by <i>pTemplateKnowledge</i> when <i>pTemplateKnowledge</i> contains the knowledge that is contained in <i>pPrerequisiteKnowledge</i> for the specified fragments.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-projectontoknowledgewithprerequisite
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-projectontoknowledgewithprerequisite
      */
     ProjectOntoKnowledgeWithPrerequisite(pPrerequisiteKnowledge, pTemplateKnowledge) {
-        result := ComCall(36, this, "ptr", pPrerequisiteKnowledge, "ptr", pTemplateKnowledge, "ptr*", &ppProjectedKnowledge := 0, "HRESULT")
+        result := ComCall(36, this, "ptr", pPrerequisiteKnowledge, "ptr", pTemplateKnowledge, "ptr*", &ppProjectedKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppProjectedKnowledge)
     }
 
     /**
      * Returns the knowledge that is contained in this object but that is not contained in the specified knowledge.
+     * @remarks
+     * The complement operation can be thought of conceptually as a subtraction operation. The specified knowledge is subtracted from the knowledge in this object, and the result is returned.
      * @param {ISyncKnowledge} pSyncKnowledge The knowledge to remove from this object to calculate the result of the complement operation.
      * @returns {ISyncKnowledge} The knowledge that is contained in this object but that is not contained in the specified knowledge.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-complement
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-complement
      */
     Complement(pSyncKnowledge) {
-        result := ComCall(37, this, "ptr", pSyncKnowledge, "ptr*", &ppComplementedKnowledge := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", pSyncKnowledge, "ptr*", &ppComplementedKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppComplementedKnowledge)
     }
 
@@ -603,25 +670,37 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-intersectswithknowledge
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-intersectswithknowledge
      */
     IntersectsWithKnowledge(pSyncKnowledge) {
-        result := ComCall(38, this, "ptr", pSyncKnowledge, "HRESULT")
+        result := ComCall(38, this, "ptr", pSyncKnowledge, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a lightweight, read-only representation of this knowledge object that can be used for fast comparisons.
+     * @remarks
+     * A knowledge cookie can be used for fast comparisons with other knowledge objects by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge2-comparetoknowledgecookie">ISyncKnowledge2::CompareToKnowledgeCookie</a> when the performance of the comparison operation is especially important.
      * @returns {IUnknown} A lightweight, read-only representation of this knowledge object that can be used for fast comparisons.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-getknowledgecookie
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-getknowledgecookie
      */
     GetKnowledgeCookie() {
-        result := ComCall(39, this, "ptr*", &ppKnowledgeCookie := 0, "HRESULT")
+        result := ComCall(39, this, "ptr*", &ppKnowledgeCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppKnowledgeCookie)
     }
 
     /**
      * Performs a fast comparison between the specified knowledge cookie and this knowledge object.
+     * @remarks
+     * This method can be used when the performance of the knowledge comparison operation is especially important.
      * @param {IUnknown} pKnowledgeCookie The knowledge cookie to compare against this object.
      * @param {Pointer<Integer>} pResult The result of the comparison.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -655,12 +734,16 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncknowledge2-comparetoknowledgecookie
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncknowledge2-comparetoknowledgecookie
      */
     CompareToKnowledgeCookie(pKnowledgeCookie, pResult) {
         pResultMarshal := pResult is VarRef ? "int*" : "ptr"
 
-        result := ComCall(40, this, "ptr", pKnowledgeCookie, pResultMarshal, pResult, "HRESULT")
+        result := ComCall(40, this, "ptr", pKnowledgeCookie, pResultMarshal, pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

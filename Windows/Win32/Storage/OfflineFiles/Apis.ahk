@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.OfflineFiles
@@ -240,7 +242,7 @@ class OfflineFiles {
     static OFFLINEFILES_SETTING_SCOPE_COMPUTER => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OFFLINEFILES_SETTING_PinLinkTargets => "LinkTargetCaching"
 
@@ -512,7 +514,7 @@ class OfflineFiles {
      * @param {BOOL} bEnable Specify <b>TRUE</b> to enable Offline Files, or <b>FALSE</b> to disable.
      * @param {Pointer<BOOL>} pbRebootRequired Receives <b>TRUE</b> if a system restart is necessary to apply the desired configuration, or <b>FALSE</b> otherwise.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/cscapi/nf-cscapi-offlinefilesenable
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscapi/nf-cscapi-offlinefilesenable
      * @since windows6.0.6000
      */
     static OfflineFilesEnable(bEnable, pbRebootRequired) {
@@ -525,7 +527,7 @@ class OfflineFiles {
     /**
      * Starts the Offline Files service.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/cscapi/nf-cscapi-offlinefilesstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscapi/nf-cscapi-offlinefilesstart
      * @since windows8.0
      */
     static OfflineFilesStart() {
@@ -540,7 +542,7 @@ class OfflineFiles {
      * @param {Pointer<BOOL>} pbActive Receives <b>TRUE</b> if both the CSC driver and Offline Files Service are in the running state, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
      * @param {Pointer<BOOL>} pbEnabled Receives <b>TRUE</b> if the CSC driver's start type is set to <b>SERVICE_SYSTEM_START</b> and the Offline Files service's start type is set to <b>SERVICE_AUTO_START</b>, or <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/cscapi/nf-cscapi-offlinefilesquerystatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscapi/nf-cscapi-offlinefilesquerystatus
      * @since windows6.0.6000
      */
     static OfflineFilesQueryStatus(pbActive, pbEnabled) {
@@ -559,7 +561,7 @@ class OfflineFiles {
      * @param {Pointer<BOOL>} pbEnabled Receives <b>TRUE</b> if the CSC driver's start type is set to <b>SERVICE_SYSTEM_START</b> and the Offline Files service's start type is set to <b>SERVICE_AUTO_START</b>, or <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
      * @param {Pointer<BOOL>} pbAvailable Receives <b>TRUE</b> if the Offline Files Service is ready to be started without requiring the computer to be restarted, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/cscapi/nf-cscapi-offlinefilesquerystatusex
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscapi/nf-cscapi-offlinefilesquerystatusex
      * @since windows8.0
      */
     static OfflineFilesQueryStatusEx(pbActive, pbEnabled, pbAvailable) {

@@ -30,16 +30,20 @@ class IKsControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSIDENTIFIER>} Property 
+     * @param {Pointer<KSIDENTIFIER>} Property_ 
      * @param {Integer} PropertyLength 
      * @param {Pointer<Void>} PropertyData 
      * @param {Integer} DataLength 
      * @returns {Integer} 
      */
-    KsProperty(Property, PropertyLength, PropertyData, DataLength) {
+    KsProperty(Property_, PropertyLength, PropertyData, DataLength) {
         PropertyDataMarshal := PropertyData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Property, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", Property_, "uint", PropertyLength, PropertyDataMarshal, PropertyData, "uint", DataLength, "uint*", &BytesReturned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BytesReturned
     }
 
@@ -47,14 +51,18 @@ class IKsControl extends IUnknown{
      * 
      * @param {Pointer<KSIDENTIFIER>} Method 
      * @param {Integer} MethodLength 
-     * @param {Pointer<Void>} MethodData 
+     * @param {Pointer<Void>} MethodData_ 
      * @param {Integer} DataLength 
      * @returns {Integer} 
      */
-    KsMethod(Method, MethodLength, MethodData, DataLength) {
-        MethodDataMarshal := MethodData is VarRef ? "ptr" : "ptr"
+    KsMethod(Method, MethodLength, MethodData_, DataLength) {
+        MethodData_Marshal := MethodData_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, MethodDataMarshal, MethodData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", Method, "uint", MethodLength, MethodData_Marshal, MethodData_, "uint", DataLength, "uint*", &BytesReturned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BytesReturned
     }
 
@@ -69,7 +77,11 @@ class IKsControl extends IUnknown{
     KsEvent(Event, EventLength, EventData, DataLength) {
         EventDataMarshal := EventData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Event, "uint", EventLength, EventDataMarshal, EventData, "uint", DataLength, "uint*", &BytesReturned := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", Event, "uint", EventLength, EventDataMarshal, EventData, "uint", DataLength, "uint*", &BytesReturned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BytesReturned
     }
 }

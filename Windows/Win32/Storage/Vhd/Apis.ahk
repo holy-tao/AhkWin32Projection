@@ -118,7 +118,7 @@ class Vhd {
      *     Windows Server 2012.
      * @param {Pointer<VIRTUAL_STORAGE_TYPE>} VirtualStorageType A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> 
      *      structure.
-     * @param {PWSTR} Path A pointer to a valid path to the virtual disk image to open.
+     * @param {PWSTR} Path_ A pointer to a valid path to the virtual disk image to open.
      * @param {Integer} VirtualDiskAccessMask A valid value of the 
      *      <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask-r1">VIRTUAL_DISK_ACCESS_MASK</a> enumeration.
      * @param {Integer} Flags A valid combination of values of the 
@@ -126,20 +126,20 @@ class Vhd {
      * @param {Pointer<OPEN_VIRTUAL_DISK_PARAMETERS>} Parameters An optional pointer to a valid 
      *      <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-open_virtual_disk_parameters">OPEN_VIRTUAL_DISK_PARAMETERS</a> structure. Can 
      *      be <b>NULL</b>.
-     * @param {Pointer<HANDLE>} Handle A pointer to the handle object that represents the open virtual disk.
+     * @param {Pointer<HANDLE>} Handle_ A pointer to the handle object that represents the open virtual disk.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> (0) and the 
      *       <i>Handle</i> parameter contains a valid pointer to the new virtual disk object.
      * 
      * If the function fails, the return value is an error code and the value of the <i>Handle</i> 
      *       parameter is undefined. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-openvirtualdisk
      * @since windows6.1
      */
-    static OpenVirtualDisk(VirtualStorageType, Path, VirtualDiskAccessMask, Flags, Parameters, Handle) {
-        Path := Path is String ? StrPtr(Path) : Path
+    static OpenVirtualDisk(VirtualStorageType, Path_, VirtualDiskAccessMask, Flags, Parameters, Handle_) {
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
 
-        result := DllCall("VirtDisk.dll\OpenVirtualDisk", "ptr", VirtualStorageType, "ptr", Path, "int", VirtualDiskAccessMask, "int", Flags, "ptr", Parameters, "ptr", Handle, "uint")
+        result := DllCall("VirtDisk.dll\OpenVirtualDisk", "ptr", VirtualStorageType, "ptr", Path_, "int", VirtualDiskAccessMask, "int", Flags, "ptr", Parameters, "ptr", Handle_, "uint")
         return result
     }
 
@@ -202,13 +202,13 @@ class Vhd {
      *     to pre-populate the new virtual disk with block data from the source disk.
      * @param {Pointer<VIRTUAL_STORAGE_TYPE>} VirtualStorageType A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> structure 
      *      that contains the desired disk type and vendor information.
-     * @param {PWSTR} Path A pointer to a valid string that represents the path to the new virtual disk image file.
+     * @param {PWSTR} Path_ A pointer to a valid string that represents the path to the new virtual disk image file.
      * @param {Integer} VirtualDiskAccessMask The <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask-r1">VIRTUAL_DISK_ACCESS_MASK</a> value to use 
      *      when opening the newly created virtual disk file. If the <b>Version</b> member of the 
      *      <i>Parameters</i> parameter is set to 
      *      <b>CREATE_VIRTUAL_DISK_VERSION_2</b> then only the 
      *      <b>VIRTUAL_DISK_ACCESS_NONE</b> (0) value may be specified.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor An optional pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ An optional pointer to a 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> to apply to the virtual 
      *      disk image file. If this parameter is <b>NULL</b>, the parent directory's security descriptor 
      *      will be used.
@@ -218,24 +218,24 @@ class Vhd {
      * @param {Pointer<CREATE_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid 
      *      <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-create_virtual_disk_parameters">CREATE_VIRTUAL_DISK_PARAMETERS</a> structure 
      *      that contains creation parameter data.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure 
      *      if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation 
      *      is desired.
-     * @param {Pointer<HANDLE>} Handle A pointer to the handle object that represents the newly created virtual disk.
+     * @param {Pointer<HANDLE>} Handle_ A pointer to the handle object that represents the newly created virtual disk.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and the 
      *       <i>Handle</i> parameter contains a valid pointer to the new virtual disk object.
      * 
      * If the function fails, the return value is an error code and the value of the <i>Handle</i> 
      *       parameter is undefined. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-createvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-createvirtualdisk
      * @since windows6.1
      */
-    static CreateVirtualDisk(VirtualStorageType, Path, VirtualDiskAccessMask, SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, Overlapped, Handle) {
-        Path := Path is String ? StrPtr(Path) : Path
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static CreateVirtualDisk(VirtualStorageType, Path_, VirtualDiskAccessMask, SecurityDescriptor_, Flags, ProviderSpecificFlags, Parameters, Overlapped_, Handle_) {
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
-        result := DllCall("VirtDisk.dll\CreateVirtualDisk", "ptr", VirtualStorageType, "ptr", Path, "int", VirtualDiskAccessMask, "ptr", SecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped, "ptr", Handle, "uint")
+        result := DllCall("VirtDisk.dll\CreateVirtualDisk", "ptr", VirtualStorageType, "ptr", Path_, "int", VirtualDiskAccessMask, "ptr", SecurityDescriptor_, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped_, "ptr", Handle_, "uint")
         return result
     }
 
@@ -278,7 +278,7 @@ class Vhd {
      *     Windows Server 2012.
      * @param {HANDLE} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor An optional pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ An optional pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> to apply to the attached 
      *       virtual disk. If this parameter is <b>NULL</b>, the security descriptor of the virtual disk 
      *       image file is used.
@@ -291,7 +291,7 @@ class Vhd {
      * @param {Pointer<ATTACH_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-attach_virtual_disk_parameters">ATTACH_VIRTUAL_DISK_PARAMETERS</a> 
      *       structure that contains attachment parameter data.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> 
      *       structure if 
      *       <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is 
      *       desired.
@@ -301,14 +301,14 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-attachvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-attachvirtualdisk
      * @since windows6.1
      */
-    static AttachVirtualDisk(VirtualDiskHandle, SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, Overlapped) {
+    static AttachVirtualDisk(VirtualDiskHandle, SecurityDescriptor_, Flags, ProviderSpecificFlags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
-        result := DllCall("VirtDisk.dll\AttachVirtualDisk", "ptr", VirtualDiskHandle, "ptr", SecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\AttachVirtualDisk", "ptr", VirtualDiskHandle, "ptr", SecurityDescriptor_, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -359,7 +359,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-detachvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-detachvirtualdisk
      * @since windows6.1
      */
     static DetachVirtualDisk(VirtualDiskHandle, Flags, ProviderSpecificFlags) {
@@ -394,7 +394,7 @@ class Vhd {
      * If the function fails, the return value is an error code and the value of the contents of the buffer referred 
      *       to by the  <i>DiskPath</i> parameter is undefined. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-getvirtualdiskphysicalpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-getvirtualdiskphysicalpath
      * @since windows6.1
      */
     static GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPath) {
@@ -447,7 +447,7 @@ class Vhd {
      * If the function fails, the return value is an error code and the 
      *       <i>StorageDependencyInfo</i> parameter is undefined. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-getstoragedependencyinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-getstoragedependencyinformation
      * @since windows6.1
      */
     static GetStorageDependencyInformation(ObjectHandle, Flags, StorageDependencyInfoSize, StorageDependencyInfo, SizeUsed) {
@@ -484,7 +484,7 @@ class Vhd {
      * If the function fails, the return value is an error code and the <i>VirtualDiskInfo</i> 
      *        parameter is undefined. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-getvirtualdiskinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-getvirtualdiskinformation
      * @since windows6.1
      */
     static GetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfoSize, VirtualDiskInfo, SizeUsed) {
@@ -521,7 +521,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-setvirtualdiskinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-setvirtualdiskinformation
      * @since windows6.1
      */
     static SetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfo) {
@@ -551,7 +551,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-enumeratevirtualdiskmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-enumeratevirtualdiskmetadata
      * @since windows8.0
      */
     static EnumerateVirtualDiskMetadata(VirtualDiskHandle, NumberOfItems, Items) {
@@ -582,7 +582,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-getvirtualdiskmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-getvirtualdiskmetadata
      * @since windows8.0
      */
     static GetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
@@ -608,7 +608,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-setvirtualdiskmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-setvirtualdiskmetadata
      * @since windows8.0
      */
     static SetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
@@ -628,7 +628,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-deletevirtualdiskmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-deletevirtualdiskmetadata
      * @since windows8.0
      */
     static DeleteVirtualDiskMetadata(VirtualDiskHandle, Item) {
@@ -641,7 +641,7 @@ class Vhd {
     /**
      * Checks the progress of an asynchronous virtual hard disk (VHD) operation.
      * @param {HANDLE} VirtualDiskHandle A valid handle to a virtual disk with a pending asynchronous operation.
-     * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. This 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ A pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. This 
      *      parameter must reference the same structure previously sent to the virtual disk operation being checked for 
      *      progress.
      * @param {Pointer<VIRTUAL_DISK_PROGRESS>} Progress A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_disk_progress">VIRTUAL_DISK_PROGRESS</a> 
@@ -655,13 +655,13 @@ class Vhd {
      * If the function fails, the return value is an error code and the value of the 
      *       <i>Progress</i> parameter is undefined. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-getvirtualdiskoperationprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-getvirtualdiskoperationprogress
      * @since windows6.1
      */
-    static GetVirtualDiskOperationProgress(VirtualDiskHandle, Overlapped, Progress) {
+    static GetVirtualDiskOperationProgress(VirtualDiskHandle, Overlapped_, Progress) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\GetVirtualDiskOperationProgress", "ptr", VirtualDiskHandle, "ptr", Overlapped, "ptr", Progress, "uint")
+        result := DllCall("VirtDisk.dll\GetVirtualDiskOperationProgress", "ptr", VirtualDiskHandle, "ptr", Overlapped_, "ptr", Progress, "uint")
         return result
     }
 
@@ -712,7 +712,7 @@ class Vhd {
      * @param {Pointer<COMPACT_VIRTUAL_DISK_PARAMETERS>} Parameters A optional pointer to a valid 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-compact_virtual_disk_parameters">COMPACT_VIRTUAL_DISK_PARAMETERS</a> 
      *       structure that contains compaction parameter data.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> 
      *       structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> 
      *       operation is desired.
      * @returns {Integer} Status of the request.
@@ -721,13 +721,13 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-compactvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-compactvirtualdisk
      * @since windows6.1
      */
-    static CompactVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+    static CompactVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\CompactVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\CompactVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -760,19 +760,19 @@ class Vhd {
      * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Integer} Flags Must be the <b>MERGE_VIRTUAL_DISK_FLAG_NONE</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-merge_virtual_disk_flag">MERGE_VIRTUAL_DISK_FLAG</a> enumeration.
      * @param {Pointer<MERGE_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-merge_virtual_disk_parameters">MERGE_VIRTUAL_DISK_PARAMETERS</a> structure that contains merge parameter data.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is desired.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is desired.
      * @returns {Integer} Status of the request.
      * 
      * If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-mergevirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-mergevirtualdisk
      * @since windows6.1
      */
-    static MergeVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+    static MergeVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\MergeVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\MergeVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -793,19 +793,19 @@ class Vhd {
      * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Integer} Flags Must be the <b>EXPAND_VIRTUAL_DISK_FLAG_NONE</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-expand_virtual_disk_flag">EXPAND_VIRTUAL_DISK_FLAG</a> enumeration.
      * @param {Pointer<EXPAND_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-expand_virtual_disk_parameters">EXPAND_VIRTUAL_DISK_PARAMETERS</a> structure that contains expansion parameter data.
-     * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is desired.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is desired.
      * @returns {Integer} Status of the request.
      * 
      * If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, the return value is an error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-expandvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-expandvirtualdisk
      * @since windows6.1
      */
-    static ExpandVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+    static ExpandVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\ExpandVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\ExpandVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -817,7 +817,7 @@ class Vhd {
      * @param {Pointer<RESIZE_VIRTUAL_DISK_PARAMETERS>} Parameters Address of a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/ns-virtdisk-resize_virtual_disk_parameters">RESIZE_VIRTUAL_DISK_PARAMETERS</a> 
      *       structure containing the new size of the virtual disk.
-     * @param {Pointer<OVERLAPPED>} Overlapped If this is to be an asynchronous operation, the address of a valid 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ If this is to be an asynchronous operation, the address of a valid 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure.
      * @returns {Integer} Status of the request.
      * 
@@ -825,13 +825,13 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-resizevirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-resizevirtualdisk
      * @since windows8.0
      */
-    static ResizeVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+    static ResizeVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\ResizeVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\ResizeVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -873,7 +873,7 @@ class Vhd {
      * @param {Pointer<MIRROR_VIRTUAL_DISK_PARAMETERS>} Parameters Address of a 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-mirror_virtual_disk_parameters">MIRROR_VIRTUAL_DISK_PARAMETERS</a> structure 
      *       containing mirror parameter data.
-     * @param {Pointer<OVERLAPPED>} Overlapped Address of an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Address of an 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. This parameter is required.
      * @returns {Integer} Status of the request.
      * 
@@ -881,13 +881,13 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-mirrorvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-mirrorvirtualdisk
      * @since windows8.0
      */
-    static MirrorVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+    static MirrorVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\MirrorVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\MirrorVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -903,7 +903,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-breakmirrorvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-breakmirrorvirtualdisk
      * @since windows8.0
      */
     static BreakMirrorVirtualDisk(VirtualDiskHandle) {
@@ -927,7 +927,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-addvirtualdiskparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-addvirtualdiskparent
      * @since windows8.0
      */
     static AddVirtualDiskParent(VirtualDiskHandle, ParentPath) {
@@ -959,7 +959,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-querychangesvirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-querychangesvirtualdisk
      * @since windows10.0.10240
      */
     static QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, ByteLength, Flags, Ranges, RangeCount, ProcessedLength) {
@@ -984,7 +984,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-takesnapshotvhdset
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-takesnapshotvhdset
      * @since windows10.0.10240
      */
     static TakeSnapshotVhdSet(VirtualDiskHandle, Parameters, Flags) {
@@ -1005,7 +1005,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-deletesnapshotvhdset
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-deletesnapshotvhdset
      * @since windows10.0.10240
      */
     static DeleteSnapshotVhdSet(VirtualDiskHandle, Parameters, Flags) {
@@ -1026,7 +1026,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-modifyvhdset
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-modifyvhdset
      * @since windows10.0.10240
      */
     static ModifyVhdSet(VirtualDiskHandle, Parameters, Flags) {
@@ -1049,7 +1049,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-applysnapshotvhdset
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-applysnapshotvhdset
      * @since windows10.0.10240
      */
     static ApplySnapshotVhdSet(VirtualDiskHandle, Parameters, Flags) {
@@ -1074,7 +1074,7 @@ class Vhd {
      * 
      * If the function fails, the return value is an error code. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-rawscsivirtualdisk
+     * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/nf-virtdisk-rawscsivirtualdisk
      * @since windows10.0.10240
      */
     static RawSCSIVirtualDisk(VirtualDiskHandle, Parameters, Flags, Response) {
@@ -1089,13 +1089,13 @@ class Vhd {
      * @param {HANDLE} VirtualDiskHandle 
      * @param {Integer} Flags 
      * @param {Pointer<FORK_VIRTUAL_DISK_PARAMETERS>} Parameters 
-     * @param {Pointer<OVERLAPPED>} Overlapped 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ 
      * @returns {Integer} 
      */
-    static ForkVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+    static ForkVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped_) {
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
-        result := DllCall("VirtDisk.dll\ForkVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
+        result := DllCall("VirtDisk.dll\ForkVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped_, "uint")
         return result
     }
 

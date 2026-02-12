@@ -10,7 +10,7 @@
  * See 
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraise">NetAlertRaise</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraiseex">NetAlertRaiseEx</a> for code samples that demonstrate how to raise an administrative alert.
- * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-admin_other_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmalert/ns-lmalert-admin_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

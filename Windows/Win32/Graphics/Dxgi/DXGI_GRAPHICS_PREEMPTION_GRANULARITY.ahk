@@ -9,7 +9,7 @@
  * The following figure shows granularity of graphics rendering tasks.
  * 
  * <img alt="Graphics Rendering Granularity" src="./images/Graphics_Preempt.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ne-dxgi1_2-dxgi_graphics_preemption_granularity
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_2/ne-dxgi1_2-dxgi_graphics_preemption_granularity
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

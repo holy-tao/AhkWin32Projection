@@ -6,7 +6,7 @@
 
 /**
  * Represents a conflict between two items.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ichangeconflict
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ichangeconflict
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -34,40 +34,60 @@ class IChangeConflict extends IUnknown{
     /**
      * Gets the change metadata from the destination provider.
      * @returns {ISyncChange} Returns the change metadata from the destination provider.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingchange
      */
     GetDestinationProviderConflictingChange() {
-        result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChange(ppConflictingChange)
     }
 
     /**
      * Gets the change metadata from the source provider.
      * @returns {ISyncChange} Returns the change metadata from the source provider.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingchange
      */
     GetSourceProviderConflictingChange() {
-        result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChange(ppConflictingChange)
     }
 
     /**
      * Gets an object that can be used to retrieve item data for the change item from the destination replica.
+     * @remarks
+     * The object that is returned in <i>ppConflictingData</i> can be an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isynchronousdataretriever">ISynchronousDataRetriever</a> object or a provider-specific object.
      * @returns {IUnknown} Returns an object that can be used to retrieve item data for the change item from the destination replica.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-getdestinationproviderconflictingdata
      */
     GetDestinationProviderConflictingData() {
-        result := ComCall(5, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppConflictingData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppConflictingData)
     }
 
     /**
      * Gets an object that can be used to retrieve item data for the change item from the source replica.
+     * @remarks
+     * The object that is returned in <i>ppConflictingData</i> can be an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isynchronousdataretriever">ISynchronousDataRetriever</a> object or a provider-specific object.
      * @returns {IUnknown} Returns an object that can be used to retrieve item data for the change item from the source replica.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-getsourceproviderconflictingdata
      */
     GetSourceProviderConflictingData() {
-        result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppConflictingData)
     }
 
@@ -104,17 +124,23 @@ class IChangeConflict extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getresolveactionforchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-getresolveactionforchange
      */
     GetResolveActionForChange(pResolveAction) {
         pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pResolveActionMarshal, pResolveAction, "HRESULT")
+        result := ComCall(7, this, pResolveActionMarshal, pResolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets a conflict resolution action for the conflict.
+     * @remarks
+     * By setting this action in an event handler for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onconflict">ISyncCallback::OnConflict</a>, the event handler specifies how a change applier should handle the conflict.
      * @param {Integer} resolveAction The conflict resolution action for the conflict.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -157,10 +183,14 @@ class IChangeConflict extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-setresolveactionforchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-setresolveactionforchange
      */
     SetResolveActionForChange(resolveAction) {
-        result := ComCall(8, this, "int", resolveAction, "HRESULT")
+        result := ComCall(8, this, "int", resolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,17 +228,25 @@ class IChangeConflict extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-getresolveactionforchangeunit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-getresolveactionforchangeunit
      */
     GetResolveActionForChangeUnit(pChangeUnit, pResolveAction) {
         pResolveActionMarshal := pResolveAction is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pChangeUnit, pResolveActionMarshal, pResolveAction, "HRESULT")
+        result := ComCall(9, this, "ptr", pChangeUnit, pResolveActionMarshal, pResolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets a conflict resolution action for the conflicting change unit change.
+     * @remarks
+     * Be aware that setting the conflict resolution action for a change unit on an update-delete conflict is not valid, because this type of conflict must be resolved at the item level.
+     * 
+     * By setting this action in an event handler for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onconflict">ISyncCallback::OnConflict</a>, the event handler specifies how the change applier should handle the conflict.
      * @param {ISyncChangeUnit} pChangeUnit The change unit for which to set the conflict resolution action.
      * @param {Integer} resolveAction The conflict resolution action to set for <i>pChangeUnit</i>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -252,10 +290,14 @@ class IChangeConflict extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeconflict-setresolveactionforchangeunit
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ichangeconflict-setresolveactionforchangeunit
      */
     SetResolveActionForChangeUnit(pChangeUnit, resolveAction) {
-        result := ComCall(10, this, "ptr", pChangeUnit, "int", resolveAction, "HRESULT")
+        result := ComCall(10, this, "ptr", pChangeUnit, "int", resolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

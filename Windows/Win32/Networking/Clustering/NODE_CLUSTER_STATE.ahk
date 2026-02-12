@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The NODE_CLUSTER_STATE enumeration (msclus.h) indicates the state of the cluster.
+ * NODE_CLUSTER_STATE (clusapi.h) indicates the state of the cluster. The GetNodeClusterState function uses this enumeration.
  * @remarks
  * The following constants are defined in ClusAPI.h.
  * 
@@ -42,7 +42,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-node_cluster_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-node_cluster_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

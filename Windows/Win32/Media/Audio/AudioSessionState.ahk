@@ -11,7 +11,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-getstate">IAudioSessionControl::GetState</a> and <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionevents-onstatechanged">IAudioSessionEvents::OnStateChanged</a> methods use the constants defined in the <b>AudioSessionState</b> enumeration.
  * 
  * For more information about session states, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-sessions">Audio Sessions</a>.
- * @see https://learn.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audiosessionstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/audiosessiontypes/ne-audiosessiontypes-audiosessionstate
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

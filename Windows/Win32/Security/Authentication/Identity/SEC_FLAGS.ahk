@@ -5,7 +5,7 @@
  * Contains the security flags.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_flags
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

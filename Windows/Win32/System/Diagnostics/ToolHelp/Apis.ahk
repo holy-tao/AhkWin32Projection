@@ -53,7 +53,7 @@ class ToolHelp {
      * 
      * If the function fails, it returns <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include <b>ERROR_BAD_LENGTH</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-createtoolhelp32snapshot
      * @since windows5.1.2600
      */
     static CreateToolhelp32Snapshot(dwFlags, th32ProcessID) {
@@ -83,7 +83,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-heaplist32">HEAPLIST32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the first entry of the heap list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function when no heap list exists or the snapshot does not contain heap list information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-heap32listfirst
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-heap32listfirst
      * @since windows5.1.2600
      */
     static Heap32ListFirst(hSnapshot, lphl) {
@@ -110,7 +110,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-heaplist32">HEAPLIST32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the next entry of the heap list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function when no more entries in the heap list exist.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-heap32listnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-heap32listnext
      * @since windows5.1.2600
      */
     static Heap32ListNext(hSnapshot, lphl) {
@@ -145,7 +145,7 @@ class ToolHelp {
      * @param {Pointer} th32HeapID The identifier of the heap to be enumerated.
      * @returns {BOOL} Returns <b>TRUE</b> if information for the first heap block has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if the heap is invalid or empty.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-heap32first
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-heap32first
      * @since windows5.1.2600
      */
     static Heap32First(lphe, th32ProcessID, th32HeapID) {
@@ -175,7 +175,7 @@ class ToolHelp {
      * @returns {BOOL} Returns <b>TRUE</b> if information about the next block in the heap has been copied to the buffer or <b>FALSE</b> otherwise. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns <b>ERROR_NO_MORE_FILES</b> when no more objects in the heap exist and <b>ERROR_INVALID_DATA</b> if the heap appears to be corrupt or is modified during the walk in such a way that 
      * <b>Heap32Next</b> cannot continue.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-heap32next
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-heap32next
      * @since windows5.1.2600
      */
     static Heap32Next(lphe) {
@@ -199,7 +199,7 @@ class ToolHelp {
      * @param {Pointer} cbRead The number of bytes to read from the specified process.
      * @param {Pointer<Pointer>} lpNumberOfBytesRead The number of bytes copied to the specified buffer. If this parameter is <b>NULL</b>, it is ignored.
      * @returns {BOOL} Returns <b>TRUE</b> if successful.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-toolhelp32readprocessmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-toolhelp32readprocessmemory
      * @since windows5.1.2600
      */
     static Toolhelp32ReadProcessMemory(th32ProcessID, lpBaseAddress, lpBuffer, cbRead, lpNumberOfBytesRead) {
@@ -226,7 +226,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32w">PROCESSENTRY32W</a> structure. It contains process information such as the name of the executable file, the process identifier, and the process identifier of the parent process.
      * @returns {BOOL} Returns <b>TRUE</b> if the first entry of the process list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no processes exist or the snapshot does not contain process information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-process32firstw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-process32firstw
      * @since windows5.1.2600
      */
     static Process32FirstW(hSnapshot, lppe) {
@@ -253,7 +253,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32w">PROCESSENTRY32W</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the next entry of the process list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no processes exist or the snapshot does not contain process information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-process32nextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-process32nextw
      * @since windows5.1.2600
      */
     static Process32NextW(hSnapshot, lppe) {
@@ -284,7 +284,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32">PROCESSENTRY32</a> structure. It contains process information such as the name of the executable file, the process identifier, and the process identifier of the parent process.
      * @returns {BOOL} Returns <b>TRUE</b> if the first entry of the process list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no processes exist or the snapshot does not contain process information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-process32first
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-process32first
      * @since windows5.1.2600
      */
     static Process32First(hSnapshot, lppe) {
@@ -311,7 +311,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-processentry32">PROCESSENTRY32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the next entry of the process list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no processes exist or the snapshot does not contain process information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-process32next
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-process32next
      * @since windows5.1.2600
      */
     static Process32Next(hSnapshot, lppe) {
@@ -342,7 +342,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-threadentry32">THREADENTRY32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the first entry of the thread list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no threads exist or the snapshot does not contain thread information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-thread32first
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-thread32first
      * @since windows5.1.2600
      */
     static Thread32First(hSnapshot, lpte) {
@@ -369,7 +369,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-threadentry32">THREADENTRY32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the next entry of the thread list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no threads exist or the snapshot does not contain thread information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-thread32next
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-thread32next
      * @since windows5.1.2600
      */
     static Thread32Next(hSnapshot, lpte) {
@@ -399,7 +399,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32w">MODULEENTRY32W</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the first entry of the module list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no modules exist or the snapshot does not contain module information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-module32firstw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-module32firstw
      * @since windows5.1.2600
      */
     static Module32FirstW(hSnapshot, lpme) {
@@ -426,7 +426,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32w">MODULEENTRY32W</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the next entry of the module list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no more modules exist.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-module32nextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-module32nextw
      * @since windows5.1.2600
      */
     static Module32NextW(hSnapshot, lpme) {
@@ -456,7 +456,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32">MODULEENTRY32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the first entry of the module list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no modules exist or the snapshot does not contain module information.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-module32first
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-module32first
      * @since windows5.1.2600
      */
     static Module32First(hSnapshot, lpme) {
@@ -483,7 +483,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/tlhelp32/ns-tlhelp32-moduleentry32">MODULEENTRY32</a> structure.
      * @returns {BOOL} Returns <b>TRUE</b> if the next entry of the module list has been copied to the buffer or <b>FALSE</b> otherwise. The <b>ERROR_NO_MORE_FILES</b> error value is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function if no more modules exist.
-     * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/nf-tlhelp32-module32next
+     * @see https://learn.microsoft.com/windows/win32/api//content/tlhelp32/nf-tlhelp32-module32next
      * @since windows5.1.2600
      */
     static Module32Next(hSnapshot, lpme) {

@@ -5,7 +5,7 @@
  * Represents the DNS settings that can be configured on a given interface by calling the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function. (DNS_INTERFACE_SETTINGS3)
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-dns_interface_settings3
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get information from a Digital Video Broadcast (DVB) content identifier descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbcontentidentifierdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbcontentidentifierdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,30 +33,42 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
     /**
      * Gets the tag for a Digital Video Broadcast (DVB) content identifier descriptor.
      * @returns {Integer} Receives the content identifier descriptor tag. For content identifier descriptors, this tag value is "0x76".
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the body length of a Digital Video Broadcast (DVB) content identifier descriptor.
      * @returns {Integer} Gets the descriptor body length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the number of service records in a Digital Video Broadcast (DVB) content identifier descriptor.
      * @returns {Integer} Receives the number of service records.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -67,8 +79,8 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
      * @param {Pointer<Integer>} pbLocation Gets the location of the CRID.
      * @param {Pointer<Integer>} pbLength Gets the number of bytes required to return the CRID.
      * @param {Pointer<Pointer<Integer>>} ppbBytes Pointer to a buffer that receives the CRID. The caller is responsible for freeing this memory.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getrecordcrid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getrecordcrid
      */
     GetRecordCrid(bRecordIndex, pbType, pbLocation, pbLength, ppbBytes) {
         pbTypeMarshal := pbType is VarRef ? "char*" : "ptr"
@@ -76,7 +88,11 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
         ppbBytesMarshal := ppbBytes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "char", bRecordIndex, pbTypeMarshal, pbType, pbLocationMarshal, pbLocation, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "HRESULT")
+        result := ComCall(6, this, "char", bRecordIndex, pbTypeMarshal, pbType, pbLocationMarshal, pbLocation, pbLengthMarshal, pbLength, ppbBytesMarshal, ppbBytes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

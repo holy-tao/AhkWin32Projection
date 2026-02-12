@@ -7,7 +7,7 @@
 
 /**
  * Represents the progress of an asynchronous download operation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-idownloadprogress
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-idownloadprogress
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -91,64 +91,88 @@ class IDownloadProgress extends IDispatch{
     /**
      * Gets a string that specifies how much data has been transferred for the content file or files of the update that is being downloaded, in bytes.
      * @returns {DECIMAL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytesdownloaded
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytesdownloaded
      */
     get_CurrentUpdateBytesDownloaded() {
         retval := DECIMAL()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a string that estimates how much data should be transferred for the content file or files of the update that is being downloaded, in bytes.
      * @returns {DECIMAL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytestodownload
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytestodownload
      */
     get_CurrentUpdateBytesToDownload() {
         retval := DECIMAL()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        result := ComCall(8, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a zero-based index value that specifies the update that is currently being downloaded when multiple updates have been selected.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_currentupdateindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_currentupdateindex
      */
     get_CurrentUpdateIndex() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets an estimate of the percentage of all the updates that have been downloaded.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_percentcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_percentcomplete
      */
     get_PercentComplete() {
-        result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a string that specifies the total amount of data that has been downloaded, in bytes.
      * @returns {DECIMAL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_totalbytesdownloaded
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_totalbytesdownloaded
      */
     get_TotalBytesDownloaded() {
         retval := DECIMAL()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        result := ComCall(11, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a string that represents the estimate of the total amount of data that will be downloaded, in bytes.
      * @returns {DECIMAL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_totalbytestodownload
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_totalbytestodownload
      */
     get_TotalBytesToDownload() {
         retval := DECIMAL()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        result := ComCall(12, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -156,30 +180,42 @@ class IDownloadProgress extends IDispatch{
      * Returns the result of the download of a specified update.
      * @param {Integer} updateIndex A zero-based index value that specifies an update.
      * @returns {IUpdateDownloadResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloadresult">IUpdateDownloadResult</a> interface that contains information about the specified update.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-getupdateresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-getupdateresult
      */
     GetUpdateResult(updateIndex) {
-        result := ComCall(13, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, "int", updateIndex, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUpdateDownloadResult(retval)
     }
 
     /**
      * Gets a DownloadPhase enumeration value that specifies the phase of the download that is currently in progress.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_currentupdatedownloadphase
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_currentupdatedownloadphase
      */
     get_CurrentUpdateDownloadPhase() {
-        result := ComCall(14, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets an estimate of the percentage of the current update that has been downloaded.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogress-get_currentupdatepercentcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-idownloadprogress-get_currentupdatepercentcomplete
      */
     get_CurrentUpdatePercentComplete() {
-        result := ComCall(15, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

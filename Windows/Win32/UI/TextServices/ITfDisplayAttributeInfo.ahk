@@ -8,13 +8,10 @@
 /**
  * The ITfDisplayAttributeInfo interface is implemented by a text service to provide display attribute data. This interface is used by any component, most often an application, that must determine how text displays.
  * @remarks
- * 
  * An application obtains an instance of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdisplayattributemgr-getdisplayattributeinfo">ITfDisplayAttributeMgr::GetDisplayAttributeInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-next">IEnumTfDisplayAttributeInfo::Next</a>.
  * 
  * A text service supplies an instance of this interface in its <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo">ITfDisplayAttributeProvider::GetDisplayAttributeInfo</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfdisplayattributeinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfdisplayattributeinfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -42,38 +39,52 @@ class ITfDisplayAttributeInfo extends IUnknown{
     /**
      * ITfDisplayAttributeInfo::GetGUID method
      * @returns {Guid} Pointer to a GUID value that receives the GUID for the display attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-getguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeinfo-getguid
      */
     GetGUID() {
         pguid := Guid()
-        result := ComCall(3, this, "ptr", pguid, "HRESULT")
+        result := ComCall(3, this, "ptr", pguid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguid
     }
 
     /**
      * ITfDisplayAttributeInfo::GetDescription method
      * @returns {BSTR} Pointer to a BSTR value that receives the description string. This value must be allocated using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must free this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeinfo-getdescription
      */
     GetDescription() {
         pbstrDesc := BSTR()
-        result := ComCall(4, this, "ptr", pbstrDesc, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDesc
     }
 
     /**
      * ITfDisplayAttributeInfo::GetAttributeInfo method
      * @returns {TF_DISPLAYATTRIBUTE} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_displayattribute">TF_DISPLAYATTRIBUTE</a> structure that receives display attribute data.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-getattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeinfo-getattributeinfo
      */
     GetAttributeInfo() {
         pda := TF_DISPLAYATTRIBUTE()
-        result := ComCall(5, this, "ptr", pda, "HRESULT")
+        result := ComCall(5, this, "ptr", pda, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pda
     }
 
     /**
      * ITfDisplayAttributeInfo::SetAttributeInfo method
+     * @remarks
+     * The implementation of this method should not call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdisplayattributemgr-onupdateinfo">ITfDisplayAttributeMgr::OnUpdateInfo</a> in response to this method. The caller must do so. This avoids redundant notifications if more than one attribute is modified. The caller must eventually call <b>ITfDisplayAttributeMgr::OnUpdateInfo</b> so that other clients will receive an attribute update notification.
      * @param {Pointer<TF_DISPLAYATTRIBUTE>} pda Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_displayattribute">TF_DISPLAYATTRIBUTE</a> structure that contains the new display attribute data.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -116,15 +127,21 @@ class ITfDisplayAttributeInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-setattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeinfo-setattributeinfo
      */
     SetAttributeInfo(pda) {
-        result := ComCall(6, this, "ptr", pda, "HRESULT")
+        result := ComCall(6, this, "ptr", pda, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfDisplayAttributeInfo::Reset method
+     * @remarks
+     * The implementation of this method should not call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdisplayattributemgr-onupdateinfo">ITfDisplayAttributeMgr::OnUpdateInfo</a> in response to this method. The caller must do so. This avoids redundant notifications if more than one attribute is modified. The caller must eventually call <b>ITfDisplayAttributeMgr::OnUpdateInfo</b> so that other clients will receive an attribute update notification.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -155,10 +172,14 @@ class ITfDisplayAttributeInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeinfo-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeinfo-reset
      */
     Reset() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

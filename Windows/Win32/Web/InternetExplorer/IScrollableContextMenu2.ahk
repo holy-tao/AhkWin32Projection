@@ -33,7 +33,11 @@ class IScrollableContextMenu2 extends IScrollableContextMenu{
      * @returns {HRESULT} 
      */
     AddSeparator() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IScrollableContextMenu2 extends IScrollableContextMenu{
      * @returns {HRESULT} 
      */
     SetPlacement(scmp) {
-        result := ComCall(6, this, "int", scmp, "HRESULT")
+        result := ComCall(6, this, "int", scmp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

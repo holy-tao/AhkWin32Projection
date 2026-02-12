@@ -38,7 +38,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-pathobj_vgetbounds">PATHOBJ_vGetBounds</a>
  * </dt>
  * </dl>
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-pathobj
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-pathobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

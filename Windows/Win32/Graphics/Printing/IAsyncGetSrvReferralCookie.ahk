@@ -29,7 +29,11 @@ class IAsyncGetSrvReferralCookie extends IUnknown{
      * @returns {HRESULT} 
      */
     FinishAsyncCall(param0) {
-        result := ComCall(3, this, "int", param0, "HRESULT")
+        result := ComCall(3, this, "int", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -39,7 +43,11 @@ class IAsyncGetSrvReferralCookie extends IUnknown{
      * @returns {HRESULT} 
      */
     CancelAsyncCall(param0) {
-        result := ComCall(4, this, "int", param0, "HRESULT")
+        result := ComCall(4, this, "int", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +59,11 @@ class IAsyncGetSrvReferralCookie extends IUnknown{
     FinishAsyncCallWithData(param0) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := ComCall(5, this, "ptr", param0, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

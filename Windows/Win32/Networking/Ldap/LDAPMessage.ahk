@@ -10,7 +10,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>.
  * 
  * There are no client-accessible fields in this structure.
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage
+ * @see https://learn.microsoft.com/windows/win32/api//content/winldap/ns-winldap-ldapmessage
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

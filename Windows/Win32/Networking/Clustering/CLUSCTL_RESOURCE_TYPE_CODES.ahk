@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSCTL_RESOURCE_TYPE_CODES enumeration (msclus.h) enumerates resource type control codes.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_resource_type_codes
+ * CLUSCTL_RESOURCE_TYPE_CODES (clusapi.h) enumerates resource type control codes.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clusctl_resource_type_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

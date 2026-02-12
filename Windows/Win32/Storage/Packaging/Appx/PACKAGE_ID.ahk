@@ -6,7 +6,7 @@
  * Represents package identification information, such as name, version, and publisher.
  * @remarks
  * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
- * @see https://learn.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/appmodel/ns-appmodel-package_id
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

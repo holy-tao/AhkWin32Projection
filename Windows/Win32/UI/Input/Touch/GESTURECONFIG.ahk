@@ -177,7 +177,7 @@
  * <td>Indicates the press and tap gesture.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-gestureconfig
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */

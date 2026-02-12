@@ -8,7 +8,7 @@
  *         specifying them is optional.  In the common case, one should be able
  *         to create a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_security_description">WS_SECURITY_DESCRIPTION</a> without setting any of
  *         the properties below.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_security_property_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_security_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

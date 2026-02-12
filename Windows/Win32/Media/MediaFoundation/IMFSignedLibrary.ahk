@@ -6,11 +6,8 @@
 /**
  * Provides a method that allows content protection systems to get the procedure address of a function in the signed library. This method provides the same functionality as GetProcAddress which is not available to Windows Store apps.
  * @remarks
- * 
  * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfloadsignedlibrary">MFLoadSignedLibrary</a> for an example of how to create and use an <b>IMFSignedLibrary</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsignedlibrary
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfsignedlibrary
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,14 +34,20 @@ class IMFSignedLibrary extends IUnknown{
 
     /**
      * Gets the procedure address of the specified function in the signed library.
+     * @remarks
+     * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfloadsignedlibrary">MFLoadSignedLibrary</a> for an example of how to create an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsignedlibrary">IMFSignedLibrary</a> object and call the <b>GetProcedureAddress</b> method.
      * @param {PSTR} name The entry point name in the DLL that specifies the function.
-     * @returns {Pointer<Void>} Receives the address of the entry point.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsignedlibrary-getprocedureaddress
+     * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfsignedlibrary-getprocedureaddress
      */
     GetProcedureAddress(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "ptr*", &address := 0, "HRESULT")
-        return address
+        result := ComCall(3, this, "ptr", name, "ptr*", &address_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return address_
     }
 }

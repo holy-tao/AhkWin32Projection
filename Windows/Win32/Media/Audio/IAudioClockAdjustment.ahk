@@ -5,7 +5,7 @@
 
 /**
  * The IAudioClockAdjustment interface is used to adjust the sample rate of a stream.
- * @see https://docs.microsoft.com/windows/win32/api//audioclient/nn-audioclient-iaudioclockadjustment
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nn-audioclient-iaudioclockadjustment
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -32,6 +32,13 @@ class IAudioClockAdjustment extends IUnknown{
 
     /**
      * The SetSampleRate method sets the sample rate of a stream.
+     * @remarks
+     * This method must not be called from a real-time processing thread.
+     * 			
+     * 		    
+     * 
+     * The new sample rate will take effect after the current frame is done processing and will remain in effect until <b>SetSampleRate</b> is called again.
+     * 		The audio client must be initialized in shared-mode (AUDCLNT_SHAREMODE_SHARED), otherwise <b>SetSampleRate</b> fails.
      * @param {Float} flSampleRate The new sample rate in frames per second.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
      * 
@@ -63,10 +70,14 @@ class IAudioClockAdjustment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudioclockadjustment-setsamplerate
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nf-audioclient-iaudioclockadjustment-setsamplerate
      */
     SetSampleRate(flSampleRate) {
-        result := ComCall(3, this, "float", flSampleRate, "HRESULT")
+        result := ComCall(3, this, "float", flSampleRate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -35,20 +35,29 @@ class ITransactionExportFactory extends IUnknown{
      */
     GetRemoteClassId() {
         pclsid := Guid()
-        result := ComCall(3, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(3, this, "ptr", pclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pclsid
     }
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {Integer} cbWhereabouts 
      * @param {Pointer<Integer>} rgbWhereabouts 
      * @returns {ITransactionExport} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(cbWhereabouts, rgbWhereabouts) {
         rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", &ppExport := 0, "HRESULT")
+        result := ComCall(4, this, "uint", cbWhereabouts, rgbWhereaboutsMarshal, rgbWhereabouts, "ptr*", &ppExport := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionExport(ppExport)
     }
 }

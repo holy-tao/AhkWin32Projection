@@ -5,7 +5,7 @@
 
 /**
  * Defines additional methods for reporting and retrieving component-level writer errors.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsscomponentex2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nl-vswriter-ivsscomponentex2
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IVssComponentEx2 extends IVssComponentEx{
 
     /**
      * VSS writers call this method to report errors at the component level.
+     * @remarks
+     * In addition to calling this method,  use the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriterex2-setwriterfailureex">CVssWriterEx2::SetWriterFailureEx</a> method to report that a partial writer failure has occurred.
+     * 
+     * This method cannot be called from <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onidentify">CVssWriter::OnIdentify</a> or <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriterex-onidentifyex">CVssWriterEx::OnIdentifyEx</a>.
      * @param {HRESULT} hr The error code to be returned to the requester that calls the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponentex2-getfailure">IVssComponentEx2::GetFailure</a> method. 
      *       
      * 
@@ -113,18 +117,25 @@ class IVssComponentEx2 extends IVssComponentEx{
      * @param {HRESULT} hrApplication An additional error code to be returned to the requester. This parameter is optional.
      * @param {PWSTR} wszApplicationMessage A string containing an error message for the requester  to display to the end user. The writer is responsible for localizing this string if necessary before using it in this method. This parameter is optional and can be <b>NULL</b> or an empty string.
      * @param {Integer} dwReserved This parameter is reserved for future use and should be set to zero.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex2-setfailure
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscomponentex2-setfailure
      */
     SetFailure(hr, hrApplication, wszApplicationMessage, dwReserved) {
         wszApplicationMessage := wszApplicationMessage is String ? StrPtr(wszApplicationMessage) : wszApplicationMessage
 
-        result := ComCall(48, this, "int", hr, "int", hrApplication, "ptr", wszApplicationMessage, "uint", dwReserved, "HRESULT")
+        result := ComCall(48, this, "int", hr, "int", hrApplication, "ptr", wszApplicationMessage, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * VSS requesters call this method to retrieve component-level errors reported by writers.
+     * @remarks
+     * When the caller has finished accessing the status information returned by this method, it should call 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory held by the  <i>pbstrApplicationMessage</i> parameter.
      * @param {Pointer<HRESULT>} phr The address of a caller-allocated variable that receives the HRESULT failure code that the writer passed for the <i>hr</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponentex2-setfailure">IVssComponentEx2::SetFailure</a> method. This parameter is required and cannot be <b>NULL</b>.
      * 
      * The following are the supported values.
@@ -242,7 +253,7 @@ class IVssComponentEx2 extends IVssComponentEx{
      * <td width="60%">
      * Successfully returned the status of the specified writer. Note that the value of the 
      *         <i>phrFailureWriter</i> parameter must be checked to verify that the writer was successful. 
-     *         The writer failure codes can be among those listed in VsWriter.h and in <a href="/windows/desktop/VSS/writer-errors-and-vetoes">Writer Errors and Vetoes</a>.
+     *         The writer failure codes can be among those listed in VsWriter.h and in <a href="https://docs.microsoft.com/windows/desktop/VSS/writer-errors-and-vetoes">Writer Errors and Vetoes</a>.
      * 
      * </td>
      * </tr>
@@ -284,14 +295,18 @@ class IVssComponentEx2 extends IVssComponentEx{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex2-getfailure
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscomponentex2-getfailure
      */
     GetFailure(phr, phrApplication, pbstrApplicationMessage, pdwReserved) {
         phrMarshal := phr is VarRef ? "int*" : "ptr"
         phrApplicationMarshal := phrApplication is VarRef ? "int*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, phrMarshal, phr, phrApplicationMarshal, phrApplication, "ptr", pbstrApplicationMessage, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(49, this, phrMarshal, phr, phrApplicationMarshal, phrApplication, "ptr", pbstrApplicationMessage, pdwReservedMarshal, pdwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

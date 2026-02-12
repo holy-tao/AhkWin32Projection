@@ -8,15 +8,12 @@
 /**
  * Represents the layout analysis of the collection of strokes contained by the InkDivider object.
  * @remarks
- * 
  * The <b>IInkDivisionResult</b> object is the result of calling the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nf-msinkaut15-iinkdivider-divide">Divide</a> method of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdivider-class">InkDivider</a> object. Each <b>IInkDivisionResult</b> represents a snapshot of the layout analysis of the collection of strokes contained by the <b>InkDivider</b>.
  * 
  * The analysis results can be divided into a collection of structural units by calling the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nf-msinkaut15-iinkdivisionresult-resultbytype">ResultByType</a> method.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nn-msinkaut15-iinkdivisionresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut15/nn-msinkaut15-iinkdivisionresult
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -49,31 +46,42 @@ class IInkDivisionResult extends IDispatch{
     }
 
     /**
-     * Gets the collection of strokes that are contained in an object or used to create an object.
+     * Gets the collection of strokes that are contained in an object or used to create an object. (IInkDivisionResult.get_Strokes)
      * @remarks
-     * 
      * The collection of strokes may be the copies of the strokes contained in an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object or the strokes that were used to create the object or collection.
      * 
      * <div class="alert"><b>Note</b>  The <b>Strokes</b> property for the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object does not return the actual collection that the <b>InkDisp</b> object works with, but instead returns a copy. For example, this means that adding or removing strokes to this collection does not affect the <b>InkDisp</b> object's strokes; to add or remove strokes, use <b>InkDisp</b> methods such as <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdisp-addstrokesatrectangle">AddStrokesAtRectangle</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdisp-deletestroke">DeleteStroke</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdisp-deletestrokes">DeleteStrokes</a>. However, each stroke in the collection is a reference to the original <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {IInkStrokes} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nf-msinkaut15-iinkdivisionresult-get_strokes
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut15/nf-msinkaut15-iinkdivisionresult-get_strokes
      */
     get_Strokes() {
-        result := ComCall(7, this, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &Strokes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkStrokes(Strokes)
     }
 
     /**
      * Gets the requested structural units of the analysis results for an IInkDivisionUnits collection.
+     * @remarks
+     * This method returns a new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunits">IInkDivisionUnits</a> collection each time the method is called.
+     * 
+     * If no structural units of the requested type exist in the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionresult">IInkDivisionResult</a> object, then this method returns an empty <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunits">IInkDivisionUnits</a> collection.
+     * 
+     * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
      * @param {Integer} divisionType The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/ne-msinkaut15-inkdivisiontype">InkDivisionType</a> enumeration value that indicates the structural units to return.
      * @returns {IInkDivisionUnits} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nn-msinkaut15-iinkdivisionunits">IInkDivisionUnits</a> collection that contains the requested structural units of the analysis results.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut15/nf-msinkaut15-iinkdivisionresult-resultbytype
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut15/nf-msinkaut15-iinkdivisionresult-resultbytype
      */
     ResultByType(divisionType) {
-        result := ComCall(8, this, "int", divisionType, "ptr*", &InkDivisionUnits := 0, "HRESULT")
+        result := ComCall(8, this, "int", divisionType, "ptr*", &InkDivisionUnits := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkDivisionUnits(InkDivisionUnits)
     }
 }

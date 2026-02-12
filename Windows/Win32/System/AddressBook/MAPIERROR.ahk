@@ -11,7 +11,7 @@
  * Because service providers are not required to provide detailed error information, clients should not expect any of the members of the **MAPIERROR** structure that are returned to contain valid data. However, at a minimum MAPI strongly recommends that providers specify information in the **lpszComponent** and **ulContext** members. 
  *   
  * For more information about error handling in MAPI, see [Error Handling](error-handling-in-mapi.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapierror
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/mapierror
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

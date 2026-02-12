@@ -7,7 +7,7 @@
  * Describes a full set of values associated with a job and supports large spool files with sizes expressed with 64 bits.
  * @remarks
  * Port monitors that do not support TrueEndOfJob will set the job as JOB\_STATUS\_PRINTED immediately after the job is submitted to the printer.
- * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-4
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/job-info-4
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

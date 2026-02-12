@@ -42,7 +42,11 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
 
         pdwRMCookieMarshal := pdwRMCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDll, pdwRMCookieMarshal, pdwRMCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDll, pdwRMCookieMarshal, pdwRMCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
     ConvertTridToXID(pdwITrans, dwRMCookie, pxid) {
         pdwITransMarshal := pdwITrans is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwITransMarshal, pdwITrans, "uint", dwRMCookie, "ptr", pxid, "HRESULT")
+        result := ComCall(4, this, pdwITransMarshal, pdwITrans, "uint", dwRMCookie, "ptr", pxid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
      * @returns {ITransactionEnlistmentAsync} 
      */
     EnlistWithRM(dwRMCookie, i_pITransaction, i_pITransRes) {
-        result := ComCall(5, this, "uint", dwRMCookie, "ptr", i_pITransaction, "ptr", i_pITransRes, "ptr*", &o_ppITransEnslitment := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwRMCookie, "ptr", i_pITransaction, "ptr", i_pITransRes, "ptr*", &o_ppITransEnslitment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionEnlistmentAsync(o_ppITransEnslitment)
     }
 

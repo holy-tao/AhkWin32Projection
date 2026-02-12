@@ -6,7 +6,7 @@
 
 /**
  * The ICreateDevEnum interface creates an enumerator for a category of filters, such as video capture devices or audio capture devices.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-icreatedevenum
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-icreatedevenum
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,6 +33,29 @@ class ICreateDevEnum extends IUnknown{
 
     /**
      * The CreateClassEnumerator method creates an enumerator for a specified device category.
+     * @remarks
+     * If the category does not exist or is empty, the return value is S_FALSE, and the <i>ppEnumMoniker</i> parameter receives the value <b>NULL</b>. Therefore, test for the return value S_OK instead of using the <b>SUCCEEDED</b> macro:
+     * 
+     * <div class="code"><span><table>
+     * <tr>
+     * <th>C++</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <pre>
+     * IEnumMoniker *pEnum = NULL;
+     * hr = pSysDevEnum-&gt;CreateClassEnumerator(
+     *     CLSID_VideoCompressorCategory, &amp;pEnum, 0);
+     * if (hr == S_OK) 
+     * {
+     *     // Safe to dereference pEnum.
+     *     pEnum-&gt;Release();
+     * }
+     * </pre>
+     * </td>
+     * </tr>
+     * </table></span></div>
+     * Use the <b>IEnumMoniker</b> interface to enumerate monikers that represent the filters in the device category. Monikers support the <b>IMoniker</b> interface. The monikers created by <b>CreateClassEnumerator</b> also support the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igetcapabilitieskey">IGetCapabilitiesKey</a> interface.
      * @param {Pointer<Guid>} clsidDeviceClass Specifies the class identifier (CLSID) of the device category. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/filter-categories">Filter Categories</a>.
      * @param {Integer} dwFlags Bitwise combination of zero or more flags. If zero, the method enumerates every filter in the category. If any flags are set, the enumeration includes only filters that match the specified flags. The following flags are defined:
      * 
@@ -61,10 +84,14 @@ class ICreateDevEnum extends IUnknown{
      * </tr>
      * </table>
      * @returns {IEnumMoniker} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienummoniker">IEnumMoniker</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icreatedevenum-createclassenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-icreatedevenum-createclassenumerator
      */
     CreateClassEnumerator(clsidDeviceClass, dwFlags) {
-        result := ComCall(3, this, "ptr", clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumMoniker(ppEnumMoniker)
     }
 }

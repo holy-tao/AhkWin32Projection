@@ -5,7 +5,7 @@
 
 /**
  * Used to activate the COM+ component load balancing service.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomlbarguments
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomlbarguments
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class ICOMLBArguments extends IUnknown{
      * Retrieves the object's CLSID.
      * @param {Pointer<Guid>} pCLSID A pointer to the object's CLSID.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomlbarguments-getclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomlbarguments-getclsid
      */
     GetCLSID(pCLSID) {
-        result := ComCall(3, this, "ptr", pCLSID, "HRESULT")
+        result := ComCall(3, this, "ptr", pCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,10 +49,14 @@ class ICOMLBArguments extends IUnknown{
      * Sets the object's CLSID.
      * @param {Pointer<Guid>} pCLSID The object's CLSID.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomlbarguments-setclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomlbarguments-setclsid
      */
     SetCLSID(pCLSID) {
-        result := ComCall(4, this, "ptr", pCLSID, "HRESULT")
+        result := ComCall(4, this, "ptr", pCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,12 +65,16 @@ class ICOMLBArguments extends IUnknown{
      * @param {Integer} cchSvr The object's machine name.
      * @param {PWSTR} szServerName The object's server name.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomlbarguments-getmachinename
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomlbarguments-getmachinename
      */
     GetMachineName(cchSvr, szServerName) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
 
-        result := ComCall(5, this, "uint", cchSvr, "ptr", szServerName, "HRESULT")
+        result := ComCall(5, this, "uint", cchSvr, "ptr", szServerName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,12 +83,16 @@ class ICOMLBArguments extends IUnknown{
      * @param {Integer} cchSvr The object's machine name.
      * @param {PWSTR} szServerName The object's server name.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomlbarguments-setmachinename
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomlbarguments-setmachinename
      */
     SetMachineName(cchSvr, szServerName) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
 
-        result := ComCall(6, this, "uint", cchSvr, "ptr", szServerName, "HRESULT")
+        result := ComCall(6, this, "uint", cchSvr, "ptr", szServerName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Contains values that indicate the type of controller or namespace information that will be returned in the Controller or Namespace Structure (CNS) member of the NVME_CDW10_IDENTIFY structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_identify_cns_codes
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_identify_cns_codes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

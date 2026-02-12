@@ -25,7 +25,7 @@
  * [Registering Service Provider Unique Identifiers](registering-service-provider-unique-identifiers.md)
  *   
  * [Setting Transport Order](setting-transport-order.md)
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapiuid
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/mapiuid
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

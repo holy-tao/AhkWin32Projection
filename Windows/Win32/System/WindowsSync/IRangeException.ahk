@@ -5,7 +5,7 @@
 
 /**
  * Represents an item ID range to exclude from a knowledge object.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-irangeexception
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-irangeexception
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -67,18 +67,22 @@ class IRangeException extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * When<i>pbClosedRangeStart</i> is too small. In this case, the required number of bytes is returned in <i>pcbIdSize</i>.
+     * When <i>pbClosedRangeStart</i> is too small. In this case, the required number of bytes is returned in <i>pcbIdSize</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irangeexception-getclosedrangestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-irangeexception-getclosedrangestart
      */
     GetClosedRangeStart(pbClosedRangeStart, pcbIdSize) {
         pbClosedRangeStartMarshal := pbClosedRangeStart is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbClosedRangeStartMarshal, pbClosedRangeStart, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(3, this, pbClosedRangeStartMarshal, pbClosedRangeStart, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,18 +128,22 @@ class IRangeException extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irangeexception-getclosedrangeend
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-irangeexception-getclosedrangeend
      */
     GetClosedRangeEnd(pbClosedRangeEnd, pcbIdSize) {
         pbClosedRangeEndMarshal := pbClosedRangeEnd is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbClosedRangeEndMarshal, pbClosedRangeEnd, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(4, this, pbClosedRangeEndMarshal, pbClosedRangeEnd, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the clock vector that is associated with this exception.
+     * Gets the clock vector that is associated with this exception. (IRangeException.GetClockVector)
      * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumClockVector</b>.
      * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and represents the clock vector that is associated with this exception.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -181,12 +189,16 @@ class IRangeException extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irangeexception-getclockvector
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-irangeexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

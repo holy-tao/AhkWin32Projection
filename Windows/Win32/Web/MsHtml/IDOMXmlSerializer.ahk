@@ -36,7 +36,11 @@ class IDOMXmlSerializer extends IDispatch{
      */
     serializeToString(pNode) {
         pString := BSTR()
-        result := ComCall(7, this, "ptr", pNode, "ptr", pString, "HRESULT")
+        result := ComCall(7, this, "ptr", pNode, "ptr", pString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pString
     }
 }

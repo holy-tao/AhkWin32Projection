@@ -7,7 +7,7 @@
 
 /**
  * Implements methods that retrieve program and system information protocol (PSIP) and service information (SI) tables from a Protected Broadcast Driver Architecture (PBDA) transport stream.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-ipbdasiparser
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-ipbdasiparser
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -35,11 +35,15 @@ class IPBDASiParser extends IUnknown{
     /**
      * Initializes a program and system information protocol (PSIP) parser for a Protected Broadcast Driver Architecture (PBDA) transport stream.
      * @param {IUnknown} punk Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the new object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdasiparser-initialize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbdasiparser-initialize
      */
     Initialize(punk) {
-        result := ComCall(3, this, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,12 +52,16 @@ class IPBDASiParser extends IUnknown{
      * @param {Integer} dwSize Reserved. Set to zero.
      * @param {Pointer<Integer>} pBuffer Reserved. Set to <b>NULL</b>.
      * @returns {IPBDA_EIT} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-ipbda_eit">IPBDA_EIT</a> interface.  The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
      */
     GetEIT(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppEIT := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppEIT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPBDA_EIT(ppEIT)
     }
 
@@ -62,12 +70,16 @@ class IPBDASiParser extends IUnknown{
      * @param {Integer} dwSize Size of the buffer that receives the service list, in bytes.
      * @param {Pointer<Integer>} pBuffer Receives the buffer for services.
      * @returns {IPBDA_Services} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-ipbda_services">IPBDA_Services</a> interface pointer.  The caller must release this interface.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
      */
     GetServices(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppServices := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppServices := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPBDA_Services(ppServices)
     }
 }

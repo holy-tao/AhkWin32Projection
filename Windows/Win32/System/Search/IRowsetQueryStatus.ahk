@@ -36,7 +36,11 @@ class IRowsetQueryStatus extends IUnknown{
     GetStatus(pdwStatus) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "HRESULT")
+        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +67,11 @@ class IRowsetQueryStatus extends IUnknown{
         piRowBmkMarshal := piRowBmk is VarRef ? "ptr*" : "ptr"
         pcRowsTotalMarshal := pcRowsTotal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pdwStatusMarshal, pdwStatus, pcFilteredDocumentsMarshal, pcFilteredDocuments, pcDocumentsToFilterMarshal, pcDocumentsToFilter, pdwRatioFinishedDenominatorMarshal, pdwRatioFinishedDenominator, pdwRatioFinishedNumeratorMarshal, pdwRatioFinishedNumerator, "ptr", cbBmk, pBmkMarshal, pBmk, piRowBmkMarshal, piRowBmk, pcRowsTotalMarshal, pcRowsTotal, "HRESULT")
+        result := ComCall(4, this, pdwStatusMarshal, pdwStatus, pcFilteredDocumentsMarshal, pcFilteredDocuments, pcDocumentsToFilterMarshal, pcDocumentsToFilter, pdwRatioFinishedDenominatorMarshal, pdwRatioFinishedDenominator, pdwRatioFinishedNumeratorMarshal, pdwRatioFinishedNumerator, "ptr", cbBmk, pBmkMarshal, pBmk, piRowBmkMarshal, piRowBmk, pcRowsTotalMarshal, pcRowsTotal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

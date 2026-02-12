@@ -3,7 +3,7 @@
 
 /**
  * Describes flags that influence how the renderer interacts with a custom vertex shader. (D2D1_VERTEX_OPTIONS)
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_vertex_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/ne-d2d1effectauthor-d2d1_vertex_options
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

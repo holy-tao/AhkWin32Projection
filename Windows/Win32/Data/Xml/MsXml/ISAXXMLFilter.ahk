@@ -33,7 +33,11 @@ class ISAXXMLFilter extends ISAXXMLReader{
      * @returns {ISAXXMLReader} 
      */
     getParent() {
-        result := ComCall(21, this, "ptr*", &ppReader := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &ppReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISAXXMLReader(ppReader)
     }
 
@@ -43,7 +47,11 @@ class ISAXXMLFilter extends ISAXXMLReader{
      * @returns {HRESULT} 
      */
     putParent(pReader) {
-        result := ComCall(22, this, "ptr", pReader, "HRESULT")
+        result := ComCall(22, this, "ptr", pReader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

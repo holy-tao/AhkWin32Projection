@@ -145,7 +145,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_rowSpan(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,7 +158,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {Integer} 
      */
     get_rowSpan() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -164,7 +172,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_colSpan(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -173,7 +185,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {Integer} 
      */
     get_colSpan() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -183,9 +199,16 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_align(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -195,7 +218,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_align() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -205,9 +232,16 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_vAlign(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +251,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_vAlign() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -227,7 +265,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,7 +279,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -247,7 +293,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_noWrap(v) {
-        result := ComCall(17, this, "short", v, "HRESULT")
+        result := ComCall(17, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -256,7 +306,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -266,9 +320,16 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_background(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -278,7 +339,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_background() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -288,7 +353,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderColor(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -298,7 +367,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_borderColor() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -308,7 +381,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderColorLight(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -318,7 +395,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_borderColorLight() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -328,7 +409,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderColorDark(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -338,7 +423,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_borderColorDark() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -348,7 +437,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -358,7 +451,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_width() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -368,7 +465,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -378,7 +479,11 @@ class IHTMLTableCell extends IDispatch{
      */
     get_height() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -387,7 +492,11 @@ class IHTMLTableCell extends IDispatch{
      * @returns {Integer} 
      */
     get_cellIndex() {
-        result := ComCall(31, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

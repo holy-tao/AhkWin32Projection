@@ -17,7 +17,7 @@
  * If the disk signature changes, the volume's unique identifier also changes. Disk signature changes usually occur as a result of a collision during disk cloning.
  * 
  * Note that a unique identifier is not the same as a volume GUID path. To find the volume GUID paths for a volume, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf3-queryvolumeguidpathnames">IVdsVolumeMF3::QueryVolumeGuidPathnames</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_volume_prop2
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_volume_prop2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

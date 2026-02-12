@@ -7,7 +7,7 @@
  * Use this structure with the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function to specify the set of printer or job information fields to monitor for change.
  * 
  * Use this structure with the [**FindNextPrinterChangeNotification**](findnextprinterchangenotification.md) function to request the current data for all monitored printer and job information fields. In this case, the **Flags** member specifies the PRINTER\_NOTIFY\_OPTIONS\_REFRESH flag, and the function ignores the other structure members.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-options
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-notify-options
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

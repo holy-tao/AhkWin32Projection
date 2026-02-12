@@ -30,33 +30,41 @@ class IDebugHostEvaluator extends IUnknown{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} context_ 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
-     * @param {Pointer<IModelObject>} result 
-     * @param {Pointer<IKeyStore>} metadata 
+     * @param {Pointer<IModelObject>} result_ 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
      * @returns {HRESULT} 
      */
-    EvaluateExpression(context, expression, bindingContext, result, metadata) {
+    EvaluateExpression(context_, expression, bindingContext, result_, metadata) {
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := ComCall(3, this, "ptr", context, "ptr", expression, "ptr", bindingContext, "ptr*", result, "ptr*", metadata, "HRESULT")
+        result := ComCall(3, this, "ptr", context_, "ptr", expression, "ptr", bindingContext, "ptr*", result_, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} context_ 
      * @param {PWSTR} expression 
      * @param {IModelObject} bindingContext 
-     * @param {Pointer<IModelObject>} result 
-     * @param {Pointer<IKeyStore>} metadata 
+     * @param {Pointer<IModelObject>} result_ 
+     * @param {Pointer<Pointer<IKeyStore>>} metadata 
      * @returns {HRESULT} 
      */
-    EvaluateExtendedExpression(context, expression, bindingContext, result, metadata) {
+    EvaluateExtendedExpression(context_, expression, bindingContext, result_, metadata) {
         expression := expression is String ? StrPtr(expression) : expression
 
-        result := ComCall(4, this, "ptr", context, "ptr", expression, "ptr", bindingContext, "ptr*", result, "ptr*", metadata, "HRESULT")
+        result := ComCall(4, this, "ptr", context_, "ptr", expression, "ptr", bindingContext, "ptr*", result_, "ptr*", metadata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

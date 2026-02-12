@@ -3,7 +3,7 @@
 
 /**
  * The FDICABINETINFO structure contains details about a particular cabinet file.
- * @see https://learn.microsoft.com/windows/win32/api/fdi/ns-fdi-fdicabinetinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/fdi/ns-fdi-fdicabinetinfo
  * @namespace Windows.Win32.Storage.Cabinets
  * @version v4.0.30319
  */

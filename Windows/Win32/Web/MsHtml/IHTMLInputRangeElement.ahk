@@ -106,7 +106,11 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +119,11 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -125,7 +133,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -135,9 +147,16 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_alt(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +166,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_alt() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -157,9 +180,16 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +199,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -179,9 +213,16 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +232,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -201,9 +246,16 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_min(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +265,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_min() {
         p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -223,9 +279,16 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_max(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -235,7 +298,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_max() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -245,9 +312,16 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_step(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -257,7 +331,11 @@ class IHTMLInputRangeElement extends IDispatch{
      */
     get_step() {
         p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -267,7 +345,11 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_valueAsNumber(v) {
-        result := ComCall(22, this, "double", v, "HRESULT")
+        result := ComCall(22, this, "double", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,7 +358,11 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {Float} 
      */
     get_valueAsNumber() {
-        result := ComCall(23, this, "double*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "double*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -286,7 +372,11 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     stepUp(n) {
-        result := ComCall(24, this, "int", n, "HRESULT")
+        result := ComCall(24, this, "int", n, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -296,7 +386,11 @@ class IHTMLInputRangeElement extends IDispatch{
      * @returns {HRESULT} 
      */
     stepDown(n) {
-        result := ComCall(25, this, "int", n, "HRESULT")
+        result := ComCall(25, this, "int", n, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -38,7 +38,11 @@ class IProvideRuntimeContext extends IUnknown{
         pdwContextMarshal := pdwContext is VarRef ? "ptr*" : "ptr"
         pfExecutingGlobalCodeMarshal := pfExecutingGlobalCode is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, pdwContextMarshal, pdwContext, pfExecutingGlobalCodeMarshal, pfExecutingGlobalCode, "HRESULT")
+        result := ComCall(3, this, pdwContextMarshal, pdwContext, pfExecutingGlobalCodeMarshal, pfExecutingGlobalCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

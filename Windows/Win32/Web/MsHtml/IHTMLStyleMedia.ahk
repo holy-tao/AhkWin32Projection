@@ -48,7 +48,11 @@ class IHTMLStyleMedia extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -58,9 +62,16 @@ class IHTMLStyleMedia extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     matchMedium(mediaQuery) {
-        mediaQuery := mediaQuery is String ? BSTR.Alloc(mediaQuery).Value : mediaQuery
+        if(mediaQuery is String) {
+            pin := BSTR.Alloc(mediaQuery)
+            mediaQuery := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", mediaQuery, "short*", &matches := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", mediaQuery, "short*", &matches := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return matches
     }
 }

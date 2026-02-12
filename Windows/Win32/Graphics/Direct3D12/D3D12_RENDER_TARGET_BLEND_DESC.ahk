@@ -59,7 +59,7 @@
  * <td>D3D12_COLOR_WRITE_ENABLE_ALL</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

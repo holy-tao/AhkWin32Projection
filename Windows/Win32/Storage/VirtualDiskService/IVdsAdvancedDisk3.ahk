@@ -35,7 +35,11 @@ class IVdsAdvancedDisk3 extends IUnknown{
      */
     GetProperties() {
         pAdvDiskProp := VDS_ADVANCEDDISK_PROP()
-        result := ComCall(3, this, "ptr", pAdvDiskProp, "HRESULT")
+        result := ComCall(3, this, "ptr", pAdvDiskProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAdvDiskProp
     }
 
@@ -44,7 +48,11 @@ class IVdsAdvancedDisk3 extends IUnknown{
      * @returns {PWSTR} 
      */
     GetUniqueId() {
-        result := ComCall(4, this, "ptr*", &ppwszId := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppwszId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszId
     }
 }

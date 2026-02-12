@@ -21,7 +21,7 @@
  * Type description pointers accompany <b>WS_TYPE</b> in the various APIs and structures 
  *                 that are based on serialization.  This should be <b>NULL</b> or non-<b>NULL</b> based on whether or not
  *                 the type description is not defined, optional or required.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

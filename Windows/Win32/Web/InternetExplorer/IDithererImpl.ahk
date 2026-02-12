@@ -35,7 +35,11 @@ class IDithererImpl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDestColorTable(nColors, prgbColors) {
-        result := ComCall(3, this, "uint", nColors, "ptr", prgbColors, "HRESULT")
+        result := ComCall(3, this, "uint", nColors, "ptr", prgbColors, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDithererImpl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventSink(pEventSink) {
-        result := ComCall(4, this, "ptr", pEventSink, "HRESULT")
+        result := ComCall(4, this, "ptr", pEventSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

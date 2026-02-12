@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/WinInet/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager4
+ * Supports the creation of proof-of-possession cookies, for a WebAccount and a client id.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WinInet/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager4
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */
@@ -31,13 +31,13 @@ class IProofOfPossessionCookieInfoManager4 extends IUnknown{
     static VTableNames => ["GetCookieInfoForUriWithUserAgentId", "GetCookieInfoWithUriAndUserAgentIdForAccount"]
 
     /**
-     * 
-     * @param {PWSTR} uri 
-     * @param {PWSTR} uaClientId 
-     * @param {Pointer<Integer>} cookieInfoCount 
-     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/WinInet/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-getcookieinfoforuriwithuseragentid
+     * Retrieves cookie information for the supplied URI, with a user id.
+     * @param {PWSTR} uri The URI to retrieve cookie information for. The URI is case-sensitive.
+     * @param {PWSTR} uaClientId A client id, which will be added to the returned cookie.
+     * @param {Pointer<Integer>} cookieInfoCount The number of cookies found. `*cookieInfoCount` contains the number of elements in *cookieInfo*.
+     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo A returned array of cookie information objects. You should free the returned array by using [FreeProofOfPossessionCookieInfoArray](/windows/win32/api/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-freeproofofpossessioncookieinfoarray).
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WinInet/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-getcookieinfoforuriwithuseragentid
      */
     GetCookieInfoForUriWithUserAgentId(uri, uaClientId, cookieInfoCount, cookieInfo) {
         uri := uri is String ? StrPtr(uri) : uri
@@ -46,19 +46,23 @@ class IProofOfPossessionCookieInfoManager4 extends IUnknown{
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
         cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {IInspectable} webAccount 
-     * @param {PWSTR} uri 
-     * @param {PWSTR} uaClientId 
-     * @param {Pointer<Integer>} cookieInfoCount 
-     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/WinInet/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-getcookieinfowithurianduseragentidforaccount
+     * Retrieves cookie information for the supplied WebAccount and URI, with a user id.
+     * @param {IInspectable} webAccount A [WebAccount](/uwp/api/windows.security.credentials.webaccount) as **IInspectable**. You can obtain a **WebAccount** object by calling methods on [WebAuthenticationCoreManager](/uwp/api/windows.security.authentication.web.core.webauthenticationcoremanager) such as **FindAccountAsync** and **FindAllAccountsAsync**.
+     * @param {PWSTR} uri The URI to retrieve cookie information for. The URI is case-sensitive.
+     * @param {PWSTR} uaClientId A client id, which will be added to the returned cookie.
+     * @param {Pointer<Integer>} cookieInfoCount The number of cookies found. `*cookieInfoCount` contains the number of elements in *cookieInfo*.
+     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo A returned array of cookie information objects. You should free the returned array by using [FreeProofOfPossessionCookieInfoArray](/windows/win32/api/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-freeproofofpossessioncookieinfoarray).
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WinInet/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-getcookieinfowithurianduseragentidforaccount
      */
     GetCookieInfoWithUriAndUserAgentIdForAccount(webAccount, uri, uaClientId, cookieInfoCount, cookieInfo) {
         uri := uri is String ? StrPtr(uri) : uri
@@ -67,7 +71,11 @@ class IProofOfPossessionCookieInfoManager4 extends IUnknown{
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
         cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", webAccount, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", webAccount, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

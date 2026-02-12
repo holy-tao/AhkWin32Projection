@@ -21,7 +21,7 @@
  * </li>
  * </ul>
  * This format differs from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_picture">WM_PICTURE</a> structure used in the Windows Media Format SDK. The <b>WM_PICTURE</b> structure contains internal pointers to two strings and the image data. If the structure is copied, these pointers become invalid. The <b>ASF_FLAT_PICTURE</b> structure does not contain internal pointers, so it is safe to copy the structure.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-asf_flat_picture
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/ns-mfidl-asf_flat_picture
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

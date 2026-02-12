@@ -7,11 +7,8 @@
 /**
  * The ITuneRequestInfo interface is implemented on the BDA MPEG2 Transport Information Filter (TIF) and is used by the Network Provider.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuneRequestInfo)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-itunerequestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nn-bdatif-itunerequestinfo
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,6 +35,8 @@ class ITuneRequestInfo extends IUnknown{
 
     /**
      * The GetLocatorData method fills in channel or program locator information for the specified tune request.
+     * @remarks
+     * After the TIF fills in the locator information, the Network Provider uses that information to configure the tuner and demodulator. It is expected that the TIF will always know everything about a locator. If it doesn't know how to locate a specific tune request, it can always fall back to the default locator for the tuning space. As soon as the TIF starts getting tables from the default stream, it signals the Network Provider, which then asks for the new locator data. When the TIF fills that in, it signals the Network Provider, which tunes again using the new information. When the TIF begins getting tables on the new stream, it signals the Network Provider again, and the process is repeated.
      * @param {ITuneRequest} Request Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface on the tune request.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -80,15 +79,21 @@ class ITuneRequestInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-getlocatordata
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-getlocatordata
      */
     GetLocatorData(Request) {
-        result := ComCall(3, this, "ptr", Request, "HRESULT")
+        result := ComCall(3, this, "ptr", Request, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetComponentData method fills in all network-specific component data for the existing Components collection on the specified tune request.
+     * @remarks
+     * The Network Provider calls this method after the tuner has tuned to the specified service.
      * @param {ITuneRequest} CurrentRequest Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface on the tune request.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -120,15 +125,23 @@ class ITuneRequestInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-getcomponentdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-getcomponentdata
      */
     GetComponentData(CurrentRequest) {
-        result := ComCall(4, this, "ptr", CurrentRequest, "HRESULT")
+        result := ComCall(4, this, "ptr", CurrentRequest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CreateComponentList method creates a new Components collection for the tune request, and fills it in with all network-specific data after the receiver has tuned to the service.
+     * @remarks
+     * After the Network Provider has acquired the correct transport stream, it asks the TIF to fill in the component data. If the tune request does not already have a components list, the Network Provider calls this method and asks the TIF to create one based on the relevant transport stream tables. Generally, the components will include one or more audio streams, video, data, and text. Each component has a component type, and on MPEG2 tuning spaces each component has an associated PID and pcrPID. Ideally, when the Guide Store Loader creates tune requests, it will include all the component information that is available.
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/bdatif/nf-bdatif-itunerequestinfo-getcomponentdata">ITuneRequestInfo::GetComponentData</a> method is used to enable the TIF to change an existing list of components. S_FALSE indicates nothing was changed.
      * @param {ITuneRequest} CurrentRequest Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface on the tune request.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -171,54 +184,84 @@ class ITuneRequestInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-createcomponentlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-createcomponentlist
      */
     CreateComponentList(CurrentRequest) {
-        result := ComCall(5, this, "ptr", CurrentRequest, "HRESULT")
+        result := ComCall(5, this, "ptr", CurrentRequest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNextProgram method creates a new tune request with channel or program locator information for the next service.
+     * @remarks
+     * This method might be used by a custom Guide Store Loader to enumerate the available services on a transport stream.
      * @param {ITuneRequest} CurrentRequest Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the current request.
-     * @returns {ITuneRequest} Pointer to a variable that will receive a tune request for the next service on the transport stream.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-getnextprogram
+     * @returns {ITuneRequest} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-getnextprogram
      */
     GetNextProgram(CurrentRequest) {
-        result := ComCall(6, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(6, this, "ptr", CurrentRequest, "ptr*", &TuneRequest_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ITuneRequest(TuneRequest_)
     }
 
     /**
      * The GetPreviousProgram method creates a new tune request with channel or program locator information for the previous service.
+     * @remarks
+     * This method might be used by a custom Guide Store Loader to enumerate the available services on a transport stream.
      * @param {ITuneRequest} CurrentRequest Specifies the current request.
-     * @returns {ITuneRequest} Pointer to a variable that receives a tune request for the previous service in the current transport stream.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-getpreviousprogram
+     * @returns {ITuneRequest} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-getpreviousprogram
      */
     GetPreviousProgram(CurrentRequest) {
-        result := ComCall(7, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(7, this, "ptr", CurrentRequest, "ptr*", &TuneRequest_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ITuneRequest(TuneRequest_)
     }
 
     /**
      * The GetNextLocator method creates a new tune request with locator information for the next transport stream on the network.
+     * @remarks
+     * This method is used internally by the Network Provider's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-iscanningtuner-seekup">IScanningTuner::SeekUp</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-iscanningtuner-seekdown">IScanningTuner::SeekDown</a> methods, and is also useful for any Guide Store Loader that scans a network for EPG information.
+     * 
+     * Currently this method is not implemented for DVB-C or DVB-S networks, and the method returns E_NOTIMPL. The method is implemented for DVB-T.
      * @param {ITuneRequest} CurrentRequest Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the current tune request. <b>NULL</b> means to return information for the first stream.
-     * @returns {ITuneRequest} Pointer to a variable that receives a tune request for the next transport stream.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-getnextlocator
+     * @returns {ITuneRequest} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-getnextlocator
      */
     GetNextLocator(CurrentRequest) {
-        result := ComCall(8, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(8, this, "ptr", CurrentRequest, "ptr*", &TuneRequest_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ITuneRequest(TuneRequest_)
     }
 
     /**
      * The GetPreviousLocator method creates a new tune request with locator information for the previous transport stream.
+     * @remarks
+     * Currently this method is not implemented for DVB-C or DVB-S networks, and the method returns E_NOTIMPL. The method is implemented for DVB-T.
      * @param {ITuneRequest} CurrentRequest Specifies current request.
-     * @returns {ITuneRequest} Pointer to a variable that receives the tune request for the previous transport stream in the network.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-itunerequestinfo-getpreviouslocator
+     * @returns {ITuneRequest} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdatif/nf-bdatif-itunerequestinfo-getpreviouslocator
      */
     GetPreviousLocator(CurrentRequest) {
-        result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
-        return ITuneRequest(TuneRequest)
+        result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", &TuneRequest_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ITuneRequest(TuneRequest_)
     }
 }

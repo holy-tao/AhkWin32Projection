@@ -34,7 +34,11 @@ class IDirectMusic8 extends IDirectMusic{
      * @returns {HRESULT} 
      */
     SetExternalMasterClock(pClock) {
-        result := ComCall(12, this, "ptr", pClock, "HRESULT")
+        result := ComCall(12, this, "ptr", pClock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

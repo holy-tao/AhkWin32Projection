@@ -122,7 +122,11 @@ class IXMLDocument2 extends IDispatch{
      * @returns {IXMLElement2} 
      */
     get_root() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLElement2(p)
     }
 
@@ -132,7 +136,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_fileSize() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -142,7 +150,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_fileModifiedDate() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -152,7 +164,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_fileUpdatedDate() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -162,7 +178,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_URL() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -172,9 +192,16 @@ class IXMLDocument2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_URL(p) {
-        p := p is String ? BSTR.Alloc(p).Value : p
+        if(p is String) {
+            pin := BSTR.Alloc(p)
+            p := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +211,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_mimeType() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -193,7 +224,11 @@ class IXMLDocument2 extends IDispatch{
      * @returns {Integer} 
      */
     get_readyState() {
-        result := ComCall(14, this, "int*", &pl := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pl
     }
 
@@ -203,7 +238,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_charset() {
         p := BSTR()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -213,9 +252,16 @@ class IXMLDocument2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_charset(p) {
-        p := p is String ? BSTR.Alloc(p).Value : p
+        if(p is String) {
+            pin := BSTR.Alloc(p)
+            p := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -225,7 +271,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_version() {
         p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -235,7 +285,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_doctype() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -245,7 +299,11 @@ class IXMLDocument2 extends IDispatch{
      */
     get_dtdURL() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -256,7 +314,11 @@ class IXMLDocument2 extends IDispatch{
      * @returns {IXMLElement2} 
      */
     createElement(vType, var1) {
-        result := ComCall(20, this, "ptr", vType, "ptr", var1, "ptr*", &ppElem := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", vType, "ptr", var1, "ptr*", &ppElem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLElement2(ppElem)
     }
 
@@ -265,7 +327,11 @@ class IXMLDocument2 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
-        result := ComCall(21, this, "short*", &pf := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &pf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pf
     }
 
@@ -275,7 +341,11 @@ class IXMLDocument2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_async(f) {
-        result := ComCall(22, this, "short", f, "HRESULT")
+        result := ComCall(22, this, "short", f, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

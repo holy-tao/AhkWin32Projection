@@ -13,7 +13,7 @@
  * The distance to focal center format is typically raw data from sensor such as time of flight cameras.
  * 
  * ![Illustration of DistanceToOpticalCenter](images/distance_to_optical_center.png)
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfdepthmeasurement
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ne-mfapi-mfdepthmeasurement
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

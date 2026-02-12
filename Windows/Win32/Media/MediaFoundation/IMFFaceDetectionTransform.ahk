@@ -34,7 +34,11 @@ class IMFFaceDetectionTransform extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     SetDetectionCallback(callback) {
-        result := ComCall(3, this, "ptr", callback, "ptr*", &callbackToken := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", callback, "ptr*", &callbackToken := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return callbackToken
     }
 
@@ -46,7 +50,11 @@ class IMFFaceDetectionTransform extends IUnknown{
     ClearDetectionCallback(callbackToken) {
         callbackTokenMarshal := callbackToken is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, callbackTokenMarshal, callbackToken, "HRESULT")
+        result := ComCall(4, this, callbackTokenMarshal, callbackToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

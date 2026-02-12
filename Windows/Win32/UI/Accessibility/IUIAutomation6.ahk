@@ -6,7 +6,7 @@
 
 /**
  * Extends the IUIAutomation5 interface to expose additional methods for controlling Microsoft UI Automation functionality.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomation6
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomation6
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -49,42 +49,63 @@ class IUIAutomation6 extends IUIAutomation5{
 
     /**
      * Registers one or more event listeners in a single method call.
+     * @remarks
+     * Before implementing an event handler, you should be familiar with the threading issues described in [Understanding Threading Issues](/windows/desktop/WinAuto/uiauto-threading).
      * @returns {IUIAutomationEventHandlerGroup} A collection of UI Automation event listeners.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-createeventhandlergroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-createeventhandlergroup
      */
     CreateEventHandlerGroup() {
-        result := ComCall(70, this, "ptr*", &handlerGroup := 0, "HRESULT")
+        result := ComCall(70, this, "ptr*", &handlerGroup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationEventHandlerGroup(handlerGroup)
     }
 
     /**
      * Registers a collection of event handler methods specified with the CreateEventHandlerGroup.
+     * @remarks
+     * Before implementing an event handler, you should be familiar with the threading issues described in [Understanding Threading Issues](/windows/desktop/WinAuto/uiauto-threading).
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler group.
      * @param {IUIAutomationEventHandlerGroup} handlerGroup A collection of UI Automation event listeners.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-addeventhandlergroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-addeventhandlergroup
      */
     AddEventHandlerGroup(element, handlerGroup) {
-        result := ComCall(71, this, "ptr", element, "ptr", handlerGroup, "HRESULT")
+        result := ComCall(71, this, "ptr", element, "ptr", handlerGroup, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Asynchronously removes the specified UI Automation event handler group.
+     * @remarks
+     * Before implementing an event handler, you should be familiar with the threading issues described in [Understanding Threading Issues](/windows/desktop/WinAuto/uiauto-threading).
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler group.
      * @param {IUIAutomationEventHandlerGroup} handlerGroup A collection of UI Automation event listeners.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-removeeventhandlergroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-removeeventhandlergroup
      */
     RemoveEventHandlerGroup(element, handlerGroup) {
-        result := ComCall(72, this, "ptr", element, "ptr", handlerGroup, "HRESULT")
+        result := ComCall(72, this, "ptr", element, "ptr", handlerGroup, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive.
+     * Indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive. (Get)
      * @remarks
-     * 
      * > ### Parameters
      * >
      * > `connectionRecoveryBehaviorOptions` [in]
@@ -92,19 +113,23 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **ConnectionRecoveryBehaviorOptions**
      * >
      * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_connectionrecoverybehavior
      */
     get_ConnectionRecoveryBehavior() {
-        result := ComCall(73, this, "int*", &connectionRecoveryBehaviorOptions := 0, "HRESULT")
-        return connectionRecoveryBehaviorOptions
+        result := ComCall(73, this, "int*", &connectionRecoveryBehaviorOptions_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return connectionRecoveryBehaviorOptions_
     }
 
     /**
-     * Indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive.
+     * Indicates whether an accessible technology client adjusts provider request timeouts when the provider is non-responsive. (Put)
      * @remarks
+     * See remarks.
+     * 
      * 
      * > ### Parameters
      * >
@@ -113,21 +138,22 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **ConnectionRecoveryBehaviorOptions**
      * >
      * > Value indicating whether provider request timeouts are adjusted. The default is [ConnectionRecoveryBehaviorOptions_Disabled](ne-uiautomationclient-connectionrecoverybehavioroptions.md).
-     * 
-     * 
-     * @param {Integer} connectionRecoveryBehaviorOptions 
+     * @param {Integer} connectionRecoveryBehaviorOptions_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_connectionrecoverybehavior
      */
-    put_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions) {
-        result := ComCall(74, this, "int", connectionRecoveryBehaviorOptions, "HRESULT")
+    put_ConnectionRecoveryBehavior(connectionRecoveryBehaviorOptions_) {
+        result := ComCall(74, this, "int", connectionRecoveryBehaviorOptions_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets whether an accessible technology client receives all events, or a subset where duplicate events are detected and filtered.
+     * Gets or sets whether an accessible technology client receives all events, or a subset where duplicate events are detected and filtered. (Get)
      * @remarks
-     * 
      * > ### Parameters
      * >
      * > `coalesceEventsOptions` [in]
@@ -135,20 +161,21 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **CoalesceEventsOptions**
      * >
      * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-get_coalesceevents
      */
     get_CoalesceEvents() {
-        result := ComCall(75, this, "int*", &coalesceEventsOptions := 0, "HRESULT")
-        return coalesceEventsOptions
+        result := ComCall(75, this, "int*", &coalesceEventsOptions_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return coalesceEventsOptions_
     }
 
     /**
-     * Gets or sets whether an accessible technology client receives all events, or a subset where duplicate events are detected and filtered.
+     * Gets or sets whether an accessible technology client receives all events, or a subset where duplicate events are detected and filtered. (Put)
      * @remarks
-     * 
      * > ### Parameters
      * >
      * > `coalesceEventsOptions` [out]
@@ -156,40 +183,88 @@ class IUIAutomation6 extends IUIAutomation5{
      * > Type: **CoalesceEventsOptions**
      * >
      * > Value indicating whether events are filtered. The default is [CoalesceEventsOptions_Disabled](ne-uiautomationclient-coalesceeventsoptions.md).
-     * 
-     * 
-     * @param {Integer} coalesceEventsOptions 
+     * @param {Integer} coalesceEventsOptions_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-put_coalesceevents
      */
-    put_CoalesceEvents(coalesceEventsOptions) {
-        result := ComCall(76, this, "int", coalesceEventsOptions, "HRESULT")
+    put_CoalesceEvents(coalesceEventsOptions_) {
+        result := ComCall(76, this, "int", coalesceEventsOptions_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers a method that handles when the active text position changes.
+     * @remarks
+     * Before implementing an event handler, you should be familiar with the threading issues described in [Understanding Threading Issues](/windows/desktop/WinAuto/uiauto-threading).
+     * 
+     * Active text position is indicated by a navigation event within or between read-only text elements (such as web browsers, Portable Document Format (PDF) documents, or [EPUB](https://en.wikipedia.org/wiki/EPUB) documents) using  bookmarks (or fragment identifiers to refer to a location within a resource). Examples include:
+     * 
+     * - Navigating to a bookmark within the same web page
+     * - Navigating to a bookmark on a different web page
+     * - Activating a link to a different location within the same PDF
+     * - Activating a link to a different location within the same [EPUB](https://en.wikipedia.org/wiki/EPUB)
+     * 
+     * Use this event handler to sync the visual location of the bookmark/target with the focus location in a read-only text element, which can diverge when using bookmarks or fragment identifiers.
+     * 
+     * For example, when a same page anchor (`<a href="#C4">Jump to Chapter 4</a> ...<h1><a name="C4">Chapter 4</a></h1>`) is invoked, the visual location is updated, but the UI Automation client remains at the original location. This results in actions such as text reading or move next item commands starting from the original location, not the new location.
+     * 
+     * Similarly, activating a new page URI (with a fragment identifier: (`<a href="www.blah.com#C4">Jump to Chapter 4</a>`) loads the new page and jumps to the specified bookmark, but leaves the UI Automation clients at the top of the page.
+     * 
+     * For editable text elements, such as [Edit](/windows/desktop/controls/edit-controls) and [Rich Edit](/windows/win32/controls/rich-edit-controls)controls, you can listen for a SelectionChanged event.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
      * @param {Integer} scope 
      * @param {IUIAutomationCacheRequest} cacheRequest A pointer to a cache request, or NULL if no caching is wanted.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-addactivetextpositionchangedeventhandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-addactivetextpositionchangedeventhandler
      */
     AddActiveTextPositionChangedEventHandler(element, scope, cacheRequest, handler) {
-        result := ComCall(77, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(77, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes an active text position changed event handler.
+     * @remarks
+     * Before implementing an event handler, you should be familiar with the threading issues described in [Understanding Threading Issues](/windows/desktop/WinAuto/uiauto-threading).
+     * 
+     * Active text position is indicated by a navigation event within or between read-only text elements (such as web browsers, Portable Document Format (PDF) documents, or [EPUB](https://en.wikipedia.org/wiki/EPUB) documents) using  bookmarks (or fragment identifiers to refer to a location within a resource). Examples include:
+     * 
+     * - Navigating to a bookmark within the same web page
+     * - Navigating to a bookmark on a different web page
+     * - Activating a link to a different location within the same PDF
+     * - Activating a link to a different location within the same [EPUB](https://en.wikipedia.org/wiki/EPUB)
+     * 
+     * Use this event handler to sync the visual location of the bookmark/target with the focus location in a read-only text element, which can diverge when using bookmarks or fragment identifiers.
+     * 
+     * For example, when a same page anchor (`<a href="#C4">Jump to Chapter 4</a> ...<h1><a name="C4">Chapter 4</a></h1>`) is invoked, the visual location is updated, but the UI Automation client remains at the original location. This results in actions such as text reading or move next item commands starting from the original location, not the new location.
+     * 
+     * Similarly, activating a new page URI (with a fragment identifier: (`<a href="www.blah.com#C4">Jump to Chapter 4</a>`) loads the new page and jumps to the specified bookmark, but leaves the UI Automation clients at the top of the page.
+     * 
+     * For editable text elements, such as [Edit](/windows/desktop/controls/edit-controls) and [Rich Edit](/windows/win32/controls/rich-edit-controls) controls, you can listen for a SelectionChanged event.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, if the event is received simultaneously with the request to unsubscribe the event. The best practice is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an access violation if an event is delivered late.
      * @param {IUIAutomationElement} element A pointer to the UI Automation element associated with the event handler.
      * @param {IUIAutomationActiveTextPositionChangedEventHandler} handler A pointer to the object that handles the active text position changed event.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation6-removeactivetextpositionchangedeventhandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation6-removeactivetextpositionchangedeventhandler
      */
     RemoveActiveTextPositionChangedEventHandler(element, handler) {
-        result := ComCall(78, this, "ptr", element, "ptr", handler, "HRESULT")
+        result := ComCall(78, this, "ptr", element, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

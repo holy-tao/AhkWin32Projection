@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that update the queue of tasks for Remote Desktop Connection Broker plugins.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbtaskplugin
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbtaskplugin
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class ITsSbTaskPlugin extends ITsSbPlugin{
     /**
      * Initializes a task that is in the queue of a Remote Desktop Connection Broker plugin.
      * @param {ITsSbTaskPluginNotifySink} pITsSbTaskPluginNotifySink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtaskpluginnotifysink">ITsSbTaskPluginNotifySink</a> object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskplugin-initializetaskplugin
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskplugin-initializetaskplugin
      */
     InitializeTaskPlugin(pITsSbTaskPluginNotifySink) {
-        result := ComCall(5, this, "ptr", pITsSbTaskPluginNotifySink, "HRESULT")
+        result := ComCall(5, this, "ptr", pITsSbTaskPluginNotifySink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,13 +51,20 @@ class ITsSbTaskPlugin extends ITsSbPlugin{
      * @param {BSTR} pszHostName 
      * @param {Integer} SbTaskInfoSize 
      * @param {Pointer<ITsSbTaskInfo>} pITsSbTaskInfo An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtaskinfo">ITsSbTaskInfo</a> objects.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbtaskplugin-settaskqueue
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbtaskplugin-settaskqueue
      */
     SetTaskQueue(pszHostName, SbTaskInfoSize, pITsSbTaskInfo) {
-        pszHostName := pszHostName is String ? BSTR.Alloc(pszHostName).Value : pszHostName
+        if(pszHostName is String) {
+            pin := BSTR.Alloc(pszHostName)
+            pszHostName := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", pszHostName, "uint", SbTaskInfoSize, "ptr*", pITsSbTaskInfo, "HRESULT")
+        result := ComCall(6, this, "ptr", pszHostName, "uint", SbTaskInfoSize, "ptr*", pITsSbTaskInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -52,7 +52,7 @@
  *                 extracted using <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetmappedheader">WsGetMappedHeader</a>.  
  *                 See <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_writer_property_id">WS_HTTP_REQUEST_MAPPING_OPTIONS</a> or <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_canonicalization_property_id">WS_HTTP_RESPONSE_MAPPING_OPTIONS</a> 
  *                 for information about what information can be mapped into message headers.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_message_mapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_http_message_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

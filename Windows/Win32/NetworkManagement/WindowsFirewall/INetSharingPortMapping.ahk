@@ -7,14 +7,11 @@
 /**
  * The INetSharingPortMapping interface provides methods for managing a particular port mapping.
  * @remarks
- * 
  * Use the 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-addportmapping">INetSharingConfiguration::AddPortMapping</a> and 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> methods to obtain 
  * <b>INetSharingPortMapping</b> interfaces.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetsharingportmapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nn-netcon-inetsharingportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -48,6 +45,8 @@ class INetSharingPortMapping extends IDispatch{
 
     /**
      * The Disable method disables a port mapping for a particular connection.
+     * @remarks
+     * Calling this method unchecks the box next to this port mapping in the ICS/ICF user interface.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -146,15 +145,24 @@ class INetSharingPortMapping extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmapping-disable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-inetsharingportmapping-disable
      */
     Disable() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Enable method enables a port mapping for a particular connection.
+     * @remarks
+     * Calling this method puts a check mark in the box next to this port mapping in the ICS/ICF user interface.
+     * 
+     * When first added, a new mapping is in a disabled state. Use the  
+     * <b>Enable</b> method to enable the new mapping.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -253,10 +261,14 @@ class INetSharingPortMapping extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmapping-enable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-inetsharingportmapping-enable
      */
     Enable() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -264,15 +276,21 @@ class INetSharingPortMapping extends IDispatch{
      * The get_Properties method retrieves the properties for a port mapping.
      * @returns {INetSharingPortMappingProps} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingportmappingprops">INetSharingPortMappingProps</a> interface for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmapping-get_properties
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-inetsharingportmapping-get_properties
      */
     get_Properties() {
-        result := ComCall(9, this, "ptr*", &ppNSPMP := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppNSPMP := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetSharingPortMappingProps(ppNSPMP)
     }
 
     /**
      * The Delete method deletes a port mapping from the list of port mappings for a particular connection.
+     * @remarks
+     * Calling this method also removes the name of this port mapping from the list of mappings in the ICS/ICF user interface.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -371,10 +389,14 @@ class INetSharingPortMapping extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmapping-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-inetsharingportmapping-delete
      */
     Delete() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

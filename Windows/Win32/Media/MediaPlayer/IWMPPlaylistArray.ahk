@@ -6,7 +6,7 @@
 
 /**
  * The IWMPPlaylistArray interface provides methods for accessing a collection of IWMPPlaylist interface pointers by index number.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplaylistarray
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpplaylistarray
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -39,6 +39,8 @@ class IWMPPlaylistArray extends IDispatch{
 
     /**
      * The get_count method retrieves the number of playlists in the playlist array.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -59,23 +61,33 @@ class IWMPPlaylistArray extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistarray-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpplaylistarray-get_count
      */
     get_count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(7, this, plCountMarshal, plCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The item method retrieves a pointer to an IWMPPlaylist interface representing the playlist at the specified index.
+     * @remarks
+     * Before calling this method, you must have read access to the library. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {Integer} lIndex <b>long</b> containing the index that identifies the playlist that the method should retrieve.
      * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface for the retrieved playlist.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplaylistarray-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpplaylistarray-item
      */
     item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(8, this, "int", lIndex, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMPPlaylist(ppItem)
     }
 }

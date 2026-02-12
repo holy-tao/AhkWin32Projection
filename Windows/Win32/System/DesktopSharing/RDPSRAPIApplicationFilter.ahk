@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * The list of sharable applications.
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_applications
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

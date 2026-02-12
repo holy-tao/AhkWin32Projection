@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IndexServer
@@ -26,12 +28,12 @@ class IndexServer {
     static CI_VERSION_WIN70 => 1792
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CINULLCATALOG => "::_noindex_::"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CIADMIN => "::_nodocstore_::"
 
@@ -757,7 +759,7 @@ class IndexServer {
      * @param {PWSTR} pwcsPath A pointer to the full path of an object for which an <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer is to be returned. The path can include a full filename or only the file name extension; for example, ".ext".
      * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @returns {Pointer<Void>} A pointer to a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/ntquery/nf-ntquery-loadifilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/ntquery/nf-ntquery-loadifilter
      * @since windows5.0
      */
     static LoadIFilter(pwcsPath, pUnkOuter) {
@@ -796,7 +798,7 @@ class IndexServer {
      * @param {IStorage} pStg A pointer to the <b>IStorage</b> interface to be used to access the file.
      * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this storage object exists.
      * @returns {Pointer<Void>} A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/ntquery/nf-ntquery-bindifilterfromstorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/ntquery/nf-ntquery-bindifilterfromstorage
      * @since windows5.0
      */
     static BindIFilterFromStorage(pStg, pUnkOuter) {
@@ -815,7 +817,7 @@ class IndexServer {
      * @param {IStream} pStm A pointer to the <b>IStream</b> interface to be used to access the file.
      * @param {IUnknown} pUnkOuter A pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the aggregate in which this stream object exists.
      * @returns {Pointer<Void>} A pointer to an output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/ntquery/nf-ntquery-bindifilterfromstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/ntquery/nf-ntquery-bindifilterfromstream
      * @since windows5.0
      */
     static BindIFilterFromStream(pStm, pUnkOuter) {

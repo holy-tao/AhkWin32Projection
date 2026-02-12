@@ -12,7 +12,7 @@
  * <li>Group policies such as hiding entry points for fast user switching, or interactive logon that does not display the user's last name.</li>
  * </ul>
  * Credential providers that need to enumerate the currently user logged into the system as the default tile can keep track of the current user or leverage APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> to obtain that information.
- * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario
+ * @see https://learn.microsoft.com/windows/win32/api//content/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

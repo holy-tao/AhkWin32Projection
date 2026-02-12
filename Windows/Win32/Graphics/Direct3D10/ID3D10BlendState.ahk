@@ -6,13 +6,10 @@
 /**
  * This blend-state interface accesses blending state for a Direct3D 10.0 device for the output-merger stage.
  * @remarks
- * 
  * Blending combines two pixel values. You have control over how the pixels are blended by using a predefined set of blending operations, as well as preblending operations. The <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">Blending Block Diagram</a> shows conceptually how blending works.
  * 
  * To create a blend-state interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createblendstate">ID3D10Device::CreateBlendState</a>. To initialize the blend state, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-omsetblendstate">ID3D10Device::OMSetBlendState</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10blendstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nn-d3d10-id3d10blendstate
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -38,12 +35,12 @@ class ID3D10BlendState extends ID3D10DeviceChild{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Get the blend state.
+     * Get the blend state. (ID3D10BlendState.GetDesc)
      * @param {Pointer<D3D10_BLEND_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">D3D10_BLEND_DESC</a>*</b>
      * 
      * A pointer to the blend state (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">D3D10_BLEND_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10blendstate-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10blendstate-getdesc
      */
     GetDesc(pDesc) {
         ComCall(7, this, "ptr", pDesc)

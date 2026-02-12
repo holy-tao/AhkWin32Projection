@@ -12,15 +12,13 @@
 /**
  * Defines the container that is the root of the authorization policy store.
  * @remarks
- * 
  * The <b>AzAuthorizationStore</b> object is named according to the URL passed to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-initialize">Initialize</a> method. The object has no name within  the policy store.
  * 
  * The application must ensure that the user context from which the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-initialize">Initialize</a> method is called is used for all future access to the <b>AzAuthorizationStore</b> object, except for the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplication-initializeclientcontextfromtoken">IAzApplication::InitializeClientContextFromToken</a> method.
  * 
  * <div class="alert"><b>Note</b>  If an XML store is used over a network, the traffic is not automatically encrypted. IPsec can be used to encrypt the authorization information in transit.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazauthorizationstore
+ * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nn-azroles-iazauthorizationstore
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -178,184 +176,220 @@ class IAzAuthorizationStore extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the operation.
+     * Sets or retrieves a comment that describes the operation. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
-        result := ComCall(7, this, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDescription
     }
 
     /**
-     * Sets or retrieves a comment that describes the operation.
+     * Sets or retrieves a comment that describes the operation. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_description
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves an opaque field that can be used by the application to store information.
+     * Sets or retrieves an opaque field that can be used by the application to store information. (IAzAuthorizationStore.get_ApplicationData)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_applicationdata
      */
     get_ApplicationData() {
         pbstrApplicationData := BSTR()
-        result := ComCall(9, this, "ptr", pbstrApplicationData, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrApplicationData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrApplicationData
     }
 
     /**
-     * Sets or retrieves an opaque field that can be used by the application to store information.
+     * Sets or retrieves an opaque field that can be used by the application to store information. (IAzAuthorizationStore.put_ApplicationData)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @param {BSTR} bstrApplicationData 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_applicationdata
      */
     put_ApplicationData(bstrApplicationData) {
-        bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
+        if(bstrApplicationData is String) {
+            pin := BSTR.Alloc(bstrApplicationData)
+            bstrApplicationData := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrApplicationData, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrApplicationData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves the time in milliseconds after which a domain is determined to be unreachable.
+     * Sets or retrieves the time in milliseconds after which a domain is determined to be unreachable. (Get)
      * @remarks
-     * 
      * After  the specified time-out interval, LDAP query group membership will attempt to contact a domain controller again.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_domaintimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_domaintimeout
      */
     get_DomainTimeout() {
-        result := ComCall(11, this, "int*", &plProp := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &plProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plProp
     }
 
     /**
-     * Sets or retrieves the time in milliseconds after which a domain is determined to be unreachable.
+     * Sets or retrieves the time in milliseconds after which a domain is determined to be unreachable. (Put)
      * @remarks
-     * 
      * After  the specified time-out interval, LDAP query group membership will attempt to contact a domain controller again.
-     * 
-     * 
      * @param {Integer} lProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_domaintimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_domaintimeout
      */
     put_DomainTimeout(lProp) {
-        result := ComCall(12, this, "int", lProp, "HRESULT")
+        result := ComCall(12, this, "int", lProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves the time in milliseconds that the IAzClientContext::AccessCheck method will wait for a Business Rule (BizRule) to complete execution before canceling it.
+     * Sets or retrieves the time in milliseconds that the IAzClientContext::AccessCheck method will wait for a Business Rule (BizRule) to complete execution before canceling it. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_scriptenginetimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_scriptenginetimeout
      */
     get_ScriptEngineTimeout() {
-        result := ComCall(13, this, "int*", &plProp := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plProp
     }
 
     /**
-     * Sets or retrieves the time in milliseconds that the IAzClientContext::AccessCheck method will wait for a Business Rule (BizRule) to complete execution before canceling it.
+     * Sets or retrieves the time in milliseconds that the IAzClientContext::AccessCheck method will wait for a Business Rule (BizRule) to complete execution before canceling it. (Put)
      * @param {Integer} lProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_scriptenginetimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_scriptenginetimeout
      */
     put_ScriptEngineTimeout(lProp) {
-        result := ComCall(14, this, "int", lProp, "HRESULT")
+        result := ComCall(14, this, "int", lProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves the maximum number of Business Rule (BizRule) script engines that will be cached.
+     * Sets or retrieves the maximum number of Business Rule (BizRule) script engines that will be cached. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_maxscriptengines
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_maxscriptengines
      */
     get_MaxScriptEngines() {
-        result := ComCall(15, this, "int*", &plProp := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &plProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plProp
     }
 
     /**
-     * Sets or retrieves the maximum number of Business Rule (BizRule) script engines that will be cached.
+     * Sets or retrieves the maximum number of Business Rule (BizRule) script engines that will be cached. (Put)
      * @param {Integer} lProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_maxscriptengines
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_maxscriptengines
      */
     put_MaxScriptEngines(lProp) {
-        result := ComCall(16, this, "int", lProp, "HRESULT")
+        result := ComCall(16, this, "int", lProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets or retrieves a value that indicates whether run-time audits should be generated.
+     * Sets or retrieves a value that indicates whether run-time audits should be generated. (Get)
      * @remarks
-     * 
      * The <b>GenerateAudits</b> property controls application initialization, client context creation, client context deletion,  and access check run-time auditing. The client context can be created by <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID), name, or token.
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_generateaudits
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_generateaudits
      */
     get_GenerateAudits() {
-        result := ComCall(17, this, "int*", &pbProp := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pbProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbProp
     }
 
     /**
-     * Sets or retrieves a value that indicates whether run-time audits should be generated.
+     * Sets or retrieves a value that indicates whether run-time audits should be generated. (Put)
      * @remarks
-     * 
      * The <b>GenerateAudits</b> property controls application initialization, client context creation, client context deletion,  and access check run-time auditing. The client context can be created by <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID), name, or token.
-     * 
      * @param {BOOL} bProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_generateaudits
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_generateaudits
      */
     put_GenerateAudits(bProp) {
-        result := ComCall(18, this, "int", bProp, "HRESULT")
+        result := ComCall(18, this, "int", bProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a value that indicates whether the object can be modified by the user context that called the Initialize method.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_writable
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_writable
      */
     get_Writable() {
-        result := ComCall(19, this, "int*", &pfProp := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &pfProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfProp
     }
 
@@ -471,16 +505,22 @@ class IAzAuthorizationStore extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {VARIANT} A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object property.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-getproperty
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
-        result := ComCall(20, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
+        result := ComCall(20, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarProp
     }
 
     /**
      * Sets the specified value to the AzAuthorizationStore object property with the specified property ID.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object property  to set. The following table shows the possible values.
      * 
      * <table>
@@ -648,15 +688,21 @@ class IAzAuthorizationStore extends IDispatch{
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
-        result := ComCall(21, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(21, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Adds the specified principal to the specified list of principals.
+     * Adds the specified principal to the specified list of principals. (IAzAuthorizationStore.AddPropertyItem)
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId 
      * @param {VARIANT} varProp Principal to add to the list of principals specified by the <i>lPropId</i> parameter.
      * 
@@ -666,16 +712,22 @@ class IAzAuthorizationStore extends IDispatch{
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-addpropertyitem
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(22, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(22, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Removes the specified principal from the specified list of principals.
+     * Removes the specified principal from the specified list of principals. (IAzAuthorizationStore.DeletePropertyItem)
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the  list of principals from which to remove the principal specified by the <i>varProp</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -753,17 +805,20 @@ class IAzAuthorizationStore extends IDispatch{
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletepropertyitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
-        result := ComCall(23, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
+        result := ComCall(23, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the security identifiers (SIDs) of principals that act as policy administrators in text form.
      * @remarks
-     * 
      * Policy administrators for an object can perform the following tasks:
      * 
      * <ul>
@@ -776,137 +831,162 @@ class IAzAuthorizationStore extends IDispatch{
      * <li>Create child objects of the object</li>
      * </ul>
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_policyadministrators
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_policyadministrators
      */
     get_PolicyAdministrators() {
         pvarAdmins := VARIANT()
-        result := ComCall(24, this, "ptr", pvarAdmins, "HRESULT")
+        result := ComCall(24, this, "ptr", pvarAdmins, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarAdmins
     }
 
     /**
      * Retrieves the security identifiers (SIDs) of principals that act as policy readers in text form.
      * @remarks
-     * 
      * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. Readers cannot modify the object or its child objects.
      * 
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_policyreaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_policyreaders
      */
     get_PolicyReaders() {
         pvarReaders := VARIANT()
-        result := ComCall(25, this, "ptr", pvarReaders, "HRESULT")
+        result := ComCall(25, this, "ptr", pvarReaders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarReaders
     }
 
     /**
-     * Adds the specified security identifier (SID) in text form to the list of principals that act as policy administrators.
+     * Adds the specified security identifier (SID) in text form to the list of principals that act as policy administrators. (IAzAuthorizationStore.AddPolicyAdministrator)
      * @remarks
-     * 
      * Policy administrators for an object can perform the following tasks:
      * 
-     * <ul>
-     * <li>Read the object</li>
-     * <li>Write attributes to the object</li>
-     * <li>Read attributes of child objects of the object</li>
-     * <li>Write attributes to child objects of the object</li>
-     * <li>Delete the object</li>
-     * <li>Delete child objects of the object</li>
-     * <li>Create child objects of the object</li>
-     * </ul>
-     * To view the list of policy administrators, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyadministrators">PolicyAdministrators</a> property.
+     * - Read the object
+     * - Write attributes to the object
+     * - Read attributes of child objects of the object
+     * - Write attributes to child objects of the object
+     * - Delete the object
+     * - Delete child objects of the object
+     * - Create child objects of the object
      * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
+     * To view the list of policy administrators, use the [PolicyAdministrators](nf-azroles-iazauthorizationstore-get_policyadministrators.md) property.
      * 
+     * You must call the [Submit](nf-azroles-iazauthorizationstore-submit.md) method to persist any changes made by this method.
      * @param {BSTR} bstrAdmin Text form of the SID to add to the list of policy administrators.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-addpolicyadministrator
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-addpolicyadministrator
      */
     AddPolicyAdministrator(bstrAdmin, varReserved) {
-        bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
+        if(bstrAdmin is String) {
+            pin := BSTR.Alloc(bstrAdmin)
+            bstrAdmin := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrAdmin, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the specified security identifier (SID) in text form from the list of principals that act as policy administrators.
      * @remarks
-     * 
      * Policy administrators for an object can perform the following tasks:
      * 
-     * <ul>
-     * <li>Read the object</li>
-     * <li>Write attributes to the object</li>
-     * <li>Read attributes of child objects of the object</li>
-     * <li>Write attributes to child objects of the object</li>
-     * <li>Delete the object</li>
-     * <li>Delete child objects of the object</li>
-     * <li>Create child objects of the object</li>
-     * </ul>
-     * To view the list of policy administrators, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyadministrators">PolicyAdministrators</a> property.
+     * - Read the object
+     * - Write attributes to the object
+     * - Read attributes of child objects of the object
+     * - Write attributes to child objects of the object
+     * - Delete the object
+     * - Delete child objects of the object
+     * - Create child objects of the object
      * 
+     * To view the list of policy administrators, use the [PolicyAdministrators](nf-azroles-iazauthorizationstore-get_policyadministrators.md) property.
      * @param {BSTR} bstrAdmin Text form of the SID to remove from the list of policy administrators.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletepolicyadministrator
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletepolicyadministrator
      */
     DeletePolicyAdministrator(bstrAdmin, varReserved) {
-        bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
+        if(bstrAdmin is String) {
+            pin := BSTR.Alloc(bstrAdmin)
+            bstrAdmin := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrAdmin, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Adds the specified security identifier (SID) in text form to the list of principals that act as policy readers.
+     * Adds the specified security identifier (SID) in text form to the list of principals that act as policy readers. (IAzAuthorizationStore.AddPolicyReader)
      * @remarks
+     * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the [AccessCheck](nf-azroles-iazclientcontext-accesscheck.md) method. Readers cannot modify the object or its child objects.
      * 
-     * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. Readers cannot modify the object or its child objects.
+     * To view the list of policy readers, use the [PolicyReaders](nf-azroles-iazauthorizationstore-get_policyreaders.md) property.
      * 
-     * To view the list of policy readers, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyreaders">PolicyReaders</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
-     * 
+     * You must call the [Submit](nf-azroles-iazauthorizationstore-submit.md) method to persist any changes made by this method.
      * @param {BSTR} bstrReader Text form of the  SID to add to the list of policy readers.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-addpolicyreader
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-addpolicyreader
      */
     AddPolicyReader(bstrReader, varReserved) {
-        bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
+        if(bstrReader is String) {
+            pin := BSTR.Alloc(bstrReader)
+            bstrReader := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(28, this, "ptr", bstrReader, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the specified security identifier (SID) in text form from the list of principals that act as policy readers.
      * @remarks
+     * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the [AccessCheck](nf-azroles-iazclientcontext-accesscheck.md) method. Readers cannot modify the object or its child objects.
      * 
-     * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. Readers cannot modify the object or its child objects.
-     * 
-     * To view the list of policy readers, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyreaders">PolicyReaders</a> property.
-     * 
+     * To view the list of policy readers, use the [PolicyReaders](nf-azroles-iazauthorizationstore-get_policyreaders.md) property.
      * @param {BSTR} bstrReader Text form of the SID to remove from the list of policy readers.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletepolicyreader
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletepolicyreader
      */
     DeletePolicyReader(bstrReader, varReserved) {
-        bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
+        if(bstrReader is String) {
+            pin := BSTR.Alloc(bstrReader)
+            bstrReader := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(29, this, "ptr", bstrReader, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes the authorization manager.
+     * @remarks
+     * Active Directory supports Application Partitions, which are also known as Non-Domain Naming Contexts. These partitions are used as a location for programs to store application data. An Authorization Manager policy store cannot be created or kept in the Application Partition; instead, use the Program Data container as the container for Active Directory Authorization Manager policy stores.
      * @param {Integer} lFlags 
      * @param {BSTR} bstrPolicyURL Location of the persistent copy of the authorization policy database.
      * 
@@ -938,62 +1018,75 @@ class IAzAuthorizationStore extends IDispatch{
      * 
      * If the <i>bstrPolicyURL</i> parameter is not valid, the method returns HRESULT_FROM_WIN32(ERROR_INVALID_NAME).
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-initialize
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-initialize
      */
     Initialize(lFlags, bstrPolicyURL, varReserved) {
-        bstrPolicyURL := bstrPolicyURL is String ? BSTR.Alloc(bstrPolicyURL).Value : bstrPolicyURL
+        if(bstrPolicyURL is String) {
+            pin := BSTR.Alloc(bstrPolicyURL)
+            bstrPolicyURL := pin.Value
+        }
 
-        result := ComCall(30, this, "int", lFlags, "ptr", bstrPolicyURL, "ptr", varReserved, "HRESULT")
+        result := ComCall(30, this, "int", lFlags, "ptr", bstrPolicyURL, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Updates the cache of objects and object attributes to match the underlying policy store.
      * @remarks
+     * When the **UpdateCache** method is called, all changes to the persistent store after the last call to the [Initialize](nf-azroles-iazauthorizationstore-initialize.md) method or to the **UpdateCache** method are incorporated into the cache. Any changes to the cache that have not been submitted using the [Submit](nf-azroles-iazauthorizationstore-submit.md) method override the changes to the store.
      * 
-     * When the <b>UpdateCache</b> method is called, all changes to the persistent store after the last call to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-initialize">Initialize</a> method or to the <b>UpdateCache</b> method are incorporated into the cache. Any changes to the cache that have not been submitted using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method override the changes to the  store.
-     * 
-     * Most stores  should be  stable and have  few changes.  Providers are expected to implement this method to efficiently  determine whether   changes have been written  to the physical store since the last update.
-     * 
+     * Most stores should be stable and have few changes. Providers are expected to implement this method to efficiently determine whether changes have been written to the physical store since the last update.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-updatecache
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-updatecache
      */
     UpdateCache(varReserved) {
-        result := ComCall(31, this, "ptr", varReserved, "HRESULT")
+        result := ComCall(31, this, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Deletes the policy store currently in use by the AzAuthorizationStore object.
      * @remarks
+     * When the **Delete** method is called, the [AzAuthorizationStore](nn-azroles-iazauthorizationstore.md) object returns to an uninitialized state. The [Initialize](nf-azroles-iazauthorizationstore-initialize.md) method can then be called to reinitialize the object.
      * 
-     * When the <b>Delete</b> method is called, the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object returns to an uninitialized state. The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-initialize">Initialize</a> method can then be called to reinitialize the object. 
-     * 
-     * <div class="alert"><b>Important</b>  All objects opened by clients on the policy store  (for example,  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> objects created using <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-createapplication">CreateApplication</a>) must be released before you call the <b>Delete</b> method. If the <b>Delete</b> method is called on an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object whose current policy store contains child objects, HRESULT_FROM_WIN32(ERROR_SERVER_HAS_OPEN_HANDLES) is returned.</div>
-     * <div> </div>
-     * 
+     * >[!IMPORTANT]
+     * >All objects opened by clients on the policy store (for example, [IAzApplication](nn-azroles-iazapplication.md) objects created using [CreateApplication](nf-azroles-iazauthorizationstore-createapplication.md)) must be released before you call the **Delete** method. If the **Delete** method is called on an [AzAuthorizationStore](nn-azroles-iazauthorizationstore.md) object whose current policy store contains child objects, **HRESULT_FROM_WIN32(ERROR_SERVER_HAS_OPEN_HANDLES)** is returned.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-delete
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-delete
      */
     Delete(varReserved) {
-        result := ComCall(32, this, "ptr", varReserved, "HRESULT")
+        result := ComCall(32, this, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an IAzApplications object that is used to enumerate IAzApplication objects from the policy store.
      * @remarks
-     * 
      * This property can be used only to enumerate <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> objects that are direct child objects of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object.
-     * 
      * @returns {IAzApplications} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_applications
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_applications
      */
     get_Applications() {
-        result := ComCall(33, this, "ptr*", &ppAppCollection := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &ppAppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzApplications(ppAppCollection)
     }
 
@@ -1002,241 +1095,307 @@ class IAzAuthorizationStore extends IDispatch{
      * @param {BSTR} bstrApplicationName Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object to open.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {IAzApplication} A pointer to a pointer to the opened <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-openapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-openapplication
      */
     OpenApplication(bstrApplicationName, varReserved) {
-        bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
+        if(bstrApplicationName is String) {
+            pin := BSTR.Alloc(bstrApplicationName)
+            bstrApplicationName := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        result := ComCall(34, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzApplication(ppApplication)
     }
 
     /**
      * Creates an IAzApplication object with the specified name.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplication-submit">IAzApplication::Submit</a> method to persist any changes made by the returned object.
+     * 
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object is an immediate child object of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object.
      * @param {BSTR} bstrApplicationName Name for the new <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {IAzApplication} A pointer to a pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-createapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-createapplication
      */
     CreateApplication(bstrApplicationName, varReserved) {
-        bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
+        if(bstrApplicationName is String) {
+            pin := BSTR.Alloc(bstrApplicationName)
+            bstrApplicationName := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        result := ComCall(35, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzApplication(ppApplication)
     }
 
     /**
      * Removes the IAzApplication object with the specified name from the AzAuthorizationStore object.
      * @remarks
-     * 
-     * If the deleted <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object has child objects, those objects are deleted, as well. If there are any <b>IAzApplication</b> references to an <b>IAzApplication</b> object that has been deleted from the cache, the <b>IAzApplication</b> object can no longer be used. In C++, you must release references to deleted <b>IAzApplication</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In  Visual Basic, references to deleted objects are automatically released.
-     * 
-     * @param {BSTR} bstrApplicationName Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object to delete.
+     * If the deleted [IAzApplication](nn-azroles-iazapplication.md) object has child objects, those objects are deleted, as well. If there are any **IAzApplication** references to an **IAzApplication** object that has been deleted from the cache, the **IAzApplication** object can no longer be used. In C++, you must release references to deleted **IAzApplication** objects by calling the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method. In C# and Visual Basic, references to deleted objects are automatically released.
+     * @param {BSTR} bstrApplicationName Name of the [IAzApplication](nn-azroles-iazapplication.md) object to delete.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deleteapplication
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deleteapplication
      */
     DeleteApplication(bstrApplicationName, varReserved) {
-        bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
+        if(bstrApplicationName is String) {
+            pin := BSTR.Alloc(bstrApplicationName)
+            bstrApplicationName := pin.Value
+        }
 
-        result := ComCall(36, this, "ptr", bstrApplicationName, "ptr", varReserved, "HRESULT")
+        result := ComCall(36, this, "ptr", bstrApplicationName, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves an IAzApplicationGroups object that is used to enumerate IAzApplicationGroup objects from the policy data.
+     * Retrieves an IAzApplicationGroups object that is used to enumerate IAzApplicationGroup objects from the policy data. (IAzAuthorizationStore.get_ApplicationGroups)
      * @remarks
-     * 
      * This property can be used only to enumerate <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> objects that are direct child objects of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object.
-     * 
      * @returns {IAzApplicationGroups} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_applicationgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_applicationgroups
      */
     get_ApplicationGroups() {
-        result := ComCall(37, this, "ptr*", &ppGroupCollection := 0, "HRESULT")
+        result := ComCall(37, this, "ptr*", &ppGroupCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzApplicationGroups(ppGroupCollection)
     }
 
     /**
-     * Creates an IAzApplicationGroup object with the specified name.
+     * Creates an IAzApplicationGroup object with the specified name. (IAzAuthorizationStore.CreateApplicationGroup)
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-submit">IAzApplicationGroup::Submit</a> method to persist any changes made to the returned object.
+     * 
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object is an immediate child object of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object.
      * @param {BSTR} bstrGroupName Name for the new <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {IAzApplicationGroup} A pointer to a pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-createapplicationgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-createapplicationgroup
      */
     CreateApplicationGroup(bstrGroupName, varReserved) {
-        bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
+        if(bstrGroupName is String) {
+            pin := BSTR.Alloc(bstrGroupName)
+            bstrGroupName := pin.Value
+        }
 
-        result := ComCall(38, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(38, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzApplicationGroup(ppGroup)
     }
 
     /**
-     * Opens an IAzApplicationGroup object by specifying its name.
+     * Opens an IAzApplicationGroup object by specifying its name. (IAzAuthorizationStore.OpenApplicationGroup)
      * @param {BSTR} bstrGroupName Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to open.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {IAzApplicationGroup} A pointer to a pointer to the opened <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-openapplicationgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-openapplicationgroup
      */
     OpenApplicationGroup(bstrGroupName, varReserved) {
-        bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
+        if(bstrGroupName is String) {
+            pin := BSTR.Alloc(bstrGroupName)
+            bstrGroupName := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(39, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzApplicationGroup(ppGroup)
     }
 
     /**
      * Removes the IAzApplicationGroup object with the specified name from the AzAuthorizationStore object.
      * @remarks
-     * 
-     * If there are any <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> references to an <b>IAzApplicationGroup</b> object that has been deleted from the cache, the <b>IAzApplicationGroup</b> object can no longer be used. In C++, you must release references to deleted <b>IAzApplicationGroup</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In  Visual Basic, references to deleted objects are automatically released.
-     * 
-     * @param {BSTR} bstrGroupName Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to delete.
+     * If there are any [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) references to an **IAzApplicationGroup** object that has been deleted from the cache, the **IAzApplicationGroup** object can no longer be used. In C++, you must release references to deleted **IAzApplicationGroup** objects by calling the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method. In C# and Visual Basic, references to deleted objects are automatically released.
+     * @param {BSTR} bstrGroupName Name of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to delete.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deleteapplicationgroup
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deleteapplicationgroup
      */
     DeleteApplicationGroup(bstrGroupName, varReserved) {
-        bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
+        if(bstrGroupName is String) {
+            pin := BSTR.Alloc(bstrGroupName)
+            bstrGroupName := pin.Value
+        }
 
-        result := ComCall(40, this, "ptr", bstrGroupName, "ptr", varReserved, "HRESULT")
+        result := ComCall(40, this, "ptr", bstrGroupName, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Persists changes made to the AzAuthorizationStore object.
      * @remarks
+     * Any additions or modifications to an [AzAuthorizationStore](nn-azroles-iazauthorizationstore.md) object are not persisted until the **Submit** method is called. The [Delete](nf-azroles-iazauthorizationstore-delete.md) method automatically submits changes.
      * 
-     * Any additions or modifications to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object are not persisted until the <b>Submit</b> method is called. The <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-delete">Delete</a>  method automatically submits changes.
-     * 
-     * The <b>Submit</b> method does not extend to child objects; child objects  must be individually persisted to the policy store. A created <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazauthorizationstore">AzAuthorizationStore</a> object must be submitted before it can be referenced or become a parent object. The destructor for an object silently discards unsubmitted changes.
-     * 
-     * @param {Integer} lFlags Flags that modify the behavior of the <b>Submit</b> method. The default value is zero. If the AZ_SUBMIT_FLAG_ABORT flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
+     * The **Submit** method does not extend to child objects; child objects  must be individually persisted to the policy store. A created [AzAuthorizationStore](nn-azroles-iazauthorizationstore.md) object must be submitted before it can be referenced or become a parent object. The destructor for an object silently discards unsubmitted changes.
+     * @param {Integer} lFlags Flags that modify the behavior of the **Submit** method. The default value is zero. If the **AZ_SUBMIT_FLAG_ABORT** flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-submit
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-submit
      */
     Submit(lFlags, varReserved) {
-        result := ComCall(41, this, "int", lFlags, "ptr", varReserved, "HRESULT")
+        result := ComCall(41, this, "int", lFlags, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the security identifiers (SIDs) of principals that act as delegated policy users in text form.
      * @remarks
-     * 
      * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object uses to administer the delegated object.
      * 
      * <div class="alert"><b>Note</b>  Delegated policy users are not supported for XML stores.</div>
      * <div> </div>
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusers
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusers
      */
     get_DelegatedPolicyUsers() {
         pvarDelegatedPolicyUsers := VARIANT()
-        result := ComCall(42, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
+        result := ComCall(42, this, "ptr", pvarDelegatedPolicyUsers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarDelegatedPolicyUsers
     }
 
     /**
-     * Adds the specified security identifier (SID) in text form to the list of principals that act as delegated policy users.
+     * Adds the specified security identifier (SID) in text form to the list of principals that act as delegated policy users. (IAzAuthorizationStore.AddDelegatedPolicyUser)
      * @remarks
+     * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an [IAzApplication](nn-azroles-iazapplication.md) or [IAzScope](nn-azroles-iazscope.md) object uses to administer the delegated object.
      * 
-     * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object uses to administer the delegated object.
+     * >[!NOTE]
+     * >Delegated policy users are not supported for XML stores.
      * 
-     * <div class="alert"><b>Note</b>  Delegated policy users are not supported for XML stores.</div>
-     * <div> </div>
-     * To view the list of delegated policy users, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusers">DelegatedPolicyUsers</a> property.
+     * To view the list of delegated policy users, use the [DelegatedPolicyUsers](nf-azroles-iazauthorizationstore-get_delegatedpolicyusers.md) property.
      * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
-     * 
+     * You must call the [Submit](nf-azroles-iazauthorizationstore-submit.md) method to persist any changes made by this method.
      * @param {BSTR} bstrDelegatedPolicyUser Text form of the SID to add to the list of delegated policy users.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-adddelegatedpolicyuser
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-adddelegatedpolicyuser
      */
     AddDelegatedPolicyUser(bstrDelegatedPolicyUser, varReserved) {
-        bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
+        if(bstrDelegatedPolicyUser is String) {
+            pin := BSTR.Alloc(bstrDelegatedPolicyUser)
+            bstrDelegatedPolicyUser := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(43, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the specified security identifier (SID) in text form from the list of principals that act as delegated policy users.
      * @remarks
+     * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an [IAzApplication](nn-azroles-iazapplication.md) or [IAzScope](nn-azroles-iazscope.md) object uses to administer the delegated object.
      * 
-     * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object uses to administer the delegated object. 
+     * >[!NOTE]
+     * >Delegated policy users are not supported for XML stores.
      * 
-     * <div class="alert"><b>Note</b>  Delegated policy users are not supported for XML stores.</div>
-     * <div> </div>
-     * To view the list of delegated policy users, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusers">DelegatedPolicyUsers</a> property.
-     * 
+     * To view the list of delegated policy users, use the [DelegatedPolicyUsers](nf-azroles-iazauthorizationstore-get_delegatedpolicyusers.md) property.
      * @param {BSTR} bstrDelegatedPolicyUser Text form of the SID to remove from the list of delegated policy users.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletedelegatedpolicyuser
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletedelegatedpolicyuser
      */
     DeleteDelegatedPolicyUser(bstrDelegatedPolicyUser, varReserved) {
-        bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
+        if(bstrDelegatedPolicyUser is String) {
+            pin := BSTR.Alloc(bstrDelegatedPolicyUser)
+            bstrDelegatedPolicyUser := pin.Value
+        }
 
-        result := ComCall(44, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(44, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the name of the computer on which account resolution should occur.
      * @remarks
-     * 
      * Determination of the target computer takes into consideration active directories in local and remote domains, Distributed File System (DFS) shares, mount point, local drive, remote mapped shares, and so on.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_targetmachine
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_targetmachine
      */
     get_TargetMachine() {
         pbstrTargetMachine := BSTR()
-        result := ComCall(45, this, "ptr", pbstrTargetMachine, "HRESULT")
+        result := ComCall(45, this, "ptr", pbstrTargetMachine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTargetMachine
     }
 
     /**
-     * Sets or retrieves a value that indicates whether policy audits should be generated when the authorization store is modified.
+     * Sets or retrieves a value that indicates whether policy audits should be generated when the authorization store is modified. (IAzAuthorizationStore.get_ApplyStoreSacl)
      * @remarks
-     * 
      * Policy audits are generated when the underlying policy store is modified. Both success and failure audits are requested.
-     * 
-     * 
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_applystoresacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_applystoresacl
      */
     get_ApplyStoreSacl() {
-        result := ComCall(46, this, "int*", &pbApplyStoreSacl := 0, "HRESULT")
+        result := ComCall(46, this, "int*", &pbApplyStoreSacl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbApplyStoreSacl
     }
 
     /**
-     * Sets or retrieves a value that indicates whether policy audits should be generated when the authorization store is modified.
+     * Sets or retrieves a value that indicates whether policy audits should be generated when the authorization store is modified. (IAzAuthorizationStore.put_ApplyStoreSacl)
      * @remarks
-     * 
      * Policy audits are generated when the underlying policy store is modified. Both success and failure audits are requested.
-     * 
-     * 
      * @param {BOOL} bApplyStoreSacl 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-put_applystoresacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-put_applystoresacl
      */
     put_ApplyStoreSacl(bApplyStoreSacl) {
-        result := ComCall(47, this, "int", bApplyStoreSacl, "HRESULT")
+        result := ComCall(47, this, "int", bApplyStoreSacl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves the account names of principals that act as policy administrators.
+     * Retrieves the account names of principals that act as policy administrators. (IAzAuthorizationStore.get_PolicyAdministratorsName)
      * @remarks
-     * 
      * Policy administrators for an object can perform the following tasks:
      * 
      * <ul>
@@ -1249,191 +1408,276 @@ class IAzAuthorizationStore extends IDispatch{
      * <li>Create child objects of the object</li>
      * </ul>
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_policyadministratorsname
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_policyadministratorsname
      */
     get_PolicyAdministratorsName() {
         pvarAdmins := VARIANT()
-        result := ComCall(48, this, "ptr", pvarAdmins, "HRESULT")
+        result := ComCall(48, this, "ptr", pvarAdmins, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarAdmins
     }
 
     /**
-     * Retrieves the account names of principals that act as policy readers.
+     * Retrieves the account names of principals that act as policy readers. (IAzAuthorizationStore.get_PolicyReadersName)
      * @remarks
-     * 
      * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. Readers cannot modify the object or its child objects.
      * 
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_policyreadersname
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_policyreadersname
      */
     get_PolicyReadersName() {
         pvarReaders := VARIANT()
-        result := ComCall(49, this, "ptr", pvarReaders, "HRESULT")
+        result := ComCall(49, this, "ptr", pvarReaders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarReaders
     }
 
     /**
-     * Adds the specified account name to the list of principals that act as policy administrators.
+     * Adds the specified account name to the list of principals that act as policy administrators. (IAzAuthorizationStore.AddPolicyAdministratorName)
+     * @remarks
+     * Policy administrators for an object can perform the following tasks:
+     * 
+     * <ul>
+     * <li>Read the object</li>
+     * <li>Write attributes to the object</li>
+     * <li>Read attributes of child objects of the object</li>
+     * <li>Write attributes to child objects of the object</li>
+     * <li>Delete the object</li>
+     * <li>Delete child objects of the object</li>
+     * <li>Create child objects of the object</li>
+     * </ul>
+     * To view the list of policy administrators in account name format, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyadministratorsname">PolicyAdministratorsName</a> property.
+     * 
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
      * @param {BSTR} bstrAdmin Account name  to add to the list of policy administrators. The account name must be in user principal name (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-addpolicyadministratorname
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-addpolicyadministratorname
      */
     AddPolicyAdministratorName(bstrAdmin, varReserved) {
-        bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
+        if(bstrAdmin is String) {
+            pin := BSTR.Alloc(bstrAdmin)
+            bstrAdmin := pin.Value
+        }
 
-        result := ComCall(50, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(50, this, "ptr", bstrAdmin, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Removes the specified account name from the list of principals that act as policy administrators.
+     * Removes the specified account name from the list of principals that act as policy administrators. (IAzAuthorizationStore.DeletePolicyAdministratorName)
+     * @remarks
+     * Policy administrators for an object can perform the following tasks:
+     * 
+     * <ul>
+     * <li>Read the object</li>
+     * <li>Write attributes to the object</li>
+     * <li>Read attributes of child objects of the object</li>
+     * <li>Write attributes to child objects of the object</li>
+     * <li>Delete the object</li>
+     * <li>Delete child objects of the object</li>
+     * <li>Create child objects of the object</li>
+     * </ul>
+     * To view the list of policy administrators in account name format, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyadministratorsname">PolicyAdministratorsName</a> property.
      * @param {BSTR} bstrAdmin The account name to remove from the list of policy administrators. The account name must be in user principal name (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletepolicyadministratorname
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletepolicyadministratorname
      */
     DeletePolicyAdministratorName(bstrAdmin, varReserved) {
-        bstrAdmin := bstrAdmin is String ? BSTR.Alloc(bstrAdmin).Value : bstrAdmin
+        if(bstrAdmin is String) {
+            pin := BSTR.Alloc(bstrAdmin)
+            bstrAdmin := pin.Value
+        }
 
-        result := ComCall(51, this, "ptr", bstrAdmin, "ptr", varReserved, "HRESULT")
+        result := ComCall(51, this, "ptr", bstrAdmin, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Adds the specified account name to the list of principals that act as policy readers.
+     * Adds the specified account name to the list of principals that act as policy readers. (IAzAuthorizationStore.AddPolicyReaderName)
+     * @remarks
+     * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. Readers cannot modify the object or its child objects.
+     * 
+     * To view the list of policy readers in account name format, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyreadersname">PolicyReadersName</a> property.
+     * 
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
      * @param {BSTR} bstrReader Account name to add to the list of policy readers. The account name must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-addpolicyreadername
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-addpolicyreadername
      */
     AddPolicyReaderName(bstrReader, varReserved) {
-        bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
+        if(bstrReader is String) {
+            pin := BSTR.Alloc(bstrReader)
+            bstrReader := pin.Value
+        }
 
-        result := ComCall(52, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(52, this, "ptr", bstrReader, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Removes the specified account name from the list of principals that act as policy readers.
+     * Removes the specified account name from the list of principals that act as policy readers. (IAzAuthorizationStore.DeletePolicyReaderName)
+     * @remarks
+     * Policy readers for an object can read attributes for the object and for child objects of the object. Readers can also  use the policy; for example, readers can call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. Readers cannot modify the object or its child objects.
+     * 
+     * To view the list of policy readers in account name format, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_policyreadersname">PolicyReadersName</a> property.
      * @param {BSTR} bstrReader The account name to remove from the list of policy readers. The account name must be in user principal name (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * Any other <b>HRESULT</b> value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletepolicyreadername
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletepolicyreadername
      */
     DeletePolicyReaderName(bstrReader, varReserved) {
-        bstrReader := bstrReader is String ? BSTR.Alloc(bstrReader).Value : bstrReader
+        if(bstrReader is String) {
+            pin := BSTR.Alloc(bstrReader)
+            bstrReader := pin.Value
+        }
 
-        result := ComCall(53, this, "ptr", bstrReader, "ptr", varReserved, "HRESULT")
+        result := ComCall(53, this, "ptr", bstrReader, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the account names of principals that act as delegated policy users.
      * @remarks
-     * 
      * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object uses to administer the delegated object.
      * 
      * <div class="alert"><b>Note</b>  Delegated policy users are not supported for XML stores.</div>
      * <div> </div>
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusersname
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusersname
      */
     get_DelegatedPolicyUsersName() {
         pvarDelegatedPolicyUsers := VARIANT()
-        result := ComCall(54, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
+        result := ComCall(54, this, "ptr", pvarDelegatedPolicyUsers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarDelegatedPolicyUsers
     }
 
     /**
-     * Adds the specified account name to the list of principals that act as delegated policy users.
+     * Adds the specified account name to the list of principals that act as delegated policy users. (IAzAuthorizationStore.AddDelegatedPolicyUserName)
+     * @remarks
+     * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object uses to administer the delegated object.
+     * 
+     * <div class="alert"><b>Note</b>  Delegated policy users are not supported for XML stores.</div>
+     * <div> </div>
+     * To view the list of delegated policy users in account name format, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusersname">DelegatedPolicyUsersName</a> property.
+     * 
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
      * @param {BSTR} bstrDelegatedPolicyUser Account name to add to the list of delegated policy users. The account name must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * An attempt to call this method on an XML store will return E_INVALIDARG.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-adddelegatedpolicyusername
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-adddelegatedpolicyusername
      */
     AddDelegatedPolicyUserName(bstrDelegatedPolicyUser, varReserved) {
-        bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
+        if(bstrDelegatedPolicyUser is String) {
+            pin := BSTR.Alloc(bstrDelegatedPolicyUser)
+            bstrDelegatedPolicyUser := pin.Value
+        }
 
-        result := ComCall(55, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(55, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Removes the specified account name from the list of principals that act as delegated policy users.
+     * Removes the specified account name from the list of principals that act as delegated policy users. (IAzAuthorizationStore.DeleteDelegatedPolicyUserName)
+     * @remarks
+     * Delegated policy users are principals that are allowed to read the subset of the policy data that the policy administrator of an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object uses to administer the delegated object.
+     * 
+     * <div class="alert"><b>Note</b>  Delegated policy users are not supported for XML stores.</div>
+     * <div> </div>
+     * To view the list of delegated policy users in account name format, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusersname">DelegatedPolicyUsersName</a> property.
      * @param {BSTR} bstrDelegatedPolicyUser Account name to remove from the list of delegated policy users. The account name must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format (for example, "someone@example.com"). The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * An attempt to call this method on an XML store will return E_INVALIDARG.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-deletedelegatedpolicyusername
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-deletedelegatedpolicyusername
      */
     DeleteDelegatedPolicyUserName(bstrDelegatedPolicyUser, varReserved) {
-        bstrDelegatedPolicyUser := bstrDelegatedPolicyUser is String ? BSTR.Alloc(bstrDelegatedPolicyUser).Value : bstrDelegatedPolicyUser
+        if(bstrDelegatedPolicyUser is String) {
+            pin := BSTR.Alloc(bstrDelegatedPolicyUser)
+            bstrDelegatedPolicyUser := pin.Value
+        }
 
-        result := ComCall(56, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "HRESULT")
+        result := ComCall(56, this, "ptr", bstrDelegatedPolicyUser, "ptr", varReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Unloads a specified IAzApplication object from the cache.
-     * @param {BSTR} bstrApplicationName The name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object to close.
+     * @param {BSTR} bstrApplicationName The name of the [IAzApplication](nn-azroles-iazapplication.md) object to close.
      * @param {Integer} lFlag Flags that control the behavior of the operation. The following table shows the possible values.
      * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Child objects of the specified <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object will be unloaded from the cache only when the user closes the last handle to the <b>IAzApplication</b> object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="AZ_AZSTORE_FORCE_APPLICATION_CLOSE"></a><a id="az_azstore_force_application_close"></a><dl>
-     * <dt><b>AZ_AZSTORE_FORCE_APPLICATION_CLOSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * All child objects of the specified <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object will be forcefully closed. Attempts to reference an open handle to a child object of the specified <b>IAzApplication</b> object will result in an HRESULT_FROM_WIN32(ERROR_INVALID_HANDLE) error. This flag should be used only if the user has implemented code to gracefully handle the  error.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazauthorizationstore-closeapplication
+     * | Value | Meaning |
+     * |--------|--------|
+     * | **0** | Child objects of the specified [IAzApplication](nn-azroles-iazapplication.md) object will be unloaded from the cache only when the user closes the last handle to the **IAzApplication** object. |
+     * | **AZ_AZSTORE_FORCE_APPLICATION_CLOSE** | All child objects of the specified [IAzApplication](nn-azroles-iazapplication.md) object will be forcefully closed. Attempts to reference an open handle to a child object of the specified **IAzApplication** object will result in an **HRESULT_FROM_WIN32(ERROR_INVALID_HANDLE)** error. This flag should be used only if the user has implemented code to gracefully handle the  error. |
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iazauthorizationstore-closeapplication
      */
     CloseApplication(bstrApplicationName, lFlag) {
-        bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
+        if(bstrApplicationName is String) {
+            pin := BSTR.Alloc(bstrApplicationName)
+            bstrApplicationName := pin.Value
+        }
 
-        result := ComCall(57, this, "ptr", bstrApplicationName, "int", lFlag, "HRESULT")
+        result := ComCall(57, this, "ptr", bstrApplicationName, "int", lFlag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

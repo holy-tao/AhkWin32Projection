@@ -5,7 +5,7 @@
 
 /**
  * Notifies subscribers of changes to the event store while including partition and application ID information.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ieventobjectchange2
+ * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nn-eventsys-ieventobjectchange2
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -37,24 +37,32 @@ class IEventObjectChange2 extends IUnknown{
     static VTableNames => ["ChangedSubscription", "ChangedEventClass"]
 
     /**
-     * Indicates that a subscription object has been added, modified, or deleted.
+     * Indicates that a subscription object has been added, modified, or deleted. (IEventObjectChange2.ChangedSubscription)
      * @param {Pointer<COMEVENTSYSCHANGEINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo">COMEVENTSYSCHANGEINFO</a> structure.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange2-changedsubscription
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectchange2-changedsubscription
      */
     ChangedSubscription(pInfo) {
-        result := ComCall(3, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates that an event class object has been added, modified, or deleted.
+     * Indicates that an event class object has been added, modified, or deleted. (IEventObjectChange2.ChangedEventClass)
      * @param {Pointer<COMEVENTSYSCHANGEINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo">COMEVENTSYSCHANGEINFO</a> structure.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange2-changedeventclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectchange2-changedeventclass
      */
     ChangedEventClass(pInfo) {
-        result := ComCall(4, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

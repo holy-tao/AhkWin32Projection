@@ -4,8 +4,22 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/medfound/framerateconverter
+ * Represents the name of a frame to target when the application is open as an Active document in a container application. The default is an empty string.
+ * @remarks
+ * To get a reference to the Frame cell by name from another formula, or from a program using the **CellsU** property, use: 
+ *   
+ * ||Value |
+ * |:-----|:-----|
+ * | **Cell name:**  <br/> | Hyperlink.  *name*  .Frame            where Hyperlink.  *name*  is the row name  <br/> |
+ *    
+ * To get a reference to the Frame cell by index from a program, use the **CellsSRC** property with the following arguments: 
+ *   
+ * ||Value |
+ * |:-----|:-----|
+ * | **Section index:**  <br/> |**visSectionHyperlink** <br/> |
+ * | **Row index:**  <br/> |**visRow1stHyperlink** +  *i*            where  *i*  = 0, 1, 2... |
+ * | **Cell index:**  <br/> |**visHLinkFrame** <br/> |
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/frame-cell-hyperlinks-section
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -73,7 +87,11 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     Maximize() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,16 +100,25 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     Minimize() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Initiates a system restore.
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/sr/restore-systemrestore
      */
     Restore() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +127,11 @@ class Frame extends IDispatch{
      * @returns {Integer} 
      */
     get_Top() {
-        result := ComCall(10, this, "int*", &Top := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &Top := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Top
     }
 
@@ -110,7 +141,11 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Top(top) {
-        result := ComCall(11, this, "int", top, "HRESULT")
+        result := ComCall(11, this, "int", top, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +154,11 @@ class Frame extends IDispatch{
      * @returns {Integer} 
      */
     get_Bottom() {
-        result := ComCall(12, this, "int*", &Bottom := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &Bottom := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Bottom
     }
 
@@ -129,7 +168,11 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Bottom(bottom) {
-        result := ComCall(13, this, "int", bottom, "HRESULT")
+        result := ComCall(13, this, "int", bottom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +181,11 @@ class Frame extends IDispatch{
      * @returns {Integer} 
      */
     get_Left() {
-        result := ComCall(14, this, "int*", &Left := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &Left := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Left
     }
 
@@ -148,7 +195,11 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Left(left) {
-        result := ComCall(15, this, "int", left, "HRESULT")
+        result := ComCall(15, this, "int", left, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +208,11 @@ class Frame extends IDispatch{
      * @returns {Integer} 
      */
     get_Right() {
-        result := ComCall(16, this, "int*", &Right := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &Right := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Right
     }
 
@@ -167,7 +222,11 @@ class Frame extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Right(right) {
-        result := ComCall(17, this, "int", right, "HRESULT")
+        result := ComCall(17, this, "int", right, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

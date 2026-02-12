@@ -33,7 +33,11 @@ class IBindHttpSecurity extends IUnknown{
      * @returns {Integer} 
      */
     GetIgnoreCertMask() {
-        result := ComCall(3, this, "uint*", &pdwIgnoreCertMask := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwIgnoreCertMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwIgnoreCertMask
     }
 }

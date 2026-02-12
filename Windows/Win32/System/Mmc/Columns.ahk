@@ -6,6 +6,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Columns Collection Properties, Methods, and Events
+ * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/columns-collection-properties-methods-and-events
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -51,13 +53,23 @@ class Columns extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Integer} Index 
      * @returns {Column} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &Column := 0, "HRESULT")
-        return Column(Column)
+        result := ComCall(7, this, "int", Index, "ptr*", &Column_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Column(Column_)
     }
 
     /**
@@ -65,7 +77,11 @@ class Columns extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
@@ -74,7 +90,11 @@ class Columns extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 }

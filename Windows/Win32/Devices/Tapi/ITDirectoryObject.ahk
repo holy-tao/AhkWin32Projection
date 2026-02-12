@@ -8,7 +8,7 @@
 
 /**
  * The ITDirectoryObject interface is the common interface supported by all objects that can be added and deleted by using the ITDirectory interface.
- * @see https://docs.microsoft.com/windows/win32/api//rend/nn-rend-itdirectoryobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/rend/nn-rend-itdirectoryobject
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -59,26 +59,46 @@ class ITDirectoryObject extends IDispatch{
     /**
      * The get_ObjectType method gets a DIRECTORY_OBJECT_TYPE descriptor of the object.
      * @returns {Integer} Pointer to descriptor of directory object type.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-get_objecttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-get_objecttype
      */
     get_ObjectType() {
-        result := ComCall(7, this, "int*", &pObjectType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pObjectType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pObjectType
     }
 
     /**
      * The get_Name method gets the name of the directory object.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppName</i> parameter.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of directory name.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-get_name
      */
     get_Name() {
         ppName := BSTR()
-        result := ComCall(8, this, "ptr", ppName, "HRESULT")
+        result := ComCall(8, this, "ptr", ppName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppName
     }
 
     /**
      * The put_Name method sets the name of the directory object.
+     * @remarks
+     * Changes made will not take effect on the server until the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-modifydirectoryobject">ITDirectory::ModifyDirectoryObject</a> method is called.
+     * 
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pName</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
      * @param {BSTR} pName Pointer to <b>BSTR</b> representation of directory name.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -143,52 +163,84 @@ class ITDirectoryObject extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-put_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-put_name
      */
     put_Name(pName) {
-        pName := pName is String ? BSTR.Alloc(pName).Value : pName
+        if(pName is String) {
+            pin := BSTR.Alloc(pName)
+            pName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", pName, "HRESULT")
+        result := ComCall(9, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_DialableAddrs method gets all dialable addresses of a given type from the directory. This method performs the same function as EnumerateDialableAddrs but is used by scripting languages such as Visual Basic.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface returned by <b>ITDirectoryObject::get_DialableAddrs</b>. The application must call <b>Release</b> on the 
+     * <b>ITAddress</b> interface to free resources associated with it.
      * @param {Integer} dwAddressType Indicator of address type.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of <b>BSTR</b> strings, each containing a dialable address.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-get_dialableaddrs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-get_dialableaddrs
      */
     get_DialableAddrs(dwAddressType) {
         pVariant := VARIANT()
-        result := ComCall(10, this, "int", dwAddressType, "ptr", pVariant, "HRESULT")
+        result := ComCall(10, this, "int", dwAddressType, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
     /**
      * The EnumerateDialableAddrs method creates an enumerator of all dialable addresses of a given type from the directory.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdialableaddrs">IEnumDialableAddrs</a> interface returned by <b>ITDirectoryObject::EnumerateDialableAddrs</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumDialableAddrs</b> interface to free resources associated with it.
      * @param {Integer} dwAddressType Indicator of the address type.
      * @returns {IEnumDialableAddrs} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdialableaddrs">IEnumDialableAddrs</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-enumeratedialableaddrs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-enumeratedialableaddrs
      */
     EnumerateDialableAddrs(dwAddressType) {
-        result := ComCall(11, this, "uint", dwAddressType, "ptr*", &ppEnumDialableAddrs := 0, "HRESULT")
+        result := ComCall(11, this, "uint", dwAddressType, "ptr*", &ppEnumDialableAddrs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDialableAddrs(ppEnumDialableAddrs)
     }
 
     /**
      * The get_SecurityDescriptor method gets an IDispatch pointer on a directory service security descriptor object describing current security permissions.
+     * @remarks
+     * If the security descriptor has not been set, this method will set <i>ppSecDes</i> to <b>NULL</b>.
      * @returns {IDispatch} <b>IDispatch</b> pointer on a directory service security descriptor object.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-get_securitydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-get_securitydescriptor
      */
     get_SecurityDescriptor() {
-        result := ComCall(12, this, "ptr*", &ppSecDes := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppSecDes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppSecDes)
     }
 
     /**
      * The put_SecurityDescriptor method sets an IDispatch pointer on a directory service security descriptor object describing current security permissions.
+     * @remarks
+     * Changes made will not take effect on the server until the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nf-rend-itdirectory-modifydirectoryobject">ITDirectory::ModifyDirectoryObject</a> method is called.
      * @param {IDispatch} pSecDes <b>IDispatch</b> pointer on a directory service security descriptor object.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -253,10 +305,14 @@ class ITDirectoryObject extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itdirectoryobject-put_securitydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/rend/nf-rend-itdirectoryobject-put_securitydescriptor
      */
     put_SecurityDescriptor(pSecDes) {
-        result := ComCall(13, this, "ptr", pSecDes, "HRESULT")
+        result := ComCall(13, this, "ptr", pSecDes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

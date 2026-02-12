@@ -5,7 +5,7 @@
  * Defines the coordinates of the upper left and lower right corners of a rectangle.
  * @remarks
  * This structure is used by console functions to specify rectangular areas of console screen buffers, where the coordinates specify the rows and columns of screen-buffer character cells.
- * @see https://learn.microsoft.com/windows/console/small-rect-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/small-rect-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

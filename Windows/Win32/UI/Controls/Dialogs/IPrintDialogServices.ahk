@@ -6,10 +6,8 @@
 /**
  * Provides methods that enable an application using the PrintDlgEx function to retrieve information about the currently selected printer.
  * @remarks
- * 
  * This printer is indicated on the list of installed printers on the <b>General</b> page of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/print-property-sheet">Print Property Sheet</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//commdlg/nn-commdlg-iprintdialogservices
+ * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nn-commdlg-iprintdialogservices
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  */
@@ -48,13 +46,17 @@ class IPrintDialogServices extends IUnknown{
      * 
      * If the method is successful, the return value is <b>S_OK</b>. If no printer is currently selected, the return value is <b>S_OK</b>, the value returned in <i>pcbSize</i> is zero, and the <i>lpDevMode</i> buffer is unchanged.
      * 
-     * If an error occurs, the return value is a COM error code. For more information, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commdlg/nf-commdlg-iprintdialogservices-getcurrentdevmode
+     * If an error occurs, the return value is a COM error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-iprintdialogservices-getcurrentdevmode
      */
     GetCurrentDevMode(pDevMode, pcbSize) {
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDevMode, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevMode, pcbSizeMarshal, pcbSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,15 +78,19 @@ class IPrintDialogServices extends IUnknown{
      * 
      *                     
      * 
-     * If an error occurs, the return value is a COM error code. For more information, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commdlg/nf-commdlg-iprintdialogservices-getcurrentprintername
+     * If an error occurs, the return value is a COM error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-iprintdialogservices-getcurrentprintername
      */
     GetCurrentPrinterName(pPrinterName, pcchSize) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pPrinterName, pcchSizeMarshal, pcchSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pPrinterName, pcchSizeMarshal, pcchSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,15 +108,19 @@ class IPrintDialogServices extends IUnknown{
      * 
      * If the method is successful, the return value is <b>S_OK</b>. If there is no current port, the return value is <b>S_OK</b>, the value returned in <i>pcchSize</i> is zero, and the <i>lpPortName</i> buffer is unchanged.
      * 
-     * If an error occurs, the return value is a COM error code. For more information, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//commdlg/nf-commdlg-iprintdialogservices-getcurrentportname
+     * If an error occurs, the return value is a COM error code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-iprintdialogservices-getcurrentportname
      */
     GetCurrentPortName(pPortName, pcchSize) {
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         pcchSizeMarshal := pcchSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pPortName, pcchSizeMarshal, pcchSize, "HRESULT")
+        result := ComCall(5, this, "ptr", pPortName, pcchSizeMarshal, pcchSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Use this interface to delay Service Control Protocol Description (SCPD) download and event subscription on the IUPnPService objects enumerated from the IUPnPServices object.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpserviceenumproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpserviceenumproperty
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -45,10 +45,14 @@ class IUPnPServiceEnumProperty extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns <b>S_OK</b> on success. Otherwise, this method returns <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpserviceenumproperty-setserviceenumproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpserviceenumproperty-setserviceenumproperty
      */
     SetServiceEnumProperty(dwMask) {
-        result := ComCall(3, this, "uint", dwMask, "HRESULT")
+        result := ComCall(3, this, "uint", dwMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

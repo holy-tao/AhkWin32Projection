@@ -3,7 +3,7 @@
 
 /**
  * The DML_PADDING_OPERATOR_DESC structure (directml.h) inflates the input tensor with constant or mirrored values on the edges, and writes the result to the output.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_padding_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_padding_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

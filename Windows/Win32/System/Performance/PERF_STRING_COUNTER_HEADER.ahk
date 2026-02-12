@@ -8,7 +8,7 @@
  * <b>PERF_REG_COUNTER_NAME_STRINGS</b> or <b>PERF_REG_COUNTER_HELP_STRINGS</b> gets a
  * <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_buffer_header">PERF_STRING_BUFFER_HEADER</a> block that contains one or more
  * <b>PERF_STRING_COUNTER_HEADER</b> structures.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_counter_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_string_counter_header
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

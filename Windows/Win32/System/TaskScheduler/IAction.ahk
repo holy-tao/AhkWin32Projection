@@ -7,7 +7,6 @@
 /**
  * Provides the common properties inherited by all action objects.
  * @remarks
- * 
  * For more information about how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>. The following table contains the interfaces that represent the actions  that can be performed:<table>
  * <tr>
  * <th>API</th>
@@ -43,10 +42,7 @@
  * 
  * 
  * When reading or writing XML, the actions of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iaction
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-iaction
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -85,56 +81,62 @@ class IAction extends IDispatch{
     }
 
     /**
-     * Gets or sets the identifier of the action.
+     * Gets or sets the identifier of the action. (Get)
      * @remarks
-     * 
      * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
-     * 
-     * 
      * @param {Pointer<BSTR>} pId 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iaction-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iaction-get_id
      */
     get_Id(pId) {
-        result := ComCall(7, this, "ptr", pId, "HRESULT")
+        result := ComCall(7, this, "ptr", pId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the identifier of the action.
+     * Gets or sets the identifier of the action. (Put)
      * @remarks
-     * 
      * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
-     * 
-     * 
      * @param {BSTR} Id 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iaction-put_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iaction-put_id
      */
     put_Id(Id) {
-        Id := Id is String ? BSTR.Alloc(Id).Value : Id
+        if(Id is String) {
+            pin := BSTR.Alloc(Id)
+            Id := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", Id, "HRESULT")
+        result := ComCall(8, this, "ptr", Id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the type of action.
      * @remarks
-     * 
      * The action type is defined when the action is created and cannot be changed later. For information on creating an action, see <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iactioncollection-create">IActionCollection.Create</a>.
      * 
      * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
-     * 
-     * 
      * @param {Pointer<Integer>} pType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iaction-get_type
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-iaction-get_type
      */
     get_Type(pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
+        result := ComCall(9, this, pTypeMarshal, pType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -4,6 +4,8 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 
 /**
+ * Selects the next locale identifier in the circular list of loaded locale identifiers maintained by the system.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-activatekeyboardlayout
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319
  */

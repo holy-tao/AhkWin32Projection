@@ -34,7 +34,11 @@ class IXpsDocumentConsumer extends IUnknown{
      * @returns {HRESULT} 
      */
     SendXpsUnknown(pUnknown) {
-        result := ComCall(3, this, "ptr", pUnknown, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnknown, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IXpsDocumentConsumer extends IUnknown{
      * @returns {HRESULT} 
      */
     SendXpsDocument(pIXpsDocument) {
-        result := ComCall(4, this, "ptr", pIXpsDocument, "HRESULT")
+        result := ComCall(4, this, "ptr", pIXpsDocument, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IXpsDocumentConsumer extends IUnknown{
      * @returns {HRESULT} 
      */
     SendFixedDocumentSequence(pIFixedDocumentSequence) {
-        result := ComCall(5, this, "ptr", pIFixedDocumentSequence, "HRESULT")
+        result := ComCall(5, this, "ptr", pIFixedDocumentSequence, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class IXpsDocumentConsumer extends IUnknown{
      * @returns {HRESULT} 
      */
     SendFixedDocument(pIFixedDocument) {
-        result := ComCall(6, this, "ptr", pIFixedDocument, "HRESULT")
+        result := ComCall(6, this, "ptr", pIFixedDocument, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +90,11 @@ class IXpsDocumentConsumer extends IUnknown{
      * @returns {HRESULT} 
      */
     SendFixedPage(pIFixedPage) {
-        result := ComCall(7, this, "ptr", pIFixedPage, "HRESULT")
+        result := ComCall(7, this, "ptr", pIFixedPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +103,11 @@ class IXpsDocumentConsumer extends IUnknown{
      * @returns {HRESULT} 
      */
     CloseSender() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +124,11 @@ class IXpsDocumentConsumer extends IUnknown{
 
         ppNewObjectMarshal := ppNewObject is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", uri, "ptr", riid, ppNewObjectMarshal, ppNewObject, "ptr*", ppWriteStream, "HRESULT")
+        result := ComCall(9, this, "ptr", uri, "ptr", riid, ppNewObjectMarshal, ppNewObject, "ptr*", ppWriteStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

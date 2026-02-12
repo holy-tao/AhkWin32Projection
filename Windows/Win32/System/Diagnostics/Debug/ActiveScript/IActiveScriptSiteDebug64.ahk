@@ -39,16 +39,25 @@ class IActiveScriptSiteDebug64 extends IUnknown{
      * @returns {IDebugDocumentContext} 
      */
     GetDocumentContextFromPosition(dwSourceContext, uCharacterOffset, uNumChars) {
-        result := ComCall(3, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppsc := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppsc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocumentContext(ppsc)
     }
 
     /**
-     * 
+     * Retrieves a pointer to the callback routine registered for the specified process. The address returned is in the virtual address space of the process.
      * @returns {IDebugApplication64} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getapplicationrecoverycallback
      */
     GetApplication() {
-        result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppda := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugApplication64(ppda)
     }
 
@@ -57,7 +66,11 @@ class IActiveScriptSiteDebug64 extends IUnknown{
      * @returns {IDebugApplicationNode} 
      */
     GetRootApplicationNode() {
-        result := ComCall(5, this, "ptr*", &ppdanRoot := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppdanRoot := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugApplicationNode(ppdanRoot)
     }
 
@@ -72,7 +85,11 @@ class IActiveScriptSiteDebug64 extends IUnknown{
         pfEnterDebuggerMarshal := pfEnterDebugger is VarRef ? "int*" : "ptr"
         pfCallOnScriptErrorWhenContinuingMarshal := pfCallOnScriptErrorWhenContinuing is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pErrorDebug, pfEnterDebuggerMarshal, pfEnterDebugger, pfCallOnScriptErrorWhenContinuingMarshal, pfCallOnScriptErrorWhenContinuing, "HRESULT")
+        result := ComCall(6, this, "ptr", pErrorDebug, pfEnterDebuggerMarshal, pfEnterDebugger, pfCallOnScriptErrorWhenContinuingMarshal, pfCallOnScriptErrorWhenContinuing, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

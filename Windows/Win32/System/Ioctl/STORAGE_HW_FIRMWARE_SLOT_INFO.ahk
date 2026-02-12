@@ -3,7 +3,7 @@
 
 /**
  * This structure contains information about a slot on a device.
- * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-slot-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/FileIO/storage-hw-firmware-slot-info
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

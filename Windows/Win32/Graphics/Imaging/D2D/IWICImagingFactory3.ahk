@@ -34,7 +34,11 @@ class IWICImagingFactory3 extends IWICImagingFactory2{
      * @returns {IWICBitmapToneMapper} 
      */
     CreateBitmapToneMapper() {
-        result := ComCall(29, this, "ptr*", &ppToneMapper := 0, "HRESULT")
+        result := ComCall(29, this, "ptr*", &ppToneMapper := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapToneMapper(ppToneMapper)
     }
 }

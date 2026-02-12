@@ -35,7 +35,11 @@ class ISpeechPhraseInfoBuilder extends IDispatch{
      * @returns {ISpeechPhraseInfo} 
      */
     RestorePhraseFromMemory(PhraseInMemory) {
-        result := ComCall(7, this, "ptr", PhraseInMemory, "ptr*", &PhraseInfo := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", PhraseInMemory, "ptr*", &PhraseInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseInfo(PhraseInfo)
     }
 }

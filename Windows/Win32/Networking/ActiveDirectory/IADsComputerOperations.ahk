@@ -6,7 +6,7 @@
 
 /**
  * The IADsComputerOperations interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadscomputeroperations
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadscomputeroperations
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IADsComputerOperations extends IADs{
     /**
      * The IADsComputerOperations::Status method retrieves the status of a computer.
      * @returns {IDispatch} Pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface that reports the status code of computer operations. The status code is provider-specific.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscomputeroperations-status
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadscomputeroperations-status
      */
     Status() {
-        result := ComCall(20, this, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppObject)
     }
 
@@ -46,11 +50,15 @@ class IADsComputerOperations extends IADs{
      * @param {VARIANT_BOOL} bReboot If <b>TRUE</b>, then reboot the computer after the shutdown is complete.
      * @returns {HRESULT} This method supports the standard return values, as well as the following:
      * 
-     * For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscomputeroperations-shutdown
+     * For other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadscomputeroperations-shutdown
      */
     Shutdown(bReboot) {
-        result := ComCall(21, this, "short", bReboot, "HRESULT")
+        result := ComCall(21, this, "short", bReboot, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

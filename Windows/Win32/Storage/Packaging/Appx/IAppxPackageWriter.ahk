@@ -4,14 +4,10 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a write-only object model for app packages.
+ * Provides a write-only object model for app packages. (IAppxPackageWriter)
  * @remarks
- * 
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxfactory-createpackagewriter">CreatePackageWriter</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfactory">IAppxFactory</a> interface.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxpackagewriter
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxpackagewriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -38,6 +34,15 @@ class IAppxPackageWriter extends IUnknown{
 
     /**
      * Adds a new payload file to the app package.
+     * @remarks
+     * When the <b>AddPayloadFile</b> method succeeds the contents of the specified <i>fileName</i> are written to the package and a corresponding entry is made in the package block map.
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Files with the following reserved filenames cannot be added to the package using the <b>AddPayloadFile</b> method:
+     * 
+     * `AppxManifest.xml`, `AppxBlockMap.xml`, `AppxStreamMap.xml`, and `AppxSignature.p7x`.
+     * 
+     * Also, files with the following reserved folder prefixes cannot be added to the package using the <b>AddPayloadFile</b> method: `\AppxMetadata\` and `\Microsoft.System.Package.Metadata\`.
      * @param {PWSTR} fileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the payload file. The file name path must be relative to the root of the package.
@@ -67,7 +72,7 @@ class IAppxPackageWriter extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The compression option specified by <i>compressionOption</i> is not one of the values of the <a href="/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_compression_option">APPX_COMPRESSION_OPTION</a> enumeration.
+     * The compression option specified by <i>compressionOption</i> is not one of the values of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_compression_option">APPX_COMPRESSION_OPTION</a> enumeration.
      * 
      * </td>
      * </tr>
@@ -105,18 +110,24 @@ class IAppxPackageWriter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter-addpayloadfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxpackagewriter-addpayloadfile
      */
     AddPayloadFile(fileName, contentType, compressionOption, inputStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
         contentType := contentType is String ? StrPtr(contentType) : contentType
 
-        result := ComCall(3, this, "ptr", fileName, "ptr", contentType, "int", compressionOption, "ptr", inputStream, "HRESULT")
+        result := ComCall(3, this, "ptr", fileName, "ptr", contentType, "int", compressionOption, "ptr", inputStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Writes footprint files at the end of the app package, and closes the package writer object's output stream.
+     * @remarks
+     * The <b>Close</b> method should be called only after all payload files have been added to the package.
      * @param {IStream} manifest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * The stream that provides the contents of the manifest for the package. The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
@@ -152,10 +163,14 @@ class IAppxPackageWriter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxpackagewriter-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxpackagewriter-close
      */
     Close(manifest) {
-        result := ComCall(4, this, "ptr", manifest, "HRESULT")
+        result := ComCall(4, this, "ptr", manifest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

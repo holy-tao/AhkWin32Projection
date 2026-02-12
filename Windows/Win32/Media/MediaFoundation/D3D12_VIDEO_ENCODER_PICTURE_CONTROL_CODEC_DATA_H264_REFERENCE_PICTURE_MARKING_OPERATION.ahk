@@ -18,7 +18,7 @@
  * Note that for marking an IDR frame as long-term reference, the proposed explicit mechanism is to mark it as short term reference first, by setting [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_FLAG_USED_AS_REFERENCE_PICTURE](ne-d3d12video-d3d12_video_encoder_picture_control_flags.md) when calling [EncodeFrame](nf-d3d12video-id3d12videoencodecommandlist2-encodeframe.md) for the IDR frame, and later promoting it to be a long-term reference frame using memory management operation '3' to mark a short-term reference picture as "used for long-term reference" and assign a long-term frame index to it.
  * 
  * Alternatively, if encoding an IDR frame and setting **adaptive_ref_pic_marking_mode_flag** = 1, the driver will assume that the client is attempting to set the H264 slice header **long_term_reference_flag** and will do so in the output bitstream for the **EncodeFrame** call.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264_reference_picture_marking_operation
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264_reference_picture_marking_operation
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

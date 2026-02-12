@@ -3,7 +3,7 @@
 
 /**
  * Defines constants that specify kinds of DXCore adapter states.
- * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxcore_interface/ne-dxcore_interface-dxcoreadapterstate
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

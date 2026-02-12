@@ -61,7 +61,7 @@ class WebDav {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davaddconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davaddconnection
      * @since windows6.0.6000
      */
     static DavAddConnection(ConnectionHandle, RemoteName, UserName, Password, ClientCert, CertSize) {
@@ -79,7 +79,7 @@ class WebDav {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davdeleteconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davdeleteconnection
      * @since windows6.0.6000
      */
     static DavDeleteConnection(ConnectionHandle) {
@@ -128,7 +128,7 @@ class WebDav {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davgetuncfromhttppath
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davgetuncfromhttppath
      * @since windows6.0.6000
      */
     static DavGetUNCFromHTTPPath(Url, UncPath, lpSize) {
@@ -176,7 +176,7 @@ class WebDav {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davgethttpfromuncpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davgethttpfromuncpath
      * @since windows6.0.6000
      */
     static DavGetHTTPFromUNCPath(UncPath, Url, lpSize) {
@@ -236,7 +236,7 @@ class WebDav {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davgetthelockownerofthefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davgetthelockownerofthefile
      * @since windows6.0.6000
      */
     static DavGetTheLockOwnerOfTheFile(FileName, LockOwnerName, LockOwnerNameLengthInBytes) {
@@ -290,7 +290,7 @@ class WebDav {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davgetextendederror
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davgetextendederror
      * @since windows6.0.6000
      */
     static DavGetExtendedError(hFile, ExtError, ExtErrorString, cChSize) {
@@ -319,7 +319,7 @@ class WebDav {
      * @returns {Integer} If the function succeeds,  or if <i>hFile</i> is a handle to an encrypted file, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davflushfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davflushfile
      * @since windows6.0.6000
      */
     static DavFlushFile(hFile) {
@@ -339,7 +339,7 @@ class WebDav {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davinvalidatecache
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davinvalidatecache
      * @since windows6.0.6000
      */
     static DavInvalidateCache(URLName) {
@@ -414,7 +414,7 @@ class WebDav {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davcancelconnectionstoserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davcancelconnectionstoserver
      * @since windows6.0.6000
      */
     static DavCancelConnectionsToServer(lpName, fForce) {
@@ -431,13 +431,13 @@ class WebDav {
      * 
      * To unregister the callback function, use the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davunregisterauthcallback">DavUnregisterAuthCallback</a> function, passing the returned opaque handle in the <i>hCallback</i>  parameter.
      * @param {Pointer<PFNDAVAUTHCALLBACK>} CallBack A pointer to a function of type <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">PFNDAVAUTHCALLBACK</a>.
-     * @param {Integer} Version This parameter is reserved for future use.
+     * @param {Integer} Version_ This parameter is reserved for future use.
      * @returns {Integer} If the function succeeds, the return value is an opaque handle. Note that <b>OPAQUE_HANDLE</b> is defined to be a <b>DWORD</b> value.
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davregisterauthcallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davregisterauthcallback
      * @since windows6.0.6000
      */
-    static DavRegisterAuthCallback(CallBack, Version) {
-        result := DllCall("davclnt.dll\DavRegisterAuthCallback", "ptr", CallBack, "uint", Version, "uint")
+    static DavRegisterAuthCallback(CallBack, Version_) {
+        result := DllCall("davclnt.dll\DavRegisterAuthCallback", "ptr", CallBack, "uint", Version_, "uint")
         return result
     }
 
@@ -447,7 +447,7 @@ class WebDav {
      * To register the callback function, use the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davregisterauthcallback">DavRegisterAuthCallback</a> function.
      * @param {Integer} hCallback The opaque handle that was returned by the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nf-davclnt-davregisterauthcallback">DavRegisterAuthCallback</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/davclnt/nf-davclnt-davunregisterauthcallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/davclnt/nf-davclnt-davunregisterauthcallback
      * @since windows6.0.6000
      */
     static DavUnregisterAuthCallback(hCallback) {

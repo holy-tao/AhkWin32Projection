@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that provide component information.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwiccomponentinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwiccomponentinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IWICComponentInfo extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>*</b>
      * 
      * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype
      */
     GetComponentType() {
-        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
@@ -47,28 +51,42 @@ class IWICComponentInfo extends IUnknown{
      * @returns {Guid} Type: <b>CLSID*</b>
      * 
      * A pointer that receives the component's CLSID.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getclsid
      */
     GetCLSID() {
         pclsid := Guid()
-        result := ComCall(4, this, "ptr", pclsid, "HRESULT")
+        result := ComCall(4, this, "ptr", pclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pclsid
     }
 
     /**
      * Retrieves the signing status of the component.
+     * @remarks
+     * Signing is unused by WIC. Therefore, all components WICComponentSigned.
+     * 
+     * This function can be used to determine whether a component has no binary component or has been added to the disabled components list in the registry.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponentsigning">WICComponentSigning</a> status of the component.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getsigningstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getsigningstatus
      */
     GetSigningStatus() {
-        result := ComCall(5, this, "uint*", &pStatus := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
     /**
      * Retrieves the name of component's author.
+     * @remarks
+     * If <i>cchAuthor</i> is 0 and <i>wzAuthor</i> is <b>NULL</b>, the required buffer size is returned in <i>pccchActual</i>.
      * @param {Integer} cchAuthor Type: <b>UINT</b>
      * 
      * The size of the <i>wzAuthor</i> buffer.
@@ -79,12 +97,16 @@ class IWICComponentInfo extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer that receives the actual length of the component's authors name. The author name is optional; if an author name is not specified by the component, the length returned is 0.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getauthor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getauthor
      */
     GetAuthor(cchAuthor, wzAuthor) {
         wzAuthor := wzAuthor is String ? StrPtr(wzAuthor) : wzAuthor
 
-        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
@@ -93,16 +115,24 @@ class IWICComponentInfo extends IUnknown{
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * A pointer that receives the component's vendor GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getvendorguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getvendorguid
      */
     GetVendorGUID() {
         pguidVendor := Guid()
-        result := ComCall(7, this, "ptr", pguidVendor, "HRESULT")
+        result := ComCall(7, this, "ptr", pguidVendor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidVendor
     }
 
     /**
      * Retrieves the component's version.
+     * @remarks
+     * All built-in components return "1.0.0.0", except for pixel formats, which do not have a version.
+     * 
+     * If <i>cchAuthor</i> is 0 and <i>wzAuthor</i> is <b>NULL</b>, the required buffer size is returned in <i>pccchActual</i>.
      * @param {Integer} cchVersion Type: <b>UINT</b>
      * 
      * The size of the <i>wzVersion</i> buffer.
@@ -112,37 +142,51 @@ class IWICComponentInfo extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer that receives the actual length of the component's version. The version is optional; if a value is not specified by the component, the length returned is 0.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getversion
      */
     GetVersion(cchVersion, wzVersion) {
         wzVersion := wzVersion is String ? StrPtr(wzVersion) : wzVersion
 
-        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
     /**
      * Retrieves the component's specification version.
+     * @remarks
+     * All built-in components return "1.0.0.0", except for pixel formats, which do not have a spec version.
+     * 
+     * If <i>cchAuthor</i> is 0 and <i>wzAuthor</i> is <b>NULL</b>, the required buffer size is returned in <i>pccchActual</i>.
      * @param {Integer} cchSpecVersion Type: <b>UINT</b>
      * 
      * The size of the <i>wzSpecVersion</i> buffer.
      * @param {PWSTR} wzSpecVersion Type: <b>WCHAR*</b>
      * 
-     * When this method returns, contain a culture invarient string of the component's specification version. The version form is NN.NN.NN.NN.
+     * When this method returns, contain a culture invariant string of the component's specification version. The version form is NN.NN.NN.NN.
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer that receives the actual length of the component's specification version. The specification version is optional; if a value is not specified by the component, the length returned is 0.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getspecversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getspecversion
      */
     GetSpecVersion(cchSpecVersion, wzSpecVersion) {
         wzSpecVersion := wzSpecVersion is String ? StrPtr(wzSpecVersion) : wzSpecVersion
 
-        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
     /**
      * Retrieves the component's friendly name, which is a human-readable display name for the component.
+     * @remarks
+     * If <i>cchFriendlyName</i> is 0 and <i>wzFriendlyName</i> is <b>NULL</b>, the required buffer size is returned in <i>pccchActual</i>.
      * @param {Integer} cchFriendlyName Type: <b>UINT</b>
      * 
      * The size of the <i>wzFriendlyName</i> buffer.
@@ -153,12 +197,16 @@ class IWICComponentInfo extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer that receives the actual length of the component's friendly name.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccomponentinfo-getfriendlyname
      */
     GetFriendlyName(cchFriendlyName, wzFriendlyName) {
         wzFriendlyName := wzFriendlyName is String ? StrPtr(wzFriendlyName) : wzFriendlyName
 
-        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, "uint*", &pcchActual := 0, "HRESULT")
+        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, "uint*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 }

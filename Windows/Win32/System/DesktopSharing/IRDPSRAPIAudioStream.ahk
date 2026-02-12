@@ -5,7 +5,7 @@
 
 /**
  * Enables sending an audio stream from the collaboration sharer Microsoft ActiveX control to collaboration viewer controls.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiaudiostream
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiaudiostream
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -33,30 +33,42 @@ class IRDPSRAPIAudioStream extends IUnknown{
     /**
      * Initializes the audio stream.
      * @returns {Integer} On return, indicates the stream period in 100 nanosecond intervals. The collaboration sharer calculates how frequently to call the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer">GetBuffer</a> method from this value.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-initialize
      */
     Initialize() {
-        result := ComCall(3, this, "int64*", &pnPeriodInHundredNsIntervals := 0, "HRESULT")
+        result := ComCall(3, this, "int64*", &pnPeriodInHundredNsIntervals := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnPeriodInHundredNsIntervals
     }
 
     /**
      * Starts the audio stream.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-start
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-start
      */
     Start() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Stops the audio stream.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-stop
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-stop
      */
     Stop() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,24 +78,32 @@ class IRDPSRAPIAudioStream extends IUnknown{
      * @param {Pointer<Integer>} pcbData The size in bytes of the available data in the buffer.
      * @param {Pointer<Integer>} pTimestamp The time-based location of the location pointer.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
      */
     GetBuffer(ppbData, pcbData, pTimestamp) {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
         pTimestampMarshal := pTimestamp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, pTimestampMarshal, pTimestamp, "HRESULT")
+        result := ComCall(6, this, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, pTimestampMarshal, pTimestamp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Releases the hold on the buffer after the GetBuffer method is called.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-freebuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-freebuffer
      */
     FreeBuffer() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

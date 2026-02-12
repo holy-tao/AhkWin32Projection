@@ -35,7 +35,11 @@ class ITransactionObject extends IUnknown{
      * @returns {ITransaction} 
      */
     GetTransactionObject(ulTransactionLevel) {
-        result := ComCall(3, this, "uint", ulTransactionLevel, "ptr*", &ppTransactionObject := 0, "HRESULT")
+        result := ComCall(3, this, "uint", ulTransactionLevel, "ptr*", &ppTransactionObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransaction(ppTransactionObject)
     }
 }

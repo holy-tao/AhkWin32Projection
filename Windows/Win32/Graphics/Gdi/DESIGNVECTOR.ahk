@@ -7,7 +7,7 @@
  * The <b>dvNumAxes</b> member determines the actual size of <b>dvValues</b>, and thus, of <b>DESIGNVECTOR</b>. The constant MM_MAX_NUMAXES, which is 16, specifies the maximum allowed size of the <b>dvValues</b> array.
  * 
  * The PostScript Open Type Font does not support multiple master functionality.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-designvector
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-designvector
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

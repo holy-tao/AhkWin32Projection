@@ -102,7 +102,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
-        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -111,7 +115,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
-        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -120,7 +128,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
-        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -129,7 +141,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
-        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -139,16 +155,29 @@ class ISClusResType extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +186,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISCluster} 
      */
     get_Cluster() {
-        result := ComCall(13, this, "ptr*", &ppCluster := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppCluster := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCluster(ppCluster)
     }
 
@@ -166,7 +199,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusResTypeResources} 
      */
     get_Resources() {
-        result := ComCall(14, this, "ptr*", &ppClusterResTypeResources := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppClusterResTypeResources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResTypeResources(ppClusterResTypeResources)
     }
 
@@ -175,7 +212,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusResTypePossibleOwnerNodes} 
      */
     get_PossibleOwnerNodes() {
-        result := ComCall(15, this, "ptr*", &ppOwnerNodes := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppOwnerNodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResTypePossibleOwnerNodes(ppOwnerNodes)
     }
 
@@ -184,7 +225,11 @@ class ISClusResType extends IDispatch{
      * @returns {ISClusDisks} 
      */
     get_AvailableDisks() {
-        result := ComCall(16, this, "ptr*", &ppAvailableDisks := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppAvailableDisks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusDisks(ppAvailableDisks)
     }
 }

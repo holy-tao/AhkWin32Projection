@@ -7,7 +7,7 @@
  * GDI relies on the runs being arranged in increasing order by code points. A binary search is made through the list of runs.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fd_glyphset">FD_GLYPHSET</a> structure contains a WCRUN structure as one of its members.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-wcrun
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-wcrun
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

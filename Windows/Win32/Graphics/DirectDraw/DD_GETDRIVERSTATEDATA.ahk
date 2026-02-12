@@ -12,7 +12,7 @@
  * 
  * <div class="alert"><b>Note</b>  The D3DDEVINFOID_VCACHE flag is defined in d3dhal.h; the other flags that can be set in <b>dwFlags</b> are defined in d3dtypes.h.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getdriverstatedata
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_getdriverstatedata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

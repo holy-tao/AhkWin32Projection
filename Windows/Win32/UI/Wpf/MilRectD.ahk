@@ -3,7 +3,7 @@
 
 /**
  * Describes the width, height, and location of a rectangle.M
- * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milrectd
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/ns-mileffects-milrectd
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */

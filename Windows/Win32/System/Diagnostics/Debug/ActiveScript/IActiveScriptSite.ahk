@@ -34,7 +34,11 @@ class IActiveScriptSite extends IUnknown{
      * @returns {Integer} 
      */
     GetLCID() {
-        result := ComCall(3, this, "uint*", &plcid := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &plcid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plcid
     }
 
@@ -49,7 +53,11 @@ class IActiveScriptSite extends IUnknown{
     GetItemInfo(pstrName, dwReturnMask, ppiunkItem, ppti) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
 
-        result := ComCall(4, this, "ptr", pstrName, "uint", dwReturnMask, "ptr*", ppiunkItem, "ptr*", ppti, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrName, "uint", dwReturnMask, "ptr*", ppiunkItem, "ptr*", ppti, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IActiveScriptSite extends IUnknown{
      */
     GetDocVersionString() {
         pbstrVersion := BSTR()
-        result := ComCall(5, this, "ptr", pbstrVersion, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVersion
     }
 
@@ -70,7 +82,11 @@ class IActiveScriptSite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnScriptTerminate(pvarResult, pexcepinfo) {
-        result := ComCall(6, this, "ptr", pvarResult, "ptr", pexcepinfo, "HRESULT")
+        result := ComCall(6, this, "ptr", pvarResult, "ptr", pexcepinfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +96,11 @@ class IActiveScriptSite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnStateChange(ssScriptState) {
-        result := ComCall(7, this, "int", ssScriptState, "HRESULT")
+        result := ComCall(7, this, "int", ssScriptState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class IActiveScriptSite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnScriptError(pscripterror) {
-        result := ComCall(8, this, "ptr", pscripterror, "HRESULT")
+        result := ComCall(8, this, "ptr", pscripterror, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +123,11 @@ class IActiveScriptSite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnEnterScript() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +136,11 @@ class IActiveScriptSite extends IUnknown{
      * @returns {HRESULT} 
      */
     OnLeaveScript() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Provides a generic callback mechanism for interruptible processes that should periodically ask an object whether to continue.
+ * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nn-docobj-icontinuecallback
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,7 +35,11 @@ class IContinue extends IUnknown{
      * @returns {HRESULT} 
      */
     FContinue() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

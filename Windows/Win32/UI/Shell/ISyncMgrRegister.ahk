@@ -6,10 +6,8 @@
 /**
  * Exposes methods so that an application can register with the synchronization manager. This can be achieved either through the ISyncMgrRegister interface or by registering directly in the registry.
  * @remarks
- * 
  * The handler must be a standard OLE server. It must register the standard OLE keys for an InProc OLE server in addition to the SyncMgr key.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrregister
+ * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nn-mobsync-isyncmgrregister
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -64,12 +62,16 @@ class ISyncMgrRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrregister-registersyncmgrhandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nf-mobsync-isyncmgrregister-registersyncmgrhandler
      */
     RegisterSyncMgrHandler(clsidHandler, pwszDescription, dwSyncMgrRegisterFlags) {
         pwszDescription := pwszDescription is String ? StrPtr(pwszDescription) : pwszDescription
 
-        result := ComCall(3, this, "ptr", clsidHandler, "ptr", pwszDescription, "uint", dwSyncMgrRegisterFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", clsidHandler, "ptr", pwszDescription, "uint", dwSyncMgrRegisterFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,10 +102,14 @@ class ISyncMgrRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrregister-unregistersyncmgrhandler
+     * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nf-mobsync-isyncmgrregister-unregistersyncmgrhandler
      */
     UnregisterSyncMgrHandler(clsidHandler, dwReserved) {
-        result := ComCall(4, this, "ptr", clsidHandler, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, "ptr", clsidHandler, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,12 +153,16 @@ class ISyncMgrRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrregister-gethandlerregistrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/nf-mobsync-isyncmgrregister-gethandlerregistrationinfo
      */
     GetHandlerRegistrationInfo(clsidHandler, pdwSyncMgrRegisterFlags) {
         pdwSyncMgrRegisterFlagsMarshal := pdwSyncMgrRegisterFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", clsidHandler, pdwSyncMgrRegisterFlagsMarshal, pdwSyncMgrRegisterFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", clsidHandler, pdwSyncMgrRegisterFlagsMarshal, pdwSyncMgrRegisterFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

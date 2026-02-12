@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods to get the &quot;sort by&quot; columns properties for an item. This interface is used by UI objects that want to retrieve the primary or secondary sort columns for a given property.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertydescriptionaliasinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nn-propsys-ipropertydescriptionaliasinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -35,28 +35,41 @@ class IPropertyDescriptionAliasInfo extends IPropertyDescription{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the identifier of the requested <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a> interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a> interface for the calling object.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescriptionaliasinfo-getsortbyalias
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertydescriptionaliasinfo-getsortbyalias
      */
     GetSortByAlias(riid) {
-        result := ComCall(24, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Gets the address of a pointer to the IPropertyDescriptionList interface, which contains additional sort column values.
+     * @remarks
+     * The following is an example usage for this method. When sorting by System.Author: System.DateModified, System.DateCreated, and System.ItemNameDisplay may be used as secondary sort columns.  This ensures a unique sort order (for System.Author) and is used to provide a more consistent user experience.
+     * 
+     * 
+     *  Calling applications include any UI that wants the secondary sort columns for a given property.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the identifier of the requested <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescriptionaliasinfo-getadditionalsortbyaliases
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertydescriptionaliasinfo-getadditionalsortbyaliases
      */
     GetAdditionalSortByAliases(riid) {
-        result := ComCall(25, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

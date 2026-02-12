@@ -41,7 +41,11 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8{
         pcCodeStartAddressesMarshal := pcCodeStartAddresses is VarRef ? "uint*" : "ptr"
         codeStartAddressesMarshal := codeStartAddresses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(90, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeStartAddresses, pcCodeStartAddressesMarshal, pcCodeStartAddresses, codeStartAddressesMarshal, codeStartAddresses, "HRESULT")
+        result := ComCall(90, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeStartAddresses, pcCodeStartAddressesMarshal, pcCodeStartAddresses, codeStartAddressesMarshal, codeStartAddresses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8{
     GetILToNativeMapping3(pNativeCodeStartAddress, cMap, pcMap, map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
+        result := ComCall(91, this, "ptr", pNativeCodeStartAddress, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +79,11 @@ class ICorProfilerInfo9 extends ICorProfilerInfo8{
     GetCodeInfo4(pNativeCodeStartAddress, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(92, this, "ptr", pNativeCodeStartAddress, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "HRESULT")
+        result := ComCall(92, this, "ptr", pNativeCodeStartAddress, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

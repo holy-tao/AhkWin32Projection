@@ -38,7 +38,10 @@ class IMFMediaKeySessionNotify2 extends IMFMediaKeySessionNotify{
      * @returns {String} Nothing - always returns an empty string
      */
     KeyMessage2(eMessageType, destinationURL, pbMessage, cbMessage) {
-        destinationURL := destinationURL is String ? BSTR.Alloc(destinationURL).Value : destinationURL
+        if(destinationURL is String) {
+            pin := BSTR.Alloc(destinationURL)
+            destinationURL := pin.Value
+        }
 
         ComCall(6, this, "int", eMessageType, "ptr", destinationURL, "ptr", pbMessage, "uint", cbMessage)
     }

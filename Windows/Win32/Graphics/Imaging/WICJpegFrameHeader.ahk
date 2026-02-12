@@ -5,7 +5,7 @@
  * Represents a JPEG frame header. (WICJpegFrameHeader)
  * @remarks
  * Get the frame header for an image by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicjpegframedecode-getframeheader">IWICJpegFrameDecode::GetFrameHeader</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicjpegframeheader
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/ns-wincodec-wicjpegframeheader
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */

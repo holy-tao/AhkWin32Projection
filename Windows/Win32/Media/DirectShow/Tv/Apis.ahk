@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
@@ -821,277 +823,277 @@ class Tv {
     static DVBS_SCAN_TABLE_MAX_SIZE => 400
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingDuration => "Duration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingBitrate => "Bitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingSeekable => "Seekable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingStridable => "Stridable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingBroadcast => "Broadcast"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingProtected => "Is_Protected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingTrusted => "Is_Trusted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingSignature_Name => "Signature_Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasAudio => "HasAudio"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasImage => "HasImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasScript => "HasScript"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasVideo => "HasVideo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingCurrentBitrate => "CurrentBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingOptimalBitrate => "OptimalBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasAttachedImages => "HasAttachedImages"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingSkipBackward => "Can_Skip_Backward"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingSkipForward => "Can_Skip_Forward"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingNumberOfFrames => "NumberOfFrames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingFileSize => "FileSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasArbitraryDataStream => "HasArbitraryDataStream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingHasFileTransferStream => "HasFileTransferStream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingTitle => "Title"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingAuthor => "Author"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingDescription => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingRating => "Rating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingCopyright => "Copyright"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingUse_DRM => "Use_DRM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingDRM_Flags => "DRM_Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingDRM_Level => "DRM_Level"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingAlbumTitle => "WM/AlbumTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingTrack => "WM/Track"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingPromotionURL => "WM/PromotionURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingAlbumCoverURL => "WM/AlbumCoverURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingGenre => "WM/Genre"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingYear => "WM/Year"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingGenreID => "WM/GenreID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingMCDI => "WM/MCDI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingComposer => "WM/Composer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingLyrics => "WM/Lyrics"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingTrackNumber => "WM/TrackNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingToolName => "WM/ToolName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingToolVersion => "WM/ToolVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingIsVBR => "IsVBR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingAlbumArtist => "WM/AlbumArtist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingBannerImageType => "BannerImageType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingBannerImageData => "BannerImageData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingBannerImageURL => "BannerImageURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingCopyrightURL => "CopyrightURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingAspectRatioX => "AspectRatioX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingAspectRatioY => "AspectRatioY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingNSCName => "NSC_Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingNSCAddress => "NSC_Address"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingNSCPhone => "NSC_Phone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingNSCEmail => "NSC_Email"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamBufferRecordingNSCDescription => "NSC_Description"
 

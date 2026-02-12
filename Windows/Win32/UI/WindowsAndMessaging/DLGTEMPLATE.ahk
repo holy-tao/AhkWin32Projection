@@ -28,7 +28,7 @@
  * 				<b>y</b>, 
  * 				<b>cx</b>, and 
  * 				<b>cy</b> members specify values in dialog box units. You can convert these values to screen units (pixels) by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapdialogrect">MapDialogRect</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgtemplate
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-dlgtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

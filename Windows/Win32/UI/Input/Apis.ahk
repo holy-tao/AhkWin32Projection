@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input
@@ -15,7 +16,7 @@ class Input {
      * Retrieves the raw input from the specified device.
      * @remarks
      * <b>GetRawInputData</b> gets the raw input one <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure at a time. In contrast, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputbuffer">GetRawInputBuffer</a> gets an array of <b>RAWINPUT</b> structures.
-     * @param {HRAWINPUT} hRawInput Type: <b>HRAWINPUT</b>
+     * @param {HRAWINPUT} hRawInput_ Type: <b>HRAWINPUT</b>
      * 
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure. This comes from the 
      * 					<i>lParam</i> in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-input">WM_INPUT</a>.
@@ -39,15 +40,15 @@ class Input {
      * 						<i>pData</i> is not <b>NULL</b> and the function is successful, the return value is the number of bytes copied into pData.
      * 
      * If there is an error, the return value is (<b>UINT</b>)-1.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getrawinputdata
      * @since windows5.1.2600
      */
-    static GetRawInputData(hRawInput, uiCommand, pData, pcbSize, cbSizeHeader) {
-        hRawInput := hRawInput is Win32Handle ? NumGet(hRawInput, "ptr") : hRawInput
+    static GetRawInputData(hRawInput_, uiCommand, pData, pcbSize, cbSizeHeader) {
+        hRawInput_ := hRawInput_ is Win32Handle ? NumGet(hRawInput_, "ptr") : hRawInput_
 
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("USER32.dll\GetRawInputData", "ptr", hRawInput, "uint", uiCommand, "ptr", pData, pcbSizeMarshal, pcbSize, "uint", cbSizeHeader, "uint")
+        result := DllCall("USER32.dll\GetRawInputData", "ptr", hRawInput_, "uint", uiCommand, "ptr", pData, pcbSizeMarshal, pcbSize, "uint", cbSizeHeader, "uint")
         return result
     }
 
@@ -75,7 +76,7 @@ class Input {
      * If <i>pData</i> is not large enough for the data, the function returns -1. If <i>pData</i> is <b>NULL</b>, the function returns a value of zero. In both of these cases, <i>pcbSize</i> is set to the minimum size required for the <i>pData</i> buffer.
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to identify any other errors.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdeviceinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getrawinputdeviceinfoa
      * @since windows5.1.2600
      */
     static GetRawInputDeviceInfoA(hDevice, uiCommand, pData, pcbSize) {
@@ -117,7 +118,7 @@ class Input {
      * If <i>pData</i> is not large enough for the data, the function returns -1. If <i>pData</i> is <b>NULL</b>, the function returns a value of zero. In both of these cases, <i>pcbSize</i> is set to the minimum size required for the <i>pData</i> buffer.
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to identify any other errors.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdeviceinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getrawinputdeviceinfow
      * @since windows5.1.2600
      */
     static GetRawInputDeviceInfoW(hDevice, uiCommand, pData, pcbSize) {
@@ -182,7 +183,7 @@ class Input {
      * If *pData* is **NULL** and the function is successful, the return value is zero. If *pData* is not **NULL** and the function is successful, the return value is the number of [RAWINPUT](ns-winuser-rawinput.md) structures written to *pData*.
      * 
      * If an error occurs, the return value is (**UINT**)-1. Call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) for the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getrawinputbuffer
      * @since windows5.1.2600
      */
     static GetRawInputBuffer(pData, pcbSize, cbSizeHeader) {
@@ -220,7 +221,7 @@ class Input {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. If the function fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerrawinputdevices
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-registerrawinputdevices
      * @since windows5.1.2600
      */
     static RegisterRawInputDevices(pRawInputDevices, uiNumDevices, cbSize) {
@@ -252,7 +253,7 @@ class Input {
      * If successful, the function returns a non-negative number that is the number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputdevice">RAWINPUTDEVICE</a> structures written to the buffer. 
      * 
      * If the <i>pRawInputDevices</i> buffer is too small or <b>NULL</b>, the function sets the last error as <b>ERROR_INSUFFICIENT_BUFFER</b>, returns -1, and sets <i>puiNumDevices</i> to the required number of devices. If the function fails for any other reason, it returns -1. For more details, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getregisteredrawinputdevices
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getregisteredrawinputdevices
      * @since windows5.1.2600
      */
     static GetRegisteredRawInputDevices(pRawInputDevices, puiNumDevices, cbSize) {
@@ -291,7 +292,7 @@ class Input {
      * 
      * On any other error, the function returns (<b>UINT</b>) -1 and 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns the error indication.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdevicelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getrawinputdevicelist
      * @since windows5.1.2600
      */
     static GetRawInputDeviceList(pRawInputDeviceList, puiNumDevices, cbSize) {
@@ -321,14 +322,15 @@ class Input {
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * If successful, the function returns <b>0</b>. Otherwise it returns <b>-1</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defrawinputproc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-defrawinputproc
      * @since windows5.1.2600
      */
     static DefRawInputProc(paRawInput, nInput, cbSizeHeader) {
         paRawInputMarshal := paRawInput is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("USER32.dll\DefRawInputProc", paRawInputMarshal, paRawInput, "int", nInput, "uint", cbSizeHeader, "ptr")
-        return result
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -338,7 +340,7 @@ class Input {
      * <div class="alert"><b>Note</b>  <b>deviceType</b> in <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-input_message_source">INPUT_MESSAGE_SOURCE</a> is set to   <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ne-winuser-input_message_device_type">IMDT_UNAVAILABLE</a> when <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> is used to inject input (system generated or through messages such as <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-paint">WM_PAINT</a>). This remains true until  <b>SendMessage</b> returns.</div>
      * <div> </div>
      * @returns {BOOL} If this function succeeds, it returns TRUE. Otherwise, it returns FALSE. To retrieve extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcurrentinputmessagesource
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getcurrentinputmessagesource
      * @since windows8.0
      */
     static GetCurrentInputMessageSource(inputMessageSource) {
@@ -364,7 +366,7 @@ class Input {
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getcurrentinputmessagesource">GetCurrentInputMessageSource</a> returns a value other than <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ne-winuser-input_message_device_type">IMDT_UNAVAILABLE</a> for the device type.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcimssm
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getcimssm
      * @since windows8.0
      */
     static GetCIMSSM(inputMessageSource) {

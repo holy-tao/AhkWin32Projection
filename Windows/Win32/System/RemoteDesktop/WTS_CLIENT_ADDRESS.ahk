@@ -9,7 +9,7 @@
  * The client network address is also not available in the following cases:
  * - The connection is established through a Remote Desktop Gateway.
  * - The connection is originated by the **Microsoft Remote Desktop** app that is available in the Store.
- * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_client_address
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/ns-wtsapi32-wts_client_address
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

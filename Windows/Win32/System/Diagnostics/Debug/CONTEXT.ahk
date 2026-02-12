@@ -5,7 +5,7 @@
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations. (CONTEXT)
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-context
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-context
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

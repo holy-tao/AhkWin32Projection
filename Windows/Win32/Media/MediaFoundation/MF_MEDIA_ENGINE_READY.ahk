@@ -5,7 +5,7 @@
  * Defines ready-state values for the Media Engine.
  * @remarks
  * These values correspond to constants defined for the  <b>HTMLMediaElement.readyState</b> attribute  in HTML5.
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_ready
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/ne-mfmediaengine-mf_media_engine_ready
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

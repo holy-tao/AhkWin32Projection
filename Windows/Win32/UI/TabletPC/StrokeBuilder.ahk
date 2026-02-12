@@ -3,7 +3,7 @@
 
 /**
  * Implements the IStrokeBuilder Interface.
- * @see https://learn.microsoft.com/windows/win32/tablet/strokebuilder-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/strokebuilder-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

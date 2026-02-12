@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\LRESULT.ahk
 #Include .\IEnumRegisterWordW.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
@@ -42,13 +43,17 @@ class IActiveIME extends IUnknown{
 
         pdwPrivateMarshal := pdwPrivate is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwSystemInfoFlags, "ptr", pIMEInfo, "ptr", szWndClass, pdwPrivateMarshal, pdwPrivate, "HRESULT")
+        result := ComCall(3, this, "uint", dwSystemInfoFlags, "ptr", pIMEInfo, "ptr", szWndClass, pdwPrivateMarshal, pdwPrivate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HIMC} hIMC 
+     * @param {HIMC} hIMC_ 
      * @param {PWSTR} szSource 
      * @param {Integer} uFlag 
      * @param {Integer} uBufLen 
@@ -56,120 +61,299 @@ class IActiveIME extends IUnknown{
      * @param {Pointer<Integer>} puCopied 
      * @returns {HRESULT} 
      */
-    ConversionList(hIMC, szSource, uFlag, uBufLen, pDest, puCopied) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    ConversionList(hIMC_, szSource, uFlag, uBufLen, pDest, puCopied) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
         puCopiedMarshal := puCopied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hIMC, "ptr", szSource, "uint", uFlag, "uint", uBufLen, "ptr", pDest, puCopiedMarshal, puCopied, "HRESULT")
+        result := ComCall(4, this, "ptr", hIMC_, "ptr", szSource, "uint", uFlag, "uint", uBufLen, "ptr", pDest, puCopiedMarshal, puCopied, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Configures the expert within the expert DLL.
+     * @remarks
+     * Network Monitor calls the **Configure** function with the current configuration of the expert, if one exists. The expert displays a dialog box, with which you can change any configurable item.
      * 
-     * @param {HKL} hKL 
-     * @param {HWND} hWnd 
+     * When *ppConfig* is passed in and Network Monitor does not have a configuration stored for the specified expert, the parameter value can be **NULL**. In this case, the **Configure** function assumes hard-coded default values (or, uses the startup information) to open the dialog box.
+     * 
+     * The configuration data can also be **NULL** when the **Configure** function returns, and a **NULL** was passed-in. This situation occurs when Network Monitor does not have a stored default, and the user presses **Cancel**.
+     * 
+     * The beginning of the [**EXPERTCONFIG**](expertconfig.md) data structure includes a Private section that stores the structure size information. The size of the **EXPERTCONFIG** structure should include the reserved **DWORD** length that appears at the beginning of the structure. For example, if your configuration data requires 20 bytes of storage space, allocate 24 bytes to store the data. If a *ppConfig* is **NULL**, the **Configure** function calls the [**ExpertAllocMemory**](expertallocmemory.md) function to allocate a new configuration that is the correct size. If the buffer is not enough to hold the expert data, the expert should call the [**ExpertReallocMemory**](expertreallocmemory.md) function.
+     * @param {HKL} hKL_ 
+     * @param {HWND} hWnd_ A handle to the parent window. Use the handle to open a dialog box.
      * @param {Integer} dwMode 
      * @param {Pointer<REGISTERWORDW>} pRegisterWord 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful (that is, if a current configuration exists), the return value is **TRUE**.
+     * 
+     * If the function is unsuccessful, the return value is **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/configure
      */
-    Configure(hKL, hWnd, dwMode, pRegisterWord) {
-        hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    Configure(hKL_, hWnd_, dwMode, pRegisterWord) {
+        hKL_ := hKL_ is Win32Handle ? NumGet(hKL_, "ptr") : hKL_
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(5, this, "ptr", hKL, "ptr", hWnd, "uint", dwMode, "ptr", pRegisterWord, "HRESULT")
+        result := ComCall(5, this, "ptr", hKL_, "ptr", hWnd_, "uint", dwMode, "ptr", pRegisterWord, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Destroys an accelerator table.
      * @param {Integer} uReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero. However, if the table has been loaded more than one call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a>, the function will return a nonzero value only when <b>DestroyAcceleratorTable</b> has been called an equal number of times.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-destroyacceleratortable
      */
     Destroy(uReserved) {
-        result := ComCall(6, this, "uint", uReserved, "HRESULT")
+        result := ComCall(6, this, "uint", uReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables an application to access the system-defined device capabilities that are not available through GDI.
-     * @param {HIMC} hIMC 
+     * @remarks
+     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
+     * <div> </div>
+     * The effect of passing 0 for <i>cbInput</i> will depend on the value of <i>nEscape</i> and on the driver that is handling the escape.
+     * 
+     * Of the original printer escapes, only the following can be used.
+     * 
+     * <table>
+     * <tr>
+     * <th>Escape</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * QUERYESCSUPPORT
+     * 
+     * </td>
+     * <td>
+     * Determines whether a particular escape is implemented by the device driver.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * PASSTHROUGH
+     * 
+     * </td>
+     * <td>
+     * Allows the application to send data directly to a printer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For information about printer escapes, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extescape">ExtEscape</a>.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startpage">StartPage</a> function to prepare the printer driver to receive data.
+     * @param {HIMC} hIMC_ 
      * @param {Integer} uEscape 
      * @param {Pointer<Void>} pData 
      * @returns {LRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-escape
      */
-    Escape(hIMC, uEscape, pData) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    Escape(hIMC_, uEscape, pData) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", hIMC, "uint", uEscape, pDataMarshal, pData, "ptr*", &plResult := 0, "HRESULT")
+        plResult := LRESULT()
+        result := ComCall(7, this, "ptr", hIMC_, "uint", uEscape, pDataMarshal, pData, "ptr", plResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plResult
     }
 
     /**
      * 
-     * @param {HIMC} hIMC 
+     * @param {HIMC} hIMC_ 
      * @param {BOOL} fFlag 
      * @returns {HRESULT} 
      */
-    SetActiveContext(hIMC, fFlag) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    SetActiveContext(hIMC_, fFlag) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
-        result := ComCall(8, this, "ptr", hIMC, "int", fFlag, "HRESULT")
+        result := ComCall(8, this, "ptr", hIMC_, "int", fFlag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HIMC} hIMC 
+     * @param {HIMC} hIMC_ 
      * @param {Integer} uVirKey 
-     * @param {Integer} lParam 
+     * @param {Integer} lParam_ 
      * @param {Pointer<Integer>} pbKeyState 
      * @returns {HRESULT} 
      */
-    ProcessKey(hIMC, uVirKey, lParam, pbKeyState) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    ProcessKey(hIMC_, uVirKey, lParam_, pbKeyState) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
         pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "ptr", hIMC, "uint", uVirKey, "uint", lParam, pbKeyStateMarshal, pbKeyState, "HRESULT")
+        result := ComCall(9, this, "ptr", hIMC_, "uint", uVirKey, "uint", lParam_, pbKeyStateMarshal, pbKeyState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The NotifyAddrChange function causes a notification to be sent to the caller whenever a change occurs in the table that maps IPv4 addresses to interfaces.
+     * @remarks
+     * The  
+     * <b>NotifyAddrChange</b> function may be called in two ways:<ul>
+     * <li>Synchronous method</li>
+     * <li>Asynchronous method</li>
+     * </ul>
      * 
-     * @param {HIMC} hIMC 
+     * 
+     * If the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters, the call to 
+     * <b>NotifyAddrChange</b> is synchronous and will block until an IP address change occurs. In this case if a change occurs, the <b>NotifyAddrChange</b> function completes to indicate that a change has occurred. 
+     * 
+     * If the <b>NotifyAddrChange</b> function is called synchronously, a notification will be sent on the next IPv4 address change until the application terminates. 
+     * 
+     * If the caller specifies a handle variable and an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, then the <b>NotifyAddrChange</b> function call is asynchronous and the caller can use the returned handle with the <b>OVERLAPPED</b> structure to receive asynchronous notification of IPv4 address changes using the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. See the following topics for information about using the handle and 
+     * <b>OVERLAPPED</b> structure to receive notifications:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and Output</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a>
+     * </li>
+     * </ul>
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-cancelipchangenotify">CancelIPChangeNotify</a> function cancels notification of IPv4 address and route changes previously requested with successful calls to the <b>NotifyAddrChange</b> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyroutechange">NotifyRouteChange</a> functions.
+     * 
+     * Once an application has been notified of a change, the application can then call the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipaddrtable">GetIpAddrTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a> function to retrieve the table of IPv4 addresses to determine what has changed. If the application is notified and requires notification for the next change, then the <b>NotifyAddrChange</b> function must be called again.
+     * 
+     * If the <b>NotifyAddrChange</b> function is called asynchronously, a notification will be sent on the next IPv4 address change until either the application cancels the notification by calling the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-cancelipchangenotify">CancelIPChangeNotify</a> function or the application terminates. If the application terminates, the system will automatically cancel the registration for the notification. It is still recommended that an application explicitly cancel any notification before it terminates.  
+     * 
+     * Any registration for a notification does not persist across a system shut down or reboot.
+     * 
+     * On Windows Vista and later, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyipinterfacechange">NotifyIpInterfaceChange</a> function  can be used to  register to be notified for changes to IPv4 and IPv6 interfaces on  the local computer.
+     * @param {HIMC} hIMC_ 
      * @param {Integer} dwAction 
      * @param {Integer} dwIndex 
      * @param {Integer} dwValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING.
+     * 
+     * If the function fails, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The context is being deregistered, so the call was canceled immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the both the <i>Handle</i> and <i>overlapped</i> parameters are not <b>NULL</b>, but the memory specified by the
+     *     input parameters cannot be written by the calling process.  This error is also returned if the client already has made a change notification request, so this duplicate request will fail.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_ENOUGH_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory available to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This error is returned on versions of Windows where this function is not supported such as Windows 98/95 and Windows NT 4.0.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-notifyaddrchange
      */
-    Notify(hIMC, dwAction, dwIndex, dwValue) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    Notify(hIMC_, dwAction, dwIndex, dwValue) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
-        result := ComCall(10, this, "ptr", hIMC, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "HRESULT")
+        result := ComCall(10, this, "ptr", hIMC_, "uint", dwAction, "uint", dwIndex, "uint", dwValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {HIMC} hIMC 
+     * An XPath query that identifies the events to include in the query result set.
+     * @param {HIMC} hIMC_ 
      * @param {BOOL} fSelect 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WES/queryschema-select-querytype-element
      */
-    Select(hIMC, fSelect) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    Select(hIMC_, fSelect) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
-        result := ComCall(11, this, "ptr", hIMC, "int", fSelect, "HRESULT")
+        result := ComCall(11, this, "ptr", hIMC_, "int", fSelect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HIMC} hIMC 
+     * @param {HIMC} hIMC_ 
      * @param {Integer} dwIndex 
      * @param {Pointer<Void>} pComp 
      * @param {Integer} dwCompLen 
@@ -177,30 +361,45 @@ class IActiveIME extends IUnknown{
      * @param {Integer} dwReadLen 
      * @returns {HRESULT} 
      */
-    SetCompositionString(hIMC, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    SetCompositionString(hIMC_, dwIndex, pComp, dwCompLen, pRead, dwReadLen) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
         pCompMarshal := pComp is VarRef ? "ptr" : "ptr"
         pReadMarshal := pRead is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, "ptr", hIMC, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "HRESULT")
+        result := ComCall(12, this, "ptr", hIMC_, "uint", dwIndex, pCompMarshal, pComp, "uint", dwCompLen, pReadMarshal, pRead, "uint", dwReadLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Translates the specified virtual-key code and keyboard state to the corresponding character or characters. The function translates the code using the input language and physical keyboard layout identified by the input locale identifier.
+     * @remarks
+     * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input.
+     * 
+     * The parameters supplied to the <b>ToAsciiEx</b> function might not be sufficient to translate the virtual-key code, because a previous dead key is stored in the keyboard layout.
+     * 
+     * Typically, <b>ToAsciiEx</b> performs the translation based on the virtual-key code. In some cases, however, bit 15 of the 
+     *     <i>uScanCode</i> parameter may be used to distinguish between a key press and a key release. The scan code is used for translating ALT+number key combinations.
+     * 
+     * Although NUM LOCK is a toggle key that affects keyboard behavior, <b>ToAsciiEx</b> ignores the toggle setting (the low bit) of 
+     *     <i>lpKeyState</i> (<b>VK_NUMLOCK</b>) because the 
+     *     <i>uVirtKey</i> parameter alone is sufficient to distinguish the cursor movement keys (<b>VK_HOME</b>, <b>VK_INSERT</b>, and so on) from the numeric keys (<b>VK_DECIMAL</b>, <b>VK_NUMPAD0</b> - <b>VK_NUMPAD9</b>).
      * @param {Integer} uVirKey 
      * @param {Integer} uScanCode Type: <b>UINT</b>
      * 
      * The hardware scan code of the key to be translated. The high-order bit of this value is set if the key is up (not pressed).
      * @param {Pointer<Integer>} pbKeyState 
      * @param {Integer} fuState 
-     * @param {HIMC} hIMC 
+     * @param {HIMC} hIMC_ 
      * @param {Pointer<Integer>} pdwTransBuf 
      * @param {Pointer<Integer>} puSize 
      * @returns {HRESULT} Type: <b>int</b>
      * 
-     * If the specified key is a dead key, the return value is negative. Otherwise, it is one of the following values.
+     * The return value is one of the following values.
      * 
      * <table>
      * <tr>
@@ -241,16 +440,20 @@ class IActiveIME extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-toasciiex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-toasciiex
      */
-    ToAsciiEx(uVirKey, uScanCode, pbKeyState, fuState, hIMC, pdwTransBuf, puSize) {
-        hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+    ToAsciiEx(uVirKey, uScanCode, pbKeyState, fuState, hIMC_, pdwTransBuf, puSize) {
+        hIMC_ := hIMC_ is Win32Handle ? NumGet(hIMC_, "ptr") : hIMC_
 
         pbKeyStateMarshal := pbKeyState is VarRef ? "char*" : "ptr"
         pdwTransBufMarshal := pdwTransBuf is VarRef ? "uint*" : "ptr"
         puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", uVirKey, "uint", uScanCode, pbKeyStateMarshal, pbKeyState, "uint", fuState, "ptr", hIMC, pdwTransBufMarshal, pdwTransBuf, puSizeMarshal, puSize, "HRESULT")
+        result := ComCall(13, this, "uint", uVirKey, "uint", uScanCode, pbKeyStateMarshal, pbKeyState, "uint", fuState, "ptr", hIMC_, pdwTransBufMarshal, pdwTransBuf, puSizeMarshal, puSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,7 +468,11 @@ class IActiveIME extends IUnknown{
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szString := szString is String ? StrPtr(szString) : szString
 
-        result := ComCall(14, this, "ptr", szReading, "uint", dwStyle, "ptr", szString, "HRESULT")
+        result := ComCall(14, this, "ptr", szReading, "uint", dwStyle, "ptr", szString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,7 +487,11 @@ class IActiveIME extends IUnknown{
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szString := szString is String ? StrPtr(szString) : szString
 
-        result := ComCall(15, this, "ptr", szReading, "uint", dwStyle, "ptr", szString, "HRESULT")
+        result := ComCall(15, this, "ptr", szReading, "uint", dwStyle, "ptr", szString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -294,7 +505,11 @@ class IActiveIME extends IUnknown{
     GetRegisterWordStyle(nItem, pStyleBuf, puBufSize) {
         puBufSizeMarshal := puBufSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", nItem, "ptr", pStyleBuf, puBufSizeMarshal, puBufSize, "HRESULT")
+        result := ComCall(16, this, "uint", nItem, "ptr", pStyleBuf, puBufSizeMarshal, puBufSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -312,7 +527,11 @@ class IActiveIME extends IUnknown{
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumRegisterWordW(ppEnum)
     }
 
@@ -321,7 +540,11 @@ class IActiveIME extends IUnknown{
      * @returns {Integer} 
      */
     GetCodePageA() {
-        result := ComCall(18, this, "uint*", &uCodePage := 0, "HRESULT")
+        result := ComCall(18, this, "uint*", &uCodePage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uCodePage
     }
 
@@ -330,7 +553,11 @@ class IActiveIME extends IUnknown{
      * @returns {Integer} 
      */
     GetLangId() {
-        result := ComCall(19, this, "ushort*", &plid := 0, "HRESULT")
+        result := ComCall(19, this, "ushort*", &plid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plid
     }
 }

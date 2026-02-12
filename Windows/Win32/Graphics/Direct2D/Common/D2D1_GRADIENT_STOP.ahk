@@ -12,7 +12,7 @@
  * When drawn, the [0, 1] range of positions is mapped to the brush, in a brush-dependent way. For details, see <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1lineargradientbrush">ID2D1LinearGradientBrush</a> and <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1radialgradientbrush">ID2D1RadialGradientBrush</a>. 
  * 
  * Gradient stops with a position outside the [0, 1] range cannot be seen explicitly, but they can still affect the colors produced in the [0, 1] range. For example, a two-stop gradient {{0.0f, Black}, {2.0f, White}} is indistinguishable visually from {{0.0f, Black}, {1.0f, Mid-level gray}}. Also, the colors are clamped before interpolation.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_gradient_stop
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ns-d2d1-d2d1_gradient_stop
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

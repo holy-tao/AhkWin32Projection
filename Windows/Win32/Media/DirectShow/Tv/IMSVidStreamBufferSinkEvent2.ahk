@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidStreamBufferSinkEvent2 interface is used to receive events from the MSVidStreamBufferSink object.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersinkevent2
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidstreambuffersinkevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -56,10 +53,14 @@ class IMSVidStreamBufferSinkEvent2 extends IMSVidStreamBufferSinkEvent{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent2-encryptionon
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambuffersinkevent2-encryptionon
      */
     EncryptionOn() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,10 +85,14 @@ class IMSVidStreamBufferSinkEvent2 extends IMSVidStreamBufferSinkEvent{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent2-encryptionoff
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambuffersinkevent2-encryptionoff
      */
     EncryptionOff() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

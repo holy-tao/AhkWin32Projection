@@ -35,7 +35,11 @@ class IRadioInstance extends IUnknown{
      */
     GetRadioManagerSignature() {
         pguidSignature := Guid()
-        result := ComCall(3, this, "ptr", pguidSignature, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidSignature, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidSignature
     }
 
@@ -45,18 +49,30 @@ class IRadioInstance extends IUnknown{
      */
     GetInstanceSignature() {
         pbstrId := BSTR()
-        result := ComCall(4, this, "ptr", pbstrId, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrId
     }
 
     /**
-     * 
+     * Retrieves the display name for a certificate. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The cryptdlg.h header defines GetFriendlyNameOfCert as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} lcid 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/cryptdlg/nf-cryptdlg-getfriendlynameofcertw
      */
     GetFriendlyName(lcid) {
         pbstrName := BSTR()
-        result := ComCall(5, this, "uint", lcid, "ptr", pbstrName, "HRESULT")
+        result := ComCall(5, this, "uint", lcid, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -65,7 +81,11 @@ class IRadioInstance extends IUnknown{
      * @returns {Integer} 
      */
     GetRadioState() {
-        result := ComCall(6, this, "int*", &pRadioState := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pRadioState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRadioState
     }
 
@@ -76,7 +96,11 @@ class IRadioInstance extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRadioState(radioState, uTimeoutSec) {
-        result := ComCall(7, this, "int", radioState, "uint", uTimeoutSec, "HRESULT")
+        result := ComCall(7, this, "int", radioState, "uint", uTimeoutSec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

@@ -14,7 +14,7 @@
  * |Any authentication scheme on the server when the proxy requires Digest authentication.|Not supported|Not supported|
  * |Negotiate authentication on the server when the proxy requires Basic authentication.|Not supported||
  * |Using HTTPS when the proxy requires Digest authentication.|Not supported||
- * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ne-bits1_5-bg_auth_scheme
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits1_5/ne-bits1_5-bg_auth_scheme
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

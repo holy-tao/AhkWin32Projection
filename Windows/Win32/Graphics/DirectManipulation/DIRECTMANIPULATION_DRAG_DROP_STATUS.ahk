@@ -14,7 +14,7 @@
  * <li>FOR <b>DIRECTMANIPULATION_DRAG_DROP_SELECTING</b>, COMMITTED means apply the selection change; CANCELLED means avoid the selection change.</li>
  * <li>For <b>DIRECTMANIPULATION_DRAG_DROP_DRAGGING</b>, COMMITTED means perform the drop action; CANCELLED means cancel the drop action.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */

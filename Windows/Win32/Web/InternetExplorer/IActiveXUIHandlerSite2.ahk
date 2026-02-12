@@ -33,7 +33,11 @@ class IActiveXUIHandlerSite2 extends IUnknown{
      * @returns {Integer} 
      */
     AddSuspensionExemption() {
-        result := ComCall(3, this, "uint*", &pullCookie := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pullCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pullCookie
     }
 
@@ -43,7 +47,11 @@ class IActiveXUIHandlerSite2 extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveSuspensionExemption(ullCookie) {
-        result := ComCall(4, this, "uint", ullCookie, "HRESULT")
+        result := ComCall(4, this, "uint", ullCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

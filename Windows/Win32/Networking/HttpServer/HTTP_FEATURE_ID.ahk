@@ -5,7 +5,7 @@
  * Defines constants that specify an identifier for an HTTP feature.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_feature_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ne-http-http_feature_id
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

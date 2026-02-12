@@ -35,7 +35,11 @@ class ID3D12PageableTools extends IUnknown{
      */
     GetAllocation() {
         pAllocation := D3D12_GPU_VIRTUAL_ADDRESS_RANGE()
-        result := ComCall(3, this, "ptr", pAllocation, "HRESULT")
+        result := ComCall(3, this, "ptr", pAllocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAllocation
     }
 }

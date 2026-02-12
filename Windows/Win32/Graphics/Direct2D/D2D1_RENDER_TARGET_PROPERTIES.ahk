@@ -20,7 +20,7 @@
  * <li>For other render targets, the default DPI is 96.</li>
  * </ul>
  * To use the default DPI setting, both <i>dpiX</i> and <i>dpiY</i> must be set to 0. Setting only one value to 0 causes an  <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-error-codes">E_INVALIDARG</a> error when attempting to create a render target.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_render_target_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ns-d2d1-d2d1_render_target_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

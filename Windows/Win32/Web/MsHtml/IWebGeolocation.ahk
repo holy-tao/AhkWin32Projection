@@ -42,7 +42,11 @@ class IWebGeolocation extends IDispatch{
      * @returns {HRESULT} 
      */
     getCurrentPosition(successCallback, errorCallback, options) {
-        result := ComCall(7, this, "ptr", successCallback, "ptr", errorCallback, "ptr", options, "HRESULT")
+        result := ComCall(7, this, "ptr", successCallback, "ptr", errorCallback, "ptr", options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class IWebGeolocation extends IDispatch{
      * @returns {Integer} 
      */
     watchPosition(successCallback, errorCallback, options) {
-        result := ComCall(8, this, "ptr", successCallback, "ptr", errorCallback, "ptr", options, "int*", &watchId := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", successCallback, "ptr", errorCallback, "ptr", options, "int*", &watchId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return watchId
     }
 
@@ -64,7 +72,11 @@ class IWebGeolocation extends IDispatch{
      * @returns {HRESULT} 
      */
     clearWatch(watchId) {
-        result := ComCall(9, this, "int", watchId, "HRESULT")
+        result := ComCall(9, this, "int", watchId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

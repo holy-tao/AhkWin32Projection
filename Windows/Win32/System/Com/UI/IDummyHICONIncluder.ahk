@@ -38,7 +38,11 @@ class IDummyHICONIncluder extends IUnknown{
         h1 := h1 is Win32Handle ? NumGet(h1, "ptr") : h1
         h2 := h2 is Win32Handle ? NumGet(h2, "ptr") : h2
 
-        result := ComCall(3, this, "ptr", h1, "ptr", h2, "HRESULT")
+        result := ComCall(3, this, "ptr", h1, "ptr", h2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

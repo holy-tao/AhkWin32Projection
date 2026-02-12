@@ -5,7 +5,7 @@
 
 /**
  * Contains context menu information that is passed to the IRichEditOleCallback::GetContextMenu method.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-getcontextmenuex
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-getcontextmenuex
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

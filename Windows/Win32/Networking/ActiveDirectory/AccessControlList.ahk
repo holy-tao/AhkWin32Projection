@@ -26,7 +26,7 @@
  * <li>Third, commit the security descriptor to the directory store.</li>
  * </ol>
  * For more information about DACLs, see <a href="https://docs.microsoft.com/windows/desktop/AD/null-dacls-and-empty-dacls">Null DACLs and Empty DACLs</a>.
- * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsaccesscontrollist
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsaccesscontrollist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

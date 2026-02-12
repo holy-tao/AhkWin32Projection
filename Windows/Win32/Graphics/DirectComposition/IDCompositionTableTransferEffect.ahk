@@ -5,7 +5,7 @@
 
 /**
  * The table transfer effect is used to map the color intensities of an image using a transfer function created from interpolating a list of values you provide.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiontabletransfereffect
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositiontabletransfereffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -38,15 +38,19 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @param {Integer} count Type: <b>UINT</b>
      * 
      * The number of values in the tableValues parameter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtable
      */
     SetRedTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(4, this, tableValuesMarshal, tableValues, "uint", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,15 +62,19 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @param {Integer} count Type: <b>UINT</b>
      * 
      * The number of values in the tableValues parameter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentable
      */
     SetGreenTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(5, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(5, this, tableValuesMarshal, tableValues, "uint", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,15 +86,19 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @param {Integer} count Type: <b>UINT</b>
      * 
      * The number of values in the tableValues parameter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetable
      */
     SetBlueTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(6, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(6, this, tableValuesMarshal, tableValues, "uint", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,31 +110,39 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * @param {Integer} count Type: <b>UINT</b>
      * 
      * The number of values in the tableValues parameter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatable
      */
     SetAlphaTable(tableValues, count) {
         tableValuesMarshal := tableValues is VarRef ? "float*" : "ptr"
 
-        result := ComCall(7, this, tableValuesMarshal, tableValues, "uint", count, "HRESULT")
+        result := ComCall(7, this, tableValuesMarshal, tableValues, "uint", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies whether to apply the transfer function to the red channel.
+     * Specifies whether to apply the transfer function to the red channel. (IDCompositionTableTransferEffect.SetRedDisable)
      * @param {BOOL} redDisable Type: <b>BOOL</b>
      * 
      * A boolean value that specifies whether to apply the transfer function to the red channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the red channel. If you set this to FALSE it applies the RedTableTransfer function to the red channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setreddisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setreddisable
      */
     SetRedDisable(redDisable) {
-        result := ComCall(8, this, "int", redDisable, "HRESULT")
+        result := ComCall(8, this, "int", redDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,13 +152,17 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * 
      * A boolean value that specifies whether to apply the transfer function to the green channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the green channel. If you set this to FALSE it applies the GreenTableTransfer function to the green channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreendisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreendisable
      */
     SetGreenDisable(greenDisable) {
-        result := ComCall(9, this, "int", greenDisable, "HRESULT")
+        result := ComCall(9, this, "int", greenDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,13 +172,17 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * 
      * A boolean value that specifies whether to apply the transfer function to the blue channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the blue channel. If you set this to FALSE it applies the BlueTableTransfer function to the Blue channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluedisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluedisable
      */
     SetBlueDisable(blueDisable) {
-        result := ComCall(10, this, "int", blueDisable, "HRESULT")
+        result := ComCall(10, this, "int", blueDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,13 +192,17 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      * 
      * A boolean value that specifies whether to apply the transfer function to the alpha channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the Alpha channel. If you set this to FALSE it applies the AlphaTableTransfer function to the Alpha channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphadisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphadisable
      */
     SetAlphaDisable(alphaDisable) {
-        result := ComCall(11, this, "int", alphaDisable, "HRESULT")
+        result := ComCall(11, this, "int", alphaDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -182,109 +214,185 @@ class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
      *             If you set this to TRUE the effect will clamp the values. If you set this to FALSE, the effect will not clamp the color values,
      *             but other effects and the output surface may clamp the values if they are not of high enough precision.
      *             The effect clamps the values before it premultiplies the alpha.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiontabletransfereffect-setclampoutput
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setclampoutput
      */
     SetClampOutput(clampOutput) {
-        result := ComCall(12, this, "int", clampOutput, "HRESULT")
+        result := ComCall(12, this, "int", clampOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the red table. (overload 2/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtablevalue(uint_idcompositionanimation)
+     * The index of the value to set.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the value changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtablevalue(uint_idcompositionanimation)
      */
     SetRedTableValue(index, animation) {
-        result := ComCall(13, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(13, this, "uint", index, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the red table. (overload 2/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
+     * The index of the value to set.
      * @param {Float} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtablevalue(uint_idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setredtablevalue(uint_idcompositionanimation)
      */
     SetRedTableValue1(index, value) {
-        result := ComCall(14, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(14, this, "uint", index, "float", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the green table. (overload 1/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentablevalue(uint_idcompositionanimation)
+     * The index of the value to set.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the value changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentablevalue(uint_idcompositionanimation)
      */
     SetGreenTableValue(index, animation) {
-        result := ComCall(15, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(15, this, "uint", index, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the green table. (overload 1/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
+     * The index of the value to set.
      * @param {Float} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentablevalue(uint_idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setgreentablevalue(uint_idcompositionanimation)
      */
     SetGreenTableValue1(index, value) {
-        result := ComCall(16, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(16, this, "uint", index, "float", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the blue table. (overload 1/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetablevalue(uint_idcompositionanimation)
+     * The index of the value to set.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the value changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetablevalue(uint_idcompositionanimation)
      */
     SetBlueTableValue(index, animation) {
-        result := ComCall(17, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(17, this, "uint", index, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the blue table. (overload 1/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
+     * The index of the value to set.
      * @param {Float} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetablevalue(uint_idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setbluetablevalue(uint_idcompositionanimation)
      */
     SetBlueTableValue1(index, value) {
-        result := ComCall(18, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(18, this, "uint", index, "float", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the alpha table. (overload 2/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatablevalue(uint_idcompositionanimation)
+     * Index of the value to change.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
+     * 
+     * An animation that represents how the value in the alpha table changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatablevalue(uint_idcompositionanimation)
      */
     SetAlphaTableValue(index, animation) {
-        result := ComCall(19, this, "uint", index, "ptr", animation, "HRESULT")
+        result := ComCall(19, this, "uint", index, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets a value in the alpha table. (overload 2/2)
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
+     * Index of the value to change.
      * @param {Float} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatablevalue(uint_idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiontabletransfereffect-setalphatablevalue(uint_idcompositionanimation)
      */
     SetAlphaTableValue1(index, value) {
-        result := ComCall(20, this, "uint", index, "float", value, "HRESULT")
+        result := ComCall(20, this, "uint", index, "float", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

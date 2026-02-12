@@ -3,7 +3,7 @@
 
 /**
  * Used by IResultsViewer::SortOrderProperty to indicate or set how a query is to be sorted.
- * @see https://learn.microsoft.com/windows/win32/api/mmcobj/ne-mmcobj-_columnsortorder
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmcobj/ne-mmcobj-_columnsortorder
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

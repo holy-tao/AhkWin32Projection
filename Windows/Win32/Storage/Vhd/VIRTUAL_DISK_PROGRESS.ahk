@@ -26,7 +26,7 @@
  * The <b>OperationStatus</b> member is the indicator of completion, not the percent-complete 
  *     calculation described previously. As long as this data member is returning with an 
  *     <b>ERROR_IO_PENDING</b> status code, the I/O operation is not yet complete.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_disk_progress
+ * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/ns-virtdisk-virtual_disk_progress
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

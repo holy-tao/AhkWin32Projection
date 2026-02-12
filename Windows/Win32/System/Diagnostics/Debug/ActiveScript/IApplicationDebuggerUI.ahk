@@ -34,7 +34,11 @@ class IApplicationDebuggerUI extends IUnknown{
      * @returns {HRESULT} 
      */
     BringDocumentToTop(pddt) {
-        result := ComCall(3, this, "ptr", pddt, "HRESULT")
+        result := ComCall(3, this, "ptr", pddt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IApplicationDebuggerUI extends IUnknown{
      * @returns {HRESULT} 
      */
     BringDocumentContextToTop(pddc) {
-        result := ComCall(4, this, "ptr", pddc, "HRESULT")
+        result := ComCall(4, this, "ptr", pddc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

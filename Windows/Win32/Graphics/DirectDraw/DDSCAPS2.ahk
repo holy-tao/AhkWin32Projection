@@ -5,7 +5,7 @@
  * The DDSCAPS2 structure defines additional capabilities of a Microsoft DirectDraw surface object.
  * @remarks
  * This structure is used by the driver to report the types of surfaces the driver supports. It is also filled in by an application to specify the type of surface to be created.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddscaps2
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/ns-ddraw-ddscaps2
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

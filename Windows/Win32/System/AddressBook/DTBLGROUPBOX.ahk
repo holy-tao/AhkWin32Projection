@@ -7,7 +7,7 @@
  * A **DTBLGROUPBOX** structure describes a group box control that is used to visually associate other controls in the dialog box. The highlighting technique involves surrounding the other controls by a box. 
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblgroupbox
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblgroupbox
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

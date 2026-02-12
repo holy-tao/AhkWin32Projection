@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Uint32 types. (MI_ConstUint32A)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constuint32a
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_constuint32a
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

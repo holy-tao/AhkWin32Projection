@@ -6,7 +6,7 @@
  * Resource usage statistics.
  * @remarks
  * D3DRTYPECOUNT refers to the number of enumerations in [**D3DRESOURCETYPE**](./d3dresourcetype.md).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-resourcemanager
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddevinfo-resourcemanager
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

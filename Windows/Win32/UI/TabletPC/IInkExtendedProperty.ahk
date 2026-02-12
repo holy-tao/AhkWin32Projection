@@ -8,13 +8,10 @@
 /**
  * Represents the ability to add your own data to a variety of objects within the Tablet PC object model.
  * @remarks
- * 
  * Extended properties are application-defined data that can be of whatever form the application requires. The name of the extended property is expressed as a globally unique identifier (GUID).
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkextendedproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkextendedproperty
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -57,49 +54,52 @@ class IInkExtendedProperty extends IDispatch{
     /**
      * Gets the globally unique identifier (GUID) of the IInkExtendedProperty object.
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  When using managed code, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-id-vb">Id</a> property; when using Automation, use the <b>Guid</b> property.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperty-get_guid
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperty-get_guid
      */
     get_Guid() {
         Guid := BSTR()
-        result := ComCall(7, this, "ptr", Guid, "HRESULT")
+        result := ComCall(7, this, "ptr", Guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Guid
     }
 
     /**
-     * Gets or sets the data of the extended property.
+     * Gets or sets the data of the extended property. (Get)
      * @remarks
-     * 
      * The data consists of information that cannot otherwise be set on the object, such as the time or date that a stroke was made.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperty-get_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperty-get_data
      */
     get_Data() {
         Data := VARIANT()
-        result := ComCall(8, this, "ptr", Data, "HRESULT")
+        result := ComCall(8, this, "ptr", Data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Data
     }
 
     /**
-     * Gets or sets the data of the extended property.
+     * Gets or sets the data of the extended property. (Put)
      * @remarks
-     * 
      * The data consists of information that cannot otherwise be set on the object, such as the time or date that a stroke was made.
-     * 
-     * 
      * @param {VARIANT} Data 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperty-put_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperty-put_data
      */
     put_Data(Data) {
-        result := ComCall(9, this, "ptr", Data, "HRESULT")
+        result := ComCall(9, this, "ptr", Data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

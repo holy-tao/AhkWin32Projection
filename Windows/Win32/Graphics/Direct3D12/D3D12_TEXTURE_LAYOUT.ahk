@@ -29,7 +29,7 @@
  *                       _pdep_u32(xOffset, xBytesMask) +
  *                       _pdep_u32(yOffset, yBytesMask);
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_texture_layout
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ne-d3d12-d3d12_texture_layout
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

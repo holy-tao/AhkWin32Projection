@@ -5,7 +5,7 @@
  * Defines constants that specify the status of a present.
  * @remarks
  * The status of a present indicates how it was handled based on timing, and whether it was canceled.
- * @see https://learn.microsoft.com/windows/win32/api/presentation/ne-presentation-presentstatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/ne-presentation-presentstatus
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */

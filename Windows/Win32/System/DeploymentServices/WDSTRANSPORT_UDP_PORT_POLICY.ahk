@@ -3,7 +3,7 @@
 
 /**
  * Specifies which policy WDS transport services should use when allocating UDP ports.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_udp_port_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/ne-wdstptmgmt-wdstransport_udp_port_policy
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

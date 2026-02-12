@@ -4,7 +4,7 @@
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_Uint8AField)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_uint8afield
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_uint8afield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

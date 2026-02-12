@@ -4,8 +4,8 @@
 #Include .\IMAPIProp.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iprofsectimapiprop
+ * Describes the properties and vtable order of required properties for IProfSect IMAPIProp, which works with the properties of profile section objects.
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/iprofsectimapiprop
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

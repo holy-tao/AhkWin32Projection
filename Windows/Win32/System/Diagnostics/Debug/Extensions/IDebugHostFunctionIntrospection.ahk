@@ -35,7 +35,11 @@ class IDebugHostFunctionIntrospection extends IUnknown{
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
     EnumerateLocalsDetails() {
-        result := ComCall(3, this, "ptr*", &localsEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &localsEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostFunctionLocalDetailsEnumerator(localsEnum)
     }
 
@@ -45,7 +49,11 @@ class IDebugHostFunctionIntrospection extends IUnknown{
      * @returns {IDebugHostSymbolEnumerator} 
      */
     EnumerateInlineFunctionsByRVA(rva) {
-        result := ComCall(4, this, "uint", rva, "ptr*", &inlinesEnum := 0, "HRESULT")
+        result := ComCall(4, this, "uint", rva, "ptr*", &inlinesEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostSymbolEnumerator(inlinesEnum)
     }
 
@@ -57,21 +65,29 @@ class IDebugHostFunctionIntrospection extends IUnknown{
      * @returns {HRESULT} 
      */
     FindContainingCodeRangeByRVA(rva, rangeStart, rangeEnd) {
-        result := ComCall(5, this, "uint", rva, "ptr", rangeStart, "ptr", rangeEnd, "HRESULT")
+        result := ComCall(5, this, "uint", rva, "ptr", rangeStart, "ptr", rangeEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Integer} rva 
-     * @param {Pointer<BSTR>} sourceFile 
+     * @param {Pointer<BSTR>} sourceFile_ 
      * @param {Pointer<Integer>} sourceLine 
      * @returns {HRESULT} 
      */
-    FindSourceLocationByRVA(rva, sourceFile, sourceLine) {
+    FindSourceLocationByRVA(rva, sourceFile_, sourceLine) {
         sourceLineMarshal := sourceLine is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", rva, "ptr", sourceFile, sourceLineMarshal, sourceLine, "HRESULT")
+        result := ComCall(6, this, "uint", rva, "ptr", sourceFile_, sourceLineMarshal, sourceLine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

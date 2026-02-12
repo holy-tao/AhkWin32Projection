@@ -5,7 +5,7 @@
 
 /**
  * The IWMWriterPushSink interface enables the application to send ASF files to a publishing point on a Windows Media server.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmwriterpushsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmwriterpushsink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMWriterPushSink extends IWMWriterSink{
 
     /**
      * The Connect method connects to a publishing point on a Windows Media server.
+     * @remarks
+     * If the publishing point specified in <i>pwsURL</i> does not exist, the server creates a new publishing point. The caller must have write and create permissions on the server. The new publishing point has the same configuration as the publishing point specified in the <i>pwszTemplateURL</i> parameter. If <i>pwszTemplateURL</i> is <b>NULL</b>, the new publishing point has the same configuration as the server's default publishing point.
      * @param {PWSTR} pwszURL Wide-character string that contains the URL of the publishing point on the Windows Media server. For example, if the URL is "http://MyServer/MyPublishingPoint", the push sink connects to the publishing point named MyPublishingPoint on the server named MyServer. The default port number is 80. If the server is using a different port, specify the port number in the URL. For example, "http://MyServer:8080/MyPublishingPoint" specifies port number 8080.
      * @param {PWSTR} pwszTemplateURL Optional wide-character string that contains the URL of an existing publishing point to use as a template. This parameter can be <b>NULL</b>.
      * @param {BOOL} fAutoDestroy Boolean value that specifies whether to remove the publishing point after the push sink disconnects from the server.
@@ -98,23 +100,33 @@ class IWMWriterPushSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpushsink-connect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpushsink-connect
      */
     Connect(pwszURL, pwszTemplateURL, fAutoDestroy) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         pwszTemplateURL := pwszTemplateURL is String ? StrPtr(pwszTemplateURL) : pwszTemplateURL
 
-        result := ComCall(8, this, "ptr", pwszURL, "ptr", pwszTemplateURL, "int", fAutoDestroy, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszURL, "ptr", pwszTemplateURL, "int", fAutoDestroy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Disconnect method disconnects the push sink from the server.
+     * @remarks
+     * The data path on the downstream server remains active for 5 minutes, after which it is cleaned up.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpushsink-disconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpushsink-disconnect
      */
     Disconnect() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,10 +173,14 @@ class IWMWriterPushSink extends IWMWriterSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpushsink-endsession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpushsink-endsession
      */
     EndSession() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

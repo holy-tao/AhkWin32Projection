@@ -15,7 +15,7 @@
  *         (WORD) (pBitmapCoreInfo -> bcSize)) 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapcoreheader
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-bitmapcoreheader
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

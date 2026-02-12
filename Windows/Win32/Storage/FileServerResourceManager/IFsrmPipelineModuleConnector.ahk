@@ -8,7 +8,6 @@
 /**
  * Creates the communication channel between FSRM and your pipeline module implementation.
  * @remarks
- * 
  * Your 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">IFsrmPipelineModuleImplementation::OnLoad</a> 
  *     implementation must create an instance of an object implementing this interface. To create this instance, call the 
@@ -24,9 +23,7 @@
  * 
  * For more information on how to create and bind an instance, see 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fsrm/initializing-and-binding-a-pipeline-module">Initializing and Binding a Pipeline Module</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleconnector
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -88,54 +85,76 @@ class IFsrmPipelineModuleConnector extends IDispatch{
     /**
      * The interface that implements the pipeline module.
      * @returns {IFsrmPipelineModuleImplementation} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_moduleimplementation
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_moduleimplementation
      */
     get_ModuleImplementation() {
-        result := ComCall(7, this, "ptr*", &pipelineModuleImplementation := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pipelineModuleImplementation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmPipelineModuleImplementation(pipelineModuleImplementation)
     }
 
     /**
      * The name of the module.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
      */
     get_ModuleName() {
         userName := BSTR()
-        result := ComCall(8, this, "ptr", userName, "HRESULT")
+        result := ComCall(8, this, "ptr", userName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return userName
     }
 
     /**
      * The user account under which the module runs.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
      */
     get_HostingUserAccount() {
         userAccount := BSTR()
-        result := ComCall(9, this, "ptr", userAccount, "HRESULT")
+        result := ComCall(9, this, "ptr", userAccount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return userAccount
     }
 
     /**
      * The process identifier of the module.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostingprocesspid
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostingprocesspid
      */
     get_HostingProcessPid() {
-        result := ComCall(10, this, "int*", &pid := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pid
     }
 
     /**
      * Binds the pipeline module implementation to the FSRM communication channel.
+     * @remarks
+     * Call this method from your <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload">IFsrmPipelineModuleImplementation::OnLoad</a> implementation.
      * @param {IFsrmPipelineModuleDefinition} moduleDefinition An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduledefinition">IFsrmPipelineModuleDefinition</a> interface that contains the definition of the module.
      * @param {IFsrmPipelineModuleImplementation} moduleImplementation An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpipelinemoduleimplementation">IFsrmPipelineModuleImplementation</a> interface to the module's implementation.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-bind
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-bind
      */
     Bind(moduleDefinition, moduleImplementation) {
-        result := ComCall(11, this, "ptr", moduleDefinition, "ptr", moduleImplementation, "HRESULT")
+        result := ComCall(11, this, "ptr", moduleDefinition, "ptr", moduleImplementation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

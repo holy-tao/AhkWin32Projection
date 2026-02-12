@@ -18,7 +18,7 @@
  * MCI\_BREAK\_OFF
  * 
  * Disables any existing break key.
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-break-parms
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/mci-break-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

@@ -65,7 +65,11 @@ class IHTMLCSSImportRule extends IDispatch{
      */
     get_href() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -75,7 +79,11 @@ class IHTMLCSSImportRule extends IDispatch{
      * @returns {HRESULT} 
      */
     put_media(v) {
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +93,11 @@ class IHTMLCSSImportRule extends IDispatch{
      */
     get_media() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -94,7 +106,11 @@ class IHTMLCSSImportRule extends IDispatch{
      * @returns {IHTMLStyleSheet} 
      */
     get_styleSheet() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheet(p)
     }
 }

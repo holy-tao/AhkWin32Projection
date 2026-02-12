@@ -37,7 +37,11 @@ class IDebugApplication11032 extends IRemoteDebugApplication110{
      * @returns {HRESULT} 
      */
     SynchronousCallInMainThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(6, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "HRESULT")
+        result := ComCall(6, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IDebugApplication11032 extends IRemoteDebugApplication110{
      * @returns {HRESULT} 
      */
     AsynchronousCallInMainThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(7, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "HRESULT")
+        result := ComCall(7, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class IDebugApplication11032 extends IRemoteDebugApplication110{
      * @returns {Integer} 
      */
     CallableWaitForHandles(handleCount, pHandles) {
-        result := ComCall(8, this, "uint", handleCount, "ptr", pHandles, "uint*", &pIndex := 0, "HRESULT")
+        result := ComCall(8, this, "uint", handleCount, "ptr", pHandles, "uint*", &pIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIndex
     }
 }

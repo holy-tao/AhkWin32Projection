@@ -39,17 +39,28 @@ class IObjectAccessControl extends IUnknown{
         pcAccessEntriesMarshal := pcAccessEntries is VarRef ? "uint*" : "ptr"
         prgAccessEntriesMarshal := prgAccessEntries is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pObject, pcAccessEntriesMarshal, pcAccessEntries, prgAccessEntriesMarshal, prgAccessEntries, "HRESULT")
+        result := ComCall(3, this, "ptr", pObject, pcAccessEntriesMarshal, pcAccessEntries, prgAccessEntriesMarshal, prgAccessEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetObjectOwner Method (ADOX)
+     * @remarks
+     * An error will occur if the provider does not support returning object owners.
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @returns {Pointer<TRUSTEE_W>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/getobjectowner-method-adox
      */
     GetObjectOwner(pObject) {
-        result := ComCall(4, this, "ptr", pObject, "ptr*", &ppOwner := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pObject, "ptr*", &ppOwner := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppOwner
     }
 
@@ -60,7 +71,11 @@ class IObjectAccessControl extends IUnknown{
      * @returns {BOOL} 
      */
     IsObjectAccessAllowed(pObject, pAccessEntry) {
-        result := ComCall(5, this, "ptr", pObject, "ptr", pAccessEntry, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pObject, "ptr", pAccessEntry, "int*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -72,18 +87,29 @@ class IObjectAccessControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetObjectAccessRights(pObject, cAccessEntries, prgAccessEntries) {
-        result := ComCall(6, this, "ptr", pObject, "uint", cAccessEntries, "ptr", prgAccessEntries, "HRESULT")
+        result := ComCall(6, this, "ptr", pObject, "uint", cAccessEntries, "ptr", prgAccessEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * SetObjectOwner Method
+     * @remarks
+     * An error will occur if the provider does not support specifying object owners.
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<TRUSTEE_W>} pOwner 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/setobjectowner-method
      */
     SetObjectOwner(pObject, pOwner) {
-        result := ComCall(7, this, "ptr", pObject, "ptr", pOwner, "HRESULT")
+        result := ComCall(7, this, "ptr", pObject, "ptr", pOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

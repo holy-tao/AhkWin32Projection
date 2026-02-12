@@ -7,11 +7,8 @@
 /**
  * Use this interface to enumerate the child directory and file items for a FsiDirectoryItem object.
  * @remarks
- * 
  * This is a <b>EnumFsiItems</b> object in script.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ienumfsiitems
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-ienumfsiitems
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -43,7 +40,9 @@ class IEnumFsiItems extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves a specified number of items in the enumeration sequence.
+     * Retrieves a specified number of items in the enumeration sequence. (IEnumFsiItems.Next)
+     * @remarks
+     * If there are fewer than the requested number of elements left in the sequence, it retrieves the remaining elements.
      * @param {Integer} celt Number of items to retrieve.
      * @param {Pointer<IFsiItem>} rgelt Array of <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsiitem">IFsiItem</a> interfaces. You must release each interface in rgelt when done.
      * @param {Pointer<Integer>} pceltFetched Number of elements returned in rgelt. You can set <i>pceltFetched</i> to <b>NULL</b> if <i>celt</i> is one. Otherwise, initialize the value of <i>pceltFetched</i> to 0 before calling this method.
@@ -96,17 +95,23 @@ class IEnumFsiItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumfsiitems-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ienumfsiitems-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Skips a specified number of items in the enumeration sequence.
+     * Skips a specified number of items in the enumeration sequence. (IEnumFsiItems.Skip)
+     * @remarks
+     * If there are fewer elements left in the sequence than the requested number of elements to skip, it skips past the last element in the sequence.
      * @param {Integer} celt Number of items to skip.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -127,30 +132,44 @@ class IEnumFsiItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumfsiitems-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ienumfsiitems-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumFsiItems.Reset)
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumfsiitems-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ienumfsiitems-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates another enumerator that contains the same enumeration state as the current one.
+     * Creates another enumerator that contains the same enumeration state as the current one. (IEnumFsiItems.Clone)
+     * @remarks
+     * Using this method, a client can record a particular point in the enumeration sequence, and then return to that point at a later time. The new enumerator supports the same interface as the original one.
      * @returns {IEnumFsiItems} Receives the interface pointer to the enumeration object. If the method is unsuccessful, the value of this output variable is undefined. You must release <i>ppEnum</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumfsiitems-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ienumfsiitems-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumFsiItems(ppEnum)
     }
 }

@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ilaunchtargetmonitor
+ * . (ILaunchTargetMonitor)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ilaunchtargetmonitor
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,14 +33,16 @@ class ILaunchTargetMonitor extends IUnknown{
 
     /**
      * Retrieves the target monitor for the application being launched.
-     * @returns {HMONITOR} Type: <b>HMONITOR*</b>
-     * 
-     * Contains the address of a pointer to the target  monitor's handle.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
+     * @returns {HMONITOR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
      */
     GetMonitor() {
-        monitor := HMONITOR()
-        result := ComCall(3, this, "ptr", monitor, "HRESULT")
-        return monitor
+        monitor_ := HMONITOR()
+        result := ComCall(3, this, "ptr", monitor_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return monitor_
     }
 }

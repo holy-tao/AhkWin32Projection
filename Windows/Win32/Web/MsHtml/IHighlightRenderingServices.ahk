@@ -37,7 +37,11 @@ class IHighlightRenderingServices extends IUnknown{
      * @returns {IHighlightSegment} 
      */
     AddSegment(pDispPointerStart, pDispPointerEnd, pIRenderStyle) {
-        result := ComCall(3, this, "ptr", pDispPointerStart, "ptr", pDispPointerEnd, "ptr", pIRenderStyle, "ptr*", &ppISegment := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDispPointerStart, "ptr", pDispPointerEnd, "ptr", pIRenderStyle, "ptr*", &ppISegment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHighlightSegment(ppISegment)
     }
 
@@ -49,7 +53,11 @@ class IHighlightRenderingServices extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveSegmentToPointers(pISegment, pDispPointerStart, pDispPointerEnd) {
-        result := ComCall(4, this, "ptr", pISegment, "ptr", pDispPointerStart, "ptr", pDispPointerEnd, "HRESULT")
+        result := ComCall(4, this, "ptr", pISegment, "ptr", pDispPointerStart, "ptr", pDispPointerEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IHighlightRenderingServices extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveSegment(pISegment) {
-        result := ComCall(5, this, "ptr", pISegment, "HRESULT")
+        result := ComCall(5, this, "ptr", pISegment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

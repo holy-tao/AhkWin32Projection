@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get data from anattributes descriptor in a Protected Broadcast Device Architecture (PBDA) transport stream.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-ipbdaattributesdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-ipbdaattributesdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,20 +33,28 @@ class IPBDAAttributesDescriptor extends IUnknown{
     /**
      * Gets the tag that uniquely identifies an attributes descriptor in a Protected Broadcast Driver Architecture (PBDA) transport stream.
      * @returns {Integer} Gets the tag value. For PBDA attributes descriptors, this value is 0x81.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the length of a Protected Broadcast Driver Architecture (PBDA) attributes descriptor from a Protected Broadcast Device Architecture (PBDA) transport stream, in bytes.
      * @returns {Integer} Receives the descriptor length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(4, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -54,14 +62,18 @@ class IPBDAAttributesDescriptor extends IUnknown{
      * Gets the descriptor body from an attributes descriptor in a Protected Broadcast Device Architecture (PBDA) transport stream.
      * @param {Pointer<Pointer<Integer>>} ppbAttributeBuffer Pointer to a buffer that receives the descriptor body. The caller must free this memory after use.
      * @param {Pointer<Integer>} pdwAttributeLength Receives the descriptor body length.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getattributepayload
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getattributepayload
      */
     GetAttributePayload(ppbAttributeBuffer, pdwAttributeLength) {
         ppbAttributeBufferMarshal := ppbAttributeBuffer is VarRef ? "ptr*" : "ptr"
         pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, ppbAttributeBufferMarshal, ppbAttributeBuffer, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
+        result := ComCall(5, this, ppbAttributeBufferMarshal, ppbAttributeBuffer, pdwAttributeLengthMarshal, pdwAttributeLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

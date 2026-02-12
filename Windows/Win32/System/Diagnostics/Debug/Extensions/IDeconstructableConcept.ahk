@@ -37,7 +37,11 @@ class IDeconstructableConcept extends IUnknown{
      */
     GetConstructableModelName(contextObject) {
         constructableModelName := BSTR()
-        result := ComCall(3, this, "ptr", contextObject, "ptr", constructableModelName, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "ptr", constructableModelName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return constructableModelName
     }
 
@@ -47,7 +51,11 @@ class IDeconstructableConcept extends IUnknown{
      * @returns {Integer} 
      */
     GetConstructorArgumentCount(contextObject) {
-        result := ComCall(4, this, "ptr", contextObject, "uint*", &argCount := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", contextObject, "uint*", &argCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return argCount
     }
 
@@ -58,7 +66,11 @@ class IDeconstructableConcept extends IUnknown{
      * @returns {IModelObject} 
      */
     GetConstructorArguments(contextObject, argCount) {
-        result := ComCall(5, this, "ptr", contextObject, "uint", argCount, "ptr*", &constructorArguments := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", contextObject, "uint", argCount, "ptr*", &constructorArguments := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IModelObject(constructorArguments)
     }
 }

@@ -33,7 +33,11 @@ class IGetSVGDocument extends IDispatch{
      * @returns {IDispatch} 
      */
     getSVGDocument() {
-        result := ComCall(7, this, "ptr*", &ppSVGDocument := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSVGDocument := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppSVGDocument)
     }
 }

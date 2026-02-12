@@ -5,7 +5,7 @@
 
 /**
  * Provides a way for Dynamic Virtual Channel plug-ins to query various Remote Desktop Client services.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtspluginserviceprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nn-tsvirtualchannels-iwtspluginserviceprovider
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IWTSPluginServiceProvider extends IUnknown{
      * Obtains the specified service.
      * @param {Guid} ServiceId Specifies the service to retrieve. This can be the following values.
      * @returns {IUnknown} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that receives the service object.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtspluginserviceprovider-getservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nf-tsvirtualchannels-iwtspluginserviceprovider-getservice
      */
     GetService(ServiceId) {
-        result := ComCall(3, this, "ptr", ServiceId, "ptr*", &ppunkObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", ServiceId, "ptr*", &ppunkObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkObject)
     }
 }

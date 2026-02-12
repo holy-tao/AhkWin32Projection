@@ -70,7 +70,11 @@ class ISpeechLexiconPronunciation extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(7, this, "int*", &LexiconType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &LexiconType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LexiconType
     }
 
@@ -79,7 +83,11 @@ class ISpeechLexiconPronunciation extends IDispatch{
      * @returns {Integer} 
      */
     get_LangId() {
-        result := ComCall(8, this, "int*", &LangId := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &LangId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LangId
     }
 
@@ -88,7 +96,11 @@ class ISpeechLexiconPronunciation extends IDispatch{
      * @returns {Integer} 
      */
     get_PartOfSpeech() {
-        result := ComCall(9, this, "int*", &PartOfSpeech := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &PartOfSpeech := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PartOfSpeech
     }
 
@@ -98,7 +110,11 @@ class ISpeechLexiconPronunciation extends IDispatch{
      */
     get_PhoneIds() {
         PhoneIds := VARIANT()
-        result := ComCall(10, this, "ptr", PhoneIds, "HRESULT")
+        result := ComCall(10, this, "ptr", PhoneIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PhoneIds
     }
 
@@ -108,7 +124,11 @@ class ISpeechLexiconPronunciation extends IDispatch{
      */
     get_Symbolic() {
         Symbolic := BSTR()
-        result := ComCall(11, this, "ptr", Symbolic, "HRESULT")
+        result := ComCall(11, this, "ptr", Symbolic, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Symbolic
     }
 }

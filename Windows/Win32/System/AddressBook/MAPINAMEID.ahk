@@ -9,7 +9,7 @@
  * Named properties enable clients to define custom properties in a larger namespace than is available in the MAPI-defined property identifier range. Property names cannot be used to obtain property values directly; they must first be mapped to property identifiers through the [IMAPIProp::GetIDsFromNames](imapiprop-getidsfromnames.md) method. For particular objects such as messages, MAPI reserves a range of property identifiers for custom properties. Therefore, for these objects, clients do not have to use named properties and can save the associated overhead. 
  *   
  * For more information about named properties, see [Named Properties](mapi-named-properties.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapinameid
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/mapinameid
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

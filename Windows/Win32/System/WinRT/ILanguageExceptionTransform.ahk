@@ -6,7 +6,7 @@
 
 /**
  * Allows language projections to make available to the system any and all context from an exception that gets thrown from the context of a catch handler that catches a different exception.
- * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptiontransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptiontransform
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -33,11 +33,20 @@ class ILanguageExceptionTransform extends IUnknown{
 
     /**
      * Retrieves the transformed restricted error info.
+     * @remarks
+     * <b>GetTransformedRestrictedErrorInfo</b> is generally implemented by a language projection in order to expose to the system any and all context from an exception. Specifically, to expose the information from an exception that was thrown from the context of a catch handler that catches a different exception. The thrown exception is considered to be a “transformation” of the caught exception, which is also considered an inner exception by some projections. This allows a developer to obtain insight into why the original exception, before the transform, occurred.  
+     * 
+     * 
+     * When implemented, the system uses the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> retrieved from a call to <b>GetTransformedRestrictedErrorInfo</b> to create another linked list of <b>IRestrictedErrorInfo</b> objects. These objects are exposed in as stowed exceptions in the crash dumps in sequence with the stowed exceptions for the propagations captured in <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-capturepropagationcontext">CapturePropagationContext</a>. As with the other exceptions, you can traverse and access these objects in the transformation list using <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpreviouslanguageexceptionerrorinfo">GetPreviousLanguageExceptionErrorInfo</a>.
      * @returns {IRestrictedErrorInfo} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> object that contains the restricted error info.
-     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptiontransform-gettransformedrestrictederrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptiontransform-gettransformedrestrictederrorinfo
      */
     GetTransformedRestrictedErrorInfo() {
-        result := ComCall(3, this, "ptr*", &restrictedErrorInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &restrictedErrorInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRestrictedErrorInfo(restrictedErrorInfo)
     }
 }

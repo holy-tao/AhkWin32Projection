@@ -77,7 +77,11 @@ class IDOMStorageEvent extends IDispatch{
      */
     get_key() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -87,7 +91,11 @@ class IDOMStorageEvent extends IDispatch{
      */
     get_oldValue() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -97,7 +105,11 @@ class IDOMStorageEvent extends IDispatch{
      */
     get_newValue() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -107,7 +119,11 @@ class IDOMStorageEvent extends IDispatch{
      */
     get_url() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -116,7 +132,11 @@ class IDOMStorageEvent extends IDispatch{
      * @returns {IHTMLStorage} 
      */
     get_storageArea() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStorage(p)
     }
 
@@ -133,13 +153,32 @@ class IDOMStorageEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initStorageEvent(eventType, canBubble, cancelable, keyArg, oldValueArg, newValueArg, urlArg, storageAreaArg) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
-        oldValueArg := oldValueArg is String ? BSTR.Alloc(oldValueArg).Value : oldValueArg
-        newValueArg := newValueArg is String ? BSTR.Alloc(newValueArg).Value : newValueArg
-        urlArg := urlArg is String ? BSTR.Alloc(urlArg).Value : urlArg
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(keyArg is String) {
+            pin := BSTR.Alloc(keyArg)
+            keyArg := pin.Value
+        }
+        if(oldValueArg is String) {
+            pin := BSTR.Alloc(oldValueArg)
+            oldValueArg := pin.Value
+        }
+        if(newValueArg is String) {
+            pin := BSTR.Alloc(newValueArg)
+            newValueArg := pin.Value
+        }
+        if(urlArg is String) {
+            pin := BSTR.Alloc(urlArg)
+            urlArg := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", keyArg, "ptr", oldValueArg, "ptr", newValueArg, "ptr", urlArg, "ptr", storageAreaArg, "HRESULT")
+        result := ComCall(12, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", keyArg, "ptr", oldValueArg, "ptr", newValueArg, "ptr", urlArg, "ptr", storageAreaArg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

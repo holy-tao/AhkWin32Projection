@@ -3,7 +3,7 @@
 
 /**
  * Specifies the permitted uses of a private key.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyusageflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/ne-certenroll-x509privatekeyusageflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

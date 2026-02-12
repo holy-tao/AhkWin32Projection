@@ -6,7 +6,7 @@
  * Contains parameters that define a collection of contiguous logical blocks specified by a starting LBA and number of logical blocks.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_range
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_lba_range
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

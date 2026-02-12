@@ -5,7 +5,7 @@
 
 /**
  * The IInkLineInfo interface provides access to the display properties and recognition result list of a text ink object (tInk).
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinklineinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinklineinfo
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IInkLineInfo extends IUnknown{
 
     /**
      * Specifies the display properties to set on the text ink object (tInk).
+     * @remarks
+     * If the IMF_FONT_SELECTED_IN_HDC flag is set in the <i>pim</i> parameter, then the properties of the device context are applied to the ink; otherwise, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ns-msinkaut-inkmetric">INKMETRIC</a> settings of the text ink object are applied.
      * @param {Pointer<INKMETRIC>} pim A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ns-msinkaut-inkmetric">INKMETRIC</a> structure which contains the display properties to set on the text ink object.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -74,10 +76,14 @@ class IInkLineInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinklineinfo-setformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinklineinfo-setformat
      */
     SetFormat(pim) {
-        result := ComCall(3, this, "ptr", pim, "HRESULT")
+        result := ComCall(3, this, "ptr", pim, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,15 +120,23 @@ class IInkLineInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinklineinfo-getformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinklineinfo-getformat
      */
     GetFormat(pim) {
-        result := ComCall(4, this, "ptr", pim, "HRESULT")
+        result := ComCall(4, this, "ptr", pim, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the display properties to set on the text ink object (tInk), and retrieves the width of the text ink object in HIMETRIC units.
+     * @remarks
+     * If the <i>pim</i> parameter is <b>NULL</b>, then the display properties are not changed and the existing properties are used to calculate the extent of the text ink object; otherwise, the display properties are updated, and the extent is calculated from the new properties.
+     * 
+     * If the IMF_FONT_SELECTED_IN_HDC flag is set in the <i>pim</i> parameter, then the properties of the device context are applied to the ink; otherwise, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ns-msinkaut-inkmetric">INKMETRIC</a> settings of the text ink object are applied.
      * @param {Pointer<INKMETRIC>} pim A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ns-msinkaut-inkmetric">INKMETRIC</a> structure, which contains the display properties to set on the text ink object, or <b>NULL</b>.
      * @param {Pointer<Integer>} pnWidth The width of the text ink object in HIMETRIC units.
      * @returns {HRESULT} This method can return one of these values.
@@ -166,17 +180,25 @@ class IInkLineInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinklineinfo-getinkextent
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinklineinfo-getinkextent
      */
     GetInkExtent(pim, pnWidth) {
         pnWidthMarshal := pnWidth is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pim, pnWidthMarshal, pnWidth, "HRESULT")
+        result := ComCall(5, this, "ptr", pim, pnWidthMarshal, pnWidth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns one recognition alternate from the recognition result list.
+     * @remarks
+     * If the <i>pwcRecogWord</i> parameter is null, the method does not attempt to retrieve the recognition alternate word, but only sets <i>pwcRecogWord</i> to the number of characters in the recognition alternate.
+     * 
+     * If the <i>pwcRecogWord</i> buffer is not large enough to contain the recognition alternate, then the <i>pwcRecogWord</i> buffer is filled with the first <i>pwcRecogWord</i> number of characters from the recognition alternate.
      * @param {Integer} nCandidateNum Zero-based index of the alternate list entry to retrieve.
      * @param {PWSTR} pwcRecogWord Buffer in which to store the selected recognition alternate. If <i>pwcRecogWord</i> is <b>NULL</b>, the method does not attempt to retrieve the recognition alternate word.
      * @param {Pointer<Integer>} pcwcRecogWord Passes the length of the <i>pwcRecogWord</i> buffer in Unicode characters, and returns the number of Unicode characters that were copied into the buffer.
@@ -222,19 +244,25 @@ class IInkLineInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinklineinfo-getcandidate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinklineinfo-getcandidate
      */
     GetCandidate(nCandidateNum, pwcRecogWord, pcwcRecogWord, dwFlags) {
         pwcRecogWord := pwcRecogWord is String ? StrPtr(pwcRecogWord) : pwcRecogWord
 
         pcwcRecogWordMarshal := pcwcRecogWord is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", nCandidateNum, "ptr", pwcRecogWord, pcwcRecogWordMarshal, pcwcRecogWord, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "uint", nCandidateNum, "ptr", pwcRecogWord, pcwcRecogWordMarshal, pcwcRecogWord, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Updates one recognition alternate in the recognition result list, either by replacing an existing alternate, or by adding an alternate to the list.
+     * @remarks
+     * The <i>candidate</i> list can only be extended by one new entry at a time, at the end of the current list. For example, if the <i>text ink object (tInk)</i> currently has ten recognition results, then setting the <i>nCandidateNum</i> parameter to 10 adds a new result to the text ink object's recognition result list.
      * @param {Integer} nCandidateNum Zero based index of the alternate list entry to set.
      * @param {PWSTR} strRecogWord Pointer to the new alternate text.
      * @returns {HRESULT} This method can return one of these values.
@@ -278,17 +306,21 @@ class IInkLineInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinklineinfo-setcandidate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinklineinfo-setcandidate
      */
     SetCandidate(nCandidateNum, strRecogWord) {
         strRecogWord := strRecogWord is String ? StrPtr(strRecogWord) : strRecogWord
 
-        result := ComCall(7, this, "uint", nCandidateNum, "ptr", strRecogWord, "HRESULT")
+        result := ComCall(7, this, "uint", nCandidateNum, "ptr", strRecogWord, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Reserved.
+     * Reserved. (IInkLineInfo.Recognize)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -308,10 +340,14 @@ class IInkLineInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinklineinfo-recognize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinklineinfo-recognize
      */
     Recognize() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

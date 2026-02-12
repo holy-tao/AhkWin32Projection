@@ -54,7 +54,7 @@
  * <td>8</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_seek_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/winevt/ne-winevt-evt_seek_flags
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

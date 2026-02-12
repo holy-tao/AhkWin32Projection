@@ -62,7 +62,11 @@ class Node extends IDispatch{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -72,11 +76,18 @@ class Node extends IDispatch{
      * @returns {BSTR} 
      */
     get_Property(PropertyName) {
-        PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
+        if(PropertyName is String) {
+            pin := BSTR.Alloc(PropertyName)
+            PropertyName := pin.Value
+        }
 
-        PropertyValue := BSTR()
-        result := ComCall(8, this, "ptr", PropertyName, "ptr", PropertyValue, "HRESULT")
-        return PropertyValue
+        PropertyValue_ := BSTR()
+        result := ComCall(8, this, "ptr", PropertyName, "ptr", PropertyValue_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return PropertyValue_
     }
 
     /**
@@ -85,7 +96,11 @@ class Node extends IDispatch{
      */
     get_Bookmark() {
         Bookmark := BSTR()
-        result := ComCall(9, this, "ptr", Bookmark, "HRESULT")
+        result := ComCall(9, this, "ptr", Bookmark, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Bookmark
     }
 
@@ -94,7 +109,11 @@ class Node extends IDispatch{
      * @returns {BOOL} 
      */
     IsScopeNode() {
-        result := ComCall(10, this, "int*", &IsScopeNode := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &IsScopeNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsScopeNode
     }
 
@@ -104,7 +123,11 @@ class Node extends IDispatch{
      */
     get_Nodetype() {
         Nodetype := BSTR()
-        result := ComCall(11, this, "ptr", Nodetype, "HRESULT")
+        result := ComCall(11, this, "ptr", Nodetype, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Nodetype
     }
 }

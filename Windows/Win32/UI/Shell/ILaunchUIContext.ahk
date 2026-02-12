@@ -36,7 +36,11 @@ class ILaunchUIContext extends IUnknown{
     SetAssociatedWindow(value) {
         value := value is Win32Handle ? NumGet(value, "ptr") : value
 
-        result := ComCall(3, this, "ptr", value, "HRESULT")
+        result := ComCall(3, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ILaunchUIContext extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTabGroupingPreference(value) {
-        result := ComCall(4, this, "uint", value, "HRESULT")
+        result := ComCall(4, this, "uint", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

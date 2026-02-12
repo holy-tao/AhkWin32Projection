@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Networking.NetworkListManager
@@ -10,67 +12,67 @@ class NetworkListManager {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_DomainAuthenticationFailed => "NA_DomainAuthenticationFailed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_NetworkClass => "NA_NetworkClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_NameSetByPolicy => "NA_NameSetByPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_IconSetByPolicy => "NA_IconSetByPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_DescriptionSetByPolicy => "NA_DescriptionSetByPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_CategorySetByPolicy => "NA_CategorySetByPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_NameReadOnly => "NA_NameReadOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_IconReadOnly => "NA_IconReadOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_DescriptionReadOnly => "NA_DescriptionReadOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_CategoryReadOnly => "NA_CategoryReadOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_AllowMerge => "NA_AllowMerge"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_InternetConnectivityV4 => "NA_InternetConnectivityV4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NA_InternetConnectivityV6 => "NA_InternetConnectivityV6"
 

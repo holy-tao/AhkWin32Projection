@@ -3,7 +3,7 @@
 
 /**
  * Describes the capabilities of a DirectX Video Acceleration (DVXA) video processor mode.
- * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videoprocessorcaps
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/ns-dxva2api-dxva2_videoprocessorcaps
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -36,9 +36,16 @@ class IDocumentEvent extends IDispatch{
      * @returns {IDOMEvent} 
      */
     createEvent(eventType) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", eventType, "ptr*", &ppEvent := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", eventType, "ptr*", &ppEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDOMEvent(ppEvent)
     }
 }

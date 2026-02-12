@@ -90,7 +90,7 @@
  *  
  * 
  * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_depth_stencil_desc1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

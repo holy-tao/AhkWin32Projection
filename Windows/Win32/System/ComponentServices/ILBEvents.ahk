@@ -42,10 +42,20 @@ class ILBEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     TargetUp(bstrServerName, bstrClsidEng) {
-        bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
-        bstrClsidEng := bstrClsidEng is String ? BSTR.Alloc(bstrClsidEng).Value : bstrClsidEng
+        if(bstrServerName is String) {
+            pin := BSTR.Alloc(bstrServerName)
+            bstrServerName := pin.Value
+        }
+        if(bstrClsidEng is String) {
+            pin := BSTR.Alloc(bstrClsidEng)
+            bstrClsidEng := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrServerName, "ptr", bstrClsidEng, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrServerName, "ptr", bstrClsidEng, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,10 +66,20 @@ class ILBEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     TargetDown(bstrServerName, bstrClsidEng) {
-        bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
-        bstrClsidEng := bstrClsidEng is String ? BSTR.Alloc(bstrClsidEng).Value : bstrClsidEng
+        if(bstrServerName is String) {
+            pin := BSTR.Alloc(bstrServerName)
+            bstrServerName := pin.Value
+        }
+        if(bstrClsidEng is String) {
+            pin := BSTR.Alloc(bstrClsidEng)
+            bstrClsidEng := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrServerName, "ptr", bstrClsidEng, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrServerName, "ptr", bstrClsidEng, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,10 +91,20 @@ class ILBEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     EngineDefined(bstrPropName, varPropValue, bstrClsidEng) {
-        bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
-        bstrClsidEng := bstrClsidEng is String ? BSTR.Alloc(bstrClsidEng).Value : bstrClsidEng
+        if(bstrPropName is String) {
+            pin := BSTR.Alloc(bstrPropName)
+            bstrPropName := pin.Value
+        }
+        if(bstrClsidEng is String) {
+            pin := BSTR.Alloc(bstrClsidEng)
+            bstrClsidEng := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", bstrPropName, "ptr", varPropValue, "ptr", bstrClsidEng, "HRESULT")
+        result := ComCall(5, this, "ptr", bstrPropName, "ptr", varPropValue, "ptr", bstrClsidEng, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Define the security authentication levels.
- * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemauthenticationlevelenum
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemdisp/ne-wbemdisp-wbemauthenticationlevelenum
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

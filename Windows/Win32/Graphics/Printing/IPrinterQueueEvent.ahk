@@ -36,9 +36,16 @@ class IPrinterQueueEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     OnBidiResponseReceived(bstrResponse, hrStatus) {
-        bstrResponse := bstrResponse is String ? BSTR.Alloc(bstrResponse).Value : bstrResponse
+        if(bstrResponse is String) {
+            pin := BSTR.Alloc(bstrResponse)
+            bstrResponse := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrResponse, "int", hrStatus, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrResponse, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

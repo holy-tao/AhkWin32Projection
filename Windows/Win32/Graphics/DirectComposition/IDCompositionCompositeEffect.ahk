@@ -5,7 +5,7 @@
 
 /**
  * The composite effect is used to combine 2 or more images.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositioncompositeeffect
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositioncompositeeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -32,16 +32,20 @@ class IDCompositionCompositeEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the mode for the composite effect.
-     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/composite">D2D1_COMPOSITE_MODE</a></b>
+     * @param {Integer} mode_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/composite">D2D1_COMPOSITE_MODE</a></b>
      * 
      * The mode for the composite effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositioncompositeeffect-setmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositioncompositeeffect-setmode
      */
-    SetMode(mode) {
-        result := ComCall(4, this, "int", mode, "HRESULT")
+    SetMode(mode_) {
+        result := ComCall(4, this, "int", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

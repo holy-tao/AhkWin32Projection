@@ -5,7 +5,7 @@
  * Holds information about the negotiated application package.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negopackageinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-secpkgcontext_negopackageinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

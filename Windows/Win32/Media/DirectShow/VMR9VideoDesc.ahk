@@ -4,7 +4,7 @@
 
 /**
  * The VMR9VideoDesc structure describes a video stream to be deinterlaced.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9videodesc
+ * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/ns-vmr9-vmr9videodesc
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

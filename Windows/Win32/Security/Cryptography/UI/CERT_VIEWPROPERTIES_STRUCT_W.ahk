@@ -2,13 +2,14 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * The CERT_VIEWPROPERTIES_STRUCT structure defines information used when the CertViewProperties function is called to display a certificate's properties. (Unicode)
  * @remarks
  * > [!NOTE]
  * > The cryptdlg.h header defines CERT_VIEWPROPERTIES_STRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-cert_viewproperties_struct_w
+ * @see https://learn.microsoft.com/windows/win32/api//content/cryptdlg/ns-cryptdlg-cert_viewproperties_struct_w
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  * @charset Unicode
@@ -164,9 +165,12 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
      * Value used for custom data.
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(112, this)
+            return this.__lCustData
+        }
     }
 
     /**

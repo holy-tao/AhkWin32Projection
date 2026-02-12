@@ -35,7 +35,11 @@ class IPersistHistory extends IPersist{
      * @returns {HRESULT} 
      */
     LoadHistory(pStream, pbc) {
-        result := ComCall(4, this, "ptr", pStream, "ptr", pbc, "HRESULT")
+        result := ComCall(4, this, "ptr", pStream, "ptr", pbc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IPersistHistory extends IPersist{
      * @returns {HRESULT} 
      */
     SaveHistory(pStream) {
-        result := ComCall(5, this, "ptr", pStream, "HRESULT")
+        result := ComCall(5, this, "ptr", pStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IPersistHistory extends IPersist{
      * @returns {HRESULT} 
      */
     SetPositionCookie(dwPositioncookie) {
-        result := ComCall(6, this, "uint", dwPositioncookie, "HRESULT")
+        result := ComCall(6, this, "uint", dwPositioncookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class IPersistHistory extends IPersist{
      * @returns {Integer} 
      */
     GetPositionCookie() {
-        result := ComCall(7, this, "uint*", &pdwPositioncookie := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwPositioncookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwPositioncookie
     }
 }

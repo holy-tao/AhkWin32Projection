@@ -57,7 +57,11 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
      */
     get_errorXPath() {
         xpathexpr := BSTR()
-        result := ComCall(14, this, "ptr", xpathexpr, "HRESULT")
+        result := ComCall(14, this, "ptr", xpathexpr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return xpathexpr
     }
 
@@ -66,7 +70,11 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
      * @returns {IXMLDOMParseErrorCollection} 
      */
     get_allErrors() {
-        result := ComCall(15, this, "ptr*", &allErrors := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &allErrors := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMParseErrorCollection(allErrors)
     }
 
@@ -77,7 +85,11 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
      */
     errorParameters(index) {
         param1 := BSTR()
-        result := ComCall(16, this, "int", index, "ptr", param1, "HRESULT")
+        result := ComCall(16, this, "int", index, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return param1
     }
 
@@ -86,7 +98,11 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
      * @returns {Integer} 
      */
     get_errorParametersCount() {
-        result := ComCall(17, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 }

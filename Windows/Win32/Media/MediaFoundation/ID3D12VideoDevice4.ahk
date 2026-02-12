@@ -32,10 +32,14 @@ class ID3D12VideoDevice4 extends ID3D12VideoDevice3{
      * 
      * @param {Pointer<D3D12_VIDEO_ENCODER_HEAP_DESC1>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateVideoEncoderHeap1(pDesc, riid) {
-        result := ComCall(16, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppVideoEncoderHeap := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppVideoEncoderHeap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppVideoEncoderHeap
     }
 }

@@ -5,7 +5,7 @@
  * Indicates an MPEG-2 video profile as specified in the MPEG-2 video standard (ISO13818-2).
  * @remarks
  * DVD video decoders should support <b>AM_MPEG2Profile_Simple</b> or <b>AM_MPEG2Profile_Main</b>.
- * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ne-dvdmedia-am_mpeg2profile
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvdmedia/ne-dvdmedia-am_mpeg2profile
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

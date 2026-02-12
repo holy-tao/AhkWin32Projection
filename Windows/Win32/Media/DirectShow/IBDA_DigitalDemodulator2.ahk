@@ -6,10 +6,8 @@
 /**
  * Controls a Broadcast Driver Architecture (BDA) demodulator filter. Demodulation filters for Digital Video Broadcasting-Satellite version 2 (DVB-S2) implement this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DigitalDemodulator2)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_digitaldemodulator2
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_digitaldemodulator2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -65,104 +63,136 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     /**
      * Sets the demodulator's guard interval.
      * @param {Pointer<Integer>} pGuardInterval Pointer to a variable that contains the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
      */
     put_GuardInterval(pGuardInterval) {
         pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, pGuardIntervalMarshal, pGuardInterval, "HRESULT")
+        result := ComCall(17, this, pGuardIntervalMarshal, pGuardInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the demodulator's guard interval.
      * @param {Pointer<Integer>} pGuardInterval Receives the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
      */
     get_GuardInterval(pGuardInterval) {
         pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, pGuardIntervalMarshal, pGuardInterval, "HRESULT")
+        result := ComCall(18, this, pGuardIntervalMarshal, pGuardInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the demodulator's transmission mode.
      * @param {Pointer<Integer>} pTransmissionMode Pointer to a variable that contains the transmission mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
      */
     put_TransmissionMode(pTransmissionMode) {
         pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, pTransmissionModeMarshal, pTransmissionMode, "HRESULT")
+        result := ComCall(19, this, pTransmissionModeMarshal, pTransmissionMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the demodulator's transmission mode.
      * @param {Pointer<Integer>} pTransmissionMode Receives the transmission mode, specified as a member of the <b>TransmissionMode</b> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
      */
     get_TransmissionMode(pTransmissionMode) {
         pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, pTransmissionModeMarshal, pTransmissionMode, "HRESULT")
+        result := ComCall(20, this, pTransmissionModeMarshal, pTransmissionMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the demodulator's roll-off factor.
      * @param {Pointer<Integer>} pRollOff Pointer to a variable that contains the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
      */
     put_RollOff(pRollOff) {
         pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
 
-        result := ComCall(21, this, pRollOffMarshal, pRollOff, "HRESULT")
+        result := ComCall(21, this, pRollOffMarshal, pRollOff, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the demodulator's roll-off factor.
      * @param {Pointer<Integer>} pRollOff Receives the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
      */
     get_RollOff(pRollOff) {
         pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, pRollOffMarshal, pRollOff, "HRESULT")
+        result := ComCall(22, this, pRollOffMarshal, pRollOff, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the current pilot mode for Digital Video Broadcasting-S2 (DVB-S2).
      * @param {Pointer<Integer>} pPilot Pointer to a variable that contains the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
      */
     put_Pilot(pPilot) {
         pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(23, this, pPilotMarshal, pPilot, "HRESULT")
+        result := ComCall(23, this, pPilotMarshal, pPilot, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the current pilot mode for Digital Video Broadcasting-S2 (DVB-S2).
      * @param {Pointer<Integer>} pPilot Receives the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
      */
     get_Pilot(pPilot) {
         pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, pPilotMarshal, pPilot, "HRESULT")
+        result := ComCall(24, this, pPilotMarshal, pPilot, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

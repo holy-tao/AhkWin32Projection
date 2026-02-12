@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -11,12 +13,12 @@ class WinTrust {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WINTRUST_CONFIG_REGPATH => "Software\Microsoft\Cryptography\Wintrust\Config"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WINTRUST_MAX_HEADER_BYTES_TO_MAP_VALUE_NAME => "MaxHeaderBytesToMap"
 
@@ -26,7 +28,7 @@ class WinTrust {
     static WINTRUST_MAX_HEADER_BYTES_TO_MAP_DEFAULT => 10485760
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WINTRUST_MAX_HASH_BYTES_TO_MAP_VALUE_NAME => "MaxHashBytesToMap"
 
@@ -361,12 +363,12 @@ class WinTrust {
     static WT_CURRENT_VERSION => 512
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WT_PROVIDER_DLL_NAME => "WINTRUST.DLL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WT_PROVIDER_CERTTRUST_FUNCTION => "WintrustCertificateTrust"
 
@@ -376,237 +378,237 @@ class WinTrust {
     static WT_ADD_ACTION_ID_RET_RESULT_FLAG => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TRUSTED_CODESIGNING_CA_LIST => "1.3.6.1.4.1.311.2.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TRUSTED_CLIENT_AUTH_CA_LIST => "1.3.6.1.4.1.311.2.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_TRUSTED_SERVER_AUTH_CA_LIST => "1.3.6.1.4.1.311.2.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_COMMON_NAME_OBJID => "2.5.4.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_TIME_STAMP_REQUEST_OBJID => "1.3.6.1.4.1.311.3.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_INDIRECT_DATA_OBJID => "1.3.6.1.4.1.311.2.1.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_SP_AGENCY_INFO_OBJID => "1.3.6.1.4.1.311.2.1.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_STATEMENT_TYPE_OBJID => "1.3.6.1.4.1.311.2.1.11"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_SP_OPUS_INFO_OBJID => "1.3.6.1.4.1.311.2.1.12"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_CERT_EXTENSIONS_OBJID => "1.3.6.1.4.1.311.2.1.14"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_PE_IMAGE_DATA_OBJID => "1.3.6.1.4.1.311.2.1.15"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_RAW_FILE_DATA_OBJID => "1.3.6.1.4.1.311.2.1.18"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_STRUCTURED_STORAGE_DATA_OBJID => "1.3.6.1.4.1.311.2.1.19"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_JAVA_CLASS_DATA_OBJID => "1.3.6.1.4.1.311.2.1.20"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_INDIVIDUAL_SP_KEY_PURPOSE_OBJID => "1.3.6.1.4.1.311.2.1.21"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_COMMERCIAL_SP_KEY_PURPOSE_OBJID => "1.3.6.1.4.1.311.2.1.22"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_CAB_DATA_OBJID => "1.3.6.1.4.1.311.2.1.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_GLUE_RDN_OBJID => "1.3.6.1.4.1.311.2.1.25"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_MINIMAL_CRITERIA_OBJID => "1.3.6.1.4.1.311.2.1.26"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_FINANCIAL_CRITERIA_OBJID => "1.3.6.1.4.1.311.2.1.27"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_LINK_OBJID => "1.3.6.1.4.1.311.2.1.28"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_SIGINFO_OBJID => "1.3.6.1.4.1.311.2.1.30"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_PE_IMAGE_PAGE_HASHES_V1_OBJID => "1.3.6.1.4.1.311.2.3.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_PE_IMAGE_PAGE_HASHES_V2_OBJID => "1.3.6.1.4.1.311.2.3.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_NESTED_SIGNATURE => "1.3.6.1.4.1.311.2.4.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_INTENT_TO_SEAL => "1.3.6.1.4.1.311.2.4.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SEALING_SIGNATURE => "1.3.6.1.4.1.311.2.4.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SEALING_TIMESTAMP => "1.3.6.1.4.1.311.2.4.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_ENHANCED_HASH => "1.3.6.1.4.1.311.2.5.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_RELAXED_PE_MARKER_CHECK_OBJID => "1.3.6.1.4.1.311.2.6.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_ENCRYPTED_DIGEST_RETRY_COUNT_OBJID => "1.3.6.1.4.1.311.2.6.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_INTERNAL_NAME => "1.3.6.1.4.1.311.2.7.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_FILE_VERSION => "1.3.6.1.4.1.311.2.7.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_FILE_DESCRIPTION => "1.3.6.1.4.1.311.2.7.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_PRODUCT => "1.3.6.1.4.1.311.2.7.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_PRODUCT_VERSION => "1.3.6.1.4.1.311.2.7.5"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_ORIGINAL_FILENAME => "1.3.6.1.4.1.311.2.7.6"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_LANGUAGE => "1.3.6.1.4.1.311.2.7.7"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_AUTHOR => "1.3.6.1.4.1.311.2.7.8"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_PUBLISH_TIME => "1.3.6.1.4.1.311.2.7.9"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_SIGNED_ATTRIBUTE_SOURCE_URL => "1.3.6.1.4.1.311.2.7.10"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static szOID_PKCS_9_SEQUENCE_NUMBER => "1.2.840.113549.1.9.25.4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CAT_NAMEVALUE_OBJID => "1.3.6.1.4.1.311.12.2.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CAT_MEMBERINFO_OBJID => "1.3.6.1.4.1.311.12.2.2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CAT_MEMBERINFO2_OBJID => "1.3.6.1.4.1.311.12.2.3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_WINDOWS_HELLO_COMPATIBILITY_OBJID => "1.3.6.1.4.1.311.10.41.1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPC_NATURAL_AUTH_PLUGIN_OBJID => "1.3.6.1.4.1.311.96.1.1"
 
@@ -826,7 +828,7 @@ class WinTrust {
     static WT_TRUSTDBDIALOG_WRITE_IEAK_STORE_FLAG => 512
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_POLICY_PROVIDER_DLL_NAME => "WINTRUST.DLL"
 
@@ -836,32 +838,32 @@ class WinTrust {
     static WINTRUST_ACTION_GENERIC_VERIFY_V2 => Guid("{00aac56b-cd44-11d0-8cc2-00c04fc295ee}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_INIT_FUNCTION => "SoftpubInitialize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_OBJTRUST_FUNCTION => "SoftpubLoadMessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_SIGTRUST_FUNCTION => "SoftpubLoadSignature"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_CHKCERT_FUNCTION => "SoftpubCheckCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_FINALPOLICY_FUNCTION => "SoftpubAuthenticode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_CLEANUPPOLICY_FUNCTION => "SoftpubCleanup"
 
@@ -871,7 +873,7 @@ class WinTrust {
     static WINTRUST_ACTION_TRUSTPROVIDER_TEST => Guid("{573e31f8-ddba-11d0-8ccb-00c04fc295ee}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_TESTDUMPPOLICY_FUNCTION_TEST => "SoftpubDumpStructure"
 
@@ -881,7 +883,7 @@ class WinTrust {
     static WINTRUST_ACTION_GENERIC_CERT_VERIFY => Guid("{189a3842-3041-11d1-85e1-00c04fc295ee}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SP_GENERIC_CERT_INIT_FUNCTION => "SoftpubDefCertInit"
 
@@ -891,12 +893,12 @@ class WinTrust {
     static WINTRUST_ACTION_GENERIC_CHAIN_VERIFY => Guid("{fc451c16-ac75-11d1-b4b8-00c04fb66ea0}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GENERIC_CHAIN_FINALPOLICY_FUNCTION => "GenericChainFinalProv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GENERIC_CHAIN_CERTTRUST_FUNCTION => "GenericChainCertificateTrust"
 
@@ -906,17 +908,17 @@ class WinTrust {
     static HTTPSPROV_ACTION => Guid("{573e31f8-aaba-11d0-8ccb-00c04fc295ee}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HTTPS_FINALPOLICY_FUNCTION => "HTTPSFinalProv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HTTPS_CHKCERT_FUNCTION => "HTTPSCheckCertProv"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HTTPS_CERTTRUST_FUNCTION => "HTTPSCertificateTrust"
 
@@ -926,17 +928,17 @@ class WinTrust {
     static OFFICESIGN_ACTION_VERIFY => Guid("{5555c2cd-17fb-11d1-85c4-00c04fc295ee}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OFFICE_POLICY_PROVIDER_DLL_NAME => "WINTRUST.DLL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OFFICE_INITPROV_FUNCTION => "OfficeInitializePolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OFFICE_CLEANUPPOLICY_FUNCTION => "OfficeCleanupPolicy"
 
@@ -946,17 +948,17 @@ class WinTrust {
     static DRIVER_ACTION_VERIFY => Guid("{f750e6c3-38ee-11d1-85e5-00c04fc295ee}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DRIVER_INITPROV_FUNCTION => "DriverInitializePolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DRIVER_FINALPOLPROV_FUNCTION => "DriverFinalPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DRIVER_CLEANUPPOLICY_FUNCTION => "DriverCleanupPolicy"
 
@@ -992,7 +994,7 @@ class WinTrust {
      * Each trust provider supports a specific set of actions that it can evaluate. Each action has a GUID that identifies it. A trust provider can support any number of action identifiers, but two trust providers cannot support the same action identifier.
      * 
      * For an example that demonstrates how to use this function to verify the signature of a portable executable (PE) file, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/example-c-program--verifying-the-signature-of-a-pe-file">Example C Program: Verifying the Signature of a PE File</a>.
-     * @param {HWND} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
+     * @param {HWND} hwnd_ Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1142,21 +1144,21 @@ class WinTrust {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-winverifytrust
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-winverifytrust
      * @since windows5.1.2600
      */
-    static WinVerifyTrust(hwnd, pgActionID, pWVTData) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WinVerifyTrust(hwnd_, pgActionID, pWVTData) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         pWVTDataMarshal := pWVTData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", hwnd, "ptr", pgActionID, pWVTDataMarshal, pWVTData, "int")
+        result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", hwnd_, "ptr", pgActionID, pWVTDataMarshal, pWVTData, "int")
         return result
     }
 
     /**
      * Performs a trust verification action on a specified object and takes a pointer to a WINTRUST_DATA structure.
-     * @param {HWND} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
+     * @param {HWND} hwnd_ Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1318,13 +1320,13 @@ class WinTrust {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-winverifytrustex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-winverifytrustex
      * @since windows5.1.2600
      */
-    static WinVerifyTrustEx(hwnd, pgActionID, pWinTrustData) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WinVerifyTrustEx(hwnd_, pgActionID, pWinTrustData) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("WINTRUST.dll\WinVerifyTrustEx", "ptr", hwnd, "ptr", pgActionID, "ptr", pWinTrustData, "int")
+        result := DllCall("WINTRUST.dll\WinVerifyTrustEx", "ptr", hwnd_, "ptr", pgActionID, "ptr", pWinTrustData, "int")
         return result
     }
 
@@ -1332,7 +1334,7 @@ class WinTrust {
      * Retrieves policy flags for a policy provider.
      * @param {Pointer<Integer>} pdwPolicyFlags 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustgetregpolicyflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustgetregpolicyflags
      * @since windows5.1.2600
      */
     static WintrustGetRegPolicyFlags(pdwPolicyFlags) {
@@ -1345,7 +1347,7 @@ class WinTrust {
      * Sets policy flags for a policy provider.
      * @param {Integer} dwPolicyFlags 
      * @returns {BOOL} Returns nonzero if the policy flags were set successfully or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustsetregpolicyflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustsetregpolicyflags
      * @since windows5.1.2600
      */
     static WintrustSetRegPolicyFlags(dwPolicyFlags) {
@@ -1402,7 +1404,7 @@ class WinTrust {
      * @param {Integer} fdwFlags a value that determines whether registry errors are reported by this function. If <i>fdwFlags</i> is zero and this function experiences a registry error, the registry error will not be propagated to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  function. If <i>fdwFlags</i> is WT_ADD_ACTION_ID_RET_RESULT_FLAG (0x1) and this function experiences a registry error, the registry error will be propagated to the <b>GetLastError</b>  function.
      * @param {Pointer<CRYPT_REGISTER_ACTIONID>} psProvInfo A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_register_actionid">CRYPT_REGISTER_ACTIONID</a> structure that defines the information for the trust provider.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.  For information about any registry errors that this function may encounter, see the description for <i>fdwFlags</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustaddactionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustaddactionid
      * @since windows5.1.2600
      */
     static WintrustAddActionID(pgActionID, fdwFlags, psProvInfo) {
@@ -1461,7 +1463,7 @@ class WinTrust {
      * </tr>
      * </table>
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustremoveactionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustremoveactionid
      * @since windows5.1.2600
      */
     static WintrustRemoveActionID(pgActionID) {
@@ -1515,7 +1517,7 @@ class WinTrust {
      * </table>
      * @param {Pointer<CRYPT_PROVIDER_FUNCTIONS>} pPfns A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_functions">CRYPT_PROVIDER_FUNCTIONS</a> structure that receives the addresses of the function pointers.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustloadfunctionpointers
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustloadfunctionpointers
      * @since windows5.1.2600
      */
     static WintrustLoadFunctionPointers(pgActionID, pPfns) {
@@ -1532,7 +1534,7 @@ class WinTrust {
      * @param {PSTR} pszUsageOID Pointer to a string that contains the identifier.
      * @param {Pointer<CRYPT_PROVIDER_REGDEFUSAGE>} psDefUsage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_regdefusage">CRYPT_PROVIDER_REGDEFUSAGE</a> structure that contains callback information.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustadddefaultforusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustadddefaultforusage
      * @since windows5.1.2600
      */
     static WintrustAddDefaultForUsage(pszUsageOID, psDefUsage) {
@@ -1558,7 +1560,7 @@ class WinTrust {
      * @param {PSTR} pszUsageOID Pointer to a string that contains the identifier.
      * @param {Pointer<CRYPT_PROVIDER_DEFUSAGE>} psUsage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_defusage">CRYPT_PROVIDER_DEFUSAGE</a> structure that contains callback information to be retrieved.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustgetdefaultforusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustgetdefaultforusage
      * @since windows5.1.2600
      */
     static WintrustGetDefaultForUsage(dwAction, pszUsageOID, psUsage) {
@@ -1583,7 +1585,7 @@ class WinTrust {
      * @returns {Pointer<CRYPT_PROVIDER_SGNR>} If the function succeeds, the function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_sgnr">CRYPT_PROVIDER_SGNR</a> structure for the requested signer or countersigner.
      * 
      * If the function fails, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wthelpergetprovsignerfromchain
      * @since windows5.1.2600
      */
     static WTHelperGetProvSignerFromChain(pProvData, idxSigner, fCounterSigner, idxCounterSigner) {
@@ -1598,7 +1600,7 @@ class WinTrust {
      * @returns {Pointer<CRYPT_PROVIDER_CERT>} If the function succeeds, the function returns a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_cert">CRYPT_PROVIDER_CERT</a> structure that represents the trust provider certificate.
      * 
      * If the function fails, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpergetprovcertfromchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wthelpergetprovcertfromchain
      * @since windows5.1.2600
      */
     static WTHelperGetProvCertFromChain(pSgnr, idxCert) {
@@ -1612,7 +1614,7 @@ class WinTrust {
      * @returns {Pointer<CRYPT_PROVIDER_DATA>} If the function succeeds, the function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure. The returned pointer can be used by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain">WTHelperGetProvSignerFromChain</a>   function.
      * 
      * If the function fails, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelperprovdatafromstatedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wthelperprovdatafromstatedata
      * @since windows5.1.2600
      */
     static WTHelperProvDataFromStateData(hStateData) {
@@ -1629,7 +1631,7 @@ class WinTrust {
      * @returns {Pointer<CRYPT_PROVIDER_PRIVDATA>} If the function succeeds, the function returns a pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_privdata">CRYPT_PROVIDER_PRIVDATA</a> structure that represents the trust provider's private information.
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpergetprovprivatedatafromchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wthelpergetprovprivatedatafromchain
      * @since windows5.1.2600
      */
     static WTHelperGetProvPrivateDataFromChain(pProvData, pgProviderID) {
@@ -1644,7 +1646,7 @@ class WinTrust {
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpercertisselfsigned
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wthelpercertisselfsigned
      * @since windows5.1.2600
      */
     static WTHelperCertIsSelfSigned(dwEncoding, pCert) {
@@ -1658,7 +1660,7 @@ class WinTrust {
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of possible error values, see <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wthelpercertcheckvalidsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wthelpercertcheckvalidsignature
      * @since windows6.0.6000
      */
     static WTHelperCertCheckValidSignature(pProvData) {
@@ -1694,7 +1696,7 @@ class WinTrust {
      * </table>
      * @param {Pointer<Pointer<Void>>} pvReserved Not used. Must be <b>NULL</b>.
      * @returns {BOOL} Returns nonzero if the dialog box was opened successfully or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-openpersonaltrustdbdialogex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-openpersonaltrustdbdialogex
      * @since windows5.1.2600
      */
     static OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
@@ -1710,7 +1712,7 @@ class WinTrust {
      * Displays the Certificates dialog box. (OpenPersonalTrustDBDialog)
      * @param {HWND} hwndParent The handle of the parent window for the dialog box. If this parameter is <b>NULL</b>, the dialog box has no parent.
      * @returns {BOOL} Returns nonzero if the dialog box was opened successfully or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-openpersonaltrustdbdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-openpersonaltrustdbdialog
      * @since windows5.1.2600
      */
     static OpenPersonalTrustDBDialog(hwndParent) {
@@ -1726,7 +1728,7 @@ class WinTrust {
      * This setting applies to each instance of Wintrust.dll.
      * @param {BOOL} fIncludePEPageHashes Determines whether page hashes are included when creating SIP indirect data for PE files. If this parameter is nonzero, page hashes are included. If this parameter is zero, page hashes are not included. The value is zero by default.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustsetdefaultincludepepagehashes
+     * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/nf-wintrust-wintrustsetdefaultincludepepagehashes
      * @since windows6.0.6000
      */
     static WintrustSetDefaultIncludePEPageHashes(fIncludePEPageHashes) {

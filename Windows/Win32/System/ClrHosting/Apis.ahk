@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
@@ -12,7 +14,7 @@ class ClrHosting {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEPRECATED_CLR_API_MESG => "This API has been deprecated. Refer to https://go.microsoft.com/fwlink/?LinkId=143720 for more details."
 
@@ -136,12 +138,29 @@ class ClrHosting {
     }
 
     /**
+     * Retrieves version information for the specified file. (GetFileVersionInfoW)
+     * @remarks
+     * File version info has fixed and non-fixed part. The fixed part contains information like version number. The non-fixed part contains things like strings. In the past <b>GetFileVersionInfo</b> was taking version information from the binary (exe/dll). Currently, it is querying fixed version from language neutral file (exe/dll) and the non-fixed part from mui file, merges them and returns to the user.
+     * If the given binary does not have a mui file then behavior is as in previous version.
      * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfosizea">GetFileVersionInfoSize</a> function before calling the <b>GetFileVersionInfo</b> function. To retrieve information from the file-version information buffer, use the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winver.h header defines GetFileVersionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szFilename 
      * @param {PWSTR} szBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfow
      * @deprecated 
      */
     static GetFileVersion(szFilename, szBuffer, cchBuffer, dwLength) {
@@ -387,19 +406,19 @@ class ClrHosting {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {HINSTANCE} hinst 
      * @param {PWSTR} lpszCmdLine 
      * @param {Integer} nCmdShow 
      * @returns {HRESULT} 
      * @deprecated 
      */
-    static RunDll32ShimW(hwnd, hinst, lpszCmdLine, nCmdShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RunDll32ShimW(hwnd_, hinst, lpszCmdLine, nCmdShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
 
-        result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "int")
+        result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd_, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -418,7 +437,7 @@ class ClrHosting {
      * @param {Pointer<Void>} pvReserved Reserved.
      * @param {Pointer<HMODULE>} phModDll A handle to the module.
      * @returns {HRESULT} If this function succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://learn.microsoft.com/windows/win32/DevNotes/loadlibraryshim
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/loadlibraryshim
      * @deprecated 
      */
     static LoadLibraryShim(szDllName, szVersion, pvReserved, phModDll) {

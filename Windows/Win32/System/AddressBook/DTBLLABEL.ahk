@@ -13,7 +13,7 @@
  * It is not possible to use a label as a read-only edit control. The difference is that an edit control can be selected and copied whereas a label cannot. 
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtbllabel
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtbllabel
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

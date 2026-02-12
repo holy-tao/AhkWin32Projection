@@ -6,11 +6,8 @@
 /**
  * Specifies device-wide debug layer settings.
  * @remarks
- * 
  * This interface is currently in Preview mode.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -46,13 +43,17 @@ class ID3D12DebugDevice1 extends IUnknown{
      * @param {Integer} DataSize Type: <b>UINT</b>
      * 
      * Size in bytes of the data pointed to by <i>pData</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-setdebugparameter
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-setdebugparameter
      */
     SetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(3, this, "int", Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(3, this, "int", Type, "ptr", pData, "uint", DataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,13 +68,17 @@ class ID3D12DebugDevice1 extends IUnknown{
      * @param {Integer} DataSize Type: <b>UINT</b>
      * 
      * Size in bytes of the memory buffer pointed to by <i>pData</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-getdebugparameter
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-getdebugparameter
      */
     GetDebugParameter(Type, pData, DataSize) {
-        result := ComCall(4, this, "int", Type, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(4, this, "int", Type, "ptr", pData, "uint", DataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,13 +87,17 @@ class ID3D12DebugDevice1 extends IUnknown{
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags">D3D12_RLDO_FLAGS</a> enumeration. This method uses the value in <i>Flags</i> to determine the amount of information to report about a device object's lifetime.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-reportlivedeviceobjects
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugdevice1-reportlivedeviceobjects
      */
     ReportLiveDeviceObjects(Flags) {
-        result := ComCall(5, this, "int", Flags, "HRESULT")
+        result := ComCall(5, this, "int", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

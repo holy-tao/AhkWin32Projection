@@ -49,7 +49,11 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment{
      * @returns {HRESULT} 
      */
     Compose(upstream, downstream) {
-        result := ComCall(19, this, "ptr", upstream, "ptr", downstream, "HRESULT")
+        result := ComCall(19, this, "ptr", upstream, "ptr", downstream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +62,11 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment{
      * @returns {IMSVidGraphSegment} 
      */
     get_Up() {
-        result := ComCall(20, this, "ptr*", &upstream := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &upstream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSVidGraphSegment(upstream)
     }
 
@@ -67,7 +75,11 @@ class IMSVidCompositionSegment extends IMSVidGraphSegment{
      * @returns {IMSVidGraphSegment} 
      */
     get_Down() {
-        result := ComCall(21, this, "ptr*", &downstream := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &downstream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSVidGraphSegment(downstream)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Represents a condition made up of multiple conditions, at least one of which must be true.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationorcondition
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationorcondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -40,10 +40,14 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
     /**
      * Retrieves the number of conditions that make up this &quot;or&quot; condition.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-get_childcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-get_childcount
      */
     get_ChildCount() {
-        result := ComCall(3, this, "int*", &childCount := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &childCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return childCount
     }
 
@@ -55,16 +59,20 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
      * @param {Pointer<Integer>} childArrayCount Type: <b>int*</b>
      * 
      * Receives the number of elements in the array.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildrenasnativearray
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildrenasnativearray
      */
     GetChildrenAsNativeArray(childArray, childArrayCount) {
         childArrayMarshal := childArray is VarRef ? "ptr*" : "ptr"
         childArrayCountMarshal := childArrayCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, childArrayMarshal, childArray, childArrayCountMarshal, childArrayCount, "HRESULT")
+        result := ComCall(4, this, childArrayMarshal, childArray, childArrayCountMarshal, childArrayCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,10 +81,14 @@ class IUIAutomationOrCondition extends IUIAutomationCondition{
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives a pointer to the child conditions.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildren
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationorcondition-getchildren
      */
     GetChildren() {
-        result := ComCall(5, this, "ptr*", &childArray := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &childArray := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return childArray
     }
 }

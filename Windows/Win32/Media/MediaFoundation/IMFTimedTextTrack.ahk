@@ -6,7 +6,7 @@
 
 /**
  * Represents a track of timed text.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imftimedtexttrack
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imftimedtexttrack
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the identifier of the track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getid
      */
     GetId() {
         result := ComCall(3, this, "uint")
@@ -48,10 +48,14 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * A pointer to a variable that receives the null-terminated wide-character string that contains the label of the track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlabel
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlabel
      */
     GetLabel() {
-        result := ComCall(4, this, "ptr*", &label := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &label := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return label
     }
 
@@ -60,15 +64,19 @@ class IMFTimedTextTrack extends IUnknown{
      * @param {PWSTR} label Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated wide-character string that contains the label of the track.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-setlabel
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-setlabel
      */
     SetLabel(label) {
         label := label is String ? StrPtr(label) : label
 
-        result := ComCall(5, this, "ptr", label, "HRESULT")
+        result := ComCall(5, this, "ptr", label, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,19 +85,23 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * A pointer to a variable that receives the null-terminated wide-character string that contains the language of the track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getlanguage
      */
     GetLanguage() {
-        result := ComCall(6, this, "ptr*", &language := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &language := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return language
     }
 
     /**
      * Gets the kind of timed-text track.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
-     * Returns a <a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-gettrackkind
+     * Returns a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text track.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-gettrackkind
      */
     GetTrackKind() {
         result := ComCall(7, this, "int")
@@ -101,7 +113,7 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether the timed-text track is inband. If <b>TRUE</b>, the timed-text track is inband; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isinband
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isinband
      */
     IsInBand() {
         result := ComCall(8, this, "int")
@@ -113,10 +125,14 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * A pointer to a variable that receives the null-terminated wide-character string that contains the in-band metadata of the track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getinbandmetadatatrackdispatchtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getinbandmetadatatrackdispatchtype
      */
     GetInBandMetadataTrackDispatchType() {
-        result := ComCall(9, this, "ptr*", &dispatchType := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &dispatchType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dispatchType
     }
 
@@ -125,7 +141,7 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether the timed-text track is active. If <b>TRUE</b>, the timed-text track is active; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isactive
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-isactive
      */
     IsActive() {
         result := ComCall(10, this, "int")
@@ -134,10 +150,10 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * Gets a value indicating the error type of the latest error associated with the track.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_error_code">MF_TIMED_TEXT_ERROR_CODE</a></b>
      * 
      * A value indicating the error type of the latest error associated with the track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-geterrorcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-geterrorcode
      */
     GetErrorCode() {
         result := ComCall(11, this, "int")
@@ -146,13 +162,19 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * Gets the extended error code for the latest error associated with the track.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @remarks
+     * If the most recent error was associated with a track, this value will be the same <a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a> as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-error">IMFTimedTextNotify::Error</a> method.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * The extended error code for the latest error associated with the track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getextendederrorcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getextendederrorcode
      */
     GetExtendedErrorCode() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,11 +183,15 @@ class IMFTimedTextTrack extends IUnknown{
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * A GUID that identifies the track's underlying data format.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getdataformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getdataformat
      */
     GetDataFormat() {
         format := Guid()
-        result := ComCall(13, this, "ptr", format, "HRESULT")
+        result := ComCall(13, this, "ptr", format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return format
     }
 
@@ -180,10 +206,14 @@ class IMFTimedTextTrack extends IUnknown{
 
     /**
      * 
-     * @returns {IMFTimedTextCueList} 
+     * @returns {Pointer<IMFTimedTextCueList>} 
      */
     GetCueList() {
-        result := ComCall(15, this, "ptr*", &cues := 0, "HRESULT")
-        return IMFTimedTextCueList(cues)
+        result := ComCall(15, this, "ptr*", &cues := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cues
     }
 }

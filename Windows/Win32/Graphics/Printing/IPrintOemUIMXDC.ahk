@@ -43,7 +43,11 @@ class IPrintOemUIMXDC extends IUnknown{
 
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, "ptr", prclImageableArea, "HRESULT")
+        result := ComCall(3, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, "ptr", prclImageableArea, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +67,11 @@ class IPrintOemUIMXDC extends IUnknown{
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pCompressionModeMarshal := pCompressionMode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "HRESULT")
+        result := ComCall(4, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pCompressionModeMarshal, pCompressionMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +91,11 @@ class IPrintOemUIMXDC extends IUnknown{
         pOEMDMMarshal := pOEMDM is VarRef ? "ptr" : "ptr"
         pDPIMarshal := pDPI is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "HRESULT")
+        result := ComCall(5, this, "ptr", hPrinter, "uint", cbDevMode, "ptr", pDevMode, "uint", cbOEMDM, pOEMDMMarshal, pOEMDM, pDPIMarshal, pDPI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

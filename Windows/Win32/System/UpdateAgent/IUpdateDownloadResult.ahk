@@ -5,7 +5,7 @@
 
 /**
  * Contains the properties that indicate the status of a download operation for an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatedownloadresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdatedownloadresult
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -47,20 +47,28 @@ class IUpdateDownloadResult extends IDispatch{
     /**
      * Gets the exception HRESULT value, if any, that is raised during the operation on the update.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadresult-get_hresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatedownloadresult-get_hresult
      */
     get_HResult() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets an OperationResultCode enumeration value that specifies the result of an operation on the update.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadresult-get_resultcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatedownloadresult-get_resultcode
      */
     get_ResultCode() {
-        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

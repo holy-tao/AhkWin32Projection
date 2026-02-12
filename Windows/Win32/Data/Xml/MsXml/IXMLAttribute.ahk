@@ -49,7 +49,11 @@ class IXMLAttribute extends IDispatch{
      */
     get_name() {
         n := BSTR()
-        result := ComCall(7, this, "ptr", n, "HRESULT")
+        result := ComCall(7, this, "ptr", n, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return n
     }
 
@@ -59,7 +63,11 @@ class IXMLAttribute extends IDispatch{
      */
     get_value() {
         v := BSTR()
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return v
     }
 }

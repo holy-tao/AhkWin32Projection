@@ -9,10 +9,8 @@
 /**
  * Provides methods for fax account management, including adding, removing, and retrieving fax accounts.
  * @remarks
- * 
  * A default implementation of <b>IFaxAccountSet</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccountset">FaxAccountSet</a> object. The interface and the object are supported only on Windows Vista or later.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxaccountset
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxaccountset
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -48,61 +46,94 @@ class IFaxAccountSet extends IDispatch{
      * @returns {IFaxAccounts} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccounts">IFaxAccounts</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccounts">IFaxAccounts</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountset-getaccounts
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccountset-getaccounts
      */
     GetAccounts() {
-        result := ComCall(7, this, "ptr*", &ppFaxAccounts := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppFaxAccounts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxAccounts(ppFaxAccounts)
     }
 
     /**
      * Returns an IFaxAccount object by using the account name.
+     * @remarks
+     * <i>bstrAccountName</i> must be of the form &lt;domainName&gt;\&lt;username&gt; or just &lt;username&gt; for local users.
      * @param {BSTR} bstrAccountName Type: <b>BSTR</b>
      * 
      * Specifies a null-terminated string that contains the name of the account to return.
      * @returns {IFaxAccount} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountset-getaccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccountset-getaccount
      */
     GetAccount(bstrAccountName) {
-        bstrAccountName := bstrAccountName is String ? BSTR.Alloc(bstrAccountName).Value : bstrAccountName
+        if(bstrAccountName is String) {
+            pin := BSTR.Alloc(bstrAccountName)
+            bstrAccountName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrAccountName, "ptr*", &pFaxAccount := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrAccountName, "ptr*", &pFaxAccount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxAccount(pFaxAccount)
     }
 
     /**
      * Adds a fax account to the fax server and returns the new IFaxAccount object.
+     * @remarks
+     * <i>bstrAccountName</i> must be of the form &lt;domainName&gt;\&lt;username&gt; or just &lt;username&gt; for local users.
+     * 
+     * When the new account is returned, all its values except the name are set to defaults.
      * @param {BSTR} bstrAccountName Type: <b>BSTR</b>
      * 
      * Specifies a null-terminated string that contains a name for the new account.
      * @returns {IFaxAccount} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountset-addaccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccountset-addaccount
      */
     AddAccount(bstrAccountName) {
-        bstrAccountName := bstrAccountName is String ? BSTR.Alloc(bstrAccountName).Value : bstrAccountName
+        if(bstrAccountName is String) {
+            pin := BSTR.Alloc(bstrAccountName)
+            bstrAccountName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrAccountName, "ptr*", &pFaxAccount := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrAccountName, "ptr*", &pFaxAccount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxAccount(pFaxAccount)
     }
 
     /**
      * Removes a fax account from the fax server.
+     * @remarks
+     * <i>bstrAccountName</i> must be of the form &lt;domainName&gt;\&lt;username&gt; or just &lt;username&gt; for local users.
      * @param {BSTR} bstrAccountName Type: <b>BSTR</b>
      * 
      * Specifies a null-terminated string that contains the name of the account to be removed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountset-removeaccount
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxaccountset-removeaccount
      */
     RemoveAccount(bstrAccountName) {
-        bstrAccountName := bstrAccountName is String ? BSTR.Alloc(bstrAccountName).Value : bstrAccountName
+        if(bstrAccountName is String) {
+            pin := BSTR.Alloc(bstrAccountName)
+            bstrAccountName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrAccountName, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrAccountName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

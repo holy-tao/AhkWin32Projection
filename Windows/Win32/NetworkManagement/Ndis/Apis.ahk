@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
@@ -8101,7 +8103,7 @@ class Ndis {
     static NDIS_HASH_UDP_IPV6_EX => 65536
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DD_NDIS_DEVICE_NAME => "\Device\NDIS"
 

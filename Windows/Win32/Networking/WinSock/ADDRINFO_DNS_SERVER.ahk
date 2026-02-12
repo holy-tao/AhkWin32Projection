@@ -5,7 +5,7 @@
  * Represents a custom Domain Name System (DNS) server, used in the Winsock APIs.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfo_dns_server
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-addrinfo_dns_server
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -68,7 +68,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_pathLength(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +81,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGAnimatedNumber} 
      */
     get_pathLength() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedNumber(p)
     }
 
@@ -86,7 +94,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {Float} 
      */
     getTotalLength() {
-        result := ComCall(9, this, "float*", &pfltResult := 0, "HRESULT")
+        result := ComCall(9, this, "float*", &pfltResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfltResult
     }
 
@@ -96,7 +108,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPoint} 
      */
     getPointAtLength(fltdistance) {
-        result := ComCall(10, this, "float", fltdistance, "ptr*", &ppPointResult := 0, "HRESULT")
+        result := ComCall(10, this, "float", fltdistance, "ptr*", &ppPointResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(ppPointResult)
     }
 
@@ -106,7 +122,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {Integer} 
      */
     getPathSegAtLength(fltdistance) {
-        result := ComCall(11, this, "float", fltdistance, "int*", &plResult := 0, "HRESULT")
+        result := ComCall(11, this, "float", fltdistance, "int*", &plResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plResult
     }
 
@@ -115,7 +135,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegClosePath} 
      */
     createSVGPathSegClosePath() {
-        result := ComCall(12, this, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegClosePath(ppResult)
     }
 
@@ -126,7 +150,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegMovetoAbs} 
      */
     createSVGPathSegMovetoAbs(x, y) {
-        result := ComCall(13, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(13, this, "float", x, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegMovetoAbs(ppResult)
     }
 
@@ -137,7 +165,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegMovetoRel} 
      */
     createSVGPathSegMovetoRel(x, y) {
-        result := ComCall(14, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, "float", x, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegMovetoRel(ppResult)
     }
 
@@ -148,7 +180,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegLinetoAbs} 
      */
     createSVGPathSegLinetoAbs(x, y) {
-        result := ComCall(15, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(15, this, "float", x, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegLinetoAbs(ppResult)
     }
 
@@ -159,7 +195,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegLinetoRel} 
      */
     createSVGPathSegLinetoRel(x, y) {
-        result := ComCall(16, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(16, this, "float", x, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegLinetoRel(ppResult)
     }
 
@@ -174,7 +214,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoCubicAbs} 
      */
     createSVGPathSegCurvetoCubicAbs(x, y, x1, y1, x2, y2) {
-        result := ComCall(17, this, "float", x, "float", y, "float", x1, "float", y1, "float", x2, "float", y2, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(17, this, "float", x, "float", y, "float", x1, "float", y1, "float", x2, "float", y2, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoCubicAbs(ppResult)
     }
 
@@ -189,7 +233,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoCubicRel} 
      */
     createSVGPathSegCurvetoCubicRel(x, y, x1, y1, x2, y2) {
-        result := ComCall(18, this, "float", x, "float", y, "float", x1, "float", y1, "float", x2, "float", y2, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(18, this, "float", x, "float", y, "float", x1, "float", y1, "float", x2, "float", y2, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoCubicRel(ppResult)
     }
 
@@ -202,7 +250,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoQuadraticAbs} 
      */
     createSVGPathSegCurvetoQuadraticAbs(x, y, x1, y1) {
-        result := ComCall(19, this, "float", x, "float", y, "float", x1, "float", y1, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(19, this, "float", x, "float", y, "float", x1, "float", y1, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoQuadraticAbs(ppResult)
     }
 
@@ -215,7 +267,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoQuadraticRel} 
      */
     createSVGPathSegCurvetoQuadraticRel(x, y, x1, y1) {
-        result := ComCall(20, this, "float", x, "float", y, "float", x1, "float", y1, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(20, this, "float", x, "float", y, "float", x1, "float", y1, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoQuadraticRel(ppResult)
     }
 
@@ -231,7 +287,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegArcAbs} 
      */
     createSVGPathSegArcAbs(x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
-        result := ComCall(21, this, "float", x, "float", y, "float", r1, "float", r2, "float", angle, "short", largeArcFlag, "short", sweepFlag, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(21, this, "float", x, "float", y, "float", r1, "float", r2, "float", angle, "short", largeArcFlag, "short", sweepFlag, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegArcAbs(ppResult)
     }
 
@@ -247,7 +307,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegArcRel} 
      */
     createSVGPathSegArcRel(x, y, r1, r2, angle, largeArcFlag, sweepFlag) {
-        result := ComCall(22, this, "float", x, "float", y, "float", r1, "float", r2, "float", angle, "short", largeArcFlag, "short", sweepFlag, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(22, this, "float", x, "float", y, "float", r1, "float", r2, "float", angle, "short", largeArcFlag, "short", sweepFlag, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegArcRel(ppResult)
     }
 
@@ -257,7 +321,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegLinetoHorizontalAbs} 
      */
     createSVGPathSegLinetoHorizontalAbs(x) {
-        result := ComCall(23, this, "float", x, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(23, this, "float", x, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegLinetoHorizontalAbs(ppResult)
     }
 
@@ -267,7 +335,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegLinetoHorizontalRel} 
      */
     createSVGPathSegLinetoHorizontalRel(x) {
-        result := ComCall(24, this, "float", x, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(24, this, "float", x, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegLinetoHorizontalRel(ppResult)
     }
 
@@ -277,7 +349,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegLinetoVerticalAbs} 
      */
     createSVGPathSegLinetoVerticalAbs(y) {
-        result := ComCall(25, this, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(25, this, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegLinetoVerticalAbs(ppResult)
     }
 
@@ -287,7 +363,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegLinetoVerticalRel} 
      */
     createSVGPathSegLinetoVerticalRel(y) {
-        result := ComCall(26, this, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(26, this, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegLinetoVerticalRel(ppResult)
     }
 
@@ -300,7 +380,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoCubicSmoothAbs} 
      */
     createSVGPathSegCurvetoCubicSmoothAbs(x, y, x2, y2) {
-        result := ComCall(27, this, "float", x, "float", y, "float", x2, "float", y2, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(27, this, "float", x, "float", y, "float", x2, "float", y2, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoCubicSmoothAbs(ppResult)
     }
 
@@ -313,7 +397,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoCubicSmoothRel} 
      */
     createSVGPathSegCurvetoCubicSmoothRel(x, y, x2, y2) {
-        result := ComCall(28, this, "float", x, "float", y, "float", x2, "float", y2, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(28, this, "float", x, "float", y, "float", x2, "float", y2, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoCubicSmoothRel(ppResult)
     }
 
@@ -324,7 +412,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoQuadraticSmoothAbs} 
      */
     createSVGPathSegCurvetoQuadraticSmoothAbs(x, y) {
-        result := ComCall(29, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(29, this, "float", x, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoQuadraticSmoothAbs(ppResult)
     }
 
@@ -335,7 +427,11 @@ class ISVGPathElement extends IDispatch{
      * @returns {ISVGPathSegCurvetoQuadraticSmoothRel} 
      */
     createSVGPathSegCurvetoQuadraticSmoothRel(x, y) {
-        result := ComCall(30, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(30, this, "float", x, "float", y, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegCurvetoQuadraticSmoothRel(ppResult)
     }
 }

@@ -77,7 +77,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_x(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +90,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {ISVGAnimatedLengthList} 
      */
     get_x() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLengthList(p)
     }
 
@@ -96,7 +104,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_y(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +117,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {ISVGAnimatedLengthList} 
      */
     get_y() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLengthList(p)
     }
 
@@ -115,7 +131,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_dx(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +144,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {ISVGAnimatedLengthList} 
      */
     get_dx() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLengthList(p)
     }
 
@@ -134,7 +158,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_dy(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +171,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {ISVGAnimatedLengthList} 
      */
     get_dy() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLengthList(p)
     }
 
@@ -153,7 +185,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_rotate(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +198,11 @@ class ISVGTextPositioningElement extends IDispatch{
      * @returns {ISVGAnimatedNumberList} 
      */
     get_rotate() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedNumberList(p)
     }
 }

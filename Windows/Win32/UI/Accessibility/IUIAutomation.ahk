@@ -15,7 +15,6 @@
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
  * @remarks
- * 
  * Every UI Automation client application must obtain this interface to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384838(v=vs.85)">CUIAutomation</a> object in order to gain access to the functionality of UI Automation.
  * 	        
  * 
@@ -34,9 +33,7 @@
  *     return (SUCCEEDED(hr));
  * }
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomation
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomation
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -135,10 +132,14 @@ class IUIAutomation extends IUnknown{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * Receives <b>TRUE</b> if the run-time identifiers of the elements are the same, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-compareelements
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-compareelements
      */
     CompareElements(el1, el2) {
-        result := ComCall(3, this, "ptr", el1, "ptr", el2, "int*", &areSame := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", el1, "ptr", el2, "int*", &areSame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return areSame
     }
 
@@ -153,87 +154,123 @@ class IUIAutomation extends IUnknown{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * Receives <b>TRUE</b> if the IDs are the same, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-compareruntimeids
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-compareruntimeids
      */
     CompareRuntimeIds(runtimeId1, runtimeId2) {
-        result := ComCall(4, this, "ptr", runtimeId1, "ptr", runtimeId2, "int*", &areSame := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", runtimeId1, "ptr", runtimeId2, "int*", &areSame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return areSame
     }
 
     /**
      * Retrieves the UI Automation element that represents the desktop.
+     * @remarks
+     * You can use the root element as a starting point for finding other elements, using the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findall">FindAll</a> and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst">FindFirst</a> methods.
+     * 
+     * When searching from the root element, be sure to specify <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Children</a> in the scope of the search, not <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Descendants</a>. A search through the entire subtree of the desktop could iterate through thousands of items and lead to a stack overflow.
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-getrootelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-getrootelement
      */
     GetRootElement() {
-        result := ComCall(5, this, "ptr*", &root := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &root := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(root)
     }
 
     /**
      * Retrieves a UI Automation element for the specified window.
-     * @param {HWND} hwnd Type: <b>UIA_HWND</b>
+     * @param {HWND} hwnd_ Type: <b>UIA_HWND</b>
      * 
      * The window handle.
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandle
      */
-    ElementFromHandle(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ElementFromHandle(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hwnd_, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
     /**
      * Retrieves the UI Automation element at the specified point on the desktop.
-     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @remarks
+     * The <b>IUIAutomation::ElementFromPoint</b> method returns the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-error-codes">UIA_E_ELEMENTNOTAVAILABLE</a> error code if the element under the point is already removed by the time the method returns. Clients should handle errors from this method gracefully; for example, by trying the call again.
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The desktop coordinates of the UI Automation element.
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-elementfrompoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfrompoint
      */
     ElementFromPoint(pt) {
-        result := ComCall(7, this, "ptr", pt, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pt, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
     /**
      * Retrieves the UI Automation element that has the input focus.
+     * @remarks
+     * The <b>IUIAutomation::GetFocusedElement</b> method returns the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-error-codes">UIA_E_ELEMENTNOTAVAILABLE</a> error code if the focused element is already removed by the time the method returns. Clients should handle errors from this method gracefully; for example, by trying the call again.
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-getfocusedelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-getfocusedelement
      */
     GetFocusedElement() {
-        result := ComCall(8, this, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
     /**
      * Retrieves the UI Automation element that represents the desktop, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
+     * @remarks
+     * You can use the root element as a starting point for finding other elements, using the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findall">FindAll</a> and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst">FindFirst</a> methods.
+     * 
+     * When searching from the root element, be sure to specify <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Children</a> in the scope of the search, not <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope_Descendants</a>. A search through the entire subtree of the desktop could iterate through thousands of items and lead to a stack overflow.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to the cache request, which specifies the properties and control patterns to store in the cache.
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-getrootelementbuildcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-getrootelementbuildcache
      */
     GetRootElementBuildCache(cacheRequest) {
-        result := ComCall(9, this, "ptr", cacheRequest, "ptr*", &root := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", cacheRequest, "ptr*", &root := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(root)
     }
 
     /**
      * Retrieves a UI Automation element for the specified window, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
-     * @param {HWND} hwnd Type: <b>UIA_HWND</b>
+     * @param {HWND} hwnd_ Type: <b>UIA_HWND</b>
      * 
      * The window handle.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
@@ -242,18 +279,22 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandlebuildcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromhandlebuildcache
      */
-    ElementFromHandleBuildCache(hwnd, cacheRequest) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ElementFromHandleBuildCache(hwnd_, cacheRequest) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(10, this, "ptr", hwnd, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", hwnd_, "ptr", cacheRequest, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
     /**
      * Retrieves the UI Automation element at the specified point on the desktop, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
-     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * The desktop coordinates of the UI Automation element.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
@@ -262,10 +303,14 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-elementfrompointbuildcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfrompointbuildcache
      */
     ElementFromPointBuildCache(pt, cacheRequest) {
-        result := ComCall(11, this, "ptr", pt, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pt, "ptr", cacheRequest, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
@@ -277,10 +322,14 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-getfocusedelementbuildcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-getfocusedelementbuildcache
      */
     GetFocusedElementBuildCache(cacheRequest) {
-        result := ComCall(12, this, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", cacheRequest, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
@@ -292,87 +341,118 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationTreeWalker} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtreewalker">IUIAutomationTreeWalker</a>**</b>
      * 
      * Receives a pointer to the tree walker object.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createtreewalker
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createtreewalker
      */
     CreateTreeWalker(pCondition) {
-        result := ComCall(13, this, "ptr", pCondition, "ptr*", &walker := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pCondition, "ptr*", &walker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTreeWalker(walker)
     }
 
     /**
      * Retrieves an IUIAutomationTreeWalker interface used to discover control elements.
      * @returns {IUIAutomationTreeWalker} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_controlviewwalker
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_controlviewwalker
      */
     get_ControlViewWalker() {
-        result := ComCall(14, this, "ptr*", &walker := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &walker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTreeWalker(walker)
     }
 
     /**
      * Retrieves an IUIAutomationTreeWalker interface used to discover content elements.
      * @returns {IUIAutomationTreeWalker} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_contentviewwalker
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_contentviewwalker
      */
     get_ContentViewWalker() {
-        result := ComCall(15, this, "ptr*", &walker := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &walker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTreeWalker(walker)
     }
 
     /**
      * Retrieves a tree walker object used to traverse an unfiltered view of the Microsoft UI Automation tree.
      * @returns {IUIAutomationTreeWalker} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_rawviewwalker
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_rawviewwalker
      */
     get_RawViewWalker() {
-        result := ComCall(16, this, "ptr*", &walker := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &walker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationTreeWalker(walker)
     }
 
     /**
      * Retrieves a predefined IUIAutomationCondition interface that selects all UI elements in an unfiltered view.
      * @remarks
-     * 
      * Used by itself, the condition is functionally identical to the one retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createtruecondition">IUIAutomation::CreateTrueCondition</a>.
-     * 
-     * 
      * @returns {IUIAutomationCondition} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_rawviewcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_rawviewcondition
      */
     get_RawViewCondition() {
-        result := ComCall(17, this, "ptr*", &condition := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &condition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(condition)
     }
 
     /**
      * Retrieves a predefined IUIAutomationCondition interface that selects control elements.
      * @returns {IUIAutomationCondition} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_controlviewcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_controlviewcondition
      */
     get_ControlViewCondition() {
-        result := ComCall(18, this, "ptr*", &condition := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &condition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(condition)
     }
 
     /**
      * Retrieves a predefined IUIAutomationCondition interface that selects content elements.
      * @returns {IUIAutomationCondition} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_contentviewcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_contentviewcondition
      */
     get_ContentViewCondition() {
-        result := ComCall(19, this, "ptr*", &condition := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &condition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(condition)
     }
 
     /**
      * Creates a cache request.
+     * @remarks
+     * After obtaining the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a> interface, use its methods to specify properties and control patterns to be cached when a UI Automation element is obtained.
      * @returns {IUIAutomationCacheRequest} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>**</b>
      * 
      * The address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createcacherequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createcacherequest
      */
     CreateCacheRequest() {
-        result := ComCall(20, this, "ptr*", &cacheRequest := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &cacheRequest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCacheRequest(cacheRequest)
     }
 
@@ -381,22 +461,32 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the true condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createtruecondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createtruecondition
      */
     CreateTrueCondition() {
-        result := ComCall(21, this, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a condition that is always false.
+     * @remarks
+     * This method exists only for symmetry with <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createtruecondition">IUIAutomation::CreateTrueCondition</a>. A false condition will never enable a match with UI Automation elements, and it cannot usefully be combined with any other condition.
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the false condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createfalsecondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createfalsecondition
      */
     CreateFalseCondition() {
-        result := ComCall(22, this, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
@@ -411,10 +501,14 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the new condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertycondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertycondition
      */
     CreatePropertyCondition(propertyId, value) {
-        result := ComCall(23, this, "int", propertyId, "ptr", value, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(23, this, "int", propertyId, "ptr", value, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
@@ -430,15 +524,24 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the new condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertyconditionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertyconditionex
      */
     CreatePropertyConditionEx(propertyId, value, flags) {
-        result := ComCall(24, this, "int", propertyId, "ptr", value, "int", flags, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(24, this, "int", propertyId, "ptr", value, "int", flags, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a condition that selects elements that match both of two conditions.
+     * @remarks
+     * A condition that combines more than two simple conditions can be created by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromarray">IUIAutomation::CreateAndConditionFromArray</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromnativearray">IUIAutomation::CreateAndConditionFromNativeArray</a>.
+     * 
+     * 
+     * The <b>CreateAndCondition</b> method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the <i>condition1</i> and <i>condition2</i> pointers. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on those two pointers after the call to <b>CreateAndCondition</b> returns  without invalidating the pointer returned from <b>CreateAndCondition</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateAndCondition</b>, UI Automation calls <b>Release</b> on the <i>condition1</i> and <i>condition2</i> pointers.
      * @param {IUIAutomationCondition} condition1 Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to the first condition to match.
@@ -448,30 +551,42 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the combined condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createandcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createandcondition
      */
     CreateAndCondition(condition1, condition2) {
-        result := ComCall(25, this, "ptr", condition1, "ptr", condition2, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", condition1, "ptr", condition2, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a condition that selects elements based on multiple conditions, all of which must be true.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on each pointer in the <i>conditions</i> array. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on those pointers after the call to <b>CreateAndConditionFromArray</b> returns  without invalidating the pointer returned from <b>CreateAndConditionFromArray</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateAndConditionFromArray</b>, UI Automation calls <b>Release</b> on each pointer in the <i>conditions</i> array.
      * @param {Pointer<SAFEARRAY>} conditions Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the conditions to be combined.
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the combined condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromarray
      */
     CreateAndConditionFromArray(conditions) {
-        result := ComCall(26, this, "ptr", conditions, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", conditions, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a condition that selects elements from a native array, based on multiple conditions that must all be true.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on each pointer in the <i>conditions</i> array. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on those pointers after the call to <b>CreateAndConditionFromNativeArray</b> returns  without invalidating the pointer returned from <b>CreateAndConditionFromNativeArray</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateAndConditionFromNativeArray</b>, UI Automation calls <b>Release</b> on each pointer in the <i>conditions</i> array.
      * @param {Pointer<IUIAutomationCondition>} conditions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * A pointer to an array of conditions to be combined.
@@ -481,15 +596,21 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the combined condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromnativearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createandconditionfromnativearray
      */
     CreateAndConditionFromNativeArray(conditions, conditionCount) {
-        result := ComCall(27, this, "ptr*", conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", conditions, "int", conditionCount, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a combination of two conditions where a match exists if either of the conditions is true.
+     * @remarks
+     * The <b>CreateOrCondition</b> method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the <i>condition1</i> and <i>condition2</i> pointers. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on those two pointers after the call to <b>CreateOrCondition</b> returns  without invalidating the pointer returned from <b>CreateOrCondition</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateOrCondition</b>, UI Automation calls <b>Release</b> on the <i>condition1</i> and <i>condition2</i> pointers.
      * @param {IUIAutomationCondition} condition1 Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to the first condition.
@@ -499,30 +620,42 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the combined condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createorcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createorcondition
      */
     CreateOrCondition(condition1, condition2) {
-        result := ComCall(28, this, "ptr", condition1, "ptr", condition2, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", condition1, "ptr", condition2, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a combination of two or more conditions where a match exists if any of the conditions is true.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on each pointer in the <i>conditions</i> array. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on those pointers after the call to <b>CreateOrConditionFromArray</b> returns  without invalidating the pointer returned from <b>CreateOrConditionFromArray</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateOrConditionFromArray</b>, UI Automation calls <b>Release</b> on each pointer in the <i>conditions</i> array.
      * @param {Pointer<SAFEARRAY>} conditions Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the conditions.
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the combined condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromarray
      */
     CreateOrConditionFromArray(conditions) {
-        result := ComCall(29, this, "ptr", conditions, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", conditions, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a combination of two or more conditions where a match exists if any one of the conditions is true.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on each pointer in the <i>conditions</i> array. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on those pointers after the call to <b>CreateOrConditionFromNativeArray</b> returns  without invalidating the pointer returned from <b>CreateOrConditionFromNativeArray</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateOrConditionFromNativeArray</b>, UI Automation calls <b>Release</b> on each pointer in the <i>conditions</i> array.
      * @param {Pointer<IUIAutomationCondition>} conditions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * A pointer to an array of conditions to combine.
@@ -532,30 +665,42 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the combined condition.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromnativearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createorconditionfromnativearray
      */
     CreateOrConditionFromNativeArray(conditions, conditionCount) {
-        result := ComCall(30, this, "ptr*", conditions, "int", conditionCount, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", conditions, "int", conditionCount, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Creates a condition that is the negative of a specified condition.
+     * @remarks
+     * The <b>CreateNotCondition</b> method calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the <i>condition</i> pointer. This means you can call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on that pointer after the call to <b>CreateNotCondition</b> returns  without invalidating the pointer returned from <b>CreateNotCondition</b>. When you call <b>Release</b> on the pointer returned from  <b>CreateNotCondition</b>, UI Automation calls <b>Release</b> on the <i>condition</i> pointer.
      * @param {IUIAutomationCondition} condition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>*</b>
      * 
      * A pointer to the initial condition.
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the negative of the initial condition specified by the <i>condition</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createnotcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createnotcondition
      */
     CreateNotCondition(condition) {
-        result := ComCall(31, this, "ptr", condition, "ptr*", &newCondition := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", condition, "ptr*", &newCondition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationCondition(newCondition)
     }
 
     /**
      * Registers a method that handles Microsoft UI Automation events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event that the method handles. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
@@ -569,18 +714,30 @@ class IUIAutomation extends IUnknown{
      * @param {IUIAutomationEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationeventhandler">IUIAutomationEventHandler</a>*</b>
      * 
      * A pointer to the object that handles the event.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-addautomationeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-addautomationeventhandler
      */
     AddAutomationEventHandler(eventId, element, scope, cacheRequest, handler) {
-        result := ComCall(32, this, "int", eventId, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(32, this, "int", eventId, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the specified UI Automation event handler.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, 
+     * if the event is received simultaneously with the request to unsubscribe the event. The best practice 
+     * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
+     * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
+     * access violation if an event is delivered late.
      * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event being handled. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
@@ -590,18 +747,29 @@ class IUIAutomation extends IUnknown{
      * @param {IUIAutomationEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationeventhandler">IUIAutomationEventHandler</a>*</b>
      * 
      * A pointer to the handler method that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addautomationeventhandler">IUIAutomation::AddAutomationEventHandler</a> for the specified event identifier and UI Automation element.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-removeautomationeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-removeautomationeventhandler
      */
     RemoveAutomationEventHandler(eventId, element, handler) {
-        result := ComCall(33, this, "int", eventId, "ptr", element, "ptr", handler, "HRESULT")
+        result := ComCall(33, this, "int", eventId, "ptr", element, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers a method that handles a native array of property-changed events.
+     * @remarks
+     * The UI item specified by <i>element</i> might not support the properties specified by the <i>propertyArray</i> parameter. 
+     * 
+     * This method serves the same purpose as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">IUIAutomation::AddPropertyChangedEventHandler</a>, but takes a normal array of property identifiers instead of a SAFEARRAY. 
+     * 			
+     * 
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
@@ -618,20 +786,29 @@ class IUIAutomation extends IUnknown{
      * @param {Integer} propertyCount Type: <b>int</b>
      * 
      * The number of property identifiers in <i>propertyArray</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandlernativearray
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandlernativearray
      */
     AddPropertyChangedEventHandlerNativeArray(element, scope, cacheRequest, handler, propertyArray, propertyCount) {
         propertyArrayMarshal := propertyArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(34, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "HRESULT")
+        result := ComCall(34, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, propertyArrayMarshal, propertyArray, "int", propertyCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers a method that handles and array of property-changed events.
+     * @remarks
+     * The UI item specified by <i>element</i> might not support the properties specified by the <i>propertyArray</i> parameter. 
+     * 			
+     * 
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
@@ -645,36 +822,54 @@ class IUIAutomation extends IUnknown{
      * @param {Pointer<SAFEARRAY>} propertyArray Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the UI Automation properties of interest. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler
      */
     AddPropertyChangedEventHandler(element, scope, cacheRequest, handler, propertyArray) {
-        result := ComCall(35, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "ptr", propertyArray, "HRESULT")
+        result := ComCall(35, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "ptr", propertyArray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a property-changed event handler.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, 
+     * if the event is received simultaneously with the request to unsubscribe the event. The best practice 
+     * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
+     * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
+     * access violation if an event is delivered late.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element from which to remove the handler.
      * @param {IUIAutomationPropertyChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationpropertychangedeventhandler">IUIAutomationPropertyChangedEventHandler</a>*</b>
      * 
      * A pointer to the interface that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">IUIAutomation::AddPropertyChangedEventHandler</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-removepropertychangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-removepropertychangedeventhandler
      */
     RemovePropertyChangedEventHandler(element, handler) {
-        result := ComCall(36, this, "ptr", element, "ptr", handler, "HRESULT")
+        result := ComCall(36, this, "ptr", element, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers a method that handles structure-changed events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
@@ -685,76 +880,124 @@ class IUIAutomation extends IUnknown{
      * @param {IUIAutomationStructureChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationstructurechangedeventhandler">IUIAutomationStructureChangedEventHandler</a>*</b>
      * 
      * A pointer to the object that handles the structure-changed event.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-addstructurechangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-addstructurechangedeventhandler
      */
     AddStructureChangedEventHandler(element, scope, cacheRequest, handler) {
-        result := ComCall(37, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(37, this, "ptr", element, "int", scope, "ptr", cacheRequest, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a structure-changed event handler.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, 
+     * if the event is received simultaneously with the request to unsubscribe the event. The best practice 
+     * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
+     * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
+     * access violation if an event is delivered late.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element from which to remove the handler.
      * @param {IUIAutomationStructureChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationstructurechangedeventhandler">IUIAutomationStructureChangedEventHandler</a>*</b>
      * 
      * A pointer to the  interface that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addstructurechangedeventhandler">IUIAutomation::AddStructureChangedEventHandler</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-removestructurechangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-removestructurechangedeventhandler
      */
     RemoveStructureChangedEventHandler(element, handler) {
-        result := ComCall(38, this, "ptr", element, "ptr", handler, "HRESULT")
+        result := ComCall(38, this, "ptr", element, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers a method that handles focus-changed events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
+     * @remarks
+     * Focus-changed events are system-wide; you cannot set a narrower scope.
+     * 
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationFocusChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationfocuschangedeventhandler">IUIAutomationFocusChangedEventHandler</a>*</b>
      * 
      * A pointer to the object that handles the event.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-addfocuschangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-addfocuschangedeventhandler
      */
     AddFocusChangedEventHandler(cacheRequest, handler) {
-        result := ComCall(39, this, "ptr", cacheRequest, "ptr", handler, "HRESULT")
+        result := ComCall(39, this, "ptr", cacheRequest, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a focus-changed event handler.
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
+     * 
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, 
+     * if the event is received simultaneously with the request to unsubscribe the event. The best practice 
+     * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
+     * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
+     * access violation if an event is delivered late.
      * @param {IUIAutomationFocusChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationfocuschangedeventhandler">IUIAutomationFocusChangedEventHandler</a>*</b>
      * 
      * A pointer to the event handler that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addfocuschangedeventhandler">IUIAutomation::AddFocusChangedEventHandler</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-removefocuschangedeventhandler
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-removefocuschangedeventhandler
      */
     RemoveFocusChangedEventHandler(handler) {
-        result := ComCall(40, this, "ptr", handler, "HRESULT")
+        result := ComCall(40, this, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes all registered Microsoft UI Automation event handlers.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @remarks
+     * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-removealleventhandlers
+     * It is possible for an event to be delivered to an event handler after the handler has been unsubscribed, 
+     * if the event is received simultaneously with the request to unsubscribe the event. The best practice 
+     * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
+     * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
+     * access violation if an event is delivered late.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-removealleventhandlers
      */
     RemoveAllEventHandlers() {
-        result := ComCall(41, this, "HRESULT")
+        result := ComCall(41, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -766,16 +1009,18 @@ class IUIAutomation extends IUnknown{
      * @param {Integer} arrayCount Type: <b>int</b>
      * 
      * The number of elements in <i>array</i>.
-     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
-     * 
-     * Receives a pointer to the allocated SAFEARRAY.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-intnativearraytosafearray
+     * @returns {Pointer<SAFEARRAY>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-intnativearraytosafearray
      */
     IntNativeArrayToSafeArray(array, arrayCount) {
         arrayMarshal := array is VarRef ? "int*" : "ptr"
 
-        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", &safeArray := 0, "HRESULT")
-        return safeArray
+        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", &safeArray_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return safeArray_
     }
 
     /**
@@ -789,28 +1034,38 @@ class IUIAutomation extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Receives the number of elements in <i>array</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-intsafearraytonativearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-intsafearraytonativearray
      */
     IntSafeArrayToNativeArray(intArray, array) {
         arrayMarshal := array is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(43, this, "ptr", intArray, arrayMarshal, array, "int*", &arrayCount := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", intArray, arrayMarshal, array, "int*", &arrayCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return arrayCount
     }
 
     /**
      * Creates a VARIANT that contains the coordinates of a rectangle.
+     * @remarks
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a> has a data type of VT_ARRAY | VT_R8.
      * @param {RECT} rc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a structure that contains the coordinates of the rectangle.
      * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
      * 
      * Receives the coordinates of the rectangle.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-recttovariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-recttovariant
      */
     RectToVariant(rc) {
         var := VARIANT()
-        result := ComCall(44, this, "ptr", rc, "ptr", var, "HRESULT")
+        result := ComCall(44, this, "ptr", rc, "ptr", var, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return var
     }
 
@@ -822,11 +1077,15 @@ class IUIAutomation extends IUnknown{
      * @returns {RECT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Receives the converted rectangle coordinates.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-varianttorect
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-varianttorect
      */
     VariantToRect(var) {
         rc := RECT()
-        result := ComCall(45, this, "ptr", var, "ptr", rc, "HRESULT")
+        result := ComCall(45, this, "ptr", var, "ptr", rc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rc
     }
 
@@ -841,74 +1100,108 @@ class IUIAutomation extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Receives the number of elements in <i>rectArray</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-safearraytorectnativearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-safearraytorectnativearray
      */
     SafeArrayToRectNativeArray(rects, rectArray) {
         rectArrayMarshal := rectArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(46, this, "ptr", rects, rectArrayMarshal, rectArray, "int*", &rectArrayCount := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", rects, rectArrayMarshal, rectArray, "int*", &rectArrayCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rectArrayCount
     }
 
     /**
      * Creates a new instance of a proxy factory object.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactorymapping">IUIAutomationProxyFactoryMapping</a> interface to enter the proxy factory into the table of available proxies.
      * @param {IUIAutomationProxyFactory} factory Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactory">IUIAutomationProxyFactory</a>*</b>
      * 
      * A pointer to  the proxy factory object.
      * @returns {IUIAutomationProxyFactoryEntry} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactoryentry">IUIAutomationProxyFactoryEntry</a>**</b>
      * 
      * Receives a pointer to the newly created instance of the proxy factory object.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-createproxyfactoryentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-createproxyfactoryentry
      */
     CreateProxyFactoryEntry(factory) {
-        result := ComCall(47, this, "ptr", factory, "ptr*", &factoryEntry := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", factory, "ptr*", &factoryEntry := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationProxyFactoryEntry(factoryEntry)
     }
 
     /**
      * Retrieves an object that represents the mapping of Window classnames and associated data to individual proxy factories.
      * @returns {IUIAutomationProxyFactoryMapping} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_proxyfactorymapping
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_proxyfactorymapping
      */
     get_ProxyFactoryMapping() {
-        result := ComCall(48, this, "ptr*", &factoryMapping := 0, "HRESULT")
+        result := ComCall(48, this, "ptr*", &factoryMapping := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationProxyFactoryMapping(factoryMapping)
     }
 
     /**
      * Retrieves the registered programmatic name of a property.
-     * @param {Integer} property Type: <b>PROPERTYID</b>
+     * @remarks
+     * The programmatic name is intended for debugging and diagnostic purposes only. The string is not localized.
+     * 
+     * This property should not be used in string comparisons. To determine whether two properties are the same, compare the property identifiers directly.
+     * @param {Integer} property_ Type: <b>PROPERTYID</b>
      * 
      * The property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives the registered programmatic name.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-getpropertyprogrammaticname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-getpropertyprogrammaticname
      */
-    GetPropertyProgrammaticName(property) {
+    GetPropertyProgrammaticName(property_) {
         name := BSTR()
-        result := ComCall(49, this, "int", property, "ptr", name, "HRESULT")
+        result := ComCall(49, this, "int", property_, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Retrieves the registered programmatic name of a control pattern.
+     * @remarks
+     * The programmatic name is intended for debugging and diagnostic purposes only. The string is not localized.
+     * 
+     * This property should not be used in string comparisons. To determine whether two control patterns are the same, compare the control pattern identifiers directly.
      * @param {Integer} pattern Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives the registered programmatic name.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-getpatternprogrammaticname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-getpatternprogrammaticname
      */
     GetPatternProgrammaticName(pattern) {
         name := BSTR()
-        result := ComCall(50, this, "int", pattern, "ptr", name, "HRESULT")
+        result := ComCall(50, this, "int", pattern, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Retrieves the control patterns that might be supported on a UI Automation element.
+     * @remarks
+     * This method is intended only for use by Microsoft UI Automation tools that need to scan for properties. It is not intended to be used by UI Automation clients.
+     * 
+     * There is no guarantee that the element will support any particular control pattern when asked for it later.
      * @param {IUIAutomationElement} pElement Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * The address of the element to poll.
@@ -918,21 +1211,29 @@ class IUIAutomation extends IUnknown{
      * @param {Pointer<Pointer<SAFEARRAY>>} patternNames Type: <b>SAFEARRAY(BSTR)**</b>
      * 
      * Receives a pointer to an array of control pattern names.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedpatterns
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedpatterns
      */
     PollForPotentialSupportedPatterns(pElement, patternIds, patternNames) {
         patternIdsMarshal := patternIds is VarRef ? "ptr*" : "ptr"
         patternNamesMarshal := patternNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(51, this, "ptr", pElement, patternIdsMarshal, patternIds, patternNamesMarshal, patternNames, "HRESULT")
+        result := ComCall(51, this, "ptr", pElement, patternIdsMarshal, patternIds, patternNamesMarshal, patternNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the properties that might be supported on a UI Automation element.
+     * @remarks
+     * This method is intended only for use by Microsoft UI Automation tools that need to scan for properties and control patterns. It is not intended to be used by UI Automation clients.
+     * 
+     * There is no guarantee that the element will support any particular property when asked for it later.
      * @param {IUIAutomationElement} pElement Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * The address of the UI Automation element to poll.
@@ -942,66 +1243,84 @@ class IUIAutomation extends IUnknown{
      * @param {Pointer<Pointer<SAFEARRAY>>} propertyNames Type: <b>SAFEARRAY(BSTR)**</b>
      * 
      * Receives a pointer to an array of property names.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedproperties
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-pollforpotentialsupportedproperties
      */
     PollForPotentialSupportedProperties(pElement, propertyIds, propertyNames) {
         propertyIdsMarshal := propertyIds is VarRef ? "ptr*" : "ptr"
         propertyNamesMarshal := propertyNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(52, this, "ptr", pElement, propertyIdsMarshal, propertyIds, propertyNamesMarshal, propertyNames, "HRESULT")
+        result := ComCall(52, this, "ptr", pElement, propertyIdsMarshal, propertyIds, propertyNamesMarshal, propertyNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Checks a provided VARIANT to see if it contains the Not Supported identifier.
+     * @remarks
+     * After retrieving a property for a UI Automation element, call this method to determine whether the element supports the retrieved property. <b>CheckNotSupported</b> is typically called after calling a property retrieving method such as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>.
      * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>
      * 
      * The value to check.
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * Receives <b>TRUE</b> if the provided <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> contains the Not Supported identifier, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-checknotsupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-checknotsupported
      */
     CheckNotSupported(value) {
-        result := ComCall(53, this, "ptr", value, "int*", &isNotSupported := 0, "HRESULT")
+        result := ComCall(53, this, "ptr", value, "int*", &isNotSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isNotSupported
     }
 
     /**
      * Retrieves a static token object representing a property or text attribute that is not supported.
      * @remarks
-     * 
-     *  This object can be used for comparison with the results from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">IUIAutomationElement::GetCurrentPropertyValue</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getattributevalue">IUIAutomationTextRange::GetAttributeValue</a>.
-     * 
-     * 
+     * This object can be used for comparison with the results from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">IUIAutomationElement::GetCurrentPropertyValue</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getattributevalue">IUIAutomationTextRange::GetAttributeValue</a>.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_reservednotsupportedvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_reservednotsupportedvalue
      */
     get_ReservedNotSupportedValue() {
-        result := ComCall(54, this, "ptr*", &notSupportedValue := 0, "HRESULT")
+        result := ComCall(54, this, "ptr*", &notSupportedValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(notSupportedValue)
     }
 
     /**
      * Retrieves a static token object representing a text attribute that is a mixed attribute.
      * @remarks
-     * 
-     *  The object retrieved by <b>IUIAutomation::ReservedMixedAttributeValue</b> can be used for comparison with the results from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getattributevalue">IUIAutomationTextRange::GetAttributeValue</a> to determine if a text range contains more than one value for a particular text attribute.
-     * 
-     * 
+     * The object retrieved by <b>IUIAutomation::ReservedMixedAttributeValue</b> can be used for comparison with the results from <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getattributevalue">IUIAutomationTextRange::GetAttributeValue</a> to determine if a text range contains more than one value for a particular text attribute.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-get_reservedmixedattributevalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-get_reservedmixedattributevalue
      */
     get_ReservedMixedAttributeValue() {
-        result := ComCall(55, this, "ptr*", &mixedAttributeValue := 0, "HRESULT")
+        result := ComCall(55, this, "ptr*", &mixedAttributeValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(mixedAttributeValue)
     }
 
     /**
      * Retrieves a UI Automation element for the specified accessible object from a Microsoft Active Accessibility server.
+     * @remarks
+     * This method enables UI Automation clients to get <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a> interfaces for accessible objects implemented by a Microsoft Active Accessibility server. 
+     * 
+     * This method may fail if the server implements UI Automation provider interfaces alongside Microsoft Active Accessibility support. 
+     * 
+     * The method returns E_INVALIDARG if the underlying implementation of the Microsoft UI Automation element is not a native Microsoft Active Accessibility server; that is, if a client attempts to retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface for an element originally supported by a proxy object from Oleacc.dll, or by the UIA-to-MSAA Bridge.
      * @param {IAccessible} accessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface of the accessible object.
@@ -1011,15 +1330,25 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromiaccessible
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromiaccessible
      */
     ElementFromIAccessible(accessible, childId) {
-        result := ComCall(56, this, "ptr", accessible, "int", childId, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(56, this, "ptr", accessible, "int", childId, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 
     /**
      * Retrieves a UI Automation element for the specified accessible object from a Microsoft Active Accessibility server, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
+     * @remarks
+     * This method enables Microsoft UI Automation clients to get <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a> interfaces for accessible objects implemented by a Microsoft Active Accessibility server. 
+     * 
+     * This method may fail if the server implements UI Automation provider interfaces alongside Microsoft Active Accessibility support. 
+     * 
+     * The method returns E_INVALIDARG if the underlying implementation of the UI Automation element is not a native Microsoft Active Accessibility server; that is, if a client attempts to retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface for an element originally supported by a proxy object from Oleacc.dll, or by the UIA-to-MSAA Bridge.
      * @param {IAccessible} accessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface of the accessible object.
@@ -1032,10 +1361,14 @@ class IUIAutomation extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the UI Automation element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromiaccessiblebuildcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomation-elementfromiaccessiblebuildcache
      */
     ElementFromIAccessibleBuildCache(accessible, childId, cacheRequest) {
-        result := ComCall(57, this, "ptr", accessible, "int", childId, "ptr", cacheRequest, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(57, this, "ptr", accessible, "int", childId, "ptr", cacheRequest, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 }

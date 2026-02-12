@@ -30,12 +30,17 @@ class IDebugPropertyEnumType_All extends IUnknown{
     static VTableNames => ["GetName"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         __MIDL__IDebugPropertyEnumType_All0000 := BSTR()
-        result := ComCall(3, this, "ptr", __MIDL__IDebugPropertyEnumType_All0000, "HRESULT")
+        result := ComCall(3, this, "ptr", __MIDL__IDebugPropertyEnumType_All0000, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IDebugPropertyEnumType_All0000
     }
 }

@@ -34,7 +34,11 @@ class IADsAggregatee extends IUnknown{
      * @returns {HRESULT} 
      */
     ConnectAsAggregatee(pOuterUnknown) {
-        result := ComCall(3, this, "ptr", pOuterUnknown, "HRESULT")
+        result := ComCall(3, this, "ptr", pOuterUnknown, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IADsAggregatee extends IUnknown{
      * @returns {HRESULT} 
      */
     DisconnectAsAggregatee() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IADsAggregatee extends IUnknown{
      * @returns {HRESULT} 
      */
     RelinquishInterface(riid) {
-        result := ComCall(5, this, "ptr", riid, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +75,11 @@ class IADsAggregatee extends IUnknown{
      * @returns {HRESULT} 
      */
     RestoreInterface(riid) {
-        result := ComCall(6, this, "ptr", riid, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

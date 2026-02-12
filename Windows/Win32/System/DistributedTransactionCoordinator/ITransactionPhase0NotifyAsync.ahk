@@ -34,17 +34,25 @@ class ITransactionPhase0NotifyAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     Phase0Request(fAbortingHint) {
-        result := ComCall(3, this, "int", fAbortingHint, "HRESULT")
+        result := ComCall(3, this, "int", fAbortingHint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HRESULT} status 
+     * @param {HRESULT} status_ 
      * @returns {HRESULT} 
      */
-    EnlistCompleted(status) {
-        result := ComCall(4, this, "int", status, "HRESULT")
+    EnlistCompleted(status_) {
+        result := ComCall(4, this, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

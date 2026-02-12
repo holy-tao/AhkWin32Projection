@@ -31,7 +31,7 @@
  * Set objTopCollection = objCatalog.GetCollection("TopCollection")
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/cossdk/comadmincatalogcollection
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/cossdk/comadmincatalogcollection
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

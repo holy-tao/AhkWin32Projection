@@ -6,11 +6,8 @@
 /**
  * Exposes a method that launches an advanced association dialog box through which the user can customize their associations.
  * @remarks
- * 
  * Because <b>IApplicationAssociationRegistrationUI</b> is only supported for Windows Vista and later, applications that support earlier operating systems must use their preexisting code when running under those operating systems. Those applications should include a check for the operating system version to account for this.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iapplicationassociationregistrationui
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iapplicationassociationregistrationui
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,18 +40,24 @@ class IApplicationAssociationRegistrationUI extends IUnknown{
 
     /**
      * Launches an advanced association dialog box through which the user can customize the associations for the application specified in pszAppRegName.
+     * @remarks
+     * Starting in Windows 10, this does not launch the association dialog box. It displays a dialog to the user informing them that they can change the default programs used to open file extensions in their <b>Settings</b>
      * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that specifies the registered name of the application. This value is only valid if it matches one of the application strings registered under <b>HKCU\Software\RegisteredApplications</b> or under <b>HKLM\Software\RegisteredApplications</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iapplicationassociationregistrationui-launchadvancedassociationui
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iapplicationassociationregistrationui-launchadvancedassociationui
      */
     LaunchAdvancedAssociationUI(pszAppRegistryName) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
 
-        result := ComCall(3, this, "ptr", pszAppRegistryName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszAppRegistryName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

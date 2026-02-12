@@ -110,7 +110,7 @@
  * <li>2 - If bound as an input and an output using different views, each view must use different subresources.</li>
  * <li>3 - The resource can only be created with a single subresource. The resource cannot be a texture array. The resource cannot be a mipmap chain.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_usage
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_usage
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

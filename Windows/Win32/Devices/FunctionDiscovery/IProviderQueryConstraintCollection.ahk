@@ -5,7 +5,7 @@
 
 /**
  * This interface is accessible to the provider through the IFunctionDiscoveryProviderQuery::GetQueryConstraints method.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderqueryconstraintcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderqueryconstraintcollection
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -31,12 +31,16 @@ class IProviderQueryConstraintCollection extends IUnknown{
     static VTableNames => ["GetCount", "Get", "Item", "Next", "Skip", "Reset"]
 
     /**
-     * Gets the number of items in the collection.
+     * Gets the number of items in the collection. (IProviderQueryConstraintCollection.GetCount)
      * @returns {Integer} The number of items.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-getcount
      */
     GetCount() {
-        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCount
     }
 
@@ -44,12 +48,16 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * Gets the value of the specified query constraint, by name.
      * @param {PWSTR} pszConstraintName The constraint name.
      * @returns {Pointer<Integer>} The constraint value.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-get
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-get
      */
     Get(pszConstraintName) {
         pszConstraintName := pszConstraintName is String ? StrPtr(pszConstraintName) : pszConstraintName
 
-        result := ComCall(4, this, "ptr", pszConstraintName, "ptr*", &ppszConstraintValue := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszConstraintName, "ptr*", &ppszConstraintValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszConstraintValue
     }
 
@@ -88,13 +96,17 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-item
      */
     Item(dwIndex, ppszConstraintName, ppszConstraintValue) {
         ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
         ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwIndex, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
+        result := ComCall(5, this, "uint", dwIndex, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,19 +114,25 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * Gets the name and value of the next query constraint in the collection.
      * @param {Pointer<Pointer<Integer>>} ppszConstraintName The constraint name.
      * @param {Pointer<Pointer<Integer>>} ppszConstraintValue The constraint value.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-next
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-next
      */
     Next(ppszConstraintName, ppszConstraintValue) {
         ppszConstraintNameMarshal := ppszConstraintName is VarRef ? "ptr*" : "ptr"
         ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
+        result := ComCall(6, this, ppszConstraintNameMarshal, ppszConstraintName, ppszConstraintValueMarshal, ppszConstraintValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Skips the next item in the collection.
+     * Skips the next item in the collection. (IProviderQueryConstraintCollection.Skip)
+     * @remarks
+     * This method works from the beginning of the collection regardless of any get item calls.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
@@ -134,15 +152,19 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-skip
      */
     Skip() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the current index to the start of the collection.
+     * Resets the current index to the start of the collection. (IProviderQueryConstraintCollection.Reset)
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
@@ -162,10 +184,14 @@ class IProviderQueryConstraintCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderqueryconstraintcollection-reset
      */
     Reset() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

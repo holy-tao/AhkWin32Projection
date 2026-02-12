@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -2391,7 +2393,7 @@ class SystemServices {
     static UNWIND_CHAIN_LIMIT => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME => "OutOfProcessFunctionTableCallback"
 
@@ -3896,22 +3898,22 @@ class SystemServices {
     static AUDIT_ALLOW_NO_PRIVILEGE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACCESS_DS_SOURCE_A => "DS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACCESS_DS_SOURCE_W => "DS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACCESS_DS_OBJECT_TYPE_NAME_A => "Directory Service Object"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACCESS_DS_OBJECT_TYPE_NAME_W => "Directory Service Object"
 
@@ -3971,67 +3973,67 @@ class SystemServices {
     static SE_ACCESS_CHECK_VALID_FLAGS => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_ACTIVATE_AS_USER_CAPABILITY => "activateAsUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_CONSTRAINED_IMPERSONATION_CAPABILITY => "constrainedImpersonation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_SESSION_IMPERSONATION_CAPABILITY => "sessionImpersonation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_MUMA_CAPABILITY => "muma"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY => "developmentModeNetwork"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_LEARNING_MODE_LOGGING_CAPABILITY => "learningModeLogging"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_PERMISSIVE_LEARNING_MODE_CAPABILITY => "permissiveLearningMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_APP_SILO_VOLUME_ROOT_MINIMAL_CAPABILITY => "isolatedWin32-volumeRootMinimal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_APP_SILO_PROFILES_ROOT_MINIMAL_CAPABILITY => "isolatedWin32-profilesRootMinimal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_APP_SILO_USER_PROFILE_MINIMAL_CAPABILITY => "isolatedWin32-userProfileMinimal"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_APP_SILO_PROMPT_FOR_ACCESS_CAPABILITY => "isolatedWin32-promptForAccess"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_APP_SILO_ACCESS_TO_PUBLISHER_DIRECTORY_CAPABILITY => "isolatedWin32-accessToPublisherDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SE_APP_SILO_PRINT_CAPABILITY => "isolatedWin32-print"
 
@@ -5416,7 +5418,7 @@ class SystemServices {
     static IO_COMPLETION_MODIFY_STATE => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SMB_CCF_APP_INSTANCE_EA_NAME => "ClusteredApplicationInstance"
 
@@ -9181,32 +9183,32 @@ class SystemServices {
     static IMAGE_ARCHIVE_START_SIZE => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_ARCHIVE_START => "!<arch>" Chr(10) ""
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_ARCHIVE_END => "``" Chr(10) ""
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_ARCHIVE_PAD => "" Chr(10) ""
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_ARCHIVE_LINKER_MEMBER => "/               "
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_ARCHIVE_LONGNAMES_MEMBER => "//              "
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_ARCHIVE_HYBRIDMAP_MEMBER => "/<HYBRIDMAP>/   "
 
@@ -10251,7 +10253,7 @@ class SystemServices {
     static IMAGE_POLICY_METADATA_VERSION => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IMAGE_POLICY_SECTION_NAME => ".tPolicy"
 
@@ -10326,12 +10328,12 @@ class SystemServices {
     static READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static UNIFIEDBUILDREVISION_KEY => "\Registry\Machine\Software\Microsoft\Windows NT\CurrentVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static UNIFIEDBUILDREVISION_VALUE => "UBR"
 
@@ -10341,12 +10343,12 @@ class SystemServices {
     static UNIFIEDBUILDREVISION_MIN => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEFAMILYDEVICEFORM_KEY => "\Registry\Machine\Software\Microsoft\Windows NT\CurrentVersion\OEM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEFAMILYDEVICEFORM_VALUE => "DeviceForm"
 

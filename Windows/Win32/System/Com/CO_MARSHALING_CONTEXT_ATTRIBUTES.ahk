@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CO_MARSHALING_CONTEXT_ATTRIBUTES (objidlbase.h) enumeration identifies one of the attributes you can query using the GetMarshalingContextAttribute method.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-co_marshaling_context_attributes
+ * The CO_MARSHALING_CONTEXT_ATTRIBUTES enumeration (objidl.h) identifies one of the marshaling context attributes that can be queried using a specific method.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-co_marshaling_context_attributes
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

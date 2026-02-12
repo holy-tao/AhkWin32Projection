@@ -1,15 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Win32Handle.ahk
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
-class WINIBIO_STORAGE_CONTEXT extends Win32Struct
+class WINIBIO_STORAGE_CONTEXT extends Win32Handle
 {
     static sizeof => 8
 
     static packingSize => 8
+
+    /**
+     * The list of values which indicate that the handle is invalid
+     * @type {Array<Integer>}
+     */
+    static invalidValues => []
 
     /**
      * @type {Pointer}

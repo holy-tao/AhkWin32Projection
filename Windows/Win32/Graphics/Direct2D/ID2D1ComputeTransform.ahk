@@ -6,11 +6,8 @@
 /**
  * Defines a transform that uses a compute shader.
  * @remarks
- * 
  * The transform implements the normal Shatzis methods by  implementing <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transform">ID2D1Transform</a>. In addition, the caller is passed an <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo">ID2D1ComputeInfo</a> to describe the compute pass that the transform should execute.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1computetransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nn-d2d1effectauthor-id2d1computetransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -37,21 +34,29 @@ class ID2D1ComputeTransform extends ID2D1Transform{
 
     /**
      * Sets the render information used to specify the compute shader pass.
+     * @remarks
+     * If this method fails, <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transformgraph-addnode">ID2D1TransformGraph::AddNode</a> fails.
      * @param {ID2D1ComputeInfo} computeInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo">ID2D1ComputeInfo</a>*</b>
      * 
      * The render information object to set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-setcomputeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-setcomputeinfo
      */
     SetComputeInfo(computeInfo) {
-        result := ComCall(7, this, "ptr", computeInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", computeInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This method allows a compute-shader–based transform to select the number of thread groups to execute based on the number of output pixels it needs to fill.
+     * @remarks
+     * If this call fails, the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a> instance is placed into an error state and fails to draw.
      * @param {Pointer<RECT>} outputRect Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh847950(v=vs.85)">D2D1_RECT_L</a>*</b>
      * 
      * The output rectangle that will be filled by the compute transform.
@@ -67,14 +72,18 @@ class ID2D1ComputeTransform extends ID2D1Transform{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-calculatethreadgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-calculatethreadgroups
      */
     CalculateThreadgroups(outputRect, dimensionX, dimensionY, dimensionZ) {
         dimensionXMarshal := dimensionX is VarRef ? "uint*" : "ptr"
         dimensionYMarshal := dimensionY is VarRef ? "uint*" : "ptr"
         dimensionZMarshal := dimensionZ is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", outputRect, dimensionXMarshal, dimensionX, dimensionYMarshal, dimensionY, dimensionZMarshal, dimensionZ, "HRESULT")
+        result := ComCall(8, this, "ptr", outputRect, dimensionXMarshal, dimensionX, dimensionYMarshal, dimensionY, dimensionZMarshal, dimensionZ, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

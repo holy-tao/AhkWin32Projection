@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to access and examine the contents of an assembly manifest.
- * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nn-rometadataapi-imetadataassemblyimport
+ * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nn-rometadataapi-imetadataassemblyimport
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @version v4.0.30319
  */
@@ -41,8 +41,8 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @param {Pointer<Integer>} pchName The number of wide chars actually returned in <i>szName</i>.
      * @param {Pointer<ASSEMBLYMETADATA>} pMetaData A pointer to an <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/assemblymetadata-structure">ASSEMBLYMETADATA</a> structure that contains the assembly metadata.
      * @param {Pointer<Integer>} pdwAssemblyFlags Flags that describe the metadata applied to an assembly. This value is a combination of one or more <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corassemblyflags-enumeration">CorAssemblyFlags</a> values.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyprops
      */
     GetAssemblyProps(mda, ppbPublicKey, pcbPublicKey, pulHashAlgId, szName, cchName, pchName, pMetaData, pdwAssemblyFlags) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -53,7 +53,11 @@ class IMetaDataAssemblyImport extends IUnknown{
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
         pdwAssemblyFlagsMarshal := pdwAssemblyFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
+        result := ComCall(3, this, "uint", mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,8 +73,8 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @param {Pointer<Pointer<Void>>} ppbHashValue A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the PublicKey property of the assembly being referenced, unless the arfFullOriginator flag of the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/assemblyrefflags-enumeration">AssemblyRefFlags</a> enumeration is set.
      * @param {Pointer<Integer>} pcbHashValue The number of wide chars in the returned hash value.
      * @param {Pointer<Integer>} pdwAssemblyRefFlags A pointer to flags that describe the metadata applied to an assembly. The flags value is a combination of one or more <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corassemblyflags-enumeration">CorAssemblyFlags</a> values.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyrefprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyrefprops
      */
     GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, pcbPublicKeyOrToken, szName, cchName, pchName, pMetaData, ppbHashValue, pcbHashValue, pdwAssemblyRefFlags) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -82,7 +86,11 @@ class IMetaDataAssemblyImport extends IUnknown{
         pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
         pdwAssemblyRefFlagsMarshal := pdwAssemblyRefFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
+        result := ComCall(4, this, "uint", mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,8 +103,8 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @param {Pointer<Pointer<Void>>} ppbHashValue A pointer to the hash value. This is the hash, using the SHA-1 algorithm, of the file.
      * @param {Pointer<Integer>} pcbHashValue The number of wide chars in the returned hash value.
      * @param {Pointer<Integer>} pdwFileFlags A pointer to the flags that describe the metadata applied to a file. The flags value is a combination of one or more <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/corfileflags-enumeration">CorFileFlags</a> values.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-getfileprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getfileprops
      */
     GetFileProps(mdf, szName, cchName, pchName, ppbHashValue, pcbHashValue, pdwFileFlags) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -106,7 +114,11 @@ class IMetaDataAssemblyImport extends IUnknown{
         pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
         pdwFileFlagsMarshal := pdwFileFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", mdf, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwFileFlagsMarshal, pdwFileFlags, "HRESULT")
+        result := ComCall(5, this, "uint", mdf, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwFileFlagsMarshal, pdwFileFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,8 +131,8 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @param {Pointer<Integer>} ptkImplementation An <b>mdFile</b>, <b>mdAssemblyRef</b>, or <b>mdExportedType</b> metadata token that contains or allows access to the properties of the exported type.
      * @param {Pointer<Integer>} ptkTypeDef A pointer to an <b>mdTypeDef</b> token that represents a type in the file.
      * @param {Pointer<Integer>} pdwExportedTypeFlags A pointer to the flags that describe the metadata applied to the exported type. The flags value can be one or more <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/cortypeattr-enumeration">CorTypeAttr</a> values.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-getexportedtypeprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getexportedtypeprops
      */
     GetExportedTypeProps(mdct, szName, cchName, pchName, ptkImplementation, ptkTypeDef, pdwExportedTypeFlags) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -130,7 +142,11 @@ class IMetaDataAssemblyImport extends IUnknown{
         ptkTypeDefMarshal := ptkTypeDef is VarRef ? "uint*" : "ptr"
         pdwExportedTypeFlagsMarshal := pdwExportedTypeFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", mdct, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, ptkTypeDefMarshal, ptkTypeDef, pdwExportedTypeFlagsMarshal, pdwExportedTypeFlags, "HRESULT")
+        result := ComCall(6, this, "uint", mdct, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, ptkTypeDefMarshal, ptkTypeDef, pdwExportedTypeFlagsMarshal, pdwExportedTypeFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,8 +159,8 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @param {Pointer<Integer>} ptkImplementation A pointer to an <b>mdFile</b> token or an <b>mdAssemblyRef</b> token that represents the file or assembly, respectively, that contains the resource.
      * @param {Pointer<Integer>} pdwOffset A pointer to a value that specifies the offset to the beginning of the resource within the file.
      * @param {Pointer<Integer>} pdwResourceFlags A pointer to flags that describe the metadata applied to a resource. The flags value is a combination of one or more <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/cormanifestresourceflags-enumeration">CorManifestResourceFlags</a> values.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-getmanifestresourceprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getmanifestresourceprops
      */
     GetManifestResourceProps(mdmr, szName, cchName, pchName, ptkImplementation, pdwOffset, pdwResourceFlags) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -154,7 +170,11 @@ class IMetaDataAssemblyImport extends IUnknown{
         pdwOffsetMarshal := pdwOffset is VarRef ? "uint*" : "ptr"
         pdwResourceFlagsMarshal := pdwResourceFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", mdmr, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, pdwOffsetMarshal, pdwOffset, pdwResourceFlagsMarshal, pdwResourceFlags, "HRESULT")
+        result := ComCall(7, this, "uint", mdmr, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ptkImplementationMarshal, ptkImplementation, pdwOffsetMarshal, pdwOffset, pdwResourceFlagsMarshal, pdwResourceFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,14 +201,18 @@ class IMetaDataAssemblyImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumassemblyrefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumassemblyrefs
      */
     EnumAssemblyRefs(phEnum, rAssemblyRefs, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rAssemblyRefsMarshal := rAssemblyRefs is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, phEnumMarshal, phEnum, rAssemblyRefsMarshal, rAssemblyRefs, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(8, this, phEnumMarshal, phEnum, rAssemblyRefsMarshal, rAssemblyRefs, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,14 +239,18 @@ class IMetaDataAssemblyImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumfiles
      */
     EnumFiles(phEnum, rFiles, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rFilesMarshal := rFiles is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, phEnumMarshal, phEnum, rFilesMarshal, rFiles, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(9, this, phEnumMarshal, phEnum, rFilesMarshal, rFiles, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -249,14 +277,18 @@ class IMetaDataAssemblyImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumexportedtypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumexportedtypes
      */
     EnumExportedTypes(phEnum, rExportedTypes, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rExportedTypesMarshal := rExportedTypes is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, phEnumMarshal, phEnum, rExportedTypesMarshal, rExportedTypes, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(10, this, phEnumMarshal, phEnum, rExportedTypesMarshal, rExportedTypes, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -283,60 +315,80 @@ class IMetaDataAssemblyImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-enummanifestresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enummanifestresources
      */
     EnumManifestResources(phEnum, rManifestResources, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rManifestResourcesMarshal := rManifestResources is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, phEnumMarshal, phEnum, rManifestResourcesMarshal, rManifestResources, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(11, this, phEnumMarshal, phEnum, rManifestResourcesMarshal, rManifestResources, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to the assembly in the current scope.
      * @param {Pointer<Integer>} ptkAssembly A pointer to the retrieved <b>mdAssembly</b> token that identifies the assembly.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyfromscope
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-getassemblyfromscope
      */
     GetAssemblyFromScope(ptkAssembly) {
         ptkAssemblyMarshal := ptkAssembly is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, ptkAssemblyMarshal, ptkAssembly, "HRESULT")
+        result := ComCall(12, this, ptkAssemblyMarshal, ptkAssembly, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to an exported type, given its name and enclosing type.
+     * @remarks
+     * This method uses the standard rules employed by the common language runtime for resolving references.
      * @param {PWSTR} szName The name of the exported type.
      * @param {Integer} mdtExportedType The metadata token for the enclosing class of the exported type. This value is <b>mdExportedTypeNil</b> if the requested exported type is not a nested type.
      * @param {Pointer<Integer>} ptkExportedType A pointer to the <b>mdExportedType</b> token that represents the exported type.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-findexportedtypebyname
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-findexportedtypebyname
      */
     FindExportedTypeByName(szName, mdtExportedType, ptkExportedType) {
         szName := szName is String ? StrPtr(szName) : szName
 
         ptkExportedTypeMarshal := ptkExportedType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", szName, "uint", mdtExportedType, ptkExportedTypeMarshal, ptkExportedType, "HRESULT")
+        result := ComCall(13, this, "ptr", szName, "uint", mdtExportedType, ptkExportedTypeMarshal, ptkExportedType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to the manifest resource with the specified name.
+     * @remarks
+     * This method uses the standard rules employed by the common language runtime for resolving references.
      * @param {PWSTR} szName The name of the resource.
      * @param {Pointer<Integer>} ptkManifestResource The array used to store the <b>mdManifestResource</b> metadata tokens, each of which represents a manifest resource.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-findmanifestresourcebyname
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-findmanifestresourcebyname
      */
     FindManifestResourceByName(szName, ptkManifestResource) {
         szName := szName is String ? StrPtr(szName) : szName
 
         ptkManifestResourceMarshal := ptkManifestResource is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", szName, ptkManifestResourceMarshal, ptkManifestResource, "HRESULT")
+        result := ComCall(14, this, "ptr", szName, ptkManifestResourceMarshal, ptkManifestResource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -344,7 +396,7 @@ class IMetaDataAssemblyImport extends IUnknown{
      * Releases a reference to the specified enumeration instance.
      * @param {Pointer<Void>} hEnum The enumeration instance to be closed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-closeenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-closeenum
      */
     CloseEnum(hEnum) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
@@ -354,13 +406,19 @@ class IMetaDataAssemblyImport extends IUnknown{
 
     /**
      * Gets an array of assemblies with the specified name, using the standard rules employed by the common language runtime (CLR) for resolving references.
+     * @remarks
+     * Given an assembly name, the <b>FindAssembliesByName</b> method finds the assembly by following the standard rules for resolving assembly references. <b>FindAssembliesByName</b> allows the caller to configure various aspects of the assembly resolver context, such as application base and private search path.
+     * 
+     * <b>FindAssembliesByName</b> returns an <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nn-rometadataapi-imetadataimport">IMetaDataImport</a> pointer to the file containing the assembly manifest for the assembly name that is passed in. If the given assembly name is not fully specified (for example, if it does not include a version), multiple assemblies might be returned.
+     * 
+     * <b>FindAssembliesByName</b> is commonly used by a compiler that attempts to find a referenced assembly at compile time.
      * @param {PWSTR} szAppBase The root directory in which to search for the given assembly. If this value is set to null, <b>FindAssembliesByName</b> will look only in the global assembly cache for the assembly.
      * @param {PWSTR} szPrivateBin A list of semicolon-delimited subdirectories (for example, "bin;bin2"), under the root directory, in which to search for the assembly. These directories are probed in addition to those specified in the default probing rules.
      * @param {PWSTR} szAssemblyName The name of the assembly to find. The format of this string is defined in the class reference page for <a href="https://docs.microsoft.com/dotnet/api/system.reflection.assemblyname">AssemblyName</a>.
      * @param {Integer} cMax The maximum number of interface pointers that can be placed in <i>ppIUnk</i>.
      * @param {Pointer<Integer>} pcAssemblies The number of interface pointers returned. That is, the number of interface pointers actually placed in <i>ppIUnk</i>.
      * @returns {IUnknown} An array of type IUnknown in which to put the <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nn-rometadataapi-imetadataassemblyimport">IMetadataAssemblyImport</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataassemblyimport-findassembliesbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataassemblyimport-findassembliesbyname
      */
     FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, cMax, pcAssemblies) {
         szAppBase := szAppBase is String ? StrPtr(szAppBase) : szAppBase
@@ -369,7 +427,11 @@ class IMetaDataAssemblyImport extends IUnknown{
 
         pcAssembliesMarshal := pcAssemblies is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szAssemblyName, "ptr*", &ppIUnk := 0, "uint", cMax, pcAssembliesMarshal, pcAssemblies, "HRESULT")
+        result := ComCall(16, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szAssemblyName, "ptr*", &ppIUnk := 0, "uint", cMax, pcAssembliesMarshal, pcAssemblies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIUnk)
     }
 }

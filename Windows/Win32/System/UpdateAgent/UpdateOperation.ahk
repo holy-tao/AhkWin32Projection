@@ -3,7 +3,7 @@
 
 /**
  * Defines operations that can be attempted on an update.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updateoperation
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/ne-wuapi-updateoperation
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

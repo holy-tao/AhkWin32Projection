@@ -5,7 +5,7 @@
 
 /**
  * Use this interface to retrieve information about the current write operation. This interface is passed to the DWriteEngine2Events::Update method that you implement.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-iwriteengine2eventargs
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-iwriteengine2eventargs
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -81,71 +81,107 @@ class IWriteEngine2EventArgs extends IDispatch{
 
     /**
      * Retrieves the starting logical block address (LBA) of the current write operation.
+     * @remarks
+     * This is the same value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-writesection">IWriteEngine2::WriteSection</a> method.
      * @returns {Integer} Starting logical block address of the write operation. Negative values for LBAs are supported.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_startlba
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_startlba
      */
     get_StartLba() {
-        result := ComCall(7, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the number of sectors to write to the device in the current write operation.
+     * @remarks
+     * This is the same value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-writesection">IWriteEngine2::WriteSection</a> method.
      * @returns {Integer} The number of sectors to write in the current write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_sectorcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_sectorcount
      */
     get_SectorCount() {
-        result := ComCall(8, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the address of the sector most recently read from the burn image.
      * @returns {Integer} Logical block address of the sector most recently read from the input data stream.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_lastreadlba
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_lastreadlba
      */
     get_LastReadLba() {
-        result := ComCall(9, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the address of the sector most recently written to the device.
      * @returns {Integer} Logical block address of the sector most recently written to the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_lastwrittenlba
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_lastwrittenlba
      */
     get_LastWrittenLba() {
-        result := ComCall(10, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the size of the internal data buffer that is used for writing to disc.
      * @returns {Integer} Size, in bytes, of the internal data buffer that is used for writing to disc.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_totalsystembuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_totalsystembuffer
      */
     get_TotalSystemBuffer() {
-        result := ComCall(11, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the number of used bytes in the internal data buffer that is used for writing to disc.
+     * @remarks
+     * This value increases as data is read into the buffer and decreases as data is written to disc.
      * @returns {Integer} Size, in bytes, of the used portion  of the internal data buffer that is used for writing to disc.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_usedsystembuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_usedsystembuffer
      */
     get_UsedSystemBuffer() {
-        result := ComCall(12, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the number of unused bytes in the internal data buffer that is used for writing to disc.
+     * @remarks
+     * This method returns the same value as if you subtracted <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_usedsystembuffer">IWriteEngine2EventArgs::get_UsedSystemBuffer</a> from <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2eventargs-get_totalsystembuffer">IWriteEngine2EventArgs::get_TotalSystemBuffer</a>.
      * @returns {Integer} Size, in bytes, of the unused portion  of the internal data buffer that is used for writing to disc.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2eventargs-get_freesystembuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2eventargs-get_freesystembuffer
      */
     get_FreeSystemBuffer() {
-        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

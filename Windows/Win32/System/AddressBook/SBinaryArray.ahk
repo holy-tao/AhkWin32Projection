@@ -2,12 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Contains an array of binary values. The SBinaryArray structure is used to describe properties of type PT_MV_BINARY.
- * @remarks
- * The **SBinaryArray** structure is used to describe properties of type PT_MV_BINARY. 
- *   
- * For more information about PT_MV_BINARY, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinaryarray
+ * Do not use. An array of entry identifiers representing MAPI objects. Uses the same implementation as SBinaryArray.
+ * @see https://learn.microsoft.com/windows/win32/api//content/wabdefs/ns-wabdefs-sbinaryarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -18,7 +14,9 @@ class SBinaryArray extends Win32Struct
     static packingSize => 8
 
     /**
-     * > Count of values in the array pointed to by the **lpbin** member.
+     * Type: <b>ULONG</b>
+     * 
+     * Variable of type <b>ULONG</b> that specifies the number of entry identifiers.
      * @type {Integer}
      */
     cValues {
@@ -27,7 +25,9 @@ class SBinaryArray extends Win32Struct
     }
 
     /**
-     * > Pointer to an array of [SBinary](sbinary.md) structures that holds the binary values.
+     * Type: <b><a href="https://docs.microsoft.com/previous-versions/office/developer/office-2007/cc815817(v=office.12)">SBinary</a>*</b>
+     * 
+     * Array of variables of type <a href="https://docs.microsoft.com/previous-versions/office/developer/office-2007/cc815817(v=office.12)">SBinary</a> that specify the entry identifiers.
      * @type {Pointer<SBinary>}
      */
     lpbin {

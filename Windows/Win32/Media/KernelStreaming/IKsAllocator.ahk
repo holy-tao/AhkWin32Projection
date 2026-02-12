@@ -36,7 +36,8 @@ class IKsAllocator extends IUnknown{
      */
     KsGetAllocatorHandle() {
         result := ComCall(3, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -54,16 +55,20 @@ class IKsAllocator extends IUnknown{
      */
     KsGetAllocatorStatus() {
         AllocatorStatus := KSSTREAMALLOCATOR_STATUS()
-        result := ComCall(5, this, "ptr", AllocatorStatus, "HRESULT")
+        result := ComCall(5, this, "ptr", AllocatorStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AllocatorStatus
     }
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} Mode_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    KsSetAllocatorMode(Mode) {
-        ComCall(6, this, "int", Mode)
+    KsSetAllocatorMode(Mode_) {
+        ComCall(6, this, "int", Mode_)
     }
 }

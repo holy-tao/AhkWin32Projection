@@ -7,11 +7,8 @@
 /**
  * A collection of IXpsSignature interface pointers.
  * @remarks
- * 
  * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturecollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturecollection
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -38,33 +35,55 @@ class IXpsSignatureCollection extends IUnknown{
 
     /**
      * Gets the number of IXpsSignature interface pointers in the collection.
+     * @remarks
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @returns {Integer} The number of <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface pointers in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-getcount
      */
     GetCount() {
-        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
     /**
      * Gets an IXpsSignature interface pointer from a specified location in the collection.
+     * @remarks
+     * For more information about the collection methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface pointer to be obtained.
      * @returns {IXpsSignature} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface pointer at the location specified by <i>index</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-getat
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-getat
      */
     GetAt(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &signature := 0, "HRESULT")
+        result := ComCall(4, this, "uint", index, "ptr*", &signature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsSignature(signature)
     }
 
     /**
      * Removes and releases an IXpsSignature interface pointer from a specified location in the collection.
+     * @remarks
+     * This method releases an interface  referenced by the pointer at  the location specified by <i>index</i>. After releasing the interface, this method compacts the collection by   reducing by 1 the index of each pointer subsequent to <i>index</i>.
+     * 
+     * Once an interface has been removed from a collection, it is no longer valid. If an application retains a pointer to the interface that was removed and tries to call one of its methods,  the  method will return <b>E_UNEXPECTED</b>.
+     * 
+     * For more information about the collection methods, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372931(v=vs.85)">Working with XPS OM Collection Interfaces</a>.
      * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface pointer is to be removed and released.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-removeat
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturecollection-removeat
      */
     RemoveAt(index) {
-        result := ComCall(5, this, "uint", index, "HRESULT")
+        result := ComCall(5, this, "uint", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

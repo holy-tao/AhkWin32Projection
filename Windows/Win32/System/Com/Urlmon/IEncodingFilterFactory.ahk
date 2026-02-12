@@ -40,7 +40,11 @@ class IEncodingFilterFactory extends IUnknown{
         pwzCodeIn := pwzCodeIn is String ? StrPtr(pwzCodeIn) : pwzCodeIn
         pwzCodeOut := pwzCodeOut is String ? StrPtr(pwzCodeOut) : pwzCodeOut
 
-        result := ComCall(3, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr", info, "ptr*", &ppDF := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr", info, "ptr*", &ppDF := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataFilter(ppDF)
     }
 
@@ -54,7 +58,11 @@ class IEncodingFilterFactory extends IUnknown{
         pwzCodeIn := pwzCodeIn is String ? StrPtr(pwzCodeIn) : pwzCodeIn
         pwzCodeOut := pwzCodeOut is String ? StrPtr(pwzCodeOut) : pwzCodeOut
 
-        result := ComCall(4, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr*", &ppDF := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzCodeIn, "ptr", pwzCodeOut, "ptr*", &ppDF := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataFilter(ppDF)
     }
 }

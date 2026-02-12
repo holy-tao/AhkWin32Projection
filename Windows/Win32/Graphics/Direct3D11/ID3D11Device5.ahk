@@ -5,7 +5,7 @@
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device5 adds new methods to those in ID3D11Device4.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nn-d3d11_4-id3d11device5
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_4/nn-d3d11_4-id3d11device5
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -38,20 +38,24 @@ class ID3D11Device5 extends ID3D11Device4{
      * @param {Pointer<Guid>} ReturnedInterface Type: <b>REFIID</b>
      * 
      * The globally unique identifier (<b>GUID</b>) for the <a href="https://docs.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11fence">ID3D11Fence</a> interface. The <b>REFIID</b>, or <b>GUID</b>, of the interface can be obtained by using the __uuidof() macro. For example, __uuidof(ID3D11Fence) will get the <b>GUID</b> of the interface to the fence.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11fence">ID3D11Fence</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_4/nf-d3d11_4-id3d11device5-opensharedfence
      */
     OpenSharedFence(hFence, ReturnedInterface) {
         hFence := hFence is Win32Handle ? NumGet(hFence, "ptr") : hFence
 
-        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(67, this, "ptr", hFence, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppFence
     }
 
     /**
-     * Creates a fence object.
+     * Creates a fence object. (ID3D11Device5.CreateFence)
      * @param {Integer} InitialValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The initial value for the fence.
@@ -64,13 +68,17 @@ class ID3D11Device5 extends ID3D11Device4{
      * The globally unique identifier (<b>GUID</b>) for the fence interface (<a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/nn-d3d11_3-id3d11fence">ID3D11Fence</a>).
      *             The <b>REFIID</b>, or <b>GUID</b>, of the interface to the fence can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(ID3D11Fence) will get the <b>GUID</b> of the interface to a fence.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/nn-d3d11_3-id3d11fence">ID3D11Fence</a> interface that is used to access the fence.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11device5-createfence
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_4/nf-d3d11_4-id3d11device5-createfence
      */
     CreateFence(InitialValue, Flags, ReturnedInterface) {
-        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "HRESULT")
+        result := ComCall(68, this, "uint", InitialValue, "int", Flags, "ptr", ReturnedInterface, "ptr*", &ppFence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppFence
     }
 }

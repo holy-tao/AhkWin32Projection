@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -16,7 +18,7 @@ class ImageAcquisition {
     static WIA_DIP_DEV_ID => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_DEV_ID_STR => "Unique Device ID"
 
@@ -26,7 +28,7 @@ class ImageAcquisition {
     static WIA_DIP_VEND_DESC => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_VEND_DESC_STR => "Manufacturer"
 
@@ -36,7 +38,7 @@ class ImageAcquisition {
     static WIA_DIP_DEV_DESC => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_DEV_DESC_STR => "Description"
 
@@ -46,7 +48,7 @@ class ImageAcquisition {
     static WIA_DIP_DEV_TYPE => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_DEV_TYPE_STR => "Type"
 
@@ -56,7 +58,7 @@ class ImageAcquisition {
     static WIA_DIP_PORT_NAME => 6
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_PORT_NAME_STR => "Port"
 
@@ -66,7 +68,7 @@ class ImageAcquisition {
     static WIA_DIP_DEV_NAME => 7
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_DEV_NAME_STR => "Name"
 
@@ -76,7 +78,7 @@ class ImageAcquisition {
     static WIA_DIP_SERVER_NAME => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_SERVER_NAME_STR => "Server"
 
@@ -86,7 +88,7 @@ class ImageAcquisition {
     static WIA_DIP_REMOTE_DEV_ID => 9
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_REMOTE_DEV_ID_STR => "Remote Device ID"
 
@@ -96,7 +98,7 @@ class ImageAcquisition {
     static WIA_DIP_UI_CLSID => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_UI_CLSID_STR => "UI Class ID"
 
@@ -106,7 +108,7 @@ class ImageAcquisition {
     static WIA_DIP_HW_CONFIG => 11
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_HW_CONFIG_STR => "Hardware Configuration"
 
@@ -116,7 +118,7 @@ class ImageAcquisition {
     static WIA_DIP_BAUDRATE => 12
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_BAUDRATE_STR => "BaudRate"
 
@@ -126,7 +128,7 @@ class ImageAcquisition {
     static WIA_DIP_STI_GEN_CAPABILITIES => 13
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_STI_GEN_CAPABILITIES_STR => "STI Generic Capabilities"
 
@@ -136,7 +138,7 @@ class ImageAcquisition {
     static WIA_DIP_WIA_VERSION => 14
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_WIA_VERSION_STR => "WIA Version"
 
@@ -146,7 +148,7 @@ class ImageAcquisition {
     static WIA_DIP_DRIVER_VERSION => 15
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_DRIVER_VERSION_STR => "Driver Version"
 
@@ -156,7 +158,7 @@ class ImageAcquisition {
     static WIA_DIP_PNP_ID => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_PNP_ID_STR => "PnP ID String"
 
@@ -166,7 +168,7 @@ class ImageAcquisition {
     static WIA_DIP_STI_DRIVER_VERSION => 17
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DIP_STI_DRIVER_VERSION_STR => "STI Driver Version"
 
@@ -176,7 +178,7 @@ class ImageAcquisition {
     static WIA_DPA_FIRMWARE_VERSION => 1026
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPA_FIRMWARE_VERSION_STR => "Firmware Version"
 
@@ -186,7 +188,7 @@ class ImageAcquisition {
     static WIA_DPA_CONNECT_STATUS => 1027
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPA_CONNECT_STATUS_STR => "Connect Status"
 
@@ -196,7 +198,7 @@ class ImageAcquisition {
     static WIA_DPA_DEVICE_TIME => 1028
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPA_DEVICE_TIME_STR => "Device Time"
 
@@ -206,7 +208,7 @@ class ImageAcquisition {
     static WIA_DPC_PICTURES_TAKEN => 2050
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_PICTURES_TAKEN_STR => "Pictures Taken"
 
@@ -216,7 +218,7 @@ class ImageAcquisition {
     static WIA_DPC_PICTURES_REMAINING => 2051
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_PICTURES_REMAINING_STR => "Pictures Remaining"
 
@@ -226,7 +228,7 @@ class ImageAcquisition {
     static WIA_DPC_EXPOSURE_MODE => 2052
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_EXPOSURE_MODE_STR => "Exposure Mode"
 
@@ -236,7 +238,7 @@ class ImageAcquisition {
     static WIA_DPC_EXPOSURE_COMP => 2053
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_EXPOSURE_COMP_STR => "Exposure Compensation"
 
@@ -246,7 +248,7 @@ class ImageAcquisition {
     static WIA_DPC_EXPOSURE_TIME => 2054
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_EXPOSURE_TIME_STR => "Exposure Time"
 
@@ -256,7 +258,7 @@ class ImageAcquisition {
     static WIA_DPC_FNUMBER => 2055
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FNUMBER_STR => "F Number"
 
@@ -266,7 +268,7 @@ class ImageAcquisition {
     static WIA_DPC_FLASH_MODE => 2056
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FLASH_MODE_STR => "Flash Mode"
 
@@ -276,7 +278,7 @@ class ImageAcquisition {
     static WIA_DPC_FOCUS_MODE => 2057
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FOCUS_MODE_STR => "Focus Mode"
 
@@ -286,7 +288,7 @@ class ImageAcquisition {
     static WIA_DPC_FOCUS_MANUAL_DIST => 2058
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FOCUS_MANUAL_DIST_STR => "Focus Manual Dist"
 
@@ -296,7 +298,7 @@ class ImageAcquisition {
     static WIA_DPC_ZOOM_POSITION => 2059
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_ZOOM_POSITION_STR => "Zoom Position"
 
@@ -306,7 +308,7 @@ class ImageAcquisition {
     static WIA_DPC_PAN_POSITION => 2060
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_PAN_POSITION_STR => "Pan Position"
 
@@ -316,7 +318,7 @@ class ImageAcquisition {
     static WIA_DPC_TILT_POSITION => 2061
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_TILT_POSITION_STR => "Tilt Position"
 
@@ -326,7 +328,7 @@ class ImageAcquisition {
     static WIA_DPC_TIMER_MODE => 2062
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_TIMER_MODE_STR => "Timer Mode"
 
@@ -336,7 +338,7 @@ class ImageAcquisition {
     static WIA_DPC_TIMER_VALUE => 2063
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_TIMER_VALUE_STR => "Timer Value"
 
@@ -346,7 +348,7 @@ class ImageAcquisition {
     static WIA_DPC_POWER_MODE => 2064
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_POWER_MODE_STR => "Power Mode"
 
@@ -356,7 +358,7 @@ class ImageAcquisition {
     static WIA_DPC_BATTERY_STATUS => 2065
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_BATTERY_STATUS_STR => "Battery Status"
 
@@ -366,7 +368,7 @@ class ImageAcquisition {
     static WIA_DPC_THUMB_WIDTH => 2066
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_THUMB_WIDTH_STR => "Thumbnail Width"
 
@@ -376,7 +378,7 @@ class ImageAcquisition {
     static WIA_DPC_THUMB_HEIGHT => 2067
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_THUMB_HEIGHT_STR => "Thumbnail Height"
 
@@ -386,7 +388,7 @@ class ImageAcquisition {
     static WIA_DPC_PICT_WIDTH => 2068
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_PICT_WIDTH_STR => "Picture Width"
 
@@ -396,7 +398,7 @@ class ImageAcquisition {
     static WIA_DPC_PICT_HEIGHT => 2069
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_PICT_HEIGHT_STR => "Picture Height"
 
@@ -406,7 +408,7 @@ class ImageAcquisition {
     static WIA_DPC_DIMENSION => 2070
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_DIMENSION_STR => "Dimension"
 
@@ -416,7 +418,7 @@ class ImageAcquisition {
     static WIA_DPC_COMPRESSION_SETTING => 2071
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_COMPRESSION_SETTING_STR => "Compression Setting"
 
@@ -426,7 +428,7 @@ class ImageAcquisition {
     static WIA_DPC_FOCUS_METERING => 2072
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FOCUS_METERING_STR => "Focus Metering Mode"
 
@@ -436,7 +438,7 @@ class ImageAcquisition {
     static WIA_DPC_TIMELAPSE_INTERVAL => 2073
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_TIMELAPSE_INTERVAL_STR => "Timelapse Interval"
 
@@ -446,7 +448,7 @@ class ImageAcquisition {
     static WIA_DPC_TIMELAPSE_NUMBER => 2074
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_TIMELAPSE_NUMBER_STR => "Timelapse Number"
 
@@ -456,7 +458,7 @@ class ImageAcquisition {
     static WIA_DPC_BURST_INTERVAL => 2075
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_BURST_INTERVAL_STR => "Burst Interval"
 
@@ -466,7 +468,7 @@ class ImageAcquisition {
     static WIA_DPC_BURST_NUMBER => 2076
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_BURST_NUMBER_STR => "Burst Number"
 
@@ -476,7 +478,7 @@ class ImageAcquisition {
     static WIA_DPC_EFFECT_MODE => 2077
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_EFFECT_MODE_STR => "Effect Mode"
 
@@ -486,7 +488,7 @@ class ImageAcquisition {
     static WIA_DPC_DIGITAL_ZOOM => 2078
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_DIGITAL_ZOOM_STR => "Digital Zoom"
 
@@ -496,7 +498,7 @@ class ImageAcquisition {
     static WIA_DPC_SHARPNESS => 2079
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_SHARPNESS_STR => "Sharpness"
 
@@ -506,7 +508,7 @@ class ImageAcquisition {
     static WIA_DPC_CONTRAST => 2080
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_CONTRAST_STR => "Contrast"
 
@@ -516,7 +518,7 @@ class ImageAcquisition {
     static WIA_DPC_CAPTURE_MODE => 2081
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_CAPTURE_MODE_STR => "Capture Mode"
 
@@ -526,7 +528,7 @@ class ImageAcquisition {
     static WIA_DPC_CAPTURE_DELAY => 2082
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_CAPTURE_DELAY_STR => "Capture Delay"
 
@@ -536,7 +538,7 @@ class ImageAcquisition {
     static WIA_DPC_EXPOSURE_INDEX => 2083
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_EXPOSURE_INDEX_STR => "Exposure Index"
 
@@ -546,7 +548,7 @@ class ImageAcquisition {
     static WIA_DPC_EXPOSURE_METERING_MODE => 2084
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_EXPOSURE_METERING_MODE_STR => "Exposure Metering Mode"
 
@@ -556,7 +558,7 @@ class ImageAcquisition {
     static WIA_DPC_FOCUS_METERING_MODE => 2085
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FOCUS_METERING_MODE_STR => "Focus Metering Mode"
 
@@ -566,7 +568,7 @@ class ImageAcquisition {
     static WIA_DPC_FOCUS_DISTANCE => 2086
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FOCUS_DISTANCE_STR => "Focus Distance"
 
@@ -576,7 +578,7 @@ class ImageAcquisition {
     static WIA_DPC_FOCAL_LENGTH => 2087
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_FOCAL_LENGTH_STR => "Focus Length"
 
@@ -586,7 +588,7 @@ class ImageAcquisition {
     static WIA_DPC_RGB_GAIN => 2088
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_RGB_GAIN_STR => "RGB Gain"
 
@@ -596,7 +598,7 @@ class ImageAcquisition {
     static WIA_DPC_WHITE_BALANCE => 2089
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_WHITE_BALANCE_STR => "White Balance"
 
@@ -606,7 +608,7 @@ class ImageAcquisition {
     static WIA_DPC_UPLOAD_URL => 2090
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_UPLOAD_URL_STR => "Upload URL"
 
@@ -616,7 +618,7 @@ class ImageAcquisition {
     static WIA_DPC_ARTIST => 2091
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_ARTIST_STR => "Artist"
 
@@ -626,7 +628,7 @@ class ImageAcquisition {
     static WIA_DPC_COPYRIGHT_INFO => 2092
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPC_COPYRIGHT_INFO_STR => "Copyright Info"
 
@@ -636,7 +638,7 @@ class ImageAcquisition {
     static WIA_DPS_HORIZONTAL_BED_SIZE => 3074
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_HORIZONTAL_BED_SIZE_STR => "Horizontal Bed Size"
 
@@ -646,7 +648,7 @@ class ImageAcquisition {
     static WIA_DPS_VERTICAL_BED_SIZE => 3075
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_VERTICAL_BED_SIZE_STR => "Vertical Bed Size"
 
@@ -656,7 +658,7 @@ class ImageAcquisition {
     static WIA_DPS_HORIZONTAL_SHEET_FEED_SIZE => 3076
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_HORIZONTAL_SHEET_FEED_SIZE_STR => "Horizontal Sheet Feed Size"
 
@@ -666,7 +668,7 @@ class ImageAcquisition {
     static WIA_DPS_VERTICAL_SHEET_FEED_SIZE => 3077
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_VERTICAL_SHEET_FEED_SIZE_STR => "Vertical Sheet Feed Size"
 
@@ -676,7 +678,7 @@ class ImageAcquisition {
     static WIA_DPS_SHEET_FEEDER_REGISTRATION => 3078
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_SHEET_FEEDER_REGISTRATION_STR => "Sheet Feeder Registration"
 
@@ -686,7 +688,7 @@ class ImageAcquisition {
     static WIA_DPS_HORIZONTAL_BED_REGISTRATION => 3079
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_HORIZONTAL_BED_REGISTRATION_STR => "Horizontal Bed Registration"
 
@@ -696,7 +698,7 @@ class ImageAcquisition {
     static WIA_DPS_VERTICAL_BED_REGISTRATION => 3080
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_VERTICAL_BED_REGISTRATION_STR => "Vertical Bed Registration"
 
@@ -706,7 +708,7 @@ class ImageAcquisition {
     static WIA_DPS_PLATEN_COLOR => 3081
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PLATEN_COLOR_STR => "Platen Color"
 
@@ -716,7 +718,7 @@ class ImageAcquisition {
     static WIA_DPS_PAD_COLOR => 3082
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PAD_COLOR_STR => "Pad Color"
 
@@ -726,7 +728,7 @@ class ImageAcquisition {
     static WIA_DPS_FILTER_SELECT => 3083
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_FILTER_SELECT_STR => "Filter Select"
 
@@ -736,7 +738,7 @@ class ImageAcquisition {
     static WIA_DPS_DITHER_SELECT => 3084
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DITHER_SELECT_STR => "Dither Select"
 
@@ -746,7 +748,7 @@ class ImageAcquisition {
     static WIA_DPS_DITHER_PATTERN_DATA => 3085
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DITHER_PATTERN_DATA_STR => "Dither Pattern Data"
 
@@ -756,7 +758,7 @@ class ImageAcquisition {
     static WIA_DPS_DOCUMENT_HANDLING_CAPABILITIES => 3086
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DOCUMENT_HANDLING_CAPABILITIES_STR => "Document Handling Capabilities"
 
@@ -766,7 +768,7 @@ class ImageAcquisition {
     static WIA_DPS_DOCUMENT_HANDLING_STATUS => 3087
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DOCUMENT_HANDLING_STATUS_STR => "Document Handling Status"
 
@@ -776,7 +778,7 @@ class ImageAcquisition {
     static WIA_DPS_DOCUMENT_HANDLING_SELECT => 3088
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DOCUMENT_HANDLING_SELECT_STR => "Document Handling Select"
 
@@ -786,7 +788,7 @@ class ImageAcquisition {
     static WIA_DPS_DOCUMENT_HANDLING_CAPACITY => 3089
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DOCUMENT_HANDLING_CAPACITY_STR => "Document Handling Capacity"
 
@@ -796,7 +798,7 @@ class ImageAcquisition {
     static WIA_DPS_OPTICAL_XRES => 3090
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_OPTICAL_XRES_STR => "Horizontal Optical Resolution"
 
@@ -806,7 +808,7 @@ class ImageAcquisition {
     static WIA_DPS_OPTICAL_YRES => 3091
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_OPTICAL_YRES_STR => "Vertical Optical Resolution"
 
@@ -816,7 +818,7 @@ class ImageAcquisition {
     static WIA_DPS_ENDORSER_CHARACTERS => 3092
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_ENDORSER_CHARACTERS_STR => "Endorser Characters"
 
@@ -826,7 +828,7 @@ class ImageAcquisition {
     static WIA_DPS_ENDORSER_STRING => 3093
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_ENDORSER_STRING_STR => "Endorser String"
 
@@ -836,7 +838,7 @@ class ImageAcquisition {
     static WIA_DPS_SCAN_AHEAD_PAGES => 3094
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_SCAN_AHEAD_PAGES_STR => "Scan Ahead Pages"
 
@@ -846,7 +848,7 @@ class ImageAcquisition {
     static WIA_DPS_MAX_SCAN_TIME => 3095
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_MAX_SCAN_TIME_STR => "Max Scan Time"
 
@@ -856,7 +858,7 @@ class ImageAcquisition {
     static WIA_DPS_PAGES => 3096
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PAGES_STR => "Pages"
 
@@ -866,7 +868,7 @@ class ImageAcquisition {
     static WIA_DPS_PAGE_SIZE => 3097
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PAGE_SIZE_STR => "Page Size"
 
@@ -876,7 +878,7 @@ class ImageAcquisition {
     static WIA_DPS_PAGE_WIDTH => 3098
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PAGE_WIDTH_STR => "Page Width"
 
@@ -886,7 +888,7 @@ class ImageAcquisition {
     static WIA_DPS_PAGE_HEIGHT => 3099
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PAGE_HEIGHT_STR => "Page Height"
 
@@ -896,7 +898,7 @@ class ImageAcquisition {
     static WIA_DPS_PREVIEW => 3100
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_PREVIEW_STR => "Preview"
 
@@ -906,7 +908,7 @@ class ImageAcquisition {
     static WIA_DPS_TRANSPARENCY => 3101
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_TRANSPARENCY_STR => "Transparency Adapter"
 
@@ -916,7 +918,7 @@ class ImageAcquisition {
     static WIA_DPS_TRANSPARENCY_SELECT => 3102
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_TRANSPARENCY_SELECT_STR => "Transparency Adapter Select"
 
@@ -926,7 +928,7 @@ class ImageAcquisition {
     static WIA_DPS_SHOW_PREVIEW_CONTROL => 3103
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_SHOW_PREVIEW_CONTROL_STR => "Show preview control"
 
@@ -936,7 +938,7 @@ class ImageAcquisition {
     static WIA_DPS_MIN_HORIZONTAL_SHEET_FEED_SIZE => 3104
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_MIN_HORIZONTAL_SHEET_FEED_SIZE_STR => "Minimum Horizontal Sheet Feed Size"
 
@@ -946,7 +948,7 @@ class ImageAcquisition {
     static WIA_DPS_MIN_VERTICAL_SHEET_FEED_SIZE => 3105
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_MIN_VERTICAL_SHEET_FEED_SIZE_STR => "Minimum Vertical Sheet Feed Size"
 
@@ -956,7 +958,7 @@ class ImageAcquisition {
     static WIA_DPS_TRANSPARENCY_CAPABILITIES => 3106
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_TRANSPARENCY_CAPABILITIES_STR => "Transparency Adapter Capabilities"
 
@@ -966,7 +968,7 @@ class ImageAcquisition {
     static WIA_DPS_TRANSPARENCY_STATUS => 3107
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_TRANSPARENCY_STATUS_STR => "Transparency Adapter Status"
 
@@ -976,7 +978,7 @@ class ImageAcquisition {
     static WIA_DPF_MOUNT_POINT => 3330
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPF_MOUNT_POINT_STR => "Directory mount point"
 
@@ -986,7 +988,7 @@ class ImageAcquisition {
     static WIA_DPV_LAST_PICTURE_TAKEN => 3586
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPV_LAST_PICTURE_TAKEN_STR => "Last Picture Taken"
 
@@ -996,7 +998,7 @@ class ImageAcquisition {
     static WIA_DPV_IMAGES_DIRECTORY => 3587
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPV_IMAGES_DIRECTORY_STR => "Images Directory"
 
@@ -1006,7 +1008,7 @@ class ImageAcquisition {
     static WIA_DPV_DSHOW_DEVICE_PATH => 3588
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPV_DSHOW_DEVICE_PATH_STR => "Directshow Device Path"
 
@@ -1016,7 +1018,7 @@ class ImageAcquisition {
     static WIA_IPA_ITEM_NAME => 4098
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ITEM_NAME_STR => "Item Name"
 
@@ -1026,7 +1028,7 @@ class ImageAcquisition {
     static WIA_IPA_FULL_ITEM_NAME => 4099
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_FULL_ITEM_NAME_STR => "Full Item Name"
 
@@ -1036,7 +1038,7 @@ class ImageAcquisition {
     static WIA_IPA_ITEM_TIME => 4100
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ITEM_TIME_STR => "Item Time Stamp"
 
@@ -1046,7 +1048,7 @@ class ImageAcquisition {
     static WIA_IPA_ITEM_FLAGS => 4101
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ITEM_FLAGS_STR => "Item Flags"
 
@@ -1056,7 +1058,7 @@ class ImageAcquisition {
     static WIA_IPA_ACCESS_RIGHTS => 4102
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ACCESS_RIGHTS_STR => "Access Rights"
 
@@ -1066,7 +1068,7 @@ class ImageAcquisition {
     static WIA_IPA_DATATYPE => 4103
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_DATATYPE_STR => "Data Type"
 
@@ -1076,7 +1078,7 @@ class ImageAcquisition {
     static WIA_IPA_DEPTH => 4104
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_DEPTH_STR => "Bits Per Pixel"
 
@@ -1086,7 +1088,7 @@ class ImageAcquisition {
     static WIA_IPA_PREFERRED_FORMAT => 4105
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_PREFERRED_FORMAT_STR => "Preferred Format"
 
@@ -1096,7 +1098,7 @@ class ImageAcquisition {
     static WIA_IPA_FORMAT => 4106
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_FORMAT_STR => "Format"
 
@@ -1106,7 +1108,7 @@ class ImageAcquisition {
     static WIA_IPA_COMPRESSION => 4107
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_COMPRESSION_STR => "Compression"
 
@@ -1116,7 +1118,7 @@ class ImageAcquisition {
     static WIA_IPA_TYMED => 4108
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_TYMED_STR => "Media Type"
 
@@ -1126,7 +1128,7 @@ class ImageAcquisition {
     static WIA_IPA_CHANNELS_PER_PIXEL => 4109
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_CHANNELS_PER_PIXEL_STR => "Channels Per Pixel"
 
@@ -1136,7 +1138,7 @@ class ImageAcquisition {
     static WIA_IPA_BITS_PER_CHANNEL => 4110
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_BITS_PER_CHANNEL_STR => "Bits Per Channel"
 
@@ -1146,7 +1148,7 @@ class ImageAcquisition {
     static WIA_IPA_PLANAR => 4111
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_PLANAR_STR => "Planar"
 
@@ -1156,7 +1158,7 @@ class ImageAcquisition {
     static WIA_IPA_PIXELS_PER_LINE => 4112
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_PIXELS_PER_LINE_STR => "Pixels Per Line"
 
@@ -1166,7 +1168,7 @@ class ImageAcquisition {
     static WIA_IPA_BYTES_PER_LINE => 4113
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_BYTES_PER_LINE_STR => "Bytes Per Line"
 
@@ -1176,7 +1178,7 @@ class ImageAcquisition {
     static WIA_IPA_NUMBER_OF_LINES => 4114
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_NUMBER_OF_LINES_STR => "Number of Lines"
 
@@ -1186,7 +1188,7 @@ class ImageAcquisition {
     static WIA_IPA_GAMMA_CURVES => 4115
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_GAMMA_CURVES_STR => "Gamma Curves"
 
@@ -1196,7 +1198,7 @@ class ImageAcquisition {
     static WIA_IPA_ITEM_SIZE => 4116
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ITEM_SIZE_STR => "Item Size"
 
@@ -1206,7 +1208,7 @@ class ImageAcquisition {
     static WIA_IPA_COLOR_PROFILE => 4117
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_COLOR_PROFILE_STR => "Color Profiles"
 
@@ -1216,7 +1218,7 @@ class ImageAcquisition {
     static WIA_IPA_MIN_BUFFER_SIZE => 4118
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_MIN_BUFFER_SIZE_STR => "Buffer Size"
 
@@ -1226,7 +1228,7 @@ class ImageAcquisition {
     static WIA_IPA_BUFFER_SIZE => 4118
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_BUFFER_SIZE_STR => "Buffer Size"
 
@@ -1236,7 +1238,7 @@ class ImageAcquisition {
     static WIA_IPA_REGION_TYPE => 4119
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_REGION_TYPE_STR => "Region Type"
 
@@ -1246,7 +1248,7 @@ class ImageAcquisition {
     static WIA_IPA_ICM_PROFILE_NAME => 4120
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ICM_PROFILE_NAME_STR => "Color Profile Name"
 
@@ -1256,7 +1258,7 @@ class ImageAcquisition {
     static WIA_IPA_APP_COLOR_MAPPING => 4121
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_APP_COLOR_MAPPING_STR => "Application Applies Color Mapping"
 
@@ -1266,7 +1268,7 @@ class ImageAcquisition {
     static WIA_IPA_PROP_STREAM_COMPAT_ID => 4122
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_PROP_STREAM_COMPAT_ID_STR => "Stream Compatibility ID"
 
@@ -1276,7 +1278,7 @@ class ImageAcquisition {
     static WIA_IPA_FILENAME_EXTENSION => 4123
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_FILENAME_EXTENSION_STR => "Filename extension"
 
@@ -1286,7 +1288,7 @@ class ImageAcquisition {
     static WIA_IPA_SUPPRESS_PROPERTY_PAGE => 4124
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_SUPPRESS_PROPERTY_PAGE_STR => "Suppress a property page"
 
@@ -1296,7 +1298,7 @@ class ImageAcquisition {
     static WIA_IPC_THUMBNAIL => 5122
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_THUMBNAIL_STR => "Thumbnail Data"
 
@@ -1306,7 +1308,7 @@ class ImageAcquisition {
     static WIA_IPC_THUMB_WIDTH => 5123
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_THUMB_WIDTH_STR => "Thumbnail Width"
 
@@ -1316,7 +1318,7 @@ class ImageAcquisition {
     static WIA_IPC_THUMB_HEIGHT => 5124
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_THUMB_HEIGHT_STR => "Thumbnail Height"
 
@@ -1326,7 +1328,7 @@ class ImageAcquisition {
     static WIA_IPC_AUDIO_AVAILABLE => 5125
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_AUDIO_AVAILABLE_STR => "Audio Available"
 
@@ -1336,7 +1338,7 @@ class ImageAcquisition {
     static WIA_IPC_AUDIO_DATA_FORMAT => 5126
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_AUDIO_DATA_FORMAT_STR => "Audio Format"
 
@@ -1346,7 +1348,7 @@ class ImageAcquisition {
     static WIA_IPC_AUDIO_DATA => 5127
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_AUDIO_DATA_STR => "Audio Data"
 
@@ -1356,7 +1358,7 @@ class ImageAcquisition {
     static WIA_IPC_NUM_PICT_PER_ROW => 5128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_NUM_PICT_PER_ROW_STR => "Pictures per Row"
 
@@ -1366,7 +1368,7 @@ class ImageAcquisition {
     static WIA_IPC_SEQUENCE => 5129
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_SEQUENCE_STR => "Sequence Number"
 
@@ -1376,7 +1378,7 @@ class ImageAcquisition {
     static WIA_IPC_TIMEDELAY => 5130
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPC_TIMEDELAY_STR => "Time Delay"
 
@@ -1386,7 +1388,7 @@ class ImageAcquisition {
     static WIA_IPS_CUR_INTENT => 6146
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_CUR_INTENT_STR => "Current Intent"
 
@@ -1396,7 +1398,7 @@ class ImageAcquisition {
     static WIA_IPS_XRES => 6147
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_XRES_STR => "Horizontal Resolution"
 
@@ -1406,7 +1408,7 @@ class ImageAcquisition {
     static WIA_IPS_YRES => 6148
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_YRES_STR => "Vertical Resolution"
 
@@ -1416,7 +1418,7 @@ class ImageAcquisition {
     static WIA_IPS_XPOS => 6149
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_XPOS_STR => "Horizontal Start Position"
 
@@ -1426,7 +1428,7 @@ class ImageAcquisition {
     static WIA_IPS_YPOS => 6150
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_YPOS_STR => "Vertical Start Position"
 
@@ -1436,7 +1438,7 @@ class ImageAcquisition {
     static WIA_IPS_XEXTENT => 6151
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_XEXTENT_STR => "Horizontal Extent"
 
@@ -1446,7 +1448,7 @@ class ImageAcquisition {
     static WIA_IPS_YEXTENT => 6152
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_YEXTENT_STR => "Vertical Extent"
 
@@ -1456,7 +1458,7 @@ class ImageAcquisition {
     static WIA_IPS_PHOTOMETRIC_INTERP => 6153
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PHOTOMETRIC_INTERP_STR => "Photometric Interpretation"
 
@@ -1466,7 +1468,7 @@ class ImageAcquisition {
     static WIA_IPS_BRIGHTNESS => 6154
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_BRIGHTNESS_STR => "Brightness"
 
@@ -1476,7 +1478,7 @@ class ImageAcquisition {
     static WIA_IPS_CONTRAST => 6155
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_CONTRAST_STR => "Contrast"
 
@@ -1486,7 +1488,7 @@ class ImageAcquisition {
     static WIA_IPS_ORIENTATION => 6156
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_ORIENTATION_STR => "Orientation"
 
@@ -1496,7 +1498,7 @@ class ImageAcquisition {
     static WIA_IPS_ROTATION => 6157
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_ROTATION_STR => "Rotation"
 
@@ -1506,7 +1508,7 @@ class ImageAcquisition {
     static WIA_IPS_MIRROR => 6158
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MIRROR_STR => "Mirror"
 
@@ -1516,7 +1518,7 @@ class ImageAcquisition {
     static WIA_IPS_THRESHOLD => 6159
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_THRESHOLD_STR => "Threshold"
 
@@ -1526,7 +1528,7 @@ class ImageAcquisition {
     static WIA_IPS_INVERT => 6160
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_INVERT_STR => "Invert"
 
@@ -1536,7 +1538,7 @@ class ImageAcquisition {
     static WIA_IPS_WARM_UP_TIME => 6161
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_WARM_UP_TIME_STR => "Lamp Warm up Time"
 
@@ -1546,7 +1548,7 @@ class ImageAcquisition {
     static WIA_DPS_USER_NAME => 3112
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_USER_NAME_STR => "User Name"
 
@@ -1556,7 +1558,7 @@ class ImageAcquisition {
     static WIA_DPS_SERVICE_ID => 3113
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_SERVICE_ID_STR => "Service ID"
 
@@ -1566,7 +1568,7 @@ class ImageAcquisition {
     static WIA_DPS_DEVICE_ID => 3114
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_DEVICE_ID_STR => "Device ID"
 
@@ -1576,7 +1578,7 @@ class ImageAcquisition {
     static WIA_DPS_GLOBAL_IDENTITY => 3115
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_GLOBAL_IDENTITY_STR => "Global Identity"
 
@@ -1586,7 +1588,7 @@ class ImageAcquisition {
     static WIA_DPS_SCAN_AVAILABLE_ITEM => 3116
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_DPS_SCAN_AVAILABLE_ITEM_STR => "Scan Available Item"
 
@@ -1596,7 +1598,7 @@ class ImageAcquisition {
     static WIA_IPS_DESKEW_X => 6162
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_DESKEW_X_STR => "DeskewX"
 
@@ -1606,7 +1608,7 @@ class ImageAcquisition {
     static WIA_IPS_DESKEW_Y => 6163
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_DESKEW_Y_STR => "DeskewY"
 
@@ -1616,17 +1618,17 @@ class ImageAcquisition {
     static WIA_IPS_SEGMENTATION => 6164
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SEGMENTATION_STR => "Segmentation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_SEGMENTATION_FILTER_STR => "SegmentationFilter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IMAGEPROC_FILTER_STR => "ImageProcessingFilter"
 
@@ -1636,7 +1638,7 @@ class ImageAcquisition {
     static WIA_IPS_MAX_HORIZONTAL_SIZE => 6165
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MAX_HORIZONTAL_SIZE_STR => "Maximum Horizontal Scan Size"
 
@@ -1646,7 +1648,7 @@ class ImageAcquisition {
     static WIA_IPS_MAX_VERTICAL_SIZE => 6166
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MAX_VERTICAL_SIZE_STR => "Maximum Vertical Scan Size"
 
@@ -1656,7 +1658,7 @@ class ImageAcquisition {
     static WIA_IPS_MIN_HORIZONTAL_SIZE => 6167
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MIN_HORIZONTAL_SIZE_STR => "Minimum Horizontal Scan Size"
 
@@ -1666,7 +1668,7 @@ class ImageAcquisition {
     static WIA_IPS_MIN_VERTICAL_SIZE => 6168
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MIN_VERTICAL_SIZE_STR => "Minimum Vertical Scan Size"
 
@@ -1676,7 +1678,7 @@ class ImageAcquisition {
     static WIA_IPS_TRANSFER_CAPABILITIES => 6169
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_TRANSFER_CAPABILITIES_STR => "Transfer Capabilities"
 
@@ -1686,7 +1688,7 @@ class ImageAcquisition {
     static WIA_IPS_SHEET_FEEDER_REGISTRATION => 3078
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SHEET_FEEDER_REGISTRATION_STR => "Sheet Feeder Registration"
 
@@ -1696,7 +1698,7 @@ class ImageAcquisition {
     static WIA_IPS_DOCUMENT_HANDLING_SELECT => 3088
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_DOCUMENT_HANDLING_SELECT_STR => "Document Handling Select"
 
@@ -1706,7 +1708,7 @@ class ImageAcquisition {
     static WIA_IPS_OPTICAL_XRES => 3090
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OPTICAL_XRES_STR => "Horizontal Optical Resolution"
 
@@ -1716,7 +1718,7 @@ class ImageAcquisition {
     static WIA_IPS_OPTICAL_YRES => 3091
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OPTICAL_YRES_STR => "Vertical Optical Resolution"
 
@@ -1726,7 +1728,7 @@ class ImageAcquisition {
     static WIA_IPS_PAGES => 3096
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PAGES_STR => "Pages"
 
@@ -1736,7 +1738,7 @@ class ImageAcquisition {
     static WIA_IPS_PAGE_SIZE => 3097
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PAGE_SIZE_STR => "Page Size"
 
@@ -1746,7 +1748,7 @@ class ImageAcquisition {
     static WIA_IPS_PAGE_WIDTH => 3098
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PAGE_WIDTH_STR => "Page Width"
 
@@ -1756,7 +1758,7 @@ class ImageAcquisition {
     static WIA_IPS_PAGE_HEIGHT => 3099
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PAGE_HEIGHT_STR => "Page Height"
 
@@ -1766,7 +1768,7 @@ class ImageAcquisition {
     static WIA_IPS_PREVIEW => 3100
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PREVIEW_STR => "Preview"
 
@@ -1776,7 +1778,7 @@ class ImageAcquisition {
     static WIA_IPS_SHOW_PREVIEW_CONTROL => 3103
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SHOW_PREVIEW_CONTROL_STR => "Show preview control"
 
@@ -1786,7 +1788,7 @@ class ImageAcquisition {
     static WIA_IPS_FILM_SCAN_MODE => 3104
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_FILM_SCAN_MODE_STR => "Film Scan Mode"
 
@@ -1796,7 +1798,7 @@ class ImageAcquisition {
     static WIA_IPS_LAMP => 3105
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_LAMP_STR => "Lamp"
 
@@ -1806,7 +1808,7 @@ class ImageAcquisition {
     static WIA_IPS_LAMP_AUTO_OFF => 3106
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_LAMP_AUTO_OFF_STR => "Lamp Auto Off"
 
@@ -1816,7 +1818,7 @@ class ImageAcquisition {
     static WIA_IPS_AUTO_DESKEW => 3107
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_AUTO_DESKEW_STR => "Automatic Deskew"
 
@@ -1826,7 +1828,7 @@ class ImageAcquisition {
     static WIA_IPS_SUPPORTS_CHILD_ITEM_CREATION => 3108
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SUPPORTS_CHILD_ITEM_CREATION_STR => "Supports Child Item Creation"
 
@@ -1836,7 +1838,7 @@ class ImageAcquisition {
     static WIA_IPS_XSCALING => 3109
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_XSCALING_STR => "Horizontal Scaling"
 
@@ -1846,7 +1848,7 @@ class ImageAcquisition {
     static WIA_IPS_YSCALING => 3110
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_YSCALING_STR => "Vertical Scaling"
 
@@ -1856,7 +1858,7 @@ class ImageAcquisition {
     static WIA_IPS_PREVIEW_TYPE => 3111
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PREVIEW_TYPE_STR => "Preview Type"
 
@@ -1866,7 +1868,7 @@ class ImageAcquisition {
     static WIA_IPA_ITEM_CATEGORY => 4125
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ITEM_CATEGORY_STR => "Item Category"
 
@@ -1876,7 +1878,7 @@ class ImageAcquisition {
     static WIA_IPA_UPLOAD_ITEM_SIZE => 4126
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_UPLOAD_ITEM_SIZE_STR => "Upload Item Size"
 
@@ -1886,7 +1888,7 @@ class ImageAcquisition {
     static WIA_IPA_ITEMS_STORED => 4127
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_ITEMS_STORED_STR => "Items Stored"
 
@@ -1896,7 +1898,7 @@ class ImageAcquisition {
     static WIA_IPA_RAW_BITS_PER_CHANNEL => 4128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPA_RAW_BITS_PER_CHANNEL_STR => "Raw Bits Per Channel"
 
@@ -1906,7 +1908,7 @@ class ImageAcquisition {
     static WIA_IPS_FILM_NODE_NAME => 4129
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_FILM_NODE_NAME_STR => "Film Node Name"
 
@@ -1916,7 +1918,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER => 4130
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_STR => "Printer/Endorser"
 
@@ -1926,7 +1928,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_ORDER => 4131
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_ORDER_STR => "Printer/Endorser Order"
 
@@ -1936,7 +1938,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_COUNTER => 4132
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_COUNTER_STR => "Printer/Endorser Counter"
 
@@ -1946,7 +1948,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_STEP => 4133
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_STEP_STR => "Printer/Endorser Step"
 
@@ -1956,7 +1958,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_XOFFSET => 4134
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_XOFFSET_STR => "Printer/Endorser Horizontal Offset"
 
@@ -1966,7 +1968,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_YOFFSET => 4135
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_YOFFSET_STR => "Printer/Endorser Vertical Offset"
 
@@ -1976,7 +1978,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_NUM_LINES => 4136
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_NUM_LINES_STR => "Printer/Endorser Lines"
 
@@ -1986,7 +1988,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_STRING => 4137
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_STRING_STR => "Printer/Endorser String"
 
@@ -1996,7 +1998,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_VALID_CHARACTERS => 4138
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_VALID_CHARACTERS_STR => "Printer/Endorser Valid Characters"
 
@@ -2006,7 +2008,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_VALID_FORMAT_SPECIFIERS => 4139
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_VALID_FORMAT_SPECIFIERS_STR => "Printer/Endorser Valid Format Specifiers"
 
@@ -2016,7 +2018,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_TEXT_UPLOAD => 4140
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_TEXT_UPLOAD_STR => "Printer/Endorser Text Upload"
 
@@ -2026,7 +2028,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_TEXT_DOWNLOAD => 4141
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_TEXT_DOWNLOAD_STR => "Printer/Endorser Text Download"
 
@@ -2036,7 +2038,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS => 4142
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_STR => "Printer/Endorser Graphics"
 
@@ -2046,7 +2048,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_POSITION => 4143
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_POSITION_STR => "Printer/Endorser Graphics Position"
 
@@ -2056,7 +2058,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MIN_WIDTH => 4144
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MIN_WIDTH_STR => "Printer/Endorser Graphics Minimum Width"
 
@@ -2066,7 +2068,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MAX_WIDTH => 4145
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MAX_WIDTH_STR => "Printer/Endorser Graphics Maximum Width"
 
@@ -2076,7 +2078,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MIN_HEIGHT => 4146
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MIN_HEIGHT_STR => "Printer/Endorser Graphics Minimum Height"
 
@@ -2086,7 +2088,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MAX_HEIGHT => 4147
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_MAX_HEIGHT_STR => "Printer/Endorser Graphics Maximum Height"
 
@@ -2096,7 +2098,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_UPLOAD => 4148
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_UPLOAD_STR => "Printer/Endorser Graphics Upload"
 
@@ -2106,7 +2108,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_DOWNLOAD => 4149
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_GRAPHICS_DOWNLOAD_STR => "Printer/Endorser Graphics Download"
 
@@ -2116,7 +2118,7 @@ class ImageAcquisition {
     static WIA_IPS_BARCODE_READER => 4150
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_BARCODE_READER_STR => "Barcode Reader"
 
@@ -2126,7 +2128,7 @@ class ImageAcquisition {
     static WIA_IPS_MAXIMUM_BARCODES_PER_PAGE => 4151
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MAXIMUM_BARCODES_PER_PAGE_STR => "Maximum Barcodes Per Page"
 
@@ -2136,7 +2138,7 @@ class ImageAcquisition {
     static WIA_IPS_BARCODE_SEARCH_DIRECTION => 4152
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_BARCODE_SEARCH_DIRECTION_STR => "Barcode Search Direction"
 
@@ -2146,7 +2148,7 @@ class ImageAcquisition {
     static WIA_IPS_MAXIMUM_BARCODE_SEARCH_RETRIES => 4153
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MAXIMUM_BARCODE_SEARCH_RETRIES_STR => "Barcode Search Retries"
 
@@ -2156,7 +2158,7 @@ class ImageAcquisition {
     static WIA_IPS_BARCODE_SEARCH_TIMEOUT => 4154
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_BARCODE_SEARCH_TIMEOUT_STR => "Barcode Search Timeout"
 
@@ -2166,7 +2168,7 @@ class ImageAcquisition {
     static WIA_IPS_SUPPORTED_BARCODE_TYPES => 4155
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SUPPORTED_BARCODE_TYPES_STR => "Supported Barcode Types"
 
@@ -2176,7 +2178,7 @@ class ImageAcquisition {
     static WIA_IPS_ENABLED_BARCODE_TYPES => 4156
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_ENABLED_BARCODE_TYPES_STR => "Enabled Barcode Types"
 
@@ -2186,7 +2188,7 @@ class ImageAcquisition {
     static WIA_IPS_PATCH_CODE_READER => 4157
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PATCH_CODE_READER_STR => "Patch Code Reader"
 
@@ -2196,7 +2198,7 @@ class ImageAcquisition {
     static WIA_IPS_SUPPORTED_PATCH_CODE_TYPES => 4162
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SUPPORTED_PATCH_CODE_TYPES_STR => "Supported Patch Code Types"
 
@@ -2206,7 +2208,7 @@ class ImageAcquisition {
     static WIA_IPS_ENABLED_PATCH_CODE_TYPES => 4163
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_ENABLED_PATCH_CODE_TYPES_STR => "Enabled Path Code Types"
 
@@ -2216,7 +2218,7 @@ class ImageAcquisition {
     static WIA_IPS_MICR_READER => 4164
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MICR_READER_STR => "MICR Reader"
 
@@ -2226,7 +2228,7 @@ class ImageAcquisition {
     static WIA_IPS_JOB_SEPARATORS => 4165
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_JOB_SEPARATORS_STR => "Job Separators"
 
@@ -2236,7 +2238,7 @@ class ImageAcquisition {
     static WIA_IPS_LONG_DOCUMENT => 4166
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_LONG_DOCUMENT_STR => "Long Document"
 
@@ -2246,7 +2248,7 @@ class ImageAcquisition {
     static WIA_IPS_BLANK_PAGES => 4167
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_BLANK_PAGES_STR => "Blank Pages"
 
@@ -2256,7 +2258,7 @@ class ImageAcquisition {
     static WIA_IPS_MULTI_FEED => 4168
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MULTI_FEED_STR => "Multi-Feed"
 
@@ -2266,7 +2268,7 @@ class ImageAcquisition {
     static WIA_IPS_MULTI_FEED_SENSITIVITY => 4169
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MULTI_FEED_SENSITIVITY_STR => "Multi-Feed Sensitivity"
 
@@ -2276,7 +2278,7 @@ class ImageAcquisition {
     static WIA_IPS_AUTO_CROP => 4170
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_AUTO_CROP_STR => "Auto-Crop"
 
@@ -2286,7 +2288,7 @@ class ImageAcquisition {
     static WIA_IPS_OVER_SCAN => 4171
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OVER_SCAN_STR => "Overscan"
 
@@ -2296,7 +2298,7 @@ class ImageAcquisition {
     static WIA_IPS_OVER_SCAN_LEFT => 4172
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OVER_SCAN_LEFT_STR => "Overscan Left"
 
@@ -2306,7 +2308,7 @@ class ImageAcquisition {
     static WIA_IPS_OVER_SCAN_RIGHT => 4173
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OVER_SCAN_RIGHT_STR => "Overscan Right"
 
@@ -2316,7 +2318,7 @@ class ImageAcquisition {
     static WIA_IPS_OVER_SCAN_TOP => 4174
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OVER_SCAN_TOP_STR => "Overscan Top"
 
@@ -2326,7 +2328,7 @@ class ImageAcquisition {
     static WIA_IPS_OVER_SCAN_BOTTOM => 4175
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_OVER_SCAN_BOTTOM_STR => "Overscan Bottom"
 
@@ -2336,7 +2338,7 @@ class ImageAcquisition {
     static WIA_IPS_COLOR_DROP => 4176
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_COLOR_DROP_STR => "Color Drop"
 
@@ -2346,7 +2348,7 @@ class ImageAcquisition {
     static WIA_IPS_COLOR_DROP_RED => 4177
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_COLOR_DROP_RED_STR => "Color Drop Red"
 
@@ -2356,7 +2358,7 @@ class ImageAcquisition {
     static WIA_IPS_COLOR_DROP_GREEN => 4178
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_COLOR_DROP_GREEN_STR => "Color Drop Green"
 
@@ -2366,7 +2368,7 @@ class ImageAcquisition {
     static WIA_IPS_COLOR_DROP_BLUE => 4179
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_COLOR_DROP_BLUE_STR => "Color Drop Blue"
 
@@ -2376,7 +2378,7 @@ class ImageAcquisition {
     static WIA_IPS_SCAN_AHEAD => 4180
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SCAN_AHEAD_STR => "Scan Ahead"
 
@@ -2386,7 +2388,7 @@ class ImageAcquisition {
     static WIA_IPS_SCAN_AHEAD_CAPACITY => 4181
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_SCAN_AHEAD_CAPACITY_STR => "Scan Ahead Capacity"
 
@@ -2396,7 +2398,7 @@ class ImageAcquisition {
     static WIA_IPS_FEEDER_CONTROL => 4182
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_FEEDER_CONTROL_STR => "Feeder Control"
 
@@ -2406,7 +2408,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_PADDING => 4183
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_PADDING_STR => "Printer/Endorser Padding"
 
@@ -2416,7 +2418,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_FONT_TYPE => 4184
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_FONT_TYPE_STR => "Printer/Endorser Font Type"
 
@@ -2426,7 +2428,7 @@ class ImageAcquisition {
     static WIA_IPS_ALARM => 4185
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_ALARM_STR => "Alarm"
 
@@ -2436,7 +2438,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_INK => 4186
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_INK_STR => "Printer/Endorser Ink"
 
@@ -2446,7 +2448,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_CHARACTER_ROTATION => 4187
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_CHARACTER_ROTATION_STR => "Printer/Endorser Character Rotation"
 
@@ -2456,7 +2458,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_MAX_CHARACTERS => 4188
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_MAX_CHARACTERS_STR => "Printer/Endorser Maximum Characters"
 
@@ -2466,7 +2468,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_MAX_GRAPHICS => 4189
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_MAX_GRAPHICS_STR => "Printer/Endorser Maximum Graphics"
 
@@ -2476,7 +2478,7 @@ class ImageAcquisition {
     static WIA_IPS_PRINTER_ENDORSER_COUNTER_DIGITS => 4190
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_PRINTER_ENDORSER_COUNTER_DIGITS_STR => "Printer/Endorser Counter Digits"
 
@@ -2486,7 +2488,7 @@ class ImageAcquisition {
     static WIA_IPS_COLOR_DROP_MULTI => 4191
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_COLOR_DROP_MULTI_STR => "Color Drop Multiple"
 
@@ -2496,7 +2498,7 @@ class ImageAcquisition {
     static WIA_IPS_BLANK_PAGES_SENSITIVITY => 4192
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_BLANK_PAGES_SENSITIVITY_STR => "Blank Pages Sensitivity"
 
@@ -2506,7 +2508,7 @@ class ImageAcquisition {
     static WIA_IPS_MULTI_FEED_DETECT_METHOD => 4193
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_IPS_MULTI_FEED_DETECT_METHOD_STR => "Multi-Feed Detection Method"
 
@@ -4251,12 +4253,12 @@ class ImageAcquisition {
     static WIA_IS_DEFAULT_HANDLER => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_EVENT_DEVICE_DISCONNECTED_STR => "Device Disconnected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_EVENT_DEVICE_CONNECTED_STR => "Device Connected"
 
@@ -5241,32 +5243,32 @@ class ImageAcquisition {
     static WIA_DONT_SHOW_PREVIEW_CONTROL => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_ENDORSER_TOK_DATE => "$DATE$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_ENDORSER_TOK_TIME => "$TIME$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_ENDORSER_TOK_PAGE_COUNT => "$PAGE_COUNT$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_ENDORSER_TOK_DAY => "$DAY$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_ENDORSER_TOK_MONTH => "$MONTH$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_ENDORSER_TOK_YEAR => "$YEAR$"
 
@@ -5766,17 +5768,17 @@ class ImageAcquisition {
     static WIA_NUM_DIP => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SHELLEX_WIAUIEXTENSION_NAME => "WiaDialogExtensionHandlers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_WIAITEMNAMES => "WIAItemNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_WIAITEMPTR => "WIAItemPointer"
 
@@ -6121,7 +6123,7 @@ class ImageAcquisition {
     static ESC_TWAIN_PRIVATE_SUPPORTED_CAPS => 2002
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIAU_DEBUG_TSTR => "S"
 
@@ -6136,7 +6138,7 @@ class ImageAcquisition {
     static WIA_WSD_MANUFACTURER => 38914
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_MANUFACTURER_STR => "Device manufacturer"
 
@@ -6146,7 +6148,7 @@ class ImageAcquisition {
     static WIA_WSD_MANUFACTURER_URL => 38915
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_MANUFACTURER_URL_STR => "Manufacurer URL"
 
@@ -6156,7 +6158,7 @@ class ImageAcquisition {
     static WIA_WSD_MODEL_NAME => 38916
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_MODEL_NAME_STR => "Model name"
 
@@ -6166,7 +6168,7 @@ class ImageAcquisition {
     static WIA_WSD_MODEL_NUMBER => 38917
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_MODEL_NUMBER_STR => "Model number"
 
@@ -6176,7 +6178,7 @@ class ImageAcquisition {
     static WIA_WSD_MODEL_URL => 38918
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_MODEL_URL_STR => "Model URL"
 
@@ -6186,7 +6188,7 @@ class ImageAcquisition {
     static WIA_WSD_PRESENTATION_URL => 38919
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_PRESENTATION_URL_STR => "Presentation URL"
 
@@ -6196,7 +6198,7 @@ class ImageAcquisition {
     static WIA_WSD_FRIENDLY_NAME => 38920
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_FRIENDLY_NAME_STR => "Friendly name"
 
@@ -6206,7 +6208,7 @@ class ImageAcquisition {
     static WIA_WSD_SERIAL_NUMBER => 38921
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_SERIAL_NUMBER_STR => "Serial number"
 
@@ -6216,7 +6218,7 @@ class ImageAcquisition {
     static WIA_WSD_SCAN_AVAILABLE_ITEM => 38922
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WIA_WSD_SCAN_AVAILABLE_ITEM_STR => "Scan Available Item"
 ;@endregion Constants

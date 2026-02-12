@@ -6,7 +6,7 @@
  * @remarks
  * Providers should consider the following priority order when doing spell checking:
  * Ignored Words &gt; AutoCorrected Words &gt; Excluded Words &gt; Added Words &gt; Spell checking algorithm.
- * @see https://learn.microsoft.com/windows/win32/api/spellcheck/ne-spellcheck-wordlist_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/ne-spellcheck-wordlist_type
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

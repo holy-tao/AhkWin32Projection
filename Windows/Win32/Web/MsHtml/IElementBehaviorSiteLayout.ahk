@@ -34,7 +34,11 @@ class IElementBehaviorSiteLayout extends IUnknown{
      * @returns {HRESULT} 
      */
     InvalidateLayoutInfo() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IElementBehaviorSiteLayout extends IUnknown{
      * @returns {HRESULT} 
      */
     InvalidateSize() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IElementBehaviorSiteLayout extends IUnknown{
      */
     GetMediaResolution() {
         psizeResolution := SIZE()
-        result := ComCall(5, this, "ptr", psizeResolution, "HRESULT")
+        result := ComCall(5, this, "ptr", psizeResolution, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psizeResolution
     }
 }

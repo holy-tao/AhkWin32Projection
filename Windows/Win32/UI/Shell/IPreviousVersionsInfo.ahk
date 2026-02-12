@@ -6,12 +6,13 @@
 /**
  * Exposes a method that checks for previous versions of server files or folders, stored for the purpose of reversion by the shadow copies technology provided with Windows Server 2003.
  * @remarks
- * 
  * The CLSID, IID, and definition for this interface are shown in the following example.
  * 
  *                 
  * 
- * <pre class="syntax" xml:space="preserve"><code>// {596AB062-B4D2-4215-9F74-E9109B0A8153}
+ * 
+ * ``` syntax
+ * // {596AB062-B4D2-4215-9F74-E9109B0A8153}
  * const CLSID CLSID_PreviousVersions = {0x596AB062, 0xB4D2, 0x4215, 
  *                              {0x9F, 0x74, 0xE9, 0x10, 0x9B, 0x0A, 0x81, 0x53}};
  * 
@@ -27,10 +28,11 @@
  *         // [string][in]  LPCWSTR pszPath,
  *         // [in]  BOOL fOkToBeSlow,
  *         // [retval][out]  BOOL *pfAvailable) = 0;
- * };</code></pre>
- * Note that the shadow copies technology does not store entire copies of older versions unless they are deleted; only the changed bits are stored.
+ * };
+ * ```
  * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ipreviousversionsinfo
+ * Note that the shadow copies technology does not store entire copies of older versions unless they are deleted; only the changed bits are stored.
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ipreviousversionsinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -56,7 +58,21 @@ class IPreviousVersionsInfo extends IUnknown{
     static VTableNames => ["AreSnapshotsAvailable"]
 
     /**
-     * Queries for the availablilty of a Windows Server 2003 volume image recorded by the system at an earlier time.
+     * Queries for the availability of a Windows Server 2003 volume image recorded by the system at an earlier time.
+     * @remarks
+     * If <b>IPreviousVersionsInfo::AreSnapshotsAvailable</b> is called on a file or folder, the result does not indicate that rollback information is available for that specific file or folder, merely that a snapshot of the entire volume is available. This result is cached and subsequent calls inquiring about anything stored on that same volume access the cached results—with little performance overhead—instead of recontacting the server.
+     * 
+     * Once the server's response is cached in memory, subsequent calls do not contact the server even if <i>fOkToBeSlow</i> is <b>TRUE</b>. If <i>fOkToBeSlow</i> is <b>FALSE</b> and the server's response is not already cached from a previous call, the method returns E_PENDING. In that case, set <i>fOkToBeSlow</i> to <b>TRUE</b> and call <b>IPreviousVersionsInfo::AreSnapshotsAvailable</b> again to contact the server.
+     * 
+     * For better performance, a UI thread calling this method should always set <i>fOkToBeSlow</i> to <b>FALSE</b>. If the method returns E_PENDING, follow these steps.
+     * 
+     *                 
+     * 
+     * <ul>
+     * <li>Create another instance of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ipreviousversionsinfo">IPreviousVersionsInfo</a> on a background thread.</li>
+     * <li>Call <b>IPreviousVersionsInfo::AreSnapshotsAvailable</b> with <i>fOkToBeSlow</i> set to <b>TRUE</b>.</li>
+     * <li>Signal the original UI thread to call <b>IPreviousVersionsInfo::AreSnapshotsAvailable</b> again. The results are then pulled from the cache.</li>
+     * </ul>
      * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
      * A null-terminated Unicode string containing the fully qualified path to a file or folder on the volume in question.
@@ -73,12 +89,16 @@ class IPreviousVersionsInfo extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a boolean variable containing the result. This value is valid only if the method call succeeds; otherwise, it is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ipreviousversionsinfo-aresnapshotsavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ipreviousversionsinfo-aresnapshotsavailable
      */
     AreSnapshotsAvailable(pszPath, fOkToBeSlow) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(3, this, "ptr", pszPath, "int", fOkToBeSlow, "int*", &pfAvailable := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPath, "int", fOkToBeSlow, "int*", &pfAvailable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAvailable
     }
 }

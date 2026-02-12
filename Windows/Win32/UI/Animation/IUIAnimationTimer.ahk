@@ -6,16 +6,12 @@
 /**
  * Defines an animation timer, which provides services for managing animation timing.
  * @remarks
- * 
  * A timer helps to manage animation rendering by automatically indicating the passage of a small unit of time, called a tick. In turn, ticks can trigger animation rendering or other animation events. Each animation timer provides timing for a single animation manager.
  * 
  * The timing system is designed to provide the necessary timing services needed to support animations and does not require applications to play an explicit role in generating the ticks. The animation timer can be set up to automatically update the animation manager for each tick without application-side handling.
  * 
  * An application may not need to use a timer with Windows Animation, depending on the graphics platform it is using. For example, an application drawing with Direct2D or Direct3D can synchronize to monitor's refresh rate, yielding very smooth animation. However, such applications may still find the <b>IUIAnimationTimer</b> interface useful for its <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimer-gettime">GetTime</a> method, which returns an accurate system time in <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/ui-animation-seconds">UI_ANIMATION_SECONDS</a>, the units used throughout the Windows Animation API.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationtimer
+ * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nn-uianimation-iuianimationtimer
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -48,79 +44,124 @@ class IUIAnimationTimer extends IUnknown{
 
     /**
      * Specifies a timer update handler.
+     * @remarks
+     * The timer update handler receives time updates (ticks) from the timer. The timer indicates an update by calling 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimerupdatehandler-onupdate">IUIAnimationTimerUpdateHandler::OnUpdate</a>      
+     *       method on the specified handler.
+     * 
+     * Passing <b>NULL</b> for the <i>updateHandler</i> parameter causes Windows Animation to release its reference to any handler object you passed in earlier. This technique can be essential for breaking reference cycles without having to call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager-shutdown">IUIAnimationManager::Shutdown</a> method.
      * @param {IUIAnimationTimerUpdateHandler} updateHandler A timer update handler, or <b>NULL</b> (see Remarks).  The specified object must implement the
      *                <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimerupdatehandler">IUIAnimationTimerUpdateHandler</a> interface.
      * @param {Integer} idleBehavior A member of 
      *                <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_idle_behavior">UI_ANIMATION_IDLE_BEHAVIOR</a> 
      *                that specifies the behavior of the timer when it is idle.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. If the update handler is already connected to a timer, this method returns <b>UI_E_TIMER_CLIENT_ALREADY_CONNECTED</b>. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-settimerupdatehandler
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If the update handler is already connected to a timer, this method returns <b>UI_E_TIMER_CLIENT_ALREADY_CONNECTED</b>. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-settimerupdatehandler
      */
     SetTimerUpdateHandler(updateHandler, idleBehavior) {
-        result := ComCall(3, this, "ptr", updateHandler, "int", idleBehavior, "HRESULT")
+        result := ComCall(3, this, "ptr", updateHandler, "int", idleBehavior, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies a timer event handler.
+     * @remarks
+     * Timing events include the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onpreupdate">OnPreUpdate</a>,
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onpostupdate">OnPostUpdate</a>, and
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onrenderingtooslow">OnRenderingTooSlow</a> methods of the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimereventhandler">IUIAnimationTimerEventHandler</a> interface.
+     * 
+     * Passing <b>NULL</b> for the <i>handler</i> parameter causes Windows Animation to release its reference to any handler object you passed in earlier. This technique can be essential for breaking reference cycles without having to call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager-shutdown">IUIAnimationManager::Shutdown</a> method.
      * @param {IUIAnimationTimerEventHandler} handler A timer event handler.  The specified object must implement the
      *                <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtimereventhandler">IUIAnimationTimerEventHandler</a> interface or be <b>NULL</b>. See Remarks.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-settimereventhandler
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-settimereventhandler
      */
     SetTimerEventHandler(handler) {
-        result := ComCall(4, this, "ptr", handler, "HRESULT")
+        result := ComCall(4, this, "ptr", handler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables the animation timer.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-enable
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-enable
      */
     Enable() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Disables the animation timer.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-disable
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-disable
      */
     Disable() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether the timer is currently enabled.
-     * @returns {HRESULT} Returns S_OK if the animation timer is enabled, S_FALSE if the animation timer is disabled, or an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-isenabled
+     * @returns {HRESULT} Returns S_OK if the animation timer is enabled, S_FALSE if the animation timer is disabled, or an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-isenabled
      */
     IsEnabled() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the current time.
+     * @remarks
+     * This method can be used in both the application-driven and timer-driven  configurations to retrieve the system time in <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/ui-animation-seconds">UI_ANIMATION_SECONDS</a>, the units used throughout the Windows Animation API.
      * @returns {Float} The current time, in <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/ui-animation-seconds">UI_ANIMATION_SECONDS</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-gettime
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-gettime
      */
     GetTime() {
-        result := ComCall(8, this, "double*", &seconds := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &seconds := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return seconds
     }
 
     /**
      * Sets the frame rate below which the timer notifies the application that rendering is too slow.
+     * @remarks
+     * If the rendering frame rate for an animation falls below the specified frame rate, an 
+     *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationtimereventhandler-onrenderingtooslow">IUIAnimationTimerEventHandler::OnRenderingTooSlow</a> event is raised.
      * @param {Integer} framesPerSecond The minimum desirable frame rate, in frames per second.
-     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationtimer-setframeratethreshold
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationtimer-setframeratethreshold
      */
     SetFrameRateThreshold(framesPerSecond) {
-        result := ComCall(9, this, "uint", framesPerSecond, "HRESULT")
+        result := ComCall(9, this, "uint", framesPerSecond, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

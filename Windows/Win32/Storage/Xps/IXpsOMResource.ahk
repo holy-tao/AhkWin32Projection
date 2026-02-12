@@ -5,7 +5,7 @@
 
 /**
  * Used as the base interface for the resource interfaces of the XPS object model.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomresource
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomresource
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

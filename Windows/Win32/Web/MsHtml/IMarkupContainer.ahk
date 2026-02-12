@@ -34,7 +34,11 @@ class IMarkupContainer extends IUnknown{
      * @returns {IHTMLDocument2} 
      */
     OwningDoc() {
-        result := ComCall(3, this, "ptr*", &ppDoc := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(ppDoc)
     }
 }

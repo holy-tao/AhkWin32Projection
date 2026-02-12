@@ -6,7 +6,7 @@
 
 /**
  * A built-in implementation of the IDWriteFontFileLoader interface, that operates on local font files and exposes local font file information from the font file reference key.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritelocalfontfileloader
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritelocalfontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -43,10 +43,14 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * Length of the file path string, not including the terminated <b>NULL</b> character.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathlengthfromkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathlengthfromkey
      */
     GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", &filePathLength := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", &filePathLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return filePathLength
     }
 
@@ -67,13 +71,17 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
      * The length of the file path character array.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathfromkey
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathfromkey
      */
     GetFilePathFromKey(fontFileReferenceKey, fontFileReferenceKeySize, filePath, filePathSize) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", filePath, "uint", filePathSize, "HRESULT")
+        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", filePath, "uint", filePathSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,11 +97,15 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
      * @returns {FILETIME} Type: <b>FILETIME*</b>
      * 
      * The time of the last font file modification.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getlastwritetimefromkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritelocalfontfileloader-getlastwritetimefromkey
      */
     GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         lastWriteTime := FILETIME()
-        result := ComCall(6, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", lastWriteTime, "HRESULT")
+        result := ComCall(6, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", lastWriteTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastWriteTime
     }
 }

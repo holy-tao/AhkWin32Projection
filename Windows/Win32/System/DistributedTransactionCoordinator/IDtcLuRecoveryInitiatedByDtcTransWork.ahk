@@ -38,7 +38,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
         pcbOurLogNameMarshal := pcbOurLogName is VarRef ? "uint*" : "ptr"
         pcbRemoteLogNameMarshal := pcbRemoteLogName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pcbOurLogNameMarshal, pcbOurLogName, pcbRemoteLogNameMarshal, pcbRemoteLogName, "HRESULT")
+        result := ComCall(3, this, pcbOurLogNameMarshal, pcbOurLogName, pcbRemoteLogNameMarshal, pcbRemoteLogName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
         pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
         pdwProtocolMarshal := pdwProtocol is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pRemoteLogNameMarshal, pRemoteLogName, pdwProtocolMarshal, pdwProtocol, "HRESULT")
+        result := ComCall(4, this, pXlnMarshal, pXln, pOurLogNameMarshal, pOurLogName, pRemoteLogNameMarshal, pRemoteLogName, pdwProtocolMarshal, pdwProtocol, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleConfirmationFromOurXln(Confirmation) {
-        result := ComCall(5, this, "int", Confirmation, "HRESULT")
+        result := ComCall(5, this, "int", Confirmation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +95,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
         pRemoteLogNameMarshal := pRemoteLogName is VarRef ? "char*" : "ptr"
         pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, pConfirmationMarshal, pConfirmation, "HRESULT")
+        result := ComCall(6, this, "int", Xln, pRemoteLogNameMarshal, pRemoteLogName, "uint", cbRemoteLogName, "uint", dwProtocol, pConfirmationMarshal, pConfirmation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +109,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleErrorFromOurXln(Error) {
-        result := ComCall(7, this, "int", Error, "HRESULT")
+        result := ComCall(7, this, "int", Error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +125,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
     CheckForCompareStates(fCompareStates) {
         fCompareStatesMarshal := fCompareStates is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, fCompareStatesMarshal, fCompareStates, "HRESULT")
+        result := ComCall(8, this, fCompareStatesMarshal, fCompareStates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +141,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
     GetOurTransIdSize(pcbOurTransId) {
         pcbOurTransIdMarshal := pcbOurTransId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pcbOurTransIdMarshal, pcbOurTransId, "HRESULT")
+        result := ComCall(9, this, pcbOurTransIdMarshal, pcbOurTransId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +159,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
         pOurTransIdMarshal := pOurTransId is VarRef ? "char*" : "ptr"
         pCompareStateMarshal := pCompareState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, pOurTransIdMarshal, pOurTransId, pCompareStateMarshal, pCompareState, "HRESULT")
+        result := ComCall(10, this, pOurTransIdMarshal, pOurTransId, pCompareStateMarshal, pCompareState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,7 +176,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
     HandleTheirCompareStatesResponse(CompareState, pConfirmation) {
         pConfirmationMarshal := pConfirmation is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "int", CompareState, pConfirmationMarshal, pConfirmation, "HRESULT")
+        result := ComCall(11, this, "int", CompareState, pConfirmationMarshal, pConfirmation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,7 +190,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     HandleErrorFromOurCompareStates(Error) {
-        result := ComCall(12, this, "int", Error, "HRESULT")
+        result := ComCall(12, this, "int", Error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +203,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     ConversationLost() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +219,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
     GetRecoverySeqNum(plRecoverySeqNum) {
         plRecoverySeqNumMarshal := plRecoverySeqNum is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, plRecoverySeqNumMarshal, plRecoverySeqNum, "HRESULT")
+        result := ComCall(14, this, plRecoverySeqNumMarshal, plRecoverySeqNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +233,11 @@ class IDtcLuRecoveryInitiatedByDtcTransWork extends IUnknown{
      * @returns {HRESULT} 
      */
     ObsoleteRecoverySeqNum(lNewRecoverySeqNum) {
-        result := ComCall(15, this, "int", lNewRecoverySeqNum, "HRESULT")
+        result := ComCall(15, this, "int", lNewRecoverySeqNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -36,7 +36,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     startDTD(strName, strPublicId, strSystemId) {
-        result := ComCall(7, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "HRESULT")
+        result := ComCall(7, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     endDTD() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     startEntity(strName) {
-        result := ComCall(9, this, "ptr", strName, "HRESULT")
+        result := ComCall(9, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +77,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     endEntity(strName) {
-        result := ComCall(10, this, "ptr", strName, "HRESULT")
+        result := ComCall(10, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +90,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     startCDATA() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +103,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     endCDATA() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +117,11 @@ class IVBSAXLexicalHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     comment(strChars) {
-        result := ComCall(13, this, "ptr", strChars, "HRESULT")
+        result := ComCall(13, this, "ptr", strChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

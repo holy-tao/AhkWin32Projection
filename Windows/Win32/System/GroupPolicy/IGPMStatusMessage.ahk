@@ -6,7 +6,7 @@
 
 /**
  * The IGPMStatusMessage interface contains property methods that retrieve various properties of status messages related to GPO operations.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmstatusmessage
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmstatusmessage
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -71,7 +71,11 @@ class IGPMStatusMessage extends IDispatch{
      */
     get_ObjectPath() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -82,10 +86,14 @@ class IGPMStatusMessage extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstatusmessage-errorcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmstatusmessage-errorcode
      */
     ErrorCode() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +103,11 @@ class IGPMStatusMessage extends IDispatch{
      */
     get_ExtensionName() {
         pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        result := ComCall(9, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -105,7 +117,11 @@ class IGPMStatusMessage extends IDispatch{
      */
     get_SettingsName() {
         pVal := BSTR()
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -116,10 +132,14 @@ class IGPMStatusMessage extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstatusmessage-operationcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmstatusmessage-operationcode
      */
     OperationCode() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +149,11 @@ class IGPMStatusMessage extends IDispatch{
      */
     get_Message() {
         pVal := BSTR()
-        result := ComCall(12, this, "ptr", pVal, "HRESULT")
+        result := ComCall(12, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

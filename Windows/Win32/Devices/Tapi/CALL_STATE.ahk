@@ -76,7 +76,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/ne-tapi3if-call_state
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

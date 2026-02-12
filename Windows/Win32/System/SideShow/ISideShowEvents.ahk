@@ -35,7 +35,11 @@ class ISideShowEvents extends IUnknown{
      * @returns {ISideShowContent} 
      */
     ContentMissing(in_contentId) {
-        result := ComCall(3, this, "uint", in_contentId, "ptr*", &out_ppIContent := 0, "HRESULT")
+        result := ComCall(3, this, "uint", in_contentId, "ptr*", &out_ppIContent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISideShowContent(out_ppIContent)
     }
 
@@ -50,7 +54,11 @@ class ISideShowEvents extends IUnknown{
     ApplicationEvent(in_pICapabilities, in_dwEventId, in_dwEventSize, in_pbEventData) {
         in_pbEventDataMarshal := in_pbEventData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", in_pICapabilities, "uint", in_dwEventId, "uint", in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "HRESULT")
+        result := ComCall(4, this, "ptr", in_pICapabilities, "uint", in_dwEventId, "uint", in_dwEventSize, in_pbEventDataMarshal, in_pbEventData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class ISideShowEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     DeviceAdded(in_pIDevice) {
-        result := ComCall(5, this, "ptr", in_pIDevice, "HRESULT")
+        result := ComCall(5, this, "ptr", in_pIDevice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class ISideShowEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     DeviceRemoved(in_pIDevice) {
-        result := ComCall(6, this, "ptr", in_pIDevice, "HRESULT")
+        result := ComCall(6, this, "ptr", in_pIDevice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

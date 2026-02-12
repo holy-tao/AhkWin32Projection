@@ -5,7 +5,7 @@
 
 /**
  * Provides notifications for changes to indexed items. Also provides notification of the hierarchical scope that is being monitored for changed items.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchitemschangedsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-isearchitemschangedsink
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -32,40 +32,52 @@ class ISearchItemsChangedSink extends IUnknown{
 
     /**
      * Permits an index-managed notification source to add itself to a list of &quot;monitored scopes&quot;.
+     * @remarks
+     * When a notification agent comes online it calls <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-startedmonitoringscope">StartedMonitoringScope</a> which adds the scope to the list of sources. If the source is new (removed previously by <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-stoppedmonitoringscope">StoppedMonitoringScope</a>, or never created in the first place) the indexer starts an incremental crawl of the corresponding document store. This is designed to pick up any changes in the store that occurred while the notification agent was offline.
      * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that is the start address for the scope of monitoring.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchitemschangedsink-startedmonitoringscope
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchitemschangedsink-startedmonitoringscope
      */
     StartedMonitoringScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(3, this, "ptr", pszURL, "HRESULT")
+        result := ComCall(3, this, "ptr", pszURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchItemsChangedSink.StoppedMonitoringScope)
      * @param {PWSTR} pszURL Type: <b>LPCWSTR</b>
      * 
      * The pointer to a null-terminated, Unicode string containing the start address for the scope of monitoring.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchitemschangedsink-stoppedmonitoringscope
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchitemschangedsink-stoppedmonitoringscope
      */
     StoppedMonitoringScope(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(4, this, "ptr", pszURL, "HRESULT")
+        result := ComCall(4, this, "ptr", pszURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Call this method to notify an indexer to re-index some changed items.
+     * @remarks
+     * When there are multiple change notifications, the <b>priority</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_change">SEARCH_ITEM_CHANGE</a> structure indicates the priority of processing.
      * @param {Integer} dwNumberOfChanges Type: <b>DWORD</b>
      * 
      * The number of items that have changed.
@@ -80,14 +92,18 @@ class ISearchItemsChangedSink extends IUnknown{
      * Receives a pointer to an array of completion codes for <i>rgdwDocIds</i> indicating whether each item was accepted for indexing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchitemschangedsink-onitemschanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchitemschangedsink-onitemschanged
      */
     OnItemsChanged(dwNumberOfChanges, rgDataChangeEntries, rgdwDocIds, rghrCompletionCodes) {
         rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : "ptr"
         rghrCompletionCodesMarshal := rghrCompletionCodes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, rghrCompletionCodesMarshal, rghrCompletionCodes, "HRESULT")
+        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, rghrCompletionCodesMarshal, rghrCompletionCodes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

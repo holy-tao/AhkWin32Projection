@@ -6,7 +6,7 @@
 
 /**
  * The IEnumNetSharingPublicConnection interface provides methods for enumerating the currently configured publicly-shared connections.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-ienumnetsharingpublicconnection
+ * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nn-netcon-ienumnetsharingpublicconnection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumNetSharingPublicConnection extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * The Next method retrieves the specified number of privately-shared connections that start from the current enumeration position.
+     * The Next method retrieves the specified number of privately-shared connections that start from the current enumeration position. (IEnumNetSharingPublicConnection.Next)
      * @param {Integer} celt Specifies the number of publicly-shared connections to retrieve.
      * @param {Pointer<VARIANT>} rgVar Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> variable for the connection. This variant contains a pointer to an 
@@ -136,12 +136,16 @@ class IEnumNetSharingPublicConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingpublicconnection-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingpublicconnection-next
      */
     Next(celt, rgVar, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgVar, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr", rgVar, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -246,15 +250,19 @@ class IEnumNetSharingPublicConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingpublicconnection-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingpublicconnection-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration.
+     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration. (IEnumNetSharingPublicConnection.Reset)
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -353,21 +361,29 @@ class IEnumNetSharingPublicConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingpublicconnection-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingpublicconnection-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Clone method creates a new enumeration interface from this enumeration.
+     * The Clone method creates a new enumeration interface from this enumeration. (IEnumNetSharingPublicConnection.Clone)
      * @returns {IEnumNetSharingPublicConnection} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-ienumnetsharingpublicconnection">IEnumNetSharingPublicConnection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingpublicconnection-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingpublicconnection-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumNetSharingPublicConnection(ppenum)
     }
 }

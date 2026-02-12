@@ -36,7 +36,11 @@ class ITransactionOutcomeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Committed(fRetaining, pNewUOW, hr) {
-        result := ComCall(3, this, "int", fRetaining, "ptr", pNewUOW, "int", hr, "HRESULT")
+        result := ComCall(3, this, "int", fRetaining, "ptr", pNewUOW, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class ITransactionOutcomeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Aborted(pboidReason, fRetaining, pNewUOW, hr) {
-        result := ComCall(4, this, "ptr", pboidReason, "int", fRetaining, "ptr", pNewUOW, "int", hr, "HRESULT")
+        result := ComCall(4, this, "ptr", pboidReason, "int", fRetaining, "ptr", pNewUOW, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class ITransactionOutcomeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     HeuristicDecision(dwDecision, pboidReason, hr) {
-        result := ComCall(5, this, "uint", dwDecision, "ptr", pboidReason, "int", hr, "HRESULT")
+        result := ComCall(5, this, "uint", dwDecision, "ptr", pboidReason, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class ITransactionOutcomeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     Indoubt() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

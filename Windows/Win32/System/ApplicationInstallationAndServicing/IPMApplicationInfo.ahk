@@ -224,11 +224,6 @@ class IPMApplicationInfo extends IUnknown{
     }
 
     /**
-     */
-    UninstallableState {
-    }
-
-    /**
      * @type {BOOL} 
      */
     IsPinableOnKidZone {
@@ -347,22 +342,16 @@ class IPMApplicationInfo extends IUnknown{
     }
 
     /**
-     */
-    IsMdilMaintenanceNeeded {
-    }
-
-    /**
-     */
-    Title {
-    }
-
-    /**
      * 
      * @returns {Guid} 
      */
     get_ProductID() {
         pProductID := Guid()
-        result := ComCall(3, this, "ptr", pProductID, "HRESULT")
+        result := ComCall(3, this, "ptr", pProductID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProductID
     }
 
@@ -372,7 +361,11 @@ class IPMApplicationInfo extends IUnknown{
      */
     get_InstanceID() {
         pInstanceID := Guid()
-        result := ComCall(4, this, "ptr", pInstanceID, "HRESULT")
+        result := ComCall(4, this, "ptr", pInstanceID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInstanceID
     }
 
@@ -382,7 +375,11 @@ class IPMApplicationInfo extends IUnknown{
      */
     get_OfferID() {
         pOfferID := Guid()
-        result := ComCall(5, this, "ptr", pOfferID, "HRESULT")
+        result := ComCall(5, this, "ptr", pOfferID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOfferID
     }
 
@@ -392,7 +389,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DefaultTask(pDefaultTask) {
-        result := ComCall(6, this, "ptr", pDefaultTask, "HRESULT")
+        result := ComCall(6, this, "ptr", pDefaultTask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -402,7 +403,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_AppTitle(pAppTitle) {
-        result := ComCall(7, this, "ptr", pAppTitle, "HRESULT")
+        result := ComCall(7, this, "ptr", pAppTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -412,7 +417,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_IconPath(pAppIconPath) {
-        result := ComCall(8, this, "ptr", pAppIconPath, "HRESULT")
+        result := ComCall(8, this, "ptr", pAppIconPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -421,7 +430,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_NotificationState() {
-        result := ComCall(9, this, "int*", &pIsNotified := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pIsNotified := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsNotified
     }
 
@@ -430,7 +443,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_AppInstallType() {
-        result := ComCall(10, this, "int*", &pAppInstallType := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pAppInstallType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAppInstallType
     }
 
@@ -439,7 +456,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(11, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 
@@ -448,7 +469,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsRevoked() {
-        result := ComCall(12, this, "int*", &pIsRevoked := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pIsRevoked := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsRevoked
     }
 
@@ -457,7 +482,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_UpdateAvailable() {
-        result := ComCall(13, this, "int*", &pIsUpdateAvailable := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pIsUpdateAvailable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsUpdateAvailable
     }
 
@@ -467,7 +496,11 @@ class IPMApplicationInfo extends IUnknown{
      */
     get_InstallDate() {
         pInstallDate := FILETIME()
-        result := ComCall(14, this, "ptr", pInstallDate, "HRESULT")
+        result := ComCall(14, this, "ptr", pInstallDate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInstallDate
     }
 
@@ -476,7 +509,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsUninstallable() {
-        result := ComCall(15, this, "int*", &pIsUninstallable := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pIsUninstallable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsUninstallable
     }
 
@@ -485,7 +522,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsThemable() {
-        result := ComCall(16, this, "int*", &pIsThemable := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pIsThemable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsThemable
     }
 
@@ -494,7 +535,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsTrial() {
-        result := ComCall(17, this, "int*", &pIsTrial := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pIsTrial := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsTrial
     }
 
@@ -504,7 +549,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InstallPath(pInstallPath) {
-        result := ComCall(18, this, "ptr", pInstallPath, "HRESULT")
+        result := ComCall(18, this, "ptr", pInstallPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -514,7 +563,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DataRoot(pDataRoot) {
-        result := ComCall(19, this, "ptr", pDataRoot, "HRESULT")
+        result := ComCall(19, this, "ptr", pDataRoot, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -523,7 +576,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_Genre() {
-        result := ComCall(20, this, "int*", &pGenre := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pGenre := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGenre
     }
 
@@ -533,7 +590,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Publisher(pPublisher) {
-        result := ComCall(21, this, "ptr", pPublisher, "HRESULT")
+        result := ComCall(21, this, "ptr", pPublisher, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -543,7 +604,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Author(pAuthor) {
-        result := ComCall(22, this, "ptr", pAuthor, "HRESULT")
+        result := ComCall(22, this, "ptr", pAuthor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -553,7 +618,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Description(pDescription) {
-        result := ComCall(23, this, "ptr", pDescription, "HRESULT")
+        result := ComCall(23, this, "ptr", pDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -563,7 +632,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Version(pVersion) {
-        result := ComCall(24, this, "ptr", pVersion, "HRESULT")
+        result := ComCall(24, this, "ptr", pVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -574,7 +647,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pImageUrn, pParameters) {
-        result := ComCall(25, this, "ptr", pImageUrn, "ptr", pParameters, "HRESULT")
+        result := ComCall(25, this, "ptr", pImageUrn, "ptr", pParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -583,7 +660,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_AppPlatMajorVersion() {
-        result := ComCall(26, this, "char*", &pMajorVer := 0, "HRESULT")
+        result := ComCall(26, this, "char*", &pMajorVer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMajorVer
     }
 
@@ -592,7 +673,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_AppPlatMinorVersion() {
-        result := ComCall(27, this, "char*", &pMinorVer := 0, "HRESULT")
+        result := ComCall(27, this, "char*", &pMinorVer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMinorVer
     }
 
@@ -602,7 +687,11 @@ class IPMApplicationInfo extends IUnknown{
      */
     get_PublisherID() {
         pPublisherID := Guid()
-        result := ComCall(28, this, "ptr", pPublisherID, "HRESULT")
+        result := ComCall(28, this, "ptr", pPublisherID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPublisherID
     }
 
@@ -611,17 +700,25 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsMultiCore() {
-        result := ComCall(29, this, "int*", &pIsMultiCore := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &pIsMultiCore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsMultiCore
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pSID 
+     * @param {Pointer<BSTR>} pSID_ 
      * @returns {HRESULT} 
      */
-    get_SID(pSID) {
-        result := ComCall(30, this, "ptr", pSID, "HRESULT")
+    get_SID(pSID_) {
+        result := ComCall(30, this, "ptr", pSID_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -630,7 +727,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_AppPlatMajorVersionLightUp() {
-        result := ComCall(31, this, "char*", &pMajorVer := 0, "HRESULT")
+        result := ComCall(31, this, "char*", &pMajorVer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMajorVer
     }
 
@@ -639,7 +740,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_AppPlatMinorVersionLightUp() {
-        result := ComCall(32, this, "char*", &pMinorVer := 0, "HRESULT")
+        result := ComCall(32, this, "char*", &pMinorVer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMinorVer
     }
 
@@ -649,7 +754,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_UpdateAvailable(IsUpdateAvailable) {
-        result := ComCall(33, this, "int", IsUpdateAvailable, "HRESULT")
+        result := ComCall(33, this, "int", IsUpdateAvailable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -659,7 +768,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_NotificationState(IsNotified) {
-        result := ComCall(34, this, "int", IsNotified, "HRESULT")
+        result := ComCall(34, this, "int", IsNotified, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -669,9 +782,16 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IconPath(AppIconPath) {
-        AppIconPath := AppIconPath is String ? BSTR.Alloc(AppIconPath).Value : AppIconPath
+        if(AppIconPath is String) {
+            pin := BSTR.Alloc(AppIconPath)
+            AppIconPath := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", AppIconPath, "HRESULT")
+        result := ComCall(35, this, "ptr", AppIconPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -681,7 +801,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_UninstallableState(IsUninstallable) {
-        result := ComCall(36, this, "int", IsUninstallable, "HRESULT")
+        result := ComCall(36, this, "int", IsUninstallable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -690,7 +814,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsPinableOnKidZone() {
-        result := ComCall(37, this, "int*", &pIsPinable := 0, "HRESULT")
+        result := ComCall(37, this, "int*", &pIsPinable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsPinable
     }
 
@@ -699,7 +827,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsOriginallyPreInstalled() {
-        result := ComCall(38, this, "int*", &pIsPreinstalled := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &pIsPreinstalled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsPreinstalled
     }
 
@@ -708,7 +840,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsInstallOnSD() {
-        result := ComCall(39, this, "int*", &pIsInstallOnSD := 0, "HRESULT")
+        result := ComCall(39, this, "int*", &pIsInstallOnSD := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsInstallOnSD
     }
 
@@ -717,7 +853,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsOptoutOnSD() {
-        result := ComCall(40, this, "int*", &pIsOptoutOnSD := 0, "HRESULT")
+        result := ComCall(40, this, "int*", &pIsOptoutOnSD := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsOptoutOnSD
     }
 
@@ -726,7 +866,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsOptoutBackupRestore() {
-        result := ComCall(41, this, "int*", &pIsOptoutBackupRestore := 0, "HRESULT")
+        result := ComCall(41, this, "int*", &pIsOptoutBackupRestore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsOptoutBackupRestore
     }
 
@@ -736,7 +880,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_EnterpriseDisabled(IsDisabled) {
-        result := ComCall(42, this, "int", IsDisabled, "HRESULT")
+        result := ComCall(42, this, "int", IsDisabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -746,7 +894,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_EnterpriseUninstallable(IsUninstallable) {
-        result := ComCall(43, this, "int", IsUninstallable, "HRESULT")
+        result := ComCall(43, this, "int", IsUninstallable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -755,7 +907,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_EnterpriseDisabled() {
-        result := ComCall(44, this, "int*", &IsDisabled := 0, "HRESULT")
+        result := ComCall(44, this, "int*", &IsDisabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsDisabled
     }
 
@@ -764,7 +920,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_EnterpriseUninstallable() {
-        result := ComCall(45, this, "int*", &IsUninstallable := 0, "HRESULT")
+        result := ComCall(45, this, "int*", &IsUninstallable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsUninstallable
     }
 
@@ -773,7 +933,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsVisibleOnAppList() {
-        result := ComCall(46, this, "int*", &pIsVisible := 0, "HRESULT")
+        result := ComCall(46, this, "int*", &pIsVisible := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsVisible
     }
 
@@ -782,7 +946,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsInboxApp() {
-        result := ComCall(47, this, "int*", &pIsInboxApp := 0, "HRESULT")
+        result := ComCall(47, this, "int*", &pIsInboxApp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsInboxApp
     }
 
@@ -792,7 +960,11 @@ class IPMApplicationInfo extends IUnknown{
      */
     get_StorageID() {
         pStorageID := Guid()
-        result := ComCall(48, this, "ptr", pStorageID, "HRESULT")
+        result := ComCall(48, this, "ptr", pStorageID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStorageID
     }
 
@@ -802,7 +974,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_StartAppBlob(pBlob) {
-        result := ComCall(49, this, "ptr", pBlob, "HRESULT")
+        result := ComCall(49, this, "ptr", pBlob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -811,7 +987,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsMovable() {
-        result := ComCall(50, this, "int*", &pIsMovable := 0, "HRESULT")
+        result := ComCall(50, this, "int*", &pIsMovable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsMovable
     }
 
@@ -820,7 +1000,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_DeploymentAppEnumerationHubFilter() {
-        result := ComCall(51, this, "int*", &HubType := 0, "HRESULT")
+        result := ComCall(51, this, "int*", &HubType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return HubType
     }
 
@@ -830,7 +1014,11 @@ class IPMApplicationInfo extends IUnknown{
      */
     get_ModifiedDate() {
         pModifiedDate := FILETIME()
-        result := ComCall(52, this, "ptr", pModifiedDate, "HRESULT")
+        result := ComCall(52, this, "ptr", pModifiedDate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pModifiedDate
     }
 
@@ -839,7 +1027,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsOriginallyRestored() {
-        result := ComCall(53, this, "int*", &pIsRestored := 0, "HRESULT")
+        result := ComCall(53, this, "int*", &pIsRestored := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsRestored
     }
 
@@ -848,7 +1040,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_ShouldDeferMdilBind() {
-        result := ComCall(54, this, "int*", &pfDeferMdilBind := 0, "HRESULT")
+        result := ComCall(54, this, "int*", &pfDeferMdilBind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfDeferMdilBind
     }
 
@@ -857,7 +1053,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsFullyPreInstall() {
-        result := ComCall(55, this, "int*", &pfIsFullyPreInstall := 0, "HRESULT")
+        result := ComCall(55, this, "int*", &pfIsFullyPreInstall := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsFullyPreInstall
     }
 
@@ -867,7 +1067,11 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IsMdilMaintenanceNeeded(fIsMdilMaintenanceNeeded) {
-        result := ComCall(56, this, "int", fIsMdilMaintenanceNeeded, "HRESULT")
+        result := ComCall(56, this, "int", fIsMdilMaintenanceNeeded, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -877,9 +1081,16 @@ class IPMApplicationInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_Title(AppTitle) {
-        AppTitle := AppTitle is String ? BSTR.Alloc(AppTitle).Value : AppTitle
+        if(AppTitle is String) {
+            pin := BSTR.Alloc(AppTitle)
+            AppTitle := pin.Value
+        }
 
-        result := ComCall(57, this, "ptr", AppTitle, "HRESULT")
+        result := ComCall(57, this, "ptr", AppTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -66,16 +66,29 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
-        result := ComCall(13, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile2(ppProfile)
     }
 
     /**
-     * 
+     * Refresh Method (RDS)
+     * @remarks
+     * You must set the [Connect](./connect-property-rds.md), [Server](./server-property-rds.md), and [SQL](./sql-property.md) properties before you use the **Refresh** method. All data-bound controls on the form associated with an **RDS.DataControl** object will reflect the new set of records. Any pre-existing [Recordset](../ado-api/recordset-object-ado.md) object is released, and any unsaved changes are discarded. The **Refresh** method automatically makes the first record the current record.  
+     *   
+     *  It is a good idea to call the **Refresh** method periodically when you work with data. If you retrieve data, and then leave it on a client computer for a while, it is likely to become out of date. It is possible that any changes that you make will fail, because someone else might have changed the record and submitted changes before you.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/refresh-method-rds
      */
     Refresh() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +97,11 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {IRTCEnumGroups} 
      */
     EnumerateGroups() {
-        result := ComCall(15, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumGroups(ppEnum)
     }
 
@@ -93,7 +110,11 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {IRTCCollection} 
      */
     get_Groups() {
-        result := ComCall(16, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppCollection)
     }
 
@@ -104,7 +125,11 @@ class IRTCBuddy2 extends IRTCBuddy{
      */
     get_PresenceProperty(enProperty) {
         pbstrProperty := BSTR()
-        result := ComCall(17, this, "int", enProperty, "ptr", pbstrProperty, "HRESULT")
+        result := ComCall(17, this, "int", enProperty, "ptr", pbstrProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProperty
     }
 
@@ -113,7 +138,11 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {IRTCEnumPresenceDevices} 
      */
     EnumeratePresenceDevices() {
-        result := ComCall(18, this, "ptr*", &ppEnumDevices := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppEnumDevices := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumPresenceDevices(ppEnumDevices)
     }
 
@@ -122,7 +151,11 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {IRTCCollection} 
      */
     get_PresenceDevices() {
-        result := ComCall(19, this, "ptr*", &ppDevicesCollection := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &ppDevicesCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppDevicesCollection)
     }
 
@@ -131,7 +164,11 @@ class IRTCBuddy2 extends IRTCBuddy{
      * @returns {Integer} 
      */
     get_SubscriptionType() {
-        result := ComCall(20, this, "int*", &penSubscriptionType := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &penSubscriptionType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penSubscriptionType
     }
 }

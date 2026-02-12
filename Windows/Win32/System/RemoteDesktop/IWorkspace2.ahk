@@ -6,7 +6,7 @@
 
 /**
  * Exposes additional methods that provide information about a connection in RemoteApp and Desktop Connection.
- * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nn-workspaceruntime-iworkspace2
+ * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nn-workspaceruntime-iworkspace2
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,7 +32,9 @@ class IWorkspace2 extends IWorkspace{
     static VTableNames => ["StartRemoteApplicationEx"]
 
     /**
-     * Not supported.
+     * Not supported. (IWorkspace2.StartRemoteApplicationEx)
+     * @remarks
+     * <b>StartRemoteApplicationEx</b> contains a number of new features: launching a 3rd party application when the remote desktop first starts, handling multiple remote desktops, and launching with the web-based client UI.
      * @param {BSTR} bstrWorkspaceId A string that contains the ID of the connection  in which to the start the application.
      * @param {BSTR} bstrRequestingAppId A string that contains the ID of an application to launch on the remote desktop.
      * @param {BSTR} bstrRequestingAppFamilyName A string that contains the family name of the application to launch.
@@ -46,16 +48,32 @@ class IWorkspace2 extends IWorkspace{
      * <li>Serialized RDP file</li>
      * <li>Command line parameters for Remote Desktop Connection client</li>
      * </ul>
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace2-startremoteapplicationex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/workspaceruntime/nf-workspaceruntime-iworkspace2-startremoteapplicationex
      */
     StartRemoteApplicationEx(bstrWorkspaceId, bstrRequestingAppId, bstrRequestingAppFamilyName, bLaunchIntoImmersiveClient, bstrImmersiveClientActivationContext, psaParams) {
-        bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
-        bstrRequestingAppId := bstrRequestingAppId is String ? BSTR.Alloc(bstrRequestingAppId).Value : bstrRequestingAppId
-        bstrRequestingAppFamilyName := bstrRequestingAppFamilyName is String ? BSTR.Alloc(bstrRequestingAppFamilyName).Value : bstrRequestingAppFamilyName
-        bstrImmersiveClientActivationContext := bstrImmersiveClientActivationContext is String ? BSTR.Alloc(bstrImmersiveClientActivationContext).Value : bstrImmersiveClientActivationContext
+        if(bstrWorkspaceId is String) {
+            pin := BSTR.Alloc(bstrWorkspaceId)
+            bstrWorkspaceId := pin.Value
+        }
+        if(bstrRequestingAppId is String) {
+            pin := BSTR.Alloc(bstrRequestingAppId)
+            bstrRequestingAppId := pin.Value
+        }
+        if(bstrRequestingAppFamilyName is String) {
+            pin := BSTR.Alloc(bstrRequestingAppFamilyName)
+            bstrRequestingAppFamilyName := pin.Value
+        }
+        if(bstrImmersiveClientActivationContext is String) {
+            pin := BSTR.Alloc(bstrImmersiveClientActivationContext)
+            bstrImmersiveClientActivationContext := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", bstrWorkspaceId, "ptr", bstrRequestingAppId, "ptr", bstrRequestingAppFamilyName, "short", bLaunchIntoImmersiveClient, "ptr", bstrImmersiveClientActivationContext, "ptr", psaParams, "HRESULT")
+        result := ComCall(6, this, "ptr", bstrWorkspaceId, "ptr", bstrRequestingAppId, "ptr", bstrRequestingAppFamilyName, "short", bLaunchIntoImmersiveClient, "ptr", bstrImmersiveClientActivationContext, "ptr", psaParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

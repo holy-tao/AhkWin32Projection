@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains the details of a page to be added to an object's Properties sheet.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-sfvm_proppage_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/ns-shlobj_core-sfvm_proppage_data
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,8 +40,11 @@ class SFVM_PROPPAGE_DATA extends Win32Struct
      * The details of the property sheet to be added. When this function is used by Windows Explorer, it provides <b>lParam</b> through the system folder view object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages">IShellView::AddPropertySheetPages</a> method. The callback function can then pass the information to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a>.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(16, this)
+            return this.__lParam
+        }
     }
 }

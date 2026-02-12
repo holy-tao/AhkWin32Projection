@@ -40,12 +40,19 @@ class IRTCPortManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMapping(bstrRemoteAddress, enPortType, pbstrInternalLocalAddress, plInternalLocalPort, pbstrExternalLocalAddress, plExternalLocalPort) {
-        bstrRemoteAddress := bstrRemoteAddress is String ? BSTR.Alloc(bstrRemoteAddress).Value : bstrRemoteAddress
+        if(bstrRemoteAddress is String) {
+            pin := BSTR.Alloc(bstrRemoteAddress)
+            bstrRemoteAddress := pin.Value
+        }
 
         plInternalLocalPortMarshal := plInternalLocalPort is VarRef ? "int*" : "ptr"
         plExternalLocalPortMarshal := plExternalLocalPort is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", bstrRemoteAddress, "int", enPortType, "ptr", pbstrInternalLocalAddress, plInternalLocalPortMarshal, plInternalLocalPort, "ptr", pbstrExternalLocalAddress, plExternalLocalPortMarshal, plExternalLocalPort, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrRemoteAddress, "int", enPortType, "ptr", pbstrInternalLocalAddress, plInternalLocalPortMarshal, plInternalLocalPort, "ptr", pbstrExternalLocalAddress, plExternalLocalPortMarshal, plExternalLocalPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,11 +66,24 @@ class IRTCPortManager extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateRemoteAddress(bstrRemoteAddress, bstrInternalLocalAddress, lInternalLocalPort, bstrExternalLocalAddress, lExternalLocalPort) {
-        bstrRemoteAddress := bstrRemoteAddress is String ? BSTR.Alloc(bstrRemoteAddress).Value : bstrRemoteAddress
-        bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
-        bstrExternalLocalAddress := bstrExternalLocalAddress is String ? BSTR.Alloc(bstrExternalLocalAddress).Value : bstrExternalLocalAddress
+        if(bstrRemoteAddress is String) {
+            pin := BSTR.Alloc(bstrRemoteAddress)
+            bstrRemoteAddress := pin.Value
+        }
+        if(bstrInternalLocalAddress is String) {
+            pin := BSTR.Alloc(bstrInternalLocalAddress)
+            bstrInternalLocalAddress := pin.Value
+        }
+        if(bstrExternalLocalAddress is String) {
+            pin := BSTR.Alloc(bstrExternalLocalAddress)
+            bstrExternalLocalAddress := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrRemoteAddress, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "ptr", bstrExternalLocalAddress, "int", lExternalLocalPort, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrRemoteAddress, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "ptr", bstrExternalLocalAddress, "int", lExternalLocalPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,10 +96,20 @@ class IRTCPortManager extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseMapping(bstrInternalLocalAddress, lInternalLocalPort, bstrExternalLocalAddress, lExternalLocalAddress) {
-        bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
-        bstrExternalLocalAddress := bstrExternalLocalAddress is String ? BSTR.Alloc(bstrExternalLocalAddress).Value : bstrExternalLocalAddress
+        if(bstrInternalLocalAddress is String) {
+            pin := BSTR.Alloc(bstrInternalLocalAddress)
+            bstrInternalLocalAddress := pin.Value
+        }
+        if(bstrExternalLocalAddress is String) {
+            pin := BSTR.Alloc(bstrExternalLocalAddress)
+            bstrExternalLocalAddress := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "ptr", bstrExternalLocalAddress, "int", lExternalLocalAddress, "HRESULT")
+        result := ComCall(5, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "ptr", bstrExternalLocalAddress, "int", lExternalLocalAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

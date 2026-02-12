@@ -40,7 +40,11 @@ class IWscProduct3 extends IWscProduct2{
      * @returns {Integer} 
      */
     get_AntivirusDaysUntilExpired() {
-        result := ComCall(20, this, "uint*", &pdwDays := 0, "HRESULT")
+        result := ComCall(20, this, "uint*", &pdwDays := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwDays
     }
 }

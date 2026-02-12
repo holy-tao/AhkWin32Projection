@@ -35,7 +35,11 @@ class IDirectSoundFXGargle extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxGargle) {
-        result := ComCall(3, this, "ptr", pcDsFxGargle, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxGargle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXGargle extends IUnknown{
      */
     GetAllParameters() {
         pDsFxGargle := DSFXGargle()
-        result := ComCall(4, this, "ptr", pDsFxGargle, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxGargle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxGargle
     }
 }

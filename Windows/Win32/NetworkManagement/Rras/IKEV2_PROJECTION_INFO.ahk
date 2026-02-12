@@ -3,7 +3,7 @@
 
 /**
  * Contains information obtained during Internet Key Exchange (IKE) negotiation. (IKEV2_PROJECTION_INFO)
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ikev2_projection_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-ikev2_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

@@ -36,7 +36,11 @@ class IRTCClientProvisioning2 extends IRTCClientProvisioning{
      * @returns {HRESULT} 
      */
     EnableProfileEx(pProfile, lRegisterFlags, lRoamingFlags) {
-        result := ComCall(10, this, "ptr", pProfile, "int", lRegisterFlags, "int", lRoamingFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pProfile, "int", lRegisterFlags, "int", lRoamingFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -11,7 +11,7 @@
  * You can set the description using the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfig2a">ChangeServiceConfig2</a> function. You can retrieve the description using the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-queryserviceconfig2a">QueryServiceConfig2</a> function. The description is also displayed by the Services snap-in.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_descriptiona
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_descriptiona
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  * @charset ANSI

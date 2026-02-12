@@ -34,7 +34,11 @@ class IDtcLuRecoveryInitiatedByLu extends IUnknown{
      * @returns {IDtcLuRecoveryInitiatedByLuWork} 
      */
     GetObjectToHandleWorkFromLu() {
-        result := ComCall(3, this, "ptr*", &ppWork := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppWork := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDtcLuRecoveryInitiatedByLuWork(ppWork)
     }
 }

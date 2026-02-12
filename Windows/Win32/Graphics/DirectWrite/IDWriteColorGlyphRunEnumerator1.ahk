@@ -5,7 +5,7 @@
 
 /**
  * Enumerator for an ordered collection of color glyph runs.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritecolorglyphrunenumerator1
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritecolorglyphrunenumerator1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphRunEnumerator{
      * 
      * Receives a pointer to the color glyph run. The pointer remains valid until the next call to
      *           MoveNext or until the interface is released.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritecolorglyphrunenumerator1-getcurrentrun
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritecolorglyphrunenumerator1-getcurrentrun
      */
     GetCurrentRun() {
-        result := ComCall(5, this, "ptr*", &colorGlyphRun := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &colorGlyphRun := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return colorGlyphRun
     }
 }

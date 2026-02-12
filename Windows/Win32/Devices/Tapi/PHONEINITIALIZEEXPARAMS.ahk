@@ -7,7 +7,7 @@
  * @remarks
  * See 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-phoneinitializeexa">phoneInitializeEx</a> for further information on these options.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phoneinitializeexparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-phoneinitializeexparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

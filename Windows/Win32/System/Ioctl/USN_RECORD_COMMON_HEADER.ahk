@@ -3,7 +3,7 @@
 
 /**
  * Contains the information for an update sequence number (USN) common header which is common through USN_RECORD_V2, USN_RECORD_V3 and USN_RECORD_V4.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_common_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-usn_record_common_header
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

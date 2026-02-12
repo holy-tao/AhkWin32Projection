@@ -109,7 +109,7 @@
  * 
  * 
  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-propvariant
+ * @see https://learn.microsoft.com/windows/win32/api//content/propidl/ns-propidl-propvariant
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

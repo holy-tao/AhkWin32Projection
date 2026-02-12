@@ -7,12 +7,10 @@
 /**
  * Gets the OS update assessment by comparing the latest build from Microsoft against the build running on the current device.
  * @remarks
- * 
  * The <b>IWaaSAssessor</b> interface retrieves the <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-osupdateassessment">OSUpdateAssessment</a>. This assessment may be cached; if there is no cached entry, the assessment will be created on demand through the WaaS Assessment Client. The client creates the assessment by contacting the WaaS Assessment Service for update information applicable to the device. The client then performs the assessment using the retrieved information. 
  * 
  * Your code must have administrator privileges to use the <b>IWaaSAssessor</b> interface. For more details about developing applications that require administrator privileges, see [this article](/windows/win32/secauthz/developing-applications-that-require-administrator-privilege).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//waasapi/nn-waasapi-iwaasassessor
+ * @see https://learn.microsoft.com/windows/win32/api//content/waasapi/nn-waasapi-iwaasassessor
  * @namespace Windows.Win32.System.UpdateAssessment
  * @version v4.0.30319
  */
@@ -45,12 +43,20 @@ class IWaaSAssessor extends IUnknown{
 
     /**
      * Gets the OS update assessment by comparing the latest release OS version from Microsoft to the OS build running on the device.
-     * @returns {OSUpdateAssessment} On success, contains a pointer to the OS update assessment.
-     * @see https://docs.microsoft.com/windows/win32/api//waasapi/nf-waasapi-iwaasassessor-getosupdateassessment
+     * @remarks
+     * <b>GetOSUpdateAssessment</b> retrieves the OS update assessment. The assessment provides information on updates applicable to a device: specifically, if the OS on the device is up-to-date. If the OS is not up-to-date, the assessment provides some reasons why. The assessment also suggests the potential impact being out-of-date has on the device.
+     * 
+     * Your code must have administrator privileges to use the <b>GetOSUpdateAssessment</b> method. For more details about developing applications that require administrator privileges, see [this article](/windows/win32/secauthz/developing-applications-that-require-administrator-privilege).
+     * @returns {OSUpdateAssessment} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/waasapi/nf-waasapi-iwaasassessor-getosupdateassessment
      */
     GetOSUpdateAssessment() {
-        result := OSUpdateAssessment()
-        result := ComCall(3, this, "ptr", result, "HRESULT")
-        return result
+        result_ := OSUpdateAssessment()
+        result := ComCall(3, this, "ptr", result_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 }

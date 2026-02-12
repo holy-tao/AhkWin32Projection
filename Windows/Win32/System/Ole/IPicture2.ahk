@@ -91,7 +91,11 @@ class IPicture2 extends IUnknown{
      * @returns {Pointer} 
      */
     get_Handle() {
-        result := ComCall(3, this, "ptr*", &pHandle := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &pHandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHandle
     }
 
@@ -100,7 +104,11 @@ class IPicture2 extends IUnknown{
      * @returns {Pointer} 
      */
     get_hPal() {
-        result := ComCall(4, this, "ptr*", &phPal := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &phPal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phPal
     }
 
@@ -109,7 +117,11 @@ class IPicture2 extends IUnknown{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(5, this, "short*", &pType := 0, "HRESULT")
+        result := ComCall(5, this, "short*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
@@ -118,7 +130,11 @@ class IPicture2 extends IUnknown{
      * @returns {Integer} 
      */
     get_Width() {
-        result := ComCall(6, this, "int*", &pWidth := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pWidth
     }
 
@@ -127,28 +143,56 @@ class IPicture2 extends IUnknown{
      * @returns {Integer} 
      */
     get_Height() {
-        result := ComCall(7, this, "int*", &pHeight := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pHeight := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHeight
     }
 
     /**
-     * 
-     * @param {HDC} hDC 
+     * The Render method initializes the DVD filter graph.
+     * @remarks
+     * The `Render` method enables the **MSWebDVD** object to fully initialize the underlying DirectShow filter graph on startup. This eliminates the slight delay that otherwise occurs when the user issues the first command to play a disc or show a menu. There is no case in which `Render` needs to be called before calling any other method. For example, if the application calls [**PlayTitle**](playtitle-method.md) before the filter graph has been initialized, the **MSWebDVD** object calls `Render` automatically before attempting to play the disc.
+     * @param {HDC} hDC_ 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} cx 
-     * @param {Integer} cy 
+     * @param {Integer} cy_ 
      * @param {Integer} xSrc 
      * @param {Integer} ySrc 
      * @param {Integer} cxSrc 
      * @param {Integer} cySrc 
      * @param {Pointer<RECT>} pRcWBounds 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="iRender"></span><span id="irender"></span><span id="IRENDER"></span>*iRender*
+     * 
+     * Specifies an integer value indicating whether the filter graph will be destroyed and rebuilt.
+     * 
+     * 
+     * 
+     * | Value | Description                                                                                         |
+     * |-------|-----------------------------------------------------------------------------------------------------|
+     * | 0     | The filter graph will not be destroyed and rebuilt if it already exists. This is the default value. |
+     * | 1     | The filter graph will be destroyed and rebuilt if it already exists.                                |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * 
+     * No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/render-method
      */
-    Render(hDC, x, y, cx, cy, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    Render(hDC_, x, y, cx, cy_, xSrc, ySrc, cxSrc, cySrc, pRcWBounds) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
 
-        result := ComCall(8, this, "ptr", hDC, "int", x, "int", y, "int", cx, "int", cy, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "HRESULT")
+        result := ComCall(8, this, "ptr", hDC_, "int", x, "int", y, "int", cx, "int", cy_, "int", xSrc, "int", ySrc, "int", cxSrc, "int", cySrc, "ptr", pRcWBounds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +202,11 @@ class IPicture2 extends IUnknown{
      * @returns {HRESULT} 
      */
     set_hPal(hPal) {
-        result := ComCall(9, this, "ptr", hPal, "HRESULT")
+        result := ComCall(9, this, "ptr", hPal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -168,7 +216,11 @@ class IPicture2 extends IUnknown{
      */
     get_CurDC() {
         phDC := HDC()
-        result := ComCall(10, this, "ptr", phDC, "HRESULT")
+        result := ComCall(10, this, "ptr", phDC, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phDC
     }
 
@@ -184,7 +236,11 @@ class IPicture2 extends IUnknown{
 
         phBmpOutMarshal := phBmpOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", hDCIn, "ptr", phDCOut, phBmpOutMarshal, phBmpOut, "HRESULT")
+        result := ComCall(11, this, "ptr", hDCIn, "ptr", phDCOut, phBmpOutMarshal, phBmpOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +249,11 @@ class IPicture2 extends IUnknown{
      * @returns {BOOL} 
      */
     get_KeepOriginalFormat() {
-        result := ComCall(12, this, "int*", &pKeep := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pKeep := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pKeep
     }
 
@@ -203,7 +263,11 @@ class IPicture2 extends IUnknown{
      * @returns {HRESULT} 
      */
     put_KeepOriginalFormat(keep) {
-        result := ComCall(13, this, "int", keep, "HRESULT")
+        result := ComCall(13, this, "int", keep, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,7 +276,11 @@ class IPicture2 extends IUnknown{
      * @returns {HRESULT} 
      */
     PictureChanged() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,7 +291,11 @@ class IPicture2 extends IUnknown{
      * @returns {Integer} 
      */
     SaveAsFile(pStream, fSaveMemCopy) {
-        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", &pCbSize := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", &pCbSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCbSize
     }
 
@@ -232,7 +304,11 @@ class IPicture2 extends IUnknown{
      * @returns {Integer} 
      */
     get_Attributes() {
-        result := ComCall(16, this, "uint*", &pDwAttr := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &pDwAttr := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDwAttr
     }
 }

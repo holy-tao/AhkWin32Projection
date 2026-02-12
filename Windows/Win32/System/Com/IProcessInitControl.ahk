@@ -4,8 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Specifies the process initialization time-out interval.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iprocessinitcontrol
+ * The IProcessInitControl interface (objidl.h) specifies the process initialization time-out interval.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iprocessinitcontrol
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -31,13 +31,17 @@ class IProcessInitControl extends IUnknown{
     static VTableNames => ["ResetInitializerTimeout"]
 
     /**
-     * Sets the process initialization time-out.
+     * The IProcessInitControl::ResetInitializerTimeout method (objidl.h) sets the process initialization time-out.
      * @param {Integer} dwSecondsRemaining The number of seconds after this method is called before process initialization times out.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprocessinitcontrol-resetinitializertimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iprocessinitcontrol-resetinitializertimeout
      */
     ResetInitializerTimeout(dwSecondsRemaining) {
-        result := ComCall(3, this, "uint", dwSecondsRemaining, "HRESULT")
+        result := ComCall(3, this, "uint", dwSecondsRemaining, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

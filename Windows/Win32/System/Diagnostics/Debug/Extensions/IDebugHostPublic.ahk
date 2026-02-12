@@ -34,8 +34,12 @@ class IDebugHostPublic extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetLocationKind() {
-        result := ComCall(10, this, "int*", &locationKind := 0, "HRESULT")
-        return locationKind
+        result := ComCall(10, this, "int*", &locationKind_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return locationKind_
     }
 
     /**
@@ -43,8 +47,12 @@ class IDebugHostPublic extends IDebugHostSymbol{
      * @returns {Location} 
      */
     GetLocation() {
-        location := Location()
-        result := ComCall(11, this, "ptr", location, "HRESULT")
-        return location
+        location_ := Location()
+        result := ComCall(11, this, "ptr", location_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return location_
     }
 }

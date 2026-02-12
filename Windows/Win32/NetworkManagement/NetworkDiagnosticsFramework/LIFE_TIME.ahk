@@ -4,7 +4,7 @@
 
 /**
  * The LIFE_TIME structure contains a start time and an end time.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-life_time
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndattrib/ns-ndattrib-life_time
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Defines the possible states for any service monitored by Windows Security Center (WSC).
- * @see https://learn.microsoft.com/windows/win32/api/wscapi/ne-wscapi-wsc_security_provider_health
+ * @see https://learn.microsoft.com/windows/win32/api//content/wscapi/ne-wscapi-wsc_security_provider_health
  * @namespace Windows.Win32.System.SecurityCenter
  * @version v4.0.30319
  */

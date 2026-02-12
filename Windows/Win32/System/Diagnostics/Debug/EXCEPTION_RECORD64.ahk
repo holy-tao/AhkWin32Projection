@@ -27,7 +27,7 @@
  *     DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
  * } EXCEPTION_RECORD64, *PEXCEPTION_RECORD64;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_record64
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-exception_record64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

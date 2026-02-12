@@ -4,7 +4,7 @@
 
 /**
  * The STATPROPSETSTG structure contains information about a property set. (STATPROPSETSTG structure)
- * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-statpropsetstg
+ * @see https://learn.microsoft.com/windows/win32/api//content/propidl/ns-propidl-statpropsetstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */

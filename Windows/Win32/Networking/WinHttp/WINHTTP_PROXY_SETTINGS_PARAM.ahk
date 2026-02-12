@@ -5,7 +5,7 @@
  * The WINHTTP_PROXY_SETTINGS_PARAM structure represents extended proxy settings.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_param
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_proxy_settings_param
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

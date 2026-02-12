@@ -4,6 +4,8 @@
 #Include ..\..\Direct3D11\ID3D11Linker.ahk
 #Include ..\..\Direct3D11\ID3D11Module.ahk
 #Include ..\..\Direct3D11\ID3D11FunctionLinkingGraph.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
@@ -14,12 +16,12 @@ class Fxc {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DCOMPILER_DLL_W => "d3dcompiler_47.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DCOMPILER_DLL_A => "d3dcompiler_47.dll"
 
@@ -252,7 +254,7 @@ class Fxc {
      * <div> </div>
      * @param {PWSTR} pFileName A pointer to a constant null-terminated string that contains  the name of the file to read into memory.
      * @returns {ID3DBlob} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains information that <b>D3DReadFileToBlob</b> read from the <i>pFileName</i> file. You can use this <b>ID3DBlob</b> interface to access the file information and pass it to other compiler functions.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreadfiletoblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dreadfiletoblob
      */
     static D3DReadFileToBlob(pFileName) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
@@ -282,7 +284,7 @@ class Fxc {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dwriteblobtofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dwriteblobtofile
      */
     static D3DWriteBlobToFile(pBlob, pFileName, bOverwrite) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
@@ -338,7 +340,7 @@ class Fxc {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompile
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcompile
      */
     static D3DCompile(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, ppCode, ppErrorMsgs) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
@@ -425,7 +427,7 @@ class Fxc {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompile2
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcompile2
      */
     static D3DCompile2(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, SecondaryDataFlags, pSecondaryData, SecondaryDataSize, ppCode, ppErrorMsgs) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
@@ -458,7 +460,7 @@ class Fxc {
      * @param {Pointer<ID3DBlob>} ppCode A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the compiled code.
      * @param {Pointer<ID3DBlob>} ppErrorMsgs An optional pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access compiler error messages, or <b>NULL</b> if there are no errors.
      * @returns {HRESULT} Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompilefromfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcompilefromfile
      */
     static D3DCompileFromFile(pFileName, pDefines, pInclude, pEntrypoint, pTarget, Flags1, Flags2, ppCode, ppErrorMsgs) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
@@ -504,7 +506,7 @@ class Fxc {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dpreprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dpreprocess
      */
     static D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
@@ -530,7 +532,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains debug information.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetdebuginfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dgetdebuginfo
      */
     static D3DGetDebugInfo(pSrcData, SrcDataSize) {
         result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppDebugInfo := 0, "int")
@@ -571,7 +573,7 @@ class Fxc {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a reflection interface.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflect
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dreflect
      */
     static D3DReflect(pSrcData, SrcDataSize, pInterface) {
         result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, "ptr*", &ppReflector := 0, "int")
@@ -596,7 +598,7 @@ class Fxc {
      * @returns {Pointer<Void>} Type: <b>LPVOID*</b>
      * 
      * A pointer to a variable that receives a pointer to a library-reflection interface, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11libraryreflection">ID3D11LibraryReflection</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflectlibrary
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dreflectlibrary
      */
     static D3DReflectLibrary(pSrcData, SrcDataSize, riid) {
         result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, "ptr*", &ppReflector := 0, "int")
@@ -622,7 +624,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that accesses assembly text.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassemble
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3ddisassemble
      */
     static D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
@@ -684,7 +686,7 @@ class Fxc {
      * @param {Pointer<Pointer>} pFinishByteOffset A pointer to a variable that receives the number of bytes offset into the compiled shader data where <b>D3DDisassembleRegion</b> finishes the disassembly.
      * @param {Pointer<ID3DBlob>} ppDisassembly A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that accesses the disassembled HLSL code.
      * @returns {HRESULT} Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassembleregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3ddisassembleregion
      */
     static D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteOffset, NumInsts, pFinishByteOffset, ppDisassembly) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
@@ -707,7 +709,7 @@ class Fxc {
      * @returns {ID3D11Linker} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linker">ID3D11Linker</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linker">ID3D11Linker</a> interface that is used to link a shader module.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreatelinker
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcreatelinker
      */
     static D3DCreateLinker() {
         result := DllCall("D3DCOMPILER_47.dll\D3DCreateLinker", "ptr*", &ppLinker := 0, "int")
@@ -732,7 +734,7 @@ class Fxc {
      * @returns {ID3D11Module} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11module">ID3D11Module</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11module">ID3D11Module</a> interface that is used for shader resource re-binding.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dloadmodule
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dloadmodule
      */
     static D3DLoadModule(pSrcData, cbSrcDataSize) {
         pSrcDataMarshal := pSrcData is VarRef ? "ptr" : "ptr"
@@ -756,7 +758,7 @@ class Fxc {
      * @returns {ID3D11FunctionLinkingGraph} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11functionlinkinggraph">ID3D11FunctionLinkingGraph</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11functionlinkinggraph">ID3D11FunctionLinkingGraph</a> interface that is used for constructing shaders that consist of a sequence of precompiled function calls.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreatefunctionlinkinggraph
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcreatefunctionlinkinggraph
      */
     static D3DCreateFunctionLinkingGraph(uFlags) {
         result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", "uint", uFlags, "ptr*", &ppFunctionLinkingGraph := 0, "int")
@@ -793,7 +795,7 @@ class Fxc {
      * @param {Pointer<Pointer>} pOffsets A pointer to a variable that receives the actual number of offsets.
      * @param {Pointer<Pointer>} pTotalInsts A pointer to a variable that receives the total number of instructions in the section of shader code.
      * @returns {HRESULT} Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgettraceinstructionoffsets
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dgettraceinstructionoffsets
      */
     static D3DGetTraceInstructionOffsets(pSrcData, SrcDataSize, Flags, StartInstIndex, NumInsts, pOffsets, pTotalInsts) {
         pOffsetsMarshal := pOffsets is VarRef ? "ptr*" : "ptr"
@@ -818,7 +820,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains a compiled shader.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetinputsignatureblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dgetinputsignatureblob
      */
     static D3DGetInputSignatureBlob(pSrcData, SrcDataSize) {
         result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "int")
@@ -840,7 +842,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains a compiled shader.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetoutputsignatureblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dgetoutputsignatureblob
      */
     static D3DGetOutputSignatureBlob(pSrcData, SrcDataSize) {
         result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "int")
@@ -862,7 +864,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains a compiled shader.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetinputandoutputsignatureblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dgetinputandoutputsignatureblob
      */
     static D3DGetInputAndOutputSignatureBlob(pSrcData, SrcDataSize) {
         result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", &ppSignatureBlob := 0, "int")
@@ -887,7 +889,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the unwanted stripped out shader code.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dstripshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dstripshader
      */
     static D3DStripShader(pShaderBytecode, BytecodeLength, uStripFlags) {
         result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "uint", uStripFlags, "ptr*", &ppStrippedBlob := 0, "int")
@@ -917,7 +919,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that is used to retrieve the specified part of the buffer.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dgetblobpart
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dgetblobpart
      */
     static D3DGetBlobPart(pSrcData, SrcDataSize, Part, Flags) {
         result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr*", &ppPart := 0, "int")
@@ -956,7 +958,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface for the new shader in which the new part data is set.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dsetblobpart
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dsetblobpart
      */
     static D3DSetBlobPart(pSrcData, SrcDataSize, Part, Flags, pPart, PartSize) {
         result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr", pPart, "ptr", PartSize, "ptr*", &ppNewShader := 0, "int")
@@ -971,16 +973,16 @@ class Fxc {
      * Creates a buffer.
      * @remarks
      * The latest D3dcompiler_nn.dll contains the <b>D3DCreateBlob</b> compiler function. Therefore, you are no longer required to create and use an arbitrary length data buffer by using the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createblob">D3D10CreateBlob</a> function that is contained in D3d10.dll.
-     * @param {Pointer} Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
+     * @param {Pointer} Size_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Number of bytes in the blob.
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that is used to retrieve the buffer.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcreateblob
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcreateblob
      */
-    static D3DCreateBlob(Size) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", Size, "ptr*", &ppBlob := 0, "int")
+    static D3DCreateBlob(Size_) {
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", Size_, "ptr*", &ppBlob := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1002,7 +1004,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that is used to retrieve the compressed shader data.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompressshaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3dcompressshaders
      */
     static D3DCompressShaders(uNumShaders, pShaderData, uFlags) {
         result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", "uint", uNumShaders, "ptr", pShaderData, "uint", uFlags, "ptr*", &ppCompressedData := 0, "int")
@@ -1042,7 +1044,7 @@ class Fxc {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddecompressshaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3ddecompressshaders
      */
     static D3DDecompressShaders(pSrcData, SrcDataSize, uNumShaders, uStartIndex, pIndices, uFlags, ppShaders, pTotalShaders) {
         pIndicesMarshal := pIndices is VarRef ? "uint*" : "ptr"
@@ -1067,7 +1069,7 @@ class Fxc {
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains disassembly text.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3ddisassemble10effect
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcompiler/nf-d3dcompiler-d3ddisassemble10effect
      */
     static D3DDisassemble10Effect(pEffect, Flags) {
         result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, "uint", Flags, "ptr*", &ppDisassembly := 0, "int")

@@ -3,7 +3,7 @@
 
 /**
  * Contains information about paragraph formatting attributes in a rich edit control. (PARAFORMAT)
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-paraformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-paraformat
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

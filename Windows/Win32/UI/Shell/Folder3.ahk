@@ -47,7 +47,11 @@ class Folder3 extends Folder2{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowWebViewBarricade() {
-        result := ComCall(22, this, "short*", &pbShowWebViewBarricade := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &pbShowWebViewBarricade := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbShowWebViewBarricade
     }
 
@@ -57,7 +61,11 @@ class Folder3 extends Folder2{
      * @returns {HRESULT} 
      */
     put_ShowWebViewBarricade(bShowWebViewBarricade) {
-        result := ComCall(23, this, "short", bShowWebViewBarricade, "HRESULT")
+        result := ComCall(23, this, "short", bShowWebViewBarricade, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

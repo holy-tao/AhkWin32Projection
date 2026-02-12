@@ -6,11 +6,8 @@
 /**
  * This feature is expected to be available on a future version of the Windows operating system.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IRegisterTuner)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iregistertuner
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-iregistertuner
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -40,20 +37,28 @@ class IRegisterTuner extends IUnknown{
      * @param {ITuner} pTuner Pointer to a variable that specifies the tuner.
      * @param {IGraphBuilder} pGraph Pointer to a variable that specifies the graph filter provider.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iregistertuner-register
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iregistertuner-register
      */
     Register(pTuner, pGraph) {
-        result := ComCall(3, this, "ptr", pTuner, "ptr", pGraph, "HRESULT")
+        result := ComCall(3, this, "ptr", pTuner, "ptr", pGraph, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This feature is expected to be available on a future version of the Windows operating system.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iregistertuner-unregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iregistertuner-unregister
      */
     Unregister() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -29,13 +29,22 @@ class IHTMLOMWindowServices extends IUnknown{
     static VTableNames => ["moveTo", "moveBy", "resizeTo", "resizeBy"]
 
     /**
-     * 
+     * moveToCurrentRow Method (SQLServerResultSet)
+     * @remarks
+     * This moveToCurrentRow method is specified by the moveToCurrentRow method in the java.sql.ResultSet interface.  
+     *   
+     *  This method has no effect if the cursor is not on the insert row.
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/movetocurrentrow-method-sqlserverresultset
      */
     moveTo(x, y) {
-        result := ComCall(3, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(3, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +55,11 @@ class IHTMLOMWindowServices extends IUnknown{
      * @returns {HRESULT} 
      */
     moveBy(x, y) {
-        result := ComCall(4, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(4, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +70,11 @@ class IHTMLOMWindowServices extends IUnknown{
      * @returns {HRESULT} 
      */
     resizeTo(x, y) {
-        result := ComCall(5, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(5, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +85,11 @@ class IHTMLOMWindowServices extends IUnknown{
      * @returns {HRESULT} 
      */
     resizeBy(x, y) {
-        result := ComCall(6, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(6, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

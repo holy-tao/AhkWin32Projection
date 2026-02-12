@@ -276,9 +276,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_tableLayout(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -288,7 +295,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_tableLayout() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -298,9 +309,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderCollapse(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -310,7 +328,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_borderCollapse() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -320,9 +342,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_direction(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -332,7 +361,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_direction() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -342,9 +375,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_behavior(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -354,7 +394,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_behavior() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -366,11 +410,24 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     setExpression(propname, expression, language) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
-        expression := expression is String ? BSTR.Alloc(expression).Value : expression
-        language := language is String ? BSTR.Alloc(language).Value : language
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
+        if(expression is String) {
+            pin := BSTR.Alloc(expression)
+            expression := pin.Value
+        }
+        if(language is String) {
+            pin := BSTR.Alloc(language)
+            language := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", propname, "ptr", expression, "ptr", language, "HRESULT")
+        result := ComCall(15, this, "ptr", propname, "ptr", expression, "ptr", language, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -380,10 +437,17 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {VARIANT} 
      */
     getExpression(propname) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
 
         expression := VARIANT()
-        result := ComCall(16, this, "ptr", propname, "ptr", expression, "HRESULT")
+        result := ComCall(16, this, "ptr", propname, "ptr", expression, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return expression
     }
 
@@ -393,9 +457,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     removeExpression(propname) {
-        propname := propname is String ? BSTR.Alloc(propname).Value : propname
+        if(propname is String) {
+            pin := BSTR.Alloc(propname)
+            propname := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", propname, "short*", &pfSuccess := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", propname, "short*", &pfSuccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfSuccess
     }
 
@@ -405,9 +476,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_position(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -417,7 +495,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_position() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -427,9 +509,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_unicodeBidi(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -439,7 +528,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_unicodeBidi() {
         p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -449,7 +542,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bottom(v) {
-        result := ComCall(22, this, "ptr", v, "HRESULT")
+        result := ComCall(22, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -459,7 +556,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_bottom() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -469,7 +570,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_right(v) {
-        result := ComCall(24, this, "ptr", v, "HRESULT")
+        result := ComCall(24, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -479,7 +584,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_right() {
         p := VARIANT()
-        result := ComCall(25, this, "ptr", p, "HRESULT")
+        result := ComCall(25, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -489,7 +598,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pixelBottom(v) {
-        result := ComCall(26, this, "int", v, "HRESULT")
+        result := ComCall(26, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -498,7 +611,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {Integer} 
      */
     get_pixelBottom() {
-        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -508,7 +625,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pixelRight(v) {
-        result := ComCall(28, this, "int", v, "HRESULT")
+        result := ComCall(28, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -517,7 +638,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {Integer} 
      */
     get_pixelRight() {
-        result := ComCall(29, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -527,7 +652,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_posBottom(v) {
-        result := ComCall(30, this, "float", v, "HRESULT")
+        result := ComCall(30, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -536,7 +665,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {Float} 
      */
     get_posBottom() {
-        result := ComCall(31, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(31, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -546,7 +679,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_posRight(v) {
-        result := ComCall(32, this, "float", v, "HRESULT")
+        result := ComCall(32, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -555,7 +692,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {Float} 
      */
     get_posRight() {
-        result := ComCall(33, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(33, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -565,9 +706,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_imeMode(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", v, "HRESULT")
+        result := ComCall(34, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -577,7 +725,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_imeMode() {
         p := BSTR()
-        result := ComCall(35, this, "ptr", p, "HRESULT")
+        result := ComCall(35, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -587,9 +739,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_rubyAlign(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(36, this, "ptr", v, "HRESULT")
+        result := ComCall(36, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -599,7 +758,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_rubyAlign() {
         p := BSTR()
-        result := ComCall(37, this, "ptr", p, "HRESULT")
+        result := ComCall(37, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -609,9 +772,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_rubyPosition(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(38, this, "ptr", v, "HRESULT")
+        result := ComCall(38, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -621,7 +791,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_rubyPosition() {
         p := BSTR()
-        result := ComCall(39, this, "ptr", p, "HRESULT")
+        result := ComCall(39, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -631,9 +805,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_rubyOverhang(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(40, this, "ptr", v, "HRESULT")
+        result := ComCall(40, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -643,7 +824,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_rubyOverhang() {
         p := BSTR()
-        result := ComCall(41, this, "ptr", p, "HRESULT")
+        result := ComCall(41, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -653,7 +838,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_layoutGridChar(v) {
-        result := ComCall(42, this, "ptr", v, "HRESULT")
+        result := ComCall(42, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -663,7 +852,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_layoutGridChar() {
         p := VARIANT()
-        result := ComCall(43, this, "ptr", p, "HRESULT")
+        result := ComCall(43, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -673,7 +866,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_layoutGridLine(v) {
-        result := ComCall(44, this, "ptr", v, "HRESULT")
+        result := ComCall(44, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -683,7 +880,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_layoutGridLine() {
         p := VARIANT()
-        result := ComCall(45, this, "ptr", p, "HRESULT")
+        result := ComCall(45, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -693,9 +894,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_layoutGridMode(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", v, "HRESULT")
+        result := ComCall(46, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -705,7 +913,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_layoutGridMode() {
         p := BSTR()
-        result := ComCall(47, this, "ptr", p, "HRESULT")
+        result := ComCall(47, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -715,9 +927,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_layoutGridType(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(48, this, "ptr", v, "HRESULT")
+        result := ComCall(48, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -727,7 +946,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_layoutGridType() {
         p := BSTR()
-        result := ComCall(49, this, "ptr", p, "HRESULT")
+        result := ComCall(49, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -737,9 +960,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_layoutGrid(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(50, this, "ptr", v, "HRESULT")
+        result := ComCall(50, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -749,7 +979,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_layoutGrid() {
         p := BSTR()
-        result := ComCall(51, this, "ptr", p, "HRESULT")
+        result := ComCall(51, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -759,9 +993,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_wordBreak(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(52, this, "ptr", v, "HRESULT")
+        result := ComCall(52, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -771,7 +1012,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_wordBreak() {
         p := BSTR()
-        result := ComCall(53, this, "ptr", p, "HRESULT")
+        result := ComCall(53, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -781,9 +1026,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_lineBreak(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(54, this, "ptr", v, "HRESULT")
+        result := ComCall(54, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -793,7 +1045,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_lineBreak() {
         p := BSTR()
-        result := ComCall(55, this, "ptr", p, "HRESULT")
+        result := ComCall(55, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -803,9 +1059,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textJustify(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(56, this, "ptr", v, "HRESULT")
+        result := ComCall(56, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -815,7 +1078,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_textJustify() {
         p := BSTR()
-        result := ComCall(57, this, "ptr", p, "HRESULT")
+        result := ComCall(57, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -825,9 +1092,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textJustifyTrim(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(58, this, "ptr", v, "HRESULT")
+        result := ComCall(58, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -837,7 +1111,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_textJustifyTrim() {
         p := BSTR()
-        result := ComCall(59, this, "ptr", p, "HRESULT")
+        result := ComCall(59, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -847,7 +1125,11 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textKashida(v) {
-        result := ComCall(60, this, "ptr", v, "HRESULT")
+        result := ComCall(60, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -857,7 +1139,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_textKashida() {
         p := VARIANT()
-        result := ComCall(61, this, "ptr", p, "HRESULT")
+        result := ComCall(61, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -867,9 +1153,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textAutospace(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(62, this, "ptr", v, "HRESULT")
+        result := ComCall(62, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -879,7 +1172,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_textAutospace() {
         p := BSTR()
-        result := ComCall(63, this, "ptr", p, "HRESULT")
+        result := ComCall(63, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -889,9 +1186,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_overflowX(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(64, this, "ptr", v, "HRESULT")
+        result := ComCall(64, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -901,7 +1205,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_overflowX() {
         p := BSTR()
-        result := ComCall(65, this, "ptr", p, "HRESULT")
+        result := ComCall(65, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -911,9 +1219,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_overflowY(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(66, this, "ptr", v, "HRESULT")
+        result := ComCall(66, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -923,7 +1238,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_overflowY() {
         p := BSTR()
-        result := ComCall(67, this, "ptr", p, "HRESULT")
+        result := ComCall(67, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -933,9 +1252,16 @@ class IHTMLStyle2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_accelerator(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(68, this, "ptr", v, "HRESULT")
+        result := ComCall(68, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -945,7 +1271,11 @@ class IHTMLStyle2 extends IDispatch{
      */
     get_accelerator() {
         p := BSTR()
-        result := ComCall(69, this, "ptr", p, "HRESULT")
+        result := ComCall(69, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

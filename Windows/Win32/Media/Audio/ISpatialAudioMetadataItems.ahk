@@ -7,10 +7,8 @@
 /**
  * Represents a buffer of spatial audio metadata items.
  * @remarks
- * 
  * Get an instance of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadataitems">ISpatialAudioMetadataClient::ActivateSpatialAudioMetadataItems</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -38,51 +36,71 @@ class ISpatialAudioMetadataItems extends IUnknown{
     /**
      * Gets the total frame count of the ISpatialAudioMetadataItems, which defines valid item offsets.
      * @returns {Integer} The total frame count.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getframecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getframecount
      */
     GetFrameCount() {
-        result := ComCall(3, this, "ushort*", &frameCount := 0, "HRESULT")
+        result := ComCall(3, this, "ushort*", &frameCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return frameCount
     }
 
     /**
      * The current number of items stored by the ISpatialAudioMetadataItems.
      * @returns {Integer} The current number of stored items.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getitemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getitemcount
      */
     GetItemCount() {
-        result := ComCall(4, this, "ushort*", &itemCount := 0, "HRESULT")
+        result := ComCall(4, this, "ushort*", &itemCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return itemCount
     }
 
     /**
      * The maximum number of items allowed by the ISpatialAudioMetadataItems, defined when the object is created.
      * @returns {Integer} The maximum number of items allowed.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxitemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxitemcount
      */
     GetMaxItemCount() {
-        result := ComCall(5, this, "ushort*", &maxItemCount := 0, "HRESULT")
+        result := ComCall(5, this, "ushort*", &maxItemCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxItemCount
     }
 
     /**
      * The size of the largest command value defined by the metadata format for the ISpatialAudioMetadataItems.
      * @returns {Integer} The size of the largest command value defined by the metadata format.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxvaluebufferlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getmaxvaluebufferlength
      */
     GetMaxValueBufferLength() {
-        result := ComCall(6, this, "uint*", &maxValueBufferLength := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &maxValueBufferLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxValueBufferLength
     }
 
     /**
      * Gets the total frame count for the ISpatialAudioMetadataItems, which defines valid item offsets.
      * @returns {SpatialAudioMetadataItemsInfo} The total frame count, which defines valid item offsets.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitems-getinfo
      */
     GetInfo() {
         info := SpatialAudioMetadataItemsInfo()
-        result := ComCall(7, this, "ptr", info, "HRESULT")
+        result := ComCall(7, this, "ptr", info, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return info
     }
 }

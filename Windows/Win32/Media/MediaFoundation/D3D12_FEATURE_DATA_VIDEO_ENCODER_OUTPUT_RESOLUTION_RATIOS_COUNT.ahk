@@ -5,7 +5,7 @@
  * The D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION_RATIOS_COUNT structure (d3d12video.h) retrieves the number of supported resolution ratios for the specified codec.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_output_resolution_ratios_count
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_output_resolution_ratios_count
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

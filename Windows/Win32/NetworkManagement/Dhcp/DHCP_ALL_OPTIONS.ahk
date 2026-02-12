@@ -3,7 +3,7 @@
 
 /**
  * Defines the set of all options available on a DHCP server.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_all_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/ns-dhcpsapi-dhcp_all_options
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */
@@ -42,7 +42,7 @@ class DHCP_ALL_OPTIONS extends Win32Struct
 
     /**
      * Pointer to a list of structures that contain the following fields.
-     * @type {Pointer<_Anonymous_e__Struct>}
+     * @type {Pointer<_Anonymous>}
      */
     VendorOptions {
         get => NumGet(this, 24, "ptr")

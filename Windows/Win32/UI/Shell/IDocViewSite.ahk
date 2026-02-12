@@ -6,10 +6,8 @@
 /**
  * Used as a site object by the IShellView interface.
  * @remarks
- * 
  * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method on <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> to get a pointer to the <b>IDocViewSite</b> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-idocviewsite
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nn-shlobj-idocviewsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,11 +39,15 @@ class IDocViewSite extends IUnknown{
      * Specifies the view title.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idocviewsite-onsettitle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-idocviewsite-onsettitle
      */
     OnSetTitle(pvTitle) {
-        result := ComCall(3, this, "ptr", pvTitle, "HRESULT")
+        result := ComCall(3, this, "ptr", pvTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

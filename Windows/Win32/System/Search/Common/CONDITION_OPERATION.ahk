@@ -7,7 +7,7 @@
  * Because a resolved condition never has a <b>COP_IMPLICIT</b> operation, applications that evaluate condition trees should not encounter it. However, <b>COP_IMPLICIT</b> could be used in comparing the output of either <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nf-structuredquerycondition-icondition-getcomparisoninfo">ICondition::GetComparisonInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nf-structuredquerycondition-icondition2-getleafconditioninfo">ICondition2::GetLeafConditionInfo</a> for a parsed unresolved condition to the output for a resolved condition.
  * 
  * In Windows 7, this enumeration is defined in structuredquerycondition.idl and structuredquerycondition.h. Prior to Windows 7 this enumeration was declared in structuredquery.h and structuredquery.idl.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquerycondition/ne-structuredquerycondition-condition_operation
  * @namespace Windows.Win32.System.Search.Common
  * @version v4.0.30319
  */

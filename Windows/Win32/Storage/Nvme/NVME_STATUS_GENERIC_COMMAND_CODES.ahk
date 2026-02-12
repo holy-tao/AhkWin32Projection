@@ -5,7 +5,7 @@
  * Contains values that indicate a status associated with the command that is generic across many different types of commands.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_generic_command_codes
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_status_generic_command_codes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

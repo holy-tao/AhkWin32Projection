@@ -7,7 +7,7 @@
  * Represents a set of properties for outputting a single page of a Portable Document Format (PDF) file.
  * @remarks
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetodevicecontext">RenderPageToDeviceContext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-ipdfrenderernative-renderpagetosurface">RenderPageToSurface</a> methods.
- * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/ns-windows-data-pdf-interop-pdf_render_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.data.pdf.interop/ns-windows-data-pdf-interop-pdf_render_params
  * @namespace Windows.Win32.System.WinRT.Pdf
  * @version v4.0.30319
  */

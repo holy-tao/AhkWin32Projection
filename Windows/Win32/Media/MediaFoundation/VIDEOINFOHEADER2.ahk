@@ -183,7 +183,7 @@
  * 
  * 
  * Ignore the <b>SampleFormat</b> member of the <b>DXVA_ExtendedFormat</b> structure, because it corresponds to the lower 8 bits of <b>dwControlFlags</b>, which are reserved for the AMCONTROL_xxx flags. The <b>DXVA_ExtendedFormat</b> structure is documented in the Windows DDK documentation.
- * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-videoinfoheader2
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvdmedia/ns-dvdmedia-videoinfoheader2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * ICommand (Native Client OLE DB provider)
+ * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-ole-db-interfaces/icommand-ole-db
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -29,27 +31,39 @@ class ICommand extends IUnknown{
     static VTableNames => ["Cancel", "Execute", "GetDBSession"]
 
     /**
-     * 
+     * Cancel Method (RDS)
+     * @remarks
+     * When you call **Cancel**, [ReadyState](./readystate-property-rds.md) is automatically set to **adcReadyStateLoaded**, and the [Recordset](../ado-api/recordset-object-ado.md) will be empty.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/cancel-method-rds
      */
     Cancel() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Defines the method to be called when the command is invoked.
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<DBPARAMS>} pParams 
      * @param {Pointer<Pointer>} pcRowsAffected 
      * @param {Pointer<IUnknown>} ppRowset 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.input.icommand.execute
      */
     Execute(pUnkOuter, riid, pParams, pcRowsAffected, ppRowset) {
         pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", riid, "ptr", pParams, pcRowsAffectedMarshal, pcRowsAffected, "ptr*", ppRowset, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnkOuter, "ptr", riid, "ptr", pParams, pcRowsAffectedMarshal, pcRowsAffected, "ptr*", ppRowset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +73,11 @@ class ICommand extends IUnknown{
      * @returns {IUnknown} 
      */
     GetDBSession(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppSession)
     }
 }

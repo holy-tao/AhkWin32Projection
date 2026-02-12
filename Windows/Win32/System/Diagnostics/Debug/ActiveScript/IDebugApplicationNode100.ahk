@@ -36,7 +36,11 @@ class IDebugApplicationNode100 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFilterForEventSink(dwCookie, filter) {
-        result := ComCall(3, this, "uint", dwCookie, "int", filter, "HRESULT")
+        result := ComCall(3, this, "uint", dwCookie, "int", filter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IDebugApplicationNode100 extends IUnknown{
      */
     GetExcludedDocuments(filter) {
         pDocuments := TEXT_DOCUMENT_ARRAY()
-        result := ComCall(4, this, "int", filter, "ptr", pDocuments, "HRESULT")
+        result := ComCall(4, this, "int", filter, "ptr", pDocuments, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDocuments
     }
 
@@ -57,7 +65,11 @@ class IDebugApplicationNode100 extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryIsChildNode(pSearchKey) {
-        result := ComCall(5, this, "ptr", pSearchKey, "HRESULT")
+        result := ComCall(5, this, "ptr", pSearchKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

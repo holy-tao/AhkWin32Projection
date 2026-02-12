@@ -5,7 +5,7 @@
 
 /**
  * Enables access to ContactManager methods in an app that manages multiple windows.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icontactmanagerinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-icontactmanagerinterop
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IContactManagerInterop extends IUnknown{
      * @param {HWND} appWindow Type: <b>HWND</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> of the foreground window of the app from which the contact card is launched and where focus is returned when the contact card is dismissed.
-     * @param {IUnknown} contact Type: <b>IUnknown*</b>
+     * @param {IUnknown} contact_ Type: <b>IUnknown*</b>
      * 
      * A pointer to the contact object. Use a <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.contacts.contact">Windows.ApplicationModel.Contacts.Contact</a> object but cast to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> here because classic COM IDL can't use Windows Runtime types.
      * @param {Pointer<RECT>} selection Type: <b>RECT const*</b>
@@ -109,22 +109,26 @@ class IContactManagerInterop extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * 
-     * <a href="/previous-versions/dn302110(v=vs.85)">ShowContactCardForWindow</a> returns:
+     * <a href="https://docs.microsoft.com/previous-versions/dn302110(v=vs.85)">ShowContactCardForWindow</a> returns:
      *             
      *           
      * 
      * <ul>
      * <li>S_OK if the contact card is successfully displayed</li>
      * <li>E_POINTER if <i>appWindow</i> is NULL or <i>contact</i> is NULL or <i>selection</i> is NULL</li>
-     * <li>E_INVALIDARG if <i>contact</i> isn't a <a href="/uwp/api/windows.applicationmodel.contacts.contact">Windows.ApplicationModel.Contacts.Contact</a> object or <i>preferredPlacement</i> is an invalid enumeration value</li>
+     * <li>E_INVALIDARG if <i>contact</i> isn't a <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.contacts.contact">Windows.ApplicationModel.Contacts.Contact</a> object or <i>preferredPlacement</i> is an invalid enumeration value</li>
      * </ul>
-     * Other <a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a> values are possible.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontactmanagerinterop-showcontactcardforwindow
+     * Other <a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a> values are possible.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icontactmanagerinterop-showcontactcardforwindow
      */
-    ShowContactCardForWindow(appWindow, contact, selection, preferredPlacement) {
+    ShowContactCardForWindow(appWindow, contact_, selection, preferredPlacement) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(3, this, "ptr", appWindow, "ptr", contact, "ptr", selection, "int", preferredPlacement, "HRESULT")
+        result := ComCall(3, this, "ptr", appWindow, "ptr", contact_, "ptr", selection, "int", preferredPlacement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

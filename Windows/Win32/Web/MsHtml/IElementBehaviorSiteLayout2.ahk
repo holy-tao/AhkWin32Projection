@@ -35,7 +35,11 @@ class IElementBehaviorSiteLayout2 extends IUnknown{
      */
     GetFontInfo() {
         plf := LOGFONTW()
-        result := ComCall(3, this, "ptr", plf, "HRESULT")
+        result := ComCall(3, this, "ptr", plf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plf
     }
 }

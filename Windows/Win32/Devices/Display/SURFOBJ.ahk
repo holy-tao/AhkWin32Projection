@@ -16,7 +16,7 @@
  * When a SURFOBJ structure represents a device surface, the driver must be able to locate the device handle for the surface.
  * 
  * For more information about supporting JPEG and PNG compressed images, see <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-devinfo">DEVINFO</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-surfobj
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-surfobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

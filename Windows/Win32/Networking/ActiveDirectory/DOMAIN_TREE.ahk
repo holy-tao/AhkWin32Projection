@@ -6,7 +6,7 @@
  * The DOMAINTREE structure contains data about a node in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method. Each of the domains in the tree node are represented by a DOMAINDESC structure.
  * @remarks
  * For more information about how to access and use the data in this structure, see <a href="https://docs.microsoft.com/windows/desktop/AD/domain-browser">Domain Browser</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domain_tree
+ * @see https://learn.microsoft.com/windows/win32/api//content/dsclient/ns-dsclient-domain_tree
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

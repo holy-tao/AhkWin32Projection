@@ -38,7 +38,11 @@ class IDiagnosticsScriptEngine extends IUnknown{
         pszScript := pszScript is String ? StrPtr(pszScript) : pszScript
         pszScriptName := pszScriptName is String ? StrPtr(pszScriptName) : pszScriptName
 
-        result := ComCall(3, this, "ptr", pszScript, "ptr", pszScriptName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszScript, "ptr", pszScriptName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,16 +57,25 @@ class IDiagnosticsScriptEngine extends IUnknown{
         pszNamesMarshal := pszNames is VarRef ? "ptr*" : "ptr"
         pszValuesMarshal := pszValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pszNamesMarshal, pszNames, pszValuesMarshal, pszValues, "uint", ulPropertyCount, "HRESULT")
+        result := ComCall(4, this, pszNamesMarshal, pszNames, pszValuesMarshal, pszValues, "uint", ulPropertyCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: DetachDatabaseGrbit enumeration
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/detachdatabasegrbit-enumeration
      */
     Detach() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

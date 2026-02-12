@@ -43,7 +43,11 @@ class IMLOperatorTensor extends IUnknown{
      * @returns {Integer} 
      */
     GetShape(dimensionCount) {
-        result := ComCall(4, this, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dimensionCount, "uint*", &dimensions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dimensions
     }
 
@@ -75,8 +79,11 @@ class IMLOperatorTensor extends IUnknown{
     }
 
     /**
-     * 
+     * GetDataProviderDSO Method
+     * @remarks
+     * This method does not addref the interface pointer. If the caller plans to hold the pointer, the caller must do the required addref and release.
      * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getdataproviderdso-method
      */
     GetData() {
         result := ComCall(8, this, "ptr")

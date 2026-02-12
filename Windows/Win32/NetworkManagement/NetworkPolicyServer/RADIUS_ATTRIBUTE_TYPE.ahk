@@ -14,7 +14,7 @@
  * - **ratProvider**
  * - **ratUniqueId**
  * - **ratSrcIPv6Address**
- * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/authif/ne-authif-radius_attribute_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

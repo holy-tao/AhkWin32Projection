@@ -37,7 +37,11 @@ class ISubscriptionItem extends IUnknown{
      */
     GetCookie() {
         pCookie := Guid()
-        result := ComCall(3, this, "ptr", pCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCookie
     }
 
@@ -47,7 +51,11 @@ class ISubscriptionItem extends IUnknown{
      */
     GetSubscriptionItemInfo() {
         pSubscriptionItemInfo := SUBSCRIPTIONITEMINFO()
-        result := ComCall(4, this, "ptr", pSubscriptionItemInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pSubscriptionItemInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSubscriptionItemInfo
     }
 
@@ -57,7 +65,11 @@ class ISubscriptionItem extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSubscriptionItemInfo(pSubscriptionItemInfo) {
-        result := ComCall(5, this, "ptr", pSubscriptionItemInfo, "HRESULT")
+        result := ComCall(5, this, "ptr", pSubscriptionItemInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +83,11 @@ class ISubscriptionItem extends IUnknown{
         rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
 
         rgValue := VARIANT()
-        result := ComCall(6, this, "uint", nCount, rgwszNameMarshal, rgwszName, "ptr", rgValue, "HRESULT")
+        result := ComCall(6, this, "uint", nCount, rgwszNameMarshal, rgwszName, "ptr", rgValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgValue
     }
 
@@ -85,7 +101,11 @@ class ISubscriptionItem extends IUnknown{
     WriteProperties(nCount, rgwszName, rgValue) {
         rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "uint", nCount, rgwszNameMarshal, rgwszName, "ptr", rgValue, "HRESULT")
+        result := ComCall(7, this, "uint", nCount, rgwszNameMarshal, rgwszName, "ptr", rgValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +114,11 @@ class ISubscriptionItem extends IUnknown{
      * @returns {IEnumItemProperties} 
      */
     EnumProperties() {
-        result := ComCall(8, this, "ptr*", &ppEnumItemProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppEnumItemProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumItemProperties(ppEnumItemProperties)
     }
 
@@ -103,7 +127,11 @@ class ISubscriptionItem extends IUnknown{
      * @returns {HRESULT} 
      */
     NotifyChanged() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

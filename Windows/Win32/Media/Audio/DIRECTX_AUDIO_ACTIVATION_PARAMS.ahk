@@ -9,7 +9,7 @@
  * For more information about <b>IDirectSound</b>, <b>IDirectSoundCapture</b>, and <b>IBaseFilter</b>, see the Windows SDK documentation.
  * 
  * For a code example that uses the <b>DIRECTX_AUDIO_ACTIVATION_PARAMS</b> structure, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles-for-directshow-applications">Device Roles for DirectShow Applications</a>.
- * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ns-mmdeviceapi-directx_audio_activation_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/ns-mmdeviceapi-directx_audio_activation_params
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_PORT_PROP structure (vdshwprv.h) defines the properties of a port on a controller object.
+ * The VDS_PORT_PROP structure (vds.h) defines the properties of a port on a controller object.
  * @remarks
  * The 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontroller-getportproperties">IVdsController::GetPortProperties</a> 
  *     method returns this structure to report the property details of a port on a controller object.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_port_prop
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_port_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -7,7 +7,7 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iamvideocontrol">IAMVideoControl</a> interface uses this enumerated data type.
  * 
  * Multiple capture buffers are queued to a capture driver and are filled at a fixed rate once the stream is put into the "run" state. If the VideoControlFlag_ExternalTriggerEnable flag is set, a filled buffer is not passed up from the WDM capture driver for compression, display, or writing to a file until the external event happens.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-videocontrolflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-videocontrolflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -4,8 +4,8 @@
 #Include .\IAutomaticUpdatesSettings2.ahk
 
 /**
- * Contains the settings that are available in Automatic Updates.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iautomaticupdatessettings3
+ * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iautomaticupdatessettings3
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -47,54 +47,64 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether non-administrators can perform some update-related actions without administrator approval.
+     * Gets and sets a Boolean value that indicates whether non-administrators can perform some update-related actions without administrator approval. (Get)
      * @remarks
-     * 
      * The NonAdministratorsElevated property controls whether non-administrative users are allowed to perform some additional actions without elevation. It is equivalent to the “Allow all users to install updates on this computer” check box in the Windows Update settings dialog.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated
      */
     get_NonAdministratorsElevated() {
-        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether non-administrators can perform some update-related actions without administrator approval.
+     * Gets and sets a Boolean value that indicates whether non-administrators can perform some update-related actions without administrator approval. (Put)
      * @remarks
-     * 
      * The NonAdministratorsElevated property controls whether non-administrative users are allowed to perform some additional actions without elevation. It is equivalent to the “Allow all users to install updates on this computer” check box in the Windows Update settings dialog.
-     * 
-     * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-put_nonadministratorselevated
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings3-put_nonadministratorselevated
      */
     put_NonAdministratorsElevated(value) {
-        result := ComCall(21, this, "short", value, "HRESULT")
+        result := ComCall(21, this, "short", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not supported.
+     * Not supported. (IAutomaticUpdatesSettings3.get_FeaturedUpdatesEnabled)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled
      */
     get_FeaturedUpdatesEnabled() {
-        result := ComCall(22, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Not supported.
+     * Not supported. (IAutomaticUpdatesSettings3.put_FeaturedUpdatesEnabled)
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-put_featuredupdatesenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings3-put_featuredupdatesenabled
      */
     put_FeaturedUpdatesEnabled(value) {
-        result := ComCall(23, this, "short", value, "HRESULT")
+        result := ComCall(23, this, "short", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

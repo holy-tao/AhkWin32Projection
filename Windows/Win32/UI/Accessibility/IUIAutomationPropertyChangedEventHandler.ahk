@@ -6,11 +6,8 @@
 /**
  * Exposes a method to handle Microsoft UI Automation events that occur when a property is changed.
  * @remarks
- * 
  * This interface is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">AddPropertyChangedEventHandler</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationpropertychangedeventhandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationpropertychangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -37,6 +34,11 @@ class IUIAutomationPropertyChangedEventHandler extends IUnknown{
 
     /**
      * Handles a Microsoft UI Automation property-changed event.
+     * @remarks
+     * This method is implemented by the application to handle events that it has subscribed to by using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-addpropertychangedeventhandler">AddPropertyChangedEventHandler</a>.
+     * 			
+     * 
+     * Adjusting an event handler from within this method is not supported.
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
@@ -46,13 +48,17 @@ class IUIAutomationPropertyChangedEventHandler extends IUnknown{
      * @param {VARIANT} newValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>
      * 
      * The new property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationpropertychangedeventhandler-handlepropertychangedevent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationpropertychangedeventhandler-handlepropertychangedevent
      */
     HandlePropertyChangedEvent(sender, propertyId, newValue) {
-        result := ComCall(3, this, "ptr", sender, "int", propertyId, "ptr", newValue, "HRESULT")
+        result := ComCall(3, this, "ptr", sender, "int", propertyId, "ptr", newValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

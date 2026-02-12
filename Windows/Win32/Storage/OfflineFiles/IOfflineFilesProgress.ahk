@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Used to report progress back to callers of lengthy Offline Files operations.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesprogress
+ * Used to report progress back to callers of lengthy Offline Files operations. (IOfflineFilesProgress)
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefilesprogress
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -33,20 +33,30 @@ class IOfflineFilesProgress extends IUnknown{
     /**
      * Reports that an operation has begun.
      * @returns {BOOL} Set this value to <b>TRUE</b> to cancel the operation.   Set to <b>FALSE</b> to continue.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesprogress-begin
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesprogress-begin
      */
     Begin() {
-        result := ComCall(3, this, "int*", &pbAbort := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pbAbort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAbort
     }
 
     /**
      * May be called during lengthy operations to determine if the operation should be canceled.
+     * @remarks
+     * This method may be used by the implementation in cases where calls to other progress methods are infrequent.  The sole purpose of this method is to determine if the operation should be canceled immediately.
      * @returns {BOOL} Set this value to <b>TRUE</b> to cancel the operation.   Set to <b>FALSE</b> to continue.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesprogress-queryabort
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesprogress-queryabort
      */
     QueryAbort() {
-        result := ComCall(4, this, "int*", &pbAbort := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pbAbort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAbort
     }
 
@@ -54,10 +64,14 @@ class IOfflineFilesProgress extends IUnknown{
      * Reports that an operation has ended.
      * @param {HRESULT} hrResult Indicates the result of the operation as a whole.  Contains S_OK if the operation completed successfully,  HRESULT_FROM_WIN32(ERROR_CANCELLED) if the operation was canceled or an error value otherwise.
      * @returns {HRESULT} The return value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesprogress-end
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesprogress-end
      */
     End(hrResult) {
-        result := ComCall(5, this, "int", hrResult, "HRESULT")
+        result := ComCall(5, this, "int", hrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -141,12 +141,13 @@ class DirectoryServices {
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD A pointer to  a function used to write the security descriptor of the object. This value can be <b>NULL</b>. If <i>pfnWriteSD</i> is not <b>NULL</b>, <b>DSCreateISecurityInfoObject</b>  calls the function referenced by <i>pfnWriteSD</i> to write the security descriptor of the object.
      * @param {LPARAM} lpContext Context to pass to the functions identified by the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
      * @returns {ISecurityInformation} A pointer to the instance of the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface this function creates.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreateisecurityinfoobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/dssec/nf-dssec-dscreateisecurityinfoobject
      * @since windowsserver2008
      */
     static DSCreateISecurityInfoObject(pwszObjectPath, pwszObjectClass, dwFlags, pfnReadSD, pfnWriteSD, lpContext) {
         pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
+        lpContext := lpContext is Win32Handle ? NumGet(lpContext, "ptr") : lpContext
 
         result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         if(result != 0) {
@@ -252,7 +253,7 @@ class DirectoryServices {
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD A pointer to  a function used to write the security descriptor of the object. This value can be <b>NULL</b>. If <i>pfnWriteSD</i> is not <b>NULL</b>, <a href="https://docs.microsoft.com/windows/desktop/api/dssec/nf-dssec-dscreateisecurityinfoobject">DSCreateISecurityInfoObject</a>  calls the function referenced by <i>pfnWriteSD</i> to write the security descriptor of the object.
      * @param {LPARAM} lpContext Context to pass to the functions identified by the <i>pfnReadSD</i> and <i>pfnWriteSD</i> parameters.
      * @returns {ISecurityInformation} A pointer to the instance of the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface this function creates.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreateisecurityinfoobjectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/dssec/nf-dssec-dscreateisecurityinfoobjectex
      * @since windowsserver2008
      */
     static DSCreateISecurityInfoObjectEx(pwszObjectPath, pwszObjectClass, pwszServer, pwszUserName, pwszPassword, dwFlags, pfnReadSD, pfnWriteSD, lpContext) {
@@ -261,6 +262,7 @@ class DirectoryServices {
         pwszServer := pwszServer is String ? StrPtr(pwszServer) : pwszServer
         pwszUserName := pwszUserName is String ? StrPtr(pwszUserName) : pwszUserName
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
+        lpContext := lpContext is Win32Handle ? NumGet(lpContext, "ptr") : lpContext
 
         result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         if(result != 0) {
@@ -368,12 +370,13 @@ class DirectoryServices {
      * @param {Pointer<PFNWRITEOBJECTSECURITY>} pfnWriteSD A pointer to  a function used to write the security descriptor of the object. This value can be <b>NULL</b>. If <i>pfnWriteSD</i> is not <b>NULL</b>, <b>DSCreateSecurityPage</b>  calls the function referenced by <i>pfnWriteSD</i> to write the security descriptor of the object.
      * @param {LPARAM} lpContext Context to pass to the functions identified by <i>pfnReadSD</i> or <i>pfnWriteSD</i>.
      * @returns {HPROPSHEETPAGE} A pointer to a <b>HPROPSHEETPAGE</b> that returns the created security property page.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dscreatesecuritypage
+     * @see https://learn.microsoft.com/windows/win32/api//content/dssec/nf-dssec-dscreatesecuritypage
      * @since windowsserver2003
      */
     static DSCreateSecurityPage(pwszObjectPath, pwszObjectClass, dwFlags, pfnReadSD, pfnWriteSD, lpContext) {
         pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
+        lpContext := lpContext is Win32Handle ? NumGet(lpContext, "ptr") : lpContext
 
         phPage := HPROPSHEETPAGE()
         result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
@@ -397,7 +400,7 @@ class DirectoryServices {
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dssec/nf-dssec-dseditsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/dssec/nf-dssec-dseditsecurity
      * @since windowsserver2008
      */
     static DSEditSecurity(hwndOwner, pwszObjectPath, pwszObjectClass, dwFlags, pwszCaption, pfnReadSD, pfnWriteSD, lpContext) {
@@ -405,6 +408,7 @@ class DirectoryServices {
         pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
         pwszCaption := pwszCaption is String ? StrPtr(pwszCaption) : pwszCaption
+        lpContext := lpContext is Win32Handle ? NumGet(lpContext, "ptr") : lpContext
 
         result := DllCall("DSSEC.dll\DSEditSecurity", "ptr", hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         if(result != 0) {

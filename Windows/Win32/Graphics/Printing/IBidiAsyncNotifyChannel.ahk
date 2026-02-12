@@ -33,7 +33,11 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel{
      * @returns {HRESULT} 
      */
     CreateNotificationChannel() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel{
      * @returns {HRESULT} 
      */
     GetPrintName(param0) {
-        result := ComCall(6, this, "ptr*", param0, "HRESULT")
+        result := ComCall(6, this, "ptr*", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel{
      * @returns {HRESULT} 
      */
     GetChannelNotificationType(param0) {
-        result := ComCall(7, this, "ptr*", param0, "HRESULT")
+        result := ComCall(7, this, "ptr*", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel{
      * @returns {HRESULT} 
      */
     AsyncGetNotificationSendResponse(param0, param1) {
-        result := ComCall(8, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(8, this, "ptr", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +91,11 @@ class IBidiAsyncNotifyChannel extends IPrintAsyncNotifyChannel{
      * @returns {HRESULT} 
      */
     AsyncCloseChannel(param0, param1) {
-        result := ComCall(9, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(9, this, "ptr", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

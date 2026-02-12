@@ -42,7 +42,11 @@ class ICloneViewHelper extends IUnknown{
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
         pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszAdaptorName, pulCountMarshal, pulCount, pulIDMarshal, pulID, "uint", ulFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", wszAdaptorName, pulCountMarshal, pulCount, pulIDMarshal, pulID, "uint", ulFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +64,11 @@ class ICloneViewHelper extends IUnknown{
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
         pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszAdaptorName, "uint", ulSourceID, pulCountMarshal, pulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
+        result := ComCall(4, this, "ptr", wszAdaptorName, "uint", ulSourceID, pulCountMarshal, pulCount, pulTargetIDMarshal, pulTargetID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,17 +85,33 @@ class ICloneViewHelper extends IUnknown{
 
         pulTargetIDMarshal := pulTargetID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", wszAdaptorName, "uint", ulSourceID, "uint", ulCount, pulTargetIDMarshal, pulTargetID, "HRESULT")
+        result := ComCall(5, this, "ptr", wszAdaptorName, "uint", ulSourceID, "uint", ulCount, pulTargetIDMarshal, pulTargetID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {BOOL} fFinalCall 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
+     * 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit(fFinalCall) {
-        result := ComCall(6, this, "int", fFinalCall, "HRESULT")
+        result := ComCall(6, this, "int", fFinalCall, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

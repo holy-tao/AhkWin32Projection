@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that provide general information about an application to the Add/Remove Programs Application.
- * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nn-shappmgr-ishellapp
+ * @see https://learn.microsoft.com/windows/win32/api//content/shappmgr/nn-shappmgr-ishellapp
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,59 +33,89 @@ class IShellApp extends IUnknown{
 
     /**
      * Gets general information about an application.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Add/Remove Programs in the Control Panel sets the cbSize and dwMask members of the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a> structure.</div>
+     * <div> </div>
+     *   Your implementation should validate cbSize by comparing it with the size of <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a>.  If cbSize does not equal the size of <b>APPINFODATA</b>, this method should return a COM error value like E_FAIL.
+     * 
+     * Add/Remove Programs in the Control Panel will set the dwMask member of the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a> structure to indicate that you should return AIM_DISPLAYNAME and AIM_SUPPORTURL. For each value that you return in APPINFODATA, you must set the corresponding bit in dwMask.  All other bits should be cleared.
      * @param {Pointer<APPINFODATA>} pai Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-appinfodata">APPINFODATA</a> structure that returns the application information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getappinfo
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shappmgr/nf-shappmgr-ishellapp-getappinfo
      */
     GetAppInfo(pai) {
-        result := ComCall(3, this, "ptr", pai, "HRESULT")
+        result := ComCall(3, this, "ptr", pai, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a bitmask of management actions allowed for an application.
+     * @remarks
+     * Of the set of <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ne-shappmgr-appactionflags">APPACTIONFLAGS</a> bitmasks, Add/Remove Programs only recognizes APPACTION_INSTALL and APPACTION_ADDLATER.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a variable of type <b>DWORD</b> that returns the bitmask of supported actions. The bit flags are described in <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ne-shappmgr-appactionflags">APPACTIONFLAGS</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getpossibleactions
+     * @see https://learn.microsoft.com/windows/win32/api//content/shappmgr/nf-shappmgr-ishellapp-getpossibleactions
      */
     GetPossibleActions() {
-        result := ComCall(4, this, "uint*", &pdwActions := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwActions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwActions
     }
 
     /**
      * Returns information to the application that originates from a slow source. This method is not applicable to published applications.
+     * @remarks
+     * Implementations of <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a> should return E_NOTIMPL. This method is used internally by Add/Remove Programs for installed applications.
      * @returns {SLOWAPPINFO} Type: <b>PSLOWAPPINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-slowappinfo">SLOWAPPINFO</a> structure in which to return application information.
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getslowappinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shappmgr/nf-shappmgr-ishellapp-getslowappinfo
      */
     GetSlowAppInfo() {
         psaid := SLOWAPPINFO()
-        result := ComCall(5, this, "ptr", psaid, "HRESULT")
+        result := ComCall(5, this, "ptr", psaid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psaid
     }
 
     /**
      * Returns information to the application that originates from a slow source. Unlike IShellApp::GetSlowAppInfo, this method can return information that has been cached. This method is not applicable to published applications.
+     * @remarks
+     * Implementations of <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a> return E_NOTIMPL. This method is used internally by Add/Remove Programs for installed applications.
      * @returns {SLOWAPPINFO} Type: <b>PSLOWAPPINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/ns-shappmgr-slowappinfo">SLOWAPPINFO</a> structure in which to return application information.
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo
      */
     GetCachedSlowAppInfo() {
         psaid := SLOWAPPINFO()
-        result := ComCall(6, this, "ptr", psaid, "HRESULT")
+        result := ComCall(6, this, "ptr", psaid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psaid
     }
 
     /**
      * Gets a value indicating whether a specified application is currently installed.
+     * @remarks
+     * Application publishers should determine if the application is currently installed and return S_OK if so, or S_FALSE if not.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method can return one of these values.
@@ -118,10 +148,14 @@ class IShellApp extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ishellapp-isinstalled
+     * @see https://learn.microsoft.com/windows/win32/api//content/shappmgr/nf-shappmgr-ishellapp-isinstalled
      */
     IsInstalled() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

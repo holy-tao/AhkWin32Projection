@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * IFeedbackHubAppInfo interface - This API is not available to all apps. Unless your app is specially provisioned by Microsoft, calls to these APIs will fail at runtime.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/ifeebackhubappinfo
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -231,17 +233,22 @@ class IFeed extends IDispatch{
     }
 
     /**
-     * 
+     * Resource string ids set by caller to be returned in xml data for visualizing objects.
      * @param {Integer} count 
      * @param {Integer} sortProperty 
      * @param {Integer} sortOrder 
      * @param {Integer} filterFlags 
      * @param {Integer} includeFlags 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dtools/xml-resource-ids
      */
     Xml(count, sortProperty, sortOrder, filterFlags, includeFlags) {
         xml := BSTR()
-        result := ComCall(7, this, "int", count, "int", sortProperty, "int", sortOrder, "int", filterFlags, "int", includeFlags, "ptr", xml, "HRESULT")
+        result := ComCall(7, this, "int", count, "int", sortProperty, "int", sortOrder, "int", filterFlags, "int", includeFlags, "ptr", xml, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return xml
     }
 
@@ -251,19 +258,31 @@ class IFeed extends IDispatch{
      */
     get_Name() {
         name := BSTR()
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * 
+     * Learn more about: RenameColumnGrbit enumeration
      * @param {BSTR} name 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", name, "HRESULT")
+        result := ComCall(9, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -273,7 +292,11 @@ class IFeed extends IDispatch{
      */
     get_Url() {
         feedUrl := BSTR()
-        result := ComCall(10, this, "ptr", feedUrl, "HRESULT")
+        result := ComCall(10, this, "ptr", feedUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return feedUrl
     }
 
@@ -283,9 +306,16 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Url(feedUrl) {
-        feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
+        if(feedUrl is String) {
+            pin := BSTR.Alloc(feedUrl)
+            feedUrl := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", feedUrl, "HRESULT")
+        result := ComCall(11, this, "ptr", feedUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -295,7 +325,11 @@ class IFeed extends IDispatch{
      */
     get_LocalId() {
         feedGuid := BSTR()
-        result := ComCall(12, this, "ptr", feedGuid, "HRESULT")
+        result := ComCall(12, this, "ptr", feedGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return feedGuid
     }
 
@@ -304,20 +338,32 @@ class IFeed extends IDispatch{
      * @returns {BSTR} 
      */
     get_Path() {
-        path := BSTR()
-        result := ComCall(13, this, "ptr", path, "HRESULT")
-        return path
+        path_ := BSTR()
+        result := ComCall(13, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 
     /**
-     * 
+     * Move Method Example (VC++)
      * @param {BSTR} newParentPath 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/move-method-example-vc
      */
     Move(newParentPath) {
-        newParentPath := newParentPath is String ? BSTR.Alloc(newParentPath).Value : newParentPath
+        if(newParentPath is String) {
+            pin := BSTR.Alloc(newParentPath)
+            newParentPath := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", newParentPath, "HRESULT")
+        result := ComCall(14, this, "ptr", newParentPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -326,7 +372,11 @@ class IFeed extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(15, this, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -335,25 +385,46 @@ class IFeed extends IDispatch{
      * @returns {Float} 
      */
     get_LastWriteTime() {
-        result := ComCall(16, this, "double*", &lastWrite := 0, "HRESULT")
+        result := ComCall(16, this, "double*", &lastWrite := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastWrite
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Clear method removes all items from a download collection.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/downloadcollection-clear
      */
     Download() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -362,7 +433,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     AsyncDownload() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -371,7 +446,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     CancelAsyncDownload() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -380,7 +459,11 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_SyncSetting() {
-        result := ComCall(21, this, "int*", &syncSetting := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &syncSetting := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return syncSetting
     }
 
@@ -390,7 +473,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SyncSetting(syncSetting) {
-        result := ComCall(22, this, "int", syncSetting, "HRESULT")
+        result := ComCall(22, this, "int", syncSetting, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -399,7 +486,11 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_Interval() {
-        result := ComCall(23, this, "int*", &minutes := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &minutes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minutes
     }
 
@@ -409,7 +500,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Interval(minutes) {
-        result := ComCall(24, this, "int", minutes, "HRESULT")
+        result := ComCall(24, this, "int", minutes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -418,7 +513,11 @@ class IFeed extends IDispatch{
      * @returns {Float} 
      */
     get_LastDownloadTime() {
-        result := ComCall(25, this, "double*", &lastDownload := 0, "HRESULT")
+        result := ComCall(25, this, "double*", &lastDownload := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastDownload
     }
 
@@ -427,9 +526,13 @@ class IFeed extends IDispatch{
      * @returns {BSTR} 
      */
     get_LocalEnclosurePath() {
-        path := BSTR()
-        result := ComCall(26, this, "ptr", path, "HRESULT")
-        return path
+        path_ := BSTR()
+        result := ComCall(26, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 
     /**
@@ -437,7 +540,11 @@ class IFeed extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Items() {
-        result := ComCall(27, this, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -447,7 +554,11 @@ class IFeed extends IDispatch{
      * @returns {IDispatch} 
      */
     GetItem(itemId) {
-        result := ComCall(28, this, "int", itemId, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(28, this, "int", itemId, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -457,7 +568,11 @@ class IFeed extends IDispatch{
      */
     get_Title() {
         title := BSTR()
-        result := ComCall(29, this, "ptr", title, "HRESULT")
+        result := ComCall(29, this, "ptr", title, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return title
     }
 
@@ -467,7 +582,11 @@ class IFeed extends IDispatch{
      */
     get_Description() {
         description := BSTR()
-        result := ComCall(30, this, "ptr", description, "HRESULT")
+        result := ComCall(30, this, "ptr", description, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return description
     }
 
@@ -476,9 +595,13 @@ class IFeed extends IDispatch{
      * @returns {BSTR} 
      */
     get_Link() {
-        homePage := BSTR()
-        result := ComCall(31, this, "ptr", homePage, "HRESULT")
-        return homePage
+        homePage_ := BSTR()
+        result := ComCall(31, this, "ptr", homePage_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return homePage_
     }
 
     /**
@@ -487,7 +610,11 @@ class IFeed extends IDispatch{
      */
     get_Image() {
         imageUrl := BSTR()
-        result := ComCall(32, this, "ptr", imageUrl, "HRESULT")
+        result := ComCall(32, this, "ptr", imageUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return imageUrl
     }
 
@@ -496,7 +623,11 @@ class IFeed extends IDispatch{
      * @returns {Float} 
      */
     get_LastBuildDate() {
-        result := ComCall(33, this, "double*", &lastBuildDate := 0, "HRESULT")
+        result := ComCall(33, this, "double*", &lastBuildDate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastBuildDate
     }
 
@@ -505,7 +636,11 @@ class IFeed extends IDispatch{
      * @returns {Float} 
      */
     get_PubDate() {
-        result := ComCall(34, this, "double*", &lastPopulateDate := 0, "HRESULT")
+        result := ComCall(34, this, "double*", &lastPopulateDate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastPopulateDate
     }
 
@@ -514,7 +649,11 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_Ttl() {
-        result := ComCall(35, this, "int*", &ttl := 0, "HRESULT")
+        result := ComCall(35, this, "int*", &ttl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ttl
     }
 
@@ -524,7 +663,11 @@ class IFeed extends IDispatch{
      */
     get_Language() {
         language := BSTR()
-        result := ComCall(36, this, "ptr", language, "HRESULT")
+        result := ComCall(36, this, "ptr", language, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return language
     }
 
@@ -534,7 +677,11 @@ class IFeed extends IDispatch{
      */
     get_Copyright() {
         copyright := BSTR()
-        result := ComCall(37, this, "ptr", copyright, "HRESULT")
+        result := ComCall(37, this, "ptr", copyright, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return copyright
     }
 
@@ -543,7 +690,11 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_MaxItemCount() {
-        result := ComCall(38, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
@@ -553,7 +704,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     put_MaxItemCount(count) {
-        result := ComCall(39, this, "int", count, "HRESULT")
+        result := ComCall(39, this, "int", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -562,7 +717,11 @@ class IFeed extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_DownloadEnclosuresAutomatically() {
-        result := ComCall(40, this, "short*", &downloadEnclosuresAutomatically := 0, "HRESULT")
+        result := ComCall(40, this, "short*", &downloadEnclosuresAutomatically := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return downloadEnclosuresAutomatically
     }
 
@@ -572,7 +731,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DownloadEnclosuresAutomatically(downloadEnclosuresAutomatically) {
-        result := ComCall(41, this, "short", downloadEnclosuresAutomatically, "HRESULT")
+        result := ComCall(41, this, "short", downloadEnclosuresAutomatically, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -581,8 +744,12 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_DownloadStatus() {
-        result := ComCall(42, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(42, this, "int*", &status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return status_
     }
 
     /**
@@ -590,21 +757,38 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_LastDownloadError() {
-        result := ComCall(43, this, "int*", &error := 0, "HRESULT")
+        result := ComCall(43, this, "int*", &error := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return error
     }
 
     /**
-     * 
+     * The CloseDatabase method of the Merge object closes the currently open Windows Installer database.
+     * @remarks
+     * Closing a database clears all dependency information but does not affect any errors that have not been retrieved.
      * @param {BSTR} feedXml 
      * @param {BSTR} feedUrl 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Msi/merge-closedatabase
      */
     Merge(feedXml, feedUrl) {
-        feedXml := feedXml is String ? BSTR.Alloc(feedXml).Value : feedXml
-        feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
+        if(feedXml is String) {
+            pin := BSTR.Alloc(feedXml)
+            feedXml := pin.Value
+        }
+        if(feedUrl is String) {
+            pin := BSTR.Alloc(feedUrl)
+            feedUrl := pin.Value
+        }
 
-        result := ComCall(44, this, "ptr", feedXml, "ptr", feedUrl, "HRESULT")
+        result := ComCall(44, this, "ptr", feedXml, "ptr", feedUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -614,7 +798,11 @@ class IFeed extends IDispatch{
      */
     get_DownloadUrl() {
         feedUrl := BSTR()
-        result := ComCall(45, this, "ptr", feedUrl, "HRESULT")
+        result := ComCall(45, this, "ptr", feedUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return feedUrl
     }
 
@@ -623,7 +811,11 @@ class IFeed extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsList() {
-        result := ComCall(46, this, "short*", &isList := 0, "HRESULT")
+        result := ComCall(46, this, "short*", &isList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isList
     }
 
@@ -632,7 +824,11 @@ class IFeed extends IDispatch{
      * @returns {HRESULT} 
      */
     MarkAllItemsRead() {
-        result := ComCall(47, this, "HRESULT")
+        result := ComCall(47, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -643,7 +839,11 @@ class IFeed extends IDispatch{
      * @returns {IDispatch} 
      */
     GetWatcher(scope, mask) {
-        result := ComCall(48, this, "int", scope, "int", mask, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(48, this, "int", scope, "int", mask, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -652,7 +852,11 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_UnreadItemCount() {
-        result := ComCall(49, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(49, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
@@ -661,7 +865,11 @@ class IFeed extends IDispatch{
      * @returns {Integer} 
      */
     get_ItemCount() {
-        result := ComCall(50, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(50, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 }

@@ -34,7 +34,11 @@ class IElementBehaviorSiteOM2 extends IElementBehaviorSiteOM{
      * @returns {IHTMLElementDefaults} 
      */
     GetDefaults() {
-        result := ComCall(9, this, "ptr*", &ppDefaults := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppDefaults := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementDefaults(ppDefaults)
     }
 }

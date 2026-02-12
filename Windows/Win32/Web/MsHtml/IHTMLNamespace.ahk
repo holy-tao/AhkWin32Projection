@@ -78,7 +78,11 @@ class IHTMLNamespace extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -88,7 +92,11 @@ class IHTMLNamespace extends IDispatch{
      */
     get_urn() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -97,7 +105,11 @@ class IHTMLNamespace extends IDispatch{
      * @returns {IDispatch} 
      */
     get_tagNames() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -107,7 +119,11 @@ class IHTMLNamespace extends IDispatch{
      */
     get_readyState() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +133,11 @@ class IHTMLNamespace extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +147,11 @@ class IHTMLNamespace extends IDispatch{
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -137,9 +161,16 @@ class IHTMLNamespace extends IDispatch{
      * @returns {HRESULT} 
      */
     doImport(bstrImplementationUrl) {
-        bstrImplementationUrl := bstrImplementationUrl is String ? BSTR.Alloc(bstrImplementationUrl).Value : bstrImplementationUrl
+        if(bstrImplementationUrl is String) {
+            pin := BSTR.Alloc(bstrImplementationUrl)
+            bstrImplementationUrl := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrImplementationUrl, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrImplementationUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,9 +181,16 @@ class IHTMLNamespace extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     attachEvent(event, pDisp) {
-        event := event is String ? BSTR.Alloc(event).Value : event
+        if(event is String) {
+            pin := BSTR.Alloc(event)
+            event := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -163,9 +201,16 @@ class IHTMLNamespace extends IDispatch{
      * @returns {HRESULT} 
      */
     detachEvent(event, pDisp) {
-        event := event is String ? BSTR.Alloc(event).Value : event
+        if(event is String) {
+            pin := BSTR.Alloc(event)
+            event := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", event, "ptr", pDisp, "HRESULT")
+        result := ComCall(15, this, "ptr", event, "ptr", pDisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

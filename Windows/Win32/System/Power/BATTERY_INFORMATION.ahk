@@ -5,7 +5,7 @@
  * Contains battery information.
  * @remarks
  * Generally, a warning state occurs before a low state, but you should not assume it will. It is possible to poll a battery and find that neither alert level has occurred, and poll the battery again and find it discharged to the extent that both levels have been achieved. This may indicate that you are not polling often enough. It may also indicate that the battery is unable to hold a charge for very long and is discharging more rapidly than you expected. Such a battery may be nearing the end of its useful life, or it may be damaged.
- * @see https://learn.microsoft.com/windows/win32/Power/battery-information-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/battery-information-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

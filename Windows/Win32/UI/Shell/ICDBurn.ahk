@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that determine whether a system has hardware for writing to CD, the drive letter of a CD writer device, and programmatically initiate a CD writing session.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-icdburn
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-icdburn
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,6 +38,11 @@ class ICDBurn extends IUnknown{
 
     /**
      * Gets the drive letter of a CD drive that has been marked as write-enabled.
+     * @remarks
+     * The drive whose letter designation is returned by this method is the drive that has the <b>Enable cd writing on this drive</b> option selected. This option is found on the drive's property sheet. Only one drive on a system can have this option selected.
+     * 			
+     * 
+     * If a recordable CD drive is present but that option has been deselected, the method will return an error code.
      * @param {PWSTR} pszDrive Type: <b>LPWSTR</b>
      * 
      * A pointer to a string containing the drive letter, for example "F:\".
@@ -46,42 +51,58 @@ class ICDBurn extends IUnknown{
      * The size of the string, in characters, pointed to by pszDrive. This value will normally be 4. Values larger than 4 are allowed, but the extra characters will be ignored by this method. Values less than 4 will generate an E_INVALIDARG error.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburn-getrecorderdriveletter
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-icdburn-getrecorderdriveletter
      */
     GetRecorderDriveLetter(pszDrive, cch) {
         pszDrive := pszDrive is String ? StrPtr(pszDrive) : pszDrive
 
-        result := ComCall(3, this, "ptr", pszDrive, "uint", cch, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDrive, "uint", cch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Instructs data to be copied from the staging area to a writable CD.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @remarks
+     * The <i>staging area</i> has a default location of %userprofile%\Local Settings\Application Data\Microsoft\CD Burning. Its actual path can be retrieved through <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetspecialfolderpatha">SHGetSpecialFolderPath</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderlocation">SHGetFolderLocation</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation">SHGetSpecialFolderLocation</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdira">SHGetFolderPathAndSubDir</a> by using the CSIDL_CDBURN_AREA value.
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window of the UI.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburn-burn
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-icdburn-burn
      */
-    Burn(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Burn(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(4, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(4, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Scans the system for a CD drive with write-capability, returning TRUE if one is found.
+     * @remarks
+     * This search does not rely on the state of the <b>Enable cd writing on this drive</b> option found on the drive's property sheet. Instead, the determination is based on IMAPI.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a Boolean value containing <b>TRUE</b> if a suitable device is located, <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburn-hasrecordabledrive
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-icdburn-hasrecordabledrive
      */
     HasRecordableDrive() {
-        result := ComCall(5, this, "int*", &pfHasRecorder := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pfHasRecorder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasRecorder
     }
 }

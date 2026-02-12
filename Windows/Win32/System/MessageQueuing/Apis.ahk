@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
@@ -718,12 +720,12 @@ class MessageQueuing {
     static PROPID_MGMT_MSMQ_BYTES_IN_ALL_QUEUES => 6
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MSMQ_CONNECTED => "CONNECTED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MSMQ_DISCONNECTED => "DISCONNECTED"
 
@@ -878,157 +880,157 @@ class MessageQueuing {
     static PROPID_MGMT_QUEUE_JOURNAL_USED_QUOTA => 10
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_TYPE_PUBLIC => "PUBLIC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_TYPE_PRIVATE => "PRIVATE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_TYPE_MACHINE => "MACHINE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_TYPE_CONNECTOR => "CONNECTOR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_TYPE_MULTICAST => "MULTICAST"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_LOCAL => "LOCAL CONNECTION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_NONACTIVE => "INACTIVE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_WAITING => "WAITING"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_NEED_VALIDATE => "NEED VALIDATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_ONHOLD => "ONHOLD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_CONNECTED => "CONNECTED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_DISCONNECTING => "DISCONNECTING"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_DISCONNECTED => "DISCONNECTED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_STATE_LOCKED => "LOCKED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_LOCAL_LOCATION => "LOCAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_REMOTE_LOCATION => "REMOTE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_UNKNOWN_TYPE => "UNKNOWN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_CORRECT_TYPE => "YES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_INCORRECT_TYPE => "NO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_TRANSACTIONAL_TYPE => "YES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_NOT_TRANSACTIONAL_TYPE => "NO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_FOREIGN_TYPE => "YES"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MGMT_QUEUE_NOT_FOREIGN_TYPE => "NO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MO_MACHINE_TOKEN => "MACHINE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MO_QUEUE_TOKEN => "QUEUE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MACHINE_ACTION_CONNECT => "CONNECT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MACHINE_ACTION_DISCONNECT => "DISCONNECT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MACHINE_ACTION_TIDY => "TIDY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static QUEUE_ACTION_PAUSE => "PAUSE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static QUEUE_ACTION_RESUME => "RESUME"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static QUEUE_ACTION_EOD_RESEND => "EOD_RESEND"
 
@@ -1200,14 +1202,14 @@ class MessageQueuing {
      * @param {Pointer<MQMSGPROPS>} pMessageProps 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @param {Pointer<PMQRECEIVECALLBACK>} fnReceiveCallback 
-     * @param {HANDLE} hCursor 
+     * @param {HANDLE} hCursor_ 
      * @param {ITransaction} pTransaction 
      * @returns {HRESULT} 
      */
-    static MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, hCursor, pTransaction) {
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+    static MQReceiveMessage(hSource, dwTimeout, dwAction, pMessageProps, lpOverlapped, fnReceiveCallback, hCursor_, pTransaction) {
+        hCursor_ := hCursor_ is Win32Handle ? NumGet(hCursor_, "ptr") : hCursor_
 
-        result := DllCall("mqrt.dll\MQReceiveMessage", "ptr", hSource, "uint", dwTimeout, "uint", dwAction, "ptr", pMessageProps, "ptr", lpOverlapped, "ptr", fnReceiveCallback, "ptr", hCursor, "ptr", pTransaction, "int")
+        result := DllCall("mqrt.dll\MQReceiveMessage", "ptr", hSource, "uint", dwTimeout, "uint", dwAction, "ptr", pMessageProps, "ptr", lpOverlapped, "ptr", fnReceiveCallback, "ptr", hCursor_, "ptr", pTransaction, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1252,13 +1254,13 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {HANDLE} hCursor 
+     * @param {HANDLE} hCursor_ 
      * @returns {HRESULT} 
      */
-    static MQCloseCursor(hCursor) {
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+    static MQCloseCursor(hCursor_) {
+        hCursor_ := hCursor_ is Win32Handle ? NumGet(hCursor_, "ptr") : hCursor_
 
-        result := DllCall("mqrt.dll\MQCloseCursor", "ptr", hCursor, "int")
+        result := DllCall("mqrt.dll\MQCloseCursor", "ptr", hCursor_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

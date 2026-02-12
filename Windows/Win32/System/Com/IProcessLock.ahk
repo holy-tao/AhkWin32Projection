@@ -5,7 +5,7 @@
 
 /**
  * Used by ISurrogateService to prevent the process from terminating due to a time-out.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iprocesslock
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iprocesslock
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IProcessLock extends IUnknown{
     /**
      * Increments the reference count of the process.
      * @returns {Integer} This method returns the new reference count.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprocesslock-addrefonprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iprocesslock-addrefonprocess
      */
     AddRefOnProcess() {
         result := ComCall(3, this, "uint")
@@ -43,7 +43,7 @@ class IProcessLock extends IUnknown{
     /**
      * Decrements the reference count of the process.
      * @returns {Integer} This method returns the new reference count.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprocesslock-releaserefonprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iprocesslock-releaserefonprocess
      */
     ReleaseRefOnProcess() {
         result := ComCall(4, this, "uint")

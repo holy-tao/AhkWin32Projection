@@ -5,7 +5,7 @@
  * The FLOATOBJ_XFORM structure describes an arbitrary linear two-dimensional transform, such as for geometric wide lines.F
  * @remarks
  * All elements are specified as <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-floatobj">FLOATOBJ</a> values. The transform can be downloaded to the driver. Structure members can be operated on by the <b>FLOATOBJ_</b><i>Xxx</i> routines.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-xforml
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-xforml
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

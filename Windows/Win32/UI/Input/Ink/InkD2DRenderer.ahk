@@ -3,7 +3,7 @@
 
 /**
  * Implements the IInkD2DRenderer interface.
- * @see https://learn.microsoft.com/windows/win32/input_ink/inkd2drenderer
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/input_ink/inkd2drenderer
  * @namespace Windows.Win32.UI.Input.Ink
  * @version v4.0.30319
  */

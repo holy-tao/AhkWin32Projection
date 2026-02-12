@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_ISCSI_TARGET_PROP structure (vdshwprv.h) defines the properties of an iSCSI target.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_iscsi_target_prop
+ * The VDS_ISCSI_TARGET_PROP structure (vds.h) defines the properties of an iSCSI target.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_iscsi_target_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

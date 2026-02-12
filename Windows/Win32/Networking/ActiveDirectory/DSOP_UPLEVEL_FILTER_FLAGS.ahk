@@ -7,7 +7,7 @@
  * For more information about domain modes, see <a href="https://docs.microsoft.com/windows/desktop/AD/detecting-the-operation-mode-of-a-domain">Detecting the Operation Mode of a Domain</a>.
  * 
  * For more information about group types and scope, see <a href="https://docs.microsoft.com/windows/desktop/AD/group-objects">Group Objects</a>.
- * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_uplevel_filter_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/objsel/ns-objsel-dsop_uplevel_filter_flags
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

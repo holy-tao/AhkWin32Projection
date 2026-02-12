@@ -10,7 +10,7 @@
  * - Width (>0, default == 100)
  * - Slant (-90..90, default == -20)
  * - Italic (0 or 1)
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_axis_range
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/ns-dwrite_3-dwrite_font_axis_range
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

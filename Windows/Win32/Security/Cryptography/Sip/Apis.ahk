@@ -175,7 +175,7 @@ class Sip {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipgetsigneddatamsg
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipgetsigneddatamsg
      * @since windows5.1.2600
      */
     static CryptSIPGetSignedDataMsg(pSubjectInfo, pdwEncodingType, dwIndex, pcbSignedDataMsg, pbSignedDataMsg) {
@@ -255,7 +255,7 @@ class Sip {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipputsigneddatamsg
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipputsigneddatamsg
      * @since windows5.1.2600
      */
     static CryptSIPPutSignedDataMsg(pSubjectInfo, dwEncodingType, pdwIndex, cbSignedDataMsg, pbSignedDataMsg) {
@@ -348,7 +348,7 @@ class Sip {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipcreateindirectdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipcreateindirectdata
      * @since windows5.1.2600
      */
     static CryptSIPCreateIndirectData(pSubjectInfo, pcbIndirectData, pIndirectData) {
@@ -405,7 +405,7 @@ class Sip {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipverifyindirectdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipverifyindirectdata
      * @since windows5.1.2600
      */
     static CryptSIPVerifyIndirectData(pSubjectInfo, pIndirectData) {
@@ -426,7 +426,7 @@ class Sip {
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipremovesigneddatamsg
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipremovesigneddatamsg
      * @since windows5.1.2600
      */
     static CryptSIPRemoveSignedDataMsg(pSubjectInfo, dwIndex) {
@@ -448,7 +448,7 @@ class Sip {
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipload
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipload
      * @since windows5.1.2600
      */
     static CryptSIPLoad(pgSubject, dwFlags, pSipDispatch) {
@@ -470,7 +470,7 @@ class Sip {
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipretrievesubjectguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipretrievesubjectguid
      * @since windows5.1.2600
      */
     static CryptSIPRetrieveSubjectGuid(FileName, hFileIn, pgSubject) {
@@ -518,7 +518,7 @@ class Sip {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipretrievesubjectguidforcatalogfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipretrievesubjectguidforcatalogfile
      * @since windows5.1.2600
      */
     static CryptSIPRetrieveSubjectGuidForCatalogFile(FileName, hFileIn, pgSubject) {
@@ -543,7 +543,7 @@ class Sip {
      * When you have finished using the added SIP provider, remove it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipremoveprovider">CryptSIPRemoveProvider</a> function.
      * @param {Pointer<SIP_ADD_NEWPROVIDER>} psNewProv A pointer to a [SIP_ADD_NEWPROVIDER](/windows/desktop/api/mssip/ns-mssip-sip_add_newprovider) structure that specifies the DLL file and function names to register.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipaddprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipaddprovider
      * @since windows5.1.2600
      */
     static CryptSIPAddProvider(psNewProv) {
@@ -563,7 +563,7 @@ class Sip {
      * Typically you call this function to unregister an in-process COM server. The <b>CryptSIPRemoveProvider</b> function removes the appropriate Registry entries for the SIP provider functions.
      * @param {Pointer<Guid>} pgProv A pointer to the GUID that identifies the SIP DLL  to remove.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipremoveprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipremoveprovider
      * @since windows5.1.2600
      */
     static CryptSIPRemoveProvider(pgProv) {
@@ -584,7 +584,7 @@ class Sip {
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjInfo Pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that specifies subject information data to the SIP APIs.
      * @param {Pointer<SIP_CAP_SET_V3>} pCaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mssip/ns-mssip-sip_cap_set_v2">SIP_CAP_SET</a> structure that defines the capabilities of an SIP.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mssip/nf-mssip-cryptsipgetcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/mssip/nf-mssip-cryptsipgetcaps
      * @since windows8.0
      */
     static CryptSIPGetCaps(pSubjInfo, pCaps) {

@@ -43,16 +43,15 @@ class IPMTilePropertyInfo extends IUnknown{
     }
 
     /**
-     */
-    Property {
-    }
-
-    /**
      * 
      * @returns {Integer} 
      */
     get_PropertyID() {
-        result := ComCall(3, this, "uint*", &pPropID := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pPropID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPropID
     }
 
@@ -62,7 +61,11 @@ class IPMTilePropertyInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_PropertyValue(pPropValue) {
-        result := ComCall(4, this, "ptr", pPropValue, "HRESULT")
+        result := ComCall(4, this, "ptr", pPropValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,9 +75,16 @@ class IPMTilePropertyInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_Property(PropValue) {
-        PropValue := PropValue is String ? BSTR.Alloc(PropValue).Value : PropValue
+        if(PropValue is String) {
+            pin := BSTR.Alloc(PropValue)
+            PropValue := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", PropValue, "HRESULT")
+        result := ComCall(5, this, "ptr", PropValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

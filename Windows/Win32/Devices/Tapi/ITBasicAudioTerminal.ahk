@@ -5,7 +5,7 @@
 
 /**
  * The ITBasicAudioTerminal interface provides methods that allow an application to control basic sound characteristics of terminal.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itbasicaudioterminal
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itbasicaudioterminal
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -90,25 +90,35 @@ class ITBasicAudioTerminal extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-put_volume
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasicaudioterminal-put_volume
      */
     put_Volume(lVolume) {
-        result := ComCall(7, this, "int", lVolume, "HRESULT")
+        result := ComCall(7, this, "int", lVolume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Volume method gets the volume.
      * @returns {Integer} Pointer to volume. The volume property is a value between 0 and FFFF, representing a set of logarithmic steps. Not all devices support as many distinguishable steps.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-get_volume
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasicaudioterminal-get_volume
      */
     get_Volume() {
-        result := ComCall(8, this, "int*", &plVolume := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plVolume := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plVolume
     }
 
     /**
      * The put_Balance method sets the balance. This method is not implemented for terminals shipped with TAPI 3.0 and higher.
+     * @remarks
+     * The balance property is a value between –10,000 and 10,000. A value of –10,000 indicates that the right speaker has been disabled and only the left speaker is receiving an audio signal. A value of 0 indicates that both speakers are receiving equivalent audio signals. A value of 10,000 indicates that the left speaker has been disabled and only the right speaker is receiving an audio signal.
      * @param {Integer} lBalance Balance.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -151,20 +161,30 @@ class ITBasicAudioTerminal extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-put_balance
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasicaudioterminal-put_balance
      */
     put_Balance(lBalance) {
-        result := ComCall(9, this, "int", lBalance, "HRESULT")
+        result := ComCall(9, this, "int", lBalance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Balance method gets the balance. This method is not implemented for terminals shipped with TAPI 3.0 and higher.
+     * @remarks
+     * The balance property is a value between –10,000 and 10,000. A value of –10,000 indicates that the right speaker has been disabled and only the left speaker is receiving an audio signal. A value of 0 indicates that both speakers are receiving equivalent audio signals. A value of 10,000 indicates that the left speaker has been disabled and only the right speaker is receiving an audio signal.
      * @returns {Integer} Pointer to balance.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-get_balance
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itbasicaudioterminal-get_balance
      */
     get_Balance() {
-        result := ComCall(10, this, "int*", &plBalance := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plBalance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plBalance
     }
 }

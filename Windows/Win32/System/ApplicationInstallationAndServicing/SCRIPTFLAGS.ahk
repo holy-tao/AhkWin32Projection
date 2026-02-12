@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Include this flag if the icons need to be created or removed.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiadvertisescripta
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

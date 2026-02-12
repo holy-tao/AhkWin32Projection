@@ -3,7 +3,7 @@
 
 /**
  * The SIP_CAP_SET_V3 structure defines the capabilities of a subject interface package (SIP). (SIP_CAP_SET_V3 structure)
- * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_cap_set_v3
+ * @see https://learn.microsoft.com/windows/win32/api//content/mssip/ns-mssip-sip_cap_set_v3
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319
  */

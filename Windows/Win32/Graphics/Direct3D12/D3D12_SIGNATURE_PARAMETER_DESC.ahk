@@ -11,7 +11,7 @@
  *         
  * 
  * Get a shader-signature from a shader or an effect by calling APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12shaderreflection-getinputparameterdesc">ID3D12ShaderReflection::GetInputParameterDesc</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_signature_parameter_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12shader/ns-d3d12shader-d3d12_signature_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

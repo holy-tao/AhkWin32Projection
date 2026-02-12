@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The NOTIFY_FILTER_AND_TYPE structure represents a filter for a notification port that was created by the CreateClusterNotifyPortV2 function.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-notify_filter_and_type
+ * The NOTIFY_FILTER_AND_TYPE (clusapi.h) structure represents a filter for a notification port that was created by the CreateClusterNotifyPortV2 function.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-notify_filter_and_type
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

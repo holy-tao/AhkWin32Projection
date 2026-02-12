@@ -6,7 +6,7 @@
 
 /**
  * Accesses general settings for the user.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcsettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nn-wpcapi-iwpcsettings
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -34,31 +34,43 @@ class IWPCSettings extends IUnknown{
     /**
      * Determines whether activity logging should be performed when obtaining the IWPCSettings interface.
      * @returns {BOOL} Indicates whether logging is required.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcsettings-isloggingrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcsettings-isloggingrequired
      */
     IsLoggingRequired() {
-        result := ComCall(3, this, "int*", &pfRequired := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfRequired := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRequired
     }
 
     /**
      * Retrieves the time at which the configuration settings were last updated.
      * @returns {SYSTEMTIME} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the time at which the settings were last updated.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcsettings-getlastsettingschangetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcsettings-getlastsettingschangetime
      */
     GetLastSettingsChangeTime() {
         pTime := SYSTEMTIME()
-        result := ComCall(4, this, "ptr", pTime, "HRESULT")
+        result := ComCall(4, this, "ptr", pTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTime
     }
 
     /**
      * Determines whether web restrictions, time limits, or game restrictions are on.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcsettings-getrestrictions
      */
     GetRestrictions() {
-        result := ComCall(5, this, "int*", &pdwRestrictions := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pdwRestrictions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwRestrictions
     }
 }

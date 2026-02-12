@@ -5,7 +5,7 @@
 
 /**
  * Use this interface as a point of access for actions involving IEEE 1667 silos.
- * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nn-ehstorapi-ienhancedstoragesiloaction
+ * @see https://learn.microsoft.com/windows/win32/api//content/ehstorapi/nn-ehstorapi-ienhancedstoragesiloaction
  * @namespace Windows.Win32.Storage.EnhancedStorage
  * @version v4.0.30319
  */
@@ -38,21 +38,37 @@ class IEnhancedStorageSiloAction extends IUnknown{
 
     /**
      * Returns a string for the name of the action specified by the IEnhancedStorageSiloAction object.
+     * @remarks
+     * A name string is short, consisting of one or two words, and is suitable for display in a UI element such as a menu item or button label.
+     * 
+     * When the caller no longer requires access to the string, this buffer must be freed by passing this pointer to <a href="https://docs.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {PWSTR} Pointer to a string that represents the silo action by name.
-     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &ppwszActionName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppwszActionName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszActionName
     }
 
     /**
      * Returns a descriptive string for the action specified by the IEnhancedStorageSiloAction object.
+     * @remarks
+     * The description string is brief, consisting of one or two short sentences, and is suitable for display in a UI element such as tooltip or small static text box.
+     * 
+     * When the caller no longer requires access to the string, this buffer must be freed by passing this pointer to <a href="https://docs.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {PWSTR} Pointer to a string that describes the silo action.
-     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getdescription
      */
     GetDescription() {
-        result := ComCall(4, this, "ptr*", &ppwszActionDescription := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppwszActionDescription := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszActionDescription
     }
 
@@ -77,10 +93,14 @@ class IEnhancedStorageSiloAction extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-invoke
+     * @see https://learn.microsoft.com/windows/win32/api//content/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-invoke
      */
     Invoke() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

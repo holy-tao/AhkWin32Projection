@@ -30,28 +30,36 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @param {Pointer<ObjectReferenceCallback>} callback 
      * @param {Pointer<Void>} clientData 
      * @returns {HRESULT} 
      */
-    EnumerateObjectReferences(objectId, callback, clientData) {
+    EnumerateObjectReferences(objectId_, callback, clientData) {
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(93, this, "ptr", objectId, "ptr", callback, clientDataMarshal, clientData, "HRESULT")
+        result := ComCall(93, this, "ptr", objectId_, "ptr", callback, clientDataMarshal, clientData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @param {Pointer<BOOL>} pbFrozen 
      * @returns {HRESULT} 
      */
-    IsFrozenObject(objectId, pbFrozen) {
+    IsFrozenObject(objectId_, pbFrozen) {
         pbFrozenMarshal := pbFrozen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(94, this, "ptr", objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
+        result := ComCall(94, this, "ptr", objectId_, pbFrozenMarshal, pbFrozen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
     GetLOHObjectSizeThreshold(pThreshold) {
         pThresholdMarshal := pThreshold is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(95, this, pThresholdMarshal, pThreshold, "HRESULT")
+        result := ComCall(95, this, pThresholdMarshal, pThreshold, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +91,11 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(96, this, "uint", dwRejitFlags, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
+        result := ComCall(96, this, "uint", dwRejitFlags, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +104,11 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
      * @returns {HRESULT} 
      */
     SuspendRuntime() {
-        result := ComCall(97, this, "HRESULT")
+        result := ComCall(97, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +117,11 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
      * @returns {HRESULT} 
      */
     ResumeRuntime() {
-        result := ComCall(98, this, "HRESULT")
+        result := ComCall(98, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -12,7 +12,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/cchannel/nc-cchannel-virtualchannelinit">VirtualChannelInit</a> function to initialize the 
  *     virtual channel. This will also occur if the channel is a dynamic virtual channel written to by using the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write">IWTSVirtualChannel::Write</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/pchannel/ns-pchannel-channel_pdu_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/pchannel/ns-pchannel-channel_pdu_header
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

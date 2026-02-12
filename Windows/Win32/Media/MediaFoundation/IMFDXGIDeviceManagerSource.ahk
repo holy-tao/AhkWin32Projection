@@ -6,7 +6,7 @@
 
 /**
  * Provides functionality for getting the IMFDXGIDeviceManager from the Microsoft Media Foundation video rendering sink.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfdxgidevicemanagersource
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfdxgidevicemanagersource
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class IMFDXGIDeviceManagerSource extends IUnknown{
 
     /**
      * Gets the IMFDXGIDeviceManager from the Microsoft Media Foundation video rendering sink.
-     * @returns {IMFDXGIDeviceManager} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager">IMFDXGIDeviceManager</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfdxgidevicemanagersource-getmanager
+     * @returns {IMFDXGIDeviceManager} The [**IMFDXGIDeviceManager**](/windows/desktop/api/mfobjects/nn-mfobjects-imfdxgidevicemanager) object.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/imfdxgidevicemanagersource-getmanager
      */
     GetManager() {
-        result := ComCall(3, this, "ptr*", &ppManager := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFDXGIDeviceManager(ppManager)
     }
 }

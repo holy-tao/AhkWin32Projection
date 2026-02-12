@@ -5,7 +5,7 @@
 
 /**
  * The ITfFnLMInternal interface is not used.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnlminternal
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffnlminternal
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -63,10 +63,14 @@ class ITfFnLMInternal extends ITfFnLMProcessor{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlminternal-processlattice
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnlminternal-processlattice
      */
     ProcessLattice(pRange) {
-        result := ComCall(11, this, "ptr", pRange, "HRESULT")
+        result := ComCall(11, this, "ptr", pRange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

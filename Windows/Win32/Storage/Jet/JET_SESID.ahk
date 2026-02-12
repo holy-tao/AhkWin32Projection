@@ -3,8 +3,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
- * Learn more about: JET_SESID structure
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-sesid-structure
+ * Learn more about: JET_SESID
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-sesid
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

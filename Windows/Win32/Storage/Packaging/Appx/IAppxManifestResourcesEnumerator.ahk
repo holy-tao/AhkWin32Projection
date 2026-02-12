@@ -6,11 +6,8 @@
 /**
  * Enumerates the resources defined in the package manifest.
  * @remarks
- * 
  * This object can be retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getresources">GetResources</a> method of a  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestreader">IAppxManifestReader</a> or <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestreader2">IAppxManifestReader2</a> object. But, starting with Windows 8.1, use <b>IAppxManifestReader2::GetResources</b> because it iterates over more resource qualifiers, such as, <b>Scale</b> and <b>DXFeatureLevel</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestresourcesenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxmanifestresourcesenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -37,13 +34,21 @@ class IAppxManifestResourcesEnumerator extends IUnknown{
 
     /**
      * Gets the resource at the current position of the enumerator.
+     * @remarks
+     * The caller must free the memory allocated for <i>resource</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * 
+     * The enumerator returned can be empty. In this case, a call to  <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-gethascurrent">GetHasCurrent</a> returns <b>false</b>. If the enumerator is not empty, it points to the first element, and this method returns the first item. Subsequently, the user should use <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-movenext">MoveNext</a> to move through the items, and call <b>GetHasCurrent</b> before using <b>GetCurrent</b> to access the item.
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The current resource.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &resource := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &resource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return resource
     }
 
@@ -52,10 +57,14 @@ class IAppxManifestResourcesEnumerator extends IUnknown{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-gethascurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-gethascurrent
      */
     GetHasCurrent() {
-        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasCurrent
     }
 
@@ -66,10 +75,14 @@ class IAppxManifestResourcesEnumerator extends IUnknown{
      * <b>TRUE</b> if the enumerator successfully advances
      * 
      * <b>FALSE</b> if the enumerator has passed the end of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestresourcesenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 }

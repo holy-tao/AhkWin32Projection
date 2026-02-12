@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
@@ -560,7 +562,7 @@ class HttpServer {
     static HTTP_REQUEST_PROPERTY_SNI_FLAG_NO_SNI => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HTTP_VERSION => "HTTP/1.0"
 ;@endregion Constants
@@ -576,7 +578,7 @@ class HttpServer {
      * <b>HttpInitialize</b> repeatedly, provided that each call to 
      * <b>HttpInitialize</b> is later matched by a corresponding call to 
      * <b>HttpTerminate</b>.
-     * @param {HTTPAPI_VERSION} Version HTTP version. This parameter is an 
+     * @param {HTTPAPI_VERSION} Version_ HTTP version. This parameter is an 
      * <a href="https://docs.microsoft.com/windows/win32/api/http/ns-http-httpapi_version">HTTPAPI_VERSION</a> structure. For the current version, declare an instance of the structure and set it to the pre-defined value **HTTPAPI_VERSION_1** before passing it to 
      * <b>HttpInitialize</b>.
      * @param {Integer} Flags 
@@ -612,13 +614,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpinitialize
      * @since windows6.0.6000
      */
-    static HttpInitialize(Version, Flags) {
+    static HttpInitialize(Version_, Flags) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("HTTPAPI.dll\HttpInitialize", "ptr", Version, "uint", Flags, "ptr", pReserved, "uint")
+        result := DllCall("HTTPAPI.dll\HttpInitialize", "ptr", Version_, "uint", Flags, "ptr", pReserved, "uint")
         return result
     }
 
@@ -665,7 +667,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpterminate
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpterminate
      * @since windows6.0.6000
      */
     static HttpTerminate(Flags) {
@@ -719,7 +721,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreatehttphandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcreatehttphandle
      * @since windows6.0.6000
      */
     static HttpCreateHttpHandle(RequestQueueHandle) {
@@ -745,7 +747,7 @@ class HttpServer {
      * The handle to the request queue created by <b>HttpCreateRequestQueue</b> must be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloserequestqueue">HttpCloseRequestQueue</a> before the application terminates or when the session is no longer required.
      * 
      * Applications must call <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpinitialize">HttpInitialize</a> prior to calling <b>HttpCreateRequestQueue</b>.
-     * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure indicating the request queue version. For  version 2.0, declare an instance of the structure and set it to the predefined value HTTPAPI_VERSION_2 before passing it to <b>HttpCreateRequestQueue</b>.
+     * @param {HTTPAPI_VERSION} Version_ An HTTPAPI_VERSION structure indicating the request queue version. For  version 2.0, declare an instance of the structure and set it to the predefined value HTTPAPI_VERSION_2 before passing it to <b>HttpCreateRequestQueue</b>.
      * 
      * The version must be 2.0; <b>HttpCreateRequestQueue</b> does not support  version 1.0 request queues.
      * @param {PWSTR} Name The name of the request queue. The length, in bytes, cannot exceed MAX_PATH.
@@ -858,13 +860,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreaterequestqueue
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcreaterequestqueue
      * @since windows6.0.6000
      */
-    static HttpCreateRequestQueue(Version, Name, SecurityAttributes, Flags, RequestQueueHandle) {
+    static HttpCreateRequestQueue(Version_, Name, SecurityAttributes, Flags, RequestQueueHandle) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := DllCall("HTTPAPI.dll\HttpCreateRequestQueue", "ptr", Version, "ptr", Name, "ptr", SecurityAttributes, "uint", Flags, "ptr", RequestQueueHandle, "uint")
+        result := DllCall("HTTPAPI.dll\HttpCreateRequestQueue", "ptr", Version_, "ptr", Name, "ptr", SecurityAttributes, "uint", Flags, "ptr", RequestQueueHandle, "uint")
         return result
     }
 
@@ -895,7 +897,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcloserequestqueue
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcloserequestqueue
      * @since windows6.0.6000
      */
     static HttpCloseRequestQueue(RequestQueueHandle) {
@@ -909,7 +911,7 @@ class HttpServer {
      * Sets a new property or modifies an existing property on the request queue identified by the specified handle.
      * @param {HANDLE} RequestQueueHandle The handle to the request queue on which the property is set. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
-     * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration describing the property type that is set. This must be one of the following:
+     * @param {Integer} Property_ A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration describing the property type that is set. This must be one of the following:
      * 
      * <table>
      * <tr>
@@ -1011,22 +1013,22 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetrequestqueueproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpsetrequestqueueproperty
      * @since windows6.0.6000
      */
-    static HttpSetRequestQueueProperty(RequestQueueHandle, Property, PropertyInformation, PropertyInformationLength) {
+    static HttpSetRequestQueueProperty(RequestQueueHandle, Property_, PropertyInformation, PropertyInformationLength) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpSetRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, "ptr", Reserved2, "uint")
+        result := DllCall("HTTPAPI.dll\HttpSetRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property_, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, "ptr", Reserved2, "uint")
         return result
     }
 
     /**
      * Queries a property of the request queue identified by the specified handle.
      * @param {HANDLE} RequestQueueHandle 
-     * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is set. This can be one of the following:
+     * @param {Integer} Property_ A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is set. This can be one of the following:
      * 
      * <table>
      * <tr>
@@ -1141,17 +1143,17 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryrequestqueueproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpqueryrequestqueueproperty
      * @since windows6.0.6000
      */
-    static HttpQueryRequestQueueProperty(RequestQueueHandle, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
+    static HttpQueryRequestQueueProperty(RequestQueueHandle, Property_, PropertyInformation, PropertyInformationLength, ReturnLength) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, ReturnLengthMarshal, ReturnLength, "ptr", Reserved2, "uint")
+        result := DllCall("HTTPAPI.dll\HttpQueryRequestQueueProperty", "ptr", RequestQueueHandle, "int", Property_, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint", Reserved1, ReturnLengthMarshal, ReturnLength, "ptr", Reserved2, "uint")
         return result
     }
 
@@ -1163,25 +1165,25 @@ class HttpServer {
      * 
      * | **Property** | **Meaning** |
      * | HttpRequestPropertyStreamError | Sets a stream error on the request. |
-     * @param {Pointer} Input A pointer to the buffer that contains the property information.
+     * @param {Pointer} Input_ A pointer to the buffer that contains the property information.
      * 
      * It must point to one of the following property information types based on the property that is set.
      * 
      * | **Property** | **Configuration Type** |
      * | HttpRequestPropertyStreamError | [HTTP\_REQUEST\_PROPERTY\_STREAM\_ERROR](/windows/win32/api/http/ns-http-http_request_property_stream_error) structure |
      * @param {Integer} InputPropertySize The length, in bytes, of the buffer pointed to by the *Input* parameter.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set *pOverlapped* to point to an [OVERLAPPED](/windows/desktop/api/minwinbase/ns-minwinbase-overlapped) structure; for synchronous calls, set it to **NULL**.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set *pOverlapped* to point to an [OVERLAPPED](/windows/desktop/api/minwinbase/ns-minwinbase-overlapped) structure; for synchronous calls, set it to **NULL**.
      * 
      * A synchronous call blocks until the operation is complete, whereas an asynchronous call immediately returns **ERROR\_IO\_PENDING** and the calling application then uses [GetOverlappedResult](/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult) or I/O completion ports to determine when the operation is completed. For more information about using [OVERLAPPED](/windows/desktop/api/minwinbase/ns-minwinbase-overlapped) structures for synchronization, see [Synchronization and Overlapped Input and Output](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output).
      * @returns {Integer} If the function succeeds, it returns **ERROR\_SUCCESS**.
      * 
      * If the function fails, it returns a [system error code](/windows/desktop/Debug/system-error-codes).
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetrequestproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpsetrequestproperty
      */
-    static HttpSetRequestProperty(RequestQueueHandle, Id, PropertyId, Input, InputPropertySize, Overlapped) {
+    static HttpSetRequestProperty(RequestQueueHandle, Id, PropertyId, Input_, InputPropertySize, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpSetRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Input, "uint", InputPropertySize, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpSetRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Input_, "uint", InputPropertySize, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -1195,15 +1197,15 @@ class HttpServer {
      * @param {Pointer} Output 
      * @param {Integer} OutputBufferSize 
      * @param {Pointer<Integer>} BytesReturned 
-     * @param {Pointer<OVERLAPPED>} Overlapped 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ 
      * @returns {Integer} 
      */
-    static HttpQueryRequestProperty(RequestQueueHandle, Id, PropertyId, Qualifier, QualifierSize, Output, OutputBufferSize, BytesReturned, Overlapped) {
+    static HttpQueryRequestProperty(RequestQueueHandle, Id, PropertyId, Qualifier, QualifierSize, Output, OutputBufferSize, BytesReturned, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpQueryRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Qualifier, "uint", QualifierSize, "ptr", Output, "uint", OutputBufferSize, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpQueryRequestProperty", "ptr", RequestQueueHandle, "uint", Id, "int", PropertyId, "ptr", Qualifier, "uint", QualifierSize, "ptr", Output, "uint", OutputBufferSize, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -1252,7 +1254,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpshutdownrequestqueue
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpshutdownrequestqueue
      * @since windows6.0.6000
      */
     static HttpShutdownRequestQueue(RequestQueueHandle) {
@@ -1311,7 +1313,7 @@ class HttpServer {
      * 
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesReceived</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesReceived</i> must contain a valid memory address, and not be set to <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, or for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -1410,15 +1412,15 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreceiveclientcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpreceiveclientcertificate
      * @since windows6.0.6000
      */
-    static HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, SslClientCertInfo, SslClientCertInfoSize, BytesReceived, Overlapped) {
+    static HttpReceiveClientCertificate(RequestQueueHandle, ConnectionId, Flags, SslClientCertInfo, SslClientCertInfoSize, BytesReceived, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         BytesReceivedMarshal := BytesReceived is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Flags, "ptr", SslClientCertInfo, "uint", SslClientCertInfoSize, BytesReceivedMarshal, BytesReceived, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpReceiveClientCertificate", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Flags, "ptr", SslClientCertInfo, "uint", SslClientCertInfoSize, BytesReceivedMarshal, BytesReceived, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -1430,7 +1432,7 @@ class HttpServer {
      * The HTTP Server API does not support asynchronous I/O for server sessions.
      * 
      *  When the server session is no longer required, or before the application terminates, application must delete the server session by calling <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcloseserversession">HttpCloseServerSession</a>. When a server session is deleted all of the associated URL Groups are also automatically deleted.
-     * @param {HTTPAPI_VERSION} Version An HTTPAPI_VERSION structure that indicates the version of the server session. For  version 2.0, declare an instance of the structure and set it to the predefined value <b>HTTPAPI_VERSION_2</b> before passing it to <b>HttpCreateServerSession</b>.
+     * @param {HTTPAPI_VERSION} Version_ An HTTPAPI_VERSION structure that indicates the version of the server session. For  version 2.0, declare an instance of the structure and set it to the predefined value <b>HTTPAPI_VERSION_2</b> before passing it to <b>HttpCreateServerSession</b>.
      * 
      * The version must be 2.0; <b>HttpCreateServerSession</b> does not support  version 1.0 request queues.
      * @param {Pointer<Integer>} ServerSessionId A pointer to the variable that receives the ID of the server session.
@@ -1466,15 +1468,15 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreateserversession
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcreateserversession
      * @since windows6.0.6000
      */
-    static HttpCreateServerSession(Version, ServerSessionId) {
+    static HttpCreateServerSession(Version_, ServerSessionId) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         ServerSessionIdMarshal := ServerSessionId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpCreateServerSession", "ptr", Version, ServerSessionIdMarshal, ServerSessionId, "uint", Reserved, "uint")
+        result := DllCall("HTTPAPI.dll\HttpCreateServerSession", "ptr", Version_, ServerSessionIdMarshal, ServerSessionId, "uint", Reserved, "uint")
         return result
     }
 
@@ -1506,7 +1508,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcloseserversession
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcloseserversession
      * @since windows6.0.6000
      */
     static HttpCloseServerSession(ServerSessionId) {
@@ -1523,7 +1525,7 @@ class HttpServer {
      * 
      *  To specify the HttpServerQosProperty property in the <i>pPropertyInformation</i> parameter, set    <b>QosType</b> to <b>HttpQosSettingTypeBandwidth</b> inside the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_qos_setting_info">HTTP_QOS_SETTING_INFO</a> structure, and pass a pointer to this structure in the parameter.
      * @param {Integer} ServerSessionId The server session for which the property setting is returned.
-     * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is queried. This can be one of the following.
+     * @param {Integer} Property_ A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is queried. This can be one of the following.
      * 
      * <table>
      * <tr>
@@ -1663,13 +1665,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryserversessionproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpqueryserversessionproperty
      * @since windows6.0.6000
      */
-    static HttpQueryServerSessionProperty(ServerSessionId, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
+    static HttpQueryServerSessionProperty(ServerSessionId, Property_, PropertyInformation, PropertyInformationLength, ReturnLength) {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpQueryServerSessionProperty", "uint", ServerSessionId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, ReturnLengthMarshal, ReturnLength, "uint")
+        result := DllCall("HTTPAPI.dll\HttpQueryServerSessionProperty", "uint", ServerSessionId, "int", Property_, "ptr", PropertyInformation, "uint", PropertyInformationLength, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -1680,7 +1682,7 @@ class HttpServer {
      * 
      * The <i>pPropertyInformation</i> parameter points to the configuration structure for the property type that is set. The <i>PropertyInformationLength</i> parameter specifies the size, in bytes, of the configuration structure. For example, when setting the <b>HttpServerTimeoutsProperty</b> the <i>pPropertyInformation</i> parameter must point to a buffer that is at least equal to the size of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_timeout_limit_info">HTTP_TIMEOUT_LIMIT_INFO</a> structure.
      * @param {Integer} ServerSessionId The server session for which the property is set.
-     * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is set. This can be one of the following.
+     * @param {Integer} Property_ A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is set. This can be one of the following.
      * 
      * <table>
      * <tr>
@@ -1840,11 +1842,11 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetserversessionproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpsetserversessionproperty
      * @since windows6.0.6000
      */
-    static HttpSetServerSessionProperty(ServerSessionId, Property, PropertyInformation, PropertyInformationLength) {
-        result := DllCall("HTTPAPI.dll\HttpSetServerSessionProperty", "uint", ServerSessionId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint")
+    static HttpSetServerSessionProperty(ServerSessionId, Property_, PropertyInformation, PropertyInformationLength) {
+        result := DllCall("HTTPAPI.dll\HttpSetServerSessionProperty", "uint", ServerSessionId, "int", Property_, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint")
         return result
     }
 
@@ -1944,7 +1946,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpaddurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpaddurl
      * @since windows6.0.6000
      */
     static HttpAddUrl(RequestQueueHandle, FullyQualifiedUrl) {
@@ -2031,7 +2033,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpremoveurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpremoveurl
      * @since windows6.0.6000
      */
     static HttpRemoveUrl(RequestQueueHandle, FullyQualifiedUrl) {
@@ -2093,7 +2095,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcreateurlgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcreateurlgroup
      * @since windows6.0.6000
      */
     static HttpCreateUrlGroup(ServerSessionId, pUrlGroupId) {
@@ -2133,7 +2135,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcloseurlgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcloseurlgroup
      * @since windows6.0.6000
      */
     static HttpCloseUrlGroup(UrlGroupId) {
@@ -2197,7 +2199,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpaddurltourlgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpaddurltourlgroup
      * @since windows6.0.6000
      */
     static HttpAddUrlToUrlGroup(UrlGroupId, pFullyQualifiedUrl, UrlContext) {
@@ -2286,7 +2288,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpremoveurlfromurlgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpremoveurlfromurlgroup
      * @since windows6.0.6000
      */
     static HttpRemoveUrlFromUrlGroup(UrlGroupId, pFullyQualifiedUrl, Flags) {
@@ -2301,7 +2303,7 @@ class HttpServer {
      * @remarks
      * After the URL Group is created it must be associated with a request queue to receive requests. To associate the URL Group with a request queue, the application calls <b>HttpSetUrlGroupProperty</b> with the <b>HttpServerBindingProperty</b> property. If this property is not set, matching requests for the URL Group are not delivered to a request queue and the  HTTP Server API generates a 503 response.
      * @param {Integer} UrlGroupId The ID of the URL Group for which the property is set.
-     * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is modified or set. This can be one of the following:
+     * @param {Integer} Property_ A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is modified or set. This can be one of the following:
      * 
      * <table>
      * <tr>
@@ -2475,11 +2477,11 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpseturlgroupproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpseturlgroupproperty
      * @since windows6.0.6000
      */
-    static HttpSetUrlGroupProperty(UrlGroupId, Property, PropertyInformation, PropertyInformationLength) {
-        result := DllCall("HTTPAPI.dll\HttpSetUrlGroupProperty", "uint", UrlGroupId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint")
+    static HttpSetUrlGroupProperty(UrlGroupId, Property_, PropertyInformation, PropertyInformationLength) {
+        result := DllCall("HTTPAPI.dll\HttpSetUrlGroupProperty", "uint", UrlGroupId, "int", Property_, "ptr", PropertyInformation, "uint", PropertyInformationLength, "uint")
         return result
     }
 
@@ -2488,7 +2490,7 @@ class HttpServer {
      * @remarks
      * Querying the <b>HttpServerLoggingProperty</b> is not supported.
      * @param {Integer} UrlGroupId The ID of the URL Group for which the property setting is returned.
-     * @param {Integer} Property A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is queried. This can be one of the following:
+     * @param {Integer} Property_ A member of the  <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_server_property">HTTP_SERVER_PROPERTY</a> enumeration that describes the property type that is queried. This can be one of the following:
      * 
      * <table>
      * <tr>
@@ -2628,13 +2630,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryurlgroupproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpqueryurlgroupproperty
      * @since windows6.0.6000
      */
-    static HttpQueryUrlGroupProperty(UrlGroupId, Property, PropertyInformation, PropertyInformationLength, ReturnLength) {
+    static HttpQueryUrlGroupProperty(UrlGroupId, Property_, PropertyInformation, PropertyInformationLength, ReturnLength) {
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpQueryUrlGroupProperty", "uint", UrlGroupId, "int", Property, "ptr", PropertyInformation, "uint", PropertyInformationLength, ReturnLengthMarshal, ReturnLength, "uint")
+        result := DllCall("HTTPAPI.dll\HttpQueryUrlGroupProperty", "uint", UrlGroupId, "int", Property_, "ptr", PropertyInformation, "uint", PropertyInformationLength, ReturnLengthMarshal, ReturnLength, "uint")
         return result
     }
 
@@ -2648,7 +2650,7 @@ class HttpServer {
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpprepareurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpprepareurl
      * @since windows8.0
      */
     static HttpPrepareUrl(Url, PreparedUrl) {
@@ -2697,7 +2699,7 @@ class HttpServer {
      * 
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesReceived</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesReceived</i> must contain a valid memory address, and not be set to <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -2774,15 +2776,15 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreceivehttprequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpreceivehttprequest
      * @since windows6.0.6000
      */
-    static HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffer, RequestBufferLength, BytesReturned, Overlapped) {
+    static HttpReceiveHttpRequest(RequestQueueHandle, RequestId, Flags, RequestBuffer, RequestBufferLength, BytesReturned, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", RequestBuffer, "uint", RequestBufferLength, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpReceiveHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", RequestBuffer, "uint", RequestBufferLength, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -2826,7 +2828,7 @@ class HttpServer {
      * 
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesReceived</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesReceived</i> must contain a valid memory address, and not be set to <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -2892,15 +2894,15 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreceiverequestentitybody
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpreceiverequestentitybody
      * @since windows6.0.6000
      */
-    static HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, EntityBuffer, EntityBufferLength, BytesReturned, Overlapped) {
+    static HttpReceiveRequestEntityBody(RequestQueueHandle, RequestId, Flags, EntityBuffer, EntityBufferLength, BytesReturned, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", EntityBuffer, "uint", EntityBufferLength, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpReceiveRequestEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", EntityBuffer, "uint", EntityBufferLength, BytesReturnedMarshal, BytesReturned, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3027,7 +3029,7 @@ class HttpServer {
      * @param {Pointer<Integer>} BytesSent Optional. A pointer to a variable that receives the number, in bytes, sent if the function operates synchronously.
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesSent</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesSent</i> must contain a valid memory address and not be set to <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set  to <b>NULL</b>.
      * 
      * A synchronous call blocks until all response data specified in the <i>pHttpResponse</i> parameter is sent, whereas an asynchronous call immediately returns <b>ERROR_IO_PENDING</b> and the calling application then uses 
@@ -3074,17 +3076,17 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsendhttpresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpsendhttpresponse
      * @since windows6.0.6000
      */
-    static HttpSendHttpResponse(RequestQueueHandle, RequestId, Flags, HttpResponse, CachePolicy, BytesSent, Overlapped, LogData) {
+    static HttpSendHttpResponse(RequestQueueHandle, RequestId, Flags, HttpResponse, CachePolicy, BytesSent, Overlapped_, LogData) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         BytesSentMarshal := BytesSent is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", HttpResponse, "ptr", CachePolicy, BytesSentMarshal, BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
+        result := DllCall("HTTPAPI.dll\HttpSendHttpResponse", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ptr", HttpResponse, "ptr", CachePolicy, BytesSentMarshal, BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped_, "ptr", LogData, "uint")
         return result
     }
 
@@ -3203,7 +3205,7 @@ class HttpServer {
      * @param {Pointer<Integer>} BytesSent Optional. A pointer to a variable that receives the number, in bytes, sent if the function operates synchronously.
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesSent</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesSent</i> must contain a valid memory address, and not be set to <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>.
      * 
      * A synchronous call blocks until all response data specified in the <i>pEntityChunks</i> parameter is sent, whereas an asynchronous call immediately returns <b>ERROR_IO_PENDING</b> and the calling application then uses 
@@ -3261,17 +3263,17 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsendresponseentitybody
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpsendresponseentitybody
      * @since windows6.0.6000
      */
-    static HttpSendResponseEntityBody(RequestQueueHandle, RequestId, Flags, EntityChunkCount, EntityChunks, BytesSent, Overlapped, LogData) {
+    static HttpSendResponseEntityBody(RequestQueueHandle, RequestId, Flags, EntityChunkCount, EntityChunks, BytesSent, Overlapped_, LogData) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         BytesSentMarshal := BytesSent is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ushort", EntityChunkCount, "ptr", EntityChunks, BytesSentMarshal, BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped, "ptr", LogData, "uint")
+        result := DllCall("HTTPAPI.dll\HttpSendResponseEntityBody", "ptr", RequestQueueHandle, "uint", RequestId, "uint", Flags, "ushort", EntityChunkCount, "ptr", EntityChunks, BytesSentMarshal, BytesSent, "ptr", Reserved1, "uint", Reserved2, "ptr", Overlapped_, "ptr", LogData, "uint")
         return result
     }
 
@@ -3283,7 +3285,7 @@ class HttpServer {
      * @param {HANDLE} RequestQueueHandle The handle to an HTTP.sys request queue that the  <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function returned.
      * @param {Integer} RequestId The opaque identifier of the request that is declaring the push operation. The request must be from the specified queue handle.
      * @param {Integer} Verb The HTTP verb to use for the push operation. The HTTP.sys push operation only supports <b>HttpVerbGET</b> and <b>HttpVerbHEAD</b>.
-     * @param {PWSTR} Path The path portion of the URL for the resource being pushed.
+     * @param {PWSTR} Path_ The path portion of the URL for the resource being pushed.
      * @param {PSTR} Query The query portion of the URL for the resource being pushed. This          string should not include the leading question mark (?).
      * @param {Pointer<HTTP_REQUEST_HEADERS>} Headers The request headers for the push operation.
      * 
@@ -3293,15 +3295,15 @@ class HttpServer {
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
      * 
      * If the function fails, it returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> defined in WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpdeclarepush
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpdeclarepush
      * @since windows10.0.10240
      */
-    static HttpDeclarePush(RequestQueueHandle, RequestId, Verb, Path, Query, Headers) {
+    static HttpDeclarePush(RequestQueueHandle, RequestId, Verb, Path_, Query, Headers) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
         Query := Query is String ? StrPtr(Query) : Query
 
-        result := DllCall("HTTPAPI.dll\HttpDeclarePush", "ptr", RequestQueueHandle, "uint", RequestId, "int", Verb, "ptr", Path, "ptr", Query, "ptr", Headers, "uint")
+        result := DllCall("HTTPAPI.dll\HttpDeclarePush", "ptr", RequestQueueHandle, "uint", RequestId, "int", Verb, "ptr", Path_, "ptr", Query, "ptr", Headers, "uint")
         return result
     }
 
@@ -3314,7 +3316,7 @@ class HttpServer {
      * @param {Integer} ConnectionId Identifier for the connection to the client computer. This value is returned in the <b>ConnectionID</b> member of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364545(v=vs.85)">HTTP_REQUEST</a> structure by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceivehttprequest">HttpReceiveHttpRequest</a> function.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -3357,13 +3359,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpwaitfordisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpwaitfordisconnect
      * @since windows6.0.6000
      */
-    static HttpWaitForDisconnect(RequestQueueHandle, ConnectionId, Overlapped) {
+    static HttpWaitForDisconnect(RequestQueueHandle, ConnectionId, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpWaitForDisconnect", "ptr", RequestQueueHandle, "uint", ConnectionId, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpWaitForDisconnect", "ptr", RequestQueueHandle, "uint", ConnectionId, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3371,16 +3373,16 @@ class HttpServer {
      * This function is an extension to HttpWaitForDisconnect.
      * @param {HANDLE} RequestQueueHandle 
      * @param {Integer} ConnectionId 
-     * @param {Pointer<OVERLAPPED>} Overlapped 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpwaitfordisconnectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpwaitfordisconnectex
      */
-    static HttpWaitForDisconnectEx(RequestQueueHandle, ConnectionId, Overlapped) {
+    static HttpWaitForDisconnectEx(RequestQueueHandle, ConnectionId, Overlapped_) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpWaitForDisconnectEx", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Reserved, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpWaitForDisconnectEx", "ptr", RequestQueueHandle, "uint", ConnectionId, "uint", Reserved, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3390,15 +3392,15 @@ class HttpServer {
      * When the **HttpCancelHttpRequest** function is used to cancel a request, the underlying transport connection used for the request will be closed.
      * @param {HANDLE} RequestQueueHandle A handle to the request queue from which the request came.
      * @param {Integer} RequestId The ID of the request to be canceled.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns <b>NO_ERROR</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpcancelhttprequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpcancelhttprequest
      * @since windows6.0.6000
      */
-    static HttpCancelHttpRequest(RequestQueueHandle, RequestId, Overlapped) {
+    static HttpCancelHttpRequest(RequestQueueHandle, RequestId, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpCancelHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpCancelHttpRequest", "ptr", RequestQueueHandle, "uint", RequestId, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3414,7 +3416,7 @@ class HttpServer {
      * The HTTP Server API supports canceling asynchronous <b>HttpWaitForDemandStart</b> calls. Applications can use <a href="https://docs.microsoft.com/windows/desktop/FileIO/cancelioex-func">CancelIoEx</a> with the overlapped structure supplied in the <i>pOverlapped</i> parameter, to cancel an outstanding <b>HttpWaitForDemandStart</b> call.
      * @param {HANDLE} RequestQueueHandle A handle to the request queue on which demand start is registered. A request queue is created and its handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpcreaterequestqueue">HttpCreateRequestQueue</a> function.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure; for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -3478,13 +3480,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpwaitfordemandstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpwaitfordemandstart
      * @since windows6.0.6000
      */
-    static HttpWaitForDemandStart(RequestQueueHandle, Overlapped) {
+    static HttpWaitForDemandStart(RequestQueueHandle, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
-        result := DllCall("HTTPAPI.dll\HttpWaitForDemandStart", "ptr", RequestQueueHandle, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpWaitForDemandStart", "ptr", RequestQueueHandle, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3494,7 +3496,7 @@ class HttpServer {
      * 
      * The identifier of the feature.
      * @returns {BOOL} `TRUE` if the feature is supported, otherwise `FALSE`.
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpisfeaturesupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpisfeaturesupported
      */
     static HttpIsFeatureSupported(FeatureId) {
         result := DllCall("HTTPAPI.dll\HttpIsFeatureSupported", "int", FeatureId, "int")
@@ -3522,7 +3524,7 @@ class HttpServer {
      * 
      * An array of properties to be set on request when delegating.
      * @returns {Integer} A **[ULONG](/windows/win32/winprog/windows-data-types)** containing an [NTSTATUS](/openspecs/windows_protocols/ms-erref/87fba13e-bf06-450e-83b1-9241dc81e781) completion status.
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpdelegaterequestex
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpdelegaterequestex
      */
     static HttpDelegateRequestEx(RequestQueueHandle, DelegateQueueHandle, RequestId, DelegateUrlGroupId, PropertyInfoSetSize, PropertyInfoSet) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
@@ -3544,7 +3546,7 @@ class HttpServer {
      * 
      * The matching URL group ID.
      * @returns {Integer} A **[ULONG](/windows/win32/winprog/windows-data-types)** containing an [NTSTATUS](/openspecs/windows_protocols/ms-erref/87fba13e-bf06-450e-83b1-9241dc81e781) completion status.
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpfindurlgroupid
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpfindurlgroupid
      */
     static HttpFindUrlGroupId(FullyQualifiedUrl, RequestQueueHandle, UrlGroupId) {
         FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
@@ -3565,7 +3567,7 @@ class HttpServer {
      * @param {PWSTR} UrlPrefix Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> to match against the site portion of fragment names. The application must previously have called <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddurl">HttpAddUrl</a> to add this UrlPrefix or a valid prefix of it to the request queue in question, and then called <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a> to cache the associated response fragment.
      * @param {Integer} Flags This parameter can contain the following flag:
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, or for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -3608,14 +3610,14 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpflushresponsecache
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpflushresponsecache
      * @since windows6.0.6000
      */
-    static HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, Overlapped) {
+    static HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
-        result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "uint", Flags, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "uint", Flags, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3633,7 +3635,7 @@ class HttpServer {
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_data_chunk">HTTP_DATA_CHUNK</a> structure that specifies an entity body data block to cache under the name pointed to by <i>pUrlPrefix</i>.
      * @param {Pointer<HTTP_CACHE_POLICY>} CachePolicy Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_cache_policy">HTTP_CACHE_POLICY</a> structure that specifies how this data fragment should be cached.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, or for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -3676,14 +3678,14 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpaddfragmenttocache
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpaddfragmenttocache
      * @since windows6.0.6000
      */
-    static HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, Overlapped) {
+    static HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
-        result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", DataChunk, "ptr", CachePolicy, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", DataChunk, "ptr", CachePolicy, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3696,7 +3698,7 @@ class HttpServer {
      * @param {PWSTR} UrlPrefix Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that contains the name of the fragment to be retrieved. This must match a UrlPrefix string used in a previous successful call to <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpaddfragmenttocache">HttpAddFragmentToCache</a>.
      * @param {Pointer<HTTP_BYTE_RANGE>} ByteRange Optional pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_byte_range">HTTP_BYTE_RANGE</a> structure that indicates a starting offset in the specified fragment and byte-count to be returned. <b>NULL</b> if not used, in which case the entire fragment is returned.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a buffer into which the function copies the requested fragment.
      * @param {Integer} BufferLength Size, in bytes, of the <i>pBuffer</i> buffer.
      * @param {Pointer<Integer>} BytesRead Optional pointer to a variable that receives the number of bytes to be written into the output buffer. If <i>BufferLength</i> is less than this number, the call fails with a return of ERROR_INSUFFICIENT_BUFFER, and the value pointed to by <i>pBytesRead</i> can be used to determine the minimum length of buffer required for the call to succeed. 
      * 
@@ -3704,7 +3706,7 @@ class HttpServer {
      * 
      * 
      * When making an asynchronous call using <i>pOverlapped</i>, set <i>pBytesRead</i> to <b>NULL</b>. Otherwise, when <i>pOverlapped</i> is set to <b>NULL</b>, <i>pBytesRead</i> must contain a valid memory address, and not be set to <b>NULL</b>.
-     * @param {Pointer<OVERLAPPED>} Overlapped For asynchronous calls, set <i>pOverlapped</i> to point to an 
+     * @param {Pointer<OVERLAPPED>} Overlapped_ For asynchronous calls, set <i>pOverlapped</i> to point to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, or for synchronous calls, set it to <b>NULL</b>. 
      * 
      * 
@@ -3759,16 +3761,16 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpreadfragmentfromcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpreadfragmentfromcache
      * @since windows6.0.6000
      */
-    static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer_R, BufferLength, BytesRead, Overlapped) {
+    static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer_, BufferLength, BytesRead, Overlapped_) {
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
         BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer_R, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer_, "uint", BufferLength, BytesReadMarshal, BytesRead, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -3943,7 +3945,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpsetserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpsetserviceconfiguration
      * @since windows5.1.2600
      */
     static HttpSetServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
@@ -4076,13 +4078,13 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpupdateserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpupdateserviceconfiguration
      * @since windows10.0.15063
      */
     static HttpUpdateServiceConfiguration(ConfigId, ConfigInfo, ConfigInfoLength) {
-        static Handle := 0, Overlapped := 0 ;Reserved parameters must always be NULL
+        static Handle_ := 0, Overlapped_ := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("HTTPAPI.dll\HttpUpdateServiceConfiguration", "ptr", Handle, "int", ConfigId, "ptr", ConfigInfo, "uint", ConfigInfoLength, "ptr", Overlapped, "uint")
+        result := DllCall("HTTPAPI.dll\HttpUpdateServiceConfiguration", "ptr", Handle_, "int", ConfigId, "ptr", ConfigInfo, "uint", ConfigInfoLength, "ptr", Overlapped_, "uint")
         return result
     }
 
@@ -4288,7 +4290,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpdeleteserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpdeleteserviceconfiguration
      * @since windows6.0.6000
      */
     static HttpDeleteServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
@@ -4549,7 +4551,7 @@ class HttpServer {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/http/nf-http-httpqueryserviceconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/http/nf-http-httpqueryserviceconfiguration
      * @since windows6.0.6000
      */
     static HttpQueryServiceConfiguration(ConfigId, pInput, InputLength, pOutput, OutputLength, pReturnLength) {
@@ -4563,16 +4565,16 @@ class HttpServer {
 
     /**
      * 
-     * @param {HTTPAPI_VERSION} Version 
-     * @param {Integer} Extension 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {HTTPAPI_VERSION} Version_ 
+     * @param {Integer} Extension_ 
+     * @param {Pointer<Void>} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    static HttpGetExtension(Version, Extension, Buffer_R, BufferSize) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static HttpGetExtension(Version_, Extension_, Buffer_, BufferSize) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version, "uint", Extension, Buffer_RMarshal, Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("HTTPAPI.dll\HttpGetExtension", "ptr", Version_, "uint", Extension_, Buffer_Marshal, Buffer_, "uint", BufferSize, "uint")
         return result
     }
 

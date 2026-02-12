@@ -38,7 +38,11 @@ class IPrintCoreHelper extends IUnknown{
     GetOption(pDevmode, cbSize, pszFeatureRequested) {
         pszFeatureRequested := pszFeatureRequested is String ? StrPtr(pszFeatureRequested) : pszFeatureRequested
 
-        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, "ptr*", &ppszOption := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, "ptr*", &ppszOption := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszOption
     }
 
@@ -57,7 +61,11 @@ class IPrintCoreHelper extends IUnknown{
         pcPairsWrittenMarshal := pcPairsWritten is VarRef ? "uint*" : "ptr"
         pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDevmode, "uint", cbSize, "int", bResolveConflicts, "ptr", pFOPairs, "uint", cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pDevmode, "uint", cbSize, "int", bResolveConflicts, "ptr", pFOPairs, "uint", cPairs, pcPairsWrittenMarshal, pcPairsWritten, pdwResultMarshal, pdwResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +84,11 @@ class IPrintCoreHelper extends IUnknown{
         pConstrainedOptionListMarshal := pConstrainedOptionList is VarRef ? "ptr*" : "ptr"
         pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(5, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, pConstrainedOptionListMarshal, pConstrainedOptionList, pdwNumOptionsMarshal, pdwNumOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +109,11 @@ class IPrintCoreHelper extends IUnknown{
         ppFOConstraintsMarshal := ppFOConstraints is VarRef ? "ptr*" : "ptr"
         pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, ppFOConstraintsMarshal, ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(6, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, ppFOConstraintsMarshal, ppFOConstraints, pdwNumOptionsMarshal, pdwNumOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +127,11 @@ class IPrintCoreHelper extends IUnknown{
         pFeatureListMarshal := pFeatureList is VarRef ? "ptr*" : "ptr"
         pdwNumFeaturesMarshal := pdwNumFeatures is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pFeatureListMarshal, pFeatureList, pdwNumFeaturesMarshal, pdwNumFeatures, "HRESULT")
+        result := ComCall(7, this, pFeatureListMarshal, pFeatureList, pdwNumFeaturesMarshal, pdwNumFeatures, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +148,11 @@ class IPrintCoreHelper extends IUnknown{
         pOptionListMarshal := pOptionList is VarRef ? "ptr*" : "ptr"
         pdwNumOptionsMarshal := pdwNumOptions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pszFeatureKeyword, pOptionListMarshal, pOptionList, pdwNumOptionsMarshal, pdwNumOptions, "HRESULT")
+        result := ComCall(8, this, "ptr", pszFeatureKeyword, pOptionListMarshal, pOptionList, pdwNumOptionsMarshal, pdwNumOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +167,11 @@ class IPrintCoreHelper extends IUnknown{
 
         ppszDevFontNameMarshal := ppszDevFontName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pszTrueTypeFontName, ppszDevFontNameMarshal, ppszDevFontName, "HRESULT")
+        result := ComCall(9, this, "ptr", pszTrueTypeFontName, ppszDevFontNameMarshal, ppszDevFontName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +185,11 @@ class IPrintCoreHelper extends IUnknown{
         pszTrueTypeFontName := pszTrueTypeFontName is String ? StrPtr(pszTrueTypeFontName) : pszTrueTypeFontName
         pszDevFontName := pszDevFontName is String ? StrPtr(pszDevFontName) : pszDevFontName
 
-        result := ComCall(10, this, "ptr", pszTrueTypeFontName, "ptr", pszDevFontName, "HRESULT")
+        result := ComCall(10, this, "ptr", pszTrueTypeFontName, "ptr", pszDevFontName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -173,7 +205,11 @@ class IPrintCoreHelper extends IUnknown{
     CreateInstanceOfMSXMLObject(rclsid, pUnkOuter, dwClsContext, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvMarshal, ppv, "HRESULT")
+        result := ComCall(11, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, ppvMarshal, ppv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

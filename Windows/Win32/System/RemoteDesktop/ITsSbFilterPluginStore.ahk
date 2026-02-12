@@ -7,7 +7,7 @@
 
 /**
  * Filter Plugin Store
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbfilterpluginstore
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbfilterpluginstore
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,34 +35,49 @@ class ITsSbFilterPluginStore extends IUnknown{
     /**
      * Saves a property set.
      * @param {ITsSbPropertySet} pPropertySet 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbfilterpluginstore-saveproperties
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbfilterpluginstore-saveproperties
      */
     SaveProperties(pPropertySet) {
-        result := ComCall(3, this, "ptr", pPropertySet, "HRESULT")
+        result := ComCall(3, this, "ptr", pPropertySet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates a property set.
      * @returns {ITsSbPropertySet} 
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbfilterpluginstore-enumerateproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbfilterpluginstore-enumerateproperties
      */
     EnumerateProperties() {
-        result := ComCall(4, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppPropertySet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbPropertySet(ppPropertySet)
     }
 
     /**
      * Deletes a property.
      * @param {BSTR} propertyName 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbfilterpluginstore-deleteproperties
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbfilterpluginstore-deleteproperties
      */
     DeleteProperties(propertyName) {
-        propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
+        if(propertyName is String) {
+            pin := BSTR.Alloc(propertyName)
+            propertyName := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", propertyName, "HRESULT")
+        result := ComCall(5, this, "ptr", propertyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

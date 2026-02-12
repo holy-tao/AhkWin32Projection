@@ -4,12 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Exposes methods that define an output connector.
+ * Exposes methods that define an output connector. (IMILBitmapEffectOutputConnectorImpl)
  * @remarks
- * 
  * This interface must be implemented if an effect also implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectoutputconnectorimpl
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nn-mileffects-imilbitmapeffectoutputconnectorimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -39,11 +37,15 @@ class IMILBitmapEffectOutputConnectorImpl extends IUnknown{
      * @param {IMILBitmapEffectInputConnector} pConnection Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-addbacklink
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-addbacklink
      */
     AddBackLink(pConnection) {
-        result := ComCall(3, this, "ptr", pConnection, "HRESULT")
+        result := ComCall(3, this, "ptr", pConnection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,11 +54,15 @@ class IMILBitmapEffectOutputConnectorImpl extends IUnknown{
      * @param {IMILBitmapEffectInputConnector} pConnection Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-removebacklink
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-removebacklink
      */
     RemoveBackLink(pConnection) {
-        result := ComCall(4, this, "ptr", pConnection, "HRESULT")
+        result := ComCall(4, this, "ptr", pConnection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -40,7 +40,11 @@ class ICLRDebuggingLibraryProvider extends IUnknown{
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
         phModule := HMODULE()
-        result := ComCall(3, this, "ptr", pwszFileName, "uint", dwTimestamp, "uint", dwSizeOfImage, "ptr", phModule, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszFileName, "uint", dwTimestamp, "uint", dwSizeOfImage, "ptr", phModule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phModule
     }
 }

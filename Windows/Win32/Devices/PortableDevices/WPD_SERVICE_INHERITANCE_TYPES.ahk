@@ -3,7 +3,7 @@
 
 /**
  * Specifies the inheritance relationship for a service.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-service-inheritance-types2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/wpd-service-inheritance-types2
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

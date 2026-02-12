@@ -3269,7 +3269,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpsetstatuscallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpsetstatuscallback
      * @since windows5.1.2600
      */
     static WinHttpSetStatusCallback(hInternet, lpfnInternetCallback, dwNotificationFlags, dwReserved) {
@@ -3316,7 +3316,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttptimefromsystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttptimefromsystemtime
      * @since windows5.1.2600
      */
     static WinHttpTimeFromSystemTime(pst, pwszTime) {
@@ -3363,7 +3363,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttptimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttptimetosystemtime
      * @since windows5.1.2600
      */
     static WinHttpTimeToSystemTime(pwszTime, pst) {
@@ -3509,7 +3509,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpcrackurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpcrackurl
      * @since windows5.1.2600
      */
     static WinHttpCrackUrl(pwszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
@@ -3571,7 +3571,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpcreateurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpcreateurl
      * @since windows5.1.2600
      */
     static WinHttpCreateUrl(lpUrlComponents, dwFlags, pwszUrl, pdwUrlLength) {
@@ -3601,7 +3601,7 @@ class WinHttp {
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Run-Time Requirements</a>.
      * @returns {BOOL} The return value is <b>TRUE</b> if the platform is supported by Microsoft Windows HTTP Services (WinHTTP), or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpcheckplatform
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpcheckplatform
      * @since windows5.1.2600
      */
     static WinHttpCheckPlatform() {
@@ -3674,7 +3674,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetdefaultproxyconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetdefaultproxyconfiguration
      * @since windows5.1.2600
      */
     static WinHttpGetDefaultProxyConfiguration(pProxyInfo) {
@@ -3741,7 +3741,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpsetdefaultproxyconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpsetdefaultproxyconfiguration
      * @since windows5.1.2600
      */
     static WinHttpSetDefaultProxyConfiguration(pProxyInfo) {
@@ -3850,7 +3850,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpopen
      * @since windows5.1.2600
      */
     static WinHttpOpen(pszAgentW, dwAccessType, pszProxyW, pszProxyBypassW, dwFlags) {
@@ -3947,7 +3947,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpclosehandle
      * @since windows5.1.2600
      */
     static WinHttpCloseHandle(hInternet) {
@@ -4072,7 +4072,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpconnect
      * @since windows5.1.2600
      */
     static WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved) {
@@ -4237,7 +4237,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpreaddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpreaddata
      * @since windows5.1.2600
      */
     static WinHttpReadData(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead) {
@@ -4378,7 +4378,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpreaddataex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpreaddataex
      */
     static WinHttpReadDataEx(hRequest, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead, ullFlags, cbProperty, pvProperty) {
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
@@ -4514,7 +4514,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwritedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwritedata
      * @since windows5.1.2600
      */
     static WinHttpWriteData(hRequest, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOfBytesWritten) {
@@ -4656,7 +4656,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpquerydataavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpquerydataavailable
      * @since windows5.1.2600
      */
     static WinHttpQueryDataAvailable(hRequest, lpdwNumberOfBytesAvailable) {
@@ -4760,7 +4760,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpqueryoption
      * @since windows5.1.2600
      */
     static WinHttpQueryOption(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
@@ -4903,7 +4903,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpsetoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpsetoption
      * @since windows5.1.2600
      */
     static WinHttpSetOption(hInternet, dwOption, lpBuffer, dwBufferLength) {
@@ -5006,7 +5006,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpsettimeouts
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpsettimeouts
      * @since windows5.1.2600
      */
     static WinHttpSetTimeouts(hInternet, nResolveTimeout, nConnectTimeout, nSendTimeout, nReceiveTimeout) {
@@ -5129,7 +5129,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpopenrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpopenrequest
      * @since windows5.1.2600
      */
     static WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszReferrer, ppwszAcceptTypes, dwFlags) {
@@ -5305,7 +5305,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpaddrequestheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpaddrequestheaders
      * @since windows5.1.2600
      */
     static WinHttpAddRequestHeaders(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
@@ -5463,7 +5463,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpaddrequestheadersex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpaddrequestheadersex
      */
     static WinHttpAddRequestHeadersEx(hRequest, dwModifiers, ullFlags, ullExtra, cHeaders, pHeaders) {
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
@@ -5790,7 +5790,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpsendrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpsendrequest
      * @since windows5.1.2600
      */
     static WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext) {
@@ -5968,7 +5968,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpsetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpsetcredentials
      * @since windows5.1.2600
      */
     static WinHttpSetCredentials(hRequest, AuthTargets, AuthScheme, pwszUserName, pwszPassword, pAuthParams) {
@@ -6188,7 +6188,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryauthschemes
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpqueryauthschemes
      * @since windows5.1.2600
      */
     static WinHttpQueryAuthSchemes(hRequest, lpdwSupportedSchemes, lpdwFirstScheme, pdwAuthTarget) {
@@ -6478,7 +6478,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpreceiveresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpreceiveresponse
      * @since windows5.1.2600
      */
     static WinHttpReceiveResponse(hRequest, lpReserved) {
@@ -6620,7 +6620,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpqueryheaders
      * @since windows5.1.2600
      */
     static WinHttpQueryHeaders(hRequest, dwInfoLevel, pwszName, lpBuffer, lpdwBufferLength, lpdwIndex) {
@@ -6751,7 +6751,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryheadersex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpqueryheadersex
      */
     static WinHttpQueryHeadersEx(hRequest, dwInfoLevel, ullFlags, uiCodePage, pdwIndex, pHeaderName, pBuffer, pdwBufferLength, ppHeaders, pdwHeadersCount) {
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
@@ -6783,7 +6783,7 @@ class WinHttp {
      * 
      * WinHttp performs an allocation internally, so once you're done with it you must free this pointer by calling [WinHttpFreeQueryConnectionGroupResult](nf-winhttp-winhttpfreequeryconnectiongroupresult.md).
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpqueryconnectiongroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpqueryconnectiongroup
      */
     static WinHttpQueryConnectionGroup(hInternet, pGuidConnection, ullFlags, ppResult) {
         hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
@@ -6799,7 +6799,7 @@ class WinHttp {
      * 
      * A pointer to the [WINHTTP_QUERY_CONNECTION_GROUP_RESULT](ns-winhttp-winhttp_query_connection_group_result.md) object to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreequeryconnectiongroupresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpfreequeryconnectiongroupresult
      */
     static WinHttpFreeQueryConnectionGroupResult(pResult) {
         DllCall("WINHTTP.dll\WinHttpFreeQueryConnectionGroupResult", "ptr", pResult)
@@ -6882,7 +6882,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpdetectautoproxyconfigurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpdetectautoproxyconfigurl
      * @since windows5.1.2600
      */
     static WinHttpDetectAutoProxyConfigUrl(dwAutoDetectFlags, ppwstrAutoConfigUrl) {
@@ -7037,7 +7037,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxyforurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetproxyforurl
      * @since windows5.1.2600
      */
     static WinHttpGetProxyForUrl(hSession, lpcwszUrl, pAutoProxyOptions, pProxyInfo) {
@@ -7101,7 +7101,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpcreateproxyresolver
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpcreateproxyresolver
      * @since windows8.0
      */
     static WinHttpCreateProxyResolver(hSession, phResolver) {
@@ -7247,7 +7247,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxyforurlex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetproxyforurlex
      * @since windows8.0
      */
     static WinHttpGetProxyForUrlEx(hResolver, pcwszUrl, pAutoProxyOptions, pContext) {
@@ -7312,7 +7312,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxyresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetproxyresult
      * @since windows8.0
      */
     static WinHttpGetProxyResult(hResolver, pProxyResult) {
@@ -7341,7 +7341,7 @@ class WinHttp {
      * Upon completion, all internal members of <i>pProxyResult</i> will be zeroed and the memory allocated to those members will be freed. If <i>pProxyResult</i> is an allocated pointer, the caller must free the pointer.
      * @param {Pointer<WINHTTP_PROXY_RESULT>} pProxyResult A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ns-winhttp-winhttp_proxy_result">WINHTTP_PROXY_RESULT</a> structure retrieved from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyresult">WinHttpGetProxyResult</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreeproxyresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpfreeproxyresult
      * @since windows8.0
      */
     static WinHttpFreeProxyResult(pProxyResult) {
@@ -7507,7 +7507,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpresetautoproxy
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpresetautoproxy
      * @since windows8.0
      */
     static WinHttpResetAutoProxy(hSession, dwFlags) {
@@ -7570,7 +7570,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetieproxyconfigforcurrentuser
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetieproxyconfigforcurrentuser
      * @since windows5.1.2600
      */
     static WinHttpGetIEProxyConfigForCurrentUser(pProxyConfig) {
@@ -7621,9 +7621,10 @@ class WinHttp {
     }
 
     /**
-     * 
+     * Frees the data retrieved from a previous call to [WinHttpGetProxySettingsResultEx](nf-winhttp-winhttpgetproxysettingsresultex.md).
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpfreeproxysettingsex
      */
     static WinHttpFreeProxySettings(pWinHttpProxySettings) {
         DllCall("WINHTTP.dll\WinHttpFreeProxySettings", "ptr", pWinHttpProxySettings)
@@ -7670,7 +7671,7 @@ class WinHttp {
      * @returns {Pointer<Void>} Type: <b>HINTERNET</b>
      * 
      * A new WebSocket handle. If NULL, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine the cause of failure.
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwebsocketcompleteupgrade
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwebsocketcompleteupgrade
      * @since windows8.0
      */
     static WinHttpWebSocketCompleteUpgrade(hRequest, pContext) {
@@ -7733,7 +7734,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwebsocketsend
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwebsocketsend
      * @since windows8.0
      */
     static WinHttpWebSocketSend(hWebSocket, eBufferType, pvBuffer, dwBufferLength) {
@@ -7815,7 +7816,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwebsocketreceive
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwebsocketreceive
      * @since windows8.0
      */
     static WinHttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRead, peBufferType) {
@@ -7871,7 +7872,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwebsocketshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwebsocketshutdown
      * @since windows8.0
      */
     static WinHttpWebSocketShutdown(hWebSocket, usStatus, pvReason, dwReasonLength) {
@@ -7949,7 +7950,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwebsocketclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwebsocketclose
      * @since windows8.0
      */
     static WinHttpWebSocketClose(hWebSocket, usStatus, pvReason, dwReasonLength) {
@@ -8023,7 +8024,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpwebsocketqueryclosestatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpwebsocketqueryclosestatus
      * @since windows8.0
      */
     static WinHttpWebSocketQueryCloseStatus(hWebSocket, pusStatus, pvReason, dwReasonLength, pdwReasonLengthConsumed) {
@@ -8086,7 +8087,7 @@ class WinHttp {
      * @param {Integer} ullFlags Type: \_In\_ **[ULONGLONG](/windows/win32/winprog/windows-data-types)**
      * 
      * The flag to pass to the callback (for example, **WINHTTP_PROXY_NOTIFY_CHANGE**).
-     * @param {Pointer<WINHTTP_PROXY_CHANGE_CALLBACK>} pfnCallback Type: \_In\_ **[WINHTTP_PROXY_CHANGE_CALLBACK](nc-winhttp-winhttp_proxy_change_callback.md)**
+     * @param {Pointer<WINHTTP_PROXY_CHANGE_CALLBACK>} pfnCallback_ Type: \_In\_ **[WINHTTP_PROXY_CHANGE_CALLBACK](nc-winhttp-winhttp_proxy_change_callback.md)**
      * 
      * A pointer to the callback function that should be called when the effective proxy settings change.
      * @param {Pointer<Void>} pvContext Type: \_In\_ **[PVOID](/windows/win32/winprog/windows-data-types)**
@@ -8100,13 +8101,13 @@ class WinHttp {
      * |Code|Description|
      * |-|-|
      * |ERROR_SUCCESS|The operation succeeded.|
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpregisterproxychangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpregisterproxychangenotification
      */
-    static WinHttpRegisterProxyChangeNotification(ullFlags, pfnCallback, pvContext, hRegistration) {
+    static WinHttpRegisterProxyChangeNotification(ullFlags, pfnCallback_, pvContext, hRegistration) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
         hRegistrationMarshal := hRegistration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpRegisterProxyChangeNotification", "uint", ullFlags, "ptr", pfnCallback_, pvContextMarshal, pvContext, hRegistrationMarshal, hRegistration, "uint")
         return result
     }
 
@@ -8116,7 +8117,7 @@ class WinHttp {
      * 
      * The handle that was returned from [WinHttpRegisterProxyChangeNotification](nf-winhttp-winhttpregisterproxychangenotification.md).
      * @returns {Integer} A **[DWORD](/windows/win32/winprog/windows-data-types)** containing a status code indicating the result of the operation.
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpunregisterproxychangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpunregisterproxychangenotification
      */
     static WinHttpUnregisterProxyChangeNotification(hRegistration) {
         hRegistrationMarshal := hRegistration is VarRef ? "ptr" : "ptr"
@@ -8144,7 +8145,7 @@ class WinHttp {
      * |Code|Description|
      * |-|-|
      * |ERROR_IO_PENDING|The operation is continuing asynchronously.|
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxysettingsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetproxysettingsex
      */
     static WinHttpGetProxySettingsEx(hResolver, ProxySettingsType, pProxySettingsParam, pContext) {
         hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
@@ -8160,7 +8161,7 @@ class WinHttp {
      * The resolver handle used to issue a previously completed call to [WinHttpGetProxySettingsEx](nf-winhttp-winhttpgetproxysettingsex.md).
      * @param {Pointer<Void>} pProxySettingsEx A pointer to a [WINHTTP_PROXY_SETTINGS_EX](ns-winhttp-winhttp_proxy_settings_ex.md) structure. The memory occupied by the structure is allocated by **WinHttpGetProxySettingsResultEx**, so you need to free that memory by passing this pointer to [WinHttpFreeProxySettingsEx](nf-winhttp-winhttpfreeproxysettingsex.md).
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpgetproxysettingsresultex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpgetproxysettingsresultex
      */
     static WinHttpGetProxySettingsResultEx(hResolver, pProxySettingsEx) {
         hResolverMarshal := hResolver is VarRef ? "ptr" : "ptr"
@@ -8179,7 +8180,7 @@ class WinHttp {
      * 
      * A pointer to a [WINHTTP_PROXY_SETTINGS_EX](ns-winhttp-winhttp_proxy_settings_ex.md) structure that was retrieved from a previous call to [WinHttpGetProxySettingsResultEx](nf-winhttp-winhttpgetproxysettingsresultex.md).
      * @returns {Integer} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/winhttp/nf-winhttp-winhttpfreeproxysettingsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/nf-winhttp-winhttpfreeproxysettingsex
      */
     static WinHttpFreeProxySettingsEx(ProxySettingsType, pProxySettingsEx) {
         pProxySettingsExMarshal := pProxySettingsEx is VarRef ? "ptr" : "ptr"

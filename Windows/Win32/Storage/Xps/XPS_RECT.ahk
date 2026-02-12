@@ -5,7 +5,7 @@
  * Describes the width, height, and location of a rectangle. (XPS_RECT)
  * @remarks
  * The measurement units depend on the context and are not specified in the structure.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/ns-xpsobjectmodel-xps_rect
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

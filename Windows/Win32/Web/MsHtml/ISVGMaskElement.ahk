@@ -84,7 +84,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_maskUnits(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +97,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_maskUnits() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -103,7 +111,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_maskContentUnits(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +124,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_maskContentUnits() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -122,7 +138,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_x(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +151,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -141,7 +165,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_y(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,7 +178,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -160,7 +192,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_width(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +205,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -179,7 +219,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_height(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,7 +232,11 @@ class ISVGMaskElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
-        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 }

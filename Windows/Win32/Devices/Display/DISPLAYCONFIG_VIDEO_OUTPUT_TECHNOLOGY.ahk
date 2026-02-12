@@ -7,7 +7,7 @@
  * Values with "embedded" in their names indicate that the graphics adapter's video output device connects internally to the display device. In those cases, the DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL value is redundant. The caller should ignore DISPLAYCONFIG_OUTPUT_TECHNOLOGY_INTERNAL and just process the embedded values, DISPLAYCONFIG_OUTPUT_TECHNOLOGY_DISPLAYPORT_EMBEDDED and DISPLAYCONFIG_OUTPUT_TECHNOLOGY_UDI_EMBEDDED.
  * 
  * An embedded display port or UDI is also known as an integrated display port or UDI.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ne-wingdi-displayconfig_video_output_technology
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ne-wingdi-displayconfig_video_output_technology
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

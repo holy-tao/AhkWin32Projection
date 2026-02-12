@@ -41,7 +41,11 @@ class IHTMLTable2 extends IDispatch{
      * @returns {HRESULT} 
      */
     firstPage() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IHTMLTable2 extends IDispatch{
      * @returns {HRESULT} 
      */
     lastPage() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IHTMLTable2 extends IDispatch{
      * @returns {IHTMLElementCollection} 
      */
     get_cells() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -70,7 +82,11 @@ class IHTMLTable2 extends IDispatch{
      * @returns {IDispatch} 
      */
     moveRow(indexFrom, indexTo) {
-        result := ComCall(10, this, "int", indexFrom, "int", indexTo, "ptr*", &row := 0, "HRESULT")
+        result := ComCall(10, this, "int", indexFrom, "int", indexTo, "ptr*", &row := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(row)
     }
 }

@@ -35,7 +35,11 @@ class IApartmentCallback extends IUnknown{
      * @returns {HRESULT} 
      */
     DoCallback(pFunc, pData) {
-        result := ComCall(3, this, "ptr", pFunc, "ptr", pData, "HRESULT")
+        result := ComCall(3, this, "ptr", pFunc, "ptr", pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

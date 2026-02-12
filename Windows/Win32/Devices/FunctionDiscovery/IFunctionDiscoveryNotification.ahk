@@ -6,16 +6,11 @@
 /**
  * This interface is implemented by the client program to support asynchronous queries and is called by Function Discovery to notify the client program when a function instance that meets the query parameters has been added or removed.
  * @remarks
- * 
  * This interface must be implemented by the client program in order to receive notifications from Function Discovery. The address of the client program's implementation is passed to one of the query methods to enable notifications for function instances which meet the query parameters.
  * 
  *  Function Discovery calls the client program's <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onupdate">IFunctionDiscoveryNotification::OnUpdate</a> method to perform the actual notification, which is generated for a function instance when it is added or removed. <div class="alert"><b>Note</b>  Some Function discovery providers will also generate a notification when a function instance is modified by changing a category or one or more properties assigned to it.</div>
  * <div> </div>
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification
+ * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -42,6 +37,12 @@ class IFunctionDiscoveryNotification extends IUnknown{
 
     /**
      * Indicates that a function instance has been added, removed, or changed.
+     * @remarks
+     * Do not call <b>Release</b> on the query object from this method. Doing so could cause a deadlock. If <b>Release</b>  is called on a query object from another thread while a callback is in process, the object will not be released until the callback has finished.
+     * 
+     * All notifications passed to Function Discovery by providers are queued and returned to the client one by one. Callbacks are synchronized so that a client will only receive one notification at a time.
+     * 
+     * Because other <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> method calls may be made in other threads, any changes made to the thread state during the call  must be restored before exiting the method.
      * @param {Integer} enumQueryUpdateAction A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-queryupdateaction">QueryUpdateAction</a> value that specifies the type of action Function Discovery is performing on the specified function instance.
      * @param {Integer} fdqcQueryContext The context registered for change notification. The type <b>FDQUERYCONTEXT</b> is defined as a DWORDLONG. This parameter can be <b>NULL</b>.
      * @param {IFunctionInstance} pIFunctionInstance An <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer that represents the function instance being affected by the update.
@@ -75,15 +76,27 @@ class IFunctionDiscoveryNotification extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onupdate
      */
     OnUpdate(enumQueryUpdateAction, fdqcQueryContext, pIFunctionInstance) {
-        result := ComCall(3, this, "int", enumQueryUpdateAction, "uint", fdqcQueryContext, "ptr", pIFunctionInstance, "HRESULT")
+        result := ComCall(3, this, "int", enumQueryUpdateAction, "uint", fdqcQueryContext, "ptr", pIFunctionInstance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Receives errors that occur during asynchronous query processing.
+     * @remarks
+     * Typically, clients will expect that any asynchronous error is fatal and that the query will stop returning results, but custom provider documentation could indicate otherwise for specific error codes.
+     * 
+     * Do not call <b>Release</b> on the query object from this method. Doing so could cause a deadlock. If <b>Release</b>  is called on a query object from another thread while a callback is in process, the object will not be released until the callback has finished.
+     * 
+     * All notifications passed to Function Discovery by providers are queued and returned to the client one by one. Callbacks are synchronized so that a client will only receive one notification at a time.
+     * 
+     * Because other <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> method calls may be made in other threads, any changes made to the thread state during the call  must be restored before exiting the method.
      * @param {HRESULT} hr The query error that is being reported.
      * @param {Integer} fdqcQueryContext The context registered for change notification. The type <b>FDQUERYCONTEXT</b> is defined as a DWORDLONG.
      * @param {PWSTR} pszProvider The name of the provider.
@@ -117,17 +130,29 @@ class IFunctionDiscoveryNotification extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onerror
      */
     OnError(hr, fdqcQueryContext, pszProvider) {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-        result := ComCall(4, this, "int", hr, "uint", fdqcQueryContext, "ptr", pszProvider, "HRESULT")
+        result := ComCall(4, this, "int", hr, "uint", fdqcQueryContext, "ptr", pszProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Receives any add, remove, or update events during a notification.
+     * @remarks
+     * Function Discovery providers (SSDP and WSD) use this method to implement notifications that a search pass is complete.
+     * 
+     * Do not call <b>Release</b> on the query object from this method. Doing so could cause a deadlock. If <b>Release</b>  is called on a query object from another thread while a callback is in process, the object will not be released until the callback has finished.
+     * 
+     * All notifications passed to Function Discovery by providers are queued and returned to the client one by one. Callbacks are synchronized so that a client will only receive one notification at a time.
+     * 
+     * Because other <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctiondiscoverynotification">IFunctionDiscoveryNotification</a> method calls may be made in other threads, any changes made to the thread state during the call  must be restored before exiting the method.
      * @param {Integer} dwEventID The type of event.
      * 
      * <table>
@@ -220,12 +245,16 @@ class IFunctionDiscoveryNotification extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctiondiscoverynotification-onevent
      */
     OnEvent(dwEventID, fdqcQueryContext, pszProvider) {
         pszProvider := pszProvider is String ? StrPtr(pszProvider) : pszProvider
 
-        result := ComCall(5, this, "uint", dwEventID, "uint", fdqcQueryContext, "ptr", pszProvider, "HRESULT")
+        result := ComCall(5, this, "uint", dwEventID, "uint", fdqcQueryContext, "ptr", pszProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

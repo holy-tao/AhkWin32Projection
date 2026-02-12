@@ -5,7 +5,7 @@
 
 /**
  * A string-variable interface accesses a string variable.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectstringvariable
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nn-d3d10effect-id3d10effectstringvariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class ID3D10EffectStringVariable extends ID3D10EffectVariable{
      * @returns {PSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a>*</b>
      * 
      * A pointer to the string.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstring
      */
     GetString() {
-        result := ComCall(25, this, "ptr*", &ppString := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &ppString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppString
     }
 
@@ -53,10 +57,14 @@ class ID3D10EffectStringVariable extends ID3D10EffectVariable{
      * @returns {PSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a>*</b>
      * 
      * A pointer to the first string in the array.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstringarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstringarray
      */
     GetStringArray(Offset, Count) {
-        result := ComCall(26, this, "ptr*", &ppStrings := 0, "uint", Offset, "uint", Count, "HRESULT")
+        result := ComCall(26, this, "ptr*", &ppStrings := 0, "uint", Offset, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppStrings
     }
 }

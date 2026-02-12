@@ -6,7 +6,7 @@
 
 /**
  * Manages configuration settings for each listener for the dynamic virtual channel (DVC) connection.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtslistener
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nn-tsvirtualchannels-iwtslistener
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IWTSListener extends IUnknown{
     /**
      * Retrieves the listener-specific configuration.
      * @returns {IPropertyBag} Output parameter that receives the property bag.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtslistener-getconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nf-tsvirtualchannels-iwtslistener-getconfiguration
      */
     GetConfiguration() {
-        result := ComCall(3, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyBag(ppPropertyBag)
     }
 }

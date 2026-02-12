@@ -36,7 +36,11 @@ class IIEWebDriverManager extends IDispatch{
     ExecuteCommand(command) {
         command := command is String ? StrPtr(command) : command
 
-        result := ComCall(7, this, "ptr", command, "ptr*", &response := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", command, "ptr*", &response := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return response
     }
 }

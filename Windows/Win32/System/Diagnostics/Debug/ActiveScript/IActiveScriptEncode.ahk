@@ -43,7 +43,11 @@ class IActiveScriptEncode extends IUnknown{
 
         pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "HRESULT")
+        result := ComCall(3, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +66,11 @@ class IActiveScriptEncode extends IUnknown{
 
         pcchRetMarshal := pcchRet is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "HRESULT")
+        result := ComCall(4, this, "ptr", pchIn, "uint", cchIn, "ptr", pchOut, "uint", cchOut, pcchRetMarshal, pcchRet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IActiveScriptEncode extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEncodeProgId(pbstrOut) {
-        result := ComCall(5, this, "ptr", pbstrOut, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

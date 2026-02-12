@@ -74,9 +74,16 @@ class IHTMLEventObj5 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_url(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +93,11 @@ class IHTMLEventObj5 extends IDispatch{
      */
     get_url() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -96,9 +107,16 @@ class IHTMLEventObj5 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_data(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +126,11 @@ class IHTMLEventObj5 extends IDispatch{
      */
     get_data() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +139,11 @@ class IHTMLEventObj5 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_source() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -127,9 +153,16 @@ class IHTMLEventObj5 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_origin(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +172,11 @@ class IHTMLEventObj5 extends IDispatch{
      */
     get_origin() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -149,7 +186,11 @@ class IHTMLEventObj5 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_issession(v) {
-        result := ComCall(14, this, "short", v, "HRESULT")
+        result := ComCall(14, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +199,11 @@ class IHTMLEventObj5 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_issession() {
-        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

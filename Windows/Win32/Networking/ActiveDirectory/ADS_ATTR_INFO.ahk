@@ -9,7 +9,7 @@
  * Memory for the array of <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structures is not allocated with this structure.
  * 
  * The value of the <b>dwControlCode</b> member is ignored when the structure is used as an OUT parameter.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_attr_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/ns-iads-ads_attr_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

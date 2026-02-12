@@ -6,10 +6,8 @@
 /**
  * Not currently implemented and should not be used.
  * @remarks
- * 
  * The methods for this interface are not fully implemented at this time.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-idirectoryschemamgmt
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -35,120 +33,168 @@ class IDirectorySchemaMgmt extends IUnknown{
     static VTableNames => ["EnumAttributes", "CreateAttributeDefinition", "WriteAttributeDefinition", "DeleteAttributeDefinition", "EnumClasses", "WriteClassDefinition", "CreateClassDefinition", "DeleteClassDefinition"]
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {Pointer<PWSTR>} ppszAttrNames 
      * @param {Integer} dwNumAttributes 
      * @param {Pointer<Pointer<ADS_ATTR_DEF>>} ppAttrDefinition 
      * @param {Pointer<Integer>} pdwNumAttributes 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     EnumAttributes(ppszAttrNames, dwNumAttributes, ppAttrDefinition, pdwNumAttributes) {
         ppszAttrNamesMarshal := ppszAttrNames is VarRef ? "ptr*" : "ptr"
         ppAttrDefinitionMarshal := ppAttrDefinition is VarRef ? "ptr*" : "ptr"
         pdwNumAttributesMarshal := pdwNumAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, ppszAttrNamesMarshal, ppszAttrNames, "uint", dwNumAttributes, ppAttrDefinitionMarshal, ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "HRESULT")
+        result := ComCall(3, this, ppszAttrNamesMarshal, ppszAttrNames, "uint", dwNumAttributes, ppAttrDefinitionMarshal, ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszAttributeName 
      * @param {Pointer<ADS_ATTR_DEF>} pAttributeDefinition 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     CreateAttributeDefinition(pszAttributeName, pAttributeDefinition) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(4, this, "ptr", pszAttributeName, "ptr", pAttributeDefinition, "HRESULT")
+        result := ComCall(4, this, "ptr", pszAttributeName, "ptr", pAttributeDefinition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszAttributeName 
      * @param {Pointer<ADS_ATTR_DEF>} pAttributeDefinition 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     WriteAttributeDefinition(pszAttributeName, pAttributeDefinition) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(5, this, "ptr", pszAttributeName, "ptr", pAttributeDefinition, "HRESULT")
+        result := ComCall(5, this, "ptr", pszAttributeName, "ptr", pAttributeDefinition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszAttributeName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     DeleteAttributeDefinition(pszAttributeName) {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
 
-        result := ComCall(6, this, "ptr", pszAttributeName, "HRESULT")
+        result := ComCall(6, this, "ptr", pszAttributeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {Pointer<PWSTR>} ppszClassNames 
      * @param {Integer} dwNumClasses 
      * @param {Pointer<Pointer<ADS_CLASS_DEF>>} ppClassDefinition 
      * @param {Pointer<Integer>} pdwNumClasses 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     EnumClasses(ppszClassNames, dwNumClasses, ppClassDefinition, pdwNumClasses) {
         ppszClassNamesMarshal := ppszClassNames is VarRef ? "ptr*" : "ptr"
         ppClassDefinitionMarshal := ppClassDefinition is VarRef ? "ptr*" : "ptr"
         pdwNumClassesMarshal := pdwNumClasses is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, ppszClassNamesMarshal, ppszClassNames, "uint", dwNumClasses, ppClassDefinitionMarshal, ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "HRESULT")
+        result := ComCall(7, this, ppszClassNamesMarshal, ppszClassNames, "uint", dwNumClasses, ppClassDefinitionMarshal, ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszClassName 
      * @param {Pointer<ADS_CLASS_DEF>} pClassDefinition 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     WriteClassDefinition(pszClassName, pClassDefinition) {
         pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-        result := ComCall(8, this, "ptr", pszClassName, "ptr", pClassDefinition, "HRESULT")
+        result := ComCall(8, this, "ptr", pszClassName, "ptr", pClassDefinition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszClassName 
      * @param {Pointer<ADS_CLASS_DEF>} pClassDefinition 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     CreateClassDefinition(pszClassName, pClassDefinition) {
         pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-        result := ComCall(9, this, "ptr", pszClassName, "ptr", pClassDefinition, "HRESULT")
+        result := ComCall(9, this, "ptr", pszClassName, "ptr", pClassDefinition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszClassName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-idirectoryschemamgmt
      */
     DeleteClassDefinition(pszClassName) {
         pszClassName := pszClassName is String ? StrPtr(pszClassName) : pszClassName
 
-        result := ComCall(10, this, "ptr", pszClassName, "HRESULT")
+        result := ComCall(10, this, "ptr", pszClassName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

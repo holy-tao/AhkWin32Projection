@@ -40,7 +40,11 @@ class IPTFilterLicenseRenewal extends IUnknown{
         wszFileName := wszFileName is String ? StrPtr(wszFileName) : wszFileName
         wszExpiredKid := wszExpiredKid is String ? StrPtr(wszExpiredKid) : wszExpiredKid
 
-        result := ComCall(3, this, "ptr", wszFileName, "ptr", wszExpiredKid, "uint", dwCallersId, "int", bHighPriority, "HRESULT")
+        result := ComCall(3, this, "ptr", wszFileName, "ptr", wszExpiredKid, "uint", dwCallersId, "int", bHighPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IPTFilterLicenseRenewal extends IUnknown{
      * @returns {HRESULT} 
      */
     CancelLicenseRenewal() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

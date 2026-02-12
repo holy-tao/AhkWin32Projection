@@ -33,12 +33,17 @@ class IDataModelScriptProvider extends IUnknown{
     static VTableNames => ["GetName", "GetExtension", "CreateScript", "GetDefaultTemplateContent", "EnumerateTemplates"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         name := BSTR()
-        result := ComCall(3, this, "ptr", name, "HRESULT")
+        result := ComCall(3, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
@@ -47,35 +52,51 @@ class IDataModelScriptProvider extends IUnknown{
      * @returns {BSTR} 
      */
     GetExtension() {
-        extension := BSTR()
-        result := ComCall(4, this, "ptr", extension, "HRESULT")
-        return extension
+        extension_ := BSTR()
+        result := ComCall(4, this, "ptr", extension_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return extension_
     }
 
     /**
      * 
-     * @returns {IDataModelScript} 
+     * @returns {Pointer<IDataModelScript>} 
      */
     CreateScript() {
-        result := ComCall(5, this, "ptr*", &script := 0, "HRESULT")
-        return IDataModelScript(script)
+        result := ComCall(5, this, "ptr*", &script := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return script
     }
 
     /**
      * 
-     * @returns {IDataModelScriptTemplate} 
+     * @returns {Pointer<IDataModelScriptTemplate>} 
      */
     GetDefaultTemplateContent() {
-        result := ComCall(6, this, "ptr*", &templateContent := 0, "HRESULT")
-        return IDataModelScriptTemplate(templateContent)
+        result := ComCall(6, this, "ptr*", &templateContent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return templateContent
     }
 
     /**
      * 
-     * @returns {IDataModelScriptTemplateEnumerator} 
+     * @returns {Pointer<IDataModelScriptTemplateEnumerator>} 
      */
     EnumerateTemplates() {
-        result := ComCall(7, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IDataModelScriptTemplateEnumerator(enumerator)
+        result := ComCall(7, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return enumerator_
     }
 }

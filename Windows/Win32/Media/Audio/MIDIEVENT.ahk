@@ -63,7 +63,7 @@
  * <td>Long event. The event data must contain a MIDISTRMBUFFVER structure.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-midievent
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/ns-mmeapi-midievent
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

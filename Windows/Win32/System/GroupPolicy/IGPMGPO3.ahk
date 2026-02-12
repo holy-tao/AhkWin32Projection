@@ -50,7 +50,11 @@ class IGPMGPO3 extends IGPMGPO2{
      */
     get_InfrastructureDC() {
         pVal := BSTR()
-        result := ComCall(38, this, "ptr", pVal, "HRESULT")
+        result := ComCall(38, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -60,9 +64,16 @@ class IGPMGPO3 extends IGPMGPO2{
      * @returns {HRESULT} 
      */
     put_InfrastructureDC(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", newVal, "HRESULT")
+        result := ComCall(39, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +83,11 @@ class IGPMGPO3 extends IGPMGPO2{
      * @returns {HRESULT} 
      */
     put_InfrastructureFlags(dwFlags) {
-        result := ComCall(40, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(40, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

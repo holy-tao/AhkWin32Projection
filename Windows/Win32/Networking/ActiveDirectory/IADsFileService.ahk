@@ -7,11 +7,8 @@
 /**
  * The IADsFileService interface is a dual interface that inherits from IADsService.
  * @remarks
- * 
  * Under the WinNT provider, this interface is implemented on the <b>WinNTService</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfileservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsfileservice
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -58,7 +55,11 @@ class IADsFileService extends IADsService{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(44, this, "ptr", retval, "HRESULT")
+        result := ComCall(44, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -68,9 +69,16 @@ class IADsFileService extends IADsService{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(45, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +87,11 @@ class IADsFileService extends IADsService{
      * @returns {Integer} 
      */
     get_MaxUserCount() {
-        result := ComCall(46, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(46, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -89,7 +101,11 @@ class IADsFileService extends IADsService{
      * @returns {HRESULT} 
      */
     put_MaxUserCount(lnMaxUserCount) {
-        result := ComCall(47, this, "int", lnMaxUserCount, "HRESULT")
+        result := ComCall(47, this, "int", lnMaxUserCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class ISequenceNumber extends IUnknown{
      * @returns {Integer} 
      */
     GetSequenceNumber(nCurrent) {
-        result := ComCall(3, this, "int", nCurrent, "int*", &pnNew := 0, "HRESULT")
+        result := ComCall(3, this, "int", nCurrent, "int*", &pnNew := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnNew
     }
 }

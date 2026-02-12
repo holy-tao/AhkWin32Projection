@@ -50,7 +50,11 @@ class IHTMLMSMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_msPlayToDisabled(v) {
-        result := ComCall(7, this, "short", v, "HRESULT")
+        result := ComCall(7, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +63,11 @@ class IHTMLMSMediaElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_msPlayToDisabled() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -69,7 +77,11 @@ class IHTMLMSMediaElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_msPlayToPrimary(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class IHTMLMSMediaElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_msPlayToPrimary() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

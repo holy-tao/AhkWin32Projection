@@ -6,11 +6,8 @@
 /**
  * Provides access to controls that can be set to a value within a range.
  * @remarks
- * 
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingrangevalue">RangeValue</a> control pattern.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irangevalueprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nn-uiautomationcore-irangevalueprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -78,74 +75,89 @@ class IRangeValueProvider extends IUnknown{
     }
 
     /**
-     * Sets the value of the control.
-     * @param {Float} val Type: <b>double</b>
+     * Sets the value of the control. (IRangeValueProvider.SetValue)
+     * @remarks
+     * The actual value set depends on the control implementation. The control may round the requested value up or down.
+     * @param {Float} val_ Type: <b>double</b>
      * 
      * The value to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-setvalue
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-setvalue
      */
-    SetValue(val) {
-        result := ComCall(3, this, "double", val, "HRESULT")
+    SetValue(val_) {
+        result := ComCall(3, this, "double", val_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_value
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_value
      */
     get_Value() {
-        result := ComCall(4, this, "double*", &pRetVal := 0, "HRESULT")
+        result := ComCall(4, this, "double*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * Indicates whether the value of a control is read-only.
+     * Indicates whether the value of a control is read-only. (IRangeValueProvider.get_IsReadOnly)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_isreadonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_isreadonly
      */
     get_IsReadOnly() {
-        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Specifies the maximum range value supported by the control.
      * @remarks
-     * 
      * This value should be greater than [Minimum](nf-uiautomationcore-irangevalueprovider-get_minimum.md).
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_maximum
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_maximum
      */
     get_Maximum() {
-        result := ComCall(6, this, "double*", &pRetVal := 0, "HRESULT")
+        result := ComCall(6, this, "double*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Specifies the minimum range value supported by the control.
      * @remarks
-     * 
      * This value should be less than [Maximum](nf-uiautomationcore-irangevalueprovider-get_maximum.md).
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_minimum
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_minimum
      */
     get_Minimum() {
-        result := ComCall(7, this, "double*", &pRetVal := 0, "HRESULT")
+        result := ComCall(7, this, "double*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Specifies the value that is added to or subtracted from the IRangeValueProvider::Value property when a large change is made, such as when the PAGE DOWN key is pressed.
      * @remarks
-     * 
      * The LargeChange property can support Not a Number (NaN) value. When returning a NaN value, the provider should return a quiet (non-signaling) NaN to avoid raising an exception if floating-point exceptions are turned on. The following example shows how to create a quiet NaN:
      * 
      *             
@@ -163,20 +175,21 @@ class IRangeValueProvider extends IUnknown{
      * ```
      * numeric_limits<double>::quiet_NaN( )
      * ```
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_largechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_largechange
      */
     get_LargeChange() {
-        result := ComCall(8, this, "double*", &pRetVal := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * Specifies the value that is added to or subtracted from the IRangeValueProvider::Value property when a small change is made, such as when an arrow key is pressed.
      * @remarks
-     * 
      * The SmallChange property can support Not a Number (NaN) value. When returning a NaN value, the provider should return a quiet (non-signaling) NaN to avoid raising an exception if floating-point exceptions are turned on. The following example shows how to create a quiet NaN:
      * 
      *             
@@ -194,13 +207,15 @@ class IRangeValueProvider extends IUnknown{
      * ```
      * numeric_limits<double>::quiet_NaN( )
      * ```
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_smallchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/nf-uiautomationcore-irangevalueprovider-get_smallchange
      */
     get_SmallChange() {
-        result := ComCall(9, this, "double*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, "double*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 }

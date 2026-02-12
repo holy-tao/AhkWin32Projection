@@ -5,7 +5,7 @@
  * Represents intra refresh settings for video encoding.
  * @remarks
  * When triggering an intra-refresh session, the host informs the current frame number relative to the [0..*IntraRefreshDuration*) session by setting *IntraRefreshFrameIndex* in the picture control structures.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_intra_refresh
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_intra_refresh
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

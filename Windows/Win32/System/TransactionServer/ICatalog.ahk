@@ -5,6 +5,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.
+ * @see https://learn.microsoft.com/windows/win32/api//content/comadmin/nn-comadmin-icatalogcollection
  * @namespace Windows.Win32.System.TransactionServer
  * @version v4.0.30319
  */
@@ -53,21 +55,36 @@ class ICatalog extends IDispatch{
      * @returns {IDispatch} 
      */
     GetCollection(bstrCollName) {
-        bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
+        if(bstrCollName is String) {
+            pin := BSTR.Alloc(bstrCollName)
+            bstrCollName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppCatalogCollection)
     }
 
     /**
-     * 
+     * Represents a connection between two shapes in a drawing, such as a line and a box in an organization chart.
      * @param {BSTR} bstrConnectString 
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/connect-element-connects_type-complextypevisio-xml
      */
     Connect(bstrConnectString) {
-        bstrConnectString := bstrConnectString is String ? BSTR.Alloc(bstrConnectString).Value : bstrConnectString
+        if(bstrConnectString is String) {
+            pin := BSTR.Alloc(bstrConnectString)
+            bstrConnectString := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrConnectString, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrConnectString, "ptr*", &ppCatalogCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppCatalogCollection)
     }
 
@@ -79,7 +96,11 @@ class ICatalog extends IDispatch{
     get_MajorVersion(retval) {
         retvalMarshal := retval is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
+        result := ComCall(9, this, retvalMarshal, retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +112,11 @@ class ICatalog extends IDispatch{
     get_MinorVersion(retval) {
         retvalMarshal := retval is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
+        result := ComCall(10, this, retvalMarshal, retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

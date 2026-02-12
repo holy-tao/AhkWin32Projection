@@ -4,8 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Not implemented.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchviewchangedsink
+ * Not implemented. (ISearchViewChangedSink)
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-isearchviewchangedsink
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -31,18 +31,22 @@ class ISearchViewChangedSink extends IUnknown{
     static VTableNames => ["OnChange"]
 
     /**
-     * Not implemented.
+     * Not implemented. (ISearchViewChangedSink.OnChange)
      * @param {Pointer<Integer>} pdwDocID This parameter is unused.
      * @param {Pointer<SEARCH_ITEM_CHANGE>} pChange This parameter is unused.
      * @param {Pointer<BOOL>} pfInView This parameter is unused.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchviewchangedsink-onchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-isearchviewchangedsink-onchange
      */
     OnChange(pdwDocID, pChange, pfInView) {
         pdwDocIDMarshal := pdwDocID is VarRef ? "int*" : "ptr"
         pfInViewMarshal := pfInView is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pdwDocIDMarshal, pdwDocID, "ptr", pChange, pfInViewMarshal, pfInView, "HRESULT")
+        result := ComCall(3, this, pdwDocIDMarshal, pdwDocID, "ptr", pChange, pfInViewMarshal, pfInView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

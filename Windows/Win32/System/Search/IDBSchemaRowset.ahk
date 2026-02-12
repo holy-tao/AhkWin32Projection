@@ -40,7 +40,11 @@ class IDBSchemaRowset extends IUnknown{
      * @returns {IUnknown} 
      */
     GetRowset(pUnkOuter, rguidSchema, cRestrictions, rgRestrictions, riid, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "uint", cRestrictions, "ptr", rgRestrictions, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "uint", cRestrictions, "ptr", rgRestrictions, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppRowset)
     }
 
@@ -56,7 +60,11 @@ class IDBSchemaRowset extends IUnknown{
         prgSchemasMarshal := prgSchemas is VarRef ? "ptr*" : "ptr"
         prgRestrictionSupportMarshal := prgRestrictionSupport is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, prgSchemasMarshal, prgSchemas, prgRestrictionSupportMarshal, prgRestrictionSupport, "HRESULT")
+        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, prgSchemasMarshal, prgSchemas, prgRestrictionSupportMarshal, prgRestrictionSupport, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

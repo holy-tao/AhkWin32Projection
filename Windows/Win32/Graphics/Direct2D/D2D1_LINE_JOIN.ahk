@@ -11,7 +11,7 @@
  * The following illustration shows  different line join settings for the same stroked path geometry.  
  * 
  * <img alt="Illustration of line join settings" src="./images/StrokeStyle_Join.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_line_join
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ne-d2d1-d2d1_line_join
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

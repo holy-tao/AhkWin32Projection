@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors
+ * Supports the enumeration of IPortableDeviceConnector interfaces, representing MTP/Bluetooth devices that were paired with the PC.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/ienumportabledeviceconnectors
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -33,47 +33,79 @@ class IEnumPortableDeviceConnectors extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cRequested 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {IPortableDeviceConnector} 
-     * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-next
+     * Retrieves the next one or more IPortableDeviceConnector objects in the enumeration sequence.
+     * @param {Integer} cRequested The number of requested devices. This value also indicates the number of elements in the caller-allocated array specified by the *pConnectors* parameter.
+     * @param {Pointer<Integer>} pcFetched The number of [**IPortableDeviceConnector**](/windows/desktop/api/portabledeviceconnectapi/nn-portabledeviceconnectapi-iportabledeviceconnector) interfaces that are actually retrieved. If no **IPortableDeviceConnector** interfaces are retrieved and the return value is **S\_FALSE**, there are no more **IPortableDeviceConnector** interfaces to enumerate.
+     * @returns {IPortableDeviceConnector} An array of [**IPortableDeviceConnector**](/windows/desktop/api/portabledeviceconnectapi/nn-portabledeviceconnectapi-iportabledeviceconnector) pointers, each specifying a paired MTP Bluetooth device. The caller must allocate an array of **IPortableDeviceConnector** pointers, with the array length specified by the *cRequested* parameter. On successful return, the caller must free both the array and the returned pointers. The **IPortableDeviceConnector** interfaces are freed by calling the **IUnknown::Release** method.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/ienumportabledeviceconnectors-next
      */
     Next(cRequested, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cRequested, "ptr*", &pConnectors := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cRequested, "ptr*", &pConnectors := 0, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPortableDeviceConnector(pConnectors)
     }
 
     /**
+     * Skips the specified number of devices in the enumeration sequence.
+     * @param {Integer} cConnectors The number of devices to skip.
+     * @returns {HRESULT} The method returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} cConnectors 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-skip
+     * 
+     * 
+     * | Return code                                                                             | Description                                                                                                                                                                               |
+     * |-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl>    | The method succeeded.<br/>                                                                                                                                                          |
+     * | <dl> <dt>**S\_FALSE**</dt> </dl> | The specified number of devices could not be skipped. One possible cause: The *cConnectors* parameter specifies more devices than actually remain in the enumeration sequence.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/ienumportabledeviceconnectors-skip
      */
     Skip(cConnectors) {
-        result := ComCall(4, this, "uint", cConnectors, "HRESULT")
+        result := ComCall(4, this, "uint", cConnectors, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * IEnumPortableDeviceConnectors::Reset method - Resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-reset
+     * 
+     * The method returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
+     * 
+     * 
+     * 
+     * | Return code                                                                          | Description                      |
+     * |--------------------------------------------------------------------------------------|----------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl> | The method succeeded.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/ienumportabledeviceconnectors-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {IEnumPortableDeviceConnectors} 
-     * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-clone
+     * Creates a copy of the current IEnumPortableDeviceConnectors interface.
+     * @returns {IEnumPortableDeviceConnectors} The address of a pointer to an [**IEnumPortableDeviceConnectors**](ienumportabledeviceconnectors.md) interface. The calling application must release this interface when it is done with it.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/ienumportabledeviceconnectors-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumPortableDeviceConnectors(ppEnum)
     }
 }

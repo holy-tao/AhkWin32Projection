@@ -34,7 +34,7 @@
  * The quality levels supported by the device can be obtained with the pQualityLevels parameter of [**IDirect3D9::CheckDeviceMultiSampleType**](/windows/win32/api/d3d9/nf-d3d9-idirect3d9-checkdevicemultisampletype). Quality levels used by the application are set with the MultiSampleQuality parameter of [**IDirect3DDevice9::CreateDepthStencilSurface**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-createdepthstencilsurface) and [**IDirect3DDevice9::CreateRenderTarget**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-createrendertarget).
  * 
  * See D3DRS\_MULTISAMPLEMASK for discussion of maskable multisampling.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmultisample-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dmultisample-type
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that initialize or retrieve Protected Broadcast Driver Architecture (PBDA) service records from a Program and System Information Protocol (PSIP) table in a Protected Broadcast Device Architecture (PBDA) transport stream.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-ipbda_services
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-ipbda_services
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -32,25 +32,33 @@ class IPBDA_Services extends IUnknown{
 
     /**
      * Initializes an object that retrieves service records from a Program and System Information Protocol (PSIP) table in a Protected Broadcast Device Architecture (PBDA) transport stream.
-     * @param {Integer} size Specifies the size of the buffer used to initialize the object.
+     * @param {Integer} size_ Specifies the size of the buffer used to initialize the object.
      * @param {Pointer<Integer>} pBuffer Pointer to the buffer containing the service data used for initialization.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_services-initialize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbda_services-initialize
      */
-    Initialize(size, pBuffer) {
+    Initialize(size_, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", size, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(3, this, "uint", size_, pBufferMarshal, pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number of service records from a Program and System Information Protocol (PSIP) table in a Protected Broadcast Device Architecture (PBDA) transport stream.
      * @returns {Integer} Receives the number of service records.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_services-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbda_services-getcountofrecords
      */
     GetCountOfRecords() {
-        result := ComCall(4, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -59,10 +67,14 @@ class IPBDA_Services extends IUnknown{
      * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
      *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_services-getcountofrecords">IPBDA_Services::GetCountOfRecords</a> method to get the number of records in the PSIP table.
      * @returns {Integer} Receives the service record at the position given by <i>dwRecordIndex</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_services-getrecordbyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-ipbda_services-getrecordbyindex
      */
     GetRecordByIndex(dwRecordIndex) {
-        result := ComCall(5, this, "uint", dwRecordIndex, "uint*", &pul64ServiceIdx := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwRecordIndex, "uint*", &pul64ServiceIdx := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pul64ServiceIdx
     }
 }

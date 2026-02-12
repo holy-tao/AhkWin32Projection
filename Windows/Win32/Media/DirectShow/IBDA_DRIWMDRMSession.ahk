@@ -34,7 +34,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
      * @returns {HRESULT} 
      */
     AcknowledgeLicense(hrLicenseAck) {
-        result := ComCall(3, this, "int", hrLicenseAck, "HRESULT")
+        result := ComCall(3, this, "int", hrLicenseAck, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
         pdwcbLicenseResponseMarshal := pdwcbLicenseResponse is VarRef ? "uint*" : "ptr"
         ppbLicenseResponseMarshal := ppbLicenseResponse is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, ppbLicenseResponseMarshal, ppbLicenseResponse, "HRESULT")
+        result := ComCall(4, this, "uint", dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, ppbLicenseResponseMarshal, ppbLicenseResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
         pdwcbRegistrationResponseMarshal := pdwcbRegistrationResponse is VarRef ? "uint*" : "ptr"
         ppbRegistrationResponseMarshal := ppbRegistrationResponse is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, ppbRegistrationResponseMarshal, ppbRegistrationResponse, "HRESULT")
+        result := ComCall(5, this, "uint", dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, ppbRegistrationResponseMarshal, ppbRegistrationResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +95,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
         pbRevInfoMarshal := pbRevInfo is VarRef ? "char*" : "ptr"
         pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwRevInfoLen, pbRevInfoMarshal, pbRevInfo, pdwResponseMarshal, pdwResponse, "HRESULT")
+        result := ComCall(6, this, "uint", dwRevInfoLen, pbRevInfoMarshal, pbRevInfo, pdwResponseMarshal, pdwResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +114,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
         pbCrlLenMarshal := pbCrlLen is VarRef ? "char*" : "ptr"
         pdwResponseMarshal := pdwResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwCrlLen, pbCrlLenMarshal, pbCrlLen, pdwResponseMarshal, pdwResponse, "HRESULT")
+        result := ComCall(7, this, "uint", dwCrlLen, pbCrlLenMarshal, pbCrlLen, pdwResponseMarshal, pdwResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,7 +127,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHMSAssociationData() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +143,11 @@ class IBDA_DRIWMDRMSession extends IUnknown{
     GetLastCardeaError(pdwError) {
         pdwErrorMarshal := pdwError is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwErrorMarshal, pdwError, "HRESULT")
+        result := ComCall(9, this, pdwErrorMarshal, pdwError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

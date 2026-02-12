@@ -40,7 +40,11 @@ class ICommandProperties extends IUnknown{
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
         prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
+        result := ComCall(3, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class ICommandProperties extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProperties(cPropertySets, rgPropertySets) {
-        result := ComCall(4, this, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(4, this, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

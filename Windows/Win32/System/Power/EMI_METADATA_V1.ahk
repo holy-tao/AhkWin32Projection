@@ -5,7 +5,7 @@
  * The EMI_METADATA structure provides metadata about a device that supports the Energy Metering Interface (EMI) interface, such as the hardware model and hardware revision.
  * @remarks
  * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_metadata">IOCTL_EMI_GET_METADATA</a> IOCTL request.
- * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_metadata_v1
+ * @see https://learn.microsoft.com/windows/win32/api//content/emi/ns-emi-emi_metadata_v1
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

@@ -60,7 +60,7 @@ class FLT_IO_PARAMETER_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {PFLT_INSTANCE}
+     * @type {Pointer<PFLT_INSTANCE>}
      */
     TargetInstance {
         get => NumGet(this, 16, "ptr")

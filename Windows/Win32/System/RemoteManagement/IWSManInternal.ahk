@@ -44,7 +44,11 @@ class IWSManInternal extends IDispatch{
      */
     ConfigSDDL(session, resourceUri, flags) {
         resource := BSTR()
-        result := ComCall(7, this, "ptr", session, "ptr", resourceUri, "int", flags, "ptr", resource, "HRESULT")
+        result := ComCall(7, this, "ptr", session, "ptr", resourceUri, "int", flags, "ptr", resource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return resource
     }
 }

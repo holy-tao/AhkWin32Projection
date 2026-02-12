@@ -3,7 +3,7 @@
 
 /**
  * Contains partition information pulled from an ETW trace.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_trace_partition_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-etw_trace_partition_information
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

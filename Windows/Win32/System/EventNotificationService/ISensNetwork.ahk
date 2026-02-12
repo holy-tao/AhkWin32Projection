@@ -6,7 +6,7 @@
 
 /**
  * The ISensNetwork interface handles network events fired by the System Event Notification Service (SENS).
- * @see https://docs.microsoft.com/windows/win32/api//sensevts/nn-sensevts-isensnetwork
+ * @see https://learn.microsoft.com/windows/win32/api//content/sensevts/nn-sensevts-isensnetwork
  * @namespace Windows.Win32.System.EventNotificationService
  * @version v4.0.30319
  */
@@ -33,6 +33,11 @@ class ISensNetwork extends IDispatch{
 
     /**
      * The ConnectionMade method notifies your application that the specified connection has been established.
+     * @remarks
+     * SENS calls this method to notify your application that the specified connection has been established. SENS also provides a pointer to a structure containing Quality of Connection information.
+     * 
+     * Filtering can be performed on the publisher property <i>ulConnectionMadeType</i> by setting it to either CONNECTION_LAN or CONNECTION_WAN or both. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty">IEventSubscription::PutPublisherProperty</a> to set the publisher property.
      * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
      * @param {Integer} ulType Connection type. This value can be CONNECTION_LAN (0) or CONNECTION_WAN (1).
      * @param {Pointer<SENS_QOCINFO>} lpQOCInfo Pointer to the 
@@ -56,17 +61,29 @@ class ISensNetwork extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensnetwork-connectionmade
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensevts/nf-sensevts-isensnetwork-connectionmade
      */
     ConnectionMade(bstrConnection, ulType, lpQOCInfo) {
-        bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
+        if(bstrConnection is String) {
+            pin := BSTR.Alloc(bstrConnection)
+            bstrConnection := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrConnection, "uint", ulType, "ptr", lpQOCInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrConnection, "uint", ulType, "ptr", lpQOCInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ConnectionMadeNoQOCInfo method notifies your application that the specified connection has been established with no Quality of Connection information available.
+     * @remarks
+     * SENS calls this method to notify your application that the specified connection has been established when Quality of Connection information is not available.
+     * 
+     * Filtering can be performed on the publisher property <i>ulConnectionMadeTypeNoQOC</i> by setting it to either CONNECTION_LAN or CONNECTION_WAN or both. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty">IEventSubscription::PutPublisherProperty</a> to set the publisher property.
      * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
      * @param {Integer} ulType Connection type. This value can be CONNECTION_LAN (0) or CONNECTION_WAN (1).
      * @returns {HRESULT} This method can return one of these values.
@@ -88,17 +105,30 @@ class ISensNetwork extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensnetwork-connectionmadenoqocinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensevts/nf-sensevts-isensnetwork-connectionmadenoqocinfo
      */
     ConnectionMadeNoQOCInfo(bstrConnection, ulType) {
-        bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
+        if(bstrConnection is String) {
+            pin := BSTR.Alloc(bstrConnection)
+            bstrConnection := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrConnection, "uint", ulType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ConnectionLost method notifies your application that the specified connection has been dropped.
+     * @remarks
+     * SENS calls this method to notify your application that the specified connection has been dropped.
+     * 			
+     * 
+     * Filtering can be performed on the publisher property <i>ulConnectionLostType</i> by setting it to either CONNECTION_LAN or CONNECTION_WAN or both. Use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty">IEventSubscription::PutPublisherProperty</a> to set the publisher property.
      * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
      * @param {Integer} ulType 
      * @returns {HRESULT} This method can return one of these values.
@@ -120,12 +150,19 @@ class ISensNetwork extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensnetwork-connectionlost
+     * @see https://learn.microsoft.com/windows/win32/api//content/sensevts/nf-sensevts-isensnetwork-connectionlost
      */
     ConnectionLost(bstrConnection, ulType) {
-        bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
+        if(bstrConnection is String) {
+            pin := BSTR.Alloc(bstrConnection)
+            bstrConnection := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrConnection, "uint", ulType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,10 +175,20 @@ class ISensNetwork extends IDispatch{
      * @returns {HRESULT} 
      */
     DestinationReachable(bstrDestination, bstrConnection, ulType, lpQOCInfo) {
-        bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
-        bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
+        if(bstrDestination is String) {
+            pin := BSTR.Alloc(bstrDestination)
+            bstrDestination := pin.Value
+        }
+        if(bstrConnection is String) {
+            pin := BSTR.Alloc(bstrConnection)
+            bstrConnection := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrDestination, "ptr", bstrConnection, "uint", ulType, "ptr", lpQOCInfo, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrDestination, "ptr", bstrConnection, "uint", ulType, "ptr", lpQOCInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,10 +200,20 @@ class ISensNetwork extends IDispatch{
      * @returns {HRESULT} 
      */
     DestinationReachableNoQOCInfo(bstrDestination, bstrConnection, ulType) {
-        bstrDestination := bstrDestination is String ? BSTR.Alloc(bstrDestination).Value : bstrDestination
-        bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
+        if(bstrDestination is String) {
+            pin := BSTR.Alloc(bstrDestination)
+            bstrDestination := pin.Value
+        }
+        if(bstrConnection is String) {
+            pin := BSTR.Alloc(bstrConnection)
+            bstrConnection := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrDestination, "ptr", bstrConnection, "uint", ulType, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrDestination, "ptr", bstrConnection, "uint", ulType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

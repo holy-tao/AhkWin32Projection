@@ -17,7 +17,7 @@
  * 
  * 
  * The other members are read-only.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_mail_list_encrypt_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmsg_mail_list_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

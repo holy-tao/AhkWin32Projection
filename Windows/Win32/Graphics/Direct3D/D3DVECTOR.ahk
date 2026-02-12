@@ -3,7 +3,7 @@
 
 /**
  * A 3D vector.
- * @see https://learn.microsoft.com/windows/win32/direct3d10/d3d10-d3dvector
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d10/d3d10-d3dvector
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

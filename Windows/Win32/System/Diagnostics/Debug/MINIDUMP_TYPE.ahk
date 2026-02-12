@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of information that will be written to the minidump file by the MiniDumpWriteDump function.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ne-minidumpapiset-minidump_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

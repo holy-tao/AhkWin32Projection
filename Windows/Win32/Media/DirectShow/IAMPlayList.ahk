@@ -34,7 +34,11 @@ class IAMPlayList extends IUnknown{
      * @returns {Integer} 
      */
     GetFlags() {
-        result := ComCall(3, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
@@ -43,7 +47,11 @@ class IAMPlayList extends IUnknown{
      * @returns {Integer} 
      */
     GetItemCount() {
-        result := ComCall(4, this, "uint*", &pdwItems := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwItems := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwItems
     }
 
@@ -53,7 +61,11 @@ class IAMPlayList extends IUnknown{
      * @returns {IAMPlayListItem} 
      */
     GetItem(dwItemIndex) {
-        result := ComCall(5, this, "uint", dwItemIndex, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwItemIndex, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAMPlayListItem(ppItem)
     }
 
@@ -70,7 +82,11 @@ class IAMPlayList extends IUnknown{
 
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszEventName, "uint", dwItemIndex, "ptr*", ppItem, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszEventName, "uint", dwItemIndex, "ptr*", ppItem, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +102,11 @@ class IAMPlayList extends IUnknown{
         pdwRepeatStartMarshal := pdwRepeatStart is VarRef ? "uint*" : "ptr"
         pdwRepeatEndMarshal := pdwRepeatEnd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwRepeatCountMarshal, pdwRepeatCount, pdwRepeatStartMarshal, pdwRepeatStart, pdwRepeatEndMarshal, pdwRepeatEnd, "HRESULT")
+        result := ComCall(7, this, pdwRepeatCountMarshal, pdwRepeatCount, pdwRepeatStartMarshal, pdwRepeatStart, pdwRepeatEndMarshal, pdwRepeatEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

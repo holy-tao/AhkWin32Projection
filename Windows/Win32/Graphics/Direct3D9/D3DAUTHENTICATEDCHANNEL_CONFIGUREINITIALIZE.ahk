@@ -8,7 +8,7 @@
  * Contains input data for a D3DAUTHENTICATEDCONFIGURE\_INITIALIZE command.
  * @remarks
  * The **StartSequenceQuery** and **StartSequenceConfigure** members each contain a cryptographically secure 32-bit random number.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configureinitialize
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-configureinitialize
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

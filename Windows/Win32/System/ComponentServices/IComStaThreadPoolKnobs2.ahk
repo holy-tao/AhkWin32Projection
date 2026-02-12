@@ -33,7 +33,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {Integer} 
      */
     GetMaxCPULoad() {
-        result := ComCall(14, this, "uint*", &pdwLoad := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pdwLoad := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwLoad
     }
 
@@ -43,7 +47,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     SetMaxCPULoad(pdwLoad) {
-        result := ComCall(15, this, "int", pdwLoad, "HRESULT")
+        result := ComCall(15, this, "int", pdwLoad, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {BOOL} 
      */
     GetCPUMetricEnabled() {
-        result := ComCall(16, this, "int*", &pbMetricEnabled := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pbMetricEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbMetricEnabled
     }
 
@@ -62,7 +74,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     SetCPUMetricEnabled(bMetricEnabled) {
-        result := ComCall(17, this, "int", bMetricEnabled, "HRESULT")
+        result := ComCall(17, this, "int", bMetricEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +87,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {BOOL} 
      */
     GetCreateThreadsAggressively() {
-        result := ComCall(18, this, "int*", &pbMetricEnabled := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pbMetricEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbMetricEnabled
     }
 
@@ -81,7 +101,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     SetCreateThreadsAggressively(bMetricEnabled) {
-        result := ComCall(19, this, "int", bMetricEnabled, "HRESULT")
+        result := ComCall(19, this, "int", bMetricEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +114,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {Integer} 
      */
     GetMaxCSR() {
-        result := ComCall(20, this, "uint*", &pdwCSR := 0, "HRESULT")
+        result := ComCall(20, this, "uint*", &pdwCSR := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCSR
     }
 
@@ -100,7 +128,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     SetMaxCSR(dwCSR) {
-        result := ComCall(21, this, "int", dwCSR, "HRESULT")
+        result := ComCall(21, this, "int", dwCSR, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +141,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {Integer} 
      */
     GetWaitTimeForThreadCleanup() {
-        result := ComCall(22, this, "uint*", &pdwThreadCleanupWaitTime := 0, "HRESULT")
+        result := ComCall(22, this, "uint*", &pdwThreadCleanupWaitTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwThreadCleanupWaitTime
     }
 
@@ -119,7 +155,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
      * @returns {HRESULT} 
      */
     SetWaitTimeForThreadCleanup(dwThreadCleanupWaitTime) {
-        result := ComCall(23, this, "int", dwThreadCleanupWaitTime, "HRESULT")
+        result := ComCall(23, this, "int", dwThreadCleanupWaitTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

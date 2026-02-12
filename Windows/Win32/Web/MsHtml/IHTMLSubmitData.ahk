@@ -36,10 +36,20 @@ class IHTMLSubmitData extends IDispatch{
      * @returns {HRESULT} 
      */
     appendNameValuePair(name, value) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,10 +60,20 @@ class IHTMLSubmitData extends IDispatch{
      * @returns {HRESULT} 
      */
     appendNameFilePair(name, filename) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-        filename := filename is String ? BSTR.Alloc(filename).Value : filename
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(filename is String) {
+            pin := BSTR.Alloc(filename)
+            filename := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", name, "ptr", filename, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "ptr", filename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +82,11 @@ class IHTMLSubmitData extends IDispatch{
      * @returns {HRESULT} 
      */
     appendItemSeparator() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

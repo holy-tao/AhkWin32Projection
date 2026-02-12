@@ -3,7 +3,7 @@
 
 /**
  * Describes a JPEG DC huffman table.
- * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-jpeg-dc-huffman-table
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3ddxgi/dxgi-jpeg-dc-huffman-table
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */

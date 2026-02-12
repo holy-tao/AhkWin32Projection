@@ -12,7 +12,7 @@
  * Setting the <b>RedGamma</b>, <b>BlueGamma</b>, and <b>GreenGamma</b> members of this structure to 0xFFFF can affect color management in printers when <a href="https://docs.microsoft.com/windows-hardware/drivers/display/image-color-management">Image Color Management</a> (ICM) is disabled. In this situation, the GDI halftone module switches from performing its own color management to performing none, which potentially can cause a significant change in the resulting printer output. When ICM is enabled (and <b>RedGamma</b>, <b>BlueGamma</b>, and <b>GreenGamma</b> are set to 0XFFFF), there is no difference in color output. For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/print/color-management-for-printers">Color Management for Printers</a>.
  * 
  * Any values in the COLORINFO structure that are out of the specified range default to the NTSC values.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-colorinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-colorinfo
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

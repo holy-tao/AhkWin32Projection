@@ -67,7 +67,11 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_prefix(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +81,11 @@ class IHTMLDOMNode3 extends IDispatch{
      */
     get_prefix() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -87,7 +95,11 @@ class IHTMLDOMNode3 extends IDispatch{
      */
     get_localName() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -97,7 +109,11 @@ class IHTMLDOMNode3 extends IDispatch{
      */
     get_namespaceURI() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -107,7 +123,11 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textContent(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +137,11 @@ class IHTMLDOMNode3 extends IDispatch{
      */
     get_textContent() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -127,7 +151,11 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     isEqualNode(otherNode) {
-        result := ComCall(13, this, "ptr", otherNode, "short*", &isEqual := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", otherNode, "short*", &isEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isEqual
     }
 
@@ -138,7 +166,11 @@ class IHTMLDOMNode3 extends IDispatch{
      */
     lookupNamespaceURI(pvarPrefix) {
         pvarNamespaceURI := VARIANT()
-        result := ComCall(14, this, "ptr", pvarPrefix, "ptr", pvarNamespaceURI, "HRESULT")
+        result := ComCall(14, this, "ptr", pvarPrefix, "ptr", pvarNamespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarNamespaceURI
     }
 
@@ -149,7 +181,11 @@ class IHTMLDOMNode3 extends IDispatch{
      */
     lookupPrefix(pvarNamespaceURI) {
         pvarPrefix := VARIANT()
-        result := ComCall(15, this, "ptr", pvarNamespaceURI, "ptr", pvarPrefix, "HRESULT")
+        result := ComCall(15, this, "ptr", pvarNamespaceURI, "ptr", pvarPrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPrefix
     }
 
@@ -159,7 +195,11 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     isDefaultNamespace(pvarNamespace) {
-        result := ComCall(16, this, "ptr", pvarNamespace, "short*", &pfDefaultNamespace := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pvarNamespace, "short*", &pfDefaultNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfDefaultNamespace
     }
 
@@ -169,8 +209,12 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     appendChild(newChild) {
-        result := ComCall(17, this, "ptr", newChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(17, this, "ptr", newChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -180,8 +224,12 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     insertBefore(newChild, refChild) {
-        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -190,8 +238,12 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     removeChild(oldChild) {
-        result := ComCall(19, this, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(19, this, "ptr", oldChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -201,8 +253,12 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     replaceChild(newChild, oldChild) {
-        result := ComCall(20, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(20, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -211,7 +267,11 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     isSameNode(otherNode) {
-        result := ComCall(21, this, "ptr", otherNode, "short*", &isSame := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", otherNode, "short*", &isSame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isSame
     }
 
@@ -221,20 +281,31 @@ class IHTMLDOMNode3 extends IDispatch{
      * @returns {Integer} 
      */
     compareDocumentPosition(otherNode) {
-        result := ComCall(22, this, "ptr", otherNode, "ushort*", &flags := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", otherNode, "ushort*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
     /**
      * 
      * @param {BSTR} feature 
-     * @param {VARIANT} version 
+     * @param {VARIANT} version_ 
      * @returns {VARIANT_BOOL} 
      */
-    isSupported(feature, version) {
-        feature := feature is String ? BSTR.Alloc(feature).Value : feature
+    isSupported(feature, version_) {
+        if(feature is String) {
+            pin := BSTR.Alloc(feature)
+            feature := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", feature, "ptr", version, "short*", &pfisSupported := 0, "HRESULT")
+        result := ComCall(23, this, "ptr", feature, "ptr", version_, "short*", &pfisSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfisSupported
     }
 }

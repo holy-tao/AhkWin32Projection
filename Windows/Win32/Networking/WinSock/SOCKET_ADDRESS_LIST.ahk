@@ -20,7 +20,7 @@
  * 
  * For more information about querying the current list of local transport addresses, see 
  *     <a href="https://docs.microsoft.com/windows/win32/winsock/sio-address-list-query">SIO_ADDRESS_LIST_QUERY</a>.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_address_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-socket_address_list
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

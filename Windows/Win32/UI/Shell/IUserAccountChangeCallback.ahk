@@ -6,10 +6,9 @@
 /**
  * Exposes a method which is called when the picture that represents a user account is changed.
  * @remarks
- * 
  * Applications that want to notify users through this interface can add their class identifier (CLSID) strings as values under this key: 
  * 
- * <pre xml:space="preserve"><b>HKEY_LOCAL_MACHINE</b>
+ * <pre><b>HKEY_LOCAL_MACHINE</b>
  *    <b>SOFTWARE</b>
  *       <b>Microsoft</b>
  *          <b>Windows</b>
@@ -18,8 +17,7 @@
  * 
  * 
  * The values under this key are enumerated to create this callback object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iuseraccountchangecallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iuseraccountchangecallback
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,18 +44,31 @@ class IUserAccountChangeCallback extends IUnknown{
 
     /**
      * Called to send notifications when the picture that represents a user account is changed.
+     * @remarks
+     * When the picture that represents a user account changes, the callback object notifies all applications that are registered under this registry subkey:
+     * 
+     * <pre><b>HKEY_LOCAL_MACHINE</b>
+     *    <b>SOFTWARE</b>
+     *       <b>Microsoft</b>
+     *          <b>Windows</b>
+     *             <b>CurrentVersion</b>
+     *                <b>UserPictureChange</b></pre>
      * @param {PWSTR} pszUserName Type: <b>LPCWSTR</b>
      * 
      * Pointer to a string that contains the user name. Set this parameter to <b>NULL</b> to specify the current user.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iuseraccountchangecallback-onpicturechange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iuseraccountchangecallback-onpicturechange
      */
     OnPictureChange(pszUserName) {
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        result := ComCall(3, this, "ptr", pszUserName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

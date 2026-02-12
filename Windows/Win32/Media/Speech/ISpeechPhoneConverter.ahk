@@ -43,7 +43,11 @@ class ISpeechPhoneConverter extends IDispatch{
      * @returns {Integer} 
      */
     get_LanguageId() {
-        result := ComCall(7, this, "int*", &LanguageId := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &LanguageId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LanguageId
     }
 
@@ -53,7 +57,11 @@ class ISpeechPhoneConverter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_LanguageId(LanguageId) {
-        result := ComCall(8, this, "int", LanguageId, "HRESULT")
+        result := ComCall(8, this, "int", LanguageId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,10 +71,17 @@ class ISpeechPhoneConverter extends IDispatch{
      * @returns {VARIANT} 
      */
     PhoneToId(Phonemes) {
-        Phonemes := Phonemes is String ? BSTR.Alloc(Phonemes).Value : Phonemes
+        if(Phonemes is String) {
+            pin := BSTR.Alloc(Phonemes)
+            Phonemes := pin.Value
+        }
 
         IdArray := VARIANT()
-        result := ComCall(9, this, "ptr", Phonemes, "ptr", IdArray, "HRESULT")
+        result := ComCall(9, this, "ptr", Phonemes, "ptr", IdArray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IdArray
     }
 
@@ -77,7 +92,11 @@ class ISpeechPhoneConverter extends IDispatch{
      */
     IdToPhone(IdArray) {
         Phonemes := BSTR()
-        result := ComCall(10, this, "ptr", IdArray, "ptr", Phonemes, "HRESULT")
+        result := ComCall(10, this, "ptr", IdArray, "ptr", Phonemes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Phonemes
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Provides functionality for raising events associated with IMFSourceBuffer.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfsourcebuffernotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfsourcebuffernotify
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IMFSourceBufferNotify extends IUnknown{
     /**
      * Used to indicate that the source buffer has started updating.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onupdatestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onupdatestart
      */
     OnUpdateStart() {
         ComCall(3, this)
@@ -42,7 +42,7 @@ class IMFSourceBufferNotify extends IUnknown{
     /**
      * Used to indicate that the source buffer has been aborted.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onabort
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onabort
      */
     OnAbort() {
         ComCall(4, this)
@@ -52,7 +52,7 @@ class IMFSourceBufferNotify extends IUnknown{
      * Used to indicate that an error has occurred with the source buffer.
      * @param {HRESULT} hr 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onerror
      */
     OnError(hr) {
         ComCall(5, this, "int", hr)
@@ -61,7 +61,7 @@ class IMFSourceBufferNotify extends IUnknown{
     /**
      * Used to indicate that the source buffer is updating.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onupdate
      */
     OnUpdate() {
         ComCall(6, this)
@@ -70,7 +70,7 @@ class IMFSourceBufferNotify extends IUnknown{
     /**
      * Used to indicate that the source buffer has finished updating.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onupdateend
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfsourcebuffernotify-onupdateend
      */
     OnUpdateEnd() {
         ComCall(7, this)

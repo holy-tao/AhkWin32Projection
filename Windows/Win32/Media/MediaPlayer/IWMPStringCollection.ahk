@@ -5,7 +5,7 @@
 
 /**
  * The IWMPStringCollection interface provides methods that work with a collection of strings.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpstringcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpstringcollection
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -38,6 +38,8 @@ class IWMPStringCollection extends IDispatch{
 
     /**
      * The get_count method retrieves the number of items in the string collection.
+     * @remarks
+     * To retrieve the value of this method, read access to the library is required. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -58,17 +60,25 @@ class IWMPStringCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpstringcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpstringcollection-get_count
      */
     get_count(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
+        result := ComCall(7, this, plCountMarshal, plCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The item method retrieves the string at the given index.
+     * @remarks
+     * The <b>IWMPStringCollection</b> interface is used to retrieve the set of values available for an attribute. For example, the <b>IWMPMediaCollection::getAttributeStringCollection</b> method can be used to retrieve a pointer to an <b>IWMPStringCollection</b> interface representing all the values for the Genre attribute within the Audio media type. The <b>item</b> method can then be used to iterate through all of the possible values for the Genre attribute.
+     * 
+     * To use this method, read access to the library is required. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMP/library-access">Library Access</a>.
      * @param {Integer} lIndex <b>long</b> containing the index.
      * @param {Pointer<BSTR>} pbstrString Pointer to a <b>BSTR</b> containing the string.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -90,10 +100,14 @@ class IWMPStringCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpstringcollection-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpstringcollection-item
      */
     item(lIndex, pbstrString) {
-        result := ComCall(8, this, "int", lIndex, "ptr", pbstrString, "HRESULT")
+        result := ComCall(8, this, "int", lIndex, "ptr", pbstrString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

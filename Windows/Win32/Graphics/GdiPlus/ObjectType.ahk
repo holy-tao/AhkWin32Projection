@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Refer to the possible values of the Object Type trace event column, which is used in a variety of trace events in SQL Server.
+ * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/event-classes/objecttype-trace-event-column
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

@@ -7,7 +7,7 @@
  * The custom servers specified in *pCustomServers* bypass the system-configured DNS servers.
  * 
  * If the query name matches a rule in the **Name Resolution Policy Table (NRPT)**, then the custom servers are ignored, and only the servers from the **NRPT** rule are used.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_query_request3
+ * @see https://learn.microsoft.com/windows/win32/api//content/windns/ns-windns-dns_query_request3
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

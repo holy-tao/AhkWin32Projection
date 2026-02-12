@@ -3,6 +3,8 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IDirectDraw.ahk
 #Include .\IDirectDrawClipper.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -53,17 +55,17 @@ class DirectDraw {
     static DDENUM_NONDISPLAYDEVICES => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DDHW_DESCRIPTION => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_KEY_DDHW_DRIVERNAME => "DriverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_DDHW => "Hardware\DirectDrawDrivers"
 
@@ -2483,12 +2485,12 @@ class DirectDraw {
     static DDVERSIONINFO => 13
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DDHAL_DRIVER_DLLNAME => "DDRAW16.DLL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DDHAL_APP_DLLNAME => "DDRAW.DLL"
 
@@ -4713,7 +4715,7 @@ class DirectDraw {
      * @returns {HRESULT} If the function succeeds, the return value is <b>DD_OK</b>.
      * 
      * If it fails, the function returns <b>DDERR_INVALIDPARAMS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumeratew
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawenumeratew
      */
     static DirectDrawEnumerateW(lpCallback, lpContext) {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
@@ -4735,7 +4737,7 @@ class DirectDraw {
      * @returns {HRESULT} If the function succeeds, the return value is <b>DD_OK</b>.
      * 
      * If it fails, the function returns <b>DDERR_INVALIDPARAMS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumeratea
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawenumeratea
      */
     static DirectDrawEnumerateA(lpCallback, lpContext) {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
@@ -4770,7 +4772,7 @@ class DirectDraw {
      * 
      * 
      * If it fails, the function returns <b>DDERR_INVALIDPARAMS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumerateexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawenumerateexw
      */
     static DirectDrawEnumerateExW(lpCallback, lpContext, dwFlags) {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
@@ -4805,7 +4807,7 @@ class DirectDraw {
      * 
      * 
      * If it fails, the function returns <b>DDERR_INVALIDPARAMS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawenumerateexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawenumerateexa
      */
     static DirectDrawEnumerateExA(lpCallback, lpContext, dwFlags) {
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
@@ -4829,7 +4831,7 @@ class DirectDraw {
      * @param {Pointer<Guid>} lpGUID A pointer to the globally unique identifier (GUID) that represents the driver to be created. This can be NULL to indicate the active display driver, or you can pass one of the following flags to restrict the active display driver's behavior for debugging purposes:
      * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Presently, however, this function returns an error if this parameter is anything but NULL.
      * @returns {IDirectDraw} A pointer to a variable to be set to a valid <b>IDirectDraw</b> interface pointer if the call succeeds.
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawcreate
      */
     static DirectDrawCreate(lpGUID, pUnkOuter) {
         result := DllCall("DDRAW.dll\DirectDrawCreate", "ptr", lpGUID, "ptr*", &lplpDD := 0, "ptr", pUnkOuter, "int")
@@ -4866,7 +4868,7 @@ class DirectDraw {
      * <li>DDERR_NODIRECTDRAWHW</li>
      * <li>DDERR_OUTOFMEMORY</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawcreateex
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawcreateex
      */
     static DirectDrawCreateEx(lpGuid, lplpDD, iid, pUnkOuter) {
         lplpDDMarshal := lplpDD is VarRef ? "ptr*" : "ptr"
@@ -4892,7 +4894,7 @@ class DirectDraw {
      * @param {Integer} dwFlags Currently not used and must be set to 0.
      * @param {IUnknown} pUnkOuter Allows for future compatibility with COM aggregation features. Currently, this function returns an error if this parameter is not NULL.
      * @returns {IDirectDrawClipper} Address of a pointer to be filled with the address of the new DirectDrawClipper object.
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-directdrawcreateclipper
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/nf-ddraw-directdrawcreateclipper
      */
     static DirectDrawCreateClipper(dwFlags, pUnkOuter) {
         result := DllCall("DDRAW.dll\DirectDrawCreateClipper", "uint", dwFlags, "ptr*", &lplpDDClipper := 0, "ptr", pUnkOuter, "int")

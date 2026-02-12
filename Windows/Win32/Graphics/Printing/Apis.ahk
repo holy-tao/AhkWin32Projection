@@ -6,6 +6,8 @@
 #Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
 #Include .\IPrintAsyncNotifyChannel.ahk
 #Include ..\Gdi\HDC.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -2921,92 +2923,92 @@ class Printing {
     static IDS_CPSUI_STRID_LAST => 64892
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_PRINTER_NAME => "PrinterName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_PROGRESS_REPORT => "ProgressReport"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_PRINTER_HANDLE => "PrinterHandle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_USER_PRINT_TICKET => "PerUserPrintTicket"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_USER_TOKEN => "UserSecurityToken"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_JOB_ID => "PrintJobId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_PRINT_CLASS_FACTORY => "PrintClassFactory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_OUTPUT_FILE => "PrintOutputFileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_MS_CONTENT_TYPE => "DriverMultiContentType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_MS_CONTENT_TYPE_XPS => "XPS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_MS_CONTENT_TYPE_OPENXPS => "OpenXPS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_DRIVER_PROPERTY_BAG => "DriverPropertyBag"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_QUEUE_PROPERTY_BAG => "QueuePropertyBag"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_MERGED_DATAFILE_PATH => "MergedDataFilePath"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_RESOURCE_DLL_PATHS => "ResourceDLLPaths"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_JOB_LEVEL_PRINTTICKET => "JobPrintTicket"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_PRINTDEVICECAPABILITIES => "PrintDeviceCapabilities"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XPS_FP_FAX_JOB_PROPERTIES => "JobFaxProperties"
 
@@ -4336,7 +4338,7 @@ class Printing {
     static QCP_PROFILEDISK => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLPRINTER_USER_MODE_PRINTER_DRIVER => "SPLUserModePrinterDriver"
 
@@ -5621,27 +5623,27 @@ class Printing {
     static PRINTER_NOTIFY_INFO_DISCARDED => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BIDI_ACTION_ENUM_SCHEMA => "EnumSchema"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BIDI_ACTION_GET => "Get"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BIDI_ACTION_SET => "Set"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BIDI_ACTION_GET_ALL => "GetAll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BIDI_ACTION_GET_WITH_ARGUMENT => "GetWithArgument"
 
@@ -5926,152 +5928,152 @@ class Printing {
     static PRINTER_ERROR_OUTOFTONER => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_DEFAULT_SPOOL_DIRECTORY => "DefaultSpoolDirectory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PORT_THREAD_PRIORITY_DEFAULT => "PortThreadPriorityDefault"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PORT_THREAD_PRIORITY => "PortThreadPriority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT => "SchedulerThreadPriorityDefault"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_SCHEDULER_THREAD_PRIORITY => "SchedulerThreadPriority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_BEEP_ENABLED => "BeepEnabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_NET_POPUP => "NetPopup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_RETRY_POPUP => "RetryPopup"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_NET_POPUP_TO_COMPUTER => "NetPopupToComputer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_EVENT_LOG => "EventLog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_MAJOR_VERSION => "MajorVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_MINOR_VERSION => "MinorVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_ARCHITECTURE => "Architecture"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_OS_VERSION => "OSVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_OS_VERSIONEX => "OSVersionEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_DS_PRESENT => "DsPresent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_DS_PRESENT_FOR_USER => "DsPresentForUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_REMOTE_FAX => "RemoteFax"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_RESTART_JOB_ON_POOL_ERROR => "RestartJobOnPoolError"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_RESTART_JOB_ON_POOL_ENABLED => "RestartJobOnPoolEnabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_DNS_MACHINE_NAME => "DNSMachineName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_ALLOW_USER_MANAGEFORMS => "AllowUserManageForms"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_WEBSHAREMGMT => "WebShareMgmt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_DRIVER_ISOLATION_GROUPS => "PrintDriverIsolationGroups"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE => "PrintDriverIsolationTimeBeforeRecycle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE => "PrintDriverIsolationMaxobjsBeforeRecycle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT => "PrintDriverIsolationIdleTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY => "PrintDriverIsolationExecutionPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY => "PrintDriverIsolationOverrideCompat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY => "PrintQueueV4DriverDirectory"
 
@@ -6086,272 +6088,272 @@ class Printing {
     static JOB_ACCESS_READ => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_SPOOLER_KEY => "DsSpooler"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_DRIVER_KEY => "DsDriver"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_USER_KEY => "DsUser"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_ASSET_NUMBER => "assetNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_BYTES_PER_MINUTE => "bytesPerMinute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_DESCRIPTION => "description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_DRIVER_NAME => "driverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_DRIVER_VERSION => "driverVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_LOCATION => "location"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PORT_NAME => "portName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_ATTRIBUTES => "printAttributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_BIN_NAMES => "printBinNames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_COLLATE => "printCollate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_COLOR => "printColor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_DUPLEX_SUPPORTED => "printDuplexSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_END_TIME => "printEndTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINTER_CLASS => "printQueue"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINTER_NAME => "printerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_KEEP_PRINTED_JOBS => "printKeepPrintedJobs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_LANGUAGE => "printLanguage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MAC_ADDRESS => "printMACAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MAX_X_EXTENT => "printMaxXExtent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MAX_Y_EXTENT => "printMaxYExtent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED => "printMaxResolutionSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MEDIA_READY => "printMediaReady"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MEDIA_SUPPORTED => "printMediaSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MEMORY => "printMemory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MIN_X_EXTENT => "printMinXExtent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_MIN_Y_EXTENT => "printMinYExtent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_NETWORK_ADDRESS => "printNetworkAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_NOTIFY => "printNotify"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_NUMBER_UP => "printNumberUp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_ORIENTATIONS_SUPPORTED => "printOrientationsSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_OWNER => "printOwner"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_PAGES_PER_MINUTE => "printPagesPerMinute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_RATE => "printRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_RATE_UNIT => "printRateUnit"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_SEPARATOR_FILE => "printSeparatorFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_SHARE_NAME => "printShareName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_SPOOLING => "printSpooling"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_STAPLING_SUPPORTED => "printStaplingSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_START_TIME => "printStartTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_STATUS => "printStatus"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRIORITY => "priority"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_SERVER_NAME => "serverName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_SHORT_SERVER_NAME => "shortServerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_UNC_NAME => "uNCName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_URL => "url"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_FLAGS => "flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_VERSION_NUMBER => "versionNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINT_IPP_COMPRESSION_SUPPORTED => "ippCompressionSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINTER_NAME_ALIASES => "printerNameAliases"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINTER_LOCATIONS => "printerLocations"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SPLDS_PRINTER_MODEL => "printerModel"
 
@@ -6386,7 +6388,7 @@ class Printing {
     static UPDP_CHECK_DRIVERSTORE => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MS_PRINT_JOB_OUTPUT_FILE => "MsPrintJobOutputFile"
 
@@ -7090,34 +7092,36 @@ class Printing {
     /**
      * 
      * @param {HWND} hWndOwner 
-     * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
-     * @param {LPARAM} lParam 
+     * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI_ 
+     * @param {LPARAM} lParam_ 
      * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
-    static CommonPropertySheetUIA(hWndOwner, pfnPropSheetUI, lParam, pResult) {
+    static CommonPropertySheetUIA(hWndOwner, pfnPropSheetUI_, lParam_, pResult) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
         pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", "ptr", hWndOwner, "ptr", pfnPropSheetUI, "ptr", lParam, pResultMarshal, pResult, "int")
+        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", "ptr", hWndOwner, "ptr", pfnPropSheetUI_, "ptr", lParam_, pResultMarshal, pResult, "int")
         return result
     }
 
     /**
      * 
      * @param {HWND} hWndOwner 
-     * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
-     * @param {LPARAM} lParam 
+     * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI_ 
+     * @param {LPARAM} lParam_ 
      * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
-    static CommonPropertySheetUIW(hWndOwner, pfnPropSheetUI, lParam, pResult) {
+    static CommonPropertySheetUIW(hWndOwner, pfnPropSheetUI_, lParam_, pResult) {
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
         pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", "ptr", hWndOwner, "ptr", pfnPropSheetUI, "ptr", lParam, pResultMarshal, pResult, "int")
+        result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", "ptr", hWndOwner, "ptr", pfnPropSheetUI_, "ptr", lParam_, pResultMarshal, pResult, "int")
         return result
     }
 
@@ -7237,7 +7241,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinters
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinters
      */
     static EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -7346,7 +7350,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinters
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinters
      */
     static EnumPrintersW(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -7376,7 +7380,7 @@ class Printing {
      * @returns {HANDLE} If the function succeeds, it returns a handle to the spool file.
      * 
      * If the function fails, it returns **INVALID\_HANDLE\_VALUE**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getspoolfilehandle
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getspoolfilehandle
      */
     static GetSpoolFileHandle(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7406,7 +7410,7 @@ class Printing {
      * @returns {HANDLE} If the function succeeds, it returns a handle to the spool file.
      * 
      * If the function fails, it returns INVALID\_HANDLE\_VALUE.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/commitspooldata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/commitspooldata
      */
     static CommitSpoolData(hPrinter, hSpoolFile, cbCommit) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7424,7 +7428,7 @@ class Printing {
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer to which the job was submitted. This should be the same handle that was used to obtain *hSpoolFile* with [**GetSpoolFileHandle**](getspoolfilehandle.md).
      * @param {HANDLE} hSpoolFile A handle to the spool file being closed. If [**CommitSpoolData**](commitspooldata.md) has not been called since [**GetSpoolFileHandle**](getspoolfilehandle.md) was called, then this should be the same handle that was returned by **GetSpoolFileHandle**. Otherwise, it should be the handle that was returned by the most recent call to **CommitSpoolData**.
      * @returns {BOOL} **TRUE**, if it succeeds, **FALSE** otherwise.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/closespoolfilehandle
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/closespoolfilehandle
      */
     static CloseSpoolFileHandle(hPrinter, hSpoolFile) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7486,7 +7490,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/openprinter
      */
     static OpenPrinterA(pPrinterName, phPrinter, pDefault) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -7553,7 +7557,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/openprinter
      */
     static OpenPrinterW(pPrinterName, phPrinter, pDefault) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -7580,7 +7584,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/resetprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/resetprinter
      */
     static ResetPrinterA(hPrinter, pDefault) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7601,7 +7605,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/resetprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/resetprinter
      */
     static ResetPrinterW(hPrinter, pDefault) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7675,7 +7679,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setjob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setjob
      */
     static SetJobA(hPrinter, JobId, Level, Command) {
         static pJob := 0 ;Reserved parameters must always be NULL
@@ -7751,7 +7755,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setjob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setjob
      */
     static SetJobW(hPrinter, JobId, Level, Command) {
         static pJob := 0 ;Reserved parameters must always be NULL
@@ -7778,7 +7782,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getjob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getjob
      */
     static GetJobA(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7805,7 +7809,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getjob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getjob
      */
     static GetJobW(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7848,7 +7852,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumjobs
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumjobs
      */
     static EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7898,7 +7902,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumjobs
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumjobs
      */
     static EnumJobsW(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -7980,7 +7984,7 @@ class Printing {
      * @returns {PRINTER_HANDLE} If the function succeeds, the return value is a handle (not thread safe) to a new printer object. When you are finished with the handle, pass it to the [**ClosePrinter**](closeprinter.md) function to close it.
      * 
      * If the function fails, the return value is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinter
      */
     static AddPrinterA(pName, Level, pPrinter) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8062,7 +8066,7 @@ class Printing {
      * @returns {PRINTER_HANDLE} If the function succeeds, the return value is a handle (not thread safe) to a new printer object. When you are finished with the handle, pass it to the [**ClosePrinter**](closeprinter.md) function to close it.
      * 
      * If the function fails, the return value is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinter
      */
     static AddPrinterW(pName, Level, pPrinter) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8097,7 +8101,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinter
      */
     static DeletePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8202,7 +8206,7 @@ class Printing {
      * If the function fails, the return value is zero.
      * 
      * If *Level* is 7 and the publish action failed, **SetPrinter** returns **ERROR\_IO\_PENDING** and attempts to complete the action in the background. If *Level* is 7 and the update action failed, **SetPrinter** returns **ERROR\_FILE\_NOT\_FOUND**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setprinter
      */
     static SetPrinterA(hPrinter, Level, pPrinter, Command) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8309,7 +8313,7 @@ class Printing {
      * If the function fails, the return value is zero.
      * 
      * If *Level* is 7 and the publish action failed, **SetPrinter** returns **ERROR\_IO\_PENDING** and attempts to complete the action in the background. If *Level* is 7 and the update action failed, **SetPrinter** returns **ERROR\_FILE\_NOT\_FOUND**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setprinter
      */
     static SetPrinterW(hPrinter, Level, pPrinter, Command) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8390,7 +8394,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinter
      */
     static GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8471,7 +8475,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinter
      */
     static GetPrinterW(hPrinter, Level, pPrinter, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8527,7 +8531,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriver
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterdriver
      */
     static AddPrinterDriverA(pName, Level, pDriverInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8583,7 +8587,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriver
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterdriver
      */
     static AddPrinterDriverW(pName, Level, pDriverInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8651,7 +8655,7 @@ class Printing {
      *  
      * 
      * For more information, see the Remarks.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriverex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterdriverex
      */
     static AddPrinterDriverExA(pName, Level, lpbDriverInfo, dwFileCopyFlags) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8713,7 +8717,7 @@ class Printing {
      *  
      * 
      * For more information, see the Remarks.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterdriverex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterdriverex
      */
     static AddPrinterDriverExW(pName, Level, lpbDriverInfo, dwFileCopyFlags) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8757,7 +8761,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdrivers
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterdrivers
      */
     static EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8809,7 +8813,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdrivers
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterdrivers
      */
     static EnumPrinterDriversW(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8862,7 +8866,7 @@ class Printing {
      * If the function fails, the return value is zero.
      * 
      * For a non-existent driver, the function returns ERROR\_UNKNOWN\_PRINTER\_DRIVER.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriver
      */
     static GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8908,7 +8912,7 @@ class Printing {
      * If the function fails, the return value is zero.
      * 
      * For a non-existent driver, the function returns ERROR\_UNKNOWN\_PRINTER\_DRIVER.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriver
      */
     static GetPrinterDriverW(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -8934,7 +8938,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverdirectory
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriverdirectory
      */
     static GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8960,7 +8964,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverdirectory
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriverdirectory
      */
     static GetPrinterDriverDirectoryW(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -8991,7 +8995,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriver
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdriver
      */
     static DeletePrinterDriverA(pName, pEnvironment, pDriverName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9021,7 +9025,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriver
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdriver
      */
     static DeletePrinterDriverW(pName, pEnvironment, pDriverName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9067,7 +9071,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdriverex
      */
     static DeletePrinterDriverExA(pName, pEnvironment, pDriverName, dwDeleteFlag, dwVersionFlag) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9113,7 +9117,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdriverex
      */
     static DeletePrinterDriverExW(pName, pEnvironment, pDriverName, dwDeleteFlag, dwVersionFlag) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9144,7 +9148,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprocessor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprintprocessor
      */
     static AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9176,7 +9180,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprocessor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprintprocessor
      */
     static AddPrintProcessorW(pName, pEnvironment, pPathName, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9205,7 +9209,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessors
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprintprocessors
      */
     static EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9235,7 +9239,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessors
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprintprocessors
      */
     static EnumPrintProcessorsW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9262,7 +9266,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintprocessordirectory
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprintprocessordirectory
      */
     static GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9288,7 +9292,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintprocessordirectory
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprintprocessordirectory
      */
     static GetPrintProcessorDirectoryW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9323,7 +9327,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessordatatypes
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprintprocessordatatypes
      */
     static EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9359,7 +9363,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprintprocessordatatypes
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprintprocessordatatypes
      */
     static EnumPrintProcessorDatatypesW(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9387,7 +9391,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprocessor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprintprocessor
      */
     static DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9413,7 +9417,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprocessor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprintprocessor
      */
     static DeletePrintProcessorW(pName, pEnvironment, pPrintProcessorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -9450,7 +9454,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value identifies the print job.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/startdocprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/startdocprinter
      */
     static StartDocPrinterA(hPrinter, Level, pDocInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9485,7 +9489,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value identifies the print job.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/startdocprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/startdocprinter
      */
     static StartDocPrinterW(hPrinter, Level, pDocInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9516,7 +9520,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/startpageprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/startpageprinter
      */
     static StartPagePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9552,7 +9556,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/writeprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/writeprinter
      */
     static WritePrinter(hPrinter, pBuf, cbBuf, pcWritten) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9582,7 +9586,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/flushprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/flushprinter
      */
     static FlushPrinter(hPrinter, pBuf, cbBuf, pcWritten, cSleep) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9615,7 +9619,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/endpageprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/endpageprinter
      */
     static EndPagePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9648,7 +9652,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/abortprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/abortprinter
      */
     static AbortPrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9673,7 +9677,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/readprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/readprinter
      */
     static ReadPrinter(hPrinter, pBuf, cbBuf, pNoBytesRead) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9708,7 +9712,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enddocprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enddocprinter
      */
     static EndDocPrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9734,7 +9738,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addjob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addjob
      */
     static AddJobA(hPrinter, Level, pData, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9762,7 +9766,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addjob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addjob
      */
     static AddJobW(hPrinter, Level, pData, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9789,7 +9793,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/schedulejob
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/schedulejob
      */
     static ScheduleJob(hPrinter, JobId) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -9803,18 +9807,18 @@ class Printing {
      * @remarks
      * > [!Note]  
      * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
-     * @param {HWND} hWnd A handle to the parent window of the property sheet.
+     * @param {HWND} hWnd_ A handle to the parent window of the property sheet.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/printerproperties
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printerproperties
      */
-    static PrinterProperties(hWnd, hPrinter) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static PrinterProperties(hWnd_, hPrinter) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("winspool.drv\PrinterProperties", "ptr", hWnd, "ptr", hPrinter, "int")
+        result := DllCall("winspool.drv\PrinterProperties", "ptr", hWnd_, "ptr", hPrinter, "int")
         return result
     }
 
@@ -9839,7 +9843,7 @@ class Printing {
      * 5.  Call **DocumentProperties** and pass the modified [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure back as both the *pDevModeInput* and *pDevModeOutput* parameters and specify both the **DM\_IN\_BUFFER** and **DM\_OUT\_BUFFER** values (which are combined using the OR operator).The **DEVMODE** structure returned by the third call to **DocumentProperties** can be used as an argument in a call to the [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) function.
      * 
      * To create a handle to a printer-device context using the current printer settings, you only need to call **DocumentProperties** twice, as described above. The first call gets the size of the full [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) and the second call initializes the **DEVMODE** with the current printer settings. Pass the initialized **DEVMODE** to [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) to obtain the handle to the printer device context.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration property sheet.
+     * @param {HWND} hWnd_ A handle to the parent window of the printer-configuration property sheet.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pDeviceName A pointer to a null-terminated string that specifies the name of the device for which the printer-configuration property sheet is displayed.
      * @param {Pointer<DEVMODEA>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that receives the printer configuration data specified by the user.
@@ -9862,14 +9866,14 @@ class Printing {
      * If the function does not display the property sheet and is successful, the return value is **IDOK**.
      * 
      * If the function fails, the return value is less than zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/documentproperties
      */
-    static DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DocumentPropertiesA(hWnd_, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\DocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
+        result := DllCall("winspool.drv\DocumentPropertiesA", "ptr", hWnd_, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
     }
 
@@ -9894,7 +9898,7 @@ class Printing {
      * 5.  Call **DocumentProperties** and pass the modified [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure back as both the *pDevModeInput* and *pDevModeOutput* parameters and specify both the **DM\_IN\_BUFFER** and **DM\_OUT\_BUFFER** values (which are combined using the OR operator).The **DEVMODE** structure returned by the third call to **DocumentProperties** can be used as an argument in a call to the [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) function.
      * 
      * To create a handle to a printer-device context using the current printer settings, you only need to call **DocumentProperties** twice, as described above. The first call gets the size of the full [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) and the second call initializes the **DEVMODE** with the current printer settings. Pass the initialized **DEVMODE** to [**CreateDC**](/windows/desktop/api/wingdi/nf-wingdi-createdca) to obtain the handle to the printer device context.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration property sheet.
+     * @param {HWND} hWnd_ A handle to the parent window of the printer-configuration property sheet.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pDeviceName A pointer to a null-terminated string that specifies the name of the device for which the printer-configuration property sheet is displayed.
      * @param {Pointer<DEVMODEW>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that receives the printer configuration data specified by the user.
@@ -9917,14 +9921,14 @@ class Printing {
      * If the function does not display the property sheet and is successful, the return value is **IDOK**.
      * 
      * If the function fails, the return value is less than zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/documentproperties
      */
-    static DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DocumentPropertiesW(hWnd_, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\DocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
+        result := DllCall("winspool.drv\DocumentPropertiesW", "ptr", hWnd_, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
     }
 
@@ -9939,20 +9943,20 @@ class Printing {
      * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
      * 
      * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration dialog box.
+     * @param {HWND} hWnd_ A handle to the parent window of the printer-configuration dialog box.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PSTR} pDeviceName A pointer to a null-terminated string specifying the name of the device for which a printer-configuration dialog box should be displayed.
      * @param {Pointer<DEVMODEA>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that will contain the configuration data specified by the user.
      * @param {Pointer<DEVMODEA>} pDevModeInput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that contains the configuration data used to initialize the controls of the printer-configuration dialog box.
      * @returns {Integer} If the [**DocumentProperties**](documentproperties.md) function with these parameters is successful, the return value of **AdvancedDocumentProperties** is 1. Otherwise, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/advanceddocumentproperties
      */
-    static AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AdvancedDocumentPropertiesA(hWnd_, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\AdvancedDocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
+        result := DllCall("winspool.drv\AdvancedDocumentPropertiesA", "ptr", hWnd_, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
     }
 
@@ -9967,26 +9971,26 @@ class Printing {
      * This function can only display the printer-configuration dialog box so a user can configure it. For more control, use [**DocumentProperties**](documentproperties.md). The input parameters for this function are passed directly to **DocumentProperties** and the *fMode* value is set to DM\_IN\_BUFFER \| DM\_IN\_PROMPT \| DM\_OUT\_BUFFER. Unlike **DocumentProperties**, this function only returns 1 or 0. Thus, you cannot determine the required size of [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) by setting *pDevMode* to zero.
      * 
      * An application can obtain the name pointed to by the *pDeviceName* parameter by calling the [**GetPrinter**](getprinter.md) function and then examining the **pPrinterName** member of the [**PRINTER\_INFO\_2**](printer-info-2.md) structure.
-     * @param {HWND} hWnd A handle to the parent window of the printer-configuration dialog box.
+     * @param {HWND} hWnd_ A handle to the parent window of the printer-configuration dialog box.
      * @param {PRINTER_HANDLE} hPrinter A handle to a printer object. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pDeviceName A pointer to a null-terminated string specifying the name of the device for which a printer-configuration dialog box should be displayed.
      * @param {Pointer<DEVMODEW>} pDevModeOutput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that will contain the configuration data specified by the user.
      * @param {Pointer<DEVMODEW>} pDevModeInput A pointer to a [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) structure that contains the configuration data used to initialize the controls of the printer-configuration dialog box.
      * @returns {Integer} If the [**DocumentProperties**](documentproperties.md) function with these parameters is successful, the return value of **AdvancedDocumentProperties** is 1. Otherwise, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/advanceddocumentproperties
      */
-    static AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AdvancedDocumentPropertiesW(hWnd_, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("winspool.drv\AdvancedDocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
+        result := DllCall("winspool.drv\AdvancedDocumentPropertiesW", "ptr", hWnd_, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {HANDLE} hInst 
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
      * @param {PSTR} pDeviceName 
@@ -9996,14 +10000,14 @@ class Printing {
      * @param {Integer} fMode 
      * @returns {Integer} 
      */
-    static ExtDeviceMode(hWnd, hInst, pDevModeOutput, pDeviceName, pPort, pDevModeInput, pProfile, fMode) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ExtDeviceMode(hWnd_, hInst, pDevModeOutput, pDeviceName, pPort, pDevModeInput, pProfile, fMode) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         pPort := pPort is String ? StrPtr(pPort) : pPort
         pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
 
-        result := DllCall("winspool.drv\ExtDeviceMode", "ptr", hWnd, "ptr", hInst, "ptr", pDevModeOutput, "ptr", pDeviceName, "ptr", pPort, "ptr", pDevModeInput, "ptr", pProfile, "uint", fMode, "int")
+        result := DllCall("winspool.drv\ExtDeviceMode", "ptr", hWnd_, "ptr", hInst, "ptr", pDevModeOutput, "ptr", pDeviceName, "ptr", pPort, "ptr", pDevModeInput, "ptr", pProfile, "uint", fMode, "int")
         return result
     }
 
@@ -10106,7 +10110,7 @@ class Printing {
      * @param {Integer} nSize The size, in bytes, of the buffer that *pData* points to.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the size, in bytes, of the configuration data. If the buffer size specified by *nSize* is too small, the function returns **ERROR\_MORE\_DATA**, and *pcbNeeded* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**. If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdata
      */
     static GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10218,7 +10222,7 @@ class Printing {
      * @param {Integer} nSize The size, in bytes, of the buffer that *pData* points to.
      * @param {Pointer<Integer>} pcbNeeded A pointer to a variable that receives the size, in bytes, of the configuration data. If the buffer size specified by *nSize* is too small, the function returns **ERROR\_MORE\_DATA**, and *pcbNeeded* indicates the required buffer size.
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**. If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdata
      */
     static GetPrinterDataW(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10339,7 +10343,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
      * If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdataex
      */
     static GetPrinterDataExA(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10461,7 +10465,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
      * If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdataex
      */
     static GetPrinterDataExW(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10516,7 +10520,7 @@ class Printing {
      * If the function fails, the return value is a system error code.
      * 
      * The function returns ERROR\_NO\_MORE\_ITEMS when there are no more configuration data values to retrieve for a specified printer handle.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterdata
      */
     static EnumPrinterDataA(hPrinter, dwIndex, pValueName, cbValueName, pcbValueName, pType, pData, cbData, pcbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10571,7 +10575,7 @@ class Printing {
      * If the function fails, the return value is a system error code.
      * 
      * The function returns ERROR\_NO\_MORE\_ITEMS when there are no more configuration data values to retrieve for a specified printer handle.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterdata
      */
     static EnumPrinterDataW(hPrinter, dwIndex, pValueName, cbValueName, pcbValueName, pType, pData, cbData, pcbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10605,7 +10609,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterdataex
      */
     static EnumPrinterDataExA(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10638,7 +10642,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterdataex
      */
     static EnumPrinterDataExW(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10666,7 +10670,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code. If *pKeyName* does not exist, the return value is ERROR\_FILE\_NOT\_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterkey
      */
     static EnumPrinterKeyA(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10693,7 +10697,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code. If *pKeyName* does not exist, the return value is ERROR\_FILE\_NOT\_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumprinterkey
      */
     static EnumPrinterKeyW(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10793,7 +10797,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
      * If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setprinterdata
      */
     static SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -10891,7 +10895,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is **ERROR\_SUCCESS**.
      * 
      * If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setprinterdata
      */
     static SetPrinterDataW(hPrinter, pValueName, Type, pData, cbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11020,7 +11024,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is **ERROR_SUCCESS**.
      * 
      * If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setprinterdataex
      */
     static SetPrinterDataExA(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11150,7 +11154,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is **ERROR_SUCCESS**.
      * 
      * If the function fails, the return value is an error value.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setprinterdataex
      */
     static SetPrinterDataExW(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11171,7 +11175,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdata
      */
     static DeletePrinterDataA(hPrinter, pValueName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11191,7 +11195,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdata
      */
     static DeletePrinterDataW(hPrinter, pValueName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11214,7 +11218,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdataex
      */
     static DeletePrinterDataExA(hPrinter, pKeyName, pValueName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11238,7 +11242,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdataex
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdataex
      */
     static DeletePrinterDataExW(hPrinter, pKeyName, pValueName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11261,7 +11265,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterkey
      */
     static DeletePrinterKeyA(hPrinter, pKeyName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11283,7 +11287,7 @@ class Printing {
      * @returns {Integer} If the function succeeds, the return value is ERROR\_SUCCESS.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterkey
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterkey
      */
     static DeletePrinterKeyW(hPrinter, pKeyName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11373,7 +11377,7 @@ class Printing {
      * @returns {FINDPRINTERCHANGENOTIFICATION_HANDLE} If the function succeeds, the return value is a handle to a change notification object associated with the specified printer or print server.
      * 
      * If the function fails, the return value is INVALID\_HANDLE\_VALUE.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/findfirstprinterchangenotification
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/findfirstprinterchangenotification
      */
     static FindFirstPrinterChangeNotification(hPrinter, fdwFilter, fdwOptions, pPrinterNotifyOptions) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11405,7 +11409,7 @@ class Printing {
      * 
      * > [!Note]  
      * > In Windows XP with Service Pack 2 (SP2) and later, the Internet Connection Firewall (ICF) blocks printer ports by default, but an exception for File and Print Sharing can be enabled. If a user makes a printer connection to another machine, and the exception is not enabled, then the user will not receive printer change notifications from the server. A machine admin will have to enable exception.
-     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange A handle to a change notification object associated with a printer or print server. You obtain such a handle by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function. The operating system sets this change notification object to the signaled state when it detects one of the changes specified in the object's change notification filter.
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange_ A handle to a change notification object associated with a printer or print server. You obtain such a handle by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function. The operating system sets this change notification object to the signaled state when it detects one of the changes specified in the object's change notification filter.
      * @param {Pointer<Integer>} pdwChange A pointer to a variable whose bits are set to indicate the changes that occurred to cause the most recent notification. The bit flags that might be set correspond to those specified in the *fdwFilter* parameter of the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) call. The system sets one or more of the following bit flags.
      * 
      * 
@@ -11442,16 +11446,16 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/findnextprinterchangenotification
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/findnextprinterchangenotification
      */
-    static FindNextPrinterChangeNotification(hChange, pdwChange, pvReserved, ppPrinterNotifyInfo) {
-        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+    static FindNextPrinterChangeNotification(hChange_, pdwChange, pvReserved, ppPrinterNotifyInfo) {
+        hChange_ := hChange_ is Win32Handle ? NumGet(hChange_, "ptr") : hChange_
 
         pdwChangeMarshal := pdwChange is VarRef ? "uint*" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         ppPrinterNotifyInfoMarshal := ppPrinterNotifyInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, pdwChangeMarshal, pdwChange, pvReservedMarshal, pvReserved, ppPrinterNotifyInfoMarshal, ppPrinterNotifyInfo, "int")
+        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange_, pdwChangeMarshal, pdwChange, pvReservedMarshal, pvReserved, ppPrinterNotifyInfoMarshal, ppPrinterNotifyInfo, "int")
         return result
     }
 
@@ -11464,7 +11468,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/freeprinternotifyinfo
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/freeprinternotifyinfo
      */
     static FreePrinterNotifyInfo(pPrinterNotifyInfo) {
         result := DllCall("winspool.drv\FreePrinterNotifyInfo", "ptr", pPrinterNotifyInfo, "int")
@@ -11480,16 +11484,16 @@ class Printing {
      *  
      * 
      * After calling the **FindClosePrinterChangeNotification** function, you cannot use the *hChange* handle in subsequent calls to either [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) or [**FindNextPrinterChangeNotification**](findnextprinterchangenotification.md).
-     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange A handle to the change notification object to be closed. This is a handle created by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function.
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange_ A handle to the change notification object to be closed. This is a handle created by calling the [**FindFirstPrinterChangeNotification**](findfirstprinterchangenotification.md) function.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/findcloseprinterchangenotification
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/findcloseprinterchangenotification
      */
-    static FindClosePrinterChangeNotification(hChange) {
-        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+    static FindClosePrinterChangeNotification(hChange_) {
+        hChange_ := hChange_ is Win32Handle ? NumGet(hChange_, "ptr") : hChange_
 
-        result := DllCall("winspool.drv\FindClosePrinterChangeNotification", "ptr", hChange, "int")
+        result := DllCall("winspool.drv\FindClosePrinterChangeNotification", "ptr", hChange_, "int")
         return result
     }
 
@@ -11497,19 +11501,19 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Error 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} pText 
      * @param {PSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
-    static PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType) {
+    static PrinterMessageBoxA(hPrinter, Error, hWnd_, pText, pCaption, dwType) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pText := pText is String ? StrPtr(pText) : pText
         pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
-        result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
+        result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", hWnd_, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
     }
 
@@ -11517,19 +11521,19 @@ class Printing {
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Error 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} pText 
      * @param {PWSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
-    static PrinterMessageBoxW(hPrinter, Error, hWnd, pText, pCaption, dwType) {
+    static PrinterMessageBoxW(hPrinter, Error, hWnd_, pText, pCaption, dwType) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pText := pText is String ? StrPtr(pText) : pText
         pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
-        result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
+        result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", hWnd_, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
     }
 
@@ -11546,7 +11550,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/closeprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/closeprinter
      */
     static ClosePrinter(hPrinter) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11607,7 +11611,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteform
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteform
      */
     static DeleteFormA(hPrinter, pFormName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11631,7 +11635,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteform
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteform
      */
     static DeleteFormW(hPrinter, pFormName) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11659,7 +11663,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getform
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getform
      */
     static GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11689,7 +11693,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getform
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getform
      */
     static GetFormW(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11719,7 +11723,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setform
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setform
      */
     static SetFormA(hPrinter, pFormName, Level, pForm) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11749,7 +11753,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setform
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setform
      */
     static SetFormW(hPrinter, pFormName, Level, pForm) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11781,7 +11785,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumforms
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumforms
      */
     static EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11813,7 +11817,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumforms
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumforms
      */
     static EnumFormsW(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
@@ -11841,7 +11845,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enummonitors
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enummonitors
      */
     static EnumMonitorsA(pName, Level, pMonitor, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -11869,7 +11873,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enummonitors
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enummonitors
      */
     static EnumMonitorsW(pName, Level, pMonitor, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -11904,7 +11908,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addmonitor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addmonitor
      */
     static AddMonitorA(pName, Level, pMonitors) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -11944,7 +11948,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addmonitor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addmonitor
      */
     static AddMonitorW(pName, Level, pMonitors) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -11976,7 +11980,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deletemonitor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deletemonitor
      */
     static DeleteMonitorA(pName, pEnvironment, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12008,7 +12012,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deletemonitor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deletemonitor
      */
     static DeleteMonitorW(pName, pEnvironment, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12045,7 +12049,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumports
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumports
      */
     static EnumPortsA(pName, Level, pPort, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12077,7 +12081,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/enumports
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumports
      */
     static EnumPortsW(pName, Level, pPort, cbBuf, pcbNeeded, pcReturned) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12103,21 +12107,21 @@ class Printing {
      * 
      * To add a port without displaying a dialog box, call the **XcvData** function instead of **AddPort**. For more information about **XcvData**, see the Microsoft Windows Driver Development Kit (DDK).
      * @param {PSTR} pName A pointer to a zero-terminated string that specifies the name of the server to which the port is connected. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd A handle to the parent window of the **AddPort** dialog box.
+     * @param {HWND} hWnd_ A handle to the parent window of the **AddPort** dialog box.
      * @param {PSTR} pMonitorName A pointer to a zero-terminated string that specifies the monitor associated with the port.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addport
      */
-    static AddPortA(pName, hWnd, pMonitorName) {
+    static AddPortA(pName, hWnd_, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\AddPortA", "ptr", pName, "ptr", hWnd, "ptr", pMonitorName, "int")
+        result := DllCall("winspool.drv\AddPortA", "ptr", pName, "ptr", hWnd_, "ptr", pMonitorName, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -12139,21 +12143,21 @@ class Printing {
      * 
      * To add a port without displaying a dialog box, call the **XcvData** function instead of **AddPort**. For more information about **XcvData**, see the Microsoft Windows Driver Development Kit (DDK).
      * @param {PWSTR} pName A pointer to a zero-terminated string that specifies the name of the server to which the port is connected. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd A handle to the parent window of the **AddPort** dialog box.
+     * @param {HWND} hWnd_ A handle to the parent window of the **AddPort** dialog box.
      * @param {PWSTR} pMonitorName A pointer to a zero-terminated string that specifies the monitor associated with the port.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addport
      */
-    static AddPortW(pName, hWnd, pMonitorName) {
+    static AddPortW(pName, hWnd_, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\AddPortW", "ptr", pName, "ptr", hWnd, "ptr", pMonitorName, "int")
+        result := DllCall("winspool.drv\AddPortW", "ptr", pName, "ptr", hWnd_, "ptr", pMonitorName, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -12171,19 +12175,19 @@ class Printing {
      * 
      * Before calling the **ConfigurePort** function, an application should call the [**EnumPorts**](enumports.md) function to determine valid port names.
      * @param {PSTR} pName Pointer to a null-terminated string that specifies the name of the server on which the specified port exists. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd Handle to the parent window of the port-configuration dialog box.
+     * @param {HWND} hWnd_ Handle to the parent window of the port-configuration dialog box.
      * @param {PSTR} pPortName Pointer to a null-terminated string that specifies the name of the port to be configured.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/configureport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/configureport
      */
-    static ConfigurePortA(pName, hWnd, pPortName) {
+    static ConfigurePortA(pName, hWnd_, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
-        result := DllCall("winspool.drv\ConfigurePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\ConfigurePortA", "ptr", pName, "ptr", hWnd_, "ptr", pPortName, "int")
         return result
     }
 
@@ -12197,19 +12201,19 @@ class Printing {
      * 
      * Before calling the **ConfigurePort** function, an application should call the [**EnumPorts**](enumports.md) function to determine valid port names.
      * @param {PWSTR} pName Pointer to a null-terminated string that specifies the name of the server on which the specified port exists. If this parameter is **NULL**, the port is local.
-     * @param {HWND} hWnd Handle to the parent window of the port-configuration dialog box.
+     * @param {HWND} hWnd_ Handle to the parent window of the port-configuration dialog box.
      * @param {PWSTR} pPortName Pointer to a null-terminated string that specifies the name of the port to be configured.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/configureport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/configureport
      */
-    static ConfigurePortW(pName, hWnd, pPortName) {
+    static ConfigurePortW(pName, hWnd_, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
-        result := DllCall("winspool.drv\ConfigurePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\ConfigurePortW", "ptr", pName, "ptr", hWnd_, "ptr", pPortName, "int")
         return result
     }
 
@@ -12227,21 +12231,21 @@ class Printing {
      * 
      * The caller of the **DeletePort** function must have SERVER\_ACCESS\_ADMINISTER access to the server to which the port is connected.
      * @param {PSTR} pName A pointer to a zero-terminated string that specifies the name of the server for which the port should be deleted. If this parameter is **NULL**, a local port is deleted.
-     * @param {HWND} hWnd A handle to the parent window of the port-deletion dialog box.
+     * @param {HWND} hWnd_ A handle to the parent window of the port-deletion dialog box.
      * @param {PSTR} pPortName A pointer to a zero-terminated string that specifies the name of the port that should be deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteport
      */
-    static DeletePortA(pName, hWnd, pPortName) {
+    static DeletePortA(pName, hWnd_, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\DeletePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\DeletePortA", "ptr", pName, "ptr", hWnd_, "ptr", pPortName, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -12263,21 +12267,21 @@ class Printing {
      * 
      * The caller of the **DeletePort** function must have SERVER\_ACCESS\_ADMINISTER access to the server to which the port is connected.
      * @param {PWSTR} pName A pointer to a zero-terminated string that specifies the name of the server for which the port should be deleted. If this parameter is **NULL**, a local port is deleted.
-     * @param {HWND} hWnd A handle to the parent window of the port-deletion dialog box.
+     * @param {HWND} hWnd_ A handle to the parent window of the port-deletion dialog box.
      * @param {PWSTR} pPortName A pointer to a zero-terminated string that specifies the name of the port that should be deleted.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteport
      */
-    static DeletePortW(pName, hWnd, pPortName) {
+    static DeletePortW(pName, hWnd_, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
-        result := DllCall("winspool.drv\DeletePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
+        result := DllCall("winspool.drv\DeletePortW", "ptr", pName, "ptr", hWnd_, "ptr", pPortName, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -12325,7 +12329,7 @@ class Printing {
      * |-----------------------------|--------------------------------------------------------------------------------------------------------------------------------|
      * | ERROR\_INSUFFICIENT\_BUFFER | The *pszBuffer* buffer is too small. The variable pointed to by *pcchBuffer* contains the required buffer size, in characters. |
      * | ERROR\_FILE\_NOT\_FOUND     | There is no default printer.                                                                                                   |
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getdefaultprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getdefaultprinter
      */
     static GetDefaultPrinterA(pszBuffer, pcchBuffer) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
@@ -12353,7 +12357,7 @@ class Printing {
      * |-----------------------------|--------------------------------------------------------------------------------------------------------------------------------|
      * | ERROR\_INSUFFICIENT\_BUFFER | The *pszBuffer* buffer is too small. The variable pointed to by *pcchBuffer* contains the required buffer size, in characters. |
      * | ERROR\_FILE\_NOT\_FOUND     | There is no default printer.                                                                                                   |
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getdefaultprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getdefaultprinter
      */
     static GetDefaultPrinterW(pszBuffer, pcchBuffer) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
@@ -12377,7 +12381,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setdefaultprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setdefaultprinter
      */
     static SetDefaultPrinterA(pszPrinter) {
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
@@ -12399,7 +12403,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setdefaultprinter
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setdefaultprinter
      */
     static SetDefaultPrinterW(pszPrinter) {
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
@@ -12430,7 +12434,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setport
      */
     static SetPortA(pName, pPortName, dwLevel, pPortInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12470,7 +12474,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/setport
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/setport
      */
     static SetPortW(pName, pPortName, dwLevel, pPortInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12503,7 +12507,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterconnection
      */
     static AddPrinterConnectionA(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12527,7 +12531,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterconnection
      */
     static AddPrinterConnectionW(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12549,7 +12553,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterconnection
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterconnection
      */
     static DeletePrinterConnectionA(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12571,7 +12575,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterconnection
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterconnection
      */
     static DeletePrinterConnectionW(pName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12591,17 +12595,17 @@ class Printing {
      * The **ConnectToPrinterDlg** function attempts to create a connection to the selected printer. However, if the server on which the printer resides does not have a suitable driver installed, the function offers the user the option of creating a printer locally. A calling application can determine whether the function has created a printer locally by calling [**GetPrinter**](getprinter.md) with a [**PRINTER\_INFO\_2**](printer-info-2.md) structure, then examining that structure's **Attributes** member.
      * 
      * An application should call [**DeletePrinter**](deleteprinter.md) to delete a local printer. An application should call [**DeletePrinterConnection**](deleteprinterconnection.md) to delete a connection to a printer.
-     * @param {HWND} hwnd Specifies the parent window of the dialog box.
+     * @param {HWND} hwnd_ Specifies the parent window of the dialog box.
      * @param {Integer} Flags This parameter is reserved and must be zero.
      * @returns {HANDLE} If the function succeeds and the user selects a printer, the return value is a handle to the selected printer.
      * 
      * If the function fails, or the user cancels the dialog box without selecting a printer, the return value is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/connecttoprinterdlg
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/connecttoprinterdlg
      */
-    static ConnectToPrinterDlg(hwnd, Flags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ConnectToPrinterDlg(hwnd_, Flags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd, "uint", Flags, "ptr")
+        result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd_, "uint", Flags, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         return resultHandle
     }
@@ -12630,7 +12634,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprovidor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprintprovidor
      */
     static AddPrintProvidorA(pName, Level, pProvidorInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12665,7 +12669,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprintprovidor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprintprovidor
      */
     static AddPrintProvidorW(pName, Level, pProvidorInfo) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12687,7 +12691,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprovidor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprintprovidor
      */
     static DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12709,7 +12713,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprintprovidor
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprintprovidor
      */
     static DeletePrintProvidorW(pName, pEnvironment, pPrintProvidorName) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -12733,7 +12737,7 @@ class Printing {
      * @returns {BOOL} **TRUE**, if the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) is structurally valid. If minor errors are found the function will fix them and return **TRUE**.
      * 
      * **FALSE**, if the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) has one or more significant structural problems. For example, its **dmSize** member is misaligned or specifies a buffer that is too small. Also, **FALSE** if **pDevmode** is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/isvaliddevmode
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/isvaliddevmode
      */
     static IsValidDevmodeA(pDevmode, DevmodeSize) {
         result := DllCall("winspool.drv\IsValidDevmodeA", "ptr", pDevmode, "ptr", DevmodeSize, "int")
@@ -12753,7 +12757,7 @@ class Printing {
      * @returns {BOOL} **TRUE**, if the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) is structurally valid. If minor errors are found the function will fix them and return **TRUE**.
      * 
      * **FALSE**, if the [**DEVMODE**](/windows/win32/api/wingdi/ns-wingdi-devmodea) has one or more significant structural problems. For example, its **dmSize** member is misaligned or specifies a buffer that is too small. Also, **FALSE** if **pDevmode** is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/isvaliddevmode
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/isvaliddevmode
      */
     static IsValidDevmodeW(pDevmode, DevmodeSize) {
         result := DllCall("winspool.drv\IsValidDevmodeW", "ptr", pDevmode, "ptr", DevmodeSize, "int")
@@ -12808,7 +12812,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. For extended error information, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter2
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/openprinter2
      */
     static OpenPrinter2A(pPrinterName, phPrinter, pDefault, pOptions) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -12871,7 +12875,7 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. For extended error information, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/openprinter2
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/openprinter2
      */
     static OpenPrinter2W(pPrinterName, phPrinter, pDefault, pOptions) {
         pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
@@ -12888,19 +12892,19 @@ class Printing {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} pszName 
      * @param {Integer} dwLevel 
      * @param {Pointer<Void>} pConnectionInfo 
      * @returns {BOOL} 
      */
-    static AddPrinterConnection2A(hWnd, pszName, dwLevel, pConnectionInfo) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AddPrinterConnection2A(hWnd_, pszName, dwLevel, pConnectionInfo) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pConnectionInfoMarshal := pConnectionInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winspool.drv\AddPrinterConnection2A", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
+        result := DllCall("winspool.drv\AddPrinterConnection2A", "ptr", hWnd_, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
         return result
     }
 
@@ -12921,22 +12925,22 @@ class Printing {
      * A printer connection that is established by calling **AddPrinterConnection2** will be enumerated when [**EnumPrinters**](enumprinters.md) is called with *dwType* set to PRINTER\_ENUM\_CONNECTION.
      * 
      * The ANSI version of this function, **AddPrinterConnection2A**, is not supported and returns **ERROR\_NOT\_SUPPORTED**.
-     * @param {HWND} hWnd A handle to the parent window in which the dialog box will be displayed if the print system must download a printer driver from the print server for this connection.
+     * @param {HWND} hWnd_ A handle to the parent window in which the dialog box will be displayed if the print system must download a printer driver from the print server for this connection.
      * @param {PWSTR} pszName A pointer to a constant null-terminated string specifying the name of the printer to which the current user wishes to connect.
      * @param {Integer} dwLevel The version of the structure pointed to by *pConnectionInfo*. Currently, only level 1 is defined so the value of *dwLevel* must be 1.
      * @param {Pointer<Void>} pConnectionInfo A pointer to a [**PRINTER\_CONNECTION\_INFO\_1**](printer-connection-info-1.md) structure. See the Remarks section for more about this parameter.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. For extended error information, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection2
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/addprinterconnection2
      */
-    static AddPrinterConnection2W(hWnd, pszName, dwLevel, pConnectionInfo) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static AddPrinterConnection2W(hWnd_, pszName, dwLevel, pConnectionInfo) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pConnectionInfoMarshal := pConnectionInfo is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("winspool.drv\AddPrinterConnection2W", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
+        result := DllCall("winspool.drv\AddPrinterConnection2W", "ptr", hWnd_, "ptr", pszName, "uint", dwLevel, pConnectionInfoMarshal, pConnectionInfo, "int")
         return result
     }
 
@@ -12963,7 +12967,7 @@ class Printing {
      * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/installprinterdriverfrompackage
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/installprinterdriverfrompackage
      */
     static InstallPrinterDriverFromPackageA(pszServer, pszInfPath, pszDriverName, pszEnvironment, dwFlags) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13002,7 +13006,7 @@ class Printing {
      * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/installprinterdriverfrompackage
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/installprinterdriverfrompackage
      */
     static InstallPrinterDriverFromPackageW(pszServer, pszInfPath, pszDriverName, pszEnvironment, dwFlags) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13043,24 +13047,24 @@ class Printing {
      * | <span id="UPDP_SILENT_UPLOAD"></span><span id="updp_silent_upload"></span><dl> <dt>**UPDP_SILENT_UPLOAD**</dt> </dl>             | The UI will not be shown during the upload.<br/>                                                                                                             |
      * | <span id="UPDP_UPLOAD_ALWAYS"></span><span id="updp_upload_always"></span><dl> <dt>**UPDP_UPLOAD_ALWAYS**</dt> </dl>             | The files will be uploaded even if the package is already in the server's driver store.<br/>                                                                 |
      * | <span id="UPDP_CHECK_DRIVERSTORE"></span><span id="updp_check_driverstore"></span><dl> <dt>**UPDP_CHECK_DRIVERSTORE**</dt> </dl> | The server's driver store will be checked before upload to see if the package is already there. This setting is ignored if UPDP_UPLOAD_ALWAYS is set.<br/> |
-     * @param {HWND} hwnd A handle to the copying user interface.
+     * @param {HWND} hwnd_ A handle to the copying user interface.
      * @param {PSTR} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<Integer>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/uploadprinterdriverpackage
      */
-    static UploadPrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
+    static UploadPrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd_, pszDestInfPath, pcchDestInfPath) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
 
         pcchDestInfPathMarshal := pcchDestInfPath is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "int")
+        result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd_, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -13093,24 +13097,24 @@ class Printing {
      * | <span id="UPDP_SILENT_UPLOAD"></span><span id="updp_silent_upload"></span><dl> <dt>**UPDP_SILENT_UPLOAD**</dt> </dl>             | The UI will not be shown during the upload.<br/>                                                                                                             |
      * | <span id="UPDP_UPLOAD_ALWAYS"></span><span id="updp_upload_always"></span><dl> <dt>**UPDP_UPLOAD_ALWAYS**</dt> </dl>             | The files will be uploaded even if the package is already in the server's driver store.<br/>                                                                 |
      * | <span id="UPDP_CHECK_DRIVERSTORE"></span><span id="updp_check_driverstore"></span><dl> <dt>**UPDP_CHECK_DRIVERSTORE**</dt> </dl> | The server's driver store will be checked before upload to see if the package is already there. This setting is ignored if UPDP_UPLOAD_ALWAYS is set.<br/> |
-     * @param {HWND} hwnd A handle to the copying user interface.
+     * @param {HWND} hwnd_ A handle to the copying user interface.
      * @param {PWSTR} pszDestInfPath A pointer to the destination path, in the driver store, to which the driver's .inf file was copied.
      * @param {Pointer<Integer>} pcchDestInfPath On input, specifies the size, in characters, of the *pszDestInfPath* buffer. On output, receives the size, in characters, of the path string, including the terminating null character.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/uploadprinterdriverpackage
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/uploadprinterdriverpackage
      */
-    static UploadPrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
+    static UploadPrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd_, pszDestInfPath, pcchDestInfPath) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
 
         pcchDestInfPathMarshal := pcchDestInfPath is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "int")
+        result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd_, "ptr", pszDestInfPath, pcchDestInfPathMarshal, pcchDestInfPath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -13130,7 +13134,7 @@ class Printing {
      * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getcoreprinterdrivers
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getcoreprinterdrivers
      */
     static GetCorePrinterDriversA(pszServer, pszEnvironment, pszzCoreDriverDependencies, cCorePrinterDrivers, pCorePrinterDrivers) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13157,7 +13161,7 @@ class Printing {
      * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getcoreprinterdrivers
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getcoreprinterdrivers
      */
     static GetCorePrinterDriversW(pszServer, pszEnvironment, pszzCoreDriverDependencies, cCorePrinterDrivers, pCorePrinterDrivers) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13183,7 +13187,7 @@ class Printing {
      * @param {FILETIME} ftDriverDate The date of the core printer driver.
      * @param {Integer} dwlDriverVersion The version of the core printer driver.
      * @returns {BOOL} A pointer to **TRUE** if the driver, or a newer version, is installed, **FALSE** otherwise.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/coreprinterdriverinstalled
      */
     static CorePrinterDriverInstalledA(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13208,7 +13212,7 @@ class Printing {
      * @param {FILETIME} ftDriverDate The date of the core printer driver.
      * @param {Integer} dwlDriverVersion The version of the core printer driver.
      * @returns {BOOL} A pointer to **TRUE** if the driver, or a newer version, is installed, **FALSE** otherwise.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/coreprinterdriverinstalled
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/coreprinterdriverinstalled
      */
     static CorePrinterDriverInstalledW(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13240,7 +13244,7 @@ class Printing {
      * @param {PSTR} pszDriverPackageCab A pointer to a null-terminated string that specifies the path to the cabinet file for the driver package. This can be **NULL**. See Remarks.
      * @param {Integer} cchDriverPackageCab The size, in characters, of the *pszDriverPackageCab* buffer. This can be **NULL**.
      * @returns {Integer} A pointer to the required size of the *pszDriverPackageCab* buffer.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriverpackagepath
      */
     static GetPrinterDriverPackagePathA(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13275,7 +13279,7 @@ class Printing {
      * @param {PWSTR} pszDriverPackageCab A pointer to a null-terminated string that specifies the path to the cabinet file for the driver package. This can be **NULL**. See Remarks.
      * @param {Integer} cchDriverPackageCab The size, in characters, of the *pszDriverPackageCab* buffer. This can be **NULL**.
      * @returns {Integer} A pointer to the required size of the *pszDriverPackageCab* buffer.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriverpackagepath
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriverpackagepath
      */
     static GetPrinterDriverPackagePathW(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13317,7 +13321,7 @@ class Printing {
      * Otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverpackage
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdriverpackage
      */
     static DeletePrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13357,7 +13361,7 @@ class Printing {
      * Otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdriverpackage
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/deleteprinterdriverpackage
      */
     static DeletePrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment) {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
@@ -13389,7 +13393,7 @@ class Printing {
      * @returns {HRESULT} If the operation succeeds, the return value is S\_OK, otherwise the **HRESULT** will contain an error code.
      * 
      * For more information about COM error codes, see [Error Handling](../com/error-handling-in-com.md).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/reportjobprocessingprogress
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/reportjobprocessingprogress
      */
     static ReportJobProcessingProgress(printerHandle, jobId, jobOperation, jobProgress) {
         printerHandle := printerHandle is Win32Handle ? NumGet(printerHandle, "ptr") : printerHandle
@@ -13404,7 +13408,7 @@ class Printing {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
@@ -13413,14 +13417,14 @@ class Printing {
      * @param {Pointer<Integer>} pcbNeeded 
      * @returns {BOOL} 
      */
-    static GetPrinterDriver2A(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPrinterDriver2A(hWnd_, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrinterDriver2A", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
+        result := DllCall("winspool.drv\GetPrinterDriver2A", "ptr", hWnd_, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
         return result
     }
 
@@ -13430,7 +13434,7 @@ class Printing {
      * The [**DRIVER\_INFO\_2**](driver-info-2.md), [**DRIVER\_INFO\_3**](driver-info-3.md), [**DRIVER\_INFO\_4**](driver-info-4.md), [**DRIVER\_INFO\_5**](driver-info-5.md), [**DRIVER\_INFO\_6**](driver-info-6.md), and [**DRIVER\_INFO\_8**](driver-info-8.md) structures contain the file name or the full path and file name of the printer driver in the **pDriverPath** member. An application can use the path and file name to load a printer driver by calling the [**LoadLibrary**](/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya) function and supplying the path and file name as the single argument.
      * 
      * The ANSI version of this function, **GetPrinterDriver2A** is not supported and returns **ERROR\_NOT\_SUPPORTED**.
-     * @param {HWND} hWnd A handle of the window that will be used as the parent window of any user interface, such as a dialog box, that the driver displays during installation. If the value of this parameter is **NULL**, the driver's user interface will still be displayed to the user during installation, but it will not have a parent window.
+     * @param {HWND} hWnd_ A handle of the window that will be used as the parent window of any user interface, such as a dialog box, that the driver displays during installation. If the value of this parameter is **NULL**, the driver's user interface will still be displayed to the user during installation, but it will not have a parent window.
      * @param {PRINTER_HANDLE} hPrinter A handle to the printer for which the driver data should be retrieved. Use the [**OpenPrinter**](openprinter.md) or [**AddPrinter**](addprinter.md) function to retrieve a printer handle.
      * @param {PWSTR} pEnvironment A pointer to a null-terminated string that specifies the environment (for example, Windows x86, Windows IA64, or Windows x64). If this parameter is **NULL**, the current environment of the calling application and client machine (not of the destination application and print server) is used.
      * @param {Integer} Level The printer driver structure returned in the *pDriverInfo* buffer. This parameter can be one of the following values.
@@ -13454,16 +13458,16 @@ class Printing {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get the return status, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver2
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprinterdriver2
      */
-    static GetPrinterDriver2W(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPrinterDriver2W(hWnd_, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrinterDriver2W", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
+        result := DllCall("winspool.drv\GetPrinterDriver2W", "ptr", hWnd_, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, pcbNeededMarshal, pcbNeeded, "int")
         return result
     }
 
@@ -13477,7 +13481,7 @@ class Printing {
      * The value of the **clientAppPID** member of [**PRINT\_EXECUTION\_DATA**](print-execution-data.md) is only meaningful if the value of **context** is **PRINT\_EXECUTION\_CONTEXT\_WOW64**. If the value of **context** is not **PRINT\_EXECUTION\_CONTEXT\_WOW64**, the value of **clientAppPID** is 0.
      * @param {Pointer<PRINT_EXECUTION_DATA>} pData A pointer to a variable that receives the address of the [**PRINT\_EXECUTION\_DATA**](print-execution-data.md) structure.
      * @returns {BOOL} Returns **TRUE** if the function succeeds; otherwise **FALSE**. If the return value is **FALSE**, call [**GetLastError**](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror) to get the error status.
-     * @see https://learn.microsoft.com/windows/win32/printdocs/getprintexecutiondata
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/getprintexecutiondata
      */
     static GetPrintExecutionData(pData) {
         result := DllCall("winspool.drv\GetPrintExecutionData", "ptr", pData, "int")
@@ -13570,19 +13574,19 @@ class Printing {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} pszPrinter 
      * @param {Pointer<HANDLE>} phFile 
      * @param {Pointer<PWSTR>} ppszOutputFile 
      * @returns {HRESULT} 
      */
-    static GetPrintOutputInfo(hWnd, pszPrinter, phFile, ppszOutputFile) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetPrintOutputInfo(hWnd_, pszPrinter, phFile, ppszOutputFile) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
         ppszOutputFileMarshal := ppszOutputFile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "int")
+        result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd_, "ptr", pszPrinter, "ptr", phFile, ppszOutputFileMarshal, ppszOutputFile, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -13621,7 +13625,7 @@ class Printing {
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
      * @returns {HANDLE} A pointer to a structure that represents the registration.
-     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-registerforprintasyncnotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/prnasnot/nf-prnasnot-registerforprintasyncnotifications
      * @since windows6.0.6000
      */
     static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {
@@ -13719,7 +13723,7 @@ class Printing {
      * For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/SetupApi/error-handling">Error Handling</a>.
      * 
      * See <a href="https://docs.microsoft.com/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for other possible return values.
-     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-unregisterforprintasyncnotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/prnasnot/nf-prnasnot-unregisterforprintasyncnotifications
      * @since windows6.0.6000
      */
     static UnRegisterForPrintAsyncNotifications(param0) {
@@ -13766,7 +13770,7 @@ class Printing {
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {IPrintAsyncNotifyCallback} pCallback A pointer to an object that the listening application will use to call back the Print Spooler-hosted component. This should be <b>NULL</b> if <i>directionality</i> is <b>kUniDirectional</b>.
      * @returns {IPrintAsyncNotifyChannel} A pointer to the new channel.
-     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-createprintasyncnotifychannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/prnasnot/nf-prnasnot-createprintasyncnotifychannel
      * @since windows6.0.6000
      */
     static CreatePrintAsyncNotifyChannel(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback) {

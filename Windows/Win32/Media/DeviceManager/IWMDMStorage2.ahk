@@ -5,7 +5,7 @@
 
 /**
  * The IWMDMStorage2 interface extends IWMDMStorage by making it possible to get a child storage by name, and to get and set extended attributes. IWMDMStorage3 interface extends this interface by supporting metadata.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmstorage2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iwmdmstorage2
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,14 +32,20 @@ class IWMDMStorage2 extends IWMDMStorage{
 
     /**
      * The GetStorage method retrieves a child storage by name directly from the current storage without having to enumerate through all the children.
+     * @remarks
+     * <b>IWMDMStorage2::GetStorage</b> does not support wildcard characters. It is not recursive; that is, it will only find storages that are immediate children of the current storage. To find a storage more than one level deep, try <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevice3-findstorage">IWMDMDevice3::FindStorage</a>.
      * @param {PWSTR} pszStorageName Pointer to a <b>null</b>-terminated string specifying the storage name. This is the name retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-getname">IWMDMStorage::GetName</a>.
      * @returns {IWMDMStorage} Pointer to the retrieved storage object, or <b>NULL</b> if no storage was found. The caller must release this interface when done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage2-getstorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstorage2-getstorage
      */
     GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
 
-        result := ComCall(12, this, "ptr", pszStorageName, "ptr*", &ppStorage := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pszStorageName, "ptr*", &ppStorage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMDMStorage(ppStorage)
     }
 
@@ -56,16 +62,22 @@ class IWMDMStorage2 extends IWMDMStorage{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage2-setattributes2
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstorage2-setattributes2
      */
     SetAttributes2(dwAttributes, dwAttributesEx, pFormat, pVideoFormat) {
-        result := ComCall(13, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pFormat, "ptr", pVideoFormat, "HRESULT")
+        result := ComCall(13, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pFormat, "ptr", pVideoFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetAttributes2 method retrieves extended attributes of the storage.
+     * @remarks
+     * Evaluation of attributes is a crucial step when exposing the contents of the media device. Some devices do not support hierarchical storage of data on storage media. The <b>GetAttributes2</b> method is used to infer the support and format of the file system by discovering its structure through object attributes.
      * @param {Pointer<Integer>} pdwAttributes Pointer to a <b>DWORD</b> specifying one or more attributes defined in the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-getattributes">IWMDMStorage::GetAttributes</a> method, combined with a bitwise <b>OR</b>.
      * @param {Pointer<Integer>} pdwAttributesEx Pointer to a <b>DWORD</b> specifying the extended attributes. Currently, no extended attributes are defined.
      * @param {Pointer<WAVEFORMATEX>} pAudioFormat Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_ WAVEFORMATEX</a> structure that specifies audio information about the object. This parameter is ignored if the file is not audio.
@@ -77,14 +89,18 @@ class IWMDMStorage2 extends IWMDMStorage{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage2-getattributes2
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstorage2-getattributes2
      */
     GetAttributes2(pdwAttributes, pdwAttributesEx, pAudioFormat, pVideoFormat) {
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
         pdwAttributesExMarshal := pdwAttributesEx is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "HRESULT")
+        result := ComCall(14, this, pdwAttributesMarshal, pdwAttributes, pdwAttributesExMarshal, pdwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

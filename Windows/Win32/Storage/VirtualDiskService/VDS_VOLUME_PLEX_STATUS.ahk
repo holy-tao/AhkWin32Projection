@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_VOLUME_PLEX_STATUS</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_VOLUME_PLEX_STATUS</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_volume_plex_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_volume_plex_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

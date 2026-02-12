@@ -3,7 +3,7 @@
 
 /**
  * Contains information that describes a layer drop failure. (FWPM_NET_EVENT_CLASSIFY_DROP0)
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop0
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

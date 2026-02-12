@@ -6,7 +6,6 @@
 /**
  * Exposes methods for working with the Online Print Wizard, the Web Publishing Wizard, and the Add Network Place Wizard. In Windows Vista, IPublishingWizard no longer supports the Web Publishing Wizard or Online Print Wizard.
  * @remarks
- * 
  * The Online Print Wizard is a wizard for ordering prints of photos online. The use of <b>IPublishingWizard</b> to work with the Online Print Wizard is no longer supported in Windows Vista.
  * 
  * The Add Network Place Wizard allows the user to create a shortcut to network resources in My Network Places (in Windows XP) or Computer (in Windows Vista).
@@ -61,9 +60,8 @@
  * // Define the number of wizard pages that we expect to get from 
  * // the Publishing Wizard object. 
  * // The Online Print Wizard provides 6 predefined pages in Windows Vista,
- * // but provided 9 in Windows XP. 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ipublishingwizard
+ * // but provided 9 in Windows XP.
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ipublishingwizard
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -96,6 +94,24 @@ class IPublishingWizard extends IWizardExtension{
 
     /**
      * Initializes the Publishing Wizard object with the files to transfer, the settings to use, and the type of wizard to create.
+     * @remarks
+     * <b>IPublishingWizard::Initialize</b>, implemented by a <a href="https://docs.microsoft.com/windows/desktop/shell/scriptable-shell-objects-roadmap">Publishing Wizard</a> object, is called to initialize the wizard object.
+     * 
+     * The following sample does not work on Windows Vista because the Online Print Wizard cannot be instantiated through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ipublishingwizard">IPublishingWizard</a> in Windows Vista.
+     * 
+     * 				
+     * 
+     * 
+     * ```
+     * // initializing the Online Print Wizard in Windows XP or Windows 2003 Server
+     * hr = pPublish->Initialize(pDataObject,  // A data object that represents files or 
+     *                                         // folders to transfer.
+     *                           SHPWHF_NOFILESELECTOR,     // Flags
+     *                           L"InternetPhotoPrinting"); // Display the Online Print Wizard.
+     * ```
+     * 
+     * 
+     * <b>IPublishingWizard::Initialize</b> does not actually display the initialized wizard. See the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ipublishingwizard">IPublishingWizard</a> topic for information on how to display the wizard.
      * @param {IDataObject} pdo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> that represents the files or folder to be transferred, if <i>pszServiceProvider</i> is <c>InternetPhotoPrinting</code>. If <i>pszServiceProvider</i> is <code>AddNetPlace</c>, this parameter is <b>NULL</b>.
@@ -121,7 +137,7 @@ class IPublishingWizard extends IWizardExtension{
      * </dl>
      * </td>
      * <td width="60%">
-     * In Windows Vista, may indicate an attempt to initialize the unsupported Online Print Wizard by passing <code>InternetPhotoPrinting</code> in <i>pszServiceProvider</i>. 
+     * In Windows Vista, may indicate an attempt to initialize the unsupported Online Print Wizard by passing <c>InternetPhotoPrinting</c> in <i>pszServiceProvider</i>. 
      * 
      *                         
      * 
@@ -141,17 +157,23 @@ class IPublishingWizard extends IWizardExtension{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ipublishingwizard-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ipublishingwizard-initialize
      */
     Initialize(pdo, dwOptions, pszServiceScope) {
         pszServiceScope := pszServiceScope is String ? StrPtr(pszServiceScope) : pszServiceScope
 
-        result := ComCall(6, this, "ptr", pdo, "uint", dwOptions, "ptr", pszServiceScope, "HRESULT")
+        result := ComCall(6, this, "ptr", pdo, "uint", dwOptions, "ptr", pszServiceScope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a transfer manifest for a file transfer operation performed by a publishing wizard, such as the Online Print Wizard or the Add Network Place Wizard.
+     * @remarks
+     * The transfer manifest is not created until the wizard is actually displayed. For information on displaying a publishing wizard, see the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ipublishingwizard">IPublishingWizard</a> topic.
      * @param {Pointer<HRESULT>} phrFromTransfer Type: <b>HRESULT*</b>
      * 
      * A pointer to a variable of type <b>HRESULT</b> that, when this method returns, is set to S_OK if the transfer operation was successful, S_FALSE if the transfer has not yet begun, or a standard error value if the transfer has failed or has been canceled. This value can be <b>NULL</b> if you do not require this information.
@@ -179,12 +201,16 @@ class IPublishingWizard extends IWizardExtension{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ipublishingwizard-gettransfermanifest
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ipublishingwizard-gettransfermanifest
      */
     GetTransferManifest(phrFromTransfer, pdocManifest) {
         phrFromTransferMarshal := phrFromTransfer is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, "ptr*", pdocManifest, "HRESULT")
+        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, "ptr*", pdocManifest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

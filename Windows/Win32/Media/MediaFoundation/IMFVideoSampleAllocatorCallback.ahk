@@ -5,7 +5,7 @@
 
 /**
  * Enables an application to track video samples allocated by the enhanced video renderer (EVR).
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfvideosampleallocatorcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfvideosampleallocatorcallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,22 +32,36 @@ class IMFVideoSampleAllocatorCallback extends IUnknown{
 
     /**
      * Sets the callback object that receives notification whenever a video sample is returned to the allocator.
+     * @remarks
+     * To get a video sample from the allocator, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfvideosampleallocator-allocatesample">IMFVideoSampleAllocator::AllocateSample</a> method. When the sample is released, it returns to the pool of available samples. When this happens, the allocator invokes the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfvideosampleallocatornotify-notifyrelease">IMFVideoSampleAllocatorNotify::NotifyRelease</a> callback.
+     * 
+     * The allocator holds at most one callback pointer. Calling this method again replaces the previous callback pointer.
      * @param {IMFVideoSampleAllocatorNotify} pNotify A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfvideosampleallocatornotify">IMFVideoSampleAllocatorNotify</a> interface that receives notification, or <b>NULL</b> to remove the callback.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatorcallback-setcallback
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfvideosampleallocatorcallback-setcallback
      */
     SetCallback(pNotify) {
-        result := ComCall(3, this, "ptr", pNotify, "HRESULT")
+        result := ComCall(3, this, "ptr", pNotify, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number of video samples that are currently available for use.
+     * @remarks
+     * To get a video sample from the allocator, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfvideosampleallocator-allocatesample">IMFVideoSampleAllocator::AllocateSample</a> method. The <b>AllocateSample</b> method removes a sample from the sample pool and returns it to the caller. When a sample is released, it returns to the pool. The <b>GetFreeSampleCount</b> method returns the count of samples that remain in the sample pool.
      * @returns {Integer} Receives the number of available samples.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatorcallback-getfreesamplecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfvideosampleallocatorcallback-getfreesamplecount
      */
     GetFreeSampleCount() {
-        result := ComCall(4, this, "int*", &plSamples := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &plSamples := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSamples
     }
 }

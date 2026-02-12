@@ -6,7 +6,7 @@
 
 /**
  * Interface describing an SVG stroke-dasharray value.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nn-d2d1svg-id2d1svgstrokedasharray
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nn-d2d1svg-id2d1svgstrokedasharray
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,66 +36,86 @@ class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute{
      * @param {Integer} dashesCount Type: <b>UINT32</b>
      * 
      * Specifies how many dashes to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgstrokedasharray-removedashesatend
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgstrokedasharray-removedashesatend
      */
     RemoveDashesAtEnd(dashesCount) {
-        result := ComCall(6, this, "uint", dashesCount, "HRESULT")
+        result := ComCall(6, this, "uint", dashesCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Updates the array.
      * @param {Pointer<D2D1_SVG_LENGTH>} dashes 
      * @param {Integer} dashesCount 
      * @param {Integer} startIndex 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
      */
     UpdateDashes(dashes, dashesCount, startIndex) {
-        result := ComCall(7, this, "ptr", dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(7, this, "ptr", dashes, "uint", dashesCount, "uint", startIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Updates the array.
      * @param {Pointer<Float>} dashes 
      * @param {Integer} dashesCount 
      * @param {Integer} startIndex 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1svgstrokedasharray-updatedashes-overload
      */
     UpdateDashes1(dashes, dashesCount, startIndex) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
 
-        result := ComCall(8, this, dashesMarshal, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(8, this, dashesMarshal, dashes, "uint", dashesCount, "uint", startIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Gets dashes from the array.
      * @param {Integer} dashesCount 
      * @param {Integer} startIndex 
      * @returns {D2D1_SVG_LENGTH} 
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-getdashes-overload
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1svgstrokedasharray-getdashes-overload
      */
     GetDashes(dashesCount, startIndex) {
         dashes := D2D1_SVG_LENGTH()
-        result := ComCall(9, this, "ptr", dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(9, this, "ptr", dashes, "uint", dashesCount, "uint", startIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dashes
     }
 
     /**
-     * 
+     * Gets dashes from the array.
      * @param {Integer} dashesCount 
      * @param {Integer} startIndex 
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-getdashes-overload
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1svgstrokedasharray-getdashes-overload
      */
     GetDashes1(dashesCount, startIndex) {
-        result := ComCall(10, this, "float*", &dashes := 0, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        result := ComCall(10, this, "float*", &dashes := 0, "uint", dashesCount, "uint", startIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dashes
     }
 
@@ -104,7 +124,7 @@ class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of the dashes in the array.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgstrokedasharray-getdashescount
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgstrokedasharray-getdashescount
      */
     GetDashesCount() {
         result := ComCall(11, this, "uint")

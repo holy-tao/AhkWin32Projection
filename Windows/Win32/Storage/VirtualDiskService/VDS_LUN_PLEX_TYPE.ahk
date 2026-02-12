@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_LUN_PLEX_TYPE enumeration (vdshwprv.h) defines the set of valid types for a LUN plex.
+ * The VDS_LUN_PLEX_TYPE (vds.h) enumeration defines the set of valid types for a LUN plex.
  * @remarks
  * The  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop">VDS_LUN_PLEX_PROP</a> structure includes a <b>VDS_LUN_PLEX_TYPE</b> value as a member to indicate the existing plex type.
  * 
@@ -10,7 +10,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LUN_PLEX_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LUN_PLEX_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_lun_plex_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_lun_plex_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

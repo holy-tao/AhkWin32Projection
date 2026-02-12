@@ -8,7 +8,7 @@
  *                 when deserializing a structure.
  *                 See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_ANY_ATTRIBUTES_FIELD_MAPPING</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_ANY_ATTRIBUTES_TYPE</a> for more
  *                 information.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_any_attributes
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_any_attributes
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

@@ -15,7 +15,7 @@
  * The controls available for a dialog box are label, text box, ink-aware text box, list, drop-down list, combo box, check box, group box, button, radio button, and tabbed page.
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtctl
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtctl
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

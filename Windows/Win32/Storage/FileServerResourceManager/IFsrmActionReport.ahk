@@ -7,13 +7,9 @@
 /**
  * Used to generate a report in response to a quota or file screen event.
  * @remarks
- * 
  * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes">ReportTypes</a> property; 
  *     the other property is optional.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmactionreport
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmactionreport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -55,30 +51,37 @@ class IFsrmActionReport extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the types of reports to generate.
+     * Retrieves or sets the types of reports to generate. (Get)
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes
      */
     get_ReportTypes() {
-        result := ComCall(12, this, "ptr*", &reportTypes := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &reportTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return reportTypes
     }
 
     /**
-     * Retrieves or sets the types of reports to generate.
+     * Retrieves or sets the types of reports to generate. (Put)
      * @param {Pointer<SAFEARRAY>} reportTypes 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-put_reporttypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmactionreport-put_reporttypes
      */
     put_ReportTypes(reportTypes) {
-        result := ComCall(13, this, "ptr", reportTypes, "HRESULT")
+        result := ComCall(13, this, "ptr", reportTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the email address to which the reports are sent.
+     * Retrieves or sets the email address to which the reports are sent. (Get)
      * @remarks
-     * 
      * The email message contains the reports as attachments. It is possible that the mail server may reject the 
      *     message if the server limits attachment sizes. The 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom">IFsrmSetting::MailFrom</a> property specifies the 
@@ -88,22 +91,22 @@ class IFsrmActionReport extends IFsrmAction{
      * You can also call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory">IFsrmReportManager::SetOutputDirectory</a> 
      *     method to specify the storage location for these incident reports.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-get_mailto
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmactionreport-get_mailto
      */
     get_MailTo() {
         mailTo := BSTR()
-        result := ComCall(14, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(14, this, "ptr", mailTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return mailTo
     }
 
     /**
-     * Retrieves or sets the email address to which the reports are sent.
+     * Retrieves or sets the email address to which the reports are sent. (Put)
      * @remarks
-     * 
      * The email message contains the reports as attachments. It is possible that the mail server may reject the 
      *     message if the server limits attachment sizes. The 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom">IFsrmSetting::MailFrom</a> property specifies the 
@@ -113,17 +116,21 @@ class IFsrmActionReport extends IFsrmAction{
      * You can also call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory">IFsrmReportManager::SetOutputDirectory</a> 
      *     method to specify the storage location for these incident reports.
-     * 
-     * 
-     * 
      * @param {BSTR} mailTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-put_mailto
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmactionreport-put_mailto
      */
     put_MailTo(mailTo) {
-        mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
+        if(mailTo is String) {
+            pin := BSTR.Alloc(mailTo)
+            mailTo := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", mailTo, "HRESULT")
+        result := ComCall(15, this, "ptr", mailTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

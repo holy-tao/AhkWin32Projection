@@ -5,8 +5,15 @@
 #Include .\IShellDispatch2.ahk
 
 /**
+ * Extends the IShellDispatch2 object.
+ * @remarks
+ * The **IShellDispatch3** object has these types of members:
  * 
- * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch3
+ * -   [Methods](#methods)
+ * 
+ * 
+ * For a discussion of Windows services, see the [Services](../services/services.md) documentation.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/ishelldispatch3
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,16 +39,29 @@ class IShellDispatch3 extends IShellDispatch2{
     static VTableNames => ["AddToRecent"]
 
     /**
+     * IShellDispatch3.AddToRecent method - Adds a file to the most recently used (MRU) list.
+     * @param {VARIANT} varFile Type: **Variant**
      * 
-     * @param {VARIANT} varFile 
-     * @param {BSTR} bstrCategory 
+     * A **String** that contains the path of the file to add to the list of recently used documents.
+     * 
+     * **Windows Vista**: Set this parameter to **null** to clear the recent documents folder.
+     * @param {BSTR} bstrCategory Type: **[**BSTR**](/previous-versions/windows/desktop/automat/bstr)**
+     * 
+     * A **String** that contains the name of the category in which to place the file.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch3-addtorecent
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/ishelldispatch3-addtorecent
      */
     AddToRecent(varFile, bstrCategory) {
-        bstrCategory := bstrCategory is String ? BSTR.Alloc(bstrCategory).Value : bstrCategory
+        if(bstrCategory is String) {
+            pin := BSTR.Alloc(bstrCategory)
+            bstrCategory := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", varFile, "ptr", bstrCategory, "HRESULT")
+        result := ComCall(39, this, "ptr", varFile, "ptr", bstrCategory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

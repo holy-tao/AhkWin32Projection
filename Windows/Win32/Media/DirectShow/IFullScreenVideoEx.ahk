@@ -6,7 +6,7 @@
 
 /**
  * The IFullScreenVideoEx interface is implemented on the Full Screen Renderer filter, which provides full-screen video rendering on older hardware.
- * @see https://docs.microsoft.com/windows/win32/api//amvideo/nn-amvideo-ifullscreenvideoex
+ * @see https://learn.microsoft.com/windows/win32/api//content/amvideo/nn-amvideo-ifullscreenvideoex
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,16 +33,20 @@ class IFullScreenVideoEx extends IFullScreenVideo{
 
     /**
      * The SetAcceleratorTable method specifies an accelerator table that will be used to translate keyboard messages. The Full Screen Renderer filter does not support this method.
-     * @param {HWND} hwnd Handle of the window that will receive the translated messages.
-     * @param {HACCEL} hAccel Handle to the accelerator table.
+     * @param {HWND} hwnd_ Handle of the window that will receive the translated messages.
+     * @param {HACCEL} hAccel_ Handle to the accelerator table.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-ifullscreenvideoex-setacceleratortable
+     * @see https://learn.microsoft.com/windows/win32/api//content/amvideo/nf-amvideo-ifullscreenvideoex-setacceleratortable
      */
-    SetAcceleratorTable(hwnd, hAccel) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
+    SetAcceleratorTable(hwnd_, hAccel_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hAccel_ := hAccel_ is Win32Handle ? NumGet(hAccel_, "ptr") : hAccel_
 
-        result := ComCall(20, this, "ptr", hwnd, "ptr", hAccel, "HRESULT")
+        result := ComCall(20, this, "ptr", hwnd_, "ptr", hAccel_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,11 +54,15 @@ class IFullScreenVideoEx extends IFullScreenVideo{
      * The GetAcceleratorTable method retrieves the accelerator table currently being used to translate keyboard messages. The Full Screen Renderer filter does not support this method.
      * @param {Pointer<HACCEL>} phAccel Pointer to a variable that receives a handle to the accelerator table.
      * @returns {HWND} Pointer to a variable that receives a window handle. The window receives translated messages.
-     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-ifullscreenvideoex-getacceleratortable
+     * @see https://learn.microsoft.com/windows/win32/api//content/amvideo/nf-amvideo-ifullscreenvideoex-getacceleratortable
      */
     GetAcceleratorTable(phAccel) {
         phwnd := HWND()
-        result := ComCall(21, this, "ptr", phwnd, "ptr", phAccel, "HRESULT")
+        result := ComCall(21, this, "ptr", phwnd, "ptr", phAccel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phwnd
     }
 
@@ -62,20 +70,28 @@ class IFullScreenVideoEx extends IFullScreenVideo{
      * The KeepPixelAspectRatio method specifies whether to maintain the pixel aspect ratio. The Full Screen Renderer filter does not support this method; it always maintains the pixel aspect ratio.
      * @param {Integer} KeepAspect Specifies whether to maintain the aspect ratio. The value must be OATRUE or OAFALSE.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-ifullscreenvideoex-keeppixelaspectratio
+     * @see https://learn.microsoft.com/windows/win32/api//content/amvideo/nf-amvideo-ifullscreenvideoex-keeppixelaspectratio
      */
     KeepPixelAspectRatio(KeepAspect) {
-        result := ComCall(22, this, "int", KeepAspect, "HRESULT")
+        result := ComCall(22, this, "int", KeepAspect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IsKeepPixelAspectRatio method queries whether the pixel aspect ratio is maintained. The Full Screen Renderer filter does not support this method; it always maintains the pixel aspect ratio.
      * @returns {Integer} Pointer to a variable that receives the value OATRUE or OAFALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//amvideo/nf-amvideo-ifullscreenvideoex-iskeeppixelaspectratio
+     * @see https://learn.microsoft.com/windows/win32/api//content/amvideo/nf-amvideo-ifullscreenvideoex-iskeeppixelaspectratio
      */
     IsKeepPixelAspectRatio() {
-        result := ComCall(23, this, "int*", &pKeepAspect := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pKeepAspect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pKeepAspect
     }
 }

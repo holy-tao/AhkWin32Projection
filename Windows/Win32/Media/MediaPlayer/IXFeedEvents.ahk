@@ -29,12 +29,16 @@ class IXFeedEvents extends IUnknown{
     static VTableNames => ["Error", "FeedDeleted", "FeedRenamed", "FeedUrlChanged", "FeedMoved", "FeedDownloading", "FeedDownloadCompleted", "FeedItemCountChanged"]
 
     /**
-     * Indicates a significant problem.
+     * The Error event occurs when the Windows Media Player control has an error condition.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//timeprov/nc-timeprov-logtimeproveventfunc
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-error
      */
     Error() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IXFeedEvents extends IUnknown{
     FeedDeleted(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(4, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(4, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IXFeedEvents extends IUnknown{
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszOldPath := pszOldPath is String ? StrPtr(pszOldPath) : pszOldPath
 
-        result := ComCall(5, this, "ptr", pszPath, "ptr", pszOldPath, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPath, "ptr", pszOldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +84,11 @@ class IXFeedEvents extends IUnknown{
     FeedUrlChanged(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(6, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(6, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +102,11 @@ class IXFeedEvents extends IUnknown{
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszOldPath := pszOldPath is String ? StrPtr(pszOldPath) : pszOldPath
 
-        result := ComCall(7, this, "ptr", pszPath, "ptr", pszOldPath, "HRESULT")
+        result := ComCall(7, this, "ptr", pszPath, "ptr", pszOldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +118,11 @@ class IXFeedEvents extends IUnknown{
     FeedDownloading(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(8, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(8, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +135,11 @@ class IXFeedEvents extends IUnknown{
     FeedDownloadCompleted(pszPath, fde) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(9, this, "ptr", pszPath, "int", fde, "HRESULT")
+        result := ComCall(9, this, "ptr", pszPath, "int", fde, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +152,11 @@ class IXFeedEvents extends IUnknown{
     FeedItemCountChanged(pszPath, feicfFlags) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "int", feicfFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pszPath, "int", feicfFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

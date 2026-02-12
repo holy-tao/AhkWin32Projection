@@ -8,7 +8,7 @@
  * 
  * 
  * <a href="https://docs.microsoft.com/previous-versions/dn408470(v=vs.85)">RegisteredTrustLevel</a> is an alias for this enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/inspectable/ne-inspectable-trustlevel
+ * @see https://learn.microsoft.com/windows/win32/api//content/inspectable/ne-inspectable-trustlevel
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

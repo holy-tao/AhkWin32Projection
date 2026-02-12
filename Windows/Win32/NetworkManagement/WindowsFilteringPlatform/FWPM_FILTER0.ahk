@@ -13,7 +13,7 @@
  * The last members, **filterId** and **effectiveWeight**, provides additional information when getting/enumerating objects.
  * 
  * **FWPM_FILTER0** is a specific implementation of FWPM_FILTER. See <a href="https://docs.microsoft.com/windows/win32/fwp/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a> for more information.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter0
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwpmtypes/ns-fwpmtypes-fwpm_filter0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

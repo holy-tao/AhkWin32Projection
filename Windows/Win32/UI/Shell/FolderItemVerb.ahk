@@ -5,8 +5,8 @@
 #Include ..\..\Foundation\BSTR.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/folderitemverb
+ * Represents a single verb available to an item. This object contains properties and methods that allow you to retrieve information about the verb.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitemverb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -63,7 +63,11 @@ class FolderItemVerb extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Application() {
-        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -72,7 +76,11 @@ class FolderItemVerb extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -82,17 +90,28 @@ class FolderItemVerb extends IDispatch{
      */
     get_Name() {
         pbs := BSTR()
-        result := ComCall(9, this, "ptr", pbs, "HRESULT")
+        result := ComCall(9, this, "ptr", pbs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbs
     }
 
     /**
+     * Executes a verb on the FolderItem associated with the verb.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitemverb-doit
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitemverb-doit
      */
     DoIt() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -41,7 +41,11 @@ class IPMBackgroundServiceAgentInfoEnumerator extends IUnknown{
      * @returns {IPMBackgroundServiceAgentInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppBSAInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppBSAInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMBackgroundServiceAgentInfo(ppBSAInfo)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Sets properties on the audio resampler DSP.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmresamplerprops
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nn-wmcodecdsp-iwmresamplerprops
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMResamplerProps extends IUnknown{
 
     /**
      * Specifies the quality of the output.
+     * @remarks
+     * This method is equivalent to setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-wmresamp-filterquality">MFPKEY_WMRESAMP_FILTERQUALITY</a> property.
      * @param {Integer} lhalfFilterLen Specifies the quality of the output. The valid range is 1 to 60, inclusive.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -52,15 +54,31 @@ class IWMResamplerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-sethalffilterlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-sethalffilterlength
      */
     SetHalfFilterLength(lhalfFilterLen) {
-        result := ComCall(3, this, "int", lhalfFilterLen, "HRESULT")
+        result := ComCall(3, this, "int", lhalfFilterLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the channel matrix.
+     * @remarks
+     * This method is equivalent to setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfpkey-wmresamp-channelmtx">MFPKEY_WMRESAMP_CHANNELMTX</a> property, except that the matrix is represented differently:
+     * 
+     * <ul>
+     * <li>Values are floating point.</li>
+     * <li>The matrix is transposed.</li>
+     * </ul>
+     * To convert from the integer values given in the MFPKEY_WMRESAMP_CHANNELMTX property to floating-point values, use the following formula:
+     * 
+     * <c>(float)pow(10.0,((double)Coeff)/(65536.0*20.0))</c>
+     * 
+     * where <i>Coeff</i> is an integer coefficient.
      * @param {Pointer<Float>} userChannelMtx Pointer to an array of floating-point values that represents a channel conversion matrix.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -81,12 +99,16 @@ class IWMResamplerProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-setuserchannelmtx
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-setuserchannelmtx
      */
     SetUserChannelMtx(userChannelMtx) {
         userChannelMtxMarshal := userChannelMtx is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, userChannelMtxMarshal, userChannelMtx, "HRESULT")
+        result := ComCall(4, this, userChannelMtxMarshal, userChannelMtx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Delivers method call notifications.
- * @see https://docs.microsoft.com/windows/win32/api//callobj/nn-callobj-icallframeevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nn-callobj-icallframeevents
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class ICallFrameEvents extends IUnknown{
 
     /**
      * Informs the event sink if it receives a method call on the interceptor. The sink is provided with an ICallFrame instance which is bound to the intercepted incoming method invocation. Through that sink the call frame can be manipulated in various ways.
+     * @remarks
+     * On return from <b>OnCall</b>, the interceptor assumes that by some means the out-values of the method have been appropriately initialized as needed, if any; the interceptor does not itself manipulate the call frame further in any way. Typically, the <b>OnCall</b> implementation will have set the out-values by some means, either by invoking the call frame on an object, successfully unmarshalling some previously marshaled out-values, or clearing them with <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-free">ICallFrame::Free</a>.
+     * 
+     * The return value should also have been appropriately set during the call in a similar manner. See <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframe-setreturnvalue">ICallFrame::SetReturnValue</a>.
      * @param {ICallFrame} pFrame A call frame bound to the just-received invocation.
      * @returns {HRESULT} This method can return the following values.
      * 
@@ -63,10 +67,14 @@ class ICallFrameEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallframeevents-oncall
+     * @see https://learn.microsoft.com/windows/win32/api//content/callobj/nf-callobj-icallframeevents-oncall
      */
     OnCall(pFrame) {
-        result := ComCall(3, this, "ptr", pFrame, "HRESULT")
+        result := ComCall(3, this, "ptr", pFrame, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

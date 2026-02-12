@@ -38,13 +38,18 @@ class IHTMLSelectElement6 extends IDispatch{
     }
 
     /**
-     * 
+     * Reserves the specified URL for non-administrator users and accounts.
      * @param {IHTMLOptionElement} pElem 
      * @param {Pointer<VARIANT>} pvarBefore 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/add-urlacl
      */
     add(pElem, pvarBefore) {
-        result := ComCall(7, this, "ptr", pElem, "ptr", pvarBefore, "HRESULT")
+        result := ComCall(7, this, "ptr", pElem, "ptr", pvarBefore, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,9 +59,16 @@ class IHTMLSelectElement6 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +78,11 @@ class IHTMLSelectElement6 extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

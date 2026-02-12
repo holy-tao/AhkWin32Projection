@@ -3,7 +3,7 @@
 
 /**
  * Contains the software version number of a biometric service provider component.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-version
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-version
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

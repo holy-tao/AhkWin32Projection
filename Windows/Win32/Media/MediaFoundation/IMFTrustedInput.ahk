@@ -5,7 +5,7 @@
 
 /**
  * Implemented by components that provide input trust authorities (ITAs). This interface is used to get the ITA for each of the component's streams.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftrustedinput
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imftrustedinput
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class IMFTrustedInput extends IUnknown{
      * Retrieves the input trust authority (ITA) for a specified stream.
      * @param {Integer} dwStreamID The stream identifier for which the ITA is being requested.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested. Currently the only supported value is IID_IMFInputTrustAuthority.
-     * @returns {IUnknown} Receives a pointer to the ITA's <b>IUnknown</b> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftrustedinput-getinputtrustauthority
+     * @returns {Pointer<IUnknown>} Receives a pointer to the ITA's <b>IUnknown</b> interface. The caller must release the interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftrustedinput-getinputtrustauthority
      */
     GetInputTrustAuthority(dwStreamID, riid) {
-        result := ComCall(3, this, "uint", dwStreamID, "ptr", riid, "ptr*", &ppunkObject := 0, "HRESULT")
-        return IUnknown(ppunkObject)
+        result := ComCall(3, this, "uint", dwStreamID, "ptr", riid, "ptr*", &ppunkObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunkObject
     }
 }

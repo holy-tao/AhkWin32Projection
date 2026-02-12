@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Beep
@@ -10,12 +12,12 @@ class Beep {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DD_BEEP_DEVICE_NAME => "\Device\Beep"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DD_BEEP_DEVICE_NAME_U => "\Device\Beep"
 

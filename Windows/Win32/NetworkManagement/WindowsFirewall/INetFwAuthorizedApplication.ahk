@@ -7,15 +7,12 @@
 /**
  * The INetFwAuthorizedApplication interface provides access to the properties of an application that has been authorized have openings in the firewall.
  * @remarks
- * 
  * When creating new applications, this interface is supported by the HNetCfg.FwAuthorizedApplication COM object.  
  * 
  * For reading or modifying existing applications, instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplications">INetFwAuthorizedApplications</a> collection.
  * 
  * All configuration changes take effect immediately.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwauthorizedapplication
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nn-netfw-inetfwauthorizedapplication
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -95,116 +92,127 @@ class INetFwAuthorizedApplication extends IDispatch{
     }
 
     /**
-     * Specifies the friendly name of this application.
+     * Specifies the friendly name of this application. (Get)
      * @remarks
-     * 
      * This property is required.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-get_name
      */
     get_Name() {
         name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * Specifies the friendly name of this application.
+     * Specifies the friendly name of this application. (Put)
      * @remarks
-     * 
      * This property is required.
-     * 
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-put_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-put_name
      */
     put_Name(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", name, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies the process image file name for this application.
+     * Specifies the process image file name for this application. (Get)
      * @remarks
-     * 
      * The image file name must be a fully qualified path and reference an existing application.  The name may contain environment variables.
      * 
      * This property is required.
      * 
      * A demonstration of this property can be found in the VBScript code example <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/wf-adding-an-application">Adding an Application</a>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-get_processimagefilename
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-get_processimagefilename
      */
     get_ProcessImageFileName() {
         imageFileName := BSTR()
-        result := ComCall(9, this, "ptr", imageFileName, "HRESULT")
+        result := ComCall(9, this, "ptr", imageFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return imageFileName
     }
 
     /**
-     * Specifies the process image file name for this application.
+     * Specifies the process image file name for this application. (Put)
      * @remarks
-     * 
      * The image file name must be a fully qualified path and reference an existing application.  The name may contain environment variables.
      * 
      * This property is required.
      * 
      * A demonstration of this property can be found in the VBScript code example <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ics/wf-adding-an-application">Adding an Application</a>.
-     * 
-     * 
      * @param {BSTR} imageFileName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-put_processimagefilename
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-put_processimagefilename
      */
     put_ProcessImageFileName(imageFileName) {
-        imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
+        if(imageFileName is String) {
+            pin := BSTR.Alloc(imageFileName)
+            imageFileName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", imageFileName, "HRESULT")
+        result := ComCall(10, this, "ptr", imageFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies the IP version setting for this application.
+     * Specifies the IP version setting for this application. (Get)
      * @remarks
-     * 
      * Only <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_ip_version">NET_FW_IP_VERSION_ANY</a> is supported and this is the default for new applications.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-get_ipversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-get_ipversion
      */
     get_IpVersion() {
-        result := ComCall(11, this, "int*", &ipVersion := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &ipVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ipVersion
     }
 
     /**
-     * Specifies the IP version setting for this application.
+     * Specifies the IP version setting for this application. (Put)
      * @remarks
-     * 
      * Only <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_ip_version">NET_FW_IP_VERSION_ANY</a> is supported and this is the default for new applications.
-     * 
-     * 
      * @param {Integer} ipVersion 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-put_ipversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-put_ipversion
      */
     put_IpVersion(ipVersion) {
-        result := ComCall(12, this, "int", ipVersion, "HRESULT")
+        result := ComCall(12, this, "int", ipVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Controls the network scope from which the port can listen.
+     * Controls the network scope from which the port can listen. (INetFwAuthorizedApplication.get_Scope)
      * @remarks
-     * 
      * When setting the
      *    Scope property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
      *    
@@ -213,20 +221,21 @@ class INetFwAuthorizedApplication extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwauthorizedapplication-get_remoteaddresses">RemoteAddresses</a> property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-get_scope
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-get_scope
      */
     get_Scope() {
-        result := ComCall(13, this, "int*", &scope := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &scope := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return scope
     }
 
     /**
-     * Controls the network scope from which the port can listen.
+     * Controls the network scope from which the port can listen. (INetFwAuthorizedApplication.put_Scope)
      * @remarks
-     * 
      * When setting the
      *    Scope property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
      *    
@@ -235,21 +244,22 @@ class INetFwAuthorizedApplication extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwauthorizedapplication-get_remoteaddresses">RemoteAddresses</a> property.
-     * 
-     * 
      * @param {Integer} scope 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-put_scope
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-put_scope
      */
     put_Scope(scope) {
-        result := ComCall(14, this, "int", scope, "HRESULT")
+        result := ComCall(14, this, "int", scope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies a set of the remote addresses from which the application can listen for traffic.
+     * Specifies a set of the remote addresses from which the application can listen for traffic. (Get)
      * @remarks
-     * 
      * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
      * 
      * Valid tokens:
@@ -267,21 +277,22 @@ class INetFwAuthorizedApplication extends IDispatch{
      * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
      * </ul>
      * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwauthorizedapplication-get_scope">Scope</a> property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-get_remoteaddresses
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-get_remoteaddresses
      */
     get_RemoteAddresses() {
         remoteAddrs := BSTR()
-        result := ComCall(15, this, "ptr", remoteAddrs, "HRESULT")
+        result := ComCall(15, this, "ptr", remoteAddrs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return remoteAddrs
     }
 
     /**
-     * Specifies a set of the remote addresses from which the application can listen for traffic.
+     * Specifies a set of the remote addresses from which the application can listen for traffic. (Put)
      * @remarks
-     * 
      * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
      * 
      * Valid tokens:
@@ -299,51 +310,58 @@ class INetFwAuthorizedApplication extends IDispatch{
      * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
      * </ul>
      * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwauthorizedapplication-get_scope">Scope</a> property.
-     * 
-     * 
      * @param {BSTR} remoteAddrs 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-put_remoteaddresses
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-put_remoteaddresses
      */
     put_RemoteAddresses(remoteAddrs) {
-        remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
+        if(remoteAddrs is String) {
+            pin := BSTR.Alloc(remoteAddrs)
+            remoteAddrs := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", remoteAddrs, "HRESULT")
+        result := ComCall(16, this, "ptr", remoteAddrs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates whether the settings for this application are currently enabled.
+     * Indicates whether the settings for this application are currently enabled. (Get)
      * @remarks
-     * 
      * This property can be set to false (<b>VARIANT_FALSE</b>) to allow application  settings to be stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplications">INetFWAuthorizedApplications</a> collection without actually authorizing the application. 
      * 
      * The default value is true (<b>VARIANT_TRUE</b>) for new applications.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-get_enabled
      */
     get_Enabled() {
-        result := ComCall(17, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &enabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return enabled
     }
 
     /**
-     * Indicates whether the settings for this application are currently enabled.
+     * Indicates whether the settings for this application are currently enabled. (Put)
      * @remarks
-     * 
      * This property can be set to false (<b>VARIANT_FALSE</b>) to allow application  settings to be stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplications">INetFWAuthorizedApplications</a> collection without actually authorizing the application. 
      * 
      * The default value is true (<b>VARIANT_TRUE</b>) for new applications.
-     * 
-     * 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplication-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwauthorizedapplication-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(18, this, "short", enabled, "HRESULT")
+        result := ComCall(18, this, "short", enabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

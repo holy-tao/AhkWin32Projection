@@ -7,12 +7,8 @@
 /**
  * The IADsResource interface is a dual interface that inherits from IADs. It is designed to manage an open resource for a file service across a network.
  * @remarks
- * 
  * When a remote user opens a folder or a subfolder on a public share point on the target computer, ADSI considers this folder to be an open resource and represents it with a resource object that implements this interface.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsresource
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsresource
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -71,7 +67,11 @@ class IADsResource extends IADs{
      */
     get_User() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -81,7 +81,11 @@ class IADsResource extends IADs{
      */
     get_UserPath() {
         retval := BSTR()
-        result := ComCall(21, this, "ptr", retval, "HRESULT")
+        result := ComCall(21, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -91,7 +95,11 @@ class IADsResource extends IADs{
      */
     get_Path() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -100,7 +108,11 @@ class IADsResource extends IADs{
      * @returns {Integer} 
      */
     get_LockCount() {
-        result := ComCall(23, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

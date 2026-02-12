@@ -6,7 +6,7 @@
 
 /**
  * Enumerates names.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-ienumnames
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-ienumnames
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumNames extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * Retrieves the specified number of items in the enumeration sequence. (IEnumNames.Next)
      * @param {Integer} celt The number of name values being requested.
      * @param {Pointer<BSTR>} rgname An array in which the name values are to be returned and which must be of at least the size defined in the <i>celt</i> parameter.
      * @param {Pointer<Integer>} pceltFetched The number of elements returned in <i>rgname</i>, or <b>NULL</b>.
@@ -66,17 +66,21 @@ class IEnumNames extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ienumnames-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-ienumnames-next
      */
     Next(celt, rgname, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgname, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr", rgname, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * Skips over the specified number of items in the enumeration sequence. (IEnumNames.Skip)
      * @param {Integer} celt The number of elements to be skipped.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
@@ -108,15 +112,23 @@ class IEnumNames extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ienumnames-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-ienumnames-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumNames.Reset)
+     * @remarks
+     * You can use the S_FALSE return value as an optimization to detect an empty enumeration.
+     * 
+     * A call to this method, resetting the sequence, does not guarantee that the same set of objects will be enumerated after the reset, because the collection may have changed.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>
@@ -147,20 +159,28 @@ class IEnumNames extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ienumnames-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-ienumnames-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates an enumerator that contains the same enumeration state as the current one.
+     * Creates an enumerator that contains the same enumeration state as the current one. (IEnumNames.Clone)
      * @returns {IEnumNames} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-ienumnames">IEnumNames</a> interface on the enumeration object.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ienumnames-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-ienumnames-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumNames(ppenum)
     }
 }

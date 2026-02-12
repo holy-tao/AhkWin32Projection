@@ -74,7 +74,11 @@ class IHTMLFrameBase2 extends IDispatch{
      * @returns {IHTMLWindow2} 
      */
     get_contentWindow() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -84,7 +88,11 @@ class IHTMLFrameBase2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +102,11 @@ class IHTMLFrameBase2 extends IDispatch{
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -104,7 +116,11 @@ class IHTMLFrameBase2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,7 +130,11 @@ class IHTMLFrameBase2 extends IDispatch{
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -124,7 +144,11 @@ class IHTMLFrameBase2 extends IDispatch{
      */
     get_readyState() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -134,7 +158,11 @@ class IHTMLFrameBase2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_allowTransparency(v) {
-        result := ComCall(13, this, "short", v, "HRESULT")
+        result := ComCall(13, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +171,11 @@ class IHTMLFrameBase2 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_allowTransparency() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

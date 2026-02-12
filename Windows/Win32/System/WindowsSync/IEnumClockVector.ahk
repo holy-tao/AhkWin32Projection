@@ -7,7 +7,7 @@
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ienumclockvector
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ienumclockvector
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,17 +37,21 @@ class IEnumClockVector extends IUnknown{
      * @param {Integer} cClockVectorElements The number of clock vector elements to retrieve in the range of zero to 1000.
      * @param {Pointer<Integer>} pcFetched Returns the number of clock vector elements that were retrieved. This value can be <b>NULL</b> if <i>cClockVectorElements</i> is 1; otherwise, it cannot be <b>NULL</b>.
      * @returns {IClockVectorElement} Returns the next <i>pcFetched</i> clock vector elements.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumclockvector-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumclockvector-next
      */
     Next(cClockVectorElements, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", &ppiClockVectorElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", &ppiClockVectorElements := 0, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IClockVectorElement(ppiClockVectorElements)
     }
 
     /**
-     * Skips the specified number of clock vector elements.
+     * Skips the specified number of clock vector elements. (IEnumClockVector.Skip)
      * @param {Integer} cSyncVersions The number of elements to skip.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -87,15 +91,19 @@ class IEnumClockVector extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumclockvector-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumclockvector-skip
      */
     Skip(cSyncVersions) {
-        result := ComCall(4, this, "uint", cSyncVersions, "HRESULT")
+        result := ComCall(4, this, "uint", cSyncVersions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumerator to the beginning of the clock vector.
+     * Resets the enumerator to the beginning of the clock vector. (IEnumClockVector.Reset)
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -115,20 +123,28 @@ class IEnumClockVector extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumclockvector-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumclockvector-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one. (IEnumClockVector.Clone)
      * @returns {IEnumClockVector} Returns the newly cloned enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumclockvector-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumclockvector-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppiEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppiEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumClockVector(ppiEnum)
     }
 }

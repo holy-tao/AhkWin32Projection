@@ -5,7 +5,7 @@
 
 /**
  * The IHeaderCtrl2 interface is introduced in MMC 1.2.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-iheaderctrl2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nn-mmc-iheaderctrl2
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -34,42 +34,64 @@ class IHeaderCtrl2 extends IHeaderCtrl{
      * The IHeaderCtrl2::SetChangeTimeOut sets the time-out interval between the time a change takes place in the filter attributes and the posting of an MMCN_FILTER_CHANGE filter change notification, which is sent to the snap-in's IComponent::Notify method.
      * @param {Integer} uTimeout Filter change interval in milliseconds. The default is an implementation detail of the header control, and as a result MMC does not know about it.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl2-setchangetimeout
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iheaderctrl2-setchangetimeout
      */
     SetChangeTimeOut(uTimeout) {
-        result := ComCall(9, this, "uint", uTimeout, "HRESULT")
+        result := ComCall(9, this, "uint", uTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IHeaderCtrl2::SetColumnFilter sets the filter value and its maximum character length for a specified column in a filtered list.
+     * @remarks
+     * For both setting and reading filter values, the snap-in owns the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_filterdata">MMC_FILTERDATA</a> structure and any text buffer.
+     * 
+     * If the snap-in does not explicitly set the filter data for a column in a filtered list by calling <b>IHeaderCtrl2::SetColumnFilter</b>, the filter type defaults to MMC_STRING_FILTER with no default value for the filter (MMC_FILTER_NOVALUE). The default length of the filter is not documented by the Win32 header control, but it is of sufficient length for most likely user inputs. If the snap-in requires a specific length, it should call <b>IHeaderCtrl2::SetColumnFilter</b>.
      * @param {Integer} nColumn A zero-based index that identifies the column for which the filter value and its maximum character length are to be set.
      * @param {Integer} dwType Filter type to apply to the specified column, taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_filter_type">MMC_FILTER_TYPE</a> enumeration.
      * @param {Pointer<MMC_FILTERDATA>} pFilterData A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_filterdata">MMC_FILTERDATA</a> structure that holds the actual filter data.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl2-setcolumnfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iheaderctrl2-setcolumnfilter
      */
     SetColumnFilter(nColumn, dwType, pFilterData) {
-        result := ComCall(10, this, "uint", nColumn, "uint", dwType, "ptr", pFilterData, "HRESULT")
+        result := ComCall(10, this, "uint", nColumn, "uint", dwType, "ptr", pFilterData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IHeaderCtrl2::GetColumnFilter method retrieves the filter value set on the specified column.
+     * @remarks
+     * For both setting and reading filter values, the snap-in owns the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_filterdata">MMC_FILTERDATA</a> structure and any text buffer.
+     * 
+     * When reading a filter value, if the filter type specified by the snap-in does not match the current type, the <b>IHeaderCtrl2::GetColumnFilter</b> method will return <b>E_FAIL</b>. On receiving an <b>E_FAIL</b>, the values returned by the method are undefined.
      * @param {Integer} nColumn A zero-based index that identifies the column for which the filter value and its maximum character length are to be retrieved.
      * @param {Pointer<Integer>} pdwType A pointer to a variable of type <b>DWORD</b> that can take one of the possible filter values specified in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_filter_type">MMC_FILTER_TYPE</a> enumeration. The filter type for the specified column is placed in the address pointed to by <i>pdwType</i>.
      * @param {Pointer<MMC_FILTERDATA>} pFilterData A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_filterdata">MMC_FILTERDATA</a> structure that holds the actual filter data.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl2-getcolumnfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-iheaderctrl2-getcolumnfilter
      */
     GetColumnFilter(nColumn, pdwType, pFilterData) {
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", nColumn, pdwTypeMarshal, pdwType, "ptr", pFilterData, "HRESULT")
+        result := ComCall(11, this, "uint", nColumn, pdwTypeMarshal, pdwType, "ptr", pFilterData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

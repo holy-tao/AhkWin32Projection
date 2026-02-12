@@ -31,7 +31,7 @@
  * The route metric specified in the <b>Metric</b> member of the  <b>MIB_IPFORWARD_ROW2</b> structure represents just the route metric offset. The complete metric is a combination of this route metric  offset added to the interface metric specified in the <b>Metric</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structure of the associated interface.  An application can retrieve the interface metric by calling the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-getipinterfaceentry">GetIpInterfaceEntry</a> function.
  * 
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipforward_row2
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-mib_ipforward_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

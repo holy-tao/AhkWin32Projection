@@ -6,7 +6,7 @@
 
 /**
  * Provides additional information about an object's context, supplementing the information that is available through the ContextInfo interface.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-contextinfo2
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-contextinfo2
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -40,33 +40,45 @@ class ContextInfo2 extends ContextInfo{
     /**
      * Retrieves the GUID of the COM+ partition of the current object context.
      * @returns {BSTR} A reference to the partition identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo2-getpartitionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo2-getpartitionid
      */
     GetPartitionId() {
         __MIDL__ContextInfo20000 := BSTR()
-        result := ComCall(12, this, "ptr", __MIDL__ContextInfo20000, "HRESULT")
+        result := ComCall(12, this, "ptr", __MIDL__ContextInfo20000, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__ContextInfo20000
     }
 
     /**
      * Retrieves the GUID of the application of the current object context.
      * @returns {BSTR} A reference to the application identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo2-getapplicationid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo2-getapplicationid
      */
     GetApplicationId() {
         __MIDL__ContextInfo20001 := BSTR()
-        result := ComCall(13, this, "ptr", __MIDL__ContextInfo20001, "HRESULT")
+        result := ComCall(13, this, "ptr", __MIDL__ContextInfo20001, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__ContextInfo20001
     }
 
     /**
      * Retrieves the GUID of the application instance of the current object context.
      * @returns {BSTR} A reference to the application instance identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo2-getapplicationinstanceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo2-getapplicationinstanceid
      */
     GetApplicationInstanceId() {
         __MIDL__ContextInfo20002 := BSTR()
-        result := ComCall(14, this, "ptr", __MIDL__ContextInfo20002, "HRESULT")
+        result := ComCall(14, this, "ptr", __MIDL__ContextInfo20002, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__ContextInfo20002
     }
 }

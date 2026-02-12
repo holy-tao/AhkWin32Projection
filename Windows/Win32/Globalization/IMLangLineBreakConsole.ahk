@@ -43,7 +43,11 @@ class IMLangLineBreakConsole extends IUnknown{
         plLineLenMarshal := plLineLen is VarRef ? "int*" : "ptr"
         plSkipLenMarshal := plSkipLen is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSrcMLStr, "int", lSrcPos, "int", lSrcLen, "int", cMinColumns, "int", cMaxColumns, plLineLenMarshal, plLineLen, plSkipLenMarshal, plSkipLen, "HRESULT")
+        result := ComCall(3, this, "ptr", pSrcMLStr, "int", lSrcPos, "int", lSrcLen, "int", cMinColumns, "int", cMaxColumns, plLineLenMarshal, plLineLen, plSkipLenMarshal, plSkipLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +67,11 @@ class IMLangLineBreakConsole extends IUnknown{
         pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
         pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", locale, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
+        result := ComCall(4, this, "uint", locale, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +92,11 @@ class IMLangLineBreakConsole extends IUnknown{
         pcchLineMarshal := pcchLine is VarRef ? "int*" : "ptr"
         pcchSkipMarshal := pcchSkip is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", locale, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "HRESULT")
+        result := ComCall(5, this, "uint", locale, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, pcchLineMarshal, pcchLine, pcchSkipMarshal, pcchSkip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

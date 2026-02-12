@@ -4,6 +4,10 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * Retrieves the unique identifiers of all nodes belonging to the IInkAnalysisNode object.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/uwp/api/windows.ui.input.inking.analysis.iinkanalysisnode.getstrokeids
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

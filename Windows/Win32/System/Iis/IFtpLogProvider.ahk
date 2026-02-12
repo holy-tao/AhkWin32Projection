@@ -29,12 +29,17 @@ class IFtpLogProvider extends IUnknown{
     static VTableNames => ["Log"]
 
     /**
-     * 
+     * Get guidance from F1 Help for frequently displayed columns, permissions, and other options for Log File Viewer in SQL Server.
      * @param {Pointer<LOGGING_PARAMETERS>} pLoggingParameters 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/logs/log-file-viewer-f1-help
      */
     Log(pLoggingParameters) {
-        result := ComCall(3, this, "ptr", pLoggingParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pLoggingParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

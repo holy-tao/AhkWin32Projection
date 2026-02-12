@@ -5,7 +5,7 @@
  * Specifies codecs for Direct3D 12 video encoding.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_codec
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_codec
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

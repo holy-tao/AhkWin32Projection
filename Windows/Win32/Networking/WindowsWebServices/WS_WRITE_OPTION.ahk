@@ -3,7 +3,7 @@
 
 /**
  * Specifies whether a storage specified contains the value, or a pointer to the value, and whether the value can be represented as nil in the XML content.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_write_option
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_write_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

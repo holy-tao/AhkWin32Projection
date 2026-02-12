@@ -5,7 +5,7 @@
  * MOUSE_UNIT_ID_PARAMETER specifies a unit ID that Mouclass assigns to a mouse.
  * @remarks
  * Although this structure is used with an <a href="https://docs.microsoft.com/windows/desktop/api/ntddmou/ni-ntddmou-ioctl_mouse_query_attributes">IOCTL_MOUSE_QUERY_ATTRIBUTES</a> request, Mouclass does not use the <b>UnitId</b> value.
- * @see https://learn.microsoft.com/windows/win32/api/ntddmou/ns-ntddmou-mouse_unit_id_parameter
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntddmou/ns-ntddmou-mouse_unit_id_parameter
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Defines a mappable single-dimensional vertex buffer.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1vertexbuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nn-d2d1effectauthor-id2d1vertexbuffer
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,21 +32,29 @@ class ID2D1VertexBuffer extends IUnknown{
 
     /**
      * Maps the provided data into user memory.
+     * @remarks
+     * If <i>data</i> is larger than <i>bufferSize</i>, this method fails.
      * @param {Integer} bufferSize Type: <b>UINT32</b>
      * 
      * The desired size of the buffer.
      * @returns {Pointer<Integer>} Type: <b>const BYTE**</b>
      * 
      * When this method returns, contains the address of a pointer to the available buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-map
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-map
      */
     Map(bufferSize) {
-        result := ComCall(3, this, "ptr*", &data := 0, "uint", bufferSize, "HRESULT")
+        result := ComCall(3, this, "ptr*", &data := 0, "uint", bufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return data
     }
 
     /**
      * Unmaps the vertex buffer.
+     * @remarks
+     * After this method returns, the mapped memory from the vertex buffer is no longer accessible by the effect.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
@@ -66,10 +74,14 @@ class ID2D1VertexBuffer extends IUnknown{
      * <td>The object was not in the correct state to process the method.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-unmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1vertexbuffer-unmap
      */
     Unmap() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

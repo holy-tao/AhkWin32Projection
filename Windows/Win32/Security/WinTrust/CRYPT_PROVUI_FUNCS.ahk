@@ -8,7 +8,7 @@
  * 
  * 
  * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provui_funcs
+ * @see https://learn.microsoft.com/windows/win32/api//content/wintrust/ns-wintrust-crypt_provui_funcs
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
  */

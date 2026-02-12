@@ -5,7 +5,7 @@
  * Contains values indicating status that is specific to a particular command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_command_specific_codes
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_status_command_specific_codes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

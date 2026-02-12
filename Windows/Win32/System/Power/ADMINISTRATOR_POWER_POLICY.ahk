@@ -11,7 +11,7 @@
  * 
  * To set an administrator override policy, call the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-callntpowerinformation">CallNtPowerInformation</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-administrator_power_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-administrator_power_policy
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

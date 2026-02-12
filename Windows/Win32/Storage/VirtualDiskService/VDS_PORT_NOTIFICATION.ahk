@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_PORT_NOTIFICATION structure (vdshwprv.h) defines the details of controller port events.
+ * The VDS_PORT_NOTIFICATION structure (vds.h) defines the details of controller port events.
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_notification">VDS_NOTIFICATION</a> structure includes this 
  *     structure as a member.
@@ -13,7 +13,7 @@
  *     method.
  * 
  * To get the port object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontrollerport-getproperties">IVdsControllerPort::GetProperties</a> method to get the port properties.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_port_notification
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_port_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -7,7 +7,6 @@
 /**
  * The IADsAccessControlList interface is a dual interface that manages individual access-control entries (ACEs).
  * @remarks
- * 
  * An access-control list (ACL) is a collection of ACEs that can provide more specific access control to the same ADSI object for different clients. In general, different providers implement different access controls and therefore the behavior of the object is specific to the provider.  For more information, see  the provider documentation. For more information about Microsoft providers, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-system-providers">ADSI System Providers</a>. Currently, only the LDAP provider supports access controls.
  * 
  * Before you can work with an object ACE, first obtain the ACL to which they belong. ACLs are managed by security descriptors and can be of either discretionary ACL and system ACL. For more information, see 
@@ -30,10 +29,7 @@
  * <li>Third, commit the security descriptor to the directory store.</li>
  * </ol>
  * For more information about DACLs, see <a href="https://docs.microsoft.com/windows/desktop/AD/null-dacls-and-empty-dacls">Null DACLs and Empty DACLs</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsaccesscontrollist
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsaccesscontrollist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -86,7 +82,11 @@ class IADsAccessControlList extends IDispatch{
      * @returns {Integer} 
      */
     get_AclRevision() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -96,7 +96,11 @@ class IADsAccessControlList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AclRevision(lnAclRevision) {
-        result := ComCall(8, this, "int", lnAclRevision, "HRESULT")
+        result := ComCall(8, this, "int", lnAclRevision, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +109,11 @@ class IADsAccessControlList extends IDispatch{
      * @returns {Integer} 
      */
     get_AceCount() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -115,18 +123,37 @@ class IADsAccessControlList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AceCount(lnAceCount) {
-        result := ComCall(10, this, "int", lnAceCount, "HRESULT")
+        result := ComCall(10, this, "int", lnAceCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsAccessControlList::AddAce method adds an IADsAccessControlEntry object to the IADsAccessControlList object.
+     * @remarks
+     * Access control entries must appear in the following order in a security descriptor's access control list:
+     * 
+     * <ul>
+     * <li>Access-denied ACEs that apply to the object itself</li>
+     * <li>Access-denied ACEs that apply to a child of the object, such as a property set or property</li>
+     * <li>Access-allowed ACEs that apply to the object itself</li>
+     * <li>Access-allowed ACEs that apply to a child of the object, such as a property set or property</li>
+     * <li>All inherited ACEs</li>
+     * </ul>
+     * This method adds the ACE to the front of the ACL, which does not necessarily result in correct ordering.
      * @param {IDispatch} pAccessControlEntry Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface of the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsaccesscontrolentry">IADsAccessControlEntry</a> object to be added. This parameter cannot be <b>NULL</b>.
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-addace
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsaccesscontrollist-addace
      */
     AddAce(pAccessControlEntry) {
-        result := ComCall(11, this, "ptr", pAccessControlEntry, "HRESULT")
+        result := ComCall(11, this, "ptr", pAccessControlEntry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,32 +162,48 @@ class IADsAccessControlList extends IDispatch{
      * @param {IDispatch} pAccessControlEntry Pointer to the <b>IDispatch</b> interface of the ACE to be removed from the ACL.
      * @returns {HRESULT} This method returns standard return values.
      * 
-     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-removeace
+     * For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsaccesscontrollist-removeace
      */
     RemoveAce(pAccessControlEntry) {
-        result := ComCall(12, this, "ptr", pAccessControlEntry, "HRESULT")
+        result := ComCall(12, this, "ptr", pAccessControlEntry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsAccessControlList::CopyAccessList method copies every access control entry (ACE) in the access-control list (ACL) to the caller's process space.
+     * @remarks
+     * The caller must call <b>Release</b> on the copy of ACEs through their <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> pointers.
      * @returns {IDispatch} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer to an ACL as the copy of the original access list. If this parameter is <b>NULL</b> on return, no copies of the ACL could be made.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-copyaccesslist
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsaccesscontrollist-copyaccesslist
      */
     CopyAccessList() {
-        result := ComCall(13, this, "ptr*", &ppAccessControlList := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppAccessControlList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppAccessControlList)
     }
 
     /**
      * The IADsAccessControlList::get__NewEnum method is used to obtain an enumerator object for the ACL to enumerate ACEs.
+     * @remarks
+     * Be aware  that there are two underscores in <b>get__NewEnum</b>.
      * @returns {IUnknown} Pointer to pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface used to retrieve
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on an enumerator object for the ACL.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsaccesscontrollist-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 }

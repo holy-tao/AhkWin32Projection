@@ -22,7 +22,7 @@ class CompositionSwapchain {
      * @returns {Pointer<Pointer<Void>>} Type: **[void](/windows/desktop/winprog/windows-data-types)\*\***
      * 
      * The address of a pointer to an interface with the IID specified in the *riid* parameter.
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-createpresentationfactory
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-createpresentationfactory
      */
     static CreatePresentationFactory(d3dDevice, riid) {
         result := DllCall("dcomp.dll\CreatePresentationFactory", "ptr", d3dDevice, "ptr", riid, "ptr*", &presentationFactory := 0, "int")

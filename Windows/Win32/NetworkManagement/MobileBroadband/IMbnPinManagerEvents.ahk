@@ -6,7 +6,6 @@
 /**
  * Notification interface used to indicate when PIN Manager events have occurred.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnpinmanagerevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nn-mbnapi-imbnpinmanagerevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,17 +43,26 @@ class IMbnPinManagerEvents extends IUnknown{
 
     /**
      * Notification method called by the Mobile Broadband service to indicate that the list of device PINs is available.
+     * @remarks
+     * This method is called by the Mobile Broadband service to notify an application when the list of supported PIN types is available or if a PIN list retrieval operation resulted in an error. The calling application can issue the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinlist">GetPinList</a> method of the passed <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> to get the available list of supported PINs or error code returned in the operation.
      * @param {IMbnPinManager} pinManager Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> interface that represents the Mobile Broadband device for which the PIN list is available.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinmanagerevents-onpinlistavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnpinmanagerevents-onpinlistavailable
      */
     OnPinListAvailable(pinManager) {
-        result := ComCall(3, this, "ptr", pinManager, "HRESULT")
+        result := ComCall(3, this, "ptr", pinManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notification method called by the Mobile Broadband service to indicate the completion of an asynchronous operation triggered by a call to the GetPinState method of IMbnPinManager.
+     * @remarks
+     * This method is called by the Mobile Broadband service to notify an application of the  completion of an asynchronous operation triggered by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinstate">GetPinState</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a>.    
+     * On successful completion, <i>pinInfo</i> contains information about PIN next expected by the device.
      * @param {IMbnPinManager} pinManager Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnpinmanager">IMbnPinManager</a> interface that represents the Mobile Broadband device for which the operation was performed.
      * @param {MBN_PIN_INFO} pinInfo A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_pin_info">MBN_PIN_INFO</a> structure that contains the device PIN information.
      * 
@@ -68,12 +75,16 @@ class IMbnPinManagerEvents extends IUnknown{
      * 
      * If <b>pinInfo.pinState</b> is set to <b>MBN_PIN_STATE_ENTER</b> or <b>MBN_PIN_STATE_UNBLOCK</b>, then <b>pinInfo.attemptsRemaining</b> contains the number of attempts remaining to enter a valid PIN or PIN unblock key (PUK). If the number of attempts remaining is unknown then <b>pinInfo.attemptsRemaining</b> is set to <b>MBN_ATTEMPTS_REMAINING_UNKNOWN</b>.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify this operation.
-     * @param {HRESULT} status The operation completion status.
+     * @param {HRESULT} status_ The operation completion status.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnpinmanagerevents-ongetpinstatecomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnpinmanagerevents-ongetpinstatecomplete
      */
-    OnGetPinStateComplete(pinManager, pinInfo, requestID, status) {
-        result := ComCall(4, this, "ptr", pinManager, "ptr", pinInfo, "uint", requestID, "int", status, "HRESULT")
+    OnGetPinStateComplete(pinManager, pinInfo, requestID, status_) {
+        result := ComCall(4, this, "ptr", pinManager, "ptr", pinInfo, "uint", requestID, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

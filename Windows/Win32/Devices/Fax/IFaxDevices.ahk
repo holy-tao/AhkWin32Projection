@@ -8,10 +8,8 @@
 /**
  * The IFaxDevices interface defines a collection used by a fax client application to manage fax devices, where each device is represented by a FaxDevice object.
  * @remarks
- * 
  * A default implementation of <b>IFaxDevices</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevices">FaxDevices</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxdevices
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxdevices
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -58,53 +56,75 @@ class IFaxDevices extends IDispatch{
 
     /**
      * The IFaxDevices::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the FaxDevices collection.
+     * @remarks
+     * In Microsoft Visual Basic, you do not need to use the <b>_NewEnum</b> property, because it is automatically used in the implementation of <b>For Each ... Next</b>.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * Receives an indirect pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdevices-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxdevices-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
     /**
      * The IFaxDevices::get_Item method returns a FaxDevice object from the FaxDevices collection, using its index.
+     * @remarks
+     * To retrieve an item from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevices">FaxDevices</a> collection using the device ID, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nf-faxcomex-ifaxdevices-get_itembyid">IFaxDevices::get_ItemById</a> property.
      * @param {VARIANT} vIndex Type: <b>VARIANT</b>
      * 
      * <b>VARIANT</b> that specifies the index of the item to retrieve from the fax device collection. If this parameter is type VT_I2 or VT_I4, the parameter specifies the index of the item to retrieve from the collection. Valid values for the index are in the range from 1 to n, where n is the number of devices returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevices-count-vb">IFaxDevices::get_Count</a> method. If this parameter is type VT_BSTR, the parameter is a string containing the unique name of the fax device to retrieve. Other types are not supported.
      * @returns {IFaxDevice} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdevice">IFaxDevice</a>**</b>
      * 
      * Receives the address of a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice">FaxDevice</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdevices-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxdevices-get_item
      */
     get_Item(vIndex) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxDevice := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxDevice(pFaxDevice)
     }
 
     /**
      * The IFaxDevices::get_Count property represents the number of objects in the FaxDevices collection. This is the total number of devices used by the fax server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdevices-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxdevices-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
      * The IFaxDevices::get_ItemById method returns a FaxDevice object from the FaxDevices collection, using its device ID.
+     * @remarks
+     * To retrieve an item from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevices">FaxDevices</a> collection using the device's index, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevices-item">Item</a> property.
      * @param {Integer} lId Type: <b>long</b>
      * 
      * The unique ID of the device to retrieve.
      * @returns {IFaxDevice} Type: <b>ppFaxDevice**</b>
      * 
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice">FaxDevice</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdevices-get_itembyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxdevices-get_itembyid
      */
     get_ItemById(lId) {
-        result := ComCall(10, this, "int", lId, "ptr*", &ppFaxDevice := 0, "HRESULT")
+        result := ComCall(10, this, "int", lId, "ptr*", &ppFaxDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxDevice(ppFaxDevice)
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * This interface inherits from the IWdsTransportConfigurationManager interface and extends it with configuration settings, such as multicast session policy, that are available beginning with Windows Server 2008 R2.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransportconfigurationmanager2
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -41,10 +41,14 @@ class IWdsTransportConfigurationManager2 extends IWdsTransportConfigurationManag
     /**
      * Receives an interface pointer to the Configuration Manager’s Multicast Session Policy object. This object can be used to configure multicast session parameters that are available beginning with Windows Server 2008 R2.
      * @returns {IWdsTransportMulticastSessionPolicy} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager2-get_multicastsessionpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager2-get_multicastsessionpolicy
      */
     get_MulticastSessionPolicy() {
-        result := ComCall(16, this, "ptr*", &ppWdsTransportMulticastSessionPolicy := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppWdsTransportMulticastSessionPolicy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWdsTransportMulticastSessionPolicy(ppWdsTransportMulticastSessionPolicy)
     }
 }

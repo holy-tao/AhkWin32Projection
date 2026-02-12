@@ -29,7 +29,11 @@ class IPrintBidiAsyncNotifyRegistration extends IPrintAsyncNotifyRegistration{
      * @returns {HRESULT} 
      */
     AsyncGetNewChannel(param0) {
-        result := ComCall(5, this, "ptr", param0, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

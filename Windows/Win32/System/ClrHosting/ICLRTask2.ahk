@@ -33,7 +33,11 @@ class ICLRTask2 extends ICLRTask{
      * @returns {HRESULT} 
      */
     BeginPreventAsyncAbort() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class ICLRTask2 extends ICLRTask{
      * @returns {HRESULT} 
      */
     EndPreventAsyncAbort() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

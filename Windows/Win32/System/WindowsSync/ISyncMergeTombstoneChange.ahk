@@ -38,7 +38,11 @@ class ISyncMergeTombstoneChange extends IUnknown{
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbWinnerItemIdMarshal, pbWinnerItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(3, this, pbWinnerItemIdMarshal, pbWinnerItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

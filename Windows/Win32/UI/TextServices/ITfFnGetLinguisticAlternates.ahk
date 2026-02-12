@@ -6,7 +6,7 @@
 
 /**
  * The ITfFnGetLinguisticAlternates interface is implemented by a text service and/or by the TSF manager to provide linguistic alternates for the text within a given range passed as a parameter.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffngetlinguisticalternates
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffngetlinguisticalternates
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class ITfFnGetLinguisticAlternates extends ITfFunction{
     /**
      * Returns a list of alternate strings for a given text range.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers the text to return alternates for.
-     * @returns {ITfCandidateList} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatelist">ITfCandidateList</a> pointer that receives the list object containing alternate strings.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffngetlinguisticalternates-getalternates
+     * @returns {Pointer<ITfCandidateList>} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatelist">ITfCandidateList</a> pointer that receives the list object containing alternate strings.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffngetlinguisticalternates-getalternates
      */
     GetAlternates(pRange) {
-        result := ComCall(4, this, "ptr", pRange, "ptr*", &ppCandidateList := 0, "HRESULT")
-        return ITfCandidateList(ppCandidateList)
+        result := ComCall(4, this, "ptr", pRange, "ptr*", &ppCandidateList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppCandidateList
     }
 }

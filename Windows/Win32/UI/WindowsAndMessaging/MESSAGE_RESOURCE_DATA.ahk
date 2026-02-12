@@ -7,7 +7,7 @@
  * @remarks
  * A <b>MESSAGE_RESOURCE_DATA</b> structure can contain one or more 
  * 				<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-message_resource_block">MESSAGE_RESOURCE_BLOCK</a> structures, which can each contain one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-message_resource_entry">MESSAGE_RESOURCE_ENTRY</a> structures.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-message_resource_data
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

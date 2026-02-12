@@ -32,28 +32,40 @@ class IDebugHost extends IUnknown{
 
     /**
      * 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetHostDefinedInterface() {
-        result := ComCall(3, this, "ptr*", &hostUnk := 0, "HRESULT")
-        return IUnknown(hostUnk)
+        result := ComCall(3, this, "ptr*", &hostUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return hostUnk
     }
 
     /**
      * 
-     * @returns {IDebugHostContext} 
+     * @returns {Pointer<IDebugHostContext>} 
      */
     GetCurrentContext() {
-        result := ComCall(4, this, "ptr*", &context := 0, "HRESULT")
-        return IDebugHostContext(context)
+        result := ComCall(4, this, "ptr*", &context_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return context_
     }
 
     /**
      * 
-     * @returns {IKeyStore} 
+     * @returns {Pointer<IKeyStore>} 
      */
     GetDefaultMetadata() {
-        result := ComCall(5, this, "ptr*", &defaultMetadataStore := 0, "HRESULT")
-        return IKeyStore(defaultMetadataStore)
+        result := ComCall(5, this, "ptr*", &defaultMetadataStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return defaultMetadataStore
     }
 }

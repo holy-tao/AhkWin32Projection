@@ -4,7 +4,7 @@
 
 /**
  * The SWbemRpnQueryToken structure represents the query tokens in a WMIQ_ANALYSIS_RPN_SEQUENCE type query. An example of a query token is the following:\_j &gt; 4.
- * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnquerytoken
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmiutils/ns-wmiutils-swbemrpnquerytoken
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

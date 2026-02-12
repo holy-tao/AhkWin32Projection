@@ -41,7 +41,11 @@ class IPMTaskInfoEnumerator extends IUnknown{
      * @returns {IPMTaskInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppTaskInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTaskInfo(ppTaskInfo)
     }
 }

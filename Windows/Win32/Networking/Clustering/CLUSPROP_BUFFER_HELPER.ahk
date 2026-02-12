@@ -21,7 +21,7 @@
  *      ending in 4h or C), which will cause an alignment fault when the data is read or written. You can avoid alignment 
  *      faults by handling the high and low parts of large values separately, or by using local variables, which are 
  *      guaranteed to be naturally aligned.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_buffer_helper
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clusprop_buffer_helper
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

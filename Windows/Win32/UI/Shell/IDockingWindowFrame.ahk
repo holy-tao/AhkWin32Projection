@@ -6,7 +6,6 @@
 /**
  * Exposes methods that support the addition of IDockingWindow objects to a frame. Implemented by the browser.
  * @remarks
- * 
  * <b>IDockingWindowFrame</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolewindow">IOleWindow</a>. See the following topics for details on these methods also available to <b>IDockingWindowFrame</b> through that inheritance.
  * 
  * <table class="clsStd">
@@ -31,8 +30,7 @@
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * You use <b>IDockingWindowFrame</b> to add, find, and remove docking window objects in a browser frame.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-idockingwindowframe
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nn-shlobj-idockingwindowframe
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -68,13 +66,17 @@ class IDockingWindowFrame extends IOleWindow{
      * @param {Integer} dwAddFlags Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idockingwindowframe-addtoolbar
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-idockingwindowframe-addtoolbar
      */
     AddToolbar(punkSrc, pwszItem, dwAddFlags) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
 
-        result := ComCall(5, this, "ptr", punkSrc, "ptr", pwszItem, "uint", dwAddFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", punkSrc, "ptr", pwszItem, "uint", dwAddFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,11 +88,15 @@ class IDockingWindowFrame extends IOleWindow{
      * @param {Integer} dwRemoveFlags Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idockingwindowframe-removetoolbar
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-idockingwindowframe-removetoolbar
      */
     RemoveToolbar(punkSrc, dwRemoveFlags) {
-        result := ComCall(6, this, "ptr", punkSrc, "uint", dwRemoveFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", punkSrc, "uint", dwRemoveFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,12 +111,16 @@ class IDockingWindowFrame extends IOleWindow{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a>. If an error occurs, this value receives a null pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-idockingwindowframe-findtoolbar
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-idockingwindowframe-findtoolbar
      */
     FindToolbar(pwszItem, riid) {
         pwszItem := pwszItem is String ? StrPtr(pwszItem) : pwszItem
 
-        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszItem, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

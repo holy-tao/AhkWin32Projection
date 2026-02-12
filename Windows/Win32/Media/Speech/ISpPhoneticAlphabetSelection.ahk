@@ -33,7 +33,11 @@ class ISpPhoneticAlphabetSelection extends IUnknown{
      * @returns {BOOL} 
      */
     IsAlphabetUPS() {
-        result := ComCall(3, this, "int*", &pfIsUPS := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfIsUPS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsUPS
     }
 
@@ -43,7 +47,11 @@ class ISpPhoneticAlphabetSelection extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAlphabetToUPS(fForceUPS) {
-        result := ComCall(4, this, "int", fForceUPS, "HRESULT")
+        result := ComCall(4, this, "int", fForceUPS, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

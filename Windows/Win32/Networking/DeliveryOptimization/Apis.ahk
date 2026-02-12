@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Networking.DeliveryOptimization
@@ -10,42 +12,42 @@ class DeliveryOptimization {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DecryptionInfo_KeyData => "KeyData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DecryptionInfo_EncryptionBufferSize => "EncryptionBufferSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DecryptionInfo_AlgorithmName => "AlgorithmName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DecryptionInfo_ChainingMode => "ChainingMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IntegrityCheckInfo_PiecesHashFileUrl => "PiecesHashFileUrl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IntegrityCheckInfo_PiecesHashFileDigest => "PiecesHashFileDigest"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IntegrityCheckInfo_PiecesHashFileDigestAlgorithm => "PiecesHashFileDigestAlgorithm"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IntegrityCheckInfo_HashOfHashes => "HashOfHashes"
 ;@endregion Constants

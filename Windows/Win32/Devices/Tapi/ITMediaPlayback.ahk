@@ -6,7 +6,7 @@
 
 /**
  * The ITMediaPlayback interface provides playback-specific methods that allow an application to set and get the list of files to play. This interface is created by calling QueryInterface on ITTerminal.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itmediaplayback
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itmediaplayback
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -47,11 +47,15 @@ class ITMediaPlayback extends IDispatch{
      * 
      * 
      * The VT_BSTR elements of the array contain the names of the files to play. The file name extension is used to determine the type of file. Currently, the supported file name extensions are .avi and .wav.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediaplayback-put_playlist
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediaplayback-put_playlist
      */
     put_PlayList(PlayListVariant) {
-        result := ComCall(7, this, "ptr", PlayListVariant, "HRESULT")
+        result := ComCall(7, this, "ptr", PlayListVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,11 +67,15 @@ class ITMediaPlayback extends IDispatch{
      * 
      * 
      * The VT_BSTR elements of the array contain the names of the files to play. The file name extension is used to specify the type of file. Currently, supported file name extensions are .avi and .wav.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediaplayback-get_playlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediaplayback-get_playlist
      */
     get_PlayList() {
         pPlayListVariant := VARIANT()
-        result := ComCall(8, this, "ptr", pPlayListVariant, "HRESULT")
+        result := ComCall(8, this, "ptr", pPlayListVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPlayListVariant
     }
 }

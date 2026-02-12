@@ -3,7 +3,7 @@
 
 /**
  * Specifies the common transcode encoding profile.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avenccommontranscodeencodingprofile
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avenccommontranscodeencodingprofile
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

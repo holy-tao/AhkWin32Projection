@@ -7,7 +7,7 @@
  * The DDCAPS_DX7 structure (ddraw.h) represents the capabilities of the hardware exposed through the DirectDraw object.
  * @remarks
  * For backward compatibility, the Ddraw.h header file contains multiple definitions of the DDCAPS structure. The version that passes the preprocessor is determined by the value of the DIRECTDRAW_VERSION constant.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddcaps_dx7
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/ns-ddraw-ddcaps_dx7
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

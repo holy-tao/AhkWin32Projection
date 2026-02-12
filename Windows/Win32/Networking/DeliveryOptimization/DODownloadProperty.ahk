@@ -5,7 +5,7 @@
  * Specifies the ID of properties for the Delivery Optimization download operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadproperty
+ * @see https://learn.microsoft.com/windows/win32/api//content/deliveryoptimization/ne-deliveryoptimization-dodownloadproperty
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  * @version v4.0.30319
  */

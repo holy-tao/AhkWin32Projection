@@ -6,7 +6,7 @@
 
 /**
  * Provides the methods for enumerating the tasks in the Scheduled Tasks folder.
- * @see https://docs.microsoft.com/windows/win32/api//mstask/nn-mstask-ienumworkitems
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstask/nn-mstask-ienumworkitems
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -33,6 +33,9 @@ class IEnumWorkItems extends IUnknown{
 
     /**
      * Retrieves the next specified number of tasks in the enumeration sequence.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ienumworkitems">IEnumWorkItems</a> interface also provides methods for resetting the enumeration, skipping tasks, and making a copy of the current state of the enumeration.
      * @param {Integer} celt The number of tasks to retrieve.
      * @param {Pointer<Pointer<PWSTR>>} rgpwszNames A pointer to an array of pointers (<b>LPWSTR</b>) to <b>null</b>-terminated character strings containing the file names of the tasks returned from the enumeration sequence. These file names are taken from the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/s">Scheduled Tasks folder</a> and have the ".job" extension.
      * 
@@ -90,7 +93,7 @@ class IEnumWorkItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ienumworkitems-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/mstask/nf-mstask-ienumworkitems-next
      */
     Next(celt, rgpwszNames, pceltFetched) {
         rgpwszNamesMarshal := rgpwszNames is VarRef ? "ptr*" : "ptr"
@@ -102,6 +105,9 @@ class IEnumWorkItems extends IUnknown{
 
     /**
      * Skips the next specified number of tasks in the enumeration sequence.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ienumworkitems">IEnumWorkItems</a> interface also provides methods for retrieving sets of tasks, resetting the enumeration sequence, and making a copy of the current state of the enumeration.
      * @param {Integer} celt The number of tasks to be skipped.
      * @returns {HRESULT} Returns one of the following values.
      * 
@@ -144,7 +150,7 @@ class IEnumWorkItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ienumworkitems-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/mstask/nf-mstask-ienumworkitems-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -152,7 +158,12 @@ class IEnumWorkItems extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumWorkItems.Reset)
+     * @remarks
+     * A call to this method does not guarantee that the same set of tasks will be enumerated after the enumeration sequence is reset. Tasks may have been added to or deleted from the collection while you were enumerating the list.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ienumworkitems">IEnumWorkItems</a> interface also provides methods for retrieving sets of tasks, skipping sets of tasks, and making a copy of the current state of the enumeration.
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -183,21 +194,32 @@ class IEnumWorkItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ienumworkitems-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mstask/nf-mstask-ienumworkitems-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a new enumeration object that contains the same enumeration state as the current enumeration.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ienumworkitems">IEnumWorkItems</a> interface also provides methods for retrieving sets of tasks, skipping sets of tasks, and resetting the enumeration sequence.
      * @returns {IEnumWorkItems} A pointer to a pointer to a new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ienumworkitems">IEnumWorkItems</a> interface. This pointer will point to the newly created enumeration. If the method fails, this parameter is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ienumworkitems-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/mstask/nf-mstask-ienumworkitems-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnumWorkItems := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnumWorkItems := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumWorkItems(ppEnumWorkItems)
     }
 }

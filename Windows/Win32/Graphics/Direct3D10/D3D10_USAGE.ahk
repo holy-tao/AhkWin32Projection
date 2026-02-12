@@ -105,7 +105,7 @@
  * <li>3 - If bound as an input and an output using different views, each view must use different <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresources</a>.</li>
  * <li>4 - The resource can only be created with a single <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">subresource</a>. The resource cannot be a texture array. The resource cannot be a mipmap chain.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_usage
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_usage
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

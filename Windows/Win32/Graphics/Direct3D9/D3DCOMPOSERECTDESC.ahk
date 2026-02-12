@@ -5,7 +5,7 @@
  * Specifies the rectangle used to enclose glyphs on a monochrome surface.
  * @remarks
  * This structure is used in calls to [**ComposeRects**](/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-composerects) to enclose glyphs on the source surface. A vertex buffer (see [**IDirect3DVertexBuffer9**](/windows/win32/api/d3d9helper/nn-d3d9helper-idirect3dvertexbuffer9)) filled with these structures are created to contain the glyph locations. USHORT members are used to reduce the memory footprint as much as possible.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dcomposerectdesc
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dcomposerectdesc
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

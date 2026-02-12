@@ -6,7 +6,7 @@
  * Contains fields that specify the information in a Device Self Test log page that describes the status, completion percentage, and results of a device self-test.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_log
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_device_self_test_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

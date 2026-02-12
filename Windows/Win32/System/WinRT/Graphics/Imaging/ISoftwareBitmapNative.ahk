@@ -4,8 +4,8 @@
 #Include ..\..\IInspectable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.imaging.interop/nn-windows-graphics-imaging-interop-isoftwarebitmapnative
+ * Represents a software bitmap.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.graphics.imaging.interop/nn-windows-graphics-imaging-interop-isoftwarebitmapnative
  * @namespace Windows.Win32.System.WinRT.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -31,12 +31,19 @@ class ISoftwareBitmapNative extends IInspectable{
     static VTableNames => ["GetData"]
 
     /**
-     * 
+     * GetDataProviderDSO Method
+     * @remarks
+     * This method does not addref the interface pointer. If the caller plans to hold the pointer, the caller must do the required addref and release.
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getdataproviderdso-method
      */
     GetData(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

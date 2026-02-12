@@ -3018,13 +3018,13 @@ class Sensors {
 
     /**
      * 
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} Buffer_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static SerializationBufferFree(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+    static SerializationBufferFree(Buffer_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
 
-        DllCall("SensorsUtilsV2.dll\SerializationBufferFree", Buffer_RMarshal, Buffer_R)
+        DllCall("SensorsUtilsV2.dll\SerializationBufferFree", Buffer_Marshal, Buffer_)
     }
 
     /**
@@ -3125,12 +3125,12 @@ class Sensors {
     /**
      * 
      * @param {Pointer<Guid>} members 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Pointer<PROPVARIANT>} ppropvar 
      * @returns {HRESULT} 
      */
-    static InitPropVariantFromCLSIDArray(members, size, ppropvar) {
-        result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", "ptr", members, "uint", size, "ptr", ppropvar, "int")
+    static InitPropVariantFromCLSIDArray(members, size_, ppropvar) {
+        result := DllCall("SensorsUtilsV2.dll\InitPropVariantFromCLSIDArray", "ptr", members, "uint", size_, "ptr", ppropvar, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

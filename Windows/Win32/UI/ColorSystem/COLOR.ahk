@@ -24,7 +24,7 @@
  * `aColor.rgb.green=50;`
  * 
  * `aColor.rgb.blue=2;`
- * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-color
+ * @see https://learn.microsoft.com/windows/win32/api//content/icm/ns-icm-color
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

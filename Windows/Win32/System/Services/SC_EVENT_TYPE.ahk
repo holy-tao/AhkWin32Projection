@@ -3,7 +3,7 @@
 
 /**
  * Indicates a type of service status change for monitoring and reporting.
- * @see https://learn.microsoft.com/windows/win32/Services/sc-event-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Services/sc-event-type
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

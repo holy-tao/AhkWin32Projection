@@ -29,18 +29,23 @@ class ICLRProbingAssemblyEnum extends IUnknown{
     static VTableNames => ["Get"]
 
     /**
-     * 
+     * Get Mutual Kerberos Authentication
      * @param {Integer} dwIndex 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBufferSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-odbc-how-to/get-mutual-kerberos-authentication
      */
     Get(dwIndex, pwzBuffer, pcchBufferSize) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer
 
         pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwIndex, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
+        result := ComCall(3, this, "uint", dwIndex, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Specifies constraints on the set of values which can be deserialized. (WS_BOOL_DESCRIPTION)
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_bool_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_bool_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

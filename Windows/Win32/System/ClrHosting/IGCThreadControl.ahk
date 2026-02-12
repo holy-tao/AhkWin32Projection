@@ -33,7 +33,11 @@ class IGCThreadControl extends IUnknown{
      * @returns {HRESULT} 
      */
     ThreadIsBlockingForSuspension() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IGCThreadControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SuspensionStarting() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IGCThreadControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SuspensionEnding(Generation) {
-        result := ComCall(5, this, "uint", Generation, "HRESULT")
+        result := ComCall(5, this, "uint", Generation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

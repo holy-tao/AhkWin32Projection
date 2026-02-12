@@ -34,7 +34,11 @@ class IVisualInteractionSourceInterop extends IUnknown{
      * @returns {HRESULT} 
      */
     TryRedirectForManipulation(pointerInfo) {
-        result := ComCall(3, this, "ptr", pointerInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pointerInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

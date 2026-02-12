@@ -49,7 +49,11 @@ class ISVGAnimatedPoints extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_points(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +62,11 @@ class ISVGAnimatedPoints extends IDispatch{
      * @returns {ISVGPointList} 
      */
     get_points() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPointList(p)
     }
 
@@ -68,7 +76,11 @@ class ISVGAnimatedPoints extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_animatedPoints(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +89,11 @@ class ISVGAnimatedPoints extends IDispatch{
      * @returns {ISVGPointList} 
      */
     get_animatedPoints() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPointList(p)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Represents a service for managing associations between a contact and a viewport.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
@@ -35,21 +35,31 @@ class IDirectManipulationDeferContactService extends IUnknown{
      * @param {Integer} pointerId The ID of the pointer.
      * @param {Integer} timeout The duration of the deferral, in milliseconds. The maximum value is 500.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-defercontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-defercontact
      */
     DeferContact(pointerId, timeout) {
-        result := ComCall(3, this, "uint", pointerId, "uint", timeout, "HRESULT")
+        result := ComCall(3, this, "uint", pointerId, "uint", timeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Cancel all scheduled calls to SetContact for this pointerId.
+     * @remarks
+     * This function fails if the timeout specified in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-defercontact">DeferContact</a> has already been reached.
      * @param {Integer} pointerId The ID of the pointer.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-cancelcontact
+     * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-cancelcontact
      */
     CancelContact(pointerId) {
-        result := ComCall(4, this, "uint", pointerId, "HRESULT")
+        result := ComCall(4, this, "uint", pointerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,10 +67,14 @@ class IDirectManipulationDeferContactService extends IUnknown{
      * Cancel the deferral set in DeferContact and process the scheduled SetContact call for this pointerId.
      * @param {Integer} pointerId The ID of the pointer.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-canceldeferral
+     * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/nf-directmanipulation-idirectmanipulationdefercontactservice-canceldeferral
      */
     CancelDeferral(pointerId) {
-        result := ComCall(5, this, "uint", pointerId, "HRESULT")
+        result := ComCall(5, this, "uint", pointerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

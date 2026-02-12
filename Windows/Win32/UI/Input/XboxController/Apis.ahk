@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
@@ -10,17 +12,17 @@ class XboxController {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XINPUT_DLL_A => "xinput1_4.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XINPUT_DLL_W => "xinput1_4.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static XINPUT_DLL => "xinput1_4.dll"
 
@@ -52,7 +54,7 @@ class XboxController {
      * 
      * 
      * If the function fails, the return value is an error code defined in Winerror.h. The function does not use <b>SetLastError</b> to set the calling thread's last-error code.
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputgetstate
      */
     static XInputGetState(dwUserIndex, pState) {
         result := DllCall("xinput1_4.dll\XInputGetState", "uint", dwUserIndex, "ptr", pState, "uint")
@@ -68,7 +70,7 @@ class XboxController {
      * If the controller is not connected, the return value is <b>ERROR_DEVICE_NOT_CONNECTED</b>.
      * 
      * If the function fails, the return value is an error code defined in WinError.h. The function does not use <i>SetLastError</i> to set the calling thread's last-error code.
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputsetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputsetstate
      */
     static XInputSetState(dwUserIndex, pVibration) {
         result := DllCall("xinput1_4.dll\XInputSetState", "uint", dwUserIndex, "ptr", pVibration, "uint")
@@ -106,7 +108,7 @@ class XboxController {
      * 
      * 
      * If the function fails, the return value is an error code defined in WinError.h. The function does not use <i>SetLastError</i> to set the calling thread's last-error code.
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputgetcapabilities
      */
     static XInputGetCapabilities(dwUserIndex, dwFlags, pCapabilities) {
         result := DllCall("xinput1_4.dll\XInputGetCapabilities", "uint", dwUserIndex, "uint", dwFlags, "ptr", pCapabilities, "uint")
@@ -132,7 +134,7 @@ class XboxController {
      * Windows 8 (XInput 1.4), DirectX SDK (XInput 1.3)
      * @param {BOOL} enable If enable is <b>FALSE</b>, XInput will only send neutral data in response to <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputgetstate">XInputGetState</a> (all buttons up, axes centered, and triggers at 0). <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputsetstate">XInputSetState</a> calls will be registered but not sent to the device. Sending any value other than <b>FALSE </b> will restore reading and writing functionality to normal.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputenable
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputenable
      */
     static XInputEnable(enable) {
         DllCall("xinput1_4.dll\XInputEnable", "int", enable)
@@ -160,7 +162,7 @@ class XboxController {
      * 
      * 
      * If the function fails, it will return a valid Win32 error code.
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetaudiodeviceids
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputgetaudiodeviceids
      */
     static XInputGetAudioDeviceIds(dwUserIndex, pRenderDeviceId, pRenderCount, pCaptureDeviceId, pCaptureCount) {
         pRenderDeviceId := pRenderDeviceId is String ? StrPtr(pRenderDeviceId) : pRenderDeviceId
@@ -179,7 +181,7 @@ class XboxController {
      * @param {Integer} devType Specifies which device associated with this user index should be queried. Must be <b>BATTERY_DEVTYPE_GAMEPAD</b> or <b>BATTERY_DEVTYPE_HEADSET</b>.
      * @param {Pointer<XINPUT_BATTERY_INFORMATION>} pBatteryInformation Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xinput/ns-xinput-xinput_battery_information">XINPUT_BATTERY_INFORMATION</a> structure that receives the battery information.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetbatteryinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputgetbatteryinformation
      */
     static XInputGetBatteryInformation(dwUserIndex, devType, pBatteryInformation) {
         result := DllCall("xinput1_4.dll\XInputGetBatteryInformation", "uint", dwUserIndex, "char", devType, "ptr", pBatteryInformation, "uint")
@@ -204,7 +206,7 @@ class XboxController {
      * If the controller is not connected or the user has not activated it, the return value is <b>ERROR_DEVICE_NOT_CONNECTED</b>. See the Remarks section below.
      * 
      * If the function fails, the return value is an error code defined in Winerror.h. The function does not use <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> to set the calling thread's last-error code.
-     * @see https://learn.microsoft.com/windows/win32/api/xinput/nf-xinput-xinputgetkeystroke
+     * @see https://learn.microsoft.com/windows/win32/api//content/xinput/nf-xinput-xinputgetkeystroke
      */
     static XInputGetKeystroke(dwUserIndex, pKeystroke) {
         static dwReserved := 0 ;Reserved parameters must always be NULL

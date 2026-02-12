@@ -34,7 +34,11 @@ class IProvideExpressionContexts extends IUnknown{
      * @returns {IEnumDebugExpressionContexts} 
      */
     EnumExpressionContexts() {
-        result := ComCall(3, this, "ptr*", &ppedec := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppedec := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDebugExpressionContexts(ppedec)
     }
 }

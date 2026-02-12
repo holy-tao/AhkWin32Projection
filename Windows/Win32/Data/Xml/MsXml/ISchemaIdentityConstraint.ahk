@@ -58,7 +58,11 @@ class ISchemaIdentityConstraint extends ISchemaItem{
      */
     get_selector() {
         selector := BSTR()
-        result := ComCall(14, this, "ptr", selector, "HRESULT")
+        result := ComCall(14, this, "ptr", selector, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return selector
     }
 
@@ -67,7 +71,11 @@ class ISchemaIdentityConstraint extends ISchemaItem{
      * @returns {ISchemaStringCollection} 
      */
     get_fields() {
-        result := ComCall(15, this, "ptr*", &fields := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &fields := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaStringCollection(fields)
     }
 
@@ -76,7 +84,11 @@ class ISchemaIdentityConstraint extends ISchemaItem{
      * @returns {ISchemaIdentityConstraint} 
      */
     get_referencedKey() {
-        result := ComCall(16, this, "ptr*", &key := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &key := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaIdentityConstraint(key)
     }
 }

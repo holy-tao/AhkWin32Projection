@@ -18,7 +18,7 @@
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getnetworkparams">GetNetworkParams</a> function and the 
  *      <b>FIXED_INFO</b> structure are supported on  Windows 98and later. But to build an application for a target platform earlier than Windows 2000 with Service Pack 1 (SP1), an earlier version of the Platform Software Development Kit (SDK)  must be used.
- * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-fixed_info_w2ksp1
+ * @see https://learn.microsoft.com/windows/win32/api//content/iptypes/ns-iptypes-fixed_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
  * Contains printer driver information.
  * @remarks
  * The strings for these members are contained in the .inf file that is used to add the driver.
- * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-8
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/driver-info-8
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

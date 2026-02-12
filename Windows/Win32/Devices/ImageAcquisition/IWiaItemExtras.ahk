@@ -7,7 +7,6 @@
 /**
  * The IWiaItemExtras interface provides several methods that enable applications to communicate with hardware drivers.
  * @remarks
- * 
  * The <b>IWiaItemExtras</b> interface, like all Component Object Model (COM) interfaces, inherits the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface methods. 
  * 
  * <table class="clsStd">
@@ -34,8 +33,7 @@
  * <td>Decrements reference count.</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwiaitemextras
+ * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nn-wia_xp-iwiaitemextras
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -62,14 +60,20 @@ class IWiaItemExtras extends IUnknown{
 
     /**
      * The IWiaItemExtras::GetExtendedErrorInfo method gets a string from the device driver that contains information about the most recent error.
+     * @remarks
+     * Applications must call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function to free the string to which <i>bstrErrorText</i> points.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Pointer to a string that contains the error information.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitemextras-getextendederrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitemextras-getextendederrorinfo
      */
     GetExtendedErrorInfo() {
         bstrErrorText := BSTR()
-        result := ComCall(3, this, "ptr", bstrErrorText, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrErrorText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrErrorText
     }
 
@@ -95,27 +99,37 @@ class IWiaItemExtras extends IUnknown{
      * Receives the number of bytes actually written to <i>pOutData</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitemextras-escape
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitemextras-escape
      */
     Escape(dwEscapeCode, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualDataSize) {
         lpInDataMarshal := lpInData is VarRef ? "char*" : "ptr"
         pOutDataMarshal := pOutData is VarRef ? "char*" : "ptr"
         pdwActualDataSizeMarshal := pdwActualDataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwEscapeCode, lpInDataMarshal, lpInData, "uint", cbInDataSize, pOutDataMarshal, pOutData, "uint", dwOutDataSize, pdwActualDataSizeMarshal, pdwActualDataSize, "HRESULT")
+        result := ComCall(4, this, "uint", dwEscapeCode, lpInDataMarshal, lpInData, "uint", cbInDataSize, pOutDataMarshal, pOutData, "uint", dwOutDataSize, pdwActualDataSizeMarshal, pdwActualDataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IWiaItemExtras::CancelPendingIO method cancels all pending input/output operations on the driver.
+     * @remarks
+     * Drivers are not required to support this method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitemextras-cancelpendingio
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitemextras-cancelpendingio
      */
     CancelPendingIO() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

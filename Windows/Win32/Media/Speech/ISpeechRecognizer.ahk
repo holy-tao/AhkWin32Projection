@@ -99,7 +99,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_Recognizer(Recognizer) {
-        result := ComCall(7, this, "ptr", Recognizer, "HRESULT")
+        result := ComCall(7, this, "ptr", Recognizer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +112,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechObjectToken} 
      */
     get_Recognizer() {
-        result := ComCall(8, this, "ptr*", &Recognizer := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &Recognizer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectToken(Recognizer)
     }
 
@@ -118,7 +126,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AllowAudioInputFormatChangesOnNextSet(Allow) {
-        result := ComCall(9, this, "short", Allow, "HRESULT")
+        result := ComCall(9, this, "short", Allow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +139,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioInputFormatChangesOnNextSet() {
-        result := ComCall(10, this, "short*", &Allow := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &Allow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Allow
     }
 
@@ -137,7 +153,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AudioInput(AudioInput) {
-        result := ComCall(11, this, "ptr", AudioInput, "HRESULT")
+        result := ComCall(11, this, "ptr", AudioInput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +166,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechObjectToken} 
      */
     get_AudioInput() {
-        result := ComCall(12, this, "ptr*", &AudioInput := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &AudioInput := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectToken(AudioInput)
     }
 
@@ -156,7 +180,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AudioInputStream(AudioInputStream) {
-        result := ComCall(13, this, "ptr", AudioInputStream, "HRESULT")
+        result := ComCall(13, this, "ptr", AudioInputStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -165,7 +193,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechBaseStream} 
      */
     get_AudioInputStream() {
-        result := ComCall(14, this, "ptr*", &AudioInputStream := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &AudioInputStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechBaseStream(AudioInputStream)
     }
 
@@ -174,7 +206,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsShared() {
-        result := ComCall(15, this, "short*", &Shared := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &Shared := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Shared
     }
 
@@ -184,7 +220,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_State(State) {
-        result := ComCall(16, this, "int", State, "HRESULT")
+        result := ComCall(16, this, "int", State, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +233,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(17, this, "int*", &State := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &State := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return State
     }
 
@@ -202,17 +246,25 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechRecognizerStatus} 
      */
     get_Status() {
-        result := ComCall(18, this, "ptr*", &Status := 0, "HRESULT")
-        return ISpeechRecognizerStatus(Status)
+        result := ComCall(18, this, "ptr*", &Status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ISpeechRecognizerStatus(Status_)
     }
 
     /**
      * 
-     * @param {ISpeechObjectToken} Profile 
+     * @param {ISpeechObjectToken} Profile_ 
      * @returns {HRESULT} 
      */
-    putref_Profile(Profile) {
-        result := ComCall(19, this, "ptr", Profile, "HRESULT")
+    putref_Profile(Profile_) {
+        result := ComCall(19, this, "ptr", Profile_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,8 +273,12 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechObjectToken} 
      */
     get_Profile() {
-        result := ComCall(20, this, "ptr*", &Profile := 0, "HRESULT")
-        return ISpeechObjectToken(Profile)
+        result := ComCall(20, this, "ptr*", &Profile_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ISpeechObjectToken(Profile_)
     }
 
     /**
@@ -233,7 +289,11 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     EmulateRecognition(TextElements, ElementDisplayAttributes, LanguageId) {
-        result := ComCall(21, this, "ptr", TextElements, "ptr", ElementDisplayAttributes, "int", LanguageId, "HRESULT")
+        result := ComCall(21, this, "ptr", TextElements, "ptr", ElementDisplayAttributes, "int", LanguageId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -242,17 +302,26 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechRecoContext} 
      */
     CreateRecoContext() {
-        result := ComCall(22, this, "ptr*", &NewContext := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &NewContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechRecoContext(NewContext)
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
      * @param {Integer} Type 
      * @returns {ISpeechAudioFormat} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecprops-getformatprop
      */
     GetFormat(Type) {
-        result := ComCall(23, this, "int", Type, "ptr*", &Format := 0, "HRESULT")
+        result := ComCall(23, this, "int", Type, "ptr*", &Format := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioFormat(Format)
     }
 
@@ -263,9 +332,16 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     SetPropertyNumber(Name, Value) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", Name, "int", Value, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", Name, "int", Value, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
@@ -276,11 +352,18 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     GetPropertyNumber(Name, Value) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
         ValueMarshal := Value is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, "ptr", Name, ValueMarshal, Value, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", Name, ValueMarshal, Value, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
@@ -291,10 +374,20 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     SetPropertyString(Name, Value) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", Name, "ptr", Value, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", Name, "ptr", Value, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
@@ -305,9 +398,16 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     GetPropertyString(Name, Value) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", Name, "ptr", Value, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", Name, "ptr", Value, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
@@ -318,9 +418,16 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     IsUISupported(TypeOfUI, ExtraData) {
-        TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
+        if(TypeOfUI is String) {
+            pin := BSTR.Alloc(TypeOfUI)
+            TypeOfUI := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
@@ -333,10 +440,20 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {HRESULT} 
      */
     DisplayUI(hWndParent, Title, TypeOfUI, ExtraData) {
-        Title := Title is String ? BSTR.Alloc(Title).Value : Title
-        TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
+        if(Title is String) {
+            pin := BSTR.Alloc(Title)
+            Title := pin.Value
+        }
+        if(TypeOfUI is String) {
+            pin := BSTR.Alloc(TypeOfUI)
+            TypeOfUI := pin.Value
+        }
 
-        result := ComCall(29, this, "int", hWndParent, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "HRESULT")
+        result := ComCall(29, this, "int", hWndParent, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -347,10 +464,20 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechObjectTokens} 
      */
     GetRecognizers(RequiredAttributes, OptionalAttributes) {
-        RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
-        OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
+        if(RequiredAttributes is String) {
+            pin := BSTR.Alloc(RequiredAttributes)
+            RequiredAttributes := pin.Value
+        }
+        if(OptionalAttributes is String) {
+            pin := BSTR.Alloc(OptionalAttributes)
+            OptionalAttributes := pin.Value
+        }
 
-        result := ComCall(30, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectTokens(ObjectTokens)
     }
 
@@ -361,24 +488,68 @@ class ISpeechRecognizer extends IDispatch{
      * @returns {ISpeechObjectTokens} 
      */
     GetAudioInputs(RequiredAttributes, OptionalAttributes) {
-        RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
-        OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
+        if(RequiredAttributes is String) {
+            pin := BSTR.Alloc(RequiredAttributes)
+            RequiredAttributes := pin.Value
+        }
+        if(OptionalAttributes is String) {
+            pin := BSTR.Alloc(OptionalAttributes)
+            OptionalAttributes := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectTokens(ObjectTokens)
     }
 
     /**
+     * Retrieves the path to the root directory where user profiles are stored. (Unicode)
+     * @remarks
+     * The following is an example of the path returned by <b>GetProfilesDirectory</b> in Windows XP:
      * 
+     * 
+     * ``` syntax
+     * C:\Documents and Settings
+     * ```
+     * 
+     * The following is an example of the path returned by <b>GetProfilesDirectory</b> in Windows 7:
+     * 
+     * 
+     * ``` syntax
+     * C:\Users
+     * ```
+     * 
+     * To obtain the paths of subdirectories of this directory, use the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetfolderpatha">SHGetFolderPath</a> (Windows XP and earlier) or <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath">SHGetKnownFolderPath</a> (Windows Vista) function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The userenv.h header defines GetProfilesDirectory as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
      * @returns {ISpeechObjectTokens} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getprofilesdirectoryw
      */
     GetProfiles(RequiredAttributes, OptionalAttributes) {
-        RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
-        OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
+        if(RequiredAttributes is String) {
+            pin := BSTR.Alloc(RequiredAttributes)
+            RequiredAttributes := pin.Value
+        }
+        if(OptionalAttributes is String) {
+            pin := BSTR.Alloc(OptionalAttributes)
+            OptionalAttributes := pin.Value
+        }
 
-        result := ComCall(32, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectTokens(ObjectTokens)
     }
 }

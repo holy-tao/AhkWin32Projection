@@ -18,7 +18,7 @@
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycounterinfo">PerfQueryCounterInfo</a> function gets a sequence of <b>PERF_COUNTER_IDENTIFIER</b> blocks to indicate the counter specifications in a query and to indicate in the <b>Index</b> member the
  * order in which the  query gets the results.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_identifier
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_counter_identifier
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

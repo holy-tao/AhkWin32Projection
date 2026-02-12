@@ -6,7 +6,7 @@
 
 /**
  * Presents share-specific information about cached items.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesshareinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefilesshareinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -34,32 +34,46 @@ class IOfflineFilesShareInfo extends IUnknown{
     /**
      * Finds the cache item representing the closest ancestor share to the item.
      * @returns {IOfflineFilesShareItem} Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesshareitem">IOfflineFilesShareItem</a> interface on the share item.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesshareinfo-getshareitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesshareinfo-getshareitem
      */
     GetShareItem() {
-        result := ComCall(3, this, "ptr*", &ppShareItem := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppShareItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOfflineFilesShareItem(ppShareItem)
     }
 
     /**
      * Retrieves the caching mode configuration of the closest ancestor share to the item.
+     * @remarks
+     * This method is equivalent to locating the nearest share item, obtaining its fully qualified UNC path and calling <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> for <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/ns-lmshare-share_info_1005">SHARE_INFO_1005</a> information.
      * @returns {Integer} Receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_caching_mode">OFFLINEFILES_CACHING_MODE</a> enumeration that indicates the caching mode.
      * 
      * The following values can be returned:
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode
      */
     GetShareCachingMode() {
-        result := ComCall(4, this, "int*", &pCachingMode := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pCachingMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCachingMode
     }
 
     /**
      * Determines whether the share item is a DFS junction or a shared folder on a server.
      * @returns {BOOL} Receives <b>TRUE</b> if the item is a DFS junction, or <b>FALSE</b> if the share is a shared folder (\\server\share) on a server.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesshareinfo-issharedfsjunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesshareinfo-issharedfsjunction
      */
     IsShareDfsJunction() {
-        result := ComCall(5, this, "int*", &pbIsDfsJunction := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pbIsDfsJunction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsDfsJunction
     }
 }

@@ -74,7 +74,11 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
      */
     GetInputEdgeDescription(inputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return edgeDescription
     }
 
@@ -84,7 +88,11 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
      * @returns {Integer} 
      */
     GetInputTensorDimensionCount(inputIndex) {
-        result := ComCall(12, this, "uint", inputIndex, "uint*", &dimensionCount := 0, "HRESULT")
+        result := ComCall(12, this, "uint", inputIndex, "uint*", &dimensionCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dimensionCount
     }
 
@@ -95,7 +103,11 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
      * @returns {Integer} 
      */
     GetInputTensorShape(inputIndex, dimensionCount) {
-        result := ComCall(13, this, "uint", inputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        result := ComCall(13, this, "uint", inputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dimensions
     }
 
@@ -109,7 +121,11 @@ class IMLOperatorShapeInferenceContext extends IMLOperatorAttributes{
     SetOutputTensorShape(outputIndex, dimensionCount, dimensions) {
         dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", outputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
+        result := ComCall(14, this, "uint", outputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,6 @@
 /**
  * Provides the methods and properties needed to configure and send HTTP requests and use callbacks to receive notifications during HTTP response processing. Note  This interface is supported on Windows Phone 8.1.  .
  * @remarks
- * 
  * The <b>IXMLHTTPRequest2</b> interface is extended by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest3">IXMLHTTPRequest3</a> interface. The <b>IXMLHTTPRequest3</b> inherits all the methods and properties of the <b>IXMLHTTPRequest2</b> interface.
  * 
  * The <b>IXMLHTTPRequest2</b> interface configures and sends HTTP request operations and uses  callbacks  to receive notifications  during response processing. The <b>IXMLHTTPRequest2</b> allows applications to run in a Multi Threaded Apartment (MTA), a requirement for running under the Windows Runtime (WinRT).
@@ -24,9 +23,7 @@
  * 
  * 
  * <b>IXMLHTTPRequest2</b> implements a callback model for event handling. Because <b>IXMLHTTPRequest2</b> methods allow only asynchronous method calls, to receive completion callbacks an application must pass a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2callback">IXMLHTTPRequest2Callback</a> object when it calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-open">IXMLHTTPRequest2::Open</a> method to create an HTTP request.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msxml6/nn-msxml6-ixmlhttprequest2
+ * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nn-msxml6-ixmlhttprequest2
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
@@ -53,6 +50,8 @@ class IXMLHTTPRequest2 extends IUnknown{
 
     /**
      * Initializes an IXMLHTTPRequest2 request and specifies the method, URL, and authentication information for the request. After calling this method, you must call the Send method to send the request and data, if any, to the server.
+     * @remarks
+     * Although this method accepts credentials passed via parameter, these credentials are not automatically sent to the server on the first request. The <i>pwszUserName</i> and <i>pwszPassword</i> parameters are not sent to the server unless the server challenges the client for credentials with a 401 - Unauthorized response.
      * @param {PWSTR} pwszMethod The HTTP method used to open the connection, such as <b>GET</b> or <b>POST</b>. For XMLHTTP, this parameter is not case-sensitive.
      * @param {PWSTR} pwszUrl The requested URL. This must be an absolute URL, such as "http://Myserver/Mypath/Myfile.asp".
      * @param {IXMLHTTPRequest2Callback} pStatusCallback A callback interface implemented by the app that is to receive callback events. 
@@ -63,7 +62,7 @@ class IXMLHTTPRequest2 extends IUnknown{
      * @param {PWSTR} pwszProxyUserName The name of the user for authentication on the proxy server. If this parameter is a Null or empty string and the site requires authentication, credentials will be managed by Windows, including displaying a logon UI, unless disabled by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-setproperty">SetProperty</a>.
      * @param {PWSTR} pwszProxyPassword The password for authentication on the proxy server. This parameter is ignored if the <i>pwszProxyUserName</i> parameter is Null or missing.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-open
      */
     Open(pwszMethod, pwszUrl, pStatusCallback, pwszUserName, pwszPassword, pwszProxyUserName, pwszProxyPassword) {
         pwszMethod := pwszMethod is String ? StrPtr(pwszMethod) : pwszMethod
@@ -73,34 +72,62 @@ class IXMLHTTPRequest2 extends IUnknown{
         pwszProxyUserName := pwszProxyUserName is String ? StrPtr(pwszProxyUserName) : pwszProxyUserName
         pwszProxyPassword := pwszProxyPassword is String ? StrPtr(pwszProxyPassword) : pwszProxyPassword
 
-        result := ComCall(3, this, "ptr", pwszMethod, "ptr", pwszUrl, "ptr", pStatusCallback, "ptr", pwszUserName, "ptr", pwszPassword, "ptr", pwszProxyUserName, "ptr", pwszProxyPassword, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszMethod, "ptr", pwszUrl, "ptr", pStatusCallback, "ptr", pwszUserName, "ptr", pwszPassword, "ptr", pwszProxyUserName, "ptr", pwszProxyPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends an HTTP request to the server asynchronously. On success, methods on the IXMLHTTPRequest2Callback interface implemented by the app are called to process the response.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-open">Open</a> method must be called before <b>Send</b> can be called successfully.
+     * 
+     * Because this method is asynchronous, it returns immediately before the request has started processing.  The application will be notified through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2callback">IXMLHTTPRequest2Callback</a> interface as progress is made in the request processing.
+     * 
+     * Alternatives to using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-isequentialstream">ISequentialStream</a>  for a POST request include <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shcreatememstream">SHCreateMemStream</a>/<a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shcreatestreamonfilea">SHCreateStreamOnFile</a> for desktop apps, and <a href="https://docs.microsoft.com/windows/desktop/api/shcore/nf-shcore-createstreamoverrandomaccessstream">CreateStreamOverRandomAccessStream</a> for Windows Store apps.
      * @param {ISequentialStream} pBody The body of the message being sent with the request. This stream is read in order to upload data for non-<b>GET</b> requests. For requests that do not require uploading, set this parameter to NULL.
      * @param {Integer} cbBody The length, in bytes, of the message being sent with the request. For requests that do not require uploading, set this parameter to 0.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-send
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-send
      */
     Send(pBody, cbBody) {
-        result := ComCall(4, this, "ptr", pBody, "uint", cbBody, "HRESULT")
+        result := ComCall(4, this, "ptr", pBody, "uint", cbBody, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Cancels the current HTTP request.
+     * @remarks
+     * After a request is aborted, the object representing the request is no longer valid.
+     * 
+     * This method is not guarantee to cancel a request. The app must still wait for to receive the <b>OnError</b> callback method that  indicates the request was  successfully aborted or the <b>OnResponseReceived</b> callback method that indicates the request was completed before the abort can be processed.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-abort
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-abort
      */
     Abort() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets a cookie associated with the specified URL in the HTTP cookie jar.
+     * @remarks
+     * The <b>SetCookie</b> method has different behavior for Windows Store apps and Windows desktop applications. 
+     * 
+     * When used in a Windows Store app, the <b>SetCookie</b> method  by default sets the cookie as a persistent cookie in the Windows Store app. When the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/msxml6/ns-msxml6-xhr_cookie">XHR_COOKIE</a> has the <b>XHR_COOKIE_IS_SESSION</b> flag set, then the cookie is set only for the current session of the app.
+     * 
+     * When used in a Windows desktop application, the <b>SetCookie</b> method  by default sets a persistent cookie that  is system wide and shared by all Windows desktop applications.   When the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/msxml6/ns-msxml6-xhr_cookie">XHR_COOKIE</a> has the <b>XHR_COOKIE_IS_SESSION</b> flag set, then the cookie is set only for the current session of the Windows desktop application.
      * @param {Pointer<XHR_COOKIE>} pCookie A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msxml6/ns-msxml6-xhr_cookie">XHR_COOKIE</a> structure that specifies the cookie and properties of the cookie to be associated with  the specified URL.
      * @returns {Integer} A pointer to a value that indicates the cookie state if the call completes successfully. 
      * 
@@ -184,26 +211,46 @@ class IXMLHTTPRequest2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-setcookie
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-setcookie
      */
     SetCookie(pCookie) {
-        result := ComCall(6, this, "ptr", pCookie, "uint*", &pdwCookieState := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pCookie, "uint*", &pdwCookieState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookieState
     }
 
     /**
      * Provides a custom stream to replace the standard stream for receiving an HTTP response.
+     * @remarks
+     * After this method is called, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2">IXMLHTTPRequest2</a> will call the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-write">ISequentialStream::Write</a> method when it receives response data from the server. You can begin processing the data at that time, but avoid heavy processing because the call is made inline to receiving further data from the server. Because this <b>IXMLHTTPRequest2</b> never calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">ISequentialStream::Read</a> on the custom stream, it is safe to return <b>E_NOTIMPL</b> if the application does not need to use <b>ISequentialStream::Read</b>.
      * @param {ISequentialStream} pSequentialStream Custom stream that will receive the HTTP response. <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-isequentialstream">ISequentialStream</a>
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-setcustomresponsestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-setcustomresponsestream
      */
     SetCustomResponseStream(pSequentialStream) {
-        result := ComCall(7, this, "ptr", pSequentialStream, "HRESULT")
+        result := ComCall(7, this, "ptr", pSequentialStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets a property on an outgoing HTTP request.
+     * @remarks
+     * The <b>SetProperty</b> method on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2">IXMLHTTPRequest2</a> interface is extended on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest3">IXMLHTTPRequest3</a> interface with new properties to support new scenarios:
+     * 
+     * 
+     * <ul>
+     * <li>XHR_PROP_NO_CACHE – Suppresses cache reads and writes for the HTTP request.</li>
+     * <li>XHR_PROP_EXTENDED_ERROR – Causes the HTTP stack to provide HRESULTS with the underlying Win32 error code to the OnError method in case of failure.</li>
+     * <li>XHR_PROP_QUERY_STRING_UTF8 – Causes the query string to be encoded in UTF-8 instead of ACP for HTTP request.</li>
+     * <li>XHR_PROP_IGNORE_CERT_ERRORS – Suppresses certain server certificate errors.</li>
+     * </ul>
      * @param {Integer} eProperty The following values are valid:
      * 
      * <table>
@@ -445,10 +492,14 @@ class IXMLHTTPRequest2 extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-setproperty
      */
     SetProperty(eProperty, ullValue) {
-        result := ComCall(8, this, "int", eProperty, "uint", ullValue, "HRESULT")
+        result := ComCall(8, this, "int", eProperty, "uint", ullValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -457,23 +508,35 @@ class IXMLHTTPRequest2 extends IUnknown{
      * @param {PWSTR} pwszHeader A case-insensitive header name.
      * @param {PWSTR} pwszValue Value of the specified header.
      * @returns {HRESULT} Returns <b>S_OK</b> on success.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-setrequestheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-setrequestheader
      */
     SetRequestHeader(pwszHeader, pwszValue) {
         pwszHeader := pwszHeader is String ? StrPtr(pwszHeader) : pwszHeader
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(9, this, "ptr", pwszHeader, "ptr", pwszValue, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszHeader, "ptr", pwszValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the values of all the HTTP response headers.
+     * @remarks
+     * Each header name/value pair is separated by a combination carriage return-line feed.
+     * 
+     * The returned response header information is only valid after the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onheadersavailable">OnHeadersAvailable</a> callback method has been called.
      * @returns {Pointer<Integer>} The returned header information. Free the memory used for this parameter using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-getallresponseheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-getallresponseheaders
      */
     GetAllResponseHeaders() {
-        result := ComCall(10, this, "ptr*", &ppwszHeaders := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppwszHeaders := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszHeaders
     }
 
@@ -485,7 +548,7 @@ class IXMLHTTPRequest2 extends IUnknown{
      * @param {Pointer<Integer>} pcCookies A count of cookies pointed to by the <i>ppCookies</i> if the call is successful.
      * @param {Pointer<Pointer<XHR_COOKIE>>} ppCookies A pointer to the cookies associated with the specified <i>pwszUrl</i> and <i>pwszName</i>.
      * @returns {HRESULT} Returns <b>S_OK</b> on success; <b>E_FAIL</b> indicates an error.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-getcookie
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-getcookie
      */
     GetCookie(pwszUrl, pwszName, dwFlags, pcCookies, ppCookies) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
@@ -494,20 +557,30 @@ class IXMLHTTPRequest2 extends IUnknown{
         pcCookiesMarshal := pcCookies is VarRef ? "uint*" : "ptr"
         ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, pcCookiesMarshal, pcCookies, ppCookiesMarshal, ppCookies, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, pcCookiesMarshal, pcCookies, ppCookiesMarshal, ppCookies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the value of an HTTP header from the response headers.
+     * @remarks
+     * The results of this method are valid only after <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2callback-onheadersavailable">OnHeadersAvailable</a> callback method has been called.
      * @param {PWSTR} pwszHeader A case-insensitive header name.
      * @returns {Pointer<Integer>} The resulting header information. You should free the memory for this parameter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest2-getresponseheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/msxml6/nf-msxml6-ixmlhttprequest2-getresponseheader
      */
     GetResponseHeader(pwszHeader) {
         pwszHeader := pwszHeader is String ? StrPtr(pwszHeader) : pwszHeader
 
-        result := ComCall(12, this, "ptr", pwszHeader, "ptr*", &ppwszValue := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pwszHeader, "ptr*", &ppwszValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszValue
     }
 }

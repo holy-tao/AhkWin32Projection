@@ -29,7 +29,7 @@ class SystemInformation {
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {Integer} SystemInformationClass One of the values enumerated in SYSTEM_INFORMATION_CLASS, which indicate the
      * kind of system information to be retrieved. These include the following values.
-     * @param {Pointer<Void>} SystemInformation A pointer to a buffer that receives the requested information. The
+     * @param {Pointer<Void>} SystemInformation_ A pointer to a buffer that receives the requested information. The
      * size and structure of this information varies depending on the value of the
      * <i>SystemInformationClass</i> parameter:
      * @param {Integer} SystemInformationLength The size of the buffer pointed to by the <i>SystemInformation</i> parameter, in bytes.
@@ -44,13 +44,13 @@ class SystemInformation {
      * The
      * forms and significance of NTSTATUS error codes are listed in the
      * Ntstatus.h header file available in the DDK, and are described in the DDK documentation.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerysysteminformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-ntquerysysteminformation
      */
-    static NtQuerySystemInformation(SystemInformationClass, SystemInformation, SystemInformationLength, ReturnLength) {
-        SystemInformationMarshal := SystemInformation is VarRef ? "ptr" : "ptr"
+    static NtQuerySystemInformation(SystemInformationClass, SystemInformation_, SystemInformationLength, ReturnLength) {
+        SystemInformation_Marshal := SystemInformation_ is VarRef ? "ptr" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQuerySystemInformation", "int", SystemInformationClass, SystemInformationMarshal, SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\NtQuerySystemInformation", "int", SystemInformationClass, SystemInformation_Marshal, SystemInformation_, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
         return result
     }
 
@@ -146,7 +146,7 @@ class SystemInformation {
      * 
      * 
      * An opaque **SYSTEM\_LOOKASIDE\_INFORMATION** structure that can be used to generate an unpredictable seed for a random number generator. Use the [**CryptGenRandom**](/windows/desktop/api/wincrypt/nf-wincrypt-cryptgenrandom) function instead.
-     * @param {Pointer<Void>} SystemInformation A pointer to a buffer that receives the requested information. The size and structure of this information varies depending on the value of the *SystemInformationClass* parameter, as indicated in the following table.
+     * @param {Pointer<Void>} SystemInformation_ A pointer to a buffer that receives the requested information. The size and structure of this information varies depending on the value of the *SystemInformationClass* parameter, as indicated in the following table.
      * 
      * 
      * <span id="SYSTEM_BASIC_INFORMATION"></span><span id="system_basic_information"></span>
@@ -259,13 +259,13 @@ class SystemInformation {
      * @returns {NTSTATUS} Returns an NTSTATUS success or error code.
      * 
      * The forms and significance of NTSTATUS error codes are listed in the Ntstatus.h header file available in the DDK, and are described in the DDK documentation.
-     * @see https://learn.microsoft.com/windows/win32/SysInfo/zwquerysysteminformation
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SysInfo/zwquerysysteminformation
      */
-    static ZwQuerySystemInformation(SystemInformationClass, SystemInformation, SystemInformationLength, ReturnLength) {
-        SystemInformationMarshal := SystemInformation is VarRef ? "ptr" : "ptr"
+    static ZwQuerySystemInformation(SystemInformationClass, SystemInformation_, SystemInformationLength, ReturnLength) {
+        SystemInformation_Marshal := SystemInformation_ is VarRef ? "ptr" : "ptr"
         ReturnLengthMarshal := ReturnLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQuerySystemInformation", "int", SystemInformationClass, SystemInformationMarshal, SystemInformation, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
+        result := DllCall("ntdll.dll\ZwQuerySystemInformation", "int", SystemInformationClass, SystemInformation_Marshal, SystemInformation_, "uint", SystemInformationLength, ReturnLengthMarshal, ReturnLength, "int")
         return result
     }
 
@@ -273,26 +273,26 @@ class SystemInformation {
      * Retrieves the current system time.
      * @remarks
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {Pointer<Integer>} SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the system time. This is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC).
+     * @param {Pointer<Integer>} SystemTime_ A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the system time. This is a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (UTC).
      * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code, which will typically be STATUS_ACCESS_VIOLATION.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntquerysystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-ntquerysystemtime
      */
-    static NtQuerySystemTime(SystemTime) {
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+    static NtQuerySystemTime(SystemTime_) {
+        SystemTime_Marshal := SystemTime_ is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtQuerySystemTime", SystemTimeMarshal, SystemTime, "int")
+        result := DllCall("ntdll.dll\NtQuerySystemTime", SystemTime_Marshal, SystemTime_, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} SystemTime 
+     * @param {Pointer<Integer>} SystemTime_ 
      * @returns {NTSTATUS} 
      */
-    static ZwQuerySystemTime(SystemTime) {
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+    static ZwQuerySystemTime(SystemTime_) {
+        SystemTime_Marshal := SystemTime_ is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwQuerySystemTime", SystemTimeMarshal, SystemTime, "int")
+        result := DllCall("ntdll.dll\ZwQuerySystemTime", SystemTime_Marshal, SystemTime_, "int")
         return result
     }
 

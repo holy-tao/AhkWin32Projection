@@ -5,7 +5,7 @@
  * Describes how the BCryptBuffer structure represents a generic Cryptography API: Next Generation (CNG) buffer.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/ns-bcrypt-bcryptbuffer
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

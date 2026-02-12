@@ -6,7 +6,6 @@
 /**
  * Configures Windows Media Digital Rights Management (DRM) for Network Devices on a network sink.
  * @remarks
- * 
  * To stream protected content over a network, the <i>ASF streaming media sink</i> provides an output trust authority (OTA) that supports  Windows Media DRM for Network Devices and implements the <b>IMFDRMNetHelper</b> interface. For this OTA,  encryption occurs on each frame before multiplexing. The license request and response process takes place in the media sink.
  * 
  * The application gets a pointer to <b>IMFDRMNetHelper</b> and uses the methods to handle the license request and response. The application is also responsible for sending the license to the client.
@@ -26,9 +25,7 @@
  * </li>
  * <li>To get the cached license response, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse">IMFDRMNetHelper::GetChainedLicenseResponse</a>.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfdrmnethelper
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nn-wmcontainer-imfdrmnethelper
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -93,29 +90,37 @@ class IMFDRMNetHelper extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfdrmnethelper-processlicenserequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfdrmnethelper-processlicenserequest
      */
     ProcessLicenseRequest(pLicenseRequest, cbLicenseRequest, ppLicenseResponse, pcbLicenseResponse, pbstrKID) {
         pLicenseRequestMarshal := pLicenseRequest is VarRef ? "char*" : "ptr"
         ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
         pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "ptr", pbstrKID, "HRESULT")
+        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "ptr", pbstrKID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not implemented in this release.
+     * Not implemented in this release. (IMFDRMNetHelper.GetChainedLicenseResponse)
      * @param {Pointer<Pointer<Integer>>} ppLicenseResponse Receives a pointer to a byte array that contains the license response. The caller must free the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<Integer>} pcbLicenseResponse Receives the size, in bytes, of the license response.
      * @returns {HRESULT} The method returns <b>E_NOTIMPL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse
      */
     GetChainedLicenseResponse(ppLicenseResponse, pcbLicenseResponse) {
         ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
         pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "HRESULT")
+        result := ComCall(4, this, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

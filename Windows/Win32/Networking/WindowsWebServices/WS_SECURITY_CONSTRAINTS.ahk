@@ -3,7 +3,7 @@
 
 /**
  * This structure specifies the security related constraints as part of WS_POLICY_CONSTRAINTS.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_constraints
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_security_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

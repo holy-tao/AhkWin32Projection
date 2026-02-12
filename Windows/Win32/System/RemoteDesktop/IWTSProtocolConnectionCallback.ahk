@@ -5,7 +5,7 @@
 
 /**
  * IWTSProtocolConnectionCallback is no longer available. Instead, use IWRdsProtocolConnectionCallback.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwtsprotocolconnectioncallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nn-wtsprotocol-iwtsprotocolconnectioncallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,13 +32,19 @@ class IWTSProtocolConnectionCallback extends IUnknown{
 
     /**
      * IWTSProtocolConnectionCallback::OnReady is no longer available. Instead, use IWRdsProtocolConnectionCallback::OnReady.
+     * @remarks
+     * The protocol must call this method after the Remote Desktop Services service calls <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-sendpolicydata">SendPolicyData</a>. The Remote Desktop Services service will not call <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-acceptconnection">AcceptConnection</a> to continue the connection process until <b>OnReady</b> has been called.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-onready
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-onready
      */
     OnReady() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,49 +54,88 @@ class IWTSProtocolConnectionCallback extends IUnknown{
      * @param {Integer} Source This parameter is not used.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-brokenconnection
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-brokenconnection
      */
     BrokenConnection(Reason, Source) {
-        result := ComCall(4, this, "uint", Reason, "uint", Source, "HRESULT")
+        result := ComCall(4, this, "uint", Reason, "uint", Source, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IWTSProtocolConnectionCallback::StopScreenUpdates is no longer available. Instead, use IWRdsProtocolConnectionCallback::StopScreenUpdates.
+     * @remarks
+     * To avoid deadlocks when calling this method:
+     * 
+     * <ul>
+     * <li>Create a separate thread on which to make the call. Do not make the call from inside of any protocol method that you are implementing.</li>
+     * <li>Do not block on this method before replying to another call by the Remote Desktop Services service.</li>
+     * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-stopscreenupdates
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-stopscreenupdates
      */
     StopScreenUpdates() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IWTSProtocolConnectionCallback::RedrawWindow is no longer available. Instead, use IWRdsProtocolConnectionCallback::RedrawWindow.
-     * @param {Pointer<WTS_SMALL_RECT>} rect A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_small_rect">WTS_SMALL_RECT</a> structure that contains the x and y coordinates of the screen to redraw. A value of <b>NULL</b> requests that the entire screen be redrawn.
+     * @remarks
+     * This method is typically called after the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-stopscreenupdates">StopScreenUpdates</a> method.
+     * 
+     * To avoid deadlocks when calling this method:
+     * 
+     * <ul>
+     * <li>Create a separate thread on which to make the call. Do not make the call from inside of any protocol method that you are implementing.</li>
+     * <li>Do not block on this method before replying to another call by the Remote Desktop Services service.</li>
+     * </ul>
+     * @param {Pointer<WTS_SMALL_RECT>} rect_ A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_small_rect">WTS_SMALL_RECT</a> structure that contains the x and y coordinates of the screen to redraw. A value of <b>NULL</b> requests that the entire screen be redrawn.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-redrawwindow
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-redrawwindow
      */
-    RedrawWindow(rect) {
-        result := ComCall(6, this, "ptr", rect, "HRESULT")
+    RedrawWindow(rect_) {
+        result := ComCall(6, this, "ptr", rect_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IWTSProtocolConnectionCallback::DisplayIOCtl is no longer available.
+     * @remarks
+     * To avoid deadlocks when calling this method:
+     * 
+     * <ul>
+     * <li>Create a separate thread on which to make the call. Do not make the call from inside of any protocol method that you are implementing.</li>
+     * <li>Do not block on this method before replying to another call by the Remote Desktop Services service.</li>
+     * </ul>
      * @param {Pointer<WTS_DISPLAY_IOCTL>} DisplayIOCtl A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_display_ioctl">WTS_DISPLAY_IOCTL</a> structure that contains data to be sent to the display driver loaded in the session.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-displayioctl
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnectioncallback-displayioctl
      */
     DisplayIOCtl(DisplayIOCtl) {
-        result := ComCall(7, this, "ptr", DisplayIOCtl, "HRESULT")
+        result := ComCall(7, this, "ptr", DisplayIOCtl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

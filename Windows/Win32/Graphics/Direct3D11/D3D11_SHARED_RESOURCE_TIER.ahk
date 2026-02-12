@@ -5,7 +5,7 @@
  * Defines constants that specify the level of support for shared resources in the current graphics driver
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_shared_resource_tier
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_shared_resource_tier
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

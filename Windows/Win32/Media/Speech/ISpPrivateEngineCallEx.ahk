@@ -40,7 +40,11 @@ class ISpPrivateEngineCallEx extends IUnknown{
         ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : "ptr"
         pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pInFrame, "uint", ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pInFrame, "uint", ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class ISpPrivateEngineCallEx extends IUnknown{
         ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : "ptr"
         pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pInFrame, "uint", ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pInFrame, "uint", ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

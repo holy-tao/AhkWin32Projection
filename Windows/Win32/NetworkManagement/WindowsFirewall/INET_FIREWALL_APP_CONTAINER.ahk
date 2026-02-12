@@ -5,7 +5,7 @@
 
 /**
  * The INET_FIREWALL_APP_CONTAINER structure contains information about a specific app container. (INET_FIREWALL_APP_CONTAINER)
- * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_app_container
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/ns-netfw-inet_firewall_app_container
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

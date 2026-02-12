@@ -36,7 +36,11 @@ class IDebugHostMemory4 extends IDebugHostMemory3{
      */
     GetPhysicalAddressLocation(physAddr) {
         pPhysicalAddressLocation := Location()
-        result := ComCall(10, this, "uint", physAddr, "ptr", pPhysicalAddressLocation, "HRESULT")
+        result := ComCall(10, this, "uint", physAddr, "ptr", pPhysicalAddressLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPhysicalAddressLocation
     }
 

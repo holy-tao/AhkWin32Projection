@@ -3,7 +3,7 @@
 
 /**
  * The blend mode used for the Blend effect.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_blend_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effects/ne-d2d1effects-d2d1_blend_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

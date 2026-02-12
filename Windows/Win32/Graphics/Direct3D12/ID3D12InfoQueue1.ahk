@@ -40,7 +40,11 @@ class ID3D12InfoQueue1 extends ID3D12InfoQueue{
         pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
         pCallbackCookieMarshal := pCallbackCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(38, this, "ptr", CallbackFunc, "int", CallbackFilterFlags, pContextMarshal, pContext, pCallbackCookieMarshal, pCallbackCookie, "HRESULT")
+        result := ComCall(38, this, "ptr", CallbackFunc, "int", CallbackFilterFlags, pContextMarshal, pContext, pCallbackCookieMarshal, pCallbackCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class ID3D12InfoQueue1 extends ID3D12InfoQueue{
      * @returns {HRESULT} 
      */
     UnregisterMessageCallback(CallbackCookie) {
-        result := ComCall(39, this, "uint", CallbackCookie, "HRESULT")
+        result := ComCall(39, this, "uint", CallbackCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

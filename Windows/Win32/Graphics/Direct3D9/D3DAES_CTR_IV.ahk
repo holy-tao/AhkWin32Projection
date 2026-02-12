@@ -7,7 +7,7 @@
  * The **D3DAES\_CTR\_IV** structure and the [**DXVA2\_AES\_CTR\_IV**](/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv) structure are equivalent.
  * 
  * For details, see [**DXVA2\_AES\_CTR\_IV**](/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv).
- * @see https://learn.microsoft.com/windows/win32/medfound/d3daes-ctr-iv
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3daes-ctr-iv
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

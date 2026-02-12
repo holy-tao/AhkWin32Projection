@@ -6,7 +6,7 @@
 
 /**
  * The ITCallingCard interface provides methods to retrieve information concerning telephony calling cards.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcallingcard
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itcallingcard
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -83,20 +83,30 @@ class ITCallingCard extends IDispatch{
     /**
      * The get_PermanentCardID method gets the permanent identifier that identifies the card.
      * @returns {Integer} Pointer to calling card identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid
      */
     get_PermanentCardID() {
-        result := ComCall(7, this, "int*", &plCardID := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCardID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCardID
     }
 
     /**
      * The get_NumberOfDigits method gets the number of digits in the existing card number.
+     * @remarks
+     * The card number itself is not returned for security reasons. The application can use this information to insert filler bytes into a text control in "password" mode to show that a number exists.
      * @returns {Integer} Pointer to number of digits in the card number.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_numberofdigits
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_numberofdigits
      */
     get_NumberOfDigits() {
-        result := ComCall(8, this, "int*", &plDigits := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plDigits := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plDigits
     }
 
@@ -104,54 +114,86 @@ class ITCallingCard extends IDispatch{
      * The get_Options method gets the translation options for this address and card.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetranslateoption--constants">LINETRANSLATEOPTION</a> flags.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_options
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_options
      */
     get_Options() {
-        result := ComCall(9, this, "int*", &plOptions := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plOptions
     }
 
     /**
      * The get_CardName method gets the friendly name for the calling card.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppCardName</i> parameter.
      * @returns {BSTR} Pointer to <b>BSTR</b> containing a displayable name for the calling card.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_cardname
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_cardname
      */
     get_CardName() {
         ppCardName := BSTR()
-        result := ComCall(10, this, "ptr", ppCardName, "HRESULT")
+        result := ComCall(10, this, "ptr", ppCardName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCardName
     }
 
     /**
      * The get_SameAreaDialingRule method gets the dialing rules for calls within the same area code.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppRule</i> parameter.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of local area dialing rules.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
      */
     get_SameAreaDialingRule() {
         ppRule := BSTR()
-        result := ComCall(11, this, "ptr", ppRule, "HRESULT")
+        result := ComCall(11, this, "ptr", ppRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppRule
     }
 
     /**
      * The get_LongDistanceDialingRule method gets the long distance dialing rules for this calling card.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppRule</i> parameter.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of long distance dialing rules.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
      */
     get_LongDistanceDialingRule() {
         ppRule := BSTR()
-        result := ComCall(12, this, "ptr", ppRule, "HRESULT")
+        result := ComCall(12, this, "ptr", ppRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppRule
     }
 
     /**
      * The get_InternationalDialingRule method gets the international dialing rules for this calling card.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppRule</i> parameter.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of international dialing rules.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
      */
     get_InternationalDialingRule() {
         ppRule := BSTR()
-        result := ComCall(13, this, "ptr", ppRule, "HRESULT")
+        result := ComCall(13, this, "ptr", ppRule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppRule
     }
 }

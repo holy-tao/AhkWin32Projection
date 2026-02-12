@@ -1,0 +1,37 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32Enum.ahk
+
+/**
+ * Defines the valid values that can be passed to the [RequestActivationPolicyChangeAsync](smartcardappletidgroupregistration_requestactivationpolicychangeasync_926513637.md) method.
+ * @remarks
+ * If an app is running in the foreground with the screen on, that app can override any other app which may have been **Enabled**.
+ * 
+ * For payment scenarios, you choose your default payment card so it will be **Enabled**. You can tap and pay even if the app for that card is not running. Depending on your settings, you can even tap and pay with your phone screen off.
+ * 
+ * You could also have a separate app for another card which is disabled since it's not your default payment mechanism. If you're at a store that only takes the second card, you can open the app for the second card and it can request to set the policy to **ForegroundOverride**. This allows it to temporarily be the default for as long as the app is in the foreground and the screen is on or until the app asks to be **Disabled**.
+ * 
+ * The system prompts the user if an app asks to be **Enabled**, but the system won't prompt if an app asks for **ForegroundOverride** since it's just temporary and the app should be informing the user.
+ * @see https://learn.microsoft.com/uwp/api/windows.devices.smartcards.smartcardappletidgroupactivationpolicy
+ * @namespace Windows.Devices.SmartCards
+ * @version WindowsRuntime 1.4
+ */
+class SmartCardAppletIdGroupActivationPolicy extends Win32Enum{
+
+    /**
+     * The activation policy is set to disabled.
+     * @type {Integer (Int32)}
+     */
+    static Disabled => 0
+
+    /**
+     * The activation policy is set to foreground override.
+     * @type {Integer (Int32)}
+     */
+    static ForegroundOverride => 1
+
+    /**
+     * The activation policy is set to enabled.
+     * @type {Integer (Int32)}
+     */
+    static Enabled => 2
+}

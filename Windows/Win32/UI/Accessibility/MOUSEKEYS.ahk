@@ -15,7 +15,7 @@
  * <li><b>MKF_RIGHTBUTTONDOWN</b></li>
  * <li><b>MKF_RIGHTBUTTONSEL</b></li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousekeys
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-mousekeys
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

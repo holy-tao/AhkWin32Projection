@@ -7,7 +7,7 @@
  * The A, B, and C widths are measured along the base line of the font.
  * 
  * The character increment (total width) of a character is the sum of the A, B, and C spaces. Either the A or the C space can be negative to indicate underhangs or overhangs.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-abcfloat
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-abcfloat
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -34,16 +36,22 @@ class HARDWAREHOOKSTRUCT extends Win32Struct
     /**
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(16, this)
+            return this.__wParam
+        }
     }
 
     /**
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(24, this)
+            return this.__lParam
+        }
     }
 }

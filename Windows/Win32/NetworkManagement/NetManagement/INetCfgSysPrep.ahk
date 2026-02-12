@@ -39,7 +39,11 @@ class INetCfgSysPrep extends IUnknown{
         pwszSection := pwszSection is String ? StrPtr(pwszSection) : pwszSection
         pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
 
-        result := ComCall(3, this, "ptr", pwszSection, "ptr", pwszKey, "uint", dwValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszSection, "ptr", pwszKey, "uint", dwValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class INetCfgSysPrep extends IUnknown{
         pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(4, this, "ptr", pwszSection, "ptr", pwszKey, "ptr", pwszValue, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszSection, "ptr", pwszKey, "ptr", pwszValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +78,11 @@ class INetCfgSysPrep extends IUnknown{
         pwszSection := pwszSection is String ? StrPtr(pwszSection) : pwszSection
         pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
 
-        result := ComCall(5, this, "ptr", pwszSection, "ptr", pwszKey, "int", fValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszSection, "ptr", pwszKey, "int", fValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +98,11 @@ class INetCfgSysPrep extends IUnknown{
         pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
         pmszValue := pmszValue is String ? StrPtr(pmszValue) : pmszValue
 
-        result := ComCall(6, this, "ptr", pwszSection, "ptr", pwszKey, "ptr", pmszValue, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszSection, "ptr", pwszKey, "ptr", pmszValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

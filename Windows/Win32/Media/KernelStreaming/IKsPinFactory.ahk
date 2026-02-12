@@ -33,7 +33,11 @@ class IKsPinFactory extends IUnknown{
      * @returns {Integer} 
      */
     KsPinFactory() {
-        result := ComCall(3, this, "uint*", &PinFactory := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &PinFactory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PinFactory
     }
 }

@@ -6,15 +6,12 @@
 /**
  * Reacts to events by recognizing gestures and adding gesture data to the input queue.
  * @remarks
- * 
  * This interface is implemented by the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a>.
  * 
  * The gesture recognizer analyzes digitizer input and injects gesture recognition results into the input queue.
  * 
  * Adding an instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> to multiple <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> instances is not a valid operation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rtscom/nn-rtscom-igesturerecognizer
+ * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nn-rtscom-igesturerecognizer
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -62,78 +59,100 @@ class IGestureRecognizer extends IUnknown{
     }
 
     /**
-     * Gets or sets a value that indicates whether gesture recognition is enabled.
+     * Gets or sets a value that indicates whether gesture recognition is enabled. (Get)
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-igesturerecognizer-get_enabled
      */
     get_Enabled() {
-        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
     /**
-     * Gets or sets a value that indicates whether gesture recognition is enabled.
+     * Gets or sets a value that indicates whether gesture recognition is enabled. (Put)
      * @param {BOOL} fEnabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-igesturerecognizer-put_enabled
      */
     put_Enabled(fEnabled) {
-        result := ComCall(4, this, "int", fEnabled, "HRESULT")
+        result := ComCall(4, this, "int", fEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the maximum number of strokes allowed per gesture recognition.
+     * Gets or sets the maximum number of strokes allowed per gesture recognition. (Get)
      * @remarks
-     * 
      * Valid values are 1 and 2. When the <b>MaxStrokeCount</b> property is 2, gesture recognizer looks back to the most recent two strokes and attempts to recognize them as gestures. This may result in multiple recognition calls and multiple gesture events flowing through the system.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-get_maxstrokecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-igesturerecognizer-get_maxstrokecount
      */
     get_MaxStrokeCount() {
-        result := ComCall(5, this, "int*", &pcStrokes := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pcStrokes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcStrokes
     }
 
     /**
-     * Gets or sets the maximum number of strokes allowed per gesture recognition.
+     * Gets or sets the maximum number of strokes allowed per gesture recognition. (Put)
      * @remarks
-     * 
      * Valid values are 1 and 2. When the <b>MaxStrokeCount</b> property is 2, gesture recognizer looks back to the most recent two strokes and attempts to recognize them as gestures. This may result in multiple recognition calls and multiple gesture events flowing through the system.
-     * 
-     * 
      * @param {Integer} cStrokes 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-put_maxstrokecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-igesturerecognizer-put_maxstrokecount
      */
     put_MaxStrokeCount(cStrokes) {
-        result := ComCall(6, this, "int", cStrokes, "HRESULT")
+        result := ComCall(6, this, "int", cStrokes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets a value that indicates to which application gestures the GestureRecognizer Class object responds.
+     * @remarks
+     * You cannot enable <b>AllGestures</b> in conjunction with any other gestures.
      * @param {Integer} cGestures The size of the array to which the <i>pGestures</i> parameter points. Valid values are between 0 and 64, inclusive.
      * @param {Pointer<Integer>} pGestures An array of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">InkApplicationGesture Enumeration</a> values that indicates to which application gestures the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> object responds.
-     * @returns {HRESULT} For a description of return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-enablegestures
+     * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-igesturerecognizer-enablegestures
      */
     EnableGestures(cGestures, pGestures) {
         pGesturesMarshal := pGestures is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "uint", cGestures, pGesturesMarshal, pGestures, "HRESULT")
+        result := ComCall(7, this, "uint", cGestures, pGesturesMarshal, pGestures, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Deletes past stroke information from the GestureRecognizer Class object.
-     * @returns {HRESULT} For a description of return values see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-reset
+     * @remarks
+     * Removes any past strokes from consideration for gestures. If Reset is called while the user is in the middle of writing a stroke, the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> object ignores that stroke.
+     * @returns {HRESULT} For a description of return values see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtscom/nf-rtscom-igesturerecognizer-reset
      */
     Reset() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

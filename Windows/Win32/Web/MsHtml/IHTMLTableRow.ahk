@@ -112,9 +112,16 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     put_align(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +131,11 @@ class IHTMLTableRow extends IDispatch{
      */
     get_align() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -134,9 +145,16 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     put_vAlign(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +164,11 @@ class IHTMLTableRow extends IDispatch{
      */
     get_vAlign() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -156,7 +178,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +192,11 @@ class IHTMLTableRow extends IDispatch{
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -176,7 +206,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderColor(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,7 +220,11 @@ class IHTMLTableRow extends IDispatch{
      */
     get_borderColor() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -196,7 +234,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderColorLight(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -206,7 +248,11 @@ class IHTMLTableRow extends IDispatch{
      */
     get_borderColorLight() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -216,7 +262,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     put_borderColorDark(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +276,11 @@ class IHTMLTableRow extends IDispatch{
      */
     get_borderColorDark() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -235,7 +289,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {Integer} 
      */
     get_rowIndex() {
-        result := ComCall(19, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -244,7 +302,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {Integer} 
      */
     get_sectionRowIndex() {
-        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -253,7 +315,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {IHTMLElementCollection} 
      */
     get_cells() {
-        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -263,7 +329,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {IDispatch} 
      */
     insertCell(index) {
-        result := ComCall(22, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        result := ComCall(22, this, "int", index, "ptr*", &row := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(row)
     }
 
@@ -273,7 +343,11 @@ class IHTMLTableRow extends IDispatch{
      * @returns {HRESULT} 
      */
     deleteCell(index) {
-        result := ComCall(23, this, "int", index, "HRESULT")
+        result := ComCall(23, this, "int", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

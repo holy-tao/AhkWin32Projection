@@ -6,7 +6,6 @@
 /**
  * The IATSCChannelTuneRequest interface provides methods for tuning to a channel in an ATSC network. The ATSCChannelTuneRequest object implements this interface.
  * @remarks
- * 
  * ATSC defines a tune request in terms of a <i>major channel</i> and a <i>minor channel</i>. The major channel is mapped to a physical frequency and the minor channel identifies different programs within the same major channel. To access the channel numbers, use the following methods:
  * 
  * <ul>
@@ -30,9 +29,7 @@
  * </li>
  * </ul>
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IATSCChannelTuneRequest)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iatscchanneltunerequest
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-iatscchanneltunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -74,10 +71,14 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest{
     /**
      * The get_MinorChannel method gets the current minor channel.
      * @returns {Integer} Receives the current minor channel. If the value received is -1, the tuner should tune to the first valid minor channel it finds.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatscchanneltunerequest-get_minorchannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iatscchanneltunerequest-get_minorchannel
      */
     get_MinorChannel() {
-        result := ComCall(14, this, "int*", &MinorChannel := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &MinorChannel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MinorChannel
     }
 
@@ -85,10 +86,14 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest{
      * The put_MinorChannel method sets the minor channel to be tuned.
      * @param {Integer} MinorChannel Specifies the minor channel. If the value is -1, the tuner tunes to the first valid minor channel it finds.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatscchanneltunerequest-put_minorchannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iatscchanneltunerequest-put_minorchannel
      */
     put_MinorChannel(MinorChannel) {
-        result := ComCall(15, this, "int", MinorChannel, "HRESULT")
+        result := ComCall(15, this, "int", MinorChannel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

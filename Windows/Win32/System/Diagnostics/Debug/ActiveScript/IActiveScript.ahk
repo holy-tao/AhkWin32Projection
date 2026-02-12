@@ -36,17 +36,25 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     SetScriptSite(pass) {
-        result := ComCall(3, this, "ptr", pass, "HRESULT")
+        result := ComCall(3, this, "ptr", pass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetScriptSite(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 
@@ -56,7 +64,11 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     SetScriptState(ss) {
-        result := ComCall(5, this, "int", ss, "HRESULT")
+        result := ComCall(5, this, "int", ss, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,16 +77,25 @@ class IActiveScript extends IUnknown{
      * @returns {Integer} 
      */
     GetScriptState() {
-        result := ComCall(6, this, "int*", &pssState := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pssState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pssState
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +108,11 @@ class IActiveScript extends IUnknown{
     AddNamedItem(pstrName, dwFlags) {
         pstrName := pstrName is String ? StrPtr(pstrName) : pstrName
 
-        result := ComCall(8, this, "ptr", pstrName, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", pstrName, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +125,11 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     AddTypeLib(rguidTypeLib, dwMajor, dwMinor, dwFlags) {
-        result := ComCall(9, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", rguidTypeLib, "uint", dwMajor, "uint", dwMinor, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +141,11 @@ class IActiveScript extends IUnknown{
     GetScriptDispatch(pstrItemName) {
         pstrItemName := pstrItemName is String ? StrPtr(pstrItemName) : pstrItemName
 
-        result := ComCall(10, this, "ptr", pstrItemName, "ptr*", &ppdisp := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pstrItemName, "ptr*", &ppdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppdisp)
     }
 
@@ -121,7 +154,11 @@ class IActiveScript extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentScriptThreadID() {
-        result := ComCall(11, this, "uint*", &pstidThread := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pstidThread := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstidThread
     }
 
@@ -131,7 +168,11 @@ class IActiveScript extends IUnknown{
      * @returns {Integer} 
      */
     GetScriptThreadID(dwWin32ThreadId) {
-        result := ComCall(12, this, "uint", dwWin32ThreadId, "uint*", &pstidThread := 0, "HRESULT")
+        result := ComCall(12, this, "uint", dwWin32ThreadId, "uint*", &pstidThread := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstidThread
     }
 
@@ -141,7 +182,11 @@ class IActiveScript extends IUnknown{
      * @returns {Integer} 
      */
     GetScriptThreadState(stidThread) {
-        result := ComCall(13, this, "uint", stidThread, "int*", &pstsState := 0, "HRESULT")
+        result := ComCall(13, this, "uint", stidThread, "int*", &pstsState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstsState
     }
 
@@ -153,16 +198,25 @@ class IActiveScript extends IUnknown{
      * @returns {HRESULT} 
      */
     InterruptScriptThread(stidThread, pexcepinfo, dwFlags) {
-        result := ComCall(14, this, "uint", stidThread, "ptr", pexcepinfo, "uint", dwFlags, "HRESULT")
+        result := ComCall(14, this, "uint", stidThread, "ptr", pexcepinfo, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Clone Method Example (VC++)
      * @returns {IActiveScript} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/clone-method-example-vc
      */
     Clone() {
-        result := ComCall(15, this, "ptr*", &ppscript := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppscript := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IActiveScript(ppscript)
     }
 }

@@ -8,7 +8,6 @@
 /**
  * The INetFwMgr interface provides access to the firewall settings for a computer.
  * @remarks
- * 
  * <b>Windows Vista:  </b>Windows Vista users must use applications developed in Windows Vista for all methods and properties of this interface.
  * 
  * This interface is
@@ -16,9 +15,7 @@
  * 
  * All configuration changes take
  * effect immediately.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwmgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nn-netfw-inetfwmgr
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -66,30 +63,37 @@ class INetFwMgr extends IDispatch{
     /**
      * Retrieves the local firewall policy.
      * @returns {INetFwPolicy} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwmgr-get_localpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwmgr-get_localpolicy
      */
     get_LocalPolicy() {
-        result := ComCall(7, this, "ptr*", &localPolicy := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &localPolicy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwPolicy(localPolicy)
     }
 
     /**
      * Retrieves the type of firewall profile currently in effect.
      * @remarks
-     * 
      * The SharedAccess service must be running.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwmgr-get_currentprofiletype
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwmgr-get_currentprofiletype
      */
     get_CurrentProfileType() {
-        result := ComCall(8, this, "int*", &profileType := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &profileType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return profileType
     }
 
     /**
      * Restores the local configuration to its default, installed state.
+     * @remarks
+     * This method deletes all user and application-added applications and ports that return the system to its installed state. This includes restoring the defaults for Internet Connection Sharing.
      * @returns {HRESULT} <h3>C++</h3>
      * <table>
      * <tr>
@@ -154,15 +158,40 @@ class INetFwMgr extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwmgr-restoredefaults
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwmgr-restoredefaults
      */
     RestoreDefaults() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether an application can listen for inbound traffic on the specified port.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-isrulegroupenabled">INetFwPolicy2::IsRuleGroupEnabled</a> method is generally recommended in place of this method.
+     * 
+     * The  <b>IsPortAllowed</b> method checks whether traffic will be allowed with the current firewall configuration for:
+     * 
+     * 
+     * 
+     * <ul>
+     * <li>A specific application. 
+     * </li>
+     * <li>A specific port. 
+     * </li>
+     * <li>A specific application on a specific port.</li>
+     * </ul>
+     *  
+     *  
+     * 
+     * In its operation <b>IsPortAllowed</b> considers whether the firewall is currently enabled or disabled, whether the application is allowed in the current profile Exceptions List, whether the port is allowed in the current profile Exceptions List, whether the file and print sharing option has been enabled, and whether the remote administration option has been enabled.
+     * 
+     * 
+     * Because of the many factors in determining whether a port is allowed, the more specific information that is given via this method's input parameters, the more likely  a clear result with meaningful restrictions will be returned.
      * @param {BSTR} imageFileName The image file name of the process listening on the
      *    network. It must be a fully qualified path, but  may contain
      *    environment variables. If <i>imageFileName</i> is <b>NULL</b>, the function
@@ -288,18 +317,30 @@ class INetFwMgr extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwmgr-isportallowed
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwmgr-isportallowed
      */
     IsPortAllowed(imageFileName, ipVersion, portNumber, localAddress, ipProtocol, allowed, restricted) {
-        imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
-        localAddress := localAddress is String ? BSTR.Alloc(localAddress).Value : localAddress
+        if(imageFileName is String) {
+            pin := BSTR.Alloc(imageFileName)
+            imageFileName := pin.Value
+        }
+        if(localAddress is String) {
+            pin := BSTR.Alloc(localAddress)
+            localAddress := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", imageFileName, "int", ipVersion, "int", portNumber, "ptr", localAddress, "int", ipProtocol, "ptr", allowed, "ptr", restricted, "HRESULT")
+        result := ComCall(10, this, "ptr", imageFileName, "int", ipVersion, "int", portNumber, "ptr", localAddress, "int", ipProtocol, "ptr", allowed, "ptr", restricted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether the specified ICMP type is allowed.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-isrulegroupenabled">INetFwPolicy2::IsRuleGroupEnabled</a> method is generally recommended in place of this method.
      * @param {Integer} ipVersion IP version of the traffic. This cannot be <b>NET_FW_IP_VERSION_ANY</b>.
      * 
      * IP version of the traffic. 
@@ -436,12 +477,19 @@ class INetFwMgr extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwmgr-isicmptypeallowed
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwmgr-isicmptypeallowed
      */
     IsIcmpTypeAllowed(ipVersion, localAddress, type, allowed, restricted) {
-        localAddress := localAddress is String ? BSTR.Alloc(localAddress).Value : localAddress
+        if(localAddress is String) {
+            pin := BSTR.Alloc(localAddress)
+            localAddress := pin.Value
+        }
 
-        result := ComCall(11, this, "int", ipVersion, "ptr", localAddress, "char", type, "ptr", allowed, "ptr", restricted, "HRESULT")
+        result := ComCall(11, this, "int", ipVersion, "ptr", localAddress, "char", type, "ptr", allowed, "ptr", restricted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

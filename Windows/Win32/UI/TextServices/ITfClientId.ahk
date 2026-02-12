@@ -5,7 +5,7 @@
 
 /**
  * The ITfClientId interface is implemented by the TSF manager. This interface is used to obtain a client identifier for TSF objects. An instance of this interface is obtained by querying the thread manager with IID_ITfClientId.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfclientid
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfclientid
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,12 +32,18 @@ class ITfClientId extends IUnknown{
 
     /**
      * ITfClientId::GetClientId method
+     * @remarks
+     * An application obtains its client identifier by calling <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-activate">ITfThreadMgr::Activate</a> and a text service receives its client identifier in its <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itftextinputprocessor-activate">ITfTextInputProcessor::Activate</a> method. <b>ITfClientId::GetClientId</b> enables TSF objects that do not fit either of these categories to obtain their own client identifier.
      * @param {Pointer<Guid>} rclsid CLSID to obtain the client identifier for.
      * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that receives the client identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfclientid-getclientid
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfclientid-getclientid
      */
     GetClientId(rclsid) {
-        result := ComCall(3, this, "ptr", rclsid, "uint*", &ptid := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", rclsid, "uint*", &ptid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ptid
     }
 }

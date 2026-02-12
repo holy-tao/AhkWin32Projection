@@ -22,7 +22,7 @@
  * //  (DFS_VOLUME_STATE_OK, DFS_VOLUME_STATE_INCONSISTENT, 
  * //   DFS_VOLUME_STATE_OFFLINE or DFS_VOLUME_STATE_ONLINE)
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_2
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_info_2
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

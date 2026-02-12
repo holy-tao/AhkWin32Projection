@@ -6,7 +6,7 @@
 
 /**
  * The ITfToolTipUIElement interface is implemented by a text service that wants to show a tooltip on its UI.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itftooltipuielement
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itftooltipuielement
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class ITfToolTipUIElement extends ITfUIElement{
 
     /**
      * Returns the string of the tooltip.
-     * @returns {BSTR} [out] A pointer to receive BSTR. This is the string for the tooltip.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftooltipuielement-getstring
+     * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itftooltipuielement-getstring
      */
     GetString() {
-        pstr := BSTR()
-        result := ComCall(7, this, "ptr", pstr, "HRESULT")
-        return pstr
+        pstr_ := BSTR()
+        result := ComCall(7, this, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pstr_
     }
 }

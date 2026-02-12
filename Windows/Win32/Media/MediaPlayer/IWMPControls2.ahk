@@ -5,7 +5,7 @@
 
 /**
  * The IWMPControls2 interface provides a method that supplements the IWMPControls interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpcontrols2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpcontrols2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMPControls2 extends IWMPControls{
 
     /**
      * The step method causes the current video media item to freeze playback on the next frame or the previous frame.
+     * @remarks
+     * This method currently only supports the parameters 1 or -1, so you can only step one frame at a time.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always returns E_INVALIDARG.
      * @param {Integer} lStep <b>long</b> indicating how many frames to step before freezing. Must be set to 1 or -1.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -52,10 +56,14 @@ class IWMPControls2 extends IWMPControls{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols2-step
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpcontrols2-step
      */
     step(lStep) {
-        result := ComCall(23, this, "int", lStep, "HRESULT")
+        result := ComCall(23, this, "int", lStep, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

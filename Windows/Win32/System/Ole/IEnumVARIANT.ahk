@@ -7,10 +7,8 @@
 /**
  * Provides a method for enumerating a collection of variants, including heterogeneous collections of objects and intrinsic types.
  * @remarks
- * 
  * To see how to implement a collection of objects using <b>IEnumVARIANT</b>, refer to the file Enumvar.cpp in the Lines sample code.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-ienumvariant
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nn-oaidl-ienumvariant
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -37,6 +35,8 @@ class IEnumVARIANT extends IUnknown{
 
     /**
      * Retrieves the specified items in the enumeration sequence.
+     * @remarks
+     * If fewer than the requested number of elements remain in the sequence, <b>Next</b> returns only the remaining elements. The actual number of elements is returned in <i>pCeltFetched</i>, unless it is null.
      * @param {Integer} celt The number of elements to be retrieved
      * @param {Pointer<VARIANT>} rgVar An array of at least size <i>celt</i> in which the elements are to be returned.
      * @param {Pointer<Integer>} pCeltFetched The number of elements returned in <i>rgVar</i>, or NULL.
@@ -72,7 +72,7 @@ class IEnumVARIANT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-ienumvariant-next
      */
     Next(celt, rgVar, pCeltFetched) {
         pCeltFetchedMarshal := pCeltFetched is VarRef ? "uint*" : "ptr"
@@ -115,7 +115,7 @@ class IEnumVARIANT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-ienumvariant-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -123,7 +123,9 @@ class IEnumVARIANT extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumVARIANT.Reset)
+     * @remarks
+     * There is no guarantee that exactly the same set of variants will be enumerated the second time as was enumerated the first time. Although an exact duplicate is desirable, the outcome depends on the collection being enumerated. You may find that it is impractical for some collections to maintain this condition (for example, an enumeration of the files in a directory).
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -154,20 +156,32 @@ class IEnumVARIANT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-ienumvariant-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a copy of the current state of enumeration.
+     * @remarks
+     * Using this function, a particular point in the enumeration sequence can be recorded, and then returned to at a later time. The returned enumerator is of the same actual interface as the one that is being cloned.
+     * 
+     * There is no guarantee that exactly the same set of variants will be enumerated the second time as was enumerated the first. Although an exact duplicate is desirable, the outcome depends on the collection being enumerated. You may find that it is impractical for some collections to maintain this condition (for example, an enumeration of the files in a directory).
      * @returns {IEnumVARIANT} The clone enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-ienumvariant-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-ienumvariant-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(ppEnum)
     }
 }

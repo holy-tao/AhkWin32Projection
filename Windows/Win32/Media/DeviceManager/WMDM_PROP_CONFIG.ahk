@@ -9,7 +9,7 @@
  * A property configuration describes values for all the properties supported for a given format. The values of different properties in a single configuration are compatible with each other. For example, for an audio file, a configuration will include valid values of sample rate and valid values of the bit rate such that all combinations of these sample and bit rates can be played on the device.
  * 
  * The caller is required to free the memory used by **pPropDesc**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-config
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-prop-config
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

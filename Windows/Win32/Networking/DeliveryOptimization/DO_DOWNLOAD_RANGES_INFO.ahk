@@ -6,7 +6,7 @@
  * Identifies an array of ranges of bytes to download from a file.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ns-deliveryoptimization-do_download_ranges_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/deliveryoptimization/ns-deliveryoptimization-do_download_ranges_info
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  * @version v4.0.30319
  */

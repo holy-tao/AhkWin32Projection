@@ -29,16 +29,27 @@ class ITransactionImport extends IUnknown{
     static VTableNames => ["Import"]
 
     /**
-     * 
+     * An application-defined callback function used with WriteEncryptedFileRaw. The system calls ImportCallback one or more times, each time to retrieve a portion of a backup file's data.
+     * @remarks
+     * The system calls the <b>ImportCallback</b> function until the 
+     *      callback function indicates there is no more data to restore. To indicate that there is no more data to be 
+     *      restored, set <i>*ulLength</i> to 0 and use a return code of 
+     *      <b>ERROR_SUCCESS</b>. You can use the application-defined context block for internal tracking 
+     *      of information such as the file handle and the current offset in the file.
      * @param {Integer} cbTransactionCookie 
      * @param {Pointer<Integer>} rgbTransactionCookie 
      * @param {Pointer<Guid>} piid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nc-winbase-pfe_import_func
      */
     Import(cbTransactionCookie, rgbTransactionCookie, piid) {
         rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, "ptr", piid, "ptr*", &ppvTransaction := 0, "HRESULT")
+        result := ComCall(3, this, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, "ptr", piid, "ptr*", &ppvTransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvTransaction
     }
 }

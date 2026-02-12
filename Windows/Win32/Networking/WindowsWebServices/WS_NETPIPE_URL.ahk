@@ -7,7 +7,7 @@
  * The URL subtype for specifying a net.pipe URL.
  * @remarks
  * If used with the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsdecodeurl">WsDecodeUrl</a> field, <b>portAsString</b> is a zero-length string if no port is specified in <b>url</b>.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_netpipe_url
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_netpipe_url
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

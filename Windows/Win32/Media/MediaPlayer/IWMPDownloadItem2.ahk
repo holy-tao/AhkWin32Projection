@@ -36,9 +36,16 @@ class IWMPDownloadItem2 extends IWMPDownloadItem{
      * @returns {HRESULT} 
      */
     getItemInfo(bstrItemName, pbstrVal) {
-        bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
+        if(bstrItemName is String) {
+            pin := BSTR.Alloc(bstrItemName)
+            bstrItemName := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrItemName, "ptr", pbstrVal, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrItemName, "ptr", pbstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

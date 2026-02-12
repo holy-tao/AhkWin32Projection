@@ -34,7 +34,11 @@ class IAppxManifestReader4 extends IAppxManifestReader3{
      * @returns {IAppxManifestOptionalPackageInfo} 
      */
     GetOptionalPackageInfo() {
-        result := ComCall(15, this, "ptr*", &optionalPackageInfo := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &optionalPackageInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestOptionalPackageInfo(optionalPackageInfo)
     }
 }

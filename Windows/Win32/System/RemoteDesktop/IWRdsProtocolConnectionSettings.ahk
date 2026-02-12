@@ -36,7 +36,11 @@ class IWRdsProtocolConnectionSettings extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConnectionSetting(PropertyID, pPropertyEntriesIn) {
-        result := ComCall(3, this, "ptr", PropertyID, "ptr", pPropertyEntriesIn, "HRESULT")
+        result := ComCall(3, this, "ptr", PropertyID, "ptr", pPropertyEntriesIn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IWRdsProtocolConnectionSettings extends IUnknown{
      */
     GetConnectionSetting(PropertyID) {
         pPropertyEntriesOut := WTS_PROPERTY_VALUE()
-        result := ComCall(4, this, "ptr", PropertyID, "ptr", pPropertyEntriesOut, "HRESULT")
+        result := ComCall(4, this, "ptr", PropertyID, "ptr", pPropertyEntriesOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPropertyEntriesOut
     }
 }

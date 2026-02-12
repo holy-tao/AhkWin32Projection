@@ -36,7 +36,11 @@ class IActivationFilter extends IUnknown{
      */
     HandleActivation(dwActivationType, rclsid) {
         pReplacementClsId := Guid()
-        result := ComCall(3, this, "uint", dwActivationType, "ptr", rclsid, "ptr", pReplacementClsId, "HRESULT")
+        result := ComCall(3, this, "uint", dwActivationType, "ptr", rclsid, "ptr", pReplacementClsId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pReplacementClsId
     }
 }

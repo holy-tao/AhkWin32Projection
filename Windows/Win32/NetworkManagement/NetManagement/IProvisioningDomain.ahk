@@ -30,30 +30,40 @@ class IProvisioningDomain extends IUnknown{
     static VTableNames => ["Add", "Query"]
 
     /**
-     * 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
      * @param {PWSTR} pszwPathToFolder 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
     Add(pszwPathToFolder) {
         pszwPathToFolder := pszwPathToFolder is String ? StrPtr(pszwPathToFolder) : pszwPathToFolder
 
-        result := ComCall(3, this, "ptr", pszwPathToFolder, "HRESULT")
+        result := ComCall(3, this, "ptr", pszwPathToFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Query Notifications Event Category
      * @param {PWSTR} pszwDomain 
      * @param {PWSTR} pszwLanguage 
      * @param {PWSTR} pszwXPathQuery 
      * @returns {IXMLDOMNodeList} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/event-classes/query-notifications-event-category
      */
     Query(pszwDomain, pszwLanguage, pszwXPathQuery) {
         pszwDomain := pszwDomain is String ? StrPtr(pszwDomain) : pszwDomain
         pszwLanguage := pszwLanguage is String ? StrPtr(pszwLanguage) : pszwLanguage
         pszwXPathQuery := pszwXPathQuery is String ? StrPtr(pszwXPathQuery) : pszwXPathQuery
 
-        result := ComCall(4, this, "ptr", pszwDomain, "ptr", pszwLanguage, "ptr", pszwXPathQuery, "ptr*", &Nodes := 0, "HRESULT")
-        return IXMLDOMNodeList(Nodes)
+        result := ComCall(4, this, "ptr", pszwDomain, "ptr", pszwLanguage, "ptr", pszwXPathQuery, "ptr*", &Nodes_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IXMLDOMNodeList(Nodes_)
     }
 }

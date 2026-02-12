@@ -34,7 +34,11 @@ class ICommandText extends ICommand{
      * @returns {PWSTR} 
      */
     GetCommandText(pguidDialect) {
-        result := ComCall(6, this, "ptr", pguidDialect, "ptr*", &ppwszCommand := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pguidDialect, "ptr*", &ppwszCommand := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszCommand
     }
 
@@ -47,7 +51,11 @@ class ICommandText extends ICommand{
     SetCommandText(rguidDialect, pwszCommand) {
         pwszCommand := pwszCommand is String ? StrPtr(pwszCommand) : pwszCommand
 
-        result := ComCall(7, this, "ptr", rguidDialect, "ptr", pwszCommand, "HRESULT")
+        result := ComCall(7, this, "ptr", rguidDialect, "ptr", pwszCommand, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

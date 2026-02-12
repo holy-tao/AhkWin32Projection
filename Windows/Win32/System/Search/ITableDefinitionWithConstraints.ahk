@@ -35,7 +35,11 @@ class ITableDefinitionWithConstraints extends ITableCreation{
      * @returns {HRESULT} 
      */
     AddConstraint(pTableID, pConstraintDesc) {
-        result := ComCall(8, this, "ptr", pTableID, "ptr", pConstraintDesc, "HRESULT")
+        result := ComCall(8, this, "ptr", pTableID, "ptr", pConstraintDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class ITableDefinitionWithConstraints extends ITableCreation{
     CreateTableWithConstraints(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, cConstraintDescs, rgConstraintDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
         ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "uint", cConstraintDescs, "ptr", rgConstraintDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", cColumnDescs, "ptr", rgColumnDescs, "uint", cConstraintDescs, "ptr", rgConstraintDescs, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, ppTableIDMarshal, ppTableID, "ptr*", ppRowset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class ITableDefinitionWithConstraints extends ITableCreation{
      * @returns {HRESULT} 
      */
     DropConstraint(pTableID, pConstraintID) {
-        result := ComCall(10, this, "ptr", pTableID, "ptr", pConstraintID, "HRESULT")
+        result := ComCall(10, this, "ptr", pTableID, "ptr", pConstraintID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

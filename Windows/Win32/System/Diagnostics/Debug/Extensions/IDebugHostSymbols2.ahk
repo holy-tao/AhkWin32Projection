@@ -37,7 +37,11 @@ class IDebugHostSymbols2 extends IDebugHostSymbols{
      */
     DemangleSymbolName(pSymbol, flags) {
         pDemangledSymbolName := BSTR()
-        result := ComCall(10, this, "ptr", pSymbol, "uint", flags, "ptr", pDemangledSymbolName, "HRESULT")
+        result := ComCall(10, this, "ptr", pSymbol, "uint", flags, "ptr", pDemangledSymbolName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDemangledSymbolName
     }
 }

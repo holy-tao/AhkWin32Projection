@@ -9,7 +9,7 @@
  * A driver can access the <b>Flink</b> or <b>Blink</b> members of a <b>LIST_ENTRY</b>, but the members must only be updated by the system routines supplied for this purpose.
  * 
  * For more information about how to use <b>LIST_ENTRY</b> structures to implement a doubly linked list, see <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/singly-and-doubly-linked-lists">Singly and Doubly Linked Lists</a>.
- * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-list_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntdef/ns-ntdef-list_entry
  * @namespace Windows.Win32.System.Kernel
  * @version v4.0.30319
  */

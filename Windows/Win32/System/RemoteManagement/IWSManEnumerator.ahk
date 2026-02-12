@@ -7,15 +7,12 @@
 /**
  * Represents a stream of results returned from operations such as a WS-Management protocol WS-Enumeration:Enumerate operation.
  * @remarks
- * 
  * The corresponding scripting object is <a href="https://docs.microsoft.com/windows/desktop/WinRM/enumerator">Enumerator</a>.
  * 
  * To limit the number of items that are read, set the <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems">IWSManSession::BatchItems</a> property.
  * 
  * Be aware that freeing the enumeration object clears pending enumeration requests.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nn-wsmandisp-iwsmanenumerator
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -56,33 +53,51 @@ class IWSManEnumerator extends IDispatch{
 
     /**
      * Retrieves an item from the resource and returns an XML representation of the item.
+     * @remarks
+     * To start an enumeration, use <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nf-wsmandisp-iwsmansession-enumerate">IWSManSession.Enumerate</a>. To perform a WS-Eventing:Pull operation that continues reading items in the enumeration, use <b>IWSManEnumerator.ReadItem</b>.
+     * 
+     * To limit the number of items that are read, set the <a href="https://docs.microsoft.com/windows/desktop/WinRM/session-batchitems">Session.BatchItems</a> property.
+     * 
+     * Be aware that freeing the enumeration object clears pending enumeration requests.
      * @returns {BSTR} The XML representation of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem
      */
     ReadItem() {
         resource := BSTR()
-        result := ComCall(7, this, "ptr", resource, "HRESULT")
+        result := ComCall(7, this, "ptr", resource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return resource
     }
 
     /**
      * Indicates that the end of items in the IWSManEnumerator object has been reached by calls to IWSManEnumerator::ReadItem.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream
      */
     get_AtEndOfStream() {
-        result := ComCall(8, this, "short*", &eos := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &eos := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return eos
     }
 
     /**
-     * Gets an XML representation of additional error information.
+     * Gets an XML representation of additional error information. (IWSManEnumerator.get_Error)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanenumerator-get_error
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_error
      */
     get_Error() {
         value := BSTR()
-        result := ComCall(9, this, "ptr", value, "HRESULT")
+        result := ComCall(9, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

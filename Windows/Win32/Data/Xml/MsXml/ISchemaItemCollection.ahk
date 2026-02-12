@@ -51,7 +51,11 @@ class ISchemaItemCollection extends IDispatch{
      * @returns {ISchemaItem} 
      */
     get_item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &item := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItem(item)
     }
 
@@ -61,9 +65,16 @@ class ISchemaItemCollection extends IDispatch{
      * @returns {ISchemaItem} 
      */
     itemByName(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", name, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "ptr*", &item := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItem(item)
     }
 
@@ -74,10 +85,20 @@ class ISchemaItemCollection extends IDispatch{
      * @returns {ISchemaItem} 
      */
     itemByQName(name, namespaceURI) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", name, "ptr", namespaceURI, "ptr*", &item := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", name, "ptr", namespaceURI, "ptr*", &item := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItem(item)
     }
 
@@ -86,7 +107,11 @@ class ISchemaItemCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(10, this, "int*", &length := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -95,7 +120,11 @@ class ISchemaItemCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 }

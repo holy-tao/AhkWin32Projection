@@ -5,7 +5,7 @@
 
 /**
  * Failover Cluster Administrator calls your implementation of the IWEInvokeCommand interface when users select context menu items that you created with the IWEExtendContextMenu interface.
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iweinvokecommand
+ * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nn-cluadmex-iweinvokecommand
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWEInvokeCommand extends IUnknown{
 
     /**
      * Allows you to implement procedures that execute when users select your context menu items.
+     * @remarks
+     * To create context menu items and add them to Failover Cluster Administrator, use the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendcontextmenu-addcontextmenuitems">IWEExtendContextMenu::AddContextMenuItems</a> 
+     *      method.
      * @param {Integer} nCommandID Identifier of the menu item containing the command to perform. The identifier represented by 
      *        <i>nCommandID</i> is the identifier passed to the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iwccontextmenucallback-addextensionmenuitem">IWCContextMenuCallback::AddExtensionMenuItem</a> 
@@ -105,10 +109,14 @@ class IWEInvokeCommand extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iweinvokecommand-invokecommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-iweinvokecommand-invokecommand
      */
     InvokeCommand(nCommandID, piData) {
-        result := ComCall(3, this, "uint", nCommandID, "ptr", piData, "HRESULT")
+        result := ComCall(3, this, "uint", nCommandID, "ptr", piData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

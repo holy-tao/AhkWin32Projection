@@ -3,7 +3,7 @@
 
 /**
  * Indicates which features are supported by the WDS TFTP server.
- * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_tftp_capability
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/ne-wdstptmgmt-wdstransport_tftp_capability
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

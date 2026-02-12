@@ -40,7 +40,11 @@ class ISpDisplayAlternates extends IUnknown{
         ppCoMemPhrasesMarshal := ppCoMemPhrases is VarRef ? "ptr*" : "ptr"
         pcPhrasesReturnedMarshal := pcPhrasesReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pPhrase, "uint", cRequestCount, ppCoMemPhrasesMarshal, ppCoMemPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "HRESULT")
+        result := ComCall(3, this, "ptr", pPhrase, "uint", cRequestCount, ppCoMemPhrasesMarshal, ppCoMemPhrases, pcPhrasesReturnedMarshal, pcPhrasesReturned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class ISpDisplayAlternates extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFullStopTrailSpace(ulTrailSpace) {
-        result := ComCall(4, this, "uint", ulTrailSpace, "HRESULT")
+        result := ComCall(4, this, "uint", ulTrailSpace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

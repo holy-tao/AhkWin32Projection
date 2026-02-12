@@ -7,7 +7,7 @@
 
 /**
  * Do not use. This interface is used to provide access to distribution lists in modifiable address book containers. The interface provides methods to create, copy, and delete distribution lists, in addition to performing name resolution.
- * @see https://docs.microsoft.com/windows/win32/api//wabdefs/nn-wabdefs-idistlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/wabdefs/nn-wabdefs-idistlist
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -35,7 +35,11 @@ class IDistList extends IMAPIContainer{
      * @returns {IMAPIProp} 
      */
     CreateEntry(cbEntryID, lpEntryID, ulCreateFlags) {
-        result := ComCall(19, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulCreateFlags, "ptr*", &lppMAPIPropEntry := 0, "HRESULT")
+        result := ComCall(19, this, "uint", cbEntryID, "ptr", lpEntryID, "uint", ulCreateFlags, "ptr*", &lppMAPIPropEntry := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMAPIProp(lppMAPIPropEntry)
     }
 
@@ -48,7 +52,11 @@ class IDistList extends IMAPIContainer{
      * @returns {HRESULT} 
      */
     CopyEntries(lpEntries, ulUIParam, lpProgress, ulFlags) {
-        result := ComCall(20, this, "ptr", lpEntries, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "HRESULT")
+        result := ComCall(20, this, "ptr", lpEntries, "ptr", ulUIParam, "ptr", lpProgress, "uint", ulFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IDistList extends IMAPIContainer{
      * @returns {HRESULT} 
      */
     DeleteEntries(lpEntries, ulFlags) {
-        result := ComCall(21, this, "ptr", lpEntries, "uint", ulFlags, "HRESULT")
+        result := ComCall(21, this, "ptr", lpEntries, "uint", ulFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +84,11 @@ class IDistList extends IMAPIContainer{
      */
     ResolveNames(lpPropTagArray, ulFlags, lpAdrList) {
         lpFlagList := FlagList()
-        result := ComCall(22, this, "ptr", lpPropTagArray, "uint", ulFlags, "ptr", lpAdrList, "ptr", lpFlagList, "HRESULT")
+        result := ComCall(22, this, "ptr", lpPropTagArray, "uint", ulFlags, "ptr", lpAdrList, "ptr", lpFlagList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpFlagList
     }
 }

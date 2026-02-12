@@ -40,17 +40,26 @@ class IJsDebugFrame extends IUnknown{
         pStartMarshal := pStart is VarRef ? "uint*" : "ptr"
         pEndMarshal := pEnd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pStartMarshal, pStart, pEndMarshal, pEnd, "HRESULT")
+        result := ComCall(3, this, pStartMarshal, pStart, pEndMarshal, pEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         pName := BSTR()
-        result := ComCall(4, this, "ptr", pName, "HRESULT")
+        result := ComCall(4, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pName
     }
 
@@ -66,7 +75,11 @@ class IJsDebugFrame extends IUnknown{
         pCharacterOffsetMarshal := pCharacterOffset is VarRef ? "uint*" : "ptr"
         pStatementCharCountMarshal := pStatementCharCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "HRESULT")
+        result := ComCall(5, this, pDocumentIdMarshal, pDocumentId, pCharacterOffsetMarshal, pCharacterOffset, pStatementCharCountMarshal, pStatementCharCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +94,11 @@ class IJsDebugFrame extends IUnknown{
         pLineMarshal := pLine is VarRef ? "uint*" : "ptr"
         pColumnMarshal := pColumn is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pDocumentName, pLineMarshal, pLine, pColumnMarshal, pColumn, "HRESULT")
+        result := ComCall(6, this, "ptr", pDocumentName, pLineMarshal, pLine, pColumnMarshal, pColumn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +107,11 @@ class IJsDebugFrame extends IUnknown{
      * @returns {IJsDebugProperty} 
      */
     GetDebugProperty() {
-        result := ComCall(7, this, "ptr*", &ppDebugProperty := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppDebugProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IJsDebugProperty(ppDebugProperty)
     }
 
@@ -99,21 +120,32 @@ class IJsDebugFrame extends IUnknown{
      * @returns {Integer} 
      */
     GetReturnAddress() {
-        result := ComCall(8, this, "uint*", &pReturnAddress := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pReturnAddress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pReturnAddress
     }
 
     /**
-     * 
+     * Evaluates at the indexed sample location.
+     * @remarks
+     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
      * @param {PWSTR} pExpressionText 
      * @param {Pointer<IJsDebugProperty>} ppDebugProperty 
      * @param {Pointer<BSTR>} pError 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pExpressionText, ppDebugProperty, pError) {
         pExpressionText := pExpressionText is String ? StrPtr(pExpressionText) : pExpressionText
 
-        result := ComCall(9, this, "ptr", pExpressionText, "ptr*", ppDebugProperty, "ptr", pError, "HRESULT")
+        result := ComCall(9, this, "ptr", pExpressionText, "ptr*", ppDebugProperty, "ptr", pError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

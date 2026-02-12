@@ -3,7 +3,7 @@
 
 /**
  * Specifies the frequency of a TV tuner (cable or antenna). (TunerInputType)
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-tunerinputtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-tunerinputtype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

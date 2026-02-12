@@ -6,10 +6,8 @@
 /**
  * Implements a media type profile.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2MediaTypeProfile)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2mediatypeprofile
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nn-sbe-isbe2mediatypeprofile
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,10 +35,14 @@ class ISBE2MediaTypeProfile extends IUnknown{
     /**
      * Gets the number of streams in a media type profile.
      * @returns {Integer} Receives the number of streams in the profile.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount
      */
     GetStreamCount() {
-        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -48,10 +50,14 @@ class ISBE2MediaTypeProfile extends IUnknown{
      * Gets the media type of a stream that appears at a specific index in a media type profile.
      * @param {Integer} Index The index of the stream. To get the number of the streams in the profile, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount">ISBE2MediaTypeProfile::GetStreamCount</a> method.
      * @returns {Pointer<AM_MEDIA_TYPE>} Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure. The caller must not modify this structure or release the memory allocated for it.
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-getstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2mediatypeprofile-getstream
      */
     GetStream(Index) {
-        result := ComCall(4, this, "uint", Index, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(4, this, "uint", Index, "ptr*", &ppMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppMediaType
     }
 
@@ -86,10 +92,14 @@ class ISBE2MediaTypeProfile extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-addstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2mediatypeprofile-addstream
      */
     AddStream(pMediaType) {
-        result := ComCall(5, this, "ptr", pMediaType, "HRESULT")
+        result := ComCall(5, this, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,10 +136,14 @@ class ISBE2MediaTypeProfile extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2mediatypeprofile-deletestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2mediatypeprofile-deletestream
      */
     DeleteStream(Index) {
-        result := ComCall(6, this, "uint", Index, "HRESULT")
+        result := ComCall(6, this, "uint", Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

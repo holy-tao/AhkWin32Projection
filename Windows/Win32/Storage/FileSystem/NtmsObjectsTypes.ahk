@@ -124,7 +124,7 @@
  * <td>Side</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ne-ntmsapi-ntmsobjectstypes
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntmsapi/ne-ntmsapi-ntmsobjectstypes
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

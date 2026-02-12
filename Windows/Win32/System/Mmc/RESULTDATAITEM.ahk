@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RESULTDATAITEM structure specifies or receives the attributes of result items in the result pane of the snap-in.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-resultdataitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-resultdataitem
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -105,9 +106,12 @@ class RESULTDATAITEM extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-querydataobject">IComponent::QueryDataObject</a>.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 
     /**

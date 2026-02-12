@@ -34,7 +34,11 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
      * @returns {ICorProfilerObjectEnum} 
      */
     EnumerateNonGCObjects() {
-        result := ComCall(111, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(111, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICorProfilerObjectEnum(ppEnum)
     }
 
@@ -48,7 +52,11 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
     GetNonGCHeapBounds(cObjectRanges, pcObjectRanges, ranges) {
         pcObjectRangesMarshal := pcObjectRanges is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(112, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, "ptr", ranges, "HRESULT")
+        result := ComCall(112, this, "uint", cObjectRanges, pcObjectRangesMarshal, pcObjectRanges, "ptr", ranges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
 
         pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(113, this, "ptr", providerName, pCallbackMarshal, pCallback, "ptr*", &pProvider := 0, "HRESULT")
+        result := ComCall(113, this, "ptr", providerName, pCallbackMarshal, pCallback, "ptr*", &pProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProvider
     }
 }

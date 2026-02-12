@@ -3,7 +3,7 @@
 
 /**
  * WCN_ATTRIBUTE_TYPE enumeration defines the attribute buffer types defined for Wi-Fi Protected Setup. The overall size occupied by each attribute buffer includes an additional 4 bytes (2 bytes of ID, 2 bytes of Length).
- * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/wcntypes/ne-wcntypes-wcn_attribute_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */

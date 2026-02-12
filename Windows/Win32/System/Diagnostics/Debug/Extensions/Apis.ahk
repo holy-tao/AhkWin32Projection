@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include .\IDataModelManager.ahk
+#Include ..\..\..\WinRT\Apis.ahk
+#Include ..\..\..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -3117,62 +3119,62 @@ class Extensions {
     static DEBUG_OUTPUT_SYMBOLS_NO_TYPES => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_NAME_END => "**NAME**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_OFFSET_END => "**OFF**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_VALUE_END => "**VALUE**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_TYPE_END => "**TYPE**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_NAME_END_WIDE => "**NAME**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_OFFSET_END_WIDE => "**OFF**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_VALUE_END_WIDE => "**VALUE**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_TYPE_END_WIDE => "**TYPE**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_NAME_END_T => "**NAME**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_OFFSET_END_T => "**OFF**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_VALUE_END_T => "**VALUE**"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEBUG_OUTPUT_TYPE_END_T => "**TYPE**"
 
@@ -4642,12 +4644,12 @@ class Extensions {
     static DebugConnect(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
+        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return Interface
+        return Interface_
     }
 
     /**
@@ -4659,12 +4661,12 @@ class Extensions {
     static DebugConnectWide(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
+        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return Interface
+        return Interface_
     }
 
     /**
@@ -4673,12 +4675,12 @@ class Extensions {
      * @returns {Pointer<Pointer<Void>>} 
      */
     static DebugCreate(InterfaceId) {
-        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
+        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return Interface
+        return Interface_
     }
 
     /**
@@ -4688,12 +4690,12 @@ class Extensions {
      * @returns {Pointer<Pointer<Void>>} 
      */
     static DebugCreateEx(InterfaceId, DbgEngOptions) {
-        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface := 0, "int")
+        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return Interface
+        return Interface_
     }
 
     /**

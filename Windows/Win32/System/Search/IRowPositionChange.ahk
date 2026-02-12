@@ -36,7 +36,11 @@ class IRowPositionChange extends IUnknown{
      * @returns {HRESULT} 
      */
     OnRowPositionChange(eReason, ePhase, fCantDeny) {
-        result := ComCall(3, this, "uint", eReason, "uint", ePhase, "int", fCantDeny, "HRESULT")
+        result := ComCall(3, this, "uint", eReason, "uint", ePhase, "int", fCantDeny, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

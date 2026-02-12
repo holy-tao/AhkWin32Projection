@@ -16,7 +16,7 @@
  * -   [**GetSegmentAlternateList**](/previous-versions/windows/desktop/legacy/ms701702(v=vs.85))
  * -   [**GetString**](/previous-versions/windows/desktop/legacy/ms704890(v=vs.85))
  * -   [**GetStrokeRanges**](/previous-versions/windows/desktop/legacy/ms705304(v=vs.85))
- * @see https://learn.microsoft.com/windows/win32/tablet/hrecoalt-handle
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/hrecoalt-handle
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

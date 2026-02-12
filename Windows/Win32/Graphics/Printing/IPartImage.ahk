@@ -35,7 +35,11 @@ class IPartImage extends IPartBase{
      */
     GetImageProperties() {
         pContentType := BSTR()
-        result := ComCall(7, this, "ptr", pContentType, "HRESULT")
+        result := ComCall(7, this, "ptr", pContentType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pContentType
     }
 
@@ -47,7 +51,11 @@ class IPartImage extends IPartBase{
     SetImageContent(pContentType) {
         pContentType := pContentType is String ? StrPtr(pContentType) : pContentType
 
-        result := ComCall(8, this, "ptr", pContentType, "HRESULT")
+        result := ComCall(8, this, "ptr", pContentType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

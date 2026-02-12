@@ -5,7 +5,7 @@
  * Defines constants that indicate the kind of presentation surface the statistics are for.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentationtypes/ne-presentationtypes-presentstatisticskind
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentationtypes/ne-presentationtypes-presentstatisticskind
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */

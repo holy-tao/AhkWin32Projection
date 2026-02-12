@@ -6,7 +6,7 @@
 
 /**
  * Moves messages from one queue to another queue.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-imessagemover
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-imessagemover
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -64,11 +64,15 @@ class IMessageMover extends IDispatch{
     /**
      * Retrieves the current path of the source (input) queue.
      * @returns {BSTR} The path.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-get_sourcepath
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-get_sourcepath
      */
     get_SourcePath() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -76,23 +80,34 @@ class IMessageMover extends IDispatch{
      * Sets the path of the source (input) queue.
      * @param {BSTR} newVal The path.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-put_sourcepath
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-put_sourcepath
      */
     put_SourcePath(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", newVal, "HRESULT")
+        result := ComCall(8, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the path of the destination (output) queue.
      * @returns {BSTR} The path.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-get_destpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-get_destpath
      */
     get_DestPath() {
         pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        result := ComCall(9, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -100,22 +115,33 @@ class IMessageMover extends IDispatch{
      * Sets the path of the destination (output) queue.
      * @param {BSTR} newVal The path.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-put_destpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-put_destpath
      */
     put_DestPath(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", newVal, "HRESULT")
+        result := ComCall(10, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the commit batch size.
      * @returns {Integer} The commit batch size.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-get_commitbatchsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-get_commitbatchsize
      */
     get_CommitBatchSize() {
-        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -123,20 +149,30 @@ class IMessageMover extends IDispatch{
      * Sets the commit batch size. This is the number of messages that should be moved from source to destination queue between commit operations.
      * @param {Integer} newVal The commit batch size.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-put_commitbatchsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-put_commitbatchsize
      */
     put_CommitBatchSize(newVal) {
-        result := ComCall(12, this, "int", newVal, "HRESULT")
+        result := ComCall(12, this, "int", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Moves all messages from the source queue to the destination queue.
+     * @remarks
+     * Messages are moved one at a time unless both the source and destination queue are transacted. In this case, <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-imessagemover-get_commitbatchsize">CommitBatchSize</a> specifies the number of messages that are moved before <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-itransactioncontext-commit">Commit</a> is invoked. There is no provision for moving fewer than all of the messages on the queue.
      * @returns {Integer} The number of messages that were moved from the source to the destination queue.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imessagemover-movemessages
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imessagemover-movemessages
      */
     MoveMessages() {
-        result := ComCall(13, this, "int*", &plMessagesMoved := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plMessagesMoved := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMessagesMoved
     }
 }

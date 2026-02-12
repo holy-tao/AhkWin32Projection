@@ -9,13 +9,10 @@
 /**
  * The IGPMWMIFilter interface contains methods that allow you to set and retrieve security attributes and various properties for a WMI filter. WMI filter queries are specified using WMI Query Language (WQL).
  * @remarks
- * 
  * For information about importing, exporting, and copying WMI filters, see the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemclassobject-getobjecttext">IWbemClassObject::GetObjectText</a> and 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-imofcompiler-compilebuffer">IMofCompiler::CompileBuffer</a> methods in the WMI SDK.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmwmifilter
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmwmifilter
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -75,7 +72,11 @@ class IGPMWMIFilter extends IDispatch{
      */
     get_Path() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -85,9 +86,16 @@ class IGPMWMIFilter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Name(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", newVal, "HRESULT")
+        result := ComCall(8, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +105,11 @@ class IGPMWMIFilter extends IDispatch{
      */
     get_Name() {
         pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        result := ComCall(9, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -107,9 +119,16 @@ class IGPMWMIFilter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Description(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", newVal, "HRESULT")
+        result := ComCall(10, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,18 +138,26 @@ class IGPMWMIFilter extends IDispatch{
      */
     get_Description() {
         pVal := BSTR()
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
+        result := ComCall(11, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Retrieves the query list stored in the WMI filter.
-     * @returns {VARIANT} Pointer to a <b>SAFEARRAY</b> of <b>VARIANT</b> members that contain the <b>BSTR </b>strings representing the queries. Each  <b>BSTR</b> string contains the query string along with the namespace information for that query.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmwmifilter-getquerylist
+     * @returns {VARIANT} Pointer to a <b>SAFEARRAY</b> of <b>VARIANT</b> members that contain the <b>BSTR </b> strings representing the queries. Each  <b>BSTR</b> string contains the query string along with the namespace information for that query.
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmwmifilter-getquerylist
      */
     GetQueryList() {
         pQryList := VARIANT()
-        result := ComCall(12, this, "ptr", pQryList, "HRESULT")
+        result := ComCall(12, this, "ptr", pQryList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pQryList
     }
 
@@ -138,15 +165,26 @@ class IGPMWMIFilter extends IDispatch{
      * Returns an interface or object that represents the list of permissions for the current WMI filter.
      * @returns {IGPMSecurityInfo} Address of a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmwmifilter-getsecurityinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmwmifilter-getsecurityinfo
      */
     GetSecurityInfo() {
-        result := ComCall(13, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppSecurityInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMSecurityInfo(ppSecurityInfo)
     }
 
     /**
      * Sets the list of permissions for the current WMI filter to that specified by the object.
+     * @remarks
+     * You should understand these considerations before changing permissions on WMI filters.
+     * 
+     * <ul>
+     * <li>Read permission is required for all users to whom a WMI filter applies. Authenticated users always have read access to all WMI filters. Typically, all users to whom the GPO with the WMI filter link applies also have read access.</li>
+     * <li>Users with permission to edit WMI filters can affect policy processing for all users to whom the WMI filter applies.</li>
+     * </ul>
      * @param {IGPMSecurityInfo} pSecurityInfo Pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.  This parameter is required.
      * @returns {HRESULT} <h3>JScript</h3>
@@ -154,10 +192,14 @@ class IGPMWMIFilter extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmwmifilter-setsecurityinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmwmifilter-setsecurityinfo
      */
     SetSecurityInfo(pSecurityInfo) {
-        result := ComCall(14, this, "ptr", pSecurityInfo, "HRESULT")
+        result := ComCall(14, this, "ptr", pSecurityInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Specifies a parameter that provides host software with the capability to initiate an NVM Subsystem Reset.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_nvm_subsystem_reset
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_nvm_subsystem_reset
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

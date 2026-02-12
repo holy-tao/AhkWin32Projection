@@ -93,14 +93,26 @@ class IMSMQManagement extends IDispatch{
     }
 
     /**
+     * Initializes the trace.
+     * @remarks
+     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {Pointer<VARIANT>} Machine 
-     * @param {Pointer<VARIANT>} Pathname 
+     * @param {Pointer<VARIANT>} Pathname_ 
      * @param {Pointer<VARIANT>} FormatName 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/-initasynctrace
      */
-    Init(Machine, Pathname, FormatName) {
-        result := ComCall(7, this, "ptr", Machine, "ptr", Pathname, "ptr", FormatName, "HRESULT")
+    Init(Machine, Pathname_, FormatName) {
+        result := ComCall(7, this, "ptr", Machine, "ptr", Pathname_, "ptr", FormatName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +122,11 @@ class IMSMQManagement extends IDispatch{
      */
     get_FormatName() {
         pbstrFormatName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrFormatName, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrFormatName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormatName
     }
 
@@ -120,7 +136,11 @@ class IMSMQManagement extends IDispatch{
      */
     get_Machine() {
         pbstrMachine := BSTR()
-        result := ComCall(9, this, "ptr", pbstrMachine, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrMachine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMachine
     }
 
@@ -129,7 +149,11 @@ class IMSMQManagement extends IDispatch{
      * @returns {Integer} 
      */
     get_MessageCount() {
-        result := ComCall(10, this, "int*", &plMessageCount := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plMessageCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMessageCount
     }
 
@@ -138,7 +162,11 @@ class IMSMQManagement extends IDispatch{
      * @returns {Integer} 
      */
     get_ForeignStatus() {
-        result := ComCall(11, this, "int*", &plForeignStatus := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &plForeignStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plForeignStatus
     }
 
@@ -147,7 +175,11 @@ class IMSMQManagement extends IDispatch{
      * @returns {Integer} 
      */
     get_QueueType() {
-        result := ComCall(12, this, "int*", &plQueueType := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plQueueType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plQueueType
     }
 
@@ -156,7 +188,11 @@ class IMSMQManagement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
-        result := ComCall(13, this, "short*", &pfIsLocal := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &pfIsLocal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsLocal
     }
 
@@ -165,7 +201,11 @@ class IMSMQManagement extends IDispatch{
      * @returns {Integer} 
      */
     get_TransactionalStatus() {
-        result := ComCall(14, this, "int*", &plTransactionalStatus := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &plTransactionalStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plTransactionalStatus
     }
 
@@ -175,7 +215,11 @@ class IMSMQManagement extends IDispatch{
      */
     get_BytesInQueue() {
         pvBytesInQueue := VARIANT()
-        result := ComCall(15, this, "ptr", pvBytesInQueue, "HRESULT")
+        result := ComCall(15, this, "ptr", pvBytesInQueue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvBytesInQueue
     }
 }

@@ -57,7 +57,11 @@ class IHTMLPerformance extends IDispatch{
      * @returns {IHTMLPerformanceNavigation} 
      */
     get_navigation() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLPerformanceNavigation(p)
     }
 
@@ -66,18 +70,31 @@ class IHTMLPerformance extends IDispatch{
      * @returns {IHTMLPerformanceTiming} 
      */
     get_timing() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLPerformanceTiming(p)
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        string := BSTR()
-        result := ComCall(9, this, "ptr", string, "HRESULT")
-        return string
+        string_ := BSTR()
+        result := ComCall(9, this, "ptr", string_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return string_
     }
 
     /**
@@ -86,7 +103,11 @@ class IHTMLPerformance extends IDispatch{
      */
     toJSON() {
         pVar := VARIANT()
-        result := ComCall(10, this, "ptr", pVar, "HRESULT")
+        result := ComCall(10, this, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 }

@@ -43,11 +43,24 @@ class IRemoteComponentUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     InstallRemoteComponent(bstrServer, bstrPackageID, bstrCLSID) {
-        bstrServer := bstrServer is String ? BSTR.Alloc(bstrServer).Value : bstrServer
-        bstrPackageID := bstrPackageID is String ? BSTR.Alloc(bstrPackageID).Value : bstrPackageID
-        bstrCLSID := bstrCLSID is String ? BSTR.Alloc(bstrCLSID).Value : bstrCLSID
+        if(bstrServer is String) {
+            pin := BSTR.Alloc(bstrServer)
+            bstrServer := pin.Value
+        }
+        if(bstrPackageID is String) {
+            pin := BSTR.Alloc(bstrPackageID)
+            bstrPackageID := pin.Value
+        }
+        if(bstrCLSID is String) {
+            pin := BSTR.Alloc(bstrCLSID)
+            bstrCLSID := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrServer, "ptr", bstrPackageID, "ptr", bstrCLSID, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrServer, "ptr", bstrPackageID, "ptr", bstrCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,11 +72,24 @@ class IRemoteComponentUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     InstallRemoteComponentByName(bstrServer, bstrPackageName, bstrProgID) {
-        bstrServer := bstrServer is String ? BSTR.Alloc(bstrServer).Value : bstrServer
-        bstrPackageName := bstrPackageName is String ? BSTR.Alloc(bstrPackageName).Value : bstrPackageName
-        bstrProgID := bstrProgID is String ? BSTR.Alloc(bstrProgID).Value : bstrProgID
+        if(bstrServer is String) {
+            pin := BSTR.Alloc(bstrServer)
+            bstrServer := pin.Value
+        }
+        if(bstrPackageName is String) {
+            pin := BSTR.Alloc(bstrPackageName)
+            bstrPackageName := pin.Value
+        }
+        if(bstrProgID is String) {
+            pin := BSTR.Alloc(bstrProgID)
+            bstrProgID := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrServer, "ptr", bstrPackageName, "ptr", bstrProgID, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrServer, "ptr", bstrPackageName, "ptr", bstrProgID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

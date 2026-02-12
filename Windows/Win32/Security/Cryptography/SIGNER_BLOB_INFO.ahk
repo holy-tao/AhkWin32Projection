@@ -3,7 +3,7 @@
 
 /**
  * Specifies a BLOB to sign.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-blob-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-blob-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

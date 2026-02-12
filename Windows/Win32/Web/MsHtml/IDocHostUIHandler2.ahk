@@ -34,7 +34,11 @@ class IDocHostUIHandler2 extends IDocHostUIHandler{
      * @returns {PWSTR} 
      */
     GetOverrideKeyPath(dw) {
-        result := ComCall(18, this, "ptr*", &pchKey := 0, "uint", dw, "HRESULT")
+        result := ComCall(18, this, "ptr*", &pchKey := 0, "uint", dw, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pchKey
     }
 }

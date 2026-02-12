@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * CLUS_GROUP_START_SETTING (msclus.h) enumerates the start settings for a cluster group.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_group_start_setting
+ * CLUS_GROUP_START_SETTING (clusapi.h) enumerates the start settings for a cluster group.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clus_group_start_setting
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -7,8 +7,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Represents the recorded history of an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatehistoryentry
+ * Represents the recorded history of an update. (IUpdateHistoryEntry)
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdatehistoryentry
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -134,211 +134,243 @@ class IUpdateHistoryEntry extends IDispatch{
     /**
      * Gets an UpdateOperation value that specifies the operation on an update.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_operation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_operation
      */
     get_Operation() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets an OperationResultCode value that specifies the result of an operation on an update.
+     * Gets an OperationResultCode value that specifies the result of an operation on an update. (IUpdateHistoryEntry.get_ResultCode)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_resultcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_resultcode
      */
     get_ResultCode() {
-        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the HRESULT value that is returned from the operation on an update.
      * @remarks
-     * 
      * The returned value is a mapped exception code. To retrieve the actual exception code, use the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatehistoryentry-get_unmappedresultcode">UnmappedResultCode</a> property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_hresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_hresult
      */
     get_HResult() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the date and the time an update was applied.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_date
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_date
      */
     get_Date() {
-        result := ComCall(10, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the IUpdateIdentity interface that contains the identity of the update.
      * @returns {IUpdateIdentity} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_updateidentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_updateidentity
      */
     get_UpdateIdentity() {
-        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUpdateIdentity(retval)
     }
 
     /**
      * Gets the title of an update.
      * @remarks
-     * 
      * The information that   this property returns is for the default user interface (UI) language of the user. However, note the following: 
      * 
      * <ul>
      * <li>If the default UI language of the user is unavailable, Windows Update Agent (WUA) uses the default UI language of the computer.   </li>
      * <li>If the default language of the computer is unavailable, WUA uses the language that the provider of the  update recommends.</li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_title
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_title
      */
     get_Title() {
         retval := BSTR()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        result := ComCall(12, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the description of an update.
      * @remarks
-     * 
      * The information that   this property returns is for the default user interface (UI) language of the user. However, note the following: 
      * 
      * <ul>
      * <li>If the default UI language of the user is unavailable, Windows Update Agent (WUA) uses the default UI language of the computer.</li>
      * <li>If the default language of the computer is unavailable, WUA uses the language that the provider of the  update recommends.</li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_description
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(13, this, "ptr", retval, "HRESULT")
+        result := ComCall(13, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the unmapped result code that is returned from an operation on an update.
      * @remarks
-     * 
      * The returned value is an unmapped result code. To retrieve a mapped exception code, use the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatehistoryentry-get_hresult">HResult</a> property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_unmappedresultcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_unmappedresultcode
      */
     get_UnmappedResultCode() {
-        result := ComCall(14, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the identifier of the client application that processed an update.
      * @remarks
-     * 
      * Returns the Unknown value if the client application has not set the property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_clientapplicationid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_clientapplicationid
      */
     get_ClientApplicationID() {
         retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        result := ComCall(15, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the ServerSelection value that indicates which server provided an update.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_serverselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_serverselection
      */
     get_ServerSelection() {
-        result := ComCall(16, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the service identifier of an update service that is not a Windows update.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_serviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_serviceid
      */
     get_ServiceID() {
         retval := BSTR()
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
+        result := ComCall(17, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the IStringCollection interface that contains the uninstallation steps for an update.
      * @remarks
-     * 
      * The information that   this property returns is for the default user interface (UI) language of the user. However, note the following: 
      * 
      * <ul>
      * <li>If the default UI language of the user is unavailable, Windows Update Agent (WUA) uses the default UI language of the computer.   </li>
      * <li>If the default language of the computer is unavailable, WUA uses the language that the provider of the  update recommends.</li>
      * </ul>
-     * 
-     * 
      * @returns {IStringCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationsteps
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationsteps
      */
     get_UninstallationSteps() {
-        result := ComCall(18, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStringCollection(retval)
     }
 
     /**
      * Gets the uninstallation notes of an update.
      * @remarks
-     * 
      * The information that   this property returns is for the default user interface (UI) language of the user. However, note the following: 
      * 
      * <ul>
      * <li>If the default UI language of the user is unavailable, Windows Update Agent (WUA) uses the default UI language of the computer.</li>
      * <li>If the default language of the computer is unavailable, WUA uses the language that the provider of the  update recommends.</li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationnotes
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationnotes
      */
     get_UninstallationNotes() {
         retval := BSTR()
-        result := ComCall(19, this, "ptr", retval, "HRESULT")
+        result := ComCall(19, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a hyperlink to the language-specific support information for an update.
      * @remarks
-     * 
      * The information that   this property returns is for the default user interface (UI) language of the user. However, note the following: 
      * 
      * <ul>
      * <li>If the default UI language of the user is unavailable, Windows Update Agent (WUA) uses the default UI language of the computer.   </li>
      * <li>If the default language of the computer is unavailable, WUA uses the language that the provider of the  update recommends.</li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatehistoryentry-get_supporturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatehistoryentry-get_supporturl
      */
     get_SupportUrl() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

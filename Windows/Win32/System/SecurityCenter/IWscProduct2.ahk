@@ -75,7 +75,11 @@ class IWscProduct2 extends IWscProduct{
      * @returns {Integer} 
      */
     get_AntivirusScanSubstatus() {
-        result := ComCall(14, this, "int*", &peStatus := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &peStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peStatus
     }
 
@@ -84,7 +88,11 @@ class IWscProduct2 extends IWscProduct{
      * @returns {Integer} 
      */
     get_AntivirusSettingsSubstatus() {
-        result := ComCall(15, this, "int*", &peStatus := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &peStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peStatus
     }
 
@@ -93,7 +101,11 @@ class IWscProduct2 extends IWscProduct{
      * @returns {Integer} 
      */
     get_AntivirusProtectionUpdateSubstatus() {
-        result := ComCall(16, this, "int*", &peStatus := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &peStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peStatus
     }
 
@@ -102,7 +114,11 @@ class IWscProduct2 extends IWscProduct{
      * @returns {Integer} 
      */
     get_FirewallDomainProfileSubstatus() {
-        result := ComCall(17, this, "int*", &peStatus := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &peStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peStatus
     }
 
@@ -111,7 +127,11 @@ class IWscProduct2 extends IWscProduct{
      * @returns {Integer} 
      */
     get_FirewallPrivateProfileSubstatus() {
-        result := ComCall(18, this, "int*", &peStatus := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &peStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peStatus
     }
 
@@ -120,7 +140,11 @@ class IWscProduct2 extends IWscProduct{
      * @returns {Integer} 
      */
     get_FirewallPublicProfileSubstatus() {
-        result := ComCall(19, this, "int*", &peStatus := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &peStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peStatus
     }
 }

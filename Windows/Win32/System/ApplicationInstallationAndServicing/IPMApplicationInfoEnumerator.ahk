@@ -41,7 +41,11 @@ class IPMApplicationInfoEnumerator extends IUnknown{
      * @returns {IPMApplicationInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppAppInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppAppInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMApplicationInfo(ppAppInfo)
     }
 }

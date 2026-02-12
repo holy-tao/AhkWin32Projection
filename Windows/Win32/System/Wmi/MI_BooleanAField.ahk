@@ -4,7 +4,7 @@
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_BooleanAField)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_booleanafield
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_booleanafield
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

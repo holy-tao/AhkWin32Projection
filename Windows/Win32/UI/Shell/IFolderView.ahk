@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifolderview
+ * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ifolderview
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class IFolderView extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer to a memory location at which to store the folder's current view mode. The value at that address is one of the following <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a> values.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getcurrentviewmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getcurrentviewmode
      */
     GetCurrentViewMode() {
-        result := ComCall(3, this, "uint*", &pViewMode := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pViewMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pViewMode
     }
 
@@ -48,11 +52,15 @@ class IFolderView extends IUnknown{
      * @param {Integer} ViewMode Type: <b>UINT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-setcurrentviewmode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-setcurrentviewmode
      */
     SetCurrentViewMode(ViewMode) {
-        result := ComCall(4, this, "uint", ViewMode, "HRESULT")
+        result := ComCall(4, this, "uint", ViewMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,28 +69,38 @@ class IFolderView extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID to represent the folder.
-     * @returns {Pointer<Void>} Type: <b>VOID**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>VOID**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> or a related interface. This can also be an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> with a single element.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getfolder
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getfolder
      */
     GetFolder(riid) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Gets the identifier of a specific item in the folder view, by index.
+     * @remarks
+     * When no longer needed, the PIDL should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>
      * @param {Integer} iItemIndex Type: <b>int</b>
      * 
      * The index of the item in the view.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
      * 
      * The address of a pointer to a PIDL containing the item's identifier information.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-item
      */
     Item(iItemIndex) {
-        result := ComCall(6, this, "int", iItemIndex, "ptr*", &ppidl := 0, "HRESULT")
+        result := ComCall(6, this, "int", iItemIndex, "ptr*", &ppidl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppidl
     }
 
@@ -94,10 +112,14 @@ class IFolderView extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an integer that receives the number of items (files and folders) displayed in the folder view.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-itemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-itemcount
      */
     ItemCount(uFlags) {
-        result := ComCall(7, this, "uint", uFlags, "int*", &pcItems := 0, "HRESULT")
+        result := ComCall(7, this, "uint", uFlags, "int*", &pcItems := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcItems
     }
 
@@ -110,13 +132,17 @@ class IFolderView extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID to represent the folder.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumidlist">IEnumIDList</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>. If an error occurs, this value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-items
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-items
      */
     Items(uFlags, riid) {
-        result := ComCall(8, this, "uint", uFlags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "uint", uFlags, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -125,10 +151,14 @@ class IFolderView extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to the index of the marked item.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getselectionmarkeditem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getselectionmarkeditem
      */
     GetSelectionMarkedItem() {
-        result := ComCall(9, this, "int*", &piItem := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &piItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piItem
     }
 
@@ -137,10 +167,14 @@ class IFolderView extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to the index of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getfocuseditem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getfocuseditem
      */
     GetFocusedItem() {
-        result := ComCall(10, this, "int*", &piItem := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &piItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piItem
     }
 
@@ -149,42 +183,56 @@ class IFolderView extends IUnknown{
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> interface.
-     * @returns {POINT} Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * @returns {POINT} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * A pointer to a structure that receives the position of the item's upper-left corner.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getitemposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getitemposition
      */
     GetItemPosition(pidl) {
         ppt := POINT()
-        result := ComCall(11, this, "ptr", pidl, "ptr", ppt, "HRESULT")
+        result := ComCall(11, this, "ptr", pidl, "ptr", ppt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppt
     }
 
     /**
      * Gets a POINT structure containing the width (x) and height (y) dimensions, including the surrounding white space, of an item.
-     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * @remarks
+     * As an example, consider an icon measuring 75 pixels by 70 pixels, with its upper-left corner located at pixel (0,0). Note that this measurement includes both the visible graphic and its surrounding buffer area. <b>IFolderView::GetSpacing</b> would return a pointer to a POINT structure containing an x value of 75 and a y value of 70. If you were using this information to avoid overlap, the next icon in line to the right would be placed with its upper-left corner at pixel (75,0). Similarly, the next icon below would be placed at pixel (0,70).
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * A pointer to an existing structure to be filled with the current sizing dimensions of the items in the folder's view.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getspacing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getspacing
      */
     GetSpacing(ppt) {
-        result := ComCall(12, this, "ptr", ppt, "HRESULT")
+        result := ComCall(12, this, "ptr", ppt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to a POINT structure containing the default width (x) and height (y) measurements of an item, including the surrounding white space.
-     * @returns {POINT} Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * @returns {POINT} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * Pointer to an existing structure to be filled with the default sizing dimensions of the items in the folder's view.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getdefaultspacing
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getdefaultspacing
      */
     GetDefaultSpacing() {
         ppt := POINT()
-        result := ComCall(13, this, "ptr", ppt, "HRESULT")
+        result := ComCall(13, this, "ptr", ppt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppt
     }
 
@@ -193,10 +241,14 @@ class IFolderView extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the folder is in Auto Arrange mode; S_FALSE if it is not.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-getautoarrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-getautoarrange
      */
     GetAutoArrange() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,11 +262,15 @@ class IFolderView extends IUnknown{
      * One of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svsif">_SVSIF</a> constants that specify the type of selection to apply.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-selectitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-selectitem
      */
     SelectItem(iItem, dwFlags) {
-        result := ComCall(15, this, "int", iItem, "uint", dwFlags, "HRESULT")
+        result := ComCall(15, this, "int", iItem, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,7 +282,7 @@ class IFolderView extends IUnknown{
      * @param {Pointer<Pointer<ITEMIDLIST>>} apidl Type: <b>PCUITEMID_CHILD_ARRAY*</b>
      * 
      * A pointer to an array of size <i>cidl</i> that contains the PIDLs of the items.
-     * @param {Pointer<POINT>} apt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * @param {Pointer<POINT>} apt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * A pointer to an array of <i>cidl</i> structures containing the locations each corresponding element in <i>apidl</i> should be positioned.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -234,13 +290,17 @@ class IFolderView extends IUnknown{
      * One of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svsif">_SVSIF</a> constants that specifies the type of selection to apply.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview-selectandpositionitems
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifolderview-selectandpositionitems
      */
     SelectAndPositionItems(cidl, apidl, apt, dwFlags) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(16, this, "uint", cidl, apidlMarshal, apidl, "ptr", apt, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "uint", cidl, apidlMarshal, apidl, "ptr", apt, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

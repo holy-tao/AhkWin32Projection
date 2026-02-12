@@ -3,7 +3,7 @@
 
 /**
  * Not implemented. (InkRecognitionAlternatesSelection)
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionalternatesselection
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-inkrecognitionalternatesselection
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

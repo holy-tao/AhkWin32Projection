@@ -5,7 +5,7 @@
  * Provides configuration parameters to OpenTraceFromBufferStream, OpenTraceFromFile, OpenTraceFromRealTimeLogger, OpenTraceFromRealTimeLoggerWithAllocationOptions functions.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_open_trace_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-etw_open_trace_options
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

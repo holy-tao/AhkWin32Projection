@@ -48,7 +48,11 @@ class ISchemaAny extends ISchemaParticle{
      * @returns {ISchemaStringCollection} 
      */
     get_namespaces() {
-        result := ComCall(16, this, "ptr*", &namespaces := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &namespaces := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaStringCollection(namespaces)
     }
 
@@ -57,7 +61,11 @@ class ISchemaAny extends ISchemaParticle{
      * @returns {Integer} 
      */
     get_processContents() {
-        result := ComCall(17, this, "int*", &processContents := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &processContents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return processContents
     }
 }

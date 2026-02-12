@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_HBAPORT_SPEED_FLAG enumeration (vdshwprv.h) defines the set of valid flags for determining the speeds supported by an HBA port.
+ * The VDS_HBAPORT_SPEED_FLAG (vds.h) enumeration defines the set of valid flags for determining the speeds supported by an HBA port.
  * @remarks
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_HBAPORT_SPEED_FLAG</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_HBAPORT_SPEED_FLAG</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_hbaport_speed_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_hbaport_speed_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

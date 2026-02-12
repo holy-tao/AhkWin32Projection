@@ -1,0 +1,212 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * The ConnectEx function establishes a connection to a specified socket, and optionally sends data once the connection is established.
+ * @remarks
+ * The 
+ * <b>ConnectEx</b> function combines several socket functions into a single API/kernel transition. The following operations are performed when a call to the 
+ * <b>ConnectEx</b> function completes successfully:<ul>
+ * <li>A new connection is established.</li>
+ * <li>An optional block of data is sent after the connection is established.</li>
+ * </ul>
+ * 
+ * 
+ * For applications targeted to Windows Vista and later, consider using the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnectbylist">WSAConnectByList</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnectbynamea">WSAConnectByName</a> function which greatly simplify client application design.
+ * 
+ * The 
+ * <b>ConnectEx</b> function can only be used with connection-oriented sockets. The socket passed in the <i>s</i> parameter must be created with a socket type of <b>SOCK_STREAM</b>, <b>SOCK_RDM</b>, or <b>SOCK_SEQPACKET</b>.
+ * 
+ * The <i>lpSendBuffer</i> parameter points to a buffer of data to send after the connection is established. The <i>dwSendDataLength</i> parameter specifies the length in bytes of this data to send. An application can request to send a large buffer of data using the <b>ConnectEx</b> in the same way that the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-send">send</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasend">WSASend</a> functions can be used. But developers are strongly advised against sending  a huge buffer in a single call using <b>ConnectEx</b>, because this operation uses a large amount of system memory resources until the whole buffer has been sent. 
+ * 
+ * If the <b>ConnectEx</b> function is successful, a connection was established and all of the data pointed to by the <i>lpSendBuffer</i> parameter was sent to the address specified in the <b>sockaddr</b> structure pointed to by the <i>name</i> parameter.
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  The function pointer for the 
+ * <b>ConnectEx</b> function must be obtained at run time by making a call to the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaioctl">WSAIoctl</a> function with the <b>SIO_GET_EXTENSION_FUNCTION_POINTER</b> opcode specified. The input buffer passed to the <b>WSAIoctl</b> function must contain <b>WSAID_CONNECTEX</b>, a globally unique identifier (GUID) whose value identifies the <b>ConnectEx</b> extension function. On success, the output returned by the <b>WSAIoctl</b> function contains a pointer to the <b>ConnectEx</b> function. The <b>WSAID_CONNECTEX</b> GUID is defined in the <i>Mswsock.h</i> header file.</div>
+ * <div> </div>
+ * 
+ * 
+ * The 
+ * <b>ConnectEx</b> function uses overlapped I/O. As a result, the 
+ * <b>ConnectEx</b> function enables an application to service a large number of clients with relatively few threads. In contrast, the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaconnect">WSAConnect</a> function, which does not use overlapped I/O, usually requires a separate thread to service each connection request when simultaneous  requests are received.<div class="alert"><b>Note</b>   All I/O initiated by a given thread is canceled when that thread exits. For overlapped sockets, pending asynchronous operations can fail if the thread is closed before the  operations complete. See <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitthread">ExitThread</a> for more information.</div>
+ * <div> </div>
+ * 
+ * 
+ * Connection-oriented sockets are often unable to complete their connection immediately, and therefore the operation is initiated and the function immediately returns with the ERROR_IO_PENDING or WSA_IO_PENDING error. When the connect operation completes and success or failure is achieved, status is reported using the completion notification mechanism indicated in <i>lpOverlapped</i>. As with all overlapped function calls, you can use events or completion ports as the completion notification mechanism. The <i>lpNumberOfBytesTransferred</i> parameter of the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsagetoverlappedresult">WSAGetOverlappedResult</a> function indicates the number of bytes sent in the request.
+ * 
+ * When the 
+ * <b>ConnectEx</b> function successfully completes, socket handle <i>s</i> can be passed to only the following functions:<ul>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfile">ReadFile</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefile">WriteFile</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-send">send</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsasend">WSASend</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-recv">recv</a> or 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsarecv">WSARecv</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-transmitfile">TransmitFile</a>
+ * </li>
+ * <li>
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-closesocket">closesocket</a>
+ * </li>
+ * </ul>
+ * 
+ * 
+ * If the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-transmitfile">TransmitFile</a> function is called on a previously connected socket with both TF_DISCONNECT and TF_REUSE_SOCKET flags, the specified socket is returned to a state in which it is not connected, but still bound. In such cases, the handle of the socket can be passed to the 
+ * <b>ConnectEx</b> function in its <i>s</i> parameter, but the socket cannot be reused in an 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/nf-mswsock-acceptex">AcceptEx</a> function call. Similarly, the accepted socket reused using the 
+ * <b>TransmitFile</b> function cannot be used in a call to 
+ * <b>ConnectEx</b>. Note that in the case of a reused socket, <b>ConnectEx</b> is subject to the behavior of the underlying transport. For example, a TCP socket may be subject to the TCP TIME_WAIT state, causing  the <b>ConnectEx</b> call to be delayed.
+ * 
+ * When the 
+ * <b>ConnectEx</b> function returns <b>TRUE</b>, the socket <i>s</i> is in the default state for a connected socket. The socket <i>s</i> does not enable previously set properties or options until SO_UPDATE_CONNECT_CONTEXT is set on the socket. Use the 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> function to set the SO_UPDATE_CONNECT_CONTEXT option.
+ * 
+ * For example:
+ * 
+ * 
+ * ```cpp
+ * //Need to #include <mswsock.h> for SO_UPDATE_CONNECT_CONTEXT
+ * 
+ * int iResult = 0;
+ * 
+ * iResult = setsockopt( s, SOL_SOCKET, SO_UPDATE_CONNECT_CONTEXT, NULL, 0 );
+ * 
+ * ```
+ * 
+ * 
+ * The 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function can be used with the <b>SO_CONNECT_TIME</b> socket option to check whether a connection has been established while 
+ * <b>ConnectEx</b> is in progress. If a connection has been established, the 
+ *  value returned in the <i>optval</i> parameter passed to the <b>getsockopt</b> function is the number of seconds the socket has been connected. If the socket is not connected, 
+ * the returned <i>optval</i> parameter contains 0xFFFFFFFF. Checking a connection in this manner is necessary to determine whether connections have been established for a period of time without sending any data; in such cases, it is recommended that such connections be terminated.
+ * 
+ * For example:
+ * 
+ * 
+ * ```cpp
+ * 
+ * //Need to #include <mswsock.h> for SO_CONNECT_TIME
+ * 
+ * int seconds;
+ * int bytes = sizeof(seconds);
+ * int iResult = 0;
+ * 
+ * iResult = getsockopt( s, SOL_SOCKET, SO_CONNECT_TIME,
+ *                       (char *)&seconds, (PINT)&bytes );
+ * if ( iResult != NO_ERROR ) {
+ *     printf( "getsockopt(SO_CONNECT_TIME) failed with error: %u\n", 
+ *         WSAGetLastError() );
+ * }
+ * else {
+ *     if (seconds == 0xFFFFFFFF)
+ *         printf("Connection not established yet\n");
+ *     else
+ *        printf("Connection has been established %ld seconds\n",
+ *            seconds);
+ * }
+ * 
+ * ```
+ * 
+ * 
+ * 
+ * <div class="alert"><b>Note</b>  If a socket is opened, a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-setsockopt">setsockopt</a> call is made, and then a 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-sendto">sendto</a> call is made, Windows Sockets performs an implicit 
+ * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function call.</div>
+ * <div> </div>
+ * 
+ * 
+ * If the address parameter of the 
+ * <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure pointed to in the <i>name</i> parameter is all zeros, 
+ * <b>ConnectEx</b> returns the error <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEADDRNOTAVAIL</a>. Any attempt to reconnect an active connection will fail with the error code <a href="https://docs.microsoft.com/windows/desktop/WinSock/windows-sockets-error-codes-2">WSAEISCONN</a>.
+ * 
+ * When a connected socket becomes closed for any reason, it is recommended that the socket be discarded and a new socket created. The reasoning for this is that it  is safest to assume that when things go awry on a connected socket for any reason, the application must discard the socket and create the needed socket again in order to return to a stable point.
+ * 
+ * If the 
+ * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms737757(v=vs.85)">DisconnectEx</a> function is called with the <b>TF_REUSE_SOCKET</b> flag, the specified socket is returned to a state in which it is not connected, but still bound. In such cases, the handle of the socket can be passed to the 
+ * <b>ConnectEx</b> function in its <i>s</i> parameter.
+ * 
+ *  The interval of  time that must elapse before TCP can release a closed connection and reuse its resources is known as the TIME_WAIT state or the  2MSL state. During this time, the connection can be reopened at much less cost to the client and server than establishing a new connection.
+ * 
+ * The TIME_WAIT behavior is specified in <a href="https://www.ietf.org/rfc/rfc793.txt">RFC 793</a>, which requires that TCP maintains a closed connection for an interval at least equal to twice the maximum segment lifetime (MSL) of the network. When a connection is released, its socket pair and internal resources used for the socket can be used to support another connection.
+ * 
+ * Windows TCP reverts to a TIME_WAIT state subsequent to the closing of a connection. While in the TIME_WAIT state, a socket pair cannot be reused. The TIME_WAIT period is configurable by modifying the following <b>DWORD</b> registry setting that represents the TIME_WAIT period in seconds. 
+ * 
+ * 
+ * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>TCPIP</b>&#92;<b>Parameters</b>&#92;<b>TcpTimedWaitDelay</b>
+ * 
+ * 
+ * 
+ * By default, the MSL is defined to be 120 seconds. The TcpTimedWaitDelay registry setting defaults to a value 240 seconds, which represents 2 times the maximum segment lifetime of 120 seconds or 4 minutes. However, you can use this entry to customize the interval.
+ * 
+ * Reducing the value of this entry allows TCP to release closed connections faster, providing more resources for new connections. However, if the value is too low, TCP might release connection resources before the connection is complete, requiring the server to use additional resources to re-establish the connection.
+ * 
+ * This registry setting can be set from 0 to 300 seconds.
+ * 
+ * <b>Windows Phone 8:</b> This function is supported for Windows Phone Store apps on Windows Phone 8 and later.
+ * 
+ * <b>Windows 8.1</b> and <b>Windows Server 2012 R2</b>: This function is supported for Windows Store apps on Windows 8.1, Windows Server 2012 R2, and later.
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswsock/nc-mswsock-lpfn_connectex
+ * @namespace Windows.Win32.Networking.WinSock
+ * @version v4.0.30319
+ */
+class LPFN_CONNECTEX extends IUnknown {
+
+    static sizeof => A_PtrSize
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["Invoke"]
+
+    /**
+     * Invokes helper functionality for the IDispatch interface.
+     * @param {SOCKET} s 
+     * @param {Pointer} name 
+     * @param {Integer} namelen 
+     * @param {Pointer} lpSendBuffer 
+     * @param {Integer} dwSendDataLength 
+     * @param {Pointer<Integer>} lpdwBytesSent 
+     * @param {Pointer<OVERLAPPED>} lpOverlapped 
+     * @returns {BOOL} If the method succeeds, it returns S\_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * 
+     * 
+     * | Return code                                                                                  | Description                                      |
+     * |----------------------------------------------------------------------------------------------|--------------------------------------------------|
+     * | <dl> <dt>**E\_INVALIDARG**</dt> </dl> | The value for *pDispatch* is invalid.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/invokeidispatch
+     */
+    Invoke(s, name, namelen, lpSendBuffer, dwSendDataLength, lpdwBytesSent, lpOverlapped) {
+        s := s is Win32Handle ? NumGet(s, "ptr") : s
+
+        lpdwBytesSentMarshal := lpdwBytesSent is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, "ptr", s, "ptr", name, "int", namelen, "ptr", lpSendBuffer, "uint", dwSendDataLength, lpdwBytesSentMarshal, lpdwBytesSent, "ptr", lpOverlapped, "int")
+        return result
+    }
+}

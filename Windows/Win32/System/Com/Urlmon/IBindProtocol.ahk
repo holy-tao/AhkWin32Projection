@@ -38,7 +38,11 @@ class IBindProtocol extends IUnknown{
     CreateBinding(szUrl, pbc) {
         szUrl := szUrl is String ? StrPtr(szUrl) : szUrl
 
-        result := ComCall(3, this, "ptr", szUrl, "ptr", pbc, "ptr*", &ppb := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", szUrl, "ptr", pbc, "ptr*", &ppb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IBinding(ppb)
     }
 }

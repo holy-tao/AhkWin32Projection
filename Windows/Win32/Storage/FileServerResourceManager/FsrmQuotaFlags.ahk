@@ -10,7 +10,7 @@
  *     <b>IFsrmQuotaBase::get_QuotaFlags</b> method can return 
  *     these flags in addition to the <b>FsrmQuotaFlags_StatusIncomplete</b> and 
  *     <b>FsrmQuotaFlags_StatusRebuilding</b> flags.
- * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmquotaflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmenums/ne-fsrmenums-fsrmquotaflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

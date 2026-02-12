@@ -5,7 +5,7 @@
 
 /**
  * The IManipulationProcessor provides functionality for monitoring and responding to multitouch input.
- * @see https://docs.microsoft.com/windows/win32/api//manipulations/nn-manipulations-imanipulationprocessor
+ * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nn-manipulations-imanipulationprocessor
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */
@@ -77,254 +77,348 @@ class IManipulationProcessor extends IUnknown{
     }
 
     /**
-     * The SupportedManipulations property is used to indicate which manipulations are supported by an object.
+     * The SupportedManipulations property is used to indicate which manipulations are supported by an object. (Get)
      * @remarks
-     * 
      * With this property you can control which manipulations the supports and which it does not. 
      * 	 For example, you can block all y-translation manipulations while supporting x-translation manipulations.
-     * 	 
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-get_supportedmanipulations
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-get_supportedmanipulations
      */
     get_SupportedManipulations() {
-        result := ComCall(3, this, "int*", &manipulations := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &manipulations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return manipulations
     }
 
     /**
-     * The SupportedManipulations property is used to indicate which manipulations are supported by an object.
+     * The SupportedManipulations property is used to indicate which manipulations are supported by an object. (Put)
      * @remarks
-     * 
      * With this property you can control which manipulations the supports and which it does not. 
      * 	 For example, you can block all y-translation manipulations while supporting x-translation manipulations.
-     * 	 
-     * 
-     * 
-     * 
      * @param {Integer} manipulations 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-put_supportedmanipulations
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-put_supportedmanipulations
      */
     put_SupportedManipulations(manipulations) {
-        result := ComCall(4, this, "int", manipulations, "HRESULT")
+        result := ComCall(4, this, "int", manipulations, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The PivotPointX property is the horizontal center of the object.
+     * The PivotPointX property is the horizontal center of the object. (Get)
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-get_pivotpointx
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-get_pivotpointx
      */
     get_PivotPointX() {
-        result := ComCall(5, this, "float*", &pivotPointX := 0, "HRESULT")
+        result := ComCall(5, this, "float*", &pivotPointX := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pivotPointX
     }
 
     /**
-     * The PivotPointX property is the horizontal center of the object.
+     * The PivotPointX property is the horizontal center of the object. (Put)
      * @param {Float} pivotPointX 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-put_pivotpointx
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-put_pivotpointx
      */
     put_PivotPointX(pivotPointX) {
-        result := ComCall(6, this, "float", pivotPointX, "HRESULT")
+        result := ComCall(6, this, "float", pivotPointX, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The PivotPointY property is the vertical center of the object.
+     * The PivotPointY property is the vertical center of the object. (Get)
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-get_pivotpointy
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-get_pivotpointy
      */
     get_PivotPointY() {
-        result := ComCall(7, this, "float*", &pivotPointY := 0, "HRESULT")
+        result := ComCall(7, this, "float*", &pivotPointY := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pivotPointY
     }
 
     /**
-     * The PivotPointY property is the vertical center of the object.
+     * The PivotPointY property is the vertical center of the object. (Put)
      * @param {Float} pivotPointY 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-put_pivotpointy
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-put_pivotpointy
      */
     put_PivotPointY(pivotPointY) {
-        result := ComCall(8, this, "float", pivotPointY, "HRESULT")
+        result := ComCall(8, this, "float", pivotPointY, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The PivotRadius property is used to determine how much rotation is used in single finger manipulation.
+     * The PivotRadius property is used to determine how much rotation is used in single finger manipulation. (Get)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  The pivot radius must either be negative, 0, or a value greater than 1. Setting the pivot radius to a value between 0.0 and 1.0 will return <b>E_INVALIDARG</b>.
      *       </div>
      * <div> </div>
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-get_pivotradius
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-get_pivotradius
      */
     get_PivotRadius() {
-        result := ComCall(9, this, "float*", &pivotRadius := 0, "HRESULT")
+        result := ComCall(9, this, "float*", &pivotRadius := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pivotRadius
     }
 
     /**
-     * The PivotRadius property is used to determine how much rotation is used in single finger manipulation.
+     * The PivotRadius property is used to determine how much rotation is used in single finger manipulation. (Put)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  The pivot radius must either be negative, 0, or a value greater than 1. Setting the pivot radius to a value between 0.0 and 1.0 will return <b>E_INVALIDARG</b>.
      *       </div>
      * <div> </div>
-     * 
-     * 
      * @param {Float} pivotRadius 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-put_pivotradius
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-put_pivotradius
      */
     put_PivotRadius(pivotRadius) {
-        result := ComCall(10, this, "float", pivotRadius, "HRESULT")
+        result := ComCall(10, this, "float", pivotRadius, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CompleteManipulation method is called when the developer chooses to end the manipulation.
+     * @remarks
+     * This method raises the ManipulationCompleted() event in response.
+     *   
+     * 
+     * During a Windows Touch gesture, manipulation gets started as soon as first touch input is sent for processing. 
+     *   If <b>CompleteManipulation</b> is called before the second touch input gets a chance to be processed, 
+     *   the second touch input will start a new manipulation.
      * @returns {HRESULT} Returns <b>S_OK</b> on success, otherwise returns an error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-completemanipulation
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-completemanipulation
      */
     CompleteManipulation() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ProcessDown method feeds touch down data to the manipulation processor associated with a target.
+     * @remarks
+     * This method takes a timestamp using system time rather than from the touch hardware. To improve the experience in 
+     *     cases where performance is degrading you should use the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processdownwithtime">ProcessDownWithTime</a> method.
      * @param {Integer} manipulatorId The identifier for the touch contact that you want to process.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
      * @returns {HRESULT} Returns <b>S_OK</b> on success, otherwise returns an error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-processdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-processdown
      */
     ProcessDown(manipulatorId, x, y) {
-        result := ComCall(12, this, "uint", manipulatorId, "float", x, "float", y, "HRESULT")
+        result := ComCall(12, this, "uint", manipulatorId, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ProcessMove method feeds movement data for the target object to its manipulation processor.
+     * @remarks
+     * This method takes a timestamp using system time rather than from the touch hardware. To improve the experience in 
+     *     cases where performance is degrading you should use the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime">ProcessMoveWithTime</a> method.
      * @param {Integer} manipulatorId The identifier for the touch contact that you want to process.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
      * @returns {HRESULT} Returns <b>S_OK</b> on success, otherwise returns an error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-processmove
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-processmove
      */
     ProcessMove(manipulatorId, x, y) {
-        result := ComCall(13, this, "uint", manipulatorId, "float", x, "float", y, "HRESULT")
+        result := ComCall(13, this, "uint", manipulatorId, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ProcessUp method feeds data to a target's manipulation processor for touch up sequences.
+     * @remarks
+     * This method takes a timestamp using system time rather than from the touch hardware. To improve the experience in 
+     *     cases where performance is degrading you should use the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processupwithtime">ProcessUpWithTime</a> method.
      * @param {Integer} manipulatorId The identifier for the touch contact that you want to process.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
      * @returns {HRESULT} Returns <b>S_OK</b> on success, otherwise returns an error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-processup
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-processup
      */
     ProcessUp(manipulatorId, x, y) {
-        result := ComCall(14, this, "uint", manipulatorId, "float", x, "float", y, "HRESULT")
+        result := ComCall(14, this, "uint", manipulatorId, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Feeds touch down data, including a timestamp, to the manipulation processor associated with a target.
+     * @remarks
+     * It is possible to receive touch events out of the order they were produced.  To fix this, 
+     *     you should extract the timestamp from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure when you process events.
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} timestamp The time of the data event.
+     * @param {Integer} timestamp_ The time of the data event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-processdownwithtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-processdownwithtime
      */
-    ProcessDownWithTime(manipulatorId, x, y, timestamp) {
-        result := ComCall(15, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp, "HRESULT")
+    ProcessDownWithTime(manipulatorId, x, y, timestamp_) {
+        result := ComCall(15, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Feeds movement data, including a time stamp, for the target object to its manipulation processor.
+     * @remarks
+     * It is possible to receive touch events out of the order they were produced.  To fix this, 
+     *     you should extract the time stamp from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure when you process events.
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} timestamp The time of the data event.
+     * @param {Integer} timestamp_ The time of the data event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime
      */
-    ProcessMoveWithTime(manipulatorId, x, y, timestamp) {
-        result := ComCall(16, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp, "HRESULT")
+    ProcessMoveWithTime(manipulatorId, x, y, timestamp_) {
+        result := ComCall(16, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Feeds data, including a timestamp, to a target's manipulation processor for touch-up sequences.
+     * @remarks
+     * It is possible to receive touch events out of the order they were produced.  To fix this, 
+     *     you should extract the timestamp from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure when you process events.
      * @param {Integer} manipulatorId The identifier for the touch contact to be processed.
      * @param {Float} x The horizontal coordinate data associated with the target.
      * @param {Float} y The vertical coordinate data associated with the target.
-     * @param {Integer} timestamp The time of the data event.
+     * @param {Integer} timestamp_ The time of the data event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code such as <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-processupwithtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-processupwithtime
      */
-    ProcessUpWithTime(manipulatorId, x, y, timestamp) {
-        result := ComCall(17, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp, "HRESULT")
+    ProcessUpWithTime(manipulatorId, x, y, timestamp_) {
+        result := ComCall(17, this, "uint", manipulatorId, "float", x, "float", y, "uint", timestamp_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Calculates and returns the horizontal velocity for the target object.
+     * @remarks
+     * This value is useful when you are using the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> interface. You should pass this value when the manipulation completes.
      * @returns {Float} The calculated horizontal velocity.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-getvelocityx
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-getvelocityx
      */
     GetVelocityX() {
-        result := ComCall(18, this, "float*", &velocityX := 0, "HRESULT")
+        result := ComCall(18, this, "float*", &velocityX := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return velocityX
     }
 
     /**
      * Calculates and returns the vertical velocity.
+     * @remarks
+     * This value is useful when you are using the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> interface. You should pass this value when the manipulation completes.
      * @returns {Float} The calculated vertical velocity.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-getvelocityy
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-getvelocityy
      */
     GetVelocityY() {
-        result := ComCall(19, this, "float*", &velocityY := 0, "HRESULT")
+        result := ComCall(19, this, "float*", &velocityY := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return velocityY
     }
 
     /**
      * The GetExpansionVelocity method calculates the rate that the target object is expanding at.
+     * @remarks
+     * This value is useful when you are using the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> interface. You should pass this value when the manipulation completes.
      * @returns {Float} The rate of expansion.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-getexpansionvelocity
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-getexpansionvelocity
      */
     GetExpansionVelocity() {
-        result := ComCall(20, this, "float*", &expansionVelocity := 0, "HRESULT")
+        result := ComCall(20, this, "float*", &expansionVelocity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return expansionVelocity
     }
 
     /**
      * The GetAngularVelocity method calculates the rotational velocity that the target object is moving at.
+     * @remarks
+     * This value is useful when you are setting up the initial state of the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> interface. You should pass this value when the manipulation completes.
+     * 
+     * This property is expressed in radians per millisecond if explicit timestamps are not specified by using calls to <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processmovewithtime">ProcessMoveWithTime</a>, <b>ProcessMoveWithTime</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processupwithtime">ProcessUpWithTime</a>. Otherwise, this function uses radians per user defined time units.
      * @returns {Float} The calculated rotational velocity.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-getangularvelocity
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-getangularvelocity
      */
     GetAngularVelocity() {
-        result := ComCall(21, this, "float*", &angularVelocity := 0, "HRESULT")
+        result := ComCall(21, this, "float*", &angularVelocity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return angularVelocity
     }
 
     /**
-     * Specifies how large the distance contacts on a scale or rotate gesture need to be to trigger manipulation.
+     * Specifies how large the distance contacts on a scale or rotate gesture need to be to trigger manipulation. (Get)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  This property is set in centipixels (100ths of a pixel).
      *   </div>
      * <div> </div>
@@ -332,23 +426,22 @@ class IManipulationProcessor extends IUnknown{
      * 	 Setting this value will make the manipulation processor ignore gestures that have too small of a radius.
      * 	 This is useful if you want to prevent a user from manipulating an object to too small of a radius.  For example,
      * 	 if you are using a manipulation processor with a circle and want the ensure that it maintains a radius greater
-     * 	 than 100 pixels, you would set this value to 10000.	
-     *   
-     * 
-     * 
-     * 
+     * 	 than 100 pixels, you would set this value to 10000.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-get_minimumscalerotateradius
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-get_minimumscalerotateradius
      */
     get_MinimumScaleRotateRadius() {
-        result := ComCall(22, this, "float*", &minRadius := 0, "HRESULT")
+        result := ComCall(22, this, "float*", &minRadius := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minRadius
     }
 
     /**
-     * Specifies how large the distance contacts on a scale or rotate gesture need to be to trigger manipulation.
+     * Specifies how large the distance contacts on a scale or rotate gesture need to be to trigger manipulation. (Put)
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  This property is set in centipixels (100ths of a pixel).
      *   </div>
      * <div> </div>
@@ -356,17 +449,17 @@ class IManipulationProcessor extends IUnknown{
      * 	 Setting this value will make the manipulation processor ignore gestures that have too small of a radius.
      * 	 This is useful if you want to prevent a user from manipulating an object to too small of a radius.  For example,
      * 	 if you are using a manipulation processor with a circle and want the ensure that it maintains a radius greater
-     * 	 than 100 pixels, you would set this value to 10000.	
-     *   
-     * 
-     * 
-     * 
+     * 	 than 100 pixels, you would set this value to 10000.
      * @param {Float} minRadius 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-imanipulationprocessor-put_minimumscalerotateradius
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-imanipulationprocessor-put_minimumscalerotateradius
      */
     put_MinimumScaleRotateRadius(minRadius) {
-        result := ComCall(23, this, "float", minRadius, "HRESULT")
+        result := ComCall(23, this, "float", minRadius, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

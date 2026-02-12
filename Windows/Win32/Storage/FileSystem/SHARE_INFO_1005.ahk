@@ -6,7 +6,7 @@
  * @remarks
  * This structure can be retrieved by calling the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> function. It can be set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_1005
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/ns-lmshare-share_info_1005
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

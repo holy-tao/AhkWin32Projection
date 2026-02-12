@@ -283,7 +283,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLFramesCollection2} 
      */
     get_frames() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFramesCollection2(p)
     }
 
@@ -293,9 +297,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_defaultStatus(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -305,7 +316,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_defaultStatus() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -315,9 +330,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_status(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -327,7 +349,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_status() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -339,9 +365,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {Integer} 
      */
     setTimeout(expression, msec, language) {
-        expression := expression is String ? BSTR.Alloc(expression).Value : expression
+        if(expression is String) {
+            pin := BSTR.Alloc(expression)
+            expression := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return timerID
     }
 
@@ -351,7 +384,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     clearTimeout(timerID) {
-        result := ComCall(15, this, "int", timerID, "HRESULT")
+        result := ComCall(15, this, "int", timerID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -361,9 +398,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     alert(message) {
-        message := message is String ? BSTR.Alloc(message).Value : message
+        if(message is String) {
+            pin := BSTR.Alloc(message)
+            message := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", message, "HRESULT")
+        result := ComCall(16, this, "ptr", message, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -373,9 +417,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {VARIANT_BOOL} 
      */
     confirm(message) {
-        message := message is String ? BSTR.Alloc(message).Value : message
+        if(message is String) {
+            pin := BSTR.Alloc(message)
+            message := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", message, "short*", &confirmed := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", message, "short*", &confirmed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return confirmed
     }
 
@@ -386,11 +437,21 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {VARIANT} 
      */
     prompt(message, defstr) {
-        message := message is String ? BSTR.Alloc(message).Value : message
-        defstr := defstr is String ? BSTR.Alloc(defstr).Value : defstr
+        if(message is String) {
+            pin := BSTR.Alloc(message)
+            message := pin.Value
+        }
+        if(defstr is String) {
+            pin := BSTR.Alloc(defstr)
+            defstr := pin.Value
+        }
 
         textdata := VARIANT()
-        result := ComCall(18, this, "ptr", message, "ptr", defstr, "ptr", textdata, "HRESULT")
+        result := ComCall(18, this, "ptr", message, "ptr", defstr, "ptr", textdata, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return textdata
     }
 
@@ -399,7 +460,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLImageElementFactory} 
      */
     get_Image() {
-        result := ComCall(19, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLImageElementFactory(p)
     }
 
@@ -408,7 +473,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLLocation} 
      */
     get_location() {
-        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLLocation(p)
     }
 
@@ -417,16 +486,42 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IOmHistory} 
      */
     get_history() {
-        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOmHistory(p)
     }
 
     /**
+     * The close command closes the device or file and any associated resources. MCI unloads a device when all instances of the device or all files are closed. All MCI devices recognize this command.
+     * @remarks
+     * To close all devices opened by your application, specify the "all" device identifier for the *lpszDeviceID* parameter.
      * 
-     * @returns {HRESULT} 
+     * Closing the **cdaudio** device stops audio playback.
+     * 
+     * **Windows 2000/XP:** If the **cdaudio** device is playing, closing the **cdaudio** device does not cause the audio to stop playing. Send the [stop](stop.md) command first.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/close
      */
     close() {
-        result := ComCall(22, this, "HRESULT")
+        result := ComCall(22, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -436,7 +531,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_opener(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -446,7 +545,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_opener() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -455,7 +558,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IOmNavigator} 
      */
     get_navigator() {
-        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOmNavigator(p)
     }
 
@@ -465,9 +572,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", v, "HRESULT")
+        result := ComCall(26, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -477,7 +591,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        result := ComCall(27, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -486,24 +604,70 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLWindow2} 
      */
     get_parent() {
-        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
     /**
+     * The open command initializes a device. All MCI devices recognize this command.
+     * @remarks
+     * MCI reserves "cdaudio" for the CD audio device type, "videodisc" for the videodisc device type, "sequencer" for the MIDI sequencer device type, "AVIVideo" for the digital-video device type, and "waveaudio" for the waveform-audio device type.
      * 
+     * As an alternative to the "type" flag, MCI can select the device based on the extension used by the file, as recorded in the registry or the \[mci extension\] section of the SYSTEM.INI file.
+     * 
+     * MCI can open AVI files by using a file-interface pointer or a stream-interface pointer. To open a file by using either type of interface pointer, specify an at sign (@) followed by the interface pointer in place of the file or device name for the *lpszDevice* parameter. For more information about the file and stream interfaces, see " [AVIFile Functions and Macros](avifile-functions-and-macros.md)."
+     * 
+     * The following command opens the "mysound" device.
+     * 
+     * ``` syntax
+     * open new type waveaudio alias mysound buffer 6
+     * ```
+     * 
+     * With device name "new", the waveform driver prepares a new waveform resource. The command assigns the device alias "mysound" and specifies a 6-second buffer.
+     * 
+     * You can eliminate the "type" flag if you combine the device name with the filename. MCI recognizes this combination when you use the following syntax:
+     * 
+     * *device\_name* ! *element\_name*
+     * 
+     * The exclamation point separates the device name from the filename. The exclamation point should not be delimited by white spaces.
+     * 
+     * The following example opens the RIGHT.WAV file using the "waveaudio" device.
+     * 
+     * ``` syntax
+     * open waveaudio!right.wav
+     * ```
+     * 
+     * The MCIWAVE driver requires an asynchronous waveform-audio device.
      * @param {BSTR} url 
      * @param {BSTR} name 
      * @param {BSTR} features 
      * @param {VARIANT_BOOL} replace 
      * @returns {IHTMLWindow2} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/open
      */
     open(url, name, features, replace) {
-        url := url is String ? BSTR.Alloc(url).Value : url
-        name := name is String ? BSTR.Alloc(name).Value : name
-        features := features is String ? BSTR.Alloc(features).Value : features
+        if(url is String) {
+            pin := BSTR.Alloc(url)
+            url := pin.Value
+        }
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(features is String) {
+            pin := BSTR.Alloc(features)
+            features := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", url, "ptr", name, "ptr", features, "short", replace, "ptr*", &pomWindowResult := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", url, "ptr", name, "ptr", features, "short", replace, "ptr*", &pomWindowResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(pomWindowResult)
     }
 
@@ -512,7 +676,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLWindow2} 
      */
     get_self() {
-        result := ComCall(30, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -521,7 +689,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLWindow2} 
      */
     get_top() {
-        result := ComCall(31, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -530,7 +702,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLWindow2} 
      */
     get_window() {
-        result := ComCall(32, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -540,9 +716,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     navigate(url) {
-        url := url is String ? BSTR.Alloc(url).Value : url
+        if(url is String) {
+            pin := BSTR.Alloc(url)
+            url := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", url, "HRESULT")
+        result := ComCall(33, this, "ptr", url, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -552,7 +735,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onfocus(v) {
-        result := ComCall(34, this, "ptr", v, "HRESULT")
+        result := ComCall(34, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -562,7 +749,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onfocus() {
         p := VARIANT()
-        result := ComCall(35, this, "ptr", p, "HRESULT")
+        result := ComCall(35, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -572,7 +763,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onblur(v) {
-        result := ComCall(36, this, "ptr", v, "HRESULT")
+        result := ComCall(36, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -582,7 +777,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onblur() {
         p := VARIANT()
-        result := ComCall(37, this, "ptr", p, "HRESULT")
+        result := ComCall(37, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -592,7 +791,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(38, this, "ptr", v, "HRESULT")
+        result := ComCall(38, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -602,7 +805,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(39, this, "ptr", p, "HRESULT")
+        result := ComCall(39, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -612,7 +819,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onbeforeunload(v) {
-        result := ComCall(40, this, "ptr", v, "HRESULT")
+        result := ComCall(40, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -622,7 +833,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onbeforeunload() {
         p := VARIANT()
-        result := ComCall(41, this, "ptr", p, "HRESULT")
+        result := ComCall(41, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -632,7 +847,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onunload(v) {
-        result := ComCall(42, this, "ptr", v, "HRESULT")
+        result := ComCall(42, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -642,7 +861,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onunload() {
         p := VARIANT()
-        result := ComCall(43, this, "ptr", p, "HRESULT")
+        result := ComCall(43, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -652,7 +875,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onhelp(v) {
-        result := ComCall(44, this, "ptr", v, "HRESULT")
+        result := ComCall(44, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -662,7 +889,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onhelp() {
         p := VARIANT()
-        result := ComCall(45, this, "ptr", p, "HRESULT")
+        result := ComCall(45, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -672,7 +903,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onerror(v) {
-        result := ComCall(46, this, "ptr", v, "HRESULT")
+        result := ComCall(46, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -682,7 +917,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onerror() {
         p := VARIANT()
-        result := ComCall(47, this, "ptr", p, "HRESULT")
+        result := ComCall(47, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -692,7 +931,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onresize(v) {
-        result := ComCall(48, this, "ptr", v, "HRESULT")
+        result := ComCall(48, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -702,7 +945,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onresize() {
         p := VARIANT()
-        result := ComCall(49, this, "ptr", p, "HRESULT")
+        result := ComCall(49, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -712,7 +959,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_onscroll(v) {
-        result := ComCall(50, this, "ptr", v, "HRESULT")
+        result := ComCall(50, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -722,7 +973,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_onscroll() {
         p := VARIANT()
-        result := ComCall(51, this, "ptr", p, "HRESULT")
+        result := ComCall(51, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -731,7 +986,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLDocument2} 
      */
     get_document() {
-        result := ComCall(52, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(52, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(p)
     }
 
@@ -740,7 +999,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLEventObj} 
      */
     get_event() {
-        result := ComCall(53, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(53, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLEventObj(p)
     }
 
@@ -749,7 +1012,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(54, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(54, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -761,10 +1028,17 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {VARIANT} 
      */
     showModalDialog(dialog, varArgIn, varOptions) {
-        dialog := dialog is String ? BSTR.Alloc(dialog).Value : dialog
+        if(dialog is String) {
+            pin := BSTR.Alloc(dialog)
+            dialog := pin.Value
+        }
 
         varArgOut := VARIANT()
-        result := ComCall(55, this, "ptr", dialog, "ptr", varArgIn, "ptr", varOptions, "ptr", varArgOut, "HRESULT")
+        result := ComCall(55, this, "ptr", dialog, "ptr", varArgIn, "ptr", varOptions, "ptr", varArgOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varArgOut
     }
 
@@ -776,10 +1050,20 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     showHelp(helpURL, helpArg, features) {
-        helpURL := helpURL is String ? BSTR.Alloc(helpURL).Value : helpURL
-        features := features is String ? BSTR.Alloc(features).Value : features
+        if(helpURL is String) {
+            pin := BSTR.Alloc(helpURL)
+            helpURL := pin.Value
+        }
+        if(features is String) {
+            pin := BSTR.Alloc(features)
+            features := pin.Value
+        }
 
-        result := ComCall(56, this, "ptr", helpURL, "ptr", helpArg, "ptr", features, "HRESULT")
+        result := ComCall(56, this, "ptr", helpURL, "ptr", helpArg, "ptr", features, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -788,7 +1072,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLScreen} 
      */
     get_screen() {
-        result := ComCall(57, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(57, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLScreen(p)
     }
 
@@ -797,7 +1085,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IHTMLOptionElementFactory} 
      */
     get_Option() {
-        result := ComCall(58, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(58, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLOptionElementFactory(p)
     }
 
@@ -806,7 +1098,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     focus() {
-        result := ComCall(59, this, "HRESULT")
+        result := ComCall(59, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -815,7 +1111,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {VARIANT_BOOL} 
      */
     get_closed() {
-        result := ComCall(60, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(60, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -824,7 +1124,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     blur() {
-        result := ComCall(61, this, "HRESULT")
+        result := ComCall(61, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -835,7 +1139,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     scroll(x, y) {
-        result := ComCall(62, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(62, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -844,7 +1152,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IOmNavigator} 
      */
     get_clientInformation() {
-        result := ComCall(63, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(63, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOmNavigator(p)
     }
 
@@ -856,9 +1168,16 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {Integer} 
      */
     setInterval(expression, msec, language) {
-        expression := expression is String ? BSTR.Alloc(expression).Value : expression
+        if(expression is String) {
+            pin := BSTR.Alloc(expression)
+            expression := pin.Value
+        }
 
-        result := ComCall(64, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        result := ComCall(64, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return timerID
     }
 
@@ -868,7 +1187,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     clearInterval(timerID) {
-        result := ComCall(65, this, "int", timerID, "HRESULT")
+        result := ComCall(65, this, "int", timerID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -878,7 +1201,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     put_offscreenBuffering(v) {
-        result := ComCall(66, this, "ptr", v, "HRESULT")
+        result := ComCall(66, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -888,7 +1215,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      */
     get_offscreenBuffering() {
         p := VARIANT()
-        result := ComCall(67, this, "ptr", p, "HRESULT")
+        result := ComCall(67, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -899,22 +1230,41 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {VARIANT} 
      */
     execScript(code, language) {
-        code := code is String ? BSTR.Alloc(code).Value : code
-        language := language is String ? BSTR.Alloc(language).Value : language
+        if(code is String) {
+            pin := BSTR.Alloc(code)
+            code := pin.Value
+        }
+        if(language is String) {
+            pin := BSTR.Alloc(language)
+            language := pin.Value
+        }
 
         pvarRet := VARIANT()
-        result := ComCall(68, this, "ptr", code, "ptr", language, "ptr", pvarRet, "HRESULT")
+        result := ComCall(68, this, "ptr", code, "ptr", language, "ptr", pvarRet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarRet
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        String := BSTR()
-        result := ComCall(69, this, "ptr", String, "HRESULT")
-        return String
+        String_ := BSTR()
+        result := ComCall(69, this, "ptr", String_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return String_
     }
 
     /**
@@ -924,7 +1274,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     scrollBy(x, y) {
-        result := ComCall(70, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(70, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -935,18 +1289,31 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     scrollTo(x, y) {
-        result := ComCall(71, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(71, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * moveToCurrentRow Method (SQLServerResultSet)
+     * @remarks
+     * This moveToCurrentRow method is specified by the moveToCurrentRow method in the java.sql.ResultSet interface.  
+     *   
+     *  This method has no effect if the cursor is not on the insert row.
      * @param {Integer} x 
      * @param {Integer} y 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/movetocurrentrow-method-sqlserverresultset
      */
     moveTo(x, y) {
-        result := ComCall(72, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(72, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -957,7 +1324,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     moveBy(x, y) {
-        result := ComCall(73, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(73, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -968,7 +1339,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     resizeTo(x, y) {
-        result := ComCall(74, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(74, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -979,7 +1354,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {HRESULT} 
      */
     resizeBy(x, y) {
-        result := ComCall(75, this, "int", x, "int", y, "HRESULT")
+        result := ComCall(75, this, "int", x, "int", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -988,7 +1367,11 @@ class IHTMLWindow2 extends IHTMLFramesCollection2{
      * @returns {IDispatch} 
      */
     get_external() {
-        result := ComCall(76, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(76, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 }

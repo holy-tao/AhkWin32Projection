@@ -5,7 +5,7 @@
 
 /**
  * This interface is not implemented.
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwianotifydevmgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nn-wia_xp-iwianotifydevmgr
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -31,14 +31,18 @@ class IWiaNotifyDevMgr extends IUnknown{
     static VTableNames => ["NewDeviceArrival"]
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (IWiaNotifyDevMgr.NewDeviceArrival)
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwianotifydevmgr-newdevicearrival
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwianotifydevmgr-newdevicearrival
      */
     NewDeviceArrival() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

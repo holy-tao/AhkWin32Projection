@@ -6,7 +6,7 @@
 
 /**
  * The IADsPath interface provides methods for an ADSI client to access the Path attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadspath
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadspath
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -60,7 +60,11 @@ class IADsPath extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -70,7 +74,11 @@ class IADsPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Type(lnType) {
-        result := ComCall(8, this, "int", lnType, "HRESULT")
+        result := ComCall(8, this, "int", lnType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +88,11 @@ class IADsPath extends IDispatch{
      */
     get_VolumeName() {
         retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -90,9 +102,16 @@ class IADsPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_VolumeName(bstrVolumeName) {
-        bstrVolumeName := bstrVolumeName is String ? BSTR.Alloc(bstrVolumeName).Value : bstrVolumeName
+        if(bstrVolumeName is String) {
+            pin := BSTR.Alloc(bstrVolumeName)
+            bstrVolumeName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrVolumeName, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrVolumeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +121,11 @@ class IADsPath extends IDispatch{
      */
     get_Path() {
         retval := BSTR()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        result := ComCall(11, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -112,9 +135,16 @@ class IADsPath extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Path(bstrPath) {
-        bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
+        if(bstrPath is String) {
+            pin := BSTR.Alloc(bstrPath)
+            bstrPath := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrPath, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

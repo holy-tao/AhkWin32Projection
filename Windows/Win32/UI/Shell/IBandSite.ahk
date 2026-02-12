@@ -6,11 +6,8 @@
 /**
  * Exposes methods that control band objects.
  * @remarks
- * 
  * <b>IBandSite</b> is used to host band objects, such as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ideskband">IDeskBand</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ibandsite
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ibandsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,10 +40,14 @@ class IBandSite extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns the band ID in ShortFromResult(hresult).
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-addband
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-addband
      */
     AddBand(punk) {
-        result := ComCall(3, this, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,15 +57,19 @@ class IBandSite extends IUnknown{
      * 
      * Call the method with this parameter starting at 0 to
      * 				begin enumerating.  If this parameter is -1, the
-     *         <i>pdwBandID</i>parameter is ignored and this method returns the count of the
+     *        <i>pdwBandID</i> parameter is ignored and this method returns the count of the
      * 				bands in the band site.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * The address of a band ID variable that receives the band ID.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-enumbands
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-enumbands
      */
     EnumBands(uBand) {
-        result := ComCall(4, this, "uint", uBand, "uint*", &pdwBandID := 0, "HRESULT")
+        result := ComCall(4, this, "uint", uBand, "uint*", &pdwBandID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwBandID
     }
 
@@ -87,15 +92,19 @@ class IBandSite extends IUnknown{
      * The size of the <i>pszName</i> buffer, in characters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-queryband
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-queryband
      */
     QueryBand(dwBandID, ppstb, pdwState, pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwBandID, "ptr*", ppstb, pdwStateMarshal, pdwState, "ptr", pszName, "int", cchName, "HRESULT")
+        result := ComCall(5, this, "uint", dwBandID, "ptr*", ppstb, pdwStateMarshal, pdwState, "ptr", pszName, "int", cchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,10 +124,14 @@ class IBandSite extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-setbandstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-setbandstate
      */
     SetBandState(dwBandID, dwMask, dwState) {
-        result := ComCall(6, this, "uint", dwBandID, "uint", dwMask, "uint", dwState, "HRESULT")
+        result := ComCall(6, this, "uint", dwBandID, "uint", dwMask, "uint", dwState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,10 +143,14 @@ class IBandSite extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-removeband
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-removeband
      */
     RemoveBand(dwBandID) {
-        result := ComCall(7, this, "uint", dwBandID, "HRESULT")
+        result := ComCall(7, this, "uint", dwBandID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,14 +162,18 @@ class IBandSite extends IUnknown{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the object to obtain.
-     * @returns {Pointer<Void>} Type: <b>VOID**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>VOID**</b>
      * 
      * The address of a pointer variable that receives a pointer
      * 				to the object requested.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-getbandobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-getbandobject
      */
     GetBandObject(dwBandID, riid) {
-        result := ComCall(8, this, "uint", dwBandID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwBandID, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -167,10 +188,14 @@ class IBandSite extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-setbandsiteinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-setbandsiteinfo
      */
     SetBandSiteInfo(pbsinfo) {
-        result := ComCall(9, this, "ptr", pbsinfo, "HRESULT")
+        result := ComCall(9, this, "ptr", pbsinfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,10 +210,14 @@ class IBandSite extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ibandsite-getbandsiteinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ibandsite-getbandsiteinfo
      */
     GetBandSiteInfo(pbsinfo) {
-        result := ComCall(10, this, "ptr", pbsinfo, "HRESULT")
+        result := ComCall(10, this, "ptr", pbsinfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

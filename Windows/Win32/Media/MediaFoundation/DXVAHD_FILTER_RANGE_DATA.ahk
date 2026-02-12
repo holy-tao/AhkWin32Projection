@@ -16,7 +16,7 @@
  * In this case,  a filter value of 2 would be interpreted by the device as 0.50 (or 2 × 0.25).
  * 
  * The device should use  a multiplier that can be represented exactly as a base-2 fraction.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_filter_range_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_filter_range_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

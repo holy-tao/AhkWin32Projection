@@ -4,7 +4,7 @@
 
 /**
  * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control. (MIXERCONTROLDETAILS)
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/ns-mmeapi-mixercontroldetails
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

@@ -9,7 +9,7 @@
  *  Values of <b>length</b> do not include the end caps of the visible segments.
  * 
  * The shape of the end caps of the visible segments is determined by the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value.
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/ns-xpsobjectmodel-xps_dash
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

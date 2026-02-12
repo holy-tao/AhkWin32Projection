@@ -5,7 +5,7 @@
 
 /**
  * Provides a write-only object model for a content group map.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxcontentgroupmapwriter
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxcontentgroupmapwriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,35 +33,48 @@ class IAppxContentGroupMapWriter extends IUnknown{
     /**
      * Adds an automatic content group to the content group map.
      * @param {PWSTR} groupName The automatic content group name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticgroup
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticgroup
      */
     AddAutomaticGroup(groupName) {
         groupName := groupName is String ? StrPtr(groupName) : groupName
 
-        result := ComCall(3, this, "ptr", groupName, "HRESULT")
+        result := ComCall(3, this, "ptr", groupName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds files to an automatic content group in a content group map.
      * @param {PWSTR} fileName The name of the file to be added to the automatic content group.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticfile
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxcontentgroupmapwriter-addautomaticfile
      */
     AddAutomaticFile(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(4, this, "ptr", fileName, "HRESULT")
+        result := ComCall(4, this, "ptr", fileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

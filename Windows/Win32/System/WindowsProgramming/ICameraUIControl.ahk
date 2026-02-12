@@ -6,7 +6,7 @@
 
 /**
  * Enables a user interface control for a camera device..
- * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nn-camerauicontrol-icamerauicontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nn-camerauicontrol-icamerauicontrol
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */
@@ -40,92 +40,124 @@ class ICameraUIControl extends IUnknown{
     /**
      * Displays the user interface control for the camera.
      * @param {IUnknown} pWindow Pointer to the user interface window.
-     * @param {Integer} mode Specifies whether the user interface will be presented in a browseable or linear manner.
+     * @param {Integer} mode_ Specifies whether the user interface will be presented in a browseable or linear manner.
      * @param {Integer} selectionMode Specifies the selection mode.
      * @param {Integer} captureMode Specifies whether the user interface that will be shown allows the user to capture a photo, capture a video, or either.
      * @param {Integer} photoFormat Provides the format for capturing photos. The available formats include JPEG, PNG, and JPEG XR.
      * @param {Integer} videoFormat Provides the format for capturing videos. The available formats include MP4 and WMV.
      * @param {BOOL} bHasCloseButton TRUE if the user interface has a close button, otherwise, FALSE.
      * @param {ICameraUIControlEventCallback} pEventCallback Pointer to an event callback for the dialog. The callback is invoked if an item is captured or deleted, and when the dialog starts, or is closed or suspended.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-show
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-show
      */
-    Show(pWindow, mode, selectionMode, captureMode, photoFormat, videoFormat, bHasCloseButton, pEventCallback) {
-        result := ComCall(3, this, "ptr", pWindow, "int", mode, "int", selectionMode, "int", captureMode, "int", photoFormat, "int", videoFormat, "int", bHasCloseButton, "ptr", pEventCallback, "HRESULT")
+    Show(pWindow, mode_, selectionMode, captureMode, photoFormat, videoFormat, bHasCloseButton, pEventCallback) {
+        result := ComCall(3, this, "ptr", pWindow, "int", mode_, "int", selectionMode, "int", captureMode, "int", photoFormat, "int", videoFormat, "int", bHasCloseButton, "ptr", pEventCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Closes the user interface control.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-close
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Simulates suspend of the user interface control.
      * @returns {BOOL} TRUE if the suspend operation requires deferral; otherwise, FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-suspend
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-suspend
      */
     Suspend() {
-        result := ComCall(5, this, "int*", &pbDeferralRequired := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pbDeferralRequired := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbDeferralRequired
     }
 
     /**
      * Simulates resume of the user interface control.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-resume
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-resume
      */
     Resume() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the type of the current view.
      * @returns {Integer} A value that indicates whether the UI presents single items or lists of items.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-getcurrentviewtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getcurrentviewtype
      */
     GetCurrentViewType() {
-        result := ComCall(7, this, "int*", &pViewType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pViewType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pViewType
     }
 
     /**
      * Gets the active captured item.
      * @returns {BSTR} Path to the currently active captured item.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-getactiveitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getactiveitem
      */
     GetActiveItem() {
         pbstrActiveItemPath := BSTR()
-        result := ComCall(8, this, "ptr", pbstrActiveItemPath, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrActiveItemPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrActiveItemPath
     }
 
     /**
      * Gets the selected items.
      * @returns {Pointer<SAFEARRAY>} An array of paths to captured items selected in the user interface.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-getselecteditems
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-getselecteditems
      */
     GetSelectedItems() {
-        result := ComCall(9, this, "ptr*", &ppSelectedItemPaths := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppSelectedItemPaths := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppSelectedItemPaths
     }
 
     /**
      * Removes the captured item.
      * @param {PWSTR} pszPath The path to the item to delete.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//camerauicontrol/nf-camerauicontrol-icamerauicontrol-removecaptureditem
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/camerauicontrol/nf-camerauicontrol-icamerauicontrol-removecaptureditem
      */
     RemoveCapturedItem(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(10, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

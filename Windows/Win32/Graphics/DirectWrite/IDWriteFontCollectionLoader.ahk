@@ -7,11 +7,8 @@
 /**
  * Used to construct a collection of fonts given a particular type of key.
  * @remarks
- * 
- * The font collection loader interface is recommended to be implemented by a singleton object. Note that font collection loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistraton operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontcollectionloader
+ * The font collection loader interface is recommended to be implemented by a singleton object. Note that font collection loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistration operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritefontcollectionloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -48,13 +45,17 @@ class IDWriteFontCollectionLoader extends IUnknown{
      * @param {Integer} collectionKeySize Type: <b>UINT32</b>
      * 
      * The size of the font collection key, in bytes.
-     * @returns {IDWriteFontFileEnumerator} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileenumerator">IDWriteFontFileEnumerator</a>**</b>
+     * @returns {Pointer<IDWriteFontFileEnumerator>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileenumerator">IDWriteFontFileEnumerator</a>**</b>
      * 
      * When this method returns, contains the address of  a pointer to the newly created font file enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontcollectionloader-createenumeratorfromkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontcollectionloader-createenumeratorfromkey
      */
     CreateEnumeratorFromKey(factory, collectionKey, collectionKeySize) {
-        result := ComCall(3, this, "ptr", factory, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontFileEnumerator := 0, "HRESULT")
-        return IDWriteFontFileEnumerator(fontFileEnumerator)
+        result := ComCall(3, this, "ptr", factory, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontFileEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFileEnumerator
     }
 }

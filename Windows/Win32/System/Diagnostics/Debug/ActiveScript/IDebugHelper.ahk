@@ -46,7 +46,11 @@ class IDebugHelper extends IUnknown{
     CreatePropertyBrowser(pvar, bstrName, pdat) {
         bstrName := bstrName is String ? StrPtr(bstrName) : bstrName
 
-        result := ComCall(3, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr*", &ppdob := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr*", &ppdob := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugProperty(ppdob)
     }
 
@@ -61,7 +65,11 @@ class IDebugHelper extends IUnknown{
     CreatePropertyBrowserEx(pvar, bstrName, pdat, pdf) {
         bstrName := bstrName is String ? StrPtr(bstrName) : bstrName
 
-        result := ComCall(4, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr", pdf, "ptr*", &ppdob := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr", pdf, "ptr*", &ppdob := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugProperty(ppdob)
     }
 
@@ -71,7 +79,11 @@ class IDebugHelper extends IUnknown{
      * @returns {ISimpleConnectionPoint} 
      */
     CreateSimpleConnectionPoint(pdisp) {
-        result := ComCall(5, this, "ptr", pdisp, "ptr*", &ppscp := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pdisp, "ptr*", &ppscp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISimpleConnectionPoint(ppscp)
     }
 }

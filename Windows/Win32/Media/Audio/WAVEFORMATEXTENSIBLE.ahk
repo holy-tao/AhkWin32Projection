@@ -151,7 +151,7 @@
  * <td>KSDATAFORMAT_SUBTYPE_PCM</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatextensible
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmreg/ns-mmreg-waveformatextensible
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

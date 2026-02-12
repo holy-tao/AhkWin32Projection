@@ -42,7 +42,11 @@ class IValidateBinding extends IUnknown{
         ppbBlobValidationIDMarshal := ppbBlobValidationID is VarRef ? "ptr*" : "ptr"
         pcbBlobSizeMarshal := pcbBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", guidLicensorID, pbEphemeronMarshal, pbEphemeron, "uint", cbEphemeron, ppbBlobValidationIDMarshal, ppbBlobValidationID, pcbBlobSizeMarshal, pcbBlobSize, "HRESULT")
+        result := ComCall(3, this, "ptr", guidLicensorID, pbEphemeronMarshal, pbEphemeron, "uint", cbEphemeron, ppbBlobValidationIDMarshal, ppbBlobValidationID, pcbBlobSizeMarshal, pcbBlobSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

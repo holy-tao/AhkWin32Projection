@@ -7,10 +7,8 @@
 /**
  * Describes an object that is used by a fax client application to retrieve information about an outgoing fax job in a fax server's queue.
  * @remarks
- * 
  * A default implementation of <b>IFaxOutgoingJob2</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob">FaxOutgoingJob</a> object. On Windows XP and earlier, the <b>FaxOutgoingJob</b> object implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutgoingjob">IFaxOutgoingJob</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxoutgoingjob2
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxoutgoingjob2
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -59,22 +57,22 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
     /**
      * Specifies if the fax has a cover page.
      * @remarks
-     * 
      * The value is VARIANT_TRUE if there is a cover page; otherwise VARIANT_FALSE.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_hascoverpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_hascoverpage
      */
     get_HasCoverPage() {
-        result := ComCall(38, this, "short*", &pbHasCoverPage := 0, "HRESULT")
+        result := ComCall(38, this, "short*", &pbHasCoverPage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbHasCoverPage
     }
 
     /**
      * A null-terminated string containing the address to which a delivery report will be sent, indicating success or failure.
      * @remarks
-     * 
      * The type of address will vary according to the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingjob-receipttype-vb">ReceiptType</a> property as indicated in this table.
      * 
      * <table class="clsStd">
@@ -91,29 +89,32 @@ class IFaxOutgoingJob2 extends IFaxOutgoingJob{
      * <td>The computer name on which the delivery report message box will appear</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_receiptaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_receiptaddress
      */
     get_ReceiptAddress() {
         pbstrReceiptAddress := BSTR()
-        result := ComCall(39, this, "ptr", pbstrReceiptAddress, "HRESULT")
+        result := ComCall(39, this, "ptr", pbstrReceiptAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrReceiptAddress
     }
 
     /**
      * Specifies the schedule type that was used for the transmission.
      * @remarks
-     * 
      * This property can indicate the following: the fax should be transmitted right away, that it should be sent at a specified time, or that it should be sent during a period of discounted rates.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingjob2-get_scheduletype
      */
     get_ScheduleType() {
-        result := ComCall(40, this, "int*", &pScheduleType := 0, "HRESULT")
+        result := ComCall(40, this, "int*", &pScheduleType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pScheduleType
     }
 }

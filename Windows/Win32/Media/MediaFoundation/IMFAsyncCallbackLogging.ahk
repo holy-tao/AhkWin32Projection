@@ -6,11 +6,8 @@
 /**
  * Provides logging information about the parent object the async callback is associated with.
  * @remarks
- * 
  * <b>IMFAsyncCallbackLogging</b> is primarily used for async callbacks to return an ID of the parent object that they are associated with.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfasynccallbacklogging
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nn-mfobjects-imfasynccallbacklogging
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,7 +35,7 @@ class IMFAsyncCallbackLogging extends IMFAsyncCallback{
     /**
      * Gets the pointer to the parent object the async callback is associated with.
      * @returns {Pointer<Void>} void pointer to the object.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfasynccallbacklogging-getobjectpointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfasynccallbacklogging-getobjectpointer
      */
     GetObjectPointer() {
         result := ComCall(5, this, "ptr")
@@ -48,7 +45,7 @@ class IMFAsyncCallbackLogging extends IMFAsyncCallback{
     /**
      * Gets the tag of the parent object the async callback is associated object.
      * @returns {Integer} The tag of the object.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfasynccallbacklogging-getobjecttag
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/nf-mfobjects-imfasynccallbacklogging-getobjecttag
      */
     GetObjectTag() {
         result := ComCall(6, this, "uint")

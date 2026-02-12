@@ -59,7 +59,7 @@
  * 
  * <img alt="An illustration of Direct2D primitive blend modes with varying opacity and backgrounds." src="./images/PrimBlendDemo.png"/>
  * An illustration of the primitive blend modes with varying opacity and backgrounds.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/ne-d2d1_1-d2d1_primitive_blend
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

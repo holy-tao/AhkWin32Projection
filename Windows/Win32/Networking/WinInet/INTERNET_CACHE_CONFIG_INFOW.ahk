@@ -13,7 +13,7 @@
  * 
  * > [!NOTE]
  * > The winineti.h header defines INTERNET_CACHE_CONFIG_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/winineti/ns-winineti-internet_cache_config_infow
+ * @see https://learn.microsoft.com/windows/win32/api//content/winineti/ns-winineti-internet_cache_config_infow
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  * @charset Unicode

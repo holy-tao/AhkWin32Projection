@@ -4,8 +4,8 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-isurfaceimagesourcemanagernative
+ * Enables performing bulk operations across all SurfaceImageSource objects created in the same process.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-isurfaceimagesourcemanagernative
  * @namespace Windows.Win32.System.WinRT.Xaml
  * @version v4.0.30319
  */
@@ -36,7 +36,11 @@ class ISurfaceImageSourceManagerNative extends IUnknown{
      * @returns {HRESULT} 
      */
     FlushAllSurfacesWithDevice(device) {
-        result := ComCall(3, this, "ptr", device, "HRESULT")
+        result := ComCall(3, this, "ptr", device, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

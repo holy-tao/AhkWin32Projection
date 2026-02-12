@@ -3,7 +3,7 @@
 
 /**
  * The AutomationElementMode (uiautomationclient.h) enumeration contains values that specify the type of reference to use when returning UI Automation elements.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-automationelementmode
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/ne-uiautomationclient-automationelementmode
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

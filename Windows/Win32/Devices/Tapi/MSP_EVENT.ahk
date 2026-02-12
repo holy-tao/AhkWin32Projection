@@ -3,7 +3,7 @@
 
 /**
  * The MSP_EVENT (msp.h) enumerator defines the type of event information contained in MSP_EVENT_INFO.
- * @see https://learn.microsoft.com/windows/win32/api/msp/ne-msp-msp_event
+ * @see https://learn.microsoft.com/windows/win32/api//content/msp/ne-msp-msp_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -84,9 +84,16 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     getFeature(strName) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strName, "short*", &fValue := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", strName, "short*", &fValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fValue
     }
 
@@ -97,22 +104,39 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     putFeature(strName, fValue) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strName, "short", fValue, "HRESULT")
+        result := ComCall(8, this, "ptr", strName, "short", fValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * getPropertyInfo Method (SQLServerDriver)
+     * @remarks
+     * This getPropertyInfo method is specified by the getPropertyInfo method in the java.sql.Driver interface.
      * @param {BSTR} strName 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getpropertyinfo-method-sqlserverdriver
      */
     getProperty(strName) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
         varValue := VARIANT()
-        result := ComCall(9, this, "ptr", strName, "ptr", varValue, "HRESULT")
+        result := ComCall(9, this, "ptr", strName, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varValue
     }
 
@@ -123,9 +147,16 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     putProperty(strName, varValue) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varValue, "HRESULT")
+        result := ComCall(10, this, "ptr", strName, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +165,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {IVBSAXEntityResolver} 
      */
     get_entityResolver() {
-        result := ComCall(11, this, "ptr*", &oResolver := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &oResolver := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVBSAXEntityResolver(oResolver)
     }
 
@@ -144,7 +179,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_entityResolver(oResolver) {
-        result := ComCall(12, this, "ptr", oResolver, "HRESULT")
+        result := ComCall(12, this, "ptr", oResolver, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +192,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {IVBSAXContentHandler} 
      */
     get_contentHandler() {
-        result := ComCall(13, this, "ptr*", &oHandler := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &oHandler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVBSAXContentHandler(oHandler)
     }
 
@@ -163,7 +206,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_contentHandler(oHandler) {
-        result := ComCall(14, this, "ptr", oHandler, "HRESULT")
+        result := ComCall(14, this, "ptr", oHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,7 +219,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {IVBSAXDTDHandler} 
      */
     get_dtdHandler() {
-        result := ComCall(15, this, "ptr*", &oHandler := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &oHandler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVBSAXDTDHandler(oHandler)
     }
 
@@ -182,7 +233,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_dtdHandler(oHandler) {
-        result := ComCall(16, this, "ptr", oHandler, "HRESULT")
+        result := ComCall(16, this, "ptr", oHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +246,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {IVBSAXErrorHandler} 
      */
     get_errorHandler() {
-        result := ComCall(17, this, "ptr*", &oHandler := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &oHandler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVBSAXErrorHandler(oHandler)
     }
 
@@ -201,7 +260,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_errorHandler(oHandler) {
-        result := ComCall(18, this, "ptr", oHandler, "HRESULT")
+        result := ComCall(18, this, "ptr", oHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -211,7 +274,11 @@ class IVBSAXXMLReader extends IDispatch{
      */
     get_baseURL() {
         strBaseURL := BSTR()
-        result := ComCall(19, this, "ptr", strBaseURL, "HRESULT")
+        result := ComCall(19, this, "ptr", strBaseURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strBaseURL
     }
 
@@ -221,9 +288,16 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     put_baseURL(strBaseURL) {
-        strBaseURL := strBaseURL is String ? BSTR.Alloc(strBaseURL).Value : strBaseURL
+        if(strBaseURL is String) {
+            pin := BSTR.Alloc(strBaseURL)
+            strBaseURL := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", strBaseURL, "HRESULT")
+        result := ComCall(20, this, "ptr", strBaseURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -233,7 +307,11 @@ class IVBSAXXMLReader extends IDispatch{
      */
     get_secureBaseURL() {
         strSecureBaseURL := BSTR()
-        result := ComCall(21, this, "ptr", strSecureBaseURL, "HRESULT")
+        result := ComCall(21, this, "ptr", strSecureBaseURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strSecureBaseURL
     }
 
@@ -243,9 +321,16 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     put_secureBaseURL(strSecureBaseURL) {
-        strSecureBaseURL := strSecureBaseURL is String ? BSTR.Alloc(strSecureBaseURL).Value : strSecureBaseURL
+        if(strSecureBaseURL is String) {
+            pin := BSTR.Alloc(strSecureBaseURL)
+            strSecureBaseURL := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", strSecureBaseURL, "HRESULT")
+        result := ComCall(22, this, "ptr", strSecureBaseURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,7 +340,11 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     parse(varInput) {
-        result := ComCall(23, this, "ptr", varInput, "HRESULT")
+        result := ComCall(23, this, "ptr", varInput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,9 +354,16 @@ class IVBSAXXMLReader extends IDispatch{
      * @returns {HRESULT} 
      */
     parseURL(strURL) {
-        strURL := strURL is String ? BSTR.Alloc(strURL).Value : strURL
+        if(strURL is String) {
+            pin := BSTR.Alloc(strURL)
+            strURL := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", strURL, "HRESULT")
+        result := ComCall(24, this, "ptr", strURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

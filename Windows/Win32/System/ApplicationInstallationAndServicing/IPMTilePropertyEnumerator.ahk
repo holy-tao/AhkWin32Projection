@@ -41,7 +41,11 @@ class IPMTilePropertyEnumerator extends IUnknown{
      * @returns {IPMTilePropertyInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppPropInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppPropInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMTilePropertyInfo(ppPropInfo)
     }
 }

@@ -6,7 +6,6 @@
 /**
  * The IWMLanguageList interface manages a list of languages supported by an ASF file.
  * @remarks
- * 
  * This interface provides support for referencing languages by a string compliant with RFC 1766 – Tags for the Identification of Languages. Other interfaces in this SDK refer to the languages supported in an ASF file by language index. A language index is assigned to every language added to the language list.
  * 
  * This interface manages the list of languages supported for the file. Individual features of the file may not support all of the languages in the list. When selecting a language for playback of an output associated with a set of streams that are mutually exclusive by language, you must get the languages that are supported in that mutual exclusion object. You can retrieve the languages supported for a particular output by using the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced4">IWMReaderAdvanced4</a> interface.
@@ -14,9 +13,7 @@
  * When using this interface to add metadata in multiple languages to an MP3 file, only the first half of the language string is important. For example, the RFC 1766 identifier "en-us" designates English in the region of the United States. When written to an MP3 file, the identifier would be "en" without a regional designation.
  * 
  * For a list of common RFC 1766-compliant language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/language-strings">Language Strings</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmlanguagelist
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmlanguagelist
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -43,16 +40,24 @@ class IWMLanguageList extends IUnknown{
 
     /**
      * The GetLanguageCount method retrieves the total number of supported languages in the language list.
+     * @remarks
+     * For a list of common RFC 1766-compliant language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/language-strings">Language Strings</a>.
      * @returns {Integer} Pointer to a <b>WORD</b> containing the total number of languages present in the language list.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagecount
      */
     GetLanguageCount() {
-        result := ComCall(3, this, "ushort*", &pwCount := 0, "HRESULT")
+        result := ComCall(3, this, "ushort*", &pwCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwCount
     }
 
     /**
      * The GetLanguageDetails method retrieves the RFC 1766-compliant language tag for an entry in the list of supported languages.
+     * @remarks
+     * For a list of common RFC 1766-compliant language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/language-strings">Language Strings</a>.
      * @param {Integer} wIndex <b>WORD</b> containing the index in the language list.
      * @param {PWSTR} pwszLanguageString Pointer to the RFC 1766-compliant language tag of the language list entry specified by <i>wIndex</i>. Pass <b>NULL</b> to retrieve the length of the string, which will be returned in <i>pcbLanguageStringLength</i>.
      * @param {Pointer<Integer>} pcchLanguageStringLength Pointer to a <b>WORD</b> containing the length of the language string, in wide characters. This length includes the terminating <b>null</b> character.
@@ -75,27 +80,37 @@ class IWMLanguageList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagedetails
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagedetails
      */
     GetLanguageDetails(wIndex, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
         pcchLanguageStringLengthMarshal := pcchLanguageStringLength is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ushort", wIndex, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "HRESULT")
+        result := ComCall(4, this, "ushort", wIndex, "ptr", pwszLanguageString, pcchLanguageStringLengthMarshal, pcchLanguageStringLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddLanguageByRFC1766String method adds an entry to the list of supported languages for a file based upon a language tag compliant with RFC 1766.
+     * @remarks
+     * For a list of common RFC 1766-compliant language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/language-strings">Language Strings</a>.
      * @param {PWSTR} pwszLanguageString Pointer to a wide-character null-terminated string containing an RFC 1766-compliant language tag.
      * @returns {Integer} Pointer to a <b>WORD</b>. On output, this will be set to the index assigned to the added language entry.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlanguagelist-addlanguagebyrfc1766string
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-addlanguagebyrfc1766string
      */
     AddLanguageByRFC1766String(pwszLanguageString) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
 
-        result := ComCall(5, this, "ptr", pwszLanguageString, "ushort*", &pwIndex := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszLanguageString, "ushort*", &pwIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwIndex
     }
 }

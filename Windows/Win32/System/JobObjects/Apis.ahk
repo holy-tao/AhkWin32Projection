@@ -25,23 +25,23 @@ class JobObjects {
      * @param {HANDLE} JobHandle A handle to the job. If this parameter is NULL, the function tests if the process is running under any job.
      * 
      * If this parameter is not NULL, the handle must have the JOB_OBJECT_QUERY access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/job-object-security-and-access-rights">Job Object Security and Access Rights</a>.
-     * @param {Pointer<BOOL>} Result A pointer to a value that receives TRUE if the process is running in the job, and FALSE otherwise.
+     * @param {Pointer<BOOL>} Result_ A pointer to a value that receives TRUE if the process is running in the job, and FALSE otherwise.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi/nf-jobapi-isprocessinjob
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi/nf-jobapi-isprocessinjob
      * @since windows5.1.2600
      */
-    static IsProcessInJob(ProcessHandle, JobHandle, Result) {
+    static IsProcessInJob(ProcessHandle, JobHandle, Result_) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
         JobHandle := JobHandle is Win32Handle ? NumGet(JobHandle, "ptr") : JobHandle
 
-        ResultMarshal := Result is VarRef ? "int*" : "ptr"
+        Result_Marshal := Result_ is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsProcessInJob", "ptr", ProcessHandle, "ptr", JobHandle, ResultMarshal, Result, "int")
+        result := DllCall("KERNEL32.dll\IsProcessInJob", "ptr", ProcessHandle, "ptr", JobHandle, Result_Marshal, Result_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -86,7 +86,7 @@ class JobObjects {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-createjobobjectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-createjobobjectw
      * @since windows5.1.2600
      */
     static CreateJobObjectW(lpJobAttributes, lpName) {
@@ -105,15 +105,15 @@ class JobObjects {
 
     /**
      * Frees memory that a function related to job objects allocated. Functions related to job objects that allocate memory include QueryIoRateControlInformationJobObject.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ A pointer to the buffer of allocated memory that you want to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-freememoryjobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-freememoryjobobject
      * @since windows10.0.10240
      */
-    static FreeMemoryJobObject(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static FreeMemoryJobObject(Buffer_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        DllCall("KERNEL32.dll\FreeMemoryJobObject", Buffer_RMarshal, Buffer_R)
+        DllCall("KERNEL32.dll\FreeMemoryJobObject", Buffer_Marshal, Buffer_)
     }
 
     /**
@@ -137,7 +137,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-openjobobjectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-openjobobjectw
      * @since windows5.1.2600
      */
     static OpenJobObjectW(dwDesiredAccess, bInheritHandle, lpName) {
@@ -200,7 +200,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-assignprocesstojobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-assignprocesstojobobject
      * @since windows5.1.2600
      */
     static AssignProcessToJobObject(hJob, hProcess) {
@@ -241,7 +241,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-terminatejobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-terminatejobobject
      * @since windows5.1.2600
      */
     static TerminateJobObject(hJob, uExitCode) {
@@ -289,7 +289,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-setinformationjobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-setinformationjobobject
      * @since windows5.1.2600
      */
     static SetInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength) {
@@ -316,7 +316,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-setioratecontrolinformationjobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-setioratecontrolinformationjobobject
      * @since windows10.0.10240
      */
     static SetIoRateControlInformationJobObject(hJob, IoRateControlInfo) {
@@ -358,7 +358,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-queryinformationjobobject
      * @since windows5.1.2600
      */
     static QueryInformationJobObject(hJob, JobObjectInformationClass, lpJobObjectInformation, cbJobObjectInformationLength, lpReturnLength) {
@@ -391,7 +391,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryioratecontrolinformationjobobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-queryioratecontrolinformationjobobject
      * @since windows10.0.10240
      */
     static QueryIoRateControlInformationJobObject(hJob, VolumeName, InfoBlocks, InfoBlockCount) {
@@ -428,7 +428,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-userhandlegrantaccess
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-userhandlegrantaccess
      * @since windows5.1.2600
      */
     static UserHandleGrantAccess(hUserHandle, hJob, bGrant) {
@@ -482,7 +482,7 @@ class JobObjects {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is NULL. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createjobobjecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createjobobjecta
      * @since windows5.1.2600
      */
     static CreateJobObjectA(lpJobAttributes, lpName) {
@@ -520,7 +520,7 @@ class JobObjects {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openjobobjecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openjobobjecta
      * @since windows5.1.2600
      */
     static OpenJobObjectA(dwDesiredAccess, bInheritHandle, lpName) {

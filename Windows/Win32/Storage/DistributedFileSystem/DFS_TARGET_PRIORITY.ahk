@@ -36,7 +36,7 @@
  * 
  * For more information about how server target priority is determined, see 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dfs/dfs-server-target-prioritization">DFS Server Target Prioritization</a>.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_target_priority
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_target_priority
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

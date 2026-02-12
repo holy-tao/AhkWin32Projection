@@ -35,7 +35,11 @@ class IWMPDownloadManager extends IDispatch{
      * @returns {IWMPDownloadCollection} 
      */
     getDownloadCollection(lCollectionId) {
-        result := ComCall(7, this, "int", lCollectionId, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(7, this, "int", lCollectionId, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMPDownloadCollection(ppCollection)
     }
 
@@ -44,7 +48,11 @@ class IWMPDownloadManager extends IDispatch{
      * @returns {IWMPDownloadCollection} 
      */
     createDownloadCollection() {
-        result := ComCall(8, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMPDownloadCollection(ppCollection)
     }
 }

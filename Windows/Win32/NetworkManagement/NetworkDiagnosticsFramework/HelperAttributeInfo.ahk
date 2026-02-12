@@ -3,7 +3,7 @@
 
 /**
  * The HelperAttributeInfo structure contains the name of the helper attribute and its type.
- * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-helperattributeinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndhelper/ns-ndhelper-helperattributeinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

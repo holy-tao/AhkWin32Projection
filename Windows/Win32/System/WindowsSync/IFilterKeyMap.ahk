@@ -30,14 +30,25 @@ class IFilterKeyMap extends IUnknown{
     static VTableNames => ["GetCount", "AddFilter", "GetFilter", "Serialize"]
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, the return value is **TRUE**.
+     * 
+     * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount(pdwCount) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +61,11 @@ class IFilterKeyMap extends IUnknown{
     AddFilter(pISyncFilter, pdwFilterKey) {
         pdwFilterKeyMarshal := pdwFilterKey is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pISyncFilter, pdwFilterKeyMarshal, pdwFilterKey, "HRESULT")
+        result := ComCall(4, this, "ptr", pISyncFilter, pdwFilterKeyMarshal, pdwFilterKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +75,11 @@ class IFilterKeyMap extends IUnknown{
      * @returns {ISyncFilter} 
      */
     GetFilter(dwFilterKey) {
-        result := ComCall(5, this, "uint", dwFilterKey, "ptr*", &ppISyncFilter := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwFilterKey, "ptr*", &ppISyncFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncFilter(ppISyncFilter)
     }
 
@@ -74,7 +93,11 @@ class IFilterKeyMap extends IUnknown{
         pbFilterKeyMapMarshal := pbFilterKeyMap is VarRef ? "char*" : "ptr"
         pcbFilterKeyMapMarshal := pcbFilterKeyMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pbFilterKeyMapMarshal, pbFilterKeyMap, pcbFilterKeyMapMarshal, pcbFilterKeyMap, "HRESULT")
+        result := ComCall(6, this, pbFilterKeyMapMarshal, pbFilterKeyMap, pcbFilterKeyMapMarshal, pcbFilterKeyMap, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -40,7 +40,11 @@ class IPrinterExtensionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     EnableEvents(printerDriverId) {
-        result := ComCall(3, this, "ptr", printerDriverId, "HRESULT")
+        result := ComCall(3, this, "ptr", printerDriverId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IPrinterExtensionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     DisableEvents() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -12,7 +12,7 @@
  * 
  * When information about registered NAP
  *    components is retrieved, if there is no valid <i>infoClsid</i>,  <i>configClsid</i>, or <i>registrationDate</i>, they are set to 0.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-napcomponentregistrationinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/naptypes/ns-naptypes-napcomponentregistrationinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

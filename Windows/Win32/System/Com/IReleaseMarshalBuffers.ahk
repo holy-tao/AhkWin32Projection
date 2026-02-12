@@ -36,7 +36,11 @@ class IReleaseMarshalBuffers extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseMarshalBuffer(pMsg, dwFlags, pChnl) {
-        result := ComCall(3, this, "ptr", pMsg, "uint", dwFlags, "ptr", pChnl, "HRESULT")
+        result := ComCall(3, this, "ptr", pMsg, "uint", dwFlags, "ptr", pChnl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

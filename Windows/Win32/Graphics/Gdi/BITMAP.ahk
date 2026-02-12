@@ -26,7 +26,7 @@
  * All devices that have the RC_BITBLT device capability support bitmaps. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
  * 
  * Each device has a unique color format. To transfer a bitmap from one device to another, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdibits">GetDIBits</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-setdibits">SetDIBits</a> functions.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmap
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-bitmap
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

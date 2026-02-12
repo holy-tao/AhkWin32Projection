@@ -8,7 +8,7 @@
  *     file is not counted as a metadata file.
  * 
  * The number of read and write operations measured is the number of paging operations.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_statistics_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-ntfs_statistics_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

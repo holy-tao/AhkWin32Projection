@@ -5,7 +5,7 @@
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext3 adds new methods to those in ID3D11DeviceContext2.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nn-d3d11_3-id3d11devicecontext3
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nn-d3d11_3-id3d11devicecontext3
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -33,12 +33,9 @@ class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
     /**
      * Sends queued-up commands in the command buffer to the graphics processing unit (GPU), with a specified context type and an optional event handle to create an event query.
      * @remarks
-     * 
      * <b>Flush1</b> has parameters.
      *           For more information, see
      *           <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush">ID3D11DeviceContext::Flush</a>, which doesn't have parameters.
-     * 
-     * 
      * @param {Integer} ContextType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_context_type">D3D11_CONTEXT_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_context_type">D3D11_CONTEXT_TYPE</a> that specifies the context in which a query occurs, such as a 3D command queue, 3D compute queue, 3D copy queue, video, or image.
@@ -53,7 +50,7 @@ class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
      *               To determine when the GPU is finished processing the graphics commands,
      *               you can then use that event query in a call to <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-getdata">ID3D11DeviceContext::GetData</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11devicecontext3-flush1
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11devicecontext3-flush1
      */
     Flush1(ContextType, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -67,7 +64,7 @@ class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
      * 
      * Specifies whether to enable hardware protection.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11devicecontext3-sethardwareprotectionstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11devicecontext3-sethardwareprotectionstate
      */
     SetHardwareProtectionState(HwProtectionEnable) {
         ComCall(145, this, "int", HwProtectionEnable)
@@ -79,7 +76,7 @@ class ID3D11DeviceContext3 extends ID3D11DeviceContext2{
      * 
      * After this method returns, points to a BOOL that indicates whether hardware protection is enabled.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11devicecontext3-gethardwareprotectionstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11devicecontext3-gethardwareprotectionstate
      */
     GetHardwareProtectionState(pHwProtectionEnable) {
         pHwProtectionEnableMarshal := pHwProtectionEnable is VarRef ? "int*" : "ptr"

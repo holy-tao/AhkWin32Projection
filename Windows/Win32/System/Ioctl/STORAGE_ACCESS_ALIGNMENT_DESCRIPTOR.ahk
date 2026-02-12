@@ -3,7 +3,7 @@
 
 /**
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY control code to retrieve the storage access alignment descriptor data for a device.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_access_alignment_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_access_alignment_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HNODE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IGetClusterNodeInfo interface is called by a Failover Cluster Administrator extension to retrieve information about a node.
  * @remarks
- * 
  * If the object being extended is not a node, queries for 
  *      <b>IGetClusterNodeInfo</b> methods will fail. Otherwise, 
  *      you can use the <b>IGetClusterNodeInfo</b> interface when 
@@ -33,9 +33,7 @@
  *      <i>piData</i>. Use <i>piData</i> to call 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for one of the 
  *      <b>IGetClusterNodeInfo</b> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-igetclusternodeinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nn-cluadmex-igetclusternodeinfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -62,6 +60,8 @@ class IGetClusterNodeInfo extends IUnknown{
 
     /**
      * Returns a handle to a node.
+     * @remarks
+     * Do not close the handle obtained through this method.
      * @param {Integer} lObjIndex A number representing the zero-based index of the target node. <i>lObjIndex</i> is 
      *        restricted to the number that can be retrieved by calling 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
@@ -70,11 +70,12 @@ class IGetClusterNodeInfo extends IUnknown{
      * 
      * If <b>GetNodeHandle</b> is not 
      *        successful, it returns <b>NULL</b>. For more information about the error, call the function 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusternodeinfo-getnodehandle
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/cluadmex/nf-cluadmex-igetclusternodeinfo-getnodehandle
      */
     GetNodeHandle(lObjIndex) {
         result := ComCall(3, this, "int", lObjIndex, "ptr")
-        return result
+        resultHandle := HNODE({Value: result}, True)
+        return resultHandle
     }
 }

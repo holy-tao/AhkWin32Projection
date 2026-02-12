@@ -5,7 +5,7 @@
  * Describes a DNS-over-HTTPS server.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_doh_server_settings
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-dns_doh_server_settings
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

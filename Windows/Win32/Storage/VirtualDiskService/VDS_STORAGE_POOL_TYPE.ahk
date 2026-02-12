@@ -2,7 +2,7 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_STORAGE_POOL_TYPE enumeration (vdshwprv.h) defines the set of storage pool types.
+ * The VDS_STORAGE_POOL_TYPE (vds.h) enumeration defines the set of storage pool types.
  * @remarks
  * The terms <i>primordial storage pool</i> and <i>concrete storage pool</i> are defined in section 5.1.3 of the "Part 3: Block Devices" portion of the <a href="https://www.snia.org/tech_activities/standards/curr_standards/smi/">SMI-S v1.5 specification</a>, which can be downloaded from the <a href="https://www.snia.org/">SNIA website</a>.
  * 
@@ -10,7 +10,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_STORAGE_POOL_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_STORAGE_POOL_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_storage_pool_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_storage_pool_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * The PROVIDOR\_INFO\_1 structure identifies a print provider.
- * @see https://learn.microsoft.com/windows/win32/printdocs/providor-info-1
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/providor-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

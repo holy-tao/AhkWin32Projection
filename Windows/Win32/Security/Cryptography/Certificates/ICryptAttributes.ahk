@@ -7,7 +7,7 @@
 
 /**
  * The ICryptAttributes interface contains methods and properties that enable you to manage a collection of ICryptAttribute objects.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icryptattributes
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icryptattributes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -50,30 +50,42 @@ class ICryptAttributes extends IDispatch{
      * Retrieves an ICryptAttribute object from the collection by index number.
      * @param {Integer} Index 
      * @returns {ICryptAttribute} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-get_itembyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICryptAttribute(pVal)
     }
 
     /**
      * Retrieves the number of ICryptAttribute objects in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-get_count
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Retrieves the enumerator for the collection.
+     * Retrieves the enumerator for the collection. (ICryptAttributes.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pVal)
     }
 
@@ -82,11 +94,15 @@ class ICryptAttributes extends IDispatch{
      * @param {ICryptAttribute} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icryptattribute">ICryptAttribute</a> interface that represents the attribute to add.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-add
      */
     Add(pVal) {
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,11 +111,15 @@ class ICryptAttributes extends IDispatch{
      * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, "int", Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,11 +127,15 @@ class ICryptAttributes extends IDispatch{
      * Removes all ICryptAttribute objects from the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,10 +143,14 @@ class ICryptAttributes extends IDispatch{
      * Retrieves the index of an attribute by object identifier (OID).
      * @param {IObjectId} pObjectId 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-get_indexbyobjectid
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-get_indexbyobjectid
      */
     get_IndexByObjectId(pObjectId) {
-        result := ComCall(13, this, "ptr", pObjectId, "int*", &pIndex := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pObjectId, "int*", &pIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIndex
     }
 
@@ -131,11 +159,15 @@ class ICryptAttributes extends IDispatch{
      * @param {ICryptAttributes} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icryptattributes">ICryptAttributes</a> interface that contains the attribute collection to add.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icryptattributes-addrange
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icryptattributes-addrange
      */
     AddRange(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        result := ComCall(14, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

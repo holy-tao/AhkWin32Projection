@@ -6,7 +6,7 @@
  * IORING_BUFFER_REF represents a reference to a buffer used in an I/O ring operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_buffer_ref
+ * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/ns-ioringapi-ioring_buffer_ref
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

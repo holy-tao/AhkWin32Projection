@@ -66,7 +66,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ActiveOffset(ActiveOffset) {
-        result := ComCall(7, this, "int", ActiveOffset, "HRESULT")
+        result := ComCall(7, this, "int", ActiveOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +79,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {Integer} 
      */
     get_ActiveOffset() {
-        result := ComCall(8, this, "int*", &ActiveOffset := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &ActiveOffset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ActiveOffset
     }
 
@@ -85,7 +93,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ActiveLength(ActiveLength) {
-        result := ComCall(9, this, "int", ActiveLength, "HRESULT")
+        result := ComCall(9, this, "int", ActiveLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +106,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {Integer} 
      */
     get_ActiveLength() {
-        result := ComCall(10, this, "int*", &ActiveLength := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &ActiveLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ActiveLength
     }
 
@@ -104,7 +120,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SelectionOffset(SelectionOffset) {
-        result := ComCall(11, this, "int", SelectionOffset, "HRESULT")
+        result := ComCall(11, this, "int", SelectionOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +133,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {Integer} 
      */
     get_SelectionOffset() {
-        result := ComCall(12, this, "int*", &SelectionOffset := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &SelectionOffset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SelectionOffset
     }
 
@@ -123,7 +147,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SelectionLength(SelectionLength) {
-        result := ComCall(13, this, "int", SelectionLength, "HRESULT")
+        result := ComCall(13, this, "int", SelectionLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +160,11 @@ class ISpeechTextSelectionInformation extends IDispatch{
      * @returns {Integer} 
      */
     get_SelectionLength() {
-        result := ComCall(14, this, "int*", &SelectionLength := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &SelectionLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SelectionLength
     }
 }

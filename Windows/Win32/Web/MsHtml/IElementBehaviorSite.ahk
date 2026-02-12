@@ -34,7 +34,11 @@ class IElementBehaviorSite extends IUnknown{
      * @returns {IHTMLElement} 
      */
     GetElement() {
-        result := ComCall(3, this, "ptr*", &ppElement := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppElement)
     }
 
@@ -44,7 +48,11 @@ class IElementBehaviorSite extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterNotification(lEvent) {
-        result := ComCall(4, this, "int", lEvent, "HRESULT")
+        result := ComCall(4, this, "int", lEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

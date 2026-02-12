@@ -25,7 +25,7 @@
  *  
  * 
  * The **InkDivider** does not currently support vertical languages. For the **InkDivider** object to recognize these languages properly the [**IInkRecognizer**](/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognizer) object for the language must support the free input capability and the characters must be written from left to right.
- * @see https://learn.microsoft.com/windows/win32/tablet/inkdivider-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/inkdivider-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

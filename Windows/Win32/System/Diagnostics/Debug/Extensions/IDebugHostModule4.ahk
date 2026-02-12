@@ -38,7 +38,11 @@ class IDebugHostModule4 extends IDebugHostModule3{
     FindTypeByName2(pEnclosingSymbol, typeName) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := ComCall(18, this, "ptr", pEnclosingSymbol, "ptr", typeName, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pEnclosingSymbol, "ptr", typeName, "ptr*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(type)
     }
 }

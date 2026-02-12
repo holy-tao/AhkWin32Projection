@@ -40,7 +40,11 @@ class AsyncIFtpPreprocessProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_HandlePreprocess(pPreProcessParameters) {
-        result := ComCall(3, this, "ptr", pPreProcessParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pPreProcessParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIFtpPreprocessProvider extends IUnknown{
      * @returns {Integer} 
      */
     Finish_HandlePreprocess() {
-        result := ComCall(4, this, "int*", &pFtpProcessStatus := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pFtpProcessStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFtpProcessStatus
     }
 }

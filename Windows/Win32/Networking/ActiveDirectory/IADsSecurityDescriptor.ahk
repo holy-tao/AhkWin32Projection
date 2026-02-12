@@ -7,14 +7,10 @@
 /**
  * Provides access to properties on an ADSI security descriptor object.
  * @remarks
- * 
  * Use this interface to examine and change the access controls to an Active Directory directory service object. You can also use it to create copies of a security descriptor. To get this interface, use the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iads-get">IADs.Get</a> method to obtain the <b>ntSecurityDescriptor</b> attribute of the object. For more information about how  to create  a new security descriptor and set it on an object, see <a href="https://docs.microsoft.com/windows/desktop/AD/creating-a-security-descriptor-for-a-new-directory-object">Creating a Security Descriptor for a New Directory Object</a> and <a href="https://docs.microsoft.com/windows/desktop/AD/null-dacls-and-empty-dacls">Null DACLs and Empty DACLs</a>.
  * 
  * Often, it is not possible to modify all portions of the security descriptor. For example, if the current user has full control of an object, but is not an administrator and does not own the object, the user can modify the DACL, but cannot modify the owner. This will cause an error when the <b>ntSecurityDescriptor</b> is updated. To avoid this problem, the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsobjectoptions">IADsObjectOptions</a> interface can be used to specify the specific portions of the security descriptor that should be modified.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadssecuritydescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadssecuritydescriptor
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -124,7 +120,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {Integer} 
      */
     get_Revision() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -134,7 +134,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Revision(lnRevision) {
-        result := ComCall(8, this, "int", lnRevision, "HRESULT")
+        result := ComCall(8, this, "int", lnRevision, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +147,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {Integer} 
      */
     get_Control() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -153,7 +161,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Control(lnControl) {
-        result := ComCall(10, this, "int", lnControl, "HRESULT")
+        result := ComCall(10, this, "int", lnControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +175,11 @@ class IADsSecurityDescriptor extends IDispatch{
      */
     get_Owner() {
         retval := BSTR()
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
+        result := ComCall(11, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -173,9 +189,16 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Owner(bstrOwner) {
-        bstrOwner := bstrOwner is String ? BSTR.Alloc(bstrOwner).Value : bstrOwner
+        if(bstrOwner is String) {
+            pin := BSTR.Alloc(bstrOwner)
+            bstrOwner := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrOwner, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +207,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_OwnerDefaulted() {
-        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -194,7 +221,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_OwnerDefaulted(fOwnerDefaulted) {
-        result := ComCall(14, this, "short", fOwnerDefaulted, "HRESULT")
+        result := ComCall(14, this, "short", fOwnerDefaulted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -204,7 +235,11 @@ class IADsSecurityDescriptor extends IDispatch{
      */
     get_Group() {
         retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        result := ComCall(15, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -214,9 +249,16 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Group(bstrGroup) {
-        bstrGroup := bstrGroup is String ? BSTR.Alloc(bstrGroup).Value : bstrGroup
+        if(bstrGroup is String) {
+            pin := BSTR.Alloc(bstrGroup)
+            bstrGroup := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrGroup, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrGroup, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -225,7 +267,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_GroupDefaulted() {
-        result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -235,7 +281,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_GroupDefaulted(fGroupDefaulted) {
-        result := ComCall(18, this, "short", fGroupDefaulted, "HRESULT")
+        result := ComCall(18, this, "short", fGroupDefaulted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,7 +294,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {IDispatch} 
      */
     get_DiscretionaryAcl() {
-        result := ComCall(19, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(retval)
     }
 
@@ -254,7 +308,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DiscretionaryAcl(pDiscretionaryAcl) {
-        result := ComCall(20, this, "ptr", pDiscretionaryAcl, "HRESULT")
+        result := ComCall(20, this, "ptr", pDiscretionaryAcl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -263,7 +321,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_DaclDefaulted() {
-        result := ComCall(21, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -273,7 +335,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DaclDefaulted(fDaclDefaulted) {
-        result := ComCall(22, this, "short", fDaclDefaulted, "HRESULT")
+        result := ComCall(22, this, "short", fDaclDefaulted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -282,7 +348,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {IDispatch} 
      */
     get_SystemAcl() {
-        result := ComCall(23, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(retval)
     }
 
@@ -292,7 +362,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SystemAcl(pSystemAcl) {
-        result := ComCall(24, this, "ptr", pSystemAcl, "HRESULT")
+        result := ComCall(24, this, "ptr", pSystemAcl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -301,7 +375,11 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_SaclDefaulted() {
-        result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -311,17 +389,25 @@ class IADsSecurityDescriptor extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SaclDefaulted(fSaclDefaulted) {
-        result := ComCall(26, this, "short", fSaclDefaulted, "HRESULT")
+        result := ComCall(26, this, "short", fSaclDefaulted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsSecurityDescriptor::CopySecurityDescriptor method copies an ADSI security descriptor object that holds security data about an object.
      * @returns {IDispatch} Pointer to a pointer to a security descriptor object.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
      */
     CopySecurityDescriptor() {
-        result := ComCall(27, this, "ptr*", &ppSecurityDescriptor := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &ppSecurityDescriptor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppSecurityDescriptor)
     }
 }

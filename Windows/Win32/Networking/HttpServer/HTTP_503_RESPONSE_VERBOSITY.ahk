@@ -12,7 +12,7 @@
  * 
  * <div class="alert"><b>Note</b>  Disclosing information about the state of the service to potentially unsafe clients may pose a security risk.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_503_response_verbosity
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ne-http-http_503_response_verbosity
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

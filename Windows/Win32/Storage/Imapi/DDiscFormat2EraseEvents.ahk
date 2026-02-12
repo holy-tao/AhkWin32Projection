@@ -5,7 +5,7 @@
 
 /**
  * Implement this interface to receive notifications of the current erase operation.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-ddiscformat2eraseevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-ddiscformat2eraseevents
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -38,16 +38,26 @@ class DDiscFormat2EraseEvents extends IDispatch{
 
     /**
      * Implement this method to receive progress notification of the current erase operation.
-     * @param {IDispatch} object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface that initiated the erase operation. 
+     * @remarks
+     * Notifications are sent in response to calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2erase-erasemedia">IDiscFormat2Erase::EraseMedia</a> method. 
+     * 
+     * Notification is sent every 0.5 or 1.0 seconds depending on the method required to blank the media.
+     * 
+     * Total time estimates for a single erasure can vary as the operation progresses. The drive provides updated information that can affect the projected duration of the erasure.
+     * @param {IDispatch} object_ The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface that initiated the erase operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2Erase</b> object in script.
      * @param {Integer} elapsedSeconds Elapsed time, in seconds, of the erase operation.
      * @param {Integer} estimatedTotalSeconds Estimated time, in seconds, to complete the erase operation.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscformat2eraseevents-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-ddiscformat2eraseevents-update
      */
-    Update(object, elapsedSeconds, estimatedTotalSeconds) {
-        result := ComCall(7, this, "ptr", object, "int", elapsedSeconds, "int", estimatedTotalSeconds, "HRESULT")
+    Update(object_, elapsedSeconds, estimatedTotalSeconds) {
+        result := ComCall(7, this, "ptr", object_, "int", elapsedSeconds, "int", estimatedTotalSeconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

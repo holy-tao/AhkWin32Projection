@@ -6,7 +6,7 @@
 
 /**
  * The IX509EnrollmentHelper interface defines methods that enable a web application to enroll a certificate, store policy server credentials in the credential cache, and register policy servers and enrollment servers.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509enrollmenthelper
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-ix509enrollmenthelper
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,6 +33,36 @@ class IX509EnrollmentHelper extends IDispatch{
 
     /**
      * Registers a certificate enrollment policy (CEP) server and saves CEP access credentials in the credential cache.
+     * @remarks
+     * The <i>strCredential</i> and <i>strPassword</i> arguments change depending on the value specified in the <i>authFlags</i> argument as shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th><i>flag</i> parameter </th>
+     * <th><i>strCredential</i> parameter</th>
+     * <th><i>strPassword</i> parameter</th>
+     * </tr>
+     * <tr>
+     * <td>X509AuthAnonymous</td>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthKerberos</td>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthUsername</td>
+     * <td>Clear text user name recognized by the CEP server.</td>
+     * <td>Clear text password associated with the user name.</td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthCertificate</td>
+     * <td>Contains a 20 byte SHA-1 hash (thumbprint) of the certificate.</td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * </table>
      * @param {BSTR} strEnrollmentPolicyServerURI A <b>BSTR</b> that contains the certificate enrollment policy server URL.
      * @param {BSTR} strEnrollmentPolicyID A <b>BSTR</b> that contains the certificate enrollment policy server ID. The ID can be any string. It is set by the administrator who installs the CEP server.
      * @param {Integer} EnrollmentPolicyServerFlags 
@@ -41,7 +71,7 @@ class IX509EnrollmentHelper extends IDispatch{
      * @param {BSTR} strPassword A <b>BSTR</b> that contains a clear text password.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -71,27 +101,73 @@ class IX509EnrollmentHelper extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmenthelper-addpolicyserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509enrollmenthelper-addpolicyserver
      */
     AddPolicyServer(strEnrollmentPolicyServerURI, strEnrollmentPolicyID, EnrollmentPolicyServerFlags, authFlags, strCredential, strPassword) {
-        strEnrollmentPolicyServerURI := strEnrollmentPolicyServerURI is String ? BSTR.Alloc(strEnrollmentPolicyServerURI).Value : strEnrollmentPolicyServerURI
-        strEnrollmentPolicyID := strEnrollmentPolicyID is String ? BSTR.Alloc(strEnrollmentPolicyID).Value : strEnrollmentPolicyID
-        strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
+        if(strEnrollmentPolicyServerURI is String) {
+            pin := BSTR.Alloc(strEnrollmentPolicyServerURI)
+            strEnrollmentPolicyServerURI := pin.Value
+        }
+        if(strEnrollmentPolicyID is String) {
+            pin := BSTR.Alloc(strEnrollmentPolicyID)
+            strEnrollmentPolicyID := pin.Value
+        }
+        if(strCredential is String) {
+            pin := BSTR.Alloc(strCredential)
+            strCredential := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strEnrollmentPolicyServerURI, "ptr", strEnrollmentPolicyID, "int", EnrollmentPolicyServerFlags, "int", authFlags, "ptr", strCredential, "ptr", strPassword, "HRESULT")
+        result := ComCall(7, this, "ptr", strEnrollmentPolicyServerURI, "ptr", strEnrollmentPolicyID, "int", EnrollmentPolicyServerFlags, "int", authFlags, "ptr", strCredential, "ptr", strPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Saves certificate enrollment server (CES) access credentials in the credential cache.
+     * @remarks
+     * The <i>strCredential</i> and <i>strPassword</i> arguments change depending on the value specified in the <i>authFlags</i> argument as shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th><i>flag</i> parameter </th>
+     * <th><i>strCredential</i> parameter</th>
+     * <th><i>strPassword</i> parameter</th>
+     * </tr>
+     * <tr>
+     * <td>X509AuthAnonymous</td>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthKerberos</td>
+     * <td><b>NULL</b></td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthUsername</td>
+     * <td>Clear text user name recognized by the CEP server.</td>
+     * <td>Clear text password associated with the user name.</td>
+     * </tr>
+     * <tr>
+     * <td>X509AuthCertificate</td>
+     * <td>Contains a 20 byte SHA-1 hash (thumbprint) of the certificate.</td>
+     * <td><b>NULL</b></td>
+     * </tr>
+     * </table>
      * @param {BSTR} strEnrollmentServerURI A <b>BSTR</b> that contains the certificate enrollment server URL.
      * @param {Integer} authFlags 
      * @param {BSTR} strCredential A <b>BSTR</b> that contains the credential.
      * @param {BSTR} strPassword A <b>BSTR</b> that contains a clear text password.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -127,19 +203,36 @@ class IX509EnrollmentHelper extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmenthelper-addenrollmentserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509enrollmenthelper-addenrollmentserver
      */
     AddEnrollmentServer(strEnrollmentServerURI, authFlags, strCredential, strPassword) {
-        strEnrollmentServerURI := strEnrollmentServerURI is String ? BSTR.Alloc(strEnrollmentServerURI).Value : strEnrollmentServerURI
-        strCredential := strCredential is String ? BSTR.Alloc(strCredential).Value : strCredential
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
+        if(strEnrollmentServerURI is String) {
+            pin := BSTR.Alloc(strEnrollmentServerURI)
+            strEnrollmentServerURI := pin.Value
+        }
+        if(strCredential is String) {
+            pin := BSTR.Alloc(strCredential)
+            strCredential := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strEnrollmentServerURI, "int", authFlags, "ptr", strCredential, "ptr", strPassword, "HRESULT")
+        result := ComCall(8, this, "ptr", strEnrollmentServerURI, "int", authFlags, "ptr", strCredential, "ptr", strPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enrolls a certificate request and retrieves the issued certificate.
+     * @remarks
+     * The <b>Enroll</b> method retrieves the appropriate template, calls <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment2-initializefromtemplate">InitializeFromTemplate</a>, and then calls <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-enroll">Enroll</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> object.
+     * 
+     * This method does not installed the issued certificate.
      * @param {BSTR} strEnrollmentPolicyServerURI A <b>BSTR</b> that contains the certificate enrollment policy server URL.
      * @param {BSTR} strTemplateName A  <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to a byte array for display purposes.
@@ -162,23 +255,33 @@ class IX509EnrollmentHelper extends IDispatch{
      * </tr>
      * </table>
      * @returns {BSTR} A <b>BSTR</b> that contains the issued certificate.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmenthelper-enroll
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509enrollmenthelper-enroll
      */
     Enroll(strEnrollmentPolicyServerURI, strTemplateName, Encoding, enrollFlags) {
-        strEnrollmentPolicyServerURI := strEnrollmentPolicyServerURI is String ? BSTR.Alloc(strEnrollmentPolicyServerURI).Value : strEnrollmentPolicyServerURI
-        strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
+        if(strEnrollmentPolicyServerURI is String) {
+            pin := BSTR.Alloc(strEnrollmentPolicyServerURI)
+            strEnrollmentPolicyServerURI := pin.Value
+        }
+        if(strTemplateName is String) {
+            pin := BSTR.Alloc(strTemplateName)
+            strTemplateName := pin.Value
+        }
 
         pstrCertificate := BSTR()
-        result := ComCall(9, this, "ptr", strEnrollmentPolicyServerURI, "ptr", strTemplateName, "int", Encoding, "int", enrollFlags, "ptr", pstrCertificate, "HRESULT")
+        result := ComCall(9, this, "ptr", strEnrollmentPolicyServerURI, "ptr", strTemplateName, "int", Encoding, "int", enrollFlags, "ptr", pstrCertificate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrCertificate
     }
 
     /**
      * Initializes an IX509EnrollmentHelper object.
-     * @param {Integer} Context 
+     * @param {Integer} Context_ 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -197,10 +300,14 @@ class IX509EnrollmentHelper extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmenthelper-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509enrollmenthelper-initialize
      */
-    Initialize(Context) {
-        result := ComCall(10, this, "int", Context, "HRESULT")
+    Initialize(Context_) {
+        result := ComCall(10, this, "int", Context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

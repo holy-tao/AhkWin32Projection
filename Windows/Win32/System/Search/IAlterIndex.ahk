@@ -38,7 +38,11 @@ class IAlterIndex extends IUnknown{
      * @returns {HRESULT} 
      */
     AlterIndex(pTableId, pIndexId, pNewIndexId, cPropertySets, rgPropertySets) {
-        result := ComCall(3, this, "ptr", pTableId, "ptr", pIndexId, "ptr", pNewIndexId, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(3, this, "ptr", pTableId, "ptr", pIndexId, "ptr", pNewIndexId, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

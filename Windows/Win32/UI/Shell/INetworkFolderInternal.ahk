@@ -33,7 +33,11 @@ class INetworkFolderInternal extends IUnknown{
      * @returns {Integer} 
      */
     GetResourceDisplayType() {
-        result := ComCall(3, this, "uint*", &displayType := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &displayType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return displayType
     }
 
@@ -42,7 +46,11 @@ class INetworkFolderInternal extends IUnknown{
      * @returns {Pointer<ITEMIDLIST>} 
      */
     GetIDList() {
-        result := ComCall(4, this, "ptr*", &idList := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &idList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return idList
     }
 
@@ -59,7 +67,11 @@ class INetworkFolderInternal extends IUnknown{
 
         itemIdsMarshal := itemIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", itemIdCount, itemIdsMarshal, itemIds, "uint", providerMaxLength, "ptr", provider, "HRESULT")
+        result := ComCall(5, this, "uint", itemIdCount, itemIdsMarshal, itemIds, "uint", providerMaxLength, "ptr", provider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

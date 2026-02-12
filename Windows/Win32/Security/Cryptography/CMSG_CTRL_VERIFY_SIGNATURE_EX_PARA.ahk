@@ -6,7 +6,7 @@
  * Contains information used to verify a message signature. It contains the signer index and signer public key.
  * @remarks
  * If <b>dwSignerType</b> is CMSG_VERIFY_SIGNER_NULL, the signature is expected to contain only the unencrypted hash octets.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_ctrl_verify_signature_ex_para
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmsg_ctrl_verify_signature_ex_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

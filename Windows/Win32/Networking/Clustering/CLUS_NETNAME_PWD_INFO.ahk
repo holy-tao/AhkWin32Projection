@@ -3,7 +3,7 @@
 
 /**
  * Provides information for resetting the security principal associated with a computer name.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_pwd_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clus_netname_pwd_info
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

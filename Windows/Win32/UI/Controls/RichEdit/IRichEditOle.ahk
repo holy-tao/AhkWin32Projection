@@ -7,7 +7,7 @@
 
 /**
  * The IRichEditOle interface exposes the Component Object Model (COM) functionality of a rich edit control. The interface can be obtained by sending the EM_GETOLEINTERFACE message. This interface has the following methods.
- * @see https://docs.microsoft.com/windows/win32/api//richole/nn-richole-iricheditole
+ * @see https://learn.microsoft.com/windows/win32/api//content/richole/nn-richole-iricheditole
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -37,19 +37,23 @@ class IRichEditOle extends IUnknown{
      * @returns {IOleClientSite} Type: <b>LPOLECLIENTSITE*</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-getclientsite
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-getclientsite
      */
     GetClientSite() {
-        result := ComCall(3, this, "ptr*", &lplpolesite := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &lplpolesite := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOleClientSite(lplpolesite)
     }
 
     /**
      * Returns the number of objects currently contained in a rich edit control.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LONG</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * This method returns the number of objects.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-getobjectcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-getobjectcount
      */
     GetObjectCount() {
         result := ComCall(4, this, "int")
@@ -58,10 +62,10 @@ class IRichEditOle extends IUnknown{
 
     /**
      * Returns the number of objects in a rich edit control that are links.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LONG</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * This method returns the number of links.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-getlinkcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-getlinkcount
      */
     GetLinkCount() {
         result := ComCall(5, this, "int")
@@ -77,28 +81,38 @@ class IRichEditOle extends IUnknown{
      * 
      * Structure that receives information about the object. The reference count of the interfaces returned in this structure has been incremented; it is the responsibility of the caller to use the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method to decrement the count.
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * Returns <b>S_OK</b> if successful, or an error value otherwise. <b>E_INVALIDARG</b> is returned if no buffer for the <a href="/windows/desktop/api/richole/ns-richole-reobject">REOBJECT</a> structure was given or if the <i>iob</i> value or character position is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-getobject
+     * Returns <b>S_OK</b> if successful, or an error value otherwise. <b>E_INVALIDARG</b> is returned if no buffer for the <a href="https://docs.microsoft.com/windows/desktop/api/richole/ns-richole-reobject">REOBJECT</a> structure was given or if the <i>iob</i> value or character position is invalid.
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-getobject
      */
     GetObject(iob, lpreobject, dwFlags) {
-        result := ComCall(6, this, "int", iob, "ptr", lpreobject, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "int", iob, "ptr", lpreobject, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Inserts an object into a rich edit control.
+     * @remarks
+     * If the <b>cp</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/richole/ns-richole-reobject">REOBJECT</a> structure is REO_CP_SELECTION, the selection is replaced with the specified object.
      * @param {Pointer<REOBJECT>} lpreobject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/richole/ns-richole-reobject">REOBJECT</a>*</b>
      * 
      * The object information and interfaces. The rich edit control automatically increments the reference count for the interfaces if it holds onto them, so the caller can safely release the interfaces if they are not needed.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_OUTOFMEMORY is returned if memory could not be allocated to insert the object.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-insertobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-insertobject
      */
     InsertObject(lpreobject) {
-        result := ComCall(7, this, "ptr", lpreobject, "HRESULT")
+        result := ComCall(7, this, "ptr", lpreobject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,15 +127,19 @@ class IRichEditOle extends IUnknown{
      * @param {PSTR} lpstrUserTypeNew Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * User-visible type name of the class to which the object is converted.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-convertobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-convertobject
      */
     ConvertObject(iob, rclsidNew, lpstrUserTypeNew) {
         lpstrUserTypeNew := lpstrUserTypeNew is String ? StrPtr(lpstrUserTypeNew) : lpstrUserTypeNew
 
-        result := ComCall(8, this, "int", iob, "ptr", rclsidNew, "ptr", lpstrUserTypeNew, "HRESULT")
+        result := ComCall(8, this, "int", iob, "ptr", rclsidNew, "ptr", lpstrUserTypeNew, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,13 +151,17 @@ class IRichEditOle extends IUnknown{
      * @param {Pointer<Guid>} rclsidAs Type: <b>REFCLSID</b>
      * 
      * Class identifier of the new class.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-activateas
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-activateas
      */
     ActivateAs(rclsid, rclsidAs) {
-        result := ComCall(9, this, "ptr", rclsid, "ptr", rclsidAs, "HRESULT")
+        result := ComCall(9, this, "ptr", rclsid, "ptr", rclsidAs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,16 +173,20 @@ class IRichEditOle extends IUnknown{
      * @param {PSTR} lpstrContainerObj Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Null-terminated name of the container document or object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_OUTOFMEMORY is returned if memory could not be allocated to remember the strings.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-sethostnames
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-sethostnames
      */
     SetHostNames(lpstrContainerApp, lpstrContainerObj) {
         lpstrContainerApp := lpstrContainerApp is String ? StrPtr(lpstrContainerApp) : lpstrContainerApp
         lpstrContainerObj := lpstrContainerObj is String ? StrPtr(lpstrContainerObj) : lpstrContainerObj
 
-        result := ComCall(10, this, "ptr", lpstrContainerApp, "ptr", lpstrContainerObj, "HRESULT")
+        result := ComCall(10, this, "ptr", lpstrContainerApp, "ptr", lpstrContainerObj, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,13 +198,17 @@ class IRichEditOle extends IUnknown{
      * @param {BOOL} fAvailable Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Value used in the set operation. The value can be <b>TRUE</b> or <b>FALSE</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-setlinkavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-setlinkavailable
      */
     SetLinkAvailable(iob, fAvailable) {
-        result := ComCall(11, this, "int", iob, "int", fAvailable, "HRESULT")
+        result := ComCall(11, this, "int", iob, "int", fAvailable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -187,16 +217,20 @@ class IRichEditOle extends IUnknown{
      * @param {Integer} iob Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Index of the object whose aspect is to be set. If this parameter is REO_IOB_SELECTION, the aspect of the selected object is to be set.
-     * @param {Integer} dvaspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {Integer} dvaspect_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Aspect to use when drawing. The values are defined by OLE.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-setdvaspect
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-setdvaspect
      */
-    SetDvaspect(iob, dvaspect) {
-        result := ComCall(12, this, "int", iob, "uint", dvaspect, "HRESULT")
+    SetDvaspect(iob, dvaspect_) {
+        result := ComCall(12, this, "int", iob, "uint", dvaspect_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,13 +239,17 @@ class IRichEditOle extends IUnknown{
      * @param {Integer} iob Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Index of the object whose storage is to be released. If this parameter is REO_IOB_SELECTION, the storage of the selected object is to be released.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-handsoffstorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-handsoffstorage
      */
     HandsOffStorage(iob) {
-        result := ComCall(13, this, "int", iob, "HRESULT")
+        result := ComCall(13, this, "int", iob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -223,25 +261,33 @@ class IRichEditOle extends IUnknown{
      * @param {IStorage} lpstg Type: <b>LPSTORAGE</b>
      * 
      * New storage for the object. If the storage is not <b>NULL</b>, the rich edit control releases any storage it is currently holding for the object and uses this new storage instead.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. E_INVALIDARG is returned if the index is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-savecompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-savecompleted
      */
     SaveCompleted(iob, lpstg) {
-        result := ComCall(14, this, "int", iob, "ptr", lpstg, "HRESULT")
+        result := ComCall(14, this, "int", iob, "ptr", lpstg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates when a rich edit control is to deactivate the currently active in-place object, if any.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise. If there is no active in-place object, the method succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-inplacedeactivate
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-inplacedeactivate
      */
     InPlaceDeactivate() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -250,13 +296,17 @@ class IRichEditOle extends IUnknown{
      * @param {BOOL} fEnterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicator of whether the control is entering context-sensitive help mode (<b>TRUE</b>) or leaving it (<b>FALSE</b>).
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success, or a failure code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-contextsensitivehelp
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-contextsensitivehelp
      */
     ContextSensitiveHelp(fEnterMode) {
-        result := ComCall(16, this, "int", fEnterMode, "HRESULT")
+        result := ComCall(16, this, "int", fEnterMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,10 +322,14 @@ class IRichEditOle extends IUnknown{
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface of the clipboard object representing the range specified in the 
      * 					<i>lpchrg</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-getclipboarddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-getclipboarddata
      */
     GetClipboardData(lpchrg, reco) {
-        result := ComCall(17, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataObject(lplpdataobj)
     }
 
@@ -290,7 +344,7 @@ class IRichEditOle extends IUnknown{
      * @param {HGLOBAL} hMetaPict Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HGLOBAL</a></b>
      * 
      * Handle to a metafile containing the icon view of an object. The handle is used only if the <b>DVASPECT_ICON</b> display aspect is required by a <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuipastespeciala">Paste Special</a> operation.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> on success. If the method fails, it can return one of the following values.
      * 
@@ -322,12 +376,16 @@ class IRichEditOle extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditole-importdataobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditole-importdataobject
      */
     ImportDataObject(lpdataobj, cf, hMetaPict) {
         hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
 
-        result := ComCall(18, this, "ptr", lpdataobj, "ushort", cf, "ptr", hMetaPict, "HRESULT")
+        result := ComCall(18, this, "ptr", lpdataobj, "ushort", cf, "ptr", hMetaPict, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

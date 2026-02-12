@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
@@ -602,17 +604,17 @@ class HtmlHelp {
     static STDPROP_USERPROP_MAX => 2147483647
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_WWDEST_GLOBAL => "GLOBAL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_WWDEST_KEY => "KEY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_WWDEST_OCC => "OCC"
 
@@ -1261,7 +1263,7 @@ class HtmlHelp {
      * <li>The handle (hwnd) of the help window.</li>
      * <li>NULL. In some cases, NULL indicates failure; in other cases, NULL indicates that the help window has not yet been created. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/nf-htmlhelp-htmlhelpa
+     * @see https://learn.microsoft.com/windows/win32/api//content/htmlhelp/nf-htmlhelp-htmlhelpa
      */
     static HtmlHelpA(hwndCaller, pszFile, uCommand, dwData) {
         hwndCaller := hwndCaller is Win32Handle ? NumGet(hwndCaller, "ptr") : hwndCaller
@@ -1300,7 +1302,7 @@ class HtmlHelp {
      * <li>The handle (hwnd) of the help window.</li>
      * <li>NULL. In some cases, NULL indicates failure; in other cases, NULL indicates that the help window has not yet been created. </li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/nf-htmlhelp-htmlhelpw
+     * @see https://learn.microsoft.com/windows/win32/api//content/htmlhelp/nf-htmlhelp-htmlhelpw
      */
     static HtmlHelpW(hwndCaller, pszFile, uCommand, dwData) {
         hwndCaller := hwndCaller is Win32Handle ? NumGet(hwndCaller, "ptr") : hwndCaller

@@ -51,7 +51,11 @@ class IRTCProfile2 extends IRTCProfile{
      */
     get_Realm() {
         pbstrRealm := BSTR()
-        result := ComCall(21, this, "ptr", pbstrRealm, "HRESULT")
+        result := ComCall(21, this, "ptr", pbstrRealm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrRealm
     }
 
@@ -61,9 +65,16 @@ class IRTCProfile2 extends IRTCProfile{
      * @returns {HRESULT} 
      */
     put_Realm(bstrRealm) {
-        bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
+        if(bstrRealm is String) {
+            pin := BSTR.Alloc(bstrRealm)
+            bstrRealm := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", bstrRealm, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrRealm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +83,11 @@ class IRTCProfile2 extends IRTCProfile{
      * @returns {Integer} 
      */
     get_AllowedAuth() {
-        result := ComCall(23, this, "int*", &plAllowedAuth := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &plAllowedAuth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAllowedAuth
     }
 
@@ -82,7 +97,11 @@ class IRTCProfile2 extends IRTCProfile{
      * @returns {HRESULT} 
      */
     put_AllowedAuth(lAllowedAuth) {
-        result := ComCall(24, this, "int", lAllowedAuth, "HRESULT")
+        result := ComCall(24, this, "int", lAllowedAuth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

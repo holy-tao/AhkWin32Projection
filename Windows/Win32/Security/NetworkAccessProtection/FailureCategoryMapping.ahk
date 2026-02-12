@@ -21,7 +21,7 @@
  * </li>
  * </ul>
  * By default, all categories map to non-compliant (FALSE).
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-failurecategorymapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/naptypes/ns-naptypes-failurecategorymapping
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

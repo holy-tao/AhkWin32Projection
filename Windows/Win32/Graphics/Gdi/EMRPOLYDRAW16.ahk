@@ -6,7 +6,7 @@
 
 /**
  * The EMRPOLYDRAW16 structure contains members for the PolyDraw enhanced metafile record.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolydraw16
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-emrpolydraw16
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

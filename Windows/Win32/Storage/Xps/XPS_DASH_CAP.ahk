@@ -28,7 +28,7 @@
  * <td><img alt="A diagram that illustrates the XPS_DASH_CAP_TRIANGLE dash cap in a dashed stroke" src="./images/xps_dash_cap_triangle_dash_caps.png"/></td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */

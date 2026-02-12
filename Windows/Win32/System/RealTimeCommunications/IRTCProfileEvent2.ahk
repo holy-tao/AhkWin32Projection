@@ -40,7 +40,11 @@ class IRTCProfileEvent2 extends IRTCProfileEvent{
      * @returns {Integer} 
      */
     get_EventType() {
-        result := ComCall(10, this, "int*", &pEventType := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pEventType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEventType
     }
 }

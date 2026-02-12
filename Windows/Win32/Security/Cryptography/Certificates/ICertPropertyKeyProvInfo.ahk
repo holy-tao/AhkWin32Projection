@@ -6,7 +6,7 @@
 
 /**
  * Represents a certificate property that contains information about a private key.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertykeyprovinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icertpropertykeyprovinfo
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -40,10 +40,33 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
 
     /**
      * Initializes the object from a private key.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-get_privatekey">PrivateKey</a> property to retrieve the key.
+     * 
+     * The <b>Initialize</b> method opens the private key and verifies that the following <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> properties are set:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspinformations">CspInformations</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_uniquecontainername">UniqueContainerName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_machinecontext">MachineContext</a>
+     * </li>
+     * </ul>
      * @param {IX509PrivateKey} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface that represents the private key.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -58,7 +81,7 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> pointer is <b>NULL</b>.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> pointer is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -75,25 +98,30 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize
      */
     Initialize(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        result := ComCall(14, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the private key associated with the certificate.
      * @remarks
-     * 
-     *  Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize">Initialize</a> method to create a description.
-     * 
-     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-initialize">Initialize</a> method to create a description.
      * @returns {IX509PrivateKey} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertykeyprovinfo-get_privatekey
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertykeyprovinfo-get_privatekey
      */
     get_PrivateKey() {
-        result := ComCall(15, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509PrivateKey(ppValue)
     }
 }

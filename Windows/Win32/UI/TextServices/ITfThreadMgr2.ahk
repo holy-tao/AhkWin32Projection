@@ -10,7 +10,7 @@
 
 /**
  * The ITfThreadMgr2 defines the primary object implemented by the TSF manager. ITfThreadMgr2 is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfthreadmgr2
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfthreadmgr2
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,16 +37,24 @@ class ITfThreadMgr2 extends IUnknown{
 
     /**
      * Activates TSF for the calling thread.
+     * @remarks
+     * This method can be called more than once from a thread, but each call must be matched with a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr2-deactivate">Deactivate</a> from the same thread.
      * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that receives a client identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-activate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-activate
      */
     Activate() {
-        result := ComCall(3, this, "uint*", &ptid := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &ptid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ptid
     }
 
     /**
      * Deactivates TSF for the calling thread.
+     * @remarks
+     * Each call to this method must be matched with a previous call to <b>Activate</b>. This method must be called from the same thread that the corresponding <b>Activate</b> call was made from.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -72,50 +80,72 @@ class ITfThreadMgr2 extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This method was called while the thread was activated or this call had no corresponding <a href="/windows/desktop/api/msctf/nf-msctf-itfthreadmgr2-activate">Activate</a> call.
+     * This method was called while the thread was activated or this call had no corresponding <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr2-activate">Activate</a> call.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-deactivate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-deactivate
      */
     Deactivate() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a document manager object.
+     * @remarks
+     * The caller must release the document manager when it is no longer required.
      * @returns {ITfDocumentMgr} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface that receives the document manager object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-createdocumentmgr
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-createdocumentmgr
      */
     CreateDocumentMgr() {
-        result := ComCall(5, this, "ptr*", &ppdim := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppdim := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfDocumentMgr(ppdim)
     }
 
     /**
      * Returns an enumerator for all the document managers within the calling thread.
+     * @remarks
+     * The caller must release the enumerator when it is no longer required.
      * @returns {IEnumTfDocumentMgrs} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdocumentmgrs">IEnumTfDocumentMgrs</a> interface that receives the enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-enumdocumentmgrs
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-enumdocumentmgrs
      */
     EnumDocumentMgrs() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfDocumentMgrs(ppEnum)
     }
 
     /**
      * Returns the document manager that has the input focus.
      * @returns {ITfDocumentMgr} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface that receives the document manager with the current input focus. Receives <b>NULL</b> if no document manager has the focus.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-getfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-getfocus
      */
     GetFocus() {
-        result := ComCall(7, this, "ptr*", &ppdimFocus := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppdimFocus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfDocumentMgr(ppdimFocus)
     }
 
     /**
      * Sets the input focus to the specified document manager.
+     * @remarks
+     * The application must call this method when the document window receives the input focus. If the application associates a window with a document manager using <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-associatefocus">ITfThreadMgr::AssociateFocus</a>, the TSF manager calls this method for the application.
      * @param {ITfDocumentMgr} pdimFocus Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface that receives the input focus. This parameter cannot be <b>NULL</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -147,25 +177,35 @@ class ITfThreadMgr2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-setfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-setfocus
      */
     SetFocus(pdimFocus) {
-        result := ComCall(8, this, "ptr", pdimFocus, "HRESULT")
+        result := ComCall(8, this, "ptr", pdimFocus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines if the calling thread has the TSF input focus.
      * @returns {BOOL} Pointer to a BOOL that receives a value that indicates if the calling thread has input focus. This parameter receives a nonzero value if the calling thread has the focus or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-isthreadfocus
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-isthreadfocus
      */
     IsThreadFocus() {
-        result := ComCall(9, this, "int*", &pfThreadFocus := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pfThreadFocus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfThreadFocus
     }
 
     /**
      * Obtains the specified function provider object.
+     * @remarks
+     * A function provider registers by calling the TSF manager <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITfSourceSingle::AdviseSingleSink</a> method with IID_ITfFunctionProvider.
      * @param {Pointer<Guid>} clsid CLSID of the desired function provider. This can be the CLSID of a function provider registered for the calling thread or one of the following predefined values.
      * 
      * <table>
@@ -195,30 +235,46 @@ class ITfThreadMgr2 extends IUnknown{
      * </tr>
      * </table>
      * @returns {ITfFunctionProvider} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itffunctionprovider">ITfFunctionProvider</a> interface that receives the function provider.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-getfunctionprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-getfunctionprovider
      */
     GetFunctionProvider(clsid) {
-        result := ComCall(10, this, "ptr", clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", clsid, "ptr*", &ppFuncProv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfFunctionProvider(ppFuncProv)
     }
 
     /**
      * Obtains an enumerator for all of the function providers registered for the calling thread.
+     * @remarks
+     * The enumerator only contains the registered function providers. The enumerator will not contain the predefined function providers as described in <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfthreadmgr2-getfunctionprovider">GetFunctionProvider</a>.
+     * 
+     * A function provider registers itself by calling the TSF manager <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITfSourceSingle::AdviseSingleSink</a> method with IID_ITfFunctionProvider.
      * @returns {IEnumTfFunctionProviders} Address of a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtffunctionproviders">IEnumTfFunctionProviders</a> interface that receives the function provider enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-enumfunctionproviders
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-enumfunctionproviders
      */
     EnumFunctionProviders() {
-        result := ComCall(11, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfFunctionProviders(ppEnum)
     }
 
     /**
      * Obtains the global compartment manager object.
      * @returns {ITfCompartmentMgr} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompartmentmgr">ITfCompartmentMgr</a> interface that receives the global compartment manager.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-getglobalcompartment
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-getglobalcompartment
      */
     GetGlobalCompartment() {
-        result := ComCall(12, this, "ptr*", &ppCompMgr := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppCompMgr := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfCompartmentMgr(ppCompMgr)
     }
 
@@ -281,10 +337,14 @@ class ITfThreadMgr2 extends IUnknown{
      * </tr>
      * </table>
      * @returns {Integer} [out] Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that receives a client identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-activateex
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-activateex
      */
     ActivateEx(dwFlags) {
-        result := ComCall(13, this, "uint*", &ptid := 0, "uint", dwFlags, "HRESULT")
+        result := ComCall(13, this, "uint*", &ptid := 0, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ptid
     }
 
@@ -378,10 +438,14 @@ class ITfThreadMgr2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-getactiveflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-getactiveflags
      */
     GetActiveFlags() {
-        result := ComCall(14, this, "uint*", &lpdwFlags := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &lpdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpdwFlags
     }
 
@@ -406,10 +470,14 @@ class ITfThreadMgr2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-suspendkeystrokehandling
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-suspendkeystrokehandling
      */
     SuspendKeystrokeHandling() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -434,10 +502,14 @@ class ITfThreadMgr2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr2-resumekeystrokehandling
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfthreadmgr2-resumekeystrokehandling
      */
     ResumeKeystrokeHandling() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

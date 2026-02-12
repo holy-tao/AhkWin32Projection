@@ -57,7 +57,11 @@ class ISVGPoint extends IDispatch{
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +70,11 @@ class ISVGPoint extends IDispatch{
      * @returns {Float} 
      */
     get_x() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -76,7 +84,11 @@ class ISVGPoint extends IDispatch{
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +97,11 @@ class ISVGPoint extends IDispatch{
      * @returns {Float} 
      */
     get_y() {
-        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -95,7 +111,11 @@ class ISVGPoint extends IDispatch{
      * @returns {ISVGPoint} 
      */
     matrixTransform(pMatrix) {
-        result := ComCall(11, this, "ptr", pMatrix, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pMatrix, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(ppResult)
     }
 }

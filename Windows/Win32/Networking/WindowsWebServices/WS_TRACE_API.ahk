@@ -3,7 +3,7 @@
 
 /**
  * WS_TRACE_API enumeration.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_trace_api
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_trace_api
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

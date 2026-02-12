@@ -30,24 +30,34 @@ class IDataModelScript extends IUnknown{
     static VTableNames => ["GetName", "Rename", "Populate", "Execute", "Unlink", "IsInvocable", "InvokeMain"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         scriptName := BSTR()
-        result := ComCall(3, this, "ptr", scriptName, "HRESULT")
+        result := ComCall(3, this, "ptr", scriptName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return scriptName
     }
 
     /**
-     * 
+     * Learn more about: RenameColumnGrbit enumeration
      * @param {PWSTR} scriptName 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     Rename(scriptName) {
         scriptName := scriptName is String ? StrPtr(scriptName) : scriptName
 
-        result := ComCall(4, this, "ptr", scriptName, "HRESULT")
+        result := ComCall(4, this, "ptr", scriptName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,17 +67,26 @@ class IDataModelScript extends IUnknown{
      * @returns {HRESULT} 
      */
     Populate(contentStream) {
-        result := ComCall(5, this, "ptr", contentStream, "HRESULT")
+        result := ComCall(5, this, "ptr", contentStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn how to run SQL Server stored procedures with RPC, and process return codes and output parameters in this example.
      * @param {IDataModelScriptClient} client 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/results/execute-stored-procedure-with-rpc-and-process-output
      */
     Execute(client) {
-        result := ComCall(6, this, "ptr", client, "HRESULT")
+        result := ComCall(6, this, "ptr", client, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +95,11 @@ class IDataModelScript extends IUnknown{
      * @returns {HRESULT} 
      */
     Unlink() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +108,11 @@ class IDataModelScript extends IUnknown{
      * @returns {Boolean} 
      */
     IsInvocable() {
-        result := ComCall(8, this, "int*", &isInvocable := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &isInvocable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isInvocable
     }
 
@@ -95,7 +122,11 @@ class IDataModelScript extends IUnknown{
      * @returns {HRESULT} 
      */
     InvokeMain(client) {
-        result := ComCall(9, this, "ptr", client, "HRESULT")
+        result := ComCall(9, this, "ptr", client, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

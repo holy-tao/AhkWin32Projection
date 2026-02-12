@@ -6,10 +6,8 @@
 /**
  * Provides methods that retrieve information about the interpretation of a parsed query.
  * @remarks
- * 
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-iquerysolution
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-iquerysolution
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -44,26 +42,39 @@ class IQuerySolution extends IConditionFactory{
      * Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ientity">IEntity</a> object that identifies the semantic type of the interpretation. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iquerysolution-getquery
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iquerysolution-getquery
      */
     GetQuery(ppQueryNode, ppMainType) {
-        result := ComCall(7, this, "ptr*", ppQueryNode, "ptr*", ppMainType, "HRESULT")
+        result := ComCall(7, this, "ptr*", ppQueryNode, "ptr*", ppMainType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Identifies parts of the input string that the parser did not recognize or did not use when constructing the IQuerySolution condition tree.
+     * @remarks
+     * Each parsing error is represented by an <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_parse_error">IRichChunk</a> object in which the position information reflects token counts. The <b>IRichChunk</b> object <i>ppsz</i> string is <b>NULL</b>, and the <i>pValue</i> is a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> that contains a <b>lVal</b> identifying the <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/ne-structuredquery-structured_query_parse_error">STRUCTURED_QUERY_PARSE_ERROR</a> enumeration.
+     *       
+     * 
+     * The valid values for <i>riid</i> are __uuidof(IEnumUnknown) and __uuidof(IEnumVARIANT).
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The desired IID of the result, either IID_IEnumUnknown or IID_IEnumVARIANT.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives a pointer to an enumeration of zero or more <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> objects, each describing one parsing error.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iquerysolution-geterrors
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iquerysolution-geterrors
      */
     GetErrors(riid) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", &ppParseErrors := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", riid, "ptr*", &ppParseErrors := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppParseErrors
     }
 
@@ -83,14 +94,18 @@ class IQuerySolution extends IConditionFactory{
      * Receives a pointer to the word breaker used for this query. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iquerysolution-getlexicaldata
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iquerysolution-getlexicaldata
      */
     GetLexicalData(ppszInputString, ppTokens, plcid, ppWordBreaker) {
         ppszInputStringMarshal := ppszInputString is VarRef ? "ptr*" : "ptr"
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, "ptr*", ppTokens, plcidMarshal, plcid, "ptr*", ppWordBreaker, "HRESULT")
+        result := ComCall(9, this, ppszInputStringMarshal, ppszInputString, "ptr*", ppTokens, plcidMarshal, plcid, "ptr*", ppWordBreaker, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

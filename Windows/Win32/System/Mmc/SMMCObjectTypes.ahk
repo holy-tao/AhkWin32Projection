@@ -16,7 +16,7 @@
  * 
  * Just before MMC must use an extensible feature (that is, just before creating and that displays a context menu, property sheet, toolbar, or taskpad), MMC calls <b>IDataObject::GetDataHere</b> on the data object for the selected item and asks for dynamic extensions to add through the CCF_MMC_DYNAMIC_EXTENSIONS clipboard format. Based on CLSIDs passed in the 
  * <b>SMMCDynamicExtensions</b> structure, MMC attempts to add the specified extensions to the extensible feature. If an extension is unavailable or unregistered, MMC skips that extension and continues to the next CLSID passed in the structure.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-smmcobjecttypes
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-smmcobjecttypes
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

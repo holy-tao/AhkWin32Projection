@@ -29,17 +29,24 @@ class IElementBehaviorRender extends IUnknown{
     static VTableNames => ["Draw", "GetRenderInfo", "HitTestPoint"]
 
     /**
-     * 
-     * @param {HDC} hdc 
+     * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
+     * @param {HDC} hdc_ 
      * @param {Integer} lLayer 
      * @param {Pointer<RECT>} pRect 
      * @param {IUnknown} pReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-drawanimatedrects
      */
-    Draw(hdc, lLayer, pRect, pReserved) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    Draw(hdc_, lLayer, pRect, pReserved) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := ComCall(3, this, "ptr", hdc, "int", lLayer, "ptr", pRect, "ptr", pReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", hdc_, "int", lLayer, "ptr", pRect, "ptr", pReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +55,11 @@ class IElementBehaviorRender extends IUnknown{
      * @returns {Integer} 
      */
     GetRenderInfo() {
-        result := ComCall(4, this, "int*", &plRenderInfo := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &plRenderInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRenderInfo
     }
 
@@ -59,7 +70,11 @@ class IElementBehaviorRender extends IUnknown{
      * @returns {BOOL} 
      */
     HitTestPoint(pPoint, pReserved) {
-        result := ComCall(5, this, "ptr", pPoint, "ptr", pReserved, "int*", &pbHit := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pPoint, "ptr", pReserved, "int*", &pbHit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbHit
     }
 }

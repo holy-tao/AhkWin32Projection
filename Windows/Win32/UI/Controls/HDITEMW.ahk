@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure. (Unicode)
@@ -12,7 +13,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines HDITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hditemw
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-hditemw
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset Unicode
@@ -305,9 +306,12 @@ class HDITEMW extends Win32Struct
      * Application-defined item data.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(32, this)
+            return this.__lParam
+        }
     }
 
     /**

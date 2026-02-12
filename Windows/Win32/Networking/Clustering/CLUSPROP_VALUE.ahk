@@ -61,7 +61,7 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_word">CLUSPROP_WORD</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_value
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clusprop_value
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

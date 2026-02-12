@@ -37,7 +37,11 @@ class IPrintCoreHelperUni extends IPrintCoreHelper{
      * @returns {IStream} 
      */
     CreateGDLSnapshot(pDevmode, cbSize, dwFlags) {
-        result := ComCall(12, this, "ptr", pDevmode, "uint", cbSize, "uint", dwFlags, "ptr*", &ppSnapshotStream := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pDevmode, "uint", cbSize, "uint", dwFlags, "ptr*", &ppSnapshotStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppSnapshotStream)
     }
 
@@ -47,7 +51,11 @@ class IPrintCoreHelperUni extends IPrintCoreHelper{
      * @returns {IStream} 
      */
     CreateDefaultGDLSnapshot(dwFlags) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr*", &ppSnapshotStream := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwFlags, "ptr*", &ppSnapshotStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppSnapshotStream)
     }
 }

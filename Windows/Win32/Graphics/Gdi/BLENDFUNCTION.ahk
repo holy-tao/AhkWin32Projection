@@ -116,7 +116,7 @@
  * <td>+ (1 - Src.Alpha) * Dst.Alpha</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-blendfunction
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-blendfunction
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

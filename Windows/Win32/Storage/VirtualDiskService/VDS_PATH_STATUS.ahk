@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_PATH_STATUS enumeration (vdshwprv.h) defines the set of valid status values for a port.
+ * The VDS_PATH_STATUS (vds.h) enumeration defines the set of valid status values for a port.
  * @remarks
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_PATH_STATUS</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_PATH_STATUS</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_path_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_path_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

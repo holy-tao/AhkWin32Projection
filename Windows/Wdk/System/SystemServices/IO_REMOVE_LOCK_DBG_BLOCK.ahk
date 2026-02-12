@@ -91,7 +91,7 @@ class IO_REMOVE_LOCK_DBG_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {PIO_REMOVE_LOCK_TRACKING_BLOCK}
+     * @type {Pointer<PIO_REMOVE_LOCK_TRACKING_BLOCK>}
      */
     Blocks {
         get => NumGet(this, 80, "ptr")

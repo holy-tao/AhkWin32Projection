@@ -5,7 +5,7 @@
 
 /**
  * The IADsTimestamp interface provides methods for an ADSI client to access the Timestamp attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadstimestamp
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadstimestamp
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -51,7 +51,11 @@ class IADsTimestamp extends IDispatch{
      * @returns {Integer} 
      */
     get_WholeSeconds() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -61,7 +65,11 @@ class IADsTimestamp extends IDispatch{
      * @returns {HRESULT} 
      */
     put_WholeSeconds(lnWholeSeconds) {
-        result := ComCall(8, this, "int", lnWholeSeconds, "HRESULT")
+        result := ComCall(8, this, "int", lnWholeSeconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +78,11 @@ class IADsTimestamp extends IDispatch{
      * @returns {Integer} 
      */
     get_EventID() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -80,7 +92,11 @@ class IADsTimestamp extends IDispatch{
      * @returns {HRESULT} 
      */
     put_EventID(lnEventID) {
-        result := ComCall(10, this, "int", lnEventID, "HRESULT")
+        result := ComCall(10, this, "int", lnEventID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

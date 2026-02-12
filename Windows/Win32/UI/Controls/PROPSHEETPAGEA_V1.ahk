@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -94,9 +95,12 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(48, this)
+            return this.__lParam
+        }
     }
 
     /**

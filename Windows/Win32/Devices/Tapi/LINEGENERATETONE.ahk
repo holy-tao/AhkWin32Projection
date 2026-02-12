@@ -7,7 +7,7 @@
  * This structure may not be extended.
  * 
  * This structure is used only for the generation of tones. It is not used for tone monitoring.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linegeneratetone
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linegeneratetone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

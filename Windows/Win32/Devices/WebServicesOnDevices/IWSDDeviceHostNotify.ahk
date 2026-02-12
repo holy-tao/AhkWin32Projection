@@ -5,7 +5,7 @@
 
 /**
  * Provides device-related notifications to an instance of an IWSDDeviceHost object.
- * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nn-wsdhost-iwsddevicehostnotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdhost/nn-wsdhost-iwsddevicehostnotify
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -34,12 +34,16 @@ class IWSDDeviceHostNotify extends IUnknown{
      * Retrieves a service object that is not currently registered.
      * @param {PWSTR} pszServiceId The ID of the service to be produced.
      * @returns {IUnknown} A reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdserviceproxy">IWSDServiceProxy</a> object for the specified service.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehostnotify-getservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdhost/nf-wsdhost-iwsddevicehostnotify-getservice
      */
     GetService(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        result := ComCall(3, this, "ptr", pszServiceId, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszServiceId, "ptr*", &ppService := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppService)
     }
 }

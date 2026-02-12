@@ -12,7 +12,7 @@
 
 /**
  * Used to get or set configuration of tunnel parameters on a RAS Server. (MPRAPI_TUNNEL_CONFIG_PARAMS1)
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mprapi_tunnel_config_params1
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-mprapi_tunnel_config_params1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

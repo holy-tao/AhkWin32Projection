@@ -5,7 +5,7 @@
  * Specifies a set of flags that indicate the offload capabilities for an IP interface.
  * @remarks
  * The <b>NL_INTERFACE_OFFLOAD_ROD</b> structure is defined on Windows Vista and later.
- * @see https://learn.microsoft.com/windows/win32/api/nldef/ns-nldef-nl_interface_offload_rod
+ * @see https://learn.microsoft.com/windows/win32/api//content/nldef/ns-nldef-nl_interface_offload_rod
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

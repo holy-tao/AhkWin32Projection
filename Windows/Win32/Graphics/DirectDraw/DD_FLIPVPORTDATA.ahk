@@ -3,7 +3,7 @@
 
 /**
  * The DD_FLIPVPORTDATA structure contains the information necessary for the video port extensions (VPE) object to perform a flip.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_flipvportdata
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-dd_flipvportdata
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

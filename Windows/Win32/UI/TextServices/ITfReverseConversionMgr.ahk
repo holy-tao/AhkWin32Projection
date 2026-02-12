@@ -7,10 +7,8 @@
 /**
  * Provides access to ITfReverseConversion objects, which are used to perform reverse conversions.
  * @remarks
- * 
  * A reverse conversion provides the keystroke sequences required to create the specified string.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfreverseconversionmgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfreverseconversionmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,6 +35,10 @@ class ITfReverseConversionMgr extends IUnknown{
 
     /**
      * Retrieves an ITfReverseConversion object that can perform reverse conversions.
+     * @remarks
+     * A reverse conversion provides the keystroke sequences required to create the specified string.
+     * 
+     * When neither the <b>TF_RCM_HINT_COLLISION</b> or <b>TF_RCM_HINT_READING_LENGTH</b> flag is  specified for <i>dwflag</i>, the IME might not arrange the output in any sort of order.
      * @param {Integer} langid The language ID of the profile to which the target strings belong.
      * @param {Pointer<Guid>} guidProfile The GUID of the profile to which the target strings belong.
      * @param {Integer} dwflag <table>
@@ -62,7 +64,7 @@ class ITfReverseConversionMgr extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The output should be an array of virtual key codes (instead of chracter key codes). 
+     * The output should be an array of virtual key codes (instead of character key codes). 
      * 
      * </td>
      * </tr>
@@ -90,10 +92,14 @@ class ITfReverseConversionMgr extends IUnknown{
      * </tr>
      * </table>
      * @returns {ITfReverseConversion} A pointer to the address of the ITfReverseConversion object that can perform the specified reverse conversion.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversionmgr-getreverseconversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreverseconversionmgr-getreverseconversion
      */
     GetReverseConversion(langid, guidProfile, dwflag) {
-        result := ComCall(3, this, "ushort", langid, "ptr", guidProfile, "uint", dwflag, "ptr*", &ppReverseConversion := 0, "HRESULT")
+        result := ComCall(3, this, "ushort", langid, "ptr", guidProfile, "uint", dwflag, "ptr*", &ppReverseConversion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfReverseConversion(ppReverseConversion)
     }
 }

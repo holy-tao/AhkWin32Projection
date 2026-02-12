@@ -41,7 +41,11 @@ class IHostAssemblyStore extends IUnknown{
         pAssemblyIdMarshal := pAssemblyId is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pBindInfo, pAssemblyIdMarshal, pAssemblyId, pContextMarshal, pContext, "ptr*", ppStmAssemblyImage, "ptr*", ppStmPDB, "HRESULT")
+        result := ComCall(3, this, "ptr", pBindInfo, pAssemblyIdMarshal, pAssemblyId, pContextMarshal, pContext, "ptr*", ppStmAssemblyImage, "ptr*", ppStmPDB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +60,11 @@ class IHostAssemblyStore extends IUnknown{
     ProvideModule(pBindInfo, pdwModuleId, ppStmModuleImage, ppStmPDB) {
         pdwModuleIdMarshal := pdwModuleId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pBindInfo, pdwModuleIdMarshal, pdwModuleId, "ptr*", ppStmModuleImage, "ptr*", ppStmPDB, "HRESULT")
+        result := ComCall(4, this, "ptr", pBindInfo, pdwModuleIdMarshal, pdwModuleId, "ptr*", ppStmModuleImage, "ptr*", ppStmPDB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

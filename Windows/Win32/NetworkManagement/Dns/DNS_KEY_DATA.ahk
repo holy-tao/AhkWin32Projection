@@ -15,7 +15,7 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * 
  * The value of the <b>wFlags</b> member for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a> is a set of flags that specify key properties as  described in section 2.1.1 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_key_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/windns/ns-windns-dns_key_data
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

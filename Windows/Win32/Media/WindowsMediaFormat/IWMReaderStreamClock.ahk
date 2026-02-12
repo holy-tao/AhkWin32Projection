@@ -5,7 +5,7 @@
 
 /**
  * The IWMReaderStreamClock interface provides access to the clock used by the reader.This interface exists for every reader object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderstreamclock
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmreaderstreamclock
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -63,26 +63,45 @@ class IWMReaderStreamClock extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-gettime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-gettime
      */
     GetTime(pcnsNow) {
         pcnsNowMarshal := pcnsNow is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pcnsNowMarshal, pcnsNow, "HRESULT")
+        result := ComCall(3, this, pcnsNowMarshal, pcnsNow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetTimer method sets a timer on the clock.
+     * @remarks
+     * The application must execute <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-open">IWMReader::Open</a>, and successfully receive a WMT_OPENED status notification to its <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> method, before it creates any timers.
+     * 
+     * All timers are automatically terminated when the application stops the reader. When a timer expires, the following happens: 
+     * 
+     * <ul>
+     * <li>The <b>OnStatus</b> method is called with WMT_TIMER, as the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_status">WMT_STATUS</a> enumeration type</li>
+     * <li>The parameter <i>hr</i> is set to S_OK</li>
+     * <li><i>pValue</i> is set to the TimerID</li>
+     * <li><i>pvContext</i> is set to the <i>pvParam</i> pointer that is specified in this method</li>
+     * </ul>
      * @param {Integer} cnsWhen Specifies the time at which the reader notifies the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">OnStatus</a> callback, in 100-nanosecond units.
      * @param {Pointer<Void>} pvParam Specifies a pointer to the timer context parameters that are returned in the <b>OnStatus</b> callback.
      * @returns {Integer} Pointer to a <b>DWORD</b> containing the timer identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-settimer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-settimer
      */
     SetTimer(cnsWhen, pvParam) {
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", cnsWhen, pvParamMarshal, pvParam, "uint*", &pdwTimerId := 0, "HRESULT")
+        result := ComCall(4, this, "uint", cnsWhen, pvParamMarshal, pvParam, "uint*", &pdwTimerId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwTimerId
     }
 
@@ -90,10 +109,14 @@ class IWMReaderStreamClock extends IUnknown{
      * The KillTimer method cancels a timer that has been set on the clock.
      * @param {Integer} dwTimerId <b>DWORD</b> containing the timer identifier.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-killtimer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-killtimer
      */
     KillTimer(dwTimerId) {
-        result := ComCall(5, this, "uint", dwTimerId, "HRESULT")
+        result := ComCall(5, this, "uint", dwTimerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

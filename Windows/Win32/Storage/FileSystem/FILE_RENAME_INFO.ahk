@@ -4,7 +4,7 @@
 
 /**
  * Contains the name to which the file should be renamed.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_rename_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-file_rename_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

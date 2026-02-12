@@ -35,7 +35,11 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError{
      */
     GetRestrictedErrorString() {
         errorString := BSTR()
-        result := ComCall(6, this, "ptr", errorString, "HRESULT")
+        result := ComCall(6, this, "ptr", errorString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return errorString
     }
 
@@ -45,7 +49,11 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError{
      */
     GetRestrictedErrorReference() {
         referenceString := BSTR()
-        result := ComCall(7, this, "ptr", referenceString, "HRESULT")
+        result := ComCall(7, this, "ptr", referenceString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return referenceString
     }
 
@@ -55,7 +63,11 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError{
      */
     GetCapabilitySid() {
         capabilitySid := BSTR()
-        result := ComCall(8, this, "ptr", capabilitySid, "HRESULT")
+        result := ComCall(8, this, "ptr", capabilitySid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return capabilitySid
     }
 }

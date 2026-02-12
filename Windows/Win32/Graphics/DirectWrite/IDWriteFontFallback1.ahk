@@ -4,8 +4,10 @@
 #Include .\IDWriteFontFallback.ahk
 
 /**
+ * Allows you to access fallback fonts from the font list.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfallback1
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefontfallback1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -41,7 +43,7 @@ class IDWriteFontFallback1 extends IDWriteFontFallback{
      * @param {Integer} fontAxisValueCount 
      * @param {Pointer<Integer>} mappedLength 
      * @param {Pointer<Float>} scale 
-     * @param {Pointer<IDWriteFontFace5>} mappedFontFace 
+     * @param {Pointer<Pointer<IDWriteFontFace5>>} mappedFontFace 
      * @returns {HRESULT} 
      */
     MapCharacters(analysisSource, textPosition, textLength, baseFontCollection, baseFamilyName, fontAxisValues, fontAxisValueCount, mappedLength, scale, mappedFontFace) {
@@ -50,7 +52,11 @@ class IDWriteFontFallback1 extends IDWriteFontFallback{
         mappedLengthMarshal := mappedLength is VarRef ? "uint*" : "ptr"
         scaleMarshal := scale is VarRef ? "float*" : "ptr"
 
-        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, "ptr*", mappedFontFace, "HRESULT")
+        result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", baseFontCollection, "ptr", baseFamilyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, mappedLengthMarshal, mappedLength, scaleMarshal, scale, "ptr*", mappedFontFace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

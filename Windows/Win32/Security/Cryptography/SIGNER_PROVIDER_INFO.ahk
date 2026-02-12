@@ -3,7 +3,7 @@
 
 /**
  * Specifies the cryptographic service provider (CSP) and private key information used to create a digital signature.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-provider-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-provider-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

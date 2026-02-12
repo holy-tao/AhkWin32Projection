@@ -28,7 +28,7 @@ class IO_INTERRUPT_MESSAGE_INFO_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {PKINTERRUPT}
+     * @type {Pointer<PKINTERRUPT>}
      */
     InterruptObject {
         get => NumGet(this, 16, "ptr")

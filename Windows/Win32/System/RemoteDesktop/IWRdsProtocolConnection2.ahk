@@ -33,7 +33,11 @@ class IWRdsProtocolConnection2 extends IWRdsProtocolConnection{
      * @returns {Pointer<WTS_SERIALIZED_USER_CREDENTIAL>} 
      */
     GetSerializedUserCredential() {
-        result := ComCall(27, this, "ptr*", &userCredential := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &userCredential := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return userCredential
     }
 }

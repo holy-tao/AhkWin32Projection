@@ -118,7 +118,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_CurrentStreamNumber() {
-        result := ComCall(7, this, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &StreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamNumber
     }
 
@@ -127,7 +131,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_LastStreamNumberQueued() {
-        result := ComCall(8, this, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &StreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamNumber
     }
 
@@ -136,8 +144,12 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_LastHResult() {
-        result := ComCall(9, this, "int*", &HResult := 0, "HRESULT")
-        return HResult
+        result := ComCall(9, this, "int*", &HResult_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return HResult_
     }
 
     /**
@@ -145,7 +157,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_RunningState() {
-        result := ComCall(10, this, "int*", &State := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &State := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return State
     }
 
@@ -154,7 +170,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_InputWordPosition() {
-        result := ComCall(11, this, "int*", &Position := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &Position := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Position
     }
 
@@ -163,7 +183,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_InputWordLength() {
-        result := ComCall(12, this, "int*", &Length := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &Length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Length
     }
 
@@ -172,7 +196,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_InputSentencePosition() {
-        result := ComCall(13, this, "int*", &Position := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &Position := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Position
     }
 
@@ -181,7 +209,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_InputSentenceLength() {
-        result := ComCall(14, this, "int*", &Length := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &Length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Length
     }
 
@@ -191,7 +223,11 @@ class ISpeechVoiceStatus extends IDispatch{
      */
     get_LastBookmark() {
         Bookmark := BSTR()
-        result := ComCall(15, this, "ptr", Bookmark, "HRESULT")
+        result := ComCall(15, this, "ptr", Bookmark, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Bookmark
     }
 
@@ -200,7 +236,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_LastBookmarkId() {
-        result := ComCall(16, this, "int*", &BookmarkId := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &BookmarkId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BookmarkId
     }
 
@@ -209,7 +249,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_PhonemeId() {
-        result := ComCall(17, this, "short*", &PhoneId := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &PhoneId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PhoneId
     }
 
@@ -218,7 +262,11 @@ class ISpeechVoiceStatus extends IDispatch{
      * @returns {Integer} 
      */
     get_VisemeId() {
-        result := ComCall(18, this, "short*", &VisemeId := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &VisemeId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return VisemeId
     }
 }

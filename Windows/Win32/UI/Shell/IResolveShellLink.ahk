@@ -6,7 +6,6 @@
 /**
  * Exposes a method that enables an application to request that a Shell folder object resolve a link for one of its items.
  * @remarks
- * 
  * Namespace extensions implement this object to support link resolution.
  * 
  * This interface is not typically used by applications.
@@ -22,8 +21,7 @@
  * </ul>
  * <div class="alert"><b>Note</b>  Prior to Windows Vista this interface was declared in Shlobj.h.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iresolveshelllink
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iresolveshelllink
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -50,22 +48,28 @@ class IResolveShellLink extends IUnknown{
 
     /**
      * Requests that a folder object resolve a Shell link.
+     * @remarks
+     * This method should attempt to find the target of a Shell link, even if the target has been moved or renamed.
      * @param {IUnknown} punkLink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * Pointer to the object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> interface. This interface can then be queried to determine the contents of the link.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * Handle to the window that the Shell uses as the parent for a dialog box. The Shell displays the dialog box if it needs to prompt the user for more information while resolving the link.
      * @param {Integer} fFlags Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iresolveshelllink-resolveshelllink
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iresolveshelllink-resolveshelllink
      */
-    ResolveShellLink(punkLink, hwnd, fFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    ResolveShellLink(punkLink, hwnd_, fFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(3, this, "ptr", punkLink, "ptr", hwnd, "uint", fFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", punkLink, "ptr", hwnd_, "uint", fFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -38,7 +38,11 @@ class IRowSchemaChange extends IRowChange{
     DeleteColumns(cColumns, rgColumnIDs, rgdwStatus) {
         rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cColumns, "ptr", rgColumnIDs, rgdwStatusMarshal, rgdwStatus, "HRESULT")
+        result := ComCall(4, this, "ptr", cColumns, "ptr", rgColumnIDs, rgdwStatusMarshal, rgdwStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IRowSchemaChange extends IRowChange{
      * @returns {HRESULT} 
      */
     AddColumns(cColumns, rgNewColumnInfo, rgColumns) {
-        result := ComCall(5, this, "ptr", cColumns, "ptr", rgNewColumnInfo, "ptr", rgColumns, "HRESULT")
+        result := ComCall(5, this, "ptr", cColumns, "ptr", rgNewColumnInfo, "ptr", rgColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * A vector of 2 FLOAT values (x, y).
- * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_vector_2f
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcommon/ns-dcommon-d2d_vector_2f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

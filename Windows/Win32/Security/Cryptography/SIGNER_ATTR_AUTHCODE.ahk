@@ -3,7 +3,7 @@
 
 /**
  * Specifies attributes for an Authenticode signature.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-attr-authcode
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-attr-authcode
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

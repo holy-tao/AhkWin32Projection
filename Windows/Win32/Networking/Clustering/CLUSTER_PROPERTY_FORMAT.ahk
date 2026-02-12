@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_PROPERTY_FORMAT enumeration (msclus.h) specifies the data type of a property value in a property list.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_property_format
+ * CLUSTER_PROPERTY_FORMAT (clusapi.h) specifies the data type of a property value in a property list.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_property_format
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

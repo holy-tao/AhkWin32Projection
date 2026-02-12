@@ -13,7 +13,7 @@
  * <li>The use of 5 data bits with 2 stop bits is an invalid combination, as is 6, 7, or 8 data bits with 1.5 stop 
  *       bits.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-dcb
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

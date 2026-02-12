@@ -5,7 +5,7 @@
 
 /**
  * The IVssCreateWriterMetadata interface is a C++ (not COM) interface containing methods to construct the Writer Metadata Document in response to an Identify event. It is used only in the CVssWriter::OnIdentify method.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsscreatewritermetadata
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nl-vswriter-ivsscreatewritermetadata
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -26,25 +26,38 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
     static VTableNames => ["AddIncludeFiles", "AddExcludeFiles", "AddComponent", "AddDatabaseFiles", "AddDatabaseLogFiles", "AddFilesToFileGroup", "SetRestoreMethod", "AddAlternateLocationMapping", "AddComponentDependency", "SetBackupSchema", "GetDocument", "SaveAsXML"]
 
     /**
-     * Not supported.
+     * Not supported. (IVssCreateWriterMetadata.AddIncludeFiles)
      * @param {PWSTR} wszPath This parameter is reserved for system use.
      * @param {PWSTR} wszFilespec This parameter is reserved for system use.
      * @param {Integer} bRecursive This parameter is reserved for system use.
      * @param {PWSTR} wszAlternateLocation This parameter is reserved for system use.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-addincludefiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-addincludefiles
      */
     AddIncludeFiles(wszPath, wszFilespec, bRecursive, wszAlternateLocation) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
         wszAlternateLocation := wszAlternateLocation is String ? StrPtr(wszAlternateLocation) : wszAlternateLocation
 
-        result := ComCall(0, this, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszAlternateLocation, "HRESULT")
+        result := ComCall(0, this, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszAlternateLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddExcludeFiles method is used to explicitly exclude a file set (a specified file or files) that might otherwise be implicitly included when a component of the current writer is backed up.
+     * @remarks
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>Remote file shares are not supported until Windows 8 and Windows Server 2012. Writers support only local resources—sets of files whose absolute path starts with a valid local volume specification and cannot be a mapped network drive. Therefore, path inputs (<i>wszPath</i>) to 
+     * <b>AddExcludeFiles</b> (after the resolution of any environment variables) must be in this format.
+     * 
+     * For example, it is often convenient to define a component to include all files in a given directory and then use 
+     * <b>AddExcludeFiles</b> to explicitly remove some files (for instance, temporary files) from a backup.
+     * 
+     * For more information on excluding files, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/writer-metadata-document-contents">Exclude File List Specification</a>.
      * @param {PWSTR} wszPath Pointer to a null-terminated wide character string containing the root directory under which files are to be excluded. 
      * 
      * 
@@ -118,7 +131,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -130,25 +143,43 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-addexcludefiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-addexcludefiles
      */
     AddExcludeFiles(wszPath, wszFilespec, bRecursive) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(1, this, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "HRESULT")
+        result := ComCall(1, this, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddComponent method adds a database or file group as a component to be backed up.
+     * @remarks
+     * This method can be called multiple times to add several components to a writer's metadata.
+     * 
+     * The combination of logical path and name for each component of a given instance of a given class of writer 
+     *     must be unique. Attempting to call 
+     *     <b>AddComponent</b> twice with 
+     *     the same values of <i>wszLogicalPath</i> and <i>wszComponentName</i> results 
+     *     in a VSS_E_OBJECT_ALREADY_EXISTS error.
+     * 
+     * <b>AddComponent</b> can be used to 
+     *     add subcomponents—components in which all member files are backed up as a group, but which contain 
+     *     files that can be restored individually. See 
+     *     <a href="https://docs.microsoft.com/windows/desktop/VSS/working-with-selectability-for-restore-and-subcomponents">Working with 
+     *     Selectability for Restore and Subcomponents</a> for more information.
      * @param {Integer} ct A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_component_type">VSS_COMPONENT_TYPE</a> enumeration value specifying 
      *       the type of the component.
      * 
@@ -247,7 +278,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. 
      *         For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -270,14 +301,14 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponent
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponent
      */
     AddComponent(ct, wszLogicalPath, wszComponentName, wszCaption, pbIcon, cbIcon, bRestoreMetadata, bNotifyOnBackupComplete, bSelectable, bSelectableForRestore, dwComponentFlags) {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
@@ -286,12 +317,24 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
 
         pbIconMarshal := pbIcon is VarRef ? "char*" : "ptr"
 
-        result := ComCall(2, this, "int", ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "HRESULT")
+        result := ComCall(2, this, "int", ct, "ptr", wszLogicalPath, "ptr", wszComponentName, "ptr", wszCaption, pbIconMarshal, pbIcon, "uint", cbIcon, "char", bRestoreMetadata, "char", bNotifyOnBackupComplete, "char", bSelectable, "char", bSelectableForRestore, "uint", dwComponentFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddDatabaseFiles method indicates the file set (the specified file or files) that make up the database component to be backed up.
+     * @remarks
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>Remote file shares are not supported until Windows 8 and Windows Server 2012. Writers support only local resources—sets of files whose absolute path starts with a valid local volume specification and cannot be a mapped network drive. Therefore, path inputs (<i>wszPath</i>) to 
+     * <b>AddDatabaseFiles</b> (after the resolution of any environment variables) must be in this format.
+     * 
+     * This method can be called multiple times for a particular database. This is done when the database exists on files stored on separate volumes, as is possible with Microsoft SQL Server.
+     * 
+     * The values of the <i>wszLogicalPath</i> and <i>wszDatabaseName</i> parameters should match those of one of the database components previously added with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponent">IVssCreateWriterMetadata::AddComponent</a> method.
      * @param {PWSTR} wszLogicalPath Pointer to a <b>null</b>-terminated wide character string containing the logical path of the component to which the database will be added. 
      * 
      * 
@@ -375,7 +418,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -398,14 +441,14 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabasefiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabasefiles
      */
     AddDatabaseFiles(wszLogicalPath, wszDatabaseName, wszPath, wszFilespec, dwBackupTypeMask) {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
@@ -413,12 +456,24 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(3, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, "uint", dwBackupTypeMask, "HRESULT")
+        result := ComCall(3, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, "uint", dwBackupTypeMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddDatabaseLogFiles method indicates the log files that are associated with a database to be backed up, as well as their location.
+     * @remarks
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>Remote file shares are not supported until Windows 8 and Windows Server 2012. Writers support only local resources—sets of files whose absolute path starts with a valid local volume specification and cannot be a mapped network drive. Therefore, path inputs (<i>wszPath</i>) to 
+     * <b>AddDatabaseLogFiles</b> (after the resolution of any environment variables) must be in this format.
+     * 
+     * This method can be called multiple times for a particular database component, which might be needed when several log files are stored on separate volumes.
+     * 
+     * The values of the <i>wszLogicalPath</i> and <i>wszDatabaseName</i> parameters should match those of one of the database components previously added with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponent">IVssCreateWriterMetadata::AddComponent</a> method.
      * @param {PWSTR} wszLogicalPath Pointer to a <b>null</b>-terminated wide character string containing the logical path of the database component to which the log files will be added. 
      * 
      * 
@@ -499,7 +554,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -522,14 +577,14 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles
      */
     AddDatabaseLogFiles(wszLogicalPath, wszDatabaseName, wszPath, wszFilespec, dwBackupTypeMask) {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
@@ -537,12 +592,38 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
 
-        result := ComCall(4, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, "uint", dwBackupTypeMask, "HRESULT")
+        result := ComCall(4, this, "ptr", wszLogicalPath, "ptr", wszDatabaseName, "ptr", wszPath, "ptr", wszFilespec, "uint", dwBackupTypeMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddFilesToFileGroup method adds a file set (a specified file or files) to a specified file group component.
+     * @remarks
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>Remote file shares are not supported until Windows 8 and Windows Server 2012. Writers support only local resources—sets of files whose absolute path starts with a valid local volume specification and cannot be a mapped network drive. Therefore, path inputs (<i>wszPath</i> and <i>wszAlternatePath</i>) to 
+     * <b>AddFilesToFileGroup</b> (after the resolution of any environment variables) must be in this format.
+     * 
+     * A writer can call this method multiple times to add several sets of files to its file group component. However, you should make sure that the file specifications do not overlap, because a particular file can be specified only once.
+     * 
+     * The locations from which files are backed up and to which they are restored depends on the values for the root directory defined by <i>wszPath</i> and the alternate path defined by <i>wszAlternatePath</i>.
+     * 
+     * Note the following when using path information provided by 
+     * <b>AddFilesToFileGroup</b>:
+     * 
+     * <ul>
+     * <li>Restore operations should (if possible) restore files added to a component by 
+     * <b>AddFilesToFileGroup</b> under the default root directory defined by <i>wszPath</i>.</li>
+     * <li>If an alternate path is not specified (if <i>wszAlternatePath</i> is <b>NULL</b>), the files added to the component will be backed up from the default root directory and restored to the default root directory indicated by <i>wszPath</i>.</li>
+     * <li>If an alternate path is specified (if <i>wszAlternatePath</i> is non-<b>NULL</b>), files added to the component are backed up from the alternate path specified by <i>wszAlternatePath</i>. However, requesters will still use <i>wszPath</i> as the default restoration location.</li>
+     * <li>If the alternate path is defined (<i>wszAlternatePath</i> is non-<b>NULL</b>) and there are files matching the file specification (<i>wszFilespec</i>) in both the alternate path and the default root directory (<i>wszPath</i>), then a backup operation should back up files located under the alternate path, not files located under the default root directory.</li>
+     * <li>Files should be restored to the directory indicated by <i>wszPath</i> unless an alternate location mapping was set by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addalternatelocationmapping">IVssCreateWriterMetadata::AddAlternateLocationMapping</a> and the restore method or restore target requires it.</li>
+     * </ul>
+     * For more information on backup and restore file locations under VSS, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore Locations</a>.
      * @param {PWSTR} wszLogicalPath Pointer to a <b>null</b>-terminated wide character string containing the logical path (which may be <b>NULL</b>) of the component to which to add the files. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VSS/logical-pathing-of-components">Logical Pathing of Components</a>.
      * @param {PWSTR} wszGroupName Pointer to a <b>null</b>-terminated wide character string containing the name of the file group component. The type of this component must be VSS_CT_FILEGROUP; otherwise, the method will return an error.
      * @param {PWSTR} wszPath Pointer to a <b>null</b>-terminated wide character string containing the default root directory of the files to be added. 
@@ -638,7 +719,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -674,14 +755,14 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-addfilestofilegroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-addfilestofilegroup
      */
     AddFilesToFileGroup(wszLogicalPath, wszGroupName, wszPath, wszFilespec, bRecursive, wszAlternateLocation, dwBackupTypeMask) {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
@@ -690,12 +771,45 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
         wszFilespec := wszFilespec is String ? StrPtr(wszFilespec) : wszFilespec
         wszAlternateLocation := wszAlternateLocation is String ? StrPtr(wszAlternateLocation) : wszAlternateLocation
 
-        result := ComCall(5, this, "ptr", wszLogicalPath, "ptr", wszGroupName, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszAlternateLocation, "uint", dwBackupTypeMask, "HRESULT")
+        result := ComCall(5, this, "ptr", wszLogicalPath, "ptr", wszGroupName, "ptr", wszPath, "ptr", wszFilespec, "char", bRecursive, "ptr", wszAlternateLocation, "uint", dwBackupTypeMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetRestoreMethod method indicates how the writer's data is to be restored.
+     * @remarks
+     * There is a single restore method defined for a writer. If the restore method is not overridden, all of the writer's components will be restored using the same method.
+     * 
+     * Writers override the restore method on a component-by-component basis by setting a restore target, typically while handling a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> event (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onprerestore">CVssWriter::OnPreRestore</a>).
+     * 
+     * It is important to note that despite the fact that restore methods are applied writer-wide, methods are implemented on a per-component basis. For example, if the method specified by the <i>method</i> parameter is VSS_RME_RESTORE_IF_CAN_REPLACE, then all of the files in the component are restored to their original location if they can all be replaced without an error occurring. Otherwise, they are restored to their alternate location if one is specified.
+     * 
+     * A file should always be restored to its alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method (set at backup time) is VSS_RME_RESTORE_TO_ALTERNATE_LOCATION.</li>
+     * <li>Its restore target was set (at restore time) to VSS_RT_ALTERNATE.</li>
+     * </ul>
+     * In either case, if no valid alternate location mapping is defined, this constitutes a writer error.
+     * 
+     * A file can be restored to an alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method is VSS_RME_RESTORE_IF_NOT_THERE and a version of the file is already present on disk.</li>
+     * <li>The restore method is VSS_RME_RESTORE_IF_CAN_REPLACE and a version of the file is present on disk and cannot be replaced.</li>
+     * </ul>
+     * Again, if no valid alternate location mapping is defined, this constitutes a writer error.
+     * 
+     * An alternate location mapping is used only during a restore operation and should not be confused with an alternate path, which is used only during a backup operation.
+     * 
+     * For more information about restore methods, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-methods">Setting VSS Restore Methods</a>.
+     * 
+     * If the restore method is VSS_RME_STOP_RESTORE_START or VSS_RME_RESTORE_STOP_START, then the correct name of the service must be provided as the <i>wszService</i> argument. For information on writer participation in stopping and restarting services during a restore operation, see <a href="https://docs.microsoft.com/windows/desktop/VSS/stopping-services-for-restore-by-requestors">Stopping Services for Restore by Requesters</a>.
      * @param {Integer} method <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> value specifying the method that will be used in the restore operation.
      * @param {PWSTR} wszService A pointer to a wide character string containing the name of a service that must be stopped prior to a restore operation and then started after the restore operation takes place, if the value of <i>method</i> is VSS_RME_STOP_RESTORE_START or VSS_RME_RESTORE_STOP_START. 
      * 
@@ -760,7 +874,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -772,7 +886,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </dl>
      * </td>
      * <td width="60%">
-     * The caller specified a <a href="/windows/desktop/api/vswriter/ne-vswriter-vss_writerrestore_enum">VSS_WRITERRESTORE_ENUM</a> value that is not supported for express writers.
+     * The caller specified a <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_writerrestore_enum">VSS_WRITERRESTORE_ENUM</a> value that is not supported for express writers.
      * 
      * </td>
      * </tr>
@@ -784,25 +898,65 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod
      */
     SetRestoreMethod(method, wszService, wszUserProcedure, writerRestore, bRebootRequired) {
         wszService := wszService is String ? StrPtr(wszService) : wszService
         wszUserProcedure := wszUserProcedure is String ? StrPtr(wszUserProcedure) : wszUserProcedure
 
-        result := ComCall(6, this, "int", method, "ptr", wszService, "ptr", wszUserProcedure, "int", writerRestore, "char", bRebootRequired, "HRESULT")
+        result := ComCall(6, this, "int", method, "ptr", wszService, "ptr", wszUserProcedure, "int", writerRestore, "char", bRebootRequired, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddAlternateLocationMapping method creates an alternate location mapping for a file set.
+     * @remarks
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista, Windows Server 2008, Windows XP and Windows Server 2003:  </b>Remote file shares are not supported until Windows 8 and Windows Server 2012. Writers support only local resources—sets of files whose absolute path starts with a valid local volume specification and cannot be a mapped network drive. Therefore, path inputs (<i>wszPath</i> and <i>wszDestination</i>) to 
+     * <b>AddAlternateLocationMapping</b> (after the resolution of any environment variables) must be in this format.
+     * 
+     * This method can be called multiple times to add mapping for multiple files.
+     * 
+     * The combination of path, file specification, and recursion flag (<i>wszPath</i>, <i>wszFileSpec</i>, and <i>bRecursive</i>, respectively) provided to 
+     * <b>AddAlternateLocationMapping</b> to be mapped must match that of one of the file sets added to one of the writer's components using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-addfilestofilegroup">IVssCreateWriterMetadata::AddFilesToFileGroup</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabasefiles">IVssCreateWriterMetadata::AddDatabaseFiles</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-adddatabaselogfiles">IVssCreateWriterMetadata::AddDatabaseLogFiles</a>.
+     * 
+     * The 
+     * <b>AddAlternateLocationMapping</b> method should be called only after 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> is called.
+     * 
+     * A file should always be restored to its alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method (set at backup time) is VSS_RME_RESTORE_TO_ALTERNATE_LOCATION.</li>
+     * <li>Its restore target was set (at restore time) to VSS_RT_ALTERNATE.</li>
+     * </ul>
+     * In either case, if no valid alternate location mapping is defined, this constitutes a writer error.
+     * 
+     * A file can be restored to an alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method is VSS_RME_RESTORE_IF_NOT_THERE and a version of the file is already present on disk.</li>
+     * <li>The restore method is VSS_RME_RESTORE_IF_CAN_REPLACE and a version of the file is present on disk and cannot be replaced.</li>
+     * </ul>
+     * Again, if no valid alternate location mapping is defined, this constitutes a writer error.
+     * 
+     * An alternate location mapping is used only during a restore operation and should not be confused with an alternate path, which is used only during a backup operation.
+     * 
+     * For more information on backup and restore file locations under VSS, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/non-default-backup-and-restore-locations">Non-Default Backup And Restore Locations</a>.
      * @param {PWSTR} wszSourcePath Null-terminated wide character string containing the name of the directory or directory hierarchy containing the files to be mapped. 
      * 
      * 
@@ -883,7 +1037,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -895,7 +1049,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> method was not called before this method was called.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscreatewritermetadata-setrestoremethod">IVssCreateWriterMetadata::SetRestoreMethod</a> method was not called before this method was called.
      * 
      * </td>
      * </tr>
@@ -907,26 +1061,44 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-addalternatelocationmapping
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-addalternatelocationmapping
      */
     AddAlternateLocationMapping(wszSourcePath, wszSourceFilespec, bRecursive, wszDestination) {
         wszSourcePath := wszSourcePath is String ? StrPtr(wszSourcePath) : wszSourcePath
         wszSourceFilespec := wszSourceFilespec is String ? StrPtr(wszSourceFilespec) : wszSourceFilespec
         wszDestination := wszDestination is String ? StrPtr(wszDestination) : wszDestination
 
-        result := ComCall(7, this, "ptr", wszSourcePath, "ptr", wszSourceFilespec, "char", bRecursive, "ptr", wszDestination, "HRESULT")
+        result := ComCall(7, this, "ptr", wszSourcePath, "ptr", wszSourceFilespec, "char", bRecursive, "ptr", wszDestination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddComponentDependency method allows a writer to indicate that a component it manages has an explicit writer-component dependency; that is, another component in another writer must be backed up and restored with it.
+     * @remarks
+     * Dependencies upon components managed by the current writer are not permitted.
+     * 
+     * A dependency requires that both the target of the dependency and the component that depends on the target be restored and backed up together. It does not indicate a priority between the components, although a requester may choose to implement that.
+     * 
+     * Because the combination of logical name and component name must be unique across all instances of a writer class, the fact that several writers may have the same class ID is not a problem.
+     * 
+     * This method can be used to declare remote dependencies. A writer can declare a remote dependency by prepending "&#92;&#92;<i>RemoteComputerName</i>\", where <i>RemoteComputerName</i> is the name of the computer where the remote component resides, to the logical path in the <i>wszOnLogicalPath</i> parameter. The value of <i>RemoteComputerName</i> can be an IP address or a computer name returned by the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getcomputernameexa">GetComputerNameEx</a> function.
+     * 
+     * If the remote component resides on a cluster, the writer must report the virtual name for the cluster, and it is the requester's responsibility to map the virtual name to the physical name of a cluster node before a volume shadow copy can be created.
+     * 
+     * To determine whether a dependency is local or remote, the requester must examine the component name returned in the <i>pbstrComponentName</i> parameter. If the component name begins with "\\", the requester must assume that it specifies a remote dependency and that the first component following "\\" is the <i>RemoteComputerName</i> that was specified by the writer. If the component name does not begin with "\\", the requester should assume that it specifies a local dependency.
+     * 
+     * <b>Windows Server 2003:  </b>This method cannot be used to declare remote dependencies until Windows Server 2003 with Service Pack 1 (SP1).
      * @param {PWSTR} wszForLogicalPath A null-terminated wide character string containing the logical path of the component (managed by the current writer) that requires a dependency.
      * @param {PWSTR} wszForComponentName A null-terminated wide character string containing the component (managed by the current writer) that requires a dependency.
      * @param {Guid} onWriterId The class ID or 
@@ -981,7 +1153,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -1004,14 +1176,14 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponentdependency
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-addcomponentdependency
      */
     AddComponentDependency(wszForLogicalPath, wszForComponentName, onWriterId, wszOnLogicalPath, wszOnComponentName) {
         wszForLogicalPath := wszForLogicalPath is String ? StrPtr(wszForLogicalPath) : wszForLogicalPath
@@ -1019,12 +1191,23 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
         wszOnLogicalPath := wszOnLogicalPath is String ? StrPtr(wszOnLogicalPath) : wszOnLogicalPath
         wszOnComponentName := wszOnComponentName is String ? StrPtr(wszOnComponentName) : wszOnComponentName
 
-        result := ComCall(8, this, "ptr", wszForLogicalPath, "ptr", wszForComponentName, "ptr", onWriterId, "ptr", wszOnLogicalPath, "ptr", wszOnComponentName, "HRESULT")
+        result := ComCall(8, this, "ptr", wszForLogicalPath, "ptr", wszForComponentName, "ptr", onWriterId, "ptr", wszOnLogicalPath, "ptr", wszOnComponentName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetBackupSchema method is used by a writer to indicate in its Writer Metadata Document the types of backup operations it can participate in.
+     * @remarks
+     * If no schema is explicitly set by 
+     * <b>SetBackupSchema</b>, the writer will be assigned the default value of VSS_BS_UNDEFINED: the writer supports only simple full backup and restoration of entire files (as defined by VSS_BT_FULL), there is no support for incremental or differential backups, and partial files are not supported.
+     * 
+     * Requesters call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getbackupschema">IVssExamineWriterMetadata::GetBackupSchema</a> to retrieve a writer's backup schemas as set by 
+     * <b>SetBackupSchema</b>.
      * @param {Integer} dwSchemaMask The types of backup operations this writer supports expressed as a bitmask of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_schema">VSS_BACKUP_SCHEMA</a> enumeration values.
      * 
@@ -1081,7 +1264,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -1093,25 +1276,33 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </dl>
      * </td>
      * <td width="60%">
-     * The caller specified a <a href="/windows/desktop/api/vss/ne-vss-vss_backup_schema">VSS_BACKUP_SCHEMA</a> value that is not supported for express writers.
+     * The caller specified a <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_schema">VSS_BACKUP_SCHEMA</a> value that is not supported for express writers.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-setbackupschema
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-setbackupschema
      */
     SetBackupSchema(dwSchemaMask) {
-        result := ComCall(9, this, "uint", dwSchemaMask, "HRESULT")
+        result := ComCall(9, this, "uint", dwSchemaMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not supported.
+     * Not supported. (IVssCreateWriterMetadata.GetDocument)
      * @returns {IXMLDOMDocument} This parameter is reserved for system use.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-getdocument
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-getdocument
      */
     GetDocument() {
-        result := ComCall(10, this, "ptr*", &pDoc := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &pDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocument(pDoc)
     }
 
@@ -1166,7 +1357,7 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -1178,17 +1369,21 @@ class IVssCreateWriterMetadata extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreatewritermetadata-saveasxml
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivsscreatewritermetadata-saveasxml
      */
     SaveAsXML(pbstrXML) {
-        result := ComCall(11, this, "ptr", pbstrXML, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrXML, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -106,7 +106,11 @@ class ISClusVersion extends IDispatch{
      */
     get_Name() {
         pbstrClusterName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrClusterName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrClusterName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrClusterName
     }
 
@@ -115,7 +119,11 @@ class ISClusVersion extends IDispatch{
      * @returns {Integer} 
      */
     get_MajorVersion() {
-        result := ComCall(8, this, "int*", &pnMajorVersion := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pnMajorVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnMajorVersion
     }
 
@@ -124,7 +132,11 @@ class ISClusVersion extends IDispatch{
      * @returns {Integer} 
      */
     get_MinorVersion() {
-        result := ComCall(9, this, "int*", &pnMinorVersion := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pnMinorVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnMinorVersion
     }
 
@@ -133,7 +145,11 @@ class ISClusVersion extends IDispatch{
      * @returns {Integer} 
      */
     get_BuildNumber() {
-        result := ComCall(10, this, "short*", &pnBuildNumber := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pnBuildNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnBuildNumber
     }
 
@@ -143,7 +159,11 @@ class ISClusVersion extends IDispatch{
      */
     get_VendorId() {
         pbstrVendorId := BSTR()
-        result := ComCall(11, this, "ptr", pbstrVendorId, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrVendorId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVendorId
     }
 
@@ -153,7 +173,11 @@ class ISClusVersion extends IDispatch{
      */
     get_CSDVersion() {
         pbstrCSDVersion := BSTR()
-        result := ComCall(12, this, "ptr", pbstrCSDVersion, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrCSDVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCSDVersion
     }
 
@@ -162,7 +186,11 @@ class ISClusVersion extends IDispatch{
      * @returns {Integer} 
      */
     get_ClusterHighestVersion() {
-        result := ComCall(13, this, "int*", &pnClusterHighestVersion := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pnClusterHighestVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnClusterHighestVersion
     }
 
@@ -171,7 +199,11 @@ class ISClusVersion extends IDispatch{
      * @returns {Integer} 
      */
     get_ClusterLowestVersion() {
-        result := ComCall(14, this, "int*", &pnClusterLowestVersion := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pnClusterLowestVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnClusterLowestVersion
     }
 
@@ -180,7 +212,11 @@ class ISClusVersion extends IDispatch{
      * @returns {Integer} 
      */
     get_Flags() {
-        result := ComCall(15, this, "int*", &pnFlags := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pnFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnFlags
     }
 
@@ -190,7 +226,11 @@ class ISClusVersion extends IDispatch{
      */
     get_MixedVersion() {
         pvarMixedVersion := VARIANT()
-        result := ComCall(16, this, "ptr", pvarMixedVersion, "HRESULT")
+        result := ComCall(16, this, "ptr", pvarMixedVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarMixedVersion
     }
 }

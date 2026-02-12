@@ -38,7 +38,11 @@ class IDxcVersionInfo2 extends IDxcVersionInfo{
         pCommitCountMarshal := pCommitCount is VarRef ? "uint*" : "ptr"
         pCommitHashMarshal := pCommitHash is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pCommitCountMarshal, pCommitCount, pCommitHashMarshal, pCommitHash, "HRESULT")
+        result := ComCall(5, this, pCommitCountMarshal, pCommitCount, pCommitHashMarshal, pCommitHash, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

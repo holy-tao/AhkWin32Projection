@@ -37,7 +37,11 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
      * @returns {HRESULT} 
      */
     SeekEx(cnsStartTime, cnsDuration, flRate, fIncludeFileHeader) {
-        result := ComCall(7, this, "uint", cnsStartTime, "uint", cnsDuration, "float", flRate, "int", fIncludeFileHeader, "HRESULT")
+        result := ComCall(7, this, "uint", cnsStartTime, "uint", cnsDuration, "float", flRate, "int", fIncludeFileHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
      * @returns {HRESULT} 
      */
     ZeroAdjustTimestamps(fEnable) {
-        result := ComCall(8, this, "int", fEnable, "HRESULT")
+        result := ComCall(8, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,16 +64,27 @@ class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
      * @returns {Integer} 
      */
     GetSeekStartTime() {
-        result := ComCall(9, this, "uint*", &pcnsTime := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pcnsTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcnsTime
     }
 
     /**
-     * 
+     * Formats a duration of time as a time string for a locale specified by identifier.
+     * @remarks
+     * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getdurationformatex">GetDurationFormatEx</a>.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnls/nf-winnls-getdurationformat
      */
     GetDuration() {
-        result := ComCall(10, this, "uint*", &pcnsDuration := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pcnsDuration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcnsDuration
     }
 }

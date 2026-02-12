@@ -4,8 +4,8 @@
 #Include .\IMAPIProp.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iattachimapiprop
+ * This article describes IAttach IMAPIProp providing access to the properties of attachments in messages.
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/iattachimapiprop
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

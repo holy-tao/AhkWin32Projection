@@ -5,7 +5,7 @@
 
 /**
  * Gets and sets the numeric value (Code Page identifier) of the ANSI code page.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iquerycodepage
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iquerycodepage
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IQueryCodePage extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The numeric value (Code Page identifier) of the ANSI code page.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iquerycodepage-getcodepage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iquerycodepage-getcodepage
      */
     GetCodePage() {
-        result := ComCall(3, this, "uint*", &puiCodePage := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &puiCodePage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiCodePage
     }
 
@@ -49,11 +53,15 @@ class IQueryCodePage extends IUnknown{
      * The numeric value of the ANSI code page you want to set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iquerycodepage-setcodepage
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iquerycodepage-setcodepage
      */
     SetCodePage(uiCodePage) {
-        result := ComCall(4, this, "uint", uiCodePage, "HRESULT")
+        result := ComCall(4, this, "uint", uiCodePage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

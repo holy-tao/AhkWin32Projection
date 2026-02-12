@@ -3,7 +3,7 @@
 
 /**
  * The RESOURCE_MONITOR_STATE enumeration provides a view of instrumentation activity that takes place when an application is running.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-resource_monitor_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/resapi/ne-resapi-resource_monitor_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

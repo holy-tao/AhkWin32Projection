@@ -34,7 +34,11 @@ class IMXNamespaceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     putAllowOverride(fOverride) {
-        result := ComCall(3, this, "short", fOverride, "HRESULT")
+        result := ComCall(3, this, "short", fOverride, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IMXNamespaceManager extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     getAllowOverride() {
-        result := ComCall(4, this, "short*", &fOverride := 0, "HRESULT")
+        result := ComCall(4, this, "short*", &fOverride := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fOverride
     }
 
@@ -52,7 +60,11 @@ class IMXNamespaceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +73,11 @@ class IMXNamespaceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     pushContext() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +88,11 @@ class IMXNamespaceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     pushNodeContext(contextNode, fDeep) {
-        result := ComCall(7, this, "ptr", contextNode, "short", fDeep, "HRESULT")
+        result := ComCall(7, this, "ptr", contextNode, "short", fDeep, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +101,11 @@ class IMXNamespaceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     popContext() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +119,11 @@ class IMXNamespaceManager extends IUnknown{
         prefix := prefix is String ? StrPtr(prefix) : prefix
         namespaceURI := namespaceURI is String ? StrPtr(namespaceURI) : namespaceURI
 
-        result := ComCall(9, this, "ptr", prefix, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(9, this, "ptr", prefix, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +139,11 @@ class IMXNamespaceManager extends IUnknown{
 
         pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
+        result := ComCall(10, this, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +161,11 @@ class IMXNamespaceManager extends IUnknown{
 
         pcchPrefixMarshal := pcchPrefix is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszNamespaceURI, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszNamespaceURI, "int", nIndex, "ptr", pwchPrefix, pcchPrefixMarshal, pcchPrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +183,11 @@ class IMXNamespaceManager extends IUnknown{
 
         pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pwchPrefix, "ptr", pContextNode, "ptr", pwchUri, pcchUriMarshal, pcchUri, "HRESULT")
+        result := ComCall(12, this, "ptr", pwchPrefix, "ptr", pContextNode, "ptr", pwchUri, pcchUriMarshal, pcchUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

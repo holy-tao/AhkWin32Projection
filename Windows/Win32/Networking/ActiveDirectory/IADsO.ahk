@@ -7,7 +7,7 @@
 
 /**
  * The IADsO interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadso
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadso
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -86,7 +86,11 @@ class IADsO extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -96,9 +100,16 @@ class IADsO extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(21, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +119,11 @@ class IADsO extends IADs{
      */
     get_LocalityName() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -118,9 +133,16 @@ class IADsO extends IADs{
      * @returns {HRESULT} 
      */
     put_LocalityName(bstrLocalityName) {
-        bstrLocalityName := bstrLocalityName is String ? BSTR.Alloc(bstrLocalityName).Value : bstrLocalityName
+        if(bstrLocalityName is String) {
+            pin := BSTR.Alloc(bstrLocalityName)
+            bstrLocalityName := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrLocalityName, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrLocalityName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +152,11 @@ class IADsO extends IADs{
      */
     get_PostalAddress() {
         retval := BSTR()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -140,9 +166,16 @@ class IADsO extends IADs{
      * @returns {HRESULT} 
      */
     put_PostalAddress(bstrPostalAddress) {
-        bstrPostalAddress := bstrPostalAddress is String ? BSTR.Alloc(bstrPostalAddress).Value : bstrPostalAddress
+        if(bstrPostalAddress is String) {
+            pin := BSTR.Alloc(bstrPostalAddress)
+            bstrPostalAddress := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrPostalAddress, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrPostalAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +185,11 @@ class IADsO extends IADs{
      */
     get_TelephoneNumber() {
         retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        result := ComCall(26, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -162,9 +199,16 @@ class IADsO extends IADs{
      * @returns {HRESULT} 
      */
     put_TelephoneNumber(bstrTelephoneNumber) {
-        bstrTelephoneNumber := bstrTelephoneNumber is String ? BSTR.Alloc(bstrTelephoneNumber).Value : bstrTelephoneNumber
+        if(bstrTelephoneNumber is String) {
+            pin := BSTR.Alloc(bstrTelephoneNumber)
+            bstrTelephoneNumber := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrTelephoneNumber, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrTelephoneNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -174,7 +218,11 @@ class IADsO extends IADs{
      */
     get_FaxNumber() {
         retval := BSTR()
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
+        result := ComCall(28, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -184,9 +232,16 @@ class IADsO extends IADs{
      * @returns {HRESULT} 
      */
     put_FaxNumber(bstrFaxNumber) {
-        bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
+        if(bstrFaxNumber is String) {
+            pin := BSTR.Alloc(bstrFaxNumber)
+            bstrFaxNumber := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", bstrFaxNumber, "HRESULT")
+        result := ComCall(29, this, "ptr", bstrFaxNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +251,11 @@ class IADsO extends IADs{
      */
     get_SeeAlso() {
         retval := VARIANT()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        result := ComCall(30, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -206,7 +265,11 @@ class IADsO extends IADs{
      * @returns {HRESULT} 
      */
     put_SeeAlso(vSeeAlso) {
-        result := ComCall(31, this, "ptr", vSeeAlso, "HRESULT")
+        result := ComCall(31, this, "ptr", vSeeAlso, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

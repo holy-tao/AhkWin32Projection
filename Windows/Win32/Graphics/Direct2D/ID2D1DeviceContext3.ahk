@@ -6,7 +6,7 @@
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext2 interface, plus it enables functionality for creating and drawing sprite batches.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1devicecontext3
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1devicecontext3
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -33,28 +33,32 @@ class ID2D1DeviceContext3 extends ID2D1DeviceContext2{
 
     /**
      * Creates a new, empty sprite batch. After creating a sprite batch, use ID2D1SpriteBatch::AddSprites to add sprites to it, then use ID2D1DeviceContext3::DrawSpriteBatch to draw it.
-     * @returns {ID2D1SpriteBatch} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1spritebatch">ID2D1SpriteBatch</a>**</b>
+     * @returns {Pointer<ID2D1SpriteBatch>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1spritebatch">ID2D1SpriteBatch</a>**</b>
      * 
      * When this method returns, contains a pointer to a new, empty sprite batch to be populated by the app.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch
      */
     CreateSpriteBatch() {
-        result := ComCall(106, this, "ptr*", &spriteBatch := 0, "HRESULT")
-        return ID2D1SpriteBatch(spriteBatch)
+        result := ComCall(106, this, "ptr*", &spriteBatch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return spriteBatch
     }
 
     /**
-     * 
+     * Renders part or all of the given sprite batch to the device context using the specified drawing options.
      * @param {ID2D1SpriteBatch} spriteBatch 
      * @param {Integer} startIndex 
      * @param {Integer} spriteCount 
-     * @param {ID2D1Bitmap} bitmap 
-     * @param {Integer} interpolationMode 
+     * @param {ID2D1Bitmap} bitmap_ 
+     * @param {Integer} interpolationMode_ 
      * @param {Integer} spriteOptions 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-drawspritebatch(id2d1spritebatch_id2d1bitmap_d2d1_bitmap_interpolation_mode_d2d1_sprite_options)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1devicecontext3-drawspritebatch-overloaded
      */
-    DrawSpriteBatch(spriteBatch, startIndex, spriteCount, bitmap, interpolationMode, spriteOptions) {
-        ComCall(107, this, "ptr", spriteBatch, "uint", startIndex, "uint", spriteCount, "ptr", bitmap, "int", interpolationMode, "int", spriteOptions)
+    DrawSpriteBatch(spriteBatch, startIndex, spriteCount, bitmap_, interpolationMode_, spriteOptions) {
+        ComCall(107, this, "ptr", spriteBatch, "uint", startIndex, "uint", spriteCount, "ptr", bitmap_, "int", interpolationMode_, "int", spriteOptions)
     }
 }

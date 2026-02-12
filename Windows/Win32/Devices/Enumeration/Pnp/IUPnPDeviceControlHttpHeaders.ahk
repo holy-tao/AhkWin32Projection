@@ -35,7 +35,11 @@ class IUPnPDeviceControlHttpHeaders extends IUnknown{
      */
     GetAdditionalResponseHeaders() {
         bstrHttpResponseHeaders := BSTR()
-        result := ComCall(3, this, "ptr", bstrHttpResponseHeaders, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrHttpResponseHeaders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrHttpResponseHeaders
     }
 }

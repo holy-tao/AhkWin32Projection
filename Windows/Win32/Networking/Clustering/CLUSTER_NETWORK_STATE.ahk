@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_NETWORK_STATE enumeration (msclus.h) enumerates the possible values of the state of a network.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_network_state
+ * CLUSTER_NETWORK_STATE (clusapi.h) enumerates the possible values of the state of a network.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_network_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

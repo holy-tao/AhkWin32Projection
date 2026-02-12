@@ -15,7 +15,7 @@
  * <li><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType_Point</a></li>
  * <li><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType_String</a></li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

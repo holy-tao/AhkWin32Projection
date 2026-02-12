@@ -33,7 +33,11 @@ class IElementBehaviorCategory extends IUnknown{
      * @returns {PWSTR} 
      */
     GetCategory() {
-        result := ComCall(3, this, "ptr*", &ppchCategory := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppchCategory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppchCategory
     }
 }

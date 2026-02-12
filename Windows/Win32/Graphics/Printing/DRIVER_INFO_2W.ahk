@@ -3,7 +3,7 @@
 
 /**
  * The DRIVER\_INFO\_2 structure identifies a printer driver, the driver version number, the environment for which the driver was written, the name of the file in which the driver is stored, and so on.
- * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/driver-info-2
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

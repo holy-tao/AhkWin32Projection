@@ -12,7 +12,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure.
  * 
  * When a <b>SYSTEM_AUDIT_CALLBACK_OBJECT_ACE</b> structure is created, sufficient memory must be allocated to accommodate the GUID structures in <b>ObjectType</b> and <b>InheritedObjectType</b> members, if one or both of them exists, as well as to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory that follows it.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_audit_callback_object_ace
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-system_audit_callback_object_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

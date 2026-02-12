@@ -51,7 +51,7 @@
  * <td>Error</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-regcls
+ * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/ne-combaseapi-regcls
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

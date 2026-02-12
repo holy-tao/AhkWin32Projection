@@ -5,7 +5,7 @@
  * Specifies the type of an H.264 video frame.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_frame_type_h264
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ne-d3d12video-d3d12_video_encoder_frame_type_h264
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

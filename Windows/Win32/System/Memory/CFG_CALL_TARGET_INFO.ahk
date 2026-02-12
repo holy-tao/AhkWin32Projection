@@ -3,7 +3,7 @@
 
 /**
  * Represents information about call targets for Control Flow Guard (CFG).
- * @see https://learn.microsoft.com/windows/win32/Memory/-cfg-call-target-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Memory/-cfg-call-target-info
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

@@ -35,10 +35,17 @@ class IWebWizardHost2 extends IWebWizardHost{
      * @returns {BSTR} 
      */
     SignString(value) {
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
         signedValue := BSTR()
-        result := ComCall(16, this, "ptr", value, "ptr", signedValue, "HRESULT")
+        result := ComCall(16, this, "ptr", value, "ptr", signedValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return signedValue
     }
 }

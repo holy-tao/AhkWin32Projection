@@ -11,8 +11,8 @@
 #Include .\IDWriteFactory2.ahk
 
 /**
- * The root factory interface for all DirectWrite objects.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefactory3
+ * The root factory interface for all DirectWrite objects. (IDWriteFactory3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefactory3
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IDWriteFactory3 extends IDWriteFactory2{
 
     /**
      * Creates a glyph-run-analysis object that encapsulates info that DirectWrite uses to render a glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a> structure that contains the properties of the glyph run.
      * @param {Pointer<DWRITE_MATRIX>} transform Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a></b>
@@ -63,18 +63,22 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {Float} baselineOriginY Type: <b>FLOAT</b>
      * 
      * The vertical position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.
-     * @returns {IDWriteGlyphRunAnalysis} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteglyphrunanalysis">IDWriteGlyphRunAnalysis</a>**</b>
+     * @returns {Pointer<IDWriteGlyphRunAnalysis>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteglyphrunanalysis">IDWriteGlyphRunAnalysis</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteglyphrunanalysis">IDWriteGlyphRunAnalysis</a> interface for the newly created glyph-run-analysis object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-createglyphrunanalysis
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-createglyphrunanalysis
      */
-    CreateGlyphRunAnalysis(glyphRun, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
-        result := ComCall(31, this, "ptr", glyphRun, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")
-        return IDWriteGlyphRunAnalysis(glyphRunAnalysis)
+    CreateGlyphRunAnalysis(glyphRun_, transform, renderingMode, measuringMode, gridFitMode, antialiasMode, baselineOriginX, baselineOriginY) {
+        result := ComCall(31, this, "ptr", glyphRun_, "ptr", transform, "int", renderingMode, "int", measuringMode, "int", gridFitMode, "int", antialiasMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return glyphRunAnalysis
     }
 
     /**
-     * Creates a rendering parameters object with the specified properties.
+     * Creates a rendering parameters object with the specified properties. (IDWriteFactory3.CreateCustomRenderingParams)
      * @param {Float} gamma Type: <b>FLOAT</b>
      * 
      * The gamma value used for gamma correction, which must be greater than zero and cannot exceed 256.
@@ -96,67 +100,87 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {Integer} gridFitMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value that specifies how to grid-fit glyph outlines. In most cases, specify <b>DWRITE_GRID_FIT_DEFAULT</b> to automatically choose an appropriate mode.
-     * @returns {IDWriteRenderingParams3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriterenderingparams3">IDWriteRenderingParams3</a>**</b>
+     * @returns {Pointer<IDWriteRenderingParams3>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriterenderingparams3">IDWriteRenderingParams3</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriterenderingparams3">IDWriteRenderingParams3</a> interface for the newly created rendering parameters object, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-createcustomrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, grayscaleEnhancedContrast, clearTypeLevel, pixelGeometry, renderingMode, gridFitMode) {
-        result := ComCall(32, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", &renderingParams := 0, "HRESULT")
-        return IDWriteRenderingParams3(renderingParams)
+        result := ComCall(32, this, "float", gamma, "float", enhancedContrast, "float", grayscaleEnhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "int", gridFitMode, "ptr*", &renderingParams := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return renderingParams
     }
 
     /**
-     * 
+     * Creates a reference to a font.
      * @param {IDWriteFontFile} fontFile 
      * @param {Integer} faceIndex 
      * @param {Integer} fontSimulations 
-     * @returns {IDWriteFontFaceReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontfacereference(wcharconst_filetimeconst_uint32_dwrite_font_simulations_idwritefontfacereference)
+     * @returns {Pointer<IDWriteFontFaceReference>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefactory3-createfontfacereference-overload
      */
     CreateFontFaceReference(fontFile, faceIndex, fontSimulations) {
-        result := ComCall(33, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
-        return IDWriteFontFaceReference(fontFaceReference)
+        result := ComCall(33, this, "ptr", fontFile, "uint", faceIndex, "int", fontSimulations, "ptr*", &fontFaceReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFaceReference
     }
 
     /**
-     * 
+     * Creates a reference to a font.
      * @param {PWSTR} filePath 
      * @param {Pointer<FILETIME>} lastWriteTime 
      * @param {Integer} faceIndex 
      * @param {Integer} fontSimulations 
-     * @returns {IDWriteFontFaceReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory3-createfontfacereference(wcharconst_filetimeconst_uint32_dwrite_font_simulations_idwritefontfacereference)
+     * @returns {Pointer<IDWriteFontFaceReference>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefactory3-createfontfacereference-overload
      */
     CreateFontFaceReference1(filePath, lastWriteTime, faceIndex, fontSimulations) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := ComCall(34, this, "ptr", filePath, "ptr", lastWriteTime, "uint", faceIndex, "int", fontSimulations, "ptr*", &fontFaceReference := 0, "HRESULT")
-        return IDWriteFontFaceReference(fontFaceReference)
+        result := ComCall(34, this, "ptr", filePath, "ptr", lastWriteTime, "uint", faceIndex, "int", fontSimulations, "ptr*", &fontFaceReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFaceReference
     }
 
     /**
      * Retrieves the list of system fonts.
-     * @returns {IDWriteFontSet} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
+     * @returns {Pointer<IDWriteFontSet>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
      * 
      * Holds the newly created font set object, or NULL in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontset
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontset
      */
     GetSystemFontSet() {
-        result := ComCall(35, this, "ptr*", &fontSet := 0, "HRESULT")
-        return IDWriteFontSet(fontSet)
+        result := ComCall(35, this, "ptr*", &fontSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontSet
     }
 
     /**
-     * Creates an empty font set builder to add font face references and create a custom font set.
-     * @returns {IDWriteFontSetBuilder} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder">IDWriteFontSetBuilder</a>**</b>
+     * Creates an empty font set builder to add font face references and create a custom font set. (IDWriteFactory3.CreateFontSetBuilder)
+     * @returns {Pointer<IDWriteFontSetBuilder>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder">IDWriteFontSetBuilder</a>**</b>
      * 
      * Holds the newly created font set builder object, or NULL in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-createfontsetbuilder
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-createfontsetbuilder
      */
     CreateFontSetBuilder() {
-        result := ComCall(36, this, "ptr*", &fontSetBuilder := 0, "HRESULT")
-        return IDWriteFontSetBuilder(fontSetBuilder)
+        result := ComCall(36, this, "ptr*", &fontSetBuilder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontSetBuilder
     }
 
     /**
@@ -164,14 +188,16 @@ class IDWriteFactory3 extends IDWriteFactory2{
      * @param {IDWriteFontSet} fontSet Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>*</b>
      * 
      * A set of fonts to use to build the collection.
-     * @returns {IDWriteFontCollection1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1">IDWriteFontCollection1</a>**</b>
-     * 
-     * Holds the newly created font collection object, or NULL in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-createfontcollectionfromfontset
+     * @returns {Pointer<IDWriteFontCollection1>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-createfontcollectionfromfontset
      */
     CreateFontCollectionFromFontSet(fontSet) {
-        result := ComCall(37, this, "ptr", fontSet, "ptr*", &fontCollection := 0, "HRESULT")
-        return IDWriteFontCollection1(fontCollection)
+        result := ComCall(37, this, "ptr", fontSet, "ptr*", &fontCollection_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontCollection_
     }
 
     /**
@@ -185,25 +211,31 @@ class IDWriteFactory3 extends IDWriteFactory2{
      *            to the set of system fonts. If this parameter is FALSE, the function will still detect changes if the font      
      *            cache service is running, but there may be some latency. For example, an application might specify TRUE if      
      *            it has just installed a font and wants to be sure the font collection contains that font.
-     * @returns {IDWriteFontCollection1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1">IDWriteFontCollection1</a>**</b>
-     * 
-     * Holds the newly created font collection object, or NULL in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontcollection
+     * @returns {Pointer<IDWriteFontCollection1>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-getsystemfontcollection
      */
     GetSystemFontCollection(includeDownloadableFonts, checkForUpdates) {
-        result := ComCall(38, this, "int", includeDownloadableFonts, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
-        return IDWriteFontCollection1(fontCollection)
+        result := ComCall(38, this, "int", includeDownloadableFonts, "ptr*", &fontCollection_ := 0, "int", checkForUpdates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontCollection_
     }
 
     /**
      * Gets the font download queue associated with this factory object.
-     * @returns {IDWriteFontDownloadQueue} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadqueue">IDWriteFontDownloadQueue</a>**</b>
+     * @returns {Pointer<IDWriteFontDownloadQueue>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadqueue">IDWriteFontDownloadQueue</a>**</b>
      * 
      * Receives a pointer to the font download queue interface.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory3-getfontdownloadqueue
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefactory3-getfontdownloadqueue
      */
     GetFontDownloadQueue() {
-        result := ComCall(39, this, "ptr*", &fontDownloadQueue := 0, "HRESULT")
-        return IDWriteFontDownloadQueue(fontDownloadQueue)
+        result := ComCall(39, this, "ptr*", &fontDownloadQueue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontDownloadQueue
     }
 }

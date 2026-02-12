@@ -7,11 +7,8 @@
 /**
  * Represents metadata about a change that is based on the prerequisite knowledge that is associated with the change.
  * @remarks
- * 
  * An <b>ISyncChangeWithPrerequisite</b> object can be obtained by passing <b>IID_ ISyncChangeWithPrerequisite</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchange">ISyncChange</a> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangewithprerequisite
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncchangewithprerequisite
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -39,10 +36,14 @@ class ISyncChangeWithPrerequisite extends IUnknown{
     /**
      * Gets the minimum knowledge that a destination provider is required to have to process this change.
      * @returns {ISyncKnowledge} The minimum knowledge that a destination provider is required to have to process this change.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangewithprerequisite-getprerequisiteknowledge
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangewithprerequisite-getprerequisiteknowledge
      */
     GetPrerequisiteKnowledge() {
-        result := ComCall(3, this, "ptr*", &ppPrerequisiteKnowledge := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppPrerequisiteKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppPrerequisiteKnowledge)
     }
 
@@ -50,10 +51,14 @@ class ISyncChangeWithPrerequisite extends IUnknown{
      * Gets the knowledge that the destination replica learns when the destination provider applies this change, based on the prerequisite knowledge that is associated with the change.
      * @param {ISyncKnowledge} pDestinationKnowledge The knowledge of a change unit that is contained in this change is not added to the returned learned knowledge when <i>pDestinationKnowledge</i> contains the prerequisite knowledge for the change unit.
      * @returns {ISyncKnowledge} The knowledge that the destination replica learns when the destination provider applies this change, based on the prerequisite knowledge that is associated with the change.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangewithprerequisite-getlearnedknowledgewithprerequisite
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangewithprerequisite-getlearnedknowledgewithprerequisite
      */
     GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge) {
-        result := ComCall(4, this, "ptr", pDestinationKnowledge, "ptr*", &ppLearnedKnowledgeWithPrerequisite := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pDestinationKnowledge, "ptr*", &ppLearnedKnowledgeWithPrerequisite := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedKnowledgeWithPrerequisite)
     }
 }

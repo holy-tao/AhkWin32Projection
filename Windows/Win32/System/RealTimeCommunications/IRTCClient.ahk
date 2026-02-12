@@ -139,6 +139,19 @@ class IRTCClient extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
      * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
@@ -150,19 +163,31 @@ class IRTCClient extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Stops the collector. If the collector is running as a service, stopping the service is the better approach.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-shutdown
      */
     Shutdown() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +196,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     PrepareForShutdown() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,7 +210,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_EventFilter(lFilter) {
-        result := ComCall(6, this, "int", lFilter, "HRESULT")
+        result := ComCall(6, this, "int", lFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -190,7 +223,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_EventFilter() {
-        result := ComCall(7, this, "int*", &plFilter := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plFilter
     }
 
@@ -201,7 +238,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPreferredMediaTypes(lMediaTypes, fPersistent) {
-        result := ComCall(8, this, "int", lMediaTypes, "short", fPersistent, "HRESULT")
+        result := ComCall(8, this, "int", lMediaTypes, "short", fPersistent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,7 +251,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_PreferredMediaTypes() {
-        result := ComCall(9, this, "int*", &plMediaTypes := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plMediaTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMediaTypes
     }
 
@@ -219,7 +264,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_MediaCapabilities() {
-        result := ComCall(10, this, "int*", &plMediaTypes := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plMediaTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMediaTypes
     }
 
@@ -232,9 +281,16 @@ class IRTCClient extends IUnknown{
      * @returns {IRTCSession} 
      */
     CreateSession(enType, bstrLocalPhoneURI, pProfile, lFlags) {
-        bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
+        if(bstrLocalPhoneURI is String) {
+            pin := BSTR.Alloc(bstrLocalPhoneURI)
+            bstrLocalPhoneURI := pin.Value
+        }
 
-        result := ComCall(11, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(11, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession(ppSession)
     }
 
@@ -244,7 +300,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ListenForIncomingSessions(enListen) {
-        result := ComCall(12, this, "int", enListen, "HRESULT")
+        result := ComCall(12, this, "int", enListen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +313,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_ListenForIncomingSessions() {
-        result := ComCall(13, this, "int*", &penListen := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &penListen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penListen
     }
 
@@ -265,7 +329,11 @@ class IRTCClient extends IUnknown{
      */
     get_NetworkAddresses(fTCP, fExternal) {
         pvAddresses := VARIANT()
-        result := ComCall(14, this, "short", fTCP, "short", fExternal, "ptr", pvAddresses, "HRESULT")
+        result := ComCall(14, this, "short", fTCP, "short", fExternal, "ptr", pvAddresses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvAddresses
     }
 
@@ -276,7 +344,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Volume(enDevice, lVolume) {
-        result := ComCall(15, this, "int", enDevice, "int", lVolume, "HRESULT")
+        result := ComCall(15, this, "int", enDevice, "int", lVolume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -286,7 +358,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_Volume(enDevice) {
-        result := ComCall(16, this, "int", enDevice, "int*", &plVolume := 0, "HRESULT")
+        result := ComCall(16, this, "int", enDevice, "int*", &plVolume := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plVolume
     }
 
@@ -297,7 +373,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_AudioMuted(enDevice, fMuted) {
-        result := ComCall(17, this, "int", enDevice, "short", fMuted, "HRESULT")
+        result := ComCall(17, this, "int", enDevice, "short", fMuted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -307,7 +387,11 @@ class IRTCClient extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_AudioMuted(enDevice) {
-        result := ComCall(18, this, "int", enDevice, "short*", &pfMuted := 0, "HRESULT")
+        result := ComCall(18, this, "int", enDevice, "short*", &pfMuted := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfMuted
     }
 
@@ -317,7 +401,11 @@ class IRTCClient extends IUnknown{
      * @returns {IVideoWindow} 
      */
     get_IVideoWindow(enDevice) {
-        result := ComCall(19, this, "int", enDevice, "ptr*", &ppIVideoWindow := 0, "HRESULT")
+        result := ComCall(19, this, "int", enDevice, "ptr*", &ppIVideoWindow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVideoWindow(ppIVideoWindow)
     }
 
@@ -328,9 +416,16 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_PreferredAudioDevice(enDevice, bstrDeviceName) {
-        bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
+        if(bstrDeviceName is String) {
+            pin := BSTR.Alloc(bstrDeviceName)
+            bstrDeviceName := pin.Value
+        }
 
-        result := ComCall(20, this, "int", enDevice, "ptr", bstrDeviceName, "HRESULT")
+        result := ComCall(20, this, "int", enDevice, "ptr", bstrDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -341,7 +436,11 @@ class IRTCClient extends IUnknown{
      */
     get_PreferredAudioDevice(enDevice) {
         pbstrDeviceName := BSTR()
-        result := ComCall(21, this, "int", enDevice, "ptr", pbstrDeviceName, "HRESULT")
+        result := ComCall(21, this, "int", enDevice, "ptr", pbstrDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDeviceName
     }
 
@@ -352,7 +451,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_PreferredVolume(enDevice, lVolume) {
-        result := ComCall(22, this, "int", enDevice, "int", lVolume, "HRESULT")
+        result := ComCall(22, this, "int", enDevice, "int", lVolume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -362,7 +465,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_PreferredVolume(enDevice) {
-        result := ComCall(23, this, "int", enDevice, "int*", &plVolume := 0, "HRESULT")
+        result := ComCall(23, this, "int", enDevice, "int*", &plVolume := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plVolume
     }
 
@@ -372,7 +479,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_PreferredAEC(bEnable) {
-        result := ComCall(24, this, "short", bEnable, "HRESULT")
+        result := ComCall(24, this, "short", bEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -381,7 +492,11 @@ class IRTCClient extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_PreferredAEC() {
-        result := ComCall(25, this, "short*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &pbEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbEnabled
     }
 
@@ -391,9 +506,16 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_PreferredVideoDevice(bstrDeviceName) {
-        bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
+        if(bstrDeviceName is String) {
+            pin := BSTR.Alloc(bstrDeviceName)
+            bstrDeviceName := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", bstrDeviceName, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -403,7 +525,11 @@ class IRTCClient extends IUnknown{
      */
     get_PreferredVideoDevice() {
         pbstrDeviceName := BSTR()
-        result := ComCall(27, this, "ptr", pbstrDeviceName, "HRESULT")
+        result := ComCall(27, this, "ptr", pbstrDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDeviceName
     }
 
@@ -412,7 +538,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_ActiveMedia() {
-        result := ComCall(28, this, "int*", &plMediaType := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &plMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMediaType
     }
 
@@ -422,7 +552,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_MaxBitrate(lMaxBitrate) {
-        result := ComCall(29, this, "int", lMaxBitrate, "HRESULT")
+        result := ComCall(29, this, "int", lMaxBitrate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -431,7 +565,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_MaxBitrate() {
-        result := ComCall(30, this, "int*", &plMaxBitrate := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &plMaxBitrate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMaxBitrate
     }
 
@@ -441,7 +579,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_TemporalSpatialTradeOff(lValue) {
-        result := ComCall(31, this, "int", lValue, "HRESULT")
+        result := ComCall(31, this, "int", lValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -450,7 +592,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_TemporalSpatialTradeOff() {
-        result := ComCall(32, this, "int*", &plValue := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &plValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plValue
     }
 
@@ -459,7 +605,11 @@ class IRTCClient extends IUnknown{
      * @returns {Integer} 
      */
     get_NetworkQuality() {
-        result := ComCall(33, this, "int*", &plNetworkQuality := 0, "HRESULT")
+        result := ComCall(33, this, "int*", &plNetworkQuality := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNetworkQuality
     }
 
@@ -469,7 +619,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     StartT120Applet(enApplet) {
-        result := ComCall(34, this, "int", enApplet, "HRESULT")
+        result := ComCall(34, this, "int", enApplet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -478,7 +632,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     StopT120Applets() {
-        result := ComCall(35, this, "HRESULT")
+        result := ComCall(35, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -488,7 +646,11 @@ class IRTCClient extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_IsT120AppletRunning(enApplet) {
-        result := ComCall(36, this, "int", enApplet, "short*", &pfRunning := 0, "HRESULT")
+        result := ComCall(36, this, "int", enApplet, "short*", &pfRunning := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRunning
     }
 
@@ -498,7 +660,11 @@ class IRTCClient extends IUnknown{
      */
     get_LocalUserURI() {
         pbstrUserURI := BSTR()
-        result := ComCall(37, this, "ptr", pbstrUserURI, "HRESULT")
+        result := ComCall(37, this, "ptr", pbstrUserURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserURI
     }
 
@@ -508,9 +674,16 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_LocalUserURI(bstrUserURI) {
-        bstrUserURI := bstrUserURI is String ? BSTR.Alloc(bstrUserURI).Value : bstrUserURI
+        if(bstrUserURI is String) {
+            pin := BSTR.Alloc(bstrUserURI)
+            bstrUserURI := pin.Value
+        }
 
-        result := ComCall(38, this, "ptr", bstrUserURI, "HRESULT")
+        result := ComCall(38, this, "ptr", bstrUserURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -520,7 +693,11 @@ class IRTCClient extends IUnknown{
      */
     get_LocalUserName() {
         pbstrUserName := BSTR()
-        result := ComCall(39, this, "ptr", pbstrUserName, "HRESULT")
+        result := ComCall(39, this, "ptr", pbstrUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserName
     }
 
@@ -530,9 +707,16 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     put_LocalUserName(bstrUserName) {
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
 
-        result := ComCall(40, this, "ptr", bstrUserName, "HRESULT")
+        result := ComCall(40, this, "ptr", bstrUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -543,7 +727,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     PlayRing(enType, bPlay) {
-        result := ComCall(41, this, "int", enType, "short", bPlay, "HRESULT")
+        result := ComCall(41, this, "int", enType, "short", bPlay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -553,7 +741,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     SendDTMF(enDTMF) {
-        result := ComCall(42, this, "int", enDTMF, "HRESULT")
+        result := ComCall(42, this, "int", enDTMF, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -563,7 +755,11 @@ class IRTCClient extends IUnknown{
      * @returns {HRESULT} 
      */
     InvokeTuningWizard(hwndParent) {
-        result := ComCall(43, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(43, this, "ptr", hwndParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -572,7 +768,11 @@ class IRTCClient extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_IsTuned() {
-        result := ComCall(44, this, "short*", &pfTuned := 0, "HRESULT")
+        result := ComCall(44, this, "short*", &pfTuned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfTuned
     }
 }

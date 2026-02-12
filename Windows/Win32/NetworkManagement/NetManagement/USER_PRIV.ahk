@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Administrator
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/ns-lmaccess-user_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

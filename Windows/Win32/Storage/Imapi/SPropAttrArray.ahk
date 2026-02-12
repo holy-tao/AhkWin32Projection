@@ -5,7 +5,7 @@
  * Contains a list of attributes for properties of an object. The SPropAttrArray structure is used by property data objects that implement the IPropData:IMAPIProp interface.
  * @remarks
  * The **SPropAttrArray** structure is used by property data objects that implement the [IPropData : IMAPIProp](ipropdataimapiprop.md) interface. It is also used by MAPI's implementation of [IMAPIMessageSite : IUnknown](imapimessagesiteiunknown.md) that is based on structured storage.
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropattrarray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/spropattrarray
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

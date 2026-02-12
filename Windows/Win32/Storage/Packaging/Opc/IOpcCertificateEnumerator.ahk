@@ -7,16 +7,12 @@
 /**
  * A read-only enumerator of pointers to CERT_CONTEXT structures.
  * @remarks
- * 
- * When an enumerator is created, the current position precedes the first pointer of the enumerator. To set the current position to the first pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateenumerator-movenext">MoveNext</a>method after the enumerator is created.
+ * When an enumerator is created, the current position precedes the first pointer of the enumerator. To set the current position to the first pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateenumerator-movenext">MoveNext</a> method after the enumerator is created.
  * 
  * Changes to the set will invalidate the enumerator and all subsequent calls to it will fail.
  * 
  * To get an <b>IOpcCertificateEnumerator</b> interface pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateset-getenumerator">IOpcCertificateSet::GetEnumerator</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getcertificateenumerator">IOpcDigitalSignature::GetCertificateEnumerator</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopccertificateenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopccertificateenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -75,10 +71,14 @@ class IOpcCertificateEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopccertificateenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 
@@ -116,31 +116,49 @@ class IOpcCertificateEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-moveprevious
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopccertificateenumerator-moveprevious
      */
     MovePrevious() {
-        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasPrevious
     }
 
     /**
      * Gets the CERT_CONTEXT structure at the current position of the enumerator.
+     * @remarks
+     * If the certificate represented by the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure is corrupted or is not an X.509 certificate, this method will return an error; further,  the signing policy used by the caller dictates whether the signature will still be validated. After this kind of error is returned, calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateenumerator-movenext">MoveNext</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateenumerator-moveprevious">MovePrevious</a> method will continue to iterate through the enumerator.
+     * 
+     * When an enumerator is created, the current position precedes the first pointer of the enumerator. To set the current position to the first pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateenumerator-movenext">MoveNext</a> method after the enumerator is created.
      * @returns {Pointer<CERT_CONTEXT>} A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure.
      *             If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfreecertificatecontext">CertFreeCertificateContext</a> function to free the memory of the structure.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopccertificateenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &certificate := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &certificate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return certificate
     }
 
     /**
      * Creates a copy of the current IOpcCertificateEnumerator interface pointer and all its descendants.
+     * @remarks
+     * The copy has a current position  and set that are identical to the current enumerator.
      * @returns {IOpcCertificateEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopccertificateenumerator">IOpcCertificateEnumerator</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateenumerator-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopccertificateenumerator-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &copy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcCertificateEnumerator(copy)
     }
 }

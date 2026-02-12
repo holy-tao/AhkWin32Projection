@@ -4,7 +4,7 @@
 
 /**
  * Receives information used to retrieve a stock Shell icon. This structure is used in a call SHGetStockIconInfo.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shstockiconinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/ns-shellapi-shstockiconinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

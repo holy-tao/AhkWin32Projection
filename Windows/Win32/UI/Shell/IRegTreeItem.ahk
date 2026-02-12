@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that retrieve and set the state of items in a tree-view control that have the Tree-View Control Window Styles flag set.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iregtreeitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iregtreeitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IRegTreeItem extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a <b>BOOL</b> that contains the state of the check box.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iregtreeitem-getcheckstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iregtreeitem-getcheckstate
      */
     GetCheckState() {
-        result := ComCall(3, this, "int*", &pbCheck := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pbCheck := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbCheck
     }
 
@@ -49,11 +53,15 @@ class IRegTreeItem extends IUnknown{
      * A <b>BOOL</b> that sets the state of the check box.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iregtreeitem-setcheckstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iregtreeitem-setcheckstate
      */
     SetCheckState(bCheck) {
-        result := ComCall(4, this, "int", bCheck, "HRESULT")
+        result := ComCall(4, this, "int", bCheck, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -39,11 +39,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetWindowsCredential(domain, username, password, impersonationLevel, allowNtlm) {
-        domain := domain is String ? BSTR.Alloc(domain).Value : domain
-        username := username is String ? BSTR.Alloc(username).Value : username
-        password := password is String ? BSTR.Alloc(password).Value : password
+        if(domain is String) {
+            pin := BSTR.Alloc(domain)
+            domain := pin.Value
+        }
+        if(username is String) {
+            pin := BSTR.Alloc(username)
+            username := pin.Value
+        }
+        if(password is String) {
+            pin := BSTR.Alloc(password)
+            password := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", domain, "ptr", username, "ptr", password, "int", impersonationLevel, "int", allowNtlm, "HRESULT")
+        result := ComCall(7, this, "ptr", domain, "ptr", username, "ptr", password, "int", impersonationLevel, "int", allowNtlm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,10 +67,20 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetUserNameCredential(username, password) {
-        username := username is String ? BSTR.Alloc(username).Value : username
-        password := password is String ? BSTR.Alloc(password).Value : password
+        if(username is String) {
+            pin := BSTR.Alloc(username)
+            username := pin.Value
+        }
+        if(password is String) {
+            pin := BSTR.Alloc(password)
+            password := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", username, "ptr", password, "HRESULT")
+        result := ComCall(8, this, "ptr", username, "ptr", password, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,11 +93,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetClientCertificateFromStore(storeLocation, storeName, findYype, findValue) {
-        storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
-        storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
-        findYype := findYype is String ? BSTR.Alloc(findYype).Value : findYype
+        if(storeLocation is String) {
+            pin := BSTR.Alloc(storeLocation)
+            storeLocation := pin.Value
+        }
+        if(storeName is String) {
+            pin := BSTR.Alloc(storeName)
+            storeName := pin.Value
+        }
+        if(findYype is String) {
+            pin := BSTR.Alloc(findYype)
+            findYype := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", storeLocation, "ptr", storeName, "ptr", findYype, "ptr", findValue, "HRESULT")
+        result := ComCall(9, this, "ptr", storeLocation, "ptr", storeName, "ptr", findYype, "ptr", findValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,11 +122,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetClientCertificateFromStoreByName(subjectName, storeLocation, storeName) {
-        subjectName := subjectName is String ? BSTR.Alloc(subjectName).Value : subjectName
-        storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
-        storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
+        if(subjectName is String) {
+            pin := BSTR.Alloc(subjectName)
+            subjectName := pin.Value
+        }
+        if(storeLocation is String) {
+            pin := BSTR.Alloc(storeLocation)
+            storeLocation := pin.Value
+        }
+        if(storeName is String) {
+            pin := BSTR.Alloc(storeName)
+            storeName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", subjectName, "ptr", storeLocation, "ptr", storeName, "HRESULT")
+        result := ComCall(10, this, "ptr", subjectName, "ptr", storeLocation, "ptr", storeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,11 +151,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetClientCertificateFromFile(filename, password, keystorageFlags) {
-        filename := filename is String ? BSTR.Alloc(filename).Value : filename
-        password := password is String ? BSTR.Alloc(password).Value : password
-        keystorageFlags := keystorageFlags is String ? BSTR.Alloc(keystorageFlags).Value : keystorageFlags
+        if(filename is String) {
+            pin := BSTR.Alloc(filename)
+            filename := pin.Value
+        }
+        if(password is String) {
+            pin := BSTR.Alloc(password)
+            password := pin.Value
+        }
+        if(keystorageFlags is String) {
+            pin := BSTR.Alloc(keystorageFlags)
+            keystorageFlags := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", filename, "ptr", password, "ptr", keystorageFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", filename, "ptr", password, "ptr", keystorageFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,11 +181,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetDefaultServiceCertificateFromStore(storeLocation, storeName, findType, findValue) {
-        storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
-        storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
-        findType := findType is String ? BSTR.Alloc(findType).Value : findType
+        if(storeLocation is String) {
+            pin := BSTR.Alloc(storeLocation)
+            storeLocation := pin.Value
+        }
+        if(storeName is String) {
+            pin := BSTR.Alloc(storeName)
+            storeName := pin.Value
+        }
+        if(findType is String) {
+            pin := BSTR.Alloc(findType)
+            findType := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", storeLocation, "ptr", storeName, "ptr", findType, "ptr", findValue, "HRESULT")
+        result := ComCall(12, this, "ptr", storeLocation, "ptr", storeName, "ptr", findType, "ptr", findValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,11 +210,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetDefaultServiceCertificateFromStoreByName(subjectName, storeLocation, storeName) {
-        subjectName := subjectName is String ? BSTR.Alloc(subjectName).Value : subjectName
-        storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
-        storeName := storeName is String ? BSTR.Alloc(storeName).Value : storeName
+        if(subjectName is String) {
+            pin := BSTR.Alloc(subjectName)
+            subjectName := pin.Value
+        }
+        if(storeLocation is String) {
+            pin := BSTR.Alloc(storeLocation)
+            storeLocation := pin.Value
+        }
+        if(storeName is String) {
+            pin := BSTR.Alloc(storeName)
+            storeName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", subjectName, "ptr", storeLocation, "ptr", storeName, "HRESULT")
+        result := ComCall(13, this, "ptr", subjectName, "ptr", storeLocation, "ptr", storeName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,11 +239,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetDefaultServiceCertificateFromFile(filename, password, keystorageFlags) {
-        filename := filename is String ? BSTR.Alloc(filename).Value : filename
-        password := password is String ? BSTR.Alloc(password).Value : password
-        keystorageFlags := keystorageFlags is String ? BSTR.Alloc(keystorageFlags).Value : keystorageFlags
+        if(filename is String) {
+            pin := BSTR.Alloc(filename)
+            filename := pin.Value
+        }
+        if(password is String) {
+            pin := BSTR.Alloc(password)
+            password := pin.Value
+        }
+        if(keystorageFlags is String) {
+            pin := BSTR.Alloc(keystorageFlags)
+            keystorageFlags := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", filename, "ptr", password, "ptr", keystorageFlags, "HRESULT")
+        result := ComCall(14, this, "ptr", filename, "ptr", password, "ptr", keystorageFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,11 +268,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetServiceCertificateAuthentication(storeLocation, revocationMode, certificateValidationMode) {
-        storeLocation := storeLocation is String ? BSTR.Alloc(storeLocation).Value : storeLocation
-        revocationMode := revocationMode is String ? BSTR.Alloc(revocationMode).Value : revocationMode
-        certificateValidationMode := certificateValidationMode is String ? BSTR.Alloc(certificateValidationMode).Value : certificateValidationMode
+        if(storeLocation is String) {
+            pin := BSTR.Alloc(storeLocation)
+            storeLocation := pin.Value
+        }
+        if(revocationMode is String) {
+            pin := BSTR.Alloc(revocationMode)
+            revocationMode := pin.Value
+        }
+        if(certificateValidationMode is String) {
+            pin := BSTR.Alloc(certificateValidationMode)
+            certificateValidationMode := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", storeLocation, "ptr", revocationMode, "ptr", certificateValidationMode, "HRESULT")
+        result := ComCall(15, this, "ptr", storeLocation, "ptr", revocationMode, "ptr", certificateValidationMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,11 +297,24 @@ class IChannelCredentials extends IDispatch{
      * @returns {HRESULT} 
      */
     SetIssuedToken(localIssuerAddres, localIssuerBindingType, localIssuerBinding) {
-        localIssuerAddres := localIssuerAddres is String ? BSTR.Alloc(localIssuerAddres).Value : localIssuerAddres
-        localIssuerBindingType := localIssuerBindingType is String ? BSTR.Alloc(localIssuerBindingType).Value : localIssuerBindingType
-        localIssuerBinding := localIssuerBinding is String ? BSTR.Alloc(localIssuerBinding).Value : localIssuerBinding
+        if(localIssuerAddres is String) {
+            pin := BSTR.Alloc(localIssuerAddres)
+            localIssuerAddres := pin.Value
+        }
+        if(localIssuerBindingType is String) {
+            pin := BSTR.Alloc(localIssuerBindingType)
+            localIssuerBindingType := pin.Value
+        }
+        if(localIssuerBinding is String) {
+            pin := BSTR.Alloc(localIssuerBinding)
+            localIssuerBinding := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", localIssuerAddres, "ptr", localIssuerBindingType, "ptr", localIssuerBinding, "HRESULT")
+        result := ComCall(16, this, "ptr", localIssuerAddres, "ptr", localIssuerBindingType, "ptr", localIssuerBinding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

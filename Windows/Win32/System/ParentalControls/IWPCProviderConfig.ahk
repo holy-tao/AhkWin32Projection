@@ -6,7 +6,7 @@
 
 /**
  * Exposes configuration methods that are implemented by third parties.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcproviderconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nn-wpcapi-iwpcproviderconfig
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -33,25 +33,34 @@ class IWPCProviderConfig extends IUnknown{
 
     /**
      * Retrieves the information for each user by using the Parental Controls Control Panel.
+     * @remarks
+     * The user summary string is used to display information under each user in the Parental Controls Control Panel.
      * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user whose settings you want to obtain.
      * @returns {BSTR} A pointer to a string that contains the summary details for the user specified in the <i>bstrSID</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcproviderconfig-getusersummary
      */
     GetUserSummary(bstrSID) {
-        bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
+        if(bstrSID is String) {
+            pin := BSTR.Alloc(bstrSID)
+            bstrSID := pin.Value
+        }
 
         pbstrUserSummary := BSTR()
-        result := ComCall(3, this, "ptr", bstrSID, "ptr", pbstrUserSummary, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrSID, "ptr", pbstrUserSummary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserSummary
     }
 
     /**
      * Called for the current provider when you click a user tile in the Parental Controls Control Panel. This method allows for changes to the configuration.
-     * @param {HWND} hWnd A handle to the parent window.
+     * @param {HWND} hWnd_ A handle to the parent window.
      * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user to configure.
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -70,31 +79,45 @@ class IWPCProviderConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-configure
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcproviderconfig-configure
      */
-    Configure(hWnd, bstrSID) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        bstrSID := bstrSID is String ? BSTR.Alloc(bstrSID).Value : bstrSID
+    Configure(hWnd_, bstrSID) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        if(bstrSID is String) {
+            pin := BSTR.Alloc(bstrSID)
+            bstrSID := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", hWnd, "ptr", bstrSID, "HRESULT")
+        result := ComCall(4, this, "ptr", hWnd_, "ptr", bstrSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called for the current provider to enable configuration override.
-     * @param {HWND} hWnd A handle to the parent window.
+     * @param {HWND} hWnd_ A handle to the parent window.
      * @param {BSTR} bstrPath Pointer to a string that contains the path.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wpcapi/nf-wpcapi-iwpcproviderconfig-requestoverride
      */
-    RequestOverride(hWnd, bstrPath, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
+    RequestOverride(hWnd_, bstrPath, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        if(bstrPath is String) {
+            pin := BSTR.Alloc(bstrPath)
+            bstrPath := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", hWnd, "ptr", bstrPath, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", hWnd_, "ptr", bstrPath, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

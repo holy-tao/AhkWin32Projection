@@ -7,15 +7,12 @@
 /**
  * The IEnumNetSharingPortMapping interface provides methods to enumerate the port mappings for a particular connection.
  * @remarks
- * 
  * To obtain an enumeration interface for port mappings, use the 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a> method to obtain an 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface. Then use the 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> method to obtain an 
  * <b>IEnumNetSharingPortMapping</b> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-ienumnetsharingportmapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nn-netcon-ienumnetsharingportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -145,12 +142,16 @@ class IEnumNetSharingPortMapping extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingportmapping-next
      */
     Next(celt, rgVar, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgVar, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr", rgVar, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,15 +256,19 @@ class IEnumNetSharingPortMapping extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingportmapping-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration.
+     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration. (IEnumNetSharingPortMapping.Reset)
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -362,21 +367,29 @@ class IEnumNetSharingPortMapping extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingportmapping-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Clone method creates a new enumeration interface from this enumeration.
+     * The Clone method creates a new enumeration interface from this enumeration. (IEnumNetSharingPortMapping.Clone)
      * @returns {IEnumNetSharingPortMapping} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nn-netcon-ienumnetsharingportmapping">IEnumNetSharingPortMapping</a> interface for the new enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingportmapping-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ienumnetsharingportmapping-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumNetSharingPortMapping(ppenum)
     }
 }

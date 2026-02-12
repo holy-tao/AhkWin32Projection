@@ -75,7 +75,11 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_offsetTop() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -84,7 +88,11 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_offsetLeft() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -93,7 +101,11 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_boundingTop() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -102,7 +114,11 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_boundingLeft() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -111,7 +127,11 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_boundingWidth() {
-        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -120,7 +140,11 @@ class IHTMLTextRangeMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_boundingHeight() {
-        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

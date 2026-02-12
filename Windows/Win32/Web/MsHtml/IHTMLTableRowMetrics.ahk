@@ -61,7 +61,11 @@ class IHTMLTableRowMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_clientHeight() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -70,7 +74,11 @@ class IHTMLTableRowMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_clientWidth() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -79,7 +87,11 @@ class IHTMLTableRowMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_clientTop() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -88,7 +100,11 @@ class IHTMLTableRowMetrics extends IDispatch{
      * @returns {Integer} 
      */
     get_clientLeft() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

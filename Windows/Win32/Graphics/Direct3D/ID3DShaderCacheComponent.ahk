@@ -34,7 +34,11 @@ class ID3DShaderCacheComponent extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     GetComponentName() {
-        result := ComCall(3, this, "ptr*", &pName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &pName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pName
     }
 
@@ -43,7 +47,11 @@ class ID3DShaderCacheComponent extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     GetStateObjectDatabasePath() {
-        result := ComCall(4, this, "ptr*", &pPath := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &pPath := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPath
     }
 
@@ -58,7 +66,11 @@ class ID3DShaderCacheComponent extends IUnknown{
 
         pPathMarshal := pPath is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pAdapterFamily, pPathMarshal, pPath, "HRESULT")
+        result := ComCall(5, this, "ptr", pAdapterFamily, pPathMarshal, pPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class ID3DShaderCacheComponent extends IUnknown{
      */
     GetPrecompiledShaderDatabases(ArraySize) {
         pPSDBs := D3D_SHADER_CACHE_PSDB_PROPERTIES()
-        result := ComCall(7, this, "uint", ArraySize, "ptr", pPSDBs, "HRESULT")
+        result := ComCall(7, this, "uint", ArraySize, "ptr", pPSDBs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPSDBs
     }
 }

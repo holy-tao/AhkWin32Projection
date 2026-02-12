@@ -36,20 +36,75 @@ class IMetaDataEmit extends IUnknown{
     SetModuleProps(szName) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Save Method
+     * @remarks
+     * The **Save Method** method can only be invoked on an open **Recordset**. Use the [Open Method (ADO Recordset)](./open-method-ado-recordset.md) method to later restore the **Recordset** from *Destination*.  
+     *   
+     *  If the [Filter Property](./filter-property.md) property is in effect for the **Recordset**, then only the rows accessible under the filter are saved. If the **Recordset** is hierarchical, then the current child **Recordset** and its children are saved, including the parent **Recordset**. If the Save method of a child **Recordset** is called, the child and all its children are saved, but the parent is not.  
+     *   
+     *  The first time you save the **Recordset**, it is optional to specify *Destination*. If you omit *Destination*, a new file will be created with a name set to the value of the Source property of the **Recordset**.  
+     *   
+     *  Omit *Destination* when you subsequently call **Save** after the first save, or a run-time error will occur. If you subsequently call **Save** with a new *Destination*, the **Recordset** is saved to the new destination. However, the new destination and the original destination will both be open.  
+     *   
+     *  **Save** does not close the **Recordset** or *Destination*, so you can continue to work with the **Recordset** and save your most recent changes. *Destination* remains open until the **Recordset** is closed.  
+     *   
+     *  For reasons of security, the **Save** method permits only the use of low and custom security settings from a script executed by Microsoft Internet Explorer.  
+     *   
+     *  If the **Save** method is called while an asynchronous **Recordset** fetch, execute, or update operation is in progress, then **Save** waits until the asynchronous operation is complete.  
+     *   
+     *  Records are saved beginning with the first row of the **Recordset**. When the **Save** method is finished, the current row position is moved to the first row of the **Recordset**.  
+     *   
+     *  For best results, set the [CursorLocation Property (ADO)](./cursorlocation-property-ado.md) property to **adUseClient** with **Save**. If your provider does not support all of the functionality necessary to save **Recordset** objects, the Cursor Service will provide that functionality.  
+     *   
+     *  When a **Recordset** is persisted with the **CursorLocation** property set to **adUseServer**, the update capability for the **Recordset** is limited. Typically, only single-table updates, insertions, and deletions are allowed (dependant upon provider functionality). The [Resync Method](./resync-method.md) method is also unavailable in this configuration.  
+     *   
+     * > [!NOTE]
+     * >  Saving a **Recordset** with **Fields** of type **adVariant**, **adIDispatch**, or **adIUnknown** is not supported by ADO and can cause unpredictable results.  
+     *   
+     *  Only Filters in the form of Criteria Strings (e.g. OrderDate > '12/31/1999') affect the contents of a persisted **Recordset**. Filters created with an Array of **Bookmarks** or using a value from the [FilterGroupEnum](./filtergroupenum.md) will not affect the contents of the persisted **Recordset**. These rules apply to **Recordset**s created with either client-side or server-side cursors.  
+     *   
+     *  Because the *Destination* parameter can accept any object that supports the OLE DB IStream interface, you can save a **Recordset** directly to the ASP Response object. For more details, please see the **XML Recordset Persistence Scenario**.  
+     *   
+     *  You can also save a **Recordset** in XML format to an instance of an MSXML DOM object, as is shown in the following Visual Basic code:  
+     *   
+     * ```  
+     * Dim xDOM As New MSXML.DOMDocument  
+     * Dim rsXML As New ADODB.Recordset  
+     * Dim sSQL As String, sConn As String  
+     *   
+     * sSQL = "SELECT customerid, companyname, contactname FROM customers"  
+     * sConn="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Northwind.mdb"  
+     * rsXML.Open sSQL, sConn  
+     * rsXML.Save xDOM, adPersistXML   'Save Recordset directly into a DOM tree.  
+     * ...  
+     * ```  
+     *   
+     * > [!NOTE]
+     * >  Two limitations apply when saving hierarchical Recordsets (data shapes) in XML format. You cannot save into XML if the hierarchical **Recordset** contains pending updates, and you cannot save a parameterized hierarchical **Recordset**.  
+     *   
+     *  A **Recordset** saved in XML format is saved using UTF-8 format. When such a file is loaded into an ADO Stream, the Stream object will not attempt to open a **Recordset** from the stream unless the Charset property of the stream is set to the appropriate value for UTF-8 format.
      * @param {PWSTR} szFile 
      * @param {Integer} dwSaveFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/save-method
      */
     Save(szFile, dwSaveFlags) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := ComCall(4, this, "ptr", szFile, "uint", dwSaveFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", szFile, "uint", dwSaveFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +115,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SaveToStream(pIStream, dwSaveFlags) {
-        result := ComCall(5, this, "ptr", pIStream, "uint", dwSaveFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pIStream, "uint", dwSaveFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +132,11 @@ class IMetaDataEmit extends IUnknown{
     GetSaveSize(fSave, pdwSaveSize) {
         pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
+        result := ComCall(6, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +155,11 @@ class IMetaDataEmit extends IUnknown{
         rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(7, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, ptdMarshal, ptd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +179,11 @@ class IMetaDataEmit extends IUnknown{
         rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, "uint", tdEncloser, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(8, this, "ptr", szTypeDef, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, "uint", tdEncloser, ptdMarshal, ptd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,7 +193,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetHandler(pUnk) {
-        result := ComCall(9, this, "ptr", pUnk, "HRESULT")
+        result := ComCall(9, this, "ptr", pUnk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,7 +219,11 @@ class IMetaDataEmit extends IUnknown{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", td, "ptr", szName, "uint", dwMethodFlags, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, "uint", ulCodeRVA, "uint", dwImplFlags, pmdMarshal, pmd, "HRESULT")
+        result := ComCall(10, this, "uint", td, "ptr", szName, "uint", dwMethodFlags, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, "uint", ulCodeRVA, "uint", dwImplFlags, pmdMarshal, pmd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,7 +235,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DefineMethodImpl(td, tkBody, tkDecl) {
-        result := ComCall(11, this, "uint", td, "uint", tkBody, "uint", tkDecl, "HRESULT")
+        result := ComCall(11, this, "uint", td, "uint", tkBody, "uint", tkDecl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,7 +255,11 @@ class IMetaDataEmit extends IUnknown{
 
         ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
+        result := ComCall(12, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +278,11 @@ class IMetaDataEmit extends IUnknown{
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
         ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", tdImport, "ptr", pAssemEmit, ptrMarshal, ptr, "HRESULT")
+        result := ComCall(13, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", tdImport, "ptr", pAssemEmit, ptrMarshal, ptr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,7 +301,11 @@ class IMetaDataEmit extends IUnknown{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", tkImport, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "HRESULT")
+        result := ComCall(14, this, "uint", tkImport, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +325,11 @@ class IMetaDataEmit extends IUnknown{
         pbHashValueMarshal := pbHashValue is VarRef ? "ptr" : "ptr"
         pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", mbMember, "ptr", pAssemEmit, "uint", tkParent, pmrMarshal, pmr, "HRESULT")
+        result := ComCall(15, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", pImport, "uint", mbMember, "ptr", pAssemEmit, "uint", tkParent, pmrMarshal, pmr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +352,11 @@ class IMetaDataEmit extends IUnknown{
         rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
         pmdEventMarshal := pmdEvent is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", td, "ptr", szEvent, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, pmdEventMarshal, pmdEvent, "HRESULT")
+        result := ComCall(16, this, "uint", td, "ptr", szEvent, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, pmdEventMarshal, pmdEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +369,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetClassLayout(td, dwPackSize, rFieldOffsets, ulClassSize) {
-        result := ComCall(17, this, "uint", td, "uint", dwPackSize, "ptr", rFieldOffsets, "uint", ulClassSize, "HRESULT")
+        result := ComCall(17, this, "uint", td, "uint", dwPackSize, "ptr", rFieldOffsets, "uint", ulClassSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,7 +383,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteClassLayout(td) {
-        result := ComCall(18, this, "uint", td, "HRESULT")
+        result := ComCall(18, this, "uint", td, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -290,7 +401,11 @@ class IMetaDataEmit extends IUnknown{
     SetFieldMarshal(tk, pvNativeType, cbNativeType) {
         pvNativeTypeMarshal := pvNativeType is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, "uint", tk, pvNativeTypeMarshal, pvNativeType, "uint", cbNativeType, "HRESULT")
+        result := ComCall(19, this, "uint", tk, pvNativeTypeMarshal, pvNativeType, "uint", cbNativeType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -300,7 +415,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteFieldMarshal(tk) {
-        result := ComCall(20, this, "uint", tk, "HRESULT")
+        result := ComCall(20, this, "uint", tk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -317,7 +436,11 @@ class IMetaDataEmit extends IUnknown{
         pvPermissionMarshal := pvPermission is VarRef ? "ptr" : "ptr"
         ppmMarshal := ppm is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", tk, "uint", dwAction, pvPermissionMarshal, pvPermission, "uint", cbPermission, ppmMarshal, ppm, "HRESULT")
+        result := ComCall(21, this, "uint", tk, "uint", dwAction, pvPermissionMarshal, pvPermission, "uint", cbPermission, ppmMarshal, ppm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -328,7 +451,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRVA(md, ulRVA) {
-        result := ComCall(22, this, "uint", md, "uint", ulRVA, "HRESULT")
+        result := ComCall(22, this, "uint", md, "uint", ulRVA, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -343,7 +470,11 @@ class IMetaDataEmit extends IUnknown{
         pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
         pmsigMarshal := pmsig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, pvSigMarshal, pvSig, "uint", cbSig, pmsigMarshal, pmsig, "HRESULT")
+        result := ComCall(23, this, pvSigMarshal, pvSig, "uint", cbSig, pmsigMarshal, pmsig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -358,23 +489,70 @@ class IMetaDataEmit extends IUnknown{
 
         pmurMarshal := pmur is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "ptr", szName, pmurMarshal, pmur, "HRESULT")
+        result := ComCall(24, this, "ptr", szName, pmurMarshal, pmur, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Changes the parent window of the specified child window.
+     * @remarks
+     * An application can use the <b>SetParent</b> function to set the parent window of a pop-up, overlapped, or child window.
+     * 
+     * If the window identified by the <i>hWndChild</i> parameter is visible, the system performs the appropriate redrawing and repainting. 
+     * 
+     * For compatibility reasons, <b>SetParent</b> does not modify the <b>WS_CHILD</b> or <b>WS_POPUP</b> window styles of the window whose parent is being changed. Therefore, if <i>hWndNewParent</i> is <b>NULL</b>, you should also clear the <b>WS_CHILD</b> bit and set the <b>WS_POPUP</b> style after calling <b>SetParent</b>. Conversely, if <i>hWndNewParent</i> is not <b>NULL</b> and the window was previously a child of the desktop, you should clear the <b>WS_POPUP</b> style and set the <b>WS_CHILD</b> style before calling <b>SetParent</b>. 
+     * 
+     *  When you change the parent of a window, you should synchronize the UISTATE of both windows. For more information, see <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-changeuistate">WM_CHANGEUISTATE</a> and <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-updateuistate">WM_UPDATEUISTATE</a>. 
+     * 
+     * Unexpected behavior or errors may occur if <i>hWndNewParent</i> and <i>hWndChild</i> are running in different DPI awareness modes. The table below outlines this behavior:
+     * 
+     * <table>
+     * <tr>
+     * <th>Operation</th>
+     * <th>Windows 8.1</th>
+     * <th>Windows 10 (1607 and earlier)</th>
+     * <th>Windows 10 (1703 and later)</th>
+     * </tr>
+     * <tr>
+     * <td>SetParent (In-Proc) </td>
+     * <td>N/A </td>
+     * <td><b>Forced reset</b> 
+     * (of current process)</td>
+     * <td><b>Fail</b> 
+     * (ERROR_INVALID_STATE)</td>
+     * </tr>
+     * <tr>
+     * <td>SetParent (Cross-Proc) </td>
+     * <td><b>Forced reset</b> 
+     * (of child window's process)</td>
+     * <td><b>Forced reset</b> 
+     * (of child window's process)</td>
+     * <td><b>Forced reset</b> 
+     * (of child window's process)</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     *  For more information on DPI awareness, see <a href="https://docs.microsoft.com/windows/desktop/hidpi/high-dpi-desktop-application-development-on-windows">the Windows High DPI documentation.</a>
      * @param {Integer} mr 
      * @param {Integer} tk 
      * @returns {HRESULT} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the previous parent window.
      * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setparent
+     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setparent
      */
     SetParent(mr, tk) {
-        result := ComCall(25, this, "uint", mr, "uint", tk, "HRESULT")
+        result := ComCall(25, this, "uint", mr, "uint", tk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -389,7 +567,11 @@ class IMetaDataEmit extends IUnknown{
         pvSigMarshal := pvSig is VarRef ? "char*" : "ptr"
         ptypespecMarshal := ptypespec is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, pvSigMarshal, pvSig, "uint", cbSig, ptypespecMarshal, ptypespec, "HRESULT")
+        result := ComCall(26, this, pvSigMarshal, pvSig, "uint", cbSig, ptypespecMarshal, ptypespec, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -402,7 +584,11 @@ class IMetaDataEmit extends IUnknown{
     SaveToMemory(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(27, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(27, this, pbDataMarshal, pbData, "uint", cbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -418,7 +604,11 @@ class IMetaDataEmit extends IUnknown{
 
         pstkMarshal := pstk is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, "ptr", szString, "uint", cchString, pstkMarshal, pstk, "HRESULT")
+        result := ComCall(28, this, "ptr", szString, "uint", cchString, pstkMarshal, pstk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -428,7 +618,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteToken(tkObj) {
-        result := ComCall(29, this, "uint", tkObj, "HRESULT")
+        result := ComCall(29, this, "uint", tkObj, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -441,7 +635,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMethodProps(md, dwMethodFlags, ulCodeRVA, dwImplFlags) {
-        result := ComCall(30, this, "uint", md, "uint", dwMethodFlags, "uint", ulCodeRVA, "uint", dwImplFlags, "HRESULT")
+        result := ComCall(30, this, "uint", md, "uint", dwMethodFlags, "uint", ulCodeRVA, "uint", dwImplFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -456,7 +654,11 @@ class IMetaDataEmit extends IUnknown{
     SetTypeDefProps(td, dwTypeDefFlags, tkExtends, rtkImplements) {
         rtkImplementsMarshal := rtkImplements is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", td, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, "HRESULT")
+        result := ComCall(31, this, "uint", td, "uint", dwTypeDefFlags, "uint", tkExtends, rtkImplementsMarshal, rtkImplements, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -474,7 +676,11 @@ class IMetaDataEmit extends IUnknown{
     SetEventProps(ev, dwEventFlags, tkEventType, mdAddOn, mdRemoveOn, mdFire, rmdOtherMethods) {
         rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, "uint", ev, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, "HRESULT")
+        result := ComCall(32, this, "uint", ev, "uint", dwEventFlags, "uint", tkEventType, "uint", mdAddOn, "uint", mdRemoveOn, "uint", mdFire, rmdOtherMethodsMarshal, rmdOtherMethods, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -491,7 +697,11 @@ class IMetaDataEmit extends IUnknown{
         pvPermissionMarshal := pvPermission is VarRef ? "ptr" : "ptr"
         ppmMarshal := ppm is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, "uint", tk, "uint", dwAction, pvPermissionMarshal, pvPermission, "uint", cbPermission, ppmMarshal, ppm, "HRESULT")
+        result := ComCall(33, this, "uint", tk, "uint", dwAction, pvPermissionMarshal, pvPermission, "uint", cbPermission, ppmMarshal, ppm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -506,7 +716,11 @@ class IMetaDataEmit extends IUnknown{
     DefinePinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL) {
         szImportName := szImportName is String ? StrPtr(szImportName) : szImportName
 
-        result := ComCall(34, this, "uint", tk, "uint", dwMappingFlags, "ptr", szImportName, "uint", mrImportDLL, "HRESULT")
+        result := ComCall(34, this, "uint", tk, "uint", dwMappingFlags, "ptr", szImportName, "uint", mrImportDLL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -521,7 +735,11 @@ class IMetaDataEmit extends IUnknown{
     SetPinvokeMap(tk, dwMappingFlags, szImportName, mrImportDLL) {
         szImportName := szImportName is String ? StrPtr(szImportName) : szImportName
 
-        result := ComCall(35, this, "uint", tk, "uint", dwMappingFlags, "ptr", szImportName, "uint", mrImportDLL, "HRESULT")
+        result := ComCall(35, this, "uint", tk, "uint", dwMappingFlags, "ptr", szImportName, "uint", mrImportDLL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -531,7 +749,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     DeletePinvokeMap(tk) {
-        result := ComCall(36, this, "uint", tk, "HRESULT")
+        result := ComCall(36, this, "uint", tk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -548,7 +770,11 @@ class IMetaDataEmit extends IUnknown{
         pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : "ptr"
         pcvMarshal := pcv is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", tkOwner, "uint", tkCtor, pCustomAttributeMarshal, pCustomAttribute, "uint", cbCustomAttribute, pcvMarshal, pcv, "HRESULT")
+        result := ComCall(37, this, "uint", tkOwner, "uint", tkCtor, pCustomAttributeMarshal, pCustomAttribute, "uint", cbCustomAttribute, pcvMarshal, pcv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -562,7 +788,11 @@ class IMetaDataEmit extends IUnknown{
     SetCustomAttributeValue(pcv, pCustomAttribute, cbCustomAttribute) {
         pCustomAttributeMarshal := pCustomAttribute is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(38, this, "uint", pcv, pCustomAttributeMarshal, pCustomAttribute, "uint", cbCustomAttribute, "HRESULT")
+        result := ComCall(38, this, "uint", pcv, pCustomAttributeMarshal, pCustomAttribute, "uint", cbCustomAttribute, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -586,7 +816,11 @@ class IMetaDataEmit extends IUnknown{
         pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
         pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "uint", td, "ptr", szName, "uint", dwFieldFlags, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, pmdMarshal, pmd, "HRESULT")
+        result := ComCall(39, this, "uint", td, "ptr", szName, "uint", dwFieldFlags, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, pmdMarshal, pmd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -614,7 +848,11 @@ class IMetaDataEmit extends IUnknown{
         rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
         pmdPropMarshal := pmdProp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "uint", td, "ptr", szProperty, "uint", dwPropFlags, pvSigMarshal, pvSig, "uint", cbSig, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, pmdPropMarshal, pmdProp, "HRESULT")
+        result := ComCall(40, this, "uint", td, "ptr", szProperty, "uint", dwPropFlags, pvSigMarshal, pvSig, "uint", cbSig, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, pmdPropMarshal, pmdProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -636,7 +874,11 @@ class IMetaDataEmit extends IUnknown{
         pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
         ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(41, this, "uint", md, "uint", ulParamSeq, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, ppdMarshal, ppd, "HRESULT")
+        result := ComCall(41, this, "uint", md, "uint", ulParamSeq, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, ppdMarshal, ppd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -652,7 +894,11 @@ class IMetaDataEmit extends IUnknown{
     SetFieldProps(fd, dwFieldFlags, dwCPlusTypeFlag, pValue, cchValue) {
         pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(42, this, "uint", fd, "uint", dwFieldFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "HRESULT")
+        result := ComCall(42, this, "uint", fd, "uint", dwFieldFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -672,7 +918,11 @@ class IMetaDataEmit extends IUnknown{
         pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
         rmdOtherMethodsMarshal := rmdOtherMethods is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(43, this, "uint", pr, "uint", dwPropFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, "HRESULT")
+        result := ComCall(43, this, "uint", pr, "uint", dwPropFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "uint", mdSetter, "uint", mdGetter, rmdOtherMethodsMarshal, rmdOtherMethods, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -691,7 +941,11 @@ class IMetaDataEmit extends IUnknown{
 
         pValueMarshal := pValue is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(44, this, "uint", pd, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "HRESULT")
+        result := ComCall(44, this, "uint", pd, "ptr", szName, "uint", dwParamFlags, "uint", dwCPlusTypeFlag, pValueMarshal, pValue, "uint", cchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -706,7 +960,11 @@ class IMetaDataEmit extends IUnknown{
     DefineSecurityAttributeSet(tkObj, rSecAttrs, cSecAttrs, pulErrorAttr) {
         pulErrorAttrMarshal := pulErrorAttr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(45, this, "uint", tkObj, "ptr", rSecAttrs, "uint", cSecAttrs, pulErrorAttrMarshal, pulErrorAttr, "HRESULT")
+        result := ComCall(45, this, "uint", tkObj, "ptr", rSecAttrs, "uint", cSecAttrs, pulErrorAttrMarshal, pulErrorAttr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -716,7 +974,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     ApplyEditAndContinue(pImport) {
-        result := ComCall(46, this, "ptr", pImport, "HRESULT")
+        result := ComCall(46, this, "ptr", pImport, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -741,7 +1003,11 @@ class IMetaDataEmit extends IUnknown{
         pvTranslatedSigMarshal := pvTranslatedSig is VarRef ? "char*" : "ptr"
         pcbTranslatedSigMarshal := pcbTranslatedSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(47, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", import, pbSigBlobMarshal, pbSigBlob, "uint", cbSigBlob, "ptr", pAssemEmit, "ptr", emit, pvTranslatedSigMarshal, pvTranslatedSig, "uint", cbTranslatedSigMax, pcbTranslatedSigMarshal, pcbTranslatedSig, "HRESULT")
+        result := ComCall(47, this, "ptr", pAssemImport, pbHashValueMarshal, pbHashValue, "uint", cbHashValue, "ptr", import, pbSigBlobMarshal, pbSigBlob, "uint", cbSigBlob, "ptr", pAssemEmit, "ptr", emit, pvTranslatedSigMarshal, pvTranslatedSig, "uint", cbTranslatedSigMax, pcbTranslatedSigMarshal, pcbTranslatedSig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -752,7 +1018,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMethodImplFlags(md, dwImplFlags) {
-        result := ComCall(48, this, "uint", md, "uint", dwImplFlags, "HRESULT")
+        result := ComCall(48, this, "uint", md, "uint", dwImplFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -763,19 +1033,30 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFieldRVA(fd, ulRVA) {
-        result := ComCall(49, this, "uint", fd, "uint", ulRVA, "HRESULT")
+        result := ComCall(49, this, "uint", fd, "uint", ulRVA, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The CloseDatabase method of the Merge object closes the currently open Windows Installer database.
+     * @remarks
+     * Closing a database clears all dependency information but does not affect any errors that have not been retrieved.
      * @param {IMetaDataImport} pImport 
      * @param {IMapToken} pHostMapToken 
      * @param {IUnknown} pHandler 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Msi/merge-closedatabase
      */
     Merge(pImport, pHostMapToken, pHandler) {
-        result := ComCall(50, this, "ptr", pImport, "ptr", pHostMapToken, "ptr", pHandler, "HRESULT")
+        result := ComCall(50, this, "ptr", pImport, "ptr", pHostMapToken, "ptr", pHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -784,7 +1065,11 @@ class IMetaDataEmit extends IUnknown{
      * @returns {HRESULT} 
      */
     MergeEnd() {
-        result := ComCall(51, this, "HRESULT")
+        result := ComCall(51, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

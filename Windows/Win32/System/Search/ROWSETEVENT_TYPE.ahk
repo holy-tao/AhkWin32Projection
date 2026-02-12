@@ -15,7 +15,7 @@
  * <li>The indexer may process items without sending this event, if the queue empties before the statistics event frequency.</li>
  * </ul>
  * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/ne-searchapi-rowsetevent_type
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

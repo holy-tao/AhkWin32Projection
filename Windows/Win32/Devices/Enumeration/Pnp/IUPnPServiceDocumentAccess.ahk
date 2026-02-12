@@ -6,7 +6,7 @@
 
 /**
  * Use this interface to retrieve and provide the Service Control Protocol Description (SCPD) document to a UPnP control point application to expose actions supported by the service and provide information about state variables.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpservicedocumentaccess
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpservicedocumentaccess
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -34,22 +34,30 @@ class IUPnPServiceDocumentAccess extends IUnknown{
     /**
      * GetDocumentURL method retrieves the Service Control Protocol Description (SCPD) URL for a service object. Using this URL, the UPnP control point can download the complete SCPD document.
      * @returns {BSTR} The URL to the complete SCPD document.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicedocumentaccess-getdocumenturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpservicedocumentaccess-getdocumenturl
      */
     GetDocumentURL() {
         pbstrDocUrl := BSTR()
-        result := ComCall(3, this, "ptr", pbstrDocUrl, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrDocUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDocUrl
     }
 
     /**
      * GetDocument method retrieves the Service Control Protocol Description (SCPD) document for a service object.
      * @returns {BSTR} The  complete SCPD document.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicedocumentaccess-getdocument
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpservicedocumentaccess-getdocument
      */
     GetDocument() {
         pbstrDoc := BSTR()
-        result := ComCall(4, this, "ptr", pbstrDoc, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrDoc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDoc
     }
 }

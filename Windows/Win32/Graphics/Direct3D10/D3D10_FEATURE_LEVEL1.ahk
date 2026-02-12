@@ -13,7 +13,7 @@
  * 
  * For an overview of 
  *       the capabilities of each feature level, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">Overview For Each Feature Level</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10_1/ne-d3d10_1-d3d10_feature_level1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

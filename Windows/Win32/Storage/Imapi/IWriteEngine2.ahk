@@ -7,13 +7,10 @@
 /**
  * Use this interface to write a data stream to a device.
  * @remarks
- * 
  * To create the <b>MsftWriteEngine2</b> object in a script, use IMAPI2.MsftWriteEngine2 as the program identifier when calling <b>CreateObject</b>.
  * 
  *  It is possible for a power state transition to take place during a burn operation (i.e. user log-off or system suspend) which leads to the  interruption of the burn process and  possible data loss. For programming considerations, see <a href="https://docs.microsoft.com/windows/desktop/imapi/preventing-logoff-or-suspend-during-a-burn">Preventing Logoff or Suspend During a Burn</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-iwriteengine2
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-iwriteengine2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -87,6 +84,23 @@ class IWriteEngine2 extends IDispatch{
 
     /**
      * Writes a data stream to the current recorder.
+     * @remarks
+     * Before calling this method, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_recorder">IWriteEngine2::put_Recorder</a> method to specify the recording device and the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_bytespersector">IWriteEngine2::put_BytesPerSector</a> method to specify the number of bytes to use for each sector during writing.
+     * 
+     * You should also consider calling the following methods if their default values are not appropriate for your application:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_endingsectorspersecond">IWriteEngine2::put_EndingSectorsPerSecond</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_startingsectorspersecond">IWriteEngine2::put_StartingSectorsPerSecond</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_usestreamingwrite12">IWriteEngine2::put_UseStreamingWrite12</a>
+     * </li>
+     * </ul>
+     * This method is synchronous. To determine the progress of the write operation, you must implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-dwriteengine2events">DWriteEngine2Events</a> interface. For examples that show how to implement an event handler in a script, see <a href="https://docs.microsoft.com/windows/desktop/imapi/monitoring-progress-with-events">Monitoring Progress With Events</a>.
      * @param {IStream} data An <b>IStream</b> interface of the data stream to write to the recorder.
      * @param {Integer} startingBlockAddress Starting logical block address (LBA) of the write operation. Negative values are supported.
      * @param {Integer} numberOfBlocks Number of blocks from the data stream to write.
@@ -150,15 +164,21 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-writesection
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-writesection
      */
     WriteSection(data, startingBlockAddress, numberOfBlocks) {
-        result := ComCall(7, this, "ptr", data, "int", startingBlockAddress, "int", numberOfBlocks, "HRESULT")
+        result := ComCall(7, this, "ptr", data, "int", startingBlockAddress, "int", numberOfBlocks, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Cancels a write operation that is in progress.
+     * @remarks
+     * To cancel the write operation, you must call this method from the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-dwriteengine2events-update">DWriteEngine2Events::Update</a> event handler that you implemented.
      * @returns {HRESULT} The following values are returned on success, but other success codes may be returned as a result of implementation: The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -184,7 +204,7 @@ class IWriteEngine2 extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The 'write' operation initiated by the last call to <a href="/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-writesection">IWriteEngine2::WriteSection</a> has not yet begun, and cannot be canceled.   It is recommended to call  <a href="/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-cancelwrite">IWriteEngine2::CancelWrite</a>  until a different success code is returned.
+     * The 'write' operation initiated by the last call to <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-writesection">IWriteEngine2::WriteSection</a> has not yet begun, and cannot be canceled.   It is recommended to call  <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-cancelwrite">IWriteEngine2::CancelWrite</a>  until a different success code is returned.
      * 
      * Value: 0x00AA0302L
      * 
@@ -214,10 +234,14 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-cancelwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-cancelwrite
      */
     CancelWrite() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -505,20 +529,28 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-put_recorder
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-put_recorder
      */
     put_Recorder(value) {
-        result := ComCall(9, this, "ptr", value, "HRESULT")
+        result := ComCall(9, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the recording device to use in the write operation.
      * @returns {IDiscRecorder2Ex} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2ex">IDiscRecorder2Ex</a> interface that identifies the recording device to use in the write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-get_recorder
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-get_recorder
      */
     get_Recorder() {
-        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDiscRecorder2Ex(value)
     }
 
@@ -559,25 +591,35 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-put_usestreamingwrite12
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-put_usestreamingwrite12
      */
     put_UseStreamingWrite12(value) {
-        result := ComCall(11, this, "short", value, "HRESULT")
+        result := ComCall(11, this, "short", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a value that indicates if the write operations use the WRITE12 or WRITE10 command.
      * @returns {VARIANT_BOOL} If VARIANT_TRUE, the write operations use the WRITE12 command with the streaming bit set to one. Otherwise, if VARIANT_FALSE, the write operations use the WRITE10 command.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-get_usestreamingwrite12
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-get_usestreamingwrite12
      */
     get_UseStreamingWrite12() {
-        result := ComCall(12, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets the estimated number of sectors per second that the recording device can write to the media at the start of the writing process.
+     * @remarks
+     * This is used to optimize sleep time in the write engine.
      * @param {Integer} value Approximate number of sectors per second that the recording device can write to the media at the start of the writing process. The default is -1 for maximum speed.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -613,10 +655,14 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-put_startingsectorspersecond
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-put_startingsectorspersecond
      */
     put_StartingSectorsPerSecond(value) {
-        result := ComCall(13, this, "int", value, "HRESULT")
+        result := ComCall(13, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -625,15 +671,21 @@ class IWriteEngine2 extends IDispatch{
      * @returns {Integer} Approximate number of sectors per second that the recording device can write to the media at the start of the writing process.
      * 
      * A value of -1 indicates maximum speed.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-get_startingsectorspersecond
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-get_startingsectorspersecond
      */
     get_StartingSectorsPerSecond() {
-        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets the estimated number of sectors per second that the recording device can write to the media at the end of the writing process.
+     * @remarks
+     * This is used to optimize sleep time in the write engine.
      * @param {Integer} value Approximate number of sectors per second that the recording device can write to the media at the end of the writing process. The default is -1 for maximum speed.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -669,10 +721,14 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-put_endingsectorspersecond
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-put_endingsectorspersecond
      */
     put_EndingSectorsPerSecond(value) {
-        result := ComCall(15, this, "int", value, "HRESULT")
+        result := ComCall(15, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -681,15 +737,21 @@ class IWriteEngine2 extends IDispatch{
      * @returns {Integer} Approximate number of sectors per second that the recording device can write to the media at the end of the writing process.
      * 
      * A value of -1 indicates maximum speed.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-get_endingsectorspersecond
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-get_endingsectorspersecond
      */
     get_EndingSectorsPerSecond() {
-        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets the number of bytes to use for each sector during writing.
+     * @remarks
+     * You must specify a logical block size.
      * @param {Integer} value Number of bytes to use for each sector during writing. The minimum size is 1 byte and the maximum is MAXLONG bytes. Typically, this value is 2,048 bytes for CD media, although any arbitrary size is supported (such as 2352 or 2448). This value is limited to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2ex-getmaximumpagealignedtransfersize">IDiscRecorder2Ex::GetMaximumPageAlignedTransferSize</a>, which is typically 65,536 (64K) bytes.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -725,10 +787,14 @@ class IWriteEngine2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-put_bytespersector
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-put_bytespersector
      */
     put_BytesPerSector(value) {
-        result := ComCall(17, this, "int", value, "HRESULT")
+        result := ComCall(17, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -739,20 +805,28 @@ class IWriteEngine2 extends IDispatch{
      * <div class="alert"><b>Note</b>  If <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iwriteengine2-put_bytespersector">IWriteEngine2::put_BytesPerSector</a> has not been called, this parameter will indicate a value of  '-1'.
      * </div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-get_bytespersector
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-get_bytespersector
      */
     get_BytesPerSector() {
-        result := ComCall(18, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves a value that indicates whether the recorder is currently writing data to the disc.
      * @returns {VARIANT_BOOL} If VARIANT_TRUE, the recorder is currently writing data to the disc. Otherwise, if VARIANT_FALSE, the recorder is not currently writing to disc.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iwriteengine2-get_writeinprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iwriteengine2-get_writeinprogress
      */
     get_WriteInProgress() {
-        result := ComCall(19, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

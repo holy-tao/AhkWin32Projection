@@ -37,7 +37,11 @@ class ICorProfilerCallback6 extends ICorProfilerCallback5{
     GetAssemblyReferences(wszAssemblyPath, pAsmRefProvider) {
         wszAssemblyPath := wszAssemblyPath is String ? StrPtr(wszAssemblyPath) : wszAssemblyPath
 
-        result := ComCall(90, this, "ptr", wszAssemblyPath, "ptr", pAsmRefProvider, "HRESULT")
+        result := ComCall(90, this, "ptr", wszAssemblyPath, "ptr", pAsmRefProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

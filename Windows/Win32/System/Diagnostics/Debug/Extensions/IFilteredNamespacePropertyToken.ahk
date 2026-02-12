@@ -34,17 +34,25 @@ class IFilteredNamespacePropertyToken extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveFilter() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IModelMethod} 
+     * @returns {Pointer<IModelMethod>} 
      */
     GetFilter() {
-        result := ComCall(4, this, "ptr*", &ppFilter := 0, "HRESULT")
-        return IModelMethod(ppFilter)
+        result := ComCall(4, this, "ptr*", &ppFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppFilter
     }
 
     /**
@@ -53,7 +61,11 @@ class IFilteredNamespacePropertyToken extends IUnknown{
      * @returns {HRESULT} 
      */
     TrySetFilter(pFilter) {
-        result := ComCall(5, this, "ptr", pFilter, "HRESULT")
+        result := ComCall(5, this, "ptr", pFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

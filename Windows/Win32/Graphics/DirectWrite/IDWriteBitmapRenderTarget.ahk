@@ -10,7 +10,6 @@
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which can be used for rendering glyphs.
  * @remarks
- * 
  * You create an <b>IDWriteBitmapRenderTarget</b> by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createbitmaprendertarget">IDWriteGdiInterop::CreateBitmapRenderTarget</a> method, as shown in the following code.
  * 
  * 
@@ -64,9 +63,7 @@
  * 
  * 
  * The <b>IDWriteBitmapRenderTarget</b> encapsulates and renders to a bitmap in memory.  The  <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getmemorydc">GetMemoryDC</a> function returns a handle to the device context of this bitmap.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritebitmaprendertarget
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritebitmaprendertarget
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -93,6 +90,46 @@ class IDWriteBitmapRenderTarget extends IUnknown{
 
     /**
      * Draws a run of glyphs to a bitmap target at the specified position.
+     * @remarks
+     * You can use the <b>IDWriteBitmapRenderTarget::DrawGlyphRun</b> to render to a bitmap from a custom text renderer that you implement.  The custom text renderer should call this method from within the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawglyphrun">IDWriteTextRenderer::DrawGlyphRun</a> callback method as shown in the following code.
+     * 
+     * 
+     * ```cpp
+     * STDMETHODIMP GdiTextRenderer::DrawGlyphRun(
+     *     __maybenull void* clientDrawingContext,
+     *     FLOAT baselineOriginX,
+     *     FLOAT baselineOriginY,
+     *     DWRITE_MEASURING_MODE measuringMode,
+     *     __in DWRITE_GLYPH_RUN const* glyphRun,
+     *     __in DWRITE_GLYPH_RUN_DESCRIPTION const* glyphRunDescription,
+     *     IUnknown* clientDrawingEffect
+     *     )
+     * {
+     *     HRESULT hr = S_OK;
+     * 
+     *     // Pass on the drawing call to the render target to do the real work.
+     *     RECT dirtyRect = {0};
+     * 
+     *     hr = pRenderTarget_->DrawGlyphRun(
+     *         baselineOriginX,
+     *         baselineOriginY,
+     *         measuringMode,
+     *         glyphRun,
+     *         pRenderingParams_,
+     *         RGB(0,200,255),
+     *         &dirtyRect
+     *         );
+     *     
+     * 
+     *     return hr;
+     * }
+     * 
+     * ```
+     * 
+     * 
+     * The <i>baselineOriginX</i>, <i>baslineOriginY</i>, <i>measuringMethod</i>, and <i>glyphRun</i> parameters are provided (as arguments) when the callback method is invoked.  The <i>renderingParams</i>, <i>textColor</i> and <i>blackBoxRect</i> are not.
+     * 
+     * Default rendering params can be retrieved by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createmonitorrenderingparams">IDWriteFactory::CreateMonitorRenderingParams</a> method.
      * @param {Float} baselineOriginX Type: <b>FLOAT</b>
      * 
      * The horizontal position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.
@@ -102,7 +139,7 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method for glyphs in the run, used with the other properties to determine the rendering mode.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
      * 
      * The structure containing the properties of the glyph run.
      * @param {IDWriteRenderingParams} renderingParams Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>*</b>
@@ -115,32 +152,56 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * 
      * The optional rectangle that receives the bounding box (in pixels not DIPs) of all the pixels affected by 
      *      drawing the glyph run. The black box rectangle may extend beyond the dimensions of the bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun
      */
-    DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor) {
+    DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun_, renderingParams, textColor) {
         blackBoxRect := RECT()
-        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", renderingParams, "uint", textColor, "ptr", blackBoxRect, "HRESULT")
+        result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun_, "ptr", renderingParams, "uint", textColor, "ptr", blackBoxRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return blackBoxRect
     }
 
     /**
      * Gets a handle to the memory device context.
+     * @remarks
+     * An application can use the device context to draw using GDI functions. An application can obtain the bitmap handle
+     *      (HBITMAP) by calling <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentobject">GetCurrentObject</a>. An application that wants information about the underlying bitmap, including
+     *      a pointer to the pixel data, can call <a href="https://docs.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getobject">GetObject</a> to fill in a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-dibsection">DIBSECTION</a> structure. The bitmap is always a 32-bit 
+     *      top-down DIB.
+     * 
+     * Note that this method takes no parameters and returns an HDC variable, not an HRESULT.
+     * 
+     * 
+     * ```cpp
+     * memoryHdc = g_pBitmapRenderTarget->GetMemoryDC();
+     * 
+     * ```
+     * 
+     * 
+     * The HDC returned here is still owned by the bitmap render target object and should not be released or deleted by the client.
      * @returns {HDC} Type: <b>HDC</b>
      * 
      * Returns a device context handle to the memory device context.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-getmemorydc
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-getmemorydc
      */
     GetMemoryDC() {
         result := ComCall(4, this, "ptr")
-        return HDC({Value: result}, True)
+        resultHandle := HDC({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Gets the number of bitmap pixels per DIP.
+     * @remarks
+     * A DIP (device-independent pixel) is 1/96 inch. Therefore, this value is the number
+     *      if pixels per inch divided by 96.
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The number of bitmap pixels per DIP.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-getpixelsperdip
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-getpixelsperdip
      */
     GetPixelsPerDip() {
         result := ComCall(5, this, "float")
@@ -154,11 +215,15 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * A value that specifies the number of pixels per DIP.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-setpixelsperdip
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-setpixelsperdip
      */
     SetPixelsPerDip(pixelsPerDip) {
-        result := ComCall(6, this, "float", pixelsPerDip, "HRESULT")
+        result := ComCall(6, this, "float", pixelsPerDip, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,11 +232,15 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * @returns {DWRITE_MATRIX} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * When this method returns, contains a transform matrix.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-getcurrenttransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-getcurrenttransform
      */
     GetCurrentTransform() {
         transform := DWRITE_MATRIX()
-        result := ComCall(7, this, "ptr", transform, "HRESULT")
+        result := ComCall(7, this, "ptr", transform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return transform
     }
 
@@ -183,25 +252,31 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      *      case the identity transform is implied.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-setcurrenttransform
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-setcurrenttransform
      */
     SetCurrentTransform(transform) {
-        result := ComCall(8, this, "ptr", transform, "HRESULT")
+        result := ComCall(8, this, "ptr", transform, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the dimensions of the target bitmap.
-     * @returns {SIZE} Type: <b>SIZE*</b>
-     * 
-     * Returns  the width and height of the bitmap in pixels.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-getsize
+     * @returns {SIZE} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-getsize
      */
     GetSize() {
-        size := SIZE()
-        result := ComCall(9, this, "ptr", size, "HRESULT")
-        return size
+        size_ := SIZE()
+        result := ComCall(9, this, "ptr", size_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return size_
     }
 
     /**
@@ -214,11 +289,15 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * The new bitmap height, in pixels.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritebitmaprendertarget-resize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritebitmaprendertarget-resize
      */
     Resize(width, height) {
-        result := ComCall(10, this, "uint", width, "uint", height, "HRESULT")
+        result := ComCall(10, this, "uint", width, "uint", height, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

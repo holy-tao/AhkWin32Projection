@@ -9,7 +9,7 @@
 
 /**
  * Provides access to a service.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledeviceservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservice
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -97,95 +97,145 @@ class IPortableDeviceService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-open
      */
     Open(pszPnPServiceID, pClientInfo) {
         pszPnPServiceID := pszPnPServiceID is String ? StrPtr(pszPnPServiceID) : pszPnPServiceID
 
-        result := ComCall(3, this, "ptr", pszPnPServiceID, "ptr", pClientInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPnPServiceID, "ptr", pClientInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the service capabilities.
      * @returns {IPortableDeviceServiceCapabilities} The <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicecapabilities">IPortableDeviceServiceCapabilities</a> interface specifying the capabilities of the service.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-capabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-capabilities
      */
     Capabilities() {
-        result := ComCall(4, this, "ptr*", &ppCapabilities := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppCapabilities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPortableDeviceServiceCapabilities(ppCapabilities)
     }
 
     /**
      * Retrieves access to the service content.
      * @returns {IPortableDeviceContent2} The <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicecontent2">IPortableDeviceContent2</a> interface that accesses the service content.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-content
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-content
      */
     Content() {
-        result := ComCall(5, this, "ptr*", &ppContent := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppContent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPortableDeviceContent2(ppContent)
     }
 
     /**
      * Retrieves the IPortableDeviceServiceMethods interface that is used to invoke custom functionality on the service.
      * @returns {IPortableDeviceServiceMethods} The <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemethods">IPortableDeviceServiceMethods</a> interface used for invoking methods on the given service.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-methods
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-methods
      */
     Methods() {
-        result := ComCall(6, this, "ptr*", &ppMethods := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppMethods := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPortableDeviceServiceMethods(ppMethods)
     }
 
     /**
      * Cancels a pending operation on this interface.
+     * @remarks
+     * This method cancels all pending operations on the current device handle, which corresponds to a session associated with an <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservice">IPortableDeviceService</a> interface. The Windows Portable Devices (WPD) API does not support targeted cancellation of specific operations.
+     * 
+     * If your application invokes the WPD API from multiple threads, each thread should create a new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservice">IPortableDeviceService</a> interface. Doing this ensures that any cancel operation affects only the I/O for the affected thread.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Any other <b>HRESULT</b> value indicates that the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-cancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-cancel
      */
     Cancel() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Releases the connection to the service.
+     * @remarks
+     * Applications typically won't call this method, as the Windows Portable Devices (WPD) API automatically calls it when the last reference to a service is removed.
+     * 
+     * When an application does call this method, the WPD API releases the service connection, so that any WPD objects attached to the service will return the <b>E_WPD_SERVICE_NOT_OPEN</b> error.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Any other <b>HRESULT</b> value indicates that the call failed.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-close
      */
     Close() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an object identifier for the service. This object identifier can be used to access the properties of the service, for example.
      * @returns {PWSTR} The retrieved service object identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-getserviceobjectid
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-getserviceobjectid
      */
     GetServiceObjectID() {
-        result := ComCall(9, this, "ptr*", &ppszServiceObjectID := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppszServiceObjectID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszServiceObjectID
     }
 
     /**
      * Retrieves a Plug and Play (PnP) identifier for the service.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-open">Open</a> method must be called on the service before a PnP identifier can be retrieved.
+     * 
+     * When an application no longer needs the PnP identifier, it should call the <b>CoTaskMemFree</b> function to free the identifier memory.
      * @returns {PWSTR} The retrieved PnP identifier, which is the same identifier that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-open">Open</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-getpnpserviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-getpnpserviceid
      */
     GetPnPServiceID() {
-        result := ComCall(10, this, "ptr*", &ppszPnPServiceID := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppszPnPServiceID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszPnPServiceID
     }
 
     /**
      * Registers an application-defined callback object that receives service events.
+     * @remarks
+     * During cleanup, an application should unregister the callback object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-unadvise">Unadvise</a> method, and then release the memory referenced by the <i>ppszCookie</i> parameter by calling the <b>CoTaskMemFree</b> function.
      * @param {Integer} dwFlags Not used.
      * @param {IPortableDeviceEventCallback} pCallback The  <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceeventcallback">IPortableDeviceEventCallback</a> interface specifying the callback object to register.
      * @param {IPortableDeviceValues} pParameters The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface specifying the event-registration parameters, or <b>NULL</b> if the callback object is to receive all service events.
      * @returns {PWSTR} The unique context ID for the callback object. This value matches that used by the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-unadvise">Unadvise</a> method to unregister the callback object.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-advise
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-advise
      */
     Advise(dwFlags, pCallback, pParameters) {
-        result := ComCall(11, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, "ptr*", &ppszCookie := 0, "HRESULT")
+        result := ComCall(11, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, "ptr*", &ppszCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCookie
     }
 
@@ -223,24 +273,47 @@ class IPortableDeviceService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-unadvise
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-unadvise
      */
     Unadvise(pszCookie) {
         pszCookie := pszCookie is String ? StrPtr(pszCookie) : pszCookie
 
-        result := ComCall(12, this, "ptr", pszCookie, "HRESULT")
+        result := ComCall(12, this, "ptr", pszCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sends a standard WPD command and its parameters to the service.
+     * @remarks
+     * This method should only be used to send standard WPD commands to the service. To invoke service methods, use the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemethods">IPortableDeviceServiceMethods</a> interface.
+     * 
+     * This method may fail even though it returns <b>S_OK</b> as its <b>HRESULT</b> value. To determine if a command succeeded, an application should always examine the properties referenced by the <i>ppResults</i> parameter:
+     * 
+     * <ul>
+     * <li>The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/common-properties">WPD_PROPERTY_COMMON_HRESULT</a> property indicates if the command succeeded.</li>
+     * <li>If the command failed, the <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/common-properties">WPD_PROPERTY_COMMON_DRIVER_ERROR_CODE</a> property will contain driver-specific error codes.</li>
+     * </ul>
+     * The object referenced by the <i>pParameters</i> parameter must specify at least these properties:
+     * 
+     * <ul>
+     * <li><a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/common-properties">WPD_PROPERTY_COMMON_COMMAND_CATEGORY</a>, which should contain a command category, such as the <b>fmtid</b> member of the <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/wpd-command-common-reset-device-command">WPD_COMMAND_COMMON_RESET_DEVICE</a> property</li>
+     * <li><a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/common-properties">WPD_PROPERTY_COMMON_COMMAND_ID</a>, which should contain a command identifier, such as the <b>pid</b> member of the  <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/wpd-command-common-reset-device-command">WPD_COMMAND_COMMON_RESET_DEVICE</a> property.</li>
+     * </ul>
      * @param {Integer} dwFlags Not used.
      * @param {IPortableDeviceValues} pParameters The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface specifying the command parameters.
      * @returns {IPortableDeviceValues} The <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface specifying the command results.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-sendcommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservice-sendcommand
      */
     SendCommand(dwFlags, pParameters) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPortableDeviceValues(ppResults)
     }
 }

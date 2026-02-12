@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUS_RESSUBCLASS enumeration (msclus.h) identifies a resource subclass that manages a shared resource.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_ressubclass
+ * CLUS_RESSUBCLASS (clusapi.h) identifies a resource subclass that manages a shared resource.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clus_ressubclass
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

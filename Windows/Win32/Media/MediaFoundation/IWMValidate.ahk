@@ -34,7 +34,11 @@ class IWMValidate extends IUnknown{
      * @returns {HRESULT} 
      */
     SetIdentifier(guidValidationID) {
-        result := ComCall(3, this, "ptr", guidValidationID, "HRESULT")
+        result := ComCall(3, this, "ptr", guidValidationID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

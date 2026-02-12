@@ -4,8 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Provides the CreateContentDecryptionModuleFactory method for creating an instance of IMFContentDecryptionModuleFactory, a class factory for Content Decryption Module (CDM) objects for a specified key system.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactory4
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactory4
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,16 +33,20 @@ class IMFMediaEngineClassFactory4 extends IUnknown{
     static VTableNames => ["CreateContentDecryptionModuleFactory"]
 
     /**
-     * 
-     * @param {PWSTR} keySystem 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory4-createcontentdecryptionmodulefactory
+     * Creates an instance of IMFContentDecryptionModuleFactory, a class factory for Content Decryption Module (CDM) objects for a specified key system.
+     * @param {PWSTR} keySystem An LPWSTR identifying the Key System for which the interface is created.
+     * @param {Pointer<Guid>} riid The IID of the **IMFContentDecryptionModuleFactory** interface to create.
+     * @returns {Pointer<Void>} Receives a pointer to the created interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory4-createcontentdecryptionmodulefactory
      */
     CreateContentDecryptionModuleFactory(keySystem, riid) {
         keySystem := keySystem is String ? StrPtr(keySystem) : keySystem
 
-        result := ComCall(3, this, "ptr", keySystem, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", keySystem, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 }

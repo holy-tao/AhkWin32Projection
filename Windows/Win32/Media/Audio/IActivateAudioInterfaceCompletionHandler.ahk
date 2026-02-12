@@ -6,15 +6,12 @@
 /**
  * Provides a callback to indicate that activation of a WASAPI interface is complete.
  * @remarks
- * 
  * <b>When to implement:</b>  
  * An application implements this interface if it calls the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a> function.
  * 
  * 
  * The implementation must be agile (aggregating a free-threaded marshaler).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -41,6 +38,8 @@ class IActivateAudioInterfaceCompletionHandler extends IUnknown{
 
     /**
      * Indicates that activation of a WASAPI interface is complete and results are available.
+     * @remarks
+     * An application implements this method if it calls the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync">ActivateAudioInterfaceAsync</a> function. When Windows calls this method, the results of the activation are available. The application can then retrieve the results by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfaceasyncoperation-getactivateresult">GetActivateResult</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface, passed through the <i>activateOperation</i> parameter.
      * @param {IActivateAudioInterfaceAsyncOperation} activateOperation An interface representing the asynchronous operation of activating the requested <b>WASAPI</b> interface
      * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -61,10 +60,14 @@ class IActivateAudioInterfaceCompletionHandler extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfacecompletionhandler-activatecompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfacecompletionhandler-activatecompleted
      */
     ActivateCompleted(activateOperation) {
-        result := ComCall(3, this, "ptr", activateOperation, "HRESULT")
+        result := ComCall(3, this, "ptr", activateOperation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

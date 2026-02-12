@@ -4,7 +4,7 @@
 
 /**
  * Learn more about: JET_TABLEID
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-tableid
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-tableid
  * @namespace Windows.Win32.Storage.StructuredStorage
  * @version v4.0.30319
  */

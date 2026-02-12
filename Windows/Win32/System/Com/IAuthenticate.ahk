@@ -39,7 +39,11 @@ class IAuthenticate extends IUnknown{
         pszUsernameMarshal := pszUsername is VarRef ? "ptr*" : "ptr"
         pszPasswordMarshal := pszPassword is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", phwnd, pszUsernameMarshal, pszUsername, pszPasswordMarshal, pszPassword, "HRESULT")
+        result := ComCall(3, this, "ptr", phwnd, pszUsernameMarshal, pszUsername, pszPasswordMarshal, pszPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

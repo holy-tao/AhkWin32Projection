@@ -173,25 +173,114 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {IHTMLCanvasElement} 
      */
     get_canvas() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLCanvasElement(p)
     }
 
     /**
+     * The restore command copies a still image from a file to the frame buffer. This is the reverse of the capture command. Digital-video devices recognize this command.
+     * @remarks
+     * Devices can recognize a variety of image formats; a Windows device-independent bitmap is always recognized.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszRestore"></span><span id="lpszrestore"></span><span id="LPSZRESTORE"></span>*lpszRestore*
+     * 
+     * One or more of the following flags.
+     * 
+     * 
+     * 
+     * | Value           | Meaning                                                                                                                                                                                                                                                                                                                         |
+     * |-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | at *rectangle*  | Specifies a rectangle relative to the frame buffer origin. The *rectangle* is specified as *X1 Y1 X2 Y2*. The coordinates *X1 Y1* specify the upper left corner and the coordinates *X2 Y2* specify the width and height.If this flag is not used, the image is copied to the upper left corner of the frame buffer.<br/> |
+     * | from *filename* | Specifies the image filename to recall. This flag is required.                                                                                                                                                                                                                                                                  |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", "test", or a combination of these. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/restore
      */
     restore() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The save command saves an MCI file. Video-overlay and waveform-audio devices recognize this command. Although digital-video devices and MIDI sequencers also recognize this command, the MCIAVI and MCISEQ drivers do not support it.
+     * @remarks
+     * The *filename* variable is required if the device was opened using the "new" device identifier.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFilename"></span><span id="lpszfilename"></span><span id="LPSZFILENAME"></span>*lpszFilename*
+     * 
+     * Flag specifying the name of the file being saved and, optionally, additional flags modifying the save operation. The following table lists device types that recognize the **save** command and the flags used by each type.
+     * 
+     * 
+     * 
+     * | Value        | Meaning              | Meaning               |
+     * |--------------|----------------------|-----------------------|
+     * | digitalvideo | abort at *rectangle* | *filename*keepreserve |
+     * | overlay      | at *rectangle*       | *filename*            |
+     * | sequencer    | *filename*           |                       |
+     * | waveaudio    | *filename*           |                       |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * The following table lists the flags that can be specified in the **lpszFilename** parameter and their meanings.
+     * 
+     * 
+     * 
+     * | Value          | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+     * |----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | abort          | Stops a **save** operation in progress. If used, this must be the only item present.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * | at *rectangle* | Specifies a rectangle relative to the frame buffer origin. The *rectangle* is specified as *X1 Y1 X2 Y2*. The coordinates *X1 Y1* specify the upper left corner and the coordinates *X2 Y2* specify the width and height.For digital-video devices, the [capture](capture.md) command is used to capture the contents of the frame buffer.<br/>                                                                                                                                               |
+     * | *filename*     | Specifies the filename to assign to the data file. If a path is not specified, the file will be placed on the disk and in the directory previously specified on the explicit or implicit [reserve](reserve.md) command. If **reserve** has not been issued, the default drive and directory are those associated with the application's task. If a path is specified, the device might require it to be on the disk drive specified by the explicit or implicit **reserve**. This flag is required. |
+     * | keepreserve    | Specifies that unused disk space left over from the original **reserve** command is not deallocated.                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/save
      */
     save() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,7 +290,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     rotate(angle) {
-        result := ComCall(10, this, "float", angle, "HRESULT")
+        result := ComCall(10, this, "float", angle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,7 +305,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     scale(x, y) {
-        result := ComCall(11, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(11, this, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +324,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     setTransform(m11, m12, m21, m22, dx, dy) {
-        result := ComCall(12, this, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "HRESULT")
+        result := ComCall(12, this, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -242,7 +343,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     transform(m11, m12, m21, m22, dx, dy) {
-        result := ComCall(13, this, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "HRESULT")
+        result := ComCall(13, this, "float", m11, "float", m12, "float", m21, "float", m22, "float", dx, "float", dy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +358,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     translate(x, y) {
-        result := ComCall(14, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(14, this, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -263,7 +372,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_globalAlpha(v) {
-        result := ComCall(15, this, "float", v, "HRESULT")
+        result := ComCall(15, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,7 +385,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {Float} 
      */
     get_globalAlpha() {
-        result := ComCall(16, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -282,9 +399,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_globalCompositeOperation(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -294,7 +418,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_globalCompositeOperation() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -304,7 +432,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_fillStyle(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -314,7 +446,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_fillStyle() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -324,7 +460,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_strokeStyle(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -334,7 +474,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_strokeStyle() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -347,7 +491,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {ICanvasGradient} 
      */
     createLinearGradient(x0, y0, x1, y1) {
-        result := ComCall(23, this, "float", x0, "float", y0, "float", x1, "float", y1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
+        result := ComCall(23, this, "float", x0, "float", y0, "float", x1, "float", y1, "ptr*", &ppCanvasGradient := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasGradient(ppCanvasGradient)
     }
 
@@ -362,18 +510,26 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {ICanvasGradient} 
      */
     createRadialGradient(x0, y0, r0, x1, y1, r1) {
-        result := ComCall(24, this, "float", x0, "float", y0, "float", r0, "float", x1, "float", y1, "float", r1, "ptr*", &ppCanvasGradient := 0, "HRESULT")
+        result := ComCall(24, this, "float", x0, "float", y0, "float", r0, "float", x1, "float", y1, "float", r1, "ptr*", &ppCanvasGradient := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasGradient(ppCanvasGradient)
     }
 
     /**
      * 
-     * @param {IDispatch} image 
+     * @param {IDispatch} image_ 
      * @param {VARIANT} repetition 
      * @returns {ICanvasPattern} 
      */
-    createPattern(image, repetition) {
-        result := ComCall(25, this, "ptr", image, "ptr", repetition, "ptr*", &ppCanvasPattern := 0, "HRESULT")
+    createPattern(image_, repetition) {
+        result := ComCall(25, this, "ptr", image_, "ptr", repetition, "ptr*", &ppCanvasPattern := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasPattern(ppCanvasPattern)
     }
 
@@ -383,9 +539,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_lineCap(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", v, "HRESULT")
+        result := ComCall(26, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -395,7 +558,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_lineCap() {
         p := BSTR()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        result := ComCall(27, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -405,9 +572,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_lineJoin(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", v, "HRESULT")
+        result := ComCall(28, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -417,7 +591,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_lineJoin() {
         p := BSTR()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        result := ComCall(29, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -427,7 +605,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_lineWidth(v) {
-        result := ComCall(30, this, "float", v, "HRESULT")
+        result := ComCall(30, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -436,7 +618,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {Float} 
      */
     get_lineWidth() {
-        result := ComCall(31, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(31, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -446,7 +632,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_miterLimit(v) {
-        result := ComCall(32, this, "float", v, "HRESULT")
+        result := ComCall(32, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -455,7 +645,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {Float} 
      */
     get_miterLimit() {
-        result := ComCall(33, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(33, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -465,7 +659,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_shadowBlur(v) {
-        result := ComCall(34, this, "float", v, "HRESULT")
+        result := ComCall(34, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -474,7 +672,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {Float} 
      */
     get_shadowBlur() {
-        result := ComCall(35, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(35, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -484,9 +686,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_shadowColor(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(36, this, "ptr", v, "HRESULT")
+        result := ComCall(36, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -496,7 +705,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_shadowColor() {
         p := BSTR()
-        result := ComCall(37, this, "ptr", p, "HRESULT")
+        result := ComCall(37, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -506,7 +719,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_shadowOffsetX(v) {
-        result := ComCall(38, this, "float", v, "HRESULT")
+        result := ComCall(38, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -515,7 +732,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {Float} 
      */
     get_shadowOffsetX() {
-        result := ComCall(39, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(39, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -525,7 +746,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_shadowOffsetY(v) {
-        result := ComCall(40, this, "float", v, "HRESULT")
+        result := ComCall(40, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -534,7 +759,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {Float} 
      */
     get_shadowOffsetY() {
-        result := ComCall(41, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(41, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -547,7 +776,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     clearRect(x, y, w, h) {
-        result := ComCall(42, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(42, this, "float", x, "float", y, "float", w, "float", h, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -560,7 +793,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     fillRect(x, y, w, h) {
-        result := ComCall(43, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(43, this, "float", x, "float", y, "float", w, "float", h, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -573,7 +810,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     strokeRect(x, y, w, h) {
-        result := ComCall(44, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(44, this, "float", x, "float", y, "float", w, "float", h, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -588,7 +829,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     arc(x, y, radius, startAngle, endAngle, anticlockwise) {
-        result := ComCall(45, this, "float", x, "float", y, "float", radius, "float", startAngle, "float", endAngle, "int", anticlockwise, "HRESULT")
+        result := ComCall(45, this, "float", x, "float", y, "float", radius, "float", startAngle, "float", endAngle, "int", anticlockwise, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -602,7 +847,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     arcTo(x1, y1, x2, y2, radius) {
-        result := ComCall(46, this, "float", x1, "float", y1, "float", x2, "float", y2, "float", radius, "HRESULT")
+        result := ComCall(46, this, "float", x1, "float", y1, "float", x2, "float", y2, "float", radius, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -611,7 +860,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     beginPath() {
-        result := ComCall(47, this, "HRESULT")
+        result := ComCall(47, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -626,16 +879,43 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) {
-        result := ComCall(48, this, "float", cp1x, "float", cp1y, "float", cp2x, "float", cp2y, "float", x, "float", y, "HRESULT")
+        result := ComCall(48, this, "float", cp1x, "float", cp1y, "float", cp2x, "float", cp2y, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Discards the current pixel if the specified value is less than zero.
+     * @remarks
+     * Use the **clip** HLSL intrinsic function to simulate clipping planes if each component of the *x* parameter represents the distance from a plane.
      * 
-     * @returns {HRESULT} 
+     * Also, use the **clip** function to test for alpha behavior, as shown in the following example:
+     * 
+     * 
+     * ```
+     * clip( Input.Color.A < 0.1f ? -1:1 );
+     * ```
+     * @returns {HRESULT} | Item                                                   | Description                            |
+     * |--------------------------------------------------------|----------------------------------------|
+     * | <span id="x"></span><span id="X"></span>*x*<br/> | \[in\] The specified value.<br/> |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * None.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-clip
      */
     clip() {
-        result := ComCall(49, this, "HRESULT")
+        result := ComCall(49, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -644,7 +924,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     closePath() {
-        result := ComCall(50, this, "HRESULT")
+        result := ComCall(50, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -653,7 +937,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     fill() {
-        result := ComCall(51, this, "HRESULT")
+        result := ComCall(51, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -664,18 +952,31 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     lineTo(x, y) {
-        result := ComCall(52, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(52, this, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * moveToCurrentRow Method (SQLServerResultSet)
+     * @remarks
+     * This moveToCurrentRow method is specified by the moveToCurrentRow method in the java.sql.ResultSet interface.  
+     *   
+     *  This method has no effect if the cursor is not on the insert row.
      * @param {Float} x 
      * @param {Float} y 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/movetocurrentrow-method-sqlserverresultset
      */
     moveTo(x, y) {
-        result := ComCall(53, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(53, this, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -688,7 +989,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     quadraticCurveTo(cpx, cpy, x, y) {
-        result := ComCall(54, this, "float", cpx, "float", cpy, "float", x, "float", y, "HRESULT")
+        result := ComCall(54, this, "float", cpx, "float", cpy, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -701,7 +1006,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     rect(x, y, w, h) {
-        result := ComCall(55, this, "float", x, "float", y, "float", w, "float", h, "HRESULT")
+        result := ComCall(55, this, "float", x, "float", y, "float", w, "float", h, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -710,7 +1019,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     stroke() {
-        result := ComCall(56, this, "HRESULT")
+        result := ComCall(56, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -721,7 +1034,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     isPointInPath(x, y) {
-        result := ComCall(57, this, "float", x, "float", y, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(57, this, "float", x, "float", y, "short*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -731,9 +1048,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_font(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(58, this, "ptr", v, "HRESULT")
+        result := ComCall(58, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -743,7 +1067,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_font() {
         p := BSTR()
-        result := ComCall(59, this, "ptr", p, "HRESULT")
+        result := ComCall(59, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -753,9 +1081,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textAlign(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(60, this, "ptr", v, "HRESULT")
+        result := ComCall(60, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -765,7 +1100,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_textAlign() {
         p := BSTR()
-        result := ComCall(61, this, "ptr", p, "HRESULT")
+        result := ComCall(61, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -775,9 +1114,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textBaseline(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(62, this, "ptr", v, "HRESULT")
+        result := ComCall(62, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -787,7 +1133,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      */
     get_textBaseline() {
         p := BSTR()
-        result := ComCall(63, this, "ptr", p, "HRESULT")
+        result := ComCall(63, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -800,9 +1150,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     fillText(text, x, y, maxWidth) {
-        text := text is String ? BSTR.Alloc(text).Value : text
+        if(text is String) {
+            pin := BSTR.Alloc(text)
+            text := pin.Value
+        }
 
-        result := ComCall(64, this, "ptr", text, "float", x, "float", y, "ptr", maxWidth, "HRESULT")
+        result := ComCall(64, this, "ptr", text, "float", x, "float", y, "ptr", maxWidth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -812,9 +1169,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {ICanvasTextMetrics} 
      */
     measureText(text) {
-        text := text is String ? BSTR.Alloc(text).Value : text
+        if(text is String) {
+            pin := BSTR.Alloc(text)
+            text := pin.Value
+        }
 
-        result := ComCall(65, this, "ptr", text, "ptr*", &ppCanvasTextMetrics := 0, "HRESULT")
+        result := ComCall(65, this, "ptr", text, "ptr*", &ppCanvasTextMetrics := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasTextMetrics(ppCanvasTextMetrics)
     }
 
@@ -827,9 +1191,16 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     strokeText(text, x, y, maxWidth) {
-        text := text is String ? BSTR.Alloc(text).Value : text
+        if(text is String) {
+            pin := BSTR.Alloc(text)
+            text := pin.Value
+        }
 
-        result := ComCall(66, this, "ptr", text, "float", x, "float", y, "ptr", maxWidth, "HRESULT")
+        result := ComCall(66, this, "ptr", text, "float", x, "float", y, "ptr", maxWidth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -847,7 +1218,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     drawImage(pSrc, a1, a2, a3, a4, a5, a6, a7, a8) {
-        result := ComCall(67, this, "ptr", pSrc, "ptr", a1, "ptr", a2, "ptr", a3, "ptr", a4, "ptr", a5, "ptr", a6, "ptr", a7, "ptr", a8, "HRESULT")
+        result := ComCall(67, this, "ptr", pSrc, "ptr", a1, "ptr", a2, "ptr", a3, "ptr", a4, "ptr", a5, "ptr", a6, "ptr", a7, "ptr", a8, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -858,7 +1233,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {ICanvasImageData} 
      */
     createImageData(a1, a2) {
-        result := ComCall(68, this, "ptr", a1, "ptr", a2, "ptr*", &ppCanvasImageData := 0, "HRESULT")
+        result := ComCall(68, this, "ptr", a1, "ptr", a2, "ptr*", &ppCanvasImageData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasImageData(ppCanvasImageData)
     }
 
@@ -871,7 +1250,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {ICanvasImageData} 
      */
     getImageData(sx, sy, sw, sh) {
-        result := ComCall(69, this, "float", sx, "float", sy, "float", sw, "float", sh, "ptr*", &ppCanvasImageData := 0, "HRESULT")
+        result := ComCall(69, this, "float", sx, "float", sy, "float", sw, "float", sh, "ptr*", &ppCanvasImageData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasImageData(ppCanvasImageData)
     }
 
@@ -887,7 +1270,11 @@ class ICanvasRenderingContext2D extends IDispatch{
      * @returns {HRESULT} 
      */
     putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight) {
-        result := ComCall(70, this, "ptr", imagedata, "float", dx, "float", dy, "ptr", dirtyX, "ptr", dirtyY, "ptr", dirtyWidth, "ptr", dirtyHeight, "HRESULT")
+        result := ComCall(70, this, "ptr", imagedata, "float", dx, "float", dy, "ptr", dirtyX, "ptr", dirtyY, "ptr", dirtyWidth, "ptr", dirtyHeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

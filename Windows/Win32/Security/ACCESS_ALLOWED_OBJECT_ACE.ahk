@@ -13,7 +13,7 @@
  * The access rights specified by the <b>Mask</b> member are granted to any <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trustee</a> that possesses an enabled SID that matches the SID stored in the <b>SidStart</b> member.
  * 
  * An <b>ACCESS_ALLOWED_OBJECT_ACE</b> structure can be created in an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessallowedobjectace">AddAccessAllowedObjectAce</a> function. When this function is used, the correct amount of memory needed to accommodate the GUID structures in the <b>ObjectType</b> and <b>InheritedObjectType</b> members, if one or both of them exists, as well as to accommodate the trustee's SID is automatically allocated. In addition, the values of the <b>Header.AceType</b> and <b>Header.AceSize</b> members are set automatically.	When an <b>ACCESS_ALLOWED_OBJECT_ACE</b> structure is created outside an ACL, sufficient memory must be allocated to accommodate the GUID structures in the <b>ObjectType</b> and <b>InheritedObjectType</b> members, if one or both of them exists, as well as to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory following it. In addition,  the values of the <b>Header.AceType</b> and <b>Header.AceSize</b> members must be set explicitly by the application.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-access_allowed_object_ace
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-access_allowed_object_ace
  * @namespace Windows.Win32.Security
  * @version v4.0.30319
  */

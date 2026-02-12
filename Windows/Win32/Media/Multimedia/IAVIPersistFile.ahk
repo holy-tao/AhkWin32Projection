@@ -33,7 +33,11 @@ class IAVIPersistFile extends IPersistFile{
      * @returns {HRESULT} 
      */
     Reserved1() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

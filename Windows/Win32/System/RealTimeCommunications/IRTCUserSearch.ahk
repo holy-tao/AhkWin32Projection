@@ -34,7 +34,11 @@ class IRTCUserSearch extends IUnknown{
      * @returns {IRTCUserSearchQuery} 
      */
     CreateQuery() {
-        result := ComCall(3, this, "ptr*", &ppQuery := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppQuery := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCUserSearchQuery(ppQuery)
     }
 
@@ -46,7 +50,11 @@ class IRTCUserSearch extends IUnknown{
      * @returns {HRESULT} 
      */
     ExecuteSearch(pQuery, pProfile, lCookie) {
-        result := ComCall(4, this, "ptr", pQuery, "ptr", pProfile, "ptr", lCookie, "HRESULT")
+        result := ComCall(4, this, "ptr", pQuery, "ptr", pProfile, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

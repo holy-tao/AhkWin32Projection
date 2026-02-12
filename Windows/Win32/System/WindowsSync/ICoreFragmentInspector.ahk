@@ -7,11 +7,8 @@
 /**
  * Enumerates the ICoreFragment objects that are contained in a knowledge object.
  * @remarks
- * 
  * An <b>ICoreFragmentInspector</b> object can be obtained by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncknowledge2-getinspector">ISyncKnowledge2::GetInspector</a> on a knowledge object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-icorefragmentinspector
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-icorefragmentinspector
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -41,12 +38,16 @@ class ICoreFragmentInspector extends IUnknown{
      * @param {Integer} requestedCount The number of <b>ICoreFragment</b> objects to retrieve.
      * @param {Pointer<Integer>} pFetchedCount Receives the number of <b>ICoreFragment</b> objects that were retrieved in the <i>ppiCoreFragments</i> parameter. This value can be <b>NULL</b> only if <i> requestedCount</i> is 1.
      * @returns {ICoreFragment} Receives a pointer to the next <i>pFetchedCount</i> <b>ICoreFragment</b> objects. The size of the array is the value specified in the <i>requestedCount</i> parameter. The length is <c>*(pFetchedCount)</c>. The caller must release the interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragmentinspector-nextcorefragments
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragmentinspector-nextcorefragments
      */
     NextCoreFragments(requestedCount, pFetchedCount) {
         pFetchedCountMarshal := pFetchedCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", requestedCount, "ptr*", &ppiCoreFragments := 0, pFetchedCountMarshal, pFetchedCount, "HRESULT")
+        result := ComCall(3, this, "uint", requestedCount, "ptr*", &ppiCoreFragments := 0, pFetchedCountMarshal, pFetchedCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICoreFragment(ppiCoreFragments)
     }
 
@@ -82,10 +83,14 @@ class ICoreFragmentInspector extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragmentinspector-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragmentinspector-reset
      */
     Reset() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

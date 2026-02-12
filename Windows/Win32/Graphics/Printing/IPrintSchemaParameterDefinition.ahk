@@ -69,7 +69,11 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {BOOL} 
      */
     get_UserInputRequired() {
-        result := ComCall(11, this, "int*", &pbIsRequired := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pbIsRequired := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsRequired
     }
 
@@ -79,7 +83,11 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      */
     get_UnitType() {
         pbstrUnitType := BSTR()
-        result := ComCall(12, this, "ptr", pbstrUnitType, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrUnitType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUnitType
     }
 
@@ -88,7 +96,11 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {Integer} 
      */
     get_DataType() {
-        result := ComCall(13, this, "int*", &pDataType := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pDataType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDataType
     }
 
@@ -97,7 +109,11 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {Integer} 
      */
     get_RangeMin() {
-        result := ComCall(14, this, "int*", &pRangeMin := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pRangeMin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRangeMin
     }
 
@@ -106,7 +122,11 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
      * @returns {Integer} 
      */
     get_RangeMax() {
-        result := ComCall(15, this, "int*", &pRangeMax := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pRangeMax := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRangeMax
     }
 }

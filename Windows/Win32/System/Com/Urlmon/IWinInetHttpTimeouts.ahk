@@ -40,7 +40,11 @@ class IWinInetHttpTimeouts extends IUnknown{
         pdwSendTimeoutMarshal := pdwSendTimeout is VarRef ? "uint*" : "ptr"
         pdwReceiveTimeoutMarshal := pdwReceiveTimeout is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwConnectTimeoutMarshal, pdwConnectTimeout, pdwSendTimeoutMarshal, pdwSendTimeout, pdwReceiveTimeoutMarshal, pdwReceiveTimeout, "HRESULT")
+        result := ComCall(3, this, pdwConnectTimeoutMarshal, pdwConnectTimeout, pdwSendTimeoutMarshal, pdwSendTimeout, pdwReceiveTimeoutMarshal, pdwReceiveTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

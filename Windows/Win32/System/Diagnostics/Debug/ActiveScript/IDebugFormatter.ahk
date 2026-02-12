@@ -38,7 +38,11 @@ class IDebugFormatter extends IUnknown{
      */
     GetStringForVariant(pvar, nRadix) {
         pbstrValue := BSTR()
-        result := ComCall(3, this, "ptr", pvar, "uint", nRadix, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pvar, "uint", nRadix, "ptr", pbstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrValue
     }
 
@@ -51,7 +55,11 @@ class IDebugFormatter extends IUnknown{
         pwstrValue := pwstrValue is String ? StrPtr(pwstrValue) : pwstrValue
 
         pvar := VARIANT()
-        result := ComCall(4, this, "ptr", pwstrValue, "ptr", pvar, "HRESULT")
+        result := ComCall(4, this, "ptr", pwstrValue, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvar
     }
 
@@ -63,7 +71,11 @@ class IDebugFormatter extends IUnknown{
      */
     GetStringForVarType(vt, ptdescArrayType) {
         pbstr := BSTR()
-        result := ComCall(5, this, "ushort", vt, "ptr", ptdescArrayType, "ptr", pbstr, "HRESULT")
+        result := ComCall(5, this, "ushort", vt, "ptr", ptdescArrayType, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 }

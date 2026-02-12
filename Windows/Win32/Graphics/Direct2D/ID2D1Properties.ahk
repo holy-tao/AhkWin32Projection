@@ -7,7 +7,6 @@
 /**
  * Represents a set of run-time bindable and discoverable properties that allow a data-driven application to modify the state of a Direct2D effect.
  * @remarks
- * 
  * This interface supports access through either indices or property names. In addition to top-level properties, each property in an <b>ID2D1Properties</b> object may contain an <b>ID2D1Properties</b> object, which stores metadata describing the parent property. 
  * 
  * <h3><a id="Overview"></a><a id="overview"></a><a id="OVERVIEW"></a>Overview</h3>
@@ -134,7 +133,7 @@
  * </td>
  * </tr>
  * <tr>
- * <td>Max / D2D1_SUBPROPERTY_MIN</td>
+ * <td>Max / D2D1_SUBPROPERTY_MAX</td>
  * <td>Same as parent property.
  * 				<div class="alert"><b>Note</b>  Applicable only to numeric-type properties.</div>
  * <div> </div>
@@ -200,7 +199,7 @@
  * 
  * The type of each sub-element will be whatever the type of the array is. In the example above, this was an array of strings.
  * 
- * <h3><a id="Enum-Type_Sub-Poperties"></a><a id="enum-type_sub-poperties"></a><a id="ENUM-TYPE_SUB-POPERTIES"></a>Enum-Type Sub-Poperties</h3>
+ * <h3><a id="Enum-Type_Sub-Poperties"></a><a id="enum-type_sub-poperties"></a><a id="ENUM-TYPE_SUB-POPERTIES"></a>Enum-Type Sub-Properties</h3>
  * If the property has type <b>D2D1_PROPERTY_TYPE_ENUM</b> then the property will have the value of the corresponding enumeration. There will be a sub-array of fields that will conform to the general rules for array sub-properties and consist of the name/value pairs. For example:
  * 
  * 
@@ -237,9 +236,7 @@
  * <td>The index which corresponds to the <i>N</i>th enumeration value.</td>
  * </tr>
  * </table>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -266,10 +263,12 @@ class ID2D1Properties extends IUnknown{
 
     /**
      * Gets the number of top-level properties.
+     * @remarks
+     * This method returns the number of custom properties on the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1properties">ID2D1Properties</a> interface. System properties and sub-properties are part of a closed set, and are enumerable by iterating over this closed set.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * This method returns the number of custom (non-system) properties that can be accessed by the object.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1properties-getpropertycount
      */
     GetPropertyCount() {
         result := ComCall(3, this, "uint")
@@ -277,25 +276,29 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the property name that corresponds to the given index.
      * @param {Integer} index 
      * @param {PWSTR} name 
      * @param {Integer} nameCount 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertyname(uint32_pwstr_uint32)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-getpropertyname-overload
      */
     GetPropertyName(index, name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(4, this, "uint", index, "ptr", name, "uint", nameCount, "HRESULT")
+        result := ComCall(4, this, "uint", index, "ptr", name, "uint", nameCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Gets the number of characters for the given property name.
      * @param {Integer} index 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getpropertynamelength(u)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-getpropertynamelength-overload
      */
     GetPropertyNameLength(index) {
         result := ComCall(5, this, "uint", index, "uint")
@@ -303,10 +306,10 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the D2D1\_PROPERTY\_TYPE of the selected property.
      * @param {Integer} index 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-gettype(uint32)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-gettype-overload
      */
     GetType(index) {
         result := ComCall(6, this, "uint", index, "int")
@@ -315,13 +318,15 @@ class ID2D1Properties extends IUnknown{
 
     /**
      * Gets the index corresponding to the given property name.
+     * @remarks
+     * If the property doesn't exist, then this method returns [D2D1_INVALID_PROPERTY_INDEX](/windows/win32/direct2d/direct2d-constants#d2d1_invalid_property_index-uintmax). This reserved value will never map to a valid index, and will cause <b>NULL</b> or sentinel values to be returned from other parts of the property interface.
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the property to retrieve.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The index of the corresponding property name.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1properties-getpropertyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1properties-getpropertyindex
      */
     GetPropertyIndex(name) {
         name := name is String ? StrPtr(name) : name
@@ -331,72 +336,88 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the named property to the given value.
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {Pointer<Integer>} data 
      * @param {Integer} dataSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-setvaluebyname(pcwstr_constbyte_uint32)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-setvaluebyname-overload
      */
     SetValueByName(name, type, data, dataSize) {
         name := name is String ? StrPtr(name) : name
 
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "ptr", name, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "int", type, dataMarshal, data, "uint", dataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets the corresponding property by index.
      * @param {Integer} index 
      * @param {Integer} type 
      * @param {Pointer<Integer>} data 
      * @param {Integer} dataSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-setvalue(u_constbyte_uint32)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-setvalue-overload
      */
     SetValue(index, type, data, dataSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", index, "int", type, dataMarshal, data, "uint", dataSize, "HRESULT")
+        result := ComCall(9, this, "uint", index, "int", type, dataMarshal, data, "uint", dataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Gets the property value by name.
      * @param {PWSTR} name 
      * @param {Integer} type 
      * @param {Integer} dataSize 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluebyname(pcwstr)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-getvaluebyname-overload
      */
     GetValueByName(name, type, dataSize) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "ptr", name, "int", type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "int", type, "char*", &data := 0, "uint", dataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return data
     }
 
     /**
-     * 
+     * Gets the value of the property by index.
      * @param {Integer} index 
      * @param {Integer} type 
      * @param {Integer} dataSize 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(u_t)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-getvalue-overload
      */
     GetValue(index, type, dataSize) {
-        result := ComCall(11, this, "uint", index, "int", type, "char*", &data := 0, "uint", dataSize, "HRESULT")
+        result := ComCall(11, this, "uint", index, "int", type, "char*", &data := 0, "uint", dataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return data
     }
 
     /**
-     * 
+     * Gets the size of the property value in bytes, using the property index.
      * @param {Integer} index 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluesize(u)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-getvaluesize-overload
      */
     GetValueSize(index) {
         result := ComCall(12, this, "uint", index, "uint")
@@ -404,13 +425,17 @@ class ID2D1Properties extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the sub-properties of the provided property by index.
      * @param {Integer} index 
-     * @returns {ID2D1Properties} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getsubproperties(uint32_id2d1properties)
+     * @returns {Pointer<ID2D1Properties>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Direct2D/id2d1properties-getsubproperties-overload
      */
     GetSubProperties(index) {
-        result := ComCall(13, this, "uint", index, "ptr*", &subProperties := 0, "HRESULT")
-        return ID2D1Properties(subProperties)
+        result := ComCall(13, this, "uint", index, "ptr*", &subProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return subProperties
     }
 }

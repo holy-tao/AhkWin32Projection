@@ -4,8 +4,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a write-only object model for encrypted app packages.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxencryptedpackagewriter
+ * Provides a write-only object model for encrypted app packages. (IAppxEncryptedPackageWriter)
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxencryptedpackagewriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -37,22 +37,30 @@ class IAppxEncryptedPackageWriter extends IUnknown{
      * @param {IStream} inputStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> providing the contents of <i>fileName</i>.
      *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-addpayloadfileencrypted
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-addpayloadfileencrypted
      */
     AddPayloadFileEncrypted(fileName, compressionOption, inputStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(3, this, "ptr", fileName, "int", compressionOption, "ptr", inputStream, "HRESULT")
+        result := ComCall(3, this, "ptr", fileName, "int", compressionOption, "ptr", inputStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Closes and finalizes the written package stream.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

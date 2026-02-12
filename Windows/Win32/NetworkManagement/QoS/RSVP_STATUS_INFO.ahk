@@ -10,7 +10,7 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/winsock2/ns-winsock2-qos">QOS</a> structure that is associated with the event. For more detailed information associated with that event, applications can investigate the <b>RSVP_STATUS_INFO</b> object that is provided in 
  * <a href="https://docs.microsoft.com/previous-versions/aa374467(v=vs.80)">the ProviderSpecific buffer</a> of the event-associated 
  * <b>QOS</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_status_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/qossp/ns-qossp-rsvp_status_info
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

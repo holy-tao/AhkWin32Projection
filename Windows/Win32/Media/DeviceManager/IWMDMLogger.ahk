@@ -5,7 +5,7 @@
 
 /**
  * The IWMDMLogger interface is used by Windows Media Device Manager applications and service providers to log entries in a common log file.
- * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nn-wmdmlog-iwmdmlogger
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nn-wmdmlog-iwmdmlogger
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -38,11 +38,17 @@ class IWMDMLogger extends IUnknown{
 
     /**
      * The IsEnabled method determines whether logging is enabled.
+     * @remarks
+     * The file WmdmLog.idl is the IDL source code for WmdmLog.dll. This file is processed by the MIDL tool to produce the type library (WmdmLog.tlb) and marshaling code.
      * @returns {BOOL} Pointer to a flag that is true on output if logging is enabled.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-isenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-isenabled
      */
     IsEnabled() {
-        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
@@ -56,16 +62,22 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-enable
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-enable
      */
     Enable(fEnable) {
-        result := ComCall(4, this, "int", fEnable, "HRESULT")
+        result := ComCall(4, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetLogFileName method returns the full path to the current log file.
+     * @remarks
+     * The default log file is &lt; <i>Windows directory</i> &gt;\System32\Wmdm.log.
      * @param {PSTR} pszFilename Pointer to a buffer to receive the log file name.
      * @param {Integer} nMaxChars Specifies the size of the <i>pszFilename</i> buffer. This is the maximum number of characters that can be placed in the buffer, including the terminating <b>NULL</b> character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -75,18 +87,24 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-getlogfilename
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-getlogfilename
      */
     GetLogFileName(pszFilename, nMaxChars) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := ComCall(5, this, "ptr", pszFilename, "uint", nMaxChars, "HRESULT")
+        result := ComCall(5, this, "ptr", pszFilename, "uint", nMaxChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetLogFileName method sets the full path to the current log file. All subsequent log entries will be placed in this file.
+     * @remarks
+     * The default log file is &lt; <i>Windows directory</i> &gt;\System32\Wmdm.log.
      * @param {PSTR} pszFilename Pointer to a string that is the full path to the new log file. Note that this is not a wide-character string.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
@@ -95,13 +113,17 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-setlogfilename
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-setlogfilename
      */
     SetLogFileName(pszFilename) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := ComCall(6, this, "ptr", pszFilename, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFilename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,14 +139,18 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-logstring
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-logstring
      */
     LogString(dwFlags, pszSrcName, pszLog) {
         pszSrcName := pszSrcName is String ? StrPtr(pszSrcName) : pszSrcName
         pszLog := pszLog is String ? StrPtr(pszLog) : pszLog
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLog, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLog, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,14 +167,18 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-logdword
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-logdword
      */
     LogDword(dwFlags, pszSrcName, pszLogFormat, dwLog) {
         pszSrcName := pszSrcName is String ? StrPtr(pszSrcName) : pszSrcName
         pszLogFormat := pszLogFormat is String ? StrPtr(pszLogFormat) : pszLogFormat
 
-        result := ComCall(8, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLogFormat, "uint", dwLog, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, "ptr", pszSrcName, "ptr", pszLogFormat, "uint", dwLog, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,11 +191,15 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-reset
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-reset
      */
     Reset() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,14 +214,18 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-getsizeparams
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-getsizeparams
      */
     GetSizeParams(pdwMaxSize, pdwShrinkToSize) {
         pdwMaxSizeMarshal := pdwMaxSize is VarRef ? "uint*" : "ptr"
         pdwShrinkToSizeMarshal := pdwShrinkToSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, pdwMaxSizeMarshal, pdwMaxSize, pdwShrinkToSizeMarshal, pdwShrinkToSize, "HRESULT")
+        result := ComCall(10, this, pdwMaxSizeMarshal, pdwMaxSize, pdwShrinkToSizeMarshal, pdwShrinkToSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -202,13 +240,17 @@ class IWMDMLogger extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
      * 
      * The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
-     * @see https://docs.microsoft.com/windows/win32/api//wmdmlog/nf-wmdmlog-iwmdmlogger-setsizeparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdmlog/nf-wmdmlog-iwmdmlogger-setsizeparams
      */
     SetSizeParams(dwMaxSize, dwShrinkToSize) {
-        result := ComCall(11, this, "uint", dwMaxSize, "uint", dwShrinkToSize, "HRESULT")
+        result := ComCall(11, this, "uint", dwMaxSize, "uint", dwShrinkToSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

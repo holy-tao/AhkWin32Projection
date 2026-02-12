@@ -79,7 +79,11 @@ class ISClusProperties extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
@@ -88,16 +92,29 @@ class ISClusProperties extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
-     * 
+     * Refresh Method (RDS)
+     * @remarks
+     * You must set the [Connect](./connect-property-rds.md), [Server](./server-property-rds.md), and [SQL](./sql-property.md) properties before you use the **Refresh** method. All data-bound controls on the form associated with an **RDS.DataControl** object will reflect the new set of records. Any pre-existing [Recordset](../ado-api/recordset-object-ado.md) object is released, and any unsaved changes are discarded. The **Refresh** method automatically makes the first record the current record.  
+     *   
+     *  It is a good idea to call the **Refresh** method periodically when you work with data. If you retrieve data, and then leave it on a client computer for a while, it is likely to become out of date. It is possible that any changes that you make will fail, because someone else might have changed the record and submitted changes before you.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/refresh-method-rds
      */
     Refresh() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,20 +124,44 @@ class ISClusProperties extends IDispatch{
      * @returns {ISClusProperty} 
      */
     get_Item(varIndex) {
-        result := ComCall(10, this, "ptr", varIndex, "ptr*", &ppClusProperty := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", varIndex, "ptr*", &ppClusProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperty(ppClusProperty)
     }
 
     /**
+     * Creates an item moniker that identifies an object within a containing object (typically a compound document).
+     * @remarks
+     * A moniker provider, which hands out monikers to identify its objects so they are accessible to other parties, would call <b>CreateItemMoniker</b> to identify its objects with item monikers. Item monikers are based on a string, and identify objects that are contained within another object and can be individually identified using a string. The containing object must also implement the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolecontainer">IOleContainer</a> interface. 
      * 
+     * Most moniker providers are OLE applications that support linking. Applications that support linking to objects smaller than file-based documents, such as a server application that allows linking to a selection within a document, should use item monikers to identify the objects. Container applications that allow linking to embedded objects use item monikers to identify the embedded objects. 
+     * 
+     * 
+     * 
+     * The <i>lpszItem</i> parameter is the name used by the document to uniquely identify the object. For example, if the object being identified is a cell range in a spreadsheet, an appropriate name might be something like "A1:E7." An appropriate name when the object being identified is an embedded object might be something like "embedobj1." The containing object must provide an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleitemcontainer">IOleItemContainer</a> interface that can interpret this name and locate the corresponding object. This allows the item moniker to be bound to the object it identifies.
+     * 
+     * Item monikers are not used in isolation. They must be composed with a moniker that identifies the containing object as well. For example, if the object being identified is a cell range contained in a file-based document, the item moniker identifying that object must be composed with the file moniker identifying that document, resulting in a composite moniker that is the equivalent of "C:\work\sales.xls!A1:E7."
+     * 
+     * Nested containers are allowed also, as in the case where an object is contained within an embedded object inside another document. The complete moniker of such an object would be the equivalent of "C:\work\report.doc!embedobj1!A1:E7." In this case, each containing object must call <b>CreateItemMoniker</b> and provide its own implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleitemcontainer">IOleItemContainer</a> interface.
      * @param {BSTR} bstrName 
      * @param {VARIANT} varValue 
      * @returns {ISClusProperty} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-createitemmoniker
      */
     CreateItem(bstrName, varValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", varValue, "ptr*", &pProperty := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrName, "ptr", varValue, "ptr*", &pProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperty(pProperty)
     }
 
@@ -130,7 +171,11 @@ class ISClusProperties extends IDispatch{
      * @returns {HRESULT} 
      */
     UseDefaultValue(varIndex) {
-        result := ComCall(12, this, "ptr", varIndex, "HRESULT")
+        result := ComCall(12, this, "ptr", varIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,7 +185,11 @@ class ISClusProperties extends IDispatch{
      */
     SaveChanges() {
         pvarStatusCode := VARIANT()
-        result := ComCall(13, this, "ptr", pvarStatusCode, "HRESULT")
+        result := ComCall(13, this, "ptr", pvarStatusCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarStatusCode
     }
 
@@ -150,7 +199,11 @@ class ISClusProperties extends IDispatch{
      */
     get_ReadOnly() {
         pvarReadOnly := VARIANT()
-        result := ComCall(14, this, "ptr", pvarReadOnly, "HRESULT")
+        result := ComCall(14, this, "ptr", pvarReadOnly, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarReadOnly
     }
 
@@ -160,7 +213,11 @@ class ISClusProperties extends IDispatch{
      */
     get_Private() {
         pvarPrivate := VARIANT()
-        result := ComCall(15, this, "ptr", pvarPrivate, "HRESULT")
+        result := ComCall(15, this, "ptr", pvarPrivate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPrivate
     }
 
@@ -170,7 +227,11 @@ class ISClusProperties extends IDispatch{
      */
     get_Common() {
         pvarCommon := VARIANT()
-        result := ComCall(16, this, "ptr", pvarCommon, "HRESULT")
+        result := ComCall(16, this, "ptr", pvarCommon, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarCommon
     }
 
@@ -180,7 +241,11 @@ class ISClusProperties extends IDispatch{
      */
     get_Modified() {
         pvarModified := VARIANT()
-        result := ComCall(17, this, "ptr", pvarModified, "HRESULT")
+        result := ComCall(17, this, "ptr", pvarModified, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarModified
     }
 }

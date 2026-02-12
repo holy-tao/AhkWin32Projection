@@ -5,7 +5,7 @@
 
 /**
  * The ICreateDeviceAccessAsync interface is returned from a call to CreateDeviceAccessInstance.
- * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nn-deviceaccess-icreatedeviceaccessasync
+ * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nn-deviceaccess-icreatedeviceaccessasync
  * @namespace Windows.Win32.Devices.DeviceAccess
  * @version v4.0.30319
  */
@@ -32,11 +32,19 @@ class ICreateDeviceAccessAsync extends IUnknown{
 
     /**
      * The Cancel method attempts to cancel an asynchronous operation that is in progress.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-cancel
+     * @remarks
+     * If the operation is successfully canceled, a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-getresult">GetResult</a> method occurs.
+     * 
+     * Your application can call  <b>Cancel</b> at any time. If the operation is already closed or completed, it has no effect.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-cancel
      */
     Cancel() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,15 +92,23 @@ class ICreateDeviceAccessAsync extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-wait
+     * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-wait
      */
     Wait(timeout) {
-        result := ComCall(4, this, "uint", timeout, "HRESULT")
+        result := ComCall(4, this, "uint", timeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Close method performs cleanup after the asynchronous operation is completed and you retrieve the results.
+     * @remarks
+     * If the binding is successful, it doesn't invalidate the interface that the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-getresult">GetResult</a> method returns.
+     * 
+     * It isn't strictly necessary to call this method, because resources are cleaned up when the underlying object is deleted. But doing so allows the system to free up resources that are associated with the asynchronous binding. As such, it's good practice to call <b>Close</b> after you retrieve the results.
      * @returns {HRESULT} This method supports standard return values, in addition to these:
      * 
      * <table>
@@ -123,21 +139,29 @@ class ICreateDeviceAccessAsync extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-close
      */
     Close() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an IDeviceIoControl object that's bound to the device interface that's specified in a call to the CreateDeviceAccessInstance function.
      * @param {Pointer<Guid>} riid An interface identifier that indicates what type of device access interface the caller wants to retrieve. The only valid value for this identifier is IID_IDeviceIoControl.
-     * @returns {Pointer<Void>} If the binding was successful, contains an interface of the type that was supplied to the initial call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance">CreateDeviceAccessInstance</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-getresult
+     * @returns {Pointer<Pointer<Void>>} If the binding was successful, contains an interface of the type that was supplied to the initial call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance">CreateDeviceAccessInstance</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/deviceaccess/nf-deviceaccess-icreatedeviceaccessasync-getresult
      */
     GetResult(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &deviceAccess := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, "ptr*", &deviceAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return deviceAccess
     }
 }

@@ -43,7 +43,11 @@ class IEditionUpgradeBroker extends IUnknown{
     InitializeParentWindow(parentHandle) {
         parentHandle := parentHandle is Win32Handle ? NumGet(parentHandle, "ptr") : parentHandle
 
-        result := ComCall(3, this, "ptr", parentHandle, "HRESULT")
+        result := ComCall(3, this, "ptr", parentHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,9 +57,16 @@ class IEditionUpgradeBroker extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateOperatingSystem(parameter) {
-        parameter := parameter is String ? BSTR.Alloc(parameter).Value : parameter
+        if(parameter is String) {
+            pin := BSTR.Alloc(parameter)
+            parameter := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", parameter, "HRESULT")
+        result := ComCall(4, this, "ptr", parameter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +75,11 @@ class IEditionUpgradeBroker extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowProductKeyUI() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +88,11 @@ class IEditionUpgradeBroker extends IUnknown{
      * @returns {HRESULT} 
      */
     CanUpgrade() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

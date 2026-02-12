@@ -38,7 +38,11 @@ class ISpRecoGrammar2 extends IUnknown{
         ppCoMemRulesMarshal := ppCoMemRules is VarRef ? "ptr*" : "ptr"
         puNumRulesMarshal := puNumRules is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, ppCoMemRulesMarshal, ppCoMemRules, puNumRulesMarshal, puNumRules, "HRESULT")
+        result := ComCall(3, this, ppCoMemRulesMarshal, ppCoMemRules, puNumRulesMarshal, puNumRules, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class ISpRecoGrammar2 extends IUnknown{
         pszSharingUri := pszSharingUri is String ? StrPtr(pszSharingUri) : pszSharingUri
         pszBaseUri := pszBaseUri is String ? StrPtr(pszBaseUri) : pszBaseUri
 
-        result := ComCall(4, this, "ptr", pszFileName, "int", Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
+        result := ComCall(4, this, "ptr", pszFileName, "int", Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +79,11 @@ class ISpRecoGrammar2 extends IUnknown{
         pszSharingUri := pszSharingUri is String ? StrPtr(pszSharingUri) : pszSharingUri
         pszBaseUri := pszBaseUri is String ? StrPtr(pszBaseUri) : pszBaseUri
 
-        result := ComCall(5, this, "ptr", pGrammar, "int", Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "HRESULT")
+        result := ComCall(5, this, "ptr", pGrammar, "int", Options, "ptr", pszSharingUri, "ptr", pszBaseUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +97,11 @@ class ISpRecoGrammar2 extends IUnknown{
     SetRulePriority(pszRuleName, ulRuleId, nRulePriority) {
         pszRuleName := pszRuleName is String ? StrPtr(pszRuleName) : pszRuleName
 
-        result := ComCall(6, this, "ptr", pszRuleName, "uint", ulRuleId, "int", nRulePriority, "HRESULT")
+        result := ComCall(6, this, "ptr", pszRuleName, "uint", ulRuleId, "int", nRulePriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +115,11 @@ class ISpRecoGrammar2 extends IUnknown{
     SetRuleWeight(pszRuleName, ulRuleId, flWeight) {
         pszRuleName := pszRuleName is String ? StrPtr(pszRuleName) : pszRuleName
 
-        result := ComCall(7, this, "ptr", pszRuleName, "uint", ulRuleId, "float", flWeight, "HRESULT")
+        result := ComCall(7, this, "ptr", pszRuleName, "uint", ulRuleId, "float", flWeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +129,11 @@ class ISpRecoGrammar2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDictationWeight(flWeight) {
-        result := ComCall(8, this, "float", flWeight, "HRESULT")
+        result := ComCall(8, this, "float", flWeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +143,11 @@ class ISpRecoGrammar2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGrammarLoader(pLoader) {
-        result := ComCall(9, this, "ptr", pLoader, "HRESULT")
+        result := ComCall(9, this, "ptr", pLoader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +157,11 @@ class ISpRecoGrammar2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSMLSecurityManager(pSMLSecurityManager) {
-        result := ComCall(10, this, "ptr", pSMLSecurityManager, "HRESULT")
+        result := ComCall(10, this, "ptr", pSMLSecurityManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

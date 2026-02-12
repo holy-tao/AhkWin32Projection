@@ -35,7 +35,11 @@ class IDebugHostFunctionIntrospection2 extends IDebugHostFunctionIntrospection{
      * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
     EnumerateLocalsDetailsEx(enumerateInlinedLocals) {
-        result := ComCall(7, this, "char", enumerateInlinedLocals, "ptr*", &localsEnum := 0, "HRESULT")
+        result := ComCall(7, this, "char", enumerateInlinedLocals, "ptr*", &localsEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostFunctionLocalDetailsEnumerator(localsEnum)
     }
 }

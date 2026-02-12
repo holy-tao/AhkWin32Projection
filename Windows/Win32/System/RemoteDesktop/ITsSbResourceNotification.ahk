@@ -4,8 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbresourcenotification
+ * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to notify plug-ins of any state changes that occur in the session, target, and client connection objects. (ITsSbResourceNotification)
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbresourcenotification
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -31,38 +31,56 @@ class ITsSbResourceNotification extends IUnknown{
     static VTableNames => ["NotifySessionChange", "NotifyTargetChange", "NotifyClientConnectionStateChange"]
 
     /**
-     * Notifies registered plug-ins about state changes in a session object.
-     * @param {Integer} changeType The type of change that occurred.
+     * Notifies registered plug-ins about state changes in a session object. (ITsSbResourceNotification.NotifySessionChange)
+     * @remarks
+     * RD Connection Broker calls the <b>NotifySessionChange</b> method to notify registered plug-ins about state changes in a session object. For example, RD Connection Broker calls this method when a new session is added to the resource plug-in store as a result of a session logon.
+     * @param {Integer} changeType_ The type of change that occurred.
      * @param {ITsSbSession} pSession A pointer to a session object. This object is a copy of the object present in the RD Connection Broker store. Any changes to this object do not affect the object in the store.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbresourcenotification-notifysessionchange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbresourcenotification-notifysessionchange
      */
-    NotifySessionChange(changeType, pSession) {
-        result := ComCall(3, this, "int", changeType, "ptr", pSession, "HRESULT")
+    NotifySessionChange(changeType_, pSession) {
+        result := ComCall(3, this, "int", changeType_, "ptr", pSession, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Notifies registered plug-ins about state changes in a target object.
+     * Notifies registered plug-ins about state changes in a target object. (ITsSbResourceNotification.NotifyTargetChange)
+     * @remarks
+     * RD Connection Broker calls the <b>NotifyTargetChange</b> method to notify registered plug-ins about state changes in a target object. For example, RD Connection Broker calls this method when a new session is added to the resource plug-in store as a result of a session logon.
      * @param {Integer} TargetChangeType A value of the <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_change_type">TARGET_CHANGE_TYPE</a> enumeration that specifies the type of change that occurred in a target.
      * @param {ITsSbTarget} pTarget A pointer to a target object. This object is a copy of the object present in the RD Connection Broker store. Any changes to this object do not affect the object in the store.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbresourcenotification-notifytargetchange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbresourcenotification-notifytargetchange
      */
     NotifyTargetChange(TargetChangeType, pTarget) {
-        result := ComCall(4, this, "uint", TargetChangeType, "ptr", pTarget, "HRESULT")
+        result := ComCall(4, this, "uint", TargetChangeType, "ptr", pTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Notifies registered plug-ins about state changes in a client connection.
-     * @param {Integer} ChangeType 
+     * Notifies registered plug-ins about state changes in a client connection. (ITsSbResourceNotification.NotifyClientConnectionStateChange)
+     * @remarks
+     * RD Connection Broker calls the <b>NotifyClientConnectionStateChange</b> method to notify registered plug-ins about state changes in a client connection.
+     * @param {Integer} ChangeType_ 
      * @param {ITsSbClientConnection} pConnection A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbclientconnection">ITsSbClientConnection</a> connection object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbresourcenotification-notifyclientconnectionstatechange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbresourcenotification-notifyclientconnectionstatechange
      */
-    NotifyClientConnectionStateChange(ChangeType, pConnection) {
-        result := ComCall(5, this, "int", ChangeType, "ptr", pConnection, "HRESULT")
+    NotifyClientConnectionStateChange(ChangeType_, pConnection) {
+        result := ComCall(5, this, "int", ChangeType_, "ptr", pConnection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

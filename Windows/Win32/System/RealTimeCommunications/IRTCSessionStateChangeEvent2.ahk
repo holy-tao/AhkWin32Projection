@@ -47,7 +47,11 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
      * @returns {Integer} 
      */
     get_MediaTypes() {
-        result := ComCall(11, this, "int*", &pMediaTypes := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pMediaTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMediaTypes
     }
 
@@ -57,7 +61,11 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
      * @returns {Integer} 
      */
     get_RemotePreferredSecurityLevel(enSecurityType) {
-        result := ComCall(12, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        result := ComCall(12, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penSecurityLevel
     }
 
@@ -66,7 +74,11 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
      * @returns {VARIANT_BOOL} 
      */
     get_IsForked() {
-        result := ComCall(13, this, "short*", &pfIsForked := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &pfIsForked := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsForked
     }
 
@@ -77,7 +89,11 @@ class IRTCSessionStateChangeEvent2 extends IRTCSessionStateChangeEvent{
      * @returns {HRESULT} 
      */
     GetRemoteSessionDescription(pbstrContentType, pbstrSessionDescription) {
-        result := ComCall(14, this, "ptr", pbstrContentType, "ptr", pbstrSessionDescription, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstrContentType, "ptr", pbstrSessionDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

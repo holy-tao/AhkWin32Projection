@@ -30,14 +30,26 @@ class IMFMediaEngineEMENotify extends IUnknown{
     static VTableNames => ["Encrypted", "WaitingForKey"]
 
     /**
+     * Provides properties and methods to encrypt and decrypt data using a session key derived from a secret.
+     * @remarks
+     * The **EncryptedData** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
+     * 
+     * 
+     * The **EncryptedData** object can be created, and it is safe for scripting. The ProgID for the **EncryptedData** object is CAPICOM.EncryptedData.1.
      * @param {Pointer} pbInitData 
      * @param {Integer} cb 
      * @param {BSTR} bstrInitDataType 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/encrypteddata
      */
     Encrypted(pbInitData, cb, bstrInitDataType) {
-        bstrInitDataType := bstrInitDataType is String ? BSTR.Alloc(bstrInitDataType).Value : bstrInitDataType
+        if(bstrInitDataType is String) {
+            pin := BSTR.Alloc(bstrInitDataType)
+            bstrInitDataType := pin.Value
+        }
 
         ComCall(3, this, "ptr", pbInitData, "uint", cb, "ptr", bstrInitDataType)
     }

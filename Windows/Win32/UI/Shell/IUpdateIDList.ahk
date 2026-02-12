@@ -4,13 +4,11 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method to update the ITEMIDLIST of the child of an folder object.
+ * Provides a method to update the ITEMIDLIST of the child of a folder object.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Implement this interface for an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> implementation to update the provided child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iupdateidlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iupdateidlist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,6 +35,8 @@ class IUpdateIDList extends IUnknown{
 
     /**
      * Updates the provided child ITEMIDLIST based on the parameters specified by the provided IBindCtx.
+     * @remarks
+     * If <i>pbc</i> is <b>NULL</b> or does not contain any parameters that apply to the current Shell folder, <i>ppidlOut</i> points to the same <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>  as <i>pidlIn</i>.
      * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on a bind context object. Used to specify parameters for updating the child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. This value can be <b>NULL</b>.
@@ -46,10 +46,14 @@ class IUpdateIDList extends IUnknown{
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
      * 
      * A pointer to the child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> relative to the parent folder.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iupdateidlist-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iupdateidlist-update
      */
     Update(pbc, pidlIn) {
-        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, "ptr*", &ppidlOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppidlOut
     }
 }

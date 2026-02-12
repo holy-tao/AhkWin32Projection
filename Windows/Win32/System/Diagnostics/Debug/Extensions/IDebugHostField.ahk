@@ -35,8 +35,12 @@ class IDebugHostField extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetLocationKind() {
-        result := ComCall(10, this, "int*", &locationKind := 0, "HRESULT")
-        return locationKind
+        result := ComCall(10, this, "int*", &locationKind_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return locationKind_
     }
 
     /**
@@ -44,7 +48,11 @@ class IDebugHostField extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetOffset() {
-        result := ComCall(11, this, "uint*", &offset := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return offset
     }
 
@@ -53,18 +61,27 @@ class IDebugHostField extends IDebugHostSymbol{
      * @returns {Location} 
      */
     GetLocation() {
-        location := Location()
-        result := ComCall(12, this, "ptr", location, "HRESULT")
-        return location
+        location_ := Location()
+        result := ComCall(12, this, "ptr", location_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return location_
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue() {
         value := VARIANT()
-        result := ComCall(13, this, "ptr", value, "HRESULT")
+        result := ComCall(13, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

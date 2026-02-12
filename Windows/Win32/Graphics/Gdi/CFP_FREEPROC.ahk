@@ -1,0 +1,41 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * Client-provided callback function, used by CreateFontPackage and MergeFontPackage to free memory.
+ * @remarks
+ * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/cbaseallocator-free">free</a> conforms to this type; the application can either use <b>free</b> or a more specialized function. Whatever function is chosen, there must also be appropriate functions to allocate and to reallocate this memory.
+ * @see https://learn.microsoft.com/windows/win32/api//content/fontsub/nc-fontsub-cfp_freeproc
+ * @namespace Windows.Win32.Graphics.Gdi
+ * @version v4.0.30319
+ */
+class CFP_FREEPROC extends IUnknown {
+
+    static sizeof => A_PtrSize
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["Invoke"]
+
+    /**
+     * Invokes helper functionality for the IDispatch interface.
+     * @param {Pointer<Void>} param0 
+     * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/invokeidispatch
+     */
+    Invoke(param0) {
+        param0Marshal := param0 is VarRef ? "ptr" : "ptr"
+
+        ComCall(3, this, param0Marshal, param0)
+    }
+}

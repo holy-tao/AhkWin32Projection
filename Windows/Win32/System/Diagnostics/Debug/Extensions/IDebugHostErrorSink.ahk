@@ -38,7 +38,11 @@ class IDebugHostErrorSink extends IUnknown{
     ReportError(errClass, hrError, message) {
         message := message is String ? StrPtr(message) : message
 
-        result := ComCall(3, this, "int", errClass, "int", hrError, "ptr", message, "HRESULT")
+        result := ComCall(3, this, "int", errClass, "int", hrError, "ptr", message, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

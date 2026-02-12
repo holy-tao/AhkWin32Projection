@@ -35,7 +35,11 @@ class IWbemConstructClassObject extends IUnknown{
      * @returns {HRESULT} 
      */
     SetInheritanceChain(lNumAntecedents, awszAntecedents) {
-        result := ComCall(3, this, "int", lNumAntecedents, "ptr", awszAntecedents, "HRESULT")
+        result := ComCall(3, this, "int", lNumAntecedents, "ptr", awszAntecedents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class IWbemConstructClassObject extends IUnknown{
     SetPropertyOrigin(wszPropertyName, lOriginIndex) {
         wszPropertyName := wszPropertyName is String ? StrPtr(wszPropertyName) : wszPropertyName
 
-        result := ComCall(4, this, "ptr", wszPropertyName, "int", lOriginIndex, "HRESULT")
+        result := ComCall(4, this, "ptr", wszPropertyName, "int", lOriginIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class IWbemConstructClassObject extends IUnknown{
     SetMethodOrigin(wszMethodName, lOriginIndex) {
         wszMethodName := wszMethodName is String ? StrPtr(wszMethodName) : wszMethodName
 
-        result := ComCall(5, this, "ptr", wszMethodName, "int", lOriginIndex, "HRESULT")
+        result := ComCall(5, this, "ptr", wszMethodName, "int", lOriginIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +87,11 @@ class IWbemConstructClassObject extends IUnknown{
         wszServer := wszServer is String ? StrPtr(wszServer) : wszServer
         wszNamespace := wszNamespace is String ? StrPtr(wszNamespace) : wszNamespace
 
-        result := ComCall(6, this, "ptr", wszServer, "ptr", wszNamespace, "HRESULT")
+        result := ComCall(6, this, "ptr", wszServer, "ptr", wszNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

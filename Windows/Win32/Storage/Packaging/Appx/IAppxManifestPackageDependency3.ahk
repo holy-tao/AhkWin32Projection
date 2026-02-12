@@ -33,7 +33,11 @@ class IAppxManifestPackageDependency3 extends IUnknown{
      * @returns {BOOL} 
      */
     GetIsOptional() {
-        result := ComCall(3, this, "int*", &isOptional := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &isOptional := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isOptional
     }
 }

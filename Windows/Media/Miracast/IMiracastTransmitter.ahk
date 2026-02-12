@@ -1,0 +1,166 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Win32\System\WinRT\HSTRING.ahk
+#Include ..\..\Foundation\Collections\IVectorView.ahk
+#Include .\MiracastReceiverConnection.ahk
+#Include ..\..\Foundation\DateTime.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.Media.Miracast
+ * @version WindowsRuntime 1.4
+ */
+class IMiracastTransmitter extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IMiracastTransmitter
+     * @type {Guid}
+     */
+    static IID => Guid("{342d79fd-2e64-5508-8a30-833d1eac70d0}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["get_Name", "put_Name", "get_AuthorizationStatus", "put_AuthorizationStatus", "GetConnections", "get_MacAddress", "get_LastConnectionTime"]
+
+    /**
+     * @type {HSTRING} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AuthorizationStatus {
+        get => this.get_AuthorizationStatus()
+        set => this.put_AuthorizationStatus(value)
+    }
+
+    /**
+     * @type {HSTRING} 
+     */
+    MacAddress {
+        get => this.get_MacAddress()
+    }
+
+    /**
+     * @type {DateTime} 
+     */
+    LastConnectionTime {
+        get => this.get_LastConnectionTime()
+    }
+
+    /**
+     * 
+     * @returns {HSTRING} 
+     */
+    get_Name() {
+        value := HSTRING()
+        result := ComCall(6, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @param {HSTRING} value 
+     * @returns {HRESULT} 
+     */
+    put_Name(value) {
+        if(value is String) {
+            pin := HSTRING.Create(value)
+            value := pin.Value
+        }
+        value := value is Win32Handle ? NumGet(value, "ptr") : value
+
+        result := ComCall(7, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    get_AuthorizationStatus() {
+        result := ComCall(8, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @param {Integer} value 
+     * @returns {HRESULT} 
+     */
+    put_AuthorizationStatus(value) {
+        result := ComCall(9, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {IVectorView<MiracastReceiverConnection>} 
+     */
+    GetConnections() {
+        result := ComCall(10, this, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IVectorView(MiracastReceiverConnection, result_)
+    }
+
+    /**
+     * 
+     * @returns {HSTRING} 
+     */
+    get_MacAddress() {
+        value := HSTRING()
+        result := ComCall(11, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+
+    /**
+     * 
+     * @returns {DateTime} 
+     */
+    get_LastConnectionTime() {
+        value := DateTime()
+        result := ComCall(12, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
+    }
+}

@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Real32 types. (MI_Real32A)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_real32a
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_real32a
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

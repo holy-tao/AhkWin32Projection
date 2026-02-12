@@ -35,7 +35,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {ICorProfilerThreadEnum} 
      */
     EnumThreads() {
-        result := ComCall(71, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(71, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICorProfilerThreadEnum(ppEnum)
     }
 
@@ -44,7 +48,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {HRESULT} 
      */
     InitializeCurrentThread() {
-        result := ComCall(72, this, "HRESULT")
+        result := ComCall(72, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(73, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "HRESULT")
+        result := ComCall(73, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,8 +86,12 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return status_
     }
 
     /**
@@ -90,7 +106,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
     GetCodeInfo3(functionID, reJitId, cCodeInfos, pcCodeInfos, codeInfos) {
         pcCodeInfosMarshal := pcCodeInfos is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(75, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "HRESULT")
+        result := ComCall(75, this, "ptr", functionID, "ptr", reJitId, "uint", cCodeInfos, pcCodeInfosMarshal, pcCodeInfos, "ptr", codeInfos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +126,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
         pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
         pReJitIdMarshal := pReJitId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(76, this, ipMarshal, ip, pFunctionIdMarshal, pFunctionId, pReJitIdMarshal, pReJitId, "HRESULT")
+        result := ComCall(76, this, ipMarshal, ip, pFunctionIdMarshal, pFunctionId, pReJitIdMarshal, pReJitId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,7 +146,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
         pcReJitIdsMarshal := pcReJitIds is VarRef ? "uint*" : "ptr"
         reJitIdsMarshal := reJitIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(77, this, "ptr", functionId, "uint", cReJitIds, pcReJitIdsMarshal, pcReJitIds, reJitIdsMarshal, reJitIds, "HRESULT")
+        result := ComCall(77, this, "ptr", functionId, "uint", cReJitIds, pcReJitIdsMarshal, pcReJitIds, reJitIdsMarshal, reJitIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +166,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
     GetILToNativeMapping2(functionId, reJitId, cMap, pcMap, map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
+        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,17 +179,25 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @returns {ICorProfilerFunctionEnum} 
      */
     EnumJITedFunctions2() {
-        result := ComCall(79, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(79, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICorProfilerFunctionEnum(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer} objectId 
+     * @param {Pointer} objectId_ 
      * @returns {Pointer} 
      */
-    GetObjectSize2(objectId) {
-        result := ComCall(80, this, "ptr", objectId, "ptr*", &pcSize := 0, "HRESULT")
+    GetObjectSize2(objectId_) {
+        result := ComCall(80, this, "ptr", objectId_, "ptr*", &pcSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcSize
     }
 }

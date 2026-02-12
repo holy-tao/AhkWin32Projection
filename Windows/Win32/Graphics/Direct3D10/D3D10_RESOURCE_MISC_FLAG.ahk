@@ -11,7 +11,7 @@
  * 
  * D3D10_RESOURCE_MISC_SHARED and D3D10_RESOURCE_MISC_SHARED_KEYEDMUTEX are mutually exclusive flags: 
  *       either one may be set in the resource creation calls but not both simultaneously.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_resource_misc_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_resource_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

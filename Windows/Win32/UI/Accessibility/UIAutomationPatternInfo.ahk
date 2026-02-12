@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a custom control pattern.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationpatterninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/ns-uiautomationcore-uiautomationpatterninfo
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

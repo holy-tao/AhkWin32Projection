@@ -30,13 +30,20 @@ class IConstructableConcept extends IUnknown{
     static VTableNames => ["CreateInstance"]
 
     /**
-     * 
+     * The CWbemGlueFactory class is part of the WMI Provider Framework. The Provider Framework implements methods of this interface internally to create new instances of classes for the provider.
+     * @remarks
+     * The destructor for the class is <b>CWbemGlueFactory::~CWbemGlueFactory.</b>
      * @param {Integer} argCount 
      * @param {Pointer<IModelObject>} ppArguments 
      * @returns {IModelObject} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(argCount, ppArguments) {
-        result := ComCall(3, this, "uint", argCount, "ptr*", ppArguments, "ptr*", &ppInstance := 0, "HRESULT")
+        result := ComCall(3, this, "uint", argCount, "ptr*", ppArguments, "ptr*", &ppInstance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IModelObject(ppInstance)
     }
 }

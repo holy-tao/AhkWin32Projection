@@ -1,0 +1,53 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.Security.Cryptography.Certificates
+ * @version v4.0.30319
+ */
+class FNCERTSRVBACKUPREAD extends IUnknown {
+
+    static sizeof => A_PtrSize
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["Invoke"]
+
+    /**
+     * Invokes helper functionality for the IDispatch interface.
+     * @param {Pointer<Void>} hbc 
+     * @param {Pointer<Void>} pvBuffer 
+     * @param {Integer} cbBuffer 
+     * @param {Pointer<Integer>} pcbRead 
+     * @returns {HRESULT} If the method succeeds, it returns S\_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * 
+     * 
+     * | Return code                                                                                  | Description                                      |
+     * |----------------------------------------------------------------------------------------------|--------------------------------------------------|
+     * | <dl> <dt>**E\_INVALIDARG**</dt> </dl> | The value for *pDispatch* is invalid.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/invokeidispatch
+     */
+    Invoke(hbc, pvBuffer, cbBuffer, pcbRead) {
+        hbcMarshal := hbc is VarRef ? "ptr" : "ptr"
+        pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
+        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(3, this, hbcMarshal, hbc, pvBufferMarshal, pvBuffer, "uint", cbBuffer, pcbReadMarshal, pcbRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result
+    }
+}

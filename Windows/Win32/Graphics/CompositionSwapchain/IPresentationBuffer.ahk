@@ -5,8 +5,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Describes a presentation buffer that has been registered with a presentation manager.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationbuffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nn-presentation-ipresentationbuffer
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */
@@ -32,23 +34,39 @@ class IPresentationBuffer extends IUnknown{
     static VTableNames => ["GetAvailableEvent", "IsAvailable"]
 
     /**
+     * Gets a handle to an event that signals when the buffer is available.
+     * @remarks
+     * The caller is responsible for closing the returned event.
      * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-getavailableevent
+     * An application can wait on and query this event, but it cannot modify its state. The presentation manager controls this event.
+     * @returns {HANDLE} Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * 
+     * A handle to the event.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentationbuffer-getavailableevent
      */
     GetAvailableEvent() {
         availableEventHandle := HANDLE()
-        result := ComCall(3, this, "ptr", availableEventHandle, "HRESULT")
+        result := ComCall(3, this, "ptr", availableEventHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return availableEventHandle
     }
 
     /**
+     * Gets a value that indicates whether or not this buffer is available for use by the producer.
+     * @returns {Integer} Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationbuffer-isavailable
+     * `TRUE` if the buffer is available; otherwise, `FALSE`.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentationbuffer-isavailable
      */
     IsAvailable() {
-        result := ComCall(4, this, "char*", &isAvailable := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &isAvailable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isAvailable
     }
 }

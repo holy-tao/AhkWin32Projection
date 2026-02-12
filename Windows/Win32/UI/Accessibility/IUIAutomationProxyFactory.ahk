@@ -7,7 +7,7 @@
 
 /**
  * Exposes properties and methods of an object that creates a Microsoft UI Automation provider for UI elements that do not have native support for UI Automation. This interface is implemented by proxies.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactory
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -41,7 +41,9 @@ class IUIAutomationProxyFactory extends IUnknown{
 
     /**
      * Creates a proxy object that provides Microsoft UI Automation support for a UI element.
-     * @param {HWND} hwnd Type: <b>UIA_HWND</b>
+     * @remarks
+     * The <i>idObject</i> parameter is normally <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_CLIENT</a>, and <i>idChild</i> is normally CHILDID_SELF. However, when the method is called in response to a registered WinEvent, these values are from the event, specifying the subelement that raised the event.
+     * @param {HWND} hwnd_ Type: <b>UIA_HWND</b>
      * 
      * The window handle of the UI element.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
@@ -53,23 +55,31 @@ class IUIAutomationProxyFactory extends IUnknown{
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives a pointer to the proxy object.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-createprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-createprovider
      */
-    CreateProvider(hwnd, idObject, idChild) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateProvider(hwnd_, idObject, idChild) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(3, this, "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", &provider := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hwnd_, "int", idObject, "int", idChild, "ptr*", &provider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRawElementProviderSimple(provider)
     }
 
     /**
      * Retrieves the identifier of the proxy factory.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-get_proxyfactoryid
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-get_proxyfactoryid
      */
     get_ProxyFactoryId() {
         factoryId := BSTR()
-        result := ComCall(4, this, "ptr", factoryId, "HRESULT")
+        result := ComCall(4, this, "ptr", factoryId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return factoryId
     }
 }

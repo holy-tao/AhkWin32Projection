@@ -489,7 +489,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_all() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -498,7 +502,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElement} 
      */
     get_body() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -507,7 +515,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElement} 
      */
     get_activeElement() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -516,7 +528,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_images() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -525,7 +541,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_applets() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -534,7 +554,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_links() {
-        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -543,7 +567,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_forms() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -552,7 +580,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_anchors() {
-        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -562,9 +594,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_title(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -574,7 +613,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_title() {
         p := BSTR()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -583,7 +626,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_scripts() {
-        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -593,9 +640,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_designMode(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -605,7 +659,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_designMode() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -614,7 +672,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLSelectionObject} 
      */
     get_selection() {
-        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLSelectionObject(p)
     }
 
@@ -624,7 +686,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_readyState() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -633,7 +699,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLFramesCollection2} 
      */
     get_frames() {
-        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFramesCollection2(p)
     }
 
@@ -642,7 +712,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_embeds() {
-        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -651,7 +725,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElementCollection} 
      */
     get_plugins() {
-        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElementCollection(p)
     }
 
@@ -661,7 +739,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_alinkColor(v) {
-        result := ComCall(26, this, "ptr", v, "HRESULT")
+        result := ComCall(26, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -671,7 +753,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_alinkColor() {
         p := VARIANT()
-        result := ComCall(27, this, "ptr", p, "HRESULT")
+        result := ComCall(27, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -681,7 +767,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(28, this, "ptr", v, "HRESULT")
+        result := ComCall(28, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -691,7 +781,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(29, this, "ptr", p, "HRESULT")
+        result := ComCall(29, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -701,7 +795,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_fgColor(v) {
-        result := ComCall(30, this, "ptr", v, "HRESULT")
+        result := ComCall(30, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -711,7 +809,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_fgColor() {
         p := VARIANT()
-        result := ComCall(31, this, "ptr", p, "HRESULT")
+        result := ComCall(31, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -721,7 +823,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_linkColor(v) {
-        result := ComCall(32, this, "ptr", v, "HRESULT")
+        result := ComCall(32, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -731,7 +837,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_linkColor() {
         p := VARIANT()
-        result := ComCall(33, this, "ptr", p, "HRESULT")
+        result := ComCall(33, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -741,7 +851,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_vlinkColor(v) {
-        result := ComCall(34, this, "ptr", v, "HRESULT")
+        result := ComCall(34, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -751,7 +865,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_vlinkColor() {
         p := VARIANT()
-        result := ComCall(35, this, "ptr", p, "HRESULT")
+        result := ComCall(35, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -761,7 +879,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_referrer() {
         p := BSTR()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -770,7 +892,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLLocation} 
      */
     get_location() {
-        result := ComCall(37, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(37, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLLocation(p)
     }
 
@@ -780,7 +906,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_lastModified() {
         p := BSTR()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -790,9 +920,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_URL(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -802,7 +939,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_URL() {
         p := BSTR()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        result := ComCall(40, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -812,9 +953,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_domain(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", v, "HRESULT")
+        result := ComCall(41, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -824,7 +972,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_domain() {
         p := BSTR()
-        result := ComCall(42, this, "ptr", p, "HRESULT")
+        result := ComCall(42, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -834,9 +986,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_cookie(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", v, "HRESULT")
+        result := ComCall(43, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -846,7 +1005,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_cookie() {
         p := BSTR()
-        result := ComCall(44, this, "ptr", p, "HRESULT")
+        result := ComCall(44, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -856,7 +1019,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_expando(v) {
-        result := ComCall(45, this, "short", v, "HRESULT")
+        result := ComCall(45, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -865,7 +1032,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     get_expando() {
-        result := ComCall(46, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(46, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -875,9 +1046,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_charset(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", v, "HRESULT")
+        result := ComCall(47, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -887,7 +1065,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_charset() {
         p := BSTR()
-        result := ComCall(48, this, "ptr", p, "HRESULT")
+        result := ComCall(48, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -897,9 +1079,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_defaultCharset(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(49, this, "ptr", v, "HRESULT")
+        result := ComCall(49, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -909,7 +1098,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_defaultCharset() {
         p := BSTR()
-        result := ComCall(50, this, "ptr", p, "HRESULT")
+        result := ComCall(50, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -919,7 +1112,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_mimeType() {
         p := BSTR()
-        result := ComCall(51, this, "ptr", p, "HRESULT")
+        result := ComCall(51, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -929,7 +1126,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_fileSize() {
         p := BSTR()
-        result := ComCall(52, this, "ptr", p, "HRESULT")
+        result := ComCall(52, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -939,7 +1140,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_fileCreatedDate() {
         p := BSTR()
-        result := ComCall(53, this, "ptr", p, "HRESULT")
+        result := ComCall(53, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -949,7 +1154,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_fileModifiedDate() {
         p := BSTR()
-        result := ComCall(54, this, "ptr", p, "HRESULT")
+        result := ComCall(54, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -959,7 +1168,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_fileUpdatedDate() {
         p := BSTR()
-        result := ComCall(55, this, "ptr", p, "HRESULT")
+        result := ComCall(55, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -969,7 +1182,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_security() {
         p := BSTR()
-        result := ComCall(56, this, "ptr", p, "HRESULT")
+        result := ComCall(56, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -979,7 +1196,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_protocol() {
         p := BSTR()
-        result := ComCall(57, this, "ptr", p, "HRESULT")
+        result := ComCall(57, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -989,7 +1210,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_nameProp() {
         p := BSTR()
-        result := ComCall(58, this, "ptr", p, "HRESULT")
+        result := ComCall(58, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -999,7 +1224,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     write(psarray) {
-        result := ComCall(59, this, "ptr", psarray, "HRESULT")
+        result := ComCall(59, this, "ptr", psarray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1009,40 +1238,109 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     writeln(psarray) {
-        result := ComCall(60, this, "ptr", psarray, "HRESULT")
+        result := ComCall(60, this, "ptr", psarray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The open command initializes a device. All MCI devices recognize this command.
+     * @remarks
+     * MCI reserves "cdaudio" for the CD audio device type, "videodisc" for the videodisc device type, "sequencer" for the MIDI sequencer device type, "AVIVideo" for the digital-video device type, and "waveaudio" for the waveform-audio device type.
      * 
+     * As an alternative to the "type" flag, MCI can select the device based on the extension used by the file, as recorded in the registry or the \[mci extension\] section of the SYSTEM.INI file.
+     * 
+     * MCI can open AVI files by using a file-interface pointer or a stream-interface pointer. To open a file by using either type of interface pointer, specify an at sign (@) followed by the interface pointer in place of the file or device name for the *lpszDevice* parameter. For more information about the file and stream interfaces, see " [AVIFile Functions and Macros](avifile-functions-and-macros.md)."
+     * 
+     * The following command opens the "mysound" device.
+     * 
+     * ``` syntax
+     * open new type waveaudio alias mysound buffer 6
+     * ```
+     * 
+     * With device name "new", the waveform driver prepares a new waveform resource. The command assigns the device alias "mysound" and specifies a 6-second buffer.
+     * 
+     * You can eliminate the "type" flag if you combine the device name with the filename. MCI recognizes this combination when you use the following syntax:
+     * 
+     * *device\_name* ! *element\_name*
+     * 
+     * The exclamation point separates the device name from the filename. The exclamation point should not be delimited by white spaces.
+     * 
+     * The following example opens the RIGHT.WAV file using the "waveaudio" device.
+     * 
+     * ``` syntax
+     * open waveaudio!right.wav
+     * ```
+     * 
+     * The MCIWAVE driver requires an asynchronous waveform-audio device.
      * @param {BSTR} url 
      * @param {VARIANT} name 
      * @param {VARIANT} features 
      * @param {VARIANT} replace 
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/open
      */
     open(url, name, features, replace) {
-        url := url is String ? BSTR.Alloc(url).Value : url
+        if(url is String) {
+            pin := BSTR.Alloc(url)
+            url := pin.Value
+        }
 
-        result := ComCall(61, this, "ptr", url, "ptr", name, "ptr", features, "ptr", replace, "ptr*", &pomWindowResult := 0, "HRESULT")
+        result := ComCall(61, this, "ptr", url, "ptr", name, "ptr", features, "ptr", replace, "ptr*", &pomWindowResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pomWindowResult)
     }
 
     /**
+     * The close command closes the device or file and any associated resources. MCI unloads a device when all instances of the device or all files are closed. All MCI devices recognize this command.
+     * @remarks
+     * To close all devices opened by your application, specify the "all" device identifier for the *lpszDeviceID* parameter.
      * 
-     * @returns {HRESULT} 
+     * Closing the **cdaudio** device stops audio playback.
+     * 
+     * **Windows 2000/XP:** If the **cdaudio** device is playing, closing the **cdaudio** device does not cause the audio to stop playing. Send the [stop](stop.md) command first.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/close
      */
     close() {
-        result := ComCall(62, this, "HRESULT")
+        result := ComCall(62, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * clearBatch Method (SQLServerStatement)
+     * @remarks
+     * This clearBatch method is specified by the clearBatch method in the java.sql.Statement interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/clearbatch-method-sqlserverstatement
      */
     clear() {
-        result := ComCall(63, this, "HRESULT")
+        result := ComCall(63, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1052,9 +1350,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     queryCommandSupported(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
-        result := ComCall(64, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(64, this, "ptr", cmdID, "short*", &pfRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRet
     }
 
@@ -1064,9 +1369,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     queryCommandEnabled(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
-        result := ComCall(65, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(65, this, "ptr", cmdID, "short*", &pfRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRet
     }
 
@@ -1076,9 +1388,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     queryCommandState(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
-        result := ComCall(66, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(66, this, "ptr", cmdID, "short*", &pfRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRet
     }
 
@@ -1088,9 +1407,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     queryCommandIndeterm(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
-        result := ComCall(67, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(67, this, "ptr", cmdID, "short*", &pfRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRet
     }
 
@@ -1100,10 +1426,17 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {BSTR} 
      */
     queryCommandText(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
         pcmdText := BSTR()
-        result := ComCall(68, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
+        result := ComCall(68, this, "ptr", cmdID, "ptr", pcmdText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcmdText
     }
 
@@ -1113,10 +1446,17 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT} 
      */
     queryCommandValue(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
         pcmdValue := VARIANT()
-        result := ComCall(69, this, "ptr", cmdID, "ptr", pcmdValue, "HRESULT")
+        result := ComCall(69, this, "ptr", cmdID, "ptr", pcmdValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcmdValue
     }
 
@@ -1128,9 +1468,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     execCommand(cmdID, showUI, value) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
-        result := ComCall(70, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(70, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRet
     }
 
@@ -1140,9 +1487,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {VARIANT_BOOL} 
      */
     execCommandShowHelp(cmdID) {
-        cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
+        if(cmdID is String) {
+            pin := BSTR.Alloc(cmdID)
+            cmdID := pin.Value
+        }
 
-        result := ComCall(71, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        result := ComCall(71, this, "ptr", cmdID, "short*", &pfRet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfRet
     }
 
@@ -1152,9 +1506,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElement} 
      */
     createElement(eTag) {
-        eTag := eTag is String ? BSTR.Alloc(eTag).Value : eTag
+        if(eTag is String) {
+            pin := BSTR.Alloc(eTag)
+            eTag := pin.Value
+        }
 
-        result := ComCall(72, this, "ptr", eTag, "ptr*", &newElem := 0, "HRESULT")
+        result := ComCall(72, this, "ptr", eTag, "ptr*", &newElem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(newElem)
     }
 
@@ -1164,7 +1525,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onhelp(v) {
-        result := ComCall(73, this, "ptr", v, "HRESULT")
+        result := ComCall(73, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1174,7 +1539,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onhelp() {
         p := VARIANT()
-        result := ComCall(74, this, "ptr", p, "HRESULT")
+        result := ComCall(74, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1184,7 +1553,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onclick(v) {
-        result := ComCall(75, this, "ptr", v, "HRESULT")
+        result := ComCall(75, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1194,7 +1567,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onclick() {
         p := VARIANT()
-        result := ComCall(76, this, "ptr", p, "HRESULT")
+        result := ComCall(76, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1204,7 +1581,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_ondblclick(v) {
-        result := ComCall(77, this, "ptr", v, "HRESULT")
+        result := ComCall(77, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1214,7 +1595,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_ondblclick() {
         p := VARIANT()
-        result := ComCall(78, this, "ptr", p, "HRESULT")
+        result := ComCall(78, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1224,7 +1609,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onkeyup(v) {
-        result := ComCall(79, this, "ptr", v, "HRESULT")
+        result := ComCall(79, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1234,7 +1623,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onkeyup() {
         p := VARIANT()
-        result := ComCall(80, this, "ptr", p, "HRESULT")
+        result := ComCall(80, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1244,7 +1637,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onkeydown(v) {
-        result := ComCall(81, this, "ptr", v, "HRESULT")
+        result := ComCall(81, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1254,7 +1651,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onkeydown() {
         p := VARIANT()
-        result := ComCall(82, this, "ptr", p, "HRESULT")
+        result := ComCall(82, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1264,7 +1665,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onkeypress(v) {
-        result := ComCall(83, this, "ptr", v, "HRESULT")
+        result := ComCall(83, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1274,7 +1679,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onkeypress() {
         p := VARIANT()
-        result := ComCall(84, this, "ptr", p, "HRESULT")
+        result := ComCall(84, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1284,7 +1693,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onmouseup(v) {
-        result := ComCall(85, this, "ptr", v, "HRESULT")
+        result := ComCall(85, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1294,7 +1707,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onmouseup() {
         p := VARIANT()
-        result := ComCall(86, this, "ptr", p, "HRESULT")
+        result := ComCall(86, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1304,7 +1721,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onmousedown(v) {
-        result := ComCall(87, this, "ptr", v, "HRESULT")
+        result := ComCall(87, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1314,7 +1735,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onmousedown() {
         p := VARIANT()
-        result := ComCall(88, this, "ptr", p, "HRESULT")
+        result := ComCall(88, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1324,7 +1749,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onmousemove(v) {
-        result := ComCall(89, this, "ptr", v, "HRESULT")
+        result := ComCall(89, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1334,7 +1763,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onmousemove() {
         p := VARIANT()
-        result := ComCall(90, this, "ptr", p, "HRESULT")
+        result := ComCall(90, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1344,7 +1777,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onmouseout(v) {
-        result := ComCall(91, this, "ptr", v, "HRESULT")
+        result := ComCall(91, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1354,7 +1791,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onmouseout() {
         p := VARIANT()
-        result := ComCall(92, this, "ptr", p, "HRESULT")
+        result := ComCall(92, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1364,7 +1805,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onmouseover(v) {
-        result := ComCall(93, this, "ptr", v, "HRESULT")
+        result := ComCall(93, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1374,7 +1819,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onmouseover() {
         p := VARIANT()
-        result := ComCall(94, this, "ptr", p, "HRESULT")
+        result := ComCall(94, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1384,7 +1833,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onreadystatechange(v) {
-        result := ComCall(95, this, "ptr", v, "HRESULT")
+        result := ComCall(95, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1394,7 +1847,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onreadystatechange() {
         p := VARIANT()
-        result := ComCall(96, this, "ptr", p, "HRESULT")
+        result := ComCall(96, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1404,7 +1861,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onafterupdate(v) {
-        result := ComCall(97, this, "ptr", v, "HRESULT")
+        result := ComCall(97, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1414,7 +1875,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onafterupdate() {
         p := VARIANT()
-        result := ComCall(98, this, "ptr", p, "HRESULT")
+        result := ComCall(98, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1424,7 +1889,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onrowexit(v) {
-        result := ComCall(99, this, "ptr", v, "HRESULT")
+        result := ComCall(99, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1434,7 +1903,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onrowexit() {
         p := VARIANT()
-        result := ComCall(100, this, "ptr", p, "HRESULT")
+        result := ComCall(100, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1444,7 +1917,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onrowenter(v) {
-        result := ComCall(101, this, "ptr", v, "HRESULT")
+        result := ComCall(101, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1454,7 +1931,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onrowenter() {
         p := VARIANT()
-        result := ComCall(102, this, "ptr", p, "HRESULT")
+        result := ComCall(102, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1464,7 +1945,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_ondragstart(v) {
-        result := ComCall(103, this, "ptr", v, "HRESULT")
+        result := ComCall(103, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1474,7 +1959,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_ondragstart() {
         p := VARIANT()
-        result := ComCall(104, this, "ptr", p, "HRESULT")
+        result := ComCall(104, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1484,7 +1973,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onselectstart(v) {
-        result := ComCall(105, this, "ptr", v, "HRESULT")
+        result := ComCall(105, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1494,7 +1987,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onselectstart() {
         p := VARIANT()
-        result := ComCall(106, this, "ptr", p, "HRESULT")
+        result := ComCall(106, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1505,7 +2002,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLElement} 
      */
     elementFromPoint(x, y) {
-        result := ComCall(107, this, "int", x, "int", y, "ptr*", &elementHit := 0, "HRESULT")
+        result := ComCall(107, this, "int", x, "int", y, "ptr*", &elementHit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(elementHit)
     }
 
@@ -1514,7 +2015,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLWindow2} 
      */
     get_parentWindow() {
-        result := ComCall(108, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(108, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -1523,7 +2028,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLStyleSheetsCollection} 
      */
     get_styleSheets() {
-        result := ComCall(109, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(109, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetsCollection(p)
     }
 
@@ -1533,7 +2042,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onbeforeupdate(v) {
-        result := ComCall(110, this, "ptr", v, "HRESULT")
+        result := ComCall(110, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1543,7 +2056,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onbeforeupdate() {
         p := VARIANT()
-        result := ComCall(111, this, "ptr", p, "HRESULT")
+        result := ComCall(111, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -1553,7 +2070,11 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {HRESULT} 
      */
     put_onerrorupdate(v) {
-        result := ComCall(112, this, "ptr", v, "HRESULT")
+        result := ComCall(112, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1563,18 +2084,31 @@ class IHTMLDocument2 extends IHTMLDocument{
      */
     get_onerrorupdate() {
         p := VARIANT()
-        result := ComCall(113, this, "ptr", p, "HRESULT")
+        result := ComCall(113, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        String := BSTR()
-        result := ComCall(114, this, "ptr", String, "HRESULT")
-        return String
+        String_ := BSTR()
+        result := ComCall(114, this, "ptr", String_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return String_
     }
 
     /**
@@ -1584,9 +2118,16 @@ class IHTMLDocument2 extends IHTMLDocument{
      * @returns {IHTMLStyleSheet} 
      */
     createStyleSheet(bstrHref, lIndex) {
-        bstrHref := bstrHref is String ? BSTR.Alloc(bstrHref).Value : bstrHref
+        if(bstrHref is String) {
+            pin := BSTR.Alloc(bstrHref)
+            bstrHref := pin.Value
+        }
 
-        result := ComCall(115, this, "ptr", bstrHref, "int", lIndex, "ptr*", &ppnewStyleSheet := 0, "HRESULT")
+        result := ComCall(115, this, "ptr", bstrHref, "int", lIndex, "ptr*", &ppnewStyleSheet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheet(ppnewStyleSheet)
     }
 }

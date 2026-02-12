@@ -50,7 +50,11 @@ class IWMIExtension extends IDispatch{
      */
     get_WMIObjectPath() {
         strWMIObjectPath := BSTR()
-        result := ComCall(7, this, "ptr", strWMIObjectPath, "HRESULT")
+        result := ComCall(7, this, "ptr", strWMIObjectPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strWMIObjectPath
     }
 
@@ -59,7 +63,11 @@ class IWMIExtension extends IDispatch{
      * @returns {ISWbemObject} 
      */
     GetWMIObject() {
-        result := ComCall(8, this, "ptr*", &objWMIObject := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &objWMIObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObject(objWMIObject)
     }
 
@@ -68,7 +76,11 @@ class IWMIExtension extends IDispatch{
      * @returns {ISWbemServices} 
      */
     GetWMIServices() {
-        result := ComCall(9, this, "ptr*", &objWMIServices := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &objWMIServices := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemServices(objWMIServices)
     }
 }

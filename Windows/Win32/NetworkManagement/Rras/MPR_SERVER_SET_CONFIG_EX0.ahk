@@ -13,7 +13,7 @@
 
 /**
  * Used to get or set the tunnel configuration information of a RAS server. (MPR_SERVER_SET_CONFIG_EX0)
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_set_config_ex0
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-mpr_server_set_config_ex0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

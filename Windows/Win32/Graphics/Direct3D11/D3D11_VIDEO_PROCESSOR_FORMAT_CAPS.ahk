@@ -10,7 +10,7 @@
  *       
  * 
  * Similarly, a device that supports deinterlacing is not required to support deinterlacing of palettized formats. This capability is indicated by the <b>D3D11_VIDEO_PROCESSOR_FORMAT_CAPS_PALETTE_INTERLACED</b> flag.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_format_caps
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_video_processor_format_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

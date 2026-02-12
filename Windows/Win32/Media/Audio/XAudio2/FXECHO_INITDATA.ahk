@@ -10,7 +10,7 @@
  * <div> </div>
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * @see https://learn.microsoft.com/windows/win32/api/xapofx/ns-xapofx-fxecho_initdata
+ * @see https://learn.microsoft.com/windows/win32/api//content/xapofx/ns-xapofx-fxecho_initdata
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

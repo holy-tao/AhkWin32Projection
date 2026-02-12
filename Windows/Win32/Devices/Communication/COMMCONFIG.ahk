@@ -7,7 +7,7 @@
  * @remarks
  * If the provider subtype is PST_RS232 or PST_PARALLELPORT, the <b>wcProviderData</b> member is omitted. If the provider subtype is PST_MODEM, the <b>wcProviderData</b> member contains a 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mcx/ns-mcx-modemsettings">MODEMSETTINGS</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-commconfig
  * @namespace Windows.Win32.Devices.Communication
  * @version v4.0.30319
  */

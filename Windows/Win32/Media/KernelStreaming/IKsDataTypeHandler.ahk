@@ -39,7 +39,11 @@ class IKsDataTypeHandler extends IUnknown{
     KsCompleteIoOperation(Sample, StreamHeader, IoOperation, Cancelled) {
         StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, "int", IoOperation, "int", Cancelled, "HRESULT")
+        result := ComCall(3, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, "int", IoOperation, "int", Cancelled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IKsDataTypeHandler extends IUnknown{
     KsIsMediaTypeInRanges(DataRanges) {
         DataRangesMarshal := DataRanges is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, DataRangesMarshal, DataRanges, "HRESULT")
+        result := ComCall(4, this, DataRangesMarshal, DataRanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class IKsDataTypeHandler extends IUnknown{
     KsPrepareIoOperation(Sample, StreamHeader, IoOperation) {
         StreamHeaderMarshal := StreamHeader is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, "int", IoOperation, "HRESULT")
+        result := ComCall(5, this, "ptr", Sample, StreamHeaderMarshal, StreamHeader, "int", IoOperation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +86,11 @@ class IKsDataTypeHandler extends IUnknown{
      * @returns {Integer} 
      */
     KsQueryExtendedSize() {
-        result := ComCall(6, this, "uint*", &ExtendedSize := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &ExtendedSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ExtendedSize
     }
 
@@ -84,7 +100,11 @@ class IKsDataTypeHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     KsSetMediaType(AmMediaType) {
-        result := ComCall(7, this, "ptr", AmMediaType, "HRESULT")
+        result := ComCall(7, this, "ptr", AmMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

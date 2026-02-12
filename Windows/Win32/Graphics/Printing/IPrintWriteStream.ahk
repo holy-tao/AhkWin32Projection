@@ -35,13 +35,18 @@ class IPrintWriteStream extends IUnknown{
      * @returns {Integer} 
      */
     WriteBytes(pvBuffer, cbBuffer) {
-        result := ComCall(3, this, "ptr", pvBuffer, "uint", cbBuffer, "uint*", &pcbWritten := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pvBuffer, "uint", cbBuffer, "uint*", &pcbWritten := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbWritten
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
         ComCall(4, this)

@@ -32,11 +32,16 @@ class IDirectDraw4 extends IUnknown{
     static VTableNames => ["Compact", "CreateClipper", "CreatePalette", "CreateSurface", "DuplicateSurface", "EnumDisplayModes", "EnumSurfaces", "FlipToGDISurface", "GetCaps", "GetDisplayMode", "GetFourCCCodes", "GetGDISurface", "GetMonitorFrequency", "GetScanLine", "GetVerticalBlankStatus", "Initialize", "RestoreDisplayMode", "SetCooperativeLevel", "SetDisplayMode", "WaitForVerticalBlank", "GetAvailableVidMem", "GetSurfaceFromDC", "RestoreAllSurfaces", "TestCooperativeLevel", "GetDeviceIdentifier"]
 
     /**
-     * 
+     * Learn more about: CompactGrbit enumeration
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/compactgrbit-enumeration
      */
     Compact() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,20 +52,34 @@ class IDirectDraw4 extends IUnknown{
      * @returns {IDirectDrawClipper} 
      */
     CreateClipper(param0, param2) {
-        result := ComCall(4, this, "uint", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        result := ComCall(4, this, "uint", param0, "ptr*", &param1 := 0, "ptr", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawClipper(param1)
     }
 
     /**
      * The CreatePalette function creates a logical palette.
+     * @remarks
+     * An application can determine whether a device supports palette operations by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a> function and specifying the RASTERCAPS constant.
+     * 
+     * Once an application creates a logical palette, it can select that palette into a device context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectpalette">SelectPalette</a> function. A palette selected into a device context can be realized by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-realizepalette">RealizePalette</a> function.
+     * 
+     * When you no longer need the palette, call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deleteobject">DeleteObject</a> function to delete it.
      * @param {Integer} param0 
      * @param {Pointer<PALETTEENTRY>} param1 
      * @param {IUnknown} param3 
      * @returns {IDirectDrawPalette} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createpalette
      */
     CreatePalette(param0, param1, param3) {
-        result := ComCall(5, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        result := ComCall(5, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawPalette(param2)
     }
 
@@ -71,7 +90,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {IDirectDrawSurface4} 
      */
     CreateSurface(param0, param2) {
-        result := ComCall(6, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "HRESULT")
+        result := ComCall(6, this, "ptr", param0, "ptr*", &param1 := 0, "ptr", param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawSurface4(param1)
     }
 
@@ -81,7 +104,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {IDirectDrawSurface4} 
      */
     DuplicateSurface(param0) {
-        result := ComCall(7, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", param0, "ptr*", &param1 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawSurface4(param1)
     }
 
@@ -96,7 +123,11 @@ class IDirectDraw4 extends IUnknown{
     EnumDisplayModes(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(8, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +142,11 @@ class IDirectDraw4 extends IUnknown{
     EnumSurfaces(param0, param1, param2, param3) {
         param2Marshal := param2 is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(9, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "HRESULT")
+        result := ComCall(9, this, "uint", param0, "ptr", param1, param2Marshal, param2, "ptr", param3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +155,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     FlipToGDISurface() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +170,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCaps(param0, param1) {
-        result := ComCall(11, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(11, this, "ptr", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,7 +184,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDisplayMode(param0) {
-        result := ComCall(12, this, "ptr", param0, "HRESULT")
+        result := ComCall(12, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -155,7 +202,11 @@ class IDirectDraw4 extends IUnknown{
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, param0Marshal, param0, param1Marshal, param1, "HRESULT")
+        result := ComCall(13, this, param0Marshal, param0, param1Marshal, param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +215,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {IDirectDrawSurface4} 
      */
     GetGDISurface() {
-        result := ComCall(14, this, "ptr*", &param0 := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &param0 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawSurface4(param0)
     }
 
@@ -176,7 +231,11 @@ class IDirectDraw4 extends IUnknown{
     GetMonitorFrequency(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(15, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,7 +247,11 @@ class IDirectDraw4 extends IUnknown{
     GetScanLine(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(16, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -200,12 +263,29 @@ class IDirectDraw4 extends IUnknown{
     GetVerticalBlankStatus(param0) {
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, param0Marshal, param0, "HRESULT")
+        result := ComCall(17, this, param0Marshal, param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {Pointer<Guid>} param0 
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
@@ -218,10 +298,14 @@ class IDirectDraw4 extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(param0) {
-        result := ComCall(18, this, "ptr", param0, "HRESULT")
+        result := ComCall(18, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +314,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     RestoreDisplayMode() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -243,7 +331,11 @@ class IDirectDraw4 extends IUnknown{
     SetCooperativeLevel(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := ComCall(20, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(20, this, "ptr", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -257,7 +349,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDisplayMode(param0, param1, param2, param3, param4) {
-        result := ComCall(21, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "uint", param4, "HRESULT")
+        result := ComCall(21, this, "uint", param0, "uint", param1, "uint", param2, "uint", param3, "uint", param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -270,7 +366,11 @@ class IDirectDraw4 extends IUnknown{
     WaitForVerticalBlank(param0, param1) {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
-        result := ComCall(22, this, "uint", param0, "ptr", param1, "HRESULT")
+        result := ComCall(22, this, "uint", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -285,7 +385,11 @@ class IDirectDraw4 extends IUnknown{
         param1Marshal := param1 is VarRef ? "uint*" : "ptr"
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "HRESULT")
+        result := ComCall(23, this, "ptr", param0, param1Marshal, param1, param2Marshal, param2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -297,7 +401,11 @@ class IDirectDraw4 extends IUnknown{
     GetSurfaceFromDC(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := ComCall(24, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", param0, "ptr*", &param1 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawSurface4(param1)
     }
 
@@ -306,7 +414,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     RestoreAllSurfaces() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -315,7 +427,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     TestCooperativeLevel() {
-        result := ComCall(26, this, "HRESULT")
+        result := ComCall(26, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -326,7 +442,11 @@ class IDirectDraw4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDeviceIdentifier(param0, param1) {
-        result := ComCall(27, this, "ptr", param0, "uint", param1, "HRESULT")
+        result := ComCall(27, this, "ptr", param0, "uint", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has a UI for reading information UI at the near caret.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfreadinginformationuielement
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfreadinginformationuielement
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -92,61 +92,85 @@ class ITfReadingInformationUIElement extends ITfUIElement{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreadinginformationuielement-getupdatedflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreadinginformationuielement-getupdatedflags
      */
     GetUpdatedFlags() {
-        result := ComCall(7, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
     /**
      * This method returns the target ITfContext of this reading information UI.
      * @returns {ITfContext} [out] A pointer to receive the target <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface of this UI element.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreadinginformationuielement-getcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreadinginformationuielement-getcontext
      */
     GetContext() {
-        result := ComCall(8, this, "ptr*", &ppic := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfContext(ppic)
     }
 
     /**
      * This method returns the string on the reading information UI.
-     * @returns {BSTR} [out] A pointer to the BSTR of the reading information string.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreadinginformationuielement-getstring
+     * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreadinginformationuielement-getstring
      */
     GetString() {
-        pstr := BSTR()
-        result := ComCall(9, this, "ptr", pstr, "HRESULT")
-        return pstr
+        pstr_ := BSTR()
+        result := ComCall(9, this, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pstr_
     }
 
     /**
      * The ITfReadingInformationUIElement::GetMaxReadingStringLength method returns the max string count of the reading information UI.
      * @returns {Integer} [out] A pointer to the max length of the reading information string.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreadinginformationuielement-getmaxreadingstringlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreadinginformationuielement-getmaxreadingstringlength
      */
     GetMaxReadingStringLength() {
-        result := ComCall(10, this, "uint*", &pcchMax := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pcchMax := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchMax
     }
 
     /**
      * This method returns the char index where the typing error occurs.
      * @returns {Integer} [out] A pointer to receive the char index where the typing error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreadinginformationuielement-geterrorindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreadinginformationuielement-geterrorindex
      */
     GetErrorIndex() {
-        result := ComCall(11, this, "uint*", &pErrorIndex := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pErrorIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pErrorIndex
     }
 
     /**
      * This method returns if the UI prefers to be shown in vertical order.
      * @returns {BOOL} [out] True if the UI prefers to be shown in the vertical order.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreadinginformationuielement-isverticalorderpreferred
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreadinginformationuielement-isverticalorderpreferred
      */
     IsVerticalOrderPreferred() {
-        result := ComCall(12, this, "int*", &pfVertical := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pfVertical := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVertical
     }
 }

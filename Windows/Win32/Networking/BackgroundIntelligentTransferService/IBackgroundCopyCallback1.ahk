@@ -5,7 +5,7 @@
 
 /**
  * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
- * @see https://docs.microsoft.com/windows/win32/api//qmgr/nn-qmgr-ibackgroundcopycallback1
+ * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nn-qmgr-ibackgroundcopycallback1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -40,30 +40,38 @@ class IBackgroundCopyCallback1 extends IUnknown{
      * @param {Integer} dwWin32Result Win32 error code. Valid only if the QM_STATUS_GROUP_ERROR <i>dwStatus</i> flag is set.
      * @param {Integer} dwTransportResult HTTP error code. Valid only if the QM_STATUS_GROUP_ERROR <i>dwStatus</i> flag is set.
      * @returns {HRESULT} This method should return <b>S_OK</b>; otherwise, the service continues to call this method until S_OK is returned. The interval at which the implementation is called is arbitrary.
-     * @see https://docs.microsoft.com/windows/win32/api//qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nf-qmgr-ibackgroundcopycallback1-onstatus
      */
     OnStatus(pGroup, pJob, dwFileIndex, dwStatus, dwNumOfRetries, dwWin32Result, dwTransportResult) {
-        result := ComCall(3, this, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwStatus, "uint", dwNumOfRetries, "uint", dwWin32Result, "uint", dwTransportResult, "HRESULT")
+        result := ComCall(3, this, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwStatus, "uint", dwNumOfRetries, "uint", dwWin32Result, "uint", dwTransportResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
      * @param {Integer} ProgressType 
      * @param {IBackgroundCopyGroup} pGroup 
      * @param {IBackgroundCopyJob1} pJob 
      * @param {Integer} dwFileIndex 
      * @param {Integer} dwProgressValue 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nn-qmgr-ibackgroundcopycallback1
      */
     OnProgress(ProgressType, pGroup, pJob, dwFileIndex, dwProgressValue) {
-        result := ComCall(4, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "HRESULT")
+        result := ComCall(4, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
      * @param {Integer} ProgressType 
      * @param {IBackgroundCopyGroup} pGroup 
      * @param {IBackgroundCopyJob1} pJob 
@@ -72,12 +80,16 @@ class IBackgroundCopyCallback1 extends IUnknown{
      * @param {Integer} dwByteArraySize 
      * @param {Pointer<Integer>} pByte 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
+     * @see https://learn.microsoft.com/windows/win32/api//content/qmgr/nn-qmgr-ibackgroundcopycallback1
      */
     OnProgressEx(ProgressType, pGroup, pJob, dwFileIndex, dwProgressValue, dwByteArraySize, pByte) {
         pByteMarshal := pByte is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "uint", dwByteArraySize, pByteMarshal, pByte, "HRESULT")
+        result := ComCall(5, this, "uint", ProgressType, "ptr", pGroup, "ptr", pJob, "uint", dwFileIndex, "uint", dwProgressValue, "uint", dwByteArraySize, pByteMarshal, pByte, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

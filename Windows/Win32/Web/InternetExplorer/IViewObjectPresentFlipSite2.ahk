@@ -33,7 +33,11 @@ class IViewObjectPresentFlipSite2 extends IUnknown{
      * @returns {Integer} 
      */
     GetRotationForCurrentOutput() {
-        result := ComCall(3, this, "int*", &pDxgiRotation := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pDxgiRotation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDxgiRotation
     }
 }

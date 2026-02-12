@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.TextServices
@@ -991,12 +993,12 @@ class TextServices {
     static TF_DISABLE_COMMANDING => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TF_PROCESS_ATOM => "_CTF_PROCESS_ATOM_"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TF_ENABLE_PROCESS_ATOM => "_CTF_ENABLE_PROCESS_ATOM_"
 
@@ -1541,17 +1543,17 @@ class TextServices {
     static TKBL_OPT_TRADITIONAL_CHINESE_PHONETIC => 1028
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TF_FLOATINGLANGBAR_WNDTITLEW => "TF_FloatingLangBar_WndTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TF_FLOATINGLANGBAR_WNDTITLEA => "TF_FloatingLangBar_WndTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TF_FLOATINGLANGBAR_WNDTITLE => "TF_FloatingLangBar_WndTitle"
 
@@ -2276,7 +2278,7 @@ class TextServices {
      * <td>An unspecified error occurred.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msctfmonitorapi/nf-msctfmonitorapi-initlocalmsctfmonitor
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctfmonitorapi/nf-msctfmonitorapi-initlocalmsctfmonitor
      * @since windows6.0.6000
      */
     static InitLocalMsCtfMonitor(dwFlags) {
@@ -2300,7 +2302,7 @@ class TextServices {
      * <td>The function was successful.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msctfmonitorapi/nf-msctfmonitorapi-uninitlocalmsctfmonitor
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctfmonitorapi/nf-msctfmonitorapi-uninitlocalmsctfmonitor
      * @since windows6.0.6000
      */
     static UninitLocalMsCtfMonitor() {

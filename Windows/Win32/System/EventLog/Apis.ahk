@@ -54,7 +54,7 @@ class EventLog {
      * @param {Integer} LoginClass The connection method to use to connect to the remote computer. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_login_class">EVT_LOGIN_CLASS</a> enumeration.
      * @param {Pointer<Void>} Login A <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_rpc_login">EVT_RPC_LOGIN</a> structure that identifies the remote computer that you want to connect to, the user's credentials, and the type of authentication to use when connecting.
      * @returns {EVT_HANDLE} If successful, the function returns a session handle that you can use to access event log information on the remote computer; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopensession
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopensession
      * @since windows6.0.6000
      */
     static EvtOpenSession(LoginClass, Login) {
@@ -77,7 +77,7 @@ class EventLog {
      * Closes an open handle.
      * @remarks
      * You cannot use the handle after the handle is closed. When you close a parent handle, any opened handles that were created using the handle are also closed. For example, if you query for events, the query result contains a handle for each event that matches the query. Best practice suggests that you close each event handle when you are done with the event but if you do not, when you close the query handle, all event handles are also closed.
-     * @param {EVT_HANDLE} Object_R 
+     * @param {EVT_HANDLE} Object_ An open event handle to close.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -108,15 +108,15 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtclose
      * @since windows6.0.6000
      */
-    static EvtClose(Object_R) {
-        Object_R := Object_R is Win32Handle ? NumGet(Object_R, "ptr") : Object_R
+    static EvtClose(Object_) {
+        Object_ := Object_ is Win32Handle ? NumGet(Object_, "ptr") : Object_
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtClose", "ptr", Object_R, "int")
+        result := DllCall("wevtapi.dll\EvtClose", "ptr", Object_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -154,7 +154,34 @@ class EventLog {
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function.</li>
      * </ol>
      * The operation being stopped will return with an error code of ERROR_CANCELLED.
-     * @param {EVT_HANDLE} Object_R 
+     * @param {EVT_HANDLE} Object_ The handle whose operation you want to cancel. You can cancel the following operations:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclearlog">EvtClearLog</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtexportlog">EvtExportLog</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtnext">EvtNext</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtseek">EvtSeek</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a>
+     * </li>
+     * </ul>
+     * To cancel the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclearlog">EvtClearLog</a>, 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtexportlog">EvtExportLog</a>, 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a>, and 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> operations, you must pass the session 
+     *        handle. To specify the default session (local session), set this parameter to 
+     *        <b>NULL</b>.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -186,15 +213,15 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtcancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtcancel
      * @since windows6.0.6000
      */
-    static EvtCancel(Object_R) {
-        Object_R := Object_R is Win32Handle ? NumGet(Object_R, "ptr") : Object_R
+    static EvtCancel(Object_) {
+        Object_ := Object_ is Win32Handle ? NumGet(Object_, "ptr") : Object_
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtCancel", "ptr", Object_R, "int")
+        result := DllCall("wevtapi.dll\EvtCancel", "ptr", Object_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -209,18 +236,18 @@ class EventLog {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> functions can provide extended error information if there is a problem with the specified XPath. For example, the error information can identify the character in the XPath where a parsing error occurred. To receive the extended error information for a malformed XPath, you cannot specify the EvtQueryTolerateQueryErrors flag when calling <b>EvtQuery</b> or <b>EvtSubscribe</b>.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ A caller-allocated string buffer that will receive the extended error information. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} BufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} The return value is ERROR_SUCCESS if the call succeeded; otherwise, a Win32 error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetextendedstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetextendedstatus
      * @since windows6.0.6000
      */
-    static EvtGetExtendedStatus(BufferSize, Buffer_R, BufferUsed) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static EvtGetExtendedStatus(BufferSize, Buffer_, BufferUsed) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, "uint")
+        result := DllCall("wevtapi.dll\EvtGetExtendedStatus", "uint", BufferSize, "ptr", Buffer_, BufferUsedMarshal, BufferUsed, "uint")
         return result
     }
 
@@ -233,21 +260,21 @@ class EventLog {
      * 
      * You must only use the query handle that this function returns on the same thread that created the handle.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to query for events on the local computer.
-     * @param {PWSTR} Path The name of the channel or the full path to a log file that contains the events that you want to query. You can specify an .evt, .evtx, or.etl log file. The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query and the query specifies the path.
+     * @param {PWSTR} Path_ The name of the channel or the full path to a log file that contains the events that you want to query. You can specify an .evt, .evtx, or.etl log file. The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query and the query specifies the path.
      * @param {PWSTR} Query A query that specifies the types of events that you want to retrieve. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {Integer} Flags One or more flags that specify the order that you want to receive the events and whether you are querying against a channel or log file.  For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_flags">EVT_QUERY_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A handle to the query results if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtquery
      * @since windows6.0.6000
      */
-    static EvtQuery(Session, Path, Query, Flags) {
+    static EvtQuery(Session, Path_, Query, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
         Query := Query is String ? StrPtr(Query) : Query
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtQuery", "ptr", Session, "ptr", Path, "ptr", Query, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtQuery", "ptr", Session, "ptr", Path_, "ptr", Query, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -300,7 +327,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtnext
      * @since windows6.0.6000
      */
     static EvtNext(ResultSet, EventsSize, Events, Timeout, Flags, Returned) {
@@ -357,7 +384,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtseek
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtseek
      * @since windows6.0.6000
      */
     static EvtSeek(ResultSet, Position, Bookmark, Flags) {
@@ -389,25 +416,25 @@ class EventLog {
      * @param {PWSTR} ChannelPath The name of the Admin or Operational channel that contains the events that you want to subscribe to (you cannot subscribe to Analytic or Debug channels). The path is required if the <i>Query</i> parameter contains an XPath query; the path is ignored if the <i>Query</i> parameter contains a structured XML query.
      * @param {PWSTR} Query A query that specifies the types of events that you want the subscription service to return. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To receive all events, set this parameter to <b>NULL</b> or "*".
      * @param {EVT_HANDLE} Bookmark A handle to a bookmark that identifies the starting point for the subscription.  To get a bookmark handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreatebookmark">EvtCreateBookmark</a> function.  You must set this parameter if the <i>Flags</i> parameter contains the EvtSubscribeStartAfterBookmark flag; otherwise, <b>NULL</b>.
-     * @param {Pointer<Void>} Context A caller-defined context value that the subscription service will pass to the specified callback each time it delivers an event.
+     * @param {Pointer<Void>} Context_ A caller-defined context value that the subscription service will pass to the specified callback each time it delivers an event.
      * @param {Pointer<EVT_SUBSCRIBE_CALLBACK>} Callback Pointer to your <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nc-winevt-evt_subscribe_callback">EVT_SUBSCRIBE_CALLBACK</a> callback function that will receive the subscription events. This parameter must be <b>NULL</b> if the <i>SignalEvent</i> parameter is not <b>NULL</b>.
      * @param {Integer} Flags One or more flags that specify when to start subscribing to events. For example, if you specify EvtSubscribeStartAtOldestRecord, the service will retrieve all current and future events that match your query criteria; however, if you specify EvtSubscribeToFutureEvents, the service returns only future events that match your query criteria. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_subscribe_flags">EVT_SUBSCRIBE_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A handle to the subscription if successful; otherwise, <b>NULL</b>. If the function returns <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code. You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function with the subscription handle when done.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtsubscribe
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtsubscribe
      * @since windows6.0.6000
      */
-    static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, Context, Callback, Flags) {
+    static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, Context_, Callback, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         SignalEvent := SignalEvent is Win32Handle ? NumGet(SignalEvent, "ptr") : SignalEvent
         ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
         Query := Query is String ? StrPtr(Query) : Query
         Bookmark := Bookmark is Win32Handle ? NumGet(Bookmark, "ptr") : Bookmark
 
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, ContextMarshal, Context, "ptr", Callback, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, Context_Marshal, Context_, "ptr", Callback, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -432,7 +459,7 @@ class EventLog {
      * Attribute names in the expressions must not be followed by a space.
      * @param {Integer} Flags One or more flags that identify the information in the event that you want to render. For example, the system information, user information, or specific values. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_render_context_flags">EVT_RENDER_CONTEXT_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} A context handle that you use when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtrender">EvtRender</a> function to render the contents of an event; otherwise, <b>NULL</b>. If <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtcreaterendercontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtcreaterendercontext
      * @since windows6.0.6000
      */
     static EvtCreateRenderContext(ValuePathsCount, ValuePaths, Flags) {
@@ -457,11 +484,13 @@ class EventLog {
      * When an EVT_HANDLE from this function is used in the <b>EvtRender</b> function, the list of values that is returned by that function consists of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures, each corresponding to exactly one of the XPATH expressions in the original <i>ValuePaths</i> parameter array in order of appearance.  Each such <b>EVT_VARIANT</b> structure contains the value that is identified by its corresponding XPATH expression for the event that is being rendered.  If no value is found, the <b>EVT_VARIANT</b> structure contains <b>NULL</b>.  If multiple values are present, the <b>EVT_VARIANT</b> structure will contain the first value encountered.
      * 
      * Be careful when comparing floating-point numbers in XPath queries. Any string representation of a floating-point number is approximated, so the value displayed in XML might not match the number stored with the event. Floating-point numbers should be compared as being less than or greater than a constant.
-     * @param {EVT_HANDLE} Context A handle to the rendering context that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreaterendercontext">EvtCreateRenderContext</a> function returns. This parameter must be set to <b>NULL</b> if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark.
+     * @param {EVT_HANDLE} Context_ A handle to the rendering context that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtcreaterendercontext">EvtCreateRenderContext</a> function returns. This parameter must be set to <b>NULL</b> if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark.
      * @param {EVT_HANDLE} Fragment A handle to an event or to a bookmark. Set this parameter to a bookmark handle if the <i>Flags</i> parameter is set to EvtRenderBookmark; otherwise, set to an event handle.
      * @param {Integer} Flags A flag that identifies what to render. For example, the entire event or specific properties of the event. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_render_flags">EVT_RENDER_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A caller-allocated buffer that will receive the rendered output. The contents is a <b>null</b>-terminated Unicode string if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark. Otherwise, if <i>Flags</i> is set to EvtRenderEventValues, the buffer contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures; one for each property specified by the rendering context. The <i>PropertyCount</i> parameter contains the number of elements in the array.
+     * 
+     *  You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} BufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @param {Pointer<Integer>} PropertyCount The number of the properties in the <i>Buffer</i> parameter if the <i>Flags</i> parameter is set to EvtRenderEventValues; otherwise, zero.
      * @returns {BOOL} <table>
@@ -494,11 +523,11 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtrender
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtrender
      * @since windows6.0.6000
      */
-    static EvtRender(Context, Fragment, Flags, BufferSize, Buffer_R, BufferUsed, PropertyCount) {
-        Context := Context is Win32Handle ? NumGet(Context, "ptr") : Context
+    static EvtRender(Context_, Fragment, Flags, BufferSize, Buffer_, BufferUsed, PropertyCount) {
+        Context_ := Context_ is Win32Handle ? NumGet(Context_, "ptr") : Context_
         Fragment := Fragment is Win32Handle ? NumGet(Fragment, "ptr") : Fragment
 
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
@@ -506,7 +535,7 @@ class EventLog {
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, "int")
+        result := DllCall("wevtapi.dll\EvtRender", "ptr", Context_, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer_, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -557,7 +586,7 @@ class EventLog {
      * To override the insertion values, the <i>Flags</i> parameter must be set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageEvent</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageXML</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>. If <i>Flags</i> is set to <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EvtFormatMessageId</a>, the resource identifier must identify the event's message string.
      * @param {Integer} Flags A flag that specifies the message string in the event to format. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EVT_FORMAT_MESSAGE_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ A caller-allocated buffer that will receive the formatted message string. You can set this parameter to <b>NULL</b> to determine the required buffer size.
      * @param {Pointer<Integer>} BufferUsed The size, in characters of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
@@ -589,19 +618,19 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtformatmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtformatmessage
      * @since windows6.0.6000
      */
-    static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, Buffer_R, BufferUsed) {
+    static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, Buffer_, BufferUsed) {
         PublisherMetadata := PublisherMetadata is Win32Handle ? NumGet(PublisherMetadata, "ptr") : PublisherMetadata
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, "int")
+        result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer_, BufferUsedMarshal, BufferUsed, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -616,19 +645,19 @@ class EventLog {
      * 
      * To get information about the channel or log file, call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetloginfo">EvtGetLogInfo</a> function.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to open a channel or log on the local computer.
-     * @param {PWSTR} Path The name of the channel or the full path to the exported log file.
+     * @param {PWSTR} Path_ The name of the channel or the full path to the exported log file.
      * @param {Integer} Flags A flag that determines whether the <i>Path</i> parameter points to a log file or channel. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_open_log_flags">EVT_OPEN_LOG_FLAGS</a> enumeration.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the file or channel; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopenlog
      * @since windows6.0.6000
      */
-    static EvtOpenLog(Session, Path, Flags) {
+    static EvtOpenLog(Session, Path_, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtOpenLog", "ptr", Session, "ptr", Path, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtOpenLog", "ptr", Session, "ptr", Path_, "uint", Flags, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -676,7 +705,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetloginfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetloginfo
      * @since windows6.0.6000
      */
     static EvtGetLogInfo(Log, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -736,7 +765,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtclearlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtclearlog
      * @since windows6.0.6000
      */
     static EvtClearLog(Session, ChannelPath, TargetFilePath, Flags) {
@@ -765,7 +794,7 @@ class EventLog {
      * 
      * This function  affects only the specified channel or log file—if the channel uses autoBackup or fileMax, this function will not affect those backup files.
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> for local channels.
-     * @param {PWSTR} Path The name of the channel or the full path to a log file that contains the events that you want to export. If the <i>Query</i> parameter contains an XPath query, you must specify the channel or log file. If the <i>Flags</i> parameter contains EvtExportLogFilePath, you must specify the log file. If the <i>Query</i> parameter contains a structured XML query, the channel or path that you specify here must match the channel or path in the query. If the <i>Flags</i> parameter contains EvtExportLogChannelPath, this parameter can be <b>NULL</b> if  the query is a structured XML query that specifies the channel.
+     * @param {PWSTR} Path_ The name of the channel or the full path to a log file that contains the events that you want to export. If the <i>Query</i> parameter contains an XPath query, you must specify the channel or log file. If the <i>Flags</i> parameter contains EvtExportLogFilePath, you must specify the log file. If the <i>Query</i> parameter contains a structured XML query, the channel or path that you specify here must match the channel or path in the query. If the <i>Flags</i> parameter contains EvtExportLogChannelPath, this parameter can be <b>NULL</b> if  the query is a structured XML query that specifies the channel.
      * @param {PWSTR} Query A query that specifies the types of events that you want to export. You can specify an XPath 1.0 query or structured XML query. If your XPath contains more than 20 expressions, use a structured XML query. To export all events, set this parameter to <b>NULL</b> or "*".
      * @param {PWSTR} TargetFilePath The full path to the target log file that will receive the events. The target log file must not exist.
      * @param {Integer} Flags Flags that indicate whether the events come from a channel or log file. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_exportlog_flags">EVT_EXPORTLOG_FLAGS</a> enumeration.
@@ -799,18 +828,18 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtexportlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtexportlog
      * @since windows6.0.6000
      */
-    static EvtExportLog(Session, Path, Query, TargetFilePath, Flags) {
+    static EvtExportLog(Session, Path_, Query, TargetFilePath, Flags) {
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
-        Path := Path is String ? StrPtr(Path) : Path
+        Path_ := Path_ is String ? StrPtr(Path_) : Path_
         Query := Query is String ? StrPtr(Query) : Query
         TargetFilePath := TargetFilePath is String ? StrPtr(TargetFilePath) : TargetFilePath
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtExportLog", "ptr", Session, "ptr", Path, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, "int")
+        result := DllCall("wevtapi.dll\EvtExportLog", "ptr", Session, "ptr", Path_, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -856,7 +885,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtarchiveexportedlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtarchiveexportedlog
      * @since windows6.0.6000
      */
     static EvtArchiveExportedLog(Session, LogFilePath, Locale, Flags) {
@@ -882,7 +911,7 @@ class EventLog {
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to enumerate the channels on the local computer.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the list of channel names that are registered on the computer; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenchannelenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopenchannelenum
      * @since windows6.0.6000
      */
     static EvtOpenChannelEnum(Session, Flags) {
@@ -937,7 +966,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtnextchannelpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtnextchannelpath
      * @since windows6.0.6000
      */
     static EvtNextChannelPath(ChannelEnum, ChannelPathBufferSize, ChannelPathBuffer, ChannelPathBufferUsed) {
@@ -970,7 +999,7 @@ class EventLog {
      * @param {PWSTR} ChannelPath The name of the channel to access.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the channel's configuration; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenchannelconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopenchannelconfig
      * @since windows6.0.6000
      */
     static EvtOpenChannelConfig(Session, ChannelPath, Flags) {
@@ -1026,7 +1055,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtsavechannelconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtsavechannelconfig
      * @since windows6.0.6000
      */
     static EvtSaveChannelConfig(ChannelConfig, Flags) {
@@ -1049,7 +1078,7 @@ class EventLog {
      * @param {EVT_HANDLE} ChannelConfig A handle to the channel's configuration properties that the  <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenchannelconfig">EvtOpenChannelConfig</a> function returns.
      * @param {Integer} PropertyId The identifier of the channel property to set. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_channel_config_property_id">EVT_CHANNEL_CONFIG_PROPERTY_ID</a> enumeration.
      * @param {Integer} Flags Reserved. Must be zero.
-     * @param {Pointer<EVT_VARIANT>} PropertyValue The property value to set.
+     * @param {Pointer<EVT_VARIANT>} PropertyValue_ The property value to set.
      * 
      * A caller-allocated buffer that contains the new configuration property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. Be sure to set the configuration value and variant type.
      * @returns {BOOL} <table>
@@ -1082,15 +1111,15 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtsetchannelconfigproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtsetchannelconfigproperty
      * @since windows6.0.6000
      */
-    static EvtSetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyValue) {
+    static EvtSetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyValue_) {
         ChannelConfig := ChannelConfig is Win32Handle ? NumGet(ChannelConfig, "ptr") : ChannelConfig
 
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "ptr", PropertyValue, "int")
+        result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "ptr", PropertyValue_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -1136,7 +1165,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetchannelconfigproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetchannelconfigproperty
      * @since windows6.0.6000
      */
     static EvtGetChannelConfigProperty(ChannelConfig, PropertyId, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -1163,7 +1192,7 @@ class EventLog {
      * @param {EVT_HANDLE} Session A remote session handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopensession">EvtOpenSession</a> function returns. Set to <b>NULL</b> to enumerate the registered providers on the local computer.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the list of registered providers; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenpublisherenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopenpublisherenum
      * @since windows6.0.6000
      */
     static EvtOpenPublisherEnum(Session, Flags) {
@@ -1220,7 +1249,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtnextpublisherid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtnextpublisherid
      * @since windows6.0.6000
      */
     static EvtNextPublisherId(PublisherEnum, PublisherIdBufferSize, PublisherIdBuffer, PublisherIdBufferUsed) {
@@ -1253,7 +1282,7 @@ class EventLog {
      * @param {Integer} Locale The locale identifier to use when accessing the localized metadata from the provider. To create the locale identifier, use the MAKELCID macro. Set to 0 to use the locale identifier of the calling thread.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the provider's metadata; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopenpublishermetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopenpublishermetadata
      * @since windows6.0.6000
      */
     static EvtOpenPublisherMetadata(Session, PublisherId, LogFilePath, Locale, Flags) {
@@ -1316,7 +1345,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetpublishermetadataproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetpublishermetadataproperty
      * @since windows6.0.6000
      */
     static EvtGetPublisherMetadataProperty(PublisherMetadata, PropertyId, Flags, PublisherMetadataPropertyBufferSize, PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsed) {
@@ -1343,7 +1372,7 @@ class EventLog {
      * @param {EVT_HANDLE} PublisherMetadata A handle to the provider's metadata that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenpublishermetadata">EvtOpenPublisherMetadata</a> function returns.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the list of events that the  provider defines; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtopeneventmetadataenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtopeneventmetadataenum
      * @since windows6.0.6000
      */
     static EvtOpenEventMetadataEnum(PublisherMetadata, Flags) {
@@ -1371,7 +1400,7 @@ class EventLog {
      * @param {EVT_HANDLE} EventMetadataEnum A handle to the event definition enumerator that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopeneventmetadataenum">EvtOpenEventMetadataEnum</a> function returns.
      * @param {Integer} Flags Reserved. Must be zero.
      * @returns {EVT_HANDLE} If successful, the function returns a handle to the event's metadata; otherwise, <b>NULL</b>. If <b>NULL</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtnexteventmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtnexteventmetadata
      * @since windows6.0.6000
      */
     static EvtNextEventMetadata(EventMetadataEnum, Flags) {
@@ -1426,7 +1455,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgeteventmetadataproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgeteventmetadataproperty
      * @since windows6.0.6000
      */
     static EvtGetEventMetadataProperty(EventMetadata, PropertyId, Flags, EventMetadataPropertyBufferSize, EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsed) {
@@ -1478,7 +1507,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetobjectarraysize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetobjectarraysize
      * @since windows6.0.6000
      */
     static EvtGetObjectArraySize(ObjectArray, ObjectArraySize) {
@@ -1546,7 +1575,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetobjectarrayproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetobjectarrayproperty
      * @since windows6.0.6000
      */
     static EvtGetObjectArrayProperty(ObjectArray, PropertyId, ArrayIndex, Flags, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -1601,7 +1630,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgetqueryinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgetqueryinfo
      * @since windows6.0.6000
      */
     static EvtGetQueryInfo(QueryOrSubscription, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -1629,7 +1658,7 @@ class EventLog {
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtclose">EvtClose</a> function to close the handle when done.
      * @param {PWSTR} BookmarkXml An XML string that contains the bookmark or <b>NULL</b> if creating a bookmark.
      * @returns {EVT_HANDLE} A handle to the bookmark if the call succeeds; otherwise, <b>NULL</b>. If <b>NULL</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to get the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtcreatebookmark
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtcreatebookmark
      * @since windows6.0.6000
      */
     static EvtCreateBookmark(BookmarkXml) {
@@ -1680,7 +1709,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtupdatebookmark
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtupdatebookmark
      * @since windows6.0.6000
      */
     static EvtUpdateBookmark(Bookmark, Event) {
@@ -1736,7 +1765,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winevt/nf-winevt-evtgeteventinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winevt/nf-winevt-evtgeteventinfo
      * @since windows6.0.6000
      */
     static EvtGetEventInfo(Event, PropertyId, PropertyValueBufferSize, PropertyValueBuffer, PropertyValueBufferUsed) {
@@ -1777,7 +1806,7 @@ class EventLog {
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The 
      * <b>ClearEventLog</b> function can fail if the event log is empty or the backup file already exists.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-cleareventloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-cleareventloga
      * @since windows5.0
      */
     static ClearEventLogA(hEventLog, lpBackupFileName) {
@@ -1817,7 +1846,7 @@ class EventLog {
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The 
      * <b>ClearEventLog</b> function can fail if the event log is empty or the backup file already exists.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-cleareventlogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-cleareventlogw
      * @since windows5.0
      */
     static ClearEventLogW(hEventLog, lpBackupFileName) {
@@ -1852,7 +1881,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-backupeventloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-backupeventloga
      * @since windows5.0
      */
     static BackupEventLogA(hEventLog, lpBackupFileName) {
@@ -1887,7 +1916,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-backupeventlogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-backupeventlogw
      * @since windows5.0
      */
     static BackupEventLogW(hEventLog, lpBackupFileName) {
@@ -1914,7 +1943,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-closeeventlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-closeeventlog
      * @since windows5.0
      */
     static CloseEventLog(hEventLog) {
@@ -1939,7 +1968,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deregistereventsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-deregistereventsource
      * @since windows5.0
      */
     static DeregisterEventSource(hEventLog) {
@@ -1976,7 +2005,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-notifychangeeventlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-notifychangeeventlog
      * @since windows5.0
      */
     static NotifyChangeEventLog(hEventLog, hEvent) {
@@ -2007,7 +2036,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnumberofeventlogrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnumberofeventlogrecords
      * @since windows5.0
      */
     static GetNumberOfEventLogRecords(hEventLog, NumberOfRecords) {
@@ -2039,7 +2068,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getoldesteventlogrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getoldesteventlogrecord
      * @since windows5.0
      */
     static GetOldestEventLogRecord(hEventLog, OldestRecord) {
@@ -2071,7 +2100,7 @@ class EventLog {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openeventloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openeventloga
      * @since windows5.0
      */
     static OpenEventLogA(lpUNCServerName, lpSourceName) {
@@ -2104,7 +2133,7 @@ class EventLog {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openeventlogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openeventlogw
      * @since windows5.0
      */
     static OpenEventLogW(lpUNCServerName, lpSourceName) {
@@ -2143,7 +2172,7 @@ class EventLog {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The function returns <b>ERROR_ACCESS_DENIED</b> if <i>lpSourceName</i> specifies the <b>Security</b> event log.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-registereventsourcea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-registereventsourcea
      * @since windows5.0
      */
     static RegisterEventSourceA(lpUNCServerName, lpSourceName) {
@@ -2182,7 +2211,7 @@ class EventLog {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The function returns <b>ERROR_ACCESS_DENIED</b> if <i>lpSourceName</i> specifies the <b>Security</b> event log.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-registereventsourcew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-registereventsourcew
      * @since windows5.0
      */
     static RegisterEventSourceW(lpUNCServerName, lpSourceName) {
@@ -2221,7 +2250,7 @@ class EventLog {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openbackupeventloga
      * @since windows5.0
      */
     static OpenBackupEventLogA(lpUNCServerName, lpFileName) {
@@ -2260,7 +2289,7 @@ class EventLog {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventlogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openbackupeventlogw
      * @since windows5.0
      */
     static OpenBackupEventLogW(lpUNCServerName, lpFileName) {
@@ -2305,7 +2334,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readeventloga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-readeventloga
      * @since windows5.0
      */
     static ReadEventLogA(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded) {
@@ -2350,7 +2379,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readeventlogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-readeventlogw
      * @since windows5.0
      */
     static ReadEventLogW(hEventLog, dwReadFlags, dwRecordOffset, lpBuffer, nNumberOfBytesToRead, pnBytesRead, pnMinNumberOfBytesNeeded) {
@@ -2467,7 +2496,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-reporteventa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-reporteventa
      * @since windows5.0
      */
     static ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
@@ -2583,7 +2612,7 @@ class EventLog {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-reporteventw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-reporteventw
      * @since windows5.0
      */
     static ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
@@ -2637,7 +2666,7 @@ class EventLog {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-geteventloginformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-geteventloginformation
      * @since windows5.0
      */
     static GetEventLogInformation(hEventLog, dwInfoLevel, lpBuffer, cbBufSize, pcbBytesNeeded) {

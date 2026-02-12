@@ -26,7 +26,7 @@
  * 
  * 
  * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioclientactivationparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/ns-spatialaudioclient-spatialaudioclientactivationparams
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

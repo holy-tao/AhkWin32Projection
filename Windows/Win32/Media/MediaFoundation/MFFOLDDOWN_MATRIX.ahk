@@ -7,7 +7,7 @@
  * To specify this information in the media type, set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-audio-folddown-matrix-attribute">MF_MT_AUDIO_FOLDDOWN_MATRIX</a> attribute.
  * 
  * The ASF media source supports fold-down from six channels (5.1 audio) to two channels (stereo). It gets the information from the g_wszFold6To2Channels3 attribute in the ASF header. This attribute is documented in the Windows Media Format SDK documentation.
- * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mffolddown_matrix
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfapi/ns-mfapi-mffolddown_matrix
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -33,7 +33,11 @@ class ITmNodeName extends IUnknown{
      * @returns {Integer} 
      */
     GetNodeNameSize() {
-        result := ComCall(3, this, "uint*", &pcbNodeNameSize := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcbNodeNameSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNodeNameSize
     }
 
@@ -46,7 +50,11 @@ class ITmNodeName extends IUnknown{
     GetNodeName(cbNodeNameBufferSize, pNodeNameBuffer) {
         pNodeNameBuffer := pNodeNameBuffer is String ? StrPtr(pNodeNameBuffer) : pNodeNameBuffer
 
-        result := ComCall(4, this, "uint", cbNodeNameBufferSize, "ptr", pNodeNameBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", cbNodeNameBufferSize, "ptr", pNodeNameBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

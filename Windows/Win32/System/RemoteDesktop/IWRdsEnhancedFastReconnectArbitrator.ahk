@@ -7,8 +7,7 @@
  * Exposes a method called by the Remote Desktop Services service to obtain the session ID that is to be reconnected to in the enhanced fast reconnect sequence.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwrdsenhancedfastreconnectarbitrator
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nn-wtsprotocol-iwrdsenhancedfastreconnectarbitrator
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,16 +33,20 @@ class IWRdsEnhancedFastReconnectArbitrator extends IUnknown{
     static VTableNames => ["GetSessionForEnhancedFastReconnect"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pSessionIdArray 
-     * @param {Integer} dwSessionCount 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsenhancedfastreconnectarbitrator-getsessionforenhancedfastreconnect
+     * The protocol stack uses this method to return the session ID to be used for enhanced fast reconnect.
+     * @param {Pointer<Integer>} pSessionIdArray An array of session IDs that match the enhanced fast reconnect criteria.
+     * @param {Integer} dwSessionCount The size of the *pSessionIdArray* array (in elements).
+     * @returns {Integer} Pointer to LONG variable to receive the resultant session ID.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwrdsenhancedfastreconnectarbitrator-getsessionforenhancedfastreconnect
      */
     GetSessionForEnhancedFastReconnect(pSessionIdArray, dwSessionCount) {
         pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, "uint", dwSessionCount, "int*", &pResultSessionId := 0, "HRESULT")
+        result := ComCall(3, this, pSessionIdArrayMarshal, pSessionIdArray, "uint", dwSessionCount, "int*", &pResultSessionId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResultSessionId
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The IWbemProviderInitSink interface is implemented by WMI and called by providers to report initialization status.
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemproviderinitsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nn-wbemprov-iwbemproviderinitsink
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -32,13 +32,22 @@ class IWbemProviderInitSink extends IUnknown{
 
     /**
      * The IWbemProviderInitSink::SetStatus method indicates to Windows Management whether a provider is fully or partially initialized.
+     * @remarks
+     * All types of providers call 
+     * <b>IWbemProviderInitSink::SetStatus</b> to indicate initialization status to Windows Management.
+     * 
+     * If <i>lStatus</i> is set to <b>WBEM_S_INITIALIZED</b>, Windows Management expects the provider to be fully capable of immediately servicing requests.
      * @param {Integer} lStatus 
      * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
      * @returns {HRESULT} This method always returns <b>WBEM_S_NO_ERROR</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemproviderinitsink-setstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemproviderinitsink-setstatus
      */
     SetStatus(lStatus, lFlags) {
-        result := ComCall(3, this, "int", lStatus, "int", lFlags, "HRESULT")
+        result := ComCall(3, this, "int", lStatus, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

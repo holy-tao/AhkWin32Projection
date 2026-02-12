@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifilesyncmergehandler
+ * . (IFileSyncMergeHandler)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ifilesyncmergehandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,13 +39,17 @@ class IFileSyncMergeHandler extends IUnknown{
      * 
      * A pointer to a string containing the network path to the server copy of the file.
      * @returns {Integer} Type: <b>MERGE_UPDATE_STATUS*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-merge
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-merge
      */
     Merge(localFilePath, serverFilePath) {
         localFilePath := localFilePath is String ? StrPtr(localFilePath) : localFilePath
         serverFilePath := serverFilePath is String ? StrPtr(serverFilePath) : serverFilePath
 
-        result := ComCall(3, this, "ptr", localFilePath, "ptr", serverFilePath, "int*", &updateStatus := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", localFilePath, "ptr", serverFilePath, "int*", &updateStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return updateStatus
     }
 
@@ -59,14 +63,18 @@ class IFileSyncMergeHandler extends IUnknown{
      * Indicates the monitor on which to display the UI.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-showresolveconflictuiasync
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-showresolveconflictuiasync
      */
     ShowResolveConflictUIAsync(localFilePath, monitorToDisplayOn) {
         localFilePath := localFilePath is String ? StrPtr(localFilePath) : localFilePath
         monitorToDisplayOn := monitorToDisplayOn is Win32Handle ? NumGet(monitorToDisplayOn, "ptr") : monitorToDisplayOn
 
-        result := ComCall(4, this, "ptr", localFilePath, "ptr", monitorToDisplayOn, "HRESULT")
+        result := ComCall(4, this, "ptr", localFilePath, "ptr", monitorToDisplayOn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

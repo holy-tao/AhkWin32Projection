@@ -5,7 +5,7 @@
  * Defines values for use with the FXEQ\_PARAMETERS structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/xaudio2/fxeq-constants
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/xaudio2/fxeq-constants
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

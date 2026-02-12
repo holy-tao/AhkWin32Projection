@@ -3,7 +3,7 @@
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_retrieve_aux_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-crypt_retrieve_aux_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * The IMMCVersionInfo interface provides version information about the installed MMC application.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-immcversioninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nn-mmc-immcversioninfo
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -38,16 +38,24 @@ class IMMCVersionInfo extends IUnknown{
 
     /**
      * The GetMMCVersion method retrieves version information for the MMC application.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-immcversioninfo">IMMCVersionInfo</a> interface is introduced in MMC 2.0. For instructions on how to determine the MMC version if MMC 1.x is installed, see 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/detecting-the-mmc-version-number">Detecting the MMC Version Number</a>.
      * @param {Pointer<Integer>} pVersionMajor The version major number. For example, if *<i>pVersionMajor</i> returns 2, then MMC version 2.x is running.
      * @param {Pointer<Integer>} pVersionMinor The version minor number. For example, if *<i>pVersionMinor</i> returns 0, then MMC version x.0 is running.
      * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-immcversioninfo-getmmcversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-immcversioninfo-getmmcversion
      */
     GetMMCVersion(pVersionMajor, pVersionMinor) {
         pVersionMajorMarshal := pVersionMajor is VarRef ? "int*" : "ptr"
         pVersionMinorMarshal := pVersionMinor is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pVersionMajorMarshal, pVersionMajor, pVersionMinorMarshal, pVersionMinor, "HRESULT")
+        result := ComCall(3, this, pVersionMajorMarshal, pVersionMajor, pVersionMinorMarshal, pVersionMinor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

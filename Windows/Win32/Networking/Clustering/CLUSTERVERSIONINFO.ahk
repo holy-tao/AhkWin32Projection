@@ -27,7 +27,7 @@
  * </ul>
  * For more information on how the Cluster service creates and uses version numbers, see 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/version-compatibility">Version Compatibility</a>.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusterversioninfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clusterversioninfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

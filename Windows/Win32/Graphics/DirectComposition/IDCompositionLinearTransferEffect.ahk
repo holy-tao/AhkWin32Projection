@@ -5,7 +5,7 @@
 
 /**
  * The linear transfer effect is used to map the color intensities of an image using a linear function created from a list of values you provide for each channel.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositionlineartransfereffect
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositionlineartransfereffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -31,226 +31,350 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetRedYIntercept", "SetRedYIntercept1", "SetRedSlope", "SetRedSlope1", "SetRedDisable", "SetGreenYIntercept", "SetGreenYIntercept1", "SetGreenSlope", "SetGreenSlope1", "SetGreenDisable", "SetBlueYIntercept", "SetBlueYIntercept1", "SetBlueSlope", "SetBlueSlope1", "SetBlueDisable", "SetAlphaYIntercept", "SetAlphaYIntercept1", "SetAlphaSlope", "SetAlphaSlope1", "SetAlphaDisable", "SetClampOutput"]
 
     /**
+     * Sets the Y-intercept of the linear function for the red channel. (overload 2/2)
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredyintercept(float)
+     * An animation that represents how the Y-intercept of the linear function for the red channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredyintercept(idcompositionanimation)
      */
     SetRedYIntercept(animation) {
-        result := ComCall(4, this, "ptr", animation, "HRESULT")
+        result := ComCall(4, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets the Y-intercept of the linear function for the red channel. (overload 2/2)
      * @param {Float} redYIntercept 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredyintercept(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredyintercept(idcompositionanimation)
      */
     SetRedYIntercept1(redYIntercept) {
-        result := ComCall(5, this, "float", redYIntercept, "HRESULT")
+        result := ComCall(5, this, "float", redYIntercept, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the slope of the linear function for the red channel. (overload 1/2)
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredslope(float)
+     * An animation that represents how the slope of the linear function for the red channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredslope(idcompositionanimation)
      */
     SetRedSlope(animation) {
-        result := ComCall(6, this, "ptr", animation, "HRESULT")
+        result := ComCall(6, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets the slope of the linear function for the red channel. (overload 1/2)
      * @param {Float} redSlope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredslope(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setredslope(idcompositionanimation)
      */
     SetRedSlope1(redSlope) {
-        result := ComCall(7, this, "float", redSlope, "HRESULT")
+        result := ComCall(7, this, "float", redSlope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies whether to apply the transfer function to the red channel.
+     * Specifies whether to apply the transfer function to the red channel. (IDCompositionLinearTransferEffect.SetRedDisable)
      * @param {BOOL} redDisable Type: <b>BOOL</b>
      * 
      * A boolean value that specifies whether to apply the transfer function to the red channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the red channel. If you set this to FALSE the effect applies the RedLinearTransfer function to the red channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setreddisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setreddisable
      */
     SetRedDisable(redDisable) {
-        result := ComCall(8, this, "int", redDisable, "HRESULT")
+        result := ComCall(8, this, "int", redDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the Y-intercept of the linear function for the green channel.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenyintercept(idcompositionanimation)
+     * An animation that represents how the Y-intercept of the linear function for the green channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenyintercept(idcompositionanimation)
      */
     SetGreenYIntercept(animation) {
-        result := ComCall(9, this, "ptr", animation, "HRESULT")
+        result := ComCall(9, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets the Y-intercept of the linear function for the green channel.
      * @param {Float} greenYIntercept 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenyintercept(idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenyintercept(idcompositionanimation)
      */
     SetGreenYIntercept1(greenYIntercept) {
-        result := ComCall(10, this, "float", greenYIntercept, "HRESULT")
+        result := ComCall(10, this, "float", greenYIntercept, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The IDCompositionLinearTransferEffect::SetGreenSlope(IDCompositionAnimation) method sets the slope of the linear function for the green channel.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenslope(float)
+     * An animation that represents how the slope of the linear function for the green channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenslope(idcompositionanimation)
      */
     SetGreenSlope(animation) {
-        result := ComCall(11, this, "ptr", animation, "HRESULT")
+        result := ComCall(11, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IDCompositionLinearTransferEffect::SetGreenSlope(IDCompositionAnimation) method sets the slope of the linear function for the green channel.
      * @param {Float} greenSlope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenslope(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreenslope(idcompositionanimation)
      */
     SetGreenSlope1(greenSlope) {
-        result := ComCall(12, this, "float", greenSlope, "HRESULT")
+        result := ComCall(12, this, "float", greenSlope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies whether to apply the transfer function to the green channel.
+     * The IDCompositionLinearTransferEffect::SetGreenDisable method specifies whether to apply the transfer function to the green channel.
      * @param {BOOL} greenDisable Type: <b>BOOL</b>
      * 
      * A boolean value that specifies whether to apply the transfer function to the green channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the green channel. If you set this to FALSE it applies the GreenLinearTransfer function to the green channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreendisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreendisable
      */
     SetGreenDisable(greenDisable) {
-        result := ComCall(13, this, "int", greenDisable, "HRESULT")
+        result := ComCall(13, this, "int", greenDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The IDCompositionLinearTransferEffect::SetBlueYIntercept(IDCompositionAnimation) method sets the Y-intercept of the linear function for the blue channel.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueyintercept(idcompositionanimation)
+     * An animation that represents how the Y-intercept of the linear function for the blue channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueyintercept(idcompositionanimation)
      */
     SetBlueYIntercept(animation) {
-        result := ComCall(14, this, "ptr", animation, "HRESULT")
+        result := ComCall(14, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IDCompositionLinearTransferEffect::SetBlueYIntercept(IDCompositionAnimation) method sets the Y-intercept of the linear function for the blue channel.
      * @param {Float} blueYIntercept 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueyintercept(idcompositionanimation)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueyintercept(idcompositionanimation)
      */
     SetBlueYIntercept1(blueYIntercept) {
-        result := ComCall(15, this, "float", blueYIntercept, "HRESULT")
+        result := ComCall(15, this, "float", blueYIntercept, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The IDCompositionLinearTransferEffect::SetBlueSlope(IDCompositionAnimation) method sets the slope of the linear function for the blue channel.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueslope(float)
+     * An animation that represents how the slope of the linear function for the blue channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueslope(idcompositionanimation)
      */
     SetBlueSlope(animation) {
-        result := ComCall(16, this, "ptr", animation, "HRESULT")
+        result := ComCall(16, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IDCompositionLinearTransferEffect::SetBlueSlope(IDCompositionAnimation) method sets the slope of the linear function for the blue channel.
      * @param {Float} blueSlope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueslope(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setblueslope(idcompositionanimation)
      */
     SetBlueSlope1(blueSlope) {
-        result := ComCall(17, this, "float", blueSlope, "HRESULT")
+        result := ComCall(17, this, "float", blueSlope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies whether to apply the transfer function to the blue channel.
+     * The IDCompositionLinearTransferEffect::SetBlueDisable method specifies whether to apply the transfer function to the blue channel.
      * @param {BOOL} blueDisable Type: <b>BOOL</b>
      * 
      * A boolean value that specifies whether to apply the transfer function to the blue channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the blue channel. If you set this to FALSE it applies the BlueLinearTransfer function to the blue channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setbluedisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setbluedisable
      */
     SetBlueDisable(blueDisable) {
-        result := ComCall(18, this, "int", blueDisable, "HRESULT")
+        result := ComCall(18, this, "int", blueDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Sets the Y-intercept of the linear function for the Alpha channel.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphayintercept(float)
+     * An animation that represents how the the Y-intercept of the linear function for the alpha channel. changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphayintercept(idcompositionanimation)
      */
     SetAlphaYIntercept(animation) {
-        result := ComCall(19, this, "ptr", animation, "HRESULT")
+        result := ComCall(19, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Sets the Y-intercept of the linear function for the Alpha channel.
      * @param {Float} alphaYIntercept 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphayintercept(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphayintercept(idcompositionanimation)
      */
     SetAlphaYIntercept1(alphaYIntercept) {
-        result := ComCall(20, this, "float", alphaYIntercept, "HRESULT")
+        result := ComCall(20, this, "float", alphaYIntercept, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The IDCompositionLinearTransferEffect::SetAlphaSlope(IDCompositionAnimation) method sets the slope of the linear function for the alpha channel.
+     * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
-     * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphaslope(float)
+     * An animation that represents how the slope of the linear function for the alpha channel changes over time. This parameter must not be NULL.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphaslope(idcompositionanimation)
      */
     SetAlphaSlope(animation) {
-        result := ComCall(21, this, "ptr", animation, "HRESULT")
+        result := ComCall(21, this, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IDCompositionLinearTransferEffect::SetAlphaSlope(IDCompositionAnimation) method sets the slope of the linear function for the alpha channel.
      * @param {Float} alphaSlope 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphaslope(float)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphaslope(idcompositionanimation)
      */
     SetAlphaSlope1(alphaSlope) {
-        result := ComCall(22, this, "float", alphaSlope, "HRESULT")
+        result := ComCall(22, this, "float", alphaSlope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -260,30 +384,38 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
      * 
      * A boolean value that specifies whether to apply the transfer function to the alpha channel.
      *             If you set this to TRUE the effect does not apply the transfer function to the Alpha channel. If you set this to FALSE it applies the AlphaLinearTransfer function to the Alpha channel.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphadisable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphadisable
      */
     SetAlphaDisable(alphaDisable) {
-        result := ComCall(23, this, "int", alphaDisable, "HRESULT")
+        result := ComCall(23, this, "int", alphaDisable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
+     * The IDCompositionLinearTransferEffect::SetClampOutput method specifies whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
      * @param {BOOL} clampOutput Type: <b>BOOL</b>
      * 
      * A boolean value that specifies whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
      *             If you set this to TRUE the effect will clamp the values. If you set this to FALSE, the effect will not clamp the color values, but other effects and the output
      *             surface may clamp the values if they are not of high enough precision.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setclampoutput
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositionlineartransfereffect-setclampoutput
      */
     SetClampOutput(clampOutput) {
-        result := ComCall(24, this, "int", clampOutput, "HRESULT")
+        result := ComCall(24, this, "int", clampOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

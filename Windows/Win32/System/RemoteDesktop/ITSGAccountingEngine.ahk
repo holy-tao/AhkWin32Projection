@@ -6,12 +6,10 @@
 /**
  * Exposes methods that provide information about the creation or closing of sessions for a connection.
  * @remarks
- * 
  * Your authorization plug-in can use this interface to retrieve useful information about clients, client  computers, and remote sessions. For example, your plug-in can track the amount of time that a client is connected and the amount of data transferred during that session.
  * 
  * For a sample that uses the <b>ITSGAccountingEngine</b> interface, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nn-tsgpolicyengine-itsgaccountingengine
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsgpolicyengine/nn-tsgpolicyengine-itsgaccountingengine
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -42,11 +40,15 @@ class ITSGAccountingEngine extends IUnknown{
      *       enumeration type that specifies the type of event that occurred.
      * @param {AAAccountingData} accountingData An <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata">AAAccountingData</a> structure that contains 
      *        information about the event that occurred.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgaccountingengine-doaccounting
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsgpolicyengine/nf-tsgpolicyengine-itsgaccountingengine-doaccounting
      */
     DoAccounting(accountingDataType, accountingData) {
-        result := ComCall(3, this, "int", accountingDataType, "ptr", accountingData, "HRESULT")
+        result := ComCall(3, this, "int", accountingDataType, "ptr", accountingData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -63,7 +63,11 @@ class ISpeechLexiconWord extends IDispatch{
      * @returns {Integer} 
      */
     get_LangId() {
-        result := ComCall(7, this, "int*", &LangId := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &LangId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LangId
     }
 
@@ -72,7 +76,11 @@ class ISpeechLexiconWord extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(8, this, "int*", &WordType := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &WordType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return WordType
     }
 
@@ -82,7 +90,11 @@ class ISpeechLexiconWord extends IDispatch{
      */
     get_Word() {
         Word := BSTR()
-        result := ComCall(9, this, "ptr", Word, "HRESULT")
+        result := ComCall(9, this, "ptr", Word, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Word
     }
 
@@ -91,7 +103,11 @@ class ISpeechLexiconWord extends IDispatch{
      * @returns {ISpeechLexiconPronunciations} 
      */
     get_Pronunciations() {
-        result := ComCall(10, this, "ptr*", &Pronunciations := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &Pronunciations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechLexiconPronunciations(Pronunciations)
     }
 }

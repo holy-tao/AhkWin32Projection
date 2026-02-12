@@ -7,15 +7,12 @@
 /**
  * This interface represents a physical device. You use this interface to retrieve information about a CD and DVD device installed on the computer and to perform operations such as closing the tray or eject the media.
  * @remarks
- * 
  * To create the <b>MsftDiscRecorder2</b> object in a script, use IMAPI2.MsftDiscRecorder2 as the program identifier when calling <b>CreateObject</b>.
  * 
  * To write data to media, you need to attach a recorder to a format writer, for example, to attach the recorder to a data writer, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-put_recorder">IDiscFormat2Data::put_Recorder</a> method.
  * 
  * Several properties of this interface return packet data defined by Multimedia Command (MMC). For information on the format of the packet data, see the latest revision of the MMC specification at ftp://ftp.t10.org/t10/drafts/mmc5.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscrecorder2
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-idiscrecorder2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -421,15 +418,22 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-ejectmedia
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-ejectmedia
      */
     EjectMedia() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Closes the media tray.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Some drives, such as those with slot-loading mechanisms, do not support this method. To determine if the device supports this method, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-get_devicecanloadmedia">IDiscRecorder2::get_DeviceCanLoadMedia</a> property.</div>
+     * <div> </div>
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -711,15 +715,29 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-closetray
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-closetray
      */
     CloseTray() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Acquires exclusive access to the device.
+     * @remarks
+     * You should not have to call this method to acquire the lock yourself because the write operations, such as <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-write">IDiscFormat2Data::Write</a>, acquires the lock for you.
+     * 
+     * Each recorder has a lock count. The first call to a recorder locks the device for exclusive access. Applications can use the <b>AcquireExclusiveAccess</b> method multiple times to apply multiple locks on a device. Each call increments the lock count by one. 
+     * 
+     * When unlocking a recorder, the lock count must reach zero to free the device for other clients. Calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-releaseexclusiveaccess">IDiscRecorder2::ReleaseExclusiveAccess</a> method decrements the lock count by one.
+     * 
+     * An equal number of calls to the  <b>AcquireExclusiveAccess</b> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-releaseexclusiveaccess">ReleaseExclusiveAccess</a> methods are needed to free a device. Should the application exit unexpectedly or crash while holding the exclusive access, the CDROM.SYS driver will automatically release these exclusive locks.
+     * 
+     * If the device is already locked, you can call <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner">IDiscRecorder2::get_ExclusiveAccessOwner</a> to retrieve the name of the client application that currently has exclusive access.
      * @param {VARIANT_BOOL} force Set to VARIANT_TRUE to gain exclusive access to the volume whether the file system volume can or cannot be dismounted. If VARIANT_FALSE, this method  gains exclusive access only when there is no file system mounted on the volume.
      * @param {BSTR} __MIDL__IDiscRecorder20000 String that contains the friendly name of the client application requesting exclusive access. Cannot be <b>NULL</b> or a zero-length string. The string must conform to the restrictions for the IOCTL_CDROM_EXCLUSIVE_ACCESS control code found in the DDK.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -834,17 +852,30 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-acquireexclusiveaccess
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-acquireexclusiveaccess
      */
     AcquireExclusiveAccess(force, __MIDL__IDiscRecorder20000) {
-        __MIDL__IDiscRecorder20000 := __MIDL__IDiscRecorder20000 is String ? BSTR.Alloc(__MIDL__IDiscRecorder20000).Value : __MIDL__IDiscRecorder20000
+        if(__MIDL__IDiscRecorder20000 is String) {
+            pin := BSTR.Alloc(__MIDL__IDiscRecorder20000)
+            __MIDL__IDiscRecorder20000 := pin.Value
+        }
 
-        result := ComCall(9, this, "short", force, "ptr", __MIDL__IDiscRecorder20000, "HRESULT")
+        result := ComCall(9, this, "short", force, "ptr", __MIDL__IDiscRecorder20000, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Releases exclusive access to the device.
+     * @remarks
+     * Each recorder has a lock count. The first call to a recorder locks the device for exclusive access. Applications can use the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-acquireexclusiveaccess">IDiscRecorder2::AcquireExclusiveAccess</a> method multiple times to apply multiple locks on a device. Each call increments the lock count by one.
+     * 
+     * When unlocking a recorder, the lock count must reach zero to free the device for other clients. Calling the <b>ReleaseExclusiveAccess</b> method decrements the lock count by one.
+     * 
+     * An equal number of  calls to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-acquireexclusiveaccess">AcquireExclusiveAccess</a> and <b>ReleaseExclusiveAccess</b> methods are needed to free a device. When the lock count reaches zero, recording device is free; the last lock has been removed.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -931,15 +962,25 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-releaseexclusiveaccess
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-releaseexclusiveaccess
      */
     ReleaseExclusiveAccess() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Disables Media Change Notification (MCN) for the device.
+     * @remarks
+     * MCN is the CD-ROM device driver's method of detecting media change and state changes in the CD-ROM device. For example, when you change the media in a CD-ROM device, a MCN message is sent to trigger media features, such as Autoplay. To disable the features, call this method. 
+     * 
+     * To enable notifications, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-enablemcn">IDiscRecorder2::EnableMcn</a> method. If the application crashes or closes unexpectedly, then MCN is automatically re-enabled by the driver.
+     * 
+     * Note that DisableMcn increments a reference count each time it is called. The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-enablemcn">EnableMcn</a> method decrements the count. The device is enabled when the reference count is zero.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -1026,15 +1067,23 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-disablemcn
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-disablemcn
      */
     DisableMcn() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables Media Change Notification (MCN) for the device.
+     * @remarks
+     * MCN is the CD-ROM device driver's method of detecting media change and state changes in the CD-ROM device. For example, when you change the media in a CD-ROM device, a MCN message is sent to trigger media features, such as Autoplay. MCN is enabled by default. Call this method to enable notifications when the notifications have been disabled using <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-disablemcn">IDiscRecorder2::DisableMcn</a>.
+     * 
+     * Note that <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-disablemcn">DisableMcn</a> increments a reference count each time it is called. The EnableMcn method decrements the count. The device is enabled when the reference count is zero.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -1121,15 +1170,25 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-enablemcn
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-enablemcn
      */
     EnableMcn() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Associates the object with the specified disc device.
+     * @remarks
+     * You must initialize the recorder before calling any of the methods of this interface. 
+     * 
+     * To retrieve a list of devices on the computer and their unique identifiers, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscmaster2-get__newenum">IDiscMaster2::get__NewEnum</a> method.
+     * 
+     * This method will not fail on a drive that is exclusively locked.  However, if the drive is exclusively locked, several of the methods of this interface may return E_IMAPI_RECORDER_LOCKED. To determine who has exclusive access, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner">IDiscRecorder2::get_ExclusiveAccessOwner</a> method.
      * @param {BSTR} recorderUniqueId String that contains the unique identifier for the device.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -1410,77 +1469,110 @@ class IDiscRecorder2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-initializediscrecorder
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-initializediscrecorder
      */
     InitializeDiscRecorder(recorderUniqueId) {
-        recorderUniqueId := recorderUniqueId is String ? BSTR.Alloc(recorderUniqueId).Value : recorderUniqueId
+        if(recorderUniqueId is String) {
+            pin := BSTR.Alloc(recorderUniqueId)
+            recorderUniqueId := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", recorderUniqueId, "HRESULT")
+        result := ComCall(13, this, "ptr", recorderUniqueId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the unique identifier used to initialize the disc device.
      * @returns {BSTR} Unique identifier for the device. This is the identifier you specified when calling <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-initializediscrecorder">IDiscRecorder2::InitializeDiscRecorder</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_activediscrecorder
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_activediscrecorder
      */
     get_ActiveDiscRecorder() {
         value := BSTR()
-        result := ComCall(14, this, "ptr", value, "HRESULT")
+        result := ComCall(14, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the vendor ID for the device.
      * @returns {BSTR} String that contains the vendor ID for the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_vendorid
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_vendorid
      */
     get_VendorId() {
         value := BSTR()
-        result := ComCall(15, this, "ptr", value, "HRESULT")
+        result := ComCall(15, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the product ID of the device.
      * @returns {BSTR} String that contains the product ID of the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_productid
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_productid
      */
     get_ProductId() {
         value := BSTR()
-        result := ComCall(16, this, "ptr", value, "HRESULT")
+        result := ComCall(16, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the product revision code of the device.
      * @returns {BSTR} String that contains the product revision code of the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_productrevision
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_productrevision
      */
     get_ProductRevision() {
         value := BSTR()
-        result := ComCall(17, this, "ptr", value, "HRESULT")
+        result := ComCall(17, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the unique volume name associated with the device.
+     * @remarks
+     * To retrieve the drive letter assignment, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-get_volumepathnames">IDiscRecorder2::get_VolumePathNames</a> method.
      * @returns {BSTR} String that contains the unique volume name associated with the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_volumename
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_volumename
      */
     get_VolumeName() {
         value := BSTR()
-        result := ComCall(18, this, "ptr", value, "HRESULT")
+        result := ComCall(18, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves a list of drive letters and NTFS mount points for the device.
      * @returns {Pointer<SAFEARRAY>} List of drive letters and NTFS mount points for the device. Each element of the list is a <b>VARIANT</b> of type <b>VT_BSTR</b>. The <b>bstrVal</b> member of the variant contains the path.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_volumepathnames
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_volumepathnames
      */
     get_VolumePathNames() {
-        result := ComCall(19, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -1490,10 +1582,14 @@ class IDiscRecorder2 extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  For slim drives or laptop drives, which utilize a manual tray-loading mechanism, this parameter can indicate an  incorrect value of VARIANT_TRUE.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_devicecanloadmedia
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_devicecanloadmedia
      */
     get_DeviceCanLoadMedia() {
-        result := ComCall(20, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -1502,71 +1598,101 @@ class IDiscRecorder2 extends IDispatch{
      * @returns {Integer} Zero-based index number of the device, based on the order the device was installed on the computer.
      * 
      * This value can change during PNP activity when devices are added or removed from the computer,  or across boot sessions and should not be considered a unique identifier for the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_legacydevicenumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_legacydevicenumber
      */
     get_LegacyDeviceNumber() {
-        result := ComCall(21, this, "int*", &legacyDeviceNumber := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &legacyDeviceNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return legacyDeviceNumber
     }
 
     /**
      * Retrieves the list of features that the device supports.
      * @returns {Pointer<SAFEARRAY>} List of features that the device supports. Each element of the list is a <b>VARIANT</b> of type <b>VT_I4</b>. The <b>lVal</b> member of the variant contains the feature page type value. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">IMAPI_FEATURE_PAGE_TYPE</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_supportedfeaturepages
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_supportedfeaturepages
      */
     get_SupportedFeaturePages() {
-        result := ComCall(22, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the list of feature pages of the device that are marked as current.
      * @returns {Pointer<SAFEARRAY>} List of supported feature pages that are marked as current for the device. Each element of the list is a <b>VARIANT</b> of type <b>VT_I4</b>. The <b>lVal</b> member of the variant contains the feature page type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_feature_page_type">IMAPI_FEATURE_PAGE_TYPE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_currentfeaturepages
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_currentfeaturepages
      */
     get_CurrentFeaturePages() {
-        result := ComCall(23, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the list of MMC profiles that the device supports.
      * @returns {Pointer<SAFEARRAY>} List of MMC profiles that the device supports. Each element of the list is a <b>VARIANT</b> of type <b>VT_I4</b>. The <b>lVal</b> member of the variant contains the profile type value. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_profile_type">IMAPI_PROFILE_TYPE</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_supportedprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_supportedprofiles
      */
     get_SupportedProfiles() {
-        result := ComCall(24, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves all MMC profiles of the device that are marked as current.
      * @returns {Pointer<SAFEARRAY>} List of supported profiles that are marked as current for the device. Each element of the list is a <b>VARIANT</b> of type <b>VT_I4</b>. The <b>lVal</b> member of the variant contains the profile type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_profile_type">IMAPI_PROFILE_TYPE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_currentprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_currentprofiles
      */
     get_CurrentProfiles() {
-        result := ComCall(25, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the list of MMC mode pages that the device supports.
      * @returns {Pointer<SAFEARRAY>} List of MMC mode pages that the device supports. Each element of the list is a <b>VARIANT</b> of type <b>VT_I4</b>. The <b>lVal</b> member of the variant contains the mode page type value. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_mode_page_type">IMAPI_MODE_PAGE_TYPE</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_supportedmodepages
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_supportedmodepages
      */
     get_SupportedModePages() {
-        result := ComCall(26, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the name of the client application that has exclusive access to the device.
+     * @remarks
+     * This property returns the current exclusive access owner of the device.  This value comes directly from CDROM.SYS and should be queried anytime an operation fails with error E_IMAPI_RECORDER_LOCKED.
      * @returns {BSTR} String that contains the name of the client application that has exclusive access to the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner
      */
     get_ExclusiveAccessOwner() {
         value := BSTR()
-        result := ComCall(27, this, "ptr", value, "HRESULT")
+        result := ComCall(27, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

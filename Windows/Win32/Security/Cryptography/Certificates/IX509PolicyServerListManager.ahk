@@ -7,7 +7,7 @@
 
 /**
  * The IX509PolicyServerListManager interface defines the following methods and properties that enable you to manage a collection of IX509PolicyServerUrl objects.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509policyserverlistmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-ix509policyserverlistmanager
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -50,30 +50,42 @@ class IX509PolicyServerListManager extends IDispatch{
      * Retrieves an IX509PolicyServerUrl object from the collection by index number.
      * @param {Integer} Index 
      * @returns {IX509PolicyServerUrl} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-get_itembyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-get_itembyindex
      */
     get_ItemByIndex(Index) {
-        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509PolicyServerUrl(pVal)
     }
 
     /**
      * Retrieves the number of IX509PolicyServerUrl objects in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-get_count
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Retrieves the enumerator for the collection.
+     * Retrieves the enumerator for the collection. (IX509PolicyServerListManager.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pVal)
     }
 
@@ -82,11 +94,15 @@ class IX509PolicyServerListManager extends IDispatch{
      * @param {IX509PolicyServerUrl} pVal Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509policyserverurl">IX509PolicyServerUrl</a> object to add.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-add
      */
     Add(pVal) {
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,11 +111,15 @@ class IX509PolicyServerListManager extends IDispatch{
      * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-remove
      */
     Remove(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, "int", Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,21 +127,25 @@ class IX509PolicyServerListManager extends IDispatch{
      * Removes all IX509PolicyServerUrl objects from the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes an IX509PolicyServerListManager object.
-     * @param {Integer} context 
+     * @param {Integer} context_ 
      * @param {Integer} Flags 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -146,15 +170,19 @@ class IX509PolicyServerListManager extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509policyserverlistmanager">IX509PolicyServerListManager</a> has already been initialized.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509policyserverlistmanager">IX509PolicyServerListManager</a> has already been initialized.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509policyserverlistmanager-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509policyserverlistmanager-initialize
      */
-    Initialize(context, Flags) {
-        result := ComCall(13, this, "int", context, "int", Flags, "HRESULT")
+    Initialize(context_, Flags) {
+        result := ComCall(13, this, "int", context_, "int", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Describes a buffer memory access barrier. Used by buffer barriers to indicate when resource memory must be made visible for a specific access type.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_buffer_barrier
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_buffer_barrier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

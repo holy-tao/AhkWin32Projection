@@ -5,7 +5,7 @@
  * Represents the reconstructed picture generated from the input frame passed to the encode operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_reconstructed_picture
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_reconstructed_picture
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

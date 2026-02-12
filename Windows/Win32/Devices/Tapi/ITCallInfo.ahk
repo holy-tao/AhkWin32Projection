@@ -9,7 +9,7 @@
 
 /**
  * The ITCallInfo interface gets and sets a variety of information concerning a Call object. The ITAddress::get_Calls and IEnumCall::Next methods create the ITCallInfo interface.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcallinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itcallinfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -64,45 +64,75 @@ class ITCallInfo extends IDispatch{
 
     /**
      * The get_Address method gets a pointer to the ITAddress interface of the Address object.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface returned by <b>ITCallInfo::get_Address</b>. The application must call <b>Release</b> on the 
+     * <b>ITAddress</b> interface to free resources associated with it.
      * @returns {ITAddress} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_address
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_address
      */
     get_Address() {
-        result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppAddress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITAddress(ppAddress)
     }
 
     /**
      * The get_CallState method gets a pointer to the current call state, such as CS_IDLE.
+     * @remarks
+     * <b>TAPI 2.1 Cross-References:  </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallstatus">LINECALLSTATUS</a>, <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a>, <b>dwMediaMode</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallinfo">LINECALLINFO</a> structure, <a href="https://docs.microsoft.com/windows/desktop/Tapi/call-object">Call Object</a>
      * @returns {Integer} Pointer to variable containing current 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">CALL_STATE</a> type.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_callstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_callstate
      */
     get_CallState() {
-        result := ComCall(8, this, "int*", &pCallState := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pCallState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCallState
     }
 
     /**
      * The get_Privilege method gets the call privilege of the application for the current call, such as CP_MONITOR.
+     * @remarks
+     * <b>TAPI 2.1 Cross-Reference: </b><a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linecallstatus">LINECALLSTATUS</a>
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_privilege">CALL_PRIVILEGE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_privilege
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_privilege
      */
     get_Privilege() {
-        result := ComCall(9, this, "int*", &pPrivilege := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pPrivilege := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPrivilege
     }
 
     /**
      * The get_CallHub method gets a pointer to the ITCallHub interface of the CallHub object.
+     * @remarks
+     * On some service providers, the call hub is not available until after the call is made.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface returned by <b>ITCallInfo::get_CallHub</b>. The application must call <b>Release</b> on the 
+     * <b>ITCallHub</b> interface to free resources associated with it.
      * @returns {ITCallHub} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface of the CallHub object.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_callhub
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_callhub
      */
     get_CallHub() {
-        result := ComCall(10, this, "ptr*", &ppCallHub := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppCallHub := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITCallHub(ppCallHub)
     }
 
@@ -110,10 +140,14 @@ class ITCallInfo extends IDispatch{
      * The get_CallInfoLong method gets call information items described by a long, such as the bearer mode.
      * @param {Integer} CallInfoLong <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_long">CALLINFO_LONG</a> indicator of information type needed, such as CIL_BEARERMODE.
      * @returns {Integer} Pointer to value returned.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_callinfolong
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_callinfolong
      */
     get_CallInfoLong(CallInfoLong) {
-        result := ComCall(11, this, "int", CallInfoLong, "int*", &plCallInfoLongVal := 0, "HRESULT")
+        result := ComCall(11, this, "int", CallInfoLong, "int*", &plCallInfoLongVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCallInfoLongVal
     }
 
@@ -169,33 +203,48 @@ class ITCallInfo extends IDispatch{
      * </td>
      * <td width="60%">
      * The current 
-     * <a href="/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
      * 								
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-put_callinfolong
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-put_callinfolong
      */
     put_CallInfoLong(CallInfoLong, lCallInfoLongVal) {
-        result := ComCall(12, this, "int", CallInfoLong, "int", lCallInfoLongVal, "HRESULT")
+        result := ComCall(12, this, "int", CallInfoLong, "int", lCallInfoLongVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_CallInfoString method gets call information items described by a string, such as the displayable address.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppCallInfoString</i> parameter.
      * @param {Integer} CallInfoString <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_string">CALLINFO_STRING</a> indicator of information type needed, such as CIS_DISPLAYABLEADDRESS.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of needed string.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_callinfostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_callinfostring
      */
     get_CallInfoString(CallInfoString) {
         ppCallInfoString := BSTR()
-        result := ComCall(13, this, "int", CallInfoString, "ptr", ppCallInfoString, "HRESULT")
+        result := ComCall(13, this, "int", CallInfoString, "ptr", ppCallInfoString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCallInfoString
     }
 
     /**
      * The put_CallInfoString method sets call information items described by a string, such as the displayable address.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the string data referenced by <i>pCallInfoString</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
      * @param {Integer} CallInfoString <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_string">CALLINFO_STRING</a> indicator of information type, such as CIS_DISPLAYABLEADDRESS.
      * @param {BSTR} pCallInfoString Pointer to a BSTR representation of the string.
      * @returns {HRESULT} This method can return one of these values.
@@ -246,17 +295,24 @@ class ITCallInfo extends IDispatch{
      * </td>
      * <td width="60%">
      * The current 
-     * <a href="/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-put_callinfostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-put_callinfostring
      */
     put_CallInfoString(CallInfoString, pCallInfoString) {
-        pCallInfoString := pCallInfoString is String ? BSTR.Alloc(pCallInfoString).Value : pCallInfoString
+        if(pCallInfoString is String) {
+            pin := BSTR.Alloc(pCallInfoString)
+            pCallInfoString := pin.Value
+        }
 
-        result := ComCall(14, this, "int", CallInfoString, "ptr", pCallInfoString, "HRESULT")
+        result := ComCall(14, this, "int", CallInfoString, "ptr", pCallInfoString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,11 +321,15 @@ class ITCallInfo extends IDispatch{
      * @param {Integer} CallInfoBuffer <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callinfo_buffer">CALLINFO_BUFFER</a> indicator of information type needed, such as CIB_USERUSERINFO.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> representation of call information buffer. The application must call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory allocated for this parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-get_callinfobuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-get_callinfobuffer
      */
     get_CallInfoBuffer(CallInfoBuffer) {
         ppCallInfoBuffer := VARIANT()
-        result := ComCall(15, this, "int", CallInfoBuffer, "ptr", ppCallInfoBuffer, "HRESULT")
+        result := ComCall(15, this, "int", CallInfoBuffer, "ptr", ppCallInfoBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCallInfoBuffer
     }
 
@@ -325,15 +385,19 @@ class ITCallInfo extends IDispatch{
      * </td>
      * <td width="60%">
      * The current 
-     * <a href="/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-put_callinfobuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-put_callinfobuffer
      */
     put_CallInfoBuffer(CallInfoBuffer, pCallInfoBuffer) {
-        result := ComCall(16, this, "int", CallInfoBuffer, "ptr", pCallInfoBuffer, "HRESULT")
+        result := ComCall(16, this, "int", CallInfoBuffer, "ptr", pCallInfoBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -401,18 +465,22 @@ class ITCallInfo extends IDispatch{
      * </td>
      * <td width="60%">
      * The current 
-     * <a href="/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-getcallinfobuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-getcallinfobuffer
      */
     GetCallInfoBuffer(CallInfoBuffer, pdwSize, ppCallInfoBuffer) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         ppCallInfoBufferMarshal := ppCallInfoBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "int", CallInfoBuffer, pdwSizeMarshal, pdwSize, ppCallInfoBufferMarshal, ppCallInfoBuffer, "HRESULT")
+        result := ComCall(17, this, "int", CallInfoBuffer, pdwSizeMarshal, pdwSize, ppCallInfoBufferMarshal, ppCallInfoBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -480,17 +548,21 @@ class ITCallInfo extends IDispatch{
      * </td>
      * <td width="60%">
      * The current 
-     * <a href="/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">call state</a> is not valid for this operation.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-setcallinfobuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-setcallinfobuffer
      */
     SetCallInfoBuffer(CallInfoBuffer, dwSize, pCallInfoBuffer) {
         pCallInfoBufferMarshal := pCallInfoBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "int", CallInfoBuffer, "uint", dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "HRESULT")
+        result := ComCall(18, this, "int", CallInfoBuffer, "uint", dwSize, pCallInfoBufferMarshal, pCallInfoBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -537,10 +609,14 @@ class ITCallInfo extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallinfo-releaseuseruserinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallinfo-releaseuseruserinfo
      */
     ReleaseUserUserInfo() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

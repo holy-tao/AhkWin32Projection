@@ -35,7 +35,11 @@ class IGCHost2 extends IGCHost{
      * @returns {HRESULT} 
      */
     SetGCStartupLimitsEx(SegmentSize, MaxGen0Size) {
-        result := ComCall(8, this, "ptr", SegmentSize, "ptr", MaxGen0Size, "HRESULT")
+        result := ComCall(8, this, "ptr", SegmentSize, "ptr", MaxGen0Size, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

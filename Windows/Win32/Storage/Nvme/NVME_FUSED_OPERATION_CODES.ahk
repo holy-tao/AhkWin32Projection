@@ -5,7 +5,7 @@
  * Contains values that indicate whether a command is the first or second command in a fused operation.
  * @remarks
  * Use this enumeration to specify values in the **FUSE** field of the [NVME_COMMAND_DWORD0](ns-nvme-nvme_command_dword0.md) structure to indicate whether a command is part of a fused operation.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_fused_operation_codes
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_fused_operation_codes
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

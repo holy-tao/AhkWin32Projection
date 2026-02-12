@@ -5,7 +5,7 @@
 
 /**
  * A container for 3D lookup table data that can be passed to the LookupTable3D effect.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1lookuptable3d
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1lookuptable3d
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

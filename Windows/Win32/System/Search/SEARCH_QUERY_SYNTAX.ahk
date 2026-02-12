@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>   In Windows 7, the names are prefixed with SQS_ instead of SEARCH_.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_query_syntax
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/ne-searchapi-search_query_syntax
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

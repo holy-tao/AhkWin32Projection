@@ -57,9 +57,16 @@ class IHTMLDOMTextNode extends IDispatch{
      * @returns {HRESULT} 
      */
     put_data(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,18 +76,31 @@ class IHTMLDOMTextNode extends IDispatch{
      */
     get_data() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        String := BSTR()
-        result := ComCall(9, this, "ptr", String, "HRESULT")
-        return String
+        String_ := BSTR()
+        result := ComCall(9, this, "ptr", String_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return String_
     }
 
     /**
@@ -88,7 +108,11 @@ class IHTMLDOMTextNode extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -98,7 +122,11 @@ class IHTMLDOMTextNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     splitText(offset) {
-        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "HRESULT")
+        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(pRetNode)
     }
 }

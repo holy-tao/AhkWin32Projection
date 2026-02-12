@@ -37,7 +37,7 @@
  * } LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb_ldr_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winternl/ns-winternl-peb_ldr_data
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

@@ -122,7 +122,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {IHTMLStyle} 
      */
     get_style() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyle(p)
     }
 
@@ -132,7 +136,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_tabStop(v) {
-        result := ComCall(8, this, "short", v, "HRESULT")
+        result := ComCall(8, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,7 +149,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_tabStop() {
-        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -151,7 +163,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_viewInheritStyle(v) {
-        result := ComCall(10, this, "short", v, "HRESULT")
+        result := ComCall(10, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +176,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_viewInheritStyle() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -170,7 +190,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_viewMasterTab(v) {
-        result := ComCall(12, this, "short", v, "HRESULT")
+        result := ComCall(12, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +203,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_viewMasterTab() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -189,7 +217,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollSegmentX(v) {
-        result := ComCall(14, this, "int", v, "HRESULT")
+        result := ComCall(14, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,7 +230,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollSegmentX() {
-        result := ComCall(15, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -208,7 +244,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollSegmentY(v) {
-        result := ComCall(16, this, "int", v, "HRESULT")
+        result := ComCall(16, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +257,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollSegmentY() {
-        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -227,7 +271,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_isMultiLine(v) {
-        result := ComCall(18, this, "short", v, "HRESULT")
+        result := ComCall(18, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +284,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_isMultiLine() {
-        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -246,9 +298,16 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_contentEditable(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", v, "HRESULT")
+        result := ComCall(20, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -258,7 +317,11 @@ class IHTMLElementDefaults extends IDispatch{
      */
     get_contentEditable() {
         p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -268,7 +331,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_canHaveHTML(v) {
-        result := ComCall(22, this, "short", v, "HRESULT")
+        result := ComCall(22, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -277,7 +344,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_canHaveHTML() {
-        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -287,7 +358,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_viewLink(v) {
-        result := ComCall(24, this, "ptr", v, "HRESULT")
+        result := ComCall(24, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -296,7 +371,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {IHTMLDocument} 
      */
     get_viewLink() {
-        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument(p)
     }
 
@@ -306,7 +385,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {HRESULT} 
      */
     put_frozen(v) {
-        result := ComCall(26, this, "short", v, "HRESULT")
+        result := ComCall(26, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -315,7 +398,11 @@ class IHTMLElementDefaults extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_frozen() {
-        result := ComCall(27, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -7,10 +7,8 @@
 /**
  * Provides access to the list of IME plug-in dictionaries.
  * @remarks
- * 
  * This interface is implemented in classes of ProgID="ImePlugInDictDictionaryList1041" for Microsoft Japanese IME and ProgID="ImePlugInDictDictionaryList2052" for Microsoft Simplified Chinese IME.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msimeapi/nn-msimeapi-iimeplugindictdictionarylist
+ * @see https://learn.microsoft.com/windows/win32/api//content/msimeapi/nn-msimeapi-iimeplugindictdictionarylist
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -36,17 +34,21 @@ class IImePlugInDictDictionaryList extends IUnknown{
     static VTableNames => ["GetDictionariesInUse", "DeleteDictionary"]
 
     /**
-     * Obtains the list of Dictionay IDs (GUID) of the IME plug-in dictionaries which are in use by IME, with their creation dates and encryption flags.
+     * Obtains the list of Dictionary IDs (GUID) of the IME plug-in dictionaries which are in use by IME, with their creation dates and encryption flags.
      * @param {Pointer<Pointer<SAFEARRAY>>} prgDateCreated Array of the dates of creation for each of the IME plug-in dictionaries returned by <i>prgDictionaryGUID</i>.
      * @param {Pointer<Pointer<SAFEARRAY>>} prgfEncrypted Array of flags indicating whether each dictionary is encrypted or not for each of the IME plug-in dictionaries returned by <i>prgDictionaryGUID</i>.
      * @returns {Pointer<SAFEARRAY>} Array of the dictionary IDs (<b>GUID</b>) of the IME plug-in dictionaries which are in use by IME.
-     * @see https://docs.microsoft.com/windows/win32/api//msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
+     * @see https://learn.microsoft.com/windows/win32/api//content/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
      */
     GetDictionariesInUse(prgDateCreated, prgfEncrypted) {
         prgDateCreatedMarshal := prgDateCreated is VarRef ? "ptr*" : "ptr"
         prgfEncryptedMarshal := prgfEncrypted is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", &prgDictionaryGUID := 0, prgDateCreatedMarshal, prgDateCreated, prgfEncryptedMarshal, prgfEncrypted, "HRESULT")
+        result := ComCall(3, this, "ptr*", &prgDictionaryGUID := 0, prgDateCreatedMarshal, prgDateCreated, prgfEncryptedMarshal, prgfEncrypted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prgDictionaryGUID
     }
 
@@ -94,12 +96,19 @@ class IImePlugInDictDictionaryList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msimeapi/nf-msimeapi-iimeplugindictdictionarylist-deletedictionary
+     * @see https://learn.microsoft.com/windows/win32/api//content/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-deletedictionary
      */
     DeleteDictionary(bstrDictionaryGUID) {
-        bstrDictionaryGUID := bstrDictionaryGUID is String ? BSTR.Alloc(bstrDictionaryGUID).Value : bstrDictionaryGUID
+        if(bstrDictionaryGUID is String) {
+            pin := BSTR.Alloc(bstrDictionaryGUID)
+            bstrDictionaryGUID := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrDictionaryGUID, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrDictionaryGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

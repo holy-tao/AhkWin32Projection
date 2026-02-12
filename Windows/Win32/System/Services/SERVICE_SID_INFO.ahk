@@ -31,7 +31,7 @@
  * NT SERVICE&#92;<i>SvcName</i>
  * 
  * Note that NT SERVICE is the domain name.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_sid_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_sid_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

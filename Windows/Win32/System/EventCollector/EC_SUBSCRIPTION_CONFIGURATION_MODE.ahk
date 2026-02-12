@@ -14,7 +14,7 @@
  * 
  * 
  * For more information about the subscription delivery mode and properties see, <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_delivery_mode">EC_SUBSCRIPTION_DELIVERY_MODE</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ne-evcoll-ec_subscription_property_id">EC_SUBSCRIPTION_PROPERTY_ID</a>.
- * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_configuration_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/evcoll/ne-evcoll-ec_subscription_configuration_mode
  * @namespace Windows.Win32.System.EventCollector
  * @version v4.0.30319
  */

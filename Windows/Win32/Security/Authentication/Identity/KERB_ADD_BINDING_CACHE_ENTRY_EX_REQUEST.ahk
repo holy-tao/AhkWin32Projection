@@ -32,7 +32,7 @@
  * 
  * </li>
  * </ol>
- * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_ex_request
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntsecapi/ns-ntsecapi-kerb_add_binding_cache_entry_ex_request
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

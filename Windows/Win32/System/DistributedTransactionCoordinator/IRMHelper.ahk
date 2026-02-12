@@ -34,7 +34,11 @@ class IRMHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     RMCount(dwcTotalNumberOfRMs) {
-        result := ComCall(3, this, "uint", dwcTotalNumberOfRMs, "HRESULT")
+        result := ComCall(3, this, "uint", dwcTotalNumberOfRMs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IRMHelper extends IUnknown{
         pszOpenString := pszOpenString is String ? StrPtr(pszOpenString) : pszOpenString
         pszCloseString := pszCloseString is String ? StrPtr(pszCloseString) : pszCloseString
 
-        result := ComCall(4, this, "ptr", pXa_Switch, "int", fCDeclCallingConv, "ptr", pszOpenString, "ptr", pszCloseString, "ptr", guidRMRecovery, "HRESULT")
+        result := ComCall(4, this, "ptr", pXa_Switch, "int", fCDeclCallingConv, "ptr", pszOpenString, "ptr", pszCloseString, "ptr", guidRMRecovery, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

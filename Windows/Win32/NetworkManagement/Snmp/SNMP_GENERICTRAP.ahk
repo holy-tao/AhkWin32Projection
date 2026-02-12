@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api//content/snmp/nf-snmp-snmpextensiontrap">SnmpExtensionTrap</see>, <see href="https://learn.microsoft.com/windows/win32/api//content/mgmtapi/nf-mgmtapi-snmpmgrgettrap">SnmpMgrGetTrap</see>, <see href="https://learn.microsoft.com/windows/win32/api//content/mgmtapi/nf-mgmtapi-snmpmgrgettrapex">SnmpMgrGetTrapEx</see>.
+ * @see 
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

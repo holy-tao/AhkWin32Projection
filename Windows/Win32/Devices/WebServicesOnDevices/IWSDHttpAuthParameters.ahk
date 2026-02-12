@@ -6,7 +6,7 @@
 
 /**
  * Use this interface to retrieve the access token or authorization scheme used during the authentication of a client.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdhttpauthparameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nn-wsdbase-iwsdhttpauthparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class IWSDHttpAuthParameters extends IUnknown{
     /**
      * GetClientAccessToken method retrieves the client access token that can be used to either authenticate or impersonate the client.
      * @returns {HANDLE} Pointer to a variable that on return receives the token handle.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpauthparameters-getclientaccesstoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getclientaccesstoken
      */
     GetClientAccessToken() {
         phToken := HANDLE()
-        result := ComCall(3, this, "ptr", phToken, "HRESULT")
+        result := ComCall(3, this, "ptr", phToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phToken
     }
 
@@ -74,10 +78,14 @@ class IWSDHttpAuthParameters extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpauthparameters-getauthtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getauthtype
      */
     GetAuthType() {
-        result := ComCall(4, this, "uint*", &pAuthType := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pAuthType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAuthType
     }
 }

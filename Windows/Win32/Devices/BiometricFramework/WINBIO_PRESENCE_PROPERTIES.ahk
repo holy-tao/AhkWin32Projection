@@ -5,7 +5,7 @@
 
 /**
  * Contains biometric values that the Windows Biometric Framework used to determine that an individual was present.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-presence-properties
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-presence-properties
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

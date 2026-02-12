@@ -23,7 +23,7 @@
  * <td>Illegal combination. </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-action_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/nb30/ns-nb30-action_header
  * @namespace Windows.Win32.NetworkManagement.NetBios
  * @version v4.0.30319
  */

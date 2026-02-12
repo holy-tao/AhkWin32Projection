@@ -47,7 +47,7 @@
  * |[Event Notification in MAPI](event-notification-in-mapi.md) <br/> |General overview of notification and notification events. |
  * |[Handling Notifications](handling-notifications.md) <br/> |Discussion of how clients should handle notifications. |
  * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the [IMAPISupport](imapisupportiunknown.md) method to generate notifications. |
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/notification
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/notification
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

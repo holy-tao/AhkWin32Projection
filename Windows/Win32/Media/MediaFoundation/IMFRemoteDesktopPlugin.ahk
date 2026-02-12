@@ -4,9 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Modifies a topology for use in a Terminal Services environment.
+ * Modifies a topology for use in a Terminal Services environment. (IMFRemoteDesktopPlugin)
  * @remarks
- * 
  * To use this interface, do the following:
  * 
  * <ol>
@@ -18,9 +17,7 @@
  *           </li>
  * </ol>
  * The application must call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology">UpdateTopology</a> before calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-settopology">IMFMediaSession::SetTopology</a> on the Media Session.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfremotedesktopplugin
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfremotedesktopplugin
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -46,7 +43,9 @@ class IMFRemoteDesktopPlugin extends IUnknown{
     static VTableNames => ["UpdateTopology"]
 
     /**
-     * Modifies a topology for use in a Terminal Services environment.
+     * Modifies a topology for use in a Terminal Services environment. (IMFRemoteDesktopPlugin.UpdateTopology)
+     * @remarks
+     * If the application is running in a Terminal Services client session, call this method before calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-settopology">IMFMediaSession::SetTopology</a> on the Media Session.
      * @param {IMFTopology} pTopology Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the topology.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -67,10 +66,14 @@ class IMFRemoteDesktopPlugin extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfremotedesktopplugin-updatetopology
      */
     UpdateTopology(pTopology) {
-        result := ComCall(3, this, "ptr", pTopology, "HRESULT")
+        result := ComCall(3, this, "ptr", pTopology, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

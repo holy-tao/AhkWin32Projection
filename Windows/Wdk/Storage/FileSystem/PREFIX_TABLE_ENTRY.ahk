@@ -44,7 +44,7 @@ class PREFIX_TABLE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<STRING>}
+     * @type {Pointer<Win32STRING>}
      */
     Prefix {
         get => NumGet(this, 24, "ptr")

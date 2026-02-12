@@ -5,7 +5,7 @@
  * Header for information retrieved by the GetLogIoStatistics function, which defines the I/O performance counters of a log.
  * @remarks
  * This header is followed by the I/O statistics counters.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_io_statistics_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/clfs/ns-clfs-cls_io_statistics_header
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

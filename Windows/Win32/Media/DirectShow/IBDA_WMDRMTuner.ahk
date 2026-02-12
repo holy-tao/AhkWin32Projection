@@ -40,13 +40,20 @@ class IBDA_WMDRMTuner extends IUnknown{
      * @returns {Integer} 
      */
     PurchaseEntitlement(ulDialogRequest, bstrLanguage, ulPurchaseTokenLen, pbPurchaseToken, pulCaptureTokenLen, pbCaptureToken) {
-        bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
+        if(bstrLanguage is String) {
+            pin := BSTR.Alloc(bstrLanguage)
+            bstrLanguage := pin.Value
+        }
 
         pbPurchaseTokenMarshal := pbPurchaseToken is VarRef ? "char*" : "ptr"
         pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : "ptr"
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulDescrambleStatus
     }
 
@@ -59,7 +66,11 @@ class IBDA_WMDRMTuner extends IUnknown{
     CancelCaptureToken(ulCaptureTokenLen, pbCaptureToken) {
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        result := ComCall(4, this, "uint", ulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +81,11 @@ class IBDA_WMDRMTuner extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPidProtection(ulPid, uuidKey) {
-        result := ComCall(5, this, "uint", ulPid, "ptr", uuidKey, "HRESULT")
+        result := ComCall(5, this, "uint", ulPid, "ptr", uuidKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +96,11 @@ class IBDA_WMDRMTuner extends IUnknown{
      */
     GetPidProtection(pulPid) {
         uuidKey := Guid()
-        result := ComCall(6, this, "uint", pulPid, "ptr", uuidKey, "HRESULT")
+        result := ComCall(6, this, "uint", pulPid, "ptr", uuidKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uuidKey
     }
 
@@ -91,7 +110,11 @@ class IBDA_WMDRMTuner extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSyncValue(ulSyncValue) {
-        result := ComCall(7, this, "uint", ulSyncValue, "HRESULT")
+        result := ComCall(7, this, "uint", ulSyncValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +128,11 @@ class IBDA_WMDRMTuner extends IUnknown{
         pulStartCodeProfileLenMarshal := pulStartCodeProfileLen is VarRef ? "uint*" : "ptr"
         pbStartCodeProfileMarshal := pbStartCodeProfile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, pulStartCodeProfileLenMarshal, pulStartCodeProfileLen, pbStartCodeProfileMarshal, pbStartCodeProfile, "HRESULT")
+        result := ComCall(8, this, pulStartCodeProfileLenMarshal, pulStartCodeProfileLen, pbStartCodeProfileMarshal, pbStartCodeProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

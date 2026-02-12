@@ -5,7 +5,7 @@
 
 /**
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using the Credential Security Support Provider (CredSSP).
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanex3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nn-wsmandisp-iwsmanex3
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -35,17 +35,25 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {Integer} 
      */
     SessionFlagUTF16() {
-        result := ComCall(32, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
     /**
      * Returns the value of the authentication flag WSManFlagUseCredSsp for use in the flags parameter of IWSMan::CreateSession.
      * @returns {Integer} Specifies the authentication flag to use.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
      */
     SessionFlagUseCredSsp() {
-        result := ComCall(33, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(33, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
@@ -54,7 +62,11 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {Integer} 
      */
     EnumerationFlagAssociationInstance() {
-        result := ComCall(34, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
@@ -63,7 +75,11 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {Integer} 
      */
     EnumerationFlagAssociatedInstance() {
-        result := ComCall(35, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(35, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
@@ -72,7 +88,11 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {Integer} 
      */
     SessionFlagSkipRevocationCheck() {
-        result := ComCall(36, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(36, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
@@ -81,7 +101,11 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {Integer} 
      */
     SessionFlagAllowNegotiateImplicitCredentials() {
-        result := ComCall(37, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(37, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 
@@ -90,7 +114,11 @@ class IWSManEx3 extends IWSManEx2{
      * @returns {Integer} 
      */
     SessionFlagUseSsl() {
-        result := ComCall(38, this, "int*", &flags := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &flags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return flags
     }
 }

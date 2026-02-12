@@ -5,7 +5,7 @@
 
 /**
  * The IWMMetadataEditor2 interface provides an improved method for opening files for metadata operations.This interface is implemented as part of the metadata editor object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmmetadataeditor2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmmetadataeditor2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMMetadataEditor2 extends IWMMetadataEditor{
 
     /**
      * The OpenEx method opens a file for use by the metadata editor object. OpenEx opens ASF files and MP3 files, though the metadata editor has limited capabilities when working with MP3 files.
+     * @remarks
+     * The parameters <i>dwDesiredAccess</i> and <i>dwShareMode</i> are identical to those used in the <b>OpenFile</b> function defined in the Platform SDK. In the case of <b>OpenEx</b>, however, only a limited set of values are valid for <i>dwDesiredAccess</i>. Using any value other than those specified will result in an error.
      * @param {PWSTR} pwszFilename Pointer to a wide-character null-terminated string containing the file name.
      * @param {Integer} dwDesiredAccess <b>DWORD</b> containing the desired access type. This can be set to GENERIC_READ or GENERIC_WRITE. For read/write access, pass both values combined with a bitwise <b>OR</b>. When using GENERIC_READ, you must also pass a valid sharing mode as <i>dwShareMode</i>. Failure to do so will result in an error.
      * @param {Integer} dwShareMode <b>DWORD</b> containing the sharing mode. This can be one of the values in the following table or a combination of the two using a bitwise <b>OR</b>. A value of zero indicates no sharing. Sharing is not supported when requesting read/write access. If you request read/write access and pass any value other than zero for the share mode, an error is returned.
@@ -90,12 +92,16 @@ class IWMMetadataEditor2 extends IWMMetadataEditor{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmetadataeditor2-openex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmmetadataeditor2-openex
      */
     OpenEx(pwszFilename, dwDesiredAccess, dwShareMode) {
         pwszFilename := pwszFilename is String ? StrPtr(pwszFilename) : pwszFilename
 
-        result := ComCall(6, this, "ptr", pwszFilename, "uint", dwDesiredAccess, "uint", dwShareMode, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszFilename, "uint", dwDesiredAccess, "uint", dwShareMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,6 @@
 /**
  * Provides communications between the Certificate Services server engine and the policy module.
  * @remarks
- * 
  * Only a stand-alone <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> should use custom policy or exit modules; when running an enterprise certification authority, the use of Microsoft-provided policy and exit modules is strongly recommended.
  * 
  * Implementers of <b>ICertPolicy</b> should also implement 
@@ -57,8 +56,7 @@
  * <b>"</b><i>MyApp</i><b>"</b>
  * 
  * Where <i>MyApp</i> is a specifier that identifies the application; further, the class implementing <b>ICertPolicy</b> must be named <b>"Policy"</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//certpol/nn-certpol-icertpolicy
+ * @see https://learn.microsoft.com/windows/win32/api//content/certpol/nn-certpol-icertpolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -85,26 +83,40 @@ class ICertPolicy extends IDispatch{
 
     /**
      * Called by the server engine to allow the policy module to perform initialization tasks.
+     * @remarks
+     * When you write custom policy modules, implement this method.
      * @param {BSTR} strConfig Represents the name of the certification authority, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig2">ICertConfig2</a>.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-initialize
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpol/nf-certpol-icertpolicy-initialize
      */
     Initialize(strConfig) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strConfig, "HRESULT")
+        result := ComCall(7, this, "ptr", strConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notifies the policy module that a new request has entered the system.
+     * @remarks
+     * <b>VerifyRequest</b> is free to spawn off other processes or access an external database to do the request verification. If the verification requires out-of-band processing or human intervention, <b>VerifyRequest</b> can notify another process or leave any notice of the incoming request required. After the out-of-band processing is complete, a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-resubmitrequest">ResubmitRequest</a> can be made, or the provided administration tool can be used to resubmit the request to the Policy Module. The policy module can examine the request again, access any necessary external data, and return a value to indicate the certificate should be issued or denied.
+     * 
+     * When you write custom policy modules, you must implement <b>VerifyRequest</b> functionality in your modules.
      * @param {BSTR} strConfig Represents the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
-     * @param {Integer} Context Identifies the request and associated certificate under construction. The certificate server passes the context to this method.
+     * @param {Integer} Context_ Identifies the request and associated certificate under construction. The certificate server passes the context to this method.
      * @param {Integer} bNewRequest If set to <b>TRUE</b>, specifies that the request is new. If set to <b>FALSE</b>, the request is being resubmitted to the policy module as a result of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-resubmitrequest">ICertAdmin::ResubmitRequest</a> call. A value of <b>FALSE</b> can be used to indicate that the administrator wants the request to be issued or that request properties set by the administrator should be examined.
      * 
@@ -151,36 +163,55 @@ class ICertPolicy extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-verifyrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpol/nf-certpol-icertpolicy-verifyrequest
      */
-    VerifyRequest(strConfig, Context, bNewRequest, Flags) {
-        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+    VerifyRequest(strConfig, Context_, bNewRequest, Flags) {
+        if(strConfig is String) {
+            pin := BSTR.Alloc(strConfig)
+            strConfig := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strConfig, "int", Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", strConfig, "int", Context_, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDisposition
     }
 
     /**
      * Returns a human-readable description of the policy module and its function.
+     * @remarks
+     * When you write custom policy modules, implement this method.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that describes the policy module.
-     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpol/nf-certpol-icertpolicy-getdescription
      */
     GetDescription() {
         pstrDescription := BSTR()
-        result := ComCall(9, this, "ptr", pstrDescription, "HRESULT")
+        result := ComCall(9, this, "ptr", pstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrDescription
     }
 
     /**
      * Called by the server engine before the server is terminated.
+     * @remarks
+     * When you write custom policy modules, implement this method.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy-shutdown
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certpol/nf-certpol-icertpolicy-shutdown
      */
     ShutDown() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

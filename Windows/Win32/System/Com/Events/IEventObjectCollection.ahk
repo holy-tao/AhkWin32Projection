@@ -9,7 +9,7 @@
 
 /**
  * Manages objects in an event objects collection.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ieventobjectcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nn-eventsys-ieventobjectcollection
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -58,71 +58,104 @@ class IEventObjectCollection extends IDispatch{
     /**
      * An enumerator for the objects in the collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectcollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &ppUnkEnum := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppUnkEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkEnum)
     }
 
     /**
      * An item in the collection.
-     * @param {BSTR} objectID 
+     * @param {BSTR} objectID_ 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectcollection-get_item
      */
-    get_Item(objectID) {
-        objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
+    get_Item(objectID_) {
+        if(objectID_ is String) {
+            pin := BSTR.Alloc(objectID_)
+            objectID_ := pin.Value
+        }
 
         pItem := VARIANT()
-        result := ComCall(8, this, "ptr", objectID, "ptr", pItem, "HRESULT")
+        result := ComCall(8, this, "ptr", objectID_, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItem
     }
 
     /**
      * An enumeration object that implements IEnumEventObject.
      * @returns {IEnumEventObject} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get_newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectcollection-get_newenum
      */
     get_NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumEventObject(ppEnum)
     }
 
     /**
      * The number of objects in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectcollection-get_count
      */
     get_Count() {
-        result := ComCall(10, this, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * Adds an event object to the collection.
      * @param {Pointer<VARIANT>} item A pointer to the event object to be added to the collection. This parameter cannot be <b>NULL</b>.
-     * @param {BSTR} objectID The ID property of the event object to be added. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be added to the collection.
+     * @param {BSTR} objectID_ The ID property of the event object to be added. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be added to the collection.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectcollection-add
      */
-    Add(item, objectID) {
-        objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
+    Add(item, objectID_) {
+        if(objectID_ is String) {
+            pin := BSTR.Alloc(objectID_)
+            objectID_ := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", item, "ptr", objectID, "HRESULT")
+        result := ComCall(11, this, "ptr", item, "ptr", objectID_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes an event object from the collection.
-     * @param {BSTR} objectID The ID property of the event object to be removed. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be removed from the collection.
+     * @param {BSTR} objectID_ The ID property of the event object to be removed. For example, if the collection consists of subscription objects, this parameter would contain the SubscriptionID property of the event subscription object to be removed from the collection.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectcollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/eventsys/nf-eventsys-ieventobjectcollection-remove
      */
-    Remove(objectID) {
-        objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
+    Remove(objectID_) {
+        if(objectID_ is String) {
+            pin := BSTR.Alloc(objectID_)
+            objectID_ := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", objectID, "HRESULT")
+        result := ComCall(12, this, "ptr", objectID_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

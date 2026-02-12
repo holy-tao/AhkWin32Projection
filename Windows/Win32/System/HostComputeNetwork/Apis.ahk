@@ -101,19 +101,19 @@ class HostComputeNetwork {
      * HcnQueryNetworkProperties
      * @param {Pointer<Void>} Network Handle to an network [`HCN_NETWORK`](./HCN_NETWORK.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
-     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeNetwork](./../HNS_Schema.md#HostComputeNetwork).
+     * @param {Pointer<PWSTR>} Properties_ The properties in the form of a JSON document of [HostComputeNetwork](./../HNS_Schema.md#HostComputeNetwork).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryNetworkProperties
      */
-    static HcnQueryNetworkProperties(Network, Query, Properties, ErrorRecord) {
+    static HcnQueryNetworkProperties(Network, Query, Properties_, ErrorRecord) {
         Query := Query is String ? StrPtr(Query) : Query
 
         NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
-        PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
+        Properties_Marshal := Properties_ is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryNetworkProperties", NetworkMarshal, Network, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
+        result := DllCall("computenetwork.dll\HcnQueryNetworkProperties", NetworkMarshal, Network, "ptr", Query, Properties_Marshal, Properties_, ErrorRecordMarshal, ErrorRecord, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -242,19 +242,19 @@ class HostComputeNetwork {
      * HcnQueryNamespaceProperties
      * @param {Pointer<Void>} Namespace Handle to an namespace [`HCN_NAMESPACE`](./HCN_NAMESPACE.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
-     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeNamespace](./../HNS_Schema.md#HostComputeNamespace).
+     * @param {Pointer<PWSTR>} Properties_ The properties in the form of a JSON document of [HostComputeNamespace](./../HNS_Schema.md#HostComputeNamespace).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryNamespaceProperties
      */
-    static HcnQueryNamespaceProperties(Namespace, Query, Properties, ErrorRecord) {
+    static HcnQueryNamespaceProperties(Namespace, Query, Properties_, ErrorRecord) {
         Query := Query is String ? StrPtr(Query) : Query
 
         NamespaceMarshal := Namespace is VarRef ? "ptr" : "ptr"
-        PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
+        Properties_Marshal := Properties_ is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryNamespaceProperties", NamespaceMarshal, Namespace, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
+        result := DllCall("computenetwork.dll\HcnQueryNamespaceProperties", NamespaceMarshal, Namespace, "ptr", Query, Properties_Marshal, Properties_, ErrorRecordMarshal, ErrorRecord, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -385,19 +385,19 @@ class HostComputeNetwork {
      * HcnQueryEndpointProperties
      * @param {Pointer<Void>} Endpoint Handle to an endpoint [`HCN_ENDPOINT`](./HCN_ENDPOINT.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeQuery).
-     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeEndpoint](./../HNS_Schema.md#HostComputeEndpoint).
+     * @param {Pointer<PWSTR>} Properties_ The properties in the form of a JSON document of [HostComputeEndpoint](./../HNS_Schema.md#HostComputeEndpoint).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryEndpointProperties
      */
-    static HcnQueryEndpointProperties(Endpoint, Query, Properties, ErrorRecord) {
+    static HcnQueryEndpointProperties(Endpoint, Query, Properties_, ErrorRecord) {
         Query := Query is String ? StrPtr(Query) : Query
 
         EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
-        PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
+        Properties_Marshal := Properties_ is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryEndpointProperties", EndpointMarshal, Endpoint, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
+        result := DllCall("computenetwork.dll\HcnQueryEndpointProperties", EndpointMarshal, Endpoint, "ptr", Query, Properties_Marshal, Properties_, ErrorRecordMarshal, ErrorRecord, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -526,19 +526,19 @@ class HostComputeNetwork {
      * HcnQueryLoadBalancerProperties
      * @param {Pointer<Void>} LoadBalancer Handle to an load balancer [`HCN_LOADBALANCER`](./HCN_LOADBALANCER.md)
      * @param {PWSTR} Query Optional JSON document of [HostComputeQuery](./../HNS_Schema.md#HostComputeLoadBalancer).
-     * @param {Pointer<PWSTR>} Properties The properties in the form of a JSON document of [HostComputeLoadBalancer](./../HNS_Schema.md#HostComputeLoadBalancer).
+     * @param {Pointer<PWSTR>} Properties_ The properties in the form of a JSON document of [HostComputeLoadBalancer](./../HNS_Schema.md#HostComputeLoadBalancer).
      * @param {Pointer<PWSTR>} ErrorRecord Receives a JSON document with extended errorCode information. The caller must release the buffer using CoTaskMemFree.
      * @returns {HRESULT} The function returns [HRESULT](./HCNHResult.md).
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnQueryLoadBalancerProperties
      */
-    static HcnQueryLoadBalancerProperties(LoadBalancer, Query, Properties, ErrorRecord) {
+    static HcnQueryLoadBalancerProperties(LoadBalancer, Query, Properties_, ErrorRecord) {
         Query := Query is String ? StrPtr(Query) : Query
 
         LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : "ptr"
-        PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
+        Properties_Marshal := Properties_ is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryLoadBalancerProperties", LoadBalancerMarshal, LoadBalancer, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
+        result := DllCall("computenetwork.dll\HcnQueryLoadBalancerProperties", LoadBalancerMarshal, LoadBalancer, "ptr", Query, Properties_Marshal, Properties_, ErrorRecordMarshal, ErrorRecord, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -581,14 +581,14 @@ class HostComputeNetwork {
     /**
      * HcnRegisterServiceCallback
      * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback The [HCN_NOTIFICATION_CALLBACK](./HCN_NOTIFICATION_CALLBACK.md) for the callback.
-     * @param {Pointer<Void>} Context Context that is provided on the callbacks.
+     * @param {Pointer<Void>} Context_ Context that is provided on the callbacks.
      * @returns {Pointer<Void>} Receives a [HCN_CALLBACK](./HCN_CALLBACK.md). It is the responsibility of the caller to release the handle using [HcnUnregisterServiceCallback](./HcnUnregisterServiceCallback.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterServiceCallback
      */
-    static HcnRegisterServiceCallback(Callback, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static HcnRegisterServiceCallback(Callback, Context_) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, ContextMarshal, Context, "ptr*", &CallbackHandle := 0, "int")
+        result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, Context_Marshal, Context_, "ptr*", &CallbackHandle := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -617,15 +617,15 @@ class HostComputeNetwork {
      * HcnRegisterGuestNetworkServiceCallback
      * @param {Pointer<Void>} GuestNetworkService The [HCN_GUESTNETWORKSERVICE](./HCN_GUESTNETWORKSERVICE.md) for the callback.
      * @param {Pointer<HCN_NOTIFICATION_CALLBACK>} Callback The [HCN_NOTIFICATION_CALLBACK](./HCN_NOTIFICATION_CALLBACK.md) for the callback.
-     * @param {Pointer<Void>} Context Context that is provided on the callbacks.
+     * @param {Pointer<Void>} Context_ Context that is provided on the callbacks.
      * @returns {Pointer<Void>} Receives a [HCN_CALLBACK](./HCN_CALLBACK.md). It is the responsibility of the caller to release the handle using [HcnUnregisterGuestNetworkServiceCallback](./HcnUnregisterGuestNetworkServiceCallback.md) once it is no longer in use.
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnRegisterGuestNetworkServiceCallback
      */
-    static HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, Context) {
+    static HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, Context_) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, ContextMarshal, Context, "ptr*", &CallbackHandle := 0, "int")
+        result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, Context_Marshal, Context_, "ptr*", &CallbackHandle := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

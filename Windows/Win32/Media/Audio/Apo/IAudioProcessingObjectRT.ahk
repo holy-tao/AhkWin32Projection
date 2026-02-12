@@ -5,7 +5,7 @@
 
 /**
  * This interface can operate in real-time mode and its methods can be called form real-time processing threads.
- * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectrt
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectrt
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -32,12 +32,18 @@ class IAudioProcessingObjectRT extends IUnknown{
 
     /**
      * The APOProcess method causes the APO to make a processing pass.
+     * @remarks
+     * The <c>APOProcess</c> method must not change the data in the ppOutputConnections array. But it must set the properties of the output connections after processing.
+     * 
+     * The <c>APOProcess</c> method is called from a real-time processing thread. The implementation of this method must not touch paged memory and it should not call any system blocking routines.
+     * 
+     * For a detailed look at an implementation of this method, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/audio/windows-vista-sapo-feature-reference">Swap sample code</a> and refer to the Swapapolfx.cpp file.
      * @param {Integer} u32NumInputConnections The number of input connections that are attached to this APO.
      * @param {Pointer<Pointer<APO_CONNECTION_PROPERTY>>} ppInputConnections An array of input connection property structures. There is one structure per input connection.
      * @param {Integer} u32NumOutputConnections The number of output connections that are attached to this APO.
      * @param {Pointer<Pointer<APO_CONNECTION_PROPERTY>>} ppOutputConnections An array of output connection property structures. There is one structure per output connection.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess
      */
     APOProcess(u32NumInputConnections, ppInputConnections, u32NumOutputConnections, ppOutputConnections) {
         ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
@@ -48,8 +54,10 @@ class IAudioProcessingObjectRT extends IUnknown{
 
     /**
      * The CalcInputFrames method returns the number of input frames that an APO requires to generate a given number of output frames.
+     * @remarks
+     * The <c>CalcInputFrames</c> method is called from a real-time processing thread. The implementation of this method must not touch paged memory and it should not call any system blocking routines.
      * @param {Integer} u32OutputFrameCount This is a count of the number of output frames.
-     * @returns {Integer} The <code>CalcInputFrames</code> method returns the number of input frames that are required to generate the given number of output frames.
+     * @returns {Integer} The <c>CalcInputFrames</c> method returns the number of input frames that are required to generate the given number of output frames.
      * 
      * <table>
      * <tr>
@@ -57,7 +65,7 @@ class IAudioProcessingObjectRT extends IUnknown{
      * <th>Description</th>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcinputframes
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcinputframes
      */
     CalcInputFrames(u32OutputFrameCount) {
         result := ComCall(4, this, "uint", u32OutputFrameCount, "uint")
@@ -66,8 +74,10 @@ class IAudioProcessingObjectRT extends IUnknown{
 
     /**
      * The CalcOutputFrames method returns the number of output frames that an APO requires for a given number of input frames.
+     * @remarks
+     * The <c>CalcOutputFrames</c> method can be called form a real-time processing thread. The implementation of this method must not block or touch paged memory and it should not call any system blocking routines.
      * @param {Integer} u32InputFrameCount This is a count of the number of input frames.
-     * @returns {Integer} The <code>CalcOutputFrames</code> method returns the number of output frames that an APO will generate for a given number of input frames.
+     * @returns {Integer} The <c>CalcOutputFrames</c> method returns the number of output frames that an APO will generate for a given number of input frames.
      * 
      * <table>
      * <tr>
@@ -75,7 +85,7 @@ class IAudioProcessingObjectRT extends IUnknown{
      * <th>Description</th>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcoutputframes
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-calcoutputframes
      */
     CalcOutputFrames(u32InputFrameCount) {
         result := ComCall(5, this, "uint", u32InputFrameCount, "uint")

@@ -8,7 +8,6 @@
 /**
  * Represents a package and provides methods to access the package's parts and relationships.
  * @remarks
- * 
  * To get a pointer to this interface, call either the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcfactory-createpackage">IOpcFactory::CreatePackage</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcfactory-readpackagefromstream">IOpcFactory::ReadPackageFromStream</a> method.
  * 
  * Package relationships serve as an entry point  to the package by  links from the package to target  resources. The target of a package relationship is often an important part described in the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i> or by the package format designer.
@@ -18,10 +17,7 @@
  * The definitive way to find a part of interest is by using a relationship type. Several steps are required; for details, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/parts-overview">Parts Overview</a> and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/finding-the-core-properties-part">Finding the Core Properties Part</a> how-to task.
  * 
  * For more information about packages, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>OPC</i>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcpackage
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcpackage
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -48,21 +44,37 @@ class IOpcPackage extends IUnknown{
 
     /**
      * Gets a part set object that contains IOpcPart interface pointers.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface is only used to represent parts in the package that are not Relationships parts.
+     * 
+     * For more information about packages, parts, relationships, and the interfaces that represent them, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @returns {IOpcPartSet} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpartset">IOpcPartSet</a> interface of the part set object that contains <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface pointers to part objects.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpackage-getpartset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcpackage-getpartset
      */
     GetPartSet() {
-        result := ComCall(3, this, "ptr*", &partSet := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &partSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcPartSet(partSet)
     }
 
     /**
      * Gets a relationship set object that represents the Relationships part that stores package relationships.
+     * @remarks
+     * The Package relationships represented in the set provide the entry point to a package for an application.
+     * 
+     * For more information about packages, parts, relationships, and the interfaces that represent them, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @returns {IOpcRelationshipSet} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipset">IOpcRelationshipSet</a> interface of the relationship set object. The set represents the Relationships part that stores package relationships.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcpackage-getrelationshipset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcpackage-getrelationshipset
      */
     GetRelationshipSet() {
-        result := ComCall(4, this, "ptr*", &relationshipSet := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &relationshipSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcRelationshipSet(relationshipSet)
     }
 }

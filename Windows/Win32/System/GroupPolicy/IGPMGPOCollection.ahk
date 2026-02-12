@@ -7,7 +7,7 @@
 
 /**
  * The IGPMGPOCollection interface contains methods that enable applications to access a collection of Group Policy Objects (GPOs) when using the Group Policy Management Console (GPMC) interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmgpocollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmgpocollection
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -53,34 +53,46 @@ class IGPMGPOCollection extends IDispatch{
     }
 
     /**
-     * Returns the number of GPOs in the collection.
+     * Returns the number of GPOs in the collection. (IGPMGPOCollection.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmgpocollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmgpocollection-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Given an index, returns a pointer to an GPMGPO object from the collection.
+     * Given an index, returns a pointer to a GPMGPO object from the collection.
      * @param {Integer} lIndex 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmgpocollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmgpocollection-get_item
      */
     get_Item(lIndex) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", lIndex, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", lIndex, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Retrieves an enumerator for the collection.
+     * Retrieves an enumerator for the collection. (IGPMGPOCollection.get__NewEnum)
      * @returns {IEnumVARIANT} Pointer to an <b>IEnumVARIANT</b> interface of an enumerator object for the collection. <b>IEnumVARIANT</b> provides a number of methods that you can use to iterate through the collection. For more information about <b>IEnumVARIANT</b>, see the COM documentation in the Platform SDK.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmgpocollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmgpocollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppIGPMGPOs := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppIGPMGPOs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(ppIGPMGPOs)
     }
 }

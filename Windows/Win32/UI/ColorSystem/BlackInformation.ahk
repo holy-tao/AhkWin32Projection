@@ -31,7 +31,7 @@
  * If <b>bBlackOnly</b> is <b>FALSE</b>, then the baseline device models for devices with a black channel will use the <b>blackWeight</b> to guide the creation of a colorimetrically appropriate output pixel value. For CMYK devices, <b>blackWeight</b> provides WCS's initial estimation of a K value and it searches for C, M, and Y values that will lead to the correct colorimetry. If it does not find a match, it adjusts the K value and searches again.
  * 
  * You can set plug-ins to either support or ignore the <b>BlackInformation</b>.
- * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/ns-wcsplugin-blackinformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/wcsplugin/ns-wcsplugin-blackinformation
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */

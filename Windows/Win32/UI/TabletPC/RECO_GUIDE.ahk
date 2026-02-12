@@ -137,7 +137,7 @@
  * The following illustration represents a single box from the previous illustration.
  * 
  * <img alt="Illustration of single recognition guide box" border="" src="images/a7106d81-4314-44ec-905d-1bb3ba7711b7.gif"/>
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_guide
+ * @see https://learn.microsoft.com/windows/win32/api//content/rectypes/ns-rectypes-reco_guide
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -41,7 +41,11 @@ class IMarkupServices2 extends IMarkupServices{
     ParseGlobalEx(hglobalHTML, dwFlags, pContext, pPointerStart, pPointerFinish) {
         hglobalHTML := hglobalHTML is Win32Handle ? NumGet(hglobalHTML, "ptr") : hglobalHTML
 
-        result := ComCall(23, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr", pContext, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        result := ComCall(23, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr", pContext, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupContainer(ppContainerResult)
     }
 
@@ -56,7 +60,11 @@ class IMarkupServices2 extends IMarkupServices{
      * @returns {HRESULT} 
      */
     ValidateElements(pPointerStart, pPointerFinish, pPointerTarget, pPointerStatus, ppElemFailBottom, ppElemFailTop) {
-        result := ComCall(24, this, "ptr", pPointerStart, "ptr", pPointerFinish, "ptr", pPointerTarget, "ptr", pPointerStatus, "ptr*", ppElemFailBottom, "ptr*", ppElemFailTop, "HRESULT")
+        result := ComCall(24, this, "ptr", pPointerStart, "ptr", pPointerFinish, "ptr", pPointerTarget, "ptr", pPointerStatus, "ptr*", ppElemFailBottom, "ptr*", ppElemFailTop, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +75,11 @@ class IMarkupServices2 extends IMarkupServices{
      * @returns {HRESULT} 
      */
     SaveSegmentsToClipboard(pSegmentList, dwFlags) {
-        result := ComCall(25, this, "ptr", pSegmentList, "uint", dwFlags, "HRESULT")
+        result := ComCall(25, this, "ptr", pSegmentList, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

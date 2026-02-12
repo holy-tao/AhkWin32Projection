@@ -5,7 +5,7 @@
  * Specifies the parts of the depth stencil to clear. Usually used with ID3D10Device::ClearDepthStencilView.
  * @remarks
  * These flags can be bitwise ORed together.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_clear_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_clear_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

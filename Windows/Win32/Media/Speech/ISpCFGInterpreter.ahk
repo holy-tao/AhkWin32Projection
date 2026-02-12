@@ -39,7 +39,11 @@ class ISpCFGInterpreter extends IUnknown{
 
         pvGrammarDataMarshal := pvGrammarData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszGrammarName, pvGrammarDataMarshal, pvGrammarData, "HRESULT")
+        result := ComCall(3, this, "ptr", pszGrammarName, pvGrammarDataMarshal, pvGrammarData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISpCFGInterpreter extends IUnknown{
      * @returns {HRESULT} 
      */
     Interpret(pPhrase, ulFirstElement, ulCountOfElements, pSite) {
-        result := ComCall(4, this, "ptr", pPhrase, "uint", ulFirstElement, "uint", ulCountOfElements, "ptr", pSite, "HRESULT")
+        result := ComCall(4, this, "ptr", pPhrase, "uint", ulFirstElement, "uint", ulCountOfElements, "ptr", pSite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

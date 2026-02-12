@@ -63,7 +63,11 @@ class IXMLDSOControl extends IDispatch{
      * @returns {IXMLDOMDocument} 
      */
     get_XMLDocument() {
-        result := ComCall(7, this, "ptr*", &ppDoc := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocument(ppDoc)
     }
 
@@ -73,7 +77,11 @@ class IXMLDSOControl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_XMLDocument(ppDoc) {
-        result := ComCall(8, this, "ptr", ppDoc, "HRESULT")
+        result := ComCall(8, this, "ptr", ppDoc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +90,11 @@ class IXMLDSOControl extends IDispatch{
      * @returns {BOOL} 
      */
     get_JavaDSOCompatible() {
-        result := ComCall(9, this, "int*", &fJavaDSOCompatible := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &fJavaDSOCompatible := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fJavaDSOCompatible
     }
 
@@ -92,7 +104,11 @@ class IXMLDSOControl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_JavaDSOCompatible(fJavaDSOCompatible) {
-        result := ComCall(10, this, "int", fJavaDSOCompatible, "HRESULT")
+        result := ComCall(10, this, "int", fJavaDSOCompatible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +117,11 @@ class IXMLDSOControl extends IDispatch{
      * @returns {Integer} 
      */
     get_readyState() {
-        result := ComCall(11, this, "int*", &state := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &state := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return state
     }
 }

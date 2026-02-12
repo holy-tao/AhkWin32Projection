@@ -2,10 +2,11 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information about a system appbar message.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-appbardata
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/ns-shellapi-appbardata
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -127,9 +128,12 @@ class APPBARDATA extends Win32Struct
      * See the individual message pages for details.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 
     __New(ptrOrObj := 0, parent := ""){

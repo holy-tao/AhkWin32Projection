@@ -29,12 +29,17 @@ class IGetSession extends IUnknown{
     static VTableNames => ["GetSession"]
 
     /**
-     * 
+     * Reserved for future use. Do not use this function. (GetSessionCompartmentId)
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getsessioncompartmentid
      */
     GetSession(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
-        return IUnknown(ppSession)
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppSession
     }
 }

@@ -48,7 +48,11 @@ class IDocObjectService extends IUnknown{
 
         pPostDataMarshal := pPostData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, "uint", cbPostData, "ptr", lpszHeaders, "int", fPlayNavSound, "int*", &pfCancel := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDispatch, "ptr", lpszUrl, "uint", dwFlags, "ptr", lpszFrameName, pPostDataMarshal, pPostData, "uint", cbPostData, "ptr", lpszHeaders, "int", fPlayNavSound, "int*", &pfCancel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCancel
     }
 
@@ -59,7 +63,11 @@ class IDocObjectService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireNavigateComplete2(pHTMLWindow2, dwFlags) {
-        result := ComCall(4, this, "ptr", pHTMLWindow2, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", pHTMLWindow2, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IDocObjectService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireDownloadBegin() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +89,11 @@ class IDocObjectService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireDownloadComplete() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +104,11 @@ class IDocObjectService extends IUnknown{
      * @returns {HRESULT} 
      */
     FireDocumentComplete(pHTMLWindow, dwFlags) {
-        result := ComCall(7, this, "ptr", pHTMLWindow, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, "ptr", pHTMLWindow, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +118,11 @@ class IDocObjectService extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateDesktopComponent(pHTMLWindow) {
-        result := ComCall(8, this, "ptr", pHTMLWindow, "HRESULT")
+        result := ComCall(8, this, "ptr", pHTMLWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +132,11 @@ class IDocObjectService extends IUnknown{
      */
     GetPendingUrl() {
         pbstrPendingUrl := BSTR()
-        result := ComCall(9, this, "ptr", pbstrPendingUrl, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrPendingUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrPendingUrl
     }
 
@@ -118,7 +146,11 @@ class IDocObjectService extends IUnknown{
      * @returns {HRESULT} 
      */
     ActiveElementChanged(pHTMLElement) {
-        result := ComCall(10, this, "ptr", pHTMLElement, "HRESULT")
+        result := ComCall(10, this, "ptr", pHTMLElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +160,11 @@ class IDocObjectService extends IUnknown{
      */
     GetUrlSearchComponent() {
         pbstrSearch := BSTR()
-        result := ComCall(11, this, "ptr", pbstrSearch, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrSearch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrSearch
     }
 
@@ -140,7 +176,11 @@ class IDocObjectService extends IUnknown{
     IsErrorUrl(lpszUrl) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
-        result := ComCall(12, this, "ptr", lpszUrl, "int*", &pfIsError := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", lpszUrl, "int*", &pfIsError := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsError
     }
 }

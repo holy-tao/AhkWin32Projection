@@ -79,7 +79,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_detailed_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-activation_context_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

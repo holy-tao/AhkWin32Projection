@@ -34,7 +34,11 @@ class IWMInterlaceProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProcessType(iProcessType) {
-        result := ComCall(3, this, "int", iProcessType, "HRESULT")
+        result := ComCall(3, this, "int", iProcessType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IWMInterlaceProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetInitInverseTeleCinePattern(iInitPattern) {
-        result := ComCall(4, this, "int", iInitPattern, "HRESULT")
+        result := ComCall(4, this, "int", iInitPattern, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IWMInterlaceProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetLastFrame() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

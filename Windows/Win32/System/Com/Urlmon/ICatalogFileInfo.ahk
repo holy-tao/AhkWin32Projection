@@ -33,7 +33,11 @@ class ICatalogFileInfo extends IUnknown{
      * @returns {PSTR} 
      */
     GetCatalogFile() {
-        result := ComCall(3, this, "ptr*", &ppszCatalogFile := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszCatalogFile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCatalogFile
     }
 
@@ -42,7 +46,11 @@ class ICatalogFileInfo extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetJavaTrust() {
-        result := ComCall(4, this, "ptr*", &ppJavaTrust := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppJavaTrust := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppJavaTrust
     }
 }

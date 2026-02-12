@@ -7,16 +7,13 @@
 /**
  * A module interface creates an instance of a module that is used for resource rebinding.
  * @remarks
- * 
  * To get a module interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3dcompiler/nf-d3dcompiler-d3dloadmodule">D3DLoadModule</a>.
  *       
  * 
  * <div class="alert"><b>Note</b>  <b>ID3D11Module</b> requires the D3dcompiler_47.dll or a later version of the DLL.
  *       </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11module
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nn-d3d11shader-id3d11module
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -46,15 +43,19 @@ class ID3D11Module extends IUnknown{
      * @param {PSTR} pNamespace Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of a shader module to initialize. This can be <b>NULL</b> if you don't want to specify a name for the module.
-     * @returns {ID3D11ModuleInstance} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a>**</b>
+     * @returns {Pointer<ID3D11ModuleInstance>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a> interface to initialize.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11module-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11module-createinstance
      */
     CreateInstance(pNamespace) {
         pNamespace := pNamespace is String ? StrPtr(pNamespace) : pNamespace
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr*", &ppModuleInstance := 0, "HRESULT")
-        return ID3D11ModuleInstance(ppModuleInstance)
+        result := ComCall(3, this, "ptr", pNamespace, "ptr*", &ppModuleInstance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppModuleInstance
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * Architecture-specific data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-image_optional_header32
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

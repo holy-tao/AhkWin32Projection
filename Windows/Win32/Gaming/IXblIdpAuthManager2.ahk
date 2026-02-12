@@ -52,7 +52,11 @@ class IXblIdpAuthManager2 extends IUnknown{
 
         bodyMarshal := body is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", &result := 0, "HRESULT")
-        return IXblIdpAuthTokenResult(result)
+        result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IXblIdpAuthTokenResult(result_)
     }
 }

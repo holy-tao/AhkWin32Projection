@@ -15,7 +15,7 @@
  *    struct _LIST_ENTRY *Blink;
  * } LIST_ENTRY, *PLIST_ENTRY, *RESTRICTED_POINTER PRLIST_ENTRY;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-loaded_image
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbghelp/ns-dbghelp-loaded_image
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

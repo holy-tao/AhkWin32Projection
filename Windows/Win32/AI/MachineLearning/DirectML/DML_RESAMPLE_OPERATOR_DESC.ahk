@@ -5,7 +5,7 @@
  * Resamples elements from the source to the destination tensor, using the scale factors to compute the destination tensor size. You can use a linear or nearest-neighbor interpolation mode. (DML_RESAMPLE_OPERATOR_DESC)
  * @remarks
  * A newer version of this operator, [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_resample_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_resample_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

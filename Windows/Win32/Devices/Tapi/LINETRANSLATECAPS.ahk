@@ -5,7 +5,7 @@
  * The LINETRANSLATECAPS structure describes the address translation capabilities.
  * @remarks
  * This structure may not be extended.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linetranslatecaps
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linetranslatecaps
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

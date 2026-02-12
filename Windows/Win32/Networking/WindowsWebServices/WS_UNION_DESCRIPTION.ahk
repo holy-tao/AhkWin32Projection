@@ -150,7 +150,7 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_encoding_type">WS_FIELD_OPTIONAL</a> may not be used.
  *             </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_union_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_union_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

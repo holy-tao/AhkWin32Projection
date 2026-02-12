@@ -37,7 +37,11 @@ class IWRdsWddmIddProps1 extends IUnknown{
     GetHardwareId(pDisplayDriverHardwareId, Count) {
         pDisplayDriverHardwareId := pDisplayDriverHardwareId is String ? StrPtr(pDisplayDriverHardwareId) : pDisplayDriverHardwareId
 
-        result := ComCall(3, this, "ptr", pDisplayDriverHardwareId, "uint", Count, "HRESULT")
+        result := ComCall(3, this, "ptr", pDisplayDriverHardwareId, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IWRdsWddmIddProps1 extends IUnknown{
     OnDriverLoad(SessionId, DeviceInstance) {
         DeviceInstance := DeviceInstance is String ? StrPtr(DeviceInstance) : DeviceInstance
 
-        result := ComCall(4, this, "uint", SessionId, "ptr", DeviceInstance, "HRESULT")
+        result := ComCall(4, this, "uint", SessionId, "ptr", DeviceInstance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IWRdsWddmIddProps1 extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDriverUnload(SessionId) {
-        result := ComCall(5, this, "uint", SessionId, "HRESULT")
+        result := ComCall(5, this, "uint", SessionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

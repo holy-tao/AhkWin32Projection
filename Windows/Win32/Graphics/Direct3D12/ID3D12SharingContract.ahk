@@ -5,7 +5,7 @@
 
 /**
  * Part of a contract between D3D11On12 diagnostic layers and graphics diagnostics tools.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nn-d3d12sdklayers-id3d12sharingcontract
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nn-d3d12sdklayers-id3d12sharingcontract
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class ID3D12SharingContract extends IUnknown{
      * An unsigned 32bit subresource id.
      * @param {HWND} window If provided, indicates which window the tools should use for displaying additional diagnostic information.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-present
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-present
      */
     Present(pResource, Subresource, window) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
@@ -57,7 +57,7 @@ class ID3D12SharingContract extends IUnknown{
      * 
      * An unsigned 64bit value to signal the shared fence with.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-sharedfencesignal
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-sharedfencesignal
      */
     SharedFenceSignal(pFence, FenceValue) {
         ComCall(4, this, "ptr", pFence, "uint", FenceValue)

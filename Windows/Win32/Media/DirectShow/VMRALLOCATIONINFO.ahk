@@ -4,7 +4,7 @@
 
 /**
  * The VMRALLOCATIONINFO structure is used in the VMR-7 filter's IVMRSurfaceAllocator::AllocateSurface method.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrallocationinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-vmrallocationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

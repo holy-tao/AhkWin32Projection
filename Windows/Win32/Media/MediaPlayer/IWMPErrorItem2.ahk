@@ -5,7 +5,7 @@
 
 /**
  * The IWMPErrorItem2 interface provides a method that supplements the IWMPErrorItem interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmperroritem2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmperroritem2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -38,6 +38,10 @@ class IWMPErrorItem2 extends IWMPErrorItem{
 
     /**
      * The get_condition method retrieves a value indicating the condition for the error.
+     * @remarks
+     * The condition code is a value that is used by Microsoft to provide additional information for technical support personnel.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>long</b> set to 0.
      * @param {Pointer<Integer>} plCondition Pointer to a <b>long</b> containing the condition code.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -58,12 +62,16 @@ class IWMPErrorItem2 extends IWMPErrorItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem2-get_condition
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmperroritem2-get_condition
      */
     get_condition(plCondition) {
         plConditionMarshal := plCondition is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, plConditionMarshal, plCondition, "HRESULT")
+        result := ComCall(12, this, plConditionMarshal, plCondition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

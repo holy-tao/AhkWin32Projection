@@ -10,7 +10,7 @@
 
 /**
  * A shader-variable interface accesses a shader variable.
- * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectshadervariable
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nn-d3d10effect-id3d10effectshadervariable
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -36,18 +36,22 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
     static VTableNames => ["GetShaderDesc", "GetVertexShader", "GetGeometryShader", "GetPixelShader", "GetInputSignatureElementDesc", "GetOutputSignatureElementDesc"]
 
     /**
-     * Get a shader description.
+     * Get a shader description. (ID3D10EffectShaderVariable.GetShaderDesc)
      * @param {Integer} ShaderIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A zero-based index.
      * @returns {D3D10_EFFECT_SHADER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_effect_shader_desc">D3D10_EFFECT_SHADER_DESC</a>*</b>
      * 
      * A pointer to a shader description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_effect_shader_desc">D3D10_EFFECT_SHADER_DESC</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getshaderdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getshaderdesc
      */
     GetShaderDesc(ShaderIndex) {
         pDesc := D3D10_EFFECT_SHADER_DESC()
-        result := ComCall(25, this, "uint", ShaderIndex, "ptr", pDesc, "HRESULT")
+        result := ComCall(25, this, "uint", ShaderIndex, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 
@@ -59,10 +63,14 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
      * @returns {ID3D10VertexShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader</a>**</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10vertexshader">ID3D10VertexShader Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getvertexshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getvertexshader
      */
     GetVertexShader(ShaderIndex) {
-        result := ComCall(26, this, "uint", ShaderIndex, "ptr*", &ppVS := 0, "HRESULT")
+        result := ComCall(26, this, "uint", ShaderIndex, "ptr*", &ppVS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10VertexShader(ppVS)
     }
 
@@ -74,10 +82,14 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
      * @returns {ID3D10GeometryShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader</a>**</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10geometryshader">ID3D10GeometryShader Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getgeometryshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getgeometryshader
      */
     GetGeometryShader(ShaderIndex) {
-        result := ComCall(27, this, "uint", ShaderIndex, "ptr*", &ppGS := 0, "HRESULT")
+        result := ComCall(27, this, "uint", ShaderIndex, "ptr*", &ppGS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10GeometryShader(ppGS)
     }
 
@@ -89,15 +101,21 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
      * @returns {ID3D10PixelShader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader</a>**</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10pixelshader">ID3D10PixelShader Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getpixelshader
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getpixelshader
      */
     GetPixelShader(ShaderIndex) {
-        result := ComCall(28, this, "uint", ShaderIndex, "ptr*", &ppPS := 0, "HRESULT")
+        result := ComCall(28, this, "uint", ShaderIndex, "ptr*", &ppPS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D10PixelShader(ppPS)
     }
 
     /**
      * Get an input-signature description.
+     * @remarks
+     * An effect contains one or more shaders; each shader has an input and output signature; each signature contains one or more elements (or parameters). The shader index identifies the shader and the element index identifies the element (or parameter) in the shader signature.
      * @param {Integer} ShaderIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A zero-based shader index.
@@ -107,16 +125,22 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
      * @returns {D3D10_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>*</b>
      * 
      * A pointer to a parameter description (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getinputsignatureelementdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getinputsignatureelementdesc
      */
     GetInputSignatureElementDesc(ShaderIndex, Element) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(29, this, "uint", ShaderIndex, "uint", Element, "ptr", pDesc, "HRESULT")
+        result := ComCall(29, this, "uint", ShaderIndex, "uint", Element, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 
     /**
      * Get an output-signature description.
+     * @remarks
+     * An effect contains one or more shaders; each shader has an input and output signature; each signature contains one or more elements (or parameters). The shader index identifies the shader and the element index identifies the element (or parameter) in the shader signature.
      * @param {Integer} ShaderIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A zero-based shader index.
@@ -126,11 +150,15 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
      * @returns {D3D10_SIGNATURE_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>*</b>
      * 
      * A pointer to a parameter description (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc">D3D10_SIGNATURE_PARAMETER_DESC</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getoutputsignatureelementdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getoutputsignatureelementdesc
      */
     GetOutputSignatureElementDesc(ShaderIndex, Element) {
         pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
-        result := ComCall(30, this, "uint", ShaderIndex, "uint", Element, "ptr", pDesc, "HRESULT")
+        result := ComCall(30, this, "uint", ShaderIndex, "uint", Element, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 }

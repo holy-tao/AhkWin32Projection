@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Retrieves the unique identifiers of all nodes belonging to the InkAnalysisInkBullet object.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/uwp/api/windows.ui.input.inking.analysis.inkanalysisinkbullet.getstrokeids
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

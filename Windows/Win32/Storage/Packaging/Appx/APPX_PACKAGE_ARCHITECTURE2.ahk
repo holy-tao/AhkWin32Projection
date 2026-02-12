@@ -3,7 +3,7 @@
 
 /**
  * Specifies the processor architectures supported by a package. (APPX_PACKAGE_ARCHITECTURE2)
- * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_package_architecture2
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/ne-appxpackaging-appx_package_architecture2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

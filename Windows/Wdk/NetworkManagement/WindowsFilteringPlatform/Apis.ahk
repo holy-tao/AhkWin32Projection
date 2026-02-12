@@ -25,7 +25,7 @@ class WindowsFilteringPlatform {
      * 
      * Address of the pointer to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfreememory0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfreememory0
      */
     static FwpmFreeMemory0(p) {
         pMarshal := p is VarRef ? "ptr*" : "ptr"
@@ -46,15 +46,15 @@ class WindowsFilteringPlatform {
      * 
      * @param {Pointer<Void>} deviceObject 
      * @param {Pointer<FWPM_SERVICE_STATE_CHANGE_CALLBACK0>} callback 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {Pointer<HANDLE>} changeHandle 
      * @returns {NTSTATUS} 
      */
-    static FwpmBfeStateSubscribeChanges0(deviceObject, callback, context, changeHandle) {
+    static FwpmBfeStateSubscribeChanges0(deviceObject, callback, context_, changeHandle) {
         deviceObjectMarshal := deviceObject is VarRef ? "ptr" : "ptr"
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("fwpkclnt.sys\FwpmBfeStateSubscribeChanges0", deviceObjectMarshal, deviceObject, "ptr", callback, contextMarshal, context, "ptr", changeHandle, "int")
+        result := DllCall("fwpkclnt.sys\FwpmBfeStateSubscribeChanges0", deviceObjectMarshal, deviceObject, "ptr", callback, context_Marshal, context_, "ptr", changeHandle, "int")
         return result
     }
 
@@ -156,7 +156,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmengineopen0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmengineopen0
      */
     static FwpmEngineOpen0(serverName, authnService, authIdentity, session, engineHandle) {
         serverName := serverName is String ? StrPtr(serverName) : serverName
@@ -222,7 +222,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmengineclose0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmengineclose0
      */
     static FwpmEngineClose0(engineHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -326,7 +326,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetoption0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmenginegetoption0
      */
     static FwpmEngineGetOption0(engineHandle, option, value) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -457,7 +457,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginesetoption0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmenginesetoption0
      */
     static FwpmEngineSetOption0(engineHandle, option, newValue) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -492,7 +492,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -539,9 +539,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmenginegetsecurityinfo0
      */
-    static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -549,7 +549,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -624,7 +624,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmenginesetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmenginesetsecurityinfo0
      */
     static FwpmEngineSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -699,7 +699,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsessioncreateenumhandle0
      */
     static FwpmSessionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -779,7 +779,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessionenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsessionenum0
      */
     static FwpmSessionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -846,7 +846,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsessiondestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsessiondestroyenumhandle0
      */
     static FwpmSessionDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -943,7 +943,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmtransactionbegin0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmtransactionbegin0
      */
     static FwpmTransactionBegin0(engineHandle, flags) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1006,7 +1006,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmtransactioncommit0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmtransactioncommit0
      */
     static FwpmTransactionCommit0(engineHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1069,7 +1069,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmtransactionabort0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmtransactionabort0
      */
     static FwpmTransactionAbort0(engineHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1149,7 +1149,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovideradd0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovideradd0
      */
     static FwpmProviderAdd0(engineHandle, provider, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1220,7 +1220,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmproviderdeletebykey0
      */
     static FwpmProviderDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1290,7 +1290,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidergetbykey0
      */
     static FwpmProviderGetByKey0(engineHandle, key, provider) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1366,7 +1366,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercreateenumhandle0
      */
     static FwpmProviderCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1446,7 +1446,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmproviderenum0
      */
     static FwpmProviderEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1513,7 +1513,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmproviderdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmproviderdestroyenumhandle0
      */
     static FwpmProviderDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1554,7 +1554,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -1601,9 +1601,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidergetsecurityinfobykey0
      */
-    static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -1611,7 +1611,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -1693,7 +1693,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidersetsecurityinfobykey0
      */
     static FwpmProviderSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1782,7 +1782,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextadd0
      */
     static FwpmProviderContextAdd0(engineHandle, providerContext, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1874,7 +1874,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextadd1
      */
     static FwpmProviderContextAdd1(engineHandle, providerContext, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -1966,7 +1966,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextadd2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextadd2
      */
     static FwpmProviderContextAdd2(engineHandle, providerContext, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2057,7 +2057,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextdeletebyid0
      */
     static FwpmProviderContextDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2127,7 +2127,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextdeletebykey0
      */
     static FwpmProviderContextDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2195,7 +2195,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid0
      */
     static FwpmProviderContextGetById0(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2265,7 +2265,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid1
      */
     static FwpmProviderContextGetById1(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2335,7 +2335,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetbyid2
      */
     static FwpmProviderContextGetById2(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2421,7 +2421,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey0
      */
     static FwpmProviderContextGetByKey0(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2491,7 +2491,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey1
      */
     static FwpmProviderContextGetByKey1(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2561,7 +2561,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetbykey2
      */
     static FwpmProviderContextGetByKey2(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2653,7 +2653,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextcreateenumhandle0
      */
     static FwpmProviderContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2731,7 +2731,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextenum0
      */
     static FwpmProviderContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2813,7 +2813,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextenum1
      */
     static FwpmProviderContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2895,7 +2895,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextenum2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextenum2
      */
     static FwpmProviderContextEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -2982,7 +2982,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextdestroyenumhandle0
      */
     static FwpmProviderContextDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3023,7 +3023,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -3070,9 +3070,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextgetsecurityinfobykey0
      */
-    static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -3080,7 +3080,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -3162,7 +3162,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmprovidercontextsetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmprovidercontextsetsecurityinfobykey0
      */
     static FwpmProviderContextSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3235,7 +3235,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayeradd0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayeradd0
      */
     static FwpmSubLayerAdd0(engineHandle, subLayer, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3306,7 +3306,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayerdeletebykey0
      */
     static FwpmSubLayerDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3376,7 +3376,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayergetbykey0
      */
     static FwpmSubLayerGetByKey0(engineHandle, key, subLayer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3452,7 +3452,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayercreateenumhandle0
      */
     static FwpmSubLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3532,7 +3532,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayerenum0
      */
     static FwpmSubLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3599,7 +3599,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayerdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayerdestroyenumhandle0
      */
     static FwpmSubLayerDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3640,7 +3640,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -3687,9 +3687,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayergetsecurityinfobykey0
      */
-    static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -3697,7 +3697,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -3779,7 +3779,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmsublayersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmsublayersetsecurityinfobykey0
      */
     static FwpmSubLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3849,7 +3849,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayergetbyid0
      */
     static FwpmLayerGetById0(engineHandle, id, layer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3921,7 +3921,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayergetbykey0
      */
     static FwpmLayerGetByKey0(engineHandle, key, layer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -3997,7 +3997,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayercreateenumhandle0
      */
     static FwpmLayerCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4075,7 +4075,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayerenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayerenum0
      */
     static FwpmLayerEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4142,7 +4142,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayerdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayerdestroyenumhandle0
      */
     static FwpmLayerDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4183,7 +4183,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -4230,9 +4230,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayergetsecurityinfobykey0
      */
-    static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -4240,7 +4240,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -4320,7 +4320,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmlayersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmlayersetsecurityinfobykey0
      */
     static FwpmLayerSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4421,7 +4421,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutadd0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutadd0
      */
     static FwpmCalloutAdd0(engineHandle, callout, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4496,7 +4496,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutdeletebyid0
      */
     static FwpmCalloutDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4568,7 +4568,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutdeletebykey0
      */
     static FwpmCalloutDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4638,7 +4638,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutgetbyid0
      */
     static FwpmCalloutGetById0(engineHandle, id, callout) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4710,7 +4710,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutgetbykey0
      */
     static FwpmCalloutGetByKey0(engineHandle, key, callout) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4786,7 +4786,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutcreateenumhandle0
      */
     static FwpmCalloutCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4866,7 +4866,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutenum0
      */
     static FwpmCalloutEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4933,7 +4933,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutdestroyenumhandle0
      */
     static FwpmCalloutDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -4974,7 +4974,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -5021,9 +5021,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutgetsecurityinfobykey0
      */
-    static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -5031,7 +5031,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -5113,7 +5113,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmcalloutsetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmcalloutsetsecurityinfobykey0
      */
     static FwpmCalloutSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5181,7 +5181,7 @@ class WindowsFilteringPlatform {
      * | FWP_E_CALLOUT_NOTIFICATION_FAILED <br/> 0x80320037 | The caller added a callout filter and the callout returned an error from its notification routine. |
      * | FWP_E_* error code <br/> 0x80320001—0x80320039 | A Windows Filtering Platform (WFP) specific error. See [WFP Error Codes](/windows/desktop/FWP/wfp-error-codes) for details. |
      * | RPC_* error code <br/> 0x80010001—0x80010122 | Failure to communicate with the remote or local firewall engine. |
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilteradd0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfilteradd0
      */
     static FwpmFilterAdd0(engineHandle, filter, sd, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5254,7 +5254,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfilterdeletebyid0
      */
     static FwpmFilterDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5324,7 +5324,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterdeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfilterdeletebykey0
      */
     static FwpmFilterDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5394,7 +5394,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfiltergetbyid0
      */
     static FwpmFilterGetById0(engineHandle, id, filter) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5466,7 +5466,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetbykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfiltergetbykey0
      */
     static FwpmFilterGetByKey0(engineHandle, key, filter) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5542,7 +5542,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfiltercreateenumhandle0
      */
     static FwpmFilterCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5622,7 +5622,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfilterenum0
      */
     static FwpmFilterEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5689,7 +5689,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfilterdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfilterdestroyenumhandle0
      */
     static FwpmFilterDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5730,7 +5730,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -5777,9 +5777,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfiltergetsecurityinfobykey0
      */
-    static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -5787,7 +5787,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -5869,7 +5869,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmfiltersetsecurityinfobykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmfiltersetsecurityinfobykey0
      */
     static FwpmFilterSetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -5978,7 +5978,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmipsectunneladd0
      */
     static FwpmIPsecTunnelAdd0(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6103,7 +6103,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmipsectunneladd1
      */
     static FwpmIPsecTunnelAdd1(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6228,7 +6228,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneladd2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmipsectunneladd2
      */
     static FwpmIPsecTunnelAdd2(engineHandle, flags, mainModePolicy, tunnelPolicy, numFilterConditions, filterConditions, keyModKey, sd) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6315,7 +6315,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmipsectunneldeletebykey0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmipsectunneldeletebykey0
      */
     static FwpmIPsecTunnelDeleteByKey0(engineHandle, key) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6381,7 +6381,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecgetstatistics0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecgetstatistics0
      */
     static IPsecGetStatistics0(engineHandle, ipsecStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6447,7 +6447,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecgetstatistics1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecgetstatistics1
      */
     static IPsecGetStatistics1(engineHandle, ipsecStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6521,7 +6521,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreate0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextcreate0
      */
     static IPsecSaContextCreate0(engineHandle, outboundTraffic, inboundFilterId, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6601,7 +6601,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreate1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextcreate1
      */
     static IPsecSaContextCreate1(engineHandle, outboundTraffic, virtualIfTunnelInfo, inboundFilterId, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6674,7 +6674,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextdeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextdeletebyid0
      */
     static IPsecSaContextDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6742,7 +6742,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextgetbyid0
      */
     static IPsecSaContextGetById0(engineHandle, id, saContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6812,7 +6812,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetbyid1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextgetbyid1
      */
     static IPsecSaContextGetById1(engineHandle, id, saContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6883,7 +6883,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetspi0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextgetspi0
      */
     static IPsecSaContextGetSpi0(engineHandle, id, getSpi, inboundSpi) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -6954,7 +6954,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextgetspi1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextgetspi1
      */
     static IPsecSaContextGetSpi1(engineHandle, id, getSpi, inboundSpi) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7027,7 +7027,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextsetspi0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextsetspi0
      */
     static IPsecSaContextSetSpi0(engineHandle, id, getSpi, inboundSpi) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7091,7 +7091,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddinbound0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextaddinbound0
      */
     static IPsecSaContextAddInbound0(engineHandle, id, inboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7155,7 +7155,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddoutbound0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextaddoutbound0
      */
     static IPsecSaContextAddOutbound0(engineHandle, id, outboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7219,7 +7219,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddinbound1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextaddinbound1
      */
     static IPsecSaContextAddInbound1(engineHandle, id, inboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7283,7 +7283,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextaddoutbound1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextaddoutbound1
      */
     static IPsecSaContextAddOutbound1(engineHandle, id, outboundBundle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7350,7 +7350,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextexpire0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextexpire0
      */
     static IPsecSaContextExpire0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7495,7 +7495,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextupdate0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextupdate0
      */
     static IPsecSaContextUpdate0(engineHandle, flags, newValues) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7567,7 +7567,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextcreateenumhandle0
      */
     static IPsecSaContextCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7641,7 +7641,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextenum0
      */
     static IPsecSaContextEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7719,7 +7719,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextenum1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextenum1
      */
     static IPsecSaContextEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7786,7 +7786,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacontextdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacontextdestroyenumhandle0
      */
     static IPsecSaContextDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7859,7 +7859,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsacreateenumhandle0
      */
     static IPsecSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -7937,7 +7937,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsaenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsaenum0
      */
     static IPsecSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8019,7 +8019,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsaenum1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsaenum1
      */
     static IPsecSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8086,7 +8086,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsadestroyenumhandle0
      */
     static IPsecSaDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8122,7 +8122,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -8169,9 +8169,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsadbgetsecurityinfo0
      */
-    static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -8179,7 +8179,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -8251,7 +8251,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecsadbsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecsadbsetsecurityinfo0
      */
     static IPsecSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8319,7 +8319,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetstatistics0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecdospgetstatistics0
      */
     static IPsecDospGetStatistics0(engineHandle, idpStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8391,7 +8391,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecdospstatecreateenumhandle0
      */
     static IPsecDospStateCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8469,7 +8469,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstateenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecdospstateenum0
      */
     static IPsecDospStateEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8536,7 +8536,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospstatedestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecdospstatedestroyenumhandle0
      */
     static IPsecDospStateDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8572,7 +8572,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -8619,9 +8619,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecdospgetsecurityinfo0
      */
-    static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -8629,7 +8629,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -8701,7 +8701,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ipsecdospsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ipsecdospsetsecurityinfo0
      */
     static IPsecDospSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8764,7 +8764,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextgetstatistics0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextgetstatistics0
      */
     static IkeextGetStatistics0(engineHandle, ikeextStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8827,7 +8827,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextgetstatistics1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextgetstatistics1
      */
     static IkeextGetStatistics1(engineHandle, ikeextStatistics) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8890,7 +8890,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadeletebyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsadeletebyid0
      */
     static IkeextSaDeleteById0(engineHandle, id) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -8958,7 +8958,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsagetbyid0
      */
     static IkeextSaGetById0(engineHandle, id, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9031,7 +9031,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsagetbyid1
      */
     static IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9104,7 +9104,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsagetbyid2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsagetbyid2
      */
     static IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9178,7 +9178,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsacreateenumhandle0
      */
     static IkeextSaCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9256,7 +9256,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsaenum0
      */
     static IkeextSaEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9338,7 +9338,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsaenum1
      */
     static IkeextSaEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9420,7 +9420,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsaenum2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsaenum2
      */
     static IkeextSaEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9487,7 +9487,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsadestroyenumhandle0
      */
     static IkeextSaDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9523,7 +9523,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -9570,9 +9570,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsadbgetsecurityinfo0
      */
-    static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -9580,7 +9580,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -9652,7 +9652,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-ikeextsadbsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-ikeextsadbsetsecurityinfo0
      */
     static IkeextSaDbSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9727,7 +9727,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventcreateenumhandle0
      */
     static FwpmNetEventCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9818,7 +9818,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventenum0
      */
     static FwpmNetEventEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -9913,7 +9913,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum1
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventenum1
      */
     static FwpmNetEventEnum1(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10008,7 +10008,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventenum2
      */
     static FwpmNetEventEnum2(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10091,7 +10091,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventenum3
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventenum3
      */
     static FwpmNetEventEnum3(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10198,7 +10198,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventdestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventdestroyenumhandle0
      */
     static FwpmNetEventDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10238,7 +10238,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -10285,9 +10285,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventsgetsecurityinfo0
      */
-    static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -10295,7 +10295,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -10373,7 +10373,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmneteventssetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmneteventssetsecurityinfo0
      */
     static FwpmNetEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10394,7 +10394,7 @@ class WindowsFilteringPlatform {
      * @param {Integer} id Type: <b>UINT64</b>
      * 
      * The run-time identifier for the connection.
-     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} connection Type: [FWPM_CONNECTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0)**</b>
+     * @param {Pointer<Pointer<FWPM_CONNECTION0>>} connection_ Type: [FWPM_CONNECTION0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_connection0)**</b>
      * 
      * The connection information.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -10441,14 +10441,14 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmconnectiongetbyid0
      */
-    static FwpmConnectionGetById0(engineHandle, id, connection) {
+    static FwpmConnectionGetById0(engineHandle, id, connection_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        connectionMarshal := connection is VarRef ? "ptr*" : "ptr"
+        connection_Marshal := connection_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, connectionMarshal, connection, "int")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, connection_Marshal, connection_, "int")
         return result
     }
 
@@ -10519,7 +10519,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionenum0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmconnectionenum0
      */
     static FwpmConnectionEnum0(engineHandle, enumHandle, numEntriesRequested, entries, numEntriesReturned) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10593,7 +10593,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmconnectioncreateenumhandle0
      */
     static FwpmConnectionCreateEnumHandle0(engineHandle, enumTemplate, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10654,7 +10654,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiondestroyenumhandle0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmconnectiondestroyenumhandle0
      */
     static FwpmConnectionDestroyEnumHandle0(engineHandle, enumHandle) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10688,7 +10688,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -10735,9 +10735,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmconnectiongetsecurityinfo0
      */
-    static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -10745,7 +10745,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -10821,7 +10821,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmconnectionsetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmconnectionsetsecurityinfo0
      */
     static FwpmConnectionSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
@@ -10856,7 +10856,7 @@ class WindowsFilteringPlatform {
      * @param {Pointer<Pointer<ACL>>} sacl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">PACL</a>*</b>
      * 
      * The system access control list (SACL) in the returned security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} securityDescriptor_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">PSECURITY_DESCRIPTOR</a>*</b>
      * 
      * The returned security descriptor.
      * @returns {NTSTATUS} Type: <b>DWORD</b>
@@ -10903,9 +10903,9 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmvswitcheventsgetsecurityinfo0
      */
-    static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
+    static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor_) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
         sidOwnerMarshal := sidOwner is VarRef ? "ptr*" : "ptr"
@@ -10913,7 +10913,7 @@ class WindowsFilteringPlatform {
         daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
         saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "int")
+        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, sidOwnerMarshal, sidOwner, sidGroupMarshal, sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor_, "int")
         return result
     }
 
@@ -10991,7 +10991,7 @@ class WindowsFilteringPlatform {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fwpmu/nf-fwpmu-fwpmvswitcheventssetsecurityinfo0
+     * @see https://learn.microsoft.com/windows/win32/api//content/fwpmu/nf-fwpmu-fwpmvswitcheventssetsecurityinfo0
      */
     static FwpmvSwitchEventsSetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle

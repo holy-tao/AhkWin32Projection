@@ -34,7 +34,11 @@ class ISAXContentHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     putDocumentLocator(pLocator) {
-        result := ComCall(3, this, "ptr", pLocator, "HRESULT")
+        result := ComCall(3, this, "ptr", pLocator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class ISAXContentHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     startDocument() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class ISAXContentHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     endDocument() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class ISAXContentHandler extends IUnknown{
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
 
-        result := ComCall(6, this, "ptr", pwchPrefix, "int", cchPrefix, "ptr", pwchUri, "int", cchUri, "HRESULT")
+        result := ComCall(6, this, "ptr", pwchPrefix, "int", cchPrefix, "ptr", pwchUri, "int", cchUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +97,11 @@ class ISAXContentHandler extends IUnknown{
     endPrefixMapping(pwchPrefix, cchPrefix) {
         pwchPrefix := pwchPrefix is String ? StrPtr(pwchPrefix) : pwchPrefix
 
-        result := ComCall(7, this, "ptr", pwchPrefix, "int", cchPrefix, "HRESULT")
+        result := ComCall(7, this, "ptr", pwchPrefix, "int", cchPrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +121,11 @@ class ISAXContentHandler extends IUnknown{
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(8, this, "ptr", pwchNamespaceUri, "int", cchNamespaceUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr", pwchQName, "int", cchQName, "ptr", pAttributes, "HRESULT")
+        result := ComCall(8, this, "ptr", pwchNamespaceUri, "int", cchNamespaceUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr", pwchQName, "int", cchQName, "ptr", pAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +144,11 @@ class ISAXContentHandler extends IUnknown{
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(9, this, "ptr", pwchNamespaceUri, "int", cchNamespaceUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr", pwchQName, "int", cchQName, "HRESULT")
+        result := ComCall(9, this, "ptr", pwchNamespaceUri, "int", cchNamespaceUri, "ptr", pwchLocalName, "int", cchLocalName, "ptr", pwchQName, "int", cchQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,7 +161,11 @@ class ISAXContentHandler extends IUnknown{
     characters(pwchChars, cchChars) {
         pwchChars := pwchChars is String ? StrPtr(pwchChars) : pwchChars
 
-        result := ComCall(10, this, "ptr", pwchChars, "int", cchChars, "HRESULT")
+        result := ComCall(10, this, "ptr", pwchChars, "int", cchChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +178,11 @@ class ISAXContentHandler extends IUnknown{
     ignorableWhitespace(pwchChars, cchChars) {
         pwchChars := pwchChars is String ? StrPtr(pwchChars) : pwchChars
 
-        result := ComCall(11, this, "ptr", pwchChars, "int", cchChars, "HRESULT")
+        result := ComCall(11, this, "ptr", pwchChars, "int", cchChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +198,11 @@ class ISAXContentHandler extends IUnknown{
         pwchTarget := pwchTarget is String ? StrPtr(pwchTarget) : pwchTarget
         pwchData := pwchData is String ? StrPtr(pwchData) : pwchData
 
-        result := ComCall(12, this, "ptr", pwchTarget, "int", cchTarget, "ptr", pwchData, "int", cchData, "HRESULT")
+        result := ComCall(12, this, "ptr", pwchTarget, "int", cchTarget, "ptr", pwchData, "int", cchData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +215,11 @@ class ISAXContentHandler extends IUnknown{
     skippedEntity(pwchName, cchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(13, this, "ptr", pwchName, "int", cchName, "HRESULT")
+        result := ComCall(13, this, "ptr", pwchName, "int", cchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

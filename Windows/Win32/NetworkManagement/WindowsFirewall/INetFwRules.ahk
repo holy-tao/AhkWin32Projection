@@ -8,7 +8,7 @@
 
 /**
  * Collection of firewall rules.
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwrules
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nn-netfw-inetfwrules
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -50,15 +50,23 @@ class INetFwRules extends IDispatch{
     /**
      * Returns the number of rules in a collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrules-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwrules-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
     /**
      * The Add method adds a new rule to the collection.
+     * @remarks
+     * If a rule with the same rule identifier as the one being submitted already exists, the existing rule is overwritten.
+     * 
+     * Adding a firewall rule with a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwrule3-get_localapppackageid">LocalAppPackageId</a> specified can lead to unexpected behavior and is not supported.
      * @param {INetFwRule} rule Rule to be added to the collection via an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> object.
      * @returns {HRESULT} <h3>C++</h3>
      * If the method succeeds the return value is S_OK.
@@ -150,15 +158,21 @@ class INetFwRules extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrules-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwrules-add
      */
     Add(rule) {
-        result := ComCall(8, this, "ptr", rule, "HRESULT")
+        result := ComCall(8, this, "ptr", rule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Remove method removes a rule from the collection.
+     * @remarks
+     * If a rule specified by the <i>name</i> parameter does not exist in the collection, the <b>Remove</b> method has no effect.
      * @param {BSTR} name Name of the rule  to remove from the collection.
      * @returns {HRESULT} <h3>C++</h3>
      * If the method succeeds the return value is S_OK.
@@ -250,12 +264,19 @@ class INetFwRules extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrules-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwrules-remove
      */
     Remove(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", name, "HRESULT")
+        result := ComCall(9, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -263,22 +284,33 @@ class INetFwRules extends IDispatch{
      * The Item method returns the specified rule if it is in the collection.
      * @param {BSTR} name Name of the rule to retrieve.
      * @returns {INetFwRule} Reference to the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrules-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwrules-item
      */
     Item(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", name, "ptr*", &rule := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "ptr*", &rule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INetFwRule(rule)
     }
 
     /**
      * Returns an object supporting IEnumVARIANT that can be used to iterate through all the rules in the collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrules-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwrules-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &newEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(newEnum)
     }
 }

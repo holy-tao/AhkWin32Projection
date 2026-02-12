@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that provide additional load and save methods that take WICPersistOptions.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwicpersiststream
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nn-wincodecsdk-iwicpersiststream
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWICPersistStream extends IPersistStream{
 
     /**
      * Loads data from an input stream using the given parameters.
+     * @remarks
+     * NULL can be passed in for <i>pguidPreferredVendor</i> to indicate no preference.
      * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Pointer to the input stream.
@@ -43,11 +45,15 @@ class IWICPersistStream extends IPersistStream{
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/ne-wincodecsdk-wicpersistoptions">WICPersistOptions</a> used to load the stream.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicpersiststream-loadex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicpersiststream-loadex
      */
     LoadEx(pIStream, pguidPreferredVendor, dwPersistOptions) {
-        result := ComCall(8, this, "ptr", pIStream, "ptr", pguidPreferredVendor, "uint", dwPersistOptions, "HRESULT")
+        result := ComCall(8, this, "ptr", pIStream, "ptr", pguidPreferredVendor, "uint", dwPersistOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,11 +70,15 @@ class IWICPersistStream extends IPersistStream{
      * Indicates whether the "dirty" value will be cleared from all metadata after saving.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicpersiststream-saveex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicpersiststream-saveex
      */
     SaveEx(pIStream, dwPersistOptions, fClearDirty) {
-        result := ComCall(9, this, "ptr", pIStream, "uint", dwPersistOptions, "int", fClearDirty, "HRESULT")
+        result := ComCall(9, this, "ptr", pIStream, "uint", dwPersistOptions, "int", fClearDirty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

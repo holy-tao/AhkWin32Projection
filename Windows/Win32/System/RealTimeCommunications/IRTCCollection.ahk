@@ -49,7 +49,11 @@ class IRTCCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &lCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lCount
     }
 
@@ -60,7 +64,11 @@ class IRTCCollection extends IDispatch{
      */
     get_Item(Index) {
         pVariant := VARIANT()
-        result := ComCall(8, this, "int", Index, "ptr", pVariant, "HRESULT")
+        result := ComCall(8, this, "int", Index, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
@@ -69,7 +77,11 @@ class IRTCCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppNewEnum)
     }
 }

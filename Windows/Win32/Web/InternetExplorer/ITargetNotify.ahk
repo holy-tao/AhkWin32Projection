@@ -35,7 +35,11 @@ class ITargetNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnCreate(pUnkDestination, cbCookie) {
-        result := ComCall(3, this, "ptr", pUnkDestination, "uint", cbCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkDestination, "uint", cbCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class ITargetNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnReuse(pUnkDestination) {
-        result := ComCall(4, this, "ptr", pUnkDestination, "HRESULT")
+        result := ComCall(4, this, "ptr", pUnkDestination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IXAObtainRMInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     ObtainRMInfo(pIRMHelper) {
-        result := ComCall(3, this, "ptr", pIRMHelper, "HRESULT")
+        result := ComCall(3, this, "ptr", pIRMHelper, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

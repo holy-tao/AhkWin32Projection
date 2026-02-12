@@ -10,7 +10,6 @@
 /**
  * Each Windows Image Acquisition (WIA) hardware device is represented to an application as a hierarchical tree of IWiaItem objects.
  * @remarks
- * 
  * Some of the methods of the <b>IWiaItem</b> interface are valid only on the root item of the device's tree. Other methods are valid on all items. The methods are grouped as follows:
  * 
  * <table class="clsStd">
@@ -109,8 +108,7 @@
  * <td>Decrements reference count.</td>
  * </tr>
  * </table>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwiaitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nn-wia_xp-iwiaitem
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -137,60 +135,102 @@ class IWiaItem extends IUnknown{
 
     /**
      * The IWiaItem::GetItemType method is called by applications to obtain the type information of an item.
+     * @remarks
+     * Every <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> object in the hierarchical tree of objects associated with a Windows Image Acquisition (WIA) hardware device has a specific data type. Item objects represent folders and files. Folders contain file objects. File objects contain data acquired by the device such as images and sounds. This method enables applications to identify the type of any item in a hierarchical tree of item objects in a device.
+     * 
+     * An item may have more than one type. For example, an item that represents an audio file will have the type attributes <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-item-type-flags">WiaItemTypeAudio</a> | <b>WiaItemTypeFile</b>.
      * @returns {Integer} Type: <b>LONG*</b>
      * 
      * Receives the address of a <b>LONG</b> variable that contains a combination of <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-item-type-flags">WIA Item Type Flags</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-getitemtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-getitemtype
      */
     GetItemType() {
-        result := ComCall(3, this, "int*", &pItemType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pItemType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pItemType
     }
 
     /**
      * The IWiaItem::AnalyzeItem method causes the Windows Image Acquisition (WIA) hardware device to acquire and try to detect what data types are present.
+     * @remarks
+     * This method is used with scanners to detect what type of data is on a page. When an application calls this method, the WIA hardware device driver scans and analyzes the current page. For each data type it detects, it creates an <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> object to represent the region on the page the data occupies. 
+     * 
+     * Image processing and OCR software can use this capability to detect graphics and text on a page. This method adds the regions it creates into the WIA device's <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> tree. The application can select the individual regions and use the standard data transfer methods to acquire data from them.
+     * 
+     * If necessary, applications can override the regions created by this method.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * 
      * Currently unused. Should be set to zero.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-analyzeitem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-analyzeitem
      */
     AnalyzeItem(lFlags) {
-        result := ComCall(4, this, "int", lFlags, "HRESULT")
+        result := ComCall(4, this, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IWiaItem::EnumChildItems method creates an enumerator object and passes back a pointer to its IEnumWiaItem interface for non-empty folders in a IWiaItem tree of a Windows Image Acquisition (WIA) device.
+     * @remarks
+     * The WIA run-time system represents each WIA hardware device as a hierarchical tree of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> objects. The <b>IWiaItem::EnumChildItems</b> method enables applications to enumerate child items in the current item. However, it can only be applied to items that are folders. 
+     * 
+     * If the folder is not empty, it contains a subtree of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> objects. The <b>IWiaItem::EnumChildItems</b> method enumerates all of the items contained in the folder. It stores a pointer to an enumerator in the <i>ppIEnumWiaItem</i> parameter. Applications use the enumerator pointer to perform the enumeration of an object's child items.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIEnumWiaItem</i> parameter.
      * @returns {IEnumWiaItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwiaitem">IEnumWiaItem</a>**</b>
      * 
      * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwiaitem">IEnumWiaItem</a> interface that <b>IWiaItem::EnumChildItems</b> creates.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-enumchilditems
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-enumchilditems
      */
     EnumChildItems() {
-        result := ComCall(5, this, "ptr*", &ppIEnumWiaItem := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppIEnumWiaItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumWiaItem(ppIEnumWiaItem)
     }
 
     /**
      * The IWiaItem::DeleteItem method removes the current IWiaItem object from the object tree of the device.
+     * @remarks
+     * The Windows Image Acquisition (WIA) run-time system represents each WIA hardware device connected to the user's computer as a hierarchical tree of <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> objects. A given WIA device may or may not allow applications to delete <b>IWiaItem</b> objects from its tree. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a> interface to query the device for item deletion capability.
+     * 
+     * If the device supports item deletion in its <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> tree, invoke the <b>IWiaItem::DeleteItem</b> method to remove the <b>IWiaItem</b> object. Note that this method will only delete an object after all references to the object have been released.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * 
      * Currently unused. Should be set to zero.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method returns S_OK regardless of how many items were deleted. If the method fails, it returns a standard COM error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-deleteitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-deleteitem
      */
     DeleteItem(lFlags) {
-        result := ComCall(6, this, "int", lFlags, "HRESULT")
+        result := ComCall(6, this, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IWiaItem::CreateChildItem method is used by applications to add IWiaItem objects to the IWiaItem tree of a device.
+     * @remarks
+     * Some WIA hardware devices allow applications to create new items in the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> tree that represents the device. Applications must test the devices to see if they support this capability. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a> interface to enumerate the current device's capabilities.
+     * 
+     * If the device allows the creation of new items in the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> tree, invoking <b>IWiaItem::CreateChildItem</b> creates a new <b>IWiaItem</b> that is a child of the current node. <b>IWiaItem::CreateChildItem</b> passes a pointer to the new node to the application through the <i>ppIWiaItem</i> parameter.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIWiaItem</i> parameter.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * 
      * Specifies the WIA item type. Must be set to one of the values listed in <a href="https://docs.microsoft.com/windows/desktop/wia/-wia-wia-item-type-flags">WIA Item Type Flags</a>.
@@ -203,18 +243,34 @@ class IWiaItem extends IUnknown{
      * @returns {IWiaItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a>**</b>
      * 
      * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interface that sets the <b>IWiaItem::CreateChildItem</b> method.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-createchilditem
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-createchilditem
      */
     CreateChildItem(lFlags, bstrItemName, bstrFullItemName) {
-        bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
-        bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
+        if(bstrItemName is String) {
+            pin := BSTR.Alloc(bstrItemName)
+            bstrItemName := pin.Value
+        }
+        if(bstrFullItemName is String) {
+            pin := BSTR.Alloc(bstrFullItemName)
+            bstrFullItemName := pin.Value
+        }
 
-        result := ComCall(7, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        result := ComCall(7, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaItem(ppIWiaItem)
     }
 
     /**
      * The IWiaItem::EnumRegisterEventInfo method creates an enumerator used to obtain information about events for which an application is registered.
+     * @remarks
+     * An application invokes this method to create an enumerator object for the event information. <b>IWiaItem::EnumRegisterEventInfo</b> stores the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a> interface of the enumerator object in the <i>ppIEnum</i> parameter. The program then uses the interface pointer to enumerate the properties of the event for which it is registered.
+     * 
+     * Each <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_dev_cap">WIA_DEV_CAP</a> structure includes an indication of whether the event is of type WIA_NOTIFICATION_EVENT or WIA_ACTION_EVENT or both.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIEnum</i> parameter.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * 
      * Currently unused. Should be set to zero.
@@ -224,15 +280,23 @@ class IWiaItem extends IUnknown{
      * @returns {IEnumWIA_DEV_CAPS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a>**</b>
      * 
      * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-enumregistereventinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-enumregistereventinfo
      */
     EnumRegisterEventInfo(lFlags, pEventGUID) {
-        result := ComCall(8, this, "int", lFlags, "ptr", pEventGUID, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(8, this, "int", lFlags, "ptr", pEventGUID, "ptr*", &ppIEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumWIA_DEV_CAPS(ppIEnum)
     }
 
     /**
      * The IWiaItem::FindItemByName method searches an item's tree of sub-items using the name as the search key. Each IWiaItem object has a name as one of its standard properties.
+     * @remarks
+     * This method searches the current item's tree of sub-items using the name as the search key. If <b>IWiaItem::FindItemByName</b> finds the item specified by <i>bstrFullItemName</i>, it stores the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interface of the item in the <i>ppIWiaItem</i> parameter.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIWiaItem</i> parameter.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * 
      * Currently unused. Should be set to zero.
@@ -242,17 +306,32 @@ class IWiaItem extends IUnknown{
      * @returns {IWiaItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a>**</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-finditembyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-finditembyname
      */
     FindItemByName(lFlags, bstrFullItemName) {
-        bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
+        if(bstrFullItemName is String) {
+            pin := BSTR.Alloc(bstrFullItemName)
+            bstrFullItemName := pin.Value
+        }
 
-        result := ComCall(9, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        result := ComCall(9, this, "int", lFlags, "ptr", bstrFullItemName, "ptr*", &ppIWiaItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaItem(ppIWiaItem)
     }
 
     /**
      * The IWiaItem::DeviceDlg method is used by applications to display a dialog box to the user to prepare for image acquisition.
+     * @remarks
+     * This method displays a dialog box to the user that an application uses to gather all the information required for image acquisition. For instance, this dialog box enables the user to select images to download from a camera. When using a scanner, it is also used to specify image scan properties such as brightness and contrast.
+     * 
+     * After this method returns, the application can use the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiadatatransfer">IWiaDataTransfer</a> interface to acquire the image.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method for each element in the array of interface pointers they receive through the <i>ppIWiaItem</i> parameter. Applications must also free the array using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * 
+     * It is recommended that applications make device and image selection available through a menu item named <b>From scanner or camera</b> on the <b>File</b> menu.
      * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * Handle of the parent window of the dialog box.
@@ -274,8 +353,8 @@ class IWiaItem extends IUnknown{
      * Receives the address of an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interfaces.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-devicedlg
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-devicedlg
      */
     DeviceDlg(hwndParent, lFlags, lIntent, plItemCount, ppIWiaItem) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -283,12 +362,22 @@ class IWiaItem extends IUnknown{
         plItemCountMarshal := plItemCount is VarRef ? "int*" : "ptr"
         ppIWiaItemMarshal := ppIWiaItem is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", hwndParent, "int", lFlags, "int", lIntent, plItemCountMarshal, plItemCount, ppIWiaItemMarshal, ppIWiaItem, "HRESULT")
+        result := ComCall(10, this, "ptr", hwndParent, "int", lFlags, "int", lIntent, plItemCountMarshal, plItemCount, ppIWiaItemMarshal, ppIWiaItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IWiaItem::DeviceCommand issues a command to a Windows Image Acquisition (WIA) hardware device.
+     * @remarks
+     * Applications use this method to send WIA commands to hardware devices. 
+     * 
+     * When the application sends the WIA_CMD_TAKE_PICTURE command to the device, <b>IWiaItem::DeviceCommand</b>, the WIA run-time system creates the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> object to represent the image. The <b>IWiaItem::DeviceCommand</b> method stores the address of the interface in the <i>pIWiaItem</i>  parameter. 
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>pIWiaItem</i> parameter.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * 
      * Currently unused. Should be set to zero.
@@ -300,85 +389,121 @@ class IWiaItem extends IUnknown{
      * On output, this pointer points to the item created by the command, if any.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-devicecommand
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-devicecommand
      */
     DeviceCommand(lFlags, pCmdGUID, pIWiaItem) {
-        result := ComCall(11, this, "int", lFlags, "ptr", pCmdGUID, "ptr*", pIWiaItem, "HRESULT")
+        result := ComCall(11, this, "int", lFlags, "ptr", pCmdGUID, "ptr*", pIWiaItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IWiaItem::GetRootItem method retrieves the root item of a tree of item objects used to represent a Windows Image Acquisition (WIA) hardware device.
+     * @remarks
+     * Given any <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> object in the object tree of a WIA hardware device, the application retrieves a pointer to the root item by calling this function. 
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIWiaItem</i> parameter.
      * @returns {IWiaItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a>**</b>
      * 
      * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiaitem">IWiaItem</a> interface that contains a pointer to the <b>IWiaItem</b> interface of the root item.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-getrootitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-getrootitem
      */
     GetRootItem() {
-        result := ComCall(12, this, "ptr*", &ppIWiaItem := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppIWiaItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaItem(ppIWiaItem)
     }
 
     /**
      * The IWiaItem::EnumDeviceCapabilities method creates an enumerator that is used to ascertain the commands and events a Windows Image Acquisition (WIA) device supports.
+     * @remarks
+     * Use this method to create an enumerator object to obtain the set of commands and events that a WIA device supports. You can use the <i>lFlags</i> parameter to specify which kinds of device capabilities to enumerate. The <b>IWiaItem::EnumDeviceCapabilities</b> method stores the address of the interface of the enumerator object in the <i>ppIEnumWIA_DEV_CAPS</i> parameter.
+     * 
+     * Applications must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on the interface pointers they receive through the <i>ppIEnumWIA_DEV_CAPS</i> parameter.
      * @param {Integer} lFlags Type: <b>LONG</b>
      * @returns {IEnumWIA_DEV_CAPS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a>**</b>
      * 
      * Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_dev_caps">IEnumWIA_DEV_CAPS</a> interface created by <b>IWiaItem::EnumDeviceCapabilities</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-enumdevicecapabilities
      */
     EnumDeviceCapabilities(lFlags) {
-        result := ComCall(13, this, "int", lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "HRESULT")
+        result := ComCall(13, this, "int", lFlags, "ptr*", &ppIEnumWIA_DEV_CAPS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumWIA_DEV_CAPS(ppIEnumWIA_DEV_CAPS)
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaItem.DumpItemData)
      * @returns {BSTR} Type: <b>BSTR*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-dumpitemdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-dumpitemdata
      */
     DumpItemData() {
         bstrData := BSTR()
-        result := ComCall(14, this, "ptr", bstrData, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrData
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaItem.DumpDrvItemData)
      * @returns {BSTR} Type: <b>BSTR*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-dumpdrvitemdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-dumpdrvitemdata
      */
     DumpDrvItemData() {
         bstrData := BSTR()
-        result := ComCall(15, this, "ptr", bstrData, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrData
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaItem.DumpTreeItemData)
      * @returns {BSTR} Type: <b>BSTR*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-dumptreeitemdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-dumptreeitemdata
      */
     DumpTreeItemData() {
         bstrData := BSTR()
-        result := ComCall(16, this, "ptr", bstrData, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrData
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaItem.Diagnostic)
      * @param {Integer} ulSize Type: <b>ULONG</b>
      * @param {Pointer<Integer>} pBuffer Type: <b>BYTE*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitem-diagnostic
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-iwiaitem-diagnostic
      */
     Diagnostic(ulSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(17, this, "uint", ulSize, pBufferMarshal, pBuffer, "HRESULT")
+        result := ComCall(17, this, "uint", ulSize, pBufferMarshal, pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

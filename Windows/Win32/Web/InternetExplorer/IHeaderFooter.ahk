@@ -129,7 +129,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_htmlHead() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -139,7 +143,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_htmlFoot() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -149,9 +157,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textHead(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +176,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_textHead() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -171,9 +190,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textFoot(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,7 +209,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_textFoot() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -193,7 +223,11 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_page(v) {
-        result := ComCall(13, this, "uint", v, "HRESULT")
+        result := ComCall(13, this, "uint", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -202,7 +236,11 @@ class IHeaderFooter extends IDispatch{
      * @returns {Integer} 
      */
     get_page() {
-        result := ComCall(14, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -212,7 +250,11 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_pageTotal(v) {
-        result := ComCall(15, this, "uint", v, "HRESULT")
+        result := ComCall(15, this, "uint", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,7 +263,11 @@ class IHeaderFooter extends IDispatch{
      * @returns {Integer} 
      */
     get_pageTotal() {
-        result := ComCall(16, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -231,9 +277,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_URL(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -243,7 +296,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_URL() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -253,9 +310,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_title(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,7 +329,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_title() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -275,9 +343,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_dateShort(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -287,7 +362,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_dateShort() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -297,9 +376,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_dateLong(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -309,7 +395,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_dateLong() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -319,9 +409,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_timeShort(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -331,7 +428,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_timeShort() {
         p := BSTR()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -341,9 +442,16 @@ class IHeaderFooter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_timeLong(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -353,7 +461,11 @@ class IHeaderFooter extends IDispatch{
      */
     get_timeLong() {
         p := BSTR()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

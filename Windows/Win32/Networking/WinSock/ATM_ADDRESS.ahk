@@ -9,7 +9,7 @@
  * For ATM_NSAP, code the address using Binary Coded Decimal (BCD) as defined in the ATM Forum UNI 3.1. The <b>NumofDigits</b> field is ignored in this case, and the NSAP-style address always contains 20 bytes.
  * 
  * A value of SAP_FIELD_ANY in <b>AddressType</b> indicates that the <b>satm_number</b> field is a wildcard. There are two more specialized wildcard values: SAP_FIELD_ANY_AESA_SEL and SAP_FIELD_ANY_AESA_REST. SAP_FIELD_ANY_AESA_SEL means that this is an NSAP-style ATM Endsystem Address and the selector octet is set as a wildcard. SAP_FIELD_ANY_AESA_REST means that this is an NSAP-style ATM Endsystem Address and all the octets except for the selector octet are set as wildcards.
- * @see https://learn.microsoft.com/windows/win32/api/ws2atm/ns-ws2atm-atm_address
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2atm/ns-ws2atm-atm_address
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

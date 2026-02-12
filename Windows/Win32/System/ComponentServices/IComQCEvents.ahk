@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if a queued message is created, de-queued, or moved to a retry or dead letter queue.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomqcevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomqcevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -39,12 +39,16 @@ class IComQCEvents extends IUnknown{
      * @param {Pointer<Guid>} guidWorkFlowId This parameter is reserved.
      * @param {HRESULT} msmqhr The Message Queuing return status for the queued message.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcrecord
      */
     OnQCRecord(pInfo, objid, szQueue, guidMsgId, guidWorkFlowId, msmqhr) {
         szQueue := szQueue is String ? StrPtr(szQueue) : szQueue
 
-        result := ComCall(3, this, "ptr", pInfo, "uint", objid, "ptr", szQueue, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", msmqhr, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "uint", objid, "ptr", szQueue, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", msmqhr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,12 +59,16 @@ class IComQCEvents extends IUnknown{
      * @param {Integer} QueueID The unique identifier for the queue.
      * @param {HRESULT} hr The status from Message Queuing queue open.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcqueueopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcqueueopen
      */
     OnQCQueueOpen(pInfo, szQueue, QueueID, hr) {
         szQueue := szQueue is String ? StrPtr(szQueue) : szQueue
 
-        result := ComCall(4, this, "ptr", pInfo, "ptr", szQueue, "uint", QueueID, "int", hr, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "ptr", szQueue, "uint", QueueID, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,10 +80,14 @@ class IComQCEvents extends IUnknown{
      * @param {Pointer<Guid>} guidWorkFlowId This parameter is reserved.
      * @param {HRESULT} hr The status from Queued Components processing of the received message.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcreceive
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcreceive
      */
     OnQCReceive(pInfo, QueueID, guidMsgId, guidWorkFlowId, hr) {
-        result := ComCall(5, this, "ptr", pInfo, "uint", QueueID, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", hr, "HRESULT")
+        result := ComCall(5, this, "ptr", pInfo, "uint", QueueID, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,10 +97,14 @@ class IComQCEvents extends IUnknown{
      * @param {Integer} QueueID The unique identifier for the queue.
      * @param {HRESULT} msmqhr The status from Queued Components processing of the received message.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcreceivefail
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcreceivefail
      */
     OnQCReceiveFail(pInfo, QueueID, msmqhr) {
-        result := ComCall(6, this, "ptr", pInfo, "uint", QueueID, "int", msmqhr, "HRESULT")
+        result := ComCall(6, this, "ptr", pInfo, "uint", QueueID, "int", msmqhr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,10 +115,14 @@ class IComQCEvents extends IUnknown{
      * @param {Pointer<Guid>} guidWorkFlowId This parameter is reserved.
      * @param {Integer} RetryIndex The index number of the retry queue where the message moved.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcmovetoretryqueue
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcmovetoretryqueue
      */
     OnQCMoveToReTryQueue(pInfo, guidMsgId, guidWorkFlowId, RetryIndex) {
-        result := ComCall(7, this, "ptr", pInfo, "ptr", guidMsgId, "ptr", guidWorkFlowId, "uint", RetryIndex, "HRESULT")
+        result := ComCall(7, this, "ptr", pInfo, "ptr", guidMsgId, "ptr", guidWorkFlowId, "uint", RetryIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,10 +132,14 @@ class IComQCEvents extends IUnknown{
      * @param {Pointer<Guid>} guidMsgId The unique identifier for the message.
      * @param {Pointer<Guid>} guidWorkFlowId This parameter is reserved.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcmovetodeadqueue
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcmovetodeadqueue
      */
     OnQCMoveToDeadQueue(pInfo, guidMsgId, guidWorkFlowId) {
-        result := ComCall(8, this, "ptr", pInfo, "ptr", guidMsgId, "ptr", guidWorkFlowId, "HRESULT")
+        result := ComCall(8, this, "ptr", pInfo, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,10 +151,14 @@ class IComQCEvents extends IUnknown{
      * @param {Pointer<Guid>} guidWorkFlowId This parameter is reserved.
      * @param {HRESULT} hr The status from Message Queuing receive message.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomqcevents-onqcplayback
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomqcevents-onqcplayback
      */
     OnQCPlayback(pInfo, objid, guidMsgId, guidWorkFlowId, hr) {
-        result := ComCall(9, this, "ptr", pInfo, "uint", objid, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", hr, "HRESULT")
+        result := ComCall(9, this, "ptr", pInfo, "uint", objid, "ptr", guidMsgId, "ptr", guidWorkFlowId, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * Contains fields that specify the information in the Firmware Slot Information log page.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_firmware_slot_info_log
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_firmware_slot_info_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

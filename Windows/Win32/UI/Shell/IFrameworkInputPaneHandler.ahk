@@ -6,12 +6,9 @@
 /**
  * Enables an app to be notified when the input pane (the on-screen keyboard or handwriting panel) is being shown or hidden. This allows the app window to adjust its display so that no input areas (such as a text box) are obscured by the input pane.
  * @remarks
- * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * Implement this interface if your app needs to be informed when the input pane is shown or hidden, or its screen coordinates.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iframeworkinputpanehandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iframeworkinputpanehandler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,11 +43,15 @@ class IFrameworkInputPaneHandler extends IUnknown{
      * A pointer to a value that is set to <b>true</b> if the app should attempt to keep its currently focused element (such as a text box) in view, which could require the app to move the element or rearrange its UI.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iframeworkinputpanehandler-showing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iframeworkinputpanehandler-showing
      */
     Showing(prcInputPaneScreenLocation, fEnsureFocusedElementInView) {
-        result := ComCall(3, this, "ptr", prcInputPaneScreenLocation, "int", fEnsureFocusedElementInView, "HRESULT")
+        result := ComCall(3, this, "ptr", prcInputPaneScreenLocation, "int", fEnsureFocusedElementInView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,11 +62,15 @@ class IFrameworkInputPaneHandler extends IUnknown{
      * A pointer to a value that is set to <b>true</b> if the app should attempt to keep its currently focused element (such as a text box) in view, which could require the app to rearrange its UI or move the element, usually back to its layout before the input pane was shown.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iframeworkinputpanehandler-hiding
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iframeworkinputpanehandler-hiding
      */
     Hiding(fEnsureFocusedElementInView) {
-        result := ComCall(4, this, "int", fEnsureFocusedElementInView, "HRESULT")
+        result := ComCall(4, this, "int", fEnsureFocusedElementInView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -10,7 +10,7 @@
  * 
  * 
  * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_primary_cred
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntsecpkg/ns-ntsecpkg-secpkg_primary_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

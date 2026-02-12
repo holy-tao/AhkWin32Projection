@@ -26,7 +26,7 @@
  * Contains parameters for the Get Features and Set Features commands that retrieve or set the attributes of the specified feature.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_features
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_features
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

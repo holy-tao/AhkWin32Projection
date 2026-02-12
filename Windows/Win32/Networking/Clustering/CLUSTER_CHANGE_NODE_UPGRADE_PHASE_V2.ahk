@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2 enumeration (msclus.h) defines the notifications that are generated for the upgrade of a cluster node.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_node_upgrade_phase_v2
+ * CLUSTER_CHANGE_NODE_UPGRADE_PHASE_V2 (clusapi.h) defines the notifications that are generated for the upgrade of a cluster node.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_change_node_upgrade_phase_v2
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

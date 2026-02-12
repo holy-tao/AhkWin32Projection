@@ -5,7 +5,7 @@
 
 /**
  * Exposes a callback method for raw image change nofications.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicdeveloprawnotificationcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicdeveloprawnotificationcallback
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -37,11 +37,15 @@ class IWICDevelopRawNotificationCallback extends IUnknown{
      * A set of <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-iwicdeveloprawnotification-constants">IWICDevelopRawNotificationCallback Constants</a> parameter notification flags.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdeveloprawnotificationcallback-notify
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicdeveloprawnotificationcallback-notify
      */
     Notify(NotificationMask) {
-        result := ComCall(3, this, "uint", NotificationMask, "HRESULT")
+        result := ComCall(3, this, "uint", NotificationMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

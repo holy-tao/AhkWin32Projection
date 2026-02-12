@@ -53,7 +53,7 @@ class DirectComposition {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatedevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositioncreatedevice
      * @since windows8.0
      */
     static DCompositionCreateDevice(dxgiDevice, iid) {
@@ -92,7 +92,7 @@ class DirectComposition {
      * @param {IUnknown} renderingDevice An optional pointer to a DirectX device to be used to create DirectComposition surface objects. Must be a pointer to an object implementing the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a> interfaces.
      * @param {Pointer<Guid>} iid The identifier of the interface to retrieve. This must be one of __uuidof(IDCompositionDevice) or __uuidof(IDCompositionDesktopDevice).
      * @returns {Pointer<Pointer<Void>>} Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatedevice2
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositioncreatedevice2
      * @since windows8.1
      */
     static DCompositionCreateDevice2(renderingDevice, iid) {
@@ -115,7 +115,7 @@ class DirectComposition {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatedevice3
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositioncreatedevice3
      */
     static DCompositionCreateDevice3(renderingDevice, iid) {
         result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
@@ -135,7 +135,7 @@ class DirectComposition {
      * @returns {HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
      * The handle of the new composition surface object. This parameter must not be NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatesurfacehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositioncreatesurfacehandle
      * @since windows8.0
      */
     static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
@@ -153,7 +153,7 @@ class DirectComposition {
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The HWND to route messages to.
      * @param {BOOL} enable Type: <b>BOOL</b>
@@ -162,12 +162,12 @@ class DirectComposition {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionattachmousewheeltohwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositionattachmousewheeltohwnd
      */
-    static DCompositionAttachMouseWheelToHwnd(visual, hwnd, enable) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DCompositionAttachMouseWheelToHwnd(visual, hwnd_, enable) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
+        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd_, "int", enable, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -180,7 +180,7 @@ class DirectComposition {
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The HWND to route messages to.
      * @param {BOOL} enable Type: <b>BOOL</b>
@@ -189,12 +189,12 @@ class DirectComposition {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionattachmousedragtohwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositionattachmousedragtohwnd
      */
-    static DCompositionAttachMouseDragToHwnd(visual, hwnd, enable) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DCompositionAttachMouseDragToHwnd(visual, hwnd_, enable) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
+        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd_, "int", enable, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -210,7 +210,7 @@ class DirectComposition {
      * @returns {Integer} Type: **COMPOSITION_FRAME_ID\***
      * 
      * The identifer of the most recent compositor frame of the specified type.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetframeid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositiongetframeid
      */
     static DCompositionGetFrameId(frameIdType) {
         result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", &frameId := 0, "int")
@@ -238,7 +238,7 @@ class DirectComposition {
      * @returns {Integer} Type: **[UINT](/windows/win32/WinProg/windows-data-types)\***
      * 
      * The actual number of render targets.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositiongetstatistics
      */
     static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) {
         result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", &actualTargetIdCount := 0, "int")
@@ -273,7 +273,7 @@ class DirectComposition {
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, it returns `S_OK`; otherwise, it returns an `HRESULT` value that indicates the error.
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionboostcompositorclock
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositionboostcompositorclock
      */
     static DCompositionBoostCompositorClock(enable) {
         result := DllCall("dcomp.dll\DCompositionBoostCompositorClock", "int", enable, "int")
@@ -296,7 +296,7 @@ class DirectComposition {
      * 
      * Amount of time in milliseconds to wait before the operation times out.
      * @returns {Integer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionwaitforcompositorclock
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-dcompositionwaitforcompositorclock
      */
     static DCompositionWaitForCompositorClock(count, handles, timeoutInMs) {
         result := DllCall("dcomp.dll\DCompositionWaitForCompositorClock", "uint", count, "ptr", handles, "uint", timeoutInMs, "uint")

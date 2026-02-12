@@ -30,7 +30,7 @@
  * 
  * To create a function table for version 1.0 of the Resource API, use the 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nf-resapi-clres_v1_function_table">CLRES_V1_FUNCTION_TABLE</a> macro.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_v1_functions
+ * @see https://learn.microsoft.com/windows/win32/api//content/resapi/ns-resapi-clres_v1_functions
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

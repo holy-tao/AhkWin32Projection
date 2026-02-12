@@ -15,7 +15,7 @@
  * + lpFlatEntry->cb // size of lpFlatEntry->ab 
  * + 4) & ~3 // round to next 4 byte boundary
  * ```
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/flatentrylist
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/flatentrylist
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

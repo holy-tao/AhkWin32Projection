@@ -37,7 +37,11 @@ class IVBSAXEntityResolver extends IDispatch{
      */
     resolveEntity(strPublicId, strSystemId) {
         varInput := VARIANT()
-        result := ComCall(7, this, "ptr", strPublicId, "ptr", strSystemId, "ptr", varInput, "HRESULT")
+        result := ComCall(7, this, "ptr", strPublicId, "ptr", strSystemId, "ptr", varInput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varInput
     }
 }

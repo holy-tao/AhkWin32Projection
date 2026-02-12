@@ -10,7 +10,7 @@
  * The BIR is compatible with the Common Biometric Exchange Format Framework (CBEFF) defined by NIST 6529-A.
  * 
  * If this structure contains a *StandardDataBlock* value, the *Type* parameter of the header specified by the *HeaderBlock* parameter must be set to **WINBIO\_ANSI\_381\_FORMAT\_TYPE**. This is the only standard data format supported by the current version of the Windows Biometric Framework.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-bir
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

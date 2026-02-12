@@ -5,7 +5,7 @@
  * Represents a connection group.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_connection_group
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-winhttp_connection_group
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

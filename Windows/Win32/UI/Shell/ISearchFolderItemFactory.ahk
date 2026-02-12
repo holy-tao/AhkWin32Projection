@@ -6,10 +6,8 @@
 /**
  * Exposes methods that create and modify search folders.
  * @remarks
- * 
  * To implement this interface use class ID <b>CLSID_SearchFolderItemFactory</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-isearchfolderitemfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-isearchfolderitemfactory
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -42,18 +40,24 @@ class ISearchFolderItemFactory extends IUnknown{
 
     /**
      * Sets the search folder display name, as specified.
+     * @remarks
+     * Calling this method is required. A display name must be set.
      * @param {PWSTR} pszDisplayName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a folder display name as a Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setdisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setdisplayname
      */
     SetDisplayName(pszDisplayName) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
 
-        result := ComCall(3, this, "ptr", pszDisplayName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,10 +69,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfoldertypeid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfoldertypeid
      */
     SetFolderTypeID(ftid) {
-        result := ComCall(4, this, "ptr", ftid, "HRESULT")
+        result := ComCall(4, this, "ptr", ftid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,10 +88,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfolderlogicalviewmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setfolderlogicalviewmode
      */
     SetFolderLogicalViewMode(flvm) {
-        result := ComCall(5, this, "int", flvm, "HRESULT")
+        result := ComCall(5, this, "int", flvm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,10 +107,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-seticonsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-seticonsize
      */
     SetIconSize(iIconSize) {
-        result := ComCall(6, this, "int", iIconSize, "HRESULT")
+        result := ComCall(6, this, "int", iIconSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,10 +129,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setvisiblecolumns
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setvisiblecolumns
      */
     SetVisibleColumns(cVisibleColumns, rgKey) {
-        result := ComCall(7, this, "uint", cVisibleColumns, "ptr", rgKey, "HRESULT")
+        result := ComCall(7, this, "uint", cVisibleColumns, "ptr", rgKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,10 +151,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setsortcolumns
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setsortcolumns
      */
     SetSortColumns(cSortColumns, rgSortColumns) {
-        result := ComCall(8, this, "uint", cSortColumns, "ptr", rgSortColumns, "HRESULT")
+        result := ComCall(8, this, "uint", cSortColumns, "ptr", rgSortColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,10 +170,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setgroupcolumn
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setgroupcolumn
      */
     SetGroupColumn(keyGroup) {
-        result := ComCall(9, this, "ptr", keyGroup, "HRESULT")
+        result := ComCall(9, this, "ptr", keyGroup, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,10 +192,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setstacks
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setstacks
      */
     SetStacks(cStackKeys, rgStackKeys) {
-        result := ComCall(10, this, "uint", cStackKeys, "ptr", rgStackKeys, "HRESULT")
+        result := ComCall(10, this, "uint", cStackKeys, "ptr", rgStackKeys, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,10 +211,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns a success value if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setscope
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setscope
      */
     SetScope(psiaScope) {
-        result := ComCall(11, this, "ptr", psiaScope, "HRESULT")
+        result := ComCall(11, this, "ptr", psiaScope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -194,25 +230,35 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-setcondition
      */
     SetCondition(pCondition) {
-        result := ComCall(12, this, "ptr", pCondition, "HRESULT")
+        result := ComCall(12, this, "ptr", pCondition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the search folder as a IShellItem.
+     * @remarks
+     * When the retrieved <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> is enumerated, it returns the search results.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired IID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> interface pointer specified in <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getshellitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getshellitem
      */
     GetShellItem(riid) {
-        result := ComCall(13, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -221,10 +267,14 @@ class ISearchFolderItemFactory extends IUnknown{
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns successfully, contains a PIDL.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getidlist
      */
     GetIDList() {
-        result := ComCall(14, this, "ptr*", &ppidl := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppidl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppidl
     }
 }

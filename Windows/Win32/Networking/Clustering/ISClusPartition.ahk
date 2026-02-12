@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * Provides extended information about a partition on a Physical Disk resource.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msclus/nn-msclus-iscluspartitionex
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -83,7 +85,11 @@ class ISClusPartition extends IDispatch{
      * @returns {Integer} 
      */
     get_Flags() {
-        result := ComCall(7, this, "int*", &plFlags := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plFlags
     }
 
@@ -93,7 +99,11 @@ class ISClusPartition extends IDispatch{
      */
     get_DeviceName() {
         pbstrDeviceName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrDeviceName, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDeviceName
     }
 
@@ -103,7 +113,11 @@ class ISClusPartition extends IDispatch{
      */
     get_VolumeLabel() {
         pbstrVolumeLabel := BSTR()
-        result := ComCall(9, this, "ptr", pbstrVolumeLabel, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrVolumeLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVolumeLabel
     }
 
@@ -112,7 +126,11 @@ class ISClusPartition extends IDispatch{
      * @returns {Integer} 
      */
     get_SerialNumber() {
-        result := ComCall(10, this, "int*", &plSerialNumber := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plSerialNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSerialNumber
     }
 
@@ -121,7 +139,11 @@ class ISClusPartition extends IDispatch{
      * @returns {Integer} 
      */
     get_MaximumComponentLength() {
-        result := ComCall(11, this, "int*", &plMaximumComponentLength := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &plMaximumComponentLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMaximumComponentLength
     }
 
@@ -130,7 +152,11 @@ class ISClusPartition extends IDispatch{
      * @returns {Integer} 
      */
     get_FileSystemFlags() {
-        result := ComCall(12, this, "int*", &plFileSystemFlags := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plFileSystemFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plFileSystemFlags
     }
 
@@ -140,7 +166,11 @@ class ISClusPartition extends IDispatch{
      */
     get_FileSystem() {
         pbstrFileSystem := BSTR()
-        result := ComCall(13, this, "ptr", pbstrFileSystem, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrFileSystem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFileSystem
     }
 }

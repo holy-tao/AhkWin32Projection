@@ -4,13 +4,11 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Implemented by containers and used by the container's Object Properties dialog box and by the Convert dialog box.
+ * Implemented by containers and used by the container's Object Properties dialog box and by the Convert dialog box. (ANSI)
  * @remarks
- * 
  * > [!NOTE]
  * > The oledlg.h header defines IOleUIObjInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//oledlg/nn-oledlg-ioleuiobjinfoa
+ * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/nn-oledlg-ioleuiobjinfoa
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  * @charset ANSI
@@ -32,7 +30,13 @@ class IOleUIObjInfoA extends IUnknown{
     static VTableNames => ["GetObjectInfo", "GetConvertInfo", "ConvertObject", "GetViewInfo", "SetViewInfo"]
 
     /**
-     * Gets the size, type, name, and location information for an object.
+     * Gets the size, type, name, and location information for an object. (ANSI)
+     * @remarks
+     * The strings and the object's size are displayed in the object properties <b>General</b> page.
+     * 
+     * 
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * Your implementation of <b>GetObjectInfo</b> should place each of the object's attributes in the out parameters provided. Set <i>lpdwObjSize</i> to (DWORD)-1 when the size of the object is unknown. Allocate all strings (the rest of the params) with the OLE task allocator obtained via <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetmalloc">CoGetMalloc</a>, as is standard for all OLE interfaces with [out] string parameters, or you can simply use <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>.
      * @param {Integer} dwObject Unique identifier for the object.
      * @param {Pointer<Integer>} lpdwObjSize Pointer to the object's size, in bytes, on disk. This may be an approximate value.
      * @param {Pointer<PSTR>} lplpszLabel Address of a pointer variable that receives a pointer to the object's label string. This parameter may be <b>NULL</b> to indicate that the implementation should not return the label string.
@@ -80,7 +84,7 @@ class IOleUIObjInfoA extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-ioleuiobjinfoa-getobjectinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/nf-oledlg-ioleuiobjinfoa-getobjectinfo
      */
     GetObjectInfo(dwObject, lpdwObjSize, lplpszLabel, lplpszType, lplpszShortType, lplpszLocation) {
         lpdwObjSizeMarshal := lpdwObjSize is VarRef ? "uint*" : "ptr"
@@ -89,12 +93,19 @@ class IOleUIObjInfoA extends IUnknown{
         lplpszShortTypeMarshal := lplpszShortType is VarRef ? "ptr*" : "ptr"
         lplpszLocationMarshal := lplpszLocation is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwObject, lpdwObjSizeMarshal, lpdwObjSize, lplpszLabelMarshal, lplpszLabel, lplpszTypeMarshal, lplpszType, lplpszShortTypeMarshal, lplpszShortType, lplpszLocationMarshal, lplpszLocation, "HRESULT")
+        result := ComCall(3, this, "uint", dwObject, lpdwObjSizeMarshal, lpdwObjSize, lplpszLabelMarshal, lplpszLabel, lplpszTypeMarshal, lplpszType, lplpszShortTypeMarshal, lplpszShortType, lplpszLocationMarshal, lplpszLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the conversion information associated with the specified object.
+     * Gets the conversion information associated with the specified object. (ANSI)
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * You must fill in the CLSID of the object at a minimum. <i>lpwFormat</i> may be left at zero if the format of the storage is unknown.
      * @param {Integer} dwObject Unique identifier for the object.
      * @param {Pointer<Guid>} lpClassID Pointer to the location to return the object's CLSID.
      * @param {Pointer<Integer>} lpwFormat Pointer to the clipboard format of the object.
@@ -153,19 +164,26 @@ class IOleUIObjInfoA extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-ioleuiobjinfoa-getconvertinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/nf-oledlg-ioleuiobjinfoa-getconvertinfo
      */
     GetConvertInfo(dwObject, lpClassID, lpwFormat, lpConvertDefaultClassID, lplpClsidExclude, lpcClsidExclude) {
         lpwFormatMarshal := lpwFormat is VarRef ? "ushort*" : "ptr"
         lplpClsidExcludeMarshal := lplpClsidExclude is VarRef ? "ptr*" : "ptr"
         lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, lpwFormatMarshal, lpwFormat, "ptr", lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
+        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, lpwFormatMarshal, lpwFormat, "ptr", lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Converts the object to the type of the specified CLSID.
+     * Converts the object to the type of the specified CLSID. (ANSI)
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * Your implementation of <b>IOleUIObjInfo::ConvertObject</b> needs to convert the object to the CLSID specified. The actions taken by the convert operation are similar to the actions taken after calling <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiconverta">OleUIConvert</a>.
      * @param {Integer} dwObject A unique identifier for the object.
      * @param {Pointer<Guid>} clsidNew The CLSID.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
@@ -220,15 +238,22 @@ class IOleUIObjInfoA extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-ioleuiobjinfoa-convertobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/nf-oledlg-ioleuiobjinfoa-convertobject
      */
     ConvertObject(dwObject, clsidNew) {
-        result := ComCall(5, this, "uint", dwObject, "ptr", clsidNew, "HRESULT")
+        result := ComCall(5, this, "uint", dwObject, "ptr", clsidNew, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the view information associated with the object.
+     * Gets the view information associated with the object. (ANSI)
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * You must fill in the object's current icon, aspect, and scale.
      * @param {Integer} dwObject Unique  identifier for the object.
      * @param {Pointer<HGLOBAL>} phMetaPict Pointer to the object's current icon. This parameter can be <b>NULL</b>, indicating that the caller is not interested in the object's current presentation.
      * @param {Pointer<Integer>} pdvAspect Pointer to the object's current aspect. This parameter can be <b>NULL</b>, indicating that the caller is not interested in the object's current aspect, for example, DVASPECT_ICONIC or DVASPECT_CONTENT.
@@ -285,21 +310,28 @@ class IOleUIObjInfoA extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-ioleuiobjinfoa-getviewinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/nf-oledlg-ioleuiobjinfoa-getviewinfo
      */
     GetViewInfo(dwObject, phMetaPict, pdvAspect, pnCurrentScale) {
         pdvAspectMarshal := pdvAspect is VarRef ? "uint*" : "ptr"
         pnCurrentScaleMarshal := pnCurrentScale is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwObject, "ptr", phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "HRESULT")
+        result := ComCall(6, this, "uint", dwObject, "ptr", phMetaPict, pdvAspectMarshal, pdvAspect, pnCurrentScaleMarshal, pnCurrentScale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the view information associated with the object.
+     * Sets the view information associated with the object. (ANSI)
+     * @remarks
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * You should apply the new attributes (icon, aspect, and scale) to the object. If <i>bRelativeToOrig</i> is set to <b>TRUE</b>, <i>nCurrentScale</i> (in percentage units) applies to the original size of the object before it was scaled. If <i>bRelativeToOrig</i> is <b>FALSE</b>, <i>nCurrentScale</i> applies to the object's current size.
      * @param {Integer} dwObject Unique identifier for the object.
      * @param {HGLOBAL} hMetaPict The new icon.
-     * @param {Integer} dvAspect The new display aspect or view.
+     * @param {Integer} dvAspect_ The new display aspect or view.
      * @param {Integer} nCurrentScale The new scale.
      * @param {BOOL} bRelativeToOrig The new scale of the object, relative to the origin. This value is <b>TRUE</b> if the scale should be relative to the original scale of the object. If <b>FALSE</b>, <i>nCurrentScale</i> applies to the object's current size.
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
@@ -354,12 +386,16 @@ class IOleUIObjInfoA extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-ioleuiobjinfoa-setviewinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/nf-oledlg-ioleuiobjinfoa-setviewinfo
      */
-    SetViewInfo(dwObject, hMetaPict, dvAspect, nCurrentScale, bRelativeToOrig) {
+    SetViewInfo(dwObject, hMetaPict, dvAspect_, nCurrentScale, bRelativeToOrig) {
         hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
 
-        result := ComCall(7, this, "uint", dwObject, "ptr", hMetaPict, "uint", dvAspect, "int", nCurrentScale, "int", bRelativeToOrig, "HRESULT")
+        result := ComCall(7, this, "uint", dwObject, "ptr", hMetaPict, "uint", dvAspect_, "int", nCurrentScale, "int", bRelativeToOrig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

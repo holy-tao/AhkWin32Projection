@@ -45,7 +45,11 @@ class ISpLexicon extends IUnknown{
     GetPronunciations(pszWord, LangID, dwFlags, pWordPronunciationList) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
-        result := ComCall(3, this, "ptr", pszWord, "ushort", LangID, "uint", dwFlags, "ptr", pWordPronunciationList, "HRESULT")
+        result := ComCall(3, this, "ptr", pszWord, "ushort", LangID, "uint", dwFlags, "ptr", pWordPronunciationList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +66,11 @@ class ISpLexicon extends IUnknown{
 
         pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszWord, "ushort", LangID, "int", ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
+        result := ComCall(4, this, "ptr", pszWord, "ushort", LangID, "int", ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +87,11 @@ class ISpLexicon extends IUnknown{
 
         pszPronunciationMarshal := pszPronunciation is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszWord, "ushort", LangID, "int", ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "HRESULT")
+        result := ComCall(5, this, "ptr", pszWord, "ushort", LangID, "int", ePartOfSpeech, pszPronunciationMarshal, pszPronunciation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +103,11 @@ class ISpLexicon extends IUnknown{
     GetGeneration(pdwGeneration) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pdwGenerationMarshal, pdwGeneration, "HRESULT")
+        result := ComCall(6, this, pdwGenerationMarshal, pdwGeneration, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +121,11 @@ class ISpLexicon extends IUnknown{
     GetGenerationChange(dwFlags, pdwGeneration, pWordList) {
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "uint", dwFlags, pdwGenerationMarshal, pdwGeneration, "ptr", pWordList, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, pdwGenerationMarshal, pdwGeneration, "ptr", pWordList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +141,11 @@ class ISpLexicon extends IUnknown{
         pdwGenerationMarshal := pdwGeneration is VarRef ? "uint*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwFlags, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pWordList, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, pdwGenerationMarshal, pdwGeneration, pdwCookieMarshal, pdwCookie, "ptr", pWordList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

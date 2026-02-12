@@ -9,8 +9,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for performing query and configuration operations on a subsystem.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdssubsystem
+ * The IVdsSubSystem interface (vds.h) provides methods for performing query and configuration operations on a subsystem.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdssubsystem
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -36,77 +36,134 @@ class IVdsSubSystem extends IUnknown{
     static VTableNames => ["GetProperties", "GetProvider", "QueryControllers", "QueryLuns", "QueryDrives", "GetDrive", "Reenumerate", "SetControllerStatus", "CreateLun", "ReplaceDrive", "SetStatus", "QueryMaxLunCreateSize"]
 
     /**
-     * Returns the properties of a subsystem.
+     * The IVdsSubSystem::GetProperties method (vds.h) returns the properties of a subsystem.
      * @returns {VDS_SUB_SYSTEM_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_sub_system_prop">VDS_SUB_SYSTEM_PROP</a> 
      *       structure allocated and passed in by the caller. VDS allocates memory for the 
      *       <b>pwszFriendlyName</b> and <b>pwszIdentification</b> member strings. 
      *       Callers must free the strings by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-getproperties
      */
     GetProperties() {
         pSubSystemProp := VDS_SUB_SYSTEM_PROP()
-        result := ComCall(3, this, "ptr", pSubSystemProp, "HRESULT")
+        result := ComCall(3, this, "ptr", pSubSystemProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSubSystemProp
     }
 
     /**
-     * Returns the provider that manages the subsystem.
+     * The IVdsSubSystem::GetProvider method (vds.h) returns the provider that manages the subsystem.
      * @returns {IVdsProvider} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsprovider">IVdsProvider</a> interface pointer. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-getprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-getprovider
      */
     GetProvider() {
-        result := ComCall(4, this, "ptr*", &ppProvider := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsProvider(ppProvider)
     }
 
     /**
-     * Returns an object that enumerates the online and offline controllers managed by the subsystem.
+     * The IVdsSubSystem::QueryControllers method (vds.h) returns an object that enumerates the online and offline controllers managed by the subsystem.
+     * @remarks
+     * Use the <b>QueryControllers</b> method to 
+     *     get the number of controllers, and then count the controllers in the returned enumeration.
+     *    
+     * 
+     * If the subsystem has no controllers, this method returns an empty enumeration object.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the controllers in the subsystem as <a href="https://docs.microsoft.com/windows/desktop/VDS/controller-object">controller objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the controller objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-querycontrollers
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-querycontrollers
      */
     QueryControllers() {
-        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVdsObject(ppEnum)
     }
 
     /**
-     * Returns an enumeration of LUNs surfaced in the subsystem. This method applies to hardware provider objects only.
+     * The IVdsSubSystem::QueryLuns method (vds.h) returns an enumeration of LUNs surfaced in the subsystem. This method applies to hardware provider objects only.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface 
+     *     includes all LUNs in the subsystem, regardless of LUN masking.
+     *    
+     * 
+     * Implementers must return an empty enumeration object for each subsystem with zero LUNs.
+     * 
+     * If this method is called in two separate threads that are running simultaneously, the results may be inconsistent. If it is called in one thread while a method such as <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-delete">IVdsLun::Delete</a> is called in another thread that is running simultaneously, the result could be a provider access violation. The hardware provider is responsible for serializing this query operation as needed to minimize such synchronization issues.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface 
      *       pointer that can be used to enumerate the LUNs  as <a href="https://docs.microsoft.com/windows/desktop/VDS/lun-object">LUN objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the LUN  objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-queryluns
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-queryluns
      */
     QueryLuns() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVdsObject(ppEnum)
     }
 
     /**
-     * Returns an object that enumerates the drives in the subsystem.
+     * The IVdsSubSystem::QueryDrives method (vds.h) returns an object that enumerates the drives in the subsystem.
+     * @remarks
+     * In the case of hardware provider stacking, a drive in the subsystem can be a LUN surfaced by another subsystem.
+     * 
+     * Implementers must return an empty enumeration object for each subsystem with zero drives.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the drives  as <a href="https://docs.microsoft.com/windows/desktop/VDS/drive-object">drive objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the drive objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-querydrives
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-querydrives
      */
     QueryDrives() {
-        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVdsObject(ppEnum)
     }
 
     /**
-     * Returns the specified drive.
+     * The IVdsSubSystem::GetDrive method (vds.h) returns the specified drive.
+     * @remarks
+     * Because <i>sSlotNumber</i> and  <i>sBusNumber</i> identify a drive 
+     *     exclusively, implementers can assign arbitrary (but consistent) values to each as an internal way of identifying 
+     *     the drives. For more information about bus and slot numbers, see the <b>sInternalBusNumber</b> and <b>sSlotNumber</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_drive_prop">VDS_DRIVE_PROP</a> structure.
      * @param {Integer} sBusNumber The number of the bus to which the drive is connected.
      * @param {Integer} sSlotNumber The number of the slot the drive occupies.
      * @returns {IVdsDrive} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsdrive">IVdsDrive</a> interface pointer. Callers 
      *       must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-getdrive
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-getdrive
      */
     GetDrive(sBusNumber, sSlotNumber) {
-        result := ComCall(8, this, "short", sBusNumber, "short", sSlotNumber, "ptr*", &ppDrive := 0, "HRESULT")
+        result := ComCall(8, this, "short", sBusNumber, "short", sSlotNumber, "ptr*", &ppDrive := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsDrive(ppDrive)
     }
 
     /**
-     * Prompts the subsystem to scan its bus to discover newly-connected drives or newly-disconnected drives.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * The IVdsSubSystem::Reenumerate method (vds.h) prompts the subsystem to scan its bus to discover newly-connected drives or newly-disconnected drives.
+     * @remarks
+     * Most subsystems detect new connections and disconnections automatically. However, for those that do not, this 
+     *     method provides a means by which to initiate detection manually. This operation can take a long time to complete.
+     * 
+     * When this method detects a newly connected drive, the provider creates a new drive object for it. When the 
+     *      method detects a newly disconnected drive, the provider preserves the old drive object until its last VDS 
+     *      reference is removed, and then deletes the object.
+     * 
+     * Each object should have a unique and persistent identifier. An object ID must be a valid GUID. Implementers 
+     *     should persist an object ID across each reenumeration by using this method for objects that exist both before and 
+     *     after the reenumeration.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -123,8 +180,8 @@ class IVdsSubSystem extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information about 
      *        the array. Use the 
-     *        <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
-     *        followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
+     *        followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> 
      *        method to restore the cache.
      *       
      * 
@@ -169,15 +226,30 @@ class IVdsSubSystem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-reenumerate
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-reenumerate
      */
     Reenumerate() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the status (either online or offline) of the controllers in the subsystem.
+     * The IVdsSubSystem::SetControllerStatus method (vds.h) sets the status (either online or offline) of the controllers in the subsystem.
+     * @remarks
+     * This method enables a caller to set the status of all controllers at once. Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontroller-setstatus">IVdsController::SetStatus</a> method to set the 
+     *     status of a single controller.
+     * 
+     * Callers must pass the complete set of controllers in either the <i>pOnlineControllerIdArray</i> 
+     *     or <i>pOfflineControllerIdArray</i> parameter for each method call. The 
+     *     <b>E_INVALIDARG</b> return value can indicate that not all controllers in the subsystem have 
+     *     been specified in the arguments to this method.  
+     *     The <b>SetControllerStatus</b> method requires that 
+     *     all controllers in the subsystem be present in one of the two arrays supplied.
      * @param {Pointer<Guid>} pOnlineControllerIdArray Pointer to an array of controller GUIDs. The provider sets these controllers to online. This array includes 
      *       controllers already set to online that are to remain so.
      * @param {Integer} lNumberOfOnlineControllers The number of controllers specified in 
@@ -185,7 +257,7 @@ class IVdsSubSystem extends IUnknown{
      * @param {Pointer<Guid>} pOfflineControllerIdArray Pointer to an array of controller GUIDs. The provider sets these controllers to offline. This array includes 
      *       controllers already set to offline that are to remain so.
      * @param {Integer} lNumberOfOfflineControllers The number of controllers specified in <i>pOfflineControllersArray</i>.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -202,9 +274,9 @@ class IVdsSubSystem extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information 
      *         about the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
      *         followed by the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
      *         the cache.
      *        
      * 
@@ -262,15 +334,38 @@ class IVdsSubSystem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-setcontrollerstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-setcontrollerstatus
      */
     SetControllerStatus(pOnlineControllerIdArray, lNumberOfOnlineControllers, pOfflineControllerIdArray, lNumberOfOfflineControllers) {
-        result := ComCall(10, this, "ptr", pOnlineControllerIdArray, "int", lNumberOfOnlineControllers, "ptr", pOfflineControllerIdArray, "int", lNumberOfOfflineControllers, "HRESULT")
+        result := ComCall(10, this, "ptr", pOnlineControllerIdArray, "int", lNumberOfOnlineControllers, "ptr", pOfflineControllerIdArray, "int", lNumberOfOfflineControllers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a logical unit number (LUN).
+     * The IVdsSubSystem::CreateLun method (vds.h) creates a logical unit number (LUN).
+     * @remarks
+     * By choosing appropriate values for the <i>type</i> and <i>pHints</i> parameters, the caller can specify the attributes of the LUN wholly, partially, or minimally. The provider can 
+     *     automatically include unspecified attributes, based on the automagic hints specified in the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints">VDS_HINTS</a> structure that the <i>pHints</i> parameter points to.
+     * 
+     * If the VDS provider supports only simple target configurations, the subsystem should automatically associate the newly created LUN object with an iSCSI target object. See the <b>VDS_SF_SUPPORTS_SIMPLE_TARGET_CONFIG</b> value of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_sub_system_flag">VDS_SUB_SYSTEM_FLAG</a> enumeration.
+     * 
+     * The list of WWNs and IQNs in the <i>pwszUnmaskingList</i> parameter may contain duplicate names. It is the provider's responsibility to validate all names in the list and remove duplicates if necessary.
+     * 
+     * The hardware provider is responsible for removing the LUN's partition information so that the LUN can be reused. If the LUN is an MBR disk, this is accomplished by writing zeros to the first and last 1 MB of the disk. For a GPT disk, zeros must be written to the first and last 16 KB of the disk.
+     * 
+     * There is a subtle difference between the <b>E_INVALIDARG</b> and 
+     *     <b>VDS_E_NOT_SUPPORTED</b> return values. Providers are not expected to implement every feature that the VDS 
+     *     API can present to a client. For example, the 
+     *     <b>CreateLun</b> method exposes the ability to 
+     *     create many different types of LUNs (for example, simple, mirror, striped, and parity). However, providers are not required to support all 
+     *     types of LUNs. If the caller specifies a value for the <i>type</i> parameter that is not a valid <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value, the provider should return <b>E_INVALIDARG</b>. If the caller specifies a valid <i>type</i> value that the provider does not support, the provider should return VDS_E_NOT_SUPPORTED.
+     * 
+     * <b>Notes to implementers:  </b>The provider must return an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer in the <i>ppAsync</i> parameter, even if the call to this method does not initiate an asynchronous operation.
      * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a> enumeration value that specifies the LUN type. The new 
      *       LUN can be an automagic type or a specific RAID type, but not both. If the caller specifies an automagic type, one or more automagic hints should be specified in the <i>pHints</i> parameter. 
      * 
@@ -340,20 +435,24 @@ class IVdsSubSystem extends IUnknown{
      * If <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called on the returned interface pointer and a success HRESULT value is returned, 
      *       the interfaces returned in the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> 
      *       structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-createlun
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-createlun
      */
     CreateLun(type, ullSizeInBytes, pDriveIdArray, lNumberOfDrives, pwszUnmaskingList, pHints) {
         pwszUnmaskingList := pwszUnmaskingList is String ? StrPtr(pwszUnmaskingList) : pwszUnmaskingList
 
-        result := ComCall(11, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(11, this, "int", type, "uint", ullSizeInBytes, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pwszUnmaskingList, "ptr", pHints, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsAsync(ppAsync)
     }
 
     /**
-     * Replaces or migrates one drive with another in the subsystem.
+     * The IVdsSubSystem::ReplaceDrive method (vds.h) replaces or migrates one drive with another in the subsystem.
      * @param {Guid} DriveToBeReplaced The GUID of the drive to be replaced.
      * @param {Guid} ReplacementDrive The GUID of the replacement drive.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -368,7 +467,7 @@ class IVdsSubSystem extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
+     * This return value signals a software or communication problem inside a provider that caches information about the array. Use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method followed by the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore the cache.
      * 
      * </td>
      * </tr>
@@ -434,19 +533,27 @@ class IVdsSubSystem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-replacedrive
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-replacedrive
      */
     ReplaceDrive(DriveToBeReplaced, ReplacementDrive) {
-        result := ComCall(12, this, "ptr", DriveToBeReplaced, "ptr", ReplacementDrive, "HRESULT")
+        result := ComCall(12, this, "ptr", DriveToBeReplaced, "ptr", ReplacementDrive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the status of the subsystem to the specified value.
-     * @param {Integer} status Values enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_sub_system_status">VDS_SUB_SYSTEM_STATUS</a>. 
+     * The IVdsSubSystem::SetStatus method (vds.h) sets the status of the subsystem to the specified value.
+     * @remarks
+     * Implementers are responsible for performing any necessary operations to get the status to the specified 
+     *     state. For example, if the caller passes in <b>VDS_SSS_OFFLINE</b> as the subsystem status, 
+     *     the cache might first need to be cleared.
+     * @param {Integer} status_ Values enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_sub_system_status">VDS_SUB_SYSTEM_STATUS</a>. 
      *       Callers can pass in a subset of the possible enumeration values. Passing in 
      *       <b>VDS_SSS_UNKNOWN</b> returns <b>E_INVALIDARG</b>.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -463,9 +570,9 @@ class IVdsSubSystem extends IUnknown{
      * <td width="60%">
      * This return value signals a software or communication problem inside a provider that caches information 
      *         about the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method
      *         followed by the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
      *         the cache.
      * 
      * </td>
@@ -520,15 +627,19 @@ class IVdsSubSystem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-setstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-setstatus
      */
-    SetStatus(status) {
-        result := ComCall(13, this, "int", status, "HRESULT")
+    SetStatus(status_) {
+        result := ComCall(13, this, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Returns the size of the maximum LUN that can be created using the specified LUN type and hints.
+     * The IVdsSubSystem::QueryMaxLunCreateSize method (vds.h) returns the size of the maximum LUN that can be created using the specified LUN type and hints.
      * @param {Integer} type The LUN type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a>.
      * @param {Pointer<Guid>} pDriveIdArray A pointer to an array containing a <b>VDS_OBJECT_ID</b> for each of the drives to be 
      *       used in the LUN creation. The provider should attempt to use the drives in the order provided. This parameter 
@@ -538,10 +649,14 @@ class IVdsSubSystem extends IUnknown{
      * @param {Pointer<VDS_HINTS>} pHints A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints">VDS_HINTS</a> structure used for creating the LUN. The 
      *       hints always take lower priority than parameters listed before. This argument must be non-NULL.
      * @returns {Integer} A pointer to a buffer containing the maximum size of the LUN in bytes. This argument must be non-NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsystem-querymaxluncreatesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdssubsystem-querymaxluncreatesize
      */
     QueryMaxLunCreateSize(type, pDriveIdArray, lNumberOfDrives, pHints) {
-        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, "uint*", &pullMaxLunSize := 0, "HRESULT")
+        result := ComCall(14, this, "int", type, "ptr", pDriveIdArray, "int", lNumberOfDrives, "ptr", pHints, "uint*", &pullMaxLunSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pullMaxLunSize
     }
 }

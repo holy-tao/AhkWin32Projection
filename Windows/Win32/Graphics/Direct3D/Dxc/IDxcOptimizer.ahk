@@ -34,18 +34,26 @@ class IDxcOptimizer extends IUnknown{
      * @returns {Integer} 
      */
     GetAvailablePassCount() {
-        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @returns {IDxcOptimizerPass} 
+     * @returns {Pointer<IDxcOptimizerPass>} 
      */
     GetAvailablePass(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcOptimizerPass(ppResult)
+        result := ComCall(4, this, "uint", index, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
@@ -53,14 +61,18 @@ class IDxcOptimizer extends IUnknown{
      * @param {IDxcBlob} pBlob 
      * @param {Pointer<PWSTR>} ppOptions 
      * @param {Integer} optionCount 
-     * @param {Pointer<IDxcBlob>} pOutputModule 
-     * @param {Pointer<IDxcBlobEncoding>} ppOutputText 
+     * @param {Pointer<Pointer<IDxcBlob>>} pOutputModule 
+     * @param {Pointer<Pointer<IDxcBlobEncoding>>} ppOutputText 
      * @returns {HRESULT} 
      */
     RunOptimizer(pBlob, ppOptions, optionCount, pOutputModule, ppOutputText) {
         ppOptionsMarshal := ppOptions is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pBlob, ppOptionsMarshal, ppOptions, "uint", optionCount, "ptr*", pOutputModule, "ptr*", ppOutputText, "HRESULT")
+        result := ComCall(5, this, "ptr", pBlob, ppOptionsMarshal, ppOptions, "uint", optionCount, "ptr*", pOutputModule, "ptr*", ppOutputText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

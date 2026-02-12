@@ -48,7 +48,11 @@ class IHTCPropertyBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     fireChange() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +62,11 @@ class IHTCPropertyBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        result := ComCall(8, this, "ptr", v, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IHTCPropertyBehavior extends IDispatch{
      */
     get_value() {
         p := VARIANT()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Specifies a format for a directory service object name.
- * @see https://learn.microsoft.com/windows/win32/api/secext/ne-secext-extended_name_format
+ * @see https://learn.microsoft.com/windows/win32/api//content/secext/ne-secext-extended_name_format
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

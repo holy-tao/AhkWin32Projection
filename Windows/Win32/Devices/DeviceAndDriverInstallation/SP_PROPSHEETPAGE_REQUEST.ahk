@@ -64,7 +64,7 @@
  *     return TRUE;
  * }
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_propsheetpage_request
+ * @see https://learn.microsoft.com/windows/win32/api//content/setupapi/ns-setupapi-sp_propsheetpage_request
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

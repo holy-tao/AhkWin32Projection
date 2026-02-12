@@ -36,7 +36,11 @@ class IKsNotifyEvent extends IUnknown{
      * @returns {HRESULT} 
      */
     KsNotifyEvent(Event, lParam1, lParam2) {
-        result := ComCall(3, this, "uint", Event, "ptr", lParam1, "ptr", lParam2, "HRESULT")
+        result := ComCall(3, this, "uint", Event, "ptr", lParam1, "ptr", lParam2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

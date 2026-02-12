@@ -45,7 +45,11 @@ class ICLRHostBindingPolicyManager extends IUnknown{
         pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
         pcbNewAppPolicySizeMarshal := pcbNewAppPolicySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, "char*", &pbNewApplicationPolicy := 0, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, "char*", &pbNewApplicationPolicy := 0, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbNewApplicationPolicy
     }
 
@@ -65,7 +69,11 @@ class ICLRHostBindingPolicyManager extends IUnknown{
         pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
         pcchPostPolicyReferenceIdentityMarshal := pcchPostPolicyReferenceIdentity is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, "uint*", &pdwPoliciesApplied := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, "uint*", &pdwPoliciesApplied := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwPoliciesApplied
     }
 }

@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs
+ * Represents the collection of verbs for an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitemverbs
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -64,7 +64,11 @@ class FolderItemVerbs extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
@@ -73,7 +77,11 @@ class FolderItemVerbs extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Application() {
-        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
@@ -82,28 +90,40 @@ class FolderItemVerbs extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(9, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
     /**
-     * 
+     * Retrieves the FolderItemVerb object for a specified item in the collection.
      * @param {VARIANT} index 
      * @returns {FolderItemVerb} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs-item
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitemverbs-item
      */
     Item(index) {
-        result := ComCall(10, this, "ptr", index, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", index, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItemVerb(ppid)
     }
 
     /**
-     * 
+     * Creates and returns a new FolderItemVerbs object that is a copy of this FolderItemVerbs object.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs--newenum
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folderitemverbs--newenum
      */
     _NewEnum() {
-        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 }

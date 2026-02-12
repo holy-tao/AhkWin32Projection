@@ -5,7 +5,7 @@
 
 /**
  * Configures the DirectShow Enhanced Video Renderer (EVR) filter.
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-ievrfilterconfigex
+ * @see https://learn.microsoft.com/windows/win32/api//content/evr/nn-evr-ievrfilterconfigex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -63,20 +63,28 @@ class IEVRFilterConfigEx extends IEVRFilterConfig{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-ievrfilterconfigex-setconfigprefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/evr/nf-evr-ievrfilterconfigex-setconfigprefs
      */
     SetConfigPrefs(dwConfigFlags) {
-        result := ComCall(5, this, "uint", dwConfigFlags, "HRESULT")
+        result := ComCall(5, this, "uint", dwConfigFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the configuration parameters for the Microsoft DirectShow Enhanced Video Renderer Filter filter.
      * @returns {Integer} Receives a  bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/windows/win32/api/evr/ne-evr-evrfilterconfigprefs">EVRFilterConfigPrefs</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-ievrfilterconfigex-getconfigprefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/evr/nf-evr-ievrfilterconfigex-getconfigprefs
      */
     GetConfigPrefs() {
-        result := ComCall(6, this, "uint*", &pdwConfigFlags := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwConfigFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwConfigFlags
     }
 }

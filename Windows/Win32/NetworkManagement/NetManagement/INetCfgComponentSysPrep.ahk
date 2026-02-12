@@ -38,7 +38,11 @@ class INetCfgComponentSysPrep extends IUnknown{
     SaveAdapterParameters(pncsp, pszwAnswerSections, pAdapterInstanceGuid) {
         pszwAnswerSections := pszwAnswerSections is String ? StrPtr(pszwAnswerSections) : pszwAnswerSections
 
-        result := ComCall(3, this, "ptr", pncsp, "ptr", pszwAnswerSections, "ptr", pAdapterInstanceGuid, "HRESULT")
+        result := ComCall(3, this, "ptr", pncsp, "ptr", pszwAnswerSections, "ptr", pAdapterInstanceGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class INetCfgComponentSysPrep extends IUnknown{
         pszwAnswerFile := pszwAnswerFile is String ? StrPtr(pszwAnswerFile) : pszwAnswerFile
         pszwAnswerSection := pszwAnswerSection is String ? StrPtr(pszwAnswerSection) : pszwAnswerSection
 
-        result := ComCall(4, this, "ptr", pszwAnswerFile, "ptr", pszwAnswerSection, "ptr", pAdapterInstanceGuid, "HRESULT")
+        result := ComCall(4, this, "ptr", pszwAnswerFile, "ptr", pszwAnswerSection, "ptr", pAdapterInstanceGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

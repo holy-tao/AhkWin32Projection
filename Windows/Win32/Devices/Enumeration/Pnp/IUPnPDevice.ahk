@@ -9,7 +9,7 @@
 
 /**
  * The IUPnPDevice interface enables an application to retrieve information about a specific device.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdevice
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpdevice
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -169,10 +169,14 @@ class IUPnPDevice extends IDispatch{
     /**
      * The IsRootDevice property specifies whether the device is the topmost device in the device tree.
      * @returns {VARIANT_BOOL} Receives a reference to a <b>VARIANT_BOOL</b> that contains the value VARIANT_TRUE if the device is the topmost device in the device tree; otherwise, it contains the value VARIANT_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_isrootdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_isrootdevice
      */
     get_IsRootDevice() {
-        result := ComCall(7, this, "short*", &pvarb := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &pvarb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarb
     }
 
@@ -180,36 +184,54 @@ class IUPnPDevice extends IDispatch{
      * The RootDevice property specifies the topmost device in the device tree. The root device represents a physical object.
      * @returns {IUPnPDevice} Receives a reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a> object that describes the root device. This reference must be released when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_rootdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_rootdevice
      */
     get_RootDevice() {
-        result := ComCall(8, this, "ptr*", &ppudRootDevice := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppudRootDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUPnPDevice(ppudRootDevice)
     }
 
     /**
      * The ParentDevice property specifies the parent of the device.
+     * @remarks
+     * To determine if the device has no parent, use <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevice-get_isrootdevice">IUPnPDevice::IsRootDevice</a>.
      * @returns {IUPnPDevice} Receives a reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a> object that describes the parent device. This reference must be released when it is no longer required. If the device has no parent, it is a topmost device, and the parameter receives <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_parentdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_parentdevice
      */
     get_ParentDevice() {
-        result := ComCall(9, this, "ptr*", &ppudDeviceParent := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppudDeviceParent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUPnPDevice(ppudDeviceParent)
     }
 
     /**
      * The HasChildren property specifies whether the device has any child devices.
+     * @remarks
+     * Use this property to determine whether or not the application should access the <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevice-get_children">IUPnPDevice::Children</a> property.
      * @returns {VARIANT_BOOL} Receives a reference to a <b>VARIANT_BOOL</b> that contains the value VARIANT_TRUE if the device has one or more child devices; otherwise, it contains the value VARIANT_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_haschildren
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_haschildren
      */
     get_HasChildren() {
-        result := ComCall(10, this, "short*", &pvarb := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pvarb := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarb
     }
 
     /**
      * The Children property specifies all the child devices of the device. The devices are stored in an IUPnPDevices collection.
+     * @remarks
+     * To determine if a device has any children (but not the actual number of children), use <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevice-get_haschildren">IUPnPDevice::HasChildren</a>.
      * @returns {IUPnPDevices} Receives a reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevices">IUPnPDevices</a> collection that enumerates the child devices of the device. This reference must be released when it is no longer required. 
      * 
@@ -217,159 +239,246 @@ class IUPnPDevice extends IDispatch{
      * 
      * 
      * If the device has no child devices, the collection object has a length of zero.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_children
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_children
      */
     get_Children() {
-        result := ComCall(11, this, "ptr*", &ppudChildren := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppudChildren := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUPnPDevices(ppudChildren)
     }
 
     /**
      * The UniqueDeviceName property specifies the unique device name (UDN) of the device. A UDN is unique; no two devices can have the same UDN.
      * @returns {BSTR} Receives a reference to a string that contains the UDN of the device. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_uniquedevicename
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_uniquedevicename
      */
     get_UniqueDeviceName() {
         pbstr := BSTR()
-        result := ComCall(12, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The FriendlyName property specifies the device display name for the device.
+     * @remarks
+     * It is possible for multiple devices to have the same display name. To determine if two device objects describe the same device, use the unique device name. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevice-get_uniquedevicename">UniqueDeviceName</a>.
      * @returns {BSTR} Receives a reference to a string that contains the device display name. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_friendlyname
      */
     get_FriendlyName() {
         pbstr := BSTR()
-        result := ComCall(13, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The Type method specifies the device type uniform resource identifier (URI) for the device.
      * @returns {BSTR} Receives a reference to a string that contains the device type's URI. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_type
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_type
      */
     get_Type() {
         pbstr := BSTR()
-        result := ComCall(14, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(14, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The PresentationURL property specifies the presentation URL for a Web page that controls the device.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This property  must not be empty and must contain a valid URL.</div>
+     * <div> </div>
      * @returns {BSTR} Receives a reference to a string that contains the presentation URL for the Web page. This URL is an absolute URL. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer used. If the device does not specify a presentation URL, this parameter receives an empty string.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_presentationurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_presentationurl
      */
     get_PresentationURL() {
         pbstr := BSTR()
-        result := ComCall(15, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(15, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The ManufacturerName property specifies a human-readable form of the manufacturer name of the device.
      * @returns {BSTR} Receives a reference to a string that contains the manufacturer's name. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_manufacturername
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_manufacturername
      */
     get_ManufacturerName() {
         pbstr := BSTR()
-        result := ComCall(16, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(16, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The ManufacturerURL property specifies the URL for the manufacturer's Web site.
+     * @remarks
+     * This property is optional and <i>pbstr</i> can return <b>NULL</b>.
      * @returns {BSTR} Receives a reference to a string that contains the URL. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required. If the device does not specify this URL, this parameter is set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_manufacturerurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_manufacturerurl
      */
     get_ManufacturerURL() {
         pbstr := BSTR()
-        result := ComCall(17, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(17, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The ModelName property specifies a human-readable form of the model name of the device.
      * @returns {BSTR} Receives a reference to a string that contains the model name. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_modelname
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_modelname
      */
     get_ModelName() {
         pbstr := BSTR()
-        result := ComCall(18, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(18, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The ModelNumber property specifies a human-readable form of the model number of the device.
+     * @remarks
+     * This property is optional and <i>pbstr</i> can return <b>NULL</b>.
      * @returns {BSTR} Receives a reference to a string that contains the model number. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required. If the device does not specify a model number, this parameter is set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_modelnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_modelnumber
      */
     get_ModelNumber() {
         pbstr := BSTR()
-        result := ComCall(19, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(19, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The Description property specifies a human-readable summary of the device's functionality.
+     * @remarks
+     * This property is optional and <i>pbstr</i> can return <b>NULL</b>.
      * @returns {BSTR} Receives a reference to a string that contains a short description of the intended functionality of devices of this type. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required. If the device does not specify a description, this parameter is set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_description
      */
     get_Description() {
         pbstr := BSTR()
-        result := ComCall(20, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(20, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The ModelURL property specifies the URL for a Web page that contains model-specific information for the device.
+     * @remarks
+     * This property is optional and <i>pbstr</i> can be <b>NULL</b>.
      * @returns {BSTR} Receives a reference to a string that contains the URL. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required. If the device does not specify this URL, this parameter is set to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_modelurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_modelurl
      */
     get_ModelURL() {
         pbstr := BSTR()
-        result := ComCall(21, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(21, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The UPC property specifies a human-readable form of the product code.
+     * @remarks
+     * This property is optional and <i>pbstr</i> may be <b>NULL</b>.
+     * 
+     * It is possible for multiple devices to have the same product code. To determine if two device objects describe the same device, use the unique device name. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevice-get_uniquedevicename">UniqueDeviceName</a>.
      * @returns {BSTR} Receives a reference to a string that contains the product code. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required. If the device does not specify a product code, this parameter receives an empty string.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_upc
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_upc
      */
     get_UPC() {
         pbstr := BSTR()
-        result := ComCall(22, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(22, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The SerialNumber property specifies a human-readable form of the serial number of the device.
+     * @remarks
+     * This property is optional and <i>pbstr</i> may be <b>NULL</b>.
+     * 
+     * It is possible for multiple devices to have the same serial number. To determine if two device objects describe the same device, use the unique device name. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevice-get_uniquedevicename">UniqueDeviceName</a>.
      * @returns {BSTR} Receives a reference to a string that contains the serial number. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer used. This property is optional and the device may not have a serial number.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_serialnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_serialnumber
      */
     get_SerialNumber() {
         pbstr := BSTR()
-        result := ComCall(23, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(23, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
     /**
      * The IconURL method returns a URL from which an icon of the specified format can be loaded.
+     * @remarks
+     * An application can specify any values for <i>lSizeX</i>, <i>lSizeY</i>, and <i>lBitDepth</i>. However, there is no guarantee that an icon exists with those specifications.
+     * 
+     * If a matching icon does not exist, the URL for the icon that most closely matches the size and bit depth specified is returned.
      * @param {BSTR} bstrEncodingFormat Specifies the MIME type of the encoding format that is requested for the icon.
      * @param {Integer} lSizeX Specifies the width of the icon, in pixels. Standard values are 16, 32, or 48.
      * @param {Integer} lSizeY Specifies the height of the icon, in pixels. Standard values are 16, 32, or 48 pixels.
      * @param {Integer} lBitDepth Specifies the bit depth of the icon. Standard values are 8, 16, or 24.
      * @returns {BSTR} Receives a reference to a string that contains the URL from which the icon is to be loaded. Release this string with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-iconurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-iconurl
      */
     IconURL(bstrEncodingFormat, lSizeX, lSizeY, lBitDepth) {
-        bstrEncodingFormat := bstrEncodingFormat is String ? BSTR.Alloc(bstrEncodingFormat).Value : bstrEncodingFormat
+        if(bstrEncodingFormat is String) {
+            pin := BSTR.Alloc(bstrEncodingFormat)
+            bstrEncodingFormat := pin.Value
+        }
 
         pbstrIconURL := BSTR()
-        result := ComCall(24, this, "ptr", bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, "ptr", pbstrIconURL, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, "ptr", pbstrIconURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrIconURL
     }
 
@@ -377,10 +486,14 @@ class IUPnPDevice extends IDispatch{
      * The Services property specifies the list of services provided by the device.
      * @returns {IUPnPServices} Receives a reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpservices">IUPnPServices</a> collection that enumerates the services provided by the device. This reference must be released when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevice-get_services
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdevice-get_services
      */
     get_Services() {
-        result := ComCall(25, this, "ptr*", &ppusServices := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &ppusServices := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUPnPServices(ppusServices)
     }
 }

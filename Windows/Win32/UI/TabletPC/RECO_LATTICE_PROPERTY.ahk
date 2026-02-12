@@ -53,7 +53,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_property
+ * @see https://learn.microsoft.com/windows/win32/api//content/rectypes/ns-rectypes-reco_lattice_property
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

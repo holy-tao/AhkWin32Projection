@@ -50,7 +50,11 @@ class ISWbemObjectEx extends ISWbemObject{
      * @returns {HRESULT} 
      */
     Refresh_(iFlags, objWbemNamedValueSet) {
-        result := ComCall(32, this, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
+        result := ComCall(32, this, "int", iFlags, "ptr", objWbemNamedValueSet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +63,11 @@ class ISWbemObjectEx extends ISWbemObject{
      * @returns {ISWbemPropertySet} 
      */
     get_SystemProperties_() {
-        result := ComCall(33, this, "ptr*", &objWbemPropertySet := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &objWbemPropertySet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemPropertySet(objWbemPropertySet)
     }
 
@@ -72,7 +80,11 @@ class ISWbemObjectEx extends ISWbemObject{
      */
     GetText_(iObjectTextFormat, iFlags, objWbemNamedValueSet) {
         bsText := BSTR()
-        result := ComCall(34, this, "int", iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", bsText, "HRESULT")
+        result := ComCall(34, this, "int", iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", bsText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bsText
     }
 
@@ -85,9 +97,16 @@ class ISWbemObjectEx extends ISWbemObject{
      * @returns {HRESULT} 
      */
     SetFromText_(bsText, iObjectTextFormat, iFlags, objWbemNamedValueSet) {
-        bsText := bsText is String ? BSTR.Alloc(bsText).Value : bsText
+        if(bsText is String) {
+            pin := BSTR.Alloc(bsText)
+            bsText := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bsText, "int", iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "HRESULT")
+        result := ComCall(35, this, "ptr", bsText, "int", iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -56,7 +56,11 @@ class ILogFiles extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &pLong := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pLong := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLong
     }
 
@@ -65,7 +69,11 @@ class ILogFiles extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &ppIunk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppIunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIunk)
     }
 
@@ -75,29 +83,46 @@ class ILogFiles extends IDispatch{
      * @returns {DILogFileItem} 
      */
     get_Item(index) {
-        result := ComCall(9, this, "ptr", index, "ptr*", &ppI := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", index, "ptr*", &ppI := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DILogFileItem(ppI)
     }
 
     /**
-     * 
-     * @param {BSTR} pathname 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
+     * @param {BSTR} pathname_ 
      * @returns {DILogFileItem} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
-    Add(pathname) {
-        pathname := pathname is String ? BSTR.Alloc(pathname).Value : pathname
+    Add(pathname_) {
+        if(pathname_ is String) {
+            pin := BSTR.Alloc(pathname_)
+            pathname_ := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", pathname, "ptr*", &ppI := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pathname_, "ptr*", &ppI := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DILogFileItem(ppI)
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {VARIANT} index 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(index) {
-        result := ComCall(11, this, "ptr", index, "HRESULT")
+        result := ComCall(11, this, "ptr", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

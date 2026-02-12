@@ -95,7 +95,7 @@ class DEVICE_OBJECT extends Win32Struct
     }
 
     /**
-     * @type {PIO_TIMER}
+     * @type {Pointer<PIO_TIMER>}
      */
     Timer {
         get => NumGet(this, 40, "ptr")

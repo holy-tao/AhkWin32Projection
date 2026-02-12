@@ -9,11 +9,8 @@
 /**
  * Provides methods to parse an input string into an IQuerySolution object.
  * @remarks
- * 
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nn-structuredquery-iqueryparser
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-iqueryparser
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -46,6 +43,18 @@ class IQueryParser extends IUnknown{
 
     /**
      * Parses an input string that contains Structured Query keywords and/or contents to produce an IQuerySolution object.
+     * @remarks
+     * For each <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-irichchunk">IRichChunk</a> object, the position information identifies the character span of the custom property, the string value is the name of an actual property, and the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> is unused. Although any property could be used, these generic properties are included specifically for this purpose:
+     *         
+     * 
+     * <ul>
+     * <li>System.StructuredQuery.CustomProperty.Boolean</li>
+     * <li>System.StructuredQuery.CustomProperty.DateTime</li>
+     * <li>System.StructuredQuery.CustomProperty.Integer</li>
+     * <li>System.StructuredQuery.CustomProperty.FloatingPoint</li>
+     * <li>System.StructuredQuery.CustomProperty.String</li>
+     * </ul>
+     * An application can use them in the enumeration passed in the <i>pCustomProperties</i> parameter and look for them in the resulting condition tree.
      * @param {PWSTR} pszInputString Type: <b>LPCWSTR</b>
      * 
      * A pointer to the Unicode input string to be parsed.
@@ -55,17 +64,23 @@ class IQueryParser extends IUnknown{
      * @returns {IQuerySolution} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iquerysolution">IQuerySolution</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iquerysolution">IQuerySolution</a> object. The caller must release it by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-parse
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-parse
      */
     Parse(pszInputString, pCustomProperties) {
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        result := ComCall(3, this, "ptr", pszInputString, "ptr", pCustomProperties, "ptr*", &ppSolution := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszInputString, "ptr", pCustomProperties, "ptr*", &ppSolution := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IQuerySolution(ppSolution)
     }
 
     /**
      * Sets a single option, such as a specified wordbreaker, for parsing an input string.
+     * @remarks
+     * For more information, see <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a>.
      * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a></b>
      * 
      * Identifies the type of option to be set.
@@ -74,11 +89,15 @@ class IQueryParser extends IUnknown{
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> specifying the value to set for the <i>option</i> parameter. This value is interpreted differently depending on the value of the <i>option</i> parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-setoption
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-setoption
      */
     SetOption(option, pOptionValue) {
-        result := ComCall(4, this, "int", option, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(4, this, "int", option, "ptr", pOptionValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,11 +109,15 @@ class IQueryParser extends IUnknown{
      * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * Receives a pointer to the specified option value. For more information, see <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-getoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-getoption
      */
     GetOption(option) {
         pOptionValue := PROPVARIANT()
-        result := ComCall(5, this, "int", option, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(5, this, "int", option, "ptr", pOptionValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOptionValue
     }
 
@@ -111,13 +134,17 @@ class IQueryParser extends IUnknown{
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_multioption">PROPVARIANT</a> that is interpreted differently for each value of the <i>option</i> parameter. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/ne-structuredquery-structured_query_multioption">STRUCTURED_QUERY_MULTIOPTION</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-setmultioption
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-setmultioption
      */
     SetMultiOption(option, pszOptionKey, pOptionValue) {
         pszOptionKey := pszOptionKey is String ? StrPtr(pszOptionKey) : pszOptionKey
 
-        result := ComCall(6, this, "int", option, "ptr", pszOptionKey, "ptr", pOptionValue, "HRESULT")
+        result := ComCall(6, this, "int", option, "ptr", pszOptionKey, "ptr", pOptionValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,10 +153,14 @@ class IQueryParser extends IUnknown{
      * @returns {ISchemaProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ischemaprovider">ISchemaProvider</a>**</b>
      * 
      * Receives the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-ischemaprovider">ISchemaProvider</a> object. The calling application must release it by invoking its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-getschemaprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-getschemaprovider
      */
     GetSchemaProvider() {
-        result := ComCall(7, this, "ptr*", &ppSchemaProvider := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSchemaProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaProvider(ppSchemaProvider)
     }
 
@@ -144,15 +175,21 @@ class IQueryParser extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Receives the restated query string. The caller must free the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-restatetostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-restatetostring
      */
     RestateToString(pCondition, fUseEnglish) {
-        result := ComCall(8, this, "ptr", pCondition, "int", fUseEnglish, "ptr*", &ppszQueryString := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pCondition, "int", fUseEnglish, "ptr*", &ppszQueryString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszQueryString
     }
 
     /**
      * Parses a condition for a specified property.
+     * @remarks
+     * The input string can be anything that could have been written immediately after a property in a structured query. For example, "from:(bill OR alex)" would be a valid structured query, so passing System.StructuredQuery.Virtual.From (for which From is a keyword) in the <i>pszPropertyName</i> parameter and "(bill OR alex)" or "bill OR alex" in the <i>pszInputString</i> parameter would be valid. This would result in an <b>OR</b> of leaf nodes that relate the System.StructuredQuery.Virtual.From property with the strings "bill" and "alex".
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Property name.
@@ -162,18 +199,24 @@ class IQueryParser extends IUnknown{
      * @returns {IQuerySolution} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iquerysolution">IQuerySolution</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/structuredquery/nn-structuredquery-iquerysolution">IQuerySolution</a> object. The calling application must release it by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-parsepropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-parsepropertyvalue
      */
     ParsePropertyValue(pszPropertyName, pszInputString) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
-        result := ComCall(9, this, "ptr", pszPropertyName, "ptr", pszInputString, "ptr*", &ppSolution := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pszPropertyName, "ptr", pszInputString, "ptr*", &ppSolution := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IQuerySolution(ppSolution)
     }
 
     /**
      * Restates a specified property for a condition as a query string.
+     * @remarks
+     * If the leaf nodes of the condition contain more than one property name, or no property name at all, E_INVALIDARG is returned.
      * @param {ICondition} pCondition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>*</b>
      * 
      * A condition to be restated as a query string.
@@ -188,14 +231,18 @@ class IQueryParser extends IUnknown{
      * Receives a pointer to a query string for that property. The calling application must free the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquery/nf-structuredquery-iqueryparser-restatepropertyvaluetostring
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nf-structuredquery-iqueryparser-restatepropertyvaluetostring
      */
     RestatePropertyValueToString(pCondition, fUseEnglish, ppszPropertyName, ppszQueryString) {
         ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
         ppszQueryStringMarshal := ppszQueryString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pCondition, "int", fUseEnglish, ppszPropertyNameMarshal, ppszPropertyName, ppszQueryStringMarshal, ppszQueryString, "HRESULT")
+        result := ComCall(10, this, "ptr", pCondition, "int", fUseEnglish, ppszPropertyNameMarshal, ppszPropertyName, ppszQueryStringMarshal, ppszQueryString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
@@ -10,37 +12,37 @@ class SettingsManagementInfrastructure {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_NAME => "name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_VERSION => "version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_LANGUAGE => "language"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_ARCHITECTURE => "architecture"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_TOKEN => "token"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_URI => "uri"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCM_SETTINGS_ID_VERSION_SCOPE => "versionScope"
 

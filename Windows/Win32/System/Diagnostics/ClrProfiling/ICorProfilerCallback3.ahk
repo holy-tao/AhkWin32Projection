@@ -38,7 +38,11 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2{
     InitializeForAttach(pCorProfilerInfoUnk, pvClientData, cbClientData) {
         pvClientDataMarshal := pvClientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(80, this, "ptr", pCorProfilerInfoUnk, pvClientDataMarshal, pvClientData, "uint", cbClientData, "HRESULT")
+        result := ComCall(80, this, "ptr", pCorProfilerInfoUnk, pvClientDataMarshal, pvClientData, "uint", cbClientData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2{
      * @returns {HRESULT} 
      */
     ProfilerAttachComplete() {
-        result := ComCall(81, this, "HRESULT")
+        result := ComCall(81, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class ICorProfilerCallback3 extends ICorProfilerCallback2{
      * @returns {HRESULT} 
      */
     ProfilerDetachSucceeded() {
-        result := ComCall(82, this, "HRESULT")
+        result := ComCall(82, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

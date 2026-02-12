@@ -7,7 +7,6 @@
 /**
  * Generates a thumbnail image resource.
  * @remarks
- * 
  * To instantiate this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> as shown in the code example that follows.
  * 
  * 
@@ -42,9 +41,7 @@
  * 
  * This interface requires XpsRasterService.dll. 
  * If XpsRasterService.dll is not present when <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> is called to create an <b>IXpsOMThumbnailGenerator</b> instance, <b>CoCreateInstance</b> returns E_FAIL.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomthumbnailgenerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomthumbnailgenerator
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -82,10 +79,14 @@ class IXpsOMThumbnailGenerator extends IUnknown{
      * @param {Integer} thumbnailSize The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_thumbnail_size">XPS_THUMBNAIL_SIZE</a> value that specifies the image size of the thumbnail to create.
      * @param {IOpcPartUri} imageResourcePartName A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the new thumbnail image part.
      * @returns {IXpsOMImageResource} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomthumbnailgenerator-generatethumbnail
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomthumbnailgenerator-generatethumbnail
      */
     GenerateThumbnail(page, thumbnailType, thumbnailSize, imageResourcePartName) {
-        result := ComCall(3, this, "ptr", page, "int", thumbnailType, "int", thumbnailSize, "ptr", imageResourcePartName, "ptr*", &imageResource := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", page, "int", thumbnailType, "int", thumbnailSize, "ptr", imageResourcePartName, "ptr*", &imageResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMImageResource(imageResource)
     }
 }

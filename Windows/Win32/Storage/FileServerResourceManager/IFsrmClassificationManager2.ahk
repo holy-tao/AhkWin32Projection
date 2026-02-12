@@ -4,8 +4,8 @@
 #Include .\IFsrmClassificationManager.ahk
 
 /**
- * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager2
+ * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -43,10 +43,14 @@ class IFsrmClassificationManager2 extends IFsrmClassificationManager{
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions">FsrmGetFilePropertyOptions</a> enumeration. The 
      *       default value is <b>FsrmGetFilePropertyOptions_None</b>.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager2-classifyfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager2-classifyfiles
      */
     ClassifyFiles(filePaths, propertyNames, propertyValues, options) {
-        result := ComCall(34, this, "ptr", filePaths, "ptr", propertyNames, "ptr", propertyValues, "int", options, "HRESULT")
+        result := ComCall(34, this, "ptr", filePaths, "ptr", propertyNames, "ptr", propertyValues, "int", options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

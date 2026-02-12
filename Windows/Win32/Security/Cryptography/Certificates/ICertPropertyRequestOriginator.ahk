@@ -6,7 +6,7 @@
 
 /**
  * Represents a certificate property that contains the Domain Naming System (DNS) name of the computer on which the request was created.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertyrequestoriginator
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icertpropertyrequestoriginator
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -40,10 +40,12 @@ class ICertPropertyRequestOriginator extends ICertProperty{
 
     /**
      * Initializes the object from a string that contains the DNS name of the originating computer.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyrequestoriginator-get_requestoriginator">RequestOriginator</a> property to retrieve the DNS name of the originating computer.
      * @param {BSTR} strRequestOriginator A <b>BSTR</b> variable that contains the name.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -63,40 +65,54 @@ class ICertPropertyRequestOriginator extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyrequestoriginator-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertyrequestoriginator-initialize
      */
     Initialize(strRequestOriginator) {
-        strRequestOriginator := strRequestOriginator is String ? BSTR.Alloc(strRequestOriginator).Value : strRequestOriginator
+        if(strRequestOriginator is String) {
+            pin := BSTR.Alloc(strRequestOriginator)
+            strRequestOriginator := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strRequestOriginator, "HRESULT")
+        result := ComCall(14, this, "ptr", strRequestOriginator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes the object from the DNS name of the local computer.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyrequestoriginator-get_requestoriginator">RequestOriginator</a> property to retrieve the DNS name of the originating computer.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyrequestoriginator-initializefromlocalrequestoriginator
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertyrequestoriginator-initializefromlocalrequestoriginator
      */
     InitializeFromLocalRequestOriginator() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a string that contains the DNS name of the originating computer.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyrequestoriginator-initialize">Initialize</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyrequestoriginator-initializefromlocalrequestoriginator">InitializeFromLocalRequestOriginator</a> method to specify a value for the <b>RequestOriginator</b> property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyrequestoriginator-get_requestoriginator
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertyrequestoriginator-get_requestoriginator
      */
     get_RequestOriginator() {
         pValue := BSTR()
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
+        result := ComCall(16, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

@@ -29,11 +29,18 @@ class IAppxManifestCapabilitiesEnumerator extends IUnknown{
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
-     * 
+     * The GetCurrentActCtx function returns the handle to the active activation context of the calling thread.
+     * @remarks
+     * The calling thread is responsible for releasing the handle of the returned activation context. This function can return a null handle if no activation contexts have been activated by this thread. This is not an error.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcurrentactctx
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &capability := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &capability := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return capability
     }
 
@@ -42,7 +49,11 @@ class IAppxManifestCapabilitiesEnumerator extends IUnknown{
      * @returns {BOOL} 
      */
     GetHasCurrent() {
-        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasCurrent
     }
 
@@ -51,7 +62,11 @@ class IAppxManifestCapabilitiesEnumerator extends IUnknown{
      * @returns {BOOL} 
      */
     MoveNext() {
-        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 }

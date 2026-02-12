@@ -38,7 +38,7 @@
  * The **WMDM\_PROP\_DESC** structure contains a property description that consists of a property name and its valid values in a particular configuration.
  * 
  * The caller is required to free the memory used by **ValidValuesRange** or **EnumeratedValues**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-desc
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-prop-desc
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

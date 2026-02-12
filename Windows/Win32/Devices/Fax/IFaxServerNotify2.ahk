@@ -5,9 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * The IFaxServerNotify2 interface is used for fax notifications.
+ * The IFaxServerNotify2 interface is used for fax notifications. (IIFaxServerNotify2)
  * @remarks
- * 
  * <h3><a id="To_Use_Fax_Notification_Events_with_Visual_Basic"></a><a id="to_use_fax_notification_events_with_visual_basic"></a><a id="TO_USE_FAX_NOTIFICATION_EVENTS_WITH_VISUAL_BASIC"></a>To Use Fax Notification Events with Visual Basic</h3>
  * Use the following syntax when creating the root FaxServer2 object:
  * 
@@ -27,8 +26,7 @@
  * 
  * <h3><a id="To_Use_Fax_Notification_Events_with_C__"></a><a id="to_use_fax_notification_events_with_c__"></a><a id="TO_USE_FAX_NOTIFICATION_EVENTS_WITH_C__"></a>To Use Fax Notification Events with C++</h3>
  * A fax client application must implement <b>IFaxServerNotify2</b> and pass the fax service the pointer to an <b>IFaxServerNotify2</b> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxservernotify2
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxservernotify2
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -60,9 +58,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnIncomingJobAdded(pFaxServer, bstrJobId) {
-        bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
+        if(bstrJobId is String) {
+            pin := BSTR.Alloc(bstrJobId)
+            bstrJobId := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(7, this, "ptr", pFaxServer, "ptr", bstrJobId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,9 +78,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnIncomingJobRemoved(pFaxServer, bstrJobId) {
-        bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
+        if(bstrJobId is String) {
+            pin := BSTR.Alloc(bstrJobId)
+            bstrJobId := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(8, this, "ptr", pFaxServer, "ptr", bstrJobId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,9 +99,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnIncomingJobChanged(pFaxServer, bstrJobId, pJobStatus) {
-        bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
+        if(bstrJobId is String) {
+            pin := BSTR.Alloc(bstrJobId)
+            bstrJobId := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", pFaxServer, "ptr", bstrJobId, "ptr", pJobStatus, "HRESULT")
+        result := ComCall(9, this, "ptr", pFaxServer, "ptr", bstrJobId, "ptr", pJobStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,9 +119,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingJobAdded(pFaxServer, bstrJobId) {
-        bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
+        if(bstrJobId is String) {
+            pin := BSTR.Alloc(bstrJobId)
+            bstrJobId := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(10, this, "ptr", pFaxServer, "ptr", bstrJobId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,9 +139,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingJobRemoved(pFaxServer, bstrJobId) {
-        bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
+        if(bstrJobId is String) {
+            pin := BSTR.Alloc(bstrJobId)
+            bstrJobId := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", pFaxServer, "ptr", bstrJobId, "HRESULT")
+        result := ComCall(11, this, "ptr", pFaxServer, "ptr", bstrJobId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,9 +160,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingJobChanged(pFaxServer, bstrJobId, pJobStatus) {
-        bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
+        if(bstrJobId is String) {
+            pin := BSTR.Alloc(bstrJobId)
+            bstrJobId := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", pFaxServer, "ptr", bstrJobId, "ptr", pJobStatus, "HRESULT")
+        result := ComCall(12, this, "ptr", pFaxServer, "ptr", bstrJobId, "ptr", pJobStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,9 +180,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnIncomingMessageAdded(pFaxServer, bstrMessageId) {
-        bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
+        if(bstrMessageId is String) {
+            pin := BSTR.Alloc(bstrMessageId)
+            bstrMessageId := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(13, this, "ptr", pFaxServer, "ptr", bstrMessageId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,9 +200,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnIncomingMessageRemoved(pFaxServer, bstrMessageId) {
-        bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
+        if(bstrMessageId is String) {
+            pin := BSTR.Alloc(bstrMessageId)
+            bstrMessageId := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(14, this, "ptr", pFaxServer, "ptr", bstrMessageId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,9 +220,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingMessageAdded(pFaxServer, bstrMessageId) {
-        bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
+        if(bstrMessageId is String) {
+            pin := BSTR.Alloc(bstrMessageId)
+            bstrMessageId := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(15, this, "ptr", pFaxServer, "ptr", bstrMessageId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,9 +240,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingMessageRemoved(pFaxServer, bstrMessageId) {
-        bstrMessageId := bstrMessageId is String ? BSTR.Alloc(bstrMessageId).Value : bstrMessageId
+        if(bstrMessageId is String) {
+            pin := BSTR.Alloc(bstrMessageId)
+            bstrMessageId := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", pFaxServer, "ptr", bstrMessageId, "HRESULT")
+        result := ComCall(16, this, "ptr", pFaxServer, "ptr", bstrMessageId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +259,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnReceiptOptionsChange(pFaxServer) {
-        result := ComCall(17, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(17, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,7 +273,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnActivityLoggingConfigChange(pFaxServer) {
-        result := ComCall(18, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(18, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -211,7 +287,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnSecurityConfigChange(pFaxServer) {
-        result := ComCall(19, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(19, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,7 +301,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnEventLoggingConfigChange(pFaxServer) {
-        result := ComCall(20, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(20, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -231,7 +315,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingQueueConfigChange(pFaxServer) {
-        result := ComCall(21, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(21, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -241,7 +329,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutgoingArchiveConfigChange(pFaxServer) {
-        result := ComCall(22, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(22, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -251,7 +343,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnIncomingArchiveConfigChange(pFaxServer) {
-        result := ComCall(23, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(23, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -261,7 +357,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnDevicesConfigChange(pFaxServer) {
-        result := ComCall(24, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(24, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,7 +371,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutboundRoutingGroupsConfigChange(pFaxServer) {
-        result := ComCall(25, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(25, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -281,7 +385,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnOutboundRoutingRulesConfigChange(pFaxServer) {
-        result := ComCall(26, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(26, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -295,7 +403,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnServerActivityChange(pFaxServer, lIncomingMessages, lRoutingMessages, lOutgoingMessages, lQueuedMessages) {
-        result := ComCall(27, this, "ptr", pFaxServer, "int", lIncomingMessages, "int", lRoutingMessages, "int", lOutgoingMessages, "int", lQueuedMessages, "HRESULT")
+        result := ComCall(27, this, "ptr", pFaxServer, "int", lIncomingMessages, "int", lRoutingMessages, "int", lOutgoingMessages, "int", lQueuedMessages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -308,7 +420,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnQueuesStatusChange(pFaxServer, bOutgoingQueueBlocked, bOutgoingQueuePaused, bIncomingQueueBlocked) {
-        result := ComCall(28, this, "ptr", pFaxServer, "short", bOutgoingQueueBlocked, "short", bOutgoingQueuePaused, "short", bIncomingQueueBlocked, "HRESULT")
+        result := ComCall(28, this, "ptr", pFaxServer, "short", bOutgoingQueueBlocked, "short", bOutgoingQueuePaused, "short", bIncomingQueueBlocked, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -321,9 +437,16 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnNewCall(pFaxServer, lCallId, lDeviceId, bstrCallerId) {
-        bstrCallerId := bstrCallerId is String ? BSTR.Alloc(bstrCallerId).Value : bstrCallerId
+        if(bstrCallerId is String) {
+            pin := BSTR.Alloc(bstrCallerId)
+            bstrCallerId := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", pFaxServer, "int", lCallId, "int", lDeviceId, "ptr", bstrCallerId, "HRESULT")
+        result := ComCall(29, this, "ptr", pFaxServer, "int", lCallId, "int", lDeviceId, "ptr", bstrCallerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -333,7 +456,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnServerShutDown(pFaxServer) {
-        result := ComCall(30, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(30, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -348,7 +475,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnDeviceStatusChange(pFaxServer, lDeviceId, bPoweredOff, bSending, bReceiving, bRinging) {
-        result := ComCall(31, this, "ptr", pFaxServer, "int", lDeviceId, "short", bPoweredOff, "short", bSending, "short", bReceiving, "short", bRinging, "HRESULT")
+        result := ComCall(31, this, "ptr", pFaxServer, "int", lDeviceId, "short", bPoweredOff, "short", bSending, "short", bReceiving, "short", bRinging, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -358,7 +489,11 @@ class IFaxServerNotify2 extends IDispatch{
      * @returns {HRESULT} 
      */
     OnGeneralServerConfigChanged(pFaxServer) {
-        result := ComCall(32, this, "ptr", pFaxServer, "HRESULT")
+        result := ComCall(32, this, "ptr", pFaxServer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

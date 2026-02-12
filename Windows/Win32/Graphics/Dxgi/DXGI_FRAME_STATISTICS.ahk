@@ -10,7 +10,7 @@
  * 
  * The values in the <b>PresentCount</b> and <b>PresentRefreshCount</b> members indicate information about when a frame was presented on the display screen. You can use these values to determine whether a glitch occurred. The values in the <b>SyncRefreshCount</b> and <b>SyncQPCTime</b> members indicate timing information that you can use for audio and video synchronization or very precise animation. If the swap chain draws in full-screen mode, these values are based on when the computer booted. 
  * If the swap chain draws in windowed mode, these values are based on when the swap chain is created.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_frame_statistics
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/ns-dxgi-dxgi_frame_statistics
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

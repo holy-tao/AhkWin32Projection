@@ -5,7 +5,7 @@
  * Indicates whether or not unaligned block-compressed textures are supported.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options8
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options8
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

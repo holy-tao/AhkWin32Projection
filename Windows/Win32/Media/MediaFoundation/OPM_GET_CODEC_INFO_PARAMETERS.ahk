@@ -3,7 +3,7 @@
 
 /**
  * OPM_GET_CODEC_INFO_PARAMETERS (opmapi.h) contains information for the OPM_GET_CODEC_INFO command.
- * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_get_codec_info_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/opmapi/ns-opmapi-opm_get_codec_info_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

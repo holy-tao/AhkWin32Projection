@@ -6,7 +6,7 @@
  * @remarks
  * All per-service registry state types have a lifetime that is scoped to the lifetime of the service installation.
  * Once the service is removed by calling [DeleteService](/windows/win32/api/winsvc/nf-winsvc-deleteservice) the registry state is deleted too.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ne-winsvc-service_shared_registry_state_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ne-winsvc-service_shared_registry_state_type
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

@@ -64,20 +64,37 @@ class ISWbemObjectSet extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pUnk)
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @returns {ISWbemObject} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(strObjectPath, iFlags) {
-        strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
+        if(strObjectPath is String) {
+            pin := BSTR.Alloc(strObjectPath)
+            strObjectPath := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strObjectPath, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", strObjectPath, "int", iFlags, "ptr*", &objWbemObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObject(objWbemObject)
     }
 
@@ -86,7 +103,11 @@ class ISWbemObjectSet extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &iCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iCount
     }
 
@@ -95,17 +116,26 @@ class ISWbemObjectSet extends IDispatch{
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
-        result := ComCall(10, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &objWbemSecurity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemSecurity(objWbemSecurity)
     }
 
     /**
-     * 
+     * Initializes an instance of the [ItemIndexRange](itemindexrange.md) class.
      * @param {Integer} lIndex 
      * @returns {ISWbemObject} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.data.itemindexrange.#ctor
      */
     ItemIndex(lIndex) {
-        result := ComCall(11, this, "int", lIndex, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(11, this, "int", lIndex, "ptr*", &objWbemObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObject(objWbemObject)
     }
 }

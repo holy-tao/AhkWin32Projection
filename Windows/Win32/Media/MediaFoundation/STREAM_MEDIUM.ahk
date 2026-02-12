@@ -5,7 +5,7 @@
  * Not for application use.
  * @remarks
  * This structure is used internally by the Microsoft Media Foundation AVStream proxy.
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-stream_medium
+ * @see https://learn.microsoft.com/windows/win32/api//content/mftransform/ns-mftransform-stream_medium
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

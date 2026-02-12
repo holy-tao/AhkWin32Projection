@@ -6,12 +6,9 @@
 /**
  * A write-only stream interface into which an application writes print job data.
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-ixpsprintjobstream-close">Close</a> method must be called before this interface is released.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nn-xpsprint-ixpsprintjobstream
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsprint/nn-xpsprint-ixpsprintjobstream
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */
@@ -38,11 +35,17 @@ class IXpsPrintJobStream extends ISequentialStream{
 
     /**
      * Closes the stream and indicates to the print job that the entire document has been written to the print queue by the application.
+     * @remarks
+     * After <b>Close</b> has been called, all subsequent attempts to write data to the stream will fail.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsprint/nf-xpsprint-ixpsprintjobstream-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsprint/nf-xpsprint-ixpsprintjobstream-close
      */
     Close() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

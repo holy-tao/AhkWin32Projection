@@ -5,7 +5,7 @@
  * Contains fields that specify the information in a Telemetry Host-Initiated Log page.
  * @remarks
  * All NVMe Telemetry Data Blocks are 512 bytes in size.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_telemetry_host_initiated_log
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_telemetry_host_initiated_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

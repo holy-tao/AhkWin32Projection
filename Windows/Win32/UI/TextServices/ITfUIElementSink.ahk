@@ -6,10 +6,8 @@
 /**
  * The ITfUIElementSink interface is implemented by an application to receive notifications when the UI element is changed.
  * @remarks
- * 
  * To install this advise sink, obtain an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfsource">ITfSource</a> object from an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielementmgr">ITfUIElementMgr</a> object by calling <b>ITfUIElementMgr::QueryInterface</b> with IID_ ITfSource. Then call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a> with IID_ ITfUIElementSink.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfuielementsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfuielementsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -68,12 +66,16 @@ class ITfUIElementSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementsink-beginuielement
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfuielementsink-beginuielement
      */
     BeginUIElement(dwUIElementId, pbShow) {
         pbShowMarshal := pbShow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwUIElementId, pbShowMarshal, pbShow, "HRESULT")
+        result := ComCall(3, this, "uint", dwUIElementId, pbShowMarshal, pbShow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,10 +83,14 @@ class ITfUIElementSink extends IUnknown{
      * The ITfUIElementSink::UpdateUIElement method is called when the contents of the UIElement is updated.
      * @param {Integer} dwUIElementId [in] Id of the UIElement that has had its content updated.
      * @returns {HRESULT} The TSF manager ignores the return value of this method.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementsink-updateuielement
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfuielementsink-updateuielement
      */
     UpdateUIElement(dwUIElementId) {
-        result := ComCall(4, this, "uint", dwUIElementId, "HRESULT")
+        result := ComCall(4, this, "uint", dwUIElementId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,10 +98,14 @@ class ITfUIElementSink extends IUnknown{
      * The ITfUIElementSink::EndUIElement method is called when the UIElement is finished.
      * @param {Integer} dwUIElementId [in] Id of the UIElement that is finished.
      * @returns {HRESULT} The TSF manager ignores the return value of this method.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementsink-enduielement
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfuielementsink-enduielement
      */
     EndUIElement(dwUIElementId) {
-        result := ComCall(5, this, "uint", dwUIElementId, "HRESULT")
+        result := ComCall(5, this, "uint", dwUIElementId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -35,7 +35,11 @@ class IObjectHandle extends IUnknown{
      */
     Unwrap() {
         ppv := VARIANT()
-        result := ComCall(3, this, "ptr", ppv, "HRESULT")
+        result := ComCall(3, this, "ptr", ppv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

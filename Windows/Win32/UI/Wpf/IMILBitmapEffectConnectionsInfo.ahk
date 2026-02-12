@@ -7,10 +7,8 @@
 /**
  * Exposes methods that retrieves information about what input and output pins are exposed by the bitmap effect.
  * @remarks
- * 
  * If this interface is not implemented when creating a custom bitmap effect, a single input and output pin implementation with a 32bit RGBA format is assumes.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectconnectionsinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nn-mileffects-imilbitmapeffectconnectionsinfo
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -40,10 +38,14 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this method returns, contains the number of input pins the bitmap effect implements.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberinputs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberinputs
      */
     GetNumberInputs() {
-        result := ComCall(3, this, "uint*", &puiNumInputs := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &puiNumInputs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiNumInputs
     }
 
@@ -52,10 +54,14 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this method returns, contains the number of output pins the bitmap effect implements.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberoutputs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberoutputs
      */
     GetNumberOutputs() {
-        result := ComCall(4, this, "uint*", &puiNumOutputs := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &puiNumOutputs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiNumOutputs
     }
 
@@ -67,10 +73,14 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
      * @returns {IMILBitmapEffectConnectorInfo} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnectorinfo">IMILBitmapEffectConnectorInfo</a>**</b>
      * 
      * When this method returns, contain the connector information for the given input pin.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getinputconnectorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getinputconnectorinfo
      */
     GetInputConnectorInfo(uiIndex) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
+        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMILBitmapEffectConnectorInfo(ppConnectorInfo)
     }
 
@@ -82,10 +92,14 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
      * @returns {IMILBitmapEffectConnectorInfo} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectconnectorinfo">IMILBitmapEffectConnectorInfo</a>**</b>
      * 
      * When this method returns, contain the connector information for the given output pin.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getoutputconnectorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getoutputconnectorinfo
      */
     GetOutputConnectorInfo(uiIndex) {
-        result := ComCall(6, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
+        result := ComCall(6, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMILBitmapEffectConnectorInfo(ppConnectorInfo)
     }
 }

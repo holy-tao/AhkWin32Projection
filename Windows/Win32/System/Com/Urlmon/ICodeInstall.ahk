@@ -40,7 +40,11 @@ class ICodeInstall extends IWindowForBindingUI{
         szDestination := szDestination is String ? StrPtr(szDestination) : szDestination
         szSource := szSource is String ? StrPtr(szSource) : szSource
 
-        result := ComCall(4, this, "uint", ulStatusCode, "ptr", szDestination, "ptr", szSource, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, "uint", ulStatusCode, "ptr", szDestination, "ptr", szSource, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

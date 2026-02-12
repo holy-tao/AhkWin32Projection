@@ -8,12 +8,10 @@
 /**
  * Use this interface to enumerate the CD and DVD devices installed on the computer.
  * @remarks
- * 
  * To create the <b>MsftDiscMaster2</b> object in a script, use IMAPI2.MsftDiscMaster2 as the program identifier when calling <b>CreateObject</b>.
  * 
  * To receive notification when a device is added or removed from the computer, implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscmaster2events">DDiscMaster2Events</a> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscmaster2
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-idiscmaster2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -61,45 +59,78 @@ class IDiscMaster2 extends IDispatch{
 
     /**
      * Retrieves a list of the CD and DVD devices installed on the computer.
+     * @remarks
+     * The enumeration is a snapshot of the devices on the computer at the time of the call and will not reflect devices that are added and removed. To receive notification when a device is added or removed from the computer, implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscmaster2events">DDiscMaster2Events</a> interface.
+     * 
+     * To retrieve a single identifier, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscmaster2-get_item">IDiscMaster2::get_Item</a> property.
+     * 
+     * The device identifier is guaranteed to be unique and static for a given device as recognized by Windows Plug and Play.  You can use the identifier as a key value for saving the user's default burner, and can also be used to cache other device-specific static information (for example, VendorID and ProductID) by an advanced application.
      * @returns {IEnumVARIANT} An <b>IEnumVariant</b> interface that you use to enumerate the CD and DVD devices installed on the computer. The items of the enumeration are variants whose type is <b>VT_BSTR</b>. Use the <b>bstrVal</b> member to retrieve the unique identifier of the device.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscmaster2-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(ppunk)
     }
 
     /**
      * Retrieves the unique identifier of the specified disc device.
+     * @remarks
+     * To enumerate all identifiers, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscmaster2-get__newenum">IDiscMaster2::get__NewEnum</a> method.
+     * 
+     * The following sample demonstrates how to re-enumerate optical drives in order to accurately account for drives added or removed  after the initial creation of the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscmaster2">IDiscMaster2</a> object. This is accomplished via the <b>IDiscMaster2::get_Item</b> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscmaster2-get_count">IDiscMaster2::get_Count</a> methods:
+     * 
+     * 
+     * ```cpp
      * @param {Integer} index Zero-based index of the device whose unique identifier you want to retrieve.
      * 
      * The index value can change during PNP activity when devices are added or removed from the computer,  or across boot sessions.
      * @returns {BSTR} String that contains the unique identifier of the disc device associated with the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscmaster2-get_item
      */
     get_Item(index) {
         value := BSTR()
-        result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
+        result := ComCall(8, this, "int", index, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the number of the CD and DVD disc devices installed on the computer.
      * @returns {Integer} Number of CD and DVD disc devices installed on the computer.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscmaster2-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves a value that determines if the environment contains one or more optical devices and the execution context has permission to access the devices.
+     * @remarks
+     * This method loops through all the strings in <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscmaster2-get_item">IDiscMaster2</a> and attempts to use each string to initialize a <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">DiscRecorder2</a> object.  If any of the recorders on the system succeed the initialization, this method returns <b>TRUE</b>.
+     * 
+     * The environment must contain at least one type-5 optical device.
      * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the environment contains one or more optical devices and the execution context has permission to access the devices; otherwise, VARIANT_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscmaster2-get_issupportedenvironment
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-idiscmaster2-get_issupportedenvironment
      */
     get_IsSupportedEnvironment() {
-        result := ComCall(10, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

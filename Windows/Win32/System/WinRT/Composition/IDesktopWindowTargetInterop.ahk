@@ -42,7 +42,11 @@ class IDesktopWindowTargetInterop extends IUnknown{
      */
     get_Hwnd() {
         value := HWND()
-        result := ComCall(3, this, "ptr", value, "HRESULT")
+        result := ComCall(3, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

@@ -5,7 +5,7 @@
  * Passed to the PFXExportCertStoreEx function as pvPara when the PKCS12_EXPORT_PBES2_PARAMS flag is set for dwFlags to provide information about the encryption algorithm to use.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-pkcs12_pbes2_export_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-pkcs12_pbes2_export_params
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

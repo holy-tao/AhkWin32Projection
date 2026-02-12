@@ -3,7 +3,7 @@
 
 /**
  * Specifies the set of possible RPC client localities.
- * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpccallclientlocality
+ * @see https://learn.microsoft.com/windows/win32/api//content/rpcasync/ne-rpcasync-rpccallclientlocality
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
  */

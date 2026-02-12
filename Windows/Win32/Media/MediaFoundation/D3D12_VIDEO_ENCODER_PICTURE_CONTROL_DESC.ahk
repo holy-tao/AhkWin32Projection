@@ -21,7 +21,7 @@
  * There's no limitation to the number of DPB entries being passed in *pReferenceFramesReconPictureDescriptors*, but instead in the number of entries on that array being references by the L0 and L1 lists. This allows the user to track the state of a DPB in *pReferenceFramesReconPictureDescriptors* within the restrictions defined by the codec standard limitations and only use a subset restricted by the hardware limitations when calling **EncodeFrame**. For example, for HEVC encoding, the caller could keep track of the latest 15 encoded pictures in *pReferenceFramesReconPictureDescriptors* but only use a subset of the pictures that falls within the hardware restrictions, by assigning a limited number of unique indices in the L0 and L1 lists.
  * 
  * Note that a request for an IDR frame will act as a barrier between frame references and the DPB buffer and its state might need to be flushed accordingly by the host.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

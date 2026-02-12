@@ -10,7 +10,7 @@
  * If your remediation process does not support the reporting of percentage values, then as long as <b>state</b> is set to <b>fixupStateInProgress</b>, <b>percentage</b> must be set to a value of 101, which indicates the remediation process is in a general "updating" state but the amount of completion is unknown. When remediation completes, <b>state</b> must be set to <b>fixupStateSuccess</b> and <b>percentage</b> must be set to 100.
  * 
  * If the SHA cannot update the fix-up information, then <b>state</b> must be set to <b>fixupStateCouldNotUpdate</b>.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-fixupinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/naptypes/ns-naptypes-fixupinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

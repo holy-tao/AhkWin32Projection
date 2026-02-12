@@ -4,7 +4,7 @@
 
 /**
  * Contains information about a hit test.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvhittestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-lvhittestinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

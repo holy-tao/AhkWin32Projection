@@ -49,7 +49,7 @@
  *  
  * 
  * The native window size used is always the user's preferred size.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_preferred_display_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-dvd_preferred_display_mode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

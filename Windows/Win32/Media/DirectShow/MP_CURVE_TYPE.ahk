@@ -39,7 +39,7 @@
  *  
  * 
  * For Boolean and enumeration parameters, only MP_CURVE_JUMP is valid.
- * @see https://learn.microsoft.com/windows/win32/api/medparam/ne-medparam-mp_curve_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/medparam/ne-medparam-mp_curve_type
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

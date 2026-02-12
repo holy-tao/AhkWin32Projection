@@ -37,7 +37,11 @@ class IWICD3DTextureSource extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetTexture(pD3DDevice, pID3DTextureOptions, riid) {
-        result := ComCall(3, this, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, "ptr", riid, "ptr*", &ppTexture := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, "ptr", riid, "ptr*", &ppTexture := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppTexture
     }
 
@@ -54,7 +58,11 @@ class IWICD3DTextureSource extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetTransformedTexture(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, pD3DDevice, pID3DTextureOptions, riid) {
-        result := ComCall(4, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, "ptr", riid, "ptr*", &ppTexture := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "ptr", pD3DDevice, "ptr", pID3DTextureOptions, "ptr", riid, "ptr*", &ppTexture := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppTexture
     }
 
@@ -64,16 +72,24 @@ class IWICD3DTextureSource extends IUnknown{
      * @returns {BOOL} 
      */
     DoesSupportD3DDeviceType(riid) {
-        result := ComCall(5, this, "ptr", riid, "int*", &pfIsSupported := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", riid, "int*", &pfIsSupported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsSupported
     }
 
     /**
      * 
-     * @returns {IPropertyBag2} 
+     * @returns {Pointer<IPropertyBag2>} 
      */
     GetD3DTextureOptions() {
-        result := ComCall(6, this, "ptr*", &ppID3DTextureOptions := 0, "HRESULT")
-        return IPropertyBag2(ppID3DTextureOptions)
+        result := ComCall(6, this, "ptr*", &ppID3DTextureOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppID3DTextureOptions
     }
 }

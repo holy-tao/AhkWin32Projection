@@ -36,7 +36,11 @@ class IHTMLEditHost extends IUnknown{
      * @returns {HRESULT} 
      */
     SnapRect(pIElement, prcNew, eHandle) {
-        result := ComCall(3, this, "ptr", pIElement, "ptr", prcNew, "int", eHandle, "HRESULT")
+        result := ComCall(3, this, "ptr", pIElement, "ptr", prcNew, "int", eHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

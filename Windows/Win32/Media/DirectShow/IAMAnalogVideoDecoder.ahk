@@ -6,11 +6,8 @@
 /**
  * The IAMAnalogVideoDecoder interface sets and retrieves information about the analog-to-digital conversion process in a video capture filter.The WDM Video Capture filter exposes this interface if the device is an analog video capture device.
  * @remarks
- * 
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-videodecoder">PROPSETID_VIDCAP_VIDEODECODER</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamanalogvideodecoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamanalogvideodecoder
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -83,10 +80,14 @@ class IAMAnalogVideoDecoder extends IUnknown{
     /**
      * The get_AvailableTVFormats method retrieves the analog video formats that the decoder supports.
      * @returns {Integer} Pointer to a variable that receives a bitwise [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-get_availabletvformats
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-get_availabletvformats
      */
     get_AvailableTVFormats() {
-        result := ComCall(3, this, "int*", &lAnalogVideoStandard := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &lAnalogVideoStandard := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lAnalogVideoStandard
     }
 
@@ -94,35 +95,49 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * The put_TVFormat method sets the analog video format.
      * @param {Integer} lAnalogVideoStandard Specifies the video format as a member of the [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration.
      * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-put_tvformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-put_tvformat
      */
     put_TVFormat(lAnalogVideoStandard) {
-        result := ComCall(4, this, "int", lAnalogVideoStandard, "HRESULT")
+        result := ComCall(4, this, "int", lAnalogVideoStandard, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_TVFormat method retrieves the current analog video format.
      * @returns {Integer} Pointer to a variable that receives a member of the [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration, indicating the analog video format.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-get_tvformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-get_tvformat
      */
     get_TVFormat() {
-        result := ComCall(5, this, "int*", &plAnalogVideoStandard := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &plAnalogVideoStandard := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAnalogVideoStandard
     }
 
     /**
      * The get_HorizontalLocked method determines whether the horizontal sync is locked.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-get_horizontallocked
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-get_horizontallocked
      */
     get_HorizontalLocked() {
-        result := ComCall(6, this, "int*", &plLocked := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &plLocked := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plLocked
     }
 
     /**
      * The put_VCRHorizontalLocking method specifies whether the video is a tape source or a broadcast source.
+     * @remarks
+     * The timing accuracy of synchronization pulses is typically poorer from a tape source than from a broadcast source. Setting the value to 1 tells the decoder to relax its standards, which leads to a better chance of maintaining sync.
      * @param {Integer} lVCRHorizontalLocking 
      * @returns {HRESULT} Returns an HRESULT value. Possible values include the following.
      * 
@@ -154,35 +169,51 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-put_vcrhorizontallocking
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-put_vcrhorizontallocking
      */
     put_VCRHorizontalLocking(lVCRHorizontalLocking) {
-        result := ComCall(7, this, "int", lVCRHorizontalLocking, "HRESULT")
+        result := ComCall(7, this, "int", lVCRHorizontalLocking, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_VCRHorizontalLocking method indicates whether the decoder is expecting video from a tape source or a broadcast source.
+     * @remarks
+     * The timing accuracy of synchronization pulses is typically poorer from a tape source than from a broadcast source. If the returned value is 1, the decoder might relax its sync timing standards.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-get_vcrhorizontallocking
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-get_vcrhorizontallocking
      */
     get_VCRHorizontalLocking() {
-        result := ComCall(8, this, "int*", &plVCRHorizontalLocking := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plVCRHorizontalLocking := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plVCRHorizontalLocking
     }
 
     /**
      * The get_NumberOfLInes method retrieves the number of scan lines in the video signal.
      * @returns {Integer} Pointer to a variable that receives the number of scan lines in the video signal. This is generally by 525 lines for NTSC and 625 lines for PAL or SECAM.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-get_numberoflines
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-get_numberoflines
      */
     get_NumberOfLines() {
-        result := ComCall(9, this, "int*", &plNumberOfLines := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plNumberOfLines := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNumberOfLines
     }
 
     /**
      * The put_OutputEnable method enables or disables the video port bus.
+     * @remarks
+     * This method applies only to devices that use a shared video port bus. If the value is 1, the device will actively drive the video port bus. If the value is zero, the device will be tri-stated.
      * @param {Integer} lOutputEnable 
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -214,20 +245,30 @@ class IAMAnalogVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-put_outputenable
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-put_outputenable
      */
     put_OutputEnable(lOutputEnable) {
-        result := ComCall(10, this, "int", lOutputEnable, "HRESULT")
+        result := ComCall(10, this, "int", lOutputEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_OutputEnable method determines whether the video port bus is enabled.
+     * @remarks
+     * This method applies only to devices that use a shared video port bus. If the returned value is 1, the device is actively driving the video port bus. If the value is zero, the device is tri-stated.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamanalogvideodecoder-get_outputenable
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamanalogvideodecoder-get_outputenable
      */
     get_OutputEnable() {
-        result := ComCall(11, this, "int*", &plOutputEnable := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &plOutputEnable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plOutputEnable
     }
 }

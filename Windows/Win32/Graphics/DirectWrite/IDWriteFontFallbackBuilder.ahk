@@ -6,7 +6,7 @@
 
 /**
  * Allows you to create Unicode font fallback mappings and create a font fall back object from those mappings.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritefontfallbackbuilder
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nn-dwrite_2-idwritefontfallbackbuilder
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -45,7 +45,7 @@ class IDWriteFontFallbackBuilder extends IUnknown{
      * @param {Integer} targetFamilyNamesCount Type: <b>UINT32</b>
      * 
      * Number of target family names.
-     * @param {IDWriteFontCollection} fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a></b>
+     * @param {IDWriteFontCollection} fontCollection_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a></b>
      * 
      * Optional explicit font collection for this mapping.
      * @param {PWSTR} localeName Type: <b>const WCHAR*</b>
@@ -59,16 +59,20 @@ class IDWriteFontFallbackBuilder extends IUnknown{
      * Scale factor to multiply the result target font by.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-addmapping
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-addmapping
      */
-    AddMapping(ranges, rangesCount, targetFamilyNames, targetFamilyNamesCount, fontCollection, localeName, baseFamilyName, scale) {
+    AddMapping(ranges, rangesCount, targetFamilyNames, targetFamilyNamesCount, fontCollection_, localeName, baseFamilyName, scale) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
         baseFamilyName := baseFamilyName is String ? StrPtr(baseFamilyName) : baseFamilyName
 
         targetFamilyNamesMarshal := targetFamilyNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ranges, "uint", rangesCount, targetFamilyNamesMarshal, targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", fontCollection, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "HRESULT")
+        result := ComCall(3, this, "ptr", ranges, "uint", rangesCount, targetFamilyNamesMarshal, targetFamilyNames, "uint", targetFamilyNamesCount, "ptr", fontCollection_, "ptr", localeName, "ptr", baseFamilyName, "float", scale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,21 +83,29 @@ class IDWriteFontFallbackBuilder extends IUnknown{
      * An existing font fallback object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-addmappings
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-addmappings
      */
     AddMappings(fontFallback) {
-        result := ComCall(4, this, "ptr", fontFallback, "HRESULT")
+        result := ComCall(4, this, "ptr", fontFallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates the finalized fallback object from the mappings added.
-     * @returns {IDWriteFontFallback} Contains an address of a pointer to the created fallback list.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-createfontfallback
+     * @returns {Pointer<IDWriteFontFallback>} Contains an address of a pointer to the created fallback list.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-createfontfallback
      */
     CreateFontFallback() {
-        result := ComCall(5, this, "ptr*", &fontFallback := 0, "HRESULT")
-        return IDWriteFontFallback(fontFallback)
+        result := ComCall(5, this, "ptr*", &fontFallback := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFallback
     }
 }

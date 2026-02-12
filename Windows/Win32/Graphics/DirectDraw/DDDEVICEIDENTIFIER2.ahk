@@ -9,7 +9,7 @@
  * 
  * 
  * The <b>dwVendorId</b>, <b>dwDeviceId</b>, <b>dwSubSysId</b>, and <b>dwRevision</b> members can be used to identify particular chipsets, but use extreme caution.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-dddeviceidentifier2
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/ns-ddraw-dddeviceidentifier2
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

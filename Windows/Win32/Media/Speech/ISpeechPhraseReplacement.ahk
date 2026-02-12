@@ -62,7 +62,11 @@ class ISpeechPhraseReplacement extends IDispatch{
      * @returns {Integer} 
      */
     get_DisplayAttributes() {
-        result := ComCall(7, this, "int*", &DisplayAttributes := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &DisplayAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DisplayAttributes
     }
 
@@ -72,7 +76,11 @@ class ISpeechPhraseReplacement extends IDispatch{
      */
     get_Text() {
         Text := BSTR()
-        result := ComCall(8, this, "ptr", Text, "HRESULT")
+        result := ComCall(8, this, "ptr", Text, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Text
     }
 
@@ -81,7 +89,11 @@ class ISpeechPhraseReplacement extends IDispatch{
      * @returns {Integer} 
      */
     get_FirstElement() {
-        result := ComCall(9, this, "int*", &FirstElement := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &FirstElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FirstElement
     }
 
@@ -90,7 +102,11 @@ class ISpeechPhraseReplacement extends IDispatch{
      * @returns {Integer} 
      */
     get_NumberOfElements() {
-        result := ComCall(10, this, "int*", &NumberOfElements := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &NumberOfElements := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfElements
     }
 }

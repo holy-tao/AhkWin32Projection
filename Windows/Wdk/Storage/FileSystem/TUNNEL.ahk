@@ -3,6 +3,12 @@
 #Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
+ * The TUNNEL_TYPE enumeration type defines the encapsulation method used by a tunnel, as described by the Internet Assigned Names Authority (IANA).
+ * @remarks
+ * For more information about the tunnel type as described by the Internet Assigned Names Authority
+ *     (IANA) see 
+ *     <a href="https://www.iana.org/assignments/ianaiftype-mib">"IANAifType-MIB DEFINITIONS"</a>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/ifdef/ne-ifdef-tunnel_type
  * @namespace Windows.Wdk.Storage.FileSystem
  * @version v4.0.30319
  */

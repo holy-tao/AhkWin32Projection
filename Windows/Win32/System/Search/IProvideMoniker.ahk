@@ -34,7 +34,11 @@ class IProvideMoniker extends IUnknown{
      * @returns {IMoniker} 
      */
     GetMoniker() {
-        result := ComCall(3, this, "ptr*", &ppIMoniker := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppIMoniker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMoniker(ppIMoniker)
     }
 }

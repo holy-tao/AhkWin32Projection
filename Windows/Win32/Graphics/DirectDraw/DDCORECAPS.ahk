@@ -12,7 +12,7 @@
  * The driver initializes DDCORECAPS when it is initializing the other members of the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_halinfo">DD_HALINFO</a> structure in its <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvgetdirectdrawinfo">DrvGetDirectDrawInfo</a> structure. The DirectDraw runtime might update some members.
  * 
  * DirectDraw requests additional driver capabilities by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function that is also returned in the DD_HALINFO structure.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddcorecaps
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawi/ns-ddrawi-ddcorecaps
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

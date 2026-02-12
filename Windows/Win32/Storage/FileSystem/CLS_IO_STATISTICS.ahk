@@ -4,7 +4,7 @@
 
 /**
  * Defines the statistics that are reported by GetLogIoStatistics.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_io_statistics
+ * @see https://learn.microsoft.com/windows/win32/api//content/clfs/ns-clfs-cls_io_statistics
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

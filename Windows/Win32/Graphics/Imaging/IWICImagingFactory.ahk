@@ -20,7 +20,7 @@
 
 /**
  * Exposes methods used to create components for the Windows Imaging Component (WIC) such as decoders, encoders and pixel format converters.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicimagingfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicimagingfactory
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -95,12 +95,16 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
      * 
      * A pointer that receives a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilename
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilename
      */
     CreateDecoderFromFilename(wzFilename, pguidVendor, dwDesiredAccess, metadataOptions) {
         wzFilename := wzFilename is String ? StrPtr(wzFilename) : wzFilename
 
-        result := ComCall(3, this, "ptr", wzFilename, "ptr", pguidVendor, "uint", dwDesiredAccess, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", wzFilename, "ptr", pguidVendor, "uint", dwDesiredAccess, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -118,15 +122,21 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromstream
      */
     CreateDecoderFromStream(pIStream, pguidVendor, metadataOptions) {
-        result := ComCall(4, this, "ptr", pIStream, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pIStream, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapDecoder(ppIDecoder)
     }
 
     /**
      * Creates a new instance of the IWICBitmapDecoder based on the given file handle.
+     * @remarks
+     * When a decoder is created using this method, the file handle must remain alive during the lifetime of the decoder.
      * @param {Pointer} hFile Type: <b>ULONG_PTR</b>
      * 
      * The file handle to create the decoder from.
@@ -139,10 +149,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilehandle
      */
     CreateDecoderFromFileHandle(hFile, pguidVendor, metadataOptions) {
-        result := ComCall(5, this, "ptr", hFile, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", hFile, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapDecoder(ppIDecoder)
     }
 
@@ -154,15 +168,22 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICComponentInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccomponentinfo">IWICComponentInfo</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccomponentinfo">IWICComponentInfo</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createcomponentinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createcomponentinfo
      */
     CreateComponentInfo(clsidComponent) {
-        result := ComCall(6, this, "ptr", clsidComponent, "ptr*", &ppIInfo := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", clsidComponent, "ptr*", &ppIInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICComponentInfo(ppIInfo)
     }
 
     /**
      * Creates a new instance of IWICBitmapDecoder.
+     * @remarks
+     * Other values may be available for both <i>guidContainerFormat</i> and <i>pguidVendor</i> depending on the installed WIC-enabled encoders.
+     *             The values listed are those that are natively supported by the operating system.
      * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
      * The GUID for the desired container format.
@@ -296,15 +317,22 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>. You must initialize this <b>IWICBitmapDecoder</b> on a stream using the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapdecoder-initialize">Initialize</a> method later.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createdecoder
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createdecoder
      */
     CreateDecoder(guidContainerFormat, pguidVendor) {
-        result := ComCall(7, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIDecoder := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIDecoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapDecoder(ppIDecoder)
     }
 
     /**
      * Creates a new instance of the IWICBitmapEncoder class.
+     * @remarks
+     * Other values may be available for both <i>guidContainerFormat</i> and <i>pguidVendor</i> depending on the installed WIC-enabled encoders.
+     *             The values listed are those that are natively supported by the operating system.
      * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
      * The GUID for the desired container format.
@@ -438,10 +466,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapEncoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapencoder">IWICBitmapEncoder</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createencoder
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createencoder
      */
     CreateEncoder(guidContainerFormat, pguidVendor) {
-        result := ComCall(8, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIEncoder := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIEncoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapEncoder(ppIEncoder)
     }
 
@@ -450,10 +482,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICPalette} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createpalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createpalette
      */
     CreatePalette() {
-        result := ComCall(9, this, "ptr*", &ppIPalette := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppIPalette := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICPalette(ppIPalette)
     }
 
@@ -462,10 +498,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICFormatConverter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createformatconverter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createformatconverter
      */
     CreateFormatConverter() {
-        result := ComCall(10, this, "ptr*", &ppIFormatConverter := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppIFormatConverter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICFormatConverter(ppIFormatConverter)
     }
 
@@ -474,10 +514,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapScaler} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapscaler">IWICBitmapScaler</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapscaler">IWICBitmapScaler</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapscaler
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapscaler
      */
     CreateBitmapScaler() {
-        result := ComCall(11, this, "ptr*", &ppIBitmapScaler := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppIBitmapScaler := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapScaler(ppIBitmapScaler)
     }
 
@@ -486,10 +530,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapClipper} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapclipper">IWICBitmapClipper</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapclipper">IWICBitmapClipper</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapclipper
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapclipper
      */
     CreateBitmapClipper() {
-        result := ComCall(12, this, "ptr*", &ppIBitmapClipper := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppIBitmapClipper := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapClipper(ppIBitmapClipper)
     }
 
@@ -498,10 +546,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmapFlipRotator} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapfliprotator">IWICBitmapFlipRotator</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapfliprotator">IWICBitmapFlipRotator</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapfliprotator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfliprotator
      */
     CreateBitmapFlipRotator() {
-        result := ComCall(13, this, "ptr*", &ppIBitmapFlipRotator := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppIBitmapFlipRotator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapFlipRotator(ppIBitmapFlipRotator)
     }
 
@@ -510,10 +562,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicstream">IWICStream</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicstream">IWICStream</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createstream
      */
     CreateStream() {
-        result := ComCall(14, this, "ptr*", &ppIWICStream := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppIWICStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICStream(ppIWICStream)
     }
 
@@ -522,10 +578,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICColorContext} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createcolorcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createcolorcontext
      */
     CreateColorContext() {
-        result := ComCall(15, this, "ptr*", &ppIWICColorContext := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppIWICColorContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICColorContext(ppIWICColorContext)
     }
 
@@ -534,10 +594,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICColorTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolortransform">IWICColorTransform</a>**</b>
      * 
      * A pointer that receives a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolortransform">IWICColorTransform</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createcolortransformer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createcolortransformer
      */
     CreateColorTransformer() {
-        result := ComCall(16, this, "ptr*", &ppIWICColorTransform := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppIWICColorTransform := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICColorTransform(ppIWICColorTransform)
     }
 
@@ -595,10 +659,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmap
      */
     CreateBitmap(uiWidth, uiHeight, pixelFormat, option) {
-        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "int", option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "int", option, "ptr*", &ppIBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmap(ppIBitmap)
     }
 
@@ -653,15 +721,23 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsource
      */
     CreateBitmapFromSource(pIBitmapSource, option) {
-        result := ComCall(18, this, "ptr", pIBitmapSource, "int", option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pIBitmapSource, "int", option, "ptr*", &ppIBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Creates an IWICBitmap from a specified rectangle of an IWICBitmapSource.
+     * @remarks
+     * Providing a rectangle that is larger than the source will produce undefined results.
+     * 
+     * This method always creates a separate copy of the source image, similar to the cache option <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapcreatecacheoption">WICBitmapCacheOnLoad</a>.
      * @param {IWICBitmapSource} pIBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> to create the bitmap from.
@@ -680,15 +756,25 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsourcerect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsourcerect
      */
     CreateBitmapFromSourceRect(pIBitmapSource, x, y, width, height) {
-        result := ComCall(19, this, "ptr", pIBitmapSource, "uint", x, "uint", y, "uint", width, "uint", height, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", pIBitmapSource, "uint", x, "uint", y, "uint", width, "uint", height, "ptr*", &ppIBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Creates an IWICBitmap from a memory block.
+     * @remarks
+     * The size of the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-imp-iwicbitmapdecoder">IWICBitmap</a> to be created must be smaller than or equal to the size of the image in <i>pbBuffer</i>.
+     * 
+     * The stride of the destination bitmap will equal the <i>stride</i> of the source data, regardless of the width and height specified.
+     * 
+     * The <i>pixelFormat</i> parameter defines the pixel format for both the input data and the output bitmap.
      * @param {Integer} uiWidth Type: <b>UINT</b>
      * 
      * The width of the new bitmap.
@@ -710,21 +796,27 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapfrommemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfrommemory
      */
     CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Creates an IWICBitmap from a bitmap handle.
-     * @param {HBITMAP} hBitmap Type: <b>HBITMAP</b>
+     * @remarks
+     * For a non-palletized bitmap, set NULL for the <i>hPalette</i> parameter.
+     * @param {HBITMAP} hBitmap_ Type: <b>HBITMAP</b>
      * 
      * A bitmap handle to create the bitmap from.
-     * @param {HPALETTE} hPalette Type: <b>HPALETTE</b>
+     * @param {HPALETTE} hPalette_ Type: <b>HPALETTE</b>
      * 
      * A palette handle used to create the bitmap.
      * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapalphachanneloption">WICBitmapAlphaChannelOption</a></b>
@@ -733,36 +825,46 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhbitmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhbitmap
      */
-    CreateBitmapFromHBITMAP(hBitmap, hPalette, options) {
-        hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
-        hPalette := hPalette is Win32Handle ? NumGet(hPalette, "ptr") : hPalette
+    CreateBitmapFromHBITMAP(hBitmap_, hPalette_, options) {
+        hBitmap_ := hBitmap_ is Win32Handle ? NumGet(hBitmap_, "ptr") : hBitmap_
+        hPalette_ := hPalette_ is Win32Handle ? NumGet(hPalette_, "ptr") : hPalette_
 
-        result := ComCall(21, this, "ptr", hBitmap, "ptr", hPalette, "int", options, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", hBitmap_, "ptr", hPalette_, "int", options, "ptr*", &ppIBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Creates an IWICBitmap from an icon handle.
-     * @param {HICON} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon_ Type: <b>HICON</b>
      * 
      * The icon handle to create the new bitmap from.
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives a pointer to the new bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhicon
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhicon
      */
-    CreateBitmapFromHICON(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    CreateBitmapFromHICON(hIcon_) {
+        hIcon_ := hIcon_ is Win32Handle ? NumGet(hIcon_, "ptr") : hIcon_
 
-        result := ComCall(22, this, "ptr", hIcon, "ptr*", &ppIBitmap := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", hIcon_, "ptr*", &ppIBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmap(ppIBitmap)
     }
 
     /**
      * Creates an IEnumUnknown object of the specified component types.
-     * @param {Integer} componentTypes Type: <b>DWORD</b>
+     * @remarks
+     * Component types must be enumerated separately. Combinations of component types and <b>WICAllComponents</b> are unsupported.
+     * @param {Integer} componentTypes_ Type: <b>DWORD</b>
      * 
      * The types of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a> to enumerate.
      * @param {Integer} options Type: <b>DWORD</b>
@@ -771,40 +873,56 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IEnumUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>**</b>
      * 
      * A pointer that receives a pointer to a new component enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createcomponentenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createcomponentenumerator
      */
-    CreateComponentEnumerator(componentTypes, options) {
-        result := ComCall(23, this, "uint", componentTypes, "uint", options, "ptr*", &ppIEnumUnknown := 0, "HRESULT")
+    CreateComponentEnumerator(componentTypes_, options) {
+        result := ComCall(23, this, "uint", componentTypes_, "uint", options, "ptr*", &ppIEnumUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppIEnumUnknown)
     }
 
     /**
      * Creates a new instance of the fast metadata encoder based on the given IWICBitmapDecoder.
+     * @remarks
+     * The Windows provided codecs do not support fast metadata encoding at the decoder level, and only support fast metadata encoding at the frame level. To create a fast metadata encoder from a frame, see <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromframedecode">CreateFastMetadataEncoderFromFrameDecode</a>.
      * @param {IWICBitmapDecoder} pIDecoder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>*</b>
      * 
      * The decoder to create the fast metadata encoder from.
      * @returns {IWICFastMetadataEncoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicfastmetadataencoder">IWICFastMetadataEncoder</a>**</b>
      * 
      * When this method returns, contains a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicfastmetadataencoder">IWICFastMetadataEncoder</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromdecoder
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromdecoder
      */
     CreateFastMetadataEncoderFromDecoder(pIDecoder) {
-        result := ComCall(24, this, "ptr", pIDecoder, "ptr*", &ppIFastEncoder := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", pIDecoder, "ptr*", &ppIFastEncoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICFastMetadataEncoder(ppIFastEncoder)
     }
 
     /**
      * Creates a new instance of the fast metadata encoder based on the given image frame.
+     * @remarks
+     * For a list of support metadata formats for fast metadata encoding, see <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-about-metadata">WIC Metadata Overview</a>.
      * @param {IWICBitmapFrameDecode} pIFrameDecoder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a> to create the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicfastmetadataencoder">IWICFastMetadataEncoder</a> from.
      * @returns {IWICFastMetadataEncoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicfastmetadataencoder">IWICFastMetadataEncoder</a>**</b>
      * 
      * When this method returns, contains a pointer to a new fast metadata encoder.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromframedecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromframedecode
      */
     CreateFastMetadataEncoderFromFrameDecode(pIFrameDecoder) {
-        result := ComCall(25, this, "ptr", pIFrameDecoder, "ptr*", &ppIFastEncoder := 0, "HRESULT")
+        result := ComCall(25, this, "ptr", pIFrameDecoder, "ptr*", &ppIFastEncoder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICFastMetadataEncoder(ppIFastEncoder)
     }
 
@@ -819,10 +937,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICMetadataQueryWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>**</b>
      * 
      * When this method returns, contains a pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createquerywriter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createquerywriter
      */
     CreateQueryWriter(guidMetadataFormat, pguidVendor) {
-        result := ComCall(26, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 
@@ -837,10 +959,14 @@ class IWICImagingFactory extends IUnknown{
      * @returns {IWICMetadataQueryWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>**</b>
      * 
      * When this method returns, contains a pointer to a new metadata writer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicimagingfactory-createquerywriterfromreader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicimagingfactory-createquerywriterfromreader
      */
     CreateQueryWriterFromReader(pIQueryReader, pguidVendor) {
-        result := ComCall(27, this, "ptr", pIQueryReader, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", pIQueryReader, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 }

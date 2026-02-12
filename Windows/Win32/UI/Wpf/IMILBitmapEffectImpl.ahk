@@ -8,10 +8,8 @@
 /**
  * Exposes methods that define an an out IMILBitmapEffect object.
  * @remarks
- * 
  * This interface must be implemented if a custom effect also exposes <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectimpl
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nn-mileffects-imilbitmapeffectimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -44,10 +42,14 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * A pointer that receives <c>TRUE</code> if in-place modifications are allowed; otherwise, <code>FALSE</c>.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-isinplacemodificationallowed
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-isinplacemodificationallowed
      */
     IsInPlaceModificationAllowed(pOutputConnector) {
-        result := ComCall(3, this, "ptr", pOutputConnector, "short*", &pfModifyInPlace := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pOutputConnector, "short*", &pfModifyInPlace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfModifyInPlace
     }
 
@@ -58,11 +60,15 @@ class IMILBitmapEffectImpl extends IUnknown{
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectgroup">IMILBitmapEffectGroup</a> parent of the effect.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-setparenteffect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-setparenteffect
      */
     SetParentEffect(pParentEffect) {
-        result := ComCall(4, this, "ptr", pParentEffect, "HRESULT")
+        result := ComCall(4, this, "ptr", pParentEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,10 +80,14 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @returns {IWICBitmapSource} Type: <b>IWICBitmapSource**</b>
      * 
      * A pointer that receives a pointer to the input bitmap source.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsource
      */
     GetInputSource(uiIndex) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppBitmapSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -89,11 +99,15 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @returns {MilRectD} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milrectd">MIL_RECTD</a>*</b>
      * 
      * Pointer that receives the bounds of the input source.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsourcebounds
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsourcebounds
      */
     GetInputSourceBounds(uiIndex) {
         pRect := MilRectD()
-        result := ComCall(6, this, "uint", uiIndex, "ptr", pRect, "HRESULT")
+        result := ComCall(6, this, "uint", uiIndex, "ptr", pRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRect
     }
 
@@ -111,12 +125,16 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @returns {IWICBitmapSource} Type: <b>IWICBitmapSource**</b>
      * 
      * A pointer that receives a pointer to the input <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-getinputbitmapsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputbitmapsource
      */
     GetInputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
 
-        result := ComCall(7, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(7, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -134,12 +152,16 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @returns {IWICBitmapSource} Type: <b>IWICBitmapSource**</b>
      * 
      * A pointer that receives a pointer to the output <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-getoutputbitmapsource
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-getoutputbitmapsource
      */
     GetOutputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
         pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
 
-        result := ComCall(8, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        result := ComCall(8, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapSource(ppBitmapSource)
     }
 
@@ -150,11 +172,15 @@ class IMILBitmapEffectImpl extends IUnknown{
      * The object to initialize the effect with.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectimpl-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectimpl-initialize
      */
     Initialize(pInner) {
-        result := ComCall(9, this, "ptr", pInner, "HRESULT")
+        result := ComCall(9, this, "ptr", pInner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

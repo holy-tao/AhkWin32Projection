@@ -5,7 +5,7 @@
  * The WPD\_STORAGE\_TYPE\_VALUES enumeration type describes the different Windows Portable Device storage types.
  * @remarks
  * None.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-storage-type-values
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/wpd-storage-type-values
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

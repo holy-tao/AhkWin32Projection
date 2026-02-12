@@ -6,7 +6,7 @@
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) service descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbservicedescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbservicedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -34,83 +34,119 @@ class IDvbServiceDescriptor extends IUnknown{
     /**
      * Gets the tag identifying a Digital Video Broadcast (DVB) service descriptor.
      * @returns {Integer} Receives the service descriptor tag. This value is 0x48 for service descriptors.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the length of a Digital Video Broadcast (DVB) service descriptor.
      * @returns {Integer} Receives the descriptor length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the service_type field value from a Digital Video Broadcast (DVB) service descriptor.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicetype
      */
     GetServiceType() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the service provider name from a Digital Video Broadcast (DVB) service descriptor.
      * @returns {Pointer<Integer>} Pointer to a buffer that receives the service provider name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidername
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidername
      */
     GetServiceProviderName() {
-        result := ComCall(6, this, "ptr*", &pszName := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &pszName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszName
     }
 
     /**
      * Gets the service provider name string from a Digital Video Broadcast (DVB) service descriptor.
      * @returns {BSTR} Pointer to a buffer that receives the service provider name string. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidernamew
      */
     GetServiceProviderNameW() {
         pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
     /**
      * Gets the service_name field from a Digital Video Broadcast (DVB) service descriptor.
      * @returns {Pointer<Integer>} Pointer to a memory block that receives the service name. The caller is responsible for releasing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicename
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicename
      */
     GetServiceName() {
-        result := ComCall(8, this, "ptr*", &pszName := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pszName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszName
     }
 
     /**
      * Gets the processed service name from a Digital Video Broadcast (DVB) service descriptor.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew">IDvbServiceDescriptor2::GetServiceNameW</a> to get the processed  service name. It is provided to maintain compatibility with  the original DVB service descriptor specification.
      * @returns {BSTR} Pointer to a buffer that receives the service name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getprocessedservicename
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getprocessedservicename
      */
     GetProcessedServiceName() {
         pbstrName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
     /**
      * Gets the emphasized service name from a Digital Video Broadcast (DVB) service descriptor.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getserviceprovidernamew">IDvbServiceDescriptor::GetServiceProviderNameW</a> to get the emphasized service name. It is provided to maintain compatibility with  the original DVB service descriptor specification.
      * @returns {BSTR} Pointer to a buffer that receives the service name. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicenameemphasized
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor-getservicenameemphasized
      */
     GetServiceNameEmphasized() {
         pbstrName := BSTR()
-        result := ComCall(10, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 }

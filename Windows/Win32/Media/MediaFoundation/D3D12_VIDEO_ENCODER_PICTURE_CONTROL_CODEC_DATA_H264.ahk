@@ -8,7 +8,7 @@
  * 
  * 
  * The following tables list the expected SPS and PPS Values for H264 encoding.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_h264
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

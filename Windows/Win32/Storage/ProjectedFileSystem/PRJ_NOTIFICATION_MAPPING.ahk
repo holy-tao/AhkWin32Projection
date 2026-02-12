@@ -17,7 +17,7 @@
  * 
  * 
  * If the provider specifies multiple notification mappings, and some are descendants of others, the mappings must be specified in descending depth. Notification mappings at deeper levels override higher-level ones for their descendants.
- * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_notification_mapping
+ * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/ns-projectedfslib-prj_notification_mapping
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
  * @version v4.0.30319
  */

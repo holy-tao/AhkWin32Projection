@@ -83,7 +83,11 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {Integer} 
      */
     get_errorCode() {
-        result := ComCall(7, this, "int*", &errorCode := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &errorCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return errorCode
     }
 
@@ -93,7 +97,11 @@ class IXMLDOMParseError extends IDispatch{
      */
     get_url() {
         urlString := BSTR()
-        result := ComCall(8, this, "ptr", urlString, "HRESULT")
+        result := ComCall(8, this, "ptr", urlString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return urlString
     }
 
@@ -103,7 +111,11 @@ class IXMLDOMParseError extends IDispatch{
      */
     get_reason() {
         reasonString := BSTR()
-        result := ComCall(9, this, "ptr", reasonString, "HRESULT")
+        result := ComCall(9, this, "ptr", reasonString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return reasonString
     }
 
@@ -113,7 +125,11 @@ class IXMLDOMParseError extends IDispatch{
      */
     get_srcText() {
         sourceString := BSTR()
-        result := ComCall(10, this, "ptr", sourceString, "HRESULT")
+        result := ComCall(10, this, "ptr", sourceString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return sourceString
     }
 
@@ -122,7 +138,11 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {Integer} 
      */
     get_line() {
-        result := ComCall(11, this, "int*", &lineNumber := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &lineNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lineNumber
     }
 
@@ -131,7 +151,11 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {Integer} 
      */
     get_linepos() {
-        result := ComCall(12, this, "int*", &linePosition := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &linePosition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return linePosition
     }
 
@@ -140,7 +164,11 @@ class IXMLDOMParseError extends IDispatch{
      * @returns {Integer} 
      */
     get_filepos() {
-        result := ComCall(13, this, "int*", &filePosition := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &filePosition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return filePosition
     }
 }

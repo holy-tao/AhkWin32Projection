@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods called by the stream interface (IRDPSRAPITransportStream) to notify the Remote Desktop Protocol (RDP) stack about the completion of events.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreamevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreamevents
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IRDPSRAPITransportStreamEvents extends IUnknown{
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that represents the stream buffer that was written.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreamevents-onwritecompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreamevents-onwritecompleted
      */
     OnWriteCompleted(pBuffer) {
         ComCall(3, this, "ptr", pBuffer)
@@ -48,7 +48,7 @@ class IRDPSRAPITransportStreamEvents extends IUnknown{
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that represents the stream buffer that was read.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreamevents-onreadcompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreamevents-onreadcompleted
      */
     OnReadCompleted(pBuffer) {
         ComCall(4, this, "ptr", pBuffer)
@@ -60,7 +60,7 @@ class IRDPSRAPITransportStreamEvents extends IUnknown{
      * 
      * An <b>HRESULT</b> value that specifies if the stream was closed normally or due to an error. Contains <b>S_OK</b> if the stream was closed normally or an error code otherwise.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreamevents-onstreamclosed
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreamevents-onstreamclosed
      */
     OnStreamClosed(hrReason) {
         ComCall(5, this, "int", hrReason)

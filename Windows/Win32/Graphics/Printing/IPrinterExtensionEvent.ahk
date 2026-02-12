@@ -34,7 +34,11 @@ class IPrinterExtensionEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     OnDriverEvent(pEventArgs) {
-        result := ComCall(7, this, "ptr", pEventArgs, "HRESULT")
+        result := ComCall(7, this, "ptr", pEventArgs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IPrinterExtensionEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     OnPrinterQueuesEnumerated(pContextCollection) {
-        result := ComCall(8, this, "ptr", pContextCollection, "HRESULT")
+        result := ComCall(8, this, "ptr", pContextCollection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

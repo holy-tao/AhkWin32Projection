@@ -5,7 +5,7 @@
  * Contains information about a processor.
  * @remarks
  * Note that this structure definition was accidentally omitted from WinNT.h. This error will be corrected in the future. In the meantime, to compile your application, include the structure definition contained in this topic in your source code.
- * @see https://learn.microsoft.com/windows/win32/Power/processor-power-information-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/processor-power-information-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

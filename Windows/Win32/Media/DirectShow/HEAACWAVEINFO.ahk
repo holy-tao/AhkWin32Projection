@@ -49,7 +49,7 @@
  * <td>Specifies the size, in bytes, of the format data after the <b>WAVEFORMATEX</b> structure.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-heaacwaveinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmreg/ns-mmreg-heaacwaveinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

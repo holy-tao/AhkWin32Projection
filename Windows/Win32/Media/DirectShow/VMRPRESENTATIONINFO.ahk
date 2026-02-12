@@ -5,7 +5,7 @@
 
 /**
  * The VMRPRESENTATIONINFO structure is used in the IVMRImagePresenter::PresentImage method (VMR-7 only).
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrpresentationinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-vmrpresentationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

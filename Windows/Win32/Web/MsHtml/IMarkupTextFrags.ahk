@@ -34,7 +34,11 @@ class IMarkupTextFrags extends IUnknown{
      * @returns {Integer} 
      */
     GetTextFragCount() {
-        result := ComCall(3, this, "int*", &pcFrags := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pcFrags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcFrags
     }
 
@@ -46,7 +50,11 @@ class IMarkupTextFrags extends IUnknown{
      */
     GetTextFrag(iFrag, pPointerFrag) {
         pbstrFrag := BSTR()
-        result := ComCall(4, this, "int", iFrag, "ptr", pbstrFrag, "ptr", pPointerFrag, "HRESULT")
+        result := ComCall(4, this, "int", iFrag, "ptr", pbstrFrag, "ptr", pPointerFrag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFrag
     }
 
@@ -56,7 +64,11 @@ class IMarkupTextFrags extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveTextFrag(iFrag) {
-        result := ComCall(5, this, "int", iFrag, "HRESULT")
+        result := ComCall(5, this, "int", iFrag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,9 +80,16 @@ class IMarkupTextFrags extends IUnknown{
      * @returns {HRESULT} 
      */
     InsertTextFrag(iFrag, bstrInsert, pPointerInsert) {
-        bstrInsert := bstrInsert is String ? BSTR.Alloc(bstrInsert).Value : bstrInsert
+        if(bstrInsert is String) {
+            pin := BSTR.Alloc(bstrInsert)
+            bstrInsert := pin.Value
+        }
 
-        result := ComCall(6, this, "int", iFrag, "ptr", bstrInsert, "ptr", pPointerInsert, "HRESULT")
+        result := ComCall(6, this, "int", iFrag, "ptr", bstrInsert, "ptr", pPointerInsert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +104,11 @@ class IMarkupTextFrags extends IUnknown{
         piFragMarshal := piFrag is VarRef ? "int*" : "ptr"
         pfFragFoundMarshal := pfFragFound is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pPointerFind, piFragMarshal, piFrag, pfFragFoundMarshal, pfFragFound, "HRESULT")
+        result := ComCall(7, this, "ptr", pPointerFind, piFragMarshal, piFrag, pfFragFoundMarshal, pfFragFound, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

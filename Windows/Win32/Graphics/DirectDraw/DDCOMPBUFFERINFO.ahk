@@ -7,7 +7,7 @@
  * The DDCOMPBUFFERINFO structure contains driver-supplied information regarding compression buffers.
  * @remarks
  * This structure passes this information to the <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_getmocompcompbuffdata">DD_GETMOCOMPCOMPBUFFDATA</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-ddcompbufferinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddrawint/ns-ddrawint-ddcompbufferinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

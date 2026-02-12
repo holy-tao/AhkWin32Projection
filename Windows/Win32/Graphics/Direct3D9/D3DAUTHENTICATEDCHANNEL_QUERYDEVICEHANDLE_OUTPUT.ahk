@@ -6,7 +6,7 @@
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_DEVICEHANDLE query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-querydevicehandle-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-querydevicehandle-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

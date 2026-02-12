@@ -34,7 +34,11 @@ class IHTMLElementAppliedStyles extends IDispatch{
      * @returns {IRulesAppliedCollection} 
      */
     msGetRulesApplied() {
-        result := ComCall(7, this, "ptr*", &ppRulesAppliedCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppRulesAppliedCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRulesAppliedCollection(ppRulesAppliedCollection)
     }
 
@@ -44,7 +48,11 @@ class IHTMLElementAppliedStyles extends IDispatch{
      * @returns {IRulesAppliedCollection} 
      */
     msGetRulesAppliedWithAncestor(varContext) {
-        result := ComCall(8, this, "ptr", varContext, "ptr*", &ppRulesAppliedCollection := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", varContext, "ptr*", &ppRulesAppliedCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRulesAppliedCollection(ppRulesAppliedCollection)
     }
 }

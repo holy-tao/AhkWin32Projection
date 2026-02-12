@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_PROTECTED_RESOURCE_SESSION_DESC1.ahk
 #Include .\ID3D12ProtectedResourceSession.ahk
 
 /**
- * Monitors the validity of a protected resource session.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12protectedresourcesession1
+ * Monitors the validity of a protected resource session. (ID3D12ProtectedResourceSession1)
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12protectedresourcesession1
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -31,9 +32,9 @@ class ID3D12ProtectedResourceSession1 extends ID3D12ProtectedResourceSession{
     static VTableNames => ["GetDesc1"]
 
     /**
-     * 
-     * @returns {D3D12_PROTECTED_RESOURCE_SESSION_DESC1} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12protectedresourcesession1-getdesc1
+     * Retrieves a description of the protected resource session. (ID3D12ProtectedResourceSession1::GetDesc1)
+     * @returns {D3D12_PROTECTED_RESOURCE_SESSION_DESC1} A [D3D12_PROTECTED_RESOURCE_SESSION_DESC1](./ns-d3d12-d3d12_protected_resource_session_desc1.md) that describes the protected resource session.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12protectedresourcesession1-getdesc1
      */
     GetDesc1() {
         result := ComCall(11, this, "ptr")

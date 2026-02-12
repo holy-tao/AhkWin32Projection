@@ -43,7 +43,11 @@ class ISAXLexicalHandler extends IUnknown{
         pwchPublicId := pwchPublicId is String ? StrPtr(pwchPublicId) : pwchPublicId
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
-        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISAXLexicalHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     endDTD() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class ISAXLexicalHandler extends IUnknown{
     startEntity(pwchName, cchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(5, this, "ptr", pwchName, "int", cchName, "HRESULT")
+        result := ComCall(5, this, "ptr", pwchName, "int", cchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class ISAXLexicalHandler extends IUnknown{
     endEntity(pwchName, cchName) {
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
 
-        result := ComCall(6, this, "ptr", pwchName, "int", cchName, "HRESULT")
+        result := ComCall(6, this, "ptr", pwchName, "int", cchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +103,11 @@ class ISAXLexicalHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     startCDATA() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +116,11 @@ class ISAXLexicalHandler extends IUnknown{
      * @returns {HRESULT} 
      */
     endCDATA() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +133,11 @@ class ISAXLexicalHandler extends IUnknown{
     comment(pwchChars, cchChars) {
         pwchChars := pwchChars is String ? StrPtr(pwchChars) : pwchChars
 
-        result := ComCall(9, this, "ptr", pwchChars, "int", cchChars, "HRESULT")
+        result := ComCall(9, this, "ptr", pwchChars, "int", cchChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -12,6 +12,10 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Contains cells for a document that control preview quality, scope, and output format.
+ * @remarks
+ * You can also set these values by using the **Properties** dialog box (click the **File** tab, click **Info**, click **Properties**, and then click **Advanced Properties**).
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/document-properties-section
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -115,11 +119,62 @@ class Document extends IDispatch{
     }
 
     /**
-     * 
+     * Save Method
+     * @remarks
+     * The **Save Method** method can only be invoked on an open **Recordset**. Use the [Open Method (ADO Recordset)](./open-method-ado-recordset.md) method to later restore the **Recordset** from *Destination*.  
+     *   
+     *  If the [Filter Property](./filter-property.md) property is in effect for the **Recordset**, then only the rows accessible under the filter are saved. If the **Recordset** is hierarchical, then the current child **Recordset** and its children are saved, including the parent **Recordset**. If the Save method of a child **Recordset** is called, the child and all its children are saved, but the parent is not.  
+     *   
+     *  The first time you save the **Recordset**, it is optional to specify *Destination*. If you omit *Destination*, a new file will be created with a name set to the value of the Source property of the **Recordset**.  
+     *   
+     *  Omit *Destination* when you subsequently call **Save** after the first save, or a run-time error will occur. If you subsequently call **Save** with a new *Destination*, the **Recordset** is saved to the new destination. However, the new destination and the original destination will both be open.  
+     *   
+     *  **Save** does not close the **Recordset** or *Destination*, so you can continue to work with the **Recordset** and save your most recent changes. *Destination* remains open until the **Recordset** is closed.  
+     *   
+     *  For reasons of security, the **Save** method permits only the use of low and custom security settings from a script executed by Microsoft Internet Explorer.  
+     *   
+     *  If the **Save** method is called while an asynchronous **Recordset** fetch, execute, or update operation is in progress, then **Save** waits until the asynchronous operation is complete.  
+     *   
+     *  Records are saved beginning with the first row of the **Recordset**. When the **Save** method is finished, the current row position is moved to the first row of the **Recordset**.  
+     *   
+     *  For best results, set the [CursorLocation Property (ADO)](./cursorlocation-property-ado.md) property to **adUseClient** with **Save**. If your provider does not support all of the functionality necessary to save **Recordset** objects, the Cursor Service will provide that functionality.  
+     *   
+     *  When a **Recordset** is persisted with the **CursorLocation** property set to **adUseServer**, the update capability for the **Recordset** is limited. Typically, only single-table updates, insertions, and deletions are allowed (dependant upon provider functionality). The [Resync Method](./resync-method.md) method is also unavailable in this configuration.  
+     *   
+     * > [!NOTE]
+     * >  Saving a **Recordset** with **Fields** of type **adVariant**, **adIDispatch**, or **adIUnknown** is not supported by ADO and can cause unpredictable results.  
+     *   
+     *  Only Filters in the form of Criteria Strings (e.g. OrderDate > '12/31/1999') affect the contents of a persisted **Recordset**. Filters created with an Array of **Bookmarks** or using a value from the [FilterGroupEnum](./filtergroupenum.md) will not affect the contents of the persisted **Recordset**. These rules apply to **Recordset**s created with either client-side or server-side cursors.  
+     *   
+     *  Because the *Destination* parameter can accept any object that supports the OLE DB IStream interface, you can save a **Recordset** directly to the ASP Response object. For more details, please see the **XML Recordset Persistence Scenario**.  
+     *   
+     *  You can also save a **Recordset** in XML format to an instance of an MSXML DOM object, as is shown in the following Visual Basic code:  
+     *   
+     * ```  
+     * Dim xDOM As New MSXML.DOMDocument  
+     * Dim rsXML As New ADODB.Recordset  
+     * Dim sSQL As String, sConn As String  
+     *   
+     * sSQL = "SELECT customerid, companyname, contactname FROM customers"  
+     * sConn="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Northwind.mdb"  
+     * rsXML.Open sSQL, sConn  
+     * rsXML.Save xDOM, adPersistXML   'Save Recordset directly into a DOM tree.  
+     * ...  
+     * ```  
+     *   
+     * > [!NOTE]
+     * >  Two limitations apply when saving hierarchical Recordsets (data shapes) in XML format. You cannot save into XML if the hierarchical **Recordset** contains pending updates, and you cannot save a parameterized hierarchical **Recordset**.  
+     *   
+     *  A **Recordset** saved in XML format is saved using UTF-8 format. When such a file is loaded into an ADO Stream, the Stream object will not attempt to open a **Recordset** from the stream unless the Charset property of the stream is set to the appropriate value for UTF-8 format.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/save-method
      */
     Save() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,19 +184,31 @@ class Document extends IDispatch{
      * @returns {HRESULT} 
      */
     SaveAs(Filename) {
-        Filename := Filename is String ? BSTR.Alloc(Filename).Value : Filename
+        if(Filename is String) {
+            pin := BSTR.Alloc(Filename)
+            Filename := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", Filename, "HRESULT")
+        result := ComCall(8, this, "ptr", Filename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @param {BOOL} SaveChanges 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close(SaveChanges) {
-        result := ComCall(9, this, "int", SaveChanges, "HRESULT")
+        result := ComCall(9, this, "int", SaveChanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,8 +217,12 @@ class Document extends IDispatch{
      * @returns {Views} 
      */
     get_Views() {
-        result := ComCall(10, this, "ptr*", &Views := 0, "HRESULT")
-        return Views(Views)
+        result := ComCall(10, this, "ptr*", &Views_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Views(Views_)
     }
 
     /**
@@ -159,8 +230,12 @@ class Document extends IDispatch{
      * @returns {SnapIns} 
      */
     get_SnapIns() {
-        result := ComCall(11, this, "ptr*", &SnapIns := 0, "HRESULT")
-        return SnapIns(SnapIns)
+        result := ComCall(11, this, "ptr*", &SnapIns_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return SnapIns(SnapIns_)
     }
 
     /**
@@ -168,8 +243,12 @@ class Document extends IDispatch{
      * @returns {View} 
      */
     get_ActiveView() {
-        result := ComCall(12, this, "ptr*", &View := 0, "HRESULT")
-        return View(View)
+        result := ComCall(12, this, "ptr*", &View_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return View(View_)
     }
 
     /**
@@ -178,7 +257,11 @@ class Document extends IDispatch{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(13, this, "ptr", Name, "HRESULT")
+        result := ComCall(13, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -188,9 +271,16 @@ class Document extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Name(Name) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", Name, "HRESULT")
+        result := ComCall(14, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -199,9 +289,13 @@ class Document extends IDispatch{
      * @returns {BSTR} 
      */
     get_Location() {
-        Location := BSTR()
-        result := ComCall(15, this, "ptr", Location, "HRESULT")
-        return Location
+        Location_ := BSTR()
+        result := ComCall(15, this, "ptr", Location_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Location_
     }
 
     /**
@@ -209,7 +303,11 @@ class Document extends IDispatch{
      * @returns {BOOL} 
      */
     get_IsSaved() {
-        result := ComCall(16, this, "int*", &IsSaved := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &IsSaved := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsSaved
     }
 
@@ -218,17 +316,25 @@ class Document extends IDispatch{
      * @returns {Integer} 
      */
     get_Mode() {
-        result := ComCall(17, this, "int*", &Mode := 0, "HRESULT")
-        return Mode
+        result := ComCall(17, this, "int*", &Mode_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Mode_
     }
 
     /**
      * 
-     * @param {Integer} Mode 
+     * @param {Integer} Mode_ 
      * @returns {HRESULT} 
      */
-    put_Mode(Mode) {
-        result := ComCall(18, this, "int", Mode, "HRESULT")
+    put_Mode(Mode_) {
+        result := ComCall(18, this, "int", Mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,8 +343,12 @@ class Document extends IDispatch{
      * @returns {Node} 
      */
     get_RootNode() {
-        result := ComCall(19, this, "ptr*", &Node := 0, "HRESULT")
-        return Node(Node)
+        result := ComCall(19, this, "ptr*", &Node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Node(Node_)
     }
 
     /**
@@ -246,8 +356,12 @@ class Document extends IDispatch{
      * @returns {ScopeNamespace} 
      */
     get_ScopeNamespace() {
-        result := ComCall(20, this, "ptr*", &ScopeNamespace := 0, "HRESULT")
-        return ScopeNamespace(ScopeNamespace)
+        result := ComCall(20, this, "ptr*", &ScopeNamespace_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ScopeNamespace(ScopeNamespace_)
     }
 
     /**
@@ -255,8 +369,12 @@ class Document extends IDispatch{
      * @returns {Properties} 
      */
     CreateProperties() {
-        result := ComCall(21, this, "ptr*", &Properties := 0, "HRESULT")
-        return Properties(Properties)
+        result := ComCall(21, this, "ptr*", &Properties_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Properties(Properties_)
     }
 
     /**
@@ -264,7 +382,11 @@ class Document extends IDispatch{
      * @returns {_Application} 
      */
     get_Application() {
-        result := ComCall(22, this, "ptr*", &Application := 0, "HRESULT")
-        return _Application(Application)
+        result := ComCall(22, this, "ptr*", &Application_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return _Application(Application_)
     }
 }

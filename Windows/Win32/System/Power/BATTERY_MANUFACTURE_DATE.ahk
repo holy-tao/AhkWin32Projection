@@ -5,7 +5,7 @@
  * Contains the date of manufacture of a battery.
  * @remarks
  * The date is encoded in the Gregorian or western calendar format.
- * @see https://learn.microsoft.com/windows/win32/Power/battery-manufacture-date-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/battery-manufacture-date-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

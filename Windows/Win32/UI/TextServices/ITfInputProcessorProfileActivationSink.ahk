@@ -6,10 +6,8 @@
 /**
  * The ITfInputProcessorProfileActivationSink interface is implemented by an application to receive notifications when the profile changes.
  * @remarks
- * 
  * To install this advise sink, obtain an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfsource">ITfSource</a> object from an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfthreadmgr">ITfThreadMgr</a> object by calling <b>ITfThreadMgr::QueryInterface</b> with <b>IID_ ITfSource</b>. Then call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a> with <b>IID_ITfInputProcessorProfileActivationSink</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofileactivationsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfinputprocessorprofileactivationsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -68,7 +66,7 @@ class ITfInputProcessorProfileActivationSink extends IUnknown{
      * @param {Pointer<Guid>} clsid [in] Specifies the CLSID of the text service. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is CLSID_NULL.
      * @param {Pointer<Guid>} catid [in] Specifies the category of this text service. This category is GUID_TFCAT_TIP_KEYBOARD, GUID_TFCAT_TIP_SPEECH, GUID_TFCAT_TIP_HANDWRITING or something in GUID_TFCAT_CATEGORY_OF_TIP. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is GUID_NULL.
      * @param {Pointer<Guid>} guidProfile [in] Specifies the GUID to identify the profile. If <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT, this is GUID_NULL.
-     * @param {HKL} hkl [in] Specifies the keyboard layout handle of this profile. If <i>dwProfileType</i> is TF_PROFILETYPE_ INPUTPROCESSOR, this is <b>NULL</b>.
+     * @param {HKL} hkl_ [in] Specifies the keyboard layout handle of this profile. If <i>dwProfileType</i> is TF_PROFILETYPE_ INPUTPROCESSOR, this is <b>NULL</b>.
      * @param {Integer} dwFlags [in]
      * 
      * <table>
@@ -88,12 +86,16 @@ class ITfInputProcessorProfileActivationSink extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} The TSF manager ignores the return value of this method.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofileactivationsink-onactivated
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofileactivationsink-onactivated
      */
-    OnActivated(dwProfileType, langid, clsid, catid, guidProfile, hkl, dwFlags) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    OnActivated(dwProfileType, langid, clsid, catid, guidProfile, hkl_, dwFlags) {
+        hkl_ := hkl_ is Win32Handle ? NumGet(hkl_, "ptr") : hkl_
 
-        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", catid, "ptr", guidProfile, "ptr", hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", catid, "ptr", guidProfile, "ptr", hkl_, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

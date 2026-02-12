@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the similarity data for a file.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/ns-msrdc-similaritydata
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */

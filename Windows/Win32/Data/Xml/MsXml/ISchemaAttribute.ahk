@@ -78,7 +78,11 @@ class ISchemaAttribute extends ISchemaItem{
      * @returns {ISchemaType} 
      */
     get_type() {
-        result := ComCall(14, this, "ptr*", &type := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &type := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaType(type)
     }
 
@@ -87,7 +91,11 @@ class ISchemaAttribute extends ISchemaItem{
      * @returns {ISchemaComplexType} 
      */
     get_scope() {
-        result := ComCall(15, this, "ptr*", &scope := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &scope := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaComplexType(scope)
     }
 
@@ -97,7 +105,11 @@ class ISchemaAttribute extends ISchemaItem{
      */
     get_defaultValue() {
         defaultValue := BSTR()
-        result := ComCall(16, this, "ptr", defaultValue, "HRESULT")
+        result := ComCall(16, this, "ptr", defaultValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return defaultValue
     }
 
@@ -107,7 +119,11 @@ class ISchemaAttribute extends ISchemaItem{
      */
     get_fixedValue() {
         fixedValue := BSTR()
-        result := ComCall(17, this, "ptr", fixedValue, "HRESULT")
+        result := ComCall(17, this, "ptr", fixedValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fixedValue
     }
 
@@ -116,7 +132,11 @@ class ISchemaAttribute extends ISchemaItem{
      * @returns {Integer} 
      */
     get_use() {
-        result := ComCall(18, this, "int*", &use := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &use := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return use
     }
 
@@ -125,7 +145,11 @@ class ISchemaAttribute extends ISchemaItem{
      * @returns {VARIANT_BOOL} 
      */
     get_isReference() {
-        result := ComCall(19, this, "short*", &reference := 0, "HRESULT")
-        return reference
+        result := ComCall(19, this, "short*", &reference_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return reference_
     }
 }

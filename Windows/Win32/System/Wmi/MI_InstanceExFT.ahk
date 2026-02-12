@@ -4,7 +4,7 @@
 
 /**
  * Extends the MI_InstanceFT structure.
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_instanceexft
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_instanceexft
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Specifies the ID of cost policies options associated with the **DODownloadProperty_CostPolicy** property.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadcostpolicy
+ * @see https://learn.microsoft.com/windows/win32/api//content/deliveryoptimization/ne-deliveryoptimization-dodownloadcostpolicy
  * @namespace Windows.Win32.Networking.DeliveryOptimization
  * @version v4.0.30319
  */

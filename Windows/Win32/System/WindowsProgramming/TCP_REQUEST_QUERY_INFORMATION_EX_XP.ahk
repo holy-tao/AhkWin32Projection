@@ -5,7 +5,7 @@
 
 /**
  * The TCP_REQUEST_QUERY_INFORMATION_EX_XP structure (tdiinfo.h) contains the input for the IOCTL_TCP_QUERY_INFORMATION_EX control code.
- * @see https://learn.microsoft.com/windows/win32/api/tdiinfo/ns-tdiinfo-tcp_request_query_information_ex_xp
+ * @see https://learn.microsoft.com/windows/win32/api//content/tdiinfo/ns-tdiinfo-tcp_request_query_information_ex_xp
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

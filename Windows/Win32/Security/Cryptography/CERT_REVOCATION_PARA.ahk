@@ -8,7 +8,7 @@
  * The <b>CERT_REVOCATION_PARA</b> structure provides additional information that the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certverifyrevocation">CertVerifyRevocation</a> function can use to determine the context issuer.
  * 
  *  If your application must check the freshness of the CRL or resynchronize the CRL cache, you can provide extra structure members to assist  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certverifyrevocation">CertVerifyRevocation</a> function with this.  To include the additional structure members, define the constant <b>CERT_REVOCATION_PARA_HAS_EXTRA_FIELDS</b> in your application before including Wincrypt.h
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_para
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_revocation_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

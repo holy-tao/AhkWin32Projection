@@ -35,7 +35,11 @@ class ISpEventSink extends IUnknown{
      * @returns {HRESULT} 
      */
     AddEvents(pEventArray, ulCount) {
-        result := ComCall(3, this, "ptr", pEventArray, "uint", ulCount, "HRESULT")
+        result := ComCall(3, this, "ptr", pEventArray, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ISpEventSink extends IUnknown{
     GetEventInterest(pullEventInterest) {
         pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pullEventInterestMarshal, pullEventInterest, "HRESULT")
+        result := ComCall(4, this, pullEventInterestMarshal, pullEventInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

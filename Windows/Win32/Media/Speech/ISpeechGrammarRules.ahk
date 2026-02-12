@@ -57,7 +57,11 @@ class ISpeechGrammarRules extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
@@ -67,17 +71,31 @@ class ISpeechGrammarRules extends IDispatch{
      * @returns {ISpeechGrammarRule} 
      */
     FindRule(RuleNameOrId) {
-        result := ComCall(8, this, "ptr", RuleNameOrId, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", RuleNameOrId, "ptr*", &Rule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechGrammarRule(Rule)
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Integer} Index 
      * @returns {ISpeechGrammarRule} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(9, this, "int", Index, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(9, this, "int", Index, "ptr*", &Rule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechGrammarRule(Rule)
     }
 
@@ -86,7 +104,11 @@ class ISpeechGrammarRules extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(10, this, "ptr*", &EnumVARIANT := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &EnumVARIANT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(EnumVARIANT)
     }
 
@@ -95,30 +117,54 @@ class ISpeechGrammarRules extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_Dynamic() {
-        result := ComCall(11, this, "short*", &Dynamic := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &Dynamic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Dynamic
     }
 
     /**
-     * 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
      * @param {BSTR} RuleName 
      * @param {Integer} Attributes 
      * @param {Integer} RuleId 
      * @returns {ISpeechGrammarRule} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
     Add(RuleName, Attributes, RuleId) {
-        RuleName := RuleName is String ? BSTR.Alloc(RuleName).Value : RuleName
+        if(RuleName is String) {
+            pin := BSTR.Alloc(RuleName)
+            RuleName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", RuleName, "int", Attributes, "int", RuleId, "ptr*", &Rule := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", RuleName, "int", Attributes, "int", RuleId, "ptr*", &Rule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechGrammarRule(Rule)
     }
 
     /**
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * @returns {HRESULT} 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +175,11 @@ class ISpeechGrammarRules extends IDispatch{
      * @returns {HRESULT} 
      */
     CommitAndSave(ErrorText, SaveStream) {
-        result := ComCall(14, this, "ptr", ErrorText, "ptr", SaveStream, "HRESULT")
+        result := ComCall(14, this, "ptr", ErrorText, "ptr", SaveStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

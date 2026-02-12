@@ -5,7 +5,7 @@
  * The THREAD_INFORMATION_CLASS enumeration (processthreadsapi.h) specifies the collection of supported thread types.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-thread_information_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/ne-processthreadsapi-thread_information_class
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

@@ -46,39 +46,70 @@ class IXMLDOMSchemaCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Reserves the specified URL for non-administrator users and accounts.
      * @param {BSTR} namespaceURI 
      * @param {VARIANT} var 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/add-urlacl
      */
     add(namespaceURI, var) {
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", namespaceURI, "ptr", var, "HRESULT")
+        result := ComCall(7, this, "ptr", namespaceURI, "ptr", var, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Gets a value that specifies whether ink is currently being drawn on an ink collector (InkCollector, InkOverlay, or InkPicture). (IInkCollector.get_CollectingInk)
+     * @remarks
+     * You can use the <b>CollectingInk</b> property to see if ink is being drawn on an ink collector rather than monitoring the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a> event.
      * 
+     * <div class="alert"><b>Note</b>  Because ink collection is happening on a different thread than your application code, it is possible that the <b>CollectingInk</b> property can change soon after you have checked it. Thus, your code may be operating under the assumption that the ink collector is not collecting ink, when in fact it is. If this occurs, an error is thrown. To be safe, put such code in a try-catch block.</div>
+     * <div> </div>
      * @param {BSTR} namespaceURI 
      * @returns {IXMLDOMNode} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcollector-get_collectingink
      */
     get(namespaceURI) {
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", namespaceURI, "ptr*", &schemaNode := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", namespaceURI, "ptr*", &schemaNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(schemaNode)
     }
 
     /**
-     * 
+     * removeConnectionEventListener Method (SQLServerPooledConnection)
+     * @remarks
+     * This removeConnectionEventListener method is specified by the removeConnectionEventListener method in the javax.sql.PooledConnection interface.
      * @param {BSTR} namespaceURI 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/removeconnectioneventlistener-method-sqlserverpooledconnection
      */
     remove(namespaceURI) {
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", namespaceURI, "HRESULT")
+        result := ComCall(9, this, "ptr", namespaceURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +118,11 @@ class IXMLDOMSchemaCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(10, this, "int*", &length := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -98,7 +133,11 @@ class IXMLDOMSchemaCollection extends IDispatch{
      */
     get_namespaceURI(index) {
         length := BSTR()
-        result := ComCall(11, this, "int", index, "ptr", length, "HRESULT")
+        result := ComCall(11, this, "int", index, "ptr", length, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -108,7 +147,11 @@ class IXMLDOMSchemaCollection extends IDispatch{
      * @returns {HRESULT} 
      */
     addCollection(otherCollection) {
-        result := ComCall(12, this, "ptr", otherCollection, "HRESULT")
+        result := ComCall(12, this, "ptr", otherCollection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +160,11 @@ class IXMLDOMSchemaCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(13, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 }

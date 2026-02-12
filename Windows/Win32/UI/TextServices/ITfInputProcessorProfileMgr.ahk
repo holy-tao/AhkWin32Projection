@@ -8,7 +8,6 @@
 /**
  * The ITfInputProcessorProfileMgr interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
  * @remarks
- * 
  * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfinputprocessorprofiles">ITfInputProcessorProfiles</a>, ITfInputProcessorProfileMgr
  *  can manage both keyboard layout and text services seamlessly. In Windows Vista, it is recommended to use this interface instead of using the following methods:
  * 
@@ -22,9 +21,7 @@
  * <li>ITfInputProcessorProfiles::GetActiveLanguageProfile</li>
  * <li>ITfInputProcessorProfiles::EnumLanguageProfiles</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofilemgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfinputprocessorprofilemgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -82,7 +79,7 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Integer} langid [in] The language id of the profile to be activated.
      * @param {Pointer<Guid>} clsid [in] The CLSID of the text service of the profile to be activated. This must be CLSID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
      * @param {Pointer<Guid>} guidProfile [in] The guidProfile of the profile to be activated. This must be GUID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
-     * @param {HKL} hkl [in] The handle of the keyboard layout. This must be <b>NULL</b> if dwProfileType is TF_PROFILETYPE_INPUTPROCESSOR.
+     * @param {HKL} hkl_ [in] The handle of the keyboard layout. This must be <b>NULL</b> if dwProfileType is TF_PROFILETYPE_INPUTPROCESSOR.
      * @param {Integer} dwFlags The combination of the following bits:
      * 
      * <table>
@@ -190,12 +187,16 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-activateprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-activateprofile
      */
-    ActivateProfile(dwProfileType, langid, clsid, guidProfile, hkl, dwFlags) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    ActivateProfile(dwProfileType, langid, clsid, guidProfile, hkl_, dwFlags) {
+        hkl_ := hkl_ is Win32Handle ? NumGet(hkl_, "ptr") : hkl_
 
-        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl_, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -232,7 +233,7 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Integer} langid [in] The language id of the profile to be activated.
      * @param {Pointer<Guid>} clsid [in] The CLSID of the text service of the profile to be activated. This must be CLSID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
      * @param {Pointer<Guid>} guidProfile [in] The guidProfile of the profile to be activated. This must be GUID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
-     * @param {HKL} hkl [in] The handle of the keyboard layout. This must be <b>NULL</b> if <i>dwProfileType</i> is TF_PROFILETYPE_INPUTPROCESSOR.
+     * @param {HKL} hkl_ [in] The handle of the keyboard layout. This must be <b>NULL</b> if <i>dwProfileType</i> is TF_PROFILETYPE_INPUTPROCESSOR.
      * @param {Integer} dwFlags The combination of the following bits:
      * 
      * <table>
@@ -309,12 +310,16 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-deactivateprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-deactivateprofile
      */
-    DeactivateProfile(dwProfileType, langid, clsid, guidProfile, hkl, dwFlags) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    DeactivateProfile(dwProfileType, langid, clsid, guidProfile, hkl_, dwFlags) {
+        hkl_ := hkl_ is Win32Handle ? NumGet(hkl_, "ptr") : hkl_
 
-        result := ComCall(4, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl_, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -351,15 +356,19 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * @param {Integer} langid [in] The language id of the profile to be activated.
      * @param {Pointer<Guid>} clsid [in] The CLSID of the text service of the profile to be activated. This must be CLSID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
      * @param {Pointer<Guid>} guidProfile [in] The guidProfile of the profile to be activated. This must be GUID_NULL if <i>dwProfileType</i> is TF_PROFILETYPE_KEYBOARDLAYOUT.
-     * @param {HKL} hkl [in] The handle of the keyboard layout. This must be <b>NULL</b> if <i>dwProfileType</i> is TF_PROFILETYPE_INPUTPROCESSOR.
+     * @param {HKL} hkl_ [in] The handle of the keyboard layout. This must be <b>NULL</b> if <i>dwProfileType</i> is TF_PROFILETYPE_INPUTPROCESSOR.
      * @returns {TF_INPUTPROCESSORPROFILE} [out] The buffer to receive <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_inputprocessorprofile">TF_INPUTPROCESSORPROFILE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-getprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-getprofile
      */
-    GetProfile(dwProfileType, langid, clsid, guidProfile, hkl) {
-        hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl
+    GetProfile(dwProfileType, langid, clsid, guidProfile, hkl_) {
+        hkl_ := hkl_ is Win32Handle ? NumGet(hkl_, "ptr") : hkl_
 
         pProfile := TF_INPUTPROCESSORPROFILE()
-        result := ComCall(5, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl, "ptr", pProfile, "HRESULT")
+        result := ComCall(5, this, "uint", dwProfileType, "ushort", langid, "ptr", clsid, "ptr", guidProfile, "ptr", hkl_, "ptr", pProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProfile
     }
 
@@ -367,10 +376,14 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * The ITfInputProcessorProfileMgr::EnumProfiles method returns profiles to be enumerated.
      * @param {Integer} langid [in] langid of the profiles to be enumerated. If langid is 0, all profiles will be enumerated.
      * @returns {IEnumTfInputProcessorProfiles} [out] The pointer to receive a pointer of <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfinputprocessorprofiles">IEnumTfInputProcessorProfiles</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-enumprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-enumprofiles
      */
     EnumProfiles(langid) {
-        result := ComCall(6, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ushort", langid, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfInputProcessorProfiles(ppEnum)
     }
 
@@ -436,10 +449,14 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-releaseinputprocessor
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-releaseinputprocessor
      */
     ReleaseInputProcessor(rclsid, dwFlags) {
-        result := ComCall(7, this, "ptr", rclsid, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, "ptr", rclsid, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -535,14 +552,18 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-registerprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-registerprofile
      */
     RegisterProfile(rclsid, langid, guidProfile, pchDesc, cchDesc, pchIconFile, cchFile, uIconIndex, hklsubstitute, dwPreferredLayout, bEnabledByDefault, dwFlags) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
         pchIconFile := pchIconFile is String ? StrPtr(pchIconFile) : pchIconFile
         hklsubstitute := hklsubstitute is Win32Handle ? NumGet(hklsubstitute, "ptr") : hklsubstitute
 
-        result := ComCall(8, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "ptr", hklsubstitute, "uint", dwPreferredLayout, "int", bEnabledByDefault, "uint", dwFlags, "HRESULT")
+        result := ComCall(8, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "ptr", hklsubstitute, "uint", dwPreferredLayout, "int", bEnabledByDefault, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -630,10 +651,14 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-unregisterprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-unregisterprofile
      */
     UnregisterProfile(rclsid, langid, guidProfile, dwFlags) {
-        result := ComCall(9, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -641,11 +666,15 @@ class ITfInputProcessorProfileMgr extends IUnknown{
      * This method returns the current active profile.
      * @param {Pointer<Guid>} catid [in] The category id for the profile. This must be GUID_TFCAT_TIP_KEYBOARD. Only GUID_TFCAT_TIP_KEYBOARD is supported.
      * @returns {TF_INPUTPROCESSORPROFILE} [out] The buffer to receive the profile information.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilemgr-getactiveprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilemgr-getactiveprofile
      */
     GetActiveProfile(catid) {
         pProfile := TF_INPUTPROCESSORPROFILE()
-        result := ComCall(10, this, "ptr", catid, "ptr", pProfile, "HRESULT")
+        result := ComCall(10, this, "ptr", catid, "ptr", pProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProfile
     }
 }

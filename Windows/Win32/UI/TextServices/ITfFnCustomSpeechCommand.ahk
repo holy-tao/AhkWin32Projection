@@ -34,7 +34,11 @@ class ITfFnCustomSpeechCommand extends ITfFunction{
      * @returns {HRESULT} 
      */
     SetSpeechCommandProvider(pspcmdProvider) {
-        result := ComCall(4, this, "ptr", pspcmdProvider, "HRESULT")
+        result := ComCall(4, this, "ptr", pspcmdProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

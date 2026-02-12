@@ -69,7 +69,11 @@ class IHTMLElement4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmousewheel(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,16 +83,36 @@ class IHTMLElement4 extends IDispatch{
      */
     get_onmousewheel() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
+     * Normalizes the specified floating-point vector according to x / length(x).
+     * @remarks
+     * The **normalize** HLSL intrinsic function uses the following formula: *x* / [**length**](dx-graphics-hlsl-length.md)(*x*).
+     * @returns {HRESULT} | Item                                                   | Description                                            |
+     * |--------------------------------------------------------|--------------------------------------------------------|
+     * | <span id="x"></span><span id="X"></span>*x*<br/> | \[in\] The specified floating-point vector.<br/> |
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * The normalized *x* parameter. If the length of the *x* parameter is 0, the result is indefinite.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-normalize
      */
     normalize() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,9 +122,16 @@ class IHTMLElement4 extends IDispatch{
      * @returns {IHTMLDOMAttribute} 
      */
     getAttributeNode(bstrname) {
-        bstrname := bstrname is String ? BSTR.Alloc(bstrname).Value : bstrname
+        if(bstrname is String) {
+            pin := BSTR.Alloc(bstrname)
+            bstrname := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrname, "ptr*", &ppAttribute := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrname, "ptr*", &ppAttribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMAttribute(ppAttribute)
     }
 
@@ -110,7 +141,11 @@ class IHTMLElement4 extends IDispatch{
      * @returns {IHTMLDOMAttribute} 
      */
     setAttributeNode(pattr) {
-        result := ComCall(11, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMAttribute(ppretAttribute)
     }
 
@@ -120,7 +155,11 @@ class IHTMLElement4 extends IDispatch{
      * @returns {IHTMLDOMAttribute} 
      */
     removeAttributeNode(pattr) {
-        result := ComCall(12, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMAttribute(ppretAttribute)
     }
 
@@ -130,7 +169,11 @@ class IHTMLElement4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onbeforeactivate(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,7 +183,11 @@ class IHTMLElement4 extends IDispatch{
      */
     get_onbeforeactivate() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -150,7 +197,11 @@ class IHTMLElement4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onfocusin(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +211,11 @@ class IHTMLElement4 extends IDispatch{
      */
     get_onfocusin() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -170,7 +225,11 @@ class IHTMLElement4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onfocusout(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +239,11 @@ class IHTMLElement4 extends IDispatch{
      */
     get_onfocusout() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

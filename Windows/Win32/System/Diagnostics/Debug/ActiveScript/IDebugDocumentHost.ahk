@@ -44,7 +44,11 @@ class IDebugDocumentHost extends IUnknown{
         pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
         pcNumCharsMarshal := pcNumChars is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwTextStartCookie, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, "uint", cMaxChars, "HRESULT")
+        result := ComCall(3, this, "uint", dwTextStartCookie, "ptr", pcharText, pstaTextAttrMarshal, pstaTextAttr, pcNumCharsMarshal, pcNumChars, "uint", cMaxChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +67,11 @@ class IDebugDocumentHost extends IUnknown{
 
         pattrMarshal := pattr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "HRESULT")
+        result := ComCall(4, this, "ptr", pstrCode, "uint", uNumCodeChars, "ptr", pstrDelimiter, "uint", dwFlags, pattrMarshal, pattr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IDebugDocumentHost extends IUnknown{
      * @returns {IUnknown} 
      */
     OnCreateDocumentContext() {
-        result := ComCall(5, this, "ptr*", &ppunkOuter := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppunkOuter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkOuter)
     }
 
@@ -85,17 +97,26 @@ class IDebugDocumentHost extends IUnknown{
     GetPathName(pbstrLongName, pfIsOriginalFile) {
         pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "HRESULT")
+        result := ComCall(6, this, "ptr", pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-getfilenamefrombrowse
      */
     GetFileName() {
         pbstrShortName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrShortName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrShortName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrShortName
     }
 
@@ -104,7 +125,11 @@ class IDebugDocumentHost extends IUnknown{
      * @returns {HRESULT} 
      */
     NotifyChanged() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

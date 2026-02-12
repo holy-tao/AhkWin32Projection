@@ -40,7 +40,7 @@
  * When you receive an **HSTRING** as an out parameter, it is good practice to set the handle to **NULL** when you are finished with it.
  * 
  * Call the [**WindowsPreallocateStringBuffer**](/windows/win32/api/winstring/nf-winstring-windowspreallocatestringbuffer) function to allocate a mutable string buffer that you can use to create an immutable **HSTRING**. When you have finished populating the buffer, you call the [**WindowsPromoteStringBuffer**](/windows/win32/api/winstring/nf-winstring-windowspromotestringbuffer) function to create the **HSTRING**. This two-phase construction pattern enables functionality that is similar to a "string builder."
- * @see https://learn.microsoft.com/windows/win32/WinRT/hstring
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WinRT/hstring
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

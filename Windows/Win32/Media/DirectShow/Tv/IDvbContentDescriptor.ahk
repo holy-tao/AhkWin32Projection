@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get information from a Digital Video Broadcast (DVB) content descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbcontentdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-idvbcontentdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,46 +33,68 @@ class IDvbContentDescriptor extends IUnknown{
     /**
      * Gets the tag for a Digital Video Broadcast (DVB) content descriptor.
      * @returns {Integer} Receives the content descriptor tag. For content descriptors, this tag value is "0x54".
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the body length of a Digital Video Broadcast (DVB) content descriptor.
      * @returns {Integer} Receives the content descriptor length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the number of content elements within a Digital Video Broadcast (DVB) content descriptor.
      * @returns {Integer} Receives the number of content elements.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the two 4-bit fields that make up a DVB-defined identifier for a content descriptor.
+     * @remarks
+     * For a list of content descriptors associated with the values returned in the <i>dwVal1</i> and <i>dwVal2</i> parameters, see Table 28 in Section 6.2.9 of the DVB standard document titled  
+     *       <i>Digital Video Broadcasting (DVB);
+     * Specification for Service Information (SI) in DVB systems (DVB Document A038 Rev. 4)</i>. (This resource may not be available in some languages 
+     * 
+     * and countries.)
      * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getcountofrecords">IDvbContentDescriptor::GetCountOfRecords</a>
      * @param {Pointer<Integer>} pbValLevel1 Gets the most-significant four bits of the content identifier.
      * @param {Pointer<Integer>} pbValLevel2 Gets the least-significant four bits of the content identifier.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordcontentnibbles
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordcontentnibbles
      */
     GetRecordContentNibbles(bRecordIndex, pbValLevel1, pbValLevel2) {
         pbValLevel1Marshal := pbValLevel1 is VarRef ? "char*" : "ptr"
         pbValLevel2Marshal := pbValLevel2 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "char", bRecordIndex, pbValLevel1Marshal, pbValLevel1, pbValLevel2Marshal, pbValLevel2, "HRESULT")
+        result := ComCall(6, this, "char", bRecordIndex, pbValLevel1Marshal, pbValLevel1, pbValLevel2Marshal, pbValLevel2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,14 +103,18 @@ class IDvbContentDescriptor extends IUnknown{
      * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getcountofrecords">IDvbContentDescriptor::GetCountOfRecords</a>
      * @param {Pointer<Integer>} pbVal1 Gets the most-significant four bits of the broadcaster-defined content identifier. These bits are returned in the  right-most four bits of the byte.
      * @param {Pointer<Integer>} pbVal2 Gets the least-significant four bits of the broadcaster-defined  content identifier. These bits are returned in the left-most four bits of the byte.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordusernibbles
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-idvbcontentdescriptor-getrecordusernibbles
      */
     GetRecordUserNibbles(bRecordIndex, pbVal1, pbVal2) {
         pbVal1Marshal := pbVal1 is VarRef ? "char*" : "ptr"
         pbVal2Marshal := pbVal2 is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "char", bRecordIndex, pbVal1Marshal, pbVal1, pbVal2Marshal, pbVal2, "HRESULT")
+        result := ComCall(7, this, "char", bRecordIndex, pbVal1Marshal, pbVal1, pbVal2Marshal, pbVal2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

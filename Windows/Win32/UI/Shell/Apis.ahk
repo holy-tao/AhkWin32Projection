@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\Apis.ahk
 #Include ..\..\System\LibraryLoader\Apis.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 #Include .\IShellItemArray.ahk
 #Include .\IEnumAssocHandlers.ahk
 #Include .\IFileOperation.ahk
@@ -25,6 +26,8 @@
 #Include ..\..\System\Com\IStream.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -885,7 +888,7 @@ class Shell {
     static CLSID_MyDocuments => Guid("{450d8fba-ad25-11d0-98a8-0800361b1103}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_MYDOCS_CLSID => "{450D8FBA-AD25-11D0-98A8-0800361B1103}"
 
@@ -2205,7 +2208,7 @@ class Shell {
     static ACDD_VISIBLE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROPSTR_EXTENSIONCOMPLETIONSTATE => "ExtensionCompletionState"
 
@@ -3440,12 +3443,12 @@ class Shell {
     static CMDID_INTSHORTCUTCREATE => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_WITH_PROPERTIES => "ParseWithProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_PARTIAL_IDLIST => "ParseOriginalItem"
 
@@ -3735,167 +3738,167 @@ class Shell {
     static MAX_COLUMN_DESC_LEN => 128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_SHELLIDLIST => "Shell IDList Array"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_SHELLIDLISTOFFSET => "Shell Object Offsets"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_NETRESOURCES => "Net Resource"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILEDESCRIPTORA => "FileGroupDescriptor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILEDESCRIPTORW => "FileGroupDescriptorW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILECONTENTS => "FileContents"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILENAMEA => "FileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILENAMEW => "FileNameW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_PRINTERGROUP => "PrinterFriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILENAMEMAPA => "FileNameMap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILENAMEMAPW => "FileNameMapW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_SHELLURL => "UniformResourceLocator"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_INETURLA => "UniformResourceLocator"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_INETURLW => "UniformResourceLocatorW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_PREFERREDDROPEFFECT => "Preferred DropEffect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_PERFORMEDDROPEFFECT => "Performed DropEffect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_PASTESUCCEEDED => "Paste Succeeded"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_INDRAGLOOP => "InShellDragLoop"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_MOUNTEDVOLUME => "MountedVolume"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_PERSISTEDDATAOBJECT => "PersistedDataObject"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_TARGETCLSID => "TargetCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_LOGICALPERFORMEDDROPEFFECT => "Logical Performed DropEffect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_AUTOPLAY_SHELLIDLISTS => "Autoplay Enumerated IDList Array"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_UNTRUSTEDDRAGDROP => "UntrustedDragDrop"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILE_ATTRIBUTES_ARRAY => "File Attributes Array"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_INVOKECOMMAND_DROPPARAM => "InvokeCommand DropParam"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_SHELLDROPHANDLER => "DropHandlerCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_DROPDESCRIPTION => "DropDescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_ZONEIDENTIFIER => "ZoneIdentifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILEDESCRIPTOR => "FileGroupDescriptorW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILENAME => "FileNameW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_FILENAMEMAP => "FileNameMapW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_INETURL => "UniformResourceLocatorW"
 
@@ -4175,47 +4178,47 @@ class Shell {
     static GCS_VALIDATE => 6
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_NEWFOLDERA => "NewFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_VIEWLISTA => "ViewList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_VIEWDETAILSA => "ViewDetails"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_NEWFOLDERW => "NewFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_VIEWLISTW => "ViewList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_VIEWDETAILSW => "ViewDetails"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_NEWFOLDER => "NewFolder"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_VIEWLIST => "ViewList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CMDSTR_VIEWDETAILS => "ViewDetails"
 
@@ -4320,97 +4323,97 @@ class Shell {
     static SHCIDS_COLUMNMASK => 65535
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONFLICT_RESOLUTION_CLSID_KEY => "ConflictResolutionCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_BIND_FORCE_FOLDER_SHORTCUT_RESOLVE => "Force Folder Shortcut Resolve"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_AVOID_DRIVE_RESTRICTION_POLICY => "Avoid Drive Restriction Policy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_SKIP_BINDING_CLSID => "Skip Binding CLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_PREFER_FOLDER_BROWSING => "Parse Prefer Folder Browsing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_DONT_PARSE_RELATIVE => "Don't Parse Relative"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_TRANSLATE_ALIASES => "Parse Translate Aliases"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_SKIP_NET_CACHE => "Skip Net Resource Cache"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_SHELL_PROTOCOL_TO_FILE_OBJECTS => "Parse Shell Protocol To File Objects"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_TRACK_CLSID => "Track the CLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_INTERNAL_NAVIGATE => "Internal Navigation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_PROPERTYSTORE => "DelegateNamedProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_NO_VALIDATE_FILENAME_CHARS => "NoValidateFilenameChars"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_BIND_DELEGATE_CREATE_OBJECT => "Delegate Object Creation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_ALLOW_INTERNET_SHELL_FOLDERS => "Allow binding to Internet shell folder handlers and negate STR_PARSE_PREFER_WEB_BROWSING"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_PREFER_WEB_BROWSING => "Do not bind to Internet shell folder handlers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_SHOW_NET_DIAGNOSTICS_UI => "Show network diagnostics UI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_DONT_REQUIRE_VALIDATED_URLS => "Do not require validated URLs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_INTERNETFOLDER_PARSE_ONLY_URLMON_BINDABLE => "Validate URL"
 
@@ -4420,52 +4423,52 @@ class Shell {
     static BIND_INTERRUPTABLE => 4294967295
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_BIND_FOLDERS_READ_ONLY => "Folders As Read Only"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_BIND_FOLDER_ENUM_MODE => "Folder Enum Mode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_WITH_EXPLICIT_PROGID => "ExplicitProgid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_WITH_EXPLICIT_ASSOCAPP => "ExplicitAssociationApp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_EXPLICIT_ASSOCIATION_SUCCESSFUL => "ExplicitAssociationSuccessful"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PARSE_AND_CREATE_ITEM => "ParseAndCreateItem"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_PROPERTYBAG_PARAM => "SHBindCtxPropertyBag"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_ENUM_ITEMS_FLAGS => "SHCONTF"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_STORAGEITEM_CREATION_FLAGS => "SHGETSTORAGEITEM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_ITEM_CACHE_CONTEXT => "ItemCacheContext"
 
@@ -4720,47 +4723,47 @@ class Shell {
     static FCT_ADDTOEND => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_DONT_RESOLVE_LINK => "Don't Resolve Link"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GET_ASYNC_HANDLER => "GetAsyncHandler"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GPS_HANDLERPROPERTIESONLY => "GPS_HANDLERPROPERTIESONLY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GPS_FASTPROPERTIESONLY => "GPS_FASTPROPERTIESONLY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GPS_OPENSLOWITEM => "GPS_OPENSLOWITEM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GPS_DELAYCREATION => "GPS_DELAYCREATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GPS_BESTEFFORT => "GPS_BESTEFFORT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_GPS_NO_OPLOCK => "GPS_NO_OPLOCK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DI_GETDRAGIMAGE => "ShellGetDragImage"
 
@@ -5435,27 +5438,27 @@ class Shell {
     static E_PREVIEWHANDLER_CORRUPT => -2042494972
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_FILE_SYS_BIND_DATA => "File System Bind Data"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_FILE_SYS_BIND_DATA_WIN7_FORMAT => "Win7FileSystemIdList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HOMEGROUP_SECURITY_GROUP_MULTI => "HUG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HOMEGROUP_SECURITY_GROUP => "HomeUsers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROP_CONTRACT_DELEGATE => "ContractDelegate"
 
@@ -5465,12 +5468,12 @@ class Shell {
     static SID_URLExecutionContext => Guid("{fb5f8ebc-bbb6-4d10-a461-777291a09030}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_TAB_REUSE_IDENTIFIER => "Tab Reuse Identifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STR_REFERRER_IDENTIFIER => "Referrer Identifier"
 
@@ -6010,7 +6013,7 @@ class Shell {
     static SHIL_LAST => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WC_NETADDRESS => "msctls_netaddress"
 
@@ -6070,32 +6073,32 @@ class Shell {
     static STIF_SUPPORT_HEX => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_CONTENTTYPE_HTMLA => "text/html"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_CONTENTTYPE_HTMLW => "text/html"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_CONTENTTYPE_CDFA => "application/x-cdf"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_CONTENTTYPE_CDFW => "application/x-cdf"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_CONTENTTYPE_HTML => "text/html"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SZ_CONTENTTYPE_CDF => "application/x-cdf"
 
@@ -6620,12 +6623,12 @@ class Shell {
     static WTS_E_NOSTORAGEPROVIDERTHUMBNAILHANDLER => -2147175929
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SHIMGKEY_QUALITY => "Compression"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SHIMGKEY_RAWFORMAT => "RawDataFormat"
 
@@ -6960,7 +6963,7 @@ class Shell {
     static VIEW_PRIORITY_NONE => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static VOLUME_PREFIX => "\\?\Volume"
 
@@ -8074,7 +8077,7 @@ class Shell {
      * @returns {BOOL} Type: **BOOL**
      * 
      * **TRUE** if the cache was successfully refreshed, **FALSE** if the initialization failed.
-     * @see https://learn.microsoft.com/windows/win32/shell/fileiconinit
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/fileiconinit
      */
     static FileIconInit(fRestoreCache) {
         ; This method's EntryPoint is an ordinal, so we need to load the dll manually
@@ -8126,7 +8129,7 @@ class Shell {
      *                     
      * 
      * The function fails and returns ERROR_INVALID_PARAMETER if the <b>dwSize</b> member of the structure at <i>lpProfileInfo</i> is not set to <c>sizeof(PROFILEINFO)</c> or if the <b>lpUserName</b> member is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-loaduserprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-loaduserprofilea
      * @since windows5.0
      */
     static LoadUserProfileA(hToken, lpProfileInfo) {
@@ -8180,7 +8183,7 @@ class Shell {
      *                     
      * 
      * The function fails and returns ERROR_INVALID_PARAMETER if the <b>dwSize</b> member of the structure at <i>lpProfileInfo</i> is not set to <c>sizeof(PROFILEINFO)</c> or if the <b>lpUserName</b> member is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-loaduserprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-loaduserprofilew
      * @since windows5.0
      */
     static LoadUserProfileW(hToken, lpProfileInfo) {
@@ -8212,7 +8215,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-unloaduserprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-unloaduserprofile
      * @since windows5.0
      */
     static UnloadUserProfile(hToken, hProfile) {
@@ -8267,7 +8270,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getprofilesdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getprofilesdirectorya
      * @since windows5.0
      */
     static GetProfilesDirectoryA(lpProfileDir, lpcchSize) {
@@ -8323,7 +8326,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getprofilesdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getprofilesdirectoryw
      * @since windows5.0
      */
     static GetProfilesDirectoryW(lpProfileDir, lpcchSize) {
@@ -8353,7 +8356,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getprofiletype
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getprofiletype
      * @since windows5.0
      */
     static GetProfileType(dwFlags) {
@@ -8397,7 +8400,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deleteprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-deleteprofilea
      * @since windows5.0
      */
     static DeleteProfileA(lpSidString, lpProfilePath, lpComputerName) {
@@ -8443,7 +8446,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-deleteprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-deleteprofilew
      * @since windows5.0
      */
     static DeleteProfileW(lpSidString, lpProfilePath, lpComputerName) {
@@ -8509,7 +8512,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-createprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-createprofile
      * @since windows6.0.6000
      */
     static CreateProfile(pszUserSid, pszUserName, pszProfilePath, cchProfilePath) {
@@ -8563,7 +8566,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getdefaultuserprofiledirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getdefaultuserprofiledirectorya
      * @since windows5.0
      */
     static GetDefaultUserProfileDirectoryA(lpProfileDir, lpcchSize) {
@@ -8619,7 +8622,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getdefaultuserprofiledirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getdefaultuserprofiledirectoryw
      * @since windows5.0
      */
     static GetDefaultUserProfileDirectoryW(lpProfileDir, lpcchSize) {
@@ -8675,7 +8678,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getallusersprofiledirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getallusersprofiledirectorya
      * @since windows5.0
      */
     static GetAllUsersProfileDirectoryA(lpProfileDir, lpcchSize) {
@@ -8731,7 +8734,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getallusersprofiledirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getallusersprofiledirectoryw
      * @since windows5.0
      */
     static GetAllUsersProfileDirectoryW(lpProfileDir, lpcchSize) {
@@ -8790,7 +8793,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getuserprofiledirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getuserprofiledirectorya
      * @since windows5.0
      */
     static GetUserProfileDirectoryA(hToken, lpProfileDir, lpcchSize) {
@@ -8850,7 +8853,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-getuserprofiledirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/userenv/nf-userenv-getuserprofiledirectoryw
      * @since windows5.0
      */
     static GetUserProfileDirectoryW(hToken, lpProfileDir, lpcchSize) {
@@ -8888,7 +8891,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initpropvariantfromstrret
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initpropvariantfromstrret
      * @since windows5.1.2600
      */
     static InitPropVariantFromStrRet(pstrret, pidl, ppropvar) {
@@ -8924,7 +8927,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-propvarianttostrret
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-propvarianttostrret
      * @since windows5.1.2600
      */
     static PropVariantToStrRet(propvar, pstrret) {
@@ -8955,7 +8958,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-initvariantfromstrret
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-initvariantfromstrret
      * @since windows5.1.2600
      */
     static InitVariantFromStrRet(pstrret, pidl, pvar) {
@@ -8978,7 +8981,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/propvarutil/nf-propvarutil-varianttostrret
+     * @see https://learn.microsoft.com/windows/win32/api//content/propvarutil/nf-propvarutil-varianttostrret
      * @since windows5.1.2600
      */
     static VariantToStrRet(varIn, pstrret) {
@@ -8999,7 +9002,7 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
@@ -9014,13 +9017,13 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the subclass callback was successfully installed; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-setwindowsubclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/nf-commctrl-setwindowsubclass
      * @since windows5.1.2600
      */
-    static SetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, dwRefData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SetWindowSubclass(hWnd_, pfnSubclass, uIdSubclass, dwRefData) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "int")
+        result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", hWnd_, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "int")
         return result
     }
 
@@ -9028,7 +9031,7 @@ class Shell {
      * Retrieves the reference data for the specified window subclass callback.
      * @remarks
      * To use <b>GetWindowSubclass</b>, specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
@@ -9070,15 +9073,15 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-getwindowsubclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/nf-commctrl-getwindowsubclass
      * @since windows5.1.2600
      */
-    static GetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static GetWindowSubclass(hWnd_, pfnSubclass, uIdSubclass, pdwRefData) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         pdwRefDataMarshal := pdwRefData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, pdwRefDataMarshal, pdwRefData, "int")
+        result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", hWnd_, "ptr", pfnSubclass, "ptr", uIdSubclass, pdwRefDataMarshal, pdwRefData, "int")
         return result
     }
 
@@ -9093,7 +9096,7 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
@@ -9105,13 +9108,13 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the subclass callback was successfully removed; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-removewindowsubclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/nf-commctrl-removewindowsubclass
      * @since windows5.1.2600
      */
-    static RemoveWindowSubclass(hWnd, pfnSubclass, uIdSubclass) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RemoveWindowSubclass(hWnd_, pfnSubclass, uIdSubclass) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "int")
+        result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", hWnd_, "ptr", pfnSubclass, "ptr", uIdSubclass, "int")
         return result
     }
 
@@ -9126,29 +9129,32 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the window being subclassed.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * A value of type unsigned <b>int</b> that specifies a window message.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Specifies additional message information. The contents of this parameter depend on the value of the window message.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Specifies additional message information. The contents of this parameter depend on the value of the window message. Note: On 64-bit versions of Windows LPARAM is a 64-bit value.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The returned value is specific to the message sent. This value should be ignored.
-     * @see https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-defsubclassproc
+     * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/nf-commctrl-defsubclassproc
      * @since windows5.1.2600
      */
-    static DefSubclassProc(hWnd, uMsg, wParam, lParam) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DefSubclassProc(hWnd_, uMsg, wParam_, lParam_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("COMCTL32.dll\DefSubclassProc", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
-        return result
+        result := DllCall("COMCTL32.dll\DefSubclassProc", "ptr", hWnd_, "uint", uMsg, "ptr", wParam_, "ptr", lParam_, "ptr")
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9162,7 +9168,7 @@ class Shell {
      * Returns nonzero if successful, or zero otherwise.
      * 
      * To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowcontexthelpid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setwindowcontexthelpid
      * @since windows5.1.2600
      */
     static SetWindowContextHelpId(param0, param1) {
@@ -9184,7 +9190,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the Help context identifier if the window has one, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowcontexthelpid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getwindowcontexthelpid
      * @since windows5.1.2600
      */
     static GetWindowContextHelpId(param0) {
@@ -9205,7 +9211,7 @@ class Shell {
      * Returns nonzero if successful, or zero otherwise.
      * 
      * To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setmenucontexthelpid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setmenucontexthelpid
      * @since windows5.1.2600
      */
     static SetMenuContextHelpId(param0, param1) {
@@ -9227,7 +9233,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the Help context identifier if the menu has one, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getmenucontexthelpid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getmenucontexthelpid
      * @since windows5.1.2600
      */
     static GetMenuContextHelpId(param0) {
@@ -9370,7 +9376,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-winhelpa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-winhelpa
      * @since windows5.1.2600
      */
     static WinHelpA(hWndMain, lpszHelp, uCommand, dwData) {
@@ -9520,7 +9526,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-winhelpw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-winhelpw
      * @since windows5.1.2600
      */
     static WinHelpW(hWndMain, lpszHelp, uCommand, dwData) {
@@ -9559,7 +9565,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * Returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shsimpleidlistfrompath
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shsimpleidlistfrompath
      * @since windows5.0
      */
     static SHSimpleIDListFromPath(pszPath) {
@@ -9581,7 +9587,7 @@ class Shell {
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateitemfromidlist
      * @since windows6.0.6000
      */
     static SHCreateItemFromIDList(pidl, riid) {
@@ -9616,7 +9622,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname
      * @since windows6.0.6000
      */
     static SHCreateItemFromParsingName(pszPath, pbc, riid) {
@@ -9648,7 +9654,7 @@ class Shell {
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemwithparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateitemwithparent
      * @since windows6.0.6000
      */
     static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid) {
@@ -9678,7 +9684,7 @@ class Shell {
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will usually be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromrelativename
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateitemfromrelativename
      * @since windows6.0.6000
      */
     static SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid) {
@@ -9709,7 +9715,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder
      * @since windows6.0.6000
      */
     static SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid) {
@@ -9731,7 +9737,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this function returns, contains a pointer to the PIDL of the given object.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetidlistfromobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgetidlistfromobject
      * @since windows6.0.6000
      */
     static SHGetIDListFromObject(punk) {
@@ -9756,7 +9762,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or a related interface.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetitemfromobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgetitemfromobject
      * @since windows6.1
      */
     static SHGetItemFromObject(punk, riid) {
@@ -9781,7 +9787,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * A value that, when this function returns successfully, receives the address of a pointer to the retrieved display name.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetnamefromidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgetnamefromidlist
      * @since windows6.0.6000
      */
     static SHGetNameFromIDList(pidl, sigdnName) {
@@ -9809,7 +9815,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgetitemfromdataobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgetitemfromdataobject
      * @since windows6.1
      */
     static SHGetItemFromDataObject(pdtobj, dwFlags, riid) {
@@ -9838,7 +9844,7 @@ class Shell {
      * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * When this function returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateshellitemarray
      * @since windows6.0.6000
      */
     static SHCreateShellItemArray(pidlParent, psf, cidl, ppidl) {
@@ -9869,7 +9875,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromdataobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromdataobject
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromDataObject(pdo, riid) {
@@ -9892,7 +9898,7 @@ class Shell {
      * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * When this function returns, contains an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromidlists
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromidlists
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromIDLists(cidl, rgpidl) {
@@ -9919,7 +9925,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromshellitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromshellitem
      * @since windows6.0.6000
      */
     static SHCreateShellItemArrayFromShellItem(psi, riid) {
@@ -9939,7 +9945,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration">IApplicationAssociationRegistration</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreateassociationregistration
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreateassociationregistration
      * @since windows6.0.6000
      */
     static SHCreateAssociationRegistration(riid) {
@@ -10000,7 +10006,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * The address of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit">IDefaultExtractIconInit</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shcreatedefaultextracticon
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shcreatedefaultextracticon
      * @since windows6.0.6000
      */
     static SHCreateDefaultExtractIcon(riid) {
@@ -10022,7 +10028,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-setcurrentprocessexplicitappusermodelid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-setcurrentprocessexplicitappusermodelid
      * @since windows6.1
      */
     static SetCurrentProcessExplicitAppUserModelID(AppID) {
@@ -10045,7 +10051,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * A pointer that receives the address of the AppUserModelID assigned to the process. The caller is responsible for freeing this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-getcurrentprocessexplicitappusermodelid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-getcurrentprocessexplicitappusermodelid
      * @since windows6.1
      */
     static GetCurrentProcessExplicitAppUserModelID() {
@@ -10071,7 +10077,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shgettemporarypropertyforitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shgettemporarypropertyforitem
      * @since windows6.0.6000
      */
     static SHGetTemporaryPropertyForItem(psi, propkey, ppropvar) {
@@ -10099,7 +10105,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shsettemporarypropertyforitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shsettemporarypropertyforitem
      * @since windows6.0.6000
      */
     static SHSetTemporaryPropertyForItem(psi, propkey, propvar) {
@@ -10131,7 +10137,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shshowmanagelibraryui
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shshowmanagelibraryui
      * @since windows6.1
      */
     static SHShowManageLibraryUI(psiLibrary, hwndOwner, pszTitle, pszInstruction, lmdOptions) {
@@ -10159,7 +10165,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shresolvelibrary
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shresolvelibrary
      * @since windows6.1
      */
     static SHResolveLibrary(psiLibrary) {
@@ -10180,7 +10186,7 @@ class Shell {
      * @returns {IEnumAssocHandlers} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shassocenumhandlers
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shassocenumhandlers
      * @since windows6.0.6000
      */
     static SHAssocEnumHandlers(pszExtra, afFilter) {
@@ -10207,7 +10213,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-shassocenumhandlersforprotocolbyapplication
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-shassocenumhandlersforprotocolbyapplication
      * @since windows6.1
      */
     static SHAssocEnumHandlersForProtocolByApplication(protocol, riid) {
@@ -10343,7 +10349,7 @@ class Shell {
      * @returns {IFileOperation} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a>**</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-shcreatedefaultpropertiesop
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-shcreatedefaultpropertiesop
      * @since windows6.0.6000
      */
     static SHCreateDefaultPropertiesOp(psi) {
@@ -10359,7 +10365,7 @@ class Shell {
      * Applies the default set of properties on a Shell item.
      * @remarks
      * The list of properties to set a default value comes from the <b>SetDefaultsFor</b> registry entry under the ProgID for the file association of the item. The list is prefixed by "<c>prop:</code>" and contains the canonical names of the properties to set the default value, for example, "<code>prop:System.Author;System.Document.DateCreated</c>". The possible properties for this list are <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-author">System.Author</a>, <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-document-datecreated">System.Document.DateCreated</a>, and <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-photo-datetaken">System.Photo.DateTaken</a>. If the <b>SetDefaultsFor</b> entry does not exist on the ProgID, this function uses the default found on the <b>SetDefaultsFor</b> entry of <b>HKEY_CLASSES_ROOT</b>&#92;<b>*</b>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the item's parent window, which receives error notifications. This value can be <b>NULL</b>.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
@@ -10374,13 +10380,13 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-shsetdefaultproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-shsetdefaultproperties
      * @since windows6.0.6000
      */
-    static SHSetDefaultProperties(hwnd, psi, dwFileOpFlags, pfops) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHSetDefaultProperties(hwnd_, psi, dwFileOpFlags, pfops) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", hwnd, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "int")
+        result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", hwnd_, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -10395,7 +10401,7 @@ class Shell {
      * @returns {IMalloc} Type: <b>LPMALLOC*</b>
      * 
      * The address of a pointer that receives the Shell's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetmalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetmalloc
      * @since windows5.1.2600
      */
     static SHGetMalloc() {
@@ -10417,7 +10423,7 @@ class Shell {
      * @returns {Pointer<Void>} Type: <b>LPVOID</b>
      * 
      * A pointer to the allocated memory.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shalloc
      * @since windows5.0
      */
     static SHAlloc(cb) {
@@ -10431,7 +10437,7 @@ class Shell {
      * 
      * A pointer to the memory allocated by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shalloc">SHAlloc</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shfree
      * @since windows5.0
      */
     static SHFree(pv) {
@@ -10462,7 +10468,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the overlay icon in the system image list if successful, or -1 otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgeticonoverlayindexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgeticonoverlayindexa
      * @since windows5.0
      */
     static SHGetIconOverlayIndexA(pszIconPath, iIconIndex) {
@@ -10494,7 +10500,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the overlay icon in the system image list if successful, or -1 otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgeticonoverlayindexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgeticonoverlayindexw
      * @since windows5.0
      */
     static SHGetIconOverlayIndexW(pszIconPath, iIconIndex) {
@@ -10514,7 +10520,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE</b>
      * 
      * Returns a pointer to a copy of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure pointed to by <i>pidl</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilclone
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilclone
      * @since windows5.1.2600
      */
     static ILClone(pidl) {
@@ -10530,7 +10536,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that contains the first <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure from the <b>ITEMIDLIST</b> structure specified by <i>pidl</i>. Returns <b>NULL</b> on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilclonefirst
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilclonefirst
      * @since windows5.1.2600
      */
     static ILCloneFirst(pidl) {
@@ -10549,7 +10555,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> containing the combined structures. If you set either <i>pidl1</i> or <i>pidl2</i> to <b>NULL</b>, the returned <b>ITEMIDLIST</b> structure is a clone of the non-<b>NULL</b> parameter. Returns <b>NULL</b> if <i>pidl1</i> and <i>pidl2</i> are both set to <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilcombine
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilcombine
      * @since windows5.1.2600
      */
     static ILCombine(pidl1, pidl2) {
@@ -10568,7 +10574,7 @@ class Shell {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure to be freed. This parameter can be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilfree
      * @since windows5.1.2600
      */
     static ILFree(pidl) {
@@ -10583,7 +10589,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PUIDLIST_RELATIVE</b>
      * 
      * Returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure that follows the one specified by <i>pidl</i>. Returns <b>NULL</b> if <i>pidl</i> points to the last <b>SHITEMID</b> structure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilgetnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilgetnext
      * @since windows5.1.2600
      */
     static ILGetNext(pidl) {
@@ -10599,7 +10605,7 @@ class Shell {
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The size of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure specified by <i>pidl</i>, in bytes.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilgetsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilgetsize
      * @since windows5.1.2600
      */
     static ILGetSize(pidl) {
@@ -10621,7 +10627,7 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  The returned pointer is a pointer into the existing parent structure. It is an alias for <i>pidlChild</i>. No new memory is allocated in association with the returned pointer. It is not the caller's responsibility to free the returned value.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilfindchild
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilfindchild
      * @since windows5.1.2600
      */
     static ILFindChild(pidlParent, pidlChild) {
@@ -10639,7 +10645,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PUITEMID_CHILD</b>
      * 
      * A pointer to the last <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure in <i>pidl</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilfindlastid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilfindlastid
      * @since windows5.1.2600
      */
     static ILFindLastID(pidl) {
@@ -10655,7 +10661,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilremovelastid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilremovelastid
      * @since windows5.1.2600
      */
     static ILRemoveLastID(pidl) {
@@ -10676,7 +10682,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the two structures are equal, <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilisequal
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilisequal
      * @since windows5.1.2600
      */
     static ILIsEqual(pidl1, pidl2) {
@@ -10698,7 +10704,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pidl1</i> is a parent of <i>pidl2</i>. If <i>fImmediate</i> is set to <b>TRUE</b>, the function only returns <b>TRUE</b> if <i>pidl1</i> is the immediate parent of <i>pidl2</i>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilisparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilisparent
      * @since windows5.1.2600
      */
     static ILIsParent(pidl1, pidl2, fImmediate) {
@@ -10719,7 +10725,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilsavetostream
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilsavetostream
      * @since windows5.1.2600
      */
     static ILSaveToStream(pstm, pidl) {
@@ -10744,7 +10750,7 @@ class Shell {
      * When this method returns and succeeds, contains the resulting absolute 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. If it fails, contains 
      *       <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-illoadfromstreamex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-illoadfromstreamex
      * @since windows6.0.6000
      */
     static ILLoadFromStreamEx(pstm) {
@@ -10772,7 +10778,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * Returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that corresponds to the path.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilcreatefrompatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilcreatefrompatha
      * @since windows5.1.2600
      */
     static ILCreateFromPathA(pszPath) {
@@ -10798,7 +10804,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * Returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that corresponds to the path.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilcreatefrompathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilcreatefrompathw
      * @since windows5.1.2600
      */
     static ILCreateFromPathW(pszPath) {
@@ -10819,7 +10825,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The path in <i>pszPath</i> expressed as a PIDL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shilcreatefrompath
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shilcreatefrompath
      * @since windows5.1.2600
      */
     static SHILCreateFromPath(pszPath, rgfInOut) {
@@ -10849,7 +10855,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE</b>
      * 
      * Returns the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure specified by <i>pidl</i>, with <i>pmkid</i> appended or prepended. Returns <b>NULL</b> on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ilappendid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ilappendid
      * @since windows5.1.2600
      */
     static ILAppendID(pidl, pmkid, fAppend) {
@@ -10882,7 +10888,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetpathfromidlistex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetpathfromidlistex
      * @since windows6.0.6000
      */
     static SHGetPathFromIDListEx(pidl, pszPath, cchPath, uOpts) {
@@ -10914,7 +10920,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetpathfromidlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetpathfromidlista
      * @since windows5.1.2600
      */
     static SHGetPathFromIDListA(pidl, pszPath) {
@@ -10946,7 +10952,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetpathfromidlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetpathfromidlistw
      * @since windows5.1.2600
      */
     static SHGetPathFromIDListW(pidl, pszPath) {
@@ -10962,7 +10968,7 @@ class Shell {
      * This function creates a file system folder whose fully qualified path is given by <i>pszPath</i>. If one or more of the intermediate folders do not exist, it creates them.
      * 
      * To set security attributes on a new folder, use <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexa">SHCreateDirectoryEx</a>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface is displayed.
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
@@ -11033,14 +11039,14 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedirectory
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatedirectory
      * @since windows5.1.2600
      */
-    static SHCreateDirectory(hwnd, pszPath) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHCreateDirectory(hwnd_, pszPath) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd, "ptr", pszPath, "int")
+        result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd_, "ptr", pszPath, "int")
         return result
     }
 
@@ -11061,7 +11067,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHCreateDirectoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
      * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
@@ -11146,14 +11152,14 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatedirectoryexa
      * @since windows5.0
      */
-    static SHCreateDirectoryExA(hwnd, pszPath, psa) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHCreateDirectoryExA(hwnd_, pszPath, psa) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
+        result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd_, "ptr", pszPath, "ptr", psa, "int")
         return result
     }
 
@@ -11174,7 +11180,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHCreateDirectoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
      * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
@@ -11259,14 +11265,14 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatedirectoryexw
      * @since windows5.0
      */
-    static SHCreateDirectoryExW(hwnd, pszPath, psa) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHCreateDirectoryExW(hwnd_, pszPath, psa) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
+        result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd_, "ptr", pszPath, "ptr", psa, "int")
         return result
     }
 
@@ -11289,7 +11295,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shopenfolderandselectitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shopenfolderandselectitems
      * @since windows5.1.2600
      */
     static SHOpenFolderAndSelectItems(pidlFolder, cidl, apidl, dwFlags) {
@@ -11365,7 +11371,7 @@ class Shell {
      * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When this method returns, contains the interface pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreateshellitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreateshellitem
      * @since windows5.1.2600
      */
     static SHCreateShellItem(pidlParent, psfParent, pidl) {
@@ -11385,13 +11391,13 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * A PIDL specifying the folder's location relative to the root of the namespace (the desktop). It is the responsibility of the calling application to free the returned IDList by using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetspecialfolderlocation
      * @since windows5.0
      */
     static SHGetSpecialFolderLocation(csidl) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr*", &ppidl := 0, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd_, "int", csidl, "ptr*", &ppidl := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -11412,13 +11418,13 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
      * 
      * Returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure of a special folder specified by <i>csidl</i>. The function creates the folder if <i>fCreate</i> is <b>TRUE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shclonespecialidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shclonespecialidlist
      * @since windows5.1.2600
      */
     static SHCloneSpecialIDList(csidl, fCreate) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd, "int", csidl, "int", fCreate, "ptr")
+        result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd_, "int", csidl, "int", fCreate, "ptr")
         return result
     }
 
@@ -11444,15 +11450,15 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetspecialfolderpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetspecialfolderpatha
      * @since windows5.0
      */
     static SHGetSpecialFolderPathA(pszPath, csidl, fCreate) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd_, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
     }
 
@@ -11478,15 +11484,15 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetspecialfolderpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetspecialfolderpathw
      * @since windows5.0
      */
     static SHGetSpecialFolderPathW(pszPath, csidl, fCreate) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd_, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
     }
 
@@ -11500,7 +11506,7 @@ class Shell {
      * For more information on special folders, see the <i>Special Folders and CSIDLs</i> section 
      *     of <a href="https://docs.microsoft.com/windows/desktop/shell/folder-id">Getting a Folder's ID</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shflushsfcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shflushsfcache
      * @since windows5.1.2600
      */
     static SHFlushSFCache() {
@@ -11602,16 +11608,16 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetfolderpatha
      * @since windows5.0
      */
     static SHGetFolderPathA(csidl, hToken, dwFlags, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd_, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -11714,16 +11720,16 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetfolderpathw
      * @since windows5.0
      */
     static SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd_, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -11753,15 +11759,15 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The address of a pointer to an item identifier list structure that specifies the folder's location relative to the root of the namespace (the desktop). The <i>ppidl</i> parameter is set to <b>NULL</b> on failure. The calling application is responsible for freeing this resource by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetfolderlocation
      * @since windows5.0
      */
     static SHGetFolderLocation(csidl, hToken, dwFlags) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", &ppidl := 0, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd_, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", &ppidl := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -11841,7 +11847,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shsetfolderpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shsetfolderpatha
      * @since windows5.1.2600
      */
     static SHSetFolderPathA(csidl, hToken, dwFlags, pszPath) {
@@ -11928,7 +11934,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shsetfolderpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shsetfolderpathw
      * @since windows5.1.2600
      */
     static SHSetFolderPathW(csidl, hToken, dwFlags, pszPath) {
@@ -11966,17 +11972,17 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdira
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdira
      * @since windows5.1.2600
      */
     static SHGetFolderPathAndSubDirA(csidl, hToken, dwFlags, pszSubDir, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd_, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -12007,17 +12013,17 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdirw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetfolderpathandsubdirw
      * @since windows5.1.2600
      */
     static SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
-        static hwnd := 0 ;Reserved parameters must always be NULL
+        static hwnd_ := 0 ;Reserved parameters must always be NULL
 
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd_, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -12049,7 +12055,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns, contains a pointer to the PIDL of the folder. This parameter is passed uninitialized. The caller is responsible for freeing the returned PIDL when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderidlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetknownfolderidlist
      * @since windows6.0.6000
      */
     static SHGetKnownFolderIDList(rfid, dwFlags, hToken) {
@@ -12114,7 +12120,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shsetknownfolderpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shsetknownfolderpath
      * @since windows6.0.6000
      */
     static SHSetKnownFolderPath(rfid, dwFlags, hToken, pszPath) {
@@ -12151,7 +12157,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the path of the known folder. The calling process is responsible for freeing this resource once it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>, whether <b>SHGetKnownFolderPath</b> succeeds or not. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetknownfolderpath
      * @since windows6.0.6000
      */
     static SHGetKnownFolderPath(rfid, dwFlags, hToken) {
@@ -12197,7 +12203,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetknownfolderitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetknownfolderitem
      * @since windows6.1
      */
     static SHGetKnownFolderItem(rfid, flags, hToken, riid) {
@@ -12227,7 +12233,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetsetfoldercustomsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetsetfoldercustomsettings
      * @since windows5.1.2600
      */
     static SHGetSetFolderCustomSettings(pfcs, pszPath, dwReadWrite) {
@@ -12288,7 +12294,7 @@ class Shell {
      *     					
      * 
      * It is possible that the PIDL returned is that of a folder shortcut rather than a folder. For a full discussion of this case, see the Remarks section.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbrowseforfoldera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shbrowseforfoldera
      * @since windows5.1.2600
      */
     static SHBrowseForFolderA(lpbi) {
@@ -12343,7 +12349,7 @@ class Shell {
      *     					
      * 
      * It is possible that the PIDL returned is that of a folder shortcut rather than a folder. For a full discussion of this case, see the Remarks section.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbrowseforfolderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shbrowseforfolderw
      * @since windows5.1.2600
      */
     static SHBrowseForFolderW(lpbi) {
@@ -12363,7 +12369,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise. In Windows Vista and later versions, always returns E_NOTIMPL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shloadinproc
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shloadinproc
      * @since windows5.1.2600
      */
     static SHLoadInProc(rclsid) {
@@ -12380,7 +12386,7 @@ class Shell {
      * @returns {IShellFolder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>**</b>
      * 
      * When this method returns, receives an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface pointer for the desktop folder. The calling application is responsible for eventually freeing the interface by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetdesktopfolder
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetdesktopfolder
      * @since windows5.1.2600
      */
     static SHGetDesktopFolder() {
@@ -12407,7 +12413,7 @@ class Shell {
      * 
      * Optional. Second event-dependent value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shchangenotify
      * @since windows5.1.2600
      */
     static SHChangeNotify(wEventId, uFlags, dwItem1, dwItem2) {
@@ -12531,7 +12537,7 @@ class Shell {
      * 
      * Set this parameter to <b>NULL</b> to clear all usage data on all items.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shaddtorecentdocs
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shaddtorecentdocs
      * @since windows5.1.2600
      */
     static SHAddToRecentDocs(uFlags, pv) {
@@ -12550,7 +12556,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns -1 on failure or the index of the changed image list entry on success.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shhandleupdateimage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shhandleupdateimage
      * @since windows5.1.2600
      */
     static SHHandleUpdateImage(pidlExtra) {
@@ -12584,7 +12590,7 @@ class Shell {
      * 
      * An integer that specifies the index in the system image list of the icon that is being updated.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shupdateimagea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shupdateimagea
      * @since windows5.0
      */
     static SHUpdateImageA(pszHashItem, iIndex, uFlags, iImageIndex) {
@@ -12619,7 +12625,7 @@ class Shell {
      * 
      * An integer that specifies the index in the system image list of the icon that is being updated.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shupdateimagew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shupdateimagew
      * @since windows5.0
      */
     static SHUpdateImageW(pszHashItem, iIndex, uFlags, iImageIndex) {
@@ -12646,7 +12652,7 @@ class Shell {
      * For performance reasons, multiple notifications can be combined into a single notification. For example, if a large number of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHCNE_UPDATEITEM</a> notifications are generated for files in the same folder, they can be joined into a single <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHCNE_UPDATEDIR</a> notification.
      * 
      * The <b>NTSHChangeNotifyRegister</b> function, which is no longer available as of Windows Vista, was equivalent to <b>SHChangeNotifyRegister</b> with the SHCNRF_NewDelivery flag.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window that receives the change or notification messages.
      * @param {Integer} fSources Type: <b>int</b>
@@ -12665,13 +12671,13 @@ class Shell {
      * @returns {Integer} Type: <b>ULONG</b>
      * 
      * Returns a positive integer registration ID. Returns 0 if out of memory or in response to invalid parameters.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotifyregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shchangenotifyregister
      * @since windows5.0
      */
-    static SHChangeNotifyRegister(hwnd, fSources, fEvents, wMsg, cEntries, pshcne) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHChangeNotifyRegister(hwnd_, fSources, fEvents, wMsg, cEntries, pshcne) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("SHELL32.dll\SHChangeNotifyRegister", "ptr", hwnd, "int", fSources, "int", fEvents, "uint", wMsg, "int", cEntries, "ptr", pshcne, "uint")
+        result := DllCall("SHELL32.dll\SHChangeNotifyRegister", "ptr", hwnd_, "int", fSources, "int", fEvents, "uint", wMsg, "int", cEntries, "ptr", pshcne, "uint")
         return result
     }
 
@@ -12687,7 +12693,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the specified client was found and removed; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotifyderegister
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shchangenotifyderegister
      * @since windows5.1.2600
      */
     static SHChangeNotifyDeregister(ulID) {
@@ -12697,7 +12703,7 @@ class Shell {
 
     /**
      * Locks the shared memory associated with a Shell change notification event.
-     * @param {HANDLE} hChange Type: <b>HANDLE</b>
+     * @param {HANDLE} hChange_ Type: <b>HANDLE</b>
      * 
      * A handle to a window received as a <i>wParam</i> in the specified Shell change notification message.
      * @param {Integer} dwProcId Type: <b>DWORD</b>
@@ -12712,16 +12718,16 @@ class Shell {
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle (HLOCK) to the locked memory. Pass this value to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotification_unlock">SHChangeNotification_Unlock</a> when finished.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotification_lock
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shchangenotification_lock
      * @since windows5.0
      */
-    static SHChangeNotification_Lock(hChange, dwProcId, pppidl, plEvent) {
-        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+    static SHChangeNotification_Lock(hChange_, dwProcId, pppidl, plEvent) {
+        hChange_ := hChange_ is Win32Handle ? NumGet(hChange_, "ptr") : hChange_
 
         pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
         plEventMarshal := plEvent is VarRef ? "int*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
+        result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange_, "uint", dwProcId, pppidlMarshal, pppidl, plEventMarshal, plEvent, "ptr")
         resultHandle := HANDLE({Value: result}, True)
         resultHandle.DefineProp("Free", { Call: (self) => Shell.SHChangeNotification_Unlock(self.Value) })
         return resultHandle
@@ -12735,7 +12741,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> on success; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shchangenotification_unlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shchangenotification_unlock
      * @since windows5.0
      */
     static SHChangeNotification_Unlock(hLock) {
@@ -12756,7 +12762,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
      * 
      * When this method returns, contains a pointer to the full converted PIDL. If the function fails, this parameter is set to <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetrealidl
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetrealidl
      * @since windows5.1.2600
      */
     static SHGetRealIDL(psf, pidlSimple) {
@@ -12781,7 +12787,7 @@ class Shell {
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * When this function returns successfully, contains the address of the host process' <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer. This is a free-threaded interface used to prevent the host process from terminating. If the function call fails, this value is set to <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetinstanceexplorer
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetinstanceexplorer
      * @since windows5.1.2600
      */
     static SHGetInstanceExplorer() {
@@ -12823,7 +12829,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or E_INVALIDARG otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetdatafromidlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetdatafromidlista
      * @since windows5.1.2600
      */
     static SHGetDataFromIDListA(psf, pidl, nFormat, pv, cb) {
@@ -12865,7 +12871,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or E_INVALIDARG otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetdatafromidlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetdatafromidlistw
      * @since windows5.1.2600
      */
     static SHGetDataFromIDListW(psf, pidl, nFormat, pv, cb) {
@@ -12879,7 +12885,7 @@ class Shell {
 
     /**
      * Displays a dialog box that prompts the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window.
      * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
@@ -12891,20 +12897,20 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the identifier of the button that was pressed to close the dialog box.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-restartdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-restartdialog
      * @since windows5.0
      */
-    static RestartDialog(hwnd, pszPrompt, dwReturn) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RestartDialog(hwnd_, pszPrompt, dwReturn) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
-        result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "int")
+        result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd_, "ptr", pszPrompt, "uint", dwReturn, "int")
         return result
     }
 
     /**
      * Displays a dialog box that asks the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window.
      * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
@@ -12923,14 +12929,14 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the identifier of the button that was pressed to close the dialog box.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-restartdialogex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-restartdialogex
      * @since windows5.0
      */
-    static RestartDialogEx(hwnd, pszPrompt, dwReturn, dwReasonCode) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RestartDialogEx(hwnd_, pszPrompt, dwReturn, dwReasonCode) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
-        result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
+        result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd_, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
         return result
     }
 
@@ -12953,7 +12959,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns successfully, receives the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcocreateinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcocreateinstance
      * @since windows5.1.2600
      */
     static SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid) {
@@ -12995,7 +13001,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedataobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatedataobject
      * @since windows6.0.6000
      */
     static SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid) {
@@ -13025,7 +13031,7 @@ class Shell {
      * @returns {IDataObject} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>**</b>
      * 
      * The address to a pointer to the object that implements <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-cidldata_createfromidarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-cidldata_createfromidarray
      * @since windows5.0
      */
     static CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl) {
@@ -13050,7 +13056,7 @@ class Shell {
      * @returns {IEnumFORMATETC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a>**</b>
      * 
      * When this function returns successfully, receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interface pointer. Receives <b>NULL</b> on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatestdenumfmtetc
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatestdenumfmtetc
      * @since windows5.1.2600
      */
     static SHCreateStdEnumFmtEtc(cfmt, afmt) {
@@ -13066,7 +13072,7 @@ class Shell {
      * Executes a drag-and-drop operation. Supports drag source creation on demand, as well as drag images.
      * @remarks
      * As of Windows Vista, if a drag image is not already stored in the data object <i>pdtobj</i> and a drag image cannot be obtained from the window specified by <i>hwnd</i>, the Shell provides a generic drag image. A drag image can fail to be obtained from the specified window either because <i>hwnd</i> is <b>NULL</b> or the specified window does not support the DI_GETDRAGIMAGE message.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the window used to obtain the drag image. This value can be <b>NULL</b>. See Remarks for more details.
      * @param {IDataObject} pdata Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
@@ -13085,13 +13091,13 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a value that indicates how the drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdodragdrop
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shdodragdrop
      * @since windows5.1.2600
      */
-    static SHDoDragDrop(hwnd, pdata, pdsrc, dwEffect) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHDoDragDrop(hwnd_, pdata, pdsrc, dwEffect) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", &pdwEffect := 0, "int")
+        result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd_, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", &pdwEffect := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -13112,7 +13118,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_setdragimage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_setdragimage
      * @since windows5.0
      */
     static DAD_SetDragImage(him, pptOffset) {
@@ -13133,7 +13139,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_dragenterex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_dragenterex
      * @since windows5.0
      */
     static DAD_DragEnterEx(hwndTarget, ptStart) {
@@ -13157,7 +13163,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_dragenterex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_dragenterex2
      * @since windows5.0
      */
     static DAD_DragEnterEx2(hwndTarget, ptStart, pdtObject) {
@@ -13177,7 +13183,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_showdragimage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_showdragimage
      * @since windows5.0
      */
     static DAD_ShowDragImage(fShow) {
@@ -13193,7 +13199,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_dragmove
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_dragmove
      * @since windows5.0
      */
     static DAD_DragMove(pt) {
@@ -13206,7 +13212,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>SUCCEEDED</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_dragleave
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_dragleave
      * @since windows5.0
      */
     static DAD_DragLeave() {
@@ -13218,7 +13224,7 @@ class Shell {
      * Scrolls the window while an image is being dragged.
      * @remarks
      * The function is successful and the window scrolls only when the <b>bFull</b> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a> structure is <b>TRUE</b>. Each time this function is called, as long as <b>bFull</b> is <b>FALSE</b>, the <b>iNextSample</b> parameter is incremented by 1 and the current scroll coordinates and time are returned in the <b>AUTO_SCROLL_DATA</b> structure. When <b>iNextSample</b> is equal to NUM_POINTS, <b>bFull</b> is set to <b>TRUE</b>, the function succeeds, and the window scrolls.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window being scrolled.
      * @param {Pointer<AUTO_SCROLL_DATA>} pad Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a>*</b>
@@ -13230,13 +13236,13 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-dad_autoscroll
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-dad_autoscroll
      * @since windows5.0
      */
-    static DAD_AutoScroll(hwnd, pad, pptNow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DAD_AutoScroll(hwnd_, pad, pptNow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", hwnd, "ptr", pad, "ptr", pptNow, "int")
+        result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", hwnd_, "ptr", pad, "ptr", pptNow, "int")
         return result
     }
 
@@ -13251,7 +13257,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the returned structure contains information from the registry. Returns <b>FALSE</b> if the structure contains default information.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-readcabinetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-readcabinetstate
      * @since windows5.1.2600
      */
     static ReadCabinetState(pcs, cLength) {
@@ -13267,7 +13273,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-writecabinetstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-writecabinetstate
      * @since windows5.1.2600
      */
     static WriteCabinetState(pcs) {
@@ -13297,7 +13303,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathmakeuniquename
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pathmakeuniquename
      * @since windows5.0
      */
     static PathMakeUniqueName(pszUniqueName, cchMax, pszTemplate, pszLongPlate, pszDir) {
@@ -13318,7 +13324,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the file name extension is .cmd, .bat, .pif, .scf, .exe, .com, or .scr; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathisexe
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pathisexe
      * @since windows5.1.2600
      */
     static PathIsExe(pszPath) {
@@ -13427,7 +13433,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathcleanupspec
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pathcleanupspec
      * @since windows5.1.2600
      */
     static PathCleanupSpec(pszDir, pszSpec) {
@@ -13456,7 +13462,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns <b>TRUE</b>, unless PRF_VERIFYEXISTS is set. If that flag is set, the function returns <b>TRUE</b> if the file is verified to exist and <b>FALSE</b> otherwise. It also sets an ERROR_FILE_NOT_FOUND error code that you can retrieve by calling <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathresolve
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pathresolve
      * @since windows5.1.2600
      */
     static PathResolve(pszPath, dirs, fFlags) {
@@ -13476,7 +13482,7 @@ class Shell {
 
     /**
      * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @param {PWSTR} pszFilePath Type: <b>PWSTR</b>
@@ -13500,18 +13506,18 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user specifies a file name and clicks <b>OK</b>, the return value is <b>TRUE</b>. The buffer that <i>pszFilePath</i> points to contains the full path and file name that the user specifies. If the user cancels or closes the <b>Open</b> dialog box or an error occurs, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-getfilenamefrombrowse
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-getfilenamefrombrowse
      * @since windows5.0
      */
-    static GetFileNameFromBrowse(hwnd, pszFilePath, cchFilePath, pszWorkingDir, pszDefExt, pszFilters, pszTitle) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetFileNameFromBrowse(hwnd_, pszFilePath, cchFilePath, pszWorkingDir, pszDefExt, pszFilters, pszTitle) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
         pszWorkingDir := pszWorkingDir is String ? StrPtr(pszWorkingDir) : pszWorkingDir
         pszDefExt := pszDefExt is String ? StrPtr(pszDefExt) : pszDefExt
         pszFilters := pszFilters is String ? StrPtr(pszFilters) : pszFilters
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
+        result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd_, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
         return result
     }
 
@@ -13609,7 +13615,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-drivetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-drivetype
      * @since windows5.1.2600
      */
     static DriveType(iDrive) {
@@ -13712,7 +13718,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-realdrivetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-realdrivetype
      * @since windows5.1.2600
      */
     static RealDriveType(iDrive, fOKToHitNet) {
@@ -13768,7 +13774,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isnetdrive
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-isnetdrive
      * @since windows5.0
      */
     static IsNetDrive(iDrive) {
@@ -13799,7 +13805,7 @@ class Shell {
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the next open ID at the end of the menu (the maximum adjusted ID + 1).
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_mergemenus
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shell_mergemenus
      * @since windows5.1.2600
      */
     static Shell_MergeMenus(hmDst, hmSrc, uInsert, uIDAdjust, uIDAdjustMax, uFlags) {
@@ -13812,7 +13818,7 @@ class Shell {
 
     /**
      * SHObjectProperties may be altered or unavailable.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window of the dialog box. This value can be <b>NULL</b>.
      * @param {Integer} shopObjectType Type: <b>DWORD</b>
@@ -13827,15 +13833,15 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the command is successfully invoked; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shobjectproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shobjectproperties
      * @since windows5.1.2600
      */
-    static SHObjectProperties(hwnd, shopObjectType, pszObjectName, pszPropertyPage) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHObjectProperties(hwnd_, shopObjectType, pszObjectName, pszPropertyPage) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszObjectName := pszObjectName is String ? StrPtr(pszObjectName) : pszObjectName
         pszPropertyPage := pszPropertyPage is String ? StrPtr(pszPropertyPage) : pszPropertyPage
 
-        result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
+        result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd_, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
         return result
     }
 
@@ -13843,7 +13849,7 @@ class Shell {
      * SHFormatDrive may be altered or unavailable.
      * @remarks
      * The format is controlled by the dialog box interface. That is, the user must click the <b>OK</b> button to actually begin the format—the format cannot be started programmatically.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window of the dialog box. The <b>Format</b> dialog box must have a parent window; therefore, this parameter cannot be <b>NULL</b>.
      * @param {Integer} drive Type: <b>UINT</b>
@@ -13896,29 +13902,29 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shformatdrive
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shformatdrive
      * @since windows5.1.2600
      */
-    static SHFormatDrive(hwnd, drive, fmtID, options) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHFormatDrive(hwnd_, drive, fmtID, options) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("SHELL32.dll\SHFormatDrive", "ptr", hwnd, "uint", drive, "uint", fmtID, "uint", options, "uint")
+        result := DllCall("SHELL32.dll\SHFormatDrive", "ptr", hwnd_, "uint", drive, "uint", fmtID, "uint", options, "uint")
         return result
     }
 
     /**
      * Frees property sheet handlers that are pointed to an array created by SHCreatePropSheetExtArray.
-     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
+     * @param {HPSXA} hpsxa_ Type: <b>HPSXA</b>
      * 
      * The handle of the array that contains pointers to the property sheet handlers to destroy.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray
      * @since windows5.1.2600
      */
-    static SHDestroyPropSheetExtArray(hpsxa) {
-        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+    static SHDestroyPropSheetExtArray(hpsxa_) {
+        hpsxa_ := hpsxa_ is Win32Handle ? NumGet(hpsxa_, "ptr") : hpsxa_
 
-        DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", hpsxa)
+        DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", hpsxa_)
     }
 
     /**
@@ -13927,31 +13933,32 @@ class Shell {
      * This function should be called only once for the property sheet extension array named in <i>hpsxa</i>.
      * 
      * This function calls each extension's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a> method. See that page for further details.
-     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
+     * @param {HPSXA} hpsxa_ Type: <b>HPSXA</b>
      * 
      * The array of property sheet handlers returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> callback function. It is called once for each property sheet handler. The callback function then returns the information needed to add a page to the handler's property sheet.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * A pointer to application-defined data. This data is passed to the callback function specified by <i>lpfnAddPage</i>.
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the number of pages actually added.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray
      * @since windows5.0
      */
-    static SHAddFromPropSheetExtArray(hpsxa, lpfnAddPage, lParam) {
-        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+    static SHAddFromPropSheetExtArray(hpsxa_, lpfnAddPage, lParam_) {
+        hpsxa_ := hpsxa_ is Win32Handle ? NumGet(hpsxa_, "ptr") : hpsxa_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", hpsxa, "ptr", lpfnAddPage, "ptr", lParam, "uint")
+        result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", hpsxa_, "ptr", lpfnAddPage, "ptr", lParam_, "uint")
         return result
     }
 
     /**
      * Requests each property sheet in a property sheet extension array to replace pages. Each page is allowed up to one replacement.
-     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
+     * @param {HPSXA} hpsxa_ Type: <b>HPSXA</b>
      * 
      * A property sheet array handle (HPSXA) returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
      * @param {Integer} uPageID Type: <b>UINT</b>
@@ -13960,25 +13967,26 @@ class Shell {
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnReplaceWith Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> function used by the property sheet extension to add a page to a property sheet.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * An application-defined value.
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The number of replacements actually performed.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shreplacefrompropsheetextarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shreplacefrompropsheetextarray
      * @since windows5.1.2600
      */
-    static SHReplaceFromPropSheetExtArray(hpsxa, uPageID, lpfnReplaceWith, lParam) {
-        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+    static SHReplaceFromPropSheetExtArray(hpsxa_, uPageID, lpfnReplaceWith, lParam_) {
+        hpsxa_ := hpsxa_ is Win32Handle ? NumGet(hpsxa_, "ptr") : hpsxa_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", hpsxa, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", lParam, "uint")
+        result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", hpsxa_, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", lParam_, "uint")
         return result
     }
 
     /**
      * OpenRegStream may be altered or unavailable. Instead, use SHOpenRegStream2 or SHOpenRegStream.
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the key that is currently open.
      * @param {PWSTR} pszSubkey Type: <b>PCWSTR</b>
@@ -13991,15 +13999,15 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns the address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-openregstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-openregstream
      * @since windows5.1.2600
      */
-    static OpenRegStream(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static OpenRegStream(hkey_, pszSubkey, pszValue, grfMode) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey_, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -14016,7 +14024,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful in displaying the <b>Search</b> window; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shfindfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shfindfiles
      * @since windows5.1.2600
      */
     static SHFindFiles(pidlFolder, pidlSaveFile) {
@@ -14030,7 +14038,7 @@ class Shell {
      * 
      * A pointer to a null-terminated, Unicode string that contains the long path. When the function returns, it contains the equivalent short path.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathgetshortpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pathgetshortpath
      * @since windows5.1.2600
      */
     static PathGetShortPath(pszLongPath) {
@@ -14058,7 +14066,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a unique name was successfully created; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pathyetanothermakeuniquename
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pathyetanothermakeuniquename
      * @since windows5.0
      */
     static PathYetAnotherMakeUniqueName(pszUniqueName, pszPath, pszShort, pszFileSpec) {
@@ -14079,7 +14087,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the file was successfully deleted; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-win32deletefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-win32deletefile
      * @since windows5.1.2600
      */
     static Win32DeleteFile(pszPath) {
@@ -14097,7 +14105,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns nonzero if the specified restriction is in effect, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shrestricted
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shrestricted
      * @since windows5.1.2600
      */
     static SHRestricted(rest) {
@@ -14113,7 +14121,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-signalfileopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-signalfileopen
      * @since windows5.1.2600
      */
     static SignalFileOpen(pidl) {
@@ -14169,7 +14177,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains a flag that is <b>TRUE</b> if the property key was found, otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-assocgetdetailsofpropkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-assocgetdetailsofpropkey
      * @since windows6.0.6000
      */
     static AssocGetDetailsOfPropKey(psf, pidl, pkey, pv) {
@@ -14186,7 +14194,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlobj_core.h header defines SHStartNetConnectionDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window.
      * @param {PWSTR} pszRemoteName Type: <b>LPCTSTR</b>
@@ -14196,14 +14204,14 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shstartnetconnectiondialogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shstartnetconnectiondialogw
      * @since windows5.1.2600
      */
-    static SHStartNetConnectionDialogW(hwnd, pszRemoteName, dwType) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHStartNetConnectionDialogW(hwnd_, pszRemoteName, dwType) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
 
-        result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd, "ptr", pszRemoteName, "uint", dwType, "int")
+        result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd_, "ptr", pszRemoteName, "uint", dwType, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -14282,7 +14290,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdefextracticona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shdefextracticona
      * @since windows5.1.2600
      */
     static SHDefExtractIconA(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, nIconSize) {
@@ -14363,7 +14371,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdefextracticonw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shdefextracticonw
      * @since windows5.1.2600
      */
     static SHDefExtractIconW(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, nIconSize) {
@@ -14388,7 +14396,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shopenwithdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shopenwithdialog
      * @since windows6.0.6000
      */
     static SHOpenWithDialog(hwndParent, poainfo) {
@@ -14416,7 +14424,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> on success. On failure, returns <b>FALSE</b> and the image lists pointed to by <i>phiml</i> and <i>phimlSmall</i> are unchanged.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getimagelists
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shell_getimagelists
      * @since windows5.1.2600
      */
     static Shell_GetImageLists(phiml, phimlSmall) {
@@ -14442,7 +14450,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image, or –1 on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getcachedimageindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shell_getcachedimageindex
      * @since windows5.1.2600
      */
     static Shell_GetCachedImageIndex(pwszIconPath, iIconIndex, uIconFlags) {
@@ -14475,7 +14483,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image, or –1 on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getcachedimageindexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shell_getcachedimageindexa
      * @since windows5.1.2600
      */
     static Shell_GetCachedImageIndexA(pszIconPath, iIconIndex, uIconFlags) {
@@ -14508,7 +14516,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the image, or –1 on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shell_getcachedimageindexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shell_getcachedimageindexw
      * @since windows5.1.2600
      */
     static Shell_GetCachedImageIndexW(pszIconPath, iIconIndex, uIconFlags) {
@@ -14530,7 +14538,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the UNC path exists; <b>FALSE</b> if the UNC path does not exist or if some other failure occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shvalidateunc
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shvalidateunc
      * @since windows5.1.2600
      */
     static SHValidateUNC(hwndOwner, pszFile, fConnect) {
@@ -14557,7 +14565,7 @@ class Shell {
      * 
      * A pointer to a free-threaded <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Components can use this interface (through <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgetinstanceexplorer">SHGetInstanceExplorer</a>) to prevent the host process from terminating. This value can be <b>NULL</b>, in which case the process reference is no longer made available to components.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shsetinstanceexplorer
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shsetinstanceexplorer
      * @since windows5.1.2600
      */
     static SHSetInstanceExplorer(punk) {
@@ -14571,7 +14579,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the user is a member of the Administrator's group; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isuseranadmin
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-isuseranadmin
      * @since windows5.1.2600
      */
     static IsUserAnAdmin() {
@@ -14644,20 +14652,22 @@ class Shell {
      * <td>Updates an object by passing a pointer to an array of two PIDLs.</td>
      * </tr>
      * </table>
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Contents of this value depend on the message passed in <i>uMsg</i>. See individual message topics for more information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value depends on the message passed in <i>uMsg</i>. See individual message topics for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shshellfolderview_message
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shshellfolderview_message
      * @since windows5.1.2600
      */
-    static SHShellFolderView_Message(hwndMain, uMsg, lParam) {
+    static SHShellFolderView_Message(hwndMain, uMsg, lParam_) {
         hwndMain := hwndMain is Win32Handle ? NumGet(hwndMain, "ptr") : hwndMain
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("SHELL32.dll\SHShellFolderView_Message", "ptr", hwndMain, "uint", uMsg, "ptr", lParam, "ptr")
-        return result
+        result := DllCall("SHELL32.dll\SHShellFolderView_Message", "ptr", hwndMain, "uint", uMsg, "ptr", lParam_, "ptr")
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -14692,7 +14702,7 @@ class Shell {
      * @returns {IShellView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
      * 
      * When this function returns successfully, contains an interface pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> object. On failure, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreateshellfolderview
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreateshellfolderview
      * @since windows5.0
      */
     static SHCreateShellFolderView(pcsfv) {
@@ -14709,7 +14719,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure for the parent folder. This value can be <b>NULL</b>.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window. This value can be <b>NULL</b>.
      * @param {Integer} cidl Type: <b>UINT</b>
@@ -14721,7 +14731,7 @@ class Shell {
      * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the parent folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This <b>IShellFolder</b> must support the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface. If it does not, <b>CDefFolderMenu_Create2</b> fails and returns E_NOINTERFACE. This value can be <b>NULL</b>.
-     * @param {Pointer<LPFNDFMCALLBACK>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a></b>
+     * @param {Pointer<LPFNDFMCALLBACK>} pfn_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a> callback object. This value can be <b>NULL</b> if the callback object is not needed.
      * @param {Integer} nKeys Type: <b>UINT</b>
@@ -14738,15 +14748,15 @@ class Shell {
      * @returns {IContextMenu} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> interface pointer that, when this function returns successfully, points to the <b>IContextMenu</b> object that represents the context menu.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-cdeffoldermenu_create2
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-cdeffoldermenu_create2
      * @since windows5.0
      */
-    static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static CDefFolderMenu_Create2(pidlFolder, hwnd_, cidl, apidl, psf, pfn_, nKeys, ahkeys) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", &ppcm := 0, "int")
+        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd_, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn_, "uint", nKeys, "ptr", ahkeys, "ptr*", &ppcm := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -14769,7 +14779,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatedefaultcontextmenu
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatedefaultcontextmenu
      * @since windows6.0.6000
      */
     static SHCreateDefaultContextMenu(pdcm, riid) {
@@ -14783,7 +14793,7 @@ class Shell {
 
     /**
      * SHFind_InitMenuPopup may be altered or unavailable.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu_ Type: <b>HMENU</b>
      * 
      * The handle of the popup menu.
      * @param {HWND} hwndOwner Type: <b>HWND</b>
@@ -14798,14 +14808,14 @@ class Shell {
      * @returns {IContextMenu} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>*</b>
      * 
      * If successful, returns an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> pointer. On failure, returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shfind_initmenupopup
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shfind_initmenupopup
      * @since windows5.1.2600
      */
-    static SHFind_InitMenuPopup(hmenu, hwndOwner, idCmdFirst, idCmdLast) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static SHFind_InitMenuPopup(hmenu_, hwndOwner, idCmdFirst, idCmdLast) {
+        hmenu_ := hmenu_ is Win32Handle ? NumGet(hmenu_, "ptr") : hmenu_
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", hmenu, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast, "ptr")
+        result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", hmenu_, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast, "ptr")
         return result
     }
 
@@ -14821,7 +14831,7 @@ class Shell {
      * @returns {IShellView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface pointer that, when this function returns successfully, points to the new view object. On failure, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreateshellfolderviewex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreateshellfolderviewex
      * @since windows5.0
      */
     static SHCreateShellFolderViewEx(pcsfv) {
@@ -14845,7 +14855,7 @@ class Shell {
      * 
      * <b>TRUE</b> to indicate that the contents of <i>lpss</i> should be used to set the Shell settings, <b>FALSE</b> to indicate that the Shell settings should be retrieved to <i>lpss</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetsetsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetsetsettings
      * @since windows5.1.2600
      */
     static SHGetSetSettings(lpss, dwMask, bSet) {
@@ -14859,7 +14869,7 @@ class Shell {
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shellflagstate">SHELLFLAGSTATE</a> structure that receives the Shell option settings.
      * @param {Integer} dwMask Type: <b>DWORD</b>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetsettings
      * @since windows5.0
      */
     static SHGetSettings(psfs, dwMask) {
@@ -14888,7 +14898,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtoparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shbindtoparent
      * @since windows5.0
      */
     static SHBindToParent(pidl, riid, ppv, ppidlLast) {
@@ -14926,7 +14936,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtofolderidlistparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shbindtofolderidlistparent
      * @since windows6.0.6000
      */
     static SHBindToFolderIDListParent(psfRoot, pidl, riid, ppv, ppidlLast) {
@@ -14964,7 +14974,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtofolderidlistparentex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shbindtofolderidlistparentex
      * @since windows6.0.6000
      */
     static SHBindToFolderIDListParentEx(psfRoot, pidl, ppbc, riid, ppv, ppidlLast) {
@@ -15000,7 +15010,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer as specified in <i>riid</i> to the bound object. If an error occurs, contains a <b>NULL</b> pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shbindtoobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shbindtoobject
      * @since windows6.0.6000
      */
     static SHBindToObject(psf, pidl, pbc, riid) {
@@ -15034,7 +15044,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shparsedisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shparsedisplayname
      * @since windows5.1.2600
      */
     static SHParseDisplayName(pszName, pbc, ppidl, sfgaoIn, psfgaoOut) {
@@ -15061,7 +15071,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHPathPrepareForWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
      * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -15074,14 +15084,14 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the path is available, or an error code otherwise. Note that a return value of S_OK does not mean that the medium is writable; it simply means that the path is available.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpathprepareforwritea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shpathprepareforwritea
      * @since windows5.0
      */
-    static SHPathPrepareForWriteA(hwnd, punkEnableModless, pszPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHPathPrepareForWriteA(hwnd_, punkEnableModless, pszPath, dwFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
+        result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd_, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -15099,7 +15109,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHPathPrepareForWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
      * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -15112,14 +15122,14 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the path is available, or an error code otherwise. Note that a return value of S_OK does not mean that the medium is writable; it simply means that the path is available.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shpathprepareforwritew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shpathprepareforwritew
      * @since windows5.0
      */
-    static SHPathPrepareForWriteW(hwnd, punkEnableModless, pszPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHPathPrepareForWriteW(hwnd_, punkEnableModless, pszPath, dwFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
+        result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd_, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -15141,7 +15151,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iextracticona">IExtractIcon</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shcreatefileextracticonw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shcreatefileextracticonw
      * @since windows5.1.2600
      */
     static SHCreateFileExtractIconW(pszFile, dwFileAttributes, riid) {
@@ -15166,7 +15176,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shlimitinputedit
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shlimitinputedit
      * @since windows5.0
      */
     static SHLimitInputEdit(hwndEdit, psf) {
@@ -15226,7 +15236,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shgetattributesfromdataobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shgetattributesfromdataobject
      * @since windows5.1.2600
      */
     static SHGetAttributesFromDataObject(pdo, dwAttributeMask, pdwAttributes, pcItems) {
@@ -15251,7 +15261,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the item's normal icon in the system image list if successful, or -1 otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shmappidltosystemimagelistindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shmappidltosystemimagelistindex
      * @since windows5.1.2600
      */
     static SHMapPIDLToSystemImageListIndex(pshf, pidl, piIndexSel) {
@@ -15272,7 +15282,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shclsidfromstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-shclsidfromstring
      * @since windows5.0
      */
     static SHCLSIDFromString(psz, pclsid) {
@@ -15288,7 +15298,7 @@ class Shell {
 
     /**
      * PickIconDlg may be altered or unavailable.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window. This value can be <b>NULL</b>.
      * @param {PWSTR} pszIconPath Type: <b>PWSTR</b>
@@ -15303,16 +15313,16 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns 1 if successful; otherwise, 0.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-pickicondlg
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-pickicondlg
      * @since windows5.1.2600
      */
-    static PickIconDlg(hwnd, pszIconPath, cchIconPath, piIconIndex) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static PickIconDlg(hwnd_, pszIconPath, cchIconPath, piIconIndex) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         piIconIndexMarshal := piIconIndex is VarRef ? "int*" : "ptr"
 
-        result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd, "ptr", pszIconPath, "uint", cchIconPath, piIconIndexMarshal, piIconIndex, "int")
+        result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd_, "ptr", pszIconPath, "uint", cchIconPath, piIconIndexMarshal, piIconIndex, "int")
         return result
     }
 
@@ -15335,7 +15345,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-stgmakeuniquename
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-stgmakeuniquename
      * @since windows6.1
      */
     static StgMakeUniqueName(pstgParent, pszFileSpec, grfMode, riid) {
@@ -15351,15 +15361,15 @@ class Shell {
 
     /**
      * Enables asynchronous register and deregister of a thread.
-     * @param {Integer} status Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a></b>
+     * @param {Integer} status_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a></b>
      * 
      * Indicates whether the function is being used to register or deregister the thread. One of the values of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shchangenotifyregisterthread
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-shchangenotifyregisterthread
      * @since windows6.0.6000
      */
-    static SHChangeNotifyRegisterThread(status) {
-        DllCall("SHELL32.dll\SHChangeNotifyRegisterThread", "int", status)
+    static SHChangeNotifyRegisterThread(status_) {
+        DllCall("SHELL32.dll\SHChangeNotifyRegisterThread", "int", status_)
     }
 
     /**
@@ -15394,7 +15404,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the connection is high-latency; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-pathisslowa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-pathisslowa
      * @since windows5.1.2600
      */
     static PathIsSlowA(pszFile, dwAttr) {
@@ -15425,7 +15435,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the connection is high-latency; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-pathissloww
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-pathissloww
      * @since windows5.1.2600
      */
     static PathIsSlowW(pszFile, dwAttr) {
@@ -15441,7 +15451,7 @@ class Shell {
      * When you are finished with the returned HPSXA handle, destroy it by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray">SHDestroyPropSheetExtArray</a>.
      * 
      * This function loads up to <i>max_iface</i> property sheet extensions into an array that is then passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray">SHAddFromPropSheetExtArray</a>.
-     * @param {HKEY} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey_ Type: <b>HKEY</b>
      * 
      * The registry root key that contains the subkey with the property sheet extension handlers. For instance, <b>HKEY_LOCAL_MACHINE</b>.
      * @param {PWSTR} pszSubKey Type: <b>PCWSTR</b>
@@ -15466,14 +15476,14 @@ class Shell {
      * @returns {HPSXA} Type: <b>HPSXA</b>
      * 
      * Returns a handle to an array of property sheet handlers. Pass this value to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray">SHAddFromPropSheetExtArray</a>. You do not access this value directly.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shcreatepropsheetextarray
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-shcreatepropsheetextarray
      * @since windows5.1.2600
      */
-    static SHCreatePropSheetExtArray(hKey, pszSubKey, max_iface) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHCreatePropSheetExtArray(hKey_, pszSubKey, max_iface) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
+        result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey_, "ptr", pszSubKey, "uint", max_iface, "ptr")
         resultHandle := HPSXA({Value: result}, True)
         return resultHandle
     }
@@ -15507,7 +15517,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the property sheet was successfully created; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shopenpropsheetw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-shopenpropsheetw
      * @since windows5.1.2600
      */
     static SHOpenPropSheetW(pszCaption, ahkeys, ckeys, pclsidDefault, pdtobj, psb, pStartPage) {
@@ -15524,7 +15534,7 @@ class Shell {
      * The preferred way to handle updates is to author a Channel Definition Format (CDF) with an Open Software Description (OSD) vocabulary and make the shortcut OSD-aware. Refer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768023(v=vs.85)">Channel Definition Format</a> documentation for details.
      * 
      * The <b>SoftwareUpdateMessageBox</b> function is intended to be used in the case where Shell shortcut hooks do not work. One example is an application that was not installed on the start menu. If that application needs to do its own software update check, it should use this function.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window.
      * @param {PWSTR} pszDistUnit Type: <b>PCWSTR</b>
@@ -15590,14 +15600,14 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-softwareupdatemessagebox
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-softwareupdatemessagebox
      * @since windows5.0
      */
-    static SoftwareUpdateMessageBox(hWnd, pszDistUnit, dwFlags, psdi) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static SoftwareUpdateMessageBox(hWnd_, pszDistUnit, dwFlags, psdi) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszDistUnit := pszDistUnit is String ? StrPtr(pszDistUnit) : pszDistUnit
 
-        result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", "ptr", hWnd, "ptr", pszDistUnit, "uint", dwFlags, "ptr", psdi, "uint")
+        result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", "ptr", hWnd_, "ptr", pszDistUnit, "uint", dwFlags, "ptr", psdi, "uint")
         return result
     }
 
@@ -15612,7 +15622,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shmultifileproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-shmultifileproperties
      * @since windows5.0
      */
     static SHMultiFileProperties(pdtobj, dwFlags) {
@@ -15631,7 +15641,7 @@ class Shell {
      * @returns {IMoniker} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>**</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface pointer that, when this function returns successfully, receives the <b>QueryCancelAutoPlay</b> class moniker. If this function call fails, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shcreatequerycancelautoplaymoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-shcreatequerycancelautoplaymoniker
      * @since windows5.1.2600
      */
     static SHCreateQueryCancelAutoPlayMoniker() {
@@ -15715,7 +15725,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getscalefactorfordevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-getscalefactorfordevice
      * @since windows8.0
      */
     static GetScaleFactorForDevice(deviceType) {
@@ -15739,7 +15749,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Pointer to a value that, when this function returns successfully, receives a registration token. This token is used to revoke notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications">RevokeScaleChangeNotifications</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-registerscalechangenotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-registerscalechangenotifications
      * @since windows8.0
      */
     static RegisterScaleChangeNotifications(displayDevice, hwndNotify, uMsgNotify) {
@@ -15764,7 +15774,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>STDAPI</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications
      * @since windows8.0
      */
     static RevokeScaleChangeNotifications(displayDevice, dwCookie) {
@@ -15785,7 +15795,7 @@ class Shell {
      *                         
      * 
      * If the function call fails, this value points to a valid scale factor so that apps can opt to continue on with incorrectly sized resources.
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getscalefactorformonitor
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-getscalefactorformonitor
      * @since windows8.1
      */
     static GetScaleFactorForMonitor(hMon) {
@@ -15805,7 +15815,7 @@ class Shell {
      * The event is raised whenever something that can affect scale changes, but just because the scale can be affected doesn't mean that it has been. Callers can cache the scale factor to verify that the monitor's scale actually has changed. The event handle will be duplicated, so callers can close their handle at any time.
      * @param {HANDLE} hEvent Handle of the event to register for scale change notifications.
      * @returns {Pointer} When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-registerscalechangeevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-registerscalechangeevent
      * @since windows8.1
      */
     static RegisterScaleChangeEvent(hEvent) {
@@ -15823,7 +15833,7 @@ class Shell {
      * Unregisters for the scale change event registered through RegisterScaleChangeEvent. This function replaces RevokeScaleChangeNotifications.
      * @param {Pointer} dwCookie A pointer to the cookie retrieved in the call to <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-registerscalechangeevent">RegisterScaleChangeEvent</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent
      * @since windows8.1
      */
     static UnregisterScaleChangeEvent(dwCookie) {
@@ -15839,7 +15849,7 @@ class Shell {
      * Retrieves the dots per inch (dpi) occupied by a SHELL_UI_COMPONENT based on the current scale factor and PROCESS_DPI_AWARENESS.
      * @param {Integer} param0 
      * @returns {Integer} The DPI required for an icon of this type.
-     * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getdpiforshelluicomponent
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/nf-shellscalingapi-getdpiforshelluicomponent
      * @since windows8.1
      */
     static GetDpiForShellUIComponent(param0) {
@@ -15888,7 +15898,7 @@ class Shell {
      *                     
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-commandlinetoargvw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-commandlinetoargvw
      * @since windows5.0
      */
     static CommandLineToArgvW(lpCmdLine, pNumArgs) {
@@ -15911,7 +15921,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines DragQueryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop_ Type: <b>HDROP</b>
      * 
      * Identifier of the structure that contains the file names of the dropped files.
      * @param {Integer} iFile Type: <b>UINT</b>
@@ -15932,14 +15942,14 @@ class Shell {
      * If the index value is 0xFFFFFFFF, the return value is a count of the dropped files. Note that the index variable itself returns unchanged, and therefore remains 0xFFFFFFFF.
      * 
      * If the index value is between zero and the total number of dropped files, and the <i>lpszFile</i> buffer address is <b>NULL</b>, the return value is the required size, in characters, of the buffer, <i>not including</i> the terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragqueryfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-dragqueryfilea
      * @since windows5.1.2600
      */
-    static DragQueryFileA(hDrop, iFile, lpszFile, cch) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragQueryFileA(hDrop_, iFile, lpszFile, cch) {
+        hDrop_ := hDrop_ is Win32Handle ? NumGet(hDrop_, "ptr") : hDrop_
         lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
-        result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
+        result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop_, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
     }
 
@@ -15948,7 +15958,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines DragQueryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop_ Type: <b>HDROP</b>
      * 
      * Identifier of the structure that contains the file names of the dropped files.
      * @param {Integer} iFile Type: <b>UINT</b>
@@ -15969,14 +15979,14 @@ class Shell {
      * If the index value is 0xFFFFFFFF, the return value is a count of the dropped files. Note that the index variable itself returns unchanged, and therefore remains 0xFFFFFFFF.
      * 
      * If the index value is between zero and the total number of dropped files, and the <i>lpszFile</i> buffer address is <b>NULL</b>, the return value is the required size, in characters, of the buffer, <i>not including</i> the terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragqueryfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-dragqueryfilew
      * @since windows5.1.2600
      */
-    static DragQueryFileW(hDrop, iFile, lpszFile, cch) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragQueryFileW(hDrop_, iFile, lpszFile, cch) {
+        hDrop_ := hDrop_ is Win32Handle ? NumGet(hDrop_, "ptr") : hDrop_
         lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
-        result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
+        result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop_, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
     }
 
@@ -15984,7 +15994,7 @@ class Shell {
      * Retrieves the position of the mouse pointer at the time a file was dropped during a drag-and-drop operation.
      * @remarks
      * The window for which coordinates are returned is the window that received the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop_ Type: <b>HDROP</b>
      * 
      * Handle of the drop structure that describes the dropped file.
      * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
@@ -15993,49 +16003,49 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the drop occurred in the client area of the window; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragquerypoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-dragquerypoint
      * @since windows5.1.2600
      */
-    static DragQueryPoint(hDrop, ppt) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragQueryPoint(hDrop_, ppt) {
+        hDrop_ := hDrop_ is Win32Handle ? NumGet(hDrop_, "ptr") : hDrop_
 
-        result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", hDrop, "ptr", ppt, "int")
+        result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", hDrop_, "ptr", ppt, "int")
         return result
     }
 
     /**
      * Releases memory that the system allocated for use in transferring file names to the application.
-     * @param {HDROP} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop_ Type: <b>HDROP</b>
      * 
      * Identifier of the structure that describes dropped files. This handle is retrieved from the <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragfinish
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-dragfinish
      * @since windows5.1.2600
      */
-    static DragFinish(hDrop) {
-        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+    static DragFinish(hDrop_) {
+        hDrop_ := hDrop_ is Win32Handle ? NumGet(hDrop_, "ptr") : hDrop_
 
-        DllCall("SHELL32.dll\DragFinish", "ptr", hDrop)
+        DllCall("SHELL32.dll\DragFinish", "ptr", hDrop_)
     }
 
     /**
      * Registers whether a window accepts dropped files.
      * @remarks
      * An application that calls <b>DragAcceptFiles</b> with the <i>fAccept</i> parameter set to <b>TRUE</b> has identified itself as able to process the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message from File Manager.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * The identifier of the window that is registering whether it will accept dropped files.
      * @param {BOOL} fAccept Type: <b>BOOL</b>
      * 
      * A value that indicates if the window identified by the <i>hWnd</i> parameter accepts dropped files. This value is <b>TRUE</b> to accept dropped files or <b>FALSE</b> to discontinue accepting dropped files.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragacceptfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-dragacceptfiles
      * @since windows5.1.2600
      */
-    static DragAcceptFiles(hWnd, fAccept) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static DragAcceptFiles(hWnd_, fAccept) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "int", fAccept)
+        DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd_, "int", fAccept)
     }
 
     /**
@@ -16103,7 +16113,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellExecute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
      * @param {PSTR} lpOperation Type: <b>LPCTSTR</b>
@@ -16298,17 +16308,17 @@ class Shell {
      * </table>
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecutea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellexecutea
      * @since windows5.1.2600
      */
-    static ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ShellExecuteA(hwnd_, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
         lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
-        result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
+        result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd_, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         resultHandle := HINSTANCE({Value: result}, False)
         return resultHandle
     }
@@ -16378,7 +16388,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellExecute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
      * @param {PWSTR} lpOperation Type: <b>LPCTSTR</b>
@@ -16573,17 +16583,17 @@ class Shell {
      * </table>
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecutew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellexecutew
      * @since windows5.1.2600
      */
-    static ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ShellExecuteW(hwnd_, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
         lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
 
-        result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
+        result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd_, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         resultHandle := HINSTANCE({Value: result}, False)
         return resultHandle
     }
@@ -16699,7 +16709,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-findexecutablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-findexecutablea
      * @since windows5.1.2600
      */
     static FindExecutableA(lpFile, lpDirectory, lpResult) {
@@ -16823,7 +16833,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-findexecutablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-findexecutablew
      * @since windows5.1.2600
      */
     static FindExecutableW(lpFile, lpDirectory, lpResult) {
@@ -16848,7 +16858,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellAbout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A window handle to a parent window. This parameter can be <b>NULL</b>.
      * @param {PSTR} szApp Type: <b>LPCTSTR</b>
@@ -16863,22 +16873,22 @@ class Shell {
      * @param {PSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {HICON} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon_ Type: <b>HICON</b>
      * 
      * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
      * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellabouta
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellabouta
      * @since windows5.1.2600
      */
-    static ShellAboutA(hWnd, szApp, szOtherStuff, hIcon) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShellAboutA(hWnd_, szApp, szOtherStuff, hIcon_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szApp := szApp is String ? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        hIcon_ := hIcon_ is Win32Handle ? NumGet(hIcon_, "ptr") : hIcon_
 
-        result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
+        result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd_, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon_, "int")
         return result
     }
 
@@ -16894,7 +16904,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellAbout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A window handle to a parent window. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szApp Type: <b>LPCTSTR</b>
@@ -16909,22 +16919,22 @@ class Shell {
      * @param {PWSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {HICON} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon_ Type: <b>HICON</b>
      * 
      * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
      * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellaboutw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellaboutw
      * @since windows5.1.2600
      */
-    static ShellAboutW(hWnd, szApp, szOtherStuff, hIcon) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static ShellAboutW(hWnd_, szApp, szOtherStuff, hIcon_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szApp := szApp is String ? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        hIcon_ := hIcon_ is Win32Handle ? NumGet(hIcon_, "ptr") : hIcon_
 
-        result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
+        result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd_, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon_, "int")
         return result
     }
 
@@ -16932,21 +16942,21 @@ class Shell {
      * Creates a duplicate of a specified icon.
      * @remarks
      * When it is no longer needed, the caller is responsible for freeing the icon handle returned by <b>DuplicateIcon</b> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
-     * @param {HICON} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon_ Type: <b>HICON</b>
      * 
      * Handle to the icon to be duplicated.
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * If successful, the function returns the handle to the new icon that was created; otherwise, <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-duplicateicon
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-duplicateicon
      * @since windows5.1.2600
      */
-    static DuplicateIcon(hIcon) {
+    static DuplicateIcon(hIcon_) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        hIcon_ := hIcon_ is Win32Handle ? NumGet(hIcon_, "ptr") : hIcon_
 
-        result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon, "ptr")
+        result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon_, "ptr")
         resultHandle := HICON({Value: result}, True)
         return resultHandle
     }
@@ -16985,7 +16995,7 @@ class Shell {
      * 					
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extractassociatedicona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extractassociatedicona
      * @since windows5.1.2600
      */
     static ExtractAssociatedIconA(pszIconPath, piIcon) {
@@ -17034,7 +17044,7 @@ class Shell {
      * 					
      * 
      * If the function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extractassociatediconw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extractassociatediconw
      * @since windows5.1.2600
      */
     static ExtractAssociatedIconW(pszIconPath, piIcon) {
@@ -17084,7 +17094,7 @@ class Shell {
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * Returns the icon's handle if successful, otherwise <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extractassociatediconexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extractassociatediconexa
      * @since windows5.1.2600
      */
     static ExtractAssociatedIconExA(pszIconPath, piIconIndex, piIconId) {
@@ -17135,7 +17145,7 @@ class Shell {
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * Returns the icon's handle if successful, otherwise <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extractassociatediconexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extractassociatediconexw
      * @since windows5.1.2600
      */
     static ExtractAssociatedIconExW(pszIconPath, piIconIndex, piIconId) {
@@ -17177,7 +17187,7 @@ class Shell {
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * The return value is a handle to an icon. If the file specified was not an executable file, DLL, or icon file, the return is 1. If no icons were found in the file, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extracticona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extracticona
      * @since windows5.1.2600
      */
     static ExtractIconA(pszExeFileName, nIconIndex) {
@@ -17216,7 +17226,7 @@ class Shell {
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * The return value is a handle to an icon. If the file specified was not an executable file, DLL, or icon file, the return is 1. If no icons were found in the file, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extracticonw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extracticonw
      * @since windows5.1.2600
      */
     static ExtractIconW(pszExeFileName, nIconIndex) {
@@ -17238,7 +17248,7 @@ class Shell {
      * @returns {Pointer} Type: <b>UINT_PTR</b>
      * 
      * This function returns a message-dependent value. For more information, see the Windows SDK documentation for the specific appbar message sent. Links to those documents are given in the See Also section.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shappbarmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shappbarmessage
      * @since windows5.1.2600
      */
     static SHAppBarMessage(dwMessage, pData) {
@@ -17312,7 +17322,7 @@ class Shell {
      *                         
      * 
      * If the expanded string is too large for the buffer, <b>FALSE</b> is returned in the HIWORD and <i>cchSrc</i> in the LOWORD.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-doenvironmentsubsta
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-doenvironmentsubsta
      * @since windows5.1.2600
      */
     static DoEnvironmentSubstA(pszSrc, cchSrc) {
@@ -17388,7 +17398,7 @@ class Shell {
      *                         
      * 
      * If the expanded string is too large for the buffer, <b>FALSE</b> is returned in the HIWORD and <i>cchSrc</i> in the LOWORD.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-doenvironmentsubstw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-doenvironmentsubstw
      * @since windows5.1.2600
      */
     static DoEnvironmentSubstW(pszSrc, cchSrc) {
@@ -17440,7 +17450,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > If the function encounters an error, it returns **UINT_MAX**. In this case, you can call [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md) to retrieve the error code. For example, this function returns **UINT_MAX** if the file specified by *lpszFile* cannot be found while the *nIconIndex* parameter is any value other than -1 and either *phiconLarge* or *phiconSmall* is not **NULL**. In this case, **GetLastError** returns **ERROR_FILE_NOT_FOUND** (2).
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extracticonexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extracticonexa
      * @since windows5.1.2600
      */
     static ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
@@ -17498,7 +17508,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > If the function encounters an error, it returns **UINT_MAX**. In this case, you can call [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md) to retrieve the error code. For example, this function returns **UINT_MAX** if the file specified by *lpszFile* cannot be found while the *nIconIndex* parameter is any value other than -1 and either *phiconLarge* or *phiconSmall* is not **NULL**. In this case, **GetLastError** returns **ERROR_FILE_NOT_FOUND** (2).
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extracticonexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-extracticonexw
      * @since windows5.1.2600
      */
     static ExtractIconExW(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
@@ -17718,7 +17728,7 @@ class Shell {
      * <td>Destination is a root directory and cannot be renamed.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shfileoperationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shfileoperationa
      * @since windows5.1.2600
      */
     static SHFileOperationA(lpFileOp) {
@@ -17936,7 +17946,7 @@ class Shell {
      * <td>Destination is a root directory and cannot be renamed.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shfileoperationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shfileoperationw
      * @since windows5.1.2600
      */
     static SHFileOperationW(lpFileOp) {
@@ -17956,7 +17966,7 @@ class Shell {
      * 
      * A handle to the file name mapping object to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shfreenamemappings
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shfreenamemappings
      * @since windows5.1.2600
      */
     static SHFreeNameMappings(hNameMappings) {
@@ -18047,7 +18057,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecuteexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellexecuteexa
      * @since windows5.1.2600
      */
     static ShellExecuteExA(pExecInfo) {
@@ -18143,7 +18153,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecuteexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellexecuteexw
      * @since windows5.1.2600
      */
     static ShellExecuteExW(pExecInfo) {
@@ -18181,7 +18191,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> if not. To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shcreateprocessasuserw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shcreateprocessasuserw
      * @since windows5.0
      */
     static SHCreateProcessAsUserW(pscpi) {
@@ -18226,7 +18236,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shevaluatesystemcommandtemplate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shevaluatesystemcommandtemplate
      * @since windows6.0.6000
      */
     static SHEvaluateSystemCommandTemplate(pszCmdTemplate, ppszApplication, ppszCommandLine, ppszParameters) {
@@ -18260,7 +18270,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-assoccreateforclasses
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-assoccreateforclasses
      * @since windows6.0.6000
      */
     static AssocCreateForClasses(rgClasses, cClasses, riid) {
@@ -18292,7 +18302,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryrecyclebina
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shqueryrecyclebina
      * @since windows5.0
      */
     static SHQueryRecycleBinA(pszRootPath, pSHQueryRBInfo) {
@@ -18326,7 +18336,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryrecyclebinw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shqueryrecyclebinw
      * @since windows5.0
      */
     static SHQueryRecycleBinW(pszRootPath, pSHQueryRBInfo) {
@@ -18345,7 +18355,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines SHEmptyRecycleBin as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
      * @param {PSTR} pszRootPath Type: <b>LPCTSTR</b>
@@ -18355,14 +18365,14 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebina
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shemptyrecyclebina
      * @since windows5.0
      */
-    static SHEmptyRecycleBinA(hwnd, pszRootPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHEmptyRecycleBinA(hwnd_, pszRootPath, dwFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-        result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
+        result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd_, "ptr", pszRootPath, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -18375,7 +18385,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines SHEmptyRecycleBin as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
      * @param {PWSTR} pszRootPath Type: <b>LPCTSTR</b>
@@ -18385,14 +18395,14 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebinw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shemptyrecyclebinw
      * @since windows5.0
      */
-    static SHEmptyRecycleBinW(hwnd, pszRootPath, dwFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHEmptyRecycleBinW(hwnd_, pszRootPath, dwFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
-        result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
+        result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd_, "ptr", pszRootPath, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -18409,7 +18419,7 @@ class Shell {
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
      * 
      * When this function returns, contains a pointer to one of the values of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a> enumeration.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryusernotificationstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shqueryusernotificationstate
      * @since windows6.0.6000
      */
     static SHQueryUserNotificationState() {
@@ -18469,7 +18479,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. If <i>dwMessage</i> is set to NIM_SETVERSION, the function returns <b>TRUE</b> if the version was successfully changed, or <b>FALSE</b> if the requested version is not supported.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shell_notifyicona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shell_notifyicona
      * @since windows5.1.2600
      */
     static Shell_NotifyIconA(dwMessage, lpData) {
@@ -18525,7 +18535,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. If <i>dwMessage</i> is set to NIM_SETVERSION, the function returns <b>TRUE</b> if the version was successfully changed, or <b>FALSE</b> if the requested version is not supported.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shell_notifyiconw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shell_notifyiconw
      * @since windows5.1.2600
      */
     static Shell_NotifyIconW(dwMessage, lpData) {
@@ -18544,7 +18554,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shell_notifyicongetrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shell_notifyicongetrect
      * @since windows6.1
      */
     static Shell_NotifyIconGetRect(identifier, iconLocation) {
@@ -18649,7 +18659,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetfileinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetfileinfoa
      * @since windows5.1.2600
      */
     static SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
@@ -18752,7 +18762,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetfileinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetfileinfow
      * @since windows5.1.2600
      */
     static SHGetFileInfoW(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
@@ -18778,7 +18788,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetstockiconinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetstockiconinfo
      * @since windows6.0.6000
      */
     static SHGetStockIconInfo(siid, uFlags, psii) {
@@ -18818,7 +18828,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetdiskfreespaceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetdiskfreespaceexa
      * @since windows5.0
      */
     static SHGetDiskFreeSpaceExA(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
@@ -18860,7 +18870,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetdiskfreespaceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetdiskfreespaceexw
      * @since windows5.0
      */
     static SHGetDiskFreeSpaceExW(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
@@ -18900,7 +18910,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetnewlinkinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetnewlinkinfoa
      * @since windows5.0
      */
     static SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags) {
@@ -18940,7 +18950,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetnewlinkinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetnewlinkinfow
      * @since windows5.0
      */
     static SHGetNewLinkInfoW(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags) {
@@ -18972,7 +18982,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines SHInvokePrinterCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window of any windows or dialog boxes that are created during the operation.
      * @param {Integer} uAction Type: <b>UINT</b>
@@ -18988,15 +18998,15 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shinvokeprintercommanda
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shinvokeprintercommanda
      * @since windows5.0
      */
-    static SHInvokePrinterCommandA(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHInvokePrinterCommandA(hwnd_, uAction, lpBuf1, lpBuf2, fModal) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
 
-        result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
+        result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd_, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
     }
 
@@ -19018,7 +19028,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines SHInvokePrinterCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window of any windows or dialog boxes that are created during the operation.
      * @param {Integer} uAction Type: <b>UINT</b>
@@ -19034,15 +19044,15 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shinvokeprintercommandw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shinvokeprintercommandw
      * @since windows5.0
      */
-    static SHInvokePrinterCommandW(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHInvokePrinterCommandW(hwnd_, uAction, lpBuf1, lpBuf2, fModal) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
 
-        result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
+        result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd_, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
     }
 
@@ -19055,7 +19065,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shloadnonloadediconoverlayidentifiers
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shloadnonloadediconoverlayidentifiers
      * @since windows5.0
      */
     static SHLoadNonloadedIconOverlayIdentifiers() {
@@ -19079,7 +19089,7 @@ class Shell {
      * @returns {Integer} Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable of type <b>DWORD</b> that receives one or more of the following flags if the function succeeds.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shisfileavailableoffline
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shisfileavailableoffline
      * @since windows5.0
      */
     static SHIsFileAvailableOffline(pwszPath) {
@@ -19115,7 +19125,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shsetlocalizedname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shsetlocalizedname
      * @since windows5.1.2600
      */
     static SHSetLocalizedName(pszPath, pszResModule, idsRes) {
@@ -19144,7 +19154,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shremovelocalizedname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shremovelocalizedname
      * @since windows6.0.6000
      */
     static SHRemoveLocalizedName(pszPath) {
@@ -19172,7 +19182,7 @@ class Shell {
      * @returns {Integer} Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the ID of the localized file name in the resource file.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetlocalizedname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetlocalizedname
      * @since windows6.0.6000
      */
     static SHGetLocalizedName(pszPath, pszResModule, cch) {
@@ -19195,7 +19205,7 @@ class Shell {
      * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
      * @param {PSTR} lpcText Type: <b>LPCTSTR</b>
@@ -19214,18 +19224,18 @@ class Shell {
      * 					
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellmessageboxa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellmessageboxa
      * @since windows5.1.2600
      */
-    static ShellMessageBoxA(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
+    static ShellMessageBoxA(hAppInst, hWnd_, lpcText, lpcTitle, fuStyle) {
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
         lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", hWnd_, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -19241,7 +19251,7 @@ class Shell {
      * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {HWND} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd_ Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
      * @param {PWSTR} lpcText Type: <b>LPCTSTR</b>
@@ -19260,18 +19270,18 @@ class Shell {
      * 					
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellmessageboxw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shellmessageboxw
      * @since windows5.1.2600
      */
-    static ShellMessageBoxW(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
+    static ShellMessageBoxW(hAppInst, hWnd_, lpcText, lpcTitle, fuStyle) {
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
         lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", hWnd_, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -19328,7 +19338,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shenumerateunreadmailaccountsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shenumerateunreadmailaccountsw
      * @since windows5.1.2600
      */
     static SHEnumerateUnreadMailAccountsW(hKeyUser, dwIndex, pszMailAddress, cchMailAddress) {
@@ -19363,7 +19373,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Pointer to a DWORD value which receives the unread message count.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetunreadmailcountw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetunreadmailcountw
      * @since windows5.1.2600
      */
     static SHGetUnreadMailCountW(hKeyUser, pszMailAddress, pFileTime, pszShellExecuteCommand, cchShellExecuteCommand) {
@@ -19443,7 +19453,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shsetunreadmailcountw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shsetunreadmailcountw
      * @since windows5.1.2600
      */
     static SHSetUnreadMailCountW(pszMailAddress, dwCount, pszShellExecuteCommand) {
@@ -19471,7 +19481,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> on success, <b>FALSE</b> on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shtesttokenmembership
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shtesttokenmembership
      * @since windows5.1.2600
      */
     static SHTestTokenMembership(hToken, ulRID) {
@@ -19487,18 +19497,18 @@ class Shell {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a> pointer type, such as that returned in the <i>ppv</i> parameter, can be cast as an <b>HIMAGELIST</b> as needed; for example, for use in a list view. Conversely, an <b>HIMAGELIST</b> can be cast as a pointer to an <b>IImageList</b>.
      * 
      * As of Windows Vista, <b>SHIL_SMALL</b>, <b>SHIL_LARGE</b>, and <b>SHIL_EXTRALARGE</b> scale with dots per inch (dpi) if the process is marked as dpi-aware. To set these types to be dpi-aware, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setprocessdpiaware">SetProcessDPIAware</a>. <b>SHIL_JUMBO</b> is fixed at 256 pixels regardless of the dpi-aware setting.
-     * @param {Integer} iImageList Type: <b>int</b>
+     * @param {Integer} iImageList_ Type: <b>int</b>
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the image list interface identifier, normally IID_IImageList.
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetimagelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetimagelist
      * @since windows5.1.2600
      */
-    static SHGetImageList(iImageList, riid) {
-        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr*", &ppvObj := 0, "int")
+    static SHGetImageList(iImageList_, riid) {
+        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList_, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -19515,7 +19525,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the initialization succeeded; or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-initnetworkaddresscontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-initnetworkaddresscontrol
      * @since windows6.0.6000
      */
     static InitNetworkAddressControl() {
@@ -19531,7 +19541,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to the type of media in the given drive. A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iquerycancelautoplay-allowautoplay">ARCONTENT</a> flags.
-     * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shgetdrivemedia
+     * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/nf-shellapi-shgetdrivemedia
      * @since windows6.0.6000
      */
     static SHGetDriveMedia(pszDrive) {
@@ -19564,7 +19574,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strchra
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strchra
      * @since windows5.0
      */
     static StrChrA(pszStart, wMatch) {
@@ -19593,7 +19603,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strchrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strchrw
      * @since windows5.0
      */
     static StrChrW(pszStart, wMatch) {
@@ -19622,7 +19632,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strchria
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strchria
      * @since windows5.0
      */
     static StrChrIA(pszStart, wMatch) {
@@ -19651,7 +19661,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strchriw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strchriw
      * @since windows5.0
      */
     static StrChrIW(pszStart, wMatch) {
@@ -19679,7 +19689,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strchrnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strchrnw
      * @since windows5.1.2600
      */
     static StrChrNW(pszStart, wMatch, cchMax) {
@@ -19707,7 +19717,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strchrniw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strchrniw
      * @since windows6.0.6000
      */
     static StrChrNIW(pszStart, wMatch, cchMax) {
@@ -19734,7 +19744,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpna
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpna
      * @since windows5.0
      */
     static StrCmpNA(psz1, psz2, nChar) {
@@ -19762,7 +19772,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpnw
      * @since windows5.0
      */
     static StrCmpNW(psz1, psz2, nChar) {
@@ -19790,7 +19800,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnia
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpnia
      * @since windows5.0
      */
     static StrCmpNIA(psz1, psz2, nChar) {
@@ -19818,7 +19828,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are greater than those from the string pointed to by <i>psz2</i>. It returns a negative value if the first <i>nChar</i> characters of the string pointed to by <i>psz1</i> are less than those from the string pointed to by <i>psz2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpniw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpniw
      * @since windows5.0
      */
     static StrCmpNIW(psz1, psz2, nChar) {
@@ -19848,7 +19858,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspna
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcspna
      * @since windows5.0
      */
     static StrCSpnA(pszStr, pszSet) {
@@ -19878,7 +19888,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcspnw
      * @since windows5.0
      */
     static StrCSpnW(pszStr, pszSet) {
@@ -19908,7 +19918,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspnia
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcspnia
      * @since windows5.0
      */
     static StrCSpnIA(pszStr, pszSet) {
@@ -19938,7 +19948,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the index of the first occurrence in <i>pszStr</i> of any character from <i>pszSet</i>, or the length of <i>pszStr</i> if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcspniw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcspniw
      * @since windows5.0
      */
     static StrCSpnIW(pszStr, pszSet) {
@@ -19961,7 +19971,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the string that was copied, or <b>NULL</b> if the string cannot be copied.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strdupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strdupa
      * @since windows5.0
      */
     static StrDupA(pszSrch) {
@@ -19983,7 +19993,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the string that was copied, or <b>NULL</b> if the string cannot be copied.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strdupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strdupw
      * @since windows5.0
      */
     static StrDupW(pszSrch) {
@@ -20033,7 +20043,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesizeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strformatbytesizeex
      * @since windows6.0.6000
      */
     static StrFormatByteSizeEx(ull, flags, pszBuf, cchBuf) {
@@ -20102,7 +20112,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesizea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strformatbytesizea
      * @since windows5.0
      */
     static StrFormatByteSizeA(dw, pszBuf, cchBuf) {
@@ -20159,7 +20169,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesize64a
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strformatbytesize64a
      * @since windows5.0
      */
     static StrFormatByteSize64A(qdw, pszBuf, cchBuf) {
@@ -20224,7 +20234,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatbytesizew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strformatbytesizew
      * @since windows5.0
      */
     static StrFormatByteSizeW(qdw, pszBuf, cchBuf) {
@@ -20257,7 +20267,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatkbsizew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strformatkbsizew
      * @since windows5.0
      */
     static StrFormatKBSizeW(qdw, pszBuf, cchBuf) {
@@ -20290,7 +20300,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strformatkbsizea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strformatkbsizea
      * @since windows5.0
      */
     static StrFormatKBSizeA(qdw, pszBuf, cchBuf) {
@@ -20360,7 +20370,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters in <i>pszOut</i>, excluding the terminating <b>NULL</b> character.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strfromtimeintervala
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strfromtimeintervala
      * @since windows5.0
      */
     static StrFromTimeIntervalA(pszOut, cchMax, dwTimeMS, digits) {
@@ -20430,7 +20440,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters in <i>pszOut</i>, excluding the terminating <b>NULL</b> character.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strfromtimeintervalw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strfromtimeintervalw
      * @since windows5.0
      */
     static StrFromTimeIntervalW(pszOut, cchMax, dwTimeMS, digits) {
@@ -20465,7 +20475,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the first <i>nChar</i> characters from the two strings are equal; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strisintlequala
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strisintlequala
      * @since windows5.0
      */
     static StrIsIntlEqualA(fCaseSens, pszString1, pszString2, nChar) {
@@ -20501,7 +20511,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the first <i>nChar</i> characters from the two strings are equal; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strisintlequalw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strisintlequalw
      * @since windows5.0
      */
     static StrIsIntlEqualW(fCaseSens, pszString1, pszString2, nChar) {
@@ -20534,7 +20544,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>, which holds the combined string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strncata
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strncata
      * @since windows5.0
      */
     static StrNCatA(psz1, psz2, cchMax) {
@@ -20567,7 +20577,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>, which holds the combined string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strncatw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strncatw
      * @since windows5.0
      */
     static StrNCatW(psz1, psz2, cchMax) {
@@ -20592,7 +20602,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address in <i>psz</i> of the first occurrence of a character contained in the buffer at <i>pszSet</i>, or <b>NULL</b> if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strpbrka
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strpbrka
      * @since windows5.0
      */
     static StrPBrkA(psz, pszSet) {
@@ -20617,7 +20627,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address in <i>psz</i> of the first occurrence of a character contained in the buffer at <i>pszSet</i>, or <b>NULL</b> if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strpbrkw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strpbrkw
      * @since windows5.0
      */
     static StrPBrkW(psz, pszSet) {
@@ -20650,7 +20660,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrchra
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrchra
      * @since windows5.0
      */
     static StrRChrA(pszStart, pszEnd, wMatch) {
@@ -20683,7 +20693,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrchrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrchrw
      * @since windows5.0
      */
     static StrRChrW(pszStart, pszEnd, wMatch) {
@@ -20716,7 +20726,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrchria
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrchria
      * @since windows5.0
      */
     static StrRChrIA(pszStart, pszEnd, wMatch) {
@@ -20749,7 +20759,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrchriw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrchriw
      * @since windows5.0
      */
     static StrRChrIW(pszStart, pszEnd, wMatch) {
@@ -20777,7 +20787,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the last occurrence of the substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrstria
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrstria
      * @since windows5.0
      */
     static StrRStrIA(pszSource, pszLast, pszSrch) {
@@ -20806,7 +20816,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the last occurrence of the substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrstriw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrstriw
      * @since windows5.0
      */
     static StrRStrIW(pszSource, pszLast, pszSrch) {
@@ -20832,7 +20842,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the length, in characters, of the matching string or zero if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strspna
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strspna
      * @since windows5.0
      */
     static StrSpnA(psz, pszSet) {
@@ -20857,7 +20867,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the length, in characters, of the matching string or zero if no match is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strspnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strspnw
      * @since windows5.0
      */
     static StrSpnW(psz, pszSet) {
@@ -20882,7 +20892,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strstra
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strstra
      * @since windows5.0
      */
     static StrStrA(pszFirst, pszSrch) {
@@ -20907,7 +20917,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strstrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strstrw
      * @since windows5.0
      */
     static StrStrW(pszFirst, pszSrch) {
@@ -20932,7 +20942,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strstria
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strstria
      * @since windows5.0
      */
     static StrStrIA(pszFirst, pszSrch) {
@@ -20957,7 +20967,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strstriw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strstriw
      * @since windows5.0
      */
     static StrStrIW(pszFirst, pszSrch) {
@@ -20982,7 +20992,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strstrnw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strstrnw
      * @since windows6.0.6000
      */
     static StrStrNW(pszFirst, pszSrch, cchMax) {
@@ -21007,7 +21017,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strstrniw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strstrniw
      * @since windows6.0.6000
      */
     static StrStrNIW(pszFirst, pszSrch, cchMax) {
@@ -21044,7 +21054,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the <b>int</b> value represented by <i>pszSrc</i>. For instance, the string "123" returns the integer value 123.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtointa
      * @since windows5.0
      */
     static StrToIntA(pszSrc) {
@@ -21080,7 +21090,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the <b>int</b> value represented by <i>pszSrc</i>. For instance, the string "123" returns the integer value 123.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtointw
      * @since windows5.0
      */
     static StrToIntW(pszSrc) {
@@ -21144,7 +21154,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtointexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtointexa
      * @since windows5.0
      */
     static StrToIntExA(pszString, dwFlags, piRet) {
@@ -21210,7 +21220,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtointexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtointexw
      * @since windows5.0
      */
     static StrToIntExW(pszString, dwFlags, piRet) {
@@ -21279,7 +21289,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtoint64exa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtoint64exa
      * @since windows5.0
      */
     static StrToInt64ExA(pszString, dwFlags, pllRet) {
@@ -21348,7 +21358,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtoint64exw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtoint64exw
      * @since windows5.0
      */
     static StrToInt64ExW(pszString, dwFlags, pllRet) {
@@ -21374,7 +21384,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if any characters were removed; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtrima
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtrima
      * @since windows5.0
      */
     static StrTrimA(psz, pszTrimChars) {
@@ -21399,7 +21409,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if any characters were removed; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strtrimw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strtrimw
      * @since windows5.0
      */
     static StrTrimW(psz, pszTrimChars) {
@@ -21423,7 +21433,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>, which holds the combined strings.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcatw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcatw
      * @since windows5.0
      */
     static StrCatW(psz1, psz2) {
@@ -21445,7 +21455,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>psz1</i> is greater than that pointed to by <i>psz2</i>. Returns a negative value if the string pointed to by <i>psz1</i> is less than that pointed to by <i>psz2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpw
      * @since windows5.0
      */
     static StrCmpW(psz1, psz2) {
@@ -21467,7 +21477,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>psz1</i> is greater than that pointed to by <i>psz2</i>. Returns a negative value if the string pointed to by <i>psz1</i> is less than that pointed to by <i>psz2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpiw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpiw
      * @since windows5.0
      */
     static StrCmpIW(psz1, psz2) {
@@ -21491,7 +21501,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcpyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcpyw
      * @since windows5.0
      */
     static StrCpyW(psz1, psz2) {
@@ -21518,7 +21528,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>pszDst</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcpynw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcpynw
      * @since windows5.0
      */
     static StrCpyNW(pszDst, pszSrc, cchMax) {
@@ -21551,7 +21561,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the destination string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcatbuffw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcatbuffw
      * @since windows5.0
      */
     static StrCatBuffW(pszDest, pszSrc, cchDestBuffSize) {
@@ -21584,7 +21594,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the destination string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcatbuffa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcatbuffa
      * @since windows5.0
      */
     static StrCatBuffA(pszDest, pszSrc, cchDestBuffSize) {
@@ -21609,7 +21619,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns zero if the two characters are the same, or nonzero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-chrcmpia
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-chrcmpia
      * @since windows5.0
      */
     static ChrCmpIA(w1, w2) {
@@ -21631,7 +21641,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns zero if the two characters are the same, or nonzero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-chrcmpiw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-chrcmpiw
      * @since windows5.0
      */
     static ChrCmpIW(w1, w2) {
@@ -21664,7 +21674,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wvnsprintfa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-wvnsprintfa
      * @since windows5.0
      */
     static wvnsprintfA(pszDest, cchDest, pszFmt, arglist) {
@@ -21702,7 +21712,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wvnsprintfw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-wvnsprintfw
      * @since windows5.0
      */
     static wvnsprintfW(pszDest, cchDest, pszFmt, arglist) {
@@ -21739,7 +21749,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wnsprintfa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-wnsprintfa
      * @since windows5.0
      */
     static wnsprintfA(pszDest, cchDest, pszFmt) {
@@ -21774,7 +21784,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wnsprintfw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-wnsprintfw
      * @since windows5.0
      */
     static wnsprintfW(pszDest, cchDest, pszFmt) {
@@ -21790,7 +21800,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToStr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * @param {Pointer<STRRET>} pstr_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -21799,11 +21809,11 @@ class Shell {
      * @returns {PSTR} Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettostra
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrettostra
      * @since windows5.0
      */
-    static StrRetToStrA(pstr, pidl) {
-        result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "int")
+    static StrRetToStrA(pstr_, pidl) {
+        result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr_, "ptr", pidl, "ptr*", &ppsz := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -21816,7 +21826,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToStr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * @param {Pointer<STRRET>} pstr_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -21825,11 +21835,11 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettostrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrettostrw
      * @since windows5.0
      */
-    static StrRetToStrW(pstr, pidl) {
-        result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "int")
+    static StrRetToStrW(pstr_, pidl) {
+        result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr_, "ptr", pidl, "ptr*", &ppsz := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -21848,7 +21858,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToBuf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * @param {Pointer<STRRET>} pstr_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -21863,13 +21873,13 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobufa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrettobufa
      * @since windows5.0
      */
-    static StrRetToBufA(pstr, pidl, pszBuf, cchBuf) {
+    static StrRetToBufA(pstr_, pidl, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
+        result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", pstr_, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -21888,7 +21898,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToBuf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * @param {Pointer<STRRET>} pstr_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -21903,13 +21913,13 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobufw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrettobufw
      * @since windows5.0
      */
-    static StrRetToBufW(pstr, pidl, pszBuf, cchBuf) {
+    static StrRetToBufW(pstr_, pidl, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
+        result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", pstr_, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -21940,7 +21950,7 @@ class Shell {
      *                     
      * 
      * In the case of failure, this value is NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shstrdupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shstrdupa
      * @since windows5.0
      */
     static SHStrDupA(psz) {
@@ -21977,7 +21987,7 @@ class Shell {
      *                     
      * 
      * In the case of failure, this value is NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shstrdupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shstrdupw
      * @since windows5.0
      */
     static SHStrDupW(psz) {
@@ -22045,7 +22055,7 @@ class Shell {
      * <li>Returns 1 if the string pointed to by <i>psz1</i> has a greater value than that pointed to by <i>psz2</i>.</li>
      * <li>Returns -1 if the string pointed to by <i>psz1</i> has a lesser value than that pointed to by <i>psz2</i>.</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmplogicalw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmplogicalw
      * @since windows5.1.2600
      */
     static StrCmpLogicalW(psz1, psz2) {
@@ -22075,7 +22085,7 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the offset of the null character after the last character added to <i>pszDst</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcatchainw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcatchainw
      * @since windows5.1.2600
      */
     static StrCatChainW(pszDst, cchDst, ichAt, pszSrc) {
@@ -22090,7 +22100,7 @@ class Shell {
      * Accepts a STRRET structure returned by IShellFolder::GetDisplayNameOf that contains or points to a string, and returns that string as a BSTR.
      * @remarks
      * If the <i>uType</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure pointed to by <i>pstr</i> is set to <b>STRRET_WSTR</b>, the <i>pOleStr</i> member of that structure is freed on return.
-     * @param {Pointer<STRRET>} pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * @param {Pointer<STRRET>} pstr_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer is longer valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
@@ -22099,12 +22109,12 @@ class Shell {
      * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * A pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that receives the converted string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strrettobstr
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strrettobstr
      * @since windows5.1.2600
      */
-    static StrRetToBSTR(pstr, pidl) {
+    static StrRetToBSTR(pstr_, pidl) {
         pbstr := BSTR()
-        result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr, "ptr", pidl, "ptr", pbstr, "int")
+        result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr_, "ptr", pidl, "ptr", pbstr, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -22205,7 +22215,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shloadindirectstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shloadindirectstring
      * @since windows5.1.2600
      */
     static SHLoadIndirectString(pszSource, pszOutBuf, cchOutBuf) {
@@ -22238,7 +22248,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the character is a space; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-ischarspacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-ischarspacea
      * @since windows5.0
      */
     static IsCharSpaceA(wch) {
@@ -22262,7 +22272,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the character is a space; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-ischarspacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-ischarspacew
      * @since windows5.0
      */
     static IsCharSpaceW(wch) {
@@ -22294,7 +22304,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpca
      * @since windows5.0
      */
     static StrCmpCA(pszStr1, pszStr2) {
@@ -22329,7 +22339,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpcw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpcw
      * @since windows5.0
      */
     static StrCmpCW(pszStr1, pszStr2) {
@@ -22364,7 +22374,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpica
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpica
      * @since windows5.0
      */
     static StrCmpICA(pszStr1, pszStr2) {
@@ -22399,7 +22409,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the strings are identical. Returns a positive value if the string pointed to by <i>lpStr1</i> is alphabetically greater than that pointed to by <i>lpStr2</i>. Returns a negative value if the string pointed to by <i>lpStr1</i> is alphabetically less than that pointed to by <i>lpStr2</i>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpicw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpicw
      * @since windows5.0
      */
     static StrCmpICW(pszStr1, pszStr2) {
@@ -22437,7 +22447,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater than the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpnca
      * @since windows5.0
      */
     static StrCmpNCA(pszStr1, pszStr2, nChar) {
@@ -22475,7 +22485,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater than the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpncw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpncw
      * @since windows5.0
      */
     static StrCmpNCW(pszStr1, pszStr2, nChar) {
@@ -22513,7 +22523,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnica
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpnica
      * @since windows5.0
      */
     static StrCmpNICA(pszStr1, pszStr2, nChar) {
@@ -22551,7 +22561,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the substrings are identical. Returns a positive value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically greater the string taken from that pointed to by <i>pszStr2</i>. Returns a negative value if the string taken from that pointed to by <i>pszStr1</i> is alphabetically less than the string taken from that pointed to by <i>pszStr2</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-strcmpnicw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-strcmpnicw
      * @since windows5.0
      */
     static StrCmpNICW(pszStr1, pszStr2, nChar) {
@@ -22581,7 +22591,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the first <i>nChar</i> characters are identical, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-intlstreqworkera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-intlstreqworkera
      * @since windows5.0
      */
     static IntlStrEqWorkerA(fCaseSens, lpString1, lpString2, nChar) {
@@ -22611,7 +22621,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the first <i>nChar</i> characters are identical, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-intlstreqworkerw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-intlstreqworkerw
      * @since windows5.0
      */
     static IntlStrEqWorkerW(fCaseSens, lpString1, lpString2, nChar) {
@@ -22633,7 +22643,7 @@ class Shell {
      * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the new string's terminating null character. If the backslash could not be appended due to inadequate buffer size, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathaddbackslasha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathaddbackslasha
      * @since windows5.0
      */
     static PathAddBackslashA(pszPath) {
@@ -22654,7 +22664,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the new string's terminating null character. If the backslash could not be appended due to inadequate buffer size, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathaddbackslashw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathaddbackslashw
      * @since windows5.0
      */
     static PathAddBackslashW(pszPath) {
@@ -22677,7 +22687,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if an extension was added, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathaddextensiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathaddextensiona
      * @since windows5.0
      */
     static PathAddExtensionA(pszPath, pszExt) {
@@ -22701,7 +22711,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if an extension was added, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathaddextensionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathaddextensionw
      * @since windows5.0
      */
     static PathAddExtensionW(pszPath, pszExt) {
@@ -22727,7 +22737,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathappenda
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathappenda
      * @since windows5.0
      */
     static PathAppendA(pszPath, pszMore) {
@@ -22753,7 +22763,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathappendw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathappendw
      * @since windows5.0
      */
     static PathAppendW(pszPath, pszMore) {
@@ -22778,7 +22788,7 @@ class Shell {
      * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * Returns the address of the constructed root path. If the call fails for any reason (for example, an invalid drive number), <i>szRoot</i> is returned unchanged.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathbuildroota
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathbuildroota
      * @since windows5.0
      */
     static PathBuildRootA(pszRoot, iDrive) {
@@ -22802,7 +22812,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * Returns the address of the constructed root path. If the call fails for any reason (for example, an invalid drive number), <i>szRoot</i> is returned unchanged.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathbuildrootw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathbuildrootw
      * @since windows5.0
      */
     static PathBuildRootW(pszRoot, iDrive) {
@@ -22827,7 +22837,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a result has been computed and the content of the <i>lpszDst</i> output buffer is valid. Returns <b>FALSE</b> otherwise, and the contents of the buffer pointed to by <i>lpszDst</i> are invalid. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcanonicalizea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcanonicalizea
      * @since windows5.0
      */
     static PathCanonicalizeA(pszBuf, pszPath) {
@@ -22859,7 +22869,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a result has been computed and the content of the <i>lpszDst</i> output buffer is valid. Returns <b>FALSE</b> otherwise, and the contents of the buffer pointed to by <i>lpszDst</i> are invalid. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcanonicalizew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcanonicalizew
      * @since windows5.0
      */
     static PathCanonicalizeW(pszBuf, pszPath) {
@@ -22892,7 +22902,7 @@ class Shell {
      * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the concatenated path string. This is the same string pointed to by <i>pszPathOut</i>. If this function does not return successfully, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcombinea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcombinea
      * @since windows5.0
      */
     static PathCombineA(pszDest, pszDir, pszFile) {
@@ -22920,7 +22930,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the concatenated path string. This is the same string pointed to by <i>pszPathOut</i>. If this function does not return successfully, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcombinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcombinew
      * @since windows5.0
      */
     static PathCombineW(pszDest, pszDir, pszFile) {
@@ -22936,7 +22946,7 @@ class Shell {
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses. (ANSI)
      * @remarks
      * This function uses the font currently selected in <i>hDC</i> to calculate the width of the text. This function will not compact the path beyond the base file name preceded by ellipses.
-     * @param {HDC} hDC Type: <b>HDC</b>
+     * @param {HDC} hDC_ Type: <b>HDC</b>
      * 
      * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
      * @param {PSTR} pszPath Type: <b>LPTSTR</b>
@@ -22948,14 +22958,14 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path was successfully compacted to the specified width. Returns <b>FALSE</b> on failure, or if the base portion of the path would not fit the specified width.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcompactpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcompactpatha
      * @since windows5.0
      */
-    static PathCompactPathA(hDC, pszPath, dx) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static PathCompactPathA(hDC_, pszPath, dx) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
+        result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC_, "ptr", pszPath, "uint", dx, "int")
         return result
     }
 
@@ -22963,7 +22973,7 @@ class Shell {
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses. (Unicode)
      * @remarks
      * This function uses the font currently selected in <i>hDC</i> to calculate the width of the text. This function will not compact the path beyond the base file name preceded by ellipses.
-     * @param {HDC} hDC Type: <b>HDC</b>
+     * @param {HDC} hDC_ Type: <b>HDC</b>
      * 
      * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
      * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
@@ -22975,14 +22985,14 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path was successfully compacted to the specified width. Returns <b>FALSE</b> on failure, or if the base portion of the path would not fit the specified width.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcompactpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcompactpathw
      * @since windows5.0
      */
-    static PathCompactPathW(hDC, pszPath, dx) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    static PathCompactPathW(hDC_, pszPath, dx) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
+        result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC_, "ptr", pszPath, "uint", dx, "int")
         return result
     }
 
@@ -23009,7 +23019,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcompactpathexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcompactpathexa
      * @since windows5.0
      */
     static PathCompactPathExA(pszOut, pszSrc, cchMax, dwFlags) {
@@ -23043,7 +23053,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcompactpathexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcompactpathexw
      * @since windows5.0
      */
     static PathCompactPathExW(pszOut, pszSrc, cchMax, dwFlags) {
@@ -23071,7 +23081,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the count of common prefix characters in the path. If the output buffer pointer is not <b>NULL</b>, then these characters are copied to the output buffer.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcommonprefixa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcommonprefixa
      * @since windows5.0
      */
     static PathCommonPrefixA(pszFile1, pszFile2, achPath) {
@@ -23100,7 +23110,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the count of common prefix characters in the path. If the output buffer pointer is not <b>NULL</b>, then these characters are copied to the output buffer.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcommonprefixw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcommonprefixw
      * @since windows5.0
      */
     static PathCommonPrefixW(pszFile1, pszFile2, achPath) {
@@ -23124,7 +23134,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the file exists; otherwise, <b>FALSE</b>. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfileexistsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfileexistsa
      * @since windows5.0
      */
     static PathFileExistsA(pszPath) {
@@ -23152,7 +23162,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the file exists; otherwise, <b>FALSE</b>. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information. If the file does not exist, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <a href="https://docs.microsoft.com/windows/win32/debug/system-error-codes--0-499-">ERROR_FILE_NOT_FOUND</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfileexistsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfileexistsw
      * @since windows5.0
      */
     static PathFileExistsW(pszPath) {
@@ -23184,7 +23194,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the "." that precedes the extension within <i>pszPath</i> if an extension is found, or the address of the terminating null character otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindextensiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindextensiona
      * @since windows5.0
      */
     static PathFindExtensionA(pszPath) {
@@ -23210,7 +23220,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the "." that precedes the extension within <i>pszPath</i> if an extension is found, or the address of the terminating null character otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindextensionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindextensionw
      * @since windows5.0
      */
     static PathFindExtensionW(pszPath) {
@@ -23231,7 +23241,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the address of the string if successful, or a pointer to the beginning of the path otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindfilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindfilenamea
      * @since windows5.0
      */
     static PathFindFileNameA(pszPath) {
@@ -23252,7 +23262,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the address of the string if successful, or a pointer to the beginning of the path otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindfilenamew
      * @since windows5.0
      */
     static PathFindFileNameW(pszPath) {
@@ -23276,7 +23286,7 @@ class Shell {
      * If <i>pszPath</i> points to the last component in the path, this function returns a pointer to the terminating null character.
      * 
      * If <i>pszPath</i> points to the terminating null character or if the call fails, this function returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindnextcomponenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindnextcomponenta
      * @since windows5.0
      */
     static PathFindNextComponentA(pszPath) {
@@ -23300,7 +23310,7 @@ class Shell {
      * If <i>pszPath</i> points to the last component in the path, this function returns a pointer to the terminating null character.
      * 
      * If <i>pszPath</i> points to the terminating null character or if the call fails, this function returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindnextcomponentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindnextcomponentw
      * @since windows5.0
      */
     static PathFindNextComponentW(pszPath) {
@@ -23329,7 +23339,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindonpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindonpatha
      * @since windows5.0
      */
     static PathFindOnPathA(pszPath, ppszOtherDirs) {
@@ -23360,7 +23370,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindonpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindonpathw
      * @since windows5.0
      */
     static PathFindOnPathW(pszPath, ppszOtherDirs) {
@@ -23394,7 +23404,7 @@ class Shell {
      * @returns {PSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a string with the matching suffix if successful, or <b>NULL</b> if <i>pszPath</i> does not end with one of the specified suffixes.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindsuffixarraya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindsuffixarraya
      * @since windows5.0
      */
     static PathFindSuffixArrayA(pszPath, apszSuffix, iArraySize) {
@@ -23428,7 +23438,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a string with the matching suffix if successful, or <b>NULL</b> if <i>pszPath</i> does not end with one of the specified suffixes.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathfindsuffixarrayw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathfindsuffixarrayw
      * @since windows5.0
      */
     static PathFindSuffixArrayW(pszPath, apszSuffix, iArraySize) {
@@ -23456,7 +23466,7 @@ class Shell {
      * If there are no arguments in the path, the function returns a pointer to the end of the input string.
      * 
      * If the function is given a <b>NULL</b> argument it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetargsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathgetargsa
      * @since windows5.0
      */
     static PathGetArgsA(pszPath) {
@@ -23482,7 +23492,7 @@ class Shell {
      * If there are no arguments in the path, the function returns a pointer to the end of the input string.
      * 
      * If the function is given a <b>NULL</b> argument it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetargsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathgetargsw
      * @since windows5.0
      */
     static PathGetArgsW(pszPath) {
@@ -23503,7 +23513,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszName</i> exceeds the number of characters allowed by the 8.3 format, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathislfnfilespeca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathislfnfilespeca
      * @since windows5.0
      */
     static PathIsLFNFileSpecA(pszName) {
@@ -23524,7 +23534,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszName</i> exceeds the number of characters allowed by the 8.3 format, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathislfnfilespecw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathislfnfilespecw
      * @since windows5.0
      */
     static PathIsLFNFileSpecW(pszName) {
@@ -23607,7 +23617,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetchartypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathgetchartypea
      * @since windows5.0
      */
     static PathGetCharTypeA(ch) {
@@ -23688,7 +23698,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetchartypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathgetchartypew
      * @since windows5.0
      */
     static PathGetCharTypeW(ch) {
@@ -23707,7 +23717,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns 0 through 25 (corresponding to 'A' through 'Z') if the path has a drive letter, or -1 otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetdrivenumbera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathgetdrivenumbera
      * @since windows5.0
      */
     static PathGetDriveNumberA(pszPath) {
@@ -23728,7 +23738,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns 0 through 25 (corresponding to 'A' through 'Z') if the path has a drive letter, or -1 otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathgetdrivenumberw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathgetdrivenumberw
      * @since windows5.0
      */
     static PathGetDriveNumberW(pszPath) {
@@ -23749,7 +23759,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns (BOOL)FILE_ATTRIBUTE_DIRECTORY if the path is a valid directory; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisdirectorya
      * @since windows5.0
      */
     static PathIsDirectoryA(pszPath) {
@@ -23770,7 +23780,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns (BOOL)FILE_ATTRIBUTE_DIRECTORY if the path is a valid directory; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisdirectoryw
      * @since windows5.0
      */
     static PathIsDirectoryW(pszPath) {
@@ -23797,7 +23807,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> is an empty directory. Returns <b>FALSE</b> if <i>pszPath</i> is not a directory, or if it contains at least one file other than "." or "..".
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisdirectoryemptya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisdirectoryemptya
      * @since windows5.0
      */
     static PathIsDirectoryEmptyA(pszPath) {
@@ -23824,7 +23834,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> is an empty directory. Returns <b>FALSE</b> if <i>pszPath</i> is not a directory, or if it contains at least one file other than "." or "..".
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisdirectoryemptyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisdirectoryemptyw
      * @since windows5.0
      */
     static PathIsDirectoryEmptyW(pszPath) {
@@ -23845,7 +23855,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if there are no path-delimiting characters within the path, or <b>FALSE</b> if there are path-delimiting characters.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisfilespeca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisfilespeca
      * @since windows5.0
      */
     static PathIsFileSpecA(pszPath) {
@@ -23866,7 +23876,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if there are no path-delimiting characters within the path, or <b>FALSE</b> if there are path-delimiting characters.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisfilespecw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisfilespecw
      * @since windows5.0
      */
     static PathIsFileSpecW(pszPath) {
@@ -23890,7 +23900,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> starts with <i>pszPrefix</i>, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisprefixa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisprefixa
      * @since windows5.0
      */
     static PathIsPrefixA(pszPrefix, pszPath) {
@@ -23915,7 +23925,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> starts with <i>pszPrefix</i>, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisprefixw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisprefixw
      * @since windows5.0
      */
     static PathIsPrefixW(pszPrefix, pszPath) {
@@ -23937,7 +23947,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is relative, or <b>FALSE</b> if it is absolute.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisrelativea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisrelativea
      * @since windows5.0
      */
     static PathIsRelativeA(pszPath) {
@@ -23958,7 +23968,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is relative, or <b>FALSE</b> if it is absolute.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisrelativew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisrelativew
      * @since windows5.0
      */
     static PathIsRelativeW(pszPath) {
@@ -23978,7 +23988,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisroota
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisroota
      * @since windows5.0
      */
     static PathIsRootA(pszPath) {
@@ -23998,7 +24008,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisrootw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisrootw
      * @since windows5.0
      */
     static PathIsRootW(pszPath) {
@@ -24022,7 +24032,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if both strings have the same root component, or <b>FALSE</b> otherwise. If <i>pszPath1</i> contains only the server and share, this function also returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathissameroota
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathissameroota
      * @since windows5.0
      */
     static PathIsSameRootA(pszPath1, pszPath2) {
@@ -24047,7 +24057,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if both strings have the same root component, or <b>FALSE</b> otherwise. If <i>pszPath1</i> contains only the server and share, this function also returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathissamerootw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathissamerootw
      * @since windows5.0
      */
     static PathIsSameRootW(pszPath1, pszPath2) {
@@ -24069,7 +24079,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisunca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisunca
      * @since windows5.0
      */
     static PathIsUNCA(pszPath) {
@@ -24090,7 +24100,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisuncw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisuncw
      * @since windows5.0
      */
     static PathIsUNCW(pszPath) {
@@ -24122,7 +24132,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string represents a network resource, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisnetworkpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisnetworkpatha
      * @since windows5.0
      */
     static PathIsNetworkPathA(pszPath) {
@@ -24154,7 +24164,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string represents a network resource, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisnetworkpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisnetworkpathw
      * @since windows5.0
      */
     static PathIsNetworkPathW(pszPath) {
@@ -24175,7 +24185,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path for a server only (no share name), or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisuncservera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisuncservera
      * @since windows5.0
      */
     static PathIsUNCServerA(pszPath) {
@@ -24196,7 +24206,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path for a server only (no share name), or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisuncserverw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisuncserverw
      * @since windows5.0
      */
     static PathIsUNCServerW(pszPath) {
@@ -24217,7 +24227,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is in the form &#92;&#92;<i>server</i>&#92;<i>share</i>, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisuncserversharea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisuncserversharea
      * @since windows5.0
      */
     static PathIsUNCServerShareA(pszPath) {
@@ -24238,7 +24248,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is in the form &#92;&#92;<i>server</i>&#92;<i>share</i>, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisuncserversharew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisuncserversharew
      * @since windows5.0
      */
     static PathIsUNCServerShareW(pszPath) {
@@ -24262,7 +24272,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the file's registered content type matches <i>pszContentType</i>, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathiscontenttypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathiscontenttypea
      * @since windows5.0
      */
     static PathIsContentTypeA(pszPath, pszContentType) {
@@ -24287,7 +24297,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the file's registered content type matches <i>pszContentType</i>, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathiscontenttypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathiscontenttypew
      * @since windows5.0
      */
     static PathIsContentTypeW(pszPath, pszContentType) {
@@ -24308,7 +24318,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> has a valid URL format, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisurla
      * @since windows5.0
      */
     static PathIsURLA(pszPath) {
@@ -24328,7 +24338,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> has a valid URL format, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathisurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathisurlw
      * @since windows5.0
      */
     static PathIsURLW(pszPath) {
@@ -24348,7 +24358,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path has been converted, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmakeprettya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmakeprettya
      * @since windows5.0
      */
     static PathMakePrettyA(pszPath) {
@@ -24368,7 +24378,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path has been converted, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmakeprettyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmakeprettyw
      * @since windows5.0
      */
     static PathMakePrettyW(pszPath) {
@@ -24392,7 +24402,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string matches, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmatchspeca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmatchspeca
      * @since windows5.0
      */
     static PathMatchSpecA(pszFile, pszSpec) {
@@ -24417,7 +24427,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string matches, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmatchspecw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmatchspecw
      * @since windows5.0
      */
     static PathMatchSpecW(pszFile, pszSpec) {
@@ -24474,7 +24484,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmatchspecexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmatchspecexa
      * @since windows6.0.6000
      */
     static PathMatchSpecExA(pszFile, pszSpec, dwFlags) {
@@ -24535,7 +24545,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmatchspecexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmatchspecexw
      * @since windows6.0.6000
      */
     static PathMatchSpecExW(pszFile, pszSpec, dwFlags) {
@@ -24560,7 +24570,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the valid icon index value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathparseiconlocationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathparseiconlocationa
      * @since windows5.0
      */
     static PathParseIconLocationA(pszIconFile) {
@@ -24580,7 +24590,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the valid icon index value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathparseiconlocationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathparseiconlocationw
      * @since windows5.0
      */
     static PathParseIconLocationW(pszIconFile) {
@@ -24601,7 +24611,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if spaces were found; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathquotespacesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathquotespacesa
      * @since windows5.0
      */
     static PathQuoteSpacesA(lpsz) {
@@ -24622,7 +24632,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if spaces were found; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathquotespacesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathquotespacesw
      * @since windows5.0
      */
     static PathQuoteSpacesW(lpsz) {
@@ -24656,7 +24666,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathrelativepathtoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathrelativepathtoa
      * @since windows5.0
      */
     static PathRelativePathToA(pszPath, pszFrom, dwAttrFrom, pszTo, dwAttrTo) {
@@ -24692,7 +24702,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathrelativepathtow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathrelativepathtow
      * @since windows5.0
      */
     static PathRelativePathToW(pszPath, pszFrom, dwAttrFrom, pszTo, dwAttrTo) {
@@ -24712,7 +24722,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove arguments.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveargsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremoveargsa
      * @since windows5.0
      */
     static PathRemoveArgsA(pszPath) {
@@ -24729,7 +24739,7 @@ class Shell {
      * 
      * Pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove arguments.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveargsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremoveargsw
      * @since windows5.0
      */
     static PathRemoveArgsW(pszPath) {
@@ -24749,7 +24759,7 @@ class Shell {
      * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully and if a backslash has been removed, points to the terminating null character that has replaced the backslash at the end of the string. If the path did not include a trailing backslash, this value will point to the final character in the string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremovebackslasha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremovebackslasha
      * @since windows5.0
      */
     static PathRemoveBackslashA(pszPath) {
@@ -24770,7 +24780,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully and if a backslash has been removed, points to the terminating null character that has replaced the backslash at the end of the string. If the path did not include a trailing backslash, this value will point to the final character in the string.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremovebackslashw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremovebackslashw
      * @since windows5.0
      */
     static PathRemoveBackslashW(pszPath) {
@@ -24789,7 +24799,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to strip all leading and trailing spaces.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveblanksa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremoveblanksa
      * @since windows5.0
      */
     static PathRemoveBlanksA(pszPath) {
@@ -24807,7 +24817,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to strip all leading and trailing spaces.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveblanksw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremoveblanksw
      * @since windows5.0
      */
     static PathRemoveBlanksW(pszPath) {
@@ -24825,7 +24835,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to remove the extension.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveextensiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremoveextensiona
      * @since windows5.0
      */
     static PathRemoveExtensionA(pszPath) {
@@ -24843,7 +24853,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to remove the extension.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremoveextensionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremoveextensionw
      * @since windows5.0
      */
     static PathRemoveExtensionW(pszPath) {
@@ -24863,7 +24873,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if something was removed, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremovefilespeca
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremovefilespeca
      * @since windows5.0
      */
     static PathRemoveFileSpecA(pszPath) {
@@ -24884,7 +24894,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if something was removed, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathremovefilespecw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathremovefilespecw
      * @since windows5.0
      */
     static PathRemoveFileSpecW(pszPath) {
@@ -24908,7 +24918,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero if the new path and extension would exceed MAX_PATH characters.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathrenameextensiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathrenameextensiona
      * @since windows5.0
      */
     static PathRenameExtensionA(pszPath, pszExt) {
@@ -24933,7 +24943,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero if the new path and extension would exceed MAX_PATH characters.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathrenameextensionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathrenameextensionw
      * @since windows5.0
      */
     static PathRenameExtensionW(pszPath, pszExt) {
@@ -24961,7 +24971,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is qualified, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathsearchandqualifya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathsearchandqualifya
      * @since windows5.0
      */
     static PathSearchAndQualifyA(pszPath, pszBuf, cchBuf) {
@@ -24989,7 +24999,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is qualified, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathsearchandqualifyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathsearchandqualifyw
      * @since windows5.0
      */
     static PathSearchAndQualifyW(pszPath, pszBuf, cchBuf) {
@@ -25015,7 +25025,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to set in the control.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathsetdlgitempatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathsetdlgitempatha
      * @since windows5.0
      */
     static PathSetDlgItemPathA(hDlg, id, pszPath) {
@@ -25040,7 +25050,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to set in the control.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathsetdlgitempathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathsetdlgitempathw
      * @since windows5.0
      */
     static PathSetDlgItemPathW(hDlg, id, pszPath) {
@@ -25061,7 +25071,7 @@ class Shell {
      * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the beginning of the subpath that follows the root (drive letter or UNC server/share). If the function encounters an error, this value will be <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathskiproota
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathskiproota
      * @since windows5.0
      */
     static PathSkipRootA(pszPath) {
@@ -25082,7 +25092,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the beginning of the subpath that follows the root (drive letter or UNC server/share). If the function encounters an error, this value will be <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathskiprootw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathskiprootw
      * @since windows5.0
      */
     static PathSkipRootW(pszPath) {
@@ -25101,7 +25111,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path and file name. When this function returns successfully, the string contains only the file name, with the path removed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathstrippatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathstrippatha
      * @since windows5.0
      */
     static PathStripPathA(pszPath) {
@@ -25119,7 +25129,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path and file name. When this function returns successfully, the string contains only the file name, with the path removed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathstrippathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathstrippathw
      * @since windows5.0
      */
     static PathStripPathW(pszPath) {
@@ -25139,7 +25149,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a valid drive letter was found in the path, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathstriptoroota
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathstriptoroota
      * @since windows5.0
      */
     static PathStripToRootA(pszPath) {
@@ -25160,7 +25170,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a valid drive letter was found in the path, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathstriptorootw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathstriptorootw
      * @since windows5.0
      */
     static PathStripToRootW(pszPath) {
@@ -25179,7 +25189,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path. When the function returns successfully, points to the string with beginning and ending quotation marks removed.
      * @returns {BOOL} <b>TRUE</b> if the string gets unquoted; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathunquotespacesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathunquotespacesa
      * @since windows5.0
      */
     static PathUnquoteSpacesA(lpsz) {
@@ -25198,7 +25208,7 @@ class Shell {
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path. When the function returns successfully, points to the string with beginning and ending quotation marks removed.
      * @returns {BOOL} <b>TRUE</b> if the string gets unquoted; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathunquotespacesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathunquotespacesw
      * @since windows5.0
      */
     static PathUnquoteSpacesW(lpsz) {
@@ -25219,7 +25229,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmakesystemfoldera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmakesystemfoldera
      * @since windows5.0
      */
     static PathMakeSystemFolderA(pszPath) {
@@ -25240,7 +25250,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathmakesystemfolderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathmakesystemfolderw
      * @since windows5.0
      */
     static PathMakeSystemFolderW(pszPath) {
@@ -25261,7 +25271,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathunmakesystemfoldera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathunmakesystemfoldera
      * @since windows5.0
      */
     static PathUnmakeSystemFolderA(pszPath) {
@@ -25282,7 +25292,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathunmakesystemfolderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathunmakesystemfolderw
      * @since windows5.0
      */
     static PathUnmakeSystemFolderW(pszPath) {
@@ -25306,7 +25316,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the <i>pszPath</i> or <i>dwAttrb</i> represent a system folder, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathissystemfoldera
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathissystemfoldera
      * @since windows5.0
      */
     static PathIsSystemFolderA(pszPath, dwAttrb) {
@@ -25330,7 +25340,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the <i>pszPath</i> or <i>dwAttrb</i> represent a system folder, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathissystemfolderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathissystemfolderw
      * @since windows5.0
      */
     static PathIsSystemFolderW(pszPath, dwAttrb) {
@@ -25348,7 +25358,7 @@ class Shell {
      * 
      * A null-terminated string of length MAX_PATH that contains the path. When the function returns, <i>pszPath</i> points to the undecorated string.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathundecoratea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathundecoratea
      * @since windows5.0
      */
     static PathUndecorateA(pszPath) {
@@ -25365,7 +25375,7 @@ class Shell {
      * 
      * A null-terminated string of length MAX_PATH that contains the path. When the function returns, <i>pszPath</i> points to the undecorated string.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathundecoratew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathundecoratew
      * @since windows5.0
      */
     static PathUndecorateW(pszPath) {
@@ -25437,7 +25447,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathunexpandenvstringsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathunexpandenvstringsa
      * @since windows5.0
      */
     static PathUnExpandEnvStringsA(pszPath, pszBuf, cchBuf) {
@@ -25511,7 +25521,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathunexpandenvstringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathunexpandenvstringsw
      * @since windows5.0
      */
     static PathUnExpandEnvStringsW(pszPath, pszBuf, cchBuf) {
@@ -25545,7 +25555,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the two strings are equal. The function will also return zero if <i>fIgnoreSlash</i> is set to <b>TRUE</b> and one of the strings has a trailing '\' character. The function returns a negative integer if the string pointed to by <i>psz1</i> is less than the string pointed to by <i>psz2</i>. Otherwise, it returns a positive integer.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcomparea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcomparea
      * @since windows5.0
      */
     static UrlCompareA(psz1, psz2, fIgnoreSlash) {
@@ -25579,7 +25589,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns zero if the two strings are equal. The function will also return zero if <i>fIgnoreSlash</i> is set to <b>TRUE</b> and one of the strings has a trailing '\' character. The function returns a negative integer if the string pointed to by <i>psz1</i> is less than the string pointed to by <i>psz2</i>. Otherwise, it returns a positive integer.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcomparew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcomparew
      * @since windows5.0
      */
     static UrlCompareW(psz1, psz2, fIgnoreSlash) {
@@ -25676,7 +25686,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcombinea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcombinea
      * @since windows5.0
      */
     static UrlCombineA(pszBase, pszRelative, pszCombined, pcchCombined, dwFlags) {
@@ -25780,7 +25790,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcombinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcombinew
      * @since windows5.0
      */
     static UrlCombineW(pszBase, pszRelative, pszCombined, pcchCombined, dwFlags) {
@@ -25832,7 +25842,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcanonicalizea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcanonicalizea
      * @since windows5.0
      */
     static UrlCanonicalizeA(pszUrl, pszCanonicalized, pcchCanonicalized, dwFlags) {
@@ -25883,7 +25893,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcanonicalizew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcanonicalizew
      * @since windows5.0
      */
     static UrlCanonicalizeW(pszUrl, pszCanonicalized, pcchCanonicalized, dwFlags) {
@@ -25924,7 +25934,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is opaque, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisopaquea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlisopaquea
      * @since windows5.0
      */
     static UrlIsOpaqueA(pszURL) {
@@ -25958,7 +25968,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is opaque, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisopaquew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlisopaquew
      * @since windows5.0
      */
     static UrlIsOpaqueW(pszURL) {
@@ -25985,7 +25995,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is a URL that is not included in navigation history, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisnohistorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlisnohistorya
      * @since windows5.0
      */
     static UrlIsNoHistoryA(pszURL) {
@@ -26012,7 +26022,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is a URL that is not included in navigation history, or zero otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisnohistoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlisnohistoryw
      * @since windows5.0
      */
     static UrlIsNoHistoryW(pszURL) {
@@ -26030,7 +26040,7 @@ class Shell {
      * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Integer} UrlIs Type: <b>URLIS</b>
+     * @param {Integer} UrlIs_ Type: <b>URLIS</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
@@ -26038,13 +26048,13 @@ class Shell {
      *                     
      * 
      * If <i>UrlIs</i> is set to <b>URLIS_APPLIABLE</b>, <b>UrlIs</b> will attempt to determine the URL scheme. If the function is able to determine a scheme, it returns <b>TRUE</b>, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlisa
      * @since windows5.0
      */
-    static UrlIsA(pszUrl, UrlIs) {
+    static UrlIsA(pszUrl, UrlIs_) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", UrlIs, "int")
+        result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", UrlIs_, "int")
         return result
     }
 
@@ -26056,7 +26066,7 @@ class Shell {
      * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Integer} UrlIs Type: <b>URLIS</b>
+     * @param {Integer} UrlIs_ Type: <b>URLIS</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
@@ -26064,13 +26074,13 @@ class Shell {
      *                     
      * 
      * If <i>UrlIs</i> is set to <b>URLIS_APPLIABLE</b>, <b>UrlIs</b> will attempt to determine the URL scheme. If the function is able to determine a scheme, it returns <b>TRUE</b>, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlisw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlisw
      * @since windows5.0
      */
-    static UrlIsW(pszUrl, UrlIs) {
+    static UrlIsW(pszUrl, UrlIs_) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", UrlIs, "int")
+        result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", UrlIs_, "int")
         return result
     }
 
@@ -26090,7 +26100,7 @@ class Shell {
      * @returns {PSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a null-terminated string with the location, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlgetlocationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlgetlocationa
      * @since windows5.0
      */
     static UrlGetLocationA(pszURL) {
@@ -26116,7 +26126,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a null-terminated string with the location, or <b>NULL</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlgetlocationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlgetlocationw
      * @since windows5.0
      */
     static UrlGetLocationW(pszURL) {
@@ -26153,7 +26163,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <b>URL_UNESCAPE_INPLACE</b> flag is not set, the value pointed to by <i>pcchUnescaped</i> will be set to the number of characters in the output buffer pointed to by <i>pszUnescaped</i>. Returns E_POINTER if the <b>URL_UNESCAPE_INPLACE</b> flag is not set and the output buffer is too small. The <i>pcchUnescaped</i> parameter will be set to the required buffer size. Otherwise, returns a standard error value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlunescapea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlunescapea
      * @since windows5.0
      */
     static UrlUnescapeA(pszUrl, pszUnescaped, pcchUnescaped, dwFlags) {
@@ -26197,7 +26207,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <b>URL_UNESCAPE_INPLACE</b> flag is not set, the value pointed to by <i>pcchUnescaped</i> will be set to the number of characters in the output buffer pointed to by <i>pszUnescaped</i>. Returns E_POINTER if the <b>URL_UNESCAPE_INPLACE</b> flag is not set and the output buffer is too small. The <i>pcchUnescaped</i> parameter will be set to the required buffer size. Otherwise, returns a standard error value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlunescapew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlunescapew
      * @since windows5.0
      */
     static UrlUnescapeW(pszUrl, pszUnescaped, pcchUnescaped, dwFlags) {
@@ -26314,7 +26324,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <i>pcchEscaped</i> buffer was too small to contain the result, E_POINTER is returned, and the value pointed to by <i>pcchEscaped</i> is set to the required buffer size. Otherwise, a standard error value is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlescapea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlescapea
      * @since windows5.0
      */
     static UrlEscapeA(pszUrl, pszEscaped, pcchEscaped, dwFlags) {
@@ -26431,7 +26441,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. If the <i>pcchEscaped</i> buffer was too small to contain the result, E_POINTER is returned, and the value pointed to by <i>pcchEscaped</i> is set to the required buffer size. Otherwise, a standard error value is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlescapew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlescapew
      * @since windows5.0
      */
     static UrlEscapeW(pszUrl, pszEscaped, pcchEscaped, dwFlags) {
@@ -26473,7 +26483,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_FALSE if <i>pszPath</i> is already in URL format. In this case, <i>pszPath</i> will simply be copied to <i>pszUrl</i>. Otherwise, it returns S_OK if successful or a standard COM error value if not.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcreatefrompatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcreatefrompatha
      * @since windows5.0
      */
     static UrlCreateFromPathA(pszPath, pszUrl, pcchUrl, dwFlags) {
@@ -26515,7 +26525,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_FALSE if <i>pszPath</i> is already in URL format. In this case, <i>pszPath</i> will simply be copied to <i>pszUrl</i>. Otherwise, it returns S_OK if successful or a standard COM error value if not.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlcreatefrompathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlcreatefrompathw
      * @since windows5.0
      */
     static UrlCreateFromPathW(pszPath, pszUrl, pcchUrl, dwFlags) {
@@ -26552,7 +26562,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcreatefromurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcreatefromurla
      * @since windows5.0
      */
     static PathCreateFromUrlA(pszUrl, pszPath, pcchPath, dwFlags) {
@@ -26589,7 +26599,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcreatefromurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcreatefromurlw
      * @since windows5.0
      */
     static PathCreateFromUrlW(pszUrl, pszPath, pcchPath, dwFlags) {
@@ -26617,7 +26627,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The address of a pointer to a buffer of length MAX_PATH that, when this function returns successfully, receives the file path.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-pathcreatefromurlalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-pathcreatefromurlalloc
      * @since windows6.0.6000
      */
     static PathCreateFromUrlAlloc(pszIn, dwFlags) {
@@ -26654,7 +26664,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlhasha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlhasha
      * @since windows5.0
      */
     static UrlHashA(pszUrl, pbHash, cbHash) {
@@ -26691,7 +26701,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlhashw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlhashw
      * @since windows5.0
      */
     static UrlHashW(pszUrl, pbHash, cbHash) {
@@ -26726,7 +26736,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. The value pointed to by <i>pcchOut</i> will be set to the number of characters written to the output buffer, excluding the terminating <b>NULL</b>. If the buffer was too small, E_POINTER is returned, and the value pointed to by <i>pcchOut</i> will be set to the minimum number of characters that the buffer must be able to contain, including the terminating <b>NULL</b> character. Otherwise, a COM error value is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlgetpartw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlgetpartw
      * @since windows5.0
      */
     static UrlGetPartW(pszIn, pszOut, pcchOut, dwPart, dwFlags) {
@@ -26764,7 +26774,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful. The value pointed to by <i>pcchOut</i> will be set to the number of characters written to the output buffer, excluding the terminating <b>NULL</b>. If the buffer was too small, E_POINTER is returned, and the value pointed to by <i>pcchOut</i> will be set to the minimum number of characters that the buffer must be able to contain, including the terminating <b>NULL</b> character. Otherwise, a COM error value is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlgetparta
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlgetparta
      * @since windows5.0
      */
     static UrlGetPartA(pszIn, pszOut, pcchOut, dwPart, dwFlags) {
@@ -26846,7 +26856,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlapplyschemea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlapplyschemea
      * @since windows5.0
      */
     static UrlApplySchemeA(pszIn, pszOut, pcchOut, dwFlags) {
@@ -26928,7 +26938,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlapplyschemew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlapplyschemew
      * @since windows5.0
      */
     static UrlApplySchemeW(pszIn, pszOut, pcchOut, dwFlags) {
@@ -26962,7 +26972,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-hashdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-hashdata
      * @since windows5.0
      */
     static HashData(pbData, cbData, pbHash, cbHash) {
@@ -26996,7 +27006,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the proposed URL was already acceptable or was successfully corrected. The <i>pszTranslatedUrl</i> buffer contains the corrected URL, or the original URL if no correction was needed. Returns S_FALSE if the proposed URL could not be recognized sufficiently to be corrected. Otherwise, returns a standard COM error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-urlfixupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-urlfixupw
      * @since windows5.1.2600
      */
     static UrlFixupW(pcszUrl, pszTranslatedUrl, cchMax) {
@@ -27024,7 +27034,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success, or a COM error code otherwise. The function returns <b>URL_E_INVALID_SYNTAX</b> (defined in Intshcut.h) if the string could not be parsed as a URL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-parseurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-parseurla
      * @since windows6.0.6000
      */
     static ParseURLA(pcszURL, ppu) {
@@ -27051,7 +27061,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success, or a COM error code otherwise. The function returns <b>URL_E_INVALID_SYNTAX</b> (defined in Intshcut.h) if the string could not be parsed as a URL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-parseurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-parseurlw
      * @since windows6.0.6000
      */
     static ParseURLW(pcszURL, ppu) {
@@ -27077,7 +27087,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteEmptyKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
@@ -27089,14 +27099,14 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeleteemptykeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shdeleteemptykeya
      * @since windows5.0
      */
-    static SHDeleteEmptyKeyA(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteEmptyKeyA(hkey_, pszSubKey) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", "ptr", hkey_, "ptr", pszSubKey, "uint")
         return result
     }
 
@@ -27112,7 +27122,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteEmptyKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
@@ -27124,14 +27134,14 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeleteemptykeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shdeleteemptykeyw
      * @since windows5.0
      */
-    static SHDeleteEmptyKeyW(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteEmptyKeyW(hkey_, pszSubKey) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", "ptr", hkey_, "ptr", pszSubKey, "uint")
         return result
     }
 
@@ -27145,7 +27155,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
@@ -27157,14 +27167,14 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletekeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shdeletekeya
      * @since windows5.0
      */
-    static SHDeleteKeyA(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteKeyA(hkey_, pszSubKey) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteKeyA", "ptr", hkey_, "ptr", pszSubKey, "uint")
         return result
     }
 
@@ -27178,7 +27188,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
@@ -27190,32 +27200,32 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletekeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shdeletekeyw
      * @since windows5.0
      */
-    static SHDeleteKeyW(hkey, pszSubKey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteKeyW(hkey_, pszSubKey) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
-        result := DllCall("SHLWAPI.dll\SHDeleteKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteKeyW", "ptr", hkey_, "ptr", pszSubKey, "uint")
         return result
     }
 
     /**
      * Duplicates a registry key's HKEY handle.
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * The HKEY handle to be duplicated.
      * @returns {HKEY} Type: <b>HKEY</b>
      * 
      * Returns a duplicate of the handle specified in <i>hkey</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregduplicatehkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregduplicatehkey
      * @since windows5.0
      */
-    static SHRegDuplicateHKey(hkey) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHRegDuplicateHKey(hkey_) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
 
-        result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey, "ptr")
+        result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey_, "ptr")
         resultHandle := HKEY({Value: result}, True)
         return resultHandle
     }
@@ -27225,7 +27235,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
@@ -27237,15 +27247,15 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletevaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shdeletevaluea
      * @since windows5.0
      */
-    static SHDeleteValueA(hkey, pszSubKey, pszValue) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteValueA(hkey_, pszSubKey, pszValue) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHDeleteValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteValueA", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
     }
 
@@ -27254,7 +27264,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
@@ -27266,15 +27276,15 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletevaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shdeletevaluew
      * @since windows5.0
      */
-    static SHDeleteValueW(hkey, pszSubKey, pszValue) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHDeleteValueW(hkey_, pszSubKey, pszValue) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHDeleteValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
+        result := DllCall("SHLWAPI.dll\SHDeleteValueW", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
     }
 
@@ -27288,7 +27298,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
@@ -27309,18 +27319,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shgetvaluea
      * @since windows5.0
      */
-    static SHGetValueA(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHGetValueA(hkey_, pszSubKey, pszValue, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHGetValueA", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27334,7 +27344,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
@@ -27355,18 +27365,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shgetvaluew
      * @since windows5.0
      */
-    static SHGetValueW(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHGetValueW(hkey_, pszSubKey, pszValue, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHGetValueW", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27375,7 +27385,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
@@ -27396,15 +27406,15 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful; otherwise, a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsetvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shsetvaluea
      * @since windows5.0
      */
-    static SHSetValueA(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHSetValueA(hkey_, pszSubKey, pszValue, dwType, pvData, cbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHSetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
+        result := DllCall("SHLWAPI.dll\SHSetValueA", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
     }
 
@@ -27413,7 +27423,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
@@ -27434,15 +27444,15 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful; otherwise, a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsetvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shsetvaluew
      * @since windows5.0
      */
-    static SHSetValueW(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHSetValueW(hkey_, pszSubKey, pszValue, dwType, pvData, cbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHSetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
+        result := DllCall("SHLWAPI.dll\SHSetValueW", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
     }
 
@@ -27473,7 +27483,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * 
@@ -27524,18 +27534,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetvaluea
      * @since windows5.1.2600
      */
-    static SHRegGetValueA(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHRegGetValueA(hkey_, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHRegGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetValueA", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27566,7 +27576,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * 
@@ -27617,18 +27627,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetvaluew
      * @since windows5.1.2600
      */
-    static SHRegGetValueW(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHRegGetValueW(hkey_, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHRegGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetValueW", "ptr", hkey_, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27655,7 +27665,7 @@ class Shell {
      * @returns {Integer} Type: <b>LONG</b>
      * 
      * If successful, this function returns ERROR_SUCCESS and all out parameters requested. Returns ERROR_MORE_DATA if the function fails due to insufficient space in a provided non-<b>NULL</b> pvData. In this case  only <i>pdwType</i> and <i>pcbData</i> may contain valid data, <i>pvData</i> will be undefined. Otherwise, returns a nonzero error code defined in Winerror.h . You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluefromhkcuhklm
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetvaluefromhkcuhklm
      * @since windows6.0.6000
      */
     static SHRegGetValueFromHKCUHKLM(pwszKey, pwszValue, srrfFlags, pdwType, pvData, pcbData) {
@@ -27674,7 +27684,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
@@ -27692,19 +27702,19 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryvalueexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shqueryvalueexa
      * @since windows5.0
      */
-    static SHQueryValueExA(hkey, pszValue, pdwType, pvData, pcbData) {
+    static SHQueryValueExA(hkey_, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryValueExA", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryValueExA", "ptr", hkey_, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27713,7 +27723,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
@@ -27731,19 +27741,19 @@ class Shell {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryvalueexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shqueryvalueexw
      * @since windows5.0
      */
-    static SHQueryValueExW(hkey, pszValue, pdwType, pvData, pcbData) {
+    static SHQueryValueExW(hkey_, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryValueExW", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryValueExW", "ptr", hkey_, "ptr", pszValue, "uint*", pdwReserved, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27752,7 +27762,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
@@ -27767,16 +27777,16 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumkeyexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shenumkeyexa
      * @since windows5.0
      */
-    static SHEnumKeyExA(hkey, dwIndex, pszName, pcchName) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumKeyExA(hkey_, dwIndex, pszName, pcchName) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumKeyExA", "ptr", hkey, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumKeyExA", "ptr", hkey_, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
         return result
     }
 
@@ -27785,7 +27795,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
@@ -27800,16 +27810,16 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumkeyexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shenumkeyexw
      * @since windows5.0
      */
-    static SHEnumKeyExW(hkey, dwIndex, pszName, pcchName) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumKeyExW(hkey_, dwIndex, pszName, pcchName) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumKeyExW", "ptr", hkey, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumKeyExW", "ptr", hkey_, "uint", dwIndex, "ptr", pszName, pcchNameMarshal, pcchName, "uint")
         return result
     }
 
@@ -27818,7 +27828,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
@@ -27842,18 +27852,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shenumvaluea
      * @since windows5.0
      */
-    static SHEnumValueA(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumValueA(hkey_, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumValueA", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumValueA", "ptr", hkey_, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27862,7 +27872,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
@@ -27886,18 +27896,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shenumvaluew
      * @since windows5.0
      */
-    static SHEnumValueW(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHEnumValueW(hkey_, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         pcchValueNameMarshal := pcchValueName is VarRef ? "uint*" : "ptr"
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHEnumValueW", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("SHLWAPI.dll\SHEnumValueW", "ptr", hkey_, "uint", dwIndex, "ptr", pszValueName, pcchValueNameMarshal, pcchValueName, pdwTypeMarshal, pdwType, "ptr", pvData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -27906,7 +27916,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
@@ -27924,18 +27934,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryinfokeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shqueryinfokeya
      * @since windows5.0
      */
-    static SHQueryInfoKeyA(hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHQueryInfoKeyA(hkey_, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
 
         pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
         pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
         pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
         pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyA", "ptr", hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyA", "ptr", hkey_, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
         return result
     }
 
@@ -27944,7 +27954,7 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
@@ -27962,18 +27972,18 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryinfokeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shqueryinfokeyw
      * @since windows5.0
      */
-    static SHQueryInfoKeyW(hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHQueryInfoKeyW(hkey_, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
 
         pcSubKeysMarshal := pcSubKeys is VarRef ? "uint*" : "ptr"
         pcchMaxSubKeyLenMarshal := pcchMaxSubKeyLen is VarRef ? "uint*" : "ptr"
         pcValuesMarshal := pcValues is VarRef ? "uint*" : "ptr"
         pcchMaxValueNameLenMarshal := pcchMaxValueNameLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyW", "ptr", hkey, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
+        result := DllCall("SHLWAPI.dll\SHQueryInfoKeyW", "ptr", hkey_, pcSubKeysMarshal, pcSubKeys, pcchMaxSubKeyLenMarshal, pcchMaxSubKeyLen, pcValuesMarshal, pcValues, pcchMaxValueNameLenMarshal, pcchMaxValueNameLen, "uint")
         return result
     }
 
@@ -27999,7 +28009,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or one of the nonzero error codes defined in Winerror.h otherwise. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcopykeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcopykeya
      * @since windows5.0
      */
     static SHCopyKeyA(hkeySrc, pszSrcSubKey, hkeyDest) {
@@ -28035,7 +28045,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or one of the nonzero error codes defined in Winerror.h otherwise. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcopykeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcopykeyw
      * @since windows5.0
      */
     static SHCopyKeyW(hkeySrc, pszSrcSubKey, hkeyDest) {
@@ -28096,7 +28106,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey_ Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
      * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
@@ -28114,16 +28124,16 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a Windows error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetpatha
      * @since windows5.0
      */
-    static SHRegGetPathA(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegGetPathA(hKey_, pcszSubKey, pcszValue, pszPath, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegGetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetPathA", "ptr", hKey_, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -28174,7 +28184,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey_ Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
      * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
@@ -28192,16 +28202,16 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a Windows error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetpathw
      * @since windows5.0
      */
-    static SHRegGetPathW(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegGetPathW(hKey_, pcszSubKey, pcszValue, pszPath, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegGetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegGetPathW", "ptr", hKey_, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -28254,7 +28264,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegSetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey_ Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
      * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
@@ -28272,16 +28282,16 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a Windows error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregsetpatha
      * @since windows5.0
      */
-    static SHRegSetPathA(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegSetPathA(hKey_, pcszSubKey, pcszValue, pcszPath, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegSetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegSetPathA", "ptr", hKey_, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -28334,7 +28344,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegSetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey_ Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
      * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
@@ -28352,16 +28362,16 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a Windows error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregsetpathw
      * @since windows5.0
      */
-    static SHRegSetPathW(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+    static SHRegSetPathW(hKey_, pcszSubKey, pcszValue, pcszPath, dwFlags) {
+        hKey_ := hKey_ is Win32Handle ? NumGet(hKey_, "ptr") : hKey_
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
 
-        result := DllCall("SHLWAPI.dll\SHRegSetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
+        result := DllCall("SHLWAPI.dll\SHRegSetPathW", "ptr", hKey_, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
     }
 
@@ -28391,7 +28401,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregcreateuskeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregcreateuskeya
      * @since windows5.0
      */
     static SHRegCreateUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlags) {
@@ -28427,7 +28437,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregcreateuskeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregcreateuskeyw
      * @since windows5.0
      */
     static SHRegCreateUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlags) {
@@ -28462,7 +28472,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregopenuskeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregopenuskeya
      * @since windows5.0
      */
     static SHRegOpenUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
@@ -28495,7 +28505,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregopenuskeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregopenuskeyw
      * @since windows5.0
      */
     static SHRegOpenUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
@@ -28550,7 +28560,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregqueryusvaluea
      * @since windows5.0
      */
     static SHRegQueryUSValueA(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
@@ -28606,7 +28616,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregqueryusvaluew
      * @since windows5.0
      */
     static SHRegQueryUSValueW(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
@@ -28661,7 +28671,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful; otherwise, a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregwriteusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregwriteusvaluea
      * @since windows5.0
      */
     static SHRegWriteUSValueA(hUSKey, pszValue, dwType, pvData, cbData, dwFlags) {
@@ -28707,7 +28717,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful; otherwise, a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregwriteusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregwriteusvaluew
      * @since windows5.0
      */
     static SHRegWriteUSValueW(hUSKey, pwzValue, dwType, pvData, cbData, dwFlags) {
@@ -28738,7 +28748,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregdeleteusvaluea
      * @since windows5.0
      */
     static SHRegDeleteUSValueA(hUSKey, pszValue, delRegFlags) {
@@ -28767,7 +28777,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregdeleteusvaluew
      * @since windows5.0
      */
     static SHRegDeleteUSValueW(hUSKey, pwzValue, delRegFlags) {
@@ -28796,7 +28806,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteemptyuskeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregdeleteemptyuskeyw
      * @since windows5.0
      */
     static SHRegDeleteEmptyUSKeyW(hUSKey, pwzSubKey, delRegFlags) {
@@ -28827,7 +28837,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteemptyuskeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregdeleteemptyuskeya
      * @since windows5.0
      */
     static SHRegDeleteEmptyUSKeyA(hUSKey, pszSubKey, delRegFlags) {
@@ -28864,7 +28874,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumuskeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregenumuskeya
      * @since windows5.0
      */
     static SHRegEnumUSKeyA(hUSKey, dwIndex, pszName, pcchName, enumRegFlags) {
@@ -28901,7 +28911,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumuskeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregenumuskeyw
      * @since windows5.0
      */
     static SHRegEnumUSKeyW(hUSKey, dwIndex, pwzName, pcchName, enumRegFlags) {
@@ -28949,7 +28959,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregenumusvaluea
      * @since windows5.0
      */
     static SHRegEnumUSValueA(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData, enumRegFlags) {
@@ -28999,7 +29009,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregenumusvaluew
      * @since windows5.0
      */
     static SHRegEnumUSValueW(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData, enumRegFlags) {
@@ -29043,7 +29053,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryinfouskeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregqueryinfouskeya
      * @since windows5.0
      */
     static SHRegQueryInfoUSKeyA(hUSKey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen, enumRegFlags) {
@@ -29086,7 +29096,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryinfouskeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregqueryinfouskeyw
      * @since windows5.0
      */
     static SHRegQueryInfoUSKeyW(hUSKey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen, enumRegFlags) {
@@ -29111,7 +29121,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregcloseuskey
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregcloseuskey
      * @since windows5.0
      */
     static SHRegCloseUSKey(hUSKey) {
@@ -29158,7 +29168,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetusvaluea
      * @since windows5.0
      */
     static SHRegGetUSValueA(pszSubKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
@@ -29211,7 +29221,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetusvaluew
      * @since windows5.0
      */
     static SHRegGetUSValueW(pszSubKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
@@ -29256,7 +29266,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregsetusvaluea
      * @since windows5.0
      */
     static SHRegSetUSValueA(pszSubKey, pszValue, dwType, pvData, cbData, dwFlags) {
@@ -29294,7 +29304,7 @@ class Shell {
      * @returns {Integer} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shregsetusvaluew
      * @since windows5.0
      */
     static SHRegSetUSValueW(pwzSubKey, pwzValue, dwType, pvData, cbData, dwFlags) {
@@ -29323,7 +29333,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the converted string as an <b>int</b>, or the default value specified by <i>nDefault</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetintw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetintw
      * @since windows5.0
      */
     static SHRegGetIntW(hk, pwzKey, iDefault) {
@@ -29354,7 +29364,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns either the value from the registry, or <i>fDefault</i> if none is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetboolusvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetboolusvaluea
      * @since windows5.0
      */
     static SHRegGetBoolUSValueA(pszSubKey, pszValue, fIgnoreHKCU, fDefault) {
@@ -29385,7 +29395,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns either the value from the registry, or <i>fDefault</i> if none is found.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetboolusvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreggetboolusvaluew
      * @since windows5.0
      */
     static SHRegGetBoolUSValueW(pszSubKey, pszValue, fIgnoreHKCU, fDefault) {
@@ -29409,7 +29419,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void*</b>
      * 
      * When this method returns, contains the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assoccreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assoccreate
      * @since windows5.0
      */
     static AssocCreate(clsid, riid) {
@@ -29479,7 +29489,7 @@ class Shell {
      * <td><i>pszOut</i> is <b>NULL</b>. <i>pcchOut</i> contains the required buffer size.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerystringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocquerystringa
      * @since windows5.0
      */
     static AssocQueryStringA(flags, str, pszAssoc, pszExtra, pszOut, pcchOut) {
@@ -29551,7 +29561,7 @@ class Shell {
      * <td><i>pszOut</i> is <b>NULL</b>. <i>pcchOut</i> contains the required buffer size.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerystringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocquerystringw
      * @since windows5.0
      */
     static AssocQueryStringW(flags, str, pszAssoc, pszExtra, pszOut, pcchOut) {
@@ -29623,7 +29633,7 @@ class Shell {
      * <td><i>pszOut</i> is <b>NULL</b>. <i>pcchOut</i> contains the required buffer size.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerystringbykeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocquerystringbykeya
      * @since windows5.0
      */
     static AssocQueryStringByKeyA(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
@@ -29695,7 +29705,7 @@ class Shell {
      * <td><i>pszOut</i> is <b>NULL</b>. <i>pcchOut</i> contains the required buffer size.</td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerystringbykeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocquerystringbykeyw
      * @since windows5.0
      */
     static AssocQueryStringByKeyW(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
@@ -29734,7 +29744,7 @@ class Shell {
      * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerykeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocquerykeya
      * @since windows5.0
      */
     static AssocQueryKeyA(flags, key, pszAssoc, pszExtra) {
@@ -29775,7 +29785,7 @@ class Shell {
      * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocquerykeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocquerykeyw
      * @since windows5.0
      */
     static AssocQueryKeyW(flags, key, pszAssoc, pszExtra) {
@@ -29805,7 +29815,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the file type is considered dangerous; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-associsdangerous
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-associsdangerous
      * @since windows5.1.2600
      */
     static AssocIsDangerous(pszAssoc) {
@@ -29832,7 +29842,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-assocgetperceivedtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-assocgetperceivedtype
      * @since windows5.1.2600
      */
     static AssocGetPerceivedType(pszExt, ptype, pflag, ppszType) {
@@ -29860,7 +29870,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
@@ -29878,15 +29888,15 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  In some situations, such as when the subkey named by <i>pszSubkey</i> does not exist or the caller does not have sufficient permissions to access the subkey, a zero-length stream is returned rather than a <b>NULL</b> value. <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shopenregstream2a">SHOpenRegStream2</a> returns <b>NULL</b> in all error situations and is the preferred function for that reason.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstreama
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shopenregstreama
      * @since windows5.0
      */
-    static SHOpenRegStreamA(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStreamA(hkey_, pszSubkey, pszValue, grfMode) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey_, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29900,7 +29910,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
@@ -29918,15 +29928,15 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  In some situations, such as when the subkey named by <i>pszSubkey</i> does not exist or the caller does not have sufficient permissions to access the subkey, a zero-length stream is returned rather than a <b>NULL</b> value. <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shopenregstream2a">SHOpenRegStream2</a> returns <b>NULL</b> in all error situations and is the preferred function for that reason.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstreamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shopenregstreamw
      * @since windows5.0
      */
-    static SHOpenRegStreamW(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStreamW(hkey_, pszSubkey, pszValue, grfMode) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey_, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29940,7 +29950,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
@@ -29953,15 +29963,15 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, a subkey named by <i>pszSubkey</i> that does not exist, a caller without sufficient permissions to access the subkey, or an inability to open the stream.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstream2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shopenregstream2a
      * @since windows5.0
      */
-    static SHOpenRegStream2A(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStream2A(hkey_, pszSubkey, pszValue, grfMode) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey_, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -29975,7 +29985,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey_ Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
@@ -29988,15 +29998,15 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer if successful; otherwise, <b>NULL</b>. A <b>NULL</b> value can be caused by several situations, including an invalid <i>hkey</i> or <i>pszSubkey</i>, a subkey named by <i>pszSubkey</i> that does not exist, a caller without sufficient permissions to access the subkey, or an inability to open the stream.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shopenregstream2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shopenregstream2w
      * @since windows5.0
      */
-    static SHOpenRegStream2W(hkey, pszSubkey, pszValue, grfMode) {
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+    static SHOpenRegStream2W(hkey_, pszSubkey, pszValue, grfMode) {
+        hkey_ := hkey_ is Win32Handle ? NumGet(hkey_, "ptr") : hkey_
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
+        result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey_, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
     }
 
@@ -30019,7 +30029,7 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatestreamonfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatestreamonfilea
      * @since windows5.1.2600
      */
     static SHCreateStreamOnFileA(pszFile, grfMode) {
@@ -30052,7 +30062,7 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatestreamonfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatestreamonfilew
      * @since windows5.1.2600
      */
     static SHCreateStreamOnFileW(pszFile, grfMode) {
@@ -30137,7 +30147,7 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatestreamonfileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatestreamonfileex
      * @since windows5.1.2600
      */
     static SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate) {
@@ -30177,7 +30187,7 @@ class Shell {
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * On success, returns a pointer to the created memory stream. Returns <b>NULL</b> if the stream object could not be allocated.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatememstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatememstream
      * @since windows5.0
      */
     static SHCreateMemStream(pInit, cbInit) {
@@ -30214,7 +30224,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getacceptlanguagesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-getacceptlanguagesa
      * @since windows5.0
      */
     static GetAcceptLanguagesA(pszLanguages, pcchLanguages) {
@@ -30259,7 +30269,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getacceptlanguagesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-getacceptlanguagesw
      * @since windows5.0
      */
     static GetAcceptLanguagesW(pszLanguages, pcchLanguages) {
@@ -30294,7 +30304,7 @@ class Shell {
      * 
      * The interface pointer to be copied to <i>ppunk</i>. If the value is non-<b>NULL</b>, the function increments the interface's reference count.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_set
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-iunknown_set
      * @since windows5.0
      */
     static IUnknown_Set(ppunk, punk) {
@@ -30309,7 +30319,7 @@ class Shell {
      * 
      * The address of a pointer to a COM interface.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_atomicrelease
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-iunknown_atomicrelease
      * @since windows5.0
      */
     static IUnknown_AtomicRelease(ppunk) {
@@ -30331,7 +30341,7 @@ class Shell {
      * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to a HWND that, when this function returns successfully, receives the window handle. If a window handle was not obtained, this parameter is set to <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_getwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-iunknown_getwindow
      * @since windows5.0
      */
     static IUnknown_GetWindow(punk) {
@@ -30357,7 +30367,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the site was successfully set, or a COM error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_setsite
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-iunknown_setsite
      * @since windows5.0
      */
     static IUnknown_SetSite(punk, punkSite) {
@@ -30382,7 +30392,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>VOID**</b>
      * 
      * The address of the pointer to receive the requested interface pointer. If the function call is successful, <i>ppvSite</i> will contain the requested interface pointer. If no site is available or the requested interface is not supported, <i>ppvSite</i> is set to <b>NULL</b> and the function returns a COM error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_getsite
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-iunknown_getsite
      * @since windows5.0
      */
     static IUnknown_GetSite(punk, riid) {
@@ -30412,7 +30422,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested <i>riid</i>. If successful, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> using this value when the service is no longer needed. In the case of failure, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iunknown_queryservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-iunknown_queryservice
      * @since windows5.0
      */
     static IUnknown_QueryService(punk, guidService, riid) {
@@ -30440,7 +30450,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if the function successfully reads the specified number of bytes from the stream, or a COM failure code otherwise. In particular, if the read attempt was successful but fewer than <i>cb</i> bytes were read, the function returns <b>E_FAIL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_read
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_read
      * @since windows5.0
      */
     static IStream_Read(pstm, pv, cb) {
@@ -30466,7 +30476,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the function successfully wrote the specified number of bytes to the stream, or an error value otherwise. In particular, if less than <i>cb</i> bytes was written to the target stream, even if some data was successfully written, the function returns E_FAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_write
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_write
      * @since windows6.0.6000
      */
     static IStream_Write(pstm, pv, cb) {
@@ -30488,7 +30498,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> on success or a COM failure code otherwise. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">IStream::Seek</a> for further discussion of possible error codes.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_reset
      * @since windows5.0
      */
     static IStream_Reset(pstm) {
@@ -30510,7 +30520,7 @@ class Shell {
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a> structure to receive the size of the stream.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_size
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_size
      * @since windows5.0
      */
     static IStream_Size(pstm) {
@@ -30545,7 +30555,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-connecttoconnectionpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-connecttoconnectionpoint
      * @since windows5.0
      */
     static ConnectToConnectionPoint(punk, riidEvent, fConnect, punkTarget, pdwCookie, ppcpOut) {
@@ -30567,7 +30577,7 @@ class Shell {
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE*</b>
      * 
      * A pointer to the resulting PIDL.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_readpidl
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_readpidl
      * @since windows6.0.6000
      */
     static IStream_ReadPidl(pstm) {
@@ -30590,7 +30600,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_writepidl
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_writepidl
      * @since windows6.0.6000
      */
     static IStream_WritePidl(pstm, pidlWrite) {
@@ -30610,7 +30620,7 @@ class Shell {
      * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * A pointer to the null-terminated, Unicode string into which the stream is written.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_readstr
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_readstr
      * @since windows6.0.6000
      */
     static IStream_ReadStr(pstm) {
@@ -30633,7 +30643,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_writestr
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_writestr
      * @since windows6.0.6000
      */
     static IStream_WriteStr(pstm, psz) {
@@ -30661,7 +30671,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-istream_copy
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-istream_copy
      * @since windows6.0.6000
      */
     static IStream_Copy(pstmFrom, pstmTo, cb) {
@@ -30697,7 +30707,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetviewstatepropertybag
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shgetviewstatepropertybag
      * @since windows5.1.2600
      */
     static SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid) {
@@ -30736,7 +30746,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of TCHARs written to the buffer, including the terminating null character. On failure, this value is 0.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shformatdatetimea
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shformatdatetimea
      * @since windows5.1.2600
      */
     static SHFormatDateTimeA(pft, pdwFlags, pszBuf, cchBuf) {
@@ -30773,7 +30783,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of TCHARs written to the buffer, including the terminating null character. On failure, this value is 0.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shformatdatetimew
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shformatdatetimew
      * @since windows5.1.2600
      */
     static SHFormatDateTimeW(pft, pdwFlags, pszBuf, cchBuf) {
@@ -30809,7 +30819,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of Unicode characters written to <i>pwszDst</i>, including the terminating null character. Returns 0 if unsuccessful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shansitounicode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shansitounicode
      * @since windows5.0
      */
     static SHAnsiToUnicode(pszSrc, pwszDst, cwchBuf) {
@@ -30843,7 +30853,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to <i>pszDst</i>, including the terminating null character. Returns 0 if unsuccessful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shansitoansi
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shansitoansi
      * @since windows5.0
      */
     static SHAnsiToAnsi(pszSrc, pszDst, cchBuf) {
@@ -30878,7 +30888,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of <b>CHAR</b> values written to the output buffer, including the terminating null character. Returns 0 if unsuccessful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shunicodetoansi
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shunicodetoansi
      * @since windows5.0
      */
     static SHUnicodeToAnsi(pwszSrc, pszDst, cchBuf) {
@@ -30915,7 +30925,7 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of <b>WCHAR</b> characters written to the output buffer, including the terminating null character. Returns 0 if unsuccessful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shunicodetounicode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shunicodetounicode
      * @since windows5.0
      */
     static SHUnicodeToUnicode(pwzSrc, pwzDst, cwchBuf) {
@@ -30967,7 +30977,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHMessageBoxCheck as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The window handle to the message box's owner. This value can be <b>NULL</b>.
      * @param {PSTR} pszText Type: <b>LPCTSTR</b>
@@ -30997,16 +31007,16 @@ class Shell {
      * If the user closes the message box by clicking the <b>X</b> button in the caption, the function returns IDCANCEL. This value is returned in this case even if the MB_OKCANCEL flag has not been set.
      * 
      * If an error occurs, the return value is normally –1. However, under certain low-memory conditions, the function might return <i>iDefault</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shmessageboxchecka
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shmessageboxchecka
      * @since windows5.1.2600
      */
-    static SHMessageBoxCheckA(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHMessageBoxCheckA(hwnd_, pszText, pszCaption, uType, iDefault, pszRegVal) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszText := pszText is String ? StrPtr(pszText) : pszText
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
 
-        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
+        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd_, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
     }
 
@@ -31052,7 +31062,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHMessageBoxCheck as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The window handle to the message box's owner. This value can be <b>NULL</b>.
      * @param {PWSTR} pszText Type: <b>LPCTSTR</b>
@@ -31082,16 +31092,16 @@ class Shell {
      * If the user closes the message box by clicking the <b>X</b> button in the caption, the function returns IDCANCEL. This value is returned in this case even if the MB_OKCANCEL flag has not been set.
      * 
      * If an error occurs, the return value is normally –1. However, under certain low-memory conditions, the function might return <i>iDefault</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shmessageboxcheckw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shmessageboxcheckw
      * @since windows5.1.2600
      */
-    static SHMessageBoxCheckW(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static SHMessageBoxCheckW(hwnd_, pszText, pszCaption, uType, iDefault, pszRegVal) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszText := pszText is String ? StrPtr(pszText) : pszText
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
 
-        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
+        result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd_, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
     }
 
@@ -31110,21 +31120,25 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsendmessagebroadcasta
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shsendmessagebroadcasta
      * @since windows5.1.2600
      */
-    static SHSendMessageBroadcastA(uMsg, wParam, lParam) {
-        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastA", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
-        return result
+    static SHSendMessageBroadcastA(uMsg, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastA", "uint", uMsg, "ptr", wParam_, "ptr", lParam_, "ptr")
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -31142,21 +31156,25 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsendmessagebroadcastw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shsendmessagebroadcastw
      * @since windows5.1.2600
      */
-    static SHSendMessageBroadcastW(uMsg, wParam, lParam) {
-        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastW", "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
-        return result
+    static SHSendMessageBroadcastW(uMsg, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := DllCall("SHLWAPI.dll\SHSendMessageBroadcastW", "uint", uMsg, "ptr", wParam_, "ptr", lParam_, "ptr")
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -31202,7 +31220,7 @@ class Shell {
      * @returns {CHAR} Type: <b>TCHAR</b>
      * 
      * Returns the mnemonic character, if one was found. Otherwise, returns 0.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shstripmneumonica
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shstripmneumonica
      * @since windows5.0
      */
     static SHStripMneumonicA(pszMenu) {
@@ -31255,7 +31273,7 @@ class Shell {
      * @returns {Integer} Type: <b>TCHAR</b>
      * 
      * Returns the mnemonic character, if one was found. Otherwise, returns 0.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shstripmneumonicw
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shstripmneumonicw
      * @since windows5.0
      */
     static SHStripMneumonicW(pszMenu) {
@@ -31277,7 +31295,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the specified operating system or operating system feature is detected, otherwise <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-isos
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-isos
      * @since windows5.0
      */
     static IsOS(dwOS) {
@@ -31293,7 +31311,7 @@ class Shell {
      * @returns {Integer} Type: <b>long</b>
      * 
      * The current value of the counter.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shglobalcountergetvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shglobalcountergetvalue
      * @since windows6.1
      */
     static SHGlobalCounterGetValue(id) {
@@ -31309,7 +31327,7 @@ class Shell {
      * @returns {Integer} Type: <b>long</b>
      * 
      * The value of the counter after the increment.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shglobalcounterincrement
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shglobalcounterincrement
      * @since windows6.1
      */
     static SHGlobalCounterIncrement(id) {
@@ -31325,7 +31343,7 @@ class Shell {
      * @returns {Integer} Type: <b>long</b>
      * 
      * The value of the counter after the decrement.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shglobalcounterdecrement
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shglobalcounterdecrement
      * @since windows6.1
      */
     static SHGlobalCounterDecrement(id) {
@@ -31349,7 +31367,7 @@ class Shell {
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle to the shared memory for the process specified by <i>dwDestinationProcessId</i>. Returns <b>NULL</b> if unsuccessful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shallocshared
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shallocshared
      * @since windows5.1.2600
      */
     static SHAllocShared(pvData, dwSize, dwProcessId) {
@@ -31369,7 +31387,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shfreeshared
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shfreeshared
      * @since windows5.1.2600
      */
     static SHFreeShared(hData, dwProcessId) {
@@ -31396,7 +31414,7 @@ class Shell {
      * 
      * The process ID of the process from which you want to map the block of memory.
      * @returns {Pointer<Void>} Returns a void pointer to the shared memory. Returns <b>NULL</b> if unsuccessful.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shlockshared
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shlockshared
      * @since windows5.1.2600
      */
     static SHLockShared(hData, dwProcessId) {
@@ -31416,7 +31434,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is <b>TRUE</b> and all modified pages within the specified range are written to the disk with low priority. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shunlockshared
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shunlockshared
      * @since windows5.1.2600
      */
     static SHUnlockShared(pvData) {
@@ -31488,7 +31506,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-whichplatform
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-whichplatform
      * @since windows5.1.2600
      */
     static WhichPlatform() {
@@ -31523,7 +31541,7 @@ class Shell {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-qisearch
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-qisearch
      * @since windows5.0
      */
     static QISearch(that, pqit, riid) {
@@ -31548,7 +31566,7 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  Always returns <b>FALSE</b> under Windows XP.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shislowmemorymachine
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shislowmemorymachine
      * @since windows5.1.2600
      */
     static SHIsLowMemoryMachine(dwType) {
@@ -31562,7 +31580,7 @@ class Shell {
      * Beginning with Windows Vista, this function is declared in Shlwapi.h.
      * 
      * <b>Windows XP:  </b>This function is declared in Shlwapi.dll.
-     * @param {HMENU} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu_ Type: <b>HMENU</b>
      * 
      * The handle of the menu.
      * @param {Integer} id Type: <b>UINT</b>
@@ -31571,13 +31589,13 @@ class Shell {
      * @returns {Integer} Type: <b>int</b>
      * 
      * The item's zero-based position in the menu.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-getmenuposfromid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-getmenuposfromid
      * @since windows5.1.2600
      */
-    static GetMenuPosFromID(hmenu, id) {
-        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+    static GetMenuPosFromID(hmenu_, id) {
+        hmenu_ := hmenu_ is Win32Handle ? NumGet(hmenu_, "ptr") : hmenu_
 
-        result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", hmenu, "uint", id, "int")
+        result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", hmenu_, "uint", id, "int")
         return result
     }
 
@@ -31616,7 +31634,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetinversecmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shgetinversecmap
      * @since windows5.0
      */
     static SHGetInverseCMAP(pbMap, cbMap) {
@@ -31647,7 +31665,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shautocomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shautocomplete
      * @since windows5.0
      */
     static SHAutoComplete(hwndEdit, dwFlags) {
@@ -31671,7 +31689,7 @@ class Shell {
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. If successful, this parameter holds the thread's <b>IUnknown</b> pointer on return. Your application is responsible for freeing the pointer when it is finished.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatethreadref
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatethreadref
      * @since windows5.1.2600
      */
     static SHCreateThreadRef(pcRef) {
@@ -31695,7 +31713,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shsetthreadref
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shsetthreadref
      * @since windows5.0
      */
     static SHSetThreadRef(punk) {
@@ -31712,7 +31730,7 @@ class Shell {
      * @returns {Pointer<IUnknown>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer that, when this function returns successfully, points to the object whose reference is stored. Your application is responsible for freeing this resource when it is no longer needed.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetthreadref
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shgetthreadref
      * @since windows5.0
      */
     static SHGetThreadRef() {
@@ -31737,7 +31755,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the object specified by <i>pclsid</i> must be skipped, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shskipjunction
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shskipjunction
      * @since windows5.0
      */
     static SHSkipJunction(pbc, pclsid) {
@@ -31771,7 +31789,7 @@ class Shell {
      * @param {Integer} flags Type: <b>SHCT_FLAGS</b>
      * 
      * The flags that control the behavior of the function. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ctf">CTF</a> constants.
-     * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
+     * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback_ Type: <b>LPTHREAD_START_ROUTINE</b>
      * 
      * A pointer to an optional application-defined function of the 
      * 				 <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a> type. This function is called 
@@ -31797,15 +31815,15 @@ class Shell {
      *     ....
      * }
      * ```
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatethread
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatethread
      * @since windows5.0
      */
-    static SHCreateThread(pfnThreadProc, pData, flags, pfnCallback) {
+    static SHCreateThread(pfnThreadProc, pData, flags, pfnCallback_) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateThread", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -31841,7 +31859,7 @@ class Shell {
      * @param {Integer} flags Type: <b>SHCT_FLAGS</b>
      * 
      * Flags that control the behavior of the function; one or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ctf">CTF</a> constants.
-     * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
+     * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback_ Type: <b>LPTHREAD_START_ROUTINE</b>
      * 
      * A pointer to an optional application-defined function of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a>. This function is called in the context of the created thread before the function pointed to by <i>pfnThreadProc</i> is called. It will also receive <i>pData</i> as its argument. <b>SHCreateThreadWithHandle</b> waits for the function pointed to by <i>pfnCallback</i> to complete before returning to its caller. The return value for the function specified by <i>pfnCallback</i> is ignored.
      * @param {Pointer<HANDLE>} pHandle Type: <b>HANDLE*</b>
@@ -31850,15 +31868,15 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the thread is successfully created; otherwise, <b>FALSE</b>
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreatethreadwithhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreatethreadwithhandle
      * @since windows6.0.6000
      */
-    static SHCreateThreadWithHandle(pfnThreadProc, pData, flags, pfnCallback, pHandle) {
+    static SHCreateThreadWithHandle(pfnThreadProc, pData, flags, pfnCallback_, pHandle) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback, "ptr", pHandle, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateThreadWithHandle", "ptr", pfnThreadProc, pDataMarshal, pData, "uint", flags, "ptr", pfnCallback_, "ptr", pHandle, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -31871,7 +31889,7 @@ class Shell {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreleasethreadref
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shreleasethreadref
      * @since windows5.1.2600
      */
     static SHReleaseThreadRef() {
@@ -31895,19 +31913,19 @@ class Shell {
      * <li>If the device context is indexed, a full palette is returned.</li>
      * <li>If the device context is not indexed, a default palette (VGA colors) is returned.</li>
      * </ul>
-     * @param {HDC} hdc Type: <b>HDC</b>
+     * @param {HDC} hdc_ Type: <b>HDC</b>
      * 
      * The device context.
      * @returns {HPALETTE} Type: <b>HPALETTE</b>
      * 
      * Returns the palette if successful; otherwise 0.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcreateshellpalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-shcreateshellpalette
      * @since windows5.0
      */
-    static SHCreateShellPalette(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SHCreateShellPalette(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc, "ptr")
+        result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc_, "ptr")
         resultHandle := HPALETTE({Value: result}, True)
         return resultHandle
     }
@@ -31930,7 +31948,7 @@ class Shell {
      * A pointer to a value that, when this method returns successfully, receives the HLS saturation value.
      * Can range from 0 to 240.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-colorrgbtohls
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-colorrgbtohls
      * @since windows5.0
      */
     static ColorRGBToHLS(clrRGB, pwHue, pwLuminance, pwSaturation) {
@@ -31958,7 +31976,7 @@ class Shell {
      * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Returns the RGB value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-colorhlstorgb
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-colorhlstorgb
      * @since windows5.0
      */
     static ColorHLSToRGB(wHue, wLuminance, wSaturation) {
@@ -31984,7 +32002,7 @@ class Shell {
      * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Returns the modified RGB value.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-coloradjustluma
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-coloradjustluma
      * @since windows5.0
      */
     static ColorAdjustLuma(clrRGB, n, fScale) {
@@ -31997,7 +32015,7 @@ class Shell {
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if Internet Explorer is in the Enhanced Security Configuration, and <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-isinternetescenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlwapi/nf-shlwapi-isinternetescenabled
      * @since windows5.1.2600
      */
     static IsInternetESCEnabled() {
@@ -32561,7 +32579,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string.
      * @param {Pointer<PWSTR>} ppszServer A pointer to a string that, when this function returns successfully, receives the server portion of the UNC path. This value can be <b>NULL</b> if you don't need this information.
      * @returns {BOOL} Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathisuncex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathisuncex
      * @since windows8.0
      */
     static PathIsUNCEx(pszPath, ppszServer) {
@@ -32691,7 +32709,7 @@ class Shell {
      * This function returns <b>TRUE</b> for paths such as "\", "<i>X</i>:\" or "&#92;&#92;<i>server</i>&#92;<i>share</i>". Paths such as "..\path2" or "&#92;&#92;<i>server</i>\" return <b>FALSE</b>.
      * @param {PWSTR} pszPath A pointer to the path string.
      * @returns {BOOL} Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchisroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchisroot
      * @since windows8.0
      */
     static PathCchIsRoot(pszPath) {
@@ -32708,7 +32726,7 @@ class Shell {
      * @param {Pointer<PWSTR>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to the terminating null character at the end of the string.
      * @param {Pointer<Pointer>} pcchRemaining A pointer to a value that, when this function returns successfully, is set to the number of unused characters in the destination buffer, including the terminating null character.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchaddbackslashex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchaddbackslashex
      * @since windows8.0
      */
     static PathCchAddBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
@@ -32726,7 +32744,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchaddbackslash
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchaddbackslash
      * @since windows8.0
      */
     static PathCchAddBackslash(pszPath, cchPath) {
@@ -32745,7 +32763,7 @@ class Shell {
      * @param {Pointer<PWSTR>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to end of the new string. If the string is a root path such as "C:\", the pointer points to the backslash; otherwise the pointer points to the string's terminating null character.
      * @param {Pointer<Pointer>} pcchRemaining A pointer to a value that, when this function returns successfully, receives the number of unused characters in the destination buffer, including the terminating null character. If the string is a root path such as "C:\", this count includes the backslash in that string.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremovebackslashex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchremovebackslashex
      * @since windows8.0
      */
     static PathCchRemoveBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
@@ -32769,7 +32787,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremovebackslash
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchremovebackslash
      * @since windows8.0
      */
     static PathCchRemoveBackslash(pszPath, cchPath) {
@@ -32783,7 +32801,7 @@ class Shell {
      * Retrieves a pointer to the first character in a path following the drive letter or Universal Naming Convention (UNC) server/share path elements.This function differs from PathSkipRoot in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
      * @param {PWSTR} pszPath A pointer to the path string.
      * @returns {PWSTR} The address of a pointer that, when this function returns successfully, points to the first character in a path following the drive letter or UNC server/share path elements. If the path consists of only a root, this value will point to the string's terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchskiproot
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchskiproot
      * @since windows8.0
      */
     static PathCchSkipRoot(pszPath) {
@@ -32823,7 +32841,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, this string contains only the root information taken from that path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the path was truncated, <b>S_FALSE</b> if the path was already just a root, or an <b>HRESULT</b> failure code.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchstriptoroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchstriptoroot
      * @since windows8.0
      */
     static PathCchStripToRoot(pszPath, cchPath) {
@@ -32867,7 +32885,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the fully-qualified path string. When this function returns successfully, the string will have had its last element and its leading backslash removed. This function does not affect root paths such as "C:\". In the case of a root path, the path string is returned unaltered. If a path string ends with a trailing backslash, only that backslash is removed.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if there was nothing to remove, or an error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremovefilespec
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchremovefilespec
      * @since windows8.0
      */
     static PathCchRemoveFileSpec(pszPath, cchPath) {
@@ -32886,7 +32904,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path to search.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {PWSTR} The address of a pointer that, when this function returns successfully, points to the "." character that precedes the extension within <i>pszPath</i>. If no extension is found, it points to the string's terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchfindextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchfindextension
      * @since windows8.0
      */
     static PathCchFindExtension(pszPath, cchPath) {
@@ -32955,7 +32973,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchaddextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchaddextension
      * @since windows8.0
      */
     static PathCchAddExtension(pszPath, cchPath, pszExt) {
@@ -32976,7 +32994,7 @@ class Shell {
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {PWSTR} pszExt A pointer to the new extension string. The leading '.' character is optional. In the case of an empty string (""), any existing extension in the path string is removed.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchrenameextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchrenameextension
      * @since windows8.0
      */
     static PathCchRenameExtension(pszPath, cchPath, pszExt) {
@@ -32996,7 +33014,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any extension removed. If no extension was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if no extension was found, or an error code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchremoveextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchremoveextension
      * @since windows8.0
      */
     static PathCchRemoveExtension(pszPath, cchPath) {
@@ -33180,7 +33198,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchcanonicalizeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchcanonicalizeex
      * @since windows8.0
      */
     static PathCchCanonicalizeEx(pszPathOut, cchPathOut, pszPathIn, dwFlags) {
@@ -33279,7 +33297,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchcanonicalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchcanonicalize
      * @since windows8.0
      */
     static PathCchCanonicalize(pszPathOut, cchPathOut, pszPathIn) {
@@ -33422,7 +33440,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchcombineex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchcombineex
      * @since windows8.0
      */
     static PathCchCombineEx(pszPathOut, cchPathOut, pszPathIn, pszMore, dwFlags) {
@@ -33494,7 +33512,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchcombine
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchcombine
      * @since windows8.0
      */
     static PathCchCombine(pszPathOut, cchPathOut, pszPathIn, pszMore) {
@@ -33625,7 +33643,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchappendex
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchappendex
      * @since windows8.0
      */
     static PathCchAppendEx(pszPath, cchPath, pszMore, dwFlags) {
@@ -33685,7 +33703,7 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchappend
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchappend
      * @since windows8.0
      */
     static PathCchAppend(pszPath, cchPath, pszMore) {
@@ -33705,7 +33723,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the same path string will have had the prefix removed, if the prefix was present. If no prefix was present, the string will be unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the prefix was removed, <b>S_FALSE</b> if the path did not have a prefix to remove, or an <b>HRESULT</b> failure code.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathcchstripprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathcchstripprefix
      * @since windows8.0
      */
     static PathCchStripPrefix(pszPath, cchPath) {
@@ -33811,7 +33829,7 @@ class Shell {
      * </tr>
      * </table>
      * @returns {PWSTR} The address of a pointer to a buffer that, when this function returns successfully, receives the combined path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathalloccombine
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathalloccombine
      * @since windows8.0
      */
     static PathAllocCombine(pszPathIn, pszMore, dwFlags) {
@@ -33921,7 +33939,7 @@ class Shell {
      * </tr>
      * </table>
      * @returns {PWSTR} The address of a pointer to a buffer that, when this function returns successfully, receives the canonicalized path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/pathcch/nf-pathcch-pathalloccanonicalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/pathcch/nf-pathcch-pathalloccanonicalize
      * @since windows8.0
      */
     static PathAllocCanonicalize(pszPathIn, dwFlags) {
@@ -33938,16 +33956,15 @@ class Shell {
     /**
      * Enables an app to register a callback function through which it can be notified that its library is going into or coming out of a suspended state.
      * @param {Pointer<PAPPSTATE_CHANGE_ROUTINE>} Routine A pointer to a callback function that is called when the app enters or leaves the suspended state. See <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nc-appnotify-pappstate_change_routine">PAPPSTATE_CHANGE_ROUTINE</a> for more detail on this function.
-     * @param {Pointer<Void>} Context App-specific context information that the app uses when going into or out of a suspended state. This is commonly a "this" pointer.
+     * @param {Pointer<Void>} Context_ App-specific context information that the app uses when going into or out of a suspended state. This is commonly a "this" pointer.
      * @param {Pointer<PAPPSTATE_REGISTRATION>} Registration When this function returns successfully, this parameter receives the address of a pointer to a value that can be used to identify the registration. Store this value to use with <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-unregisterappstatechangenotification">UnregisterAppStateChangeNotification</a>.
      * @returns {Integer} A standard Win32 status code.
-     * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-registerappstatechangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/appnotify/nf-appnotify-registerappstatechangenotification
      */
-    static RegisterAppStateChangeNotification(Routine, Context, Registration) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
-        RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
+    static RegisterAppStateChangeNotification(Routine, Context_, Registration) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, ContextMarshal, Context, RegistrationMarshal, Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, Context_Marshal, Context_, "ptr", Registration, "uint")
         return result
     }
 
@@ -33955,24 +33972,25 @@ class Shell {
      * Cancels a change notification registered through RegisterAppStateChangeNotification.
      * @param {PAPPSTATE_REGISTRATION} Registration A pointer to the registration handle retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-registerappstatechangenotification">RegisterAppStateChangeNotification</a> through its <i>Registration</i> parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-unregisterappstatechangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/appnotify/nf-appnotify-unregisterappstatechangenotification
      */
     static UnregisterAppStateChangeNotification(Registration) {
+        Registration := Registration is Win32Handle ? NumGet(Registration, "ptr") : Registration
+
         DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\UnregisterAppStateChangeNotification", "ptr", Registration)
     }
 
     /**
      * 
      * @param {Pointer<PAPPCONSTRAIN_CHANGE_ROUTINE>} Routine 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Pointer<PAPPCONSTRAIN_REGISTRATION>} Registration 
      * @returns {Integer} 
      */
-    static RegisterAppConstrainedChangeNotification(Routine, Context, Registration) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
-        RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
+    static RegisterAppConstrainedChangeNotification(Routine, Context_, Registration) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, ContextMarshal, Context, RegistrationMarshal, Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, Context_Marshal, Context_, "ptr", Registration, "uint")
         return result
     }
 
@@ -33982,6 +34000,8 @@ class Shell {
      * @returns {String} Nothing - always returns an empty string
      */
     static UnregisterAppConstrainedChangeNotification(Registration) {
+        Registration := Registration is Win32Handle ? NumGet(Registration, "ptr") : Registration
+
         DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\UnregisterAppConstrainedChangeNotification", "ptr", Registration)
     }
 

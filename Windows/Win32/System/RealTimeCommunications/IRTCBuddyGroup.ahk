@@ -68,7 +68,11 @@ class IRTCBuddyGroup extends IUnknown{
      */
     get_Name() {
         pbstrGroupName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrGroupName, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrGroupName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGroupName
     }
 
@@ -78,9 +82,16 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Name(bstrGroupName) {
-        bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
+        if(bstrGroupName is String) {
+            pin := BSTR.Alloc(bstrGroupName)
+            bstrGroupName := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrGroupName, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrGroupName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +101,11 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     AddBuddy(pBuddy) {
-        result := ComCall(5, this, "ptr", pBuddy, "HRESULT")
+        result := ComCall(5, this, "ptr", pBuddy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +115,11 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveBuddy(pBuddy) {
-        result := ComCall(6, this, "ptr", pBuddy, "HRESULT")
+        result := ComCall(6, this, "ptr", pBuddy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +128,11 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {IRTCEnumBuddies} 
      */
     EnumerateBuddies() {
-        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumBuddies(ppEnum)
     }
 
@@ -118,7 +141,11 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {IRTCCollection} 
      */
     get_Buddies() {
-        result := ComCall(8, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppCollection)
     }
 
@@ -128,7 +155,11 @@ class IRTCBuddyGroup extends IUnknown{
      */
     get_Data() {
         pbstrData := BSTR()
-        result := ComCall(9, this, "ptr", pbstrData, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrData
     }
 
@@ -138,9 +169,16 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Data(bstrData) {
-        bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
+        if(bstrData is String) {
+            pin := BSTR.Alloc(bstrData)
+            bstrData := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrData, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,7 +187,11 @@ class IRTCBuddyGroup extends IUnknown{
      * @returns {IRTCProfile2} 
      */
     get_Profile() {
-        result := ComCall(11, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile2(ppProfile)
     }
 }

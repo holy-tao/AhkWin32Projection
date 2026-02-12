@@ -62,7 +62,11 @@ class IHTCDefaultDispatch extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_element() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -71,7 +75,11 @@ class IHTCDefaultDispatch extends IDispatch{
      * @returns {IHTMLEventObj} 
      */
     createEventObject() {
-        result := ComCall(8, this, "ptr*", &eventObj := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &eventObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLEventObj(eventObj)
     }
 
@@ -80,7 +88,11 @@ class IHTCDefaultDispatch extends IDispatch{
      * @returns {IDispatch} 
      */
     get_defaults() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -89,7 +101,11 @@ class IHTCDefaultDispatch extends IDispatch{
      * @returns {IDispatch} 
      */
     get_document() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 }

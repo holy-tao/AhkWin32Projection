@@ -6,7 +6,7 @@
  * Indicates disabled cryptographic settings.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-crypto_settings
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-crypto_settings
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

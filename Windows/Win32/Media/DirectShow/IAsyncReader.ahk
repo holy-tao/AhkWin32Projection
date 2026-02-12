@@ -6,7 +6,7 @@
 
 /**
  * The IAsyncReader interface performs an asynchronous data request on a filter.This interface is exposed by output pins that perform asynchronous read operations.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iasyncreader
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iasyncreader
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,18 +33,36 @@ class IAsyncReader extends IUnknown{
 
     /**
      * The RequestAllocator method requests an allocator during the pin connection.
+     * @remarks
+     * The downstream input pin should call this method during the connection process. If the pin has a preferred allocator, specify it in the <i>pPreferred</i> parameter. Specify any buffer requirements, such as buffer size or alignment, in the <i>pProps</i> parameter. The output pin chooses the allocator and returns a pointer to it in the <i>ppActual</i> parameter.
+     * 
+     * The output pin is not required to honor the input pin's requests. If the input pin has any absolute requirements, it should call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imemallocator-getproperties">IMemAllocator::GetProperties</a> method on the returned allocator. It can fail the connect if the allocator properties are not suitable. Once the connection is established, the input pin must use the allocator chosen by the output pin.
+     * 
+     * The input pin is responsible for committing and decommitting the allocator.
      * @param {IMemAllocator} pPreferred Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imemallocator">IMemAllocator</a> interface on the input pin's preferred allocator, or <b>NULL</b>.
      * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps Specifies the address of an [ALLOCATOR_PROPERTIES](/windows/desktop/api/strmif/ns-strmif-allocator_properties) structure, allocated by the caller. The caller should fill in any allocator properties that the input pin requires, and set the remaining members to zero.
      * @returns {IMemAllocator} Address of a variable that receives an <b>IMemAllocator</b> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-requestallocator
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-requestallocator
      */
     RequestAllocator(pPreferred, pProps) {
-        result := ComCall(3, this, "ptr", pPreferred, "ptr", pProps, "ptr*", &ppActual := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pPreferred, "ptr", pProps, "ptr*", &ppActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMemAllocator(ppActual)
     }
 
     /**
      * The Request method queues an asynchronous request for data.
+     * @remarks
+     * Before calling this method, retrieve a media sample from the pin's allocator. Time stamp the sample with the byte offsets you are requesting, first and last inclusive, multiplied by 10,000,000. Byte offsets are relative to the start of the stream.
+     * 
+     * The start and stop positions should match the alignment that was decided when the pins connected. Otherwise, the method might return VFW_E_BADALIGN. If the agreed alignment is coarser than the actual alignment of the stream, the stop position might exceed the real duration. If so, the method rounds the stop position down to the actual alignment.
+     * 
+     * Although it is technically a violation of COM rules, the caller must leave an outstanding reference count on the sample. The <c>Request</c> method does not call <b>AddRef</b> or <b>Release</b>, so the reference count is needed to keep the sample active.
+     * 
+     * The method returns before the request completes. Call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-waitfornext">IAsyncReader::WaitForNext</a> method to wait for the request. Do not reuse the original media sample while the request is pending. The <b>WaitForNext</b> method returns a pointer to the original sample. If the request succeeded, the sample contains the requested data. The <b>WaitForNext</b> method also returns whatever value is specified in the <i>dwUser</i> parameter. The caller can use this value to identify the sample.
      * @param {IMediaSample} pSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediasample">IMediaSample</a> interface of a media sample provided by the caller.
      * @param {Pointer} dwUser Specifies an arbitrary value that is returned when the request completes.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -121,15 +139,25 @@ class IAsyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-request
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-request
      */
     Request(pSample, dwUser) {
-        result := ComCall(4, this, "ptr", pSample, "ptr", dwUser, "HRESULT")
+        result := ComCall(4, this, "ptr", pSample, "ptr", dwUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WaitForNext method waits for the next pending read request to complete.
+     * @remarks
+     * If the method succeeds, the <i>ppSample</i> parameter contains a pointer to a media sample, whose buffer holds the requested data. Call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediasample-gettime">IMediaSample::GetTime</a> method and divide the results by 10,000,000 to determine the start and stop bytes. Samples may be returned out of order. Release the sample when you are finished processing the data.
+     * 
+     * The method fails if the pin is flushing. However, it may return an empty sample in <i>ppSample</i>. If <i>*ppSample</i> is non-<b>NULL</b>, release the sample and discard it. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-beginflush">IAsyncReader::BeginFlush</a>.
+     * 
+     * If a read error occurs, the source filter sends an error event to the Filter Graph Manager; the caller does not have to signal an error.
      * @param {Integer} dwTimeout Specifies a time-out in milliseconds. Use the value INFINITE to wait indefinitely
      * @param {Pointer<IMediaSample>} ppSample Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediasample">IMediaSample</a> interface pointer.
      * @param {Pointer<Pointer>} pdwUser Pointer to a variable that receives the value of the <i>dwUser</i> parameter specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-request">IAsyncReader::Request</a> method.
@@ -196,17 +224,27 @@ class IAsyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-waitfornext
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-waitfornext
      */
     WaitForNext(dwTimeout, ppSample, pdwUser) {
         pdwUserMarshal := pdwUser is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppSample, pdwUserMarshal, pdwUser, "HRESULT")
+        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppSample, pdwUserMarshal, pdwUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SyncReadAligned method performs a synchronous read. The method blocks until the request is completed. The file positions and the buffer address must be aligned; check the allocator properties for the required alignment.
+     * @remarks
+     * Before calling this method, retrieve a media sample from the pin's allocator. Time stamp the sample with the byte offsets you are requesting, first and last inclusive, multiplied by 10,000,000. Byte offsets are relative to the start of the stream.
+     * 
+     * The start and stop positions should match the alignment that was decided when the pins connected. Otherwise, the method returns VFW_E_BADALIGN. If the agreed alignment is coarser than the actual alignment of the stream, the stop position might exceed the real duration. If so, the method rounds the stop position down to the actual alignment.
+     * 
+     * This method performs an unbuffered read, so it might be faster than the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-syncread">IAsyncReader::SyncRead</a> method.
      * @param {IMediaSample} pSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediasample">IMediaSample</a> interface of a media sample provided by the caller.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -249,15 +287,21 @@ class IAsyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-syncreadaligned
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-syncreadaligned
      */
     SyncReadAligned(pSample) {
-        result := ComCall(6, this, "ptr", pSample, "HRESULT")
+        result := ComCall(6, this, "ptr", pSample, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SyncRead method performs a synchronous read. The method blocks until the request is completed. The file positions and the buffer address do not have to be aligned. If the request is not aligned, the method performs a buffered read operation.
+     * @remarks
+     * This method works even if the filter is stopped.
      * @param {Integer} llPosition Specifies the byte offset at which to begin reading. The method fails if this value is beyond the end of the file.
      * @param {Integer} lLength Specifies the number of bytes to read.
      * @param {Pointer} pBuffer Pointer to a buffer that receives the data.
@@ -291,15 +335,21 @@ class IAsyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-syncread
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-syncread
      */
     SyncRead(llPosition, lLength, pBuffer) {
-        result := ComCall(7, this, "int64", llPosition, "int", lLength, "ptr", pBuffer, "HRESULT")
+        result := ComCall(7, this, "int64", llPosition, "int", lLength, "ptr", pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Length method retrieves the total length of the stream.
+     * @remarks
+     * For streams retrieved over a network, the entire stream may not be available at first. Read operations beyond the available length might block for a long period of time, until that portion of the stream becomes available.
      * @param {Pointer<Integer>} pTotal Pointer to a variable that receives the length of the stream, in bytes.
      * @param {Pointer<Integer>} pAvailable Pointer to a variable that receives the portion of the stream that is currently available, in bytes.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -343,33 +393,53 @@ class IAsyncReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-length
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-length
      */
     Length(pTotal, pAvailable) {
         pTotalMarshal := pTotal is VarRef ? "int64*" : "ptr"
         pAvailableMarshal := pAvailable is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(8, this, pTotalMarshal, pTotal, pAvailableMarshal, pAvailable, "HRESULT")
+        result := ComCall(8, this, pTotalMarshal, pTotal, pAvailableMarshal, pAvailable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The BeginFlush method begins a flush operation.
+     * The BeginFlush method begins a flush operation. (IAsyncReader.BeginFlush)
+     * @remarks
+     * This method interrupts all pending read requests. While the pin is flushing, the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-request">IAsyncReader::Request</a> method fails and the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-waitfornext">IAsyncReader::WaitForNext</a> method returns immediately, possibly with the return code VFW_E_TIMEOUT.
+     * 
+     * The downstream input pin should call this method whenever the downstream filter flushes the filter graph. After calling this method, call the <b>WaitForNext</b> method until it returns <b>NULL</b> in the <i>ppSample</i> parameter, to clear out the queue of pending samples. Ignore error codes, and release each sample. Then call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-endflush">IAsyncReader::EndFlush</a> method to end the flush operation.
+     * 
+     * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/flushing">Flushing</a>.
      * @returns {HRESULT} Returns S_OK if successful, or S_FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-beginflush
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-beginflush
      */
     BeginFlush() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The EndFlush method ends a flush operation.
+     * The EndFlush method ends a flush operation. (IAsyncReader.EndFlush)
+     * @remarks
+     * While the pin is flushing, the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-request">IAsyncReader::Request</a> method fails and the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iasyncreader-waitfornext">IAsyncReader::WaitForNext</a> method returns immediately. Call the <c>EndFlush</c> method at the end of a flush operation, to reenable the <b>Request</b> method.
      * @returns {HRESULT} Returns S_OK if successful, or S_FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iasyncreader-endflush
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iasyncreader-endflush
      */
     EndFlush() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

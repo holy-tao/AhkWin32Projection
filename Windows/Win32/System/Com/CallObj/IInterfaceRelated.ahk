@@ -34,7 +34,11 @@ class IInterfaceRelated extends IUnknown{
      * @returns {HRESULT} 
      */
     SetIID(iid) {
-        result := ComCall(3, this, "ptr", iid, "HRESULT")
+        result := ComCall(3, this, "ptr", iid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IInterfaceRelated extends IUnknown{
      */
     GetIID() {
         piid := Guid()
-        result := ComCall(4, this, "ptr", piid, "HRESULT")
+        result := ComCall(4, this, "ptr", piid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piid
     }
 }

@@ -7,7 +7,7 @@
  * Starting with Windows 8, <b>NLSVERSIONINFO</b> is deprecated. In fact, it is identical to <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a>, which your app should use instead.
  * 
  * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-nlsversioninfo~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnls/ns-winnls-nlsversioninfo~r1
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

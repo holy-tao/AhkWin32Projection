@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSCTL_GROUP_CODES enumeration (msclus.h) enumerates group control codes.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_group_codes
+ * CLUSCTL_GROUP_CODES (clusapi.h) enumerates groupcontrol codes.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clusctl_group_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

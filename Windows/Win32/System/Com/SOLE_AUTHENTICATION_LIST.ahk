@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The SOLE_AUTHENTICATION_LIST (objidlbase.h) structure indicates the default authentication information to use with each authentication service.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-sole_authentication_list
+ * The SOLE_AUTHENTICATION_LIST (objidl.h) structure indicates the default authentication information to use with each authentication service.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ns-objidl-sole_authentication_list
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

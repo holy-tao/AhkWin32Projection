@@ -112,7 +112,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      */
     get_ProductID() {
         pProductID := Guid()
-        result := ComCall(3, this, "ptr", pProductID, "HRESULT")
+        result := ComCall(3, this, "ptr", pProductID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProductID
     }
 
@@ -122,7 +126,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TaskID(pTaskID) {
-        result := ComCall(4, this, "ptr", pTaskID, "HRESULT")
+        result := ComCall(4, this, "ptr", pTaskID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +139,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_BSAID() {
-        result := ComCall(5, this, "uint*", &pBSAID := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pBSAID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBSAID
     }
 
@@ -141,7 +153,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BGSpecifier(pBGSpecifier) {
-        result := ComCall(6, this, "ptr", pBGSpecifier, "HRESULT")
+        result := ComCall(6, this, "ptr", pBGSpecifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,7 +167,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BGName(pBGName) {
-        result := ComCall(7, this, "ptr", pBGName, "HRESULT")
+        result := ComCall(7, this, "ptr", pBGName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +181,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BGSource(pBGSource) {
-        result := ComCall(8, this, "ptr", pBGSource, "HRESULT")
+        result := ComCall(8, this, "ptr", pBGSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +195,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BGType(pBGType) {
-        result := ComCall(9, this, "ptr", pBGType, "HRESULT")
+        result := ComCall(9, this, "ptr", pBGType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +208,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsPeriodic() {
-        result := ComCall(10, this, "int*", &pIsPeriodic := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pIsPeriodic := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsPeriodic
     }
 
@@ -189,7 +221,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsScheduled() {
-        result := ComCall(11, this, "int*", &pIsScheduled := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pIsScheduled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsScheduled
     }
 
@@ -198,7 +234,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsScheduleAllowed() {
-        result := ComCall(12, this, "int*", &pIsScheduleAllowed := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pIsScheduleAllowed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsScheduleAllowed
     }
 
@@ -208,7 +248,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Description(pDescription) {
-        result := ComCall(13, this, "ptr", pDescription, "HRESULT")
+        result := ComCall(13, this, "ptr", pDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +261,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsLaunchOnBoot() {
-        result := ComCall(14, this, "int*", &pLaunchOnBoot := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pLaunchOnBoot := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLaunchOnBoot
     }
 
@@ -227,7 +275,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IsScheduled(IsScheduled) {
-        result := ComCall(15, this, "int", IsScheduled, "HRESULT")
+        result := ComCall(15, this, "int", IsScheduled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,7 +289,11 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IsScheduleAllowed(IsScheduleAllowed) {
-        result := ComCall(16, this, "int", IsScheduleAllowed, "HRESULT")
+        result := ComCall(16, this, "int", IsScheduleAllowed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The IRdcFileReader interface is used to provide the equivalent of a file handle, because the data being synchronized may not exist as a file on disk.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcfilereader
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-irdcfilereader
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -40,31 +40,48 @@ class IRdcFileReader extends IUnknown{
      * Returns the size of a file.
      * @returns {Integer} Address of a <b>ULONGLONG</b> that on successful return will be filled with the size 
      *       of the file, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilereader-getfilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcfilereader-getfilesize
      */
     GetFileSize() {
-        result := ComCall(3, this, "uint*", &fileSize := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &fileSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fileSize
     }
 
     /**
      * Reads the specified amount of data starting at the specified position.
+     * @remarks
+     * Typically RDC will read the file sequentially from start to end. When reading signatures, the file may be read 
+     *     more than once.
+     * 
+     * If the <b>BOOL</b> pointed to by the <i>eof</i> parameter is not <b>TRUE</b> 
+     *     on return then the value pointed to by the <i>bytesActuallyRead</i> parameter must equal the 
+     *     <i>bytesToRead</i> parameter. If the value pointed to by the <i>eof</i> 
+     *     parameter is set, then the value pointed to by the <i>bytesActuallyRead</i> parameter can be 
+     *     any value between zero and the <i>bytesToRead</i> parameter.
      * @param {Integer} offsetFileStart Offset from the start of the data at which to start the read.
      * @param {Integer} bytesToRead Number of bytes to be read.
      * @param {Pointer<Integer>} bytesActuallyRead Address of a <b>ULONG</b> that will receive the number of bytes read.
-     * @param {Pointer<Integer>} buffer Address of the buffer that receives the data read. This buffer must be at least 
+     * @param {Pointer<Integer>} buffer_ Address of the buffer that receives the data read. This buffer must be at least 
      *       <i>bytesToRead</i> bytes in size.
      * @param {Pointer<BOOL>} eof Address of a <b>BOOL</b> that is set to <b>TRUE</b> if the end of 
      *       the file has been read.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilereader-read
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcfilereader-read
      */
-    Read(offsetFileStart, bytesToRead, bytesActuallyRead, buffer, eof) {
+    Read(offsetFileStart, bytesToRead, bytesActuallyRead, buffer_, eof) {
         bytesActuallyReadMarshal := bytesActuallyRead is VarRef ? "uint*" : "ptr"
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+        buffer_Marshal := buffer_ is VarRef ? "char*" : "ptr"
         eofMarshal := eof is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, bufferMarshal, buffer, eofMarshal, eof, "HRESULT")
+        result := ComCall(4, this, "uint", offsetFileStart, "uint", bytesToRead, bytesActuallyReadMarshal, bytesActuallyRead, buffer_Marshal, buffer_, eofMarshal, eof, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,10 +89,14 @@ class IRdcFileReader extends IUnknown{
      * Returns the current file position.
      * @returns {Integer} Address of a <b>ULONGLONG</b> that will receive the current offset from the start of 
      *       the data.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilereader-getfileposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcfilereader-getfileposition
      */
     GetFilePosition() {
-        result := ComCall(5, this, "uint*", &offsetFromStart := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &offsetFromStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return offsetFromStart
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
@@ -981,12 +983,12 @@ class Ioctl {
     static MAX_FW_BUCKET_ID_LENGTH => 132
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_CRASH_TELEMETRY_REGKEY => "\Registry\Machine\System\CurrentControlSet\Control\CrashControl\StorageTelemetry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static STORAGE_DEVICE_TELEMETRY_REGKEY => "\Registry\Machine\System\CurrentControlSet\Control\Storage\StorageTelemetry"
 
@@ -1026,12 +1028,12 @@ class Ioctl {
     static TC_DEVICEDUMP_SUBSECTION_DESC_LENGTH => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TC_PUBLIC_DATA_TYPE_ATAGP => "ATAGPLogPages"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TC_PUBLIC_DATA_TYPE_ATASMART => "ATASMARTPages"
 

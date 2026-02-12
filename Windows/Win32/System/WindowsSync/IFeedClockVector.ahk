@@ -5,7 +5,7 @@
 
 /**
  * Represents a clock vector that contains FeedSync information.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ifeedclockvector
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ifeedclockvector
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -63,12 +63,16 @@ class IFeedClockVector extends IClockVector{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ifeedclockvector-getupdatecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ifeedclockvector-getupdatecount
      */
     GetUpdateCount(pdwUpdateCount) {
         pdwUpdateCountMarshal := pdwUpdateCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pdwUpdateCountMarshal, pdwUpdateCount, "HRESULT")
+        result := ComCall(5, this, pdwUpdateCountMarshal, pdwUpdateCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,12 +109,16 @@ class IFeedClockVector extends IClockVector{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ifeedclockvector-isnoconflictsspecified
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ifeedclockvector-isnoconflictsspecified
      */
     IsNoConflictsSpecified(pfIsNoConflictsSpecified) {
         pfIsNoConflictsSpecifiedMarshal := pfIsNoConflictsSpecified is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, pfIsNoConflictsSpecifiedMarshal, pfIsNoConflictsSpecified, "HRESULT")
+        result := ComCall(6, this, pfIsNoConflictsSpecifiedMarshal, pfIsNoConflictsSpecified, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

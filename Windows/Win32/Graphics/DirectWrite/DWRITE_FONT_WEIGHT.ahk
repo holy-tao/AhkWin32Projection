@@ -12,7 +12,7 @@
  * <div class="alert"><b>Note</b>  Not all weights are available for all typefaces. When a weight is not available for a typeface, the closest matching weight is returned.</div>
  * <div> </div>
  * Font weight values less than 1 or greater than 999 are considered invalid, and they are rejected by font API functions.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/ne-dwrite-dwrite_font_weight
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

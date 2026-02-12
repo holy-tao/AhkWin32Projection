@@ -7,7 +7,7 @@
  * Members of this type are used with the D3DRS\_VERTEXBLEND render state.
  * 
  * Geometry blending (multimatrix vertex blending) requires that your application use a vertex format that has blending (beta) weights for each vertex.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dvertexblendflags
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dvertexblendflags
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

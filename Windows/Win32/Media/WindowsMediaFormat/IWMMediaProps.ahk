@@ -6,7 +6,7 @@
 
 /**
  * The IWMMediaProps interface sets and retrieves the WM_MEDIA_TYPE structure for an input, stream, or output.In the case of inputs and streams, the contents of the media type structure determine what actions the writer object will perform on the input data when writing the file. Typically, the input media type is an uncompressed type and the stream is a compressed type, so that the contents of their respective media type structures will determine the settings passed by the writer to the codec that will compress the stream.In the case of outputs, the media type structure determines the settings used to decompress the contents of a stream. The Windows Media codecs are capable of delivering output content in a variety of formats.The methods of IWMMediaProps are inherited by IWMVideoMediaProps, which provides access to additional settings for specifying video media types. The methods are also inherited by IWMInputMediaProps and IWMOutputMediaProps.An instance of the IWMMediaProps interface exists for every stream configuration object, input media properties object, and output media properties object. You can retrieve a pointer to this interface by calling the QueryInterface method of any other interface in one of those objects.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmmediaprops
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmmediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,31 +33,47 @@ class IWMMediaProps extends IUnknown{
 
     /**
      * The GetType method retrieves the major type of the media in the stream, input, or output described by the object to which the current IWMMediaProps interface belongs.
+     * @remarks
+     * These media types are used by the writer, reader, and profile objects to identify the properties of a media stream that are specific to the media type.
+     * 
+     * <b>GetType</b> is provided for convenience; it returns the same value as the <b>majortype</b> member of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a>.
      * @returns {Guid} Pointer to a GUID specifying the media type.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmediaprops-gettype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmmediaprops-gettype
      */
     GetType() {
         pguidType := Guid()
-        result := ComCall(3, this, "ptr", pguidType, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidType
     }
 
     /**
      * The GetMediaType method retrieves a structure describing the media type.
+     * @remarks
+     * You must make two calls to <b>GetMediaType</b>. On the first call, pass <b>NULL</b> as <i>pType</i>. On return, the value of <i>pcbType</i> will be set to the buffer size required to hold the <b>WM_MEDIA_TYPE</b> structure. Then you can allocate a buffer of the required size and pass a pointer to it as <i>pType</i> on the second call.
      * @param {Pointer<Integer>} pcbType On input, the size of the <i>pType</i> buffer. On output, if <i>pType</i> is set to <b>NULL</b>, the value this points to is set to the size of the buffer needed to hold the media type structure.
      * @returns {WM_MEDIA_TYPE} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a> structure. If this parameter is set to <b>NULL</b>, this method returns the size of the buffer required in the <i>pcbType</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmmediaprops-getmediatype
      */
     GetMediaType(pcbType) {
         pcbTypeMarshal := pcbType is VarRef ? "uint*" : "ptr"
 
         pType := WM_MEDIA_TYPE()
-        result := ComCall(4, this, "ptr", pType, pcbTypeMarshal, pcbType, "HRESULT")
+        result := ComCall(4, this, "ptr", pType, pcbTypeMarshal, pcbType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
     /**
      * The SetMediaType method specifies the media type.
+     * @remarks
+     * It is possible to successfully set a media type in this method that will ultimately be rejected as invalid when the profile is set on the writer. For a list of tests that the writer performs on the profile, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-setprofile">IWMWriter::SetProfile</a>.
      * @param {Pointer<WM_MEDIA_TYPE>} pType Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a> structure describing the input, stream, or output.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -100,10 +116,14 @@ class IWMMediaProps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmmediaprops-setmediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmmediaprops-setmediatype
      */
     SetMediaType(pType) {
-        result := ComCall(5, this, "ptr", pType, "HRESULT")
+        result := ComCall(5, this, "ptr", pType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The IAudioLfxControl interface allows the client to apply or remove local effects from the offloaded audio stream.
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudiolfxcontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nn-audioengineendpoint-iaudiolfxcontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319
  */
@@ -34,20 +34,28 @@ class IAudioLfxControl extends IUnknown{
      * The SetLocalEffectsState method sets the local effects state that is to be applied to the offloaded audio stream.
      * @param {BOOL} bEnabled Indicates the local effects state that is to be applied to the offloaded audio stream. A value of <b>TRUE</b> enables  local effects, and the local effects in the audio graph are applied to the stream. A value of <b>FALSE</b> disables local effects, so that the  local effects in the audio graph are not applied to the audio stream.
      * @returns {HRESULT} The <b>SetLocalEffectsState</b> method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudiolfxcontrol-setlocaleffectsstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudiolfxcontrol-setlocaleffectsstate
      */
     SetLocalEffectsState(bEnabled) {
-        result := ComCall(3, this, "int", bEnabled, "HRESULT")
+        result := ComCall(3, this, "int", bEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetLocalEffectsState method retrieves the local effects state that is currently applied to the offloaded audio stream.
      * @returns {BOOL} A pointer to the Boolean variable that indicates the state of the local effects that have been applied to the offloaded audio stream. A value of <b>TRUE</b> indicates that local effects have been enabled and applied to the stream. A value of <b>FALSE</b> indicates that local effects have been disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudiolfxcontrol-getlocaleffectsstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-iaudiolfxcontrol-getlocaleffectsstate
      */
     GetLocalEffectsState() {
-        result := ComCall(4, this, "int*", &pbEnabled := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pbEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbEnabled
     }
 }

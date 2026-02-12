@@ -30,12 +30,17 @@ class IDtcToXaHelper extends IUnknown{
     static VTableNames => ["Close", "TranslateTridToXid"]
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @param {BOOL} i_fDoRecovery 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close(i_fDoRecovery) {
-        result := ComCall(3, this, "int", i_fDoRecovery, "HRESULT")
+        result := ComCall(3, this, "int", i_fDoRecovery, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +52,11 @@ class IDtcToXaHelper extends IUnknown{
      */
     TranslateTridToXid(pITransaction, pguidBqual) {
         pXid := XID()
-        result := ComCall(4, this, "ptr", pITransaction, "ptr", pguidBqual, "ptr", pXid, "HRESULT")
+        result := ComCall(4, this, "ptr", pITransaction, "ptr", pguidBqual, "ptr", pXid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pXid
     }
 }

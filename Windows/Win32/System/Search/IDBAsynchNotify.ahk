@@ -34,7 +34,11 @@ class IDBAsynchNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnLowResource(dwReserved) {
-        result := ComCall(3, this, "ptr", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class IDBAsynchNotify extends IUnknown{
     OnProgress(hChapter, eOperation, ulProgress, ulProgressMax, eAsynchPhase, pwszStatusText) {
         pwszStatusText := pwszStatusText is String ? StrPtr(pwszStatusText) : pwszStatusText
 
-        result := ComCall(4, this, "ptr", hChapter, "uint", eOperation, "ptr", ulProgress, "ptr", ulProgressMax, "uint", eAsynchPhase, "ptr", pwszStatusText, "HRESULT")
+        result := ComCall(4, this, "ptr", hChapter, "uint", eOperation, "ptr", ulProgress, "ptr", ulProgressMax, "uint", eAsynchPhase, "ptr", pwszStatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class IDBAsynchNotify extends IUnknown{
     OnStop(hChapter, eOperation, hrStatus, pwszStatusText) {
         pwszStatusText := pwszStatusText is String ? StrPtr(pwszStatusText) : pwszStatusText
 
-        result := ComCall(5, this, "ptr", hChapter, "uint", eOperation, "int", hrStatus, "ptr", pwszStatusText, "HRESULT")
+        result := ComCall(5, this, "ptr", hChapter, "uint", eOperation, "int", hrStatus, "ptr", pwszStatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

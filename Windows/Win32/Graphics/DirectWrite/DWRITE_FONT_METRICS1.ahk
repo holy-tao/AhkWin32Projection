@@ -15,7 +15,7 @@
  * ...
  * };
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/ns-dwrite_1-dwrite_font_metrics1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

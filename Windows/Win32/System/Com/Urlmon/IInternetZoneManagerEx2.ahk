@@ -36,7 +36,11 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
      * @returns {HRESULT} 
      */
     GetZoneAttributesEx(dwZone, pZoneAttributes, dwFlags) {
-        result := ComCall(17, this, "uint", dwZone, "ptr", pZoneAttributes, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, "uint", dwZone, "ptr", pZoneAttributes, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
         pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
+        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +76,11 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
         pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "int", fNoCache, "HRESULT")
+        result := ComCall(19, this, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "int", fNoCache, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +89,11 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
      * @returns {HRESULT} 
      */
     FixUnsecureSettings() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

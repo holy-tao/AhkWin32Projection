@@ -7,7 +7,7 @@
  * For more information about RFC 2461, section 7.3.2, see the 
  *     <a href="https://www.ietf.org/rfc/rfc2461.txt">Neighbor Discovery for IP Version 6
  *     (IPv6)</a> memo from Network Working Group.
- * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_neighbor_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/nldef/ne-nldef-nl_neighbor_state
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

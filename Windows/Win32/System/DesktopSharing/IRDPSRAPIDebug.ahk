@@ -43,9 +43,16 @@ class IRDPSRAPIDebug extends IUnknown{
      * @returns {HRESULT} 
      */
     put_CLXCmdLine(CLXCmdLine) {
-        CLXCmdLine := CLXCmdLine is String ? BSTR.Alloc(CLXCmdLine).Value : CLXCmdLine
+        if(CLXCmdLine is String) {
+            pin := BSTR.Alloc(CLXCmdLine)
+            CLXCmdLine := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", CLXCmdLine, "HRESULT")
+        result := ComCall(3, this, "ptr", CLXCmdLine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +62,11 @@ class IRDPSRAPIDebug extends IUnknown{
      */
     get_CLXCmdLine() {
         pCLXCmdLine := BSTR()
-        result := ComCall(4, this, "ptr", pCLXCmdLine, "HRESULT")
+        result := ComCall(4, this, "ptr", pCLXCmdLine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCLXCmdLine
     }
 }

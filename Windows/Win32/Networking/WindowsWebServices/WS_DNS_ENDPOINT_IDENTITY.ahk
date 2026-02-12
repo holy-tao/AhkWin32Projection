@@ -5,7 +5,7 @@
 
 /**
  * Type for specifying an endpoint identity represented by a DNS name.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_dns_endpoint_identity
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_dns_endpoint_identity
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

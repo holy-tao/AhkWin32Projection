@@ -63,7 +63,11 @@ class ISWbemSecurity extends IDispatch{
      * @returns {Integer} 
      */
     get_ImpersonationLevel() {
-        result := ComCall(7, this, "int*", &iImpersonationLevel := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &iImpersonationLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iImpersonationLevel
     }
 
@@ -73,7 +77,11 @@ class ISWbemSecurity extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ImpersonationLevel(iImpersonationLevel) {
-        result := ComCall(8, this, "int", iImpersonationLevel, "HRESULT")
+        result := ComCall(8, this, "int", iImpersonationLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +90,11 @@ class ISWbemSecurity extends IDispatch{
      * @returns {Integer} 
      */
     get_AuthenticationLevel() {
-        result := ComCall(9, this, "int*", &iAuthenticationLevel := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &iAuthenticationLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iAuthenticationLevel
     }
 
@@ -92,7 +104,11 @@ class ISWbemSecurity extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AuthenticationLevel(iAuthenticationLevel) {
-        result := ComCall(10, this, "int", iAuthenticationLevel, "HRESULT")
+        result := ComCall(10, this, "int", iAuthenticationLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +117,11 @@ class ISWbemSecurity extends IDispatch{
      * @returns {ISWbemPrivilegeSet} 
      */
     get_Privileges() {
-        result := ComCall(11, this, "ptr*", &objWbemPrivilegeSet := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &objWbemPrivilegeSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemPrivilegeSet(objWbemPrivilegeSet)
     }
 }

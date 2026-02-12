@@ -38,7 +38,11 @@ class ISpTTSEngine extends IUnknown{
      * @returns {HRESULT} 
      */
     Speak(dwSpeakFlags, rguidFormatId, pWaveFormatEx, pTextFragList, pOutputSite) {
-        result := ComCall(3, this, "uint", dwSpeakFlags, "ptr", rguidFormatId, "ptr", pWaveFormatEx, "ptr", pTextFragList, "ptr", pOutputSite, "HRESULT")
+        result := ComCall(3, this, "uint", dwSpeakFlags, "ptr", rguidFormatId, "ptr", pWaveFormatEx, "ptr", pTextFragList, "ptr", pOutputSite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class ISpTTSEngine extends IUnknown{
     GetOutputFormat(pTargetFmtId, pTargetWaveFormatEx, pOutputFormatId, ppCoMemOutputWaveFormatEx) {
         ppCoMemOutputWaveFormatExMarshal := ppCoMemOutputWaveFormatEx is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pTargetFmtId, "ptr", pTargetWaveFormatEx, "ptr", pOutputFormatId, ppCoMemOutputWaveFormatExMarshal, ppCoMemOutputWaveFormatEx, "HRESULT")
+        result := ComCall(4, this, "ptr", pTargetFmtId, "ptr", pTargetWaveFormatEx, "ptr", pOutputFormatId, ppCoMemOutputWaveFormatExMarshal, ppCoMemOutputWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The IFilterChain interface provides methods for starting, stopping, or removing chains of filters in a filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifilterchain
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-ifilterchain
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,25 +32,37 @@ class IFilterChain extends IUnknown{
 
     /**
      * The StartChain method switches all the filters in a filter chain into a running state.
+     * @remarks
+     * If this method cannot switch a given filter into a running state, it leaves all the filters in a stopped state. The filter graph must be running when you call this method.
      * @param {IBaseFilter} pStartFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter at the start of the chain.
      * @param {IBaseFilter} pEndFilter Pointer to the filter at the end of the chain. If this parameter is <b>NULL</b>, the method uses the longest possible filter chain that extends downstream from the start filter.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, the return value may be VFW_E_NOT_RUNNING or another <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilterchain-startchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifilterchain-startchain
      */
     StartChain(pStartFilter, pEndFilter) {
-        result := ComCall(3, this, "ptr", pStartFilter, "ptr", pEndFilter, "HRESULT")
+        result := ComCall(3, this, "ptr", pStartFilter, "ptr", pEndFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The PauseChain method switches all the filters in a filter chain into a paused state.
+     * @remarks
+     * If this method cannot switch a given filter into a paused state, it stops all of the filters in chain. The filter graph must be paused when you call this method.
      * @param {IBaseFilter} pStartFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter at the start of the chain.
      * @param {IBaseFilter} pEndFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter at the end of the chain. If this parameter is <b>NULL</b>, the method uses the longest possible filter chain that extends downstream from the start filter.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, the return value may be VFW_E_NOT_PAUSED or another <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilterchain-pausechain
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifilterchain-pausechain
      */
     PauseChain(pStartFilter, pEndFilter) {
-        result := ComCall(4, this, "ptr", pStartFilter, "ptr", pEndFilter, "HRESULT")
+        result := ComCall(4, this, "ptr", pStartFilter, "ptr", pEndFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,22 +71,32 @@ class IFilterChain extends IUnknown{
      * @param {IBaseFilter} pStartFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter at the start of the chain.
      * @param {IBaseFilter} pEndFilter Pointer to the filter at the end of the chain. If this parameter is <b>NULL</b>, the method uses the longest possible filter chain that extends downstream from the start filter.
      * @returns {HRESULT} Returns S_OK if successful, or an <b>HRESULT</b> value indicating the cause of the failure otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilterchain-stopchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifilterchain-stopchain
      */
     StopChain(pStartFilter, pEndFilter) {
-        result := ComCall(5, this, "ptr", pStartFilter, "ptr", pEndFilter, "HRESULT")
+        result := ComCall(5, this, "ptr", pStartFilter, "ptr", pEndFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The RemoveChain method removes every filter in a filter chain from the filter graph.
+     * @remarks
+     * You can call this method while the graph is running; the method stops the filters in the chain before removing them from the graph.
      * @param {IBaseFilter} pStartFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter at the start of the chain.
      * @param {IBaseFilter} pEndFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter at the end of the chain. If this parameter is <b>NULL</b>, the method uses the longest possible filter chain that extends downstream from the start filter.
      * @returns {HRESULT} Returns S_OK if successful, or an <b>HRESULT</b> value indicating the cause of the failure otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifilterchain-removechain
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifilterchain-removechain
      */
     RemoveChain(pStartFilter, pEndFilter) {
-        result := ComCall(6, this, "ptr", pStartFilter, "ptr", pEndFilter, "HRESULT")
+        result := ComCall(6, this, "ptr", pStartFilter, "ptr", pEndFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

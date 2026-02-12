@@ -49,7 +49,11 @@ class IXMLDOMNotation extends IXMLDOMNode{
      */
     get_publicId() {
         publicID := VARIANT()
-        result := ComCall(43, this, "ptr", publicID, "HRESULT")
+        result := ComCall(43, this, "ptr", publicID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return publicID
     }
 
@@ -59,7 +63,11 @@ class IXMLDOMNotation extends IXMLDOMNode{
      */
     get_systemId() {
         systemID := VARIANT()
-        result := ComCall(44, this, "ptr", systemID, "HRESULT")
+        result := ComCall(44, this, "ptr", systemID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return systemID
     }
 }

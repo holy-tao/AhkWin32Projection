@@ -34,7 +34,11 @@ class ICorConfiguration extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGCThreadControl(pGCThreadControl) {
-        result := ComCall(3, this, "ptr", pGCThreadControl, "HRESULT")
+        result := ComCall(3, this, "ptr", pGCThreadControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ICorConfiguration extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGCHostControl(pGCHostControl) {
-        result := ComCall(4, this, "ptr", pGCHostControl, "HRESULT")
+        result := ComCall(4, this, "ptr", pGCHostControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class ICorConfiguration extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDebuggerThreadControl(pDebuggerThreadControl) {
-        result := ComCall(5, this, "ptr", pDebuggerThreadControl, "HRESULT")
+        result := ComCall(5, this, "ptr", pDebuggerThreadControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +76,11 @@ class ICorConfiguration extends IUnknown{
      * @returns {HRESULT} 
      */
     AddDebuggerSpecialThread(dwSpecialThreadId) {
-        result := ComCall(6, this, "uint", dwSpecialThreadId, "HRESULT")
+        result := ComCall(6, this, "uint", dwSpecialThreadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

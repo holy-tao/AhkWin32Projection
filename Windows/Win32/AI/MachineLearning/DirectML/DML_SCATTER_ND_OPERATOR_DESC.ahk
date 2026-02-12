@@ -3,7 +3,7 @@
 
 /**
  * Copies the whole input tensor to the output, then overwrites selected indices with corresponding values from the updates tensor. (DML_SCATTER_ND_OPERATOR_DESC)
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_scatter_nd_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_scatter_nd_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method for getting the default Desk Band bandwidth.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ideskbandinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ideskbandinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,10 +39,14 @@ class IDeskBandInfo extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to the band width.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ideskbandinfo-getdefaultbandwidth
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ideskbandinfo-getdefaultbandwidth
      */
     GetDefaultBandWidth(dwBandID, dwViewMode) {
-        result := ComCall(3, this, "uint", dwBandID, "uint", dwViewMode, "int*", &pnWidth := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwBandID, "uint", dwViewMode, "int*", &pnWidth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnWidth
     }
 }

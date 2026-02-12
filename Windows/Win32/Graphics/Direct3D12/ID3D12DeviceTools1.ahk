@@ -31,11 +31,15 @@ class ID3D12DeviceTools1 extends ID3D12DeviceTools{
 
     /**
      * 
-     * @returns {ID3DBlob} 
+     * @returns {Pointer<ID3DBlob>} 
      */
     GetApplicationSpecificDriverState() {
-        result := ComCall(4, this, "ptr*", &ppBlob := 0, "HRESULT")
-        return ID3DBlob(ppBlob)
+        result := ComCall(4, this, "ptr*", &ppBlob := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlob
     }
 
     /**

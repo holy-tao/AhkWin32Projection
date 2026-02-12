@@ -6,7 +6,7 @@
  * Contains optional extended parameters for CreateFile2.
  * @remarks
  * To compile an application that uses the **CREATEFILE2_EXTENDED_PARAMETERS** structure, define the **_WIN32_WINNT** macro as `0x0602` or later. For more information, see [Using the Windows Headers](/windows/win32/WinProg/using-the-windows-headers).
- * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-createfile2_extended_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/ns-fileapi-createfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

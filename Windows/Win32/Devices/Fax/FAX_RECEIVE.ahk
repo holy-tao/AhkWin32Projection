@@ -33,7 +33,7 @@
  * 
  * <img alt="Filling in the memory that the fax service allocates" src="images/faxover.png"/>
  * The FSP can reformat the <b>ReceiverName</b> and <b>ReceiverNumber</b> members and transmit the reformatted data to the remote sending device as the called subscriber identifier (CSI) to comply with the recommendation of the standards body of the International Telecommunication Union (ITU) from Study Group 8 (SG8). For more information, see the <b>RoutingInfo</b> and <b>CSI</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">FAX_DEV_STATUS</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_receive
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxdev/ns-faxdev-fax_receive
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */

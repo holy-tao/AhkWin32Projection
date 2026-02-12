@@ -3,7 +3,7 @@
 
 /**
  * Contains the metrics associated with text after layout. (DWRITE_TEXT_METRICS)
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_metrics
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/ns-dwrite-dwrite_text_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

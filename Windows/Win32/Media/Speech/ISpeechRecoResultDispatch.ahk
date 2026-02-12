@@ -69,7 +69,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {ISpeechRecoContext} 
      */
     get_RecoContext() {
-        result := ComCall(7, this, "ptr*", &RecoContext := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &RecoContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechRecoContext(RecoContext)
     }
 
@@ -78,7 +82,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {ISpeechRecoResultTimes} 
      */
     get_Times() {
-        result := ComCall(8, this, "ptr*", &Times := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &Times := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechRecoResultTimes(Times)
     }
 
@@ -88,7 +96,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AudioFormat(Format) {
-        result := ComCall(9, this, "ptr", Format, "HRESULT")
+        result := ComCall(9, this, "ptr", Format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +109,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {ISpeechAudioFormat} 
      */
     get_AudioFormat() {
-        result := ComCall(10, this, "ptr*", &Format := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &Format := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioFormat(Format)
     }
 
@@ -106,30 +122,44 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
-        result := ComCall(11, this, "ptr*", &PhraseInfo := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &PhraseInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseInfo(PhraseInfo)
     }
 
     /**
-     * 
+     * Defines the type that contains the list of recognition alternates for an ink word.
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @returns {ISpeechPhraseAlternates} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/alternateslisttype-complex-type
      */
     Alternates(RequestCount, StartElement, Elements) {
-        result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", &Alternates := 0, "HRESULT")
+        result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", &Alternates := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseAlternates(Alternates)
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | Audio Encoding Properties
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @returns {ISpeechMemoryStream} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/audio-encoding-properties--deprecated
      */
     Audio(StartElement, Elements) {
-        result := ComCall(13, this, "int", StartElement, "int", Elements, "ptr*", &Stream := 0, "HRESULT")
+        result := ComCall(13, this, "int", StartElement, "int", Elements, "ptr*", &Stream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechMemoryStream(Stream)
     }
 
@@ -141,7 +171,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {Integer} 
      */
     SpeakAudio(StartElement, Elements, Flags) {
-        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, "int*", &StreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamNumber
     }
 
@@ -151,7 +185,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      */
     SaveToMemory() {
         ResultBlock := VARIANT()
-        result := ComCall(15, this, "ptr", ResultBlock, "HRESULT")
+        result := ComCall(15, this, "ptr", ResultBlock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ResultBlock
     }
 
@@ -161,7 +199,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {HRESULT} 
      */
     DiscardResultInfo(ValueTypes) {
-        result := ComCall(16, this, "int", ValueTypes, "HRESULT")
+        result := ComCall(16, this, "int", ValueTypes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,7 +214,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
      */
     GetXMLResult(Options) {
         pResult := BSTR()
-        result := ComCall(17, this, "int", Options, "ptr", pResult, "HRESULT")
+        result := ComCall(17, this, "int", Options, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -191,7 +237,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
         ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
         IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
 
-        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -202,9 +252,16 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @returns {HRESULT} 
      */
     SetTextFeedback(Feedback, WasSuccessful) {
-        Feedback := Feedback is String ? BSTR.Alloc(Feedback).Value : Feedback
+        if(Feedback is String) {
+            pin := BSTR.Alloc(Feedback)
+            Feedback := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", Feedback, "short", WasSuccessful, "HRESULT")
+        result := ComCall(19, this, "ptr", Feedback, "short", WasSuccessful, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

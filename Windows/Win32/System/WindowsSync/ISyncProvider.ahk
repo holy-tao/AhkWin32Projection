@@ -5,7 +5,7 @@
 
 /**
  * Represents a synchronization provider that can be used by a synchronization session to synchronize data with another synchronization provider.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncprovider
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -31,7 +31,9 @@ class ISyncProvider extends IUnknown{
     static VTableNames => ["GetIdParameters"]
 
     /**
-     * Gets the ID format schema of the provider.
+     * Gets the ID format schema of the provider. (ISyncProvider.GetIdParameters)
+     * @remarks
+     * This method is used to get the ID format schema from the two providers that are participating in synchronization. A synchronization session should use this method to verify that the two providers have the same ID format schema, so that they can synchronize with one another.
      * @param {Pointer<ID_PARAMETERS>} pIdParameters Returns the ID format schema of the provider.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -60,10 +62,14 @@ class ISyncProvider extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncprovider-getidparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncprovider-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pIdParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

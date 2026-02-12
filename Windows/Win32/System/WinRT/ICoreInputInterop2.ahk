@@ -42,7 +42,11 @@ class ICoreInputInterop2 extends IInspectable{
      */
     get_WindowHandle() {
         window := HWND()
-        result := ComCall(6, this, "ptr", window, "HRESULT")
+        result := ComCall(6, this, "ptr", window, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return window
     }
 
@@ -55,7 +59,11 @@ class ICoreInputInterop2 extends IInspectable{
     ChangeHostingContext(newParentWindow, newViewInstanceId) {
         newParentWindow := newParentWindow is Win32Handle ? NumGet(newParentWindow, "ptr") : newParentWindow
 
-        result := ComCall(7, this, "ptr", newParentWindow, "uint", newViewInstanceId, "HRESULT")
+        result := ComCall(7, this, "ptr", newParentWindow, "uint", newViewInstanceId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

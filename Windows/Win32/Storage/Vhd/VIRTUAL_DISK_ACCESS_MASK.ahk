@@ -5,7 +5,7 @@
  * VIRTUAL_DISK_ACCESS_MASK contains the bitmask for specifying access rights to a virtual hard disk (VHD) or CD or DVD image file (ISO).
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/ne-virtdisk-virtual_disk_access_mask~r1
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

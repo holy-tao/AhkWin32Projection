@@ -6,7 +6,7 @@
  * The JOB\_INFO\_1 structure specifies print-job information such as the job-identifier value, the name of the printer for which the job is spooled, the name of the machine that created the print job, the name of the user that owns the print job, and so on.
  * @remarks
  * Port monitors that do not support TrueEndOfJob will set the job as JOB\_STATUS\_PRINTED right after the job is submitted to the printer.
- * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-1
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/job-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

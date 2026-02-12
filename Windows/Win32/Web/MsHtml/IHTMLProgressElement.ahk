@@ -71,7 +71,11 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +84,11 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {Float} 
      */
     get_value() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -90,7 +98,11 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_max(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,7 +111,11 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {Float} 
      */
     get_max() {
-        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -108,7 +124,11 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {Float} 
      */
     get_position() {
-        result := ComCall(11, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -117,7 +137,11 @@ class IHTMLProgressElement extends IDispatch{
      * @returns {IHTMLFormElement} 
      */
     get_form() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFormElement(p)
     }
 }

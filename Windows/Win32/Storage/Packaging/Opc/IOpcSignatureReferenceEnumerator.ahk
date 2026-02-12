@@ -8,16 +8,12 @@
 /**
  * A read-only enumerator of IOpcSignatureReference interface pointers.
  * @remarks
- * 
- * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext">MoveNext</a>method after creating the enumerator.
+ * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext">MoveNext</a> method after creating the enumerator.
  * 
  * Changes to the set will invalidate the enumerator, and all subsequent calls to it will fail.
  * 
  * To get an <b>IOpcSignatureReferenceEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceset-getenumerator">IOpcSignatureReferenceSet::GetEnumerator</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getcustomreferenceenumerator">IOpcDigitalSignature::GetCustomReferenceEnumerator</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturereferenceenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcsignaturereferenceenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -76,10 +72,14 @@ class IOpcSignatureReferenceEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 
@@ -117,30 +117,46 @@ class IOpcSignatureReferenceEnumerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceenumerator-moveprevious
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceenumerator-moveprevious
      */
     MovePrevious() {
-        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasPrevious
     }
 
     /**
      * Gets the IOpcSignatureReference interface pointer at the current position of the enumerator.
-     * @returns {IOpcSignatureReference} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceenumerator-getcurrent
+     * @remarks
+     * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext">MoveNext</a> method after creating the enumerator.
+     * @returns {IOpcSignatureReference} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(5, this, "ptr*", &reference := 0, "HRESULT")
-        return IOpcSignatureReference(reference)
+        result := ComCall(5, this, "ptr*", &reference_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IOpcSignatureReference(reference_)
     }
 
     /**
      * Creates a copy of the current IOpcSignatureReferenceEnumerator interface pointer and all its descendants.
+     * @remarks
+     * The copy has a current position  and set that are identical to the current enumerator.
      * @returns {IOpcSignatureReferenceEnumerator} A pointer to a copy of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereferenceenumerator">IOpcSignatureReferenceEnumerator</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceenumerator-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceenumerator-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &copy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignatureReferenceEnumerator(copy)
     }
 }

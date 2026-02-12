@@ -48,7 +48,7 @@
  * Requesters or writers can recover a file set's file specification backup type by using the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsswmfiledesc-getbackuptypemask">IVssWMFiledesc::GetBackupTypeMask</a> 
  *     method.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_file_spec_backup_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_file_spec_backup_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

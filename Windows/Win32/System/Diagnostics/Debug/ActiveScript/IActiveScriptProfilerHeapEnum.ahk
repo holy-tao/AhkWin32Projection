@@ -30,17 +30,24 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
     static VTableNames => ["Next", "GetOptionalInfo", "FreeObjectAndOptionalInfo", "GetNameIdMap"]
 
     /**
-     * 
+     * NextMember (MDX)
+     * @remarks
+     * The **NextMember** function returns the next member, in the same level, that contains the specified member.
      * @param {Integer} celt 
      * @param {Pointer<Pointer<PROFILER_HEAP_OBJECT>>} heapObjects 
      * @param {Pointer<Integer>} pceltFetched 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/mdx/nextmember-mdx
      */
     Next(celt, heapObjects, pceltFetched) {
         heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : "ptr"
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, heapObjectsMarshal, heapObjects, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, heapObjectsMarshal, heapObjects, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +59,11 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
      */
     GetOptionalInfo(heapObject, celt) {
         optionalInfo := PROFILER_HEAP_OBJECT_OPTIONAL_INFO()
-        result := ComCall(4, this, "ptr", heapObject, "uint", celt, "ptr", optionalInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", heapObject, "uint", celt, "ptr", optionalInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return optionalInfo
     }
 
@@ -65,7 +76,11 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
     FreeObjectAndOptionalInfo(celt, heapObjects) {
         heapObjectsMarshal := heapObjects is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", celt, heapObjectsMarshal, heapObjects, "HRESULT")
+        result := ComCall(5, this, "uint", celt, heapObjectsMarshal, heapObjects, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +94,11 @@ class IActiveScriptProfilerHeapEnum extends IUnknown{
         pNameListMarshal := pNameList is VarRef ? "ptr*" : "ptr"
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pNameListMarshal, pNameList, pceltMarshal, pcelt, "HRESULT")
+        result := ComCall(6, this, pNameListMarshal, pNameList, pceltMarshal, pcelt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

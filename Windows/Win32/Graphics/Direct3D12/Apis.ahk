@@ -2443,7 +2443,7 @@ class Direct3D12 {
      * @param {Pointer<D3D12_ROOT_SIGNATURE_DESC>} pRootSignature Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a>*</b>
      * 
      * The description of the root signature, as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
-     * @param {Integer} Version Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
+     * @param {Integer} Version_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a>-typed value that specifies the version of root signature.
      * @param {Pointer<ID3DBlob>} ppBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
@@ -2455,10 +2455,10 @@ class Direct3D12 {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12serializerootsignature
      */
-    static D3D12SerializeRootSignature(pRootSignature, Version, ppBlob, ppErrorBlob) {
-        result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
+    static D3D12SerializeRootSignature(pRootSignature, Version_, ppBlob, ppErrorBlob) {
+        result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version_, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -2492,7 +2492,7 @@ class Direct3D12 {
      * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
      */
     static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
         result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
@@ -2531,7 +2531,7 @@ class Direct3D12 {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12serializeversionedrootsignature
      */
     static D3D12SerializeVersionedRootSignature(pRootSignature, ppBlob, ppErrorBlob) {
         result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", "ptr", pRootSignature, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
@@ -2569,7 +2569,7 @@ class Direct3D12 {
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
      */
     static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
         result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
@@ -2640,7 +2640,7 @@ class Direct3D12 {
      * @returns {Pointer<Pointer<Void>>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. Pass **NULL** to test if device creation would succeed, but to not actually create the device. If **NULL** is passed and device creation would succeed, **S_FALSE** is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12createdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12createdevice
      */
     static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid) {
         result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr*", &ppDevice := 0, "int")
@@ -2666,7 +2666,7 @@ class Direct3D12 {
      *             See
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug">ID3D12Debug</a> and
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice">ID3D12DebugDevice</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getdebuginterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12getdebuginterface
      */
     static D3D12GetDebugInterface(riid) {
         result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr*", &ppvDebug := 0, "int")
@@ -2710,7 +2710,7 @@ class Direct3D12 {
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code that can include E_NOINTERFACE if an unrecognized feature is specified or Developer Mode is not enabled, or E_INVALIDARG if the configuration of a feature is in correct, the experimental features specified are not compatible, or other errors.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12enableexperimentalfeatures
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12enableexperimentalfeatures
      */
     static D3D12EnableExperimentalFeatures(NumFeatures, pIIDs, pConfigurationStructs, pConfigurationStructSizes) {
         pConfigurationStructsMarshal := pConfigurationStructs is VarRef ? "ptr" : "ptr"
@@ -2749,7 +2749,7 @@ class Direct3D12 {
      * @returns {Pointer<Pointer<Void>>} Type: \_COM\_Outptr\_opt\_ **[void](/windows/win32/winprog/windows-data-types)\*\***
      * 
      * The `out` parameter that contains the requested interface on return (for example, the SDK configuration interface), as a pointer to pointer to void. See [ID3D12SDKConfiguration](nn-d3d12-id3d12sdkconfiguration.md).
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-d3d12getinterface
      */
     static D3D12GetInterface(rclsid, riid) {
         result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr*", &ppvDebug := 0, "int")

@@ -5,7 +5,7 @@
 
 /**
  * The IMDSPDeviceControl interface provides methods for controlling devices.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-imdspdevicecontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-imdspdevicecontrol
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IMDSPDeviceControl extends IUnknown{
 
     /**
      * The GetDCStatus method retrieves the control status of the device.
+     * @remarks
+     * This call returns status values specific to the device control operations of this interface. The control status can provide information about the state of control-related activities of the device, such as playing, recording, and so on. However, it cannot provide information about the global status of the device, such as whether the device is downloading data or being accessed for some other reason. If the device is busy for any reason other than device control, you receive a busy code and must call the <b>GetStatus</b> method of the associated <b>IMDSPDevice</b> interface for more detailed information.
+     * 
+     * You must not attempt to call the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-play">Play</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-record">Record</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-pause">Pause</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-resume">Resume</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-stop">Stop</a> methods of this interface if the status value WMDM_STATUS_BUSY is returned and the status value does not contain any other values from the table of status values.
      * @returns {Integer} Pointer to a <b>DWORD</b> that contains the control status of the device. The control status value contains one or more of the following flags.
      * 
      * <table>
@@ -70,10 +74,14 @@ class IMDSPDeviceControl extends IUnknown{
      * <td>The play or record method is streaming data to or from the media device.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-getdcstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-getdcstatus
      */
     GetDCStatus() {
-        result := ComCall(3, this, "uint*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwStatus
     }
 
@@ -121,15 +129,25 @@ class IMDSPDeviceControl extends IUnknown{
      * <td>The media device can seek to a position other than the beginning of a file.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-getcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-getcapabilities
      */
     GetCapabilities() {
-        result := ComCall(4, this, "uint*", &pdwCapabilitiesMask := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwCapabilitiesMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCapabilitiesMask
     }
 
     /**
      * The Play method begins playing at the current seek position. If the Seek method has not been called, then playing begins at the beginning of the first file, and the play length is not defined.
+     * @remarks
+     * This method is used to invoke both device playback (playback of an audio track on a storage medium of the media device) and streaming audio playback (streaming audio data from the user's computer to the media device, where it is played). The <b>Seek</b> method determines the form of playback that occurs.
+     * 
+     * Some devices do not support either device playback or streaming audio playback. Before attempting to start playback of a particular type, the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-getcapabilities">GetCapabilities</a> method must be called. If unsupported playback is attempted, this method returns WMDM_E_NOTSUPPORTED.
+     * 
+     * To determine whether an audio format can be played by the media device before invoking the play operation, you can call the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevice-getformatsupport">IMDSPDevice::GetFormatSupport</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -182,15 +200,27 @@ class IMDSPDeviceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-play
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-play
      */
     Play() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Record method begins recording from the device's external record input at the current seek position. The Seek method must be called first.
+     * @remarks
+     * This method is used to invoke both device recording (recording of an audio track to be stored on the media device) and streaming audio data from the media device to be recorded on the computer. The <b>Seek</b> method determines which form of recording occurs.
+     * 
+     * Some devices do not support either type of recording. The <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-getcapabilities">GetCapabilities</a> method must be called before you start recording. If an unsupported type of recording is attempted, this method returns WMDM_E_NOTSUPPORTED.
+     * 
+     * An argument for the <i>pFormat</i> parameter can be supplied to specify an audio data format for recording. To determine the formats supported by the device, see <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevice-getformatsupport">IMDSPDevice::GetFormatSupport</a>. If the <i>pFormat</i> parameter is set to <b>NULL</b>, the device records audio data in the default format.
+     * 
+     * When you use device recording, you must enumerate the storage medium contents to find the new object after the record operation is finished.
      * @param {Pointer<WAVEFORMATEX>} pFormat Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structure containing the format in which the data must be recorded.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -244,15 +274,21 @@ class IMDSPDeviceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-record
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-record
      */
     Record(pFormat) {
-        result := ComCall(6, this, "ptr", pFormat, "HRESULT")
+        result := ComCall(6, this, "ptr", pFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Pause method pauses the current play or record session at the current position within the content.
+     * The Pause method pauses the current play or record session at the current position within the content. (IMDSPDeviceControl.Pause)
+     * @remarks
+     * The current play or record session is paused and the current file position is saved. A subsequent call to the <b>Resume</b> method restarts the play or record operation at the saved file position.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -305,10 +341,14 @@ class IMDSPDeviceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-pause
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-pause
      */
     Pause() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -366,10 +406,14 @@ class IMDSPDeviceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-resume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-resume
      */
     Resume() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -427,15 +471,25 @@ class IMDSPDeviceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-stop
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-stop
      */
     Stop() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The Seek method seeks to a position that is used as the starting point by the Play or Record methods.
+     * The Seek method seeks to a position that is used as the starting point by the Play or Record methods. (IMDSPDeviceControl.Seek)
+     * @remarks
+     * The seek position is defined by passing either an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorage">IWMDMStorage</a> interface pointing to a location on a storage medium of the device, or an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmoperation">IWMDMOperation</a> interface that has been implemented to support streaming audio. The <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-imdspobjectinfo">IMDSPObjectInfo</a> interface can also be passed to describe some point within the object to which the specified interface points.
+     * 
+     * For device playback, if <b>Seek</b> is not called before <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-play">Play</a>, then playback starts at the first audio track on the first storage medium on the media device.
+     * 
+     * For device recording, if <b>Seek</b> is not called before <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspdevicecontrol-record">Record</a>, the record operation fails. After the <b>Record</b> method is called, subsequent calls to the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspobjectinfo-getlastplayposition">IMDSPObjectInfo::GetLastPlayPosition</a> method report the total play length at any time, and equal the value returned from <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspobjectinfo-gettotallength">IMDSPObjectInfo::GetTotalLength</a>. The recording length can be limited by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-imdspobjectinfo-setplaylength">IMDSPObjectInfo::SetPlayLength</a> method after returning from the <b>Seek</b> call.
      * @param {Integer} fuMode Mode for the seek operation being performed. The <i>fuMode</i> parameter must be one of the following modes.
      * 
      * <table>
@@ -513,10 +567,14 @@ class IMDSPDeviceControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevicecontrol-seek
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-imdspdevicecontrol-seek
      */
     Seek(fuMode, nOffset) {
-        result := ComCall(10, this, "uint", fuMode, "int", nOffset, "HRESULT")
+        result := ComCall(10, this, "uint", fuMode, "int", nOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

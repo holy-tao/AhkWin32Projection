@@ -74,7 +74,11 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes{
      */
     GetInputEdgeDescription(inputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return edgeDescription
     }
 
@@ -85,7 +89,11 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes{
      * @returns {HRESULT} 
      */
     SetOutputEdgeDescription(outputIndex, edgeDescription) {
-        result := ComCall(12, this, "uint", outputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(12, this, "uint", outputIndex, "ptr", edgeDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

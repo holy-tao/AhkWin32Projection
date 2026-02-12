@@ -20,7 +20,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<BSTR>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_usersize
      */
     static BSTR_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -35,7 +35,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<BSTR>} param2 
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_usermarshal
      */
     static BSTR_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -80,7 +80,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_userunmarshal
      */
     static BSTR_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -95,7 +95,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<BSTR>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_userfree
      */
     static BSTR_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -109,7 +109,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_usersize
      */
     static HWND_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -124,7 +124,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_usermarshal
      */
     static HWND_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -140,7 +140,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_userunmarshal
      */
     static HWND_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -155,7 +155,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HWND>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_userfree
      */
     static HWND_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -169,7 +169,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<BSTR>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_usersize64
      * @since windows5.1.2600
      */
     static BSTR_UserSize64(param0, param1, param2) {
@@ -185,7 +185,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<BSTR>} param2 
      * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_usermarshal64
      * @since windows5.1.2600
      */
     static BSTR_UserMarshal64(param0, param1, param2) {
@@ -231,7 +231,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_userunmarshal64
      * @since windows5.1.2600
      */
     static BSTR_UserUnmarshal64(param0, param1, param2) {
@@ -247,7 +247,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<BSTR>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-bstr_userfree64
      * @since windows5.1.2600
      */
     static BSTR_UserFree64(param0, param1) {
@@ -262,7 +262,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_usersize64
      */
     static HWND_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -277,7 +277,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_usermarshal64
      */
     static HWND_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -293,7 +293,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HWND>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_userunmarshal64
      */
     static HWND_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -308,7 +308,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HWND>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hwnd_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hwnd_userfree64
      */
     static HWND_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -322,7 +322,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_usersize
      */
     static CLIPFORMAT_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -338,7 +338,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_usermarshal
      */
     static CLIPFORMAT_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -355,7 +355,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_userunmarshal
      */
     static CLIPFORMAT_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -371,7 +371,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_userfree
      */
     static CLIPFORMAT_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -386,7 +386,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_usersize
      */
     static HBITMAP_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -401,7 +401,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_usermarshal
      */
     static HBITMAP_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -417,7 +417,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_userunmarshal
      */
     static HBITMAP_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -432,7 +432,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HBITMAP>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_userfree
      */
     static HBITMAP_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -446,7 +446,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_usersize
      */
     static HDC_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -461,7 +461,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_usermarshal
      */
     static HDC_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -477,7 +477,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_userunmarshal
      */
     static HDC_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -492,7 +492,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HDC>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_userfree
      */
     static HDC_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -622,7 +622,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_usersize
      */
     static STGMEDIUM_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -637,7 +637,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_usermarshal
      */
     static STGMEDIUM_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -653,7 +653,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_userunmarshal
      */
     static STGMEDIUM_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -668,7 +668,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<STGMEDIUM>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_userfree
      */
     static STGMEDIUM_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -682,7 +682,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_usersize64
      */
     static CLIPFORMAT_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -698,7 +698,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_usermarshal64
      */
     static CLIPFORMAT_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -715,7 +715,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<Integer>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_userunmarshal64
      */
     static CLIPFORMAT_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -731,7 +731,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Integer>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-clipformat_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-clipformat_userfree64
      */
     static CLIPFORMAT_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -746,7 +746,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_usersize64
      */
     static HBITMAP_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -761,7 +761,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_usermarshal64
      */
     static HBITMAP_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -777,7 +777,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HBITMAP>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_userunmarshal64
      */
     static HBITMAP_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -792,7 +792,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HBITMAP>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-hbitmap_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_userfree64
      */
     static HBITMAP_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -806,7 +806,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_usersize64
      */
     static HDC_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -821,7 +821,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_usermarshal64
      */
     static HDC_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -837,7 +837,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HDC>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_userunmarshal64
      */
     static HDC_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -852,7 +852,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HDC>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hdc_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hdc_userfree64
      */
     static HDC_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -982,7 +982,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_usersize64
      */
     static STGMEDIUM_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -997,7 +997,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_usermarshal64
      */
     static STGMEDIUM_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1013,7 +1013,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<STGMEDIUM>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_userunmarshal64
      */
     static STGMEDIUM_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1028,7 +1028,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<STGMEDIUM>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-stgmedium_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-stgmedium_userfree64
      */
     static STGMEDIUM_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1057,15 +1057,15 @@ class Marshal {
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values for <i>dwDestContext</i> come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>.
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process the normal case or written to a global table, where it can be retrieved by multiple clients. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a>.
+     * @param {Integer} mshlflags_ Indicates whether the data to be marshaled is to be transmitted back to the client process the normal case or written to a global table, where it can be retrieved by multiple clients. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a>.
      * @returns {Integer} A pointer to the upper-bound value on the size, in bytes, of the data packet to be written to the marshaling stream. If this parameter is 0, the size of the packet is unknown.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetmarshalsizemax
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetmarshalsizemax
      * @since windows5.0
      */
-    static CoGetMarshalSizeMax(riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
+    static CoGetMarshalSizeMax(riid, pUnk, dwDestContext, pvDestContext, mshlflags_) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
+        result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1106,7 +1106,7 @@ class Marshal {
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. The possible values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Currently, unmarshaling can occur in another apartment of the current process (MSHCTX_INPROC), in another process on the same computer as the current process (MSHCTX_LOCAL), or in a process on a different computer (MSHCTX_DIFFERENTMACHINE).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
-     * @param {Integer} mshlflags The flags that specify whether the data to be marshaled is to be transmitted back to the client process (the typical  case) or written to a global table, where it can be retrieved by multiple clients. The possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} mshlflags_ The flags that specify whether the data to be marshaled is to be transmitted back to the client process (the typical  case) or written to a global table, where it can be retrieved by multiple clients. The possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @returns {HRESULT} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, the stream-access error values returned by <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>, as well as the following values.
      * 
      * <table>
@@ -1137,13 +1137,13 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-comarshalinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-comarshalinterface
      * @since windows5.0
      */
-    static CoMarshalInterface(pStm, riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
+    static CoMarshalInterface(pStm, riid, pUnk, dwDestContext, pvDestContext, mshlflags_) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoMarshalInterface", "ptr", pStm, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
+        result := DllCall("OLE32.dll\CoMarshalInterface", "ptr", pStm, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1171,7 +1171,7 @@ class Marshal {
      * @param {IStream} pStm A pointer to the stream from which the interface is to be unmarshaled.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be unmarshaled. For <b>IID_NULL</b>, the returned interface is the one defined by the stream, objref.iid.
      * @returns {Pointer<Pointer<Void>>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-counmarshalinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-counmarshalinterface
      * @since windows5.0
      */
     static CoUnmarshalInterface(pStm, riid) {
@@ -1195,7 +1195,7 @@ class Marshal {
      * <li>Returns an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to that stream.</li>
      * </ol>
      * @param {IStream} pstm A pointer to the marshaling stream. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @param {HRESULT} hresult The <b>HRESULT</b> in the originating process.
+     * @param {HRESULT} hresult_ The <b>HRESULT</b> in the originating process.
      * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
      * <table>
@@ -1237,11 +1237,11 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-comarshalhresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-comarshalhresult
      * @since windows5.0
      */
-    static CoMarshalHresult(pstm, hresult) {
-        result := DllCall("OLE32.dll\CoMarshalHresult", "ptr", pstm, "int", hresult, "int")
+    static CoMarshalHresult(pstm, hresult_) {
+        result := DllCall("OLE32.dll\CoMarshalHresult", "ptr", pstm, "int", hresult_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1267,7 +1267,7 @@ class Marshal {
      * </ol>
      * @param {IStream} pstm A pointer to the stream from which the <b>HRESULT</b> is to be unmarshaled.
      * @returns {HRESULT} A pointer to the unmarshaled <b>HRESULT</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-counmarshalhresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-counmarshalhresult
      * @since windows5.0
      */
     static CoUnmarshalHresult(pstm) {
@@ -1355,7 +1355,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-coreleasemarshaldata
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-coreleasemarshaldata
      * @since windows5.0
      */
     static CoReleaseMarshalData(pStm) {
@@ -1390,15 +1390,15 @@ class Marshal {
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
-     * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the normal case) or written to a global table where it can be retrieved by multiple clients. Values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
+     * @param {Integer} mshlflags_ Indicates whether the data to be marshaled is to be transmitted back to the client process (the normal case) or written to a global table where it can be retrieved by multiple clients. Values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @returns {IMarshal} The address of <b>IMarshal*</b> pointer variable that receives the interface pointer to the standard marshaler.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetstandardmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetstandardmarshal
      * @since windows5.0
      */
-    static CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
+    static CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, mshlflags_) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "ptr*", &ppMarshal := 0, "int")
+        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags_, "ptr*", &ppMarshal := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1442,7 +1442,7 @@ class Marshal {
      * </tr>
      * </table>
      * @returns {IUnknown} On successful return, address of pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/iunknown-and-interface-inheritance">IUnknown</a> interface on the newly-created aggregated standard marshaler. If an error occurs, this value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetstdmarshalex
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetstdmarshalex
      * @since windows5.0
      */
     static CoGetStdMarshalEx(pUnkOuter, smexflags) {
@@ -1478,7 +1478,7 @@ class Marshal {
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled, which must be derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. This parameter can be <b>NULL</b>.
      * @returns {IStream} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the stream that contains the marshaled interface.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-comarshalinterthreadinterfaceinstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-comarshalinterthreadinterfaceinstream
      * @since windows5.0
      */
     static CoMarshalInterThreadInterfaceInStream(riid, pUnk) {
@@ -1496,7 +1496,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<Pointer<SAFEARRAY>>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_usersize
      */
     static LPSAFEARRAY_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1559,7 +1559,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_usermarshal
      */
     static LPSAFEARRAY_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1644,7 +1644,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_userunmarshal
      */
     static LPSAFEARRAY_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1660,7 +1660,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Pointer<SAFEARRAY>>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_userfree
      */
     static LPSAFEARRAY_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1675,7 +1675,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<Pointer<SAFEARRAY>>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_usersize64
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserSize64(param0, param1, param2) {
@@ -1739,7 +1739,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_usermarshal64
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserMarshal64(param0, param1, param2) {
@@ -1825,7 +1825,7 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_userunmarshal64
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserUnmarshal64(param0, param1, param2) {
@@ -1842,7 +1842,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<Pointer<SAFEARRAY>>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-lpsafearray_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/wia_xp/nf-wia_xp-lpsafearray_userfree64
      * @since windows5.1.2600
      */
     static LPSAFEARRAY_UserFree64(param0, param1) {
@@ -1858,7 +1858,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_usersize
      */
     static HACCEL_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1873,7 +1873,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_usermarshal
      */
     static HACCEL_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1889,7 +1889,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_userunmarshal
      */
     static HACCEL_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1904,7 +1904,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HACCEL>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_userfree
      */
     static HACCEL_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1918,7 +1918,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_usersize
      */
     static HGLOBAL_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1933,7 +1933,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_usermarshal
      */
     static HGLOBAL_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1949,7 +1949,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_userunmarshal
      */
     static HGLOBAL_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1964,7 +1964,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HGLOBAL>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_userfree
      */
     static HGLOBAL_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1973,11 +1973,12 @@ class Marshal {
     }
 
     /**
-     * 
+     * The HMENU_UserSize64 function (oleidl.h) calculates the wire size of the HMENU object and gets its handle and data.
      * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_usersize64
      */
     static HMENU_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -1992,7 +1993,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_usermarshal
      */
     static HMENU_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2008,7 +2009,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_userunmarshal
      */
     static HMENU_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2023,7 +2024,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMENU>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_userfree
      */
     static HMENU_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2037,7 +2038,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_usersize64
      */
     static HACCEL_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2052,7 +2053,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_usermarshal64
      */
     static HACCEL_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2068,7 +2069,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HACCEL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_userunmarshal64
      */
     static HACCEL_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2083,7 +2084,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HACCEL>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-haccel_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-haccel_userfree64
      */
     static HACCEL_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2097,7 +2098,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_usersize64
      */
     static HGLOBAL_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2112,7 +2113,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_usermarshal64
      */
     static HGLOBAL_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2128,7 +2129,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HGLOBAL>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_userunmarshal64
      */
     static HGLOBAL_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2143,7 +2144,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HGLOBAL>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hglobal_userfree64
      */
     static HGLOBAL_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2157,7 +2158,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_usersize64
      */
     static HMENU_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2172,7 +2173,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_usermarshal64
      */
     static HMENU_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2188,7 +2189,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HMENU>} param2 
      * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_userunmarshal64
      */
     static HMENU_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2203,7 +2204,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HMENU>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hmenu_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-hmenu_userfree64
      */
     static HMENU_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2217,7 +2218,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Integer} A LONG value expressing the size of the object.
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_usersize
      */
     static HPALETTE_UserSize(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2232,7 +2233,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_usermarshal
      */
     static HPALETTE_UserMarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2248,7 +2249,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_userunmarshal
      */
     static HPALETTE_UserUnmarshal(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2263,7 +2264,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HPALETTE>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_userfree
      */
     static HPALETTE_UserFree(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2277,7 +2278,7 @@ class Marshal {
      * @param {Integer} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Integer} A LONG value expressing the size of the object.
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usersize64
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_usersize64
      */
     static HPALETTE_UserSize64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2292,7 +2293,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_usermarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_usermarshal64
      */
     static HPALETTE_UserMarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2308,7 +2309,7 @@ class Marshal {
      * @param {Pointer<Integer>} param1 
      * @param {Pointer<HPALETTE>} param2 
      * @returns {Pointer<Integer>} A pointer to an unsigned character array.
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userunmarshal64
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_userunmarshal64
      */
     static HPALETTE_UserUnmarshal64(param0, param1, param2) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -2323,7 +2324,7 @@ class Marshal {
      * @param {Pointer<Integer>} param0 
      * @param {Pointer<HPALETTE>} param1 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-hpalette_userfree64
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-hpalette_userfree64
      */
     static HPALETTE_UserFree64(param0, param1) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"

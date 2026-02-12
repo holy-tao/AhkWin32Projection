@@ -32,11 +32,15 @@ class IDebugHostScriptHost extends IUnknown{
     /**
      * Creates a recognizer context.
      * @param {IDataModelScript} script 
-     * @returns {IDataModelScriptHostContext} 
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
+     * @returns {Pointer<IDataModelScriptHostContext>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-createcontext
      */
     CreateContext(script) {
-        result := ComCall(3, this, "ptr", script, "ptr*", &scriptContext := 0, "HRESULT")
-        return IDataModelScriptHostContext(scriptContext)
+        result := ComCall(3, this, "ptr", script, "ptr*", &scriptContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return scriptContext
     }
 }

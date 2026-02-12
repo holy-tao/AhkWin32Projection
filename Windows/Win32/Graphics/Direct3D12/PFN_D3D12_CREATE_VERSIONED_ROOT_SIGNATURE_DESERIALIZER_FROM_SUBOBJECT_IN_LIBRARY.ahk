@@ -1,0 +1,45 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.Graphics.Direct3D12
+ * @version v4.0.30319
+ */
+class PFN_D3D12_CREATE_VERSIONED_ROOT_SIGNATURE_DESERIALIZER_FROM_SUBOBJECT_IN_LIBRARY extends IUnknown {
+
+    static sizeof => A_PtrSize
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["Invoke"]
+
+    /**
+     * Invokes helper functionality for the IDispatch interface.
+     * @param {Pointer} pSrcData 
+     * @param {Pointer} SrcDataSizeInBytes 
+     * @param {PWSTR} RootSignatureSubobjectName 
+     * @param {Pointer<Guid>} pRootSignatureDeserializerInterface 
+     * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/invokeidispatch
+     */
+    Invoke(pSrcData, SrcDataSizeInBytes, RootSignatureSubobjectName, pRootSignatureDeserializerInterface) {
+        RootSignatureSubobjectName := RootSignatureSubobjectName is String ? StrPtr(RootSignatureSubobjectName) : RootSignatureSubobjectName
+
+        result := ComCall(3, this, "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", RootSignatureSubobjectName, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppRootSignatureDeserializer
+    }
+}

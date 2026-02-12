@@ -82,7 +82,11 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_XDomainRequest(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +96,11 @@ class IHTMLWindow6 extends IDispatch{
      */
     get_XDomainRequest() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -101,7 +109,11 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {IHTMLStorage} 
      */
     get_sessionStorage() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStorage(p)
     }
 
@@ -110,7 +122,11 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {IHTMLStorage} 
      */
     get_localStorage() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStorage(p)
     }
 
@@ -120,7 +136,11 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onhashchange(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +150,11 @@ class IHTMLWindow6 extends IDispatch{
      */
     get_onhashchange() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -139,20 +163,31 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {Integer} 
      */
     get_maxConnectionsPerServer() {
-        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
      * 
-     * @param {BSTR} msg 
+     * @param {BSTR} msg_ 
      * @param {VARIANT} targetOrigin 
      * @returns {HRESULT} 
      */
-    postMessage(msg, targetOrigin) {
-        msg := msg is String ? BSTR.Alloc(msg).Value : msg
+    postMessage(msg_, targetOrigin) {
+        if(msg_ is String) {
+            pin := BSTR.Alloc(msg_)
+            msg_ := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", msg, "ptr", targetOrigin, "HRESULT")
+        result := ComCall(14, this, "ptr", msg_, "ptr", targetOrigin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,10 +197,17 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {BSTR} 
      */
     toStaticHTML(bstrHTML) {
-        bstrHTML := bstrHTML is String ? BSTR.Alloc(bstrHTML).Value : bstrHTML
+        if(bstrHTML is String) {
+            pin := BSTR.Alloc(bstrHTML)
+            bstrHTML := pin.Value
+        }
 
         pbstrStaticHTML := BSTR()
-        result := ComCall(15, this, "ptr", bstrHTML, "ptr", pbstrStaticHTML, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrHTML, "ptr", pbstrStaticHTML, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStaticHTML
     }
 
@@ -175,7 +217,11 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmessage(v) {
-        result := ComCall(16, this, "ptr", v, "HRESULT")
+        result := ComCall(16, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +231,11 @@ class IHTMLWindow6 extends IDispatch{
      */
     get_onmessage() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -195,9 +245,16 @@ class IHTMLWindow6 extends IDispatch{
      * @returns {HRESULT} 
      */
     msWriteProfilerMark(bstrProfilerMarkName) {
-        bstrProfilerMarkName := bstrProfilerMarkName is String ? BSTR.Alloc(bstrProfilerMarkName).Value : bstrProfilerMarkName
+        if(bstrProfilerMarkName is String) {
+            pin := BSTR.Alloc(bstrProfilerMarkName)
+            bstrProfilerMarkName := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrProfilerMarkName, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrProfilerMarkName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

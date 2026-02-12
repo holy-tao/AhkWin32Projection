@@ -23,16 +23,21 @@ class ISpTask extends Win32ComInterface{
     static VTableNames => ["Execute"]
 
     /**
-     * 
+     * Learn how to run SQL Server stored procedures with RPC, and process return codes and output parameters in this example.
      * @param {Pointer<Void>} pvTaskData 
      * @param {Pointer<Integer>} pfContinueProcessing 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/results/execute-stored-procedure-with-rpc-and-process-output
      */
     Execute(pvTaskData, pfContinueProcessing) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
         pfContinueProcessingMarshal := pfContinueProcessing is VarRef ? "int*" : "ptr"
 
-        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, pfContinueProcessingMarshal, pfContinueProcessing, "HRESULT")
+        result := ComCall(0, this, pvTaskDataMarshal, pvTaskData, pfContinueProcessingMarshal, pfContinueProcessing, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

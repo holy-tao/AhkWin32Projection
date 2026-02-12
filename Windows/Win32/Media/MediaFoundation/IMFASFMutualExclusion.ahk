@@ -7,11 +7,8 @@
 /**
  * Configures an Advanced Systems Format (ASF) mutual exclusion object, which manages information about a group of streams in an ASF profile that are mutually exclusive.
  * @remarks
- * 
  * An ASF profile object can support multiple mutual exclusions. Each must be configured using a separate ASF mutual exclusion object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfmutualexclusion
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nn-wmcontainer-imfasfmutualexclusion
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,17 +35,25 @@ class IMFASFMutualExclusion extends IUnknown{
 
     /**
      * Retrieves the type of mutual exclusion represented by the Advanced Systems Format (ASF) mutual exclusion object.
+     * @remarks
+     * Sometimes, content must be made mutually exclusive in more than one way. For example, a video file might contain audio streams of several bit rates for each of several languages. To handle this type of complex mutual exclusion, you must configure more than one ASF mutual exclusion object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord">IMFASFMutualExclusion::AddRecord</a>.
      * @returns {Guid} A variable that receives the type identifier. For a list of predefined mutual exclusion type constants, see <a href="https://docs.microsoft.com/windows/desktop/medfound/asf-mutual-exclusion-type-guids">ASF Mutual Exclusion Type GUIDs</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-gettype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-gettype
      */
     GetType() {
         pguidType := Guid()
-        result := ComCall(3, this, "ptr", pguidType, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidType
     }
 
     /**
      * Sets the type of mutual exclusion that is represented by the Advanced Systems Format (ASF) mutual exclusion object.
+     * @remarks
+     * Sometimes, content must be made mutually exclusive in more than one way. For example, a video file might contain audio streams in several bit rates for each of several languages. To handle this type of complex mutual exclusion, you must configure more than one ASF mutual exclusion object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord">IMFASFMutualExclusion::AddRecord</a>.
      * @param {Pointer<Guid>} guidType The type of mutual exclusion that is represented by the ASF mutual exclusion object. For a list of predefined mutual exclusion type constants, see <a href="https://docs.microsoft.com/windows/desktop/medfound/asf-mutual-exclusion-type-guids">ASF Mutual Exclusion Type GUIDs</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -69,20 +74,32 @@ class IMFASFMutualExclusion extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-settype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-settype
      */
     SetType(guidType) {
-        result := ComCall(4, this, "ptr", guidType, "HRESULT")
+        result := ComCall(4, this, "ptr", guidType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the number of records in the Advanced Systems Format mutual exclusion object.
+     * @remarks
+     * Each record includes one or more streams. Every stream in a record is mutually exclusive of streams in every other record.
+     * 
+     * Use this method in conjunction with <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getstreamsforrecord">IMFASFMutualExclusion::GetStreamsForRecord</a> to retrieve the streams that are included in each record.
      * @returns {Integer} Receives the count of records.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getrecordcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getrecordcount
      */
     GetRecordCount() {
-        result := ComCall(5, this, "uint*", &pdwRecordCount := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwRecordCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwRecordCount
     }
 
@@ -91,17 +108,23 @@ class IMFASFMutualExclusion extends IUnknown{
      * @param {Integer} dwRecordNumber The number of the record for which to retrieve the stream numbers.
      * @param {Pointer<Integer>} pcStreams On input, the number of elements in the array referenced by <i>pwStreamNumArray</i>. On output, the method sets this value to the count of stream numbers in the record. You can call <b>GetStreamsForRecord</b> with <i>pwStreamNumArray</i> set to <b>NULL</b> to retrieve the number of elements required to hold all of the stream numbers.
      * @returns {Integer} An array that receives the stream numbers. Set to <b>NULL</b> to get the number of elements required, which is indicated by the value of <i>pcStreams</i> on return. If this parameter is not <b>NULL</b>, the method will copy as many stream numbers to the array as there are elements indicated by the value of <i>pcStreams</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getstreamsforrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-getstreamsforrecord
      */
     GetStreamsForRecord(dwRecordNumber, pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "HRESULT")
+        result := ComCall(6, this, "uint", dwRecordNumber, "ushort*", &pwStreamNumArray := 0, pcStreamsMarshal, pcStreams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwStreamNumArray
     }
 
     /**
      * Adds a stream number to a record in the Advanced Systems Format mutual exclusion object.
+     * @remarks
+     * Each record includes one or more streams. Every stream in a record is mutually exclusive of all streams in every other record.
      * @param {Integer} dwRecordNumber The record number to which the stream is added. A record number is set by the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord">IMFASFMutualExclusion::AddRecord</a> method.
      * @param {Integer} wStreamNumber The stream number to add to the record.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -134,10 +157,14 @@ class IMFASFMutualExclusion extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addstreamforrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addstreamforrecord
      */
     AddStreamForRecord(dwRecordNumber, wStreamNumber) {
-        result := ComCall(7, this, "uint", dwRecordNumber, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(7, this, "uint", dwRecordNumber, "ushort", wStreamNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,15 +202,21 @@ class IMFASFMutualExclusion extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-removestreamfromrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-removestreamfromrecord
      */
     RemoveStreamFromRecord(dwRecordNumber, wStreamNumber) {
-        result := ComCall(8, this, "uint", dwRecordNumber, "ushort", wStreamNumber, "HRESULT")
+        result := ComCall(8, this, "uint", dwRecordNumber, "ushort", wStreamNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a record from the Advanced Systems Format (ASF) mutual exclusion object.
+     * @remarks
+     * When a record is removed, the ASF mutual exclusion object indexes the remaining records so that they are sequential starting with zero. You should enumerate the records to ensure that you have the correct index for each record. If the record removed is the one with the highest index, removing it has no effect on the other indexes.
      * @param {Integer} dwRecordNumber The index of the record to remove.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -204,30 +237,48 @@ class IMFASFMutualExclusion extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-removerecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-removerecord
      */
     RemoveRecord(dwRecordNumber) {
-        result := ComCall(9, this, "uint", dwRecordNumber, "HRESULT")
+        result := ComCall(9, this, "uint", dwRecordNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds a record to the mutual exclusion object. A record specifies streams that are mutually exclusive with the streams in all other records.
+     * @remarks
+     * A record can include one or more stream numbers. All of the streams in a record are mutually exclusive with all the streams in all other records in the ASF mutual exclusion object.
+     * 
+     * You can use records to create complex mutual exclusion scenarios by using multiple ASF mutual exclusion objects.
      * @returns {Integer} Receives the index assigned to the new record. Record indexes are zero-based and sequential.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-addrecord
      */
     AddRecord() {
-        result := ComCall(10, this, "uint*", &pdwRecordNumber := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pdwRecordNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwRecordNumber
     }
 
     /**
      * Creates a copy of the Advanced Systems Format mutual exclusion object.
+     * @remarks
+     * The cloned object is a new object, completely independent of the object from which it was cloned.
      * @returns {IMFASFMutualExclusion} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfmutualexclusion">IMFASFMutualExclusion</a> interface of the new object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmutualexclusion-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmutualexclusion-clone
      */
     Clone() {
-        result := ComCall(11, this, "ptr*", &ppIMutex := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppIMutex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFASFMutualExclusion(ppIMutex)
     }
 }

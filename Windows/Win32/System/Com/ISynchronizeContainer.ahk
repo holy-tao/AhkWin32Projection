@@ -5,8 +5,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Manages a group of unsignaled synchronization objects.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-isynchronizecontainer
+ * The ISynchronizeContainer (objidl.h) interface manages a group of unsignaled synchronization objects.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-isynchronizecontainer
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,7 +32,9 @@ class ISynchronizeContainer extends IUnknown{
     static VTableNames => ["AddSynchronize", "WaitMultiple"]
 
     /**
-     * Adds a synchronization object to the container.
+     * The ISynchronizeContainer::AddSynchronize method (objidl.h) adds a synchronization object to the container.
+     * @remarks
+     * A synchronization container can hold pointers to as many as 63 synchronization objects.
      * @param {ISynchronize} pSync A pointer to the synchronization object to be added to the container. See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-isynchronize">ISynchronize</a>.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_FAIL, as well as the following values.
      * 
@@ -64,22 +66,32 @@ class ISynchronizeContainer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronizecontainer-addsynchronize
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-isynchronizecontainer-addsynchronize
      */
     AddSynchronize(pSync) {
-        result := ComCall(3, this, "ptr", pSync, "HRESULT")
+        result := ComCall(3, this, "ptr", pSync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Waits for any synchronization object in the container to be signaled or for a specified timeout period to elapse, whichever comes first.
+     * The ISynchronizeContainer::WaitMultiple method (objidl.h) waits for a synchronization object to be signaled or for a specified timeout period to elapse, whichever comes first.
+     * @remarks
+     * If the caller is waiting in a single-thread apartment, <b>WaitMultiple</b> enters the COM modal loop. If the caller is waiting in a multithread apartment, the caller is blocked until <b>WaitMultiple</b> returns.
      * @param {Integer} dwFlags The wait options. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/ne-combaseapi-cowait_flags">COWAIT_FLAGS</a> enumeration. COWAIT_WAITALL is not a valid setting for this method.
      * @param {Integer} dwTimeOut The time this call will wait before returning, in milliseconds. If this parameter is INFINITE, the caller will wait until a synchronization object is signaled, no matter how long it takes. If this parameter is 0, the method returns immediately.
      * @returns {ISynchronize} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-isynchronize">ISynchronize</a> interface pointer on the synchronization object that was signaled. This parameter cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronizecontainer-waitmultiple
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-isynchronizecontainer-waitmultiple
      */
     WaitMultiple(dwFlags, dwTimeOut) {
-        result := ComCall(4, this, "uint", dwFlags, "uint", dwTimeOut, "ptr*", &ppSync := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, "uint", dwTimeOut, "ptr*", &ppSync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISynchronize(ppSync)
     }
 }

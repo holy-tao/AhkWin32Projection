@@ -6,9 +6,6 @@
 /**
  * The IBroadcastEvent interface enables an object to receive events from another object without setting up a direct connection point. Applications typically do not need to use this interface.
  * @remarks
- * 
- * 
- * 
  * Broadcast events enable communication among DirectShow filters, Video Control features, and Video Control device objects. To send a broadcast event, an object calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ibroadcastevent-fire">IBroadcastEvent::Fire</a> on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/broadcast-service">Broadcast Event Service</a> object. Other objects can listen for events by setting up a connection point with the Broadcast Event Service object. The listener implements <b>IBroadcastEvent</b> and the Broadcast Event Service object calls the listener's <b>Fire</b> method whenever there is a new broadcast event.
  * 
  * Broadcast events are useful for several reasons:
@@ -34,10 +31,7 @@
  * Once you have a pointer to the <b>IBroadcastEvent</b> interface, you can use it either to send events or to sink events. To send events, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ibroadcastevent-fire">Fire</a> method. To sink events, implement <b>IBroadcastEvent</b> on the sink object, query the Broadcast Event Service for <b>IConnectionPoint</b>, and call <b>IConnectionPoint::Advise</b> to establish the connection. For a list of defined broadcast events, see <b>IBroadcastEvent::Fire</b>.
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBroadcastEvent)</c>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ibroadcastevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-ibroadcastevent
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -64,12 +58,34 @@ class IBroadcastEvent extends IUnknown{
 
     /**
      * The Fire method fires a broadcast event.
+     * @remarks
+     * For television tuning, the following event is defined.
+     * 
+     * <table>
+     * <tr>
+     * <th>Tuner Event
+     *             </th>
+     * <th>Description
+     *             </th>
+     * </tr>
+     * <tr>
+     * <td>EVENTID_TuningChanged</td>
+     * <td>Fired when the tuner changes stations or channels. Defined in Bdamedia.h.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For a list of events fired by the TV ratings components, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/tv-ratings-broadcast-events">TV Ratings Broadcast Events</a>.
      * @param {Guid} EventID GUID that specifies the event.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ibroadcastevent-fire
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ibroadcastevent-fire
      */
     Fire(EventID) {
-        result := ComCall(3, this, "ptr", EventID, "HRESULT")
+        result := ComCall(3, this, "ptr", EventID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

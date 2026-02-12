@@ -29,21 +29,36 @@ class IAppxManifestOSPackageDependency extends IUnknown{
     static VTableNames => ["GetName", "GetVersion"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &name := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getversionexa">GetVersionEx</a> function was developed because many existing applications err when examining the packed <b>DWORD</b> value returned by 
+     * <b>GetVersion</b>, transposing the major and minor version numbers. 
+     * <b>GetVersionEx</b> forces applications to explicitly examine each element of version information. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-verifyversioninfoa">VerifyVersionInfo</a> eliminates further potential for error by comparing the required system version with the current system version for you.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion() {
-        result := ComCall(4, this, "uint*", &version := 0, "HRESULT")
-        return version
+        result := ComCall(4, this, "uint*", &version_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return version_
     }
 }

@@ -48,7 +48,11 @@ class AsyncIFtpRoleProvider extends IUnknown{
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszRole := pszRole is String ? StrPtr(pszRole) : pszRole
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszRole, "HRESULT")
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", pszRole, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class AsyncIFtpRoleProvider extends IUnknown{
      * @returns {BOOL} 
      */
     Finish_IsUserInRole() {
-        result := ComCall(4, this, "int*", &pfIsInRole := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfIsInRole := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsInRole
     }
 }

@@ -4,8 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-isupporterrorinfo
+ * Ensures that error information can be propagated up the call chain correctly. Automation objects that use the error handling interfaces must implement ISupportErrorInfo.
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nn-oaidl-isupporterrorinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,6 +32,20 @@ class ISupportErrorInfo extends IUnknown{
 
     /**
      * Indicates whether an interface supports the IErrorInfo interface.
+     * @remarks
+     * Objects that support the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a> interface must also implement this interface.
+     * 
+     * 
+     * 
+     * Programs that receive an error return value should call <b>QueryInterface</b> to get a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-isupporterrorinfo">ISupportErrorInfo</a> interface, and then call <b>InterfaceSupportsErrorInfo</b> with the <i>riid</i> of the interface that returned the return value. If <b>InterfaceSupportsErrorInfo</b> returns S_FALSE, then the error object does not represent an error returned from the caller, but from somewhere else. In this case, the error object can be considered incorrect and should be discarded.
+     * 
+     * 
+     * 
+     * If <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-isupporterrorinfo">ISupportErrorInfo</a> returns S_OK, use the <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-geterrorinfo">GetErrorInfo</a> function to get a pointer to the error object.
+     * 
+     * 
+     * 
+     * For an example that demonstrates implementing <b>InterfaceSupportsErrorInfo</b>, see the ErrorInfo.cpp file in the COM Fundamentals Lines sample.
      * @param {Pointer<Guid>} riid An interface identifier (IID).
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -47,7 +61,7 @@ class ISupportErrorInfo extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The interface supports <a href="/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a>.
+     * The interface supports <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a>.
      * 
      * </td>
      * </tr>
@@ -58,15 +72,19 @@ class ISupportErrorInfo extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The interface does not support <a href="/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a>.
+     * The interface does not support <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-isupporterrorinfo-interfacesupportserrorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-isupporterrorinfo-interfacesupportserrorinfo
      */
     InterfaceSupportsErrorInfo(riid) {
-        result := ComCall(3, this, "ptr", riid, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

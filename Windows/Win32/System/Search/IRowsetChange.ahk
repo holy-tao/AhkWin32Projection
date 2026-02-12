@@ -38,39 +38,51 @@ class IRowsetChange extends IUnknown{
     DeleteRows(hReserved, cRows, rghRows) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgRowStatus := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgRowStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgRowStatus
     }
 
     /**
      * 
      * @param {Pointer} hRow 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer<Void>} pData 
      * @returns {HRESULT} 
      */
-    SetData(hRow, hAccessor, pData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    SetData(hRow, hAccessor_, pData) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
+        result := ComCall(4, this, "ptr", hRow, "ptr", hAccessor_, pDataMarshal, pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer} hReserved 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer<Void>} pData 
      * @returns {Pointer} 
      */
-    InsertRow(hReserved, hAccessor, pData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    InsertRow(hReserved, hAccessor_, pData) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ptr", hReserved, "ptr", hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", hReserved, "ptr", hAccessor_, pDataMarshal, pData, "ptr*", &phRow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phRow
     }
 }

@@ -4,13 +4,10 @@
 #Include .\ID2D1StrokeStyle.ahk
 
 /**
- * Describes the caps, miter limit, line join, and dash information for a stroke.
+ * Describes the caps, miter limit, line join, and dash information for a stroke. (ID2D1StrokeStyle1)
  * @remarks
- * 
  * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1strokestyle">ID2D1StrokeStyle</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1strokestyle1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1strokestyle1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -37,10 +34,10 @@ class ID2D1StrokeStyle1 extends ID2D1StrokeStyle{
 
     /**
      * Gets the stroke transform type.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type">D2D1_STROKE_TRANSFORM_TYPE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type">D2D1_STROKE_TRANSFORM_TYPE</a></b>
      * 
      * This method returns the stroke transform type.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1strokestyle1-getstroketransformtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1strokestyle1-getstroketransformtype
      */
     GetStrokeTransformType() {
         result := ComCall(13, this, "int")

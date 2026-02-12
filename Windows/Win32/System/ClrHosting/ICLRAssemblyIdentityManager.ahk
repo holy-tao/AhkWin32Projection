@@ -40,7 +40,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
     GetCLRAssemblyReferenceList(ppwzAssemblyReferences, dwNumOfReferences) {
         ppwzAssemblyReferencesMarshal := ppwzAssemblyReferences is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, ppwzAssemblyReferencesMarshal, ppwzAssemblyReferences, "uint", dwNumOfReferences, "ptr*", &ppReferenceList := 0, "HRESULT")
+        result := ComCall(3, this, ppwzAssemblyReferencesMarshal, ppwzAssemblyReferences, "uint", dwNumOfReferences, "ptr*", &ppReferenceList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICLRAssemblyReferenceList(ppReferenceList)
     }
 
@@ -58,7 +62,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
 
         pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +83,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
 
         pcchBufferSizeMarshal := pcchBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pStream, "uint", dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "HRESULT")
+        result := ComCall(5, this, "ptr", pStream, "uint", dwFlags, "ptr", pwzBuffer, pcchBufferSizeMarshal, pcchBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +101,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
     GetReferencedAssembliesFromFile(pwzFilePath, dwFlags, pExcludeAssembliesList) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        result := ComCall(6, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", &ppReferenceEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwzFilePath, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", &ppReferenceEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICLRReferenceAssemblyEnum(ppReferenceEnum)
     }
 
@@ -101,7 +117,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
      * @returns {ICLRReferenceAssemblyEnum} 
      */
     GetReferencedAssembliesFromStream(pStream, dwFlags, pExcludeAssembliesList) {
-        result := ComCall(7, this, "ptr", pStream, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", &ppReferenceEnum := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pStream, "uint", dwFlags, "ptr", pExcludeAssembliesList, "ptr*", &ppReferenceEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICLRReferenceAssemblyEnum(ppReferenceEnum)
     }
 
@@ -115,7 +135,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
     GetProbingAssembliesFromReference(dwMachineType, dwFlags, pwzReferenceIdentity) {
         pwzReferenceIdentity := pwzReferenceIdentity is String ? StrPtr(pwzReferenceIdentity) : pwzReferenceIdentity
 
-        result := ComCall(8, this, "uint", dwMachineType, "uint", dwFlags, "ptr", pwzReferenceIdentity, "ptr*", &ppProbingAssemblyEnum := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwMachineType, "uint", dwFlags, "ptr", pwzReferenceIdentity, "ptr*", &ppProbingAssemblyEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICLRProbingAssemblyEnum(ppProbingAssemblyEnum)
     }
 
@@ -127,7 +151,11 @@ class ICLRAssemblyIdentityManager extends IUnknown{
     IsStronglyNamed(pwzAssemblyIdentity) {
         pwzAssemblyIdentity := pwzAssemblyIdentity is String ? StrPtr(pwzAssemblyIdentity) : pwzAssemblyIdentity
 
-        result := ComCall(9, this, "ptr", pwzAssemblyIdentity, "int*", &pbIsStronglyNamed := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pwzAssemblyIdentity, "int*", &pbIsStronglyNamed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsStronglyNamed
     }
 }

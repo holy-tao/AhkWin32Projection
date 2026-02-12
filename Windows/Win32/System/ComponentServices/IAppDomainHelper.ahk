@@ -5,7 +5,7 @@
 
 /**
  * Binds a managed object to an application domain, which is an isolated environment where applications execute.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iappdomainhelper
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iappdomainhelper
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -42,12 +42,16 @@ class IAppDomainHelper extends IDispatch{
      * @param {Pointer} __MIDL__IAppDomainHelper0000 Reference to the shutdown function that is executed when the application domain is unloaded. The parameter of this function, <i>pv</i>, comes from the <i>pPool</i> parameter, which is defined next.
      * @param {Pointer<Void>} pPool This parameter is used to provide any data that the shutdown function might need.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iappdomainhelper-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iappdomainhelper-initialize
      */
     Initialize(pUnkAD, __MIDL__IAppDomainHelper0000, pPool) {
         pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0000, pPoolMarshal, pPool, "HRESULT")
+        result := ComCall(7, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0000, pPoolMarshal, pPool, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,12 +61,16 @@ class IAppDomainHelper extends IDispatch{
      * @param {Pointer} __MIDL__IAppDomainHelper0001 Reference to the callback function. This function is executed in the application domain that you switched to. The parameter of this function, <i>pv</i>, comes from the <i>pPool</i> parameter, which is defined next.
      * @param {Pointer<Void>} pPool This parameter is used to provide any data that the callback function might need.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iappdomainhelper-docallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iappdomainhelper-docallback
      */
     DoCallback(pUnkAD, __MIDL__IAppDomainHelper0001, pPool) {
         pPoolMarshal := pPool is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(8, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "HRESULT")
+        result := ComCall(8, this, "ptr", pUnkAD, "ptr", __MIDL__IAppDomainHelper0001, pPoolMarshal, pPool, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

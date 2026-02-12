@@ -6,7 +6,7 @@
 
 /**
  * The IWMPPlayer3 interface provides methods for modifying the basic behavior of the control user interface. These methods supplement the IWMPCore2 interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplayer3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpplayer3
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -81,7 +81,11 @@ class IWMPPlayer3 extends IWMPCore2{
     get_enabled(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
 
-        result := ComCall(29, this, pbEnabledMarshal, pbEnabled, "HRESULT")
+        result := ComCall(29, this, pbEnabledMarshal, pbEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +95,11 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     put_enabled(bEnabled) {
-        result := ComCall(30, this, "short", bEnabled, "HRESULT")
+        result := ComCall(30, this, "short", bEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,7 +111,11 @@ class IWMPPlayer3 extends IWMPCore2{
     get_fullScreen(pbFullScreen) {
         pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
 
-        result := ComCall(31, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
+        result := ComCall(31, this, pbFullScreenMarshal, pbFullScreen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +125,11 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     put_fullScreen(bFullScreen) {
-        result := ComCall(32, this, "short", bFullScreen, "HRESULT")
+        result := ComCall(32, this, "short", bFullScreen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +141,11 @@ class IWMPPlayer3 extends IWMPCore2{
     get_enableContextMenu(pbEnableContextMenu) {
         pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
 
-        result := ComCall(33, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
+        result := ComCall(33, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +155,11 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     put_enableContextMenu(bEnableContextMenu) {
-        result := ComCall(34, this, "short", bEnableContextMenu, "HRESULT")
+        result := ComCall(34, this, "short", bEnableContextMenu, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,9 +169,16 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     put_uiMode(bstrMode) {
-        bstrMode := bstrMode is String ? BSTR.Alloc(bstrMode).Value : bstrMode
+        if(bstrMode is String) {
+            pin := BSTR.Alloc(bstrMode)
+            bstrMode := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bstrMode, "HRESULT")
+        result := ComCall(35, this, "ptr", bstrMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,7 +188,11 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     get_uiMode(pbstrMode) {
-        result := ComCall(36, this, "ptr", pbstrMode, "HRESULT")
+        result := ComCall(36, this, "ptr", pbstrMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +204,11 @@ class IWMPPlayer3 extends IWMPCore2{
     get_stretchToFit(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
 
-        result := ComCall(37, this, pbEnabledMarshal, pbEnabled, "HRESULT")
+        result := ComCall(37, this, pbEnabledMarshal, pbEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +218,11 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     put_stretchToFit(bEnabled) {
-        result := ComCall(38, this, "short", bEnabled, "HRESULT")
+        result := ComCall(38, this, "short", bEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +234,11 @@ class IWMPPlayer3 extends IWMPCore2{
     get_windowlessVideo(pbEnabled) {
         pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
 
-        result := ComCall(39, this, pbEnabledMarshal, pbEnabled, "HRESULT")
+        result := ComCall(39, this, pbEnabledMarshal, pbEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -201,7 +248,11 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     put_windowlessVideo(bEnabled) {
-        result := ComCall(40, this, "short", bEnabled, "HRESULT")
+        result := ComCall(40, this, "short", bEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

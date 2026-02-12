@@ -6,7 +6,7 @@
  * Represents a printer driver on which other printer drivers depend.
  * @remarks
  * This structure can represent a manufacturer's base driver on which the drivers for various printer models are dependent.
- * @see https://learn.microsoft.com/windows/win32/printdocs/core-printer-driver
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/core-printer-driver
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

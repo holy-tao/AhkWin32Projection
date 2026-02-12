@@ -42,7 +42,11 @@ class IProofOfPossessionCookieInfoManager3 extends IUnknown{
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
         cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", uri, "uint", options, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, "uint", options, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

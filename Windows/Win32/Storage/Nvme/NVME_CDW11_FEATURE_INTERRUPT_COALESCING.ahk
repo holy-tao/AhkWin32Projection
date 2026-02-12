@@ -11,7 +11,7 @@
  * The controller may delay an interrupt if it detects that interrupts are already being processed for this vector. Specifically, if the [Completion Queue Head Doorbell](ns-nvme-nvme_completion_queue_head_doorbell.md) register is being updated that is associated with a particular interrupt vector, then the controller has a positive indication that completion queue entries are already being processed. In this case, the aggregation time and/or the aggregation threshold may be reset/restarted upon the associated register write. This may result in interrupts being delayed indefinitely in certain workloads where the aggregation time or aggregation threshold are non-zero.
  * 
  * The Interrupt Coalescing Feature applies only to the I/O Submission and I/O Completion Queues. interrupts for commands that complete in error should not be coalesced.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_interrupt_coalescing
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_feature_interrupt_coalescing
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

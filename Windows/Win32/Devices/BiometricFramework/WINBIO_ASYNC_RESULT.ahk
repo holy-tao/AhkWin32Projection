@@ -137,7 +137,7 @@
  * <li>WINBIO_ANSI_381_POS_LH_FOUR_FINGERS</li>
  * <li>WINBIO_ANSI_381_POS_TWO_THUMBS</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winbio/ns-winbio-winbio_async_result
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbio/ns-winbio-winbio_async_result
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

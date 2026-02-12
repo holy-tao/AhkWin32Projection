@@ -5,7 +5,7 @@
 
 /**
  * The IDDrawExclModeVideo interface enables video playback in DirectDraw exclusive full-screen mode.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iddrawexclmodevideo
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iddrawexclmodevideo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDDrawExclModeVideo extends IUnknown{
 
     /**
      * The SetDDrawObject method sets the DirectDraw object to be used in subsequent drawing.
+     * @remarks
+     * A game application can use this method to share its DirectDraw object with the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter, so that the video can be drawn in a specified surface, as set in <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iddrawexclmodevideo-setddrawsurface">IDDrawExclModeVideo::SetDDrawSurface</a>.
      * @param {IDirectDraw} pDDrawObject Pointer to the <b>IDirectDraw</b> interface on the object to use.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -74,15 +76,21 @@ class IDDrawExclModeVideo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-setddrawobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-setddrawobject
      */
     SetDDrawObject(pDDrawObject) {
-        result := ComCall(3, this, "ptr", pDDrawObject, "HRESULT")
+        result := ComCall(3, this, "ptr", pDDrawObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetDDrawObject method retrieves the DirectDraw object being used by the Overlay Mixer filter.
+     * @remarks
+     * If the filter graph has not set a DirectDraw object and the Overlay Mixer has not yet allocated one, then <i>pDDrawObject</i> will be set to <b>NULL</b> and <i>pbUsingExternal</i> will be set to <b>FALSE</b>.
      * @param {Pointer<IDirectDraw>} ppDDrawObject Address of a pointer to the <b>IDirectDraw</b> interface that the Overlay Mixer is using.
      * @param {Pointer<BOOL>} pbUsingExternal Pointer to a variable that receives a Boolean value. It receives the value <b>TRUE</b> if the Overlay Mixer is using a DirectDraw object specified by <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iddrawexclmodevideo-setddrawobject">IDDrawExclModeVideo::SetDDrawObject</a>, or <b>FALSE</b> otherwise.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -126,17 +134,23 @@ class IDDrawExclModeVideo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-getddrawobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-getddrawobject
      */
     GetDDrawObject(ppDDrawObject, pbUsingExternal) {
         pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppDDrawObject, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
+        result := ComCall(4, this, "ptr*", ppDDrawObject, pbUsingExternalMarshal, pbUsingExternal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetDDrawSurface method specifies the DirectDraw surface to be used in subsequent drawing.
+     * @remarks
+     * A game application can use this to share its DirectDraw surface with the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter so that the video can be drawn in a specified surface. This surface must be associated with the object specified in <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iddrawexclmodevideo-setddrawobject">IDDrawExclModeVideo::SetDDrawObject</a>.
      * @param {IDirectDrawSurface} pDDrawSurface Pointer to the <b>IDirectDrawSurface</b> interface on the surface to use.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
      * 
@@ -181,15 +195,21 @@ class IDDrawExclModeVideo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-setddrawsurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-setddrawsurface
      */
     SetDDrawSurface(pDDrawSurface) {
-        result := ComCall(5, this, "ptr", pDDrawSurface, "HRESULT")
+        result := ComCall(5, this, "ptr", pDDrawSurface, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetDDrawSurface method retrieves the DirectDraw surface being used by the Overlay Mixer.
+     * @remarks
+     * If the filter graph has not set a DirectDraw surface and the Overlay Mixer has not yet allocated one, then <i>pDDrawSurface</i> will be set to <b>NULL</b> and <i>pdUsingExternal</i> will be set to <b>FALSE</b>.
      * @param {Pointer<IDirectDrawSurface>} ppDDrawSurface Address of a pointer to the <b>IDirectDrawSurface</b> interface that is being used by the Overlay Mixer.
      * @param {Pointer<BOOL>} pbUsingExternal Pointer to a variable that receives a Boolean value. It receives the value <b>TRUE</b> if the Overlay Mixer is using a DirectDraw surface specified by <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iddrawexclmodevideo-setddrawsurface">IDDrawExclModeVideo::SetDDrawSurface</a>, or <b>FALSE</b> otherwise.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -233,12 +253,16 @@ class IDDrawExclModeVideo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-getddrawsurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-getddrawsurface
      */
     GetDDrawSurface(ppDDrawSurface, pbUsingExternal) {
         pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr*", ppDDrawSurface, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
+        result := ComCall(6, this, "ptr*", ppDDrawSurface, pbUsingExternalMarshal, pbUsingExternal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -247,15 +271,21 @@ class IDDrawExclModeVideo extends IUnknown{
      * @param {Pointer<RECT>} prcSource Pointer to the <b>RECT</b> structure of the original video.
      * @param {Pointer<RECT>} prcTarget Pointer to the <b>RECT</b> that indicates where the video will appear on the screen.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-setdrawparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-setdrawparameters
      */
     SetDrawParameters(prcSource, prcTarget) {
-        result := ComCall(7, this, "ptr", prcSource, "ptr", prcTarget, "HRESULT")
+        result := ComCall(7, this, "ptr", prcSource, "ptr", prcTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNativeVideoProps method retrieves the current video size and picture aspect ratio of the Overlay Mixer's primary stream.
+     * @remarks
+     * The filter graph should look for the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ec-video-size-changed">EC_VIDEO_SIZE_CHANGED</a> event, and on its receipt call this method to adjust the aspect ratio and position.
      * @param {Pointer<Integer>} pdwVideoWidth Address of variable that receives the width of the video.
      * @param {Pointer<Integer>} pdwVideoHeight Address of variable that receives the height of the video.
      * @param {Pointer<Integer>} pdwPictAspectRatioX Address of variable that receives the x-axis aspect ratio.
@@ -290,7 +320,7 @@ class IDDrawExclModeVideo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-getnativevideoprops
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-getnativevideoprops
      */
     GetNativeVideoProps(pdwVideoWidth, pdwVideoHeight, pdwPictAspectRatioX, pdwPictAspectRatioY) {
         pdwVideoWidthMarshal := pdwVideoWidth is VarRef ? "uint*" : "ptr"
@@ -298,12 +328,18 @@ class IDDrawExclModeVideo extends IUnknown{
         pdwPictAspectRatioXMarshal := pdwPictAspectRatioX is VarRef ? "uint*" : "ptr"
         pdwPictAspectRatioYMarshal := pdwPictAspectRatioY is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pdwVideoWidthMarshal, pdwVideoWidth, pdwVideoHeightMarshal, pdwVideoHeight, pdwPictAspectRatioXMarshal, pdwPictAspectRatioX, pdwPictAspectRatioYMarshal, pdwPictAspectRatioY, "HRESULT")
+        result := ComCall(8, this, pdwVideoWidthMarshal, pdwVideoWidth, pdwVideoHeightMarshal, pdwVideoHeight, pdwPictAspectRatioXMarshal, pdwPictAspectRatioX, pdwPictAspectRatioYMarshal, pdwPictAspectRatioY, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetCallbackInterface method retrieves a pointer to the callback interface of the Overlay Mixer so that the calling application can be notified about adjustments to the display during video playback.
+     * @remarks
+     * An application should use this method to get notification about the overlay size, position, or color key change happening, so that it can hide or show the video, or adjust the video at the start, end, or during playback. By calling this method, an application can access the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iddrawexclmodevideocallback">IDDrawExclModeVideoCallback</a> interface and pass the pointer to that interface to the Overlay Mixer.
      * @param {IDDrawExclModeVideoCallback} pCallback Pointer to the object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iddrawexclmodevideocallback">IDDrawExclModeVideoCallback</a> interface. If <i>pCallback</i> is <b>NULL</b>, the callback interface is set to <b>NULL</b> and no more callbacks are made. If there was a previous callback interface, it is released and no more callbacks are made to it. If <i>pCallback</i> is not <b>NULL</b> and this method returns S_OK, then the reference count of the object <i>pCallback</i> points to is incremented.
      * @param {Integer} dwFlags Must be zero.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -336,10 +372,14 @@ class IDDrawExclModeVideo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iddrawexclmodevideo-setcallbackinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iddrawexclmodevideo-setcallbackinterface
      */
     SetCallbackInterface(pCallback, dwFlags) {
-        result := ComCall(9, this, "ptr", pCallback, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pCallback, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

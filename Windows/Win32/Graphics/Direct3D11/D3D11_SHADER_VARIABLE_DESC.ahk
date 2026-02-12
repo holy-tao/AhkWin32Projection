@@ -8,7 +8,7 @@
  *         
  * 
  * As of the June 2010 update, <b>DefaultValue</b> emits default values for reflection.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_variable_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/ns-d3d11shader-d3d11_shader_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

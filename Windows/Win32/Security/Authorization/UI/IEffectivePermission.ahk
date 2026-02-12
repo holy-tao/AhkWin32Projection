@@ -5,7 +5,7 @@
 
 /**
  * Provides a means to determine effective permission for a security principal on an object.
- * @see https://docs.microsoft.com/windows/win32/api//aclui/nn-aclui-ieffectivepermission
+ * @see https://learn.microsoft.com/windows/win32/api//content/aclui/nn-aclui-ieffectivepermission
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
@@ -45,8 +45,8 @@ class IEffectivePermission extends IUnknown{
      * @param {Pointer<Integer>} pcGrantedAccessListLength A pointer to a <b>ULONG</b> variable that receives the count of granted access masks pointed to by  the <i>ppGrantedAccessList</i> parameter.
      * @returns {HRESULT} If the function is successful, the return value is S_OK.
      * 
-     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-ieffectivepermission-geteffectivepermission
+     * If the function fails, the return value is an <b>HRESULT</b> that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/aclui/nf-aclui-ieffectivepermission-geteffectivepermission
      */
     GetEffectivePermission(pguidObjectType, pUserSid, pszServerName, pSD, ppObjectTypeList, pcObjectTypeListLength, ppGrantedAccessList, pcGrantedAccessListLength) {
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName
@@ -57,7 +57,11 @@ class IEffectivePermission extends IUnknown{
         ppGrantedAccessListMarshal := ppGrantedAccessList is VarRef ? "ptr*" : "ptr"
         pcGrantedAccessListLengthMarshal := pcGrantedAccessListLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pguidObjectType, "ptr", pUserSid, "ptr", pszServerName, "ptr", pSD, ppObjectTypeListMarshal, ppObjectTypeList, pcObjectTypeListLengthMarshal, pcObjectTypeListLength, ppGrantedAccessListMarshal, ppGrantedAccessList, pcGrantedAccessListLengthMarshal, pcGrantedAccessListLength, "HRESULT")
+        result := ComCall(3, this, "ptr", pguidObjectType, "ptr", pUserSid, "ptr", pszServerName, "ptr", pSD, ppObjectTypeListMarshal, ppObjectTypeList, pcObjectTypeListLengthMarshal, pcObjectTypeListLength, ppGrantedAccessListMarshal, ppGrantedAccessList, pcGrantedAccessListLengthMarshal, pcGrantedAccessListLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

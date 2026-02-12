@@ -4,7 +4,7 @@
 
 /**
  * The ADSPROPERROR structure is used to pass error data to the notification object with the ADsPropSendErrorMessage function or the WM_ADSPROP_NOTIFY_ERROR message.
- * @see https://learn.microsoft.com/windows/win32/api/adsprop/ns-adsprop-adsproperror
+ * @see https://learn.microsoft.com/windows/win32/api//content/adsprop/ns-adsprop-adsproperror
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

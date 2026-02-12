@@ -8,7 +8,7 @@
  * 
  * - Slice strides may be negative, which allows reversing values along dimensions.
  * - The input window sizes are not necessarily the same as the output tensor sizes.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_slice1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

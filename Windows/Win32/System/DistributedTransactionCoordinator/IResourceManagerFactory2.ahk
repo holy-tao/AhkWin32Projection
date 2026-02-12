@@ -39,7 +39,11 @@ class IResourceManagerFactory2 extends IResourceManagerFactory{
     CreateEx(pguidRM, pszRMName, pIResMgrSink, riidRequested) {
         pszRMName := pszRMName is String ? StrPtr(pszRMName) : pszRMName
 
-        result := ComCall(4, this, "ptr", pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, "ptr", riidRequested, "ptr*", &ppvResMgr := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, "ptr", riidRequested, "ptr*", &ppvResMgr := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvResMgr
     }
 }

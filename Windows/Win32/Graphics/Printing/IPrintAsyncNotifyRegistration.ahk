@@ -33,7 +33,11 @@ class IPrintAsyncNotifyRegistration extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterForNotifications() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IPrintAsyncNotifyRegistration extends IUnknown{
      * @returns {HRESULT} 
      */
     UnregisterForNotifications() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

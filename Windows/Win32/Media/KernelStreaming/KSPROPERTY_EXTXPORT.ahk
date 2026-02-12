@@ -2,6 +2,19 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * This property sends a command to the device to search for an absolute track number (ATN). The UVC device driver supports this property.
+ * @remarks
+ * Set the **dwAbsTrackNumber** member of the **KSPROPERTY\_EXTXPORT\_S** structure to the following value:
+ * 
+ * 
+ * ```
+ * (absolute track number << 1) + continuity bit
+ * ```
+ * 
+ * 
+ * 
+ * The UVC specification does not define how the device uses the continuity bit. The **KSPROPERTY\_EXTXPORT\_S** structure is described in the Windows DDK.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/ksproperty-extxport-atn-search
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */

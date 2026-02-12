@@ -34,7 +34,11 @@ class IAddrExclusionControl extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetCurrentAddrExclusionList(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppEnumerator
     }
 
@@ -44,7 +48,11 @@ class IAddrExclusionControl extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateAddrExclusionList(pEnumerator) {
-        result := ComCall(4, this, "ptr", pEnumerator, "HRESULT")
+        result := ComCall(4, this, "ptr", pEnumerator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

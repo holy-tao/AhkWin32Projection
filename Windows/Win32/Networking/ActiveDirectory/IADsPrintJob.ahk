@@ -7,14 +7,10 @@
 /**
  * The IADsPrintJob interface is a dual interface that inherits from IADs.
  * @remarks
- * 
  * To manage a print job across a network, use the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsprintjoboperations">IADsPrintJobOperations</a> interface, which supports the functionality to examine the status of a print job and to pause or resume the operation of printing the document, and so on.
  * 
  * To access any print jobs in a print queue, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsprintqueueoperations-printjobs">IADsPrintQueueOperations::PrintJobs</a> method to obtain the collection object holding all the print jobs in the print queue.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsprintjob
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsprintjob
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -135,7 +131,11 @@ class IADsPrintJob extends IADs{
      */
     get_HostPrintQueue() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -145,7 +145,11 @@ class IADsPrintJob extends IADs{
      */
     get_User() {
         retval := BSTR()
-        result := ComCall(21, this, "ptr", retval, "HRESULT")
+        result := ComCall(21, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -155,7 +159,11 @@ class IADsPrintJob extends IADs{
      */
     get_UserPath() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -164,7 +172,11 @@ class IADsPrintJob extends IADs{
      * @returns {Float} 
      */
     get_TimeSubmitted() {
-        result := ComCall(23, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -173,7 +185,11 @@ class IADsPrintJob extends IADs{
      * @returns {Integer} 
      */
     get_TotalPages() {
-        result := ComCall(24, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -182,7 +198,11 @@ class IADsPrintJob extends IADs{
      * @returns {Integer} 
      */
     get_Size() {
-        result := ComCall(25, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -192,7 +212,11 @@ class IADsPrintJob extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        result := ComCall(26, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -202,9 +226,16 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +244,11 @@ class IADsPrintJob extends IADs{
      * @returns {Integer} 
      */
     get_Priority() {
-        result := ComCall(28, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -223,7 +258,11 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     put_Priority(lnPriority) {
-        result := ComCall(29, this, "int", lnPriority, "HRESULT")
+        result := ComCall(29, this, "int", lnPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -232,7 +271,11 @@ class IADsPrintJob extends IADs{
      * @returns {Float} 
      */
     get_StartTime() {
-        result := ComCall(30, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(30, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -242,7 +285,11 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     put_StartTime(daStartTime) {
-        result := ComCall(31, this, "double", daStartTime, "HRESULT")
+        result := ComCall(31, this, "double", daStartTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -251,7 +298,11 @@ class IADsPrintJob extends IADs{
      * @returns {Float} 
      */
     get_UntilTime() {
-        result := ComCall(32, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(32, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -261,7 +312,11 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     put_UntilTime(daUntilTime) {
-        result := ComCall(33, this, "double", daUntilTime, "HRESULT")
+        result := ComCall(33, this, "double", daUntilTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,7 +326,11 @@ class IADsPrintJob extends IADs{
      */
     get_Notify() {
         retval := BSTR()
-        result := ComCall(34, this, "ptr", retval, "HRESULT")
+        result := ComCall(34, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -281,9 +340,16 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     put_Notify(bstrNotify) {
-        bstrNotify := bstrNotify is String ? BSTR.Alloc(bstrNotify).Value : bstrNotify
+        if(bstrNotify is String) {
+            pin := BSTR.Alloc(bstrNotify)
+            bstrNotify := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bstrNotify, "HRESULT")
+        result := ComCall(35, this, "ptr", bstrNotify, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -293,7 +359,11 @@ class IADsPrintJob extends IADs{
      */
     get_NotifyPath() {
         retval := BSTR()
-        result := ComCall(36, this, "ptr", retval, "HRESULT")
+        result := ComCall(36, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -303,9 +373,16 @@ class IADsPrintJob extends IADs{
      * @returns {HRESULT} 
      */
     put_NotifyPath(bstrNotifyPath) {
-        bstrNotifyPath := bstrNotifyPath is String ? BSTR.Alloc(bstrNotifyPath).Value : bstrNotifyPath
+        if(bstrNotifyPath is String) {
+            pin := BSTR.Alloc(bstrNotifyPath)
+            bstrNotifyPath := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", bstrNotifyPath, "HRESULT")
+        result := ComCall(37, this, "ptr", bstrNotifyPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -33,7 +33,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
      * @returns {PWSTR} 
      */
     GetLastWriterPackageFamilyName() {
-        result := ComCall(6, this, "ptr*", &packageFamilyName := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &packageFamilyName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return packageFamilyName
     }
 
@@ -45,7 +49,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
     SetLastWriterPackageFamilyName(packageFamilyName) {
         packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
-        result := ComCall(7, this, "ptr", packageFamilyName, "HRESULT")
+        result := ComCall(7, this, "ptr", packageFamilyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
      * @returns {HRESULT} 
      */
     RemoveLastWriterPackageFamilyName() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +75,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
      * @returns {Integer} 
      */
     GetAppZoneId() {
-        result := ComCall(9, this, "uint*", &zone := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &zone := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return zone
     }
 
@@ -73,7 +89,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
      * @returns {HRESULT} 
      */
     SetAppZoneId(zone) {
-        result := ComCall(10, this, "uint", zone, "HRESULT")
+        result := ComCall(10, this, "uint", zone, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +102,11 @@ class IZoneIdentifier2 extends IZoneIdentifier{
      * @returns {HRESULT} 
      */
     RemoveAppZoneId() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -50,7 +50,11 @@ class IXMLDOMNodeList extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     get_item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &listItem := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &listItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(listItem)
     }
 
@@ -59,7 +63,11 @@ class IXMLDOMNodeList extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &listLength := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &listLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return listLength
     }
 
@@ -68,7 +76,11 @@ class IXMLDOMNodeList extends IDispatch{
      * @returns {IXMLDOMNode} 
      */
     nextNode() {
-        result := ComCall(9, this, "ptr*", &nextItem := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &nextItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(nextItem)
     }
 
@@ -77,7 +89,11 @@ class IXMLDOMNodeList extends IDispatch{
      * @returns {HRESULT} 
      */
     reset() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +102,11 @@ class IXMLDOMNodeList extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(11, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 }

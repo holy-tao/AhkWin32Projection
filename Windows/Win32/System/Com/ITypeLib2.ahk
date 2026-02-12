@@ -6,8 +6,8 @@
 #Include .\ITypeLib.ahk
 
 /**
- * Represents a type library, the data that describes a set of objects.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-itypelib2
+ * Represents a type library, the data that describes a set of objects. (ITypeLib2)
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nn-oaidl-itypelib2
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -33,14 +33,18 @@ class ITypeLib2 extends ITypeLib{
     static VTableNames => ["GetCustData", "GetLibStatistics", "GetDocumentation2", "GetAllCustData"]
 
     /**
-     * Gets the custom data.
+     * Gets the custom data. (ITypeLib2.GetCustData)
      * @param {Pointer<Guid>} guid The GUID used to identify the data.
      * @returns {VARIANT} The retrieved data.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib2-getcustdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-itypelib2-getcustdata
      */
     GetCustData(guid) {
         pVarVal := VARIANT()
-        result := ComCall(13, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
+        result := ComCall(13, this, "ptr", guid, "ptr", pVarVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVarVal
     }
 
@@ -92,18 +96,28 @@ class ITypeLib2 extends ITypeLib{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib2-getlibstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-itypelib2-getlibstatistics
      */
     GetLibStatistics(pcUniqueNames, pcchUniqueNames) {
         pcUniqueNamesMarshal := pcUniqueNames is VarRef ? "uint*" : "ptr"
         pcchUniqueNamesMarshal := pcchUniqueNames is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, pcUniqueNamesMarshal, pcUniqueNames, pcchUniqueNamesMarshal, pcchUniqueNames, "HRESULT")
+        result := ComCall(14, this, pcUniqueNamesMarshal, pcUniqueNames, pcchUniqueNamesMarshal, pcchUniqueNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the library's documentation string, the complete Help file name and path, the localization context to use, and the context ID for the library Help topic in the Help file.
+     * @remarks
+     * Gets information at the type library level. The caller should free the BSTR parameters.
+     * 
+     * 
+     * 
+     * This function will call <b>_DLLGetDocumentation</b> in the specified DLL to retrieve the desired Help string, if there is a Help string context for this item. If no Help string context exists or an error occurs, then it will defer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-itypeinfo-getdocumentation">GetDocumentation</a> method and return the associated documentation string.
      * @param {Integer} index The index of the type description whose documentation is to be returned. If <i>index</i> is -1, then the documentation for the library is returned.
      * @param {Integer} lcid The locale identifier.
      * @param {Pointer<BSTR>} pbstrHelpString The name of the specified item. If the caller does not need the item name, then <i>pbstrHelpString</i> can be null
@@ -153,23 +167,33 @@ class ITypeLib2 extends ITypeLib{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib2-getdocumentation2
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-itypelib2-getdocumentation2
      */
     GetDocumentation2(index, lcid, pbstrHelpString, pdwHelpStringContext, pbstrHelpStringDll) {
         pdwHelpStringContextMarshal := pdwHelpStringContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "int", index, "uint", lcid, "ptr", pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, "ptr", pbstrHelpStringDll, "HRESULT")
+        result := ComCall(15, this, "int", index, "uint", lcid, "ptr", pbstrHelpString, pdwHelpStringContextMarshal, pdwHelpStringContext, "ptr", pbstrHelpStringDll, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets all custom data items for the library.
+     * Gets all custom data items for the library. (ITypeLib2.GetAllCustData)
+     * @remarks
+     * After the call, the caller needs to release memory used to hold the custom data item by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-clearcustdata">ClearCustData</a>.
      * @returns {CUSTDATA} The custom data items.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib2-getallcustdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-itypelib2-getallcustdata
      */
     GetAllCustData() {
         pCustData := CUSTDATA()
-        result := ComCall(16, this, "ptr", pCustData, "HRESULT")
+        result := ComCall(16, this, "ptr", pCustData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCustData
     }
 }

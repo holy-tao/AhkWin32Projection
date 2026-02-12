@@ -34,7 +34,11 @@ class IAppxBundleManifestPackageInfo3 extends IUnknown{
      * @returns {IAppxManifestTargetDeviceFamiliesEnumerator} 
      */
     GetTargetDeviceFamilies() {
-        result := ComCall(3, this, "ptr*", &targetDeviceFamilies := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &targetDeviceFamilies := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestTargetDeviceFamiliesEnumerator(targetDeviceFamilies)
     }
 }

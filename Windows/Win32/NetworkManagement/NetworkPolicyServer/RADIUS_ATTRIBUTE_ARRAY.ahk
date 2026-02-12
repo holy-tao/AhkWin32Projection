@@ -19,7 +19,7 @@
  * This structure is returned by the functions 
  * <a href="https://docs.microsoft.com/previous-versions/ms688263(v=vs.85)">GetRequest</a> and 
  * <a href="https://docs.microsoft.com/previous-versions/ms688270(v=vs.85)">GetResponse</a>.
- * @see https://learn.microsoft.com/windows/win32/api/authif/ns-authif-radius_attribute_array
+ * @see https://learn.microsoft.com/windows/win32/api//content/authif/ns-authif-radius_attribute_array
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

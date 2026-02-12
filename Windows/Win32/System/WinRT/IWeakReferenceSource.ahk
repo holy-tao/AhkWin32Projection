@@ -6,7 +6,7 @@
 
 /**
  * Represents a source object to which a weak reference can be retrieved.
- * @see https://docs.microsoft.com/windows/win32/api//weakreference/nn-weakreference-iweakreferencesource
+ * @see https://learn.microsoft.com/windows/win32/api//content/weakreference/nn-weakreference-iweakreferencesource
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class IWeakReferenceSource extends IUnknown{
      * @returns {IWeakReference} Type: [out, retval] <b><a href="https://docs.microsoft.com/windows/win32/api/weakreference/nn-weakreference-iweakreference">IWeakReference</a>**</b>
      * 
      * The weak reference.
-     * @see https://docs.microsoft.com/windows/win32/api//weakreference/nf-weakreference-iweakreferencesource-getweakreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/weakreference/nf-weakreference-iweakreferencesource-getweakreference
      */
     GetWeakReference() {
-        result := ComCall(3, this, "ptr*", &weakReference := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &weakReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWeakReference(weakReference)
     }
 }

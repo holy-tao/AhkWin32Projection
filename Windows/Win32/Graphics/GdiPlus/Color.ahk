@@ -2,12 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Note This section describes functionality designed for use by online stores. | Color Element
- * @remarks
- * The default value for **MediaPlayer** is \#7C9AD6. The default value for **MediaPlayerText** is \#FFFFFF.
- * 
- * Be sure to use colors that make it easy for the user to read the button text. For example, you should avoid using white button text on light colored buttons.
- * @see https://learn.microsoft.com/windows/win32/WMP/color-element
+ * These constants specify the type of a Postscript 2 color space array. The following values are valid color space array types.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wcs/color-space-type-identifiers
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

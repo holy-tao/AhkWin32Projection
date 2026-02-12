@@ -37,7 +37,11 @@ class IBindEventHandler extends IUnknown{
     BindHandler(pstrEvent, pdisp) {
         pstrEvent := pstrEvent is String ? StrPtr(pstrEvent) : pstrEvent
 
-        result := ComCall(3, this, "ptr", pstrEvent, "ptr", pdisp, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrEvent, "ptr", pdisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

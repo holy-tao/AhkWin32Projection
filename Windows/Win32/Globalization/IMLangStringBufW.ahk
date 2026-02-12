@@ -39,7 +39,11 @@ class IMLangStringBufW extends IUnknown{
         plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
         pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, plFlagsMarshal, plFlags, pcchBufMarshal, pcchBuf, "HRESULT")
+        result := ComCall(3, this, plFlagsMarshal, plFlags, pcchBufMarshal, pcchBuf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class IMLangStringBufW extends IUnknown{
         ppszBufMarshal := ppszBuf is VarRef ? "ptr*" : "ptr"
         pcchBufMarshal := pcchBuf is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, ppszBufMarshal, ppszBuf, pcchBufMarshal, pcchBuf, "HRESULT")
+        result := ComCall(4, this, "int", cchOffset, "int", cchMaxLock, ppszBufMarshal, ppszBuf, pcchBufMarshal, pcchBuf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,29 +77,47 @@ class IMLangStringBufW extends IUnknown{
     UnlockBuf(pszBuf, cchOffset, cchWrite) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := ComCall(5, this, "ptr", pszBuf, "int", cchOffset, "int", cchWrite, "HRESULT")
+        result := ComCall(5, this, "ptr", pszBuf, "int", cchOffset, "int", cchWrite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Inserts a file into the cache.
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxInsert 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/filehc/nf-filehc-insertfile
      */
     Insert(cchOffset, cchMaxInsert) {
-        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", &pcchActual := 0, "HRESULT")
+        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", &pcchActual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchActual
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @param {Integer} cchOffset 
      * @param {Integer} cchDelete 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete(cchOffset, cchDelete) {
-        result := ComCall(7, this, "int", cchOffset, "int", cchDelete, "HRESULT")
+        result := ComCall(7, this, "int", cchOffset, "int", cchDelete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

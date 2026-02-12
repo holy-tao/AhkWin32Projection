@@ -36,9 +36,16 @@ class ICertEncodeDateArray2 extends ICertEncodeDateArray{
      * @returns {HRESULT} 
      */
     DecodeBlob(strEncodedData, Encoding) {
-        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+        if(strEncodedData is String) {
+            pin := BSTR.Alloc(strEncodedData)
+            strEncodedData := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(13, this, "ptr", strEncodedData, "int", Encoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +56,11 @@ class ICertEncodeDateArray2 extends ICertEncodeDateArray{
      */
     EncodeBlob(Encoding) {
         pstrEncodedData := BSTR()
-        result := ComCall(14, this, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
+        result := ComCall(14, this, "int", Encoding, "ptr", pstrEncodedData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrEncodedData
     }
 }

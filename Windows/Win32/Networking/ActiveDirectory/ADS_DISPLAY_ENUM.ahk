@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, VBScript applications do not understand the symbolic constants as defined above. You should use the numeric constants instead to set the appropriate flags in your VBScript applications. If you want to use the symbolic constants as a good programming practice, you should create explicit declarations of such constants, as done here, in your VBScript applications.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_display_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/ne-iads-ads_display_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that define an effect group.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectgroupimpl
+ * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nn-mileffects-imilbitmapeffectgroupimpl
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -38,11 +38,15 @@ class IMILBitmapEffectGroupImpl extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a> to process.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroupimpl-preprocess
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectgroupimpl-preprocess
      */
     Preprocess(pContext) {
-        result := ComCall(3, this, "ptr", pContext, "HRESULT")
+        result := ComCall(3, this, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,10 +55,14 @@ class IMILBitmapEffectGroupImpl extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * A pointer that receives the number of effects in the group.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getnumberchildren
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getnumberchildren
      */
     GetNumberChildren() {
-        result := ComCall(4, this, "uint*", &puiNumberChildren := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &puiNumberChildren := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiNumberChildren
     }
 
@@ -63,10 +71,14 @@ class IMILBitmapEffectGroupImpl extends IUnknown{
      * @returns {IMILBitmapEffects} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffects">IMILBitmapEffects</a>**</b>
      * 
      * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffects">IMILBitmapEffects</a> group.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getchildren
+     * @see https://learn.microsoft.com/windows/win32/api//content/mileffects/nf-mileffects-imilbitmapeffectgroupimpl-getchildren
      */
     GetChildren() {
-        result := ComCall(5, this, "ptr*", &pChildren := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &pChildren := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMILBitmapEffects(pChildren)
     }
 }

@@ -4,8 +4,8 @@
 #Include ..\IInspectable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.media.core.interop/nn-windows-media-core-interop-iaudioframenative
+ * Represents a frame of audio data.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.media.core.interop/nn-windows-media-core-interop-iaudioframenative
  * @namespace Windows.Win32.System.WinRT.Media
  * @version v4.0.30319
  */
@@ -31,13 +31,21 @@ class IAudioFrameNative extends IInspectable{
     static VTableNames => ["GetData"]
 
     /**
+     * This method returns an interface that provides access to the audio data.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/WinRT/iaudioframenative-getdata
+     * The IID of the interface to retrieve.
+     * @returns {Pointer<Pointer<Void>>} Type: **LPVOID\***
+     * 
+     * When this method returns successfully, contains the interface pointer requested in *riid* parameter.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WinRT/iaudioframenative-getdata
      */
     GetData(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

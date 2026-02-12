@@ -37,7 +37,11 @@ class ITextStoreACPEx extends IUnknown{
      * @returns {HRESULT} 
      */
     ScrollToRect(acpStart, acpEnd, rc, dwPosition) {
-        result := ComCall(3, this, "int", acpStart, "int", acpEnd, "ptr", rc, "uint", dwPosition, "HRESULT")
+        result := ComCall(3, this, "int", acpStart, "int", acpEnd, "ptr", rc, "uint", dwPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

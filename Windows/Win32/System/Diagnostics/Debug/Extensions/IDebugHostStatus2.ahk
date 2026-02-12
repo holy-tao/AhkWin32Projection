@@ -33,7 +33,11 @@ class IDebugHostStatus2 extends IDebugHostStatus{
      * @returns {HRESULT} 
      */
     SetUserInterrupt() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IDebugHostStatus2 extends IDebugHostStatus{
      * @returns {HRESULT} 
      */
     ClearUserInterrupt() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

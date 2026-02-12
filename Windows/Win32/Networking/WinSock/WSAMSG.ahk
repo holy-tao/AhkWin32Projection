@@ -14,7 +14,7 @@
  * If the datagram or control data is truncated during the transmission, the function being used in association with the 
  * <b>WSAMSG</b> structure returns SOCKET_ERROR and a call to the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function returns WSAEMSGSIZE. It is up to the application to determine what was truncated by checking for MSG_TRUNC and/or MSG_CTRUNC flags.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsamsg
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-wsamsg
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

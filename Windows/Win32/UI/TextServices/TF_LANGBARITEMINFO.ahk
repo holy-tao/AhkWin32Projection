@@ -3,7 +3,7 @@
 
 /**
  * The TF_LANGBARITEMINFO structure is used to hold information about a language bar item.
- * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ns-ctfutb-tf_langbariteminfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/ns-ctfutb-tf_langbariteminfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

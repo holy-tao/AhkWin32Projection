@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that enable the view to notify the implementer when the enumeration has completed.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ienumreadycallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ienumreadycallback
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class IEnumReadyCallback extends IUnknown{
      * Notifies the implementer that the view's item enumeration has completed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ienumreadycallback-enumready
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ienumreadycallback-enumready
      */
     EnumReady() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

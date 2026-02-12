@@ -68,80 +68,183 @@ class IMSVidWebDVDAdm extends IDispatch{
     }
 
     /**
-     * 
+     * ChangePassword Method (ADOX)
+     * @remarks
+     * For security reasons, the old password must be specified in addition to the new password.  
+     *   
+     *  An error will occur if the provider does not support the administration of trustee properties.
      * @param {BSTR} strUserName 
      * @param {BSTR} strOld 
      * @param {BSTR} strNew 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/changepassword-method-adox
      */
     ChangePassword(strUserName, strOld, strNew) {
-        strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
-        strOld := strOld is String ? BSTR.Alloc(strOld).Value : strOld
-        strNew := strNew is String ? BSTR.Alloc(strNew).Value : strNew
+        if(strUserName is String) {
+            pin := BSTR.Alloc(strUserName)
+            strUserName := pin.Value
+        }
+        if(strOld is String) {
+            pin := BSTR.Alloc(strOld)
+            strOld := pin.Value
+        }
+        if(strNew is String) {
+            pin := BSTR.Alloc(strNew)
+            strNew := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strUserName, "ptr", strOld, "ptr", strNew, "HRESULT")
+        result := ComCall(7, this, "ptr", strUserName, "ptr", strOld, "ptr", strNew, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The DVDAdm.SaveParentalLevel method saves a new default parental level to the registry.
+     * @remarks
+     * This method enables a user who knows the current password to save a new parental level setting to the registry. As with all the methods of **MSDVDAdm**, this method does not affect the current level in the player; it changes only the registry setting, so that the next time the MSWebDVD object is started, it will open with the new level. Specify -1 to disable parental management. To change the parental level in the player, call [**SelectParentalLevel**](selectparentallevel-method.md), which does not change the registry setting.
      * @param {Integer} level 
      * @param {BSTR} strUserName 
      * @param {BSTR} strPassword 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="iLevel"></span><span id="ilevel"></span><span id="ILEVEL"></span>*iLevel*
+     * 
+     * Specifies the parental level as anInteger value from 1 through 8.
+     * 
+     * 
+     * <span id="sUserName"></span><span id="susername"></span><span id="SUSERNAME"></span>*sUserName*
+     * 
+     * Specifies the user name as a String. (Currently ignored.)
+     * 
+     * 
+     * <span id="sPassword"></span><span id="spassword"></span><span id="SPASSWORD"></span>*sPassword*
+     * 
+     * Specifies the password as a String.
+     * 
+     * 
+     * 
+     * No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/saveparentallevel-method
      */
     SaveParentalLevel(level, strUserName, strPassword) {
-        strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
+        if(strUserName is String) {
+            pin := BSTR.Alloc(strUserName)
+            strUserName := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
 
-        result := ComCall(8, this, "int", level, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(8, this, "int", level, "ptr", strUserName, "ptr", strPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The DVDAdm.SaveParentalCountry method saves the application's new parental country/region to the registry.
+     * @remarks
+     * This method enables a user who knows the current password to save a new parental country/region setting to the registry. As with all the methods of **MSDVDAdm**, this method does not affect the current level in the player; it changes only the registry setting, so that the next time the MSWebDVD object is created, it will open with the new country/region. To change the parental country/region in the player, call [**SelectParentalCountry**](selectparentalcountry-method.md), which does not change the registry setting.
      * @param {Integer} country 
      * @param {BSTR} strUserName 
      * @param {BSTR} strPassword 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="iCountry"></span><span id="icountry"></span><span id="ICOUNTRY"></span>*iCountry*
+     * 
+     * Specifies the parental country/region as an Integer.
+     * 
+     * 
+     * <span id="sUserName"></span><span id="susername"></span><span id="SUSERNAME"></span>*sUserName*
+     * 
+     * Specifies the user name as a String. (Currently ignored.)
+     * 
+     * 
+     * <span id="sPassword"></span><span id="spassword"></span><span id="SPASSWORD"></span>*sPassword*
+     * 
+     * Specifies the password as a String.
+     * 
+     * 
+     * 
+     * No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/saveparentalcountry-method
      */
     SaveParentalCountry(country, strUserName, strPassword) {
-        strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
+        if(strUserName is String) {
+            pin := BSTR.Alloc(strUserName)
+            strUserName := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
 
-        result := ComCall(9, this, "int", country, "ptr", strUserName, "ptr", strPassword, "HRESULT")
+        result := ComCall(9, this, "int", country, "ptr", strUserName, "ptr", strPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The DVDAdm.ConfirmPassword method tests whether the specified password matches the previously saved password.
+     * @remarks
+     * Currently, the *sUserName* parameter is ignored on this and all related methods.
      * @param {BSTR} strUserName 
      * @param {BSTR} strPassword 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/confirmpassword-method
      */
     ConfirmPassword(strUserName, strPassword) {
-        strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
-        strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
+        if(strUserName is String) {
+            pin := BSTR.Alloc(strUserName)
+            strUserName := pin.Value
+        }
+        if(strPassword is String) {
+            pin := BSTR.Alloc(strPassword)
+            strPassword := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", strUserName, "ptr", strPassword, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", strUserName, "ptr", strPassword, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * 
+     * The DVDAdm.GetParentalLevel method retrieves the parental level that was last saved to the registry.
+     * @remarks
+     * The parental level this method retrieves is not necessarily the same level currently stored in the MSWebDVD control; to get the level currently stored in the control, call the [**GetPlayerParentalLevel**](getplayerparentallevel-method.md) method. A value of -1 indicates that parental management is disabled.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/getparentallevel-method
      */
     GetParentalLevel() {
-        result := ComCall(11, this, "int*", &lLevel := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &lLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lLevel
     }
 
     /**
-     * 
+     * The DVDAdm.GetParentalCountry method retrieves the parental country/region that was last saved to the registry.
+     * @remarks
+     * The parental country/region this method retrieves is not necessarily the same country/region currently stored in the MSWebDVD object.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/getparentalcountry-method
      */
     GetParentalCountry() {
-        result := ComCall(12, this, "int*", &lCountry := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &lCountry := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lCountry
     }
 
@@ -150,7 +253,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {Integer} 
      */
     get_DefaultAudioLCID() {
-        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -160,7 +267,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DefaultAudioLCID(newVal) {
-        result := ComCall(14, this, "int", newVal, "HRESULT")
+        result := ComCall(14, this, "int", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +280,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {Integer} 
      */
     get_DefaultSubpictureLCID() {
-        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -179,7 +294,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DefaultSubpictureLCID(newVal) {
-        result := ComCall(16, this, "int", newVal, "HRESULT")
+        result := ComCall(16, this, "int", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,7 +307,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {Integer} 
      */
     get_DefaultMenuLCID() {
-        result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -198,7 +321,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DefaultMenuLCID(newVal) {
-        result := ComCall(18, this, "int", newVal, "HRESULT")
+        result := ComCall(18, this, "int", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +334,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_BookmarkOnStop() {
-        result := ComCall(19, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -217,7 +348,11 @@ class IMSVidWebDVDAdm extends IDispatch{
      * @returns {HRESULT} 
      */
     put_BookmarkOnStop(newVal) {
-        result := ComCall(20, this, "short", newVal, "HRESULT")
+        result := ComCall(20, this, "short", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

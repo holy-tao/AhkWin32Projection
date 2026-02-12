@@ -14,7 +14,7 @@
  * On Windows Vista and later, the <b>Name</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_adapter_index_map">IP_ADAPTER_INDEX_MAP</a> structure in the <b>IP_INTERFACE_INFO</b> structure may be a Unicode string of the GUID for the network interface (the string begins with the '{' character). 
  * 
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_interface_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipexport/ns-ipexport-ip_interface_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

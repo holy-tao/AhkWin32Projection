@@ -9,7 +9,7 @@
  * The <b>SocketContext</b> member of the <b>RIORESULT</b> structure can be used by an application to identify the <a href="https://docs.microsoft.com/windows/desktop/WinSock/riocqueue">RIO_CQ</a> object or the associated application object on which the Winsock registered I/O request was issued.  The <b>RequestContext</b> member of the <b>RIORESULT</b> structure can similarly be used to identify the particular Winsock registered I/O request that was completed.
  * 
  * The <b>RIORESULT</b> structure is defined in the <i>Mswsockdef.h</i> header file which is automatically included in the <i>Mswsock.h</i> header file. The <i>Mswsockdef.h</i> header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rioresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswsockdef/ns-mswsockdef-rioresult
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

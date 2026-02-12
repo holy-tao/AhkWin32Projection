@@ -128,7 +128,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_contentOverflow() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -138,7 +142,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_shiftLeft(v) {
-        result := ComCall(8, this, "short", v, "HRESULT")
+        result := ComCall(8, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +155,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_shiftLeft() {
-        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -157,7 +169,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_altLeft(v) {
-        result := ComCall(10, this, "short", v, "HRESULT")
+        result := ComCall(10, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +182,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_altLeft() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -176,7 +196,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ctrlLeft(v) {
-        result := ComCall(12, this, "short", v, "HRESULT")
+        result := ComCall(12, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +209,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlLeft() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -194,7 +222,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Pointer} 
      */
     get_imeCompositionChange() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -203,7 +235,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Pointer} 
      */
     get_imeNotifyCommand() {
-        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -212,7 +248,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Pointer} 
      */
     get_imeNotifyData() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -221,7 +261,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Pointer} 
      */
     get_imeRequest() {
-        result := ComCall(17, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -230,7 +274,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Pointer} 
      */
     get_imeRequestData() {
-        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -239,7 +287,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Pointer} 
      */
     get_keyboardLayout() {
-        result := ComCall(19, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -248,7 +300,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Integer} 
      */
     get_behaviorCookie() {
-        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -257,7 +313,11 @@ class IHTMLEventObj3 extends IDispatch{
      * @returns {Integer} 
      */
     get_behaviorPart() {
-        result := ComCall(21, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -267,7 +327,11 @@ class IHTMLEventObj3 extends IDispatch{
      */
     get_nextPage() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

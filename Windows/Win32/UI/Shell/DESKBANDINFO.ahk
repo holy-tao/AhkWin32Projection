@@ -4,7 +4,7 @@
 
 /**
  * Receives information about a band object. This structure is used with the deprecated IDeskBand::GetBandInfo method.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-deskbandinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ns-shobjidl_core-deskbandinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

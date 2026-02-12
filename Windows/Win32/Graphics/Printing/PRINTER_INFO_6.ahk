@@ -3,7 +3,7 @@
 
 /**
  * The PRINTER\_INFO\_6 specifies the status value of a printer.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-6
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-info-6
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

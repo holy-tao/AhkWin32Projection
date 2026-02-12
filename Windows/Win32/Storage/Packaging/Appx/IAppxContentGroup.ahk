@@ -6,7 +6,7 @@
 
 /**
  * Retrieves information about a content group.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxcontentgroup
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxcontentgroup
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -34,20 +34,28 @@ class IAppxContentGroup extends IUnknown{
     /**
      * Gets the name of the content group.
      * @returns {PWSTR} The content group name.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroup-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxcontentgroup-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &groupName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &groupName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return groupName
     }
 
     /**
      * Gets files from a content group.
-     * @returns {IAppxContentGroupFilesEnumerator} An enumerator for getting content group files.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
+     * @returns {IAppxContentGroupFilesEnumerator} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
      */
     GetFiles() {
-        result := ComCall(4, this, "ptr*", &enumerator := 0, "HRESULT")
-        return IAppxContentGroupFilesEnumerator(enumerator)
+        result := ComCall(4, this, "ptr*", &enumerator_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IAppxContentGroupFilesEnumerator(enumerator_)
     }
 }

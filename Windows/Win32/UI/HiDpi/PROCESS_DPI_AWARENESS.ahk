@@ -42,7 +42,7 @@
  * <td>You will get a 1500 by 1500 rect because the system will use the actual DPI of the display and not do any scaling behind the scenes.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellscalingapi/ne-shellscalingapi-process_dpi_awareness
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319
  */

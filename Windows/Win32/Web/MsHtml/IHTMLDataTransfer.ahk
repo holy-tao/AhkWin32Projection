@@ -47,28 +47,46 @@ class IHTMLDataTransfer extends IDispatch{
     }
 
     /**
-     * 
+     * setDatabaseName Method (SQLServerDataSource)
      * @param {BSTR} format 
      * @param {Pointer<VARIANT>} data 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/setdatabasename-method-sqlserverdatasource
      */
     setData(format, data) {
-        format := format is String ? BSTR.Alloc(format).Value : format
+        if(format is String) {
+            pin := BSTR.Alloc(format)
+            format := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", format, "ptr", data, "short*", &pret := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", format, "ptr", data, "short*", &pret := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pret
     }
 
     /**
-     * 
+     * getDatabaseMajorVersion Method (SQLServerDatabaseMetaData)
+     * @remarks
+     * This getDatabaseMajorVersion method is specified by the getDatabaseMajorVersion method in the java.sql.DatabaseMetaData interface.
      * @param {BSTR} format 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getdatabasemajorversion-method-sqlserverdatabasemetadata
      */
     getData(format) {
-        format := format is String ? BSTR.Alloc(format).Value : format
+        if(format is String) {
+            pin := BSTR.Alloc(format)
+            format := pin.Value
+        }
 
         pvarRet := VARIANT()
-        result := ComCall(8, this, "ptr", format, "ptr", pvarRet, "HRESULT")
+        result := ComCall(8, this, "ptr", format, "ptr", pvarRet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarRet
     }
 
@@ -78,9 +96,16 @@ class IHTMLDataTransfer extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     clearData(format) {
-        format := format is String ? BSTR.Alloc(format).Value : format
+        if(format is String) {
+            pin := BSTR.Alloc(format)
+            format := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", format, "short*", &pret := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", format, "short*", &pret := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pret
     }
 
@@ -90,9 +115,16 @@ class IHTMLDataTransfer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_dropEffect(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", v, "HRESULT")
+        result := ComCall(10, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +134,11 @@ class IHTMLDataTransfer extends IDispatch{
      */
     get_dropEffect() {
         p := BSTR()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -112,9 +148,16 @@ class IHTMLDataTransfer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_effectAllowed(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", v, "HRESULT")
+        result := ComCall(12, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +167,11 @@ class IHTMLDataTransfer extends IDispatch{
      */
     get_effectAllowed() {
         p := BSTR()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

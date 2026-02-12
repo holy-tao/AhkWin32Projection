@@ -13,7 +13,7 @@
  * <b>lineGetTranslateCaps</b> function should use the 
  * <b>LINELOCATIONENTRY</b> members and size that match the indicated API version, when building the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure to be returned to the application.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linelocationentry
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linelocationentry
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

@@ -10,7 +10,6 @@
 /**
  * IMcastAddressAllocation is the main interface for multicast address allocation. An application calls the COM CoCreateInstance function on this interface to create the multicast client interface object.
  * @remarks
- * 
  * The multicast COM interfaces allow access to the network's facility for allocating, renewing, and releasing leases on multicast addresses. They encapsulate a set of function and data structure definitions. The COM interfaces free the programmer from the burden of understanding and manipulating these data structures. Moreover, because TAPI 3 itself is COM-based, these interfaces make multicast address allocation accessible in a way that is consistent with the other facilities provided by TAPI 3. Applications written using Visual Basic, Java, or scripting languages must use these COM interfaces—they cannot normally access the Windows API directly.
  * 
  * In addition, this component provides seamless and transparent support for local address allocation for non-multicast environments. The <b>DWORD</b> registry value <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\MCAST\LocalAllocation</b>, when set to a nonzero value, specifies that random number generation performed on the local machine is to be used for the allocation of all multicast addresses. This allows applications to function the same way on a network without a multicast address allocation server as they would on a network with a multicast address allocation server. If the registry value is set to zero or does not exist, this component performs normally as described in the rest of this specification. Note that local address allocation is never used unless this registry key is set to a nonzero value; local address allocation is not a fallback mechanism for a temporarily inaccessible multicast address allocation server.
@@ -18,9 +17,7 @@
  * Multicast address allocation is currently the subject of an IETF working group. To access current information, query on "Internet draft" and "MDHCP" or "MADCAP" using any Internet search engine. In addition to MADCAP (previously called MDHCP), the proposed architecture includes a protocol for server-to-server coordination within a domain or AS, as well as a protocol for interdomain coordination. While this architecture is currently evolving, the client need not concern itself with the details of this scheme.
  * 
  * This component currently supports only IP version 4 addresses.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nn-mdhcp-imcastaddressallocation
+ * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nn-mdhcp-imcastaddressallocation
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -60,30 +57,52 @@ class IMcastAddressAllocation extends IDispatch{
 
     /**
      * The get_Scopes method creates a collection of IMcast scopes available. This method is similar to EnumerateScopes, but is used by scripting languages such as Visual Basic.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastscope">IMcastScope</a> interface returned by <b>IMcastAddressAllocation::get_Scopes</b>. The application must call <b>Release</b> on the 
+     * <b>IMcastScope</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> receiving an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastscope">IMcastScope</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-get_scopes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-get_scopes
      */
     get_Scopes() {
         pVariant := VARIANT()
-        result := ComCall(7, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(7, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
     /**
      * The EnumerateScopes method creates an enumeration of multicast scopes available. This method is primarily for C++ programmers. Visual Basic and other scripting languages use get_Scopes instead.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-ienummcastscope">IEnumMcastScope</a> interface returned by <b>IMcastAddressAllocation::EnumerateScopes</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumMcastScope</b> interface to free resources associated with it.
      * @returns {IEnumMcastScope} Returns a pointer to a new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-ienummcastscope">IEnumMcastScope</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-enumeratescopes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-enumeratescopes
      */
     EnumerateScopes() {
-        result := ComCall(8, this, "ptr*", &ppEnumMcastScope := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppEnumMcastScope := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumMcastScope(ppEnumMcastScope)
     }
 
     /**
      * The RequestAddress method obtains a new lease for one or more multicast addresses. The EnumerateScopes or get_Scopes method must be called first.
+     * @remarks
+     * Although these COM interfaces and their implementation support allocation of multiple addresses at a time, multiple allocation is not currently supported by the underlying function calls. You may need to use a loop for multiple address allocation.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> interface returned by <b>IMcastAddressAllocation::RequestAddress</b>. The application must call <b>Release</b> on the 
+     * <b>IMcastLeaseInfo</b> interface to free resources associated with it.
      * @param {IMcastScope} pScope Identifies the multicast scope from which the application needs an address. The application first calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nf-mdhcp-imcastaddressallocation-get_scopes">get_Scopes</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nf-mdhcp-imcastaddressallocation-enumeratescopes">EnumerateScopes</a> to obtain a list of available scopes.
@@ -93,10 +112,14 @@ class IMcastAddressAllocation extends IDispatch{
      * @returns {IMcastLeaseInfo} Pointer to an interface pointer that will be set to point to a new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> object. This interface can then be used to discover the actual attributes of the granted lease. See 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastscope">IMcastScope</a> for more information.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-requestaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-requestaddress
      */
     RequestAddress(pScope, LeaseStartTime, LeaseStopTime, NumAddresses) {
-        result := ComCall(9, this, "ptr", pScope, "double", LeaseStartTime, "double", LeaseStopTime, "int", NumAddresses, "ptr*", &ppLeaseResponse := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pScope, "double", LeaseStartTime, "double", LeaseStopTime, "int", NumAddresses, "ptr*", &ppLeaseResponse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMcastLeaseInfo(ppLeaseResponse)
     }
 
@@ -109,10 +132,14 @@ class IMcastAddressAllocation extends IDispatch{
      * @returns {IMcastLeaseInfo} Pointer to an interface pointer that will be set to point to a new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> object. This interface can then be used to discover the attributes of the renewed lease. See 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastscope">IMcastScope</a> for more information.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-renewaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-renewaddress
      */
     RenewAddress(lReserved, pRenewRequest) {
-        result := ComCall(10, this, "int", lReserved, "ptr", pRenewRequest, "ptr*", &ppRenewResponse := 0, "HRESULT")
+        result := ComCall(10, this, "int", lReserved, "ptr", pRenewRequest, "ptr*", &ppRenewResponse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMcastLeaseInfo(ppRenewResponse)
     }
 
@@ -160,15 +187,25 @@ class IMcastAddressAllocation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-releaseaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-releaseaddress
      */
     ReleaseAddress(pReleaseRequest) {
-        result := ComCall(11, this, "ptr", pReleaseRequest, "HRESULT")
+        result := ComCall(11, this, "ptr", pReleaseRequest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CreateLeaseInfo method creates a lease information object for a subsequent call to RenewAddress or ReleaseAddress.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> interface returned by <b>IMcastAddressAllocation::CreateLeaseInfo</b>. The application must call <b>Release</b> on the 
+     * <b>IMcastLeaseInfo</b> interface to free resources associated with it.
+     * 
+     * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
      * @param {Float} LeaseStartTime The start time of the lease.
      * @param {Float} LeaseStopTime The stop time of the lease.
      * @param {Integer} dwNumAddresses The number of addresses associated with the lease.
@@ -182,7 +219,7 @@ class IMcastAddressAllocation extends IDispatch{
      * @param {PWSTR} pServerAddress Specifies server address.
      * @returns {IMcastLeaseInfo} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> interface created.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-createleaseinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-createleaseinfo
      */
     CreateLeaseInfo(LeaseStartTime, LeaseStopTime, dwNumAddresses, ppAddresses, pRequestID, pServerAddress) {
         pRequestID := pRequestID is String ? StrPtr(pRequestID) : pRequestID
@@ -190,12 +227,26 @@ class IMcastAddressAllocation extends IDispatch{
 
         ppAddressesMarshal := ppAddresses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "double", LeaseStartTime, "double", LeaseStopTime, "uint", dwNumAddresses, ppAddressesMarshal, ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        result := ComCall(12, this, "double", LeaseStartTime, "double", LeaseStopTime, "uint", dwNumAddresses, ppAddressesMarshal, ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMcastLeaseInfo(ppReleaseRequest)
     }
 
     /**
      * The CreateLeaseInfoFromVariant method creates a lease information object for a subsequent call to RenewAddress or ReleaseAddress. This method is similar to CreateLeaseInfo but is used by Automation client languages such as Visual Basic.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pRequestID</i> and <i>pServerAddress</i> parameters. The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variables are no longer needed.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> interface returned by <b>IMcastAddressAllocation::CreateLeaseInfoFromVariant</b>. The application must call <b>Release</b> on the 
+     * <b>IMcastLeaseInfo</b> interface to free resources associated with it.
+     * 
+     * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
      * @param {Float} LeaseStartTime The start time of the lease.
      * @param {Float} LeaseStopTime The stop time of the lease.
      * @param {VARIANT} vAddresses A <b>VARIANT</b> containing a SAFEARRAY of <b>BSTR</b> strings. Each <b>BSTR</b> is an IP version 4 address in dotted quad notation (for example, 10.111.222.111).
@@ -208,13 +259,23 @@ class IMcastAddressAllocation extends IDispatch{
      * @param {BSTR} pServerAddress Pointer to a <b>BSTR</b> specifying the server address.
      * @returns {IMcastLeaseInfo} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mdhcp/nn-mdhcp-imcastleaseinfo">IMcastLeaseInfo</a> interface created.
-     * @see https://docs.microsoft.com/windows/win32/api//mdhcp/nf-mdhcp-imcastaddressallocation-createleaseinfofromvariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/mdhcp/nf-mdhcp-imcastaddressallocation-createleaseinfofromvariant
      */
     CreateLeaseInfoFromVariant(LeaseStartTime, LeaseStopTime, vAddresses, pRequestID, pServerAddress) {
-        pRequestID := pRequestID is String ? BSTR.Alloc(pRequestID).Value : pRequestID
-        pServerAddress := pServerAddress is String ? BSTR.Alloc(pServerAddress).Value : pServerAddress
+        if(pRequestID is String) {
+            pin := BSTR.Alloc(pRequestID)
+            pRequestID := pin.Value
+        }
+        if(pServerAddress is String) {
+            pin := BSTR.Alloc(pServerAddress)
+            pServerAddress := pin.Value
+        }
 
-        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, "ptr", vAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, "ptr", vAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMcastLeaseInfo(ppReleaseRequest)
     }
 }

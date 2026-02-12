@@ -76,7 +76,11 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {HRESULT} 
      */
     focus() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +89,11 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     hasFocus() {
-        result := ComCall(8, this, "short*", &pfFocus := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &pfFocus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfFocus
     }
 
@@ -95,7 +103,11 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onselectionchange(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +117,11 @@ class IHTMLDocument4 extends IDispatch{
      */
     get_onselectionchange() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -114,7 +130,11 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_namespaces() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -125,10 +145,20 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {IHTMLDocument2} 
      */
     createDocumentFromUrl(bstrUrl, bstrOptions) {
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
-        bstrOptions := bstrOptions is String ? BSTR.Alloc(bstrOptions).Value : bstrOptions
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
+        if(bstrOptions is String) {
+            pin := BSTR.Alloc(bstrOptions)
+            bstrOptions := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrUrl, "ptr", bstrOptions, "ptr*", &newDoc := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrUrl, "ptr", bstrOptions, "ptr*", &newDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(newDoc)
     }
 
@@ -138,9 +168,16 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_media(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,7 +187,11 @@ class IHTMLDocument4 extends IDispatch{
      */
     get_media() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -160,7 +201,11 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {IHTMLEventObj} 
      */
     createEventObject(pvarEventObject) {
-        result := ComCall(15, this, "ptr", pvarEventObject, "ptr*", &ppEventObj := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pvarEventObject, "ptr*", &ppEventObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLEventObj(ppEventObj)
     }
 
@@ -171,9 +216,16 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     fireEvent(bstrEventName, pvarEventObject) {
-        bstrEventName := bstrEventName is String ? BSTR.Alloc(bstrEventName).Value : bstrEventName
+        if(bstrEventName is String) {
+            pin := BSTR.Alloc(bstrEventName)
+            bstrEventName := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrEventName, "ptr", pvarEventObject, "short*", &pfCancelled := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrEventName, "ptr", pvarEventObject, "short*", &pfCancelled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCancelled
     }
 
@@ -183,9 +235,16 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {IHTMLRenderStyle} 
      */
     createRenderStyle(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", v, "ptr*", &ppIHTMLRenderStyle := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "ptr*", &ppIHTMLRenderStyle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLRenderStyle(ppIHTMLRenderStyle)
     }
 
@@ -195,7 +254,11 @@ class IHTMLDocument4 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_oncontrolselect(v) {
-        result := ComCall(18, this, "ptr", v, "HRESULT")
+        result := ComCall(18, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +268,11 @@ class IHTMLDocument4 extends IDispatch{
      */
     get_oncontrolselect() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -215,7 +282,11 @@ class IHTMLDocument4 extends IDispatch{
      */
     get_URLUnencoded() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

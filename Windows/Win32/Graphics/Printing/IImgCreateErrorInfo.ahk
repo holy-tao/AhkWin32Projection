@@ -34,7 +34,11 @@ class IImgCreateErrorInfo extends ICreateErrorInfo{
      * @returns {HRESULT} 
      */
     AttachToErrorInfo(pErrorInfo) {
-        result := ComCall(8, this, "ptr", pErrorInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pErrorInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

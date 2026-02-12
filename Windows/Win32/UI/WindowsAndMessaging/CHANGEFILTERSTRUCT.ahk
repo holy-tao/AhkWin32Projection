@@ -97,7 +97,7 @@
  * <td><b>MSGFLTINFO_NONE</b></td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-changefilterstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-changefilterstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

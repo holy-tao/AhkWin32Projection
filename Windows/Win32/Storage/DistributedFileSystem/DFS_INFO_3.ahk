@@ -7,7 +7,7 @@
  * A <b>DFS_INFO_3</b> structure contains one or more 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/lmdfs/ns-lmdfs-dfs_storage_info">DFS_STORAGE_INFO</a> structures, one for each DFS 
  *     target.
- * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_3
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/ns-lmdfs-dfs_info_3
  * @namespace Windows.Win32.Storage.DistributedFileSystem
  * @version v4.0.30319
  */

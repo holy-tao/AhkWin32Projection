@@ -11,7 +11,7 @@
  * 	
  * 
  * The values for <b>rc</b> and <b>rcPage</b> can be obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-formatrange
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-formatrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

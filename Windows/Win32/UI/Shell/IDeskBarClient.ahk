@@ -35,7 +35,11 @@ class IDeskBarClient extends IOleWindow{
      * @returns {HRESULT} 
      */
     SetDeskBarSite(punkSite) {
-        result := ComCall(5, this, "ptr", punkSite, "HRESULT")
+        result := ComCall(5, this, "ptr", punkSite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDeskBarClient extends IOleWindow{
      * @returns {HRESULT} 
      */
     SetModeDBC(dwMode) {
-        result := ComCall(6, this, "uint", dwMode, "HRESULT")
+        result := ComCall(6, this, "uint", dwMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IDeskBarClient extends IOleWindow{
      * @returns {HRESULT} 
      */
     UIActivateDBC(dwState) {
-        result := ComCall(7, this, "uint", dwState, "HRESULT")
+        result := ComCall(7, this, "uint", dwState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +78,11 @@ class IDeskBarClient extends IOleWindow{
      */
     GetSize(dwWhich) {
         prc := RECT()
-        result := ComCall(8, this, "uint", dwWhich, "ptr", prc, "HRESULT")
+        result := ComCall(8, this, "uint", dwWhich, "ptr", prc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prc
     }
 }

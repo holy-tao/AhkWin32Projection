@@ -30,12 +30,16 @@ class IHostDataModelAccess extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataModelManager>} manager 
-     * @param {Pointer<IDebugHost>} host 
+     * @param {Pointer<Pointer<IDataModelManager>>} manager 
+     * @param {Pointer<Pointer<IDebugHost>>} host 
      * @returns {HRESULT} 
      */
     GetDataModel(manager, host) {
-        result := ComCall(3, this, "ptr*", manager, "ptr*", host, "HRESULT")
+        result := ComCall(3, this, "ptr*", manager, "ptr*", host, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

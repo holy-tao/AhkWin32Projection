@@ -5,7 +5,7 @@
 
 /**
  * Retrieves information about a tracking information collection.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomtrackinginfocollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomtrackinginfocollection
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -33,20 +33,28 @@ class IComTrackingInfoCollection extends IUnknown{
     /**
      * Retrieves the type of a tracking information collection.
      * @returns {Integer} The type of tracking information. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-tracking_coll_type">TRACKING_COLL_TYPE</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfocollection-type
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomtrackinginfocollection-type
      */
     Type() {
-        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
     /**
      * Retrieves the number of objects in a tracking information collection.
      * @returns {Integer} The number of objects in the tracking information collection.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfocollection-count
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomtrackinginfocollection-count
      */
     Count() {
-        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -55,10 +63,14 @@ class IComTrackingInfoCollection extends IUnknown{
      * @param {Integer} ulIndex The index of the object in the collection.
      * @param {Pointer<Guid>} riid The identifier of the interface to be requested.
      * @returns {Pointer<Void>} A pointer to the requested interface.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfocollection-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomtrackinginfocollection-item
      */
     Item(ulIndex, riid) {
-        result := ComCall(5, this, "uint", ulIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(5, this, "uint", ulIndex, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

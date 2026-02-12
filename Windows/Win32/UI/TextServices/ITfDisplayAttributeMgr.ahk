@@ -6,7 +6,7 @@
 
 /**
  * The ITfDisplayAttributeMgr interface is implemented by the TSF manager and used by an application to obtain and enumerate display attributes. Individual display attributes are accessed through the ITfDisplayAttributeInfo interface.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfdisplayattributemgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfdisplayattributemgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -52,20 +52,28 @@ class ITfDisplayAttributeMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributemgr-onupdateinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributemgr-onupdateinfo
      */
     OnUpdateInfo() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfDisplayAttributeMgr::EnumDisplayAttributeInfo method
      * @returns {IEnumTfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdisplayattributeinfo">IEnumTfDisplayAttributeInfo</a> interface pointer that receives the enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributemgr-enumdisplayattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributemgr-enumdisplayattributeinfo
      */
     EnumDisplayAttributeInfo() {
-        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfDisplayAttributeInfo(ppEnum)
     }
 
@@ -93,10 +101,14 @@ class ITfDisplayAttributeMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributemgr-getdisplayattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributemgr-getdisplayattributeinfo
      */
     GetDisplayAttributeInfo(guid, ppInfo, pclsidOwner) {
-        result := ComCall(5, this, "ptr", guid, "ptr*", ppInfo, "ptr", pclsidOwner, "HRESULT")
+        result := ComCall(5, this, "ptr", guid, "ptr*", ppInfo, "ptr", pclsidOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

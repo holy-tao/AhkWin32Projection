@@ -3,7 +3,7 @@
 
 /**
  * Learn more about: JET_ERRCAT enumeration
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-errcat-enumeration
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-errcat-enumeration
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

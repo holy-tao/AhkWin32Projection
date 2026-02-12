@@ -20,7 +20,7 @@
  *         decoded to their corresponding bytes.  In general writing the document using anything other than 
  *         <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsreadbytes">WsReadBytes</a>, <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspullbytes">WsPullBytes</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wspushbytes">WsPushBytes</a> will incur the 
  *         base64 conversion.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_raw_encoding
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_xml_writer_raw_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

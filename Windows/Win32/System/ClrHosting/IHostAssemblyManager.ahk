@@ -35,7 +35,11 @@ class IHostAssemblyManager extends IUnknown{
      * @returns {ICLRAssemblyReferenceList} 
      */
     GetNonHostStoreAssemblies() {
-        result := ComCall(3, this, "ptr*", &ppReferenceList := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppReferenceList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICLRAssemblyReferenceList(ppReferenceList)
     }
 
@@ -44,7 +48,11 @@ class IHostAssemblyManager extends IUnknown{
      * @returns {IHostAssemblyStore} 
      */
     GetAssemblyStore() {
-        result := ComCall(4, this, "ptr*", &ppAssemblyStore := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppAssemblyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHostAssemblyStore(ppAssemblyStore)
     }
 }

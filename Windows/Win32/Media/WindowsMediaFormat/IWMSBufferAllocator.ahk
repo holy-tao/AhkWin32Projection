@@ -6,7 +6,7 @@
 
 /**
  * The IWMSSBufferAllocator interface provides methods for allocating a buffer.
- * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nn-wmsbuffer-iwmsbufferallocator
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nn-wmsbuffer-iwmsbufferallocator
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -34,22 +34,30 @@ class IWMSBufferAllocator extends IUnknown{
     /**
      * The AllocateBuffer method initializes a buffer.
      * @param {Integer} dwMaxBufferSize <b>DWORD</b> containing the maximum size of the buffer in bytes.
-     * @returns {INSSBuffer} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatebuffer
+     * @returns {INSSBuffer} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatebuffer
      */
     AllocateBuffer(dwMaxBufferSize) {
-        result := ComCall(3, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INSSBuffer(ppBuffer)
     }
 
     /**
      * The AllocatePageSizeBuffer method initializes a buffer that can be used to perform page-aligned reads.
      * @param {Integer} dwMaxBufferSize <b>DWORD</b> containing the size of the buffer in bytes.
-     * @returns {INSSBuffer} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatepagesizebuffer
+     * @returns {INSSBuffer} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nf-wmsbuffer-iwmsbufferallocator-allocatepagesizebuffer
      */
     AllocatePageSizeBuffer(dwMaxBufferSize) {
-        result := ComCall(4, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwMaxBufferSize, "ptr*", &ppBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INSSBuffer(ppBuffer)
     }
 }

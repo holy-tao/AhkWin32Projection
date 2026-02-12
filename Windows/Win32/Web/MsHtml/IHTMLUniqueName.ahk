@@ -48,7 +48,11 @@ class IHTMLUniqueName extends IDispatch{
      * @returns {Integer} 
      */
     get_uniqueNumber() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -58,7 +62,11 @@ class IHTMLUniqueName extends IDispatch{
      */
     get_uniqueID() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

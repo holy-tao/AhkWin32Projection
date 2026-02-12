@@ -5,7 +5,7 @@
  * Contains parameters that specify the LBA format to apply to the NVM media as part of the Format NVM command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_format
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_lba_format
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

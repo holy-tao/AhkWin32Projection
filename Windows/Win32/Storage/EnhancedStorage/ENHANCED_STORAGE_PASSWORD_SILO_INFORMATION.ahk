@@ -3,7 +3,7 @@
 
 /**
  * ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION structure contains data that defines the capabilities and requirements of a password silo.
- * @see https://learn.microsoft.com/windows/win32/api/ehstorextensions/ns-ehstorextensions-enhanced_storage_password_silo_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/ehstorextensions/ns-ehstorextensions-enhanced_storage_password_silo_information
  * @namespace Windows.Win32.Storage.EnhancedStorage
  * @version v4.0.30319
  */

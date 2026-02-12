@@ -41,7 +41,11 @@ class ISpGramCompBackend extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     SetSaveObjects(pStream, pErrorLog) {
-        result := ComCall(11, this, "ptr", pStream, "ptr", pErrorLog, "HRESULT")
+        result := ComCall(11, this, "ptr", pStream, "ptr", pErrorLog, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class ISpGramCompBackend extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     InitFromBinaryGrammar(pBinaryData) {
-        result := ComCall(12, this, "ptr", pBinaryData, "HRESULT")
+        result := ComCall(12, this, "ptr", pBinaryData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IDCompositionInkTrailDevice extends IUnknown{
      * @returns {IDCompositionDelegatedInkTrail} 
      */
     CreateDelegatedInkTrail() {
-        result := ComCall(3, this, "ptr*", &inkTrail := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &inkTrail := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionDelegatedInkTrail(inkTrail)
     }
 
@@ -44,7 +48,11 @@ class IDCompositionInkTrailDevice extends IUnknown{
      * @returns {IDCompositionDelegatedInkTrail} 
      */
     CreateDelegatedInkTrailForSwapChain(swapChain) {
-        result := ComCall(4, this, "ptr", swapChain, "ptr*", &inkTrail := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", swapChain, "ptr*", &inkTrail := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionDelegatedInkTrail(inkTrail)
     }
 }

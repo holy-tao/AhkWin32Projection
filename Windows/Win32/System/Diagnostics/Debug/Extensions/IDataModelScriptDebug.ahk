@@ -41,54 +41,77 @@ class IDataModelScriptDebug extends IUnknown{
     }
 
     /**
-     * 
+     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
      * @param {Pointer<ScriptDebugPosition>} currentPosition 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcurrentpositionex
      */
     GetCurrentPosition(currentPosition, positionSpanEnd, lineText) {
-        result := ComCall(4, this, "ptr", currentPosition, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")
+        result := ComCall(4, this, "ptr", currentPosition, "ptr", positionSpanEnd, "ptr", lineText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IDataModelScriptDebugStack} 
+     * @returns {Pointer<IDataModelScriptDebugStack>} 
      */
     GetStack() {
-        result := ComCall(5, this, "ptr*", &stack := 0, "HRESULT")
-        return IDataModelScriptDebugStack(stack)
+        result := ComCall(5, this, "ptr*", &stack := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return stack
     }
 
     /**
      * 
      * @param {Integer} linePosition 
      * @param {Integer} columnPosition 
-     * @returns {IDataModelScriptDebugBreakpoint} 
+     * @returns {Pointer<IDataModelScriptDebugBreakpoint>} 
      */
     SetBreakpoint(linePosition, columnPosition) {
-        result := ComCall(6, this, "uint", linePosition, "uint", columnPosition, "ptr*", &breakpoint := 0, "HRESULT")
-        return IDataModelScriptDebugBreakpoint(breakpoint)
+        result := ComCall(6, this, "uint", linePosition, "uint", columnPosition, "ptr*", &breakpoint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return breakpoint
     }
 
     /**
      * 
      * @param {Integer} breakpointId 
-     * @returns {IDataModelScriptDebugBreakpoint} 
+     * @returns {Pointer<IDataModelScriptDebugBreakpoint>} 
      */
     FindBreakpointById(breakpointId) {
-        result := ComCall(7, this, "uint", breakpointId, "ptr*", &breakpoint := 0, "HRESULT")
-        return IDataModelScriptDebugBreakpoint(breakpoint)
+        result := ComCall(7, this, "uint", breakpointId, "ptr*", &breakpoint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return breakpoint
     }
 
     /**
      * 
-     * @returns {IDataModelScriptDebugBreakpointEnumerator} 
+     * @returns {Pointer<IDataModelScriptDebugBreakpointEnumerator>} 
      */
     EnumerateBreakpoints() {
-        result := ComCall(8, this, "ptr*", &breakpointEnum := 0, "HRESULT")
-        return IDataModelScriptDebugBreakpointEnumerator(breakpointEnum)
+        result := ComCall(8, this, "ptr*", &breakpointEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return breakpointEnum
     }
 
     /**
@@ -97,7 +120,11 @@ class IDataModelScriptDebug extends IUnknown{
      * @returns {Boolean} 
      */
     GetEventFilter(eventFilter) {
-        result := ComCall(9, this, "int", eventFilter, "int*", &isBreakEnabled := 0, "HRESULT")
+        result := ComCall(9, this, "int", eventFilter, "int*", &isBreakEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isBreakEnabled
     }
 
@@ -108,7 +135,11 @@ class IDataModelScriptDebug extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventFilter(eventFilter, isBreakEnabled) {
-        result := ComCall(10, this, "int", eventFilter, "char", isBreakEnabled, "HRESULT")
+        result := ComCall(10, this, "int", eventFilter, "char", isBreakEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +149,11 @@ class IDataModelScriptDebug extends IUnknown{
      * @returns {HRESULT} 
      */
     StartDebugging(debugClient) {
-        result := ComCall(11, this, "ptr", debugClient, "HRESULT")
+        result := ComCall(11, this, "ptr", debugClient, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +163,11 @@ class IDataModelScriptDebug extends IUnknown{
      * @returns {HRESULT} 
      */
     StopDebugging(debugClient) {
-        result := ComCall(12, this, "ptr", debugClient, "HRESULT")
+        result := ComCall(12, this, "ptr", debugClient, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

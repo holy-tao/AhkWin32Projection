@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
@@ -35,42 +37,42 @@ class RemoteManagement {
     static WSMAN_DEFAULT_TIMEOUT_MS => 60000
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_STREAM_ID_STDIN => "stdin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_STREAM_ID_STDOUT => "stdout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_STREAM_ID_STDERR => "stderr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_SHELL_NS => "http://schemas.microsoft.com/wbem/wsman/1/windows/shell"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_CMDSHELL_OPTION_CODEPAGE => "WINRS_CODEPAGE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_SHELL_OPTION_NOPROFILE => "WINRS_NOPROFILE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_CMDSHELL_OPTION_CONSOLEMODE_STDIN => "WINRS_CONSOLEMODE_STDIN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSMAN_CMDSHELL_OPTION_SKIP_CMD_SHELL => "WINRS_SKIP_CMD_SHELL"
 
@@ -2753,13 +2755,11 @@ class RemoteManagement {
      * <b>WSMAN_FLAG_REQUESTED_API_VERSION_1_1</b> flag.
      * @param {Pointer<WSMAN_API_HANDLE>} apiHandle Defines a handle that uniquely identifies the client. This parameter cannot be <b>NULL</b>. When you have finished used the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmandeinitialize">WSManDeinitialize</a> method.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmaninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmaninitialize
      * @since windows8.0
      */
     static WSManInitialize(flags, apiHandle) {
-        apiHandleMarshal := apiHandle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("WsmSvc.dll\WSManInitialize", "uint", flags, apiHandleMarshal, apiHandle, "uint")
+        result := DllCall("WsmSvc.dll\WSManInitialize", "uint", flags, "ptr", apiHandle, "uint")
         return result
     }
 
@@ -2768,10 +2768,12 @@ class RemoteManagement {
      * @param {WSMAN_API_HANDLE} apiHandle Specifies the API handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmaninitialize">WSManInitialize</a> call. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmandeinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmandeinitialize
      * @since windows6.1
      */
     static WSManDeinitialize(apiHandle, flags) {
+        apiHandle := apiHandle is Win32Handle ? NumGet(apiHandle, "ptr") : apiHandle
+
         result := DllCall("WsmSvc.dll\WSManDeinitialize", "ptr", apiHandle, "uint", flags, "uint")
         return result
     }
@@ -2785,12 +2787,13 @@ class RemoteManagement {
      * @param {PWSTR} message Specifies the output buffer to store the message in. This buffer must be allocated and deallocated by the client. The buffer must be large enough to store the message and the <b>null</b> terminator. If this parameter is <b>NULL</b>, the <i>messageLength</i> parameter must be <b>NULL</b>.
      * @param {Pointer<Integer>} messageLengthUsed Specifies the actual number of characters written to the output buffer, including the <b>null</b> terminator. This parameter cannot be <b>NULL</b>. If either the <i>messageLength</i> or <i>message</i> parameters are zero, the function will return <b>ERROR_INSUFFICIENT_BUFFER</b> and this parameter will be set to the number of characters needed to store the message, including the <b>null</b> terminator.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmangeterrormessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmangeterrormessage
      * @since windows6.1
      */
     static WSManGetErrorMessage(apiHandle, languageCode, errorCode, messageLength, message, messageLengthUsed) {
         static flags := 0 ;Reserved parameters must always be NULL
 
+        apiHandle := apiHandle is Win32Handle ? NumGet(apiHandle, "ptr") : apiHandle
         languageCode := languageCode is String ? StrPtr(languageCode) : languageCode
         message := message is String ? StrPtr(message) : message
 
@@ -2803,7 +2806,7 @@ class RemoteManagement {
     /**
      * Creates a session object.
      * @param {WSMAN_API_HANDLE} apiHandle Specifies the API handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmaninitialize">WSManInitialize</a> call. This parameter cannot be <b>NULL</b>.
-     * @param {PWSTR} connection Indicates to which protocol and agent to connect. If this parameter is <b>NULL</b>, the 
+     * @param {PWSTR} connection_ Indicates to which protocol and agent to connect. If this parameter is <b>NULL</b>, the 
      *        connection will default to localhost (127.0.0.1). This parameter can be a simple host name or a complete URL. 
      *        The format is the following:
      * 
@@ -2862,15 +2865,14 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_PROXY_INFO>} proxyInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_proxy_info">WSMAN_PROXY_INFO</a> structure that specifies proxy information. This value can be <b>NULL</b>.
      * @param {Pointer<WSMAN_SESSION_HANDLE>} session Defines the session handle that uniquely identifies the session. This parameter cannot be <b>NULL</b>. This handle  should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosesession">WSManCloseSession</a> method.
      * @returns {Integer} If the function succeeds, the return value is zero. Otherwise, the return value is an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancreatesession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmancreatesession
      * @since windows6.1
      */
-    static WSManCreateSession(apiHandle, connection, flags, serverAuthenticationCredentials, proxyInfo, session) {
-        connection := connection is String ? StrPtr(connection) : connection
+    static WSManCreateSession(apiHandle, connection_, flags, serverAuthenticationCredentials, proxyInfo, session) {
+        apiHandle := apiHandle is Win32Handle ? NumGet(apiHandle, "ptr") : apiHandle
+        connection_ := connection_ is String ? StrPtr(connection_) : connection_
 
-        sessionMarshal := session is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("WsmSvc.dll\WSManCreateSession", "ptr", apiHandle, "ptr", connection, "uint", flags, "ptr", serverAuthenticationCredentials, "ptr", proxyInfo, sessionMarshal, session, "uint")
+        result := DllCall("WsmSvc.dll\WSManCreateSession", "ptr", apiHandle, "ptr", connection_, "uint", flags, "ptr", serverAuthenticationCredentials, "ptr", proxyInfo, "ptr", session, "uint")
         return result
     }
 
@@ -2881,10 +2883,12 @@ class RemoteManagement {
      * @param {WSMAN_SESSION_HANDLE} session Specifies the session handle to close. This handle is returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be NULL.
      * @param {Integer} flags Reserved for future use.  Must be zero.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanclosesession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanclosesession
      * @since windows6.1
      */
     static WSManCloseSession(session, flags) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
+
         result := DllCall("WsmSvc.dll\WSManCloseSession", "ptr", session, "uint", flags, "uint")
         return result
     }
@@ -2905,10 +2909,12 @@ class RemoteManagement {
      * @param {Integer} option Specifies the option to be set. This parameter must be set to one of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Pointer<WSMAN_DATA>} data A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines the option value.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmansetsessionoption
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmansetsessionoption
      * @since windows6.1
      */
     static WSManSetSessionOption(session, option, data) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
+
         result := DllCall("WsmSvc.dll\WSManSetSessionOption", "ptr", session, "int", option, "ptr", data, "uint")
         return result
     }
@@ -2919,10 +2925,12 @@ class RemoteManagement {
      * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Pointer<Integer>} value Specifies the value of specified session option.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmangetsessionoptionasdword
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmangetsessionoptionasdword
      * @since windows6.1
      */
     static WSManGetSessionOptionAsDword(session, option, value) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
+
         valueMarshal := value is VarRef ? "uint*" : "ptr"
 
         result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsDword", "ptr", session, "int", option, valueMarshal, value, "uint")
@@ -2934,18 +2942,19 @@ class RemoteManagement {
      * @param {WSMAN_SESSION_HANDLE} session Specifies the session handle returned by a  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The values for the options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Integer} stringLength Specifies the length of the storage location for <i>string</i> parameter.
-     * @param {PWSTR} string_R 
+     * @param {PWSTR} string_ A pointer to the storage location for the value of the specified session option.
      * @param {Pointer<Integer>} stringLengthUsed Specifies the length of the string returned in the <i>string</i> parameter.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmangetsessionoptionasstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmangetsessionoptionasstring
      * @since windows6.1
      */
-    static WSManGetSessionOptionAsString(session, option, stringLength, string_R, stringLengthUsed) {
-        string_R := string_R is String ? StrPtr(string_R) : string_R
+    static WSManGetSessionOptionAsString(session, option, stringLength, string_, stringLengthUsed) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
+        string_ := string_ is String ? StrPtr(string_) : string_
 
         stringLengthUsedMarshal := stringLengthUsed is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string_R, stringLengthUsedMarshal, stringLengthUsed, "uint")
+        result := DllCall("WsmSvc.dll\WSManGetSessionOptionAsString", "ptr", session, "int", option, "uint", stringLength, "ptr", string_, stringLengthUsedMarshal, stringLengthUsed, "uint")
         return result
     }
 
@@ -2956,10 +2965,12 @@ class RemoteManagement {
      * @param {WSMAN_OPERATION_HANDLE} operationHandle Specifies the operation handle to be closed.
      * @param {Integer} flags Reserved for future use. Set to zero.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancloseoperation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmancloseoperation
      * @since windows6.1
      */
     static WSManCloseOperation(operationHandle, flags) {
+        operationHandle := operationHandle is Win32Handle ? NumGet(operationHandle, "ptr") : operationHandle
+
         result := DllCall("WsmSvc.dll\WSManCloseOperation", "ptr", operationHandle, "uint", flags, "uint")
         return result
     }
@@ -2975,22 +2986,21 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_OPTION_SET>} options A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a> structure that specifies a set of options for the shell.
      * @param {Pointer<WSMAN_DATA>} createXml A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines an open context for the shell. The content should be a valid XML string. This parameter can be <b>NULL</b>.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information.  This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method.
-     * @param {Pointer<WSMAN_SHELL_HANDLE>} shell Defines a shell handle that uniquely identifies the shell object. The resource handle is used to track the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<WSMAN_SHELL_HANDLE>} shell_ Defines a shell handle that uniquely identifies the shell object. The resource handle is used to track the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancreateshell
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmancreateshell
      * @since windows6.1
      */
-    static WSManCreateShell(session, flags, resourceUri, startupInfo, options, createXml, async, shell) {
+    static WSManCreateShell(session, flags, resourceUri, startupInfo, options, createXml, async, shell_) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
 
-        shellMarshal := shell is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManCreateShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, shellMarshal, shell)
+        DllCall("WsmSvc.dll\WSManCreateShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, "ptr", shell_)
     }
 
     /**
      * Starts the execution of a command within an existing shell and does not wait for the completion of the command.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {PWSTR} commandLine Defines a required <b>null</b>-terminated string that represents the command to be executed. Typically, the command is specified without any arguments, which are specified separately. However, a user can specify the command line and all of the arguments by using this parameter. If arguments are specified for the <i>commandLine</i> parameter, the <i>args</i> parameter should be <b>NULL</b>.
      * @param {Pointer<WSMAN_COMMAND_ARG_SET>} args A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_command_arg_set">WSMAN_COMMAND_ARG_SET</a> structure that defines an array of argument values, which are passed to the command on creation. If no arguments are required, this parameter should be <b>NULL</b>.
@@ -2998,20 +3008,19 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information.  This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method.
      * @param {Pointer<WSMAN_COMMAND_HANDLE>} command Defines the command object associated with a command within a shell. This handle is returned on a successful call and is used to send and receive data and to signal the command. This handle should be closed  by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanrunshellcommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanrunshellcommand
      * @since windows6.1
      */
-    static WSManRunShellCommand(shell, flags, commandLine, args, options, async, command) {
+    static WSManRunShellCommand(shell_, flags, commandLine, args, options, async, command) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
         commandLine := commandLine is String ? StrPtr(commandLine) : commandLine
 
-        commandMarshal := command is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManRunShellCommand", "ptr", shell, "uint", flags, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, commandMarshal, command)
+        DllCall("WsmSvc.dll\WSManRunShellCommand", "ptr", shell_, "uint", flags, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, "ptr", command)
     }
 
     /**
      * Sends a control code to an existing command or to the shell itself.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {WSMAN_COMMAND_HANDLE} command Specifies the command handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanrunshellcommand">WSManRunShellCommand</a> call. If this value is <b>NULL</b>, the signal code is sent to the shell.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {PWSTR} code Specifies the signal code to send to the command or shell.
@@ -3019,38 +3028,39 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information.  This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseoperation">WSManCloseOperation</a> method.
      * @param {Pointer<WSMAN_OPERATION_HANDLE>} signalOperation Defines the operation handle for the signal operation. This handle is returned from a successful call of the function and can be used to asynchronously cancel the signal operation. This handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseoperation">WSManCloseOperation</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmansignalshell
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmansignalshell
      * @since windows6.1
      */
-    static WSManSignalShell(shell, command, flags, code, async, signalOperation) {
+    static WSManSignalShell(shell_, command, flags, code, async, signalOperation) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
+        command := command is Win32Handle ? NumGet(command, "ptr") : command
         code := code is String ? StrPtr(code) : code
 
-        signalOperationMarshal := signalOperation is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManSignalShell", "ptr", shell, "ptr", command, "uint", flags, "ptr", code, "ptr", async, signalOperationMarshal, signalOperation)
+        DllCall("WsmSvc.dll\WSManSignalShell", "ptr", shell_, "ptr", command, "uint", flags, "ptr", code, "ptr", async, "ptr", signalOperation)
     }
 
     /**
      * Retrieves output from a running command or from the shell.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the shell handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the shell handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {WSMAN_COMMAND_HANDLE} command Specifies the command handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanrunshellcommand">WSManRunShellCommand</a> call.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {Pointer<WSMAN_STREAM_ID_SET>} desiredStreamSet Specifies the requested output from a particular stream or a list of streams.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseoperation">WSManCloseOperation</a> method.
      * @param {Pointer<WSMAN_OPERATION_HANDLE>} receiveOperation Defines the operation handle for the receive operation. This handle is returned from a successful call of the function and can be used to asynchronously cancel the receive operation. This handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseoperation">WSManCloseOperation</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanreceiveshelloutput
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanreceiveshelloutput
      * @since windows6.1
      */
-    static WSManReceiveShellOutput(shell, command, flags, desiredStreamSet, async, receiveOperation) {
-        receiveOperationMarshal := receiveOperation is VarRef ? "ptr*" : "ptr"
+    static WSManReceiveShellOutput(shell_, command, flags, desiredStreamSet, async, receiveOperation) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
+        command := command is Win32Handle ? NumGet(command, "ptr") : command
 
-        DllCall("WsmSvc.dll\WSManReceiveShellOutput", "ptr", shell, "ptr", command, "uint", flags, "ptr", desiredStreamSet, "ptr", async, receiveOperationMarshal, receiveOperation)
+        DllCall("WsmSvc.dll\WSManReceiveShellOutput", "ptr", shell_, "ptr", command, "uint", flags, "ptr", desiredStreamSet, "ptr", async, "ptr", receiveOperation)
     }
 
     /**
      * Ipes the input stream to a running command or to the shell.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the shell handle returned by a  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the shell handle returned by a  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {WSMAN_COMMAND_HANDLE} command Specifies the command handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanrunshellcommand">WSManRunShellCommand</a> call.  This handle  should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {PWSTR} streamId Specifies the input stream ID. This parameter cannot be <b>NULL</b>.
@@ -3059,15 +3069,15 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method.
      * @param {Pointer<WSMAN_OPERATION_HANDLE>} sendOperation Defines the operation handle for the send operation. This handle is returned from a successful call of the function and can be used to asynchronously cancel the send operation. This handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseoperation">WSManCloseOperation</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmansendshellinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmansendshellinput
      * @since windows6.1
      */
-    static WSManSendShellInput(shell, command, flags, streamId, streamData, endOfStream, async, sendOperation) {
+    static WSManSendShellInput(shell_, command, flags, streamId, streamData, endOfStream, async, sendOperation) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
+        command := command is Win32Handle ? NumGet(command, "ptr") : command
         streamId := streamId is String ? StrPtr(streamId) : streamId
 
-        sendOperationMarshal := sendOperation is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "int", endOfStream, "ptr", async, sendOperationMarshal, sendOperation)
+        DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell_, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "int", endOfStream, "ptr", async, "ptr", sendOperation)
     }
 
     /**
@@ -3077,10 +3087,12 @@ class RemoteManagement {
      * Must be set to zero.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information.  This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanclosecommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanclosecommand
      * @since windows6.1
      */
     static WSManCloseCommand(commandHandle, flags, async) {
+        commandHandle := commandHandle is Win32Handle ? NumGet(commandHandle, "ptr") : commandHandle
+
         DllCall("WsmSvc.dll\WSManCloseCommand", "ptr", commandHandle, "uint", flags, "ptr", async)
     }
 
@@ -3090,10 +3102,12 @@ class RemoteManagement {
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information.  This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancloseshell
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmancloseshell
      * @since windows6.1
      */
     static WSManCloseShell(shellHandle, flags, async) {
+        shellHandle := shellHandle is Win32Handle ? NumGet(shellHandle, "ptr") : shellHandle
+
         DllCall("WsmSvc.dll\WSManCloseShell", "ptr", shellHandle, "uint", flags, "ptr", async)
     }
 
@@ -3107,23 +3121,22 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_OPTION_SET>} options A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a> structure that specifies a set of options for the shell.
      * @param {Pointer<WSMAN_DATA>} createXml A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines an open context for the shell. The content should be a valid XML string. This parameter can be <b>NULL</b>.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method.
-     * @param {Pointer<WSMAN_SHELL_HANDLE>} shell Defines a shell handle that uniquely identifies the shell object. The resource handle is used to track the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<WSMAN_SHELL_HANDLE>} shell_ Defines a shell handle that uniquely identifies the shell object. The resource handle is used to track the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmancreateshellex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmancreateshellex
      * @since windows8.0
      */
-    static WSManCreateShellEx(session, flags, resourceUri, shellId, startupInfo, options, createXml, async, shell) {
+    static WSManCreateShellEx(session, flags, resourceUri, shellId, startupInfo, options, createXml, async, shell_) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
         shellId := shellId is String ? StrPtr(shellId) : shellId
 
-        shellMarshal := shell is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManCreateShellEx", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellId, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, shellMarshal, shell)
+        DllCall("WsmSvc.dll\WSManCreateShellEx", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellId, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, "ptr", shell_)
     }
 
     /**
      * Provides the same functionality as the WSManRunShellCommand function, with the addition of a command ID option.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call. This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be 0.
      * @param {PWSTR} commandId The client specified command Id.
      * @param {PWSTR} commandLine Defines a required null-terminated string that represents the command to be executed. Typically, the command is specified without any arguments, which are specified separately. However, a user can specify the command line and all of the arguments by using this parameter. If arguments are specified for the commandLine parameter, the args parameter should be <b>NULL</b>.
@@ -3132,16 +3145,15 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure. The asynchronous structure contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be <b>NULL</b> and should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method.
      * @param {Pointer<WSMAN_COMMAND_HANDLE>} command Defines the command object associated with a command within a shell. This handle is returned on a successful call and is used to send and receive data and to signal the command. This handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanrunshellcommandex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanrunshellcommandex
      * @since windows8.0
      */
-    static WSManRunShellCommandEx(shell, flags, commandId, commandLine, args, options, async, command) {
+    static WSManRunShellCommandEx(shell_, flags, commandId, commandLine, args, options, async, command) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
         commandId := commandId is String ? StrPtr(commandId) : commandId
         commandLine := commandLine is String ? StrPtr(commandLine) : commandLine
 
-        commandMarshal := command is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManRunShellCommandEx", "ptr", shell, "uint", flags, "ptr", commandId, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, commandMarshal, command)
+        DllCall("WsmSvc.dll\WSManRunShellCommandEx", "ptr", shell_, "uint", flags, "ptr", commandId, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, "ptr", command)
     }
 
     /**
@@ -3176,7 +3188,7 @@ class RemoteManagement {
      * 
      * </li>
      * </ul>
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the handle returned by a call to the 
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the handle returned by a call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> function. This parameter cannot 
      *       be <b>NULL</b>.
      * @param {Integer} flags Can be a <b>WSMAN_FLAG_SERVER_BUFFERING_MODE_DROP</b> flag or a 
@@ -3189,24 +3201,28 @@ class RemoteManagement {
      *       For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a>. This 
      *       parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmandisconnectshell
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmandisconnectshell
      * @since windows8.0
      */
-    static WSManDisconnectShell(shell, flags, disconnectInfo, async) {
-        DllCall("WsmSvc.dll\WSManDisconnectShell", "ptr", shell, "uint", flags, "ptr", disconnectInfo, "ptr", async)
+    static WSManDisconnectShell(shell_, flags, disconnectInfo, async) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
+
+        DllCall("WsmSvc.dll\WSManDisconnectShell", "ptr", shell_, "uint", flags, "ptr", disconnectInfo, "ptr", async)
     }
 
     /**
      * Reconnects a previously disconnected shell session. To reconnect the shell session's associated commands, use WSManReconnectShellCommand.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the handle returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> function. This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the handle returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> function. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags This parameter is reserved for future use and must be set to zero.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure to contain an optional user context and a mandatory callback function. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a>. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanreconnectshell
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanreconnectshell
      * @since windows8.0
      */
-    static WSManReconnectShell(shell, flags, async) {
-        DllCall("WsmSvc.dll\WSManReconnectShell", "ptr", shell, "uint", flags, "ptr", async)
+    static WSManReconnectShell(shell_, flags, async) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
+
+        DllCall("WsmSvc.dll\WSManReconnectShell", "ptr", shell_, "uint", flags, "ptr", async)
     }
 
     /**
@@ -3215,10 +3231,12 @@ class RemoteManagement {
      * @param {Integer} flags Reserved for future use. Must be set to zero.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure which will contain an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be NULL.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanreconnectshellcommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanreconnectshellcommand
      * @since windows8.0
      */
     static WSManReconnectShellCommand(commandHandle, flags, async) {
+        commandHandle := commandHandle is Win32Handle ? NumGet(commandHandle, "ptr") : commandHandle
+
         DllCall("WsmSvc.dll\WSManReconnectShellCommand", "ptr", commandHandle, "uint", flags, "ptr", async)
     }
 
@@ -3234,23 +3252,22 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_OPTION_SET>} options A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a> structure that specifies a set of options for the shell. This parameter is optional.
      * @param {Pointer<WSMAN_DATA>} connectXml A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that defines an open context for the connect shell operation. The content should be a valid XML string. This parameter can be NULL.
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure that contains an optional user context and a mandatory callback function. See the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a> structure for more information. This parameter cannot be NULL.
-     * @param {Pointer<WSMAN_SHELL_HANDLE>} shell Specifies a shell handle that uniquely identifies the shell object that was returned by <i>resourceURI</i>. The resource handle tracks the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be NULL.
+     * @param {Pointer<WSMAN_SHELL_HANDLE>} shell_ Specifies a shell handle that uniquely identifies the shell object that was returned by <i>resourceURI</i>. The resource handle tracks the client endpoint for the shell and is used by other WinRM methods to interact with the shell object. The shell object should be deleted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancloseshell">WSManCloseShell</a> method. This parameter cannot be NULL.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanconnectshell
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanconnectshell
      * @since windows8.0
      */
-    static WSManConnectShell(session, flags, resourceUri, shellID, options, connectXml, async, shell) {
+    static WSManConnectShell(session, flags, resourceUri, shellID, options, connectXml, async, shell_) {
+        session := session is Win32Handle ? NumGet(session, "ptr") : session
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
         shellID := shellID is String ? StrPtr(shellID) : shellID
 
-        shellMarshal := shell is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManConnectShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellID, "ptr", options, "ptr", connectXml, "ptr", async, shellMarshal, shell)
+        DllCall("WsmSvc.dll\WSManConnectShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellID, "ptr", options, "ptr", connectXml, "ptr", async, "ptr", shell_)
     }
 
     /**
      * Connects to an existing command running in a shell.
-     * @param {WSMAN_SHELL_HANDLE} shell Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call. This parameter cannot be <b>NULL</b>.
+     * @param {WSMAN_SHELL_HANDLE} shell_ Specifies the shell handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreateshell">WSManCreateShell</a> call. This parameter cannot be <b>NULL</b>.
      * @param {Integer} flags Reserved for future use. Must be zero.
      * @param {PWSTR} commandID A null-terminated string that identifies a specific command, currently running in the server session, that the client intends to connect to.
      * @param {Pointer<WSMAN_OPTION_SET>} options Defines a set of options for the command. These options are passed to the service to modify or refine the command execution. This parameter can be <b>NULL</b>. For more information about the options, see <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_option_set">WSMAN_OPTION_SET</a>.
@@ -3258,30 +3275,29 @@ class RemoteManagement {
      * @param {Pointer<WSMAN_SHELL_ASYNC>} async Defines an asynchronous structure to contain an optional user context and a mandatory callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_shell_async">WSMAN_SHELL_ASYNC</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<WSMAN_COMMAND_HANDLE>} command This handle is returned on a successful call and is used to send and receive data and to signal the command. When you have finished using this handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanclosecommand">WSManCloseCommand</a> method. This parameter cannot be <b>NULL</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanconnectshellcommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanconnectshellcommand
      * @since windows8.0
      */
-    static WSManConnectShellCommand(shell, flags, commandID, options, connectXml, async, command) {
+    static WSManConnectShellCommand(shell_, flags, commandID, options, connectXml, async, command) {
+        shell_ := shell_ is Win32Handle ? NumGet(shell_, "ptr") : shell_
         commandID := commandID is String ? StrPtr(commandID) : commandID
 
-        commandMarshal := command is VarRef ? "ptr*" : "ptr"
-
-        DllCall("WsmSvc.dll\WSManConnectShellCommand", "ptr", shell, "uint", flags, "ptr", commandID, "ptr", options, "ptr", connectXml, "ptr", async, commandMarshal, command)
+        DllCall("WsmSvc.dll\WSManConnectShellCommand", "ptr", shell_, "uint", flags, "ptr", commandID, "ptr", options, "ptr", connectXml, "ptr", async, "ptr", command)
     }
 
     /**
      * Reports shell and command context back to the Windows Remote Management (WinRM) infrastructure so that further operations can be performed against the shell and/or command.
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @param {Integer} flags Reserved for future use. Must be set to zero.
-     * @param {Pointer<Void>} context Defines the value to pass into all future shell and command operations. Represents either the shell or the command. This value should be unique for all shells, and it should also be unique for all commands associated with a shell.
+     * @param {Pointer<Void>} context_ Defines the value to pass into all future shell and command operations. Represents either the shell or the command. This value should be unique for all shells, and it should also be unique for all commands associated with a shell.
      * @returns {Integer} The method returns <b>NO_ERROR</b> if it succeeded; otherwise,  it returns an error code.  If this method returns an error, the plug-in should shut down the current operation and call the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanpluginoperationcomplete">WSManPluginOperationComplete</a> method.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginreportcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginreportcontext
      * @since windows6.1
      */
-    static WSManPluginReportContext(requestDetails, flags, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static WSManPluginReportContext(requestDetails, flags, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WsmSvc.dll\WSManPluginReportContext", "ptr", requestDetails, "uint", flags, contextMarshal, context, "uint")
+        result := DllCall("WsmSvc.dll\WSManPluginReportContext", "ptr", requestDetails, "uint", flags, context_Marshal, context_, "uint")
         return result
     }
 
@@ -3294,7 +3310,7 @@ class RemoteManagement {
      * @param {PWSTR} commandState 
      * @param {Integer} exitCode Ignored in all cases except when <i>commandState</i> is either <b>WSMAN_RECEIVE_STATE_NORMAL_TERMINATION</b> or <b>WSMAN_RECEIVE_STATE_ABNORMAL_TERMINATION</b>. Each result can have separate error codes. If the command or stream has failed, the plug-in must call the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmanpluginoperationcomplete">WSManPluginOperationComplete</a> method.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginreceiveresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginreceiveresult
      * @since windows6.1
      */
     static WSManPluginReceiveResult(requestDetails, flags, stream, streamResult, commandState, exitCode) {
@@ -3315,7 +3331,7 @@ class RemoteManagement {
      * @param {Integer} errorCode Reports any failure in the operation. If this parameter is not <b>NO_ERROR</b>, any result data that has not been sent will be discarded and the error will be sent.
      * @param {PWSTR} extendedInformation Specifies an XML document that contains any extra error information that needs to be reported to the client. This parameter is ignored if <i>errorCode</i> is <b>NO_ERROR</b>. The user interface language of the thread should be used for localization.
      * @returns {Integer} The method returns <b>NO_ERROR</b> if it succeeded; otherwise,  it returns an error code. If the operation is unsuccessful, the plug-in must stop the current operation and clean up any data associated with this operation. The <i>requestDetails</i> structure is not valid if an error is received and must not be passed to any other WinRM (WinRM) method.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginoperationcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginoperationcomplete
      * @since windows6.1
      */
     static WSManPluginOperationComplete(requestDetails, flags, errorCode, extendedInformation) {
@@ -3331,7 +3347,7 @@ class RemoteManagement {
      * @param {Integer} flags 
      * @param {Pointer<WSMAN_DATA>} data A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a> structure that specifies the result object.
      * @returns {Integer} The method returns <b>NO_ERROR</b> if it succeeded; otherwise,  it returns an error code. The following are the most common error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanplugingetoperationparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanplugingetoperationparameters
      * @since windows6.1
      */
     static WSManPluginGetOperationParameters(requestDetails, flags, data) {
@@ -3370,7 +3386,7 @@ class RemoteManagement {
      * Releases memory that is allocated for the WSMAN_PLUGIN_REQUEST structure, which is passed into operation plug-in entry points.
      * @param {Pointer<WSMAN_PLUGIN_REQUEST>} requestDetails A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_plugin_request">WSMAN_PLUGIN_REQUEST</a> structure that specifies the resource URI, options, locale, shutdown flag, and handle for the request.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginfreerequestdetails
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginfreerequestdetails
      * @since windows6.1
      */
     static WSManPluginFreeRequestDetails(requestDetails) {
@@ -3395,7 +3411,7 @@ class RemoteManagement {
      * @param {Integer} errorCode Reports either a successful or failed authorization.  If the authorization is successful, the code  should be <b>ERROR_SUCCESS</b>.  If the user is not authorized to perform the operation,  the error  should be <b>ERROR_ACCESS_DENIED</b>.  If a failure happens for any other reason, an appropriate error code should be used.  Any error from this call will be sent back as a SOAP fault packet.
      * @param {PWSTR} extendedErrorInformation Specifies an XML document that contains any extra error information that needs to be reported to the client. This parameter is ignored if <i>errorCode</i> is <b>NO_ERROR</b>. The user interface language of the thread should be used for localization.
      * @returns {Integer} The method returns <b>ERROR_SUCCESS</b> if it succeeded; otherwise,  it returns <b>ERROR_INVALID_PARAMETER</b>.  If <b>ERROR_INVALID_PARAMETER</b> is returned, either  the <i>senderDetails</i> parameter was <b>NULL</b> or the <i>flags</i> parameter was not zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginauthzusercomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginauthzusercomplete
      * @since windows6.1
      */
     static WSManPluginAuthzUserComplete(senderDetails, flags, userAuthorizationContext, impersonationToken, userIsAdministrator, errorCode, extendedErrorInformation) {
@@ -3416,7 +3432,7 @@ class RemoteManagement {
      * @param {Integer} errorCode Reports either a successful or failed authorization.  If the authorization is successful, the code  should be <b>ERROR_SUCCESS</b>.  If the user is not authorized to perform the operation,  the error  should be <b>ERROR_ACCESS_DENIED</b>.  If a failure happens for any other reason,  an appropriate error code should be used.  Any error from this call will be sent back as a Simple Object Access Protocol (SOAP) fault packet.
      * @param {PWSTR} extendedErrorInformation Specifies an XML document that contains any extra error information that needs to be reported to the client. This parameter is ignored if <i>errorCode</i> is <b>NO_ERROR</b>. The user interface language of the thread should be used for localization.
      * @returns {Integer} The method returns <b>ERROR_SUCCESS</b> if it succeeded; otherwise,  it returns <b>ERROR_INVALID_PARAMETER</b>.  If <b>ERROR_INVALID_PARAMETER</b> is returned, either  the <i>senderDetails</i> parameter was <b>NULL</b> or the <i>flags</i> parameter was not zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginauthzoperationcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginauthzoperationcomplete
      * @since windows6.1
      */
     static WSManPluginAuthzOperationComplete(senderDetails, flags, userAuthorizationContext, errorCode, extendedErrorInformation) {
@@ -3438,7 +3454,7 @@ class RemoteManagement {
      * @param {Integer} errorCode Reports either a successful or failed authorization.   If the authorization is successful, the code  should be <b>ERROR_SUCCESS</b>. If a failure happens for any other reason, an appropriate error code should be used.  Any error from this call will be sent back as a Simple Object Access Protocol (SOAP) fault packet.
      * @param {PWSTR} extendedErrorInformation Specifies an XML document that contains any extra error information that needs to be reported to the client. This parameter is ignored if <i>errorCode</i> is <b>NO_ERROR</b>. The user interface language of the thread should be used for localization.
      * @returns {Integer} The method returns <b>ERROR_SUCCESS</b> if it succeeded; otherwise,  it returns <b>ERROR_INVALID_PARAMETER</b>.  If <b>ERROR_INVALID_PARAMETER</b> is returned, either  the <i>senderDetails</i> parameter was <b>NULL</b> or the <i>flags</i> parameter was not zero.   If the method fails, the default quota is used.
-     * @see https://learn.microsoft.com/windows/win32/api/wsman/nf-wsman-wsmanpluginauthzqueryquotacomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsman/nf-wsman-wsmanpluginauthzqueryquotacomplete
      * @since windows6.1
      */
     static WSManPluginAuthzQueryQuotaComplete(senderDetails, flags, quota, errorCode, extendedErrorInformation) {

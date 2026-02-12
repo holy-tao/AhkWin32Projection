@@ -18,7 +18,7 @@
  * 
  * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
- * @see https://learn.microsoft.com/windows/win32/api/xapo/ne-xapo-xapo_buffer_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/xapo/ne-xapo-xapo_buffer_flags
  * @namespace Windows.Win32.Media.Audio.XAudio2
  * @version v4.0.30319
  */

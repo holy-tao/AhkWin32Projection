@@ -6,7 +6,7 @@
 
 /**
  * The IWMPPlayerServices2 interface provides a method used by the host of a remoted Windows Media Player control to manipulate the full mode of the Player.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplayerservices2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpplayerservices2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IWMPPlayerServices2 extends IWMPPlayerServices{
 
     /**
      * The setBackgroundProcessingPriority method specifies a priority level for general background processing tasks.
+     * @remarks
+     * This method is used only when remoting the Windows Media Player control.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {BSTR} bstrPriority 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -48,12 +52,19 @@ class IWMPPlayerServices2 extends IWMPPlayerServices{
      * <td>The method succeeded.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpplayerservices2-setbackgroundprocessingpriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpplayerservices2-setbackgroundprocessingpriority
      */
     setBackgroundProcessingPriority(bstrPriority) {
-        bstrPriority := bstrPriority is String ? BSTR.Alloc(bstrPriority).Value : bstrPriority
+        if(bstrPriority is String) {
+            pin := BSTR.Alloc(bstrPriority)
+            bstrPriority := pin.Value
+        }
 
-        result := ComCall(6, this, "ptr", bstrPriority, "HRESULT")
+        result := ComCall(6, this, "ptr", bstrPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

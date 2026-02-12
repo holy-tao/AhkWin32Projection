@@ -9,7 +9,7 @@
  * The upper field is also called the even field, the top field, or field 2. The lower field is also called the odd field, the bottom field, or field 1.
  * 
  * If the interlace mode is MFVideoInterlace_FieldSingleUpper or MFVideoInterlace_FieldSingleLower, each sample contains a single field, so each buffer contains only half the number of field lines given in the media type.
- * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideointerlacemode
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfobjects/ne-mfobjects-mfvideointerlacemode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

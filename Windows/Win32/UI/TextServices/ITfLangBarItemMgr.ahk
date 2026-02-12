@@ -8,7 +8,7 @@
 
 /**
  * The ITfLangBarItemMgr interface is implemented by the language bar and used by a text service to manage items in the language bar.
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itflangbaritemmgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nn-ctfutb-itflangbaritemmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class ITfLangBarItemMgr extends IUnknown{
     /**
      * ITfLangBarItemMgr::EnumItems method
      * @returns {IEnumTfLangBarItems} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-ienumtflangbaritems">IEnumTfLangBarItems</a> interface pointer that receives the enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-enumitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-enumitems
      */
     EnumItems() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfLangBarItems(ppEnum)
     }
 
@@ -47,16 +51,22 @@ class ITfLangBarItemMgr extends IUnknown{
      * ITfLangBarItemMgr::GetItem method
      * @param {Pointer<Guid>} rguid GUID that identifies the item to obtain. This is the item GUID that the item supplies in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo">ITfLangBarItem::GetInfo</a>. This identifier can be a custom value or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-lang-bar-items">predefined language bar items</a>.
      * @returns {ITfLangBarItem} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritem">ITfLangBarItem</a> interface pointer that receives the item interface.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-getitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-getitem
      */
     GetItem(rguid) {
-        result := ComCall(4, this, "ptr", rguid, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", rguid, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfLangBarItem(ppItem)
     }
 
     /**
      * ITfLangBarItemMgr::AddItem method
-     * @param {ITfLangBarItem} punk Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritem">ITfLangBarItem</a> object to add to the language bar.
+     * @param {ITfLangBarItem} punk Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritem">ITfLangBarItem</a> object to add to the language bar. 
+     * 
+     * Starting with Windows 8, only the first item that returns GUID_LBI_INPUTMODE (from [GetInfo](/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo)) is shown. For more information, see [Third-party input method editors](https://docs.microsoft.com/en-us/windows/win32/w8cookbook/third-party-input-method-editors#manifestation) in the Compatibility cookbook for Windows.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -71,7 +81,7 @@ class ITfLangBarItemMgr extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method was successful.
+     * The method was successful (silently ignored calls also return this status).
      * 
      * </td>
      * </tr>
@@ -109,10 +119,14 @@ class ITfLangBarItemMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-additem
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-additem
      */
     AddItem(punk) {
-        result := ComCall(5, this, "ptr", punk, "HRESULT")
+        result := ComCall(5, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,10 +174,14 @@ class ITfLangBarItemMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-removeitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-removeitem
      */
     RemoveItem(punk) {
-        result := ComCall(6, this, "ptr", punk, "HRESULT")
+        result := ComCall(6, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,10 +190,14 @@ class ITfLangBarItemMgr extends IUnknown{
      * @param {ITfLangBarItemSink} punk Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritemsink">ITfLangBarItemSink</a> object to install.
      * @param {Pointer<Guid>} rguidItem Contains the <b>GUID</b> that identifies the item to install the advise sink for. This is the item <b>GUID</b> that the item supplies in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo">ITfLangBarItem::GetInfo</a>. This can be a custom value or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-lang-bar-items">predefined language bar items</a>.
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives an advise sink identification cookie. This cookie identifies the advise sink when it is removed with the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemsink">ITfLangBarItemMgr::UnadviseItemSink</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink">ITfLangBarItemMgr::UnadviseItemsSink</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemsink
      */
     AdviseItemSink(punk, rguidItem) {
-        result := ComCall(7, this, "ptr", punk, "uint*", &pdwCookie := 0, "ptr", rguidItem, "HRESULT")
+        result := ComCall(7, this, "ptr", punk, "uint*", &pdwCookie := 0, "ptr", rguidItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -212,10 +234,14 @@ class ITfLangBarItemMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemsink
      */
     UnadviseItemSink(dwCookie) {
-        result := ComCall(8, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(8, this, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -224,35 +250,49 @@ class ITfLangBarItemMgr extends IUnknown{
      * @param {Integer} dwThreadId Not currently used. Must be zero.
      * @param {Pointer<Guid>} rguid Contains the <b>GUID</b> that identifies the item to obtain the bounding rectangle for. This is the item <b>GUID</b> that the item supplies in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo">ITfLangBarItem::GetInfo</a>. This can be a custom value or one of the <a href="https://docs.microsoft.com/windows/desktop/TSF/predefined-lang-bar-items">predefined language bar items</a>.
      * @returns {RECT} Pointer to a <b>RECT</b> structure that receives the bounding rectangle in screen coordinates.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-getitemfloatingrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemfloatingrect
      */
     GetItemFloatingRect(dwThreadId, rguid) {
         prc := RECT()
-        result := ComCall(9, this, "uint", dwThreadId, "ptr", rguid, "ptr", prc, "HRESULT")
+        result := ComCall(9, this, "uint", dwThreadId, "ptr", rguid, "ptr", prc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prc
     }
 
     /**
      * ITfLangBarItemMgr::GetItemsStatus method
+     * @remarks
+     * This method causes the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getstatus">ITfLangBarItem::GetStatus</a> method of each language bar item identified by <i>prgguid</i> to be called.
      * @param {Integer} ulCount Specifies the number of items to obtain the status for.
      * @param {Pointer<Guid>} prgguid Pointer to an array of <b>GUID</b>s that identify the items obtain the status for. These are the item <b>GUID</b>s that the item supplies in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo">ITfLangBarItem::GetInfo</a>. This array must be at least <i>ulCount</i> elements in length.
      * @returns {Integer} Pointer to an array of <b>DWORD</b> values that receive the status of each item. Each element in this array receives zero or a combination of one or more of the <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-lbi-status--constants">TF_LBI_STATUS_*</a> values. This array must be at least <i>ulCount</i> elements in length.
      * 
-     * The index of each status value cooresponds to the index of the item identifier in <i>prgguid</i>. For example, the element 0 in <i>pdwStatus</i> receives the for the item identified by element 0 of <i>prgguid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-getitemsstatus
+     * The index of each status value corresponds to the index of the item identifier in <i>prgguid</i>. For example, the element 0 in <i>pdwStatus</i> receives the for the item identified by element 0 of <i>prgguid</i>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemsstatus
      */
     GetItemsStatus(ulCount, prgguid) {
-        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, "uint*", &pdwStatus := 0, "HRESULT")
+        result := ComCall(10, this, "uint", ulCount, "ptr", prgguid, "uint*", &pdwStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwStatus
     }
 
     /**
      * ITfLangBarItemMgr::GetItemNum method
      * @returns {Integer} Pointer to a <b>ULONG</b> that receives the number of items in the language bar.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-getitemnum
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-getitemnum
      */
     GetItemNum() {
-        result := ComCall(11, this, "uint*", &pulCount := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pulCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulCount
     }
 
@@ -304,13 +344,17 @@ class ITfLangBarItemMgr extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-getitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-getitems
      */
     GetItems(ulCount, ppItem, pInfo, pdwStatus, pcFetched) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", ulCount, "ptr*", ppItem, "ptr", pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(12, this, "uint", ulCount, "ptr*", ppItem, "ptr", pInfo, pdwStatusMarshal, pdwStatus, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -319,11 +363,15 @@ class ITfLangBarItemMgr extends IUnknown{
      * @param {Integer} ulCount Contains the number of advise sinks to install.
      * @param {Pointer<ITfLangBarItemSink>} ppunk Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nn-ctfutb-itflangbaritemsink">ITfLangBarItemSink</a> objects to install. This array must be at least <i>ulCount</i> elements in length.
      * @param {Pointer<Guid>} pguidItem Pointer to an array of <b>GUID</b>s that identify the items to install the advise sinks for. These are the item <b>GUID</b>s that the item supplies in <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo">ITfLangBarItem::GetInfo</a>. This array must be at least <i>ulCount</i> elements in length.
-     * @returns {Integer} Pointer to an array of <b>DWORD</b>s that receive the cooresponding advise sink identification cookies. These cookies identify the advise sinks when they are removed with the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemsink">ITfLangBarItemMgr::UnadviseItemSink</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink">ITfLangBarItemMgr::UnadviseItemsSink</a> method. This array must be at least <i>ulCount</i> elements in length.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink
+     * @returns {Integer} Pointer to an array of <b>DWORD</b>s that receive the corresponding advise sink identification cookies. These cookies identify the advise sinks when they are removed with the <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemsink">ITfLangBarItemMgr::UnadviseItemSink</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink">ITfLangBarItemMgr::UnadviseItemsSink</a> method. This array must be at least <i>ulCount</i> elements in length.
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink
      */
     AdviseItemsSink(ulCount, ppunk, pguidItem) {
-        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(13, this, "uint", ulCount, "ptr*", ppunk, "ptr", pguidItem, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -332,12 +380,16 @@ class ITfLangBarItemMgr extends IUnknown{
      * @param {Integer} ulCount Contains the number of advise sinks to install.
      * @param {Pointer<Integer>} pdwCookie Pointer to an array of <b>DWORD</b>s that identify the advise sinks to remove. These cookies are obtained when the advise sinks are installed with <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemsink">ITfLangBarItemMgr::AdviseItemSink</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemmgr-adviseitemssink">ITfLangBarItemMgr::AdviseItemsSink</a>. This array must be at least <i>ulCount</i> elements in length.
      * @returns {HRESULT} This method has no return values.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctfutb/nf-ctfutb-itflangbaritemmgr-unadviseitemssink
      */
     UnadviseItemsSink(ulCount, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", ulCount, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(14, this, "uint", ulCount, pdwCookieMarshal, pdwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

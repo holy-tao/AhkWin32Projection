@@ -69,7 +69,11 @@ class ISWbemPrivilege extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsEnabled() {
-        result := ComCall(7, this, "short*", &bIsEnabled := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &bIsEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsEnabled
     }
 
@@ -79,7 +83,11 @@ class ISWbemPrivilege extends IDispatch{
      * @returns {HRESULT} 
      */
     put_IsEnabled(bIsEnabled) {
-        result := ComCall(8, this, "short", bIsEnabled, "HRESULT")
+        result := ComCall(8, this, "short", bIsEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +97,11 @@ class ISWbemPrivilege extends IDispatch{
      */
     get_Name() {
         strDisplayName := BSTR()
-        result := ComCall(9, this, "ptr", strDisplayName, "HRESULT")
+        result := ComCall(9, this, "ptr", strDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strDisplayName
     }
 
@@ -99,7 +111,11 @@ class ISWbemPrivilege extends IDispatch{
      */
     get_DisplayName() {
         strDisplayName := BSTR()
-        result := ComCall(10, this, "ptr", strDisplayName, "HRESULT")
+        result := ComCall(10, this, "ptr", strDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strDisplayName
     }
 
@@ -108,7 +124,11 @@ class ISWbemPrivilege extends IDispatch{
      * @returns {Integer} 
      */
     get_Identifier() {
-        result := ComCall(11, this, "int*", &iPrivilege := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &iPrivilege := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iPrivilege
     }
 }

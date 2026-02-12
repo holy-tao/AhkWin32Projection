@@ -7,11 +7,8 @@
 /**
  * Used to retrieve the network share paths that are mapped to a local path.
  * @remarks
- * 
  * To create this object from a script, use the program identifier, "Fsrm.FsrmPathMapper".
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmpathmapper
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmpathmapper
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -44,17 +41,27 @@ class IFsrmPathMapper extends IDispatch{
 
     /**
      * Retrieves a list of network shares that point to the specified local path.
+     * @remarks
+     * When you get the path property for a quota, the path is the local path. You use this method to convert that 
+     *     local path to the network path if you want to know the actual network share that is running out of space.
      * @param {BSTR} localPath The local path. The string is limited to 260 characters.
      * @returns {Pointer<SAFEARRAY>} A <b>SAFEARRAY</b> of <b>VARIANT</b>s. Each 
      *       <b>VARIANT</b> contains a network share path that points to the local path. The variant 
      *       type is <b>VT_BSTR</b>. Use the <b>bstrVal</b> member to access the share 
      *       path.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
      */
     GetSharePathsForLocalPath(localPath) {
-        localPath := localPath is String ? BSTR.Alloc(localPath).Value : localPath
+        if(localPath is String) {
+            pin := BSTR.Alloc(localPath)
+            localPath := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", localPath, "ptr*", &sharePaths := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", localPath, "ptr*", &sharePaths := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return sharePaths
     }
 }

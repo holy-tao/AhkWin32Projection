@@ -5,7 +5,7 @@
  * Contains values that indicate the log pages that can be retrieved by the Get Log Page **NVME_ADMIN_COMMAND_GET_LOG_PAGE** Admin Command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_log_pages
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_log_pages
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

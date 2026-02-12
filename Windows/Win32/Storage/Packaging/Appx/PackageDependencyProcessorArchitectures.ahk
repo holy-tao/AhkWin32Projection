@@ -5,7 +5,7 @@
  * Defines the processor architectures for a framework package dependency that you create by using the TryCreatePackageDependency function.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-packagedependencyprocessorarchitectures
+ * @see https://learn.microsoft.com/windows/win32/api//content/appmodel/ne-appmodel-packagedependencyprocessorarchitectures
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

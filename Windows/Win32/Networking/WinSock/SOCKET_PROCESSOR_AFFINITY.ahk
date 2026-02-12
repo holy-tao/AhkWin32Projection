@@ -9,7 +9,7 @@
  * 
  * The <a href="https://docs.microsoft.com/windows/win32/winsock/sio-query-rss-processor-info">SIO_QUERY_RSS_PROCESSOR_INFO</a> 
  *         IOCTL is used to determine the association between a socket and an RSS processor core and NUMA node. This IOCTL returns a <b>SOCKET_PROCESSOR_AFFINITY</b> structure that contains the processor number and the NUMA node ID.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_processor_affinity
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-socket_processor_affinity
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

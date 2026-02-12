@@ -5,7 +5,7 @@
 
 /**
  * The ID3DDeviceContextState interface represents a context state object, which holds state and behavior information about a Microsoft Direct3D device.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nn-d3d11_1-id3ddevicecontextstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_1/nn-d3d11_1-id3ddevicecontextstate
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

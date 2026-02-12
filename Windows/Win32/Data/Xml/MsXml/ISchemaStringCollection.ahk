@@ -50,9 +50,13 @@ class ISchemaStringCollection extends IDispatch{
      * @returns {BSTR} 
      */
     get_item(index) {
-        bstr := BSTR()
-        result := ComCall(7, this, "int", index, "ptr", bstr, "HRESULT")
-        return bstr
+        bstr_ := BSTR()
+        result := ComCall(7, this, "int", index, "ptr", bstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return bstr_
     }
 
     /**
@@ -60,7 +64,11 @@ class ISchemaStringCollection extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(8, this, "int*", &length := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &length := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -69,7 +77,11 @@ class ISchemaStringCollection extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(9, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 }

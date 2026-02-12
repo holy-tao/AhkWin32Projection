@@ -2,8 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Learn more about: JET_INDEXID Structure
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-indexid-structure
+ * Learn more about: JET_INDEXID structure
+ * @remarks
+ * The Pack attribute is necessary because the C++ version is defined as a byte array. If the C\# compiler inserts the usual padding between the uint cbStruct and the IntPtr, then the structure ends up too large.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-indexid-structure2
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

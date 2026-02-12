@@ -58,7 +58,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_textLength(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +71,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_textLength() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -77,7 +85,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_lengthAdjust(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +98,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_lengthAdjust() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -95,7 +111,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {Integer} 
      */
     getNumberOfChars() {
-        result := ComCall(11, this, "int*", &pResult := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -104,7 +124,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {Float} 
      */
     getComputedTextLength() {
-        result := ComCall(12, this, "float*", &pResult := 0, "HRESULT")
+        result := ComCall(12, this, "float*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -115,7 +139,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {Float} 
      */
     getSubStringLength(charnum, nchars) {
-        result := ComCall(13, this, "int", charnum, "int", nchars, "float*", &pResult := 0, "HRESULT")
+        result := ComCall(13, this, "int", charnum, "int", nchars, "float*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -125,7 +153,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {ISVGPoint} 
      */
     getStartPositionOfChar(charnum) {
-        result := ComCall(14, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(14, this, "int", charnum, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(ppResult)
     }
 
@@ -135,7 +167,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {ISVGPoint} 
      */
     getEndPositionOfChar(charnum) {
-        result := ComCall(15, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(15, this, "int", charnum, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPoint(ppResult)
     }
 
@@ -145,7 +181,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {ISVGRect} 
      */
     getExtentOfChar(charnum) {
-        result := ComCall(16, this, "int", charnum, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(16, this, "int", charnum, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGRect(ppResult)
     }
 
@@ -155,17 +195,25 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {Float} 
      */
     getRotationOfChar(charnum) {
-        result := ComCall(17, this, "int", charnum, "float*", &pResult := 0, "HRESULT")
+        result := ComCall(17, this, "int", charnum, "float*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
     /**
      * 
-     * @param {ISVGPoint} point 
+     * @param {ISVGPoint} point_ 
      * @returns {Integer} 
      */
-    getCharNumAtPosition(point) {
-        result := ComCall(18, this, "ptr", point, "int*", &pResult := 0, "HRESULT")
+    getCharNumAtPosition(point_) {
+        result := ComCall(18, this, "ptr", point_, "int*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -176,7 +224,11 @@ class ISVGTextContentElement extends IDispatch{
      * @returns {HRESULT} 
      */
     selectSubString(charnum, nchars) {
-        result := ComCall(19, this, "int", charnum, "int", nchars, "HRESULT")
+        result := ComCall(19, this, "int", charnum, "int", nchars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

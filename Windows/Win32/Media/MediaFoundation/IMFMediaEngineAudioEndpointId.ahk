@@ -36,7 +36,11 @@ class IMFMediaEngineAudioEndpointId extends IUnknown{
     SetAudioEndpointId(pszEndpointId) {
         pszEndpointId := pszEndpointId is String ? StrPtr(pszEndpointId) : pszEndpointId
 
-        result := ComCall(3, this, "ptr", pszEndpointId, "HRESULT")
+        result := ComCall(3, this, "ptr", pszEndpointId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IMFMediaEngineAudioEndpointId extends IUnknown{
      * @returns {PWSTR} 
      */
     GetAudioEndpointId() {
-        result := ComCall(4, this, "ptr*", &ppszEndpointId := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszEndpointId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszEndpointId
     }
 }

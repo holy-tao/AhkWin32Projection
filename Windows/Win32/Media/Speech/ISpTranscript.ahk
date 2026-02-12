@@ -33,7 +33,11 @@ class ISpTranscript extends IUnknown{
      * @returns {PWSTR} 
      */
     GetTranscript() {
-        result := ComCall(3, this, "ptr*", &ppszTranscript := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszTranscript := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszTranscript
     }
 
@@ -45,7 +49,11 @@ class ISpTranscript extends IUnknown{
     AppendTranscript(pszTranscript) {
         pszTranscript := pszTranscript is String ? StrPtr(pszTranscript) : pszTranscript
 
-        result := ComCall(4, this, "ptr", pszTranscript, "HRESULT")
+        result := ComCall(4, this, "ptr", pszTranscript, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -35,22 +35,33 @@ class IRowsetView extends IUnknown{
      * @returns {IUnknown} 
      */
     CreateView(pUnkOuter, riid) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppView := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppView)
     }
 
     /**
-     * 
+     * The GetViewportExtEx function retrieves the x-extent and y-extent of the current viewport for the specified device context.
      * @param {Pointer} hChapter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} phChapterSource 
      * @param {Pointer<IUnknown>} ppView 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getviewportextex
      */
     GetView(hChapter, riid, phChapterSource, ppView) {
         phChapterSourceMarshal := phChapterSource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hChapter, "ptr", riid, phChapterSourceMarshal, phChapterSource, "ptr*", ppView, "HRESULT")
+        result := ComCall(4, this, "ptr", hChapter, "ptr", riid, phChapterSourceMarshal, phChapterSource, "ptr*", ppView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

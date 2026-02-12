@@ -31,10 +31,14 @@ class IGetSourceRow extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetSourceRow(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppRow := 0, "HRESULT")
-        return IUnknown(ppRow)
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppRow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppRow
     }
 }

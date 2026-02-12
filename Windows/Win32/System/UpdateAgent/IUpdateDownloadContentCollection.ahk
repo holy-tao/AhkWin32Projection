@@ -7,7 +7,7 @@
 
 /**
  * Represents a collection of download contents for an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatedownloadcontentcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdatedownloadcontentcollection
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -50,30 +50,42 @@ class IUpdateDownloadContentCollection extends IDispatch{
      * Gets the download content for an update from an IUpdateDownloadContentCollection interface.
      * @param {Integer} index 
      * @returns {IUpdateDownloadContent} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontentcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatedownloadcontentcollection-get_item
      */
     get_Item(index) {
-        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUpdateDownloadContent(retval)
     }
 
     /**
-     * Gets an IEnumVARIANT interface that is used to enumerate the collection.
+     * Gets an IEnumVARIANT interface that is used to enumerate the collection. (IUpdateDownloadContentCollection.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontentcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatedownloadcontentcollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
-     * Gets the number of elements in the collection.
+     * Gets the number of elements in the collection. (IUpdateDownloadContentCollection.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontentcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdatedownloadcontentcollection-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

@@ -56,7 +56,11 @@ class ISVGTests extends IDispatch{
      * @returns {ISVGStringList} 
      */
     get_requiredFeatures() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGStringList(p)
     }
 
@@ -65,7 +69,11 @@ class ISVGTests extends IDispatch{
      * @returns {ISVGStringList} 
      */
     get_requiredExtensions() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGStringList(p)
     }
 
@@ -74,19 +82,30 @@ class ISVGTests extends IDispatch{
      * @returns {ISVGStringList} 
      */
     get_systemLanguage() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGStringList(p)
     }
 
     /**
      * 
-     * @param {BSTR} extension 
+     * @param {BSTR} extension_ 
      * @returns {VARIANT_BOOL} 
      */
-    hasExtension(extension) {
-        extension := extension is String ? BSTR.Alloc(extension).Value : extension
+    hasExtension(extension_) {
+        if(extension_ is String) {
+            pin := BSTR.Alloc(extension_)
+            extension_ := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", extension, "short*", &pResult := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", extension_, "short*", &pResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 }

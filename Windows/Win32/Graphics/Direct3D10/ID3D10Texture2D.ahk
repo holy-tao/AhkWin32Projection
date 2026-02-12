@@ -5,15 +5,12 @@
 #Include .\ID3D10Resource.ahk
 
 /**
- * A 2D texture interface manages texel data, which is structured memory.
+ * A 2D texture interface manages texel data, which is structured memory. (ID3D10Texture2D)
  * @remarks
- * 
  * To create an empty Texture2D resource, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createtexture2d">ID3D10Device::CreateTexture2D</a>. For more details on creating and loading textures, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating-textures">Creating Texture Resources</a>.
  * 
  * Textures cannot be bound directly to the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">pipeline</a>; instead, a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-access-views">view</a> must be created and bound. Using a view, texture data can be interpreted at run time within certain restrictions. To use the texture as a render target or depth-stencil resource, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createrendertargetview">ID3D10Device::CreateRenderTargetView</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createdepthstencilview">ID3D10Device::CreateDepthStencilView</a>, respectively. To use the texture as an input to a shader, create a  by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-createshaderresourceview">ID3D10Device::CreateShaderResourceView</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10texture2d
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nn-d3d10-id3d10texture2d
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -39,7 +36,7 @@ class ID3D10Texture2D extends ID3D10Resource{
     static VTableNames => ["Map", "Unmap", "GetDesc"]
 
     /**
-     * Get a pointer to the data contained in a subresource, and deny GPU access to that subresource.
+     * Get a pointer to the data contained in a subresource, and deny GPU access to that subresource. (ID3D10Texture2D.Map)
      * @param {Integer} Subresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index number of the subresource. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-d3d10calcsubresource">D3D10CalcSubresource</a> for more details.
@@ -53,18 +50,21 @@ class ID3D10Texture2D extends ID3D10Resource{
      * @returns {D3D10_MAPPED_TEXTURE2D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_mapped_texture2d">D3D10_MAPPED_TEXTURE2D</a>*</b>
      * 
      * Pointer to a structure (<a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_mapped_texture2d">D3D10_MAPPED_TEXTURE2D</a>) that is filled in by the function and contains a pointer to the resource data.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10texture2d-map
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10texture2d-map
      */
     Map(Subresource, MapType, MapFlags) {
         pMappedTex2D := D3D10_MAPPED_TEXTURE2D()
-        result := ComCall(10, this, "uint", Subresource, "int", MapType, "uint", MapFlags, "ptr", pMappedTex2D, "HRESULT")
+        result := ComCall(10, this, "uint", Subresource, "int", MapType, "uint", MapFlags, "ptr", pMappedTex2D, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMappedTex2D
     }
 
     /**
      * Invalidate the pointer to the resource that was retrieved by ID3D10Texture2D::Map, and re-enable GPU access to the resource.
      * @remarks
-     * 
      * A subresource must be mapped before Unmap is called.
      * 
      * <table>
@@ -77,26 +77,24 @@ class ID3D10Texture2D extends ID3D10Resource{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {Integer} Subresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">Subresource</a> to be unmapped. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-d3d10calcsubresource">D3D10CalcSubresource</a> for more details.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10texture2d-unmap
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10texture2d-unmap
      */
     Unmap(Subresource) {
         ComCall(11, this, "uint", Subresource)
     }
 
     /**
-     * Get the properties of the texture resource.
+     * Get the properties of the texture resource. (ID3D10Texture2D.GetDesc)
      * @param {Pointer<D3D10_TEXTURE2D_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture2d_desc">D3D10_TEXTURE2D_DESC</a>*</b>
      * 
      * Pointer to a resource description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-cd3d10_texture2d_desc">D3D10_TEXTURE2D_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10texture2d-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/nf-d3d10-id3d10texture2d-getdesc
      */
     GetDesc(pDesc) {
         ComCall(12, this, "ptr", pDesc)

@@ -33,10 +33,14 @@ class ID3D12DSRDeviceFactory extends IUnknown{
      * @param {ID3D12Device} pD3D12Device 
      * @param {Integer} NodeMask 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateDSRDevice(pD3D12Device, NodeMask, riid) {
-        result := ComCall(3, this, "ptr", pD3D12Device, "uint", NodeMask, "ptr", riid, "ptr*", &ppvDSRDevice := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pD3D12Device, "uint", NodeMask, "ptr", riid, "ptr*", &ppvDSRDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvDSRDevice
     }
 }

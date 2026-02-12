@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Controls how a network byte stream transfers data to a local cache.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfbytestreamcachecontrol
+ * Controls how a network byte stream transfers data to a local cache. (IMFByteStreamCacheControl)
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfbytestreamcachecontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,11 +32,22 @@ class IMFByteStreamCacheControl extends IUnknown{
 
     /**
      * Stops the background transfer of data to the local cache.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreamcachecontrol-stopbackgroundtransfer
+     * @remarks
+     * The byte stream resumes transferring data to the cache if the application does one of the following:
+     * 
+     * <ul>
+     * <li>Reads data from the byte stream.</li>
+     * <li>Calls the byte stream's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfbytestreambuffering-enablebuffering">IMFByteStreamBuffering::EnableBuffering</a> method.</li>
+     * </ul>
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfbytestreamcachecontrol-stopbackgroundtransfer
      */
     StopBackgroundTransfer() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

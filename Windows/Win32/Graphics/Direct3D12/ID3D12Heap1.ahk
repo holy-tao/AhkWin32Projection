@@ -31,10 +31,14 @@ class ID3D12Heap1 extends ID3D12Heap{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetProtectedResourceSession(riid) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppProtectedSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppProtectedSession
     }
 }

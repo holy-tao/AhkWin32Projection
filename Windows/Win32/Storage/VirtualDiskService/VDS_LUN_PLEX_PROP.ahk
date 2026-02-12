@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The VDS_LUN_PLEX_PROP structure (vdshwprv.h) defines the properties of a LUN plex object.
+ * The VDS_LUN_PLEX_PROP structure (vds.h) defines the properties of a LUN plex object.
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-getproperties">IVdsLunPlex::GetProperties</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/lun-plex-object">LUN plex object</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_lun_plex_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

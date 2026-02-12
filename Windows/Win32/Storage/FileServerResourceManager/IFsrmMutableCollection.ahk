@@ -6,7 +6,7 @@
 
 /**
  * Used to manage a collection of FSRM objects that can have objects added to or removed from the collection.
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmmutablecollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmmutablecollection
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -32,13 +32,19 @@ class IFsrmMutableCollection extends IFsrmCollection{
     static VTableNames => ["Add", "Remove", "RemoveById", "Clone"]
 
     /**
-     * Adds an object to the collection.
+     * Adds an object to the collection. (IFsrmMutableCollection.Add)
+     * @remarks
+     * All items in the collection must be of the same type.
      * @param {VARIANT} item A <b>VARIANT</b> that contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface of the object to add to the collection. Set the variant type to <b>VT_DISPATCH</b> and the <b>pdispVal</b> member to the <b>IDispatch</b> interface of the object.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmmutablecollection-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmmutablecollection-add
      */
     Add(item) {
-        result := ComCall(14, this, "ptr", item, "HRESULT")
+        result := ComCall(14, this, "ptr", item, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,10 +52,14 @@ class IFsrmMutableCollection extends IFsrmCollection{
      * Removes the specified object from the collection using an index value.
      * @param {Integer} index One-based index of the item to remove from the collection.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmmutablecollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmmutablecollection-remove
      */
     Remove(index) {
-        result := ComCall(15, this, "int", index, "HRESULT")
+        result := ComCall(15, this, "int", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,20 +67,28 @@ class IFsrmMutableCollection extends IFsrmCollection{
      * Removes the specified object from the collection using an object identifier.
      * @param {Guid} id Identifies the object to remove from the collection.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmmutablecollection-removebyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmmutablecollection-removebyid
      */
     RemoveById(id) {
-        result := ComCall(16, this, "ptr", id, "HRESULT")
+        result := ComCall(16, this, "ptr", id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a duplicate IFsrmMutableCollection collection.
      * @returns {IFsrmMutableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmmutablecollection">IFsrmMutableCollection</a> interface to a collection that is a duplicate of this collection.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmmutablecollection-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmmutablecollection-clone
      */
     Clone() {
-        result := ComCall(17, this, "ptr*", &collection := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &collection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFsrmMutableCollection(collection)
     }
 }

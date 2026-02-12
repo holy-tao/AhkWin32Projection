@@ -4,16 +4,13 @@
 #Include .\IPropertyDescription.ahk
 
 /**
- * Provides a method that retrives an IPropertyDescription interface.
+ * Provides a method that retrieves an IPropertyDescription interface.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Do not implement this interface. There is only one implementation of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo">IPropertyDescriptionRelatedPropertyInfo</a> in the system; it is provided by the Shell. 
  * 
  * Only one property description exists for each property in the system.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -40,21 +37,27 @@ class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription{
 
     /**
      * Retrieves an IPropertyDescription object that represents the related property.
+     * @remarks
+     * We recommend that you use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {PWSTR} pszRelationshipName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that contains the relationship of the property to get.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through the <i>ppv</i> parameter, typically IID_IPropertyDescription.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Receives the interface pointer requested in the parameter. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescriptionrelatedpropertyinfo-getrelatedproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/propsys/nf-propsys-ipropertydescriptionrelatedpropertyinfo-getrelatedproperty
      */
     GetRelatedProperty(pszRelationshipName, riid) {
         pszRelationshipName := pszRelationshipName is String ? StrPtr(pszRelationshipName) : pszRelationshipName
 
-        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

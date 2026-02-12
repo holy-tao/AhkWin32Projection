@@ -7,7 +7,7 @@
  * If the module owner is the system kernel, the <b>lpModuleName</b> and <b>lpModulePath</b> members point to a wide character string that contains "System".
  * 
  * On Windows Vista and later as well as on the Microsoft Windows Software Development Kit (SDK), the organization of header files has changed and the <b>TCPIP_OWNER_MODULE_BASIC_INFO</b> structure is defined in the <i>Iprtrmib.h</i> header file.
- * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

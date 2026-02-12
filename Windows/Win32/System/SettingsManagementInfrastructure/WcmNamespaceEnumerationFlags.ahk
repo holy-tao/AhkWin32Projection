@@ -6,7 +6,7 @@
  * @remarks
  * <div class="alert"><b>Note</b>  UserEnumeration should not be used. No namespaces are compiled for a particular user, they are all compiled for the machine as an entity.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmnamespaceenumerationflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/wcmconfig/ne-wcmconfig-wcmnamespaceenumerationflags
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */

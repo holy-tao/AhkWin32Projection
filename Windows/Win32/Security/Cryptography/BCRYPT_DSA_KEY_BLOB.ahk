@@ -30,7 +30,7 @@
  * PrivateExponent[20]   // Big-endian.
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_key_blob
+ * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/ns-bcrypt-bcrypt_dsa_key_blob
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

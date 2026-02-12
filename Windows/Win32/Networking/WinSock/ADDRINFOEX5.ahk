@@ -10,7 +10,7 @@
  * The <b>ADDRINFOEX5</b> structure is an extension of the <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex4">ADDRINFOEX4</a> structure. In addition to all fields from the <a href="https://docs.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex4">ADDRINFOEX4</a> structure, it also holds in the *ai_ttl* member the individual DNS TTL for each returned IP address.
  * 
  * If the <b>AI_RETURN_TTL</b> bit is set in the *ai_flags* member passed in through the <b>GetAddrInfoEx</b> <i>hints</i> parameter, the <b>GetAddrInfoExW</b> <i>ppResult</i> parameter will return a list of <b>ADDRINFOEX5</b> structures. Each node in this list will contain in the *ai_ttl* member the individual DNS TTL for the IP address present in the <b>sockaddr</b> member.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex5
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-addrinfoex5
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

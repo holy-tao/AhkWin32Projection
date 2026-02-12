@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods for client applications to retrieve documents.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-iaccclientdocmgr
+ * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nn-msaatext-iaccclientdocmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -39,66 +39,92 @@ class IAccClientDocMgr extends IUnknown{
 
     /**
      * Clients call IAccClientDocMgr::GetDocuments to get a list of all documents that have been registered with the Microsoft Active Accessibility run time.
+     * @remarks
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @returns {IEnumUnknown} Type: <b>IEnumUnknown*</b>
      * 
      * A list of document interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-getdocuments
+     * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nf-msaatext-iaccclientdocmgr-getdocuments
      */
     GetDocuments() {
-        result := ComCall(3, this, "ptr*", &enumUnknown := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &enumUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(enumUnknown)
     }
 
     /**
      * Clients call IAccClientDocMgr::LookupByHWND to get a document by providing the HWND for the document.
-     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @remarks
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
+     * @param {HWND} hWnd_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The <b>HWND</b> of the document to be returned.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document being requested. This is usually IID_ITextStoreAnchor.
-     * @returns {IUnknown} Type: <b>IUnknown*</b>
+     * @returns {Pointer<IUnknown>} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the document being requested.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-lookupbyhwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nf-msaatext-iaccclientdocmgr-lookupbyhwnd
      */
-    LookupByHWND(hWnd, riid) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    LookupByHWND(hWnd_, riid) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(4, this, "ptr", hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
-        return IUnknown(ppunk)
+        result := ComCall(4, this, "ptr", hWnd_, "ptr", riid, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunk
     }
 
     /**
      * Clients call IAccClientDocMgr::LookupByPoint to get a document object from a point within the document.
+     * @remarks
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @param {POINT} pt Type: <b>POINT</b>
      * 
      * A point inside the bounding rectangle of the document to be returned.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document being requested. This is usually IID_ITextStoreAnchor.
-     * @returns {IUnknown} Type: <b>IUnknown*</b>
+     * @returns {Pointer<IUnknown>} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the document being requested.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-lookupbypoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nf-msaatext-iaccclientdocmgr-lookupbypoint
      */
     LookupByPoint(pt, riid) {
-        result := ComCall(5, this, "ptr", pt, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
-        return IUnknown(ppunk)
+        result := ComCall(5, this, "ptr", pt, "ptr", riid, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunk
     }
 
     /**
      * Clients call the IAccClientDocMgr::GetFocused method to access a pointer for the document that has focus.
+     * @remarks
+     * If the window that has focus is not a document that implements the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> interface, <i>ppunk</i> will be <b>NULL</b>.
+     * 
+     * Servers might need to poll this method more than once before they receive a document. There can be a limited time lapse (approximately second) between when a document appears in the system and when it is registered with document services.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * IID of the document being requested. This is usually IID_ITextStoreAnchor.
-     * @returns {IUnknown} Type: <b>IUnknown*</b>
+     * @returns {Pointer<IUnknown>} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the document being requested.
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-iaccclientdocmgr-getfocused
+     * @see https://learn.microsoft.com/windows/win32/api//content/msaatext/nf-msaatext-iaccclientdocmgr-getfocused
      */
     GetFocused(riid) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
-        return IUnknown(ppunk)
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunk
     }
 }

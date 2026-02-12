@@ -37,12 +37,22 @@ class IRTCSessionDescriptionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     EvaluateSessionDescription(bstrContentType, bstrSessionDescription, pfApplicationSession) {
-        bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
-        bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
+        if(bstrContentType is String) {
+            pin := BSTR.Alloc(bstrContentType)
+            bstrContentType := pin.Value
+        }
+        if(bstrSessionDescription is String) {
+            pin := BSTR.Alloc(bstrSessionDescription)
+            bstrSessionDescription := pin.Value
+        }
 
         pfApplicationSessionMarshal := pfApplicationSession is VarRef ? "short*" : "ptr"
 
-        result := ComCall(3, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, pfApplicationSessionMarshal, pfApplicationSession, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, pfApplicationSessionMarshal, pfApplicationSession, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

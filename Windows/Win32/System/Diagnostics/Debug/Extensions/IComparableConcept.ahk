@@ -35,7 +35,11 @@ class IComparableConcept extends IUnknown{
      * @returns {Integer} 
      */
     CompareObjects(contextObject, otherObject) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &comparisonResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &comparisonResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return comparisonResult
     }
 }

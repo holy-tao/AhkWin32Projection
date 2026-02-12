@@ -6,7 +6,7 @@
 
 /**
  * The IADsOctetList interface provides methods for an ADSI client to access the Octet List attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsoctetlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsoctetlist
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -45,7 +45,11 @@ class IADsOctetList extends IDispatch{
      */
     get_OctetList() {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -55,7 +59,11 @@ class IADsOctetList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_OctetList(vOctetList) {
-        result := ComCall(8, this, "ptr", vOctetList, "HRESULT")
+        result := ComCall(8, this, "ptr", vOctetList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

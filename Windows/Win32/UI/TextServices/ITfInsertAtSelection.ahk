@@ -6,7 +6,7 @@
 
 /**
  * The ITfInsertAtSelection interface is implemented by the manager and is used by a text service to insert text or an embedded object in a context. The text service obtains this interface by calling ITfContext::QueryInterface.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinsertatselection
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfinsertatselection
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -33,30 +33,44 @@ class ITfInsertAtSelection extends IUnknown{
 
     /**
      * ITfInsertAtSelection::InsertTextAtSelection method
+     * @remarks
+     * To insert an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object instead of text, use <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfinsertatselection-insertembeddedatselection">ITfInsertAtSelection::InsertEmbeddedAtSelection</a>.
      * @param {Integer} ec Identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {Integer} dwFlags 
      * @param {PWSTR} pchText Specifies the text to insert.
      * @param {Integer} cch Specifies the character count of the text in <i>pchText</i>.
      * @returns {ITfRange} Receives the position of the inserted object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinsertatselection-inserttextatselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinsertatselection-inserttextatselection
      */
     InsertTextAtSelection(ec, dwFlags, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "int", cch, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "int", cch, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfRange(ppRange)
     }
 
     /**
      * The ITfInsertAtSelection::InsertEmbeddedAtSelection method inserts an IDataObject object at the selection or insertion point.
+     * @remarks
+     * Callers can use the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfqueryembedded-queryinsertembedded">ITfQueryEmbedded::QueryInsertEmbedded</a> method to determine if a particular object type is likely to be accepted by this method.
+     * 
+     * To insert text instead of an <b>IDataObject</b> object, use the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfinsertatselection-inserttextatselection">ITfInsertAtSelection::InsertTextAtSelection</a> method.
      * @param {Integer} ec Identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {Integer} dwFlags 
      * @param {IDataObject} pDataObject Pointer to object to insert.
      * @returns {ITfRange} Position of the inserted object. Optional.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinsertatselection-insertembeddedatselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinsertatselection-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(ec, dwFlags, pDataObject) {
-        result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(4, this, "uint", ec, "uint", dwFlags, "ptr", pDataObject, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfRange(ppRange)
     }
 }

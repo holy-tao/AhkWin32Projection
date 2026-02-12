@@ -32,57 +32,73 @@ class IJsDebugDataTarget extends IUnknown{
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} address_ 
      * @param {Integer} flags 
      * @param {Pointer<Integer>} pBuffer 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Pointer<Integer>} pBytesRead 
      * @returns {HRESULT} 
      */
-    ReadMemory(address, flags, pBuffer, size, pBytesRead) {
+    ReadMemory(address_, flags, pBuffer, size_, pBytesRead) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
         pBytesReadMarshal := pBytesRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", address, "int", flags, pBufferMarshal, pBuffer, "uint", size, pBytesReadMarshal, pBytesRead, "HRESULT")
+        result := ComCall(3, this, "uint", address_, "int", flags, pBufferMarshal, pBuffer, "uint", size_, pBytesReadMarshal, pBytesRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} address_ 
      * @param {Pointer<Integer>} pMemory 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @returns {HRESULT} 
      */
-    WriteMemory(address, pMemory, size) {
+    WriteMemory(address_, pMemory, size_) {
         pMemoryMarshal := pMemory is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", address, pMemoryMarshal, pMemory, "uint", size, "HRESULT")
+        result := ComCall(4, this, "uint", address_, pMemoryMarshal, pMemory, "uint", size_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} address 
-     * @param {Integer} size 
+     * @param {Integer} address_ 
+     * @param {Integer} size_ 
      * @param {Integer} allocationType 
      * @param {Integer} pageProtection 
      * @returns {Integer} 
      */
-    AllocateVirtualMemory(address, size, allocationType, pageProtection) {
-        result := ComCall(5, this, "uint", address, "uint", size, "uint", allocationType, "uint", pageProtection, "uint*", &pAllocatedAddress := 0, "HRESULT")
+    AllocateVirtualMemory(address_, size_, allocationType, pageProtection) {
+        result := ComCall(5, this, "uint", address_, "uint", size_, "uint", allocationType, "uint", pageProtection, "uint*", &pAllocatedAddress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAllocatedAddress
     }
 
     /**
      * 
-     * @param {Integer} address 
-     * @param {Integer} size 
+     * @param {Integer} address_ 
+     * @param {Integer} size_ 
      * @param {Integer} freeType 
      * @returns {HRESULT} 
      */
-    FreeVirtualMemory(address, size, freeType) {
-        result := ComCall(6, this, "uint", address, "uint", size, "uint", freeType, "HRESULT")
+    FreeVirtualMemory(address_, size_, freeType) {
+        result := ComCall(6, this, "uint", address_, "uint", size_, "uint", freeType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,31 +109,43 @@ class IJsDebugDataTarget extends IUnknown{
      * @returns {Integer} 
      */
     GetTlsValue(threadId, tlsIndex) {
-        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, "uint*", &pValue := 0, "HRESULT")
+        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, "uint*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} address_ 
      * @returns {BSTR} 
      */
-    ReadBSTR(address) {
+    ReadBSTR(address_) {
         pString := BSTR()
-        result := ComCall(8, this, "uint", address, "ptr", pString, "HRESULT")
+        result := ComCall(8, this, "uint", address_, "ptr", pString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pString
     }
 
     /**
      * 
-     * @param {Integer} address 
+     * @param {Integer} address_ 
      * @param {Integer} characterSize 
      * @param {Integer} maxCharacters 
      * @returns {BSTR} 
      */
-    ReadNullTerminatedString(address, characterSize, maxCharacters) {
+    ReadNullTerminatedString(address_, characterSize, maxCharacters) {
         pString := BSTR()
-        result := ComCall(9, this, "uint", address, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "HRESULT")
+        result := ComCall(9, this, "uint", address_, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pString
     }
 
@@ -127,20 +155,34 @@ class IJsDebugDataTarget extends IUnknown{
      * @returns {IEnumJsStackFrames} 
      */
     CreateStackFrameEnumerator(threadId) {
-        result := ComCall(10, this, "uint", threadId, "ptr*", &ppEnumerator := 0, "HRESULT")
+        result := ComCall(10, this, "uint", threadId, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumJsStackFrames(ppEnumerator)
     }
 
     /**
      * Retrieves the context of the specified thread.
+     * @remarks
+     * This function is used to retrieve the thread context of the specified thread. The function retrieves a selective context based on the value of the **ContextFlags** member of the context structure. The thread identified by the *hThread* parameter is typically being debugged, but the function can also operate when the thread is not being debugged.
+     * 
+     * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
+     * 
+     * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
      * @param {Integer} threadId 
      * @param {Integer} contextFlags 
      * @param {Integer} contextSize 
      * @returns {Void} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
     GetThreadContext(threadId, contextFlags, contextSize) {
-        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", &pContext := 0, "HRESULT")
+        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", &pContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pContext
     }
 }

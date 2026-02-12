@@ -20,7 +20,7 @@
  * Generator[cbKeyLength]  // Big-endian.
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_parameter_header_v2
+ * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/ns-bcrypt-bcrypt_dsa_parameter_header_v2
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

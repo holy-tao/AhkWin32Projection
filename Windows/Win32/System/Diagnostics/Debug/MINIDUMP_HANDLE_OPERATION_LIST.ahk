@@ -5,7 +5,7 @@
  * Contains a list of handle operations.
  * @remarks
  * For a definition of the <b>AVRF_HANDLE_OPERATION</b> structure, see the Avrfsdk.h header file.
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_handle_operation_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ns-minidumpapiset-minidump_handle_operation_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

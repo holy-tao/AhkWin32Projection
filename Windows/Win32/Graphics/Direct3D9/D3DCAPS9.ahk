@@ -21,7 +21,7 @@
  * <li>D3DPTFILTERCAPS_MIPNEAREST</li>
  * <li>D3DPTFILTERCAPS_NEAREST</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3dcaps9
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d9caps/ns-d3d9caps-d3dcaps9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

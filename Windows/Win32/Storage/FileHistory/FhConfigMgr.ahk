@@ -3,7 +3,7 @@
 
 /**
  * Represents the File History configuration of the user under which the FhConfigMgr object is created. All configuration operations are performed by calling the methods of the IFhConfigMgr interface.
- * @see https://learn.microsoft.com/windows/win32/DevNotes/fhconfigmgr
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/fhconfigmgr
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */

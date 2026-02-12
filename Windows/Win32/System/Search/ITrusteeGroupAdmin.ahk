@@ -35,7 +35,11 @@ class ITrusteeGroupAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     AddMember(pMembershipTrustee, pMemberTrustee) {
-        result := ComCall(3, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "HRESULT")
+        result := ComCall(3, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ITrusteeGroupAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteMember(pMembershipTrustee, pMemberTrustee) {
-        result := ComCall(4, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "HRESULT")
+        result := ComCall(4, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class ITrusteeGroupAdmin extends IUnknown{
      * @returns {BOOL} 
      */
     IsMember(pMembershipTrustee, pMemberTrustee) {
-        result := ComCall(5, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "int*", &pfStatus := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "int*", &pfStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfStatus
     }
 
@@ -72,7 +84,11 @@ class ITrusteeGroupAdmin extends IUnknown{
         pcMembersMarshal := pcMembers is VarRef ? "uint*" : "ptr"
         prgMembersMarshal := prgMembers is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pMembershipTrustee, pcMembersMarshal, pcMembers, prgMembersMarshal, prgMembers, "HRESULT")
+        result := ComCall(6, this, "ptr", pMembershipTrustee, pcMembersMarshal, pcMembers, prgMembersMarshal, prgMembers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +103,11 @@ class ITrusteeGroupAdmin extends IUnknown{
         pcMembershipsMarshal := pcMemberships is VarRef ? "uint*" : "ptr"
         prgMembershipsMarshal := prgMemberships is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTrustee, pcMembershipsMarshal, pcMemberships, prgMembershipsMarshal, prgMemberships, "HRESULT")
+        result := ComCall(7, this, "ptr", pTrustee, pcMembershipsMarshal, pcMemberships, prgMembershipsMarshal, prgMemberships, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

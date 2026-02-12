@@ -17,7 +17,7 @@
  * Applications should access the profile data only when <b>bV5Size</b> equals the size of the <b>BITMAPV5HEADER</b> and <b>bV5CSType</b> equals PROFILE_EMBEDDED or PROFILE_LINKED.
  * 
  * If a profile is linked, the path of the profile can be any fully qualified name (including a network path) that can be opened using the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapv5header
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-bitmapv5header
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

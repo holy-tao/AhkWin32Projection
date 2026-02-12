@@ -7,7 +7,7 @@
  * The 
  * <b>NTMS_STORAGESLOTINFORMATION</b> structure is part of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_storageslotinformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntmsapi/ns-ntmsapi-ntms_storageslotinformation
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

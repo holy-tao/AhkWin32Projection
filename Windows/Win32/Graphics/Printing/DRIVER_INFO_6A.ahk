@@ -8,7 +8,7 @@
  * The strings for these members are contained in the .inf file that is used to add the driver.
  * 
  * If you call [**AddPrinterDriver**](addprinterdriver.md) or [**AddPrinterDriverEx**](addprinterdriverex.md) with *Level* not equal to 6, and then you call [**GetPrinterDriver**](getprinterdriver.md) or [**EnumPrinterDrivers**](enumprinterdrivers.md) with *Level* equal to 6, the **DRIVER\_INFO\_6** structure is returned with **pszMfgName**, **pszOEMUrl**, **pszHardwareID**, and **pszProvider** set to **NULL**, **dwlDriverVersion** set to 0, and **ftDriverDate** set to (0,0).
- * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-6
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/driver-info-6
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

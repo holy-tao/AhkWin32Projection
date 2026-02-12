@@ -15,7 +15,7 @@
  * Set the texture filter to use between-mipmap levels by calling [**IDirect3DDevice9::SetSamplerState**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-setsamplerstate) with the D3DSAMP\_MIPFILTER value as the second parameter and one member of this enumeration as the third parameter.
  * 
  * Not all valid filtering modes for a device will apply to volume maps. In general, D3DTEXF\_POINT and D3DTEXF\_LINEAR magnification filters will be supported for volume maps. If D3DPTEXTURECAPS\_MIPVOLUMEMAP is set, then the D3DTEXF\_POINT mipmap filter and D3DTEXF\_POINT and D3DTEXF\_LINEAR minification filters will be supported for volume maps. The device may or may not support the D3DTEXF\_LINEAR mipmap filter for volume maps. Devices that support anisotropic filtering for 2D maps do not necessarily support anisotropic filtering for volume maps. However, applications that enable anisotropic filtering will receive the best available filtering (probably linear) if anisotropic filtering is not supported.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtexturefiltertype
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dtexturefiltertype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

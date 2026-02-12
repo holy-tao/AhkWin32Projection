@@ -157,7 +157,11 @@ class IOmNavigator extends IDispatch{
      */
     get_appCodeName() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -167,7 +171,11 @@ class IOmNavigator extends IDispatch{
      */
     get_appName() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -177,7 +185,11 @@ class IOmNavigator extends IDispatch{
      */
     get_appVersion() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -187,7 +199,11 @@ class IOmNavigator extends IDispatch{
      */
     get_userAgent() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -196,7 +212,11 @@ class IOmNavigator extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     javaEnabled() {
-        result := ComCall(11, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &enabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return enabled
     }
 
@@ -205,7 +225,11 @@ class IOmNavigator extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     taintEnabled() {
-        result := ComCall(12, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &enabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return enabled
     }
 
@@ -214,7 +238,11 @@ class IOmNavigator extends IDispatch{
      * @returns {IHTMLMimeTypesCollection} 
      */
     get_mimeTypes() {
-        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLMimeTypesCollection(p)
     }
 
@@ -223,7 +251,11 @@ class IOmNavigator extends IDispatch{
      * @returns {IHTMLPluginsCollection} 
      */
     get_plugins() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLPluginsCollection(p)
     }
 
@@ -232,7 +264,11 @@ class IOmNavigator extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_cookieEnabled() {
-        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -241,18 +277,31 @@ class IOmNavigator extends IDispatch{
      * @returns {IHTMLOpsProfile} 
      */
     get_opsProfile() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLOpsProfile(p)
     }
 
     /**
-     * 
+     * toString Method (DateTimeOffset)
+     * @remarks
+     * The string has the format `YYYY-MM-DD HH:mm:ss[.fffffff] [+|-]HH:mm`.  
+     *   
+     *  The fractional seconds of the returned string are zero padded to the declared precision. For example, a **datetimeoffset(6)** with a value of "2010-03-10 12:34:56.78 -08:00" will be formatted by DateTimeOffset.toString as "2010-03-10 12:34:56.780000 -08:00".
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/tostring-method-datetimeoffset
      */
     toString() {
-        string := BSTR()
-        result := ComCall(17, this, "ptr", string, "HRESULT")
-        return string
+        string_ := BSTR()
+        result := ComCall(17, this, "ptr", string_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return string_
     }
 
     /**
@@ -261,7 +310,11 @@ class IOmNavigator extends IDispatch{
      */
     get_cpuClass() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -271,7 +324,11 @@ class IOmNavigator extends IDispatch{
      */
     get_systemLanguage() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -281,7 +338,11 @@ class IOmNavigator extends IDispatch{
      */
     get_browserLanguage() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -291,7 +352,11 @@ class IOmNavigator extends IDispatch{
      */
     get_userLanguage() {
         p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -301,7 +366,11 @@ class IOmNavigator extends IDispatch{
      */
     get_platform() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -311,7 +380,11 @@ class IOmNavigator extends IDispatch{
      */
     get_appMinorVersion() {
         p := BSTR()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -320,7 +393,11 @@ class IOmNavigator extends IDispatch{
      * @returns {Integer} 
      */
     get_connectionSpeed() {
-        result := ComCall(24, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -329,7 +406,11 @@ class IOmNavigator extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_onLine() {
-        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -338,7 +419,11 @@ class IOmNavigator extends IDispatch{
      * @returns {IHTMLOpsProfile} 
      */
     get_userProfile() {
-        result := ComCall(26, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLOpsProfile(p)
     }
 }

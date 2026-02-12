@@ -118,7 +118,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_referral_callback
+ * @see https://learn.microsoft.com/windows/win32/api//content/winldap/ns-winldap-ldap_referral_callback
  * @namespace Windows.Win32.Networking.Ldap
  * @version v4.0.30319
  */

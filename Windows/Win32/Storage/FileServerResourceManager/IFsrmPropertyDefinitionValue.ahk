@@ -6,7 +6,7 @@
 
 /**
  * Contains properties that describe a classification property definition value.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nn-fsrmpipeline-ifsrmpropertydefinitionvalue
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertydefinitionvalue
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -62,44 +62,60 @@ class IFsrmPropertyDefinitionValue extends IDispatch{
     /**
      * Name of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_name
      */
     get_Name() {
         name := BSTR()
-        result := ComCall(7, this, "ptr", name, "HRESULT")
+        result := ComCall(7, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Display name of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_displayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_displayname
      */
     get_DisplayName() {
         displayName := BSTR()
-        result := ComCall(8, this, "ptr", displayName, "HRESULT")
+        result := ComCall(8, this, "ptr", displayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return displayName
     }
 
     /**
      * Description of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_description
      */
     get_Description() {
         description := BSTR()
-        result := ComCall(9, this, "ptr", description, "HRESULT")
+        result := ComCall(9, this, "ptr", description, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return description
     }
 
     /**
      * Unique ID of the classification property definition value.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_uniqueid
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinitionvalue-get_uniqueid
      */
     get_UniqueID() {
         uniqueID := BSTR()
-        result := ComCall(10, this, "ptr", uniqueID, "HRESULT")
+        result := ComCall(10, this, "ptr", uniqueID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uniqueID
     }
 }

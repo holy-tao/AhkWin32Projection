@@ -9,7 +9,6 @@
 /**
  * Contains a collection of user-defined InkStrokes collections.
  * @remarks
- * 
  * The custom strokes are essentially named <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collections that are persisted and recalled for later use.
  * 
  * You use a collection of custom strokes to store strokes that have the same meaning or that are related in some way. Examples of strokes that you may want to persist include:
@@ -28,9 +27,7 @@
  * For more information about collections in COM, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkcustomstrokes
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkcustomstrokes
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -70,12 +67,16 @@ class IInkCustomStrokes extends IDispatch{
     }
 
     /**
-     * Gets the number of objects or collections contained in a collection.
+     * Gets the number of objects or collections contained in a collection. (IInkCustomStrokes.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcustomstrokes-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcustomstrokes-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
@@ -84,18 +85,30 @@ class IInkCustomStrokes extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(_NewEnum)
     }
 
     /**
      * Retrieves the InkStrokes Collection at the location specified within the IInkCustomStrokes Interface.
+     * @remarks
+     * An error occurs if the identifier doesn't match any existing member of the collection.
+     * 
+     * This method takes an input argument of type <b>VARIANT</b>. The subtype of this variable must be <b>BSTR</b> or <b>Long</b>.
      * @param {VARIANT} Identifier The numeric index or string name of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes Collection</a> to return from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcustomstrokes">IInkCustomStrokes</a> collection.
      * @returns {IInkStrokes} When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes Collection</a> at the location specified within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcustomstrokes">IInkCustomStrokes Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcustomstrokes-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcustomstrokes-item
      */
     Item(Identifier) {
-        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Strokes := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Strokes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkStrokes(Strokes)
     }
 
@@ -190,17 +203,30 @@ class IInkCustomStrokes extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcustomstrokes-add
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcustomstrokes-add
      */
     Add(Name, Strokes) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", Name, "ptr", Strokes, "HRESULT")
+        result := ComCall(10, this, "ptr", Name, "ptr", Strokes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the InkStrokes collection from the IInkCustomStrokes collection.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcustomstrokes">IInkCustomStrokes</a> collections are sets of references to ink data and are not the actual data itself. This method removes only the collection of strokes from a snapshot of, or reference to, the data and does not remove the actual ink data. To delete the collection from the actual ink data, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdisp-deletestrokes">DeleteStrokes</a> method of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
+     * 
+     * The <i>Identifier</i> parameter can be either a BSTR or a LONG. Use a BSTR for the name originally given to the custom stroke when it was added to the collection, and use a long for the index of the custom stroke in the collection. To specify the name of the custom stroke when you are using late binding, such as when you use a scripting language, you must pass in the argument as a string literal and not use a variable.
+     * 
+     * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {VARIANT} Identifier The name or index of the collection of strokes to remove from the collection of custom strokes.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
@@ -273,7 +299,7 @@ class IInkCustomStrokes extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/tablet/inkdisp-class">InkDisp</a> object of the <a href="/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection and the <a href="/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object don't match.
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object don't match.
      * 
      * </td>
      * </tr>
@@ -300,10 +326,14 @@ class IInkCustomStrokes extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcustomstrokes-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcustomstrokes-remove
      */
     Remove(Identifier) {
-        result := ComCall(11, this, "ptr", Identifier, "HRESULT")
+        result := ComCall(11, this, "ptr", Identifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -350,10 +380,14 @@ class IInkCustomStrokes extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcustomstrokes-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcustomstrokes-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

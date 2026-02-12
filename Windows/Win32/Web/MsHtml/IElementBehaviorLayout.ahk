@@ -39,7 +39,11 @@ class IElementBehaviorLayout extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSize(dwFlags, sizeContent, pptTranslateBy, pptTopLeft, psizeProposed) {
-        result := ComCall(3, this, "int", dwFlags, "ptr", sizeContent, "ptr", pptTranslateBy, "ptr", pptTopLeft, "ptr", psizeProposed, "HRESULT")
+        result := ComCall(3, this, "int", dwFlags, "ptr", sizeContent, "ptr", pptTranslateBy, "ptr", pptTopLeft, "ptr", psizeProposed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,18 +52,27 @@ class IElementBehaviorLayout extends IUnknown{
      * @returns {Integer} 
      */
     GetLayoutInfo() {
-        result := ComCall(4, this, "int*", &plLayoutInfo := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &plLayoutInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plLayoutInfo
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
      * @param {Integer} lFlags 
      * @param {Pointer<POINT>} pptTopLeft 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mediastreaming/getpositioninformationoperation
      */
     GetPosition(lFlags, pptTopLeft) {
-        result := ComCall(5, this, "int", lFlags, "ptr", pptTopLeft, "HRESULT")
+        result := ComCall(5, this, "int", lFlags, "ptr", pptTopLeft, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +83,11 @@ class IElementBehaviorLayout extends IUnknown{
      */
     MapSize(psizeIn) {
         prcOut := RECT()
-        result := ComCall(6, this, "ptr", psizeIn, "ptr", prcOut, "HRESULT")
+        result := ComCall(6, this, "ptr", psizeIn, "ptr", prcOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prcOut
     }
 }

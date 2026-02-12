@@ -38,7 +38,11 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
      * @returns {HRESULT} 
      */
     setTimeouts(resolveTimeout, connectTimeout, sendTimeout, receiveTimeout) {
-        result := ComCall(21, this, "int", resolveTimeout, "int", connectTimeout, "int", sendTimeout, "int", receiveTimeout, "HRESULT")
+        result := ComCall(21, this, "int", resolveTimeout, "int", connectTimeout, "int", sendTimeout, "int", receiveTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
      * @returns {VARIANT_BOOL} 
      */
     waitForResponse(timeoutInSeconds) {
-        result := ComCall(22, this, "ptr", timeoutInSeconds, "short*", &isSuccessful := 0, "HRESULT")
+        result := ComCall(22, this, "ptr", timeoutInSeconds, "short*", &isSuccessful := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isSuccessful
     }
 
@@ -59,7 +67,11 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
      */
     getOption(option) {
         value := VARIANT()
-        result := ComCall(23, this, "int", option, "ptr", value, "HRESULT")
+        result := ComCall(23, this, "int", option, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -70,7 +82,11 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
      * @returns {HRESULT} 
      */
     setOption(option, value) {
-        result := ComCall(24, this, "int", option, "ptr", value, "HRESULT")
+        result := ComCall(24, this, "int", option, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

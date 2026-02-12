@@ -5,7 +5,7 @@
 
 /**
  * The IVMRFilterConfig interface is used to configure the operating mode and video rendering mechanisms of the Video Mixing Renderer Filter 7 (VMR-7).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmrfilterconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-ivmrfilterconfig
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IVMRFilterConfig extends IUnknown{
 
     /**
      * The SetImageCompositor method installs an application-provided image compositor.
+     * @remarks
+     * Use this method to replace the VMR's default compositor with a custom compositor provided by the application. The image compositor is a sub-component of the mixer.
+     * 
+     * The compositor is automatically loaded when the VMR is in windowless or windowed mode. When the VMR is in renderless mode, the compositor must be loaded by calling <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrfilterconfig-setnumberofstreams">IVMRFilterConfig::SetNumberOfStreams</a>. The VMR manages all reference counting on the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ivmrimagecompositor">IVMRImageCompositor</a> interface.
      * @param {IVMRImageCompositor} lpVMRImgCompositor Pointer to the image compositor's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ivmrimagecompositor">IVMRImageCompositor</a> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
@@ -52,15 +56,26 @@ class IVMRFilterConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-setimagecompositor
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-setimagecompositor
      */
     SetImageCompositor(lpVMRImgCompositor) {
-        result := ComCall(3, this, "ptr", lpVMRImgCompositor, "HRESULT")
+        result := ComCall(3, this, "ptr", lpVMRImgCompositor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetNumberOfStreams method sets the number of streams to be mixed and instructs the VMR to go into mixer mode.
+     * @remarks
+     * <i>dwMaxStreams</i> should be equal to the number of input pins required. Pins cannot be added or removed after the VMR has been connected. If you do not know in advance how many input streams will be required, set <i>dxMaxStreams</i> to the maximum number that might be required. A value of 1 is valid for dwMaxStreams. This value does not cause any extra pins to be created, but it does force the VMR to go into "mixer mode." Therefore, once this method has been called, you cannot call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode">SetRenderingMode</a> to set the mode to <b>VMRMode_Renderless</b>
+     * 
+     * The VMR creates as many input pins as are specified without attempting to determine whether there is enough video memory to support them all. This is because it has no way of knowing the media type or rectangle dimensions at this time. Later, when an upstream filter attempts to connect to a pin, at that point the media type is known and the VMR will examine the video memory and fail the connection if there is not enough to process the stream.
+     * 
+     * <div class="alert"><b>Note</b>  Although the VMR supports multiple streams, they all share a single clock, and therefore you cannot seek one stream independently of the others. If you need to seek the input streams independently, you must use a different technique. See the VMRMulti sample for more information.</div>
+     * <div> </div>
      * @param {Integer} dwMaxStreams Double word containing the maximum number of input streams that the VMR will be required to mix. Must not be greater than MAX_MIXER_STREAMS (16).
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
@@ -103,25 +118,35 @@ class IVMRFilterConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-setnumberofstreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-setnumberofstreams
      */
     SetNumberOfStreams(dwMaxStreams) {
-        result := ComCall(4, this, "uint", dwMaxStreams, "HRESULT")
+        result := ComCall(4, this, "uint", dwMaxStreams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNumberOfStreams method retrieves the number of input streams being mixed.
      * @returns {Integer} Pointer to a double word that receives the number of streams being mixed, which is equal to the number of input pins on the VMR.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-getnumberofstreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-getnumberofstreams
      */
     GetNumberOfStreams() {
-        result := ComCall(5, this, "uint*", &pdwMaxStreams := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwMaxStreams := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMaxStreams
     }
 
     /**
      * The SetRenderingPrefs method sets various application preferences related to video rendering.
+     * @remarks
+     * This method calls through to the allocator-presenter's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrimagepresenterconfig-setrenderingprefs">IVMRImagePresenterConfig::SetRenderingPrefs</a> method. (The default allocator-presenter exposes <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ivmrimagepresenterconfig">IVMRImagePresenterConfig</a>. Custom allocator-presenters can also expose this interface if desired.) If the VMR-7 has not yet created the default allocator-presenter, or if the application provided a custom allocator-presenter which does not support <b>IVMRImagePresenterConfig</b>, this method returns VFW_E_WRONG_STATE. To create the default allocator-presenter, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode">IVMRFilterConfig::SetRenderingMode</a> with the value VMRMode_Windowed or VMRMode_Windowed.
      * @param {Integer} dwRenderFlags Double word containing a bitwise OR of <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrrenderprefs">VMRRenderPrefs</a> values specifying the rendering preferences.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
@@ -153,26 +178,38 @@ class IVMRFilterConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-setrenderingprefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-setrenderingprefs
      */
     SetRenderingPrefs(dwRenderFlags) {
-        result := ComCall(6, this, "uint", dwRenderFlags, "HRESULT")
+        result := ComCall(6, this, "uint", dwRenderFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetRenderingPrefs method retrieves the current set of rendering preferences being used by the VMR.
+     * @remarks
+     * This method calls through to the allocator-presenter's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrimagepresenterconfig-getrenderingprefs">IVMRImagePresenterConfig::GetRenderingPrefs</a> method. (The default allocator-presenter exposes <b>IVMRImagePresenterConfig</b>. Custom allocator-presenters can also expose this interface if desired.) If the VMR-7 has not yet created the default allocator-presenter, or if the application provided a custom allocator-presenter which does not support <b>IVMRImagePresenterConfig</b>, this method returns VFW_E_WRONG_STATE. To create the default allocator-presenter, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode">IVMRFilterConfig::SetRenderingMode</a> with the value VMRMode_Windowed or VMRMode_Windowed.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrrenderprefs">VMRRenderPrefs</a> enumeration, indicating the current rendering preferences.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-getrenderingprefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-getrenderingprefs
      */
     GetRenderingPrefs() {
-        result := ComCall(7, this, "uint*", &pdwRenderFlags := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwRenderFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwRenderFlags
     }
 
     /**
      * The SetRenderingMode method sets the rendering mode used by the VMR.
-     * @param {Integer} Mode Specifies the rendering mode as a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrmode">VMRMode</a> value.
+     * @remarks
+     * The VMR is in <b>VMRMode_Windowed</b> by default. Use this method only if you are putting the VMR into <b>VMRMode_Windowless</b> or <b>VMRMode_Renderless</b> mode. You cannot change the mode after any pin has been connected and you cannot change the mode from windowless or renderless back to windowed, even before any pins are connected. Therefore, specifying <b>VMRMode_Windowed</b> for <i>Mode</i> has no effect under any circumstances.
+     * @param {Integer} Mode_ Specifies the rendering mode as a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrmode">VMRMode</a> value.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
      * <table>
@@ -203,20 +240,28 @@ class IVMRFilterConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-setrenderingmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-setrenderingmode
      */
-    SetRenderingMode(Mode) {
-        result := ComCall(8, this, "uint", Mode, "HRESULT")
+    SetRenderingMode(Mode_) {
+        result := ComCall(8, this, "uint", Mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetRenderingMode method retrieves the rendering mode currently being used by the VMR.
      * @returns {Integer} Pointer to a <b>DWORD</b> that receives a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrmode">VMRMode</a> value indicating the current rendering mode.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrfilterconfig-getrenderingmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ivmrfilterconfig-getrenderingmode
      */
     GetRenderingMode() {
-        result := ComCall(9, this, "uint*", &pMode := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMode
     }
 }

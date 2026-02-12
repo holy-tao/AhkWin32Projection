@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The APTTYPE (objidlbase.h) enumeration specifies different types of apartments.
- * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-apttype
+ * The APTTYPE enumeration (objidl.h) specifies different types of apartments.
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-apttype
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

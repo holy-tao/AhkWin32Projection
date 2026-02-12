@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the display of a Remote Desktop Connection (RDC) client. (WTS_CLIENT_DISPLAY)
- * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_client_display
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/ns-wtsapi32-wts_client_display
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

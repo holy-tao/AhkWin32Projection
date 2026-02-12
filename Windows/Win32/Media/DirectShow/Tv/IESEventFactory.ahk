@@ -48,11 +48,18 @@ class IESEventFactory extends IUnknown{
      * @returns {IESEvent} 
      */
     CreateESEvent(pServiceProvider, dwEventId, guidEventType, dwEventDataLength, pEventData, bstrBaseUrl, pInitContext) {
-        bstrBaseUrl := bstrBaseUrl is String ? BSTR.Alloc(bstrBaseUrl).Value : bstrBaseUrl
+        if(bstrBaseUrl is String) {
+            pin := BSTR.Alloc(bstrBaseUrl)
+            bstrBaseUrl := pin.Value
+        }
 
         pEventDataMarshal := pEventData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pServiceProvider, "uint", dwEventId, "ptr", guidEventType, "uint", dwEventDataLength, pEventDataMarshal, pEventData, "ptr", bstrBaseUrl, "ptr", pInitContext, "ptr*", &ppESEvent := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pServiceProvider, "uint", dwEventId, "ptr", guidEventType, "uint", dwEventDataLength, pEventDataMarshal, pEventData, "ptr", bstrBaseUrl, "ptr", pInitContext, "ptr*", &ppESEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IESEvent(ppESEvent)
     }
 }

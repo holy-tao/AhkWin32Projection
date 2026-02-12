@@ -3,7 +3,7 @@
 
 /**
  * Packages the object type, version, and size information that is required in many NDIS 6.0 structures.
- * @see https://learn.microsoft.com/windows/win32/NativeWiFi/ndis-object-header
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/NativeWiFi/ndis-object-header
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

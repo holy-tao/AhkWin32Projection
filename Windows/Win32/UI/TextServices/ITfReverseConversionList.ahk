@@ -7,10 +7,8 @@
 /**
  * Represents a list of the keystroke sequences required to create a specified string.
  * @remarks
- * 
  * This interface is used to store the results of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfreverseconversion-doreverseconversion">ITfReverseConversionList::DoReverseConversion</a> method.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfreverseconversionlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfreverseconversionlist
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -38,10 +36,14 @@ class ITfReverseConversionList extends IUnknown{
     /**
      * Retrieves the number of keystroke sequences in the list.
      * @returns {Integer} The number of keystroke sequences  in the list.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversionlist-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreverseconversionlist-getlength
      */
     GetLength() {
-        result := ComCall(3, this, "uint*", &puIndex := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &puIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puIndex
     }
 
@@ -49,11 +51,15 @@ class ITfReverseConversionList extends IUnknown{
      * Retrieves the keystroke sequence at the specified index.
      * @param {Integer} uIndex The index of the keystroke sequence to retrieve.
      * @returns {BSTR} The keystroke sequence at the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversionlist-getstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfreverseconversionlist-getstring
      */
     GetString(uIndex) {
         pbstr := BSTR()
-        result := ComCall(4, this, "uint", uIndex, "ptr", pbstr, "HRESULT")
+        result := ComCall(4, this, "uint", uIndex, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 }

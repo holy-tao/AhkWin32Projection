@@ -4,6 +4,9 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\HWINWATCH.ahk
+#Include ..\..\Foundation\LRESULT.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
@@ -14,112 +17,112 @@ class WindowsProgramming {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_DLL => "WLDP.DLL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_GETLOCKDOWNPOLICY_FN => "WldpGetLockdownPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_ISCLASSINAPPROVEDLIST_FN => "WldpIsClassInApprovedList"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_SETDYNAMICCODETRUST_FN => "WldpSetDynamicCodeTrust"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_ISDYNAMICCODEPOLICYENABLED_FN => "WldpIsDynamicCodePolicyEnabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYDANAMICCODETRUST_FN => "WldpQueryDynamicCodeTrust"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYDYNAMICCODETRUST_FN => "WldpQueryDynamicCodeTrust"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYWINDOWSLOCKDOWNMODE_FN => "WldpQueryWindowsLockdownMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_SETWINDOWSLOCKDOWNRESTRICTION_FN => "WldpSetWindowsLockdownRestriction"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYDEVICESECURITYINFORMATION_FN => "WldpQueryDeviceSecurityInformation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYWINDOWSLOCKDOWNRESTRICTION_FN => "WldpQueryWindowsLockdownRestriction"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_ISAPPAPPROVEDBYPOLICY_FN => "WldpIsAppApprovedByPolicy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYPOLICYSETTINGENABLED_FN => "WldpQueryPolicySettingEnabled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYPOLICYSETTINGENABLED2_FN => "WldpQueryPolicySettingEnabled2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_ISWCOSPRODUCTIONCONFIGURATION_FN => "WldpIsWcosProductionConfiguration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_RESETWCOSPRODUCTIONCONFIGURATION_FN => "WldpResetWcosProductionConfiguration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_ISPRODUCTIONCONFIGURATION_FN => "WldpIsProductionConfiguration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_RESETPRODUCTIONCONFIGURATION_FN => "WldpResetProductionConfiguration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_CANEXECUTEBUFFER_FN => "WldpCanExecuteBuffer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_CANEXECUTEFILE_FN => "WldpCanExecuteFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_CANEXECUTEFILEFROMDETACHEDSIGNATURE_FN => "WldpCanExecuteFileFromDetachedSignature"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WLDP_QUERYSECURITYPOLICY_FN => "WldpQuerySecurityPolicy"
 
@@ -1544,47 +1547,47 @@ class WindowsProgramming {
     static ATOM_FLAG_GLOBAL => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A => "GetSystemWow64DirectoryA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W => "GetSystemWow64DirectoryA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T => "GetSystemWow64DirectoryA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A => "GetSystemWow64DirectoryW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W => "GetSystemWow64DirectoryW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T => "GetSystemWow64DirectoryW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A => "GetSystemWow64DirectoryW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W => "GetSystemWow64DirectoryW"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T => "GetSystemWow64DirectoryW"
 
@@ -2324,12 +2327,12 @@ class WindowsProgramming {
     static ARSR_REMOVREGBKDATA => 4096
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REG_SAVE_LOG_KEY => "RegSaveLogFile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REG_RESTORE_LOG_KEY => "RegRestoreLogFile"
 
@@ -2920,26 +2923,26 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} String_ 
      * @returns {Integer} 
      */
-    static uaw_lstrlenW(String_R) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_lstrlenW(String_) {
+        String_Marshal := String_ is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_lstrlenW", String_RMarshal, String_R, "int")
+        result := DllCall("KERNEL32.dll\uaw_lstrlenW", String_Marshal, String_, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} String_ 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
      */
-    static uaw_wcschr(String_R, Character) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_wcschr(String_, Character) {
+        String_Marshal := String_ is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcschr", String_RMarshal, String_R, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcschr", String_Marshal, String_, "char", Character, "ptr")
         return result
     }
 
@@ -2975,27 +2978,27 @@ class WindowsProgramming {
      * Retrieves the number of characters in a null-terminated Unicode string.
      * @remarks
      * This function is available only on 64-bit Windows.
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} String_ A pointer to a null-terminated Unicode string.
      * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/stralign/nf-stralign-uaw_wcslen
+     * @see https://learn.microsoft.com/windows/win32/api//content/stralign/nf-stralign-uaw_wcslen
      */
-    static uaw_wcslen(String_R) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_wcslen(String_) {
+        String_Marshal := String_ is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcslen", String_RMarshal, String_R, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcslen", String_Marshal, String_, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} String_ 
      * @param {Integer} Character 
      * @returns {Pointer<Integer>} 
      */
-    static uaw_wcsrchr(String_R, Character) {
-        String_RMarshal := String_R is VarRef ? "ushort*" : "ptr"
+    static uaw_wcsrchr(String_, Character) {
+        String_Marshal := String_ is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcsrchr", String_RMarshal, String_R, "char", Character, "ptr")
+        result := DllCall("KERNEL32.dll\uaw_wcsrchr", String_Marshal, String_, "char", Character, "ptr")
         return result
     }
 
@@ -3032,7 +3035,7 @@ class WindowsProgramming {
      * @returns {BOOL} **IsApiSetImplemented** returns **TRUE** if the specified API set is present. In this case, APIs in the target API set have valid implementations on the current platform.
      * 
      * Otherwise, this function returns **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/apiquery2/nf-apiquery2-isapisetimplemented
+     * @see https://learn.microsoft.com/windows/win32/api//content/apiquery2/nf-apiquery2-isapisetimplemented
      */
     static IsApiSetImplemented(Contract) {
         Contract := Contract is String ? StrPtr(Contract) : Contract
@@ -3057,7 +3060,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-querythreadcycletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-querythreadcycletime
      * @since windows6.0.6000
      */
     static QueryThreadCycleTime(ThreadHandle, CycleTime) {
@@ -3089,7 +3092,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryprocesscycletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryprocesscycletime
      * @since windows6.0.6000
      */
     static QueryProcessCycleTime(ProcessHandle, CycleTime) {
@@ -3119,7 +3122,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletime
      * @since windows6.0.6000
      */
     static QueryIdleProcessorCycleTime(BufferLength, ProcessorIdleCycleTime) {
@@ -3147,7 +3150,7 @@ class WindowsProgramming {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletimeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryidleprocessorcycletimeex
      * @since windows6.1
      */
     static QueryIdleProcessorCycleTimeEx(Group, BufferLength, ProcessorIdleCycleTime) {
@@ -3174,7 +3177,7 @@ class WindowsProgramming {
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Integer>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
      * @since windows10.0.10240
      */
     static QueryInterruptTimePrecise(lpInterruptTimePrecise) {
@@ -3200,7 +3203,7 @@ class WindowsProgramming {
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Integer>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
      * @since windows10.0.10240
      */
     static QueryUnbiasedInterruptTimePrecise(lpUnbiasedInterruptTimePrecise) {
@@ -3224,7 +3227,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Integer>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryinterrupttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryinterrupttime
      * @since windows10.0.10240
      */
     static QueryInterruptTime(lpInterruptTime) {
@@ -3250,7 +3253,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Integer>} UnbiasedTime TBD
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails because it is called with a null parameter, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime
      * @since windows6.1
      */
     static QueryUnbiasedInterruptTime(UnbiasedTime) {
@@ -3265,7 +3268,7 @@ class WindowsProgramming {
      * @remarks
      * You can determine the availability of the auxiliary counter by comparing the returned value against <b>E_NOTIMPL</b>.
      * @returns {Integer} Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
      * @since windows10.0.15063
      */
     static QueryAuxiliaryCounterFrequency() {
@@ -3323,7 +3326,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-convertauxiliarycountertoperformancecounter
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-convertauxiliarycountertoperformancecounter
      * @since windows10.0.15063
      */
     static ConvertAuxiliaryCounterToPerformanceCounter(ullAuxiliaryCounterValue, lpPerformanceCounterValue, lpConversionError) {
@@ -3395,7 +3398,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/realtimeapiset/nf-realtimeapiset-convertperformancecountertoauxiliarycounter
+     * @see https://learn.microsoft.com/windows/win32/api//content/realtimeapiset/nf-realtimeapiset-convertperformancecountertoauxiliarycounter
      * @since windows10.0.15063
      */
     static ConvertPerformanceCounterToAuxiliaryCounter(ullPerformanceCounterValue, lpAuxiliaryCounterValue, lpConversionError) {
@@ -3505,7 +3508,7 @@ class WindowsProgramming {
      * The SetHandleCount function changes the number of file handles available to a process.
      * @param {Integer} uNumber The requested number of available file handles.
      * @returns {Integer} The number of available file handles.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-sethandlecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-sethandlecount
      */
     static SetHandleCount(uNumber) {
         result := DllCall("KERNEL32.dll\SetHandleCount", "uint", uNumber, "uint")
@@ -3557,7 +3560,7 @@ class WindowsProgramming {
      * @returns {Integer} If the function succeeds, the return value is the result of the multiplication and division, rounded to the nearest integer. If the result is a positive half integer (ends in .5), it is rounded up. If the result is a negative half integer, it is rounded down.
      * 
      * If either an overflow occurred or <i>nDenominator</i> was 0, the return value is -1.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-muldiv
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-muldiv
      * @since windows5.1.2600
      */
     static MulDiv(nNumber, nNumerator, nDenominator) {
@@ -3574,7 +3577,7 @@ class WindowsProgramming {
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getsystemregistryquota
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getsystemregistryquota
      * @since windows6.0.6000
      */
     static GetSystemRegistryQuota(pdwQuotaAllowed, pdwQuotaUsed) {
@@ -3645,7 +3648,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-filetimetodosdatetime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-filetimetodosdatetime
      * @since windows5.0
      */
     static FileTimeToDosDateTime(lpFileTime, lpFatDate, lpFatTime) {
@@ -3714,7 +3717,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dosdatetimetofiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-dosdatetimetofiletime
      * @since windows5.0
      */
     static DosDateTimeToFileTime(wFatDate, wFatTime, lpFileTime) {
@@ -3733,7 +3736,7 @@ class WindowsProgramming {
      * @param {PSTR} lpPathName Pointer to a null-terminated string that names the file to open. The string must consist of characters from the Windows ANSI character set.
      * @param {Integer} iReadWrite 
      * @returns {Integer} If the function succeeds, the return value is a file handle.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-_lopen
      */
     static _lopen(lpPathName, iReadWrite) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -3753,7 +3756,7 @@ class WindowsProgramming {
      * @param {PSTR} lpPathName The name of the file. The string must consist of characters from the Windows ANSI character set.
      * @param {Integer} iAttribute The attributes of the file.
      * @returns {Integer} If the function succeeds, the return value is a file handle. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lcreat
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-_lcreat
      */
     static _lcreat(lpPathName, iAttribute) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -3774,7 +3777,7 @@ class WindowsProgramming {
      * @param {Pointer} lpBuffer Pointer to a buffer that contains the data read from the file.
      * @param {Integer} uBytes Specifies the number of bytes to be read from the file.
      * @returns {Integer} The return value indicates the number of bytes actually read from the file. If the number of bytes read is less than uBytes, the function has reached the end of file (EOF) before reading the specified number of bytes.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lread
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-_lread
      */
     static _lread(hFile, lpBuffer, uBytes) {
         result := DllCall("KERNEL32.dll\_lread", "int", hFile, "ptr", lpBuffer, "uint", uBytes, "uint")
@@ -3787,7 +3790,7 @@ class WindowsProgramming {
      * @param {Pointer} lpBuffer The buffer that contains the data to be added.
      * @param {Integer} uBytes The number of bytes to write to the file.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes written to the file. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-_lwrite
      */
     static _lwrite(hFile, lpBuffer, uBytes) {
         A_LastError := 0
@@ -3828,7 +3831,7 @@ class WindowsProgramming {
      * The _lclose function closes the specified file so that it is no longer available for reading or writing. This function is provided for compatibility with 16-bit versions of Windows. Win32-based applications should use the CloseHandle function.
      * @param {Integer} hFile Identifies the file to be closed. This handle is returned by the function that created or last opened the file.
      * @returns {Integer} Handle to file to close.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_lclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-_lclose
      */
     static _lclose(hFile) {
         result := DllCall("KERNEL32.dll\_lclose", "int", hFile, "int")
@@ -3843,7 +3846,7 @@ class WindowsProgramming {
      * @param {Integer} lOffset The number of bytes that the file pointer is to be moved.
      * @param {Integer} iOrigin The starting point and the direction that the pointer will be moved.
      * @returns {Integer} If the function succeeds, the return value specifies the new offset. Otherwise, the return value is HFILE_ERROR. To get extended error information, use the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-_llseek
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-_llseek
      */
     static _llseek(hFile, lOffset, iOrigin) {
         A_LastError := 0
@@ -3887,7 +3890,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If a named mutex does not exist, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_FILE_NOT_FOUND</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openmutexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/synchapi/nf-synchapi-openmutexw
      */
     static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -3924,7 +3927,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew
+     * @see https://learn.microsoft.com/windows/win32/api//content/synchapi/nf-synchapi-opensemaphorew
      */
     static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -3966,7 +3969,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfirmwareenvironmentvariablea
      * @since windows6.0.6000
      */
     static GetFirmwareEnvironmentVariableA(lpName, lpGuid, pBuffer, nSize) {
@@ -4015,7 +4018,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfirmwareenvironmentvariablew
      * @since windows6.0.6000
      */
     static GetFirmwareEnvironmentVariableW(lpName, lpGuid, pBuffer, nSize) {
@@ -4063,7 +4066,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariableexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfirmwareenvironmentvariableexa
      * @since windows8.0
      */
     static GetFirmwareEnvironmentVariableExA(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
@@ -4113,7 +4116,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfirmwareenvironmentvariableexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfirmwareenvironmentvariableexw
      * @since windows8.0
      */
     static GetFirmwareEnvironmentVariableExW(lpName, lpGuid, pBuffer, nSize, pdwAttribubutes) {
@@ -4161,7 +4164,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariablea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfirmwareenvironmentvariablea
      * @since windows6.0.6000
      */
     static SetFirmwareEnvironmentVariableA(lpName, lpGuid, pValue, nSize) {
@@ -4207,7 +4210,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariablew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfirmwareenvironmentvariablew
      * @since windows6.0.6000
      */
     static SetFirmwareEnvironmentVariableW(lpName, lpGuid, pValue, nSize) {
@@ -4347,7 +4350,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfirmwareenvironmentvariableexa
      * @since windows8.0
      */
     static SetFirmwareEnvironmentVariableExA(lpName, lpGuid, pValue, nSize, dwAttributes) {
@@ -4487,7 +4490,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error codes include ERROR_INVALID_FUNCTION.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfirmwareenvironmentvariableexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfirmwareenvironmentvariableexw
      * @since windows8.0
      */
     static SetFirmwareEnvironmentVariableExW(lpName, lpGuid, pValue, nSize, dwAttributes) {
@@ -4511,7 +4514,7 @@ class WindowsProgramming {
      * @returns {BOOL} TRUE if the OS was a native VHD boot; otherwise, FALSE.
      * 
      * Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isnativevhdboot
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-isnativevhdboot
      * @since windows8.0
      */
     static IsNativeVhdBoot(NativeVhdBoot) {
@@ -4571,7 +4574,7 @@ class WindowsProgramming {
      * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
      * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileinta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprofileinta
      * @since windows5.0
      */
     static GetProfileIntA(lpAppName, lpKeyName, nDefault) {
@@ -4626,7 +4629,7 @@ class WindowsProgramming {
      * <b>GetProfileInt</b> function converts the string into an integer and returns the integer.
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
      * @returns {Integer} The return value is the integer equivalent of the string following the key name in Win.ini. If the function cannot find the key, the return value is the default value. If the value of the key is less than zero, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofileintw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprofileintw
      * @since windows5.0
      */
     static GetProfileIntW(lpAppName, lpKeyName, nDefault) {
@@ -4713,7 +4716,7 @@ class WindowsProgramming {
      * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
      * 
      * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilestringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprofilestringa
      * @since windows5.0
      */
     static GetProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
@@ -4802,7 +4805,7 @@ class WindowsProgramming {
      * If neither <i>lpAppName</i> nor <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold the requested string, the string is truncated and followed by a <b>null</b> character, and the return value is equal to <i>nSize</i> minus one.
      * 
      * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilestringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprofilestringw
      * @since windows5.0
      */
     static GetProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize) {
@@ -4865,7 +4868,7 @@ class WindowsProgramming {
      * 
      * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilestringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprofilestringa
      * @since windows5.0
      */
     static WriteProfileStringA(lpAppName, lpKeyName, lpString) {
@@ -4933,7 +4936,7 @@ class WindowsProgramming {
      * 
      * If the function fails, or if it flushes the cached version of Win.ini, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilestringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprofilestringw
      * @since windows5.0
      */
     static WriteProfileStringW(lpAppName, lpKeyName, lpString) {
@@ -5001,7 +5004,7 @@ class WindowsProgramming {
      * 
      * The maximum profile section size is 32,767 characters.
      * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilesectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprofilesectiona
      * @since windows5.0
      */
     static GetProfileSectionA(lpAppName, lpReturnedString, nSize) {
@@ -5062,7 +5065,7 @@ class WindowsProgramming {
      * 
      * The maximum profile section size is 32,767 characters.
      * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating null character. If the buffer is not large enough to contain all the keys and values associated with the named section, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprofilesectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprofilesectionw
      * @since windows5.0
      */
     static GetProfileSectionW(lpAppName, lpReturnedString, nSize) {
@@ -5131,7 +5134,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilesectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprofilesectiona
      * @since windows5.0
      */
     static WriteProfileSectionA(lpAppName, lpString) {
@@ -5206,7 +5209,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprofilesectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprofilesectionw
      * @since windows5.0
      */
     static WriteProfileSectionW(lpAppName, lpString) {
@@ -5281,7 +5284,7 @@ class WindowsProgramming {
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
      * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileinta
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofileinta
      * @since windows5.0
      */
     static GetPrivateProfileIntA(lpAppName, lpKeyName, nDefault, lpFileName) {
@@ -5351,7 +5354,7 @@ class WindowsProgramming {
      * @param {Integer} nDefault The default value to return if the key name cannot be found in the initialization file.
      * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value is the integer equivalent of the string following the specified key name in the specified initialization file. If the key is not found, the return value is the specified default value.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofileintw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofileintw
      * @since windows5.0
      */
     static GetPrivateProfileIntW(lpAppName, lpKeyName, nDefault, lpFileName) {
@@ -5438,7 +5441,7 @@ class WindowsProgramming {
      * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
      * 
      * In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilestringa
      * @since windows5.0
      */
     static GetPrivateProfileStringA(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
@@ -5533,7 +5536,7 @@ class WindowsProgramming {
      * If either <i>lpAppName</i> or <i>lpKeyName</i> is <b>NULL</b> and the supplied destination buffer is too small to hold all the strings, the last string is truncated and followed by two <b>null</b> characters. In this case, the return value is equal to <i>nSize</i> minus two.
      * 
      * In the event the initialization file specified by <i>lpFileName</i> is not found, or contains invalid values, this function will set <b>errorno</b> with a value of '0x2' (File Not Found). To retrieve extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilestringw
      * @since windows5.0
      */
     static GetPrivateProfileStringW(lpAppName, lpKeyName, lpDefault, lpReturnedString, nSize, lpFileName) {
@@ -5634,7 +5637,7 @@ class WindowsProgramming {
      * 
      * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprivateprofilestringa
      * @since windows5.0
      */
     static WritePrivateProfileStringA(lpAppName, lpKeyName, lpString, lpFileName) {
@@ -5734,7 +5737,7 @@ class WindowsProgramming {
      * 
      * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestringw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprivateprofilestringw
      * @since windows5.0
      */
     static WritePrivateProfileStringW(lpAppName, lpKeyName, lpString, lpFileName) {
@@ -5807,7 +5810,7 @@ class WindowsProgramming {
      * The maximum profile section size is 32,767 characters.
      * @param {PSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilesectiona
      * @since windows5.0
      */
     static GetPrivateProfileSectionA(lpAppName, lpReturnedString, nSize, lpFileName) {
@@ -5873,7 +5876,7 @@ class WindowsProgramming {
      * The maximum profile section size is 32,767 characters.
      * @param {PWSTR} lpFileName The name of the initialization file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the buffer, not including the terminating null character. If the buffer is not large enough to contain all the key name and value pairs associated with the named section, the return value is equal to <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilesectionw
      * @since windows5.0
      */
     static GetPrivateProfileSectionW(lpAppName, lpReturnedString, nSize, lpFileName) {
@@ -5951,7 +5954,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprivateprofilesectiona
      * @since windows5.0
      */
     static WritePrivateProfileSectionA(lpAppName, lpString, lpFileName) {
@@ -6035,7 +6038,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilesectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprivateprofilesectionw
      * @since windows5.0
      */
     static WritePrivateProfileSectionW(lpAppName, lpString, lpFileName) {
@@ -6094,7 +6097,7 @@ class WindowsProgramming {
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
      * @param {PSTR} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilesectionnamesa
      * @since windows5.0
      */
     static GetPrivateProfileSectionNamesA(lpszReturnBuffer, nSize, lpFileName) {
@@ -6146,7 +6149,7 @@ class WindowsProgramming {
      * @param {Integer} nSize The size of the buffer pointed to by the <i>lpszReturnBuffer</i> parameter, in characters.
      * @param {PWSTR} lpFileName The name of the initialization file. If this parameter is <b>NULL</b>, the function searches the Win.ini file. If this parameter does not contain a full path to the file, the system searches for the file in the Windows directory.
      * @returns {Integer} The return value specifies the number of characters copied to the specified buffer, not including the terminating <b>null</b> character. If the buffer is not large enough to contain all the section names associated with the specified initialization file, the return value is equal to the size specified by <i>nSize</i> minus two.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilesectionnamesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilesectionnamesw
      * @since windows5.0
      */
     static GetPrivateProfileSectionNamesW(lpszReturnBuffer, nSize, lpFileName) {
@@ -6213,7 +6216,7 @@ class WindowsProgramming {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestructa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilestructa
      * @since windows5.0
      */
     static GetPrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
@@ -6281,7 +6284,7 @@ class WindowsProgramming {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getprivateprofilestructw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getprivateprofilestructw
      * @since windows5.0
      */
     static GetPrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
@@ -6365,7 +6368,7 @@ class WindowsProgramming {
      * 
      * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestructa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprivateprofilestructa
      * @since windows5.0
      */
     static WritePrivateProfileStructA(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
@@ -6457,7 +6460,7 @@ class WindowsProgramming {
      * 
      * If the function fails, or if it flushes the cached version of the most recently accessed initialization file, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeprivateprofilestructw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeprivateprofilestructw
      * @since windows5.0
      */
     static WritePrivateProfileStructW(lpszSection, lpszKey, lpStruct, uSizeStruct, szFile) {
@@ -6521,7 +6524,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcomputernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcomputernamea
      * @since windows5.0
      */
     static GetComputerNameA(lpBuffer, nSize) {
@@ -6559,7 +6562,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcomputernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcomputernamew
      * @since windows5.0
      */
     static GetComputerNameW(lpBuffer, nSize) {
@@ -6621,7 +6624,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dnshostnametocomputernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-dnshostnametocomputernamea
      * @since windows5.0
      */
     static DnsHostnameToComputerNameA(Hostname, ComputerName, nSize) {
@@ -6684,7 +6687,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-dnshostnametocomputernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-dnshostnametocomputernamew
      * @since windows5.0
      */
     static DnsHostnameToComputerNameW(Hostname, ComputerName, nSize) {
@@ -6721,7 +6724,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getusernamea
      * @since windows5.0
      */
     static GetUserNameA(lpBuffer, pcbBuffer) {
@@ -6757,7 +6760,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getusernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getusernamew
      * @since windows5.0
      */
     static GetUserNameW(lpBuffer, pcbBuffer) {
@@ -6807,7 +6810,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcurrenthwprofilea
      * @since windows5.0
      */
     static GetCurrentHwProfileA(lpHwProfileInfo) {
@@ -6841,7 +6844,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrenthwprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcurrenthwprofilew
      * @since windows5.0
      */
     static GetCurrentHwProfileW(lpHwProfileInfo) {
@@ -6877,7 +6880,7 @@ class WindowsProgramming {
      * Prior to the introduction of optional XState features, the set of enabled XState features is the same for every thread in the system because all supported features are always enabled, thus the result returned from GetEnabledXStateFeatures and this function are identical.
      * With optional XState features, it is possible for optional XState features to be disabled by default for newly created threads and enabled on demand later. Optional XState features that are currently disabled for the current thread will not be returned by this function, but will still be returned by GetEnabledXStateFeatures.
      * @returns {Integer} The return value is a bitmask in which each bit represents an XState feature that is currently enabled for the current thread.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getthreadenabledxstatefeatures
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getthreadenabledxstatefeatures
      */
     static GetThreadEnabledXStateFeatures() {
         result := DllCall("KERNEL32.dll\GetThreadEnabledXStateFeatures", "uint")
@@ -6897,7 +6900,7 @@ class WindowsProgramming {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enableprocessoptionalxstatefeatures
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-enableprocessoptionalxstatefeatures
      */
     static EnableProcessOptionalXStateFeatures(Features) {
         result := DllCall("KERNEL32.dll\EnableProcessOptionalXStateFeatures", "uint", Features, "int")
@@ -6922,7 +6925,7 @@ class WindowsProgramming {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to
      *     NtDll.dll.
      * @param {Pointer<UNICODE_STRING>} Name The file name, in 8.3 format.
-     * @param {Pointer<STRING>} OemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>.
+     * @param {Pointer<Win32STRING>} OemName A pointer to a buffer that receives the OEM string that corresponds to <i>Name</i>.
      * 
      * This parameter can be <b>NULL</b>.
      * @param {Pointer<BOOLEAN>} NameContainsSpaces If the function returns <b>TRUE</b>, this parameter indicates whether or not the name 
@@ -6931,7 +6934,7 @@ class WindowsProgramming {
      * If the function returns <b>FALSE</b>, this parameter is undefined.
      * @returns {BOOLEAN} If the specified name forms a valid 8.3 FAT file system name in the current OEM code page, the function 
      *       returns <b>TRUE</b>. Otherwise, the function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlisnamelegaldos8dot3
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlisnamelegaldos8dot3
      */
     static RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
         NameContainsSpacesMarshal := NameContainsSpaces is VarRef ? "char*" : "ptr"
@@ -6945,15 +6948,15 @@ class WindowsProgramming {
      * @remarks
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {Pointer<Integer>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
-     * @param {Pointer<Integer>} SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
+     * @param {Pointer<Integer>} SystemTime_ A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
      * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtllocaltimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtllocaltimetosystemtime
      */
-    static RtlLocalTimeToSystemTime(LocalTime, SystemTime) {
+    static RtlLocalTimeToSystemTime(LocalTime, SystemTime_) {
         LocalTimeMarshal := LocalTime is VarRef ? "int64*" : "ptr"
-        SystemTimeMarshal := SystemTime is VarRef ? "int64*" : "ptr"
+        SystemTime_Marshal := SystemTime_ is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, SystemTimeMarshal, SystemTime, "int")
+        result := DllCall("ntdll.dll\RtlLocalTimeToSystemTime", LocalTimeMarshal, LocalTime, SystemTime_Marshal, SystemTime_, "int")
         return result
     }
 
@@ -6978,7 +6981,7 @@ class WindowsProgramming {
      * @param {Pointer<Integer>} Time A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the system time. The valid years for this value are 1970 to  2105 inclusive.
      * @param {Pointer<Integer>} ElapsedSeconds A pointer to a variable that receives the number of seconds.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>. If it fails, it returns <b>FALSE</b>. Typically, this function will fail if the specified value of the  <i>Time</i> parameter is not within the valid timeframe specified in the parameter description.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtltimetosecondssince1970
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtltimetosecondssince1970
      */
     static RtlTimeToSecondsSince1970(Time, ElapsedSeconds) {
         TimeMarshal := Time is VarRef ? "int64*" : "ptr"
@@ -6992,9 +6995,9 @@ class WindowsProgramming {
      * Frees the string buffer allocated by RtlUnicodeStringToAnsiString.
      * @remarks
      * This routine does not release the Unicode string buffer passed to <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
-     * @param {Pointer<STRING>} AnsiString A pointer to an ANSI string whose buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
+     * @param {Pointer<Win32STRING>} AnsiString A pointer to an ANSI string whose buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtoansistring">RtlUnicodeStringToAnsiString</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeansistring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlfreeansistring
      * @since windows5.0
      */
     static RtlFreeAnsiString(AnsiString) {
@@ -7011,7 +7014,7 @@ class WindowsProgramming {
      * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode string whose
      *         buffer was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlansistringtounicodestring">RtlAnsiStringToUnicodeString</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeunicodestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlfreeunicodestring
      * @since windows5.0
      */
     static RtlFreeUnicodeString(UnicodeString) {
@@ -7022,10 +7025,10 @@ class WindowsProgramming {
      * Frees the string buffer allocated by RtlUnicodeStringToOemString.
      * @remarks
      * This routine releases the <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure. The <b>Length</b> and <b>MaximumLength</b> members are not affected by this routine.
-     * @param {Pointer<STRING>} OemString Address of the OEM string whose buffer
+     * @param {Pointer<Win32STRING>} OemString Address of the OEM string whose buffer
      *         was previously allocated by <a href="https://docs.microsoft.com/windows/desktop/api/winternl/nf-winternl-rtlunicodestringtooemstring">RtlUnicodeStringToOemString</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlfreeoemstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlfreeoemstring
      * @since windows5.0
      */
     static RtlFreeOemString(OemString) {
@@ -7044,10 +7047,10 @@ class WindowsProgramming {
      * 
      * <div class="alert"><b>Note</b>  <b>RtlInitString</b> is available in Windows XP. It might be altered or unavailable in subsequent versions.</div>
      * <div> </div>
-     * @param {Pointer<STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
+     * @param {Pointer<Win32STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
      * @param {Pointer<Integer>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlinitstring
      */
     static RtlInitString(DestinationString, SourceString) {
         SourceStringMarshal := SourceString is VarRef ? "char*" : "ptr"
@@ -7057,7 +7060,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<STRING>} DestinationString 
+     * @param {Pointer<Win32STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
      */
@@ -7070,7 +7073,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<STRING>} DestinationString 
+     * @param {Pointer<Win32STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7082,7 +7085,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<STRING>} DestinationString 
+     * @param {Pointer<Win32STRING>} DestinationString 
      * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
      */
@@ -7099,7 +7102,7 @@ class WindowsProgramming {
      * @param {PWSTR} SourceString Optional pointer to a null-terminated Unicode string with
      *         which to initialize the counted string.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlinitunicodestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlinitunicodestring
      * @since windows5.0
      */
     static RtlInitUnicodeString(DestinationString, SourceString) {
@@ -7120,7 +7123,7 @@ class WindowsProgramming {
      * 
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
      * @param {Pointer<UNICODE_STRING>} DestinationString A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure to hold the converted Unicode string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data, and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
-     * @param {Pointer<STRING>} SourceString A pointer to the <b>ANSI_STRING</b> structure that contains the ANSI string to be converted to Unicode.
+     * @param {Pointer<Win32STRING>} SourceString A pointer to the <b>ANSI_STRING</b> structure that contains the ANSI string to be converted to Unicode.
      * @param {BOOLEAN} AllocateDestinationString Controls allocation of buffer space for the destination string.
      * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
      * 
@@ -7141,7 +7144,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlansistringtounicodestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlansistringtounicodestring
      * @since windows5.0
      */
     static RtlAnsiStringToUnicodeString(DestinationString, SourceString, AllocateDestinationString) {
@@ -7157,7 +7160,7 @@ class WindowsProgramming {
      * 		
      * 
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {Pointer<STRING>} DestinationString A pointer to an <b>ANSI_STRING</b> structure to hold the converted ANSI string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
+     * @param {Pointer<Win32STRING>} DestinationString A pointer to an <b>ANSI_STRING</b> structure to hold the converted ANSI string. If <i>AllocateDestinationString</i> is <b>TRUE</b>, the routine allocates a new buffer to hold the string data and updates the <b>Buffer</b> member of <i>DestinationString</i> to point to the new buffer. Otherwise, the routine uses the currently specified buffer to hold the string.
      * @param {Pointer<UNICODE_STRING>} SourceString The <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the source string to be converted to ANSI.
      * @param {BOOLEAN} AllocateDestinationString Controls allocation of the buffer space for the <i>DestinationString</i>.
      * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the DDK.
@@ -7179,7 +7182,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodestringtoansistring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlunicodestringtoansistring
      * @since windows5.0
      */
     static RtlUnicodeStringToAnsiString(DestinationString, SourceString, AllocateDestinationString) {
@@ -7191,7 +7194,7 @@ class WindowsProgramming {
      * Converts the specified Unicode source string into an OEM string. The translation is done with respect to the OEM code page (OCP).
      * @remarks
      * This routine allocates a buffer for the <i>DestinationString</i> only.
-     * @param {Pointer<STRING>} DestinationString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure that is contains the OEM equivalent to the Unicode source string. The <b>MaximumLength</b> field is set if <i>AllocateDestinationString</i> is <b>TRUE</b>.
+     * @param {Pointer<Win32STRING>} DestinationString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-string">OEM_STRING</a> structure that is contains the OEM equivalent to the Unicode source string. The <b>MaximumLength</b> field is set if <i>AllocateDestinationString</i> is <b>TRUE</b>.
      * @param {Pointer<UNICODE_STRING>} SourceString A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that is to be
      *         converted to OEM.
      * @param {BOOLEAN} AllocateDestinationString Controls allocation of the buffer space for the destination
@@ -7215,7 +7218,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodestringtooemstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlunicodestringtooemstring
      * @since windows5.0
      */
     static RtlUnicodeStringToOemString(DestinationString, SourceString, AllocateDestinationString) {
@@ -7248,7 +7251,7 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlunicodetomultibytesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlunicodetomultibytesize
      * @since windows5.0
      */
     static RtlUnicodeToMultiByteSize(BytesInMultiByteString, UnicodeString, BytesInUnicodeString) {
@@ -7264,18 +7267,20 @@ class WindowsProgramming {
      * When converting strings to integers the preferred function to use is <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-2010/w4z2wdyc(v=vs.100)">strtol, wcstol</a>.
      * 
      * There is no import library for this function. Use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> rather than linking to the function directly.
-     * @param {Pointer<Integer>} String_R 
+     * @param {Pointer<Integer>} String_ A pointer to the string to convert. The format of the string is as follows: 
+     * 
+     * [whitespace] [{+ | -}] [0 [{x | o | b}]] [digits]
      * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
      * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
      * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlchartointeger
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlchartointeger
      * @since windows5.0
      */
-    static RtlCharToInteger(String_R, Base, Value) {
-        String_RMarshal := String_R is VarRef ? "char*" : "ptr"
+    static RtlCharToInteger(String_, Base, Value) {
+        String_Marshal := String_ is VarRef ? "char*" : "ptr"
         ValueMarshal := Value is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlCharToInteger", String_RMarshal, String_R, "uint", Base, ValueMarshal, Value, "int")
+        result := DllCall("ntdll.dll\RtlCharToInteger", String_Marshal, String_, "uint", Base, ValueMarshal, Value, "int")
         return result
     }
 
@@ -7285,7 +7290,7 @@ class WindowsProgramming {
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {Pointer<Integer>} Seed The seed value.
      * @returns {Integer} The function returns a random number uniformly distributed over [0..MAXLONG].
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtluniform
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtluniform
      */
     static RtlUniform(Seed) {
         SeedMarshal := Seed is VarRef ? "uint*" : "ptr"
@@ -7299,7 +7304,7 @@ class WindowsProgramming {
      * @param {Integer} featureId Infrastructure use only.
      * @param {Integer} changeTime Infrastructure use only.
      * @returns {Integer} Infrastructure use only.
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     static GetFeatureEnabledState(featureId, changeTime) {
         result := DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\GetFeatureEnabledState", "uint", featureId, "int", changeTime, "int")
@@ -7313,7 +7318,7 @@ class WindowsProgramming {
      * @param {Integer} addend Infrastructure use only.
      * @param {PSTR} originName Infrastructure use only.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-recordfeatureusage
      */
     static RecordFeatureUsage(featureId, kind, addend, originName) {
         originName := originName is String ? StrPtr(originName) : originName
@@ -7326,7 +7331,7 @@ class WindowsProgramming {
      * @param {Integer} featureId Infrastructure use only.
      * @param {Pointer<FEATURE_ERROR>} error Infrastructure use only.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-recordfeatureerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-recordfeatureerror
      */
     static RecordFeatureError(featureId, error) {
         DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\RecordFeatureError", "uint", featureId, "ptr", error)
@@ -7336,21 +7341,21 @@ class WindowsProgramming {
      * This function is intended for infrastructure use only. (SubscribeFeatureStateChangeNotification)
      * @param {Pointer<FEATURE_STATE_CHANGE_SUBSCRIPTION>} subscription Infrastructure use only.
      * @param {Pointer<PFEATURE_STATE_CHANGE_CALLBACK>} callback Infrastructure use only.
-     * @param {Pointer<Void>} context Infrastructure use only.
+     * @param {Pointer<Void>} context_ Infrastructure use only.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-subscribefeaturestatechangenotification
      */
-    static SubscribeFeatureStateChangeNotification(subscription, callback, context) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static SubscribeFeatureStateChangeNotification(subscription, callback, context_) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, contextMarshal, context)
+        DllCall("api-ms-win-core-featurestaging-l1-1-0.dll\SubscribeFeatureStateChangeNotification", "ptr", subscription, "ptr", callback, context_Marshal, context_)
     }
 
     /**
      * This function is intended for infrastructure use only. (UnsubscribeFeatureStateChangeNotification)
      * @param {FEATURE_STATE_CHANGE_SUBSCRIPTION} subscription Infrastructure use only.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-unsubscribefeaturestatechangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-unsubscribefeaturestatechangenotification
      */
     static UnsubscribeFeatureStateChangeNotification(subscription) {
         subscription := subscription is Win32Handle ? NumGet(subscription, "ptr") : subscription
@@ -7365,7 +7370,7 @@ class WindowsProgramming {
      * @param {Pointer<Integer>} payloadId Infrastructure use only.
      * @param {Pointer<BOOL>} hasNotification Infrastructure use only.
      * @returns {Integer} Infrastructure use only.
-     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeaturevariant
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-getfeaturevariant
      */
     static GetFeatureVariant(featureId, changeTime, payloadId, hasNotification) {
         payloadIdMarshal := payloadId is VarRef ? "uint*" : "ptr"
@@ -7378,7 +7383,7 @@ class WindowsProgramming {
     /**
      * Obtains a device context handle of display.
      * @returns {HDC} Device context handle of display.
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciopenprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/dciman/nf-dciman-dciopenprovider
      * @since windows5.0
      */
     static DCIOpenProvider() {
@@ -7389,37 +7394,37 @@ class WindowsProgramming {
 
     /**
      * Closes a device context of a display.
-     * @param {HDC} hdc The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
+     * @param {HDC} hdc_ The device context handle to be closed.  The handle was created with <a href="https://docs.microsoft.com/windows/desktop/api/dciman/nf-dciman-dciopenprovider">DCIOpenProvider</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicloseprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/dciman/nf-dciman-dcicloseprovider
      * @since windows5.0
      */
-    static DCICloseProvider(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICloseProvider(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc)
+        DllCall("DCIMAN32.dll\DCICloseProvider", "ptr", hdc_)
     }
 
     /**
      * Creates a primary surface and obtains surface information.
-     * @param {HDC} hdc The device context handle of the device for the primary surface to be created.
+     * @param {HDC} hdc_ The device context handle of the device for the primary surface to be created.
      * @param {Pointer<Pointer<DCISURFACEINFO>>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
      * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcicreateprimary
+     * @see https://learn.microsoft.com/windows/win32/api//content/dciman/nf-dciman-dcicreateprimary
      * @since windows5.0
      */
-    static DCICreatePrimary(hdc, lplpSurface) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICreatePrimary(hdc_, lplpSurface) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, lplpSurfaceMarshal, lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc_, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} hdc_ 
      * @param {Integer} dwCompression 
      * @param {Integer} dwRedMask 
      * @param {Integer} dwGreenMask 
@@ -7431,48 +7436,48 @@ class WindowsProgramming {
      * @param {Pointer<Pointer<DCIOFFSCREEN>>} lplpSurface 
      * @returns {Integer} 
      */
-    static DCICreateOffscreen(hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICreateOffscreen(hdc_, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc_, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} hdc_ 
      * @param {Pointer<Void>} lpOffscreenSurf 
      * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
      * @returns {Integer} 
      */
-    static DCICreateOverlay(hdc, lpOffscreenSurf, lplpSurface) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCICreateOverlay(hdc_, lpOffscreenSurf, lplpSurface) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpOffscreenSurfMarshal := lpOffscreenSurf is VarRef ? "ptr" : "ptr"
         lplpSurfaceMarshal := lplpSurface is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc_, lpOffscreenSurfMarshal, lpOffscreenSurf, lplpSurfaceMarshal, lplpSurface, "int")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
+     * @param {HDC} hdc_ 
      * @param {Pointer<RECT>} lprDst 
      * @param {Pointer<RECT>} lprSrc 
      * @param {Pointer<Void>} lpFnCallback 
      * @param {Pointer<Void>} lpContext 
      * @returns {Integer} 
      */
-    static DCIEnum(hdc, lprDst, lprSrc, lpFnCallback, lpContext) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static DCIEnum(hdc_, lprDst, lprSrc, lpFnCallback, lpContext) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpFnCallbackMarshal := lpFnCallback is VarRef ? "ptr" : "ptr"
         lpContextMarshal := lpContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc, "ptr", lprDst, "ptr", lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, "int")
+        result := DllCall("DCIMAN32.dll\DCIEnum", "ptr", hdc_, "ptr", lprDst, "ptr", lprSrc, lpFnCallbackMarshal, lpFnCallback, lpContextMarshal, lpContext, "int")
         return result
     }
 
@@ -7491,13 +7496,13 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {HWINWATCH} 
      */
-    static WinWatchOpen(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static WinWatchOpen(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd, "ptr")
+        result := DllCall("DCIMAN32.dll\WinWatchOpen", "ptr", hwnd_, "ptr")
         resultHandle := HWINWATCH({Value: result}, True)
         return resultHandle
     }
@@ -7517,14 +7522,14 @@ class WindowsProgramming {
      * 
      * @param {HWINWATCH} hWW 
      * @param {Pointer<RECT>} prc 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
      */
-    static WinWatchGetClipList(hWW, prc, size, prd) {
+    static WinWatchGetClipList(hWW, prc, size_, prd) {
         hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
 
-        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size, "ptr", prd, "uint")
+        result := DllCall("DCIMAN32.dll\WinWatchGetClipList", "ptr", hWW, "ptr", prc, "uint", size_, "ptr", prd, "uint")
         return result
     }
 
@@ -7542,29 +7547,29 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {Integer} size 
+     * @param {HWND} hwnd_ 
+     * @param {Integer} size_ 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
      */
-    static GetWindowRegionData(hwnd, size, prd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static GetWindowRegionData(hwnd_, size_, prd) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("DCIMAN32.dll\GetWindowRegionData", "ptr", hwnd, "uint", size, "ptr", prd, "uint")
+        result := DllCall("DCIMAN32.dll\GetWindowRegionData", "ptr", hwnd_, "uint", size_, "ptr", prd, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HDC} hdc 
-     * @param {Integer} size 
+     * @param {HDC} hdc_ 
+     * @param {Integer} size_ 
      * @param {Pointer<RGNDATA>} prd 
      * @returns {Integer} 
      */
-    static GetDCRegionData(hdc, size, prd) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDCRegionData(hdc_, size_, prd) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("DCIMAN32.dll\GetDCRegionData", "ptr", hdc, "uint", size, "ptr", prd, "uint")
+        result := DllCall("DCIMAN32.dll\GetDCRegionData", "ptr", hdc_, "uint", size_, "ptr", prd, "uint")
         return result
     }
 
@@ -7577,6 +7582,7 @@ class WindowsProgramming {
      */
     static WinWatchNotify(hWW, NotifyCallback, NotifyParam) {
         hWW := hWW is Win32Handle ? NumGet(hWW, "ptr") : hWW
+        NotifyParam := NotifyParam is Win32Handle ? NumGet(NotifyParam, "ptr") : NotifyParam
 
         result := DllCall("DCIMAN32.dll\WinWatchNotify", "ptr", hWW, "ptr", NotifyCallback, "ptr", NotifyParam, "int")
         return result
@@ -7586,7 +7592,7 @@ class WindowsProgramming {
      * Releases access to display frame buffer.
      * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dciendaccess
+     * @see https://learn.microsoft.com/windows/win32/api//content/dciman/nf-dciman-dciendaccess
      * @since windows5.0
      */
     static DCIEndAccess(pdci) {
@@ -7601,7 +7607,7 @@ class WindowsProgramming {
      * @param {Integer} dx The width of the rectangle.
      * @param {Integer} dy The height of the rectangle.
      * @returns {Integer} If the function succeeds, the return value is DCI_OK or DCI_STATUS_POINTERCHANGED.  DCI_STATUS_POINTERCHANGED indicates that the virtual address of the frame buffer could have been changed since the last call.  So the application should not assume the consistency of the virtual address of the display frame buffer.  If the function fails, the return value is one of the DCI errors.
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcibeginaccess
+     * @see https://learn.microsoft.com/windows/win32/api//content/dciman/nf-dciman-dcibeginaccess
      * @since windows5.0
      */
     static DCIBeginAccess(pdci, x, y, dx, dy) {
@@ -7613,7 +7619,7 @@ class WindowsProgramming {
      * Destroys a primary surface on the display device.
      * @param {Pointer<DCISURFACEINFO>} pdci A pointer to a <b>DCISURFACEINFO</b> structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dciman/nf-dciman-dcidestroy
+     * @see https://learn.microsoft.com/windows/win32/api//content/dciman/nf-dciman-dcidestroy
      * @since windows5.0
      */
     static DCIDestroy(pdci) {
@@ -7656,7 +7662,7 @@ class WindowsProgramming {
     /**
      * Returns the current value of an integer that is incremented whenever a mode switch occurs, such as when there is a desktop switch, a Fast User Switch, or a full-screen Microsoft MS-DOS box.
      * @returns {Integer} The current value of the mode switch integer is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/ddrawgdi/nf-ddrawgdi-ddquerydisplaysettingsuniqueness
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddrawgdi/nf-ddrawgdi-ddquerydisplaysettingsuniqueness
      */
     static GdiEntry13() {
         result := DllCall("api-ms-win-dx-d3dkmt-l1-1-0.dll\GdiEntry13", "uint")
@@ -7665,7 +7671,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} szCmdName 
      * @param {PSTR} szInfSection 
      * @param {PSTR} szDir 
@@ -7675,8 +7681,8 @@ class WindowsProgramming {
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      */
-    static RunSetupCommandA(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RunSetupCommandA(hWnd_, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
         szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
         szDir := szDir is String ? StrPtr(szDir) : szDir
@@ -7684,7 +7690,7 @@ class WindowsProgramming {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
+        result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", hWnd_, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7694,7 +7700,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} szCmdName 
      * @param {PWSTR} szInfSection 
      * @param {PWSTR} szDir 
@@ -7704,8 +7710,8 @@ class WindowsProgramming {
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      */
-    static RunSetupCommandW(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RunSetupCommandW(hWnd_, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
         szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
         szDir := szDir is String ? StrPtr(szDir) : szDir
@@ -7713,7 +7719,7 @@ class WindowsProgramming {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
+        result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", hWnd_, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7742,18 +7748,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSec 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static RebootCheckOnInstallA(hwnd, pszINF, pszSec, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RebootCheckOnInstallA(hwnd_, pszINF, pszSec, dwReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
 
-        result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
+        result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", hwnd_, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7763,18 +7769,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSec 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static RebootCheckOnInstallW(hwnd, pszINF, pszSec, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RebootCheckOnInstallW(hwnd_, pszINF, pszSec, dwReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
 
-        result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
+        result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", hwnd_, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7845,7 +7851,7 @@ class WindowsProgramming {
      * @param {PSTR} pszSection The sections containing the values to be updated.
      * @param {Pointer<STRTABLEA>} pstTable The table of values to be updated.
      * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstalla
+     * @see https://learn.microsoft.com/windows/win32/api//content/advpub/nf-advpub-reginstalla
      * @since windows10.0.10240
      */
     static RegInstallA(hmod, pszSection, pstTable) {
@@ -7869,7 +7875,7 @@ class WindowsProgramming {
      * @param {PWSTR} pszSection The sections containing the values to be updated.
      * @param {Pointer<STRTABLEW>} pstTable The table of values to be updated.
      * @returns {HRESULT} Returns S_OK on success. Returns E_FAIL on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/advpub/nf-advpub-reginstallw
+     * @see https://learn.microsoft.com/windows/win32/api//content/advpub/nf-advpub-reginstallw
      * @since windows10.0.10240
      */
     static RegInstallW(hmod, pszSection, pstTable) {
@@ -7886,18 +7892,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} hwnd_ 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static LaunchINFSectionExW(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static LaunchINFSectionExW(hwnd_, hInstance_, pszParms, nShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", hwnd_, "ptr", hInstance_, "ptr", pszParms, "int", nShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7907,17 +7913,17 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {Pointer<CABINFOA>} pCab 
      * @param {Pointer<Void>} pReserved 
      * @returns {HRESULT} 
      */
-    static ExecuteCabA(hwnd, pCab, pReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ExecuteCabA(hwnd_, pCab, pReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\ExecuteCabA", "ptr", hwnd, "ptr", pCab, pReservedMarshal, pReserved, "int")
+        result := DllCall("ADVPACK.dll\ExecuteCabA", "ptr", hwnd_, "ptr", pCab, pReservedMarshal, pReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7927,17 +7933,17 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {Pointer<CABINFOW>} pCab 
      * @param {Pointer<Void>} pReserved 
      * @returns {HRESULT} 
      */
-    static ExecuteCabW(hwnd, pCab, pReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static ExecuteCabW(hwnd_, pCab, pReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ADVPACK.dll\ExecuteCabW", "ptr", hwnd, "ptr", pCab, pReservedMarshal, pReserved, "int")
+        result := DllCall("ADVPACK.dll\ExecuteCabW", "ptr", hwnd_, "ptr", pCab, pReservedMarshal, pReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7947,7 +7953,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PSTR} lpszSourceDir 
      * @param {PSTR} lpszSourceFile 
      * @param {PSTR} lpszDestDir 
@@ -7956,14 +7962,14 @@ class WindowsProgramming {
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static AdvInstallFileA(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AdvInstallFileA(hwnd_, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
         lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
         lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
 
-        result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
+        result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", hwnd_, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7973,7 +7979,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PWSTR} lpszSourceDir 
      * @param {PWSTR} lpszSourceFile 
      * @param {PWSTR} lpszDestDir 
@@ -7982,14 +7988,14 @@ class WindowsProgramming {
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
-    static AdvInstallFileW(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static AdvInstallFileW(hwnd_, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
         lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
         lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
 
-        result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
+        result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", hwnd_, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -7999,7 +8005,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @param {PSTR} pcszRootKey 
@@ -8008,15 +8014,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreA(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreA(hWnd_, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
         pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", hWnd_, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8026,7 +8032,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @param {PWSTR} pcszRootKey 
@@ -8035,15 +8041,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreW(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreW(hWnd_, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
         pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", hWnd_, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8053,7 +8059,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} pszTitle 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSection 
@@ -8062,15 +8068,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreOnINFA(hWnd_, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
         hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFA", "ptr", hWnd_, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8080,7 +8086,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSection 
@@ -8089,15 +8095,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static RegSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegSaveRestoreOnINFW(hWnd_, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
         hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
 
-        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
+        result := DllCall("ADVPACK.dll\RegSaveRestoreOnINFW", "ptr", hWnd_, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", hHKLMBackKey, "ptr", hHKCUBackKey, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8107,17 +8113,17 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @returns {HRESULT} 
      */
-    static RegRestoreAllA(hWnd, pszTitleString, hkBckupKey) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegRestoreAllA(hWnd_, pszTitleString, hkBckupKey) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
-        result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
+        result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", hWnd_, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8127,17 +8133,17 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} pszTitleString 
      * @param {HKEY} hkBckupKey 
      * @returns {HRESULT} 
      */
-    static RegRestoreAllW(hWnd, pszTitleString, hkBckupKey) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegRestoreAllW(hWnd_, pszTitleString, hkBckupKey) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
-        result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
+        result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", hWnd_, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8170,7 +8176,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PSTR} pszTitle 
      * @param {PSTR} pszINF 
      * @param {PSTR} pszSection 
@@ -8179,15 +8185,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static FileSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FileSaveRestoreOnINFA(hWnd_, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
         pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
 
-        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
+        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", hWnd_, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8197,7 +8203,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {PWSTR} pszTitle 
      * @param {PWSTR} pszINF 
      * @param {PWSTR} pszSection 
@@ -8206,15 +8212,15 @@ class WindowsProgramming {
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
-    static FileSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static FileSaveRestoreOnINFW(hWnd_, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
         pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
 
-        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
+        result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", hWnd_, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8441,18 +8447,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} hwnd_ 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static DelNodeRunDLL32W(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static DelNodeRunDLL32W(hwnd_, hInstance_, pszParms, nShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", hwnd_, "ptr", hInstance_, "ptr", pszParms, "int", nShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8633,34 +8639,34 @@ class WindowsProgramming {
     /**
      * 
      * @param {HWND} hwndOwner 
-     * @param {HINSTANCE} hInstance 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PWSTR} pszParams 
      * @param {Integer} nShow 
      * @returns {Integer} 
      */
-    static LaunchINFSectionW(hwndOwner, hInstance, pszParams, nShow) {
+    static LaunchINFSectionW(hwndOwner, hInstance_, pszParams, nShow) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
 
-        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance_, "ptr", pszParams, "int", nShow, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} hwnd_ 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserInstStubWrapperA(hwnd_, hInstance_, pszParms, nShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", hwnd_, "ptr", hInstance_, "ptr", pszParms, "int", nShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8670,18 +8676,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} hwnd_ 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserInstStubWrapperW(hwnd_, hInstance_, pszParms, nShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", hwnd_, "ptr", hInstance_, "ptr", pszParms, "int", nShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8691,18 +8697,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} hwnd_ 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserUnInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserUnInstStubWrapperA(hwnd_, hInstance_, pszParms, nShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", hwnd_, "ptr", hInstance_, "ptr", pszParms, "int", nShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8712,18 +8718,18 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {HWND} hwnd 
-     * @param {HINSTANCE} hInstance 
+     * @param {HWND} hwnd_ 
+     * @param {HINSTANCE} hInstance_ 
      * @param {PWSTR} pszParms 
      * @param {Integer} nShow 
      * @returns {HRESULT} 
      */
-    static UserUnInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static UserUnInstStubWrapperW(hwnd_, hInstance_, pszParms, nShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
-        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
+        result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", hwnd_, "ptr", hInstance_, "ptr", pszParms, "int", nShow, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -8889,14 +8895,16 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ime/nf-ime-sendimemessageexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/ime/nf-ime-sendimemessageexa
      * @since windows5.0
      */
     static SendIMEMessageExA(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("USER32.dll\SendIMEMessageExA", "ptr", param0, "ptr", param1, "ptr")
-        return result
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9029,14 +9037,16 @@ class WindowsProgramming {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/ime/nf-ime-sendimemessageexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ime/nf-ime-sendimemessageexw
      * @since windows5.0
      */
     static SendIMEMessageExW(param0, param1) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
 
         result := DllCall("USER32.dll\SendIMEMessageExW", "ptr", param0, "ptr", param1, "ptr")
-        return result
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -9136,7 +9146,7 @@ class WindowsProgramming {
      * @param {HWND} param0 
      * @param {BOOL} param1 
      * @returns {BOOL} The previous state of the IME. <b>TRUE</b> if it was enabled before this call, otherwise, <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winnls32/nf-winnls32-winnlsenableime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnls32/nf-winnls32-winnlsenableime
      * @since windows5.0
      */
     static WINNLSEnableIME(param0, param1) {
@@ -9173,7 +9183,7 @@ class WindowsProgramming {
      * @param {BOOL} bShimIfNecessary This parameter is <b>TRUE</b> if a shim is needed; <b>FALSE</b> otherwise.
      * @param {Pointer<Integer>} pullFlags This parameter is filled with a 64-bit flag mask that can be used to turn on application modification flags in Explorer/IE. These are located in the application compatibility database.
      * @returns {BOOL} <b>FALSE</b> if the object should be blocked from instantiating; <b>TRUE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/appcompatapi/nf-appcompatapi-apphelpcheckshellobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/appcompatapi/nf-appcompatapi-apphelpcheckshellobject
      */
     static ApphelpCheckShellObject(ObjectCLSID, bShimIfNecessary, pullFlags) {
         pullFlagsMarshal := pullFlags is VarRef ? "uint*" : "ptr"
@@ -9196,7 +9206,7 @@ class WindowsProgramming {
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host and source file to be evaluated.
      * @param {Integer} lockdownFlags The following flag values are defined WLDP\_FLAGS\_SKIPSIGNATUREVALIDATION 0x00000100 – when set, skip the SaferIdentifyLevel validation, which will ignore whether a script is signed.
      * @returns {Integer} Provides the resulting policy secure value. If !WLDP_LOCKDOWN_IS_OFF, then UMCI is enabled. You can also check WLDP_LOCKDOWN_IS_AUDIT and WLDP_LOCKDOWN_IS_ENFORCE to determine if a policy is in audit or enforce mode.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpgetlockdownpolicy
      */
     static WldpGetLockdownPolicy(hostInformation, lockdownFlags) {
         result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "uint*", &lockdownState := 0, "uint", lockdownFlags, "int")
@@ -9213,7 +9223,7 @@ class WindowsProgramming {
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation A [**WLDP\_HOST\_INFORMATION**](ns-wldp-wldp_host_information.md) structure identifying the host to be evaluated.
      * @param {Integer} optionalFlags This parameter is reserved and must be set to zero.
      * @returns {BOOL} On successful completion, contains **TRUE** if the class ID is approved; otherwise, **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpisclassinapprovedlist
      */
     static WldpIsClassInApprovedList(classID, hostInformation, optionalFlags) {
         result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "int*", &isApproved := 0, "uint", optionalFlags, "int")
@@ -9228,15 +9238,15 @@ class WindowsProgramming {
      * 
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
-     * @param {Pointer<UNICODE_STRING>} valueName 
+     * @param {Pointer<UNICODE_STRING>} valueName_ 
      * @param {Pointer} valueAddress 
      * @param {Pointer<Integer>} valueSize 
      * @returns {Integer} 
      */
-    static WldpQuerySecurityPolicy(providerName, keyName, valueName, valueAddress, valueSize) {
+    static WldpQuerySecurityPolicy(providerName, keyName, valueName_, valueAddress, valueSize) {
         valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", valueName, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "int")
+        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", valueName_, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -9248,7 +9258,7 @@ class WindowsProgramming {
      * Sets an on-disk .NET CRL Dynamic Code trustable for .NET.
      * @param {HANDLE} fileHandle Handle to a on-disk dynamic code file.
      * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpsetdynamiccodetrust
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpsetdynamiccodetrust
      */
     static WldpSetDynamicCodeTrust(fileHandle) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
@@ -9266,7 +9276,7 @@ class WindowsProgramming {
      * @remarks
      * Dynamic code refers to .NET CRL dynamically-generated code.
      * @returns {BOOL} On success, returns **true** if the Device Guard policy enforces .NET Dynamic Code policy; otherwise, returns **false**.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
      */
     static WldpIsDynamicCodePolicyEnabled() {
         result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "int*", &isEnabled := 0, "int")
@@ -9283,7 +9293,7 @@ class WindowsProgramming {
      * @param {Pointer} baseImage Pointer to the in-memory PE file to check. If *baseImage* is non-**NULL**, *FileHandle* should be **NULL**.
      * @param {Integer} imageSize When *baseImage* is non-**NULL**, indicates the buffer size that *baseImage* points to.
      * @returns {HRESULT} This method returns **S\_OK** if successful or a failure code otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpquerydynamiccodetrust
      */
     static WldpQueryDynamicCodeTrust(fileHandle, baseImage, imageSize) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
@@ -9299,7 +9309,7 @@ class WindowsProgramming {
     /**
      * Retrieves the current Windows secure mode. Windows can be in locked mode, unlocked normal mode, or trial mode.
      * @returns {Integer} On success, returns a [**PWLDP\_WINDOWS\_LOCKDOWN\_MODE**](ne-wldp-wldp_windows_lockdown_mode.md) that indicates the secure mode for the current Windows 10 device.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpquerywindowslockdownmode
      */
     static WldpQueryWindowsLockdownMode() {
         result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", "int*", &lockdownMode := 0, "int")
@@ -9468,19 +9478,19 @@ class WindowsProgramming {
      * > [!IMPORTANT]
      * > Callers should only pass open file handles to **WldpCanExecuteFile** and should not cache the security authorization on a specific file. It should be assumed that authorization to run a particular file is revoked when its file handle is closed. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpcanexecutefile
      */
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", &result := 0, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
@@ -9495,23 +9505,26 @@ class WindowsProgramming {
      * - Supports fine grained execution policies like for example interactive mode in cmd or powershell
      * @param {Pointer<Guid>} host A GUID specifying the calling program. For the list of pre-defined GUIDs that can be used for this parameter, see [WLDP Host GUIDs](/windows/win32/devnotes/wldp-host-guids). For hosts for which a specific value is not defined, use GUID WLDP_HOST_GUID_OTHER.
      * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} buffer_ The buffer containing script code to be validated. 
+     * 
+     * > [!IMPORTANT]
+     * > Buffers passed to **WldpCanExecuteBuffer** should be read-only and the caller should not cache the security authorization on a specific buffer. These measures are necessary to prevent [TOC/TOU vulnerabilities](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use) that could subvert script enforcement policy.
      * @param {Integer} bufferSize The size of *buffer*, in bytes.
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpcanexecutebuffer
      */
-    static WldpCanExecuteBuffer(host, options, buffer_R, bufferSize, auditInfo) {
+    static WldpCanExecuteBuffer(host, options, buffer_, bufferSize, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        buffer_Marshal := buffer_ is VarRef ? "char*" : "ptr"
 
-        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, buffer_RMarshal, buffer_R, "uint", bufferSize, "ptr", auditInfo, "int*", &result := 0, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, buffer_Marshal, buffer_, "uint", bufferSize, "ptr", auditInfo, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
@@ -9528,18 +9541,18 @@ class WindowsProgramming {
      * @param {Integer} options A value from the [WLDP_EXECUTION_EVALUATION_OPTIONS](ne-wldp-wldp_execution_evaluation_options.md) specifying options for the execution authorization request.
      * @param {IStream} stream 
      * @param {PWSTR} auditInfo A string that should include relevant contextual information for the caller to use in debugging. If an authorization request fails this string will be recorded in the event log, under “Applocker/MSI and Scripts/Operational”. Callers should note that, while the *AuditInfo* is not size limited, the string should be less than 4K bytes in size because it will be placed in the event log.
-     * @returns {Integer} Receives a pointer to a value from the [WLDP_EXECUTION_POLICY](ne-wldp-wldp_execution_policy.md) enumeration, indicating the execution policy result of the query.
-     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wldp/nf-wldp-wldpcanexecutestream
      */
     static WldpCanExecuteStream(host, options, stream, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", &result := 0, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
@@ -9556,12 +9569,12 @@ class WindowsProgramming {
         signatureFileHandle := signatureFileHandle is Win32Handle ? NumGet(signatureFileHandle, "ptr") : signatureFileHandle
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, "int*", &result := 0, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
@@ -9574,12 +9587,12 @@ class WindowsProgramming {
         id := id is String ? StrPtr(id) : id
         setting := setting is String ? StrPtr(setting) : setting
 
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, "int*", &result := 0, "int")
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
@@ -9587,15 +9600,15 @@ class WindowsProgramming {
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
-     * @param {PWSTR} result 
+     * @param {PWSTR} result_ 
      * @returns {Pointer} 
      */
-    static WldpGetApplicationSettingStringList(id, setting, dataCount, result) {
+    static WldpGetApplicationSettingStringList(id, setting, dataCount, result_) {
         id := id is String ? StrPtr(id) : id
         setting := setting is String ? StrPtr(setting) : setting
-        result := result is String ? StrPtr(result) : result
+        result_ := result_ is String ? StrPtr(result_) : result_
 
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -9608,15 +9621,15 @@ class WindowsProgramming {
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
-     * @param {PWSTR} result 
+     * @param {PWSTR} result_ 
      * @returns {Pointer} 
      */
-    static WldpGetApplicationSettingStringSet(id, setting, dataCount, result) {
+    static WldpGetApplicationSettingStringSet(id, setting, dataCount, result_) {
         id := id is String ? StrPtr(id) : id
         setting := setting is String ? StrPtr(setting) : setting
-        result := result is String ? StrPtr(result) : result
+        result_ := result_ is String ? StrPtr(result_) : result_
 
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

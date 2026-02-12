@@ -114,7 +114,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapcreate
      * @since windows5.1.2600
      */
     static HeapCreate(flOptions, dwInitialSize, dwMaximumSize) {
@@ -143,7 +143,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapdestroy
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapdestroy
      * @since windows5.1.2600
      */
     static HeapDestroy(hHeap) {
@@ -208,7 +208,7 @@ class Memory {
      *  
      * 
      * If the function fails, it does not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a>. An application cannot call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapalloc
      * @since windows5.1.2600
      */
     static HeapAlloc(hHeap, dwFlags, dwBytes) {
@@ -275,7 +275,7 @@ class Memory {
      *  The alignment of memory returned by <b>HeapReAlloc</b> is <b>MEMORY_ALLOCATION_ALIGNMENT</b> in WinNT.h:
      * 
      * ```
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heaprealloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heaprealloc
      * @since windows5.1.2600
      */
     static HeapReAlloc(hHeap, dwFlags, lpMem, dwBytes) {
@@ -337,7 +337,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. An application can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapfree
      * @since windows5.1.2600
      */
     static HeapFree(hHeap, dwFlags, lpMem) {
@@ -419,7 +419,7 @@ class Memory {
      * If the <i>lpMem</i> parameter refers to a heap allocation that is not in the heap 
      *        specified by the <i>hHeap</i> parameter, the behavior of the 
      *        <b>HeapSize</b> function is undefined.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapsize
      * @since windows5.1.2600
      */
     static HeapSize(hHeap, dwFlags, lpMem) {
@@ -444,7 +444,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-getprocessheap
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-getprocessheap
      * @since windows5.1.2600
      */
     static GetProcessHeap() {
@@ -511,7 +511,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * In the unlikely case that there is absolutely no space available in the heap, the function return value is zero, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns the value NO_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapcompact
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapcompact
      * @since windows5.1.2600
      */
     static HeapCompact(hHeap, dwFlags) {
@@ -555,7 +555,7 @@ class Memory {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapsetinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapsetinformation
      * @since windows5.1.2600
      */
     static HeapSetInformation(HeapHandle, HeapInformationClass, HeapInformation, HeapInformationLength) {
@@ -638,7 +638,7 @@ class Memory {
      * If the specified heap or memory block is invalid, the return value is zero. On a system set up for debugging, the 
      * <b>HeapValidate</b> function then displays debugging messages that describe the part of the heap or memory block that is invalid, and stops at a hard-coded breakpoint so that you can examine the system to determine the source of the invalidity. The 
      * <b>HeapValidate</b> function does not set the thread's last error value. There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapvalidate
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapvalidate
      * @since windows5.1.2600
      */
     static HeapValidate(hHeap, dwFlags, lpMem) {
@@ -658,7 +658,7 @@ class Memory {
      * @param {Integer} dwFlags The heap summary options.
      * @param {Pointer<HEAP_SUMMARY>} lpSummary Receives a pointer to a [Heap_Summary](ns-heapapi-heap_summary.md) structure representing the heap summary.
      * @returns {BOOL} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapsummary
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapsummary
      */
     static HeapSummary(hHeap, dwFlags, lpSummary) {
         hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
@@ -688,7 +688,7 @@ class Memory {
      * 
      * If the return value is zero, the function has failed because every process has at least one active heap, the default heap for the  process. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-getprocessheaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-getprocessheaps
      * @since windows5.1.2600
      */
     static GetProcessHeaps(NumberOfHeaps, ProcessHeaps) {
@@ -724,7 +724,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heaplock
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heaplock
      * @since windows5.1.2600
      */
     static HeapLock(hHeap) {
@@ -762,7 +762,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapunlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapunlock
      * @since windows5.1.2600
      */
     static HeapUnlock(hHeap) {
@@ -833,7 +833,7 @@ class Memory {
      * If the heap enumeration terminates successfully by reaching the end of the heap, the function returns 
      *        <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
      *        returns the error code <b>ERROR_NO_MORE_ITEMS</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapwalk
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapwalk
      * @since windows5.1.2600
      */
     static HeapWalk(hHeap, lpEntry) {
@@ -904,7 +904,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/heapapi/nf-heapapi-heapqueryinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/heapapi/nf-heapapi-heapqueryinformation
      * @since windows5.1.2600
      */
     static HeapQueryInformation(HeapHandle, HeapInformationClass, HeapInformation, HeapInformationLength, ReturnLength) {
@@ -955,7 +955,7 @@ class Memory {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the base address of the allocated region of pages.
      * 
      * If the function fails, the return value is **NULL**. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualalloc
      * @since windows5.1.2600
      */
     static VirtualAlloc(lpAddress, dwSize, flAllocationType, flProtect) {
@@ -992,7 +992,7 @@ class Memory {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualprotect
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualprotect
      * @since windows5.1.2600
      */
     static VirtualProtect(lpAddress, dwSize, flNewProtect, lpflOldProtect) {
@@ -1041,7 +1041,7 @@ class Memory {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualfree
      * @since windows5.1.2600
      */
     static VirtualFree(lpAddress, dwSize, dwFreeType) {
@@ -1084,7 +1084,7 @@ class Memory {
      * @returns {Pointer} The return value is the actual number of bytes returned in the information buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include <b>ERROR_INVALID_PARAMETER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualquery
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualquery
      * @since windows5.1.2600
      */
     static VirtualQuery(lpAddress, lpBuffer, dwLength) {
@@ -1185,7 +1185,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualallocex
      * @since windows5.1.2600
      */
     static VirtualAllocEx(hProcess, lpAddress, dwSize, flAllocationType, flProtect) {
@@ -1225,7 +1225,7 @@ class Memory {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualprotectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualprotectex
      * @since windows5.1.2600
      */
     static VirtualProtectEx(hProcess, lpAddress, dwSize, flNewProtect, lpflOldProtect) {
@@ -1271,7 +1271,7 @@ class Memory {
      * @returns {Pointer} The return value is the actual number of bytes returned in the information buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include <b>ERROR_INVALID_PARAMETER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualqueryex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualqueryex
      * @since windows5.1.2600
      */
     static VirtualQueryEx(hProcess, lpAddress, lpBuffer, dwLength) {
@@ -1492,7 +1492,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingw
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-createfilemappingw
      * @since windows5.1.2600
      */
     static CreateFileMappingW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
@@ -1602,7 +1602,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-openfilemappingw
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-openfilemappingw
      * @since windows5.1.2600
      */
     static OpenFileMappingW(dwDesiredAccess, bInheritHandle, lpName) {
@@ -1765,7 +1765,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapviewoffile
      * @since windows5.1.2600
      */
     static MapViewOfFile(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap) {
@@ -1932,7 +1932,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapviewoffileex
      * @since windows5.1.2600
      */
     static MapViewOfFileEx(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress) {
@@ -1998,7 +1998,7 @@ class Memory {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualfreeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualfreeex
      * @since windows5.1.2600
      */
     static VirtualFreeEx(hProcess, lpAddress, dwSize, dwFreeType) {
@@ -2094,7 +2094,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-flushviewoffile
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-flushviewoffile
      * @since windows5.1.2600
      */
     static FlushViewOfFile(lpBaseAddress, dwNumberOfBytesToFlush) {
@@ -2184,7 +2184,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-unmapviewoffile
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-unmapviewoffile
      * @since windows5.1.2600
      */
     static UnmapViewOfFile(lpBaseAddress) {
@@ -2207,7 +2207,7 @@ class Memory {
      * @returns {Pointer} If the processor supports large pages, the return value is the minimum size of a large page.
      * 
      * If the processor does not support large pages, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getlargepageminimum
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-getlargepageminimum
      * @since windows6.0.6000
      */
     static GetLargePageMinimum() {
@@ -2278,7 +2278,7 @@ class Memory {
      * </tr>
      * </table>
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getprocessworkingsetsizeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-getprocessworkingsetsizeex
      * @since windows6.0.6000
      */
     static GetProcessWorkingSetSizeEx(hProcess, lpMinimumWorkingSetSize, lpMaximumWorkingSetSize, Flags) {
@@ -2393,7 +2393,7 @@ class Memory {
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function fails, the return value is zero. To get extended error information, call 
      * <b>GetLastError</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-setprocessworkingsetsizeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-setprocessworkingsetsizeex
      * @since windows6.0.6000
      */
     static SetProcessWorkingSetSizeEx(hProcess, dwMinimumWorkingSetSize, dwMaximumWorkingSetSize, Flags) {
@@ -2432,7 +2432,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtuallock
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtuallock
      * @since windows5.1.2600
      */
     static VirtualLock(lpAddress, dwSize) {
@@ -2462,7 +2462,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualunlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualunlock
      * @since windows5.1.2600
      */
     static VirtualUnlock(lpAddress, dwSize) {
@@ -2522,7 +2522,7 @@ class Memory {
      * @returns {Integer} If the function succeeds, the return value is 0 (zero).
      * 
      * If the function fails, the return value is a nonzero value.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getwritewatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-getwritewatch
      * @since windows5.1.2600
      */
     static GetWriteWatch(dwFlags, lpBaseAddress, dwRegionSize, lpAddresses, lpdwCount, lpdwGranularity) {
@@ -2562,7 +2562,7 @@ class Memory {
      * @returns {Integer} If the function succeeds, the return value is 0 (zero).
      * 
      * If the function fails, the return value is a nonzero value.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-resetwritewatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-resetwritewatch
      * @since windows5.1.2600
      */
     static ResetWriteWatch(lpBaseAddress, dwRegionSize) {
@@ -2630,7 +2630,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended  information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-creatememoryresourcenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-creatememoryresourcenotification
      * @since windows5.1.2600
      */
     static CreateMemoryResourceNotification(NotificationType) {
@@ -2661,7 +2661,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. For more error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-querymemoryresourcenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-querymemoryresourcenotification
      * @since windows5.1.2600
      */
     static QueryMemoryResourceNotification(ResourceNotificationHandle, ResourceState) {
@@ -2722,7 +2722,7 @@ class Memory {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getsystemfilecachesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-getsystemfilecachesize
      * @since windows6.0.6000
      */
     static GetSystemFileCacheSize(lpMinimumFileCacheSize, lpMaximumFileCacheSize, lpFlags) {
@@ -2824,7 +2824,7 @@ class Memory {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-setsystemfilecachesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-setsystemfilecachesize
      * @since windows6.0.6000
      */
     static SetSystemFileCacheSize(MinimumFileCacheSize, MaximumFileCacheSize, Flags) {
@@ -3059,7 +3059,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingnumaw
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-createfilemappingnumaw
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
@@ -3123,7 +3123,7 @@ class Memory {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-prefetchvirtualmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-prefetchvirtualmemory
      * @since windows8.0
      */
     static PrefetchVirtualMemory(hProcess, NumberOfEntries, VirtualAddresses, Flags) {
@@ -3265,7 +3265,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingfromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-createfilemappingfromapp
      * @since windows8.0
      */
     static CreateFileMappingFromApp(hFile, SecurityAttributes, PageProtection, MaximumSize, Name) {
@@ -3313,7 +3313,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffilefromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapviewoffilefromapp
      * @since windows8.0
      */
     static MapViewOfFileFromApp(hFileMappingObject, DesiredAccess, FileOffset, NumberOfBytesToMap) {
@@ -3342,7 +3342,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-unmapviewoffileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-unmapviewoffileex
      * @since windows8.0
      */
     static UnmapViewOfFileEx(BaseAddress, UnmapFlags) {
@@ -3402,7 +3402,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>FALSE</b>, and no frames are allocated. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-allocateuserphysicalpages
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-allocateuserphysicalpages
      * @since windows5.1.2600
      */
     static AllocateUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
@@ -3442,7 +3442,7 @@ class Memory {
      * If the function fails, the return value is <b>FALSE</b>. In this case, the <i>NumberOfPages</i> 
      *        parameter reflect how many pages have actually been released. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-freeuserphysicalpages
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-freeuserphysicalpages
      * @since windows5.1.2600
      */
     static FreeUserPhysicalPages(hProcess, NumberOfPages, PageArray) {
@@ -3525,7 +3525,7 @@ class Memory {
      * If the function fails, the return value is <b>FALSE</b> and no mapping is done—partial or otherwise. 
      *        To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapuserphysicalpages
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapuserphysicalpages
      * @since windows5.1.2600
      */
     static MapUserPhysicalPages(VirtualAddress, NumberOfPages, PageArray) {
@@ -3591,7 +3591,7 @@ class Memory {
      * If the function fails, the return value is <b>FALSE</b> and no frames are allocated. To get 
      *        extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
      *        function.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-allocateuserphysicalpagesnuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-allocateuserphysicalpagesnuma
      * @since windows6.0.6000
      */
     static AllocateUserPhysicalPagesNuma(hProcess, NumberOfPages, PageArray, nndPreferred) {
@@ -3707,7 +3707,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualallocexnuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualallocexnuma
      * @since windows6.0.6000
      */
     static VirtualAllocExNuma(hProcess, lpAddress, dwSize, flAllocationType, flProtect, nndPreferred) {
@@ -3754,7 +3754,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-getmemoryerrorhandlingcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-getmemoryerrorhandlingcapabilities
      * @since windows8.0
      */
     static GetMemoryErrorHandlingCapabilities(Capabilities) {
@@ -3782,7 +3782,7 @@ class Memory {
      * @returns {Pointer<Void>} Registration handle that represents the callback notification. Can be passed to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-unregisterbadmemorynotification">UnregisterBadMemoryNotification</a> 
      *       function when no longer needed.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-registerbadmemorynotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-registerbadmemorynotification
      * @since windows8.0
      */
     static RegisterBadMemoryNotification(Callback) {
@@ -3803,7 +3803,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-unregisterbadmemorynotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-unregisterbadmemorynotification
      * @since windows8.0
      */
     static UnregisterBadMemoryNotification(RegistrationHandle) {
@@ -3831,18 +3831,18 @@ class Memory {
      * Note that offering and reclaiming virtual memory is similar to using the MEM_RESET and MEM_RESET_UNDO memory allocation flags,
      *       except that <b>OfferVirtualMemory</b> removes the memory from the process working set and restricts access to the offered pages until they are reclaimed.
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to offer.
-     * @param {Pointer} Size Size, in bytes, of the memory region to offer.  <i>Size</i> must be an integer multiple of the system page size.
-     * @param {Integer} Priority <i>Priority</i> indicates how important the offered memory is to the application.
+     * @param {Pointer} Size_ Size, in bytes, of the memory region to offer.  <i>Size</i> must be an integer multiple of the system page size.
+     * @param {Integer} Priority_ <i>Priority</i> indicates how important the offered memory is to the application.
      *        A higher priority increases the probability that the offered memory can be reclaimed intact when calling <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-reclaimvirtualmemory">ReclaimVirtualMemory</a>.
      *        The system typically discards lower priority memory before discarding higher priority memory.
      * @returns {Integer} ERROR_SUCCESS if successful; a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-offervirtualmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-offervirtualmemory
      * @since windows8.1
      */
-    static OfferVirtualMemory(VirtualAddress, Size, Priority) {
+    static OfferVirtualMemory(VirtualAddress, Size_, Priority_) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\OfferVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size, "int", Priority, "uint")
+        result := DllCall("KERNEL32.dll\OfferVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size_, "int", Priority_, "uint")
         return result
     }
 
@@ -3855,19 +3855,19 @@ class Memory {
      *       If the function returns ERROR_BUSY, the data in the reclaimed pages was discarded by the system and is no longer valid.
      *       For this reason, memory should only be offered to the system if the application does not need or can regenerate the data.
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to reclaim.
-     * @param {Pointer} Size Size, in bytes, of the memory region to reclaim.  <i>Size</i> must be an integer multiple of the system page size.
+     * @param {Pointer} Size_ Size, in bytes, of the memory region to reclaim.  <i>Size</i> must be an integer multiple of the system page size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful and the memory was reclaimed intact.
      * 
      * Returns ERROR_BUSY if successful but the memory was discarded and must be rewritten by the application.  In this case, the contents of the memory region is undefined.
      * 
      * Returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-reclaimvirtualmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-reclaimvirtualmemory
      * @since windows8.1
      */
-    static ReclaimVirtualMemory(VirtualAddress, Size) {
+    static ReclaimVirtualMemory(VirtualAddress, Size_) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\ReclaimVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size, "uint")
+        result := DllCall("KERNEL32.dll\ReclaimVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size_, "uint")
         return result
     }
 
@@ -3883,15 +3883,15 @@ class Memory {
      * <div class="alert"><b>Important</b>  Calls to <b>DiscardVirtualMemory</b> will fail if the memory protection is not <b>PAGE_READWRITE</b>.</div>
      * <div> </div>
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to discard.
-     * @param {Pointer} Size Size, in bytes, of the memory region to discard.  <i>Size</i> must be an integer multiple of the system page size.
+     * @param {Pointer} Size_ Size, in bytes, of the memory region to discard.  <i>Size</i> must be an integer multiple of the system page size.
      * @returns {Integer} ERROR_SUCCESS if successful; a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-discardvirtualmemory
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-discardvirtualmemory
      * @since windows8.1
      */
-    static DiscardVirtualMemory(VirtualAddress, Size) {
+    static DiscardVirtualMemory(VirtualAddress, Size_) {
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("KERNEL32.dll\DiscardVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size, "uint")
+        result := DllCall("KERNEL32.dll\DiscardVirtualMemory", VirtualAddressMarshal, VirtualAddress, "ptr", Size_, "uint")
         return result
     }
 
@@ -3905,7 +3905,7 @@ class Memory {
      * @param {Integer} NumberOfOffsets The number of offsets relative to the virtual memory ranges.
      * @param {Pointer<CFG_CALL_TARGET_INFO>} OffsetInformation A list of offsets and flags relative to the virtual memory ranges.
      * @returns {BOOL} <b>TRUE</b> if the operation was successful; otherwise, <b>FALSE</b>. To retrieve error values for this function, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-setprocessvalidcalltargets
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-setprocessvalidcalltargets
      * @since windows10.0.10240
      */
     static SetProcessValidCallTargets(hProcess, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation) {
@@ -3930,17 +3930,17 @@ class Memory {
      * @param {Pointer} RegionSize 
      * @param {Integer} NumberOfOffsets 
      * @param {Pointer<CFG_CALL_TARGET_INFO>} OffsetInformation 
-     * @param {HANDLE} Section 
+     * @param {HANDLE} Section_ 
      * @param {Integer} ExpectedFileOffset 
      * @returns {BOOL} 
      */
-    static SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation, Section, ExpectedFileOffset) {
+    static SetProcessValidCallTargetsForMappedView(Process, VirtualAddress, RegionSize, NumberOfOffsets, OffsetInformation, Section_, ExpectedFileOffset) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
-        Section := Section is Win32Handle ? NumGet(Section, "ptr") : Section
+        Section_ := Section_ is Win32Handle ? NumGet(Section_, "ptr") : Section_
 
         VirtualAddressMarshal := VirtualAddress is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", "ptr", Process, VirtualAddressMarshal, VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr", Section, "uint", ExpectedFileOffset, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\SetProcessValidCallTargetsForMappedView", "ptr", Process, VirtualAddressMarshal, VirtualAddress, "ptr", RegionSize, "uint", NumberOfOffsets, "ptr", OffsetInformation, "ptr", Section_, "uint", ExpectedFileOffset, "int")
         return result
     }
 
@@ -3999,7 +3999,7 @@ class Memory {
      *       allocation granularity on the host computer, use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function. If this parameter is 
      *       <b>NULL</b>, the system determines where to allocate the region.
-     * @param {Pointer} Size The size of the region, in bytes. If the <i>BaseAddress</i> parameter is 
+     * @param {Pointer} Size_ The size of the region, in bytes. If the <i>BaseAddress</i> parameter is 
      *       <b>NULL</b>, this value is rounded up to the next page boundary. Otherwise, the allocated 
      *       pages include all pages containing one or more bytes in the range from <i>BaseAddress</i> to 
      *       <i>BaseAddress</i>+<i>Size</i>. This means that a 2-byte range straddling 
@@ -4019,15 +4019,15 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualallocfromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualallocfromapp
      * @since windows10.0.10240
      */
-    static VirtualAllocFromApp(BaseAddress, Size, AllocationType, Protection) {
+    static VirtualAllocFromApp(BaseAddress, Size_, AllocationType, Protection) {
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", Protection, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualAllocFromApp", BaseAddressMarshal, BaseAddress, "ptr", Size_, "uint", AllocationType, "uint", Protection, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -4061,7 +4061,7 @@ class Memory {
      *    <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-flushinstructioncache">FlushInstructionCache</a> once the code has been set 
      *    in place.  Otherwise attempts to execute code out of the newly executable region may produce unpredictable 
      *    results.
-     * @param {Pointer<Void>} Address A pointer an address that describes the starting page of the region of pages whose access protection 
+     * @param {Pointer<Void>} Address_ A pointer an address that describes the starting page of the region of pages whose access protection 
      *        attributes are to be changed.
      * 
      * All pages in the specified region must be within the same reserved region allocated when calling the 
@@ -4071,7 +4071,7 @@ class Memory {
      *        separate calls to <b>VirtualAlloc</b>, <b>VirtualAllocFromApp</b>,  or 
      *        <b>VirtualAllocEx</b> using 
      *        <b>MEM_RESERVE</b>.
-     * @param {Pointer} Size The size of the region whose access protection attributes are to be changed, in bytes. The region of 
+     * @param {Pointer} Size_ The size of the region whose access protection attributes are to be changed, in bytes. The region of 
      *       affected pages includes all pages containing one or more bytes in the range from the 
      *       <i>Address</i> parameter to 
      *       <c>(Address+Size)</c>. This means that a 2-byte range 
@@ -4103,16 +4103,16 @@ class Memory {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualprotectfromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualprotectfromapp
      * @since windows10.0.10240
      */
-    static VirtualProtectFromApp(Address, Size, NewProtection, OldProtection) {
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+    static VirtualProtectFromApp(Address_, Size_, NewProtection, OldProtection) {
+        Address_Marshal := Address_ is VarRef ? "ptr" : "ptr"
         OldProtectionMarshal := OldProtection is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", AddressMarshal, Address, "ptr", Size, "uint", NewProtection, OldProtectionMarshal, OldProtection, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-3.dll\VirtualProtectFromApp", Address_Marshal, Address_, "ptr", Size_, "uint", NewProtection, OldProtectionMarshal, OldProtection, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -4155,7 +4155,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-openfilemappingfromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-openfilemappingfromapp
      * @since windows10.0.10240
      */
     static OpenFileMappingFromApp(DesiredAccess, InheritHandle, Name) {
@@ -4185,7 +4185,7 @@ class Memory {
      * @param {Pointer} MemoryInformationSize Specifies the length in bytes of the memory information buffer.
      * @param {Pointer<Pointer>} ReturnSize An optional pointer which, if specified, receives the number of bytes placed in the memory information buffer.
      * @returns {BOOL} Returns <b>TRUE</b> on success. Returns <b>FALSE</b> for failure. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-queryvirtualmemoryinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-queryvirtualmemoryinformation
      * @since windows10.0.14393
      */
     static QueryVirtualMemoryInformation(Process, VirtualAddress, MemoryInformationClass, MemoryInformation, MemoryInformationSize, ReturnSize) {
@@ -4232,7 +4232,7 @@ class Memory {
      * @param {Integer} PreferredNode The preferred NUMA node for this memory.
      * @returns {MEMORY_MAPPED_VIEW_ADDRESS} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
      *            using <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffilenuma2
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapviewoffilenuma2
      * @since windows10.0.15063
      */
     static MapViewOfFileNuma2(FileMappingHandle, ProcessHandle, Offset, BaseAddress, ViewSize, AllocationType, PageProtection, PreferredNode) {
@@ -4263,7 +4263,7 @@ class Memory {
      * @param {Integer} UnmapFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if successful. Otherwise, returns <b>FALSE</b> and extended error status is available
      *             using <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-unmapviewoffile2
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-unmapviewoffile2
      * @since windows10.0.15063
      */
     static UnmapViewOfFile2(Process, BaseAddress, UnmapFlags) {
@@ -4283,16 +4283,16 @@ class Memory {
     /**
      * 
      * @param {HANDLE} Process 
-     * @param {Pointer<Void>} Address 
-     * @param {Pointer} Size 
+     * @param {Pointer<Void>} Address_ 
+     * @param {Pointer} Size_ 
      * @returns {BOOL} 
      */
-    static VirtualUnlockEx(Process, Address, Size) {
+    static VirtualUnlockEx(Process, Address_, Size_) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
-        AddressMarshal := Address is VarRef ? "ptr" : "ptr"
+        Address_Marshal := Address_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", "ptr", Process, AddressMarshal, Address, "ptr", Size, "int")
+        result := DllCall("api-ms-win-core-memory-l1-1-5.dll\VirtualUnlockEx", "ptr", Process, Address_Marshal, Address_, "ptr", Size_, "int")
         return result
     }
 
@@ -4375,7 +4375,7 @@ class Memory {
      * If this address is within an enclave that you have not initialized by calling <a href="https://docs.microsoft.com/windows/desktop/api/enclaveapi/nf-enclaveapi-initializeenclave">InitializeEnclave</a>, <b>VirtualAlloc2</b> allocates a page of zeros for the enclave at that address. The page must be previously uncommitted, and will not be measured with the EEXTEND instruction of the Intel Software Guard Extensions programming model.
      * 
      * If the address in within an enclave that you initialized, then the allocation operation fails with the **ERROR_INVALID_ADDRESS** error. That is true for enclaves that do not support dynamic memory management (i.e. SGX1). SGX2 enclaves will permit allocation, and the page must be accepted by the enclave after it has been allocated.
-     * @param {Pointer} Size The size of the region of memory to allocate, in bytes.
+     * @param {Pointer} Size_ The size of the region of memory to allocate, in bytes.
      * 
      * The size must always be a multiple of the page size.
      * 
@@ -4390,17 +4390,17 @@ class Memory {
      * @returns {Pointer<Void>} If the function succeeds, the return value is the base address of the allocated region of pages.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc2
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualalloc2
      * @since windows10.0.10240
      */
-    static VirtualAlloc2(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+    static VirtualAlloc2(Process, BaseAddress, Size_, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size_, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -4436,7 +4436,7 @@ class Memory {
      * @param {Integer} ParameterCount The number of extended parameters pointed to by <i>ExtendedParameters</i>.
      * @returns {MEMORY_MAPPED_VIEW_ADDRESS} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
      *            using <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile3
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapviewoffile3
      * @since windows10.0.17134
      */
     static MapViewOfFile3(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
@@ -4520,7 +4520,7 @@ class Memory {
      * 
      * If <i>BaseAddress</i> is <b>NULL</b>, the function determines where to 
      *        allocate the region.
-     * @param {Pointer} Size The size of the region of memory to allocate, in bytes.
+     * @param {Pointer} Size_ The size of the region of memory to allocate, in bytes.
      * 
      * The size must always be a multiple of the page size.
      * 
@@ -4545,17 +4545,17 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc2fromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-virtualalloc2fromapp
      * @since windows10.0.10240
      */
-    static VirtualAlloc2FromApp(Process, BaseAddress, Size, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
+    static VirtualAlloc2FromApp(Process, BaseAddress, Size_, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
         Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
         BaseAddressMarshal := BaseAddress is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-6.dll\VirtualAlloc2FromApp", "ptr", Process, BaseAddressMarshal, BaseAddress, "ptr", Size_, "uint", AllocationType, "uint", PageProtection, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -4604,7 +4604,7 @@ class Memory {
      * @param {Integer} ParameterCount The number of extended parameters pointed to by <i>ExtendedParameters</i>.
      * @returns {MEMORY_MAPPED_VIEW_ADDRESS} Returns the base address of the mapped view, if successful. Otherwise, returns <b>NULL</b> and extended error status is available
      *            using <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile3fromapp
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-mapviewoffile3fromapp
      * @since windows10.0.10240
      */
     static MapViewOfFile3FromApp(FileMapping, Process, BaseAddress, Offset, ViewSize, AllocationType, PageProtection, ExtendedParameters, ParameterCount) {
@@ -4628,7 +4628,7 @@ class Memory {
      * Creates or opens a named or unnamed file mapping object for a specified file. You can specify a preferred NUMA node for the physical memory as an extended parameter; see the *ExtendedParameters* parameter.
      * @remarks
      * See the **Remarks** for [CreateFileMapping](/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingw#remarks).
-     * @param {HANDLE} File Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} File_ Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * A handle to the file from which to create a file mapping object.
      * 
@@ -4845,15 +4845,15 @@ class Memory {
      * If the object exists before the function call, the function returns a handle to the existing object (with its current size, not the specified size), and <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-createfilemapping2
+     * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/nf-memoryapi-createfilemapping2
      */
-    static CreateFileMapping2(File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
-        File := File is Win32Handle ? NumGet(File, "ptr") : File
+    static CreateFileMapping2(File_, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
+        File_ := File_ is Win32Handle ? NumGet(File_, "ptr") : File_
         Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
+        result := DllCall("api-ms-win-core-memory-l1-1-7.dll\CreateFileMapping2", "ptr", File_, "ptr", SecurityAttributes, "uint", DesiredAccess, "uint", PageProtection, "uint", AllocationAttributes, "uint", MaximumSize, "ptr", Name, "ptr", ExtendedParameters, "uint", ParameterCount, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -4956,38 +4956,38 @@ class Memory {
 
     /**
      * 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer} Size 
+     * @param {Pointer} Buffer_ 
+     * @param {Pointer} Size_ 
      * @param {Integer} InitialCrc 
      * @returns {Integer} 
      */
-    static RtlCrc32(Buffer_R, Size, InitialCrc) {
-        result := DllCall("ntdll.dll\RtlCrc32", "ptr", Buffer_R, "ptr", Size, "uint", InitialCrc, "uint")
+    static RtlCrc32(Buffer_, Size_, InitialCrc) {
+        result := DllCall("ntdll.dll\RtlCrc32", "ptr", Buffer_, "ptr", Size_, "uint", InitialCrc, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer} Size 
+     * @param {Pointer} Buffer_ 
+     * @param {Pointer} Size_ 
      * @param {Integer} InitialCrc 
      * @returns {Integer} 
      */
-    static RtlCrc64(Buffer_R, Size, InitialCrc) {
-        result := DllCall("ntdll.dll\RtlCrc64", "ptr", Buffer_R, "ptr", Size, "uint", InitialCrc, "uint")
+    static RtlCrc64(Buffer_, Size_, InitialCrc) {
+        result := DllCall("ntdll.dll\RtlCrc64", "ptr", Buffer_, "ptr", Size_, "uint", InitialCrc, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ 
      * @param {Pointer} Length 
      * @returns {BOOLEAN} 
      */
-    static RtlIsZeroMemory(Buffer_R, Length) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static RtlIsZeroMemory(Buffer_, Length) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ntdll.dll\RtlIsZeroMemory", Buffer_RMarshal, Buffer_R, "ptr", Length, "char")
+        result := DllCall("ntdll.dll\RtlIsZeroMemory", Buffer_Marshal, Buffer_, "ptr", Length, "char")
         return result
     }
 
@@ -5017,7 +5017,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalalloc
      * @since windows5.1.2600
      */
     static GlobalAlloc(uFlags, dwBytes) {
@@ -5096,7 +5096,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalrealloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalrealloc
      * @since windows5.1.2600
      */
     static GlobalReAlloc(hMem, dwBytes, uFlags) {
@@ -5128,7 +5128,7 @@ class Memory {
      * 
      * If the specified handle is not valid or if the object has been discarded, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalsize
      * @since windows5.1.2600
      */
     static GlobalSize(hMem) {
@@ -5169,7 +5169,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value other than <b>NO_ERROR</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalunlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalunlock
      * @since windows5.1.2600
      */
     static GlobalUnlock(hMem) {
@@ -5207,7 +5207,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globallock
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globallock
      * @since windows5.1.2600
      */
     static GlobalLock(hMem) {
@@ -5238,7 +5238,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>GMEM_INVALID_HANDLE</b>, indicating that the global handle is not valid. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalflags
      * @since windows5.1.2600
      */
     static GlobalFlags(hMem) {
@@ -5267,7 +5267,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalhandle
      * @since windows5.1.2600
      */
     static GlobalHandle(pMem) {
@@ -5308,7 +5308,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localalloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localalloc
      * @since windows5.1.2600
      */
     static LocalAlloc(uFlags, uBytes) {
@@ -5385,7 +5385,7 @@ class Memory {
      * @returns {HLOCAL} If the function succeeds, the return value is a handle to the reallocated memory object.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localrealloc
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localrealloc
      * @since windows5.1.2600
      */
     static LocalReAlloc(hMem, uBytes, uFlags) {
@@ -5424,7 +5424,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-locallock
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-locallock
      * @since windows5.1.2600
      */
     static LocalLock(hMem) {
@@ -5453,7 +5453,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localhandle
      * @since windows5.1.2600
      */
     static LocalHandle(pMem) {
@@ -5492,7 +5492,7 @@ class Memory {
      * 
      * If the function fails, the return value is zero and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns a value other than <b>NO_ERROR</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localunlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localunlock
      * @since windows5.1.2600
      */
     static LocalUnlock(hMem) {
@@ -5522,7 +5522,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localhandle">LocalHandle</a> function.
      * @returns {Pointer} If the function succeeds, the return value is the size of the specified local memory object, in bytes. If the specified handle is not valid or if the object has been discarded, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localsize
      * @since windows5.1.2600
      */
     static LocalSize(hMem) {
@@ -5553,7 +5553,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>LMEM_INVALID_HANDLE</b>, indicating that the local handle is not valid. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localflags
      * @since windows5.1.2600
      */
     static LocalFlags(hMem) {
@@ -5772,7 +5772,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createfilemappinga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createfilemappinga
      * @since windows5.1.2600
      */
     static CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
@@ -6011,7 +6011,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createfilemappingnumaa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createfilemappingnumaa
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
@@ -6121,7 +6121,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openfilemappinga
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openfilemappinga
      * @since windows5.1.2600
      */
     static OpenFileMappingA(dwDesiredAccess, bInheritHandle, lpName) {
@@ -6311,7 +6311,7 @@ class Memory {
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-mapviewoffileexnuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-mapviewoffileexnuma
      * @since windows6.0.6000
      */
     static MapViewOfFileExNuma(hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap, lpBaseAddress, nndPreferred) {
@@ -6349,7 +6349,7 @@ class Memory {
      * If the calling process does not have read access to all bytes in the specified memory range, the return value is nonzero.
      * 
      * If the application is compiled as a debugging version, and the process does not have read access to all bytes in the specified memory range, the function causes an assertion and breaks into the debugger. Leaving the debugger, the function continues as usual, and returns a nonzero value. This behavior is by design, as a debugging aid.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isbadreadptr
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-isbadreadptr
      * @since windows5.1.2600
      */
     static IsBadReadPtr(lp, ucb) {
@@ -6380,7 +6380,7 @@ class Memory {
      * If the calling process does not have write access to all bytes in the specified memory range, the return value is nonzero.
      * 
      * If the application is run under a debugger and the process does not have write access to all bytes in the specified memory range, the function causes a first chance STATUS_ACCESS_VIOLATION exception. The debugger can be configured to break for this condition. After resuming process execution in the debugger, the function continues as usual and returns a nonzero value This behavior is by design and serves as a debugging aid.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isbadwriteptr
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-isbadwriteptr
      * @since windows5.1.2600
      */
     static IsBadWritePtr(lp, ucb) {
@@ -6401,7 +6401,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the application is compiled as a debugging version, and the process does not have read access to  the specified memory location, the function causes an assertion and breaks into the debugger. Leaving the debugger, the function continues as usual, and returns a nonzero value. This behavior is by design, as a debugging aid.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isbadcodeptr
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-isbadcodeptr
      * @since windows5.1.2600
      */
     static IsBadCodePtr(lpfn) {
@@ -6442,7 +6442,7 @@ class Memory {
      * If the calling process does not have read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is nonzero.
      * 
      * If the application is compiled as a debugging version, and the process does not have read access to the entire memory range specified, the function causes an assertion and breaks into the debugger. Leaving the debugger, the function continues as usual, and returns a nonzero value This behavior is by design, as a debugging aid.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isbadstringptra
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-isbadstringptra
      * @since windows5.1.2600
      */
     static IsBadStringPtrA(lpsz, ucchMax) {
@@ -6479,7 +6479,7 @@ class Memory {
      * If the calling process does not have read access to all characters up to the string's terminating null character or up to the number of characters specified by <i>ucchMax</i>, the return value is nonzero.
      * 
      * If the application is compiled as a debugging version, and the process does not have read access to the entire memory range specified, the function causes an assertion and breaks into the debugger. Leaving the debugger, the function continues as usual, and returns a nonzero value This behavior is by design, as a debugging aid.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-isbadstringptrw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-isbadstringptrw
      * @since windows5.1.2600
      */
     static IsBadStringPtrW(lpsz, ucchMax) {
@@ -6540,7 +6540,7 @@ class Memory {
      * If the function fails, the return value is <b>FALSE</b>, and the function does not map or unmap—partial or 
      *        otherwise. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-mapuserphysicalpagesscatter
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-mapuserphysicalpagesscatter
      * @since windows5.1.2600
      */
     static MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
@@ -6575,7 +6575,7 @@ class Memory {
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 
      *     or later. For more information, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack A pointer to the application-defined 
+     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack_ A pointer to the application-defined 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to 
      *       register.
      * @returns {BOOL} If the function succeeds, it registers the callback function and returns 
@@ -6583,13 +6583,13 @@ class Memory {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-addsecurememorycachecallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-addsecurememorycachecallback
      * @since windows6.0.6000
      */
-    static AddSecureMemoryCacheCallback(pfnCallBack) {
+    static AddSecureMemoryCacheCallback(pfnCallBack_) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
+        result := DllCall("KERNEL32.dll\AddSecureMemoryCacheCallback", "ptr", pfnCallBack_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -6601,15 +6601,15 @@ class Memory {
      * Unregisters a callback function that was previously registered with the AddSecureMemoryCacheCallback function.
      * @remarks
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack A pointer to the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to remove.
+     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} pfnCallBack_ A pointer to the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to remove.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-removesecurememorycachecallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-removesecurememorycachecallback
      * @since windows6.0.6000
      */
-    static RemoveSecureMemoryCacheCallback(pfnCallBack) {
-        result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", pfnCallBack, "int")
+    static RemoveSecureMemoryCacheCallback(pfnCallBack_) {
+        result := DllCall("KERNEL32.dll\RemoveSecureMemoryCacheCallback", "ptr", pfnCallBack_, "int")
         return result
     }
 

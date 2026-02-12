@@ -33,7 +33,11 @@ class ISAXAttributes extends IUnknown{
      * @returns {Integer} 
      */
     getLength() {
-        result := ComCall(3, this, "int*", &pnLength := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pnLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnLength
     }
 
@@ -48,7 +52,11 @@ class ISAXAttributes extends IUnknown{
         ppwchUriMarshal := ppwchUri is VarRef ? "ptr*" : "ptr"
         pcchUriMarshal := pcchUri is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", nIndex, ppwchUriMarshal, ppwchUri, pcchUriMarshal, pcchUri, "HRESULT")
+        result := ComCall(4, this, "int", nIndex, ppwchUriMarshal, ppwchUri, pcchUriMarshal, pcchUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class ISAXAttributes extends IUnknown{
         ppwchLocalNameMarshal := ppwchLocalName is VarRef ? "ptr*" : "ptr"
         pcchLocalNameMarshal := pcchLocalName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int", nIndex, ppwchLocalNameMarshal, ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, "HRESULT")
+        result := ComCall(5, this, "int", nIndex, ppwchLocalNameMarshal, ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class ISAXAttributes extends IUnknown{
         ppwchQNameMarshal := ppwchQName is VarRef ? "ptr*" : "ptr"
         pcchQNameMarshal := pcchQName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "int", nIndex, ppwchQNameMarshal, ppwchQName, pcchQNameMarshal, pcchQName, "HRESULT")
+        result := ComCall(6, this, "int", nIndex, ppwchQNameMarshal, ppwchQName, pcchQNameMarshal, pcchQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +117,11 @@ class ISAXAttributes extends IUnknown{
         ppwchQNameMarshal := ppwchQName is VarRef ? "ptr*" : "ptr"
         pcchQNameMarshal := pcchQName is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "int", nIndex, ppwchUriMarshal, ppwchUri, pcchUriMarshal, pcchUri, ppwchLocalNameMarshal, ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, ppwchQNameMarshal, ppwchQName, pcchQNameMarshal, pcchQName, "HRESULT")
+        result := ComCall(7, this, "int", nIndex, ppwchUriMarshal, ppwchUri, pcchUriMarshal, pcchUri, ppwchLocalNameMarshal, ppwchLocalName, pcchLocalNameMarshal, pcchLocalName, ppwchQNameMarshal, ppwchQName, pcchQNameMarshal, pcchQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +137,11 @@ class ISAXAttributes extends IUnknown{
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        result := ComCall(8, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "int*", &pnIndex := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "int*", &pnIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnIndex
     }
 
@@ -130,22 +154,41 @@ class ISAXAttributes extends IUnknown{
     getIndexFromQName(pwchQName, cchQName) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        result := ComCall(9, this, "ptr", pwchQName, "int", cchQName, "int*", &pnIndex := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pwchQName, "int", cchQName, "int*", &pnIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnIndex
     }
 
     /**
-     * 
+     * getType Method (SQLServerResultSet)
+     * @remarks
+     * This getType method is specified by the getType method in the java.sql.ResultSet interface.  
+     *   
+     *  This method can be used to determine the actual cursor type. If the application selected TYPE_FORWARD_ONLY or used a default cursor type, TYPE_FORWARD_ONLY will be returned.
      * @param {Integer} nIndex 
      * @param {Pointer<Pointer<Integer>>} ppwchType 
      * @param {Pointer<Integer>} pcchType 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} An **int** that indicates the current cursor type, which can be one of the following values:  
+     *   
+     *  ResultSet.TYPE_FORWARD_ONLY  
+     *   
+     *  ResultSet.TYPE_SCROLL_INSENSITIVE  
+     *   
+     *  ResultSet.TYPE_SCROLL_SENSITIVE
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/gettype-method-sqlserverresultset
      */
     getType(nIndex, ppwchType, pcchType) {
         ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : "ptr"
         pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "int", nIndex, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
+        result := ComCall(10, this, "int", nIndex, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -166,7 +209,11 @@ class ISAXAttributes extends IUnknown{
         ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : "ptr"
         pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
+        result := ComCall(11, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +231,11 @@ class ISAXAttributes extends IUnknown{
         ppwchTypeMarshal := ppwchType is VarRef ? "ptr*" : "ptr"
         pcchTypeMarshal := pcchType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pwchQName, "int", cchQName, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "HRESULT")
+        result := ComCall(12, this, "ptr", pwchQName, "int", cchQName, ppwchTypeMarshal, ppwchType, pcchTypeMarshal, pcchType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -199,7 +250,11 @@ class ISAXAttributes extends IUnknown{
         ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "int", nIndex, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(13, this, "int", nIndex, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -220,7 +275,11 @@ class ISAXAttributes extends IUnknown{
         ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(14, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -238,7 +297,11 @@ class ISAXAttributes extends IUnknown{
         ppwchValueMarshal := ppwchValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pwchQName, "int", cchQName, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(15, this, "ptr", pwchQName, "int", cchQName, ppwchValueMarshal, ppwchValue, pcchValueMarshal, pcchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

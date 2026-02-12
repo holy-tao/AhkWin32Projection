@@ -42,20 +42,30 @@ class IDWritePaintReader extends IUnknown{
     SetCurrentGlyph(glyphIndex, paintElement, structSize, clipBox, glyphAttributes) {
         glyphAttributesMarshal := glyphAttributes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", glyphIndex, "ptr", paintElement, "uint", structSize, "ptr", clipBox, glyphAttributesMarshal, glyphAttributes, "HRESULT")
+        result := ComCall(3, this, "uint", glyphIndex, "ptr", paintElement, "uint", structSize, "ptr", clipBox, glyphAttributesMarshal, glyphAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetTextColor function sets the text color for the specified device context to the specified color.
+     * @remarks
+     * The text color is used to draw the face of each character written by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions. The text color is also used in converting bitmaps from color to monochrome and vice versa.
      * @param {Pointer<DWRITE_COLOR_F>} textColor 
-     * @returns {HRESULT} If the function succeeds, the return value is a color reference for the previous text color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * @returns {HRESULT} If the function succeeds, the return value is a color reference for the previous text color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextcolor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-settextcolor
      */
     SetTextColor(textColor) {
-        result := ComCall(4, this, "ptr", textColor, "HRESULT")
+        result := ComCall(4, this, "ptr", textColor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +75,11 @@ class IDWritePaintReader extends IUnknown{
      * @returns {HRESULT} 
      */
     SetColorPaletteIndex(colorPaletteIndex) {
-        result := ComCall(5, this, "uint", colorPaletteIndex, "HRESULT")
+        result := ComCall(5, this, "uint", colorPaletteIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +90,11 @@ class IDWritePaintReader extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCustomColorPalette(paletteEntries, paletteEntryCount) {
-        result := ComCall(6, this, "ptr", paletteEntries, "uint", paletteEntryCount, "HRESULT")
+        result := ComCall(6, this, "ptr", paletteEntries, "uint", paletteEntryCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +105,11 @@ class IDWritePaintReader extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToFirstChild(paintElement, structSize) {
-        result := ComCall(7, this, "ptr", paintElement, "uint", structSize, "HRESULT")
+        result := ComCall(7, this, "ptr", paintElement, "uint", structSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +120,11 @@ class IDWritePaintReader extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToNextSibling(paintElement, structSize) {
-        result := ComCall(8, this, "ptr", paintElement, "uint", structSize, "HRESULT")
+        result := ComCall(8, this, "ptr", paintElement, "uint", structSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,7 +133,11 @@ class IDWritePaintReader extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToParent() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +149,11 @@ class IDWritePaintReader extends IUnknown{
      */
     GetGradientStops(firstGradientStopIndex, gradientStopCount) {
         gradientStops := D2D1_GRADIENT_STOP()
-        result := ComCall(10, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, "ptr", gradientStops, "HRESULT")
+        result := ComCall(10, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, "ptr", gradientStops, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return gradientStops
     }
 
@@ -131,7 +165,11 @@ class IDWritePaintReader extends IUnknown{
      */
     GetGradientStopColors(firstGradientStopIndex, gradientStopCount) {
         gradientStopColors := DWRITE_PAINT_COLOR()
-        result := ComCall(11, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, "ptr", gradientStopColors, "HRESULT")
+        result := ComCall(11, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, "ptr", gradientStopColors, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return gradientStopColors
     }
 }

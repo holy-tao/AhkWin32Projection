@@ -35,7 +35,7 @@
  *     return CView::OnWndMsg(msg, wp, lp, pLR);
  * }
  * ```
- * @see https://learn.microsoft.com/windows/win32/tablet/inkoverlay-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/inkoverlay-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

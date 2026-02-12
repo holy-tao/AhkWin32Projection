@@ -3,7 +3,7 @@
 
 /**
  * Contains an exception record with a machine-independent description of an exception and a context record with a machine-dependent description of the processor context at the time of the exception.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_pointers
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-exception_pointers
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

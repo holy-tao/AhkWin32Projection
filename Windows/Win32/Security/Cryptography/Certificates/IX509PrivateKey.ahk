@@ -10,7 +10,7 @@
 
 /**
  * Represents an asymmetric private key that can be used for encryption, signing, and key agreement.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509privatekey
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-ix509privatekey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -241,21 +241,176 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * Opens an existing private key.
+     * @remarks
+     * If successful, this method sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_opened">Opened</a> property. You must call either the <b>Open</b> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> methods before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-export">Export</a> method or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-exportpublickey">ExportPublicKey</a> method.
+     * 
+     * You cannot set the following properties after calling the <b>Open</b> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> methods. If you wish to specify them, you must do so before calling either of these methods.<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_algorithm">Algorithm</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix">ContainerNamePrefix</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspinformations">CspInformations</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus">CspStatus</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_description">Description</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_existing">Existing</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_exportpolicy">ExportPolicy</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_friendlyname">FriendlyName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyprotection">KeyProtection</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage">KeyUsage</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp">LegacyCsp</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_length">Length</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_machinecontext">MachineContext</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-put_pin">Pin</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_readername">ReaderName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_silent">Silent</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage">UIContextMessage</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * The following properties can be set regardless of whether the key is open:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_certificate">Certificate</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_parentwindow">ParentWindow</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_securitydescriptor">SecurityDescriptor</a>
+     * </li>
+     * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-open
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-open
      */
     Open() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates an asymmetric private key.
+     * @remarks
+     * If you do not set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus">CspStatus</a>, the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a> properties, this method uses the default provider, key size, and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a> values  when creating the key. On a new operating system installation, for example,  Microsoft Enhanced Cryptographic Provider v1.0 is the default provider.
+     * 
+     * If you do not set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a> property, this method automatically generates a name. The generated name includes a GUID and,  if the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix">ContainerNamePrefix</a> property is not set, a prefix of "lp-". If the provider is a smart card provider, the generated name will not exceed the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength">MaxKeyContainerNameLength</a> value specified by the provider. If the generated name initially exceeds this value, it is truncated to forty characters.
+     * 
+     * You cannot set the following properties after calling the <b>Create</b> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> methods. If you wish to specify them, you must do so before calling either of these methods.<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_algorithm">Algorithm</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix">ContainerNamePrefix</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspinformations">CspInformations</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus">CspStatus</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_description">Description</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_existing">Existing</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_exportpolicy">ExportPolicy</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_friendlyname">FriendlyName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyprotection">KeyProtection</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage">KeyUsage</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp">LegacyCsp</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_length">Length</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_machinecontext">MachineContext</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-put_pin">Pin</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_readername">ReaderName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_silent">Silent</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage">UIContextMessage</a>
+     * </li>
+     * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -287,30 +442,42 @@ class IX509PrivateKey extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-create
      */
     Create() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Releases the handle of the cryptographic service provider (CSP) or the handle of the Cryptography API:\_Next Generation (CNG) key storage provider (KSP).
+     * @remarks
+     * This method does not delete the key from storage or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> instance. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-delete">Delete</a> method.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-close
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-close
      */
     Close() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Releases the handle of the cryptographic service provider (CSP) or the handle of the Cryptography API:\_Next Generation (CNG) key storage provider (KSP) and deletes the key from disk or smart card.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-close">Close</a> method if you only want to close the provider handles. The <b>Delete</b> method does not delete the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> instance.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -330,19 +497,25 @@ class IX509PrivateKey extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-delete
      */
     Delete() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Verifies that a private key exists and can be used by the client but does not open the key.
+     * @remarks
+     * If <b>VerifySilent</b> or <b>VerifySmartCardSilent</b> values are set and the cryptographic provider specifies that a user interface is necessary, the key will not be opened, but the method returns <b>S_OK</b>.
      * @param {Integer} VerifyType 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. Also, this method calls the <a href="/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetuserkey">CryptGetUserKey</a> and <a href="/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>CryptoAPI functions and can return errors identified in that documentation. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. Also, this method calls the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetuserkey">CryptGetUserKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> CryptoAPI functions and can return errors identified in that documentation. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -361,15 +534,37 @@ class IX509PrivateKey extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-verify
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-verify
      */
     Verify(VerifyType) {
-        result := ComCall(11, this, "int", VerifyType, "HRESULT")
+        result := ComCall(11, this, "int", VerifyType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Imports an existing private key into a key container within a cryptographic provider.
+     * @remarks
+     * The <b>Import</b> function automatically assumes that you are attempting to import a CNG KSP key if you specify a value other than BCRYPT_PRIVATE_KEY_BLOB for the <i>strExportType</i> parameter and you do not set any of the following properties:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus">CspStatus</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp">LegacyCsp</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a>
+     * </li>
+     * </ul>
      * @param {BSTR} strExportType If the key was created by using a CNG KSP (Key Storage Provider), the <b>Import</b> method passes this argument to the <i>pszProperty</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptsetproperty">NCryptSetProperty</a> function. That is, the value you specify will be used as the name of a property to be set on the imported key.
      * 
      * If the key was created by using a CryptoAPI CSP (Cryptographic Service Provider), this argument specifies how the private key is to be imported. This can be the following value.
@@ -395,7 +590,7 @@ class IX509PrivateKey extends IDispatch{
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to be applied to the string contained in the <i>strEncodedKey</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -409,7 +604,7 @@ class IX509PrivateKey extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The key container is already open. You can receive this error if you have already called <a href="/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> or <a href="/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a>.
+     * The key container is already open. You can receive this error if you have already called <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a>.
      * 
      * </td>
      * </tr>
@@ -425,13 +620,23 @@ class IX509PrivateKey extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-import
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-import
      */
     Import(strExportType, strEncodedKey, Encoding) {
-        strExportType := strExportType is String ? BSTR.Alloc(strExportType).Value : strExportType
-        strEncodedKey := strEncodedKey is String ? BSTR.Alloc(strEncodedKey).Value : strEncodedKey
+        if(strExportType is String) {
+            pin := BSTR.Alloc(strExportType)
+            strExportType := pin.Value
+        }
+        if(strEncodedKey is String) {
+            pin := BSTR.Alloc(strEncodedKey)
+            strEncodedKey := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", strExportType, "ptr", strEncodedKey, "int", Encoding, "HRESULT")
+        result := ComCall(12, this, "ptr", strExportType, "ptr", strEncodedKey, "int", Encoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -442,194 +647,225 @@ class IX509PrivateKey extends IDispatch{
      * If the key was created by using a CNG KSP (Key Storage Provider), you can specify one of the values allowed by the <i>pszBlobType</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptexportkey">NCryptExportKey</a> function.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to be applied to the string contained in the <i>pstrEncodedKey</i> parameter. The default value is XCN_CRYPT_STRING_BASE64.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the private key.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-export
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-export
      */
     Export(strExportType, Encoding) {
-        strExportType := strExportType is String ? BSTR.Alloc(strExportType).Value : strExportType
+        if(strExportType is String) {
+            pin := BSTR.Alloc(strExportType)
+            strExportType := pin.Value
+        }
 
         pstrEncodedKey := BSTR()
-        result := ComCall(13, this, "ptr", strExportType, "int", Encoding, "ptr", pstrEncodedKey, "HRESULT")
+        result := ComCall(13, this, "ptr", strExportType, "int", Encoding, "ptr", pstrEncodedKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrEncodedKey
     }
 
     /**
      * Exports the public key portion of the asymmetric key pair.
+     * @remarks
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> to open the private key before calling this method.
      * @returns {IX509PublicKey} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509publickey">IX509PublicKey</a> interface that represents the key.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-exportpublickey
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-exportpublickey
      */
     ExportPublicKey() {
-        result := ComCall(14, this, "ptr*", &ppPublicKey := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppPublicKey := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509PublicKey(ppPublicKey)
     }
 
     /**
-     * Specifies or retrieves the name of the key container.
+     * Specifies or retrieves the name of the key container. (Get)
      * @remarks
-     * 
      * If you do not specify a name, one is created when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method is called.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_containername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_containername
      */
     get_ContainerName() {
         pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        result := ComCall(15, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the name of the key container.
+     * Specifies or retrieves the name of the key container. (Put)
      * @remarks
-     * 
      * If you do not specify a name, one is created when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method is called.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_containername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_containername
      */
     put_ContainerName(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", Value, "HRESULT")
+        result := ComCall(16, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a prefix added to the name of the key container.
+     * Specifies or retrieves a prefix added to the name of the key container. (Get)
      * @remarks
-     * 
      * A prefix can contain any string limited to the maximum length of the key container name and to legal container name characters. For example, if you do not call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a> property to specify a key container name, one is automatically created when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method is called, and the prefix to the container name will be the string "lp". For another example, if you are creating a test harness and want to differentiate key containers by the programs that generated them, you can use the name of the executable as the prefix.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_containernameprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix
      */
     get_ContainerNamePrefix() {
         pValue := BSTR()
-        result := ComCall(17, this, "ptr", pValue, "HRESULT")
+        result := ComCall(17, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a prefix added to the name of the key container.
+     * Specifies or retrieves a prefix added to the name of the key container. (Put)
      * @remarks
-     * 
      * A prefix can contain any string limited to the maximum length of the key container name and to legal container name characters. For example, if you do not call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a> property to specify a key container name, one is automatically created when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method is called, and the prefix to the container name will be the string "lp". For another example, if you are creating a test harness and want to differentiate key containers by the programs that generated them, you can use the name of the executable as the prefix.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_containernameprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_containernameprefix
      */
     put_ContainerNamePrefix(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", Value, "HRESULT")
+        result := ComCall(18, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the name of a smart card reader.
+     * Specifies or retrieves the name of a smart card reader. (Get)
      * @remarks
-     * 
      * If you set this property before opening a key, the reader name is concatenated to the name of the key container. The format is \\.&#92;<i>Reader_Name</i>&#92;<i>Container_Name</i>. Prepending the reader name to the key container name enables the name to be disambiguated in subsequent calls to a cryptographic provider. The private key is typically stored in the smart card key container when a smart card is used.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_readername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_readername
      */
     get_ReaderName() {
         pValue := BSTR()
-        result := ComCall(19, this, "ptr", pValue, "HRESULT")
+        result := ComCall(19, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the name of a smart card reader.
+     * Specifies or retrieves the name of a smart card reader. (Put)
      * @remarks
-     * 
      * If you set this property before opening a key, the reader name is concatenated to the name of the key container. The format is \\.&#92;<i>Reader_Name</i>&#92;<i>Container_Name</i>. Prepending the reader name to the key container name enables the name to be disambiguated in subsequent calls to a cryptographic provider. The private key is typically stored in the smart card key container when a smart card is used.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_readername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_readername
      */
     put_ReaderName(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", Value, "HRESULT")
+        result := ComCall(20, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a collection of ICspInformation objects that contain information about the available cryptographic providers that support the public key algorithm associated with the private key.
+     * Specifies or retrieves a collection of ICspInformation objects that contain information about the available cryptographic providers that support the public key algorithm associated with the private key. (Get)
      * @remarks
-     * 
      * The enrollment process expects the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection to include all providers installed on the client computer. You should therefore not attempt to set this property to a subset of the installed providers. We recommend that you create  an empty  collection and call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformations-addavailablecsps">AddAvailableCsps</a> to  populate it. Build this collection once and set it on all top level request objects (or the private key if you are using the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object directly) to avoid the cost of creating multiple collections. An <b>ICspInformations</b> collection is large.
-     * 
-     * 
      * @returns {ICspInformations} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_cspinformations
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_cspinformations
      */
     get_CspInformations() {
-        result := ComCall(21, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICspInformations(ppValue)
     }
 
     /**
-     * Specifies or retrieves a collection of ICspInformation objects that contain information about the available cryptographic providers that support the public key algorithm associated with the private key.
+     * Specifies or retrieves a collection of ICspInformation objects that contain information about the available cryptographic providers that support the public key algorithm associated with the private key. (Put)
      * @remarks
-     * 
      * The enrollment process expects the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection to include all providers installed on the client computer. You should therefore not attempt to set this property to a subset of the installed providers. We recommend that you create  an empty  collection and call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformations-addavailablecsps">AddAvailableCsps</a> to  populate it. Build this collection once and set it on all top level request objects (or the private key if you are using the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object directly) to avoid the cost of creating multiple collections. An <b>ICspInformations</b> collection is large.
-     * 
-     * 
      * @param {ICspInformations} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_cspinformations
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_cspinformations
      */
     put_CspInformations(pValue) {
-        result := ComCall(22, this, "ptr", pValue, "HRESULT")
+        result := ComCall(22, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves an ICspStatus object that contains information about the cryptographic provider and algorithm pair associated with the private key.
+     * Specifies or retrieves an ICspStatus object that contains information about the cryptographic provider and algorithm pair associated with the private key. (Get)
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_algorithm">Algorithm</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> properties are automatically set when you call the <b>CspStatus</b> property. The <b>CspStatus</b> property is typically set during the enrollment process. That is, when a request template specifies multiple provider/algorithm pairs, the enrollment code sets the <b>CspStatus</b> property to the first enabled <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> object and tries to create a private key. If a key cannot be created, the enrollment code sets this property to the next enabled <b>ICspStatus</b> object and tries again.
-     * 
-     * 
      * @returns {ICspStatus} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_cspstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_cspstatus
      */
     get_CspStatus() {
-        result := ComCall(23, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICspStatus(ppValue)
     }
 
     /**
-     * Specifies or retrieves an ICspStatus object that contains information about the cryptographic provider and algorithm pair associated with the private key.
+     * Specifies or retrieves an ICspStatus object that contains information about the cryptographic provider and algorithm pair associated with the private key. (Put)
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_algorithm">Algorithm</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> properties are automatically set when you call the <b>CspStatus</b> property. The <b>CspStatus</b> property is typically set during the enrollment process. That is, when a request template specifies multiple provider/algorithm pairs, the enrollment code sets the <b>CspStatus</b> property to the first enabled <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> object and tries to create a private key. If a key cannot be created, the enrollment code sets this property to the next enabled <b>ICspStatus</b> object and tries again.
-     * 
-     * 
      * @param {ICspStatus} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_cspstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_cspstatus
      */
     put_CspStatus(pValue) {
-        result := ComCall(24, this, "ptr", pValue, "HRESULT")
+        result := ComCall(24, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the name of the cryptographic provider.
+     * Specifies or retrieves the name of the cryptographic provider. (Get)
      * @remarks
-     * 
      * Setting this property automatically sets the following properties to be consistent with the specified <b>ProviderName</b> value:
      * 
      * <ul>
@@ -659,21 +895,22 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * If you set the <b>ProviderName</b> property, we recommend that you do not set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp">LegacyCsp</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a> properties.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_providername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_providername
      */
     get_ProviderName() {
         pValue := BSTR()
-        result := ComCall(25, this, "ptr", pValue, "HRESULT")
+        result := ComCall(25, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the name of the cryptographic provider.
+     * Specifies or retrieves the name of the cryptographic provider. (Put)
      * @remarks
-     * 
      * Setting this property automatically sets the following properties to be consistent with the specified <b>ProviderName</b> value:
      * 
      * <ul>
@@ -703,23 +940,27 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * If you set the <b>ProviderName</b> property, we recommend that you do not set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp">LegacyCsp</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providertype">ProviderType</a> properties.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_providername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_providername
      */
     put_ProviderName(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", Value, "HRESULT")
+        result := ComCall(26, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the type of cryptographic provider associated with the private key.
+     * Specifies or retrieves the type of cryptographic provider associated with the private key. (Get)
      * @remarks
-     * 
      * You can use this property to force the use of the default provider for a given provider type. For example, to use the <b>PROV_RSA_SCHANNEL</b> provider, set this property to the <b>XCN_PROV_RSA_SCHANNEL</b><a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509providertype">X509ProviderType</a> enumeration value and do not specify a value for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> property.
      * 
      * Setting this property automatically sets the following properties to be consistent with the specified <b>ProviderType</b> value:
@@ -747,20 +988,21 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * Because  a previously specified <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> is not affected by setting the <b>ProviderType</b> property, setting a <b>ProviderType</b> that is inconsistent with the <b>ProviderName</b> property will result in undefined behavior, likely a failure when creating or opening a private key. We recommend that you set the <b>ProviderType</b> property only when attempting to force the use of the default provider for the specified type as discussed above.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_providertype
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_providertype
      */
     get_ProviderType() {
-        result := ComCall(27, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the type of cryptographic provider associated with the private key.
+     * Specifies or retrieves the type of cryptographic provider associated with the private key. (Put)
      * @remarks
-     * 
      * You can use this property to force the use of the default provider for a given provider type. For example, to use the <b>PROV_RSA_SCHANNEL</b> provider, set this property to the <b>XCN_PROV_RSA_SCHANNEL</b><a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509providertype">X509ProviderType</a> enumeration value and do not specify a value for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> property.
      * 
      * Setting this property automatically sets the following properties to be consistent with the specified <b>ProviderType</b> value:
@@ -788,21 +1030,22 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * Because  a previously specified <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> is not affected by setting the <b>ProviderType</b> property, setting a <b>ProviderType</b> that is inconsistent with the <b>ProviderName</b> property will result in undefined behavior, likely a failure when creating or opening a private key. We recommend that you set the <b>ProviderType</b> property only when attempting to force the use of the default provider for the specified type as discussed above.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_providertype
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_providertype
      */
     put_ProviderType(Value) {
-        result := ComCall(28, this, "int", Value, "HRESULT")
+        result := ComCall(28, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the provider is a CryptoAPI (legacy) cryptographic service provider (CSP).
+     * Specifies or retrieves a Boolean value that indicates whether the provider is a CryptoAPI (legacy) cryptographic service provider (CSP). (Get)
      * @remarks
-     * 
      * Setting this property automatically sets the following properties to be consistent with the specified <b>LegacyCsp</b> value:
      * 
      * <ul>
@@ -828,20 +1071,21 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * Because  a previously specified <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> is not affected by setting the <b>LegacyCsp</b> property, setting a <b>LegacyCsp</b> that is inconsistent with the <b>ProviderName</b> property will result in undefined behavior, likely a failure when creating or opening a private key.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_legacycsp
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_legacycsp
      */
     get_LegacyCsp() {
-        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(29, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the provider is a CryptoAPI (legacy) cryptographic service provider (CSP).
+     * Specifies or retrieves a Boolean value that indicates whether the provider is a CryptoAPI (legacy) cryptographic service provider (CSP). (Put)
      * @remarks
-     * 
      * Setting this property automatically sets the following properties to be consistent with the specified <b>LegacyCsp</b> value:
      * 
      * <ul>
@@ -867,202 +1111,241 @@ class IX509PrivateKey extends IDispatch{
      * </li>
      * </ul>
      * Because  a previously specified <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_providername">ProviderName</a> is not affected by setting the <b>LegacyCsp</b> property, setting a <b>LegacyCsp</b> that is inconsistent with the <b>ProviderName</b> property will result in undefined behavior, likely a failure when creating or opening a private key.
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_legacycsp
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_legacycsp
      */
     put_LegacyCsp(Value) {
-        result := ComCall(30, this, "short", Value, "HRESULT")
+        result := ComCall(30, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves an object identifier (OID) for the public key algorithm.
+     * Specifies or retrieves an object identifier (OID) for the public key algorithm. (Get)
      * @remarks
-     * 
      * This property is automatically set when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus">CspStatus</a> property is called.
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_algorithm
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_algorithm
      */
     get_Algorithm() {
-        result := ComCall(31, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IObjectId(ppValue)
     }
 
     /**
-     * Specifies or retrieves an object identifier (OID) for the public key algorithm.
+     * Specifies or retrieves an object identifier (OID) for the public key algorithm. (Put)
      * @remarks
-     * 
      * This property is automatically set when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus">CspStatus</a> property is called.
-     * 
-     * 
      * @param {IObjectId} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_algorithm
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_algorithm
      */
     put_Algorithm(pValue) {
-        result := ComCall(32, this, "ptr", pValue, "HRESULT")
+        result := ComCall(32, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a value that identifies whether a private key can be used for signing, or encryption, or both.
+     * Specifies or retrieves a value that identifies whether a private key can be used for signing, or encryption, or both. (Get)
      * @remarks
-     * 
      * If you specify a value of XCN_AT_SIGNATURE, the <b>KeySpec</b> property automatically sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage">KeyUsage</a> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      * 				 XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG. The <b>KeySpec</b> property only applies to [legacy] providers created by using CryptoAPI.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_keyspec
      */
     get_KeySpec() {
-        result := ComCall(33, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(33, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a value that identifies whether a private key can be used for signing, or encryption, or both.
+     * Specifies or retrieves a value that identifies whether a private key can be used for signing, or encryption, or both. (Put)
      * @remarks
-     * 
      * If you specify a value of XCN_AT_SIGNATURE, the <b>KeySpec</b> property automatically sets the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage">KeyUsage</a> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      * 				 XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG. The <b>KeySpec</b> property only applies to [legacy] providers created by using CryptoAPI.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_keyspec
      */
     put_KeySpec(Value) {
-        result := ComCall(34, this, "int", Value, "HRESULT")
+        result := ComCall(34, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the length, in bits, of the private key.
+     * Specifies or retrieves the length, in bits, of the private key. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_length
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_length
      */
     get_Length() {
-        result := ComCall(35, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(35, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the length, in bits, of the private key.
+     * Specifies or retrieves the length, in bits, of the private key. (Put)
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_length
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_length
      */
     put_Length(Value) {
-        result := ComCall(36, this, "int", Value, "HRESULT")
+        result := ComCall(36, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves export constraints for a private key.
+     * Specifies or retrieves export constraints for a private key. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_exportpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_exportpolicy
      */
     get_ExportPolicy() {
-        result := ComCall(37, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(37, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves export constraints for a private key.
+     * Specifies or retrieves export constraints for a private key. (Put)
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_exportpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_exportpolicy
      */
     put_ExportPolicy(Value) {
-        result := ComCall(38, this, "int", Value, "HRESULT")
+        result := ComCall(38, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a value that identifies the specific purpose for which a private key can be used.
+     * Specifies or retrieves a value that identifies the specific purpose for which a private key can be used. (Get)
      * @remarks
-     * 
      * If you set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a> property for a  legacy CSP to XCN_NCRYPT_ALLOW_SIGNING_FLAG, the <b>KeyUsage</b> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is automatically set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      *              XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_keyusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_keyusage
      */
     get_KeyUsage() {
-        result := ComCall(39, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(39, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a value that identifies the specific purpose for which a private key can be used.
+     * Specifies or retrieves a value that identifies the specific purpose for which a private key can be used. (Put)
      * @remarks
-     * 
      * If you set the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec">KeySpec</a> property for a  legacy CSP to XCN_NCRYPT_ALLOW_SIGNING_FLAG, the <b>KeyUsage</b> property to XCN_NCRYPT_ALLOW_SIGNING_FLAG. If you specify XCN_AT_KEYEXCHANGE, the <b>KeyUsage</b> property is automatically set to XCN_NCRYPT_ALLOW_DECRYPT_FLAG |
      *              XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_keyusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_keyusage
      */
     put_KeyUsage(Value) {
-        result := ComCall(40, this, "int", Value, "HRESULT")
+        result := ComCall(40, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a value that indicates how a private key is protected before use.
+     * Specifies or retrieves a value that indicates how a private key is protected before use. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_keyprotection
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_keyprotection
      */
     get_KeyProtection() {
-        result := ComCall(41, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(41, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a value that indicates how a private key is protected before use.
+     * Specifies or retrieves a value that indicates how a private key is protected before use. (Put)
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_keyprotection
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_keyprotection
      */
     put_KeyProtection(Value) {
-        result := ComCall(42, this, "int", Value, "HRESULT")
+        result := ComCall(42, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a Boolean value that identifies the local certificate store context.
+     * Specifies or retrieves a Boolean value that identifies the local certificate store context. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_machinecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_machinecontext
      */
     get_MachineContext() {
-        result := ComCall(43, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(43, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a Boolean value that identifies the local certificate store context.
+     * Specifies or retrieves a Boolean value that identifies the local certificate store context. (Put)
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_machinecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_machinecontext
      */
     put_MachineContext(Value) {
-        result := ComCall(44, this, "short", Value, "HRESULT")
+        result := ComCall(44, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the security descriptor for the private key.
+     * Specifies or retrieves the security descriptor for the private key. (Get)
      * @remarks
-     * 
      * To use the security descriptor, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora">ConvertStringSecurityDescriptorToSecurityDescriptor</a> function included with the Microsoft Authorization API and specify the string returned by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor">GetDefaultSecurityDescriptor</a> method.
      * 
      * The security descriptor is used to define access to private keys for the computer and user in the following manner:<ul>
@@ -1072,21 +1355,22 @@ class IX509PrivateKey extends IDispatch{
      * 
      * 
      * If the key is not open when you specify a descriptor, the property value  will be set when the key is opened.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_securitydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_securitydescriptor
      */
     get_SecurityDescriptor() {
         pValue := BSTR()
-        result := ComCall(45, this, "ptr", pValue, "HRESULT")
+        result := ComCall(45, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the security descriptor for the private key.
+     * Specifies or retrieves the security descriptor for the private key. (Put)
      * @remarks
-     * 
      * To use the security descriptor, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora">ConvertStringSecurityDescriptorToSecurityDescriptor</a> function included with the Microsoft Authorization API and specify the string returned by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor">GetDefaultSecurityDescriptor</a> method.
      * 
      * The security descriptor is used to define access to private keys for the computer and user in the following manner:<ul>
@@ -1096,211 +1380,247 @@ class IX509PrivateKey extends IDispatch{
      * 
      * 
      * If the key is not open when you specify a descriptor, the property value  will be set when the key is opened.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_securitydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_securitydescriptor
      */
     put_SecurityDescriptor(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", Value, "HRESULT")
+        result := ComCall(46, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a byte array that contains the certificate associated with the private key.
+     * Specifies or retrieves a byte array that contains the certificate associated with the private key. (Get)
      * @remarks
-     * 
      * If the key is not open when you specify a  certificate, the certificate will be set when the key is opened. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method.
      * 
      * The <b>Certificate</b> property compares the public key associated with the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object to the public key included in the certificate. The two keys must match.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_certificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_certificate
      */
     get_Certificate(Encoding) {
         pValue := BSTR()
-        result := ComCall(47, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(47, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a byte array that contains the certificate associated with the private key.
+     * Specifies or retrieves a byte array that contains the certificate associated with the private key. (Put)
      * @remarks
-     * 
      * If the key is not open when you specify a  certificate, the certificate will be set when the key is opened. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method.
      * 
      * The <b>Certificate</b> property compares the public key associated with the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object to the public key included in the certificate. The two keys must match.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_certificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_certificate
      */
     put_Certificate(Encoding, Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(48, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(48, this, "int", Encoding, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a unique name for the key container.
      * @remarks
-     * 
      * This property retrieves an alternate name that can be used when accessing a key when you believe that the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a> property value is not unique enough to provide adequate identification. Typically the key container creates the name. For example, the Cryptography API: Next Generation (CNG) key storage provider (KSP) returns the name of the encrypted file that contains the key.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_uniquecontainername
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_uniquecontainername
      */
     get_UniqueContainerName() {
         pValue := BSTR()
-        result := ComCall(49, this, "ptr", pValue, "HRESULT")
+        result := ComCall(49, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves a Boolean value that specifies whether the private key is open.
      * @remarks
-     * 
      * You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method to create a private key, and call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method to open one.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_opened
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_opened
      */
     get_Opened() {
-        result := ComCall(50, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(50, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Retrieves a Boolean value that specifies whether the private key represents the default key container.
      * @remarks
-     * 
      * Key containers are identified by name. The name can be specified by the client, or it can be a default value supported by the CSP or KSP. For example, some CSPs use the logon name of the current user as the default container name.
      * 
      * This property value is set when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> methods are called.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_defaultcontainer
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_defaultcontainer
      */
     get_DefaultContainer() {
-        result := ComCall(51, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(51, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the private key has been created or imported.
+     * Specifies or retrieves a Boolean value that indicates whether the private key has been created or imported. (Get)
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method to create a new private key. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method to open an existing key.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_existing
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_existing
      */
     get_Existing() {
-        result := ComCall(52, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(52, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the private key has been created or imported.
+     * Specifies or retrieves a Boolean value that indicates whether the private key has been created or imported. (Put)
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-create">Create</a> method to create a new private key. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-open">Open</a> method to open an existing key.
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_existing
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_existing
      */
     put_Existing(Value) {
-        result := ComCall(53, this, "short", Value, "HRESULT")
+        result := ComCall(53, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the Certificate Enrollment Control is allowed to display a dialog box when the private key is accessed.
+     * Specifies or retrieves a Boolean value that indicates whether the Certificate Enrollment Control is allowed to display a dialog box when the private key is accessed. (Get)
      * @remarks
-     * 
      * If the user interface is not allowed but is required to access the private key, operations that require the user interface will fail.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_silent
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_silent
      */
     get_Silent() {
-        result := ComCall(54, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(54, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the Certificate Enrollment Control is allowed to display a dialog box when the private key is accessed.
+     * Specifies or retrieves a Boolean value that indicates whether the Certificate Enrollment Control is allowed to display a dialog box when the private key is accessed. (Put)
      * @remarks
-     * 
      * If the user interface is not allowed but is required to access the private key, operations that require the user interface will fail.
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_silent
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_silent
      */
     put_Silent(Value) {
-        result := ComCall(55, this, "short", Value, "HRESULT")
+        result := ComCall(55, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves the ID of the window used to display key information.
+     * Specifies or retrieves the ID of the window used to display key information. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_parentwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_parentwindow
      */
     get_ParentWindow() {
-        result := ComCall(56, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(56, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves the ID of the window used to display key information.
+     * Specifies or retrieves the ID of the window used to display key information. (Put)
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_parentwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_parentwindow
      */
     put_ParentWindow(Value) {
-        result := ComCall(57, this, "int", Value, "HRESULT")
+        result := ComCall(57, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a string that contains user interface text associated with the private key.
+     * Specifies or retrieves a string that contains user interface text associated with the private key. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage
      */
     get_UIContextMessage() {
         pValue := BSTR()
-        result := ComCall(58, this, "ptr", pValue, "HRESULT")
+        result := ComCall(58, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a string that contains user interface text associated with the private key.
+     * Specifies or retrieves a string that contains user interface text associated with the private key. (Put)
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_uicontextmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_uicontextmessage
      */
     put_UIContextMessage(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(59, this, "ptr", Value, "HRESULT")
+        result := ComCall(59, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1308,80 +1628,97 @@ class IX509PrivateKey extends IDispatch{
      * Specifies a personal identification number (PIN) that is used to authenticate users prior to accessing a private key container on a smart card.
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_pin
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_pin
      */
     put_Pin(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(60, this, "ptr", Value, "HRESULT")
+        result := ComCall(60, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a display name for the private key.
+     * Specifies or retrieves a display name for the private key. (Get)
      * @remarks
-     * 
      * This property can contain any text and is intended to be displayed in a user interface to identify the private key.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_friendlyname
      */
     get_FriendlyName() {
         pValue := BSTR()
-        result := ComCall(61, this, "ptr", pValue, "HRESULT")
+        result := ComCall(61, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a display name for the private key.
+     * Specifies or retrieves a display name for the private key. (Put)
      * @remarks
-     * 
      * This property can contain any text and is intended to be displayed in a user interface to identify the private key.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_friendlyname
      */
     put_FriendlyName(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(62, this, "ptr", Value, "HRESULT")
+        result := ComCall(62, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Specifies or retrieves a string that contains a description of the private key.
+     * Specifies or retrieves a string that contains a description of the private key. (Get)
      * @remarks
-     * 
      * This property can contain any text and is intended to be displayed in a user interface to identify the nature and uses of the private key.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-get_description
      */
     get_Description() {
         pValue := BSTR()
-        result := ComCall(63, this, "ptr", pValue, "HRESULT")
+        result := ComCall(63, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Specifies or retrieves a string that contains a description of the private key.
+     * Specifies or retrieves a string that contains a description of the private key. (Put)
      * @remarks
-     * 
      * This property can contain any text and is intended to be displayed in a user interface to identify the nature and uses of the private key.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509privatekey-put_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-ix509privatekey-put_description
      */
     put_Description(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(64, this, "ptr", Value, "HRESULT")
+        result := ComCall(64, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

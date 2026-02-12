@@ -5,7 +5,7 @@
 
 /**
  * Used to create and destroy stubs for managed objects within the current COM+ context.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-imanagedactivationevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-imanagedactivationevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IManagedActivationEvents extends IUnknown{
      * @param {IManagedObjectInfo} pInfo A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imanagedobjectinfo">IManagedObjectInfo</a> that describes the stub for a managed object.
      * @param {BOOL} fDist Indicates whether the created stub is the distinguished stub. A distinguished stub is the stub that controls the lifetime of the current COM+ context.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imanagedactivationevents-createmanagedstub
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imanagedactivationevents-createmanagedstub
      */
     CreateManagedStub(pInfo, fDist) {
-        result := ComCall(3, this, "ptr", pInfo, "int", fDist, "HRESULT")
+        result := ComCall(3, this, "ptr", pInfo, "int", fDist, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,10 +50,14 @@ class IManagedActivationEvents extends IUnknown{
      * Destroys a stub that was created by CreateManagedStub.
      * @param {IManagedObjectInfo} pInfo A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imanagedobjectinfo">IManagedObjectInfo</a> that describes the stub for a managed object.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imanagedactivationevents-destroymanagedstub
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imanagedactivationevents-destroymanagedstub
      */
     DestroyManagedStub(pInfo) {
-        result := ComCall(4, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

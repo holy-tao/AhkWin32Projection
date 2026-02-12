@@ -2,6 +2,18 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Exports one or more file groups to the specified file.
+ * @remarks
+ * The file group name is specified when you call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-createfilegroup">IFsrmFileGroupManager::CreateFileGroup</a> 
+ *     method. To enumerate the file groups, call the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-enumfilegroups">IFsrmFileGroupManager::EnumFileGroups</a> 
+ *     method.
+ * 
+ * You can also use the 
+ *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupmanager-exportfilegroups">IFsrmFileGroupManager::ExportFileGroups</a> 
+ *     method to export the templates.
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmexportimport-exportfilegroups
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

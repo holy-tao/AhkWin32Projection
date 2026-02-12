@@ -12,7 +12,7 @@
  * Peer object information is contained in the <b>data</b> member of this structure and  represented as a byte buffer with a maximum size of 16K.
  * 
  * The lifetime of a peer object is tied to the lifetime of the application that registered it.
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_object
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_object
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

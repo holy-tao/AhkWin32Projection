@@ -3,7 +3,7 @@
 
 /**
  * The PRINTER\_DEFAULTS structure specifies the default data type, environment, initialization data, and access rights for a printer.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-defaults
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-defaults
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

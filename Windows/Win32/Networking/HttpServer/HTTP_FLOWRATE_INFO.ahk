@@ -13,7 +13,7 @@
  * For example, if that client needs initial 20KB of the file to start playback, the server might have this variable set to 20KB.
  * </li>
  * </ul>When <b> MaxBandwidth</b> is exceeded, <b> MaxPeakBandwidth </b> is still the absolute upper limit.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_flowrate_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_flowrate_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

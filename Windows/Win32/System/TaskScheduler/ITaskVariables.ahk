@@ -6,7 +6,7 @@
 
 /**
  * Defines task variables that can be passed as parameters to task handlers and external executables that are launched by tasks.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskvariables
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itaskvariables
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -34,35 +34,50 @@ class ITaskVariables extends IUnknown{
     /**
      * Gets the input variables for a task.
      * @returns {BSTR} The input variables for a task.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskvariables-getinput
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskvariables-getinput
      */
     GetInput() {
         pInput := BSTR()
-        result := ComCall(3, this, "ptr", pInput, "HRESULT")
+        result := ComCall(3, this, "ptr", pInput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInput
     }
 
     /**
      * Sets the output variables for a task.
-     * @param {BSTR} input The output variables for a task.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskvariables-setoutput
+     * @param {BSTR} input_ The output variables for a task.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskvariables-setoutput
      */
-    SetOutput(input) {
-        input := input is String ? BSTR.Alloc(input).Value : input
+    SetOutput(input_) {
+        if(input_ is String) {
+            pin := BSTR.Alloc(input_)
+            input_ := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", input, "HRESULT")
+        result := ComCall(4, this, "ptr", input_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Used to share the context between different steps and tasks that are in the same job instance.
      * @returns {BSTR} The context that is used to share the context between different steps and tasks that are in the same job instance.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskvariables-getcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskvariables-getcontext
      */
     GetContext() {
         pContext := BSTR()
-        result := ComCall(5, this, "ptr", pContext, "HRESULT")
+        result := ComCall(5, this, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pContext
     }
 }

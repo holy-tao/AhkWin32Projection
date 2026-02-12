@@ -6,7 +6,6 @@
 /**
  * Controls how a byte stream buffers data from a network.
  * @remarks
- * 
  * If a byte stream implements this interface, a media source can use it to control how the byte stream buffers data. This interface is designed for byte streams that read data from a network.
  *       
  * 
@@ -39,9 +38,7 @@
  *       
  * 
  * After the presentation has started, the media source should forward and <a href="https://docs.microsoft.com/windows/desktop/medfound/mebufferingstarted">MEBufferingStarted</a> and <a href="https://docs.microsoft.com/windows/desktop/medfound/mebufferingstopped">MEBufferingStopped</a> events that it receives while started. The Media Session will pause the presentation clock while buffering is progress and restart the presentation clock when buffering completes. The media source should only forward these events while the presentation is playing. The purpose of sending these events to the Media Session is to pause the presentation time while the source buffers data.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfbytestreambuffering
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfbytestreambuffering
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -88,15 +85,21 @@ class IMFByteStreamBuffering extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreambuffering-setbufferingparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfbytestreambuffering-setbufferingparams
      */
     SetBufferingParams(pParams) {
-        result := ComCall(3, this, "ptr", pParams, "HRESULT")
+        result := ComCall(3, this, "ptr", pParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables or disables buffering.
+     * @remarks
+     * Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfbytestreambuffering-setbufferingparams">IMFByteStreamBuffering::SetBufferingParams</a> to set the buffering parameters on the byte stream.
      * @param {BOOL} fEnable Specifies whether the byte stream buffers data. If <b>TRUE</b>, buffering is enabled. If <b>FALSE</b>, buffering is disabled.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -117,15 +120,21 @@ class IMFByteStreamBuffering extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreambuffering-enablebuffering
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfbytestreambuffering-enablebuffering
      */
     EnableBuffering(fEnable) {
-        result := ComCall(4, this, "int", fEnable, "HRESULT")
+        result := ComCall(4, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Stops any buffering that is in progress.
+     * @remarks
+     * If the byte stream is currently buffering data, it stops and sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mebufferingstopped">MEBufferingStopped</a> event. If the byte stream is not currently buffering, this method has no effect.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -156,10 +165,14 @@ class IMFByteStreamBuffering extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreambuffering-stopbuffering
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfbytestreambuffering-stopbuffering
      */
     StopBuffering() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

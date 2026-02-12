@@ -33,7 +33,11 @@ class IEventTarget2 extends IUnknown{
      * @returns {Pointer<SAFEARRAY>} 
      */
     GetRegisteredEventTypes() {
-        result := ComCall(3, this, "ptr*", &ppEventTypeArray := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEventTypeArray := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppEventTypeArray
     }
 
@@ -45,7 +49,11 @@ class IEventTarget2 extends IUnknown{
     GetListenersForType(pszEventType) {
         pszEventType := pszEventType is String ? StrPtr(pszEventType) : pszEventType
 
-        result := ComCall(4, this, "ptr", pszEventType, "ptr*", &ppEventHandlerArray := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszEventType, "ptr*", &ppEventHandlerArray := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppEventHandlerArray
     }
 
@@ -55,7 +63,11 @@ class IEventTarget2 extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterForDOMEventListeners(pCallback) {
-        result := ComCall(5, this, "ptr", pCallback, "HRESULT")
+        result := ComCall(5, this, "ptr", pCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +77,11 @@ class IEventTarget2 extends IUnknown{
      * @returns {HRESULT} 
      */
     UnregisterForDOMEventListeners(pCallback) {
-        result := ComCall(6, this, "ptr", pCallback, "HRESULT")
+        result := ComCall(6, this, "ptr", pCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

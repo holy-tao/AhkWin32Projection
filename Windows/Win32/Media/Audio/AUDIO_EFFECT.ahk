@@ -5,7 +5,7 @@
  * Represents an audio effect.
  * @remarks
  * Get a list of **AUDIO_EFFECT** structures by calling [IAudioEffectsManager::GetAudioEffects](nf-audioclient-iaudioeffectsmanager-getaudioeffects.md).
- * @see https://learn.microsoft.com/windows/win32/api/audioclient/ns-audioclient-audio_effect
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/ns-audioclient-audio_effect
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

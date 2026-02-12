@@ -6,7 +6,7 @@
 
 /**
  * Enumerates the optional bundle information from a bundle.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -34,20 +34,28 @@ class IAppxBundleManifestOptionalBundleInfoEnumerator extends IUnknown{
     /**
      * Gets the optional bundle information at the current position of the enumerator.
      * @returns {IAppxBundleManifestOptionalBundleInfo} The optional bundle information.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &optionalBundle := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &optionalBundle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleManifestOptionalBundleInfo(optionalBundle)
     }
 
     /**
      * Determines whether there is optional bundle information at the current position of the enumerator.
      * @returns {BOOL} <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator-gethascurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator-gethascurrent
      */
     GetHasCurrent() {
-        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasCurrent
     }
 
@@ -58,10 +66,14 @@ class IAppxBundleManifestOptionalBundleInfoEnumerator extends IUnknown{
      * <b>TRUE</b> if the enumerator successfully advances
      * 
      * <b>FALSE</b> if the enumerator has passed the end of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestoptionalbundleinfoenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 }

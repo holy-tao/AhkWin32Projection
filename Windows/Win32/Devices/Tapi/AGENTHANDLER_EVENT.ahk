@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The AGENTHANDLER_EVENT enumeration (tapi3cc.h) describes agent handler events.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-agenthandler_event
+ * The AGENTHANDLER_EVENT enumeration (tapi3.h) describes agent handler events.
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/ne-tapi3-agenthandler_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

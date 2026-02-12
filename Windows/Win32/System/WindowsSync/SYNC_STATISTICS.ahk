@@ -3,7 +3,7 @@
 
 /**
  * Represents types of statistics that convey information about a component.
- * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_statistics
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/ne-winsync-sync_statistics
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

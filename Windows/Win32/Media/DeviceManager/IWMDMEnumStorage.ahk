@@ -6,7 +6,7 @@
 
 /**
  * The IWMDMEnumStorage interface enumerates storages on a device.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmenumstorage
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iwmdmenumstorage
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IWMDMEnumStorage extends IUnknown{
 
     /**
      * The Next method retrieves a pointer to the next sibling storage.
+     * @remarks
+     * Windows Media Device Manager delegates the storage enumeration to the corresponding service provider. For information on service provider storage enumeration, see the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-imdspenumstorage">IMDSPEnumStorage</a> interface.
+     * 
+     * The storage enumerator may not reflect the effect of media insertion and removal. In that case, the application should obtain a new storage enumerator object by calling <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevice-enumstorage">IWMDMDevice::EnumStorage</a> to get the refreshed list. If you only want to retrieve a single interface at a time, you do not need to allocate an array for this method, as shown in the following code.
      * @param {Integer} celt Number of storages requested.
      * @param {Pointer<IWMDMStorage>} ppStorage Pointer to caller-allocated array of <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorage">IWMDMStorage</a> interface pointers. The size of this array must be <b>IWMDMStorage</b> *[celt]. The caller must release these interfaces when done with them. To avoid allocating a whole array, simply pass in the address of a pointer to an <b>IWMDMStorage</b> interface, as shown in Remarks.
      * @param {Pointer<Integer>} pceltFetched Number of storages enumerated.
@@ -43,24 +47,34 @@ class IWMDMEnumStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-next
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmenumstorage-next
      */
     Next(celt, ppStorage, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppStorage, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr*", ppStorage, pceltFetchedMarshal, pceltFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Skip method skips over the specified number of storages in the enumeration sequence.
+     * @remarks
+     * If the number of devices specified in <i>celt</i> is greater than the actual number of storage interfaces remaining in the enumeration sequence, this function will return S_FALSE. When this happens, <i>pceltFetched</i> must be queried to determine how many interfaces were actually skipped. If you skip to the end of the array of storage interfaces, a subsequent call to <b>Next</b> returns S_FALSE.
      * @param {Integer} celt The number of storages to skip.
      * @returns {Integer} The number of storages skipped.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmenumstorage-skip
      */
     Skip(celt) {
-        result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "HRESULT")
+        result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pceltFetched
     }
 
@@ -73,21 +87,31 @@ class IWMDMEnumStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-reset
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmenumstorage-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Clone method creates another enumerator with the same enumeration state as the current enumerator.
+     * @remarks
+     * Using this function, a client can record a particular point in the enumeration sequence and return to that point later. The new enumerator supports the same interface as the original enumerator.
      * @returns {IWMDMEnumStorage} An <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmenumstorage">IWMDMEnumStorage</a> interface of the cloned enumerator. The caller must release this interface when done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumstorage-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmenumstorage-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnumStorage := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnumStorage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMDMEnumStorage(ppEnumStorage)
     }
 }

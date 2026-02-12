@@ -6,7 +6,6 @@
 /**
  * Exposes methods that provide a rich notification system used by callers of IFileOperation to monitor the details of the operations they are performing through that interface.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Applications must implement <b>IFileOperationProgressSink</b> themselves. Windows does not provide a default implementation.
  * 
@@ -61,9 +60,7 @@
  *     hr = pfo->Advise(SAFECAST(this, IFileOperationProgressSink*), &dwCookie);
  * }
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -90,13 +87,19 @@ class IFileOperationProgressSink extends IUnknown{
 
     /**
      * Performs caller-implemented actions before any specific file operations are performed.
+     * @remarks
+     * <b>StartOperations</b> is the first of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> methods to be called after <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-performoperations">PerformOperations</a>. It can be used to perform any setup or initialization that you require before the file operations begin.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-startoperations
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-startoperations
      */
     StartOperations() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,10 +111,14 @@ class IFileOperationProgressSink extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Not used.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-finishoperations
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-finishoperations
      */
     FinishOperations(hrResult) {
-        result := ComCall(4, this, "int", hrResult, "HRESULT")
+        result := ComCall(4, this, "int", hrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,13 +135,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname">display name</a> of the item. This is a null-terminated, Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the rename operation and all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-prerenameitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the rename operation and all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-prerenameitem
      */
     PreRenameItem(dwFlags, psiItem, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(5, this, "uint", dwFlags, "ptr", psiItem, "ptr", pszNewName, "HRESULT")
+        result := ComCall(5, this, "uint", dwFlags, "ptr", psiItem, "ptr", pszNewName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,13 +168,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the item with its new name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postrenameitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postrenameitem
      */
     PostRenameItem(dwFlags, psiItem, pszNewName, hrRename, psiNewlyCreated) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(6, this, "uint", dwFlags, "ptr", psiItem, "ptr", pszNewName, "int", hrRename, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(6, this, "uint", dwFlags, "ptr", psiItem, "ptr", pszNewName, "int", hrRename, "ptr", psiNewlyCreated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -183,13 +198,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to a new name for the item in its new location. This is a null-terminated Unicode string and can be <b>NULL</b>. If <b>NULL</b>, the name of the destination item is the same as the source.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the move operation and all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-premoveitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the move operation and all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-premoveitem
      */
     PreMoveItem(dwFlags, psiItem, psiDestinationFolder, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(7, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,13 +234,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the moved item in its new location.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postmoveitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postmoveitem
      */
     PostMoveItem(dwFlags, psiItem, psiDestinationFolder, pszNewName, hrMove, psiNewlyCreated) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(8, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrMove, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrMove, "ptr", psiNewlyCreated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -241,13 +264,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to a new name for the item after it has been copied. This is a null-terminated Unicode string and can be <b>NULL</b>. If <b>NULL</b>, the name of the destination item is the same as the source.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the copy operation and all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-precopyitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the copy operation and all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-precopyitem
      */
     PreCopyItem(dwFlags, psiItem, psiDestinationFolder, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(9, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
+        result := ComCall(9, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -273,13 +300,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the new copy of the item.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postcopyitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postcopyitem
      */
     PostCopyItem(dwFlags, psiItem, psiDestinationFolder, pszNewName, hrCopy, psiNewlyCreated) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(10, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrCopy, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(10, this, "uint", dwFlags, "ptr", psiItem, "ptr", psiDestinationFolder, "ptr", pszNewName, "int", hrCopy, "ptr", psiNewlyCreated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -293,11 +324,15 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the item to be deleted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the delete operation and all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-predeleteitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, the delete operation and all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-predeleteitem
      */
     PreDeleteItem(dwFlags, psiItem) {
-        result := ComCall(11, this, "uint", dwFlags, "ptr", psiItem, "HRESULT")
+        result := ComCall(11, this, "uint", dwFlags, "ptr", psiItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -317,11 +352,15 @@ class IFileOperationProgressSink extends IUnknown{
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the deleted item, now in the Recycle Bin. If the item was fully deleted, this value is <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postdeleteitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postdeleteitem
      */
     PostDeleteItem(dwFlags, psiItem, hrDelete, psiNewlyCreated) {
-        result := ComCall(12, this, "uint", dwFlags, "ptr", psiItem, "int", hrDelete, "ptr", psiNewlyCreated, "HRESULT")
+        result := ComCall(12, this, "uint", dwFlags, "ptr", psiItem, "int", hrDelete, "ptr", psiNewlyCreated, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -338,13 +377,17 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to the file name of the new item, for instance <b>Newfile.txt</b>. This is a null-terminated, Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, this operation and all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-prenewitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, this operation and all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-prenewitem
      */
     PreNewItem(dwFlags, psiDestinationFolder, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(13, this, "uint", dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "HRESULT")
+        result := ComCall(13, this, "uint", dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -384,19 +427,25 @@ class IFileOperationProgressSink extends IUnknown{
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the new item.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postnewitem
+     * Returns S_OK if successful, or an error value otherwise. In the case of an error value, all subsequent operations pending from the call to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> are canceled.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-postnewitem
      */
     PostNewItem(dwFlags, psiDestinationFolder, pszNewName, pszTemplateName, dwFileAttributes, hrNew, psiNewItem) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
         pszTemplateName := pszTemplateName is String ? StrPtr(pszTemplateName) : pszTemplateName
 
-        result := ComCall(14, this, "uint", dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "ptr", pszTemplateName, "uint", dwFileAttributes, "int", hrNew, "ptr", psiNewItem, "HRESULT")
+        result := ComCall(14, this, "uint", dwFlags, "ptr", psiDestinationFolder, "ptr", pszNewName, "ptr", pszTemplateName, "uint", dwFileAttributes, "int", hrNew, "ptr", psiNewItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Provides an estimate of the total amount of work currently done in relation to the total amount of work.
+     * @remarks
+     * The <i>iWorkTotal</i> and <i>iWorkSoFar</i> values are "points" or estimates of the amount of work to be done, and how much is completed. They are not specified in any particular units, but should be roughly proportional to how much time the total process takes. For example, to copy one small file might be considered two points, and a large file might be considered ten points. If a process is performing an operation that copies five small files and one large file, and the process has completed four of the small files, <i>iWorkSoFar</i> would be eight points (4 x 2 = 8) and <i>iWorkTotal</i> would be twenty points (5 x 2 + 10 = 20), so the estimate would be 8 of 20 points (or 40%) complete.
      * @param {Integer} iWorkTotal Type: <b>UINT</b>
      * 
      * An estimate of the amount of work to be completed.
@@ -405,47 +454,69 @@ class IFileOperationProgressSink extends IUnknown{
      * The portion of <i>iWorkTotal</i> that has been completed so far.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-updateprogress
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-updateprogress
      */
     UpdateProgress(iWorkTotal, iWorkSoFar) {
-        result := ComCall(15, this, "uint", iWorkTotal, "uint", iWorkSoFar, "HRESULT")
+        result := ComCall(15, this, "uint", iWorkTotal, "uint", iWorkSoFar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not supported.
+     * Not supported. (IFileOperationProgressSink.ResetTimer)
+     * @remarks
+     * This method should return S_OK rather than E_NOTIMPL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-resettimer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-resettimer
      */
     ResetTimer() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not supported.
+     * Not supported. (IFileOperationProgressSink.PauseTimer)
+     * @remarks
+     * This method should return S_OK rather than E_NOTIMPL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-pausetimer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-pausetimer
      */
     PauseTimer() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Not supported.
+     * Not supported. (IFileOperationProgressSink.ResumeTimer)
+     * @remarks
+     * This method should return S_OK rather than E_NOTIMPL.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-resumetimer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ifileoperationprogresssink-resumetimer
      */
     ResumeTimer() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -29,13 +29,18 @@ class IHTMLSelectElement5 extends IDispatch{
     static VTableNames => ["add"]
 
     /**
-     * 
+     * Reserves the specified URL for non-administrator users and accounts.
      * @param {IHTMLOptionElement} pElem 
      * @param {Pointer<VARIANT>} pvarBefore 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/add-urlacl
      */
     add(pElem, pvarBefore) {
-        result := ComCall(7, this, "ptr", pElem, "ptr", pvarBefore, "HRESULT")
+        result := ComCall(7, this, "ptr", pElem, "ptr", pvarBefore, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,11 +6,8 @@
 /**
  * Extends the IMFSinkWriterCallback interface.
  * @remarks
- * 
  * This interface provides a mechanism for apps that use <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsinkwriter">IMFSinkWriter</a> to receive asynchronous notifications when the transform chain is complete and the system is ready for use or when an asynchronous error occurs.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfsinkwritercallback2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nn-mfreadwrite-imfsinkwritercallback2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,12 +33,16 @@ class IMFSinkWriterCallback2 extends IMFSinkWriterCallback{
     static VTableNames => ["OnTransformChange", "OnStreamError"]
 
     /**
-     * Called when the transform chain in the IMFSourceReader is built or modified.
+     * Called when the transform chain in the IMFSourceReader is built or modified. (IMFSinkWriterCallback2.OnTransformChange)
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the sink writer ignores the return value.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwritercallback2-ontransformchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback2-ontransformchange
      */
     OnTransformChange() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,10 +51,14 @@ class IMFSinkWriterCallback2 extends IMFSinkWriterCallback{
      * @param {Integer} dwStreamIndex The index of the stream of the transform that raised the asynchronous error.
      * @param {HRESULT} hrStatus The error that occurred.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the sink writer ignores the return value.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwritercallback2-onstreamerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback2-onstreamerror
      */
     OnStreamError(dwStreamIndex, hrStatus) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "int", hrStatus, "HRESULT")
+        result := ComCall(6, this, "uint", dwStreamIndex, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

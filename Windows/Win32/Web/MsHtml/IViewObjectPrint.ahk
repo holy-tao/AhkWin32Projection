@@ -33,7 +33,11 @@ class IViewObjectPrint extends IUnknown{
      * @returns {IUnknown} 
      */
     GetPrintBitmap() {
-        result := ComCall(3, this, "ptr*", &ppPrintBitmap := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppPrintBitmap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppPrintBitmap)
     }
 }

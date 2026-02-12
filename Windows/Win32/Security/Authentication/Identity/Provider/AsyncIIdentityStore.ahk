@@ -40,7 +40,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_GetCount() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {Integer} 
      */
     Finish_GetCount() {
-        result := ComCall(4, this, "uint*", &pdwProviders := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwProviders := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwProviders
     }
 
@@ -60,7 +68,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_GetAt(dwProvider, pProvGuid) {
-        result := ComCall(5, this, "uint", dwProvider, "ptr", pProvGuid, "HRESULT")
+        result := ComCall(5, this, "uint", dwProvider, "ptr", pProvGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {IUnknown} 
      */
     Finish_GetAt(pProvGuid) {
-        result := ComCall(6, this, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pProvGuid, "ptr*", &ppIdentityProvider := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIdentityProvider)
     }
 
@@ -83,7 +99,11 @@ class AsyncIIdentityStore extends IUnknown{
     Begin_AddToCache(lpszUniqueID, ProviderGUID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(7, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "HRESULT")
+        result := ComCall(7, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +112,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_AddToCache() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,27 +125,35 @@ class AsyncIIdentityStore extends IUnknown{
      * @param {PWSTR} lpszUniqueID 
      * @param {Pointer<Guid>} ProviderGUID 
      * @param {Integer} cbSid 
-     * @param {Pointer<Integer>} pSid 
+     * @param {Pointer<Integer>} pSid_ 
      * @returns {HRESULT} 
      */
-    Begin_ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid) {
+    Begin_ConvertToSid(lpszUniqueID, ProviderGUID, cbSid, pSid_) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+        pSid_Marshal := pSid_ is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSidMarshal, pSid, "HRESULT")
+        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", ProviderGUID, "ushort", cbSid, pSid_Marshal, pSid_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pSid 
+     * @param {Pointer<Integer>} pSid_ 
      * @returns {Integer} 
      */
-    Finish_ConvertToSid(pSid) {
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
+    Finish_ConvertToSid(pSid_) {
+        pSid_Marshal := pSid_ is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, pSidMarshal, pSid, "ushort*", &pcbRequiredSid := 0, "HRESULT")
+        result := ComCall(10, this, pSid_Marshal, pSid_, "ushort*", &pcbRequiredSid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbRequiredSid
     }
 
@@ -133,7 +165,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_EnumerateIdentities(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(11, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "HRESULT")
+        result := ComCall(11, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,7 +178,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {IEnumUnknown} 
      */
     Finish_EnumerateIdentities() {
-        result := ComCall(12, this, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppIdentityEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -151,7 +191,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Reset() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +204,11 @@ class AsyncIIdentityStore extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Reset() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

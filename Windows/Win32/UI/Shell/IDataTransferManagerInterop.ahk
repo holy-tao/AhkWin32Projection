@@ -5,7 +5,7 @@
 
 /**
  * Enables access to DataTransferManager methods in a Windows Store app that manages multiple windows.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idatatransfermanagerinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-idatatransfermanagerinterop
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,28 +32,40 @@ class IDataTransferManagerInterop extends IUnknown{
 
     /**
      * Gets the DataTransferManager instance for the specified window.
+     * @remarks
+     * This method is equivalent to the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager.getforcurrentview">DataTransferManager.GetForCurrentView</a> method, except that you specify a window from a multi-window Windows Store app.
      * @param {HWND} appWindow The window whose <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance is to be retrieved.
      * @param {Pointer<Guid>} riid The requested interface ID of the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance.
-     * @returns {Pointer<Void>} Receives the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-getforwindow
+     * @returns {Pointer<Pointer<Void>>} Receives the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, "ptr*", &dataTransferManager := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, "ptr*", &dataTransferManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dataTransferManager
     }
 
     /**
      * Displays the UI for sharing content for the specified window.
+     * @remarks
+     * This method is equivalent to the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager.showshareui">DataTransferManager.ShowShareUI</a> method, except that you specify a window from a multi-window Windows Store app.
      * @param {HWND} appWindow The window to show the share UI for.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-showshareuiforwindow
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-showshareuiforwindow
      */
     ShowShareUIForWindow(appWindow) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(4, this, "ptr", appWindow, "HRESULT")
+        result := ComCall(4, this, "ptr", appWindow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

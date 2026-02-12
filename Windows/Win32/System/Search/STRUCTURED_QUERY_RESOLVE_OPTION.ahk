@@ -12,7 +12,7 @@
  * ``` syntax
  * typedef int STRUCTURED_QUERY_RESOLVE_OPTION;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_resolve_option
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/ne-structuredquery-structured_query_resolve_option
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

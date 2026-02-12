@@ -5,7 +5,7 @@
 
 /**
  * Represents a callback to the media engine to notify key request data.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediaengineneedkeynotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfmediaengineneedkeynotify
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IMFMediaEngineNeedKeyNotify extends IUnknown{
      * @param {Pointer} initData The initialization data.
      * @param {Integer} cb The count in bytes of <i>initData</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediaengineneedkeynotify-needkey
      */
     NeedKey(initData, cb) {
         ComCall(3, this, "ptr", initData, "uint", cb)

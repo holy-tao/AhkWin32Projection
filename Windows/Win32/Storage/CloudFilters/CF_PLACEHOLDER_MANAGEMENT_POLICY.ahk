@@ -5,7 +5,7 @@
  * Specifies a placeholder management policy for a CF_SYNC_POLICIES structure.
  * @remarks
  * By default, only a sync provider can perform placeholder management operations in a sync root. Non sync provider processes can perform placeholder management operations only if the sync root is inactive, i.e., when the sync root is not connected to by any sync provider. These policies, when enabled, allow non sync provider processes to perform respective placeholder management operations in an active sync root. The default policy allowing only a connected sync provider to perform any placeholder management operations. The three other policies can be specified in any combination.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_placeholder_management_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_placeholder_management_policy
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

@@ -66,7 +66,7 @@
  * To view session statistics, such as **EventsLost** while the session is running,
  * call the [ControlTrace](/windows/win32/api/evntrace/nf-evntrace-controltracea)
  * function and set the _ControlCode_ parameter to `EVENT_TRACE_CONTROL_QUERY`.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_properties_v2
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-event_trace_properties_v2
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

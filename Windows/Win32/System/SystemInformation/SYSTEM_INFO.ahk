@@ -3,7 +3,7 @@
 
 /**
  * Contains information about the current computer system. This includes the architecture and type of the processor, the number of processors in the system, the page size, and other such information.
- * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/ns-sysinfoapi-system_info
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

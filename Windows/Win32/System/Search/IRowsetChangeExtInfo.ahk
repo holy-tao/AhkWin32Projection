@@ -38,7 +38,11 @@ class IRowsetChangeExtInfo extends IUnknown{
     GetOriginalRow(hReserved, hRow, phRowOriginal) {
         phRowOriginalMarshal := phRowOriginal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hReserved, "ptr", hRow, phRowOriginalMarshal, phRowOriginal, "HRESULT")
+        result := ComCall(3, this, "ptr", hReserved, "ptr", hRow, phRowOriginalMarshal, phRowOriginal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class IRowsetChangeExtInfo extends IUnknown{
         rgiOrdinalsMarshal := rgiOrdinals is VarRef ? "uint*" : "ptr"
         rgColumnStatusMarshal := rgColumnStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", hReserved, "ptr", hRow, "uint", cColumnOrdinals, rgiOrdinalsMarshal, rgiOrdinals, rgColumnStatusMarshal, rgColumnStatus, "HRESULT")
+        result := ComCall(4, this, "ptr", hReserved, "ptr", hRow, "uint", cColumnOrdinals, rgiOrdinalsMarshal, rgiOrdinals, rgColumnStatusMarshal, rgColumnStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -40,7 +40,11 @@ class IAccessibleWinSAT extends IAccessible{
         wsValue := wsValue is String ? StrPtr(wsValue) : wsValue
         wsDesc := wsDesc is String ? StrPtr(wsDesc) : wsDesc
 
-        result := ComCall(28, this, "ptr", wsName, "ptr", wsValue, "ptr", wsDesc, "HRESULT")
+        result := ComCall(28, this, "ptr", wsName, "ptr", wsValue, "ptr", wsDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

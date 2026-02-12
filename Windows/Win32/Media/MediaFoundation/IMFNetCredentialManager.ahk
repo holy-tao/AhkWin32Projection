@@ -6,7 +6,7 @@
 
 /**
  * Implemented by applications to provide user credentials for a network source.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetcredentialmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfnetcredentialmanager
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -55,10 +55,14 @@ class IMFNetCredentialManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredentialmanager-begingetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetcredentialmanager-begingetcredentials
      */
     BeginGetCredentials(pParam, pCallback, pState) {
-        result := ComCall(3, this, "ptr", pParam, "ptr", pCallback, "ptr", pState, "HRESULT")
+        result := ComCall(3, this, "ptr", pParam, "ptr", pCallback, "ptr", pState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,10 +70,14 @@ class IMFNetCredentialManager extends IUnknown{
      * Completes an asynchronous request to retrieve the user's credentials.
      * @param {IMFAsyncResult} pResult Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface that contains the asynchronous result.
      * @returns {IMFNetCredential} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredential">IMFNetCredential</a> interface, which is used to retrieve the credentials. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredentialmanager-endgetcredentials
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetcredentialmanager-endgetcredentials
      */
     EndGetCredentials(pResult) {
-        result := ComCall(4, this, "ptr", pResult, "ptr*", &ppCred := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pResult, "ptr*", &ppCred := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFNetCredential(ppCred)
     }
 
@@ -96,10 +104,14 @@ class IMFNetCredentialManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredentialmanager-setgood
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfnetcredentialmanager-setgood
      */
     SetGood(pCred, fGood) {
-        result := ComCall(5, this, "ptr", pCred, "int", fGood, "HRESULT")
+        result := ComCall(5, this, "ptr", pCred, "int", fGood, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

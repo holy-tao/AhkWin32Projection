@@ -56,7 +56,11 @@ class IPrintSchemaElement extends IDispatch{
      * @returns {IUnknown} 
      */
     get_XmlNode() {
-        result := ComCall(7, this, "ptr*", &ppXmlNode := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppXmlNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppXmlNode)
     }
 
@@ -66,7 +70,11 @@ class IPrintSchemaElement extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -76,7 +84,11 @@ class IPrintSchemaElement extends IDispatch{
      */
     get_NamespaceUri() {
         pbstrNamespaceUri := BSTR()
-        result := ComCall(9, this, "ptr", pbstrNamespaceUri, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrNamespaceUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrNamespaceUri
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Enables clients to subscribe to type change notifications on objects that implement the ITypeInfo, ITypeInfo2, ICreateTypeInfo, and ICreateTypeInfo2 interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-itypechangeevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nn-oaidl-itypechangeevents
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -32,25 +32,29 @@ class ITypeChangeEvents extends IUnknown{
 
     /**
      * Raised when a request has been made to change a type. The change can be disallowed.
-     * @param {Integer} changeKind The type of change.
+     * @param {Integer} changeKind_ The type of change.
      * 
      * <a id="CHANGEKIND_ADDMEMBER"></a>
      * <a id="changekind_addmember"></a>
      * @param {ITypeInfo} pTInfoBefore An object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo2">ITypeInfo2</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypeinfo">ICreateTypeInfo</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypeinfo2">ICreateTypeInfo2</a> interface and that contains the type information before the change was made. The client subscribes to this object to receive notifications about any changes.
      * @param {PWSTR} pStrName The name of the change. This value may be null.
      * @returns {Integer} False to disallow the change; otherwise, true.
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypechangeevents-requesttypechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-itypechangeevents-requesttypechange
      */
-    RequestTypeChange(changeKind, pTInfoBefore, pStrName) {
+    RequestTypeChange(changeKind_, pTInfoBefore, pStrName) {
         pStrName := pStrName is String ? StrPtr(pStrName) : pStrName
 
-        result := ComCall(3, this, "int", changeKind, "ptr", pTInfoBefore, "ptr", pStrName, "int*", &pfCancel := 0, "HRESULT")
+        result := ComCall(3, this, "int", changeKind_, "ptr", pTInfoBefore, "ptr", pStrName, "int*", &pfCancel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCancel
     }
 
     /**
      * Raised after a type has been changed.
-     * @param {Integer} changeKind The type of change.
+     * @param {Integer} changeKind_ The type of change.
      * 
      * <a id="CHANGEKIND_ADDMEMBER"></a>
      * <a id="changekind_addmember"></a>
@@ -99,12 +103,16 @@ class ITypeChangeEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypechangeevents-aftertypechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/nf-oaidl-itypechangeevents-aftertypechange
      */
-    AfterTypeChange(changeKind, pTInfoAfter, pStrName) {
+    AfterTypeChange(changeKind_, pTInfoAfter, pStrName) {
         pStrName := pStrName is String ? StrPtr(pStrName) : pStrName
 
-        result := ComCall(4, this, "int", changeKind, "ptr", pTInfoAfter, "ptr", pStrName, "HRESULT")
+        result := ComCall(4, this, "int", changeKind_, "ptr", pTInfoAfter, "ptr", pStrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

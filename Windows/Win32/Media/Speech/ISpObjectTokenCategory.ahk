@@ -36,24 +36,44 @@ class ISpObjectTokenCategory extends ISpDataKey{
     static VTableNames => ["SetId", "GetId", "GetDataKey", "EnumTokens", "SetDefaultTokenId", "GetDefaultTokenId"]
 
     /**
-     * 
+     * Sets the specified identifier string in the volume's metadata.
      * @param {PWSTR} pszCategoryId 
      * @param {BOOL} fCreateIfNotExist 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/setidentificationfield-win32-encryptablevolume
      */
     SetId(pszCategoryId, fCreateIfNotExist) {
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
 
-        result := ComCall(15, this, "ptr", pszCategoryId, "int", fCreateIfNotExist, "HRESULT")
+        result := ComCall(15, this, "ptr", pszCategoryId, "int", fCreateIfNotExist, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
-        result := ComCall(16, this, "ptr*", &ppszCoMemCategoryId := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppszCoMemCategoryId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCoMemCategoryId
     }
 
@@ -63,7 +83,11 @@ class ISpObjectTokenCategory extends ISpDataKey{
      * @returns {ISpDataKey} 
      */
     GetDataKey(spdkl) {
-        result := ComCall(17, this, "int", spdkl, "ptr*", &ppDataKey := 0, "HRESULT")
+        result := ComCall(17, this, "int", spdkl, "ptr*", &ppDataKey := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpDataKey(ppDataKey)
     }
 
@@ -77,7 +101,11 @@ class ISpObjectTokenCategory extends ISpDataKey{
         pzsReqAttribs := pzsReqAttribs is String ? StrPtr(pzsReqAttribs) : pzsReqAttribs
         pszOptAttribs := pszOptAttribs is String ? StrPtr(pszOptAttribs) : pszOptAttribs
 
-        result := ComCall(18, this, "ptr", pzsReqAttribs, "ptr", pszOptAttribs, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pzsReqAttribs, "ptr", pszOptAttribs, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSpObjectTokens(ppEnum)
     }
 
@@ -89,7 +117,11 @@ class ISpObjectTokenCategory extends ISpDataKey{
     SetDefaultTokenId(pszTokenId) {
         pszTokenId := pszTokenId is String ? StrPtr(pszTokenId) : pszTokenId
 
-        result := ComCall(19, this, "ptr", pszTokenId, "HRESULT")
+        result := ComCall(19, this, "ptr", pszTokenId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +130,11 @@ class ISpObjectTokenCategory extends ISpDataKey{
      * @returns {PWSTR} 
      */
     GetDefaultTokenId() {
-        result := ComCall(20, this, "ptr*", &ppszCoMemTokenId := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppszCoMemTokenId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCoMemTokenId
     }
 }

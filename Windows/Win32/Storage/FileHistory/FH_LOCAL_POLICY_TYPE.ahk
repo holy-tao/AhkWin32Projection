@@ -7,7 +7,7 @@
  * To retrieve the value of the numeric parameter for a local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy">IFhConfigMgr::GetLocalPolicy</a> method.
  * 
  * To set the value of the numeric parameter for the local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy">IFhConfigMgr::SetLocalPolicy</a> method.
- * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_local_policy_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/fhcfg/ne-fhcfg-fh_local_policy_type
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
  */

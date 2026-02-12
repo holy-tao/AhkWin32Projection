@@ -8,7 +8,7 @@
  * The following diagram illustrates the resolved metadata memory layout in an ID3D12Resource.
  * 
  * :::image type="content" source="images/d3d12-video-resolved-metadata-layout.png" alt-text="Diagram of the resolved metadata memory layout in an ID3D12Resource":::
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_resolve_metadata_output_arguments
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_resolve_metadata_output_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

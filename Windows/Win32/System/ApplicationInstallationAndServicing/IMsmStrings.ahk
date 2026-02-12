@@ -45,11 +45,15 @@ class IMsmStrings extends IDispatch{
     /**
      * 
      * @param {Integer} Item 
-     * @param {Pointer<BSTR>} Return_R 
+     * @param {Pointer<BSTR>} Return_ 
      * @returns {HRESULT} 
      */
-    get_Item(Item, Return_R) {
-        result := ComCall(7, this, "int", Item, "ptr", Return_R, "HRESULT")
+    get_Item(Item, Return_) {
+        result := ComCall(7, this, "int", Item, "ptr", Return_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +65,11 @@ class IMsmStrings extends IDispatch{
     get_Count(Count) {
         CountMarshal := Count is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, CountMarshal, Count, "HRESULT")
+        result := ComCall(8, this, CountMarshal, Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +78,11 @@ class IMsmStrings extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &NewEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(NewEnum)
     }
 }

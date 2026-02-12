@@ -40,7 +40,11 @@ class ISAXDeclHandler extends IUnknown{
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
         pwchModel := pwchModel is String ? StrPtr(pwchModel) : pwchModel
 
-        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchModel, "int", cchModel, "HRESULT")
+        result := ComCall(3, this, "ptr", pwchName, "int", cchName, "ptr", pwchModel, "int", cchModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +69,11 @@ class ISAXDeclHandler extends IUnknown{
         pwchValueDefault := pwchValueDefault is String ? StrPtr(pwchValueDefault) : pwchValueDefault
         pwchValue := pwchValue is String ? StrPtr(pwchValue) : pwchValue
 
-        result := ComCall(4, this, "ptr", pwchElementName, "int", cchElementName, "ptr", pwchAttributeName, "int", cchAttributeName, "ptr", pwchType, "int", cchType, "ptr", pwchValueDefault, "int", cchValueDefault, "ptr", pwchValue, "int", cchValue, "HRESULT")
+        result := ComCall(4, this, "ptr", pwchElementName, "int", cchElementName, "ptr", pwchAttributeName, "int", cchAttributeName, "ptr", pwchType, "int", cchType, "ptr", pwchValueDefault, "int", cchValueDefault, "ptr", pwchValue, "int", cchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +89,11 @@ class ISAXDeclHandler extends IUnknown{
         pwchName := pwchName is String ? StrPtr(pwchName) : pwchName
         pwchValue := pwchValue is String ? StrPtr(pwchValue) : pwchValue
 
-        result := ComCall(5, this, "ptr", pwchName, "int", cchName, "ptr", pwchValue, "int", cchValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pwchName, "int", cchName, "ptr", pwchValue, "int", cchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +112,11 @@ class ISAXDeclHandler extends IUnknown{
         pwchPublicId := pwchPublicId is String ? StrPtr(pwchPublicId) : pwchPublicId
         pwchSystemId := pwchSystemId is String ? StrPtr(pwchSystemId) : pwchSystemId
 
-        result := ComCall(6, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "HRESULT")
+        result := ComCall(6, this, "ptr", pwchName, "int", cchName, "ptr", pwchPublicId, "int", cchPublicId, "ptr", pwchSystemId, "int", cchSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

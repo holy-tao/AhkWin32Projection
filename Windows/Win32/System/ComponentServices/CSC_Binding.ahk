@@ -7,7 +7,7 @@
  * Binding all of the work submitted through the activity to a single STA involves a trade-off between avoiding the need to marshal interfaces to components used by many of the different bits of work versus needing to synchronize on a specific STA.
  * 
  * This enumeration is used only to set the thread pool binding for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>. An error is returned if you try to set the thread pool binding when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a>. The values of this enumeration have no impact upon the MTA.
- * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_binding
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/ne-comsvcs-csc_binding
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

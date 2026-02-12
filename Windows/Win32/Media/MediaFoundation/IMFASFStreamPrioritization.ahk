@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Not implemented.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfstreamprioritization
+ * Not implemented. (IMFASFStreamPrioritization)
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nn-wmcontainer-imfasfstreamprioritization
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IMFASFStreamPrioritization extends IUnknown{
     /**
      * Note  This interface is not implemented in this version of Media Foundation. Retrieves the number of entries in the stream priority list.
      * @returns {Integer} Receives the number of streams in the stream priority list.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstreamcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstreamcount
      */
     GetStreamCount() {
-        result := ComCall(3, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwStreamCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwStreamCount
     }
 
@@ -76,18 +80,24 @@ class IMFASFStreamPrioritization extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstream
      */
     GetStream(dwStreamIndex, pwStreamNumber, pwStreamFlags) {
         pwStreamNumberMarshal := pwStreamNumber is VarRef ? "ushort*" : "ptr"
         pwStreamFlagsMarshal := pwStreamFlags is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, pwStreamFlagsMarshal, pwStreamFlags, "HRESULT")
+        result := ComCall(4, this, "uint", dwStreamIndex, pwStreamNumberMarshal, pwStreamNumber, pwStreamFlagsMarshal, pwStreamFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is not implemented in this version of Media Foundation. Adds a stream to the stream priority list.
+     * @remarks
+     * The stream priority list is built by appending entries to the list with each call to <b>AddStream</b>. The list is evaluated in descending order of importance. The most important stream should be added first, and the least important should be added last.
      * @param {Integer} wStreamNumber Stream number of the stream to add.
      * @param {Integer} wStreamFlags If <b>TRUE</b>, the stream is mandatory.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -120,15 +130,21 @@ class IMFASFStreamPrioritization extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamprioritization-addstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-addstream
      */
     AddStream(wStreamNumber, wStreamFlags) {
-        result := ComCall(5, this, "ushort", wStreamNumber, "ushort", wStreamFlags, "HRESULT")
+        result := ComCall(5, this, "ushort", wStreamNumber, "ushort", wStreamFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is not implemented in this version of Media Foundation. Removes a stream from the stream priority list.
+     * @remarks
+     * When a stream is removed from the stream priority list, the index values of all streams that follow it in the list are decremented.
      * @param {Integer} dwStreamIndex Index of the entry in the stream priority list to remove. Values range from zero, to one less than the stream count retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-getstreamcount">IMFASFStreamPrioritization::GetStreamCount</a>.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
@@ -149,20 +165,30 @@ class IMFASFStreamPrioritization extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamprioritization-removestream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-removestream
      */
     RemoveStream(dwStreamIndex) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "HRESULT")
+        result := ComCall(6, this, "uint", dwStreamIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is not implemented in this version of Media Foundation. Creates a copy of the ASF stream prioritization object.
+     * @remarks
+     * The new object is completely independent of the original.
      * @returns {IMFASFStreamPrioritization} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamprioritization">IMFASFStreamPrioritization</a> interface of the new object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamprioritization-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamprioritization-clone
      */
     Clone() {
-        result := ComCall(7, this, "ptr*", &ppIStreamPrioritization := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppIStreamPrioritization := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFASFStreamPrioritization(ppIStreamPrioritization)
     }
 }

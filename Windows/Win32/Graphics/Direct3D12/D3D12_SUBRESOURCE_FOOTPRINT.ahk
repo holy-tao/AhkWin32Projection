@@ -8,7 +8,7 @@
  *       
  * 
  * The helper structure is <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-subresource-footprint">CD3DX12_SUBRESOURCE_FOOTPRINT</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_footprint
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_subresource_footprint
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

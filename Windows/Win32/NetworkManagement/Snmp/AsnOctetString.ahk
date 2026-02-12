@@ -9,7 +9,7 @@
  * 
  * You must check the flag specified in the <b>dynamic</b> member before you release the data stream of an octet string. Call the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function only if the <b>dynamic</b> member is set to <b>TRUE</b>.
- * @see https://learn.microsoft.com/windows/win32/api/snmp/ns-snmp-asnoctetstring
+ * @see https://learn.microsoft.com/windows/win32/api//content/snmp/ns-snmp-asnoctetstring
  * @namespace Windows.Win32.NetworkManagement.Snmp
  * @version v4.0.30319
  */

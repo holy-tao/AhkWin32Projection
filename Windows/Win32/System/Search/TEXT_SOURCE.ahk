@@ -18,7 +18,7 @@
  * For more information about these return values, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/indexsrv/filter-interface-values">Filter-Interface Values</a>.
  * 
  * The word-breaking return value is WBREAK_E_END_OF_TEXT. For more information about word-breaking return values, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/indexsrv/word-breaking-values">Word-Breaking Values</a>.
- * @see https://learn.microsoft.com/windows/win32/api/indexsrv/ns-indexsrv-text_source
+ * @see https://learn.microsoft.com/windows/win32/api//content/indexsrv/ns-indexsrv-text_source
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.FunctionDiscovery
@@ -813,52 +815,52 @@ class FunctionDiscovery {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH => "Bluetooth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_BLUETOOTH_LE => "Bluetooth Low Energy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_NETBIOS => "NetBIOS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_AD_PRINTER => "Published Printer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_PNP => "PnP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_UPNP => "UPnP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_WSD => "WSD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_WUSB => "WUSB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_WFD => "WiFiDirect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DEVICEDISPLAY_DISCOVERYMETHOD_ASP_INFRA => "AspInfra"
 
@@ -1120,82 +1122,82 @@ class FunctionDiscovery {
     }
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_COMPUTER => "Computers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_INPUTDEVICE => "Input"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_PRINTER => "Printers"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_SCANNER => "Scanners"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_FAX => "FAX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_MFP => "MFP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_CAMERA => "Cameras"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_STORAGE => "Storage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_NETWORK_INFRASTRUCTURE => "NetworkInfrastructure"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_DISPLAYS => "Displays"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_MULTIMEDIA_DEVICE => "MediaDevices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_GAMING_DEVICE => "Gaming"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_TELEPHONE => "Phones"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_HOME_AUTOMATION_SYSTEM => "HomeAutomation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_HOME_SECURITY_SYSTEM => "HomeSecurity"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNPX_DEVICECATEGORY_OTHER => "Other"
 
@@ -3401,112 +3403,112 @@ class FunctionDiscovery {
     static FD_LONGHORN => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_SUBKEY => "SOFTWARE\Microsoft\Function Discovery\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_PNP => "Provider\Microsoft.Base.PnP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_REGISTRY => "Provider\Microsoft.Base.Registry"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_SSDP => "Provider\Microsoft.Networking.SSDP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_WSDISCOVERY => "Provider\Microsoft.Networking.WSD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_NETBIOS => "Provider\Microsoft.Networking.Netbios"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_WCN => "Provider\Microsoft.Networking.WCN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_PUBLICATION => "Provider\Microsoft.Base.Publication"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_PNPXASSOCIATION => "Provider\Microsoft.PnPX.Association"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_BT => "Provider\Microsoft.Devices.Bluetooth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_WUSB => "Provider\Microsoft.Devices.WirelessUSB"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_DEVICEDISPLAYOBJECTS => "Provider\Microsoft.Base.DeviceDisplayObjects"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_DEVQUERYOBJECTS => "Provider\Microsoft.Base.DevQueryObjects"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_NETWORKDEVICES => "Layered\Microsoft.Networking.Devices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_DEVICES => "Layered\Microsoft.Base.Devices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_DEVICEFUNCTIONENUMERATORS => "Layered\Microsoft.Devices.FunctionEnumerators"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_CATEGORY_DEVICEPAIRING => "Layered\Microsoft.Base.DevicePairing"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_SUBCAT_DEVICES_WSDPRINTERS => "WSDPrinters"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_SUBCAT_NETWORKDEVICES_SSDP => "SSDP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_SUBCAT_NETWORKDEVICES_WSD => "WSD"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_SUBCAT_REG_PUBLICATION => "Publication"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FCTN_SUBCAT_REG_DIRECTED => "Directed"
 
@@ -3521,277 +3523,277 @@ class FunctionDiscovery {
     static MAX_FDCONSTRAINTVALUE_LENGTH => 1000
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_PROVIDERINSTANCEID => "ProviderInstanceID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_SUBCATEGORY => "Subcategory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_RECURSESUBCATEGORY => "RecurseSubcategory"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_VISIBILITY => "Visibility"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_COMCLSCONTEXT => "COMClsContext"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_ROUTINGSCOPE => "RoutingScope"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_TRUE => "TRUE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_FALSE => "FALSE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_RECURSESUBCATEGORY_TRUE => "TRUE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_VISIBILITY_DEFAULT => "0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_VISIBILITY_ALL => "1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_COMCLSCONTEXT_INPROC_SERVER => "1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_COMCLSCONTEXT_LOCAL_SERVER => "4"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_PAIRED => "Paired"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_UNPAIRED => "UnPaired"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_ALL => "All"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_ROUTINGSCOPE_ALL => "All"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_CONSTRAINTVALUE_ROUTINGSCOPE_DIRECT => "Direct"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_PAIRING_STATE => "PairingState"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FD_QUERYCONSTRAINT_INQUIRY_TIMEOUT => "InquiryModeTimeout"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERPNP_QUERYCONSTRAINT_INTERFACECLASS => "InterfaceClass"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERPNP_QUERYCONSTRAINT_NOTPRESENT => "NotPresent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERPNP_QUERYCONSTRAINT_NOTIFICATIONSONLY => "NotifyOnly"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNP_CONSTRAINTVALUE_NOTPRESENT => "TRUE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PNP_CONSTRAINTVALUE_NOTIFICATIONSONLY => "TRUE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERSSDP_QUERYCONSTRAINT_TYPE => "Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERSSDP_QUERYCONSTRAINT_CUSTOMXMLPROPERTY => "CustomXmlProperty"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSDP_CONSTRAINTVALUE_TYPE_ALL => "ssdp:all"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSDP_CONSTRAINTVALUE_TYPE_ROOT => "upnp:rootdevice"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSDP_CONSTRAINTVALUE_TYPE_DEVICE_PREFIX => "urn:schemas-upnp-org:device:"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SSDP_CONSTRAINTVALUE_TYPE_SVC_PREFIX => "urn:schemas-upnp-org:service:"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWSD_QUERYCONSTRAINT_DIRECTEDADDRESS => "RemoteAddress"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWSD_QUERYCONSTRAINT_TYPE => "Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWSD_QUERYCONSTRAINT_SCOPE => "Scope"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWSD_QUERYCONSTRAINT_SECURITY_REQUIREMENTS => "SecurityRequirements"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWSD_QUERYCONSTRAINT_SSL_CERT_FOR_CLIENT_AUTH => "SSLClientAuthCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWSD_QUERYCONSTRAINT_SSL_CERTHASH_FOR_SERVER_AUTH => "SSLServerAuthCertHash"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSD_CONSTRAINTVALUE_REQUIRE_SECURECHANNEL => "1"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSD_CONSTRAINTVALUE_REQUIRE_SECURECHANNEL_AND_COMPACTSIGNATURE => "2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WSD_CONSTRAINTVALUE_NO_TRUST_VERIFICATION => "3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWNET_QUERYCONSTRAINT_TYPE => "Type"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWNET_QUERYCONSTRAINT_PROPERTIES => "Properties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERWNET_QUERYCONSTRAINT_RESOURCETYPE => "ResourceType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_TYPE_ALL => "All"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_TYPE_SERVER => "Server"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_TYPE_DOMAIN => "Domain"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_PROPERTIES_ALL => "All"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_PROPERTIES_LIMITED => "Limited"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_RESOURCETYPE_DISK => "Disk"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_RESOURCETYPE_PRINTER => "Printer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WNET_CONSTRAINTVALUE_RESOURCETYPE_DISKORPRINTER => "DiskOrPrinter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ONLINE_PROVIDER_DEVICES_QUERYCONSTRAINT_OWNERNAME => "OwnerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERDDO_QUERYCONSTRAINT_DEVICEFUNCTIONDISPLAYOBJECTS => "DeviceFunctionDisplayObjects"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERDDO_QUERYCONSTRAINT_ONLYCONNECTEDDEVICES => "OnlyConnectedDevices"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static PROVIDERDDO_QUERYCONSTRAINT_DEVICEINTERFACES => "DeviceInterfaces"
 

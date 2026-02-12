@@ -136,7 +136,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_size(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,7 +149,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {Integer} 
      */
     get_size() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -155,7 +163,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_multiple(v) {
-        result := ComCall(9, this, "short", v, "HRESULT")
+        result := ComCall(9, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +176,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_multiple() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -174,9 +190,16 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_name(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,7 +209,11 @@ class IHTMLSelectElement extends IDispatch{
      */
     get_name() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -195,7 +222,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {IDispatch} 
      */
     get_options() {
-        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -205,7 +236,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onchange(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,7 +250,11 @@ class IHTMLSelectElement extends IDispatch{
      */
     get_onchange() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -225,7 +264,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_selectedIndex(v) {
-        result := ComCall(16, this, "int", v, "HRESULT")
+        result := ComCall(16, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,7 +277,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {Integer} 
      */
     get_selectedIndex() {
-        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -244,7 +291,11 @@ class IHTMLSelectElement extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -254,9 +305,16 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_value(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +324,11 @@ class IHTMLSelectElement extends IDispatch{
      */
     get_value() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -276,7 +338,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disabled(v) {
-        result := ComCall(21, this, "short", v, "HRESULT")
+        result := ComCall(21, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -285,7 +351,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disabled() {
-        result := ComCall(22, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -294,28 +364,44 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {IHTMLFormElement} 
      */
     get_form() {
-        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLFormElement(p)
     }
 
     /**
-     * 
+     * Reserves the specified URL for non-administrator users and accounts.
      * @param {IHTMLElement} element 
      * @param {VARIANT} before 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/add-urlacl
      */
     add(element, before) {
-        result := ComCall(24, this, "ptr", element, "ptr", before, "HRESULT")
+        result := ComCall(24, this, "ptr", element, "ptr", before, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * removeConnectionEventListener Method (SQLServerPooledConnection)
+     * @remarks
+     * This removeConnectionEventListener method is specified by the removeConnectionEventListener method in the javax.sql.PooledConnection interface.
      * @param {Integer} index 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/removeconnectioneventlistener-method-sqlserverpooledconnection
      */
     remove(index) {
-        result := ComCall(25, this, "int", index, "HRESULT")
+        result := ComCall(25, this, "int", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -325,7 +411,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_length(v) {
-        result := ComCall(26, this, "int", v, "HRESULT")
+        result := ComCall(26, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -334,7 +424,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -343,7 +437,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {IUnknown} 
      */
     get__newEnum() {
-        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -354,7 +452,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {IDispatch} 
      */
     item(name, index) {
-        result := ComCall(29, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 
@@ -364,7 +466,11 @@ class IHTMLSelectElement extends IDispatch{
      * @returns {IDispatch} 
      */
     tags(tagName) {
-        result := ComCall(30, this, "ptr", tagName, "ptr*", &pdisp := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", tagName, "ptr*", &pdisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pdisp)
     }
 }

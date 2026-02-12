@@ -6,7 +6,7 @@
 
 /**
  * The INSNetSourceCreator interface creates an administrative network source plug-in.
- * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class INSNetSourceCreator extends IUnknown{
 
     /**
      * The Initialize method prepares the network source creator for operations. You must call this method before calling any of the other methods in the INSNetSourceCreator interface.
+     * @remarks
+     * When you are finished using the network source creator, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-shutdown">Shutdown</a> method to ensure that all resources are released properly.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -63,15 +65,19 @@ class INSNetSourceCreator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-initialize
      */
     Initialize() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The INSNetSourceCreator interface creates an administrative network source plug-in.
      * @param {PWSTR} pszStreamName 
      * @param {IUnknown} pMonitor 
      * @param {Pointer<Integer>} pData 
@@ -79,37 +85,49 @@ class INSNetSourceCreator extends IUnknown{
      * @param {IUnknown} pCallback 
      * @param {Integer} qwContext 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
     CreateNetSource(pszStreamName, pMonitor, pData, pUserContext, pCallback, qwContext) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, pDataMarshal, pData, "ptr", pUserContext, "ptr", pCallback, "uint", qwContext, "HRESULT")
+        result := ComCall(4, this, "ptr", pszStreamName, "ptr", pMonitor, pDataMarshal, pData, "ptr", pUserContext, "ptr", pCallback, "uint", qwContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The INSNetSourceCreator interface creates an administrative network source plug-in.
      * @param {PWSTR} pszStreamName 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
     GetNetSourceProperties(pszStreamName) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
-        result := ComCall(5, this, "ptr", pszStreamName, "ptr*", &ppPropertiesNode := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszStreamName, "ptr*", &ppPropertiesNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppPropertiesNode)
     }
 
     /**
-     * 
+     * The INSNetSourceCreator interface creates an administrative network source plug-in.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
     GetNetSourceSharedNamespace() {
-        result := ComCall(6, this, "ptr*", &ppSharedNamespace := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppSharedNamespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppSharedNamespace)
     }
 
@@ -117,50 +135,66 @@ class INSNetSourceCreator extends IUnknown{
      * The GetNetSourceAdminInterface method retrieves a pointer to the IDispatch interface of the administrative network source object.
      * @param {PWSTR} pszStreamName Pointer to a wide-character <b>null</b>-terminated string containing the desired network protocol. Typically, this value is either "http\0" or "mms\0".
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the address of the <b>IDispatch</b> interface on successful return. Use this interface pointer to obtain the interface pointer of the desired network admin interface: <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource">IWMSInternalAdminNetSource</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource2">IWMSInternalAdminNetSource2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3">IWMSInternalAdminNetSource3</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-getnetsourceadmininterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-getnetsourceadmininterface
      */
     GetNetSourceAdminInterface(pszStreamName) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
         pVal := VARIANT()
-        result := ComCall(7, this, "ptr", pszStreamName, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pszStreamName, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * 
+     * The INSNetSourceCreator interface creates an administrative network source plug-in.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
     GetNumProtocolsSupported() {
-        result := ComCall(8, this, "uint*", &pcProtocols := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pcProtocols := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcProtocols
     }
 
     /**
-     * 
+     * The INSNetSourceCreator interface creates an administrative network source plug-in.
      * @param {Integer} dwProtocolNum 
      * @param {PWSTR} pwszProtocolName 
      * @param {Pointer<Integer>} pcchProtocolName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
     GetProtocolName(dwProtocolNum, pwszProtocolName, pcchProtocolName) {
         pwszProtocolName := pwszProtocolName is String ? StrPtr(pwszProtocolName) : pwszProtocolName
 
         pcchProtocolNameMarshal := pcchProtocolName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "HRESULT")
+        result := ComCall(9, this, "uint", dwProtocolNum, "ptr", pwszProtocolName, pcchProtocolNameMarshal, pcchProtocolName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Shutdown method properly disposes of all allocated memory used by the network source creator. You must call this method when you are finished using the network source creator, to ensure that all resources are released.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-shutdown
      */
     Shutdown() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

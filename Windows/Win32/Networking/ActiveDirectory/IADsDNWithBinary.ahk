@@ -7,7 +7,7 @@
 
 /**
  * The IADsDNWithBinary interface provides methods for an ADSI client to associate a distinguished name (DN) with the GUID of an object.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsdnwithbinary
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsdnwithbinary
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -54,7 +54,11 @@ class IADsDNWithBinary extends IDispatch{
      */
     get_BinaryValue() {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -64,7 +68,11 @@ class IADsDNWithBinary extends IDispatch{
      * @returns {HRESULT} 
      */
     put_BinaryValue(vBinaryValue) {
-        result := ComCall(8, this, "ptr", vBinaryValue, "HRESULT")
+        result := ComCall(8, this, "ptr", vBinaryValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +82,11 @@ class IADsDNWithBinary extends IDispatch{
      */
     get_DNString() {
         retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -84,9 +96,16 @@ class IADsDNWithBinary extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DNString(bstrDNString) {
-        bstrDNString := bstrDNString is String ? BSTR.Alloc(bstrDNString).Value : bstrDNString
+        if(bstrDNString is String) {
+            pin := BSTR.Alloc(bstrDNString)
+            bstrDNString := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrDNString, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrDNString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

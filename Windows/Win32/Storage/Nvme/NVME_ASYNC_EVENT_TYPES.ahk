@@ -5,7 +5,7 @@
  * Contains values that indicate an asynchronous event type.
  * @remarks
  * Use the Event type information values from this enumeration in [Dword 0](ns-nvme-nvme_command_dword0.md) of the Completion Queue entry for an Asynchronous Event Request command.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_async_event_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_async_event_types
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

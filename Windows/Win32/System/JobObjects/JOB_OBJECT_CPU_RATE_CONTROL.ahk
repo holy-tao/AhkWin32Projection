@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * This flag enables the job's CPU rate to be controlled based on weight or hard cap. You must set this value if you also set <b>JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED</b>,   <b>JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP</b>, or <b>JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE</b>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-jobobject_cpu_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
  * @version v4.0.30319
  */

@@ -33,7 +33,11 @@ class IHTMLEditHost2 extends IHTMLEditHost{
      * @returns {HRESULT} 
      */
     PreDrag() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

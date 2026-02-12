@@ -6,11 +6,8 @@
 /**
  * Defines methods that handle the ITextInputPanel Interface events.
  * @remarks
- * 
  * This element is declared in Peninputpanel.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nn-peninputpanel-itextinputpaneleventsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nn-peninputpanel-itextinputpaneleventsink
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -69,10 +66,14 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacestatechanging
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacestatechanging
      */
     InPlaceStateChanging(oldInPlaceState, newInPlaceState) {
-        result := ComCall(3, this, "int", oldInPlaceState, "int", newInPlaceState, "HRESULT")
+        result := ComCall(3, this, "int", oldInPlaceState, "int", newInPlaceState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,15 +111,21 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacestatechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacestatechanged
      */
     InPlaceStateChanged(oldInPlaceState, newInPlaceState) {
-        result := ComCall(4, this, "int", oldInPlaceState, "int", newInPlaceState, "HRESULT")
+        result := ComCall(4, this, "int", oldInPlaceState, "int", newInPlaceState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Occurs when the in-place Input Panel size is about to change due to a user resize, auto growth, or an input area change.
+     * @remarks
+     * Actions causing the Input Panel to change size include changing the screen resolution or DPI settings, rotating the tablet screen, changing the input language, the user explicitly resizing the Input Panel, and changing the theme.
      * @param {RECT} oldBoundingRectangle The bounding rectangle that represents the current size of the Input Panel.
      * @param {RECT} newBoundingRectangle The bounding rectangle that represents the new size of the Input Panel.
      * @returns {HRESULT} This method can return one of these values.
@@ -151,15 +158,21 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacesizechanging
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacesizechanging
      */
     InPlaceSizeChanging(oldBoundingRectangle, newBoundingRectangle) {
-        result := ComCall(5, this, "ptr", oldBoundingRectangle, "ptr", newBoundingRectangle, "HRESULT")
+        result := ComCall(5, this, "ptr", oldBoundingRectangle, "ptr", newBoundingRectangle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Occurs when the in-place Input Panel size has changed due to a user resize, auto growth, or an input area change.
+     * @remarks
+     * Actions causing the Input Panel to change size include changing the screen resolution or DPI settings, rotating the tablet screen, changing the input language, the user explicitly resizing the Input Panel, and changing the theme.
      * @param {RECT} oldBoundingRectangle The bounding rectangle that represents the previous size of the Input Panel.
      * @param {RECT} newBoundingRectangle The bounding rectangle that represents the current size of the Input Panel.
      * @returns {HRESULT} This method can return one of these values.
@@ -192,10 +205,14 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacesizechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacesizechanged
      */
     InPlaceSizeChanged(oldBoundingRectangle, newBoundingRectangle) {
-        result := ComCall(6, this, "ptr", oldBoundingRectangle, "ptr", newBoundingRectangle, "HRESULT")
+        result := ComCall(6, this, "ptr", oldBoundingRectangle, "ptr", newBoundingRectangle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -233,10 +250,14 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inputareachanging
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inputareachanging
      */
     InputAreaChanging(oldInputArea, newInputArea) {
-        result := ComCall(7, this, "int", oldInputArea, "int", newInputArea, "HRESULT")
+        result := ComCall(7, this, "int", oldInputArea, "int", newInputArea, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -274,15 +295,23 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inputareachanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inputareachanged
      */
     InputAreaChanged(oldInputArea, newInputArea) {
-        result := ComCall(8, this, "int", oldInputArea, "int", newInputArea, "HRESULT")
+        result := ComCall(8, this, "int", oldInputArea, "int", newInputArea, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Occurs when the correction comb on the Tablet PC Input Panel is about to change modes.
+     * @remarks
+     * <div class="alert"><b>Note</b>  In Windows 7, this event no longer is raised.		
+     * 		</div>
+     * <div> </div>
      * @param {Integer} oldCorrectionMode The current correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
      * @param {Integer} newCorrectionMode The correction mode the Input Panel is changing to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
@@ -315,15 +344,23 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-correctionmodechanging
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-correctionmodechanging
      */
     CorrectionModeChanging(oldCorrectionMode, newCorrectionMode) {
-        result := ComCall(9, this, "int", oldCorrectionMode, "int", newCorrectionMode, "HRESULT")
+        result := ComCall(9, this, "int", oldCorrectionMode, "int", newCorrectionMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Occurs when the correction comb on the Tablet PC Input Panel has changed modes.
+     * @remarks
+     * <div class="alert"><b>Note</b>  In Windows 7, this event is no longer raised.
+     * 		</div>
+     * <div> </div>
      * @param {Integer} oldCorrectionMode The previous correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
      * @param {Integer} newCorrectionMode The current correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
@@ -356,10 +393,14 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-correctionmodechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-correctionmodechanged
      */
     CorrectionModeChanged(oldCorrectionMode, newCorrectionMode) {
-        result := ComCall(10, this, "int", oldCorrectionMode, "int", newCorrectionMode, "HRESULT")
+        result := ComCall(10, this, "int", oldCorrectionMode, "int", newCorrectionMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -397,10 +438,14 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacevisibilitychanging
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacevisibilitychanging
      */
     InPlaceVisibilityChanging(oldVisible, newVisible) {
-        result := ComCall(11, this, "int", oldVisible, "int", newVisible, "HRESULT")
+        result := ComCall(11, this, "int", oldVisible, "int", newVisible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -438,16 +483,22 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacevisibilitychanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-inplacevisibilitychanged
      */
     InPlaceVisibilityChanged(oldVisible, newVisible) {
-        result := ComCall(12, this, "int", oldVisible, "int", newVisible, "HRESULT")
+        result := ComCall(12, this, "int", oldVisible, "int", newVisible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Occurs when the Tablet PC Input Panel is about to insert text into the control with input focus. Provides access to the ink the user entered in the Input Panel.
-     * @param {Pointer<SAFEARRAY>} Ink Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
+     * @remarks
+     * There is a minimum of one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> object for each line of the Input Panel containing text at the time of insertion.
+     * @param {Pointer<SAFEARRAY>} Ink_ Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -478,16 +529,22 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserting
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserting
      */
-    TextInserting(Ink) {
-        result := ComCall(13, this, "ptr", Ink, "HRESULT")
+    TextInserting(Ink_) {
+        result := ComCall(13, this, "ptr", Ink_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Occurs when the Tablet PC Input Panel has inserted text into the control with input focus. Provides access to the ink the user entered in the Input Panel.
-     * @param {Pointer<SAFEARRAY>} Ink Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
+     * @remarks
+     * There is a minimum of one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> object for each line of the Input Panel containing text at the time of insertion.
+     * @param {Pointer<SAFEARRAY>} Ink_ Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -518,10 +575,14 @@ class ITextInputPanelEventSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserted
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-itextinputpaneleventsink-textinserted
      */
-    TextInserted(Ink) {
-        result := ComCall(14, this, "ptr", Ink, "HRESULT")
+    TextInserted(Ink_) {
+        result := ComCall(14, this, "ptr", Ink_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

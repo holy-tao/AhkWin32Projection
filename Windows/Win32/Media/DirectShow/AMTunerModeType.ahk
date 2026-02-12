@@ -3,7 +3,7 @@
 
 /**
  * Specifies the frequency of a TV tuner (cable or antenna). (AMTunerModeType)
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amtunermodetype
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-amtunermodetype
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

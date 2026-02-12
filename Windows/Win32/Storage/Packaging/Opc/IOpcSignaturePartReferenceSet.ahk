@@ -8,7 +8,6 @@
 /**
  * An unordered set of IOpcSignaturePartReference interface pointers that represent references to parts to be signed.
  * @remarks
- * 
  * Only parts that can be represented by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface can be referenced by an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer. Relationships parts are referenced for signing  by a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface. To create an <b>IOpcSignatureRelationshipReference</b> interface pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create">IOpcSignatureRelationshipReferenceSet::Create</a> method.
  * 
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer is created and added to the set, the reference it represents is saved when the package is saved.
@@ -16,10 +15,7 @@
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
  * 
  * To create an <b>IOpcSignaturePartReferenceSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getsignaturepartreferenceset">IOpcSigningOptions::GetSignaturePartReferenceSet</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturepartreferenceset
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcsignaturepartreferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -46,6 +42,10 @@ class IOpcSignaturePartReferenceSet extends IUnknown{
 
     /**
      * Creates an IOpcSignaturePartReference interface pointer that represents a reference to a part to be signed, and adds the new interface to the set.
+     * @remarks
+     * Only parts that can be represented by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> interface can be referenced by an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer. Relationships parts are referenced for signing  by a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreference">IOpcSignatureRelationshipReference</a> interface. To create an <b>IOpcSignatureRelationshipReference</b> interface pointer, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturerelationshipreferenceset-create">IOpcSignatureRelationshipReferenceSet::Create</a> method.
+     * 
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer is created and added to the set, the reference it represents is saved when the package is saved.
      * @param {IOpcPartUri} partUri An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> that represents the part name of the part to be referenced.
      * @param {PWSTR} digestMethod The digest method to be used for part content of the part to be referenced. To use the default digest method, pass <b>NULL</b> to this parameter. <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
      * <div> </div>
@@ -53,17 +53,23 @@ class IOpcSignaturePartReferenceSet extends IUnknown{
      * @returns {IOpcSignaturePartReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer that represents the reference to  the part to be signed.
      * 
      * This parameter can be <b>NULL</b> if a pointer to the  new interface is not needed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreferenceset-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturepartreferenceset-create
      */
     Create(partUri, digestMethod, transformMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", partUri, "ptr", digestMethod, "int", transformMethod, "ptr*", &partReference := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", partUri, "ptr", digestMethod, "int", transformMethod, "ptr*", &partReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignaturePartReference(partReference)
     }
 
     /**
      * Deletes a specified IOpcSignaturePartReference interface pointer from the set.
+     * @remarks
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
      * @param {IOpcSignaturePartReference} partReference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -95,20 +101,28 @@ class IOpcSignaturePartReferenceSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreferenceset-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturepartreferenceset-delete
      */
     Delete(partReference) {
-        result := ComCall(4, this, "ptr", partReference, "HRESULT")
+        result := ComCall(4, this, "ptr", partReference, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an enumerator of IOpcSignaturePartReference interface pointers in the set.
      * @returns {IOpcSignaturePartReferenceEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointers in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreferenceset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturepartreferenceset-getenumerator
      */
     GetEnumerator() {
-        result := ComCall(5, this, "ptr*", &partReferenceEnumerator := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &partReferenceEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignaturePartReferenceEnumerator(partReferenceEnumerator)
     }
 }

@@ -33,14 +33,21 @@ class IDebugProperty extends IUnknown{
     static VTableNames => ["GetPropertyInfo", "GetExtendedInfo", "SetValueAsString", "EnumMembers", "GetParent"]
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} dwFieldSpec 
      * @param {Integer} nRadix 
      * @returns {DebugPropertyInfo} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(dwFieldSpec, nRadix) {
         pPropertyInfo := DebugPropertyInfo()
-        result := ComCall(3, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pPropertyInfo, "HRESULT")
+        result := ComCall(3, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pPropertyInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPropertyInfo
     }
 
@@ -52,7 +59,11 @@ class IDebugProperty extends IUnknown{
      */
     GetExtendedInfo(cInfos, rgguidExtendedInfo) {
         rgvar := VARIANT()
-        result := ComCall(4, this, "uint", cInfos, "ptr", rgguidExtendedInfo, "ptr", rgvar, "HRESULT")
+        result := ComCall(4, this, "uint", cInfos, "ptr", rgguidExtendedInfo, "ptr", rgvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgvar
     }
 
@@ -65,7 +76,11 @@ class IDebugProperty extends IUnknown{
     SetValueAsString(pszValue, nRadix) {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := ComCall(5, this, "ptr", pszValue, "uint", nRadix, "HRESULT")
+        result := ComCall(5, this, "ptr", pszValue, "uint", nRadix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,17 +92,27 @@ class IDebugProperty extends IUnknown{
      * @returns {IEnumDebugPropertyInfo} 
      */
     EnumMembers(dwFieldSpec, nRadix, refiid) {
-        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", refiid, "ptr*", &ppepi := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", refiid, "ptr*", &ppepi := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDebugPropertyInfo(ppepi)
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
+     * @remarks
+     * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
      * @returns {IDebugProperty} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getparent
      */
     GetParent() {
-        result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugProperty(ppDebugProp)
     }
 }

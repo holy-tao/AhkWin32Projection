@@ -35,7 +35,11 @@ class ICLROnEventManager extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterActionOnEvent(event, pAction) {
-        result := ComCall(3, this, "int", event, "ptr", pAction, "HRESULT")
+        result := ComCall(3, this, "int", event, "ptr", pAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ICLROnEventManager extends IUnknown{
      * @returns {HRESULT} 
      */
     UnregisterActionOnEvent(event, pAction) {
-        result := ComCall(4, this, "int", event, "ptr", pAction, "HRESULT")
+        result := ComCall(4, this, "int", event, "ptr", pAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

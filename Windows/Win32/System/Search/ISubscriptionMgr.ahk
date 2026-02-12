@@ -38,14 +38,18 @@ class ISubscriptionMgr extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {HRESULT} 
      */
-    DeleteSubscription(pwszURL, hwnd) {
+    DeleteSubscription(pwszURL, hwnd_) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", hwnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class ISubscriptionMgr extends IUnknown{
     UpdateSubscription(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(4, this, "ptr", pwszURL, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class ISubscriptionMgr extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateAll() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class ISubscriptionMgr extends IUnknown{
     IsSubscribed(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(6, this, "ptr", pwszURL, "int*", &pfSubscribed := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszURL, "int*", &pfSubscribed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfSubscribed
     }
 
@@ -91,7 +107,11 @@ class ISubscriptionMgr extends IUnknown{
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         pInfo := SUBSCRIPTIONINFO()
-        result := ComCall(7, this, "ptr", pwszURL, "ptr", pInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszURL, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInfo
     }
 
@@ -102,27 +122,35 @@ class ISubscriptionMgr extends IUnknown{
      */
     GetDefaultInfo(subType) {
         pInfo := SUBSCRIPTIONINFO()
-        result := ComCall(8, this, "int", subType, "ptr", pInfo, "HRESULT")
+        result := ComCall(8, this, "int", subType, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInfo
     }
 
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {HRESULT} 
      */
-    ShowSubscriptionProperties(pwszURL, hwnd) {
+    ShowSubscriptionProperties(pwszURL, hwnd_) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(9, this, "ptr", pwszURL, "ptr", hwnd, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszURL, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PWSTR} pwszURL 
      * @param {PWSTR} pwszFriendlyName 
      * @param {Integer} dwFlags 
@@ -130,12 +158,16 @@ class ISubscriptionMgr extends IUnknown{
      * @param {Pointer<SUBSCRIPTIONINFO>} pInfo 
      * @returns {HRESULT} 
      */
-    CreateSubscription(hwnd, pwszURL, pwszFriendlyName, dwFlags, subsType, pInfo) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateSubscription(hwnd_, pwszURL, pwszFriendlyName, dwFlags, subsType, pInfo) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        result := ComCall(10, this, "ptr", hwnd, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, "int", subsType, "ptr", pInfo, "HRESULT")
+        result := ComCall(10, this, "ptr", hwnd_, "ptr", pwszURL, "ptr", pwszFriendlyName, "uint", dwFlags, "int", subsType, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

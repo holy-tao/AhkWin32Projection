@@ -57,7 +57,11 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
      * @returns {IPrintSchemaOption} 
      */
     get_SelectedOption() {
-        result := ComCall(11, this, "ptr*", &ppOption := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppOption := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaOption(ppOption)
     }
 
@@ -67,7 +71,11 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
      * @returns {HRESULT} 
      */
     put_SelectedOption(pOption) {
-        result := ComCall(12, this, "ptr", pOption, "HRESULT")
+        result := ComCall(12, this, "ptr", pOption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +84,11 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
      * @returns {Integer} 
      */
     get_SelectionType() {
-        result := ComCall(13, this, "int*", &pSelectionType := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pSelectionType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSelectionType
     }
 
@@ -87,10 +99,20 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
      * @returns {IPrintSchemaOption} 
      */
     GetOption(bstrName, bstrNamespaceUri) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrNamespaceUri is String) {
+            pin := BSTR.Alloc(bstrNamespaceUri)
+            bstrNamespaceUri := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppOption := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppOption := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaOption(ppOption)
     }
 
@@ -99,7 +121,11 @@ class IPrintSchemaFeature extends IPrintSchemaDisplayableElement{
      * @returns {BOOL} 
      */
     get_DisplayUI() {
-        result := ComCall(15, this, "int*", &pbShow := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pbShow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbShow
     }
 }

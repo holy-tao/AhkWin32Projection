@@ -120,7 +120,10 @@ class WinRTEventHandler {
                 if(!HasMethod(this._marshallers[A_Index]))
                     continue
 
-                params[A_Index] := this._marshallers[A_Index].Call(params[A_Index])
+                params[A_Index] := marshalled := this._marshallers[A_Index].Call(params[A_Index])
+                if(marshalled is IUnknown) {
+                    marshalled.AddRef()
+                }
             }
 
             for(callback in this._callbacks) {

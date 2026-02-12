@@ -35,7 +35,11 @@ class ISpPhrase2 extends ISpPhrase{
      * @returns {PWSTR} 
      */
     GetXMLResult(Options) {
-        result := ComCall(7, this, "ptr*", &ppszCoMemXMLResult := 0, "int", Options, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppszCoMemXMLResult := 0, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCoMemXMLResult
     }
 
@@ -45,18 +49,27 @@ class ISpPhrase2 extends ISpPhrase{
      * @returns {HRESULT} 
      */
     GetXMLErrorInfo(pSemanticErrorInfo) {
-        result := ComCall(8, this, "ptr", pSemanticErrorInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pSemanticErrorInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetAudioLanguage method retrieves a string indicating which language is available on the specified audio stream.
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
      * @returns {ISpStreamFormat} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/getaudiolanguage-method
      */
     GetAudio(ulStartElement, cElements) {
-        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpStreamFormat(ppStream)
     }
 }

@@ -13,7 +13,7 @@
  * An initial value is displayed in the list if MAPI has retrieved the property represented by the **ulPRSetProperty** member through a call to [IMAPIProp::GetProps](imapiprop-getprops.md) and located a row in the table with the value for the **ulPRSetProperty** member. The initial displayed value is the contents of the **ulPRDisplayProperty** column from that row that matches the property in the **ulPRDisplayProperty** member of the structure. The value returned by **GetProps** for the property identified by the **ulPRDisplayProperty** member becomes the initial value that is shown when the list is first displayed. 
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md). For information about property types, see [MAPI Property Type Overview](mapi-property-type-overview.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblddlbx
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblddlbx
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

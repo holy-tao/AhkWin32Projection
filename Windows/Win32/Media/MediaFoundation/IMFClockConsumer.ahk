@@ -7,10 +7,8 @@
 /**
  * Implemented by an app in order to get access to the IMFPresentationClock.
  * @remarks
- * 
  * The media pipeline checks for the presence of this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>. Components can use the presentation clock supplied through this interface to determine how much buffering there is in the pipeline after the component. You can do  this in the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imftransform-processinput">IMFTransform::ProcessInput</a> method by calculating the difference between the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationclock-gettime">IMFPresentationClock::GetTime</a> and the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfsample-getsampletime">IMFSample::GetSampleTime</a>. This difference represents the amount of buffered data after the MFT in the pipeline.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfclockconsumer
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfclockconsumer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -59,20 +57,28 @@ class IMFClockConsumer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockconsumer-setpresentationclock
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfclockconsumer-setpresentationclock
      */
     SetPresentationClock(pPresentationClock) {
-        result := ComCall(3, this, "ptr", pPresentationClock, "HRESULT")
+        result := ComCall(3, this, "ptr", pPresentationClock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called by the media pipeline to get an instance of IMFPresentationClock.
      * @returns {IMFPresentationClock} Pointer to an object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a> interface. This value can be null.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockconsumer-getpresentationclock
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfclockconsumer-getpresentationclock
      */
     GetPresentationClock() {
-        result := ComCall(4, this, "ptr*", &ppPresentationClock := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppPresentationClock := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFPresentationClock(ppPresentationClock)
     }
 }

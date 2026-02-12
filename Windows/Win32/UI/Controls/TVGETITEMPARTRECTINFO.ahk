@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTREEITEM.ahk
 
 /**
  * Contains information for identifying the &quot;hit zone&quot; for a specified part of a tree item. The structure is used with the TVM_GETITEMPARTRECT message and the TreeView_GetItemPartRect macro.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvgetitempartrectinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-tvgetitempartrectinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -19,9 +20,12 @@ class TVGETITEMPARTRECTINFO extends Win32Struct
      * Handle to the parent item.
      * @type {HTREEITEM}
      */
-    hti {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hti{
+        get {
+            if(!this.HasProp("__hti"))
+                this.__hti := HTREEITEM(0, this)
+            return this.__hti
+        }
     }
 
     /**

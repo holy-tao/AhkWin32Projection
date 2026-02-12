@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber when the tracking information for a collection changes.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomtrackinginfoevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomtrackinginfoevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IComTrackingInfoEvents extends IUnknown{
      * Generated when the tracking information for a collection changes.
      * @param {IUnknown} pToplevelCollection A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the collection for which the tracking information has changed.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfoevents-onnewtrackinginfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomtrackinginfoevents-onnewtrackinginfo
      */
     OnNewTrackingInfo(pToplevelCollection) {
-        result := ComCall(3, this, "ptr", pToplevelCollection, "HRESULT")
+        result := ComCall(3, this, "ptr", pToplevelCollection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

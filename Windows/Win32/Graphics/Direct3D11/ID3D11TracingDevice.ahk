@@ -6,14 +6,11 @@
 /**
  * The tracing device interface sets shader tracking information, which enables accurate logging and playback of shader execution.
  * @remarks
- * 
  * To get this interface, turn on the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">debug layer</a> and use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a>.
  * 
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nn-d3d11sdklayers-id3d11tracingdevice
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11sdklayers/nn-d3d11sdklayers-id3d11tracingdevice
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -40,25 +37,40 @@ class ID3D11TracingDevice extends IUnknown{
 
     /**
      * Sets the reference rasterizer's default race-condition tracking options for the specified resource types.
+     * @remarks
+     * This API requires the Windows Software Development Kit (SDK) for Windows 8.
      * @param {Integer} ResourceTypeFlags A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_resource_type">D3D11_SHADER_TRACKING_RESOURCE_TYPE</a>-typed value that specifies the type of resource to track.
      * @param {Integer} Options A combination of <a href="https://docs.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options">D3D11_SHADER_TRACKING_OPTIONS</a>-typed flags that are combined by using a bitwise <b>OR</b> operation. The resulting value identifies tracking options. If a flag is present, the tracking option that the flag represents is set to "on," otherwise the tracking option is set to "off."
-     * @returns {HRESULT} This method returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11tracingdevice-setshadertrackingoptionsbytype
+     * @returns {HRESULT} This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11sdklayers/nf-d3d11sdklayers-id3d11tracingdevice-setshadertrackingoptionsbytype
      */
     SetShaderTrackingOptionsByType(ResourceTypeFlags, Options) {
-        result := ComCall(3, this, "uint", ResourceTypeFlags, "uint", Options, "HRESULT")
+        result := ComCall(3, this, "uint", ResourceTypeFlags, "uint", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the reference rasterizer's race-condition tracking options for a specific shader.
+     * @remarks
+     * [D3D11_SHADER_TRACKING_OPTION_UAV_SPECIFIC_FLAGS](./ne-d3d11sdklayers-d3d11_shader_tracking_options.md)) in the <i>Options</i> parameter for a compute shader, <b>SetShaderTrackingOptions</b> ignores it.</div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
+     * <div> </div>
      * @param {IUnknown} pShader A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of a shader.
      * @param {Integer} Options A combination of <a href="https://docs.microsoft.com/windows/win32/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_shader_tracking_options">D3D11_SHADER_TRACKING_OPTIONS</a>-typed flags that are combined by using a bitwise <b>OR</b> operation. The resulting value identifies tracking options. If a flag is present, the tracking option that the flag represents is set to "on"; otherwise the tracking option is set to "off."
-     * @returns {HRESULT} This method returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11sdklayers/nf-d3d11sdklayers-id3d11tracingdevice-setshadertrackingoptions
+     * @returns {HRESULT} This method returns one of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11sdklayers/nf-d3d11sdklayers-id3d11tracingdevice-setshadertrackingoptions
      */
     SetShaderTrackingOptions(pShader, Options) {
-        result := ComCall(4, this, "ptr", pShader, "uint", Options, "HRESULT")
+        result := ComCall(4, this, "ptr", pShader, "uint", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

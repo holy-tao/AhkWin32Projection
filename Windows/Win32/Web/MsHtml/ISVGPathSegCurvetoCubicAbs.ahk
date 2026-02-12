@@ -88,7 +88,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,7 +101,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {Float} 
      */
     get_x() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -107,7 +115,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +128,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {Float} 
      */
     get_y() {
-        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -126,7 +142,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_x1(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +155,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {Float} 
      */
     get_x1() {
-        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -145,7 +169,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_y1(v) {
-        result := ComCall(13, this, "float", v, "HRESULT")
+        result := ComCall(13, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,7 +182,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {Float} 
      */
     get_y1() {
-        result := ComCall(14, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -164,7 +196,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_x2(v) {
-        result := ComCall(15, this, "float", v, "HRESULT")
+        result := ComCall(15, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -173,7 +209,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {Float} 
      */
     get_x2() {
-        result := ComCall(16, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -183,7 +223,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_y2(v) {
-        result := ComCall(17, this, "float", v, "HRESULT")
+        result := ComCall(17, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -192,7 +236,11 @@ class ISVGPathSegCurvetoCubicAbs extends IDispatch{
      * @returns {Float} 
      */
     get_y2() {
-        result := ComCall(18, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -32,12 +32,16 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1{
      * 
      * @param {PWSTR} pProgramName 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetGlobalRootSignatureForProgram(pProgramName, riid) {
         pProgramName := pProgramName is String ? StrPtr(pProgramName) : pProgramName
 
-        result := ComCall(8, this, "ptr", pProgramName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pProgramName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvRootSignature
     }
 
@@ -45,12 +49,16 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1{
      * 
      * @param {PWSTR} pExportName 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetGlobalRootSignatureForShader(pExportName, riid) {
         pExportName := pExportName is String ? StrPtr(pExportName) : pExportName
 
-        result := ComCall(9, this, "ptr", pExportName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pExportName, "ptr", riid, "ptr*", &ppvRootSignature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvRootSignature
     }
 }

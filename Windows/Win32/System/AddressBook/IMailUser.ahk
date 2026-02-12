@@ -5,7 +5,7 @@
 
 /**
  * Do not use. This interface provides access to a mail user object.
- * @see https://docs.microsoft.com/windows/win32/api//wabdefs/nn-wabdefs-imailuser
+ * @see https://learn.microsoft.com/windows/win32/api//content/wabdefs/nn-wabdefs-imailuser
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

@@ -4,16 +4,13 @@
 #Include .\D3D11_PARAMETER_DESC.ahk
 
 /**
- * A function-parameter-reflection interface accesses function-parameter info.
+ * A function-parameter-reflection interface accesses function-parameter info. (ID3D11FunctionParameterReflection)
  * @remarks
- * 
  * To get a function-parameter-reflection interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11functionreflection-getfunctionparameter">ID3D11FunctionReflection::GetFunctionParameter</a>. This isn't a COM interface, so you don't need to worry about reference counts or releasing the interface when you're done with it.
  * 
  * <div class="alert"><b>Note</b>  <b>ID3D11FunctionParameterReflection</b> requires the D3dcompiler_47.dll or a later version of the DLL. </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11functionparameterreflection
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nn-d3d11shader-id3d11functionparameterreflection
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -39,15 +36,19 @@ class ID3D11FunctionParameterReflection extends Win32ComInterface{
     static VTableNames => ["GetDesc"]
 
     /**
-     * Fills the parameter descriptor structure for the function's parameter.
+     * Fills the parameter descriptor structure for the function's parameter. (ID3D11FunctionParameterReflection.GetDesc)
      * @returns {D3D11_PARAMETER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a> structure that receives a description of the function's parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D11_PARAMETER_DESC()
-        result := ComCall(0, this, "ptr", pDesc, "HRESULT")
+        result := ComCall(0, this, "ptr", pDesc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesc
     }
 }

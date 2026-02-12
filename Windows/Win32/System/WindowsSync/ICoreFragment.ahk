@@ -7,11 +7,8 @@
 /**
  * Represents knowledge of all items in the scope for a specific set of change units.
  * @remarks
- * 
  * An <b>ISyncKnowledge2</b> object contains one or more <b>ICoreFragment</b> objects, each of which contains knowledge that applies to a specific set of change units. Typically, one of the <b>ICoreFragment</b> objects contains no change unit IDs. The knowledge that is contained in the <b>ICoreFragment</b> object that contains no change unit IDs applies to all change unit IDs that are not otherwise contained in another <b>ICoreFragment</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-icorefragment
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-icorefragment
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -38,6 +35,8 @@ class ICoreFragment extends IUnknown{
 
     /**
      * Returns the next change unit ID in the set of change unit IDs that this knowledge fragment applies to.
+     * @remarks
+     * An <b>ISyncKnowledge2</b> object contains one or more <b>ICoreFragment</b> objects, each of which contains knowledge that applies to a specific set of columns. Typically, one of the <b>ICoreFragment</b> objects contains no columns, and its knowledge applies to all of the change units that are not specified in any other fragment. In this situation, <b>NextColumn</b> always returns <b>S_FALSE</b>.
      * @param {Pointer<Integer>} pChangeUnitId Returns the next change unit ID in the set.
      * @param {Pointer<Integer>} pChangeUnitIdSize Specifies the number of bytes in <i>pChangeUnitId</i>. Returns the number of bytes written, or the number of bytes that are required to retrieve the ID when <i>pChangeUnitId</i> is too small.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -103,28 +102,38 @@ class ICoreFragment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-nextcolumn
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragment-nextcolumn
      */
     NextColumn(pChangeUnitId, pChangeUnitIdSize) {
         pChangeUnitIdMarshal := pChangeUnitId is VarRef ? "char*" : "ptr"
         pChangeUnitIdSizeMarshal := pChangeUnitIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pChangeUnitIdMarshal, pChangeUnitId, pChangeUnitIdSizeMarshal, pChangeUnitIdSize, "HRESULT")
+        result := ComCall(3, this, pChangeUnitIdMarshal, pChangeUnitId, pChangeUnitIdSizeMarshal, pChangeUnitIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the next range that is contained in this knowledge fragment, and the clock vector that defines what is known about the items in the range.
+     * @remarks
+     * The value that is returned in <i>pItemId</i> is the closed lower bound on the range of item IDs that are associated with the clock vector that is returned in <i>piClockVector</i>. The value of <i>pItemId</i> also defines the open upper bound of the previous range, so the open upper bound of the current range can be obtained by calling <b>NextRange</b> again. If there are no more ranges to enumerate, the range contains all items that have IDs greater than or equal to <i>pItemId</i>.
      * @param {Pointer<Integer>} pItemId Returns the closed lower bound of item IDs in this range. This value is also the open upper bound of item IDs in the previous range when it is not the first in the range set.
      * @param {Pointer<Integer>} pItemIdSize Specifies the number of bytes in <i>pItemId</i>. Returns the number of bytes written, or the number of bytes that are required to retrieve the ID when <i>pItemId</i> is too small.
      * @returns {IClockVector} Returns the clock vector that defines what is known about the items in the range.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-nextrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragment-nextrange
      */
     NextRange(pItemId, pItemIdSize) {
         pItemIdMarshal := pItemId is VarRef ? "char*" : "ptr"
         pItemIdSizeMarshal := pItemIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pItemIdMarshal, pItemId, pItemIdSizeMarshal, pItemIdSize, "ptr*", &piClockVector := 0, "HRESULT")
+        result := ComCall(4, this, pItemIdMarshal, pItemId, pItemIdSizeMarshal, pItemIdSize, "ptr*", &piClockVector := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IClockVector(piClockVector)
     }
 
@@ -160,15 +169,21 @@ class ICoreFragment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragment-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number of columns that are contained in this knowledge fragment.
+     * @remarks
+     * An <b>ISyncKnowledge2</b> object contains one or more <b>ICoreFragment</b> objects. Each object contains knowledge that applies to a specific set of columns. A column is represented as a change unit. Typically, one of the <b>ICoreFragment</b> objects contains no columns. When an <b>ICoreFragment</b> object contains no columns, its knowledge applies to all of the change units that are not specified in any other fragment.
      * @param {Pointer<Integer>} pColumnCount Returns the number of columns that are contained in this knowledge fragment.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -200,17 +215,23 @@ class ICoreFragment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-getcolumncount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragment-getcolumncount
      */
     GetColumnCount(pColumnCount) {
         pColumnCountMarshal := pColumnCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pColumnCountMarshal, pColumnCount, "HRESULT")
+        result := ComCall(6, this, pColumnCountMarshal, pColumnCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number of ranges that are contained in this knowledge fragment.
+     * @remarks
+     * An <b>ICoreFragment</b> object contains one or more ranges. Each range specifies a set of item IDs and a clock vector that defines what is known about the items in the range.
      * @param {Pointer<Integer>} pRangeCount Returns the number of ranges that are contained in this knowledge fragment.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -242,12 +263,16 @@ class ICoreFragment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-icorefragment-getrangecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-icorefragment-getrangecount
      */
     GetRangeCount(pRangeCount) {
         pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pRangeCountMarshal, pRangeCount, "HRESULT")
+        result := ComCall(7, this, pRangeCountMarshal, pRangeCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

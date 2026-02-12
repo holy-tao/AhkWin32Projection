@@ -6,7 +6,7 @@
 
 /**
  * Contains basic pointer information common to all pointer types. Applications can retrieve this information using the GetPointerInfo, GetPointerFrameInfo, GetPointerInfoHistory and GetPointerFrameInfoHistory functions.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-pointer_info
  * @namespace Windows.Win32.UI.Input.Pointer
  * @version v4.0.30319
  */

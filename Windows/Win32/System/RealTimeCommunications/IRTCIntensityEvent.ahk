@@ -61,7 +61,11 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_Level() {
-        result := ComCall(7, this, "int*", &plLevel := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plLevel
     }
 
@@ -70,7 +74,11 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_Min() {
-        result := ComCall(8, this, "int*", &plMin := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plMin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMin
     }
 
@@ -79,7 +87,11 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_Max() {
-        result := ComCall(9, this, "int*", &plMax := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plMax := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMax
     }
 
@@ -88,7 +100,11 @@ class IRTCIntensityEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_Direction() {
-        result := ComCall(10, this, "int*", &penDirection := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &penDirection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penDirection
     }
 }

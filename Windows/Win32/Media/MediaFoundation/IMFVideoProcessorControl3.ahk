@@ -34,7 +34,11 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
      * @returns {IMFMediaType} 
      */
     GetNaturalOutputType() {
-        result := ComCall(12, this, "ptr*", &ppType := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaType(ppType)
     }
 
@@ -46,7 +50,11 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
      * @returns {HRESULT} 
      */
     EnableSphericalVideoProcessing(fEnable, eFormat, eProjectionMode) {
-        result := ComCall(13, this, "int", fEnable, "int", eFormat, "int", eProjectionMode, "HRESULT")
+        result := ComCall(13, this, "int", fEnable, "int", eFormat, "int", eProjectionMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
      * @returns {HRESULT} 
      */
     SetSphericalVideoProperties(X, Y, Z, W, fieldOfView) {
-        result := ComCall(14, this, "float", X, "float", Y, "float", Z, "float", W, "float", fieldOfView, "HRESULT")
+        result := ComCall(14, this, "float", X, "float", Y, "float", Z, "float", W, "float", fieldOfView, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
      * @returns {HRESULT} 
      */
     SetOutputDevice(pOutputDevice) {
-        result := ComCall(15, this, "ptr", pOutputDevice, "HRESULT")
+        result := ComCall(15, this, "ptr", pOutputDevice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

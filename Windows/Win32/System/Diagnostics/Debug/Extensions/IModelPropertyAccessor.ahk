@@ -30,29 +30,39 @@ class IModelPropertyAccessor extends IUnknown{
     static VTableNames => ["GetValue", "SetValue"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(key, contextObject) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(3, this, "ptr", key, "ptr", contextObject, "ptr*", &value := 0, "HRESULT")
-        return IModelObject(value)
+        result := ComCall(3, this, "ptr", key, "ptr", contextObject, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
     }
 
     /**
-     * 
+     * SetValue Method (ServerSettingsGeneralFlag Class)
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} value 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/wmi-provider-configuration-classes/serversettingsgeneralflag-class/setvalue-method-serversettingsgeneralflag-class
      */
     SetValue(key, contextObject, value) {
         key := key is String ? StrPtr(key) : key
 
-        result := ComCall(4, this, "ptr", key, "ptr", contextObject, "ptr", value, "HRESULT")
+        result := ComCall(4, this, "ptr", key, "ptr", contextObject, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

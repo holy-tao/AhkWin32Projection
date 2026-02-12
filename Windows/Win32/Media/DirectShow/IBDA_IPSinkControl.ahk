@@ -6,11 +6,8 @@
 /**
  * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_IPSinkControl)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_ipsinkcontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nn-bdaiface-ibda_ipsinkcontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,31 +34,43 @@ class IBDA_IPSinkControl extends IUnknown{
 
     /**
      * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @remarks
+     * <b>IBDA_IPSinkControl</b> is no longer being supported for Ring 3 clients. Use the <b>BDA_IPSinkInfo</b> interface instead.
      * @param {Pointer<Integer>} pulcbSize Receives the length of the buffer, in bytes.
      * @param {Pointer<Pointer<Integer>>} pbBuffer Pointer to a byte array containing the multicast list.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getmulticastlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getmulticastlist
      */
     GetMulticastList(pulcbSize, pbBuffer) {
         pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := ComCall(3, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @remarks
+     * <b>IBDA_IPSinkControl</b> is no longer being supported for Ring 3 clients. Use the <b>BDA_IPSinkInfo</b> interface instead.
      * @param {Pointer<Integer>} pulcbSize Receives the length of the buffer, in bytes.
      * @param {Pointer<Pointer<Integer>>} pbBuffer Pointer to a byte array containing the address.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getadapteripaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/bdaiface/nf-bdaiface-ibda_ipsinkcontrol-getadapteripaddress
      */
     GetAdapterIPAddress(pulcbSize, pbBuffer) {
         pulcbSizeMarshal := pulcbSize is VarRef ? "uint*" : "ptr"
         pbBufferMarshal := pbBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "HRESULT")
+        result := ComCall(4, this, pulcbSizeMarshal, pulcbSize, pbBufferMarshal, pbBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

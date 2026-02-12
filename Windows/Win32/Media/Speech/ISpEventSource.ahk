@@ -35,7 +35,11 @@ class ISpEventSource extends ISpNotifySource{
      * @returns {HRESULT} 
      */
     SetInterest(ullEventInterest, ullQueuedInterest) {
-        result := ComCall(10, this, "uint", ullEventInterest, "uint", ullQueuedInterest, "HRESULT")
+        result := ComCall(10, this, "uint", ullEventInterest, "uint", ullQueuedInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class ISpEventSource extends ISpNotifySource{
     GetEvents(ulCount, pEventArray, pulFetched) {
         pulFetchedMarshal := pulFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", ulCount, "ptr", pEventArray, pulFetchedMarshal, pulFetched, "HRESULT")
+        result := ComCall(11, this, "uint", ulCount, "ptr", pEventArray, pulFetchedMarshal, pulFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class ISpEventSource extends ISpNotifySource{
      * @returns {HRESULT} 
      */
     GetInfo(pInfo) {
-        result := ComCall(12, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(12, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

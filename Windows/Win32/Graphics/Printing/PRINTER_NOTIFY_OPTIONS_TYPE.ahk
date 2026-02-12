@@ -3,7 +3,7 @@
 
 /**
  * The PRINTER\_NOTIFY\_OPTIONS\_TYPE structure specifies the set of printer or job information fields to be monitored by a printer change notification object.A call to the FindFirstPrinterChangeNotification function specifies a PRINTER\_NOTIFY\_OPTIONS structure, which contains an array of PRINTER\_NOTIFY\_OPTIONS\_TYPE structures.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-options-type
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printer-notify-options-type
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Defines options that can be applied when adding a package dependency.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-addpackagedependencyoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/appmodel/ne-appmodel-addpackagedependencyoptions
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */

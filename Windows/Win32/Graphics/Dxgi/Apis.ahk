@@ -247,7 +247,7 @@ class Dxgi {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory">IDXGIFactory</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-createdxgifactory
      */
     static CreateDXGIFactory(riid) {
         result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr*", &ppFactory := 0, "int")
@@ -288,7 +288,7 @@ class Dxgi {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgifactory1">IDXGIFactory1</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-createdxgifactory1
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-createdxgifactory1
      * @since windows6.1
      */
     static CreateDXGIFactory1(riid) {
@@ -321,7 +321,7 @@ class Dxgi {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgifactory2">IDXGIFactory2</a> object.
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-createdxgifactory2
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_3/nf-dxgi1_3-createdxgifactory2
      * @since windows8.1
      */
     static CreateDXGIFactory2(Flags, riid) {
@@ -340,7 +340,7 @@ class Dxgi {
      * @param {Integer} Flags Not used.
      * @param {Pointer<Guid>} riid The globally unique identifier (GUID) of the requested interface type, which can be the identifier for the <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug">IDXGIDebug</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgidebug1">IDXGIDebug1</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/nn-dxgidebug-idxgiinfoqueue">IDXGIInfoQueue</a> interfaces.
      * @returns {Pointer<Pointer<Void>>} A pointer to a buffer that receives a pointer to the debugging interface.
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-dxgigetdebuginterface1
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_3/nf-dxgi1_3-dxgigetdebuginterface1
      * @since windows8.1
      */
     static DXGIGetDebugInterface1(Flags, riid) {
@@ -361,7 +361,7 @@ class Dxgi {
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful; an error code otherwise. If this function is called after device creation, it returns <b>DXGI_ERROR_INVALID_CALL</b>. If this is not the first time that this function is called, it returns <b>DXGI_ERROR_ALREADY_EXISTS</b>. For a full list of error codes, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-dxgideclareadapterremovalsupport
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_6/nf-dxgi1_6-dxgideclareadapterremovalsupport
      * @since windows10.0.17134
      */
     static DXGIDeclareAdapterRemovalSupport() {
@@ -384,7 +384,7 @@ class Dxgi {
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * Returns **S_OK** if successful; an error code otherwise. For a full list of error codes, see [**DXGI_ERROR**](/windows/win32/direct3ddxgi/dxgi-error).
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-dxgidisablevblankvirtualization
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_6/nf-dxgi1_6-dxgidisablevblankvirtualization
      */
     static DXGIDisableVBlankVirtualization() {
         result := DllCall("dxgi.dll\DXGIDisableVBlankVirtualization", "int")

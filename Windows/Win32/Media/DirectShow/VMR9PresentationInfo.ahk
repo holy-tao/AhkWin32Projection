@@ -5,7 +5,7 @@
 
 /**
  * The VMR9PresentationInfo structure is used with the VMR-9 in the IVMRImagePresenter9::PresentImage method.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9presentationinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/ns-vmr9-vmr9presentationinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

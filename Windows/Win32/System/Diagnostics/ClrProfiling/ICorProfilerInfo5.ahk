@@ -38,7 +38,11 @@ class ICorProfilerInfo5 extends ICorProfilerInfo4{
         pdwEventsLowMarshal := pdwEventsLow is VarRef ? "uint*" : "ptr"
         pdwEventsHighMarshal := pdwEventsHigh is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(81, this, pdwEventsLowMarshal, pdwEventsLow, pdwEventsHighMarshal, pdwEventsHigh, "HRESULT")
+        result := ComCall(81, this, pdwEventsLowMarshal, pdwEventsLow, pdwEventsHighMarshal, pdwEventsHigh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class ICorProfilerInfo5 extends ICorProfilerInfo4{
      * @returns {HRESULT} 
      */
     SetEventMask2(dwEventsLow, dwEventsHigh) {
-        result := ComCall(82, this, "uint", dwEventsLow, "uint", dwEventsHigh, "HRESULT")
+        result := ComCall(82, this, "uint", dwEventsLow, "uint", dwEventsHigh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Enumerates a list of change units.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ienumsyncchangeunits
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ienumsyncchangeunits
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -34,20 +34,26 @@ class IEnumSyncChangeUnits extends IUnknown{
 
     /**
      * Returns the next change unit.
+     * @remarks
+     * This method currently only supports retrieval of a single change unit. Therefore, <i>cChanges</i> must be 1. Otherwise, the call will fail.
      * @param {Integer} cChanges The number of change units to fetch. The only valid value is 1.
      * @param {Pointer<Integer>} pcFetched Returns the number of change units that are fetched.
      * @returns {ISyncChangeUnit} Returns the next change unit object.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchangeunits-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumsyncchangeunits-next
      */
     Next(cChanges, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cChanges, "ptr*", &ppChangeUnit := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(3, this, "uint", cChanges, "ptr*", &ppChangeUnit := 0, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChangeUnit(ppChangeUnit)
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (IEnumSyncChangeUnits.Skip)
      * @param {Integer} cChanges The number of change units to skip.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -65,15 +71,19 @@ class IEnumSyncChangeUnits extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchangeunits-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumsyncchangeunits-skip
      */
     Skip(cChanges) {
-        result := ComCall(4, this, "uint", cChanges, "HRESULT")
+        result := ComCall(4, this, "uint", cChanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumerator to the beginning of the list.
+     * Resets the enumerator to the beginning of the list. (IEnumSyncChangeUnits.Reset)
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -93,20 +103,28 @@ class IEnumSyncChangeUnits extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchangeunits-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumsyncchangeunits-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (IEnumSyncChangeUnits.Clone)
      * @returns {IEnumSyncChangeUnits} Returns the cloned enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchangeunits-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ienumsyncchangeunits-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSyncChangeUnits(ppEnum)
     }
 }

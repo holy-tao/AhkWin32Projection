@@ -6,7 +6,7 @@
 
 /**
  * The ITForwardInformation interface provides methods for setup and implementation of call forwarding.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itforwardinformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itforwardinformation
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -72,25 +72,37 @@ class ITForwardInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-put_numringsnoanswer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-put_numringsnoanswer
      */
     put_NumRingsNoAnswer(lNumRings) {
-        result := ComCall(7, this, "int", lNumRings, "HRESULT")
+        result := ComCall(7, this, "int", lNumRings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_NumRingsNoAnswer method retrieves the number of rings after which a no answer condition is assumed.
      * @returns {Integer} Pointer to number of rings.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-get_numringsnoanswer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-get_numringsnoanswer
      */
     get_NumRingsNoAnswer() {
-        result := ComCall(8, this, "int*", &plNumRings := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plNumRings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNumRings
     }
 
     /**
      * The SetForwardType method sets the forwarding mode and destination by caller address.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDestAddress</i> and <i>pCallerAddress</i> parameters. The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variables are no longer needed.
      * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward mode</a>.
      * @param {BSTR} pDestAddress Pointer to <b>BSTR</b> representation of destination address for forwarding.
      * @param {BSTR} pCallerAddress Pointer to <b>BSTR</b> representation of caller address.
@@ -146,42 +158,69 @@ class ITForwardInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-setforwardtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-setforwardtype
      */
     SetForwardType(ForwardType, pDestAddress, pCallerAddress) {
-        pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
-        pCallerAddress := pCallerAddress is String ? BSTR.Alloc(pCallerAddress).Value : pCallerAddress
+        if(pDestAddress is String) {
+            pin := BSTR.Alloc(pDestAddress)
+            pDestAddress := pin.Value
+        }
+        if(pCallerAddress is String) {
+            pin := BSTR.Alloc(pCallerAddress)
+            pCallerAddress := pin.Value
+        }
 
-        result := ComCall(9, this, "int", ForwardType, "ptr", pDestAddress, "ptr", pCallerAddress, "HRESULT")
+        result := ComCall(9, this, "int", ForwardType, "ptr", pDestAddress, "ptr", pCallerAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_ForwardTypeDestination method gets the destination for a forwarding mode.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppDestAddress</i> parameter.
      * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward mode</a>.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of destination address.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypedestination
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypedestination
      */
     get_ForwardTypeDestination(ForwardType) {
         ppDestAddress := BSTR()
-        result := ComCall(10, this, "int", ForwardType, "ptr", ppDestAddress, "HRESULT")
+        result := ComCall(10, this, "int", ForwardType, "ptr", ppDestAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppDestAddress
     }
 
     /**
      * The get_ForwardTypeCaller method gets the type of caller for a given forwarding mode.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppCallerAddress</i> parameter.
      * @param {Integer} Forwardtype <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward mode</a>.
      * @returns {BSTR} Pointer to <b>BSTR</b> representation of caller address.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypecaller
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-get_forwardtypecaller
      */
     get_ForwardTypeCaller(Forwardtype) {
         ppCallerAddress := BSTR()
-        result := ComCall(11, this, "int", Forwardtype, "ptr", ppCallerAddress, "HRESULT")
+        result := ComCall(11, this, "int", Forwardtype, "ptr", ppCallerAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCallerAddress
     }
 
     /**
      * The GetForwardType method gets the forwarding mode.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppDestinationAddress</i> and <i>ppCallerAddress</i> parameters.
      * @param {Integer} ForwardType <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineforwardmode--constants">Line forward mode</a>.
      * @param {Pointer<BSTR>} ppDestinationAddress Pointer to <b>BSTR</b> representation of destination address.
      * @param {Pointer<BSTR>} ppCallerAddress Pointer to <b>BSTR</b> representation of the call originator's address.
@@ -226,15 +265,21 @@ class ITForwardInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-getforwardtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-getforwardtype
      */
     GetForwardType(ForwardType, ppDestinationAddress, ppCallerAddress) {
-        result := ComCall(12, this, "int", ForwardType, "ptr", ppDestinationAddress, "ptr", ppCallerAddress, "HRESULT")
+        result := ComCall(12, this, "int", ForwardType, "ptr", ppDestinationAddress, "ptr", ppCallerAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Clear method clears all forwarding information in this object.
+     * @remarks
+     * This method does not clear forwarding information in the service provider.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -265,10 +310,14 @@ class ITForwardInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itforwardinformation-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itforwardinformation-clear
      */
     Clear() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

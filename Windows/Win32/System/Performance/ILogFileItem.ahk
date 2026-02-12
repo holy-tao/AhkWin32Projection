@@ -48,7 +48,11 @@ class ILogFileItem extends IUnknown{
      */
     get_Path() {
         pstrValue := BSTR()
-        result := ComCall(3, this, "ptr", pstrValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrValue
     }
 }

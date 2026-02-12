@@ -47,7 +47,11 @@ class ITypeNameFactory extends IUnknown{
 
         pErrorMarshal := pError is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", szName, pErrorMarshal, pError, "ptr*", &ppTypeName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", szName, pErrorMarshal, pError, "ptr*", &ppTypeName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITypeName(ppTypeName)
     }
 
@@ -56,7 +60,11 @@ class ITypeNameFactory extends IUnknown{
      * @returns {ITypeNameBuilder} 
      */
     GetTypeNameBuilder() {
-        result := ComCall(4, this, "ptr*", &ppTypeBuilder := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppTypeBuilder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITypeNameBuilder(ppTypeBuilder)
     }
 }

@@ -11,7 +11,7 @@
  * <li>If the first track is Mode1, then all tracks must be Mode1.</li>
  * <li>Only the three Mode2 (XA) sectors (Mode 2 Form 0, Mode 2 Form 1, and Mode 2 Form 2) may be mixed within a single disc image, and even then, only with other Mode 2 (XA) sector types.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_cd_sector_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/ne-imapi2-imapi_cd_sector_type
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

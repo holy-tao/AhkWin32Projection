@@ -57,7 +57,11 @@ class IFeed2 extends IFeed{
      * @returns {IDispatch} 
      */
     GetItemByEffectiveId(itemEffectiveId) {
-        result := ComCall(51, this, "int", itemEffectiveId, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(51, this, "int", itemEffectiveId, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -66,7 +70,11 @@ class IFeed2 extends IFeed{
      * @returns {Float} 
      */
     get_LastItemDownloadTime() {
-        result := ComCall(52, this, "double*", &lastItemDownloadTime := 0, "HRESULT")
+        result := ComCall(52, this, "double*", &lastItemDownloadTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lastItemDownloadTime
     }
 
@@ -76,7 +84,11 @@ class IFeed2 extends IFeed{
      */
     get_Username() {
         username := BSTR()
-        result := ComCall(53, this, "ptr", username, "HRESULT")
+        result := ComCall(53, this, "ptr", username, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return username
     }
 
@@ -86,21 +98,81 @@ class IFeed2 extends IFeed{
      */
     get_Password() {
         password := BSTR()
-        result := ComCall(54, this, "ptr", password, "HRESULT")
+        result := ComCall(54, this, "ptr", password, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return password
     }
 
     /**
-     * 
+     * Sets the attributes of a credential, such as the name associated with the credential. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} username 
      * @param {BSTR} password 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
+     * 
+     * If the function fails, the return value may be one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handle passed to the function is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not enough memory is available to complete the request.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/sspi/nf-sspi-setcredentialsattributesw
      */
     SetCredentials(username, password) {
-        username := username is String ? BSTR.Alloc(username).Value : username
-        password := password is String ? BSTR.Alloc(password).Value : password
+        if(username is String) {
+            pin := BSTR.Alloc(username)
+            username := pin.Value
+        }
+        if(password is String) {
+            pin := BSTR.Alloc(password)
+            password := pin.Value
+        }
 
-        result := ComCall(55, this, "ptr", username, "ptr", password, "HRESULT")
+        result := ComCall(55, this, "ptr", username, "ptr", password, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +181,11 @@ class IFeed2 extends IFeed{
      * @returns {HRESULT} 
      */
     ClearCredentials() {
-        result := ComCall(56, this, "HRESULT")
+        result := ComCall(56, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

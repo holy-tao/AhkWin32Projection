@@ -56,7 +56,11 @@ class DFConstraint extends IDispatch{
      */
     get_Name() {
         pbs := BSTR()
-        result := ComCall(7, this, "ptr", pbs, "HRESULT")
+        result := ComCall(7, this, "ptr", pbs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbs
     }
 
@@ -66,7 +70,11 @@ class DFConstraint extends IDispatch{
      */
     get_Value() {
         pv := VARIANT()
-        result := ComCall(8, this, "ptr", pv, "HRESULT")
+        result := ComCall(8, this, "ptr", pv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pv
     }
 }

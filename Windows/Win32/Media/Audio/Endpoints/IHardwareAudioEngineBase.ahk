@@ -5,7 +5,7 @@
 
 /**
  * The IHardwareAudioEngineBase interface is implemented by audio endpoints for the audio stack to use to configure and retrieve information about the hardware audio engine.
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-ihardwareaudioenginebase
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nn-audioengineendpoint-ihardwareaudioenginebase
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319
  */
@@ -31,16 +31,20 @@ class IHardwareAudioEngineBase extends IUnknown{
     static VTableNames => ["GetAvailableOffloadConnectorCount", "GetEngineFormat", "SetEngineDeviceFormat", "SetGfxState", "GetGfxState"]
 
     /**
-     * The GetAvailableOffloadConnectorCount method retrieves the number of avaialable endpoints that can handle offloaded streams on the hardware audio engine.
+     * The GetAvailableOffloadConnectorCount method retrieves the number of available endpoints that can handle offloaded streams on the hardware audio engine.
      * @param {PWSTR} _pwstrDeviceId A pointer to the device ID of the hardware audio engine device.
      * @param {Integer} _uConnectorId The identifier for the endpoint connector.
      * @returns {Integer} A pointer to the number of available endpoint connectors that can handle offloaded audio streams.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getavailableoffloadconnectorcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getavailableoffloadconnectorcount
      */
     GetAvailableOffloadConnectorCount(_pwstrDeviceId, _uConnectorId) {
         _pwstrDeviceId := _pwstrDeviceId is String ? StrPtr(_pwstrDeviceId) : _pwstrDeviceId
 
-        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, "uint*", &_pAvailableConnectorInstanceCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", _pwstrDeviceId, "uint", _uConnectorId, "uint*", &_pAvailableConnectorInstanceCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return _pAvailableConnectorInstanceCount
     }
 
@@ -50,12 +54,16 @@ class IHardwareAudioEngineBase extends IUnknown{
      * @param {BOOL} _bRequestDeviceFormat A Boolean variable that indicates whether or not the <b>IMMDevice</b> interface is being accessed to retrieve the device format.
      * @param {Pointer<Pointer<WAVEFORMATEX>>} _ppwfxFormat A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatex">WAVEFORMATEX</a> structure that provides information about the hardware audio engine. This includes the waveform audio format type, the number of audio channels, and the sample rate of the audio engine.
      * @returns {HRESULT} The <b>GetEngineFormat</b> method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getengineformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getengineformat
      */
     GetEngineFormat(pDevice, _bRequestDeviceFormat, _ppwfxFormat) {
         _ppwfxFormatMarshal := _ppwfxFormat is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDevice, "int", _bRequestDeviceFormat, _ppwfxFormatMarshal, _ppwfxFormat, "HRESULT")
+        result := ComCall(4, this, "ptr", pDevice, "int", _bRequestDeviceFormat, _ppwfxFormatMarshal, _ppwfxFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,10 +72,14 @@ class IHardwareAudioEngineBase extends IUnknown{
      * @param {IMMDevice} pDevice A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-immdevice">IMMDevice</a> interface.
      * @param {Pointer<WAVEFORMATEX>} _pwfxFormat A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatex">WAVEFORMATEX</a> structure that provides information about the hardware audio engine.
      * @returns {HRESULT} The <b>SetEngineDeviceFormat</b> method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-setenginedeviceformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-setenginedeviceformat
      */
     SetEngineDeviceFormat(pDevice, _pwfxFormat) {
-        result := ComCall(5, this, "ptr", pDevice, "ptr", _pwfxFormat, "HRESULT")
+        result := ComCall(5, this, "ptr", pDevice, "ptr", _pwfxFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,10 +88,14 @@ class IHardwareAudioEngineBase extends IUnknown{
      * @param {IMMDevice} pDevice Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-immdevice">IMMDevice</a> interface.
      * @param {BOOL} _bEnable Pointer to a boolean variable.
      * @returns {HRESULT} The <b>SetGfxState</b> method returns S_OK to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-setgfxstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-setgfxstate
      */
     SetGfxState(pDevice, _bEnable) {
-        result := ComCall(6, this, "ptr", pDevice, "int", _bEnable, "HRESULT")
+        result := ComCall(6, this, "ptr", pDevice, "int", _bEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,10 +103,14 @@ class IHardwareAudioEngineBase extends IUnknown{
      * The GetGfxState method retrieves the GFX state of the offloaded audio stream.
      * @param {IMMDevice} pDevice Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-immdevice">IMMDevice</a> interface.
      * @returns {BOOL} Pointer to a boolean variable.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getgfxstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioengineendpoint/nf-audioengineendpoint-ihardwareaudioenginebase-getgfxstate
      */
     GetGfxState(pDevice) {
-        result := ComCall(7, this, "ptr", pDevice, "int*", &_pbEnable := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pDevice, "int*", &_pbEnable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return _pbEnable
     }
 }

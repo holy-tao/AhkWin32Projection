@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for registering and unregistering component category information in the registry. This includes both the human-readable names of categories and the categories implemented/required by a given component or class.
- * @see https://docs.microsoft.com/windows/win32/api//comcat/nn-comcat-icatregister
+ * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nn-comcat-icatregister
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ICatRegister extends IUnknown{
 
     /**
      * Registers one or more component categories. Each component category consists of a CATID and a list of locale-dependent description strings.
+     * @remarks
+     * This method can only be called by the owner of a category, usually as part of the installation or de-installation of the operating system or application.
      * @param {Integer} cCategories The number of component categories to be registered.
      * @param {Pointer<CATEGORYINFO>} rgCategoryInfo An array of <a href="https://docs.microsoft.com/windows/desktop/api/comcat/ns-comcat-categoryinfo">CATEGORYINFO</a> structures, one for each category to be registered. By providing the same CATID for multiple <b>CATEGORYINFO</b> structures, multiple locales can be registered for the same component category.
      * @returns {HRESULT} This method can return the following values.
@@ -64,15 +66,23 @@ class ICatRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-icatregister-registercategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nf-comcat-icatregister-registercategories
      */
     RegisterCategories(cCategories, rgCategoryInfo) {
-        result := ComCall(3, this, "uint", cCategories, "ptr", rgCategoryInfo, "HRESULT")
+        result := ComCall(3, this, "uint", cCategories, "ptr", rgCategoryInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the registration of one or more component categories. Each component category consists of a CATID and a list of locale-dependent description strings.
+     * @remarks
+     * This method will be successful even if one or more of the category IDs specified are not registered. This method can only be called by the owner of a category, usually as part of the installation or de-installation of the operating system or application.
+     * 
+     * This method does not remove the component category tags from individual classes. To do this, use the <a href="https://docs.microsoft.com/windows/desktop/api/comcat/nf-comcat-icatregister-unregisterclassreqcategories">ICatRegister::UnRegisterClassReqCategories</a> method.
      * @param {Integer} cCategories The number of categories to be removed.
      * @param {Pointer<Guid>} rgcatid The CATIDs of the categories to be removed.
      * @returns {HRESULT} This method can return the following values.
@@ -105,15 +115,21 @@ class ICatRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-icatregister-unregistercategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nf-comcat-icatregister-unregistercategories
      */
     UnRegisterCategories(cCategories, rgcatid) {
-        result := ComCall(4, this, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(4, this, "uint", cCategories, "ptr", rgcatid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers the class as implementing one or more component categories.
+     * @remarks
+     * In case of an error, this method does not ensure that the registry is restored to the state prior to the call. This method can only be called by the owner of a class, usually as part of the installation of the component.
      * @param {Pointer<Guid>} rclsid The class identifier.
      * @param {Integer} cCategories The number of categories to be associated as category identifiers for the class.
      * @param {Pointer<Guid>} rgcatid An array of CATIDs to associate as category identifiers for the class.
@@ -147,15 +163,21 @@ class ICatRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-icatregister-registerclassimplcategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nf-comcat-icatregister-registerclassimplcategories
      */
     RegisterClassImplCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(5, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(5, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes one or more implemented category identifiers from a class.
+     * @remarks
+     * In case of an error, this method does not ensure that the registry is restored to the state prior to the call. This method will be successful even if one or more of the category IDs specified are not registered for the class. This method can only be called by the owner of a class, usually as part of the de-installation of the component.
      * @param {Pointer<Guid>} rclsid The class identifier.
      * @param {Integer} cCategories The number of category CATIDs to be removed.
      * @param {Pointer<Guid>} rgcatid An array of CATIDs that are to be removed. Only the category IDs specified in this array are removed.
@@ -189,15 +211,21 @@ class ICatRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-icatregister-unregisterclassimplcategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nf-comcat-icatregister-unregisterclassimplcategories
      */
     UnRegisterClassImplCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(6, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(6, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Registers the class as requiring one or more component categories.
+     * @remarks
+     * In case of an error, this method does not ensure that the registry is restored to the state prior to the call. This method can only be called by the owner of a class, usually as part of the installation of the component.
      * @param {Pointer<Guid>} rclsid The class identifier.
      * @param {Integer} cCategories The number of category CATIDs to be associated as category identifiers for the class.
      * @param {Pointer<Guid>} rgcatid An array of CATIDs to be associated as category identifiers for the class.
@@ -231,15 +259,21 @@ class ICatRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-icatregister-registerclassreqcategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nf-comcat-icatregister-registerclassreqcategories
      */
     RegisterClassReqCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(7, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(7, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes one or more required category identifiers from a class.
+     * @remarks
+     * In case of an error, this method does not ensure that the registry is restored to the state prior to the call. This method will be successful even if one or more of the category IDs specified are not registered for the class.
      * @param {Pointer<Guid>} rclsid The class identifier.
      * @param {Integer} cCategories The number of category CATIDs to be removed.
      * @param {Pointer<Guid>} rgcatid An array of CATIDs that are to be removed. Only the category IDs specified in this array are removed.
@@ -273,10 +307,14 @@ class ICatRegister extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-icatregister-unregisterclassreqcategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/comcat/nf-comcat-icatregister-unregisterclassreqcategories
      */
     UnRegisterClassReqCategories(rclsid, cCategories, rgcatid) {
-        result := ComCall(8, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "HRESULT")
+        result := ComCall(8, this, "ptr", rclsid, "uint", cCategories, "ptr", rgcatid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Provides the properties needed to control the touch pointer feature of the Remote Desktop Protocol (RDP) app container client control.
- * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclienttouchpointer
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclienttouchpointer
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -55,44 +55,60 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
     }
 
     /**
-     * Whether the touch pointer feature is enabled on the RDP app container client control.
+     * Whether the touch pointer feature is enabled on the RDP app container client control. (Put)
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-put_enabled
      */
     put_Enabled(enabled) {
-        result := ComCall(7, this, "short", enabled, "HRESULT")
+        result := ComCall(7, this, "short", enabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Whether the touch pointer feature is enabled on the RDP app container client control.
+     * Whether the touch pointer feature is enabled on the RDP app container client control. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_enabled
      */
     get_Enabled() {
-        result := ComCall(8, this, "short*", &enabled := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &enabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return enabled
     }
 
     /**
-     * Whether touch pointer event notifications are enabled for the RDP app container client control.
+     * Whether touch pointer event notifications are enabled for the RDP app container client control. (Put)
      * @param {VARIANT_BOOL} eventsEnabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-put_eventsenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-put_eventsenabled
      */
     put_EventsEnabled(eventsEnabled) {
-        result := ComCall(9, this, "short", eventsEnabled, "HRESULT")
+        result := ComCall(9, this, "short", eventsEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Whether touch pointer event notifications are enabled for the RDP app container client control.
+     * Whether touch pointer event notifications are enabled for the RDP app container client control. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_eventsenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_eventsenabled
      */
     get_EventsEnabled() {
-        result := ComCall(10, this, "short*", &eventsEnabled := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &eventsEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return eventsEnabled
     }
 
@@ -102,17 +118,25 @@ class IRemoteDesktopClientTouchPointer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PointerSpeed(pointerSpeed) {
-        result := ComCall(11, this, "uint", pointerSpeed, "HRESULT")
+        result := ComCall(11, this, "uint", pointerSpeed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * How fast the touch pointer cursor will move on the virtual desktop relative to the speed of the gesture on the client.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_pointerspeed
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclienttouchpointer-get_pointerspeed
      */
     get_PointerSpeed() {
-        result := ComCall(12, this, "uint*", &pointerSpeed := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pointerSpeed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pointerSpeed
     }
 }

@@ -6,11 +6,9 @@
 /**
  * Provides a single method that enables an application to determine whether its host is in desktop or immersive mode.
  * @remarks
- * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * An application must implement this interface together with the DelegateExecute handler (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexecutecommand">IExecuteCommand</a>).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iexecutecommandapplicationhostenvironment
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iexecutecommandapplicationhostenvironment
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,10 +36,14 @@ class IExecuteCommandApplicationHostEnvironment extends IUnknown{
     /**
      * Determines whether the current application host environment is in the desktop or immersive mode.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexecutecommandapplicationhostenvironment-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iexecutecommandapplicationhostenvironment-getvalue
      */
     GetValue() {
-        result := ComCall(3, this, "int*", &pahe := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pahe := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pahe
     }
 }

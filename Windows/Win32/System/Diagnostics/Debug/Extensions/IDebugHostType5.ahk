@@ -34,7 +34,11 @@ class IDebugHostType5 extends IDebugHostType4{
      * @returns {Boolean} 
      */
     IsBaseTypeOf(pOtherType) {
-        result := ComCall(38, this, "ptr", pOtherType, "int*", &pIsBase := 0, "HRESULT")
+        result := ComCall(38, this, "ptr", pOtherType, "int*", &pIsBase := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsBase
     }
 }

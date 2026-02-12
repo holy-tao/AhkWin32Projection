@@ -46,19 +46,31 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
         pKeyStatusesArrayMarshal := pKeyStatusesArray is VarRef ? "ptr*" : "ptr"
         puSizeMarshal := puSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pKeyStatusesArrayMarshal, pKeyStatusesArray, puSizeMarshal, puSize, "HRESULT")
+        result := ComCall(8, this, pKeyStatusesArrayMarshal, pKeyStatusesArray, puSizeMarshal, puSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Reads texel data without any filtering or sampling.
      * @param {BSTR} bstrSessionId 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-to-load
      */
     Load(bstrSessionId) {
-        bstrSessionId := bstrSessionId is String ? BSTR.Alloc(bstrSessionId).Value : bstrSessionId
+        if(bstrSessionId is String) {
+            pin := BSTR.Alloc(bstrSessionId)
+            bstrSessionId := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrSessionId, "int*", &pfLoaded := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrSessionId, "int*", &pfLoaded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfLoaded
     }
 
@@ -70,9 +82,16 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
      * @returns {HRESULT} 
      */
     GenerateRequest(initDataType, pbInitData, cb) {
-        initDataType := initDataType is String ? BSTR.Alloc(initDataType).Value : initDataType
+        if(initDataType is String) {
+            pin := BSTR.Alloc(initDataType)
+            initDataType := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", initDataType, "ptr", pbInitData, "uint", cb, "HRESULT")
+        result := ComCall(10, this, "ptr", initDataType, "ptr", pbInitData, "uint", cb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,25 +100,42 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
      * @returns {Float} 
      */
     get_Expiration() {
-        result := ComCall(11, this, "double*", &dblExpiration := 0, "HRESULT")
+        result := ComCall(11, this, "double*", &dblExpiration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dblExpiration
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Stops the collector. If the collector is running as a service, stopping the service is the better approach.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-shutdown
      */
     Shutdown() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -8,7 +8,7 @@
  * 
  * 
  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-ip_pattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/traffic/ns-traffic-ip_pattern
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

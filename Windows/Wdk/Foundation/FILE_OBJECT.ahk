@@ -4,6 +4,10 @@
 #Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
+ * Contains an object identifier and user-defined metadata associated with the object identifier.
+ * @remarks
+ * Object identifiers are used  to track  files and directories. They are invisible to most applications and should never be modified by applications. Modifying an object identifier can result in the loss of data from portions of a file, up to and including entire volumes of data.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-file_objectid_buffer
  * @namespace Windows.Wdk.Foundation
  * @version v4.0.30319
  */

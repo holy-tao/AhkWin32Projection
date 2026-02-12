@@ -63,7 +63,11 @@ class IDOMMessageEvent extends IDispatch{
      */
     get_data() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -73,7 +77,11 @@ class IDOMMessageEvent extends IDispatch{
      */
     get_origin() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -82,7 +90,11 @@ class IDOMMessageEvent extends IDispatch{
      * @returns {IHTMLWindow2} 
      */
     get_source() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLWindow2(p)
     }
 
@@ -98,12 +110,28 @@ class IDOMMessageEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMessageEvent(eventType, canBubble, cancelable, data, origin, lastEventId, source) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        data := data is String ? BSTR.Alloc(data).Value : data
-        origin := origin is String ? BSTR.Alloc(origin).Value : origin
-        lastEventId := lastEventId is String ? BSTR.Alloc(lastEventId).Value : lastEventId
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
+        if(origin is String) {
+            pin := BSTR.Alloc(origin)
+            origin := pin.Value
+        }
+        if(lastEventId is String) {
+            pin := BSTR.Alloc(lastEventId)
+            lastEventId := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", data, "ptr", origin, "ptr", lastEventId, "ptr", source, "HRESULT")
+        result := ComCall(10, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", data, "ptr", origin, "ptr", lastEventId, "ptr", source, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

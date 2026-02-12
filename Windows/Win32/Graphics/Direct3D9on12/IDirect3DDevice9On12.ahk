@@ -38,7 +38,11 @@ class IDirect3DDevice9On12 extends IUnknown{
     GetD3D12Device(riid, ppvDevice) {
         ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, ppvDeviceMarshal, ppvDevice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class IDirect3DDevice9On12 extends IUnknown{
     UnwrapUnderlyingResource(pResource, pCommandQueue, riid, ppvResource12) {
         ppvResource12Marshal := ppvResource12 is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, "ptr", riid, ppvResource12Marshal, ppvResource12, "HRESULT")
+        result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, "ptr", riid, ppvResource12Marshal, ppvResource12, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +75,11 @@ class IDirect3DDevice9On12 extends IUnknown{
     ReturnUnderlyingResource(pResource, NumSync, pSignalValues) {
         pSignalValuesMarshal := pSignalValues is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", &ppFences := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pResource, "uint", NumSync, pSignalValuesMarshal, pSignalValues, "ptr*", &ppFences := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID3D12Fence(ppFences)
     }
 }

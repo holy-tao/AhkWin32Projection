@@ -6,7 +6,7 @@
  * @remarks
  * For more information about building parameter blocks and property tables, see 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-lists-and-tables">Using Lists and Tables</a>.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_property_item
+ * @see https://learn.microsoft.com/windows/win32/api//content/resapi/ns-resapi-resutil_property_item
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

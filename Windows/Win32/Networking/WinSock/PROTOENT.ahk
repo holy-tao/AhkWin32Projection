@@ -3,7 +3,7 @@
 
 /**
  * The PROTOENT (winsock.h) structure contains the name and protocol numbers that correspond to a given protocol name.
- * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-protoent
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsock/ns-winsock-protoent
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

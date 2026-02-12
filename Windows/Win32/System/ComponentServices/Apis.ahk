@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\IDispenserManager.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
@@ -11,12 +13,12 @@ class ComponentServices {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TRACKER_STARTSTOP_EVENT => "Global\COM+ Tracker Push Event"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TRACKER_INIT_EVENT => "Global\COM+ Tracker Init Event"
 
@@ -77,14 +79,14 @@ class ComponentServices {
      * An object should never pass an <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iobjectcontext">IObjectContext</a> reference to another object. If you pass an <b>IObjectContext</b> reference to another object, it is no longer a valid reference.
      * 
      * When an object obtains a reference to an <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iobjectcontext">IObjectContext</a>, it must release the <b>IObjectContext</b> object when it is finished with it.
-     * @param {Integer} aptType 
+     * @param {Integer} aptType_ 
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface that is being requested on the default context. Typically, the caller requests IID_IObjectContext. The default context does not support all of the normal object context interfaces.
      * @returns {Pointer<Void>} A reference to the interface specified by riid on the default context. If the object's component is non-configured, (that is, the object's component has not been imported into a COM+ application), or if the <b>CoGetDefaultContext</b> function is called from a constructor or an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> method, this parameter is set to a <b>NULL</b> pointer.
-     * @see https://learn.microsoft.com/windows/win32/api/combaseapi/nf-combaseapi-cogetdefaultcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/nf-combaseapi-cogetdefaultcontext
      * @since windows5.1.2600
      */
-    static CoGetDefaultContext(aptType, riid) {
-        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, "ptr*", &ppv := 0, "int")
+    static CoGetDefaultContext(aptType_, riid) {
+        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType_, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -168,7 +170,7 @@ class ComponentServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-cocreateactivity
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-cocreateactivity
      * @since windows5.1.2600
      */
     static CoCreateActivity(pIUnknown, riid, ppObj) {
@@ -260,7 +262,7 @@ class ComponentServices {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-coenterservicedomain
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-coenterservicedomain
      * @since windows5.1.2600
      */
     static CoEnterServiceDomain(pConfigObject) {
@@ -289,7 +291,7 @@ class ComponentServices {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a> and <b>CoLeaveServiceDomain</b> pairs can be nested. It is up to the user to make sure that the pairs of calls are balanced so that every call to <b>CoLeaveServiceDomain</b> matches a previous call to <b>CoEnterServiceDomain</b>.
      * @param {IUnknown} pUnkStatus If you want to know the status of the transaction that is completed by the call, this must be a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of an object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-itransactionstatus">ITransactionStatus</a> interface. If the enclosed code did not use transactions or if you do not need to know the transaction status, this parameter should be <b>NULL</b>. This parameter is ignored if it is non-<b>NULL</b> and if no transactions were used in the service domain.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-coleaveservicedomain
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-coleaveservicedomain
      * @since windows5.1.2600
      */
     static CoLeaveServiceDomain(pUnkStatus) {
@@ -302,7 +304,7 @@ class ComponentServices {
      * Several COM+ services, such as <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--just-in-time-activation">COM+ Just-in-Time Activation</a> and <a href="https://docs.microsoft.com/windows/desktop/cossdk/com--events">COM+ Events</a>, support the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imanagedactivationevents">IManagedActivationEvents</a> interface. This interface provides additional code for managing serviced components (managed objects). To take advantage of this additional code, the serviced component must support the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imanagedobjectinfo">IManagedObjectInfo</a> interface. The <b>GetManagedExtensions</b> function allows you to determine the availability of this additional code in the installed version of COM+.
      * @param {Pointer<Integer>} dwExts Indicates whether the installed version of COM+ supports managed extensions. A value of 1 indicates that it does, while a value of 0 indicates that it does not.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-getmanagedextensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-getmanagedextensions
      * @since windows5.1.2600
      */
     static GetManagedExtensions(dwExts) {
@@ -321,7 +323,7 @@ class ComponentServices {
      * @param {Pointer<Guid>} rid A reference to the IID of the interface that the current object wants to pass to another object or client.
      * @param {IUnknown} pUnk A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the current object.
      * @returns {Pointer<Void>} If the function succeeds, the return value is a pointer to the specified interface that can be passed outside the current object's context. Otherwise, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-saferef
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-saferef
      * @since windows5.0
      */
     static SafeRef(rid, pUnk) {
@@ -406,7 +408,7 @@ class ComponentServices {
      * </tr>
      * </table>
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-recyclesurrogate
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-recyclesurrogate
      * @since windows5.0
      */
     static RecycleSurrogate(lReasonCode) {
@@ -427,7 +429,7 @@ class ComponentServices {
      * @param {Pointer<Guid>} riid The ID of the interface to be returned by the <i>ppObj</i> parameter. This parameter should always be IID_IMTSActivity so that a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-imtsactivity">IMTSActivity</a> is returned.
      * @param {Pointer<Pointer<Void>>} ppobj A pointer to the interface of an activity object. The activity object is automatically created by the call to <b>MTSCreateActivity</b>.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-mtscreateactivity
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-mtscreateactivity
      * @since windows5.0
      */
     static MTSCreateActivity(riid, ppobj) {
@@ -444,7 +446,7 @@ class ComponentServices {
     /**
      * Retrieves the dispenser manager's IDispenserManager interface.
      * @returns {IDispenserManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/mtxdm/nf-mtxdm-getdispensermanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/mtxdm/nf-mtxdm-getdispensermanager
      * @since windows5.0
      */
     static GetDispenserManager() {

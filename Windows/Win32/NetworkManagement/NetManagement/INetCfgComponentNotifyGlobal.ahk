@@ -33,7 +33,11 @@ class INetCfgComponentNotifyGlobal extends IUnknown{
      * @returns {Integer} 
      */
     GetSupportedNotifications() {
-        result := ComCall(3, this, "uint*", &dwNotifications := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &dwNotifications := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwNotifications
     }
 
@@ -44,7 +48,11 @@ class INetCfgComponentNotifyGlobal extends IUnknown{
      * @returns {HRESULT} 
      */
     SysQueryBindingPath(dwChangeFlag, pIPath) {
-        result := ComCall(4, this, "uint", dwChangeFlag, "ptr", pIPath, "HRESULT")
+        result := ComCall(4, this, "uint", dwChangeFlag, "ptr", pIPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class INetCfgComponentNotifyGlobal extends IUnknown{
      * @returns {HRESULT} 
      */
     SysNotifyBindingPath(dwChangeFlag, pIPath) {
-        result := ComCall(5, this, "uint", dwChangeFlag, "ptr", pIPath, "HRESULT")
+        result := ComCall(5, this, "uint", dwChangeFlag, "ptr", pIPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +78,11 @@ class INetCfgComponentNotifyGlobal extends IUnknown{
      * @returns {HRESULT} 
      */
     SysNotifyComponent(dwChangeFlag, pIComp) {
-        result := ComCall(6, this, "uint", dwChangeFlag, "ptr", pIComp, "HRESULT")
+        result := ComCall(6, this, "uint", dwChangeFlag, "ptr", pIComp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

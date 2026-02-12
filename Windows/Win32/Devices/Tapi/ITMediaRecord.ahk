@@ -6,7 +6,7 @@
 
 /**
  * The ITMediaRecord interface provides recording-specific methods that allow an application to set and get the names of files to record.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itmediarecord
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itmediarecord
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -42,13 +42,20 @@ class ITMediaRecord extends IDispatch{
     /**
      * The put_FileName method sets the name of the file to record.
      * @param {BSTR} bstrFileName The <b>BSTR</b> representation of the file name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediarecord-put_filename
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediarecord-put_filename
      */
     put_FileName(bstrFileName) {
-        bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
+        if(bstrFileName is String) {
+            pin := BSTR.Alloc(bstrFileName)
+            bstrFileName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrFileName, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,11 +63,15 @@ class ITMediaRecord extends IDispatch{
      * The get_FileName method retrieves the name of the file that was used for recording by this terminal.
      * @returns {BSTR} The <b>BSTR</b> representation of the file name. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediarecord-get_filename
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itmediarecord-get_filename
      */
     get_FileName() {
         pbstrFileName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrFileName, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFileName
     }
 }

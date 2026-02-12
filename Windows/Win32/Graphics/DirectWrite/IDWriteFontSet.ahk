@@ -7,8 +7,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents a font set.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontset
+ * Represents a font set. (IDWriteFontSet)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefontset
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IDWriteFontSet extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of total fonts in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontset-getfontcount
      */
     GetFontCount() {
         result := ComCall(3, this, "uint")
@@ -50,18 +50,22 @@ class IDWriteFontSet extends IUnknown{
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the font.
-     * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
+     * @returns {Pointer<IDWriteFontFaceReference>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
      * 
      * Receives a pointer the font face reference object, or nullptr on failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontset-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
-        result := ComCall(4, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
-        return IDWriteFontFaceReference(fontFaceReference)
+        result := ComCall(4, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFaceReference
     }
 
     /**
-     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations.
+     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations. (IDWriteFontSet.FindFontFaceReference)
      * @param {IDWriteFontFaceReference} fontFaceReference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>*</b>
      * 
      * Font face object that specifies the physical font.
@@ -73,19 +77,23 @@ class IDWriteFontSet extends IUnknown{
      * Receives TRUE if the font exists or FALSE otherwise.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontset-findfontfacereference
      */
     FindFontFaceReference(fontFaceReference, listIndex, exists) {
         listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", fontFaceReference, listIndexMarshal, listIndex, existsMarshal, exists, "HRESULT")
+        result := ComCall(5, this, "ptr", fontFaceReference, listIndexMarshal, listIndex, existsMarshal, exists, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations.
+     * Gets the index of the matching font face reference in the font set, with the same file, face index, and simulations. (IDWriteFontSet.FindFontFace)
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
      * Font face object that specifies the physical font.
@@ -97,98 +105,126 @@ class IDWriteFontSet extends IUnknown{
      * Receives TRUE if the font exists or FALSE otherwise.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-findfontface
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontset-findfontface
      */
     FindFontFace(fontFace, listIndex, exists) {
         listIndexMarshal := listIndex is VarRef ? "uint*" : "ptr"
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", fontFace, listIndexMarshal, listIndex, existsMarshal, exists, "HRESULT")
+        result := ComCall(6, this, "ptr", fontFace, listIndexMarshal, listIndex, existsMarshal, exists, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Returns property values for the font set.
      * @param {Integer} propertyID 
-     * @returns {IDWriteStringList} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
+     * @returns {Pointer<IDWriteStringList>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefontset-getpropertyvalues-overload
      */
     GetPropertyValues(propertyID) {
-        result := ComCall(7, this, "int", propertyID, "ptr*", &values := 0, "HRESULT")
-        return IDWriteStringList(values)
+        result := ComCall(7, this, "int", propertyID, "ptr*", &values := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return values
     }
 
     /**
-     * 
+     * Returns property values for the font set.
      * @param {Integer} propertyID 
      * @param {PWSTR} preferredLocaleNames 
-     * @returns {IDWriteStringList} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
+     * @returns {Pointer<IDWriteStringList>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefontset-getpropertyvalues-overload
      */
     GetPropertyValues1(propertyID, preferredLocaleNames) {
         preferredLocaleNames := preferredLocaleNames is String ? StrPtr(preferredLocaleNames) : preferredLocaleNames
 
-        result := ComCall(8, this, "int", propertyID, "ptr", preferredLocaleNames, "ptr*", &values := 0, "HRESULT")
-        return IDWriteStringList(values)
+        result := ComCall(8, this, "int", propertyID, "ptr", preferredLocaleNames, "ptr*", &values := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return values
     }
 
     /**
-     * 
+     * Returns property values for the font set.
      * @param {Integer} listIndex 
      * @param {Integer} propertyId 
      * @param {Pointer<BOOL>} exists 
-     * @param {Pointer<IDWriteLocalizedStrings>} values 
+     * @param {Pointer<Pointer<IDWriteLocalizedStrings>>} values 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyvalues(dwrite_font_property_id_wcharconst_idwritestringlist)
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefontset-getpropertyvalues-overload
      */
     GetPropertyValues2(listIndex, propertyId, exists, values) {
         existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "uint", listIndex, "int", propertyId, existsMarshal, exists, "ptr*", values, "HRESULT")
+        result := ComCall(9, this, "uint", listIndex, "int", propertyId, existsMarshal, exists, "ptr*", values, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns how many times a given property value occurs in the set.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} property Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property">DWRITE_FONT_PROPERTY</a>*</b>
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} property_ Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_font_property">DWRITE_FONT_PROPERTY</a>*</b>
      * 
      * Font property of interest.
      * @returns {Integer} Type: <b>UINT32*</b>
      * 
      * Receives how many times the property occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontset-getpropertyoccurrencecount
      */
-    GetPropertyOccurrenceCount(property) {
-        result := ComCall(10, this, "ptr", property, "uint*", &propertyOccurrenceCount := 0, "HRESULT")
+    GetPropertyOccurrenceCount(property_) {
+        result := ComCall(10, this, "ptr", property_, "uint*", &propertyOccurrenceCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return propertyOccurrenceCount
     }
 
     /**
-     * 
+     * Returns a subset of fonts matching the specified criteria.
      * @param {PWSTR} familyName 
      * @param {Integer} fontWeight 
      * @param {Integer} fontStretch 
-     * @param {Integer} fontStyle 
-     * @returns {IDWriteFontSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
+     * @param {Integer} fontStyle_ 
+     * @returns {Pointer<IDWriteFontSet>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefontset-getmatchingfonts-overload
      */
-    GetMatchingFonts(familyName, fontWeight, fontStretch, fontStyle) {
+    GetMatchingFonts(familyName, fontWeight, fontStretch, fontStyle_) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(11, this, "ptr", familyName, "int", fontWeight, "int", fontStretch, "int", fontStyle, "ptr*", &filteredSet := 0, "HRESULT")
-        return IDWriteFontSet(filteredSet)
+        result := ComCall(11, this, "ptr", familyName, "int", fontWeight, "int", fontStretch, "int", fontStyle_, "ptr*", &filteredSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return filteredSet
     }
 
     /**
-     * 
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties 
+     * Returns a subset of fonts matching the specified criteria.
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} properties_ 
      * @param {Integer} propertyCount 
-     * @returns {IDWriteFontSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset-getmatchingfonts(dwrite_font_propertyconst_uint32_idwritefontset)
+     * @returns {Pointer<IDWriteFontSet>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectWrite/idwritefontset-getmatchingfonts-overload
      */
-    GetMatchingFonts1(properties, propertyCount) {
-        result := ComCall(12, this, "ptr", properties, "uint", propertyCount, "ptr*", &filteredSet := 0, "HRESULT")
-        return IDWriteFontSet(filteredSet)
+    GetMatchingFonts1(properties_, propertyCount) {
+        result := ComCall(12, this, "ptr", properties_, "uint", propertyCount, "ptr*", &filteredSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return filteredSet
     }
 }

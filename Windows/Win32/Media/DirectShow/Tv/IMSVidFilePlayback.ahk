@@ -7,13 +7,10 @@
 /**
  * The IMSVidFilePlayback interface enables the client to specify a local file for playback. It is implemented by the MSVidFilePlaybackDevice object.
  * @remarks
- * 
  * To play a media file using the Video Control, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/nf-msvidctl-imsvidctl-view">IMSVidCtl::View</a> method with the name of the file. The <b>View</b> method automatically loads the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidfileplaybackdevice">MSVidFilePlayback</a> object.
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFilePlayback)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidfileplayback
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidfileplayback
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -48,12 +45,18 @@ class IMSVidFilePlayback extends IMSVidPlayback{
 
     /**
      * The get_FileName method retrieves the name of the file to play.
+     * @remarks
+     * The caller must release the returned string, using the <b>CoTaskMemFree</b> function.
      * @returns {BSTR} Pointer to a variable that receives the file name.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback-get_filename
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfileplayback-get_filename
      */
     get_FileName() {
         FileName := BSTR()
-        result := ComCall(32, this, "ptr", FileName, "HRESULT")
+        result := ComCall(32, this, "ptr", FileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FileName
     }
 
@@ -79,12 +82,19 @@ class IMSVidFilePlayback extends IMSVidPlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback-put_filename
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidfileplayback-put_filename
      */
     put_FileName(FileName) {
-        FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
+        if(FileName is String) {
+            pin := BSTR.Alloc(FileName)
+            FileName := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", FileName, "HRESULT")
+        result := ComCall(33, this, "ptr", FileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

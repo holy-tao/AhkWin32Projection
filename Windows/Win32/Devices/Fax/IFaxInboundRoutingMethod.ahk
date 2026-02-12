@@ -7,10 +7,8 @@
 /**
  * The IFaxInboundRoutingMethod interface defines a configuration object used by a fax client application to retrieve information about an individual fax inbound routing method on a connected fax server.
  * @remarks
- * 
  * A default implementation of <b>IFaxInboundRoutingMethod</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod">FaxInboundRoutingMethod</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxinboundroutingmethod
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxinboundroutingmethod
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -87,72 +85,85 @@ class IFaxInboundRoutingMethod extends IDispatch{
     /**
      * The IFaxInboundRoutingMethod::get_Name property is a null-terminated string that contains the user-friendly name associated with the inbound fax routing method. The string is suitable for display to users.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_name
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
     /**
      * The IFaxInboundRoutingMethod::get_GUID property is a null-terminated string that specifies the GUID that uniquely identifies the fax routing method.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_guid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_guid
      */
     get_GUID() {
         pbstrGUID := BSTR()
-        result := ComCall(8, this, "ptr", pbstrGUID, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGUID
     }
 
     /**
      * The IFaxInboundRoutingMethod::get_FunctionName property is a null-terminated string that contains the name of the function that executes a specific fax routing procedure.
      * @remarks
-     * 
      * The fax routing extension DLL identified by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-extensionimagename-vb">IFaxInboundRoutingMethod::get_ExtensionImageName</a> property defines and exports the function.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_functionname
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_functionname
      */
     get_FunctionName() {
         pbstrFunctionName := BSTR()
-        result := ComCall(9, this, "ptr", pbstrFunctionName, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrFunctionName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFunctionName
     }
 
     /**
      * The IFaxInboundRoutingMethod::get_ExtensionFriendlyName property is the user-friendly name for the fax routing extension that exports the inbound fax routing method.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionfriendlyname
      */
     get_ExtensionFriendlyName() {
         pbstrExtensionFriendlyName := BSTR()
-        result := ComCall(10, this, "ptr", pbstrExtensionFriendlyName, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrExtensionFriendlyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrExtensionFriendlyName
     }
 
     /**
      * The IFaxInboundRoutingMethod::get_ExtensionImageName property is a null-terminated string that contains the executable image name (DLL path and file name) of the fax routing extension that exports the fax routing method.
      * @remarks
-     * 
      * The path can include valid environment variables, for example, <c>%SYSTEMDRIVE%</code> and <code>%SYSTEMROOT%</c>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionimagename
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionimagename
      */
     get_ExtensionImageName() {
         pbstrExtensionImageName := BSTR()
-        result := ComCall(11, this, "ptr", pbstrExtensionImageName, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrExtensionImageName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrExtensionImageName
     }
 
     /**
-     * The Priority property is a value associated with the order in which the fax service calls the routing method when the service receives a fax job.
+     * The Priority property is a value associated with the order in which the fax service calls the routing method when the service receives a fax job. (Get)
      * @remarks
-     * 
      * Valid values for this property are 1 through <i>n</i>, where 1 is the highest priority.
      * 
      * You should assign a unique priority value to each routing method. After you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-save-vb">IFaxInboundRoutingMethod::Save</a> method, the fax service sorts the routing methods by priority. If two routing methods have the same priority, the fax service will choose which will have a higher priority.
@@ -160,20 +171,21 @@ class IFaxInboundRoutingMethod extends IDispatch{
      * If you want a particular routing method to have the lowest possible priority, specify a very large value, such as 999999, and then call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-save-vb">IFaxInboundRoutingMethod::Save</a> method.
      * 
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_priority
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_priority
      */
     get_Priority() {
-        result := ComCall(12, this, "int*", &plPriority := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plPriority := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPriority
     }
 
     /**
-     * The Priority property is a value associated with the order in which the fax service calls the routing method when the service receives a fax job.
+     * The Priority property is a value associated with the order in which the fax service calls the routing method when the service receives a fax job. (Put)
      * @remarks
-     * 
      * Valid values for this property are 1 through <i>n</i>, where 1 is the highest priority.
      * 
      * You should assign a unique priority value to each routing method. After you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-save-vb">IFaxInboundRoutingMethod::Save</a> method, the fax service sorts the routing methods by priority. If two routing methods have the same priority, the fax service will choose which will have a higher priority.
@@ -181,38 +193,54 @@ class IFaxInboundRoutingMethod extends IDispatch{
      * If you want a particular routing method to have the lowest possible priority, specify a very large value, such as 999999, and then call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-save-vb">IFaxInboundRoutingMethod::Save</a> method.
      * 
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * 
-     * 
      * @param {Integer} lPriority 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-put_priority
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-put_priority
      */
     put_Priority(lPriority) {
-        result := ComCall(13, this, "int", lPriority, "HRESULT")
+        result := ComCall(13, this, "int", lPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IFaxInboundRoutingMethod::Refresh method refreshes IFaxInboundRoutingMethod interface information from the fax server.
+     * @remarks
+     * When the <b>IFaxInboundRoutingMethod::Refresh</b> method is called, any configuration changes made after the last <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethod-save-vb">IFaxInboundRoutingMethod::Save</a> method call are lost.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-refresh
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-refresh
      */
     Refresh() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IFaxInboundRoutingMethod::Save method saves the IFaxInboundRoutingMethod interface's data.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farMANAGE_CONFIG</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access rights.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingmethod-save
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-save
      */
     Save() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

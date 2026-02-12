@@ -29,7 +29,7 @@
  * Presently, such options are available for Active Directory only.
  * 
  * Because Visual Basic Scripting Edition (VBScript) cannot read data from a type library, an application must use the appropriate numeric constants, instead of the symbolic constants, to set the appropriate flags. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here.
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_security_info_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/ne-iads-ads_security_info_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

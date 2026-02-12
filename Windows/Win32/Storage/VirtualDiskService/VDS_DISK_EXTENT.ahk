@@ -18,7 +18,7 @@
  * 
  * A disk extent is a contiguous set of blocks on a single disk or LUN handled by a software provider. A drive 
  *     extent is not required to be a contiguous set of blocks.
- * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_extent
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_disk_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

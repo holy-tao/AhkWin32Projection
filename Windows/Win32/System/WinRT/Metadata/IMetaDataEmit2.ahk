@@ -40,7 +40,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmiMarshal := pmi is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(52, this, "uint", tkParent, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmiMarshal, pmi, "HRESULT")
+        result := ComCall(52, this, "uint", tkParent, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmiMarshal, pmi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
     GetDeltaSaveSize(fSave, pdwSaveSize) {
         pdwSaveSizeMarshal := pdwSaveSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(53, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "HRESULT")
+        result := ComCall(53, this, "int", fSave, pdwSaveSizeMarshal, pdwSaveSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
     SaveDelta(szFile, dwSaveFlags) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := ComCall(54, this, "ptr", szFile, "uint", dwSaveFlags, "HRESULT")
+        result := ComCall(54, this, "ptr", szFile, "uint", dwSaveFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +89,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
      * @returns {HRESULT} 
      */
     SaveDeltaToStream(pIStream, dwSaveFlags) {
-        result := ComCall(55, this, "ptr", pIStream, "uint", dwSaveFlags, "HRESULT")
+        result := ComCall(55, this, "ptr", pIStream, "uint", dwSaveFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +106,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
     SaveDeltaToMemory(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(56, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(56, this, pbDataMarshal, pbData, "uint", cbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +131,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
         rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
         pgpMarshal := pgp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(57, this, "uint", tk, "uint", ulParamSeq, "uint", dwParamFlags, "ptr", szname, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, pgpMarshal, pgp, "HRESULT")
+        result := ComCall(57, this, "uint", tk, "uint", ulParamSeq, "uint", dwParamFlags, "ptr", szname, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, pgpMarshal, pgp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +153,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
 
         rtkConstraintsMarshal := rtkConstraints is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(58, this, "uint", gp, "uint", dwParamFlags, "ptr", szName, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, "HRESULT")
+        result := ComCall(58, this, "uint", gp, "uint", dwParamFlags, "ptr", szName, "uint", reserved, rtkConstraintsMarshal, rtkConstraints, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +166,11 @@ class IMetaDataEmit2 extends IMetaDataEmit{
      * @returns {HRESULT} 
      */
     ResetENCLog() {
-        result := ComCall(59, this, "HRESULT")
+        result := ComCall(59, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

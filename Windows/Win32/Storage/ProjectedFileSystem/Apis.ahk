@@ -22,7 +22,7 @@ class ProjectedFileSystem {
      * @param {Pointer<PRJ_STARTVIRTUALIZING_OPTIONS>} options An optional pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_startvirtualizing_options">PRJ_STARTVIRTUALIZING_OPTIONS</a>.
      * @returns {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} On success returns an opaque handle to the ProjFS virtualization instance. 
      * The provider passes this value when calling functions that require a PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT as input.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjstartvirtualizing
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjstartvirtualizing
      * @since windows10.0.17763
      */
     static PrjStartVirtualizing(virtualizationRootPath, callbacks, instanceContext, options) {
@@ -43,7 +43,7 @@ class ProjectedFileSystem {
      * Stops a running ProjFS virtualization instance, making it unavailable to service I/O or involve callbacks on the provider.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext An opaque handle for the virtualization instance.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjstopvirtualizing
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjstopvirtualizing
      * @since windows10.0.17763
      */
     static PrjStopVirtualizing(namespaceVirtualizationContext) {
@@ -61,7 +61,7 @@ class ProjectedFileSystem {
      * To resume receiving the <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_placeholder_info_cb">PRJ_GET_PLACEHOLDER_INFO_CB</a> callback for paths the provider has indicated do not exist, the provider must call this routine.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
      * @returns {Integer} Optional pointer to a variable that receives the number of paths that were in the cache before it was purged.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjclearnegativepathcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjclearnegativepathcache
      * @since windows10.0.17763
      */
     static PrjClearNegativePathCache(namespaceVirtualizationContext) {
@@ -85,7 +85,7 @@ class ProjectedFileSystem {
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext An opaque handle for the virtualization instance.
      * @param {Pointer<PRJ_VIRTUALIZATION_INSTANCE_INFO>} virtualizationInstanceInfo On input points to a buffer to fill with information about the virtualization instance. On successful return the buffer is filled in.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjgetvirtualizationinstanceinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjgetvirtualizationinstanceinfo
      * @since windows10.0.17763
      */
     static PrjGetVirtualizationInstanceInfo(namespaceVirtualizationContext, virtualizationInstanceInfo) {
@@ -111,7 +111,7 @@ class ProjectedFileSystem {
      * @param {Pointer<PRJ_PLACEHOLDER_VERSION_INFO>} versionInfo Optional version information for the target placeholder. The provider chooses what information to put in the <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_placeholder_version_info">PRJ_PLACEHOLDER_VERSION_INFO</a> structure. If not specified, the placeholder gets zeros for its version information.
      * @param {Pointer<Guid>} virtualizationInstanceID A value that identifies the virtualization instance.
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_REPARSE_POINT_ENCOUNTERED) typically means the directory at targetPathName has a reparse point on it. HRESULT_FROM_WIN32(ERROR_DIRECTORY) typically means the targetPathName does not specify a directory.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjmarkdirectoryasplaceholder
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjmarkdirectoryasplaceholder
      * @since windows10.0.17763
      */
     static PrjMarkDirectoryAsPlaceholder(rootPathName, targetPathName, versionInfo, virtualizationInstanceID) {
@@ -144,7 +144,7 @@ class ProjectedFileSystem {
      * @param {Pointer} placeholderInfo A pointer to the metadata for the file or directory.
      * @param {Integer} placeholderInfoSize Size in bytes of the buffer pointed to by placeholderInfo.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjwriteplaceholderinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjwriteplaceholderinfo
      * @since windows10.0.17763
      */
     static PrjWritePlaceholderInfo(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize) {
@@ -176,7 +176,7 @@ class ProjectedFileSystem {
      * @param {Integer} placeholderInfoSize Size in bytes of the buffer pointed to by placeholderInfo.
      * @param {Pointer<PRJ_EXTENDED_INFO>} ExtendedInfo 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjwriteplaceholderinfo2
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjwriteplaceholderinfo2
      * @since windows10.0.19041
      */
     static PrjWritePlaceholderInfo2(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, ExtendedInfo) {
@@ -250,7 +250,7 @@ class ProjectedFileSystem {
      * 
      * If the item is a dirty placeholder, full file, or tombstone, and the provider does not specify the appropriate flag(s), this routine will fail to update the placeholder
      * @returns {Integer} Optional pointer to receive a code describing the reason an update failed.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjupdatefileifneeded
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjupdatefileifneeded
      * @since windows10.0.17763
      */
     static PrjUpdateFileIfNeeded(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, updateFlags) {
@@ -279,7 +279,7 @@ class ProjectedFileSystem {
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the path, relative to the virtualization root, to the file or directory to be deleted.
      * @param {Integer} updateFlags Flags to control the delete operation should be allowed given the state of the file.
      * @returns {Integer} Optional pointer to receive a code describing the reason a delete failed.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjdeletefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjdeletefile
      * @since windows10.0.17763
      */
     static PrjDeleteFile(namespaceVirtualizationContext, destinationFileName, updateFlags) {
@@ -318,17 +318,17 @@ class ProjectedFileSystem {
      * 
      * 
      * If the provider is servicing a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_file_data_cb">PRJ_GET_FILE_DATA_CB</a> callback, this must be the value from the DataStreamId member of the callbackData passed to the provider in the callback.
-     * @param {Pointer} buffer_R 
+     * @param {Pointer} buffer_ Pointer to a buffer containing the data to write. The buffer must be at least as large as the value of the length parameter in bytes. The provider should use <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nf-projectedfslib-prjallocatealignedbuffer">PrjAllocateAlignedBuffer</a> to ensure that the buffer meets the storage device's alignment requirements.
      * @param {Integer} byteOffset Byte offset from the beginning of the file at which to write the data.
      * @param {Integer} length The number of bytes to write to the file.
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_OFFSET_ALIGNMENT_VIOLATION) indicates that the user's handle was opened for unbuffered I/O and byteOffset is not aligned to the sector size of the storage device.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjwritefiledata
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjwritefiledata
      * @since windows10.0.17763
      */
-    static PrjWriteFileData(namespaceVirtualizationContext, dataStreamId, buffer_R, byteOffset, length) {
+    static PrjWriteFileData(namespaceVirtualizationContext, dataStreamId, buffer_, byteOffset, length) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", "ptr", namespaceVirtualizationContext, "ptr", dataStreamId, "ptr", buffer_R, "uint", byteOffset, "uint", length, "int")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", "ptr", namespaceVirtualizationContext, "ptr", dataStreamId, "ptr", buffer_, "uint", byteOffset, "uint", length, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -345,7 +345,7 @@ class ProjectedFileSystem {
      * A running provider should be cautious if using this routine on files or directories within one of its virtualization instances, as it may cause callbacks to be invoked in the provider. Depending on the design of the provider this may lead to deadlocks.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the full path to the file whose state is to be queried.
      * @returns {Integer} This is a combination of one or more PRJ_FILE_STATE values describing the file state.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjgetondiskfilestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjgetondiskfilestate
      * @since windows10.0.17763
      */
     static PrjGetOnDiskFileState(destinationFileName) {
@@ -362,29 +362,29 @@ class ProjectedFileSystem {
     /**
      * Allocates a buffer that meets the memory alignment requirements of the virtualization instance's storage device.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
-     * @param {Pointer} size The size of the buffer required, in bytes.
+     * @param {Pointer} size_ The size of the buffer required, in bytes.
      * @returns {Pointer<Void>} Returns NULL if the buffer could not be allocated.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjallocatealignedbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjallocatealignedbuffer
      * @since windows10.0.17763
      */
-    static PrjAllocateAlignedBuffer(namespaceVirtualizationContext, size) {
+    static PrjAllocateAlignedBuffer(namespaceVirtualizationContext, size_) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjAllocateAlignedBuffer", "ptr", namespaceVirtualizationContext, "ptr", size, "ptr")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjAllocateAlignedBuffer", "ptr", namespaceVirtualizationContext, "ptr", size_, "ptr")
         return result
     }
 
     /**
      * Frees an allocated buffer.
-     * @param {Pointer<Void>} buffer_R 
+     * @param {Pointer<Void>} buffer_ The buffer to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfreealignedbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjfreealignedbuffer
      * @since windows10.0.17763
      */
-    static PrjFreeAlignedBuffer(buffer_R) {
-        buffer_RMarshal := buffer_R is VarRef ? "ptr" : "ptr"
+    static PrjFreeAlignedBuffer(buffer_) {
+        buffer_Marshal := buffer_ is VarRef ? "ptr" : "ptr"
 
-        DllCall("PROJECTEDFSLIB.dll\PrjFreeAlignedBuffer", buffer_RMarshal, buffer_R)
+        DllCall("PROJECTEDFSLIB.dll\PrjFreeAlignedBuffer", buffer_Marshal, buffer_)
     }
 
     /**
@@ -394,7 +394,7 @@ class ProjectedFileSystem {
      * @param {HRESULT} completionResult The final HRESULT of the operation.
      * @param {Pointer<PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS>} extendedParameters Optional pointer to extended parameters required for completing certain callbacks.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjcompletecommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjcompletecommand
      * @since windows10.0.17763
      */
     static PrjCompleteCommand(namespaceVirtualizationContext, commandId, completionResult, extendedParameters) {
@@ -425,7 +425,7 @@ class ProjectedFileSystem {
      * @param {Pointer<PRJ_FILE_BASIC_INFO>} fileBasicInfo Basic information about the entry to be filled.
      * @param {PRJ_DIR_ENTRY_BUFFER_HANDLE} dirEntryBufferHandle An opaque handle to a structure that receives information about the filled entries.
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) indicates that dirEntryBufferHandle doesn't have enough space for the new entry.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfilldirentrybuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjfilldirentrybuffer
      * @since windows10.0.17763
      */
     static PrjFillDirEntryBuffer(fileName, fileBasicInfo, dirEntryBufferHandle) {
@@ -457,7 +457,7 @@ class ProjectedFileSystem {
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) indicates that dirEntryBufferHandle doesn't have enough space for the new entry.
      * 
      * E_INVALIDARG indicates that extendedInfo.InfoType is unrecognized.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfilldirentrybuffer2
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjfilldirentrybuffer2
      * @since windows10.0.19041
      */
     static PrjFillDirEntryBuffer2(dirEntryBufferHandle, fileName, fileBasicInfo, extendedInfo) {
@@ -479,7 +479,7 @@ class ProjectedFileSystem {
      * @param {PWSTR} fileNameToCheck A null-terminated Unicode string of at most MAX_PATH characters specifying the file name to check against pattern.
      * @param {PWSTR} pattern A null-terminated Unicode string of at most MAX_PATH characters specifying the pattern to compare against fileNameToCheck.
      * @returns {BOOLEAN} True if fileNameToCheck matches pattern, False otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfilenamematch
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjfilenamematch
      * @since windows10.0.17763
      */
     static PrjFileNameMatch(fileNameToCheck, pattern) {
@@ -501,7 +501,7 @@ class ProjectedFileSystem {
      * <li>0 indicates fileName1 is equal to fileName2</li>
      * <li>&gt;0 indicates fileName1 is after fileName2 in collation order</li>
      * </ul>
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfilenamecompare
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjfilenamecompare
      * @since windows10.0.17763
      */
     static PrjFileNameCompare(fileName1, fileName2) {
@@ -516,7 +516,7 @@ class ProjectedFileSystem {
      * Determines whether a name contains wildcard characters.
      * @param {PWSTR} fileName A null-terminated Unicode string to check for wildcard characters.
      * @returns {BOOLEAN} True if fileName contains wildcards, False otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjdoesnamecontainwildcards
+     * @see https://learn.microsoft.com/windows/win32/api//content/projectedfslib/nf-projectedfslib-prjdoesnamecontainwildcards
      * @since windows10.0.17763
      */
     static PrjDoesNameContainWildCards(fileName) {

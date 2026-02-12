@@ -5,7 +5,7 @@
 
 /**
  * An interface implemented by all objects created from the DirectML device.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmldevicechild
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/nn-directml-idmldevicechild
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */
@@ -35,13 +35,17 @@ class IDMLDeviceChild extends IDMLObject{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>ppv</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the DirectML device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device.
-     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldevicechild-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-idmldevicechild-getdevice
      */
     GetDevice(riid) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

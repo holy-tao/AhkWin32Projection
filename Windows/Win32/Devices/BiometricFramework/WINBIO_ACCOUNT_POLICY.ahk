@@ -6,7 +6,7 @@
  * Contains either a default or account-specific antispoofing policy.
  * @remarks
  * See the discussion of the [**EngineAdapterSetAccountPolicy**](/windows/desktop/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_set_account_policy_fn) method for a description of how this structure is used.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-account-policy
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-account-policy
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

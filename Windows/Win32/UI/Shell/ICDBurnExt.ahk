@@ -5,7 +5,7 @@
 
 /**
  * ICDBurnExt may be altered or unavailable.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-icdburnext
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-icdburnext
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class ICDBurnExt extends IUnknown{
     /**
      * Determines the supported data type for a CD writing extension.
      * @returns {Integer} Type: <b>CDBE_ACTIONS*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-icdburnext-getsupportedactiontypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-icdburnext-getsupportedactiontypes
      */
     GetSupportedActionTypes() {
-        result := ComCall(3, this, "uint*", &pdwActions := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwActions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwActions
     }
 }

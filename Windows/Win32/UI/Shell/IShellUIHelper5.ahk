@@ -36,10 +36,17 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {VARIANT} 
      */
     msProvisionNetworks(bstrProvisioningXml) {
-        bstrProvisioningXml := bstrProvisioningXml is String ? BSTR.Alloc(bstrProvisioningXml).Value : bstrProvisioningXml
+        if(bstrProvisioningXml is String) {
+            pin := BSTR.Alloc(bstrProvisioningXml)
+            bstrProvisioningXml := pin.Value
+        }
 
         puiResult := VARIANT()
-        result := ComCall(67, this, "ptr", bstrProvisioningXml, "ptr", puiResult, "HRESULT")
+        result := ComCall(67, this, "ptr", bstrProvisioningXml, "ptr", puiResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiResult
     }
 
@@ -48,7 +55,11 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {HRESULT} 
      */
     msReportSafeUrl() {
-        result := ComCall(68, this, "HRESULT")
+        result := ComCall(68, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +68,11 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {HRESULT} 
      */
     msSiteModeRefreshBadge() {
-        result := ComCall(69, this, "HRESULT")
+        result := ComCall(69, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +81,11 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {HRESULT} 
      */
     msSiteModeClearBadge() {
-        result := ComCall(70, this, "HRESULT")
+        result := ComCall(70, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +94,11 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {HRESULT} 
      */
     msDiagnoseConnectionUILess() {
-        result := ComCall(71, this, "HRESULT")
+        result := ComCall(71, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +107,11 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {HRESULT} 
      */
     msLaunchNetworkClientHelp() {
-        result := ComCall(72, this, "HRESULT")
+        result := ComCall(72, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +121,11 @@ class IShellUIHelper5 extends IShellUIHelper4{
      * @returns {HRESULT} 
      */
     msChangeDefaultBrowser(fChange) {
-        result := ComCall(73, this, "short", fChange, "HRESULT")
+        result := ComCall(73, this, "short", fChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

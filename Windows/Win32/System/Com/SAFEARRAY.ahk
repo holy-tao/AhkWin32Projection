@@ -10,7 +10,7 @@
  * 
  * 
  * The <b>fFeatures</b> flags describe attributes of an array that can affect how the array is released. The <b>fFeatures</b> field describes what type of data is stored in the <b>SAFEARRAY</b> and how the array is allocated. This allows freeing the array without referencing its containing variant.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/ns-oaidl-safearray
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

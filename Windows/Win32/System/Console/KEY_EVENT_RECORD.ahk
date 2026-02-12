@@ -7,7 +7,7 @@
  * Enhanced keys for the IBM® 101- and 102-key keyboards are the INS, DEL, HOME, END, PAGE UP, PAGE DOWN, and direction keys in the clusters to the left of the keypad; and the divide (/) and ENTER keys in the keypad.
  * 
  * Keyboard input events are generated when any key, including control keys, is pressed or released. However, the ALT key when pressed and released without combining with another character, has special meaning to the system and is not passed through to the application. Also, the CTRL+C key combination is not passed through if the input handle is in processed mode (**ENABLE\_PROCESSED\_INPUT**).
- * @see https://learn.microsoft.com/windows/console/key-event-record-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/key-event-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
  * Describes a DNS server property, which is set in the [**DNS_INTERFACE_SETTINGS3**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) structure, and configured through the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_server_property
+ * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/ns-netioapi-dns_server_property
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

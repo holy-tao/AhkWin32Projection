@@ -7,7 +7,7 @@
  * When key derivation is used, the key length restrictions apply to the
  * source security token from which the signing or encryption derived
  * token are derived.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_algorithm_suite
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_security_algorithm_suite
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

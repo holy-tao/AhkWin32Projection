@@ -38,7 +38,11 @@ class ISpSRAlternates2 extends ISpSRAlternates{
     CommitText(pAltRequest, pcszNewText, commitFlags) {
         pcszNewText := pcszNewText is String ? StrPtr(pcszNewText) : pcszNewText
 
-        result := ComCall(5, this, "ptr", pAltRequest, "ptr", pcszNewText, "int", commitFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pAltRequest, "ptr", pcszNewText, "int", commitFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

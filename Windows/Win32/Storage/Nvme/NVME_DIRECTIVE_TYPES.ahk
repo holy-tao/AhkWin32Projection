@@ -5,7 +5,7 @@
  * Contains values that indicate a type of directive.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_directive_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_directive_types
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

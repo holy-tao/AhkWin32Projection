@@ -57,7 +57,7 @@
  * 
  * 
  * ``` syntax
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-tvaudiomode
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-tvaudiomode
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

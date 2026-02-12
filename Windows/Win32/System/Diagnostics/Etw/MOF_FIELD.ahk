@@ -17,7 +17,7 @@
  * The event tracing session automatically dereferences **MOF_FIELD** data pointers
  * before passing the data to event trace consumers using
  * [EVENT_TRACE](/windows/win32/api/evntrace/ns-evntrace-event_trace) structures.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-mof_field
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-mof_field
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

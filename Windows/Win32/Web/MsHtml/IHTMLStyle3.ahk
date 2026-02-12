@@ -156,9 +156,16 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_layoutFlow(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -168,7 +175,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_layoutFlow() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -178,7 +189,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_zoom(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,7 +203,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_zoom() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -198,9 +217,16 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_wordWrap(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,7 +236,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_wordWrap() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -220,9 +250,16 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textUnderlinePosition(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -232,7 +269,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_textUnderlinePosition() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -242,7 +283,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarBaseColor(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -252,7 +297,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarBaseColor() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -262,7 +311,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarFaceColor(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,7 +325,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarFaceColor() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -282,7 +339,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbar3dLightColor(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -292,7 +353,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbar3dLightColor() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -302,7 +367,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarShadowColor(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -312,7 +381,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarShadowColor() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -322,7 +395,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarHighlightColor(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -332,7 +409,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarHighlightColor() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -342,7 +423,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarDarkShadowColor(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -352,7 +437,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarDarkShadowColor() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -362,7 +451,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarArrowColor(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -372,7 +465,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarArrowColor() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -382,7 +479,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollbarTrackColor(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -392,7 +493,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_scrollbarTrackColor() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -402,9 +507,16 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_writingMode(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -414,7 +526,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_writingMode() {
         p := BSTR()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -424,9 +540,16 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textAlignLast(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -436,7 +559,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_textAlignLast() {
         p := BSTR()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -446,7 +573,11 @@ class IHTMLStyle3 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textKashidaSpace(v) {
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -456,7 +587,11 @@ class IHTMLStyle3 extends IDispatch{
      */
     get_textKashidaSpace() {
         p := VARIANT()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

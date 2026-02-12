@@ -7,7 +7,7 @@
  * The <b>IP_DAD_STATE</b> enumeration is used in the <b>DadState</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_unicast_address_lh">IP_ADAPTER_UNICAST_ADDRESS</a>  structure.
  * 
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>IP_DAD_STATE</b> enumeration is defined in the <i>Nldef.h</i> header file which is automatically included by the <i>Iptypes.h</i> header file. The  <i>Nldef.h</i> and <i>Iptypes.h</i> header files should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_dad_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/nldef/ne-nldef-nl_dad_state
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -16,7 +16,7 @@
  * 
  * <div class="alert"><b>Note</b>  Prior to Windows Vista, this structure was declared in Shlobj.h.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfoex
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ns-shobjidl_core-cminvokecommandinfoex
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -33,7 +33,11 @@ class ITransactionCloner extends ITransaction{
      * @returns {ITransaction} 
      */
     CloneWithCommitDisabled() {
-        result := ComCall(6, this, "ptr*", &ppITransaction := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppITransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransaction(ppITransaction)
     }
 }

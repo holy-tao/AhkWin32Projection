@@ -26,7 +26,7 @@
  * // If dwIndex is 3, the value that results from 
  * // the addition equals D3DRS_WRAP3 (131)
  * ```
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drenderstatetype
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3drenderstatetype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

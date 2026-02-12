@@ -3,7 +3,7 @@
 
 /**
  * Rounds each element of *InputTensor* to an integer value, placing the result into the corresponding element of *OutputTensor*.
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_round_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_element_wise_round_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

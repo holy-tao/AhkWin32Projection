@@ -3,7 +3,7 @@
 
 /**
  * Used with the DSROLE_OPERATION_STATE_INFO structure to indicate the operational state of a computer.
- * @see https://learn.microsoft.com/windows/win32/api/dsrole/ne-dsrole-dsrole_operation_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/dsrole/ne-dsrole-dsrole_operation_state
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

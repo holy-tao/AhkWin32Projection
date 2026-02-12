@@ -3,7 +3,7 @@
 
 /**
  * The MONITOR\_INFO\_2 structure identifies a monitor.
- * @see https://learn.microsoft.com/windows/win32/printdocs/monitor-info-2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/monitor-info-2
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

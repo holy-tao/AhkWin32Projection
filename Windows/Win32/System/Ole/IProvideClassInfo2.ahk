@@ -5,7 +5,7 @@
 
 /**
  * An extension to IProvideClassInfo that makes is faster and easier to retrieve an object's outgoing interface IID for its default event set.
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-iprovideclassinfo2
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-iprovideclassinfo2
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class IProvideClassInfo2 extends IProvideClassInfo{
      * Retrieves the specified GUID for the object.
      * @param {Integer} dwGuidKind The GUID type. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-guidkind">GUIDKIND</a> enumeration.
      * @returns {Guid} A pointer to a variable that receives the GUID.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iprovideclassinfo2-getguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-iprovideclassinfo2-getguid
      */
     GetGUID(dwGuidKind) {
         pGUID := Guid()
-        result := ComCall(4, this, "uint", dwGuidKind, "ptr", pGUID, "HRESULT")
+        result := ComCall(4, this, "uint", dwGuidKind, "ptr", pGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGUID
     }
 }

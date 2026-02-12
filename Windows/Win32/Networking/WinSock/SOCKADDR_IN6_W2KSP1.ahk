@@ -12,7 +12,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-sockaddr">SOCKADDR</a> structure. For a structure that is
  *     guaranteed to be large enough to contain a transport address for all possible address families, see 
  *     [SOCKADDR_STORAGE](../ws2def/ns-ws2def-sockaddr_storage_lh.md).
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_w2ksp1
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2ipdef/ns-ws2ipdef-sockaddr_in6_w2ksp1
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

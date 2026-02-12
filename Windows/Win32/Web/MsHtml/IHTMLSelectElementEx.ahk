@@ -34,7 +34,11 @@ class IHTMLSelectElementEx extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowDropdown(fShow) {
-        result := ComCall(3, this, "int", fShow, "HRESULT")
+        result := ComCall(3, this, "int", fShow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IHTMLSelectElementEx extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSelectExFlags(lFlags) {
-        result := ComCall(4, this, "uint", lFlags, "HRESULT")
+        result := ComCall(4, this, "uint", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IHTMLSelectElementEx extends IUnknown{
      * @returns {Integer} 
      */
     GetSelectExFlags() {
-        result := ComCall(5, this, "uint*", &pFlags := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFlags
     }
 
@@ -62,7 +74,11 @@ class IHTMLSelectElementEx extends IUnknown{
      * @returns {BOOL} 
      */
     GetDropdownOpen() {
-        result := ComCall(6, this, "int*", &pfOpen := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pfOpen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfOpen
     }
 }

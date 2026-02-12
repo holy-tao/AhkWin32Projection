@@ -3,7 +3,7 @@
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_Real32Field)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_real32field
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_real32field
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

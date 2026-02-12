@@ -5,7 +5,7 @@
 
 /**
  * The IComponentAuthenticate interface provides secure, encrypted communication between modules of Windows Media Device Manager.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-icomponentauthenticate
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-icomponentauthenticate
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IComponentAuthenticate extends IUnknown{
 
     /**
      * The SACAuth method establishes a secure authenticated channel between components.
+     * @remarks
+     * This method is called only by service providers. It is called one or more times as dictated by the protocol identifier.
+     * 
+     * The structure of the data in <i>pbDataIn</i> and <i>ppbDataOut</i> is determined by the values of <i>dwProtocolID</i> and <i>dwPass</i>.
      * @param {Integer} dwProtocolID <b>DWORD</b> containing the protocol identifier. For this version of Windows Media Device Manager, always set this parameter to SAC_PROTOCOL_V1.
      * @param {Integer} dwPass <b>DWORD</b> containing the number of the current communication pass. A pass consists of two messages, one in each direction. SAC_PROTOCOL_V1 is a two-pass protocol, and the passes are numbered 0 and 1.
      * @param {Pointer<Integer>} pbDataIn Pointer to the input data.
@@ -45,20 +49,26 @@ class IComponentAuthenticate extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-icomponentauthenticate-sacauth
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-icomponentauthenticate-sacauth
      */
     SACAuth(dwProtocolID, dwPass, pbDataIn, dwDataInLen, ppbDataOut, pdwDataOutLen) {
         pbDataInMarshal := pbDataIn is VarRef ? "char*" : "ptr"
         ppbDataOutMarshal := ppbDataOut is VarRef ? "ptr*" : "ptr"
         pdwDataOutLenMarshal := pdwDataOutLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwProtocolID, "uint", dwPass, pbDataInMarshal, pbDataIn, "uint", dwDataInLen, ppbDataOutMarshal, ppbDataOut, pdwDataOutLenMarshal, pdwDataOutLen, "HRESULT")
+        result := ComCall(3, this, "uint", dwProtocolID, "uint", dwPass, pbDataInMarshal, pbDataIn, "uint", dwDataInLen, ppbDataOutMarshal, ppbDataOut, pdwDataOutLenMarshal, pdwDataOutLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SACGetProtocols method is used by a component to discover the authentication protocols supported by another component.
+     * @remarks
+     * This method is implemented by a service provider, and never called by an application.
      * @param {Pointer<Pointer<Integer>>} ppdwProtocols Pointer to an array of supported protocols. For this version of Windows Media Device Manager, it is a single-element <b>DWORD</b> array containing the value SAC_PROTOCOL_V1.
      * @param {Pointer<Integer>} pdwProtocolCount Pointer to a <b>DWORD</b> containing the number of protocols returned in <i>ppdwProtocols</i>. The number is always 1 for this version.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -68,14 +78,18 @@ class IComponentAuthenticate extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-icomponentauthenticate-sacgetprotocols
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-icomponentauthenticate-sacgetprotocols
      */
     SACGetProtocols(ppdwProtocols, pdwProtocolCount) {
         ppdwProtocolsMarshal := ppdwProtocols is VarRef ? "ptr*" : "ptr"
         pdwProtocolCountMarshal := pdwProtocolCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, ppdwProtocolsMarshal, ppdwProtocols, pdwProtocolCountMarshal, pdwProtocolCount, "HRESULT")
+        result := ComCall(4, this, ppdwProtocolsMarshal, ppdwProtocols, pdwProtocolCountMarshal, pdwProtocolCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

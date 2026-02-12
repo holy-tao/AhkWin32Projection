@@ -35,7 +35,11 @@ class IWebBrowserEventsUrlService extends IUnknown{
      */
     GetUrlForEvents() {
         pUrl := BSTR()
-        result := ComCall(3, this, "ptr", pUrl, "HRESULT")
+        result := ComCall(3, this, "ptr", pUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pUrl
     }
 }

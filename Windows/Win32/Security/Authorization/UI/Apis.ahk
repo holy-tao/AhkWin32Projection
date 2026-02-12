@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\UI\Controls\HPROPSHEETPAGE.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI
@@ -126,7 +128,7 @@ class UI {
     static DOBJ_RIBBON_LAUNCH => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_ACLUI_SID_INFO_LIST => "CFSTR_ACLUI_SID_INFO_LIST"
 
@@ -168,7 +170,7 @@ class UI {
      * 
      * If the function fails, it returns <b>NULL</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-createsecuritypage
+     * @see https://learn.microsoft.com/windows/win32/api//content/aclui/nf-aclui-createsecuritypage
      * @since windows5.1.2600
      */
     static CreateSecurityPage(psi) {
@@ -202,7 +204,7 @@ class UI {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-editsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/aclui/nf-aclui-editsecurity
      * @since windows5.1.2600
      */
     static EditSecurity(hwndOwner, psi) {
@@ -228,7 +230,7 @@ class UI {
      * @returns {HRESULT} If the function succeeds, the return value is S_OK.
      * 
      * If the function fails, any other <b>HRESULT</b> value indicates an error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-editsecurityadvanced
+     * @see https://learn.microsoft.com/windows/win32/api//content/aclui/nf-aclui-editsecurityadvanced
      * @since windows6.0.6000
      */
     static EditSecurityAdvanced(hwndOwner, psi, uSIPage) {

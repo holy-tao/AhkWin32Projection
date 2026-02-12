@@ -3,8 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
- * Contains information about a notification message. (NMHDR)
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nmhdr
+ * The NMHDR (richedit.h) structure contains information about a notification message.
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-nmhdr
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -29,7 +29,7 @@ class NMHDR extends Win32Struct
     }
 
     /**
-     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT_PTR</a></b>
+     * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * An identifier of the control sending the message.
      * @type {Pointer}
@@ -42,7 +42,7 @@ class NMHDR extends Win32Struct
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * A notification code. This member can be one of the common notification codes (see Notifications under <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-reference">General Control Reference</a>), or it can be a control-specific notification code.
+     * A notification code. This member can be one of the common notification codes (see Notifications under <a href="https://docs.microsoft.com/windows/win32/controls/common-control-reference">General Control Reference</a>), or it can be a control-specific notification code.
      * @type {Integer}
      */
     code {

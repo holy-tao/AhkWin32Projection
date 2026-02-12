@@ -5,7 +5,7 @@
 
 /**
  * The IWMWriterPreprocess interface handles multi-pass encoding.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmwriterpreprocess
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmwriterpreprocess
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,13 +32,19 @@ class IWMWriterPreprocess extends IUnknown{
 
     /**
      * The GetMaxPreprocessingPasses method retrieves the maximum number of preprocessing passes for a specified input stream.
+     * @remarks
+     * If no preprocessing is supported for the specified input, <i>pdwMaxNumPasses</i> contains zero upon return.
      * @param {Integer} dwInputNum <b>DWORD</b> containing the input number for which you want to get the maximum number of preprocessing passes.
      * @param {Integer} dwFlags Reserved. Set to zero.
      * @returns {Integer} Pointer to a <b>DWORD</b> that will receive the maximum number of preprocessing passes. If the codec supports two-pass encoding, this value is 1, as the final pass is not counted.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-getmaxpreprocessingpasses
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-getmaxpreprocessingpasses
      */
     GetMaxPreprocessingPasses(dwInputNum, dwFlags) {
-        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, "uint*", &pdwMaxNumPasses := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, "uint*", &pdwMaxNumPasses := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMaxNumPasses
     }
 
@@ -100,15 +106,23 @@ class IWMWriterPreprocess extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses
      */
     SetNumPreprocessingPasses(dwInputNum, dwFlags, dwNumPasses) {
-        result := ComCall(4, this, "uint", dwInputNum, "uint", dwFlags, "uint", dwNumPasses, "HRESULT")
+        result := ComCall(4, this, "uint", dwInputNum, "uint", dwFlags, "uint", dwNumPasses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The BeginPreprocessingPass method prepares the writer to begin preprocessing samples for the specified input stream.
+     * @remarks
+     * To successfully call <b>BeginPreprocessingPass</b>, the preprocessor must be set to make at least one preprocessing pass with a call to <b>SetNumPreprocessingPasses</b>.
+     * 
+     * The writer must be activated by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a> before you can call this method.
      * @param {Integer} dwInputNum <b>DWORD</b> containing the input number that you want to preprocess.
      * @param {Integer} dwFlags Reserved. Set to zero.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -155,7 +169,7 @@ class IWMWriterPreprocess extends IUnknown{
      * 
      * OR
      * 
-     * The preprocessor has already made as many passes as specified by <a href="/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses">SetNumPreprocessingPasses</a>.
+     * The preprocessor has already made as many passes as specified by <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses">SetNumPreprocessingPasses</a>.
      * 
      * OR
      * 
@@ -164,19 +178,25 @@ class IWMWriterPreprocess extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-beginpreprocessingpass
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-beginpreprocessingpass
      */
     BeginPreprocessingPass(dwInputNum, dwFlags) {
-        result := ComCall(5, this, "uint", dwInputNum, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "uint", dwInputNum, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The PreprocessSample method delivers a sample to the writer for preprocessing.
+     * @remarks
+     * When performing preprocessing, you should pass the samples for the stream to this method one at a time.
      * @param {Integer} dwInputNum <b>DWORD</b> containing the input number of the sample.
      * @param {Integer} cnsSampleTime Specifies the presentation time of the sample in 100-nanosecond units.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {INSSBuffer} pSample Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object that contains the sample.
+     * @param {INSSBuffer} pSample Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object that contains the sample.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -225,7 +245,7 @@ class IWMWriterPreprocess extends IUnknown{
      * 
      * OR
      * 
-     * The preprocessor has already made as many passes as specified by <a href="/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses">SetNumPreprocessingPasses</a>.
+     * The preprocessor has already made as many passes as specified by <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-setnumpreprocessingpasses">SetNumPreprocessingPasses</a>.
      * 
      * OR
      * 
@@ -234,10 +254,14 @@ class IWMWriterPreprocess extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-preprocesssample
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-preprocesssample
      */
     PreprocessSample(dwInputNum, cnsSampleTime, dwFlags, pSample) {
-        result := ComCall(6, this, "uint", dwInputNum, "uint", cnsSampleTime, "uint", dwFlags, "ptr", pSample, "HRESULT")
+        result := ComCall(6, this, "uint", dwInputNum, "uint", cnsSampleTime, "uint", dwFlags, "ptr", pSample, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -301,10 +325,14 @@ class IWMWriterPreprocess extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-endpreprocessingpass
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-endpreprocessingpass
      */
     EndPreprocessingPass(dwInputNum, dwFlags) {
-        result := ComCall(7, this, "uint", dwInputNum, "uint", dwFlags, "HRESULT")
+        result := ComCall(7, this, "uint", dwInputNum, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

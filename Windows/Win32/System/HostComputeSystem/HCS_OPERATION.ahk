@@ -4,6 +4,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
+ * HCS_OPERATION_TYPE
+ * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HCS_OPERATION_TYPE
  * @namespace Windows.Win32.System.HostComputeSystem
  * @version v4.0.30319
  */

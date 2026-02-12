@@ -34,7 +34,11 @@ class ITipPullSink extends IUnknown{
      * @returns {HRESULT} 
      */
     PullComplete(i_hrPull) {
-        result := ComCall(3, this, "int", i_hrPull, "HRESULT")
+        result := ComCall(3, this, "int", i_hrPull, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
@@ -227,22 +229,22 @@ class NetManagement {
     static PARMNUM_BASE_INFOLEVEL => 1000
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static MESSAGE_FILENAME => "NETMSG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OS2MSG_FILENAME => "BASE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HELP_MSG_FILENAME => "NETH"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BACKUP_MSG_FILENAME => "BAK.MSG"
 
@@ -2157,7 +2159,7 @@ class NetManagement {
     static USER_HOME_DIR_DRIVE_PARMNUM => 53
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NULL_USERSETINFO_PASSWD => "              "
 
@@ -2282,22 +2284,22 @@ class NetManagement {
     static GROUPIDMASK => 32768
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GROUP_SPECIALGRP_USERS => "USERS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GROUP_SPECIALGRP_ADMINS => "ADMINS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GROUP_SPECIALGRP_GUESTS => "GUESTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GROUP_SPECIALGRP_LOCAL => "LOCAL"
 
@@ -2427,7 +2429,7 @@ class NetManagement {
     static ACCESS_ACCESS_LIST_PARMNUM => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACCESS_LETTERS => "RWCXDAP         "
 
@@ -2592,17 +2594,17 @@ class NetManagement {
     static NETLOGON_VERIFY_STATUS_RETURNED => 128
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_ACCOUNT_PASSWORD => "_SA_{262E99C9-6160-4871-ACEC-4E61736B6F21}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_ACCOUNT_SECRET_PREFIX => "_SC_{262E99C9-6160-4871-ACEC-4E61736B6F21}_"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DELEGATED_MANAGED_SERVICE_ACCOUNT_PASSWORD => "_SA_{F8262F4C-499B-4770-88B4-A75C91D0D8E9}"
 
@@ -2632,32 +2634,32 @@ class NetManagement {
     static SERVICE_ACCOUNT_FLAG_REMOVE_OFFLINE => 2
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALERTER_MAILSLOT => "\\.\MAILSLOT\Alerter"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALERT_PRINT_EVENT => "PRINTING"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALERT_MESSAGE_EVENT => "MESSAGE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALERT_ERRORLOG_EVENT => "ERRORLOG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALERT_ADMIN_EVENT => "ADMIN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ALERT_USER_EVENT => "USER"
 
@@ -5417,7 +5419,7 @@ class NetManagement {
     static SERVICE_REDIR_COMM_PAUSED => 1024
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_DOS_ENCRYPTION => "ENCRYPT"
 
@@ -9387,367 +9389,367 @@ class NetManagement {
     static REPL_STATE_NEVER_REPLICATED => 3
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_WORKSTATION => "LanmanWorkstation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_WORKSTATION => "WORKSTATION"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WORKSTATION_DISPLAY_NAME => "Workstation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_SERVER => "LanmanServer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_SERVER => "SERVER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVER_DISPLAY_NAME => "Server"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_BROWSER => "BROWSER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_BROWSER => "BROWSER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_MESSENGER => "MESSENGER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_MESSENGER => "MESSENGER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NETRUN => "NETRUN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NETRUN => "NETRUN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_SPOOLER => "SPOOLER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_SPOOLER => "SPOOLER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_ALERTER => "ALERTER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_ALERTER => "ALERTER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NETLOGON => "NETLOGON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NETLOGON => "NETLOGON"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NETPOPUP => "NETPOPUP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NETPOPUP => "NETPOPUP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_SQLSERVER => "SQLSERVER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_SQLSERVER => "SQLSERVER"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_REPL => "REPLICATOR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_REPL => "REPLICATOR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_RIPL => "REMOTEBOOT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_RIPL => "REMOTEBOOT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_TIMESOURCE => "TIMESOURCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_TIMESOURCE => "TIMESOURCE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_AFP => "AFP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_AFP => "AFP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_UPS => "UPS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_UPS => "UPS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_XACTSRV => "XACTSRV"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_XACTSRV => "XACTSRV"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_TCPIP => "TCPIP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_TCPIP => "TCPIP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NBT => "NBT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NBT => "NBT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LMHOSTS => "LMHOSTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_LMHOSTS => "LMHOSTS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_TELNET => "Telnet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_TELNET => "Telnet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_SCHEDULE => "Schedule"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_SCHEDULE => "Schedule"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NTLMSSP => "NtLmSsp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_DHCP => "DHCP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_DHCP => "DHCP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NWSAP => "NwSapAgent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NWSAP => "NwSapAgent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NWSAP_DISPLAY_NAME => "NW Sap Agent"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NWCS => "NWCWorkstation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_DNS_CACHE => "DnsCache"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_W32TIME => "w32time"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVCE_LM20_W32TIME => "w32time"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_KDC => "kdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_KDC => "kdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LOCALKDC => "localkdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_LOCALKDC => "localkdc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_RPCLOCATOR => "RPCLOCATOR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_RPCLOCATOR => "RPCLOCATOR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_TRKSVR => "TrkSvr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_TRKSVR => "TrkSvr"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_TRKWKS => "TrkWks"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_TRKWKS => "TrkWks"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NTFRS => "NtFrs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NTFRS => "NtFrs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_ISMSERV => "IsmServ"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_ISMSERV => "IsmServ"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_NTDS => "NTDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_NTDS => "NTDS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_ADWS => "ADWS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_DSROLE => "DsRoleSvc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SERVICE_LM20_DSROLE => "DsRoleSvc"
 
@@ -9832,57 +9834,57 @@ class NetManagement {
     static NETCFG_S_COMMIT_NOW => 303141
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_CLIENT_CID_MS_MSClient => "ms_msclient"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_SERVICE_CID_MS_SERVER => "ms_server"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_SERVICE_CID_MS_NETBIOS => "ms_netbios"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_SERVICE_CID_MS_PSCHED => "ms_pschedpc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_SERVICE_CID_MS_WLBS => "ms_wlbs"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_TRANS_CID_MS_APPLETALK => "ms_appletalk"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_TRANS_CID_MS_NETBEUI => "ms_netbeui"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_TRANS_CID_MS_NETMON => "ms_netmon"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_TRANS_CID_MS_NWIPX => "ms_nwipx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_TRANS_CID_MS_NWSPX => "ms_nwspx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NETCFG_TRANS_CID_MS_TCPIP => "ms_tcpip"
 
@@ -10372,7 +10374,7 @@ class NetManagement {
     static MFE_NO_SPACE => 13
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGISTER_PROTOCOL_ENTRY_POINT_STRING => "RegisterProtocol"
 
@@ -10618,7 +10620,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuseradd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netuseradd
      * @since windows5.0
      */
     static NetUserAdd(servername, level, buf, parm_err) {
@@ -10747,7 +10749,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuserenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netuserenum
      * @since windows5.0
      */
     static NetUserEnum(servername, level, filter, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -10850,7 +10852,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusergetinfo
      * @since windows5.1.2600
      */
     static NetUserGetInfo(servername, username, level, bufptr) {
@@ -11170,7 +11172,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusersetinfo
      * @since windows5.0
      */
     static NetUserSetInfo(servername, username, level, buf, parm_err) {
@@ -11257,7 +11259,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuserdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netuserdel
      * @since windows5.0
      */
     static NetUserDel(servername, username) {
@@ -11393,7 +11395,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusergetgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusergetgroups
      * @since windows5.0
      */
     static NetUserGetGroups(servername, username, level, bufptr, prefmaxlen, entriesread, totalentries) {
@@ -11540,7 +11542,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusersetgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusersetgroups
      * @since windows5.0
      */
     static NetUserSetGroups(servername, username, level, buf, num_entries) {
@@ -11699,7 +11701,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusergetlocalgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusergetlocalgroups
      * @since windows5.0
      */
     static NetUserGetLocalGroups(servername, username, level, flags, bufptr, prefmaxlen, entriesread, totalentries) {
@@ -11813,7 +11815,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusermodalsget
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusermodalsget
      * @since windows5.0
      */
     static NetUserModalsGet(servername, level, bufptr) {
@@ -11953,7 +11955,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netusermodalsset
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netusermodalsset
      * @since windows5.0
      */
     static NetUserModalsSet(servername, level, buf, parm_err) {
@@ -12081,7 +12083,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netuserchangepassword
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netuserchangepassword
      * @since windows5.0
      */
     static NetUserChangePassword(domainname, username, oldpassword, newpassword) {
@@ -12195,7 +12197,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupadd
      * @since windows5.0
      */
     static NetGroupAdd(servername, level, buf, parm_err) {
@@ -12300,7 +12302,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupadduser
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupadduser
      * @since windows5.0
      */
     static NetGroupAddUser(servername, GroupName, username) {
@@ -12387,7 +12389,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupenum
      * @since windows5.0
      */
     static NetGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -12465,7 +12467,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupgetinfo
      * @since windows5.0
      */
     static NetGroupGetInfo(servername, groupname, level, bufptr) {
@@ -12601,7 +12603,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupsetinfo
      * @since windows5.0
      */
     static NetGroupSetInfo(servername, groupname, level, buf, parm_err) {
@@ -12695,7 +12697,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupdel
      * @since windows5.0
      */
     static NetGroupDel(servername, groupname) {
@@ -12809,7 +12811,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupdeluser
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupdeluser
      * @since windows5.0
      */
     static NetGroupDelUser(servername, GroupName, Username) {
@@ -12937,7 +12939,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupgetusers
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupgetusers
      * @since windows5.0
      */
     static NetGroupGetUsers(servername, groupname, level, bufptr, prefmaxlen, entriesread, totalentries, ResumeHandle) {
@@ -13108,7 +13110,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgroupsetusers
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgroupsetusers
      * @since windows5.0
      */
     static NetGroupSetUsers(servername, groupname, level, buf, totalentries) {
@@ -13269,7 +13271,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupadd
      * @since windows5.0
      */
     static NetLocalGroupAdd(servername, level, buf, parm_err) {
@@ -13288,7 +13290,7 @@ class NetManagement {
      * @param {PWSTR} groupname TBD
      * @param {PSID} membersid TBD
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupaddmember
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupaddmember
      */
     static NetLocalGroupAddMember(servername, groupname, membersid) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -13379,7 +13381,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupenum
      * @since windows5.0
      */
     static NetLocalGroupEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
@@ -13477,7 +13479,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupgetinfo
      * @since windows5.0
      */
     static NetLocalGroupGetInfo(servername, groupname, level, bufptr) {
@@ -13599,7 +13601,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupsetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupsetinfo
      * @since windows5.0
      */
     static NetLocalGroupSetInfo(servername, groupname, level, buf, parm_err) {
@@ -13693,7 +13695,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupdel
      * @since windows5.0
      */
     static NetLocalGroupDel(servername, groupname) {
@@ -13710,7 +13712,7 @@ class NetManagement {
      * @param {PWSTR} groupname TBD
      * @param {PSID} membersid TBD
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdelmember
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupdelmember
      */
     static NetLocalGroupDelMember(servername, groupname, membersid) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -13800,7 +13802,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupgetmembers
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupgetmembers
      * @since windows5.0
      */
     static NetLocalGroupGetMembers(servername, localgroupname, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
@@ -13905,7 +13907,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupsetmembers
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupsetmembers
      * @since windows5.0
      */
     static NetLocalGroupSetMembers(servername, groupname, level, buf, totalentries) {
@@ -14002,7 +14004,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupaddmembers
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupaddmembers
      * @since windows5.0
      */
     static NetLocalGroupAddMembers(servername, groupname, level, buf, totalentries) {
@@ -14088,7 +14090,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netlocalgroupdelmembers
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netlocalgroupdelmembers
      * @since windows5.0
      */
     static NetLocalGroupDelMembers(servername, groupname, level, buf, totalentries) {
@@ -14185,7 +14187,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netquerydisplayinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netquerydisplayinformation
      * @since windows5.0
      */
     static NetQueryDisplayInformation(ServerName, Level, Index, EntriesRequested, PreferredMaximumLength, ReturnedEntryCount, SortedBuffer) {
@@ -14264,7 +14266,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetdisplayinformationindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgetdisplayinformationindex
      * @since windows5.0
      */
     static NetGetDisplayInformationIndex(ServerName, Level, Prefix, Index) {
@@ -14307,7 +14309,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaccessadd
      * @since windows5.0
      */
     static NetAccessAdd(servername, level, buf, parm_err) {
@@ -14343,7 +14345,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaccessenum
      * @since windows5.0
      */
     static NetAccessEnum(servername, BasePath, Recursive, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -14371,7 +14373,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaccessgetinfo
      * @since windows5.0
      */
     static NetAccessGetInfo(servername, resource, level, bufptr) {
@@ -14415,7 +14417,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccesssetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaccesssetinfo
      * @since windows5.0
      */
     static NetAccessSetInfo(servername, resource, level, buf, parm_err) {
@@ -14439,7 +14441,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaccessdel
      * @since windows5.0
      */
     static NetAccessDel(servername, resource) {
@@ -14462,7 +14464,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaccessgetuserperms
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaccessgetuserperms
      * @since windows5.0
      */
     static NetAccessGetUserPerms(servername, UGname, resource, Perms) {
@@ -14611,7 +14613,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netvalidatepasswordpolicy
      * @since windowsserver2003
      */
     static NetValidatePasswordPolicy(ServerName, Qualifier, ValidationType, InputArg, OutputArg) {
@@ -14633,7 +14635,7 @@ class NetManagement {
      * @returns {Integer} If the function frees the memory, or if there is no memory to free from a previous call to <b>NetValidatePasswordPolicy</b>, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netvalidatepasswordpolicyfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netvalidatepasswordpolicyfree
      * @since windowsserver2003
      */
     static NetValidatePasswordPolicyFree(OutputArg) {
@@ -14650,7 +14652,7 @@ class NetManagement {
      * <b>NetGetDCName</b> function.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14705,16 +14707,16 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetdcname
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgetdcname
      * @since windows5.0
      */
-    static NetGetDCName(ServerName, DomainName, Buffer_R) {
+    static NetGetDCName(ServerName, DomainName, Buffer_) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetGetDCName", "ptr", ServerName, "ptr", DomainName, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -14731,7 +14733,7 @@ class NetManagement {
      * If <i>servername</i> specifies a domain controller, the <i>domainname</i> must be one of the domains trusted by the domain for which the server is a controller. The domain controller that this call finds has been operational at least once during this call.
      * @param {PWSTR} ServerName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ 
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value can be one of the following error codes.
@@ -14797,16 +14799,16 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netgetanydcname
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netgetanydcname
      * @since windows5.0
      */
-    static NetGetAnyDCName(ServerName, DomainName, Buffer_R) {
+    static NetGetAnyDCName(ServerName, DomainName, Buffer_) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetGetAnyDCName", "ptr", ServerName, "ptr", DomainName, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -14935,7 +14937,9 @@ class NetManagement {
      * </table>
      * @param {Integer} QueryLevel Indicates what information should be returned from the Netlogon service. This value can be any of the following structures.
      * @param {Pointer<Integer>} Data Carries input data that depends on the value specified in the <i>FunctionCode</i> parameter. The NETLOGON_CONTROL_REDISCOVER and NETLOGON_CONTROL_TC_QUERY function codes specify the trusted domain name (the data type is <b>LPWSTR *</b>).
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Returns a pointer to a buffer that contains the requested information in the structure passed in the <i>QueryLevel</i> parameter.
+     * 
+     *  The buffer must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} The method returns 0x00000000 (<b>NERR_Success</b>) on success; otherwise, it returns a nonzero error code defined in Lmerr.h or Winerror.h. NET_API_STATUS error codes begin with the value 0x00000834. For more information about network management error codes, see <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-error-codes">Network_Management_Error_Codes</a>. The following table describes possible return values.
      * 
      * <table>
@@ -15089,15 +15093,15 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-i_netlogoncontrol2
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-i_netlogoncontrol2
      */
-    static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer_R) {
+    static I_NetLogonControl2(ServerName, FunctionCode, QueryLevel, Data, Buffer_) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
         DataMarshal := Data is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, DataMarshal, Data, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\I_NetLogonControl2", "ptr", ServerName, "uint", FunctionCode, "uint", QueryLevel, DataMarshal, Data, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -15128,7 +15132,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netaddserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netaddserviceaccount
      * @since windows6.1
      */
     static NetAddServiceAccount(ServerName, AccountName, Password, Flags) {
@@ -15166,7 +15170,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netremoveserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netremoveserviceaccount
      * @since windows6.1
      */
     static NetRemoveServiceAccount(ServerName, AccountName, Flags) {
@@ -15188,7 +15192,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netenumerateserviceaccounts
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netenumerateserviceaccounts
      * @since windows6.1
      */
     static NetEnumerateServiceAccounts(ServerName, Flags, AccountsCount, Accounts) {
@@ -15209,7 +15213,7 @@ class NetManagement {
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netisserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netisserviceaccount
      * @since windows6.1
      */
     static NetIsServiceAccount(ServerName, AccountName, IsService) {
@@ -15264,20 +15268,22 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Information about the specified service account.
+     * 
+     * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/lmaccess/nf-lmaccess-netqueryserviceaccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/nf-lmaccess-netqueryserviceaccount
      * @since windows6.1
      */
-    static NetQueryServiceAccount(ServerName, AccountName, InfoLevel, Buffer_R) {
+    static NetQueryServiceAccount(ServerName, AccountName, InfoLevel, Buffer_) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("NETAPI32.dll\NetQueryServiceAccount", "ptr", ServerName, "ptr", AccountName, "uint", InfoLevel, Buffer_Marshal, Buffer_, "int")
         return result
     }
 
@@ -15349,7 +15355,18 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ A pointer to the data to send to the clients listening for the interrupting message. The data should begin with a fixed-length 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-std_alert">STD_ALERT</a> structure followed by additional message data in one 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-admin_other_info">ADMIN_OTHER_INFO</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-errlog_other_info">ERRLOG_OTHER_INFO</a>, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-print_other_info">PRINT_OTHER_INFO</a>, or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/ns-lmalert-user_other_info">USER_OTHER_INFO</a> structure. Finally, the buffer should include any required variable-length information. For more information, see the code sample in the following Remarks section. 
+     * 
+     * 
+     * 
+     * 
+     * The calling application must allocate and free the memory for all structures and variable data. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Integer} BufferSize The size, in bytes, of the message buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -15384,15 +15401,15 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmalert/nf-lmalert-netalertraise
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmalert/nf-lmalert-netalertraise
      * @since windows5.0
      */
-    static NetAlertRaise(AlertType, Buffer_R, BufferSize) {
+    static NetAlertRaise(AlertType, Buffer_, BufferSize) {
         AlertType := AlertType is String ? StrPtr(AlertType) : AlertType
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetAlertRaise", "ptr", AlertType, Buffer_RMarshal, Buffer_R, "uint", BufferSize, "uint")
+        result := DllCall("NETAPI32.dll\NetAlertRaise", "ptr", AlertType, Buffer_Marshal, Buffer_, "uint", BufferSize, "uint")
         return result
     }
 
@@ -15510,7 +15527,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmalert/nf-lmalert-netalertraiseex
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmalert/nf-lmalert-netalertraiseex
      * @since windows5.0
      */
     static NetAlertRaiseEx(AlertType, VariableInfo, VariableInfoSize, ServiceName) {
@@ -15621,7 +15638,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenameadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmmsg/nf-lmmsg-netmessagenameadd
      * @since windows5.0
      */
     static NetMessageNameAdd(servername, msgname) {
@@ -15738,7 +15755,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenameenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmmsg/nf-lmmsg-netmessagenameenum
      * @since windows5.0
      */
     static NetMessageNameEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -15845,7 +15862,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenamegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmmsg/nf-lmmsg-netmessagenamegetinfo
      * @since windows5.0
      */
     static NetMessageNameGetInfo(servername, msgname, level, bufptr) {
@@ -15953,7 +15970,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagenamedel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmmsg/nf-lmmsg-netmessagenamedel
      * @since windows5.0
      */
     static NetMessageNameDel(servername, msgname) {
@@ -16042,7 +16059,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmmsg/nf-lmmsg-netmessagebuffersend
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmmsg/nf-lmmsg-netmessagebuffersend
      * @since windows5.0
      */
     static NetMessageBufferSend(servername, msgname, fromname, buf, buflen) {
@@ -16069,7 +16086,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmremutl/nf-lmremutl-netremotetod
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmremutl/nf-lmremutl-netremotetod
      * @since windows5.0
      */
     static NetRemoteTOD(UncServerName, BufferPtr) {
@@ -16127,7 +16144,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmremutl/nf-lmremutl-netremotecomputersupports
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmremutl/nf-lmremutl-netremotecomputersupports
      * @since windows5.0
      */
     static NetRemoteComputerSupports(UncServerName, OptionsWanted, OptionsSupported) {
@@ -16556,7 +16573,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netserverenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netserverenum
      * @since windows5.0
      */
     static NetServerEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, servertype, domain, resume_handle) {
@@ -16659,7 +16676,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservergetinfo
      * @since windows5.0
      */
     static NetServerGetInfo(servername, level, bufptr) {
@@ -16920,7 +16937,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netserversetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netserversetinfo
      * @since windows5.0
      */
     static NetServerSetInfo(servername, level, buf, ParmError) {
@@ -17019,7 +17036,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netserverdiskenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netserverdiskenum
      * @since windows5.0
      */
     static NetServerDiskEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -17119,7 +17136,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservercomputernameadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservercomputernameadd
      * @since windows5.0
      */
     static NetServerComputerNameAdd(ServerName, EmulatedDomainName, EmulatedServerName) {
@@ -17192,7 +17209,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservercomputernamedel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservercomputernamedel
      * @since windows5.0
      */
     static NetServerComputerNameDel(ServerName, EmulatedServerName) {
@@ -17317,7 +17334,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservertransportadd
      * @since windows5.0
      */
     static NetServerTransportAdd(servername, level, bufptr) {
@@ -17444,7 +17461,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportaddex
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservertransportaddex
      * @since windows5.0
      */
     static NetServerTransportAddEx(servername, level, bufptr) {
@@ -17530,7 +17547,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservertransportdel
      * @since windows5.0
      */
     static NetServerTransportDel(servername, level, bufptr) {
@@ -17610,7 +17627,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmserver/nf-lmserver-netservertransportenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmserver/nf-lmserver-netservertransportenum
      * @since windows5.0
      */
     static NetServerTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -17633,7 +17650,7 @@ class NetManagement {
      * @param {Integer} arg 
      * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netservicecontrol
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netservicecontrol
      */
     static NetServiceControl(servername, service, opcode, arg, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -17655,7 +17672,7 @@ class NetManagement {
      * @param {Pointer<Integer>} totalentries 
      * @param {Pointer<Integer>} resume_handle 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceenum
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netserviceenum
      */
     static NetServiceEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -17676,7 +17693,7 @@ class NetManagement {
      * @param {Integer} level 
      * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netservicegetinfo
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netservicegetinfo
      */
     static NetServiceGetInfo(servername, service, level, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -17696,7 +17713,7 @@ class NetManagement {
      * @param {Pointer<PWSTR>} argv 
      * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netserviceinstall
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netserviceinstall
      */
     static NetServiceInstall(servername, service, argc, argv, bufptr) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -17772,7 +17789,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netuseadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmuse/nf-lmuse-netuseadd
      * @since windows5.0
      */
     static NetUseAdd(servername, LevelFlags, buf, parm_err) {
@@ -17805,7 +17822,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netusedel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmuse/nf-lmuse-netusedel
      * @since windows5.0
      */
     static NetUseDel(UncServerName, UseName, ForceLevelFlags) {
@@ -17894,7 +17911,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netuseenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmuse/nf-lmuse-netuseenum
      * @since windows5.0
      */
     static NetUseEnum(UncServerName, LevelFlags, BufPtr, PreferedMaximumSize, EntriesRead, TotalEntries, ResumeHandle) {
@@ -17934,7 +17951,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmuse/nf-lmuse-netusegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmuse/nf-lmuse-netusegetinfo
      * @since windows5.0
      */
     static NetUseGetInfo(UncServerName, UseName, LevelFlags, bufptr) {
@@ -17997,7 +18014,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstagetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstagetinfo
      * @since windows5.0
      */
     static NetWkstaGetInfo(servername, level, bufptr) {
@@ -18156,7 +18173,8 @@ class NetManagement {
      * <b>NetWkstaSetInfo</b> can be overwritten when workstation parameters are reset.
      * @param {PWSTR} servername A pointer to a string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} level 
-     * @param {Pointer<Integer>} buffer_R 
+     * @param {Pointer<Integer>} buffer_ A pointer to the buffer that specifies the data. The format of this data depends on the value of the <i>level</i> parameter. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Pointer<Integer>} parm_err A pointer to a value that receives the index of the first member of the workstation information structure that causes the ERROR_INVALID_PARAMETER error. If this parameter is <b>NULL</b>, the index is not returned on error. For more information, see the Remarks section.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
@@ -18190,16 +18208,16 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstasetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstasetinfo
      * @since windows5.0
      */
-    static NetWkstaSetInfo(servername, level, buffer_R, parm_err) {
+    static NetWkstaSetInfo(servername, level, buffer_, parm_err) {
         servername := servername is String ? StrPtr(servername) : servername
 
-        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
+        buffer_Marshal := buffer_ is VarRef ? "char*" : "ptr"
         parm_errMarshal := parm_err is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, buffer_RMarshal, buffer_R, parm_errMarshal, parm_err, "uint")
+        result := DllCall("NETAPI32.dll\NetWkstaSetInfo", "ptr", servername, "uint", level, buffer_Marshal, buffer_, parm_errMarshal, parm_err, "uint")
         return result
     }
 
@@ -18257,7 +18275,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstausergetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstausergetinfo
      * @since windows5.0
      */
     static NetWkstaUserGetInfo(reserved, level, bufptr) {
@@ -18329,7 +18347,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstausersetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstausersetinfo
      * @since windows5.0
      */
     static NetWkstaUserSetInfo(reserved, level, buf, parm_err) {
@@ -18411,7 +18429,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstauserenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstauserenum
      * @since windows5.0
      */
     static NetWkstaUserEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resumehandle) {
@@ -18521,7 +18539,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstatransportadd
      */
     static NetWkstaTransportAdd(servername, level, buf, parm_err) {
         servernameMarshal := servername is VarRef ? "char*" : "ptr"
@@ -18586,7 +18604,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstatransportdel
      */
     static NetWkstaTransportDel(servername, transportname, ucond) {
         servername := servername is String ? StrPtr(servername) : servername
@@ -18705,7 +18723,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmwksta/nf-lmwksta-netwkstatransportenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmwksta/nf-lmwksta-netwkstatransportenum
      * @since windows5.0
      */
     static NetWkstaTransportEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -18728,18 +18746,18 @@ class NetManagement {
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @param {Integer} ByteCount Number of bytes to be allocated.
-     * @param {Pointer<Pointer<Void>>} Buffer_R 
+     * @param {Pointer<Pointer<Void>>} Buffer_ Receives a pointer to the allocated buffer.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferallocate
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmapibuf/nf-lmapibuf-netapibufferallocate
      * @since windows5.0
      */
-    static NetApiBufferAllocate(ByteCount, Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+    static NetApiBufferAllocate(ByteCount, Buffer_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetApiBufferAllocate", "uint", ByteCount, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferAllocate", "uint", ByteCount, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -18765,18 +18783,18 @@ class NetManagement {
      * 
      * For a code sample that demonstrates how to use of the <b>NetApiBufferFree</b> function to free memory internally allocated by a network management function to return information, see 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netserverenum">NetServerEnum</a> function.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ A pointer to a buffer returned previously by another network management function or memory allocated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmapibuf/nf-lmapibuf-netapibufferfree
      * @since windows5.0
      */
-    static NetApiBufferFree(Buffer_R) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static NetApiBufferFree(Buffer_) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetApiBufferFree", Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferFree", Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -18796,7 +18814,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibufferreallocate
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmapibuf/nf-lmapibuf-netapibufferreallocate
      * @since windows5.0
      */
     static NetApiBufferReallocate(OldBuffer, NewByteCount, NewBuffer) {
@@ -18815,30 +18833,31 @@ class NetManagement {
      * For a code sample that demonstrates how to use the network management 
      * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/apibuffer-functions">ApiBuffer functions</a>, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a>.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ Pointer to a buffer returned by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferallocate">NetApiBufferAllocate</a> function.
      * @param {Pointer<Integer>} ByteCount Receives the size of the buffer, in bytes.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmapibuf/nf-lmapibuf-netapibuffersize
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmapibuf/nf-lmapibuf-netapibuffersize
      * @since windows5.0
      */
-    static NetApiBufferSize(Buffer_R, ByteCount) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static NetApiBufferSize(Buffer_, ByteCount) {
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
         ByteCountMarshal := ByteCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetApiBufferSize", Buffer_RMarshal, Buffer_R, ByteCountMarshal, ByteCount, "uint")
+        result := DllCall("NETAPI32.dll\NetApiBufferSize", Buffer_Marshal, Buffer_, ByteCountMarshal, ByteCount, "uint")
         return result
     }
 
     /**
      * The NetErrorLogClear function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {PWSTR} UncServerName TBD
-     * @param {PWSTR} BackupFile TBD
-     * @param {Pointer<Integer>} Reserved TBD
+     * @param {PWSTR} UncServerName 
+     * @param {PWSTR} BackupFile 
+     * @param {Pointer<Integer>} Reserved 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogclear
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/neterrorlogclear
      */
     static NetErrorLogClear(UncServerName, BackupFile, Reserved) {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
@@ -18852,19 +18871,19 @@ class NetManagement {
 
     /**
      * The NetErrorLogRead function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {PWSTR} UncServerName TBD
-     * @param {PWSTR} Reserved1 TBD
-     * @param {Pointer<HLOG>} ErrorLogHandle TBD
-     * @param {Integer} Offset TBD
-     * @param {Pointer<Integer>} Reserved2 TBD
-     * @param {Integer} Reserved3 TBD
-     * @param {Integer} OffsetFlag TBD
-     * @param {Pointer<Pointer<Integer>>} BufPtr TBD
-     * @param {Integer} PrefMaxSize TBD
-     * @param {Pointer<Integer>} BytesRead TBD
-     * @param {Pointer<Integer>} TotalAvailable TBD
+     * @param {PWSTR} UncServerName 
+     * @param {PWSTR} Reserved1 
+     * @param {Pointer<HLOG>} ErrorLogHandle 
+     * @param {Integer} Offset 
+     * @param {Pointer<Integer>} Reserved2 
+     * @param {Integer} Reserved3 
+     * @param {Integer} OffsetFlag 
+     * @param {Pointer<Pointer<Integer>>} BufPtr 
+     * @param {Integer} PrefMaxSize 
+     * @param {Pointer<Integer>} BytesRead 
+     * @param {Pointer<Integer>} TotalAvailable 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogread
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/neterrorlogread
      */
     static NetErrorLogRead(UncServerName, Reserved1, ErrorLogHandle, Offset, Reserved2, Reserved3, OffsetFlag, BufPtr, PrefMaxSize, BytesRead, TotalAvailable) {
         UncServerName := UncServerName is String ? StrPtr(UncServerName) : UncServerName
@@ -18881,87 +18900,87 @@ class NetManagement {
 
     /**
      * The NetErrorLogWrite function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use event logging.
-     * @param {Pointer<Integer>} Reserved1 TBD
-     * @param {Integer} Code TBD
-     * @param {PWSTR} Component TBD
-     * @param {Pointer<Integer>} Buffer_R 
-     * @param {Integer} NumBytes TBD
-     * @param {Pointer<Integer>} MsgBuf TBD
-     * @param {Integer} StrCount TBD
-     * @param {Pointer<Integer>} Reserved2 TBD
+     * @param {Pointer<Integer>} Reserved1 
+     * @param {Integer} Code 
+     * @param {PWSTR} Component_ 
+     * @param {Pointer<Integer>} Buffer_ 
+     * @param {Integer} NumBytes 
+     * @param {Pointer<Integer>} MsgBuf 
+     * @param {Integer} StrCount 
+     * @param {Pointer<Integer>} Reserved2 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmerrlog/nf-lmerrlog-neterrorlogwrite
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/neterrorlogwrite
      */
-    static NetErrorLogWrite(Reserved1, Code, Component, Buffer_R, NumBytes, MsgBuf, StrCount, Reserved2) {
-        Component := Component is String ? StrPtr(Component) : Component
+    static NetErrorLogWrite(Reserved1, Code, Component_, Buffer_, NumBytes, MsgBuf, StrCount, Reserved2) {
+        Component_ := Component_ is String ? StrPtr(Component_) : Component_
 
         Reserved1Marshal := Reserved1 is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
         MsgBufMarshal := MsgBuf is VarRef ? "char*" : "ptr"
         Reserved2Marshal := Reserved2 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetErrorLogWrite", Reserved1Marshal, Reserved1, "uint", Code, "ptr", Component, Buffer_RMarshal, Buffer_R, "uint", NumBytes, MsgBufMarshal, MsgBuf, "uint", StrCount, Reserved2Marshal, Reserved2, "uint")
+        result := DllCall("NETAPI32.dll\NetErrorLogWrite", Reserved1Marshal, Reserved1, "uint", Code, "ptr", Component_, Buffer_Marshal, Buffer_, "uint", NumBytes, MsgBufMarshal, MsgBuf, "uint", StrCount, Reserved2Marshal, Reserved2, "uint")
         return result
     }
 
     /**
      * The NetConfigGet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
-     * @param {PWSTR} server TBD
-     * @param {PWSTR} component TBD
-     * @param {PWSTR} parameter TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
+     * @param {PWSTR} server 
+     * @param {PWSTR} component_ 
+     * @param {PWSTR} parameter 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigget
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netconfigget
      */
-    static NetConfigGet(server, component, parameter, bufptr) {
+    static NetConfigGet(server, component_, parameter, bufptr) {
         server := server is String ? StrPtr(server) : server
-        component := component is String ? StrPtr(component) : component
+        component_ := component_ is String ? StrPtr(component_) : component_
         parameter := parameter is String ? StrPtr(parameter) : parameter
 
         bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", component, "ptr", parameter, bufptrMarshal, bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigGet", "ptr", server, "ptr", component_, "ptr", parameter, bufptrMarshal, bufptr, "uint")
         return result
     }
 
     /**
      * The NetConfigGetAll function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
-     * @param {PWSTR} server TBD
-     * @param {PWSTR} component TBD
-     * @param {Pointer<Pointer<Integer>>} bufptr TBD
+     * @param {PWSTR} server 
+     * @param {PWSTR} component_ 
+     * @param {Pointer<Pointer<Integer>>} bufptr 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfiggetall
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netconfiggetall
      */
-    static NetConfigGetAll(server, component, bufptr) {
+    static NetConfigGetAll(server, component_, bufptr) {
         server := server is String ? StrPtr(server) : server
-        component := component is String ? StrPtr(component) : component
+        component_ := component_ is String ? StrPtr(component_) : component_
 
         bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", component, bufptrMarshal, bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigGetAll", "ptr", server, "ptr", component_, bufptrMarshal, bufptr, "uint")
         return result
     }
 
     /**
      * The NetConfigSet function is obsolete. It is included for compatibility with 16-bit versions of Windows. Other applications should use the registry.
-     * @param {PWSTR} server TBD
-     * @param {PWSTR} reserved1 TBD
-     * @param {PWSTR} component TBD
-     * @param {Integer} level TBD
-     * @param {Integer} reserved2 TBD
-     * @param {Pointer<Integer>} buf TBD
-     * @param {Integer} reserved3 TBD
+     * @param {PWSTR} server 
+     * @param {PWSTR} reserved1 
+     * @param {PWSTR} component_ 
+     * @param {Integer} level 
+     * @param {Integer} reserved2 
+     * @param {Pointer<Integer>} buf 
+     * @param {Integer} reserved3 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/lmconfig/nf-lmconfig-netconfigset
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netconfigset
      */
-    static NetConfigSet(server, reserved1, component, level, reserved2, buf, reserved3) {
+    static NetConfigSet(server, reserved1, component_, level, reserved2, buf, reserved3) {
         server := server is String ? StrPtr(server) : server
         reserved1 := reserved1 is String ? StrPtr(reserved1) : reserved1
-        component := component is String ? StrPtr(component) : component
+        component_ := component_ is String ? StrPtr(component_) : component_
 
         bufMarshal := buf is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", component, "uint", level, "uint", reserved2, bufMarshal, buf, "uint", reserved3, "uint")
+        result := DllCall("NETAPI32.dll\NetConfigSet", "ptr", server, "ptr", reserved1, "ptr", component_, "uint", level, "uint", reserved2, bufMarshal, buf, "uint", reserved3, "uint")
         return result
     }
 
@@ -18971,7 +18990,7 @@ class NetManagement {
      * @param {PWSTR} backupfile 
      * @param {PWSTR} service 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditclear
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netauditclear
      */
     static NetAuditClear(server, backupfile, service) {
         server := server is String ? StrPtr(server) : server
@@ -18996,7 +19015,7 @@ class NetManagement {
      * @param {Pointer<Integer>} bytesread 
      * @param {Pointer<Integer>} totalavailable 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditread
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netauditread
      */
     static NetAuditRead(server, service, auditloghandle, offset, reserved1, reserved2, offsetflag, bufptr, prefmaxlen, bytesread, totalavailable) {
         server := server is String ? StrPtr(server) : server
@@ -19019,7 +19038,7 @@ class NetManagement {
      * @param {PWSTR} service 
      * @param {Pointer<Integer>} reserved 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/NetMgmt/netauditwrite
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMgmt/netauditwrite
      */
     static NetAuditWrite(type, buf, numbytes, service, reserved) {
         service := service is String ? StrPtr(service) : service
@@ -19177,7 +19196,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netjoindomain
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netjoindomain
      * @since windows5.0
      */
     static NetJoinDomain(lpServer, lpDomain, lpMachineAccountOU, lpAccount, lpPassword, fJoinOptions) {
@@ -19249,7 +19268,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netunjoindomain
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netunjoindomain
      * @since windows5.0
      */
     static NetUnjoinDomain(lpServer, lpAccount, lpPassword, fUnjoinOptions) {
@@ -19334,7 +19353,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netrenamemachineindomain
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netrenamemachineindomain
      * @since windows5.0
      */
     static NetRenameMachineInDomain(lpServer, lpNewMachineName, lpAccount, lpPassword, fRenameOptions) {
@@ -19586,7 +19605,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netvalidatename
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netvalidatename
      * @since windows5.0
      */
     static NetValidateName(lpServer, lpName, lpAccount, lpPassword, NameType) {
@@ -19649,7 +19668,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetjoinableous
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netgetjoinableous
      * @since windows5.0
      */
     static NetGetJoinableOUs(lpServer, lpDomain, lpAccount, lpPassword, OUCount, OUs) {
@@ -19785,7 +19804,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netaddalternatecomputername
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netaddalternatecomputername
      * @since windows5.1.2600
      */
     static NetAddAlternateComputerName(Server, AlternateName, DomainAccount, DomainAccountPassword, Reserved) {
@@ -19918,7 +19937,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netremovealternatecomputername
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netremovealternatecomputername
      * @since windows5.1.2600
      */
     static NetRemoveAlternateComputerName(Server, AlternateName, DomainAccount, DomainAccountPassword, Reserved) {
@@ -20051,7 +20070,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netsetprimarycomputername
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netsetprimarycomputername
      * @since windows5.1.2600
      */
     static NetSetPrimaryComputerName(Server, PrimaryName, DomainAccount, DomainAccountPassword, Reserved) {
@@ -20169,7 +20188,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netenumeratecomputernames
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netenumeratecomputernames
      * @since windows5.1.2600
      */
     static NetEnumerateComputerNames(Server, NameType, Reserved, EntryCount, ComputerNames) {
@@ -20362,7 +20381,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netprovisioncomputeraccount
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netprovisioncomputeraccount
      * @since windows6.1
      */
     static NetProvisionComputerAccount(lpDomain, lpMachineName, lpMachineAccountOU, lpDcName, dwOptions, pProvisionBinData, pdwProvisionBinDataSize, pProvisionTextData) {
@@ -20475,7 +20494,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netrequestofflinedomainjoin
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netrequestofflinedomainjoin
      * @since windows6.1
      */
     static NetRequestOfflineDomainJoin(pProvisionBinData, cbProvisionBinDataSize, dwOptions, lpWindowsPath) {
@@ -20817,7 +20836,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netcreateprovisioningpackage
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netcreateprovisioningpackage
      * @since windows8.0
      */
     static NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
@@ -20990,7 +21009,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netrequestprovisioningpackageinstall
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netrequestprovisioningpackageinstall
      * @since windows8.0
      */
     static NetRequestProvisioningPackageInstall(pPackageBinData, dwPackageBinDataSize, dwProvisionOptions, lpWindowsPath) {
@@ -21025,7 +21044,7 @@ class NetManagement {
      * @returns {Pointer<DSREG_JOIN_INFO>} The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
      *                      the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netfreeaadjoininformation">NetFreeAadJoinInformation</a> function to free the memory allocated for
      *                      this structure.
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetaadjoininformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netgetaadjoininformation
      * @since windows10.0.10240
      */
     static NetGetAadJoinInformation(pcszTenantId) {
@@ -21043,7 +21062,7 @@ class NetManagement {
      * Frees the memory allocated for the specified DSREG_JOIN_INFO structure, which contains join information for a tenant and which you retrieved by calling the NetGetAadJoinInformation function.
      * @param {Pointer<DSREG_JOIN_INFO>} pJoinInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/ns-lmjoin-dsreg_join_info">DSREG_JOIN_INFO</a> structure for which you want to free the memory.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netfreeaadjoininformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netfreeaadjoininformation
      * @since windows10.0.10240
      */
     static NetFreeAadJoinInformation(pJoinInfo) {
@@ -21083,7 +21102,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmjoin/nf-lmjoin-netgetjoininformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmjoin/nf-lmjoin-netgetjoininformation
      * @since windows5.0
      */
     static NetGetJoinInformation(lpServer, lpNameBuffer, BufferType) {
@@ -21107,7 +21126,7 @@ class NetManagement {
      * @param {Integer} ccAccount The number of characters, including the NULL terminator, allocated for <i>wszAccount</i>. The maximum allowed length for this value is the maximum domain name length plus the maximum user name length plus 2, expressed as DNLEN + UNLEN + 2. (The last two characters are the "\" character and the NULL terminator.)
      * @param {PWSTR} wszAccount An array of wide characters, including the NULL terminator, that receives the account information.
      * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the function succeeded, and the account information is  returned in <i>wszAccount</i>. A value of S_FALSE  indicates the function succeeded, and the account is the Local System account (no information will be returned in <i>wszAccount</i>). Any other return values indicate an error condition.
-     * @see https://learn.microsoft.com/windows/win32/api/atacct/nf-atacct-getnetscheduleaccountinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/atacct/nf-atacct-getnetscheduleaccountinformation
      * @since windows6.0.6000
      */
     static GetNetScheduleAccountInformation(pwszServerName, ccAccount, wszAccount) {
@@ -21175,7 +21194,7 @@ class NetManagement {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/atacct/nf-atacct-setnetscheduleaccountinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/atacct/nf-atacct-setnetscheduleaccountinformation
      * @since windows6.0.6000
      */
     static SetNetScheduleAccountInformation(pwszServerName, pwszAccount, pwszPassword) {
@@ -21261,22 +21280,24 @@ class NetManagement {
      * 
      * Starting with   Windows Vista, the precision for the Task Scheduler was increased to the second. Therefore, the <b>NetScheduleJobAdd</b> function uses only the hours, minutes, and seconds specified in the <b>JobTime</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure when a job is scheduled to run.
      * @param {PWSTR} Servername A pointer to a constant string that specifies the DNS or NetBIOS name of the remote server on which the function is to execute. If this parameter is <b>NULL</b>, the local computer is used.
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} Buffer_ A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmat/ns-lmat-at_info">AT_INFO</a> structure describing the job to submit. For more information about scheduling jobs using different job properties, see the following Remarks section and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @param {Pointer<Integer>} JobId A pointer that receives a job identifier for the newly submitted job. This entry is valid only if the function returns successfully.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmat/nf-lmat-netschedulejobadd
      * @since windows5.0
      */
-    static NetScheduleJobAdd(Servername, Buffer_R, JobId) {
+    static NetScheduleJobAdd(Servername, Buffer_, JobId) {
         Servername := Servername is String ? StrPtr(Servername) : Servername
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
         JobIdMarshal := JobId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, Buffer_RMarshal, Buffer_R, JobIdMarshal, JobId, "uint")
+        result := DllCall("NETAPI32.dll\NetScheduleJobAdd", "ptr", Servername, Buffer_Marshal, Buffer_, JobIdMarshal, JobId, "uint")
         return result
     }
 
@@ -21305,7 +21326,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobdel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmat/nf-lmat-netschedulejobdel
      * @since windows5.0
      */
     static NetScheduleJobDel(Servername, MinJobId, MaxJobId) {
@@ -21342,7 +21363,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmat/nf-lmat-netschedulejobenum
      * @since windows5.0
      */
     static NetScheduleJobEnum(Servername, PointerToBuffer, PrefferedMaximumLength, EntriesRead, TotalEntries, ResumeHandle) {
@@ -21377,7 +21398,7 @@ class NetManagement {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmat/nf-lmat-netschedulejobgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmat/nf-lmat-netschedulejobgetinfo
      * @since windows5.0
      */
     static NetScheduleJobGetInfo(Servername, JobId, PointerToBuffer) {

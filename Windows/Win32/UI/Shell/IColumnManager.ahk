@@ -7,13 +7,10 @@
 /**
  * Exposes methods that enable inspection and manipulation of columns in the Windows Explorer Details view. Each column is referenced by a PROPERTYKEY structure, which names a property.
  * @remarks
- * 
  * This interface can be accessed even when the Windows Explorer window is in a non-column view mode such as icons, thumbnails, or tiles. It affects those views, as well as views in which the column header control displays the set of columns to which <b>IColumnManager</b> provides access.
  * 
  * The default implementation of the Windows Explorer view object, created by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreateshellfolderviewex">SHCreateShellFolderViewEx</a>, supports this interface retrieved through <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>. Code that runs in the Windows Explorer (such as view callbacks, context menus or drop targets) can access the view object using <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">IServiceProvider::QueryService</a>, querying for <b>SID_SFolderView</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icolumnmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-icolumnmanager
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -89,10 +86,14 @@ class IColumnManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumninfo
      */
     SetColumnInfo(propkey, pcmci) {
-        result := ComCall(3, this, "ptr", propkey, "ptr", pcmci, "HRESULT")
+        result := ComCall(3, this, "ptr", propkey, "ptr", pcmci, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,10 +148,14 @@ class IColumnManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumninfo
      */
     GetColumnInfo(propkey, pcmci) {
-        result := ComCall(4, this, "ptr", propkey, "ptr", pcmci, "HRESULT")
+        result := ComCall(4, this, "ptr", propkey, "ptr", pcmci, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,10 +167,14 @@ class IColumnManager extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * Contains a pointer to the column count.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumncount
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumncount
      */
     GetColumnCount(dwFlags) {
-        result := ComCall(5, this, "int", dwFlags, "uint*", &puCount := 0, "HRESULT")
+        result := ComCall(5, this, "int", dwFlags, "uint*", &puCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puCount
     }
 
@@ -180,16 +189,23 @@ class IColumnManager extends IUnknown{
      * @returns {PROPERTYKEY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * On success, contains a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures that represent the columns.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumns
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumns
      */
     GetColumns(dwFlags, cColumns) {
         rgkeyOrder := PROPERTYKEY()
-        result := ComCall(6, this, "int", dwFlags, "ptr", rgkeyOrder, "uint", cColumns, "HRESULT")
+        result := ComCall(6, this, "int", dwFlags, "ptr", rgkeyOrder, "uint", cColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgkeyOrder
     }
 
     /**
      * Sets the collection of columns for the view to display.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <b>IColumnManager::SetColumns</b> clears the state of all columns, so <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumninfo">IColumnManager::SetColumnInfo</a> must be called afterward to set the state of individual columns.</div>
+     * <div> </div>
      * @param {Pointer<PROPERTYKEY>} rgkeyOrder Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures that specify the columns to display.
@@ -228,10 +244,14 @@ class IColumnManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumns
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icolumnmanager-setcolumns
      */
     SetColumns(rgkeyOrder, cVisible) {
-        result := ComCall(7, this, "ptr", rgkeyOrder, "uint", cVisible, "HRESULT")
+        result := ComCall(7, this, "ptr", rgkeyOrder, "uint", cVisible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

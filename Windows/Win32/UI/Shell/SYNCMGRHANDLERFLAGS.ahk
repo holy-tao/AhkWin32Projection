@@ -7,7 +7,7 @@
  * Only the <b><b>SYNCMGRHANDLER_HASPROPERTIES</b></b> and <b><b>SYNCMGRHANDLER_HIDDEN</b></b> flags are recognized by Windows Vista. Although Windows Vista recognizes the <b><b>SYNCMGRHANDLER_HIDDEN</b></b> flag, it does not currently use it.  
  * 
  * All flags are still valid for previous versions of Windows.
- * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrhandlerflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/mobsync/ne-mobsync-syncmgrhandlerflags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

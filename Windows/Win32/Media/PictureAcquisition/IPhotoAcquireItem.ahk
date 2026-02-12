@@ -10,7 +10,7 @@
 
 /**
  * The IPhotoAcquireItem interface provides methods for working with items as they are acquired from a device.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquireitem
+ * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nn-photoacquire-iphotoacquireitem
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -37,12 +37,18 @@ class IPhotoAcquireItem extends IUnknown{
 
     /**
      * The GetItemName method retrieves the file name for an item.
+     * @remarks
+     * The file name consists of the display name and the extension, even if the <b>Hide extensions for known file types</b> setting is checked in the Windows <b>Folder Options</b> dialog box.
      * @returns {BSTR} Pointer to a string containing the name of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-getitemname
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-getitemname
      */
     GetItemName() {
         pbstrItemName := BSTR()
-        result := ComCall(3, this, "ptr", pbstrItemName, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrItemName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrItemName
     }
 
@@ -50,28 +56,40 @@ class IPhotoAcquireItem extends IUnknown{
      * The GetThumbnail method retrieves the thumbnail provided for an item.
      * @param {SIZE} sizeThumbnail Specifies the size of the thumbnail.
      * @returns {HBITMAP} Specifies a handle to the thumbnail bitmap.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-getthumbnail
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-getthumbnail
      */
     GetThumbnail(sizeThumbnail) {
         phbmpThumbnail := HBITMAP()
-        result := ComCall(4, this, "ptr", sizeThumbnail, "ptr", phbmpThumbnail, "HRESULT")
+        result := ComCall(4, this, "ptr", sizeThumbnail, "ptr", phbmpThumbnail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phbmpThumbnail
     }
 
     /**
      * The GetProperty method retrieves the value of a property of an item.
+     * @remarks
+     * For an item that is a shell object, this method will defer to the <b>IPropertyStore</b> object provided by the item if the property hasn't been set or updated using <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireitem-setproperty">SetProperty</a>.
      * @param {Pointer<PROPERTYKEY>} key Specifies a key for the property.
      * @returns {PROPVARIANT} Pointer to a property variant containing the property value.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-getproperty
      */
     GetProperty(key) {
         pv := PROPVARIANT()
-        result := ComCall(5, this, "ptr", key, "ptr", pv, "HRESULT")
+        result := ComCall(5, this, "ptr", key, "ptr", pv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pv
     }
 
     /**
      * The SetProperty method sets a property for an item.
+     * @remarks
+     * The property is stored in memory, but is not written to the file.
      * @param {Pointer<PROPERTYKEY>} key Specifies a key for the property to set.
      * @param {Pointer<PROPVARIANT>} pv Pointer to a property variant containing the value to set the property to.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -93,35 +111,49 @@ class IPhotoAcquireItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-setproperty
      */
     SetProperty(key, pv) {
-        result := ComCall(6, this, "ptr", key, "ptr", pv, "HRESULT")
+        result := ComCall(6, this, "ptr", key, "ptr", pv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetStream method retrieves a read-only stream containing the contents of an item.
      * @returns {IStream} Returns a stream object with the file contents.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-getstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-getstream
      */
     GetStream() {
-        result := ComCall(7, this, "ptr*", &ppStream := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppStream)
     }
 
     /**
      * The CanDelete method indicates whether an item may be deleted.
      * @returns {BOOL} Pointer to a flag that, when set to <b>TRUE</b>, indicates that the item can be deleted.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-candelete
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-candelete
      */
     CanDelete() {
-        result := ComCall(8, this, "int*", &pfCanDelete := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pfCanDelete := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCanDelete
     }
 
     /**
      * The Delete method deletes an item.
+     * @remarks
+     * To determine whether an item may be deleted, call <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireitem-candelete">CanDelete</a> first.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -141,31 +173,47 @@ class IPhotoAcquireItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-delete
      */
     Delete() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetSubItemCount method retrieves the number of subitems contained in an item.
+     * @remarks
+     * If an error occurs, <i>pnCount</i> will be set to <b>NULL</b>.
      * @returns {Integer} Pointer to an integer containing the count of subitems.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemcount
      */
     GetSubItemCount() {
-        result := ComCall(10, this, "uint*", &pnCount := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pnCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnCount
     }
 
     /**
      * The GetSubItemAt method retrieves a subitem of an item, given the index of the subitem.
+     * @remarks
+     * If no item is found at the given index, <i>ppPhotoAcquireItem</i> is set to <b>NULL</b>.
      * @param {Integer} nItemIndex Integer containing the index of the item.
      * @returns {IPhotoAcquireItem} Returns the <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquireitem">IPhotoAcquireItem</a> object at the given index.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemat
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemat
      */
     GetSubItemAt(nItemIndex) {
-        result := ComCall(11, this, "uint", nItemIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
+        result := ComCall(11, this, "uint", nItemIndex, "ptr*", &ppPhotoAcquireItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPhotoAcquireItem(ppPhotoAcquireItem)
     }
 }

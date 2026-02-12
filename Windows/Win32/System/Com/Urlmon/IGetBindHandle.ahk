@@ -36,7 +36,11 @@ class IGetBindHandle extends IUnknown{
      */
     GetBindHandle(enumRequestedHandle) {
         pRetHandle := HANDLE()
-        result := ComCall(3, this, "int", enumRequestedHandle, "ptr", pRetHandle, "HRESULT")
+        result := ComCall(3, this, "int", enumRequestedHandle, "ptr", pRetHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetHandle
     }
 }

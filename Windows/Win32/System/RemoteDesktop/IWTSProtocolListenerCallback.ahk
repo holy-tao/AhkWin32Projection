@@ -6,7 +6,7 @@
 
 /**
  * IWTSProtocolListenerCallback is no longer available. Instead, use IWRdsProtocolListenerCallback.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwtsprotocollistenercallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nn-wtsprotocol-iwtsprotocollistenercallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IWTSProtocolListenerCallback extends IUnknown{
      * IWTSProtocolListenerCallback::OnConnected is no longer available. Instead, use IWRdsProtocolListenerCallback::OnConnected.
      * @param {IWTSProtocolConnection} pConnection A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolconnection">IWTSProtocolConnection</a> interface that represents a client connection. The Remote Desktop Services service  adds a reference to this object and releases it when it closes the connection.
      * @returns {IWTSProtocolConnectionCallback} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolconnectioncallback">IWTSProtocolConnectionCallback</a> interface used by the protocol to notify the Remote Desktop Services service about the status of a client connection. The Remote Desktop Services service  adds a reference to this object and the protocol must release it when the connection is closed.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollistenercallback-onconnected
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocollistenercallback-onconnected
      */
     OnConnected(pConnection) {
-        result := ComCall(3, this, "ptr", pConnection, "ptr*", &pCallback := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pConnection, "ptr*", &pCallback := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWTSProtocolConnectionCallback(pCallback)
     }
 }

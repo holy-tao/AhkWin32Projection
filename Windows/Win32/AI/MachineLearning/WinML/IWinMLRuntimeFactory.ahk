@@ -6,7 +6,7 @@
 
 /**
  * Represents the factory that creates the WinML runtime for model loading and evaluation.
- * @see https://docs.microsoft.com/windows/win32/api//winml/nn-winml-iwinmlruntimefactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/winml/nn-winml-iwinmlruntimefactory
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class IWinMLRuntimeFactory extends IUnknown{
 
     /**
      * Creates a WinML runtime.
-     * @param {Integer} RuntimeType A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_runtime_type">WINML_RUNTIME_TYPE</a> that decribes the type of WinML runtime.
-     * @returns {IWinMLRuntime} A pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlruntime">IWinMLRuntime</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlruntimefactory-createruntime
+     * @param {Integer} RuntimeType A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_runtime_type">WINML_RUNTIME_TYPE</a> that describes the type of WinML runtime.
+     * @returns {Pointer<IWinMLRuntime>} A pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlruntime">IWinMLRuntime</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winml/nf-winml-iwinmlruntimefactory-createruntime
      */
     CreateRuntime(RuntimeType) {
-        result := ComCall(3, this, "int", RuntimeType, "ptr*", &ppRuntime := 0, "HRESULT")
-        return IWinMLRuntime(ppRuntime)
+        result := ComCall(3, this, "int", RuntimeType, "ptr*", &ppRuntime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppRuntime
     }
 }

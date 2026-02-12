@@ -6,12 +6,10 @@
 /**
  * Extends the IHWEventHandler interface to address User Account Control (UAC) elevation for device handlers.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-ihweventhandler">IHWEventHandler</a> interface, from which it inherits.
  * 
  * Handlers that implement this interface should return quickly from calls to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler-handleevent">IHWEventHandler::HandleEvent</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd">IHWEventHandler2::HandleEventWithHWND</a> so they do not block the AutoPlay dialog from closing. Also, if a local server must be launched for the creation of this handler, it should not block the CreateInstance call; it should return as soon as possible.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ihweventhandler2
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ihweventhandler2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,6 +36,12 @@ class IHWEventHandler2 extends IHWEventHandler{
 
     /**
      * Handles AutoPlay device events that contain content types that the application is not registered to handle. This method provides a handle to the owner window so that UI can be displayed if the process requires elevated privileges.
+     * @remarks
+     * When a handler is invoked and requires immediate privilege elevation in a new process, it requires an active parent window handle to display its consent UI. <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ihweventhandler-handleevent">IHWEventHandler::HandleEvent</a> cannot give a handle, so only a blinking taskbar appears. <b>IHWEventHandler2::HandleEventWithHWND</b> provides the HWND and enables the UI to be displayed.
+     * 
+     * Note that if the handler was launched by default instead of by direct user action, the HWND is not active and the dialog is not shown in the foreground.
+     * 
+     * The event types are not C/C++ language constants; they are literal text strings.
      * @param {PWSTR} pszDeviceID Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string buffer that contains the device ID.
@@ -52,8 +56,8 @@ class IHWEventHandler2 extends IHWEventHandler{
      * A handle to the AutoPlay dialog that was displayed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ihweventhandler2-handleeventwithhwnd
      */
     HandleEventWithHWND(pszDeviceID, pszAltDeviceID, pszEventType, hwndOwner) {
         pszDeviceID := pszDeviceID is String ? StrPtr(pszDeviceID) : pszDeviceID
@@ -61,7 +65,11 @@ class IHWEventHandler2 extends IHWEventHandler{
         pszEventType := pszEventType is String ? StrPtr(pszEventType) : pszEventType
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(6, this, "ptr", pszDeviceID, "ptr", pszAltDeviceID, "ptr", pszEventType, "ptr", hwndOwner, "HRESULT")
+        result := ComCall(6, this, "ptr", pszDeviceID, "ptr", pszAltDeviceID, "ptr", pszEventType, "ptr", hwndOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

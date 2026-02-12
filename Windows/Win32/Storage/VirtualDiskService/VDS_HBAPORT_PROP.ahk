@@ -3,8 +3,8 @@
 #Include .\VDS_WWN.ahk
 
 /**
- * The VDS_HBAPORT_PROP structure (vdshwprv.h) defines the properties of an HBA port.
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hbaport_prop
+ * The VDS_HBAPORT_PROP structure (vds.h) defines the properties of an HBA port.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ns-vds-vds_hbaport_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

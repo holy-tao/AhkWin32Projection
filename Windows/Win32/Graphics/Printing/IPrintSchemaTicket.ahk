@@ -46,23 +46,41 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {IPrintSchemaFeature} 
      */
     GetFeatureByKeyName(bstrKeyName) {
-        bstrKeyName := bstrKeyName is String ? BSTR.Alloc(bstrKeyName).Value : bstrKeyName
+        if(bstrKeyName is String) {
+            pin := BSTR.Alloc(bstrKeyName)
+            bstrKeyName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaFeature(ppFeature)
     }
 
     /**
-     * 
+     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     GetFeature(bstrName, bstrNamespaceUri) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrNamespaceUri is String) {
+            pin := BSTR.Alloc(bstrNamespaceUri)
+            bstrNamespaceUri := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaFeature(ppFeature)
     }
 
@@ -71,7 +89,11 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {IPrintSchemaAsyncOperation} 
      */
     ValidateAsync() {
-        result := ComCall(12, this, "ptr*", &ppAsyncOperation := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppAsyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaAsyncOperation(ppAsyncOperation)
     }
 
@@ -81,7 +103,11 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {IPrintSchemaAsyncOperation} 
      */
     CommitAsync(pPrintTicketCommit) {
-        result := ComCall(13, this, "ptr", pPrintTicketCommit, "ptr*", &ppAsyncOperation := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pPrintTicketCommit, "ptr*", &ppAsyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaAsyncOperation(ppAsyncOperation)
     }
 
@@ -90,16 +116,27 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     NotifyXmlChanged() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves the length of a monitor's capabilities string.
+     * @remarks
+     * This function usually returns quickly, but sometimes it can take several seconds to complete.
      * @returns {IPrintSchemaCapabilities} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      */
     GetCapabilities() {
-        result := ComCall(15, this, "ptr*", &ppCapabilities := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppCapabilities := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaCapabilities(ppCapabilities)
     }
 
@@ -108,7 +145,11 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_JobCopiesAllDocuments() {
-        result := ComCall(16, this, "uint*", &pulJobCopiesAllDocuments := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &pulJobCopiesAllDocuments := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulJobCopiesAllDocuments
     }
 
@@ -118,7 +159,11 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
      * @returns {HRESULT} 
      */
     put_JobCopiesAllDocuments(ulJobCopiesAllDocuments) {
-        result := ComCall(17, this, "uint", ulJobCopiesAllDocuments, "HRESULT")
+        result := ComCall(17, this, "uint", ulJobCopiesAllDocuments, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

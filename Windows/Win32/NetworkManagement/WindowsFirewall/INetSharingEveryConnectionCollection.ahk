@@ -6,7 +6,7 @@
 
 /**
  * The INetSharingEveryConnectionCollection interface makes it possible for scripting languages such as VBScript and JScript to enumerate all the connections in the connections folder.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetsharingeveryconnectioncollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nn-netcon-inetsharingeveryconnectioncollection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -48,20 +48,28 @@ class INetSharingEveryConnectionCollection extends IDispatch{
     /**
      * The get__NewEnum method retrieves an enumerator for the connections collection.
      * @returns {IUnknown} Pointer to an interface pointer that, on successful return, receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingeveryconnectioncollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-inetsharingeveryconnectioncollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pVal)
     }
 
     /**
      * The get__Count method retrieves the number of items in the connections collection.
      * @returns {Integer} Pointer to a long variable that, on successful return, receives the number of items in the connections collection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingeveryconnectioncollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-inetsharingeveryconnectioncollection-get_count
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Do not use. Used by the Windows Address Book (WAB) to initialize user's IContextMenu Interface and IShellPropSheetExt Interface implementations.
- * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wabextdisplay
+ * @see https://learn.microsoft.com/windows/win32/api//content/wabapi/ns-wabapi-wabextdisplay
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

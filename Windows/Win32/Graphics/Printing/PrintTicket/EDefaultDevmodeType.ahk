@@ -5,7 +5,7 @@
  * Enables users to specify which DEVMODE to use as the source of default values when a print ticket does not specify all possible settings.
  * @remarks
  * If user defaults are not available when using kUserDefaultDevmode, queue defaults will be used.
- * @see https://learn.microsoft.com/windows/win32/api/prntvpt/ne-prntvpt-edefaultdevmodetype
+ * @see https://learn.microsoft.com/windows/win32/api//content/prntvpt/ne-prntvpt-edefaultdevmodetype
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
  * @version v4.0.30319
  */

@@ -4,9 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Notification interface used to indicate a change in the radio state as well as the completion of a programatic change in the state .
+ * Notification interface used to indicate a change in the radio state as well as the completion of a programmatic change in the state .
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnradioevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nn-mbnapi-imbnradioevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,12 +43,18 @@ class IMbnRadioEvents extends IUnknown{
 
     /**
      * A notification signaling that the radio state of the device has changed.
+     * @remarks
+     * New software and hardware radio states can be obtained from the passed <i>newInterface</i> object.
      * @param {IMbnRadio} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradio">IMbnRadio</a> interface representing the device for which the radio state has changed.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradioevents-onradiostatechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnradioevents-onradiostatechange
      */
     OnRadioStateChange(newInterface) {
-        result := ComCall(3, this, "ptr", newInterface, "HRESULT")
+        result := ComCall(3, this, "ptr", newInterface, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,12 +62,16 @@ class IMbnRadioEvents extends IUnknown{
      * Notification that a set software radio state operation has completed.
      * @param {IMbnRadio} newInterface Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradio">IMbnRadio</a> interface representing the device for which a set radio state operation has completed.
      * @param {Integer} requestID The request ID set by the Mobile Broadband service to identify the request.
-     * @param {HRESULT} status A status code that indicates the outcome of the set radio state operation.
+     * @param {HRESULT} status_ A status code that indicates the outcome of the set radio state operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnradioevents-onsetsoftwareradiostatecomplete
      */
-    OnSetSoftwareRadioStateComplete(newInterface, requestID, status) {
-        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", status, "HRESULT")
+    OnSetSoftwareRadioStateComplete(newInterface, requestID, status_) {
+        result := ComCall(4, this, "ptr", newInterface, "uint", requestID, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

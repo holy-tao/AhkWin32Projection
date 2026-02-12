@@ -11,7 +11,7 @@
  * A system gesture is separate from an application gesture. Application gestures are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">InkApplicationGesture</a> enumeration type.
  * 
  * For more information about system gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-gestures">Using Gestures</a>.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inksystemgesture
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-inksystemgesture
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

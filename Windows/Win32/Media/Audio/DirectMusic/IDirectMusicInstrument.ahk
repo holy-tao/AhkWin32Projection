@@ -36,7 +36,11 @@ class IDirectMusicInstrument extends IUnknown{
     GetPatch(pdwPatch) {
         pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwPatchMarshal, pdwPatch, "HRESULT")
+        result := ComCall(3, this, pdwPatchMarshal, pdwPatch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IDirectMusicInstrument extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPatch(dwPatch) {
-        result := ComCall(4, this, "uint", dwPatch, "HRESULT")
+        result := ComCall(4, this, "uint", dwPatch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

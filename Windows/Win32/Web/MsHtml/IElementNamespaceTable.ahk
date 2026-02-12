@@ -38,10 +38,20 @@ class IElementNamespaceTable extends IUnknown{
      * @returns {HRESULT} 
      */
     AddNamespace(bstrNamespace, bstrUrn, lFlags, pvarFactory) {
-        bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
-        bstrUrn := bstrUrn is String ? BSTR.Alloc(bstrUrn).Value : bstrUrn
+        if(bstrNamespace is String) {
+            pin := BSTR.Alloc(bstrNamespace)
+            bstrNamespace := pin.Value
+        }
+        if(bstrUrn is String) {
+            pin := BSTR.Alloc(bstrUrn)
+            bstrUrn := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrNamespace, "ptr", bstrUrn, "int", lFlags, "ptr", pvarFactory, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrNamespace, "ptr", bstrUrn, "int", lFlags, "ptr", pvarFactory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

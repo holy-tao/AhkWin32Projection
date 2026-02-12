@@ -35,7 +35,11 @@ class ISpRecognizer2 extends IUnknown{
      * @returns {HRESULT} 
      */
     EmulateRecognitionEx(pPhrase, dwCompareFlags) {
-        result := ComCall(3, this, "ptr", pPhrase, "uint", dwCompareFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", pPhrase, "uint", dwCompareFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ISpRecognizer2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTrainingState(fDoingTraining, fAdaptFromTrainingData) {
-        result := ComCall(4, this, "int", fDoingTraining, "int", fAdaptFromTrainingData, "HRESULT")
+        result := ComCall(4, this, "int", fDoingTraining, "int", fAdaptFromTrainingData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class ISpRecognizer2 extends IUnknown{
      * @returns {HRESULT} 
      */
     ResetAcousticModelAdaptation() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

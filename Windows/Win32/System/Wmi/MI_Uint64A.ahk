@@ -3,7 +3,7 @@
 
 /**
  * Represents an array of MI_Uint64 types. (MI_Uint64A)
- * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_uint64a
+ * @see https://learn.microsoft.com/windows/win32/api//content/mi/ns-mi-mi_uint64a
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

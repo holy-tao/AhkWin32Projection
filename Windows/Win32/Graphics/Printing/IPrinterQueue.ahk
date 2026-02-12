@@ -57,7 +57,11 @@ class IPrinterQueue extends IDispatch{
      */
     get_Handle() {
         phPrinter := PRINTER_HANDLE()
-        result := ComCall(7, this, "ptr", phPrinter, "HRESULT")
+        result := ComCall(7, this, "ptr", phPrinter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phPrinter
     }
 
@@ -67,7 +71,11 @@ class IPrinterQueue extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -77,9 +85,16 @@ class IPrinterQueue extends IDispatch{
      * @returns {HRESULT} 
      */
     SendBidiQuery(bstrBidiQuery) {
-        bstrBidiQuery := bstrBidiQuery is String ? BSTR.Alloc(bstrBidiQuery).Value : bstrBidiQuery
+        if(bstrBidiQuery is String) {
+            pin := BSTR.Alloc(bstrBidiQuery)
+            bstrBidiQuery := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrBidiQuery, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrBidiQuery, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +103,11 @@ class IPrinterQueue extends IDispatch{
      * @returns {IPrinterPropertyBag} 
      */
     GetProperties() {
-        result := ComCall(10, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrinterPropertyBag(ppPropertyBag)
     }
 }

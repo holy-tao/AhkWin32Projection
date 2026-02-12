@@ -5,7 +5,7 @@
 
 /**
  * Represents information about an unsynchronized (&quot;dirty&quot;) file in the Offline Files cache.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesdirtyinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nn-cscobj-iofflinefilesdirtyinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,21 +32,33 @@ class IOfflineFilesDirtyInfo extends IUnknown{
 
     /**
      * Retrieves the amount of unsynchronized (&quot;dirty&quot;) data for the associated file in the local Offline Files cache.
+     * @remarks
+     * This method can be called only for file items, which are represented by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesfileitem">IOfflineFilesFileItem</a> objects.
      * @returns {Integer} The number of bytes of unsynchronized data.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesdirtyinfo-localdirtybytecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesdirtyinfo-localdirtybytecount
      */
     LocalDirtyByteCount() {
-        result := ComCall(3, this, "int64*", &pDirtyByteCount := 0, "HRESULT")
+        result := ComCall(3, this, "int64*", &pDirtyByteCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDirtyByteCount
     }
 
     /**
-     * This method is reserved for future use.
+     * This method is reserved for future use. (IOfflineFilesDirtyInfo.RemoteDirtyByteCount)
+     * @remarks
+     * This method can only be called for file items, which are represented by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesfileitem">IOfflineFilesFileItem</a> objects.
      * @returns {Integer} The number of bytes of unsynchronized data.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesdirtyinfo-remotedirtybytecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/cscobj/nf-cscobj-iofflinefilesdirtyinfo-remotedirtybytecount
      */
     RemoteDirtyByteCount() {
-        result := ComCall(4, this, "int64*", &pDirtyByteCount := 0, "HRESULT")
+        result := ComCall(4, this, "int64*", &pDirtyByteCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDirtyByteCount
     }
 }

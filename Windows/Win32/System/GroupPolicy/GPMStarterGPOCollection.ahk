@@ -3,7 +3,7 @@
 
 /**
  * The IGPMStarterGPOCollection interface contains methods that enable applications to access a collection of Group Policy Objects (GPOs) when using the Group Policy Management Console (GPMC) interfaces.
- * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstartergpocollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmstartergpocollection
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

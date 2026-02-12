@@ -12,7 +12,7 @@
  * <li>If there are more non-zero decimal digits than will fit into the digit array, the NUMPRS_INEXACT flag will be set.
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-numparse
+ * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/ns-oleauto-numparse
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

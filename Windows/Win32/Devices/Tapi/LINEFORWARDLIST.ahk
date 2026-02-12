@@ -9,7 +9,7 @@
  * 
  * The 
  * <b>LINEFORWARDLIST</b> structure defines the forwarding parameters requested for forwarding calls on an address or on all addresses on a line.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforwardlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-lineforwardlist
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

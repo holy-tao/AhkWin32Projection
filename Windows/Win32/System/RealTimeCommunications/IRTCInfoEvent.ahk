@@ -64,7 +64,11 @@ class IRTCInfoEvent extends IDispatch{
      * @returns {IRTCSession2} 
      */
     get_Session() {
-        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession2(ppSession)
     }
 
@@ -73,7 +77,11 @@ class IRTCInfoEvent extends IDispatch{
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
-        result := ComCall(8, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppParticipant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCParticipant(ppParticipant)
     }
 
@@ -83,7 +91,11 @@ class IRTCInfoEvent extends IDispatch{
      */
     get_Info() {
         pbstrInfo := BSTR()
-        result := ComCall(9, this, "ptr", pbstrInfo, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrInfo
     }
 
@@ -93,7 +105,11 @@ class IRTCInfoEvent extends IDispatch{
      */
     get_InfoHeader() {
         pbstrInfoHeader := BSTR()
-        result := ComCall(10, this, "ptr", pbstrInfoHeader, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrInfoHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrInfoHeader
     }
 }

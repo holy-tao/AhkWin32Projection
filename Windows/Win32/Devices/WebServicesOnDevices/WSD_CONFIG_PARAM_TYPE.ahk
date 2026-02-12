@@ -3,7 +3,7 @@
 
 /**
  * Specifies the kind of data stored in a WSD_CONFIG_PARAM structure.
- * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ne-wsdbase-wsd_config_param_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/ne-wsdbase-wsd_config_param_type
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */

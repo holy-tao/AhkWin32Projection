@@ -5,7 +5,7 @@
 
 /**
  * Represents a DirectML operator.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmloperator
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/nn-directml-idmloperator
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

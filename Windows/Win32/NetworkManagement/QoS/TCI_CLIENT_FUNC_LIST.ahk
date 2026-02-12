@@ -6,7 +6,7 @@
  * @remarks
  * Any member of the 
  * <b>TCI_CLIENT_FUNC_LIST</b> structure can be <b>NULL</b> except <b>ClNotifyHandler</b>.
- * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tci_client_func_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/traffic/ns-traffic-tci_client_func_list
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

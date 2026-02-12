@@ -11,6 +11,8 @@
 #Include .\IWMWriterFileSink.ahk
 #Include .\IWMWriterNetworkSink.ahk
 #Include .\IWMWriterPushSink.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
@@ -246,112 +248,112 @@ class WindowsMediaFormat {
     static g_dwWMSpecialAttributes => 20
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDuration => "Duration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMBitrate => "Bitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSeekable => "Seekable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMStridable => "Stridable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMBroadcast => "Broadcast"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProtected => "Is_Protected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMTrusted => "Is_Trusted"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSignature_Name => "Signature_Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasAudio => "HasAudio"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasImage => "HasImage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasScript => "HasScript"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasVideo => "HasVideo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMCurrentBitrate => "CurrentBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOptimalBitrate => "OptimalBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasAttachedImages => "HasAttachedImages"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSkipBackward => "Can_Skip_Backward"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSkipForward => "Can_Skip_Forward"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMNumberOfFrames => "NumberOfFrames"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMFileSize => "FileSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasArbitraryDataStream => "HasArbitraryDataStream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMHasFileTransferStream => "HasFileTransferStream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMContainerFormat => "WM/ContainerFormat"
 
@@ -361,242 +363,242 @@ class WindowsMediaFormat {
     static g_dwWMContentAttributes => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMTitle => "Title"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMTitleSort => "TitleSort"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAuthor => "Author"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAuthorSort => "AuthorSort"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDescription => "Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMRating => "Rating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMCopyright => "Copyright"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMUse_DRM => "Use_DRM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_Flags => "DRM_Flags"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_Level => "DRM_Level"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMUse_Advanced_DRM => "Use_Advanced_DRM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_KeySeed => "DRM_KeySeed"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_KeyID => "DRM_KeyID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_ContentID => "DRM_ContentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_SourceID => "DRM_SourceID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_IndividualizedVersion => "DRM_IndividualizedVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_LicenseAcqURL => "DRM_LicenseAcqURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_V1LicenseAcqURL => "DRM_V1LicenseAcqURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_HeaderSignPrivKey => "DRM_HeaderSignPrivKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_LASignaturePrivKey => "DRM_LASignaturePrivKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_LASignatureCert => "DRM_LASignatureCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_LASignatureLicSrvCert => "DRM_LASignatureLicSrvCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM_LASignatureRootCert => "DRM_LASignatureRootCert"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAlbumTitle => "WM/AlbumTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAlbumTitleSort => "WM/AlbumTitleSort"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMTrack => "WM/Track"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPromotionURL => "WM/PromotionURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAlbumCoverURL => "WM/AlbumCoverURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMGenre => "WM/Genre"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMYear => "WM/Year"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMGenreID => "WM/GenreID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMCDI => "WM/MCDI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMComposer => "WM/Composer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMComposerSort => "WM/ComposerSort"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMLyrics => "WM/Lyrics"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMTrackNumber => "WM/TrackNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMToolName => "WM/ToolName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMToolVersion => "WM/ToolVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMIsVBR => "IsVBR"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAlbumArtist => "WM/AlbumArtist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAlbumArtistSort => "WM/AlbumArtistSort"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMBannerImageType => "BannerImageType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMBannerImageData => "BannerImageData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMBannerImageURL => "BannerImageURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMCopyrightURL => "CopyrightURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAspectRatioX => "AspectRatioX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAspectRatioY => "AspectRatioY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszASFLeakyBucketPairs => "ASFLeakyBucketPairs"
 
@@ -606,762 +608,762 @@ class WindowsMediaFormat {
     static g_dwWMNSCAttributes => 5
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMNSCName => "NSC_Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMNSCAddress => "NSC_Address"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMNSCPhone => "NSC_Phone"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMNSCEmail => "NSC_Email"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMNSCDescription => "NSC_Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWriter => "WM/Writer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMConductor => "WM/Conductor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProducer => "WM/Producer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDirector => "WM/Director"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMContentGroupDescription => "WM/ContentGroupDescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSubTitle => "WM/SubTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPartOfSet => "WM/PartOfSet"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProtectionType => "WM/ProtectionType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMVideoHeight => "WM/VideoHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMVideoWidth => "WM/VideoWidth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMVideoFrameRate => "WM/VideoFrameRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaClassPrimaryID => "WM/MediaClassPrimaryID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaClassSecondaryID => "WM/MediaClassSecondaryID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPeriod => "WM/Period"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMCategory => "WM/Category"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPicture => "WM/Picture"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMLyrics_Synchronised => "WM/Lyrics_Synchronised"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOriginalLyricist => "WM/OriginalLyricist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOriginalArtist => "WM/OriginalArtist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOriginalAlbumTitle => "WM/OriginalAlbumTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOriginalReleaseYear => "WM/OriginalReleaseYear"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOriginalFilename => "WM/OriginalFilename"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPublisher => "WM/Publisher"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMEncodedBy => "WM/EncodedBy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMEncodingSettings => "WM/EncodingSettings"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMEncodingTime => "WM/EncodingTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAuthorURL => "WM/AuthorURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMUserWebURL => "WM/UserWebURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAudioFileURL => "WM/AudioFileURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMAudioSourceURL => "WM/AudioSourceURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMLanguage => "WM/Language"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMParentalRating => "WM/ParentalRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMBeatsPerMinute => "WM/BeatsPerMinute"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMInitialKey => "WM/InitialKey"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMood => "WM/Mood"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMText => "WM/Text"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDVDID => "WM/DVDID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMContentID => "WM/WMContentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMCollectionID => "WM/WMCollectionID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMCollectionGroupID => "WM/WMCollectionGroupID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMUniqueFileIdentifier => "WM/UniqueFileIdentifier"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMModifiedBy => "WM/ModifiedBy"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMRadioStationName => "WM/RadioStationName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMRadioStationOwner => "WM/RadioStationOwner"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPlaylistDelay => "WM/PlaylistDelay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMCodec => "WM/Codec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDRM => "WM/DRM"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMISRC => "WM/ISRC"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProvider => "WM/Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProviderRating => "WM/ProviderRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProviderStyle => "WM/ProviderStyle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMContentDistributor => "WM/ContentDistributor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSubscriptionContentID => "WM/SubscriptionContentID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMADRCPeakReference => "WM/WMADRCPeakReference"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMADRCPeakTarget => "WM/WMADRCPeakTarget"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMADRCAverageReference => "WM/WMADRCAverageReference"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMADRCAverageTarget => "WM/WMADRCAverageTarget"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMStreamTypeInfo => "WM/StreamTypeInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMPeakBitrate => "WM/PeakBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMASFPacketCount => "WM/ASFPacketCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMASFSecurityObjectsSize => "WM/ASFSecurityObjectsSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSharedUserRating => "WM/SharedUserRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSubTitleDescription => "WM/SubTitleDescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaCredits => "WM/MediaCredits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMParentalRatingReason => "WM/ParentalRatingReason"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMOriginalReleaseTime => "WM/OriginalReleaseTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaStationCallSign => "WM/MediaStationCallSign"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaStationName => "WM/MediaStationName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaNetworkAffiliation => "WM/MediaNetworkAffiliation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaOriginalChannel => "WM/MediaOriginalChannel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaOriginalBroadcastDateTime => "WM/MediaOriginalBroadcastDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsStereo => "WM/MediaIsStereo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMVideoClosedCaptioning => "WM/VideoClosedCaptioning"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsRepeat => "WM/MediaIsRepeat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsLive => "WM/MediaIsLive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsTape => "WM/MediaIsTape"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsDelay => "WM/MediaIsDelay"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsSubtitled => "WM/MediaIsSubtitled"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsPremiere => "WM/MediaIsPremiere"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsFinale => "WM/MediaIsFinale"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMMediaIsSAP => "WM/MediaIsSAP"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMProviderCopyright => "WM/ProviderCopyright"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMISAN => "WM/ISAN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMADID => "WM/ADID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMShadowFileSourceFileType => "WM/WMShadowFileSourceFileType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMShadowFileSourceDRMType => "WM/WMShadowFileSourceDRMType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMCPDistributor => "WM/WMCPDistributor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMWMCPDistributorID => "WM/WMCPDistributorID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMSeasonNumber => "WM/SeasonNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMEpisodeNumber => "WM/EpisodeNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszEarlyDataDelivery => "EarlyDataDelivery"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszJustInTimeDecode => "JustInTimeDecode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSingleOutputBuffer => "SingleOutputBuffer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSoftwareScaling => "SoftwareScaling"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszDeliverOnReceive => "DeliverOnReceive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszScrambledAudio => "ScrambledAudio"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszDedicatedDeliveryThread => "DedicatedDeliveryThread"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszEnableDiscreteOutput => "EnableDiscreteOutput"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSpeakerConfig => "SpeakerConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszDynamicRangeControl => "DynamicRangeControl"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszAllowInterlacedOutput => "AllowInterlacedOutput"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVideoSampleDurations => "VideoSampleDurations"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamLanguage => "StreamLanguage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszEnableWMAProSPDIFOutput => "EnableWMAProSPDIFOutput"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszDeinterlaceMode => "DeinterlaceMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszInitialPatternForInverseTelecine => "InitialPatternForInverseTelecine"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszJPEGCompressionQuality => "JPEGCompressionQuality"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWatermarkCLSID => "WatermarkCLSID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWatermarkConfig => "WatermarkConfig"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszInterlacedCoding => "InterlacedCoding"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszFixedFrameRate => "FixedFrameRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszOriginalSourceFormatTag => "_SOURCEFORMATTAG"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszOriginalWaveFormat => "_ORIGINALWAVEFORMAT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszEDL => "_EDL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszComplexity => "_COMPLEXITYEX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszDecoderComplexityRequested => "_DECODERCOMPLEXITYPROFILE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszReloadIndexOnSeek => "ReloadIndexOnSeek"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszStreamNumIndexObjects => "StreamNumIndexObjects"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszFailSeekOnError => "FailSeekOnError"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszPermitSeeksBeyondEndOfStream => "PermitSeeksBeyondEndOfStream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszUsePacketAtSeekPoint => "UsePacketAtSeekPoint"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSourceBufferTime => "SourceBufferTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSourceMaxBytesAtOnce => "SourceMaxBytesAtOnce"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVBREnabled => "_VBRENABLED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVBRQuality => "_VBRQUALITY"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVBRBitrateMax => "_RMAX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVBRBufferWindowMax => "_BMAX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVBRPeak => "VBR Peak"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszBufferAverage => "Buffer Average"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszComplexityMax => "_COMPLEXITYEXMAX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszComplexityOffline => "_COMPLEXITYEXOFFLINE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszComplexityLive => "_COMPLEXITYEXLIVE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszIsVBRSupported => "_ISVBRSUPPORTED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszNumPasses => "_PASSESUSED"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszMusicSpeechClassMode => "MusicSpeechClassMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszMusicClassMode => "MusicClassMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSpeechClassMode => "SpeechClassMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszMixedClassMode => "MixedClassMode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszSpeechCaps => "SpeechFormatCap"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszPeakValue => "PeakValue"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszAverageLevel => "AverageLevel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszFold6To2Channels3 => "Fold6To2Channels3"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszFoldToChannelsTemplate => "Fold%luTo%luChannels%lu"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszDeviceConformanceTemplate => "DeviceConformanceTemplate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszEnableFrameInterpolation => "EnableFrameInterpolation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszNeedsPreviousSample => "NeedsPreviousSample"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMIsCompilation => "WM/IsCompilation"
 
@@ -1777,7 +1779,7 @@ class WindowsMediaFormat {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmiscontentprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmiscontentprotected
      * @since windows5.0
      */
     static WMIsContentProtected(pwszFileName, pfIsProtected) {
@@ -1797,7 +1799,7 @@ class WindowsMediaFormat {
      * The WMCreateWriter function creates a writer object.
      * @param {IUnknown} pUnkCert Pointer to an <b>IUnknown</b> interface. This value is not used and should be set to <b>NULL</b>.
      * @returns {IWMWriter} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriter">IWMWriter</a> interface of the newly created writer object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatewriter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatewriter
      * @since windows5.0
      */
     static WMCreateWriter(pUnkCert) {
@@ -1818,7 +1820,7 @@ class WindowsMediaFormat {
      * @param {IUnknown} pUnkCert This value must be set to <b>NULL</b>.
      * @param {Integer} dwRights <b>DWORD</b> indicating the desired operation. Set to one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_rights">WMT_RIGHTS</a> enumeration type, indicating the operation that is performed on this file. If multiple operations are being performed, <i>dwRights</i> must consist of multiple values from <b>WMT_RIGHTS</b> combined by using the bitwise <b>OR</b> operator.
      * @returns {IWMReader} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmreader">IWMReader</a> interface of the newly created reader object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatereader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatereader
      * @since windows5.0
      */
     static WMCreateReader(pUnkCert, dwRights) {
@@ -1835,7 +1837,7 @@ class WindowsMediaFormat {
      * @param {IUnknown} pUnkCert Pointer to an <b>IUnknown</b> interface. This value must be set to <b>NULL</b>.
      * @param {Integer} dwRights <b>DWORD</b> specifying the desired operation. When playing back non-DRM content, or for an application that does not have DRM rights, this value can be set to zero. Otherwise, this value must be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_rights">WMT_RIGHTS</a> enumeration type, indicating the operation that is performed on this file. If multiple operations are being performed, <b>dwRights</b> must consist of multiple values from <b>WMT_RIGHTS</b> combined by using the bitwise <b>OR</b> operator.
      * @returns {IWMSyncReader} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmsyncreader">IWMSyncReader</a> interface of the newly created synchronous reader object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatesyncreader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatesyncreader
      * @since windows5.0
      */
     static WMCreateSyncReader(pUnkCert, dwRights) {
@@ -1850,7 +1852,7 @@ class WindowsMediaFormat {
     /**
      * The WMCreateEditor function creates a metadata editor object.
      * @returns {IWMMetadataEditor} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmmetadataeditor">IWMMetadataEditor</a> interface of the newly created metadata editor object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreateeditor
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreateeditor
      * @since windows5.0
      */
     static WMCreateEditor() {
@@ -1865,7 +1867,7 @@ class WindowsMediaFormat {
     /**
      * The WMCreateIndexer function creates an indexer object.
      * @returns {IWMIndexer} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmindexer">IWMIndexer</a> interface of the newly created indexer object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreateindexer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreateindexer
      * @since windows5.0
      */
     static WMCreateIndexer() {
@@ -1883,7 +1885,7 @@ class WindowsMediaFormat {
      * Use <b>IWMLicenseBackup::QueryInterface</b> to obtain a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbackuprestoreprops">IWMBackupRestoreProps</a> interface.
      * @param {IUnknown} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface containing the <b>OnStatus</b> callback method to be used by the new backup restorer object.
      * @returns {IWMLicenseBackup} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmlicensebackup">IWMLicenseBackup</a> interface of the newly created backup restorer object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatebackuprestorer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatebackuprestorer
      * @since windows5.0
      */
     static WMCreateBackupRestorer(pCallback) {
@@ -1900,7 +1902,7 @@ class WindowsMediaFormat {
      * @remarks
      * When a profile manager object is created, it parses all of the system profiles. Creating and releasing a profile manager every time you need to use it will adversely affect performance. You should create a profile manager once in your application and release it only when you no longer need to use it.
      * @returns {IWMProfileManager} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmprofilemanager">IWMProfileManager</a> interface of the newly created profile manager object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreateprofilemanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreateprofilemanager
      * @since windows5.0
      */
     static WMCreateProfileManager() {
@@ -1915,7 +1917,7 @@ class WindowsMediaFormat {
     /**
      * The WMCreateWriterFileSink function creates a writer file sink object.
      * @returns {IWMWriterFileSink} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink">IWMWriterFileSink</a> interface of the newly created writer file sink object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatewriterfilesink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatewriterfilesink
      * @since windows5.0
      */
     static WMCreateWriterFileSink() {
@@ -1930,7 +1932,7 @@ class WindowsMediaFormat {
     /**
      * The WMCreateWriterNetworkSink function creates a writer network sink object.
      * @returns {IWMWriterNetworkSink} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriternetworksink">IWMWriterNetworkSink</a> interface of the newly created writer network sink object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatewriternetworksink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatewriternetworksink
      * @since windows5.0
      */
     static WMCreateWriterNetworkSink() {
@@ -1945,7 +1947,7 @@ class WindowsMediaFormat {
     /**
      * The WMCreateWriterPushSink function creates a writer push sink object. Push sinks are used to deliver streaming content to other media servers for distribution.
      * @returns {IWMWriterPushSink} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmwriterpushsink">IWMWriterPushSink</a> interface of the newly created writer push sink object.
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-wmcreatewriterpushsink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-wmcreatewriterpushsink
      * @since windows5.0
      */
     static WMCreateWriterPushSink() {

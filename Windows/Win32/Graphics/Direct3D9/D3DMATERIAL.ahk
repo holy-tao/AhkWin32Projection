@@ -3,6 +3,12 @@
 #Include .\D3DCOLORVALUE.ahk
 
 /**
+ * Specifies material properties.
+ * @remarks
+ * To turn off specular highlights, set D3DRS\_SPECULARENABLE to **FALSE**, using [**D3DRENDERSTATETYPE**](./d3drenderstatetype.md). This is the fastest option because no specular highlights will be calculated.
+ * 
+ * For more information about using the lighting engine to calculate specular lighting, see [Specular Lighting (Direct3D 9)](specular-lighting.md).
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dmaterial9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

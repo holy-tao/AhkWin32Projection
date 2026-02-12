@@ -5,7 +5,7 @@
  * Specifies the lifetime of a virtual camera.
  * @remarks
  * Values from this enumeration are passed into [MFCreateVirtualCamera](nf-mfvirtualcamera-mfcreatevirtualcamera.md).
- * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/ne-mfvirtualcamera-mfvirtualcameralifetime
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfvirtualcamera/ne-mfvirtualcamera-mfvirtualcameralifetime
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

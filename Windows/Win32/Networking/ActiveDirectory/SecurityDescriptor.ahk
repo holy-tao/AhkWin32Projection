@@ -7,7 +7,7 @@
  * For scripting development, the security descriptor of a task is specified using the [**RegistrationInfo.SecurityDescriptor**](registrationinfo-securitydescriptor.md) property.
  * 
  * For C++ development, the security descriptor of a task is specified using the [**IRegistrationInfo::SecurityDescriptor**](/windows/desktop/api/taskschd/nf-taskschd-iregistrationinfo-get_securitydescriptor) property.
- * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-securitydescriptor-registrationinfotype-element
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/TaskSchd/taskschedulerschema-securitydescriptor-registrationinfotype-element
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

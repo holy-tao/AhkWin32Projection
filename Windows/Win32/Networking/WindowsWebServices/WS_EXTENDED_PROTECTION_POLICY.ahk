@@ -3,7 +3,7 @@
 
 /**
  * Defines if Extended Protection data should be validated.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_extended_protection_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_extended_protection_policy
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

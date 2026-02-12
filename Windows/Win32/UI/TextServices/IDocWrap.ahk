@@ -41,17 +41,25 @@ class IDocWrap extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDoc(riid, punk) {
-        result := ComCall(3, this, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     GetWrappedDoc(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
-        return IUnknown(ppunk)
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunk
     }
 }

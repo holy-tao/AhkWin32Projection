@@ -34,28 +34,48 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOutput(pOutput) {
-        result := ComCall(3, this, "ptr", pOutput, "HRESULT")
+        result := ComCall(3, this, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {Integer} nProperty 
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getproperty
      */
     GetProperty(nProperty) {
-        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppValue
     }
 
     /**
-     * 
+     * Sets Interaction Context object properties.
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      */
     SetProperty(nProperty, pValue) {
-        result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +86,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteAttributes(pReader, fWriteDefaultAttributes) {
-        result := ComCall(6, this, "ptr", pReader, "int", fWriteDefaultAttributes, "HRESULT")
+        result := ComCall(6, this, "ptr", pReader, "int", fWriteDefaultAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +106,11 @@ class IXmlWriterLite extends IUnknown{
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(7, this, "ptr", pwszQName, "uint", cwszQName, "ptr", pwszValue, "uint", cwszValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszQName, "uint", cwszQName, "ptr", pwszValue, "uint", cwszValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +122,11 @@ class IXmlWriterLite extends IUnknown{
     WriteCData(pwszText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(8, this, "ptr", pwszText, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +136,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteCharEntity(wch) {
-        result := ComCall(9, this, "char", wch, "HRESULT")
+        result := ComCall(9, this, "char", wch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +153,11 @@ class IXmlWriterLite extends IUnknown{
     WriteChars(pwch, cwch) {
         pwch := pwch is String ? StrPtr(pwch) : pwch
 
-        result := ComCall(10, this, "ptr", pwch, "uint", cwch, "HRESULT")
+        result := ComCall(10, this, "ptr", pwch, "uint", cwch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +169,11 @@ class IXmlWriterLite extends IUnknown{
     WriteComment(pwszComment) {
         pwszComment := pwszComment is String ? StrPtr(pwszComment) : pwszComment
 
-        result := ComCall(11, this, "ptr", pwszComment, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszComment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +191,11 @@ class IXmlWriterLite extends IUnknown{
         pwszSystemId := pwszSystemId is String ? StrPtr(pwszSystemId) : pwszSystemId
         pwszSubset := pwszSubset is String ? StrPtr(pwszSubset) : pwszSubset
 
-        result := ComCall(12, this, "ptr", pwszName, "ptr", pwszPublicId, "ptr", pwszSystemId, "ptr", pwszSubset, "HRESULT")
+        result := ComCall(12, this, "ptr", pwszName, "ptr", pwszPublicId, "ptr", pwszSystemId, "ptr", pwszSubset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +210,11 @@ class IXmlWriterLite extends IUnknown{
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
         pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
-        result := ComCall(13, this, "ptr", pwszQName, "uint", cwszQName, "ptr", pwszValue, "HRESULT")
+        result := ComCall(13, this, "ptr", pwszQName, "uint", cwszQName, "ptr", pwszValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +223,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteEndDocument() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,7 +240,11 @@ class IXmlWriterLite extends IUnknown{
     WriteEndElement(pwszQName, cwszQName) {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
 
-        result := ComCall(15, this, "ptr", pwszQName, "uint", cwszQName, "HRESULT")
+        result := ComCall(15, this, "ptr", pwszQName, "uint", cwszQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +256,11 @@ class IXmlWriterLite extends IUnknown{
     WriteEntityRef(pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(16, this, "ptr", pwszName, "HRESULT")
+        result := ComCall(16, this, "ptr", pwszName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -209,7 +273,11 @@ class IXmlWriterLite extends IUnknown{
     WriteFullEndElement(pwszQName, cwszQName) {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
 
-        result := ComCall(17, this, "ptr", pwszQName, "uint", cwszQName, "HRESULT")
+        result := ComCall(17, this, "ptr", pwszQName, "uint", cwszQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,7 +289,11 @@ class IXmlWriterLite extends IUnknown{
     WriteName(pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(18, this, "ptr", pwszName, "HRESULT")
+        result := ComCall(18, this, "ptr", pwszName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -233,7 +305,11 @@ class IXmlWriterLite extends IUnknown{
     WriteNmToken(pwszNmToken) {
         pwszNmToken := pwszNmToken is String ? StrPtr(pwszNmToken) : pwszNmToken
 
-        result := ComCall(19, this, "ptr", pwszNmToken, "HRESULT")
+        result := ComCall(19, this, "ptr", pwszNmToken, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -244,7 +320,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteNode(pReader, fWriteDefaultAttributes) {
-        result := ComCall(20, this, "ptr", pReader, "int", fWriteDefaultAttributes, "HRESULT")
+        result := ComCall(20, this, "ptr", pReader, "int", fWriteDefaultAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,7 +335,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteNodeShallow(pReader, fWriteDefaultAttributes) {
-        result := ComCall(21, this, "ptr", pReader, "int", fWriteDefaultAttributes, "HRESULT")
+        result := ComCall(21, this, "ptr", pReader, "int", fWriteDefaultAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +353,11 @@ class IXmlWriterLite extends IUnknown{
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(22, this, "ptr", pwszName, "ptr", pwszText, "HRESULT")
+        result := ComCall(22, this, "ptr", pwszName, "ptr", pwszText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -281,7 +369,11 @@ class IXmlWriterLite extends IUnknown{
     WriteRaw(pwszData) {
         pwszData := pwszData is String ? StrPtr(pwszData) : pwszData
 
-        result := ComCall(23, this, "ptr", pwszData, "HRESULT")
+        result := ComCall(23, this, "ptr", pwszData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -294,7 +386,11 @@ class IXmlWriterLite extends IUnknown{
     WriteRawChars(pwch, cwch) {
         pwch := pwch is String ? StrPtr(pwch) : pwch
 
-        result := ComCall(24, this, "ptr", pwch, "uint", cwch, "HRESULT")
+        result := ComCall(24, this, "ptr", pwch, "uint", cwch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -304,7 +400,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteStartDocument(standalone) {
-        result := ComCall(25, this, "int", standalone, "HRESULT")
+        result := ComCall(25, this, "int", standalone, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -317,7 +417,11 @@ class IXmlWriterLite extends IUnknown{
     WriteStartElement(pwszQName, cwszQName) {
         pwszQName := pwszQName is String ? StrPtr(pwszQName) : pwszQName
 
-        result := ComCall(26, this, "ptr", pwszQName, "uint", cwszQName, "HRESULT")
+        result := ComCall(26, this, "ptr", pwszQName, "uint", cwszQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -329,7 +433,11 @@ class IXmlWriterLite extends IUnknown{
     WriteString(pwszText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(27, this, "ptr", pwszText, "HRESULT")
+        result := ComCall(27, this, "ptr", pwszText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -340,7 +448,11 @@ class IXmlWriterLite extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteSurrogateCharEntity(wchLow, wchHigh) {
-        result := ComCall(28, this, "char", wchLow, "char", wchHigh, "HRESULT")
+        result := ComCall(28, this, "char", wchLow, "char", wchHigh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -352,16 +464,28 @@ class IXmlWriterLite extends IUnknown{
     WriteWhitespace(pwszWhitespace) {
         pwszWhitespace := pwszWhitespace is String ? StrPtr(pwszWhitespace) : pwszWhitespace
 
-        result := ComCall(29, this, "ptr", pwszWhitespace, "HRESULT")
+        result := ComCall(29, this, "ptr", pwszWhitespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Clears the forward buffers for the stream and writes any buffered data to the configuration file.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-flush
      */
     Flush() {
-        result := ComCall(30, this, "HRESULT")
+        result := ComCall(30, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -35,7 +35,11 @@ class ITravelLogClient extends IUnknown{
      * @returns {IUnknown} 
      */
     FindWindowByIndex(dwID) {
-        result := ComCall(3, this, "uint", dwID, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwID, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 
@@ -46,7 +50,11 @@ class ITravelLogClient extends IUnknown{
      */
     GetWindowData(pStream) {
         pWinData := WINDOWDATA()
-        result := ComCall(4, this, "ptr", pStream, "ptr", pWinData, "HRESULT")
+        result := ComCall(4, this, "ptr", pStream, "ptr", pWinData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pWinData
     }
 
@@ -59,7 +67,11 @@ class ITravelLogClient extends IUnknown{
     LoadHistoryPosition(pszUrlLocation, dwPosition) {
         pszUrlLocation := pszUrlLocation is String ? StrPtr(pszUrlLocation) : pszUrlLocation
 
-        result := ComCall(5, this, "ptr", pszUrlLocation, "uint", dwPosition, "HRESULT")
+        result := ComCall(5, this, "ptr", pszUrlLocation, "uint", dwPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,13 +5,10 @@
 #Include .\IWindowsDriverUpdate.ahk
 
 /**
- * Contains the properties and methods that are available only from a Windows driver update.
+ * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate2)
  * @remarks
- * 
  * This interface can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method on an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate">IUpdate</a> interface only if the interface represents a Windows Driver update.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsdriverupdate2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iwindowsdriverupdate2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -60,35 +57,49 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
     /**
      * Gets a Boolean value that indicates whether the computer must be restarted after you install or uninstall an update.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-get_rebootrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsdriverupdate2-get_rebootrequired
      */
     get_RebootRequired() {
-        result := ComCall(60, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(60, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether an update is installed on a computer.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-get_ispresent
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsdriverupdate2-get_ispresent
      */
     get_IsPresent() {
-        result := ComCall(61, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(61, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Contains a collection of the Common Vulnerabilities and Exposures (CVE) identifiers that are associated with an update.
      * @returns {IStringCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-get_cveids
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsdriverupdate2-get_cveids
      */
     get_CveIDs() {
-        result := ComCall(62, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(62, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStringCollection(retval)
     }
 
     /**
      * Copies the external update binaries to an update.
+     * @remarks
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is  implementing the interface has been locked down.
      * @param {IStringCollection} pFiles An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-istringcollection">IStringCollection</a> interface that contains the strings to be copied to an update.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code. 
      * 
@@ -133,10 +144,14 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate2-copytocache
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iwindowsdriverupdate2-copytocache
      */
     CopyToCache(pFiles) {
-        result := ComCall(63, this, "ptr", pFiles, "HRESULT")
+        result := ComCall(63, this, "ptr", pFiles, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

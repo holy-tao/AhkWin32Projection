@@ -21,7 +21,7 @@
  * <li>DXGI_FORMAT_R32G32B32 if the view will be used to bind a buffer (vertex, index, constant, or stream-output).</li>
  * </ul>
  * If the format is set to DXGI_FORMAT_UNKNOWN, then the format of the resource that the view binds to the pipeline will be used.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ns-d3d11_3-d3d11_render_target_view_desc1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/ns-d3d11_3-d3d11_render_target_view_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

@@ -5,8 +5,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * TBD
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12virtualizationguestdevice
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12virtualizationguestdevice
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -32,26 +34,34 @@ class ID3D12VirtualizationGuestDevice extends IUnknown{
     static VTableNames => ["ShareWithHost", "CreateFenceFd"]
 
     /**
-     * 
+     * TBD
      * @param {ID3D12DeviceChild} pObject 
      * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12virtualizationguestdevice-sharewithhost
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12virtualizationguestdevice-sharewithhost
      */
     ShareWithHost(pObject) {
         pHandle := HANDLE()
-        result := ComCall(3, this, "ptr", pObject, "ptr", pHandle, "HRESULT")
+        result := ComCall(3, this, "ptr", pObject, "ptr", pHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHandle
     }
 
     /**
-     * 
+     * TBD
      * @param {ID3D12Fence} pFence 
      * @param {Integer} FenceValue 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12virtualizationguestdevice-createfencefd
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12virtualizationguestdevice-createfencefd
      */
     CreateFenceFd(pFence, FenceValue) {
-        result := ComCall(4, this, "ptr", pFence, "uint", FenceValue, "int*", &pFenceFd := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pFence, "uint", FenceValue, "int*", &pFenceFd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFenceFd
     }
 }

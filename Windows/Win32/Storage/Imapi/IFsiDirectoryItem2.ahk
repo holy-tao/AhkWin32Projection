@@ -7,15 +7,12 @@
 /**
  * Use this interface to add a directory tree, which includes all sub-directories, files, and associated named streams to a file system image.
  * @remarks
- * 
  * All sub-directories, files, and associated named streams can only be added after the directory item has been  added to the file system image.
  * 
  * UDF must be enabled and set to UDF revision 2.00 or later in order to enable named stream support during the creation of the file system image.
  * 
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ifsidirectoryitem2
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nn-imapi2fs-ifsidirectoryitem2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -42,6 +39,21 @@ class IFsiDirectoryItem2 extends IFsiDirectoryItem{
 
     /**
      * Adds the contents of a directory tree along with named streams associated with all files to the file system image.
+     * @remarks
+     * The parent directory for the new sub-directory must already exist within the file system image.
+     * 
+     * The sub-directory structure within specified <i>sourceDirectory</i> is implicitly mirrored in the file system image. 
+     * If file or directory collisions occur, the content of the specified source directory prevails. 
+     * 
+     * The file system image is overwritten with the appropriate directories and files from the source directory.
+     * If an exception occurs during processing, the file system image reverts to its previous state.
+     * 
+     * If this method is invoked for a file system object that does not contain UDF in the list of file systems enabled for creation in the resultant image or if the UDF revision is below 2.00, this method returns success code <b>IMAPI_S_IMAGE_FEATURE_NOT_SUPPORTED</b>. This indicates that the named streams have been added but will not appear in the resultant file system image unless UDF revision 2.00 or higher is enabled in the file system object.
+     * 
+     * 
+     * When utilizing alternate data streams (ADS) it is important to note that the file system image has a limitation of  1000 streams. Exceeding this number will result in lost data.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {BSTR} sourceDirectory String that contains the relative path of the directory tree to create. The path should contain only valid characters as per file system naming conventions. 
      * This parameter cannot be <b>NULL</b>. 
      * 
@@ -123,7 +135,7 @@ class IFsiDirectoryItem2 extends IFsiDirectoryItem{
      * </dl>
      * </td>
      * <td width="60%">
-     * The referenced <a href="/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> object is in read only mode.
+     * The referenced <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> object is in read only mode.
      * 
      * </td>
      * </tr>
@@ -176,12 +188,19 @@ class IFsiDirectoryItem2 extends IFsiDirectoryItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsidirectoryitem2-addtreewithnamedstreams
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2fs/nf-imapi2fs-ifsidirectoryitem2-addtreewithnamedstreams
      */
     AddTreeWithNamedStreams(sourceDirectory, includeBaseDirectory) {
-        sourceDirectory := sourceDirectory is String ? BSTR.Alloc(sourceDirectory).Value : sourceDirectory
+        if(sourceDirectory is String) {
+            pin := BSTR.Alloc(sourceDirectory)
+            sourceDirectory := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", sourceDirectory, "short", includeBaseDirectory, "HRESULT")
+        result := ComCall(29, this, "ptr", sourceDirectory, "short", includeBaseDirectory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

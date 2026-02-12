@@ -13,7 +13,7 @@
  * For more information about shared-mode and exclusive-mode streams, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/user-mode-audio-components">User-Mode Audio Components</a>.
  * 
  * Starting with Xbox May 2021 Update, you can open an audio client in exclusive mode on Xbox.
- * @see https://learn.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode
+ * @see https://learn.microsoft.com/windows/win32/api//content/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

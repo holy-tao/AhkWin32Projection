@@ -30,19 +30,23 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown{
 
     /**
      * 
-     * @param {Integer} changeType 
+     * @param {Integer} changeType_ 
      * @param {Integer} contextId 
      * @param {PSTR} contextName 
      * @param {PWSTR} contextMessage 
      * @param {PWSTR} detailsMessage 
      * @returns {HRESULT} 
      */
-    ReportContextChange(changeType, contextId, contextName, contextMessage, detailsMessage) {
+    ReportContextChange(changeType_, contextId, contextName, contextMessage, detailsMessage) {
         contextName := contextName is String ? StrPtr(contextName) : contextName
         contextMessage := contextMessage is String ? StrPtr(contextMessage) : contextMessage
         detailsMessage := detailsMessage is String ? StrPtr(detailsMessage) : detailsMessage
 
-        result := ComCall(3, this, "int", changeType, "int", contextId, "ptr", contextName, "ptr", contextMessage, "ptr", detailsMessage, "HRESULT")
+        result := ComCall(3, this, "int", changeType_, "int", contextId, "ptr", contextName, "ptr", contextMessage, "ptr", detailsMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown{
     ReportError(errorMessage) {
         errorMessage := errorMessage is String ? StrPtr(errorMessage) : errorMessage
 
-        result := ComCall(4, this, "ptr", errorMessage, "HRESULT")
+        result := ComCall(4, this, "ptr", errorMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

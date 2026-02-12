@@ -7,11 +7,8 @@
 /**
  * Represents a DirectX Video Acceleration (DXVA) video decoder device.
  * @remarks
- * 
  * The <b>IDirectXVideoDecoder</b> methods make calls to the Direct3D device. Therefore, the <b>D3DCREATE</b> flags that you specify  when creating the device can affect the behavior of this interface. For example, if you specify the <b>D3DCREATE_MULTITHREADED</b> flag, the Direct3D global critical section will be held during decode operations.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nn-dxva2api-idirectxvideodecoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nn-dxva2api-idirectxvideodecoder
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,15 +36,23 @@ class IDirectXVideoDecoder extends IUnknown{
     /**
      * Retrieves the DirectX Video Acceleration (DXVA) decoder service that created this decoder device.
      * @returns {IDirectXVideoDecoderService} Receives a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nn-dxva2api-idirectxvideodecoderservice">IDirectXVideoDecoderService</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-getvideodecoderservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-getvideodecoderservice
      */
     GetVideoDecoderService() {
-        result := ComCall(3, this, "ptr*", &ppService := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppService := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectXVideoDecoderService(ppService)
     }
 
     /**
-     * Retrieves the parameters that were used to create this device.
+     * Retrieves the parameters that were used to create this device. (IDirectXVideoDecoder.GetCreationParameters)
+     * @remarks
+     * You can set any parameter to <b>NULL</b> if you are not interested in the result. At least one parameter must be non-<b>NULL</b>.
+     * 
+     * If you specify a non-<b>NULL</b> value for <i>pppDecoderRenderTargets</i> (to receive the render target surfaces), then <i>pNumSurfaces</i> cannot be <b>NULL</b>, because it receives the size of the array returned in <i>pppDecoderRenderTargets</i>.
      * @param {Pointer<Guid>} pDeviceGuid Receives the device GUID. This parameter can be <b>NULL</b>.
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_videodesc">DXVA2_VideoDesc</a> structure that receives a description of the video format. This parameter can be <b>NULL</b>.
      * @param {Pointer<DXVA2_ConfigPictureDecode>} pConfig Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_configpicturedecode">DXVA2_ConfigPictureDecode</a> structure structure that receives the decoder configuration. This parameter can be <b>NULL</b>.
@@ -83,18 +88,26 @@ class IDirectXVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-getcreationparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-getcreationparameters
      */
     GetCreationParameters(pDeviceGuid, pVideoDesc, pConfig, pDecoderRenderTargets, pNumSurfaces) {
         pDecoderRenderTargetsMarshal := pDecoderRenderTargets is VarRef ? "ptr*" : "ptr"
         pNumSurfacesMarshal := pNumSurfaces is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "ptr", pConfig, pDecoderRenderTargetsMarshal, pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "HRESULT")
+        result := ComCall(4, this, "ptr", pDeviceGuid, "ptr", pVideoDesc, "ptr", pConfig, pDecoderRenderTargetsMarshal, pDecoderRenderTargets, pNumSurfacesMarshal, pNumSurfaces, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a pointer to a DirectX Video Acceleration (DXVA) decoder buffer.
+     * @remarks
+     * The method locks the Direct3D surface that contains the buffer. When you are done using the buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoder-releasebuffer">IDirectXVideoDecoder::ReleaseBuffer</a> to unlock the surface.
+     * 
+     * This method might block if too many operations have been queued on the GPU. The method unblocks when a free buffer becomes available.
      * @param {Integer} BufferType 
      * @param {Pointer<Pointer<Void>>} ppBuffer Receives a pointer to the start of the memory buffer.
      * @param {Pointer<Integer>} pBufferSize Receives the size of the buffer, in bytes.
@@ -117,13 +130,17 @@ class IDirectXVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-getbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-getbuffer
      */
     GetBuffer(BufferType, ppBuffer, pBufferSize) {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", BufferType, ppBufferMarshal, ppBuffer, pBufferSizeMarshal, pBufferSize, "HRESULT")
+        result := ComCall(5, this, "uint", BufferType, ppBufferMarshal, ppBuffer, pBufferSizeMarshal, pBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,15 +166,27 @@ class IDirectXVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-releasebuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-releasebuffer
      */
     ReleaseBuffer(BufferType) {
-        result := ComCall(6, this, "uint", BufferType, "HRESULT")
+        result := ComCall(6, this, "uint", BufferType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Starts the decoding operation.
+     * @remarks
+     * After this method is called, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoder-execute">IDirectXVideoDecoder::Execute</a> to perform decoding operations. When all decoding operations have been executed, call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoder-endframe">IDirectXVideoDecoder::EndFrame</a>.
+     * 
+     * Each call to <b>BeginFrame</b> must have a matching call to <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoder-endframe">EndFrame</a>, and <b>BeginFrame</b> calls cannot be nested.
+     * 
+     * DXVA 1.0 migration note: Unlike the <b>IAMVideoAccelerator::BeginFrame</b> method, which specifies the buffer as an index, this method takes a pointer directly to the uncompressed buffer.
+     * 
+     * The surface pointed to by <i>pRenderTarget</i> must be created by calling <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoaccelerationservice-createsurface">IDirectXVideoAccelerationService::CreateSurface</a> with the value DXVA2_VideoDecoderRenderTarget for <i>DxvaType</i>.
      * @param {IDirect3DSurface9} pRenderTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dsurface9">IDirect3DSurface9</a> interface of the render target where the decoded frame will be written.
      * @param {Pointer<Void>} pvPVPData Reserved; set to <b>NULL</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -190,12 +219,16 @@ class IDirectXVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-beginframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-beginframe
      */
     BeginFrame(pRenderTarget, pvPVPData) {
         pvPVPDataMarshal := pvPVPData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pRenderTarget, pvPVPDataMarshal, pvPVPData, "HRESULT")
+        result := ComCall(7, this, "ptr", pRenderTarget, pvPVPDataMarshal, pvPVPData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,15 +254,21 @@ class IDirectXVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-endframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-endframe
      */
     EndFrame(pHandleComplete) {
-        result := ComCall(8, this, "ptr", pHandleComplete, "HRESULT")
+        result := ComCall(8, this, "ptr", pHandleComplete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Executes a decoding operation on the current frame.
+     * @remarks
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideodecoder-beginframe">IDirectXVideoDecoder::BeginFrame</a> before calling this method.
      * @param {Pointer<DXVA2_DecodeExecuteParams>} pExecuteParams Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_decodeexecuteparams">DXVA2_DecodeExecuteParams</a> structure that contains the information needed for the decoding operation.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -250,10 +289,14 @@ class IDirectXVideoDecoder extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideodecoder-execute
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/nf-dxva2api-idirectxvideodecoder-execute
      */
     Execute(pExecuteParams) {
-        result := ComCall(9, this, "ptr", pExecuteParams, "HRESULT")
+        result := ComCall(9, this, "ptr", pExecuteParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

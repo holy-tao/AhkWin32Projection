@@ -6,12 +6,10 @@
 /**
  * Exposes a method that enables the callback of a context menu. For example, to add a shield icon to a menuItem that requires elevation.
  * @remarks
- * 
  * This is the callback interface specified in the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-defcontextmenu">DEFCONTEXTMENU</a> structure passed with the function <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreatedefaultcontextmenu">SHCreateDefaultContextMenu</a>.
  * 
  * This interface enables <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> implementations to manage context menu messages before, after, and during the context menu handling of these messages.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-icontextmenucb
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-icontextmenucb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -57,85 +55,91 @@ class IContextMenuCB extends IUnknown{
      * <table class="clsStd">
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/registering-control-panel-items">DFM_MERGECONTEXTMENU</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-mergecontextmenu">DFM_MERGECONTEXTMENU</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/preview-handler-guidelines">DFM_INVOKECOMMAND</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-invokecommand">DFM_INVOKECOMMAND</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/miscellaneous-topics-bumper">DFM_GETHELPTEXT</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-gethelptext">DFM_GETHELPTEXT</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/navigating-the-shell-namespace-bumper">DFM_GETHELPTEXTW</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-gethelptextw">DFM_GETHELPTEXTW</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/dfm-wm-measureitem">DFM_WM_MEASUREITEM</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-wm-measureitem">DFM_WM_MEASUREITEM</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/dfm-wm-drawitem">DFM_WM_DRAWITEM</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-wm-drawitem">DFM_WM_DRAWITEM</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/samples-automaticjumplist">DFM_WM_INITMENUPOPUP</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-wm-initmenupopup">DFM_WM_INITMENUPOPUP</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/samples-appusermodelidwindowproperty">DFM_VALIDATECMD</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-validatecmd">DFM_VALIDATECMD</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/prophand-content-view">DFM_INVOKECOMMANDEX</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-invokecommandex">DFM_INVOKECOMMANDEX</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/propsheet-handlers">DFM_MAPCOMMANDNAME</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-mapcommandname">DFM_MAPCOMMANDNAME</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/library-ovw">DFM_GETDEFSTATICID</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-getdefstaticid">DFM_GETDEFSTATICID</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/nse-junction">DFM_GETVERB</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-getverb">DFM_GETVERB</a>
      * </td>
      * </tr>
      * <tr>
      * <td>
-     * <a href="https://docs.microsoft.com/windows/desktop/shell/reg-middleware-apps">DFM_MERGECONTEXTMENU_BOTTOM</a>
+     * <a href="https://docs.microsoft.com/windows/win32/shell/dfm-mergecontextmenu-bottom">DFM_MERGECONTEXTMENU_BOTTOM</a>
      * </td>
      * </tr>
      * </table>
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Data specific to the notification specified in <i>uMsg</i>. See the individual notification page for specific requirements.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Data specific to the notification specified in <i>uMsg</i>. See the individual notification page for specific requirements.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icontextmenucb-callback
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-icontextmenucb-callback
      */
-    CallBack(psf, hwndOwner, pdtobj, uMsg, wParam, lParam) {
+    CallBack(psf, hwndOwner, pdtobj, uMsg, wParam_, lParam_) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := ComCall(3, this, "ptr", psf, "ptr", hwndOwner, "ptr", pdtobj, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+        result := ComCall(3, this, "ptr", psf, "ptr", hwndOwner, "ptr", pdtobj, "uint", uMsg, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

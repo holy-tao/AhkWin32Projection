@@ -35,7 +35,7 @@
  * 
  * > [!NOTE]
  * > The wingdi.h header defines DEVMODE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodew
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-devmodew
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  * @charset Unicode

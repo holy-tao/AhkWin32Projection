@@ -5,7 +5,7 @@
 
 /**
  * ILatLongReport represents a location report that contains information in the form of latitude and longitude.
- * @see https://docs.microsoft.com/windows/win32/api//locationapi/nn-locationapi-ilatlongreport
+ * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nn-locationapi-ilatlongreport
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319
  */
@@ -39,50 +39,72 @@ class ILatLongReport extends ILocationReport{
     /**
      * Retrieves the latitude, in degrees.
      * @returns {Float} Address of a <b>DOUBLE</b> that receives the latitude.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilatlongreport-getlatitude
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilatlongreport-getlatitude
      */
     GetLatitude() {
-        result := ComCall(6, this, "double*", &pLatitude := 0, "HRESULT")
+        result := ComCall(6, this, "double*", &pLatitude := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLatitude
     }
 
     /**
      * Retrieves the longitude, in degrees.
      * @returns {Float} Address of a <b>DOUBLE</b> that receives the longitude.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilatlongreport-getlongitude
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilatlongreport-getlongitude
      */
     GetLongitude() {
-        result := ComCall(7, this, "double*", &pLongitude := 0, "HRESULT")
+        result := ComCall(7, this, "double*", &pLongitude := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLongitude
     }
 
     /**
      * Retrieves a distance from the reported location, in meters. Combined with the location reported as the origin, this radius describes the circle in which the actual location is probably located.
      * @returns {Float} Address of a <b>DOUBLE</b> that receives the error radius.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilatlongreport-geterrorradius
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilatlongreport-geterrorradius
      */
     GetErrorRadius() {
-        result := ComCall(8, this, "double*", &pErrorRadius := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &pErrorRadius := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pErrorRadius
     }
 
     /**
      * Retrieves the altitude, in meters. Altitude is relative to the reference ellipsoid.
+     * @remarks
+     * The <b>GetAltitude</b> method retrieves the altitude relative to the reference ellipsoid that is defined by the latest revision of the World Geodetic System (WGS 84), rather than the altitude relative to sea level.
      * @returns {Float} Address of a <b>DOUBLE</b> that receives the altitude, in meters. May be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilatlongreport-getaltitude
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilatlongreport-getaltitude
      */
     GetAltitude() {
-        result := ComCall(9, this, "double*", &pAltitude := 0, "HRESULT")
+        result := ComCall(9, this, "double*", &pAltitude := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAltitude
     }
 
     /**
      * Retrieves the altitude error, in meters.
      * @returns {Float} Address of a <b>DOUBLE</b> that receives the altitude error, in meters. May be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilatlongreport-getaltitudeerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilatlongreport-getaltitudeerror
      */
     GetAltitudeError() {
-        result := ComCall(10, this, "double*", &pAltitudeError := 0, "HRESULT")
+        result := ComCall(10, this, "double*", &pAltitudeError := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAltitudeError
     }
 }

@@ -10,7 +10,7 @@
  * The following illustration shows how a linear gradient changes as you change its start and end points.  For the first gradient, the start point is set to (0,0) and the end point to (150, 50); this creates a diagonal gradient that starts at the upper-left corner and extends to the lower-right corner of the area being painted. When you set the start point to (0, 25) and the end point to (150, 25), a horizontal gradient is created. Similarly, setting the start point  to (75, 0) and the end point to (75, 50) creates a vertical gradient. Setting the start point to  (0, 50) and the end point to (150, 0)  creates a diagonal gradient that starts at the lower-left corner and extends to the upper-right corner of the area being painted.
  * 
  * <img alt="Illustration of four gradients with different axes" src="./images/Linear_Gradients.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_linear_gradient_brush_properties
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ns-d2d1-d2d1_linear_gradient_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

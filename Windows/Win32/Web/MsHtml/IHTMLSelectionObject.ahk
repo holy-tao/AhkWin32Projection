@@ -41,25 +41,41 @@ class IHTMLSelectionObject extends IDispatch{
      * @returns {IDispatch} 
      */
     createRange() {
-        result := ComCall(7, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(range)
     }
 
     /**
-     * 
+     * Learn about the emptyString simple type, which is not in use. See requirements and view additional available resources.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/eaphost/eaptlsconnectionpropertiesv1schema-emptystring-simpletype
      */
     empty() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * clearBatch Method (SQLServerStatement)
+     * @remarks
+     * This clearBatch method is specified by the clearBatch method in the java.sql.Statement interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/clearbatch-method-sqlserverstatement
      */
     clear() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +85,11 @@ class IHTMLSelectionObject extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

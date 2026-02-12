@@ -42,7 +42,11 @@ class IMSMQTransaction3 extends IMSMQTransaction2{
      */
     get_ITransaction() {
         pvarITransaction := VARIANT()
-        result := ComCall(12, this, "ptr", pvarITransaction, "HRESULT")
+        result := ComCall(12, this, "ptr", pvarITransaction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarITransaction
     }
 }

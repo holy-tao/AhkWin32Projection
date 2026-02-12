@@ -6,7 +6,7 @@
 
 /**
  * Contains a list of threads. (MINIDUMP_THREAD_EX_LIST)
- * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_ex_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/minidumpapiset/ns-minidumpapiset-minidump_thread_ex_list
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

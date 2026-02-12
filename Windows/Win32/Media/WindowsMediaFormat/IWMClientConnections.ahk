@@ -6,7 +6,7 @@
 
 /**
  * The IWMClientConnections interface manages the collecting of information about clients connected to a writer network sink object.The writer network sink object exposes this interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmclientconnections
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmclientconnections
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IWMClientConnections extends IUnknown{
     /**
      * The GetClientCount method retrieves the number of connected clients.
      * @returns {Integer} Pointer to a count of the clients that are connected.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientcount
      */
     GetClientCount() {
-        result := ComCall(3, this, "uint*", &pcClients := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcClients := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcClients
     }
 
@@ -45,11 +49,15 @@ class IWMClientConnections extends IUnknown{
      * The GetClientProperties method retrieves information, including the IP address and protocol, about a connected client.
      * @param {Integer} dwClientNum <b>DWORD</b> containing the client's index number.
      * @returns {WM_CLIENT_PROPERTIES} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_client_properties">WM_CLIENT_PROPERTIES</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientproperties
      */
     GetClientProperties(dwClientNum) {
         pClientProperties := WM_CLIENT_PROPERTIES()
-        result := ComCall(4, this, "uint", dwClientNum, "ptr", pClientProperties, "HRESULT")
+        result := ComCall(4, this, "uint", dwClientNum, "ptr", pClientProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pClientProperties
     }
 }

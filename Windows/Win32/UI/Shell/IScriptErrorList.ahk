@@ -34,7 +34,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     advanceError() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     retreatError() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {BOOL} 
      */
     canAdvanceError() {
-        result := ComCall(9, this, "int*", &pfCanAdvance := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pfCanAdvance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCanAdvance
     }
 
@@ -61,7 +73,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {BOOL} 
      */
     canRetreatError() {
-        result := ComCall(10, this, "int*", &pfCanRetreat := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pfCanRetreat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCanRetreat
     }
 
@@ -70,7 +86,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {Integer} 
      */
     getErrorLine() {
-        result := ComCall(11, this, "int*", &plLine := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &plLine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plLine
     }
 
@@ -79,7 +99,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {Integer} 
      */
     getErrorChar() {
-        result := ComCall(12, this, "int*", &plChar := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plChar := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plChar
     }
 
@@ -88,7 +112,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {Integer} 
      */
     getErrorCode() {
-        result := ComCall(13, this, "int*", &plCode := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCode
     }
 
@@ -97,9 +125,13 @@ class IScriptErrorList extends IDispatch{
      * @returns {BSTR} 
      */
     getErrorMsg() {
-        pstr := BSTR()
-        result := ComCall(14, this, "ptr", pstr, "HRESULT")
-        return pstr
+        pstr_ := BSTR()
+        result := ComCall(14, this, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pstr_
     }
 
     /**
@@ -107,9 +139,13 @@ class IScriptErrorList extends IDispatch{
      * @returns {BSTR} 
      */
     getErrorUrl() {
-        pstr := BSTR()
-        result := ComCall(15, this, "ptr", pstr, "HRESULT")
-        return pstr
+        pstr_ := BSTR()
+        result := ComCall(15, this, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pstr_
     }
 
     /**
@@ -117,7 +153,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {BOOL} 
      */
     getAlwaysShowLockState() {
-        result := ComCall(16, this, "int*", &pfAlwaysShowLocked := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pfAlwaysShowLocked := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAlwaysShowLocked
     }
 
@@ -126,7 +166,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {BOOL} 
      */
     getDetailsPaneOpen() {
-        result := ComCall(17, this, "int*", &pfDetailsPaneOpen := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pfDetailsPaneOpen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfDetailsPaneOpen
     }
 
@@ -136,7 +180,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     setDetailsPaneOpen(fDetailsPaneOpen) {
-        result := ComCall(18, this, "int", fDetailsPaneOpen, "HRESULT")
+        result := ComCall(18, this, "int", fDetailsPaneOpen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -145,7 +193,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {BOOL} 
      */
     getPerErrorDisplay() {
-        result := ComCall(19, this, "int*", &pfPerErrorDisplay := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &pfPerErrorDisplay := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPerErrorDisplay
     }
 
@@ -155,7 +207,11 @@ class IScriptErrorList extends IDispatch{
      * @returns {HRESULT} 
      */
     setPerErrorDisplay(fPerErrorDisplay) {
-        result := ComCall(20, this, "int", fPerErrorDisplay, "HRESULT")
+        result := ComCall(20, this, "int", fPerErrorDisplay, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

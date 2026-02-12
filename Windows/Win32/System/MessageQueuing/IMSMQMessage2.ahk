@@ -370,7 +370,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Class() {
-        result := ComCall(7, this, "int*", &plClass := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plClass := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plClass
     }
 
@@ -379,7 +383,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_PrivLevel() {
-        result := ComCall(8, this, "int*", &plPrivLevel := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &plPrivLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPrivLevel
     }
 
@@ -389,7 +397,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PrivLevel(lPrivLevel) {
-        result := ComCall(9, this, "int", lPrivLevel, "HRESULT")
+        result := ComCall(9, this, "int", lPrivLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -398,7 +410,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_AuthLevel() {
-        result := ComCall(10, this, "int*", &plAuthLevel := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plAuthLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAuthLevel
     }
 
@@ -408,7 +424,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AuthLevel(lAuthLevel) {
-        result := ComCall(11, this, "int", lAuthLevel, "HRESULT")
+        result := ComCall(11, this, "int", lAuthLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -417,7 +437,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_IsAuthenticated() {
-        result := ComCall(12, this, "short*", &pisAuthenticated := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &pisAuthenticated := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pisAuthenticated
     }
 
@@ -426,7 +450,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Delivery() {
-        result := ComCall(13, this, "int*", &plDelivery := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plDelivery := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plDelivery
     }
 
@@ -436,7 +464,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Delivery(lDelivery) {
-        result := ComCall(14, this, "int", lDelivery, "HRESULT")
+        result := ComCall(14, this, "int", lDelivery, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -445,7 +477,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Trace() {
-        result := ComCall(15, this, "int*", &plTrace := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &plTrace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plTrace
     }
 
@@ -455,7 +491,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Trace(lTrace) {
-        result := ComCall(16, this, "int", lTrace, "HRESULT")
+        result := ComCall(16, this, "int", lTrace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -464,7 +504,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Priority() {
-        result := ComCall(17, this, "int*", &plPriority := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &plPriority := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPriority
     }
 
@@ -474,7 +518,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Priority(lPriority) {
-        result := ComCall(18, this, "int", lPriority, "HRESULT")
+        result := ComCall(18, this, "int", lPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -483,7 +531,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Journal() {
-        result := ComCall(19, this, "int*", &plJournal := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &plJournal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plJournal
     }
 
@@ -493,7 +545,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Journal(lJournal) {
-        result := ComCall(20, this, "int", lJournal, "HRESULT")
+        result := ComCall(20, this, "int", lJournal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -502,7 +558,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IMSMQQueueInfo} 
      */
     get_ResponseQueueInfo_v1() {
-        result := ComCall(21, this, "ptr*", &ppqinfoResponse := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &ppqinfoResponse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfo(ppqinfoResponse)
     }
 
@@ -512,7 +572,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_ResponseQueueInfo_v1(pqinfoResponse) {
-        result := ComCall(22, this, "ptr", pqinfoResponse, "HRESULT")
+        result := ComCall(22, this, "ptr", pqinfoResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -521,7 +585,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_AppSpecific() {
-        result := ComCall(23, this, "int*", &plAppSpecific := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &plAppSpecific := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAppSpecific
     }
 
@@ -531,7 +599,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AppSpecific(lAppSpecific) {
-        result := ComCall(24, this, "int", lAppSpecific, "HRESULT")
+        result := ComCall(24, this, "int", lAppSpecific, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -541,7 +613,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_SourceMachineGuid() {
         pbstrGuidSrcMachine := BSTR()
-        result := ComCall(25, this, "ptr", pbstrGuidSrcMachine, "HRESULT")
+        result := ComCall(25, this, "ptr", pbstrGuidSrcMachine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGuidSrcMachine
     }
 
@@ -550,7 +626,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_BodyLength() {
-        result := ComCall(26, this, "int*", &pcbBody := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &pcbBody := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbBody
     }
 
@@ -560,7 +640,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_Body() {
         pvarBody := VARIANT()
-        result := ComCall(27, this, "ptr", pvarBody, "HRESULT")
+        result := ComCall(27, this, "ptr", pvarBody, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarBody
     }
 
@@ -570,7 +654,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Body(varBody) {
-        result := ComCall(28, this, "ptr", varBody, "HRESULT")
+        result := ComCall(28, this, "ptr", varBody, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -579,7 +667,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IMSMQQueueInfo} 
      */
     get_AdminQueueInfo_v1() {
-        result := ComCall(29, this, "ptr*", &ppqinfoAdmin := 0, "HRESULT")
+        result := ComCall(29, this, "ptr*", &ppqinfoAdmin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfo(ppqinfoAdmin)
     }
 
@@ -589,7 +681,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AdminQueueInfo_v1(pqinfoAdmin) {
-        result := ComCall(30, this, "ptr", pqinfoAdmin, "HRESULT")
+        result := ComCall(30, this, "ptr", pqinfoAdmin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -599,7 +695,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_Id() {
         pvarMsgId := VARIANT()
-        result := ComCall(31, this, "ptr", pvarMsgId, "HRESULT")
+        result := ComCall(31, this, "ptr", pvarMsgId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarMsgId
     }
 
@@ -609,7 +709,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_CorrelationId() {
         pvarMsgId := VARIANT()
-        result := ComCall(32, this, "ptr", pvarMsgId, "HRESULT")
+        result := ComCall(32, this, "ptr", pvarMsgId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarMsgId
     }
 
@@ -619,7 +723,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CorrelationId(varMsgId) {
-        result := ComCall(33, this, "ptr", varMsgId, "HRESULT")
+        result := ComCall(33, this, "ptr", varMsgId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -628,7 +736,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_Ack() {
-        result := ComCall(34, this, "int*", &plAck := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &plAck := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAck
     }
 
@@ -638,7 +750,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Ack(lAck) {
-        result := ComCall(35, this, "int", lAck, "HRESULT")
+        result := ComCall(35, this, "int", lAck, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -648,7 +764,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_Label() {
         pbstrLabel := BSTR()
-        result := ComCall(36, this, "ptr", pbstrLabel, "HRESULT")
+        result := ComCall(36, this, "ptr", pbstrLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrLabel
     }
 
@@ -658,9 +778,16 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Label(bstrLabel) {
-        bstrLabel := bstrLabel is String ? BSTR.Alloc(bstrLabel).Value : bstrLabel
+        if(bstrLabel is String) {
+            pin := BSTR.Alloc(bstrLabel)
+            bstrLabel := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", bstrLabel, "HRESULT")
+        result := ComCall(37, this, "ptr", bstrLabel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -669,7 +796,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_MaxTimeToReachQueue() {
-        result := ComCall(38, this, "int*", &plMaxTimeToReachQueue := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &plMaxTimeToReachQueue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMaxTimeToReachQueue
     }
 
@@ -679,7 +810,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_MaxTimeToReachQueue(lMaxTimeToReachQueue) {
-        result := ComCall(39, this, "int", lMaxTimeToReachQueue, "HRESULT")
+        result := ComCall(39, this, "int", lMaxTimeToReachQueue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -688,7 +823,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_MaxTimeToReceive() {
-        result := ComCall(40, this, "int*", &plMaxTimeToReceive := 0, "HRESULT")
+        result := ComCall(40, this, "int*", &plMaxTimeToReceive := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMaxTimeToReceive
     }
 
@@ -698,7 +837,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_MaxTimeToReceive(lMaxTimeToReceive) {
-        result := ComCall(41, this, "int", lMaxTimeToReceive, "HRESULT")
+        result := ComCall(41, this, "int", lMaxTimeToReceive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -707,7 +850,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_HashAlgorithm() {
-        result := ComCall(42, this, "int*", &plHashAlg := 0, "HRESULT")
+        result := ComCall(42, this, "int*", &plHashAlg := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plHashAlg
     }
 
@@ -717,7 +864,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_HashAlgorithm(lHashAlg) {
-        result := ComCall(43, this, "int", lHashAlg, "HRESULT")
+        result := ComCall(43, this, "int", lHashAlg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -726,7 +877,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_EncryptAlgorithm() {
-        result := ComCall(44, this, "int*", &plEncryptAlg := 0, "HRESULT")
+        result := ComCall(44, this, "int*", &plEncryptAlg := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plEncryptAlg
     }
 
@@ -736,7 +891,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_EncryptAlgorithm(lEncryptAlg) {
-        result := ComCall(45, this, "int", lEncryptAlg, "HRESULT")
+        result := ComCall(45, this, "int", lEncryptAlg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -746,7 +905,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_SentTime() {
         pvarSentTime := VARIANT()
-        result := ComCall(46, this, "ptr", pvarSentTime, "HRESULT")
+        result := ComCall(46, this, "ptr", pvarSentTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarSentTime
     }
 
@@ -756,7 +919,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_ArrivedTime() {
         plArrivedTime := VARIANT()
-        result := ComCall(47, this, "ptr", plArrivedTime, "HRESULT")
+        result := ComCall(47, this, "ptr", plArrivedTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plArrivedTime
     }
 
@@ -765,7 +932,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IMSMQQueueInfo2} 
      */
     get_DestinationQueueInfo() {
-        result := ComCall(48, this, "ptr*", &ppqinfoDest := 0, "HRESULT")
+        result := ComCall(48, this, "ptr*", &ppqinfoDest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfo2(ppqinfoDest)
     }
 
@@ -775,7 +946,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_SenderCertificate() {
         pvarSenderCert := VARIANT()
-        result := ComCall(49, this, "ptr", pvarSenderCert, "HRESULT")
+        result := ComCall(49, this, "ptr", pvarSenderCert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarSenderCert
     }
 
@@ -785,7 +960,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SenderCertificate(varSenderCert) {
-        result := ComCall(50, this, "ptr", varSenderCert, "HRESULT")
+        result := ComCall(50, this, "ptr", varSenderCert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -795,7 +974,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_SenderId() {
         pvarSenderId := VARIANT()
-        result := ComCall(51, this, "ptr", pvarSenderId, "HRESULT")
+        result := ComCall(51, this, "ptr", pvarSenderId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarSenderId
     }
 
@@ -804,7 +987,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_SenderIdType() {
-        result := ComCall(52, this, "int*", &plSenderIdType := 0, "HRESULT")
+        result := ComCall(52, this, "int*", &plSenderIdType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSenderIdType
     }
 
@@ -814,18 +1001,27 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SenderIdType(lSenderIdType) {
-        result := ComCall(53, this, "int", lSenderIdType, "HRESULT")
+        result := ComCall(53, this, "int", lSenderIdType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Send BLOB Data to SQL SERVER Using IROWSETFASTLOAD and ISEQUENTIALSTREAM in (Native Client OLE DB)
      * @param {IMSMQQueue2} DestinationQueue 
      * @param {Pointer<VARIANT>} Transaction 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-ole-db-how-to/send-blob-data-to-sql-server-using-irowsetfastload-and-isequentialstream-ole-db
      */
     Send(DestinationQueue, Transaction) {
-        result := ComCall(54, this, "ptr", DestinationQueue, "ptr", Transaction, "HRESULT")
+        result := ComCall(54, this, "ptr", DestinationQueue, "ptr", Transaction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -834,7 +1030,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     AttachCurrentSecurityContext() {
-        result := ComCall(55, this, "HRESULT")
+        result := ComCall(55, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -843,7 +1043,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_SenderVersion() {
-        result := ComCall(56, this, "int*", &plSenderVersion := 0, "HRESULT")
+        result := ComCall(56, this, "int*", &plSenderVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSenderVersion
     }
 
@@ -853,7 +1057,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_Extension() {
         pvarExtension := VARIANT()
-        result := ComCall(57, this, "ptr", pvarExtension, "HRESULT")
+        result := ComCall(57, this, "ptr", pvarExtension, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarExtension
     }
 
@@ -863,7 +1071,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Extension(varExtension) {
-        result := ComCall(58, this, "ptr", varExtension, "HRESULT")
+        result := ComCall(58, this, "ptr", varExtension, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -873,7 +1085,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_ConnectorTypeGuid() {
         pbstrGuidConnectorType := BSTR()
-        result := ComCall(59, this, "ptr", pbstrGuidConnectorType, "HRESULT")
+        result := ComCall(59, this, "ptr", pbstrGuidConnectorType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrGuidConnectorType
     }
 
@@ -883,9 +1099,16 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ConnectorTypeGuid(bstrGuidConnectorType) {
-        bstrGuidConnectorType := bstrGuidConnectorType is String ? BSTR.Alloc(bstrGuidConnectorType).Value : bstrGuidConnectorType
+        if(bstrGuidConnectorType is String) {
+            pin := BSTR.Alloc(bstrGuidConnectorType)
+            bstrGuidConnectorType := pin.Value
+        }
 
-        result := ComCall(60, this, "ptr", bstrGuidConnectorType, "HRESULT")
+        result := ComCall(60, this, "ptr", bstrGuidConnectorType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -894,7 +1117,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IMSMQQueueInfo2} 
      */
     get_TransactionStatusQueueInfo() {
-        result := ComCall(61, this, "ptr*", &ppqinfoXactStatus := 0, "HRESULT")
+        result := ComCall(61, this, "ptr*", &ppqinfoXactStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfo2(ppqinfoXactStatus)
     }
 
@@ -904,7 +1131,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_DestinationSymmetricKey() {
         pvarDestSymmKey := VARIANT()
-        result := ComCall(62, this, "ptr", pvarDestSymmKey, "HRESULT")
+        result := ComCall(62, this, "ptr", pvarDestSymmKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarDestSymmKey
     }
 
@@ -914,7 +1145,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DestinationSymmetricKey(varDestSymmKey) {
-        result := ComCall(63, this, "ptr", varDestSymmKey, "HRESULT")
+        result := ComCall(63, this, "ptr", varDestSymmKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -924,7 +1159,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_Signature() {
         pvarSignature := VARIANT()
-        result := ComCall(64, this, "ptr", pvarSignature, "HRESULT")
+        result := ComCall(64, this, "ptr", pvarSignature, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarSignature
     }
 
@@ -934,7 +1173,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Signature(varSignature) {
-        result := ComCall(65, this, "ptr", varSignature, "HRESULT")
+        result := ComCall(65, this, "ptr", varSignature, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -943,7 +1186,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_AuthenticationProviderType() {
-        result := ComCall(66, this, "int*", &plAuthProvType := 0, "HRESULT")
+        result := ComCall(66, this, "int*", &plAuthProvType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plAuthProvType
     }
 
@@ -953,7 +1200,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AuthenticationProviderType(lAuthProvType) {
-        result := ComCall(67, this, "int", lAuthProvType, "HRESULT")
+        result := ComCall(67, this, "int", lAuthProvType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -963,7 +1214,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_AuthenticationProviderName() {
         pbstrAuthProvName := BSTR()
-        result := ComCall(68, this, "ptr", pbstrAuthProvName, "HRESULT")
+        result := ComCall(68, this, "ptr", pbstrAuthProvName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrAuthProvName
     }
 
@@ -973,9 +1228,16 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AuthenticationProviderName(bstrAuthProvName) {
-        bstrAuthProvName := bstrAuthProvName is String ? BSTR.Alloc(bstrAuthProvName).Value : bstrAuthProvName
+        if(bstrAuthProvName is String) {
+            pin := BSTR.Alloc(bstrAuthProvName)
+            bstrAuthProvName := pin.Value
+        }
 
-        result := ComCall(69, this, "ptr", bstrAuthProvName, "HRESULT")
+        result := ComCall(69, this, "ptr", bstrAuthProvName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -985,7 +1247,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SenderId(varSenderId) {
-        result := ComCall(70, this, "ptr", varSenderId, "HRESULT")
+        result := ComCall(70, this, "ptr", varSenderId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -994,7 +1260,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_MsgClass() {
-        result := ComCall(71, this, "int*", &plMsgClass := 0, "HRESULT")
+        result := ComCall(71, this, "int*", &plMsgClass := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plMsgClass
     }
 
@@ -1004,7 +1274,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_MsgClass(lMsgClass) {
-        result := ComCall(72, this, "int", lMsgClass, "HRESULT")
+        result := ComCall(72, this, "int", lMsgClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1013,7 +1287,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(73, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(73, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 
@@ -1023,7 +1301,11 @@ class IMSMQMessage2 extends IDispatch{
      */
     get_TransactionId() {
         pvarXactId := VARIANT()
-        result := ComCall(74, this, "ptr", pvarXactId, "HRESULT")
+        result := ComCall(74, this, "ptr", pvarXactId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarXactId
     }
 
@@ -1032,7 +1314,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_IsFirstInTransaction() {
-        result := ComCall(75, this, "short*", &pisFirstInXact := 0, "HRESULT")
+        result := ComCall(75, this, "short*", &pisFirstInXact := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pisFirstInXact
     }
 
@@ -1041,7 +1327,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_IsLastInTransaction() {
-        result := ComCall(76, this, "short*", &pisLastInXact := 0, "HRESULT")
+        result := ComCall(76, this, "short*", &pisLastInXact := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pisLastInXact
     }
 
@@ -1050,7 +1340,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IMSMQQueueInfo2} 
      */
     get_ResponseQueueInfo() {
-        result := ComCall(77, this, "ptr*", &ppqinfoResponse := 0, "HRESULT")
+        result := ComCall(77, this, "ptr*", &ppqinfoResponse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfo2(ppqinfoResponse)
     }
 
@@ -1060,7 +1354,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_ResponseQueueInfo(pqinfoResponse) {
-        result := ComCall(78, this, "ptr", pqinfoResponse, "HRESULT")
+        result := ComCall(78, this, "ptr", pqinfoResponse, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1069,7 +1367,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {IMSMQQueueInfo2} 
      */
     get_AdminQueueInfo() {
-        result := ComCall(79, this, "ptr*", &ppqinfoAdmin := 0, "HRESULT")
+        result := ComCall(79, this, "ptr*", &ppqinfoAdmin := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQQueueInfo2(ppqinfoAdmin)
     }
 
@@ -1079,7 +1381,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AdminQueueInfo(pqinfoAdmin) {
-        result := ComCall(80, this, "ptr", pqinfoAdmin, "HRESULT")
+        result := ComCall(80, this, "ptr", pqinfoAdmin, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1088,7 +1394,11 @@ class IMSMQMessage2 extends IDispatch{
      * @returns {Integer} 
      */
     get_ReceivedAuthenticationLevel() {
-        result := ComCall(81, this, "short*", &psReceivedAuthenticationLevel := 0, "HRESULT")
+        result := ComCall(81, this, "short*", &psReceivedAuthenticationLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psReceivedAuthenticationLevel
     }
 }

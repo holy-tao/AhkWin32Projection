@@ -68,7 +68,11 @@ class IDOMWheelEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_deltaX() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -77,7 +81,11 @@ class IDOMWheelEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_deltaY() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -86,7 +94,11 @@ class IDOMWheelEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_deltaZ() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -95,7 +107,11 @@ class IDOMWheelEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_deltaMode() {
-        result := ComCall(10, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -120,10 +136,20 @@ class IDOMWheelEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initWheelEvent(eventType, canBubble, cancelable, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, buttonArg, relatedTargetArg, modifiersListArg, deltaX, deltaY, deltaZ, deltaMode) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(modifiersListArg is String) {
+            pin := BSTR.Alloc(modifiersListArg)
+            modifiersListArg := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, "ptr", modifiersListArg, "int", deltaX, "int", deltaY, "int", deltaZ, "uint", deltaMode, "HRESULT")
+        result := ComCall(11, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, "ptr", modifiersListArg, "int", deltaX, "int", deltaY, "int", deltaZ, "uint", deltaMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

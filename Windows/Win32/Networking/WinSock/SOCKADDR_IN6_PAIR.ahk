@@ -11,7 +11,7 @@
  * The <b>SOCKADDR_IN6_PAIR</b> structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createsortedaddresspairs">CreateSortedAddressPairs</a> function.  
  * 
  * Note that the <i>Ws2ipdef.h</i> header file is automatically included in <i>Ws2tcpip.h</i> header file, and should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

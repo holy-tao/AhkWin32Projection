@@ -37,7 +37,11 @@ class ITransactionResourceAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     PrepareRequest(fRetaining, grfRM, fWantMoniker, fSinglePhase) {
-        result := ComCall(3, this, "int", fRetaining, "uint", grfRM, "int", fWantMoniker, "int", fSinglePhase, "HRESULT")
+        result := ComCall(3, this, "int", fRetaining, "uint", grfRM, "int", fWantMoniker, "int", fSinglePhase, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class ITransactionResourceAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     CommitRequest(grfRM, pNewUOW) {
-        result := ComCall(4, this, "uint", grfRM, "ptr", pNewUOW, "HRESULT")
+        result := ComCall(4, this, "uint", grfRM, "ptr", pNewUOW, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class ITransactionResourceAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     AbortRequest(pboidReason, fRetaining, pNewUOW) {
-        result := ComCall(5, this, "ptr", pboidReason, "int", fRetaining, "ptr", pNewUOW, "HRESULT")
+        result := ComCall(5, this, "ptr", pboidReason, "int", fRetaining, "ptr", pNewUOW, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class ITransactionResourceAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     TMDown() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

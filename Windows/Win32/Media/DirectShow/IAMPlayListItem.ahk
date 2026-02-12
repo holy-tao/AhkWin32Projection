@@ -34,7 +34,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetFlags() {
-        result := ComCall(3, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
@@ -43,7 +47,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetSourceCount() {
-        result := ComCall(4, this, "uint*", &pdwSources := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwSources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwSources
     }
 
@@ -54,7 +62,11 @@ class IAMPlayListItem extends IUnknown{
      */
     GetSourceURL(dwSourceIndex) {
         pbstrURL := BSTR()
-        result := ComCall(5, this, "uint", dwSourceIndex, "ptr", pbstrURL, "HRESULT")
+        result := ComCall(5, this, "uint", dwSourceIndex, "ptr", pbstrURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrURL
     }
 
@@ -64,7 +76,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetSourceStart(dwSourceIndex) {
-        result := ComCall(6, this, "uint", dwSourceIndex, "int64*", &prtStart := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwSourceIndex, "int64*", &prtStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prtStart
     }
 
@@ -74,7 +90,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetSourceDuration(dwSourceIndex) {
-        result := ComCall(7, this, "uint", dwSourceIndex, "int64*", &prtDuration := 0, "HRESULT")
+        result := ComCall(7, this, "uint", dwSourceIndex, "int64*", &prtDuration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prtDuration
     }
 
@@ -84,7 +104,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetSourceStartMarker(dwSourceIndex) {
-        result := ComCall(8, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMarker
     }
 
@@ -94,7 +118,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetSourceEndMarker(dwSourceIndex) {
-        result := ComCall(9, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwSourceIndex, "uint*", &pdwMarker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMarker
     }
 
@@ -105,7 +133,11 @@ class IAMPlayListItem extends IUnknown{
      */
     GetSourceStartMarkerName(dwSourceIndex) {
         pbstrStartMarker := BSTR()
-        result := ComCall(10, this, "uint", dwSourceIndex, "ptr", pbstrStartMarker, "HRESULT")
+        result := ComCall(10, this, "uint", dwSourceIndex, "ptr", pbstrStartMarker, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStartMarker
     }
 
@@ -116,7 +148,11 @@ class IAMPlayListItem extends IUnknown{
      */
     GetSourceEndMarkerName(dwSourceIndex) {
         pbstrEndMarker := BSTR()
-        result := ComCall(11, this, "uint", dwSourceIndex, "ptr", pbstrEndMarker, "HRESULT")
+        result := ComCall(11, this, "uint", dwSourceIndex, "ptr", pbstrEndMarker, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrEndMarker
     }
 
@@ -126,7 +162,11 @@ class IAMPlayListItem extends IUnknown{
      */
     GetLinkURL() {
         pbstrURL := BSTR()
-        result := ComCall(12, this, "ptr", pbstrURL, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrURL
     }
 
@@ -136,7 +176,11 @@ class IAMPlayListItem extends IUnknown{
      * @returns {Integer} 
      */
     GetScanDuration(dwSourceIndex) {
-        result := ComCall(13, this, "uint", dwSourceIndex, "int64*", &prtScanDuration := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwSourceIndex, "int64*", &prtScanDuration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prtScanDuration
     }
 }

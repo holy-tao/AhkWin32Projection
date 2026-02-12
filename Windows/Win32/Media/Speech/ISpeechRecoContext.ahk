@@ -122,7 +122,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {ISpeechRecognizer} 
      */
     get_Recognizer() {
-        result := ComCall(7, this, "ptr*", &Recognizer := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &Recognizer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechRecognizer(Recognizer)
     }
 
@@ -131,7 +135,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {Integer} 
      */
     get_AudioInputInterferenceStatus() {
-        result := ComCall(8, this, "int*", &Interference := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Interference := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Interference
     }
 
@@ -141,7 +149,11 @@ class ISpeechRecoContext extends IDispatch{
      */
     get_RequestedUIType() {
         UIType := BSTR()
-        result := ComCall(9, this, "ptr", UIType, "HRESULT")
+        result := ComCall(9, this, "ptr", UIType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return UIType
     }
 
@@ -151,7 +163,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_Voice(Voice) {
-        result := ComCall(10, this, "ptr", Voice, "HRESULT")
+        result := ComCall(10, this, "ptr", Voice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +176,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {ISpeechVoice} 
      */
     get_Voice() {
-        result := ComCall(11, this, "ptr*", &Voice := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &Voice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechVoice(Voice)
     }
 
@@ -170,7 +190,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AllowVoiceFormatMatchingOnNextSet(Allow) {
-        result := ComCall(12, this, "short", Allow, "HRESULT")
+        result := ComCall(12, this, "short", Allow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +203,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_AllowVoiceFormatMatchingOnNextSet() {
-        result := ComCall(13, this, "short*", &pAllow := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &pAllow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAllow
     }
 
@@ -189,7 +217,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     put_VoicePurgeEvent(EventInterest) {
-        result := ComCall(14, this, "int", EventInterest, "HRESULT")
+        result := ComCall(14, this, "int", EventInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,7 +230,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {Integer} 
      */
     get_VoicePurgeEvent() {
-        result := ComCall(15, this, "int*", &EventInterest := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &EventInterest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EventInterest
     }
 
@@ -208,7 +244,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     put_EventInterests(EventInterest) {
-        result := ComCall(16, this, "int", EventInterest, "HRESULT")
+        result := ComCall(16, this, "int", EventInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,7 +257,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {Integer} 
      */
     get_EventInterests() {
-        result := ComCall(17, this, "int*", &EventInterest := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &EventInterest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EventInterest
     }
 
@@ -227,7 +271,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CmdMaxAlternates(MaxAlternates) {
-        result := ComCall(18, this, "int", MaxAlternates, "HRESULT")
+        result := ComCall(18, this, "int", MaxAlternates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +284,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {Integer} 
      */
     get_CmdMaxAlternates() {
-        result := ComCall(19, this, "int*", &MaxAlternates := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &MaxAlternates := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MaxAlternates
     }
 
@@ -246,7 +298,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     put_State(State) {
-        result := ComCall(20, this, "int", State, "HRESULT")
+        result := ComCall(20, this, "int", State, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,7 +311,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(21, this, "int*", &State := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &State := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return State
     }
 
@@ -265,7 +325,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     put_RetainedAudio(Option) {
-        result := ComCall(22, this, "int", Option, "HRESULT")
+        result := ComCall(22, this, "int", Option, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -274,7 +338,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {Integer} 
      */
     get_RetainedAudio() {
-        result := ComCall(23, this, "int*", &Option := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &Option := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Option
     }
 
@@ -284,7 +352,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_RetainedAudioFormat(Format) {
-        result := ComCall(24, this, "ptr", Format, "HRESULT")
+        result := ComCall(24, this, "ptr", Format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -293,25 +365,41 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {ISpeechAudioFormat} 
      */
     get_RetainedAudioFormat() {
-        result := ComCall(25, this, "ptr*", &Format := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &Format := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioFormat(Format)
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/pause-method
      */
     Pause() {
-        result := ComCall(26, this, "HRESULT")
+        result := ComCall(26, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/resume-method
      */
     Resume() {
-        result := ComCall(27, this, "HRESULT")
+        result := ComCall(27, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -321,7 +409,11 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {ISpeechRecoGrammar} 
      */
     CreateGrammar(GrammarId) {
-        result := ComCall(28, this, "ptr", GrammarId, "ptr*", &Grammar := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", GrammarId, "ptr*", &Grammar := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechRecoGrammar(Grammar)
     }
 
@@ -331,19 +423,28 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {ISpeechRecoResult} 
      */
     CreateResultFromMemory(ResultBlock) {
-        result := ComCall(29, this, "ptr", ResultBlock, "ptr*", &Result := 0, "HRESULT")
-        return ISpeechRecoResult(Result)
+        result := ComCall(29, this, "ptr", ResultBlock, "ptr*", &Result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ISpeechRecoResult(Result_)
     }
 
     /**
-     * 
+     * Bookmark C Data Type
      * @param {Integer} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/odbc/reference/appendixes/bookmark-c-data-type
      */
     Bookmark(Options, StreamPos, BookmarkId) {
-        result := ComCall(30, this, "int", Options, "ptr", StreamPos, "ptr", BookmarkId, "HRESULT")
+        result := ComCall(30, this, "int", Options, "ptr", StreamPos, "ptr", BookmarkId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -353,9 +454,16 @@ class ISpeechRecoContext extends IDispatch{
      * @returns {HRESULT} 
      */
     SetAdaptationData(AdaptationString) {
-        AdaptationString := AdaptationString is String ? BSTR.Alloc(AdaptationString).Value : AdaptationString
+        if(AdaptationString is String) {
+            pin := BSTR.Alloc(AdaptationString)
+            AdaptationString := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", AdaptationString, "HRESULT")
+        result := ComCall(31, this, "ptr", AdaptationString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

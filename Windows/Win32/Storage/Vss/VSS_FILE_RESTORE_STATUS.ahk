@@ -28,7 +28,7 @@
  *     selectable component with calls to 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getfilerestorestatus">IVssComponent::GetFileRestoreStatus</a>. If
  *     this method is called for a component that was not selected, the value returned is undefined.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_file_restore_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/ne-vswriter-vss_file_restore_status
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

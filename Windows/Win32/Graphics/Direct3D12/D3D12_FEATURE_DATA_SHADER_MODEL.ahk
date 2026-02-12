@@ -10,7 +10,7 @@
  * 
  * > [!NOTE]
  * > **ID3D12Device::CheckFeatureSupport** returns **E_INVALIDARG** if *HighestShaderModel* isn't known by the current runtime. For that reason, we recommend that you call this in a loop with decreasing shader models to determine the highest supported shader model. Alternatively, use the caps checking helper to simplify this; see the blog post [Introducing a New API for Checking Feature Support in Direct3D 12](https://devblogs.microsoft.com/directx/introducing-a-new-api-for-checking-feature-support-in-direct3d-12/).
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_shader_model
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_feature_data_shader_model
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

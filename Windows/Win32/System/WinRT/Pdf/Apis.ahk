@@ -20,7 +20,7 @@ class Pdf {
      * The <b>PdfCreateRenderer</b> function should be called to display single pages of a PDF file,  one at a time. While you could call this function in parallel to display multiple pages at the same time, this could lead to unexpected results.
      * @param {IDXGIDevice} pDevice An instance of a  Microsoft DirectX Graphics Infrastructure (DXGI) object that is used for producing image data.
      * @returns {IPdfRendererNative} An instance of the high-performance <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nn-windows-data-pdf-interop-ipdfrenderernative">IPdfRendererNative</a> interface for  rendering PDF content on a DirectX surface.
-     * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-pdfcreaterenderer
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.data.pdf.interop/nf-windows-data-pdf-interop-pdfcreaterenderer
      */
     static PdfCreateRenderer(pDevice) {
         result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", &ppRenderer := 0, "int")

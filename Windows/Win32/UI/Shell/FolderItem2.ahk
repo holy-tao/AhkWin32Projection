@@ -43,25 +43,41 @@ class FolderItem2 extends FolderItem{
      * @returns {HRESULT} 
      */
     InvokeVerbEx(vVerb, vArgs) {
-        result := ComCall(24, this, "ptr", vVerb, "ptr", vArgs, "HRESULT")
+        result := ComCall(24, this, "ptr", vVerb, "ptr", vArgs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Contains information about an extended property.
+     * Represents a Microsoft-extended property.
      * @remarks
+     * The **ExtendedProperty** object has these types of members:
      * 
-     * This structure is used by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437294(v=vs.85)">IUIAutomationStylesPattern::GetCachedExtendedPropertiesArray</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437295(v=vs.85)">GetCurrentExtendedPropertiesArray</a> methods.
+     * -   [Properties](#properties)
      * 
+     * 
+     * The **ExtendedProperty** object is used by the [**ExtendedProperties**](extendedproperties.md) collection.
+     * 
+     * The **ExtendedProperty** object can be created, and it is not safe for scripting. The ProgID for the **ExtendedProperty** object is CAPICOM.ExtendedProperty.1.
      * @param {BSTR} bstrPropName 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/ns-uiautomationclient-extendedproperty
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/extendedproperty
      */
     ExtendedProperty(bstrPropName) {
-        bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
+        if(bstrPropName is String) {
+            pin := BSTR.Alloc(bstrPropName)
+            bstrPropName := pin.Value
+        }
 
         pvRet := VARIANT()
-        result := ComCall(25, this, "ptr", bstrPropName, "ptr", pvRet, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrPropName, "ptr", pvRet, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvRet
     }
 }

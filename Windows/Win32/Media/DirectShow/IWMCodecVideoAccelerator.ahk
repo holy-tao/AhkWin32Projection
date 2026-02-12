@@ -35,7 +35,11 @@ class IWMCodecVideoAccelerator extends IUnknown{
      * @returns {HRESULT} 
      */
     NegotiateConnection(pIAMVA, pMediaType) {
-        result := ComCall(3, this, "ptr", pIAMVA, "ptr", pMediaType, "HRESULT")
+        result := ComCall(3, this, "ptr", pIAMVA, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IWMCodecVideoAccelerator extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPlayerNotify(pHook) {
-        result := ComCall(4, this, "ptr", pHook, "HRESULT")
+        result := ComCall(4, this, "ptr", pHook, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -9,7 +9,7 @@
  *       
  * 
  *  If the application will composite two or more input streams, use the largest stream for the values of <b>InputWidth</b> and <b>InputHeight</b>.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_content_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_content_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -7,11 +7,8 @@
 /**
  * Represents the result of an asynchronous operation. A client can use the interface to wait for the operation to complete and to get the result.
  * @remarks
- * 
  * IDWriteAsyncResult is returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-begindownload">IDWriteRemoteFontFileStream::BeginDownload</a> for signaling completion of a font download operation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriteasyncresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwriteasyncresult
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -41,22 +38,27 @@ class IDWriteAsyncResult extends IUnknown{
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle that can be used to wait for the asynchronous operation to complete. The handle remains valid until the interface is released.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteasyncresult-getwaithandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwriteasyncresult-getwaithandle
      */
     GetWaitHandle() {
         result := ComCall(3, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Returns the result of the asynchronous operation. The return value is E_PENDING if the operation has not yet completed.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns the result of the asynchronous operation. The return value is E_PENDING if the operation has not yet completed.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteasyncresult-getresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwriteasyncresult-getresult
      */
     GetResult() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

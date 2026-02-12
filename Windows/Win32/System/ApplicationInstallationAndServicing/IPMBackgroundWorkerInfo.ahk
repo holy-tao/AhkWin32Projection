@@ -74,7 +74,11 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      */
     get_ProductID() {
         pProductID := Guid()
-        result := ComCall(3, this, "ptr", pProductID, "HRESULT")
+        result := ComCall(3, this, "ptr", pProductID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProductID
     }
 
@@ -84,7 +88,11 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TaskID(pTaskID) {
-        result := ComCall(4, this, "ptr", pTaskID, "HRESULT")
+        result := ComCall(4, this, "ptr", pTaskID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +102,11 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BGName(pBGName) {
-        result := ComCall(5, this, "ptr", pBGName, "HRESULT")
+        result := ComCall(5, this, "ptr", pBGName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -103,7 +115,11 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_MaxStartupLatency() {
-        result := ComCall(6, this, "uint*", &pMaxStartupLatency := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pMaxStartupLatency := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMaxStartupLatency
     }
 
@@ -112,7 +128,11 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_ExpectedRuntime() {
-        result := ComCall(7, this, "uint*", &pExpectedRuntime := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pExpectedRuntime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pExpectedRuntime
     }
 
@@ -121,7 +141,11 @@ class IPMBackgroundWorkerInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsBootWorker() {
-        result := ComCall(8, this, "int*", &pIsBootWorker := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pIsBootWorker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsBootWorker
     }
 }

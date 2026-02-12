@@ -8,7 +8,7 @@
  *      notification is closed via the 
  *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregbatchclosenotification">ClusterRegBatchCloseNotification</a> 
  *      function.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_batch_command
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-cluster_batch_command
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

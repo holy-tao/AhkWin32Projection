@@ -34,7 +34,11 @@ class IGetDataSource extends IUnknown{
      * @returns {IUnknown} 
      */
     GetDataSource(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppDataSource := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppDataSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDataSource)
     }
 }

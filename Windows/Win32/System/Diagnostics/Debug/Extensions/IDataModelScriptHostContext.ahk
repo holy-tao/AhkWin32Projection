@@ -32,20 +32,28 @@ class IDataModelScriptHostContext extends IUnknown{
     /**
      * 
      * @param {IDataModelScript} script 
-     * @param {Integer} changeKind 
+     * @param {Integer} changeKind_ 
      * @returns {HRESULT} 
      */
-    NotifyScriptChange(script, changeKind) {
-        result := ComCall(3, this, "ptr", script, "int", changeKind, "HRESULT")
+    NotifyScriptChange(script, changeKind_) {
+        result := ComCall(3, this, "ptr", script, "int", changeKind_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
      */
     GetNamespaceObject() {
-        result := ComCall(4, this, "ptr*", &namespaceObject := 0, "HRESULT")
-        return IModelObject(namespaceObject)
+        result := ComCall(4, this, "ptr*", &namespaceObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return namespaceObject
     }
 }

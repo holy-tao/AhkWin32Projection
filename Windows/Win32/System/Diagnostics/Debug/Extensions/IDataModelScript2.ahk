@@ -35,7 +35,11 @@ class IDataModelScript2 extends IDataModelScript{
      */
     GetScriptFullFilePathName() {
         scriptFullPathName := BSTR()
-        result := ComCall(10, this, "ptr", scriptFullPathName, "HRESULT")
+        result := ComCall(10, this, "ptr", scriptFullPathName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return scriptFullPathName
     }
 
@@ -47,7 +51,11 @@ class IDataModelScript2 extends IDataModelScript{
     SetScriptFullFilePathName(scriptFullPathName) {
         scriptFullPathName := scriptFullPathName is String ? StrPtr(scriptFullPathName) : scriptFullPathName
 
-        result := ComCall(11, this, "ptr", scriptFullPathName, "HRESULT")
+        result := ComCall(11, this, "ptr", scriptFullPathName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

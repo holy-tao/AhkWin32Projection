@@ -30,12 +30,16 @@ class IWMPNodeWindowless extends IWMPWindowMessageSink{
 
     /**
      * 
-     * @param {Pointer} hdc 
+     * @param {Pointer} hdc_ 
      * @param {Pointer<RECT>} prcDraw 
      * @returns {HRESULT} 
      */
-    OnDraw(hdc, prcDraw) {
-        result := ComCall(4, this, "ptr", hdc, "ptr", prcDraw, "HRESULT")
+    OnDraw(hdc_, prcDraw) {
+        result := ComCall(4, this, "ptr", hdc_, "ptr", prcDraw, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * The IADsComputer interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadscomputer
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadscomputer
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -172,7 +172,11 @@ class IADsComputer extends IADs{
      */
     get_ComputerID() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -182,7 +186,11 @@ class IADsComputer extends IADs{
      */
     get_Site() {
         retval := BSTR()
-        result := ComCall(21, this, "ptr", retval, "HRESULT")
+        result := ComCall(21, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -192,7 +200,11 @@ class IADsComputer extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -202,9 +214,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -214,7 +233,11 @@ class IADsComputer extends IADs{
      */
     get_Location() {
         retval := BSTR()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -224,9 +247,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Location(bstrLocation) {
-        bstrLocation := bstrLocation is String ? BSTR.Alloc(bstrLocation).Value : bstrLocation
+        if(bstrLocation is String) {
+            pin := BSTR.Alloc(bstrLocation)
+            bstrLocation := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrLocation, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +266,11 @@ class IADsComputer extends IADs{
      */
     get_PrimaryUser() {
         retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        result := ComCall(26, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -246,9 +280,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_PrimaryUser(bstrPrimaryUser) {
-        bstrPrimaryUser := bstrPrimaryUser is String ? BSTR.Alloc(bstrPrimaryUser).Value : bstrPrimaryUser
+        if(bstrPrimaryUser is String) {
+            pin := BSTR.Alloc(bstrPrimaryUser)
+            bstrPrimaryUser := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrPrimaryUser, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrPrimaryUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -258,7 +299,11 @@ class IADsComputer extends IADs{
      */
     get_Owner() {
         retval := BSTR()
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
+        result := ComCall(28, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -268,9 +313,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Owner(bstrOwner) {
-        bstrOwner := bstrOwner is String ? BSTR.Alloc(bstrOwner).Value : bstrOwner
+        if(bstrOwner is String) {
+            pin := BSTR.Alloc(bstrOwner)
+            bstrOwner := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", bstrOwner, "HRESULT")
+        result := ComCall(29, this, "ptr", bstrOwner, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -280,7 +332,11 @@ class IADsComputer extends IADs{
      */
     get_Division() {
         retval := BSTR()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        result := ComCall(30, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -290,9 +346,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Division(bstrDivision) {
-        bstrDivision := bstrDivision is String ? BSTR.Alloc(bstrDivision).Value : bstrDivision
+        if(bstrDivision is String) {
+            pin := BSTR.Alloc(bstrDivision)
+            bstrDivision := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", bstrDivision, "HRESULT")
+        result := ComCall(31, this, "ptr", bstrDivision, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -302,7 +365,11 @@ class IADsComputer extends IADs{
      */
     get_Department() {
         retval := BSTR()
-        result := ComCall(32, this, "ptr", retval, "HRESULT")
+        result := ComCall(32, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -312,9 +379,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Department(bstrDepartment) {
-        bstrDepartment := bstrDepartment is String ? BSTR.Alloc(bstrDepartment).Value : bstrDepartment
+        if(bstrDepartment is String) {
+            pin := BSTR.Alloc(bstrDepartment)
+            bstrDepartment := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", bstrDepartment, "HRESULT")
+        result := ComCall(33, this, "ptr", bstrDepartment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -324,7 +398,11 @@ class IADsComputer extends IADs{
      */
     get_Role() {
         retval := BSTR()
-        result := ComCall(34, this, "ptr", retval, "HRESULT")
+        result := ComCall(34, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -334,9 +412,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Role(bstrRole) {
-        bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
+        if(bstrRole is String) {
+            pin := BSTR.Alloc(bstrRole)
+            bstrRole := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bstrRole, "HRESULT")
+        result := ComCall(35, this, "ptr", bstrRole, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -346,7 +431,11 @@ class IADsComputer extends IADs{
      */
     get_OperatingSystem() {
         retval := BSTR()
-        result := ComCall(36, this, "ptr", retval, "HRESULT")
+        result := ComCall(36, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -356,9 +445,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_OperatingSystem(bstrOperatingSystem) {
-        bstrOperatingSystem := bstrOperatingSystem is String ? BSTR.Alloc(bstrOperatingSystem).Value : bstrOperatingSystem
+        if(bstrOperatingSystem is String) {
+            pin := BSTR.Alloc(bstrOperatingSystem)
+            bstrOperatingSystem := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", bstrOperatingSystem, "HRESULT")
+        result := ComCall(37, this, "ptr", bstrOperatingSystem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -368,7 +464,11 @@ class IADsComputer extends IADs{
      */
     get_OperatingSystemVersion() {
         retval := BSTR()
-        result := ComCall(38, this, "ptr", retval, "HRESULT")
+        result := ComCall(38, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -378,9 +478,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_OperatingSystemVersion(bstrOperatingSystemVersion) {
-        bstrOperatingSystemVersion := bstrOperatingSystemVersion is String ? BSTR.Alloc(bstrOperatingSystemVersion).Value : bstrOperatingSystemVersion
+        if(bstrOperatingSystemVersion is String) {
+            pin := BSTR.Alloc(bstrOperatingSystemVersion)
+            bstrOperatingSystemVersion := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", bstrOperatingSystemVersion, "HRESULT")
+        result := ComCall(39, this, "ptr", bstrOperatingSystemVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -390,7 +497,11 @@ class IADsComputer extends IADs{
      */
     get_Model() {
         retval := BSTR()
-        result := ComCall(40, this, "ptr", retval, "HRESULT")
+        result := ComCall(40, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -400,9 +511,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Model(bstrModel) {
-        bstrModel := bstrModel is String ? BSTR.Alloc(bstrModel).Value : bstrModel
+        if(bstrModel is String) {
+            pin := BSTR.Alloc(bstrModel)
+            bstrModel := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", bstrModel, "HRESULT")
+        result := ComCall(41, this, "ptr", bstrModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -412,7 +530,11 @@ class IADsComputer extends IADs{
      */
     get_Processor() {
         retval := BSTR()
-        result := ComCall(42, this, "ptr", retval, "HRESULT")
+        result := ComCall(42, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -422,9 +544,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_Processor(bstrProcessor) {
-        bstrProcessor := bstrProcessor is String ? BSTR.Alloc(bstrProcessor).Value : bstrProcessor
+        if(bstrProcessor is String) {
+            pin := BSTR.Alloc(bstrProcessor)
+            bstrProcessor := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", bstrProcessor, "HRESULT")
+        result := ComCall(43, this, "ptr", bstrProcessor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -434,7 +563,11 @@ class IADsComputer extends IADs{
      */
     get_ProcessorCount() {
         retval := BSTR()
-        result := ComCall(44, this, "ptr", retval, "HRESULT")
+        result := ComCall(44, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -444,9 +577,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_ProcessorCount(bstrProcessorCount) {
-        bstrProcessorCount := bstrProcessorCount is String ? BSTR.Alloc(bstrProcessorCount).Value : bstrProcessorCount
+        if(bstrProcessorCount is String) {
+            pin := BSTR.Alloc(bstrProcessorCount)
+            bstrProcessorCount := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", bstrProcessorCount, "HRESULT")
+        result := ComCall(45, this, "ptr", bstrProcessorCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -456,7 +596,11 @@ class IADsComputer extends IADs{
      */
     get_MemorySize() {
         retval := BSTR()
-        result := ComCall(46, this, "ptr", retval, "HRESULT")
+        result := ComCall(46, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -466,9 +610,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_MemorySize(bstrMemorySize) {
-        bstrMemorySize := bstrMemorySize is String ? BSTR.Alloc(bstrMemorySize).Value : bstrMemorySize
+        if(bstrMemorySize is String) {
+            pin := BSTR.Alloc(bstrMemorySize)
+            bstrMemorySize := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", bstrMemorySize, "HRESULT")
+        result := ComCall(47, this, "ptr", bstrMemorySize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -478,7 +629,11 @@ class IADsComputer extends IADs{
      */
     get_StorageCapacity() {
         retval := BSTR()
-        result := ComCall(48, this, "ptr", retval, "HRESULT")
+        result := ComCall(48, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -488,9 +643,16 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_StorageCapacity(bstrStorageCapacity) {
-        bstrStorageCapacity := bstrStorageCapacity is String ? BSTR.Alloc(bstrStorageCapacity).Value : bstrStorageCapacity
+        if(bstrStorageCapacity is String) {
+            pin := BSTR.Alloc(bstrStorageCapacity)
+            bstrStorageCapacity := pin.Value
+        }
 
-        result := ComCall(49, this, "ptr", bstrStorageCapacity, "HRESULT")
+        result := ComCall(49, this, "ptr", bstrStorageCapacity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -500,7 +662,11 @@ class IADsComputer extends IADs{
      */
     get_NetAddresses() {
         retval := VARIANT()
-        result := ComCall(50, this, "ptr", retval, "HRESULT")
+        result := ComCall(50, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -510,7 +676,11 @@ class IADsComputer extends IADs{
      * @returns {HRESULT} 
      */
     put_NetAddresses(vNetAddresses) {
-        result := ComCall(51, this, "ptr", vNetAddresses, "HRESULT")
+        result := ComCall(51, this, "ptr", vNetAddresses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

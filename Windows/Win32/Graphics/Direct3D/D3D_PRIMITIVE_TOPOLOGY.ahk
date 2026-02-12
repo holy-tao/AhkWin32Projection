@@ -9,7 +9,7 @@
  * The following diagram shows the various primitive types for a geometry shader object.
  * 
  * <img alt="Illustration of the various primitive types for a geometry shader object" border="" src="./images/D3D11_GSInputs1.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3dcommon/ne-d3dcommon-d3d_primitive_topology
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

@@ -4,8 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioeffectschangednotificationclient
+ * A callback interface allows applications to receive notifications when the list of audio effects changes or the resources needed to enable an effect changes.
+ * @remarks
+ * Register the callback interface by calling [IAudioEffectsManager::RegisterAudioEffectsChangedNotificationCallback](nf-audioclient-iaudioeffectsmanager-registeraudioeffectschangednotificationcallback.md).
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nn-audioclient-iaudioeffectschangednotificationclient
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -31,12 +33,18 @@ class IAudioEffectsChangedNotificationClient extends IUnknown{
     static VTableNames => ["OnAudioEffectsChanged"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioeffectschangednotificationclient-onaudioeffectschanged
+     * Called by the system when the list of audio effects changes or the resources needed to enable an effect changes.
+     * @remarks
+     * Register the callback interface by calling [IAudioEffectsManager::RegisterAudioEffectsChangedNotificationCallback](nf-audioclient-iaudioeffectsmanager-registeraudioeffectschangednotificationcallback.md).
+     * @returns {HRESULT} An HRESULT.
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nf-audioclient-iaudioeffectschangednotificationclient-onaudioeffectschanged
      */
     OnAudioEffectsChanged() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

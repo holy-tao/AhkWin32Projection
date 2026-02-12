@@ -42,7 +42,11 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
         ppwszMappedUrlMarshal := ppwszMappedUrl is VarRef ? "ptr*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, "uint", dwFlags, ppwszMappedUrlMarshal, ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, "uint", dwFlags, ppwszMappedUrlMarshal, ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +68,11 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pUri, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "ptr", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(13, this, "ptr", pUri, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "ptr", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +86,11 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
     GetSecurityIdEx2(pUri, pcbSecurityId, dwReserved) {
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pUri, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        result := ComCall(14, this, "ptr", pUri, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSecurityId
     }
 
@@ -98,7 +110,11 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
         pcbPolicyMarshal := pcbPolicy is VarRef ? "uint*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "HRESULT")
+        result := ComCall(15, this, "ptr", pUri, "ptr", guidKey, ppPolicyMarshal, ppPolicy, pcbPolicyMarshal, pcbPolicy, pContextMarshal, pContext, "uint", cbContext, "ptr", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

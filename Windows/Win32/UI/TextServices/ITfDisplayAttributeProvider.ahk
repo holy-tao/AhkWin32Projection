@@ -7,7 +7,7 @@
 
 /**
  * The ITfDisplayAttributeProvider interface is implemented by a text service and is used by the TSF manager to enumerate and obtain individual display attribute information objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfdisplayattributeprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfdisplayattributeprovider
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class ITfDisplayAttributeProvider extends IUnknown{
     /**
      * ITfDisplayAttributeProvider::EnumDisplayAttributeInfo method
      * @returns {IEnumTfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdisplayattributeinfo">IEnumTfDisplayAttributeInfo</a> interface pointer that receives the enumerator object. The caller must release this interface when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeprovider-enumdisplayattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeprovider-enumdisplayattributeinfo
      */
     EnumDisplayAttributeInfo() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfDisplayAttributeInfo(ppEnum)
     }
 
@@ -46,10 +50,14 @@ class ITfDisplayAttributeProvider extends IUnknown{
      * ITfDisplayAttributeProvider::GetDisplayAttributeInfo method
      * @param {Pointer<Guid>} guid Contains a GUID value that identifies the display attribute to obtain the display attribute information object for. The text service must publish these values and what they indicate. This identifier can also be obtained by enumerating the display attributes for a range of text.
      * @returns {ITfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdisplayattributeinfo">ITfDisplayAttributeInfo</a> interface pointer that receives the display attribute information object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfdisplayattributeprovider-getdisplayattributeinfo
      */
     GetDisplayAttributeInfo(guid) {
-        result := ComCall(4, this, "ptr", guid, "ptr*", &ppInfo := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", guid, "ptr*", &ppInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfDisplayAttributeInfo(ppInfo)
     }
 }

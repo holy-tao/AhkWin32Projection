@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * CLUSTER_REG_COMMAND (msclus.h) enumerates the possible cluster registry commands that a local node will perform when attempting to join a cluster.
+ * CLUSTER_REG_COMMAND (clusapi.h) enumerates the possible cluster registry commands that a local node will perform when attempting to join a cluster.
  * @remarks
  * The <b>CLUSREG_VALUE_DELETED</b> command precedes every <b>CLUSREG_SET_VALUE</b> and <b>CLUSREG_DELETE_VALUE</b> command in the returned notification data, if the value had existing data.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_reg_command
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_reg_command
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class CLUSTER_REG_COMMAND extends Win32Enum{
     static CLUSREG_VALUE_DELETED => 6
 
     /**
-     * 
+     * This command indicates that content was read successfully for the requested key.
      * @type {Integer (Int32)}
      */
     static CLUSREG_READ_KEY => 7
@@ -136,7 +136,9 @@ class CLUSTER_REG_COMMAND extends Win32Enum{
     static CLUSREG_CONDITION_KEY_EXISTS => 17
 
     /**
+     * A condition that indicates that a key does not exist.
      * 
+     * <b>Windows Server 2012 R2, Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This value is not available before Windows Server 2016.
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_KEY_NOT_EXISTS => 18

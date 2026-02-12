@@ -8,10 +8,8 @@
 /**
  * The IFaxInboundRoutingExtensions interface defines a configuration collection used by a fax client application to manage the inbound fax routing extensions registered with the fax service.
  * @remarks
- * 
  * A default implementation of <b>IFaxInboundRoutingExtensions</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingextensions">FaxInboundRoutingExtensions</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxinboundroutingextensions
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxinboundroutingextensions
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -58,13 +56,19 @@ class IFaxInboundRoutingExtensions extends IDispatch{
 
     /**
      * The IFaxInboundRoutingExtensions::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the IFaxInboundRoutingExtensions collection.
+     * @remarks
+     * In Microsoft Visual Basic, you do not need to use the <b>_NewEnum</b> property because it is automatically used in the implementation of <b>For Each ... Next</b>.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * Receives an indirect pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnk)
     }
 
@@ -80,20 +84,28 @@ class IFaxInboundRoutingExtensions extends IDispatch{
      * @returns {IFaxInboundRoutingExtension} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingextension">IFaxInboundRoutingExtension</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxinboundroutingextension">IFaxInboundRoutingExtension</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get_item
      */
     get_Item(vIndex) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxInboundRoutingExtension := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxInboundRoutingExtension := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxInboundRoutingExtension(pFaxInboundRoutingExtension)
     }
 
     /**
      * The IFaxInboundRoutingExtensions::get_Count property represents the number of objects in the IFaxInboundRoutingExtensions collection. This is the total number of inbound routing extensions associated with the fax server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxinboundroutingextensions-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 }

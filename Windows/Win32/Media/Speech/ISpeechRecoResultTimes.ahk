@@ -63,7 +63,11 @@ class ISpeechRecoResultTimes extends IDispatch{
      */
     get_StreamTime() {
         Time := VARIANT()
-        result := ComCall(7, this, "ptr", Time, "HRESULT")
+        result := ComCall(7, this, "ptr", Time, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Time
     }
 
@@ -73,7 +77,11 @@ class ISpeechRecoResultTimes extends IDispatch{
      */
     get_Length() {
         Length := VARIANT()
-        result := ComCall(8, this, "ptr", Length, "HRESULT")
+        result := ComCall(8, this, "ptr", Length, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Length
     }
 
@@ -82,7 +90,11 @@ class ISpeechRecoResultTimes extends IDispatch{
      * @returns {Integer} 
      */
     get_TickCount() {
-        result := ComCall(9, this, "int*", &TickCount := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &TickCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return TickCount
     }
 
@@ -92,7 +104,11 @@ class ISpeechRecoResultTimes extends IDispatch{
      */
     get_OffsetFromStart() {
         OffsetFromStart := VARIANT()
-        result := ComCall(10, this, "ptr", OffsetFromStart, "HRESULT")
+        result := ComCall(10, this, "ptr", OffsetFromStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return OffsetFromStart
     }
 }

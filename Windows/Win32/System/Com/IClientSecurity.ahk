@@ -6,13 +6,10 @@
 /**
  * Gives the client control over the security settings for each individual interface proxy of an object.
  * @remarks
- * 
  * Every object has one proxy manager, and every proxy manager exposes the <b>IClientSecurity</b> interface automatically. Therefore, the client can query the proxy manager of an object for <b>IClientSecurity</b>, using any interface pointer on the object. If the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> call succeeds, the <b>IClientSecurity</b> pointer can be used to call an <b>IClientSecurity</b> method, passing a pointer to the interface proxy that the client is interested in. If a call to <b>QueryInterface</b> for <b>IClientSecurity</b> fails, either the object is implemented in-process or it is remoted by a custom marshaler that does not support security. (A custom marshaler can support security by offering the <b>IClientSecurity</b> interface to the client.)
  * 
  * The interface proxies passed as parameters to <b>IClientSecurity</b> methods must be from the same object as the <b>IClientSecurity</b> interface. That is, each object has a distinct <b>IClientSecurity</b> interface; calling <b>IClientSecurity</b> on one object and passing a proxy to another object will not work. Also, you cannot pass an interface to an <b>IClientSecurity</b> method if the interface does not use a proxy. This means that interfaces implemented locally by the proxy manager cannot be passed to <b>IClientSecurity</b> methods, except for <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, which is the exception to this rule.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iclientsecurity
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iclientsecurity
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -39,6 +36,10 @@ class IClientSecurity extends IUnknown{
 
     /**
      * Retrieves authentication information the client uses to make calls on the specified proxy.
+     * @remarks
+     * <b>QueryBlanket</b> is called by the client to retrieve the authentication information COM will use on calls made from the specified interface proxy. With a pointer to an interface on the proxy, the client would first call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iclientsecurity">IClientSecurity</a>; then, with this pointer, the client would call <b>QueryBlanket</b>, followed by releasing the pointer. This sequence of calls is encapsulated in the helper function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coqueryproxyblanket">CoQueryProxyBlanket</a>.
+     * 
+     * In <i>pProxy</i>, you pass an interface pointer. However, you cannot pass a pointer to an interface that does not use a proxy. Thus you cannot pass a pointer to an interface that has the local keyword in its interface definition since no proxy is created for such an interface. <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> is the exception to this rule.
      * @param {IUnknown} pProxy A pointer to the proxy. This parameter cannot be <b>NULL</b>. For more information, see the Remarks section.
      * @param {Pointer<Integer>} pAuthnSvc The current authentication service. This will be a single value taken from the list of <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-service-constants">authentication service constants</a>. This parameter cannot be <b>NULL</b>.
      * @param {Pointer<Integer>} pAuthzSvc The current authorization service. This will be a single value taken from the list of <a href="https://docs.microsoft.com/windows/desktop/com/com-authorization-constants">authorization constants</a>. This parameter cannot be <b>NULL</b>.
@@ -90,7 +91,7 @@ class IClientSecurity extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iclientsecurity-queryblanket
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iclientsecurity-queryblanket
      */
     QueryBlanket(pProxy, pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
         pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
@@ -101,12 +102,38 @@ class IClientSecurity extends IUnknown{
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
         pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pProxy, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
+        result := ComCall(3, this, "ptr", pProxy, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the authentication information (the security blanket) that will be used to make calls on the specified proxy.
+     * @remarks
+     * <b>SetBlanket</b> sets the authentication information that will be used to make calls on the specified interface proxy. The values specified here override the values chosen by automatic security. Calling this method changes the security values for all other users of the specified proxy. If you want the changes to apply only to a particular instance of a proxy, call <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-copyproxy">IClientSecurity::CopyProxy</a> to make a private copy of the proxy and then call <b>SetBlanket</b> on the copy.
+     * 
+     * Whenever this method is called, DCOM will set the identity on the proxy, and future calls made using this proxy will use this identity. Calls in progress when <b>SetBlanket</b> is called will use the authentication information on the proxy at the time the call was started. If <i>pAuthInfo</i> is <b>NULL</b>, the proxy identity defaults to the current process token (unless an authentication identity was specified on a call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>). See <a href="https://docs.microsoft.com/windows/desktop/com/cloaking">Cloaking</a> to learn how the cloaking flags affect the proxy when <i>pAuthInfo</i> is <b>NULL</b>.
+     * 
+     * By default, COM will choose the first available authentication service and authorization service available on both the client and server computers and the principal name that the server registered for that authentication service. Currently, COM will not try another authentication service if the first fails.
+     * 
+     * When the default constant for <i>dwImpLevel</i> is specified in <b>SetBlanket</b>, the parameter defaults to the value specified to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a>. If <b>CoInitializeSecurity</b> is not called, it defaults to RPC_C_IMP_LEVEL_IDENTIFY.
+     * 
+     * The initial value for dwAuthnLevel on a proxy will be the higher of the value set on the client's call to <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> and the server's call to <b>CoInitializeSecurity</b>. For any process that did not call <b>CoInitializeSecurity</b>, the default authentication level is RPC_C_AUTHN_CONNECT.
+     * 
+     * The default authentication and impersonation level for processes that do not call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> can be set with DCOMCNFG.
+     * 
+     * If EOAC_DEFAULT is specified for <i>dwCapabilities</i>, the valid capabilities from <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> will be used. If <b>CoInitializeSecurity</b> was not called, EOAC_NONE will be used for the capabilities flag.
+     * 
+     * If <b>SetBlanket</b> is called simultaneously on two threads on the same proxy, only one set of changes will be applied. If <b>SetBlanket</b> and <b>CRpcOptions::Set</b> are called simultaneously on two threads on the same proxy, both changes may be applied or only one may be applied.
+     * 
+     * Security information cannot be set on local interfaces such as the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iclientsecurity">IClientSecurity</a> interface. However, since that interface is only supported locally, there is no need for security. <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imultiqi">IMultiQI</a> are special cases. The location implementation makes remote calls to support these interfaces. <b>SetBlanket</b> can be used for <b>IUnknown</b>. <b>IMultiQI</b> will use the security settings on <b>IUnknown</b>.
+     * 
+     * To change one <b>SetBlanket</b> parameter without having to deal with the others, one can specify the default constants for the other parameters. Applications can change a parameter (such as the authentication level) and ignore the other parameters, including the authentication service, by setting all other parameters to the default constants.
+     * 
+     * Note that it is important to set all unused parameters to the default constants because the default value is often not obvious. In particular, if you set the authentication service to the default, you should set the authentication information and principal name to the default. The reasons for this are twofold: First, the type of the authentication information depends on the authentication service DCOM chooses. Second, because DCOM needs to pass some complex authentication information for certain authentication services, if you set the authentication service to default and the authentication information to <b>NULL</b>, you might get a security setting that will not work.
      * @param {IUnknown} pProxy A pointer to the proxy.
      * @param {Integer} dwAuthnSvc The authentication service. This will be a single value taken from the list of <a href="https://docs.microsoft.com/windows/desktop/com/com-authentication-service-constants">authentication service constants</a>. If no authentication is required, use RPC_C_AUTHN_NONE. If RPC_C_AUTHN_DEFAULT is specified, COM will pick an authentication service following its normal security blanket negotiation algorithm.
      * @param {Integer} dwAuthzSvc The authorization service. This will be a single value taken from the list of <a href="https://docs.microsoft.com/windows/desktop/com/com-authorization-constants">authorization constants</a>. If RPC_C_AUTHZ_DEFAULT is specified, COM will pick an authorization service following its normal security blanket negotiation algorithm. If NTLMSSP, Kerberos, or Schannel is used as the authentication service, RPC_C_AUTHZ_NONE should be used as the authorization service.
@@ -161,25 +188,43 @@ class IClientSecurity extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iclientsecurity-setblanket
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iclientsecurity-setblanket
      */
     SetBlanket(pProxy, dwAuthnSvc, dwAuthzSvc, pServerPrincName, dwAuthnLevel, dwImpLevel, pAuthInfo, dwCapabilities) {
         pServerPrincName := pServerPrincName is String ? StrPtr(pServerPrincName) : pServerPrincName
 
         pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "HRESULT")
+        result := ComCall(4, this, "ptr", pProxy, "uint", dwAuthnSvc, "uint", dwAuthzSvc, "ptr", pServerPrincName, "uint", dwAuthnLevel, "uint", dwImpLevel, pAuthInfoMarshal, pAuthInfo, "uint", dwCapabilities, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Makes a private copy of the proxy for the specified interface.
+     * @remarks
+     * <b>CopyProxy</b> is called by the client to make a private copy of the proxy for the specified interface. The proxy copy has default values for the authentication information. Its authentication information can be changed through a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">IClientSecurity::SetBlanket</a> without affecting any other clients of the original proxy. The copy has one reference, and the caller of <b>CopyProxy</b> must ensure that the proxy copy gets freed.
+     * 
+     * Local interfaces, such as <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iclientsecurity">IClientSecurity</a>, cannot be copied. You cannot duplicate a proxy manager using <b>CopyProxy</b>.
+     * 
+     * Copies of the same proxy have a special relationship with respect to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>. Given a proxy, a, of the IA interface of a remote object, suppose a copy of a is created, called b. In this case, calling <b>QueryInterface</b> from the b proxy for IID_IA will not retrieve the IA interface on b, but the one on a, the original proxy.
+     * 
+     * Notice that anyone can query for a proxy and change security on it using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iclientsecurity-setblanket">SetBlanket</a>. However, when you have made a copy of a proxy, no one can get the copy unless you give it to them. Only people who have the copy can set security on it.
+     * 
+     * The helper function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocopyproxy">CoCopyProxy</a> encapsulates a <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> call for a pointer to IClientSecurity, a call to <b>CopyProxy</b> with the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iclientsecurity">IClientSecurity</a> pointer, and the release of the <b>IClientSecurity</b> pointer.
      * @param {IUnknown} pProxy A pointer to the interface whose proxy is to be copied. This parameter cannot be <b>NULL</b>.
      * @returns {IUnknown} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer that receives the copy of the proxy. This parameter cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iclientsecurity-copyproxy
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iclientsecurity-copyproxy
      */
     CopyProxy(pProxy) {
-        result := ComCall(5, this, "ptr", pProxy, "ptr*", &ppCopy := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pProxy, "ptr*", &ppCopy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppCopy)
     }
 }

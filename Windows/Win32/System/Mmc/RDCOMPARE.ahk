@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * The RDCOMPARE structure is introduced in MMC 1.2.
@@ -7,7 +8,7 @@
  * If the snap-in implements the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iresultdatacompareex">IResultDataCompareEx</a> interface, MMC MMC allocates the parameters to the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdatacompareex-compare">IResultDataCompareEx::Compare</a> snap-in's method and then calls the method. MMC releases the parameters after the method returns.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-rdcompare
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-rdcompare
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -49,9 +50,12 @@ class RDCOMPARE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iresultdata-sort">IResultData::Sort</a>. MMC does not interpret this parameter.
      * @type {LPARAM}
      */
-    lUserParam {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    lUserParam{
+        get {
+            if(!this.HasProp("__lUserParam"))
+                this.__lUserParam := LPARAM(16, this)
+            return this.__lUserParam
+        }
     }
 
     /**

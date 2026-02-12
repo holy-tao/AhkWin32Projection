@@ -6,7 +6,7 @@
 
 /**
  * The IWMDMStorageControl interface is used to insert, delete, or move files within a storage, a device, or between a device and the computer.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmstoragecontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iwmdmstoragecontrol
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -33,22 +33,42 @@ class IWMDMStorageControl extends IUnknown{
 
     /**
      * The Insert method puts content into the storage on the device.
+     * @remarks
+     * If the device supports <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstoragecontrol3-insert3">IWMDMStorageControl3::Insert3</a>, that is the preferred method to use.
+     * 
+     * The name and extension of the object saved on the device will be the same as the name and extension of the source file (if <i>pOperation</i> is <b>NULL</b>).
+     * 
+     * If the WMDM_MODE_THREAD flag is specified, you should obtain completion status by calling either <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2">IWMDMProgress2::End2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3">IWMDMProgress3::End3</a>. These methods will ensure that the operation is complete and will also return an HRESULT with success or failure information.
+     * 
+     * The <b>Insert</b> method does not guarantee that the device supports ordered file insertion, but it provides the flags WMDM_STORAGECONTROL_INSERTBEFORE and WMDM_STORAGECONTROL_INSERTAFTER in case it does. If the file system does not support ordering (for instance, FAT32), WMDM_STORAGECONTROL_INSERTBEFORE and WMDM_STORAGECONTROL_INSERTAFTER will simply insert the new storage object at the same level as the current object in the file system hierarchy.
+     * 
+     * If an application uses WMDM_MODE_THREAD and passes a non-<b>null</b><i>pProgress</i> parameter, the application must ensure that the object to which <i>pProgress</i> belongs is not destroyed until the insert operation completes, because Windows Media Device Manager will send progress notifications to this object. This object can be destroyed only after it receives an End notification. Failure to do this will result in access violations.
      * @param {Integer} fuMode 
      * @param {PWSTR} pwszFile Pointer to a wide-character <b>null</b>-terminated string indicating where to find the content for the insert operation. This parameter must be <b>NULL</b> if WMDM_CONTENT_OPERATIONINTERFACE is specified in <i>fuMode</i>.
      * @param {IWMDMOperation} pOperation Optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmoperation">IWMDMOperation</a> interface, to control the transfer of content to a media device. If specified, <i>fuMode</i> must include the WMDM_CONTENT_OPERATIONINTERFACE flag. This parameter must be <b>NULL</b> if WMDM_CONTENT_FILE or WMDM_CONTENT_FOLDER is specified in <i>fuMode</i>.
      * @param {IWMDMProgress} pProgress Optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmprogress">IWMDMProgress</a> interface to be used by Windows Media Device Manager to report progress back to the application. If this is used, <i>fuMode</i> should include WMDM_MODE_PROGRESS.
      * @returns {IWMDMStorage} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorage">IWMDMStorage</a> interface that will contain the new content. The caller must release this interface when finished with it.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstoragecontrol-insert
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstoragecontrol-insert
      */
     Insert(fuMode, pwszFile, pOperation, pProgress) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(3, this, "uint", fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", &ppNewObject := 0, "HRESULT")
+        result := ComCall(3, this, "uint", fuMode, "ptr", pwszFile, "ptr", pOperation, "ptr", pProgress, "ptr*", &ppNewObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMDMStorage(ppNewObject)
     }
 
     /**
      * The Delete method permanently deletes this storage.
+     * @remarks
+     * If the WMDM_MODE_THREAD flag is specified, you should obtain completion status by calling either <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2">IWMDMProgress2::End2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3">IWMDMProgress3::End3</a>. These methods will ensure that the operation is complete and will also return an HRESULT with success or failure information.
+     * 
+     * When the <b>Delete</b> operation is finished, all references to the deleted object become invalid. The application must release these interfaces and any other interfaces or resources associated with the object.
+     * 
+     * If an application uses WMDM_MODE_THREAD and passes a non-null <i>pProgress</i> parameter, the application must ensure that the object to which <i>pProgress</i> belongs is not destroyed until the delete operation completes, because Windows Media Device Manager will send progress notifications to this object. This object can be destroyed only after it receives an End notification. Failure to do this will result in access violations.
      * @param {Integer} fuMode One or two of the following flags, combined with a bitwise <b>OR</b>. Specify exactly one of the first two modes; the third mode is optional.
      * 
      * <table>
@@ -82,16 +102,24 @@ class IWMDMStorageControl extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstoragecontrol-delete
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstoragecontrol-delete
      */
     Delete(fuMode, pProgress) {
-        result := ComCall(4, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
+        result := ComCall(4, this, "uint", fuMode, "ptr", pProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Rename method renames the current storage.
+     * @remarks
+     * If the WMDM_MODE_THREAD flag is specified, you should obtain completion status by calling either <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2">IWMDMProgress2::End2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3">IWMDMProgress3::End3</a>. These methods will ensure that the operation is complete and will also return an HRESULT with success or failure information.
+     * 
+     * If an application uses WMDM_MODE_THREAD and passes a non-null <i>pProgress</i> parameter, the application must ensure that the object to which <i>pProgress</i> belongs is not destroyed until the read operation completes, because Windows Media Device Manager will send progress notifications to this object. This object can be destroyed only after it receives an End notification. Failure to do this will result in access violations.
      * @param {Integer} fuMode Processing mode used for the <b>Rename</b> operation. Specify exactly one of the following two modes. If both modes are specified, block mode is used.
      * 
      * <table>
@@ -119,18 +147,28 @@ class IWMDMStorageControl extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstoragecontrol-rename
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstoragecontrol-rename
      */
     Rename(fuMode, pwszNewName, pProgress) {
         pwszNewName := pwszNewName is String ? StrPtr(pwszNewName) : pwszNewName
 
-        result := ComCall(5, this, "uint", fuMode, "ptr", pwszNewName, "ptr", pProgress, "HRESULT")
+        result := ComCall(5, this, "uint", fuMode, "ptr", pwszNewName, "ptr", pProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Read method copies the current storage to the computer.
+     * @remarks
+     * This method will automatically overwrite existing files specified by <i>pwszFilename</i>. It can succeed even if
+     * 
+     * If the WMDM_MODE_THREAD flag is specified, you should obtain completion status by calling either <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2">IWMDMProgress2::End2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3">IWMDMProgress3::End3</a>. These methods will ensure that the operation is complete and will also return an HRESULT with success or failure information.
+     * 
+     * If an application uses WMDM_MODE_THREAD and passes a non-<b>null</b><i>pProgress</i> parameter, the application must ensure that the object to which <i>pProgress</i> belongs is not destroyed until the read operation completes, because Windows Media Device Manager will send progress notifications to this object. This object can be destroyed only after it receives an End notification. Failure to do this will result in access violations.
      * @param {Integer} fuMode Processing mode used for the <b>Read</b> operation. The following table lists the processing modes that can be specified in the <i>fuMode</i> parameter. You must specify exactly one of the first two modes, and exactly one of the last three (WMDM_CONTENT) modes. If both WMDM_MODE_BLOCK and WMDM_MODE_THREAD are specified, block mode is used.
      * 
      * <table>
@@ -173,18 +211,28 @@ class IWMDMStorageControl extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstoragecontrol-read
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstoragecontrol-read
      */
     Read(fuMode, pwszFile, pProgress, pOperation) {
         pwszFile := pwszFile is String ? StrPtr(pwszFile) : pwszFile
 
-        result := ComCall(6, this, "uint", fuMode, "ptr", pwszFile, "ptr", pProgress, "ptr", pOperation, "HRESULT")
+        result := ComCall(6, this, "uint", fuMode, "ptr", pwszFile, "ptr", pProgress, "ptr", pOperation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Move method moves the current storage to a new location on the device.
+     * @remarks
+     * A file or directory can be moved only within the same root storage.
+     * 
+     * If the WMDM_MODE_THREAD flag is specified, you should obtain completion status by calling either <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2">IWMDMProgress2::End2</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmprogress3-end3">IWMDMProgress3::End3</a>. These methods will ensure that the operation is complete and will also return an HRESULT with success or failure information.
+     * 
+     * If an application uses WMDM_MODE_THREAD and passes a non-null <i>pProgress</i> parameter, the application must ensure that the object to which <i>pProgress</i> belongs is not destroyed until the move operation completes, because Windows Media Device Manager will send progress notifications to this object. This object can be destroyed only after it receives an End notification. Failure to do this will result in access violations.
      * @param {Integer} fuMode Processing mode by which to invoke the <b>Move</b> operation and the type of move to make. Specify exactly one of the following two modes. If both modes are specified, block mode is used.
      * 
      * <table>
@@ -236,11 +284,15 @@ class IWMDMStorageControl extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstoragecontrol-move
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iwmdmstoragecontrol-move
      */
     Move(fuMode, pTargetObject, pProgress) {
-        result := ComCall(7, this, "uint", fuMode, "ptr", pTargetObject, "ptr", pProgress, "HRESULT")
+        result := ComCall(7, this, "uint", fuMode, "ptr", pTargetObject, "ptr", pProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

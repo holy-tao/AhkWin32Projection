@@ -27,7 +27,7 @@
  * 
  * 
  * When Schannel checks the revocation status of a certificate chain, these flags instruct it to ignore any CRYPT_E_NO_REVOCATION_CHECK and CRYPT_E_REVOCATION_OFFLINE errors, respectively. These flags are ignored if no certificate revocation flag is set.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-schannel_cred
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-schannel_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

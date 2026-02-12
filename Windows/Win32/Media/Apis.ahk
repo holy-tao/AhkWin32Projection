@@ -523,7 +523,7 @@ class Media {
      * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @returns {Integer} If successful, returns <b>TIMERR_NOERROR</b>. Otherwise, returns an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/timeapi/nf-timeapi-timegetsystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/timeapi/nf-timeapi-timegetsystemtime
      * @since windows5.0
      */
     static timeGetSystemTime(pmmt, cbmmt) {
@@ -540,7 +540,7 @@ class Media {
      * 
      * The default precision of the <b>timeGetTime</b> function can be five milliseconds or more, depending on the machine. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> and <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timeendperiod">timeEndPeriod</a> functions to increase the precision of <b>timeGetTime</b>. If you do so, the minimum difference between successive values returned by <b>timeGetTime</b> can be as large as the minimum period value set using <b>timeBeginPeriod</b> and <b>timeEndPeriod</b>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter">QueryPerformanceCounter</a> and <a href="https://docs.microsoft.com/windows/desktop/api/profileapi/nf-profileapi-queryperformancefrequency">QueryPerformanceFrequency</a> functions to measure short time intervals at a high resolution.
      * @returns {Integer} Returns the system time, in milliseconds.
-     * @see https://learn.microsoft.com/windows/win32/api/timeapi/nf-timeapi-timegettime
+     * @see https://learn.microsoft.com/windows/win32/api//content/timeapi/nf-timeapi-timegettime
      * @since windows5.0
      */
     static timeGetTime() {
@@ -582,7 +582,7 @@ class Media {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/timeapi/nf-timeapi-timegetdevcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/timeapi/nf-timeapi-timegetdevcaps
      * @since windows5.0
      */
     static timeGetDevCaps(ptc, cbtc) {
@@ -604,7 +604,7 @@ class Media {
      * Setting a higher resolution can improve the accuracy of time-out intervals in wait functions. However, it can also reduce overall system performance, because the thread scheduler switches tasks more often. High resolutions can also prevent the CPU power management system from entering power-saving modes. Setting a higher resolution does not improve the accuracy of the high-resolution performance counter.
      * @param {Integer} uPeriod Minimum timer resolution, in milliseconds, for the application or device driver. A lower value specifies a higher (more accurate) resolution.
      * @returns {Integer} Returns <b>TIMERR_NOERROR</b> if successful or <b>TIMERR_NOCANDO</b> if the resolution specified in <i>uPeriod</i> is out of range.
-     * @see https://learn.microsoft.com/windows/win32/api/timeapi/nf-timeapi-timebeginperiod
+     * @see https://learn.microsoft.com/windows/win32/api//content/timeapi/nf-timeapi-timebeginperiod
      * @since windows5.0
      */
     static timeBeginPeriod(uPeriod) {
@@ -620,7 +620,7 @@ class Media {
      * You must match each call to <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> with a call to <b>timeEndPeriod</b>, specifying the same minimum resolution in both calls. An application can make multiple <b>timeBeginPeriod</b> calls as long as each call is matched with a call to <b>timeEndPeriod</b>.
      * @param {Integer} uPeriod Minimum timer resolution specified in the previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a> function.
      * @returns {Integer} Returns <b>TIMERR_NOERROR</b> if successful or <b>TIMERR_NOCANDO</b> if the resolution specified in uPeriod is out of range.
-     * @see https://learn.microsoft.com/windows/win32/api/timeapi/nf-timeapi-timeendperiod
+     * @see https://learn.microsoft.com/windows/win32/api//content/timeapi/nf-timeapi-timeendperiod
      * @since windows5.0
      */
     static timeEndPeriod(uPeriod) {

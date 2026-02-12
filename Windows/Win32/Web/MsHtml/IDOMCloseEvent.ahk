@@ -47,7 +47,11 @@ class IDOMCloseEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_wasClean() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -62,10 +66,20 @@ class IDOMCloseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initCloseEvent(eventType, canBubble, cancelable, wasClean, code, reason) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        reason := reason is String ? BSTR.Alloc(reason).Value : reason
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(reason is String) {
+            pin := BSTR.Alloc(reason)
+            reason := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "short", wasClean, "int", code, "ptr", reason, "HRESULT")
+        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "short", wasClean, "int", code, "ptr", reason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

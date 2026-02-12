@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfDocumentMgrs interface is implemented by the TSF manager to provide an enumeration of document manager objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtfdocumentmgrs
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-ienumtfdocumentmgrs
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IEnumTfDocumentMgrs extends IUnknown{
     /**
      * IEnumTfDocumentMgrs::Clone method
      * @returns {IEnumTfDocumentMgrs} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdocumentmgrs">IEnumTfDocumentMgrs</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdocumentmgrs-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfdocumentmgrs-clone
      */
     Clone() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfDocumentMgrs(ppEnum)
     }
 
@@ -87,12 +91,16 @@ class IEnumTfDocumentMgrs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdocumentmgrs-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfdocumentmgrs-next
      */
     Next(ulCount, rgDocumentMgr, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", rgDocumentMgr, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(4, this, "uint", ulCount, "ptr*", rgDocumentMgr, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,10 +125,14 @@ class IEnumTfDocumentMgrs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdocumentmgrs-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfdocumentmgrs-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -157,10 +169,14 @@ class IEnumTfDocumentMgrs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdocumentmgrs-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-ienumtfdocumentmgrs-skip
      */
     Skip(ulCount) {
-        result := ComCall(6, this, "uint", ulCount, "HRESULT")
+        result := ComCall(6, this, "uint", ulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

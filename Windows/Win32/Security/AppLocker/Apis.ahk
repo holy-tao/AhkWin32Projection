@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.AppLocker
@@ -160,57 +162,57 @@ class AppLocker {
     static SAFER_POLICY_UIFLAGS_HIDDEN => 4
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_EXE => "EXE"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_DLL => "DLL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_MSI => "MSI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_SCRIPT => "SCRIPT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_SHELL => "SHELL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_NOV2 => "IGNORESRPV2"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_APPX => "APPX"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_WLDPMSI => "WLDPMSI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_WLDPSCRIPT => "WLDPSCRIPT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_WLDPCONFIGCI => "WLDPCONFIGCI"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SRP_POLICY_MANAGEDINSTALLER => "MANAGEDINSTALLER"
 ;@endregion Constants
@@ -326,7 +328,7 @@ class AppLocker {
      * @param {Pointer<Integer>} InfoBufferRetSize The number of bytes in the <i>InfoBuffer</i> parameter that were filled with policy information.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safergetpolicyinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safergetpolicyinformation
      * @since windows5.1.2600
      */
     static SaferGetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize, InfoBuffer, InfoBufferRetSize) {
@@ -453,7 +455,7 @@ class AppLocker {
      * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safersetpolicyinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safersetpolicyinformation
      * @since windows5.1.2600
      */
     static SaferSetPolicyInformation(dwScopeId, SaferPolicyInfoClass, InfoBufferSize, InfoBuffer) {
@@ -588,7 +590,7 @@ class AppLocker {
      * 
      * For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercreatelevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safercreatelevel
      * @since windows5.1.2600
      */
     static SaferCreateLevel(dwScopeId, dwLevelId, OpenFlags, pLevelHandle) {
@@ -609,7 +611,7 @@ class AppLocker {
      * @param {SAFER_LEVEL_HANDLE} hLevelHandle The SAFER_LEVEL_HANDLE to be closed.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercloselevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safercloselevel
      * @since windows5.1.2600
      */
     static SaferCloseLevel(hLevelHandle) {
@@ -636,7 +638,7 @@ class AppLocker {
      * Beginning with Windows 8 and Windows Server 2012 SRP_POLICY_APPX is defined as Windows Store app.
      * @returns {BOOL} <b>TRUE</b> if a SAFER_LEVEL_HANDLE was opened; otherwise,  <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferidentifylevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-saferidentifylevel
      * @since windows5.1.2600
      */
     static SaferIdentifyLevel(dwNumProperties, pCodeProperties, pLevelHandle, lpReserved) {
@@ -662,7 +664,7 @@ class AppLocker {
      * 
      * If the <b>SAFER_TOKEN_WANT_FLAGS</b> flag is set, and the <b>SAFER_TOKEN_COMPARE_ONLY</b> flag is not set, this parameter is an <b>LPDWORD</b> value that specifies the flags used to create the restricted token.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safercomputetokenfromlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safercomputetokenfromlevel
      * @since windows5.1.2600
      */
     static SaferComputeTokenFromLevel(LevelHandle, InAccessToken, OutAccessToken, dwFlags, lpReserved) {
@@ -749,7 +751,7 @@ class AppLocker {
      * @param {Pointer<Integer>} lpdwOutBufferSize A pointer to return the output size of the <i>lpQueryBuffer</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safergetlevelinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safergetlevelinformation
      * @since windows5.1.2600
      */
     static SaferGetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize, lpdwOutBufferSize) {
@@ -834,7 +836,7 @@ class AppLocker {
      * @param {Integer} dwInBufferSize The size, in bytes, of the <i>lpQueryBuffer</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safersetlevelinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-safersetlevelinformation
      * @since windows5.1.2600
      */
     static SaferSetLevelInformation(LevelHandle, dwInfoType, lpQueryBuffer, dwInBufferSize) {
@@ -858,7 +860,7 @@ class AppLocker {
      * @param {PWSTR} szTargetPath Path of the file that attempted to run.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferrecordeventlogentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-saferrecordeventlogentry
      * @since windows5.1.2600
      */
     static SaferRecordEventLogEntry(hLevel, szTargetPath) {
@@ -910,7 +912,7 @@ class AppLocker {
      * @returns {BOOL} If the function  successfully recognizes the file name's extension as an executable file type, the return value is <b>TRUE</b>.
      * 
      * If the function fails, or if <i>szFullPath</i> identifies a file name with a nonexecutable extension, the function returns <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-saferiisexecutablefiletype
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/nf-winsafer-saferiisexecutablefiletype
      * @since windows5.1.2600
      */
     static SaferiIsExecutableFileType(szFullPathname, bFromShellExecute) {

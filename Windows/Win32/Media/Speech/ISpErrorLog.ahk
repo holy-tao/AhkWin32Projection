@@ -41,7 +41,11 @@ class ISpErrorLog extends IUnknown{
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
         pszHelpFile := pszHelpFile is String ? StrPtr(pszHelpFile) : pszHelpFile
 
-        result := ComCall(3, this, "int", lLineNumber, "int", hr, "ptr", pszDescription, "ptr", pszHelpFile, "uint", dwHelpContext, "HRESULT")
+        result := ComCall(3, this, "int", lLineNumber, "int", hr, "ptr", pszDescription, "ptr", pszHelpFile, "uint", dwHelpContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Abstract interface to read from and write to a file.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcfilewriter
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-irdcfilewriter
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -34,31 +34,43 @@ class IRdcFileWriter extends IRdcFileReader{
      * Write bytes to a file starting at a given offset.
      * @param {Integer} offsetFileStart Starting offset.
      * @param {Integer} bytesToWrite Number of bytes to be written to the file.
-     * @returns {Integer} The data to be written to the file.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilewriter-write
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcfilewriter-write
      */
     Write(offsetFileStart, bytesToWrite) {
-        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, "char*", &buffer := 0, "HRESULT")
-        return buffer
+        result := ComCall(6, this, "uint", offsetFileStart, "uint", bytesToWrite, "char*", &buffer_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return buffer_
     }
 
     /**
      * Truncates a file to zero length.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilewriter-truncate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcfilewriter-truncate
      */
     Truncate() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets a file to be deleted (or truncated) on close.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilewriter-deleteonclose
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcfilewriter-deleteonclose
      */
     DeleteOnClose() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

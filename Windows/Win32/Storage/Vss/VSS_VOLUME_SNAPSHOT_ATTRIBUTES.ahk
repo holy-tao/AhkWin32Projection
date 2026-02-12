@@ -50,7 +50,7 @@
  * The shadow copies' context and attributes are found as a bit mask contained in the 
  *     <b>m_lSnapshotAttributes</b> member of the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_volume_snapshot_attributes
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_volume_snapshot_attributes
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -42,9 +42,16 @@ class IWSCDefaultProduct extends IDispatch{
      * @returns {HRESULT} 
      */
     SetDefaultProduct(eType, pGuid) {
-        pGuid := pGuid is String ? BSTR.Alloc(pGuid).Value : pGuid
+        if(pGuid is String) {
+            pin := BSTR.Alloc(pGuid)
+            pGuid := pin.Value
+        }
 
-        result := ComCall(7, this, "int", eType, "ptr", pGuid, "HRESULT")
+        result := ComCall(7, this, "int", eType, "ptr", pGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

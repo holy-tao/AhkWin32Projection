@@ -5,7 +5,7 @@
 
 /**
  * Used to limit the number of expired files listed in the email notification.
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmactionemail2
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nn-fsrm-ifsrmactionemail2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -39,35 +39,37 @@ class IFsrmActionEmail2 extends IFsrmActionEmail{
     }
 
     /**
-     * The maximum number of files to include in the list.
+     * The maximum number of files to include in the list. (Get)
      * @remarks
-     * 
      * The attached file is a plain text file. The file contains a line for each file up to the maximum list size. 
      *     Each line is in the form, [Source File Path],[Source File Remote Paths].
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail2-get_attachmentfilelistsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmactionemail2-get_attachmentfilelistsize
      */
     get_AttachmentFileListSize() {
-        result := ComCall(26, this, "int*", &attachmentFileListSize := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &attachmentFileListSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return attachmentFileListSize
     }
 
     /**
-     * The maximum number of files to include in the list.
+     * The maximum number of files to include in the list. (Put)
      * @remarks
-     * 
      * The attached file is a plain text file. The file contains a line for each file up to the maximum list size. 
      *     Each line is in the form, [Source File Path],[Source File Remote Paths].
-     * 
-     * 
      * @param {Integer} attachmentFileListSize 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail2-put_attachmentfilelistsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrm/nf-fsrm-ifsrmactionemail2-put_attachmentfilelistsize
      */
     put_AttachmentFileListSize(attachmentFileListSize) {
-        result := ComCall(27, this, "int", attachmentFileListSize, "HRESULT")
+        result := ComCall(27, this, "int", attachmentFileListSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

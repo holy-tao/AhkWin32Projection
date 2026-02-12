@@ -10,7 +10,7 @@
  * 				<i>lParam</i> is a pointer to this structure. 
  * 
  * To create a drag-and-drop menu, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setmenuinfo">SetMenuInfo</a> with <b>MNS_DRAGDROP</b> set.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menugetobjectinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-menugetobjectinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

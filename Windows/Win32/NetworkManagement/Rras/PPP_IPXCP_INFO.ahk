@@ -6,7 +6,7 @@
  * @remarks
  * The 
  * <b>PPP_IPXCP_INFO</b> structure can be used only when administrating computers that are running 32-bit Windows Server 2003 or an earlier operating system. Windows 2000 64-bit Edition does not support the IPX protocol.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ipxcp_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-ppp_ipxcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

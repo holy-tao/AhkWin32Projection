@@ -36,7 +36,11 @@ class IPrintOemCommon extends IUnknown{
      * @returns {Integer} 
      */
     GetInfo(dwMode, pBuffer, cbSize) {
-        result := ComCall(3, this, "uint", dwMode, "ptr", pBuffer, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwMode, "ptr", pBuffer, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 
@@ -47,7 +51,11 @@ class IPrintOemCommon extends IUnknown{
      * @returns {HRESULT} 
      */
     DevMode(dwMode, pOemDMParam) {
-        result := ComCall(4, this, "uint", dwMode, "ptr", pOemDMParam, "HRESULT")
+        result := ComCall(4, this, "uint", dwMode, "ptr", pOemDMParam, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -17,7 +17,7 @@
  * 
  * For performance information about flipping swap-chain buffers in full-screen application, 
  *       see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi">Full-Screen Application Performance Hints</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_swap_chain_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/ns-dxgi-dxgi_swap_chain_desc
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

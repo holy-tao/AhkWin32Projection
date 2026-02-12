@@ -4,7 +4,7 @@
 
 /**
  * Is used to store information about an IPsec security association (SA) bundle. (IPSEC_SA_BUNDLE1)
- * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_bundle1
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipsectypes/ns-ipsectypes-ipsec_sa_bundle1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

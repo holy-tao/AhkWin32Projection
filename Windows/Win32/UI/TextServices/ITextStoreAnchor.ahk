@@ -10,7 +10,7 @@
 
 /**
  * The ITextStoreAnchor interface is implemented by a Microsoft Active Accessibility client and is used by the TSF manager to manipulate text streams.
- * @see https://docs.microsoft.com/windows/win32/api//textstor/nn-textstor-itextstoreanchor
+ * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nn-textstor-itextstoreanchor
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,6 +37,10 @@ class ITextStoreAnchor extends IUnknown{
 
     /**
      * The ITextStoreAnchor::AdviseSink method installs a new advise sink from the ITextStoreAnchorSink interface or modifies an existing advise sink.
+     * @remarks
+     * Subsequent calls with the same interface, represented by the <i>punk</i> parameter, are handled as requests to update the <i>dwMask</i> parameter. Servers should not call the <b>AddRef</b> method on the sink in response to such a request.
+     * 
+     * Servers only maintain a single connection point. Attempts to advise a second sink object fail until the original sink object is removed. Applications should use the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-unadvisesink">ITextStoreAnchor::UnadviseSink</a> method to unregister the sink object when notifications are not required.
      * @param {Pointer<Guid>} riid Specifies the sink interface. The only supported value is IID_ITextStoreAnchorSink.
      * @param {IUnknown} punk Pointer to the sink interface to advise. Cannot be <b>NULL</b>.
      * @param {Integer} dwMask Specifies the events that notify the advise sink. For more information about possible parameter values, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-as--constants">TS_AS_* Constants</a>.
@@ -92,15 +96,25 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-advisesink
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-advisesink
      */
     AdviseSink(riid, punk, dwMask) {
-        result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint", dwMask, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr", punk, "uint", dwMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITextStoreAnchor::UnadviseSink method
+     * @remarks
+     * Every call to the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-advisesink">ITextStoreAnchor::AdviseSink</a> method, which registers a new sink object, should be matched by a call to this method. If AdviseSink has only updated the <i>dwMask</i> parameter of a sink which was previously registered, a call to <b>UnadviseSink</b> is not required.
+     * 
+     * For example, to register a sink object, an application calls the <b>AdviseSink</b> method the first time. The application can then call the <b>AdviseSink</b> method again with the same sink object to change the <i>dwMask</i> parameter. To unregister the sink object, an application calls the <b>UnadviseSink</b> method.
+     * 
+     * The <i>punk</i> parameter must have the same COM identity as the pointer originally passed in the <b>AdviseSink</b> method.
      * @param {IUnknown} punk Pointer to a sink object. Cannot be <b>NULL</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -132,15 +146,31 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-unadvisesink
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-unadvisesink
      */
     UnadviseSink(punk) {
-        result := ComCall(4, this, "ptr", punk, "HRESULT")
+        result := ComCall(4, this, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITextStoreAnchor::RequestLock method
+     * @remarks
+     * This method uses the <b>ITextStoreAnchorSink::OnLockGranted</b> method to lock the document. Applications must never modify the document or send change notifications using the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchorsink-ontextchange">ITextStoreAnchorSink::OnTextChange</a> method from within the <b>ITextStoreAnchor::RequestLock</b> method. If the application has pending changes to report, the application can only respond to the asynchronous lock request.
+     * 
+     * Applications should not attempt to queue multiple <b>ITextStoreAnchor::RequestLock</b> method calls, because the application requires only a single callback. If the caller makes several read requests and one or more write requests, however, the callback should be for write access.
+     * 
+     * Successful requests for synchronous locks supersede requests for asynchronous locks. Unsuccessful requests for synchronous locks do not supersede requests for asynchronous locks. The implementation must still serve the outstanding asynchronous request, if one exists.
+     * 
+     * If the lock is granted before the <b>ITextStoreAnchor::RequestLock</b> method returns, the <i>phrSession</i> parameter will receive the HRESULT returned by the <b>ITextStoreAnchorSink::OnLockGranted</b> method. If the call is successful, but the lock will be granted later, the <i>phrSession</i> parameter receives the TS_S_ASYNC flag. The <i>phrSession</i> parameter should be ignored if <b>ITextStoreAnchor::RequestLock</b> returns anything other than S_OK.
+     * 
+     * A caller should never call this method reentrantly, except in the case that the caller holds a read-only lock. In this case the method can be called reentrantly to ask for an asynchronous write lock. The write lock will be granted later, after the read-only lock ends.
+     * 
+     * For more information about document locks, see <a href="https://docs.microsoft.com/windows/desktop/TSF/document-locks">Document Locks</a>.
      * @param {Integer} dwLockFlags Specifies the type of lock requested.
      * 
      * <table>
@@ -182,26 +212,36 @@ class ITextStoreAnchor extends IUnknown{
      * @returns {HRESULT} If the lock request is synchronous, receives an HRESULT value from the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchorsink-onlockgranted">ITextStoreAnchorSink::OnLockGranted</a> method that specifies the result of the lock request.
      * 
      * If the lock request is asynchronous and the result is <a href="https://docs.microsoft.com/windows/desktop/TSF/text-store-return-values">TS_S_ASYNC</a>, the document receives an asynchronous lock. If the lock request is asynchronous and the result is TS_E_SYNCHRONOUS, the document cannot be locked synchronously.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-requestlock
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-requestlock
      */
     RequestLock(dwLockFlags) {
-        result := ComCall(5, this, "uint", dwLockFlags, "int*", &phrSession := 0, "HRESULT")
+        result := ComCall(5, this, "uint", dwLockFlags, "int*", &phrSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phrSession
     }
 
     /**
      * The ITextStoreAnchor::GetStatus method obtains the document status. The document status is returned through the TS_STATUS structure.
      * @returns {TS_STATUS} Receives the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_status">TS_STATUS</a> structure that contains the document status. Cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getstatus
      */
     GetStatus() {
         pdcs := TS_STATUS()
-        result := ComCall(6, this, "ptr", pdcs, "HRESULT")
+        result := ComCall(6, this, "ptr", pdcs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdcs
     }
 
     /**
      * The ITextStoreAnchor::QueryInsert method determines whether the specified start and end anchors are valid. Use this method to adjust an edit to a document before you execute the edit. The method must not return values outside the range of the document.
+     * @remarks
+     * The values of <i>ppaResultStart</i> and <i>ppaResultEnd</i> depend upon how the application inserts text into the document. If <i>ppaResultStart</i> and <i>ppaResultEnd</i> are the same as <i>paTestStart</i>, the cursor is at the beginning of the inserted text after insertion. If <i>ppaResultStart</i> and <i>ppaResultEnd</i> are the same as <i>paTextEnd</i>, the cursor is at the end of the inserted text after insertion.
      * @param {IAnchor} paTestStart Receives a pointer to a start anchor for the inserted text.
      * @param {IAnchor} paTestEnd Receives a pointer to an end anchor for the inserted text. This is the same as <i>paTestStart</i> if the text is inserted at a point instead of replacing selected text.
      * @param {Integer} cch Length of replacement text.
@@ -259,10 +299,14 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-queryinsert
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-queryinsert
      */
     QueryInsert(paTestStart, paTestEnd, cch, ppaResultStart, ppaResultEnd) {
-        result := ComCall(7, this, "ptr", paTestStart, "ptr", paTestEnd, "uint", cch, "ptr*", ppaResultStart, "ptr*", ppaResultEnd, "HRESULT")
+        result := ComCall(7, this, "ptr", paTestStart, "ptr", paTestEnd, "uint", cch, "ptr*", ppaResultStart, "ptr*", ppaResultEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -335,12 +379,16 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getselection
      */
     GetSelection(ulIndex, ulCount, pSelection, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(8, this, "uint", ulIndex, "uint", ulCount, "ptr", pSelection, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -413,15 +461,29 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-setselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-setselection
      */
     SetSelection(ulCount, pSelection) {
-        result := ComCall(9, this, "uint", ulCount, "ptr", pSelection, "HRESULT")
+        result := ComCall(9, this, "uint", ulCount, "ptr", pSelection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITextStoreAnchor::GetText method returns information about text at a specified anchor position. This method returns the visible and hidden text and indicates if embedded data is attached to the text.
+     * @remarks
+     * Callers that use this method must have a read-only lock on the document by calling the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-requestlock">ITextStoreAnchor::RequestLock</a> method. Without a read-only lock, the method fails and returns <a href="https://docs.microsoft.com/windows/desktop/TSF/manager-return-values">TF_E_NOLOCK</a>.
+     * 
+     * Applications can truncate the method return values for internal reasons.
+     * 
+     * To quickly scan text with multiple <b>GetText</b> calls, a caller would use <i>fUpdateAnchor</i> = <b>TRUE</b>.
+     * 
+     * The actual number of characters copied could be less than <i>cchReq</i> if the number of characters between <i>paStart</i> and <i>paEnd</i> is less than <i>cchReq.</i>
+     * 
+     * The behavior of <b>GetText</b> is not affected by any region boundaries covered by the returned text.
      * @param {Integer} dwFlags Not used; should be zero.
      * @param {IAnchor} paStart Specifies the starting anchor position.
      * @param {IAnchor} paEnd Specifies the ending anchor position. If <b>NULL</b>, it is treated as if it were an anchor positioned at the very end of the text stream.
@@ -429,17 +491,31 @@ class ITextStoreAnchor extends IUnknown{
      * @param {Integer} cchReq Specifies the <i>pchText</i> buffer size in characters.
      * @param {BOOL} fUpdateAnchor If <b>TRUE</b>, <i>paStart</i> will be repositioned just past the last character copied to <i>pchText</i>.
      * @returns {Integer} Receives the number of characters copied into the <i>pchText</i> buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-gettext
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-gettext
      */
     GetText(dwFlags, paStart, paEnd, pchText, cchReq, fUpdateAnchor) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, "uint*", &pcch := 0, "int", fUpdateAnchor, "HRESULT")
+        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, "uint*", &pcch := 0, "int", fUpdateAnchor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcch
     }
 
     /**
      * The ITextStoreAnchor::SetText method sets the text selection between two supplied anchor locations.
+     * @remarks
+     * Applications should start a composition by first using <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-inserttextatselection">ITextStoreAnchor::InsertTextAtSelection</a>. <b>ITextStoreAnchor::SetText</b> should be used only within an existing composition. If there is no active composition at the time <b>SetText</b> is called, the TSF manager creates a composition that lasts just long enough to wrap the call to <b>SetText</b>.
+     * 
+     * Callers must hold a write lock obtained through <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-requestlock">ITextStoreAnchor::RequestLock</a>. Otherwise, <b>ITextStoreAnchor::SetText</b> will fail with TS_E_NOLOCK.
+     * 
+     * If <i>paStart</i> is at the same location as <i>paEnd</i>, then the operation is an insertion, and no existing text will be removed.
+     * 
+     * TS_CHAR_EMBEDDED cannot be passed into this method. For <a href="https://docs.microsoft.com/windows/desktop/TSF/embedded-objects">embedded objects</a>, use <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-insertembedded">ITextStoreAnchor::InsertEmbedded</a> instead.
+     * 
+     * This method will fail if the range of text replaced covers any region boundary. Instead, callers should make multiple calls to the method, one for each region.
      * @param {Integer} dwFlags If set to the value of TS_ST_CORRECTION, the text is a transform (correction) of existing content, and any special text markup information (metadata) is retained, such as .wav file data or a language identifier. The client defines the type of markup information to be retained.
      * @param {IAnchor} paStart Pointer to the anchor at the start of the range of text to replace.
      * @param {IAnchor} paEnd Pointer to the anchor at the end of the range of text to replace. Must always follow or be at the same position as <i>paStart</i>.
@@ -519,39 +595,55 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-settext
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-settext
      */
     SetText(dwFlags, paStart, paEnd, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(11, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cch, "HRESULT")
+        result := ComCall(11, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITextStoreAnchor::GetFormattedText method returns formatted text information from a text stream.
+     * @remarks
+     * Text, embedded objects, and any formatting are wrapped into a single <b>IDataObject</b> object. In this way, private application-specific formatting associated with text can be preserved by a client.
      * @param {IAnchor} paStart Anchor position at which to start retrieval of formatted text.
      * @param {IAnchor} paEnd Anchor position at which to end retrieval of formatted text.
      * @returns {IDataObject} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object that contains the formatted text.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getformattedtext
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getformattedtext
      */
     GetFormattedText(paStart, paEnd) {
-        result := ComCall(12, this, "ptr", paStart, "ptr", paEnd, "ptr*", &ppDataObject := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", paStart, "ptr", paEnd, "ptr*", &ppDataObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataObject(ppDataObject)
     }
 
     /**
      * The ITextStoreAnchor::GetEmbedded method obtains an embedded object from a text stream.
+     * @remarks
+     * The caller must use <b>QueryInterface</b> to probe for appropriate interfaces. Prospective interfaces include those associated with embedded documents or controls such as <b>IOleObject</b>, <b>IDataObject</b>, <b>IViewObject</b>, <b>IPersistStorage</b>, <b>IOleCache</b>, or <b>IDispatch</b>.
      * @param {Integer} dwFlags Bit fields that specify how the method deals with hidden text. If set to TS_GEA_HIDDEN, an embedded object can be located within hidden text. Otherwise hidden text is skipped over.
      * @param {IAnchor} paPos Pointer to an anchor positioned immediately in front of the embedded object, as denoted by a TS_CHAR_EMBEDDED character.
      * @param {Pointer<Guid>} rguidService 
      * @param {Pointer<Guid>} riid Specifies the interface type requested.
-     * @returns {IUnknown} Pointer to an <b>IUnknown</b> pointer that receives the requested interface.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getembedded
+     * @returns {Pointer<IUnknown>} Pointer to an <b>IUnknown</b> pointer that receives the requested interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getembedded
      */
     GetEmbedded(dwFlags, paPos, rguidService, riid) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr", paPos, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
-        return IUnknown(ppunk)
+        result := ComCall(13, this, "uint", dwFlags, "ptr", paPos, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppunk
     }
 
     /**
@@ -645,10 +737,14 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-insertembedded
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-insertembedded
      */
     InsertEmbedded(dwFlags, paStart, paEnd, pDataObject) {
-        result := ComCall(14, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pDataObject, "HRESULT")
+        result := ComCall(14, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pDataObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -698,10 +794,14 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-requestsupportedattrs
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-requestsupportedattrs
      */
     RequestSupportedAttrs(dwFlags, cFilterAttrs, paFilterAttrs) {
-        result := ComCall(15, this, "uint", dwFlags, "uint", cFilterAttrs, "ptr", paFilterAttrs, "HRESULT")
+        result := ComCall(15, this, "uint", dwFlags, "uint", cFilterAttrs, "ptr", paFilterAttrs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -741,15 +841,23 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-requestattrsatposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-requestattrsatposition
      */
     RequestAttrsAtPosition(paPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(16, this, "ptr", paPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(16, this, "ptr", paPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITextStoreAnchor::RequestAttrsTransitioningAtPosition method
+     * @remarks
+     * In the sentence, "This is <i>italic text</i>.", the italic attribute starts before the word <i>italic</i> and ends after the word <i>text</i>.
+     * 
+     * If the flag TS_ATTR_FIND_WANT_END is set in <i>dwFlags</i>, the method would return the italic attribute for the text "<i>italic</i> &lt;anchor&gt;normal", because there is an end transition at the anchor location.
      * @param {IAnchor} paPos Pointer to the anchor.
      * @param {Integer} cFilterAttrs Specifies the number of attributes to obtain.
      * @param {Pointer<Guid>} paFilterAttrs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-attrid">TS_ATTRID</a> data type that specifies the attribute to verify.
@@ -811,10 +919,14 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-requestattrstransitioningatposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-requestattrstransitioningatposition
      */
     RequestAttrsTransitioningAtPosition(paPos, cFilterAttrs, paFilterAttrs, dwFlags) {
-        result := ComCall(17, this, "ptr", paPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "HRESULT")
+        result := ComCall(17, this, "ptr", paPos, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -905,13 +1017,17 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-findnextattrtransition
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-findnextattrtransition
      */
     FindNextAttrTransition(paStart, paHalt, cFilterAttrs, paFilterAttrs, dwFlags, pfFound, plFoundOffset) {
         pfFoundMarshal := pfFound is VarRef ? "int*" : "ptr"
         plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
+        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -939,47 +1055,83 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-retrieverequestedattrs
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-retrieverequestedattrs
      */
     RetrieveRequestedAttrs(ulCount, paAttrVals, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "uint", ulCount, "ptr", paAttrVals, pcFetchedMarshal, pcFetched, "HRESULT")
+        result := ComCall(19, this, "uint", ulCount, "ptr", paAttrVals, pcFetchedMarshal, pcFetched, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITextStoreAnchor::GetStart method returns an anchor positioned at the start of the text stream.
      * @returns {IAnchor} Pointer to an anchor object located at the start of the text stream.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getstart
      */
     GetStart() {
-        result := ComCall(20, this, "ptr*", &ppaStart := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppaStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAnchor(ppaStart)
     }
 
     /**
      * The ITextStoreAnchor::GetEnd method returns an anchor positioned at the end of the text stream.
      * @returns {IAnchor} Pointer to an anchor object located at the very end of the text stream.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getend
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getend
      */
     GetEnd() {
-        result := ComCall(21, this, "ptr*", &ppaEnd := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &ppaEnd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAnchor(ppaEnd)
     }
 
     /**
      * The ITextStoreAnchor::GetActiveView method returns a TsViewCookie data type that specifies the current active view. TSF supports only a single active view, so a given text store should always return the same TsViewCookie data type.
      * @returns {Integer} Receives the <b>TsViewCookie</b> data type that specifies the current active view.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getactiveview
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getactiveview
      */
     GetActiveView() {
-        result := ComCall(22, this, "uint*", &pvcView := 0, "HRESULT")
+        result := ComCall(22, this, "uint*", &pvcView := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvcView
     }
 
     /**
      * The ITextStoreAnchor::GetAnchorFromPoint method converts a point in screen coordinates to an anchor positioned at a corresponding location.
+     * @remarks
+     * <img alt="Point 1 is in character bounding box and point 2 is outside the character bounding box." border="border" src="./images/ACPFig01.gif"/>
+     * The point 1 screen coordinates cause the offset (character position) of anchor <i>ppaSite</i> to be 0 by default or if the <i>dwFlags</i> parameter is set to <a href="https://docs.microsoft.com/windows/desktop/TSF/gxfpf--constants">GXFPF_NEAREST</a> because the point 1 screen coordinates are inside the character bounding box of character position 0. If the <i>dwFlags</i> parameter is set to GXFPF_ROUND_NEAREST for point 1, the anchor offset is 1 because the point 1 screen coordinates are closest to range position 1. Range position 1 is the starting range position of character position 1.
+     * 
+     * For the point 2 screen coordinates, the method returns <b>TF_E_INVALIDPOINT</b> by default or if the <i>dwFlags</i> parameter is set to <b>GXFPF_NEAREST</b> because the point 2 screen coordinates are outside a character bounding box. If the <i>dwFlags</i> parameter is set to <b>GXFPF_ROUND_NEAREST</b>, then the point 2 screen coordinates causes the anchor offset to be 1, because the closest character position to the point 2 screen coordinates is character position 1.
+     * 
+     * <b>Point 1</b>
+     * 
+     * <ul>
+     * <li>Default-- <i>anchor offset = 0</i> --The screen coordinates point is inside the character bounding box of Character Position 0.</li>
+     * <li><b>GXFPF_ROUND_NEAREST</b> -- <i>anchor offset = 1</i> --The screen coordinates of the point is closest to Range Position 1 which is the starting range position of Character Position 1.</li>
+     * <li><b>GXFPF_NEAREST</b> -- <i>anchor offset = 0</i> --The default behavior occurs because the point is within the character bounding box of Character Position 0.</li>
+     * </ul>
+     * <b>Point 2</b>
+     * 
+     * <ul>
+     * <li>Default-- <i>hr = TF_E_INVALIDPOINT</i> --The screen coordinates of the point are outside a character bounding box.</li>
+     * <li>GXFPF_ROUND_NEAREST-- <i>hr = TF_E_INVALIDPOINT</i> --The default behavior occurs because the screen coordinates of the point is outside a character bounding box.</li>
+     * <li>GXFPF_NEAREST-- <i>anchor offset = 1</i> --The closest character position to the screen coordinates of the point is Character Position 1.</li>
+     * </ul>
      * @param {Integer} vcView Specifies the context view.
      * @param {Pointer<POINT>} ptScreen Pointer to the <b>POINT</b> structure with the screen coordinates of the point.
      * @param {Integer} dwFlags Specifies the anchor position to return based upon the screen coordinates of the point relative to a character bounding box. By default, the anchor position returned is the character bounding box containing the screen coordinates of the point. If the point is outside a character bounding box, the method returns <b>NULL</b> or <a href="https://docs.microsoft.com/windows/desktop/TSF/manager-return-values">TF_E_INVALIDPOINT</a>. Other bit flags for this parameter are as follows.
@@ -1013,15 +1165,21 @@ class ITextStoreAnchor extends IUnknown{
      * </tr>
      * </table>
      * @returns {IAnchor} Pointer to an anchor object at a location corresponding to the screen coordinates <i>ptScreen</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getanchorfrompoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getanchorfrompoint
      */
     GetAnchorFromPoint(vcView, ptScreen, dwFlags) {
-        result := ComCall(23, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "ptr*", &ppaSite := 0, "HRESULT")
+        result := ComCall(23, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "ptr*", &ppaSite := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAnchor(ppaSite)
     }
 
     /**
      * The ITextStoreAnchor::GetTextExt method returns the bounding box, in screen coordinates, of a range of text. The caller must have a read-only lock on the document before calling this method.
+     * @remarks
+     * If the document window is minimized, or if the specified text is not currently visible, the method returns S_OK with the <i>prc</i> parameter set to {0,0,0,0}.
      * @param {Integer} vcView Specifies the context view.
      * @param {IAnchor} paStart Specifies the anchor positioned at the start of the range.
      * @param {IAnchor} paEnd Specifies the anchor positioned at the end of the range.
@@ -1085,7 +1243,7 @@ class ITextStoreAnchor extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The application has not calculated a text layout. Any further calls will not succeed until the application calls <a href="/windows/desktop/api/textstor/nf-textstor-itextstoreanchorsink-onlayoutchange">ITextStoreAnchorSink::OnLayoutChange</a>.
+     * The application has not calculated a text layout. Any further calls will not succeed until the application calls <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchorsink-onlayoutchange">ITextStoreAnchorSink::OnLayoutChange</a>.
      * 
      * </td>
      * </tr>
@@ -1101,48 +1259,70 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-gettextext
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-gettextext
      */
     GetTextExt(vcView, paStart, paEnd, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "uint", vcView, "ptr", paStart, "ptr", paEnd, "ptr", prc, pfClippedMarshal, pfClipped, "HRESULT")
+        result := ComCall(24, this, "uint", vcView, "ptr", paStart, "ptr", paEnd, "ptr", prc, pfClippedMarshal, pfClipped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITextStoreAnchor::GetScreenExt method returns the bounding box screen coordinates of the display surface where the text stream is rendered.
+     * @remarks
+     * If the text is not currently displayed, for example, if the document window is minimized, the <i>prc</i> parameter is set to { 0, 0, 0, 0 }.
      * @param {Integer} vcView Specifies the context view.
      * @returns {RECT} Receives the bounding box screen coordinates of the display surface of the document.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getscreenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getscreenext
      */
     GetScreenExt(vcView) {
         prc := RECT()
-        result := ComCall(25, this, "uint", vcView, "ptr", prc, "HRESULT")
+        result := ComCall(25, this, "uint", vcView, "ptr", prc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prc
     }
 
     /**
      * The ITextStoreAnchor::GetWnd method returns the handle to a window that corresponds to the current text stream.
+     * @remarks
+     * A document might not have a corresponding window handle if the document is in memory but not displayed on the screen, or if the document is a windowless control and the control does not recognize the window handle of the owner of the windowless controls. Callers cannot assume that the <i>phwnd</i> parameter will receive a non-<b>NULL</b> value even if the method is successful. Callers can also receive a <b>NULL</b> value for the <i>phwnd</i> parameter.
      * @param {Integer} vcView Specifies the <a href="https://docs.microsoft.com/windows/desktop/TSF/tsviewcookie">TsViewCookie</a> data type that corresponds to the current document.
      * @returns {HWND} Receives a pointer to the handle of the window that corresponds to the current document. This parameter can be <b>NULL</b> if the document does not have the corresponding handle to the window.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-getwnd
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-getwnd
      */
     GetWnd(vcView) {
         phwnd := HWND()
-        result := ComCall(26, this, "uint", vcView, "ptr", phwnd, "HRESULT")
+        result := ComCall(26, this, "uint", vcView, "ptr", phwnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phwnd
     }
 
     /**
      * ITextStoreAnchor::QueryInsertEmbedded method
+     * @remarks
+     * The clipboard formats supported by the document are dependent on the application.
      * @param {Pointer<Guid>} pguidService Pointer to the object type. If <b>NULL</b>, <i>pFormatEtc</i> should be used.
      * @param {Pointer<FORMATETC>} pFormatEtc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/the-formatetc-structure">FORMATETC</a> structure that contains format data of the object. This parameter cannot be <b>NULL</b> if the <i>pguidService</i> parameter is <b>NULL</b>.
      * @returns {BOOL} Receives <b>TRUE</b> if the object type can be inserted into the document or <b>FALSE</b> if the object type cannot be inserted into the document.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-queryinsertembedded
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-queryinsertembedded
      */
     QueryInsertEmbedded(pguidService, pFormatEtc) {
-        result := ComCall(27, this, "ptr", pguidService, "ptr", pFormatEtc, "int*", &pfInsertable := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", pguidService, "ptr", pFormatEtc, "int*", &pfInsertable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfInsertable
     }
 
@@ -1234,17 +1414,23 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-inserttextatselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-inserttextatselection
      */
     InsertTextAtSelection(dwFlags, pchText, cch, ppaStart, ppaEnd) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(28, this, "uint", dwFlags, "ptr", pchText, "uint", cch, "ptr*", ppaStart, "ptr*", ppaEnd, "HRESULT")
+        result := ComCall(28, this, "uint", dwFlags, "ptr", pchText, "uint", cch, "ptr*", ppaStart, "ptr*", ppaEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ITextStoreAnchor::InsertEmbeddedAtSelection method inserts an IDataObject object at the insertion point or selection. The client that calls this method must have a read/write lock before inserting an IDataObject into the text stream.
+     * @remarks
+     * Clients must use this method to insert an object into a text stream, since a <a href="https://docs.microsoft.com/windows/desktop/TSF/ts-char--constants">TS_CHAR_EMBEDDED</a> constant cannot be passed into <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-settext">ITextStoreAnchor::SetText</a>.
      * @param {Integer} dwFlags Specifies whether the <i>paStart</i> and <i>paEnd</i> parameters will contain the results of the object insertion.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-ias--constants">TF_IAS_NOQUERY</a> and TF_IAS_QUERYONLY flags cannot be combined.
@@ -1343,10 +1529,14 @@ class ITextStoreAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-itextstoreanchor-insertembeddedatselection
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-itextstoreanchor-insertembeddedatselection
      */
     InsertEmbeddedAtSelection(dwFlags, pDataObject, ppaStart, ppaEnd) {
-        result := ComCall(29, this, "uint", dwFlags, "ptr", pDataObject, "ptr*", ppaStart, "ptr*", ppaEnd, "HRESULT")
+        result := ComCall(29, this, "uint", dwFlags, "ptr", pDataObject, "ptr*", ppaStart, "ptr*", ppaEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

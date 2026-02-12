@@ -31,37 +31,59 @@ class IDebugDocumentHelper32 extends IUnknown{
     static VTableNames => ["Init", "Attach", "Detach", "AddUnicodeText", "AddDBCSText", "SetDebugDocumentHost", "AddDeferredText", "DefineScriptBlock", "SetDefaultTextAttr", "SetTextAttributes", "SetLongName", "SetShortName", "SetDocumentAttr", "GetDebugApplicationNode", "GetScriptBlockInfo", "CreateDebugDocumentContext", "BringDocumentToTop", "BringDocumentContextToTop"]
 
     /**
+     * Initializes the trace.
+     * @remarks
+     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {IDebugApplication32} pda 
      * @param {PWSTR} pszShortName 
      * @param {PWSTR} pszLongName 
      * @param {Integer} docAttr 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/-initasynctrace
      */
     Init(pda, pszShortName, pszLongName, docAttr) {
         pszShortName := pszShortName is String ? StrPtr(pszShortName) : pszShortName
         pszLongName := pszLongName is String ? StrPtr(pszLongName) : pszLongName
 
-        result := ComCall(3, this, "ptr", pda, "ptr", pszShortName, "ptr", pszLongName, "uint", docAttr, "HRESULT")
+        result := ComCall(3, this, "ptr", pda, "ptr", pszShortName, "ptr", pszLongName, "uint", docAttr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Terminates the [AttachableInputObject](attachableinputobject.md) instance.
      * @param {IDebugDocumentHelper32} pddhParent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.input.attachableinputobject.close
      */
     Attach(pddhParent) {
-        result := ComCall(4, this, "ptr", pddhParent, "HRESULT")
+        result := ComCall(4, this, "ptr", pddhParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: DetachDatabaseGrbit enumeration
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/detachdatabasegrbit-enumeration
      */
     Detach() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,7 +95,11 @@ class IDebugDocumentHelper32 extends IUnknown{
     AddUnicodeText(pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(6, this, "ptr", pszText, "HRESULT")
+        result := ComCall(6, this, "ptr", pszText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +111,11 @@ class IDebugDocumentHelper32 extends IUnknown{
     AddDBCSText(pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := ComCall(7, this, "ptr", pszText, "HRESULT")
+        result := ComCall(7, this, "ptr", pszText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +125,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDebugDocumentHost(pddh) {
-        result := ComCall(8, this, "ptr", pddh, "HRESULT")
+        result := ComCall(8, this, "ptr", pddh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +140,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddDeferredText(cChars, dwTextStartCookie) {
-        result := ComCall(9, this, "uint", cChars, "uint", dwTextStartCookie, "HRESULT")
+        result := ComCall(9, this, "uint", cChars, "uint", dwTextStartCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +157,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {Integer} 
      */
     DefineScriptBlock(ulCharOffset, cChars, pas, fScriptlet) {
-        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, "uint*", &pdwSourceContext := 0, "HRESULT")
+        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, "uint*", &pdwSourceContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwSourceContext
     }
 
@@ -129,7 +171,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDefaultTextAttr(staTextAttr) {
-        result := ComCall(11, this, "ushort", staTextAttr, "HRESULT")
+        result := ComCall(11, this, "ushort", staTextAttr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +189,11 @@ class IDebugDocumentHelper32 extends IUnknown{
     SetTextAttributes(ulCharOffset, cChars, pstaTextAttr) {
         pstaTextAttrMarshal := pstaTextAttr is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(12, this, "uint", ulCharOffset, "uint", cChars, pstaTextAttrMarshal, pstaTextAttr, "HRESULT")
+        result := ComCall(12, this, "uint", ulCharOffset, "uint", cChars, pstaTextAttrMarshal, pstaTextAttr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -155,7 +205,11 @@ class IDebugDocumentHelper32 extends IUnknown{
     SetLongName(pszLongName) {
         pszLongName := pszLongName is String ? StrPtr(pszLongName) : pszLongName
 
-        result := ComCall(13, this, "ptr", pszLongName, "HRESULT")
+        result := ComCall(13, this, "ptr", pszLongName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,7 +221,11 @@ class IDebugDocumentHelper32 extends IUnknown{
     SetShortName(pszShortName) {
         pszShortName := pszShortName is String ? StrPtr(pszShortName) : pszShortName
 
-        result := ComCall(14, this, "ptr", pszShortName, "HRESULT")
+        result := ComCall(14, this, "ptr", pszShortName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +235,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDocumentAttr(pszAttributes) {
-        result := ComCall(15, this, "uint", pszAttributes, "HRESULT")
+        result := ComCall(15, this, "uint", pszAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,7 +248,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {IDebugApplicationNode} 
      */
     GetDebugApplicationNode() {
-        result := ComCall(16, this, "ptr*", &ppdan := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppdan := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugApplicationNode(ppdan)
     }
 
@@ -202,7 +268,11 @@ class IDebugDocumentHelper32 extends IUnknown{
         piCharPosMarshal := piCharPos is VarRef ? "uint*" : "ptr"
         pcCharsMarshal := pcChars is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "uint", dwSourceContext, "ptr*", ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "HRESULT")
+        result := ComCall(17, this, "uint", dwSourceContext, "ptr*", ppasd, piCharPosMarshal, piCharPos, pcCharsMarshal, pcChars, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +283,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {IDebugDocumentContext} 
      */
     CreateDebugDocumentContext(iCharPos, cChars) {
-        result := ComCall(18, this, "uint", iCharPos, "uint", cChars, "ptr*", &ppddc := 0, "HRESULT")
+        result := ComCall(18, this, "uint", iCharPos, "uint", cChars, "ptr*", &ppddc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocumentContext(ppddc)
     }
 
@@ -222,7 +296,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     BringDocumentToTop() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -232,7 +310,11 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     BringDocumentContextToTop(pddc) {
-        result := ComCall(20, this, "ptr", pddc, "HRESULT")
+        result := ComCall(20, this, "ptr", pddc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

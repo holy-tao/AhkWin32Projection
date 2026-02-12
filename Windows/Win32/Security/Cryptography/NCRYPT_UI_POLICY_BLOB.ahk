@@ -5,7 +5,7 @@
  * Used with the NCRYPT\_UI\_POLICY\_PROPERTY property to contain user interface information for a key.
  * @remarks
  * This structure is included in the Ncrypt\_provider.h header. To use the structure, you must download the [Cryptographic Provider Development Kit](/collaborate/connect-redirect?InvitationID=CSDK-GYTG-R2PX&ProgramID=7264) from Microsoft Connect.
- * @see https://learn.microsoft.com/windows/win32/SecCNG/ncrypt-ui-policy-blob
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCNG/ncrypt-ui-policy-blob
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

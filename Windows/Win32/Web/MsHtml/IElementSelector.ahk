@@ -37,9 +37,16 @@ class IElementSelector extends IDispatch{
      * @returns {IHTMLElement} 
      */
     querySelector(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "ptr*", &pel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(pel)
     }
 
@@ -49,9 +56,16 @@ class IElementSelector extends IDispatch{
      * @returns {IHTMLDOMChildrenCollection} 
      */
     querySelectorAll(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", v, "ptr*", &pel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMChildrenCollection(pel)
     }
 }

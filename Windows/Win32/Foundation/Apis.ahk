@@ -35142,7 +35142,7 @@ class Foundation {
      * You can free strings created with <b>SysAllocString</b> using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @param {PWSTR} psz The string to copy.
      * @returns {BSTR} If successful, returns the string. If <i>psz</i> is a zero-length string, returns a zero-length <b>BSTR</b>. If <i>psz</i> is NULL or insufficient memory exists, returns NULL.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysallocstring
      */
     static SysAllocString(psz) {
         psz := psz is String ? StrPtr(psz) : psz
@@ -35189,7 +35189,7 @@ class Foundation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreallocstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysreallocstring
      */
     static SysReAllocString(pbstr, psz) {
         psz := psz is String ? StrPtr(psz) : psz
@@ -35208,7 +35208,7 @@ class Foundation {
      * @param {PWSTR} strIn The input string.
      * @param {Integer} ui The number of characters to copy. A null character is placed afterwards, allocating a total of <i>ui</i> plus one characters.
      * @returns {BSTR} A copy of the string, or <b>NULL</b> if there is insufficient memory to complete the operation.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstringlen
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysallocstringlen
      */
     static SysAllocStringLen(strIn, ui) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
@@ -35258,7 +35258,7 @@ class Foundation {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreallocstringlen
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysreallocstringlen
      */
     static SysReAllocStringLen(pbstr, psz, len) {
         psz := psz is String ? StrPtr(psz) : psz
@@ -35273,7 +35273,7 @@ class Foundation {
      * Strings with the <b>BSTR</b> data type have not traditionally had a reference count. All existing usage of these strings will continue to work with no changes. The <b>SysAddRefString</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysreleasestring">SysReleaseString</a> functions add the ability to use reference counting to pin the string into memory before calling from an untrusted script into an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> method that may not expect the script to free that memory before the method returns, so that the script cannot force the code for that method into accessing memory that has been freed. After such a method safely returns, the pinning references should be released by calling <b>SysReleaseString</b>.
      * @param {BSTR} bstrString The string for which the pinning reference count should increase. While that count remains greater than 0, the memory for the string is prevented from being freed by calls to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysaddrefstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysaddrefstring
      * @since windows5.1.2600
      */
     static SysAddRefString(bstrString) {
@@ -35293,7 +35293,7 @@ class Foundation {
      * A call to the <b>SysReleaseString</b> function should match every previous call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysaddrefstring">SysAddRefString</a> function.
      * @param {BSTR} bstrString The string for which the  pinning reference count should decrease.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysreleasestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysreleasestring
      * @since windows5.1.2600
      */
     static SysReleaseString(bstrString) {
@@ -35306,7 +35306,7 @@ class Foundation {
      * Deallocates a string allocated previously by SysAllocString, SysAllocStringByteLen, SysReAllocString, SysAllocStringLen, or SysReAllocStringLen.
      * @param {BSTR} bstrString The previously allocated string. If this parameter is <b>NULL</b>, the function simply returns.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysfreestring
      */
     static SysFreeString(bstrString) {
         bstrString := bstrString is Win32Handle ? NumGet(bstrString, "ptr") : bstrString
@@ -35320,7 +35320,7 @@ class Foundation {
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded Null characters. This function always returns the number of characters specified in the cch parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> function used to allocate the BSTR.
      * @param {BSTR} pbstr A previously allocated string.
      * @returns {Integer} The number of characters in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringlen
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysstringlen
      */
     static SysStringLen(pbstr) {
         pbstr := pbstr is Win32Handle ? NumGet(pbstr, "ptr") : pbstr
@@ -35333,14 +35333,14 @@ class Foundation {
      * Returns the length (in bytes) of a BSTR.
      * @remarks
      * The returned value may be different from <b>strlen</b>(bstr) if the BSTR contains embedded null characters. This function always returns the number of bytes specified in the len parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringbytelen">SysAllocStringByteLen</a> function used to allocate the BSTR.
-     * @param {BSTR} bstr A previously allocated string.
+     * @param {BSTR} bstr_ A previously allocated string.
      * @returns {Integer} The number of bytes in <i>bstr</i>, not including the terminating null character. If <i>bstr</i> is null the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysstringbytelen
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysstringbytelen
      */
-    static SysStringByteLen(bstr) {
-        bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
+    static SysStringByteLen(bstr_) {
+        bstr_ := bstr_ is Win32Handle ? NumGet(bstr_, "ptr") : bstr_
 
-        result := DllCall("OLEAUT32.dll\SysStringByteLen", "ptr", bstr, "uint")
+        result := DllCall("OLEAUT32.dll\SysStringByteLen", "ptr", bstr_, "uint")
         return result
     }
 
@@ -35355,7 +35355,7 @@ class Foundation {
      * @param {PSTR} psz The string to copy, or NULL to keep the string uninitialized.
      * @param {Integer} len The number of bytes to copy. A null character is placed afterwards, allocating a total of <i>len</i> plus the size of <b>OLECHAR</b> bytes.
      * @returns {BSTR} A copy of the string, or NULL if there is insufficient memory to complete the operation.
-     * @see https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysallocstringbytelen
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleauto/nf-oleauto-sysallocstringbytelen
      */
     static SysAllocStringByteLen(psz, len) {
         psz := psz is String ? StrPtr(psz) : psz
@@ -35414,7 +35414,7 @@ class Foundation {
      * If the application is running under a debugger,  the function will throw an exception if it receives either a  handle value that is not valid  or a pseudo-handle value. This can happen if you close a handle twice, or if you  call 
      * <b>CloseHandle</b> on a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function instead of calling the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-closehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/handleapi/nf-handleapi-closehandle
      * @since windows5.0
      */
     static CloseHandle(hObject) {
@@ -35655,7 +35655,7 @@ class Foundation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-duplicatehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/handleapi/nf-handleapi-duplicatehandle
      * @since windows5.0
      */
     static DuplicateHandle(hSourceProcessHandle, hSourceHandle, hTargetProcessHandle, lpTargetHandle, dwDesiredAccess, bInheritHandle, dwOptions) {
@@ -35680,7 +35680,7 @@ class Foundation {
      * @param {HANDLE} hFirstObjectHandle The first object handle to compare.
      * @param {HANDLE} hSecondObjectHandle The second object handle to compare.
      * @returns {BOOL} A Boolean value that indicates if the two handles refer to the same underlying kernel object. TRUE if the same, otherwise FALSE.
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-compareobjecthandles
+     * @see https://learn.microsoft.com/windows/win32/api//content/handleapi/nf-handleapi-compareobjecthandles
      * @since windows10.0.10240
      */
     static CompareObjectHandles(hFirstObjectHandle, hSecondObjectHandle) {
@@ -35737,7 +35737,7 @@ class Foundation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-gethandleinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/handleapi/nf-handleapi-gethandleinformation
      * @since windows5.0
      */
     static GetHandleInformation(hObject, lpdwFlags) {
@@ -35771,7 +35771,7 @@ class Foundation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/handleapi/nf-handleapi-sethandleinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/handleapi/nf-handleapi-sethandleinformation
      * @since windows5.0
      */
     static SetHandleInformation(hObject, dwMask, dwFlags) {
@@ -35815,7 +35815,7 @@ class Foundation {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-freelibrary
+     * @see https://learn.microsoft.com/windows/win32/api//content/libloaderapi/nf-libloaderapi-freelibrary
      * @since windows5.1.2600
      */
     static FreeLibrary(hLibModule) {
@@ -35852,7 +35852,7 @@ class Foundation {
      * @returns {Integer} The return value is the calling thread's last-error code.
      * 
      * The Return Value section of the documentation for each function that sets the last-error code notes the conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set it when they fail. However, some functions also set the last-error code when they succeed. If the function is not documented to set the last-error code, the value returned by this function is simply the most recent last-error code to have been set; some functions set the last-error code to 0 on success and others do not.
-     * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror
+     * @see https://learn.microsoft.com/windows/win32/api//content/errhandlingapi/nf-errhandlingapi-getlasterror
      * @since windows5.1.2600
      */
     static GetLastError() {
@@ -35875,7 +35875,7 @@ class Foundation {
      * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to indicate that the error code has been defined by your application and to ensure that your error code does not conflict with any system-defined error codes.
      * @param {Integer} dwErrCode The last-error code for the thread.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror
+     * @see https://learn.microsoft.com/windows/win32/api//content/errhandlingapi/nf-errhandlingapi-setlasterror
      * @since windows5.1.2600
      */
     static SetLastError(dwErrCode) {
@@ -35904,7 +35904,7 @@ class Foundation {
      * @param {Integer} dwErrCode The last-error code for the thread.
      * @param {Integer} dwType This parameter is ignored.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setlasterrorex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-setlasterrorex
      * @since windows5.1.2600
      */
     static SetLastErrorEx(dwErrCode, dwType) {
@@ -35938,7 +35938,7 @@ class Foundation {
      * 
      * If the function fails, the return value is equal to a handle to the global memory object. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-globalfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-globalfree
      * @since windows5.1.2600
      */
     static GlobalFree(hMem) {
@@ -35979,7 +35979,7 @@ class Foundation {
      * 
      * If the function fails, the return value is equal to a handle to the local memory object. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-localfree
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-localfree
      * @since windows5.1.2600
      */
     static LocalFree(hMem) {
@@ -36004,13 +36004,13 @@ class Foundation {
      * ERROR_MR_MID_NOT_FOUND is returned when the specified NTSTATUS code does not have a corresponding system error code.
      * 
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
-     * @param {NTSTATUS} Status The NTSTATUS code to be converted.
+     * @param {NTSTATUS} Status_ The NTSTATUS code to be converted.
      * @returns {Integer} The function returns the corresponding <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlntstatustodoserror
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-rtlntstatustodoserror
      * @since windows5.1.2600
      */
-    static RtlNtStatusToDosError(Status) {
-        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "int", Status, "uint")
+    static RtlNtStatusToDosError(Status_) {
+        result := DllCall("ntdll.dll\RtlNtStatusToDosError", "int", Status_, "uint")
         return result
     }
 

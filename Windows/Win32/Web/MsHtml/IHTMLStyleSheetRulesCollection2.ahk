@@ -41,7 +41,11 @@ class IHTMLStyleSheetRulesCollection2 extends IDispatch{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -51,7 +55,11 @@ class IHTMLStyleSheetRulesCollection2 extends IDispatch{
      * @returns {IHTMLCSSRule} 
      */
     item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppHTMLCSSRule := 0, "HRESULT")
+        result := ComCall(8, this, "int", index, "ptr*", &ppHTMLCSSRule := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLCSSRule(ppHTMLCSSRule)
     }
 }

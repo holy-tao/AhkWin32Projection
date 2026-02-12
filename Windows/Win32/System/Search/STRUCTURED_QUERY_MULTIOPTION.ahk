@@ -3,7 +3,7 @@
 
 /**
  * A set of flags used by IQueryParser::SetMultiOption to indicate individual options.
- * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_multioption
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/ne-structuredquery-structured_query_multioption
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */

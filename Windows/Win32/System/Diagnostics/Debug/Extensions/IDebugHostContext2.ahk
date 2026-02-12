@@ -34,7 +34,11 @@ class IDebugHostContext2 extends IDebugHostContext{
      * @returns {Integer} 
      */
     GetAddressSpaceRelation(pContext) {
-        result := ComCall(4, this, "ptr", pContext, "int*", &pAddressSpaceRelation := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pContext, "int*", &pAddressSpaceRelation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAddressSpaceRelation
     }
 }

@@ -37,7 +37,11 @@ class IDebugHostExtensibility extends IUnknown{
     CreateFunctionAlias(aliasName, functionObject) {
         aliasName := aliasName is String ? StrPtr(aliasName) : aliasName
 
-        result := ComCall(3, this, "ptr", aliasName, "ptr", functionObject, "HRESULT")
+        result := ComCall(3, this, "ptr", aliasName, "ptr", functionObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IDebugHostExtensibility extends IUnknown{
     DestroyFunctionAlias(aliasName) {
         aliasName := aliasName is String ? StrPtr(aliasName) : aliasName
 
-        result := ComCall(4, this, "ptr", aliasName, "HRESULT")
+        result := ComCall(4, this, "ptr", aliasName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

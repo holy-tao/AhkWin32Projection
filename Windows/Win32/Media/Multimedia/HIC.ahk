@@ -4,6 +4,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
+ * The change in the hot item was caused by a shortcut key.
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmtbhotitem
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

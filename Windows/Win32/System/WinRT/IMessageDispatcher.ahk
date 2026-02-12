@@ -5,7 +5,7 @@
 
 /**
  * Callback interface implemented by components that need to perform special processing of window messages on an ASTA thread.
- * @see https://docs.microsoft.com/windows/win32/api//imessagedispatcher/nn-imessagedispatcher-imessagedispatcher
+ * @see https://learn.microsoft.com/windows/win32/api//content/imessagedispatcher/nn-imessagedispatcher-imessagedispatcher
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -32,11 +32,15 @@ class IMessageDispatcher extends IInspectable{
 
     /**
      * Performs custom dispatching when window messages are available to be dispatched on an ASTA thread.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//imessagedispatcher/nf-imessagedispatcher-imessagedispatcher-pumpmessages
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/imessagedispatcher/nf-imessagedispatcher-imessagedispatcher-pumpmessages
      */
     PumpMessages() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

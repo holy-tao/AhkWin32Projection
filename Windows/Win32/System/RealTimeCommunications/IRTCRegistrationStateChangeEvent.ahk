@@ -63,7 +63,11 @@ class IRTCRegistrationStateChangeEvent extends IDispatch{
      * @returns {IRTCProfile} 
      */
     get_Profile() {
-        result := ComCall(7, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile(ppProfile)
     }
 
@@ -72,7 +76,11 @@ class IRTCRegistrationStateChangeEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(8, this, "int*", &penState := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &penState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penState
     }
 
@@ -81,7 +89,11 @@ class IRTCRegistrationStateChangeEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 
@@ -91,7 +103,11 @@ class IRTCRegistrationStateChangeEvent extends IDispatch{
      */
     get_StatusText() {
         pbstrStatusText := BSTR()
-        result := ComCall(10, this, "ptr", pbstrStatusText, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrStatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStatusText
     }
 }

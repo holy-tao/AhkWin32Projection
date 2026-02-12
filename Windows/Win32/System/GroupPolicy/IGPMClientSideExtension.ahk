@@ -6,7 +6,7 @@
 
 /**
  * The IGPMClientSideExtension interface supports methods that allow you to query client-side extension properties when you use the Group Policy Management Console (GPMC) interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmclientsideextension
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmclientsideextension
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -57,7 +57,11 @@ class IGPMClientSideExtension extends IDispatch{
      */
     get_ID() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -67,27 +71,39 @@ class IGPMClientSideExtension extends IDispatch{
      */
     get_DisplayName() {
         pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Checks whether the client-side extension can be called during the processing of user policy.
      * @returns {VARIANT_BOOL} Value that indicates whether the client-side extension can be called during the processing of user policy. If <b>VARIANT_TRUE</b>, the client-side extension is called during the processing of user policy, provided that there are policy settings for the client-side extension in the user portion of one or more of the applied GPOs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmclientsideextension-isuserenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmclientsideextension-isuserenabled
      */
     IsUserEnabled() {
-        result := ComCall(9, this, "short*", &pvbEnabled := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &pvbEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvbEnabled
     }
 
     /**
      * Checks whether the client-side extension can be called during the processing of computer policy.
      * @returns {VARIANT_BOOL} Value that indicates whether the client-side extension can be called during the processing of computer policy. If <b>VARIANT_TRUE</b>, the client-side extension is called during the processing of computer policy, provided that there are policy settings for the client-side extension in the computer portion of one or more of the applied GPOs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmclientsideextension-iscomputerenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmclientsideextension-iscomputerenabled
      */
     IsComputerEnabled() {
-        result := ComCall(10, this, "short*", &pvbEnabled := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &pvbEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvbEnabled
     }
 }

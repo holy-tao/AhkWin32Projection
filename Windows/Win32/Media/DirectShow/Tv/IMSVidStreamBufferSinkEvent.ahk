@@ -6,11 +6,8 @@
 /**
  * This topic applies to Windows XP Service Pack 1 or later.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersinkevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidstreambuffersinkevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,30 +35,42 @@ class IMSVidStreamBufferSinkEvent extends IMSVidOutputDeviceEvent{
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Returns S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent-certificatefailure
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambuffersinkevent-certificatefailure
      */
     CertificateFailure() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent-certificatesuccess
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambuffersinkevent-certificatesuccess
      */
     CertificateSuccess() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Returns S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersinkevent-writefailure
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidstreambuffersinkevent-writefailure
      */
     WriteFailure() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Contains input data for the IDirect3DAuthenticatedChannel9::Configure method.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configure-input
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-configure-input
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

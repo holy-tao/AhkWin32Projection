@@ -6,7 +6,7 @@
  * @remarks
  * To compile an application that uses this structure, define _WIN32_WINNT as 0x0600 or later. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-audiodescription
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-audiodescription
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

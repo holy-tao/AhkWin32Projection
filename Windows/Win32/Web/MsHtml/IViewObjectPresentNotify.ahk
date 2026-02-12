@@ -33,7 +33,11 @@ class IViewObjectPresentNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     OnPreRender() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

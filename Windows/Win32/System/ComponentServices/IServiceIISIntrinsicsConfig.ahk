@@ -5,7 +5,7 @@
 
 /**
  * Configures the IIS intrinsics for the work that is done when calling the CoCreateActivity or CoEnterServiceDomain function.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iserviceiisintrinsicsconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iserviceiisintrinsicsconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IServiceIISIntrinsicsConfig extends IUnknown{
      * Configures the IIS intrinsics for the enclosed work.
      * @param {Integer} iisIntrinsicsConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_iisintrinsicsconfig">CSC_IISIntrinsicsConfig</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceiisintrinsicsconfig-iisintrinsicsconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iserviceiisintrinsicsconfig-iisintrinsicsconfig
      */
     IISIntrinsicsConfig(iisIntrinsicsConfig) {
-        result := ComCall(3, this, "int", iisIntrinsicsConfig, "HRESULT")
+        result := ComCall(3, this, "int", iisIntrinsicsConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

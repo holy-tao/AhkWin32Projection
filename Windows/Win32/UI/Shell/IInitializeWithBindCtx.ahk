@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that initializes a handler, such as a property handler, thumbnail handler, or preview handler, with a bind context.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iinitializewithbindctx
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iinitializewithbindctx
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,11 +37,15 @@ class IInitializeWithBindCtx extends IUnknown{
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinitializewithbindctx-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iinitializewithbindctx-initialize
      */
     Initialize(pbc) {
-        result := ComCall(3, this, "ptr", pbc, "HRESULT")
+        result := ComCall(3, this, "ptr", pbc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

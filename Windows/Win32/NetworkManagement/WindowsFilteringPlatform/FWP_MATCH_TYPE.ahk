@@ -17,7 +17,7 @@
  * <li>An FWP_TOKEN_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
  * <li>An FWP_TOKEN_ACCESS_INFORMATION_TYPE field can be compared with an FWP_SID value when enumerating.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_match_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwptypes/ne-fwptypes-fwp_match_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

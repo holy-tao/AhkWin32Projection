@@ -51,7 +51,11 @@ class ISpeechAudioFormat extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(7, this, "int*", &AudioFormat := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &AudioFormat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AudioFormat
     }
 
@@ -61,7 +65,11 @@ class ISpeechAudioFormat extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Type(AudioFormat) {
-        result := ComCall(8, this, "int", AudioFormat, "HRESULT")
+        result := ComCall(8, this, "int", AudioFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +79,11 @@ class ISpeechAudioFormat extends IDispatch{
      */
     get_Guid() {
         Guid := BSTR()
-        result := ComCall(9, this, "ptr", Guid, "HRESULT")
+        result := ComCall(9, this, "ptr", Guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Guid
     }
 
@@ -81,9 +93,16 @@ class ISpeechAudioFormat extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Guid(Guid) {
-        Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
+        if(Guid is String) {
+            pin := BSTR.Alloc(Guid)
+            Guid := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", Guid, "HRESULT")
+        result := ComCall(10, this, "ptr", Guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +111,11 @@ class ISpeechAudioFormat extends IDispatch{
      * @returns {ISpeechWaveFormatEx} 
      */
     GetWaveFormatEx() {
-        result := ComCall(11, this, "ptr*", &SpeechWaveFormatEx := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &SpeechWaveFormatEx := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechWaveFormatEx(SpeechWaveFormatEx)
     }
 
@@ -102,7 +125,11 @@ class ISpeechAudioFormat extends IDispatch{
      * @returns {HRESULT} 
      */
     SetWaveFormatEx(SpeechWaveFormatEx) {
-        result := ComCall(12, this, "ptr", SpeechWaveFormatEx, "HRESULT")
+        result := ComCall(12, this, "ptr", SpeechWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

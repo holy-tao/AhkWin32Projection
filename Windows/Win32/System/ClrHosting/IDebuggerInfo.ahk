@@ -33,7 +33,11 @@ class IDebuggerInfo extends IUnknown{
      * @returns {BOOL} 
      */
     IsDebuggerAttached() {
-        result := ComCall(3, this, "int*", &pbAttached := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pbAttached := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAttached
     }
 }

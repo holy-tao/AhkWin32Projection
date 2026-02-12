@@ -3,7 +3,7 @@
 
 /**
  * These flags are used with the SHRestricted function.
- * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-restrictions
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

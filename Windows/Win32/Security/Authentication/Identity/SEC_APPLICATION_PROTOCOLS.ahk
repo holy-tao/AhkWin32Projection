@@ -6,7 +6,7 @@
  * Stores an array of application protocol lists.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_application_protocols
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_application_protocols
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

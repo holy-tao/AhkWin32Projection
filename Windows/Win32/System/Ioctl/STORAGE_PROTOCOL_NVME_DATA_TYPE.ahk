@@ -16,7 +16,7 @@
  *   * Use **NVMeDataTypeIdentify** to get Identify Controller data or Identify Namespace data.
  *   * Use **NVMeDataTypeLogPage** to get log pages (including SMART/health data).
  *   * Use **NVMeDataTypeFeature** to get features of the NVMe drive.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_protocol_nvme_data_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ne-winioctl-storage_protocol_nvme_data_type
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about the provisioning of virtual machines.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,11 +34,15 @@ class ITsSbProvisioningPluginNotifySink extends IUnknown{
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that a provisioning job is created.
      * @param {Pointer<VM_NOTIFY_INFO>} pVmNotifyInfo Notification info.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onjobcreated
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onjobcreated
      */
     OnJobCreated(pVmNotifyInfo) {
-        result := ComCall(3, this, "ptr", pVmNotifyInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pVmNotifyInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,13 +52,20 @@ class ITsSbProvisioningPluginNotifySink extends IUnknown{
      * @param {Integer} VmNotifyStatus Notification status.
      * @param {HRESULT} ErrorCode A standard <b>HRESULT</b> error code describing the reason for the status change.
      * @param {BSTR} ErrorDescr A text description of the reason for the change.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onvirtualmachinestatuschanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onvirtualmachinestatuschanged
      */
     OnVirtualMachineStatusChanged(pVmNotifyEntry, VmNotifyStatus, ErrorCode, ErrorDescr) {
-        ErrorDescr := ErrorDescr is String ? BSTR.Alloc(ErrorDescr).Value : ErrorDescr
+        if(ErrorDescr is String) {
+            pin := BSTR.Alloc(ErrorDescr)
+            ErrorDescr := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", pVmNotifyEntry, "int", VmNotifyStatus, "int", ErrorCode, "ptr", ErrorDescr, "HRESULT")
+        result := ComCall(4, this, "ptr", pVmNotifyEntry, "int", VmNotifyStatus, "int", ErrorCode, "ptr", ErrorDescr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,34 +73,49 @@ class ITsSbProvisioningPluginNotifySink extends IUnknown{
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the job is complete.
      * @param {HRESULT} ResultCode The <b>HRESULT</b> returned by the job.
      * @param {BSTR} ResultDescription A text description of the <i>ResultCode</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onjobcompleted
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onjobcompleted
      */
     OnJobCompleted(ResultCode, ResultDescription) {
-        ResultDescription := ResultDescription is String ? BSTR.Alloc(ResultDescription).Value : ResultDescription
+        if(ResultDescription is String) {
+            pin := BSTR.Alloc(ResultDescription)
+            ResultDescription := pin.Value
+        }
 
-        result := ComCall(5, this, "int", ResultCode, "ptr", ResultDescription, "HRESULT")
+        result := ComCall(5, this, "int", ResultCode, "ptr", ResultDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the job is cancelled.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onjobcancelled
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onjobcancelled
      */
     OnJobCancelled() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the virtual machine is locked.
      * @param {Pointer<VM_NOTIFY_ENTRY>} pVmNotifyEntry Notification entry.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-lockvirtualmachine
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-lockvirtualmachine
      */
     LockVirtualMachine(pVmNotifyEntry) {
-        result := ComCall(7, this, "ptr", pVmNotifyEntry, "HRESULT")
+        result := ComCall(7, this, "ptr", pVmNotifyEntry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,14 +125,24 @@ class ITsSbProvisioningPluginNotifySink extends IUnknown{
      * @param {Integer} VmHostNotifyStatus The new status of the host.
      * @param {HRESULT} ErrorCode A standard <b>HRESULT</b> error code describing the reason for the status change.
      * @param {BSTR} ErrorDescr A text description of the reason for the change.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onvirtualmachinehoststatuschanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovisioningpluginnotifysink-onvirtualmachinehoststatuschanged
      */
     OnVirtualMachineHostStatusChanged(VmHost, VmHostNotifyStatus, ErrorCode, ErrorDescr) {
-        VmHost := VmHost is String ? BSTR.Alloc(VmHost).Value : VmHost
-        ErrorDescr := ErrorDescr is String ? BSTR.Alloc(ErrorDescr).Value : ErrorDescr
+        if(VmHost is String) {
+            pin := BSTR.Alloc(VmHost)
+            VmHost := pin.Value
+        }
+        if(ErrorDescr is String) {
+            pin := BSTR.Alloc(ErrorDescr)
+            ErrorDescr := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", VmHost, "int", VmHostNotifyStatus, "int", ErrorCode, "ptr", ErrorDescr, "HRESULT")
+        result := ComCall(8, this, "ptr", VmHost, "int", VmHostNotifyStatus, "int", ErrorCode, "ptr", ErrorDescr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

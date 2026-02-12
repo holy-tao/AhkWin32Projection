@@ -41,53 +41,76 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {Pointer} 
      */
     getRowCount() {
-        result := ComCall(3, this, "ptr*", &pcRows := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &pcRows := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRows
     }
 
     /**
-     * 
+     * getColumnCount Method (SQLServerResultSetMetaData)
+     * @remarks
+     * This getColumnCount method is specified by the getColumnCount method in the java.sql.ResultSetMetaData interface.
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getcolumncount-method-sqlserverresultsetmetadata
      */
     getColumnCount() {
-        result := ComCall(4, this, "ptr*", &pcColumns := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &pcColumns := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcColumns
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} iColumn 
      * @returns {Integer} 
      */
-    getRWStatus(iRow, iColumn) {
-        result := ComCall(5, this, "ptr", iRow, "ptr", iColumn, "int*", &prwStatus := 0, "HRESULT")
+    getRWStatus(iRow_, iColumn) {
+        result := ComCall(5, this, "ptr", iRow_, "ptr", iColumn, "int*", &prwStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return prwStatus
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} iColumn 
      * @param {Integer} format 
      * @returns {VARIANT} 
      */
-    getVariant(iRow, iColumn, format) {
+    getVariant(iRow_, iColumn, format) {
         pVar := VARIANT()
-        result := ComCall(6, this, "ptr", iRow, "ptr", iColumn, "int", format, "ptr", pVar, "HRESULT")
+        result := ComCall(6, this, "ptr", iRow_, "ptr", iColumn, "int", format, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} iColumn 
      * @param {Integer} format 
      * @param {VARIANT} Var 
      * @returns {HRESULT} 
      */
-    setVariant(iRow, iColumn, format, Var) {
-        result := ComCall(7, this, "ptr", iRow, "ptr", iColumn, "int", format, "ptr", Var, "HRESULT")
+    setVariant(iRow_, iColumn, format, Var) {
+        result := ComCall(7, this, "ptr", iRow_, "ptr", iColumn, "int", format, "ptr", Var, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,43 +120,64 @@ class OLEDBSimpleProvider extends IUnknown{
      */
     getLocale() {
         pbstrLocale := BSTR()
-        result := ComCall(8, this, "ptr", pbstrLocale, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrLocale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrLocale
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
      */
-    deleteRows(iRow, cRows) {
-        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, "ptr*", &pcRowsDeleted := 0, "HRESULT")
+    deleteRows(iRow_, cRows) {
+        result := ComCall(9, this, "ptr", iRow_, "ptr", cRows, "ptr*", &pcRowsDeleted := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRowsDeleted
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {Pointer} 
      */
-    insertRows(iRow, cRows) {
-        result := ComCall(10, this, "ptr", iRow, "ptr", cRows, "ptr*", &pcRowsInserted := 0, "HRESULT")
+    insertRows(iRow_, cRows) {
+        result := ComCall(10, this, "ptr", iRow_, "ptr", cRows, "ptr*", &pcRowsInserted := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRowsInserted
     }
 
     /**
-     * 
+     * findColumn Method (SQLServerResultSet)
+     * @remarks
+     * This findColumn method is specified by the findColumn method in the java.sql.ResultSet interface.  
+     *   
+     *  If there are multiple columns with the same name, the findColumn method returns the first case-sensitive match. If there is no case-sensitive match, this method returns the first case-insensitive match.
      * @param {Pointer} iRowStart 
      * @param {Pointer} iColumn 
-     * @param {VARIANT} val 
+     * @param {VARIANT} val_ 
      * @param {Integer} findFlags 
      * @param {Integer} compType 
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/findcolumn-method-sqlserverresultset
      */
-    find(iRowStart, iColumn, val, findFlags, compType) {
-        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val, "int", findFlags, "int", compType, "ptr*", &piRowFound := 0, "HRESULT")
+    find(iRowStart, iColumn, val_, findFlags, compType) {
+        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val_, "int", findFlags, "int", compType, "ptr*", &piRowFound := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piRowFound
     }
 
@@ -143,7 +187,11 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     addOLEDBSimpleProviderListener(pospIListener) {
-        result := ComCall(12, this, "ptr", pospIListener, "HRESULT")
+        result := ComCall(12, this, "ptr", pospIListener, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +201,11 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     removeOLEDBSimpleProviderListener(pospIListener) {
-        result := ComCall(13, this, "ptr", pospIListener, "HRESULT")
+        result := ComCall(13, this, "ptr", pospIListener, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +214,11 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {BOOL} 
      */
     isAsync() {
-        result := ComCall(14, this, "int*", &pbAsynch := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pbAsynch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAsynch
     }
 
@@ -171,7 +227,11 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {Pointer} 
      */
     getEstimatedRows() {
-        result := ComCall(15, this, "ptr*", &piRows := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &piRows := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piRows
     }
 
@@ -180,7 +240,11 @@ class OLEDBSimpleProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     stopTransfer() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

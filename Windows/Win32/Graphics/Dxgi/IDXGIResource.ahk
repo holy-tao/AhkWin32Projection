@@ -7,7 +7,6 @@
 /**
  * An IDXGIResource interface allows resource sharing and identifies the memory that a resource resides in.
  * @remarks
- * 
  * To find out what type of memory a resource is currently located in, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency">IDXGIDevice::QueryResourceResidency</a>. To share resources between processes, use <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-opensharedresource">ID3D10Device::OpenSharedResource</a>. For information about how to share resources between multiple Windows graphics APIs, including Direct3D 11, Direct2D, Direct3D 10, and Direct3D 9Ex, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/surface-sharing-between-windows-graphics-apis">Surface Sharing Between Windows Graphics APIs</a>.
  *           
  * 
@@ -23,9 +22,7 @@
  * 
  * <b>Windows Phone 8:
  *         </b> This API is supported.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dxgi/nn-dxgi-idxgiresource
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nn-dxgi-idxgiresource
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -52,14 +49,26 @@ class IDXGIResource extends IDXGIDeviceSubObject{
 
     /**
      * Gets the handle to a shared resource.
+     * @remarks
+     * <b>GetSharedHandle</b> returns a handle for the resource that you created as shared (that is, you set the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_SHARED</a> with or without the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_misc_flag">D3D11_RESOURCE_MISC_SHARED_KEYEDMUTEX</a> flag). You can pass this handle to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-opensharedresource">ID3D11Device::OpenSharedResource</a> method to give another device access to the shared resource. You can also marshal this handle to another process to share a resource with a device in another process. However, this handle is not an NT handle. Therefore, don't use the handle with <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>, <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a>, and so on.
+     * 
+     * The creator of a shared resource must not destroy the resource until all intended entities have opened the resource. The validity of the handle is tied to the lifetime of the underlying video memory. If no resource objects exist on any devices that refer to this resource, the handle is no longer valid. To extend the lifetime of the handle and video memory, you must open the shared resource on a device.
+     * 
+     * <b>GetSharedHandle</b> can also return handles for resources that were passed into <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-opensharedresource">ID3D11Device::OpenSharedResource</a> to open those resources.
+     * 
+     * <b>GetSharedHandle</b> fails if the resource to which it wants to get a handle is not shared.
      * @returns {HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
      * A pointer to a handle.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-getsharedhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-idxgiresource-getsharedhandle
      */
     GetSharedHandle() {
         pSharedHandle := HANDLE()
-        result := ComCall(8, this, "ptr", pSharedHandle, "HRESULT")
+        result := ComCall(8, this, "ptr", pSharedHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSharedHandle
     }
 
@@ -68,28 +77,44 @@ class IDXGIResource extends IDXGIDeviceSubObject{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>*</b>
      * 
      * A pointer to a usage flag (see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>). For Direct3D 10, a surface can be used as a shader input or a render-target output.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-getusage
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-idxgiresource-getusage
      */
     GetUsage() {
-        result := ComCall(9, this, "uint*", &pUsage := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pUsage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pUsage
     }
 
     /**
      * Set the priority for evicting the resource from memory.
-     * @param {Integer} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @remarks
+     * The eviction priority is a memory-management variable that is used by DXGI for determining how to populate overcommitted memory.
      * 
-     * Returns one of the following <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-setevictionpriority
+     * You can set priority levels other than the defined values when appropriate. For example, you can set a resource with a priority level of 0x78000001 to indicate that the resource is slightly above normal.
+     * @param {Integer} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-idxgiresource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
-        result := ComCall(10, this, "uint", EvictionPriority, "HRESULT")
+        result := ComCall(10, this, "uint", EvictionPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Get the eviction priority.
+     * @remarks
+     * The eviction priority is a memory-management variable that is used by DXGI to determine how to manage overcommitted memory.
+     * 
+     * Priority levels other than the defined values are used when appropriate. For example, a resource with a priority level of 0x78000001 indicates that the resource is slightly above normal.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * A pointer to the eviction priority, which determines when a resource can be evicted from memory.  
@@ -152,10 +177,14 @@ class IDXGIResource extends IDXGIDeviceSubObject{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-getevictionpriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi/nf-dxgi-idxgiresource-getevictionpriority
      */
     GetEvictionPriority() {
-        result := ComCall(11, this, "uint*", &pEvictionPriority := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pEvictionPriority := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEvictionPriority
     }
 }

@@ -14,7 +14,7 @@
  * 
  * <div class="alert"><b>Note</b>  For Windows XP and Windows 2000, see the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Run-Time Requirements</a> section of the WinHttp start page.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-url_components
+ * @see https://learn.microsoft.com/windows/win32/api//content/winhttp/ns-winhttp-url_components
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  * @charset ANSI

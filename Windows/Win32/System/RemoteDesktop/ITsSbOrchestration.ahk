@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to ensure that the target is ready before a client is redirected to it.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssborchestration
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssborchestration
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,13 +32,21 @@ class ITsSbOrchestration extends ITsSbPlugin{
 
     /**
      * Prepares the target for a client connection.
+     * @remarks
+     * This method is particularly useful for plug-ins that redirect users to virtual desktops. Remote Desktop Connection Broker (RD Connection Broker) 
+     * calls this method after placement has successfully completed. Orchestration can 
+     * include waking a virtual machine and determining its IP address. Your implementation of this method should ensure that the target is ready to accept a client connection.
      * @param {ITsSbClientConnection} pConnection A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbclientconnection">ITsSbClientConnection</a> client connection object.
      * @param {ITsSbOrchestrationNotifySink} pOrchestrationNotifySink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssborchestrationnotifysink">ITsSbOrchestrationNotifySink</a> orchestration notify sink object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssborchestration-preparetargetforconnect
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssborchestration-preparetargetforconnect
      */
     PrepareTargetForConnect(pConnection, pOrchestrationNotifySink) {
-        result := ComCall(5, this, "ptr", pConnection, "ptr", pOrchestrationNotifySink, "HRESULT")
+        result := ComCall(5, this, "ptr", pConnection, "ptr", pOrchestrationNotifySink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

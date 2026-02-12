@@ -35,7 +35,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {Integer} 
      */
     GetItemFlags() {
-        result := ComCall(3, this, "int*", &__MIDL__IWiaDrvItem0000 := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &__MIDL__IWiaDrvItem0000 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaDrvItem0000
     }
 
@@ -44,7 +48,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     GetDeviceSpecContext() {
-        result := ComCall(4, this, "ptr*", &__MIDL__IWiaDrvItem0001 := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &__MIDL__IWiaDrvItem0001 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaDrvItem0001
     }
 
@@ -54,7 +62,11 @@ class IWiaDrvItem extends IUnknown{
      */
     GetFullItemName() {
         __MIDL__IWiaDrvItem0002 := BSTR()
-        result := ComCall(5, this, "ptr", __MIDL__IWiaDrvItem0002, "HRESULT")
+        result := ComCall(5, this, "ptr", __MIDL__IWiaDrvItem0002, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaDrvItem0002
     }
 
@@ -64,7 +76,11 @@ class IWiaDrvItem extends IUnknown{
      */
     GetItemName() {
         __MIDL__IWiaDrvItem0003 := BSTR()
-        result := ComCall(6, this, "ptr", __MIDL__IWiaDrvItem0003, "HRESULT")
+        result := ComCall(6, this, "ptr", __MIDL__IWiaDrvItem0003, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaDrvItem0003
     }
 
@@ -74,7 +90,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {HRESULT} 
      */
     AddItemToFolder(__MIDL__IWiaDrvItem0004) {
-        result := ComCall(7, this, "ptr", __MIDL__IWiaDrvItem0004, "HRESULT")
+        result := ComCall(7, this, "ptr", __MIDL__IWiaDrvItem0004, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +104,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {HRESULT} 
      */
     UnlinkItemTree(__MIDL__IWiaDrvItem0005) {
-        result := ComCall(8, this, "int", __MIDL__IWiaDrvItem0005, "HRESULT")
+        result := ComCall(8, this, "int", __MIDL__IWiaDrvItem0005, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +118,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveItemFromFolder(__MIDL__IWiaDrvItem0006) {
-        result := ComCall(9, this, "int", __MIDL__IWiaDrvItem0006, "HRESULT")
+        result := ComCall(9, this, "int", __MIDL__IWiaDrvItem0006, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,9 +133,16 @@ class IWiaDrvItem extends IUnknown{
      * @returns {IWiaDrvItem} 
      */
     FindItemByName(__MIDL__IWiaDrvItem0007, __MIDL__IWiaDrvItem0008) {
-        __MIDL__IWiaDrvItem0008 := __MIDL__IWiaDrvItem0008 is String ? BSTR.Alloc(__MIDL__IWiaDrvItem0008).Value : __MIDL__IWiaDrvItem0008
+        if(__MIDL__IWiaDrvItem0008 is String) {
+            pin := BSTR.Alloc(__MIDL__IWiaDrvItem0008)
+            __MIDL__IWiaDrvItem0008 := pin.Value
+        }
 
-        result := ComCall(10, this, "int", __MIDL__IWiaDrvItem0007, "ptr", __MIDL__IWiaDrvItem0008, "ptr*", &__MIDL__IWiaDrvItem0009 := 0, "HRESULT")
+        result := ComCall(10, this, "int", __MIDL__IWiaDrvItem0007, "ptr", __MIDL__IWiaDrvItem0008, "ptr*", &__MIDL__IWiaDrvItem0009 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaDrvItem(__MIDL__IWiaDrvItem0009)
     }
 
@@ -117,9 +152,16 @@ class IWiaDrvItem extends IUnknown{
      * @returns {IWiaDrvItem} 
      */
     FindChildItemByName(__MIDL__IWiaDrvItem0010) {
-        __MIDL__IWiaDrvItem0010 := __MIDL__IWiaDrvItem0010 is String ? BSTR.Alloc(__MIDL__IWiaDrvItem0010).Value : __MIDL__IWiaDrvItem0010
+        if(__MIDL__IWiaDrvItem0010 is String) {
+            pin := BSTR.Alloc(__MIDL__IWiaDrvItem0010)
+            __MIDL__IWiaDrvItem0010 := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", __MIDL__IWiaDrvItem0010, "ptr*", &__MIDL__IWiaDrvItem0011 := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", __MIDL__IWiaDrvItem0010, "ptr*", &__MIDL__IWiaDrvItem0011 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaDrvItem(__MIDL__IWiaDrvItem0011)
     }
 
@@ -128,7 +170,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {IWiaDrvItem} 
      */
     GetParentItem() {
-        result := ComCall(12, this, "ptr*", &__MIDL__IWiaDrvItem0012 := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &__MIDL__IWiaDrvItem0012 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaDrvItem(__MIDL__IWiaDrvItem0012)
     }
 
@@ -137,7 +183,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {IWiaDrvItem} 
      */
     GetFirstChildItem() {
-        result := ComCall(13, this, "ptr*", &__MIDL__IWiaDrvItem0013 := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &__MIDL__IWiaDrvItem0013 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaDrvItem(__MIDL__IWiaDrvItem0013)
     }
 
@@ -146,7 +196,11 @@ class IWiaDrvItem extends IUnknown{
      * @returns {IWiaDrvItem} 
      */
     GetNextSiblingItem() {
-        result := ComCall(14, this, "ptr*", &__MIDL__IWiaDrvItem0014 := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &__MIDL__IWiaDrvItem0014 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWiaDrvItem(__MIDL__IWiaDrvItem0014)
     }
 
@@ -156,7 +210,11 @@ class IWiaDrvItem extends IUnknown{
      */
     DumpItemData() {
         __MIDL__IWiaDrvItem0015 := BSTR()
-        result := ComCall(15, this, "ptr", __MIDL__IWiaDrvItem0015, "HRESULT")
+        result := ComCall(15, this, "ptr", __MIDL__IWiaDrvItem0015, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return __MIDL__IWiaDrvItem0015
     }
 }

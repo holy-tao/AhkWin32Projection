@@ -21,7 +21,7 @@
  * </ul>
  * The system can periodically refresh the time by synchronizing with a time source. Because the system time can be adjusted either forward or backward, do not compare system time readings to determine elapsed time. Instead, use one of the methods described in 
  * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/windows-time">Windows Time</a>.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-systemtime
+ * @see https://learn.microsoft.com/windows/win32/api//content/minwinbase/ns-minwinbase-systemtime
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

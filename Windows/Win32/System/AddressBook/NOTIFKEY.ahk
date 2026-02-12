@@ -13,7 +13,7 @@
  * The scope requirements for a notification key resemble those for a long-term entry identifier. However, unlike an entry identifier, a notification key must be binary-comparable. Typically, a notification key includes a **GUID** value defined by the service provider followed by other provider-specific information unique to the object. 
  *   
  * For a discussion of the use of the **NOTIFKEY** structure to manage the connections between the advise sinks and the objects that generate the notifications, see [Supporting Event Notification](supporting-event-notification.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/notifkey
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/notifkey
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

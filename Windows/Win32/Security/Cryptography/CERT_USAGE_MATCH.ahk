@@ -22,7 +22,7 @@
  * Given the following path, the <b>OR</b> test is deemed valid:
  * 
  *  Although the intersection of the EKUs in the chain is an empty set, the use of the EE certificate is valid for EKU A because the request to the cryptography API specifies that the certificate is valid if each certificate of the path supports either EKU A OR EKU B.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_usage_match
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_usage_match
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

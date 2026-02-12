@@ -35,7 +35,11 @@ class IHTMLTextRangeMetrics2 extends IDispatch{
      * @returns {IHTMLRectCollection} 
      */
     getClientRects() {
-        result := ComCall(7, this, "ptr*", &pRectCol := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pRectCol := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLRectCollection(pRectCol)
     }
 
@@ -44,7 +48,11 @@ class IHTMLTextRangeMetrics2 extends IDispatch{
      * @returns {IHTMLRect} 
      */
     getBoundingClientRect() {
-        result := ComCall(8, this, "ptr*", &pRect := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pRect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLRect(pRect)
     }
 }

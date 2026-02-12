@@ -6,7 +6,7 @@
 
 /**
  * The IAssemblyName interface represents a side-by-side assembly name.
- * @see https://docs.microsoft.com/windows/win32/api//winsxs/nn-winsxs-iassemblyname
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nn-winsxs-iassemblyname
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -72,17 +72,21 @@ class IAssemblyName extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method did not succeed. The <a href="/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-setproperty">SetProperty</a> method was called after the <a href="/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-finalize">Finalize</a> method.
+     * The method did not succeed. The <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-setproperty">SetProperty</a> method was called after the <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-finalize">Finalize</a> method.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-setproperty
      */
     SetProperty(PropertyId, pvProperty, cbProperty) {
         pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, "uint", cbProperty, "HRESULT")
+        result := ComCall(3, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, "uint", cbProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,13 +125,17 @@ class IAssemblyName extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-getproperty
      */
     GetProperty(PropertyId, pvProperty, pcbProperty) {
         pvPropertyMarshal := pvProperty is VarRef ? "ptr" : "ptr"
         pcbPropertyMarshal := pcbProperty is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, pcbPropertyMarshal, pcbProperty, "HRESULT")
+        result := ComCall(4, this, "uint", PropertyId, pvPropertyMarshal, pvProperty, pcbPropertyMarshal, pcbProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,10 +171,14 @@ class IAssemblyName extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-finalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-finalize
      */
     Finalize() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,19 +217,23 @@ class IAssemblyName extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-getdisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-getdisplayname
      */
     GetDisplayName(szDisplayName, pccDisplayName, dwDisplayFlags) {
         szDisplayName := szDisplayName is String ? StrPtr(szDisplayName) : szDisplayName
 
         pccDisplayNameMarshal := pccDisplayName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", szDisplayName, pccDisplayNameMarshal, pccDisplayName, "uint", dwDisplayFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", szDisplayName, pccDisplayNameMarshal, pccDisplayName, "uint", dwDisplayFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The following words are reserved for use by the HLSL language. Do not use them to name variables or functions in your HLSL code.
      * @param {Pointer<Guid>} refIID 
      * @param {IUnknown} pUnkReserved1 
      * @param {IUnknown} pUnkReserved2 
@@ -227,6 +243,7 @@ class IAssemblyName extends IUnknown{
      * @param {Integer} cbReserved 
      * @param {Pointer<Pointer<Void>>} ppReserved 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-appendix-reserved-words
      */
     Reserved(refIID, pUnkReserved1, pUnkReserved2, szReserved, llReserved, pvReserved, cbReserved, ppReserved) {
         szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
@@ -234,12 +251,18 @@ class IAssemblyName extends IUnknown{
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
         ppReservedMarshal := ppReserved is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, pvReservedMarshal, pvReserved, "uint", cbReserved, ppReservedMarshal, ppReserved, "HRESULT")
+        result := ComCall(7, this, "ptr", refIID, "ptr", pUnkReserved1, "ptr", pUnkReserved2, "ptr", szReserved, "int64", llReserved, pvReservedMarshal, pvReserved, "uint", cbReserved, ppReservedMarshal, ppReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetName method returns the name portion of the assembly name.
+     * @remarks
+     * This method is equivalent to using the <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nf-winsxs-iassemblyname-getproperty">GetProperty</a> method with the <i>PropertyId</i> set to the <b>ASM_NAME_NAME</b> option of <a href="https://docs.microsoft.com/windows/win32/api/winsxs/ne-winsxs-asm_name">ASM_NAME</a>. In case ASM_NAME_NAME is not set, the size of the buffer returned by <i>lpcwBuffer</i> is  0, and the content of <i>pwzName</i> is undefined.
      * @param {Pointer<Integer>} lpcwBuffer When calling this method, set this parameter to the size of the buffer specified by <i>pwzName</i>. The specify the size in characters and include the null terminator. When the method returns, the value of <i>lpcwBuffer</i> is the size of the name returned.
      * @param {PWSTR} pwzName Pointer to the string value that receives  the name.
      * @returns {HRESULT} This method can return one of these values.
@@ -272,31 +295,45 @@ class IAssemblyName extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-getname
      */
     GetName(lpcwBuffer, pwzName) {
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
         lpcwBufferMarshal := lpcwBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, lpcwBufferMarshal, lpcwBuffer, "ptr", pwzName, "HRESULT")
+        result := ComCall(8, this, lpcwBufferMarshal, lpcwBuffer, "ptr", pwzName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getversionexa">GetVersionEx</a> function was developed because many existing applications err when examining the packed <b>DWORD</b> value returned by 
+     * <b>GetVersion</b>, transposing the major and minor version numbers. 
+     * <b>GetVersionEx</b> forces applications to explicitly examine each element of version information. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-verifyversioninfoa">VerifyVersionInfo</a> eliminates further potential for error by comparing the required system version with the current system version for you.
      * @param {Pointer<Integer>} pdwVersionHi 
      * @param {Pointer<Integer>} pdwVersionLow 
      * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
      * 
      * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(pdwVersionHi, pdwVersionLow) {
         pdwVersionHiMarshal := pdwVersionHi is VarRef ? "uint*" : "ptr"
         pdwVersionLowMarshal := pdwVersionLow is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pdwVersionHiMarshal, pdwVersionHi, pdwVersionLowMarshal, pdwVersionLow, "HRESULT")
+        result := ComCall(9, this, pdwVersionHiMarshal, pdwVersionHi, pdwVersionLowMarshal, pdwVersionLow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -334,20 +371,28 @@ class IAssemblyName extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-isequal
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-isequal
      */
     IsEqual(pName, dwCmpFlags) {
-        result := ComCall(10, this, "ptr", pName, "uint", dwCmpFlags, "HRESULT")
+        result := ComCall(10, this, "ptr", pName, "uint", dwCmpFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Clone method copies the current side-by-side assembly name to a new instance of IAssemblyName.
      * @returns {IAssemblyName} Pointer to the location that contains the pointer to the new instance of <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nn-winsxs-iassemblyname">IAssemblyName</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblyname-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsxs/nf-winsxs-iassemblyname-clone
      */
     Clone() {
-        result := ComCall(11, this, "ptr*", &pName := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &pName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAssemblyName(pName)
     }
 }

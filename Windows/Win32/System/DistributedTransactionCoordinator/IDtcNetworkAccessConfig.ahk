@@ -33,7 +33,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {BOOL} 
      */
     GetAnyNetworkAccess() {
-        result := ComCall(3, this, "int*", &pbAnyNetworkAccess := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pbAnyNetworkAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAnyNetworkAccess
     }
 
@@ -43,7 +47,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAnyNetworkAccess(bAnyNetworkAccess) {
-        result := ComCall(4, this, "int", bAnyNetworkAccess, "HRESULT")
+        result := ComCall(4, this, "int", bAnyNetworkAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +60,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {BOOL} 
      */
     GetNetworkAdministrationAccess() {
-        result := ComCall(5, this, "int*", &pbNetworkAdministrationAccess := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pbNetworkAdministrationAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbNetworkAdministrationAccess
     }
 
@@ -62,7 +74,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNetworkAdministrationAccess(bNetworkAdministrationAccess) {
-        result := ComCall(6, this, "int", bNetworkAdministrationAccess, "HRESULT")
+        result := ComCall(6, this, "int", bNetworkAdministrationAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +87,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {BOOL} 
      */
     GetNetworkTransactionAccess() {
-        result := ComCall(7, this, "int*", &pbNetworkTransactionAccess := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pbNetworkTransactionAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbNetworkTransactionAccess
     }
 
@@ -81,7 +101,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNetworkTransactionAccess(bNetworkTransactionAccess) {
-        result := ComCall(8, this, "int", bNetworkTransactionAccess, "HRESULT")
+        result := ComCall(8, this, "int", bNetworkTransactionAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +114,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {BOOL} 
      */
     GetNetworkClientAccess() {
-        result := ComCall(9, this, "int*", &pbNetworkClientAccess := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pbNetworkClientAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbNetworkClientAccess
     }
 
@@ -100,7 +128,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNetworkClientAccess(bNetworkClientAccess) {
-        result := ComCall(10, this, "int", bNetworkClientAccess, "HRESULT")
+        result := ComCall(10, this, "int", bNetworkClientAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +141,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {BOOL} 
      */
     GetNetworkTIPAccess() {
-        result := ComCall(11, this, "int*", &pbNetworkTIPAccess := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pbNetworkTIPAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbNetworkTIPAccess
     }
 
@@ -119,7 +155,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetNetworkTIPAccess(bNetworkTIPAccess) {
-        result := ComCall(12, this, "int", bNetworkTIPAccess, "HRESULT")
+        result := ComCall(12, this, "int", bNetworkTIPAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +168,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {BOOL} 
      */
     GetXAAccess() {
-        result := ComCall(13, this, "int*", &pbXAAccess := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pbXAAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbXAAccess
     }
 
@@ -138,7 +182,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetXAAccess(bXAAccess) {
-        result := ComCall(14, this, "int", bXAAccess, "HRESULT")
+        result := ComCall(14, this, "int", bXAAccess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +195,11 @@ class IDtcNetworkAccessConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     RestartDtcService() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

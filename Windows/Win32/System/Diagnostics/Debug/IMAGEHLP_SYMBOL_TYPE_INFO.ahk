@@ -3,7 +3,7 @@
 
 /**
  * Identifies the type of symbol information to be retrieved.
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbghelp/ne-dbghelp-imagehlp_symbol_type_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Contains information used in the CertFindChainInStore function to build certificate chains.
  * @remarks
  * The <b>pdwIssuerChainIndex</b> and <b>pdwIssuerElementIndex</b> members are only available if the <b>CERT_CHAIN_FIND_BY_ISSUER_PARA_HAS_EXTRA_FIELDS</b> macro is defined. If the <b>CERT_CHAIN_FIND_BY_ISSUER_PARA_HAS_EXTRA_FIELDS</b> macro is defined, the application must initialize all unused fields to zero.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_find_by_issuer_para
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_chain_find_by_issuer_para
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

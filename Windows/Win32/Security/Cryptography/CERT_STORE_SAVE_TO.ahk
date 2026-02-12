@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The function saves the certificate store to a file. The <i>pvSaveToPara</i> parameter contains a handle to a file previously obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function. The file must be opened with write permission. After a successful save operation, the file pointer is positioned after the last write operation.
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/nf-wincrypt-certsavestore
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

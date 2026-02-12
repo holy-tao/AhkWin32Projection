@@ -47,7 +47,11 @@ class ICivicAddressReportFactory extends ILocationReportFactory{
      * @returns {IDispCivicAddressReport} 
      */
     get_CivicAddressReport() {
-        result := ComCall(15, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispCivicAddressReport(pVal)
     }
 }

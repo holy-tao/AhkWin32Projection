@@ -4,7 +4,7 @@
 
 /**
  * The sockaddr_in6_old (ws2ipdef.h) structure varies depending on the protocol selected.
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_old
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2ipdef/ns-ws2ipdef-sockaddr_in6_old
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

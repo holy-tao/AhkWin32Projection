@@ -7,10 +7,8 @@
 /**
  * The IFELanguage interface provides language processing services using the Microsoft IME.
  * @remarks
- * 
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifelanguageinstance">CreateIFELanguageInstance</a> function.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifelanguage
+ * @see https://learn.microsoft.com/windows/win32/api//content/msime/nn-msime-ifelanguage
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -38,20 +36,28 @@ class IFELanguage extends IUnknown{
     /**
      * Initializes the IFELanguage object.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/msime/nf-msime-ifelanguage-open
      */
     Open() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Terminates the IFELanguage object.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/msime/nf-msime-ifelanguage-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -380,7 +386,7 @@ class IFELanguage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-getjmorphresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/msime/nf-msime-ifelanguage-getjmorphresult
      */
     GetJMorphResult(dwRequest, dwCMode, cwchInput, pwchInput, pfCInfo, ppResult) {
         pwchInput := pwchInput is String ? StrPtr(pwchInput) : pwchInput
@@ -388,7 +394,11 @@ class IFELanguage extends IUnknown{
         pfCInfoMarshal := pfCInfo is VarRef ? "uint*" : "ptr"
         ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, ppResultMarshal, ppResult, "HRESULT")
+        result := ComCall(5, this, "uint", dwRequest, "uint", dwCMode, "int", cwchInput, "ptr", pwchInput, pfCInfoMarshal, pfCInfo, ppResultMarshal, ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -642,43 +652,61 @@ class IFELanguage extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-getconversionmodecaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/msime/nf-msime-ifelanguage-getconversionmodecaps
      */
     GetConversionModeCaps(pdwCaps) {
         pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pdwCapsMarshal, pdwCaps, "HRESULT")
+        result := ComCall(6, this, pdwCapsMarshal, pdwCaps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} string 
+     * @param {BSTR} string_ 
      * @param {Integer} start 
      * @param {Integer} length 
      * @param {Pointer<BSTR>} phonetic 
      * @returns {HRESULT} 
      */
-    GetPhonetic(string, start, length, phonetic) {
-        string := string is String ? BSTR.Alloc(string).Value : string
+    GetPhonetic(string_, start, length, phonetic) {
+        if(string_ is String) {
+            pin := BSTR.Alloc(string_)
+            string_ := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", string, "int", start, "int", length, "ptr", phonetic, "HRESULT")
+        result := ComCall(7, this, "ptr", string_, "int", start, "int", length, "ptr", phonetic, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Converts the input string (which usually contains the Hiragana character) to converted strings.
-     * @param {BSTR} string A string of phonetic characters to convert.
+     * @param {BSTR} string_ A string of phonetic characters to convert.
      * @param {Integer} start The starting character from which <a href="https://docs.microsoft.com/windows/desktop/api/msime/nn-msime-ifelanguage">IFELanguage</a> begins conversion. The first character of <i>string</i> is represented by 1 (not 0).
      * @param {Integer} length The number of characters to convert. If this value is -1, all of the remaining characters from <i>start</i>  are converted.
-     * @param {Pointer<BSTR>} result The converted string. This string is allocated by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> and must be freed by the client.
+     * @param {Pointer<BSTR>} result_ The converted string. This string is allocated by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> and must be freed by the client.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-getconversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/msime/nf-msime-ifelanguage-getconversion
      */
-    GetConversion(string, start, length, result) {
-        string := string is String ? BSTR.Alloc(string).Value : string
+    GetConversion(string_, start, length, result_) {
+        if(string_ is String) {
+            pin := BSTR.Alloc(string_)
+            string_ := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", string, "int", start, "int", length, "ptr", result, "HRESULT")
+        result := ComCall(8, this, "ptr", string_, "int", start, "int", length, "ptr", result_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Identifies each XML canonicalization property and its associated value. This enumeration is used within the WS_XML_CANONICALIZATION_PROPERTY structure, which is used as a parameter to WsStartReaderCanonicalization and WsStartWriterCanonicalization.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_canonicalization_property_id
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_xml_canonicalization_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

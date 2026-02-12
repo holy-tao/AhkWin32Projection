@@ -5,7 +5,7 @@
 
 /**
  * The IMixerOCXNotify interface is implemented by clients and called by the Overlay Mixer to send notifications of events affecting the video display rectangle.
- * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nn-mixerocx-imixerocxnotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/mixerocx/nn-mixerocx-imixerocxnotify
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IMixerOCXNotify extends IUnknown{
      * The OnInvalidateRect method notifies the client that the video rectangle has been invalidated.
      * @param {Pointer<RECT>} lpcRect Specifies the rectangle that has been invalidated, in screen coordinates.
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocxnotify-oninvalidaterect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mixerocx/nf-mixerocx-imixerocxnotify-oninvalidaterect
      */
     OnInvalidateRect(lpcRect) {
-        result := ComCall(3, this, "ptr", lpcRect, "HRESULT")
+        result := ComCall(3, this, "ptr", lpcRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,10 +74,14 @@ class IMixerOCXNotify extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocxnotify-onstatuschange
+     * @see https://learn.microsoft.com/windows/win32/api//content/mixerocx/nf-mixerocx-imixerocxnotify-onstatuschange
      */
     OnStatusChange(ulStatusFlags) {
-        result := ComCall(4, this, "uint", ulStatusFlags, "HRESULT")
+        result := ComCall(4, this, "uint", ulStatusFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,10 +110,14 @@ class IMixerOCXNotify extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} If the method succeeds, it returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocxnotify-ondatachange
+     * @see https://learn.microsoft.com/windows/win32/api//content/mixerocx/nf-mixerocx-imixerocxnotify-ondatachange
      */
     OnDataChange(ulDataFlags) {
-        result := ComCall(5, this, "uint", ulDataFlags, "HRESULT")
+        result := ComCall(5, this, "uint", ulDataFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

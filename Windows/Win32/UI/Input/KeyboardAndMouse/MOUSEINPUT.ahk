@@ -15,7 +15,7 @@
  * Relative mouse motion is subject to the effects of the mouse speed and the two-mouse threshold values. A user sets these three values with the **Pointer Speed** slider of the Control Panel's **Mouse Properties** sheet. You can obtain and set these values using the [SystemParametersInfo](/windows/desktop/api/winuser/nf-winuser-systemparametersinfoa) function. 
  * 
  * The system applies two tests to the specified relative mouse movement. If the specified distance along either the x or y axis is greater than the first mouse threshold value, and the mouse speed is not zero, the system doubles the distance. If the specified distance along either the x or y axis is greater than the second mouse threshold value, and the mouse speed is equal to two, the system doubles the distance that resulted from applying the first threshold test. It is thus possible for the system to multiply specified relative mouse movement along the x or y axis by up to four times.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mouseinput
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-mouseinput
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319
  */

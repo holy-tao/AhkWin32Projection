@@ -38,7 +38,7 @@
  * <td>TS_RT_HIDDEN</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_runinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/textstor/ns-textstor-ts_runinfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */

@@ -36,7 +36,11 @@ class ICLRAssemblyReferenceList extends IUnknown{
     IsStringAssemblyReferenceInList(pwzAssemblyName) {
         pwzAssemblyName := pwzAssemblyName is String ? StrPtr(pwzAssemblyName) : pwzAssemblyName
 
-        result := ComCall(3, this, "ptr", pwzAssemblyName, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzAssemblyName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ICLRAssemblyReferenceList extends IUnknown{
      * @returns {HRESULT} 
      */
     IsAssemblyReferenceInList(pName) {
-        result := ComCall(4, this, "ptr", pName, "HRESULT")
+        result := ComCall(4, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

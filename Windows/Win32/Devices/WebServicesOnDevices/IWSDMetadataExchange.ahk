@@ -5,7 +5,7 @@
 
 /**
  * Is the base class for other objects which access metadata.
- * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nn-wsdclient-iwsdmetadataexchange
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nn-wsdclient-iwsdmetadataexchange
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class IWSDMetadataExchange extends IUnknown{
     /**
      * Retrieves metadata for an object.
      * @returns {Pointer<WSD_METADATA_SECTION_LIST>} Pointer to a linked list of structures containing the requested metadata.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdmetadataexchange-getmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdclient/nf-wsdclient-iwsdmetadataexchange-getmetadata
      */
     GetMetadata() {
-        result := ComCall(3, this, "ptr*", &MetadataOut := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &MetadataOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MetadataOut
     }
 }

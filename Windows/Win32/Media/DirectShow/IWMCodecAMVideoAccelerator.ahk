@@ -5,7 +5,7 @@
 
 /**
  * This interface is exposed by the Windows Media Decoder DMO and is called by a media player source filter to set up the various connections required to enable DirectX&#174; video acceleration (VA) for decoding of Windows Media-based video content.
- * @see https://docs.microsoft.com/windows/win32/api//wmdxva/nn-wmdxva-iwmcodecamvideoaccelerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmdxva/nn-wmdxva-iwmcodecamvideoaccelerator
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IWMCodecAMVideoAccelerator extends IUnknown{
      * The SetAcceleratorInterface method is called by the output pin on the player's source filter to pass the IAMVideoAccelerator interface on the Video Mixing Renderer (VMR) to the decoder DMO.
      * @param {IAMVideoAccelerator} pIAMVA Pointer to the <b>IAMVideoAccelerator</b> interface on the VMR.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-setacceleratorinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-setacceleratorinterface
      */
     SetAcceleratorInterface(pIAMVA) {
-        result := ComCall(3, this, "ptr", pIAMVA, "HRESULT")
+        result := ComCall(3, this, "ptr", pIAMVA, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,10 +100,14 @@ class IWMCodecAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-negotiateconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-negotiateconnection
      */
     NegotiateConnection(pMediaType) {
-        result := ComCall(4, this, "ptr", pMediaType, "HRESULT")
+        result := ComCall(4, this, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,10 +115,14 @@ class IWMCodecAMVideoAccelerator extends IUnknown{
      * The SetPlayerNotify method is called by the output pin on the source filter to provide the decoder DMO with the source filter's IWMPlayerTimestampHook interface to enable the source filter to update the time stamps on the samples before they are delivered to the renderer.
      * @param {IWMPlayerTimestampHook} pHook Pointer to the <b>IWMPlayerTimestampHook</b> interface exposed on the player.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code
-     * @see https://docs.microsoft.com/windows/win32/api//wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-setplayernotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmdxva/nf-wmdxva-iwmcodecamvideoaccelerator-setplayernotify
      */
     SetPlayerNotify(pHook) {
-        result := ComCall(5, this, "ptr", pHook, "HRESULT")
+        result := ComCall(5, this, "ptr", pHook, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

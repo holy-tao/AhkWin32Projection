@@ -6,7 +6,7 @@
 
 /**
  * Contains input data for a D3DAUTHENTICATEDCONFIGURE\_SHAREDRESOURCE command.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configuresharedresource
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-configuresharedresource
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

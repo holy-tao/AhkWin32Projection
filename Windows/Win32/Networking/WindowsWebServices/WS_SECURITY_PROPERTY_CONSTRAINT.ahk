@@ -4,7 +4,7 @@
 
 /**
  * This structure is used to specify a set of constraints for a particular security property. Any property constraints that are not specified will use the default constraints.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_property_constraint
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_security_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

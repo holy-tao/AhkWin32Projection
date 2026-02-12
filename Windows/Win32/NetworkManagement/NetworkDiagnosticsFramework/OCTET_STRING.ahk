@@ -3,7 +3,7 @@
 
 /**
  * The OCTET_STRING structure contains a pointer to a string of byte data.
- * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-octet_string
+ * @see https://learn.microsoft.com/windows/win32/api//content/ndattrib/ns-ndattrib-octet_string
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */

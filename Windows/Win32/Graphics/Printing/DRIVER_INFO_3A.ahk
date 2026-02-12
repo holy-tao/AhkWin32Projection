@@ -3,7 +3,7 @@
 
 /**
  * The DRIVER\_INFO\_3 structure contains printer driver information.
- * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-3
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/driver-info-3
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

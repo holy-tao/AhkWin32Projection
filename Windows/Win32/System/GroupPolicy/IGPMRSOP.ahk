@@ -9,12 +9,9 @@
 /**
  * The IGPMRSOP interface provides methods that support making Resultant Set of Policy (RSoP) queries in both logging and planning mode.
  * @remarks
- * 
  * For more information about security groups, see 
  * <a href="https://docs.microsoft.com/windows/desktop/AD/how-security-groups-are-used-in-access-control">How Security Groups are Used in Access Control</a> in the Active Directory Programmer's Guide.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmrsop
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmrsop
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -176,7 +173,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {Integer} 
      */
     get_Mode() {
-        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -186,7 +187,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_Namespace() {
         bstrVal := BSTR()
-        result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -196,9 +201,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_LoggingComputer(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +220,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_LoggingComputer() {
         bstrVal := BSTR()
-        result := ComCall(10, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -218,9 +234,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_LoggingUser(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +253,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_LoggingUser() {
         bstrVal := BSTR()
-        result := ComCall(12, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -240,7 +267,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_LoggingFlags(lVal) {
-        result := ComCall(13, this, "int", lVal, "HRESULT")
+        result := ComCall(13, this, "int", lVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -249,7 +280,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {Integer} 
      */
     get_LoggingFlags() {
-        result := ComCall(14, this, "int*", &lVal := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &lVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lVal
     }
 
@@ -259,7 +294,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningFlags(lVal) {
-        result := ComCall(15, this, "int", lVal, "HRESULT")
+        result := ComCall(15, this, "int", lVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -268,7 +307,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {Integer} 
      */
     get_PlanningFlags() {
-        result := ComCall(16, this, "int*", &lVal := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &lVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lVal
     }
 
@@ -278,9 +321,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningDomainController(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -290,7 +340,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningDomainController() {
         bstrVal := BSTR()
-        result := ComCall(18, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -300,9 +354,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningSiteName(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -312,7 +373,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningSiteName() {
         bstrVal := BSTR()
-        result := ComCall(20, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -322,9 +387,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningUser(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(21, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -334,7 +406,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningUser() {
         bstrVal := BSTR()
-        result := ComCall(22, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -344,9 +420,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningUserSOM(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -356,7 +439,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningUserSOM() {
         bstrVal := BSTR()
-        result := ComCall(24, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -366,7 +453,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningUserWMIFilters(varVal) {
-        result := ComCall(25, this, "ptr", varVal, "HRESULT")
+        result := ComCall(25, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -376,7 +467,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningUserWMIFilters() {
         varVal := VARIANT()
-        result := ComCall(26, this, "ptr", varVal, "HRESULT")
+        result := ComCall(26, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varVal
     }
 
@@ -386,7 +481,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningUserSecurityGroups(varVal) {
-        result := ComCall(27, this, "ptr", varVal, "HRESULT")
+        result := ComCall(27, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -396,7 +495,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningUserSecurityGroups() {
         varVal := VARIANT()
-        result := ComCall(28, this, "ptr", varVal, "HRESULT")
+        result := ComCall(28, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varVal
     }
 
@@ -406,9 +509,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningComputer(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(29, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -418,7 +528,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningComputer() {
         bstrVal := BSTR()
-        result := ComCall(30, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(30, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -428,9 +542,16 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningComputerSOM(bstrVal) {
-        bstrVal := bstrVal is String ? BSTR.Alloc(bstrVal).Value : bstrVal
+        if(bstrVal is String) {
+            pin := BSTR.Alloc(bstrVal)
+            bstrVal := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(31, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -440,7 +561,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningComputerSOM() {
         bstrVal := BSTR()
-        result := ComCall(32, this, "ptr", bstrVal, "HRESULT")
+        result := ComCall(32, this, "ptr", bstrVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrVal
     }
 
@@ -450,7 +575,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningComputerWMIFilters(varVal) {
-        result := ComCall(33, this, "ptr", varVal, "HRESULT")
+        result := ComCall(33, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -460,7 +589,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningComputerWMIFilters() {
         varVal := VARIANT()
-        result := ComCall(34, this, "ptr", varVal, "HRESULT")
+        result := ComCall(34, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varVal
     }
 
@@ -470,7 +603,11 @@ class IGPMRSOP extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PlanningComputerSecurityGroups(varVal) {
-        result := ComCall(35, this, "ptr", varVal, "HRESULT")
+        result := ComCall(35, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -480,7 +617,11 @@ class IGPMRSOP extends IDispatch{
      */
     get_PlanningComputerSecurityGroups() {
         varVal := VARIANT()
-        result := ComCall(36, this, "ptr", varVal, "HRESULT")
+        result := ComCall(36, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varVal
     }
 
@@ -488,25 +629,38 @@ class IGPMRSOP extends IDispatch{
      * Enumerates all users who have logging mode data on a specific computer.
      * @returns {VARIANT} Pointer to a SAFEARRAY containing VARIANT members. Each VARIANT contains a Dispatch pointer to  the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmtrustee">IGPMTrustee</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmrsop-loggingenumerateusers
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmrsop-loggingenumerateusers
      */
     LoggingEnumerateUsers() {
         varVal := VARIANT()
-        result := ComCall(37, this, "ptr", varVal, "HRESULT")
+        result := ComCall(37, this, "ptr", varVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varVal
     }
 
     /**
      * Executes a Resultant Set of Policy (RSoP) query.
+     * @remarks
+     * Call the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmrsop-releasequeryresults">IGPMRSOP::ReleaseQueryResults</a> method to release the WMI namespace created by this method.
+     * 
+     * In the GPMC UI, logging mode is also referred to as "Group Policy Results", and planning mode is also referred to as "Group Policy Modeling".
      * @returns {HRESULT} <h3>JScript</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmrsop-createqueryresults
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmrsop-createqueryresults
      */
     CreateQueryResults() {
-        result := ComCall(38, this, "HRESULT")
+        result := ComCall(38, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -517,29 +671,37 @@ class IGPMRSOP extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmrsop-releasequeryresults
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmrsop-releasequeryresults
      */
     ReleaseQueryResults() {
-        result := ComCall(39, this, "HRESULT")
+        result := ComCall(39, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GenerateReport method generates a report on the RSoP data.
-     * @param {Integer} gpmReportType Specifies whether the report is in XML or HTML.
+     * @param {Integer} gpmReportType_ Specifies whether the report is in XML or HTML.
      * @param {Pointer<VARIANT>} pvarGPMProgress Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of report generation. If this parameter is not <b>NULL</b>, the call to <b>GenerateReport</b> is handled asynchronously. If this parameter is <b>NULL</b> the call to <b>GenerateReport</b> is handled synchronously and a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface is returned in <i>pvarGPMCancel</i>. This parameter must be <b>NULL</b> if the client should not receive asynchronous notifications.
      * @param {Pointer<VARIANT>} pvarGPMCancel Receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface that the client can use to cancel the report generation. This parameter is not returned when <i>pvarGPMProgress</i> is <b>NULL</b>.
      * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a>. The <b>Result</b> property contains  a binary string of XML or HTML. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmessage">Status</a> property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmrsop-generatereport
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmrsop-generatereport
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(40, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+    GenerateReport(gpmReportType_, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(40, this, "int", gpmReportType_, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMResult(ppIGPMResult)
     }
 
     /**
      * The GenerateReportToFile method generates a report on the RSoP data and saves it to a file at a specified path.
-     * @param {Integer} gpmReportType Specifies whether the report is in XML or HTML.
+     * @param {Integer} gpmReportType_ Specifies whether the report is in XML or HTML.
      * @param {BSTR} bstrTargetFilePath Binary string that contains the path to the file where the report is being saved. Use null-terminated string.
      * 
      * <div class="alert"><b>Note</b>  If the path to the file is not specified, then the report will be created in the "%windir%\system32\" directory.</div>
@@ -548,12 +710,19 @@ class IGPMRSOP extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The value of the <b>Result</b> property of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface is indeterminate and should not be relied upon.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmrsop-generatereporttofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmrsop-generatereporttofile
      */
-    GenerateReportToFile(gpmReportType, bstrTargetFilePath) {
-        bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
+    GenerateReportToFile(gpmReportType_, bstrTargetFilePath) {
+        if(bstrTargetFilePath is String) {
+            pin := BSTR.Alloc(bstrTargetFilePath)
+            bstrTargetFilePath := pin.Value
+        }
 
-        result := ComCall(41, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(41, this, "int", gpmReportType_, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMResult(ppIGPMResult)
     }
 }

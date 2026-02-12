@@ -42,7 +42,11 @@ class ICLRStrongName3 extends IUnknown{
         ppbDigestBlobMarshal := ppbDigestBlob is VarRef ? "ptr*" : "ptr"
         pcbDigestBlobMarshal := pcbDigestBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszFilePath, ppbDigestBlobMarshal, ppbDigestBlob, pcbDigestBlobMarshal, pcbDigestBlob, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", wszFilePath, ppbDigestBlobMarshal, ppbDigestBlob, pcbDigestBlobMarshal, pcbDigestBlob, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +71,11 @@ class ICLRStrongName3 extends IUnknown{
         ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
         pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, pbDigestBlobMarshal, pbDigestBlob, "uint", cbDigestBlob, "uint", hashAlgId, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, pbDigestBlobMarshal, pbDigestBlob, "uint", cbDigestBlob, "uint", hashAlgId, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +91,11 @@ class ICLRStrongName3 extends IUnknown{
 
         pbSignatureBlobMarshal := pbSignatureBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", wszFilePath, pbSignatureBlobMarshal, pbSignatureBlob, "uint", cbSignatureBlob, "HRESULT")
+        result := ComCall(5, this, "ptr", wszFilePath, pbSignatureBlobMarshal, pbSignatureBlob, "uint", cbSignatureBlob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

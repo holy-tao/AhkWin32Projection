@@ -6,7 +6,7 @@
 
 /**
  * The IDirectDrawMediaSampleAllocator interface allocates samples that contain DirectDraw surfaces.The Overlay Mixer filter's input pin creates an allocator that implements this interface.
- * @see https://docs.microsoft.com/windows/win32/api//amstream/nn-amstream-idirectdrawmediasampleallocator
+ * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nn-amstream-idirectdrawmediasampleallocator
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,11 +33,17 @@ class IDirectDrawMediaSampleAllocator extends IUnknown{
 
     /**
      * The GetDirectDraw method retrieves a pointer to the DirectDraw instance used to allocate surfaces.
+     * @remarks
+     * The caller should release the returned <b>IDirectDraw</b> pointer, except when calling the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter's implementation of this interface.
      * @returns {IDirectDraw} Address of a pointer that receives the DirectDraw object's <b>IDirectDraw</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-idirectdrawmediasampleallocator-getdirectdraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/amstream/nf-amstream-idirectdrawmediasampleallocator-getdirectdraw
      */
     GetDirectDraw() {
-        result := ComCall(3, this, "ptr*", &ppDirectDraw := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppDirectDraw := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDraw(ppDirectDraw)
     }
 }

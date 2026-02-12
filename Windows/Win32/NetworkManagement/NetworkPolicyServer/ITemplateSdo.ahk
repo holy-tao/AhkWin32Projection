@@ -37,9 +37,16 @@ class ITemplateSdo extends ISdo{
      * @returns {HRESULT} 
      */
     AddToCollection(bstrName, pCollection, ppItem) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrName, "ptr", pCollection, "ptr*", ppItem, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrName, "ptr", pCollection, "ptr*", ppItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,9 +58,16 @@ class ITemplateSdo extends ISdo{
      * @returns {HRESULT} 
      */
     AddToSdo(bstrName, pSdoTarget, ppItem) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrName, "ptr", pSdoTarget, "ptr*", ppItem, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrName, "ptr", pSdoTarget, "ptr*", ppItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +78,11 @@ class ITemplateSdo extends ISdo{
      * @returns {HRESULT} 
      */
     AddToSdoAsProperty(pSdoTarget, id) {
-        result := ComCall(16, this, "ptr", pSdoTarget, "int", id, "HRESULT")
+        result := ComCall(16, this, "ptr", pSdoTarget, "int", id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

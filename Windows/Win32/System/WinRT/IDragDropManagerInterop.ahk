@@ -7,8 +7,7 @@
  * Enables interoperability with a WinRT CoreDragDropManager object.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dragdropinterop/nn-dragdropinterop-idragdropmanagerinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/dragdropinterop/nn-dragdropinterop-idragdropmanagerinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -34,16 +33,24 @@ class IDragDropManagerInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
+     * Gets a CoreDragDropManager object for the window of the active application.
+     * @param {HWND} hwnd_ Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/dragdropinterop/nf-dragdropinterop-idragdropmanagerinterop-getforwindow
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(CoreDragDropManager)`
+     * @returns {Pointer<Pointer<Void>>} Address of a pointer to a [CoreDragDropManager](/uwp/api/windows.applicationmodel.datatransfer.dragdrop.core.coredragdropmanager) object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/dragdropinterop/nf-dragdropinterop-idragdropmanagerinterop-getforwindow
      */
-    GetForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    GetForWindow(hwnd_, riid) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hwnd_, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The interface you implement to provide needed information to the text analyzer, like the text and associated text properties.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwritetextanalysissource1
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nn-dwrite_1-idwritetextanalysissource1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource{
 
     /**
      * Used by the text analyzer to obtain the desired glyph orientation and resolved bidi level.
+     * @remarks
+     * The text analyzer calls back to this to get the desired glyph
+     *     orientation and resolved bidi level, which it uses along with the
+     *     script properties of the text to determine the actual orientation of
+     *     each character, which it reports back to the client via the sink
+     *     SetGlyphOrientation method.
      * @param {Integer} textPosition Type: <b>UINT32</b>
      * 
      * The text position.
@@ -48,14 +54,18 @@ class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource{
      * 
      * Returning an error will abort the
      *     analysis.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritetextanalysissource1-getverticalglyphorientation
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_1/nf-dwrite_1-idwritetextanalysissource1-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation(textPosition, textLength, glyphOrientation, bidiLevel) {
         textLengthMarshal := textLength is VarRef ? "uint*" : "ptr"
         glyphOrientationMarshal := glyphOrientation is VarRef ? "int*" : "ptr"
         bidiLevelMarshal := bidiLevel is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "HRESULT")
+        result := ComCall(8, this, "uint", textPosition, textLengthMarshal, textLength, glyphOrientationMarshal, glyphOrientation, bidiLevelMarshal, bidiLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -20,7 +20,7 @@
  * ```
  * 
  * The unions in <b>DDPIXELFORMAT</b> have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
- * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddpixelformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddraw/ns-ddraw-ddpixelformat
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

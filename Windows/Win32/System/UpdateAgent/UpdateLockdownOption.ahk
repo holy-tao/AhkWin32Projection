@@ -146,7 +146,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updatelockdownoption
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/ne-wuapi-updatelockdownoption
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

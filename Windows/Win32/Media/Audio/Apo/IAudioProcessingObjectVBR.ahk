@@ -34,7 +34,11 @@ class IAudioProcessingObjectVBR extends IUnknown{
      * @returns {Integer} 
      */
     CalcMaxInputFrames(u32MaxOutputFrameCount) {
-        result := ComCall(3, this, "uint", u32MaxOutputFrameCount, "uint*", &pu32InputFrameCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint", u32MaxOutputFrameCount, "uint*", &pu32InputFrameCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pu32InputFrameCount
     }
 
@@ -44,7 +48,11 @@ class IAudioProcessingObjectVBR extends IUnknown{
      * @returns {Integer} 
      */
     CalcMaxOutputFrames(u32MaxInputFrameCount) {
-        result := ComCall(4, this, "uint", u32MaxInputFrameCount, "uint*", &pu32OutputFrameCount := 0, "HRESULT")
+        result := ComCall(4, this, "uint", u32MaxInputFrameCount, "uint*", &pu32OutputFrameCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pu32OutputFrameCount
     }
 }

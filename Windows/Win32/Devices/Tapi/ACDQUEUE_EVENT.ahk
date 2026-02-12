@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The ACDQUEUE_EVENT enumeration (tapi3cc.h) describes ACD queue events.
- * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-acdqueue_event
+ * The ACDQUEUE_EVENT enumeration (tapi3.h) describes ACD queue events.
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3/ne-tapi3-acdqueue_event
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

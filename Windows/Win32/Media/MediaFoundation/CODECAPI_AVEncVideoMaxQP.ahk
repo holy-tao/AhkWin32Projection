@@ -11,7 +11,7 @@
  * This is a static property meaning that it can only be set before the encoding session starts.
  * 
  * Default value shall be the max QP allowed by the corresponding coding standard. For example, H.264 encoders shall have a default value of 51.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideomaxqp
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avencvideomaxqp
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Win32Handle.ahk
 
 /**
  * Identifies an event handler that has been registered with an event source.
@@ -7,15 +8,21 @@
  * Use an **EventRegistrationToken** to  unsubscribe from a Windows Runtime event source.
  * 
  * You acquire an **EventRegistrationToken** when you subscribe to an event.
- * @see https://learn.microsoft.com/windows/win32/api/eventtoken/ns-eventtoken-eventregistrationtoken
+ * @see https://learn.microsoft.com/windows/win32/api//content/eventtoken/ns-eventtoken-eventregistrationtoken
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
-class EventRegistrationToken extends Win32Struct
+class EventRegistrationToken extends Win32Handle
 {
     static sizeof => 8
 
     static packingSize => 8
+
+    /**
+     * The list of values which indicate that the handle is invalid
+     * @type {Array<Integer>}
+     */
+    static invalidValues => []
 
     /**
      * Type: **INT64**

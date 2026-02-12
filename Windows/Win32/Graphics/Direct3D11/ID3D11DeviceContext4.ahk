@@ -5,7 +5,7 @@
 
 /**
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext4 adds new methods to those in ID3D11DeviceContext3.
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nn-d3d11_3-id3d11devicecontext4
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nn-d3d11_3-id3d11devicecontext4
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -38,13 +38,17 @@ class ID3D11DeviceContext4 extends ID3D11DeviceContext3{
      * @param {Integer} Value Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The value to set the fence to.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/win32/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11devicecontext4-signal
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/win32/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11devicecontext4-signal
      */
     Signal(pFence, Value) {
-        result := ComCall(147, this, "ptr", pFence, "uint", Value, "HRESULT")
+        result := ComCall(147, this, "ptr", pFence, "uint", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,13 +60,17 @@ class ID3D11DeviceContext4 extends ID3D11DeviceContext3{
      * @param {Integer} Value Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The value that the device context is waiting for the fence to reach or exceed.  So when  <a href="https://docs.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11fence-getcompletedvalue">ID3D11Fence::GetCompletedValue</a> is greater than or equal to <i>Value</i>, the wait is terminated.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * This method returns one of the <a href="/windows/win32/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_3/nf-d3d11_3-id3d11devicecontext4-wait
+     * This method returns one of the <a href="https://docs.microsoft.com/windows/win32/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/nf-d3d11_3-id3d11devicecontext4-wait
      */
     Wait(pFence, Value) {
-        result := ComCall(148, this, "ptr", pFence, "uint", Value, "HRESULT")
+        result := ComCall(148, this, "ptr", pFence, "uint", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

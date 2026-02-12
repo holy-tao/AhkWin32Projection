@@ -40,102 +40,139 @@ class IDxcUtils extends IUnknown{
      * @param {IDxcBlob} pBlob 
      * @param {Integer} offset 
      * @param {Integer} length 
-     * @returns {IDxcBlob} 
+     * @returns {Pointer<IDxcBlob>} 
      */
     CreateBlobFromBlob(pBlob, offset, length) {
-        result := ComCall(3, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcBlob(ppResult)
+        result := ComCall(3, this, "ptr", pBlob, "uint", offset, "uint", length, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
      * @param {Pointer} pData 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Integer} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
-    CreateBlobFromPinned(pData, size, codePage) {
-        result := ComCall(4, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(ppBlobEncoding)
+    CreateBlobFromPinned(pData, size_, codePage) {
+        result := ComCall(4, this, "ptr", pData, "uint", size_, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlobEncoding
     }
 
     /**
      * 
      * @param {Pointer} pData 
      * @param {IMalloc} pIMalloc 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Integer} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
-    MoveToBlob(pData, pIMalloc, size, codePage) {
-        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(ppBlobEncoding)
+    MoveToBlob(pData, pIMalloc, size_, codePage) {
+        result := ComCall(5, this, "ptr", pData, "ptr", pIMalloc, "uint", size_, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlobEncoding
     }
 
     /**
-     * 
+     * The CreateBlob function creates an empty BLOB.
      * @param {Pointer} pData 
-     * @param {Integer} size 
+     * @param {Integer} size_ 
      * @param {Integer} codePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/createblob
      */
-    CreateBlob(pData, size, codePage) {
-        result := ComCall(6, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(ppBlobEncoding)
+    CreateBlob(pData, size_, codePage) {
+        result := ComCall(6, this, "ptr", pData, "uint", size_, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlobEncoding
     }
 
     /**
      * 
      * @param {PWSTR} pFileName 
      * @param {Pointer<Integer>} pCodePage 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     LoadFile(pFileName, pCodePage) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
         pCodePageMarshal := pCodePage is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pFileName, pCodePageMarshal, pCodePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")
-        return IDxcBlobEncoding(ppBlobEncoding)
+        result := ComCall(7, this, "ptr", pFileName, pCodePageMarshal, pCodePage, "ptr*", &ppBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlobEncoding
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @returns {IStream} 
+     * @returns {Pointer<IStream>} 
      */
     CreateReadOnlyStreamFromBlob(pBlob) {
-        result := ComCall(8, this, "ptr", pBlob, "ptr*", &ppStream := 0, "HRESULT")
-        return IStream(ppStream)
+        result := ComCall(8, this, "ptr", pBlob, "ptr*", &ppStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppStream
     }
 
     /**
      * 
-     * @returns {IDxcIncludeHandler} 
+     * @returns {Pointer<IDxcIncludeHandler>} 
      */
     CreateDefaultIncludeHandler() {
-        result := ComCall(9, this, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcIncludeHandler(ppResult)
+        result := ComCall(9, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @returns {IDxcBlobUtf8} 
+     * @returns {Pointer<IDxcBlobUtf8>} 
      */
     GetBlobAsUtf8(pBlob) {
-        result := ComCall(10, this, "ptr", pBlob, "ptr*", &ppBlobEncoding := 0, "HRESULT")
-        return IDxcBlobUtf8(ppBlobEncoding)
+        result := ComCall(10, this, "ptr", pBlob, "ptr*", &ppBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlobEncoding
     }
 
     /**
      * 
      * @param {IDxcBlob} pBlob 
-     * @returns {IDxcBlobUtf16} 
+     * @returns {Pointer<IDxcBlobUtf16>} 
      */
     GetBlobAsWide(pBlob) {
-        result := ComCall(11, this, "ptr", pBlob, "ptr*", &ppBlobEncoding := 0, "HRESULT")
-        return IDxcBlobUtf16(ppBlobEncoding)
+        result := ComCall(11, this, "ptr", pBlob, "ptr*", &ppBlobEncoding := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppBlobEncoding
     }
 
     /**
@@ -150,7 +187,11 @@ class IDxcUtils extends IUnknown{
         ppPartDataMarshal := ppPartData is VarRef ? "ptr*" : "ptr"
         pPartSizeInBytesMarshal := pPartSizeInBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pShader, "uint", DxcPart, ppPartDataMarshal, ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "HRESULT")
+        result := ComCall(12, this, "ptr", pShader, "uint", DxcPart, ppPartDataMarshal, ppPartData, pPartSizeInBytesMarshal, pPartSizeInBytes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -164,7 +205,11 @@ class IDxcUtils extends IUnknown{
     CreateReflection(pData, iid, ppvReflection) {
         ppvReflectionMarshal := ppvReflection is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pData, "ptr", iid, ppvReflectionMarshal, ppvReflection, "HRESULT")
+        result := ComCall(13, this, "ptr", pData, "ptr", iid, ppvReflectionMarshal, ppvReflection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +222,7 @@ class IDxcUtils extends IUnknown{
      * @param {Integer} argCount 
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
-     * @returns {IDxcCompilerArgs} 
+     * @returns {Pointer<IDxcCompilerArgs>} 
      */
     BuildArguments(pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
@@ -186,19 +231,27 @@ class IDxcUtils extends IUnknown{
 
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr*", &ppArgs := 0, "HRESULT")
-        return IDxcCompilerArgs(ppArgs)
+        result := ComCall(14, this, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr*", &ppArgs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppArgs
     }
 
     /**
      * 
      * @param {IDxcBlob} pPDBBlob 
-     * @param {Pointer<IDxcBlob>} ppHash 
-     * @param {Pointer<IDxcBlob>} ppContainer 
+     * @param {Pointer<Pointer<IDxcBlob>>} ppHash 
+     * @param {Pointer<Pointer<IDxcBlob>>} ppContainer 
      * @returns {HRESULT} 
      */
     GetPDBContents(pPDBBlob, ppHash, ppContainer) {
-        result := ComCall(15, this, "ptr", pPDBBlob, "ptr*", ppHash, "ptr*", ppContainer, "HRESULT")
+        result := ComCall(15, this, "ptr", pPDBBlob, "ptr*", ppHash, "ptr*", ppContainer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

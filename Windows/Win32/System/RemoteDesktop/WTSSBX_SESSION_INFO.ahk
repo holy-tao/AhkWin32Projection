@@ -4,7 +4,7 @@
 
 /**
  * Contains information about sessions that are available to Remote Desktop Connection Broker (RD Connection Broker).
- * @see https://learn.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_session_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/tssbx/ns-tssbx-wtssbx_session_info
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

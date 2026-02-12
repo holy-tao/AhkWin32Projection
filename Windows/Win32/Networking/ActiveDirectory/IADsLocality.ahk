@@ -7,7 +7,7 @@
 
 /**
  * The IADsLocality interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadslocality
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadslocality
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -70,7 +70,11 @@ class IADsLocality extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -80,9 +84,16 @@ class IADsLocality extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(21, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +103,11 @@ class IADsLocality extends IADs{
      */
     get_LocalityName() {
         retval := BSTR()
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
+        result := ComCall(22, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -102,9 +117,16 @@ class IADsLocality extends IADs{
      * @returns {HRESULT} 
      */
     put_LocalityName(bstrLocalityName) {
-        bstrLocalityName := bstrLocalityName is String ? BSTR.Alloc(bstrLocalityName).Value : bstrLocalityName
+        if(bstrLocalityName is String) {
+            pin := BSTR.Alloc(bstrLocalityName)
+            bstrLocalityName := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", bstrLocalityName, "HRESULT")
+        result := ComCall(23, this, "ptr", bstrLocalityName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,7 +136,11 @@ class IADsLocality extends IADs{
      */
     get_PostalAddress() {
         retval := BSTR()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -124,9 +150,16 @@ class IADsLocality extends IADs{
      * @returns {HRESULT} 
      */
     put_PostalAddress(bstrPostalAddress) {
-        bstrPostalAddress := bstrPostalAddress is String ? BSTR.Alloc(bstrPostalAddress).Value : bstrPostalAddress
+        if(bstrPostalAddress is String) {
+            pin := BSTR.Alloc(bstrPostalAddress)
+            bstrPostalAddress := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", bstrPostalAddress, "HRESULT")
+        result := ComCall(25, this, "ptr", bstrPostalAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,7 +169,11 @@ class IADsLocality extends IADs{
      */
     get_SeeAlso() {
         retval := VARIANT()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        result := ComCall(26, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -146,7 +183,11 @@ class IADsLocality extends IADs{
      * @returns {HRESULT} 
      */
     put_SeeAlso(vSeeAlso) {
-        result := ComCall(27, this, "ptr", vSeeAlso, "HRESULT")
+        result := ComCall(27, this, "ptr", vSeeAlso, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

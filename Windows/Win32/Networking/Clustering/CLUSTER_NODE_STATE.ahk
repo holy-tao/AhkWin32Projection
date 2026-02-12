@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSTER_NODE_STATE enumeration (msclus.h) describes the state of a cluster node.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_node_state
+ * CLUSTER_NODE_STATE (clusapi.h) describes the state of a cluster node.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-cluster_node_state
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

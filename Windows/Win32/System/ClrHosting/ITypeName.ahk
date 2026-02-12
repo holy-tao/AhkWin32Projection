@@ -34,7 +34,11 @@ class ITypeName extends IUnknown{
      * @returns {Integer} 
      */
     GetNameCount() {
-        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -45,7 +49,11 @@ class ITypeName extends IUnknown{
      * @returns {Integer} 
      */
     GetNames(count, rgbszNames) {
-        result := ComCall(4, this, "uint", count, "ptr", rgbszNames, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(4, this, "uint", count, "ptr", rgbszNames, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -54,7 +62,11 @@ class ITypeName extends IUnknown{
      * @returns {Integer} 
      */
     GetTypeArgumentCount() {
-        result := ComCall(5, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -65,7 +77,11 @@ class ITypeName extends IUnknown{
      * @returns {Integer} 
      */
     GetTypeArguments(count, rgpArguments) {
-        result := ComCall(6, this, "uint", count, "ptr*", rgpArguments, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(6, this, "uint", count, "ptr*", rgpArguments, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -74,7 +90,11 @@ class ITypeName extends IUnknown{
      * @returns {Integer} 
      */
     GetModifierLength() {
-        result := ComCall(7, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -87,7 +107,11 @@ class ITypeName extends IUnknown{
     GetModifiers(count, rgModifiers) {
         rgModifiersMarshal := rgModifiers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", count, rgModifiersMarshal, rgModifiers, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(8, this, "uint", count, rgModifiersMarshal, rgModifiers, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -97,7 +121,11 @@ class ITypeName extends IUnknown{
      */
     GetAssemblyName() {
         rgbszAssemblyNames := BSTR()
-        result := ComCall(9, this, "ptr", rgbszAssemblyNames, "HRESULT")
+        result := ComCall(9, this, "ptr", rgbszAssemblyNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgbszAssemblyNames
     }
 }

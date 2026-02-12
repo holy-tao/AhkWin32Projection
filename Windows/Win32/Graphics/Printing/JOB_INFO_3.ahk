@@ -3,7 +3,7 @@
 
 /**
  * The JOB\_INFO\_3 structure is used to link together a set of print jobs.
- * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-3
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/job-info-3
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

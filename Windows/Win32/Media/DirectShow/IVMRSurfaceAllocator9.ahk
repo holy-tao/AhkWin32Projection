@@ -7,11 +7,8 @@
 /**
  * The IVMRSurfaceAllocator9 interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 9 (VMR-9).
  * @remarks
- * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrsurfaceallocator9
+ * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nn-vmr9-ivmrsurfaceallocator9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,6 +35,10 @@ class IVMRSurfaceAllocator9 extends IUnknown{
 
     /**
      * The InitializeDevice method is called by the Video Mixing Renderer 9 (VMR-9) when it needs the allocator-presenter to allocate surfaces.
+     * @remarks
+     * Implement this method if you are providing a custom allocator-presenter for the VMR-9. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-allocatesurfacehelper">IVMRSurfaceAllocatorNotify9::AllocateSurfaceHelper</a> method on the VMR-9 to allocate the surfaces.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer} dwUserID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter.
      * @param {Pointer<VMR9AllocationInfo>} lpAllocInfo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9allocationinfo">VMR9AllocationInfo</a> structure that contains a description of the surfaces to create.
      * @param {Pointer<Integer>} lpNumBuffers On input, specifies the number of surfaces to create. When the method returns, this parameter contains the number of buffers that were actually allocated.
@@ -60,17 +61,23 @@ class IVMRSurfaceAllocator9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-initializedevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurfaceallocator9-initializedevice
      */
     InitializeDevice(dwUserID, lpAllocInfo, lpNumBuffers) {
         lpNumBuffersMarshal := lpNumBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "HRESULT")
+        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpNumBuffersMarshal, lpNumBuffers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The TerminateDevice method releases the Direct3D device.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer} dwID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -91,28 +98,40 @@ class IVMRSurfaceAllocator9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-terminatedevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurfaceallocator9-terminatedevice
      */
     TerminateDevice(dwID) {
-        result := ComCall(4, this, "ptr", dwID, "HRESULT")
+        result := ComCall(4, this, "ptr", dwID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetSurface method gets a Direct3D surface from the allocator-presenter.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer} dwUserID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter.
      * @param {Integer} SurfaceIndex Specifies the index of the surface to retrieve.
      * @param {Integer} SurfaceFlags Reserved.
      * @returns {IDirect3DSurface9} Receives a pointer to the <b>IDirect3DSurface9</b> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-getsurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurfaceallocator9-getsurface
      */
     GetSurface(dwUserID, SurfaceIndex, SurfaceFlags) {
-        result := ComCall(5, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", &lplpSurface := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", &lplpSurface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirect3DSurface9(lplpSurface)
     }
 
     /**
      * The AdviseNotify method provides the allocator-presenter with the VMR-9 filter's interface for notification callbacks.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {IVMRSurfaceAllocatorNotify9} lpIVMRSurfAllocNotify Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/nn-vmr9-ivmrsurfaceallocatornotify9">IVMRSurfaceAllocatorNotify9</a> interface that the allocator-presenter will use to pass notifications back to the VMR.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -133,10 +152,14 @@ class IVMRSurfaceAllocator9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocator9-advisenotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurfaceallocator9-advisenotify
      */
     AdviseNotify(lpIVMRSurfAllocNotify) {
-        result := ComCall(6, this, "ptr", lpIVMRSurfAllocNotify, "HRESULT")
+        result := ComCall(6, this, "ptr", lpIVMRSurfAllocNotify, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

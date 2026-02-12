@@ -4,10 +4,10 @@
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
- * The IMECHARPOSITION structure (immdev.h) contains information about the character position in the composition window.
+ * The IMECHARPOSITION (imm.h) structure contains information about the character position in the composition window.
  * @remarks
  * When an application uses IME to draw the composition string, the members of this structure are automatically filled. Applications that draw the composition string themselves, rather than relying on the IME, are responsible for filling all the fields defined in the structure.
- * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-imecharposition
+ * @see https://learn.microsoft.com/windows/win32/api//content/imm/ns-imm-imecharposition
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

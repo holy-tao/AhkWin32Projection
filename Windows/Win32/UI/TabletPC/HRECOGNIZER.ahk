@@ -22,7 +22,7 @@
  * | [**GetPreferredPacketDescription**](/windows/desktop/api/recapis/nf-recapis-getpreferredpacketdescription) | Retrieves a packet description that contains the packet properties the recognizer uses.<br/> |
  * | [**GetUnicodeRanges**](/windows/desktop/api/recapis/nf-recapis-getunicoderanges)                           | Retrieves the ranges of Unicode points that the recognizer supports.<br/>                    |
  * | [**LoadCachedAttributes**](/windows/desktop/api/recapis/nf-recapis-loadcachedattributes)                   | Loads the cached attributes of a recognizer.<br/>                                            |
- * @see https://learn.microsoft.com/windows/win32/tablet/hrecognizer-handle
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/hrecognizer-handle
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

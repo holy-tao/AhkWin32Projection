@@ -13,7 +13,7 @@
 
 /**
  * Represents a given domain and supports methods that allow you to query scope of management (SOM) objects, create, restore and query GPOs, and create and query WMI filters when you are using the Group Policy Management Console (GPMC) interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmdomain
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmdomain
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -64,7 +64,11 @@ class IGPMDomain extends IDispatch{
      */
     get_DomainController() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -74,7 +78,11 @@ class IGPMDomain extends IDispatch{
      */
     get_Domain() {
         pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -82,10 +90,14 @@ class IGPMDomain extends IDispatch{
      * Creates and retrieves a GPMGPO object with a default display name. Typically, the caller sets the display name immediately after calling this method.
      * @returns {IGPMGPO} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">IGPMGPO</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-creategpo
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-creategpo
      */
     CreateGPO() {
-        result := ComCall(9, this, "ptr*", &ppNewGPO := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppNewGPO := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMGPO(ppNewGPO)
     }
 
@@ -94,30 +106,51 @@ class IGPMDomain extends IDispatch{
      * @param {BSTR} bstrGuid Required. GUID representing the ID of the group policy object to access. Use null-terminated string.
      * @returns {IGPMGPO} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">IGPMGPO</a> interface for the group policy object ID and domain specified.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-getgpo
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-getgpo
      */
     GetGPO(bstrGuid) {
-        bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
+        if(bstrGuid is String) {
+            pin := BSTR.Alloc(bstrGuid)
+            bstrGuid := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrGuid, "ptr*", &ppGPO := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrGuid, "ptr*", &ppGPO := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMGPO(ppGPO)
     }
 
     /**
      * Executes a search for GPMGPO objects in the domain and then returns a GPMGPOCollection object.
+     * @remarks
+     * An empty  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria">GPMSearchCriteria</a> object is one that has had no criteria added to it. Passing in an empty <b>GPMSearchCriteria</b> object will return all GPOs in the domain.
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria">GPMSearchCriteria</a> object to apply to the search.
      * Pointer to the criteria to apply to the search.
      * @returns {IGPMGPOCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpocollection">IGPMGPOCollection</a> interface representing the GPOs found by the search.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-searchgpos
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-searchgpos
      */
     SearchGPOs(pIGPMSearchCriteria) {
-        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMGPOCollection := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMGPOCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMGPOCollection(ppIGPMGPOCollection)
     }
 
     /**
      * Restores a Group Policy object (GPO) from a GPMBackup object.
+     * @remarks
+     * A restore operation returns the contents of a specific GPO to the status it had when the backup was performed. A restore operation does not modify links to the GPO because they are attributes of a scope of management (SOM). A restore operation also does not modify WMI filters. However, because the link to a WMI filter is an attribute of the GPO, the restore operation restores the link to the WMI filter.
+     * 
+     * You must check the code that is returned by the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmresult-overallstatus">IGPMResult::OverallStatus</a> method as well as the one returned by this method to determine whether the operation succeeded. 
+     * <b>OverallStatus</b> returns an overall status code for the operation. If no error occurred during the operation, it returns a success code. Otherwise, it returns a failure code.
+     * 
+     * As a best practice, we recommend that you validate the DC in a restore operation.
      * @param {IGPMBackup} pIGPMBackup Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">GPMBackup</a> object to restore.
      * @param {Integer} lDCFlags Flags to use for validation. If this parameter is set to zero, the method validates the domain controller to determine whether the restore operation can be performed. If you specify <b>GPM_DONOT_VALIDATEDC</b>, the method does not validate the DC. This parameter is ignored for GPOs that do not include software policy settings. For more information about validation, see the "Remarks" section.
      * @param {Pointer<VARIANT>} pvarGPMProgress Specifies a pointer to an 
@@ -128,10 +161,14 @@ class IGPMDomain extends IDispatch{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface that represents the result of the restore operation. That interface contains pointers to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">IGPMGPO</a> interface and an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-restoregpo
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-restoregpo
      */
     RestoreGPO(pIGPMBackup, lDCFlags, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMResult(ppIGPMResult)
     }
 
@@ -146,24 +183,38 @@ class IGPMDomain extends IDispatch{
      * <b>IGPMSOM</b> interface for the domain.
      * @returns {IGPMSOM} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsom">IGPMSOM</a> interface at the specified path.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-getsom
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-getsom
      */
     GetSOM(bstrPath) {
-        bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
+        if(bstrPath is String) {
+            pin := BSTR.Alloc(bstrPath)
+            bstrPath := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrPath, "ptr*", &ppSOM := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrPath, "ptr*", &ppSOM := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMSOM(ppSOM)
     }
 
     /**
      * Executes a search for GPMSOM objects (domains and organizational units) in the domain and then returns a GPMSOMCollection object.
+     * @remarks
+     * This method does not allow you to search for site SOMs. Call the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites">IGPMSitesContainer::SearchSites</a> method to perform this type of search.
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria">GPMSearchCriteria</a> object to apply to the search.
      * @returns {IGPMSOMCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsomcollection">IGPMSOMCollection</a> interface that represents the scopes of management (SOMs) found by the search.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-searchsoms
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-searchsoms
      */
     SearchSOMs(pIGPMSearchCriteria) {
-        result := ComCall(14, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMSOMCollection(ppIGPMSOMCollection)
     }
 
@@ -172,24 +223,37 @@ class IGPMDomain extends IDispatch{
      * @param {BSTR} bstrPath Path of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmwmifilter">GPMWMIFilter</a> object to retrieve, in the following format: MSFT_SomFilter.Domain="<i>&lt;domain of the WMI filter&gt;</i>", ID="<i>&lt;GUID that represents the WMI filter&gt;</i>". Consider this example: MSFT_SomFilter.Domain="example.microsoft.com", ID="{7ab06d20-5e0a-4de9-8170-13dea779a528}".
      * @returns {IGPMWMIFilter} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmwmifilter">IGPMWMIFilter</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-getwmifilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-getwmifilter
      */
     GetWMIFilter(bstrPath) {
-        bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
+        if(bstrPath is String) {
+            pin := BSTR.Alloc(bstrPath)
+            bstrPath := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrPath, "ptr*", &ppWMIFilter := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrPath, "ptr*", &ppWMIFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMWMIFilter(ppWMIFilter)
     }
 
     /**
      * Executes a search for GPMWMIFilter objects in the domain and then returns a GPMWMIFilterCollection object.
+     * @remarks
+     * An empty  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria">GPMSearchCriteria</a> object is one that has had no criteria added to it. Passing in an empty <b>GPMSearchCriteria</b> object will return all WMI filters.
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria This parameter should be <b>NULL</b>, or it should point to an empty <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria">IGPMSearchCriteria</a> interface, because no search criteria are allowed for Windows Management Instrumentation (WMI) filters.
      * @returns {IGPMWMIFilterCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpocollection">IGPMWMIFilterCollection</a> interface that represents the WMI filters found by the search.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmdomain-searchwmifilters
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmdomain-searchwmifilters
      */
     SearchWMIFilters(pIGPMSearchCriteria) {
-        result := ComCall(16, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMWMIFilterCollection := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMWMIFilterCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMWMIFilterCollection(ppIGPMWMIFilterCollection)
     }
 }

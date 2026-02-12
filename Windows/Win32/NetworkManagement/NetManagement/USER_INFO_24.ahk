@@ -7,7 +7,7 @@
  * A user's account for logging onto Windows can be connected to an Internet identity. The user account can be a local account on a computer or a domain account for computers joined to a domain. The <b>USER_INFO_24</b> structure is used to provide information on an account which is connected to an Internet identity.
  * 
  * On Windows 8 and Windows Server 2012, the Internet identity for a connected account can often be used instead of the computer account.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_24
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/ns-lmaccess-user_info_24
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

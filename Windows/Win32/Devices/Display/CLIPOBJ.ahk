@@ -6,7 +6,7 @@
  * The CLIPOBJ structure describes the clip region used when drawing.
  * @remarks
  * The region, described by CLIPOBJ, can be enumerated as a series of rectangles.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-clipobj
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-clipobj
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

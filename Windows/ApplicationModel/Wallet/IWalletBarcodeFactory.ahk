@@ -1,0 +1,67 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\Guid.ahk
+#Include ..\..\Win32\System\WinRT\HSTRING.ahk
+#Include .\WalletBarcode.ahk
+#Include ..\..\Win32\System\WinRT\IInspectable.ahk
+
+/**
+ * @namespace Windows.ApplicationModel.Wallet
+ * @version WindowsRuntime 1.4
+ */
+class IWalletBarcodeFactory extends IInspectable{
+
+    static sizeof => A_PtrSize
+    /**
+     * The interface identifier for IWalletBarcodeFactory
+     * @type {Guid}
+     */
+    static IID => Guid("{30117161-ed9c-469e-bbfd-306c95ea7108}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * @readonly used when implementing interfaces to order function pointers
+     * @type {Array<String>}
+     */
+    static VTableNames => ["CreateWalletBarcode", "CreateCustomWalletBarcode"]
+
+    /**
+     * 
+     * @param {Integer} symbology 
+     * @param {HSTRING} value 
+     * @returns {WalletBarcode} 
+     */
+    CreateWalletBarcode(symbology, value) {
+        if(value is String) {
+            pin := HSTRING.Create(value)
+            value := pin.Value
+        }
+        value := value is Win32Handle ? NumGet(value, "ptr") : value
+
+        result := ComCall(6, this, "int", symbology, "ptr", value, "ptr*", &barcode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return WalletBarcode(barcode)
+    }
+
+    /**
+     * 
+     * @param {IRandomAccessStreamReference} streamToBarcodeImage 
+     * @returns {WalletBarcode} 
+     */
+    CreateCustomWalletBarcode(streamToBarcodeImage) {
+        result := ComCall(7, this, "ptr", streamToBarcodeImage, "ptr*", &barcode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return WalletBarcode(barcode)
+    }
+}

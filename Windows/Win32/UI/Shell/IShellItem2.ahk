@@ -7,7 +7,7 @@
 
 /**
  * Extends IShellItem with methods that retrieve various property values of the item. IShellItem and IShellItem2 are the preferred representations of items in any new code.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishellitem2
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ishellitem2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -34,24 +34,34 @@ class IShellItem2 extends IShellItem{
 
     /**
      * Gets a property store object for specified property store flags.
+     * @remarks
+     * <div class="alert"><b>Note</b>  When this method is called on a property store for a file, that file is held open for the lifetime of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.</div>
+     * <div> </div>
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants that modify the property store object.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the object to be retrieved.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore
      */
     GetPropertyStore(flags, riid) {
-        result := ComCall(8, this, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(8, this, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Uses the specified ICreateObject instead of CoCreateInstance to create an instance of the property handler associated with the Shell item on which this method is called.
+     * @remarks
+     * <div class="alert"><b>Note</b>  When this method is called on a property store for a file, that file is held open for the lifetime of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.</div>
+     * <div> </div>
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants that modify the property store object.
@@ -67,18 +77,26 @@ class IShellItem2 extends IShellItem{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the object to be retrieved.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of the requested <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystorewithcreateobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystorewithcreateobject
      */
     GetPropertyStoreWithCreateObject(flags, punkCreateObject, riid) {
-        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Gets property store object for specified property keys.
+     * @remarks
+     * <div class="alert"><b>Note</b>  When this method is called on a property store for a file, that file is held open for the lifetime of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> object.
+     *       </div>
+     * <div> </div>
      * @param {Pointer<PROPERTYKEY>} rgKeys Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures. Each structure contains a unique identifier for each property used in creating the property store.
@@ -91,13 +109,17 @@ class IShellItem2 extends IShellItem{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the object to be retrieved.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystoreforkeys
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
-        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -109,13 +131,17 @@ class IShellItem2 extends IShellItem{
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to a desired IID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * Contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescriptionlist">IPropertyDescriptionList</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertydescriptionlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertydescriptionlist
      */
     GetPropertyDescriptionList(keyType, riid) {
-        result := ComCall(11, this, "ptr", keyType, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", keyType, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -127,10 +153,14 @@ class IShellItem2 extends IShellItem{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise, including ERROR_FILE_NOT_FOUND if the item does not exist.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-update
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-update
      */
     Update(pbc) {
-        result := ComCall(12, this, "ptr", pbc, "HRESULT")
+        result := ComCall(12, this, "ptr", pbc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,11 +172,15 @@ class IShellItem2 extends IShellItem{
      * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * Contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getproperty
      */
     GetProperty(key) {
         ppropvar := PROPVARIANT()
-        result := ComCall(13, this, "ptr", key, "ptr", ppropvar, "HRESULT")
+        result := ComCall(13, this, "ptr", key, "ptr", ppropvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppropvar
     }
 
@@ -158,11 +192,15 @@ class IShellItem2 extends IShellItem{
      * @returns {Guid} Type: <b>CLSID*</b>
      * 
      * A pointer to a CLSID value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getclsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getclsid
      */
     GetCLSID(key) {
         pclsid := Guid()
-        result := ComCall(14, this, "ptr", key, "ptr", pclsid, "HRESULT")
+        result := ComCall(14, this, "ptr", key, "ptr", pclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pclsid
     }
 
@@ -174,11 +212,15 @@ class IShellItem2 extends IShellItem{
      * @returns {FILETIME} Type: <b>FILETIME*</b>
      * 
      * A pointer to a date and time value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getfiletime
      */
     GetFileTime(key) {
         pft := FILETIME()
-        result := ComCall(15, this, "ptr", key, "ptr", pft, "HRESULT")
+        result := ComCall(15, this, "ptr", key, "ptr", pft, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pft
     }
 
@@ -190,10 +232,14 @@ class IShellItem2 extends IShellItem{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to an Int32 value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getint32
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getint32
      */
     GetInt32(key) {
-        result := ComCall(16, this, "ptr", key, "int*", &pi := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", key, "int*", &pi := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pi
     }
 
@@ -205,10 +251,14 @@ class IShellItem2 extends IShellItem{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A pointer to a Unicode string value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getstring
      */
     GetString(key) {
-        result := ComCall(17, this, "ptr", key, "ptr*", &ppsz := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", key, "ptr*", &ppsz := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppsz
     }
 
@@ -220,10 +270,14 @@ class IShellItem2 extends IShellItem{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * Receives a pointer to a UInt32 value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getuint32
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint32
      */
     GetUInt32(key) {
-        result := ComCall(18, this, "ptr", key, "uint*", &pui := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", key, "uint*", &pui := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pui
     }
 
@@ -235,10 +289,14 @@ class IShellItem2 extends IShellItem{
      * @returns {Integer} Type: <b>ULONGLONG*</b>
      * 
      * A pointer to a UInt64 value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getuint64
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getuint64
      */
     GetUInt64(key) {
-        result := ComCall(19, this, "ptr", key, "uint*", &pull := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", key, "uint*", &pull := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pull
     }
 
@@ -250,10 +308,14 @@ class IShellItem2 extends IShellItem{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * A pointer to a boolean value.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellitem2-getbool
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishellitem2-getbool
      */
     GetBool(key) {
-        result := ComCall(20, this, "ptr", key, "int*", &pf := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", key, "int*", &pf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pf
     }
 }

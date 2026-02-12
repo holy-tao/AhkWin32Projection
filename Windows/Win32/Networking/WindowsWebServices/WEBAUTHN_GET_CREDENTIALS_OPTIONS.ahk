@@ -5,7 +5,7 @@
  * Contains the options for the WebAuthNGetPlatformCredentialsList function.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_get_credentials_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/webauthn/ns-webauthn-webauthn_get_credentials_options
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

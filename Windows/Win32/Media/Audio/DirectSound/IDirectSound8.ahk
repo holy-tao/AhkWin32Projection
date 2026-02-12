@@ -33,7 +33,11 @@ class IDirectSound8 extends IDirectSound{
      * @returns {Integer} 
      */
     VerifyCertification() {
-        result := ComCall(11, this, "uint*", &pdwCertified := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pdwCertified := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCertified
     }
 }

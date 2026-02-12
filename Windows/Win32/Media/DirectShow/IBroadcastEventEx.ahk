@@ -6,16 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
  * @remarks
- * 
- * 
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBroadcastEventEx)</c>.
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ibroadcasteventex
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-ibroadcasteventex
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -42,16 +34,22 @@ class IBroadcastEventEx extends IBroadcastEvent{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @remarks
+     * This method is similar to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ibroadcastevent-fire">IBroadcastEvent::Fire</a>, but it includes four additional parameters for passing implementation-dependent information between the object that fires the event and the objects that wait on the event. The designer who implements the objects must determine what meaning, if any, to assign to these parameters.
      * @param {Guid} EventID GUID that specifies the event.
      * @param {Integer} Param1 Specifies the first implementation-dependent parameter.
      * @param {Integer} Param2 Specifies the second implementation-dependent parameter.
      * @param {Integer} Param3 Specifies the third implementation-dependent parameter.
      * @param {Integer} Param4 Specifies the fourth implementation-dependent parameter.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ibroadcasteventex-fireex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-ibroadcasteventex-fireex
      */
     FireEx(EventID, Param1, Param2, Param3, Param4) {
-        result := ComCall(4, this, "ptr", EventID, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")
+        result := ComCall(4, this, "ptr", EventID, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

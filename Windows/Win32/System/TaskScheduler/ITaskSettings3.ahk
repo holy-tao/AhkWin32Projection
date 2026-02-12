@@ -5,8 +5,8 @@
 #Include .\ITaskSettings.ahk
 
 /**
- * Provides the extended settings that the Task Scheduler uses to run the task.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itasksettings3
+ * Provides the extended settings that the Task Scheduler uses to run the task. (ITaskSettings3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itasksettings3
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -68,7 +68,11 @@ class ITaskSettings3 extends ITaskSettings{
     get_DisallowStartOnRemoteAppSession(pDisallowStart) {
         pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
 
-        result := ComCall(47, this, pDisallowStartMarshal, pDisallowStart, "HRESULT")
+        result := ComCall(47, this, pDisallowStartMarshal, pDisallowStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +82,11 @@ class ITaskSettings3 extends ITaskSettings{
      * @returns {HRESULT} 
      */
     put_DisallowStartOnRemoteAppSession(disallowStart) {
-        result := ComCall(48, this, "short", disallowStart, "HRESULT")
+        result := ComCall(48, this, "short", disallowStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +98,11 @@ class ITaskSettings3 extends ITaskSettings{
     get_UseUnifiedSchedulingEngine(pUseUnifiedEngine) {
         pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : "ptr"
 
-        result := ComCall(49, this, pUseUnifiedEngineMarshal, pUseUnifiedEngine, "HRESULT")
+        result := ComCall(49, this, pUseUnifiedEngineMarshal, pUseUnifiedEngine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,14 +112,17 @@ class ITaskSettings3 extends ITaskSettings{
      * @returns {HRESULT} 
      */
     put_UseUnifiedSchedulingEngine(useUnifiedEngine) {
-        result := ComCall(50, this, "short", useUnifiedEngine, "HRESULT")
+        result := ComCall(50, this, "short", useUnifiedEngine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a pointer to pointer to an IMaintenanceSettingsobject that Task scheduler uses to perform a task during Automatic maintenance.
+     * Gets or sets a pointer to pointer to an IMaintenanceSettingsobject that Task scheduler uses to perform a task during Automatic maintenance. (Get)
      * @remarks
-     * 
      * When battery saver is on, Windows Task Scheduler tasks are triggered only if the task is:
      * 
      * <ul>
@@ -116,20 +131,21 @@ class ITaskSettings3 extends ITaskSettings{
      * <li>Is set to <b>Run only when user is logged on</b> (task <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_logontype">LogonType</a> is <b>TASK_LOGON_INTERACTIVE_TOKEN</b> or <b>TASK_LOGON_GROUP</b>)</li>
      * </ul>
      * All other triggers are delayed until battery saver is off. For more information about accessing battery saver status in your application, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-system_power_status">SYSTEM_POWER_STATUS</a>. For general information about battery saver, see <a href="https://docs.microsoft.com/windows-hardware/design/component-guidelines/battery-saver">battery saver (in the hardware component guidelines)</a>.
-     * 
-     * 
      * @returns {IMaintenanceSettings} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings3-get_maintenancesettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasksettings3-get_maintenancesettings
      */
     get_MaintenanceSettings() {
-        result := ComCall(51, this, "ptr*", &ppMaintenanceSettings := 0, "HRESULT")
+        result := ComCall(51, this, "ptr*", &ppMaintenanceSettings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMaintenanceSettings(ppMaintenanceSettings)
     }
 
     /**
-     * Gets or sets a pointer to pointer to an IMaintenanceSettingsobject that Task scheduler uses to perform a task during Automatic maintenance.
+     * Gets or sets a pointer to pointer to an IMaintenanceSettingsobject that Task scheduler uses to perform a task during Automatic maintenance. (Put)
      * @remarks
-     * 
      * When battery saver is on, Windows Task Scheduler tasks are triggered only if the task is:
      * 
      * <ul>
@@ -138,14 +154,16 @@ class ITaskSettings3 extends ITaskSettings{
      * <li>Is set to <b>Run only when user is logged on</b> (task <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_logontype">LogonType</a> is <b>TASK_LOGON_INTERACTIVE_TOKEN</b> or <b>TASK_LOGON_GROUP</b>)</li>
      * </ul>
      * All other triggers are delayed until battery saver is off. For more information about accessing battery saver status in your application, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-system_power_status">SYSTEM_POWER_STATUS</a>. For general information about battery saver, see <a href="https://docs.microsoft.com/windows-hardware/design/component-guidelines/battery-saver">battery saver (in the hardware component guidelines)</a>.
-     * 
-     * 
      * @param {IMaintenanceSettings} pMaintenanceSettings 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings3-put_maintenancesettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasksettings3-put_maintenancesettings
      */
     put_MaintenanceSettings(pMaintenanceSettings) {
-        result := ComCall(52, this, "ptr", pMaintenanceSettings, "HRESULT")
+        result := ComCall(52, this, "ptr", pMaintenanceSettings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,31 +172,43 @@ class ITaskSettings3 extends ITaskSettings{
      * @returns {IMaintenanceSettings} 
      */
     CreateMaintenanceSettings() {
-        result := ComCall(53, this, "ptr*", &ppMaintenanceSettings := 0, "HRESULT")
+        result := ComCall(53, this, "ptr*", &ppMaintenanceSettings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMaintenanceSettings(ppMaintenanceSettings)
     }
 
     /**
-     * Gets or sets a boolean value that indicates whether the task is automatically disabled every time Windows starts.
+     * Gets or sets a boolean value that indicates whether the task is automatically disabled every time Windows starts. (Get)
      * @param {Pointer<VARIANT_BOOL>} pVolatile 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings3-get_volatile
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasksettings3-get_volatile
      */
     get_Volatile(pVolatile) {
         pVolatileMarshal := pVolatile is VarRef ? "short*" : "ptr"
 
-        result := ComCall(54, this, pVolatileMarshal, pVolatile, "HRESULT")
+        result := ComCall(54, this, pVolatileMarshal, pVolatile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a boolean value that indicates whether the task is automatically disabled every time Windows starts.
+     * Gets or sets a boolean value that indicates whether the task is automatically disabled every time Windows starts. (Put)
      * @param {VARIANT_BOOL} Volatile 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasksettings3-put_volatile
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasksettings3-put_volatile
      */
     put_Volatile(Volatile) {
-        result := ComCall(55, this, "short", Volatile, "HRESULT")
+        result := ComCall(55, this, "short", Volatile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

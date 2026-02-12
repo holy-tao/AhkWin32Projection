@@ -11,7 +11,7 @@
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">sohAttributeTypeSystemHealthId</a> TLV must be the first TLV in both <b>SoHRequest</b> and <b>SoHResponse</b> packets.
  * A <b>SoHResponse</b> packet can have at most one <b>sohAttributeTypeIpv4FixupServers</b> or <b>sohAttributeTypeIpv6FixupServers</b> TLV.
- * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-soh
+ * @see https://learn.microsoft.com/windows/win32/api//content/naptypes/ns-naptypes-soh
  * @namespace Windows.Win32.Security.NetworkAccessProtection
  * @version v4.0.30319
  */

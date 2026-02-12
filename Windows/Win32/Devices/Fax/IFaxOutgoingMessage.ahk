@@ -9,10 +9,8 @@
 /**
  * The IFaxOutgoingMessage interface describes an object that is used by a fax client application to retrieve information about a fax message in the archive of outbound faxes.
  * @remarks
- * 
  * A default implementation of <b>IFaxOutgoingMessage</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage">FaxOutgoingMessage</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxoutgoingmessage
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxoutgoingmessage
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -165,211 +163,295 @@ class IFaxOutgoingMessage extends IDispatch{
     /**
      * The IFaxOutgoingMessage::get_SubmissionId property is a null-terminated string that contains the unique identifier assigned to the fax message during the submission process.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissionid
      */
     get_SubmissionId() {
         pbstrSubmissionId := BSTR()
-        result := ComCall(7, this, "ptr", pbstrSubmissionId, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrSubmissionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrSubmissionId
     }
 
     /**
      * The IFaxOutgoingMessage::get_Id property is a null-terminated string that contains a unique identifier for the outbound fax message.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_id
      */
     get_Id() {
         pbstrId := BSTR()
-        result := ComCall(8, this, "ptr", pbstrId, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrId
     }
 
     /**
      * The IFaxOutgoingMessage::get_Subject property is a null-terminated string that contains the contents of the subject field on the cover page of the fax.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_subject
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_subject
      */
     get_Subject() {
         pbstrSubject := BSTR()
-        result := ComCall(9, this, "ptr", pbstrSubject, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrSubject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrSubject
     }
 
     /**
      * The IFaxOutgoingMessage::get_DocumentName property is a null-terminated string that contains the user-friendly name to display for the fax message.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_documentname
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_documentname
      */
     get_DocumentName() {
         pbstrDocumentName := BSTR()
-        result := ComCall(10, this, "ptr", pbstrDocumentName, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrDocumentName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDocumentName
     }
 
     /**
      * The IFaxOutgoingMessage::get_Retries property is a value that indicates the number of times that the fax service attempted to transmit an outgoing fax after the initial transmission attempt failed.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_retries
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_retries
      */
     get_Retries() {
-        result := ComCall(11, this, "int*", &plRetries := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &plRetries := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRetries
     }
 
     /**
      * The IFaxOutgoingMessage::get_Pages property is a number that indicates the total number of pages in the outbound fax message.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_pages
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_pages
      */
     get_Pages() {
-        result := ComCall(12, this, "int*", &plPages := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plPages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plPages
     }
 
     /**
      * The Size property is a value that indicates the size of the Tagged Image File Format Class F (TIFF Class F) file associated with the outbound fax message.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_size
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_size
      */
     get_Size() {
-        result := ComCall(13, this, "int*", &plSize := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSize
     }
 
     /**
      * The IFaxOutgoingMessage::get_OriginalScheduledTime property specifies the time that the fax message was originally scheduled for transmission.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_originalscheduledtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_originalscheduledtime
      */
     get_OriginalScheduledTime() {
-        result := ComCall(14, this, "double*", &pdateOriginalScheduledTime := 0, "HRESULT")
+        result := ComCall(14, this, "double*", &pdateOriginalScheduledTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateOriginalScheduledTime
     }
 
     /**
      * The IFaxOutgoingMessage::get_SubmissionTime property indicates the time that the outbound fax message was submitted for processing.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissiontime
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_submissiontime
      */
     get_SubmissionTime() {
-        result := ComCall(15, this, "double*", &pdateSubmissionTime := 0, "HRESULT")
+        result := ComCall(15, this, "double*", &pdateSubmissionTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateSubmissionTime
     }
 
     /**
      * The IFaxOutgoingMessage::get_Priority property specifies the priority used when sending the fax; for example, normal, low, or high priority.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_priority
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_priority
      */
     get_Priority() {
-        result := ComCall(16, this, "int*", &pPriority := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pPriority := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pPriority
     }
 
     /**
      * The IFaxOutgoingMessage::get_Sender property retrieves an interface containing information about the sender of the fax message.
      * @returns {IFaxSender} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_sender
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_sender
      */
     get_Sender() {
-        result := ComCall(17, this, "ptr*", &ppFaxSender := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppFaxSender := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxSender(ppFaxSender)
     }
 
     /**
      * The IFaxOutgoingMessage::get_Recipient property retrieves an interface containing information about the recipient of the fax message.
      * @returns {IFaxRecipient} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_recipient
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_recipient
      */
     get_Recipient() {
-        result := ComCall(18, this, "ptr*", &ppFaxRecipient := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppFaxRecipient := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxRecipient(ppFaxRecipient)
     }
 
     /**
      * The IFaxOutgoingMessage::get_DeviceName property is a null-terminated string that contains the name of the device on which the fax message was transmitted.
      * @remarks
-     * 
      * This method returns the name of the fax device rather than the device ID. This is useful because an administrator may remove the device ID after completion of the fax job and before the client's query of the archive of fax messages.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_devicename
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_devicename
      */
     get_DeviceName() {
         pbstrDeviceName := BSTR()
-        result := ComCall(19, this, "ptr", pbstrDeviceName, "HRESULT")
+        result := ComCall(19, this, "ptr", pbstrDeviceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDeviceName
     }
 
     /**
      * The IFaxOutgoingMessage::get_TransmissionStart property indicates the time that the fax outbound message began transmitting.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_transmissionstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_transmissionstart
      */
     get_TransmissionStart() {
-        result := ComCall(20, this, "double*", &pdateTransmissionStart := 0, "HRESULT")
+        result := ComCall(20, this, "double*", &pdateTransmissionStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateTransmissionStart
     }
 
     /**
      * The IFaxOutgoingMessage::get_TransmissionEnd property indicates the time that the fax outbound message completed transmission.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_transmissionend
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_transmissionend
      */
     get_TransmissionEnd() {
-        result := ComCall(21, this, "double*", &pdateTransmissionEnd := 0, "HRESULT")
+        result := ComCall(21, this, "double*", &pdateTransmissionEnd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdateTransmissionEnd
     }
 
     /**
      * The IFaxOutgoingMessage::get_CSID property is a null-terminated string that contains the called station identifier (CSID) for the fax message.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_csid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_csid
      */
     get_CSID() {
         pbstrCSID := BSTR()
-        result := ComCall(22, this, "ptr", pbstrCSID, "HRESULT")
+        result := ComCall(22, this, "ptr", pbstrCSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCSID
     }
 
     /**
      * The IFaxOutgoingMessage::get_TSID property is a null-terminated string that contains the transmitting station identifier (TSID) associated with the fax outbound message.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_tsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_tsid
      */
     get_TSID() {
         pbstrTSID := BSTR()
-        result := ComCall(23, this, "ptr", pbstrTSID, "HRESULT")
+        result := ComCall(23, this, "ptr", pbstrTSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTSID
     }
 
     /**
      * The IFaxOutgoingMessage::CopyTiff method copies the Tagged Image File Format Class F (TIFF Class F) file associated with the outbound fax message, to a file on the local computer.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a> or <b>farMANAGE_OUT_ARCHIVE</b> access right.
+     * 
+     * With the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a> access right, users will be able to use this method only for their own faxes. With the <b>farMANAGE_OUT_ARCHIVE</b> access right, users will be able to use this method for all faxes on the server.
      * @param {BSTR} bstrTiffPath Type: <b>BSTR</b>
      * 
      * Null-terminated string that contains a fully qualified path and file name on the local computer. This is the file on the local computer to which the fax service will copy the TIFF Class F file associated with the outbound fax message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-copytiff
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-copytiff
      */
     CopyTiff(bstrTiffPath) {
-        bstrTiffPath := bstrTiffPath is String ? BSTR.Alloc(bstrTiffPath).Value : bstrTiffPath
+        if(bstrTiffPath is String) {
+            pin := BSTR.Alloc(bstrTiffPath)
+            bstrTiffPath := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", bstrTiffPath, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrTiffPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IFaxOutgoingMessage::Delete method deletes the fax message from the outbound archive.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a> or <b>farMANAGE_OUT_ARCHIVE</b> access right.
+     * 
+     * With the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a> access right, users will be able to use this method only for their own faxes. With the <b>farMANAGE_OUT_ARCHIVE</b> access right, users will be able to use this method for all faxes on the server.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutgoingmessage-delete
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutgoingmessage-delete
      */
     Delete() {
-        result := ComCall(25, this, "HRESULT")
+        result := ComCall(25, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

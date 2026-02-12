@@ -5,7 +5,7 @@
 
 /**
  * The ITfFnLangProfileUtil interface is implemented by the speech text service and used to provide utility methods for the speech text service.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnlangprofileutil
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffnlangprofileutil
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -73,10 +73,14 @@ class ITfFnLangProfileUtil extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlangprofileutil-registeractiveprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnlangprofileutil-registeractiveprofiles
      */
     RegisterActiveProfiles() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,10 +88,14 @@ class ITfFnLangProfileUtil extends ITfFunction{
      * ITfFnLangProfileUtil::IsProfileAvailableForLang method
      * @param {Integer} langid Contains a <b>LANGID</b> that specifies the language that the query applies to.
      * @returns {BOOL} Pointer to a <b>BOOL</b> that receives nonzero if a profile is available for the language identified by langid or zero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnlangprofileutil-isprofileavailableforlang
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnlangprofileutil-isprofileavailableforlang
      */
     IsProfileAvailableForLang(langid) {
-        result := ComCall(5, this, "ushort", langid, "int*", &pfAvailable := 0, "HRESULT")
+        result := ComCall(5, this, "ushort", langid, "int*", &pfAvailable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAvailable
     }
 }

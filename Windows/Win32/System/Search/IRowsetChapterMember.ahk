@@ -35,7 +35,11 @@ class IRowsetChapterMember extends IUnknown{
      * @returns {HRESULT} 
      */
     IsRowInChapter(hChapter, hRow) {
-        result := ComCall(3, this, "ptr", hChapter, "ptr", hRow, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", hRow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

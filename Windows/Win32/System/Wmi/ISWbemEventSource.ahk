@@ -49,7 +49,11 @@ class ISWbemEventSource extends IDispatch{
      * @returns {ISWbemObject} 
      */
     NextEvent(iTimeoutMs) {
-        result := ComCall(7, this, "int", iTimeoutMs, "ptr*", &objWbemObject := 0, "HRESULT")
+        result := ComCall(7, this, "int", iTimeoutMs, "ptr*", &objWbemObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObject(objWbemObject)
     }
 
@@ -58,7 +62,11 @@ class ISWbemEventSource extends IDispatch{
      * @returns {ISWbemSecurity} 
      */
     get_Security_() {
-        result := ComCall(8, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &objWbemSecurity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemSecurity(objWbemSecurity)
     }
 }

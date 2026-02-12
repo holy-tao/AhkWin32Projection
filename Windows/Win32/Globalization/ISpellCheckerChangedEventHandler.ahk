@@ -5,7 +5,7 @@
 
 /**
  * Allows the caller to create a handler for notifications that the state of the speller has changed.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nn-spellcheck-ispellcheckerchangedeventhandler
+ * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nn-spellcheck-ispellcheckerchangedeventhandler
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -32,12 +32,18 @@ class ISpellCheckerChangedEventHandler extends IUnknown{
 
     /**
      * Receives the SpellCheckerChanged event.
+     * @remarks
+     * This method is called when there is a change to the state of the spell checker that could cause text to be treated differently. A client should recheck the text when this event is received.
      * @param {ISpellChecker} sender The <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ispellchecker">ISpellChecker</a> that fired the event.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellcheckerchangedeventhandler-invoke
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellcheckerchangedeventhandler-invoke
      */
     Invoke(sender) {
-        result := ComCall(3, this, "ptr", sender, "HRESULT")
+        result := ComCall(3, this, "ptr", sender, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

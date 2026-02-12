@@ -35,7 +35,11 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     SetJobPageCount(countType, count) {
-        result := ComCall(3, this, "int", countType, "uint", count, "HRESULT")
+        result := ComCall(3, this, "int", countType, "uint", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     DrawPage(jobPageNumber, pageImage, dpiX, dpiY) {
-        result := ComCall(4, this, "uint", jobPageNumber, "ptr", pageImage, "float", dpiX, "float", dpiY, "HRESULT")
+        result := ComCall(4, this, "uint", jobPageNumber, "ptr", pageImage, "float", dpiX, "float", dpiY, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown{
      * @returns {HRESULT} 
      */
     InvalidatePreview() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

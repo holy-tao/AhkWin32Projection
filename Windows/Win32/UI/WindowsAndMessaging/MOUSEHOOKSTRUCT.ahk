@@ -5,7 +5,7 @@
 
 /**
  * Contains information about a mouse event passed to a WH_MOUSE hook procedure, MouseProc.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousehookstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-mousehookstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

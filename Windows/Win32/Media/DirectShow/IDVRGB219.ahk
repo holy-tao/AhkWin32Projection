@@ -5,7 +5,7 @@
 
 /**
  * The IDVRGB219 interface controls the dynamic range in the DV Video Encoder and DV Video Decoder filters.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-idvrgb219
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-idvrgb219
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDVRGB219 extends IUnknown{
 
     /**
      * The SetRGB219 method controls the dynamic range for DV encoding and decoding.
+     * @remarks
+     * For the encoder, this method has no effect unless the input type is RGB-24. For the decoder, it has no effect unless the output type is RGB-24 or RGB-32.
      * @param {BOOL} bState Boolean value that specifies the filter's encoding or decoder behavior.
      * 
      * <table>
@@ -51,10 +53,14 @@ class IDVRGB219 extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns an <b>HRESULT</b> failure code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvrgb219-setrgb219
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-idvrgb219-setrgb219
      */
     SetRGB219(bState) {
-        result := ComCall(3, this, "int", bState, "HRESULT")
+        result := ComCall(3, this, "int", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

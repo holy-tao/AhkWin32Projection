@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.InternetConnectionWizard
@@ -10,12 +12,12 @@ class InternetConnectionWizard {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ICW_REGPATHSETTINGS => "Software\Microsoft\Internet Connection Wizard"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ICW_REGKEYCOMPLETED => "Completed"
 

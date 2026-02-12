@@ -2,13 +2,14 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that the FindText and ReplaceText functions use to initialize the Find and Replace dialog boxes. (ANSI)
  * @remarks
  * > [!NOTE]
  * > The commdlg.h header defines FINDREPLACE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-findreplacea
+ * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/ns-commdlg-findreplacea
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset ANSI
@@ -121,9 +122,12 @@ class FINDREPLACEA extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>FINDREPLACE</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(56, this)
+            return this.__lCustData
+        }
     }
 
     /**

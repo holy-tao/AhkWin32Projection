@@ -4,7 +4,7 @@
 
 /**
  * Used to get and set the device configuration for Layer 2 Tunneling Protocol (L2TP) on a RAS Server. (L2TP_CONFIG_PARAMS1)
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-l2tp_config_params1
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-l2tp_config_params1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

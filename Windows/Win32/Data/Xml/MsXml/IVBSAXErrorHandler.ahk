@@ -29,14 +29,21 @@ class IVBSAXErrorHandler extends IDispatch{
     static VTableNames => ["error", "fatalError", "ignorableWarning"]
 
     /**
-     * 
+     * Submits an error message to the information queue.
+     * @remarks
+     * This operation does nothing on devices that do not support it.
      * @param {IVBSAXLocator} oLocator 
      * @param {Pointer<BSTR>} strErrorMessage 
      * @param {Integer} nErrorCode 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/errorf
      */
     error(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(7, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(7, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +55,11 @@ class IVBSAXErrorHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     fatalError(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(8, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(8, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +71,11 @@ class IVBSAXErrorHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     ignorableWarning(oLocator, strErrorMessage, nErrorCode) {
-        result := ComCall(9, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")
+        result := ComCall(9, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\PFLT_DEFERRED_IO_WORKITEM.ahk
+#Include .\PFLT_GENERIC_WORKITEM.ahk
+#Include ..\..\..\Foundation\PEPROCESS.ahk
 #Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
@@ -562,6 +565,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltPurgeFileNameInformationCache(Instance, FileObject) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltPurgeFileNameInformationCache", "ptr", Instance, "ptr", FileObject, "int")
         return result
     }
@@ -572,6 +577,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltRegisterForDataScan(Instance) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltRegisterForDataScan", "ptr", Instance, "int")
         return result
     }
@@ -593,6 +600,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateSectionForDataScan(Instance, FileObject, SectionContext, DesiredAccess, ObjectAttributes, MaximumSize, SectionPageProtection, AllocationAttributes, Flags, SectionHandle, SectionObject, SectionFileSize) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         MaximumSizeMarshal := MaximumSize is VarRef ? "int64*" : "ptr"
         SectionObjectMarshal := SectionObject is VarRef ? "ptr*" : "ptr"
         SectionFileSizeMarshal := SectionFileSize is VarRef ? "int64*" : "ptr"
@@ -619,9 +628,7 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltRegisterFilter(Driver, Registration, RetFilter) {
-        RetFilterMarshal := RetFilter is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("FLTMGR.SYS\FltRegisterFilter", "ptr", Driver, "ptr", Registration, RetFilterMarshal, RetFilter, "int")
+        result := DllCall("FLTMGR.SYS\FltRegisterFilter", "ptr", Driver, "ptr", Registration, "ptr", RetFilter, "int")
         return result
     }
 
@@ -631,6 +638,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltUnregisterFilter(Filter) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         DllCall("FLTMGR.SYS\FltUnregisterFilter", "ptr", Filter)
     }
 
@@ -640,6 +649,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltStartFiltering(Filter) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         result := DllCall("FLTMGR.SYS\FltStartFiltering", "ptr", Filter, "int")
         return result
     }
@@ -660,13 +671,13 @@ class Minifilters {
      * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} CallbackStatus 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltCompletePendedPreOperation(CallbackData, CallbackStatus, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FltCompletePendedPreOperation(CallbackData, CallbackStatus, Context_) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        DllCall("FLTMGR.SYS\FltCompletePendedPreOperation", "ptr", CallbackData, "int", CallbackStatus, ContextMarshal, Context)
+        DllCall("FLTMGR.SYS\FltCompletePendedPreOperation", "ptr", CallbackData, "int", CallbackStatus, Context_Marshal, Context_)
     }
 
     /**
@@ -701,6 +712,8 @@ class Minifilters {
      * @returns {Pointer<Void>} 
      */
     static FltAllocatePoolAlignedWithTag(Instance, PoolType, NumberOfBytes, Tag) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltAllocatePoolAlignedWithTag", "ptr", Instance, "int", PoolType, "ptr", NumberOfBytes, "uint", Tag, "ptr")
         return result
     }
@@ -708,14 +721,16 @@ class Minifilters {
     /**
      * 
      * @param {PFLT_INSTANCE} Instance 
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltFreePoolAlignedWithTag(Instance, Buffer_R, Tag) {
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+    static FltFreePoolAlignedWithTag(Instance, Buffer_, Tag) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        DllCall("FLTMGR.SYS\FltFreePoolAlignedWithTag", "ptr", Instance, Buffer_RMarshal, Buffer_R, "uint", Tag)
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
+
+        DllCall("FLTMGR.SYS\FltFreePoolAlignedWithTag", "ptr", Instance, Buffer_Marshal, Buffer_, "uint", Tag)
     }
 
     /**
@@ -741,6 +756,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetFileNameInformationUnsafe(FileObject, Instance, NameOptions, FileNameInformation) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         FileNameInformationMarshal := FileNameInformation is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetFileNameInformationUnsafe", "ptr", FileObject, "ptr", Instance, "uint", NameOptions, FileNameInformationMarshal, FileNameInformation, "int")
@@ -768,13 +785,13 @@ class Minifilters {
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} FileName 
-     * @param {Pointer<UNICODE_STRING>} Extension 
+     * @param {Pointer<UNICODE_STRING>} Extension_ 
      * @param {Pointer<UNICODE_STRING>} Stream 
      * @param {Pointer<UNICODE_STRING>} FinalComponent 
      * @returns {NTSTATUS} 
      */
-    static FltParseFileName(FileName, Extension, Stream, FinalComponent) {
-        result := DllCall("FLTMGR.SYS\FltParseFileName", "ptr", FileName, "ptr", Extension, "ptr", Stream, "ptr", FinalComponent, "int")
+    static FltParseFileName(FileName, Extension_, Stream, FinalComponent) {
+        result := DllCall("FLTMGR.SYS\FltParseFileName", "ptr", FileName, "ptr", Extension_, "ptr", Stream, "ptr", FinalComponent, "int")
         return result
     }
 
@@ -810,6 +827,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeName(Volume, VolumeName, BufferSizeNeeded) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         BufferSizeNeededMarshal := BufferSizeNeeded is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetVolumeName", "ptr", Volume, "ptr", VolumeName, BufferSizeNeededMarshal, BufferSizeNeeded, "int")
@@ -828,6 +847,7 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetDestinationFileNameInformation(Instance, FileObject, RootDirectory, FileName, FileNameLength, NameOptions, RetFileNameInformation) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
         RootDirectory := RootDirectory is Win32Handle ? NumGet(RootDirectory, "ptr") : RootDirectory
 
         RetFileNameInformationMarshal := RetFileNameInformation is VarRef ? "ptr*" : "ptr"
@@ -844,6 +864,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltIsDirectory(FileObject, Instance, IsDirectory) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         IsDirectoryMarshal := IsDirectory is VarRef ? "char*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltIsDirectory", "ptr", FileObject, "ptr", Instance, IsDirectoryMarshal, IsDirectory, "int")
@@ -879,9 +901,10 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAttachVolume(Filter, Volume, InstanceName, RetInstance) {
-        RetInstanceMarshal := RetInstance is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
 
-        result := DllCall("FLTMGR.SYS\FltAttachVolume", "ptr", Filter, "ptr", Volume, "ptr", InstanceName, RetInstanceMarshal, RetInstance, "int")
+        result := DllCall("FLTMGR.SYS\FltAttachVolume", "ptr", Filter, "ptr", Volume, "ptr", InstanceName, "ptr", RetInstance, "int")
         return result
     }
 
@@ -895,9 +918,10 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAttachVolumeAtAltitude(Filter, Volume, Altitude, InstanceName, RetInstance) {
-        RetInstanceMarshal := RetInstance is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
 
-        result := DllCall("FLTMGR.SYS\FltAttachVolumeAtAltitude", "ptr", Filter, "ptr", Volume, "ptr", Altitude, "ptr", InstanceName, RetInstanceMarshal, RetInstance, "int")
+        result := DllCall("FLTMGR.SYS\FltAttachVolumeAtAltitude", "ptr", Filter, "ptr", Volume, "ptr", Altitude, "ptr", InstanceName, "ptr", RetInstance, "int")
         return result
     }
 
@@ -909,6 +933,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDetachVolume(Filter, Volume, InstanceName) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         result := DllCall("FLTMGR.SYS\FltDetachVolume", "ptr", Filter, "ptr", Volume, "ptr", InstanceName, "int")
         return result
     }
@@ -921,6 +948,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAllocateCallbackData(Instance, FileObject, RetNewCallbackData) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         RetNewCallbackDataMarshal := RetNewCallbackData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltAllocateCallbackData", "ptr", Instance, "ptr", FileObject, RetNewCallbackDataMarshal, RetNewCallbackData, "int")
@@ -936,6 +965,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAllocateCallbackDataEx(Instance, FileObject, Flags, RetNewCallbackData) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         RetNewCallbackDataMarshal := RetNewCallbackData is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltAllocateCallbackDataEx", "ptr", Instance, "ptr", FileObject, "uint", Flags, RetNewCallbackDataMarshal, RetNewCallbackData, "int")
@@ -1017,6 +1048,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateNamedPipeFile(Filter, Instance, FileHandle, FileObject, DesiredAccess, ObjectAttributes, IoStatusBlock, ShareAccess, CreateDisposition, CreateOptions, NamedPipeType, ReadMode, CompletionMode, MaximumInstances, InboundQuota, OutboundQuota, DefaultTimeout, DriverContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         FileObjectMarshal := FileObject is VarRef ? "ptr*" : "ptr"
         DefaultTimeoutMarshal := DefaultTimeout is VarRef ? "int64*" : "ptr"
 
@@ -1041,6 +1075,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateMailslotFile(Filter, Instance, FileHandle, FileObject, DesiredAccess, ObjectAttributes, IoStatusBlock, CreateOptions, MailslotQuota, MaximumMessageSize, ReadTimeout, DriverContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         FileObjectMarshal := FileObject is VarRef ? "ptr*" : "ptr"
         ReadTimeoutMarshal := ReadTimeout is VarRef ? "int64*" : "ptr"
 
@@ -1069,6 +1106,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateFileEx2(Filter, Instance, FileHandle, FileObject, DesiredAccess, ObjectAttributes, IoStatusBlock, AllocationSize, FileAttributes, ShareAccess, CreateDisposition, CreateOptions, EaBuffer, EaLength, Flags, DriverContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         FileObjectMarshal := FileObject is VarRef ? "ptr*" : "ptr"
         AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
@@ -1096,6 +1136,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateFileEx(Filter, Instance, FileHandle, FileObject, DesiredAccess, ObjectAttributes, IoStatusBlock, AllocationSize, FileAttributes, ShareAccess, CreateDisposition, CreateOptions, EaBuffer, EaLength, Flags) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         FileObjectMarshal := FileObject is VarRef ? "ptr*" : "ptr"
         AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
@@ -1122,6 +1165,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateFile(Filter, Instance, FileHandle, DesiredAccess, ObjectAttributes, IoStatusBlock, AllocationSize, FileAttributes, ShareAccess, CreateDisposition, CreateOptions, EaBuffer, EaLength, Flags) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         AllocationSizeMarshal := AllocationSize is VarRef ? "int64*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltCreateFile", "ptr", Filter, "ptr", Instance, "ptr", FileHandle, "uint", DesiredAccess, "ptr", ObjectAttributes, "ptr", IoStatusBlock, AllocationSizeMarshal, AllocationSize, "uint", FileAttributes, "uint", ShareAccess, "uint", CreateDisposition, "uint", CreateOptions, "ptr", EaBuffer, "uint", EaLength, "uint", Flags, "int")
@@ -1136,6 +1182,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltOpenVolume(Instance, VolumeHandle, VolumeFileObject) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         VolumeFileObjectMarshal := VolumeFileObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltOpenVolume", "ptr", Instance, "ptr", VolumeHandle, VolumeFileObjectMarshal, VolumeFileObject, "int")
@@ -1148,19 +1196,21 @@ class Minifilters {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Integer} Length 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} BytesRead 
      * @param {Pointer<PFLT_COMPLETED_ASYNC_IO_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} CallbackContext 
      * @returns {NTSTATUS} 
      */
-    static FltReadFile(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_R, Flags, BytesRead, CallbackRoutine, CallbackContext) {
+    static FltReadFile(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_, Flags, BytesRead, CallbackRoutine, CallbackContext) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltReadFile", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_R, "uint", Flags, BytesReadMarshal, BytesRead, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, "int")
+        result := DllCall("FLTMGR.SYS\FltReadFile", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_, "uint", Flags, BytesReadMarshal, BytesRead, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -1170,22 +1220,24 @@ class Minifilters {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Integer} Length 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} BytesRead 
      * @param {Pointer<PFLT_COMPLETED_ASYNC_IO_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Pointer<Integer>} Key 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} Mdl_ 
      * @returns {NTSTATUS} 
      */
-    static FltReadFileEx(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_R, Flags, BytesRead, CallbackRoutine, CallbackContext, Key, Mdl) {
+    static FltReadFileEx(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_, Flags, BytesRead, CallbackRoutine, CallbackContext, Key, Mdl_) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         BytesReadMarshal := BytesRead is VarRef ? "uint*" : "ptr"
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltReadFileEx", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_R, "uint", Flags, BytesReadMarshal, BytesRead, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, "ptr", Mdl, "int")
+        result := DllCall("FLTMGR.SYS\FltReadFileEx", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_, "uint", Flags, BytesReadMarshal, BytesRead, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, "ptr", Mdl_, "int")
         return result
     }
 
@@ -1200,6 +1252,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltTagFile(InitiatingInstance, FileObject, FileTag, Guid, DataBuffer, DataBufferLength) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         result := DllCall("FLTMGR.SYS\FltTagFile", "ptr", InitiatingInstance, "ptr", FileObject, "uint", FileTag, "ptr", Guid, "ptr", DataBuffer, "ushort", DataBufferLength, "int")
         return result
     }
@@ -1218,6 +1272,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltTagFileEx(InitiatingInstance, FileObject, FileTag, Guid, DataBuffer, DataBufferLength, ExistingFileTag, ExistingGuid, Flags) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         result := DllCall("FLTMGR.SYS\FltTagFileEx", "ptr", InitiatingInstance, "ptr", FileObject, "uint", FileTag, "ptr", Guid, "ptr", DataBuffer, "ushort", DataBufferLength, "uint", ExistingFileTag, "ptr", ExistingGuid, "uint", Flags, "int")
         return result
     }
@@ -1231,6 +1287,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltUntagFile(InitiatingInstance, FileObject, FileTag, Guid) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         result := DllCall("FLTMGR.SYS\FltUntagFile", "ptr", InitiatingInstance, "ptr", FileObject, "uint", FileTag, "ptr", Guid, "int")
         return result
     }
@@ -1241,19 +1299,21 @@ class Minifilters {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Integer} Length 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} BytesWritten 
      * @param {Pointer<PFLT_COMPLETED_ASYNC_IO_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} CallbackContext 
      * @returns {NTSTATUS} 
      */
-    static FltWriteFile(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_R, Flags, BytesWritten, CallbackRoutine, CallbackContext) {
+    static FltWriteFile(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_, Flags, BytesWritten, CallbackRoutine, CallbackContext) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltWriteFile", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_R, "uint", Flags, BytesWrittenMarshal, BytesWritten, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, "int")
+        result := DllCall("FLTMGR.SYS\FltWriteFile", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_, "uint", Flags, BytesWrittenMarshal, BytesWritten, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, "int")
         return result
     }
 
@@ -1263,22 +1323,24 @@ class Minifilters {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Integer} Length 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} BytesWritten 
      * @param {Pointer<PFLT_COMPLETED_ASYNC_IO_CALLBACK>} CallbackRoutine 
      * @param {Pointer<Void>} CallbackContext 
      * @param {Pointer<Integer>} Key 
-     * @param {Pointer<MDL>} Mdl 
+     * @param {Pointer<MDL>} Mdl_ 
      * @returns {NTSTATUS} 
      */
-    static FltWriteFileEx(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_R, Flags, BytesWritten, CallbackRoutine, CallbackContext, Key, Mdl) {
+    static FltWriteFileEx(InitiatingInstance, FileObject, ByteOffset, Length, Buffer_, Flags, BytesWritten, CallbackRoutine, CallbackContext, Key, Mdl_) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         ByteOffsetMarshal := ByteOffset is VarRef ? "int64*" : "ptr"
         BytesWrittenMarshal := BytesWritten is VarRef ? "uint*" : "ptr"
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
         KeyMarshal := Key is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltWriteFileEx", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_R, "uint", Flags, BytesWrittenMarshal, BytesWritten, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, "ptr", Mdl, "int")
+        result := DllCall("FLTMGR.SYS\FltWriteFileEx", "ptr", InitiatingInstance, "ptr", FileObject, ByteOffsetMarshal, ByteOffset, "uint", Length, "ptr", Buffer_, "uint", Flags, BytesWrittenMarshal, BytesWritten, "ptr", CallbackRoutine, CallbackContextMarshal, CallbackContext, KeyMarshal, Key, "ptr", Mdl_, "int")
         return result
     }
 
@@ -1294,6 +1356,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltFastIoMdlRead(InitiatingInstance, FileObject, FileOffset, Length, LockKey, MdlChain, IoStatus) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         MdlChainMarshal := MdlChain is VarRef ? "ptr*" : "ptr"
 
@@ -1309,6 +1373,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltFastIoMdlReadComplete(InitiatingInstance, FileObject, MdlChain) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         result := DllCall("FLTMGR.SYS\FltFastIoMdlReadComplete", "ptr", InitiatingInstance, "ptr", FileObject, "ptr", MdlChain, "char")
         return result
     }
@@ -1325,6 +1391,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltFastIoPrepareMdlWrite(InitiatingInstance, FileObject, FileOffset, Length, LockKey, MdlChain, IoStatus) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
         MdlChainMarshal := MdlChain is VarRef ? "ptr*" : "ptr"
 
@@ -1341,6 +1409,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltFastIoMdlWriteComplete(InitiatingInstance, FileObject, FileOffset, MdlChain) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         FileOffsetMarshal := FileOffset is VarRef ? "int64*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltFastIoMdlWriteComplete", "ptr", InitiatingInstance, "ptr", FileObject, FileOffsetMarshal, FileOffset, "ptr", MdlChain, "char")
@@ -1360,6 +1430,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryInformationByName(Filter, Instance, ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass, DriverContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltQueryInformationByName", "ptr", Filter, "ptr", Instance, "ptr", ObjectAttributes, "ptr", IoStatusBlock, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "ptr", DriverContext, "int")
         return result
     }
@@ -1375,6 +1448,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryInformationFile(Instance, FileObject, FileInformation, Length, FileInformationClass, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltQueryInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, LengthReturnedMarshal, LengthReturned, "int")
@@ -1391,6 +1466,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetInformationFile(Instance, FileObject, FileInformation, Length, FileInformationClass) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltSetInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "int")
         return result
     }
@@ -1409,6 +1486,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryDirectoryFile(Instance, FileObject, FileInformation, Length, FileInformationClass, ReturnSingleEntry, FileName, RestartScan, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltQueryDirectoryFile", "ptr", Instance, "ptr", FileObject, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "char", ReturnSingleEntry, "ptr", FileName, "char", RestartScan, LengthReturnedMarshal, LengthReturned, "int")
@@ -1428,6 +1507,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryDirectoryFileEx(Instance, FileObject, FileInformation, Length, FileInformationClass, QueryFlags, FileName, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltQueryDirectoryFileEx", "ptr", Instance, "ptr", FileObject, "ptr", FileInformation, "uint", Length, "int", FileInformationClass, "uint", QueryFlags, "ptr", FileName, LengthReturnedMarshal, LengthReturned, "int")
@@ -1439,7 +1520,7 @@ class Minifilters {
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer} SidList 
@@ -1449,11 +1530,13 @@ class Minifilters {
      * @param {Pointer<Integer>} LengthReturned 
      * @returns {NTSTATUS} 
      */
-    static FltQueryQuotaInformationFile(Instance, FileObject, IoStatusBlock, Buffer_R, Length, ReturnSingleEntry, SidList, SidListLength, StartSid, RestartScan, LengthReturned) {
+    static FltQueryQuotaInformationFile(Instance, FileObject, IoStatusBlock, Buffer_, Length, ReturnSingleEntry, SidList, SidListLength, StartSid, RestartScan, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         StartSidMarshal := StartSid is VarRef ? "uint*" : "ptr"
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltQueryQuotaInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", IoStatusBlock, "ptr", Buffer_R, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, StartSidMarshal, StartSid, "char", RestartScan, LengthReturnedMarshal, LengthReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltQueryQuotaInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", IoStatusBlock, "ptr", Buffer_, "uint", Length, "char", ReturnSingleEntry, "ptr", SidList, "uint", SidListLength, StartSidMarshal, StartSid, "char", RestartScan, LengthReturnedMarshal, LengthReturned, "int")
         return result
     }
 
@@ -1461,12 +1544,14 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
-    static FltSetQuotaInformationFile(Instance, FileObject, Buffer_R, Length) {
-        result := DllCall("FLTMGR.SYS\FltSetQuotaInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", Buffer_R, "uint", Length, "int")
+    static FltSetQuotaInformationFile(Instance, FileObject, Buffer_, Length) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
+        result := DllCall("FLTMGR.SYS\FltSetQuotaInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", Buffer_, "uint", Length, "int")
         return result
     }
 
@@ -1485,6 +1570,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryEaFile(Instance, FileObject, ReturnedEaData, Length, ReturnSingleEntry, EaList, EaListLength, EaIndex, RestartScan, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         EaIndexMarshal := EaIndex is VarRef ? "uint*" : "ptr"
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
@@ -1501,6 +1588,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetEaFile(Instance, FileObject, EaBuffer, Length) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltSetEaFile", "ptr", Instance, "ptr", FileObject, "ptr", EaBuffer, "uint", Length, "int")
         return result
     }
@@ -1516,6 +1605,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryVolumeInformationFile(Instance, FileObject, FsInformation, Length, FsInformationClass, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltQueryVolumeInformationFile", "ptr", Instance, "ptr", FileObject, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, LengthReturnedMarshal, LengthReturned, "int")
@@ -1527,15 +1618,17 @@ class Minifilters {
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer} SecurityDescriptor 
+     * @param {Pointer} SecurityDescriptor_ 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LengthNeeded 
      * @returns {NTSTATUS} 
      */
-    static FltQuerySecurityObject(Instance, FileObject, SecurityInformation, SecurityDescriptor, Length, LengthNeeded) {
+    static FltQuerySecurityObject(Instance, FileObject, SecurityInformation, SecurityDescriptor_, Length, LengthNeeded) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthNeededMarshal := LengthNeeded is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltQuerySecurityObject", "ptr", Instance, "ptr", FileObject, "uint", SecurityInformation, "ptr", SecurityDescriptor, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
+        result := DllCall("FLTMGR.SYS\FltQuerySecurityObject", "ptr", Instance, "ptr", FileObject, "uint", SecurityInformation, "ptr", SecurityDescriptor_, "uint", Length, LengthNeededMarshal, LengthNeeded, "int")
         return result
     }
 
@@ -1544,13 +1637,14 @@ class Minifilters {
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} SecurityInformation 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ 
      * @returns {NTSTATUS} 
      */
-    static FltSetSecurityObject(Instance, FileObject, SecurityInformation, SecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static FltSetSecurityObject(Instance, FileObject, SecurityInformation, SecurityDescriptor_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
-        result := DllCall("FLTMGR.SYS\FltSetSecurityObject", "ptr", Instance, "ptr", FileObject, "uint", SecurityInformation, "ptr", SecurityDescriptor, "int")
+        result := DllCall("FLTMGR.SYS\FltSetSecurityObject", "ptr", Instance, "ptr", FileObject, "uint", SecurityInformation, "ptr", SecurityDescriptor_, "int")
         return result
     }
 
@@ -1561,6 +1655,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltFlushBuffers(Instance, FileObject) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltFlushBuffers", "ptr", Instance, "ptr", FileObject, "int")
         return result
     }
@@ -1574,6 +1670,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltFlushBuffers2(Instance, FileObject, FlushType, CallbackData) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltFlushBuffers2", "ptr", Instance, "ptr", FileObject, "uint", FlushType, "ptr", CallbackData, "int")
         return result
     }
@@ -1591,6 +1689,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltFsControlFile(Instance, FileObject, FsControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltFsControlFile", "ptr", Instance, "ptr", FileObject, "uint", FsControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, LengthReturnedMarshal, LengthReturned, "int")
@@ -1610,6 +1710,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeviceIoControlFile(Instance, FileObject, IoControlCode, InputBuffer, InputBufferLength, OutputBuffer, OutputBufferLength, LengthReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltDeviceIoControlFile", "ptr", Instance, "ptr", FileObject, "uint", IoControlCode, "ptr", InputBuffer, "uint", InputBufferLength, "ptr", OutputBuffer, "uint", OutputBufferLength, LengthReturnedMarshal, LengthReturned, "int")
@@ -1623,6 +1725,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltReissueSynchronousIo(InitiatingInstance, CallbackData) {
+        InitiatingInstance := InitiatingInstance is Win32Handle ? NumGet(InitiatingInstance, "ptr") : InitiatingInstance
+
         DllCall("FLTMGR.SYS\FltReissueSynchronousIo", "ptr", InitiatingInstance, "ptr", CallbackData)
     }
 
@@ -1645,6 +1749,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltCancelFileOpen(Instance, FileObject) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         DllCall("FLTMGR.SYS\FltCancelFileOpen", "ptr", Instance, "ptr", FileObject)
     }
 
@@ -1654,6 +1760,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateSystemVolumeInformationFolder(Instance) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltCreateSystemVolumeInformationFolder", "ptr", Instance, "int")
         return result
     }
@@ -1665,6 +1773,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltSupportsFileContextsEx(FileObject, Instance) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltSupportsFileContextsEx", "ptr", FileObject, "ptr", Instance, "char")
         return result
     }
@@ -1709,6 +1819,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAllocateContext(Filter, ContextType, ContextSize, PoolType, ReturnedContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         ReturnedContextMarshal := ReturnedContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltAllocateContext", "ptr", Filter, "ushort", ContextType, "ptr", ContextSize, "int", PoolType, ReturnedContextMarshal, ReturnedContext, "int")
@@ -1767,6 +1879,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetVolumeContext(Volume, Operation, NewContext, OldContext) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltSetVolumeContext", "ptr", Volume, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
@@ -1782,6 +1896,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetInstanceContext(Instance, Operation, NewContext, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltSetInstanceContext", "ptr", Instance, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
@@ -1798,6 +1914,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetFileContext(Instance, FileObject, Operation, NewContext, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltSetFileContext", "ptr", Instance, "ptr", FileObject, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
@@ -1814,6 +1932,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetStreamContext(Instance, FileObject, Operation, NewContext, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltSetStreamContext", "ptr", Instance, "ptr", FileObject, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
@@ -1830,6 +1950,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetStreamHandleContext(Instance, FileObject, Operation, NewContext, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltSetStreamHandleContext", "ptr", Instance, "ptr", FileObject, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
@@ -1846,20 +1968,21 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetTransactionContext(Instance, Transaction, Operation, NewContext, OldContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltSetTransactionContext", "ptr", Instance, TransactionMarshal, Transaction, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
+        result := DllCall("FLTMGR.SYS\FltSetTransactionContext", "ptr", Instance, "ptr", Transaction, "int", Operation, "ptr", NewContext, OldContextMarshal, OldContext, "int")
         return result
     }
 
     /**
      * 
-     * @param {PFLT_CONTEXT} Context 
+     * @param {PFLT_CONTEXT} Context_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltDeleteContext(Context) {
-        DllCall("FLTMGR.SYS\FltDeleteContext", "ptr", Context)
+    static FltDeleteContext(Context_) {
+        DllCall("FLTMGR.SYS\FltDeleteContext", "ptr", Context_)
     }
 
     /**
@@ -1870,6 +1993,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeleteVolumeContext(Filter, Volume, OldContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltDeleteVolumeContext", "ptr", Filter, "ptr", Volume, OldContextMarshal, OldContext, "int")
@@ -1883,6 +2009,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeleteInstanceContext(Instance, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltDeleteInstanceContext", "ptr", Instance, OldContextMarshal, OldContext, "int")
@@ -1897,6 +2025,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeleteFileContext(Instance, FileObject, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltDeleteFileContext", "ptr", Instance, "ptr", FileObject, OldContextMarshal, OldContext, "int")
@@ -1911,6 +2041,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeleteStreamContext(Instance, FileObject, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltDeleteStreamContext", "ptr", Instance, "ptr", FileObject, OldContextMarshal, OldContext, "int")
@@ -1925,6 +2057,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeleteStreamHandleContext(Instance, FileObject, OldContext) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltDeleteStreamHandleContext", "ptr", Instance, "ptr", FileObject, OldContextMarshal, OldContext, "int")
@@ -1939,10 +2073,11 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltDeleteTransactionContext(Instance, Transaction, OldContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         OldContextMarshal := OldContext is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltDeleteTransactionContext", "ptr", Instance, TransactionMarshal, Transaction, OldContextMarshal, OldContext, "int")
+        result := DllCall("FLTMGR.SYS\FltDeleteTransactionContext", "ptr", Instance, "ptr", Transaction, OldContextMarshal, OldContext, "int")
         return result
     }
 
@@ -1950,40 +2085,31 @@ class Minifilters {
      * 
      * @param {PFLT_FILTER} Filter 
      * @param {PFLT_VOLUME} Volume 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltGetVolumeContext(Filter, Volume, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static FltGetVolumeContext(Filter, Volume, Context_) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeContext", "ptr", Filter, "ptr", Volume, ContextMarshal, Context, "int")
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltGetVolumeContext", "ptr", Filter, "ptr", Volume, Context_Marshal, Context_, "int")
         return result
     }
 
     /**
      * 
      * @param {PFLT_INSTANCE} Instance 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltGetInstanceContext(Instance, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static FltGetInstanceContext(Instance, Context_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetInstanceContext", "ptr", Instance, ContextMarshal, Context, "int")
-        return result
-    }
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
 
-    /**
-     * 
-     * @param {PFLT_INSTANCE} Instance 
-     * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
-     * @returns {NTSTATUS} 
-     */
-    static FltGetFileContext(Instance, FileObject, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("FLTMGR.SYS\FltGetFileContext", "ptr", Instance, "ptr", FileObject, ContextMarshal, Context, "int")
+        result := DllCall("FLTMGR.SYS\FltGetInstanceContext", "ptr", Instance, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -1991,13 +2117,15 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltGetStreamContext(Instance, FileObject, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static FltGetFileContext(Instance, FileObject, Context_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetStreamContext", "ptr", Instance, "ptr", FileObject, ContextMarshal, Context, "int")
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltGetFileContext", "ptr", Instance, "ptr", FileObject, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -2005,13 +2133,31 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltGetStreamHandleContext(Instance, FileObject, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static FltGetStreamContext(Instance, FileObject, Context_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetStreamHandleContext", "ptr", Instance, "ptr", FileObject, ContextMarshal, Context, "int")
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltGetStreamContext", "ptr", Instance, "ptr", FileObject, Context_Marshal, Context_, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PFLT_INSTANCE} Instance 
+     * @param {Pointer<FILE_OBJECT>} FileObject 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
+     * @returns {NTSTATUS} 
+     */
+    static FltGetStreamHandleContext(Instance, FileObject, Context_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltGetStreamHandleContext", "ptr", Instance, "ptr", FileObject, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -2019,14 +2165,15 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltGetTransactionContext(Instance, Transaction, Context) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static FltGetTransactionContext(Instance, Transaction, Context_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetTransactionContext", "ptr", Instance, TransactionMarshal, Transaction, ContextMarshal, Context, "int")
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltGetTransactionContext", "ptr", Instance, "ptr", Transaction, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -2034,32 +2181,34 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer<PFLT_CONTEXT>} Context 
+     * @param {Pointer<PFLT_CONTEXT>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltGetSectionContext(Instance, FileObject, Context) {
-        ContextMarshal := Context is VarRef ? "ptr*" : "ptr"
+    static FltGetSectionContext(Instance, FileObject, Context_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetSectionContext", "ptr", Instance, "ptr", FileObject, ContextMarshal, Context, "int")
+        Context_Marshal := Context_ is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltGetSectionContext", "ptr", Instance, "ptr", FileObject, Context_Marshal, Context_, "int")
         return result
     }
 
     /**
      * 
-     * @param {PFLT_CONTEXT} Context 
+     * @param {PFLT_CONTEXT} Context_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltReferenceContext(Context) {
-        DllCall("FLTMGR.SYS\FltReferenceContext", "ptr", Context)
+    static FltReferenceContext(Context_) {
+        DllCall("FLTMGR.SYS\FltReferenceContext", "ptr", Context_)
     }
 
     /**
      * 
-     * @param {PFLT_CONTEXT} Context 
+     * @param {PFLT_CONTEXT} Context_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltReleaseContext(Context) {
-        DllCall("FLTMGR.SYS\FltReleaseContext", "ptr", Context)
+    static FltReleaseContext(Context_) {
+        DllCall("FLTMGR.SYS\FltReleaseContext", "ptr", Context_)
     }
 
     /**
@@ -2069,9 +2218,7 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetFilterFromName(FilterName, RetFilter) {
-        RetFilterMarshal := RetFilter is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("FLTMGR.SYS\FltGetFilterFromName", "ptr", FilterName, RetFilterMarshal, RetFilter, "int")
+        result := DllCall("FLTMGR.SYS\FltGetFilterFromName", "ptr", FilterName, "ptr", RetFilter, "int")
         return result
     }
 
@@ -2083,9 +2230,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeFromName(Filter, VolumeName, RetVolume) {
-        RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeFromName", "ptr", Filter, "ptr", VolumeName, RetVolumeMarshal, RetVolume, "int")
+        result := DllCall("FLTMGR.SYS\FltGetVolumeFromName", "ptr", Filter, "ptr", VolumeName, "ptr", RetVolume, "int")
         return result
     }
 
@@ -2098,9 +2245,10 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeInstanceFromName(Filter, Volume, InstanceName, RetInstance) {
-        RetInstanceMarshal := RetInstance is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeInstanceFromName", "ptr", Filter, "ptr", Volume, "ptr", InstanceName, RetInstanceMarshal, RetInstance, "int")
+        result := DllCall("FLTMGR.SYS\FltGetVolumeInstanceFromName", "ptr", Filter, "ptr", Volume, "ptr", InstanceName, "ptr", RetInstance, "int")
         return result
     }
 
@@ -2111,9 +2259,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeFromInstance(Instance, RetVolume) {
-        RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeFromInstance", "ptr", Instance, RetVolumeMarshal, RetVolume, "int")
+        result := DllCall("FLTMGR.SYS\FltGetVolumeFromInstance", "ptr", Instance, "ptr", RetVolume, "int")
         return result
     }
 
@@ -2124,9 +2272,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetFilterFromInstance(Instance, RetFilter) {
-        RetFilterMarshal := RetFilter is VarRef ? "ptr*" : "ptr"
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltGetFilterFromInstance", "ptr", Instance, RetFilterMarshal, RetFilter, "int")
+        result := DllCall("FLTMGR.SYS\FltGetFilterFromInstance", "ptr", Instance, "ptr", RetFilter, "int")
         return result
     }
 
@@ -2138,9 +2286,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeFromFileObject(Filter, FileObject, RetVolume) {
-        RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeFromFileObject", "ptr", Filter, "ptr", FileObject, RetVolumeMarshal, RetVolume, "int")
+        result := DllCall("FLTMGR.SYS\FltGetVolumeFromFileObject", "ptr", Filter, "ptr", FileObject, "ptr", RetVolume, "int")
         return result
     }
 
@@ -2152,9 +2300,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeFromDeviceObject(Filter, DeviceObject, RetVolume) {
-        RetVolumeMarshal := RetVolume is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeFromDeviceObject", "ptr", Filter, "ptr", DeviceObject, RetVolumeMarshal, RetVolume, "int")
+        result := DllCall("FLTMGR.SYS\FltGetVolumeFromDeviceObject", "ptr", Filter, "ptr", DeviceObject, "ptr", RetVolume, "int")
         return result
     }
 
@@ -2175,6 +2323,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetDeviceObject(Volume, DeviceObject) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         DeviceObjectMarshal := DeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetDeviceObject", "ptr", Volume, DeviceObjectMarshal, DeviceObject, "int")
@@ -2188,6 +2338,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetDiskDeviceObject(Volume, DiskDeviceObject) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         DiskDeviceObjectMarshal := DiskDeviceObject is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetDiskDeviceObject", "ptr", Volume, DiskDeviceObjectMarshal, DiskDeviceObject, "int")
@@ -2201,9 +2353,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetLowerInstance(CurrentInstance, LowerInstance) {
-        LowerInstanceMarshal := LowerInstance is VarRef ? "ptr*" : "ptr"
+        CurrentInstance := CurrentInstance is Win32Handle ? NumGet(CurrentInstance, "ptr") : CurrentInstance
 
-        result := DllCall("FLTMGR.SYS\FltGetLowerInstance", "ptr", CurrentInstance, LowerInstanceMarshal, LowerInstance, "int")
+        result := DllCall("FLTMGR.SYS\FltGetLowerInstance", "ptr", CurrentInstance, "ptr", LowerInstance, "int")
         return result
     }
 
@@ -2214,9 +2366,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetUpperInstance(CurrentInstance, UpperInstance) {
-        UpperInstanceMarshal := UpperInstance is VarRef ? "ptr*" : "ptr"
+        CurrentInstance := CurrentInstance is Win32Handle ? NumGet(CurrentInstance, "ptr") : CurrentInstance
 
-        result := DllCall("FLTMGR.SYS\FltGetUpperInstance", "ptr", CurrentInstance, UpperInstanceMarshal, UpperInstance, "int")
+        result := DllCall("FLTMGR.SYS\FltGetUpperInstance", "ptr", CurrentInstance, "ptr", UpperInstance, "int")
         return result
     }
 
@@ -2227,9 +2379,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetTopInstance(Volume, Instance) {
-        InstanceMarshal := Instance is VarRef ? "ptr*" : "ptr"
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
 
-        result := DllCall("FLTMGR.SYS\FltGetTopInstance", "ptr", Volume, InstanceMarshal, Instance, "int")
+        result := DllCall("FLTMGR.SYS\FltGetTopInstance", "ptr", Volume, "ptr", Instance, "int")
         return result
     }
 
@@ -2240,9 +2392,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetBottomInstance(Volume, Instance) {
-        InstanceMarshal := Instance is VarRef ? "ptr*" : "ptr"
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
 
-        result := DllCall("FLTMGR.SYS\FltGetBottomInstance", "ptr", Volume, InstanceMarshal, Instance, "int")
+        result := DllCall("FLTMGR.SYS\FltGetBottomInstance", "ptr", Volume, "ptr", Instance, "int")
         return result
     }
 
@@ -2253,6 +2405,9 @@ class Minifilters {
      * @returns {Integer} 
      */
     static FltCompareInstanceAltitudes(Instance1, Instance2) {
+        Instance1 := Instance1 is Win32Handle ? NumGet(Instance1, "ptr") : Instance1
+        Instance2 := Instance2 is Win32Handle ? NumGet(Instance2, "ptr") : Instance2
+
         result := DllCall("FLTMGR.SYS\FltCompareInstanceAltitudes", "ptr", Instance1, "ptr", Instance2, "int")
         return result
     }
@@ -2261,15 +2416,17 @@ class Minifilters {
      * 
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltGetFilterInformation(Filter, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltGetFilterInformation(Filter, InformationClass, Buffer_, BufferSize, BytesReturned) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltGetFilterInformation", "ptr", Filter, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltGetFilterInformation", "ptr", Filter, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2277,15 +2434,17 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltGetInstanceInformation(Instance, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltGetInstanceInformation(Instance, InformationClass, Buffer_, BufferSize, BytesReturned) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltGetInstanceInformation", "ptr", Instance, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltGetInstanceInformation", "ptr", Instance, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2293,15 +2452,17 @@ class Minifilters {
      * 
      * @param {PFLT_VOLUME} Volume 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltGetVolumeInformation(Volume, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltGetVolumeInformation(Volume, InformationClass, Buffer_, BufferSize, BytesReturned) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltGetVolumeInformation", "ptr", Volume, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltGetVolumeInformation", "ptr", Volume, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2314,6 +2475,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeProperties(Volume, VolumeProperties, VolumePropertiesLength, LengthReturned) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         LengthReturnedMarshal := LengthReturned is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetVolumeProperties", "ptr", Volume, "ptr", VolumeProperties, "uint", VolumePropertiesLength, LengthReturnedMarshal, LengthReturned, "int")
@@ -2370,6 +2533,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetVolumeGuidName(Volume, VolumeGuidName, BufferSizeNeeded) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         BufferSizeNeededMarshal := BufferSizeNeeded is VarRef ? "uint*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetVolumeGuidName", "ptr", Volume, "ptr", VolumeGuidName, BufferSizeNeededMarshal, BufferSizeNeeded, "int")
@@ -2386,6 +2551,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltQueryVolumeInformation(Instance, Iosb, FsInformation, Length, FsInformationClass) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltQueryVolumeInformation", "ptr", Instance, "ptr", Iosb, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, "int")
         return result
     }
@@ -2400,6 +2567,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetVolumeInformation(Instance, Iosb, FsInformation, Length, FsInformationClass) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltSetVolumeInformation", "ptr", Instance, "ptr", Iosb, "ptr", FsInformation, "uint", Length, "int", FsInformationClass, "int")
         return result
     }
@@ -2412,10 +2581,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltEnumerateFilters(FilterList, FilterListSize, NumberFiltersReturned) {
-        FilterListMarshal := FilterList is VarRef ? "ptr*" : "ptr"
         NumberFiltersReturnedMarshal := NumberFiltersReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateFilters", FilterListMarshal, FilterList, "uint", FilterListSize, NumberFiltersReturnedMarshal, NumberFiltersReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateFilters", "ptr", FilterList, "uint", FilterListSize, NumberFiltersReturnedMarshal, NumberFiltersReturned, "int")
         return result
     }
 
@@ -2428,10 +2596,11 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltEnumerateVolumes(Filter, VolumeList, VolumeListSize, NumberVolumesReturned) {
-        VolumeListMarshal := VolumeList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         NumberVolumesReturnedMarshal := NumberVolumesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateVolumes", "ptr", Filter, VolumeListMarshal, VolumeList, "uint", VolumeListSize, NumberVolumesReturnedMarshal, NumberVolumesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateVolumes", "ptr", Filter, "ptr", VolumeList, "uint", VolumeListSize, NumberVolumesReturnedMarshal, NumberVolumesReturned, "int")
         return result
     }
 
@@ -2445,10 +2614,12 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltEnumerateInstances(Volume, Filter, InstanceList, InstanceListSize, NumberInstancesReturned) {
-        InstanceListMarshal := InstanceList is VarRef ? "ptr*" : "ptr"
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         NumberInstancesReturnedMarshal := NumberInstancesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateInstances", "ptr", Volume, "ptr", Filter, InstanceListMarshal, InstanceList, "uint", InstanceListSize, NumberInstancesReturnedMarshal, NumberInstancesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateInstances", "ptr", Volume, "ptr", Filter, "ptr", InstanceList, "uint", InstanceListSize, NumberInstancesReturnedMarshal, NumberInstancesReturned, "int")
         return result
     }
 
@@ -2456,15 +2627,15 @@ class Minifilters {
      * 
      * @param {Integer} Index 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltEnumerateFilterInformation(Index, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltEnumerateFilterInformation(Index, InformationClass, Buffer_, BufferSize, BytesReturned) {
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateFilterInformation", "uint", Index, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateFilterInformation", "uint", Index, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2473,15 +2644,17 @@ class Minifilters {
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} Index 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltEnumerateInstanceInformationByFilter(Filter, Index, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltEnumerateInstanceInformationByFilter(Filter, Index, InformationClass, Buffer_, BufferSize, BytesReturned) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByFilter", "ptr", Filter, "uint", Index, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByFilter", "ptr", Filter, "uint", Index, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2490,15 +2663,17 @@ class Minifilters {
      * @param {PFLT_VOLUME} Volume 
      * @param {Integer} Index 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltEnumerateInstanceInformationByVolume(Volume, Index, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltEnumerateInstanceInformationByVolume(Volume, Index, InformationClass, Buffer_, BufferSize, BytesReturned) {
+        Volume := Volume is Win32Handle ? NumGet(Volume, "ptr") : Volume
+
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByVolume", "ptr", Volume, "uint", Index, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByVolume", "ptr", Volume, "uint", Index, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2507,15 +2682,15 @@ class Minifilters {
      * @param {Pointer<UNICODE_STRING>} VolumeName 
      * @param {Integer} Index 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltEnumerateInstanceInformationByVolumeName(VolumeName, Index, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltEnumerateInstanceInformationByVolumeName(VolumeName, Index, InformationClass, Buffer_, BufferSize, BytesReturned) {
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByVolumeName", "ptr", VolumeName, "uint", Index, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByVolumeName", "ptr", VolumeName, "uint", Index, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2524,15 +2699,15 @@ class Minifilters {
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @param {Integer} Index 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltEnumerateInstanceInformationByDeviceObject(DeviceObject, Index, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltEnumerateInstanceInformationByDeviceObject(DeviceObject, Index, InformationClass, Buffer_, BufferSize, BytesReturned) {
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByDeviceObject", "ptr", DeviceObject, "uint", Index, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateInstanceInformationByDeviceObject", "ptr", DeviceObject, "uint", Index, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2541,15 +2716,17 @@ class Minifilters {
      * @param {PFLT_FILTER} Filter 
      * @param {Integer} Index 
      * @param {Integer} InformationClass 
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {NTSTATUS} 
      */
-    static FltEnumerateVolumeInformation(Filter, Index, InformationClass, Buffer_R, BufferSize, BytesReturned) {
+    static FltEnumerateVolumeInformation(Filter, Index, InformationClass, Buffer_, BufferSize, BytesReturned) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltEnumerateVolumeInformation", "ptr", Filter, "uint", Index, "int", InformationClass, "ptr", Buffer_R, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("FLTMGR.SYS\FltEnumerateVolumeInformation", "ptr", Filter, "uint", Index, "int", InformationClass, "ptr", Buffer_, "uint", BufferSize, BytesReturnedMarshal, BytesReturned, "int")
         return result
     }
 
@@ -2589,10 +2766,11 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCreateCommunicationPort(Filter, ServerPort, ObjectAttributes, ServerPortCookie, ConnectNotifyCallback, DisconnectNotifyCallback, MessageNotifyCallback, MaxConnections) {
-        ServerPortMarshal := ServerPort is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         ServerPortCookieMarshal := ServerPortCookie is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltCreateCommunicationPort", "ptr", Filter, ServerPortMarshal, ServerPort, "ptr", ObjectAttributes, ServerPortCookieMarshal, ServerPortCookie, "ptr", ConnectNotifyCallback, "ptr", DisconnectNotifyCallback, "ptr", MessageNotifyCallback, "int", MaxConnections, "int")
+        result := DllCall("FLTMGR.SYS\FltCreateCommunicationPort", "ptr", Filter, "ptr", ServerPort, "ptr", ObjectAttributes, ServerPortCookieMarshal, ServerPortCookie, "ptr", ConnectNotifyCallback, "ptr", DisconnectNotifyCallback, "ptr", MessageNotifyCallback, "int", MaxConnections, "int")
         return result
     }
 
@@ -2602,6 +2780,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltCloseCommunicationPort(ServerPort) {
+        ServerPort := ServerPort is Win32Handle ? NumGet(ServerPort, "ptr") : ServerPort
+
         DllCall("FLTMGR.SYS\FltCloseCommunicationPort", "ptr", ServerPort)
     }
 
@@ -2612,9 +2792,9 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltCloseClientPort(Filter, ClientPort) {
-        ClientPortMarshal := ClientPort is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        DllCall("FLTMGR.SYS\FltCloseClientPort", "ptr", Filter, ClientPortMarshal, ClientPort)
+        DllCall("FLTMGR.SYS\FltCloseClientPort", "ptr", Filter, "ptr", ClientPort)
     }
 
     /**
@@ -2629,34 +2809,35 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSendMessage(Filter, ClientPort, SenderBuffer, SenderBufferLength, ReplyBuffer, ReplyLength, Timeout) {
-        ClientPortMarshal := ClientPort is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         ReplyLengthMarshal := ReplyLength is VarRef ? "uint*" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltSendMessage", "ptr", Filter, ClientPortMarshal, ClientPort, "ptr", SenderBuffer, "uint", SenderBufferLength, "ptr", ReplyBuffer, ReplyLengthMarshal, ReplyLength, TimeoutMarshal, Timeout, "int")
+        result := DllCall("FLTMGR.SYS\FltSendMessage", "ptr", Filter, "ptr", ClientPort, "ptr", SenderBuffer, "uint", SenderBufferLength, "ptr", ReplyBuffer, ReplyLengthMarshal, ReplyLength, TimeoutMarshal, Timeout, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor_ 
      * @param {Integer} DesiredAccess 
      * @returns {NTSTATUS} 
      */
-    static FltBuildDefaultSecurityDescriptor(SecurityDescriptor, DesiredAccess) {
-        result := DllCall("FLTMGR.SYS\FltBuildDefaultSecurityDescriptor", "ptr", SecurityDescriptor, "uint", DesiredAccess, "int")
+    static FltBuildDefaultSecurityDescriptor(SecurityDescriptor_, DesiredAccess) {
+        result := DllCall("FLTMGR.SYS\FltBuildDefaultSecurityDescriptor", "ptr", SecurityDescriptor_, "uint", DesiredAccess, "int")
         return result
     }
 
     /**
      * 
-     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor_ 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltFreeSecurityDescriptor(SecurityDescriptor) {
-        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+    static FltFreeSecurityDescriptor(SecurityDescriptor_) {
+        SecurityDescriptor_ := SecurityDescriptor_ is Win32Handle ? NumGet(SecurityDescriptor_, "ptr") : SecurityDescriptor_
 
-        DllCall("FLTMGR.SYS\FltFreeSecurityDescriptor", "ptr", SecurityDescriptor)
+        DllCall("FLTMGR.SYS\FltFreeSecurityDescriptor", "ptr", SecurityDescriptor_)
     }
 
     /**
@@ -2706,7 +2887,8 @@ class Minifilters {
      */
     static FltAllocateDeferredIoWorkItem() {
         result := DllCall("FLTMGR.SYS\FltAllocateDeferredIoWorkItem", "ptr")
-        return result
+        resultHandle := PFLT_DEFERRED_IO_WORKITEM({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2715,6 +2897,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltFreeDeferredIoWorkItem(FltWorkItem) {
+        FltWorkItem := FltWorkItem is Win32Handle ? NumGet(FltWorkItem, "ptr") : FltWorkItem
+
         DllCall("FLTMGR.SYS\FltFreeDeferredIoWorkItem", "ptr", FltWorkItem)
     }
 
@@ -2724,7 +2908,8 @@ class Minifilters {
      */
     static FltAllocateGenericWorkItem() {
         result := DllCall("FLTMGR.SYS\FltAllocateGenericWorkItem", "ptr")
-        return result
+        resultHandle := PFLT_GENERIC_WORKITEM({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -2733,6 +2918,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltFreeGenericWorkItem(FltWorkItem) {
+        FltWorkItem := FltWorkItem is Win32Handle ? NumGet(FltWorkItem, "ptr") : FltWorkItem
+
         DllCall("FLTMGR.SYS\FltFreeGenericWorkItem", "ptr", FltWorkItem)
     }
 
@@ -2742,13 +2929,15 @@ class Minifilters {
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Pointer<PFLT_DEFERRED_IO_WORKITEM_ROUTINE>} WorkerRoutine 
      * @param {Integer} QueueType 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltQueueDeferredIoWorkItem(FltWorkItem, Data, WorkerRoutine, QueueType, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FltQueueDeferredIoWorkItem(FltWorkItem, Data, WorkerRoutine, QueueType, Context_) {
+        FltWorkItem := FltWorkItem is Win32Handle ? NumGet(FltWorkItem, "ptr") : FltWorkItem
 
-        result := DllCall("FLTMGR.SYS\FltQueueDeferredIoWorkItem", "ptr", FltWorkItem, "ptr", Data, "ptr", WorkerRoutine, "int", QueueType, ContextMarshal, Context, "int")
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltQueueDeferredIoWorkItem", "ptr", FltWorkItem, "ptr", Data, "ptr", WorkerRoutine, "int", QueueType, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -2758,14 +2947,16 @@ class Minifilters {
      * @param {Pointer<Void>} FltObject 
      * @param {Pointer<PFLT_GENERIC_WORKITEM_ROUTINE>} WorkerRoutine 
      * @param {Integer} QueueType 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @returns {NTSTATUS} 
      */
-    static FltQueueGenericWorkItem(FltWorkItem, FltObject, WorkerRoutine, QueueType, Context) {
-        FltObjectMarshal := FltObject is VarRef ? "ptr" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FltQueueGenericWorkItem(FltWorkItem, FltObject, WorkerRoutine, QueueType, Context_) {
+        FltWorkItem := FltWorkItem is Win32Handle ? NumGet(FltWorkItem, "ptr") : FltWorkItem
 
-        result := DllCall("FLTMGR.SYS\FltQueueGenericWorkItem", "ptr", FltWorkItem, FltObjectMarshal, FltObject, "ptr", WorkerRoutine, "int", QueueType, ContextMarshal, Context, "int")
+        FltObjectMarshal := FltObject is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltQueueGenericWorkItem", "ptr", FltWorkItem, FltObjectMarshal, FltObject, "ptr", WorkerRoutine, "int", QueueType, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -2783,18 +2974,18 @@ class Minifilters {
      * 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Pointer<Pointer<Pointer<MDL>>>} MdlAddressPointer 
-     * @param {Pointer<Pointer<Pointer<Void>>>} Buffer_R 
+     * @param {Pointer<Pointer<Pointer<Void>>>} Buffer_ 
      * @param {Pointer<Pointer<Integer>>} Length 
      * @param {Pointer<Integer>} DesiredAccess 
      * @returns {NTSTATUS} 
      */
-    static FltDecodeParameters(CallbackData, MdlAddressPointer, Buffer_R, Length, DesiredAccess) {
+    static FltDecodeParameters(CallbackData, MdlAddressPointer, Buffer_, Length, DesiredAccess) {
         MdlAddressPointerMarshal := MdlAddressPointer is VarRef ? "ptr*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
         LengthMarshal := Length is VarRef ? "ptr*" : "ptr"
         DesiredAccessMarshal := DesiredAccess is VarRef ? "int*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltDecodeParameters", "ptr", CallbackData, MdlAddressPointerMarshal, MdlAddressPointer, Buffer_RMarshal, Buffer_R, LengthMarshal, Length, DesiredAccessMarshal, DesiredAccess, "int")
+        result := DllCall("FLTMGR.SYS\FltDecodeParameters", "ptr", CallbackData, MdlAddressPointerMarshal, MdlAddressPointer, Buffer_Marshal, Buffer_, LengthMarshal, Length, DesiredAccessMarshal, DesiredAccess, "int")
         return result
     }
 
@@ -2840,6 +3031,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCbdqInitialize(Instance, Cbdq, CbdqInsertIo, CbdqRemoveIo, CbdqPeekNextIo, CbdqAcquire, CbdqRelease, CbdqCompleteCanceledIo) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
+
         result := DllCall("FLTMGR.SYS\FltCbdqInitialize", "ptr", Instance, "ptr", Cbdq, "ptr", CbdqInsertIo, "ptr", CbdqRemoveIo, "ptr", CbdqPeekNextIo, "ptr", CbdqAcquire, "ptr", CbdqRelease, "ptr", CbdqCompleteCanceledIo, "int")
         return result
     }
@@ -2866,25 +3059,25 @@ class Minifilters {
      * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
      * @param {Pointer<FLT_CALLBACK_DATA>} Cbd 
-     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context 
+     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context_ 
      * @param {Pointer<Void>} InsertContext 
      * @returns {NTSTATUS} 
      */
-    static FltCbdqInsertIo(Cbdq, Cbd, Context, InsertContext) {
+    static FltCbdqInsertIo(Cbdq, Cbd, Context_, InsertContext) {
         InsertContextMarshal := InsertContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltCbdqInsertIo", "ptr", Cbdq, "ptr", Cbd, "ptr", Context, InsertContextMarshal, InsertContext, "int")
+        result := DllCall("FLTMGR.SYS\FltCbdqInsertIo", "ptr", Cbdq, "ptr", Cbd, "ptr", Context_, InsertContextMarshal, InsertContext, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<FLT_CALLBACK_DATA_QUEUE>} Cbdq 
-     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context 
+     * @param {Pointer<IO_CSQ_IRP_CONTEXT>} Context_ 
      * @returns {Pointer<FLT_CALLBACK_DATA>} 
      */
-    static FltCbdqRemoveIo(Cbdq, Context) {
-        result := DllCall("FLTMGR.SYS\FltCbdqRemoveIo", "ptr", Cbdq, "ptr", Context, "ptr")
+    static FltCbdqRemoveIo(Cbdq, Context_) {
+        result := DllCall("FLTMGR.SYS\FltCbdqRemoveIo", "ptr", Cbdq, "ptr", Context_, "ptr")
         return result
     }
 
@@ -2941,16 +3134,16 @@ class Minifilters {
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Pointer<PFLTOPLOCK_WAIT_COMPLETE_ROUTINE>} WaitCompletionRoutine 
      * @param {Pointer<PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE>} PrePostCallbackDataRoutine 
      * @returns {Integer} 
      */
-    static FltCheckOplock(Oplock, CallbackData, Context, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
+    static FltCheckOplock(Oplock, CallbackData, Context_, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltCheckOplock", OplockMarshal, Oplock, "ptr", CallbackData, ContextMarshal, Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
+        result := DllCall("FLTMGR.SYS\FltCheckOplock", OplockMarshal, Oplock, "ptr", CallbackData, Context_Marshal, Context_, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
         return result
     }
 
@@ -2983,16 +3176,16 @@ class Minifilters {
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Pointer<PFLTOPLOCK_WAIT_COMPLETE_ROUTINE>} WaitCompletionRoutine 
      * @param {Pointer<PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE>} PrePostCallbackDataRoutine 
      * @returns {Integer} 
      */
-    static FltCheckOplockEx(Oplock, CallbackData, Flags, Context, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
+    static FltCheckOplockEx(Oplock, CallbackData, Flags, Context_, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltCheckOplockEx", OplockMarshal, Oplock, "ptr", CallbackData, "uint", Flags, ContextMarshal, Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
+        result := DllCall("FLTMGR.SYS\FltCheckOplockEx", OplockMarshal, Oplock, "ptr", CallbackData, "uint", Flags, Context_Marshal, Context_, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
         return result
     }
 
@@ -3025,16 +3218,16 @@ class Minifilters {
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Pointer<PFLTOPLOCK_WAIT_COMPLETE_ROUTINE>} WaitCompletionRoutine 
      * @param {Pointer<PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE>} PrePostCallbackDataRoutine 
      * @returns {Integer} 
      */
-    static FltOplockBreakH(Oplock, CallbackData, Flags, Context, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
+    static FltOplockBreakH(Oplock, CallbackData, Flags, Context_, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltOplockBreakH", OplockMarshal, Oplock, "ptr", CallbackData, "uint", Flags, ContextMarshal, Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
+        result := DllCall("FLTMGR.SYS\FltOplockBreakH", OplockMarshal, Oplock, "ptr", CallbackData, "uint", Flags, Context_Marshal, Context_, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
         return result
     }
 
@@ -3042,16 +3235,16 @@ class Minifilters {
      * 
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Pointer<PFLTOPLOCK_WAIT_COMPLETE_ROUTINE>} WaitCompletionRoutine 
      * @param {Pointer<PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE>} PrePostCallbackDataRoutine 
      * @returns {Integer} 
      */
-    static FltOplockBreakToNone(Oplock, CallbackData, Context, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
+    static FltOplockBreakToNone(Oplock, CallbackData, Context_, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltOplockBreakToNone", OplockMarshal, Oplock, "ptr", CallbackData, ContextMarshal, Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
+        result := DllCall("FLTMGR.SYS\FltOplockBreakToNone", OplockMarshal, Oplock, "ptr", CallbackData, Context_Marshal, Context_, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
         return result
     }
 
@@ -3060,16 +3253,16 @@ class Minifilters {
      * @param {Pointer<Pointer<Void>>} Oplock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @param {Pointer<PFLTOPLOCK_WAIT_COMPLETE_ROUTINE>} WaitCompletionRoutine 
      * @param {Pointer<PFLTOPLOCK_PREPOST_CALLBACKDATA_ROUTINE>} PrePostCallbackDataRoutine 
      * @returns {Integer} 
      */
-    static FltOplockBreakToNoneEx(Oplock, CallbackData, Flags, Context, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
+    static FltOplockBreakToNoneEx(Oplock, CallbackData, Flags, Context_, WaitCompletionRoutine, PrePostCallbackDataRoutine) {
         OplockMarshal := Oplock is VarRef ? "ptr*" : "ptr"
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltOplockBreakToNoneEx", OplockMarshal, Oplock, "ptr", CallbackData, "uint", Flags, ContextMarshal, Context, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
+        result := DllCall("FLTMGR.SYS\FltOplockBreakToNoneEx", OplockMarshal, Oplock, "ptr", CallbackData, "uint", Flags, Context_Marshal, Context_, "ptr", WaitCompletionRoutine, "ptr", PrePostCallbackDataRoutine, "int")
         return result
     }
 
@@ -3151,13 +3344,13 @@ class Minifilters {
      * 
      * @param {Pointer<FILE_LOCK>} FileLock 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
-     * @param {Pointer<Void>} Context 
+     * @param {Pointer<Void>} Context_ 
      * @returns {Integer} 
      */
-    static FltProcessFileLock(FileLock, CallbackData, Context) {
-        ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+    static FltProcessFileLock(FileLock, CallbackData, Context_) {
+        Context_Marshal := Context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltProcessFileLock", "ptr", FileLock, "ptr", CallbackData, ContextMarshal, Context, "int")
+        result := DllCall("FLTMGR.SYS\FltProcessFileLock", "ptr", FileLock, "ptr", CallbackData, Context_Marshal, Context_, "int")
         return result
     }
 
@@ -3303,16 +3496,16 @@ class Minifilters {
 
     /**
      * 
-     * @param {Pointer<Void>} Object_R 
+     * @param {Pointer<Void>} Object_ 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<FLT_CALLBACK_DATA>} CallbackData 
      * @returns {NTSTATUS} 
      */
-    static FltCancellableWaitForSingleObject(Object_R, Timeout, CallbackData) {
-        Object_RMarshal := Object_R is VarRef ? "ptr" : "ptr"
+    static FltCancellableWaitForSingleObject(Object_, Timeout, CallbackData) {
+        Object_Marshal := Object_ is VarRef ? "ptr" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltCancellableWaitForSingleObject", Object_RMarshal, Object_R, TimeoutMarshal, Timeout, "ptr", CallbackData, "int")
+        result := DllCall("FLTMGR.SYS\FltCancellableWaitForSingleObject", Object_Marshal, Object_, TimeoutMarshal, Timeout, "ptr", CallbackData, "int")
         return result
     }
 
@@ -3361,7 +3554,8 @@ class Minifilters {
      */
     static FltGetRequestorProcess(CallbackData) {
         result := DllCall("FLTMGR.SYS\FltGetRequestorProcess", "ptr", CallbackData, "ptr")
-        return result
+        resultHandle := PEPROCESS({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -3390,7 +3584,7 @@ class Minifilters {
      * @param {PNOTIFY_SYNC} NotifySync 
      * @param {Pointer<LIST_ENTRY>} NotifyList 
      * @param {Pointer<Void>} FsContext 
-     * @param {Pointer<STRING>} FullDirectoryName 
+     * @param {Pointer<Win32STRING>} FullDirectoryName 
      * @param {BOOLEAN} WatchTree 
      * @param {BOOLEAN} IgnoreBuffer 
      * @param {Integer} CompletionFilter 
@@ -3401,6 +3595,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltNotifyFilterChangeDirectory(NotifySync, NotifyList, FsContext, FullDirectoryName, WatchTree, IgnoreBuffer, CompletionFilter, NotifyCallbackData, TraverseCallback, SubjectContext, FilterCallback) {
+        NotifySync := NotifySync is Win32Handle ? NumGet(NotifySync, "ptr") : NotifySync
+
         FsContextMarshal := FsContext is VarRef ? "ptr" : "ptr"
 
         DllCall("FLTMGR.SYS\FltNotifyFilterChangeDirectory", "ptr", NotifySync, "ptr", NotifyList, FsContextMarshal, FsContext, "ptr", FullDirectoryName, "char", WatchTree, "char", IgnoreBuffer, "uint", CompletionFilter, "ptr", NotifyCallbackData, "ptr", TraverseCallback, "ptr", SubjectContext, "ptr", FilterCallback)
@@ -3427,6 +3623,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAdjustDeviceStackSizeForIoRedirection(SourceInstance, TargetInstance, SourceDeviceStackSizeModified) {
+        SourceInstance := SourceInstance is Win32Handle ? NumGet(SourceInstance, "ptr") : SourceInstance
+        TargetInstance := TargetInstance is Win32Handle ? NumGet(TargetInstance, "ptr") : TargetInstance
+
         SourceDeviceStackSizeModifiedMarshal := SourceDeviceStackSizeModified is VarRef ? "char*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltAdjustDeviceStackSizeForIoRedirection", "ptr", SourceInstance, "ptr", TargetInstance, SourceDeviceStackSizeModifiedMarshal, SourceDeviceStackSizeModified, "int")
@@ -3441,6 +3640,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltIsIoRedirectionAllowed(SourceInstance, TargetInstance, RedirectionAllowed) {
+        SourceInstance := SourceInstance is Win32Handle ? NumGet(SourceInstance, "ptr") : SourceInstance
+        TargetInstance := TargetInstance is Win32Handle ? NumGet(TargetInstance, "ptr") : TargetInstance
+
         RedirectionAllowedMarshal := RedirectionAllowed is VarRef ? "char*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltIsIoRedirectionAllowed", "ptr", SourceInstance, "ptr", TargetInstance, RedirectionAllowedMarshal, RedirectionAllowed, "int")
@@ -3456,6 +3658,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltIsIoRedirectionAllowedForOperation(Data, TargetInstance, RedirectionAllowedThisIo, RedirectionAllowedAllIo) {
+        TargetInstance := TargetInstance is Win32Handle ? NumGet(TargetInstance, "ptr") : TargetInstance
+
         RedirectionAllowedThisIoMarshal := RedirectionAllowedThisIo is VarRef ? "char*" : "ptr"
         RedirectionAllowedAllIoMarshal := RedirectionAllowedAllIo is VarRef ? "char*" : "ptr"
 
@@ -3480,14 +3684,14 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @param {Integer} NotificationMask 
      * @returns {NTSTATUS} 
      */
-    static FltEnlistInTransaction(Instance, Transaction, TransactionContext, NotificationMask) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltEnlistInTransaction(Instance, Transaction, TransactionContext_, NotificationMask) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltEnlistInTransaction", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "uint", NotificationMask, "int")
+        result := DllCall("FLTMGR.SYS\FltEnlistInTransaction", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "uint", NotificationMask, "int")
         return result
     }
 
@@ -3495,13 +3699,13 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @returns {NTSTATUS} 
      */
-    static FltRollbackEnlistment(Instance, Transaction, TransactionContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltRollbackEnlistment(Instance, Transaction, TransactionContext_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltRollbackEnlistment", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "int")
+        result := DllCall("FLTMGR.SYS\FltRollbackEnlistment", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "int")
         return result
     }
 
@@ -3509,13 +3713,13 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @returns {NTSTATUS} 
      */
-    static FltPrePrepareComplete(Instance, Transaction, TransactionContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltPrePrepareComplete(Instance, Transaction, TransactionContext_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltPrePrepareComplete", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "int")
+        result := DllCall("FLTMGR.SYS\FltPrePrepareComplete", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "int")
         return result
     }
 
@@ -3523,13 +3727,13 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @returns {NTSTATUS} 
      */
-    static FltPrepareComplete(Instance, Transaction, TransactionContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltPrepareComplete(Instance, Transaction, TransactionContext_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltPrepareComplete", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "int")
+        result := DllCall("FLTMGR.SYS\FltPrepareComplete", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "int")
         return result
     }
 
@@ -3537,13 +3741,13 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @returns {NTSTATUS} 
      */
-    static FltCommitComplete(Instance, Transaction, TransactionContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltCommitComplete(Instance, Transaction, TransactionContext_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltCommitComplete", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "int")
+        result := DllCall("FLTMGR.SYS\FltCommitComplete", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "int")
         return result
     }
 
@@ -3551,13 +3755,13 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @returns {NTSTATUS} 
      */
-    static FltCommitFinalizeComplete(Instance, Transaction, TransactionContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltCommitFinalizeComplete(Instance, Transaction, TransactionContext_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltCommitFinalizeComplete", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "int")
+        result := DllCall("FLTMGR.SYS\FltCommitFinalizeComplete", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "int")
         return result
     }
 
@@ -3565,13 +3769,13 @@ class Minifilters {
      * 
      * @param {PFLT_INSTANCE} Instance 
      * @param {Pointer<KTRANSACTION>} Transaction 
-     * @param {PFLT_CONTEXT} TransactionContext 
+     * @param {PFLT_CONTEXT} TransactionContext_ 
      * @returns {NTSTATUS} 
      */
-    static FltRollbackComplete(Instance, Transaction, TransactionContext) {
-        TransactionMarshal := Transaction is VarRef ? "ptr*" : "ptr"
+    static FltRollbackComplete(Instance, Transaction, TransactionContext_) {
+        Instance := Instance is Win32Handle ? NumGet(Instance, "ptr") : Instance
 
-        result := DllCall("FLTMGR.SYS\FltRollbackComplete", "ptr", Instance, TransactionMarshal, Transaction, "ptr", TransactionContext, "int")
+        result := DllCall("FLTMGR.SYS\FltRollbackComplete", "ptr", Instance, "ptr", Transaction, "ptr", TransactionContext_, "int")
         return result
     }
 
@@ -3583,6 +3787,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAllocateExtraCreateParameterList(Filter, Flags, EcpList) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameterList", "ptr", Filter, "uint", Flags, EcpListMarshal, EcpList, "int")
@@ -3601,6 +3807,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAllocateExtraCreateParameter(Filter, EcpType, SizeOfContext, Flags, CleanupCallback, PoolTag, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltAllocateExtraCreateParameter", "ptr", Filter, "ptr", EcpType, "uint", SizeOfContext, "uint", Flags, "ptr", CleanupCallback, "uint", PoolTag, EcpContextMarshal, EcpContext, "int")
@@ -3612,14 +3820,16 @@ class Minifilters {
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<Void>} Lookaside 
      * @param {Integer} Flags 
-     * @param {Pointer} Size 
+     * @param {Pointer} Size_ 
      * @param {Integer} Tag 
      * @returns {String} Nothing - always returns an empty string
      */
-    static FltInitExtraCreateParameterLookasideList(Filter, Lookaside, Flags, Size, Tag) {
+    static FltInitExtraCreateParameterLookasideList(Filter, Lookaside, Flags, Size_, Tag) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         LookasideMarshal := Lookaside is VarRef ? "ptr" : "ptr"
 
-        DllCall("FLTMGR.SYS\FltInitExtraCreateParameterLookasideList", "ptr", Filter, LookasideMarshal, Lookaside, "uint", Flags, "ptr", Size, "uint", Tag)
+        DllCall("FLTMGR.SYS\FltInitExtraCreateParameterLookasideList", "ptr", Filter, LookasideMarshal, Lookaside, "uint", Flags, "ptr", Size_, "uint", Tag)
     }
 
     /**
@@ -3630,6 +3840,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltDeleteExtraCreateParameterLookasideList(Filter, Lookaside, Flags) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         LookasideMarshal := Lookaside is VarRef ? "ptr" : "ptr"
 
         DllCall("FLTMGR.SYS\FltDeleteExtraCreateParameterLookasideList", "ptr", Filter, LookasideMarshal, Lookaside, "uint", Flags)
@@ -3647,6 +3859,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAllocateExtraCreateParameterFromLookasideList(Filter, EcpType, SizeOfContext, Flags, CleanupCallback, LookasideList, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         LookasideListMarshal := LookasideList is VarRef ? "ptr" : "ptr"
         EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
 
@@ -3662,10 +3876,11 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltInsertExtraCreateParameter(Filter, EcpList, EcpContext) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltInsertExtraCreateParameter", "ptr", Filter, EcpListMarshal, EcpList, EcpContextMarshal, EcpContext, "int")
+        result := DllCall("FLTMGR.SYS\FltInsertExtraCreateParameter", "ptr", Filter, "ptr", EcpList, EcpContextMarshal, EcpContext, "int")
         return result
     }
 
@@ -3679,11 +3894,12 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltFindExtraCreateParameter(Filter, EcpList, EcpType, EcpContext, EcpContextSize) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
         EcpContextSizeMarshal := EcpContextSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltFindExtraCreateParameter", "ptr", Filter, EcpListMarshal, EcpList, "ptr", EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, "int")
+        result := DllCall("FLTMGR.SYS\FltFindExtraCreateParameter", "ptr", Filter, "ptr", EcpList, "ptr", EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, "int")
         return result
     }
 
@@ -3697,11 +3913,12 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltRemoveExtraCreateParameter(Filter, EcpList, EcpType, EcpContext, EcpContextSize) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr*" : "ptr"
         EcpContextSizeMarshal := EcpContextSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltRemoveExtraCreateParameter", "ptr", Filter, EcpListMarshal, EcpList, "ptr", EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, "int")
+        result := DllCall("FLTMGR.SYS\FltRemoveExtraCreateParameter", "ptr", Filter, "ptr", EcpList, "ptr", EcpType, EcpContextMarshal, EcpContext, EcpContextSizeMarshal, EcpContextSize, "int")
         return result
     }
 
@@ -3712,9 +3929,9 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltFreeExtraCreateParameterList(Filter, EcpList) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        DllCall("FLTMGR.SYS\FltFreeExtraCreateParameterList", "ptr", Filter, EcpListMarshal, EcpList)
+        DllCall("FLTMGR.SYS\FltFreeExtraCreateParameterList", "ptr", Filter, "ptr", EcpList)
     }
 
     /**
@@ -3724,6 +3941,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltFreeExtraCreateParameter(Filter, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
         DllCall("FLTMGR.SYS\FltFreeExtraCreateParameter", "ptr", Filter, EcpContextMarshal, EcpContext)
@@ -3737,6 +3956,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetEcpListFromCallbackData(Filter, CallbackData, EcpList) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltGetEcpListFromCallbackData", "ptr", Filter, "ptr", CallbackData, EcpListMarshal, EcpList, "int")
@@ -3751,9 +3972,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetEcpListIntoCallbackData(Filter, CallbackData, EcpList) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        result := DllCall("FLTMGR.SYS\FltSetEcpListIntoCallbackData", "ptr", Filter, "ptr", CallbackData, EcpListMarshal, EcpList, "int")
+        result := DllCall("FLTMGR.SYS\FltSetEcpListIntoCallbackData", "ptr", Filter, "ptr", CallbackData, "ptr", EcpList, "int")
         return result
     }
 
@@ -3768,12 +3989,13 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltGetNextExtraCreateParameter(Filter, EcpList, CurrentEcpContext, NextEcpType, NextEcpContext, NextEcpContextSize) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         CurrentEcpContextMarshal := CurrentEcpContext is VarRef ? "ptr" : "ptr"
         NextEcpContextMarshal := NextEcpContext is VarRef ? "ptr*" : "ptr"
         NextEcpContextSizeMarshal := NextEcpContextSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("FLTMGR.SYS\FltGetNextExtraCreateParameter", "ptr", Filter, EcpListMarshal, EcpList, CurrentEcpContextMarshal, CurrentEcpContext, "ptr", NextEcpType, NextEcpContextMarshal, NextEcpContext, NextEcpContextSizeMarshal, NextEcpContextSize, "int")
+        result := DllCall("FLTMGR.SYS\FltGetNextExtraCreateParameter", "ptr", Filter, "ptr", EcpList, CurrentEcpContextMarshal, CurrentEcpContext, "ptr", NextEcpType, NextEcpContextMarshal, NextEcpContext, NextEcpContextSizeMarshal, NextEcpContextSize, "int")
         return result
     }
 
@@ -3784,6 +4006,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltAcknowledgeEcp(Filter, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
         DllCall("FLTMGR.SYS\FltAcknowledgeEcp", "ptr", Filter, EcpContextMarshal, EcpContext)
@@ -3796,6 +4020,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltIsEcpAcknowledged(Filter, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltIsEcpAcknowledged", "ptr", Filter, EcpContextMarshal, EcpContext, "char")
@@ -3809,6 +4035,8 @@ class Minifilters {
      * @returns {BOOLEAN} 
      */
     static FltIsEcpFromUserMode(Filter, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
         result := DllCall("FLTMGR.SYS\FltIsEcpFromUserMode", "ptr", Filter, EcpContextMarshal, EcpContext, "char")
@@ -3822,6 +4050,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltPrepareToReuseEcp(Filter, EcpContext) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         EcpContextMarshal := EcpContext is VarRef ? "ptr" : "ptr"
 
         DllCall("FLTMGR.SYS\FltPrepareToReuseEcp", "ptr", Filter, EcpContextMarshal, EcpContext)
@@ -3835,6 +4065,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltAddOpenReparseEntry(Filter, Data, OpenReparseEntry) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         result := DllCall("FLTMGR.SYS\FltAddOpenReparseEntry", "ptr", Filter, "ptr", Data, "ptr", OpenReparseEntry, "int")
         return result
     }
@@ -3847,6 +4079,8 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltRemoveOpenReparseEntry(Filter, Data, OpenReparseEntry) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         DllCall("FLTMGR.SYS\FltRemoveOpenReparseEntry", "ptr", Filter, "ptr", Data, "ptr", OpenReparseEntry)
     }
 
@@ -3858,9 +4092,9 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltCopyOpenReparseList(Filter, Data, EcpList) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        result := DllCall("FLTMGR.SYS\FltCopyOpenReparseList", "ptr", Filter, "ptr", Data, EcpListMarshal, EcpList, "int")
+        result := DllCall("FLTMGR.SYS\FltCopyOpenReparseList", "ptr", Filter, "ptr", Data, "ptr", EcpList, "int")
         return result
     }
 
@@ -3871,9 +4105,9 @@ class Minifilters {
      * @returns {String} Nothing - always returns an empty string
      */
     static FltFreeOpenReparseList(Filter, EcpList) {
-        EcpListMarshal := EcpList is VarRef ? "ptr*" : "ptr"
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        DllCall("FLTMGR.SYS\FltFreeOpenReparseList", "ptr", Filter, EcpListMarshal, EcpList)
+        DllCall("FLTMGR.SYS\FltFreeOpenReparseList", "ptr", Filter, "ptr", EcpList)
     }
 
     /**
@@ -3884,6 +4118,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltRequestFileInfoOnCreateCompletion(Filter, Data, InfoClassFlags) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         result := DllCall("FLTMGR.SYS\FltRequestFileInfoOnCreateCompletion", "ptr", Filter, "ptr", Data, "uint", InfoClassFlags, "int")
         return result
     }
@@ -3893,13 +4129,15 @@ class Minifilters {
      * @param {PFLT_FILTER} Filter 
      * @param {Pointer<FLT_CALLBACK_DATA>} Data 
      * @param {Integer} InfoClass 
-     * @param {Pointer<Integer>} Size 
+     * @param {Pointer<Integer>} Size_ 
      * @returns {Pointer<Void>} 
      */
-    static FltRetrieveFileInfoOnCreateCompletion(Filter, Data, InfoClass, Size) {
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+    static FltRetrieveFileInfoOnCreateCompletion(Filter, Data, InfoClass, Size_) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
 
-        result := DllCall("FLTMGR.SYS\FltRetrieveFileInfoOnCreateCompletion", "ptr", Filter, "ptr", Data, "uint", InfoClass, SizeMarshal, Size, "ptr")
+        Size_Marshal := Size_ is VarRef ? "uint*" : "ptr"
+
+        result := DllCall("FLTMGR.SYS\FltRetrieveFileInfoOnCreateCompletion", "ptr", Filter, "ptr", Data, "uint", InfoClass, Size_Marshal, Size_, "ptr")
         return result
     }
 
@@ -3913,6 +4151,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltRetrieveFileInfoOnCreateCompletionEx(Filter, Data, InfoClass, RetInfoSize, RetInfoBuffer) {
+        Filter := Filter is Win32Handle ? NumGet(Filter, "ptr") : Filter
+
         RetInfoSizeMarshal := RetInfoSize is VarRef ? "uint*" : "ptr"
         RetInfoBufferMarshal := RetInfoBuffer is VarRef ? "ptr*" : "ptr"
 
@@ -3929,6 +4169,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltRetrieveIoPriorityInfo(Data, FileObject, Thread, PriorityInfo) {
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
         result := DllCall("FLTMGR.SYS\FltRetrieveIoPriorityInfo", "ptr", Data, "ptr", FileObject, "ptr", Thread, "ptr", PriorityInfo, "int")
         return result
     }
@@ -3941,6 +4183,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltApplyPriorityInfoThread(InputPriorityInfo, OutputPriorityInfo, Thread) {
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
         result := DllCall("FLTMGR.SYS\FltApplyPriorityInfoThread", "ptr", InputPriorityInfo, "ptr", OutputPriorityInfo, "ptr", Thread, "int")
         return result
     }
@@ -4003,6 +4247,8 @@ class Minifilters {
      * @returns {Integer} 
      */
     static FltGetIoPriorityHintFromThread(Thread) {
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
         result := DllCall("FLTMGR.SYS\FltGetIoPriorityHintFromThread", "ptr", Thread, "int")
         return result
     }
@@ -4014,6 +4260,8 @@ class Minifilters {
      * @returns {NTSTATUS} 
      */
     static FltSetIoPriorityHintIntoThread(Thread, PriorityHint) {
+        Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
+
         result := DllCall("FLTMGR.SYS\FltSetIoPriorityHintIntoThread", "ptr", Thread, "int", PriorityHint, "int")
         return result
     }

@@ -6,8 +6,15 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Represents a context menu control.
+ * @remarks
+ * Optional.
  * 
- * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-contextmenu
+ * May occur one or more times for each [**ContextPopup.ContextMenus**](windowsribbon-element-contextpopup-contextmenus.md).
+ * 
+ * > [!IMPORTANT]
+ * > A **ContextMenu** cannot host [Combo Box](windowsribbon-controls-combobox.md) or [Spinner](windowsribbon-controls-spinner.md) controls.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/windowsribbon/windowsribbon-element-contextmenu
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -57,7 +64,11 @@ class ContextMenu extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
@@ -67,8 +78,12 @@ class ContextMenu extends IDispatch{
      * @returns {MenuItem} 
      */
     get_Item(IndexOrPath) {
-        result := ComCall(8, this, "ptr", IndexOrPath, "ptr*", &MenuItem := 0, "HRESULT")
-        return MenuItem(MenuItem)
+        result := ComCall(8, this, "ptr", IndexOrPath, "ptr*", &MenuItem_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return MenuItem(MenuItem_)
     }
 
     /**
@@ -76,7 +91,11 @@ class ContextMenu extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 }

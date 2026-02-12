@@ -24,7 +24,7 @@
  * &lt;binp:BinaryEncoding.../&gt;
  * &lt;mtomp:OptimizedMimeSerialization.../&gt;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_endpoint_policy_extension
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_endpoint_policy_extension
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

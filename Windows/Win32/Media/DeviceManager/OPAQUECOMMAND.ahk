@@ -3,7 +3,7 @@
 
 /**
  * The OPAQUECOMMAND structure contains data for commands that are passed through Windows Media Device Manager to a device but are not intended to be acted upon by Windows Media Device Manager.
- * @see https://learn.microsoft.com/windows/win32/WMDM/opaquecommand
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/opaquecommand
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

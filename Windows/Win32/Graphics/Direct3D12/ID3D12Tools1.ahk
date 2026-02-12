@@ -35,7 +35,11 @@ class ID3D12Tools1 extends ID3D12Tools{
      * @returns {HRESULT} 
      */
     ReserveGPUVARangesAtCreate(pRanges, uiNumRanges) {
-        result := ComCall(5, this, "ptr", pRanges, "uint", uiNumRanges, "HRESULT")
+        result := ComCall(5, this, "ptr", pRanges, "uint", uiNumRanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

@@ -41,7 +41,11 @@ class IBidiRequestContainer extends IUnknown{
      * @returns {HRESULT} 
      */
     AddRequest(pRequest) {
-        result := ComCall(3, this, "ptr", pRequest, "HRESULT")
+        result := ComCall(3, this, "ptr", pRequest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IBidiRequestContainer extends IUnknown{
      * @returns {IEnumUnknown} 
      */
     GetEnumObject() {
-        result := ComCall(4, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppenum)
     }
 
@@ -59,7 +67,11 @@ class IBidiRequestContainer extends IUnknown{
      * @returns {Integer} 
      */
     GetRequestCount() {
-        result := ComCall(5, this, "uint*", &puCount := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &puCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puCount
     }
 }

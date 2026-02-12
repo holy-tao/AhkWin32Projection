@@ -38,20 +38,33 @@ class IPrintPipelinePropertyBag extends IUnknown{
     AddProperty(pszName, pVar) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(3, this, "ptr", pszName, "ptr", pVar, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {PWSTR} pszName 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getproperty
      */
     GetProperty(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pVar := VARIANT()
-        result := ComCall(4, this, "ptr", pszName, "ptr", pVar, "HRESULT")
+        result := ComCall(4, this, "ptr", pszName, "ptr", pVar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVar
     }
 

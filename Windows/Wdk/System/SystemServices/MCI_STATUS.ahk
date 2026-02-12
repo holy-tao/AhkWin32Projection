@@ -1114,7 +1114,7 @@
  * The **dwReturn** member is set to the current samples per second used for playing, recording, and saving.
  * 
  * </dd> </dl>
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-status
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/mci-status
  * @namespace Windows.Wdk.System.SystemServices
  * @version v4.0.30319
  */

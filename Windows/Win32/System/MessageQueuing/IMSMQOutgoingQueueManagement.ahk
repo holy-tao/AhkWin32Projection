@@ -55,7 +55,11 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(16, this, "int*", &plState := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &plState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plState
     }
 
@@ -65,7 +69,11 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
      */
     get_NextHops() {
         pvNextHops := VARIANT()
-        result := ComCall(17, this, "ptr", pvNextHops, "HRESULT")
+        result := ComCall(17, this, "ptr", pvNextHops, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvNextHops
     }
 
@@ -74,25 +82,41 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
      * @returns {IMSMQCollection} 
      */
     EodGetSendInfo() {
-        result := ComCall(18, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQCollection(ppCollection)
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/resume-method
      */
     Resume() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/pause-method
      */
     Pause() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +125,11 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
      * @returns {HRESULT} 
      */
     EodResend() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

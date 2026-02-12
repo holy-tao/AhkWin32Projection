@@ -11,7 +11,7 @@
  * Used to store received ICMP error information.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-icmp_error_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2ipdef/ns-ws2ipdef-icmp_error_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

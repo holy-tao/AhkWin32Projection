@@ -3,7 +3,7 @@
 
 /**
  * The SCARD\_IO\_REQUEST structure begins a protocol control information structure.
- * @see https://learn.microsoft.com/windows/win32/SecAuthN/scard-io-request
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecAuthN/scard-io-request
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

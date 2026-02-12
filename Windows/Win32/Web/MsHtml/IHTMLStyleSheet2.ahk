@@ -42,7 +42,11 @@ class IHTMLStyleSheet2 extends IDispatch{
      * @returns {IHTMLStyleSheetPagesCollection} 
      */
     get_pages() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLStyleSheetPagesCollection(p)
     }
 
@@ -54,10 +58,20 @@ class IHTMLStyleSheet2 extends IDispatch{
      * @returns {Integer} 
      */
     addPageRule(bstrSelector, bstrStyle, lIndex) {
-        bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
-        bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
+        if(bstrSelector is String) {
+            pin := BSTR.Alloc(bstrSelector)
+            bstrSelector := pin.Value
+        }
+        if(bstrStyle is String) {
+            pin := BSTR.Alloc(bstrStyle)
+            bstrStyle := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plNewIndex
     }
 }

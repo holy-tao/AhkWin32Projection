@@ -3,7 +3,7 @@
 
 /**
  * Information classes for placeholder info.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_placeholder_info_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_placeholder_info_class
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

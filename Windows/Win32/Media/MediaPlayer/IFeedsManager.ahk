@@ -69,7 +69,11 @@ class IFeedsManager extends IDispatch{
      * @returns {IDispatch} 
      */
     get_RootFolder() {
-        result := ComCall(7, this, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -79,9 +83,16 @@ class IFeedsManager extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     IsSubscribed(feedUrl) {
-        feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
+        if(feedUrl is String) {
+            pin := BSTR.Alloc(feedUrl)
+            feedUrl := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", feedUrl, "short*", &subscribed := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", feedUrl, "short*", &subscribed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return subscribed
     }
 
@@ -91,9 +102,16 @@ class IFeedsManager extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     ExistsFeed(feedPath) {
-        feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
+        if(feedPath is String) {
+            pin := BSTR.Alloc(feedPath)
+            feedPath := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", feedPath, "short*", &exists := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", feedPath, "short*", &exists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return exists
     }
 
@@ -103,9 +121,16 @@ class IFeedsManager extends IDispatch{
      * @returns {IDispatch} 
      */
     GetFeed(feedPath) {
-        feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
+        if(feedPath is String) {
+            pin := BSTR.Alloc(feedPath)
+            feedPath := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", feedPath, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", feedPath, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -115,9 +140,16 @@ class IFeedsManager extends IDispatch{
      * @returns {IDispatch} 
      */
     GetFeedByUrl(feedUrl) {
-        feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
+        if(feedUrl is String) {
+            pin := BSTR.Alloc(feedUrl)
+            feedUrl := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", feedUrl, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", feedUrl, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -127,9 +159,16 @@ class IFeedsManager extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     ExistsFolder(folderPath) {
-        folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
+        if(folderPath is String) {
+            pin := BSTR.Alloc(folderPath)
+            folderPath := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", folderPath, "short*", &exists := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", folderPath, "short*", &exists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return exists
     }
 
@@ -139,9 +178,16 @@ class IFeedsManager extends IDispatch{
      * @returns {IDispatch} 
      */
     GetFolder(folderPath) {
-        folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
+        if(folderPath is String) {
+            pin := BSTR.Alloc(folderPath)
+            folderPath := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", folderPath, "ptr*", &disp := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", folderPath, "ptr*", &disp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(disp)
     }
 
@@ -151,9 +197,16 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     DeleteFeed(feedPath) {
-        feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
+        if(feedPath is String) {
+            pin := BSTR.Alloc(feedPath)
+            feedPath := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", feedPath, "HRESULT")
+        result := ComCall(14, this, "ptr", feedPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,9 +216,16 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     DeleteFolder(folderPath) {
-        folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
+        if(folderPath is String) {
+            pin := BSTR.Alloc(folderPath)
+            folderPath := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", folderPath, "HRESULT")
+        result := ComCall(15, this, "ptr", folderPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +235,11 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     BackgroundSync(action) {
-        result := ComCall(16, this, "int", action, "HRESULT")
+        result := ComCall(16, this, "int", action, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,8 +248,12 @@ class IFeedsManager extends IDispatch{
      * @returns {Integer} 
      */
     get_BackgroundSyncStatus() {
-        result := ComCall(17, this, "int*", &status := 0, "HRESULT")
-        return status
+        result := ComCall(17, this, "int*", &status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return status_
     }
 
     /**
@@ -193,7 +261,11 @@ class IFeedsManager extends IDispatch{
      * @returns {Integer} 
      */
     get_DefaultInterval() {
-        result := ComCall(18, this, "int*", &minutes := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &minutes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minutes
     }
 
@@ -203,7 +275,11 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DefaultInterval(minutes) {
-        result := ComCall(19, this, "int", minutes, "HRESULT")
+        result := ComCall(19, this, "int", minutes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,20 +288,32 @@ class IFeedsManager extends IDispatch{
      * @returns {HRESULT} 
      */
     AsyncSyncAll() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Contains values that specify the behavior of UiaGetUpdatedCache.
      * @param {BSTR} feedXmlIn 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(feedXmlIn) {
-        feedXmlIn := feedXmlIn is String ? BSTR.Alloc(feedXmlIn).Value : feedXmlIn
+        if(feedXmlIn is String) {
+            pin := BSTR.Alloc(feedXmlIn)
+            feedXmlIn := pin.Value
+        }
 
         feedXmlOut := BSTR()
-        result := ComCall(21, this, "ptr", feedXmlIn, "ptr", feedXmlOut, "HRESULT")
+        result := ComCall(21, this, "ptr", feedXmlIn, "ptr", feedXmlOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return feedXmlOut
     }
 
@@ -234,7 +322,11 @@ class IFeedsManager extends IDispatch{
      * @returns {Integer} 
      */
     get_ItemCountLimit() {
-        result := ComCall(22, this, "int*", &itemCountLimit := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &itemCountLimit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return itemCountLimit
     }
 }

@@ -4,7 +4,10 @@
 #Include .\IMessageFilter.ahk
 #Include .\IActivateAudioInterfaceAsyncOperation.ahk
 #Include .\IAudioStateMonitor.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -918,7 +921,7 @@ class Audio {
     static SPTLAUD_MD_CLNT_E_ITEMS_LOCKED_FOR_WRITING => -2004286939
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static VIRTUAL_AUDIO_DEVICE_PROCESS_LOOPBACK => "VAD\Process_Loopback"
 
@@ -2148,47 +2151,47 @@ class Audio {
     static ACM_FORMATSUGGESTF_TYPEMASK => 16711680
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGSTRINGA => "acmchoose_help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGSTRINGW => "acmchoose_help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGCONTEXTMENUA => "acmchoose_contextmenu"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGCONTEXTMENUW => "acmchoose_contextmenu"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGCONTEXTHELPA => "acmchoose_contexthelp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGCONTEXTHELPW => "acmchoose_contexthelp"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGSTRING => "acmchoose_help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGCONTEXTMENU => "acmchoose_contextmenu"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ACMHELPMSGCONTEXTHELP => "acmchoose_contexthelp"
 
@@ -2517,7 +2520,7 @@ class Audio {
      * 
      * Note that this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the interface pointer to the message filter.
      * @returns {IMessageFilter} Address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a>* pointer variable that receives the interface pointer to the previously registered message filter. If there was no previously registered message filter for the current thread, the value of *<i>lplpMessageFilter</i> is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-coregistermessagefilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/objbase/nf-objbase-coregistermessagefilter
      * @since windows5.0
      */
     static CoRegisterMessageFilter(lpMessageFilter) {
@@ -2588,7 +2591,7 @@ class Audio {
     /**
      * The waveOutGetNumDevs function retrieves the number of waveform-audio output devices present in the system.
      * @returns {Integer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutgetnumdevs
      * @since windows5.0
      */
     static waveOutGetNumDevs() {
@@ -2688,7 +2691,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutgetvolume
      * @since windows5.0
      */
     static waveOutGetVolume(hwo, pdwVolume) {
@@ -2766,7 +2769,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutsetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutsetvolume
      * @since windows5.0
      */
     static waveOutSetVolume(hwo, dwVolume) {
@@ -3008,7 +3011,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutopen
      * @since windows5.0
      */
     static waveOutOpen(phwo, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
@@ -3073,7 +3076,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutclose
      * @since windows5.0
      */
     static waveOutClose(hwo) {
@@ -3137,7 +3140,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutprepareheader
      * @since windows5.0
      */
     static waveOutPrepareHeader(hwo, pwh, cbwh) {
@@ -3208,7 +3211,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutunprepareheader
      * @since windows5.0
      */
     static waveOutUnprepareHeader(hwo, pwh, cbwh) {
@@ -3279,7 +3282,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutwrite
      * @since windows5.0
      */
     static waveOutWrite(hwo, pwh, cbwh) {
@@ -3346,7 +3349,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutpause
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutpause
      * @since windows5.0
      */
     static waveOutPause(hwo) {
@@ -3413,7 +3416,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutrestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutrestart
      * @since windows5.0
      */
     static waveOutRestart(hwo) {
@@ -3480,7 +3483,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutreset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutreset
      * @since windows5.0
      */
     static waveOutReset(hwo) {
@@ -3538,7 +3541,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutbreakloop
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutbreakloop
      * @since windows5.0
      */
     static waveOutBreakLoop(hwo) {
@@ -3598,7 +3601,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutgetposition
      * @since windows5.0
      */
     static waveOutGetPosition(hwo, pmmt, cbmmt) {
@@ -3668,7 +3671,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetpitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutgetpitch
      * @since windows5.0
      */
     static waveOutGetPitch(hwo, pdwPitch) {
@@ -3740,7 +3743,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutsetpitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutsetpitch
      * @since windows5.0
      */
     static waveOutSetPitch(hwo, dwPitch) {
@@ -3810,7 +3813,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetplaybackrate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutgetplaybackrate
      * @since windows5.0
      */
     static waveOutGetPlaybackRate(hwo, pdwRate) {
@@ -3882,7 +3885,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutsetplaybackrate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutsetplaybackrate
      * @since windows5.0
      */
     static waveOutSetPlaybackRate(hwo, dwRate) {
@@ -3937,7 +3940,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutgetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutgetid
      * @since windows5.0
      */
     static waveOutGetID(hwo, puDeviceID) {
@@ -4042,7 +4045,7 @@ class Audio {
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned from the driver.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveoutmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveoutmessage
      * @since windows5.0
      */
     static waveOutMessage(hwo, uMsg, dw1, dw2) {
@@ -4055,7 +4058,7 @@ class Audio {
     /**
      * The waveInGetNumDevs function returns the number of waveform-audio input devices present in the system.
      * @returns {Integer} Returns the number of devices. A return value of zero means that no devices are present or that an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveingetnumdevs
      * @since windows5.0
      */
     static waveInGetNumDevs() {
@@ -4261,7 +4264,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinopen
      * @since windows5.0
      */
     static waveInOpen(phwi, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen) {
@@ -4326,7 +4329,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinclose
      * @since windows5.0
      */
     static waveInClose(hwi) {
@@ -4384,7 +4387,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinprepareheader
      * @since windows5.0
      */
     static waveInPrepareHeader(hwi, pwh, cbwh) {
@@ -4455,7 +4458,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinunprepareheader
      * @since windows5.0
      */
     static waveInUnprepareHeader(hwi, pwh, cbwh) {
@@ -4526,7 +4529,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinaddbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinaddbuffer
      * @since windows5.0
      */
     static waveInAddBuffer(hwi, pwh, cbwh) {
@@ -4584,7 +4587,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinstart
      * @since windows5.0
      */
     static waveInStart(hwi) {
@@ -4642,7 +4645,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinstop
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinstop
      * @since windows5.0
      */
     static waveInStop(hwi) {
@@ -4696,7 +4699,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinreset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinreset
      * @since windows5.0
      */
     static waveInReset(hwi) {
@@ -4757,7 +4760,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveingetposition
      * @since windows5.0
      */
     static waveInGetPosition(hwi, pmmt, cbmmt) {
@@ -4812,7 +4815,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveingetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveingetid
      * @since windows5.0
      */
     static waveInGetID(hwi, puDeviceID) {
@@ -4917,7 +4920,7 @@ class Audio {
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned from the driver.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-waveinmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-waveinmessage
      * @since windows5.0
      */
     static waveInMessage(hwi, uMsg, dw1, dw2) {
@@ -4930,7 +4933,7 @@ class Audio {
     /**
      * The midiOutGetNumDevs function retrieves the number of MIDI output devices present in the system.
      * @returns {Integer} Returns the number of MIDI output devices. A return value of zero means that there are no devices (not that there is no error).
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgetnumdevs
      * @since windows5.0
      */
     static midiOutGetNumDevs() {
@@ -5016,7 +5019,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamopen
      * @since windows5.0
      */
     static midiStreamOpen(phms, puDeviceID, cMidi, dwCallback, dwInstance, fdwOpen) {
@@ -5048,7 +5051,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamclose
      * @since windows5.0
      */
     static midiStreamClose(hms) {
@@ -5120,7 +5123,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamproperty
      * @since windows5.0
      */
     static midiStreamProperty(hms, lppropdata, dwProperty) {
@@ -5171,7 +5174,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamposition
      * @since windows5.0
      */
     static midiStreamPosition(hms, lpmmt, cbmmt) {
@@ -5257,7 +5260,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamout
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamout
      * @since windows5.0
      */
     static midiStreamOut(hms, pmh, cbmh) {
@@ -5293,7 +5296,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreampause
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreampause
      * @since windows5.0
      */
     static midiStreamPause(hms) {
@@ -5327,7 +5330,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamrestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamrestart
      * @since windows5.0
      */
     static midiStreamRestart(hms) {
@@ -5363,7 +5366,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midistreamstop
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midistreamstop
      * @since windows5.0
      */
     static midiStreamStop(hms) {
@@ -5412,7 +5415,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiconnect
      * @since windows5.0
      */
     static midiConnect(hmi, hmo, pReserved) {
@@ -5451,7 +5454,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mididisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mididisconnect
      * @since windows5.0
      */
     static midiDisconnect(hmi, hmo, pReserved) {
@@ -5532,7 +5535,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgetdevcapsa
      * @since windows5.0
      */
     static midiOutGetDevCapsA(uDeviceID, pmoc, cbmoc) {
@@ -5608,7 +5611,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgetdevcapsw
      * @since windows5.0
      */
     static midiOutGetDevCapsW(uDeviceID, pmoc, cbmoc) {
@@ -5682,7 +5685,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgetvolume
      * @since windows5.0
      */
     static midiOutGetVolume(hmo, pdwVolume) {
@@ -5751,7 +5754,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutsetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutsetvolume
      * @since windows5.0
      */
     static midiOutSetVolume(hmo, dwVolume) {
@@ -5805,7 +5808,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgeterrortexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgeterrortexta
      * @since windows5.0
      */
     static midiOutGetErrorTextA(mmrError, pszText, cchText) {
@@ -5859,7 +5862,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgeterrortextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgeterrortextw
      * @since windows5.0
      */
     static midiOutGetErrorTextW(mmrError, pszText, cchText) {
@@ -5974,7 +5977,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutopen
      * @since windows5.0
      */
     static midiOutOpen(phmo, uDeviceID, dwCallback, dwInstance, fdwOpen) {
@@ -6028,7 +6031,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutclose
      * @since windows5.0
      */
     static midiOutClose(hmo) {
@@ -6096,7 +6099,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutprepareheader
      * @since windows5.0
      */
     static midiOutPrepareHeader(hmo, pmh, cbmh) {
@@ -6156,7 +6159,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutunprepareheader
      * @since windows5.0
      */
     static midiOutUnprepareHeader(hmo, pmh, cbmh) {
@@ -6280,7 +6283,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutshortmsg
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutshortmsg
      * @since windows5.0
      */
     static midiOutShortMsg(hmo, dwMsg) {
@@ -6349,7 +6352,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutlongmsg
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutlongmsg
      * @since windows5.0
      */
     static midiOutLongMsg(hmo, pmh, cbmh) {
@@ -6387,7 +6390,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutreset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutreset
      * @since windows5.0
      */
     static midiOutReset(hmo) {
@@ -6497,7 +6500,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutcachepatches
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutcachepatches
      * @since windows5.0
      */
     static midiOutCachePatches(hmo, uBank, pwpa, fuCache) {
@@ -6609,7 +6612,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutcachedrumpatches
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutcachedrumpatches
      * @since windows5.0
      */
     static midiOutCacheDrumPatches(hmo, uPatch, pwkya, fuCache) {
@@ -6666,7 +6669,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutgetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutgetid
      * @since windows5.0
      */
     static midiOutGetID(hmo, puDeviceID) {
@@ -6771,7 +6774,7 @@ class Audio {
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned by the audio device driver.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midioutmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midioutmessage
      * @since windows5.0
      */
     static midiOutMessage(hmo, uMsg, dw1, dw2) {
@@ -6784,7 +6787,7 @@ class Audio {
     /**
      * The midiInGetNumDevs function retrieves the number of MIDI input devices in the system.
      * @returns {Integer} Returns the number of MIDI input devices present in the system. A return value of zero means that there are no devices (not that there is no error).
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiingetnumdevs
      * @since windows5.0
      */
     static midiInGetNumDevs() {
@@ -6858,7 +6861,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiingetdevcapsa
      * @since windows5.0
      */
     static midiInGetDevCapsA(uDeviceID, pmic, cbmic) {
@@ -6932,7 +6935,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiingetdevcapsw
      * @since windows5.0
      */
     static midiInGetDevCapsW(uDeviceID, pmic, cbmic) {
@@ -6995,7 +6998,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingeterrortexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiingeterrortexta
      * @since windows5.0
      */
     static midiInGetErrorTextA(mmrError, pszText, cchText) {
@@ -7060,7 +7063,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingeterrortextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiingeterrortextw
      * @since windows5.0
      */
     static midiInGetErrorTextW(mmrError, pszText, cchText) {
@@ -7178,7 +7181,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinopen
      * @since windows5.0
      */
     static midiInOpen(phmi, uDeviceID, dwCallback, dwInstance, fdwOpen) {
@@ -7232,7 +7235,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinclose
      * @since windows5.0
      */
     static midiInClose(hmi) {
@@ -7298,7 +7301,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinprepareheader
      * @since windows5.0
      */
     static midiInPrepareHeader(hmi, pmh, cbmh) {
@@ -7356,7 +7359,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinunprepareheader
      * @since windows5.0
      */
     static midiInUnprepareHeader(hmi, pmh, cbmh) {
@@ -7438,7 +7441,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinaddbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinaddbuffer
      * @since windows5.0
      */
     static midiInAddBuffer(hmi, pmh, cbmh) {
@@ -7476,7 +7479,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinstart
      * @since windows5.0
      */
     static midiInStart(hmi) {
@@ -7512,7 +7515,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinstop
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinstop
      * @since windows5.0
      */
     static midiInStop(hmi) {
@@ -7546,7 +7549,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinreset
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinreset
      * @since windows5.0
      */
     static midiInReset(hmi) {
@@ -7601,7 +7604,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiingetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiingetid
      * @since windows5.0
      */
     static midiInGetID(hmi, puDeviceID) {
@@ -7708,7 +7711,7 @@ class Audio {
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the value returned by the audio device driver.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-midiinmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-midiinmessage
      * @since windows5.0
      */
     static midiInMessage(hmi, uMsg, dw1, dw2) {
@@ -7721,7 +7724,7 @@ class Audio {
     /**
      * The auxGetNumDevs function retrieves the number of auxiliary output devices present in the system.
      * @returns {Integer} Returns the number of device. A return value of zero means that no devices are present or that an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-auxgetnumdevs
      * @since windows5.0
      */
     static auxGetNumDevs() {
@@ -7775,7 +7778,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-auxgetdevcapsa
      * @since windows5.0
      */
     static auxGetDevCapsA(uDeviceID, pac, cbac) {
@@ -7829,7 +7832,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-auxgetdevcapsw
      * @since windows5.0
      */
     static auxGetDevCapsW(uDeviceID, pac, cbac) {
@@ -7870,7 +7873,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxsetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-auxsetvolume
      * @since windows5.0
      */
     static auxSetVolume(uDeviceID, dwVolume) {
@@ -7909,7 +7912,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxgetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-auxgetvolume
      * @since windows5.0
      */
     static auxGetVolume(uDeviceID, pdwVolume) {
@@ -8012,7 +8015,7 @@ class Audio {
      * @param {Pointer} dw1 Message parameter.
      * @param {Pointer} dw2 Message parameter.
      * @returns {Integer} Returns the message return value.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-auxoutmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-auxoutmessage
      * @since windows5.0
      */
     static auxOutMessage(uDeviceID, uMsg, dw1, dw2) {
@@ -8023,7 +8026,7 @@ class Audio {
     /**
      * The mixerGetNumDevs function retrieves the number of mixer devices present in the system.
      * @returns {Integer} Returns the number of mixer devices or zero if no mixer devices are available.
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetnumdevs
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetnumdevs
      * @since windows5.0
      */
     static mixerGetNumDevs() {
@@ -8090,7 +8093,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetdevcapsa
      * @since windows5.0
      */
     static mixerGetDevCapsA(uMxId, pmxcaps, cbmxcaps) {
@@ -8157,7 +8160,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetdevcapsw
      * @since windows5.0
      */
     static mixerGetDevCapsW(uMxId, pmxcaps, cbmxcaps) {
@@ -8322,7 +8325,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixeropen
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixeropen
      * @since windows5.0
      */
     static mixerOpen(phmx, uMxId, dwCallback, dwInstance, fdwOpen) {
@@ -8352,7 +8355,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixerclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixerclose
      * @since windows5.0
      */
     static mixerClose(hmx) {
@@ -8508,7 +8511,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixermessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixermessage
      * @since windows5.0
      */
     static mixerMessage(hmx, uMsg, dwParam1, dwParam2) {
@@ -8680,7 +8683,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlineinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetlineinfoa
      * @since windows5.0
      */
     static mixerGetLineInfoA(hmxobj, pmxl, fdwInfo) {
@@ -8852,7 +8855,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlineinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetlineinfow
      * @since windows5.0
      */
     static mixerGetLineInfoW(hmxobj, pmxl, fdwInfo) {
@@ -8983,7 +8986,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetid
      * @since windows5.0
      */
     static mixerGetID(hmxobj, puMxId, fdwId) {
@@ -9155,7 +9158,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlinecontrolsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetlinecontrolsa
      * @since windows5.0
      */
     static mixerGetLineControlsA(hmxobj, pmxlc, fdwControls) {
@@ -9325,7 +9328,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetlinecontrolsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetlinecontrolsw
      * @since windows5.0
      */
     static mixerGetLineControlsW(hmxobj, pmxlc, fdwControls) {
@@ -9484,7 +9487,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetcontroldetailsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetcontroldetailsa
      * @since windows5.0
      */
     static mixerGetControlDetailsA(hmxobj, pmxcd, fdwDetails) {
@@ -9643,7 +9646,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixergetcontroldetailsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixergetcontroldetailsw
      * @since windows5.0
      */
     static mixerGetControlDetailsW(hmxobj, pmxcd, fdwDetails) {
@@ -9797,7 +9800,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/mmeapi/nf-mmeapi-mixersetcontroldetails
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/nf-mmeapi-mixersetcontroldetails
      * @since windows5.0
      */
     static mixerSetControlDetails(hmxobj, pmxcd, fdwDetails) {
@@ -9842,7 +9845,7 @@ class Audio {
      * Starting with TBD, you can specify [AUDIOCLIENT_ACTIVATION_PARAMS](/windows/desktop/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params) to activate the interface to include or exclude audio streams associated with a specified process ID.
      * @param {IActivateAudioInterfaceCompletionHandler} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
      * @returns {Pointer<IActivateAudioInterfaceAsyncOperation>} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
-     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync
      * @since windows8.0
      */
     static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler) {
@@ -9995,7 +9998,7 @@ class Audio {
      * 
      * ```
      * @returns {Integer} The version number is returned as a hexadecimal number of the form 0xAABBCCCC, where AA is the major version number, BB is the minor version number, and CCCC is the build number.
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmgetversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmgetversion
      * @since windows5.0
      */
     static acmGetVersion() {
@@ -10137,7 +10140,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmmetrics
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmmetrics
      * @since windows5.0
      */
     static acmMetrics(hao, uMetric, pMetric) {
@@ -10203,7 +10206,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverenum
      * @since windows5.0
      */
     static acmDriverEnum(fnCallback, dwInstance, fdwEnum) {
@@ -10257,7 +10260,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverid
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverid
      * @since windows5.0
      */
     static acmDriverID(hao, phadid, fdwDriverID) {
@@ -10274,7 +10277,7 @@ class Audio {
      * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
+     * @param {LPARAM} lParam_ Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -10347,13 +10350,14 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveradda
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriveradda
      * @since windows5.0
      */
-    static acmDriverAddA(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
+    static acmDriverAddA(phadid, hinstModule, lParam_, dwPriority, fdwAdd) {
         hinstModule := hinstModule is Win32Handle ? NumGet(hinstModule, "ptr") : hinstModule
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("MSACM32.dll\acmDriverAddA", "ptr", phadid, "ptr", hinstModule, "ptr", lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
+        result := DllCall("MSACM32.dll\acmDriverAddA", "ptr", phadid, "ptr", hinstModule, "ptr", lParam_, "uint", dwPriority, "uint", fdwAdd, "uint")
         return result
     }
 
@@ -10364,7 +10368,7 @@ class Audio {
      * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {LPARAM} lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
+     * @param {LPARAM} lParam_ Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -10437,13 +10441,14 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveraddw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriveraddw
      * @since windows5.0
      */
-    static acmDriverAddW(phadid, hinstModule, lParam, dwPriority, fdwAdd) {
+    static acmDriverAddW(phadid, hinstModule, lParam_, dwPriority, fdwAdd) {
         hinstModule := hinstModule is Win32Handle ? NumGet(hinstModule, "ptr") : hinstModule
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
 
-        result := DllCall("MSACM32.dll\acmDriverAddW", "ptr", phadid, "ptr", hinstModule, "ptr", lParam, "uint", dwPriority, "uint", fdwAdd, "uint")
+        result := DllCall("MSACM32.dll\acmDriverAddW", "ptr", phadid, "ptr", hinstModule, "ptr", lParam_, "uint", dwPriority, "uint", fdwAdd, "uint")
         return result
     }
 
@@ -10492,7 +10497,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverremove
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverremove
      * @since windows5.0
      */
     static acmDriverRemove(hadid, fdwRemove) {
@@ -10570,7 +10575,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriveropen
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriveropen
      * @since windows5.0
      */
     static acmDriverOpen(phad, hadid, fdwOpen) {
@@ -10625,7 +10630,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverclose
      * @since windows5.0
      */
     static acmDriverClose(had, fdwClose) {
@@ -10688,14 +10693,17 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdrivermessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdrivermessage
      * @since windows5.0
      */
     static acmDriverMessage(had, uMsg, lParam1, lParam2) {
         had := had is Win32Handle ? NumGet(had, "ptr") : had
+        lParam1 := lParam1 is Win32Handle ? NumGet(lParam1, "ptr") : lParam1
+        lParam2 := lParam2 is Win32Handle ? NumGet(lParam2, "ptr") : lParam2
 
         result := DllCall("MSACM32.dll\acmDriverMessage", "ptr", had, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "ptr")
-        return result
+        resultHandle := LRESULT({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -10801,7 +10809,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverpriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverpriority
      * @since windows5.0
      */
     static acmDriverPriority(hadid, dwPriority, fdwPriority) {
@@ -10860,7 +10868,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverdetailsa
      * @since windows5.0
      */
     static acmDriverDetailsA(hadid, padd, fdwDetails) {
@@ -10919,7 +10927,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmdriverdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmdriverdetailsw
      * @since windows5.0
      */
     static acmDriverDetailsW(hadid, padd, fdwDetails) {
@@ -11010,7 +11018,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformattagdetailsa
      * @since windows5.0
      */
     static acmFormatTagDetailsA(had, paftd, fdwDetails) {
@@ -11101,7 +11109,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformattagdetailsw
      * @since windows5.0
      */
     static acmFormatTagDetailsW(had, paftd, fdwDetails) {
@@ -11168,7 +11176,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagenuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformattagenuma
      * @since windows5.0
      */
     static acmFormatTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -11235,7 +11243,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformattagenumw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformattagenumw
      * @since windows5.0
      */
     static acmFormatTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -11322,7 +11330,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatdetailsa
      * @since windows5.0
      */
     static acmFormatDetailsA(had, pafd, fdwDetails) {
@@ -11409,7 +11417,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatdetailsw
      * @since windows5.0
      */
     static acmFormatDetailsW(had, pafd, fdwDetails) {
@@ -11535,7 +11543,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatenuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatenuma
      * @since windows5.0
      */
     static acmFormatEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -11661,7 +11669,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatenumw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatenumw
      * @since windows5.0
      */
     static acmFormatEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -11744,7 +11752,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatsuggest
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatsuggest
      * @since windows5.0
      */
     static acmFormatSuggest(had, pwfxSrc, pwfxDst, cbwfxDst, fdwSuggest) {
@@ -11836,7 +11844,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatchoosea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatchoosea
      * @since windows5.0
      */
     static acmFormatChooseA(pafmtc) {
@@ -11926,7 +11934,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmformatchoosew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmformatchoosew
      * @since windows5.0
      */
     static acmFormatChooseW(pafmtc) {
@@ -12015,7 +12023,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfiltertagdetailsa
      * @since windows5.0
      */
     static acmFilterTagDetailsA(had, paftd, fdwDetails) {
@@ -12106,7 +12114,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfiltertagdetailsw
      * @since windows5.0
      */
     static acmFilterTagDetailsW(had, paftd, fdwDetails) {
@@ -12173,7 +12181,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagenuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfiltertagenuma
      * @since windows5.0
      */
     static acmFilterTagEnumA(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -12240,7 +12248,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfiltertagenumw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfiltertagenumw
      * @since windows5.0
      */
     static acmFilterTagEnumW(had, paftd, fnCallback, dwInstance, fdwEnum) {
@@ -12327,7 +12335,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterdetailsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfilterdetailsa
      * @since windows5.0
      */
     static acmFilterDetailsA(had, pafd, fdwDetails) {
@@ -12414,7 +12422,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterdetailsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfilterdetailsw
      * @since windows5.0
      */
     static acmFilterDetailsW(had, pafd, fdwDetails) {
@@ -12507,7 +12515,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterenuma
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfilterenuma
      * @since windows5.0
      */
     static acmFilterEnumA(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -12600,7 +12608,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterenumw
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfilterenumw
      * @since windows5.0
      */
     static acmFilterEnumW(had, pafd, fnCallback, dwInstance, fdwEnum) {
@@ -12692,7 +12700,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterchoosea
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfilterchoosea
      * @since windows5.0
      */
     static acmFilterChooseA(pafltrc) {
@@ -12782,7 +12790,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmfilterchoosew
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmfilterchoosew
      * @since windows5.0
      */
     static acmFilterChooseW(pafltrc) {
@@ -12904,7 +12912,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamopen
      * @since windows5.0
      */
     static acmStreamOpen(phas, had, pwfxSrc, pwfxDst, pwfltr, dwCallback, dwInstance, fdwOpen) {
@@ -12959,7 +12967,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamclose
      * @since windows5.0
      */
     static acmStreamClose(has, fdwClose) {
@@ -13048,7 +13056,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamsize
      * @since windows5.0
      */
     static acmStreamSize(has, cbInput, pdwOutputBytes, fdwSize) {
@@ -13096,7 +13104,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamreset
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamreset
      * @since windows5.0
      */
     static acmStreamReset(has, fdwReset) {
@@ -13113,11 +13121,13 @@ class Audio {
      * @param {LPARAM} lParam1 Message parameter.
      * @param {LPARAM} lParam2 Message parameter.
      * @returns {Integer} Returns the value returned by the ACM device driver.
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreammessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreammessage
      * @since windows5.0
      */
     static acmStreamMessage(has, uMsg, lParam1, lParam2) {
         has := has is Win32Handle ? NumGet(has, "ptr") : has
+        lParam1 := lParam1 is Win32Handle ? NumGet(lParam1, "ptr") : lParam1
+        lParam2 := lParam2 is Win32Handle ? NumGet(lParam2, "ptr") : lParam2
 
         result := DllCall("MSACM32.dll\acmStreamMessage", "ptr", has, "uint", uMsg, "ptr", lParam1, "ptr", lParam2, "uint")
         return result
@@ -13216,7 +13226,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamconvert
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamconvert
      * @since windows5.0
      */
     static acmStreamConvert(has, pash, fdwConvert) {
@@ -13285,7 +13295,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamprepareheader
      * @since windows5.0
      */
     static acmStreamPrepareHeader(has, pash, fdwPrepare) {
@@ -13367,7 +13377,7 @@ class Audio {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/msacm/nf-msacm-acmstreamunprepareheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/msacm/nf-msacm-acmstreamunprepareheader
      * @since windows5.0
      */
     static acmStreamUnprepareHeader(has, pash, fdwUnprepare) {

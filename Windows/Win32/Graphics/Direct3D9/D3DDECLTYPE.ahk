@@ -7,7 +7,7 @@
  * Vertex data is declared with an array of [**D3DVERTEXELEMENT9**](d3dvertexelement9.md) structures. Each element in the array contains a vertex declaration data type.
  * 
  * Use the DirectX Caps Viewer Tool (DXCapsViewer.exe) to see which types are supported on your device. You can get this tool and learn about it from the DirectX SDK. For info about the DirectX SDK, see [Where is the DirectX SDK?](../directx-sdk--august-2009-.md).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddecltype
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddecltype
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

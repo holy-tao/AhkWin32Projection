@@ -34,12 +34,82 @@ class IDxcPdbUtils extends IUnknown{
     static VTableNames => ["Load", "GetSourceCount", "GetSource", "GetSourceName", "GetFlagCount", "GetFlag", "GetArgCount", "GetArg", "GetArgPairCount", "GetArgPair", "GetDefineCount", "GetDefine", "GetTargetProfile", "GetEntryPoint", "GetMainFileName", "GetHash", "GetName", "IsFullPDB", "GetFullPDB", "GetVersionInfo", "SetCompiler", "CompileForFullPDB", "OverrideArgs", "OverrideRootSignature"]
 
     /**
-     * 
+     * Reads texel data without any filtering or sampling.
      * @param {IDxcBlob} pPdbOrDxil 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="Object"></span><span id="object"></span><span id="OBJECT"></span>*Object*
+     * 
+     * A [texture-object](dx-graphics-hlsl-to-type.md) type (except TextureCube or TextureCubeArray).
+     * 
+     * 
+     * <span id="Location"></span><span id="location"></span><span id="LOCATION"></span>*Location*
+     * 
+     * \[in\] The texture coordinates; the last component specifies the mipmap level. This method uses a 0-based coordinate system and not a 0.0-1.0 UV system. The argument type is dependent on the texture-object type.
+     * 
+     * 
+     * 
+     * | Object Type                                  | Parameter Type |
+     * |----------------------------------------------|----------------|
+     * | Buffer                                       | int            |
+     * | Texture1D, Texture2DMS                       | int2           |
+     * | Texture1DArray, Texture2D, Texture2DMSArray  | int3           |
+     * | Texture2DArray, Texture3D                    | int4           |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * For example, to access a 2D texture, supply integer texel coordinates for the first two components and a mipmap level for the third component.
+     * 
+     * > [!Note]  
+     * > When one or more of the coordinates in *Location* exceed the u, v, or w mipmap level dimensions of the texture, **Load** returns zero in all components. Direct3D guarantees to return zero for any resource that is accessed out of bounds.
+     * 
+     *  
+     * 
+     * 
+     * <span id="SampleIndex"></span><span id="sampleindex"></span><span id="SAMPLEINDEX"></span>*SampleIndex*
+     * 
+     * \[in\] A sampling index. Required for multi-sample textures. Not supported for other textures.
+     * 
+     * 
+     * 
+     * | Texture Type                                                                                                   | Parameter Type |
+     * |----------------------------------------------------------------------------------------------------------------|----------------|
+     * | Texture1D, Texture1DArray, Texture2D, Texture2DArray, Texture3D, Texture2DArray, TextureCube, TextureCubeArray | not supported  |
+     * | Texture2DMS, Texture2DMSArray¹                                                                                 | int            |
+     * 
+     * 
+     * <span id="Offset"></span><span id="offset"></span><span id="OFFSET"></span>*Offset*
+     * 
+     * \[in\] An optional offset applied to the texture coordinates before sampling. The offset type is dependent on the texture-object type, and needs to be static.
+     * 
+     * 
+     * 
+     * | Texture Type                                             | Parameter Type |
+     * |----------------------------------------------------------|----------------|
+     * | Texture1D, Texture1DArray                                | int            |
+     * | Texture2D, Texture2DArray, Texture2DMS, Texture2DMSArray | int2           |
+     * | Texture3D                                                | int3           |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * > [!Note]  
+     * > *SampleIndex* must always be specified first with multi-sample textures.
+     * 
+     *  
+     * 
+     * 
+     * 
+     * The return type matches the type in the *Object* declaration. For example, a Texture2D object that was declared as "Texture2d&lt;uint4&gt; myTexture;" has a return value of type **uint4**.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-hlsl-to-load
      */
     Load(pPdbOrDxil) {
-        result := ComCall(3, this, "ptr", pPdbOrDxil, "HRESULT")
+        result := ComCall(3, this, "ptr", pPdbOrDxil, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,18 +118,26 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {Integer} 
      */
     GetSourceCount() {
-        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     GetSource(uIndex) {
-        result := ComCall(5, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcBlobEncoding(ppResult)
+        result := ComCall(5, this, "uint", uIndex, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
@@ -69,7 +147,11 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetSourceName(uIndex) {
         pResult := BSTR()
-        result := ComCall(6, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        result := ComCall(6, this, "uint", uIndex, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -78,7 +160,11 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {Integer} 
      */
     GetFlagCount() {
-        result := ComCall(7, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -89,7 +175,11 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetFlag(uIndex) {
         pResult := BSTR()
-        result := ComCall(8, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        result := ComCall(8, this, "uint", uIndex, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -98,7 +188,11 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {Integer} 
      */
     GetArgCount() {
-        result := ComCall(9, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -109,7 +203,11 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetArg(uIndex) {
         pResult := BSTR()
-        result := ComCall(10, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        result := ComCall(10, this, "uint", uIndex, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -118,7 +216,11 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {Integer} 
      */
     GetArgPairCount() {
-        result := ComCall(11, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -130,7 +232,11 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {HRESULT} 
      */
     GetArgPair(uIndex, pName, pValue) {
-        result := ComCall(12, this, "uint", uIndex, "ptr", pName, "ptr", pValue, "HRESULT")
+        result := ComCall(12, this, "uint", uIndex, "ptr", pName, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +245,11 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {Integer} 
      */
     GetDefineCount() {
-        result := ComCall(13, this, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -150,7 +260,11 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetDefine(uIndex) {
         pResult := BSTR()
-        result := ComCall(14, this, "uint", uIndex, "ptr", pResult, "HRESULT")
+        result := ComCall(14, this, "uint", uIndex, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -160,7 +274,11 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetTargetProfile() {
         pResult := BSTR()
-        result := ComCall(15, this, "ptr", pResult, "HRESULT")
+        result := ComCall(15, this, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -170,7 +288,11 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetEntryPoint() {
         pResult := BSTR()
-        result := ComCall(16, this, "ptr", pResult, "HRESULT")
+        result := ComCall(16, this, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -180,26 +302,39 @@ class IDxcPdbUtils extends IUnknown{
      */
     GetMainFileName() {
         pResult := BSTR()
-        result := ComCall(17, this, "ptr", pResult, "HRESULT")
+        result := ComCall(17, this, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
     /**
      * 
-     * @returns {IDxcBlob} 
+     * @returns {Pointer<IDxcBlob>} 
      */
     GetHash() {
-        result := ComCall(18, this, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcBlob(ppResult)
+        result := ComCall(18, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         pResult := BSTR()
-        result := ComCall(19, this, "ptr", pResult, "HRESULT")
+        result := ComCall(19, this, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pResult
     }
 
@@ -214,20 +349,28 @@ class IDxcPdbUtils extends IUnknown{
 
     /**
      * 
-     * @returns {IDxcBlob} 
+     * @returns {Pointer<IDxcBlob>} 
      */
     GetFullPDB() {
-        result := ComCall(21, this, "ptr*", &ppFullPDB := 0, "HRESULT")
-        return IDxcBlob(ppFullPDB)
+        result := ComCall(21, this, "ptr*", &ppFullPDB := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppFullPDB
     }
 
     /**
      * 
-     * @returns {IDxcVersionInfo} 
+     * @returns {Pointer<IDxcVersionInfo>} 
      */
     GetVersionInfo() {
-        result := ComCall(22, this, "ptr*", &ppVersionInfo := 0, "HRESULT")
-        return IDxcVersionInfo(ppVersionInfo)
+        result := ComCall(22, this, "ptr*", &ppVersionInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppVersionInfo
     }
 
     /**
@@ -236,17 +379,25 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCompiler(pCompiler) {
-        result := ComCall(23, this, "ptr", pCompiler, "HRESULT")
+        result := ComCall(23, this, "ptr", pCompiler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @returns {IDxcResult} 
+     * @returns {Pointer<IDxcResult>} 
      */
     CompileForFullPDB() {
-        result := ComCall(24, this, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcResult(ppResult)
+        result := ComCall(24, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
@@ -256,7 +407,11 @@ class IDxcPdbUtils extends IUnknown{
      * @returns {HRESULT} 
      */
     OverrideArgs(pArgPairs, uNumArgPairs) {
-        result := ComCall(25, this, "ptr", pArgPairs, "uint", uNumArgPairs, "HRESULT")
+        result := ComCall(25, this, "ptr", pArgPairs, "uint", uNumArgPairs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -268,7 +423,11 @@ class IDxcPdbUtils extends IUnknown{
     OverrideRootSignature(pRootSignature) {
         pRootSignature := pRootSignature is String ? StrPtr(pRootSignature) : pRootSignature
 
-        result := ComCall(26, this, "ptr", pRootSignature, "HRESULT")
+        result := ComCall(26, this, "ptr", pRootSignature, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -8,7 +8,7 @@
  * The EMRTRANSPARENTBLT structure contains members for the TransparentBLT enhanced metafile record.
  * @remarks
  * This structure is to be used during metafile playback.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtransparentblt
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-emrtransparentblt
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

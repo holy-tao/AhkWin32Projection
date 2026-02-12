@@ -39,7 +39,11 @@ class IErrorLookup extends IUnknown{
      * @returns {HRESULT} 
      */
     GetErrorDescription(hrError, dwLookupID, pdispparams, lcid, pbstrSource, pbstrDescription) {
-        result := ComCall(3, this, "int", hrError, "uint", dwLookupID, "ptr", pdispparams, "uint", lcid, "ptr", pbstrSource, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(3, this, "int", hrError, "uint", dwLookupID, "ptr", pdispparams, "uint", lcid, "ptr", pbstrSource, "ptr", pbstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class IErrorLookup extends IUnknown{
     GetHelpInfo(hrError, dwLookupID, lcid, pbstrHelpFile, pdwHelpContext) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", hrError, "uint", dwLookupID, "uint", lcid, "ptr", pbstrHelpFile, pdwHelpContextMarshal, pdwHelpContext, "HRESULT")
+        result := ComCall(4, this, "int", hrError, "uint", dwLookupID, "uint", lcid, "ptr", pbstrHelpFile, pdwHelpContextMarshal, pdwHelpContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class IErrorLookup extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseErrors(dwDynamicErrorID) {
-        result := ComCall(5, this, "uint", dwDynamicErrorID, "HRESULT")
+        result := ComCall(5, this, "uint", dwDynamicErrorID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

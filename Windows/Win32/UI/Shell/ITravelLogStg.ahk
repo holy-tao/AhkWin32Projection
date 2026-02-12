@@ -42,7 +42,11 @@ class ITravelLogStg extends IUnknown{
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszTitle, "ptr", ptleRelativeTo, "int", fPrepend, "ptr*", &pptle := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszTitle, "ptr", ptleRelativeTo, "int", fPrepend, "ptr*", &pptle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITravelLogEntry(pptle)
     }
 
@@ -52,7 +56,11 @@ class ITravelLogStg extends IUnknown{
      * @returns {HRESULT} 
      */
     TravelTo(ptle) {
-        result := ComCall(4, this, "ptr", ptle, "HRESULT")
+        result := ComCall(4, this, "ptr", ptle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +70,11 @@ class ITravelLogStg extends IUnknown{
      * @returns {IEnumTravelLogEntry} 
      */
     EnumEntries(flags) {
-        result := ComCall(5, this, "int", flags, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(5, this, "int", flags, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTravelLogEntry(ppenum)
     }
 
@@ -75,17 +87,30 @@ class ITravelLogStg extends IUnknown{
     FindEntries(flags, pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(6, this, "int", flags, "ptr", pszUrl, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, "int", flags, "ptr", pszUrl, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTravelLogEntry(ppenum)
     }
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @param {Integer} flags 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount(flags) {
-        result := ComCall(7, this, "int", flags, "uint*", &pcEntries := 0, "HRESULT")
+        result := ComCall(7, this, "int", flags, "uint*", &pcEntries := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcEntries
     }
 
@@ -95,7 +120,11 @@ class ITravelLogStg extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveEntry(ptle) {
-        result := ComCall(8, this, "ptr", ptle, "HRESULT")
+        result := ComCall(8, this, "ptr", ptle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +134,11 @@ class ITravelLogStg extends IUnknown{
      * @returns {ITravelLogEntry} 
      */
     GetRelativeEntry(iOffset) {
-        result := ComCall(9, this, "int", iOffset, "ptr*", &ptle := 0, "HRESULT")
+        result := ComCall(9, this, "int", iOffset, "ptr*", &ptle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITravelLogEntry(ptle)
     }
 }

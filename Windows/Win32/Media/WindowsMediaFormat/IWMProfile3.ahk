@@ -7,7 +7,7 @@
 
 /**
  * The IWMProfile3 interface provides enhanced features for profiles.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmprofile3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmprofile3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -34,48 +34,72 @@ class IWMProfile3 extends IWMProfile2{
 
     /**
      * The GetStorageFormat method is not implemented.
+     * @remarks
+     * To retrieve the storage format, use the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-containerformat">WM/ContainerFormat</a> attribute.
      * @returns {Integer} Storage format.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-getstorageformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-getstorageformat
      */
     GetStorageFormat() {
-        result := ComCall(22, this, "int*", &pnStorageFormat := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &pnStorageFormat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnStorageFormat
     }
 
     /**
      * The SetStorageFormat method is not implemented.
+     * @remarks
+     * To retrieve the storage format, use the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-containerformat">WM/ContainerFormat</a> attribute.
      * @param {Integer} nStorageFormat Storage format.
      * @returns {HRESULT} The method returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-setstorageformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-setstorageformat
      */
     SetStorageFormat(nStorageFormat) {
-        result := ComCall(23, this, "int", nStorageFormat, "HRESULT")
+        result := ComCall(23, this, "int", nStorageFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetBandwidthSharingCount method retrieves the total number of bandwidth sharing objects that have been added to the profile.
      * @returns {Integer} Pointer to receive the total number of bandwidth sharing objects.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharingcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharingcount
      */
     GetBandwidthSharingCount() {
-        result := ComCall(24, this, "uint*", &pcBS := 0, "HRESULT")
+        result := ComCall(24, this, "uint*", &pcBS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcBS
     }
 
     /**
      * The GetBandwidthSharing method retrieves a bandwidth sharing object from a profile.
+     * @remarks
+     * Bandwidth sharing objects in a profile are assigned sequential index numbers in the order in which they were added to the profile. When you create multiple bandwidth sharing objects for a profile, you should keep track of the contents of each one. Otherwise you will have to examine each one to ascertain its settings.
      * @param {Integer} dwBSIndex <b>DWORD</b> containing the index number of the bandwidth sharing object you want to retrieve.
      * @returns {IWMBandwidthSharing} Pointer to receive the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing">IWMBandwidthSharing</a> interface of the object requested.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-getbandwidthsharing
      */
     GetBandwidthSharing(dwBSIndex) {
-        result := ComCall(25, this, "uint", dwBSIndex, "ptr*", &ppBS := 0, "HRESULT")
+        result := ComCall(25, this, "uint", dwBSIndex, "ptr*", &ppBS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMBandwidthSharing(ppBS)
     }
 
     /**
      * The RemoveBandwidthSharing method removes a bandwidth sharing object from the profile.
+     * @remarks
+     * This method does not release the bandwidth sharing object from memory. You must make a call to the <b>Release</b> method.
      * @param {IWMBandwidthSharing} pBS Pointer to a bandwidth sharing object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -111,15 +135,21 @@ class IWMProfile3 extends IWMProfile2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-removebandwidthsharing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-removebandwidthsharing
      */
     RemoveBandwidthSharing(pBS) {
-        result := ComCall(26, this, "ptr", pBS, "HRESULT")
+        result := ComCall(26, this, "ptr", pBS, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddBandwidthSharing method adds an existing bandwidth sharing object to the profile. Bandwidth sharing objects are created with a call to CreateNewBandwidthSharing. You must configure the bandwidth sharing object before adding it to the profile.
+     * @remarks
+     * Making a call to <b>AddBandwidthSharing</b> without first using the methods of <b>IWMBandwidthSharing</b> to configure the bandwidth sharing object will result in an error.
      * @param {IWMBandwidthSharing} pBS Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing">IWMBandwidthSharing</a> interface of a bandwidth sharing object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -188,35 +218,55 @@ class IWMProfile3 extends IWMProfile2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-addbandwidthsharing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-addbandwidthsharing
      */
     AddBandwidthSharing(pBS) {
-        result := ComCall(27, this, "ptr", pBS, "HRESULT")
+        result := ComCall(27, this, "ptr", pBS, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CreateNewBandwidthSharing method creates a new bandwidth sharing object.
+     * @remarks
+     * To make use of the bandwidth sharing object, you must add it to the profile with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile3-addbandwidthsharing">AddBandwidthSharing</a>. A bandwidth sharing object cannot exist on its own. If you release the profile object without adding the bandwidth sharing object to the profile, you will lose the bandwidth sharing object.
+     * 
+     * You must configure the bandwidth sharing object before you use <b>AddBandwidthSharing</b> to include the bandwidth sharing object in the profile. For more information about configuring bandwidth sharing objects, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing">IWMBandwidthSharing Interface</a>.
      * @returns {IWMBandwidthSharing} Pointer to a variable that receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbandwidthsharing">IWMBandwidthSharing</a> interface of the new object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-createnewbandwidthsharing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-createnewbandwidthsharing
      */
     CreateNewBandwidthSharing() {
-        result := ComCall(28, this, "ptr*", &ppBS := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &ppBS := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMBandwidthSharing(ppBS)
     }
 
     /**
      * The GetStreamPrioritization method retrieves the stream prioritization that exists in the profile.
+     * @remarks
+     * Many profiles do not have a stream prioritization assigned to them. If you call <b>GetStreamPrioritization</b> on such a profile, no error is returned, but the retrieved address is <b>NULL</b>.
      * @returns {IWMStreamPrioritization} Pointer to receive the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstreamprioritization">IWMStreamPrioritization</a> interface of the stream prioritization object in the profile.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-getstreamprioritization
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-getstreamprioritization
      */
     GetStreamPrioritization() {
-        result := ComCall(29, this, "ptr*", &ppSP := 0, "HRESULT")
+        result := ComCall(29, this, "ptr*", &ppSP := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMStreamPrioritization(ppSP)
     }
 
     /**
      * The SetStreamPrioritization method assigns a stream prioritization object to the profile. A profile can contain only one stream prioritization object at a time.
+     * @remarks
+     * If there is already a stream prioritization object in the profile, it will be lost.
      * @param {IWMStreamPrioritization} pSP Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstreamprioritization">IWMStreamPrioritization</a> interface of the stream prioritization object you want to assign to the profile.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -263,10 +313,14 @@ class IWMProfile3 extends IWMProfile2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-setstreamprioritization
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-setstreamprioritization
      */
     SetStreamPrioritization(pSP) {
-        result := ComCall(30, this, "ptr", pSP, "HRESULT")
+        result := ComCall(30, this, "ptr", pSP, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -302,31 +356,49 @@ class IWMProfile3 extends IWMProfile2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-removestreamprioritization
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-removestreamprioritization
      */
     RemoveStreamPrioritization() {
-        result := ComCall(31, this, "HRESULT")
+        result := ComCall(31, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CreateNewStreamPrioritization method creates a new stream prioritization object.
+     * @remarks
+     * A profile can only contain one stream prioritization. When you assign a new stream prioritization to a profile, the previous one will be lost.
      * @returns {IWMStreamPrioritization} Pointer to receive the address of the <b>IWMStreamPrioritization</b> interface of the new object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-createnewstreamprioritization
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-createnewstreamprioritization
      */
     CreateNewStreamPrioritization() {
-        result := ComCall(32, this, "ptr*", &ppSP := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &ppSP := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWMStreamPrioritization(ppSP)
     }
 
     /**
      * The GetExpectedPacketCount method calculates the expected packet count for the specified duration. The packet count returned is only an estimate, and it is based upon the settings of the profile at the time this call is made.
+     * @remarks
+     * Problems will arise if the value passed in <i>msDuration</i> is not a positive number of milliseconds. The method will return S_OK as normal, but the packet count returned will not be correct.
+     * 
+     * It is impossible for this method to give exact counts, because there is no way to account for interleaved data in an encoded file. The packet count returned is most accurate for files with one audio stream. The more complicated the profile, the less accurate the packet count will be.
      * @param {Integer} msDuration Specifies the duration in milliseconds.
      * @returns {Integer} Pointer to receive the count of packets expected for <i>msDuration</i> milliseconds.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmprofile3-getexpectedpacketcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmprofile3-getexpectedpacketcount
      */
     GetExpectedPacketCount(msDuration) {
-        result := ComCall(33, this, "uint", msDuration, "uint*", &pcPackets := 0, "HRESULT")
+        result := ComCall(33, this, "uint", msDuration, "uint*", &pcPackets := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcPackets
     }
 }

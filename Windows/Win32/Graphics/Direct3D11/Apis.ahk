@@ -5,6 +5,8 @@
 #Include .\ID3DX11Scan.ahk
 #Include .\ID3DX11SegmentedScan.ahk
 #Include .\ID3DX11FFT.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
@@ -2380,87 +2382,87 @@ class Direct3D11 {
     static DXGI_DEBUG_D3D11 => Guid("{4b99317b-ac39-4aa6-bb0b-baa04784798f}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_REGKEY_PATH => "Software\Microsoft\Direct3D"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_MUTE_DEBUG_OUTPUT => "MuteDebugOutput"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_ENABLE_BREAK_ON_MESSAGE => "EnableBreakOnMessage"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_INFOQUEUE_STORAGE_FILTER_OVERRIDE => "InfoQueueStorageFilterOverride"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_MUTE_CATEGORY => "Mute_CATEGORY_%s"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_MUTE_SEVERITY => "Mute_SEVERITY_%s"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_MUTE_ID_STRING => "Mute_ID_%s"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_MUTE_ID_DECIMAL => "Mute_ID_%d"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_UNMUTE_SEVERITY_INFO => "Unmute_SEVERITY_INFO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_BREAKON_CATEGORY => "BreakOn_CATEGORY_%s"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_BREAKON_SEVERITY => "BreakOn_SEVERITY_%s"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_BREAKON_ID_STRING => "BreakOn_ID_%s"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_BREAKON_ID_DECIMAL => "BreakOn_ID_%d"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_APPSIZE_STRING => "Size"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_APPNAME_STRING => "Name"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_FORCE_DEBUGGABLE => "ForceDebuggable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3D11_FORCE_SHADER_SKIP_OPTIMIZATION => "ForceShaderSkipOptimization"
 
@@ -2590,17 +2592,17 @@ class Direct3D11 {
     static D3D11_TRACE_MISC_MESSAGE => 64
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DCSX_DLL_W => "d3dcsx_47.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DCSX_DLL_A => "d3dcsx_47.dll"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static D3DCSX_DLL => "d3dcsx_47.dll"
 
@@ -2756,7 +2758,7 @@ class Direct3D11 {
      *           
      * 
      * This method returns <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_SDK_COMPONENT_MISSING</a> if you specify <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_DEBUG</a> in <i>Flags</i> and the incorrect version of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">debug layer</a> is installed on your computer. Install the latest Windows SDK to get the correct version.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-d3d11createdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-d3d11createdevice
      */
     static D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
@@ -2887,7 +2889,7 @@ class Direct3D11 {
      *           
      * 
      * This method returns <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_SDK_COMPONENT_MISSING</a> if you specify <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_DEBUG</a> in <i>Flags</i> and the incorrect version of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">debug layer</a> is installed on your computer. Install the latest Windows SDK to get the correct version.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-d3d11createdeviceandswapchain
      */
     static D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
@@ -2969,7 +2971,7 @@ class Direct3D11 {
      * @returns {Pointer<ID3DBlob>} Type: <b>ID3D10Blob**</b>
      * 
      * A pointer to a buffer that receives the ID3DBlob interface that accesses the disassembled HLSL code.
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/nf-d3d11shadertracing-d3ddisassemble11trace
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shadertracing/nf-d3d11shadertracing-d3ddisassemble11trace
      * @since windows8.0
      */
     static D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps, Flags) {
@@ -2995,7 +2997,7 @@ class Direct3D11 {
      * @returns {ID3DX11Scan} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11scan">ID3DX11Scan</a>**</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11scan">ID3DX11Scan Interface</a> pointer that will be set to the created interface object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createscan
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createscan
      */
     static D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount) {
         result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr*", &ppScan := 0, "int")
@@ -3017,7 +3019,7 @@ class Direct3D11 {
      * @returns {ID3DX11SegmentedScan} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11segmentedscan">ID3DX11SegmentedScan</a>**</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11segmentedscan">ID3DX11SegmentedScan Interface</a> pointer that will be set to the created interface object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createsegmentedscan
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createsegmentedscan
      */
     static D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize) {
         result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr*", &ppScan := 0, "int")
@@ -3046,7 +3048,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft
      */
     static D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, "ptr", pDesc, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
@@ -3074,7 +3076,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft1dreal
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft1dreal
      */
     static D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
@@ -3102,7 +3104,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft1dcomplex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft1dcomplex
      */
     static D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
@@ -3133,7 +3135,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft2dreal
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft2dreal
      */
     static D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
@@ -3164,7 +3166,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft2dcomplex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft2dcomplex
      */
     static D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
@@ -3198,7 +3200,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft3dreal
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft3dreal
      */
     static D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")
@@ -3232,7 +3234,7 @@ class Direct3D11 {
      * @returns {ID3DX11FFT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a>**</b>
      * 
      * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/nn-d3dcsx-id3dx11fft">ID3DX11FFT</a> interface for the created FFT object.
-     * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/nf-d3dcsx-d3dx11createfft3dcomplex
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3dcsx/nf-d3dcsx-d3dx11createfft3dcomplex
      */
     static D3DX11CreateFFT3DComplex(pDeviceContext, X, Y, Z, Flags, pBufferInfo) {
         result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", &ppFFT := 0, "int")

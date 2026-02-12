@@ -9,11 +9,8 @@
 /**
  * Attendee objects are created as a result of clients connecting to the session and being authenticated. After an attendee object is created, it is automatically added to the attendees list.
  * @remarks
- * 
  * Applications should not save pointers to attendee objects. The lifetime of the attendee object depends on the lifetime of the <b>RDPSession</b> object. It also depends if the session is still in the opened state and if the client corresponding to the attendee object is still connected to the session. Applications can keep references to attendee objects but calling some methods on it after the client disconnected or after the session is destroyed will return <b>E_UNEXPECTED</b> failures.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiattendee
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiattendee
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -90,96 +87,126 @@ class IRDPSRAPIAttendee extends IDispatch{
     /**
      * The unique identifier for the attendee.
      * @remarks
-     * 
      * If an attendee disconnects, the attendee object will be destroyed. If the attendee reconnects, a new object will be created with a new identifier.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_id
      */
     get_Id() {
-        result := ComCall(7, this, "int*", &pId := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pId
     }
 
     /**
      * The name of the remote client. This is usually the attendee's friendly name.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_remotename
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_remotename
      */
     get_RemoteName() {
         pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * The level of control the attendee has over the session.
+     * The level of control the attendee has over the session. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_controllevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_controllevel
      */
     get_ControlLevel() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * The level of control the attendee has over the session.
+     * The level of control the attendee has over the session. (Put)
      * @param {Integer} pNewVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-put_controllevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-put_controllevel
      */
     put_ControlLevel(pNewVal) {
-        result := ComCall(10, this, "int", pNewVal, "HRESULT")
+        result := ComCall(10, this, "int", pNewVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The invitation used to grant the attendee access to the conference.
      * @remarks
-     * 
      * An application can have multiple groups of attendees. For example, an application can define a "Moderators" group and a "Spectators" group. Attendees that belong to the "Moderators" group are granted interactive control, while attendees in the "Spectators" group are  only granted access to view the session.  The application achieves this  implementation by creating two invitation objects, one for each group. When an attendee connects, the application can verify which group the attendee belongs to by checking the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_groupname">GroupName</a> property of the invitation object used for authentication.  If the group name is "Spectators," the application sets the <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_controllevel">ControlLevel</a> property for the attendee to CTRL_LEVEL_VIEW. If the group name is "Moderators," it sets the <b>ControlLevel</b> property to CTRL_LEVEL_INTERACTIVE.
      * 
      * If this property is accessed on the viewer side, it returns a dummy invitation.
-     * 
-     * 
      * @returns {IRDPSRAPIInvitation} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_invitation
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_invitation
      */
     get_Invitation() {
-        result := ComCall(11, this, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIInvitation(ppVal)
     }
 
     /**
      * Disconnects the client represented by the attendee.
+     * @remarks
+     * This method disconnects clients from the session. The clients can reconnect because the authentication is based on the invitation. To provide stricter access control to the session, an application can create one invitation object per attendee and revoke the invitation at the same time it calls this method.
+     * 
+     * This call is not blocking. However, termination is not immediate and can be delayed by a send operation. If the thread that is managing connections is in the middle of sending a buffer, it must wait for the buffer to be sent. The caller should consider the attendee disconnected only after the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/rdp/onattendeedisconnected">_IRDPSessionEvents::OnAttendeeDisconnected</a> event is fired.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code. The following is a possible value.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-terminateconnection
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-terminateconnection
      */
     TerminateConnection() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the attendee specific flags that are defined in the RDPENCOMAPI_ATTENDEE_FLAGS enumeration type.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_flags
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_flags
      */
     get_Flags() {
-        result := ComCall(13, this, "int*", &plFlags := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plFlags
     }
 
     /**
      * Retrieves the connectivity information for the attendee.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_connectivityinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_connectivityinfo
      */
     get_ConnectivityInfo() {
-        result := ComCall(14, this, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppVal)
     }
 }

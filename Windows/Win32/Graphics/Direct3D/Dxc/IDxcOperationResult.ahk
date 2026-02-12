@@ -35,25 +35,38 @@ class IDxcOperationResult extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus() {
-        result := ComCall(3, this, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
     /**
-     * 
-     * @returns {IDxcBlob} 
+     * Retrieves a list of properties the recognizer can return for a result range.
+     * @returns {Pointer<IDxcBlob>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/recapis/nf-recapis-getresultpropertylist
      */
     GetResult() {
-        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
-        return IDxcBlob(ppResult)
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
-     * @returns {IDxcBlobEncoding} 
+     * @returns {Pointer<IDxcBlobEncoding>} 
      */
     GetErrorBuffer() {
-        result := ComCall(5, this, "ptr*", &ppErrors := 0, "HRESULT")
-        return IDxcBlobEncoding(ppErrors)
+        result := ComCall(5, this, "ptr*", &ppErrors := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppErrors
     }
 }

@@ -10,7 +10,7 @@
 
 /**
  * Exposes methods that create components used by component developers. This includes metadata readers, writers and other services for use by codec and metadata handler developers.
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwiccomponentfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nn-wincodecsdk-iwiccomponentfactory
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IWICComponentFactory extends IWICImagingFactory{
     static VTableNames => ["CreateMetadataReader", "CreateMetadataReaderFromContainer", "CreateMetadataWriter", "CreateMetadataWriterFromReader", "CreateQueryReaderFromBlockReader", "CreateQueryWriterFromBlockWriter", "CreateEncoderPropertyBag"]
 
     /**
-     * Creates an IWICMetadataReader based on the given parameters.
+     * Creates an IWICMetadataReader based on the given parameters. (IWICComponentFactory.CreateMetadataReader)
      * @param {Pointer<Guid>} guidMetadataFormat Type: <b>REFGUID</b>
      * 
      * The GUID of the desired metadata format.
@@ -52,15 +52,19 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IWICMetadataReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a>**</b>
      * 
      * A pointer that receives a pointer to the new metadata reader.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareader
      */
     CreateMetadataReader(guidMetadataFormat, pguidVendor, dwOptions, pIStream) {
-        result := ComCall(28, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataReader(ppIReader)
     }
 
     /**
-     * Creates an IWICMetadataReader based on the given parameters.
+     * Creates an IWICMetadataReader based on the given parameters. (IWICComponentFactory.CreateMetadataReaderFromContainer)
      * @param {Pointer<Guid>} guidContainerFormat Type: <b>REFGUID</b>
      * 
      * The container format GUID to base the reader on.
@@ -76,10 +80,14 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IWICMetadataReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a>**</b>
      * 
      * A pointer that receives a pointer to the new metadata reader
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareaderfromcontainer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatareaderfromcontainer
      */
     CreateMetadataReaderFromContainer(guidContainerFormat, pguidVendor, dwOptions, pIStream) {
-        result := ComCall(29, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "uint", dwOptions, "ptr", pIStream, "ptr*", &ppIReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataReader(ppIReader)
     }
 
@@ -97,10 +105,14 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IWICMetadataWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>**</b>
      * 
      * A pointer that receives a pointer to the new metadata writer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriter
      */
     CreateMetadataWriter(guidMetadataFormat, pguidVendor, dwMetadataOptions) {
-        result := ComCall(30, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwMetadataOptions, "ptr*", &ppIWriter := 0, "HRESULT")
+        result := ComCall(30, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "uint", dwMetadataOptions, "ptr*", &ppIWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataWriter(ppIWriter)
     }
 
@@ -115,10 +127,14 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IWICMetadataWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>**</b>
      * 
      * A pointer that receives a pointer to the new metadata writer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriterfromreader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createmetadatawriterfromreader
      */
     CreateMetadataWriterFromReader(pIReader, pguidVendor) {
-        result := ComCall(31, this, "ptr", pIReader, "ptr", pguidVendor, "ptr*", &ppIWriter := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", pIReader, "ptr", pguidVendor, "ptr*", &ppIWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataWriter(ppIWriter)
     }
 
@@ -130,10 +146,14 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IWICMetadataQueryReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataqueryreader">IWICMetadataQueryReader</a>**</b>
      * 
      * A pointer that receives a pointer to the new metadata query reader.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createqueryreaderfromblockreader
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createqueryreaderfromblockreader
      */
     CreateQueryReaderFromBlockReader(pIBlockReader) {
-        result := ComCall(32, this, "ptr", pIBlockReader, "ptr*", &ppIQueryReader := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", pIBlockReader, "ptr*", &ppIQueryReader := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataQueryReader(ppIQueryReader)
     }
 
@@ -145,10 +165,14 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IWICMetadataQueryWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>**</b>
      * 
      * A pointer that receives a pointer to the new metadata query writer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createquerywriterfromblockwriter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createquerywriterfromblockwriter
      */
     CreateQueryWriterFromBlockWriter(pIBlockWriter) {
-        result := ComCall(33, this, "ptr", pIBlockWriter, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        result := ComCall(33, this, "ptr", pIBlockWriter, "ptr*", &ppIQueryWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 
@@ -163,10 +187,14 @@ class IWICComponentFactory extends IWICImagingFactory{
      * @returns {IPropertyBag2} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768192(v=vs.85)">IPropertyBag2</a>**</b>
      * 
      * A pointer that receives a pointer to an encoder <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768192(v=vs.85)">IPropertyBag2</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createencoderpropertybag
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwiccomponentfactory-createencoderpropertybag
      */
     CreateEncoderPropertyBag(ppropOptions, cCount) {
-        result := ComCall(34, this, "ptr", ppropOptions, "uint", cCount, "ptr*", &ppIPropertyBag := 0, "HRESULT")
+        result := ComCall(34, this, "ptr", ppropOptions, "uint", cCount, "ptr*", &ppIPropertyBag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyBag2(ppIPropertyBag)
     }
 }

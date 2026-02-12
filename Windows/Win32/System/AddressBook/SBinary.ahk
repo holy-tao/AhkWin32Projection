@@ -5,7 +5,7 @@
  * Outlines SBinary, including a description of property type PT_BINARY. This applies to Outlook 2013 and Outlook 2016.
  * @remarks
  * For information about property types, see [MAPI Property Type Overview](mapi-property-type-overview.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sbinary
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/sbinary
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

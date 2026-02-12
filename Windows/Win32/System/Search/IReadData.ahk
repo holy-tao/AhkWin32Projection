@@ -34,22 +34,26 @@ class IReadData extends IUnknown{
      * @param {Pointer} cbBookmark 
      * @param {Pointer<Integer>} pBookmark 
      * @param {Pointer} lRowsOffset 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer<Integer>>} ppFixedData 
      * @param {Pointer<Pointer>} pcbVariableTotal 
      * @param {Pointer<Pointer<Integer>>} ppVariableData 
      * @returns {Pointer} 
      */
-    ReadData(hChapter, cbBookmark, pBookmark, lRowsOffset, hAccessor, cRows, ppFixedData, pcbVariableTotal, ppVariableData) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    ReadData(hChapter, cbBookmark, pBookmark, lRowsOffset, hAccessor_, cRows, ppFixedData, pcbVariableTotal, ppVariableData) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
         pBookmarkMarshal := pBookmark is VarRef ? "char*" : "ptr"
         ppFixedDataMarshal := ppFixedData is VarRef ? "ptr*" : "ptr"
         pcbVariableTotalMarshal := pcbVariableTotal is VarRef ? "ptr*" : "ptr"
         ppVariableDataMarshal := ppVariableData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", hAccessor, "ptr", cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, "ptr", lRowsOffset, "ptr", hAccessor_, "ptr", cRows, "ptr*", &pcRowsObtained := 0, ppFixedDataMarshal, ppFixedData, pcbVariableTotalMarshal, pcbVariableTotal, ppVariableDataMarshal, ppVariableData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRowsObtained
     }
 
@@ -59,7 +63,11 @@ class IReadData extends IUnknown{
      * @returns {HRESULT} 
      */
     ReleaseChapter(hChapter) {
-        result := ComCall(4, this, "ptr", hChapter, "HRESULT")
+        result := ComCall(4, this, "ptr", hChapter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

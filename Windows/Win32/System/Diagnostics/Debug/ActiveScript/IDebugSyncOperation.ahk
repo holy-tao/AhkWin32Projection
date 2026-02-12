@@ -34,16 +34,25 @@ class IDebugSyncOperation extends IUnknown{
      * @returns {IDebugApplicationThread} 
      */
     GetTargetThread() {
-        result := ComCall(3, this, "ptr*", &ppatTarget := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppatTarget := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugApplicationThread(ppatTarget)
     }
 
     /**
-     * 
+     * Learn how to run SQL Server stored procedures with RPC, and process return codes and output parameters in this example.
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/results/execute-stored-procedure-with-rpc-and-process-output
      */
     Execute() {
-        result := ComCall(4, this, "ptr*", &ppunkResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppunkResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkResult)
     }
 
@@ -52,7 +61,11 @@ class IDebugSyncOperation extends IUnknown{
      * @returns {HRESULT} 
      */
     InProgressAbort() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

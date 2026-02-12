@@ -6,7 +6,7 @@
  * Contains values that indicate controller capabilities, features, command set attributes, and power state descriptors.
  * @remarks
  * The values of the **VID**, **SN**, and **MN** fields may be combined to form a globally unique value that identifies the NVM subsystem.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_identify_controller_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_identify_controller_data
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

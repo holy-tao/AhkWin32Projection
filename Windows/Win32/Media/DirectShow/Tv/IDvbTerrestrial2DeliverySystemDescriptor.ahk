@@ -33,16 +33,25 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
-     * 
+     * Returns the length, in bytes, of a valid security identifier (SID).
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -51,7 +60,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetTagExtension() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -60,7 +73,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetCentreFrequency() {
-        result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -69,7 +86,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetPLPId() {
-        result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -78,7 +99,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetT2SystemId() {
-        result := ComCall(8, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -87,7 +112,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetMultipleInputMode() {
-        result := ComCall(9, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -96,7 +125,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetBandwidth() {
-        result := ComCall(10, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(10, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -105,7 +138,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetGuardInterval() {
-        result := ComCall(11, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(11, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -114,7 +151,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetTransmissionMode() {
-        result := ComCall(12, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(12, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -123,7 +164,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetCellId() {
-        result := ComCall(13, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(13, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -132,7 +177,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetOtherFrequencyFlag() {
-        result := ComCall(14, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(14, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -141,7 +190,11 @@ class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetTFSFlag() {
-        result := ComCall(15, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(15, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 }

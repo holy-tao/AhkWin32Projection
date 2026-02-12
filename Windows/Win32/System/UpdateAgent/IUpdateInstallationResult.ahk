@@ -5,7 +5,7 @@
 
 /**
  * Contains the properties and the methods that are available to the status of an installation or uninstallation of an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateinstallationresult
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdateinstallationresult
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -54,30 +54,42 @@ class IUpdateInstallationResult extends IDispatch{
     /**
      * Gets the HRESULT exception value that is raised during the operation on an update.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstallationresult-get_hresult
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateinstallationresult-get_hresult
      */
     get_HResult() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether a system restart is required on a computer to complete the installation of an update.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstallationresult-get_rebootrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateinstallationresult-get_rebootrequired
      */
     get_RebootRequired() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets an OperationResultCode value that specifies the result of an operation on an update.
+     * Gets an OperationResultCode value that specifies the result of an operation on an update. (IUpdateInstallationResult.get_ResultCode)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstallationresult-get_resultcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateinstallationresult-get_resultcode
      */
     get_ResultCode() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

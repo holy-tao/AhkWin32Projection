@@ -32,10 +32,14 @@ class ID2D1Device7 extends ID2D1Device6{
     /**
      * 
      * @param {Integer} options 
-     * @returns {ID2D1DeviceContext7} 
+     * @returns {Pointer<ID2D1DeviceContext7>} 
      */
     CreateDeviceContext(options) {
-        result := ComCall(21, this, "int", options, "ptr*", &deviceContext := 0, "HRESULT")
-        return ID2D1DeviceContext7(deviceContext)
+        result := ComCall(21, this, "int", options, "ptr*", &deviceContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return deviceContext
     }
 }

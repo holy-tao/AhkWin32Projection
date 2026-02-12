@@ -37,7 +37,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
     GetFilterCount(pdwFilterCount) {
         pdwFilterCountMarshal := pdwFilterCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwFilterCountMarshal, pdwFilterCount, "HRESULT")
+        result := ComCall(3, this, pdwFilterCountMarshal, pdwFilterCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +52,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFilterChange(dwFilterKey, pFilterChange) {
-        result := ComCall(4, this, "uint", dwFilterKey, "ptr", pFilterChange, "HRESULT")
+        result := ComCall(4, this, "uint", dwFilterKey, "ptr", pFilterChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +68,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
     GetAllChangeUnitsPresentFlag(pfAllChangeUnitsPresent) {
         pfAllChangeUnitsPresentMarshal := pfAllChangeUnitsPresent is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, pfAllChangeUnitsPresentMarshal, pfAllChangeUnitsPresent, "HRESULT")
+        result := ComCall(5, this, pfAllChangeUnitsPresentMarshal, pfAllChangeUnitsPresent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {ISyncKnowledge} 
      */
     GetFilterForgottenKnowledge(dwFilterKey) {
-        result := ComCall(6, this, "uint", dwFilterKey, "ptr*", &ppIFilterForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwFilterKey, "ptr*", &ppIFilterForgottenKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppIFilterForgottenKnowledge)
     }
 
@@ -81,7 +97,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {ISyncKnowledge} 
      */
     GetFilteredReplicaLearnedKnowledge(pDestinationKnowledge, pNewMoveins) {
-        result := ComCall(7, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedKnowledge)
     }
 
@@ -93,7 +113,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {ISyncKnowledge} 
      */
     GetLearnedFilterForgottenKnowledge(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
-        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 
@@ -104,7 +128,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {ISyncKnowledge} 
      */
     GetFilteredReplicaLearnedForgottenKnowledge(pDestinationKnowledge, pNewMoveins) {
-        result := ComCall(9, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedForgottenKnowledge)
     }
 
@@ -115,7 +143,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {ISyncKnowledge} 
      */
     GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins) {
-        result := ComCall(10, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedForgottenKnowledge)
     }
 
@@ -127,7 +159,11 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {ISyncKnowledge} 
      */
     GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
-        result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 }

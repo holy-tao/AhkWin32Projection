@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HSTRING.ahk
 #Include .\IInspectable.ahk
 
 /**
  * Enables interoperability with a WinRT UserConsentVerifier class object and provides access to UserConsentVerifier members to verify the current user.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//userconsentverifierinterop/nn-userconsentverifierinterop-iuserconsentverifierinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/userconsentverifierinterop/nn-userconsentverifierinterop-iuserconsentverifierinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -34,18 +34,30 @@ class IUserConsentVerifierInterop extends IInspectable{
     static VTableNames => ["RequestVerificationForWindowAsync"]
 
     /**
+     * Performs a verification using a device such as Microsoft Passport PIN, Windows Hello, or a fingerprint reader.
+     * @param {HWND} appWindow Handle to the window of the active application.
+     * @param {HSTRING} message A message to display to the user for this biometric verification request.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} appWindow 
-     * @param {HSTRING} message 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/userconsentverifierinterop/nf-userconsentverifierinterop-iuserconsentverifierinterop-requestverificationforwindowasync
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(IAsyncOperation)`
+     * @returns {Pointer<Pointer<Void>>} A [IAsyncOperation](/uwp/api/windows.foundation.iasyncoperation-1) value that returns a value from the [UserConsentVerificationResult](/uwp/api/windows.security.credentials.ui.userconsentverificationresult) enumeration.
+     * @see https://learn.microsoft.com/windows/win32/api//content/userconsentverifierinterop/nf-userconsentverifierinterop-iuserconsentverifierinterop-requestverificationforwindowasync
      */
     RequestVerificationForWindowAsync(appWindow, message, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+        if(message is String) {
+            pin := HSTRING.Create(message)
+            message := pin.Value
+        }
         message := message is Win32Handle ? NumGet(message, "ptr") : message
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", message, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", appWindow, "ptr", message, "ptr", riid, "ptr*", &asyncOperation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return asyncOperation
     }
 }

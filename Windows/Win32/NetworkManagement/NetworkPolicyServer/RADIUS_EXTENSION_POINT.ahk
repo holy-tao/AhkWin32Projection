@@ -10,7 +10,7 @@
  * 
  * See 
  * <a href="https://docs.microsoft.com/windows/desktop/Nps/ias-about-internet-authentication-service">About NPS Extensions</a> for a diagram that shows the request process.
- * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_extension_point
+ * @see https://learn.microsoft.com/windows/win32/api//content/authif/ne-authif-radius_extension_point
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

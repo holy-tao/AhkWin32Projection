@@ -7,7 +7,6 @@
 /**
  * Exposes methods that allow a handler to provide conflicts that appear in the Conflicts folder.
  * @remarks
- * 
  * Conflict is provided to enable the user to select a version of a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> as needed, instead of being forced to pick to complete a sync selection set. The fact that we current display them in the conflict folder is purely secondary. 
  * 
  * The conflict store must notify sync center when its contents change. Nothing is assumed to happen to conflicts when methods are called that affect the conflict. This includes when they are resolved.
@@ -15,8 +14,7 @@
  * Sync Center requests a conflict store from a handler by calling <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getobject">ISyncMgrHandler::GetObject</a> with SYNCMGR_OBJECTID_ConflictStore if the mask returned from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrhandler-getcapabilities">ISyncMgrHandler::GetCapabilities</a> includes SYNCMGR_HCM_CONFLICT_STORE. The handler can also provide an event store filtered by item by setting the SYNCMGR_ICM_CONFLICT_STORE flag in the mask returned from <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities">ISyncMgrSyncItem::GetCapabilities</a>.
  * 
  * If conflicts are added to the conflict store, the handler (or a related component) should call <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts">ISyncMgrControl::UpdateConflicts</a> so that both the Conflicts folder and conflict counts can be updated.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrconflictstore
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgrconflictstore
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,6 +41,8 @@ class ISyncMgrConflictStore extends IUnknown{
 
     /**
      * Enumerates conflicts scoped to the provided sync handler and sync item.
+     * @remarks
+     * If the sync handler, sync item, or partner name is <b>NULL</b>, the conflict store ignores that parameter.
      * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
      * A pointer to the sync handler ID as a Unicode string.
@@ -52,36 +52,48 @@ class ISyncMgrConflictStore extends IUnknown{
      * @returns {IEnumSyncMgrConflict} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrconflict">IEnumSyncMgrConflict</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrconflict">IEnumSyncMgrConflict</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-enumconflicts
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrconflictstore-enumconflicts
      */
     EnumConflicts(pszHandlerID, pszItemID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", pszItemID, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSyncMgrConflict(ppEnum)
     }
 
     /**
      * Binds to a particular conflict specified by IID.
+     * @remarks
+     * This method is used when the conflict folder binds to a conflict, given its pointer to an item identifier list (PIDL) or parsing name. The ID is obtained from a conflict that was previously extracted from the store. See <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflict">ISyncMgrConflict</a>.
      * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} pConflictIdInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a> structure.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to a desired conflict IID.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
      */
     BindToConflict(pConflictIdInfo, riid) {
-        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * Deletes a set of conflicts, specified by conflict ID, from the store.
+     * @remarks
+     * The conflicts are removed when the user selects the conflicts in the conflicts folder and chooses to delete them.
      * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} rgConflictIdInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a> structure.
@@ -90,11 +102,15 @@ class ISyncMgrConflictStore extends IUnknown{
      * The conflict set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-removeconflicts
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrconflictstore-removeconflicts
      */
     RemoveConflicts(rgConflictIdInfo, cConflicts) {
-        result := ComCall(5, this, "ptr", rgConflictIdInfo, "uint", cConflicts, "HRESULT")
+        result := ComCall(5, this, "ptr", rgConflictIdInfo, "uint", cConflicts, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,13 +125,17 @@ class ISyncMgrConflictStore extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * When this method returns, contains the conflict count.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-getcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrconflictstore-getcount
      */
     GetCount(pszHandlerID, pszItemID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, "uint*", &pnConflicts := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszHandlerID, "ptr", pszItemID, "uint*", &pnConflicts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnConflicts
     }
 }

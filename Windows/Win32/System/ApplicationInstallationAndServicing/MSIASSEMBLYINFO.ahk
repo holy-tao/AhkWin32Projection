@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * .NET Assembly
+ * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msiprovideassemblya
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

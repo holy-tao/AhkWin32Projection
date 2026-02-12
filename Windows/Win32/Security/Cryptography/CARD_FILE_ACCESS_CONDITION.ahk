@@ -3,7 +3,7 @@
 
 /**
  * Specifies access control permissions for a file on a smart card.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/card-file-access-condition
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/card-file-access-condition
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

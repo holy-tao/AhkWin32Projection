@@ -6,13 +6,10 @@
 /**
  * Represents a list of time ranges, where each range is defined by a start and end time.
  * @remarks
- * 
  * The <b>IMFMediaTimeRange</b> interface corresponds to the <b>TimeRanges</b> interface in HTML5.
  * 
  * Several <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengine">IMFMediaEngine</a> methods return <b>IMFMediaTimeRange</b> pointers.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediatimerange
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfmediatimerange
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,8 +36,10 @@ class IMFMediaTimeRange extends IUnknown{
 
     /**
      * Gets the number of time ranges contained in the object.
+     * @remarks
+     * This method corresponds to the <b>TimeRanges.length</b> attribute in HTML5.
      * @returns {Integer} Returns the number of time ranges.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediatimerange-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getlength
      */
     GetLength() {
         result := ComCall(3, this, "uint")
@@ -49,31 +48,50 @@ class IMFMediaTimeRange extends IUnknown{
 
     /**
      * Gets the start time for a specified time range.
+     * @remarks
+     * This method corresponds to the <b>TimeRanges.start</b> method in HTML5.
      * @param {Integer} index The zero-based index of the time range to query. To get the  number of time ranges, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getlength">IMFMediaTimeRange::GetLength</a>.
      * @returns {Float} Receives the start time, in seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediatimerange-getstart
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getstart
      */
     GetStart(index) {
-        result := ComCall(4, this, "uint", index, "double*", &pStart := 0, "HRESULT")
+        result := ComCall(4, this, "uint", index, "double*", &pStart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStart
     }
 
     /**
      * Gets the end time for a specified time range.
+     * @remarks
+     * This method corresponds to the <b>TimeRanges.end</b> method in HTML5.
      * @param {Integer} index The zero-based index of the time range to query. To get the  number of time ranges, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getlength">IMFMediaTimeRange::GetLength</a>.
      * @returns {Float} Receives the end time, in seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediatimerange-getend
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediatimerange-getend
      */
     GetEnd(index) {
-        result := ComCall(5, this, "uint", index, "double*", &pEnd := 0, "HRESULT")
+        result := ComCall(5, this, "uint", index, "double*", &pEnd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEnd
     }
 
     /**
      * Queries whether a specified time falls within any of the time ranges.
+     * @remarks
+     * This method returns <b>TRUE</b> if the following condition holds for any time range in the list:
+     * 
+     * <i>start</i>
+     * <i>time</i>
+     * <i>time</i>
+     * <i>end</i>
      * @param {Float} time The time, in seconds.
      * @returns {BOOL} Returns <b>TRUE</b> if any time range contained in this object spans the value of the <i>time</i> parameter. Otherwise, returns <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediatimerange-containstime
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediatimerange-containstime
      */
     ContainsTime(time) {
         result := ComCall(6, this, "double", time, "int")
@@ -82,23 +100,33 @@ class IMFMediaTimeRange extends IUnknown{
 
     /**
      * Adds a new range to the list of time ranges.
+     * @remarks
+     * If the new range intersects a range already in the list, the two ranges are combined. Otherwise, the new range is added to the list.
      * @param {Float} startTime The start time, in seconds.
      * @param {Float} endTime The end time, in seconds.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediatimerange-addrange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediatimerange-addrange
      */
     AddRange(startTime, endTime) {
-        result := ComCall(7, this, "double", startTime, "double", endTime, "HRESULT")
+        result := ComCall(7, this, "double", startTime, "double", endTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Clears the list of time ranges.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediatimerange-clear
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfmediatimerange-clear
      */
     Clear() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

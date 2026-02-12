@@ -37,7 +37,11 @@ class ICaretPositionProvider extends IUnknown{
     GetCaretPosition(pptCaret, pflHeight) {
         pflHeightMarshal := pflHeight is VarRef ? "float*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pptCaret, pflHeightMarshal, pflHeight, "HRESULT")
+        result := ComCall(3, this, "ptr", pptCaret, pflHeightMarshal, pflHeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

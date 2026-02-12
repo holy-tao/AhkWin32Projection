@@ -22,7 +22,7 @@
  * However, applications can receive the mutual authentication data and send it with the final response. When the <b>ReceiveMutualAuth</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_info">HTTP_SERVER_AUTHENTICATION_INFO</a> structure is set to true, applications receive the server credentials for mutual authentication along with the authenticated request.
  * 
  * The mutual authentication data provided in the <b>pMutualAuthData</b> member contains the exact value of WWW-Authenticate header without the header name. For example, <b>pMutualAuthData</b> points to "Negotiate ade02938481eca". The application builds the WWW-Authenticate header by appending the provided <b>pMutualAuthData</b> as a response header value.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_auth_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_request_auth_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

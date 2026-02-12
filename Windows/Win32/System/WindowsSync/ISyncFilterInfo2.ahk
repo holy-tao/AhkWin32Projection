@@ -6,11 +6,8 @@
 /**
  * Represents additional information about a filter that can be used to control which changes are included in an ISyncChangeBatch object.
  * @remarks
- * 
  * <b>ISyncFilterInfo2</b> can obtained by calling <b>QueryInterface</b> on an <b>ISyncFilterInfo</b> object or an object derived from <b>ISyncFilterInfo</b>, such as an <b>IChangeUnitListFilterInfo</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncfilterinfo2
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncfilterinfo2
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,6 +34,27 @@ class ISyncFilterInfo2 extends ISyncFilterInfo{
 
     /**
      * Gets the flags that specify additional information about the filter information object.
+     * @remarks
+     * The following table describes the flags that specify information about an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncfilterinfo">ISyncFilterInfo</a> object.
+     * 
+     * <table>
+     * <tr>
+     * <th>SYNC_FILTER_INFO_FLAG value</th>
+     * <th>Description </th>
+     * </tr>
+     * <tr>
+     * <td><b>SYNC_FILTER_INFO_FLAG_ITEM_LIST</b></td>
+     * <td>This flag indicates that the set of items synchronized is restricted by an item filter.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>SYNC_FILTER_INFO_FLAG_CHANGE_UNIT_LIST</b></td>
+     * <td>An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-ichangeunitlistfilterinfo">IChangeUnitListFilterInfo</a> object specifies that changes apply only to a subset of the change units that are defined for the scope.
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer<Integer>} pdwFlags Gets the flags that specify additional information about the filter information object. This will be one of the <b>SYNC_FILTER_INFO_FLAG</b> values (See Remarks).
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -68,12 +86,16 @@ class ISyncFilterInfo2 extends ISyncFilterInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfilterinfo2-getflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncfilterinfo2-getflags
      */
     GetFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

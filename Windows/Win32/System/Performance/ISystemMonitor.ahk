@@ -313,7 +313,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_Appearance() {
-        result := ComCall(3, this, "int*", &iAppearance := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &iAppearance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iAppearance
     }
 
@@ -323,7 +327,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Appearance(iAppearance) {
-        result := ComCall(4, this, "int", iAppearance, "HRESULT")
+        result := ComCall(4, this, "int", iAppearance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -332,17 +340,25 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_BackColor() {
-        result := ComCall(5, this, "uint*", &pColor := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pColor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pColor
     }
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} Color_ 
      * @returns {HRESULT} 
      */
-    put_BackColor(Color) {
-        result := ComCall(6, this, "uint", Color, "HRESULT")
+    put_BackColor(Color_) {
+        result := ComCall(6, this, "uint", Color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -351,7 +367,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_BorderStyle() {
-        result := ComCall(7, this, "int*", &iBorderStyle := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &iBorderStyle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iBorderStyle
     }
 
@@ -361,7 +381,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_BorderStyle(iBorderStyle) {
-        result := ComCall(8, this, "int", iBorderStyle, "HRESULT")
+        result := ComCall(8, this, "int", iBorderStyle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -370,17 +394,25 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_ForeColor() {
-        result := ComCall(9, this, "uint*", &pColor := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pColor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pColor
     }
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} Color_ 
      * @returns {HRESULT} 
      */
-    put_ForeColor(Color) {
-        result := ComCall(10, this, "uint", Color, "HRESULT")
+    put_ForeColor(Color_) {
+        result := ComCall(10, this, "uint", Color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -389,7 +421,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {IFontDisp} 
      */
     get_Font() {
-        result := ComCall(11, this, "ptr*", &ppFont := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppFont := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFontDisp(ppFont)
     }
 
@@ -399,7 +435,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     putref_Font(pFont) {
-        result := ComCall(12, this, "ptr", pFont, "HRESULT")
+        result := ComCall(12, this, "ptr", pFont, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -408,7 +448,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {ICounters} 
      */
     get_Counters() {
-        result := ComCall(13, this, "ptr*", &ppICounters := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppICounters := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICounters(ppICounters)
     }
 
@@ -418,7 +462,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ShowVerticalGrid(bState) {
-        result := ComCall(14, this, "short", bState, "HRESULT")
+        result := ComCall(14, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -427,7 +475,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowVerticalGrid() {
-        result := ComCall(15, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -437,7 +489,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ShowHorizontalGrid(bState) {
-        result := ComCall(16, this, "short", bState, "HRESULT")
+        result := ComCall(16, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -446,7 +502,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowHorizontalGrid() {
-        result := ComCall(17, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -456,7 +516,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ShowLegend(bState) {
-        result := ComCall(18, this, "short", bState, "HRESULT")
+        result := ComCall(18, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -465,7 +529,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowLegend() {
-        result := ComCall(19, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -475,7 +543,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ShowScaleLabels(bState) {
-        result := ComCall(20, this, "short", bState, "HRESULT")
+        result := ComCall(20, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -484,7 +556,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowScaleLabels() {
-        result := ComCall(21, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -494,7 +570,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ShowValueBar(bState) {
-        result := ComCall(22, this, "short", bState, "HRESULT")
+        result := ComCall(22, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -503,7 +583,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowValueBar() {
-        result := ComCall(23, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(23, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -513,7 +597,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_MaximumScale(iValue) {
-        result := ComCall(24, this, "int", iValue, "HRESULT")
+        result := ComCall(24, this, "int", iValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -522,7 +610,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_MaximumScale() {
-        result := ComCall(25, this, "int*", &piValue := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &piValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piValue
     }
 
@@ -532,7 +624,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_MinimumScale(iValue) {
-        result := ComCall(26, this, "int", iValue, "HRESULT")
+        result := ComCall(26, this, "int", iValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -541,7 +637,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_MinimumScale() {
-        result := ComCall(27, this, "int*", &piValue := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &piValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piValue
     }
 
@@ -551,7 +651,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_UpdateInterval(fValue) {
-        result := ComCall(28, this, "float", fValue, "HRESULT")
+        result := ComCall(28, this, "float", fValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -560,7 +664,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Float} 
      */
     get_UpdateInterval() {
-        result := ComCall(29, this, "float*", &pfValue := 0, "HRESULT")
+        result := ComCall(29, this, "float*", &pfValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfValue
     }
 
@@ -570,7 +678,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_DisplayType(eDisplayType) {
-        result := ComCall(30, this, "int", eDisplayType, "HRESULT")
+        result := ComCall(30, this, "int", eDisplayType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -579,7 +691,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_DisplayType() {
-        result := ComCall(31, this, "int*", &peDisplayType := 0, "HRESULT")
+        result := ComCall(31, this, "int*", &peDisplayType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peDisplayType
     }
 
@@ -589,7 +705,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ManualUpdate(bState) {
-        result := ComCall(32, this, "short", bState, "HRESULT")
+        result := ComCall(32, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -598,7 +718,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ManualUpdate() {
-        result := ComCall(33, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(33, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -608,9 +732,16 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_GraphTitle(bsTitle) {
-        bsTitle := bsTitle is String ? BSTR.Alloc(bsTitle).Value : bsTitle
+        if(bsTitle is String) {
+            pin := BSTR.Alloc(bsTitle)
+            bsTitle := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", bsTitle, "HRESULT")
+        result := ComCall(34, this, "ptr", bsTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -620,7 +751,11 @@ class ISystemMonitor extends IUnknown{
      */
     get_GraphTitle() {
         pbsTitle := BSTR()
-        result := ComCall(35, this, "ptr", pbsTitle, "HRESULT")
+        result := ComCall(35, this, "ptr", pbsTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbsTitle
     }
 
@@ -630,9 +765,16 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_YAxisLabel(bsTitle) {
-        bsTitle := bsTitle is String ? BSTR.Alloc(bsTitle).Value : bsTitle
+        if(bsTitle is String) {
+            pin := BSTR.Alloc(bsTitle)
+            bsTitle := pin.Value
+        }
 
-        result := ComCall(36, this, "ptr", bsTitle, "HRESULT")
+        result := ComCall(36, this, "ptr", bsTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -642,7 +784,11 @@ class ISystemMonitor extends IUnknown{
      */
     get_YAxisLabel() {
         pbsTitle := BSTR()
-        result := ComCall(37, this, "ptr", pbsTitle, "HRESULT")
+        result := ComCall(37, this, "ptr", pbsTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbsTitle
     }
 
@@ -651,7 +797,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     CollectSample() {
-        result := ComCall(38, this, "HRESULT")
+        result := ComCall(38, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -660,7 +810,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     UpdateGraph() {
-        result := ComCall(39, this, "HRESULT")
+        result := ComCall(39, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -669,26 +823,47 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     BrowseCounters() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * > [!NOTE]
+     * > [DisplayProperties](displayproperties.md) may be altered or unavailable for releases after Windows 8.1. Instead, use [DisplayInformation](displayinformation.md).
      * 
-     * @returns {HRESULT} 
+     *  Asynchronously gets the default International Color Consortium (ICC) color profile that is associated with the physical display.
+     * @returns {HRESULT} Object that manages the asynchronous retrieval of the color profile.
+     * @see https://learn.microsoft.com/uwp/api/windows.graphics.display.displayproperties.getcolorprofileasync
      */
     DisplayProperties() {
-        result := ComCall(41, this, "HRESULT")
+        result := ComCall(41, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Removes the providers registration.
+     * @remarks
+     * Your provider calls this function. The function calls the [**PerfStopProvider**](/windows/desktop/api/Perflib/nf-perflib-perfstopprovider) function to remove the provider's registration.
      * 
+     * The [**CTRPP**](ctrpp.md) tool generates this inline function when you specify the **-o** argument. The function's name includes a *prefix* string if you specify the **-prefix** argument (for example, ***prefix*CounterCleanup**.
      * @param {Integer} iIndex 
      * @returns {ICounterItem} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/PerfCtrs/countercleanup
      */
     Counter(iIndex) {
-        result := ComCall(42, this, "int", iIndex, "ptr*", &ppICounter := 0, "HRESULT")
+        result := ComCall(42, this, "int", iIndex, "ptr*", &ppICounter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICounterItem(ppICounter)
     }
 
@@ -698,9 +873,16 @@ class ISystemMonitor extends IUnknown{
      * @returns {ICounterItem} 
      */
     AddCounter(bsPath) {
-        bsPath := bsPath is String ? BSTR.Alloc(bsPath).Value : bsPath
+        if(bsPath is String) {
+            pin := BSTR.Alloc(bsPath)
+            bsPath := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", bsPath, "ptr*", &ppICounter := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", bsPath, "ptr*", &ppICounter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICounterItem(ppICounter)
     }
 
@@ -710,7 +892,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteCounter(pCtr) {
-        result := ComCall(44, this, "ptr", pCtr, "HRESULT")
+        result := ComCall(44, this, "ptr", pCtr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -719,17 +905,25 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_BackColorCtl() {
-        result := ComCall(45, this, "uint*", &pColor := 0, "HRESULT")
+        result := ComCall(45, this, "uint*", &pColor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pColor
     }
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} Color_ 
      * @returns {HRESULT} 
      */
-    put_BackColorCtl(Color) {
-        result := ComCall(46, this, "uint", Color, "HRESULT")
+    put_BackColorCtl(Color_) {
+        result := ComCall(46, this, "uint", Color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -739,9 +933,16 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_LogFileName(bsFileName) {
-        bsFileName := bsFileName is String ? BSTR.Alloc(bsFileName).Value : bsFileName
+        if(bsFileName is String) {
+            pin := BSTR.Alloc(bsFileName)
+            bsFileName := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", bsFileName, "HRESULT")
+        result := ComCall(47, this, "ptr", bsFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -751,7 +952,11 @@ class ISystemMonitor extends IUnknown{
      */
     get_LogFileName() {
         bsFileName := BSTR()
-        result := ComCall(48, this, "ptr", bsFileName, "HRESULT")
+        result := ComCall(48, this, "ptr", bsFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bsFileName
     }
 
@@ -761,7 +966,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_LogViewStart(StartTime) {
-        result := ComCall(49, this, "double", StartTime, "HRESULT")
+        result := ComCall(49, this, "double", StartTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -770,7 +979,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Float} 
      */
     get_LogViewStart() {
-        result := ComCall(50, this, "double*", &StartTime := 0, "HRESULT")
+        result := ComCall(50, this, "double*", &StartTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StartTime
     }
 
@@ -780,7 +993,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_LogViewStop(StopTime) {
-        result := ComCall(51, this, "double", StopTime, "HRESULT")
+        result := ComCall(51, this, "double", StopTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -789,7 +1006,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Float} 
      */
     get_LogViewStop() {
-        result := ComCall(52, this, "double*", &StopTime := 0, "HRESULT")
+        result := ComCall(52, this, "double*", &StopTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StopTime
     }
 
@@ -798,17 +1019,25 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_GridColor() {
-        result := ComCall(53, this, "uint*", &pColor := 0, "HRESULT")
+        result := ComCall(53, this, "uint*", &pColor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pColor
     }
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} Color_ 
      * @returns {HRESULT} 
      */
-    put_GridColor(Color) {
-        result := ComCall(54, this, "uint", Color, "HRESULT")
+    put_GridColor(Color_) {
+        result := ComCall(54, this, "uint", Color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -817,17 +1046,25 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_TimeBarColor() {
-        result := ComCall(55, this, "uint*", &pColor := 0, "HRESULT")
+        result := ComCall(55, this, "uint*", &pColor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pColor
     }
 
     /**
      * 
-     * @param {Integer} Color 
+     * @param {Integer} Color_ 
      * @returns {HRESULT} 
      */
-    put_TimeBarColor(Color) {
-        result := ComCall(56, this, "uint", Color, "HRESULT")
+    put_TimeBarColor(Color_) {
+        result := ComCall(56, this, "uint", Color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -836,7 +1073,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_Highlight() {
-        result := ComCall(57, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(57, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -846,7 +1087,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_Highlight(bState) {
-        result := ComCall(58, this, "short", bState, "HRESULT")
+        result := ComCall(58, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -855,7 +1100,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ShowToolbar() {
-        result := ComCall(59, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(59, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -865,7 +1114,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ShowToolbar(bState) {
-        result := ComCall(60, this, "short", bState, "HRESULT")
+        result := ComCall(60, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -874,25 +1127,68 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     Paste() {
-        result := ComCall(61, this, "HRESULT")
+        result := ComCall(61, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Describes the four steps to take to copy and paste a formula from one cell into another using CTRL+C and CTRL+V.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/copy-and-paste-a-formula-from-one-cell-into-another
      */
     Copy() {
-        result := ComCall(62, this, "HRESULT")
+        result := ComCall(62, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Reset Method (RDS)
+     * @remarks
+     * The [SortColumn](./sortcolumn-property-rds.md), [SortDirection](./sortdirection-property-rds.md), [FilterValue](./filtervalue-property-rds.md), [FilterCriterion](./filtercriterion-property-rds.md), and [FilterColumn](./filtercolumn-property-rds.md) properties provide sorting and filtering functionality on the client-side cache. The sorting functionality orders records by values from one column. The filtering functionality displays a subset of records based on a find criteria, while the full [Recordset](../ado-api/recordset-object-ado.md) is maintained in the cache. The **Reset** method will execute the criteria and replace the current **Recordset** with an updatable **Recordset**.  
+     *   
+     *  If there are changes to the original data that have not been submitted, the **Reset** method will fail. First, use the [SubmitChanges](./submitchanges-method-rds.md) method to save any changes in a read/write **Recordset**, and then use the **Reset** method to sort or filter the records.  
+     *   
+     *  If you want to perform more than one filter on your rowset, you can use the optional *Boolean* argument with the **Reset** method. The following example shows how to do this:  
+     *   
+     * ```  
+     * ADC.SQL = "Select au_lname from authors"  
+     * ADC.Refresh    ' Get the new rowset.  
+     *   
+     * ADC.FilterColumn = "au_lname"  
+     * ADC.FilterCriterion = "<"  
+     * ADC.FilterValue = "'M'"  
+     * ADC.Reset         ' Rowset now has all Last Names < "M".  
+     *   
+     * ADC.FilterCriterion = ">"  
+     * ADC.FilterValue = "'F'"  
+     * ' Passing True is not necessary, because it is the   
+     * ' default filter on the current "filtered" rowset.  
+     * ADC.Reset(TRUE)     ' Rowset now has all Last   
+     *                     ' Names < "M" and > "F".  
+     *   
+     * ADC.FilterCriterion = ">"  
+     * ADC.FilterValue = "'T'"  
+     * ' Filter on the original rowset, throwing out the  
+     * ' previous filter options.  
+     * ADC.Reset(FALSE)   ' Rowset now has all Last Names > "T".  
+     * ```
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/reset-method-rds
      */
     Reset() {
-        result := ComCall(63, this, "HRESULT")
+        result := ComCall(63, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -902,7 +1198,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ReadOnly(bState) {
-        result := ComCall(64, this, "short", bState, "HRESULT")
+        result := ComCall(64, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -911,7 +1211,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_ReadOnly() {
-        result := ComCall(65, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(65, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -921,7 +1225,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_ReportValueType(eReportValueType) {
-        result := ComCall(66, this, "int", eReportValueType, "HRESULT")
+        result := ComCall(66, this, "int", eReportValueType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -930,7 +1238,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_ReportValueType() {
-        result := ComCall(67, this, "int*", &peReportValueType := 0, "HRESULT")
+        result := ComCall(67, this, "int*", &peReportValueType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peReportValueType
     }
 
@@ -940,7 +1252,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_MonitorDuplicateInstances(bState) {
-        result := ComCall(68, this, "short", bState, "HRESULT")
+        result := ComCall(68, this, "short", bState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -949,7 +1265,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_MonitorDuplicateInstances() {
-        result := ComCall(69, this, "short*", &pbState := 0, "HRESULT")
+        result := ComCall(69, this, "short*", &pbState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbState
     }
 
@@ -959,7 +1279,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_DisplayFilter(iValue) {
-        result := ComCall(70, this, "int", iValue, "HRESULT")
+        result := ComCall(70, this, "int", iValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -968,7 +1292,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_DisplayFilter() {
-        result := ComCall(71, this, "int*", &piValue := 0, "HRESULT")
+        result := ComCall(71, this, "int*", &piValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piValue
     }
 
@@ -977,7 +1305,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {ILogFiles} 
      */
     get_LogFiles() {
-        result := ComCall(72, this, "ptr*", &ppILogFiles := 0, "HRESULT")
+        result := ComCall(72, this, "ptr*", &ppILogFiles := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ILogFiles(ppILogFiles)
     }
 
@@ -987,7 +1319,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_DataSourceType(eDataSourceType) {
-        result := ComCall(73, this, "int", eDataSourceType, "HRESULT")
+        result := ComCall(73, this, "int", eDataSourceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -996,7 +1332,11 @@ class ISystemMonitor extends IUnknown{
      * @returns {Integer} 
      */
     get_DataSourceType() {
-        result := ComCall(74, this, "int*", &peDataSourceType := 0, "HRESULT")
+        result := ComCall(74, this, "int*", &peDataSourceType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return peDataSourceType
     }
 
@@ -1006,9 +1346,16 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_SqlDsnName(bsSqlDsnName) {
-        bsSqlDsnName := bsSqlDsnName is String ? BSTR.Alloc(bsSqlDsnName).Value : bsSqlDsnName
+        if(bsSqlDsnName is String) {
+            pin := BSTR.Alloc(bsSqlDsnName)
+            bsSqlDsnName := pin.Value
+        }
 
-        result := ComCall(75, this, "ptr", bsSqlDsnName, "HRESULT")
+        result := ComCall(75, this, "ptr", bsSqlDsnName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1018,7 +1365,11 @@ class ISystemMonitor extends IUnknown{
      */
     get_SqlDsnName() {
         bsSqlDsnName := BSTR()
-        result := ComCall(76, this, "ptr", bsSqlDsnName, "HRESULT")
+        result := ComCall(76, this, "ptr", bsSqlDsnName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bsSqlDsnName
     }
 
@@ -1028,9 +1379,16 @@ class ISystemMonitor extends IUnknown{
      * @returns {HRESULT} 
      */
     put_SqlLogSetName(bsSqlLogSetName) {
-        bsSqlLogSetName := bsSqlLogSetName is String ? BSTR.Alloc(bsSqlLogSetName).Value : bsSqlLogSetName
+        if(bsSqlLogSetName is String) {
+            pin := BSTR.Alloc(bsSqlLogSetName)
+            bsSqlLogSetName := pin.Value
+        }
 
-        result := ComCall(77, this, "ptr", bsSqlLogSetName, "HRESULT")
+        result := ComCall(77, this, "ptr", bsSqlLogSetName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1040,7 +1398,11 @@ class ISystemMonitor extends IUnknown{
      */
     get_SqlLogSetName() {
         bsSqlLogSetName := BSTR()
-        result := ComCall(78, this, "ptr", bsSqlLogSetName, "HRESULT")
+        result := ComCall(78, this, "ptr", bsSqlLogSetName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bsSqlLogSetName
     }
 }

@@ -52,7 +52,11 @@ class IComponentsOld extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
@@ -61,7 +65,11 @@ class IComponentsOld extends IDispatch{
      * @returns {IEnumVARIANT} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppNewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVARIANT(ppNewEnum)
     }
 
@@ -70,7 +78,11 @@ class IComponentsOld extends IDispatch{
      * @returns {IEnumComponents} 
      */
     EnumComponents() {
-        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumComponents(ppNewEnum)
     }
 
@@ -80,37 +92,56 @@ class IComponentsOld extends IDispatch{
      * @returns {IComponent} 
      */
     get_Item(Index) {
-        result := ComCall(10, this, "ptr", Index, "ptr*", &ppComponent := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", Index, "ptr*", &ppComponent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IComponent(ppComponent)
     }
 
     /**
-     * 
-     * @param {IComponent} Component 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
+     * @param {IComponent} Component_ 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
-    Add(Component) {
+    Add(Component_) {
         NewIndex := VARIANT()
-        result := ComCall(11, this, "ptr", Component, "ptr", NewIndex, "HRESULT")
+        result := ComCall(11, this, "ptr", Component_, "ptr", NewIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NewIndex
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {VARIANT} Index 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(Index) {
-        result := ComCall(12, this, "ptr", Index, "HRESULT")
+        result := ComCall(12, this, "ptr", Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Clone Method Example (VC++)
      * @returns {IComponents} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/clone-method-example-vc
      */
     Clone() {
-        result := ComCall(13, this, "ptr*", &NewList := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &NewList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IComponents(NewList)
     }
 }

@@ -5,7 +5,7 @@
  * Describes a group of barriers of a given type.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_barrier_group
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/ns-d3d12-d3d12_barrier_group
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */

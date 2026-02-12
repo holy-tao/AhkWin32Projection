@@ -18,7 +18,7 @@
  * The ink space is a virtual coordinate space to which the coordinates of the tablet context are mapped. This space is fixed to a HIMETRIC coordinate system. In ink space coordinates, a move from 0 to 1 equals 1 HIMETRIC unit. This mapping makes it easy to relate multiple **InkDisp** objects.
  * 
  * The [**InkRenderer**](inkrenderer-class.md) object manages the mappings between ink and the display window.
- * @see https://learn.microsoft.com/windows/win32/tablet/inkdisp-class
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/tablet/inkdisp-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

@@ -35,7 +35,11 @@ class IPrivateDispatch extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIInitializeDispatchManager(dwExtensionId) {
-        result := ComCall(3, this, "int", dwExtensionId, "HRESULT")
+        result := ComCall(3, this, "int", dwExtensionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IPrivateDispatch extends IUnknown{
      * @returns {Integer} 
      */
     ADSIGetTypeInfoCount() {
-        result := ComCall(4, this, "uint*", &pctinfo := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pctinfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pctinfo
     }
 
@@ -55,7 +63,11 @@ class IPrivateDispatch extends IUnknown{
      * @returns {ITypeInfo} 
      */
     ADSIGetTypeInfo(itinfo, lcid) {
-        result := ComCall(5, this, "uint", itinfo, "uint", lcid, "ptr*", &pptinfo := 0, "HRESULT")
+        result := ComCall(5, this, "uint", itinfo, "uint", lcid, "ptr*", &pptinfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITypeInfo(pptinfo)
     }
 
@@ -70,7 +82,11 @@ class IPrivateDispatch extends IUnknown{
     ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgdispid := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgdispid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rgdispid
     }
 
@@ -89,7 +105,11 @@ class IPrivateDispatch extends IUnknown{
     ADSIInvoke(dispidMember, riid, lcid, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(7, this, "int", dispidMember, "ptr", riid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pvarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

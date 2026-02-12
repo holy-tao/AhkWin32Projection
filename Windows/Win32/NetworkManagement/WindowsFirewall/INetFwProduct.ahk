@@ -7,7 +7,7 @@
 
 /**
  * To access the properties of a third-party firewall registration.
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwproduct
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nn-netfw-inetfwproduct
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -62,64 +62,84 @@ class INetFwProduct extends IDispatch{
     }
 
     /**
-     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall.
+     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall. (Get)
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-get_rulecategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwproduct-get_rulecategories
      */
     get_RuleCategories() {
         ruleCategories := VARIANT()
-        result := ComCall(7, this, "ptr", ruleCategories, "HRESULT")
+        result := ComCall(7, this, "ptr", ruleCategories, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ruleCategories
     }
 
     /**
-     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall.
+     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall. (Put)
      * @param {VARIANT} ruleCategories 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-put_rulecategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwproduct-put_rulecategories
      */
     put_RuleCategories(ruleCategories) {
-        result := ComCall(8, this, "ptr", ruleCategories, "HRESULT")
+        result := ComCall(8, this, "ptr", ruleCategories, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Indicates the display name for a third-party firewall product registration.
+     * Indicates the display name for a third-party firewall product registration. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-get_displayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwproduct-get_displayname
      */
     get_DisplayName() {
         displayName := BSTR()
-        result := ComCall(9, this, "ptr", displayName, "HRESULT")
+        result := ComCall(9, this, "ptr", displayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return displayName
     }
 
     /**
-     * Indicates the display name for a third-party firewall product registration.
+     * Indicates the display name for a third-party firewall product registration. (Put)
      * @param {BSTR} displayName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-put_displayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwproduct-put_displayname
      */
     put_DisplayName(displayName) {
-        displayName := displayName is String ? BSTR.Alloc(displayName).Value : displayName
+        if(displayName is String) {
+            pin := BSTR.Alloc(displayName)
+            displayName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", displayName, "HRESULT")
+        result := ComCall(10, this, "ptr", displayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates the path to the signed executable file of a third-party firewall product registration.
      * @remarks
-     * 
      * This is a read-only property, which is set after the product has been registered.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
      */
     get_PathToSignedProductExe() {
-        path := BSTR()
-        result := ComCall(11, this, "ptr", path, "HRESULT")
-        return path
+        path_ := BSTR()
+        result := ComCall(11, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return path_
     }
 }

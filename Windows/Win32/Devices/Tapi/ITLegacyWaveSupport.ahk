@@ -5,7 +5,7 @@
 
 /**
  * The ITLegacyWaveSupport interface allows an application to discover whether a terminal created by a legacy TSP (pre-TAPI 3) can be controlled using the Wave API.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itlegacywavesupport
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itlegacywavesupport
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class ITLegacyWaveSupport extends IDispatch{
      * The IsFullDuplex method gets an indicator of whether the address supports wave devices.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-fullduplex_support">FULLDUPLEX_SUPPORT</a> enumerator member, such as FDS_SUPPORTED.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacywavesupport-isfullduplex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itlegacywavesupport-isfullduplex
      */
     IsFullDuplex() {
-        result := ComCall(7, this, "int*", &pSupport := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pSupport := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSupport
     }
 }

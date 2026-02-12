@@ -7,7 +7,6 @@
 /**
  * The IKsTopologyInfo interface enumerates the nodes in a stream class driver. The KsProxy filter exposes this interface. Applications can use this interface to examine the internal topology of a kernel-mode filter.
  * @remarks
- * 
  * In the Windows Driver Model, a kernel-streaming (KS) filter contains one or more <i>nodes</i>. Each node encapsulates a processing task that is applied to the stream. Nodes have inputs and outputs, which connect either to other nodes in the filter, or else to the filter's pins. In this way, the nodes resemble a miniature "filter graph" inside the filter, which may contain several possible data paths. Applications can use the <c>IKsTopologyInfo</c> interface to get information about the nodes and the node connections.
  * 
  * <img alt="KsFilter nodes" border="0" src="./images/ksproxynodes.png"/>
@@ -15,9 +14,7 @@
  * Some devices also support the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nn-vidcap-iselector">ISelector</a> interface for selecting input nodes. For example, if a video capture device has a camera and a tape transport, these could be represented as two nodes (see the previous diagram).
  * 
  * Include Vidcap.h from the Windows SDK or from the DirectX 9.0 SDK Update (Summer 2004) or later.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vidcap/nn-vidcap-ikstopologyinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nn-vidcap-ikstopologyinfo
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
@@ -66,10 +63,14 @@ class IKsTopologyInfo extends IUnknown{
     /**
      * The get_NumCategories method returns the number of categories for this filter.
      * @returns {Integer} Receives the number of categories.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_numcategories
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_numcategories
      */
     get_NumCategories() {
-        result := ComCall(3, this, "uint*", &pdwNumCategories := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwNumCategories := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwNumCategories
     }
 
@@ -77,21 +78,31 @@ class IKsTopologyInfo extends IUnknown{
      * The get_Category method returns one of the filter categories for this stream class driver.
      * @param {Integer} dwIndex Index of the category GUID to retrieve. To find the number of categories, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_numcategories">IKsTopologyInfo::get_NumCategories</a> method.
      * @returns {Guid} Receives a GUID that defines the category. Microsoft provides standard categories in the header files Ks.h and Ksmedia.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_category
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_category
      */
     get_Category(dwIndex) {
         pCategory := Guid()
-        result := ComCall(4, this, "uint", dwIndex, "ptr", pCategory, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, "ptr", pCategory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCategory
     }
 
     /**
      * The get_NumConnections method returns the number of node connections within the filter.
+     * @remarks
+     * To get information about the connections, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_connectioninfo">IKsTopologyInfo::get_ConnectionInfo</a> method.
      * @returns {Integer} Receives the number of connections.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_numconnections
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_numconnections
      */
     get_NumConnections() {
-        result := ComCall(5, this, "uint*", &pdwNumConnections := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwNumConnections := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwNumConnections
     }
 
@@ -99,34 +110,48 @@ class IKsTopologyInfo extends IUnknown{
      * The get_ConnectionInfo method returns information about one node connection in the filter.
      * @param {Integer} dwIndex Index of the connection. To find the number of connections, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_numconnections">IKsTopologyInfo::get_NumConnections</a> method.
      * @returns {KSTOPOLOGY_CONNECTION} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/DirectShow/kstopology-connection">KSTOPOLOGY_CONNECTION</a> structure allocated by the caller. The method fills in this structure with the connection information.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_connectioninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_connectioninfo
      */
     get_ConnectionInfo(dwIndex) {
         pConnectionInfo := KSTOPOLOGY_CONNECTION()
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pConnectionInfo, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, "ptr", pConnectionInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pConnectionInfo
     }
 
     /**
      * The get_NodeName method returns the name of the node.
+     * @remarks
+     * To find the buffer size for the name, call the method once with <b>NULL</b> for the <i>pwchNodeName</i> parameter and zero for the <i>dwBufSize</i> parameter. The method returns the buffer size in <i>pdwNameLen</i>. The method's return value, in this case, is HRESULT_FROM_WIN32(ERROR_MORE_DATA). Then allocate the array and call the method again.
      * @param {Integer} dwNodeId Index of the node. To find the number of nodes, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes">IKsTopologyInfo::get_NumNodes</a> method.
      * @param {Pointer} pwchNodeName Pointer to a wide-character array that receives the name. To find the required buffer size, set this parameter to <b>NULL</b>. The size is returned in the <i>pdwNameLen</i> parameter.
      * @param {Integer} dwBufSize Size of the <i>pwchNodeName</i> array, in bytes.
      * @returns {Integer} Receives the buffer size required to hold the name, in bytes. This parameter cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_nodename
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_nodename
      */
     get_NodeName(dwNodeId, pwchNodeName, dwBufSize) {
-        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, "uint*", &pdwNameLen := 0, "HRESULT")
+        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, "uint*", &pdwNameLen := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwNameLen
     }
 
     /**
      * The get_NumNodes method returns the number of nodes in the filter.
      * @returns {Integer} Receives the number of nodes.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_numnodes
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes
      */
     get_NumNodes() {
-        result := ComCall(8, this, "uint*", &pdwNumNodes := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pdwNumNodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwNumNodes
     }
 
@@ -134,23 +159,33 @@ class IKsTopologyInfo extends IUnknown{
      * The get_NodeType method returns the node type for a given node.
      * @param {Integer} dwNodeId Index of the node. To find the number of nodes, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes">IKsTopologyInfo::get_NumNodes</a> method.
      * @returns {Guid} Receives a GUID that defines the node type. For a list of node types, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/ks-node-types">KS Node Types</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-get_nodetype
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-get_nodetype
      */
     get_NodeType(dwNodeId) {
         pNodeType := Guid()
-        result := ComCall(9, this, "uint", dwNodeId, "ptr", pNodeType, "HRESULT")
+        result := ComCall(9, this, "uint", dwNodeId, "ptr", pNodeType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNodeType
     }
 
     /**
      * The CreateNodeInstance method creates a COM object that represents a node in the filter.
+     * @remarks
+     * Node objects expose the <b>IKsControl</b> interface. You can use this interface to enumerate and access the node's property sets.
      * @param {Integer} dwNodeId Index of the node to create. To find the number of nodes, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes">IKsTopologyInfo::get_NumNodes</a> method.
      * @param {Pointer<Guid>} iid Interface identifier (IID) of the interface to return.
      * @returns {Pointer<Void>} Receives a pointer to the requested interface on the node object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-ikstopologyinfo-createnodeinstance
+     * @see https://learn.microsoft.com/windows/win32/api//content/vidcap/nf-vidcap-ikstopologyinfo-createnodeinstance
      */
     CreateNodeInstance(dwNodeId, iid) {
-        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 }

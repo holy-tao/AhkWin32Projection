@@ -34,7 +34,11 @@ class IMFVideoRendererEffectControl extends IUnknown{
      * @returns {HRESULT} 
      */
     OnAppServiceConnectionEstablished(pAppServiceConnection) {
-        result := ComCall(3, this, "ptr", pAppServiceConnection, "HRESULT")
+        result := ComCall(3, this, "ptr", pAppServiceConnection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

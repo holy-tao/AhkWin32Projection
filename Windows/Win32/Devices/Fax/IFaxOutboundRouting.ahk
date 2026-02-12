@@ -8,10 +8,8 @@
 /**
  * The IFaxOutboundRouting interface defines a configuration object that is used by a fax client application to configure the outbound routing groups (IFaxOutboundRoutingGroups interfaces) and outbound routing rules (IFaxOutboundRoutingRules interfaces).
  * @remarks
- * 
  * A default implementation of <b>IFaxOutboundRouting</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundrouting">FaxOutboundRouting</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxoutboundrouting
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxoutboundrouting
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -44,25 +42,37 @@ class IFaxOutboundRouting extends IDispatch{
 
     /**
      * The IFaxOutboundRouting::GetGroups method retrieves an interface that represents a collection of outbound routing groups.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {IFaxOutboundRoutingGroups} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroups">IFaxOutboundRoutingGroups</a>**</b>
      * 
      * An address of a pointer that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroups">IFaxOutboundRoutingGroups</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundrouting-getgroups
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutboundrouting-getgroups
      */
     GetGroups() {
-        result := ComCall(7, this, "ptr*", &pFaxOutboundRoutingGroups := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pFaxOutboundRoutingGroups := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxOutboundRoutingGroups(pFaxOutboundRoutingGroups)
     }
 
     /**
      * The IFaxOutboundRouting::GetRules method retrieves an interface that represents a collection of outbound routing groups.
+     * @remarks
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
      * @returns {IFaxOutboundRoutingRules} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrules">IFaxOutboundRoutingRules</a>**</b>
      * 
      * An address of a pointer that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrules">IFaxOutboundRoutingRules</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundrouting-getrules
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxoutboundrouting-getrules
      */
     GetRules() {
-        result := ComCall(8, this, "ptr*", &pFaxOutboundRoutingRules := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pFaxOutboundRoutingRules := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IFaxOutboundRoutingRules(pFaxOutboundRoutingRules)
     }
 }

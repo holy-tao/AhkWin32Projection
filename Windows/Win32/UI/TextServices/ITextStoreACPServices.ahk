@@ -7,7 +7,7 @@
 
 /**
  * The ITextStoreACPServices interface is implemented by the TSF manager to provide various services to an ACP-based application.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itextstoreacpservices
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itextstoreacpservices
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,20 +34,41 @@ class ITextStoreACPServices extends IUnknown{
 
     /**
      * ITextStoreACPServices::Serialize method
+     * @remarks
+     * The property header data placed in <i>pHdr</i> is generic to all properties and must be preserved with the data written into <i>pStream</i>. This same data pair must be passed to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itextstoreacpservices-unserialize">ITextStoreACPServices::Unserialize</a> to restore the property data.
+     * 
+     * An application can save all of the properties for the entire document by performing the following steps.
+     * 
+     * <ul>
+     * <li>Enumerate all properties using <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontext-enumproperties">ITfContext::EnumProperties</a>.</li>
+     * <li>Within each property, enumerate the ranges using <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfreadonlyproperty-enumranges">ITfReadOnlyProperty::EnumRanges</a>.</li>
+     * <li>Pass the current property and range to <b>ITextStoreACPServices::Serialize</b>.</li>
+     * <li>Write the data placed in <i>pHdr</i> to the file.</li>
+     * <li>Write the data added to <i>pStream</i> to the file.</li>
+     * </ul>
+     * When calling this method, the application must be able to grant a synchronous read-only lock.
      * @param {ITfProperty} pProp Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfproperty">ITfProperty</a> interface that identifies the property to serialize.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that identifies the range that the property is obtained from.
      * @param {IStream} pStream Pointer to an <b>IStream</b> object that the TSF manager will write the property data to.
      * @returns {TF_PERSISTENT_PROPERTY_HEADER_ACP} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_persistent_property_header_acp">TF_PERSISTENT_PROPERTY_HEADER_ACP</a> structure that receives the header data for the property.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itextstoreacpservices-serialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itextstoreacpservices-serialize
      */
     Serialize(pProp, pRange, pStream) {
         pHdr := TF_PERSISTENT_PROPERTY_HEADER_ACP()
-        result := ComCall(3, this, "ptr", pProp, "ptr", pRange, "ptr", pHdr, "ptr", pStream, "HRESULT")
+        result := ComCall(3, this, "ptr", pProp, "ptr", pRange, "ptr", pHdr, "ptr", pStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHdr
     }
 
     /**
      * ITextStoreACPServices::Unserialize method
+     * @remarks
+     * If <i>pStream</i> is specified rather than <i>pLoader</i>, the property data will be read from <i>pStream</i> during the call to <b>Unserialize</b> . If <i>pLoader</i> is specified rather than <i>pStream</i>, the property data will be read from <i>pLoader</i> asynchronously. Using <i>pStream</i> can cause long delays if the property data is large.
+     * 
+     * While calling this method, the application must be able to grant a synchronous read-only lock.
      * @param {ITfProperty} pProp Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfproperty">ITfProperty</a> object that receives the property data.
      * @param {Pointer<TF_PERSISTENT_PROPERTY_HEADER_ACP>} pHdr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_persistent_property_header_acp">TF_PERSISTENT_PROPERTY_HEADER_ACP</a> structure that contains the header data for the property.
      * @param {IStream} pStream Pointer to an <b>IStream</b> object that contains the property data. This parameter can be <b>NULL</b> if <i>pLoader</i> is not <b>NULL</b>. This parameter is ignored if <i>pLoader</i> is not <b>NULL</b>.
@@ -104,15 +125,21 @@ class ITextStoreACPServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itextstoreacpservices-unserialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itextstoreacpservices-unserialize
      */
     Unserialize(pProp, pHdr, pStream, pLoader) {
-        result := ComCall(4, this, "ptr", pProp, "ptr", pHdr, "ptr", pStream, "ptr", pLoader, "HRESULT")
+        result := ComCall(4, this, "ptr", pProp, "ptr", pHdr, "ptr", pStream, "ptr", pLoader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITextStoreACPServices::ForceLoadProperty method
+     * @remarks
+     * When calling this method, the application must be able to grant a synchronous read-only lock.
      * @param {ITfProperty} pProp Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfproperty">ITfProperty</a> object that specifies the property to load.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -155,10 +182,14 @@ class ITextStoreACPServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itextstoreacpservices-forceloadproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itextstoreacpservices-forceloadproperty
      */
     ForceLoadProperty(pProp) {
-        result := ComCall(5, this, "ptr", pProp, "HRESULT")
+        result := ComCall(5, this, "ptr", pProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,10 +198,14 @@ class ITextStoreACPServices extends IUnknown{
      * @param {Integer} acpStart Contains the starting position of the range.
      * @param {Integer} acpEnd Contains the ending position of the range.
      * @returns {ITfRangeACP} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrangeacp">ITfRangeACP</a> interface pointer that receives the range object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itextstoreacpservices-createrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itextstoreacpservices-createrange
      */
     CreateRange(acpStart, acpEnd) {
-        result := ComCall(6, this, "int", acpStart, "int", acpEnd, "ptr*", &ppRange := 0, "HRESULT")
+        result := ComCall(6, this, "int", acpStart, "int", acpEnd, "ptr*", &ppRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITfRangeACP(ppRange)
     }
 }

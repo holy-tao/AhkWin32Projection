@@ -6,14 +6,12 @@
 /**
  * IShellTaskScheduler may be altered or unavailable.
  * @remarks
- * 
  * This interface does not need to be free-threaded unless the items in the queue interact with the scheduler as well as the main execution thread on which the task scheduler was created.
  * 
  * This interface's class identifier (CLSID) is CLSID_ShellTaskScheduler, and its IID is IID_IShellTaskScheduler.
  * 
  * <b>Windows Server 2003 and Windows XP:  </b><b>IShellTaskScheduler</b> was declared in Shlobj.h.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishelltaskscheduler
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ishelltaskscheduler
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,17 +44,21 @@ class IShellTaskScheduler extends IUnknown{
      * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
      * 
      * A GUID identifying the owner of the task. This information can be used to group tasks for later <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks">counting</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks">removal</a> by owner.
-     * @param {Pointer} lParam Type: <b>DWORD_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>DWORD_PTR</b>
      * 
      * A pointer to a user-defined <b>DWORD</b> value allowing the task to be identified within the tasks owned by <i>rtoid</i>. This is used to identify single tasks or to subgroup them, for instance associating the task with a particular item such as an item in a ListView. This parameter can be zero.
      * @param {Integer} dwPriority Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-addtask
      */
-    AddTask(prt, rtoid, lParam, dwPriority) {
-        result := ComCall(3, this, "ptr", prt, "ptr", rtoid, "ptr", lParam, "uint", dwPriority, "HRESULT")
+    AddTask(prt, rtoid, lParam_, dwPriority) {
+        result := ComCall(3, this, "ptr", prt, "ptr", rtoid, "ptr", lParam_, "uint", dwPriority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +67,7 @@ class IShellTaskScheduler extends IUnknown{
      * @param {Pointer<Guid>} rtoid Type: <b>REFTASKOWNERID</b>
      * 
      * A GUID identifying the owner of the tasks to remove.
-     * @param {Pointer} lParam Type: <b>DWORD_PTR</b>
+     * @param {Pointer} lParam_ Type: <b>DWORD_PTR</b>
      * 
      * A pointer to a user-defined <b>DWORD</b> value that allows the task to be identified within the tasks owned by <i>rtoid</i>. Set this value to 0 to remove all tasks for the owner specified by <i>rtoid</i>.
      * @param {BOOL} bWaitIfRunning Type: <b>BOOL</b>
@@ -73,11 +75,15 @@ class IShellTaskScheduler extends IUnknown{
      * <b>TRUE</b> if you want a currently running task to complete before removing it, <b>FALSE</b> otherwise.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-removetasks
      */
-    RemoveTasks(rtoid, lParam, bWaitIfRunning) {
-        result := ComCall(4, this, "ptr", rtoid, "ptr", lParam, "int", bWaitIfRunning, "HRESULT")
+    RemoveTasks(rtoid, lParam_, bWaitIfRunning) {
+        result := ComCall(4, this, "ptr", rtoid, "ptr", lParam_, "int", bWaitIfRunning, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,8 +94,8 @@ class IShellTaskScheduler extends IUnknown{
      * A GUID identifying the owner of the tasks. Supplying a specific ID will count only those tasks tagged with that owner ID. To count all items in the queue, pass TOID_NULL.
      * @returns {Integer} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-counttasks
      */
     CountTasks(rtoid) {
         result := ComCall(5, this, "ptr", rtoid, "uint")
@@ -106,11 +112,15 @@ class IShellTaskScheduler extends IUnknown{
      * Not used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-status
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ishelltaskscheduler-status
      */
     Status(dwReleaseStatus, dwThreadTimeout) {
-        result := ComCall(6, this, "uint", dwReleaseStatus, "uint", dwThreadTimeout, "HRESULT")
+        result := ComCall(6, this, "uint", dwReleaseStatus, "uint", dwThreadTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

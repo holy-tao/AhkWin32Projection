@@ -6,7 +6,6 @@
 /**
  * The ITfCleanupContextDurationSink interface is implemented by a text service to receive notifications when a context cleanup operation is performed.
  * @remarks
- * 
  * A context cleanup occurs when:
  * 
  * <ul>
@@ -16,9 +15,7 @@
  *             </a> is called while a context is still on the context stack.</li>
  * </ul>
  * A text service can use the notifications of this interface to prevent itself from performing any context initialization during the context cleanup operation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcleanupcontextdurationsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfcleanupcontextdurationsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -45,21 +42,43 @@ class ITfCleanupContextDurationSink extends IUnknown{
 
     /**
      * ITfCleanupContextDurationSink::OnStartCleanupContext method
+     * @remarks
+     * A context cleanup occurs when:
+     * 
+     * - The text service is deactivated while a context is still on the context stack. This can occur when the active text service is changed or when the active language changes while the text service is active.
+     * - [ITfThreadMgr::Deactivate](nf-msctf-itfthreadmgr-deactivate.md) is called while a context is still on the context stack.
+     * 
+     * [ITfCleanupContextDurationSink::OnStartCleanupContext](nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext.md) is called just before the TSF manager begins making [ITfCleanupContextSink::OnCleanupContext](nf-msctf-itfcleanupcontextsink-oncleanupcontext.md) notifications. When all of the OnCleanupContext notifications complete, the TSF manager calls **OnEndCleanupContext**.
      * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext
      */
     OnStartCleanupContext() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfCleanupContextDurationSink::OnEndCleanupContext method
+     * @remarks
+     * A context cleanup occurs when:
+     * 
+     * - The text service is deactivated while a context is still on the context stack. This can occur when the active text service is changed or when the active language changes while the text service is active.
+     * - [ITfThreadMgr::Deactivate](nf-msctf-itfthreadmgr-deactivate.md) is called while a context is still on the context stack.
+     * 
+     * [ITfCleanupContextDurationSink::OnStartCleanupContext](nf-msctf-itfcleanupcontextdurationsink-onstartcleanupcontext.md) is called just before the TSF manager begins making [ITfCleanupContextSink::OnCleanupContext](nf-msctf-itfcleanupcontextsink-oncleanupcontext.md) notifications. When all of the OnCleanupContext notifications complete, the TSF manager calls **OnEndCleanupContext**.
      * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcleanupcontextdurationsink-onendcleanupcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfcleanupcontextdurationsink-onendcleanupcontext
      */
     OnEndCleanupContext() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * IWTSProtocolLicenseConnection is no longer available. Instead, use IWRdsProtocolLicenseConnection.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwtsprotocollicenseconnection
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nn-wtsprotocol-iwtsprotocollicenseconnection
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,54 +35,74 @@ class IWTSProtocolLicenseConnection extends IUnknown{
      * IWTSProtocolLicenseConnection::RequestLicensingCapabilities is no longer available. Instead, use IWRdsProtocolLicenseConnection::RequestLicensingCapabilities.
      * @param {Pointer<Integer>} pcbLicenseCapabilities A pointer to an integer that contains the size of the structure specified by the <i>ppLicensingCapabilities</i> parameter.
      * @returns {WTS_LICENSE_CAPABILITIES} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_license_capabilities">WTS_LICENSE_CAPABILITIES</a> structure that contains information about the client license capabilities.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestlicensingcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestlicensingcapabilities
      */
     RequestLicensingCapabilities(pcbLicenseCapabilities) {
         pcbLicenseCapabilitiesMarshal := pcbLicenseCapabilities is VarRef ? "uint*" : "ptr"
 
         ppLicenseCapabilities := WTS_LICENSE_CAPABILITIES()
-        result := ComCall(3, this, "ptr", ppLicenseCapabilities, pcbLicenseCapabilitiesMarshal, pcbLicenseCapabilities, "HRESULT")
+        result := ComCall(3, this, "ptr", ppLicenseCapabilities, pcbLicenseCapabilitiesMarshal, pcbLicenseCapabilities, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppLicenseCapabilities
     }
 
     /**
      * IWTSProtocolLicenseConnection::SendClientLicense is no longer available. Instead, use IWRdsProtocolLicenseConnection::SendClientLicense.
+     * @remarks
+     * For more information about the byte arrays exchanged in this call, see <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rdpele/3d3f160a-3ab3-4dfb-ba4e-47c27cd79409">[MS-RDPELE]: Remote Desktop Protocol: Licensing Extension</a>.
      * @param {Pointer<Integer>} pClientLicense A pointer to a byte array that contains the license.
      * @param {Integer} cbClientLicense An integer that contains the size, in bytes, of the license.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>. The remote connection manager logs any errors that you return.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-sendclientlicense
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>. The remote connection manager logs any errors that you return.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-sendclientlicense
      */
     SendClientLicense(pClientLicense, cbClientLicense) {
         pClientLicenseMarshal := pClientLicense is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pClientLicenseMarshal, pClientLicense, "uint", cbClientLicense, "HRESULT")
+        result := ComCall(4, this, pClientLicenseMarshal, pClientLicense, "uint", cbClientLicense, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * IWTSProtocolLicenseConnection::RequestClientLicense is no longer available. Instead, use IWRdsProtocolLicenseConnection::RequestClientLicense.
+     * @remarks
+     * For more information about the byte arrays exchanged in this call, see <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rdpele/3d3f160a-3ab3-4dfb-ba4e-47c27cd79409">[MS-RDPELE]: Remote Desktop Protocol: Licensing Extension</a>.
      * @param {Pointer<Integer>} Reserve1 A pointer to a byte array that contains additional data that can be acted upon by the client.
      * @param {Integer} Reserve2 An integer that contains the size, in bytes, of the data specified by the <i>Reserve1</i> parameter.
      * @param {Pointer<Integer>} pcbClientLicense An integer that contains the size, in bytes, of the request specified by the <i>ppClientLicense</i> parameter.
      * @returns {Integer} A pointer to a byte array that contains the license request.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestclientlicense
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestclientlicense
      */
     RequestClientLicense(Reserve1, Reserve2, pcbClientLicense) {
         Reserve1Marshal := Reserve1 is VarRef ? "char*" : "ptr"
         pcbClientLicenseMarshal := pcbClientLicense is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, Reserve1Marshal, Reserve1, "uint", Reserve2, "char*", &ppClientLicense := 0, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
+        result := ComCall(5, this, Reserve1Marshal, Reserve1, "uint", Reserve2, "char*", &ppClientLicense := 0, pcbClientLicenseMarshal, pcbClientLicense, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppClientLicense
     }
 
     /**
      * IWTSProtocolLicenseConnection::ProtocolComplete is no longer available. Instead, use IWRdsProtocolLicenseConnection::ProtocolComplete.
      * @param {Integer} ulComplete An integer that specifies whether the licensing process ended successfully. A value of one (1) means success. All other values indicate failure.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-protocolcomplete
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-protocolcomplete
      */
     ProtocolComplete(ulComplete) {
-        result := ComCall(6, this, "uint", ulComplete, "HRESULT")
+        result := ComCall(6, this, "uint", ulComplete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

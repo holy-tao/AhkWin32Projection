@@ -11,7 +11,7 @@
  * Although **BuildDisplayTable** uses this structure to build the display table from control resources, the **DTPAGE** structure never appears in the display table itself. 
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtpage
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtpage
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

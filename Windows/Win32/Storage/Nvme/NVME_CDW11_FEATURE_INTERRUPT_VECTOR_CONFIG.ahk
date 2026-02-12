@@ -5,7 +5,7 @@
  * Contains parameters for the Interrupt Vector Configuration Feature that configures settings specific to a particular interrupt vector.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_interrupt_vector_config
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_feature_interrupt_vector_config
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

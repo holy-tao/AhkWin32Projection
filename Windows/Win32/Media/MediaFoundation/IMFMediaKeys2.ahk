@@ -33,11 +33,15 @@ class IMFMediaKeys2 extends IMFMediaKeys{
      * 
      * @param {Integer} eSessionType 
      * @param {IMFMediaKeySessionNotify2} pMFMediaKeySessionNotify2 
-     * @returns {IMFMediaKeySession2} 
+     * @returns {Pointer<IMFMediaKeySession2>} 
      */
     CreateSession2(eSessionType, pMFMediaKeySessionNotify2) {
-        result := ComCall(7, this, "int", eSessionType, "ptr", pMFMediaKeySessionNotify2, "ptr*", &ppSession := 0, "HRESULT")
-        return IMFMediaKeySession2(ppSession)
+        result := ComCall(7, this, "int", eSessionType, "ptr", pMFMediaKeySessionNotify2, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppSession
     }
 
     /**
@@ -47,7 +51,11 @@ class IMFMediaKeys2 extends IMFMediaKeys{
      * @returns {HRESULT} 
      */
     SetServerCertificate(pbServerCertificate, cb) {
-        result := ComCall(8, this, "ptr", pbServerCertificate, "uint", cb, "HRESULT")
+        result := ComCall(8, this, "ptr", pbServerCertificate, "uint", cb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +65,11 @@ class IMFMediaKeys2 extends IMFMediaKeys{
      * @returns {HRESULT} 
      */
     GetDOMException(systemCode) {
-        result := ComCall(9, this, "int", systemCode, "int*", &code := 0, "HRESULT")
+        result := ComCall(9, this, "int", systemCode, "int*", &code := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return code
     }
 }

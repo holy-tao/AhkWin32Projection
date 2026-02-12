@@ -12,7 +12,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icolumndata-setcolumnconfigdata">IColumnData::SetColumnConfigData</a> method.
  * 
  * The user can hide columns using the Choose Columns dialog.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_sort_set_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-mmc_sort_set_data
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

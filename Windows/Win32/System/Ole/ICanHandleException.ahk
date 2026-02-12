@@ -35,7 +35,11 @@ class ICanHandleException extends IUnknown{
      * @returns {HRESULT} 
      */
     CanHandleException(pExcepInfo, pvar) {
-        result := ComCall(3, this, "ptr", pExcepInfo, "ptr", pvar, "HRESULT")
+        result := ComCall(3, this, "ptr", pExcepInfo, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -47,13 +47,17 @@ class IGPMDomain3 extends IGPMDomain2{
 
     /**
      * 
-     * @param {Integer} gpmReportType 
+     * @param {Integer} gpmReportType_ 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
      * @returns {IGPMResult} 
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
-        result := ComCall(23, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+    GenerateReport(gpmReportType_, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(23, this, "int", gpmReportType_, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMResult(ppIGPMResult)
     }
 
@@ -63,7 +67,11 @@ class IGPMDomain3 extends IGPMDomain2{
      */
     get_InfrastructureDC() {
         pVal := BSTR()
-        result := ComCall(24, this, "ptr", pVal, "HRESULT")
+        result := ComCall(24, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -73,9 +81,16 @@ class IGPMDomain3 extends IGPMDomain2{
      * @returns {HRESULT} 
      */
     put_InfrastructureDC(newVal) {
-        newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
+        if(newVal is String) {
+            pin := BSTR.Alloc(newVal)
+            newVal := pin.Value
+        }
 
-        result := ComCall(25, this, "ptr", newVal, "HRESULT")
+        result := ComCall(25, this, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +100,11 @@ class IGPMDomain3 extends IGPMDomain2{
      * @returns {HRESULT} 
      */
     put_InfrastructureFlags(dwFlags) {
-        result := ComCall(26, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(26, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

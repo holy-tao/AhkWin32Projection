@@ -9,7 +9,7 @@
  * The following image shows the numbering of control points on a tensor grid.
  * 
  * <img alt="Number of control points on a tensor grid" src="./images/tensorpatch.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

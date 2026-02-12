@@ -3,7 +3,7 @@
 
 /**
  * Represents the information for a synchronization provider configuration UI.
- * @see https://learn.microsoft.com/windows/win32/api/syncregistration/ns-syncregistration-syncproviderconfiguiconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncregistration/ns-syncregistration-syncproviderconfiguiconfiguration
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */

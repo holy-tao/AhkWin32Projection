@@ -38,10 +38,20 @@ class IElementBehaviorFactory extends IUnknown{
      * @returns {IElementBehavior} 
      */
     FindBehavior(bstrBehavior, bstrBehaviorUrl, pSite) {
-        bstrBehavior := bstrBehavior is String ? BSTR.Alloc(bstrBehavior).Value : bstrBehavior
-        bstrBehaviorUrl := bstrBehaviorUrl is String ? BSTR.Alloc(bstrBehaviorUrl).Value : bstrBehaviorUrl
+        if(bstrBehavior is String) {
+            pin := BSTR.Alloc(bstrBehavior)
+            bstrBehavior := pin.Value
+        }
+        if(bstrBehaviorUrl is String) {
+            pin := BSTR.Alloc(bstrBehaviorUrl)
+            bstrBehaviorUrl := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrBehavior, "ptr", bstrBehaviorUrl, "ptr", pSite, "ptr*", &ppBehavior := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrBehavior, "ptr", bstrBehaviorUrl, "ptr", pSite, "ptr*", &ppBehavior := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IElementBehavior(ppBehavior)
     }
 }

@@ -33,19 +33,27 @@ class IAttachmentExecute2 extends IAttachmentExecute{
      * @returns {HRESULT} 
      */
     SaveNoVirusCheck() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {HRESULT} 
      */
-    SaveWithUINoVirusCheck(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SaveWithUINoVirusCheck(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(16, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(16, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

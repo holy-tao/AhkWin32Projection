@@ -6,7 +6,6 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
  * @remarks
- * 
  * To obtain a pointer to this interface, do the following:
  * 
  * <ol>
@@ -14,9 +13,7 @@
  * <li>Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecorddescriptorbytag">IATSC_EIT::GetRecordDescriptorByTag</a> and pass in the content advisory descriptor tag (0x87). If the descriptor is present, the method returns an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> pointer.</li>
  * <li>Query the returned <b>IGenericDescriptor</b> pointer for the <b>IAtscContentAdvisoryDescriptor</b> interface.</li>
  * </ol>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nn-atscpsipparser-iatsccontentadvisorydescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nn-atscpsipparser-iatsccontentadvisorydescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -44,30 +41,42 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the descriptor tag.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the length of the descriptor body, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {Integer} Receives the rating_region_count field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount
      */
     GetRatingRegionCount() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -75,10 +84,14 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} bIndex Zero-based index of the rating region. To get the number of rating regions, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount">IAtscContentAdvisoryDescriptor::GetRatingRegionCount</a>.
      * @returns {Integer} Receives the rating_region field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingregion
      */
     GetRecordRatingRegion(bIndex) {
-        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -86,10 +99,14 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @param {Integer} bIndex Zero-based index of the rating region. To get the number of rating regions, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount">IAtscContentAdvisoryDescriptor::GetRatingRegionCount</a>.
      * @returns {Integer} Receives the rated_dimensions field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions
      */
     GetRecordRatedDimensions(bIndex) {
-        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -98,10 +115,14 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @param {Integer} bIndexOuter Zero-based index of the rating region. To get the number of rating regions, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount">IAtscContentAdvisoryDescriptor::GetRatingRegionCount</a>.
      * @param {Integer} bIndexInner Zero-based index of the rating dimension. To get the number of rating dimensions, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions">IAtscContentAdvisoryDescriptor::GetRecordRatedDimensions</a>.
      * @returns {Integer} Receives the rating_dimension_j field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdimension
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdimension
      */
     GetRecordRatingDimension(bIndexOuter, bIndexInner) {
-        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -110,10 +131,14 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * @param {Integer} bIndexOuter Zero-based index of the rating region. To get the number of rating regions, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount">IAtscContentAdvisoryDescriptor::GetRatingRegionCount</a>.
      * @param {Integer} bIndexInner Zero-based index of the rating dimension. To get the number of rating dimensions, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions">IAtscContentAdvisoryDescriptor::GetRecordRatedDimensions</a>.
      * @returns {Integer} Receives the rating_value field
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingvalue
      */
     GetRecordRatingValue(bIndexOuter, bIndexInner) {
-        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -152,13 +177,17 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdescriptiontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdescriptiontext
      */
     GetRecordRatingDescriptionText(bIndex, pbLength, ppText) {
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
         ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "char", bIndex, pbLengthMarshal, pbLength, ppTextMarshal, ppText, "HRESULT")
+        result := ComCall(10, this, "char", bIndex, pbLengthMarshal, pbLength, ppTextMarshal, ppText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class ICorProfilerFunctionControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCodegenFlags(flags) {
-        result := ComCall(3, this, "uint", flags, "HRESULT")
+        result := ComCall(3, this, "uint", flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ICorProfilerFunctionControl extends IUnknown{
     SetILFunctionBody(cbNewILMethodHeader, pbNewILMethodHeader) {
         pbNewILMethodHeaderMarshal := pbNewILMethodHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", cbNewILMethodHeader, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "HRESULT")
+        result := ComCall(4, this, "uint", cbNewILMethodHeader, pbNewILMethodHeaderMarshal, pbNewILMethodHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +66,11 @@ class ICorProfilerFunctionControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetILInstrumentedCodeMap(cILMapEntries, rgILMapEntries) {
-        result := ComCall(5, this, "uint", cILMapEntries, "ptr", rgILMapEntries, "HRESULT")
+        result := ComCall(5, this, "uint", cILMapEntries, "ptr", rgILMapEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

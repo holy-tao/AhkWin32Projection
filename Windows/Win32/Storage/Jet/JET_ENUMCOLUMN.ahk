@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * Learn more about: JET_ENUMCOLUMN class
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-enumcolumn-class
+ * Describes the JET_ENUMCOLUMN structure and provides its members, requirements, and related articles.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-enumcolumn-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

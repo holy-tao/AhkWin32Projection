@@ -5,7 +5,7 @@
 
 /**
  * Docks an application window to the bottom of a monitor when a Windows Store app is visible and not snapped, or when the launcher is visible.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iaccessibilitydockingservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-iaccessibilitydockingservice
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,76 +37,42 @@ class IAccessibilityDockingService extends IUnknown{
     static VTableNames => ["GetAvailableSize", "DockWindow", "UndockWindow"]
 
     /**
-     * Retrieves the dimensions available on a specific screen for displaying an accessibility window.
-     * @param {HMONITOR} hMonitor Type: <b>HMONITOR</b>
+     * Gets the dimensions available for docking an accessibility window on a monitor.
+     * @remarks
+     * Accessibility windows can only be docked to a monitor that has at least 768 vertical screen pixels. This API will not allow such windows to be docked with a height that would cause Windows Store apps to have less than 768 vertical screen pixels.
+     * @param {HMONITOR} hMonitor_ Specifies the monitor for which the available docking size will be retrieved.
+     * @param {Pointer<Integer>} pcxFixed 
+     * @param {Pointer<Integer>} pcyMax 
+     * @returns {HRESULT} | Return code                                                                                                                          | Description                                                                      |
+     * |--------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl>                                                 | Success.<br/>                                                              |
+     * | <dl> <dt>**HRESULT\_FROM\_WIN32(ERROR\_INVALID\_MONITOR\_HANDLE)**</dt> </dl> | The monitor specified by the monitor handle does not support docking.<br/> |
      * 
-     * The handle of the monitor whose available docking size is to be retrieved. For information on how to retrieve an <b>HMONITOR</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>.
-     * @param {Pointer<Integer>} pcxFixed Type: <b>UINT*</b>
      * 
-     * When this method returns successfully, this parameter receives the fixed width, in physical pixels, available for docking on the specified monitor. Any window docked to this monitor will be sized to this width.
      * 
-     *                         
+     *  
      * 
-     * If the method fails, this value is set to 0.
-     * 
-     * If this value is <b>NULL</b>, an access violation will occur.
-     * @param {Pointer<Integer>} pcyMax Type: <b>UINT*</b>
-     * 
-     * When this method returns successfully, this parameter receives the maximum height, in physical pixels, available for a docked window on the specified monitor.
-     * 
-     *                         
-     * 
-     * If the method fails, this value is set to 0.
-     * 
-     * If this value is <b>NULL</b>, an access violation will occur.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns a standard return value, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_MONITOR_HANDLE)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The monitor specified by <i>hMonitor</i> does not support docking.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibilitydockingservice-getavailablesize
+     * If either *puMaxHeight* or *puFixedWidth* are null, an access violation will occur.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/com/iaccessibilitydockingservice-getavailablesize
      */
-    GetAvailableSize(hMonitor, pcxFixed, pcyMax) {
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    GetAvailableSize(hMonitor_, pcxFixed, pcyMax) {
+        hMonitor_ := hMonitor_ is Win32Handle ? NumGet(hMonitor_, "ptr") : hMonitor_
 
         pcxFixedMarshal := pcxFixed is VarRef ? "uint*" : "ptr"
         pcyMaxMarshal := pcyMax is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hMonitor, pcxFixedMarshal, pcxFixed, pcyMaxMarshal, pcyMax, "HRESULT")
+        result := ComCall(3, this, "ptr", hMonitor_, pcxFixedMarshal, pcxFixed, pcyMaxMarshal, pcyMax, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Docks the specified window handle to the specified monitor handle.
-     * @param {HWND} hwnd The accessibility application window that will be docked on the passed monitor handle.
-     * @param {HMONITOR} hMonitor The monitor on which the accessibility application window will be docked.
+     * @param {HWND} hwnd_ The accessibility application window that will be docked on the passed monitor handle.
+     * @param {HMONITOR} hMonitor_ The monitor on which the accessibility application window will be docked.
      * @param {Integer} cyRequested TBD
      * @param {IAccessibilityDockingServiceCallback} pCallback The callback pointer on which the accessibility application will receive the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iaccessibilitydockingservice-undockwindow">Undock</a> notification.
      * @returns {HRESULT} This method can return one of these values.
@@ -167,7 +133,7 @@ class IAccessibilityDockingService extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The requested <i>uHeight</i> is larger than the maximum allowed docking height for the specified monitor. However, if this error code is being returned, it means that this monitor does support docking, though at a height indicated by a call to the <a href="/windows/desktop/com/iaccessibilitydockingservice-getavailablesize">GetAvailableSize</a> method.
+     * The requested <i>uHeight</i> is larger than the maximum allowed docking height for the specified monitor. However, if this error code is being returned, it means that this monitor does support docking, though at a height indicated by a call to the <a href="https://docs.microsoft.com/windows/desktop/com/iaccessibilitydockingservice-getavailablesize">GetAvailableSize</a> method.
      * 
      * </td>
      * </tr>
@@ -183,19 +149,25 @@ class IAccessibilityDockingService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibilitydockingservice-dockwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iaccessibilitydockingservice-dockwindow
      */
-    DockWindow(hwnd, hMonitor, cyRequested, pCallback) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+    DockWindow(hwnd_, hMonitor_, cyRequested, pCallback) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        hMonitor_ := hMonitor_ is Win32Handle ? NumGet(hMonitor_, "ptr") : hMonitor_
 
-        result := ComCall(4, this, "ptr", hwnd, "ptr", hMonitor, "uint", cyRequested, "ptr", pCallback, "HRESULT")
+        result := ComCall(4, this, "ptr", hwnd_, "ptr", hMonitor_, "uint", cyRequested, "ptr", pCallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Undocks the specified window handle if it is currently docked.
-     * @param {HWND} hwnd TBD
+     * @remarks
+     * This method can only be used to undock windows that belong to the calling process.
+     * @param {HWND} hwnd_ TBD
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -237,12 +209,16 @@ class IAccessibilityDockingService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibilitydockingservice-undockwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-iaccessibilitydockingservice-undockwindow
      */
-    UndockWindow(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    UndockWindow(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(5, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(5, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

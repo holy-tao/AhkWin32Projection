@@ -34,14 +34,14 @@ class IDebugHostSymbolsTargetComposition extends IUnknown{
      * @param {Pointer<IDebugServiceManager>} pServiceManager 
      * @param {Pointer<ISvcModule>} pModule 
      * @param {Pointer<ISvcSymbolType>} pType 
-     * @returns {IDebugHostType} 
+     * @returns {Pointer<IDebugHostType>} 
      */
     GetTypeForServiceType(pServiceManager, pModule, pType) {
-        pServiceManagerMarshal := pServiceManager is VarRef ? "ptr*" : "ptr"
-        pModuleMarshal := pModule is VarRef ? "ptr*" : "ptr"
-        pTypeMarshal := pType is VarRef ? "ptr*" : "ptr"
+        result := ComCall(3, this, "ptr", pServiceManager, "ptr", pModule, "ptr", pType, "ptr*", &ppHostType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
 
-        result := ComCall(3, this, pServiceManagerMarshal, pServiceManager, pModuleMarshal, pModule, pTypeMarshal, pType, "ptr*", &ppHostType := 0, "HRESULT")
-        return IDebugHostType(ppHostType)
+        return ppHostType
     }
 }

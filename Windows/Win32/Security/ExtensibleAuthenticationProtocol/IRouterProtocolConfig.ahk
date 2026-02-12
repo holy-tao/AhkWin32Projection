@@ -33,17 +33,21 @@ class IRouterProtocolConfig extends IUnknown{
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pRouter 
      * @param {Pointer} uReserved1 
      * @returns {HRESULT} 
      */
-    AddProtocol(pszMachineName, dwTransportId, dwProtocolId, hWnd, dwFlags, pRouter, uReserved1) {
+    AddProtocol(pszMachineName, dwTransportId, dwProtocolId, hWnd_, dwFlags, pRouter, uReserved1) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
+        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", hWnd_, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,17 +56,21 @@ class IRouterProtocolConfig extends IUnknown{
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwTransportId 
      * @param {Integer} dwProtocolId 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Integer} dwFlags 
      * @param {IUnknown} pRouter 
      * @param {Pointer} uReserved1 
      * @returns {HRESULT} 
      */
-    RemoveProtocol(pszMachineName, dwTransportId, dwProtocolId, hWnd, dwFlags, pRouter, uReserved1) {
+    RemoveProtocol(pszMachineName, dwTransportId, dwProtocolId, hWnd_, dwFlags, pRouter, uReserved1) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(4, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", hWnd, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "HRESULT")
+        result := ComCall(4, this, "ptr", pszMachineName, "uint", dwTransportId, "uint", dwProtocolId, "ptr", hWnd_, "uint", dwFlags, "ptr", pRouter, "ptr", uReserved1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

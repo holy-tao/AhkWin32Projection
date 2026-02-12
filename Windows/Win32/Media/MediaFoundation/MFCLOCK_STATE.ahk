@@ -3,7 +3,7 @@
 
 /**
  * Defines the state of a clock.
- * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfclock_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/ne-mfidl-mfclock_state
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -8,7 +8,7 @@
 
 /**
  * Manages invitation objects.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiinvitationmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiinvitationmanager
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -56,10 +56,14 @@ class IRDPSRAPIInvitationManager extends IDispatch{
     /**
      * An enumerator interface for the invitation collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
@@ -67,20 +71,28 @@ class IRDPSRAPIInvitationManager extends IDispatch{
      * An item in the invitation collection.
      * @param {VARIANT} item 
      * @returns {IRDPSRAPIInvitation} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_item
      */
     get_Item(item) {
-        result := ComCall(8, this, "ptr", item, "ptr*", &ppInvitation := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", item, "ptr*", &ppInvitation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIInvitation(ppInvitation)
     }
 
     /**
      * The number of invitations in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
@@ -101,14 +113,27 @@ class IRDPSRAPIInvitationManager extends IDispatch{
      * @returns {IRDPSRAPIInvitation} Type: <b>IRDPSRAPIInvitation**</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapiinvitation">IRDPSRAPIInvitation</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation
      */
     CreateInvitation(bstrAuthString, bstrGroupName, bstrPassword, AttendeeLimit) {
-        bstrAuthString := bstrAuthString is String ? BSTR.Alloc(bstrAuthString).Value : bstrAuthString
-        bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
+        if(bstrAuthString is String) {
+            pin := BSTR.Alloc(bstrAuthString)
+            bstrAuthString := pin.Value
+        }
+        if(bstrGroupName is String) {
+            pin := BSTR.Alloc(bstrGroupName)
+            bstrGroupName := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrAuthString, "ptr", bstrGroupName, "ptr", bstrPassword, "int", AttendeeLimit, "ptr*", &ppInvitation := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrAuthString, "ptr", bstrGroupName, "ptr", bstrPassword, "int", AttendeeLimit, "ptr*", &ppInvitation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIInvitation(ppInvitation)
     }
 }

@@ -6,8 +6,7 @@
 /**
  * Provides a method for restoring a file from a backup store containing copies of Data Deduplication reparse points, metadata, and container files.
  * @remarks
- * 
- *  A backup application uses the 
+ * A backup application uses the 
  *      <b>IDedupBackupSupport</b> interface to drive the restore 
  *      process for a select file from a backup store that contains the fully optimized version of the file (reparse 
  *      point) and the Data Deduplication store.
@@ -17,9 +16,7 @@
  * Applications that use the <b>IDedupBackupSupport</b> 
  *      interface must also implement the 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nn-ddpbackup-idedupreadfilecallback">IDedupReadFileCallback</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nn-ddpbackup-idedupbackupsupport
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddpbackup/nn-ddpbackup-idedupbackupsupport
  * @namespace Windows.Win32.Storage.DataDeduplication
  * @version v4.0.30319
  */
@@ -52,6 +49,11 @@ class IDedupBackupSupport extends IUnknown{
 
     /**
      * Reconstructs a set of files from a backup store that contains the fully optimized version of the files (reparse points) and the Data Deduplication store.
+     * @remarks
+     * The <i>Store</i> parameter is required because the restore engine (implemented by Data 
+     *     Deduplication) can read data from the backup media only by calling the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nf-ddpbackup-idedupreadfilecallback-readbackupfile">IDedupReadFileCallback::ReadBackupFile</a> 
+     *     method.
      * @param {Integer} NumberOfFiles The number of files to restore. If this exceeds 10,000 then the method will fail with 
      *       <b>E_INVALIDARG</b> (0x80070057).
      * @param {Pointer<BSTR>} FileFullPaths For each file, this parameter contains the full path from the root directory of the volume to the reparse 
@@ -64,10 +66,14 @@ class IDedupBackupSupport extends IUnknown{
      *        enumeration.
      * @returns {HRESULT} For each file, this parameter contains the results of the restore operation for that file. This parameter 
      *       is optional and can be <b>NULL</b> if the application doesn't need to know the results for each individual file.
-     * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
      */
     RestoreFiles(NumberOfFiles, FileFullPaths, Store, Flags) {
-        result := ComCall(3, this, "uint", NumberOfFiles, "ptr", FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "HRESULT")
+        result := ComCall(3, this, "uint", NumberOfFiles, "ptr", FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FileResults
     }
 }

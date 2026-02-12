@@ -18,7 +18,7 @@
  * <b>USER_INFO_3</b> structure with the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a>,
  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a>, and
  * 			<a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> functions on Windows XP and later.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_3
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/ns-lmaccess-user_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

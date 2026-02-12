@@ -27,7 +27,7 @@
  * 10 or more milliseconds). Therefore, CPU usage numbers cannot be used to account
  * for CPU time usage among threads with high accuracy. Rather, they are suitable
  * for long term, statistical type of analysis.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-event_trace_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

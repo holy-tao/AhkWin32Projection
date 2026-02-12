@@ -6,7 +6,7 @@
 
 /**
  * The IWMWriterPostViewCallback interface manages the receiving of uncompressed samples from the writer. Postview can be used only for video streams.This interface must be implemented by the application and passed to IWMWriterPostView::SetPostViewCallback.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmwriterpostviewcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmwriterpostviewcallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IWMWriterPostViewCallback extends IWMStatusCallback{
 
     /**
      * The OnPostViewSample method is called when new postview data is available. The application implements this method.
+     * @remarks
+     * Postview data is available only for video.
      * @param {Integer} wStreamNumber <b>WORD</b> containing the stream number.
      * @param {Integer} cnsSampleTime Sample time, in 100-nanosecond units.
      * @param {Integer} cnsSampleDuration Sample duration, in 100-nanosecond units. This will usually be 10000 (1 millisecond).
@@ -62,15 +64,19 @@ class IWMWriterPostViewCallback extends IWMStatusCallback{
      * <td>Some data has been lost between the previous sample and the sample with this flag set.</td>
      * </tr>
      * </table>
-     * @param {INSSBuffer} pSample Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object that contains the sample.
+     * @param {INSSBuffer} pSample Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on an object that contains the sample.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application.
      * @returns {HRESULT} This method is implemented by the application. It should return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-onpostviewsample
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-onpostviewsample
      */
     OnPostViewSample(wStreamNumber, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ushort", wStreamNumber, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(4, this, "ushort", wStreamNumber, "uint", cnsSampleTime, "uint", cnsSampleDuration, "uint", dwFlags, "ptr", pSample, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,13 +85,17 @@ class IWMWriterPostViewCallback extends IWMStatusCallback{
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @param {Integer} cbBuffer Size of <i>ppBuffer</i>, in bytes.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application.
-     * @returns {INSSBuffer} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-allocateforpostview
+     * @returns {INSSBuffer} Pointer to a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-allocateforpostview
      */
     AllocateForPostView(wStreamNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INSSBuffer(ppBuffer)
     }
 }

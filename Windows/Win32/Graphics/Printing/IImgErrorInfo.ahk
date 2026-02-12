@@ -36,7 +36,11 @@ class IImgErrorInfo extends IErrorInfo{
      */
     GetDeveloperDescription() {
         pbstrDevDescription := BSTR()
-        result := ComCall(8, this, "ptr", pbstrDevDescription, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrDevDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDevDescription
     }
 
@@ -46,7 +50,11 @@ class IImgErrorInfo extends IErrorInfo{
      */
     GetUserErrorId() {
         pErrorId := Guid()
-        result := ComCall(9, this, "ptr", pErrorId, "HRESULT")
+        result := ComCall(9, this, "ptr", pErrorId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pErrorId
     }
 
@@ -55,7 +63,11 @@ class IImgErrorInfo extends IErrorInfo{
      * @returns {Integer} 
      */
     GetUserParameterCount() {
-        result := ComCall(10, this, "uint*", &pcUserParams := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pcUserParams := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcUserParams
     }
 
@@ -66,7 +78,11 @@ class IImgErrorInfo extends IErrorInfo{
      */
     GetUserParameter(cParam) {
         pbstrParam := BSTR()
-        result := ComCall(11, this, "uint", cParam, "ptr", pbstrParam, "HRESULT")
+        result := ComCall(11, this, "uint", cParam, "ptr", pbstrParam, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrParam
     }
 
@@ -76,7 +92,11 @@ class IImgErrorInfo extends IErrorInfo{
      */
     GetUserFallback() {
         pbstrFallback := BSTR()
-        result := ComCall(12, this, "ptr", pbstrFallback, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrFallback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFallback
     }
 
@@ -85,7 +105,11 @@ class IImgErrorInfo extends IErrorInfo{
      * @returns {Integer} 
      */
     GetExceptionId() {
-        result := ComCall(13, this, "uint*", &pExceptionId := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pExceptionId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pExceptionId
     }
 
@@ -95,7 +119,11 @@ class IImgErrorInfo extends IErrorInfo{
      */
     DetachErrorInfo() {
         pErrorInfo := ImgErrorInfo()
-        result := ComCall(14, this, "ptr", pErrorInfo, "HRESULT")
+        result := ComCall(14, this, "ptr", pErrorInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pErrorInfo
     }
 }

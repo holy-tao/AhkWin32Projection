@@ -6,13 +6,10 @@
 /**
  * Describes a geometric path that does not contain quadratic bezier curves or arcs.
  * @remarks
- * 
  * A geometry sink consists of one or more figures. Each figure is made up of one or more line or Bezier curve segments. To create a figure, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a> method and specify the figure's start point, then use <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addlines">AddLines</a> and <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addbeziers">AddBeziers</a> to add line and Bezier segments. When you are finished adding segments, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-endfigure">EndFigure</a> method. You can repeat this sequence to create additional figures. When you are finished creating figures, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-close">Close</a> method.
  * 
  * To create geometry paths that can contain arcs and quadratic Bezier curves, use an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrysink">ID2D1GeometrySink</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1simplifiedgeometrysink
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nn-d2d1-id2d1simplifiedgeometrysink
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */
@@ -40,32 +37,26 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
     /**
      * Specifies the method used to determine which points are inside the geometry described by this geometry sink and which points are outside.
      * @remarks
-     * 
      * The fill mode defaults to D2D1_FILL_MODE_ALTERNATE. To set the fill mode, call <b>SetFillMode</b> before the first call to <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>. Not doing will put the geometry sink in an error state.
-     * 
-     * 
-     * @param {Integer} fillMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
+     * @param {Integer} fillMode_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
      * 
      * The method used to determine whether a given point is part of the geometry.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode
      */
-    SetFillMode(fillMode) {
-        ComCall(3, this, "int", fillMode)
+    SetFillMode(fillMode_) {
+        ComCall(3, this, "int", fillMode_)
     }
 
     /**
      * Specifies stroke and join options to be applied to new segments added to the geometry sink.
      * @remarks
-     * 
      * After this method is called, the specified segment flags are applied to each segment subsequently added to the sink. The segment flags are applied to every additional segment until this method is called again and a different set of segment flags is specified.
-     * 
-     * 
      * @param {Integer} vertexFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_path_segment">D2D1_PATH_SEGMENT</a></b>
      * 
      * Stroke and join options to be applied to new segments added to the geometry sink.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setsegmentflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setsegmentflags
      */
     SetSegmentFlags(vertexFlags) {
         ComCall(4, this, "int", vertexFlags)
@@ -74,11 +65,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
     /**
      * Starts a new figure at the specified point.
      * @remarks
-     * 
      * If this method is called while a figure is currently in progress, the interface is invalidated and all future methods will fail.
-     * 
-     * 
-     * 
      * @param {D2D_POINT_2F} startPoint Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The point at which to begin the new figure.
@@ -86,7 +73,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * 
      * Whether the new figure should be hollow or filled.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure
      */
     BeginFigure(startPoint, figureBegin) {
         ComCall(5, this, "ptr", startPoint, "int", figureBegin)
@@ -94,17 +81,17 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
 
     /**
      * Creates a sequence of lines using the specified points and adds them to the geometry sink.
-     * @param {Pointer<D2D_POINT_2F>} points Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
+     * @param {Pointer<D2D_POINT_2F>} points_ Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
      * 
      * A pointer to an array of one or more points that describe the lines to draw. A line is drawn from the geometry sink's current point (the end point of the last segment drawn or the location specified by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>) to the first point in the array. if the array contains additional points, a line is drawn from the first point to the second point in the array, from the second point to the third point, and so on.
      * @param {Integer} pointsCount Type: <b>UINT</b>
      * 
      * The number of points in the <i>points</i> array.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addlines
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addlines
      */
-    AddLines(points, pointsCount) {
-        ComCall(6, this, "ptr", points, "uint", pointsCount)
+    AddLines(points_, pointsCount) {
+        ComCall(6, this, "ptr", points_, "uint", pointsCount)
     }
 
     /**
@@ -116,7 +103,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * 
      * The number of Bezier segments in the <i>beziers</i> array.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addbeziers
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-addbeziers
      */
     AddBeziers(beziers, beziersCount) {
         ComCall(7, this, "ptr", beziers, "uint", beziersCount)
@@ -125,16 +112,12 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
     /**
      * Ends the current figure; optionally, closes it.
      * @remarks
-     * 
      * Calling this method without a matching call to <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>  places the geometry sink in an error state; subsequent calls are ignored, and the overall failure will be returned when the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-close">Close</a> method is called.
-     * 
-     * 
-     * 
      * @param {Integer} figureEnd Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_end">D2D1_FIGURE_END</a></b>
      * 
      * A value that indicates whether the current figure is closed. If the figure is closed, a line is drawn between the current point and the start point specified by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-endfigure
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-endfigure
      */
     EndFigure(figureEnd) {
         ComCall(8, this, "int", figureEnd)
@@ -142,13 +125,21 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
 
     /**
      * Closes the geometry sink, indicates whether it is in an error state, and resets the sink's error state.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @remarks
+     * Do not close the geometry sink while a figure is still in progress; doing so puts the geometry sink in an error state. For the close operation to be successful, there must be one <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-endfigure">EndFigure</a> call for each call to <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>.
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1simplifiedgeometrysink-close
+     * After calling this method, the geometry sink might not be usable. Direct2D implementations of this interface do not allow the geometry sink to be modified after it is closed, but other implementations might not impose this restriction.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-close
      */
     Close() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -32,7 +32,7 @@ class Direct3D11 {
      * @returns {Pointer<IInspectable>} Type: **[IInspectable](/windows/desktop/api/inspectable/nn-inspectable-iinspectable)\*\***
      * 
      * A Direct3DDevice instance that wraps the DXGIDevice.
-     * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11devicefromdxgidevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11devicefromdxgidevice
      */
     static CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice) {
         result := DllCall("d3d11.dll\CreateDirect3D11DeviceFromDXGIDevice", "ptr", dxgiDevice, "ptr*", &graphicsDevice := 0, "int")
@@ -61,7 +61,7 @@ class Direct3D11 {
      * @returns {Pointer<IInspectable>} Type: **[IInspectable](/windows/desktop/api/inspectable/nn-inspectable-iinspectable)\*\***
      * 
      * An [IDirect3DSurface](/uwp/api/windows.graphics.directx.direct3d11.idirect3dsurface) instance that wraps the [IDXGISurface](/windows/desktop/api/dxgi/nn-dxgi-idxgisurface).
-     * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11surfacefromdxgisurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11surfacefromdxgisurface
      */
     static CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface) {
         result := DllCall("d3d11.dll\CreateDirect3D11SurfaceFromDXGISurface", "ptr", dgxiSurface, "ptr*", &graphicsSurface := 0, "int")

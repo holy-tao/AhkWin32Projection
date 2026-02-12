@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
@@ -166,107 +168,107 @@ class Dialogs {
     static WM_CHOOSEFONT_SETFLAGS => 1126
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LBSELCHSTRINGA => "commdlg_LBSelChangedNotify"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SHAREVISTRINGA => "commdlg_ShareViolation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FILEOKSTRINGA => "commdlg_FileNameOK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COLOROKSTRINGA => "commdlg_ColorOK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SETRGBSTRINGA => "commdlg_SetRGBColor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HELPMSGSTRINGA => "commdlg_help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FINDMSGSTRINGA => "commdlg_FindReplace"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LBSELCHSTRINGW => "commdlg_LBSelChangedNotify"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SHAREVISTRINGW => "commdlg_ShareViolation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FILEOKSTRINGW => "commdlg_FileNameOK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COLOROKSTRINGW => "commdlg_ColorOK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SETRGBSTRINGW => "commdlg_SetRGBColor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HELPMSGSTRINGW => "commdlg_help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FINDMSGSTRINGW => "commdlg_FindReplace"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LBSELCHSTRING => "commdlg_LBSelChangedNotify"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SHAREVISTRING => "commdlg_ShareViolation"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FILEOKSTRING => "commdlg_FileNameOK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static COLOROKSTRING => "commdlg_ColorOK"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static SETRGBSTRING => "commdlg_SetRGBColor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HELPMSGSTRING => "commdlg_help"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static FINDMSGSTRING => "commdlg_FindReplace"
 
@@ -533,7 +535,7 @@ class Dialogs {
      * If the user specifies a file name and clicks the <b>OK</b> button, the return value is nonzero. The buffer pointed to by the <b>lpstrFile</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure contains the full path and file name specified by the user.
      * 
      * If the user cancels or closes the <b>Open</b> dialog box or an error occurs, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function, which can return one of the following values.
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getopenfilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-getopenfilenamea
      * @since windows5.0
      */
     static GetOpenFileNameA(param0) {
@@ -562,7 +564,7 @@ class Dialogs {
      * If the user specifies a file name and clicks the <b>OK</b> button, the return value is nonzero. The buffer pointed to by the <b>lpstrFile</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure contains the full path and file name specified by the user.
      * 
      * If the user cancels or closes the <b>Open</b> dialog box or an error occurs, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function, which can return one of the following values.
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getopenfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-getopenfilenamew
      * @since windows5.0
      */
     static GetOpenFileNameW(param0) {
@@ -585,7 +587,7 @@ class Dialogs {
      * 
      * If the user cancels or closes the 
      * 						<b>Save</b> dialog box or an error such as the file name buffer being too small occurs, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function, which can return one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getsavefilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-getsavefilenamea
      * @since windows5.0
      */
     static GetSaveFileNameA(param0) {
@@ -608,7 +610,7 @@ class Dialogs {
      * 
      * If the user cancels or closes the 
      * 						<b>Save</b> dialog box or an error such as the file name buffer being too small occurs, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function, which can return one of the following values:
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getsavefilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-getsavefilenamew
      * @since windows5.0
      */
     static GetSaveFileNameW(param0) {
@@ -648,7 +650,7 @@ class Dialogs {
      * If the file name is invalid, the return value is unknown. If there is an error, the return value is a negative number.
      * 
      * If the buffer pointed to by the <i>lpszTitle</i> parameter is too small, the return value is a positive integer that specifies the required buffer size, in characters. The required buffer size includes the terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getfiletitlea
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-getfiletitlea
      * @since windows5.0
      */
     static GetFileTitleA(param0, Buf, cchSize) {
@@ -691,7 +693,7 @@ class Dialogs {
      * If the file name is invalid, the return value is unknown. If there is an error, the return value is a negative number.
      * 
      * If the buffer pointed to by the <i>lpszTitle</i> parameter is too small, the return value is a positive integer that specifies the required buffer size, in characters. The required buffer size includes the terminating null character.
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-getfiletitlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-getfiletitlew
      * @since windows5.0
      */
     static GetFileTitleW(param0, Buf, cchSize) {
@@ -716,7 +718,7 @@ class Dialogs {
      * Wide string version of ChooseColor
      * @param {Pointer<CHOOSECOLORW>} param0 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-choosecolorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-choosecolorw
      */
     static ChooseColorW(param0) {
         result := DllCall("COMDLG32.dll\ChooseColorW", "ptr", param0, "int")
@@ -739,7 +741,7 @@ class Dialogs {
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function. <b>CommDlgExtendedError</b> may return one of the following error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-findtexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-findtexta
      * @since windows5.0
      */
     static FindTextA(param0) {
@@ -764,7 +766,7 @@ class Dialogs {
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function. <b>CommDlgExtendedError</b> may return one of the following error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-findtextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-findtextw
      * @since windows5.0
      */
     static FindTextW(param0) {
@@ -796,7 +798,7 @@ class Dialogs {
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function, which can return one of the following error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-replacetexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-replacetexta
      * @since windows5.0
      */
     static ReplaceTextA(param0) {
@@ -828,7 +830,7 @@ class Dialogs {
      * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with the dialog box or close it.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function, which can return one of the following error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-replacetextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-replacetextw
      * @since windows5.0
      */
     static ReplaceTextW(param0) {
@@ -841,7 +843,7 @@ class Dialogs {
      * ASCII version of ChooseFont
      * @param {Pointer<CHOOSEFONTA>} param0 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-choosefonta
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-choosefonta
      */
     static ChooseFontA(param0) {
         result := DllCall("COMDLG32.dll\ChooseFontA", "ptr", param0, "int")
@@ -852,7 +854,7 @@ class Dialogs {
      * Wide string version of ChooseFont
      * @param {Pointer<CHOOSEFONTW>} param0 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-choosefontw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-choosefontw
      */
     static ChooseFontW(param0) {
         result := DllCall("COMDLG32.dll\ChooseFontW", "ptr", param0, "int")
@@ -863,7 +865,7 @@ class Dialogs {
      * ASCII version of PrintDlg
      * @param {Pointer<PRINTDLGA>} pPD 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlga
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-printdlga
      */
     static PrintDlgA(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgA", "ptr", pPD, "int")
@@ -874,7 +876,7 @@ class Dialogs {
      * Wide string version of PrintDlg
      * @param {Pointer<PRINTDLGW>} pPD 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-printdlgw
      */
     static PrintDlgW(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgW", "ptr", pPD, "int")
@@ -885,7 +887,7 @@ class Dialogs {
      * ASCII version of PrintDlgEx
      * @param {Pointer<PRINTDLGEXA>} pPD 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-printdlgexa
      */
     static PrintDlgExA(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExA", "ptr", pPD, "int")
@@ -900,7 +902,7 @@ class Dialogs {
      * Wide string version of PrintDlgEx
      * @param {Pointer<PRINTDLGEXW>} pPD 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-printdlgexw
      */
     static PrintDlgExW(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExW", "ptr", pPD, "int")
@@ -1345,7 +1347,7 @@ class Dialogs {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nf-commdlg-commdlgextendederror
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-commdlgextendederror
      * @since windows5.0
      */
     static CommDlgExtendedError() {
@@ -1357,7 +1359,7 @@ class Dialogs {
      * ASCII version of PageSetupDlg
      * @param {Pointer<PAGESETUPDLGA>} param0 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-pagesetupdlga
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-pagesetupdlga
      */
     static PageSetupDlgA(param0) {
         result := DllCall("COMDLG32.dll\PageSetupDlgA", "ptr", param0, "int")
@@ -1368,7 +1370,7 @@ class Dialogs {
      * Wide string version of PageSetupDlg
      * @param {Pointer<PAGESETUPDLGW>} param0 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-pagesetupdlgw
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nc-commdlg-pagesetupdlgw
      */
     static PageSetupDlgW(param0) {
         result := DllCall("COMDLG32.dll\PageSetupDlgW", "ptr", param0, "int")

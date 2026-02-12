@@ -35,7 +35,11 @@ class IDirectSoundFXCompressor extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxCompressor) {
-        result := ComCall(3, this, "ptr", pcDsFxCompressor, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxCompressor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXCompressor extends IUnknown{
      */
     GetAllParameters() {
         pDsFxCompressor := DSFXCompressor()
-        result := ComCall(4, this, "ptr", pDsFxCompressor, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxCompressor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxCompressor
     }
 }

@@ -7,8 +7,7 @@
  * Enables interoperability with a WinRT [UserActivity](/uwp/api/windows.applicationmodel.useractivities.useractivity) object.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//useractivityinterop/nn-useractivityinterop-iuseractivityinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/useractivityinterop/nn-useractivityinterop-iuseractivityinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -34,16 +33,24 @@ class IUserActivityInterop extends IInspectable{
     static VTableNames => ["CreateSessionForWindow"]
 
     /**
+     * Creates a [UserActivitySession](/uwp/api/windows.applicationmodel.useractivities.useractivitysession) associated with the specified window.
+     * @param {HWND} window Handle to the window of the active application.
+     * @param {Pointer<Guid>} iid The GUID for the resource interface.
      * 
-     * @param {HWND} window 
-     * @param {Pointer<Guid>} iid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nf-useractivityinterop-iuseractivityinterop-createsessionforwindow
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(UserActivitySession)`
+     * @returns {Pointer<Pointer<Void>>} Address of a pointer to a [UserActivitySession](/uwp/api/windows.applicationmodel.useractivities.useractivitysession) object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/useractivityinterop/nf-useractivityinterop-iuseractivityinterop-createsessionforwindow
      */
     CreateSessionForWindow(window, iid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(6, this, "ptr", window, "ptr", iid, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", window, "ptr", iid, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

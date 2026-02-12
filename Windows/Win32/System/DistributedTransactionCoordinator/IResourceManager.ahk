@@ -5,7 +5,7 @@
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iresourcemanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iresourcemanager
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  * @version v4.0.30319
  */
@@ -31,18 +31,23 @@ class IResourceManager extends IUnknown{
     static VTableNames => ["Enlist", "Reenlist", "ReenlistmentComplete", "GetDistributedTransactionManager"]
 
     /**
-     * 
+     * KTM defines the following enlistment access masks to be used when opening enlistments.
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pRes 
      * @param {Pointer<BOID>} pUOW 
      * @param {Pointer<Integer>} pisoLevel 
      * @param {Pointer<ITransactionEnlistmentAsync>} ppEnlist 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Ktm/enlistment-access-masks
      */
     Enlist(pTransaction, pRes, pUOW, pisoLevel, ppEnlist) {
         pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", pRes, "ptr", pUOW, pisoLevelMarshal, pisoLevel, "ptr*", ppEnlist, "HRESULT")
+        result := ComCall(3, this, "ptr", pTransaction, "ptr", pRes, "ptr", pUOW, pisoLevelMarshal, pisoLevel, "ptr*", ppEnlist, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +61,11 @@ class IResourceManager extends IUnknown{
     Reenlist(pPrepInfo, cbPrepInfo, lTimeout) {
         pPrepInfoMarshal := pPrepInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", &pXactStat := 0, "HRESULT")
+        result := ComCall(4, this, pPrepInfoMarshal, pPrepInfo, "uint", cbPrepInfo, "uint", lTimeout, "int*", &pXactStat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pXactStat
     }
 
@@ -65,7 +74,11 @@ class IResourceManager extends IUnknown{
      * @returns {HRESULT} 
      */
     ReenlistmentComplete() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +88,11 @@ class IResourceManager extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetDistributedTransactionManager(iid) {
-        result := ComCall(6, this, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", iid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 }

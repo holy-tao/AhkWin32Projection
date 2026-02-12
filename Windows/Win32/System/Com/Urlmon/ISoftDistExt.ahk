@@ -38,7 +38,11 @@ class ISoftDistExt extends IUnknown{
     ProcessSoftDist(szCDFURL, pSoftDistElement, lpsdi) {
         szCDFURL := szCDFURL is String ? StrPtr(szCDFURL) : szCDFURL
 
-        result := ComCall(3, this, "ptr", szCDFURL, "ptr", pSoftDistElement, "ptr", lpsdi, "HRESULT")
+        result := ComCall(3, this, "ptr", szCDFURL, "ptr", pSoftDistElement, "ptr", lpsdi, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISoftDistExt extends IUnknown{
         szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : "ptr"
         dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
+        result := ComCall(4, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class ISoftDistExt extends IUnknown{
         szCodeBaseMarshal := szCodeBase is VarRef ? "ptr*" : "ptr"
         dwMaxSizeMarshal := dwMaxSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "HRESULT")
+        result := ComCall(5, this, szCodeBaseMarshal, szCodeBase, dwMaxSizeMarshal, dwMaxSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,7 +93,11 @@ class ISoftDistExt extends IUnknown{
     AsyncInstallDistributionUnit(pbc, pvReserved, flags, lpcbh) {
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", pbc, pvReservedMarshal, pvReserved, "uint", flags, "ptr", lpcbh, "HRESULT")
+        result := ComCall(6, this, "ptr", pbc, pvReservedMarshal, pvReserved, "uint", flags, "ptr", lpcbh, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

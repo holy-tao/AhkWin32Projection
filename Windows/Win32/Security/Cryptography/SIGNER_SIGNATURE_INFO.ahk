@@ -3,7 +3,7 @@
 
 /**
  * Contains information about a digital signature.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-signature-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-signature-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * Enables you to specify and retrieve a string that contains descriptive information for a certificate.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertydescription
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icertpropertydescription
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -40,10 +40,12 @@ class ICertPropertyDescription extends ICertProperty{
 
     /**
      * Initializes the object from a string that contains descriptive information about the certificate.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertydescription-get_description">Description</a> property to retrieve the description string.
      * @param {BSTR} strDescription A <b>BSTR</b> variable that contains a description. The string length cannot exceed 260 characters.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -75,28 +77,36 @@ class ICertPropertyDescription extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertydescription-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertydescription-initialize
      */
     Initialize(strDescription) {
-        strDescription := strDescription is String ? BSTR.Alloc(strDescription).Value : strDescription
+        if(strDescription is String) {
+            pin := BSTR.Alloc(strDescription)
+            strDescription := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strDescription, "HRESULT")
+        result := ComCall(14, this, "ptr", strDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a description of the certificate.
      * @remarks
-     * 
-     *  Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertydescription-initialize">Initialize</a> method to create a description.
-     * 
-     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertydescription-initialize">Initialize</a> method to create a description.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertydescription-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertydescription-get_description
      */
     get_Description() {
         pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        result := ComCall(15, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

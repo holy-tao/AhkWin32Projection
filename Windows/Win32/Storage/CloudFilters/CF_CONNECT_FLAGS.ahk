@@ -3,7 +3,7 @@
 
 /**
  * Additional information that can be requested by a sync provider when its callbacks are invoked.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_connect_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_connect_flags
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

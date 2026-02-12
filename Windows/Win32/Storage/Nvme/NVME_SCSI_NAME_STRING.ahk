@@ -5,7 +5,7 @@
  * Contains information that is used to construct the SCSI name string identifier.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_scsi_name_string
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_scsi_name_string
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

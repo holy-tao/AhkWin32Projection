@@ -34,7 +34,11 @@ class ICorProfilerCallback7 extends ICorProfilerCallback6{
      * @returns {HRESULT} 
      */
     ModuleInMemorySymbolsUpdated(moduleId) {
-        result := ComCall(91, this, "ptr", moduleId, "HRESULT")
+        result := ComCall(91, this, "ptr", moduleId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

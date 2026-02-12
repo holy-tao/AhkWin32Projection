@@ -49,17 +49,31 @@ class ISpeechLexiconWords extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Integer} Index 
      * @returns {ISpeechLexiconWord} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(Index) {
-        result := ComCall(8, this, "int", Index, "ptr*", &Word := 0, "HRESULT")
+        result := ComCall(8, this, "int", Index, "ptr*", &Word := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechLexiconWord(Word)
     }
 
@@ -68,7 +82,11 @@ class ISpeechLexiconWords extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &EnumVARIANT := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &EnumVARIANT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(EnumVARIANT)
     }
 }

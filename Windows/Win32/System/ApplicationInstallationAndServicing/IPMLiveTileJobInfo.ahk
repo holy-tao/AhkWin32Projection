@@ -111,7 +111,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      */
     get_ProductID() {
         pProductID := Guid()
-        result := ComCall(3, this, "ptr", pProductID, "HRESULT")
+        result := ComCall(3, this, "ptr", pProductID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProductID
     }
 
@@ -121,7 +125,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TileID(pTileID) {
-        result := ComCall(4, this, "ptr", pTileID, "HRESULT")
+        result := ComCall(4, this, "ptr", pTileID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +139,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      */
     get_NextSchedule() {
         pNextSchedule := FILETIME()
-        result := ComCall(5, this, "ptr", pNextSchedule, "HRESULT")
+        result := ComCall(5, this, "ptr", pNextSchedule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNextSchedule
     }
 
@@ -141,7 +153,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_NextSchedule(ftNextSchedule) {
-        result := ComCall(6, this, "ptr", ftNextSchedule, "HRESULT")
+        result := ComCall(6, this, "ptr", ftNextSchedule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,7 +167,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      */
     get_StartSchedule() {
         pStartSchedule := FILETIME()
-        result := ComCall(7, this, "ptr", pStartSchedule, "HRESULT")
+        result := ComCall(7, this, "ptr", pStartSchedule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStartSchedule
     }
 
@@ -161,7 +181,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_StartSchedule(ftStartSchedule) {
-        result := ComCall(8, this, "ptr", ftStartSchedule, "HRESULT")
+        result := ComCall(8, this, "ptr", ftStartSchedule, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,7 +194,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_IntervalDuration() {
-        result := ComCall(9, this, "uint*", &pIntervalDuration := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pIntervalDuration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIntervalDuration
     }
 
@@ -180,7 +208,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_IntervalDuration(ulIntervalDuration) {
-        result := ComCall(10, this, "uint", ulIntervalDuration, "HRESULT")
+        result := ComCall(10, this, "uint", ulIntervalDuration, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +221,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_RunForever() {
-        result := ComCall(11, this, "int*", &IsRunForever := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &IsRunForever := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsRunForever
     }
 
@@ -199,7 +235,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_RunForever(fRunForever) {
-        result := ComCall(12, this, "int", fRunForever, "HRESULT")
+        result := ComCall(12, this, "int", fRunForever, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +248,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_MaxRunCount() {
-        result := ComCall(13, this, "uint*", &pMaxRunCount := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pMaxRunCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMaxRunCount
     }
 
@@ -218,7 +262,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_MaxRunCount(ulMaxRunCount) {
-        result := ComCall(14, this, "uint", ulMaxRunCount, "HRESULT")
+        result := ComCall(14, this, "uint", ulMaxRunCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +275,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_RunCount() {
-        result := ComCall(15, this, "uint*", &pRunCount := 0, "HRESULT")
+        result := ComCall(15, this, "uint*", &pRunCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRunCount
     }
 
@@ -237,7 +289,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_RunCount(ulRunCount) {
-        result := ComCall(16, this, "uint", ulRunCount, "HRESULT")
+        result := ComCall(16, this, "uint", ulRunCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -246,7 +302,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_RecurrenceType() {
-        result := ComCall(17, this, "uint*", &pRecurrenceType := 0, "HRESULT")
+        result := ComCall(17, this, "uint*", &pRecurrenceType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRecurrenceType
     }
 
@@ -256,7 +316,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_RecurrenceType(ulRecurrenceType) {
-        result := ComCall(18, this, "uint", ulRecurrenceType, "HRESULT")
+        result := ComCall(18, this, "uint", ulRecurrenceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -270,7 +334,11 @@ class IPMLiveTileJobInfo extends IUnknown{
         pTileXmlMarshal := pTileXml is VarRef ? "ptr*" : "ptr"
         pcbTileXmlMarshal := pcbTileXml is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, pTileXmlMarshal, pTileXml, pcbTileXmlMarshal, pcbTileXml, "HRESULT")
+        result := ComCall(19, this, pTileXmlMarshal, pTileXml, pcbTileXmlMarshal, pcbTileXml, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -283,7 +351,11 @@ class IPMLiveTileJobInfo extends IUnknown{
     set_TileXML(pTileXml, cbTileXml) {
         pTileXmlMarshal := pTileXml is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, pTileXmlMarshal, pTileXml, "uint", cbTileXml, "HRESULT")
+        result := ComCall(20, this, pTileXmlMarshal, pTileXml, "uint", cbTileXml, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -297,7 +369,11 @@ class IPMLiveTileJobInfo extends IUnknown{
         pUrlXMLMarshal := pUrlXML is VarRef ? "ptr*" : "ptr"
         pcbUrlXMLMarshal := pcbUrlXML is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, pUrlXMLMarshal, pUrlXML, pcbUrlXMLMarshal, pcbUrlXML, "HRESULT")
+        result := ComCall(21, this, pUrlXMLMarshal, pUrlXML, pcbUrlXMLMarshal, pcbUrlXML, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -310,7 +386,11 @@ class IPMLiveTileJobInfo extends IUnknown{
     set_UrlXML(pUrlXML, cbUrlXML) {
         pUrlXMLMarshal := pUrlXML is VarRef ? "char*" : "ptr"
 
-        result := ComCall(22, this, pUrlXMLMarshal, pUrlXML, "uint", cbUrlXML, "HRESULT")
+        result := ComCall(22, this, pUrlXMLMarshal, pUrlXML, "uint", cbUrlXML, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -319,7 +399,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_AttemptCount() {
-        result := ComCall(23, this, "uint*", &pAttemptCount := 0, "HRESULT")
+        result := ComCall(23, this, "uint*", &pAttemptCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pAttemptCount
     }
 
@@ -329,7 +413,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_AttemptCount(ulAttemptCount) {
-        result := ComCall(24, this, "uint", ulAttemptCount, "HRESULT")
+        result := ComCall(24, this, "uint", ulAttemptCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -338,7 +426,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_DownloadState() {
-        result := ComCall(25, this, "uint*", &pDownloadState := 0, "HRESULT")
+        result := ComCall(25, this, "uint*", &pDownloadState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDownloadState
     }
 
@@ -348,7 +440,11 @@ class IPMLiveTileJobInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     set_DownloadState(ulDownloadState) {
-        result := ComCall(26, this, "uint", ulDownloadState, "HRESULT")
+        result := ComCall(26, this, "uint", ulDownloadState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

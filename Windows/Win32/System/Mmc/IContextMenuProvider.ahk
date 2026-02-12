@@ -5,7 +5,7 @@
 
 /**
  * The IContextMenuProvider interface implements methods that create new context menus, for the purpose of adding items to those menus, to enable extensions to extend those menus, and to display the resulting context menus.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-icontextmenuprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nn-mmc-icontextmenuprovider
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -32,11 +32,18 @@ class IContextMenuProvider extends IContextMenuCallback{
 
     /**
      * The IContextMenuProvider::EmptyMenuList method clears a context menu.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icontextmenuprovider-showcontextmenu">IContextMenuProvider::ShowContextMenu</a> automatically clears the context menu after that displays it. Nevertheless, it is a good practice to call 
+     * <b>EmptyMenuList</b> before beginning to build a context menu.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icontextmenuprovider-emptymenulist
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-icontextmenuprovider-emptymenulist
      */
     EmptyMenuList() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,11 +55,15 @@ class IContextMenuProvider extends IContextMenuCallback{
      * @param {IDataObject} piDataObject A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object whose context menu is extended.
      * @returns {HRESULT} Other values can be returned, depending on the implementation of 
-     * <a href="/windows/desktop/api/mmc/nf-mmc-iextendcontextmenu-addmenuitems">IExtendContextMenu::AddMenuItems</a> by the specified snap-in.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icontextmenuprovider-addprimaryextensionitems
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendcontextmenu-addmenuitems">IExtendContextMenu::AddMenuItems</a> by the specified snap-in.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-icontextmenuprovider-addprimaryextensionitems
      */
     AddPrimaryExtensionItems(piExtension, piDataObject) {
-        result := ComCall(5, this, "ptr", piExtension, "ptr", piDataObject, "HRESULT")
+        result := ComCall(5, this, "ptr", piExtension, "ptr", piDataObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,15 +72,22 @@ class IContextMenuProvider extends IContextMenuCallback{
      * @param {IDataObject} piDataObject A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object whose menu is extended.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icontextmenuprovider-addthirdpartyextensionitems
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-icontextmenuprovider-addthirdpartyextensionitems
      */
     AddThirdPartyExtensionItems(piDataObject) {
-        result := ComCall(6, this, "ptr", piDataObject, "HRESULT")
+        result := ComCall(6, this, "ptr", piDataObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IContextMenuProvider::ShowContextMenu method displays a context menu.
+     * @remarks
+     * ShowContextMenu automatically clears the context menu after that displays it. A best practice is to call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icontextmenuprovider-emptymenulist">IContextMenuProvider::EmptyMenuList</a> before beginning to build a context menu.
      * @param {HWND} hwndParent A handle to the parent window in which the context menu is displayed.
      * @param {Integer} xPos A value, in screen coordinates, that specifies the horizontal location of the upper-left corner of the context menu, in screen coordinates.
      * @param {Integer} yPos A value, in screen coordinates, that specifies the vertical location of the upper-left corner of the context menu.
@@ -77,12 +95,16 @@ class IContextMenuProvider extends IContextMenuCallback{
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icontextmenucallback-additem">IContextMenuCallback::AddItem</a>) of the selected menu item. If this is zero, either none of the context menu items were selected or the selected context menu item was added by an extension. If an extension item was selected, 
      * ShowContextMenu notifies the extension by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendcontextmenu-command">IExtendContextMenu::Command</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icontextmenuprovider-showcontextmenu
+     * @see https://learn.microsoft.com/windows/win32/api//content/mmc/nf-mmc-icontextmenuprovider-showcontextmenu
      */
     ShowContextMenu(hwndParent, xPos, yPos) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, "int*", &plSelected := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, "int*", &plSelected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSelected
     }
 }

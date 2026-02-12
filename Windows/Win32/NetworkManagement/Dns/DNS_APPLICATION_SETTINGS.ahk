@@ -5,7 +5,7 @@
  * Represents per-application DNS settings.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_application_settings
+ * @see https://learn.microsoft.com/windows/win32/api//content/windns/ns-windns-dns_application_settings
  * @namespace Windows.Win32.NetworkManagement.Dns
  * @version v4.0.30319
  */

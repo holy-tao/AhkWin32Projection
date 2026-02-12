@@ -7,11 +7,8 @@
 /**
  * Contains information about the specified computer. This information is relevant to the Windows Update Agent (WUA).
  * @remarks
- * 
  * You can create an instance of this interface by using the SystemInformation coclass. Use the Microsoft.Update.SystemInfo program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-isysteminformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-isysteminformation
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -59,21 +56,29 @@ class ISystemInformation extends IDispatch{
     /**
      * Gets a hyperlink to technical support information for OEM hardware.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isysteminformation-get_oemhardwaresupportlink
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-isysteminformation-get_oemhardwaresupportlink
      */
     get_OemHardwareSupportLink() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether a system restart is required to complete the installation or uninstallation of one or more updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isysteminformation-get_rebootrequired
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-isysteminformation-get_rebootrequired
      */
     get_RebootRequired() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

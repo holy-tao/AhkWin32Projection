@@ -24,7 +24,7 @@ class IO_REPORT_INTERRUPT_ACTIVE_STATE_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {PKINTERRUPT}
+         * @type {Pointer<PKINTERRUPT>}
          */
         InterruptObject {
             get => NumGet(this, 0, "ptr")

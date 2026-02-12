@@ -17,7 +17,7 @@
  * The callback function is called with a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure as the first parameter that contains detailed information on the notification. The callback function also receives a second parameter that contains a pointer to the client context passed in the <i>pCallbackContext</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanregisternotification">WlanRegisterNotification</a> function. This client context can be a <b>NULL</b> pointer if that is what was passed to the <b>WlanRegisterNotification</b> function.
  * 
  * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_notification_acm_connection_complete</b> and <b>wlan_notification_acm_disconnected</b> notifications are available.
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_acm~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/ne-wlanapi-wlan_notification_acm~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

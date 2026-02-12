@@ -6,7 +6,7 @@
  * Represents activation parameters for a spatial audio render stream, extending SpatialAudioObjectRenderStreamActivationParams with the ability to specify stream options.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams2
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

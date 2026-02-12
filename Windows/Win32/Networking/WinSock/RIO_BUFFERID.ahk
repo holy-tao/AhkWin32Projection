@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Win32Handle.ahk
 
 /**
  * Specifies a registered buffer descriptor used with the Winsock registered I/O extensions.
@@ -15,15 +16,21 @@
  * -   • Maintain a limited pool of registered buffers and perform buffer copies between these registered buffers and other unregistered buffers.
  * 
  * The **RIO\_BUFFERID** typedef is defined in the *Mswsockdef.h* header file which is automatically included in the *Mswsock.h* header file. The *Mswsockdef.h* header file should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/WinSock/rio-bufferid
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WinSock/rio-bufferid
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
-class RIO_BUFFERID extends Win32Struct
+class RIO_BUFFERID extends Win32Handle
 {
     static sizeof => 8
 
     static packingSize => 8
+
+    /**
+     * The list of values which indicate that the handle is invalid
+     * @type {Array<Integer>}
+     */
+    static invalidValues => []
 
     /**
      * @type {Pointer}

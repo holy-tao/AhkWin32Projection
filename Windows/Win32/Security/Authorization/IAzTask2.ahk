@@ -7,7 +7,7 @@
 
 /**
  * Extends the IAzTask interface with a method that returns the role assignments associated with the task.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iaztask2
+ * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nn-azroles-iaztask2
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -37,12 +37,19 @@ class IAzTask2 extends IAzTask{
      * @param {BSTR} bstrScopeName The name of the scope in which to check for role assignments. If the value of this parameter is an empty string, the method checks for role assignments at the application level.
      * @param {VARIANT_BOOL} bRecursive <b>TRUE</b> if the method checks all scopes within the application; otherwise, <b>FALSE</b>. This parameter is ignored if the value of the <i>bstrScopeName</i> parameter is not <b>NULL</b>.
      * @returns {IAzRoleAssignments} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignments">IAzRoleAssignments</a> interface that represents the collection of <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> objects associated with this task.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iaztask2-roleassignments
+     * @see https://learn.microsoft.com/windows/win32/api//content/azroles/nf-azroles-iaztask2-roleassignments
      */
     RoleAssignments(bstrScopeName, bRecursive) {
-        bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
+        if(bstrScopeName is String) {
+            pin := BSTR.Alloc(bstrScopeName)
+            bstrScopeName := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        result := ComCall(33, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAzRoleAssignments(ppRoleAssignments)
     }
 }

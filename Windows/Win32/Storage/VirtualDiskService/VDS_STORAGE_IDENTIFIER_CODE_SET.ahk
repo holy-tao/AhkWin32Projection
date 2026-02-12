@@ -9,7 +9,7 @@
  * 
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_STORAGE_IDENTIFIER_CODE_SET</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_STORAGE_IDENTIFIER_CODE_SET</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_storage_identifier_code_set
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdslun/ne-vdslun-vds_storage_identifier_code_set
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

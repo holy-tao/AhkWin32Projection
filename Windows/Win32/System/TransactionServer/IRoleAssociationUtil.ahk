@@ -41,9 +41,16 @@ class IRoleAssociationUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     AssociateRole(bstrRoleID) {
-        bstrRoleID := bstrRoleID is String ? BSTR.Alloc(bstrRoleID).Value : bstrRoleID
+        if(bstrRoleID is String) {
+            pin := BSTR.Alloc(bstrRoleID)
+            bstrRoleID := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrRoleID, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrRoleID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,9 +60,16 @@ class IRoleAssociationUtil extends IDispatch{
      * @returns {HRESULT} 
      */
     AssociateRoleByName(bstrRoleName) {
-        bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
+        if(bstrRoleName is String) {
+            pin := BSTR.Alloc(bstrRoleName)
+            bstrRoleName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrRoleName, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrRoleName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

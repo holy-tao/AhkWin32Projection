@@ -36,9 +36,16 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
      * @returns {HRESULT} 
      */
     DecodeBlob(strEncodedData, Encoding) {
-        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+        if(strEncodedData is String) {
+            pin := BSTR.Alloc(strEncodedData)
+            strEncodedData := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(11, this, "ptr", strEncodedData, "int", Encoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,10 +58,17 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
      * @returns {BSTR} 
      */
     EncodeBlob(BitCount, strBitString, EncodingIn, Encoding) {
-        strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
+        if(strBitString is String) {
+            pin := BSTR.Alloc(strBitString)
+            strBitString := pin.Value
+        }
 
         pstrEncodedData := BSTR()
-        result := ComCall(12, this, "int", BitCount, "ptr", strBitString, "int", EncodingIn, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
+        result := ComCall(12, this, "int", BitCount, "ptr", strBitString, "int", EncodingIn, "int", Encoding, "ptr", pstrEncodedData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrEncodedData
     }
 
@@ -65,7 +79,11 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
      */
     GetBitStringBlob(Encoding) {
         pstrBitString := BSTR()
-        result := ComCall(13, this, "int", Encoding, "ptr", pstrBitString, "HRESULT")
+        result := ComCall(13, this, "int", Encoding, "ptr", pstrBitString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrBitString
     }
 }

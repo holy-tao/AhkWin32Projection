@@ -25,7 +25,7 @@
  *  
  * 
  * Comparison filters only work with textures that have the following DXGI formats: R32_FLOAT_X8X24_TYPELESS, R32_FLOAT, R24_UNORM_X8_TYPELESS, R16_UNORM.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_filter
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_filter
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

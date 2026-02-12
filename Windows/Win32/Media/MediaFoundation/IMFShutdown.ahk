@@ -6,7 +6,6 @@
 /**
  * Exposed by some Media Foundation objects that must be explicitly shut down.
  * @remarks
- * 
  * The following types of object expose <b>IMFShutdown</b>:
  * 
  * <ul>
@@ -35,9 +34,7 @@
  *       
  * 
  * Some Media Foundation interfaces define a <b>Shutdown</b> method, which serves the same purpose as <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfshutdown-shutdown">IMFShutdown::Shutdown</a> but is not directly related to it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfshutdown
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfshutdown
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -63,22 +60,36 @@ class IMFShutdown extends IUnknown{
     static VTableNames => ["Shutdown", "GetShutdownStatus"]
 
     /**
-     * Shuts down a Media Foundation object and releases all resources associated with the object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfshutdown-shutdown
+     * Shuts down a Media Foundation object and releases all resources associated with the object. (IMFShutdown.Shutdown)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfshutdownobject">MFShutdownObject</a>  helper function is equivalent to calling this method.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfshutdown-shutdown
      */
     Shutdown() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries the status of an earlier call to the IMFShutdown::Shutdown method.
+     * @remarks
+     * Until <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfshutdown-shutdown">Shutdown</a> is called, the <b>GetShutdownStatus</b> method returns <b>MF_E_INVALIDREQUEST</b>.
+     * 
+     * If an object's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfshutdown-shutdown">Shutdown</a> method is asynchronous, <i>pStatus</i> might receive the value <b>MFSHUTDOWN_INITIATED</b>. When the object is completely shut down, <i>pStatus</i> receives the value <b>MFSHUTDOWN_COMPLETED</b>.
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfshutdown_status">MFSHUTDOWN_STATUS</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfshutdown-getshutdownstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfshutdown-getshutdownstatus
      */
     GetShutdownStatus() {
-        result := ComCall(4, this, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 }

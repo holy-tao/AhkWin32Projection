@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSCTL_NETINTERFACE_CODES enumeration (msclus.h) enumerates Network Interface control codes.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_netinterface_codes
+ * CLUSCTL_NETINTERFACE_CODES (clusapi.h) enumerates Network Interface control codes.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clusctl_netinterface_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

@@ -7,7 +7,7 @@
  * The
  * [TRACE_PROVIDER_INSTANCE_INFO](/windows/win32/api/evntrace/ns-evntrace-trace_provider_instance_info)
  * block contains one or more of these structures.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_enable_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-trace_enable_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

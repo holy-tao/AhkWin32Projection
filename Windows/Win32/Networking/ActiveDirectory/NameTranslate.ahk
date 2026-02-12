@@ -3,7 +3,7 @@
 
 /**
  * The IADsNameTranslateinterface translates distinguished names (DNs) among various formats as defined in the ADS_NAME_TYPE_ENUM enumeration. The feature is available to objects in Active Directory.
- * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnametranslate
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsnametranslate
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

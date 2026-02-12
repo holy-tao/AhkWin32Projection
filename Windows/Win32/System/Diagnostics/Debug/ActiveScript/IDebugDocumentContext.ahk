@@ -35,7 +35,11 @@ class IDebugDocumentContext extends IUnknown{
      * @returns {IDebugDocument} 
      */
     GetDocument() {
-        result := ComCall(3, this, "ptr*", &ppsd := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppsd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocument(ppsd)
     }
 
@@ -44,7 +48,11 @@ class IDebugDocumentContext extends IUnknown{
      * @returns {IEnumDebugCodeContexts} 
      */
     EnumCodeContexts() {
-        result := ComCall(4, this, "ptr*", &ppescc := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppescc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDebugCodeContexts(ppescc)
     }
 }

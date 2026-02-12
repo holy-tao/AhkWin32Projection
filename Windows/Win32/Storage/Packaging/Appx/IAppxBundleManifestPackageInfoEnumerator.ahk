@@ -6,7 +6,7 @@
 
 /**
  * Provides a read-only object model for the list of payload packages that are described in a bundle package manifest.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfoenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfoenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,13 +33,19 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
 
     /**
      * Gets the &lt;Package&gt; element at the current position of the enumerator.
+     * @remarks
+     * The enumerator’s position points to the first element by default. So, with a newly constructed enumerator that contains at least one element, <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-gethascurrent">IAppxBundleManifestPackageInfoEnumerator::GetHasCurrent</a> returns <b>TRUE</b> and <b>GetCurrent</b> returns the first element.
      * @returns {IAppxBundleManifestPackageInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo">IAppxBundleManifestPackageInfo</a>**</b>
      * 
      * The current &lt;Package&gt; element.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-getcurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-getcurrent
      */
     GetCurrent() {
-        result := ComCall(3, this, "ptr*", &packageInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &packageInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxBundleManifestPackageInfo(packageInfo)
     }
 
@@ -48,10 +54,14 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-gethascurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-gethascurrent
      */
     GetHasCurrent() {
-        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasCurrent
     }
 
@@ -62,10 +72,14 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
      * <b>TRUE</b> if the enumerator successfully advances
      * 
      * <b>FALSE</b> if the enumerator has passed the end of the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &hasNext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasNext
     }
 }

@@ -5,7 +5,7 @@
  * The NETISO_FLAG enumeration specifies whether binaries should be returned for app containers. (NETISO_FLAG)
  * @remarks
  * By default, binaries are not returned. <b>NETISO_FLAG_FORCE_COMPUTE_BINARIES</b> must be set in order for these to be returned.
- * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-netiso_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/ne-netfw-netiso_flag
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

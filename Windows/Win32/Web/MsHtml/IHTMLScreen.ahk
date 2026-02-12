@@ -97,7 +97,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_colorDepth() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -107,7 +111,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bufferDepth(v) {
-        result := ComCall(8, this, "int", v, "HRESULT")
+        result := ComCall(8, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +124,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_bufferDepth() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -125,7 +137,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_width() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -134,7 +150,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_height() {
-        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -144,7 +164,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {HRESULT} 
      */
     put_updateInterval(v) {
-        result := ComCall(12, this, "int", v, "HRESULT")
+        result := ComCall(12, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +177,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_updateInterval() {
-        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -162,7 +190,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_availHeight() {
-        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -171,7 +203,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {Integer} 
      */
     get_availWidth() {
-        result := ComCall(15, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -180,7 +216,11 @@ class IHTMLScreen extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_fontSmoothingEnabled() {
-        result := ComCall(16, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -10,7 +10,7 @@
  * If the **AI_RETURN_RESPONSE_FLAGS** flag is present in the *ai_flags* member, then the <b>GetAddrInfoEx</b> <i>ppResult</i> parameter will return a list of <b>ADDRINFOEX6</b> structures, where the *ai_responseflags* member will contain information about the origin of the DNS results.
  * 
  * If the *ai_numservers* and *ai_servers* members point to an array of valid <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfo_dns_server">ADDRINFO_DNS_SERVER</a> objects, then the DNS query will add these servers as fallback to the system-configured DNS servers. If the <b>AI_EXCLUSIVE_CUSTOM_SERVERS</b> option is present in the *ai_flags* member, then the DNS query will use the custom servers exclusively.
- * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex6
+ * @see https://learn.microsoft.com/windows/win32/api//content/ws2def/ns-ws2def-addrinfoex6
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

@@ -7,7 +7,6 @@
 /**
  * Provides an IStream interface to an image resource.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -59,9 +58,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -87,35 +84,55 @@ class IXpsOMImageResource extends IXpsOMResource{
     static VTableNames => ["GetStream", "SetContent", "GetImageType"]
 
     /**
-     * Gets a new, read-only copy of the stream that is associated with this resource.
+     * Gets a new, read-only copy of the stream that is associated with this resource. (IXpsOMImageResource.GetStream)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> object returned by this method might return an error of E_PENDING, which indicates that the stream length has not been determined yet.  This behavior is different from that of a standard <b>IStream</b> object.
+     * 
+     * This method calls the stream's <b>Clone</b> method to create the stream returned in <i>stream</i>. As a result, the performance of this method will depend on that of the stream's <b>Clone</b> method.
      * @returns {IStream} A new, read-only copy of the stream that is associated with this resource.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream
      */
     GetStream() {
-        result := ComCall(5, this, "ptr*", &readerStream := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &readerStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(readerStream)
     }
 
     /**
-     * Sets the read-only stream to be associated with this resource.
+     * Sets the read-only stream to be associated with this resource. (IXpsOMImageResource.SetContent)
+     * @remarks
+     * The calling method  should treat this stream as a single-threaded apartment (STA) model object and not re-enter any of the stream interface's methods.
+     * 
+     * Because <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream">GetStream</a> gets a clone of  the stream that is set by this method, the provided stream should have an efficient cloning method. A stream with an inefficient cloning method will reduce the performance of <b>GetStream</b>.
      * @param {IStream} sourceStream The read-only stream to be associated with this resource.
-     * @param {Integer} imageType The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the type of image in the stream.
+     * @param {Integer} imageType_ The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the type of image in the stream.
      * @param {IOpcPartUri} partName The part name to be assigned to this resource.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-setcontent
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-setcontent
      */
-    SetContent(sourceStream, imageType, partName) {
-        result := ComCall(6, this, "ptr", sourceStream, "int", imageType, "ptr", partName, "HRESULT")
+    SetContent(sourceStream, imageType_, partName) {
+        result := ComCall(6, this, "ptr", sourceStream, "int", imageType_, "ptr", partName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the type of image resource.
-     * @returns {Integer} The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the image type in the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
+     * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
      */
     GetImageType() {
-        result := ComCall(7, this, "int*", &imageType := 0, "HRESULT")
-        return imageType
+        result := ComCall(7, this, "int*", &imageType_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return imageType_
     }
 }

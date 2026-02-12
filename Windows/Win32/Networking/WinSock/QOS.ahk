@@ -8,7 +8,7 @@
  * @remarks
  * Most applications can fulfill their quality of service requirements without using the 
  * <a href="https://docs.microsoft.com/previous-versions/aa374467(v=vs.80)">ProviderSpecific</a> buffer. However, if the application must provide information not available with standard Windows 2000 QOS parameters, the ProviderSpecific buffer allows the application to provide additional parameters for RSVP and/or traffic control.
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-qos
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsock2/ns-winsock2-qos
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

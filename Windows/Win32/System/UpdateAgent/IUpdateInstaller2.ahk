@@ -4,13 +4,10 @@
 #Include .\IUpdateInstaller.ahk
 
 /**
- * Installs or uninstalls updates on a computer.
+ * Installs or uninstalls updates on a computer. (IUpdateInstaller2)
  * @remarks
- * 
  * You can create an instance of this interface by using the UpdateInstaller coclass. Use the Microsoft.Update.Installer program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateinstaller2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdateinstaller2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -44,33 +41,35 @@ class IUpdateInstaller2 extends IUpdateInstaller{
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether Windows Installer is forced to install the updates without user interaction.
+     * Gets and sets a Boolean value that indicates whether Windows Installer is forced to install the updates without user interaction. (Get)
      * @remarks
-     * 
      * You cannot forcibly silence some updates. If an update does not support this action, and you try to install the update, the update returns the following: WU_E_UH_DOESNOTSUPPORTACTION.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller2-get_forcequiet
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateinstaller2-get_forcequiet
      */
     get_ForceQuiet() {
-        result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(28, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether Windows Installer is forced to install the updates without user interaction.
+     * Gets and sets a Boolean value that indicates whether Windows Installer is forced to install the updates without user interaction. (Put)
      * @remarks
-     * 
      * You cannot forcibly silence some updates. If an update does not support this action, and you try to install the update, the update returns the following: WU_E_UH_DOESNOTSUPPORTACTION.
-     * 
-     * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller2-put_forcequiet
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateinstaller2-put_forcequiet
      */
     put_ForceQuiet(value) {
-        result := ComCall(29, this, "short", value, "HRESULT")
+        result := ComCall(29, this, "short", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

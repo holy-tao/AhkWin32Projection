@@ -3,7 +3,7 @@
 
 /**
  * A value that indicates the typographic feature of text supplied by the font.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_feature_tag
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/ne-dwrite-dwrite_font_feature_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

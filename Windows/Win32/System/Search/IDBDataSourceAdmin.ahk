@@ -37,7 +37,11 @@ class IDBDataSourceAdmin extends IUnknown{
      * @returns {IUnknown} 
      */
     CreateDataSource(cPropertySets, rgPropertySets, pUnkOuter, riid) {
-        result := ComCall(3, this, "uint", cPropertySets, "ptr", rgPropertySets, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppDBSession := 0, "HRESULT")
+        result := ComCall(3, this, "uint", cPropertySets, "ptr", rgPropertySets, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppDBSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDBSession)
     }
 
@@ -46,7 +50,11 @@ class IDBDataSourceAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     DestroyDataSource() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +72,11 @@ class IDBDataSourceAdmin extends IUnknown{
         prgPropertyInfoSetsMarshal := prgPropertyInfoSets is VarRef ? "ptr*" : "ptr"
         ppDescBufferMarshal := ppDescBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "HRESULT")
+        result := ComCall(5, this, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertyInfoSetsMarshal, pcPropertyInfoSets, prgPropertyInfoSetsMarshal, prgPropertyInfoSets, ppDescBufferMarshal, ppDescBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +87,11 @@ class IDBDataSourceAdmin extends IUnknown{
      * @returns {HRESULT} 
      */
     ModifyDataSource(cPropertySets, rgPropertySets) {
-        result := ComCall(6, this, "uint", cPropertySets, "ptr", rgPropertySets, "HRESULT")
+        result := ComCall(6, this, "uint", cPropertySets, "ptr", rgPropertySets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

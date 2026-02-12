@@ -6,7 +6,7 @@
 
 /**
  * Encapsulates a collection of font files. The font system uses this interface to enumerate font files when building a font collection.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontfileenumerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritefontfileenumerator
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -37,22 +37,30 @@ class IDWriteFontFileEnumerator extends IUnknown{
      * 
      * When the method returns, contains  the value <b>TRUE</b> if the enumerator advances to a file; otherwise, <b>FALSE</b> if
      *      the enumerator advances past the last file in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfileenumerator-movenext
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfileenumerator-movenext
      */
     MoveNext() {
-        result := ComCall(3, this, "int*", &hasCurrentFile := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &hasCurrentFile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hasCurrentFile
     }
 
     /**
      * Gets a reference to the current font file.
-     * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
+     * @returns {Pointer<IDWriteFontFile>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
      * 
      * When this method returns, the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>  object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfileenumerator-getcurrentfontfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfileenumerator-getcurrentfontfile
      */
     GetCurrentFontFile() {
-        result := ComCall(4, this, "ptr*", &fontFile := 0, "HRESULT")
-        return IDWriteFontFile(fontFile)
+        result := ComCall(4, this, "ptr*", &fontFile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFile
     }
 }

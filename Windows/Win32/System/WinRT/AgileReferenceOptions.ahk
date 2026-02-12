@@ -3,7 +3,7 @@
 
 /**
  * Specifies options for the RoGetAgileReference function.
- * @see https://learn.microsoft.com/windows/win32/api/combaseapi/ne-combaseapi-agilereferenceoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/combaseapi/ne-combaseapi-agilereferenceoptions
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

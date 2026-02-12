@@ -40,20 +40,44 @@ class IMSAdminBaseW extends IUnknown{
     AddKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(3, this, "uint", hMDHandle, "ptr", pszMDPath, "HRESULT")
+        result := ComCall(3, this, "uint", hMDHandle, "ptr", pszMDPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Deletes a given key protector for the volume.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                          | Description                                                                                                                                                                                                                                                                                                               |
+     * |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                          | The method was successful.<br/>                                                                                                                                                                                                                                                                                     |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl>         | The volume is locked.<br/>                                                                                                                                                                                                                                                                                          |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl>         | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                                                                                                                                                                                                                              |
+     * | <dl> <dt>**E\_INVALIDARG**</dt> <dt>2147942487 (0x80070057)</dt> </dl>                  | The *VolumeKeyProtectorID* parameter does not refer to a valid key protector.<br/>                                                                                                                                                                                                                                  |
+     * | <dl> <dt>**FVE\_E\_KEY\_REQUIRED**</dt> <dt>2150694941 (0x8031001D)</dt> </dl>          | The last key protector for a partially or fully encrypted volume cannot be removed if key protectors are enabled. Use [**DisableKeyProtectors**](disablekeyprotectors-win32-encryptablevolume.md) before removing this last key protector to ensure that encrypted portions of the volume remain accessible. <br/> |
+     * | <dl> <dt>**FVE\_E\_VOLUME\_BOUND\_ALREADY**</dt> <dt>2150694943 (0x8031001F)</dt> </dl> | This key protector cannot be deleted because it is being used to automatically unlock the volume. <br/> Use [**DisableAutoUnlock**](disableautounlock-win32-encryptablevolume.md) to disable automatic unlocking before deleting this key protector.<br/>                                                    |
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/deletekeyprotector-win32-encryptablevolume
      */
     DeleteKey(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(4, this, "uint", hMDHandle, "ptr", pszMDPath, "HRESULT")
+        result := ComCall(4, this, "uint", hMDHandle, "ptr", pszMDPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +90,11 @@ class IMSAdminBaseW extends IUnknown{
     DeleteChildKeys(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(5, this, "uint", hMDHandle, "ptr", pszMDPath, "HRESULT")
+        result := ComCall(5, this, "uint", hMDHandle, "ptr", pszMDPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +110,11 @@ class IMSAdminBaseW extends IUnknown{
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszMDName := pszMDName is String ? StrPtr(pszMDName) : pszMDName
 
-        result := ComCall(6, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pszMDName, "uint", dwMDEnumObjectIndex, "HRESULT")
+        result := ComCall(6, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pszMDName, "uint", dwMDEnumObjectIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +132,11 @@ class IMSAdminBaseW extends IUnknown{
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(7, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "int", bMDOverwriteFlag, "int", bMDCopyFlag, "HRESULT")
+        result := ComCall(7, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "int", bMDOverwriteFlag, "int", bMDCopyFlag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +151,11 @@ class IMSAdminBaseW extends IUnknown{
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszMDNewName := pszMDNewName is String ? StrPtr(pszMDNewName) : pszMDNewName
 
-        result := ComCall(8, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pszMDNewName, "HRESULT")
+        result := ComCall(8, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pszMDNewName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,24 +169,35 @@ class IMSAdminBaseW extends IUnknown{
     SetData(hMDHandle, pszMDPath, pmdrMDData) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(9, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "HRESULT")
+        result := ComCall(9, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * GetDataProviderDSO Method
+     * @remarks
+     * This method does not addref the interface pointer. If the caller plans to hold the pointer, the caller must do the required addref and release.
      * @param {Integer} hMDHandle 
      * @param {PWSTR} pszMDPath 
      * @param {Pointer<METADATA_RECORD>} pmdrMDData 
      * @param {Pointer<Integer>} pdwMDRequiredDataLen 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getdataproviderdso-method
      */
     GetData(hMDHandle, pszMDPath, pmdrMDData, pdwMDRequiredDataLen) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
         pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
+        result := ComCall(10, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +212,11 @@ class IMSAdminBaseW extends IUnknown{
     DeleteData(hMDHandle, pszMDPath, dwMDIdentifier, dwMDDataType) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(11, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "HRESULT")
+        result := ComCall(11, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +234,11 @@ class IMSAdminBaseW extends IUnknown{
 
         pdwMDRequiredDataLenMarshal := pdwMDRequiredDataLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "uint", dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "HRESULT")
+        result := ComCall(12, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pmdrMDData, "uint", dwMDEnumDataIndex, pdwMDRequiredDataLenMarshal, pdwMDRequiredDataLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -205,7 +264,11 @@ class IMSAdminBaseW extends IUnknown{
         pbMDBufferMarshal := pbMDBuffer is VarRef ? "char*" : "ptr"
         pdwMDRequiredBufferSizeMarshal := pdwMDRequiredBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, pdwMDNumDataEntriesMarshal, pdwMDNumDataEntries, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, "uint", dwMDBufferSize, pbMDBufferMarshal, pbMDBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "HRESULT")
+        result := ComCall(13, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, pdwMDNumDataEntriesMarshal, pdwMDNumDataEntries, pdwMDDataSetNumberMarshal, pdwMDDataSetNumber, "uint", dwMDBufferSize, pbMDBufferMarshal, pbMDBuffer, pdwMDRequiredBufferSizeMarshal, pdwMDRequiredBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -220,7 +283,11 @@ class IMSAdminBaseW extends IUnknown{
     DeleteAllData(hMDHandle, pszMDPath, dwMDUserType, dwMDDataType) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(14, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDUserType, "uint", dwMDDataType, "HRESULT")
+        result := ComCall(14, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDUserType, "uint", dwMDDataType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -240,7 +307,11 @@ class IMSAdminBaseW extends IUnknown{
         pszMDSourcePath := pszMDSourcePath is String ? StrPtr(pszMDSourcePath) : pszMDSourcePath
         pszMDDestPath := pszMDDestPath is String ? StrPtr(pszMDDestPath) : pszMDDestPath
 
-        result := ComCall(15, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, "int", bMDCopyFlag, "HRESULT")
+        result := ComCall(15, this, "uint", hMDSourceHandle, "ptr", pszMDSourcePath, "uint", hMDDestHandle, "ptr", pszMDDestPath, "uint", dwMDAttributes, "uint", dwMDUserType, "uint", dwMDDataType, "int", bMDCopyFlag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -258,7 +329,11 @@ class IMSAdminBaseW extends IUnknown{
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "HRESULT")
+        result := ComCall(16, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDIdentifier, "uint", dwMDDataType, "uint", dwMDBufferSize, "ptr", pszBuffer, "uint*", &pdwMDRequiredBufferSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMDRequiredBufferSize
     }
 
@@ -273,7 +348,11 @@ class IMSAdminBaseW extends IUnknown{
     OpenKey(hMDHandle, pszMDPath, dwMDAccessRequested, dwMDTimeOut) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, "uint*", &phMDNewHandle := 0, "HRESULT")
+        result := ComCall(17, this, "uint", hMDHandle, "ptr", pszMDPath, "uint", dwMDAccessRequested, "uint", dwMDTimeOut, "uint*", &phMDNewHandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phMDNewHandle
     }
 
@@ -283,7 +362,11 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     CloseKey(hMDHandle) {
-        result := ComCall(18, this, "uint", hMDHandle, "HRESULT")
+        result := ComCall(18, this, "uint", hMDHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -295,7 +378,11 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     ChangePermissions(hMDHandle, dwMDTimeOut, dwMDAccessRequested) {
-        result := ComCall(19, this, "uint", hMDHandle, "uint", dwMDTimeOut, "uint", dwMDAccessRequested, "HRESULT")
+        result := ComCall(19, this, "uint", hMDHandle, "uint", dwMDTimeOut, "uint", dwMDAccessRequested, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -304,18 +391,27 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     SaveData() {
-        result := ComCall(20, this, "HRESULT")
+        result := ComCall(20, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves certain properties of an object handle.
      * @param {Integer} hMDHandle 
      * @returns {METADATA_HANDLE_INFO} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/handleapi/nf-handleapi-gethandleinformation
      */
     GetHandleInfo(hMDHandle) {
         pmdhiInfo := METADATA_HANDLE_INFO()
-        result := ComCall(21, this, "uint", hMDHandle, "ptr", pmdhiInfo, "HRESULT")
+        result := ComCall(21, this, "uint", hMDHandle, "ptr", pmdhiInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pmdhiInfo
     }
 
@@ -324,7 +420,11 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {Integer} 
      */
     GetSystemChangeNumber() {
-        result := ComCall(22, this, "uint*", &pdwSystemChangeNumber := 0, "HRESULT")
+        result := ComCall(22, this, "uint*", &pdwSystemChangeNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwSystemChangeNumber
     }
 
@@ -337,7 +437,11 @@ class IMSAdminBaseW extends IUnknown{
     GetDataSetNumber(hMDHandle, pszMDPath) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "HRESULT")
+        result := ComCall(23, this, "uint", hMDHandle, "ptr", pszMDPath, "uint*", &pdwMDDataSetNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwMDDataSetNumber
     }
 
@@ -352,7 +456,11 @@ class IMSAdminBaseW extends IUnknown{
     SetLastChangeTime(hMDHandle, pszMDPath, pftMDLastChangeTime, bLocalTime) {
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
-        result := ComCall(24, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "HRESULT")
+        result := ComCall(24, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -367,7 +475,11 @@ class IMSAdminBaseW extends IUnknown{
         pszMDPath := pszMDPath is String ? StrPtr(pszMDPath) : pszMDPath
 
         pftMDLastChangeTime := FILETIME()
-        result := ComCall(25, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "HRESULT")
+        result := ComCall(25, this, "uint", hMDHandle, "ptr", pszMDPath, "ptr", pftMDLastChangeTime, "int", bLocalTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pftMDLastChangeTime
     }
 
@@ -376,7 +488,11 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     KeyExchangePhase1() {
-        result := ComCall(26, this, "HRESULT")
+        result := ComCall(26, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -385,35 +501,49 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     KeyExchangePhase2() {
-        result := ComCall(27, this, "HRESULT")
+        result := ComCall(27, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn more about: Backup and Restore Parameters
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/backup-and-restore-parameters
      */
     Backup(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(28, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "uint", dwMDFlags, "HRESULT")
+        result := ComCall(28, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "uint", dwMDFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Initiates a system restore.
      * @param {PWSTR} pszMDBackupLocation 
      * @param {Integer} dwMDVersion 
      * @param {Integer} dwMDFlags 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the method succeeds, the return value is S\_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/sr/restore-systemrestore
      */
     Restore(pszMDBackupLocation, dwMDVersion, dwMDFlags) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(29, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "uint", dwMDFlags, "HRESULT")
+        result := ComCall(29, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "uint", dwMDFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -430,7 +560,11 @@ class IMSAdminBaseW extends IUnknown{
 
         pdwMDVersionMarshal := pdwMDVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, "ptr", pftMDBackupTime, "uint", dwMDEnumIndex, "HRESULT")
+        result := ComCall(30, this, "ptr", pszMDBackupLocation, pdwMDVersionMarshal, pdwMDVersion, "ptr", pftMDBackupTime, "uint", dwMDEnumIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -443,7 +577,11 @@ class IMSAdminBaseW extends IUnknown{
     DeleteBackup(pszMDBackupLocation, dwMDVersion) {
         pszMDBackupLocation := pszMDBackupLocation is String ? StrPtr(pszMDBackupLocation) : pszMDBackupLocation
 
-        result := ComCall(31, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "HRESULT")
+        result := ComCall(31, this, "ptr", pszMDBackupLocation, "uint", dwMDVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -452,7 +590,11 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {IMSAdminBaseW} 
      */
     UnmarshalInterface() {
-        result := ComCall(32, this, "ptr*", &piadmbwInterface := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &piadmbwInterface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSAdminBaseW(piadmbwInterface)
     }
 
@@ -461,7 +603,11 @@ class IMSAdminBaseW extends IUnknown{
      * @returns {HRESULT} 
      */
     GetServerGuid() {
-        result := ComCall(33, this, "HRESULT")
+        result := ComCall(33, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

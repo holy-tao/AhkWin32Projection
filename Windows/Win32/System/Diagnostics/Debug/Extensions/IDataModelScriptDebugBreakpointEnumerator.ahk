@@ -30,20 +30,67 @@ class IDataModelScriptDebugBreakpointEnumerator extends IUnknown{
     static VTableNames => ["Reset", "GetNext"]
 
     /**
-     * 
+     * Reset Method (RDS)
+     * @remarks
+     * The [SortColumn](./sortcolumn-property-rds.md), [SortDirection](./sortdirection-property-rds.md), [FilterValue](./filtervalue-property-rds.md), [FilterCriterion](./filtercriterion-property-rds.md), and [FilterColumn](./filtercolumn-property-rds.md) properties provide sorting and filtering functionality on the client-side cache. The sorting functionality orders records by values from one column. The filtering functionality displays a subset of records based on a find criteria, while the full [Recordset](../ado-api/recordset-object-ado.md) is maintained in the cache. The **Reset** method will execute the criteria and replace the current **Recordset** with an updatable **Recordset**.  
+     *   
+     *  If there are changes to the original data that have not been submitted, the **Reset** method will fail. First, use the [SubmitChanges](./submitchanges-method-rds.md) method to save any changes in a read/write **Recordset**, and then use the **Reset** method to sort or filter the records.  
+     *   
+     *  If you want to perform more than one filter on your rowset, you can use the optional *Boolean* argument with the **Reset** method. The following example shows how to do this:  
+     *   
+     * ```  
+     * ADC.SQL = "Select au_lname from authors"  
+     * ADC.Refresh    ' Get the new rowset.  
+     *   
+     * ADC.FilterColumn = "au_lname"  
+     * ADC.FilterCriterion = "<"  
+     * ADC.FilterValue = "'M'"  
+     * ADC.Reset         ' Rowset now has all Last Names < "M".  
+     *   
+     * ADC.FilterCriterion = ">"  
+     * ADC.FilterValue = "'F'"  
+     * ' Passing True is not necessary, because it is the   
+     * ' default filter on the current "filtered" rowset.  
+     * ADC.Reset(TRUE)     ' Rowset now has all Last   
+     *                     ' Names < "M" and > "F".  
+     *   
+     * ADC.FilterCriterion = ">"  
+     * ADC.FilterValue = "'T'"  
+     * ' Filter on the original rowset, throwing out the  
+     * ' previous filter options.  
+     * ADC.Reset(FALSE)   ' Rowset now has all Last Names > "T".  
+     * ```
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/reset-method-rds
      */
     Reset() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
+     * @remarks
+     * The <b>GetNextDlgGroupItem</b> function searches controls in the order (or reverse order) they were created in the dialog box template. The first control in the group must have the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgbox-programming-considerations">WS_GROUP</a> style; all other controls in the group must have been consecutively created and must not have the <b>WS_GROUP</b> style. 
      * 
-     * @returns {IDataModelScriptDebugBreakpoint} 
+     * When searching for the previous control, the function returns the first control it locates that is visible and not disabled. If the control specified by <i>hCtl</i> has the <b>WS_GROUP</b> style, the function temporarily reverses the search to locate the first control having the <b>WS_GROUP</b> style, then resumes the search in the original direction, returning the first control it locates that is visible and not disabled, or returning <i>hCtl</i> if no such control is found. 
+     * 
+     * When searching for the next control, the function returns the first control it locates that is visible, not disabled, and does not have the <b>WS_GROUP</b> style. If it encounters a control having the <b>WS_GROUP</b> style, the function reverses the search, locates the first control having the <b>WS_GROUP</b> style, and returns this control if it is visible and not disabled. Otherwise, the function resumes the search in the original direction and returns the first control it locates that is visible and not disabled, or returns <i>hCtl</i> if no such control is found. 
+     * 
+     * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
+     * @returns {Pointer<IDataModelScriptDebugBreakpoint>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getnextdlggroupitem
      */
     GetNext() {
-        result := ComCall(4, this, "ptr*", &breakpoint := 0, "HRESULT")
-        return IDataModelScriptDebugBreakpoint(breakpoint)
+        result := ComCall(4, this, "ptr*", &breakpoint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return breakpoint
     }
 }

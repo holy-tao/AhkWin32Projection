@@ -21,7 +21,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-itemidlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/shtypes/ns-shtypes-itemidlist
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

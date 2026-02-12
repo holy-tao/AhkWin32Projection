@@ -22,7 +22,7 @@ class HardwareCounterProfiling {
      * @param {Integer} HardwareCounters To receive hardware performance counter data, set this parameter to a bitmask that identifies the hardware counters to collect. You can specify up to 16 performance counters. Each bit relates directly to the zero-based hardware counter index for the hardware performance counters that you configured. Set to zero if you are not collecting hardware counter data. If you set a bit for a hardware counter that has not been configured, the counter value that is read for that counter is zero.
      * @param {Pointer<HANDLE>} PerformanceDataHandle An opaque handle that you use when calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-readthreadprofilingdata">ReadThreadProfilingData</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-disablethreadprofiling">DisableThreadProfiling</a> functions.
      * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enablethreadprofiling
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-enablethreadprofiling
      * @since windows6.1
      */
     static EnableThreadProfiling(ThreadHandle, Flags, HardwareCounters, PerformanceDataHandle) {
@@ -38,7 +38,7 @@ class HardwareCounterProfiling {
      * You must call this function from the same thread that enabled profiling for the specified handle. You must call this function before exiting the thread; otherwise, you will leak resources (the resources are not reclaimed until the process exits).
      * @param {HANDLE} PerformanceDataHandle The handle that the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-enablethreadprofiling">EnableThreadProfiling</a> function returned.
      * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-disablethreadprofiling
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-disablethreadprofiling
      * @since windows6.1
      */
     static DisableThreadProfiling(PerformanceDataHandle) {
@@ -53,7 +53,7 @@ class HardwareCounterProfiling {
      * @param {HANDLE} ThreadHandle The handle to the thread of interest.
      * @param {Pointer<BOOLEAN>} Enabled Is <b>TRUE</b> if thread profiling is enabled for the specified thread; otherwise, <b>FALSE</b>.
      * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-querythreadprofiling
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-querythreadprofiling
      * @since windows6.1
      */
     static QueryThreadProfiling(ThreadHandle, Enabled) {
@@ -100,7 +100,7 @@ class HardwareCounterProfiling {
      * </table>
      * @param {Pointer<PERFORMANCE_DATA>} PerformanceData A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure that contains the thread profiling and hardware counter data.
      * @returns {Integer} Returns ERROR_SUCCESS if the call is successful; otherwise, a system error code (see Winerror.h).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readthreadprofilingdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-readthreadprofilingdata
      * @since windows6.1
      */
     static ReadThreadProfilingData(PerformanceDataHandle, Flags, PerformanceData) {

@@ -34,7 +34,11 @@ class IHTCAttachBehavior2 extends IDispatch{
      * @returns {HRESULT} 
      */
     fireEvent(evt) {
-        result := ComCall(7, this, "ptr", evt, "HRESULT")
+        result := ComCall(7, this, "ptr", evt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

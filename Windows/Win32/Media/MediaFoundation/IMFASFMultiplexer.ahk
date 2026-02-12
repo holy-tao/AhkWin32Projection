@@ -6,7 +6,7 @@
 
 /**
  * Provides methods to create Advanced Systems Format (ASF) data packets.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfmultiplexer
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nn-wmcontainer-imfasfmultiplexer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IMFASFMultiplexer extends IUnknown{
 
     /**
      * Initializes the multiplexer with the data from an ASF ContentInfo object.
+     * @remarks
+     * This call must be made once at the beginning of encoding, with <i>pIContentInfo</i> pointing to the ASF ContentInfo object that describes the content to be encoded. This enables the ASF multiplexer to see, among other things, which streams will be present in the encoding session. This call typically does not affect the data in the ASF ContentInfo object.
      * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the <b>MFASFContentInfo</b> object that contains the header information of the new ASF file. The multiplexer will generate data packets for this file.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -53,10 +55,14 @@ class IMFASFMultiplexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-initialize
      */
     Initialize(pIContentInfo) {
-        result := ComCall(3, this, "ptr", pIContentInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pIContentInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,25 +88,38 @@ class IMFASFMultiplexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-setflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setflags
      */
     SetFlags(dwFlags) {
-        result := ComCall(4, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves flags indicating the configured multiplexer options.
      * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more values from the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ne-wmcontainer-mfasf_multiplexerflags">MFASF_MULTIPLEXERFLAGS</a> enumeration. To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setflags">IMFASFMultiplexer::SetFlags</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-getflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getflags
      */
     GetFlags() {
-        result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
     /**
      * Delivers input samples to the multiplexer.
+     * @remarks
+     * The application passes samples to <b>ProcessSample</b>, and the ASF multiplexer queues them internally until they are ready to be placed into ASF packets. Call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">IMFASFMultiplexer::GetNextPacket</a> to get the ASF data packet.
+     *       
+     * 
+     * After each call to <b>ProcessSample</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">GetNextPacket</a> in a loop to get all of the available data packets. For a code example, see <a href="https://docs.microsoft.com/windows/desktop/medfound/generating-new-asf-data-packets">Generating New ASF Data Packets</a>.
      * @param {Integer} wStreamNumber The stream number of the stream to which the sample belongs.
      * @param {IMFSample} pISample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the input sample. The input sample contains the media data to be converted to ASF data packets. When possible, the time stamp of this sample should be accurate.
      * @param {Integer} hnsTimestampAdjust The adjustment to apply to the time stamp of the sample. This parameter is used if the caller wants to shift the sample time on <i>pISample</i>. This value should be positive if the time stamp should be pushed ahead and negative if the time stamp should be pushed back. This time stamp is added to sample time on <i>pISample</i>, and the resulting time is used by the multiplexer instead of the original sample time. If no adjustment is needed, set this value to 0.
@@ -131,7 +150,7 @@ class IMFASFMultiplexer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * There are too many packets waiting to be retrieved from the multiplexer. Call <a href="/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">IMFASFMultiplexer::GetNextPacket</a> to get the packets.
+     * There are too many packets waiting to be retrieved from the multiplexer. Call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">IMFASFMultiplexer::GetNextPacket</a> to get the packets.
      * 
      * </td>
      * </tr>
@@ -172,15 +191,24 @@ class IMFASFMultiplexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-processsample
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-processsample
      */
     ProcessSample(wStreamNumber, pISample, hnsTimestampAdjust) {
-        result := ComCall(6, this, "ushort", wStreamNumber, "ptr", pISample, "int64", hnsTimestampAdjust, "HRESULT")
+        result := ComCall(6, this, "ushort", wStreamNumber, "ptr", pISample, "int64", hnsTimestampAdjust, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the next output ASF packet from the multiplexer.
+     * @remarks
+     * The client needs to call this method, ideally after every call to <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-processsample">IMFASFMultiplexer::ProcessSample</a>, to get the output ASF packets. Call this method in a loop as long as the <b>ASF_STATUSFLAGS_INCOMPLETE</b> flag is received.
+     *       
+     * 
+     * If no packets are ready, the method returns <b>S_OK</b> but does not return a sample in <i>ppIPacket</i>.
      * @param {Pointer<Integer>} pdwStatusFlags Receives zero or more status flags. If more than one packet is waiting, the method sets the <b>ASF_STATUSFLAGS_INCOMPLETE</b> flag.
      * @param {Pointer<IMFSample>} ppIPacket Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the first output sample of the data packet. The caller must release the interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -203,17 +231,23 @@ class IMFASFMultiplexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket
      */
     GetNextPacket(pdwStatusFlags, ppIPacket) {
         pdwStatusFlagsMarshal := pdwStatusFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwStatusFlagsMarshal, pdwStatusFlags, "ptr*", ppIPacket, "HRESULT")
+        result := ComCall(7, this, pdwStatusFlagsMarshal, pdwStatusFlags, "ptr*", ppIPacket, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Signals the multiplexer to process all queued output media samples. Call this method after passing the last sample to the multiplexer.
+     * @remarks
+     * You must call <b>Flush</b> after the last sample has been passed into the ASF multiplexer and before you call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-end">IMFASFMultiplexer::End</a>. This causes all output media samples in progress to be completed. After calling <b>Flush</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">IMFASFMultiplexer::GetNextPacket</a> in a loop until all the pending media samples have been packetized.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -233,15 +267,23 @@ class IMFASFMultiplexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush
      */
     Flush() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Collects data from the multiplexer and updates the ASF ContentInfo object to include that information in the ASF Header Object.
+     * @remarks
+     * For non-live encoding scenarios (such as encoding to a file), the user should call <b>End</b> to update the specified ContentInfo object, adding data that the multiplexer has collected during the packet generation process. The user should then call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-generateheader">IMFASFContentInfo::GenerateHeader</a> and write the output header at the beginning of the ASF file (overwriting the header obtained at the beginning of the encoding session). For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/writing-an-asf-header-object-for-a-new-file">Writing an ASF Header Object for a New File</a>.
+     * 
+     * During live encoding, it is usually not possible to rewrite the header, so this call is not required for live encoding. (The header in those cases will simply lack some of the information that was not available until the end of the encoding session.)
      * @param {IMFASFContentInfo} pIContentInfo Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object. This must be the same object that was used to initialize the multiplexer. The ContentInfo object represents the ASF Header Object of the file for which the multiplexer generated data packets.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -268,15 +310,19 @@ class IMFASFMultiplexer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * There are pending output media samples waiting in the multiplexer. Call <a href="/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush">IMFASFMultiplexer::Flush</a> to force the media samples to be packetized.
+     * There are pending output media samples waiting in the multiplexer. Call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-flush">IMFASFMultiplexer::Flush</a> to force the media samples to be packetized.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-end
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-end
      */
     End(pIContentInfo) {
-        result := ComCall(9, this, "ptr", pIContentInfo, "HRESULT")
+        result := ComCall(9, this, "ptr", pIContentInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -284,16 +330,22 @@ class IMFASFMultiplexer extends IUnknown{
      * Retrieves multiplexer statistics.
      * @param {Integer} wStreamNumber The stream number for which to obtain statistics.
      * @returns {ASF_MUX_STATISTICS} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_mux_statistics">ASF_MUX_STATISTICS</a> structure that receives the statistics.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-getstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getstatistics
      */
     GetStatistics(wStreamNumber) {
         pMuxStats := ASF_MUX_STATISTICS()
-        result := ComCall(10, this, "ushort", wStreamNumber, "ptr", pMuxStats, "HRESULT")
+        result := ComCall(10, this, "ushort", wStreamNumber, "ptr", pMuxStats, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMuxStats
     }
 
     /**
      * Sets the maximum time by which samples from various streams can be out of synchronization.
+     * @remarks
+     * The synchronization tolerance is the maximum difference in presentation times at any given point between samples of different streams that the ASF multiplexer can accommodate. That is, if the synchronization tolerance is 3 seconds, no stream can be more than 3 seconds behind any other stream in the time stamps passed to the multiplexer. The multiplexer determines a default synchronization tolerance to use, but this method overrides it (usually to increase it). More tolerance means the potential for greater latency in the multiplexer. If the time stamps are synchronized among the streams, actual latency will be much lower than <i>msSyncTolerance</i>.
      * @param {Integer} msSyncTolerance Synchronization tolerance in milliseconds.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -314,10 +366,14 @@ class IMFASFMultiplexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfmultiplexer-setsynctolerance
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfmultiplexer-setsynctolerance
      */
     SetSyncTolerance(msSyncTolerance) {
-        result := ComCall(11, this, "uint", msSyncTolerance, "HRESULT")
+        result := ComCall(11, this, "uint", msSyncTolerance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

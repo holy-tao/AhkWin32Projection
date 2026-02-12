@@ -6,7 +6,7 @@
 
 /**
  * This interface is implemented by the TSF manager and is used by an application or text service to manipulate the substitute input locale identifier (keyboard layout) of a text service profile.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofilesubstitutelayout
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfinputprocessorprofilesubstitutelayout
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,11 +37,15 @@ class ITfInputProcessorProfileSubstituteLayout extends IUnknown{
      * @param {Integer} langid Specifies the language of the profile. See <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifiers</a>.
      * @param {Pointer<Guid>} guidProfile Identifies the profile GUID.
      * @returns {HKL} Pointer to an <b>HKL</b> value that specifies the substitute input locale identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilesubstitutelayout-getsubstitutekeyboardlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofilesubstitutelayout-getsubstitutekeyboardlayout
      */
     GetSubstituteKeyboardLayout(rclsid, langid, guidProfile) {
         phKL := HKL()
-        result := ComCall(3, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", phKL, "HRESULT")
+        result := ComCall(3, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", phKL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phKL
     }
 }

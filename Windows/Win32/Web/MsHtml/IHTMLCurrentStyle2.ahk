@@ -162,7 +162,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_layoutFlow() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -172,7 +176,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_wordWrap() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -182,7 +190,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_textUnderlinePosition() {
         p := BSTR()
-        result := ComCall(9, this, "ptr", p, "HRESULT")
+        result := ComCall(9, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -191,7 +203,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_hasLayout() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -201,7 +217,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarBaseColor() {
         p := VARIANT()
-        result := ComCall(11, this, "ptr", p, "HRESULT")
+        result := ComCall(11, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -211,7 +231,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarFaceColor() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -221,7 +245,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbar3dLightColor() {
         p := VARIANT()
-        result := ComCall(13, this, "ptr", p, "HRESULT")
+        result := ComCall(13, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -231,7 +259,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarShadowColor() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -241,7 +273,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarHighlightColor() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -251,7 +287,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarDarkShadowColor() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -261,7 +301,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarArrowColor() {
         p := VARIANT()
-        result := ComCall(17, this, "ptr", p, "HRESULT")
+        result := ComCall(17, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -271,7 +315,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_scrollbarTrackColor() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -281,7 +329,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_writingMode() {
         p := BSTR()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -291,7 +343,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_zoom() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -301,7 +357,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_filter() {
         p := BSTR()
-        result := ComCall(21, this, "ptr", p, "HRESULT")
+        result := ComCall(21, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -311,7 +371,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_textAlignLast() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -321,7 +385,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      */
     get_textKashidaSpace() {
         p := VARIANT()
-        result := ComCall(23, this, "ptr", p, "HRESULT")
+        result := ComCall(23, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -330,7 +398,11 @@ class IHTMLCurrentStyle2 extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_isBlock() {
-        result := ComCall(24, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

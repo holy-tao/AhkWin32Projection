@@ -4,8 +4,8 @@
 #Include ..\IInspectable.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.media.core.interop/nn-windows-media-core-interop-iaudioframenativefactory
+ * Creates instances of IAudioFrameNative.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.media.core.interop/nn-windows-media-core-interop-iaudioframenativefactory
  * @namespace Windows.Win32.System.WinRT.Media
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IAudioFrameNativeFactory extends IInspectable{
      * @param {IMFSample} data 
      * @param {BOOL} forceReadOnly 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateFromMFSample(data, forceReadOnly, riid) {
-        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

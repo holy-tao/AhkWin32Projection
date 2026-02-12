@@ -36,7 +36,11 @@ class IBinaryConverter2 extends IBinaryConverter{
      */
     StringArrayToVariantArray(pvarStringArray) {
         pvarVariantArray := VARIANT()
-        result := ComCall(10, this, "ptr", pvarStringArray, "ptr", pvarVariantArray, "HRESULT")
+        result := ComCall(10, this, "ptr", pvarStringArray, "ptr", pvarVariantArray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarVariantArray
     }
 
@@ -47,7 +51,11 @@ class IBinaryConverter2 extends IBinaryConverter{
      */
     VariantArrayToStringArray(pvarVariantArray) {
         pvarStringArray := VARIANT()
-        result := ComCall(11, this, "ptr", pvarVariantArray, "ptr", pvarStringArray, "HRESULT")
+        result := ComCall(11, this, "ptr", pvarVariantArray, "ptr", pvarStringArray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarStringArray
     }
 }

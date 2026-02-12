@@ -7,11 +7,8 @@
 /**
  * Use this interface to track per-track properties that are applied to CD media.
  * @remarks
- * 
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-irawcdimagetrackinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-irawcdimagetrackinfo
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -97,117 +94,200 @@ class IRawCDImageTrackInfo extends IDispatch{
 
     /**
      * Retrieves the LBA of the first user sectors in this track.
+     * @remarks
+     * Most tracks also include a pregap and postgap, which are not included in this value.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Integer} The LBA of the first user sectors in this track.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba
      */
     get_StartingLba() {
-        result := ComCall(7, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the number of user sectors in this track.
+     * @remarks
+     * The end of the track is typically the <b>StartingLBA</b> plus the <b>SectorCount</b>.  The start of the next track includes both of these properties plus any required pregap or postgap.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Integer} The number of user sectors in this track.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectorcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectorcount
      */
     get_SectorCount() {
-        result := ComCall(8, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the track number for this track.
+     * @remarks
+     * While this value is often identical to the <b>TrackIndex</b> property, it is possible for pure audio discs to start with a track other than track number 1.  This means that the more general formula is that this value is ( TrackIndex + FirstTrackNumber - 1).
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Integer} The track number for this track.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_tracknumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_tracknumber
      */
     get_TrackNumber() {
-        result := ComCall(9, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the type of data provided for the sectors in this track. For more detail on the possible sector types, see IMAPI_CD_SECTOR_TYPE.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_cd_sector_type">IMAPI_CD_SECTOR_TYPE</a> enumeration that specifies the type of data provided for the sectors on the track.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
      */
     get_SectorType() {
-        result := ComCall(10, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the International Standard Recording Code (ISRC) currently associated with the track. This property value defaults to NULL (or a zero-length string) and may only be set for tracks containing audio data.
+     * @remarks
+     * The format of the ISRC is provided to the caller formatted per ISRC standards (DIN-31-621) recommendations, such as "US-K7Y-98-12345".  When set, the provided string may optionally exclude all the '-' characters.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {BSTR} The ISRC currently associated with the track.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
      */
     get_ISRC() {
         value := BSTR()
-        result := ComCall(11, this, "ptr", value, "HRESULT")
+        result := ComCall(11, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets the International Standard Recording Code (ISRC) currently associated with the track. This property value defaults to NULL (or a zero-length string) and may only be set for tracks containing audio data.
+     * @remarks
+     * The format of the ISRC is provided to the caller formatted per ISRC standards (DIN-31-621) recommendations, such as "US-K7Y-98-12345".  When set, the provided string may optionally exclude all the '-' characters.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {BSTR} value The ISRC to associate with the track.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-put_isrc
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-put_isrc
      */
     put_ISRC(value) {
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", value, "HRESULT")
+        result := ComCall(12, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the value for the bit that represents the current digital audio copy setting on the resulting media. Please see the IMAPI_CD_TRACK_DIGITAL_COPY_SETTING enumeration for possible values.
+     * @remarks
+     * This property may only be set for tracks containing audio data.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Integer} The current digital audio copy setting.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
      */
     get_DigitalAudioCopySetting() {
-        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets the digital audio copy &quot;Allowed&quot; bit to one of three values on the resulting media. Please see the IMAPI_CD_TRACK_DIGITAL_COPY_SETTING enumeration for additional information on each possible value.
+     * @remarks
+     * This property may only be set for tracks containing audio data.
+     * 
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {Integer} value The digital audio copy setting value to assign.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-put_digitalaudiocopysetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-put_digitalaudiocopysetting
      */
     put_DigitalAudioCopySetting(value) {
-        result := ComCall(14, this, "int", value, "HRESULT")
+        result := ComCall(14, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the value that specifies if an audio track has an additional pre-emphasis added to the audio data.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {VARIANT_BOOL} Value that specifies if an audio track has an additional pre-emphasis added to the audio data.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_audiohaspreemphasis
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_audiohaspreemphasis
      */
     get_AudioHasPreemphasis() {
-        result := ComCall(15, this, "short*", &value := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Sets the value that specifies if an audio track has an additional pre-emphasis added to the audio data prior to being written to CD.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {VARIANT_BOOL} value Value that specifies if an audio track has an additional pre-emphasis added to the audio data.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-put_audiohaspreemphasis
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-put_audiohaspreemphasis
      */
     put_AudioHasPreemphasis(value) {
-        result := ComCall(16, this, "short", value, "HRESULT")
+        result := ComCall(16, this, "short", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the one-based index of the tracks on the disc.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Pointer<SAFEARRAY>} The one-based index associated with this track.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-irawcdimagetrackinfo-get_trackindexes
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-irawcdimagetrackinfo-get_trackindexes
      */
     get_TrackIndexes() {
-        result := ComCall(17, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -217,7 +297,11 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     AddTrackIndex(lbaOffset) {
-        result := ComCall(18, this, "int", lbaOffset, "HRESULT")
+        result := ComCall(18, this, "int", lbaOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +311,11 @@ class IRawCDImageTrackInfo extends IDispatch{
      * @returns {HRESULT} 
      */
     ClearTrackIndex(lbaOffset) {
-        result := ComCall(19, this, "int", lbaOffset, "HRESULT")
+        result := ComCall(19, this, "int", lbaOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

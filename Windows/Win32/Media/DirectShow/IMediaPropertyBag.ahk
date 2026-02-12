@@ -5,7 +5,7 @@
 
 /**
  * The IMediaPropertyBag interface is exposed by the Media Property Bag object.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-imediapropertybag
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-imediapropertybag
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IMediaPropertyBag extends IPropertyBag{
 
     /**
      * The EnumProperty method retrieves a property/value pair.
+     * @remarks
+     * The name is always a string. Set the variant type of the <i>pvarPropertyName</i> parameter to VT_EMPTY or VT_BSTR before calling this method.
+     * 
+     * The value can be a string (for INFO chunks) or an array of bytes (for DISP chunks). Set the variant type of the <i>pvarPropertyName</i> parameter to VT_EMPTY, VT_BSTR, or (VT_ARRAY | VT_UI1).
      * @param {Integer} iProperty Index value of the pair.
      * @param {Pointer<VARIANT>} pvarPropertyName Pointer to a <b>VARIANT</b> that receives the property's name.
      * @param {Pointer<VARIANT>} pvarPropertyValue Pointer to a <b>VARIANT</b> that receives the property's value.
@@ -98,10 +102,14 @@ class IMediaPropertyBag extends IPropertyBag{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imediapropertybag-enumproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-imediapropertybag-enumproperty
      */
     EnumProperty(iProperty, pvarPropertyName, pvarPropertyValue) {
-        result := ComCall(5, this, "uint", iProperty, "ptr", pvarPropertyName, "ptr", pvarPropertyValue, "HRESULT")
+        result := ComCall(5, this, "uint", iProperty, "ptr", pvarPropertyName, "ptr", pvarPropertyValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

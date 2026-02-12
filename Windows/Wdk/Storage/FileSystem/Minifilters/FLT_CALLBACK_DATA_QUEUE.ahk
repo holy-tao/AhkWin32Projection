@@ -28,7 +28,7 @@ class FLT_CALLBACK_DATA_QUEUE extends Win32Struct
     }
 
     /**
-     * @type {PFLT_INSTANCE}
+     * @type {Pointer<PFLT_INSTANCE>}
      */
     Instance {
         get => NumGet(this, 16, "ptr")

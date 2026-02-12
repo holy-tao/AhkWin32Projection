@@ -5,7 +5,7 @@
 
 /**
  * Enables retrieving the IUnknown pointer stored in the error info with the call to RoOriginateLanguageException.
- * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -32,11 +32,17 @@ class ILanguageExceptionErrorInfo extends IUnknown{
 
     /**
      * Gets the stored IUnknown object from the error object.
+     * @remarks
+     * Language projections query for the appropriate interface to identify this object as generated from an exception to get the original object.
      * @returns {IUnknown} The stored <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> object from the error object.
-     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo-getlanguageexception
+     * @see https://learn.microsoft.com/windows/win32/api//content/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo-getlanguageexception
      */
     GetLanguageException() {
-        result := ComCall(3, this, "ptr*", &languageException := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &languageException := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(languageException)
     }
 }

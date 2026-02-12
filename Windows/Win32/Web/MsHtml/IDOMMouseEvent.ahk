@@ -196,7 +196,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_screenX() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -205,7 +209,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_screenY() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -214,7 +222,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_clientX() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -223,7 +235,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_clientY() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -232,7 +248,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -241,7 +261,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -250,7 +274,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -259,7 +287,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -268,7 +300,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_button() {
-        result := ComCall(15, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -277,7 +313,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {IEventTarget} 
      */
     get_relatedTarget() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEventTarget(p)
     }
 
@@ -301,9 +341,16 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMouseEvent(eventType, canBubble, cancelable, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, ctrlKeyArg, altKeyArg, shiftKeyArg, metaKeyArg, buttonArg, relatedTargetArg) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "short", ctrlKeyArg, "short", altKeyArg, "short", shiftKeyArg, "short", metaKeyArg, "ushort", buttonArg, "ptr", relatedTargetArg, "HRESULT")
+        result := ComCall(17, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "short", ctrlKeyArg, "short", altKeyArg, "short", shiftKeyArg, "short", metaKeyArg, "ushort", buttonArg, "ptr", relatedTargetArg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -313,9 +360,16 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     getModifierState(keyArg) {
-        keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
+        if(keyArg is String) {
+            pin := BSTR.Alloc(keyArg)
+            keyArg := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", keyArg, "short*", &activated := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", keyArg, "short*", &activated := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return activated
     }
 
@@ -324,7 +378,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_buttons() {
-        result := ComCall(19, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -333,7 +391,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_fromElement() {
-        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -342,7 +404,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_toElement() {
-        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 
@@ -351,7 +417,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_x() {
-        result := ComCall(22, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -360,7 +430,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_y() {
-        result := ComCall(23, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -369,7 +443,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_offsetX() {
-        result := ComCall(24, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -378,7 +456,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_offsetY() {
-        result := ComCall(25, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -387,7 +469,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_pageX() {
-        result := ComCall(26, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -396,7 +482,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_pageY() {
-        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -405,7 +495,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_layerX() {
-        result := ComCall(28, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -414,7 +508,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_layerY() {
-        result := ComCall(29, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -423,7 +521,11 @@ class IDOMMouseEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_which() {
-        result := ComCall(30, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(30, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

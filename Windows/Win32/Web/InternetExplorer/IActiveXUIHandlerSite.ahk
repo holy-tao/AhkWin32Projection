@@ -34,7 +34,11 @@ class IActiveXUIHandlerSite extends IUnknown{
      * @returns {IScrollableContextMenu} 
      */
     CreateScrollableContextMenu() {
-        result := ComCall(3, this, "ptr*", &scrollableContextMenu := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &scrollableContextMenu := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScrollableContextMenu(scrollableContextMenu)
     }
 
@@ -45,7 +49,11 @@ class IActiveXUIHandlerSite extends IUnknown{
      * @returns {IUnknown} 
      */
     PickFileAndGetResult(filePicker, allowMultipleSelections) {
-        result := ComCall(4, this, "ptr", filePicker, "int", allowMultipleSelections, "ptr*", &result := 0, "HRESULT")
-        return IUnknown(result)
+        result := ComCall(4, this, "ptr", filePicker, "int", allowMultipleSelections, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IUnknown(result_)
     }
 }

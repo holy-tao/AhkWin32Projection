@@ -44,7 +44,7 @@
  *  
  * 
  * For more information, see the Windows DDK documentation.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppstatusinput
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-amcoppstatusinput
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

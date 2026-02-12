@@ -4,7 +4,7 @@
 
 /**
  * Contains identification information for a file. (FILE_ID_EXTD_DIR_INFO)
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_extd_dir_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-file_id_extd_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

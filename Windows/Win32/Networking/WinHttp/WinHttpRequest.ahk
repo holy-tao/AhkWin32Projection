@@ -15,7 +15,7 @@
  * 
  * > [!Note]  
  * > For Windows XP and Windows 2000, see [Run-Time Requirements](winhttp-start-page.md).
- * @see https://learn.microsoft.com/windows/win32/WinHttp/winhttprequest
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WinHttp/winhttprequest
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
  */

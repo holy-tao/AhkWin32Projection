@@ -30,28 +30,40 @@ class IDebugHostContextTargetComposition extends IUnknown{
 
     /**
      * 
-     * @returns {Pointer<IDebugServiceManager>} 
+     * @returns {Pointer<Pointer<IDebugServiceManager>>} 
      */
     GetServiceManager() {
-        result := ComCall(3, this, "ptr*", &ppServiceManager := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppServiceManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppServiceManager
     }
 
     /**
      * 
-     * @returns {Pointer<ISvcProcess>} 
+     * @returns {Pointer<Pointer<ISvcProcess>>} 
      */
     GetServiceProcess() {
-        result := ComCall(4, this, "ptr*", &ppProcess := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppProcess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppProcess
     }
 
     /**
      * 
-     * @returns {Pointer<ISvcThread>} 
+     * @returns {Pointer<Pointer<ISvcThread>>} 
      */
     GetServiceThread() {
-        result := ComCall(5, this, "ptr*", &ppThread := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppThread := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppThread
     }
 }

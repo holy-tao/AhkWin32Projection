@@ -38,7 +38,11 @@ class ISpSREngineSite2 extends ISpSREngineSite{
     AddEventEx(pEvent, hSAPIRecoContext) {
         hSAPIRecoContext := hSAPIRecoContext is Win32Handle ? NumGet(hSAPIRecoContext, "ptr") : hSAPIRecoContext
 
-        result := ComCall(21, this, "ptr", pEvent, "ptr", hSAPIRecoContext, "HRESULT")
+        result := ComCall(21, this, "ptr", pEvent, "ptr", hSAPIRecoContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class ISpSREngineSite2 extends ISpSREngineSite{
      * @returns {HRESULT} 
      */
     UpdateRecoPosEx(ullCurrentRecoPos, ullCurrentRecoTime) {
-        result := ComCall(22, this, "uint", ullCurrentRecoPos, "uint", ullCurrentRecoTime, "HRESULT")
+        result := ComCall(22, this, "uint", ullCurrentRecoPos, "uint", ullCurrentRecoTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class ISpSREngineSite2 extends ISpSREngineSite{
      */
     GetRuleTransition(ulGrammarID, RuleIndex) {
         pTrans := SPTRANSITIONENTRY()
-        result := ComCall(23, this, "uint", ulGrammarID, "uint", RuleIndex, "ptr", pTrans, "HRESULT")
+        result := ComCall(23, this, "uint", ulGrammarID, "uint", RuleIndex, "ptr", pTrans, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTrans
     }
 
@@ -71,7 +83,11 @@ class ISpSREngineSite2 extends ISpSREngineSite{
      * @returns {HRESULT} 
      */
     RecognitionEx(pResultInfo) {
-        result := ComCall(24, this, "ptr", pResultInfo, "HRESULT")
+        result := ComCall(24, this, "ptr", pResultInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Provides methods to perform file system management operations on partitions.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsdiskpartitionmf
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdsdiskpartitionmf
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -36,11 +36,15 @@ class IVdsDiskPartitionMF extends IUnknown{
      * Returns property details about the file system on a partition on the disk at a specified byte offset.
      * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of the start of a partition.
      * @returns {VDS_FILE_SYSTEM_PROP} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_file_system_prop">VDS_FILE_SYSTEM_PROP</a> structure that upon successful completion receives the properties of the file system volume on the partition.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemproperties
      */
     GetPartitionFileSystemProperties(ullOffset) {
         pFileSystemProp := VDS_FILE_SYSTEM_PROP()
-        result := ComCall(3, this, "uint", ullOffset, "ptr", pFileSystemProp, "HRESULT")
+        result := ComCall(3, this, "uint", ullOffset, "ptr", pFileSystemProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFileSystemProp
     }
 
@@ -48,10 +52,14 @@ class IVdsDiskPartitionMF extends IUnknown{
      * Retrieves the name of the file system on a partition on the disk at a specified byte offset.
      * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of a start of a partition.
      * @returns {PWSTR} Pointer that upon successful completion receives a null-terminated Unicode string with the file system name.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
      */
     GetPartitionFileSystemTypeName(ullOffset) {
-        result := ComCall(4, this, "uint", ullOffset, "ptr*", &ppwszFileSystemTypeName := 0, "HRESULT")
+        result := ComCall(4, this, "uint", ullOffset, "ptr*", &ppwszFileSystemTypeName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwszFileSystemTypeName
     }
 
@@ -61,7 +69,7 @@ class IVdsDiskPartitionMF extends IUnknown{
      * @param {Pointer<Pointer<VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP>>} ppFileSystemSupportProps A pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_file_system_format_support_prop">VDS_FILE_SYSTEM_FORMAT_SUPPORT_PROP</a> structures passed in by the caller. Upon successful completion, this array receives information about the properties of the supported file systems. Callers must free this array by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Integer>} plNumberOfFileSystems A pointer to a variable that upon successful completion receives the total number of elements in the <i>ppFileSystemSupportProps</i> parameter.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -140,18 +148,30 @@ class IVdsDiskPartitionMF extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-querypartitionfilesystemformatsupport
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsdiskpartitionmf-querypartitionfilesystemformatsupport
      */
     QueryPartitionFileSystemFormatSupport(ullOffset, ppFileSystemSupportProps, plNumberOfFileSystems) {
         ppFileSystemSupportPropsMarshal := ppFileSystemSupportProps is VarRef ? "ptr*" : "ptr"
         plNumberOfFileSystemsMarshal := plNumberOfFileSystems is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", ullOffset, ppFileSystemSupportPropsMarshal, ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "HRESULT")
+        result := ComCall(5, this, "uint", ullOffset, ppFileSystemSupportPropsMarshal, ppFileSystemSupportProps, plNumberOfFileSystemsMarshal, plNumberOfFileSystems, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Formats an existing OEM, ESP, or unknown partition.
+     * Formats an existing OEM, ESP, or unknown partition. (IVdsDiskPartitionMF.FormatPartitionEx)
+     * @remarks
+     * This method formats only OEM, ESP, and unknown partitions. For other partitions, you must instead format the corresponding volume by using the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-format">IVdsVolumeMF::Format</a> or <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf2-formatex">IVdsVolumeMF2::FormatEx</a> method. Note that OEM, ESP, and unknown partitions are not exposed as volumes and therefore cannot be formatted with <b>Format</b> or <b>FormatEx</b>.
+     * 
+     * This method cannot be used to format removable media.
+     * 
+     * If an OEM partition is formatted as FAT or FAT32, the partition type does not change. If it is formatted with NTFS, the partition type changes to PARTITION_IFS (0x07). For information about partition types, see <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-create_partition_parameters">CREATE_PARTITION_PARAMETERS</a>.
+     * 
+     * For more information about file system limits such as minimum and maximum allocation unit size (also called cluster size), see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc758691(v=ws.10)">NTFS Technical Reference</a> and <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc758586(v=ws.10)">FAT Technical Reference</a>.
      * @param {Integer} ullOffset Byte offset of the partition from the beginning of the disk.  This offset must be the offset of the start of a partition.
      * @param {PWSTR} pwszFileSystemTypeName A <b>NULL</b>-terminated Unicode string containing the name of the file system with which to format the partition. Must be <b>NULL</b> or one of the following: "NTFS", "FAT","FAT32", "UDF", or "EXFAT". If this parameter is <b>NULL</b>, a default value is used.
      * @param {Integer} usFileSystemRevision The revision of the file system, if any.  This member is expressed as a 16-bit binary-coded decimal number, where a decimal point is implied between the second and third digits. For example, a value of 0x0250 indicates revision 2.50.
@@ -164,13 +184,17 @@ class IVdsDiskPartitionMF extends IUnknown{
      * <div class="alert"><b>Note</b>  This parameter is ignored if the file system is not NTFS.</div>
      * <div> </div>
      * @returns {IVdsAsync} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface that upon successful completion receives the <b>IVdsAsync</b> interface to monitor and control this operation.  Callers must release the interface received when they are done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf-formatpartitionex
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsdiskpartitionmf-formatpartitionex
      */
     FormatPartitionEx(ullOffset, pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, bForce, bQuickFormat, bEnableCompression) {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsAsync(ppAsync)
     }
 }

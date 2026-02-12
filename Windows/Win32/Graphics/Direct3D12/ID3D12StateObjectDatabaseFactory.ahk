@@ -33,12 +33,16 @@ class ID3D12StateObjectDatabaseFactory extends IUnknown{
      * @param {PWSTR} pDatabaseFile 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     CreateStateObjectDatabaseFromFile(pDatabaseFile, flags, riid) {
         pDatabaseFile := pDatabaseFile is String ? StrPtr(pDatabaseFile) : pDatabaseFile
 
-        result := ComCall(3, this, "ptr", pDatabaseFile, "int", flags, "ptr", riid, "ptr*", &ppvStateObjectDatabase := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pDatabaseFile, "int", flags, "ptr", riid, "ptr*", &ppvStateObjectDatabase := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvStateObjectDatabase
     }
 }

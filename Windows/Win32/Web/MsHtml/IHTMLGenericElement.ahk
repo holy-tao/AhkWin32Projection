@@ -47,7 +47,11 @@ class IHTMLGenericElement extends IDispatch{
      * @returns {IDispatch} 
      */
     get_recordset() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -58,9 +62,16 @@ class IHTMLGenericElement extends IDispatch{
      * @returns {IDispatch} 
      */
     namedRecordset(dataMember, hierarchy) {
-        dataMember := dataMember is String ? BSTR.Alloc(dataMember).Value : dataMember
+        if(dataMember is String) {
+            pin := BSTR.Alloc(dataMember)
+            dataMember := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", &ppRecordset := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", &ppRecordset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppRecordset)
     }
 }

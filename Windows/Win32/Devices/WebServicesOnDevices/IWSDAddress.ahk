@@ -5,7 +5,7 @@
 
 /**
  * Provides access to the individual components of a transport address.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdaddress
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nn-wsdbase-iwsdaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -76,12 +76,16 @@ class IWSDAddress extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdaddress-serialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nf-wsdbase-iwsdaddress-serialize
      */
     Serialize(pszBuffer, cchLength, fSafe) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(3, this, "ptr", pszBuffer, "uint", cchLength, "int", fSafe, "HRESULT")
+        result := ComCall(3, this, "ptr", pszBuffer, "uint", cchLength, "int", fSafe, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,12 +133,16 @@ class IWSDAddress extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdaddress-deserialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsdbase/nf-wsdbase-iwsdaddress-deserialize
      */
     Deserialize(pszBuffer) {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := ComCall(4, this, "ptr", pszBuffer, "HRESULT")
+        result := ComCall(4, this, "ptr", pszBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

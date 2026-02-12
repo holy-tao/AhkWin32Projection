@@ -24,7 +24,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function.
  * 
  * The binary information is information that is specific to the event. It could be the contents of the processor registers when a device driver got an error, a dump of an invalid packet that was received from the network, a dump of all the structures in a program (when the data area was detected to be corrupt), and so on. This information should be useful to the writer of the device driver or the application in tracking down bugs or unauthorized breaks into the application.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-eventlogrecord
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-eventlogrecord
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319
  */

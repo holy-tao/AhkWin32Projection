@@ -6,7 +6,7 @@
 
 /**
  * Represents the metadata for a set of changes that is created as part of a recovery synchronization.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncfullenumerationchangebatch
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncfullenumerationchangebatch
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -34,15 +34,21 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
     /**
      * Gets the knowledge the destination replica will learn after it applies all the changes in the recovery synchronization.
      * @returns {ISyncKnowledge} Returns the knowledge that the destination replica will learn after it applies all the changes in the recovery synchronization.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchangebatch-getlearnedknowledgeafterrecoverycomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncfullenumerationchangebatch-getlearnedknowledgeafterrecoverycomplete
      */
     GetLearnedKnowledgeAfterRecoveryComplete() {
-        result := ComCall(17, this, "ptr*", &ppLearnedKnowledgeAfterRecoveryComplete := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppLearnedKnowledgeAfterRecoveryComplete := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedKnowledgeAfterRecoveryComplete)
     }
 
     /**
      * Gets the closed lower bound on item IDs that require destination versions.
+     * @remarks
+     * When the destination provider processes this change batch, it must provide version information for all its items that have item IDs that fall between the specified closed lower bound and closed upper bound, inclusive.
      * @param {Pointer<Integer>} pbClosedLowerBoundItemId Returns the closed lower bound on item IDs that require destination versions.
      * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbClosedLowerBoundItemId</i>. Returns the number of bytes required for the size of <i>pbClosedLowerBoundItemId</i> when <i>pcbIdSize</i> is too small, or the number of bytes written to <i>pbClosedLowerBoundItemId</i>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -97,18 +103,24 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedlowerbounditemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedlowerbounditemid
      */
     GetClosedLowerBoundItemId(pbClosedLowerBoundItemId, pcbIdSize) {
         pbClosedLowerBoundItemIdMarshal := pbClosedLowerBoundItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, pbClosedLowerBoundItemIdMarshal, pbClosedLowerBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(18, this, pbClosedLowerBoundItemIdMarshal, pbClosedLowerBoundItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the closed upper bound on item IDs that require destination versions.
+     * @remarks
+     * When the destination provider processes this change batch, it must provide version information for all its items that have item IDs that fall between the specified closed lower bound and closed upper bound, inclusive.
      * @param {Pointer<Integer>} pbClosedUpperBoundItemId Returns the closed upper bound on item IDs that require destination versions.
      * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbClosedUpperBoundItemId</i>. Returns the number of bytes required for the size of <i>pbClosedUpperBoundItemId</i> when <i>pcbIdSize</i> is too small, or the number of bytes written to <i>pbClosedUpperBoundItemId</i>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -163,13 +175,17 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedupperbounditemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncfullenumerationchangebatch-getclosedupperbounditemid
      */
     GetClosedUpperBoundItemId(pbClosedUpperBoundItemId, pcbIdSize) {
         pbClosedUpperBoundItemIdMarshal := pbClosedUpperBoundItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, pbClosedUpperBoundItemIdMarshal, pbClosedUpperBoundItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(19, this, pbClosedUpperBoundItemIdMarshal, pbClosedUpperBoundItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

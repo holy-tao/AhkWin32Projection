@@ -5,7 +5,7 @@
  * Used in the CMC_DATA_INFO structures to request a certificate.
  * @remarks
  * Additional members of the union may be defined in future versions.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_request
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmc_tagged_request
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

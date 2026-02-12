@@ -6,7 +6,7 @@
 
 /**
  * The IADsAccessControlEntry interface is a dual interface that enables directory clients to access and manipulate individual access-control entries (ACEs) of the owning object.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsaccesscontrolentry
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsaccesscontrolentry
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -92,7 +92,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {Integer} 
      */
     get_AccessMask() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -102,7 +106,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AccessMask(lnAccessMask) {
-        result := ComCall(8, this, "int", lnAccessMask, "HRESULT")
+        result := ComCall(8, this, "int", lnAccessMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,7 +119,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {Integer} 
      */
     get_AceType() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -121,7 +133,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AceType(lnAceType) {
-        result := ComCall(10, this, "int", lnAceType, "HRESULT")
+        result := ComCall(10, this, "int", lnAceType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +146,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {Integer} 
      */
     get_AceFlags() {
-        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -140,7 +160,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AceFlags(lnAceFlags) {
-        result := ComCall(12, this, "int", lnAceFlags, "HRESULT")
+        result := ComCall(12, this, "int", lnAceFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -149,7 +173,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {Integer} 
      */
     get_Flags() {
-        result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -159,7 +187,11 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Flags(lnFlags) {
-        result := ComCall(14, this, "int", lnFlags, "HRESULT")
+        result := ComCall(14, this, "int", lnFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +201,11 @@ class IADsAccessControlEntry extends IDispatch{
      */
     get_ObjectType() {
         retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        result := ComCall(15, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -179,9 +215,16 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ObjectType(bstrObjectType) {
-        bstrObjectType := bstrObjectType is String ? BSTR.Alloc(bstrObjectType).Value : bstrObjectType
+        if(bstrObjectType is String) {
+            pin := BSTR.Alloc(bstrObjectType)
+            bstrObjectType := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrObjectType, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrObjectType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +234,11 @@ class IADsAccessControlEntry extends IDispatch{
      */
     get_InheritedObjectType() {
         retval := BSTR()
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
+        result := ComCall(17, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -201,9 +248,16 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_InheritedObjectType(bstrInheritedObjectType) {
-        bstrInheritedObjectType := bstrInheritedObjectType is String ? BSTR.Alloc(bstrInheritedObjectType).Value : bstrInheritedObjectType
+        if(bstrInheritedObjectType is String) {
+            pin := BSTR.Alloc(bstrInheritedObjectType)
+            bstrInheritedObjectType := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrInheritedObjectType, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrInheritedObjectType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +267,11 @@ class IADsAccessControlEntry extends IDispatch{
      */
     get_Trustee() {
         retval := BSTR()
-        result := ComCall(19, this, "ptr", retval, "HRESULT")
+        result := ComCall(19, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -223,9 +281,16 @@ class IADsAccessControlEntry extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Trustee(bstrTrustee) {
-        bstrTrustee := bstrTrustee is String ? BSTR.Alloc(bstrTrustee).Value : bstrTrustee
+        if(bstrTrustee is String) {
+            pin := BSTR.Alloc(bstrTrustee)
+            bstrTrustee := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", bstrTrustee, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrTrustee, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

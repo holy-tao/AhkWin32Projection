@@ -7,7 +7,7 @@
 
 /**
  * The IPhotoAcquire interface provides methods for acquiring photos from a device.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquire
+ * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nn-photoacquire-iphotoacquire
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -40,19 +40,33 @@ class IPhotoAcquire extends IUnknown{
 
     /**
      * The CreatePhotoSource method initializes an IPhotoAcquireSource object to pass to IPhotoAcquire::Acquire.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquiresource">IPhotoAcquireSource</a> object created is used as the parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-acquire">Acquire</a> method.
+     * 
+     * If an error occurs in <c>CreatePhotoSource</c>, <i>ppPhotoAcquireSource</i> is initialized to <b>NULL</b>.
      * @param {PWSTR} pszDevice Pointer to a null-terminated string containing the device name.
      * @returns {IPhotoAcquireSource} Returns the initialized photo source to acquire photos from.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquire-createphotosource
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquire-createphotosource
      */
     CreatePhotoSource(pszDevice) {
         pszDevice := pszDevice is String ? StrPtr(pszDevice) : pszDevice
 
-        result := ComCall(3, this, "ptr", pszDevice, "ptr*", &ppPhotoAcquireSource := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszDevice, "ptr*", &ppPhotoAcquireSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPhotoAcquireSource(ppPhotoAcquireSource)
     }
 
     /**
      * The Acquire method acquires photos from a device.
+     * @remarks
+     * To initialize the <i>pPhotoAcquireSource</i> parameter passed to <c>Acquire</code>, <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-createphotosource">CreatePhotoSource</a> should be called prior to calling <code>Acquire</c>.
+     * 
+     * <i>pPhotoAcquireProgressCB</i> provides callback methods that allow you to apply further filtering or control as items are acquired.
+     * 
+     * To verify that there are items in the device before acquisition, or to selectively acquire items from the device, call <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist">IPhotoAcquireSource::InitializeItemList</a> to enumerate the items before calling <c>Acquire</c>.
      * @param {IPhotoAcquireSource} pPhotoAcquireSource Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquiresource">IPhotoAcquireSource</a> object representing the device from which to acquire photos. Initialize this object by calling <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-createphotosource">CreatePhotoSource</a>.
      * @param {BOOL} fShowProgress Flag that, when set to <b>TRUE</b>, indicates that a progress dialog will be shown.
      * @param {HWND} hWndParent Handle to a parent window.
@@ -88,23 +102,33 @@ class IPhotoAcquire extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquire-acquire
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquire-acquire
      */
     Acquire(pPhotoAcquireSource, fShowProgress, hWndParent, pszApplicationName, pPhotoAcquireProgressCB) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
         pszApplicationName := pszApplicationName is String ? StrPtr(pszApplicationName) : pszApplicationName
 
-        result := ComCall(4, this, "ptr", pPhotoAcquireSource, "int", fShowProgress, "ptr", hWndParent, "ptr", pszApplicationName, "ptr", pPhotoAcquireProgressCB, "HRESULT")
+        result := ComCall(4, this, "ptr", pPhotoAcquireSource, "int", fShowProgress, "ptr", hWndParent, "ptr", pszApplicationName, "ptr", pPhotoAcquireProgressCB, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EnumResults method retrieves an enumeration containing the paths of all files successfully transferred during the most recent call to Acquire.
+     * @remarks
+     * If the file transfer is aborted before any files are transferred, <i>ppEnumFilePaths</i> will be set to <b>NULL</b>.
      * @returns {IEnumString} Returns an enumeration containing the paths to all the transferred files.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquire-enumresults
+     * @see https://learn.microsoft.com/windows/win32/api//content/photoacquire/nf-photoacquire-iphotoacquire-enumresults
      */
     EnumResults() {
-        result := ComCall(5, this, "ptr*", &ppEnumFilePaths := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppEnumFilePaths := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumString(ppEnumFilePaths)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -66,9 +67,12 @@ class PROPSHEETUI_INFO extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lParamInit {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    lParamInit{
+        get {
+            if(!this.HasProp("__lParamInit"))
+                this.__lParamInit := LPARAM(24, this)
+            return this.__lParamInit
+        }
     }
 
     /**

@@ -60,7 +60,7 @@
  * Setting a timeout on a server session affects all the URL Groups under the server session. However, if the URL Group has configured a timeout, the setting for the URL Group takes precedence over the server session configuration.
  * 
  * Setting a timeout to zero on a server session causes the HTTP Server API to revert to the default value for that timer. For timers set on a URL Group, the server session timeout is used if present, otherwise the HTTP Server API default is used.
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_timeout_limit_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_timeout_limit_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

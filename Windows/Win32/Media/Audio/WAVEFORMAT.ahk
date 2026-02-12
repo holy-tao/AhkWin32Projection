@@ -5,7 +5,7 @@
  * The WAVEFORMAT structure describes the format of waveform-audio data. This structure has been superseded by the WAVEFORMATEX structure.
  * @remarks
  * For formats that require additional information, this structure is included as a member in another structure along with the additional information.
- * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-waveformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmeapi/ns-mmeapi-waveformat
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

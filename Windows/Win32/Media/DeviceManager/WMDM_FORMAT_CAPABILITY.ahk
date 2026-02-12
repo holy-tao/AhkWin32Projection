@@ -53,7 +53,7 @@
  *     formatCap.nPropConfig = 0;
  * }
  * ```
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-format-capability
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-format-capability
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

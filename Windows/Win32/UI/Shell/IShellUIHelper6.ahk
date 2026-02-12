@@ -35,7 +35,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msStopPeriodicTileUpdate() {
-        result := ComCall(74, this, "HRESULT")
+        result := ComCall(74, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msStartPeriodicTileUpdate(pollingUris, startTime, uiUpdateRecurrence) {
-        result := ComCall(75, this, "ptr", pollingUris, "ptr", startTime, "ptr", uiUpdateRecurrence, "HRESULT")
+        result := ComCall(75, this, "ptr", pollingUris, "ptr", startTime, "ptr", uiUpdateRecurrence, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msStartPeriodicTileUpdateBatch(pollingUris, startTime, uiUpdateRecurrence) {
-        result := ComCall(76, this, "ptr", pollingUris, "ptr", startTime, "ptr", uiUpdateRecurrence, "HRESULT")
+        result := ComCall(76, this, "ptr", pollingUris, "ptr", startTime, "ptr", uiUpdateRecurrence, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msClearTile() {
-        result := ComCall(77, this, "HRESULT")
+        result := ComCall(77, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +94,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msEnableTileNotificationQueue(fChange) {
-        result := ComCall(78, this, "short", fChange, "HRESULT")
+        result := ComCall(78, this, "short", fChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +108,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      */
     msPinnedSiteState() {
         pvarSiteState := VARIANT()
-        result := ComCall(79, this, "ptr", pvarSiteState, "HRESULT")
+        result := ComCall(79, this, "ptr", pvarSiteState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarSiteState
     }
 
@@ -98,7 +122,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msEnableTileNotificationQueueForSquare150x150(fChange) {
-        result := ComCall(80, this, "short", fChange, "HRESULT")
+        result := ComCall(80, this, "short", fChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,7 +136,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msEnableTileNotificationQueueForWide310x150(fChange) {
-        result := ComCall(81, this, "short", fChange, "HRESULT")
+        result := ComCall(81, this, "short", fChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -118,7 +150,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msEnableTileNotificationQueueForSquare310x310(fChange) {
-        result := ComCall(82, this, "short", fChange, "HRESULT")
+        result := ComCall(82, this, "short", fChange, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,11 +168,24 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msScheduledTileNotification(bstrNotificationXml, bstrNotificationId, bstrNotificationTag, startTime, expirationTime) {
-        bstrNotificationXml := bstrNotificationXml is String ? BSTR.Alloc(bstrNotificationXml).Value : bstrNotificationXml
-        bstrNotificationId := bstrNotificationId is String ? BSTR.Alloc(bstrNotificationId).Value : bstrNotificationId
-        bstrNotificationTag := bstrNotificationTag is String ? BSTR.Alloc(bstrNotificationTag).Value : bstrNotificationTag
+        if(bstrNotificationXml is String) {
+            pin := BSTR.Alloc(bstrNotificationXml)
+            bstrNotificationXml := pin.Value
+        }
+        if(bstrNotificationId is String) {
+            pin := BSTR.Alloc(bstrNotificationId)
+            bstrNotificationId := pin.Value
+        }
+        if(bstrNotificationTag is String) {
+            pin := BSTR.Alloc(bstrNotificationTag)
+            bstrNotificationTag := pin.Value
+        }
 
-        result := ComCall(83, this, "ptr", bstrNotificationXml, "ptr", bstrNotificationId, "ptr", bstrNotificationTag, "ptr", startTime, "ptr", expirationTime, "HRESULT")
+        result := ComCall(83, this, "ptr", bstrNotificationXml, "ptr", bstrNotificationId, "ptr", bstrNotificationTag, "ptr", startTime, "ptr", expirationTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,9 +195,16 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msRemoveScheduledTileNotification(bstrNotificationId) {
-        bstrNotificationId := bstrNotificationId is String ? BSTR.Alloc(bstrNotificationId).Value : bstrNotificationId
+        if(bstrNotificationId is String) {
+            pin := BSTR.Alloc(bstrNotificationId)
+            bstrNotificationId := pin.Value
+        }
 
-        result := ComCall(84, this, "ptr", bstrNotificationId, "HRESULT")
+        result := ComCall(84, this, "ptr", bstrNotificationId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,9 +216,16 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msStartPeriodicBadgeUpdate(pollingUri, startTime, uiUpdateRecurrence) {
-        pollingUri := pollingUri is String ? BSTR.Alloc(pollingUri).Value : pollingUri
+        if(pollingUri is String) {
+            pin := BSTR.Alloc(pollingUri)
+            pollingUri := pin.Value
+        }
 
-        result := ComCall(85, this, "ptr", pollingUri, "ptr", startTime, "ptr", uiUpdateRecurrence, "HRESULT")
+        result := ComCall(85, this, "ptr", pollingUri, "ptr", startTime, "ptr", uiUpdateRecurrence, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +234,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msStopPeriodicBadgeUpdate() {
-        result := ComCall(86, this, "HRESULT")
+        result := ComCall(86, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +247,11 @@ class IShellUIHelper6 extends IShellUIHelper5{
      * @returns {HRESULT} 
      */
     msLaunchInternetOptions() {
-        result := ComCall(87, this, "HRESULT")
+        result := ComCall(87, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

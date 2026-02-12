@@ -12,7 +12,7 @@
  * <li>For the VMR-9, the number of allocated surfaces is <b>dwMinNumSurfaces</b>.</li>
  * </ul>
  * Initially, the decoder should set <b>dwMinNumSurfaces</b> equal to the optimal number of surfaces needed to decode smoothly. If the renderer cannot allocate that many surfaces, the connection will fail with the error code E_OUTOFMEMORY. The decoder should reconnect with the same media type but set <b>dwMinNumSurfaces</b> equal to the minimum number of surfaces required for decoding. For example, the optimal number of surfaces might be 8, while the minimum is 4.
- * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvauncompbufferinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/amva/ns-amva-amvauncompbufferinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

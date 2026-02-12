@@ -37,7 +37,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     GetGrammarId(pullGrammarId) {
         pullGrammarIdMarshal := pullGrammarId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pullGrammarIdMarshal, pullGrammarId, "HRESULT")
+        result := ComCall(11, this, pullGrammarIdMarshal, pullGrammarId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {ISpRecoContext} 
      */
     GetRecoContext() {
-        result := ComCall(12, this, "ptr*", &ppRecoCtxt := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppRecoCtxt := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecoContext(ppRecoCtxt)
     }
 
@@ -59,7 +67,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     LoadCmdFromFile(pszFileName, Options) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(13, this, "ptr", pszFileName, "int", Options, "HRESULT")
+        result := ComCall(13, this, "ptr", pszFileName, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -73,25 +85,33 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     LoadCmdFromObject(rcid, pszGrammarName, Options) {
         pszGrammarName := pszGrammarName is String ? StrPtr(pszGrammarName) : pszGrammarName
 
-        result := ComCall(14, this, "ptr", rcid, "ptr", pszGrammarName, "int", Options, "HRESULT")
+        result := ComCall(14, this, "ptr", rcid, "ptr", pszGrammarName, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HMODULE} hModule 
+     * @param {HMODULE} hModule_ 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceType 
      * @param {Integer} wLanguage 
      * @param {Integer} Options 
      * @returns {HRESULT} 
      */
-    LoadCmdFromResource(hModule, pszResourceName, pszResourceType, wLanguage, Options) {
-        hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+    LoadCmdFromResource(hModule_, pszResourceName, pszResourceType, wLanguage, Options) {
+        hModule_ := hModule_ is Win32Handle ? NumGet(hModule_, "ptr") : hModule_
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
         pszResourceType := pszResourceType is String ? StrPtr(pszResourceType) : pszResourceType
 
-        result := ComCall(15, this, "ptr", hModule, "ptr", pszResourceName, "ptr", pszResourceType, "ushort", wLanguage, "int", Options, "HRESULT")
+        result := ComCall(15, this, "ptr", hModule_, "ptr", pszResourceName, "ptr", pszResourceType, "ushort", wLanguage, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -102,7 +122,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     LoadCmdFromMemory(pGrammar, Options) {
-        result := ComCall(16, this, "ptr", pGrammar, "int", Options, "HRESULT")
+        result := ComCall(16, this, "ptr", pGrammar, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +144,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
         pvDataPrarmMarshal := pvDataPrarm is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, "ptr", rguidParam, "ptr", pszStringParam, pvDataPrarmMarshal, pvDataPrarm, "uint", cbDataSize, "int", Options, "HRESULT")
+        result := ComCall(17, this, "ptr", rguidParam, "ptr", pszStringParam, pvDataPrarmMarshal, pvDataPrarm, "uint", cbDataSize, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,7 +164,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(18, this, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, "HRESULT")
+        result := ComCall(18, this, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +179,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     SetRuleIdState(ulRuleId, NewState) {
-        result := ComCall(19, this, "uint", ulRuleId, "int", NewState, "HRESULT")
+        result := ComCall(19, this, "uint", ulRuleId, "int", NewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +196,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     LoadDictation(pszTopicName, Options) {
         pszTopicName := pszTopicName is String ? StrPtr(pszTopicName) : pszTopicName
 
-        result := ComCall(20, this, "ptr", pszTopicName, "int", Options, "HRESULT")
+        result := ComCall(20, this, "ptr", pszTopicName, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +209,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     UnloadDictation() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,7 +223,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     SetDictationState(NewState) {
-        result := ComCall(22, this, "int", NewState, "HRESULT")
+        result := ComCall(22, this, "int", NewState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +241,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     SetWordSequenceData(pText, cchText, pInfo) {
         pText := pText is String ? StrPtr(pText) : pText
 
-        result := ComCall(23, this, "ptr", pText, "uint", cchText, "ptr", pInfo, "HRESULT")
+        result := ComCall(23, this, "ptr", pText, "uint", cchText, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +255,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     SetTextSelection(pInfo) {
-        result := ComCall(24, this, "ptr", pInfo, "HRESULT")
+        result := ComCall(24, this, "ptr", pInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -218,7 +274,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
         pWordPronounceableMarshal := pWordPronounceable is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, "ptr", pszWord, pWordPronounceableMarshal, pWordPronounceable, "HRESULT")
+        result := ComCall(25, this, "ptr", pszWord, pWordPronounceableMarshal, pWordPronounceable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -228,7 +288,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {HRESULT} 
      */
     SetGrammarState(eGrammarState) {
-        result := ComCall(26, this, "int", eGrammarState, "HRESULT")
+        result := ComCall(26, this, "int", eGrammarState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -238,7 +302,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @returns {PWSTR} 
      */
     SaveCmd(pStream) {
-        result := ComCall(27, this, "ptr", pStream, "ptr*", &ppszCoMemErrorText := 0, "HRESULT")
+        result := ComCall(27, this, "ptr", pStream, "ptr*", &ppszCoMemErrorText := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCoMemErrorText
     }
 
@@ -250,7 +318,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     GetGrammarState(peGrammarState) {
         peGrammarStateMarshal := peGrammarState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(28, this, peGrammarStateMarshal, peGrammarState, "HRESULT")
+        result := ComCall(28, this, peGrammarStateMarshal, peGrammarState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * A factory for instantiating a spell checker (ISpellChecker) as well as providing functionality for determining which languages are supported.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nn-spellcheck-ispellcheckerfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nn-spellcheck-ispellcheckerfactory
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -48,15 +48,16 @@ class ISpellCheckerFactory extends IUnknown{
     /**
      * Gets the set of languages/dialects supported by any of the registered spell checkers.
      * @remarks
-     * 
      * The supported languages are specific, not neutral. For Hebrew, for example, the supported language is "he-IL", not "he".
-     * 
-     * 
      * @returns {IEnumString} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellcheckerfactory-get_supportedlanguages
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellcheckerfactory-get_supportedlanguages
      */
     get_SupportedLanguages() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumString(value)
     }
 
@@ -64,25 +65,36 @@ class ISpellCheckerFactory extends IUnknown{
      * Determines if the specified language is supported by a registered spell checker.
      * @param {PWSTR} languageTag A <a href="http://tools.ietf.org/html/bcp47">BCP47</a> language tag that identifies the language for the requested spell checker.
      * @returns {BOOL} <b>TRUE</b> if supported; <b>FALSE</b> if not supported.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellcheckerfactory-issupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellcheckerfactory-issupported
      */
     IsSupported(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-        result := ComCall(4, this, "ptr", languageTag, "int*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", languageTag, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Creates a spell checker that supports the specified language.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellcheckerfactory-issupported">ISpellCheckerFactory::IsSupported</a> can be called to determine if <i>languageTag</i> is supported.
+     * This will create the preferred spell checker (according to user ranking) for the given language.
      * @param {PWSTR} languageTag A <a href="http://tools.ietf.org/html/bcp47">BCP47</a> language tag that identifies the language for the requested spell checker.
      * @returns {ISpellChecker} The created spell checker.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellcheckerfactory-createspellchecker
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellcheckerfactory-createspellchecker
      */
     CreateSpellChecker(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-        result := ComCall(5, this, "ptr", languageTag, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", languageTag, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpellChecker(value)
     }
 }

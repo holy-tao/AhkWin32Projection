@@ -9,7 +9,7 @@
  * To disable the services using the SC command-line tool, use the  command <b>sc config bfe start= disabled</b>  to disable the BFE service and its dependent services, then use the command <b>net stop bfe /Y</b>  to stop them.  To re-enable the services, use the command <b>sc config bfe start= auto</b>. For more information about the SC command-line tool, see <a href="https://docs.microsoft.com/windows/desktop/Services/controlling-a-service-using-sc">Controlling a Service Using SC</a>.
  * 
  * If it is not possible to disable the services, it may be necessary to restart the system after installing the service that is registering the event. In this case, do not disable the BFE service and its dependent services before restarting the system, because the system may not work correctly if these services remain disabled.
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_trigger
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

@@ -33,7 +33,11 @@ class IXpsDocumentProvider extends IUnknown{
      * @returns {IUnknown} 
      */
     GetXpsPart() {
-        result := ComCall(3, this, "ptr*", &ppIXpsPart := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppIXpsPart := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIXpsPart)
     }
 }

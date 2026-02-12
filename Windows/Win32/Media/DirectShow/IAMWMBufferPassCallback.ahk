@@ -5,7 +5,7 @@
 
 /**
  * The IAMWMBufferPassCallback interface is provided for advanced scenarios in which applications need access to an INSSBuffer3 sample before it is passed downstream for further processing.
- * @see https://docs.microsoft.com/windows/win32/api//dshowasf/nn-dshowasf-iamwmbufferpasscallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/dshowasf/nn-dshowasf-iamwmbufferpasscallback
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,18 +32,24 @@ class IAMWMBufferPassCallback extends IUnknown{
 
     /**
      * The Notify method is called by the pin for each buffer that is delivered during streaming.
-     * @param {INSSBuffer3} pNSSBuffer3 Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer3">INSSBuffer3</a> interface exposed on the media sample.
+     * @remarks
+     * This method enables an application to examine and act on information in the media buffer before the buffer contents are processed. The application is responsible for knowing the media type on the pin. This information can be obtained by first getting the stream information from the profile and then calling <a href="https://docs.microsoft.com/windows/desktop/wmformat/iconfigasfwriter2-streamnumfrompin">IConfigAsfWriter2::StreamNumFromPin</a> method to determine which pin is associated with each stream.
+     * @param {INSSBuffer3} pNSSBuffer3 Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer3">INSSBuffer3</a> interface exposed on the media sample.
      * @param {IPin} pPin Pointer to the pin associated with the media stream that the sample belongs to.
      * @param {Pointer<Integer>} prtStart Start time of the sample.
      * @param {Pointer<Integer>} prtEnd End time of the sample.
      * @returns {HRESULT} No particular return value is specified. The calling pin ignores the <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dshowasf/nf-dshowasf-iamwmbufferpasscallback-notify
+     * @see https://learn.microsoft.com/windows/win32/api//content/dshowasf/nf-dshowasf-iamwmbufferpasscallback-notify
      */
     Notify(pNSSBuffer3, pPin, prtStart, prtEnd) {
         prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
         prtEndMarshal := prtEnd is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pNSSBuffer3, "ptr", pPin, prtStartMarshal, prtStart, prtEndMarshal, prtEnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pNSSBuffer3, "ptr", pPin, prtStartMarshal, prtStart, prtEndMarshal, prtEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

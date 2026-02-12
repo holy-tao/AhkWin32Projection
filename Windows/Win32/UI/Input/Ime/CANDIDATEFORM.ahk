@@ -4,8 +4,8 @@
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
- * The CANDIDATEFORM structure (immdev.h) contains position information for the candidate window.
- * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-candidateform
+ * The CANDIDATEFORM (imm.h) structure contains position information for the candidate window.
+ * @see https://learn.microsoft.com/windows/win32/api//content/imm/ns-imm-candidateform
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */

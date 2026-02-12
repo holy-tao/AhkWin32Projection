@@ -5,7 +5,7 @@
 
 /**
  * Configures the thread pool of the activity object that is returned by calling CoCreateActivity.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iservicethreadpoolconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iservicethreadpoolconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IServiceThreadPoolConfig extends IUnknown{
      * Selects the thread pool in which the work submitted through the activity is to run.
      * @param {Integer} threadPool A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_threadpool">CSC_ThreadPool</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicethreadpoolconfig-selectthreadpool
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iservicethreadpoolconfig-selectthreadpool
      */
     SelectThreadPool(threadPool) {
-        result := ComCall(3, this, "int", threadPool, "HRESULT")
+        result := ComCall(3, this, "int", threadPool, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,10 +49,14 @@ class IServiceThreadPoolConfig extends IUnknown{
      * Binds all work submitted by the activity to a single single-threaded apartment.
      * @param {Integer} binding A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_binding">CSC_Binding</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicethreadpoolconfig-setbindinginfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iservicethreadpoolconfig-setbindinginfo
      */
     SetBindingInfo(binding) {
-        result := ComCall(4, this, "int", binding, "HRESULT")
+        result := ComCall(4, this, "int", binding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

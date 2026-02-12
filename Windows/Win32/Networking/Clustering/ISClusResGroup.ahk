@@ -118,7 +118,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonProperties() {
-        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -127,7 +131,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateProperties() {
-        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -136,7 +144,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_CommonROProperties() {
-        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -145,7 +157,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusProperties} 
      */
     get_PrivateROProperties() {
-        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusProperties(ppProperties)
     }
 
@@ -154,7 +170,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {Pointer} 
      */
     get_Handle() {
-        result := ComCall(11, this, "ptr*", &phandle := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &phandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phandle
     }
 
@@ -164,7 +184,11 @@ class ISClusResGroup extends IDispatch{
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -174,9 +198,16 @@ class ISClusResGroup extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Name(bstrGroupName) {
-        bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
+        if(bstrGroupName is String) {
+            pin := BSTR.Alloc(bstrGroupName)
+            bstrGroupName := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrGroupName, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrGroupName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +216,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(14, this, "int*", &dwState := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &dwState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwState
     }
 
@@ -194,7 +229,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusNode} 
      */
     get_OwnerNode() {
-        result := ComCall(15, this, "ptr*", &ppOwnerNode := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppOwnerNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusNode(ppOwnerNode)
     }
 
@@ -203,7 +242,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusResGroupResources} 
      */
     get_Resources() {
-        result := ComCall(16, this, "ptr*", &ppClusterGroupResources := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppClusterGroupResources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResGroupResources(ppClusterGroupResources)
     }
 
@@ -212,51 +255,89 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISClusResGroupPreferredOwnerNodes} 
      */
     get_PreferredOwnerNodes() {
-        result := ComCall(17, this, "ptr*", &ppOwnerNodes := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppOwnerNodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusResGroupPreferredOwnerNodes(ppOwnerNodes)
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Brings a group online. (OnlineClusterGroup)
+     * @remarks
+     * If the group cannot be brought online on the node identified by the <i>hDestinationNode</i> parameter, the  <b>OnlineClusterGroup</b> function fails.
      * 
+     * If the <i>hDestinationNode</i> parameter is set to <b>NULL</b>,  <b>OnlineClusterGroup</b> brings the group online on the current node.
+     * 
+     * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
+     * 
+     * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-onlineclustergroup
      */
     Online(varTimeout, varNode) {
         pvarPending := VARIANT()
-        result := ComCall(19, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "HRESULT")
+        result := ComCall(19, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPending
     }
 
     /**
-     * 
+     * Move Method Example (VC++)
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/move-method-example-vc
      */
     Move(varTimeout, varNode) {
         pvarPending := VARIANT()
-        result := ComCall(20, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "HRESULT")
+        result := ComCall(20, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPending
     }
 
     /**
-     * 
+     * Takes a group offline.
+     * @remarks
+     * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {VARIANT} varTimeout 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/nf-clusapi-offlineclustergroup
      */
     Offline(varTimeout) {
         pvarPending := VARIANT()
-        result := ComCall(21, this, "ptr", varTimeout, "ptr", pvarPending, "HRESULT")
+        result := ComCall(21, this, "ptr", varTimeout, "ptr", pvarPending, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarPending
     }
 
@@ -265,7 +346,11 @@ class ISClusResGroup extends IDispatch{
      * @returns {ISCluster} 
      */
     get_Cluster() {
-        result := ComCall(22, this, "ptr*", &ppCluster := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &ppCluster := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCluster(ppCluster)
     }
 }

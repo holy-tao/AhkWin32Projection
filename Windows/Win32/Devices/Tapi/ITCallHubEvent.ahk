@@ -7,7 +7,7 @@
 
 /**
  * The ITCallHubEvent interface contains methods that retrieve the description of CallHub events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcallhubevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itcallhubevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -57,31 +57,45 @@ class ITCallHubEvent extends IDispatch{
      * The get_Event method returns a pointer to a CALLHUB_EVENT enum description of the event that occurred.
      * @returns {Integer} Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callhub_event">CALLHUB_EVENT</a> enum description of the event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhubevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallhubevent-get_event
      */
     get_Event() {
-        result := ComCall(7, this, "int*", &pEvent := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEvent
     }
 
     /**
-     * The get_CallHub method returns a pointer to the ITCallHub interface on which the event occurred.
+     * The get_CallHub method returns a pointer to the ITCallHub interface on which the event occurred. (ITCallHubEvent.get_CallHub)
      * @returns {ITCallHub} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhubevent-get_callhub
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallhubevent-get_callhub
      */
     get_CallHub() {
-        result := ComCall(8, this, "ptr*", &ppCallHub := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppCallHub := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITCallHub(ppCallHub)
     }
 
     /**
-     * The get_Call method returns a pointer to the ITCallInfo interface of the call on which the event occurred.
+     * The get_Call method returns a pointer to the ITCallInfo interface of the call on which the event occurred. (ITCallHubEvent.get_Call)
+     * @remarks
+     * This method may return a <b>NULL</b> if the event is not associated with a call.
      * @returns {ITCallInfo} <b>ITCallInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhubevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itcallhubevent-get_call
      */
     get_Call() {
-        result := ComCall(9, this, "ptr*", &ppCall := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppCall := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITCallInfo(ppCall)
     }
 }

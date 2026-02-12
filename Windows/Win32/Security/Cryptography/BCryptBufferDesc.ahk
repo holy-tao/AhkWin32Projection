@@ -5,7 +5,7 @@
  * Describes how the BCryptBufferDesc structure contains a set of generic Cryptography API: Next Generation (CNG) buffers.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbufferdesc
+ * @see https://learn.microsoft.com/windows/win32/api//content/bcrypt/ns-bcrypt-bcryptbufferdesc
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

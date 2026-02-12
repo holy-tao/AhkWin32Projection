@@ -7,7 +7,7 @@
 
 /**
  * The IGPM2 interface extends the GPMBackupDir and InitializeReporting methods of the IGPM interface of the Group Policy Management Console (GPMC).
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpm2
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpm2
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -37,12 +37,19 @@ class IGPM2 extends IGPM{
      * @param {BSTR} bstrBackupDir Required. The name of the file system directory containing the Group Policy object (GPO) backups. Note that the directory must already exist.
      * @param {Integer} backupDirType Determines whether the back up is for a Starter Group Policy object or a Group Policy object.
      * @returns {IGPMBackupDirEx} Address of a pointer to the   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackupdirex">IGPMBackupDirEx</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpm2-getbackupdirex
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpm2-getbackupdirex
      */
     GetBackupDirEx(bstrBackupDir, backupDirType) {
-        bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
+        if(bstrBackupDir is String) {
+            pin := BSTR.Alloc(bstrBackupDir)
+            bstrBackupDir := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bstrBackupDir, "int", backupDirType, "ptr*", &ppIGPMBackupDirEx := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrBackupDir, "int", backupDirType, "ptr*", &ppIGPMBackupDirEx := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMBackupDirEx(ppIGPMBackupDirEx)
     }
 
@@ -55,12 +62,19 @@ class IGPM2 extends IGPM{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpm2-initializereportingex
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpm2-initializereportingex
      */
     InitializeReportingEx(bstrAdmPath, reportingOptions) {
-        bstrAdmPath := bstrAdmPath is String ? BSTR.Alloc(bstrAdmPath).Value : bstrAdmPath
+        if(bstrAdmPath is String) {
+            pin := BSTR.Alloc(bstrAdmPath)
+            bstrAdmPath := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", bstrAdmPath, "int", reportingOptions, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrAdmPath, "int", reportingOptions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

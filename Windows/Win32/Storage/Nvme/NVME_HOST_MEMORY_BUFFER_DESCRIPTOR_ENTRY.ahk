@@ -5,7 +5,7 @@
  * Defines the parameters of a single entry in the Host Memory Descriptor List.
  * @remarks
  * For a description of the fields and structures that define the Host Memory Descriptor List, see [NVME_CDW11_FEATURES](ns-nvme-nvme_cdw11_features.md#host-memory-buffer).
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_host_memory_buffer_descriptor_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_host_memory_buffer_descriptor_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

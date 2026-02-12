@@ -7,7 +7,7 @@
  * Retrieves the picture control support for the specified codec and profile.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec_picture_control_support
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec_picture_control_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

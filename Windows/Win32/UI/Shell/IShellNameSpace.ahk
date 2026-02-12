@@ -113,7 +113,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {Integer} 
      */
     get_EnumOptions() {
-        result := ComCall(20, this, "int*", &pgrfEnumFlags := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &pgrfEnumFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pgrfEnumFlags
     }
 
@@ -123,7 +127,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_EnumOptions(lVal) {
-        result := ComCall(21, this, "int", lVal, "HRESULT")
+        result := ComCall(21, this, "int", lVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +140,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {IDispatch} 
      */
     get_SelectedItem() {
-        result := ComCall(22, this, "ptr*", &pItem := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &pItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(pItem)
     }
 
@@ -142,7 +154,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_SelectedItem(pItem) {
-        result := ComCall(23, this, "ptr", pItem, "HRESULT")
+        result := ComCall(23, this, "ptr", pItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +168,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      */
     get_Root() {
         pvar := VARIANT()
-        result := ComCall(24, this, "ptr", pvar, "HRESULT")
+        result := ComCall(24, this, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvar
     }
 
@@ -162,7 +182,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_Root(var) {
-        result := ComCall(25, this, "ptr", var, "HRESULT")
+        result := ComCall(25, this, "ptr", var, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +195,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {Integer} 
      */
     get_Depth() {
-        result := ComCall(26, this, "int*", &piDepth := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &piDepth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piDepth
     }
 
@@ -181,7 +209,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_Depth(iDepth) {
-        result := ComCall(27, this, "int", iDepth, "HRESULT")
+        result := ComCall(27, this, "int", iDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -190,7 +222,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {Integer} 
      */
     get_Mode() {
-        result := ComCall(28, this, "uint*", &puMode := 0, "HRESULT")
+        result := ComCall(28, this, "uint*", &puMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puMode
     }
 
@@ -200,7 +236,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_Mode(uMode) {
-        result := ComCall(29, this, "uint", uMode, "HRESULT")
+        result := ComCall(29, this, "uint", uMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -209,7 +249,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {Integer} 
      */
     get_Flags() {
-        result := ComCall(30, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(30, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
@@ -219,7 +263,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_Flags(dwFlags) {
-        result := ComCall(31, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(31, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -229,7 +277,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_TVFlags(dwFlags) {
-        result := ComCall(32, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(32, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -238,7 +290,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {Integer} 
      */
     get_TVFlags() {
-        result := ComCall(33, this, "uint*", &dwFlags := 0, "HRESULT")
+        result := ComCall(33, this, "uint*", &dwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dwFlags
     }
 
@@ -248,7 +304,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      */
     get_Columns() {
         bstrColumns := BSTR()
-        result := ComCall(34, this, "ptr", bstrColumns, "HRESULT")
+        result := ComCall(34, this, "ptr", bstrColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bstrColumns
     }
 
@@ -258,9 +318,16 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     put_Columns(bstrColumns) {
-        bstrColumns := bstrColumns is String ? BSTR.Alloc(bstrColumns).Value : bstrColumns
+        if(bstrColumns is String) {
+            pin := BSTR.Alloc(bstrColumns)
+            bstrColumns := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bstrColumns, "HRESULT")
+        result := ComCall(35, this, "ptr", bstrColumns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -269,7 +336,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {Integer} 
      */
     get_CountViewTypes() {
-        result := ComCall(36, this, "int*", &piTypes := 0, "HRESULT")
+        result := ComCall(36, this, "int*", &piTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piTypes
     }
 
@@ -279,7 +350,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     SetViewType(iType) {
-        result := ComCall(37, this, "int", iType, "HRESULT")
+        result := ComCall(37, this, "int", iType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -288,18 +363,29 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {IDispatch} 
      */
     SelectedItems() {
-        result := ComCall(38, this, "ptr*", &ppid := 0, "HRESULT")
+        result := ComCall(38, this, "ptr*", &ppid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppid)
     }
 
     /**
-     * 
+     * Hides all descendant nodes, controls, or content of the UI Automation element.
      * @param {VARIANT} var 
      * @param {Integer} iDepth 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful or an error value otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
      */
     Expand(var, iDepth) {
-        result := ComCall(39, this, "ptr", var, "int", iDepth, "HRESULT")
+        result := ComCall(39, this, "ptr", var, "int", iDepth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -308,7 +394,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
      * @returns {HRESULT} 
      */
     UnselectAll() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

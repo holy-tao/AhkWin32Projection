@@ -7,7 +7,6 @@
 /**
  * Exposes methods used for in-place metadata editing. A fast metadata encoder enables you to add and remove metadata to an image without having to fully re-encode the image.
  * @remarks
- * 
  * A decoder must be created using the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a> value <b>WICDecodeMetadataCacheOnDemand</b> to perform in-place metadata updates. 
  *             Using the <b>WICDecodeMetadataCacheOnLoad</b> option causes the decoder to release the file stream necessary to perform the metadata updates. 
  *          
@@ -16,11 +15,7 @@
  *          
  * 
  * If a fast metadata encoder fails, the image will need to be fully re-encoded to add the metadata.
- *          
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicfastmetadataencoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwicfastmetadataencoder
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -47,13 +42,21 @@ class IWICFastMetadataEncoder extends IUnknown{
 
     /**
      * Finalizes metadata changes to the image stream.
+     * @remarks
+     * If the commit fails and returns <b>WINCODEC_ERR_STREAMNOTAVAILABLE</b>, ensure that the image decoder was loaded using the <b>WICDecodeMetadataCacheOnDemand</b> option. A fast metadata encoder is not supported when the decoder is created using the <b>WICDecodeMetadataCacheOnLoad</b> option. 
+     * 
+     * If the commit fails for any reason, you will need to re-encode the image to ensure the new metadata is added to the image.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicfastmetadataencoder-commit
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicfastmetadataencoder-commit
      */
     Commit() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,10 +65,14 @@ class IWICFastMetadataEncoder extends IUnknown{
      * @returns {IWICMetadataQueryWriter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataquerywriter">IWICMetadataQueryWriter</a>**</b>
      * 
      * When this method returns, contains a pointer to the fast metadata encoder's metadata query writer.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicfastmetadataencoder-getmetadataquerywriter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwicfastmetadataencoder-getmetadataquerywriter
      */
     GetMetadataQueryWriter() {
-        result := ComCall(4, this, "ptr*", &ppIMetadataQueryWriter := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppIMetadataQueryWriter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICMetadataQueryWriter(ppIMetadataQueryWriter)
     }
 }

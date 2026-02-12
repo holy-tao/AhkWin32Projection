@@ -38,7 +38,11 @@ class IMDFind extends IUnknown{
     FindCell(ulStartingOrdinal, cMembers, rgpwszMember) {
         rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "ptr*", &pulCellOrdinal := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "ptr*", &pulCellOrdinal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulCellOrdinal
     }
 
@@ -53,7 +57,11 @@ class IMDFind extends IUnknown{
     FindTuple(ulAxisIdentifier, ulStartingOrdinal, cMembers, rgpwszMember) {
         rgpwszMemberMarshal := rgpwszMember is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "uint*", &pulTupleOrdinal := 0, "HRESULT")
+        result := ComCall(4, this, "uint", ulAxisIdentifier, "ptr", ulStartingOrdinal, "ptr", cMembers, rgpwszMemberMarshal, rgpwszMember, "uint*", &pulTupleOrdinal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulTupleOrdinal
     }
 }

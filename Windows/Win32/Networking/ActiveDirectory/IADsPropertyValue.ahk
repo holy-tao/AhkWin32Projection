@@ -7,7 +7,7 @@
 
 /**
  * Used to represent the value of an IADsPropertyEntry object in a predefined data type.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadspropertyvalue
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadspropertyvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -130,11 +130,17 @@ class IADsPropertyValue extends IDispatch{
 
     /**
      * Clears the current values of the property value object.
-     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadspropertyvalue-clear
+     * @remarks
+     * None
+     * @returns {HRESULT} This method supports the standard HRESULT return values, including S_OK. For more information and other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadspropertyvalue-clear
      */
     Clear() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +149,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_ADsType() {
-        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -153,7 +163,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ADsType(lnADsType) {
-        result := ComCall(9, this, "int", lnADsType, "HRESULT")
+        result := ComCall(9, this, "int", lnADsType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,7 +177,11 @@ class IADsPropertyValue extends IDispatch{
      */
     get_DNString() {
         retval := BSTR()
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
+        result := ComCall(10, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -173,9 +191,16 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DNString(bstrDNString) {
-        bstrDNString := bstrDNString is String ? BSTR.Alloc(bstrDNString).Value : bstrDNString
+        if(bstrDNString is String) {
+            pin := BSTR.Alloc(bstrDNString)
+            bstrDNString := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrDNString, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrDNString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +210,11 @@ class IADsPropertyValue extends IDispatch{
      */
     get_CaseExactString() {
         retval := BSTR()
-        result := ComCall(12, this, "ptr", retval, "HRESULT")
+        result := ComCall(12, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -195,9 +224,16 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CaseExactString(bstrCaseExactString) {
-        bstrCaseExactString := bstrCaseExactString is String ? BSTR.Alloc(bstrCaseExactString).Value : bstrCaseExactString
+        if(bstrCaseExactString is String) {
+            pin := BSTR.Alloc(bstrCaseExactString)
+            bstrCaseExactString := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", bstrCaseExactString, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrCaseExactString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +243,11 @@ class IADsPropertyValue extends IDispatch{
      */
     get_CaseIgnoreString() {
         retval := BSTR()
-        result := ComCall(14, this, "ptr", retval, "HRESULT")
+        result := ComCall(14, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -217,9 +257,16 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CaseIgnoreString(bstrCaseIgnoreString) {
-        bstrCaseIgnoreString := bstrCaseIgnoreString is String ? BSTR.Alloc(bstrCaseIgnoreString).Value : bstrCaseIgnoreString
+        if(bstrCaseIgnoreString is String) {
+            pin := BSTR.Alloc(bstrCaseIgnoreString)
+            bstrCaseIgnoreString := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrCaseIgnoreString, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrCaseIgnoreString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -229,7 +276,11 @@ class IADsPropertyValue extends IDispatch{
      */
     get_PrintableString() {
         retval := BSTR()
-        result := ComCall(16, this, "ptr", retval, "HRESULT")
+        result := ComCall(16, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -239,9 +290,16 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PrintableString(bstrPrintableString) {
-        bstrPrintableString := bstrPrintableString is String ? BSTR.Alloc(bstrPrintableString).Value : bstrPrintableString
+        if(bstrPrintableString is String) {
+            pin := BSTR.Alloc(bstrPrintableString)
+            bstrPrintableString := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", bstrPrintableString, "HRESULT")
+        result := ComCall(17, this, "ptr", bstrPrintableString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -251,7 +309,11 @@ class IADsPropertyValue extends IDispatch{
      */
     get_NumericString() {
         retval := BSTR()
-        result := ComCall(18, this, "ptr", retval, "HRESULT")
+        result := ComCall(18, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -261,9 +323,16 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_NumericString(bstrNumericString) {
-        bstrNumericString := bstrNumericString is String ? BSTR.Alloc(bstrNumericString).Value : bstrNumericString
+        if(bstrNumericString is String) {
+            pin := BSTR.Alloc(bstrNumericString)
+            bstrNumericString := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", bstrNumericString, "HRESULT")
+        result := ComCall(19, this, "ptr", bstrNumericString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,7 +341,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_Boolean() {
-        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -282,7 +355,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Boolean(lnBoolean) {
-        result := ComCall(21, this, "int", lnBoolean, "HRESULT")
+        result := ComCall(21, this, "int", lnBoolean, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -291,7 +368,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_Integer() {
-        result := ComCall(22, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -301,7 +382,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Integer(lnInteger) {
-        result := ComCall(23, this, "int", lnInteger, "HRESULT")
+        result := ComCall(23, this, "int", lnInteger, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -311,7 +396,11 @@ class IADsPropertyValue extends IDispatch{
      */
     get_OctetString() {
         retval := VARIANT()
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
+        result := ComCall(24, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -321,7 +410,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_OctetString(vOctetString) {
-        result := ComCall(25, this, "ptr", vOctetString, "HRESULT")
+        result := ComCall(25, this, "ptr", vOctetString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -330,7 +423,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {IDispatch} 
      */
     get_SecurityDescriptor() {
-        result := ComCall(26, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(retval)
     }
 
@@ -340,7 +437,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SecurityDescriptor(pSecurityDescriptor) {
-        result := ComCall(27, this, "ptr", pSecurityDescriptor, "HRESULT")
+        result := ComCall(27, this, "ptr", pSecurityDescriptor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -349,7 +450,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {IDispatch} 
      */
     get_LargeInteger() {
-        result := ComCall(28, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(retval)
     }
 
@@ -359,7 +464,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_LargeInteger(pLargeInteger) {
-        result := ComCall(29, this, "ptr", pLargeInteger, "HRESULT")
+        result := ComCall(29, this, "ptr", pLargeInteger, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -368,7 +477,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {Float} 
      */
     get_UTCTime() {
-        result := ComCall(30, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(30, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -378,7 +491,11 @@ class IADsPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_UTCTime(daUTCTime) {
-        result := ComCall(31, this, "double", daUTCTime, "HRESULT")
+        result := ComCall(31, this, "double", daUTCTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

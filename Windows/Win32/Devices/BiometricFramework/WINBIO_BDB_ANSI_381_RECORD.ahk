@@ -24,7 +24,7 @@
  * > [!IMPORTANT]
  * >
  * > Do not attempt to validate the value supplied for the *Position* value. The Windows Biometrics Service will validate the supplied value before passing it through to your implementation. If the value is **WINBIO\_SUBTYPE\_NO\_INFORMATION** or **WINBIO\_SUBTYPE\_ANY**, then validate where appropriate.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bdb-ansi-381-record
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-bdb-ansi-381-record
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

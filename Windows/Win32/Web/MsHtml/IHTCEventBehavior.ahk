@@ -40,7 +40,11 @@ class IHTCEventBehavior extends IDispatch{
      * @returns {HRESULT} 
      */
     fire(pvar) {
-        result := ComCall(7, this, "ptr", pvar, "HRESULT")
+        result := ComCall(7, this, "ptr", pvar, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

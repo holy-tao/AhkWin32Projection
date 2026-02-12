@@ -3,7 +3,7 @@
 
 /**
  * Describes the memory budget for an adapter.
- * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudget
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudget
  * @namespace Windows.Win32.Graphics.DXCore
  * @version v4.0.30319
  */

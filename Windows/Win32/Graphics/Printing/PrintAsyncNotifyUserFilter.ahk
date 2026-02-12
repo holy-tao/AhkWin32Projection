@@ -7,7 +7,7 @@
  * Regardless of which value is passed, listeners will receive only the types of notifications for which they have registered.
  * 
  * A user may be simultaneously logged on to multiple terminal server sessions. All of the user's applications, regardless of which session hosts them, will receive notifications for which they have registered.
- * @see https://learn.microsoft.com/windows/win32/api/prnasnot/ne-prnasnot-printasyncnotifyuserfilter
+ * @see https://learn.microsoft.com/windows/win32/api//content/prnasnot/ne-prnasnot-printasyncnotifyuserfilter
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

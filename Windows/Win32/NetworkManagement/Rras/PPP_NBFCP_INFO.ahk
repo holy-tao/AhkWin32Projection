@@ -6,7 +6,7 @@
  * @remarks
  * The 
  * <b>PPP_NBFCP_INFO</b> structure can be used only when administrating computers that are running an operating system prior to Windows Server 2003 as later operating systems do not support the NetBEUI protocol.
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_nbfcp_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-ppp_nbfcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

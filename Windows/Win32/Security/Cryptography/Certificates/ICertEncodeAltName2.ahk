@@ -36,9 +36,16 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
      * @returns {HRESULT} 
      */
     DecodeBlob(strEncodedData, Encoding) {
-        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+        if(strEncodedData is String) {
+            pin := BSTR.Alloc(strEncodedData)
+            strEncodedData := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(14, this, "ptr", strEncodedData, "int", Encoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +56,11 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
      */
     EncodeBlob(Encoding) {
         pstrEncodedData := BSTR()
-        result := ComCall(15, this, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
+        result := ComCall(15, this, "int", Encoding, "ptr", pstrEncodedData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrEncodedData
     }
 
@@ -61,7 +72,11 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
      */
     GetNameBlob(NameIndex, Encoding) {
         pstrName := BSTR()
-        result := ComCall(16, this, "int", NameIndex, "int", Encoding, "ptr", pstrName, "HRESULT")
+        result := ComCall(16, this, "int", NameIndex, "int", Encoding, "ptr", pstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrName
     }
 
@@ -74,9 +89,16 @@ class ICertEncodeAltName2 extends ICertEncodeAltName{
      * @returns {HRESULT} 
      */
     SetNameEntryBlob(NameIndex, NameChoice, strName, Encoding) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(17, this, "int", NameIndex, "int", NameChoice, "ptr", strName, "int", Encoding, "HRESULT")
+        result := ComCall(17, this, "int", NameIndex, "int", NameChoice, "ptr", strName, "int", Encoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

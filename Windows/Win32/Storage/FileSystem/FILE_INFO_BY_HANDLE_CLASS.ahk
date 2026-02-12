@@ -9,7 +9,7 @@
  *     valid only for use with 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-setfileinformationbyhandle">SetFileInformationByHandle</a>. Where neither 
  *     function is mentioned, the information class is valid with both functions.
- * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-file_info_by_handle_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/minwinbase/ne-minwinbase-file_info_by_handle_class
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

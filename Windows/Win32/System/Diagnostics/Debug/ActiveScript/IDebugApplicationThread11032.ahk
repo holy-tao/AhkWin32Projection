@@ -33,7 +33,11 @@ class IDebugApplicationThread11032 extends IUnknown{
      * @returns {Integer} 
      */
     GetActiveThreadRequestCount() {
-        result := ComCall(3, this, "uint*", &puiThreadRequests := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &puiThreadRequests := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiThreadRequests
     }
 
@@ -42,7 +46,11 @@ class IDebugApplicationThread11032 extends IUnknown{
      * @returns {BOOL} 
      */
     IsSuspendedForBreakPoint() {
-        result := ComCall(4, this, "int*", &pfIsSuspended := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pfIsSuspended := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsSuspended
     }
 
@@ -51,7 +59,11 @@ class IDebugApplicationThread11032 extends IUnknown{
      * @returns {BOOL} 
      */
     IsThreadCallable() {
-        result := ComCall(5, this, "int*", &pfIsCallable := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pfIsCallable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsCallable
     }
 
@@ -64,7 +76,11 @@ class IDebugApplicationThread11032 extends IUnknown{
      * @returns {HRESULT} 
      */
     AsynchronousCallIntoThread(pptc, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(6, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "HRESULT")
+        result := ComCall(6, this, "ptr", pptc, "ptr", dwParam1, "ptr", dwParam2, "ptr", dwParam3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

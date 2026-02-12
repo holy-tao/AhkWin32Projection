@@ -7,7 +7,7 @@
  * The IP_PER_ADAPTER_INFO structure contains information specific to a particular adapter.
  * @remarks
  * APIPA enables automatic IP address configuration on networks without DHCP servers, using the IANA-reserved Class B network 169.254.0.0, with a subnet mask of 255.255.0.0. Clients send ARP messages to ensure the selected address is not currently in use. Clients auto-configured in this fashion continue to poll for a valid DHCP server every five minutes, and if found, the DHCP server configuration overrides all auto-configuration settings.
- * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1
+ * @see https://learn.microsoft.com/windows/win32/api//content/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

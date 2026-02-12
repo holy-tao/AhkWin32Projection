@@ -5,7 +5,7 @@
  * The WPD\_EFFECT\_MODES enumeration type describes various visual effects that can be applied to an image.
  * @remarks
  * This enumeration is used by the [WPD\_STILL\_IMAGE\_EFFECT\_MODE](still-image-properties.md) property.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-effect-modes
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/wpd-effect-modes
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

@@ -7,7 +7,7 @@
  * This enumeration is primarily used as a parameter for the [**ReportJobProcessingProgress**](reportjobprocessingprogress.md) function.
  * 
  * These values can refer to either the spooling or the rendering phase of a print job.
- * @see https://learn.microsoft.com/windows/win32/printdocs/eprintxpsjobprogress
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/eprintxpsjobprogress
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

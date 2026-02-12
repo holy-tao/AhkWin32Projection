@@ -33,26 +33,41 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetEventThread() {
-        result := ComCall(3, this, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/evntcons/nf-evntcons-geteventprocessorindex
      */
     GetEventProcess() {
-        result := ComCall(4, this, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
     /**
      * Retrieves the thread identifier of the calling thread.
+     * @remarks
+     * Until the thread terminates, the thread identifier uniquely identifies the thread throughout the system.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadid
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getcurrentthreadid
      */
     GetCurrentThreadId() {
-        result := ComCall(5, this, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -62,17 +77,27 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCurrentThreadId(Id) {
-        result := ComCall(6, this, "uint", Id, "HRESULT")
+        result := ComCall(6, this, "uint", Id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the process identifier of the calling process.
+     * @remarks
+     * Until the process terminates, the process identifier uniquely identifies the process throughout the system.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentprocessid
+     * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/nf-processthreadsapi-getcurrentprocessid
      */
     GetCurrentProcessId() {
-        result := ComCall(7, this, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -82,7 +107,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCurrentProcessId(Id) {
-        result := ComCall(8, this, "uint", Id, "HRESULT")
+        result := ComCall(8, this, "uint", Id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,8 +120,12 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberThreads() {
-        result := ComCall(9, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(9, this, "uint*", &Number_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Number_
     }
 
     /**
@@ -105,7 +138,11 @@ class IDebugSystemObjects3 extends IUnknown{
         TotalMarshal := Total is VarRef ? "uint*" : "ptr"
         LargestProcessMarshal := LargestProcess is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, TotalMarshal, Total, LargestProcessMarshal, LargestProcess, "HRESULT")
+        result := ComCall(10, this, TotalMarshal, Total, LargestProcessMarshal, LargestProcess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +158,11 @@ class IDebugSystemObjects3 extends IUnknown{
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
         SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
+        result := ComCall(11, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,7 +172,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetThreadIdByProcessor(Processor) {
-        result := ComCall(12, this, "uint", Processor, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(12, this, "uint", Processor, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -140,7 +185,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentThreadDataOffset() {
-        result := ComCall(13, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -150,7 +199,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetThreadIdByDataOffset(Offset) {
-        result := ComCall(14, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(14, this, "uint", Offset, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -159,7 +212,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentThreadTeb() {
-        result := ComCall(15, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(15, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -169,7 +226,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetThreadIdByTeb(Offset) {
-        result := ComCall(16, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(16, this, "uint", Offset, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -178,7 +239,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentThreadSystemId() {
-        result := ComCall(17, this, "uint*", &SysId := 0, "HRESULT")
+        result := ComCall(17, this, "uint*", &SysId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SysId
     }
 
@@ -188,7 +253,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetThreadIdBySystemId(SysId) {
-        result := ComCall(18, this, "uint", SysId, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(18, this, "uint", SysId, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -197,17 +266,25 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentThreadHandle() {
-        result := ComCall(19, this, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(19, this, "uint*", &Handle_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Handle_
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} Handle_ 
      * @returns {Integer} 
      */
-    GetThreadIdByHandle(Handle) {
-        result := ComCall(20, this, "uint", Handle, "uint*", &Id := 0, "HRESULT")
+    GetThreadIdByHandle(Handle_) {
+        result := ComCall(20, this, "uint", Handle_, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -216,8 +293,12 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberProcesses() {
-        result := ComCall(21, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(21, this, "uint*", &Number_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Number_
     }
 
     /**
@@ -232,7 +313,11 @@ class IDebugSystemObjects3 extends IUnknown{
         IdsMarshal := Ids is VarRef ? "uint*" : "ptr"
         SysIdsMarshal := SysIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "HRESULT")
+        result := ComCall(22, this, "uint", Start, "uint", Count, IdsMarshal, Ids, SysIdsMarshal, SysIds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -241,7 +326,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentProcessDataOffset() {
-        result := ComCall(23, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(23, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -251,7 +340,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetProcessIdByDataOffset(Offset) {
-        result := ComCall(24, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(24, this, "uint", Offset, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -260,7 +353,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentProcessPeb() {
-        result := ComCall(25, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(25, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -270,7 +367,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetProcessIdByPeb(Offset) {
-        result := ComCall(26, this, "uint", Offset, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(26, this, "uint", Offset, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -279,7 +380,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentProcessSystemId() {
-        result := ComCall(27, this, "uint*", &SysId := 0, "HRESULT")
+        result := ComCall(27, this, "uint*", &SysId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return SysId
     }
 
@@ -289,7 +394,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetProcessIdBySystemId(SysId) {
-        result := ComCall(28, this, "uint", SysId, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(28, this, "uint", SysId, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -298,30 +407,42 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentProcessHandle() {
-        result := ComCall(29, this, "uint*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(29, this, "uint*", &Handle_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Handle_
     }
 
     /**
      * 
-     * @param {Integer} Handle 
+     * @param {Integer} Handle_ 
      * @returns {Integer} 
      */
-    GetProcessIdByHandle(Handle) {
-        result := ComCall(30, this, "uint", Handle, "uint*", &Id := 0, "HRESULT")
+    GetProcessIdByHandle(Handle_) {
+        result := ComCall(30, this, "uint", Handle_, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetCurrentProcessExecutableName(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCurrentProcessExecutableName(Buffer_, BufferSize) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, "uint*", &ExeSize := 0, "HRESULT")
+        result := ComCall(31, this, "ptr", Buffer_, "uint", BufferSize, "uint*", &ExeSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ExeSize
     }
 
@@ -330,7 +451,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentProcessUpTime() {
-        result := ComCall(32, this, "uint*", &UpTime := 0, "HRESULT")
+        result := ComCall(32, this, "uint*", &UpTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return UpTime
     }
 
@@ -339,7 +464,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetImplicitThreadDataOffset() {
-        result := ComCall(33, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(33, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -349,7 +478,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetImplicitThreadDataOffset(Offset) {
-        result := ComCall(34, this, "uint", Offset, "HRESULT")
+        result := ComCall(34, this, "uint", Offset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -358,7 +491,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetImplicitProcessDataOffset() {
-        result := ComCall(35, this, "uint*", &Offset := 0, "HRESULT")
+        result := ComCall(35, this, "uint*", &Offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Offset
     }
 
@@ -368,7 +505,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetImplicitProcessDataOffset(Offset) {
-        result := ComCall(36, this, "uint", Offset, "HRESULT")
+        result := ComCall(36, this, "uint", Offset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -377,7 +518,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetEventSystem() {
-        result := ComCall(37, this, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(37, this, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -386,7 +531,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentSystemId() {
-        result := ComCall(38, this, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(38, this, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -396,7 +545,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCurrentSystemId(Id) {
-        result := ComCall(39, this, "uint", Id, "HRESULT")
+        result := ComCall(39, this, "uint", Id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -405,8 +558,12 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberSystems() {
-        result := ComCall(40, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(40, this, "uint*", &Number_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Number_
     }
 
     /**
@@ -416,7 +573,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetSystemIdsByIndex(Start, Count) {
-        result := ComCall(41, this, "uint", Start, "uint", Count, "uint*", &Ids := 0, "HRESULT")
+        result := ComCall(41, this, "uint", Start, "uint", Count, "uint*", &Ids := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Ids
     }
 
@@ -436,7 +597,11 @@ class IDebugSystemObjects3 extends IUnknown{
         LargestSystemThreadsMarshal := LargestSystemThreads is VarRef ? "uint*" : "ptr"
         LargestSystemProcessesMarshal := LargestSystemProcesses is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, TotalThreadsMarshal, TotalThreads, TotalProcessesMarshal, TotalProcesses, LargestProcessThreadsMarshal, LargestProcessThreads, LargestSystemThreadsMarshal, LargestSystemThreads, LargestSystemProcessesMarshal, LargestSystemProcesses, "HRESULT")
+        result := ComCall(42, this, TotalThreadsMarshal, TotalThreads, TotalProcessesMarshal, TotalProcesses, LargestProcessThreadsMarshal, LargestProcessThreads, LargestSystemThreadsMarshal, LargestSystemThreads, LargestSystemProcessesMarshal, LargestSystemProcesses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -445,7 +610,11 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetCurrentSystemServer() {
-        result := ComCall(43, this, "uint*", &Server := 0, "HRESULT")
+        result := ComCall(43, this, "uint*", &Server := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Server
     }
 
@@ -455,20 +624,28 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {Integer} 
      */
     GetSystemByServer(Server) {
-        result := ComCall(44, this, "uint", Server, "uint*", &Id := 0, "HRESULT")
+        result := ComCall(44, this, "uint", Server, "uint*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetCurrentSystemServerName(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetCurrentSystemServerName(Buffer_, BufferSize) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := ComCall(45, this, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", Buffer_, "uint", BufferSize, "uint*", &NameSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NameSize
     }
 }

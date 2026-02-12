@@ -4,6 +4,7 @@
 #Include ..\..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * Contains information that the PrintDlg function uses to initialize the Print Dialog Box. After the user closes the dialog box, the system uses this structure to return information about the user's selections. (Unicode)
@@ -21,7 +22,7 @@
  * 
  * > [!NOTE]
  * > The commdlg.h header defines PRINTDLG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-printdlgw
+ * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/ns-commdlg-printdlgw
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset Unicode
@@ -199,9 +200,12 @@ class PRINTDLGW extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnPrintHook</b> or <b>lpfnSetupHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>PRINTDLG</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(64, this)
+            return this.__lCustData
+        }
     }
 
     /**

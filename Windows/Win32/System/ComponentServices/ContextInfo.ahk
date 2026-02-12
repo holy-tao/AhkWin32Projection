@@ -7,7 +7,7 @@
 
 /**
  * Retrieves transaction, activity, and context information on the current context object. Using the methods of this interface, you can retrieve relevant information contained within an object context.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-contextinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-contextinfo
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -39,55 +39,75 @@ class ContextInfo extends IDispatch{
     static VTableNames => ["IsInTransaction", "GetTransaction", "GetTransactionId", "GetActivityId", "GetContextId"]
 
     /**
-     * Indicates whether the current object is executing in a transaction.
+     * Indicates whether the current object is executing in a transaction. (ContextInfo.IsInTransaction)
      * @returns {VARIANT_BOOL} <b>TRUE</b> if the current object is executing within a transaction and <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo-isintransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo-isintransaction
      */
     IsInTransaction() {
-        result := ComCall(7, this, "short*", &pbIsInTx := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &pbIsInTx := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbIsInTx
     }
 
     /**
      * Retrieves the object context's transaction object.
      * @returns {IUnknown} A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the transaction object for the currently executing transaction.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo-gettransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo-gettransaction
      */
     GetTransaction() {
-        result := ComCall(8, this, "ptr*", &ppTx := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppTx := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppTx)
     }
 
     /**
      * Retrieves the transaction identifier associated with the object context. Objects in the same transaction share the same transaction identifier.
      * @returns {BSTR} A reference to the transaction identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo-gettransactionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo-gettransactionid
      */
     GetTransactionId() {
         pbstrTxId := BSTR()
-        result := ComCall(9, this, "ptr", pbstrTxId, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrTxId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTxId
     }
 
     /**
      * Retrieves the activity identifier associated with the object context.
      * @returns {BSTR} A reference to the activity identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo-getactivityid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo-getactivityid
      */
     GetActivityId() {
         pbstrActivityId := BSTR()
-        result := ComCall(10, this, "ptr", pbstrActivityId, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrActivityId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrActivityId
     }
 
     /**
      * Retrieves the unique identifier of this object context.
      * @returns {BSTR} A reference to the unique identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-contextinfo-getcontextid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-contextinfo-getcontextid
      */
     GetContextId() {
         pbstrCtxId := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCtxId, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrCtxId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCtxId
     }
 }

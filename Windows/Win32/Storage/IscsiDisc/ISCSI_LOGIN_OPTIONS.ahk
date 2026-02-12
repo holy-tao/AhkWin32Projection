@@ -9,7 +9,7 @@
  * The <b>Username</b> and <b>Password</b> members are either strings or binary values that are used for iSCSI authentication. The exact meaning and function of these two values depends on the type of authentication used. For the Challenge Handshake Authentication Protocol (CHAP), the value in the <b>Username</b> member is the CHAP name, and the value in the <b>Password</b> member is the shared secret of the target. If there is no value specified in <b>Username</b>, the initiator node name is used as the CHAP name.
  * 
  * If the authentication protocol requires that these two values be strings, they must be ANSI strings.
- * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_login_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/iscsidsc/ns-iscsidsc-iscsi_login_options
  * @namespace Windows.Win32.Storage.IscsiDisc
  * @version v4.0.30319
  */

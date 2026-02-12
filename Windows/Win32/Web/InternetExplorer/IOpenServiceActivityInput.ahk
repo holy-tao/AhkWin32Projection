@@ -40,7 +40,11 @@ class IOpenServiceActivityInput extends IUnknown{
         pwzVariableType := pwzVariableType is String ? StrPtr(pwzVariableType) : pwzVariableType
 
         pbstrVariableContent := BSTR()
-        result := ComCall(3, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "ptr", pbstrVariableContent, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "ptr", pbstrVariableContent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrVariableContent
     }
 
@@ -54,16 +58,28 @@ class IOpenServiceActivityInput extends IUnknown{
         pwzVariableName := pwzVariableName is String ? StrPtr(pwzVariableName) : pwzVariableName
         pwzVariableType := pwzVariableType is String ? StrPtr(pwzVariableType) : pwzVariableType
 
-        result := ComCall(4, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "int*", &pfHasVariable := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzVariableName, "ptr", pwzVariableType, "int*", &pfHasVariable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfHasVariable
     }
 
     /**
-     * 
+     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/nspapi/nf-nspapi-gettypebynamew
      */
     GetType() {
-        result := ComCall(5, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 }

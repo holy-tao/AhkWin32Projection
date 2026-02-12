@@ -9,7 +9,7 @@
  * The following screen shot shows the <b>Font grow</b> and <b>Font shrink</b> buttons on the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-fontcontrol">FontControl</a>.
  * 
  * <img alt="Screen shot of the Font grow and Font shrink buttons on the FontControl." src="./images/FontControl_IncDec.png"/>
- * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_fontdeltasize
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/ne-uiribbon-ui_fontdeltasize
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */

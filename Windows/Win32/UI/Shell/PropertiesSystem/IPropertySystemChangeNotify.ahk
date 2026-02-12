@@ -33,7 +33,11 @@ class IPropertySystemChangeNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     SchemaRefreshed() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

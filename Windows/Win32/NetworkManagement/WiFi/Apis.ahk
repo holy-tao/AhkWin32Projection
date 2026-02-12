@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -4679,17 +4681,17 @@ class WiFi {
     static WDIAG_IHV_WLAN_ID_FLAG_SECURITY_ENABLED => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IHV_VERSION_FUNCTION_NAME => "Dot11ExtIhvGetVersionInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IHV_INIT_FUNCTION_NAME => "Dot11ExtIhvInitService"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static IHV_INIT_VS_FUNCTION_NAME => "Dot11ExtIhvInitVirtualStation"
 
@@ -4802,7 +4804,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanopenhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanopenhandle
      * @since windows6.0.6000
      */
     static WlanOpenHandle(dwClientVersion, pdwNegotiatedVersion, phClientHandle) {
@@ -4864,7 +4866,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanclosehandle
      * @since windows6.0.6000
      */
     static WlanCloseHandle(hClientHandle) {
@@ -4938,7 +4940,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanenuminterfaces
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanenuminterfaces
      * @since windows6.0.6000
      */
     static WlanEnumInterfaces(hClientHandle, ppInterfaceList) {
@@ -5081,7 +5083,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetautoconfigparameter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetautoconfigparameter
      * @since windows6.0.6000
      */
     static WlanSetAutoConfigParameter(hClientHandle, OpCode, dwDataSize, pData) {
@@ -5247,7 +5249,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanqueryautoconfigparameter
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanqueryautoconfigparameter
      * @since windows6.0.6000
      */
     static WlanQueryAutoConfigParameter(hClientHandle, OpCode, pdwDataSize, ppData, pWlanOpcodeValueType) {
@@ -5324,7 +5326,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetinterfacecapability
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetinterfacecapability
      * @since windows6.0.6000
      */
     static WlanGetInterfaceCapability(hClientHandle, pInterfaceGuid, ppCapability) {
@@ -5440,7 +5442,7 @@ class WiFi {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetinterface
      * @since windows6.0.6000
      */
     static WlanSetInterface(hClientHandle, pInterfaceGuid, OpCode, dwDataSize, pData) {
@@ -5562,7 +5564,7 @@ class WiFi {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanqueryinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanqueryinterface
      * @since windows6.0.6000
      */
     static WlanQueryInterface(hClientHandle, pInterfaceGuid, OpCode, pdwDataSize, ppData, pWlanOpcodeValueType) {
@@ -5653,7 +5655,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanihvcontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanihvcontrol
      * @since windows6.0.6000
      */
     static WlanIhvControl(hClientHandle, pInterfaceGuid, Type, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
@@ -5763,7 +5765,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanscan
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanscan
      * @since windows6.0.6000
      */
     static WlanScan(hClientHandle, pInterfaceGuid, pDot11Ssid, pIeData) {
@@ -5888,7 +5890,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetavailablenetworklist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetavailablenetworklist
      * @since windows6.0.6000
      */
     static WlanGetAvailableNetworkList(hClientHandle, pInterfaceGuid, dwFlags, ppAvailableNetworkList) {
@@ -6047,7 +6049,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetnetworkbsslist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetnetworkbsslist
      * @since windows6.0.6000
      */
     static WlanGetNetworkBssList(hClientHandle, pInterfaceGuid, pDot11Ssid, dot11BssType, bSecurityEnabled, ppWlanBssList) {
@@ -6144,7 +6146,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanconnect
      * @since windows6.0.6000
      */
     static WlanConnect(hClientHandle, pInterfaceGuid, pConnectionParameters) {
@@ -6247,7 +6249,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlandisconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlandisconnect
      * @since windows6.0.6000
      */
     static WlanDisconnect(hClientHandle, pInterfaceGuid) {
@@ -6456,7 +6458,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanregisternotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanregisternotification
      * @since windows6.0.6000
      */
     static WlanRegisterNotification(hClientHandle, dwNotifSource, bIgnoreDuplicate, funcCallback, pCallbackContext, pdwPrevNotifSource) {
@@ -6684,7 +6686,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetprofile
      * @since windows6.0.6000
      */
     static WlanGetProfile(hClientHandle, pInterfaceGuid, strProfileName, pstrProfileXml, pdwFlags, pdwGrantedAccess) {
@@ -6834,7 +6836,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetprofileeapuserdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetprofileeapuserdata
      * @since windows6.0.6000
      */
     static WlanSetProfileEapUserData(hClientHandle, pInterfaceGuid, strProfileName, eapType, dwFlags, dwEapUserDataSize, pbEapUserData) {
@@ -6985,7 +6987,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetprofileeapxmluserdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetprofileeapxmluserdata
      * @since windows6.0.6000
      */
     static WlanSetProfileEapXmlUserData(hClientHandle, pInterfaceGuid, strProfileName, dwFlags, strEapXmlUserData) {
@@ -7191,7 +7193,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetprofile
      * @since windows6.0.6000
      */
     static WlanSetProfile(hClientHandle, pInterfaceGuid, dwFlags, strProfileXml, strAllUserProfileSecurity, bOverwrite, pdwReasonCode) {
@@ -7287,7 +7289,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlandeleteprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlandeleteprofile
      * @since windows6.0.6000
      */
     static WlanDeleteProfile(hClientHandle, pInterfaceGuid, strProfileName) {
@@ -7382,7 +7384,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanrenameprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanrenameprofile
      * @since windows6.0.6000
      */
     static WlanRenameProfile(hClientHandle, pInterfaceGuid, strOldProfileName, strNewProfileName) {
@@ -7471,7 +7473,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetprofilelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetprofilelist
      * @since windows6.0.6000
      */
     static WlanGetProfileList(hClientHandle, pInterfaceGuid, ppProfileList) {
@@ -7576,7 +7578,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetprofilelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetprofilelist
      * @since windows6.0.6000
      */
     static WlanSetProfileList(hClientHandle, pInterfaceGuid, dwItems, strProfileNames) {
@@ -7668,7 +7670,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetprofileposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetprofileposition
      * @since windows6.0.6000
      */
     static WlanSetProfilePosition(hClientHandle, pInterfaceGuid, strProfileName, dwPosition) {
@@ -7757,7 +7759,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetprofilecustomuserdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetprofilecustomuserdata
      * @since windows6.0.6000
      */
     static WlanSetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileName, dwDataSize, pData) {
@@ -7859,7 +7861,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetprofilecustomuserdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetprofilecustomuserdata
      * @since windows6.0.6000
      */
     static WlanGetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileName, pdwDataSize, ppData) {
@@ -7959,7 +7961,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetfilterlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetfilterlist
      * @since windows6.0.6000
      */
     static WlanSetFilterList(hClientHandle, wlanFilterListType, pNetworkList) {
@@ -8045,7 +8047,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetfilterlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetfilterlist
      * @since windows6.0.6000
      */
     static WlanGetFilterList(hClientHandle, wlanFilterListType, ppNetworkList) {
@@ -8178,7 +8180,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetpsdiedatalist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetpsdiedatalist
      * @since windows6.0.6000
      */
     static WlanSetPsdIEDataList(hClientHandle, strFormat, pPsdIEDataList) {
@@ -8351,7 +8353,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansavetemporaryprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansavetemporaryprofile
      * @since windows6.0.6000
      */
     static WlanSaveTemporaryProfile(hClientHandle, pInterfaceGuid, strProfileName, strAllUserProfileSecurity, dwFlags, bOverWrite) {
@@ -8397,7 +8399,7 @@ class WiFi {
      * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, the return value is **ERROR_SUCCESS**. If the function fails with **ERROR_ACCESS_DENIED**, then the caller doesn't have sufficient permissions to perform this operation. The caller needs to either have admin privilege, or needs to be a UMDF driver.
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlandeviceservicecommand
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlandeviceservicecommand
      */
     static WlanDeviceServiceCommand(hClientHandle, pInterfaceGuid, pDeviceServiceGuid, dwOpCode, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
@@ -8424,7 +8426,7 @@ class WiFi {
      * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, the return value is **ERROR_SUCCESS**. If the function fails with **ERROR_ACCESS_DENIED**, then the caller doesn't have sufficient permissions to perform this operation. The caller needs to either have admin privilege, or needs to be a UMDF driver.
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetsupporteddeviceservices
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetsupporteddeviceservices
      */
     static WlanGetSupportedDeviceServices(hClientHandle, pInterfaceGuid, ppDevSvcGuidList) {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
@@ -8463,7 +8465,7 @@ class WiFi {
      * @returns {Integer} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
      * 
      * If the function succeeds, the return value is **ERROR_SUCCESS**. If the function fails with **ERROR_ACCESS_DENIED**, then the caller doesn't have sufficient permissions to perform this operation. The caller needs to either have admin privilege, or needs to be a UMDF driver.
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanregisterdeviceservicenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanregisterdeviceservicenotification
      */
     static WlanRegisterDeviceServiceNotification(hClientHandle, pDevSvcGuidList) {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
@@ -8535,7 +8537,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanextractpsdiedatalist
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanextractpsdiedatalist
      * @since windows6.0.6000
      */
     static WlanExtractPsdIEDataList(hClientHandle, dwIeDataSize, pRawIeData, strFormat, ppPsdIEDataList) {
@@ -8594,7 +8596,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanreasoncodetostring
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanreasoncodetostring
      * @since windows6.0.6000
      */
     static WlanReasonCodeToString(dwReasonCode, dwBufferSize, pStringBuffer) {
@@ -8614,7 +8616,7 @@ class WiFi {
      * If the memory could not be allocated for any reason or if the <i>dwMemorySize</i> parameter is 0, the returned pointer is <b>NULL</b>.
      * 
      * An application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanallocatememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanallocatememory
      * @since windows6.0.6000
      */
     static WlanAllocateMemory(dwMemorySize) {
@@ -8636,7 +8638,7 @@ class WiFi {
      * There is a hotfix available for  Wireless LAN API for Windows XP with Service Pack 2 (SP2) that can help improve the performance of applications that call <b>WlanFreeMemory</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetavailablenetworklist">WlanGetAvailableNetworkList</a> many times.
      * @param {Pointer<Void>} pMemory Pointer to the memory to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanfreememory
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanfreememory
      * @since windows6.0.6000
      */
     static WlanFreeMemory(pMemory) {
@@ -8728,7 +8730,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlansetsecuritysettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlansetsecuritysettings
      * @since windows6.0.6000
      */
     static WlanSetSecuritySettings(hClientHandle, SecurableObject, strModifiedSDDL) {
@@ -8877,7 +8879,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlangetsecuritysettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlangetsecuritysettings
      * @since windows6.0.6000
      */
     static WlanGetSecuritySettings(hClientHandle, SecurableObject, pValueType, pstrCurrentSDDL, pdwGrantedAccess) {
@@ -8901,7 +8903,7 @@ class WiFi {
      * 
      * The supplied profile must be present on the interface <i>pInterfaceGuid</i>. That means the profile must have been previously created and saved in the profile store and that the profile must be valid for the supplied interface.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {HWND} hWnd The handle of the  application window requesting the UI display.
+     * @param {HWND} hWnd_ The handle of the  application window requesting the UI display.
      * @param {Integer} wlStartPage A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wl_display_pages">WL_DISPLAY_PAGES</a> value that specifies the active tab when the UI dialog box appears.
      * @param {Pointer<Integer>} pWlanReasonCode A pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> value that indicates why the UI display failed.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -8947,18 +8949,18 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanuieditprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanuieditprofile
      * @since windows6.0.6000
      */
-    static WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, hWnd, wlStartPage, pWlanReasonCode) {
+    static WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, hWnd_, wlStartPage, pWlanReasonCode) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         wstrProfileName := wstrProfileName is String ? StrPtr(wstrProfileName) : wstrProfileName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         pWlanReasonCodeMarshal := pWlanReasonCode is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, "ptr", pInterfaceGuid, "ptr", hWnd, "int", wlStartPage, "ptr", pReserved, pWlanReasonCodeMarshal, pWlanReasonCode, "uint")
+        result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, "ptr", pInterfaceGuid, "ptr", hWnd_, "int", wlStartPage, "ptr", pReserved, pWlanReasonCodeMarshal, pWlanReasonCode, "uint")
         return result
     }
 
@@ -9049,7 +9051,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkstartusing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkstartusing
      * @since windows6.1
      */
     static WlanHostedNetworkStartUsing(hClientHandle, pFailReason) {
@@ -9146,7 +9148,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkstopusing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkstopusing
      * @since windows6.1
      */
     static WlanHostedNetworkStopUsing(hClientHandle, pFailReason) {
@@ -9267,7 +9269,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestart
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkforcestart
      * @since windows6.1
      */
     static WlanHostedNetworkForceStart(hClientHandle, pFailReason) {
@@ -9371,7 +9373,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkforcestop
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkforcestop
      * @since windows6.1
      */
     static WlanHostedNetworkForceStop(hClientHandle, pFailReason) {
@@ -9559,7 +9561,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkqueryproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkqueryproperty
      * @since windows6.1
      */
     static WlanHostedNetworkQueryProperty(hClientHandle, OpCode, pdwDataSize, ppvData, pWlanOpcodeValueType) {
@@ -9753,7 +9755,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworksetproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworksetproperty
      * @since windows6.1
      */
     static WlanHostedNetworkSetProperty(hClientHandle, OpCode, dwDataSize, pvData, pFailReason) {
@@ -9858,7 +9860,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkinitsettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkinitsettings
      * @since windows6.1
      */
     static WlanHostedNetworkInitSettings(hClientHandle, pFailReason) {
@@ -9962,7 +9964,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkrefreshsecuritysettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkrefreshsecuritysettings
      * @since windows6.1
      */
     static WlanHostedNetworkRefreshSecuritySettings(hClientHandle, pFailReason) {
@@ -10064,7 +10066,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkquerystatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkquerystatus
      * @since windows6.1
      */
     static WlanHostedNetworkQueryStatus(hClientHandle, ppWlanHostedNetworkStatus) {
@@ -10193,7 +10195,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworksetsecondarykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworksetsecondarykey
      * @since windows6.1
      */
     static WlanHostedNetworkSetSecondaryKey(hClientHandle, dwKeyLength, pucKeyData, bIsPassPhrase, bPersistent, pFailReason) {
@@ -10331,7 +10333,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanhostednetworkquerysecondarykey
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanhostednetworkquerysecondarykey
      * @since windows6.1
      */
     static WlanHostedNetworkQuerySecondaryKey(hClientHandle, pdwKeyLength, ppucKeyData, pbIsPassPhrase, pbPersistent, pFailReason) {
@@ -10435,7 +10437,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanregistervirtualstationnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wlanregistervirtualstationnotification
      * @since windows6.1
      */
     static WlanRegisterVirtualStationNotification(hClientHandle, bRegister) {
@@ -10524,7 +10526,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdopenhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdopenhandle
      * @since windows8.0
      */
     static WFDOpenHandle(dwClientVersion, pdwNegotiatedVersion, phClientHandle) {
@@ -10590,7 +10592,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdclosehandle
      * @since windows8.0
      */
     static WFDCloseHandle(hClientHandle) {
@@ -10613,7 +10615,7 @@ class WiFi {
      * @param {HANDLE} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
      * @param {Pointer<Pointer<Integer>>} pDeviceAddress A pointer to the target device’s Wi-Fi Direct device address. This is the MAC address of the target Wi-Fi device.
      * @param {Pointer<Void>} pvContext An optional context pointer which is passed to the callback function specified in the <i>pfnCallback</i> parameter.
-     * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} pfnCallback A pointer to the callback function to be called once the <b>WFDStartOpenSession</b> request has completed.
+     * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} pfnCallback_ A pointer to the callback function to be called once the <b>WFDStartOpenSession</b> request has completed.
      * @param {Pointer<HANDLE>} phSessionHandle A handle to this specific Wi-Fi Direct session.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -10688,16 +10690,16 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdstartopensession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdstartopensession
      * @since windows8.0
      */
-    static WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, pfnCallback, phSessionHandle) {
+    static WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, pfnCallback_, phSessionHandle) {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         pDeviceAddressMarshal := pDeviceAddress is VarRef ? "ptr*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("wlanapi.dll\WFDStartOpenSession", "ptr", hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, "ptr", pfnCallback, "ptr", phSessionHandle, "uint")
+        result := DllCall("wlanapi.dll\WFDStartOpenSession", "ptr", hClientHandle, pDeviceAddressMarshal, pDeviceAddress, pvContextMarshal, pvContext, "ptr", pfnCallback_, "ptr", phSessionHandle, "uint")
         return result
     }
 
@@ -10759,7 +10761,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdcancelopensession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdcancelopensession
      * @since windows8.0
      */
     static WFDCancelOpenSession(hSessionHandle) {
@@ -10836,7 +10838,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdopenlegacysession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdopenlegacysession
      * @since windows8.0
      */
     static WFDOpenLegacySession(hClientHandle, pLegacyMacAddress, phSessionHandle, pGuidSessionInterface) {
@@ -10928,7 +10930,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdclosesession
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdclosesession
      * @since windows8.0
      */
     static WFDCloseSession(hSessionHandle) {
@@ -10994,7 +10996,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wfdupdatedevicevisibility
+     * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/nf-wlanapi-wfdupdatedevicevisibility
      * @since windows8.0
      */
     static WFDUpdateDeviceVisibility(pDeviceAddress) {

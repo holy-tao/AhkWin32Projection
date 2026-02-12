@@ -3,7 +3,7 @@
 
 /**
  * The IWbemObjectTextSrc interface is used to translate IWbemClassObject instances to and from differing text formats.
- * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjecttextsrc
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nn-wbemcli-iwbemobjecttextsrc
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */

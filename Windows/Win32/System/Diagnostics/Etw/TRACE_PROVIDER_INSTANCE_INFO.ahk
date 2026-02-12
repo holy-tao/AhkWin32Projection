@@ -7,7 +7,7 @@
  * If more than one event provider has registered using the same provider GUID, the
  * [TRACE_GUID_INFO](/windows/desktop/ETW/trace-guid-info) block contains more than
  * one **TRACE_PROVIDER_INSTANCE_INFO** structure.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_provider_instance_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-trace_provider_instance_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

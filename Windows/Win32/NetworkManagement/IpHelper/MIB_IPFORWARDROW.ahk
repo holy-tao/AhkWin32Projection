@@ -34,7 +34,7 @@
  * A number of members of the <b>MIB_IPFORWARDROW</b> structure  are not currently used by IPv4 routing. These members include <b>dwForwardPolicy</b>, <b>dwForwardNextHopAS</b>, <b>dwForwardMetric2</b>, <b>dwForwardMetric3</b>, <b>dwForwardMetric4</b>, and <b>dwForwardMetric5</b>. 
  * 
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Ipmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ipmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Ipmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
- * @see https://learn.microsoft.com/windows/win32/api/ipmib/ns-ipmib-mib_ipforwardrow
+ * @see https://learn.microsoft.com/windows/win32/api//content/ipmib/ns-ipmib-mib_ipforwardrow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

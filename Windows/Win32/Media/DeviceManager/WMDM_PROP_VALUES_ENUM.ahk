@@ -7,7 +7,7 @@
  * This structure is used in the **WMDM\_PROP\_DESC** structure to describe an enumerated set of valid values. An enumerated set of valid values is applicable when WMDM\_ENUM\_PROP\_VALID\_VALUES\_ENUM is selected from the **WMDM\_ENUM\_PROP\_VALID\_VALUES\_FORM** enumeration.
  * 
  * The caller is required to free the memory used by **pValues**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-values-enum
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdm-prop-values-enum
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

@@ -34,7 +34,11 @@ class IWMPNodeRealEstateHost extends IUnknown{
      * @returns {HRESULT} 
      */
     OnDesiredSizeChange(pSize) {
-        result := ComCall(3, this, "ptr", pSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IWMPNodeRealEstateHost extends IUnknown{
      * @returns {HRESULT} 
      */
     OnFullScreenTransition(fFullScreen) {
-        result := ComCall(4, this, "int", fFullScreen, "HRESULT")
+        result := ComCall(4, this, "int", fFullScreen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -30,11 +30,20 @@ class IDOMXmlSerializerFactory extends IDispatch{
     static VTableNames => ["create"]
 
     /**
-     * 
+     * createBlob Method (SQLServerConnection)
+     * @remarks
+     * This createBlob method is specified by the createBlob method in the java.sql.Connection interface.  
+     *   
+     *  This method replaces the need for [SQLServerBlob Constructor &#40;SQLServerConnection, byte&#41;](../../../connect/jdbc/reference/sqlserverblob-constructor-sqlserverconnection-byte.md).
      * @returns {IDOMXmlSerializer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/createblob-method-sqlserverconnection
      */
     create() {
-        result := ComCall(7, this, "ptr*", &__MIDL__IDOMXmlSerializerFactory0000 := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &__MIDL__IDOMXmlSerializerFactory0000 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDOMXmlSerializer(__MIDL__IDOMXmlSerializerFactory0000)
     }
 }

@@ -5,7 +5,7 @@
  * Defines the state of a request queue, server session, or URL Group.
  * @remarks
  * The default state of a request queue is enabled. Typically this enumeration is used to temporarily disable a request queue.
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_enabled_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ne-http-http_enabled_state
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

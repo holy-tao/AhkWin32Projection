@@ -32,20 +32,28 @@ class IDWriteFontFace6 extends IDWriteFontFace5{
     /**
      * 
      * @param {Integer} fontFamilyModel 
-     * @returns {IDWriteLocalizedStrings} 
+     * @returns {Pointer<IDWriteLocalizedStrings>} 
      */
     GetFamilyNames(fontFamilyModel) {
-        result := ComCall(58, this, "int", fontFamilyModel, "ptr*", &names := 0, "HRESULT")
-        return IDWriteLocalizedStrings(names)
+        result := ComCall(58, this, "int", fontFamilyModel, "ptr*", &names := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return names
     }
 
     /**
      * 
      * @param {Integer} fontFamilyModel 
-     * @returns {IDWriteLocalizedStrings} 
+     * @returns {Pointer<IDWriteLocalizedStrings>} 
      */
     GetFaceNames(fontFamilyModel) {
-        result := ComCall(59, this, "int", fontFamilyModel, "ptr*", &names := 0, "HRESULT")
-        return IDWriteLocalizedStrings(names)
+        result := ComCall(59, this, "int", fontFamilyModel, "ptr*", &names := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return names
     }
 }

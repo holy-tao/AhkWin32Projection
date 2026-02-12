@@ -14,7 +14,7 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-create_cluster_config">CREATE_CLUSTER_CONFIG</a> structure, which is in turn 
  *     passed as the <i>pConfig</i> parameter of the 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_ip_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-cluster_ip_entry
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

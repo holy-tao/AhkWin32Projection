@@ -5,7 +5,7 @@
 
 /**
  * Sets and retrieves parameters used by the FilterMax generator.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcgeneratorfiltermaxparameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-irdcgeneratorfiltermaxparameters
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -41,10 +41,14 @@ class IRdcGeneratorFilterMaxParameters extends IUnknown{
      * @returns {Integer} Address of a <b>ULONG</b> that will receive the length in bytes of the horizon size. 
      *       The valid range is from <b>MSRDC_MINIMUM_HORIZONSIZE</b> to 
      *       <b>MSRDC_MAXIMUM_HORIZONSIZE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-gethorizonsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-gethorizonsize
      */
     GetHorizonSize() {
-        result := ComCall(3, this, "uint*", &horizonSize := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &horizonSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return horizonSize
     }
 
@@ -54,11 +58,15 @@ class IRdcGeneratorFilterMaxParameters extends IUnknown{
      *       The valid range is from <b>MSRDC_MINIMUM_HORIZONSIZE</b> to 
      *       <b>MSRDC_MAXIMUM_HORIZONSIZE</b>. If this parameter is not set then a suitable default will 
      *       be used.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-sethorizonsize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-sethorizonsize
      */
     SetHorizonSize(horizonSize) {
-        result := ComCall(4, this, "uint", horizonSize, "HRESULT")
+        result := ComCall(4, this, "uint", horizonSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,10 +75,14 @@ class IRdcGeneratorFilterMaxParameters extends IUnknown{
      * @returns {Integer} Address of a <b>ULONG</b> that will receive the length in bytes of the hash window 
      *       size. The valid range is from <b>MSRDC_MINIMUM_HASHWINDOWSIZE</b> to 
      *       <b>MSRDC_MAXIMUM_HASHWINDOWSIZE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-gethashwindowsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-gethashwindowsize
      */
     GetHashWindowSize() {
-        result := ComCall(5, this, "uint*", &hashWindowSize := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &hashWindowSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hashWindowSize
     }
 
@@ -79,11 +91,15 @@ class IRdcGeneratorFilterMaxParameters extends IUnknown{
      * @param {Integer} hashWindowSize The length in bytes of the hash window size. The valid range is from 
      *       <b>MSRDC_MINIMUM_HASHWINDOWSIZE</b> to 
      *       <b>MSRDC_MAXIMUM_HASHWINDOWSIZE</b>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-sethashwindowsize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcgeneratorfiltermaxparameters-sethashwindowsize
      */
     SetHashWindowSize(hashWindowSize) {
-        result := ComCall(6, this, "uint", hashWindowSize, "HRESULT")
+        result := ComCall(6, this, "uint", hashWindowSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

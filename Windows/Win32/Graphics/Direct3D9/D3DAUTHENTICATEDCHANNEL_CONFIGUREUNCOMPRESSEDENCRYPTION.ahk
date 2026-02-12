@@ -6,7 +6,7 @@
 
 /**
  * Contains input data for the D3DAUTHENTICATEDCONFIGURE\_ENCRYPTIONWHENACCESSIBLE command.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configureuncompressedencryption
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-configureuncompressedencryption
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

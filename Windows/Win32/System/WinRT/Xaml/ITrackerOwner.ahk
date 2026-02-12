@@ -33,39 +33,51 @@ class ITrackerOwner extends IUnknown{
      * @returns {TrackerHandle} 
      */
     CreateTrackerHandle() {
-        result := ComCall(3, this, "ptr*", &returnValue := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &returnValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return returnValue
     }
 
     /**
      * 
-     * @param {TrackerHandle} handle 
+     * @param {TrackerHandle} handle_ 
      * @returns {HRESULT} 
      */
-    DeleteTrackerHandle(handle) {
-        result := ComCall(4, this, "ptr", handle, "HRESULT")
+    DeleteTrackerHandle(handle_) {
+        result := ComCall(4, this, "ptr", handle_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {TrackerHandle} handle 
+     * @param {TrackerHandle} handle_ 
      * @param {IUnknown} value 
      * @returns {HRESULT} 
      */
-    SetTrackerValue(handle, value) {
-        result := ComCall(5, this, "ptr", handle, "ptr", value, "HRESULT")
+    SetTrackerValue(handle_, value) {
+        result := ComCall(5, this, "ptr", handle_, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {TrackerHandle} handle 
+     * @param {TrackerHandle} handle_ 
      * @param {Pointer<IUnknown>} returnValue 
      * @returns {Integer} 
      */
-    TryGetSafeTrackerValue(handle, returnValue) {
-        result := ComCall(6, this, "ptr", handle, "ptr*", returnValue, "char")
+    TryGetSafeTrackerValue(handle_, returnValue) {
+        result := ComCall(6, this, "ptr", handle_, "ptr*", returnValue, "char")
         return result
     }
 }

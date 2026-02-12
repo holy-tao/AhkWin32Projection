@@ -35,7 +35,11 @@ class ICLRSyncManager extends IUnknown{
      * @returns {IHostTask} 
      */
     GetMonitorOwner(Cookie) {
-        result := ComCall(3, this, "ptr", Cookie, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", Cookie, "ptr*", &ppOwnerHostTask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHostTask(ppOwnerHostTask)
     }
 
@@ -45,7 +49,11 @@ class ICLRSyncManager extends IUnknown{
      * @returns {Pointer} 
      */
     CreateRWLockOwnerIterator(Cookie) {
-        result := ComCall(4, this, "ptr", Cookie, "ptr*", &pIterator := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", Cookie, "ptr*", &pIterator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIterator
     }
 
@@ -55,7 +63,11 @@ class ICLRSyncManager extends IUnknown{
      * @returns {IHostTask} 
      */
     GetRWLockOwnerNext(Iterator) {
-        result := ComCall(5, this, "ptr", Iterator, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", Iterator, "ptr*", &ppOwnerHostTask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHostTask(ppOwnerHostTask)
     }
 
@@ -65,7 +77,11 @@ class ICLRSyncManager extends IUnknown{
      * @returns {HRESULT} 
      */
     DeleteRWLockOwnerIterator(Iterator) {
-        result := ComCall(6, this, "ptr", Iterator, "HRESULT")
+        result := ComCall(6, this, "ptr", Iterator, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

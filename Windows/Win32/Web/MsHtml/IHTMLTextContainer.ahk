@@ -72,7 +72,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {IDispatch} 
      */
     createControlRange() {
-        result := ComCall(7, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(range)
     }
 
@@ -81,7 +85,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollHeight() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -90,7 +98,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollWidth() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -100,7 +112,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollTop(v) {
-        result := ComCall(10, this, "int", v, "HRESULT")
+        result := ComCall(10, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -109,7 +125,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollTop() {
-        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -119,7 +139,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scrollLeft(v) {
-        result := ComCall(12, this, "int", v, "HRESULT")
+        result := ComCall(12, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +152,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {Integer} 
      */
     get_scrollLeft() {
-        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -138,7 +166,11 @@ class IHTMLTextContainer extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onscroll(v) {
-        result := ComCall(14, this, "ptr", v, "HRESULT")
+        result := ComCall(14, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,7 +180,11 @@ class IHTMLTextContainer extends IDispatch{
      */
     get_onscroll() {
         p := VARIANT()
-        result := ComCall(15, this, "ptr", p, "HRESULT")
+        result := ComCall(15, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

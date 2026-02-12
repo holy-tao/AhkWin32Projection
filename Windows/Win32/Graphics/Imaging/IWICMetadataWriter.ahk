@@ -6,11 +6,8 @@
 /**
  * Exposes methods that provide access to writing metadata content. This is implemented by independent software vendors (ISVs) to create new metadata writers.
  * @remarks
- * 
  * A metadata writer can be used to write metadata blocks and items within a metadata block instead of using a query writer. To directly access the metadata writer, query an encoder or its frames for the <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatablockwriter">IWICMetadataBlockWriter</a> interface to enumerate each metadata writer.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nn-wincodecsdk-iwicmetadatawriter
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -48,16 +45,22 @@ class IWICMetadataWriter extends IWICMetadataReader{
      * Pointer to the metadata value to set
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvalue
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvalue
      */
     SetValue(pvarSchema, pvarId, pvarValue) {
-        result := ComCall(9, this, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "HRESULT")
+        result := ComCall(9, this, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the metadata item to the specified index.
+     * @remarks
+     * After removing an item, expect the remaining metadata items to move up to occupy the vacated metadata item location.  Therefore indices for remaining metadata items as well as the count will change.
      * @param {Integer} nIndex Type: <b>UINT</b>
      * 
      * The index to place the metadata item.
@@ -72,11 +75,15 @@ class IWICMetadataWriter extends IWICMetadataReader{
      * Pointer to the metadata value to set at the given index.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvaluebyindex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-setvaluebyindex
      */
     SetValueByIndex(nIndex, pvarSchema, pvarId, pvarValue) {
-        result := ComCall(10, this, "uint", nIndex, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "HRESULT")
+        result := ComCall(10, this, "uint", nIndex, "ptr", pvarSchema, "ptr", pvarId, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,26 +97,36 @@ class IWICMetadataWriter extends IWICMetadataReader{
      * Pointer to the metadata id property.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevalue
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevalue
      */
     RemoveValue(pvarSchema, pvarId) {
-        result := ComCall(11, this, "ptr", pvarSchema, "ptr", pvarId, "HRESULT")
+        result := ComCall(11, this, "ptr", pvarSchema, "ptr", pvarId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the metadata item at the specified index.
+     * @remarks
+     * After removing an item, expect the remaining metadata items to move up to occupy the vacated metadata item location.  Therefore indices for remaining metadata items as well as the count will change.
      * @param {Integer} nIndex Type: <b>UINT</b>
      * 
      * The index of the metadata item to remove.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevaluebyindex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodecsdk/nf-wincodecsdk-iwicmetadatawriter-removevaluebyindex
      */
     RemoveValueByIndex(nIndex) {
-        result := ComCall(12, this, "uint", nIndex, "HRESULT")
+        result := ComCall(12, this, "uint", nIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -56,7 +56,7 @@
  *         }
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-filemuiinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnls/ns-winnls-filemuiinfo
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

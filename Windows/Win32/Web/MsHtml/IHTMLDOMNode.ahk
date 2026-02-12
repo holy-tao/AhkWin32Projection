@@ -107,7 +107,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {Integer} 
      */
     get_nodeType() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -116,7 +120,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_parentNode() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -125,7 +133,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     hasChildNodes() {
-        result := ComCall(9, this, "short*", &fChildren := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &fChildren := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fChildren
     }
 
@@ -134,7 +146,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IDispatch} 
      */
     get_childNodes() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -143,7 +159,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IDispatch} 
      */
     get_attributes() {
-        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(p)
     }
 
@@ -154,8 +174,12 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     insertBefore(newChild, refChild) {
-        result := ComCall(12, this, "ptr", newChild, "ptr", refChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(12, this, "ptr", newChild, "ptr", refChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -164,8 +188,12 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     removeChild(oldChild) {
-        result := ComCall(13, this, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(13, this, "ptr", oldChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -175,8 +203,12 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     replaceChild(newChild, oldChild) {
-        result := ComCall(14, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(14, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -185,7 +217,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     cloneNode(fDeep) {
-        result := ComCall(15, this, "short", fDeep, "ptr*", &clonedNode := 0, "HRESULT")
+        result := ComCall(15, this, "short", fDeep, "ptr*", &clonedNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(clonedNode)
     }
 
@@ -195,7 +231,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     removeNode(fDeep) {
-        result := ComCall(16, this, "short", fDeep, "ptr*", &removed := 0, "HRESULT")
+        result := ComCall(16, this, "short", fDeep, "ptr*", &removed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(removed)
     }
 
@@ -205,7 +245,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     swapNode(otherNode) {
-        result := ComCall(17, this, "ptr", otherNode, "ptr*", &swappedNode := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", otherNode, "ptr*", &swappedNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(swappedNode)
     }
 
@@ -215,7 +259,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     replaceNode(replacement) {
-        result := ComCall(18, this, "ptr", replacement, "ptr*", &replaced := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", replacement, "ptr*", &replaced := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(replaced)
     }
 
@@ -225,8 +273,12 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     appendChild(newChild) {
-        result := ComCall(19, this, "ptr", newChild, "ptr*", &node := 0, "HRESULT")
-        return IHTMLDOMNode(node)
+        result := ComCall(19, this, "ptr", newChild, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IHTMLDOMNode(node_)
     }
 
     /**
@@ -235,7 +287,11 @@ class IHTMLDOMNode extends IDispatch{
      */
     get_nodeName() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -245,7 +301,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {HRESULT} 
      */
     put_nodeValue(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -255,7 +315,11 @@ class IHTMLDOMNode extends IDispatch{
      */
     get_nodeValue() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -264,7 +328,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_firstChild() {
-        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(23, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -273,7 +341,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_lastChild() {
-        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -282,7 +354,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_previousSibling() {
-        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 
@@ -291,7 +367,11 @@ class IHTMLDOMNode extends IDispatch{
      * @returns {IHTMLDOMNode} 
      */
     get_nextSibling() {
-        result := ComCall(26, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDOMNode(p)
     }
 }

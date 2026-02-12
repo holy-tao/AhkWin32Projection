@@ -35,7 +35,11 @@ class ID3D12Tools2 extends ID3D12Tools1{
      * @returns {HRESULT} 
      */
     SetApplicationSpecificDriverState(pAdapter, pBlob) {
-        result := ComCall(7, this, "ptr", pAdapter, "ptr", pBlob, "HRESULT")
+        result := ComCall(7, this, "ptr", pAdapter, "ptr", pBlob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

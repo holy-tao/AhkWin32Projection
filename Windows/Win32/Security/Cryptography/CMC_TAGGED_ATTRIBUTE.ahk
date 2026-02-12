@@ -4,7 +4,7 @@
 
 /**
  * Used in the CMC_DATA_INFO and CMC_RESPONSE_INFO structures. (CMC_TAGGED_ATTRIBUTE)
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_tagged_attribute
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmc_tagged_attribute
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

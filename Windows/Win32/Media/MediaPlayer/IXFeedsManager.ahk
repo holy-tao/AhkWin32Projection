@@ -32,10 +32,14 @@ class IXFeedsManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     RootFolder(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -47,7 +51,11 @@ class IXFeedsManager extends IUnknown{
     IsSubscribed(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(4, this, "ptr", pszUrl, "int*", &pbSubscribed := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszUrl, "int*", &pbSubscribed := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbSubscribed
     }
 
@@ -59,7 +67,11 @@ class IXFeedsManager extends IUnknown{
     ExistsFeed(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(5, this, "ptr", pszPath, "int*", &pbFeedExists := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszPath, "int*", &pbFeedExists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbFeedExists
     }
 
@@ -67,12 +79,16 @@ class IXFeedsManager extends IUnknown{
      * 
      * @param {PWSTR} pszPath 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetFeed(pszPath, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(6, this, "ptr", pszPath, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pszPath, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -80,12 +96,16 @@ class IXFeedsManager extends IUnknown{
      * 
      * @param {PWSTR} pszUrl 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetFeedByUrl(pszUrl, riid) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(7, this, "ptr", pszUrl, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pszUrl, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -97,7 +117,11 @@ class IXFeedsManager extends IUnknown{
     ExistsFolder(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(8, this, "ptr", pszPath, "int*", &pbFolderExists := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", pszPath, "int*", &pbFolderExists := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbFolderExists
     }
 
@@ -105,12 +129,16 @@ class IXFeedsManager extends IUnknown{
      * 
      * @param {PWSTR} pszPath 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetFolder(pszPath, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(9, this, "ptr", pszPath, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", pszPath, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -122,7 +150,11 @@ class IXFeedsManager extends IUnknown{
     DeleteFeed(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(10, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(10, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +166,11 @@ class IXFeedsManager extends IUnknown{
     DeleteFolder(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(11, this, "ptr", pszPath, "HRESULT")
+        result := ComCall(11, this, "ptr", pszPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,7 +180,11 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     BackgroundSync(fbsa) {
-        result := ComCall(12, this, "int", fbsa, "HRESULT")
+        result := ComCall(12, this, "int", fbsa, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +193,11 @@ class IXFeedsManager extends IUnknown{
      * @returns {Integer} 
      */
     BackgroundSyncStatus() {
-        result := ComCall(13, this, "int*", &pfbss := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pfbss := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfbss
     }
 
@@ -162,7 +206,11 @@ class IXFeedsManager extends IUnknown{
      * @returns {Integer} 
      */
     DefaultInterval() {
-        result := ComCall(14, this, "uint*", &puiInterval := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &puiInterval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiInterval
     }
 
@@ -172,7 +220,11 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDefaultInterval(uiInterval) {
-        result := ComCall(15, this, "uint", uiInterval, "HRESULT")
+        result := ComCall(15, this, "uint", uiInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,17 +233,26 @@ class IXFeedsManager extends IUnknown{
      * @returns {HRESULT} 
      */
     AsyncSyncAll() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Contains values that specify the behavior of UiaGetUpdatedCache.
      * @param {IStream} pStreamIn 
      * @returns {IStream} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(pStreamIn) {
-        result := ComCall(17, this, "ptr", pStreamIn, "ptr*", &ppStreamOut := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pStreamIn, "ptr*", &ppStreamOut := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStream(ppStreamOut)
     }
 
@@ -200,7 +261,11 @@ class IXFeedsManager extends IUnknown{
      * @returns {Integer} 
      */
     ItemCountLimit() {
-        result := ComCall(18, this, "uint*", &puiItemCountLimit := 0, "HRESULT")
+        result := ComCall(18, this, "uint*", &puiItemCountLimit := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puiItemCountLimit
     }
 }

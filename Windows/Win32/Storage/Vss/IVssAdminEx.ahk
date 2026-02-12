@@ -34,7 +34,11 @@ class IVssAdminEx extends IVssAdmin{
      * @returns {Integer} 
      */
     GetProviderCapability(pProviderId) {
-        result := ComCall(7, this, "ptr", pProviderId, "uint*", &pllOriginalCapabilityMask := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pProviderId, "uint*", &pllOriginalCapabilityMask := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pllOriginalCapabilityMask
     }
 
@@ -44,7 +48,11 @@ class IVssAdminEx extends IVssAdmin{
      * @returns {Integer} 
      */
     GetProviderContext(ProviderId) {
-        result := ComCall(8, this, "ptr", ProviderId, "int*", &plContext := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", ProviderId, "int*", &plContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plContext
     }
 
@@ -55,7 +63,11 @@ class IVssAdminEx extends IVssAdmin{
      * @returns {HRESULT} 
      */
     SetProviderContext(ProviderId, lContext) {
-        result := ComCall(9, this, "ptr", ProviderId, "int", lContext, "HRESULT")
+        result := ComCall(9, this, "ptr", ProviderId, "int", lContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

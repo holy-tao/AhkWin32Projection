@@ -126,7 +126,11 @@ class IDOMKeyboardEvent extends IDispatch{
      */
     get_key() {
         p := BSTR()
-        result := ComCall(7, this, "ptr", p, "HRESULT")
+        result := ComCall(7, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -135,7 +139,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_location() {
-        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -144,7 +152,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_ctrlKey() {
-        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -153,7 +165,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_shiftKey() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -162,7 +178,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_altKey() {
-        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -171,7 +191,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_metaKey() {
-        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -180,7 +204,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_repeat() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -190,9 +218,16 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     getModifierState(keyArg) {
-        keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
+        if(keyArg is String) {
+            pin := BSTR.Alloc(keyArg)
+            keyArg := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", keyArg, "short*", &state := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", keyArg, "short*", &state := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return state
     }
 
@@ -210,12 +245,28 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initKeyboardEvent(eventType, canBubble, cancelable, viewArg, keyArg, locationArg, modifiersListArg, repeat, locale) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
-        modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
-        locale := locale is String ? BSTR.Alloc(locale).Value : locale
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(keyArg is String) {
+            pin := BSTR.Alloc(keyArg)
+            keyArg := pin.Value
+        }
+        if(modifiersListArg is String) {
+            pin := BSTR.Alloc(modifiersListArg)
+            modifiersListArg := pin.Value
+        }
+        if(locale is String) {
+            pin := BSTR.Alloc(locale)
+            locale := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", keyArg, "uint", locationArg, "ptr", modifiersListArg, "short", repeat, "ptr", locale, "HRESULT")
+        result := ComCall(15, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "ptr", keyArg, "uint", locationArg, "ptr", modifiersListArg, "short", repeat, "ptr", locale, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -224,7 +275,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_keyCode() {
-        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -233,7 +288,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_charCode() {
-        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -242,7 +301,11 @@ class IDOMKeyboardEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_which() {
-        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -252,7 +315,11 @@ class IDOMKeyboardEvent extends IDispatch{
      */
     get_ie9_char() {
         p := VARIANT()
-        result := ComCall(19, this, "ptr", p, "HRESULT")
+        result := ComCall(19, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -262,7 +329,11 @@ class IDOMKeyboardEvent extends IDispatch{
      */
     get_locale() {
         p := BSTR()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

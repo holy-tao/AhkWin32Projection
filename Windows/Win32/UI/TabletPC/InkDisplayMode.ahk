@@ -3,7 +3,7 @@
 
 /**
  * Specifies how a selection appears on the control.
- * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkdisplaymode
+ * @see https://learn.microsoft.com/windows/win32/api//content/inked/ne-inked-inkdisplaymode
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

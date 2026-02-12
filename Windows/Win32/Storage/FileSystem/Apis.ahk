@@ -2,7 +2,10 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\CLS_LSN.ahk
 #Include .\HIORING.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -18,17 +21,17 @@ class FileSystem {
     static MAXIMUM_REPARSE_DATA_BUFFER_SIZE => 16384
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EA_CONTAINER_NAME => "ContainerName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static EA_CONTAINER_SIZE => "ContainerSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CLFS_BASELOG_EXTENSION => ".blf"
 
@@ -88,12 +91,12 @@ class FileSystem {
     static CLFS_FLAG_FILTER_TOP_LEVEL => 32
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CLFS_CONTAINER_STREAM_PREFIX => "%BLF%:"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CLFS_CONTAINER_RELATIVE_PREFIX => "%BLF%\"
 
@@ -323,22 +326,22 @@ class FileSystem {
     static TRANSACTION_NOTIFY_COMMIT_FINALIZE => 1073741824
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TRANSACTIONMANAGER_OBJECT_PATH => "\TransactionManager\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static TRANSACTION_OBJECT_PATH => "\Transaction\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static ENLISTMENT_OBJECT_PATH => "\Enlistment\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static RESOURCE_MANAGER_OBJECT_PATH => "\ResourceManager\"
 
@@ -1583,7 +1586,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-searchpathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-searchpathw
      * @since windows5.1.2600
      */
     static SearchPathW(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart) {
@@ -1728,7 +1731,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-searchpatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-searchpatha
      * @since windows5.1.2600
      */
     static SearchPathA(lpPath, lpFileName, lpExtension, nBufferLength, lpBuffer, lpFilePart) {
@@ -1796,7 +1799,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-comparefiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-comparefiletime
      * @since windows5.1.2600
      */
     static CompareFileTime(lpFileTime1, lpFileTime2) {
@@ -1932,7 +1935,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-createdirectorya
      * @since windows5.1.2600
      */
     static CreateDirectoryA(lpPathName, lpSecurityAttributes) {
@@ -2076,7 +2079,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-createdirectoryw
      * @since windows5.1.2600
      */
     static CreateDirectoryW(lpPathName, lpSecurityAttributes) {
@@ -3104,7 +3107,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-createfilea
      * @since windows5.1.2600
      */
     static CreateFileA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
@@ -4132,7 +4135,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-createfilew
      * @since windows5.1.2600
      */
     static CreateFileW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
@@ -4251,7 +4254,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-definedosdevicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-definedosdevicew
      * @since windows5.1.2600
      */
     static DefineDosDeviceW(dwFlags, lpDeviceName, lpTargetPath) {
@@ -4385,7 +4388,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-deletefilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-deletefilea
      * @since windows5.1.2600
      */
     static DeleteFileA(lpFileName) {
@@ -4518,7 +4521,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-deletefilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-deletefilew
      * @since windows5.1.2600
      */
     static DeleteFileW(lpFileName) {
@@ -4609,7 +4612,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-deletevolumemountpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-deletevolumemountpointw
      * @since windows5.1.2600
      */
     static DeleteVolumeMountPointW(lpszVolumeMountPoint) {
@@ -4648,7 +4651,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-filetimetolocalfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-filetimetolocalfiletime
      * @since windows5.1.2600
      */
     static FileTimeToLocalFileTime(lpFileTime, lpLocalFileTime) {
@@ -4735,7 +4738,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findclose
      * @since windows5.1.2600
      */
     static FindClose(hFindFile) {
@@ -4829,7 +4832,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findclosechangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findclosechangenotification
      * @since windows5.1.2600
      */
     static FindCloseChangeNotification(hChangeHandle) {
@@ -4936,7 +4939,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstchangenotificationa
      * @since windows5.1.2600
      */
     static FindFirstChangeNotificationA(lpPathName, bWatchSubtree, dwNotifyFilter) {
@@ -5045,7 +5048,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstchangenotificationw
      * @since windows5.1.2600
      */
     static FindFirstChangeNotificationW(lpPathName, bWatchSubtree, dwNotifyFilter) {
@@ -5231,7 +5234,7 @@ class FileSystem {
      * If the function fails because no matching files can be found, the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns 
      *        <b>ERROR_FILE_NOT_FOUND</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstfilea
      * @since windows5.1.2600
      */
     static FindFirstFileA(lpFileName, lpFindFileData) {
@@ -5417,7 +5420,7 @@ class FileSystem {
      * If the function fails because no matching files can be found, the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns 
      *        <b>ERROR_FILE_NOT_FOUND</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstfilew
      * @since windows5.1.2600
      */
     static FindFirstFileW(lpFileName, lpFindFileData) {
@@ -5680,7 +5683,7 @@ class FileSystem {
      *        <b>INVALID_HANDLE_VALUE</b> and the contents of <i>lpFindFileData</i> are 
      *        indeterminate. To get extended error information, call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstfileexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstfileexa
      * @since windows5.1.2600
      */
     static FindFirstFileExA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
@@ -5947,7 +5950,7 @@ class FileSystem {
      *        <b>INVALID_HANDLE_VALUE</b> and the contents of <i>lpFindFileData</i> are 
      *        indeterminate. To get extended error information, call the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstfileexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstfileexw
      * @since windows5.1.2600
      */
     static FindFirstFileExW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
@@ -6054,7 +6057,7 @@ class FileSystem {
      * If the function fails to find any volumes, the return value is the 
      *        <b>INVALID_HANDLE_VALUE</b> error code. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstvolumew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstvolumew
      * @since windows5.1.2600
      */
     static FindFirstVolumeW(lpszVolumeName, cchBufferLength) {
@@ -6156,7 +6159,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findnextchangenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findnextchangenotification
      * @since windows5.1.2600
      */
     static FindNextChangeNotification(hChangeHandle) {
@@ -6276,7 +6279,7 @@ class FileSystem {
      * If the function fails because no more matching files can be found, the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns 
      *        <b>ERROR_NO_MORE_FILES</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findnextfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findnextfilea
      * @since windows5.1.2600
      */
     static FindNextFileA(hFindFile, lpFindFileData) {
@@ -6396,7 +6399,7 @@ class FileSystem {
      * If the function fails because no more matching files can be found, the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns 
      *        <b>ERROR_NO_MORE_FILES</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findnextfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findnextfilew
      * @since windows5.1.2600
      */
     static FindNextFileW(hFindFile, lpFindFileData) {
@@ -6496,7 +6499,7 @@ class FileSystem {
      *        <b>GetLastError</b> function returns the 
      *        <b>ERROR_NO_MORE_FILES</b> error code. In that case, close the search with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findvolumeclose">FindVolumeClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findnextvolumew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findnextvolumew
      * @since windows5.1.2600
      */
     static FindNextVolumeW(hFindVolume, lpszVolumeName, cchBufferLength) {
@@ -6588,7 +6591,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findvolumeclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findvolumeclose
      * @since windows5.1.2600
      */
     static FindVolumeClose(hFindVolume) {
@@ -6693,7 +6696,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The function fails if <i>hFile</i> is a handle to the console output. That is because the console output is not buffered. The function returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INVALID_HANDLE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-flushfilebuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-flushfilebuffers
      * @since windows5.1.2600
      */
     static FlushFileBuffers(hFile) {
@@ -6745,7 +6748,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskfreespacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdiskfreespacea
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceA(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters) {
@@ -6802,7 +6805,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskfreespacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdiskfreespacew
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceW(lpRootPathName, lpSectorsPerCluster, lpBytesPerSector, lpNumberOfFreeClusters, lpTotalNumberOfClusters) {
@@ -6877,7 +6880,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskfreespaceexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdiskfreespaceexa
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceExA(lpDirectoryName, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytes) {
@@ -6951,7 +6954,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskfreespaceexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdiskfreespaceexw
      * @since windows5.1.2600
      */
     static GetDiskFreeSpaceExW(lpDirectoryName, lpFreeBytesAvailableToCaller, lpTotalNumberOfBytes, lpTotalNumberOfFreeBytes) {
@@ -6980,7 +6983,7 @@ class FileSystem {
      * If this parameter is `NULL`, the function uses the root of the current disk.
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo A [**DISK_SPACE_INFORMATION**](ns-fileapi-disk_space_information.md) structure containing information about the current disk space for the volume at the given root path.
      * @returns {HRESULT} Returns `TRUE` if the function succeeds, or `FALSE` if it fails. To get extended error information, call the `GetLastError` function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdiskspaceinformationa
      */
     static GetDiskSpaceInformationA(rootPath, diskSpaceInfo) {
         rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
@@ -7002,7 +7005,7 @@ class FileSystem {
      * If this parameter is `NULL`, the function uses the root of the current disk.
      * @param {Pointer<DISK_SPACE_INFORMATION>} diskSpaceInfo A [**DISK_SPACE_INFORMATION**](ns-fileapi-disk_space_information.md) structure containing information about the current disk space for the volume at the given root path.
      * @returns {HRESULT} Returns `TRUE` if the function succeeds, or `FALSE` if it fails. To get extended error information, call the `GetLastError` function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdiskspaceinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdiskspaceinformationw
      */
     static GetDiskSpaceInformationW(rootPath, diskSpaceInfo) {
         rootPath := rootPath is String ? StrPtr(rootPath) : rootPath
@@ -7183,7 +7186,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdrivetypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdrivetypea
      * @since windows5.1.2600
      */
     static GetDriveTypeA(lpRootPathName) {
@@ -7361,7 +7364,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getdrivetypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getdrivetypew
      * @since windows5.1.2600
      */
     static GetDriveTypeW(lpRootPathName) {
@@ -7472,7 +7475,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_FILE_ATTRIBUTES</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfileattributesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfileattributesa
      * @since windows5.1.2600
      */
     static GetFileAttributesA(lpFileName) {
@@ -7589,7 +7592,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_FILE_ATTRIBUTES</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfileattributesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfileattributesw
      * @since windows5.1.2600
      */
     static GetFileAttributesW(lpFileName) {
@@ -7739,7 +7742,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfileattributesexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfileattributesexa
      * @since windows5.1.2600
      */
     static GetFileAttributesExA(lpFileName, fInfoLevelId, lpFileInformation) {
@@ -7891,7 +7894,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfileattributesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfileattributesexw
      * @since windows5.1.2600
      */
     static GetFileAttributesExW(lpFileName, fInfoLevelId, lpFileInformation) {
@@ -7997,7 +8000,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfileinformationbyhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfileinformationbyhandle
      * @since windows5.1.2600
      */
     static GetFileInformationByHandle(hFile, lpFileInformation) {
@@ -8112,7 +8115,7 @@ class FileSystem {
      *        return value is <b>INVALID_FILE_SIZE</b> and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return a value other than 
      *        <b>NO_ERROR</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfilesize
      * @since windows5.1.2600
      */
     static GetFileSize(hFile, lpFileSizeHigh) {
@@ -8207,7 +8210,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfilesizeex
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfilesizeex
      * @since windows5.1.2600
      */
     static GetFileSizeEx(hFile, lpFileSize) {
@@ -8366,7 +8369,7 @@ class FileSystem {
      * If the function returned <b>FILE_TYPE_UNKNOWN</b> due to an error in calling 
      * <b>GetFileType</b>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfiletype
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfiletype
      * @since windows5.1.2600
      */
     static GetFileType(hFile) {
@@ -8517,7 +8520,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfinalpathnamebyhandlea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfinalpathnamebyhandlea
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleA(hFile, lpszFilePath, cchFilePath, dwFlags) {
@@ -8675,7 +8678,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfinalpathnamebyhandlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfinalpathnamebyhandlew
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleW(hFile, lpszFilePath, cchFilePath, dwFlags) {
@@ -8731,7 +8734,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfiletime
      * @since windows5.1.2600
      */
     static GetFileTime(hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime) {
@@ -8887,7 +8890,7 @@ class FileSystem {
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfullpathnamew
      * @since windows5.1.2600
      */
     static GetFullPathNameW(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
@@ -9046,7 +9049,7 @@ class FileSystem {
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getfullpathnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getfullpathnamea
      * @since windows5.1.2600
      */
     static GetFullPathNameA(lpFileName, nBufferLength, lpBuffer, lpFilePart) {
@@ -9133,7 +9136,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getlogicaldrives
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getlogicaldrives
      * @since windows5.1.2600
      */
     static GetLogicalDrives() {
@@ -9234,7 +9237,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getlogicaldrivestringsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getlogicaldrivestringsw
      * @since windows5.1.2600
      */
     static GetLogicalDriveStringsW(nBufferLength, lpBuffer) {
@@ -9362,7 +9365,7 @@ class FileSystem {
      * If the function fails for any other reason, such as if the file does not 
      *        exist, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getlongpathnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getlongpathnamea
      * @since windows5.1.2600
      */
     static GetLongPathNameA(lpszShortPath, lpszLongPath, cchBuffer) {
@@ -9491,7 +9494,7 @@ class FileSystem {
      * If the function fails for any other reason, such as if the file does not 
      *        exist, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getlongpathnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getlongpathnamew
      * @since windows5.1.2600
      */
     static GetLongPathNameW(lpszShortPath, lpszLongPath, cchBuffer) {
@@ -9510,17 +9513,17 @@ class FileSystem {
 
     /**
      * The AreShortNamesEnabled function determines whether short names are enabled for the specified volume.
-     * @param {HANDLE} Handle The handle to the volume or the handle to a file or directory that resides on the volume to query.
+     * @param {HANDLE} Handle_ The handle to the volume or the handle to a file or directory that resides on the volume to query.
      * @param {Pointer<BOOL>} Enabled A pointer to a `BOOLEAN` value that receives the result of the query. If `TRUE`, short names are enabled for the volume, otherwise `FALSE` is returned.
      * @returns {BOOL} A `BOOLEAN` value that indicates whether the function succeeded. If the function succeeds, the return value is `TRUE`. If the function fails, the return value is `FALSE`. To get extended error information, call the [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-areshortnamesenabled
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-areshortnamesenabled
      */
-    static AreShortNamesEnabled(Handle, Enabled) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static AreShortNamesEnabled(Handle_, Enabled) {
+        Handle_ := Handle_ is Win32Handle ? NumGet(Handle_, "ptr") : Handle_
 
         EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle, EnabledMarshal, Enabled, "int")
+        result := DllCall("KERNEL32.dll\AreShortNamesEnabled", "ptr", Handle_, EnabledMarshal, Enabled, "int")
         return result
     }
 
@@ -9647,7 +9650,7 @@ class FileSystem {
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getshortpathnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getshortpathnamew
      * @since windows5.1.2600
      */
     static GetShortPathNameW(lpszLongPath, lpszShortPath, cchBuffer) {
@@ -9820,7 +9823,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettempfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-gettempfilenamew
      * @since windows5.1.2600
      */
     static GetTempFileNameW(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
@@ -10112,7 +10115,7 @@ class FileSystem {
      * @returns {BOOL} If all the requested information is retrieved, the return value is nonzero.
      * 
      * If not all the requested information is retrieved, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationbyhandlew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumeinformationbyhandlew
      * @since windows6.0.6000
      */
     static GetVolumeInformationByHandleW(hFile, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
@@ -10552,7 +10555,7 @@ class FileSystem {
      * 
      * If not all the requested information is retrieved, the return value is zero. To get extended error
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumeinformationw
      * @since windows5.1.2600
      */
     static GetVolumeInformationW(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
@@ -10614,7 +10617,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumepathnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumepathnamew
      * @since windows5.1.2600
      */
     static GetVolumePathNameW(lpszFileName, lpszVolumePathName, cchBufferLength) {
@@ -10646,7 +10649,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-localfiletimetofiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-localfiletimetofiletime
      * @since windows5.1.2600
      */
     static LocalFileTimeToFileTime(lpLocalFileTime, lpFileTime) {
@@ -10751,7 +10754,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-lockfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-lockfile
      * @since windows5.1.2600
      */
     static LockFile(hFile, dwFileOffsetLow, dwFileOffsetHigh, nNumberOfBytesToLockLow, nNumberOfBytesToLockHigh) {
@@ -10861,7 +10864,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-lockfileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-lockfileex
      * @since windows5.1.2600
      */
     static LockFileEx(hFile, dwFlags, nNumberOfBytesToLockLow, nNumberOfBytesToLockHigh, lpOverlapped) {
@@ -10989,7 +10992,7 @@ class FileSystem {
      * 
      * If the buffer is too small, the function fails and the last error code is 
      *        <b>ERROR_INSUFFICIENT_BUFFER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-querydosdevicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-querydosdevicew
      * @since windows5.1.2600
      */
     static QueryDosDeviceW(lpDeviceName, lpTargetPath, ucchMax) {
@@ -11306,7 +11309,7 @@ class FileSystem {
      *         <b>ERROR_IO_PENDING</b> is not a failure; it designates the read operation is pending 
      *         completion asynchronously. For more information, see Remarks.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-readfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-readfile
      * @since windows5.1.2600
      */
     static ReadFile(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped) {
@@ -11512,7 +11515,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> for that operation returns 
      *        <b>FALSE</b> and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
      *        returns <b>ERROR_HANDLE_EOF</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-readfileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-readfileex
      * @since windows5.1.2600
      */
     static ReadFileEx(hFile, lpBuffer, nNumberOfBytesToRead, lpOverlapped, lpCompletionRoutine) {
@@ -11640,7 +11643,7 @@ class FileSystem {
      * If **ReadFileScatter** attempts to read past the end-of-file (EOF), the call to <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> for that operation returns **FALSE** and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns **ERROR_HANDLE_EOF**.
      * 
      * If the function returns before the read operation is complete, the function returns zero (0), and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns **ERROR_IO_PENDING**.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-readfilescatter
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-readfilescatter
      * @since windows5.1.2600
      */
     static ReadFileScatter(hFile, aSegmentArray, nNumberOfBytesToRead, lpOverlapped) {
@@ -11752,7 +11755,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-removedirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-removedirectorya
      * @since windows5.1.2600
      */
     static RemoveDirectoryA(lpPathName) {
@@ -11862,7 +11865,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-removedirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-removedirectoryw
      * @since windows5.1.2600
      */
     static RemoveDirectoryW(lpPathName) {
@@ -11966,7 +11969,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setendoffile
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setendoffile
      * @since windows5.1.2600
      */
     static SetEndOfFile(hFile) {
@@ -12272,7 +12275,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileattributesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfileattributesa
      * @since windows5.1.2600
      */
     static SetFileAttributesA(lpFileName, dwFileAttributes) {
@@ -12578,7 +12581,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileattributesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfileattributesw
      * @since windows5.1.2600
      */
     static SetFileAttributesW(lpFileName, dwFileAttributes) {
@@ -12795,7 +12798,7 @@ class FileSystem {
      * 
      * To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileinformationbyhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfileinformationbyhandle
      * @since windows6.0.6000
      */
     static SetFileInformationByHandle(hFile, FileInformationClass, lpFileInformation, dwBufferSize) {
@@ -13098,7 +13101,7 @@ class FileSystem {
      *        <b>NO_ERROR</b>. For a code example that demonstrates how to check for failure, see the 
      *        Remarks section in this topic.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfilepointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfilepointer
      * @since windows5.1.2600
      */
     static SetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod) {
@@ -13233,7 +13236,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfilepointerex
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfilepointerex
      * @since windows5.1.2600
      */
     static SetFilePointerEx(hFile, liDistanceToMove, lpNewFilePointer, dwMoveMethod) {
@@ -13266,7 +13269,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfiletime
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfiletime
      * @since windows5.1.2600
      */
     static SetFileTime(hFile, lpCreationTime, lpLastAccessTime, lpLastWriteTime) {
@@ -13387,7 +13390,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is 0. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfilevaliddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfilevaliddata
      * @since windows5.1.2600
      */
     static SetFileValidData(hFile, ValidDataLength) {
@@ -13481,7 +13484,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-unlockfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-unlockfile
      * @since windows5.1.2600
      */
     static UnlockFile(hFile, dwFileOffsetLow, dwFileOffsetHigh, nNumberOfBytesToUnlockLow, nNumberOfBytesToUnlockHigh) {
@@ -13580,7 +13583,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero or <b>NULL</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-unlockfileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-unlockfileex
      * @since windows5.1.2600
      */
     static UnlockFileEx(hFile, nNumberOfBytesToUnlockLow, nNumberOfBytesToUnlockHigh, lpOverlapped) {
@@ -13933,7 +13936,7 @@ class FileSystem {
      *        <b>ERROR_IO_PENDING</b> is not a failure; it designates the write operation is pending 
      *        completion asynchronously. For more information, see Remarks.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-writefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-writefile
      * @since windows5.1.2600
      */
     static WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, lpOverlapped) {
@@ -14038,7 +14041,7 @@ class FileSystem {
      * If the **WriteFileEx** function succeeds, the calling thread has an asynchronous I/O operation pending: the overlapped write operation to the file. When this I/O operation finishes, and the calling thread is blocked in an alertable wait state, the operating system calls the function pointed to by _lpCompletionRoutine_, and the wait completes with a return code of `WAIT_IO_COMPLETION`.
      * 
      * If the function succeeds and the file-writing operation finishes, but the calling thread is not in an alertable wait state, the system queues the call to *_lpCompletionRoutine_, holding the call until the calling thread enters an alertable wait state. For more information about alertable wait states and overlapped input/output operations, see [About Synchronization](/windows/win32/Sync/about-synchronization).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-writefileex
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-writefileex
      * @since windows5.1.2600
      */
     static WriteFileEx(hFile, lpBuffer, nNumberOfBytesToWrite, lpOverlapped, lpCompletionRoutine) {
@@ -14167,7 +14170,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * If the function returns before the write operation is complete, the function returns zero (0), and the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns **ERROR_IO_PENDING**.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-writefilegather
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-writefilegather
      * @since windows5.1.2600
      */
     static WriteFileGather(hFile, aSegmentArray, nNumberOfBytesToWrite, lpOverlapped) {
@@ -14280,7 +14283,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppathw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-gettemppathw
      * @since windows5.1.2600
      */
     static GetTempPathW(nBufferLength, lpBuffer) {
@@ -14373,7 +14376,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumenameforvolumemountpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumenameforvolumemountpointw
      * @since windows5.1.2600
      */
     static GetVolumeNameForVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
@@ -14471,7 +14474,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is not large enough to 
      *        hold the complete list, the error code is <b>ERROR_MORE_DATA</b> and the 
      *        <i>lpcchReturnLength</i> parameter receives the required buffer size.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumepathnamesforvolumenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumepathnamesforvolumenamew
      * @since windows5.1.2600
      */
     static GetVolumePathNamesForVolumeNameW(lpszVolumeName, lpszVolumePathNames, cchBufferLength, lpcchReturnLength) {
@@ -15044,7 +15047,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfile2
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-createfile2
      * @since windows8.0
      */
     static CreateFile2(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
@@ -15142,7 +15145,7 @@ class FileSystem {
      * 
      * To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileiooverlappedrange
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfileiooverlappedrange
      * @since windows6.0.6000
      */
     static SetFileIoOverlappedRange(FileHandle, OverlappedRangeStart, Length) {
@@ -15263,7 +15266,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the return value is <b>INVALID_FILE_SIZE</b> and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, an application must call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine whether the function has succeeded (value is <b>NO_ERROR</b>) or failed (value is other than <b>NO_ERROR</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getcompressedfilesizea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getcompressedfilesizea
      * @since windows5.1.2600
      */
     static GetCompressedFileSizeA(lpFileName, lpFileSizeHigh) {
@@ -15384,7 +15387,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the return value is <b>INVALID_FILE_SIZE</b> and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, an application must call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine whether the function has succeeded (value is <b>NO_ERROR</b>) or failed (value is other than <b>NO_ERROR</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getcompressedfilesizew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getcompressedfilesizew
      * @since windows5.1.2600
      */
     static GetCompressedFileSizeW(lpFileName, lpFileSizeHigh) {
@@ -15512,7 +15515,7 @@ class FileSystem {
      * If the filesystem does not support streams, the function fails and
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
      *        <b>ERROR_INVALID_PARAMETER</b> (87).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirststreamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirststreamw
      * @since windows6.0.6000
      */
     static FindFirstStreamW(lpFileName, InfoLevel, lpFindStreamData) {
@@ -15606,7 +15609,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If no  more streams can be found, 
      *        <b>GetLastError</b> returns 
      *        <b>ERROR_HANDLE_EOF</b> (38).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findnextstreamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findnextstreamw
      * @since windows6.0.6000
      */
     static FindNextStreamW(hFindStream, lpFindStreamData) {
@@ -15705,7 +15708,7 @@ class FileSystem {
      * @returns {BOOL} If the set of file I/O functions is using the ANSI code page, the return value is nonzero.
      * 
      * If the set of file I/O functions is using the OEM code page, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-arefileapisansi
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-arefileapisansi
      * @since windows5.1.2600
      */
     static AreFileApisANSI() {
@@ -15808,7 +15811,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppatha
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-gettemppatha
      * @since windows5.1.2600
      */
     static GetTempPathA(nBufferLength, lpBuffer) {
@@ -15903,7 +15906,7 @@ class FileSystem {
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b> (0xffffffff). To 
      *        get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
      *        function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findfirstfilenamew
      * @since windows6.0.6000
      */
     static FindFirstFileNameW(lpFileName, dwFlags, StringLength, LinkName) {
@@ -16000,7 +16003,7 @@ class FileSystem {
      * 
      * If no matching files can be found, the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
      *        function returns <b>ERROR_HANDLE_EOF</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findnextfilenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-findnextfilenamew
      * @since windows6.0.6000
      */
     static FindNextFileNameW(hFindStream, StringLength, LinkName) {
@@ -16437,7 +16440,7 @@ class FileSystem {
      * 
      * If not all the requested information is retrieved, the return value is zero. To get extended error
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-getvolumeinformationa
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-getvolumeinformationa
      * @since windows5.1.2600
      */
     static GetVolumeInformationA(lpRootPathName, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
@@ -16615,7 +16618,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettempfilenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-gettempfilenamea
      * @since windows5.1.2600
      */
     static GetTempFileNameA(lpPathName, lpPrefixString, uUnique, lpTempFileName) {
@@ -16730,7 +16733,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistooem
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfileapistooem
      * @since windows5.1.2600
      */
     static SetFileApisToOEM() {
@@ -16835,7 +16838,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-setfileapistoansi
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-setfileapistoansi
      * @since windows5.1.2600
      */
     static SetFileApisToANSI() {
@@ -16925,7 +16928,8 @@ class FileSystem {
      * </table>
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PWSTR} Buffer_R 
+     * @param {PWSTR} Buffer_ A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -16935,12 +16939,12 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppath2w
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-gettemppath2w
      */
-    static GetTempPath2W(BufferLength, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static GetTempPath2W(BufferLength, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer_R, "uint")
+        result := DllCall("KERNEL32.dll\GetTempPath2W", "uint", BufferLength, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -17027,7 +17031,8 @@ class FileSystem {
      * </table>
      * @param {Integer} BufferLength The size of the string buffer identified by <i>lpBuffer</i>, in 
      *       <b>TCHARs</b>.
-     * @param {PSTR} Buffer_R 
+     * @param {PSTR} Buffer_ A pointer to a string buffer that receives the null-terminated string specifying the temporary file path. 
+     *       The returned string ends with a backslash, for example, "C:\\TEMP\\".
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the 
      *        string copied to <i>lpBuffer</i>, not including the terminating null character. If the 
      *        return value is greater than <i>nBufferLength</i>, the return value is the length, in 
@@ -17037,12 +17042,12 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The maximum possible return value is <b>MAX_PATH</b>+1 (261).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-gettemppath2a
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/nf-fileapi-gettemppath2a
      */
-    static GetTempPath2A(BufferLength, Buffer_R) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static GetTempPath2A(BufferLength, Buffer_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer_R, "uint")
+        result := DllCall("KERNEL32.dll\GetTempPath2A", "uint", BufferLength, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -17165,7 +17170,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-copyfilefromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-copyfilefromappw
      */
     static CopyFileFromAppW(lpExistingFileName, lpNewFileName, bFailIfExists) {
         lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
@@ -17209,7 +17214,7 @@ class FileSystem {
      * </tr>
      * </tbody>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-createdirectoryfromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-createdirectoryfromappw
      */
     static CreateDirectoryFromAppW(lpPathName, lpSecurityAttributes) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -17485,7 +17490,7 @@ class FileSystem {
      * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
      * 
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-createfilefromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-createfilefromappw
      */
     static CreateFileFromAppW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -17524,7 +17529,7 @@ class FileSystem {
      * @returns {HANDLE} If the function succeeds, the return value is an open handle to the specified file, device, named pipe, or mail slot.
      * 
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-createfile2fromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-createfile2fromappw
      */
     static CreateFile2FromAppW(lpFileName, dwDesiredAccess, dwShareMode, dwCreationDisposition, pCreateExParams) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -17544,7 +17549,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-deletefilefromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-deletefilefromappw
      */
     static DeleteFileFromAppW(lpFileName) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -17608,7 +17613,7 @@ class FileSystem {
      * @returns {HANDLE} If the function succeeds, the return value is a search handle used in a subsequent call to [**FindNextFile**](../fileapi/nf-fileapi-findnextfilew.md) or [**FindClose**](../fileapi/nf-fileapi-findclose.md), and the *lpFindFileData* parameter contains information about the first file or directory found.
      * 
      * If the function fails or fails to locate files from the search string in the *lpFileName* parameter, the return value is **INVALID\_HANDLE\_VALUE** and the contents of *lpFindFileData* are indeterminate. To get extended error information, call the [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md) function.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-findfirstfileexfromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-findfirstfileexfromappw
      */
     static FindFirstFileExFromAppW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags) {
         static lpSearchFilter := 0 ;Reserved parameters must always be NULL
@@ -17640,7 +17645,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero (`0`). To get extended error information, call [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-getfileattributesexfromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-getfileattributesexfromappw
      */
     static GetFileAttributesExFromAppW(lpFileName, fInfoLevelId, lpFileInformation) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -17662,7 +17667,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-movefilefromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-movefilefromappw
      */
     static MoveFileFromAppW(lpExistingFileName, lpNewFileName) {
         lpExistingFileName := lpExistingFileName is String ? StrPtr(lpExistingFileName) : lpExistingFileName
@@ -17680,7 +17685,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (`0`). To get extended error information, call [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-removedirectoryfromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-removedirectoryfromappw
      */
     static RemoveDirectoryFromAppW(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -17743,7 +17748,7 @@ class FileSystem {
      *  
      * 
      * If any other error is returned, such as **ERROR\_INVALID\_PARAMETER**, the replaced and replacement files will retain their original file names. In this scenario, a backup file does not exist and it is not guaranteed that the replacement file will have inherited all of the attributes and streams of the replaced file.
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-replacefilefromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-replacefilefromappw
      */
     static ReplaceFileFromAppW(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
         static lpExclude := 0, lpReserved := 0 ;Reserved parameters must always be NULL
@@ -17834,7 +17839,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
-     * @see https://learn.microsoft.com/windows/win32/api/fileapifromapp/nf-fileapifromapp-setfileattributesfromappw
+     * @see https://learn.microsoft.com/windows/win32/api//content/fileapifromapp/nf-fileapifromapp-setfileattributesfromappw
      */
     static SetFileAttributesFromAppW(lpFileName, dwFileAttributes) {
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
@@ -17959,7 +17964,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verfindfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verfindfilea
      * @since windows5.0
      */
     static VerFindFileA(uFlags, szFileName, szWinDir, szAppDir, szCurDir, puCurDirLen, szDestDir, puDestDirLen) {
@@ -18092,7 +18097,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verfindfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verfindfilew
      * @since windows5.0
      */
     static VerFindFileW(uFlags, szFileName, szWinDir, szAppDir, szCurDir, puCurDirLen, szDestDir, puDestDirLen) {
@@ -18419,7 +18424,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verinstallfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verinstallfilea
      * @since windows5.0
      */
     static VerInstallFileA(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, puTmpFileLen) {
@@ -18746,7 +18751,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verinstallfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verinstallfilew
      * @since windows5.0
      */
     static VerInstallFileW(uFlags, szSrcFileName, szDestFileName, szSrcDir, szDestDir, szCurDir, szTmpFile, puTmpFileLen) {
@@ -18786,7 +18791,7 @@ class FileSystem {
      * If the function succeeds, the return value is the size, in bytes, of the file's version information.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfosizea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfosizea
      * @since windows5.0
      */
     static GetFileVersionInfoSizeA(lptstrFilename, lpdwHandle) {
@@ -18827,7 +18832,7 @@ class FileSystem {
      * If the function succeeds, the return value is the size, in bytes, of the file's version information.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfosizew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfosizew
      * @since windows5.0
      */
     static GetFileVersionInfoSizeW(lptstrFilename, lpdwHandle) {
@@ -18882,7 +18887,7 @@ class FileSystem {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfoa
      * @since windows5.0
      */
     static GetFileVersionInfoA(lptstrFilename, dwLen, lpData) {
@@ -18937,7 +18942,7 @@ class FileSystem {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfow
      * @since windows5.0
      */
     static GetFileVersionInfoW(lptstrFilename, dwLen, lpData) {
@@ -19011,7 +19016,7 @@ class FileSystem {
      *                     
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfosizeexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfosizeexa
      * @since windows6.0.6000
      */
     static GetFileVersionInfoSizeExA(dwFlags, lpwstrFilename, lpdwHandle) {
@@ -19085,7 +19090,7 @@ class FileSystem {
      *                     
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfosizeexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfosizeexw
      * @since windows6.0.6000
      */
     static GetFileVersionInfoSizeExW(dwFlags, lpwstrFilename, lpdwHandle) {
@@ -19180,7 +19185,7 @@ class FileSystem {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfoexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfoexa
      * @since windows6.0.6000
      */
     static GetFileVersionInfoExA(dwFlags, lpwstrFilename, dwLen, lpData) {
@@ -19275,7 +19280,7 @@ class FileSystem {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfoexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-getfileversioninfoexw
      * @since windows6.0.6000
      */
     static GetFileVersionInfoExW(dwFlags, lpwstrFilename, dwLen, lpData) {
@@ -19322,7 +19327,7 @@ class FileSystem {
      * The return value is the size, in characters, of the string returned in the buffer. This value does not include the terminating null character. If the description string is smaller than or equal to the buffer, the entire description string is in the buffer. If the description string is larger than the buffer, the description string is truncated to the length of the buffer.
      * 
      * If an error occurs, the return value is zero. Unknown language identifiers do not produce errors.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verlanguagenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verlanguagenamea
      * @since windows5.0
      */
     static VerLanguageNameA(wLang, szLang, cchLang) {
@@ -19361,7 +19366,7 @@ class FileSystem {
      * The return value is the size, in characters, of the string returned in the buffer. This value does not include the terminating null character. If the description string is smaller than or equal to the buffer, the entire description string is in the buffer. If the description string is larger than the buffer, the description string is truncated to the length of the buffer.
      * 
      * If an error occurs, the return value is zero. Unknown language identifiers do not produce errors.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verlanguagenamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verlanguagenamew
      * @since windows5.0
      */
     static VerLanguageNameW(wLang, szLang, cchLang) {
@@ -19417,7 +19422,7 @@ class FileSystem {
      * If the specified version-information structure exists, and version information is available, the return value is nonzero. If the address of the length buffer is zero, no value is available for the specified version-information name.
      * 
      * If the specified name does not exist or the specified resource is not valid, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verqueryvaluea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verqueryvaluea
      * @since windows5.0
      */
     static VerQueryValueA(pBlock, lpSubBlock, lplpBuffer, puLen) {
@@ -19477,7 +19482,7 @@ class FileSystem {
      * If the specified version-information structure exists, and version information is available, the return value is nonzero. If the address of the length buffer is zero, no value is available for the specified version-information name.
      * 
      * If the specified name does not exist or the specified resource is not valid, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-verqueryvaluew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winver/nf-winver-verqueryvaluew
      * @since windows5.0
      */
     static VerQueryValueW(pBlock, lpSubBlock, lplpBuffer, puLen) {
@@ -19538,7 +19543,7 @@ class FileSystem {
      * Retrieves the logical container ID that is contained in a specified LSN.
      * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the container ID is to be retrieved.
      * @returns {Integer} This function returns the logical container ID that is contained in <i>plsn</i>. The logical container ID is not necessarily the same as the ID of the physical container on stable storage.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-lsncontainer
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-lsncontainer
      * @since windows6.0.6000
      */
     static LsnContainer(plsn) {
@@ -19552,7 +19557,7 @@ class FileSystem {
      * @param {Integer} offBlock The block offset. This value must be a multiple of 512.
      * @param {Integer} cRecord The record sequence number. This value must be  an integer between  0 - 511.
      * @returns {CLS_LSN} Returns a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that represents the container ID, block offset, and record sequence number that is supplied by the caller.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-lsncreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-lsncreate
      * @since windows6.0.6000
      */
     static LsnCreate(cidContainer, offBlock, cRecord) {
@@ -19566,7 +19571,7 @@ class FileSystem {
      * The block offset that is returned by this function is a multiple of the sector size on the stable storage medium. For example, if the sector size is 1024 bytes, the block offset is a multiple of 1024.
      * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the block offset is to be retrieved.
      * @returns {Integer} <b>LsnBlockOffset</b> returns the block offset that is contained in <i>plsn</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-lsnblockoffset
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-lsnblockoffset
      * @since windows6.0.6000
      */
     static LsnBlockOffset(plsn) {
@@ -19578,7 +19583,7 @@ class FileSystem {
      * Retrieves the record sequence number that is contained in a specified LSN.
      * @param {Pointer<CLS_LSN>} plsn A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure from which the record sequence number is to be retrieved.
      * @returns {Integer} The record sequence number that is contained in <i>plsn</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-lsnrecordsequence
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-lsnrecordsequence
      * @since windows6.0.6000
      */
     static LsnRecordSequence(plsn) {
@@ -19733,7 +19738,7 @@ class FileSystem {
      *       error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-createlogfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-createlogfile
      * @since windows6.0.6000
      */
     static CreateLogFile(pszLogFileName, fDesiredAccess, dwShareMode, psaLogFile, fCreateDisposition, fFlagsAndAttributes) {
@@ -19752,21 +19757,21 @@ class FileSystem {
 
     /**
      * Marks the specified log for deletion. The log is actually deleted when all handles, marshaling areas, and read contexts to the log are closed. If the log is a physical log, its underlying containers are deleted.
-     * @param {HANDLE} hLog A handle to an open log that is obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The log must have been created with DELETE access or you cannot delete the log.
+     * @param {HANDLE} hLog_ A handle to an open log that is obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. The log must have been created with DELETE access or you cannot delete the log.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-deletelogbyhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-deletelogbyhandle
      * @since windows6.0.6000
      */
-    static DeleteLogByHandle(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static DeleteLogByHandle(hLog_) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\DeleteLogByHandle", "ptr", hLog_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -19793,7 +19798,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-deletelogfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-deletelogfile
      * @since windows6.0.6000
      */
     static DeleteLogFile(pszLogFileName, pvReserved) {
@@ -19813,7 +19818,7 @@ class FileSystem {
 
     /**
      * Adds a container to the physical log that is associated with the log handle�if the calling process has write access to the .blf file and the ability to create files in the target directory of the container.
-     * @param {HANDLE} hLog The handle to an open log. 
+     * @param {HANDLE} hLog_ The handle to an open log. 
      * 
      * The handle must  be   obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with write access to the log. The client application must have  write access to the .blf file, and the ability to create files in the target directory of a container.
      * @param {Pointer<Integer>} pcbContainer The optional parameter that specifies the size of the container, in bytes.  
@@ -19835,11 +19840,11 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-addlogcontainer
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-addlogcontainer
      * @since windows6.0.6000
      */
-    static AddLogContainer(hLog, pcbContainer, pwszContainerPath, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static AddLogContainer(hLog_, pcbContainer, pwszContainerPath, pReserved) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
         pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
 
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
@@ -19847,7 +19852,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog, pcbContainerMarshal, pcbContainer, "ptr", pwszContainerPath, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainer", "ptr", hLog_, pcbContainerMarshal, pcbContainer, "ptr", pwszContainerPath, pReservedMarshal, pReserved, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -19867,7 +19872,7 @@ class FileSystem {
      *           efficient than making repeated calls to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a>, which only adds one container.
      * 
      * Containers are created and opened in a noncompressed mode, and are initialized with 0 (zeros) when they are created.
-     * @param {HANDLE} hLog The handle to an open log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions to add a log container. 
+     * @param {HANDLE} hLog_ The handle to an open log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions to add a log container. 
      * 
      * The file can be dedicated or multiplexed.
      * @param {Integer} cContainer The number of containers  in the <i>rgwszContainerPath</i> array.  
@@ -19892,11 +19897,11 @@ class FileSystem {
      * If the function fails, the return value is zero, which indicates that none of the containers are added.  To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-addlogcontainerset
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-addlogcontainerset
      * @since windows6.0.6000
      */
-    static AddLogContainerSet(hLog, cContainer, pcbContainer, rgwszContainerPath, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static AddLogContainerSet(hLog_, cContainer, pcbContainer, rgwszContainerPath, pReserved) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pcbContainerMarshal := pcbContainer is VarRef ? "uint*" : "ptr"
         rgwszContainerPathMarshal := rgwszContainerPath is VarRef ? "ptr*" : "ptr"
@@ -19904,7 +19909,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\AddLogContainerSet", "ptr", hLog_, "ushort", cContainer, pcbContainerMarshal, pcbContainer, rgwszContainerPathMarshal, rgwszContainerPath, pReservedMarshal, pReserved, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -19918,7 +19923,7 @@ class FileSystem {
      * By default, container deletion is lazy, which means that a container is deleted  only if it is not part of an active log.  If the container is part of the active log, it is marked for deletion. However,  deletion does not occur until the  end  of the log exceeds the last sector of the container, or the container has a logical identifier that is greater than the logical identifier of the head of the active log.  The log size reflects the container deletion only when the container is deleted physically.
      * 
      * A log client can request a forced deletion on a container by setting the deletion flag to <b>TRUE</b>. This has the same effect  as deleting a container  that  is  not part of the active log.  However, if the container is part of the active log, the call fails without marking the container for deletion.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
      * @param {PWSTR} pwszContainerPath A pointer to a wide character string that contains a  path for a  log container that is created by either  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainer">AddLogContainer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-addlogcontainerset">AddLogContainerSet</a>.
      * @param {BOOL} fForce The deletion flag  that determines when and how a container is deleted.
      * 
@@ -19933,18 +19938,18 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-removelogcontainer
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-removelogcontainer
      * @since windows6.0.6000
      */
-    static RemoveLogContainer(hLog, pwszContainerPath, fForce, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RemoveLogContainer(hLog_, pwszContainerPath, fForce, pReserved) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
         pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog, "ptr", pwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainer", "ptr", hLog_, "ptr", pwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -19959,7 +19964,7 @@ class FileSystem {
      * 
      * 
      * A log client can request a forced deletion on a container by setting the deletion flag to <b>TRUE</b>. This has the same effect  as  deleting a container that  is  not part of the active log.  However, if a container is part of the active log, the call fails without marking the container for deletion.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle must have administrative permission to add a log container, and can refer to either a dedicated or multiplexed log.
      * @param {Integer} cContainer The number of container path names in an array that is pointed to by <i>rgwszContainerPath</i>.  
@@ -19981,18 +19986,18 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-removelogcontainerset
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-removelogcontainerset
      * @since windows6.0.6000
      */
-    static RemoveLogContainerSet(hLog, cContainer, rgwszContainerPath, fForce, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RemoveLogContainerSet(hLog_, cContainer, rgwszContainerPath, fForce, pReserved) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         rgwszContainerPathMarshal := rgwszContainerPath is VarRef ? "ptr*" : "ptr"
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\RemoveLogContainerSet", "ptr", hLog_, "ushort", cContainer, rgwszContainerPathMarshal, rgwszContainerPath, "int", fForce, pReservedMarshal, pReserved, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20004,7 +20009,7 @@ class FileSystem {
      * Sets the last archived log sequence number (LSN) or archive tail of an archivable log.
      * @remarks
      * If there are any archive contexts obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-preparelogarchive">PrepareLogArchive</a> that are not terminated with <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>, the change does not take effect until all archives are complete. While there are outstanding archive contexts, only the greatest archive tail is applied.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle can refer to a dedicated or multiplexed log.
      * @param {Pointer<CLS_LSN>} plsnArchiveTail A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies a valid physical LSN in the log.
@@ -20020,17 +20025,17 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
      * The following  list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-setlogarchivetail
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-setlogarchivetail
      * @since windows6.0.6000
      */
-    static SetLogArchiveTail(hLog, plsnArchiveTail, pReserved) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetLogArchiveTail(hLog_, plsnArchiveTail, pReserved) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", hLog, "ptr", plsnArchiveTail, pReservedMarshal, pReserved, "int")
+        result := DllCall("clfsw32.dll\SetLogArchiveTail", "ptr", hLog_, "ptr", plsnArchiveTail, pReservedMarshal, pReserved, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20044,7 +20049,7 @@ class FileSystem {
      * The <b>SetEndOfLog</b> function  truncates the log by setting the end of the log to the specified value.   This operation only works on dedicated logs.
      * 
      * <b>SetEndOfLog</b> can only be used to truncate a log.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle must refer to a dedicated log.
      * @param {Pointer<CLS_LSN>} plsnEnd A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_lsn">CLFS_LSN</a> structure that specifies the new end of a log.  
@@ -20056,15 +20061,15 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-setendoflog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-setendoflog
      * @since windows6.0.6000
      */
-    static SetEndOfLog(hLog, plsnEnd, lpOverlapped) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetEndOfLog(hLog_, plsnEnd, lpOverlapped) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", hLog, "ptr", plsnEnd, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\SetEndOfLog", "ptr", hLog_, "ptr", plsnEnd, "ptr", lpOverlapped, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20086,7 +20091,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-truncatelog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-truncatelog
      * @since windows6.0.6000
      */
     static TruncateLog(pvMarshal, plsnEnd, lpOverlapped) {
@@ -20106,7 +20111,7 @@ class FileSystem {
      * Creates a scan context to use with ScanLogContainers to enumerate all log containers that are associated with a log, and performs the first scan.
      * @remarks
      * After completing a scan, the client must call <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-scanlogcontainers">ScanLogContainers</a> again with the <i>eScanMode</i> parameter set to <b>CLFS_SCAN_CLOSE</b>  so that it can free the system-allocated array of <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_container_information">CLFS_CONTAINER_INFORMATION</a> structures; otherwise, memory leaks result.
-     * @param {HANDLE} hLog A  handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.  
+     * @param {HANDLE} hLog_ A  handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> with permissions  to scan the log containers.  
      * 
      * The file can be  a dedicated or multiplexed log.
      * @param {Integer} cFromContainer The container where  the scan is to be started.  
@@ -20172,15 +20177,15 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-createlogcontainerscancontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-createlogcontainerscancontext
      * @since windows6.0.6000
      */
-    static CreateLogContainerScanContext(hLog, cFromContainer, cContainers, eScanMode, pcxScan, pOverlapped) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static CreateLogContainerScanContext(hLog_, cFromContainer, cContainers, eScanMode, pcxScan, pOverlapped) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", hLog, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "int")
+        result := DllCall("clfsw32.dll\CreateLogContainerScanContext", "ptr", hLog_, "uint", cFromContainer, "uint", cContainers, "char", eScanMode, "ptr", pcxScan, "ptr", pOverlapped, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20260,7 +20265,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      *  The following  list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-scanlogcontainers
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-scanlogcontainers
      * @since windows6.0.6000
      */
     static ScanLogContainers(pcxScan, eScanMode, pReserved) {
@@ -20291,7 +20296,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-alignreservedlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-alignreservedlog
      * @since windows6.0.6000
      */
     static AlignReservedLog(pvMarshal, cReservedRecords, rgcbReservation, pcbAlignReservation) {
@@ -20323,7 +20328,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  list identifies the possible  error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-allocreservedlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-allocreservedlog
      * @since windows6.0.6000
      */
     static AllocReservedLog(pvMarshal, cReservedRecords, pcbAdjustment) {
@@ -20370,7 +20375,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-freereservedlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-freereservedlog
      * @since windows6.0.6000
      */
     static FreeReservedLog(pvMarshal, cReservedRecords, pcbAdjustment) {
@@ -20389,7 +20394,7 @@ class FileSystem {
 
     /**
      * Returns a buffer that contains metadata about a specified log and its current state, which is defined by the CLFS_INFORMATION structure.
-     * @param {HANDLE} hLog A handle to an open log that is obtained from a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog_ A handle to an open log that is obtained from a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle can refer to a dedicated or multiplexed log.
      * @param {Pointer<CLS_INFORMATION>} pinfoBuffer A pointer to a user-allocated <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_information">CLFS_INFORMATION</a> structure that receives the log metadata.
@@ -20403,17 +20408,17 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogfileinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-getlogfileinformation
      * @since windows6.0.6000
      */
-    static GetLogFileInformation(hLog, pinfoBuffer, cbBuffer) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static GetLogFileInformation(hLog_, pinfoBuffer, cbBuffer) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         cbBufferMarshal := cbBuffer is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", hLog, "ptr", pinfoBuffer, cbBufferMarshal, cbBuffer, "int")
+        result := DllCall("clfsw32.dll\GetLogFileInformation", "ptr", hLog_, "ptr", pinfoBuffer, cbBufferMarshal, cbBuffer, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20423,7 +20428,7 @@ class FileSystem {
 
     /**
      * Enables or disables log archive support for a specified log.
-     * @param {HANDLE} hLog A handle to the log that is obtained from 
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.
      * @param {Integer} eMode 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -20431,15 +20436,15 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-setlogarchivemode
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-setlogarchivemode
      * @since windows6.0.6000
      */
-    static SetLogArchiveMode(hLog, eMode) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetLogArchiveMode(hLog_, eMode) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", hLog, "int", eMode, "int")
+        result := DllCall("clfsw32.dll\SetLogArchiveMode", "ptr", hLog_, "int", eMode, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20490,7 +20495,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-readlogrestartarea
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-readlogrestartarea
      * @since windows6.0.6000
      */
     static ReadLogRestartArea(pvMarshal, ppvRestartBuffer, pcbRestartBuffer, plsn, ppvContext, pOverlapped) {
@@ -20542,7 +20547,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-readpreviouslogrestartarea
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-readpreviouslogrestartarea
      * @since windows6.0.6000
      */
     static ReadPreviousLogRestartArea(pvReadContext, ppvRestartBuffer, pcbRestartBuffer, plsnRestart, pOverlapped) {
@@ -20589,7 +20594,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following  list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-writelogrestartarea
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-writelogrestartarea
      * @since windows6.0.6000
      */
     static WriteLogRestartArea(pvMarshal, pvRestartBuffer, cbRestartBuffer, plsnBase, fFlags, pcbWritten, plsnNext, pOverlapped) {
@@ -20644,7 +20649,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-advancelogbase
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-advancelogbase
      * @since windows6.0.6000
      */
     static AdvanceLogBase(pvMarshal, plsnBase, fFlags, pOverlapped) {
@@ -20662,7 +20667,7 @@ class FileSystem {
 
     /**
      * Resets the log file and then shuts the log.
-     * @param {HANDLE} hLog A handle to a dedicated or multiplexed log. 
+     * @param {HANDLE} hLog_ A handle to a dedicated or multiplexed log. 
      * 
      * This handle is returned by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  It is invalidated on successful completion of the call. No other operations that use this handle, or a derivative of this handle, can be called after this function has returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -20670,15 +20675,15 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-closeandresetlogfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-closeandresetlogfile
      * @since windows6.0.6000
      */
-    static CloseAndResetLogFile(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static CloseAndResetLogFile(hLog_) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\CloseAndResetLogFile", "ptr", hLog_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20688,7 +20693,7 @@ class FileSystem {
 
     /**
      * Creates a marshaling area for a log, and when successful it returns a marshaling context. Before creating a marshaling area, the log must have at least one container.
-     * @param {HANDLE} hLog A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * The log handle  can  refer to a dedicated or multiplexed log.
      * @param {Pointer<CLFS_BLOCK_ALLOCATION>} pfnAllocBuffer The callback function that allocates memory for log blocks.  
@@ -20729,18 +20734,18 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following  list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-createlogmarshallingarea
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-createlogmarshallingarea
      * @since windows6.0.6000
      */
-    static CreateLogMarshallingArea(hLog, pfnAllocBuffer, pfnFreeBuffer, pvBlockAllocContext, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, ppvMarshal) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static CreateLogMarshallingArea(hLog_, pfnAllocBuffer, pfnFreeBuffer, pvBlockAllocContext, cbMarshallingBuffer, cMaxWriteBuffers, cMaxReadBuffers, ppvMarshal) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pvBlockAllocContextMarshal := pvBlockAllocContext is VarRef ? "ptr" : "ptr"
         ppvMarshalMarshal := ppvMarshal is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, "int")
+        result := DllCall("clfsw32.dll\CreateLogMarshallingArea", "ptr", hLog_, "ptr", pfnAllocBuffer, "ptr", pfnFreeBuffer, pvBlockAllocContextMarshal, pvBlockAllocContext, "uint", cbMarshallingBuffer, "uint", cMaxWriteBuffers, "uint", cMaxReadBuffers, ppvMarshalMarshal, ppvMarshal, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -20756,7 +20761,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the possible  error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-deletelogmarshallingarea
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-deletelogmarshallingarea
      * @since windows6.0.6000
      */
     static DeleteLogMarshallingArea(pvMarshal) {
@@ -20813,7 +20818,7 @@ class FileSystem {
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-reserveandappendlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-reserveandappendlog
      * @since windows6.0.6000
      */
     static ReserveAndAppendLog(pvMarshal, rgWriteEntries, cWriteEntries, plsnUndoNext, plsnPrevious, cReserveRecords, rgcbReservation, fFlags, plsn, pOverlapped) {
@@ -20872,7 +20877,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-reserveandappendlogaligned
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-reserveandappendlogaligned
      * @since windows6.0.6000
      */
     static ReserveAndAppendLogAligned(pvMarshal, rgWriteEntries, cWriteEntries, cbEntryAlignment, plsnUndoNext, plsnPrevious, cReserveRecords, rgcbReservation, fFlags, plsn, pOverlapped) {
@@ -20900,7 +20905,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-flushlogbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-flushlogbuffers
      * @since windows6.0.6000
      */
     static FlushLogBuffers(pvMarshal, pOverlapped) {
@@ -20933,7 +20938,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the   possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-flushlogtolsn
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-flushlogtolsn
      * @since windows6.0.6000
      */
     static FlushLogToLsn(pvMarshalContext, plsnFlush, plsnLastFlushed, pOverlapped) {
@@ -21037,7 +21042,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * The following  list identifies the possible error codes.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-readlogrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-readlogrecord
      * @since windows6.0.6000
      */
     static ReadLogRecord(pvMarshal, plsnFirst, eContextMode, ppvReadBuffer, pcbReadBuffer, peRecordType, plsnUndoNext, plsnPrevious, ppvReadContext, pOverlapped) {
@@ -21129,7 +21134,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
      * The following  list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-readnextlogrecord
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-readnextlogrecord
      * @since windows6.0.6000
      */
     static ReadNextLogRecord(pvReadContext, ppvBuffer, pcbBuffer, peRecordType, plsnUser, plsnUndoNext, plsnPrevious, plsnRecord, pOverlapped) {
@@ -21158,7 +21163,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-terminatereadlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-terminatereadlog
      * @since windows6.0.6000
      */
     static TerminateReadLog(pvCursorContext) {
@@ -21182,7 +21187,7 @@ class FileSystem {
      * Until you call <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-terminatelogarchive">TerminateLogArchive</a>, containers that are being archived cannot be recycled.
      * 
      * You can only perform one archive operation at a time per handle that  <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> returns.
-     * @param {HANDLE} hLog A handle to the log that is  obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
+     * @param {HANDLE} hLog_ A handle to the log that is  obtained by a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>.  
      * 
      * This handle can be the handle to a dedicated or multiplexed log.
      * @param {PWSTR} pszBaseLogFileName A pointer to a  user-allocated buffer to receive the fully qualified path of the base log.  
@@ -21215,11 +21220,11 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-preparelogarchive
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-preparelogarchive
      * @since windows6.0.6000
      */
-    static PrepareLogArchive(hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static PrepareLogArchive(hLog_, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
         pszBaseLogFileName := pszBaseLogFileName is String ? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
 
         pcActualLengthMarshal := pcActualLength is VarRef ? "uint*" : "ptr"
@@ -21229,7 +21234,7 @@ class FileSystem {
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, "int")
+        result := DllCall("clfsw32.dll\PrepareLogArchive", "ptr", hLog_, "ptr", pszBaseLogFileName, "uint", cLen, "ptr", plsnLow, "ptr", plsnHigh, pcActualLengthMarshal, pcActualLength, poffBaseLogFileDataMarshal, poffBaseLogFileData, pcbBaseLogFileLengthMarshal, pcbBaseLogFileLength, "ptr", plsnBase, "ptr", plsnLast, "ptr", plsnCurrentArchiveTail, ppvArchiveContextMarshal, ppvArchiveContext, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21257,7 +21262,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies  the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-readlogarchivemetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-readlogarchivemetadata
      * @since windows6.0.6000
      */
     static ReadLogArchiveMetadata(pvArchiveContext, cbOffset, cbBytesToRead, pbReadBuffer, pcbBytesRead) {
@@ -21292,7 +21297,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getnextlogarchiveextent
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-getnextlogarchiveextent
      * @since windows6.0.6000
      */
     static GetNextLogArchiveExtent(pvArchiveContext, rgadExtent, cDescriptors, pcDescriptorsReturned) {
@@ -21319,7 +21324,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following  error code is possible:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-terminatelogarchive
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-terminatelogarchive
      * @since windows6.0.6000
      */
     static TerminateLogArchive(pvArchiveContext) {
@@ -21362,7 +21367,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-validatelog
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-validatelog
      * @since windows6.0.6000
      */
     static ValidateLog(pszLogFileName, psaLogFile, pinfoBuffer, pcbBuffer) {
@@ -21382,7 +21387,7 @@ class FileSystem {
 
     /**
      * Retrieves the full path name of the specified container.
-     * @param {HANDLE} hLog A handle to the log that is obtained from a successful call to 
+     * @param {HANDLE} hLog_ A handle to the log that is obtained from a successful call to 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a>. 
      * 
      * The log handle could refer to a 
@@ -21402,18 +21407,18 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogcontainername
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-getlogcontainername
      * @since windows6.0.6000
      */
-    static GetLogContainerName(hLog, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static GetLogContainerName(hLog_, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
         pwstrContainerName := pwstrContainerName is String ? StrPtr(pwstrContainerName) : pwstrContainerName
 
         pcActualLenContainerNameMarshal := pcActualLenContainerName is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, "int")
+        result := DllCall("clfsw32.dll\GetLogContainerName", "ptr", hLog_, "uint", cidLogicalContainer, "ptr", pwstrContainerName, "uint", cLenContainerName, pcActualLenContainerNameMarshal, pcActualLenContainerName, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21423,7 +21428,7 @@ class FileSystem {
 
     /**
      * Retrieves log I/O statistics for a dedicated or multiplexed log that is associated with the specified handle.
-     * @param {HANDLE} hLog A handle to an open log file that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> gets.  The log handle can refer to either a dedicated or multiplexed log file.
+     * @param {HANDLE} hLog_ A handle to an open log file that <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogfile">CreateLogFile</a> gets.  The log handle can refer to either a dedicated or multiplexed log file.
      * @param {Pointer<Void>} pvStatsBuffer A pointer to a buffer to receive the I/O statistics.  
      * 
      * This buffer must be at least as large as an I/O statistics packet header. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/api/clfs/ns-clfs-cls_io_statistics_header">CLFS_IO_STATISTICS_HEADER</a>.
@@ -21439,18 +21444,18 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsw32/nf-clfsw32-getlogiostatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-getlogiostatistics
      * @since windows6.0.6000
      */
-    static GetLogIoStatistics(hLog, pvStatsBuffer, cbStatsBuffer, eStatsClass, pcbStatsWritten) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static GetLogIoStatistics(hLog_, pvStatsBuffer, cbStatsBuffer, eStatsClass, pcbStatsWritten) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pvStatsBufferMarshal := pvStatsBuffer is VarRef ? "ptr" : "ptr"
         pcbStatsWrittenMarshal := pcbStatsWritten is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", hLog, pvStatsBufferMarshal, pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, "int")
+        result := DllCall("clfsw32.dll\GetLogIoStatistics", "ptr", hLog_, pvStatsBufferMarshal, pvStatsBuffer, "uint", cbStatsBuffer, "int", eStatsClass, pcbStatsWrittenMarshal, pcbStatsWritten, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21462,22 +21467,22 @@ class FileSystem {
      * Registers a client with the log manager. A client can specify whether to receive notifications by using callbacks, or have the notifications queued for retrieval by using ReadLogNotification.
      * @remarks
      * A client can deregister either by closing the log handle, or by calling <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-deregistermanageablelogclient">DeregisterManageableLogClient</a>.
-     * @param {HANDLE} hLog The handle to the log to register. Only one registration per unique opening of the log is allowed.
+     * @param {HANDLE} hLog_ The handle to the log to register. Only one registration per unique opening of the log is allowed.
      * @param {Pointer<LOG_MANAGEMENT_CALLBACKS>} pCallbacks Specifies the callbacks that the client is registering for.  Valid callbacks are enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/ns-clfsmgmtw32-log_management_callbacks">LOG_MANAGEMENT_CALLBACKS</a>. Specify zero to queue notifications instead.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient
      * @since windows6.0.6000
      */
-    static RegisterManageableLogClient(hLog, pCallbacks) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RegisterManageableLogClient(hLog_, pCallbacks) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", hLog, "ptr", pCallbacks, "int")
+        result := DllCall("clfsw32.dll\RegisterManageableLogClient", "ptr", hLog_, "ptr", pCallbacks, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21487,21 +21492,21 @@ class FileSystem {
 
     /**
      * Deregisters a client with the log manager.
-     * @param {HANDLE} hLog The handle to deregister.
+     * @param {HANDLE} hLog_ The handle to deregister.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-deregistermanageablelogclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-deregistermanageablelogclient
      * @since windows6.0.6000
      */
-    static DeregisterManageableLogClient(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static DeregisterManageableLogClient(hLog_) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\DeregisterManageableLogClient", "ptr", hLog_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21513,22 +21518,22 @@ class FileSystem {
      * Retrieves notifications from the log manager. It retrieves a queued notification from the log manager immediately if a notification is available; otherwise the request remains pending until a notification is generated.
      * @remarks
      * If the log handle is not created with the <b>FILE_FLAG_OVERLAPPED</b> file option, no operations can start on the log handle while the call to <b>ReadLogNotification</b>  is pending.
-     * @param {HANDLE} hLog The handle to the log.
+     * @param {HANDLE} hLog_ The handle to the log.
      * @param {Pointer<CLFS_MGMT_NOTIFICATION>} pNotification Receives the notification type, and if the type has parameters associated with it, the parameters.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that is required for asynchronous operation. If asynchronous operation is not used, this parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following is a possible error code:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-readlognotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-readlognotification
      * @since windows6.0.6000
      */
-    static ReadLogNotification(hLog, pNotification, lpOverlapped) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static ReadLogNotification(hLog_, pNotification, lpOverlapped) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", hLog, "ptr", pNotification, "ptr", lpOverlapped, "int")
+        result := DllCall("clfsw32.dll\ReadLogNotification", "ptr", hLog_, "ptr", pNotification, "ptr", lpOverlapped, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21540,21 +21545,21 @@ class FileSystem {
      * Installs (sets) a policy for a log.
      * @remarks
      * Installing a log policy does not trigger an immediate change in behavior.
-     * @param {HANDLE} hLog A handle to a log.
+     * @param {HANDLE} hLog_ A handle to a log.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicy A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ns-clfsmgmt-clfs_mgmt_policy">CLFS_MGMT_POLICY</a> structure that represents the desired policy to install.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-installlogpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-installlogpolicy
      * @since windows6.0.6000
      */
-    static InstallLogPolicy(hLog, pPolicy) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static InstallLogPolicy(hLog_, pPolicy) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", hLog, "ptr", pPolicy, "int")
+        result := DllCall("clfsw32.dll\InstallLogPolicy", "ptr", hLog_, "ptr", pPolicy, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21564,21 +21569,21 @@ class FileSystem {
 
     /**
      * Resets the specified policy to its default behavior.
-     * @param {HANDLE} hLog Handle to the log to reset the policy for.
+     * @param {HANDLE} hLog_ Handle to the log to reset the policy for.
      * @param {Integer} ePolicyType Specifies the policy to reset. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-removelogpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-removelogpolicy
      * @since windows6.0.6000
      */
-    static RemoveLogPolicy(hLog, ePolicyType) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RemoveLogPolicy(hLog_, ePolicyType) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", hLog, "int", ePolicyType, "int")
+        result := DllCall("clfsw32.dll\RemoveLogPolicy", "ptr", hLog_, "int", ePolicyType, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21588,7 +21593,7 @@ class FileSystem {
 
     /**
      * The QueryLogPolicy function allows you to obtain a policy that is installed for the specified log.
-     * @param {HANDLE} hLog The handle to the log to query.
+     * @param {HANDLE} hLog_ The handle to the log to query.
      * @param {Integer} ePolicyType Specifies the type of policy to query for. Policy types are enumerated in <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type">CLFS_MGMT_POLICY_TYPE</a>.
      * @param {Pointer<CLFS_MGMT_POLICY>} pPolicyBuffer A pointer to a buffer to receive the returned policies.
      * @param {Pointer<Integer>} pcbPolicyBuffer A pointer to the size of <i>pPolicyBuffer</i>. If the buffer is not large enough, <i>pcbPolicyBuffer</i> receives the size buffer required to successfully retrieve the specified policies.
@@ -21596,17 +21601,17 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-querylogpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-querylogpolicy
      * @since windows6.0.6000
      */
-    static QueryLogPolicy(hLog, ePolicyType, pPolicyBuffer, pcbPolicyBuffer) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static QueryLogPolicy(hLog_, ePolicyType, pPolicyBuffer, pcbPolicyBuffer) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pcbPolicyBufferMarshal := pcbPolicyBuffer is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", hLog, "int", ePolicyType, "ptr", pPolicyBuffer, pcbPolicyBufferMarshal, pcbPolicyBuffer, "int")
+        result := DllCall("clfsw32.dll\QueryLogPolicy", "ptr", hLog_, "int", ePolicyType, "ptr", pPolicyBuffer, pcbPolicyBufferMarshal, pcbPolicyBuffer, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21618,25 +21623,25 @@ class FileSystem {
      * Adds or deletes containers from a log based on the state of the installed policies.
      * @remarks
      * Containers are  created using the same security attributes as   the .blf file and are created within the context of the application, not the context of the owner of the .blf file. For more information about .blf files, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/clfs/log-types">Log Types</a>. If containers are deleted, they are deleted using the security context of the calling application.
-     * @param {HANDLE} hLog A handle to a log.
+     * @param {HANDLE} hLog_ A handle to a log.
      * @param {Pointer<Integer>} pDesiredSize 
      * @param {Pointer<Integer>} pResultingSize A pointer to a valid ULONGLONG data variable, receives the number of containers in the resized log upon success.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-setlogfilesizewithpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-setlogfilesizewithpolicy
      * @since windows6.0.6000
      */
-    static SetLogFileSizeWithPolicy(hLog, pDesiredSize, pResultingSize) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static SetLogFileSizeWithPolicy(hLog_, pDesiredSize, pResultingSize) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         pDesiredSizeMarshal := pDesiredSize is VarRef ? "uint*" : "ptr"
         pResultingSizeMarshal := pResultingSize is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", hLog, pDesiredSizeMarshal, pDesiredSize, pResultingSizeMarshal, pResultingSize, "int")
+        result := DllCall("clfsw32.dll\SetLogFileSizeWithPolicy", "ptr", hLog_, pDesiredSizeMarshal, pDesiredSize, pResultingSizeMarshal, pResultingSize, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21650,21 +21655,21 @@ class FileSystem {
      * If containers are created to resolve a log-full condition, they are created using the calling application's security context.
      * 
      * <b>HandleLogFull</b> always results in asynchronous behavior or an error; if it returns false and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_IO_PENDING</b>, the result is asynchronous behavior. If a request is asynchronous, a notification is sent to the client when the handler has either  resolved the log full condition or it fails.
-     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition. The handle must have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient">RegisterManageableLogClient</a>.
+     * @param {HANDLE} hLog_ A handle to the log on which to resolve the log full condition. The handle must have been registered with <a href="https://docs.microsoft.com/windows/desktop/api/clfsmgmtw32/nf-clfsmgmtw32-registermanageablelogclient">RegisterManageableLogClient</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Valid values include the following:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-handlelogfull
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-handlelogfull
      * @since windows6.0.6000
      */
-    static HandleLogFull(hLog) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static HandleLogFull(hLog_) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\HandleLogFull", "ptr", hLog, "int")
+        result := DllCall("clfsw32.dll\HandleLogFull", "ptr", hLog_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21674,7 +21679,7 @@ class FileSystem {
 
     /**
      * The LogTailAdvanceFailure function is called by a log client to indicate that it cannot comply with a request from log management to advance its tail.
-     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition.
+     * @param {HANDLE} hLog_ A handle to the log on which to resolve the log full condition.
      * @param {Integer} dwReason Win32 error code with the reason for the failure For a list of possible values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21682,15 +21687,15 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Valid values include the following:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-logtailadvancefailure
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-logtailadvancefailure
      * @since windows6.0.6000
      */
-    static LogTailAdvanceFailure(hLog, dwReason) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static LogTailAdvanceFailure(hLog_, dwReason) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", hLog, "uint", dwReason, "int")
+        result := DllCall("clfsw32.dll\LogTailAdvanceFailure", "ptr", hLog_, "uint", dwReason, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21700,7 +21705,7 @@ class FileSystem {
 
     /**
      * The RegisterForLogWriteNotification function is called by a managed log client to enable or disable log write notifications.
-     * @param {HANDLE} hLog A handle to the log on which to resolve the log full condition.
+     * @param {HANDLE} hLog_ A handle to the log on which to resolve the log full condition.
      * @param {Integer} cbThreshold Number of bytes to be written to the log file before the notification is sent.
      * @param {BOOL} fEnable If <b>TRUE</b>, the notification is enabled. If <b>FALSE</b>, the notification is disabled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -21708,15 +21713,15 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Valid values include the following:
-     * @see https://learn.microsoft.com/windows/win32/api/clfsmgmtw32/nf-clfsmgmtw32-registerforlogwritenotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/clfsmgmtw32/nf-clfsmgmtw32-registerforlogwritenotification
      * @since windows6.0.6000
      */
-    static RegisterForLogWriteNotification(hLog, cbThreshold, fEnable) {
-        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+    static RegisterForLogWriteNotification(hLog_, cbThreshold, fEnable) {
+        hLog_ := hLog_ is Win32Handle ? NumGet(hLog_, "ptr") : hLog_
 
         A_LastError := 0
 
-        result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", hLog, "uint", cbThreshold, "int", fEnable, "int")
+        result := DllCall("clfsw32.dll\RegisterForLogWriteNotification", "ptr", hLog_, "uint", cbThreshold, "int", fEnable, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -21798,7 +21803,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-queryusersonencryptedfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-queryusersonencryptedfile
      * @since windows5.1.2600
      */
     static QueryUsersOnEncryptedFile(lpFileName, pUsers) {
@@ -21884,7 +21889,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-queryrecoveryagentsonencryptedfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-queryrecoveryagentsonencryptedfile
      * @since windows5.1.2600
      */
     static QueryRecoveryAgentsOnEncryptedFile(lpFileName, pRecoveryAgents) {
@@ -21970,7 +21975,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-removeusersfromencryptedfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-removeusersfromencryptedfile
      * @since windows5.1.2600
      */
     static RemoveUsersFromEncryptedFile(lpFileName, pHashes) {
@@ -22051,7 +22056,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-adduserstoencryptedfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-adduserstoencryptedfile
      * @since windows5.1.2600
      */
     static AddUsersToEncryptedFile(lpFileName, pEncryptionCertificates) {
@@ -22131,7 +22136,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-setuserfileencryptionkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-setuserfileencryptionkey
      * @since windows5.1.2600
      */
     static SetUserFileEncryptionKey(pEncryptionCertificate) {
@@ -22162,7 +22167,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/nf-winefs-queryusersonencryptedfile">QueryUsersOnEncryptedFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/nf-winefs-queryrecoveryagentsonencryptedfile">QueryRecoveryAgentsOnEncryptedFile</a> function.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-freeencryptioncertificatehashlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-freeencryptioncertificatehashlist
      * @since windows5.1.2600
      */
     static FreeEncryptionCertificateHashList(pUsers) {
@@ -22295,7 +22300,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-encryptiondisable
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-encryptiondisable
      * @since windows5.1.2600
      */
     static EncryptionDisable(DirPath, Disable) {
@@ -22429,7 +22434,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a complete list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
-     * @see https://learn.microsoft.com/windows/win32/api/winefs/nf-winefs-duplicateencryptioninfofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winefs/nf-winefs-duplicateencryptioninfofile
      * @since windows5.1.2600
      */
     static DuplicateEncryptionInfoFile(SrcFileName, DstFileName, dwCreationDistribution, dwAttributes, lpSecurityAttributes) {
@@ -22665,7 +22670,7 @@ class FileSystem {
      *  
      * 
      * There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzcopy
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzcopy
      * @since windows5.1.2600
      */
     static LZCopy(hfSource, hfDest) {
@@ -22806,7 +22811,7 @@ class FileSystem {
      *  
      * 
      * There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzinit
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzinit
      * @since windows5.1.2600
      */
     static LZInit(hfSource) {
@@ -22896,7 +22901,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> nor 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setlasterrorex">SetLastErrorEx</a>; thus, its failure does not affect a thread's last-error code.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-getexpandednamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-getexpandednamea
      * @since windows5.1.2600
      */
     static GetExpandedNameA(lpszSource, lpszBuffer) {
@@ -22995,7 +23000,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> nor 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setlasterrorex">SetLastErrorEx</a>; thus, its failure does not affect a thread's last-error code.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-getexpandednamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-getexpandednamew
      * @since windows5.1.2600
      */
     static GetExpandedNameW(lpszSource, lpszBuffer) {
@@ -23159,7 +23164,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzopenfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzopenfilea
      * @since windows5.1.2600
      */
     static LZOpenFileA(lpFileName, lpReOpenBuf, wStyle) {
@@ -23316,7 +23321,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzopenfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzopenfilew
      * @since windows5.1.2600
      */
     static LZOpenFileW(lpFileName, lpReOpenBuf, wStyle) {
@@ -23447,7 +23452,7 @@ class FileSystem {
      *  
      * 
      * There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzseek
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzseek
      * @since windows5.1.2600
      */
     static LZSeek(hFile, lOffset, iOrigin) {
@@ -23623,7 +23628,7 @@ class FileSystem {
      *  
      * 
      * There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzread
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzread
      * @since windows5.1.2600
      */
     static LZRead(hFile, lpBuffer, cbRead) {
@@ -23706,7 +23711,7 @@ class FileSystem {
      * CsvFs will do redirected IO for compressed files.
      * @param {Integer} hFile A handle to the file to be closed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/lzexpand/nf-lzexpand-lzclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/lzexpand/nf-lzexpand-lzclose
      * @since windows5.1.2600
      */
     static LZClose(hFile) {
@@ -23718,7 +23723,7 @@ class FileSystem {
      * @param {PWSTR} Volume Specifies the path to the volume whose compression state is desired.
      * @param {Pointer<Integer>} Algorithm Points to a ULONG value. If the function returns TRUE, indicating compression is desired, this value will contain the algorithm that should be used for this volume.
      * @returns {BOOL} If binaries on this volume should be compressed, the return value is TRUE; otherwise it is FALSE. This function will return FALSE if the system does not support compression on the specified volume.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofshouldcompressbinaries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofshouldcompressbinaries
      */
     static WofShouldCompressBinaries(Volume, Algorithm) {
         Volume := Volume is String ? StrPtr(Volume) : Volume
@@ -23738,7 +23743,7 @@ class FileSystem {
      * @param {HANDLE} FileOrVolumeHandle A handle to a file or volume opened with <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> or a similar API.
      * @param {Integer} Provider Indicates which provider the version query is intended for. Multiple versions of Wof may exist on the same volume at the same time for different providers.
      * @returns {Integer} Pointer to a ULONG which will contain the version upon successful completion of this function.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofgetdriverversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofgetdriverversion
      */
     static WofGetDriverVersion(FileOrVolumeHandle, Provider) {
         FileOrVolumeHandle := FileOrVolumeHandle is Win32Handle ? NumGet(FileOrVolumeHandle, "ptr") : FileOrVolumeHandle
@@ -23799,7 +23804,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofsetfiledatalocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofsetfiledatalocation
      */
     static WofSetFileDataLocation(FileHandle, Provider, ExternalFileInfo, Length) {
         FileHandle := FileHandle is Win32Handle ? NumGet(FileHandle, "ptr") : FileHandle
@@ -23862,7 +23867,7 @@ class FileSystem {
      * </tr>
      * </table>
      * @returns {HRESULT} This function returns an HRESULT indicating success or the reason for failure. If the buffer specified in <i>ExternalFileInfo</i> is not of the correct size, the function will return S_OK and indicate the required buffer size in <i>BufferLength</i>.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofisexternalfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofisexternalfile
      */
     static WofIsExternalFile(FilePath, IsExternalFile, Provider, ExternalFileInfo, BufferLength) {
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
@@ -23893,16 +23898,16 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Pointer<WofEnumEntryProc>} EnumProc The callback function for each data source. The enumeration will stop          if <i>EnumProc</i> returns <b>FALSE</b>.
-     * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
+     * @param {Pointer<Void>} UserData_ User defined data passed to <i>EnumProc</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofenumentries
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofenumentries
      */
-    static WofEnumEntries(VolumeName, Provider, EnumProc, UserData) {
+    static WofEnumEntries(VolumeName, Provider, EnumProc, UserData_) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        UserData_Marshal := UserData_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, UserDataMarshal, UserData, "int")
+        result := DllCall("WOFUTIL.dll\WofEnumEntries", "ptr", VolumeName, "uint", Provider, "ptr", EnumProc, UserData_Marshal, UserData_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -23917,7 +23922,7 @@ class FileSystem {
      * @param {Integer} WimType The type of WIM. Can be <b>WIM_BOOT_OS_WIM</b> or <b>WIM_BOOT_NOT_OS_WIM</b>.
      * @param {Integer} WimIndex Index of the image in the WIM which is applied.
      * @returns {Integer} On successful return, contains the data source used to identify the entry.  This data source can be used to create new files with <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/nf-wofapi-wofsetfiledatalocation">WofSetFileDataLocation</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimaddentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofwimaddentry
      */
     static WofWimAddEntry(VolumeName, WimPath, WimType, WimIndex) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
@@ -23936,16 +23941,16 @@ class FileSystem {
      * @param {PWSTR} VolumeName The path to the volume which hosts WIM-backed files.
      * @param {Integer} DataSourceId Identifier used to identify the WIM entry.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for file provided by the WIM entry.
-     * @param {Pointer<Void>} UserData Optional user defined data passed to <i>EnumProc</i>.
+     * @param {Pointer<Void>} UserData_ Optional user defined data passed to <i>EnumProc</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimenumfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofwimenumfiles
      */
-    static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, UserData) {
+    static WofWimEnumFiles(VolumeName, DataSourceId, EnumProc, UserData_) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        UserData_Marshal := UserData_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, UserDataMarshal, UserData, "int")
+        result := DllCall("WOFUTIL.dll\WofWimEnumFiles", "ptr", VolumeName, "int64", DataSourceId, "ptr", EnumProc, UserData_Marshal, UserData_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -23960,7 +23965,7 @@ class FileSystem {
      * @param {PWSTR} VolumeName The volume name which contained files whose data was provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimsuspendentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofwimsuspendentry
      */
     static WofWimSuspendEntry(VolumeName, DataSourceId) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
@@ -23980,7 +23985,7 @@ class FileSystem {
      * @param {PWSTR} VolumeName The volume name which contained files whose data was provided by the WIM.
      * @param {Integer} DataSourceId Identifies the WIM entry.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimremoveentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofwimremoveentry
      */
     static WofWimRemoveEntry(VolumeName, DataSourceId) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
@@ -23999,7 +24004,7 @@ class FileSystem {
      * @param {Integer} DataSourceId Identifies the WIM entry.
      * @param {PWSTR} NewWimPath The new location of the WIM file.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-wofwimupdateentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-wofwimupdateentry
      */
     static WofWimUpdateEntry(VolumeName, DataSourceId, NewWimPath) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
@@ -24018,16 +24023,16 @@ class FileSystem {
      * @param {PWSTR} VolumeName A full path to the volume containing the files to enumerate.
      * @param {Integer} Algorithm The compression algorithm to enumerate.  For a list of valid compression algorithms, see <a href="https://docs.microsoft.com/windows/desktop/api/wofapi/ns-wofapi-wof_file_compression_info_v1">WOF_FILE_COMPRESSION_INFO_V1</a>.  If this value is MAX_ULONG, files compressed with any supported compression algorithm will be returned.
      * @param {Pointer<WofEnumFilesProc>} EnumProc The callback function for each data source. The enumeration will stop if <i>EnumProc</i> returns FALSE.
-     * @param {Pointer<Void>} UserData User defined data passed to <i>EnumProc</i>.
+     * @param {Pointer<Void>} UserData_ User defined data passed to <i>EnumProc</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wofapi/nf-wofapi-woffileenumfiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/wofapi/nf-wofapi-woffileenumfiles
      */
-    static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, UserData) {
+    static WofFileEnumFiles(VolumeName, Algorithm, EnumProc, UserData_) {
         VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
-        UserDataMarshal := UserData is VarRef ? "ptr" : "ptr"
+        UserData_Marshal := UserData_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, UserDataMarshal, UserData, "int")
+        result := DllCall("WOFUTIL.dll\WofFileEnumFiles", "ptr", VolumeName, "uint", Algorithm, "ptr", EnumProc, UserData_Marshal, UserData_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -24046,7 +24051,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txflogcreatefilereadcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/txfw32/nf-txfw32-txflogcreatefilereadcontext
      * @since windows6.0.6000
      */
     static TxfLogCreateFileReadContext(LogPath, BeginningLsn, EndingLsn, TxfFileId, TxfLogContext) {
@@ -24074,7 +24079,7 @@ class FileSystem {
      * @param {Integer} RecordTypeMask A mask value indicating the type of records.
      * @param {Pointer<Pointer<Void>>} TxfLogContext The returned context object.
      * @returns {BOOL} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txflogcreaterangereadcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/txfw32/nf-txfw32-txflogcreaterangereadcontext
      */
     static TxfLogCreateRangeReadContext(LogPath, BeginningLsn, EndingLsn, BeginningVirtualClock, EndingVirtualClock, RecordTypeMask, TxfLogContext) {
         LogPath := LogPath is String ? StrPtr(LogPath) : LogPath
@@ -24094,7 +24099,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txflogdestroyreadcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/txfw32/nf-txfw32-txflogdestroyreadcontext
      * @since windows6.0.6000
      */
     static TxfLogDestroyReadContext(TxfLogContext) {
@@ -24114,7 +24119,7 @@ class FileSystem {
      * Reads the redo records from the log.
      * @param {Pointer<Void>} TxfLogContext A pointer to the context.
      * @param {Integer} BufferLength The size of the output buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ A pointer to the buffer that receives the records. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_log_record_base">TXF_LOG_RECORD_BASE</a>.
      * @param {Pointer<Integer>} BytesUsed The number of bytes written to the output buffer.
      * @param {Pointer<Integer>} RecordCount The number of records written to the output buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -24177,17 +24182,17 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txflogreadrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/txfw32/nf-txfw32-txflogreadrecords
      * @since windows6.0.6000
      */
-    static TxfLogReadRecords(TxfLogContext, BufferLength, Buffer_R, BytesUsed, RecordCount) {
+    static TxfLogReadRecords(TxfLogContext, BufferLength, Buffer_, BytesUsed, RecordCount) {
         TxfLogContextMarshal := TxfLogContext is VarRef ? "ptr" : "ptr"
         BytesUsedMarshal := BytesUsed is VarRef ? "uint*" : "ptr"
         RecordCountMarshal := RecordCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", Buffer_R, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, "int")
+        result := DllCall("txfw32.dll\TxfLogReadRecords", TxfLogContextMarshal, TxfLogContext, "uint", BufferLength, "ptr", Buffer_, BytesUsedMarshal, BytesUsed, RecordCountMarshal, RecordCount, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -24250,7 +24255,7 @@ class FileSystem {
      * Sets the MiniVersion that a subsequent create should open.
      * @param {Integer} MiniVersion A USHORT identifying which version should be opened by create.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txfsetthreadminiversionforcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/txfw32/nf-txfw32-txfsetthreadminiversionforcreate
      */
     static TxfSetThreadMiniVersionForCreate(MiniVersion) {
         DllCall("txfw32.dll\TxfSetThreadMiniVersionForCreate", "ushort", MiniVersion)
@@ -24260,7 +24265,7 @@ class FileSystem {
      * Returns the MiniVersion a subsequent create is set to open.
      * @param {Pointer<Integer>} MiniVersion Pointer to a USHORT which will receive the result.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/txfw32/nf-txfw32-txfgetthreadminiversionforcreate
+     * @see https://learn.microsoft.com/windows/win32/api//content/txfw32/nf-txfw32-txfgetthreadminiversionforcreate
      */
     static TxfGetThreadMiniVersionForCreate(MiniVersion) {
         MiniVersionMarshal := MiniVersion is VarRef ? "ushort*" : "ptr"
@@ -24306,7 +24311,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} IsolationLevel Reserved; specify zero (0).
+     * @param {Integer} IsolationLevel_ Reserved; specify zero (0).
      * @param {Integer} IsolationFlags Reserved; specify zero (0).
      * @param {Integer} Timeout The time-out interval, in milliseconds. If a nonzero value is specified, the transaction will be aborted when the interval elapses if it has not already reached the prepared state.
      * 
@@ -24319,15 +24324,15 @@ class FileSystem {
      *        error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-createtransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-createtransaction
      * @since windows6.0.6000
      */
-    static CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, IsolationLevel, IsolationFlags, Timeout, Description) {
+    static CreateTransaction(lpTransactionAttributes, UOW, CreateOptions, IsolationLevel_, IsolationFlags, Timeout, Description) {
         Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
+        result := DllCall("ktmw32.dll\CreateTransaction", "ptr", lpTransactionAttributes, "ptr", UOW, "uint", CreateOptions, "uint", IsolationLevel_, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "ptr")
         if(A_LastError) {
             throw OSError(A_LastError || result)
         }
@@ -24347,7 +24352,7 @@ class FileSystem {
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-opentransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-opentransaction
      * @since windows6.0.6000
      */
     static OpenTransaction(dwDesiredAccess, TransactionId) {
@@ -24376,7 +24381,7 @@ class FileSystem {
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-committransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-committransaction
      * @since windows6.0.6000
      */
     static CommitTransaction(TransactionHandle) {
@@ -24403,7 +24408,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-committransactionasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-committransactionasync
      * @since windows6.0.6000
      */
     static CommitTransactionAsync(TransactionHandle) {
@@ -24425,7 +24430,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-rollbacktransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-rollbacktransaction
      * @since windows6.0.6000
      */
     static RollbackTransaction(TransactionHandle) {
@@ -24447,7 +24452,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_IO_PENDING.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-rollbacktransactionasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-rollbacktransactionasync
      * @since windows6.0.6000
      */
     static RollbackTransactionAsync(TransactionHandle) {
@@ -24473,7 +24478,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-gettransactionid
      * @since windows6.0.6000
      */
     static GetTransactionId(TransactionHandle, TransactionId) {
@@ -24493,7 +24498,7 @@ class FileSystem {
      * Returns the requested information about the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have  the TRANSACTION_QUERY_INFORMATION permission to retrieve the information.
      * @param {Pointer<Integer>} Outcome A pointer to a buffer that receives the current outcome of the transaction. If the call to the <b>GetTransactionInformation</b> function is successful, this value will be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-transaction_outcome">TRANSACTION_OUTCOME</a> enumeration values.
-     * @param {Pointer<Integer>} IsolationLevel Reserved.
+     * @param {Pointer<Integer>} IsolationLevel_ Reserved.
      * @param {Pointer<Integer>} IsolationFlags Reserved.
      * @param {Pointer<Integer>} Timeout A pointer to a variable that receives the timeout value, in milliseconds, for this transaction.
      * @param {Integer} BufferLength The size of the <i>Description</i> parameter, in bytes. The buffer length value cannot be longer than the value of MAX_TRANSACTION_DESCRIPTION_LENGTH.
@@ -24504,21 +24509,21 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactioninformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-gettransactioninformation
      * @since windows6.0.6000
      */
-    static GetTransactionInformation(TransactionHandle, Outcome, IsolationLevel, IsolationFlags, Timeout, BufferLength, Description) {
+    static GetTransactionInformation(TransactionHandle, Outcome, IsolationLevel_, IsolationFlags, Timeout, BufferLength, Description) {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
         Description := Description is String ? StrPtr(Description) : Description
 
         OutcomeMarshal := Outcome is VarRef ? "uint*" : "ptr"
-        IsolationLevelMarshal := IsolationLevel is VarRef ? "uint*" : "ptr"
+        IsolationLevel_Marshal := IsolationLevel_ is VarRef ? "uint*" : "ptr"
         IsolationFlagsMarshal := IsolationFlags is VarRef ? "uint*" : "ptr"
         TimeoutMarshal := Timeout is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, OutcomeMarshal, Outcome, IsolationLevelMarshal, IsolationLevel, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, "uint", BufferLength, "ptr", Description, "int")
+        result := DllCall("ktmw32.dll\GetTransactionInformation", "ptr", TransactionHandle, OutcomeMarshal, Outcome, IsolationLevel_Marshal, IsolationLevel_, IsolationFlagsMarshal, IsolationFlags, TimeoutMarshal, Timeout, "uint", BufferLength, "ptr", Description, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -24529,7 +24534,7 @@ class FileSystem {
     /**
      * Sets the transaction information for the specified transaction.
      * @param {HANDLE} TransactionHandle A handle to the transaction. The handle must have the TRANSACTION_SET_INFORMATION permission to set the transaction information.
-     * @param {Integer} IsolationLevel Reserved; specify zero.
+     * @param {Integer} IsolationLevel_ Reserved; specify zero.
      * @param {Integer} IsolationFlags Reserved.
      * @param {Integer} Timeout The timeout value, in milliseconds, for this transaction.
      * @param {PWSTR} Description The user-defined description of this transaction.
@@ -24539,16 +24544,16 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-settransactioninformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-settransactioninformation
      * @since windows6.0.6000
      */
-    static SetTransactionInformation(TransactionHandle, IsolationLevel, IsolationFlags, Timeout, Description) {
+    static SetTransactionInformation(TransactionHandle, IsolationLevel_, IsolationFlags, Timeout, Description) {
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
         Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
+        result := DllCall("ktmw32.dll\SetTransactionInformation", "ptr", TransactionHandle, "uint", IsolationLevel_, "uint", IsolationFlags, "uint", Timeout, "ptr", Description, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -24590,7 +24595,7 @@ class FileSystem {
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-createtransactionmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-createtransactionmanager
      * @since windows6.0.6000
      */
     static CreateTransactionManager(lpTransactionAttributes, LogFileName, CreateOptions, CommitStrength) {
@@ -24621,7 +24626,7 @@ class FileSystem {
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-opentransactionmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-opentransactionmanager
      * @since windows6.0.6000
      */
     static OpenTransactionManager(LogFileName, DesiredAccess, OpenOptions) {
@@ -24650,7 +24655,7 @@ class FileSystem {
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-opentransactionmanagerbyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-opentransactionmanagerbyid
      * @since windows6.0.6000
      */
     static OpenTransactionManagerById(TransactionManagerId, DesiredAccess, OpenOptions) {
@@ -24676,7 +24681,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-renametransactionmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-renametransactionmanager
      * @since windows6.0.6000
      */
     static RenameTransactionManager(LogFileName, ExistingTransactionManagerGuid) {
@@ -24703,7 +24708,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-rollforwardtransactionmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-rollforwardtransactionmanager
      * @since windows6.0.6000
      */
     static RollforwardTransactionManager(TransactionManagerHandle, TmVirtualClock) {
@@ -24734,7 +24739,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-recovertransactionmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-recovertransactionmanager
      * @since windows6.0.6000
      */
     static RecoverTransactionManager(TransactionManagerHandle) {
@@ -24760,7 +24765,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-getcurrentclocktransactionmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-getcurrentclocktransactionmanager
      * @since windows6.0.6000
      */
     static GetCurrentClockTransactionManager(TransactionManagerHandle, TmVirtualClock) {
@@ -24788,7 +24793,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-gettransactionmanagerid
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-gettransactionmanagerid
      * @since windows6.0.6000
      */
     static GetTransactionManagerId(TransactionManagerHandle, TransactionManagerId) {
@@ -24842,7 +24847,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-createresourcemanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-createresourcemanager
      * @since windows6.0.6000
      */
     static CreateResourceManager(lpResourceManagerAttributes, ResourceManagerId, CreateOptions, TmHandle, Description) {
@@ -24872,7 +24877,7 @@ class FileSystem {
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-openresourcemanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-openresourcemanager
      * @since windows6.0.6000
      */
     static OpenResourceManager(dwDesiredAccess, TmHandle, ResourceManagerId) {
@@ -24900,7 +24905,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-recoverresourcemanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-recoverresourcemanager
      * @since windows6.0.6000
      */
     static RecoverResourceManager(ResourceManagerHandle) {
@@ -24943,7 +24948,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-getnotificationresourcemanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-getnotificationresourcemanager
      * @since windows6.0.6000
      */
     static GetNotificationResourceManager(ResourceManagerHandle, TransactionNotification, NotificationLength, dwMilliseconds, ReturnLength) {
@@ -24996,7 +25001,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-getnotificationresourcemanagerasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-getnotificationresourcemanagerasync
      * @since windows6.0.6000
      */
     static GetNotificationResourceManagerAsync(ResourceManagerHandle, TransactionNotification, TransactionNotificationLength, ReturnLength, lpOverlapped) {
@@ -25028,7 +25033,7 @@ class FileSystem {
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-setresourcemanagercompletionport
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-setresourcemanagercompletionport
      * @since windows6.0.6000
      */
     static SetResourceManagerCompletionPort(ResourceManagerHandle, IoCompletionPortHandle, CompletionKey) {
@@ -25099,7 +25104,7 @@ class FileSystem {
      *        error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-createenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-createenlistment
      * @since windows6.0.6000
      */
     static CreateEnlistment(lpEnlistmentAttributes, ResourceManagerHandle, TransactionHandle, NotificationMask, CreateOptions, EnlistmentKey) {
@@ -25129,7 +25134,7 @@ class FileSystem {
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the  possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-openenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-openenlistment
      * @since windows6.0.6000
      */
     static OpenEnlistment(dwDesiredAccess, ResourceManagerHandle, EnlistmentId) {
@@ -25158,7 +25163,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-recoverenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-recoverenlistment
      * @since windows6.0.6000
      */
     static RecoverEnlistment(EnlistmentHandle, EnlistmentKey) {
@@ -25182,25 +25187,25 @@ class FileSystem {
      * This call cannot be used with volatile transaction managers.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ A pointer to a buffer that receives the enlistment recovery information.
      * @param {Pointer<Integer>} BufferUsed A pointer to a variable that receives the actual number of bytes returned in the <i>Buffer</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-getenlistmentrecoveryinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-getenlistmentrecoveryinformation
      * @since windows6.0.6000
      */
-    static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_R, BufferUsed) {
+    static GetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_, BufferUsed) {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
         BufferUsedMarshal := BufferUsed is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_RMarshal, Buffer_R, BufferUsedMarshal, BufferUsed, "int")
+        result := DllCall("ktmw32.dll\GetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_Marshal, Buffer_, BufferUsedMarshal, BufferUsed, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -25218,7 +25223,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-getenlistmentid
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-getenlistmentid
      * @since windows6.0.6000
      */
     static GetEnlistmentId(EnlistmentHandle, EnlistmentId) {
@@ -25242,23 +25247,23 @@ class FileSystem {
      * The information that is provided by the user may not be durably stored in the log at the completion of this operation, but it will be durably stored by the end of the next commit operation for this enlistment.
      * @param {HANDLE} EnlistmentHandle A handle to the enlistment.
      * @param {Integer} BufferSize The size of <i>Buffer</i>, in bytes.
-     * @param {Pointer<Void>} Buffer_R 
+     * @param {Pointer<Void>} Buffer_ The recovery information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-setenlistmentrecoveryinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-setenlistmentrecoveryinformation
      * @since windows6.0.6000
      */
-    static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_R) {
+    static SetEnlistmentRecoveryInformation(EnlistmentHandle, BufferSize, Buffer_) {
         EnlistmentHandle := EnlistmentHandle is Win32Handle ? NumGet(EnlistmentHandle, "ptr") : EnlistmentHandle
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_RMarshal, Buffer_R, "int")
+        result := DllCall("ktmw32.dll\SetEnlistmentRecoveryInformation", "ptr", EnlistmentHandle, "uint", BufferSize, Buffer_Marshal, Buffer_, "int")
         if((!result && A_LastError)) {
             throw OSError(A_LastError || result)
         }
@@ -25277,7 +25282,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-prepareenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-prepareenlistment
      * @since windows6.0.6000
      */
     static PrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
@@ -25306,7 +25311,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-preprepareenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-preprepareenlistment
      * @since windows6.0.6000
      */
     static PrePrepareEnlistment(EnlistmentHandle, TmVirtualClock) {
@@ -25339,7 +25344,7 @@ class FileSystem {
      * 
      * 
      * The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitenlistment
      * @since windows6.0.6000
      */
     static CommitEnlistment(EnlistmentHandle, TmVirtualClock) {
@@ -25373,7 +25378,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-rollbackenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-rollbackenlistment
      * @since windows6.0.6000
      */
     static RollbackEnlistment(EnlistmentHandle, TmVirtualClock) {
@@ -25405,7 +25410,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-prepreparecomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-prepreparecomplete
      * @since windows6.0.6000
      */
     static PrePrepareComplete(EnlistmentHandle, TmVirtualClock) {
@@ -25437,7 +25442,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-preparecomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-preparecomplete
      * @since windows6.0.6000
      */
     static PrepareComplete(EnlistmentHandle, TmVirtualClock) {
@@ -25471,7 +25476,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-readonlyenlistment
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-readonlyenlistment
      * @since windows6.0.6000
      */
     static ReadOnlyEnlistment(EnlistmentHandle, TmVirtualClock) {
@@ -25503,7 +25508,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      * @since windows6.0.6000
      */
     static CommitComplete(EnlistmentHandle, TmVirtualClock) {
@@ -25535,7 +25540,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-rollbackcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-rollbackcomplete
      * @since windows6.0.6000
      */
     static RollbackComplete(EnlistmentHandle, TmVirtualClock) {
@@ -25567,7 +25572,7 @@ class FileSystem {
      * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * 
      *  The following list identifies the possible error codes:
-     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-singlephasereject
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-singlephasereject
      * @since windows6.0.6000
      */
     static SinglePhaseReject(EnlistmentHandle, TmVirtualClock) {
@@ -25690,7 +25695,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netshareadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netshareadd
      * @since windows5.1.2600
      */
     static NetShareAdd(servername, level, buf, parm_err) {
@@ -25741,7 +25746,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netshareenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netshareenum
      * @since windows5.1.2600
      */
     static NetShareEnum(servername, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -25870,7 +25875,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsharegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsharegetinfo
      * @since windows5.1.2600
      */
     static NetShareGetInfo(servername, netname, level, bufptr) {
@@ -26002,7 +26007,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsharesetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsharesetinfo
      * @since windows5.1.2600
      */
     static NetShareSetInfo(servername, netname, level, buf, parm_err) {
@@ -26089,7 +26094,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsharedel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsharedel
      * @since windows5.1.2600
      */
     static NetShareDel(servername, netname) {
@@ -26242,7 +26247,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsharecheck
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsharecheck
      * @since windows5.1.2600
      */
     static NetShareCheck(servername, device, type) {
@@ -26313,7 +26318,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsharedelex
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsharedelex
      * @since windows5.1.2600
      */
     static NetShareDelEx(servername, level, buf) {
@@ -26503,7 +26508,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsessionenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsessionenum
      * @since windows5.1.2600
      */
     static NetSessionEnum(servername, UncClientName, username, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -26587,7 +26592,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsessiondel
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsessiondel
      * @since windows5.1.2600
      */
     static NetSessionDel(servername, UncClientName, username) {
@@ -26711,7 +26716,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netsessiongetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netsessiongetinfo
      * @since windows5.1.2600
      */
     static NetSessionGetInfo(servername, UncClientName, username, level, bufptr) {
@@ -26758,7 +26763,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netconnectionenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netconnectionenum
      * @since windows5.1.2600
      */
     static NetConnectionEnum(servername, qualifier, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -26818,7 +26823,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netfileclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netfileclose
      * @since windows5.1.2600
      */
     static NetFileClose(servername, fileid) {
@@ -26934,7 +26939,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netfileenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netfileenum
      * @since windows5.1.2600
      */
     static NetFileEnum(servername, basepath, username, level, bufptr, prefmaxlen, entriesread, totalentries, resume_handle) {
@@ -27041,7 +27046,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/lmshare/nf-lmshare-netfilegetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmshare/nf-lmshare-netfilegetinfo
      * @since windows5.1.2600
      */
     static NetFileGetInfo(servername, fileid, level, bufptr) {
@@ -27083,20 +27088,23 @@ class FileSystem {
      * </tr>
      * </table>
      * @param {Integer} Options This parameter must be zero.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Pointer to the buffer that receives the data. The format of this data depends on the value of the <i>level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmstats/nf-lmstats-netstatisticsget
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmstats/nf-lmstats-netstatisticsget
      * @since windows5.1.2600
      */
-    static NetStatisticsGet(ServerName, Service, Level, Options, Buffer_R) {
+    static NetStatisticsGet(ServerName, Service, Level, Options, Buffer_) {
         ServerNameMarshal := ServerName is VarRef ? "char*" : "ptr"
         ServiceMarshal := Service is VarRef ? "char*" : "ptr"
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetStatisticsGet", ServerNameMarshal, ServerName, ServiceMarshal, Service, "uint", Level, "uint", Options, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -27106,7 +27114,7 @@ class FileSystem {
      * The results of this call are internally cached per-process, so this is efficient to call multiple times as only the first will transition to the kernel to retrieve the data.Note that the results are not guaranteed to contain the same values between runs of the same process or even between processes on the same system.  So applications should not store this information beyond the lifetime of the process and should not assume that other processes have the same support.
      * @param {Pointer<IORING_CAPABILITIES>} capabilities Receives a pointer to an [IORING_CAPABILITIES](ns-ioringapi-ioring_capabilities.md) representing the I/O ring API capabilities.
      * @returns {HRESULT} S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-queryioringcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-queryioringcapabilities
      */
     static QueryIoRingCapabilities(capabilities) {
         result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\QueryIoRingCapabilities", "ptr", capabilities, "int")
@@ -27129,7 +27137,7 @@ class FileSystem {
      * |-------|-------------|
      * | S_OK  | The operation is supported. |
      * | S_FALSE | The operation is unsupported. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-isioringopsupported
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-isioringopsupported
      */
     static IsIoRingOpSupported(ioRing, op) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -27145,7 +27153,7 @@ class FileSystem {
      * @param {Integer} submissionQueueSize The requested minimum submission queue size. The system may round up the size as needed to ensure the actual size is a power of 2. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md). You can get the maximum submission queue size on the current system by calling [QueryIoRingCapabilities](nf-ioringapi-queryioringcapabilities.md).
      * @param {Integer} completionQueueSize The requested minimum size of the completion queue. The system will round this size up to a power of two that is no less than two times the actual submission queue size to allow for submissions while some operations are still in progress. You can get the actual allocated queue size by calling [GetIoRingInfo](nf-ioringapi-getioringinfo.md).
      * @returns {HIORING} Receives the resulting **HIORING**  handle, if creation was successful. The returned **HIORING** ring must be closed by calling [CloseIoRing](nf-ioringapi-closeioring.md), not [CloseHandle](../handleapi/nf-handleapi-closehandle.md), to release the underlying resources for the IORING.
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-createioring
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-createioring
      */
     static CreateIoRing(ioringVersion, flags, submissionQueueSize, completionQueueSize) {
         h := HIORING()
@@ -27162,7 +27170,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which information is being queried.
      * @param {Pointer<IORING_INFO>} info Receives a pointer to an [IORING_INFO](ns-ioringapi-ioring_info.md) structure specifying API version and queue sizes for the specified I/O ring.
      * @returns {HRESULT} S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-getioringinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-getioringinfo
      */
     static GetIoRingInfo(ioRing, info) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -27183,7 +27191,7 @@ class FileSystem {
      * @param {Integer} waitOperations The number of completion queue entries to wait for. Specifying 0 indicates that the call should not wait. This value must be less than the sum of the number of entries in the submission queue and the number of operations currently in progress.
      * @param {Integer} milliseconds The number of milliseconds to wait for the operations to complete. Specify **INFINITE** to wait indefinitely. This value is ignored if 0 is specified for *waitOperations*.
      * @returns {Integer} Optional. Receives a pointer to an array of **UINT_32** values representing the number of entries submitted.
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-submitioring
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-submitioring
      */
     static SubmitIoRing(ioRing, waitOperations, milliseconds) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -27204,7 +27212,7 @@ class FileSystem {
      * It is possible that reads from or writes to memory buffers may still occur after **CloseIoRing** returns. If you want to ensure that no pending reads or writes occur, you must wait for the completions to appear in the completion queue for all the operations that are submitted. You may choose to cancel the previously submitted operations before waiting on their completions. As an alternative to submitting multiple cancel requests, you can call [CancelIoEx](/windows/win32/api/ioapiset/nf-ioapiset-cancelioex) with the file handle and NULL for the overlapped pointer to effectively cancel all pending operations on the handle.
      * @param {HIORING} ioRing The **HIORING** handle to close.
      * @returns {HRESULT} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-closeioring
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-closeioring
      */
     static CloseIoRing(ioRing) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -27227,7 +27235,7 @@ class FileSystem {
      * |-------|-------------|
      * | S_OK  | The entry was popped from the queue and the **IORING_CQE** pointed to by *cqe* contains the values from the entry. |
      * | S_FALSE | The completion queue is empty, and the data pointed to by the *cqe* parameter is unmodified. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-popioringcompletion
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-popioringcompletion
      */
     static PopIoRingCompletion(ioRing, cqe) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -27253,7 +27261,7 @@ class FileSystem {
      * | S_OK  | Success     |
      * | E_INVALID_HANDLE | An invalid handle was passed in the *ioRing* parameter. |
      * | E_INVALIDARG | An invalid handle was passed in the *hEvent* parameter. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-setioringcompletionevent
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-setioringcompletionevent
      */
     static SetIoRingCompletionEvent(ioRing, hEvent) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
@@ -27272,20 +27280,20 @@ class FileSystem {
      * @remarks
      * Since I/O ring operations are performed asynchronously this function call is only a request for cancellation. The specified operation may complete before the cancellation is processed. The cancellation operation may complete after the operation it is canceling is completed. The completion of the cancel operation is not dependent on the actual completion of the I/O operations it cancels. Apps should look for the completion of the original operation in the completion queue by calling [PopIoRingCompletion](nf-ioringapi-popioringcompletion.md) to observe the final status of the operation. The operation may have completed successfully or with an error rather than being cancelled by the call to this function.
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which a cancellation is requested.
-     * @param {IORING_HANDLE_REF} file An [IORING_HANDLE_REF](ns-ioringapi-ioring_handle_ref.md) representing the file associated with the operation to cancel.
+     * @param {IORING_HANDLE_REF} file_ An [IORING_HANDLE_REF](ns-ioringapi-ioring_handle_ref.md) representing the file associated with the operation to cancel.
      * @param {Pointer} opToCancel A **UINT_PTR** specifying the operation to cancel. This value is the same value provided in the *userData* parameter when the operation was registered. To support cancellation, the *userData* value must be unique for each operation.
-     * @param {Pointer} userData A UINT_PTR value identifying the cancellation operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} userData_ A UINT_PTR value identifying the cancellation operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @returns {HRESULT} | Value | Description |
      * |-------|-------------|
      * | S_OK  | Success |
      * | IORING_E_SUBMISSION_QUEUE_FULL | The submission queue is full, and no additional entries are available to build. The application must submit the existing entries and wait for some of them to complete before adding more operations to the queue. |
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringcancelrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-buildioringcancelrequest
      */
-    static BuildIoRingCancelRequest(ioRing, file, opToCancel, userData) {
+    static BuildIoRingCancelRequest(ioRing, file_, opToCancel, userData_) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", file, "ptr", opToCancel, "ptr", userData, "int")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingCancelRequest", "ptr", ioRing, "ptr", file_, "ptr", opToCancel, "ptr", userData_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27302,7 +27310,7 @@ class FileSystem {
      * @param {IORING_BUFFER_REF} dataRef An [IORING_BUFFER_REF](ns-ioringapi-ioring_buffer_ref.md) specifying the buffer into which the file is read. The provided buffer must have a size of at least *numberOfBytesToRead* bytes.
      * @param {Integer} numberOfBytesToRead The number of bytes to read.
      * @param {Integer} fileOffset The offset into the file to begin reading.
-     * @param {Pointer} userData A UINT_PTR value identifying the file read operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} userData_ A UINT_PTR value identifying the file read operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
@@ -27311,12 +27319,12 @@ class FileSystem {
      * | S_OK  | Success |
      * | IORING_E_SUBMISSION_QUEUE_FULL | The submission queue is full, and no additional entries are available to build. The application must submit the existing entries and wait for some of them to complete before adding more operations to the queue. |
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringreadfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-buildioringreadfile
      */
-    static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+    static BuildIoRingReadFile(ioRing, fileRef, dataRef, numberOfBytesToRead, fileOffset, userData_, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingReadFile", "ptr", ioRing, "ptr", fileRef, "ptr", dataRef, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData_, "int", sqeFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27331,7 +27339,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which file handles are registered.
      * @param {Integer} count A UINT32 specifying the number of handles provided in the *handles* parameter.
      * @param {Pointer<HANDLE>} handles An array of HANDLE values to be registered.
-     * @param {Pointer} userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} userData_ A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27339,12 +27347,12 @@ class FileSystem {
      * | S_OK  | Success |
      * | IORING_E_SUBMISSION_QUEUE_FULL | The submission queue is full, and no additional entries are available to build. The application must submit the existing entries and wait for some of them to complete before adding more operations to the queue. |
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterfilehandles
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-buildioringregisterfilehandles
      */
-    static BuildIoRingRegisterFileHandles(ioRing, count, handles, userData) {
+    static BuildIoRingRegisterFileHandles(ioRing, count, handles, userData_) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", userData, "int")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterFileHandles", "ptr", ioRing, "uint", count, "ptr", handles, "ptr", userData_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27359,7 +27367,7 @@ class FileSystem {
      * @param {HIORING} ioRing An **HIORING** representing a handle to the I/O ring for which buffers are registered.
      * @param {Integer} count A UINT32 specifying the number of buffers provided in the *buffers* parameter.
      * @param {Pointer<IORING_BUFFER_INFO>} buffers An array of [IORING_BUFFER_INFO](../ntioring_x/ns-ntioring_x-ioring_buffer_info.md) structures representing the buffers to be registered.
-     * @param {Pointer} userData A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
+     * @param {Pointer} userData_ A UINT_PTR value identifying the registration operation. Specify this value when cancelling the operation with a call to [BuildIoRingCancelRequest](nf-ioringapi-buildioringcancelrequest.md). If an app implements cancellation behavior for the operation, the *userData* value must be unique. Otherwise, the value is treated as opaque by the system and can be anything, including 0.
      * @returns {HRESULT} Returns an HRESULT including, but not limited to the following:
      * 
      * | Value | Description |
@@ -27367,12 +27375,12 @@ class FileSystem {
      * | S_OK  | Success |
      * | IORING_E_SUBMISSION_QUEUE_FULL | The submission queue is full, and no additional entries are available to build. The application must submit the existing entries and wait for some of them to complete before adding more operations to the queue. |
      * | IORING_E_UNKNOWN_REQUIRED_FLAG | The application provided a required flag that is not known to the implementation. Library code should check the *IoRingVersion* field of the [IORING_INFO](ns-ioringapi-ioring_info.md) obtained from a call to [GetIoRingInfo](nf-ioringapi-getioringinfo.md) to determine the API version of an I/O ring which determines the operations and flags that are supported. Applications should know the version they used to create the I/O ring and therefore should not provide unsupported flags at runtime. |
-     * @see https://learn.microsoft.com/windows/win32/api/ioringapi/nf-ioringapi-buildioringregisterbuffers
+     * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/nf-ioringapi-buildioringregisterbuffers
      */
-    static BuildIoRingRegisterBuffers(ioRing, count, buffers, userData) {
+    static BuildIoRingRegisterBuffers(ioRing, count, buffers, userData_) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", userData, "int")
+        result := DllCall("api-ms-win-core-ioring-l1-1-0.dll\BuildIoRingRegisterBuffers", "ptr", ioRing, "uint", count, "ptr", buffers, "ptr", userData_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27388,14 +27396,14 @@ class FileSystem {
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
      * @param {Integer} writeFlags 
-     * @param {Pointer} userData 
+     * @param {Pointer} userData_ 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+    static BuildIoRingWriteFile(ioRing, fileRef, bufferRef, numberOfBytesToWrite, fileOffset, writeFlags, userData_, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
+        result := DllCall("KERNEL32.dll\BuildIoRingWriteFile", "ptr", ioRing, "ptr", fileRef, "ptr", bufferRef, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData_, "int", sqeFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27408,14 +27416,14 @@ class FileSystem {
      * @param {HIORING} ioRing 
      * @param {IORING_HANDLE_REF} fileRef 
      * @param {Integer} flushMode 
-     * @param {Pointer} userData 
+     * @param {Pointer} userData_ 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingFlushFile(ioRing, fileRef, flushMode, userData, sqeFlags) {
+    static BuildIoRingFlushFile(ioRing, fileRef, flushMode, userData_, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", userData, "int", sqeFlags, "int")
+        result := DllCall("KERNEL32.dll\BuildIoRingFlushFile", "ptr", ioRing, "ptr", fileRef, "int", flushMode, "ptr", userData_, "int", sqeFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27431,14 +27439,14 @@ class FileSystem {
      * @param {Pointer<FILE_SEGMENT_ELEMENT>} segmentArray 
      * @param {Integer} numberOfBytesToRead 
      * @param {Integer} fileOffset 
-     * @param {Pointer} userData 
+     * @param {Pointer} userData_ 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, userData, sqeFlags) {
+    static BuildIoRingReadFileScatter(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToRead, fileOffset, userData_, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData, "int", sqeFlags, "int")
+        result := DllCall("KERNEL32.dll\BuildIoRingReadFileScatter", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToRead, "uint", fileOffset, "ptr", userData_, "int", sqeFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27455,14 +27463,14 @@ class FileSystem {
      * @param {Integer} numberOfBytesToWrite 
      * @param {Integer} fileOffset 
      * @param {Integer} writeFlags 
-     * @param {Pointer} userData 
+     * @param {Pointer} userData_ 
      * @param {Integer} sqeFlags 
      * @returns {HRESULT} 
      */
-    static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, userData, sqeFlags) {
+    static BuildIoRingWriteFileGather(ioRing, fileRef, segmentCount, segmentArray, numberOfBytesToWrite, fileOffset, writeFlags, userData_, sqeFlags) {
         ioRing := ioRing is Win32Handle ? NumGet(ioRing, "ptr") : ioRing
 
-        result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData, "int", sqeFlags, "int")
+        result := DllCall("KERNEL32.dll\BuildIoRingWriteFileGather", "ptr", ioRing, "ptr", fileRef, "uint", segmentCount, "ptr", segmentArray, "uint", numberOfBytesToWrite, "uint", fileOffset, "int", writeFlags, "ptr", userData_, "int", sqeFlags, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -27595,7 +27603,7 @@ class FileSystem {
      *       redirection be disabled.
      * @returns {BOOLEAN} Boolean value indicating whether the function succeeded. If <b>TRUE</b>, the function
      *       succeeded; if <b>FALSE</b>, the function failed.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-wow64enablewow64fsredirection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-wow64enablewow64fsredirection
      * @since windows6.0.6000
      */
     static Wow64EnableWow64FsRedirection(Wow64FsEnableRedirection) {
@@ -27706,7 +27714,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-wow64disablewow64fsredirection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-wow64disablewow64fsredirection
      * @since windows6.0.6000
      */
     static Wow64DisableWow64FsRedirection(OldValue) {
@@ -27791,7 +27799,7 @@ class FileSystem {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is <b>FALSE</b> (zero). To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-wow64revertwow64fsredirection
+     * @see https://learn.microsoft.com/windows/win32/api//content/wow64apiset/nf-wow64apiset-wow64revertwow64fsredirection
      * @since windows6.0.6000
      */
     static Wow64RevertWow64FsRedirection(OlValue) {
@@ -27981,7 +27989,7 @@ class FileSystem {
      * If the file is not executable, or if the function fails, the return value is zero. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the file is a DLL, 
      *        the last error code is <b>ERROR_BAD_EXE_FORMAT</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getbinarytypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getbinarytypea
      * @since windows5.1.2600
      */
     static GetBinaryTypeA(lpApplicationName, lpBinaryType) {
@@ -28173,7 +28181,7 @@ class FileSystem {
      * If the file is not executable, or if the function fails, the return value is zero. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the file is a DLL, 
      *        the last error code is <b>ERROR_BAD_EXE_FORMAT</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getbinarytypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getbinarytypew
      * @since windows5.1.2600
      */
     static GetBinaryTypeW(lpApplicationName, lpBinaryType) {
@@ -28314,7 +28322,7 @@ class FileSystem {
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getshortpathnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getshortpathnamea
      * @since windows5.1.2600
      */
     static GetShortPathNameA(lpszLongPath, lpszShortPath, cchBuffer) {
@@ -28452,7 +28460,7 @@ class FileSystem {
      * If the function fails for any other reason, such as if the file does not exist, the return value is zero. To 
      *        get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getlongpathnametransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getlongpathnametransacteda
      * @since windows6.0.6000
      */
     static GetLongPathNameTransactedA(lpszShortPath, lpszLongPath, cchBuffer, hTransaction) {
@@ -28591,7 +28599,7 @@ class FileSystem {
      * If the function fails for any other reason, such as if the file does not exist, the return value is zero. To 
      *        get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getlongpathnametransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getlongpathnametransactedw
      * @since windows6.0.6000
      */
     static GetLongPathNameTransactedW(lpszShortPath, lpszLongPath, cchBuffer, hTransaction) {
@@ -28733,7 +28741,7 @@ class FileSystem {
      * 
      * To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfilecompletionnotificationmodes
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfilecompletionnotificationmodes
      * @since windows6.0.6000
      */
     static SetFileCompletionNotificationModes(FileHandle, Flags) {
@@ -28868,7 +28876,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfileshortnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfileshortnamea
      * @since windows5.1.2600
      */
     static SetFileShortNameA(hFile, lpShortName) {
@@ -29004,7 +29012,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfileshortnamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfileshortnamew
      * @since windows5.1.2600
      */
     static SetFileShortNameW(hFile, lpShortName) {
@@ -29225,7 +29233,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-settapeposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-settapeposition
      * @since windows5.1.2600
      */
     static SetTapePosition(hDevice, dwPositionMethod, dwPartition, dwOffsetLow, dwOffsetHigh, bImmediate) {
@@ -29438,7 +29446,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-gettapeposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-gettapeposition
      * @since windows5.1.2600
      */
     static GetTapePosition(hDevice, dwPositionType, lpdwPartition, lpdwOffsetLow, lpdwOffsetHigh) {
@@ -29651,7 +29659,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-preparetape
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-preparetape
      * @since windows5.1.2600
      */
     static PrepareTape(hDevice, dwOperation, bImmediate) {
@@ -29860,7 +29868,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-erasetape
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-erasetape
      * @since windows5.1.2600
      */
     static EraseTape(hDevice, dwEraseType, bImmediate) {
@@ -30070,7 +30078,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createtapepartition
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createtapepartition
      * @since windows5.1.2600
      */
     static CreateTapePartition(hDevice, dwPartitionMethod, dwCount, dwSize) {
@@ -30283,7 +30291,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writetapemark
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writetapemark
      * @since windows5.1.2600
      */
     static WriteTapemark(hDevice, dwTapemarkType, dwTapemarkCount, bImmediate) {
@@ -30499,7 +30507,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-gettapestatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-gettapestatus
      * @since windows5.1.2600
      */
     static GetTapeStatus(hDevice) {
@@ -30713,7 +30721,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-gettapeparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-gettapeparameters
      * @since windows5.1.2600
      */
     static GetTapeParameters(hDevice, dwOperation, lpdwSize, lpTapeInformation) {
@@ -30928,7 +30936,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-settapeparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-settapeparameters
      * @since windows5.1.2600
      */
     static SetTapeParameters(hDevice, dwOperation, lpTapeInformation) {
@@ -31037,7 +31045,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-encryptfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-encryptfilea
      * @since windows5.1.2600
      */
     static EncryptFileA(lpFileName) {
@@ -31150,7 +31158,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-encryptfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-encryptfilew
      * @since windows5.1.2600
      */
     static EncryptFileW(lpFileName) {
@@ -31251,7 +31259,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-decryptfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-decryptfilea
      * @since windows5.1.2600
      */
     static DecryptFileA(lpFileName) {
@@ -31354,7 +31362,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-decryptfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-decryptfilew
      * @since windows5.1.2600
      */
     static DecryptFileW(lpFileName) {
@@ -31561,7 +31569,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-fileencryptionstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-fileencryptionstatusa
      * @since windows5.1.2600
      */
     static FileEncryptionStatusA(lpFileName, lpStatus) {
@@ -31768,7 +31776,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-fileencryptionstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-fileencryptionstatusw
      * @since windows5.1.2600
      */
     static FileEncryptionStatusW(lpFileName, lpStatus) {
@@ -31941,7 +31949,7 @@ class FileSystem {
      *       WinError.h. You can use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the
      *       <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a generic text description of
      *       the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openencryptedfilerawa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openencryptedfilerawa
      * @since windows5.1.2600
      */
     static OpenEncryptedFileRawA(lpFileName, ulFlags, pvContext) {
@@ -32108,7 +32116,7 @@ class FileSystem {
      *       WinError.h. You can use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the
      *       <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a generic text description of
      *       the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openencryptedfileraww
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openencryptedfileraww
      * @since windows5.1.2600
      */
     static OpenEncryptedFileRawW(lpFileName, ulFlags, pvContext) {
@@ -32223,7 +32231,7 @@ class FileSystem {
      * If the function fails, it returns a nonzero error code defined in WinError.h. You can use 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the 
      *        <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a generic text description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readencryptedfileraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-readencryptedfileraw
      * @since windows5.1.2600
      */
     static ReadEncryptedFileRaw(pfExportCallback, pvCallbackContext, pvContext) {
@@ -32344,7 +32352,7 @@ class FileSystem {
      * If the function fails, it returns a nonzero error code defined in WinError.h. You can use 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the 
      *        <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a generic text description of the error.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-writeencryptedfileraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-writeencryptedfileraw
      * @since windows5.1.2600
      */
     static WriteEncryptedFileRaw(pfImportCallback, pvCallbackContext, pvContext) {
@@ -32427,7 +32435,7 @@ class FileSystem {
      * @param {Pointer<Void>} pvContext A pointer to a system-defined context block. The
      *          <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openencryptedfilerawa">OpenEncryptedFileRaw</a> function returns the context block.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-closeencryptedfileraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-closeencryptedfileraw
      * @since windows5.1.2600
      */
     static CloseEncryptedFileRaw(pvContext) {
@@ -32576,7 +32584,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>HFILE_ERROR</b>. To get extended error 
      *        information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openfile
      * @since windows5.1.2600
      */
     static OpenFile(lpFileName, lpReOpenBuff, uStyle) {
@@ -32650,7 +32658,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero, indicating that an I/O error occurred. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-backupread
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-backupread
      * @since windows5.1.2600
      */
     static BackupRead(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, bAbort, bProcessSecurity, lpContext) {
@@ -32687,7 +32695,7 @@ class FileSystem {
      * 
      * If the function could not seek the requested amount, the function returns zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-backupseek
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-backupseek
      * @since windows5.1.2600
      */
     static BackupSeek(hFile, dwLowBytesToSeek, dwHighBytesToSeek, lpdwLowByteSeeked, lpdwHighByteSeeked, lpContext) {
@@ -32759,7 +32767,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero, indicating that an I/O error occurred. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-backupwrite
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-backupwrite
      * @since windows5.1.2600
      */
     static BackupWrite(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, bAbort, bProcessSecurity, lpContext) {
@@ -32865,7 +32873,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getlogicaldrivestringsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getlogicaldrivestringsa
      * @since windows5.1.2600
      */
     static GetLogicalDriveStringsA(nBufferLength, lpBuffer) {
@@ -33032,7 +33040,7 @@ class FileSystem {
      *        the combination of current state and parameter value is not valid, the value returned by the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will be 
      *        <b>ERROR_ACCESS_DENIED</b>. For more information, see the Remarks section.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setsearchpathmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setsearchpathmode
      * @since windows6.1
      */
     static SetSearchPathMode(Flags) {
@@ -33198,7 +33206,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createdirectoryexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createdirectoryexa
      * @since windows5.1.2600
      */
     static CreateDirectoryExA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes) {
@@ -33367,7 +33375,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createdirectoryexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createdirectoryexw
      * @since windows5.1.2600
      */
     static CreateDirectoryExW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes) {
@@ -33546,7 +33554,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createdirectorytransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createdirectorytransacteda
      * @since windows6.0.6000
      */
     static CreateDirectoryTransactedA(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, hTransaction) {
@@ -33726,7 +33734,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createdirectorytransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createdirectorytransactedw
      * @since windows6.0.6000
      */
     static CreateDirectoryTransactedW(lpTemplateDirectory, lpNewDirectory, lpSecurityAttributes, hTransaction) {
@@ -33841,7 +33849,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-removedirectorytransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-removedirectorytransacteda
      * @since windows6.0.6000
      */
     static RemoveDirectoryTransactedA(lpPathName, hTransaction) {
@@ -33955,7 +33963,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-removedirectorytransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-removedirectorytransactedw
      * @since windows6.0.6000
      */
     static RemoveDirectoryTransactedW(lpPathName, hTransaction) {
@@ -34099,7 +34107,7 @@ class FileSystem {
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfullpathnametransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfullpathnametransacteda
      * @since windows6.0.6000
      */
     static GetFullPathNameTransactedA(lpFileName, nBufferLength, lpBuffer, lpFilePart, hTransaction) {
@@ -34246,7 +34254,7 @@ class FileSystem {
      * 
      * If the function fails for any other reason, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfullpathnametransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfullpathnametransactedw
      * @since windows6.0.6000
      */
     static GetFullPathNameTransactedW(lpFileName, nBufferLength, lpBuffer, lpFilePart, hTransaction) {
@@ -34367,7 +34375,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-definedosdevicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-definedosdevicea
      * @since windows5.1.2600
      */
     static DefineDosDeviceA(dwFlags, lpDeviceName, lpTargetPath) {
@@ -34494,7 +34502,7 @@ class FileSystem {
      * 
      * If the buffer is too small, the function fails and the last error code is 
      *        <b>ERROR_INSUFFICIENT_BUFFER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-querydosdevicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-querydosdevicea
      * @since windows5.1.2600
      */
     static QueryDosDeviceA(lpDeviceName, lpTargetPath, ucchMax) {
@@ -35171,7 +35179,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createfiletransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createfiletransacteda
      * @since windows6.0.6000
      */
     static CreateFileTransactedA(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction, pusMiniVersion) {
@@ -35854,7 +35862,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createfiletransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createfiletransactedw
      * @since windows6.0.6000
      */
     static CreateFileTransactedW(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile, hTransaction, pusMiniVersion) {
@@ -35963,7 +35971,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-reopenfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-reopenfile
      * @since windows6.0.6000
      */
     static ReOpenFile(hOriginalFile, dwDesiredAccess, dwShareMode, dwFlagsAndAttributes) {
@@ -36171,7 +36179,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfileattributestransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfileattributestransacteda
      * @since windows6.0.6000
      */
     static SetFileAttributesTransactedA(lpFileName, dwFileAttributes, hTransaction) {
@@ -36379,7 +36387,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfileattributestransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfileattributestransactedw
      * @since windows6.0.6000
      */
     static SetFileAttributesTransactedW(lpFileName, dwFileAttributes, hTransaction) {
@@ -36531,7 +36539,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfileattributestransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfileattributestransacteda
      * @since windows6.0.6000
      */
     static GetFileAttributesTransactedA(lpFileName, fInfoLevelId, lpFileInformation, hTransaction) {
@@ -36685,7 +36693,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfileattributestransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfileattributestransactedw
      * @since windows6.0.6000
      */
     static GetFileAttributesTransactedW(lpFileName, fInfoLevelId, lpFileInformation, hTransaction) {
@@ -36804,7 +36812,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the return value is <b>INVALID_FILE_SIZE</b> and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, an application must call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine whether the function has succeeded (value is <b>NO_ERROR</b>) or failed (value is other than <b>NO_ERROR</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcompressedfilesizetransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcompressedfilesizetransacteda
      * @since windows6.0.6000
      */
     static GetCompressedFileSizeTransactedA(lpFileName, lpFileSizeHigh, hTransaction) {
@@ -36923,7 +36931,7 @@ class FileSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the return value is <b>INVALID_FILE_SIZE</b> and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, an application must call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine whether the function has succeeded (value is <b>NO_ERROR</b>) or failed (value is other than <b>NO_ERROR</b>).
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcompressedfilesizetransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getcompressedfilesizetransactedw
      * @since windows6.0.6000
      */
     static GetCompressedFileSizeTransactedW(lpFileName, lpFileSizeHigh, hTransaction) {
@@ -37068,7 +37076,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deletefiletransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-deletefiletransacteda
      * @since windows6.0.6000
      */
     static DeleteFileTransactedA(lpFileName, hTransaction) {
@@ -37211,7 +37219,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deletefiletransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-deletefiletransactedw
      * @since windows6.0.6000
      */
     static DeleteFileTransactedW(lpFileName, hTransaction) {
@@ -37316,7 +37324,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-checknamelegaldos8dot3a
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-checknamelegaldos8dot3a
      * @since windows6.0.6000
      */
     static CheckNameLegalDOS8Dot3A(lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal) {
@@ -37424,7 +37432,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-checknamelegaldos8dot3w
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-checknamelegaldos8dot3w
      * @since windows6.0.6000
      */
     static CheckNameLegalDOS8Dot3W(lpName, lpOemName, OemNameSize, pbNameContainsSpaces, pbNameLegal) {
@@ -37632,7 +37640,7 @@ class FileSystem {
      * 
      * If the function fails or fails to locate files from the search string in the <i>lpFileName</i> parameter, the return value is <b>INVALID_HANDLE_VALUE</b> and the contents of <i>lpFindFileData</i> are indeterminate. To get extended 
      *        error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirstfiletransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirstfiletransacteda
      * @since windows6.0.6000
      */
     static FindFirstFileTransactedA(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags, hTransaction) {
@@ -37843,7 +37851,7 @@ class FileSystem {
      * 
      * If the function fails or fails to locate files from the search string in the <i>lpFileName</i> parameter, the return value is <b>INVALID_HANDLE_VALUE</b> and the contents of <i>lpFindFileData</i> are indeterminate. To get extended 
      *        error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirstfiletransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirstfiletransactedw
      * @since windows6.0.6000
      */
     static FindFirstFileTransactedW(lpFileName, fInfoLevelId, lpFindFileData, fSearchOp, dwAdditionalFlags, hTransaction) {
@@ -37985,7 +37993,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfilea
      * @since windows5.1.2600
      */
     static CopyFileA(lpExistingFileName, lpNewFileName, bFailIfExists) {
@@ -38121,7 +38129,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfilew
      * @since windows5.1.2600
      */
     static CopyFileW(lpExistingFileName, lpNewFileName, bFailIfExists) {
@@ -38408,7 +38416,7 @@ class FileSystem {
      *        and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *        <b>ERROR_REQUEST_ABORTED</b>. In this case, the partially copied destination file is left 
      *        intact.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfileexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfileexa
      * @since windows5.1.2600
      */
     static CopyFileExA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags) {
@@ -38697,7 +38705,7 @@ class FileSystem {
      *        and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *        <b>ERROR_REQUEST_ABORTED</b>. In this case, the partially copied destination file is left 
      *        intact.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfileexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfileexw
      * @since windows5.1.2600
      */
     static CopyFileExW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags) {
@@ -38931,7 +38939,7 @@ class FileSystem {
      *        <b>CopyFileTransacted</b> will return either 
      *        <b>ERROR_TRANSACTION_NOT_ACTIVE</b> or 
      *        <b>ERROR_INVALID_TRANSACTION</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfiletransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfiletransacteda
      * @since windows6.0.6000
      */
     static CopyFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags, hTransaction) {
@@ -39166,7 +39174,7 @@ class FileSystem {
      *        <b>CopyFileTransacted</b> will return either 
      *        <b>ERROR_TRANSACTION_NOT_ACTIVE</b> or 
      *        <b>ERROR_INVALID_TRANSACTION</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfiletransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfiletransactedw
      * @since windows6.0.6000
      */
     static CopyFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, pbCancel, dwCopyFlags, hTransaction) {
@@ -39359,7 +39367,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-copyfile2
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-copyfile2
      * @since windows8.0
      */
     static CopyFile2(pwszExistingFileName, pwszNewFileName, pExtendedParameters) {
@@ -39480,7 +39488,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefilea
      * @since windows5.1.2600
      */
     static MoveFileA(lpExistingFileName, lpNewFileName) {
@@ -39603,7 +39611,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefilew
      * @since windows5.1.2600
      */
     static MoveFileW(lpExistingFileName, lpNewFileName) {
@@ -39794,7 +39802,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefileexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefileexa
      * @since windows5.1.2600
      */
     static MoveFileExA(lpExistingFileName, lpNewFileName, dwFlags) {
@@ -39985,7 +39993,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero (0). To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefileexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefileexw
      * @since windows5.1.2600
      */
     static MoveFileExW(lpExistingFileName, lpNewFileName, dwFlags) {
@@ -40145,7 +40153,7 @@ class FileSystem {
      *        <b>MoveFileWithProgress</b> will return zero and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *        <b>ERROR_REQUEST_ABORTED</b>. The existing file is left intact.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefilewithprogressa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefilewithprogressa
      * @since windows5.1.2600
      */
     static MoveFileWithProgressA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags) {
@@ -40307,7 +40315,7 @@ class FileSystem {
      *        <b>MoveFileWithProgress</b> will return zero and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *        <b>ERROR_REQUEST_ABORTED</b>. The existing file is left intact.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefilewithprogressw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefilewithprogressw
      * @since windows5.1.2600
      */
     static MoveFileWithProgressW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags) {
@@ -40466,7 +40474,7 @@ class FileSystem {
      *        <b>MoveFileTransacted</b> will return zero and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *        <b>ERROR_REQUEST_ABORTED</b>. The existing file is left intact.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefiletransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefiletransacteda
      * @since windows6.0.6000
      */
     static MoveFileTransactedA(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags, hTransaction) {
@@ -40626,7 +40634,7 @@ class FileSystem {
      *        <b>MoveFileTransacted</b> will return zero and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
      *        <b>ERROR_REQUEST_ABORTED</b>. The existing file is left intact.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-movefiletransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-movefiletransactedw
      * @since windows6.0.6000
      */
     static MoveFileTransactedW(lpExistingFileName, lpNewFileName, lpProgressRoutine, lpData, dwFlags, hTransaction) {
@@ -40798,7 +40806,7 @@ class FileSystem {
      *        replacement files will retain their original file names. In this scenario, a backup file 
      *        does not exist and it is not guaranteed that the 
      *        replacement file will have inherited all of the attributes and streams of the replaced file.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-replacefilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-replacefilea
      * @since windows5.1.2600
      */
     static ReplaceFileA(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
@@ -40970,7 +40978,7 @@ class FileSystem {
      *        replacement files will retain their original file names. In this scenario, a backup file 
      *        does not exist and it is not guaranteed that the 
      *        replacement file will have inherited all of the attributes and streams of the replaced file.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-replacefilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-replacefilew
      * @since windows5.1.2600
      */
     static ReplaceFileW(lpReplacedFileName, lpReplacementFileName, lpBackupFileName, dwReplaceFlags) {
@@ -41116,7 +41124,7 @@ class FileSystem {
      * The maximum number of hard links that can be created with this function is 1023 per file. If more than 1023 links are created for a file, an error results.
      * 
      * If you pass a name longer than MAX_PATH characters to the *lpFileName* or *lpExistingFileName* parameter of the ANSI version of this function or to the Unicode version of this function without prepending "\\\\?\\" to the path, the function returns ERROR_PATH_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createhardlinka
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createhardlinka
      * @since windows5.1.2600
      */
     static CreateHardLinkA(lpFileName, lpExistingFileName) {
@@ -41261,7 +41269,7 @@ class FileSystem {
      * The maximum number of hard links that can be created with this function is 1023 per file. If more than 1023 links are created for a file, an error results.
      * 
      * If you pass a name longer than MAX_PATH characters to the *lpFileName* or *lpExistingFileName* parameter of the ANSI version of this function or to the Unicode version of this function without prepending "\\\\?\\" to the path, the function returns ERROR_PATH_NOT_FOUND.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createhardlinkw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createhardlinkw
      * @since windows5.1.2600
      */
     static CreateHardLinkW(lpFileName, lpExistingFileName) {
@@ -41407,7 +41415,7 @@ class FileSystem {
      * The files must reside on the local computer; otherwise, 
      *        the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createhardlinktransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createhardlinktransacteda
      * @since windows6.0.6000
      */
     static CreateHardLinkTransactedA(lpFileName, lpExistingFileName, hTransaction) {
@@ -41554,7 +41562,7 @@ class FileSystem {
      * The files must reside on the local computer; otherwise, 
      *        the function fails and the last error code is set to 
      *        <b>ERROR_TRANSACTIONS_UNSUPPORTED_REMOTE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createhardlinktransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createhardlinktransactedw
      * @since windows6.0.6000
      */
     static CreateHardLinkTransactedW(lpFileName, lpExistingFileName, hTransaction) {
@@ -41684,7 +41692,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirststreamtransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirststreamtransactedw
      * @since windows6.0.6000
      */
     static FindFirstStreamTransactedW(lpFileName, InfoLevel, lpFindStreamData, hTransaction) {
@@ -41790,7 +41798,7 @@ class FileSystem {
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b> (0xffffffff). To  
      *       get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> 
      *       function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirstfilenametransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirstfilenametransactedw
      * @since windows6.0.6000
      */
     static FindFirstFileNameTransactedW(lpFileName, dwFlags, StringLength, LinkName, hTransaction) {
@@ -41902,7 +41910,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setvolumelabela
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setvolumelabela
      * @since windows5.1.2600
      */
     static SetVolumeLabelA(lpRootPathName, lpVolumeName) {
@@ -42009,7 +42017,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setvolumelabelw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setvolumelabelw
      * @since windows5.1.2600
      */
     static SetVolumeLabelW(lpRootPathName, lpVolumeName) {
@@ -42129,7 +42137,7 @@ class FileSystem {
      * 
      * To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setfilebandwidthreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setfilebandwidthreservation
      * @since windows6.0.6000
      */
     static SetFileBandwidthReservation(hFile, nPeriodMilliseconds, nBytesPerPeriod, bDiscardable, lpTransferSize, lpNumOutstandingRequests) {
@@ -42229,7 +42237,7 @@ class FileSystem {
      * 
      * To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfilebandwidthreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfilebandwidthreservation
      * @since windows6.0.6000
      */
     static GetFileBandwidthReservation(hFile, lpPeriodMilliseconds, lpBytesPerPeriod, pDiscardable, lpTransferSize, lpNumOutstandingRequests) {
@@ -42409,7 +42417,7 @@ class FileSystem {
      * 
      * If the network redirector or the target file system does not support this operation, the function fails with 
      *        <b>ERROR_INVALID_FUNCTION</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readdirectorychangesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-readdirectorychangesw
      * @since windows5.1.2600
      */
     static ReadDirectoryChangesW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree, dwNotifyFilter, lpBytesReturned, lpOverlapped, lpCompletionRoutine) {
@@ -42532,7 +42540,7 @@ class FileSystem {
      * 
      * If the network redirector or the target file system does not support this operation, the function fails with 
      *        <b>ERROR_INVALID_FUNCTION</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readdirectorychangesexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-readdirectorychangesexw
      * @since windows10.0.16299
      */
     static ReadDirectoryChangesExW(hDirectory, lpBuffer, nBufferLength, bWatchSubtree, dwNotifyFilter, lpBytesReturned, lpOverlapped, lpCompletionRoutine, ReadDirectoryNotifyInformationClass) {
@@ -42635,7 +42643,7 @@ class FileSystem {
      * If the function fails to find any volumes, the return value is the 
      *        <b>INVALID_HANDLE_VALUE</b> error code. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirstvolumea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirstvolumea
      * @since windows5.1.2600
      */
     static FindFirstVolumeA(lpszVolumeName, cchBufferLength) {
@@ -42737,7 +42745,7 @@ class FileSystem {
      *        <b>GetLastError</b> function returns the 
      *        <b>ERROR_NO_MORE_FILES</b> error code. In that case, close the search with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findvolumeclose">FindVolumeClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findnextvolumea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findnextvolumea
      * @since windows5.1.2600
      */
     static FindNextVolumeA(hFindVolume, lpszVolumeName, cchBufferLength) {
@@ -42855,7 +42863,7 @@ class FileSystem {
      * If the function fails to find a mounted folder on the volume, the return value is the 
      *        <b>INVALID_HANDLE_VALUE</b> error code. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirstvolumemountpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirstvolumemountpointa
      * @since windows5.1.2600
      */
     static FindFirstVolumeMountPointA(lpszRootPathName, lpszVolumeMountPoint, cchBufferLength) {
@@ -42975,7 +42983,7 @@ class FileSystem {
      * If the function fails to find a mounted folder on the volume, the return value is the 
      *        <b>INVALID_HANDLE_VALUE</b> error code. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findfirstvolumemountpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findfirstvolumemountpointw
      * @since windows5.1.2600
      */
     static FindFirstVolumeMountPointW(lpszRootPathName, lpszVolumeMountPoint, cchBufferLength) {
@@ -43093,7 +43101,7 @@ class FileSystem {
      *        the <b>GetLastError</b> function returns the 
      *        <b>ERROR_NO_MORE_FILES</b> error code. In that case, close the search with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findvolumemountpointclose">FindVolumeMountPointClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findnextvolumemountpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findnextvolumemountpointa
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointA(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
@@ -43209,7 +43217,7 @@ class FileSystem {
      *        the <b>GetLastError</b> function returns the 
      *        <b>ERROR_NO_MORE_FILES</b> error code. In that case, close the search with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-findvolumemountpointclose">FindVolumeMountPointClose</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findnextvolumemountpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findnextvolumemountpointw
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointW(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
@@ -43303,7 +43311,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-findvolumemountpointclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-findvolumemountpointclose
      * @since windows5.1.2600
      */
     static FindVolumeMountPointClose(hFindVolumeMountPoint) {
@@ -43405,7 +43413,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the <i>lpszVolumeMountPoint</i> parameter contains a path to a mounted folder, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_DIR_NOT_EMPTY</b>, even if the directory is empty.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setvolumemountpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setvolumemountpointa
      * @since windows5.1.2600
      */
     static SetVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName) {
@@ -43508,7 +43516,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the <i>lpszVolumeMountPoint</i> parameter contains a path to a mounted folder, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_DIR_NOT_EMPTY</b>, even if the directory is empty.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setvolumemountpointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setvolumemountpointw
      * @since windows5.1.2600
      */
     static SetVolumeMountPointW(lpszVolumeMountPoint, lpszVolumeName) {
@@ -43600,7 +43608,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-deletevolumemountpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-deletevolumemountpointa
      * @since windows5.1.2600
      */
     static DeleteVolumeMountPointA(lpszVolumeMountPoint) {
@@ -43693,7 +43701,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getvolumenameforvolumemountpointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getvolumenameforvolumemountpointa
      * @since windows5.1.2600
      */
     static GetVolumeNameForVolumeMountPointA(lpszVolumeMountPoint, lpszVolumeName, cchBufferLength) {
@@ -43865,7 +43873,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getvolumepathnamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getvolumepathnamea
      * @since windows5.1.2600
      */
     static GetVolumePathNameA(lpszFileName, lpszVolumePathName, cchBufferLength) {
@@ -43963,7 +43971,7 @@ class FileSystem {
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is not large enough to 
      *        hold the complete list, the error code is <b>ERROR_MORE_DATA</b> and the 
      *        <i>lpcchReturnLength</i> parameter receives the required buffer size.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getvolumepathnamesforvolumenamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getvolumepathnamesforvolumenamea
      * @since windows5.1.2600
      */
     static GetVolumePathNamesForVolumeNameA(lpszVolumeName, lpszVolumePathNames, cchBufferLength, lpcchReturnLength) {
@@ -44180,7 +44188,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getfileinformationbyhandleex
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getfileinformationbyhandleex
      * @since windows6.0.6000
      */
     static GetFileInformationByHandleEx(hFile, FileInformationClass, lpFileInformation, dwBufferSize) {
@@ -44480,7 +44488,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended 
      *        error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openfilebyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-openfilebyid
      * @since windows6.0.6000
      */
     static OpenFileById(hVolumeHint, lpFileId, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlagsAndAttributes) {
@@ -44660,7 +44668,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createsymboliclinka
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createsymboliclinka
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkA(lpSymlinkFileName, lpTargetFileName, dwFlags) {
@@ -44840,7 +44848,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createsymboliclinkw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createsymboliclinkw
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkW(lpSymlinkFileName, lpTargetFileName, dwFlags) {
@@ -44989,7 +44997,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createsymboliclinktransacteda
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createsymboliclinktransacteda
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkTransactedA(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction) {
@@ -45139,7 +45147,7 @@ class FileSystem {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createsymboliclinktransactedw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createsymboliclinktransactedw
      * @since windows6.0.6000
      */
     static CreateSymbolicLinkTransactedW(lpSymlinkFileName, lpTargetFileName, dwFlags, hTransaction) {

@@ -12,7 +12,7 @@
  * You should also allocate the strings in the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_bitmap">MMC_TASK_DISPLAY_BITMAP</a> or 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task_display_symbol">MMC_TASK_DISPLAY_SYMBOL</a> structure specified in the <b>sDisplayObject</b> member with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release them.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_task
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-mmc_task
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

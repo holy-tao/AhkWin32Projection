@@ -4,13 +4,10 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Describes the dependency of one package on another package.
+ * Describes the dependency of one package on another package. (IAppxManifestPackageDependency)
  * @remarks
- * 
  * A dependency package is a package that the current package depends on, as specified in the package manifest using the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-packagedependency">PackageDependency</a> element.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestpackagedependency
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxmanifestpackagedependency
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -37,37 +34,70 @@ class IAppxManifestPackageDependency extends IUnknown{
 
     /**
      * Gets the name of the package on which the current package has a dependency.
+     * @remarks
+     * The caller must free the memory allocated for <i>name</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The name of the package.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getname
      */
     GetName() {
-        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &name := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
      * Gets the name of the publisher that produced the package on which the current package depends.
+     * @remarks
+     * If the publisher is not defined for the dependency, this method returns <b>S_OK</b>, and <i>publisher</i> is <b>NULL</b>.
+     * 
+     * The caller must free the memory allocated for <i>publisher</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The name of the publisher.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getpublisher
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getpublisher
      */
     GetPublisher() {
-        result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &publisher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return publisher
     }
 
     /**
      * Gets the minimum version of the package on which the current package has a dependency.
+     * @remarks
+     * If the minimum version is not defined for the dependency, this method returns <b>S_OK</b> and <i>minVersion</i> is 0.
+     * 
+     * The version is specified using the <b>MinVersion</b> attribute of the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-packagedependency">PackageDependency</a> element in the package manifest. The specification in the manifest is in quad notation:
+     * 
+     * <i>major</i>.<i>minor</i>.<i>build</i>.<i>revision</i>
+     * 
+     * This method converts this notation to a <b>UINT64</b> value as follows:
+     * 
+     * <ul>
+     * <li>The high-order word contains the major version</li>
+     * <li>The next word contains the minor version</li>
+     * <li>The next word contains the build number</li>
+     * <li>The low-order word contains the revision</li>
+     * </ul>
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
      * 
      * The minimum version of the package.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion
      */
     GetMinVersion() {
-        result := ComCall(5, this, "uint*", &minVersion := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &minVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minVersion
     }
 }

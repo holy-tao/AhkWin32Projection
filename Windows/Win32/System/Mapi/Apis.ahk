@@ -301,7 +301,7 @@ class Mapi {
      * @returns {Integer} S_OK 
      *   
      * > The call succeeded and freed the memory requested. **MAPIFreeBuffer** can also return S_OK on already freed locations or if memory block is not allocated with **MAPIAllocateBuffer** and **MAPIAllocateMore**.
-     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapifreebuffer
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/mapifreebuffer
      */
     static MAPIFreeBuffer(pv) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"

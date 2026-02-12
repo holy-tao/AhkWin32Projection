@@ -6,7 +6,7 @@
  * See reference information about the WINDOW_BUFFER_SIZE_RECORD structure, which describes a change in the size of the console screen buffer.
  * @remarks
  * Buffer size events are placed in the input buffer when the console is in window-aware mode (**ENABLE\_WINDOW\_INPUT**).
- * @see https://learn.microsoft.com/windows/console/window-buffer-size-record-str
+ * @see https://learn.microsoft.com/windows/console/ocs/docs/window-buffer-size-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

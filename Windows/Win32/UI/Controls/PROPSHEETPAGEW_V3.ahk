@@ -2,13 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PROPSHEETPAGEW_V3 (Unicode) structure defines a page in a property sheet.
  * @remarks
  * Comctl32.dll version 6 and later are not redistributable. To use Comctl32.dll version 6 or later, specify the .dll file in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
- * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetpagew_v3
+ * @see https://learn.microsoft.com/windows/win32/api//content/prsht/ns-prsht-propsheetpagew_v3
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -99,9 +100,12 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(48, this)
+            return this.__lParam
+        }
     }
 
     /**

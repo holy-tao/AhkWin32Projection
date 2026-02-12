@@ -7,7 +7,7 @@
 
 /**
  * Provides access to information about individual callers in a collection of callers.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-isecuritycallerscoll
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-isecuritycallerscoll
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -49,31 +49,47 @@ class ISecurityCallersColl extends IDispatch{
     /**
      * Retrieves the number of callers in the security callers collection.
      * @returns {Integer} The number of callers in the security callers collection.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallerscoll-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-isecuritycallerscoll-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
      * Retrieves a specified caller in the security callers collection.
+     * @remarks
+     * The security callers collection represents a chain of callers that cross security boundaries. These callers are also known as upstream callers.
+     * 
+     * Each item in this collection is a <a href="https://docs.microsoft.com/windows/desktop/cossdk/securityidentity">SecurityIdentity</a> object. To obtain an item in this collection, use the Item property of the <a href="https://docs.microsoft.com/windows/desktop/cossdk/securitycallers">SecurityCallers</a> collection object, specifying an integer index value between 0 and the number of callers, minus 1, in the collection. To retrieve the direct caller, this index value should be 0, and to retrieve the original caller, the index can be either -1 or the number of callers minus 1.
      * @param {Integer} lIndex The name of the caller to retrieve. See Remarks for information about the available callers.
      * @returns {ISecurityIdentityColl} A reference to the retrieved caller.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallerscoll-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-isecuritycallerscoll-get_item
      */
     get_Item(lIndex) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", &pObj := 0, "HRESULT")
+        result := ComCall(8, this, "int", lIndex, "ptr*", &pObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISecurityIdentityColl(pObj)
     }
 
     /**
      * Retrieves an enumerator for the security callers collection.
      * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallerscoll-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-isecuritycallerscoll-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppEnum)
     }
 }

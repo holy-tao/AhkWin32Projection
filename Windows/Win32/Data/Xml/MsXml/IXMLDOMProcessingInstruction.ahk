@@ -50,7 +50,11 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode{
      */
     get_target() {
         name := BSTR()
-        result := ComCall(43, this, "ptr", name, "HRESULT")
+        result := ComCall(43, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
@@ -60,7 +64,11 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode{
      */
     get_data() {
         value := BSTR()
-        result := ComCall(44, this, "ptr", value, "HRESULT")
+        result := ComCall(44, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -70,9 +78,16 @@ class IXMLDOMProcessingInstruction extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_data(value) {
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", value, "HRESULT")
+        result := ComCall(45, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The ISCPSecureExchange3 interface extends ISCPSecureExchange2 by providing improved data exchange performance, and a transfer-complete callback method.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iscpsecureexchange3
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iscpsecureexchange3
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,16 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2{
 
     /**
      * The TransferContainerDataOnClearChannel method transfers container file data to the content provider through the clear channel.
+     * @remarks
+     * Windows Media Device Manager calls this method repeatedly, transferring data from the container file to the content provider. Windows Media Device Manager eventually calls this method with <i>dwSize</i> set to zero to indicate that it has no more data to transfer. As the content provider collects the data and extracts the various objects from it, it reports back to Windows Media Device Manager which objects, if any, are available after each call. If no objects are available, the content provider returns S_OK with the <i>pfuReadyFlags</i> parameter set to zero. When the content provider has determined that it requires no further processing and/or modification of the file being transferred, the flag WMDM_SCP_NO_MORE_CHANGES is returned. Windows Media Device Manager can then directly transfer the remainder of the file to the device.
+     * 
+     * Object data is transferred from the content provider by calling the <b>GetObjectDataOnClearChannel</b> method. Windows Media Device Manager calls <b>GetObjectDataOnClearChannel</b> repeatedly until it returns zero in the third parameter, <i>pdwsize</i>.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecureexchange-transfercomplete">ISCPSecureExchange::TransferComplete</a> (or <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercompletefordevice">TransferCompleteForDevice</a> if a session is active) method is called by Windows Media Device Manager to signal the end of a data transfer.
+     * 
+     * Windows Media Device Manager passes the application-provided progress callback to the content provider in the <i>pProgressCallback</i> parameter. The content provider can use this parameter to provide progress notification for any steps that it needs to carry out. The step itself is identified by <i>EventId</i>, which is the first parameter of the methods of <b>IWMDMProgress3</b>. A specific content provider implementation will define <i>EventId</i> values for applications to use.
+     * 
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecureexchange-transfercontainerdata">ISCPSecureExchange::TransferContainerData</a> except that the parameters passed to this method are not encrypted. Consequently this method is more efficient.
      * @param {IMDSPDevice} pDevice Pointer to a device object.
      * @param {Pointer<Integer>} pData Pointer to a buffer holding the current data being transferred from the container file.
      * @param {Integer} dwSize Contains the number of bytes in the buffer.
@@ -64,30 +74,47 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecureexchange3-transfercontainerdataonclearchannel
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercontainerdataonclearchannel
      */
     TransferContainerDataOnClearChannel(pDevice, pData, dwSize, pProgressCallback) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pDevice, pDataMarshal, pData, "uint", dwSize, "ptr", pProgressCallback, "uint*", &pfuReadyFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfuReadyFlags
     }
 
     /**
+     * The GetObjectDataOnClearChannel method transfers a block of object data on a clear channel back to Windows Media Device Manager.
+     * @remarks
+     * To transfer data, Windows Media Device Manager calls the [TransferContainerDataOnClearChannel](/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercontainerdataonclearchannel) method to obtain the container data. **GetObjectDataOnClearChannel** is then called to transfer blocks of object data from the content provider to Windows Media Device Manager. If S\_OK is returned with *pdwSize* set to zero, Windows Media Device Manager will request no further data.
      * 
-     * @param {IMDSPDevice} pDevice 
-     * @param {Pointer<Integer>} pdwSize 
-     * @returns {Integer} 
+     * This method is identical to [**ISCPSecureExchange::ObjectData**](/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecureexchange-objectdata) except that the data returned by this method is not encrypted. Consequently this method is more efficient.
+     * @param {IMDSPDevice} pDevice Pointer to the device object.
+     * @param {Pointer<Integer>} pdwSize Pointer to a **DWORD** containing the transfer size.
+     * @returns {Integer} Pointer to a buffer to receive data.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/iscpsecureexchange3--getobjectdataonclearchannel
      */
     GetObjectDataOnClearChannel(pDevice, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pDevice, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(8, this, "ptr", pDevice, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
     /**
      * The TransferCompleteForDevice method is called by Windows Media Device Manager to signal the end of a data transfer for a specific device.
+     * @remarks
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecureexchange-transfercomplete">ISCPSecureExchange::TransferComplete</a> except that this method is called when transfer is completed within a transfer session.
+     * 
+     * In that case, the secure content provider needs to know which device the transfer was completed for, so this method accepts a <i>pDevice</i> parameter.
      * @param {IMDSPDevice} pDevice Pointer to a device object.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If the method fails, it returns an <b>HRESULT</b> error code.
      * 
@@ -141,10 +168,14 @@ class ISCPSecureExchange3 extends ISCPSecureExchange2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecureexchange3-transfercompletefordevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iscpsecureexchange3-transfercompletefordevice
      */
     TransferCompleteForDevice(pDevice) {
-        result := ComCall(9, this, "ptr", pDevice, "HRESULT")
+        result := ComCall(9, this, "ptr", pDevice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

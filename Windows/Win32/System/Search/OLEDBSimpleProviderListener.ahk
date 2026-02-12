@@ -36,78 +36,106 @@ class OLEDBSimpleProviderListener extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
      */
-    aboutToChangeCell(iRow, iColumn) {
-        result := ComCall(3, this, "ptr", iRow, "ptr", iColumn, "HRESULT")
+    aboutToChangeCell(iRow_, iColumn) {
+        result := ComCall(3, this, "ptr", iRow_, "ptr", iColumn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} iColumn 
      * @returns {HRESULT} 
      */
-    cellChanged(iRow, iColumn) {
-        result := ComCall(4, this, "ptr", iRow, "ptr", iColumn, "HRESULT")
+    cellChanged(iRow_, iColumn) {
+        result := ComCall(4, this, "ptr", iRow_, "ptr", iColumn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    aboutToDeleteRows(iRow, cRows) {
-        result := ComCall(5, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    aboutToDeleteRows(iRow_, cRows) {
+        result := ComCall(5, this, "ptr", iRow_, "ptr", cRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    deletedRows(iRow, cRows) {
-        result := ComCall(6, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    deletedRows(iRow_, cRows) {
+        result := ComCall(6, this, "ptr", iRow_, "ptr", cRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    aboutToInsertRows(iRow, cRows) {
-        result := ComCall(7, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    aboutToInsertRows(iRow_, cRows) {
+        result := ComCall(7, this, "ptr", iRow_, "ptr", cRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    insertedRows(iRow, cRows) {
-        result := ComCall(8, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    insertedRows(iRow_, cRows) {
+        result := ComCall(8, this, "ptr", iRow_, "ptr", cRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer} iRow 
+     * @param {Pointer} iRow_ 
      * @param {Pointer} cRows 
      * @returns {HRESULT} 
      */
-    rowsAvailable(iRow, cRows) {
-        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, "HRESULT")
+    rowsAvailable(iRow_, cRows) {
+        result := ComCall(9, this, "ptr", iRow_, "ptr", cRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +145,11 @@ class OLEDBSimpleProviderListener extends IUnknown{
      * @returns {HRESULT} 
      */
     transferComplete(xfer) {
-        result := ComCall(10, this, "int", xfer, "HRESULT")
+        result := ComCall(10, this, "int", xfer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

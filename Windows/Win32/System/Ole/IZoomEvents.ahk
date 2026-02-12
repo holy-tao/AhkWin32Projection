@@ -34,7 +34,11 @@ class IZoomEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     OnZoomPercentChanged(ulZoomPercent) {
-        result := ComCall(3, this, "uint", ulZoomPercent, "HRESULT")
+        result := ComCall(3, this, "uint", ulZoomPercent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

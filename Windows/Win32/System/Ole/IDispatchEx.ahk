@@ -37,9 +37,16 @@ class IDispatchEx extends IDispatch{
      * @returns {Integer} 
      */
     GetDispID(bstrName, grfdex) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", bstrName, "uint", grfdex, "int*", &pid := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", bstrName, "uint", grfdex, "int*", &pid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pid
     }
 
@@ -55,7 +62,11 @@ class IDispatchEx extends IDispatch{
      * @returns {HRESULT} 
      */
     InvokeEx(id, lcid, wFlags, pdp, pvarRes, pei, pspCaller) {
-        result := ComCall(8, this, "int", id, "uint", lcid, "ushort", wFlags, "ptr", pdp, "ptr", pvarRes, "ptr", pei, "ptr", pspCaller, "HRESULT")
+        result := ComCall(8, this, "int", id, "uint", lcid, "ushort", wFlags, "ptr", pdp, "ptr", pvarRes, "ptr", pei, "ptr", pspCaller, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,9 +77,16 @@ class IDispatchEx extends IDispatch{
      * @returns {HRESULT} 
      */
     DeleteMemberByName(bstrName, grfdex) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", bstrName, "uint", grfdex, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrName, "uint", grfdex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +96,11 @@ class IDispatchEx extends IDispatch{
      * @returns {HRESULT} 
      */
     DeleteMemberByDispID(id) {
-        result := ComCall(10, this, "int", id, "HRESULT")
+        result := ComCall(10, this, "int", id, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +111,11 @@ class IDispatchEx extends IDispatch{
      * @returns {Integer} 
      */
     GetMemberProperties(id, grfdexFetch) {
-        result := ComCall(11, this, "int", id, "uint", grfdexFetch, "uint*", &pgrfdex := 0, "HRESULT")
+        result := ComCall(11, this, "int", id, "uint", grfdexFetch, "uint*", &pgrfdex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pgrfdex
     }
 
@@ -100,7 +126,11 @@ class IDispatchEx extends IDispatch{
      */
     GetMemberName(id) {
         pbstrName := BSTR()
-        result := ComCall(12, this, "int", id, "ptr", pbstrName, "HRESULT")
+        result := ComCall(12, this, "int", id, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
@@ -111,7 +141,11 @@ class IDispatchEx extends IDispatch{
      * @returns {Integer} 
      */
     GetNextDispID(grfdex, id) {
-        result := ComCall(13, this, "uint", grfdex, "int", id, "int*", &pid := 0, "HRESULT")
+        result := ComCall(13, this, "uint", grfdex, "int", id, "int*", &pid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pid
     }
 
@@ -120,7 +154,11 @@ class IDispatchEx extends IDispatch{
      * @returns {IUnknown} 
      */
     GetNameSpaceParent() {
-        result := ComCall(14, this, "ptr*", &ppunk := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppunk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunk)
     }
 }

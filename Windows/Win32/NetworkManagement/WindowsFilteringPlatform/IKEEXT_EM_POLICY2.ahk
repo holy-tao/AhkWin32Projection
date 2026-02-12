@@ -3,7 +3,7 @@
 
 /**
  * Is used to store AuthIP's extended mode negotiation policy. (IKEEXT_EM_POLICY2)
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_em_policy2
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_em_policy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -36,7 +36,11 @@ class IPrintPipelineFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     InitializeFilter(pINegotiation, pIPropertyBag, pIPipelineControl) {
-        result := ComCall(3, this, "ptr", pINegotiation, "ptr", pIPropertyBag, "ptr", pIPipelineControl, "HRESULT")
+        result := ComCall(3, this, "ptr", pINegotiation, "ptr", pIPropertyBag, "ptr", pIPipelineControl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IPrintPipelineFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     ShutdownOperation() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IPrintPipelineFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     StartOperation() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

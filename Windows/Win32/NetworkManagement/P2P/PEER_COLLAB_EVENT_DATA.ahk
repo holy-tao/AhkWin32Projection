@@ -12,7 +12,7 @@
  * The PEER_COLLAB_EVENT_DATA structure (p2p.h) contains variant data for each possible peer collaboration network event raised on a peer.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_data~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_collab_event_data~r1
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

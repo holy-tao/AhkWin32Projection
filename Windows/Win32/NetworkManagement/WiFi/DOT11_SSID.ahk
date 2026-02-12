@@ -7,7 +7,7 @@
  * The SSID that is specified by the **ucSSID** member is not a null-terminated ASCII string. The length of the SSID is determined by the **uSSIDLength** member.
  * 
  * A wildcard SSID is an SSID whose **uSSIDLength** member is set to zero. When the desired SSID is set to the wildcard SSID, the 802.11 station can connect to any basic service set (BSS) network.
- * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-ssid
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/NativeWiFi/dot11-ssid
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

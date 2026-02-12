@@ -5,7 +5,7 @@
  * Contains pointers to callback functions that can be used by cryptographic service provider (CSP) functions.
  * @remarks
  * The pointers in the **VTableProvStruc** structure are only available within the [**CPAcquireContext**](https://www.bing.com/search?q=**CPAcquireContext**) function. If members of the structure are needed after a call to **CPAcquireContext** is completed, copies of the needed structure elements must be made by the CSP. The function pointers in this structure can be stored and used until the CSP context is released.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/vtableprovstruc
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/vtableprovstruc
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  * @charset Unicode

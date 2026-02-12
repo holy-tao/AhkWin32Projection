@@ -7,7 +7,6 @@
 /**
  * Enumerates the current connections for a connectable object.
  * @remarks
- * 
  * Connectable objects support the following features: 
  * 
  * 
@@ -22,9 +21,7 @@
  * <li>The ability to enumerate the connections that exist to a particular outgoing interface
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ienumconnections
+ * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nn-ocidl-ienumconnections
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -50,14 +47,18 @@ class IEnumConnections extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * Retrieves the specified number of items in the enumeration sequence. (IEnumConnections.Next)
+     * @remarks
+     * After this method returns successfully, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> (see the <b>pUnk</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ns-ocidl-connectdata">CONNECTDATA</a>) for each element in the array. If <i>cConnections</i> is greater than one, the caller must also pass a non-NULL pointer to <i>lpcFetched</i> to get the number of pointers it has to be released.
+     * 
+     * E_NOTIMPL is not allowed as a return value. If an error value is returned, no entries in the array are valid on exit, and therefore no release is required.
      * @param {Integer} cConnections The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
      * @param {Pointer<CONNECTDATA>} rgcd An array of enumerated items.
      * 
      * The enumerator is responsible for allocating any memory, and the caller is responsible for freeing it. If <i>celt</i> is greater than 1, the caller must also pass a non-NULL pointer passed to <i>pceltFetched</i> to know how many pointers to release.
      * @param {Pointer<Integer>} pcFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested.
      * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-next
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-ienumconnections-next
      */
     Next(cConnections, rgcd, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -67,33 +68,47 @@ class IEnumConnections extends IUnknown{
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * Skips over the specified number of items in the enumeration sequence. (IEnumConnections.Skip)
      * @param {Integer} cConnections The number of items to be skipped.
      * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-skip
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-ienumconnections-skip
      */
     Skip(cConnections) {
-        result := ComCall(4, this, "uint", cConnections, "HRESULT")
+        result := ComCall(4, this, "uint", cConnections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumConnections.Reset)
+     * @remarks
+     * There is no guarantee that the same set of objects will be enumerated after the reset operation has completed. A static collection is reset to the beginning, but it can be too expensive for some collections, such as files in a directory, to guarantee this condition.
      * @returns {HRESULT} The return value is S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-ienumconnections-reset
      */
     Reset() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * Creates a new enumerator that contains the same enumeration state as the current one. (IEnumConnections.Clone)
      * @returns {IEnumConnections} A pointer to the cloned enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ienumconnections-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/ocidl/nf-ocidl-ienumconnections-clone
      */
     Clone() {
-        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumConnections(ppEnum)
     }
 }

@@ -9,7 +9,7 @@
  * Objects instantiated from the **CServiceConfig** class aggregate the free-threaded marshaler so that they can be stored by system runtimes and reused in different apartments.
  * 
  * To configure an individual service, call [**QueryInterface**](/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)) for the interface associated with the service and then call methods on that interface to establish the appropriate configuration.
- * @see https://learn.microsoft.com/windows/win32/cossdk/cserviceconfig
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/cossdk/cserviceconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */

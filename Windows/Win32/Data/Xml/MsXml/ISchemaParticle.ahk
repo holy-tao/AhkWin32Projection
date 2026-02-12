@@ -49,7 +49,11 @@ class ISchemaParticle extends ISchemaItem{
      */
     get_minOccurs() {
         minOccurs := VARIANT()
-        result := ComCall(14, this, "ptr", minOccurs, "HRESULT")
+        result := ComCall(14, this, "ptr", minOccurs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minOccurs
     }
 
@@ -59,7 +63,11 @@ class ISchemaParticle extends ISchemaItem{
      */
     get_maxOccurs() {
         maxOccurs := VARIANT()
-        result := ComCall(15, this, "ptr", maxOccurs, "HRESULT")
+        result := ComCall(15, this, "ptr", maxOccurs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxOccurs
     }
 }

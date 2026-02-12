@@ -3,7 +3,7 @@
 
 /**
  * Defines an element that describes a feature or restriction of a subnet. (DHCP_SUBNET_ELEMENT_DATA)
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/ns-dhcpsapi-dhcp_subnet_element_data
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

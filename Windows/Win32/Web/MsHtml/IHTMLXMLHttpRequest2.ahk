@@ -51,7 +51,11 @@ class IHTMLXMLHttpRequest2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_timeout(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +64,11 @@ class IHTMLXMLHttpRequest2 extends IDispatch{
      * @returns {Integer} 
      */
     get_timeout() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -70,7 +78,11 @@ class IHTMLXMLHttpRequest2 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ontimeout(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -80,7 +92,11 @@ class IHTMLXMLHttpRequest2 extends IDispatch{
      */
     get_ontimeout() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

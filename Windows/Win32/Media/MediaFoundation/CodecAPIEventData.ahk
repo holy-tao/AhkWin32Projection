@@ -2,10 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The CodecAPIEventData structure (strmif.h) contains event data for the EC_CODECAPI_EVENT event. This event is sent by codecs that support the ICodecAPI interface.
+ * The CodecAPIEventData structure contains event data for the EC_CODECAPI_EVENT event and is sent by codecs that support the ICodecAPI interface.
  * @remarks
- * This structure may be followed by addition data, depending on the codec event. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-icodecapi-registerforevent">ICodecAPI::RegisterForEvent</a>.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-codecapieventdata
+ * This structure may be followed by addition data, depending on the codec event. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/icodecapi/nf-icodecapi-icodecapi-registerforevent">ICodecAPI::RegisterForEvent</a>.
+ * @see https://learn.microsoft.com/windows/win32/api//content/icodecapi/ns-icodecapi-codecapieventdata
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

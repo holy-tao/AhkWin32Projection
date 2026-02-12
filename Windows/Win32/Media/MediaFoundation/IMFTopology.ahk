@@ -7,7 +7,7 @@
 
 /**
  * Represents a topology. A topology describes a collection of media sources, sinks, and transforms that are connected in a certain order.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imftopology
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imftopology
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IMFTopology extends IMFAttributes{
     /**
      * Gets the identifier of the topology.
      * @returns {Integer} Receives the identifier, as a <a href="https://docs.microsoft.com/windows/desktop/medfound/topoid">TOPOID</a> value.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-gettopologyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-gettopologyid
      */
     GetTopologyID() {
-        result := ComCall(33, this, "uint*", &pID := 0, "HRESULT")
+        result := ComCall(33, this, "uint*", &pID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pID
     }
 
@@ -75,15 +79,23 @@ class IMFTopology extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-addnode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-addnode
      */
     AddNode(pNode) {
-        result := ComCall(34, this, "ptr", pNode, "HRESULT")
+        result := ComCall(34, this, "ptr", pNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a node from the topology.
+     * @remarks
+     * This method does not destroy the node, so the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> pointer is still valid after the method returns.
+     * 
+     * The method breaks any connections between the specified node and other nodes.
      * @param {IMFTopologyNode} pNode Pointer to the node's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -115,20 +127,28 @@ class IMFTopology extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-removenode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-removenode
      */
     RemoveNode(pNode) {
-        result := ComCall(35, this, "ptr", pNode, "HRESULT")
+        result := ComCall(35, this, "ptr", pNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the number of nodes in the topology.
      * @returns {Integer} Receives the number of nodes.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-getnodecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-getnodecount
      */
     GetNodeCount() {
-        result := ComCall(36, this, "ushort*", &pwNodes := 0, "HRESULT")
+        result := ComCall(36, this, "ushort*", &pwNodes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwNodes
     }
 
@@ -136,15 +156,21 @@ class IMFTopology extends IMFAttributes{
      * Gets a node in the topology, specified by index.
      * @param {Integer} wIndex The zero-based index of the node. To get the number of nodes in the topology, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopology-getnodecount">IMFTopology::GetNodeCount</a>.
      * @returns {IMFTopologyNode} Receives a pointer to the node's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface. The caller must release the pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-getnode
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-getnode
      */
     GetNode(wIndex) {
-        result := ComCall(37, this, "ushort", wIndex, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(37, this, "ushort", wIndex, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFTopologyNode(ppNode)
     }
 
     /**
      * Removes all nodes from the topology.
+     * @remarks
+     * You do not need to clear a topology before disposing of it. The <b>Clear</b> method is called automatically when the topology is destroyed.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -164,21 +190,43 @@ class IMFTopology extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-clear
      */
     Clear() {
-        result := ComCall(38, this, "HRESULT")
+        result := ComCall(38, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Converts this topology into a copy of another topology.
+     * @remarks
+     * This method does the following:
+     * 
+     * <ul>
+     * <li>Removes all of the nodes from this topology.
+     *           </li>
+     * <li>Clones the nodes from <i>pTopology</i> and adds them to this topology. The cloned nodes have the same node identifiers as the nodes from <i>pTopology</i>.
+     *           </li>
+     * <li>Connects the cloned nodes to match the connections in <i>pTopology</i>.
+     *           </li>
+     * <li>Copies the attributes from <i>pTopology</i> to this topology.
+     *           </li>
+     * <li>Copies the topology identifier from <i>pTopology</i> to this topology.</li>
+     * </ul>
      * @param {IMFTopology} pTopology A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the topology to clone.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-clonefrom
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-clonefrom
      */
     CloneFrom(pTopology) {
-        result := ComCall(39, this, "ptr", pTopology, "HRESULT")
+        result := ComCall(39, this, "ptr", pTopology, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,30 +234,42 @@ class IMFTopology extends IMFAttributes{
      * Gets a node in the topology, specified by node identifier.
      * @param {Integer} qwTopoNodeID The identifier of the node to retrieve. To get a node's identifier, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopologynode-gettoponodeid">IMFTopologyNode::GetTopoNodeID</a>.
      * @returns {IMFTopologyNode} Receives a pointer to the node's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-getnodebyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-getnodebyid
      */
     GetNodeByID(qwTopoNodeID) {
-        result := ComCall(40, this, "uint", qwTopoNodeID, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(40, this, "uint", qwTopoNodeID, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFTopologyNode(ppNode)
     }
 
     /**
      * Gets the source nodes in the topology.
      * @returns {IMFCollection} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface. The caller must release the pointer. The collection contains <b>IUnknown</b> pointers to all of the source nodes in the topology. Each pointer can be queried for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface. The collection might be empty.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-getsourcenodecollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-getsourcenodecollection
      */
     GetSourceNodeCollection() {
-        result := ComCall(41, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(41, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFCollection(ppCollection)
     }
 
     /**
      * Gets the output nodes in the topology.
      * @returns {IMFCollection} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfcollection">IMFCollection</a> interface. The caller must release the pointer. The collection contains <b>IUnknown</b> pointers to all of the output nodes in the topology. Each pointer can be queried for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface. The collection might be empty.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopology-getoutputnodecollection
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imftopology-getoutputnodecollection
      */
     GetOutputNodeCollection() {
-        result := ComCall(42, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(42, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFCollection(ppCollection)
     }
 }

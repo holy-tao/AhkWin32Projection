@@ -63,7 +63,11 @@ class IRTCBuddyGroupEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_EventType() {
-        result := ComCall(7, this, "int*", &pEventType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pEventType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEventType
     }
 
@@ -72,7 +76,11 @@ class IRTCBuddyGroupEvent extends IDispatch{
      * @returns {IRTCBuddyGroup} 
      */
     get_Group() {
-        result := ComCall(8, this, "ptr*", &ppGroup := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppGroup := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCBuddyGroup(ppGroup)
     }
 
@@ -81,7 +89,11 @@ class IRTCBuddyGroupEvent extends IDispatch{
      * @returns {IRTCBuddy2} 
      */
     get_Buddy() {
-        result := ComCall(9, this, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppBuddy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCBuddy2(ppBuddy)
     }
 
@@ -90,7 +102,11 @@ class IRTCBuddyGroupEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(10, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 }

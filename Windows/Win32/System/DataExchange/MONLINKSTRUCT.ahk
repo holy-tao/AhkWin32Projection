@@ -11,7 +11,7 @@
  * 
  * The 
  * 				<b>hConvClient</b> and <b>hConvServer</b> members of the <b>MONLINKSTRUCT</b> structure do not hold the same value as would be seen by the applications engaged in the conversation. Instead, they hold a globally unique pair of values that identify the conversation.
- * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monlinkstruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddeml/ns-ddeml-monlinkstruct
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319
  */

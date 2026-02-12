@@ -3,7 +3,7 @@
 
 /**
  * The PID\_MAP structure contains identifies the contents of an MPEG-2 transport stream packet ID.
- * @see https://learn.microsoft.com/windows/win32/DirectShow/pid-map
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/pid-map
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

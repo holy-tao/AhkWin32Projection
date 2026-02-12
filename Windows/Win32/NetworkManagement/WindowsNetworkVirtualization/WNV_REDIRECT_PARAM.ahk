@@ -11,7 +11,7 @@
  * (ICMP) redirect message to indicate a change in the virtual machine's provider address in the case of a live migration of a virtual machine.
  * 
  * For a detailed description of network virtualization concepts and terminology, refer to <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj134230(v=ws.11)">Hyper-V Network Virtualization Overview</a>.
- * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_redirect_param
+ * @see https://learn.microsoft.com/windows/win32/api//content/wnvapi/ns-wnvapi-wnv_redirect_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
  */

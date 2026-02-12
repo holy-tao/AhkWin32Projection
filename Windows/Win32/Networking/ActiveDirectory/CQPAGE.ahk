@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Used to define a query page added to a form in the query dialog box with the CQAddPagesProc callback function.
- * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-cqpage
+ * @see https://learn.microsoft.com/windows/win32/api//content/cmnquery/ns-cmnquery-cqpage
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -84,8 +85,11 @@ class CQPAGE extends Win32Struct
      * An extension-defined 32-bit value passed in the <b>lParam</b> member of the <b>CQPAGE</b> structure passed as the <i>pPage</i> parameter in  the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqpageproc">CQPageProc</a> callback function.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 }

@@ -34,7 +34,11 @@ class IHostFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     MarkToken(tk) {
-        result := ComCall(3, this, "uint", tk, "HRESULT")
+        result := ComCall(3, this, "uint", tk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

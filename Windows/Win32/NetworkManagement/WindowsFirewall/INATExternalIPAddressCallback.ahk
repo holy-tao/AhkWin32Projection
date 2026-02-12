@@ -6,7 +6,7 @@
 
 /**
  * The INATExternalIPAddressCallback interface is implemented by the NAT application with UPnP technology. It provides a method that the system calls if the external IP address of the NAT computer changes.
- * @see https://docs.microsoft.com/windows/win32/api//natupnp/nn-natupnp-inatexternalipaddresscallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/natupnp/nn-natupnp-inatexternalipaddresscallback
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class INATExternalIPAddressCallback extends IUnknown{
 
     /**
      * The system calls the NewExternalIPAddress method if the external IP address of the NAT computer changes.
+     * @remarks
+     * One reason why the external IP address of the NAT computer could change would be the IP address is allocated through DHCP, and the DHCP lease expired.
      * @param {BSTR} bstrNewExternalIPAddress Specifies a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that contains the new external IP address.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
@@ -133,12 +135,19 @@ class INATExternalIPAddressCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-inatexternalipaddresscallback-newexternalipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/natupnp/nf-natupnp-inatexternalipaddresscallback-newexternalipaddress
      */
     NewExternalIPAddress(bstrNewExternalIPAddress) {
-        bstrNewExternalIPAddress := bstrNewExternalIPAddress is String ? BSTR.Alloc(bstrNewExternalIPAddress).Value : bstrNewExternalIPAddress
+        if(bstrNewExternalIPAddress is String) {
+            pin := BSTR.Alloc(bstrNewExternalIPAddress)
+            bstrNewExternalIPAddress := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrNewExternalIPAddress, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrNewExternalIPAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

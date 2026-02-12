@@ -5,7 +5,7 @@
  * Holds target information.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_target
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-secpkgcontext_target
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

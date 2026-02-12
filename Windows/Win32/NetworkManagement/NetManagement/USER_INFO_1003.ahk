@@ -5,7 +5,7 @@
  * The USER_INFO_1003 structure contains a user password. This information level is valid only when you call the NetUserSetInfo function.
  * @remarks
  * By convention, the length of passwords is limited to LM20_PWLEN characters.
- * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1003
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmaccess/ns-lmaccess-user_info_1003
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

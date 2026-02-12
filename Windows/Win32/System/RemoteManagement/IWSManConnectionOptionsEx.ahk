@@ -6,7 +6,7 @@
 
 /**
  * The IWSManConnectionOptionsEx object is passed to the IWSMan::CreateSession method to provide the thumbprint of the client certificate used for authentication.
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanconnectionoptionsex
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nn-wsmandisp-iwsmanconnectionoptionsex
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -40,26 +40,37 @@ class IWSManConnectionOptionsEx extends IWSManConnectionOptions{
     }
 
     /**
-     * Sets or gets the certificate thumbprint to use when authenticating by using client certificate authentication.
+     * Sets or gets the certificate thumbprint to use when authenticating by using client certificate authentication. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-get_certificatethumbprint
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-get_certificatethumbprint
      */
     get_CertificateThumbprint() {
         thumbprint := BSTR()
-        result := ComCall(10, this, "ptr", thumbprint, "HRESULT")
+        result := ComCall(10, this, "ptr", thumbprint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return thumbprint
     }
 
     /**
-     * Sets or gets the certificate thumbprint to use when authenticating by using client certificate authentication.
+     * Sets or gets the certificate thumbprint to use when authenticating by using client certificate authentication. (Put)
      * @param {BSTR} thumbprint 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-put_certificatethumbprint
+     * @see https://learn.microsoft.com/windows/win32/api//content/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex-put_certificatethumbprint
      */
     put_CertificateThumbprint(thumbprint) {
-        thumbprint := thumbprint is String ? BSTR.Alloc(thumbprint).Value : thumbprint
+        if(thumbprint is String) {
+            pin := BSTR.Alloc(thumbprint)
+            thumbprint := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", thumbprint, "HRESULT")
+        result := ComCall(11, this, "ptr", thumbprint, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

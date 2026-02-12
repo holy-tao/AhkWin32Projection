@@ -42,7 +42,7 @@
  * session that uses 32KB buffers will not be able to accept any event larger than
  * 32,696 bytes (32,768-byte buffer minus the 72-byte header leaves 32,696 bytes
  * for events).
- * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_data_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntprov/ns-evntprov-event_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

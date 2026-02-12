@@ -5,7 +5,7 @@
 
 /**
  * Supplies methods that provide information about the handler to methods of the IHandlerActivationHost interface.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ihandlerinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ihandlerinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IHandlerInfo extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A pointer to a string that, when this method returns successfully, receives the display name. If no display name could be found, the name of the application's .exe file is used.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationdisplayname
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationdisplayname
      */
     GetApplicationDisplayName() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -47,10 +51,14 @@ class IHandlerInfo extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A pointer to a string that, when this method returns successfully, receives the publisher's name.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationpublisher
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationpublisher
      */
     GetApplicationPublisher() {
-        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -59,10 +67,14 @@ class IHandlerInfo extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * A pointer to a string that, when this method returns successfully, receives the path of the icon.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationiconreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationiconreference
      */
     GetApplicationIconReference() {
-        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

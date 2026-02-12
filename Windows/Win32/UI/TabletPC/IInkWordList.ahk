@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkwordlist
+ * . (IInkWordList)
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkwordlist
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IInkWordList extends IDispatch{
 
     /**
      * Adds a single word to the InkWordList object.
+     * @remarks
+     * If a string is added to a word list, its capitalized versions are also implicitly added. For instance, adding "hello" implicitly adds "Hello" and "HELLO".
      * @param {BSTR} NewWord The word to add to an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkwordlist-class">InkWordList</a> object. The word is not added if it already exists in the list.
      * 
      * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
@@ -110,17 +112,26 @@ class IInkWordList extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkwordlist-addword
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkwordlist-addword
      */
     AddWord(NewWord) {
-        NewWord := NewWord is String ? BSTR.Alloc(NewWord).Value : NewWord
+        if(NewWord is String) {
+            pin := BSTR.Alloc(NewWord)
+            NewWord := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", NewWord, "HRESULT")
+        result := ComCall(7, this, "ptr", NewWord, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes a single word from an InkWordList.
+     * @remarks
+     * If a string is added to a word list, its capitalized versions are also implicitly added. For instance, adding "hello" implicitly adds "Hello" and "HELLO". Therefore, removing "hello" also implicitly removes "Hello" and "HELLO". However, if you add "hello" and then try to remove "Hello", the <b>RemoveWord</b> call has no effect, because "Hello" was never explicitly added.
      * @param {BSTR} RemoveWord The word to remove from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkwordlist-class">InkWordList</a>.
      * 
      * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
@@ -187,12 +198,19 @@ class IInkWordList extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkwordlist-removeword
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkwordlist-removeword
      */
     RemoveWord(RemoveWord) {
-        RemoveWord := RemoveWord is String ? BSTR.Alloc(RemoveWord).Value : RemoveWord
+        if(RemoveWord is String) {
+            pin := BSTR.Alloc(RemoveWord)
+            RemoveWord := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", RemoveWord, "HRESULT")
+        result := ComCall(8, this, "ptr", RemoveWord, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -262,10 +280,14 @@ class IInkWordList extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkwordlist-merge
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkwordlist-merge
      */
     Merge(MergeWordList) {
-        result := ComCall(9, this, "ptr", MergeWordList, "HRESULT")
+        result := ComCall(9, this, "ptr", MergeWordList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

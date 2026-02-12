@@ -6,11 +6,8 @@
 /**
  * The IMSVidClosedCaptioning2 interface sets the closed captioning service, such as CC1 or CC2. The MSVidClosedCaptioning feature exposes this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidclosedcaptioning2
+ * @see https://learn.microsoft.com/windows/win32/api//content/segment/nn-segment-imsvidclosedcaptioning2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -46,10 +43,14 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning{
     /**
      * The get_Service method retrieves the current closed captioning service.
      * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/segment/ne-segment-msvidccservice">MSVidCCService</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning2-get_service
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidclosedcaptioning2-get_service
      */
     get_Service() {
-        result := ComCall(18, this, "int*", &On := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &On := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return On
     }
 
@@ -75,10 +76,14 @@ class IMSVidClosedCaptioning2 extends IMSVidClosedCaptioning{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning2-put_service
+     * @see https://learn.microsoft.com/windows/win32/api//content/segment/nf-segment-imsvidclosedcaptioning2-put_service
      */
     put_Service(On) {
-        result := ComCall(19, this, "int", On, "HRESULT")
+        result := ComCall(19, this, "int", On, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

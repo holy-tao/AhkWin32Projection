@@ -27,7 +27,7 @@ class Threading {
      * @returns {NTSTATUS} The function returns an NTSTATUS success or error code. 
      * 
      * The forms and significance of NTSTATUS error codes are listed in the Ntstatus.h header file available in the DDK. See [Logging Errors](/windows-hardware/drivers/kernel/logging-errors) for more details.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntqueryinformationprocess
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-ntqueryinformationprocess
      */
     static NtQueryInformationProcess(ProcessHandle, ProcessInformationClass, ProcessInformation, ProcessInformationLength, ReturnLength) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
@@ -151,7 +151,7 @@ class Threading {
      * @returns {NTSTATUS} Returns an NTSTATUS success or error code.
      * 
      * The forms and significance of NTSTATUS error codes are listed in the Ntstatus.h header file available in the DDK, and are described in the DDK documentation under Kernel-Mode Driver Architecture / Design Guide / Driver Programming Techniques / Logging Errors.
-     * @see https://learn.microsoft.com/windows/win32/ProcThread/zwqueryinformationprocess
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/ProcThread/zwqueryinformationprocess
      */
     static ZwQueryInformationProcess(ProcessHandle, ProcessInformationClass, ProcessInformation, ProcessInformationLength, ReturnLength) {
         ProcessHandle := ProcessHandle is Win32Handle ? NumGet(ProcessHandle, "ptr") : ProcessHandle
@@ -189,7 +189,7 @@ class Threading {
      * @returns {NTSTATUS} Returns an NTSTATUS success or error code. 
      * 
      * The forms and significance of NTSTATUS error codes are listed in the Ntstatus.h header file available in the DDK, and are described in the DDK documentation under Kernel-Mode Driver Architecture / Design Guide / Driver Programming Techniques / Logging Errors.
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntqueryinformationthread
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-ntqueryinformationthread
      */
     static NtQueryInformationThread(ThreadHandle, ThreadInformationClass, ThreadInformation, ThreadInformationLength, ReturnLength) {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
@@ -239,7 +239,7 @@ class Threading {
      * Deprecated. Waits until the specified object attains a state of signaled. NtWaitForSingleObject is superseded by WaitForSingleObject.
      * @remarks
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HANDLE} Handle The handle to the wait object.
+     * @param {HANDLE} Handle_ The handle to the wait object.
      * @param {BOOLEAN} Alertable Specifies whether an alert can be delivered when the object is waiting.
      * @param {Pointer<Integer>} Timeout A pointer to an absolute or relative time over
      *         which the wait is to occur. Can be null. If a timeout is specified, and
@@ -302,14 +302,14 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-ntwaitforsingleobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/winternl/nf-winternl-ntwaitforsingleobject
      */
-    static NtWaitForSingleObject(Handle, Alertable, Timeout) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static NtWaitForSingleObject(Handle_, Alertable, Timeout) {
+        Handle_ := Handle_ is Win32Handle ? NumGet(Handle_, "ptr") : Handle_
 
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\NtWaitForSingleObject", "ptr", Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        result := DllCall("ntdll.dll\NtWaitForSingleObject", "ptr", Handle_, "char", Alertable, TimeoutMarshal, Timeout, "int")
         return result
     }
 
@@ -417,17 +417,17 @@ class Threading {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} Handle_ 
      * @param {BOOLEAN} Alertable 
      * @param {Pointer<Integer>} Timeout 
      * @returns {NTSTATUS} 
      */
-    static ZwWaitForSingleObject(Handle, Alertable, Timeout) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static ZwWaitForSingleObject(Handle_, Alertable, Timeout) {
+        Handle_ := Handle_ is Win32Handle ? NumGet(Handle_, "ptr") : Handle_
 
         TimeoutMarshal := Timeout is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("ntdll.dll\ZwWaitForSingleObject", "ptr", Handle, "char", Alertable, TimeoutMarshal, Timeout, "int")
+        result := DllCall("ntdll.dll\ZwWaitForSingleObject", "ptr", Handle_, "char", Alertable, TimeoutMarshal, Timeout, "int")
         return result
     }
 

@@ -6,7 +6,7 @@
 
 /**
  * Provides access to the operating system handle of a storage file.
- * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nn-windowsstoragecom-istorageitemhandleaccess
+ * @see https://learn.microsoft.com/windows/win32/api//content/windowsstoragecom/nn-windowsstoragecom-istorageitemhandleaccess
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */
@@ -38,11 +38,15 @@ class IStorageItemHandleAccess extends IUnknown{
      * @param {Integer} options The flags of the file handle.
      * @param {IOplockBreakingHandler} oplockBreakingHandler Not currently implemented.
      * @returns {HANDLE} The handle to the file.
-     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create
      */
     Create(accessOptions, sharingOptions, options, oplockBreakingHandler) {
         interopHandle := HANDLE()
-        result := ComCall(3, this, "int", accessOptions, "int", sharingOptions, "uint", options, "ptr", oplockBreakingHandler, "ptr", interopHandle, "HRESULT")
+        result := ComCall(3, this, "int", accessOptions, "int", sharingOptions, "uint", options, "ptr", oplockBreakingHandler, "ptr", interopHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return interopHandle
     }
 }

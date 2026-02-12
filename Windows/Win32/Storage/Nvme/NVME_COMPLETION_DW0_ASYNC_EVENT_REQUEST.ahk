@@ -5,7 +5,7 @@
  * Contains information about an asynchronous event that is posted to the Admin Completion Queue in DWord 0 of a Completion Queue Entry. Asynchronous events are used to notify the host software of status, error, and health information.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_dw0_async_event_request
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_completion_dw0_async_event_request
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

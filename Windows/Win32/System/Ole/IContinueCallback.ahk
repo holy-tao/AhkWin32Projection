@@ -5,7 +5,7 @@
 
 /**
  * Provides a generic callback mechanism for interruptible processes that should periodically ask an object whether to continue.
- * @see https://docs.microsoft.com/windows/win32/api//docobj/nn-docobj-icontinuecallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nn-docobj-icontinuecallback
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -62,15 +62,21 @@ class IContinueCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-icontinuecallback-fcontinue
+     * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nf-docobj-icontinuecallback-fcontinue
      */
     FContinue() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether a lengthy printing operation should continue.
+     * @remarks
+     * Implementations of <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iprint-print">IPrint::Print</a> call this method at periodic intervals during the printing process. The <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nn-docobj-iprint">IPrint</a> implementation should call back at least after printing each page, so that its client can, if necessary, display useful visual feedback to the user. <b>IPrint::Print</b> can call back multiple times with the same <i>nCntPrinted</i> and <i>nCurPage</i> values, which is sometimes useful when a page being printed is complex and it is appropriate to give a user an opportunity to cancel in mid-page.
      * @param {Integer} nCntPrinted The total number of pages that have been printed at the time the object receives a call to <b>FContinuePrinting</b>.
      * @param {Integer} nCurPage The page number of the page being printed at the time the object receives a call to <b>FContinuePrinting</b>.
      * @param {PWSTR} pwszPrintStatus A pointer to the message about the current status of the print job. The object being printed may or may not display this message to the user. This parameter can be <b>NULL</b>.
@@ -104,12 +110,16 @@ class IContinueCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//docobj/nf-docobj-icontinuecallback-fcontinueprinting
+     * @see https://learn.microsoft.com/windows/win32/api//content/docobj/nf-docobj-icontinuecallback-fcontinueprinting
      */
     FContinuePrinting(nCntPrinted, nCurPage, pwszPrintStatus) {
         pwszPrintStatus := pwszPrintStatus is String ? StrPtr(pwszPrintStatus) : pwszPrintStatus
 
-        result := ComCall(4, this, "int", nCntPrinted, "int", nCurPage, "ptr", pwszPrintStatus, "HRESULT")
+        result := ComCall(4, this, "int", nCntPrinted, "int", nCurPage, "ptr", pwszPrintStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

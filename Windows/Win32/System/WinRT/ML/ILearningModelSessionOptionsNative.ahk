@@ -34,7 +34,11 @@ class ILearningModelSessionOptionsNative extends IUnknown{
      * @returns {HRESULT} 
      */
     SetIntraOpNumThreadsOverride(intraOpNumThreads) {
-        result := ComCall(3, this, "uint", intraOpNumThreads, "HRESULT")
+        result := ComCall(3, this, "uint", intraOpNumThreads, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

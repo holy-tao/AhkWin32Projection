@@ -11,7 +11,7 @@
  * 
  * To register as an interface provider, an NDIS driver calls the 
  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndis/nf-ndis-ndisifregisterprovider">NdisIfRegisterProvider</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-ndis_interface_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/ifdef/ns-ifdef-ndis_interface_information
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

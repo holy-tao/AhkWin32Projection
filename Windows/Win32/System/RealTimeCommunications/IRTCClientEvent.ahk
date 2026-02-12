@@ -48,7 +48,11 @@ class IRTCClientEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_EventType() {
-        result := ComCall(7, this, "int*", &penEventType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &penEventType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penEventType
     }
 
@@ -57,7 +61,11 @@ class IRTCClientEvent extends IDispatch{
      * @returns {IRTCClient} 
      */
     get_Client() {
-        result := ComCall(8, this, "ptr*", &ppClient := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppClient := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCClient(ppClient)
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The ITPluggableTerminalClassInfo interface exposes methods that allow the application to retrieve information concerning a pluggable terminal.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itpluggableterminalclassinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itpluggableterminalclassinfo
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -81,85 +81,113 @@ class ITPluggableTerminalClassInfo extends IDispatch{
     }
 
     /**
-     * The get_Name method gets the terminal's friendly name.
+     * The get_Name method gets the terminal's friendly name. (ITPluggableTerminalClassInfo.get_Name)
      * @returns {BSTR} The <b>BSTR</b> representation of the terminal's friendly name. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_name
      */
     get_Name() {
         pName := BSTR()
-        result := ComCall(7, this, "ptr", pName, "HRESULT")
+        result := ComCall(7, this, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pName
     }
 
     /**
-     * The get_Company method gets the name of the company that issued this pluggable terminal.
+     * The get_Company method gets the name of the company that issued this pluggable terminal. (ITPluggableTerminalClassInfo.get_Company)
      * @returns {BSTR} The <b>BSTR</b> representation of the terminal's company name. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_company
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_company
      */
     get_Company() {
         pCompany := BSTR()
-        result := ComCall(8, this, "ptr", pCompany, "HRESULT")
+        result := ComCall(8, this, "ptr", pCompany, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCompany
     }
 
     /**
-     * The get_Version method gets the terminal version.
+     * The get_Version method gets the terminal version. (ITPluggableTerminalClassInfo.get_Version)
      * @returns {BSTR} The <b>BSTR</b> representation of the terminal version. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_version
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_version
      */
     get_Version() {
         pVersion := BSTR()
-        result := ComCall(9, this, "ptr", pVersion, "HRESULT")
+        result := ComCall(9, this, "ptr", pVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVersion
     }
 
     /**
-     * The get_TerminalClass method gets the terminal's terminal class.
+     * The get_TerminalClass method gets the terminal's terminal class. (ITPluggableTerminalClassInfo.get_TerminalClass)
      * @returns {BSTR} The <b>BSTR</b> representation of the terminal's 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/terminal-class">terminal class</a>. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. It should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_terminalclass
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_terminalclass
      */
     get_TerminalClass() {
         pTerminalClass := BSTR()
-        result := ComCall(10, this, "ptr", pTerminalClass, "HRESULT")
+        result := ComCall(10, this, "ptr", pTerminalClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTerminalClass
     }
 
     /**
-     * The get_CLSID method gets the CLSID used to CoCreateInstance the terminal.
+     * The get_CLSID method gets the CLSID used to CoCreateInstance the terminal. (ITPluggableTerminalClassInfo.get_CLSID)
      * @returns {BSTR} The <b>BSTR</b> representation of the CLSID. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_clsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_clsid
      */
     get_CLSID() {
         pCLSID := BSTR()
-        result := ComCall(11, this, "ptr", pCLSID, "HRESULT")
+        result := ComCall(11, this, "ptr", pCLSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCLSID
     }
 
     /**
-     * The get_Direction method gets the direction supported by the terminal.
+     * The get_Direction method gets the direction supported by the terminal. (ITPluggableTerminalClassInfo.get_Direction)
      * @returns {Integer} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the direction supported by the terminal.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_direction
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_direction
      */
     get_Direction() {
-        result := ComCall(12, this, "int*", &pDirection := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pDirection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDirection
     }
 
     /**
-     * The get_MediaTypes method gets the media types supported by the terminal.
+     * The get_MediaTypes method gets the media types supported by the terminal. (ITPluggableTerminalClassInfo.get_MediaTypes)
      * @returns {Integer} Bitwise ORed list of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> supported by the terminal.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_mediatypes
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_mediatypes
      */
     get_MediaTypes() {
-        result := ComCall(13, this, "int*", &pMediaTypes := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pMediaTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMediaTypes
     }
 }

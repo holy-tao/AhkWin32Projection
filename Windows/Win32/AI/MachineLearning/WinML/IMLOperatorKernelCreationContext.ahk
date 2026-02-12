@@ -75,7 +75,11 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes{
      */
     GetInputEdgeDescription(inputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return edgeDescription
     }
 
@@ -86,7 +90,11 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes{
      */
     GetOutputEdgeDescription(outputIndex) {
         edgeDescription := MLOperatorEdgeDescription()
-        result := ComCall(12, this, "uint", outputIndex, "ptr", edgeDescription, "HRESULT")
+        result := ComCall(12, this, "uint", outputIndex, "ptr", edgeDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return edgeDescription
     }
 
@@ -101,11 +109,15 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes{
 
     /**
      * 
-     * @returns {IMLOperatorTensorShapeDescription} 
+     * @returns {Pointer<IMLOperatorTensorShapeDescription>} 
      */
     GetTensorShapeDescription() {
-        result := ComCall(14, this, "ptr*", &shapeDescription := 0, "HRESULT")
-        return IMLOperatorTensorShapeDescription(shapeDescription)
+        result := ComCall(14, this, "ptr*", &shapeDescription := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return shapeDescription
     }
 
     /**

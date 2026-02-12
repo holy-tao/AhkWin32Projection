@@ -3,7 +3,7 @@
 
 /**
  * The WMDMDATETIME structure contains a date and time of day.
- * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmdatetime
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/WMDM/wmdmdatetime
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

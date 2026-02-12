@@ -5,7 +5,7 @@
  * Specifies the size, in bytes, and the offset of a block of biometric information.
  * @remarks
  * The use of offsets rather than pointers allows for easy serialization of the BIR and for less complicated translation between 32 and 64-bit environments or between user and kernel mode.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir-data
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-bir-data
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

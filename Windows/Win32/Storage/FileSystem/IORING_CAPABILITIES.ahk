@@ -5,7 +5,7 @@
  * Represents the IORING API capabilities.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/ioringapi/ns-ioringapi-ioring_capabilities
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -8,7 +8,7 @@
  * 
  * > [!Note]  
  * > WPD applications must use the capabilities of the portable device to determine functionally, not the **WPD\_DEVICE\_TYPES** value.
- * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-device-types
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wpd_sdk/wpd-device-types
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */

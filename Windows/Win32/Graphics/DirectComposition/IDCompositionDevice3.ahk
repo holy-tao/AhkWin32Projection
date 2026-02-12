@@ -17,8 +17,8 @@
 #Include .\IDCompositionDevice2.ahk
 
 /**
- * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiondevice3
+ * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice3)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nn-dcomp-idcompositiondevice3
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -48,10 +48,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionGaussianBlurEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiongaussianblureffect">IDCompositionGaussianBlurEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiongaussianblureffect">IDCompositionGaussianBlurEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-creategaussianblureffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-creategaussianblureffect
      */
     CreateGaussianBlurEffect() {
-        result := ComCall(24, this, "ptr*", &gaussianBlurEffect := 0, "HRESULT")
+        result := ComCall(24, this, "ptr*", &gaussianBlurEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionGaussianBlurEffect(gaussianBlurEffect)
     }
 
@@ -60,23 +64,29 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionBrightnessEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionbrightnesseffect">IDCompositionBrightnessEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionbrightnesseffect">IDCompositionBrightnessEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createbrightnesseffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createbrightnesseffect
      */
     CreateBrightnessEffect() {
-        result := ComCall(25, this, "ptr*", &brightnessEffect := 0, "HRESULT")
+        result := ComCall(25, this, "ptr*", &brightnessEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionBrightnessEffect(brightnessEffect)
     }
 
     /**
      * Creates an instance of IDCompositionColorMatrixEffect.
-     * @returns {IDCompositionColorMatrixEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect">IDCompositionColorMatrixEffect</a>**</b>
-     * 
-     * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect">IDCompositionColorMatrixEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createcolormatrixeffect
+     * @returns {IDCompositionColorMatrixEffect} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createcolormatrixeffect
      */
     CreateColorMatrixEffect() {
-        result := ComCall(26, this, "ptr*", &colorMatrixEffect := 0, "HRESULT")
-        return IDCompositionColorMatrixEffect(colorMatrixEffect)
+        result := ComCall(26, this, "ptr*", &colorMatrixEffect_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IDCompositionColorMatrixEffect(colorMatrixEffect_)
     }
 
     /**
@@ -84,10 +94,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionShadowEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionshadoweffect">IDCompositionShadowEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionshadoweffect">IDCompositionShadowEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createshadoweffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createshadoweffect
      */
     CreateShadowEffect() {
-        result := ComCall(27, this, "ptr*", &shadowEffect := 0, "HRESULT")
+        result := ComCall(27, this, "ptr*", &shadowEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionShadowEffect(shadowEffect)
     }
 
@@ -96,10 +110,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionHueRotationEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionhuerotationeffect">IDCompositionHueRotationEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionhuerotationeffect">IDCompositionHueRotationEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createhuerotationeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createhuerotationeffect
      */
     CreateHueRotationEffect() {
-        result := ComCall(28, this, "ptr*", &hueRotationEffect := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &hueRotationEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionHueRotationEffect(hueRotationEffect)
     }
 
@@ -108,10 +126,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionSaturationEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionsaturationeffect">IDCompositionSaturationEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionsaturationeffect">IDCompositionSaturationEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createsaturationeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createsaturationeffect
      */
     CreateSaturationEffect() {
-        result := ComCall(29, this, "ptr*", &saturationEffect := 0, "HRESULT")
+        result := ComCall(29, this, "ptr*", &saturationEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionSaturationEffect(saturationEffect)
     }
 
@@ -120,10 +142,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionTurbulenceEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionturbulenceeffect">IDCompositionTurbulenceEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionturbulenceeffect">IDCompositionTurbulenceEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createturbulenceeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createturbulenceeffect
      */
     CreateTurbulenceEffect() {
-        result := ComCall(30, this, "ptr*", &turbulenceEffect := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &turbulenceEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionTurbulenceEffect(turbulenceEffect)
     }
 
@@ -132,10 +158,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionLinearTransferEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionlineartransfereffect">IDCompositionLinearTransferEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionlineartransfereffect">IDCompositionLinearTransferEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createlineartransfereffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createlineartransfereffect
      */
     CreateLinearTransferEffect() {
-        result := ComCall(31, this, "ptr*", &linearTransferEffect := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &linearTransferEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionLinearTransferEffect(linearTransferEffect)
     }
 
@@ -144,10 +174,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionTableTransferEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontabletransfereffect">IDCompositionTableTransferEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontabletransfereffect">IDCompositionTableTransferEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createtabletransfereffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createtabletransfereffect
      */
     CreateTableTransferEffect() {
-        result := ComCall(32, this, "ptr*", &tableTransferEffect := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &tableTransferEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionTableTransferEffect(tableTransferEffect)
     }
 
@@ -156,10 +190,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionCompositeEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncompositeeffect">IDCompositionCompositeEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncompositeeffect">IDCompositionCompositeEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createcompositeeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createcompositeeffect
      */
     CreateCompositeEffect() {
-        result := ComCall(33, this, "ptr*", &compositeEffect := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &compositeEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionCompositeEffect(compositeEffect)
     }
 
@@ -168,10 +206,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionBlendEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionblendeffect">IDCompositionBlendEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionblendeffect">IDCompositionBlendEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createblendeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createblendeffect
      */
     CreateBlendEffect() {
-        result := ComCall(34, this, "ptr*", &blendEffect := 0, "HRESULT")
+        result := ComCall(34, this, "ptr*", &blendEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionBlendEffect(blendEffect)
     }
 
@@ -180,10 +222,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionArithmeticCompositeEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionarithmeticcompositeeffect">IDCompositionArithmeticCompositeEffect</a>**</b>
      * 
      * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionarithmeticcompositeeffect">IDCompositionArithmeticCompositeEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createarithmeticcompositeeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createarithmeticcompositeeffect
      */
     CreateArithmeticCompositeEffect() {
-        result := ComCall(35, this, "ptr*", &arithmeticCompositeEffect := 0, "HRESULT")
+        result := ComCall(35, this, "ptr*", &arithmeticCompositeEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionArithmeticCompositeEffect(arithmeticCompositeEffect)
     }
 
@@ -192,10 +238,14 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
      * @returns {IDCompositionAffineTransform2DEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionaffinetransform2deffect">IDCompositionAffineTransform2DEffect</a>**</b>
      * 
      * Recieves the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionaffinetransform2deffect">IDCompositionAffineTransform2DEffect</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevice3-createaffinetransform2deffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/dcomp/nf-dcomp-idcompositiondevice3-createaffinetransform2deffect
      */
     CreateAffineTransform2DEffect() {
-        result := ComCall(36, this, "ptr*", &affineTransform2dEffect := 0, "HRESULT")
+        result := ComCall(36, this, "ptr*", &affineTransform2dEffect := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDCompositionAffineTransform2DEffect(affineTransform2dEffect)
     }
 }

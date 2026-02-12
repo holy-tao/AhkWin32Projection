@@ -30,207 +30,334 @@ class IFeedFolderEvents extends IDispatch{
     static VTableNames => ["Error", "FolderAdded", "FolderDeleted", "FolderRenamed", "FolderMovedFrom", "FolderMovedTo", "FolderItemCountChanged", "FeedAdded", "FeedDeleted", "FeedRenamed", "FeedUrlChanged", "FeedMovedFrom", "FeedMovedTo", "FeedDownloading", "FeedDownloadCompleted", "FeedItemCountChanged"]
 
     /**
-     * Indicates a significant problem.
+     * The Error event occurs when the Windows Media Player control has an error condition.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//timeprov/nc-timeprov-logtimeproveventfunc
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/axwmplib-axwindowsmediaplayer-error
      */
     Error() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FolderAdded(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FolderAdded(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", path, "HRESULT")
+        result := ComCall(8, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FolderDeleted(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FolderDeleted(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", path, "HRESULT")
+        result := ComCall(9, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FolderRenamed(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FolderRenamed(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(10, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FolderMovedFrom(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FolderMovedFrom(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(11, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FolderMovedTo(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FolderMovedTo(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(12, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 
      */
-    FolderItemCountChanged(path, itemCountType) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FolderItemCountChanged(path_, itemCountType) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", path, "int", itemCountType, "HRESULT")
+        result := ComCall(13, this, "ptr", path_, "int", itemCountType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedAdded(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedAdded(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", path, "HRESULT")
+        result := ComCall(14, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedDeleted(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedDeleted(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", path, "HRESULT")
+        result := ComCall(15, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FeedRenamed(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FeedRenamed(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(16, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedUrlChanged(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedUrlChanged(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(17, this, "ptr", path, "HRESULT")
+        result := ComCall(17, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FeedMovedFrom(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FeedMovedFrom(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(18, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {BSTR} oldPath 
      * @returns {HRESULT} 
      */
-    FeedMovedTo(path, oldPath) {
-        path := path is String ? BSTR.Alloc(path).Value : path
-        oldPath := oldPath is String ? BSTR.Alloc(oldPath).Value : oldPath
+    FeedMovedTo(path_, oldPath) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
+        if(oldPath is String) {
+            pin := BSTR.Alloc(oldPath)
+            oldPath := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", path, "ptr", oldPath, "HRESULT")
+        result := ComCall(19, this, "ptr", path_, "ptr", oldPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @returns {HRESULT} 
      */
-    FeedDownloading(path) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedDownloading(path_) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", path, "HRESULT")
+        result := ComCall(20, this, "ptr", path_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {Integer} error 
      * @returns {HRESULT} 
      */
-    FeedDownloadCompleted(path, error) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedDownloadCompleted(path_, error) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", path, "int", error, "HRESULT")
+        result := ComCall(21, this, "ptr", path_, "int", error, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {BSTR} path 
+     * @param {BSTR} path_ 
      * @param {Integer} itemCountType 
      * @returns {HRESULT} 
      */
-    FeedItemCountChanged(path, itemCountType) {
-        path := path is String ? BSTR.Alloc(path).Value : path
+    FeedItemCountChanged(path_, itemCountType) {
+        if(path_ is String) {
+            pin := BSTR.Alloc(path_)
+            path_ := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", path, "int", itemCountType, "HRESULT")
+        result := ComCall(22, this, "ptr", path_, "int", itemCountType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

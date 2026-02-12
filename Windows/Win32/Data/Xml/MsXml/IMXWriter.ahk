@@ -100,7 +100,11 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_output(varDestination) {
-        result := ComCall(7, this, "ptr", varDestination, "HRESULT")
+        result := ComCall(7, this, "ptr", varDestination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +114,11 @@ class IMXWriter extends IDispatch{
      */
     get_output() {
         varDestination := VARIANT()
-        result := ComCall(8, this, "ptr", varDestination, "HRESULT")
+        result := ComCall(8, this, "ptr", varDestination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varDestination
     }
 
@@ -120,9 +128,16 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_encoding(strEncoding) {
-        strEncoding := strEncoding is String ? BSTR.Alloc(strEncoding).Value : strEncoding
+        if(strEncoding is String) {
+            pin := BSTR.Alloc(strEncoding)
+            strEncoding := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", strEncoding, "HRESULT")
+        result := ComCall(9, this, "ptr", strEncoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +147,11 @@ class IMXWriter extends IDispatch{
      */
     get_encoding() {
         strEncoding := BSTR()
-        result := ComCall(10, this, "ptr", strEncoding, "HRESULT")
+        result := ComCall(10, this, "ptr", strEncoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strEncoding
     }
 
@@ -142,7 +161,11 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_byteOrderMark(fWriteByteOrderMark) {
-        result := ComCall(11, this, "short", fWriteByteOrderMark, "HRESULT")
+        result := ComCall(11, this, "short", fWriteByteOrderMark, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -151,7 +174,11 @@ class IMXWriter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_byteOrderMark() {
-        result := ComCall(12, this, "short*", &fWriteByteOrderMark := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &fWriteByteOrderMark := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fWriteByteOrderMark
     }
 
@@ -161,7 +188,11 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_indent(fIndentMode) {
-        result := ComCall(13, this, "short", fIndentMode, "HRESULT")
+        result := ComCall(13, this, "short", fIndentMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,7 +201,11 @@ class IMXWriter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_indent() {
-        result := ComCall(14, this, "short*", &fIndentMode := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &fIndentMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fIndentMode
     }
 
@@ -180,7 +215,11 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_standalone(fValue) {
-        result := ComCall(15, this, "short", fValue, "HRESULT")
+        result := ComCall(15, this, "short", fValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +228,11 @@ class IMXWriter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_standalone() {
-        result := ComCall(16, this, "short*", &fValue := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &fValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fValue
     }
 
@@ -199,7 +242,11 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_omitXMLDeclaration(fValue) {
-        result := ComCall(17, this, "short", fValue, "HRESULT")
+        result := ComCall(17, this, "short", fValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +255,11 @@ class IMXWriter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_omitXMLDeclaration() {
-        result := ComCall(18, this, "short*", &fValue := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &fValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fValue
     }
 
@@ -218,9 +269,16 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_version(strVersion) {
-        strVersion := strVersion is String ? BSTR.Alloc(strVersion).Value : strVersion
+        if(strVersion is String) {
+            pin := BSTR.Alloc(strVersion)
+            strVersion := pin.Value
+        }
 
-        result := ComCall(19, this, "ptr", strVersion, "HRESULT")
+        result := ComCall(19, this, "ptr", strVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +288,11 @@ class IMXWriter extends IDispatch{
      */
     get_version() {
         strVersion := BSTR()
-        result := ComCall(20, this, "ptr", strVersion, "HRESULT")
+        result := ComCall(20, this, "ptr", strVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strVersion
     }
 
@@ -240,7 +302,11 @@ class IMXWriter extends IDispatch{
      * @returns {HRESULT} 
      */
     put_disableOutputEscaping(fValue) {
-        result := ComCall(21, this, "short", fValue, "HRESULT")
+        result := ComCall(21, this, "short", fValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -249,16 +315,25 @@ class IMXWriter extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_disableOutputEscaping() {
-        result := ComCall(22, this, "short*", &fValue := 0, "HRESULT")
+        result := ComCall(22, this, "short*", &fValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fValue
     }
 
     /**
-     * 
+     * Flushes the internal buffers for the log files.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Http/flush-logbuffer
      */
     flush() {
-        result := ComCall(23, this, "HRESULT")
+        result := ComCall(23, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

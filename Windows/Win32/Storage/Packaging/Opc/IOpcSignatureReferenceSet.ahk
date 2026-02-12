@@ -8,7 +8,6 @@
 /**
  * An unordered set of IOpcSignatureReference interface pointers that represent references to XML elements to be signed.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceset-create">Create</a> method creates a reference to an application-specific <b>Object</b> element or a child of an application-specific <b>Object</b> that is signed when the signature is generated. <b>Create</b> does not create the reference to the package-specific <b>Object</b> element to be signed; that reference is created automatically when the signature is generated.
  * 
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer is created and added to the set, the reference it represents is saved when the package is saved.
@@ -16,10 +15,7 @@
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
  * 
  * To access an <b>IOpcSignatureReferenceSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getcustomreferenceset">IOpcSigningOptions::GetCustomReferenceSet</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturereferenceset
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nn-msopc-iopcsignaturereferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -46,6 +42,39 @@ class IOpcSignatureReferenceSet extends IUnknown{
 
     /**
      * Creates an IOpcSignatureReference interface pointer that represents a reference to an XML element to be signed.
+     * @remarks
+     * This method creates a reference to an XML element that is signed when the signature is generated. The referenced element can be either an application-specific <b>Object</b> element or a child of an application-specific <b>Object</b>.
+     * 
+     * To reference an XML element for signing, set the <i>referenceUri</i> parameter value to a URI that represents "#" followed by  the <b>Id</b> attribute value of the referenced element, as shown in the following table.<table>
+     * <tr>
+     * <th><i>referenceUri</i> Value as String</th>
+     * <th>Referenced Element</th>
+     * <th>Element Description</th>
+     * </tr>
+     * <tr>
+     * <td>"#<i>idMyCustomObject</i>"</td>
+     * <td>"&lt;Object Id="<i>idMyCustomObject</i>"&gt;<i>...</i>&lt;/Object&gt;"</td>
+     * <td>
+     * An application-specific <b>Object</b> element.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>"#<i>idMyElement</i>"</td>
+     * <td>"&lt;Object&gt;&lt;<i>MyElement</i> Id="<i>idMyElement</i>"&gt;<i>...</i>&lt;/<i>MyElement</i>&gt;...&lt;/Object&gt;"</td>
+     * <td>
+     * A child element of an application-specific <b>Object</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * This method does not create the reference to the package-specific <b>Object</b> element to be signed; that reference is created automatically when the signature is generated.
+     * 
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer is created and added to the set, the reference it represents is saved when the package is saved.
      * @param {IUri} referenceUri The URI of  the referenced XML element.
      * 
      * Set the value of this parameter to a URI that represents "#" followed by  the <b>Id</b> attribute value of the referenced element: "#<i>&lt;elementIdValue&gt;</i>".
@@ -58,21 +87,27 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
      * <div> </div>
      * @param {Integer} transformMethod The canonicalization method to be used for the XML markup to be referenced.
-     * @returns {IOpcSignatureReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer that represents the reference to  the XML element to be signed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceset-create
+     * @returns {IOpcSignatureReference} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceset-create
      */
     Create(referenceUri, referenceId, type, digestMethod, transformMethod) {
         referenceId := referenceId is String ? StrPtr(referenceId) : referenceId
         type := type is String ? StrPtr(type) : type
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", &reference := 0, "HRESULT")
-        return IOpcSignatureReference(reference)
+        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", &reference_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IOpcSignatureReference(reference_)
     }
 
     /**
      * Deletes a specified IOpcSignatureReference interface pointer from the set.
-     * @param {IOpcSignatureReference} reference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer to be deleted.
+     * @remarks
+     * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer is deleted from the set, the reference it represents is not saved when the package is saved.
+     * @param {IOpcSignatureReference} reference_ An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -103,20 +138,28 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceset-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceset-delete
      */
-    Delete(reference) {
-        result := ComCall(4, this, "ptr", reference, "HRESULT")
+    Delete(reference_) {
+        result := ComCall(4, this, "ptr", reference_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an enumerator of IOpcSignatureReference interface pointers in the set.
      * @returns {IOpcSignatureReferenceEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointers in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/msopc/nf-msopc-iopcsignaturereferenceset-getenumerator
      */
     GetEnumerator() {
-        result := ComCall(5, this, "ptr*", &referenceEnumerator := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &referenceEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOpcSignatureReferenceEnumerator(referenceEnumerator)
     }
 }

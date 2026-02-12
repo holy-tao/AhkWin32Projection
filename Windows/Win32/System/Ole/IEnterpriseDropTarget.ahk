@@ -5,7 +5,7 @@
 
 /**
  * When implemented by the drop target application, this interface gives the OLE drag and drop engine the ability to determine whether the drop target application intends to evaluate enterprise protection policy and gives the OLE drag and drop engine a way to provide the enterprise ID of the drop source application to the drop target application.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/nn-oleidl-ienterprisedroptarget
+ * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nn-oleidl-ienterprisedroptarget
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,23 +33,31 @@ class IEnterpriseDropTarget extends IUnknown{
     /**
      * Provides the drop target with the enterprise ID of the drop source.
      * @param {PWSTR} identity The enterprise identity of the drop source.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ienterprisedroptarget-setdropsourceenterpriseid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-ienterprisedroptarget-setdropsourceenterpriseid
      */
     SetDropSourceEnterpriseId(identity) {
         identity := identity is String ? StrPtr(identity) : identity
 
-        result := ComCall(3, this, "ptr", identity, "HRESULT")
+        result := ComCall(3, this, "ptr", identity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether the drop target is intends to handle the evaluation of the enterprise protection policy.
      * @returns {BOOL} A boolean value that indicates whether the drop target intends to handle the evaluation of enterprise protection policy.
-     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-ienterprisedroptarget-isevaluatingedppolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-ienterprisedroptarget-isevaluatingedppolicy
      */
     IsEvaluatingEdpPolicy() {
-        result := ComCall(4, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

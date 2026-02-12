@@ -40,20 +40,20 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6{
     /**
      * 
      * @param {D2D_POINT_2F} baselineOrigin 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ 
      * @param {ID2D1Brush} defaultFillBrush 
      * @param {Integer} colorPaletteIndex 
      * @param {Integer} measuringMode 
      * @returns {String} Nothing - always returns an empty string
      */
-    DrawPaintGlyphRun(baselineOrigin, glyphRun, defaultFillBrush, colorPaletteIndex, measuringMode) {
-        ComCall(121, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", defaultFillBrush, "uint", colorPaletteIndex, "int", measuringMode)
+    DrawPaintGlyphRun(baselineOrigin, glyphRun_, defaultFillBrush, colorPaletteIndex, measuringMode) {
+        ComCall(121, this, "ptr", baselineOrigin, "ptr", glyphRun_, "ptr", defaultFillBrush, "uint", colorPaletteIndex, "int", measuringMode)
     }
 
     /**
      * 
      * @param {D2D_POINT_2F} baselineOrigin 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun_ 
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription 
      * @param {ID2D1Brush} foregroundBrush 
      * @param {ID2D1SvgGlyphStyle} svgGlyphStyle 
@@ -62,7 +62,7 @@ class ID2D1DeviceContext7 extends ID2D1DeviceContext6{
      * @param {Integer} bitmapSnapOption 
      * @returns {String} Nothing - always returns an empty string
      */
-    DrawGlyphRunWithColorSupport(baselineOrigin, glyphRun, glyphRunDescription, foregroundBrush, svgGlyphStyle, colorPaletteIndex, measuringMode, bitmapSnapOption) {
-        ComCall(122, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "ptr", foregroundBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", measuringMode, "int", bitmapSnapOption)
+    DrawGlyphRunWithColorSupport(baselineOrigin, glyphRun_, glyphRunDescription, foregroundBrush, svgGlyphStyle, colorPaletteIndex, measuringMode, bitmapSnapOption) {
+        ComCall(122, this, "ptr", baselineOrigin, "ptr", glyphRun_, "ptr", glyphRunDescription, "ptr", foregroundBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", measuringMode, "int", bitmapSnapOption)
     }
 }

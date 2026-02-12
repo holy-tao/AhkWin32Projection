@@ -120,7 +120,11 @@ class IDOMEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_bubbles() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -129,7 +133,11 @@ class IDOMEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_cancelable() {
-        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -138,7 +146,11 @@ class IDOMEvent extends IDispatch{
      * @returns {IEventTarget} 
      */
     get_currentTarget() {
-        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEventTarget(p)
     }
 
@@ -147,7 +159,11 @@ class IDOMEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_defaultPrevented() {
-        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -156,7 +172,11 @@ class IDOMEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_eventPhase() {
-        result := ComCall(11, this, "ushort*", &p := 0, "HRESULT")
+        result := ComCall(11, this, "ushort*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -165,7 +185,11 @@ class IDOMEvent extends IDispatch{
      * @returns {IEventTarget} 
      */
     get_target() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEventTarget(p)
     }
 
@@ -174,7 +198,11 @@ class IDOMEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_timeStamp() {
-        result := ComCall(13, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -184,7 +212,11 @@ class IDOMEvent extends IDispatch{
      */
     get_type() {
         p := BSTR()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -196,9 +228,16 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initEvent(eventType, canBubble, cancelable) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", eventType, "short", canBubble, "short", cancelable, "HRESULT")
+        result := ComCall(15, this, "ptr", eventType, "short", canBubble, "short", cancelable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +246,11 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     preventDefault() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -216,7 +259,11 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     stopPropagation() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -225,7 +272,11 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     stopImmediatePropagation() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,7 +285,11 @@ class IDOMEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_isTrusted() {
-        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -244,7 +299,11 @@ class IDOMEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     put_cancelBubble(v) {
-        result := ComCall(20, this, "short", v, "HRESULT")
+        result := ComCall(20, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +312,11 @@ class IDOMEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_cancelBubble() {
-        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(21, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -262,7 +325,11 @@ class IDOMEvent extends IDispatch{
      * @returns {IHTMLElement} 
      */
     get_srcElement() {
-        result := ComCall(22, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(p)
     }
 }

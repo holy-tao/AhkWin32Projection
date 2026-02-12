@@ -5,7 +5,7 @@
 
 /**
  * The IVssAsync interface is returned to calling applications by methods that initiate asynchronous operations, which run in the background and typically require a long time to complete.
- * @see https://docs.microsoft.com/windows/win32/api//vss/nn-vss-ivssasync
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/nn-vss-ivssasync
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IVssAsync extends IUnknown{
      * The Cancel method cancels an incomplete asynchronous operation.
      * @returns {HRESULT} All calls to 
      * <b>Cancel</b> for all 
-     * <a href="/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> objects support the following status codes.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> objects support the following status codes.
      * 
      * <table>
      * <tr>
@@ -82,7 +82,7 @@ class IVssAsync extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
@@ -96,16 +96,22 @@ class IVssAsync extends IUnknown{
      * <b>Cancel</b> returns the error that operation encountered.
      * 
      * To obtain a complete list of return values for a specific <b>IVssAsync::Cancel</b>, see the error codes of the method that returned the 
-     * <a href="/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssasync-cancel
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/vss/nf-vss-ivssasync-cancel
      */
     Cancel() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Wait method waits until an incomplete asynchronous operation finishes.
+     * @remarks
+     * This method can succeed even if the method that returns it failed.
      * @param {Integer} dwMilliseconds Length of time, in milliseconds, that the method will wait for an asynchronous process to return before timing out. 
      * 
      * 
@@ -118,7 +124,7 @@ class IVssAsync extends IUnknown{
      * <b>Windows XP:  </b>This method has no parameters.
      * @returns {HRESULT} All calls to 
      * <b>Wait</b> for all 
-     * <a href="/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> objects support the following status codes.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> objects support the following status codes.
      * 
      * <table>
      * <tr>
@@ -133,7 +139,7 @@ class IVssAsync extends IUnknown{
      * </td>
      * <td width="60%">
      * The wait operation was successful. Call 
-     * <a href="/windows/desktop/api/vss/nf-vss-ivssasync-querystatus">IVssAsync::QueryStatus</a> to determine the final status of the asynchronous operation.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/nf-vss-ivssasync-querystatus">IVssAsync::QueryStatus</a> to determine the final status of the asynchronous operation.
      * 
      * </td>
      * </tr>
@@ -156,7 +162,7 @@ class IVssAsync extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
@@ -169,16 +175,28 @@ class IVssAsync extends IUnknown{
      * <b>Wait</b> returns the error that operation encountered.
      * 
      * To obtain a complete list of return values for a specific <b>Wait</b>, see the error codes of the method that returned the 
-     * <a href="/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssasync-wait
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/vss/nf-vss-ivssasync-wait
      */
     Wait(dwMilliseconds) {
-        result := ComCall(4, this, "uint", dwMilliseconds, "HRESULT")
+        result := ComCall(4, this, "uint", dwMilliseconds, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The QueryStatus method queries the status of an asynchronous operation.
+     * @remarks
+     * In the event of an error during the course of an asynchronous operation, 
+     *     <b>QueryStatus</b> will return the same error code as the 
+     *     method that initially returned the <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object.
+     * 
+     * To obtain a complete list of return values for an 
+     *     <b>IVssAsync::QueryStatus</b> object returned by a 
+     *     specific method, see the error codes documented for that method.
      * @param {Pointer<Integer>} pReserved The value of this parameter should be <b>NULL</b>.
      * @returns {HRESULT} The status of the asynchronous operation that returned the current 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object. 
@@ -228,12 +246,16 @@ class IVssAsync extends IUnknown{
      * 
      * Additional return values can be returned, but depend on the return codes of the method that initially 
      *        returned the <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssasync">IVssAsync</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssasync-querystatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/vss/nf-vss-ivssasync-querystatus
      */
     QueryStatus(pReserved) {
         pReservedMarshal := pReserved is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int*", &pHrResult := 0, pReservedMarshal, pReserved, "HRESULT")
+        result := ComCall(5, this, "int*", &pHrResult := 0, pReservedMarshal, pReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHrResult
     }
 }

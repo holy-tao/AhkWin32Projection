@@ -5,7 +5,7 @@
  * Contains virtual hard disk (VHD) creation flags.
  * @remarks
  * The <b>CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION</b> flag is used for the creation of a fixed VHD.
- * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-create_virtual_disk_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/virtdisk/ne-virtdisk-create_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
  */

@@ -48,7 +48,11 @@ class IInternetSecurityManagerEx extends IInternetSecurityManager{
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszUrl, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszUrl, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, pdwOutFlagsMarshal, pdwOutFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

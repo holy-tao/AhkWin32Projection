@@ -126,7 +126,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_AudioTimeOffset() {
-        result := ComCall(7, this, "int*", &AudioTimeOffset := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &AudioTimeOffset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AudioTimeOffset
     }
 
@@ -135,7 +139,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_AudioSizeTime() {
-        result := ComCall(8, this, "int*", &AudioSizeTime := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &AudioSizeTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AudioSizeTime
     }
 
@@ -144,7 +152,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_AudioStreamOffset() {
-        result := ComCall(9, this, "int*", &AudioStreamOffset := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &AudioStreamOffset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AudioStreamOffset
     }
 
@@ -153,7 +165,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_AudioSizeBytes() {
-        result := ComCall(10, this, "int*", &AudioSizeBytes := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &AudioSizeBytes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return AudioSizeBytes
     }
 
@@ -162,7 +178,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_RetainedStreamOffset() {
-        result := ComCall(11, this, "int*", &RetainedStreamOffset := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &RetainedStreamOffset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return RetainedStreamOffset
     }
 
@@ -171,7 +191,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_RetainedSizeBytes() {
-        result := ComCall(12, this, "int*", &RetainedSizeBytes := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &RetainedSizeBytes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return RetainedSizeBytes
     }
 
@@ -181,7 +205,11 @@ class ISpeechPhraseElement extends IDispatch{
      */
     get_DisplayText() {
         DisplayText := BSTR()
-        result := ComCall(13, this, "ptr", DisplayText, "HRESULT")
+        result := ComCall(13, this, "ptr", DisplayText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DisplayText
     }
 
@@ -191,7 +219,11 @@ class ISpeechPhraseElement extends IDispatch{
      */
     get_LexicalForm() {
         LexicalForm := BSTR()
-        result := ComCall(14, this, "ptr", LexicalForm, "HRESULT")
+        result := ComCall(14, this, "ptr", LexicalForm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LexicalForm
     }
 
@@ -201,7 +233,11 @@ class ISpeechPhraseElement extends IDispatch{
      */
     get_Pronunciation() {
         Pronunciation := VARIANT()
-        result := ComCall(15, this, "ptr", Pronunciation, "HRESULT")
+        result := ComCall(15, this, "ptr", Pronunciation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Pronunciation
     }
 
@@ -210,7 +246,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_DisplayAttributes() {
-        result := ComCall(16, this, "int*", &DisplayAttributes := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &DisplayAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DisplayAttributes
     }
 
@@ -219,7 +259,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_RequiredConfidence() {
-        result := ComCall(17, this, "int*", &RequiredConfidence := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &RequiredConfidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return RequiredConfidence
     }
 
@@ -228,7 +272,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Integer} 
      */
     get_ActualConfidence() {
-        result := ComCall(18, this, "int*", &ActualConfidence := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &ActualConfidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ActualConfidence
     }
 
@@ -237,7 +285,11 @@ class ISpeechPhraseElement extends IDispatch{
      * @returns {Float} 
      */
     get_EngineConfidence() {
-        result := ComCall(19, this, "float*", &EngineConfidence := 0, "HRESULT")
+        result := ComCall(19, this, "float*", &EngineConfidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EngineConfidence
     }
 }

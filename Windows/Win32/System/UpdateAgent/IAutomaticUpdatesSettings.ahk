@@ -4,15 +4,13 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Contains the settings that are available in Automatic Updates.
+ * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings)
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationday">ScheduledInstallationDay</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationtime">ScheduledInstallationTime</a> are not supported and will return unreliable values. If you try to modify these properties, the operation will appear to succeed but will have no effect.</div>
  * <div> </div>
  * <div class="alert"><b>Note</b>  On Windows RT, you can no longer use the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-save">IAutomaticUpdatesSettings::Save</a> method to configure Windows Update settings programmatically. The configuration operation fails if you use <b>Save</b> to set any value other than 4 (<a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel">aunlScheduledInstallation</a>).</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iautomaticupdatessettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iautomaticupdatessettings
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -76,30 +74,37 @@ class IAutomaticUpdatesSettings extends IDispatch{
     }
 
     /**
-     * Gets and sets how users are notified about Automatic Update events.
+     * Gets and sets how users are notified about Automatic Update events. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel
      */
     get_NotificationLevel() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets and sets how users are notified about Automatic Update events.
+     * Gets and sets how users are notified about Automatic Update events. (Put)
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-put_notificationlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-put_notificationlevel
      */
     put_NotificationLevel(value) {
-        result := ComCall(8, this, "int", value, "HRESULT")
+        result := ComCall(8, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a Boolean value that indicates whether the Automatic Update settings are read-only.
      * @remarks
-     * 
      * <b>ReadOnly</b> is <b>VARIANT_TRUE</b> if either of the following conditions is true:
      * 
      * <ul>
@@ -110,67 +115,74 @@ class IAutomaticUpdatesSettings extends IDispatch{
      *  
      * The caller can modify the settings in the  <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iautomaticupdatessettings">IAutomaticUpdatesSettings</a> interface only if <b>ReadOnly</b> is <b>VARIANT_FALSE</b>.
      * The value of <b>ReadOnly</b> may change after calling <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-refresh">Refresh</a>.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-get_readonly
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-get_readonly
      */
     get_ReadOnly() {
-        result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether Group Policy requires the Automatic Updates service.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-get_required
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-get_required
      */
     get_Required() {
-        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets and sets the days of the week on which Automatic Updates installs or uninstalls updates.
+     * Gets and sets the days of the week on which Automatic Updates installs or uninstalls updates. (Get)
      * @remarks
-     * 
      * The value of this property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel">NotificationLevel</a> property is not <b>aunlScheduledInstallation</b>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <b>ScheduledInstallationDay</b> is not supported and will return unreliable values. If you try to modify <b>ScheduledInstallationDay</b>, the operation will appear to succeed but will have no effect.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationday
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationday
      */
     get_ScheduledInstallationDay() {
-        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets and sets the days of the week on which Automatic Updates installs or uninstalls updates.
+     * Gets and sets the days of the week on which Automatic Updates installs or uninstalls updates. (Put)
      * @remarks
-     * 
      * The value of this property is ignored if the value of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel">NotificationLevel</a> property is not <b>aunlScheduledInstallation</b>.
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <b>ScheduledInstallationDay</b> is not supported and will return unreliable values. If you try to modify <b>ScheduledInstallationDay</b>, the operation will appear to succeed but will have no effect.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationday
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationday
      */
     put_ScheduledInstallationDay(value) {
-        result := ComCall(12, this, "int", value, "HRESULT")
+        result := ComCall(12, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets and sets the time at which Automatic Updates installs or uninstalls updates.
+     * Gets and sets the time at which Automatic Updates installs or uninstalls updates. (Get)
      * @remarks
-     * 
      * The time is set by using the following values.
      * 
      * <table>
@@ -281,20 +293,21 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <b>ScheduledInstallationTime</b> is not supported and will return unreliable values. If you try to modify <b>ScheduledInstallationTime</b>, the operation will appear to succeed but will have no effect.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationtime
      */
     get_ScheduledInstallationTime() {
-        result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
-     * Gets and sets the time at which Automatic Updates installs or uninstalls updates.
+     * Gets and sets the time at which Automatic Updates installs or uninstalls updates. (Put)
      * @remarks
-     * 
      * The time is set by using the following values.
      * 
      * <table>
@@ -405,34 +418,54 @@ class IAutomaticUpdatesSettings extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  Starting with Windows 8 and Windows Server 2012, <b>ScheduledInstallationTime</b> is not supported and will return unreliable values. If you try to modify <b>ScheduledInstallationTime</b>, the operation will appear to succeed but will have no effect.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-put_scheduledinstallationtime
      */
     put_ScheduledInstallationTime(value) {
-        result := ComCall(14, this, "int", value, "HRESULT")
+        result := ComCall(14, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the latest Automatic Updates settings.
+     * @remarks
+     * Calling <b>Refresh</b>  resets any setting changes that have not been saved by using the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-save">Save</a> method.
+     * 
+     * <div class="alert"><b>Note</b>  On Windows RT, you can no longer use the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-save">IAutomaticUpdatesSettings::Save</a> method to configure Windows Update settings programmatically. The configuration operation fails if you use <b>Save</b> to set any value other than 4 (<a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel">aunlScheduledInstallation</a>).</div>
+     * <div> </div>
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-refresh
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-refresh
      */
     Refresh() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Applies the current Automatic Updates settings.
+     * @remarks
+     * Saving settings with a <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel">NotificationLevel</a> value other than Disabled  starts the Automatic Updates service.
+     * 
+     * <div class="alert"><b>Note</b>  On Windows RT, you can no longer use the <b>Save</b> method to configure Windows Update settings programmatically. The configuration operation fails if you use <b>Save</b> to set any value other than 4 (<a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel">aunlScheduledInstallation</a>).</div>
+     * <div> </div>
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings-save
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iautomaticupdatessettings-save
      */
     Save() {
-        result := ComCall(16, this, "HRESULT")
+        result := ComCall(16, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

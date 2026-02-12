@@ -3,6 +3,8 @@
 #Include .\Effect.ahk
 
 /**
+ * Levels Collection Properties, Methods, and Events
+ * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-md-api/levels-collection-properties-methods-and-events
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

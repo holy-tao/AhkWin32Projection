@@ -5,7 +5,7 @@
 
 /**
  * The IAudioBass interface provides access to a hardware bass-level control.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iaudiobass
+ * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nn-devicetopology-iaudiobass
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

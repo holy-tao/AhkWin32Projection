@@ -6,7 +6,7 @@
 
 /**
  * The IAnchor interface is implemented by the TSF manager. Clients of Microsoft Active Accessibility use IAnchor anchor objects to delimit a range of text within a text stream.
- * @see https://docs.microsoft.com/windows/win32/api//textstor/nn-textstor-ianchor
+ * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nn-textstor-ianchor
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -53,36 +53,56 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-setgravity
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-setgravity
      */
     SetGravity(gravity) {
-        result := ComCall(3, this, "int", gravity, "HRESULT")
+        result := ComCall(3, this, "int", gravity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IAnchor::GetGravity method retrieves the gravity of the anchor in an IAnchor object.
      * @returns {Integer} Pointer that receives a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsgravity">TsGravity</a> value that specifies the anchor gravity.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-getgravity
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-getgravity
      */
     GetGravity() {
-        result := ComCall(4, this, "int*", &pgravity := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pgravity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pgravity
     }
 
     /**
      * The IAnchor::IsEqual method evaluates two anchors within a text stream and returns a Boolean value that specifies the equality or inequality of the anchor positions.
+     * @remarks
+     * Anchors are always positioned between characters or regions. When two anchors are between the same characters, being at the same offset within the text stream, and within the same region, <b>IAnchor::IsEqual</b> returns <b>TRUE</b>. Otherwise it returns <b>FALSE</b>.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-compare">IAnchor::Compare
+     *         </a> incorporates the same functionality as <b>IAnchor::IsEqual</b>. However, because <b>IAnchor::IsEqual</b> is more specific, it can have a more efficient implementation on the server.
      * @param {IAnchor} paWith Specifies an anchor to compare to the primary anchor. Used to determine the equality of the two anchor positions.
      * @returns {BOOL} A Boolean value that specifies whether the two anchors are positioned at the same location. If set to <b>TRUE</b>, the two anchors occupy the same location. If set to <b>FALSE</b>, the two anchors do not occupy the same location.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-isequal
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-isequal
      */
     IsEqual(paWith) {
-        result := ComCall(5, this, "ptr", paWith, "int*", &pfEqual := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", paWith, "int*", &pfEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEqual
     }
 
     /**
      * The IAnchor::Compare method compares the relative position of two anchors within a text stream.
+     * @remarks
+     * The value 0 is returned for <i>*plResult</i> only when the two anchors are in a single region. Anchor positions include the spaces between regions. If you only need to determine if the two anchors are positioned at the same location, <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-isequal">IAnchor::IsEqual</a> is more efficient.
      * @param {IAnchor} paWith An anchor object to compare to the primary anchor. Used to determine the relative position of the two anchors.
      * @returns {Integer} Result of the comparison of the positions of the two anchors.
      * 
@@ -122,15 +142,27 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-compare
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-compare
      */
     Compare(paWith) {
-        result := ComCall(6, this, "ptr", paWith, "int*", &plResult := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", paWith, "int*", &plResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plResult
     }
 
     /**
      * The IAnchor::Shift method shifts the anchor forward or backward within a text stream.
+     * @remarks
+     * <i>cchReq</i> and <i>pcch</i> parameters can be negative, meaning a shift backward in the text stream, or positive, meaning a shift forward. The actual number of characters shifted can be less than <i>cchReq</i> if the beginning or end of the document is encountered, a region boundary is encountered, or if <i>paHaltAnchor</i> receives an anchor that blocks the shift.
+     * 
+     * If <i>paHaltAnchor</i> receives an anchor that blocks the shift, the application will truncate the shift at the position occupied by <i>paHaltAnchor.</i> If <i>paHaltAnchor</i> is not within the span of text covered by the shift, it has no relevance to the shift and is ignored.
+     * 
+     * For example, if the anchor referenced by <i>paHaltAnchor</i> lies 8 characters ahead of the anchor in the stream, and a client calls <b>Shift</b> (0, 10, pcch, paHaltAnchor), then on exit the anchor will have moved only 8 characters. If the anchor referenced by <i>paHaltAnchor</i> is equal to the current anchor to be moved, then <b>Shift</b> will return successfully without moving the anchor at all. In this case <i>pcch</i> will be 0.
+     * 
+     * The anchor shift is always blocked by region boundaries, as if the beginning or end of the document were encountered. This will be indicated on exit by the actual shift <i>pcch</i> being smaller in absolute value than the requested shift <i>cchReq</i>. In this case, clients can use <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-shiftregion">IAnchor::ShiftRegion</a> to shift the anchor into an adjacent region.
      * @param {Integer} dwFlags Bit fields that are used to avoid anchor positioning.
      * 
      * <table>
@@ -152,15 +184,21 @@ class IAnchor extends IUnknown{
      * @param {Integer} cchReq The number of characters to move the anchor within the text stream.
      * @param {IAnchor} paHaltAnchor Reference to an anchor that blocks the shift. Set to <b>NULL</b> to avoid blocking the shift.
      * @returns {Integer} The actual number of characters moved within the text stream. The method will set <i>pcch</i> to zero if it fails.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-shift
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-shift
      */
     Shift(dwFlags, cchReq, paHaltAnchor) {
-        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, "int*", &pcch := 0, "ptr", paHaltAnchor, "HRESULT")
+        result := ComCall(7, this, "uint", dwFlags, "int", cchReq, "int*", &pcch := 0, "ptr", paHaltAnchor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcch
     }
 
     /**
      * The IAnchor::ShiftTo method shifts the current anchor to the same position as another anchor.
+     * @remarks
+     * Implementing this method is usually more efficient than an equivalent <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-shift">IAnchor::Shift</a> operation.
      * @param {IAnchor} paSite Anchor occupying a position that the current anchor will be moved to.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -187,7 +225,7 @@ class IAnchor extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * An <a href="/windows/desktop/api/textstor/nn-textstor-ianchor">IAnchor</a> interface pointer to the <i>paSite</i> anchor could not be obtained, or memory is too low to safely complete the operation.
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-ianchor">IAnchor</a> interface pointer to the <i>paSite</i> anchor could not be obtained, or memory is too low to safely complete the operation.
      * 
      * </td>
      * </tr>
@@ -203,10 +241,14 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-shiftto
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-shiftto
      */
     ShiftTo(paSite) {
-        result := ComCall(8, this, "ptr", paSite, "HRESULT")
+        result := ComCall(8, this, "ptr", paSite, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -296,10 +338,14 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-shiftregion
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-shiftregion
      */
     ShiftRegion(dwFlags, dir) {
-        result := ComCall(9, this, "uint", dwFlags, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwFlags, "int", dir, "int*", &pfNoRegion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfNoRegion
     }
 
@@ -325,25 +371,39 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-setchangehistorymask
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-setchangehistorymask
      */
     SetChangeHistoryMask(dwMask) {
-        result := ComCall(10, this, "uint", dwMask, "HRESULT")
+        result := ComCall(10, this, "uint", dwMask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IAnchor::GetChangeHistory method gets the history of deletions that have occurred immediately preceding or following the anchor.
+     * @remarks
+     * The <i>pdwHistory</i> change flags must be set when deletions adjacent to the anchor have occurred.
+     * 
+     * The change flags remain set until they are cleared with a call to <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-clearchangehistory">IAnchor::ClearChangeHistory</a>.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-getchangehistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-getchangehistory
      */
     GetChangeHistory() {
-        result := ComCall(11, this, "uint*", &pdwHistory := 0, "HRESULT")
+        result := ComCall(11, this, "uint*", &pdwHistory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwHistory
     }
 
     /**
      * The IAnchor::ClearChangeHistory method clears the anchor change history flags.
+     * @remarks
+     * Applications should clear the anchor change history flags after receiving this call. The change history flags were set by <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-getchangehistory">IAnchor::GetChangeHistory</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -363,20 +423,30 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-clearchangehistory
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-clearchangehistory
      */
     ClearChangeHistory() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IAnchor::Clone method produces a new anchor object positioned at the same location, and with the same gravity, as the current anchor.
+     * @remarks
+     * The change history and change history masks are both cleared in the cloned anchor.
      * @returns {IAnchor} A new anchor object, identical to the current anchor.
-     * @see https://docs.microsoft.com/windows/win32/api//textstor/nf-textstor-ianchor-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/textstor/nf-textstor-ianchor-clone
      */
     Clone() {
-        result := ComCall(13, this, "ptr*", &ppaClone := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppaClone := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAnchor(ppaClone)
     }
 }

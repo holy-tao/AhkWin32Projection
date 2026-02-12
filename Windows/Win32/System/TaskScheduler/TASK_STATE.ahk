@@ -3,7 +3,7 @@
 
 /**
  * Defines the different states that a registered task can be in.
- * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_state
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/ne-taskschd-task_state
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

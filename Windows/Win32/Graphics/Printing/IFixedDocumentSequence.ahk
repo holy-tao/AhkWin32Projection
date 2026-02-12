@@ -36,7 +36,11 @@ class IFixedDocumentSequence extends IUnknown{
      */
     GetUri() {
         uri := BSTR()
-        result := ComCall(3, this, "ptr", uri, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return uri
     }
 
@@ -45,7 +49,11 @@ class IFixedDocumentSequence extends IUnknown{
      * @returns {IPartPrintTicket} 
      */
     GetPrintTicket() {
-        result := ComCall(4, this, "ptr*", &ppPrintTicket := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppPrintTicket := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPartPrintTicket(ppPrintTicket)
     }
 
@@ -55,7 +63,11 @@ class IFixedDocumentSequence extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPrintTicket(pPrintTicket) {
-        result := ComCall(5, this, "ptr", pPrintTicket, "HRESULT")
+        result := ComCall(5, this, "ptr", pPrintTicket, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

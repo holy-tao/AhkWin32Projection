@@ -9,7 +9,7 @@
  * 
  * 
  * All properties must be bound.
- * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/ns-d2d1effectauthor-d2d1_property_binding
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

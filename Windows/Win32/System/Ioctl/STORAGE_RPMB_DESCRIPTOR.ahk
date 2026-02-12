@@ -5,7 +5,7 @@
  * The STORAGE_RPMB_DESCRIPTOR structure (winioctl.h) describes whether the device contains an RPMB and the max payload size the RPMB supports.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_rpmb_descriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_rpmb_descriptor
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -39,7 +39,11 @@ class IGameExplorer2 extends IUnknown{
         binaryGDFPath := binaryGDFPath is String ? StrPtr(binaryGDFPath) : binaryGDFPath
         installDirectory := installDirectory is String ? StrPtr(installDirectory) : installDirectory
 
-        result := ComCall(3, this, "ptr", binaryGDFPath, "ptr", installDirectory, "int", installScope, "HRESULT")
+        result := ComCall(3, this, "ptr", binaryGDFPath, "ptr", installDirectory, "int", installScope, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,19 +55,28 @@ class IGameExplorer2 extends IUnknown{
     UninstallGame(binaryGDFPath) {
         binaryGDFPath := binaryGDFPath is String ? StrPtr(binaryGDFPath) : binaryGDFPath
 
-        result := ComCall(4, this, "ptr", binaryGDFPath, "HRESULT")
+        result := ComCall(4, this, "ptr", binaryGDFPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Determines whether all values from a Sample, Gather, or Load operation accessed mapped tiles in a tiled resource.
      * @param {PWSTR} binaryGDFPath 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/checkaccessfullymapped
      */
     CheckAccess(binaryGDFPath) {
         binaryGDFPath := binaryGDFPath is String ? StrPtr(binaryGDFPath) : binaryGDFPath
 
-        result := ComCall(5, this, "ptr", binaryGDFPath, "int*", &pHasAccess := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", binaryGDFPath, "int*", &pHasAccess := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pHasAccess
     }
 }

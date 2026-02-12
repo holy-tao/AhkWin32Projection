@@ -11,7 +11,7 @@
  * **RawDataSize** does not include either the header or the palette. Use this field to verify that the transfer of the image has been successful.
  * 
  * **PaletteSize** is bytes, not the number of entries in the palette.
- * @see https://learn.microsoft.com/windows/win32/wia/-wia-wia-raw-header
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-wia-raw-header
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

@@ -7,6 +7,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
+ * The IDirectMusicSynth interface is used by DirectMusic to communicate with user-mode synthesizers.
+ * @see https://learn.microsoft.com/windows/win32/api//content/dmusics/nn-dmusics-idirectmusicsynth
  * @namespace Windows.Win32.Media.Audio.DirectMusic
  * @version v4.0.30319
  */
@@ -32,13 +34,27 @@ class IDirectMusic extends IUnknown{
     static VTableNames => ["EnumPort", "CreateMusicBuffer", "CreatePort", "EnumMasterClock", "GetMasterClock", "SetMasterClock", "Activate", "GetDefaultPort", "SetDirectSound"]
 
     /**
+     * The EnumPorts function enumerates the ports that are available for printing on a specified server.
+     * @remarks
+     * > [!Note]  
+     * > This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.
      * 
+     *  
+     * 
+     * The **EnumPorts** function can succeed even if the server specified by *pName* does not have a printer defined.
      * @param {Integer} dwIndex 
      * @param {Pointer<DMUS_PORTCAPS>} pPortCaps 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is a nonzero value.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/enumports
      */
     EnumPort(dwIndex, pPortCaps) {
-        result := ComCall(3, this, "uint", dwIndex, "ptr", pPortCaps, "HRESULT")
+        result := ComCall(3, this, "uint", dwIndex, "ptr", pPortCaps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +65,11 @@ class IDirectMusic extends IUnknown{
      * @returns {IDirectMusicBuffer} 
      */
     CreateMusicBuffer(pBufferDesc, pUnkOuter) {
-        result := ComCall(4, this, "ptr", pBufferDesc, "ptr*", &ppBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        result := ComCall(4, this, "ptr", pBufferDesc, "ptr*", &ppBuffer := 0, "ptr", pUnkOuter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectMusicBuffer(ppBuffer)
     }
 
@@ -61,7 +81,11 @@ class IDirectMusic extends IUnknown{
      * @returns {IDirectMusicPort} 
      */
     CreatePort(rclsidPort, pPortParams, pUnkOuter) {
-        result := ComCall(5, this, "ptr", rclsidPort, "ptr", pPortParams, "ptr*", &ppPort := 0, "ptr", pUnkOuter, "HRESULT")
+        result := ComCall(5, this, "ptr", rclsidPort, "ptr", pPortParams, "ptr*", &ppPort := 0, "ptr", pUnkOuter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectMusicPort(ppPort)
     }
 
@@ -72,7 +96,11 @@ class IDirectMusic extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumMasterClock(dwIndex, lpClockInfo) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr", lpClockInfo, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, "ptr", lpClockInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,7 +110,11 @@ class IDirectMusic extends IUnknown{
      * @returns {IReferenceClock} 
      */
     GetMasterClock(pguidClock) {
-        result := ComCall(7, this, "ptr", pguidClock, "ptr*", &ppReferenceClock := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pguidClock, "ptr*", &ppReferenceClock := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IReferenceClock(ppReferenceClock)
     }
 
@@ -92,17 +124,40 @@ class IDirectMusic extends IUnknown{
      * @returns {HRESULT} 
      */
     SetMasterClock(rguidClock) {
-        result := ComCall(8, this, "ptr", rguidClock, "HRESULT")
+        result := ComCall(8, this, "ptr", rguidClock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The ActivateActCtx function activates the specified activation context.
+     * @remarks
+     * The <i>lpCookie</i> parameter is later passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deactivateactctx">DeactivateActCtx</a>, which verifies the pairing of calls to 
+     * <b>ActivateActCtx</b> and 
+     * <b>DeactivateActCtx</b> and ensures that the appropriate activation context is being deactivated. This is done because the deactivation of activation contexts must occur in the reverse order of activation.
      * 
+     * The activation of activation contexts can be understood as pushing an activation context onto a stack of activation contexts. The activation context you activate through this function  redirects any binding to DLLs, window classes, COM servers, type libraries, and mutexes for any side-by-side APIs you call.
+     * 
+     * The top item of an activation context stack is the active, default-activation context of the current thread. If a null activation context handle is pushed onto the stack, thereby activating it, the default settings in the original manifest override all activation contexts that are lower on the stack.
      * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.
+     * 
+     * This function sets errors that can be retrieved by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. For an example, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/retrieving-the-last-error-code">Retrieving the Last-Error Code</a>. For a complete list of error codes, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-activateactctx
      */
     Activate(fEnable) {
-        result := ComCall(9, this, "int", fEnable, "HRESULT")
+        result := ComCall(9, this, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,20 +167,28 @@ class IDirectMusic extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDefaultPort(pguidPort) {
-        result := ComCall(10, this, "ptr", pguidPort, "HRESULT")
+        result := ComCall(10, this, "ptr", pguidPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {IDirectSound} pDirectSound 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @returns {HRESULT} 
      */
-    SetDirectSound(pDirectSound, hWnd) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    SetDirectSound(pDirectSound, hWnd_) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := ComCall(11, this, "ptr", pDirectSound, "ptr", hWnd, "HRESULT")
+        result := ComCall(11, this, "ptr", pDirectSound, "ptr", hWnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\Apis.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use this interface to specify client certificates for certificate-based client authentication and custom headers for HTTP requests.
- * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nn-bits2_5-ibackgroundcopyjobhttpoptions
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nn-bits2_5-ibackgroundcopyjobhttpoptions
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -32,6 +33,16 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
 
     /**
      * Specifies the identifier of the client certificate to use for client authentication in an HTTPS (SSL) request.
+     * @remarks
+     * Only the job owner can specify the client certificate. If the job changes ownership, BITS removes the certificate from the job.
+     * 
+     * The client certificate is applicable only for remote files that use the HTTP or HTTPS protocol. You can specify a certificate for all job types.
+     * 
+     * When a website accepts but does not require an SSL client certificate, and the BITS job does not specify a client certificate, the job will fail with ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED (0x80072f0c).
+     * 
+     * If you create a certificate for the job or application, you could store the certificate identifier (thumbprint) in the registry or database and use it when a job requires a certificate. You could also enumerate the certificates in the store and let the user choose the certificate. Another alternative is to call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certfindcertificateinstore">CertFindCertificateInStore</a>  function to retrieve the certificate context based on some criteria. Using the context, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certgetcertificatecontextproperty">CertGetCertificateContextProperty</a> function to retrieve the hash (specify CERT_HASH_PROP_ID for <i>dwPropId</i>).
+     * 
+     * SmartCard thumbprints are not supported.
      * @param {Integer} StoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * @param {PWSTR} StoreName Null-terminated string that contains the name of the certificate store. The string is limited to 256 characters, including the null terminator. You can specify one of the following system stores or an application-defined store. The store can be a local or remote store.
      * 
@@ -118,7 +129,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The value for the <i>StoreLocation</i> parameter is not defined in the <a href="/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
+     * The value for the <i>StoreLocation</i> parameter is not defined in the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * 
      * </td>
      * </tr>
@@ -189,19 +200,33 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid
      */
     SetClientCertificateByID(StoreLocation, StoreName, pCertHashBlob) {
         StoreName := StoreName is String ? StrPtr(StoreName) : StoreName
 
         pCertHashBlobMarshal := pCertHashBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "int", StoreLocation, "ptr", StoreName, pCertHashBlobMarshal, pCertHashBlob, "HRESULT")
+        result := ComCall(3, this, "int", StoreLocation, "ptr", StoreName, pCertHashBlobMarshal, pCertHashBlob, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies the subject name of the client certificate to use for client authentication in an HTTPS (SSL) request.
+     * @remarks
+     * Only the job owner can specify the client certificate. If the job changes ownership, BITS removes the certificate from the job.
+     * 
+     * The client certificate is applicable only for remote files that use the HTTP or HTTPS protocol. You can specify a certificate for all job types.
+     * 
+     * When a website accepts but does not require an SSL client certificate, and the BITS job does not specify a client certificate, the job will fail with ERROR_WINHTTP_CLIENT_AUTH_CERT_NEEDED (0x80072f0c).
+     * 
+     * The method uses the subject name string to perform a substring search for the certificate. Since subject names are not necessarily unique, this method searches the store for the first certificate that uses the given subject name and is a client authentication certificate. You should provide the complete subject name for a better chance of finding a single match. If the certificate is not correct (not trusted), the job will fail with BG_E_HTTP_ERROR_403 when BITS tries to transfer the file and the job will move to the error state. If you cannot guarantee a unique subject name, consider using the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid">IBackgroundCopyJobHttpOptions::SetClientCertificateByID</a> method instead.
+     * 
+     * SmartCard certificate identifiers (thumbprints) are not supported.
      * @param {Integer} StoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * @param {PWSTR} StoreName Null-terminated string that contains the name of the certificate store. The string is limited to 256 characters, including the null terminator. You can specify one of the following system stores or an application-defined store. The store can be a local or remote store. 
      * 
@@ -290,7 +315,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The value for <i>StoreLocation</i> is not defined in the <a href="/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
+     * The value for <i>StoreLocation</i> is not defined in the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * 
      * </td>
      * </tr>
@@ -350,18 +375,24 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyname
      */
     SetClientCertificateByName(StoreLocation, StoreName, SubjectName) {
         StoreName := StoreName is String ? StrPtr(StoreName) : StoreName
         SubjectName := SubjectName is String ? StrPtr(SubjectName) : SubjectName
 
-        result := ComCall(4, this, "int", StoreLocation, "ptr", StoreName, "ptr", SubjectName, "HRESULT")
+        result := ComCall(4, this, "int", StoreLocation, "ptr", StoreName, "ptr", SubjectName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes the client certificate from the job.
+     * @remarks
+     * You use the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid">IBackgroundCopyJobHttpOptions::SetClientCertificateByID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyname">IBackgroundCopyJobHttpOptions::SetClientCertificateByName</a> method to specify the certificate.
      * @returns {HRESULT} The following table lists some of the possible return values.
      * 
      * <table>
@@ -403,15 +434,21 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-removeclientcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-removeclientcertificate
      */
     RemoveClientCertificate() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the client certificate from the job.
+     * @remarks
+     * You use the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyid">IBackgroundCopyJobHttpOptions::SetClientCertificateByID</a> or <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setclientcertificatebyname">IBackgroundCopyJobHttpOptions::SetClientCertificateByName</a> method to specify the certificate.
      * @param {Pointer<Integer>} pStoreLocation Identifies the location of a system store to use for looking up the certificate. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location">BG_CERT_STORE_LOCATION</a> enumeration.
      * @param {Pointer<PWSTR>} pStoreName Null-terminated string that contains the name of the certificate store. To free the string when done, call  the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
@@ -460,7 +497,7 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getclientcertificate
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getclientcertificate
      */
     GetClientCertificate(pStoreLocation, pStoreName, ppCertHashBlob, pSubjectName) {
         pStoreLocationMarshal := pStoreLocation is VarRef ? "int*" : "ptr"
@@ -468,12 +505,26 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
         ppCertHashBlobMarshal := ppCertHashBlob is VarRef ? "ptr*" : "ptr"
         pSubjectNameMarshal := pSubjectName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, pStoreNameMarshal, pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, pSubjectNameMarshal, pSubjectName, "HRESULT")
+        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, pStoreNameMarshal, pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, pSubjectNameMarshal, pSubjectName, "int")
+        if(result != 0) {
+            Com.CoTaskMemFree(ppCertHashBlob)
+            Com.CoTaskMemFree(pSubjectName)
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies one or more custom HTTP headers to include in HTTP requests.
+     * @remarks
+     * The custom headers are applicable only to remote files that use the HTTP or HTTPS protocol. You can specify custom headers for all job types.
+     * 
+     * Only the job owner can specify custom headers. If the job changes ownership, BITS removes the headers from the job.
+     * 
+     * Note that if multiple HTTP requests are sent, the headers are sent with each request.
+     * 
+     * An ISAPI that processes the custom header can return an HTTP error if the header is not valid. For details on how BITS handles the error, see <a href="https://docs.microsoft.com/windows/desktop/Bits/handling-server-application-errors">Handling Server Application Errors</a>.
      * @param {PWSTR} RequestHeaders Null-terminated string that contains the custom headers to append to the HTTP request. Each header must be terminated by a carriage return and line feed (CR/LF) character. The string is limited to 16,384 characters, including the null terminator.
      * 
      * To remove the custom headers from the job, set the <i>RequestHeaders</i> parameter to <b>NULL</b>.
@@ -518,28 +569,82 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setcustomheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setcustomheaders
      */
     SetCustomHeaders(RequestHeaders) {
         RequestHeaders := RequestHeaders is String ? StrPtr(RequestHeaders) : RequestHeaders
 
-        result := ComCall(7, this, "ptr", RequestHeaders, "HRESULT")
+        result := ComCall(7, this, "ptr", RequestHeaders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the custom headers set by an earlier call to IBackgroundCopyJobHttpOptions::SetCustomHeaders (that is, headers which BITS will be sending to the remote, not headers which BITS receives from the remote).
+     * @remarks
+     * Only the job owner can retrieve the custom headers. To specify the headers, call the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setcustomheaders">IBackgroundCopyJobHttpOptions::SetCustomHeaders</a> method.
      * @returns {PWSTR} Null-terminated string that contains the custom headers. Each header is terminated by a carriage return and line feed (CR/LF) character. To free the string when finished, call  the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getcustomheaders
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getcustomheaders
      */
     GetCustomHeaders() {
-        result := ComCall(8, this, "ptr*", &pRequestHeaders := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &pRequestHeaders := 0, "int")
+        if(result != 0) {
+            Com.CoTaskMemFree(pRequestHeaders)
+            throw OSError(A_LastError || result)
+        }
+
         return pRequestHeaders
     }
 
     /**
      * Sets flags for HTTP that determine whether the certificate revocation list is checked and certain certificate errors are ignored, and the policy to use when a server redirects the HTTP request.
+     * @remarks
+     * If CRL checking is requested, BITS performs the check for all files in the job that specify the HTTPS protocol. The check is made for each file before the file begins transferring. If you set this value to <b>TRUE</b> after BITS has partially downloaded a file, BITS will reschedule the job and begin downloading the file again. Files that are already downloaded are not affected.
+     * 
+     * BITS uses the CRL on the local computer if the CRL is up-to-date; otherwise, BITS downloads the CRL from the certification authority (CA) that signed the certificate.
+     * 
+     * The job goes into the fatal error state if the following errors occur.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td><b>ERROR_WINHTTP_SECURE_CERT_REV_FAILED</b></td>
+     * <td>Unable to request CRL checking because the certificate server is offline or the CRL cannot be downloaded.</td>
+     * </tr>
+     * <tr>
+     * <td><b>ERROR_WINHTTP_SECURE_CERT_REVOKED</b></td>
+     * <td>The certificate is revoked.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The redirect policy applies to all files in a download job (the policy does not apply to upload jobs).
+     * 
+     * <b>Prior to BITS 3.0:  </b>The redirect policies are not supported.
+     * 
+     * If the policy is BG_HTTP_REDIRECT_POLICY_DISALLOW and the server redirects your request, the job is placed in the fatal error state with one of the following error codes. For descriptions of the error codes, see <a href="https://docs.microsoft.com/windows/desktop/WinHttp/http-status-codes">HTTP Status Codes</a>. 
+     * 
+     * <ul>
+     * <li>HRESULT_FROM_WIN32(HTTP_STATUS_AMBIGUOUS)</li>
+     * <li>HRESULT_FROM_WIN32(HTTP_STATUS_MOVED)</li>
+     * <li>HRESULT_FROM_WIN32(HTTP_STATUS_REDIRECT)</li>
+     * <li>HRESULT_FROM_WIN32(HTTP_STATUS_REDIRECT_METHOD)</li>
+     * <li>HRESULT_FROM_WIN32(HTTP_STATUS_REDIRECT_KEEP_VERB)</li>
+     * </ul>
+     * BITS does not support redirection from HTTP or HTTPs to SMB.
+     * 
+     * If peer caching is enabled and you specify BG_HTTP_REDIRECT_POLICY_ALLOW_REPORT, the file is stored in the cache with the final redirected URL. If a peer then tries to download the file with the original URL, the peer will not find the file in the peer's cache and will end up downloading the file from the origin server.
+     * 
+     * If you specify  and the file is downloaded from the 
+     * 
+     * Note that setting BG_HTTP_REDIRECT_POLICY_ALLOW_REPORT may affect the result when calling the <a href="https://docs.microsoft.com/windows/desktop/api/bits2_0/nf-bits2_0-ibackgroundcopyjob3-replaceremoteprefix">IBackgroundCopyJob3::ReplaceRemotePrefix</a> method. If a server redirected your request, BITS will have already changed the original URL to the final redirected URL, so calling the <b>ReplaceRemotePrefix</b> method will not find files with the original URL.
      * @param {Integer} Flags HTTP security flags that indicate which errors to ignore when connecting to the server. You can set one or more of the following flags:
      * 
      * <table>
@@ -690,10 +795,14 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setsecurityflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setsecurityflags
      */
     SetSecurityFlags(Flags) {
-        result := ComCall(9, this, "uint", Flags, "HRESULT")
+        result := ComCall(9, this, "uint", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -823,10 +932,14 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getsecurityflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getsecurityflags
      */
     GetSecurityFlags() {
-        result := ComCall(10, this, "uint*", &pFlags := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFlags
     }
 }

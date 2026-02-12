@@ -5,7 +5,7 @@
 
 /**
  * The ILayoutStorage interface enables an application to optimize the layout of its compound files for efficient downloading across a slow link.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-ilayoutstorage
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-ilayoutstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
@@ -32,6 +32,15 @@ class ILayoutStorage extends IUnknown{
 
     /**
      * The LayoutScript method provides explicit directions for reordering the storages, streams, and controls in a compound file to match the order in which they are accessed during the download.
+     * @remarks
+     * To provide explicit layout instructions, the application calls <b>ILayoutStorage::LayoutScript</b>, passing an array of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-storagelayout">StorageLayout</a> structures. Each structure defines a single storage or stream data block and specifies where the block is to be written in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> byte array.
+     * 
+     * An application can combine scripted layout with monitoring, as the structure of a particular compound file may dictate.
+     * 
+     * When the optimal data-layout pattern of an entire compound file has been determined, the application calls 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ilayoutstorage-relayoutdocfile">ILayoutStorage::ReLayoutDocfile</a> to restructure the compound file to match the order in which its data sectors were accessed.
      * @param {Pointer<StorageLayout>} pStorageLayout Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-storagelayout">StorageLayout</a> structures.
      * @param {Integer} nEntries Number of entries in the array of 
@@ -46,36 +55,64 @@ class ILayoutStorage extends IUnknown{
      * |STG_E_INSUFFICIENTMEMORY | There is not enough memory to complete the operation.|
      * |STG_E_INVALIDPARAMETER | One of the parameters is invalid.|
      * | STG_E_INUSE | The **BeginMonitor** method was called while **ILayoutStorage** was already monitoring.|
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ilayoutstorage-layoutscript
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ilayoutstorage-layoutscript
      */
     LayoutScript(pStorageLayout, nEntries) {
         static glfInterleavedFlag := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(3, this, "ptr", pStorageLayout, "uint", nEntries, "uint", glfInterleavedFlag, "HRESULT")
+        result := ComCall(3, this, "ptr", pStorageLayout, "uint", nEntries, "uint", glfInterleavedFlag, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The BeginMonitor method is used to begin monitoring when a loading operation is started. When the operation is complete, the application must call ILayoutStorage::EndMonitor.
+     * @remarks
+     * Normally an application calls 
+     * <b>BeginMonitor</b> before the actual loading begins. Once this method has been called, the compound file implementation regards any operation performed on the files storages and streams as part of the desired access pattern. The result is a layout script like that created explicitly by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ilayoutstorage-layoutscript">ILayoutStorage::LayoutScript</a>.
+     * 
+     * Applications will usually use monitoring to obtain the access pattern of embedded objects. Monitoring also makes possible generic layout tools,  that launch existing applications and monitor their access patterns.
+     * 
+     * A call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ilayoutstorage-endmonitor">ILayoutStorage::EndMonitor</a> ends monitoring. Multiple calls to 
+     * <b>BeginMonitor</b> and
+     * <b>EndMonitor</b> are permitted. Monitoring can also be mixed with calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ilayoutstorage-layoutscript">ILayoutStorage::LayoutScript</a>.
      * @returns {HRESULT} This method supports the standard return values E_OUTOFMEMORY, E_UNEXPECTED, E_INVALIDARG, and E_FAIL, as well as the following:
      * 
      * | Return code | Description |
      * |----------------|---------------|
      * | STG_E_INUSE | BeginMonitor</xref> was called while **ILayoutStorage** was already monitoring. |
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ilayoutstorage-beginmonitor
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ilayoutstorage-beginmonitor
      */
     BeginMonitor() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EndMonitor method ends monitoring of a compound file. Must be preceded by a call to ILayoutStorage::BeginMonitor.
-     * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY, E_UNEXPECTED, E_INVALIDARG, and E_FAIL, as well as all return values for <a href="/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ilayoutstorage-endmonitor
+     * @remarks
+     * A call to 
+     * <b>EndMonitor</b> is generally followed by a call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ilayoutstorage-relayoutdocfile">ILayoutStorage::RelayoutDocfile</a>, which uses the access pattern detected by the monitoring to restructure the compound file.
+     * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY, E_UNEXPECTED, E_INVALIDARG, and E_FAIL, as well as all return values for <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ilayoutstorage-endmonitor
      */
     EndMonitor() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,17 +125,23 @@ class ILayoutStorage extends IUnknown{
      * |----------------|---------------|
      * |STG_E_INVALIDNAME | The name passed to this function is not a valid file name.|
      * |STG_E_UNKNOWN | The layout information has been corrupted and cannot be processed.|
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ilayoutstorage-relayoutdocfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ilayoutstorage-relayoutdocfile
      */
     ReLayoutDocfile(pwcsNewDfName) {
         pwcsNewDfName := pwcsNewDfName is String ? StrPtr(pwcsNewDfName) : pwcsNewDfName
 
-        result := ComCall(6, this, "ptr", pwcsNewDfName, "HRESULT")
+        result := ComCall(6, this, "ptr", pwcsNewDfName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Is not implemented. If called, it returns STG_E_UNIMPLEMENTEDFUNCTION.
+     * @remarks
+     * If implemented, it would rewrite the compound file in the byte-array object specified by the caller.  It would return <b>S_OK</b> for success or one of the <b>STG_E_*</b> error codes for failure.
      * @param {ILockBytes} pILockBytes A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface on the underlying byte-array object where the compound file is to be rewritten.
      * @returns {HRESULT} This method returns the following value.
      * 
@@ -119,10 +162,14 @@ class ILayoutStorage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ilayoutstorage-relayoutdocfileonilockbytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-ilayoutstorage-relayoutdocfileonilockbytes
      */
     ReLayoutDocfileOnILockBytes(pILockBytes) {
-        result := ComCall(7, this, "ptr", pILockBytes, "HRESULT")
+        result := ComCall(7, this, "ptr", pILockBytes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

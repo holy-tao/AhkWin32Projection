@@ -5,7 +5,7 @@
  * Defines picture control subregions as slices for multiple codecs.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_subregions_layout_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_subregions_layout_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

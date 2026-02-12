@@ -40,7 +40,11 @@ class AsyncIPipeLong extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Pull(cRequest) {
-        result := ComCall(3, this, "uint", cRequest, "HRESULT")
+        result := ComCall(3, this, "uint", cRequest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class AsyncIPipeLong extends IUnknown{
         bufMarshal := buf is VarRef ? "int*" : "ptr"
         pcReturnedMarshal := pcReturned is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, bufMarshal, buf, pcReturnedMarshal, pcReturned, "HRESULT")
+        result := ComCall(4, this, bufMarshal, buf, pcReturnedMarshal, pcReturned, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +75,11 @@ class AsyncIPipeLong extends IUnknown{
     Begin_Push(buf, cSent) {
         bufMarshal := buf is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, bufMarshal, buf, "uint", cSent, "HRESULT")
+        result := ComCall(5, this, bufMarshal, buf, "uint", cSent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +88,11 @@ class AsyncIPipeLong extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Push() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

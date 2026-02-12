@@ -41,7 +41,11 @@ class IRTCWatcherEvent extends IDispatch{
      * @returns {IRTCWatcher} 
      */
     get_Watcher() {
-        result := ComCall(7, this, "ptr*", &ppWatcher := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppWatcher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCWatcher(ppWatcher)
     }
 }

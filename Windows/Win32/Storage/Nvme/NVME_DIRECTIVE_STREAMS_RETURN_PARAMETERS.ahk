@@ -5,7 +5,7 @@
  * Contains return parameters for the Streams Directive.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_streams_return_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_directive_streams_return_parameters
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

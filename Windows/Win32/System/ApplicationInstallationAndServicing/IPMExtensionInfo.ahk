@@ -65,7 +65,11 @@ class IPMExtensionInfo extends IUnknown{
      */
     get_SupplierPID() {
         pSupplierPID := Guid()
-        result := ComCall(3, this, "ptr", pSupplierPID, "HRESULT")
+        result := ComCall(3, this, "ptr", pSupplierPID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSupplierPID
     }
 
@@ -75,7 +79,11 @@ class IPMExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_SupplierTaskID(pSupplierTID) {
-        result := ComCall(4, this, "ptr", pSupplierTID, "HRESULT")
+        result := ComCall(4, this, "ptr", pSupplierTID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +93,11 @@ class IPMExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Title(pTitle) {
-        result := ComCall(5, this, "ptr", pTitle, "HRESULT")
+        result := ComCall(5, this, "ptr", pTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +107,11 @@ class IPMExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_IconPath(pIconPath) {
-        result := ComCall(6, this, "ptr", pIconPath, "HRESULT")
+        result := ComCall(6, this, "ptr", pIconPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +121,11 @@ class IPMExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ExtraFile(pFilePath) {
-        result := ComCall(7, this, "ptr", pFilePath, "HRESULT")
+        result := ComCall(7, this, "ptr", pFilePath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +136,11 @@ class IPMExtensionInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pImageUrn, pParameters) {
-        result := ComCall(8, this, "ptr", pImageUrn, "ptr", pParameters, "HRESULT")
+        result := ComCall(8, this, "ptr", pImageUrn, "ptr", pParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

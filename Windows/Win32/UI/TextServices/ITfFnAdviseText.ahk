@@ -5,7 +5,7 @@
 
 /**
  * The ITfFnAdviseText interface is implemented by a text service and used by the TSF manager to supply notifications when the text or lattice element in a context changes.
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnadvisetext
+ * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nn-ctffunc-itffnadvisetext
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -65,12 +65,16 @@ class ITfFnAdviseText extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnadvisetext-ontextupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnadvisetext-ontextupdate
      */
     OnTextUpdate(pRange, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        result := ComCall(4, this, "ptr", pRange, "ptr", pchText, "int", cch, "HRESULT")
+        result := ComCall(4, this, "ptr", pRange, "ptr", pchText, "int", cch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -108,10 +112,14 @@ class ITfFnAdviseText extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnadvisetext-onlatticeupdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/ctffunc/nf-ctffunc-itffnadvisetext-onlatticeupdate
      */
     OnLatticeUpdate(pRange, pLattice) {
-        result := ComCall(5, this, "ptr", pRange, "ptr", pLattice, "HRESULT")
+        result := ComCall(5, this, "ptr", pRange, "ptr", pLattice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

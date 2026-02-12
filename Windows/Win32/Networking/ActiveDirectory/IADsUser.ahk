@@ -9,7 +9,6 @@
 /**
  * The IADsUser interface is a dual interface that inherits from IADs.
  * @remarks
- * 
  * As with any other ADSI object, the container object creates a Windows user account object. First, bind to a container object. Then, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method and specify mandatory or optional attributes.
  * 
  * With WinNT, you do not have to specify any additional attributes when creating a user. You may call the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadscontainer-create">IADsContainer::Create</a> method to create the user object directly.
@@ -158,9 +157,7 @@
  * 
  * 
  * The newly created local user will have the same default properties as the domain user. The group membership, however, will be "users", instead of "domain user".
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsuser
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsuser
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -561,7 +558,11 @@ class IADsUser extends IADs{
      */
     get_BadLoginAddress() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -570,7 +571,11 @@ class IADsUser extends IADs{
      * @returns {Integer} 
      */
     get_BadLoginCount() {
-        result := ComCall(21, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -579,7 +584,11 @@ class IADsUser extends IADs{
      * @returns {Float} 
      */
     get_LastLogin() {
-        result := ComCall(22, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(22, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -588,7 +597,11 @@ class IADsUser extends IADs{
      * @returns {Float} 
      */
     get_LastLogoff() {
-        result := ComCall(23, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(23, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -597,7 +610,11 @@ class IADsUser extends IADs{
      * @returns {Float} 
      */
     get_LastFailedLogin() {
-        result := ComCall(24, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(24, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -606,7 +623,11 @@ class IADsUser extends IADs{
      * @returns {Float} 
      */
     get_PasswordLastChanged() {
-        result := ComCall(25, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(25, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -616,7 +637,11 @@ class IADsUser extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
+        result := ComCall(26, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -626,9 +651,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(27, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -638,7 +670,11 @@ class IADsUser extends IADs{
      */
     get_Division() {
         retval := BSTR()
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
+        result := ComCall(28, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -648,9 +684,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Division(bstrDivision) {
-        bstrDivision := bstrDivision is String ? BSTR.Alloc(bstrDivision).Value : bstrDivision
+        if(bstrDivision is String) {
+            pin := BSTR.Alloc(bstrDivision)
+            bstrDivision := pin.Value
+        }
 
-        result := ComCall(29, this, "ptr", bstrDivision, "HRESULT")
+        result := ComCall(29, this, "ptr", bstrDivision, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -660,7 +703,11 @@ class IADsUser extends IADs{
      */
     get_Department() {
         retval := BSTR()
-        result := ComCall(30, this, "ptr", retval, "HRESULT")
+        result := ComCall(30, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -670,9 +717,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Department(bstrDepartment) {
-        bstrDepartment := bstrDepartment is String ? BSTR.Alloc(bstrDepartment).Value : bstrDepartment
+        if(bstrDepartment is String) {
+            pin := BSTR.Alloc(bstrDepartment)
+            bstrDepartment := pin.Value
+        }
 
-        result := ComCall(31, this, "ptr", bstrDepartment, "HRESULT")
+        result := ComCall(31, this, "ptr", bstrDepartment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -682,7 +736,11 @@ class IADsUser extends IADs{
      */
     get_EmployeeID() {
         retval := BSTR()
-        result := ComCall(32, this, "ptr", retval, "HRESULT")
+        result := ComCall(32, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -692,9 +750,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_EmployeeID(bstrEmployeeID) {
-        bstrEmployeeID := bstrEmployeeID is String ? BSTR.Alloc(bstrEmployeeID).Value : bstrEmployeeID
+        if(bstrEmployeeID is String) {
+            pin := BSTR.Alloc(bstrEmployeeID)
+            bstrEmployeeID := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", bstrEmployeeID, "HRESULT")
+        result := ComCall(33, this, "ptr", bstrEmployeeID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -704,7 +769,11 @@ class IADsUser extends IADs{
      */
     get_FullName() {
         retval := BSTR()
-        result := ComCall(34, this, "ptr", retval, "HRESULT")
+        result := ComCall(34, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -714,9 +783,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_FullName(bstrFullName) {
-        bstrFullName := bstrFullName is String ? BSTR.Alloc(bstrFullName).Value : bstrFullName
+        if(bstrFullName is String) {
+            pin := BSTR.Alloc(bstrFullName)
+            bstrFullName := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", bstrFullName, "HRESULT")
+        result := ComCall(35, this, "ptr", bstrFullName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -726,7 +802,11 @@ class IADsUser extends IADs{
      */
     get_FirstName() {
         retval := BSTR()
-        result := ComCall(36, this, "ptr", retval, "HRESULT")
+        result := ComCall(36, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -736,9 +816,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_FirstName(bstrFirstName) {
-        bstrFirstName := bstrFirstName is String ? BSTR.Alloc(bstrFirstName).Value : bstrFirstName
+        if(bstrFirstName is String) {
+            pin := BSTR.Alloc(bstrFirstName)
+            bstrFirstName := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", bstrFirstName, "HRESULT")
+        result := ComCall(37, this, "ptr", bstrFirstName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -748,7 +835,11 @@ class IADsUser extends IADs{
      */
     get_LastName() {
         retval := BSTR()
-        result := ComCall(38, this, "ptr", retval, "HRESULT")
+        result := ComCall(38, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -758,9 +849,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_LastName(bstrLastName) {
-        bstrLastName := bstrLastName is String ? BSTR.Alloc(bstrLastName).Value : bstrLastName
+        if(bstrLastName is String) {
+            pin := BSTR.Alloc(bstrLastName)
+            bstrLastName := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", bstrLastName, "HRESULT")
+        result := ComCall(39, this, "ptr", bstrLastName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -770,7 +868,11 @@ class IADsUser extends IADs{
      */
     get_OtherName() {
         retval := BSTR()
-        result := ComCall(40, this, "ptr", retval, "HRESULT")
+        result := ComCall(40, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -780,9 +882,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_OtherName(bstrOtherName) {
-        bstrOtherName := bstrOtherName is String ? BSTR.Alloc(bstrOtherName).Value : bstrOtherName
+        if(bstrOtherName is String) {
+            pin := BSTR.Alloc(bstrOtherName)
+            bstrOtherName := pin.Value
+        }
 
-        result := ComCall(41, this, "ptr", bstrOtherName, "HRESULT")
+        result := ComCall(41, this, "ptr", bstrOtherName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -792,7 +901,11 @@ class IADsUser extends IADs{
      */
     get_NamePrefix() {
         retval := BSTR()
-        result := ComCall(42, this, "ptr", retval, "HRESULT")
+        result := ComCall(42, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -802,9 +915,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_NamePrefix(bstrNamePrefix) {
-        bstrNamePrefix := bstrNamePrefix is String ? BSTR.Alloc(bstrNamePrefix).Value : bstrNamePrefix
+        if(bstrNamePrefix is String) {
+            pin := BSTR.Alloc(bstrNamePrefix)
+            bstrNamePrefix := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", bstrNamePrefix, "HRESULT")
+        result := ComCall(43, this, "ptr", bstrNamePrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -814,7 +934,11 @@ class IADsUser extends IADs{
      */
     get_NameSuffix() {
         retval := BSTR()
-        result := ComCall(44, this, "ptr", retval, "HRESULT")
+        result := ComCall(44, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -824,9 +948,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_NameSuffix(bstrNameSuffix) {
-        bstrNameSuffix := bstrNameSuffix is String ? BSTR.Alloc(bstrNameSuffix).Value : bstrNameSuffix
+        if(bstrNameSuffix is String) {
+            pin := BSTR.Alloc(bstrNameSuffix)
+            bstrNameSuffix := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", bstrNameSuffix, "HRESULT")
+        result := ComCall(45, this, "ptr", bstrNameSuffix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -836,7 +967,11 @@ class IADsUser extends IADs{
      */
     get_Title() {
         retval := BSTR()
-        result := ComCall(46, this, "ptr", retval, "HRESULT")
+        result := ComCall(46, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -846,9 +981,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Title(bstrTitle) {
-        bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
+        if(bstrTitle is String) {
+            pin := BSTR.Alloc(bstrTitle)
+            bstrTitle := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", bstrTitle, "HRESULT")
+        result := ComCall(47, this, "ptr", bstrTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -858,7 +1000,11 @@ class IADsUser extends IADs{
      */
     get_Manager() {
         retval := BSTR()
-        result := ComCall(48, this, "ptr", retval, "HRESULT")
+        result := ComCall(48, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -868,9 +1014,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Manager(bstrManager) {
-        bstrManager := bstrManager is String ? BSTR.Alloc(bstrManager).Value : bstrManager
+        if(bstrManager is String) {
+            pin := BSTR.Alloc(bstrManager)
+            bstrManager := pin.Value
+        }
 
-        result := ComCall(49, this, "ptr", bstrManager, "HRESULT")
+        result := ComCall(49, this, "ptr", bstrManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -880,7 +1033,11 @@ class IADsUser extends IADs{
      */
     get_TelephoneHome() {
         retval := VARIANT()
-        result := ComCall(50, this, "ptr", retval, "HRESULT")
+        result := ComCall(50, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -890,7 +1047,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_TelephoneHome(vTelephoneHome) {
-        result := ComCall(51, this, "ptr", vTelephoneHome, "HRESULT")
+        result := ComCall(51, this, "ptr", vTelephoneHome, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -900,7 +1061,11 @@ class IADsUser extends IADs{
      */
     get_TelephoneMobile() {
         retval := VARIANT()
-        result := ComCall(52, this, "ptr", retval, "HRESULT")
+        result := ComCall(52, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -910,7 +1075,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_TelephoneMobile(vTelephoneMobile) {
-        result := ComCall(53, this, "ptr", vTelephoneMobile, "HRESULT")
+        result := ComCall(53, this, "ptr", vTelephoneMobile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -920,7 +1089,11 @@ class IADsUser extends IADs{
      */
     get_TelephoneNumber() {
         retval := VARIANT()
-        result := ComCall(54, this, "ptr", retval, "HRESULT")
+        result := ComCall(54, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -930,7 +1103,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_TelephoneNumber(vTelephoneNumber) {
-        result := ComCall(55, this, "ptr", vTelephoneNumber, "HRESULT")
+        result := ComCall(55, this, "ptr", vTelephoneNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -940,7 +1117,11 @@ class IADsUser extends IADs{
      */
     get_TelephonePager() {
         retval := VARIANT()
-        result := ComCall(56, this, "ptr", retval, "HRESULT")
+        result := ComCall(56, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -950,7 +1131,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_TelephonePager(vTelephonePager) {
-        result := ComCall(57, this, "ptr", vTelephonePager, "HRESULT")
+        result := ComCall(57, this, "ptr", vTelephonePager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -960,7 +1145,11 @@ class IADsUser extends IADs{
      */
     get_FaxNumber() {
         retval := VARIANT()
-        result := ComCall(58, this, "ptr", retval, "HRESULT")
+        result := ComCall(58, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -970,7 +1159,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_FaxNumber(vFaxNumber) {
-        result := ComCall(59, this, "ptr", vFaxNumber, "HRESULT")
+        result := ComCall(59, this, "ptr", vFaxNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -980,7 +1173,11 @@ class IADsUser extends IADs{
      */
     get_OfficeLocations() {
         retval := VARIANT()
-        result := ComCall(60, this, "ptr", retval, "HRESULT")
+        result := ComCall(60, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -990,7 +1187,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_OfficeLocations(vOfficeLocations) {
-        result := ComCall(61, this, "ptr", vOfficeLocations, "HRESULT")
+        result := ComCall(61, this, "ptr", vOfficeLocations, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1000,7 +1201,11 @@ class IADsUser extends IADs{
      */
     get_PostalAddresses() {
         retval := VARIANT()
-        result := ComCall(62, this, "ptr", retval, "HRESULT")
+        result := ComCall(62, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1010,7 +1215,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_PostalAddresses(vPostalAddresses) {
-        result := ComCall(63, this, "ptr", vPostalAddresses, "HRESULT")
+        result := ComCall(63, this, "ptr", vPostalAddresses, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1020,7 +1229,11 @@ class IADsUser extends IADs{
      */
     get_PostalCodes() {
         retval := VARIANT()
-        result := ComCall(64, this, "ptr", retval, "HRESULT")
+        result := ComCall(64, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1030,7 +1243,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_PostalCodes(vPostalCodes) {
-        result := ComCall(65, this, "ptr", vPostalCodes, "HRESULT")
+        result := ComCall(65, this, "ptr", vPostalCodes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1040,7 +1257,11 @@ class IADsUser extends IADs{
      */
     get_SeeAlso() {
         retval := VARIANT()
-        result := ComCall(66, this, "ptr", retval, "HRESULT")
+        result := ComCall(66, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1050,7 +1271,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_SeeAlso(vSeeAlso) {
-        result := ComCall(67, this, "ptr", vSeeAlso, "HRESULT")
+        result := ComCall(67, this, "ptr", vSeeAlso, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1059,7 +1284,11 @@ class IADsUser extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_AccountDisabled() {
-        result := ComCall(68, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(68, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1069,7 +1298,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_AccountDisabled(fAccountDisabled) {
-        result := ComCall(69, this, "short", fAccountDisabled, "HRESULT")
+        result := ComCall(69, this, "short", fAccountDisabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1078,7 +1311,11 @@ class IADsUser extends IADs{
      * @returns {Float} 
      */
     get_AccountExpirationDate() {
-        result := ComCall(70, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(70, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1088,7 +1325,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_AccountExpirationDate(daAccountExpirationDate) {
-        result := ComCall(71, this, "double", daAccountExpirationDate, "HRESULT")
+        result := ComCall(71, this, "double", daAccountExpirationDate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1097,7 +1338,11 @@ class IADsUser extends IADs{
      * @returns {Integer} 
      */
     get_GraceLoginsAllowed() {
-        result := ComCall(72, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(72, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1107,7 +1352,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_GraceLoginsAllowed(lnGraceLoginsAllowed) {
-        result := ComCall(73, this, "int", lnGraceLoginsAllowed, "HRESULT")
+        result := ComCall(73, this, "int", lnGraceLoginsAllowed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1116,7 +1365,11 @@ class IADsUser extends IADs{
      * @returns {Integer} 
      */
     get_GraceLoginsRemaining() {
-        result := ComCall(74, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(74, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1126,7 +1379,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_GraceLoginsRemaining(lnGraceLoginsRemaining) {
-        result := ComCall(75, this, "int", lnGraceLoginsRemaining, "HRESULT")
+        result := ComCall(75, this, "int", lnGraceLoginsRemaining, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1135,7 +1392,11 @@ class IADsUser extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_IsAccountLocked() {
-        result := ComCall(76, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(76, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1145,7 +1406,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_IsAccountLocked(fIsAccountLocked) {
-        result := ComCall(77, this, "short", fIsAccountLocked, "HRESULT")
+        result := ComCall(77, this, "short", fIsAccountLocked, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1155,7 +1420,11 @@ class IADsUser extends IADs{
      */
     get_LoginHours() {
         retval := VARIANT()
-        result := ComCall(78, this, "ptr", retval, "HRESULT")
+        result := ComCall(78, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1165,7 +1434,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_LoginHours(vLoginHours) {
-        result := ComCall(79, this, "ptr", vLoginHours, "HRESULT")
+        result := ComCall(79, this, "ptr", vLoginHours, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1175,7 +1448,11 @@ class IADsUser extends IADs{
      */
     get_LoginWorkstations() {
         retval := VARIANT()
-        result := ComCall(80, this, "ptr", retval, "HRESULT")
+        result := ComCall(80, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1185,7 +1462,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_LoginWorkstations(vLoginWorkstations) {
-        result := ComCall(81, this, "ptr", vLoginWorkstations, "HRESULT")
+        result := ComCall(81, this, "ptr", vLoginWorkstations, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1194,7 +1475,11 @@ class IADsUser extends IADs{
      * @returns {Integer} 
      */
     get_MaxLogins() {
-        result := ComCall(82, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(82, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1204,7 +1489,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_MaxLogins(lnMaxLogins) {
-        result := ComCall(83, this, "int", lnMaxLogins, "HRESULT")
+        result := ComCall(83, this, "int", lnMaxLogins, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1213,7 +1502,11 @@ class IADsUser extends IADs{
      * @returns {Integer} 
      */
     get_MaxStorage() {
-        result := ComCall(84, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(84, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1223,7 +1516,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_MaxStorage(lnMaxStorage) {
-        result := ComCall(85, this, "int", lnMaxStorage, "HRESULT")
+        result := ComCall(85, this, "int", lnMaxStorage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1232,7 +1529,11 @@ class IADsUser extends IADs{
      * @returns {Float} 
      */
     get_PasswordExpirationDate() {
-        result := ComCall(86, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(86, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1242,7 +1543,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_PasswordExpirationDate(daPasswordExpirationDate) {
-        result := ComCall(87, this, "double", daPasswordExpirationDate, "HRESULT")
+        result := ComCall(87, this, "double", daPasswordExpirationDate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1251,7 +1556,11 @@ class IADsUser extends IADs{
      * @returns {Integer} 
      */
     get_PasswordMinimumLength() {
-        result := ComCall(88, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(88, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1261,7 +1570,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_PasswordMinimumLength(lnPasswordMinimumLength) {
-        result := ComCall(89, this, "int", lnPasswordMinimumLength, "HRESULT")
+        result := ComCall(89, this, "int", lnPasswordMinimumLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1270,7 +1583,11 @@ class IADsUser extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_PasswordRequired() {
-        result := ComCall(90, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(90, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1280,7 +1597,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_PasswordRequired(fPasswordRequired) {
-        result := ComCall(91, this, "short", fPasswordRequired, "HRESULT")
+        result := ComCall(91, this, "short", fPasswordRequired, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1289,7 +1610,11 @@ class IADsUser extends IADs{
      * @returns {VARIANT_BOOL} 
      */
     get_RequireUniquePassword() {
-        result := ComCall(92, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(92, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1299,7 +1624,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_RequireUniquePassword(fRequireUniquePassword) {
-        result := ComCall(93, this, "short", fRequireUniquePassword, "HRESULT")
+        result := ComCall(93, this, "short", fRequireUniquePassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1309,7 +1638,11 @@ class IADsUser extends IADs{
      */
     get_EmailAddress() {
         retval := BSTR()
-        result := ComCall(94, this, "ptr", retval, "HRESULT")
+        result := ComCall(94, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1319,9 +1652,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_EmailAddress(bstrEmailAddress) {
-        bstrEmailAddress := bstrEmailAddress is String ? BSTR.Alloc(bstrEmailAddress).Value : bstrEmailAddress
+        if(bstrEmailAddress is String) {
+            pin := BSTR.Alloc(bstrEmailAddress)
+            bstrEmailAddress := pin.Value
+        }
 
-        result := ComCall(95, this, "ptr", bstrEmailAddress, "HRESULT")
+        result := ComCall(95, this, "ptr", bstrEmailAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1331,7 +1671,11 @@ class IADsUser extends IADs{
      */
     get_HomeDirectory() {
         retval := BSTR()
-        result := ComCall(96, this, "ptr", retval, "HRESULT")
+        result := ComCall(96, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1341,9 +1685,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_HomeDirectory(bstrHomeDirectory) {
-        bstrHomeDirectory := bstrHomeDirectory is String ? BSTR.Alloc(bstrHomeDirectory).Value : bstrHomeDirectory
+        if(bstrHomeDirectory is String) {
+            pin := BSTR.Alloc(bstrHomeDirectory)
+            bstrHomeDirectory := pin.Value
+        }
 
-        result := ComCall(97, this, "ptr", bstrHomeDirectory, "HRESULT")
+        result := ComCall(97, this, "ptr", bstrHomeDirectory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1353,7 +1704,11 @@ class IADsUser extends IADs{
      */
     get_Languages() {
         retval := VARIANT()
-        result := ComCall(98, this, "ptr", retval, "HRESULT")
+        result := ComCall(98, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1363,7 +1718,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Languages(vLanguages) {
-        result := ComCall(99, this, "ptr", vLanguages, "HRESULT")
+        result := ComCall(99, this, "ptr", vLanguages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1373,7 +1732,11 @@ class IADsUser extends IADs{
      */
     get_Profile() {
         retval := BSTR()
-        result := ComCall(100, this, "ptr", retval, "HRESULT")
+        result := ComCall(100, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1383,9 +1746,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Profile(bstrProfile) {
-        bstrProfile := bstrProfile is String ? BSTR.Alloc(bstrProfile).Value : bstrProfile
+        if(bstrProfile is String) {
+            pin := BSTR.Alloc(bstrProfile)
+            bstrProfile := pin.Value
+        }
 
-        result := ComCall(101, this, "ptr", bstrProfile, "HRESULT")
+        result := ComCall(101, this, "ptr", bstrProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1395,7 +1765,11 @@ class IADsUser extends IADs{
      */
     get_LoginScript() {
         retval := BSTR()
-        result := ComCall(102, this, "ptr", retval, "HRESULT")
+        result := ComCall(102, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1405,9 +1779,16 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_LoginScript(bstrLoginScript) {
-        bstrLoginScript := bstrLoginScript is String ? BSTR.Alloc(bstrLoginScript).Value : bstrLoginScript
+        if(bstrLoginScript is String) {
+            pin := BSTR.Alloc(bstrLoginScript)
+            bstrLoginScript := pin.Value
+        }
 
-        result := ComCall(103, this, "ptr", bstrLoginScript, "HRESULT")
+        result := ComCall(103, this, "ptr", bstrLoginScript, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1417,7 +1798,11 @@ class IADsUser extends IADs{
      */
     get_Picture() {
         retval := VARIANT()
-        result := ComCall(104, this, "ptr", retval, "HRESULT")
+        result := ComCall(104, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1427,7 +1812,11 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_Picture(vPicture) {
-        result := ComCall(105, this, "ptr", vPicture, "HRESULT")
+        result := ComCall(105, this, "ptr", vPicture, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1437,7 +1826,11 @@ class IADsUser extends IADs{
      */
     get_HomePage() {
         retval := BSTR()
-        result := ComCall(106, this, "ptr", retval, "HRESULT")
+        result := ComCall(106, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -1447,47 +1840,88 @@ class IADsUser extends IADs{
      * @returns {HRESULT} 
      */
     put_HomePage(bstrHomePage) {
-        bstrHomePage := bstrHomePage is String ? BSTR.Alloc(bstrHomePage).Value : bstrHomePage
+        if(bstrHomePage is String) {
+            pin := BSTR.Alloc(bstrHomePage)
+            bstrHomePage := pin.Value
+        }
 
-        result := ComCall(107, this, "ptr", bstrHomePage, "HRESULT")
+        result := ComCall(107, this, "ptr", bstrHomePage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Obtains a collection of the ADSI group objects to which this user belongs.
      * @returns {IADsMembers} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsmembers">IADsMembers</a> interface on a members object that can be enumerated using  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> to determine the groups to which this end-user belongs.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-groups
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsuser-groups
      */
     Groups() {
-        result := ComCall(108, this, "ptr*", &ppGroups := 0, "HRESULT")
+        result := ComCall(108, this, "ptr*", &ppGroups := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IADsMembers(ppGroups)
     }
 
     /**
      * Sets the user password to a specified value.
+     * @remarks
+     * The LDAP provider for Active Directory uses one of three processes to set the password; third-party LDAP directories such as iPlanet do not use this password authentication process. The method may vary according to the network configuration. Attempts to set the password occur in the following order:
+     * 
+     * <ul>
+     * <li>First, the LDAP provider attempts to use LDAP over a 128-bit SSL connection. For LDAP SSL to operate successfully, the LDAP server must have the appropriate server authentication certificate installed and the clients running the ADSI code must trust the authority that issued those certificates. Both the server and the client must support 128-bit encryption.</li>
+     * <li>Second, if the SSL connection is unsuccessful, the LDAP provider attempts to use Kerberos.</li>
+     * <li>Third, if Kerberos is unsuccessful, the LDAP provider attempts a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> API call. In previous releases, ADSI called <b>NetUserSetInfo</b> in the security context in which the thread was running, and not the security context specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsopendsobject-opendsobject">IADsOpenDSObject::OpenDSObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsopenobject">ADsOpenObject</a>. In later releases, this was changed so that the ADSI LDAP provider would impersonate the user specified in the <b>OpenDSObject</b> call when it calls NetUserSetInfo.</li>
+     * </ul>
+     * In Active Directory, the caller must have the <a href="https://docs.microsoft.com/windows/desktop/ADSchema/r-user-force-change-password">Reset Password</a> extended control access right to set the password with this method.
      * @param {BSTR} NewPassword A <b>BSTR</b> that contains the new password.
-     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-setpassword
+     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsuser-setpassword
      */
     SetPassword(NewPassword) {
-        NewPassword := NewPassword is String ? BSTR.Alloc(NewPassword).Value : NewPassword
+        if(NewPassword is String) {
+            pin := BSTR.Alloc(NewPassword)
+            NewPassword := pin.Value
+        }
 
-        result := ComCall(109, this, "ptr", NewPassword, "HRESULT")
+        result := ComCall(109, this, "ptr", NewPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Changes the user password from the specified old value to a new value.
+     * @remarks
+     * <b>IADsUser::ChangePassword</b> functions similarly to <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsuser-setpassword">IADsUser::SetPassword</a> in that it will use one of three methods to try to change the password. Initially, the LDAP provider will attempt an LDAP change password operation, if a secure SSL connection to the server is established.  If this attempt fails, the LDAP provider will next try to use Kerberos (see <b>IADsUser::SetPassword</b> for some problems that may result on  Windows with cross-forest authentication), and if this also fails, it will finally call the Active Directory specific network management API, <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserchangepassword">NetUserChangePassword</a>.
+     * 
+     * In Active Directory, the caller must have the <a href="https://docs.microsoft.com/windows/desktop/ADSchema/r-user-change-password">Change Password</a> extended control access right to change the password with this method.
      * @param {BSTR} bstrOldPassword A <b>BSTR</b> that contains the current password.
      * @param {BSTR} bstrNewPassword A <b>BSTR</b> that contains the new password.
-     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-changepassword
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information and other return values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsuser-changepassword
      */
     ChangePassword(bstrOldPassword, bstrNewPassword) {
-        bstrOldPassword := bstrOldPassword is String ? BSTR.Alloc(bstrOldPassword).Value : bstrOldPassword
-        bstrNewPassword := bstrNewPassword is String ? BSTR.Alloc(bstrNewPassword).Value : bstrNewPassword
+        if(bstrOldPassword is String) {
+            pin := BSTR.Alloc(bstrOldPassword)
+            bstrOldPassword := pin.Value
+        }
+        if(bstrNewPassword is String) {
+            pin := BSTR.Alloc(bstrNewPassword)
+            bstrNewPassword := pin.Value
+        }
 
-        result := ComCall(110, this, "ptr", bstrOldPassword, "ptr", bstrNewPassword, "HRESULT")
+        result := ComCall(110, this, "ptr", bstrOldPassword, "ptr", bstrNewPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

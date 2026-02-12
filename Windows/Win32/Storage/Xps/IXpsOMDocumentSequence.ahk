@@ -9,7 +9,6 @@
 /**
  * The root object that has the XPS document content.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -53,9 +52,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence
+ * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -83,42 +80,64 @@ class IXpsOMDocumentSequence extends IXpsOMPart{
     /**
      * Gets a pointer to the IXpsOMPackage interface that contains the document sequence.
      * @returns {IXpsOMPackage} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackage">IXpsOMPackage</a> interface that contains the document sequence.  If the document sequence does not belong to a package, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getowner
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getowner
      */
     GetOwner() {
-        result := ComCall(5, this, "ptr*", &package := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &package := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMPackage(package)
     }
 
     /**
      * Gets a pointer to the IXpsOMDocumentCollection interface, which contains the documents specified in the document sequence.
+     * @remarks
+     * If the document sequence does not have any documents, the document collection that is returned in <i>documents</i> will be empty. To get  the number of documents in the collection, call the collection's <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentcollection-getcount">GetCount</a> method.
      * @returns {IXpsOMDocumentCollection} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentcollection">IXpsOMDocumentCollection</a> interface, which contains the documents specified in the document sequence. If the sequence does not have any documents, the <b>IXpsOMDocumentCollection</b> interface will be empty.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getdocuments
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getdocuments
      */
     GetDocuments() {
-        result := ComCall(6, this, "ptr*", &documents := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &documents := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMDocumentCollection(documents)
     }
 
     /**
      * Gets the IXpsOMPrintTicketResource interface to the job-level print ticket that is assigned to the document sequence.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMPrintTicketResource} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource">IXpsOMPrintTicketResource</a> interface of the job-level print ticket that is  assigned to the document sequence. If no <b>IXpsOMPrintTicketResource</b> interface has been assigned to the document sequence, a <b>NULL</b> pointer is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getprintticketresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getprintticketresource
      */
     GetPrintTicketResource() {
-        result := ComCall(7, this, "ptr*", &printTicketResource := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &printTicketResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXpsOMPrintTicketResource(printTicketResource)
     }
 
     /**
      * Sets the job-level print ticket resource for the document sequence.
+     * @remarks
+     * If the document contains an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource">IXpsOMPrintTicketResource</a> interface when this method is called, that interface is released before the new <b>IXpsOMPrintTicketResource</b> interface, which is passed in <i>printTicketResource</i>, is set.
      * @param {IXpsOMPrintTicketResource} printTicketResource A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource">IXpsOMPrintTicketResource</a> interface of the job-level print ticket that will be set for the document sequence.
      *           If the document sequence has a print ticket resource, a <b>NULL</b> pointer will release it.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-setprintticketresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-setprintticketresource
      */
     SetPrintTicketResource(printTicketResource) {
-        result := ComCall(8, this, "ptr", printTicketResource, "HRESULT")
+        result := ComCall(8, this, "ptr", printTicketResource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

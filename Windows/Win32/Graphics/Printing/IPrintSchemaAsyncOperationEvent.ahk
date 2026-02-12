@@ -35,7 +35,11 @@ class IPrintSchemaAsyncOperationEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     Completed(pTicket, hrOperation) {
-        result := ComCall(7, this, "ptr", pTicket, "int", hrOperation, "HRESULT")
+        result := ComCall(7, this, "ptr", pTicket, "int", hrOperation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

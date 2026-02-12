@@ -37,7 +37,11 @@ class IStringDisplayableConcept extends IUnknown{
      */
     ToDisplayString(contextObject, metadata) {
         displayString := BSTR()
-        result := ComCall(3, this, "ptr", contextObject, "ptr", metadata, "ptr", displayString, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "ptr", metadata, "ptr", displayString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return displayString
     }
 }

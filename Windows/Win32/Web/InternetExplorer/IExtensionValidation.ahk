@@ -29,7 +29,16 @@ class IExtensionValidation extends IUnknown{
     static VTableNames => ["Validate", "DisplayName"]
 
     /**
+     * The ValidateBitmapInfoHeader function checks a BITMAPINFOHEADER structure for certain common errors that can cause buffer overruns or integer overflows.
+     * @remarks
+     * This function guards against the following errors:
      * 
+     * -   Arithmetic overflow in the structure size or an invalid structure size.
+     * -   Invalid value for the **biClrUsed** member.
+     * -   Arithmetic overflow in the image size (**biSizeImage**).
+     * -   Invalid values for the image size (**biSizeImage**) for RGB formats.
+     * 
+     * The function does not check whether the structure describes a valid video format.
      * @param {Pointer<Guid>} extensionGuid 
      * @param {PWSTR} extensionModulePath 
      * @param {Integer} extensionFileVersionMS 
@@ -39,20 +48,32 @@ class IExtensionValidation extends IUnknown{
      * @param {IHTMLElement} htmlElement 
      * @param {Integer} contexts 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/validatebitmapinfoheader
      */
     Validate(extensionGuid, extensionModulePath, extensionFileVersionMS, extensionFileVersionLS, htmlDocumentTop, htmlDocumentSubframe, htmlElement, contexts) {
         extensionModulePath := extensionModulePath is String ? StrPtr(extensionModulePath) : extensionModulePath
 
-        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, "int*", &results := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", extensionGuid, "ptr", extensionModulePath, "uint", extensionFileVersionMS, "uint", extensionFileVersionLS, "ptr", htmlDocumentTop, "ptr", htmlDocumentSubframe, "ptr", htmlElement, "int", contexts, "int*", &results := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return results
     }
 
     /**
-     * 
+     * DisplayName Property (SqlService Class)
+     * @remarks
+     * This string has a maximum length of 256 characters. The name is case-preserved in the [!INCLUDE[ssNoVersion](../../../includes/ssnoversion-md.md)] Configuration Manager. However, display name comparisons are always case-insensitive.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/wmi-provider-configuration-classes/sqlservice-class/displayname-property-sqlservice-class
      */
     DisplayName() {
-        result := ComCall(4, this, "ptr*", &displayName := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &displayName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return displayName
     }
 }

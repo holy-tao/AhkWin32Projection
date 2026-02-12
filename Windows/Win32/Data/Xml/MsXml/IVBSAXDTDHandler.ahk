@@ -36,7 +36,11 @@ class IVBSAXDTDHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     notationDecl(strName, strPublicId, strSystemId) {
-        result := ComCall(7, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "HRESULT")
+        result := ComCall(7, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class IVBSAXDTDHandler extends IDispatch{
      * @returns {HRESULT} 
      */
     unparsedEntityDecl(strName, strPublicId, strSystemId, strNotationName) {
-        result := ComCall(8, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "ptr", strNotationName, "HRESULT")
+        result := ComCall(8, this, "ptr", strName, "ptr", strPublicId, "ptr", strSystemId, "ptr", strNotationName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,11 +7,8 @@
 /**
  * Extends the IMFMediaSource interface to provide additional capabilities for a media source.
  * @remarks
- * 
  * Implementations of this interface can return <b>E_NOTIMPL</b> for any methods that are not required by the media source.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediasourceex
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfmediasourceex
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,22 +35,34 @@ class IMFMediaSourceEx extends IMFMediaSource{
 
     /**
      * Gets an attribute store for the media source.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> pointer to get or set attributes that apply to the entire source. For stream-level attributes, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasourceex-getstreamattributes">IMFMediaSourceEx::GetStreamAttributes</a> method instead.
      * @returns {IMFAttributes} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourceex-getsourceattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfmediasourceex-getsourceattributes
      */
     GetSourceAttributes() {
-        result := ComCall(13, this, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFAttributes(ppAttributes)
     }
 
     /**
      * Gets an attribute store for a stream on the media source.
+     * @remarks
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> pointer to get or set attributes that apply to the specified stream. For attributes that apply to the entire source, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasourceex-getsourceattributes">IMFMediaSourceEx::GetSourceAttributes</a> method instead.
      * @param {Integer} dwStreamIdentifier The identifier of the stream. To get the identifier, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier">IMFStreamDescriptor::GetStreamIdentifier</a> on the stream descriptor.
      * @returns {IMFAttributes} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourceex-getstreamattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfmediasourceex-getstreamattributes
      */
     GetStreamAttributes(dwStreamIdentifier) {
-        result := ComCall(14, this, "uint", dwStreamIdentifier, "ptr*", &ppAttributes := 0, "HRESULT")
+        result := ComCall(14, this, "uint", dwStreamIdentifier, "ptr*", &ppAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFAttributes(ppAttributes)
     }
 
@@ -90,10 +99,14 @@ class IMFMediaSourceEx extends IMFMediaSource{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourceex-setd3dmanager
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfmediasourceex-setd3dmanager
      */
     SetD3DManager(pManager) {
-        result := ComCall(15, this, "ptr", pManager, "HRESULT")
+        result := ComCall(15, this, "ptr", pManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

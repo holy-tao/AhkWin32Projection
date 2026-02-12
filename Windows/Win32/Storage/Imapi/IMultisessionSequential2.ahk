@@ -4,8 +4,8 @@
 #Include .\IMultisessionSequential.ahk
 
 /**
- * Use this interface to retrieve information about the size of a writeable unit on sequentially recorded media.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-imultisessionsequential2
+ * Use this interface to retrieve information about the size of a writable unit on sequentially recorded media.
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-imultisessionsequential2
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -38,12 +38,16 @@ class IMultisessionSequential2 extends IMultisessionSequential{
     }
 
     /**
-     * Retrieves the size of a writeable unit on the media.
-     * @returns {Integer} The size of a writeable unit on the media in sectors.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential2-get_writeunitsize
+     * Retrieves the size of a writable unit on the media. (IMultisessionSequential2.get_WriteUnitSize)
+     * @returns {Integer} The size of a writable unit on the media in sectors.
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-imultisessionsequential2-get_writeunitsize
      */
     get_WriteUnitSize() {
-        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

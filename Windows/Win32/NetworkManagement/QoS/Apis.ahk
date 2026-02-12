@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
@@ -611,7 +613,7 @@ class QoS {
     static FSCTL_TCP_BASE => 18
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DD_TCP_DEVICE_NAME => "\Device\Tcp"
 
@@ -2293,7 +2295,7 @@ class QoS {
      * Every process intending to use qWAVE must first call <b>QOSCreateHandle</b>. The handle returned can be used for performing overlapped I/O. For example, this handle can be associated with an I/O completion port (IOCP) to receive overlapped completion notifications. This function can be  called multiple times to obtain multiple handles although a single handle is sufficient for most applications.
      * 
      * If a machine enters a power save mode that interrupts connectivity such as sleep or standby, existing and active network experiments such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosstarttrackingclient">QOSStartTrackingClient</a> must be reinitiated.  This recreation of the flow mirrors the cleanup and creation activities also necessary for existing sockets. A new handle must be created, and the flow must be recreated and readmitted.
-     * @param {Pointer<QOS_VERSION>} Version Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ns-qos2-qos_version">QOS_VERSION</a> structure that indicates the version of QOS being used.  The <b>MajorVersion</b> member must be set to 1, and the <b>MinorVersion</b> member must be set to 0.
+     * @param {Pointer<QOS_VERSION>} Version_ Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ns-qos2-qos_version">QOS_VERSION</a> structure that indicates the version of QOS being used.  The <b>MajorVersion</b> member must be set to 1, and the <b>MinorVersion</b> member must be set to 0.
      * @param {Pointer<HANDLE>} QOSHandle Pointer to a variable that receives a QOS handle.  This handle is used when calling other QOS functions.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -2371,11 +2373,11 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qoscreatehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qoscreatehandle
      * @since windows6.0.6000
      */
-    static QOSCreateHandle(Version, QOSHandle) {
-        result := DllCall("qwave.dll\QOSCreateHandle", "ptr", Version, "ptr", QOSHandle, "int")
+    static QOSCreateHandle(Version_, QOSHandle) {
+        result := DllCall("qwave.dll\QOSCreateHandle", "ptr", Version_, "ptr", QOSHandle, "int")
         return result
     }
 
@@ -2407,7 +2409,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosclosehandle
      * @since windows6.0.6000
      */
     static QOSCloseHandle(QOSHandle) {
@@ -2538,7 +2540,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosstarttrackingclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosstarttrackingclient
      * @since windows6.0.6000
      */
     static QOSStartTrackingClient(QOSHandle, DestAddr) {
@@ -2643,7 +2645,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosstoptrackingclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosstoptrackingclient
      * @since windows6.0.6000
      */
     static QOSStopTrackingClient(QOSHandle, DestAddr) {
@@ -2666,12 +2668,12 @@ class QoS {
      * 
      * Flows from another process cannot be modified.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} Size_ Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
      * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to an array of <b>QOS_FlowId</b> flow identifiers. A <b>QOS_FlowId</b> is an unsigned 32-bit integer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -2759,15 +2761,15 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosenumerateflows
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosenumerateflows
      * @since windows6.0.6000
      */
-    static QOSEnumerateFlows(QOSHandle, Size, Buffer_R) {
+    static QOSEnumerateFlows(QOSHandle, Size_, Buffer_) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+        Size_Marshal := Size_ is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, SizeMarshal, Size, "ptr", Buffer_R, "int")
+        result := DllCall("qwave.dll\QOSEnumerateFlows", "ptr", QOSHandle, Size_Marshal, Size_, "ptr", Buffer_, "int")
         return result
     }
 
@@ -2788,7 +2790,7 @@ class QoS {
      * 
      * Non-adaptive applications, or adaptive applications making non-adaptive flows, should call this function with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag.  After calling this function A/V applications should call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qossetflow">QOSSetFlow</a> function with a <i>Operation</i>. <b>QOSSetFlow</b> does not need to be called unless shaping is desired.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {SOCKET} Socket Identifies the socket that the application will use to flow traffic.
+     * @param {SOCKET} Socket_ Identifies the socket that the application will use to flow traffic.
      * @param {Pointer<SOCKADDR>} DestAddr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure that contains the destination IP address to which the application will send traffic.  The sockaddr structure must specify a destination port.
      * 
      * <div class="alert"><b>Note</b>  <i>DestAddr</i> is optional if the socket is already connected. If this parameter is specified, the remote IP address and port must match those used in the socket's connect call.<p class="note">If the socket is not connected, this parameter must be specified.  If the socket is already connected, this parameter does not need to be specified.  In this case, if the parameter is still specified, the destination host and port must match what was specified during the socket connect call.
@@ -2945,16 +2947,16 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosaddsockettoflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosaddsockettoflow
      * @since windows6.0.6000
      */
-    static QOSAddSocketToFlow(QOSHandle, Socket, DestAddr, TrafficType, Flags, FlowId) {
+    static QOSAddSocketToFlow(QOSHandle, Socket_, DestAddr, TrafficType, Flags, FlowId) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
-        Socket := Socket is Win32Handle ? NumGet(Socket, "ptr") : Socket
+        Socket_ := Socket_ is Win32Handle ? NumGet(Socket_, "ptr") : Socket_
 
         FlowIdMarshal := FlowId is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket, "ptr", DestAddr, "int", TrafficType, "uint", Flags, FlowIdMarshal, FlowId, "int")
+        result := DllCall("qwave.dll\QOSAddSocketToFlow", "ptr", QOSHandle, "ptr", Socket_, "ptr", DestAddr, "int", TrafficType, "uint", Flags, FlowIdMarshal, FlowId, "int")
         return result
     }
 
@@ -2963,7 +2965,7 @@ class QoS {
      * @remarks
      * Calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> function immediately aborts all pending operations and flows added by that handle.  If a handle is closed while a <b>QOSRemoveSocketFromFlow</b> call is still progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b>.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {SOCKET} Socket Socket to be removed from the flow.
+     * @param {SOCKET} Socket_ Socket to be removed from the flow.
      * 
      * Only flows created with the <b>QOS_NON_ADAPTIVE_FLOW</b> flag may have multiple sockets added to the same flow.  By passing the <i>Socket</i> parameter in this call, each socket can be removed individually.  If the <i>Socket</i> parameter is not passed, the entire flow will be destroyed.  If only one socket was attached to the flow, passing this socket as a parameter to this function and passing <b>NULL</b> as a socket are equivalent calls.
      * @param {Integer} FlowId A flow identifier. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
@@ -3065,16 +3067,16 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosremovesocketfromflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosremovesocketfromflow
      * @since windows6.0.6000
      */
-    static QOSRemoveSocketFromFlow(QOSHandle, Socket, FlowId) {
+    static QOSRemoveSocketFromFlow(QOSHandle, Socket_, FlowId) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
-        Socket := Socket is Win32Handle ? NumGet(Socket, "ptr") : Socket
+        Socket_ := Socket_ is Win32Handle ? NumGet(Socket_, "ptr") : Socket_
 
-        result := DllCall("qwave.dll\QOSRemoveSocketFromFlow", "ptr", QOSHandle, "ptr", Socket, "uint", FlowId, "uint", Flags, "int")
+        result := DllCall("qwave.dll\QOSRemoveSocketFromFlow", "ptr", QOSHandle, "ptr", Socket_, "uint", FlowId, "uint", Flags, "int")
         return result
     }
 
@@ -3139,9 +3141,9 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} Size The size of the <i>Buffer</i> parameter, in bytes.
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an OVERLAPPED structure used for asynchronous output.  This must be set to <b>NULL</b> if this function is not being called asynchronously.
+     * @param {Integer} Size_ The size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer} Buffer_ Pointer to the structure specified by the value of the <i>Operation</i> parameter.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an OVERLAPPED structure used for asynchronous output.  This must be set to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3328,15 +3330,15 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qossetflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qossetflow
      * @since windows6.0.6000
      */
-    static QOSSetFlow(QOSHandle, FlowId, Operation, Size, Buffer_R, Overlapped) {
+    static QOSSetFlow(QOSHandle, FlowId, Operation, Size_, Buffer_, Overlapped_) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSSetFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint", Size, "ptr", Buffer_R, "uint", Flags, "ptr", Overlapped, "int")
+        result := DllCall("qwave.dll\QOSSetFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, "uint", Size_, "ptr", Buffer_, "uint", Flags, "ptr", Overlapped_, "int")
         return result
     }
 
@@ -3382,12 +3384,12 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} Size_ Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
      * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to the structure specified by the value of the <i>Operation</i> parameter.
      * @param {Integer} Flags Flags pertaining to the data being returned.
      * 
      * <table>
@@ -3408,7 +3410,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an OVERLAPPED structure used for asynchronous output. This must be set to <b>NULL</b> if this function is not being called asynchronously.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an OVERLAPPED structure used for asynchronous output. This must be set to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3595,15 +3597,15 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosqueryflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosqueryflow
      * @since windows6.0.6000
      */
-    static QOSQueryFlow(QOSHandle, FlowId, Operation, Size, Buffer_R, Flags, Overlapped) {
+    static QOSQueryFlow(QOSHandle, FlowId, Operation, Size_, Buffer_, Flags, Overlapped_) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+        Size_Marshal := Size_ is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, SizeMarshal, Size, "ptr", Buffer_R, "uint", Flags, "ptr", Overlapped, "int")
+        result := DllCall("qwave.dll\QOSQueryFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, Size_Marshal, Size_, "ptr", Buffer_, "uint", Flags, "ptr", Overlapped_, "int")
         return result
     }
 
@@ -3614,13 +3616,13 @@ class QoS {
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies the flow identifier from which the application wishes to receive notifications. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_notify_flow">QOS_NOTIFY_FLOW</a> value that indicates what the type of  notification being requested.
-     * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} Size_ Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
      * If this call fails with <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter will indicate the minimum required <i>Buffer</i> size in order to successfully complete this operation.
-     * @param {Pointer} Buffer_R 
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to an OVERLAPPED structure used for asynchronous output. This must be se to <b>NULL</b> if this function is not being called asynchronously.
+     * @param {Pointer} Buffer_ Pointer to a UINT64 that indicates the bandwidth at which point a notification will be sent.  This parameter is only used if the <i>Operation</i> parameter is set to <b>QOSNotifyAvailable</b>. For the <b>QOSNotifyCongested</b> and <b>QOSNotifyUncongested</b> options, this parameter must be set to <b>NULL</b> on input.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to an OVERLAPPED structure used for asynchronous output. This must be se to <b>NULL</b> if this function is not being called asynchronously.
      * @returns {BOOL} If the function succeeds, a return value of nonzero is sent when the conditions set by the <i>Operation</i> parameter are met.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>.  Some possible error codes follow.
@@ -3796,17 +3798,17 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qosnotifyflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qosnotifyflow
      * @since windows6.0.6000
      */
-    static QOSNotifyFlow(QOSHandle, FlowId, Operation, Size, Buffer_R, Overlapped) {
+    static QOSNotifyFlow(QOSHandle, FlowId, Operation, Size_, Buffer_, Overlapped_) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+        Size_Marshal := Size_ is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, SizeMarshal, Size, "ptr", Buffer_R, "uint", Flags, "ptr", Overlapped, "int")
+        result := DllCall("qwave.dll\QOSNotifyFlow", "ptr", QOSHandle, "uint", FlowId, "int", Operation, Size_Marshal, Size_, "ptr", Buffer_, "uint", Flags, "ptr", Overlapped_, "int")
         return result
     }
 
@@ -3819,7 +3821,7 @@ class QoS {
      * 
      * Closing a handle with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qosclosehandle">QOSCloseHandle</a> will automatically abort all pending operations issued with that handle.  If the handle is closed while a <b>QOSCancel</b> is still in progress, the call will complete with <b>ERROR_OPERATION_ABORTED</b> as the return code.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {Pointer<OVERLAPPED>} Overlapped Pointer to the OVERLAPPED structure used in the operation to be canceled.
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Pointer to the OVERLAPPED structure used in the operation to be canceled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0.  To get extended error information, call <b>GetLastError</b>. Some possible error codes follow.
@@ -3907,13 +3909,13 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/qos2/nf-qos2-qoscancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/qos2/nf-qos2-qoscancel
      * @since windows6.0.6000
      */
-    static QOSCancel(QOSHandle, Overlapped) {
+    static QOSCancel(QOSHandle, Overlapped_) {
         QOSHandle := QOSHandle is Win32Handle ? NumGet(QOSHandle, "ptr") : QOSHandle
 
-        result := DllCall("qwave.dll\QOSCancel", "ptr", QOSHandle, "ptr", Overlapped, "int")
+        result := DllCall("qwave.dll\QOSCancel", "ptr", QOSHandle, "ptr", Overlapped_, "int")
         return result
     }
 
@@ -4003,7 +4005,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcregisterclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcregisterclient
      * @since windows5.0
      */
     static TcRegisterClient(TciVersion, ClRegCtx, ClientHandlerList, pClientHandle) {
@@ -4106,7 +4108,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcenumerateinterfaces
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcenumerateinterfaces
      * @since windows5.0
      */
     static TcEnumerateInterfaces(ClientHandle, pBufferSize, InterfaceBuffer) {
@@ -4197,7 +4199,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcopeninterfacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcopeninterfacea
      * @since windows5.0
      */
     static TcOpenInterfaceA(pInterfaceName, ClientHandle, ClIfcCtx, pIfcHandle) {
@@ -4288,7 +4290,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcopeninterfacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcopeninterfacew
      * @since windows5.0
      */
     static TcOpenInterfaceW(pInterfaceName, ClientHandle, ClIfcCtx, pIfcHandle) {
@@ -4352,7 +4354,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tccloseinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tccloseinterface
      * @since windows5.0
      */
     static TcCloseInterface(IfcHandle) {
@@ -4374,7 +4376,7 @@ class QoS {
      * @param {BOOLEAN} NotifyChange Used to request notifications from traffic control for the parameter being queried. If <b>TRUE</b>, traffic control will notify the client, through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a> function, upon changes to the parameter corresponding to the GUID provided in <i>pGuidParam</i>. Notifications are off by default.
      * @param {Pointer<Integer>} pBufferSize Indicates the size of the buffer, in bytes. For input, this value is the size of the buffer allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used by traffic control.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a client-allocated buffer into which returned data will be written.
      * @returns {Integer} Note that, with regard to a requested notification state, only a return value of NO_ERROR will result in the application of the requested notification state. If a return value other than NO_ERROR is returned from a call to the 
      * <b>TcQueryInterface</b> function, the requested change in notification state will not be accepted.
      * 
@@ -4461,15 +4463,15 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcqueryinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcqueryinterface
      * @since windows5.0
      */
-    static TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, Buffer_R) {
+    static TcQueryInterface(IfcHandle, pGuidParam, NotifyChange, pBufferSize, Buffer_) {
         IfcHandle := IfcHandle is Win32Handle ? NumGet(IfcHandle, "ptr") : IfcHandle
 
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, pBufferSizeMarshal, pBufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryInterface", "ptr", IfcHandle, "ptr", pGuidParam, "char", NotifyChange, pBufferSizeMarshal, pBufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -4485,7 +4487,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a client-provided buffer. <i>Buffer</i> must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4558,13 +4560,13 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcsetinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcsetinterface
      * @since windows5.0
      */
-    static TcSetInterface(IfcHandle, pGuidParam, BufferSize, Buffer_R) {
+    static TcSetInterface(IfcHandle, pGuidParam, BufferSize, Buffer_) {
         IfcHandle := IfcHandle is Win32Handle ? NumGet(IfcHandle, "ptr") : IfcHandle
 
-        result := DllCall("TRAFFIC.dll\TcSetInterface", "ptr", IfcHandle, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcSetInterface", "ptr", IfcHandle, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -4584,7 +4586,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Pointer<Integer>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4657,15 +4659,15 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcqueryflowa
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcqueryflowa
      * @since windows5.0
      */
-    static TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, Buffer_R) {
+    static TcQueryFlowA(pFlowName, pGuidParam, pBufferSize, Buffer_) {
         pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryFlowA", "ptr", pFlowName, "ptr", pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -4685,7 +4687,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Pointer<Integer>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -4758,15 +4760,15 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcqueryfloww
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcqueryfloww
      * @since windows5.0
      */
-    static TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, Buffer_R) {
+    static TcQueryFlowW(pFlowName, pGuidParam, pBufferSize, Buffer_) {
         pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
         pBufferSizeMarshal := pBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcQueryFlowW", "ptr", pFlowName, "ptr", pGuidParam, pBufferSizeMarshal, pBufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -4787,7 +4789,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} The 
      * <b>TcSetFlow</b> function has the following return values.
      * 
@@ -4874,13 +4876,13 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcsetflowa
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcsetflowa
      * @since windows5.0
      */
-    static TcSetFlowA(pFlowName, pGuidParam, BufferSize, Buffer_R) {
+    static TcSetFlowA(pFlowName, pGuidParam, BufferSize, Buffer_) {
         pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-        result := DllCall("TRAFFIC.dll\TcSetFlowA", "ptr", pFlowName, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcSetFlowA", "ptr", pFlowName, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -4901,7 +4903,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the parameter to be set. A list of available GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
      * @param {Integer} BufferSize Size of the client-provided buffer, in bytes.
-     * @param {Pointer} Buffer_R 
+     * @param {Pointer} Buffer_ Pointer to a client-provided buffer. Buffer must contain the value to which the traffic control parameter provided in <i>pGuidParam</i> should be set.
      * @returns {Integer} The 
      * <b>TcSetFlow</b> function has the following return values.
      * 
@@ -4988,13 +4990,13 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcsetfloww
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcsetfloww
      * @since windows5.0
      */
-    static TcSetFlowW(pFlowName, pGuidParam, BufferSize, Buffer_R) {
+    static TcSetFlowW(pFlowName, pGuidParam, BufferSize, Buffer_) {
         pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
-        result := DllCall("TRAFFIC.dll\TcSetFlowW", "ptr", pFlowName, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcSetFlowW", "ptr", pFlowName, "ptr", pGuidParam, "uint", BufferSize, "ptr", Buffer_, "uint")
         return result
     }
 
@@ -5231,7 +5233,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcaddflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcaddflow
      * @since windows5.0
      */
     static TcAddFlow(IfcHandle, ClFlowCtx, Flags, pGenericFlow, pFlowHandle) {
@@ -5307,7 +5309,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcgetflownamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcgetflownamea
      * @since windows5.0
      */
     static TcGetFlowNameA(FlowHandle, StrSize, pFlowName) {
@@ -5383,7 +5385,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcgetflownamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcgetflownamew
      * @since windows5.0
      */
     static TcGetFlowNameW(FlowHandle, StrSize, pFlowName) {
@@ -5632,7 +5634,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcmodifyflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcmodifyflow
      * @since windows5.0
      */
     static TcModifyFlow(FlowHandle, pGenericFlow) {
@@ -5756,7 +5758,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcaddfilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcaddfilter
      * @since windows5.0
      */
     static TcAddFilter(FlowHandle, pGenericFilter, pFilterHandle) {
@@ -5817,7 +5819,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcderegisterclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcderegisterclient
      * @since windows5.0
      */
     static TcDeregisterClient(ClientHandle) {
@@ -5905,7 +5907,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcdeleteflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcdeleteflow
      * @since windows5.0
      */
     static TcDeleteFlow(FlowHandle) {
@@ -5952,7 +5954,7 @@ class QoS {
      * <div class="alert"><b>Note</b>  Use of the 
      * <b>TcDeleteFilter</b> function requires administrative privilege.</div>
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcdeletefilter
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcdeletefilter
      * @since windows5.0
      */
     static TcDeleteFilter(FilterHandle) {
@@ -5990,7 +5992,8 @@ class QoS {
      * <b>TcEnumerateFlows</b>.
      * @param {Pointer<Integer>} pFlowCount Pointer to the number of requested or returned flows. For input, this parameter designates the number of requested flows or it can be set to <b>0xFFFF</b> to request all flows. For output, <i>pFlowCount</i> returns the number of flows actually returned in <i>Buffer</i>.
      * @param {Pointer<Integer>} pBufSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space, in bytes, written or needed with flow enumerations.
-     * @param {Pointer<ENUMERATION_BUFFER>} Buffer_R 
+     * @param {Pointer<ENUMERATION_BUFFER>} Buffer_ Pointer to the buffer containing flow enumerations. See 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/traffic/ns-traffic-enumeration_buffer">ENUMERATION_BUFFER</a> for more information about flow enumerations.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -6063,16 +6066,16 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/traffic/nf-traffic-tcenumerateflows
+     * @see https://learn.microsoft.com/windows/win32/api//content/traffic/nf-traffic-tcenumerateflows
      * @since windows5.0
      */
-    static TcEnumerateFlows(IfcHandle, pEnumHandle, pFlowCount, pBufSize, Buffer_R) {
+    static TcEnumerateFlows(IfcHandle, pEnumHandle, pFlowCount, pBufSize, Buffer_) {
         IfcHandle := IfcHandle is Win32Handle ? NumGet(IfcHandle, "ptr") : IfcHandle
 
         pFlowCountMarshal := pFlowCount is VarRef ? "uint*" : "ptr"
         pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TRAFFIC.dll\TcEnumerateFlows", "ptr", IfcHandle, "ptr", pEnumHandle, pFlowCountMarshal, pFlowCount, pBufSizeMarshal, pBufSize, "ptr", Buffer_R, "uint")
+        result := DllCall("TRAFFIC.dll\TcEnumerateFlows", "ptr", IfcHandle, "ptr", pEnumHandle, pFlowCountMarshal, pFlowCount, pBufSizeMarshal, pBufSize, "ptr", Buffer_, "uint")
         return result
     }
 

@@ -43,7 +43,11 @@ class ISWbemServicesEx extends ISWbemServices{
      * @returns {ISWbemObjectPath} 
      */
     Put(objWbemObject, iFlags, objWbemNamedValueSet) {
-        result := ComCall(26, this, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
+        result := ComCall(26, this, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemObjectPath(objWbemObjectPath)
     }
 
@@ -57,7 +61,11 @@ class ISWbemServicesEx extends ISWbemServices{
      * @returns {HRESULT} 
      */
     PutAsync(objWbemSink, objWbemObject, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
-        result := ComCall(27, this, "ptr", objWbemSink, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "HRESULT")
+        result := ComCall(27, this, "ptr", objWbemSink, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", objWbemAsyncContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

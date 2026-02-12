@@ -42,7 +42,11 @@ class ISpeechBaseStream extends IDispatch{
      * @returns {ISpeechAudioFormat} 
      */
     get_Format() {
-        result := ComCall(7, this, "ptr*", &AudioFormat := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &AudioFormat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechAudioFormat(AudioFormat)
     }
 
@@ -52,43 +56,70 @@ class ISpeechBaseStream extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_Format(AudioFormat) {
-        result := ComCall(8, this, "ptr", AudioFormat, "HRESULT")
+        result := ComCall(8, this, "ptr", AudioFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} Buffer 
+     * Learn how to read a FILESTREAM column to a file using the IBCPSession interface in OLE DB Driver for SQL Server and write a format file with this example.
+     * @param {Pointer<VARIANT>} Buffer_ 
      * @param {Integer} NumberOfBytes 
      * @param {Pointer<Integer>} BytesRead 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/filestream/read-a-filestream-column-to-file-using-ibcpsession-ole-db
      */
-    Read(Buffer, NumberOfBytes, BytesRead) {
+    Read(Buffer_, NumberOfBytes, BytesRead) {
         BytesReadMarshal := BytesRead is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, "ptr", Buffer, "int", NumberOfBytes, BytesReadMarshal, BytesRead, "HRESULT")
+        result := ComCall(9, this, "ptr", Buffer_, "int", NumberOfBytes, BytesReadMarshal, BytesRead, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {VARIANT} Buffer 
+     * This article helps you to configure the Script Task.
+     * @param {VARIANT} Buffer_ 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/integration-services/extending-packages-scripting-task-examples/write-event-log-script-task
      */
-    Write(Buffer) {
-        result := ComCall(10, this, "ptr", Buffer, "int*", &BytesWritten := 0, "HRESULT")
+    Write(Buffer_) {
+        result := ComCall(10, this, "ptr", Buffer_, "int*", &BytesWritten := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return BytesWritten
     }
 
     /**
-     * 
+     * Seek Method
+     * @remarks
+     * Use the **Seek** method in conjunction with the [Index](./index-property.md) property if the underlying provider supports indexes on the **Recordset** object. Use the [Supports](./supports-method.md)**(adSeek)** method to determine whether the underlying provider supports **Seek**, and the **Supports(adIndex)** method to determine whether the provider supports indexes. (For example, the [OLE DB Provider for Microsoft Jet](../../guide/appendixes/microsoft-ole-db-provider-for-microsoft-jet.md) supports **Seek** and **Index**.)  
+     *   
+     *  If **Seek** does not find the desired row, no error occurs, and the row is positioned at the end of the **Recordset**. Set the **Index** property to the desired index before executing this method.  
+     *   
+     *  This method is supported only with server-side cursors. Seek is not supported when the **Recordset** object's [CursorLocation](./cursorlocation-property-ado.md) property value is **adUseClient**.  
+     *   
+     *  This method can only be used when the **Recordset** object has been opened with a [CommandTypeEnum](./commandtypeenum.md) value of **adCmdTableDirect**.
      * @param {VARIANT} Position 
      * @param {Integer} Origin 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/seek-method
      */
     Seek(Position, Origin) {
         NewPosition := VARIANT()
-        result := ComCall(11, this, "ptr", Position, "uint", Origin, "ptr", NewPosition, "HRESULT")
+        result := ComCall(11, this, "ptr", Position, "uint", Origin, "ptr", NewPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NewPosition
     }
 }

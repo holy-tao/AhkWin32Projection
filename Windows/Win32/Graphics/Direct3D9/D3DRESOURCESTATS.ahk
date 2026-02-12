@@ -3,7 +3,7 @@
 
 /**
  * Resource statistics gathered by the D3DDEVINFO\_ResourceManager when using the asynchronous query mechanism.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dresourcestats
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dresourcestats
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

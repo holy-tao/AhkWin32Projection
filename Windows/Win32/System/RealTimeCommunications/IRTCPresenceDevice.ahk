@@ -48,7 +48,11 @@ class IRTCPresenceDevice extends IUnknown{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(3, this, "int*", &penStatus := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &penStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penStatus
     }
 
@@ -58,7 +62,11 @@ class IRTCPresenceDevice extends IUnknown{
      */
     get_Notes() {
         pbstrNotes := BSTR()
-        result := ComCall(4, this, "ptr", pbstrNotes, "HRESULT")
+        result := ComCall(4, this, "ptr", pbstrNotes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrNotes
     }
 
@@ -69,7 +77,11 @@ class IRTCPresenceDevice extends IUnknown{
      */
     get_PresenceProperty(enProperty) {
         pbstrProperty := BSTR()
-        result := ComCall(5, this, "int", enProperty, "ptr", pbstrProperty, "HRESULT")
+        result := ComCall(5, this, "int", enProperty, "ptr", pbstrProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProperty
     }
 
@@ -80,7 +92,11 @@ class IRTCPresenceDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPresenceData(pbstrNamespace, pbstrData) {
-        result := ComCall(6, this, "ptr", pbstrNamespace, "ptr", pbstrData, "HRESULT")
+        result := ComCall(6, this, "ptr", pbstrNamespace, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

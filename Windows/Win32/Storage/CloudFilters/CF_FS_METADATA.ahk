@@ -4,7 +4,7 @@
 
 /**
  * Placeholder file or directory metadata.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_fs_metadata
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ns-cfapi-cf_fs_metadata
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

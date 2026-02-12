@@ -61,7 +61,11 @@ class IDOMProgressEvent extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_lengthComputable() {
-        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -70,7 +74,11 @@ class IDOMProgressEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_loaded() {
-        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -79,7 +87,11 @@ class IDOMProgressEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_total() {
-        result := ComCall(9, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -94,9 +106,16 @@ class IDOMProgressEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initProgressEvent(eventType, canBubble, cancelable, lengthComputableArg, loadedArg, totalArg) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", eventType, "short", canBubble, "short", cancelable, "short", lengthComputableArg, "uint", loadedArg, "uint", totalArg, "HRESULT")
+        result := ComCall(10, this, "ptr", eventType, "short", canBubble, "short", cancelable, "short", lengthComputableArg, "uint", loadedArg, "uint", totalArg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

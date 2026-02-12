@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * .
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idesktopwallpaper
+ * . (IDesktopWallpaper)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-idesktopwallpaper
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -42,14 +42,18 @@ class IDesktopWallpaper extends IUnknown{
      * Sets the desktop wallpaper.
      * @param {PWSTR} monitorID The ID of the monitor. This value can be obtained through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat">GetMonitorDevicePathAt</a>. Set this value to NULL to set the wallpaper image on all monitors.
      * @param {PWSTR} wallpaper The full path of the wallpaper image file.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setwallpaper
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setwallpaper
      */
     SetWallpaper(monitorID, wallpaper) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
         wallpaper := wallpaper is String ? StrPtr(wallpaper) : wallpaper
 
-        result := ComCall(3, this, "ptr", monitorID, "ptr", wallpaper, "HRESULT")
+        result := ComCall(3, this, "ptr", monitorID, "ptr", wallpaper, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,33 +65,49 @@ class IDesktopWallpaper extends IUnknown{
      * @returns {PWSTR} The address of a pointer to a buffer that, when this method returns successfully, receives the path to the wallpaper image file. Note that this image could be currently displayed on all of the system's monitors, not just the monitor specified in the <i>monitorID</i> parameter.
      * 
      * This string will be empty if no wallpaper image is being displayed or if a monitor is displaying a solid color. The string will also be empty if the method fails.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getwallpaper
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getwallpaper
      */
     GetWallpaper(monitorID) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
-        result := ComCall(4, this, "ptr", monitorID, "ptr*", &wallpaper := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", monitorID, "ptr*", &wallpaper := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return wallpaper
     }
 
     /**
      * Retrieves the unique ID of one of the system's monitors.
+     * @remarks
+     * This method can be called on monitors that are currently detached but that have an image assigned to them. Call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitorrect">GetMonitorRECT</a> to distinguish between attached and detached monitors.
      * @param {Integer} monitorIndex The number of the monitor. Call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathcount">GetMonitorDevicePathCount</a> to determine the total number of monitors.
      * @returns {PWSTR} A pointer to the address of a buffer that, when this method returns successfully, receives the monitor's ID.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat
      */
     GetMonitorDevicePathAt(monitorIndex) {
-        result := ComCall(5, this, "uint", monitorIndex, "ptr*", &monitorID := 0, "HRESULT")
+        result := ComCall(5, this, "uint", monitorIndex, "ptr*", &monitorID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return monitorID
     }
 
     /**
      * Retrieves the number of monitors that are associated with the system.
+     * @remarks
+     * The count retrieved through this method includes monitors that are currently detached but that have an image assigned to them. Call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitorrect">GetMonitorRECT</a> to distinguish between attached and detached monitors.
      * @returns {Integer} A pointer to a value that, when this method returns successfully, receives the number of monitors.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathcount
      */
     GetMonitorDevicePathCount() {
-        result := ComCall(6, this, "uint*", &count := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
@@ -95,35 +115,47 @@ class IDesktopWallpaper extends IUnknown{
      * Retrieves the display rectangle of the specified monitor.
      * @param {PWSTR} monitorID The ID of the monitor to query. You can get this value through <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat">GetMonitorDevicePathAt</a>.
      * @returns {RECT} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that, when this method returns successfully, receives the display rectangle of the monitor specified by <i>monitorID</i>, in screen coordinates.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitorrect
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitorrect
      */
     GetMonitorRECT(monitorID) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
         displayRect := RECT()
-        result := ComCall(7, this, "ptr", monitorID, "ptr", displayRect, "HRESULT")
+        result := ComCall(7, this, "ptr", monitorID, "ptr", displayRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return displayRect
     }
 
     /**
      * Sets the color that is visible on the desktop when no image is displayed or when the desktop background has been disabled. This color is also used as a border when the desktop wallpaper does not fill the entire screen.
-     * @param {COLORREF} color A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the background RGB color value.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setbackgroundcolor
+     * @param {COLORREF} color_ A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that specifies the background RGB color value.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setbackgroundcolor
      */
-    SetBackgroundColor(color) {
-        result := ComCall(8, this, "uint", color, "HRESULT")
+    SetBackgroundColor(color_) {
+        result := ComCall(8, this, "uint", color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the color that is visible on the desktop when no image is displayed or when the desktop background has been disabled. This color is also used as a border when the desktop wallpaper does not fill the entire screen.
-     * @returns {COLORREF} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that, when this method returns successfully, receives the RGB color value. If this method fails, this value is set to 0.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor
+     * @returns {COLORREF} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor
      */
     GetBackgroundColor() {
-        result := ComCall(9, this, "uint*", &color := 0, "HRESULT")
-        return color
+        result := ComCall(9, this, "uint*", &color_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return color_
     }
 
     /**
@@ -148,41 +180,57 @@ class IDesktopWallpaper extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setposition
      */
     SetPosition(position) {
-        result := ComCall(10, this, "int", position, "HRESULT")
+        result := ComCall(10, this, "int", position, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the current display value for the desktop background image.
      * @returns {Integer} A pointer to a value that, when this method returns successfully, receives one of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-desktop_wallpaper_position">DESKTOP_WALLPAPER_POSITION</a> enumeration values that specify how the image is being displayed on the system's monitors.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getposition
      */
     GetPosition() {
-        result := ComCall(11, this, "int*", &position := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &position := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return position
     }
 
     /**
      * Specifies the images to use for the desktop wallpaper slideshow.
      * @param {IShellItemArray} items A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> that contains the slideshow images. This array can contain individual items stored in the same container (files stored in a folder), or it can contain a single item which is the container itself (a folder that contains images). Any other configuration of the array will cause this method to fail.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshow
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshow
      */
     SetSlideshow(items) {
-        result := ComCall(12, this, "ptr", items, "HRESULT")
+        result := ComCall(12, this, "ptr", items, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {IShellItemArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshow
+     * Gets the path to the directory where the slideshow images are stored.
+     * @returns {IShellItemArray} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> object that, when this method returns successfully, receives the items that make up the slideshow. This array can contain individual items stored in the same container, or it can contain a single item which is the container itself.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshow
      */
     GetSlideshow() {
-        result := ComCall(13, this, "ptr*", &items := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &items := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IShellItemArray(items)
     }
 
@@ -190,11 +238,15 @@ class IDesktopWallpaper extends IUnknown{
      * Sets the desktop wallpaper slideshow settings for shuffle and timing.
      * @param {Integer} options Set to either 0 to disable shuffle or the following value.
      * @param {Integer} slideshowTick The amount of time, in milliseconds, between image transitions.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshowoptions
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshowoptions
      */
     SetSlideshowOptions(options, slideshowTick) {
-        result := ComCall(14, this, "int", options, "uint", slideshowTick, "HRESULT")
+        result := ComCall(14, this, "int", options, "uint", slideshowTick, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,42 +279,61 @@ class IDesktopWallpaper extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshowoptions
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshowoptions
      */
     GetSlideshowOptions(options, slideshowTick) {
         optionsMarshal := options is VarRef ? "int*" : "ptr"
         slideshowTickMarshal := slideshowTick is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, optionsMarshal, options, slideshowTickMarshal, slideshowTick, "HRESULT")
+        result := ComCall(15, this, optionsMarshal, options, slideshowTickMarshal, slideshowTick, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Switches the wallpaper on a specified monitor to the next image in the slideshow.
      * @param {PWSTR} monitorID The ID of the monitor on which to change the wallpaper image. This ID can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat">GetMonitorDevicePathAt</a> method. If this parameter is set to <b>NULL</b>, the monitor scheduled to change next is used.
-     * @param {Integer} direction The direction that the slideshow should advance. One of the following DESKTOP_SLIDESHOW_DIRECTION values:
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-advanceslideshow
+     * @param {Integer} direction_ The direction that the slideshow should advance. One of the following DESKTOP_SLIDESHOW_DIRECTION values:
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-advanceslideshow
      */
-    AdvanceSlideshow(monitorID, direction) {
+    AdvanceSlideshow(monitorID, direction_) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
-        result := ComCall(16, this, "ptr", monitorID, "int", direction, "HRESULT")
+        result := ComCall(16, this, "ptr", monitorID, "int", direction_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the current status of the slideshow.
      * @returns {Integer} A pointer to a DESKTOP_SLIDESHOW_STATE value that, when this method returns successfully, receives one or more of the following flags.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getstatus
      */
     GetStatus() {
-        result := ComCall(17, this, "int*", &state := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &state := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return state
     }
 
     /**
      * Enables or disables the desktop background.
+     * @remarks
+     * This method would normally be called to disable the desktop background for performance reasons.
+     * 
+     * When the desktop background is disabled, a solid color is shown in its place. To get or set the specific color, use the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor">GetBackgroundColor</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setbackgroundcolor">SetBackgroundColor</a> methods.
+     * 
+     * <div class="alert"><b>Note</b>  A call to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setwallpaper">IDesktopWallpaper_SetWallpaper</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setslideshow">IDesktopWallpaper_SetSlideshow</a> methods will enable the desktop background even if it is currently disabled through this method.</div>
+     * <div> </div>
      * @param {BOOL} enable <b>TRUE</b> to enable the desktop background, <b>FALSE</b> to disable it.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code, including the following.
      * 
@@ -289,15 +360,19 @@ class IDesktopWallpaper extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The desktop wallpaper that would be used when the background is enabled is missing from its expected location. Call <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setwallpaper">SetWallpaper</a> to specify a new wallpaper.
+     * The desktop wallpaper that would be used when the background is enabled is missing from its expected location. Call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-setwallpaper">SetWallpaper</a> to specify a new wallpaper.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idesktopwallpaper-enable
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-enable
      */
     Enable(enable) {
-        result := ComCall(18, this, "int", enable, "HRESULT")
+        result := ComCall(18, this, "int", enable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The IWMPropertyVault interface provides methods to store and retrieve properties.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmpropertyvault
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmpropertyvault
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -63,17 +63,23 @@ class IWMPropertyVault extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertycount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertycount
      */
     GetPropertyCount(pdwCount) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
+        result := ComCall(3, this, pdwCountMarshal, pdwCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetPropertyByName method retrieves a property from the vault by its name.
+     * @remarks
+     * You must make two calls to <b>GetPropertyByName</b> to properly retrieve the value of the property. On the first call, pass <b>NULL</b> for <i>pValue</i>. When the call returns, <i>pdwSize</i> will point to the correct sizes of the buffer. Then on the second call, pass a properly sized buffer as <i>pValue</i> to receive the data.
      * @param {PWSTR} pszName Pointer to a <b>null</b>-terminated string containing the name of the property to be retrieved.
      * @param {Pointer<Integer>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a data buffer containing the value of the property. This value can be one of several types. The type of data that the buffer contains on output is specified by the value of <i>pType</i>.
@@ -123,7 +129,7 @@ class IWMPropertyVault extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertybyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertybyname
      */
     GetPropertyByName(pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -132,12 +138,22 @@ class IWMPropertyVault extends IUnknown{
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetProperty method sets the values for a property. If the property named already exists in the property vault, SetProperty changes its value as specified. If the property named does not exist, SetProperty adds it to the property vault.
+     * @remarks
+     * Properties set on stream configuration objects using this method are persisted in the profile to which the stream configuration is added. However, files created using that profile do not contain these properties in the header information.
+     * 
+     * <b>SetProperty</b> does not return the index of the property affected. New properties are assigned indexes sequentially.
+     * 
+     * You can remove a property using <b>SetProperty</b> by passing either <b>NULL</b> as <i>pValue</i> or 0 as <i>dwSize</i>.
      * @param {PWSTR} pszName Pointer to a <b>null</b>-terminated string containing the name of the property to set.
      * 
      * The following table lists the property names supported by the <b>IWMPropertyVault</b> interface. The property used dictates the data type and meaning of the data pointed to by <i>pValue</i>; these values are also in the table. All of these values apply to stream configuration objects.
@@ -279,19 +295,25 @@ class IWMPropertyVault extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpropertyvault-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-setproperty
      */
     SetProperty(pszName, pType, pValue, dwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszName, "int", pType, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
+        result := ComCall(5, this, "ptr", pszName, "int", pType, pValueMarshal, pValue, "uint", dwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetPropertyByIndex method retrieves a property from the vault by its index value.
+     * @remarks
+     * You must make two calls to <b>GetPropertyByIndex</b> to properly retrieve all of the information. On the first call, pass <b>NULL</b> for both <i>pszName</i> and <i>pValue</i>. When the call returns, <i>pdwNameLen</i> and <i>pdwSize</i> point to the correct sizes of their respective buffers. Then on the second call, pass properly sized buffers as <i>pszName</i> and <i>pValue</i> to receive the data.
      * @param {Integer} dwIndex <b>DWORD</b> containing the property index.
      * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the name of the property.
      * @param {Pointer<Integer>} pdwNameLen On input, a pointer to a <b>DWORD</b> containing the length, in wide characters, of the string at <i>pszName</i>. On output, specifies the number of characters, including the terminating <b>null</b> character, required to hold the property name.
@@ -343,7 +365,7 @@ class IWMPropertyVault extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertybyindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-getpropertybyindex
      */
     GetPropertyByIndex(dwIndex, pszName, pdwNameLen, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -353,12 +375,20 @@ class IWMPropertyVault extends IUnknown{
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwIndex, "ptr", pszName, pdwNameLenMarshal, pdwNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, "ptr", pszName, pdwNameLenMarshal, pdwNameLen, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The CopyPropertiesFrom method copies all of the properties from another property vault to this one.
+     * @remarks
+     * Passing <b>NULL</b> as <i>pIWMPropertyVault</i> will result in unpredictable errors.
+     * 
+     * <b>CopyPropertiesFrom</b> makes calls to other methods of <b>IWMPropertyVault</b>. Because all of the data is coming from the objects themselves, no errors should be returned from the other methods. A return code that is not in the table indicates the corruption of data in the property vault from which you are copying.
      * @param {IWMPropertyVault} pIWMPropertyVault Pointer to an <b>IWMPropertyVault</b> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -390,20 +420,28 @@ class IWMPropertyVault extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpropertyvault-copypropertiesfrom
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-copypropertiesfrom
      */
     CopyPropertiesFrom(pIWMPropertyVault) {
-        result := ComCall(7, this, "ptr", pIWMPropertyVault, "HRESULT")
+        result := ComCall(7, this, "ptr", pIWMPropertyVault, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Clear method removes all items from the property vault.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpropertyvault-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmpropertyvault-clear
      */
     Clear() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

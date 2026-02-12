@@ -37,7 +37,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {ISpRecognizer} 
      */
     GetRecognizer() {
-        result := ComCall(13, this, "ptr*", &ppRecognizer := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppRecognizer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecognizer(ppRecognizer)
     }
 
@@ -47,7 +51,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {ISpRecoGrammar} 
      */
     CreateGrammar(ullGrammarId) {
-        result := ComCall(14, this, "uint", ullGrammarId, "ptr*", &ppGrammar := 0, "HRESULT")
+        result := ComCall(14, this, "uint", ullGrammarId, "ptr*", &ppGrammar := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecoGrammar(ppGrammar)
     }
 
@@ -57,7 +65,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     GetStatus(pStatus) {
-        result := ComCall(15, this, "ptr", pStatus, "HRESULT")
+        result := ComCall(15, this, "ptr", pStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class ISpRecoContext extends ISpEventSource{
     GetMaxAlternates(pcAlternates) {
         pcAlternatesMarshal := pcAlternates is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, pcAlternatesMarshal, pcAlternates, "HRESULT")
+        result := ComCall(16, this, pcAlternatesMarshal, pcAlternates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +95,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetMaxAlternates(cAlternates) {
-        result := ComCall(17, this, "uint", cAlternates, "HRESULT")
+        result := ComCall(17, this, "uint", cAlternates, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +111,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetAudioOptions(Options, pAudioFormatId, pWaveFormatEx) {
-        result := ComCall(18, this, "int", Options, "ptr", pAudioFormatId, "ptr", pWaveFormatEx, "HRESULT")
+        result := ComCall(18, this, "int", Options, "ptr", pAudioFormatId, "ptr", pWaveFormatEx, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +130,11 @@ class ISpRecoContext extends ISpEventSource{
         pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
         ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, pOptionsMarshal, pOptions, "ptr", pAudioFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
+        result := ComCall(19, this, pOptionsMarshal, pOptions, "ptr", pAudioFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,19 +144,30 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {ISpRecoResult} 
      */
     DeserializeResult(pSerializedResult) {
-        result := ComCall(20, this, "ptr", pSerializedResult, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pSerializedResult, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpRecoResult(ppResult)
     }
 
     /**
-     * 
+     * Bookmark C Data Type
      * @param {Integer} Options 
      * @param {Integer} ullStreamPosition 
      * @param {LPARAM} lparamEvent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/odbc/reference/appendixes/bookmark-c-data-type
      */
     Bookmark(Options, ullStreamPosition, lparamEvent) {
-        result := ComCall(21, this, "int", Options, "uint", ullStreamPosition, "ptr", lparamEvent, "HRESULT")
+        lparamEvent := lparamEvent is Win32Handle ? NumGet(lparamEvent, "ptr") : lparamEvent
+
+        result := ComCall(21, this, "int", Options, "uint", ullStreamPosition, "ptr", lparamEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,27 +180,43 @@ class ISpRecoContext extends ISpEventSource{
     SetAdaptationData(pAdaptationData, cch) {
         pAdaptationData := pAdaptationData is String ? StrPtr(pAdaptationData) : pAdaptationData
 
-        result := ComCall(22, this, "ptr", pAdaptationData, "uint", cch, "HRESULT")
+        result := ComCall(22, this, "ptr", pAdaptationData, "uint", cch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/pause-method
      */
     Pause(dwReserved) {
-        result := ComCall(23, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(23, this, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The Resume method resumes playback after a menu has been displayed.
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/resume-method
      */
     Resume(dwReserved) {
-        result := ComCall(24, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(24, this, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,7 +227,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetVoice(pVoice, fAllowFormatChanges) {
-        result := ComCall(25, this, "ptr", pVoice, "int", fAllowFormatChanges, "HRESULT")
+        result := ComCall(25, this, "ptr", pVoice, "int", fAllowFormatChanges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,7 +240,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {ISpVoice} 
      */
     GetVoice() {
-        result := ComCall(26, this, "ptr*", &ppVoice := 0, "HRESULT")
+        result := ComCall(26, this, "ptr*", &ppVoice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpVoice(ppVoice)
     }
 
@@ -191,7 +254,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetVoicePurgeEvent(ullEventInterest) {
-        result := ComCall(27, this, "uint", ullEventInterest, "HRESULT")
+        result := ComCall(27, this, "uint", ullEventInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -203,7 +270,11 @@ class ISpRecoContext extends ISpEventSource{
     GetVoicePurgeEvent(pullEventInterest) {
         pullEventInterestMarshal := pullEventInterest is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, pullEventInterestMarshal, pullEventInterest, "HRESULT")
+        result := ComCall(28, this, pullEventInterestMarshal, pullEventInterest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +284,11 @@ class ISpRecoContext extends ISpEventSource{
      * @returns {HRESULT} 
      */
     SetContextState(eContextState) {
-        result := ComCall(29, this, "int", eContextState, "HRESULT")
+        result := ComCall(29, this, "int", eContextState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -225,7 +300,11 @@ class ISpRecoContext extends ISpEventSource{
     GetContextState(peContextState) {
         peContextStateMarshal := peContextState is VarRef ? "int*" : "ptr"
 
-        result := ComCall(30, this, peContextStateMarshal, peContextState, "HRESULT")
+        result := ComCall(30, this, peContextStateMarshal, peContextState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

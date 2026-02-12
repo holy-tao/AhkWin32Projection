@@ -11,7 +11,7 @@
  *     enumeration value.
  * 
  * Revision tracking is per file, not per stream, so the output changes whenever the stream changes.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_file_revision
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-csv_query_file_revision
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Represents the auto-scroll animation behavior of content as it approaches the boundary of a given axis or axes.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationautoscrollbehavior
+ * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/nn-directmanipulation-idirectmanipulationautoscrollbehavior
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
@@ -32,13 +32,19 @@ class IDirectManipulationAutoScrollBehavior extends IUnknown{
 
     /**
      * Performs the auto-scroll animation for the viewport this behavior is attached to.
+     * @remarks
+     * <b>SetConfiguration</b> takes effect immediately. If the content is not in inertia, and <b>DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION_STOP</b> is specified for <i>scrollMotion</i>, then this method returns S_FALSE.
      * @param {Integer} motionTypes A combination of <b>DIRECTMANIPULATION_MOTION_TRANSLATEX</b> and <b>DIRECTMANIPULATION_MOTION_TRANSLATEY</b> from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_motion_types">DIRECTMANIPULATION_MOTION_TYPES</a>. <b>DIRECTMANIPULATION_MOTION_NONE</b> cannot be specified.
      * @param {Integer} scrollMotion One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_autoscroll_configuration">DIRECTMANIPULATION_AUTOSCROLL_CONFIGURATION</a>.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationautoscrollbehavior-setconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/directmanipulation/nf-directmanipulation-idirectmanipulationautoscrollbehavior-setconfiguration
      */
     SetConfiguration(motionTypes, scrollMotion) {
-        result := ComCall(3, this, "int", motionTypes, "int", scrollMotion, "HRESULT")
+        result := ComCall(3, this, "int", motionTypes, "int", scrollMotion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

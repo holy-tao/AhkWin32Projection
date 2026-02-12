@@ -6,11 +6,8 @@
 /**
  * Optionally supported by media sinks to perform required tasks before shutdown.
  * @remarks
- * 
  * If a media sink exposes this interface, the Media Session will call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize">BeginFinalize</a> on the sink before the session closes.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imffinalizablemediasink
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imffinalizablemediasink
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,6 +34,10 @@ class IMFFinalizableMediaSink extends IMFMediaSink{
 
     /**
      * Notifies the media sink to asynchronously take any steps it needs to finish its tasks.
+     * @remarks
+     * Many archive media sinks have steps they need to do at the end of archiving to complete their file operations, such as updating the header (for some formats) or flushing all pending writes to disk. In some cases, this may include expensive operations such as indexing the content. <b>BeginFinalize</b> is an asynchronous way to initiate final tasks.
+     * 
+     * When the finalize operation is complete, the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method is called. At that point, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imffinalizablemediasink-endfinalize">IMFFinalizableMediaSink::EndFinalize</a> to complete the asynchronous request.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of an asynchronous object. The caller must implement this interface.
      * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -58,15 +59,21 @@ class IMFFinalizableMediaSink extends IMFMediaSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize
      */
     BeginFinalize(pCallback, punkState) {
-        result := ComCall(12, this, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        result := ComCall(12, this, "ptr", pCallback, "ptr", punkState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Completes an asynchronous finalize operation.
+     * @remarks
+     * Call this method after the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imffinalizablemediasink-beginfinalize">IMFFinalizableMediaSink::BeginFinalize</a> method completes asynchronously.
      * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -87,10 +94,14 @@ class IMFFinalizableMediaSink extends IMFMediaSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imffinalizablemediasink-endfinalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imffinalizablemediasink-endfinalize
      */
     EndFinalize(pResult) {
-        result := ComCall(13, this, "ptr", pResult, "HRESULT")
+        result := ComCall(13, this, "ptr", pResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

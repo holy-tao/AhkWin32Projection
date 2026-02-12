@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Hash algorithms
+ * @see https://learn.microsoft.com/windows/win32/api//content/cryptxml/ns-cryptxml-crypt_xml_algorithm_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

@@ -35,7 +35,11 @@ class IProcessDebugManager32 extends IUnknown{
      * @returns {IDebugApplication32} 
      */
     CreateApplication() {
-        result := ComCall(3, this, "ptr*", &ppda := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppda := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugApplication32(ppda)
     }
 
@@ -44,7 +48,11 @@ class IProcessDebugManager32 extends IUnknown{
      * @returns {IDebugApplication32} 
      */
     GetDefaultApplication() {
-        result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppda := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugApplication32(ppda)
     }
 
@@ -54,7 +62,11 @@ class IProcessDebugManager32 extends IUnknown{
      * @returns {Integer} 
      */
     AddApplication(pda) {
-        result := ComCall(5, this, "ptr", pda, "uint*", &pdwAppCookie := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pda, "uint*", &pdwAppCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwAppCookie
     }
 
@@ -64,7 +76,11 @@ class IProcessDebugManager32 extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveApplication(dwAppCookie) {
-        result := ComCall(6, this, "uint", dwAppCookie, "HRESULT")
+        result := ComCall(6, this, "uint", dwAppCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +90,11 @@ class IProcessDebugManager32 extends IUnknown{
      * @returns {IDebugDocumentHelper32} 
      */
     CreateDebugDocumentHelper(punkOuter) {
-        result := ComCall(7, this, "ptr", punkOuter, "ptr*", &pddh := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", punkOuter, "ptr*", &pddh := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugDocumentHelper32(pddh)
     }
 }

@@ -6,10 +6,8 @@
 /**
  * Repairs a corrupted .WTV file.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2FileScan)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-isbe2filescan
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nn-sbe-isbe2filescan
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -78,12 +76,16 @@ class ISBE2FileScan extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2filescan-repairfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-isbe2filescan-repairfile
      */
     RepairFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(3, this, "ptr", filename, "HRESULT")
+        result := ComCall(3, this, "ptr", filename, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

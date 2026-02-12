@@ -26,7 +26,7 @@
  * RectInfo.StartVertexOffsetHeight = 4*i;  // The variable i is the index of the 
  * //   patch you want to render.
  * ```
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drectpatch-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3drectpatch-info
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

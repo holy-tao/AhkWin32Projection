@@ -36,7 +36,11 @@ class ITransactionEnlistmentAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     PrepareRequestDone(hr, pmk, pboidReason) {
-        result := ComCall(3, this, "int", hr, "ptr", pmk, "ptr", pboidReason, "HRESULT")
+        result := ComCall(3, this, "int", hr, "ptr", pmk, "ptr", pboidReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ITransactionEnlistmentAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     CommitRequestDone(hr) {
-        result := ComCall(4, this, "int", hr, "HRESULT")
+        result := ComCall(4, this, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class ITransactionEnlistmentAsync extends IUnknown{
      * @returns {HRESULT} 
      */
     AbortRequestDone(hr) {
-        result := ComCall(5, this, "int", hr, "HRESULT")
+        result := ComCall(5, this, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

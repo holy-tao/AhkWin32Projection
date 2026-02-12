@@ -3,7 +3,7 @@
 
 /**
  * Defines the context in which an IUpdateException object can be provided.
- * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-updateexceptioncontext
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/ne-wuapi-updateexceptioncontext
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */

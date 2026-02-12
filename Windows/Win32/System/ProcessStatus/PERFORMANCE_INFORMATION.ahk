@@ -3,7 +3,7 @@
 
 /**
  * Contains performance information. (PERFORMANCE_INFORMATION)
- * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-performance_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/psapi/ns-psapi-performance_information
  * @namespace Windows.Win32.System.ProcessStatus
  * @version v4.0.30319
  */

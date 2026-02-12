@@ -13,7 +13,7 @@
  * 
  * EM authentication, if it occurs,
  * is index 1.
- * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credentials2
+ * @see https://learn.microsoft.com/windows/win32/api//content/iketypes/ns-iketypes-ikeext_credentials2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

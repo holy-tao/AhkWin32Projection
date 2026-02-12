@@ -32,24 +32,34 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
     static VTableNames => ["GetName", "GetPosition", "IsTransitionPoint", "GetTransition", "Evaluate", "EnumerateLocals", "EnumerateArguments"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         name := BSTR()
-        result := ComCall(3, this, "ptr", name, "HRESULT")
+        result := ComCall(3, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
      * @param {Pointer<ScriptDebugPosition>} position 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mediastreaming/getpositioninformationoperation
      */
     GetPosition(position, positionSpanEnd, lineText) {
-        result := ComCall(4, this, "ptr", position, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")
+        result := ComCall(4, this, "ptr", position, "ptr", positionSpanEnd, "ptr", lineText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,50 +68,73 @@ class IDataModelScriptDebugStackFrame extends IUnknown{
      * @returns {Boolean} 
      */
     IsTransitionPoint() {
-        result := ComCall(5, this, "int*", &isTransitionPoint := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &isTransitionPoint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isTransitionPoint
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScript>} transitionScript 
+     * @param {Pointer<Pointer<IDataModelScript>>} transitionScript 
      * @param {Pointer<Boolean>} isTransitionContiguous 
      * @returns {HRESULT} 
      */
     GetTransition(transitionScript, isTransitionContiguous) {
         isTransitionContiguousMarshal := isTransitionContiguous is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr*", transitionScript, isTransitionContiguousMarshal, isTransitionContiguous, "HRESULT")
+        result := ComCall(6, this, "ptr*", transitionScript, isTransitionContiguousMarshal, isTransitionContiguous, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Evaluates at the indexed sample location.
+     * @remarks
+     * Interpolation mode can be **linear** or **linear\_no\_perspective** on the variable. Use of **centroid** or **sample** is ignored. Attributes with constant interpolation are also allowed, in which case the sample index is ignored.
      * @param {PWSTR} pwszExpression 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/evaluateattributeatsample
      */
     Evaluate(pwszExpression) {
         pwszExpression := pwszExpression is String ? StrPtr(pwszExpression) : pwszExpression
 
-        result := ComCall(7, this, "ptr", pwszExpression, "ptr*", &ppResult := 0, "HRESULT")
-        return IModelObject(ppResult)
+        result := ComCall(7, this, "ptr", pwszExpression, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppResult
     }
 
     /**
      * 
-     * @returns {IDataModelScriptDebugVariableSetEnumerator} 
+     * @returns {Pointer<IDataModelScriptDebugVariableSetEnumerator>} 
      */
     EnumerateLocals() {
-        result := ComCall(8, this, "ptr*", &variablesEnum := 0, "HRESULT")
-        return IDataModelScriptDebugVariableSetEnumerator(variablesEnum)
+        result := ComCall(8, this, "ptr*", &variablesEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return variablesEnum
     }
 
     /**
      * 
-     * @returns {IDataModelScriptDebugVariableSetEnumerator} 
+     * @returns {Pointer<IDataModelScriptDebugVariableSetEnumerator>} 
      */
     EnumerateArguments() {
-        result := ComCall(9, this, "ptr*", &variablesEnum := 0, "HRESULT")
-        return IDataModelScriptDebugVariableSetEnumerator(variablesEnum)
+        result := ComCall(9, this, "ptr*", &variablesEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return variablesEnum
     }
 }

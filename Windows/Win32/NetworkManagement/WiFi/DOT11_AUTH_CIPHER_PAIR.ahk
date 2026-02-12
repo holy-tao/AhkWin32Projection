@@ -5,7 +5,7 @@
  * Defines a pair of 802.11 authentication and cipher algorithms that can be enabled at the same time on the 802.11 station.
  * @remarks
  * The DOT11\_AUTH\_CIPHER\_PAIR structure defines an authentication and cipher algorithm that can be enabled together for basic service set (BSS) network connections.
- * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-auth-cipher-pair
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/NativeWiFi/dot11-auth-cipher-pair
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

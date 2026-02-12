@@ -5,7 +5,7 @@
  * Represents the video encoder resolution support limits for a D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_resolution_support_limits
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_resolution_support_limits
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

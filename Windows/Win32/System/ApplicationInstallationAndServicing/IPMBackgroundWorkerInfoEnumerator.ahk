@@ -41,7 +41,11 @@ class IPMBackgroundWorkerInfoEnumerator extends IUnknown{
      * @returns {IPMBackgroundWorkerInfo} 
      */
     get_Next() {
-        result := ComCall(3, this, "ptr*", &ppBWInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppBWInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPMBackgroundWorkerInfo(ppBWInfo)
     }
 }

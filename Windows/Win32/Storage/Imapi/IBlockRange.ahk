@@ -6,11 +6,8 @@
 /**
  * Use this interface to retrieve information about a single continuous range of sectors on the media. This interface is typically used together with the IBlockRangeList interface to describe a collection of sector ranges.
  * @remarks
- * 
  * The values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iblockrange-get_startlba">IBlockRange::get_StartLba</a> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iblockrange-get_endlba">IBlockRange::get_EndLba</a> methods define an inclusive range, i.e. both the start and end sectors belong to the range.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-iblockrange
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-iblockrange
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -58,20 +55,30 @@ class IBlockRange extends IDispatch{
     /**
      * Retrieves the start sector of the range described by IBlockRange.
      * @returns {Integer} The start sector of the range.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iblockrange-get_startlba
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iblockrange-get_startlba
      */
     get_StartLba() {
-        result := ComCall(7, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Retrieves the end sector of the range specified by the IBlockRange interface.
+     * @remarks
+     * The sector number returned by this method is included in the range.
      * @returns {Integer} The end sector of the range.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iblockrange-get_endlba
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iblockrange-get_endlba
      */
     get_EndLba() {
-        result := ComCall(8, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

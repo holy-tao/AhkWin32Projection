@@ -5,7 +5,7 @@
  * The MCI\_WAVE\_DELETE\_PARMS structure contains position information for the MCI\_DELETE command for waveform-audio devices.
  * @remarks
  * When assigning data to the members of this structure, set the corresponding flags in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the members.
- * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-wave-delete-parms
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/mci-wave-delete-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

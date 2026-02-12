@@ -26,7 +26,7 @@
  * 
  * antialiasing mode is grayscale.</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_text_antialias_mode
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/ne-d2d1-d2d1_text_antialias_mode
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */

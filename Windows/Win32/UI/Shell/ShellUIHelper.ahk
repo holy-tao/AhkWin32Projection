@@ -3,7 +3,7 @@
 
 /**
  * Implemented by the Shell to help script and Microsoft Visual Basic developers use some of the features available in the Shell. The ShellUIHelper object does not have any properties or events. Methods are provided to add items to the Shell.
- * @see https://learn.microsoft.com/windows/win32/shell/shelluihelper
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/shelluihelper
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

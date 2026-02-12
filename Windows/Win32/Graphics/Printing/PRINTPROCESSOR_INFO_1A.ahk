@@ -3,7 +3,7 @@
 
 /**
  * The PRINTPROCESSOR\_INFO\_1 structure specifies the name of an installed print processor.
- * @see https://learn.microsoft.com/windows/win32/printdocs/printprocessor-info-1
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/printprocessor-info-1
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI

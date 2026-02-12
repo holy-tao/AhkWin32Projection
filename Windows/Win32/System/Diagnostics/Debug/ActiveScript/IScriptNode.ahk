@@ -36,26 +36,45 @@ class IScriptNode extends IUnknown{
      * @returns {HRESULT} 
      */
     Alive() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Delete Method (ADOX Collections)
+     * @remarks
+     * An error will occur if the *Name* does not exist in the collection.  
+     *   
+     *  For [Tables](./tables-collection-adox.md) and [Users](./users-collection-adox.md) collections, an error will occur if the provider does not support deleting tables or users, respectively. For [Procedures](./procedures-collection-adox.md) and [Views](./views-collection-adox.md) collections, **Delete** will fail if the provider does not support persisting commands.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/adox-api/delete-method-adox-collections
      */
     Delete() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
+     * @remarks
+     * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
      * @returns {IScriptNode} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getparent
      */
     GetParent() {
-        result := ComCall(5, this, "ptr*", &ppsnParent := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppsnParent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptNode(ppsnParent)
     }
 
@@ -64,7 +83,11 @@ class IScriptNode extends IUnknown{
      * @returns {Integer} 
      */
     GetIndexInParent() {
-        result := ComCall(6, this, "uint*", &pisn := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pisn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pisn
     }
 
@@ -73,7 +96,11 @@ class IScriptNode extends IUnknown{
      * @returns {Integer} 
      */
     GetCookie() {
-        result := ComCall(7, this, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -82,17 +109,28 @@ class IScriptNode extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberOfChildren() {
-        result := ComCall(8, this, "uint*", &pcsn := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pcsn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcsn
     }
 
     /**
-     * 
+     * GetChildren Method (ADO)
+     * @remarks
+     * The provider determines what columns exist in the returned **Recordset**. For example, a document source provider always returns a resource **Recordset**.
      * @param {Integer} isn 
      * @returns {IScriptNode} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/getchildren-method-ado
      */
     GetChild(isn) {
-        result := ComCall(9, this, "uint", isn, "ptr*", &ppsn := 0, "HRESULT")
+        result := ComCall(9, this, "uint", isn, "ptr*", &ppsn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptNode(ppsn)
     }
 
@@ -102,7 +140,11 @@ class IScriptNode extends IUnknown{
      */
     GetLanguage() {
         pbstr := BSTR()
-        result := ComCall(10, this, "ptr", pbstr, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstr
     }
 
@@ -116,7 +158,11 @@ class IScriptNode extends IUnknown{
     CreateChildEntry(isn, dwCookie, pszDelimiter) {
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(11, this, "uint", isn, "uint", dwCookie, "ptr", pszDelimiter, "ptr*", &ppse := 0, "HRESULT")
+        result := ComCall(11, this, "uint", isn, "uint", dwCookie, "ptr", pszDelimiter, "ptr*", &ppse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptEntry(ppse)
     }
 
@@ -140,7 +186,11 @@ class IScriptNode extends IUnknown{
 
         prgpszNamesMarshal := prgpszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, "uint", cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, "uint", iMethodSignature, "uint", isn, "uint", dwCookie, "ptr*", &ppse := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, "uint", cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, "uint", iMethodSignature, "uint", isn, "uint", dwCookie, "ptr*", &ppse := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IScriptEntry(ppse)
     }
 }

@@ -39,13 +39,32 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     addAttribute(strURI, strLocalName, strQName, strType, strValue) {
-        strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
-        strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
-        strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
-        strType := strType is String ? BSTR.Alloc(strType).Value : strType
-        strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
+        if(strURI is String) {
+            pin := BSTR.Alloc(strURI)
+            strURI := pin.Value
+        }
+        if(strLocalName is String) {
+            pin := BSTR.Alloc(strLocalName)
+            strLocalName := pin.Value
+        }
+        if(strQName is String) {
+            pin := BSTR.Alloc(strQName)
+            strQName := pin.Value
+        }
+        if(strType is String) {
+            pin := BSTR.Alloc(strType)
+            strType := pin.Value
+        }
+        if(strValue is String) {
+            pin := BSTR.Alloc(strValue)
+            strValue := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strURI, "ptr", strLocalName, "ptr", strQName, "ptr", strType, "ptr", strValue, "HRESULT")
+        result := ComCall(7, this, "ptr", strURI, "ptr", strLocalName, "ptr", strQName, "ptr", strType, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,16 +75,27 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     addAttributeFromIndex(varAtts, nIndex) {
-        result := ComCall(8, this, "ptr", varAtts, "int", nIndex, "HRESULT")
+        result := ComCall(8, this, "ptr", varAtts, "int", nIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * clearBatch Method (SQLServerStatement)
+     * @remarks
+     * This clearBatch method is specified by the clearBatch method in the java.sql.Statement interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/clearbatch-method-sqlserverstatement
      */
     clear() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +105,11 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     removeAttribute(nIndex) {
-        result := ComCall(10, this, "int", nIndex, "HRESULT")
+        result := ComCall(10, this, "int", nIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,13 +124,32 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     setAttribute(nIndex, strURI, strLocalName, strQName, strType, strValue) {
-        strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
-        strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
-        strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
-        strType := strType is String ? BSTR.Alloc(strType).Value : strType
-        strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
+        if(strURI is String) {
+            pin := BSTR.Alloc(strURI)
+            strURI := pin.Value
+        }
+        if(strLocalName is String) {
+            pin := BSTR.Alloc(strLocalName)
+            strLocalName := pin.Value
+        }
+        if(strQName is String) {
+            pin := BSTR.Alloc(strQName)
+            strQName := pin.Value
+        }
+        if(strType is String) {
+            pin := BSTR.Alloc(strType)
+            strType := pin.Value
+        }
+        if(strValue is String) {
+            pin := BSTR.Alloc(strValue)
+            strValue := pin.Value
+        }
 
-        result := ComCall(11, this, "int", nIndex, "ptr", strURI, "ptr", strLocalName, "ptr", strQName, "ptr", strType, "ptr", strValue, "HRESULT")
+        result := ComCall(11, this, "int", nIndex, "ptr", strURI, "ptr", strLocalName, "ptr", strQName, "ptr", strType, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,7 +159,11 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     setAttributes(varAtts) {
-        result := ComCall(12, this, "ptr", varAtts, "HRESULT")
+        result := ComCall(12, this, "ptr", varAtts, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,9 +174,16 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     setLocalName(nIndex, strLocalName) {
-        strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
+        if(strLocalName is String) {
+            pin := BSTR.Alloc(strLocalName)
+            strLocalName := pin.Value
+        }
 
-        result := ComCall(13, this, "int", nIndex, "ptr", strLocalName, "HRESULT")
+        result := ComCall(13, this, "int", nIndex, "ptr", strLocalName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,22 +194,39 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     setQName(nIndex, strQName) {
-        strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
+        if(strQName is String) {
+            pin := BSTR.Alloc(strQName)
+            strQName := pin.Value
+        }
 
-        result := ComCall(14, this, "int", nIndex, "ptr", strQName, "HRESULT")
+        result := ComCall(14, this, "int", nIndex, "ptr", strQName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * setTypeMap Method (SQLServerConnection)
+     * @remarks
+     * This setTypeMap method is specified by the setTypeMap method in the java.sql.Connection interface.
      * @param {Integer} nIndex 
      * @param {BSTR} strType 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/settypemap-method-sqlserverconnection
      */
     setType(nIndex, strType) {
-        strType := strType is String ? BSTR.Alloc(strType).Value : strType
+        if(strType is String) {
+            pin := BSTR.Alloc(strType)
+            strType := pin.Value
+        }
 
-        result := ComCall(15, this, "int", nIndex, "ptr", strType, "HRESULT")
+        result := ComCall(15, this, "int", nIndex, "ptr", strType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,9 +237,16 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     setURI(nIndex, strURI) {
-        strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
+        if(strURI is String) {
+            pin := BSTR.Alloc(strURI)
+            strURI := pin.Value
+        }
 
-        result := ComCall(16, this, "int", nIndex, "ptr", strURI, "HRESULT")
+        result := ComCall(16, this, "int", nIndex, "ptr", strURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,9 +257,16 @@ class IMXAttributes extends IDispatch{
      * @returns {HRESULT} 
      */
     setValue(nIndex, strValue) {
-        strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
+        if(strValue is String) {
+            pin := BSTR.Alloc(strValue)
+            strValue := pin.Value
+        }
 
-        result := ComCall(17, this, "int", nIndex, "ptr", strValue, "HRESULT")
+        result := ComCall(17, this, "int", nIndex, "ptr", strValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

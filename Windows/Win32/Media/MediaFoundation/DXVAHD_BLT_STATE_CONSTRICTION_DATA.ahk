@@ -14,7 +14,7 @@
  * If the device does not support downsampling, the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessbltstate">IDXVAHD_VideoProcessor::SetVideoProcessBltState</a> method fails for this state.
  * 
  * Downsampling is sometimes used to reduce the quality of premium content when other forms of content protection are not available.
- * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxvahd/ns-dxvahd-dxvahd_blt_state_constriction_data
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

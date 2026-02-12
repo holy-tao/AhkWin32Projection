@@ -20,7 +20,7 @@
  * 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table_owner_module">MIB_UDP6TABLE_OWNER_MODULE</a> structure is an enhanced version of the  <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table_owner_pid">MIB_UDP6TABLE_OWNER_PID</a> structure that includes any available ownership data for each UDP endpoint in the table.  The <b>MIB_UDP6TABLE_OWNER_PID</b> is an enhanced version of the <b>MIB_UDP6TABLE</b> that includes the process ID (PID) that issued the call to the <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function for each UDP endpoint in the table.
- * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6table
+ * @see https://learn.microsoft.com/windows/win32/api//content/udpmib/ns-udpmib-mib_udp6table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

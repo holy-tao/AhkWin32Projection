@@ -39,7 +39,11 @@ class ICorProfilerCallback8 extends ICorProfilerCallback7{
     DynamicMethodJITCompilationStarted(functionId, fIsSafeToBlock, pILHeader, cbILHeader) {
         pILHeaderMarshal := pILHeader is VarRef ? "char*" : "ptr"
 
-        result := ComCall(92, this, "ptr", functionId, "int", fIsSafeToBlock, pILHeaderMarshal, pILHeader, "uint", cbILHeader, "HRESULT")
+        result := ComCall(92, this, "ptr", functionId, "int", fIsSafeToBlock, pILHeaderMarshal, pILHeader, "uint", cbILHeader, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class ICorProfilerCallback8 extends ICorProfilerCallback7{
      * @returns {HRESULT} 
      */
     DynamicMethodJITCompilationFinished(functionId, hrStatus, fIsSafeToBlock) {
-        result := ComCall(93, this, "ptr", functionId, "int", hrStatus, "int", fIsSafeToBlock, "HRESULT")
+        result := ComCall(93, this, "ptr", functionId, "int", hrStatus, "int", fIsSafeToBlock, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

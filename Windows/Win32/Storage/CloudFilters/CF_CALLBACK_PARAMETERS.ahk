@@ -3,7 +3,7 @@
 
 /**
  * Contains callback specific parameters such as file offset, length, flags, etc.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ns-cfapi-cf_callback_parameters
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

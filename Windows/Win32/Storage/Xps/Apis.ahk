@@ -468,7 +468,7 @@ class Xps {
      * @returns {Integer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
      * If the function returns -1, this may mean either that the capability is not supported or there was a general function failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-devicecapabilitiesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-devicecapabilitiesa
      * @since windows5.0
      */
     static DeviceCapabilitiesA(pDevice, pPort, fwCapability, pOutput, pDevMode) {
@@ -512,7 +512,7 @@ class Xps {
      * @returns {Integer} If the function succeeds, the return value depends on the setting of the <i>fwCapability</i> parameter. A return value of zero generally indicates that, while the function completed successfully, there was some type of failure, such as a capability that is not supported. For more details, see the descriptions for the <i>fwCapability</i> values.
      * 
      * If the function returns -1, this may mean either that the capability is not supported or there was a general function failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-devicecapabilitiesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-devicecapabilitiesw
      * @since windows5.0
      */
     static DeviceCapabilitiesW(pDevice, pPort, fwCapability, pOutput, pDevMode) {
@@ -564,7 +564,7 @@ class Xps {
      * For information about printer escapes, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extescape">ExtEscape</a>.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startpage">StartPage</a> function to prepare the printer driver to receive data.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iEscape The escape function to be performed. This parameter must be one of the predefined escape values listed in Remarks. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extescape">ExtEscape</a> function if your application defines a private escape value.
      * @param {Integer} cjIn The number of bytes of data pointed to by the <i>lpvInData</i> parameter. This can be 0.
      * @param {Pointer} pvIn A pointer to the input structure required for the specified escape.
@@ -572,15 +572,15 @@ class Xps {
      * @returns {Integer} If the function succeeds, the return value is greater than zero, except with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
      * 
      * If the function fails, the return value is a system error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-escape
      * @since windows5.0
      */
-    static Escape(hdc, iEscape, cjIn, pvIn, pvOut) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static Escape(hdc_, iEscape, cjIn, pvIn, pvOut) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         pvOutMarshal := pvOut is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\Escape", "ptr", hdc, "int", iEscape, "int", cjIn, "ptr", pvIn, pvOutMarshal, pvOut, "int")
+        result := DllCall("GDI32.dll\Escape", "ptr", hdc_, "int", iEscape, "int", cjIn, "ptr", pvIn, pvOutMarshal, pvOut, "int")
         return result
     }
 
@@ -691,7 +691,7 @@ class Xps {
      * The application must call this escape before calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startdoca">StartDoc</a> so that the driver will cache the data for insertion at the correct point in the PostScript stream. If this escape is supported, the driver will also allow escape <b>DOWNLOADFACE</b> calls prior to <b>StartDoc</b>. The driver internally caches the data to be inserted and the data required by any escape <b>DOWNLOADFACE</b> calls prior to <b>StartDoc</b> and emits them all immediately before %%EndProlog. The sequence of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd145110(v=vs.85)">SPCLPASSTHROUGH2</a> and <b>DOWNLOADFACE</b> calls will be preserved in the order their data is passed in, that is, a later call results in data output after an earlier call's data. The driver will consider fonts downloaded by pre-<b>StartDoc</b> escape <b>DOWNLOADFACE</b> calls as unavailable for removal during the scope of the job.
      * 
      * This escape is not recorded in EMF files by the operating system, therefore applications must ensure that EMF recording is turned off for those jobs using the escape.
-     * @param {HDC} hdc A handle to the device context.
+     * @param {HDC} hdc_ A handle to the device context.
      * @param {Integer} iEscape The escape function to be performed. It can be one of the following or it can be an application-defined escape function.
      * 
      * <table>
@@ -825,13 +825,13 @@ class Xps {
      * @param {Integer} cjOutput The number of bytes of data pointed to by the <i>lpszOutData</i> parameter.
      * @param {Pointer} lpOutData A pointer to the structure that receives output from this escape. This parameter must not be <b>NULL</b> if <b>ExtEscape</b> is called as a query function. If no data is to be returned in this structure, set <i>cbOutput</i> to 0. See also Remarks.
      * @returns {Integer} The return value specifies the outcome of the function. It is greater than zero if the function is successful, except for the QUERYESCSUPPORT printer escape, which checks for implementation only. The return value is zero if the escape is not implemented. A return value less than zero indicates an error.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-extescape
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-extescape
      * @since windows5.0
      */
-    static ExtEscape(hdc, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ExtEscape(hdc_, iEscape, cjInput, lpInData, cjOutput, lpOutData) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\ExtEscape", "ptr", hdc, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData, "int")
+        result := DllCall("GDI32.dll\ExtEscape", "ptr", hdc_, "int", iEscape, "int", cjInput, "ptr", lpInData, "int", cjOutput, "ptr", lpOutData, "int")
         return result
     }
 
@@ -843,18 +843,18 @@ class Xps {
      * Applications should call the <b>StartDoc</b> function immediately before beginning a print job. Using this function ensures that multipage documents are not interspersed with other print jobs.
      * 
      * Applications can use the value returned by <b>StartDoc</b> to retrieve or set the priority of a print job. Call the <a href="https://docs.microsoft.com/windows/desktop/printdocs/getjob">GetJob</a> or <a href="https://docs.microsoft.com/windows/desktop/printdocs/setjob">SetJob</a> function and supply this value as one of the required arguments.
-     * @param {HDC} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc_ A handle to the device context for the print job.
      * @param {Pointer<DOCINFOA>} lpdi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-docinfoa">DOCINFO</a> structure containing the name of the document file and the name of the output file.
      * @returns {Integer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
      * 
      * If the function fails, the return value is less than or equal to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-startdoca
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-startdoca
      * @since windows5.0
      */
-    static StartDocA(hdc, lpdi) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static StartDocA(hdc_, lpdi) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\StartDocA", "ptr", hdc, "ptr", lpdi, "int")
+        result := DllCall("GDI32.dll\StartDocA", "ptr", hdc_, "ptr", lpdi, "int")
         return result
     }
 
@@ -866,18 +866,18 @@ class Xps {
      * Applications should call the <b>StartDoc</b> function immediately before beginning a print job. Using this function ensures that multipage documents are not interspersed with other print jobs.
      * 
      * Applications can use the value returned by <b>StartDoc</b> to retrieve or set the priority of a print job. Call the <a href="https://docs.microsoft.com/windows/desktop/printdocs/getjob">GetJob</a> or <a href="https://docs.microsoft.com/windows/desktop/printdocs/setjob">SetJob</a> function and supply this value as one of the required arguments.
-     * @param {HDC} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc_ A handle to the device context for the print job.
      * @param {Pointer<DOCINFOW>} lpdi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-docinfow">DOCINFO</a> structure containing the name of the document file and the name of the output file.
      * @returns {Integer} If the function succeeds, the return value is greater than zero. This value is the print job identifier for the document.
      * 
      * If the function fails, the return value is less than or equal to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-startdocw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-startdocw
      * @since windows5.0
      */
-    static StartDocW(hdc, lpdi) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static StartDocW(hdc_, lpdi) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\StartDocW", "ptr", hdc, "ptr", lpdi, "int")
+        result := DllCall("GDI32.dll\StartDocW", "ptr", hdc_, "ptr", lpdi, "int")
         return result
     }
 
@@ -887,17 +887,17 @@ class Xps {
      * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
      * <div> </div>
      * Applications should call <b>EndDoc</b> immediately after finishing a print job.
-     * @param {HDC} hdc Handle to the device context for the print job.
+     * @param {HDC} hdc_ Handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enddoc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enddoc
      * @since windows5.0
      */
-    static EndDoc(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EndDoc(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\EndDoc", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\EndDoc", "ptr", hdc_, "int")
         return result
     }
 
@@ -909,17 +909,17 @@ class Xps {
      * The system disables the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-resetdca">ResetDC</a> function between calls to the <b>StartPage</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-endpage">EndPage</a> functions. This means that you cannot change the device mode except at page boundaries. After calling <b>EndPage</b>, you can call <b>ResetDC</b> to change the device mode, if necessary. Note that a call to <b>ResetDC</b> resets all device context attributes back to default values.
      * 
      * Neither <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-endpage">EndPage</a> nor <b>StartPage</b> resets the device context attributes. Device context attributes remain constant across subsequent pages. You do not need to re-select objects and set up the mapping mode again before printing the next page; however, doing so will produce the same results and reduce code differences between versions of Windows.
-     * @param {HDC} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc_ A handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-startpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-startpage
      * @since windows5.0
      */
-    static StartPage(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static StartPage(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\StartPage", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\StartPage", "ptr", hdc_, "int")
         return result
     }
 
@@ -931,17 +931,17 @@ class Xps {
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-resetdca">ResetDC</a> function to change the device mode, if necessary, after calling the <b>EndPage</b> function. Note that a call to <b>ResetDC</b> resets all device context attributes back to default values. Neither <b>EndPage</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startpage">StartPage</a> resets the device context attributes. Device context attributes remain constant across subsequent pages. You do not need to re-select objects and set up the mapping mode again before printing the next page; however, doing so will produce the same results and reduce code differences between versions of Windows.
      * 
      * When a page in a spooled file exceeds approximately 350 MB, it may fail to print and not send an error message. For example, this can occur when printing large EMF files. The page size limit depends on many factors including the amount of virtual memory available, the amount of memory allocated by calling processes, and the amount of fragmentation in the process heap.
-     * @param {HDC} hdc A handle to the device context for the print job.
+     * @param {HDC} hdc_ A handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is less than or equal to zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-endpage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-endpage
      * @since windows5.0
      */
-    static EndPage(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EndPage(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\EndPage", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\EndPage", "ptr", hdc_, "int")
         return result
     }
 
@@ -953,17 +953,17 @@ class Xps {
      * Applications should call the <b>AbortDoc</b> function to stop a print job if an error occurs, or to stop a print job after the user cancels that job. To end a successful print job, an application should call the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-enddoc">EndDoc</a> function.
      * 
      * If Print Manager was used to start the print job, calling <b>AbortDoc</b> erases the entire spool job, so that the printer receives nothing. If Print Manager was not used to start the print job, the data may already have been sent to the printer. In this case, the printer driver resets the printer (when possible) and ends the print job.
-     * @param {HDC} hdc Handle to the device context for the print job.
+     * @param {HDC} hdc_ Handle to the device context for the print job.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-abortdoc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-abortdoc
      * @since windows5.0
      */
-    static AbortDoc(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static AbortDoc(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\AbortDoc", "ptr", hdc, "int")
+        result := DllCall("GDI32.dll\AbortDoc", "ptr", hdc_, "int")
         return result
     }
 
@@ -972,18 +972,18 @@ class Xps {
      * @remarks
      * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
      * <div> </div>
-     * @param {HDC} hdc Handle to the device context for the print job.
-     * @param {Pointer<ABORTPROC>} proc Pointer to the application-defined abort function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-abortproc">AbortProc</a> callback function.
+     * @param {HDC} hdc_ Handle to the device context for the print job.
+     * @param {Pointer<ABORTPROC>} proc_ Pointer to the application-defined abort function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-abortproc">AbortProc</a> callback function.
      * @returns {Integer} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is SP_ERROR.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setabortproc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setabortproc
      * @since windows5.0
      */
-    static SetAbortProc(hdc, proc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetAbortProc(hdc_, proc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetAbortProc", "ptr", hdc, "ptr", proc, "int")
+        result := DllCall("GDI32.dll\SetAbortProc", "ptr", hdc_, "ptr", proc_, "int")
         return result
     }
 
@@ -994,20 +994,20 @@ class Xps {
      * <div> </div>
      * The application that owns the window referenced by hWnd processes the <b>PrintWindow</b> call and renders the image in the device context that is referenced by <i>hdcBlt</i>. The application  receives a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-print">WM_PRINT</a> message or, if the <b>PW_PRINTCLIENT</b> flag is specified, a <a href="https://docs.microsoft.com/windows/desktop/gdi/wm-printclient">WM_PRINTCLIENT</a> message.
      * For more information, see <b>WM_PRINT</b> and <b>WM_PRINTCLIENT</b>.
-     * @param {HWND} hwnd A handle to the window that will be copied.
+     * @param {HWND} hwnd_ A handle to the window that will be copied.
      * @param {HDC} hdcBlt A handle to the device context.
      * @param {Integer} nFlags 
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-printwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-printwindow
      * @since windows5.1.2600
      */
-    static PrintWindow(hwnd, hdcBlt, nFlags) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static PrintWindow(hwnd_, hdcBlt, nFlags) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         hdcBlt := hdcBlt is Win32Handle ? NumGet(hdcBlt, "ptr") : hdcBlt
 
-        result := DllCall("USER32.dll\PrintWindow", "ptr", hwnd, "ptr", hdcBlt, "uint", nFlags, "int")
+        result := DllCall("USER32.dll\PrintWindow", "ptr", hwnd_, "ptr", hdcBlt, "uint", nFlags, "int")
         return result
     }
 

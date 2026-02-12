@@ -6,8 +6,8 @@
 #Include .\IDWriteFontCollection.ahk
 
 /**
- * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontcollection1
+ * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection1)
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nn-dwrite_3-idwritefontcollection1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -34,23 +34,31 @@ class IDWriteFontCollection1 extends IDWriteFontCollection{
 
     /**
      * Gets the underlying font set used by this collection.
-     * @returns {IDWriteFontSet} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
+     * @returns {Pointer<IDWriteFontSet>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
      * 
      * Returns the font set used by the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontcollection1-getfontset
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite_3/nf-dwrite_3-idwritefontcollection1-getfontset
      */
     GetFontSet() {
-        result := ComCall(7, this, "ptr*", &fontSet := 0, "HRESULT")
-        return IDWriteFontSet(fontSet)
+        result := ComCall(7, this, "ptr*", &fontSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontSet
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @returns {IDWriteFontFamily1} 
+     * @returns {Pointer<IDWriteFontFamily1>} 
      */
     GetFontFamily(index) {
-        result := ComCall(8, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
-        return IDWriteFontFamily1(fontFamily)
+        result := ComCall(8, this, "uint", index, "ptr*", &fontFamily_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFamily_
     }
 }

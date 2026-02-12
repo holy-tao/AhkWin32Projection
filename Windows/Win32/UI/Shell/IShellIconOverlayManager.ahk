@@ -6,14 +6,12 @@
 /**
  * IShellIconOverlayManager may be altered or unavailable.
  * @remarks
- * 
  * Icon overlays are small images placed at the lower-left corner of the icon that represents a Shell object in Windows Explorer or on the desktop. They are used to add some extra information to the object's normal icon. A commonly used icon overlay is the small arrow that indicates that a file or folder is actually a link. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishelliconoverlay">IShellIconOverlay</a>.
  * 
  * This interface must be implemented by all icon overlay handlers.
  * 
  * This interface is not typically called by applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishelliconoverlaymanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nn-shlobj_core-ishelliconoverlaymanager
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -52,12 +50,16 @@ class IShellIconOverlayManager extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to the icon index in the system image list.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getfileoverlayinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getfileoverlayinfo
      */
     GetFileOverlayInfo(pwszPath, dwAttrib, dwflags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIndex
     }
 
@@ -78,12 +80,16 @@ class IShellIconOverlayManager extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * The index of the icon image or icon overlay, depending on the value of <i>dwflags</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getreservedoverlayinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-getreservedoverlayinfo
      */
     GetReservedOverlayInfo(pwszPath, dwAttrib, dwflags, iReservedID) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "int", iReservedID, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszPath, "uint", dwAttrib, "int*", &pIndex := 0, "uint", dwflags, "int", iReservedID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIndex
     }
 
@@ -95,10 +101,14 @@ class IShellIconOverlayManager extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-refreshoverlayimages
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-refreshoverlayimages
      */
     RefreshOverlayImages(dwFlags) {
-        result := ComCall(5, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,10 +146,14 @@ class IShellIconOverlayManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-loadnonloadedoverlayidentifiers
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-loadnonloadedoverlayidentifiers
      */
     LoadNonloadedOverlayIdentifiers() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -154,10 +168,14 @@ class IShellIconOverlayManager extends IUnknown{
      * @returns {Integer} Type: <b>int</b>
      * 
      * The returned overlay index.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ishelliconoverlaymanager-overlayindexfromimageindex
      */
     OverlayIndexFromImageIndex(iImage, fAdd) {
-        result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, "int", fAdd, "HRESULT")
+        result := ComCall(7, this, "int", iImage, "int*", &piIndex := 0, "int", fAdd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return piIndex
     }
 }

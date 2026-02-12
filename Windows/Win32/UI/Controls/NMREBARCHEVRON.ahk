@@ -2,11 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information used in handling the RBN_CHEVRONPUSHED notification code.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarchevron
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-nmrebarchevron
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -59,9 +60,12 @@ class NMREBARCHEVRON extends Win32Struct
      * Application-defined value associated with the band.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(32, this)
+            return this.__lParam
+        }
     }
 
     /**
@@ -86,8 +90,11 @@ class NMREBARCHEVRON extends Win32Struct
      * 					<i>lAppValue</i> value. Otherwise, it is set to zero.
      * @type {LPARAM}
      */
-    lParamNM {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    lParamNM{
+        get {
+            if(!this.HasProp("__lParamNM"))
+                this.__lParamNM := LPARAM(56, this)
+            return this.__lParamNM
+        }
     }
 }

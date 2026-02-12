@@ -5,7 +5,7 @@
 
 /**
  * The IWMStreamConfig2 interface manages the data unit extensions associated with a stream.IWMStreamConfig2 inherits from IWMStreamConfig. To obtain a pointer to IWMStreamConfig2, call the QueryInterface method of the IWMStreamConfig interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmstreamconfig2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmstreamconfig2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,27 +33,41 @@ class IWMStreamConfig2 extends IWMStreamConfig{
     /**
      * The GetTransportType method retrieves the type of data communication protocol (reliable or unreliable) used for the stream.
      * @returns {Integer} Pointer to a variable that receives one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type">WMT_TRANSPORT_TYPE</a> enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-gettransporttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-gettransporttype
      */
     GetTransportType() {
-        result := ComCall(14, this, "int*", &pnTransportType := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pnTransportType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnTransportType
     }
 
     /**
      * The SetTransportType method sets the type of data communication protocol (reliable or unreliable) used for the stream.
+     * @remarks
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @param {Integer} nTransportType One member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_transport_type">WMT_TRANSPORT_TYPE</a> enumeration type specifying the transport type for the stream.
      * @returns {HRESULT} The method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-settransporttype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-settransporttype
      */
     SetTransportType(nTransportType) {
-        result := ComCall(15, this, "int", nTransportType, "HRESULT")
+        result := ComCall(15, this, "int", nTransportType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The AddDataUnitExtension method adds a data unit extension system to the stream. You can use data unit extension systems to attach custom data to samples in an output file.
-     * @param {Guid} guidExtensionSystemID A GUID that identifies the data unit extension system. This can be one of the predefined GUIDs listed in <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-setproperty">INSSBuffer3::SetProperty</a>, or a GUID whose value is understood by a custom player application.
+     * @remarks
+     * Passing the GUID of an existing data unit extension system does not cause an error. The old system is destroyed and replaced by the new one.
+     * 
+     * The new value will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
+     * @param {Guid} guidExtensionSystemID A GUID that identifies the data unit extension system. This can be one of the predefined GUIDs listed in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer3-setproperty">INSSBuffer3::SetProperty</a>, or a GUID whose value is understood by a custom player application.
      * @param {Integer} cbExtensionDataSize Size, in bytes, of the data unit extensions that will be attached to the packets in the stream. Set to 0xFFFF to specify data unit extensions of variable size. Each individual data unit extension can then be set to any size ranging from 0 to 65534.
      * @param {Pointer<Integer>} pbExtensionSystemInfo Pointer to a byte buffer containing information about the data unit extension system. If you have no information, you can pass <b>NULL</b>. When passing <b>NULL</b>, <i>cbExtensionSystemInfo</i> must be zero.
      * @param {Integer} cbExtensionSystemInfo Count of bytes in the buffer at <i>pbExtensionSystemInfo</i>. If you have no data unit extension system information, you can pass zero. When passing zero, <i>pbExtensionSystemInfo</i> must be <b>NULL</b>.
@@ -98,27 +112,37 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-adddataunitextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-adddataunitextension
      */
     AddDataUnitExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
+        result := ComCall(16, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetDataUnitExtensionCount method retrieves the total number of data unit extension systems that have been added to the stream.
      * @returns {Integer} Pointer to a <b>WORD</b> that receives the count of data unit extensions.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextensioncount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextensioncount
      */
     GetDataUnitExtensionCount() {
-        result := ComCall(17, this, "ushort*", &pcDataUnitExtensions := 0, "HRESULT")
+        result := ComCall(17, this, "ushort*", &pcDataUnitExtensions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcDataUnitExtensions
     }
 
     /**
      * The GetDataUnitExtension method retrieves information about an existing data unit extension system.
+     * @remarks
+     * To retrieve the total number of data unit extension systems associated with the stream, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextensioncount">GetDataUnitExtensionCount</a>.
      * @param {Integer} wDataUnitExtensionNumber <b>WORD</b> containing the data unit extension number. This number is assigned to a data unit extension system when it is added to the stream.
      * @param {Pointer<Guid>} pguidExtensionSystemID Pointer to a GUID that receives the identifier of the data unit extension system.
      * @param {Pointer<Integer>} pcbExtensionDataSize Pointer to the size, in bytes, of the data unit extensions that will be attached to the packets in the stream.
@@ -160,24 +184,34 @@ class IWMStreamConfig2 extends IWMStreamConfig{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-getdataunitextension
      */
     GetDataUnitExtension(wDataUnitExtensionNumber, pguidExtensionSystemID, pcbExtensionDataSize, pbExtensionSystemInfo, pcbExtensionSystemInfo) {
         pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : "ptr"
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
         pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ushort", wDataUnitExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
+        result := ComCall(18, this, "ushort", wDataUnitExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The RemoveAllDataUnitExtensions method removes all data unit extension systems that are associated with the stream.
+     * @remarks
+     * The changes will not take effect in the profile until you call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmprofile-reconfigstream">IWMProfile::ReconfigStream</a>.
      * @returns {HRESULT} The method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-removealldataunitextensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmstreamconfig2-removealldataunitextensions
      */
     RemoveAllDataUnitExtensions() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

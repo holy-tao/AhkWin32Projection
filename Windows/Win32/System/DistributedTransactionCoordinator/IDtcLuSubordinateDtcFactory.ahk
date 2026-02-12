@@ -29,7 +29,7 @@ class IDtcLuSubordinateDtcFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @param {IUnknown} punkTransactionOuter 
@@ -42,12 +42,17 @@ class IDtcLuSubordinateDtcFactory extends IUnknown{
      * @param {IDtcLuSubordinateDtcSink} pSubordinateDtcSink 
      * @param {Pointer<IDtcLuSubordinateDtc>} ppSubordinateDtc 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(pucLuPair, cbLuPair, punkTransactionOuter, isoLevel, isoFlags, pOptions, ppTransaction, pTransId, cbTransId, pSubordinateDtcSink, ppSubordinateDtc) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
         pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", punkTransactionOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", ppTransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pSubordinateDtcSink, "ptr*", ppSubordinateDtc, "HRESULT")
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", punkTransactionOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", ppTransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pSubordinateDtcSink, "ptr*", ppSubordinateDtc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

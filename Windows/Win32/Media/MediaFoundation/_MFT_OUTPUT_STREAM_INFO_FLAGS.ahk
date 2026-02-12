@@ -19,7 +19,7 @@
  * </li>
  * </ul>
  * If neither of these flags is set, the MFT never discards output data.
- * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_stream_info_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/mftransform/ne-mftransform-_mft_output_stream_info_flags
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

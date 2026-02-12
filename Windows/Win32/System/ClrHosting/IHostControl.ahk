@@ -34,7 +34,11 @@ class IHostControl extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetHostManager(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppObject
     }
 
@@ -45,7 +49,11 @@ class IHostControl extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAppDomainManager(dwAppDomainID, pUnkAppDomainManager) {
-        result := ComCall(4, this, "uint", dwAppDomainID, "ptr", pUnkAppDomainManager, "HRESULT")
+        result := ComCall(4, this, "uint", dwAppDomainID, "ptr", pUnkAppDomainManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

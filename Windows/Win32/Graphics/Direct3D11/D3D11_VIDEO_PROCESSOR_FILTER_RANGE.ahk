@@ -16,7 +16,7 @@
  * In this case,  a filter value of 2 would be interpreted by the device as 0.50 (or 2 × 0.25).
  * 
  * The device should use  a multiplier that can be represented exactly as a base-2 fraction.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_filter_range
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_video_processor_filter_range
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

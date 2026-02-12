@@ -3,8 +3,10 @@
 #Include .\WINBIO_IDENTITY.ahk
 
 /**
- * Specify the types of service provider event notifications to monitor.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-event-constants
+ * Contains status information sent to the callback routine when an event notice is raised.
+ * @remarks
+ * Call the [**WinBioRegisterEventMonitor**](/windows/desktop/api/Winbio/nf-winbio-winbioregistereventmonitor) function to register a callback routine to receive event notifications from the Windows Biometric Framework. The callback is a custom function that you must define for your application.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-event
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */
@@ -131,6 +133,12 @@ class WINBIO_EVENT extends Win32Struct
     }
 
     /**
+     * A value that specifies the type of service provider event notice raised. The only provider currently supported is the fingerprint sensor. This sensor supports the following flags.
+     * 
+     * 
+     * <span id="WINBIO_EVENT_FP_UNCLAIMED"></span><span id="winbio_event_fp_unclaimed"></span>**WINBIO\_EVENT\_FP\_UNCLAIMED** (The sensor detected a finger swipe that was not requested by the application or by the window that currently has focus. The Windows Biometric Framework calls into your callback function to indicate that a finger swipe has occurred but does not try to identify the fingerprint.)
+     * 
+     * <span id="WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY"></span><span id="winbio_event_fp_unclaimed_identify"></span>**WINBIO\_EVENT\_FP\_UNCLAIMED\_IDENTIFY** (The sensor detected a finger swipe that was not requested by the application or by the window that currently has focus. The Windows Biometric Framework attempts to identify the fingerprint and passes the result of that process to your callback function.)
      * @type {Integer}
      */
     Type {
@@ -139,6 +147,7 @@ class WINBIO_EVENT extends Win32Struct
     }
 
     /**
+     * 
      * @type {_Parameters_e__Union}
      */
     Parameters{

@@ -37,10 +37,20 @@ class IPrivateUnknown extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIInitializeObject(lpszUserName, lpszPassword, lnReserved) {
-        lpszUserName := lpszUserName is String ? BSTR.Alloc(lpszUserName).Value : lpszUserName
-        lpszPassword := lpszPassword is String ? BSTR.Alloc(lpszPassword).Value : lpszPassword
+        if(lpszUserName is String) {
+            pin := BSTR.Alloc(lpszUserName)
+            lpszUserName := pin.Value
+        }
+        if(lpszPassword is String) {
+            pin := BSTR.Alloc(lpszPassword)
+            lpszPassword := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", lpszUserName, "ptr", lpszPassword, "int", lnReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", lpszUserName, "ptr", lpszPassword, "int", lnReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +59,11 @@ class IPrivateUnknown extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIReleaseObject() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

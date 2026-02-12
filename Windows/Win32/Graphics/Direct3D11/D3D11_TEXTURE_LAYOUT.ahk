@@ -27,7 +27,7 @@
  *                       _pdep_u32(yOffset, yBytesMask);
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ne-d3d11_3-d3d11_texture_layout
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_3/ne-d3d11_3-d3d11_texture_layout
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

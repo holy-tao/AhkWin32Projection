@@ -5,7 +5,7 @@
  * Represents the reconstructed reference images for an encoding operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encode_reference_frames
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encode_reference_frames
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

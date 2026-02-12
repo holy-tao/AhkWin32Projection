@@ -9,7 +9,7 @@
 
 /**
  * Represents a set of certificates for which an Online Certificate Status Protocol (OCSP) service has been configured to provide certificate status responses.
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-iocspcaconfigurationcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nn-certadm-iocspcaconfigurationcollection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -51,10 +51,14 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     /**
      * Gets an enumerator for the configuration set.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-iocspcaconfigurationcollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pVal)
     }
 
@@ -62,21 +66,29 @@ class IOCSPCAConfigurationCollection extends IDispatch{
      * Gets a certification authority (CA) configuration identified by index in the configuration set.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-iocspcaconfigurationcollection-get_item
      */
     get_Item(Index) {
         pVal := VARIANT()
-        result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "int", Index, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
      * Gets the number of certification authority (CA) configurations in the configuration set.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-iocspcaconfigurationcollection-get_count
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -84,13 +96,20 @@ class IOCSPCAConfigurationCollection extends IDispatch{
      * Gets a certification authority (CA) configuration identified by name in the configuration set.
      * @param {BSTR} bstrIdentifier 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get_itembyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-iocspcaconfigurationcollection-get_itembyname
      */
     get_ItemByName(bstrIdentifier) {
-        bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
+        if(bstrIdentifier is String) {
+            pin := BSTR.Alloc(bstrIdentifier)
+            bstrIdentifier := pin.Value
+        }
 
         pVal := VARIANT()
-        result := ComCall(10, this, "ptr", bstrIdentifier, "ptr", pVal, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrIdentifier, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -99,30 +118,41 @@ class IOCSPCAConfigurationCollection extends IDispatch{
      * @param {BSTR} bstrIdentifier A string that contains a name for the new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> object.
      * @param {VARIANT} varCACert An X.509 CA certificate.
      * @returns {IOCSPCAConfiguration} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> interface for the newly created object.
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration
      */
     CreateCAConfiguration(bstrIdentifier, varCACert) {
-        bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
+        if(bstrIdentifier is String) {
+            pin := BSTR.Alloc(bstrIdentifier)
+            bstrIdentifier := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrIdentifier, "ptr", varCACert, "ptr*", &ppVal := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrIdentifier, "ptr", varCACert, "ptr*", &ppVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOCSPCAConfiguration(ppVal)
     }
 
     /**
      * Removes a named certification authority (CA) configuration from the configuration set.
      * @remarks
-     * 
      * The <i>bstrIdentifier</i> value must be one previously set by the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration">CreateCAConfiguration</a> method.
-     * 
-     * 
      * @param {BSTR} bstrIdentifier A string that contains the name for the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> object.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-deletecaconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api//content/certadm/nf-certadm-iocspcaconfigurationcollection-deletecaconfiguration
      */
     DeleteCAConfiguration(bstrIdentifier) {
-        bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
+        if(bstrIdentifier is String) {
+            pin := BSTR.Alloc(bstrIdentifier)
+            bstrIdentifier := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrIdentifier, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrIdentifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

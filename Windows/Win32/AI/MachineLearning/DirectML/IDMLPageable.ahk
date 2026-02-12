@@ -5,7 +5,7 @@
 
 /**
  * Implemented by objects that can be evicted from GPU memory, and hence that can be supplied to IDMLDevice::Evict and IDMLDevice::MakeResident.
- * @see https://docs.microsoft.com/windows/win32/api//directml/nn-directml-idmlpageable
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/nn-directml-idmlpageable
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

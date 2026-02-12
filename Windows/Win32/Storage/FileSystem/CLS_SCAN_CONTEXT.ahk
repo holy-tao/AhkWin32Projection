@@ -7,7 +7,7 @@
  * The CLS_SCAN_CONTEXT structure contains information about the containers that are being scanned by ScanLogContainers.
  * @remarks
  * This structure is allocated by the client, initialized using <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-createlogcontainerscancontext">CreateLogContainerScanContext</a>, and then passed to <a href="https://docs.microsoft.com/windows/desktop/api/clfsw32/nf-clfsw32-scanlogcontainers">ScanLogContainers</a> in repeated calls.
- * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_scan_context~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/clfs/ns-clfs-cls_scan_context~r1
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

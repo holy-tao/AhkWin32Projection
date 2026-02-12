@@ -7,7 +7,7 @@
  * To set these flags, call <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideodisplaycontrol-setrenderingprefs">IMFVideoDisplayControl::SetRenderingPrefs</a>.
  * 
  * The flags named "MFVideoRenderPrefs_Allow..." cause the EVR to use lower-quality settings only when requested by the quality manager. (For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a>.) The flags named "MFVideoRenderPrefs_Force..." cause the video mixer to use lower-quality settings regardless of the quality manager.
- * @see https://learn.microsoft.com/windows/win32/api/evr/ne-evr-mfvideorenderprefs
+ * @see https://learn.microsoft.com/windows/win32/api//content/evr/ne-evr-mfvideorenderprefs
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

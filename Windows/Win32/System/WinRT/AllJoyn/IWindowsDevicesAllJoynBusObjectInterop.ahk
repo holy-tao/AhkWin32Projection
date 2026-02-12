@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\HSTRING.ahk
 #Include ..\IInspectable.ahk
 
 /**
@@ -37,33 +38,49 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
      * @returns {HRESULT} 
      */
-    AddPropertyGetHandler(context, interfaceName, callback) {
+    AddPropertyGetHandler(context_, interfaceName, callback) {
+        if(interfaceName is String) {
+            pin := HSTRING.Create(interfaceName)
+            interfaceName := pin.Value
+        }
         interfaceName := interfaceName is Win32Handle ? NumGet(interfaceName, "ptr") : interfaceName
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, contextMarshal, context, "ptr", interfaceName, "ptr", callback, "HRESULT")
+        result := ComCall(6, this, context_Marshal, context_, "ptr", interfaceName, "ptr", callback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {Pointer<Void>} context_ 
      * @param {HSTRING} interfaceName 
      * @param {Pointer} callback 
      * @returns {HRESULT} 
      */
-    AddPropertySetHandler(context, interfaceName, callback) {
+    AddPropertySetHandler(context_, interfaceName, callback) {
+        if(interfaceName is String) {
+            pin := HSTRING.Create(interfaceName)
+            interfaceName := pin.Value
+        }
         interfaceName := interfaceName is Win32Handle ? NumGet(interfaceName, "ptr") : interfaceName
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, contextMarshal, context, "ptr", interfaceName, "ptr", callback, "HRESULT")
+        result := ComCall(7, this, context_Marshal, context_, "ptr", interfaceName, "ptr", callback, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +89,11 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
      * @returns {Integer} 
      */
     get_Win32Handle() {
-        result := ComCall(8, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

@@ -81,7 +81,11 @@ class IDispLatLongReport extends IDispatch{
      * @returns {Float} 
      */
     get_Latitude() {
-        result := ComCall(7, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -90,7 +94,11 @@ class IDispLatLongReport extends IDispatch{
      * @returns {Float} 
      */
     get_Longitude() {
-        result := ComCall(8, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(8, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -99,7 +107,11 @@ class IDispLatLongReport extends IDispatch{
      * @returns {Float} 
      */
     get_ErrorRadius() {
-        result := ComCall(9, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(9, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -108,7 +120,11 @@ class IDispLatLongReport extends IDispatch{
      * @returns {Float} 
      */
     get_Altitude() {
-        result := ComCall(10, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(10, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -117,7 +133,11 @@ class IDispLatLongReport extends IDispatch{
      * @returns {Float} 
      */
     get_AltitudeError() {
-        result := ComCall(11, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(11, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -126,7 +146,11 @@ class IDispLatLongReport extends IDispatch{
      * @returns {Float} 
      */
     get_Timestamp() {
-        result := ComCall(12, this, "double*", &pVal := 0, "HRESULT")
+        result := ComCall(12, this, "double*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 }

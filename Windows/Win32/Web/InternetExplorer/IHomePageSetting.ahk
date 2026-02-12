@@ -36,17 +36,21 @@ class IHomePageSetting extends IUnknown{
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {PWSTR} homePageUri 
      * @param {PWSTR} brandingMessage 
      * @returns {HRESULT} 
      */
-    SetHomePage(hwnd, homePageUri, brandingMessage) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetHomePage(hwnd_, homePageUri, brandingMessage) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         homePageUri := homePageUri is String ? StrPtr(homePageUri) : homePageUri
         brandingMessage := brandingMessage is String ? StrPtr(brandingMessage) : brandingMessage
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", homePageUri, "ptr", brandingMessage, "HRESULT")
+        result := ComCall(3, this, "ptr", hwnd_, "ptr", homePageUri, "ptr", brandingMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +62,11 @@ class IHomePageSetting extends IUnknown{
     IsHomePage(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(4, this, "ptr", uri, "int*", &isDefault := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", uri, "int*", &isDefault := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isDefault
     }
 
@@ -67,7 +75,11 @@ class IHomePageSetting extends IUnknown{
      * @returns {HRESULT} 
      */
     SetHomePageToBrowserDefault() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

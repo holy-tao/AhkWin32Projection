@@ -2,11 +2,11 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The VDS_LOADBALANCE_POLICY_ENUM enumeration (vdshwprv.h) defines a set of valid load balance policies for a path.
+ * The VDS_LOADBALANCE_POLICY_ENUM (vds.h) enumeration defines a set of valid load balance policies for a path.
  * @remarks
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_LOADBALANCE_POLICY_ENUM</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_loadbalance_policy_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/ne-vds-vds_loadbalance_policy_enum
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

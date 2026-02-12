@@ -61,7 +61,11 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {Integer} 
      */
     get_logicalXDPI() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -70,7 +74,11 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {Integer} 
      */
     get_logicalYDPI() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -79,7 +87,11 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {Integer} 
      */
     get_deviceXDPI() {
-        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -88,7 +100,11 @@ class IHTMLScreen2 extends IDispatch{
      * @returns {Integer} 
      */
     get_deviceYDPI() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

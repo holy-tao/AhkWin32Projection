@@ -14,7 +14,7 @@
  * <li><i>hWnd</i> plus <i>uID</i></li>
  * </ul>
  * If <i>guidItem</i> is not <b>GUID_NULL</b>, <i>hWnd</i> and <i>uID</i> are ignored.
- * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyiconidentifier
+ * @see https://learn.microsoft.com/windows/win32/api//content/shellapi/ns-shellapi-notifyiconidentifier
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

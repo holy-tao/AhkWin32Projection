@@ -3,7 +3,7 @@
 
 /**
  * The DIEFFESCAPE structure passes hardware-specific data directly to the device driver.
- * @see https://learn.microsoft.com/windows/win32/api/dinput/ns-dinput-dieffescape
+ * @see https://learn.microsoft.com/windows/win32/api//content/dinput/ns-dinput-dieffescape
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

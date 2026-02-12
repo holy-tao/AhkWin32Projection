@@ -7,11 +7,8 @@
 /**
  * Represents a hardware-accelerated video decoder for Microsoft Direct3D 11.
  * @remarks
- * 
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11videodecoder
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nn-d3d11-id3d11videodecoder
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -40,22 +37,32 @@ class ID3D11VideoDecoder extends ID3D11DeviceChild{
      * Gets the parameters that were used to create the decoder.
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pVideoDesc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_desc">D3D11_VIDEO_DECODER_DESC</a> structure that receives a description of the video stream.
      * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pConfig A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_config">D3D11_VIDEO_DECODER_CONFIG</a> structure that receives the decoder configuration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodecoder-getcreationparameters
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11videodecoder-getcreationparameters
      */
     GetCreationParameters(pVideoDesc, pConfig) {
-        result := ComCall(7, this, "ptr", pVideoDesc, "ptr", pConfig, "HRESULT")
+        result := ComCall(7, this, "ptr", pVideoDesc, "ptr", pConfig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a handle to the driver.
+     * @remarks
+     * The driver handle can be used to configure content protection.
      * @returns {HANDLE} Receives a handle to the driver.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11videodecoder-getdriverhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/nf-d3d11-id3d11videodecoder-getdriverhandle
      */
     GetDriverHandle() {
         pDriverHandle := HANDLE()
-        result := ComCall(8, this, "ptr", pDriverHandle, "HRESULT")
+        result := ComCall(8, this, "ptr", pDriverHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDriverHandle
     }
 }

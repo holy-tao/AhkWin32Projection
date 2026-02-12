@@ -5,7 +5,7 @@
 
 /**
  * The IUIEventingManager interface is implemented by the Ribbon framework and provides the notification functionality for applications that register for ribbon events.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuieventingmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nn-uiribbon-iuieventingmanager
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -32,14 +32,20 @@ class IUIEventingManager extends IUnknown{
 
     /**
      * Sets the event logger for ribbon events.
+     * @remarks
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-initialize">IUIFramework::Initialize</a> and <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-loadui">IUIFramework::LoadUI</a> before calling this method.
      * @param {IUIEventLogger} eventLogger The event logger.
      * 
      * If NULL, disables event logging.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuieventingmanager-seteventlogger
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiribbon/nf-uiribbon-iuieventingmanager-seteventlogger
      */
     SetEventLogger(eventLogger) {
-        result := ComCall(3, this, "ptr", eventLogger, "HRESULT")
+        result := ComCall(3, this, "ptr", eventLogger, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

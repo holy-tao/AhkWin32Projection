@@ -3,7 +3,7 @@
 
 /**
  * The CCAB structure contains cabinet information.
- * @see https://learn.microsoft.com/windows/win32/api/fci/ns-fci-ccab
+ * @see https://learn.microsoft.com/windows/win32/api//content/fci/ns-fci-ccab
  * @namespace Windows.Win32.Storage.Cabinets
  * @version v4.0.30319
  */

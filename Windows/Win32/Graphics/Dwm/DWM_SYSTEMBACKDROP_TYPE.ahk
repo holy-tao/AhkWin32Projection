@@ -5,7 +5,7 @@
  * Flags for specifying the system-drawn backdrop material of a window, including behind the non-client area.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_systembackdrop_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwmapi/ne-dwmapi-dwm_systembackdrop_type
  * @namespace Windows.Win32.Graphics.Dwm
  * @version v4.0.30319
  */

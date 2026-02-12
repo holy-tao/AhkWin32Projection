@@ -3,7 +3,7 @@
 
 /**
  * Defines the selection options for an ASF stream.
- * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-asf_selection_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/ne-wmcontainer-asf_selection_status
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

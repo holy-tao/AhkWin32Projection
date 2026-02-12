@@ -46,7 +46,7 @@
  * <td>D3D10_COLOR_WRITE_ENABLE_ALL</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_render_target_blend_desc1
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10_1/ns-d3d10_1-d3d10_render_target_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

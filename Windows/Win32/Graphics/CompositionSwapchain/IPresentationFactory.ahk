@@ -5,8 +5,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * This interface is used to query system support for presentation, and create a presentation manager.
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationfactory
+ * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nn-presentation-ipresentationfactory
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */
@@ -32,9 +34,11 @@ class IPresentationFactory extends IUnknown{
     static VTableNames => ["IsPresentationSupported", "IsPresentationSupportedWithIndependentFlip", "CreatePresentationManager"]
 
     /**
+     * Gets a value that indicates whether presentation of any sort (with or without independent flip) is supported on the backing D3D device.
+     * @returns {Integer} Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-ispresentationsupported
+     * `TRUE` if presentation is supported; otherwise, `FALSE`.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentationfactory-ispresentationsupported
      */
     IsPresentationSupported() {
         result := ComCall(3, this, "char")
@@ -42,9 +46,11 @@ class IPresentationFactory extends IUnknown{
     }
 
     /**
+     * Gets a value that indicates whether independent-flip-enabled presentation is supported on the backing D3D device.
+     * @returns {Integer} Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-ispresentationsupportedwithindependentflip
+     * `TRUE` if independent-flip-enabled presentation is supported; otherwise, `FALSE`.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentationfactory-ispresentationsupportedwithindependentflip
      */
     IsPresentationSupportedWithIndependentFlip() {
         result := ComCall(4, this, "char")
@@ -52,12 +58,18 @@ class IPresentationFactory extends IUnknown{
     }
 
     /**
+     * Creates a presentation manager.
+     * @returns {IPresentationManager} Type: **[IPresentationManager](nn-presentation-ipresentationmanager.md) \*\***
      * 
-     * @returns {IPresentationManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationfactory-createpresentationmanager
+     * The address of a pointer to the created presentation manager.
+     * @see https://learn.microsoft.com/windows/win32/api//content/presentation/nf-presentation-ipresentationfactory-createpresentationmanager
      */
     CreatePresentationManager() {
-        result := ComCall(5, this, "ptr*", &ppPresentationManager := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppPresentationManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPresentationManager(ppPresentationManager)
     }
 }

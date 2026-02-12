@@ -53,7 +53,11 @@ class ISideShowContent extends IUnknown{
         out_pdwSizeMarshal := out_pdwSize is VarRef ? "uint*" : "ptr"
         out_ppbDataMarshal := out_ppbData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", in_pICapabilities, out_pdwSizeMarshal, out_pdwSize, out_ppbDataMarshal, out_ppbData, "HRESULT")
+        result := ComCall(3, this, "ptr", in_pICapabilities, out_pdwSizeMarshal, out_pdwSize, out_ppbDataMarshal, out_ppbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +66,11 @@ class ISideShowContent extends IUnknown{
      * @returns {Integer} 
      */
     get_ContentId() {
-        result := ComCall(4, this, "uint*", &out_pcontentId := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &out_pcontentId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_pcontentId
     }
 
@@ -71,7 +79,11 @@ class ISideShowContent extends IUnknown{
      * @returns {BOOL} 
      */
     get_DifferentiateContent() {
-        result := ComCall(5, this, "int*", &out_pfDifferentiateContent := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &out_pfDifferentiateContent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return out_pfDifferentiateContent
     }
 }

@@ -32,7 +32,7 @@
  * <td>MEM_MAPPED</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/memoryapi/ns-memoryapi-win32_memory_region_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/memoryapi/ns-memoryapi-win32_memory_region_information
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319
  */

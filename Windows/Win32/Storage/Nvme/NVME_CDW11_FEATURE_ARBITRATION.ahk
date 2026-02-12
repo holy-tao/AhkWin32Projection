@@ -5,7 +5,7 @@
  * Contains values for the Arbitration Feature that controls command arbitration.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_arbitration
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_feature_arbitration
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

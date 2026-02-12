@@ -36,9 +36,16 @@ class IRTCClientPortManagement extends IUnknown{
      * @returns {HRESULT} 
      */
     StartListenAddressAndPort(bstrInternalLocalAddress, lInternalLocalPort) {
-        bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
+        if(bstrInternalLocalAddress is String) {
+            pin := BSTR.Alloc(bstrInternalLocalAddress)
+            bstrInternalLocalAddress := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,9 +56,16 @@ class IRTCClientPortManagement extends IUnknown{
      * @returns {HRESULT} 
      */
     StopListenAddressAndPort(bstrInternalLocalAddress, lInternalLocalPort) {
-        bstrInternalLocalAddress := bstrInternalLocalAddress is String ? BSTR.Alloc(bstrInternalLocalAddress).Value : bstrInternalLocalAddress
+        if(bstrInternalLocalAddress is String) {
+            pin := BSTR.Alloc(bstrInternalLocalAddress)
+            bstrInternalLocalAddress := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrInternalLocalAddress, "int", lInternalLocalPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +80,11 @@ class IRTCClientPortManagement extends IUnknown{
         plMinValueMarshal := plMinValue is VarRef ? "int*" : "ptr"
         plMaxValueMarshal := plMaxValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "int", enPortType, plMinValueMarshal, plMinValue, plMaxValueMarshal, plMaxValue, "HRESULT")
+        result := ComCall(5, this, "int", enPortType, plMinValueMarshal, plMinValue, plMaxValueMarshal, plMaxValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

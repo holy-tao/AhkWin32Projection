@@ -37,7 +37,11 @@ class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback{
     OnFunctionEnterByName(pwszFunctionName, type) {
         pwszFunctionName := pwszFunctionName is String ? StrPtr(pwszFunctionName) : pwszFunctionName
 
-        result := ComCall(9, this, "ptr", pwszFunctionName, "int", type, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszFunctionName, "int", type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback{
     OnFunctionExitByName(pwszFunctionName, type) {
         pwszFunctionName := pwszFunctionName is String ? StrPtr(pwszFunctionName) : pwszFunctionName
 
-        result := ComCall(10, this, "ptr", pwszFunctionName, "int", type, "HRESULT")
+        result := ComCall(10, this, "ptr", pwszFunctionName, "int", type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

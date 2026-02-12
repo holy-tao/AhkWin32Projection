@@ -30,13 +30,17 @@ class IAccessor extends IUnknown{
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @returns {Integer} 
      */
-    AddRefAccessor(hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    AddRefAccessor(hAccessor_) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
-        result := ComCall(3, this, "ptr", hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", hAccessor_, "uint*", &pcRefCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRefCount
     }
 
@@ -53,38 +57,50 @@ class IAccessor extends IUnknown{
     CreateAccessor(dwAccessorFlags, cBindings, rgBindings, cbRowSize, phAccessor, rgStatus) {
         rgStatusMarshal := rgStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwAccessorFlags, "ptr", cBindings, "ptr", rgBindings, "ptr", cbRowSize, "ptr", phAccessor, rgStatusMarshal, rgStatus, "HRESULT")
+        result := ComCall(4, this, "uint", dwAccessorFlags, "ptr", cBindings, "ptr", rgBindings, "ptr", cbRowSize, "ptr", phAccessor, rgStatusMarshal, rgStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @param {Pointer<Integer>} pdwAccessorFlags 
      * @param {Pointer<Pointer>} pcBindings 
      * @param {Pointer<Pointer<DBBINDING>>} prgBindings 
      * @returns {HRESULT} 
      */
-    GetBindings(hAccessor, pdwAccessorFlags, pcBindings, prgBindings) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    GetBindings(hAccessor_, pdwAccessorFlags, pcBindings, prgBindings) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
         pdwAccessorFlagsMarshal := pdwAccessorFlags is VarRef ? "uint*" : "ptr"
         pcBindingsMarshal := pcBindings is VarRef ? "ptr*" : "ptr"
         prgBindingsMarshal := prgBindings is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hAccessor, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "HRESULT")
+        result := ComCall(5, this, "ptr", hAccessor_, pdwAccessorFlagsMarshal, pdwAccessorFlags, pcBindingsMarshal, pcBindings, prgBindingsMarshal, prgBindings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {HACCESSOR} hAccessor 
+     * @param {HACCESSOR} hAccessor_ 
      * @returns {Integer} 
      */
-    ReleaseAccessor(hAccessor) {
-        hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
+    ReleaseAccessor(hAccessor_) {
+        hAccessor_ := hAccessor_ is Win32Handle ? NumGet(hAccessor_, "ptr") : hAccessor_
 
-        result := ComCall(6, this, "ptr", hAccessor, "uint*", &pcRefCount := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hAccessor_, "uint*", &pcRefCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcRefCount
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Enables IMFSourceBufferList object to notify its clients of important state changes.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfbufferlistnotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imfbufferlistnotify
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IMFBufferListNotify extends IUnknown{
     /**
      * Indicates that a IMFSourceBuffer has been added.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onaddsourcebuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onaddsourcebuffer
      */
     OnAddSourceBuffer() {
         ComCall(3, this)
@@ -42,7 +42,7 @@ class IMFBufferListNotify extends IUnknown{
     /**
      * Indicates that a IMFSourceBuffer has been removed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onremovesourcebuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imfbufferlistnotify-onremovesourcebuffer
      */
     OnRemoveSourceBuffer() {
         ComCall(4, this)

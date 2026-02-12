@@ -30,13 +30,19 @@ class IObjectWithPackageFullName extends IUnknown{
 
     /**
      * Gets the package full name for the specified process.
+     * @remarks
+     * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
      * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * The package full name.
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefullname
+     * @see https://learn.microsoft.com/windows/win32/api//content/appmodel/nf-appmodel-getpackagefullname
      */
     GetPackageFullName() {
-        result := ComCall(3, this, "ptr*", &packageFullName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &packageFullName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return packageFullName
     }
 }

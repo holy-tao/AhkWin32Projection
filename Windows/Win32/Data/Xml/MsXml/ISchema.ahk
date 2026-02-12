@@ -7,6 +7,8 @@
 #Include .\ISchemaItem.ahk
 
 /**
+ * Provides a method for localizing keywords in a specified string.
+ * @see https://learn.microsoft.com/windows/win32/api//content/structuredquery/nn-structuredquery-ischemalocalizersupport
  * @namespace Windows.Win32.Data.Xml.MsXml
  * @version v4.0.30319
  */
@@ -100,7 +102,11 @@ class ISchema extends ISchemaItem{
      */
     get_targetNamespace() {
         targetNamespace := BSTR()
-        result := ComCall(14, this, "ptr", targetNamespace, "HRESULT")
+        result := ComCall(14, this, "ptr", targetNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return targetNamespace
     }
 
@@ -109,9 +115,13 @@ class ISchema extends ISchemaItem{
      * @returns {BSTR} 
      */
     get_version() {
-        version := BSTR()
-        result := ComCall(15, this, "ptr", version, "HRESULT")
-        return version
+        version_ := BSTR()
+        result := ComCall(15, this, "ptr", version_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return version_
     }
 
     /**
@@ -119,7 +129,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_types() {
-        result := ComCall(16, this, "ptr*", &types := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &types := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(types)
     }
 
@@ -128,7 +142,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_elements() {
-        result := ComCall(17, this, "ptr*", &elements := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &elements := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(elements)
     }
 
@@ -137,7 +155,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
-        result := ComCall(18, this, "ptr*", &attributes := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &attributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(attributes)
     }
 
@@ -146,7 +168,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_attributeGroups() {
-        result := ComCall(19, this, "ptr*", &attributeGroups := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &attributeGroups := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(attributeGroups)
     }
 
@@ -155,7 +181,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_modelGroups() {
-        result := ComCall(20, this, "ptr*", &modelGroups := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &modelGroups := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(modelGroups)
     }
 
@@ -164,7 +194,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_notations() {
-        result := ComCall(21, this, "ptr*", &notations := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &notations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(notations)
     }
 
@@ -173,7 +207,11 @@ class ISchema extends ISchemaItem{
      * @returns {ISchemaStringCollection} 
      */
     get_schemaLocations() {
-        result := ComCall(22, this, "ptr*", &schemaLocations := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &schemaLocations := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaStringCollection(schemaLocations)
     }
 }

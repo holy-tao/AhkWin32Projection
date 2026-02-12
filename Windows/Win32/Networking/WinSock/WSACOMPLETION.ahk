@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -37,7 +38,7 @@
  *  
  * 
  * For a blocking function, set the <b>WSACOMPLETION</b> structure to null.
- * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsacompletion
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsock2/ns-winsock2-wsacompletion
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
@@ -77,9 +78,12 @@ class WSACOMPLETION extends Win32Struct
             /**
              * @type {WPARAM}
              */
-            context {
-                get => NumGet(this, 16, "ptr")
-                set => NumPut("ptr", value, this, 16)
+            context{
+                get {
+                    if(!this.HasProp("__context"))
+                        this.__context := WPARAM(16, this)
+                    return this.__context
+                }
             }
         
         }

@@ -444,7 +444,7 @@
  * 
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/tcpestats/ns-tcpestats-tcp_estats_fine_rtt_rod_v0">TCP_ESTATS_FINE_RTT_ROD_v0</a> structure has members that provide similar data to the <b>RttVar</b>, <b>MaxRtt</b>, <b>MinRtt</b>, and <b>SumRtt</b> members of the <b>TCP_ESTATS_PATH_ROD_v0</b> structure. However, the time is reported in microseconds for the similar members of the <b>TCP_ESTATS_FINE_RTT_ROD_v0</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/tcpestats/ns-tcpestats-tcp_estats_path_rod_v0
+ * @see https://learn.microsoft.com/windows/win32/api//content/tcpestats/ns-tcpestats-tcp_estats_path_rod_v0
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

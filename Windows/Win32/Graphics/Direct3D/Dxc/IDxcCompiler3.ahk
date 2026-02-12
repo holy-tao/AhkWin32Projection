@@ -29,18 +29,23 @@ class IDxcCompiler3 extends IUnknown{
     static VTableNames => ["Compile", "Disassemble"]
 
     /**
-     * 
+     * This section contains information about the following Direct3D HLSL compiler functions
      * @param {Pointer<DxcBuffer>} pSource 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/dx-graphics-d3dcompiler-reference-functions
      */
     Compile(pSource, pArguments, argCount, pIncludeHandler, riid) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSource, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pSource, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -48,10 +53,14 @@ class IDxcCompiler3 extends IUnknown{
      * 
      * @param {Pointer<DxcBuffer>} pObject 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     Disassemble(pObject, riid) {
-        result := ComCall(4, this, "ptr", pObject, "ptr", riid, "ptr*", &ppResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pObject, "ptr", riid, "ptr*", &ppResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 }

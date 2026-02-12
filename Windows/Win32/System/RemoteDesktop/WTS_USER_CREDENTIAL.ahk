@@ -5,7 +5,7 @@
  * Contains credential information for a user.
  * @remarks
  * The user name and password are plaintext.
- * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_user_credential
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsdefs/ns-wtsdefs-wts_user_credential
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

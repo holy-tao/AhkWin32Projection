@@ -5,13 +5,10 @@
 #Include .\ISyncChangeBatchBase.ahk
 
 /**
- * Represents metadata for a set of changes.
+ * Represents metadata for a set of changes. (ISyncChangeBatch)
  * @remarks
- * 
  * Change batches are used by synchronization providers to communicate metadata for item changes from a source provider to a destination provider. The source provider enumerates changes and adds a specified number of them to a change batch. The change batch is then sent to the destination provider. The destination provider enumerates the changes in the change batch and applies them to its item store.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebatch
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncchangebatch
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -38,6 +35,10 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
 
     /**
      * Opens an unordered group in the change batch. Item changes in this group can be in any order.
+     * @remarks
+     * Item changes that are added to the change batch after this method is called are added to the open group.
+     * 
+     * Item changes cannot be added to the change batch until a group is opened.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -76,10 +77,14 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatch-beginunorderedgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatch-beginunorderedgroup
      */
     BeginUnorderedGroup() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,15 +130,21 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatch-endunorderedgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatch-endunorderedgroup
      */
     EndUnorderedGroup(pMadeWithKnowledge, fAllChangesForKnowledge) {
-        result := ComCall(18, this, "ptr", pMadeWithKnowledge, "int", fAllChangesForKnowledge, "HRESULT")
+        result := ComCall(18, this, "ptr", pMadeWithKnowledge, "int", fAllChangesForKnowledge, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Adds metadata that represents a conflict to the change batch.
+     * @remarks
+     * Conflicts that are added to the change batch are not added to a group. A group does not have to be opened to add conflicts to the change batch.
      * @param {Pointer<Integer>} pbOwnerReplicaId The ID of the replica that made the change in conflict.
      * @param {Pointer<Integer>} pbItemId The ID of the item.
      * @param {Pointer<SYNC_VERSION>} pChangeVersion The version of the change.
@@ -142,13 +153,17 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
      * @param {Integer} dwWorkForChange The work estimate for the change. This value is used during change application to report completed work to the application.
      * @param {ISyncKnowledge} pConflictKnowledge The conflict knowledge that was saved when the conflict was logged.
      * @returns {ISyncChangeBuilder} Returns an object that can be used to add change unit information to the change.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatch-addloggedconflict
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatch-addloggedconflict
      */
     AddLoggedConflict(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, pConflictKnowledge) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChangeBuilder(ppChangeBuilder)
     }
 }

@@ -34,7 +34,11 @@ class IBDA_TransportStreamSelector extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTSID(usTSID) {
-        result := ComCall(3, this, "ushort", usTSID, "HRESULT")
+        result := ComCall(3, this, "ushort", usTSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IBDA_TransportStreamSelector extends IUnknown{
     GetTSInformation(pulTSInformationBufferLen) {
         pulTSInformationBufferLenMarshal := pulTSInformationBufferLen is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pulTSInformationBufferLenMarshal, pulTSInformationBufferLen, "char*", &pbTSInformationBuffer := 0, "HRESULT")
+        result := ComCall(4, this, pulTSInformationBufferLenMarshal, pulTSInformationBufferLen, "char*", &pbTSInformationBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbTSInformationBuffer
     }
 }

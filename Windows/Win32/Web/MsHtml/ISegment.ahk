@@ -35,7 +35,11 @@ class ISegment extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPointers(pIStart, pIEnd) {
-        result := ComCall(3, this, "ptr", pIStart, "ptr", pIEnd, "HRESULT")
+        result := ComCall(3, this, "ptr", pIStart, "ptr", pIEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

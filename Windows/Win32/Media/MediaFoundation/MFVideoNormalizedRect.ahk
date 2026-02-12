@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The MFVideoNormalizedRect (mfcaptureengine.h) structure defines a normalized rectangle, which is used to specify sub-rectangles in a video rectangle.
- * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/ns-mfcaptureengine-mfvideonormalizedrect
+ * The MFVideoNormalizedRect (mfmediaengine.h) structure defines a normalized rectangle, which is used to specify sub-rectangles in a video rectangle.
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/ns-mfmediaengine-mfvideonormalizedrect
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
  * Represents metadata about an ID3D12VideoEncodeCommandList2::EncodeFrame operation.
  * @remarks
  * **D3D12_VIDEO_ENCODER_OUTPUT_METADATA** and its child structures are all aligned to a 64-bit access boundary for use with [SetPredication](../d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication.md).
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_output_metadata
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_output_metadata
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

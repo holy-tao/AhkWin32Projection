@@ -8,7 +8,7 @@
 
 /**
  * Contains a collection of ITaskNamedValuePair interface name-value pairs.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itasknamedvaluecollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itasknamedvaluecollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -50,12 +50,16 @@ class ITaskNamedValueCollection extends IDispatch{
      * Gets the number of name-value pairs in the collection.
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluecollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluecollection-get_count
      */
     get_Count(pCount) {
         pCountMarshal := pCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
+        result := ComCall(7, this, pCountMarshal, pCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,20 +67,28 @@ class ITaskNamedValueCollection extends IDispatch{
      * Gets the specified name-value pair from the collection.
      * @param {Integer} index 
      * @returns {ITaskNamedValuePair} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluecollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluecollection-get_item
      */
     get_Item(index) {
-        result := ComCall(8, this, "int", index, "ptr*", &ppPair := 0, "HRESULT")
+        result := ComCall(8, this, "int", index, "ptr*", &ppPair := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITaskNamedValuePair(ppPair)
     }
 
     /**
      * Gets the collection enumerator for the name-value pair collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluecollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluecollection-get__newenum
      */
     get__NewEnum() {
-        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppEnum)
     }
 
@@ -87,34 +99,52 @@ class ITaskNamedValueCollection extends IDispatch{
      * @returns {ITaskNamedValuePair} The name-value pair created in the collection.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itasknamedvaluepair">ITaskNamedValuePair</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluecollection-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluecollection-create
      */
     Create(name, value) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-        value := value is String ? BSTR.Alloc(value).Value : value
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(value is String) {
+            pin := BSTR.Alloc(value)
+            value := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", name, "ptr", value, "ptr*", &ppPair := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", name, "ptr", value, "ptr*", &ppPair := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITaskNamedValuePair(ppPair)
     }
 
     /**
      * Removes a selected name-value pair from the collection.
      * @param {Integer} index The index of the name-value pair to be removed.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluecollection-remove
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluecollection-remove
      */
     Remove(index) {
-        result := ComCall(11, this, "int", index, "HRESULT")
+        result := ComCall(11, this, "int", index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Clears the entire collection of name-value pairs.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itasknamedvaluecollection-clear
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itasknamedvaluecollection-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

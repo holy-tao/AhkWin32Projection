@@ -40,7 +40,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
     GetOptions(poemuiobj, pmszFeaturesRequested, cbIn, pmszFeatureOptionBuf, cbSize) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(6, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pmszFeaturesRequested, "uint", cbIn, "ptr", pmszFeatureOptionBuf, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pmszFeaturesRequested, "uint", cbIn, "ptr", pmszFeatureOptionBuf, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 
@@ -53,7 +57,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * @returns {Integer} 
      */
     SetOptions(poemuiobj, dwFlags, pmszFeatureOptionBuf, cbIn) {
-        result := ComCall(7, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pmszFeatureOptionBuf, "uint", cbIn, "uint*", &pdwResult := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pmszFeatureOptionBuf, "uint", cbIn, "uint*", &pdwResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwResult
     }
 
@@ -70,7 +78,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
 
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
 
-        result := ComCall(8, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pmszConstrainedOptionList, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pmszConstrainedOptionList, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 
@@ -89,7 +101,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
         pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
 
-        result := ComCall(9, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pmszReasonList, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pmszReasonList, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 
@@ -111,7 +127,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
         pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr", pbData, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
+        result := ComCall(10, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr", pbData, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -135,7 +155,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
         pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr", pbData, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
+        result := ComCall(11, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr", pbData, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,7 +185,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
         pdwDataTypeMarshal := pdwDataType is VarRef ? "uint*" : "ptr"
         pcbNeededMarshal := pcbNeeded is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr", pbData, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "HRESULT")
+        result := ComCall(12, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, pdwDataTypeMarshal, pdwDataType, "ptr", pbData, "uint", cbSize, pcbNeededMarshal, pcbNeeded, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +203,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
     EnumFeatures(poemuiobj, pmszFeatureList, cbSize) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(13, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pmszFeatureList, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pmszFeatureList, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 
@@ -192,7 +224,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
 
         pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
 
-        result := ComCall(14, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pmszOptionList, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", poemuiobj, "uint", dwFlags, "ptr", pszFeatureKeyword, "ptr", pmszOptionList, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 
@@ -207,7 +243,11 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
     QuerySimulationSupport(hPrinter, dwLevel, pCaps, cbSize) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := ComCall(15, this, "ptr", hPrinter, "uint", dwLevel, "ptr", pCaps, "uint", cbSize, "uint*", &pcbNeeded := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", hPrinter, "uint", dwLevel, "ptr", pCaps, "uint", cbSize, "uint*", &pcbNeeded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbNeeded
     }
 }

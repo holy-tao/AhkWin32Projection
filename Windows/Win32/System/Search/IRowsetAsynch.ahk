@@ -42,16 +42,29 @@ class IRowsetAsynch extends IUnknown{
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
         pfNewRowsMarshal := pfNewRows is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pulDenominatorMarshal, pulDenominator, pulNumeratorMarshal, pulNumerator, pcRowsMarshal, pcRows, pfNewRowsMarshal, pfNewRows, "HRESULT")
+        result := ComCall(3, this, pulDenominatorMarshal, pulDenominator, pulNumeratorMarshal, pulNumerator, pcRowsMarshal, pcRows, pfNewRowsMarshal, pfNewRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
+     * @remarks
+     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
+     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

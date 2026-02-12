@@ -9,7 +9,7 @@
  * ```cpp
  * typedef D2D_MATRIX_4X3_F D2D1_MATRIX_4X3_F;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_matrix_4x3_f
+ * @see https://learn.microsoft.com/windows/win32/api//content/dcommon/ns-dcommon-d2d_matrix_4x3_f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
  * @version v4.0.30319
  */

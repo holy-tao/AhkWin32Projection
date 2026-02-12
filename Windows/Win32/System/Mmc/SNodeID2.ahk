@@ -7,7 +7,7 @@
  * For details on using the 
  * <b>SNodeID2</b> structure with the CCF_NODEID2 clipboard format, see 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-nodeid2">CCF_NODEID2</a>.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-snodeid2
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-snodeid2
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

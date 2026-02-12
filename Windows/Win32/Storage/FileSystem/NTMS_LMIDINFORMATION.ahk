@@ -7,7 +7,7 @@
  * The 
  * <b>NTMS_LMIDINFORMATION</b> structure is included in the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_lmidinformation
+ * @see https://learn.microsoft.com/windows/win32/api//content/ntmsapi/ns-ntmsapi-ntms_lmidinformation
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

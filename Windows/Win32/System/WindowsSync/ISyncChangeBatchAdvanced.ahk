@@ -8,11 +8,8 @@
 /**
  * Represents additional information about a set of changes.
  * @remarks
- * 
  * An <b>ISyncChangeBatchAdvanced</b> object can be obtained by passing <b>IID_ISyncChangeBatchAdvanced</b> to the <b>QueryInterface</b> method of a change batch object, such as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatch">ISyncChangeBatch</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncfullenumerationchangebatch">ISyncFullEnumerationChangeBatch</a> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangebatchadvanced
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncchangebatchadvanced
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -40,20 +37,28 @@ class ISyncChangeBatchAdvanced extends IUnknown{
     /**
      * Gets the ISyncFilterInfo that was specified when the change batch was created.
      * @returns {ISyncFilterInfo} Returns the <b>ISyncFilterInfo</b> that was specified when the change batch was created. <b>NULL</b> indicates that no filter was specified when the change batch was created.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchadvanced-getfilterinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatchadvanced-getfilterinfo
      */
     GetFilterInfo() {
-        result := ComCall(3, this, "ptr*", &ppFilterInfo := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppFilterInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncFilterInfo(ppFilterInfo)
     }
 
     /**
      * Converts an ISyncFullEnumerationChangeBatch object to an ISyncChangeBatch object.
      * @returns {ISyncChangeBatch} Returns this change batch object, which is represented as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatch">ISyncChangeBatch</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchadvanced-convertfullenumerationchangebatchtoregularchangebatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatchadvanced-convertfullenumerationchangebatchtoregularchangebatch
      */
     ConvertFullEnumerationChangeBatchToRegularChangeBatch() {
-        result := ComCall(4, this, "ptr*", &ppChangeBatch := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppChangeBatch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChangeBatch(ppChangeBatch)
     }
 
@@ -102,18 +107,24 @@ class ISyncChangeBatchAdvanced extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchadvanced-getupperbounditemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatchadvanced-getupperbounditemid
      */
     GetUpperBoundItemId(pbItemId, pcbIdSize) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(5, this, pbItemIdMarshal, pbItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a value that indicates whether the learned knowledge for the batch must be saved after the batch is applied to the destination replica.
+     * @remarks
+     * Typically, the destination provider saves the learned knowledge for each item change as it is applied to the destination replica. The value that is returned by <b>GetBatchLevelKnowledgeShouldBeApplied</b> indicates whether it is also necessary to save the learned knowledge of the change batch after the entire change batch has been applied. The learned knowledge of the change batch can be obtained by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isyncchangebatchbase-getlearnedknowledge">ISyncChangeBatchBase::GetLearnedKnowledge</a>.
      * @param {Pointer<BOOL>} pfBatchKnowledgeShouldBeApplied Returns a value that indicates whether the learned knowledge for the batch must be saved after the batch is applied to the destination replica.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -156,12 +167,16 @@ class ISyncChangeBatchAdvanced extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchadvanced-getbatchlevelknowledgeshouldbeapplied
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchangebatchadvanced-getbatchlevelknowledgeshouldbeapplied
      */
     GetBatchLevelKnowledgeShouldBeApplied(pfBatchKnowledgeShouldBeApplied) {
         pfBatchKnowledgeShouldBeAppliedMarshal := pfBatchKnowledgeShouldBeApplied is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, pfBatchKnowledgeShouldBeAppliedMarshal, pfBatchKnowledgeShouldBeApplied, "HRESULT")
+        result := ComCall(6, this, pfBatchKnowledgeShouldBeAppliedMarshal, pfBatchKnowledgeShouldBeApplied, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

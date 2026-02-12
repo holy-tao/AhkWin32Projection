@@ -32,22 +32,30 @@ class IXMLDOMDocument3 extends IXMLDOMDocument2{
 
     /**
      * 
-     * @param {IXMLDOMNode} node 
+     * @param {IXMLDOMNode} node_ 
      * @returns {IXMLDOMParseError} 
      */
-    validateNode(node) {
-        result := ComCall(82, this, "ptr", node, "ptr*", &errorObj := 0, "HRESULT")
+    validateNode(node_) {
+        result := ComCall(82, this, "ptr", node_, "ptr*", &errorObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMParseError(errorObj)
     }
 
     /**
      * 
-     * @param {IXMLDOMNode} node 
+     * @param {IXMLDOMNode} node_ 
      * @param {VARIANT_BOOL} deep 
      * @returns {IXMLDOMNode} 
      */
-    importNode(node, deep) {
-        result := ComCall(83, this, "ptr", node, "short", deep, "ptr*", &clone := 0, "HRESULT")
+    importNode(node_, deep) {
+        result := ComCall(83, this, "ptr", node_, "short", deep, "ptr*", &clone := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(clone)
     }
 }

@@ -20,7 +20,7 @@
  * <b>dwAuthResultCode</b>
  * Note that the array of 
  * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ns-raseapif-ras_auth_attribute">RAS_AUTH_ATTRIBUTE</a> structures is passed only if <b>fAuthenticator</b> is <b>TRUE</b>. This array contains current session information such as port identifier and local IP address.
- * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_input
+ * @see https://learn.microsoft.com/windows/win32/api//content/raseapif/ns-raseapif-ppp_eap_input
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

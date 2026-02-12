@@ -6,7 +6,7 @@
 
 /**
  * Interface describing an SVG attribute.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nn-d2d1svg-id2d1svgattribute
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nn-d2d1svg-id2d1svgattribute
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class ID2D1SvgAttribute extends ID2D1Resource{
      * 
      * When this method completes, this will contain a pointer to the element on which this attribute is set.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgattribute-getelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgattribute-getelement
      */
     GetElement(element) {
         ComCall(4, this, "ptr*", element)
@@ -45,13 +45,17 @@ class ID2D1SvgAttribute extends ID2D1Resource{
 
     /**
      * Creates a clone of this attribute value. On creation, the cloned attribute is not set on any element.
-     * @returns {ID2D1SvgAttribute} Type: <b>ID2D1SvgAttribute**</b>
+     * @returns {Pointer<ID2D1SvgAttribute>} Type: <b>ID2D1SvgAttribute**</b>
      * 
      * Specifies the attribute value to clone.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgattribute-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgattribute-clone
      */
     Clone() {
-        result := ComCall(5, this, "ptr*", &attribute := 0, "HRESULT")
-        return ID2D1SvgAttribute(attribute)
+        result := ComCall(5, this, "ptr*", &attribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return attribute
     }
 }

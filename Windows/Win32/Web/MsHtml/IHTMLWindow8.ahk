@@ -163,7 +163,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointerdown(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -173,7 +177,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointerdown() {
         p := VARIANT()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -183,7 +191,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointermove(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -193,7 +205,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointermove() {
         p := VARIANT()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -203,7 +219,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointerup(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -213,7 +233,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointerup() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -223,7 +247,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointerover(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -233,7 +261,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointerover() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -243,7 +275,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointerout(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -253,7 +289,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointerout() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -263,7 +303,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointercancel(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -273,7 +317,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointercancel() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -283,7 +331,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmspointerhover(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -293,7 +345,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmspointerhover() {
         p := VARIANT()
-        result := ComCall(20, this, "ptr", p, "HRESULT")
+        result := ComCall(20, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -303,7 +359,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsgesturestart(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -313,7 +373,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsgesturestart() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -323,7 +387,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsgesturechange(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -333,7 +401,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsgesturechange() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -343,7 +415,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsgestureend(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -353,7 +429,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsgestureend() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -363,7 +443,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsgesturehold(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -373,7 +457,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsgesturehold() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -383,7 +471,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsgesturetap(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -393,7 +485,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsgesturetap() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -403,7 +499,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsgesturedoubletap(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -413,7 +513,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsgesturedoubletap() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -423,7 +527,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onmsinertiastart(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -433,7 +541,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onmsinertiastart() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -442,7 +554,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {IHTMLApplicationCache} 
      */
     get_applicationCache() {
-        result := ComCall(35, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(35, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLApplicationCache(p)
     }
 
@@ -452,7 +568,11 @@ class IHTMLWindow8 extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onpopstate(v) {
-        result := ComCall(36, this, "ptr", v, "HRESULT")
+        result := ComCall(36, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -462,7 +582,11 @@ class IHTMLWindow8 extends IDispatch{
      */
     get_onpopstate() {
         p := VARIANT()
-        result := ComCall(37, this, "ptr", p, "HRESULT")
+        result := ComCall(37, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

@@ -29,7 +29,7 @@ class WindowsNetworkVirtualization {
      * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, it returns the handle to the WNV driver object. If the function fails, it returns <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wnvapi/nf-wnvapi-wnvopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/wnvapi/nf-wnvapi-wnvopen
      * @since windowsserver2012
      */
     static WnvOpen() {
@@ -50,7 +50,7 @@ class WindowsNetworkVirtualization {
      * @param {Pointer<WNV_NOTIFICATION_PARAM>} NotificationParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">PWNV_NOTIFICATION_PARAM</a></b>
      * 
      * A pointer to the notification type for the request.
-     * @param {Pointer<OVERLAPPED>} Overlapped Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">LPOVERLAPPED</a></b>
+     * @param {Pointer<OVERLAPPED>} Overlapped_ Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">LPOVERLAPPED</a></b>
      * 
      * Information about the asynchronous completion of this request. If this parameter is <b>NULL</b>, the request is synchronous.
      * @param {Pointer<Integer>} BytesTransferred Type: <b>PULONG</b>
@@ -94,15 +94,15 @@ class WindowsNetworkVirtualization {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wnvapi/nf-wnvapi-wnvrequestnotification
+     * @see https://learn.microsoft.com/windows/win32/api//content/wnvapi/nf-wnvapi-wnvrequestnotification
      * @since windowsserver2012
      */
-    static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped, BytesTransferred) {
+    static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped_, BytesTransferred) {
         WnvHandle := WnvHandle is Win32Handle ? NumGet(WnvHandle, "ptr") : WnvHandle
 
         BytesTransferredMarshal := BytesTransferred is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, BytesTransferredMarshal, BytesTransferred, "uint")
+        result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped_, BytesTransferredMarshal, BytesTransferred, "uint")
         return result
     }
 

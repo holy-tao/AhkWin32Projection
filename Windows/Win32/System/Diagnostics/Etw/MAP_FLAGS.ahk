@@ -44,7 +44,7 @@
  * BitValues {"BitMap1", "BitMap3", "BitMap5", "BitMap0", "Other"}]
  * uint32  Data6;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-map_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/tdh/ne-tdh-map_flags
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

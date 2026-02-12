@@ -34,7 +34,11 @@ class ISQLGetDiagField extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDiagField(pDiagInfo) {
-        result := ComCall(3, this, "ptr", pDiagInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", pDiagInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

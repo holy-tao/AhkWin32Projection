@@ -8,7 +8,7 @@
  * If a font has already been emboldened, the only possible remaining simulation is italicization, yielding a bold italic simulation. Similarly, an italicized font can only be emboldened, also yielding a bold italic simulation.
  * 
  * For descriptions of the FSHORT and FWORD data types, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fontdiff
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-fontdiff
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

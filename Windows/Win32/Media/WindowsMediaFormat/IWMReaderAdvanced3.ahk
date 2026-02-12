@@ -5,7 +5,7 @@
 
 /**
  * The IWMReaderAdvanced3 interface provides additional functionality to the reader object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderadvanced3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,16 +32,28 @@ class IWMReaderAdvanced3 extends IWMReaderAdvanced2{
 
     /**
      * The StopNetStreaming method halts network streaming. Any samples that have already been received from the network are delivered as usual.
+     * @remarks
+     * When this method is finished, a WMT_END_OF_STREAMING message will be delivered to the <b>OnStatus</b> method.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-stopnetstreaming
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-stopnetstreaming
      */
     StopNetStreaming() {
-        result := ComCall(38, this, "HRESULT")
+        result := ComCall(38, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The StartAtPosition method enables you to specify a starting position for a file using one of several offset formats.
+     * @remarks
+     * Frame-based access is available only for local files. You cannot use <b>StartAtPosition</b> to specify starting frame numbers for streamed content, even if the file is indexed by frame.
+     * 
+     * You can pass <b>NULL</b> for <i>pvOffsetStart</i> if you are making a call to resume paused playback. In this case you must also pass <b>NULL</b> for <i>pvDuration</i>.
+     * 
+     * If an invalid duration is specified, <b>StartAtPosition</b> will not fail. As many samples as possible will be delivered.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which <i>pvOffsetStart</i> and <i>pvDuration</i> apply. Passing zero signifies that the offset start and duration apply for all streams in the file. If you pass zero, the only valid values for <i>dwOffsetFormat</i> are WMT_OFFSET_FORMAT_100NS and WMT_OFFSET_FORMAT_PLAYLIST_OFFSET.
      * @param {Pointer<Void>} pvOffsetStart Void pointer to the address containing the offset start. The unit of measurement for the offset is determined by <i>dwOffsetFormat</i>. The unit of measurement also dictates the size of the variable pointed to. The possible variable types are listed according to offset format in the following table.
      * 
@@ -208,14 +220,18 @@ class IWMReaderAdvanced3 extends IWMReaderAdvanced2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-startatposition
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced3-startatposition
      */
     StartAtPosition(wStreamNum, pvOffsetStart, pvDuration, dwOffsetFormat, fRate, pvContext) {
         pvOffsetStartMarshal := pvOffsetStart is VarRef ? "ptr" : "ptr"
         pvDurationMarshal := pvDuration is VarRef ? "ptr" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(39, this, "ushort", wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, "int", dwOffsetFormat, "float", fRate, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(39, this, "ushort", wStreamNum, pvOffsetStartMarshal, pvOffsetStart, pvDurationMarshal, pvDuration, "int", dwOffsetFormat, "float", fRate, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,6 @@
 /**
  * A locking mechanism from a Direct2D factory that Direct2D uses to control exclusive resource access in an app that is uses multiple threads.
  * @remarks
- * 
  * You can get an <b>ID2D1Multithread</b> object by querying for it from an <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a> 
  *         object.
  *       
@@ -18,9 +17,7 @@
  * <div class="alert"><b>Note</b>  Normal rendering is guarded automatically by an internal <a href="https://docs.microsoft.com/windows/desktop/Direct2D/direct2d-portal">Direct2D</a> lock.
  *         </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1multithread
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nn-d2d1_1-id2d1multithread
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -48,7 +45,7 @@ class ID2D1Multithread extends IUnknown{
     /**
      * Returns whether the Direct2D factory was created with the D2D1_FACTORY_TYPE_MULTI_THREADED flag.
      * @returns {BOOL} Returns true if the Direct2D factory was created as multi-threaded, or false if it was created as single-threaded.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1multithread-getmultithreadprotected
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1multithread-getmultithreadprotected
      */
     GetMultithreadProtected() {
         result := ComCall(3, this, "int")
@@ -58,7 +55,7 @@ class ID2D1Multithread extends IUnknown{
     /**
      * Enters the Direct2D API critical section, if it exists.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1multithread-enter
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1multithread-enter
      */
     Enter() {
         ComCall(4, this)
@@ -67,7 +64,7 @@ class ID2D1Multithread extends IUnknown{
     /**
      * Leaves the Direct2D API critical section, if it exists.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1multithread-leave
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-id2d1multithread-leave
      */
     Leave() {
         ComCall(5, this)

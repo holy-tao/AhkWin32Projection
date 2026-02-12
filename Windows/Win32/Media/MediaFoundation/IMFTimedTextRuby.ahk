@@ -33,7 +33,11 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {PWSTR} 
      */
     GetRubyText() {
-        result := ComCall(3, this, "ptr*", &rubyText := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &rubyText := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rubyText
     }
 
@@ -42,7 +46,11 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {Integer} 
      */
     GetRubyPosition() {
-        result := ComCall(4, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -51,7 +59,11 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {Integer} 
      */
     GetRubyAlign() {
-        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -60,7 +72,11 @@ class IMFTimedTextRuby extends IUnknown{
      * @returns {Integer} 
      */
     GetRubyReserve() {
-        result := ComCall(6, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

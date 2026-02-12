@@ -40,7 +40,11 @@ class IPrintSchemaNUpOption extends IPrintSchemaOption{
      * @returns {Integer} 
      */
     get_PagesPerSheet() {
-        result := ComCall(14, this, "uint*", &pulPagesPerSheet := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pulPagesPerSheet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulPagesPerSheet
     }
 }

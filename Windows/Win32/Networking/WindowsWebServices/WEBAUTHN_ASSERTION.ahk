@@ -7,7 +7,7 @@
  * A structure that contains the data necessary to verify an assertion.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_assertion
+ * @see https://learn.microsoft.com/windows/win32/api//content/webauthn/ns-webauthn-webauthn_assertion
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

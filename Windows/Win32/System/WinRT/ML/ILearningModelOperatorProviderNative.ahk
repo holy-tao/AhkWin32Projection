@@ -34,7 +34,11 @@ class ILearningModelOperatorProviderNative extends IUnknown{
      * @returns {IMLOperatorRegistry} 
      */
     GetRegistry() {
-        result := ComCall(3, this, "ptr*", &ppOperatorRegistry := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppOperatorRegistry := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMLOperatorRegistry(ppOperatorRegistry)
     }
 }

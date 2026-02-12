@@ -92,7 +92,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_patternUnits(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +105,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_patternUnits() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -111,7 +119,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_patternContentUnits(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +132,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedEnumeration} 
      */
     get_patternContentUnits() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedEnumeration(p)
     }
 
@@ -130,7 +146,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_patternTransform(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -139,7 +159,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedTransformList} 
      */
     get_patternTransform() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedTransformList(p)
     }
 
@@ -149,7 +173,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_x(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +186,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_x() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -168,7 +200,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_y(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +213,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_y() {
-        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -187,7 +227,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_width(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -196,7 +240,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_width() {
-        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 
@@ -206,7 +254,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_height(v) {
-        result := ComCall(19, this, "ptr", v, "HRESULT")
+        result := ComCall(19, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,7 +267,11 @@ class ISVGPatternElement extends IDispatch{
      * @returns {ISVGAnimatedLength} 
      */
     get_height() {
-        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedLength(p)
     }
 }

@@ -51,7 +51,11 @@ class ICertRequestD2 extends ICertRequestD{
         pdwRequestIdMarshal := pdwRequestId is VarRef ? "uint*" : "ptr"
         pdwDispositionMarshal := pdwDisposition is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbFullResponse, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszAuthority, "uint", dwFlags, "ptr", pwszSerialNumber, pdwRequestIdMarshal, pdwRequestId, pdwDispositionMarshal, pdwDisposition, "ptr", pwszAttributes, "ptr", pctbRequest, "ptr", pctbFullResponse, "ptr", pctbEncodedCert, "ptr", pctbDispositionMessage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +71,11 @@ class ICertRequestD2 extends ICertRequestD{
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
         pctbPropertyValue := CERTTRANSBLOB()
-        result := ComCall(7, this, "ptr", pwszAuthority, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pctbPropertyValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pwszAuthority, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pctbPropertyValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pctbPropertyValue
     }
 
@@ -83,7 +91,11 @@ class ICertRequestD2 extends ICertRequestD{
 
         pcPropertyMarshal := pcProperty is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pwszAuthority, pcPropertyMarshal, pcProperty, "ptr", pctbPropInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pwszAuthority, pcPropertyMarshal, pcProperty, "ptr", pctbPropInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,7 +107,11 @@ class ICertRequestD2 extends ICertRequestD{
     Ping2(pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
-        result := ComCall(9, this, "ptr", pwszAuthority, "HRESULT")
+        result := ComCall(9, this, "ptr", pwszAuthority, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IMLangCodePages extends IUnknown{
      * @returns {Integer} 
      */
     GetCharCodePages(chSrc) {
-        result := ComCall(3, this, "char", chSrc, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(3, this, "char", chSrc, "uint*", &pdwCodePages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCodePages
     }
 
@@ -53,7 +57,11 @@ class IMLangCodePages extends IUnknown{
         pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
         pcchCodePagesMarshal := pcchCodePages is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszSrc, "int", cchSrc, "uint", dwPriorityCodePages, pdwCodePagesMarshal, pdwCodePages, pcchCodePagesMarshal, pcchCodePages, "HRESULT")
+        result := ComCall(4, this, "ptr", pszSrc, "int", cchSrc, "uint", dwPriorityCodePages, pdwCodePagesMarshal, pdwCodePages, pcchCodePagesMarshal, pcchCodePages, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class IMLangCodePages extends IUnknown{
      * @returns {Integer} 
      */
     CodePageToCodePages(uCodePage) {
-        result := ComCall(5, this, "uint", uCodePage, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(5, this, "uint", uCodePage, "uint*", &pdwCodePages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCodePages
     }
 
@@ -74,7 +86,11 @@ class IMLangCodePages extends IUnknown{
      * @returns {Integer} 
      */
     CodePagesToCodePage(dwCodePages, uDefaultCodePage) {
-        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, "uint*", &puCodePage := 0, "HRESULT")
+        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, "uint*", &puCodePage := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puCodePage
     }
 }

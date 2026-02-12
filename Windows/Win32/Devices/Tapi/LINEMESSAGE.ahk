@@ -6,7 +6,7 @@
  * @remarks
  * For information about parameter values passed in this structure, see 
  * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-device-messages">Line Device Messages</a>.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemessage
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linemessage
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

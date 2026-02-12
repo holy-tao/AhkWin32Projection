@@ -41,7 +41,11 @@ class IHTMLSelectionObject2 extends IDispatch{
      * @returns {IDispatch} 
      */
     createRangeCollection() {
-        result := ComCall(7, this, "ptr*", &rangeCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &rangeCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(rangeCollection)
     }
 
@@ -51,7 +55,11 @@ class IHTMLSelectionObject2 extends IDispatch{
      */
     get_typeDetail() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

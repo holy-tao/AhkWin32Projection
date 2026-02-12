@@ -11,7 +11,7 @@
  * **BITS 1.5 and earlier:** BITS processes one job at a time. Foreground jobs have the highest priority and run before background jobs.
  * 
  * For more information, see [Best practices when using BITS](/windows/desktop/bits/best-practices-when-using-bits).
- * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_priority
+ * @see https://learn.microsoft.com/windows/win32/api//content/bits/ne-bits-bg_job_priority
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */

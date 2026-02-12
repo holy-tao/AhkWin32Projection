@@ -7,7 +7,7 @@
 
 /**
  * Note  This interface is deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//ddstream/nn-ddstream-idirectdrawmediastream
+ * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nn-ddstream-idirectdrawmediastream
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,6 +34,16 @@ class IDirectDrawMediaStream extends IMediaStream{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the current media stream's format and, optionally, its desired format.
+     * @remarks
+     * After you call this method, you can either conform to the current format or attempt to change the format by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ddstream/nf-ddstream-idirectdrawmediastream-setformat">IDirectDrawMediaStream::SetFormat</a> method.
+     * 
+     * All of this method's parameters are optional; set any of them to <b>NULL</b> to indicate that you don't want to retrieve that information.
+     * 
+     * To perform a progressive render, create a single sample and repeatedly use that sample for successive frames of video. Video decompressors use this technique to do partial updates to the previous frame.
+     * 
+     * You must initialize the <i>dwSize</i> member of the <b>DDSURFACEDESC</b> structure before calling this method.
+     * 
+     * The DDSD_CAPS flag will return one of the values listed in the <b>DDSCAPS</b> structure or DDSCAPS_DATAEXCHANGE, which is defined as DDSCAPS_SYSTEMMEMORY|DDSCAPS_VIDEOMEMORY in Ddrawex.h.
      * @param {Pointer<DDSURFACEDESC>} pDDSDCurrent Pointer to a DirectDraw surface description that will contain the current media stream's format.
      * @param {Pointer<IDirectDrawPalette>} ppDirectDrawPalette Address of a pointer to an <b>IDirectDrawPalette</b> interface if one exists.
      * @param {Pointer<DDSURFACEDESC>} pDDSDDesired Pointer to a DirectDraw surface description that will contain the current media stream's desired format.
@@ -104,17 +114,23 @@ class IDirectDrawMediaStream extends IMediaStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawmediastream-getformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawmediastream-getformat
      */
     GetFormat(pDDSDCurrent, ppDirectDrawPalette, pDDSDDesired, pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pDDSDCurrent, "ptr*", ppDirectDrawPalette, "ptr", pDDSDDesired, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(9, this, "ptr", pDDSDCurrent, "ptr*", ppDirectDrawPalette, "ptr", pDDSDDesired, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Sets the format of the current media stream.
+     * @remarks
+     * If the stream already has allocated samples and the sample format doesn't match the specified format, this method fails. This method always succeeds if the specified format matches the current format.
      * @param {Pointer<DDSURFACEDESC>} pDDSurfaceDesc Pointer to a DirectDraw surface description that contains the new format.
      * @param {IDirectDrawPalette} pDirectDrawPalette Optional parameter that is a pointer to an <b>IDirectDrawPalette</b> interface.
      * @returns {HRESULT} Returns one of the following values.
@@ -158,36 +174,62 @@ class IDirectDrawMediaStream extends IMediaStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawmediastream-setformat
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawmediastream-setformat
      */
     SetFormat(pDDSurfaceDesc, pDirectDrawPalette) {
-        result := ComCall(10, this, "ptr", pDDSurfaceDesc, "ptr", pDirectDrawPalette, "HRESULT")
+        result := ComCall(10, this, "ptr", pDDSurfaceDesc, "ptr", pDirectDrawPalette, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves a pointer to the DirectDraw object used by the current media stream.
+     * @remarks
+     * If you haven't initialized the stream yet, the retrieved pointer will be <b>NULL</b> and the method will return S_OK. If you have initialized the stream, this method increments the retrieved pointer's reference count.
      * @returns {IDirectDraw} Address of a pointer to an <b>IDirectDraw</b> interface that will contain the current media stream's associated DirectDraw object.
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawmediastream-getdirectdraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawmediastream-getdirectdraw
      */
     GetDirectDraw() {
-        result := ComCall(11, this, "ptr*", &ppDirectDraw := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppDirectDraw := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDraw(ppDirectDraw)
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Sets the current media stream's DirectDraw object.
+     * @remarks
+     * This method fails if the current stream already has allocated samples and its DirectDraw object differs from the specified one. It will always succeed if the specified DirectDraw object matches the stream's current object.
+     * 
+     * If this stream has no allocated samples, you can set <i>pDirectDraw</i> to <b>NULL</b>. This forces the stream to release its reference to the current DirectDraw object.
      * @param {IDirectDraw} pDirectDraw Pointer to an <b>IDirectDraw</b> interface that contains the media stream's new DirectDraw object.
      * @returns {HRESULT} Returns S_OK if successful or E_POINTER if the pointer is invalid.
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawmediastream-setdirectdraw
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawmediastream-setdirectdraw
      */
     SetDirectDraw(pDirectDraw) {
-        result := ComCall(12, this, "ptr", pDirectDraw, "HRESULT")
+        result := ComCall(12, this, "ptr", pDirectDraw, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Creates a stream sample using the specified DirectDraw surface object.
+     * @remarks
+     * This method creates a sample from the current stream and attaches the sample to this surface.
+     * 
+     * If the stream doesn't have an allocated surface and the specified surface doesn't match the stream's format, this method calls the <a href="https://docs.microsoft.com/windows/desktop/api/ddstream/nf-ddstream-idirectdrawmediastream-setformat">IDirectDrawMediaStream::SetFormat</a> method on the stream so the two will match.
+     * 
+     * To perform a progressive render, create a single sample and repeatedly use that sample for successive frames of video. Video decompressors use this technique to do partial updates to the previous frame.
+     * 
+     * The <i>pRect</i> parameter should match the format of the stream (see <a href="https://docs.microsoft.com/windows/desktop/api/ddstream/nf-ddstream-idirectdrawmediastream-getformat">IDirectDrawMediaStream::GetFormat</a>). If the wrong clip rectangle is set or no clip rectangle is set, and the surface size does not match the movie size, the movie might not play. If a primary surface is used, it is advisable to use a clipping rectangle because the primary surface size can change if the user changes display settings.
      * @param {IDirectDrawSurface} pSurface Pointer to an existing DirectDraw surface. Use <b>QueryInterface</b> to obtain the <b>IDirectDrawSurface</b> interface from an <b>IDirectDrawSurface7</b> interface pointer.
      * @param {Pointer<RECT>} pRect Pointer to the clipping rectangle you want to use with the specified surface. Set this parameter to <b>NULL</b> if you want to use the entire surface.
      * @param {Integer} dwFlags Specifies miscellaneous flags. The following flag is defined:
@@ -205,20 +247,28 @@ class IDirectDrawMediaStream extends IMediaStream{
      * </tr>
      * </table>
      * @returns {IDirectDrawStreamSample} Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ddstream/nn-ddstream-idirectdrawstreamsample">IDirectDrawStreamSample</a> interface that will point to the newly created sample.
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawmediastream-createsample
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawmediastream-createsample
      */
     CreateSample(pSurface, pRect, dwFlags) {
-        result := ComCall(13, this, "ptr", pSurface, "ptr", pRect, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pSurface, "ptr", pRect, "uint", dwFlags, "ptr*", &ppSample := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectDrawStreamSample(ppSample)
     }
 
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the average frames per second from a video stream.
      * @returns {Integer} Pointer to a <b>STREAM_TIME</b> value that indicates the average time per frame in 100-nanosecond units. (See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/multimedia-streaming-data-types">Multimedia Streaming Data Types</a>.)
-     * @see https://docs.microsoft.com/windows/win32/api//ddstream/nf-ddstream-idirectdrawmediastream-gettimeperframe
+     * @see https://learn.microsoft.com/windows/win32/api//content/ddstream/nf-ddstream-idirectdrawmediastream-gettimeperframe
      */
     GetTimePerFrame() {
-        result := ComCall(14, this, "int64*", &pFrameTime := 0, "HRESULT")
+        result := ComCall(14, this, "int64*", &pFrameTime := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFrameTime
     }
 }

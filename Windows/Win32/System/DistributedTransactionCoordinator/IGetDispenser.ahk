@@ -29,12 +29,17 @@ class IGetDispenser extends IUnknown{
     static VTableNames => ["GetDispenser"]
 
     /**
-     * 
+     * Retrieves the dispenser manager's IDispenserManager interface.
      * @param {Pointer<Guid>} iid 
      * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/mtxdm/nf-mtxdm-getdispensermanager
      */
     GetDispenser(iid) {
-        result := ComCall(3, this, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", iid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 }

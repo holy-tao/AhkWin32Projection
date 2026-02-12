@@ -43,7 +43,11 @@ class ISideShowSession extends IUnknown{
      * @returns {ISideShowContentManager} 
      */
     RegisterContent(in_applicationId, in_endpointId) {
-        result := ComCall(3, this, "ptr", in_applicationId, "ptr", in_endpointId, "ptr*", &out_ppIContent := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", in_applicationId, "ptr", in_endpointId, "ptr*", &out_ppIContent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISideShowContentManager(out_ppIContent)
     }
 
@@ -53,7 +57,11 @@ class ISideShowSession extends IUnknown{
      * @returns {ISideShowNotificationManager} 
      */
     RegisterNotifications(in_applicationId) {
-        result := ComCall(4, this, "ptr", in_applicationId, "ptr*", &out_ppINotification := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", in_applicationId, "ptr*", &out_ppINotification := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISideShowNotificationManager(out_ppINotification)
     }
 }

@@ -36,7 +36,11 @@ class IPerPropertyBrowsing2 extends IUnknown{
      */
     GetDisplayString(dispid) {
         pBstr := BSTR()
-        result := ComCall(3, this, "int", dispid, "ptr", pBstr, "HRESULT")
+        result := ComCall(3, this, "int", dispid, "ptr", pBstr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBstr
     }
 
@@ -47,7 +51,11 @@ class IPerPropertyBrowsing2 extends IUnknown{
      */
     MapPropertyToPage(dispid) {
         pClsidPropPage := Guid()
-        result := ComCall(4, this, "int", dispid, "ptr", pClsidPropPage, "HRESULT")
+        result := ComCall(4, this, "int", dispid, "ptr", pClsidPropPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pClsidPropPage
     }
 
@@ -59,7 +67,11 @@ class IPerPropertyBrowsing2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPredefinedStrings(dispid, pCaStrings, pCaCookies) {
-        result := ComCall(5, this, "int", dispid, "ptr", pCaStrings, "ptr", pCaCookies, "HRESULT")
+        result := ComCall(5, this, "int", dispid, "ptr", pCaStrings, "ptr", pCaCookies, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class IPerPropertyBrowsing2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPredefinedValue(dispid, dwCookie) {
-        result := ComCall(6, this, "int", dispid, "uint", dwCookie, "HRESULT")
+        result := ComCall(6, this, "int", dispid, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

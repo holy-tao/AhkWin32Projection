@@ -6,7 +6,7 @@
 
 /**
  * The IADsNamespaces interface is implemented by the ADs provider and is used for managing namespace objects.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsnamespaces
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsnamespaces
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -45,7 +45,11 @@ class IADsNamespaces extends IADs{
      */
     get_DefaultContainer() {
         retval := BSTR()
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
+        result := ComCall(20, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -55,9 +59,16 @@ class IADsNamespaces extends IADs{
      * @returns {HRESULT} 
      */
     put_DefaultContainer(bstrDefaultContainer) {
-        bstrDefaultContainer := bstrDefaultContainer is String ? BSTR.Alloc(bstrDefaultContainer).Value : bstrDefaultContainer
+        if(bstrDefaultContainer is String) {
+            pin := BSTR.Alloc(bstrDefaultContainer)
+            bstrDefaultContainer := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", bstrDefaultContainer, "HRESULT")
+        result := ComCall(21, this, "ptr", bstrDefaultContainer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Describes how a managed object is used in the COM+ object pool.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-imanagedpooledobj
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-imanagedpooledobj
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IManagedPooledObj extends IUnknown{
      * Sets whether the managed object should go back into the COM+ object pool.
      * @param {BOOL} m_bHeld Indicates whether the managed object should go back into the COM+ object pool.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imanagedpooledobj-setheld
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-imanagedpooledobj-setheld
      */
     SetHeld(m_bHeld) {
-        result := ComCall(3, this, "int", m_bHeld, "HRESULT")
+        result := ComCall(3, this, "int", m_bHeld, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -31,13 +31,32 @@ class IDedupDataPortManager extends IUnknown{
     static VTableNames => ["GetConfiguration", "GetVolumeStatus", "GetVolumeDataPort"]
 
     /**
-     * 
+     * Read the active configuration of the collector.
      * @param {Pointer<Integer>} pMinChunkSize 
      * @param {Pointer<Integer>} pMaxChunkSize 
      * @param {Pointer<Integer>} pChunkingAlgorithm 
      * @param {Pointer<Integer>} pHashingAlgorithm 
      * @param {Pointer<Integer>} pCompressionAlgorithm 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <dl> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 0
+     * 
+     * Failure
+     * 
+     * </dd> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 1
+     * 
+     * Success
+     * 
+     * </dd> </dl>
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/BEvtColProv/control-getconfiguration
      */
     GetConfiguration(pMinChunkSize, pMaxChunkSize, pChunkingAlgorithm, pHashingAlgorithm, pCompressionAlgorithm) {
         pMinChunkSizeMarshal := pMinChunkSize is VarRef ? "uint*" : "ptr"
@@ -46,33 +65,51 @@ class IDedupDataPortManager extends IUnknown{
         pHashingAlgorithmMarshal := pHashingAlgorithm is VarRef ? "int*" : "ptr"
         pCompressionAlgorithmMarshal := pCompressionAlgorithm is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pMinChunkSizeMarshal, pMinChunkSize, pMaxChunkSizeMarshal, pMaxChunkSize, pChunkingAlgorithmMarshal, pChunkingAlgorithm, pHashingAlgorithmMarshal, pHashingAlgorithm, pCompressionAlgorithmMarshal, pCompressionAlgorithm, "HRESULT")
+        result := ComCall(3, this, pMinChunkSizeMarshal, pMinChunkSize, pMaxChunkSizeMarshal, pMaxChunkSize, pChunkingAlgorithmMarshal, pChunkingAlgorithm, pHashingAlgorithmMarshal, pHashingAlgorithm, pCompressionAlgorithmMarshal, pCompressionAlgorithm, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Integer} Options 
-     * @param {BSTR} Path 
+     * @param {BSTR} Path_ 
      * @returns {Integer} 
      */
-    GetVolumeStatus(Options, Path) {
-        Path := Path is String ? BSTR.Alloc(Path).Value : Path
+    GetVolumeStatus(Options, Path_) {
+        if(Path_ is String) {
+            pin := BSTR.Alloc(Path_)
+            Path_ := pin.Value
+        }
 
-        result := ComCall(4, this, "uint", Options, "ptr", Path, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(4, this, "uint", Options, "ptr", Path_, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
     /**
      * 
      * @param {Integer} Options 
-     * @param {BSTR} Path 
+     * @param {BSTR} Path_ 
      * @returns {IDedupDataPort} 
      */
-    GetVolumeDataPort(Options, Path) {
-        Path := Path is String ? BSTR.Alloc(Path).Value : Path
+    GetVolumeDataPort(Options, Path_) {
+        if(Path_ is String) {
+            pin := BSTR.Alloc(Path_)
+            Path_ := pin.Value
+        }
 
-        result := ComCall(5, this, "uint", Options, "ptr", Path, "ptr*", &ppDataPort := 0, "HRESULT")
+        result := ComCall(5, this, "uint", Options, "ptr", Path_, "ptr*", &ppDataPort := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDedupDataPort(ppDataPort)
     }
 }

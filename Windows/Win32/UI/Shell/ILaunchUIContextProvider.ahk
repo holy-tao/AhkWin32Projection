@@ -30,11 +30,15 @@ class ILaunchUIContextProvider extends IUnknown{
 
     /**
      * 
-     * @param {ILaunchUIContext} context 
+     * @param {ILaunchUIContext} context_ 
      * @returns {HRESULT} 
      */
-    UpdateContext(context) {
-        result := ComCall(3, this, "ptr", context, "HRESULT")
+    UpdateContext(context_) {
+        result := ComCall(3, this, "ptr", context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

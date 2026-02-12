@@ -34,7 +34,11 @@ class INetCfgComponent extends IUnknown{
      * @returns {PWSTR} 
      */
     GetDisplayName() {
-        result := ComCall(3, this, "ptr*", &ppszwDisplayName := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppszwDisplayName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszwDisplayName
     }
 
@@ -46,7 +50,11 @@ class INetCfgComponent extends IUnknown{
     SetDisplayName(pszwDisplayName) {
         pszwDisplayName := pszwDisplayName is String ? StrPtr(pszwDisplayName) : pszwDisplayName
 
-        result := ComCall(4, this, "ptr", pszwDisplayName, "HRESULT")
+        result := ComCall(4, this, "ptr", pszwDisplayName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,16 +63,25 @@ class INetCfgComponent extends IUnknown{
      * @returns {PWSTR} 
      */
     GetHelpText() {
-        result := ComCall(5, this, "ptr*", &pszwHelpText := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &pszwHelpText := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pszwHelpText
     }
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
-        result := ComCall(6, this, "ptr*", &ppszwId := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppszwId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszwId
     }
 
@@ -73,7 +90,11 @@ class INetCfgComponent extends IUnknown{
      * @returns {Integer} 
      */
     GetCharacteristics() {
-        result := ComCall(7, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
+        result := ComCall(7, this, "uint*", &pdwCharacteristics := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCharacteristics
     }
 
@@ -83,7 +104,11 @@ class INetCfgComponent extends IUnknown{
      */
     GetInstanceGuid() {
         pGuid := Guid()
-        result := ComCall(8, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(8, this, "ptr", pGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGuid
     }
 
@@ -92,7 +117,11 @@ class INetCfgComponent extends IUnknown{
      * @returns {PWSTR} 
      */
     GetPnpDevNodeId() {
-        result := ComCall(9, this, "ptr*", &ppszwDevNodeId := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppszwDevNodeId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszwDevNodeId
     }
 
@@ -102,7 +131,11 @@ class INetCfgComponent extends IUnknown{
      */
     GetClassGuid() {
         pGuid := Guid()
-        result := ComCall(10, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(10, this, "ptr", pGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGuid
     }
 
@@ -111,7 +144,11 @@ class INetCfgComponent extends IUnknown{
      * @returns {PWSTR} 
      */
     GetBindName() {
-        result := ComCall(11, this, "ptr*", &ppszwBindName := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppszwBindName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszwBindName
     }
 
@@ -120,7 +157,11 @@ class INetCfgComponent extends IUnknown{
      * @returns {Integer} 
      */
     GetDeviceStatus() {
-        result := ComCall(12, this, "uint*", &pulStatus := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pulStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulStatus
     }
 
@@ -130,7 +171,11 @@ class INetCfgComponent extends IUnknown{
      */
     OpenParamKey() {
         phkey := HKEY()
-        result := ComCall(13, this, "ptr", phkey, "HRESULT")
+        result := ComCall(13, this, "ptr", phkey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phkey
     }
 
@@ -144,7 +189,11 @@ class INetCfgComponent extends IUnknown{
     RaisePropertyUi(hwndParent, dwFlags, punkContext) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(14, this, "ptr", hwndParent, "uint", dwFlags, "ptr", punkContext, "HRESULT")
+        result := ComCall(14, this, "ptr", hwndParent, "uint", dwFlags, "ptr", punkContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

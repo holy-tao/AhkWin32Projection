@@ -7,8 +7,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateservice
+ * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates. (IUpdateService)
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-iupdateservice
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -127,140 +127,189 @@ class IUpdateService extends IDispatch{
     /**
      * Gets the name of the service.
      * @remarks
-     * 
      * The localized properties of an update are returned in the language that corresponds to the user default user interface (UI) language of the caller. If a property of an update is unavailable in such language, it will be returned in the system default UI language on the specified computer. If the property is unavailable in either languages mentioned, then it will be returned in the language recommended, if any, by the provider of the Update. Otherwise the Update Service will choose a language as it sees fit for the property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_name
      */
     get_Name() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets an SHA-1 hash of the certificate that is used to sign the contents of the service.
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_contentvalidationcert
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_contentvalidationcert
      */
     get_ContentValidationCert() {
         retval := VARIANT()
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
+        result := ComCall(8, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the date on which the authorization cabinet file expires.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_expirationdate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_expirationdate
      */
     get_ExpirationDate() {
-        result := ComCall(9, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether a service is a managed service.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_ismanaged
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_ismanaged
      */
     get_IsManaged() {
-        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether a service is registered with Automatic Updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau
      */
     get_IsRegisteredWithAU() {
-        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets the date on which the authorization cabinet file was issued.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_issuedate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_issuedate
      */
     get_IssueDate() {
-        result := ComCall(12, this, "double*", &retval := 0, "HRESULT")
+        result := ComCall(12, this, "double*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value indicates whether the current service offers updates from Windows Updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_offerswindowsupdates
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_offerswindowsupdates
      */
     get_OffersWindowsUpdates() {
-        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Contains the URLs for the redirector cabinet file.
      * @returns {IStringCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_redirecturls
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_redirecturls
      */
     get_RedirectUrls() {
-        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStringCollection(retval)
     }
 
     /**
      * Retrieves or sets the identifier for a service.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_serviceid
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_serviceid
      */
     get_ServiceID() {
         retval := BSTR()
-        result := ComCall(15, this, "ptr", retval, "HRESULT")
+        result := ComCall(15, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether a service is based on a scan package.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_isscanpackageservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_isscanpackageservice
      */
     get_IsScanPackageService() {
-        result := ComCall(16, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(16, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether the service can register with Automatic Updates.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_canregisterwithau
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_canregisterwithau
      */
     get_CanRegisterWithAU() {
-        result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Retrieves the URL for the service.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_serviceurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_serviceurl
      */
     get_ServiceUrl() {
         retval := BSTR()
-        result := ComCall(18, this, "ptr", retval, "HRESULT")
+        result := ComCall(18, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Identifies the prefix for the setup files.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice-get_setupprefix
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-iupdateservice-get_setupprefix
      */
     get_SetupPrefix() {
         retval := BSTR()
-        result := ComCall(19, this, "ptr", retval, "HRESULT")
+        result := ComCall(19, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 }

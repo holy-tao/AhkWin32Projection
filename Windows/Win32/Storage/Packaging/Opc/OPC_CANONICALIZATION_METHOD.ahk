@@ -8,7 +8,7 @@
  * Version 1.0</a> (http://www.w3.org/TR/xml-c14n).
  * 
  * For more information about canonicalization and packages, see the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_canonicalization_method
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/ne-msopc-opc_canonicalization_method
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

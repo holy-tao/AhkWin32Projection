@@ -23,7 +23,7 @@
  * 
  * 
  * Images must be 32-bit and of dimensions <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CXICON) x <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a>(SM_CYICON). The toolbar itself provides visuals for a button's clicked, disabled, and hover states.
- * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-thumbbutton
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/ns-shobjidl_core-thumbbutton
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -3,7 +3,7 @@
 
 /**
  * Describes miscellaneous characteristics of an object or class of objects.
- * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-olemisc
+ * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/ne-oleidl-olemisc
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */

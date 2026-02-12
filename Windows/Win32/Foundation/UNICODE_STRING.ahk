@@ -3,7 +3,7 @@
 
 /**
  * Used by various Local Security Authority (LSA) functions to specify a Unicode string.
- * @see https://learn.microsoft.com/windows/win32/api/subauth/ns-subauth-unicode_string
+ * @see https://learn.microsoft.com/windows/win32/api//content/subauth/ns-subauth-unicode_string
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

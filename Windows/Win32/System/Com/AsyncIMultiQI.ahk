@@ -41,7 +41,11 @@ class AsyncIMultiQI extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_QueryMultipleInterfaces(cMQIs, pMQIs) {
-        result := ComCall(3, this, "uint", cMQIs, "ptr", pMQIs, "HRESULT")
+        result := ComCall(3, this, "uint", cMQIs, "ptr", pMQIs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class AsyncIMultiQI extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_QueryMultipleInterfaces(pMQIs) {
-        result := ComCall(4, this, "ptr", pMQIs, "HRESULT")
+        result := ComCall(4, this, "ptr", pMQIs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

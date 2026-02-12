@@ -122,8 +122,12 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechVoiceStatus} 
      */
     get_Status() {
-        result := ComCall(7, this, "ptr*", &Status := 0, "HRESULT")
-        return ISpeechVoiceStatus(Status)
+        result := ComCall(7, this, "ptr*", &Status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ISpeechVoiceStatus(Status_)
     }
 
     /**
@@ -131,7 +135,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechObjectToken} 
      */
     get_Voice() {
-        result := ComCall(8, this, "ptr*", &Voice := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &Voice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectToken(Voice)
     }
 
@@ -141,7 +149,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_Voice(Voice) {
-        result := ComCall(9, this, "ptr", Voice, "HRESULT")
+        result := ComCall(9, this, "ptr", Voice, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -150,7 +162,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechObjectToken} 
      */
     get_AudioOutput() {
-        result := ComCall(10, this, "ptr*", &AudioOutput := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &AudioOutput := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectToken(AudioOutput)
     }
 
@@ -160,7 +176,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AudioOutput(AudioOutput) {
-        result := ComCall(11, this, "ptr", AudioOutput, "HRESULT")
+        result := ComCall(11, this, "ptr", AudioOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -169,7 +189,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechBaseStream} 
      */
     get_AudioOutputStream() {
-        result := ComCall(12, this, "ptr*", &AudioOutputStream := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &AudioOutputStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechBaseStream(AudioOutputStream)
     }
 
@@ -179,7 +203,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_AudioOutputStream(AudioOutputStream) {
-        result := ComCall(13, this, "ptr", AudioOutputStream, "HRESULT")
+        result := ComCall(13, this, "ptr", AudioOutputStream, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -188,7 +216,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_Rate() {
-        result := ComCall(14, this, "int*", &Rate := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &Rate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Rate
     }
 
@@ -198,7 +230,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Rate(Rate) {
-        result := ComCall(15, this, "int", Rate, "HRESULT")
+        result := ComCall(15, this, "int", Rate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +243,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_Volume() {
-        result := ComCall(16, this, "int*", &Volume := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &Volume := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Volume
     }
 
@@ -217,7 +257,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Volume(Volume) {
-        result := ComCall(17, this, "int", Volume, "HRESULT")
+        result := ComCall(17, this, "int", Volume, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +271,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AllowAudioOutputFormatChangesOnNextSet(Allow) {
-        result := ComCall(18, this, "short", Allow, "HRESULT")
+        result := ComCall(18, this, "short", Allow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +284,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_AllowAudioOutputFormatChangesOnNextSet() {
-        result := ComCall(19, this, "short*", &Allow := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &Allow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Allow
     }
 
@@ -245,7 +297,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_EventInterests() {
-        result := ComCall(20, this, "int*", &EventInterestFlags := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &EventInterestFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return EventInterestFlags
     }
 
@@ -255,17 +311,25 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     put_EventInterests(EventInterestFlags) {
-        result := ComCall(21, this, "int", EventInterestFlags, "HRESULT")
+        result := ComCall(21, this, "int", EventInterestFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Integer} Priority 
+     * @param {Integer} Priority_ 
      * @returns {HRESULT} 
      */
-    put_Priority(Priority) {
-        result := ComCall(22, this, "int", Priority, "HRESULT")
+    put_Priority(Priority_) {
+        result := ComCall(22, this, "int", Priority_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -274,8 +338,12 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_Priority() {
-        result := ComCall(23, this, "int*", &Priority := 0, "HRESULT")
-        return Priority
+        result := ComCall(23, this, "int*", &Priority_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Priority_
     }
 
     /**
@@ -284,7 +352,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AlertBoundary(Boundary) {
-        result := ComCall(24, this, "int", Boundary, "HRESULT")
+        result := ComCall(24, this, "int", Boundary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -293,7 +365,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_AlertBoundary() {
-        result := ComCall(25, this, "int*", &Boundary := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &Boundary := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Boundary
     }
 
@@ -303,7 +379,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SynchronousSpeakTimeout(msTimeout) {
-        result := ComCall(26, this, "int", msTimeout, "HRESULT")
+        result := ComCall(26, this, "int", msTimeout, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -312,7 +392,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     get_SynchronousSpeakTimeout() {
-        result := ComCall(27, this, "int*", &msTimeout := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &msTimeout := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return msTimeout
     }
 
@@ -323,9 +407,16 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     Speak(Text, Flags) {
-        Text := Text is String ? BSTR.Alloc(Text).Value : Text
+        if(Text is String) {
+            pin := BSTR.Alloc(Text)
+            Text := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", Text, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(28, this, "ptr", Text, "int", Flags, "int*", &StreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamNumber
     }
 
@@ -336,38 +427,66 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     SpeakStream(Stream, Flags) {
-        result := ComCall(29, this, "ptr", Stream, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        result := ComCall(29, this, "ptr", Stream, "int", Flags, "int*", &StreamNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StreamNumber
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/pause-method
      */
     Pause() {
-        result := ComCall(30, this, "HRESULT")
+        result := ComCall(30, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/resume-method
      */
     Resume() {
-        result := ComCall(31, this, "HRESULT")
+        result := ComCall(31, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * SkipLine Method
+     * @remarks
+     * All characters up to and including the next line separator are skipped. By default, the [LineSeparator](./lineseparator-property-ado.md) is **adCRLF**. If you attempt to skip past [EOS](./eos-property.md), the current position will remain at **EOS**.  
+     *   
+     *  The **SkipLine** method is used with text streams ([Type](./type-property-ado-stream.md) is **adTypeText**).
      * @param {BSTR} Type 
      * @param {Integer} NumItems 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-api/skipline-method
      */
     Skip(Type, NumItems) {
-        Type := Type is String ? BSTR.Alloc(Type).Value : Type
+        if(Type is String) {
+            pin := BSTR.Alloc(Type)
+            Type := pin.Value
+        }
 
-        result := ComCall(32, this, "ptr", Type, "int", NumItems, "int*", &NumSkipped := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", Type, "int", NumItems, "int*", &NumSkipped := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumSkipped
     }
 
@@ -378,10 +497,20 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechObjectTokens} 
      */
     GetVoices(RequiredAttributes, OptionalAttributes) {
-        RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
-        OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
+        if(RequiredAttributes is String) {
+            pin := BSTR.Alloc(RequiredAttributes)
+            RequiredAttributes := pin.Value
+        }
+        if(OptionalAttributes is String) {
+            pin := BSTR.Alloc(OptionalAttributes)
+            OptionalAttributes := pin.Value
+        }
 
-        result := ComCall(33, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(33, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectTokens(ObjectTokens)
     }
 
@@ -392,10 +521,20 @@ class ISpeechVoice extends IDispatch{
      * @returns {ISpeechObjectTokens} 
      */
     GetAudioOutputs(RequiredAttributes, OptionalAttributes) {
-        RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
-        OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
+        if(RequiredAttributes is String) {
+            pin := BSTR.Alloc(RequiredAttributes)
+            RequiredAttributes := pin.Value
+        }
+        if(OptionalAttributes is String) {
+            pin := BSTR.Alloc(OptionalAttributes)
+            OptionalAttributes := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        result := ComCall(34, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechObjectTokens(ObjectTokens)
     }
 
@@ -405,7 +544,11 @@ class ISpeechVoice extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     WaitUntilDone(msTimeout) {
-        result := ComCall(35, this, "int", msTimeout, "short*", &Done := 0, "HRESULT")
+        result := ComCall(35, this, "int", msTimeout, "short*", &Done := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Done
     }
 
@@ -414,8 +557,12 @@ class ISpeechVoice extends IDispatch{
      * @returns {Integer} 
      */
     SpeakCompleteEvent() {
-        result := ComCall(36, this, "int*", &Handle := 0, "HRESULT")
-        return Handle
+        result := ComCall(36, this, "int*", &Handle_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Handle_
     }
 
     /**
@@ -425,9 +572,16 @@ class ISpeechVoice extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     IsUISupported(TypeOfUI, ExtraData) {
-        TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
+        if(TypeOfUI is String) {
+            pin := BSTR.Alloc(TypeOfUI)
+            TypeOfUI := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Supported
     }
 
@@ -440,10 +594,20 @@ class ISpeechVoice extends IDispatch{
      * @returns {HRESULT} 
      */
     DisplayUI(hWndParent, Title, TypeOfUI, ExtraData) {
-        Title := Title is String ? BSTR.Alloc(Title).Value : Title
-        TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
+        if(Title is String) {
+            pin := BSTR.Alloc(Title)
+            Title := pin.Value
+        }
+        if(TypeOfUI is String) {
+            pin := BSTR.Alloc(TypeOfUI)
+            TypeOfUI := pin.Value
+        }
 
-        result := ComCall(38, this, "int", hWndParent, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "HRESULT")
+        result := ComCall(38, this, "int", hWndParent, "ptr", Title, "ptr", TypeOfUI, "ptr", ExtraData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

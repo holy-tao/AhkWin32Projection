@@ -5,7 +5,7 @@
  * Identifies the type of size value to retrieve for a visual style part.
  * @remarks
  * A value from the <b>THEMESIZE</b> enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemepartsize">GetThemePartSize</a> function to specify the type of size value to retrieve for a particular visual style part.
- * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-themesize
+ * @see https://learn.microsoft.com/windows/win32/api//content/uxtheme/ne-uxtheme-themesize
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -114,9 +114,16 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textLineThroughStyle(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -126,7 +133,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textLineThroughStyle() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -136,9 +147,16 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textUnderlineStyle(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,7 +166,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textUnderlineStyle() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -158,9 +180,16 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textEffect(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,7 +199,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textEffect() {
         p := BSTR()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -180,7 +213,11 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textColor(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -190,7 +227,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textColor() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -200,7 +241,11 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textBackgroundColor(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -210,7 +255,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textBackgroundColor() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -220,7 +269,11 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textDecorationColor(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,7 +283,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textDecorationColor() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -240,7 +297,11 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_renderingPriority(v) {
-        result := ComCall(19, this, "int", v, "HRESULT")
+        result := ComCall(19, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -249,7 +310,11 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {Integer} 
      */
     get_renderingPriority() {
-        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -259,9 +324,16 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_defaultTextSelection(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -271,7 +343,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_defaultTextSelection() {
         p := BSTR()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -281,9 +357,16 @@ class IHTMLRenderStyle extends IDispatch{
      * @returns {HRESULT} 
      */
     put_textDecoration(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -293,7 +376,11 @@ class IHTMLRenderStyle extends IDispatch{
      */
     get_textDecoration() {
         p := BSTR()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

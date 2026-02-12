@@ -6,7 +6,7 @@
 
 /**
  * The IFilterGraph2 interface extends the IFilterGraph and IGraphBuilder interfaces, which contain methods for building filter graphs.The Filter Graph Manager implements this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifiltergraph2
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-ifiltergraph2
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,21 +33,31 @@ class IFilterGraph2 extends IGraphBuilder{
 
     /**
      * The AddSourceFilterForMoniker method creates a source filter from an IMoniker pointer and adds the filter to the graph.
+     * @remarks
+     * The Filter Graph Manager holds a reference count on the filter until the filter is removed from the graph or the Filter Graph Manager is released.
      * @param {IMoniker} pMoniker Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface.
      * @param {IBindCtx} pCtx Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> bind context interface.
      * @param {PWSTR} lpcwstrFilterName Name for the filter.
      * @returns {IBaseFilter} Receives a pointer to the source filter's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltergraph2-addsourcefilterformoniker
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifiltergraph2-addsourcefilterformoniker
      */
     AddSourceFilterForMoniker(pMoniker, pCtx, lpcwstrFilterName) {
         lpcwstrFilterName := lpcwstrFilterName is String ? StrPtr(lpcwstrFilterName) : lpcwstrFilterName
 
-        result := ComCall(18, this, "ptr", pMoniker, "ptr", pCtx, "ptr", lpcwstrFilterName, "ptr*", &ppFilter := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pMoniker, "ptr", pCtx, "ptr", lpcwstrFilterName, "ptr*", &ppFilter := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IBaseFilter(ppFilter)
     }
 
     /**
      * The ReconnectEx method breaks the existing pin connection and reconnects it to the same pin, using a specified media type.
+     * @remarks
+     * Filters can call this method in order to renegotiate a pin connection. The method executes on a separate thread. Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-queryaccept">IPin::QueryAccept</a> on the other pin to ensure that the reconnection attempt will succeed. Do not call this method unless <b>QueryAccept</b> returns S_OK. Otherwise, because the reconnection is performed asynchronously, the reconnection might fail even though the <c>ReconnectEx</c> method succeeds, leaving the filter graph in an inconsistent state.
+     * 
+     * This method improves on the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ifiltergraph-reconnect">IFilterGraph::Reconnect</a> method by specifying a media type. This makes the reconnection more likely to succeed.
      * @param {IPin} ppin Pointer to the pin to disconnect and reconnect.
      * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to the media type to reconnect with. Specify <b>NULL</b> to use the existing media type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -113,10 +123,14 @@ class IFilterGraph2 extends IGraphBuilder{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltergraph2-reconnectex
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifiltergraph2-reconnectex
      */
     ReconnectEx(ppin, pmt) {
-        result := ComCall(19, this, "ptr", ppin, "ptr", pmt, "HRESULT")
+        result := ComCall(19, this, "ptr", ppin, "ptr", pmt, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,12 +139,16 @@ class IFilterGraph2 extends IGraphBuilder{
      * @param {IPin} pPinOut Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface of the output pin.
      * @param {Integer} dwFlags Flag that specifies how to render the pin. If the value is AM_RENDEREX_RENDERTOEXISTINGRENDERERS, the method attempts to use renderers already in the filter graph. It will not add new renderers to the graph. (It will add intermediate transform filters, if needed.) For the method to succeed, the graph must contain the appropriate renderers, and they must have unconnected input pins. If the value is zero, the method behaves identically to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-render">IGraphBuilder::Render</a> method.
      * @returns {HRESULT} Returns an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltergraph2-renderex
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-ifiltergraph2-renderex
      */
     RenderEx(pPinOut, dwFlags) {
         static pvContext := 0 ;Reserved parameters must always be NULL
 
-        result := ComCall(20, this, "ptr", pPinOut, "uint", dwFlags, "uint*", pvContext, "HRESULT")
+        result := ComCall(20, this, "ptr", pPinOut, "uint", dwFlags, "uint*", pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

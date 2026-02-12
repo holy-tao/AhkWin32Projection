@@ -5,7 +5,7 @@
 
 /**
  * Supports the creation of proof of possession cookies.
- * @see https://docs.microsoft.com/windows/win32/api//proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */
@@ -38,11 +38,11 @@ class IProofOfPossessionCookieInfoManager extends IUnknown{
 
     /**
      * Gets cookie information for the supplied URI to be used for proof of possession cookies.
-     * @param {PWSTR} uri The URI to get cookie information for. The URI is case-sensitive.
-     * @param {Pointer<Integer>} cookieInfoCount The number of cookies found for the <i>uri</i>.
-     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo The cookie information for the <i>uri</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager-getcookieinfoforuri
+     * @param {PWSTR} uri The URI to retrieve cookie information for. The URI is case-sensitive.
+     * @param {Pointer<Integer>} cookieInfoCount The number of cookies found. `*cookieInfoCount` contains the number of elements in  *cookieInfo*.
+     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo A returned array of cookie information objects. You should free the returned array by using [FreeProofOfPossessionCookieInfoArray](./nf-proofofpossessioncookieinfo-freeproofofpossessioncookieinfoarray.md).
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager-getcookieinfoforuri
      */
     GetCookieInfoForUri(uri, cookieInfoCount, cookieInfo) {
         uri := uri is String ? StrPtr(uri) : uri
@@ -50,7 +50,11 @@ class IProofOfPossessionCookieInfoManager extends IUnknown{
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
         cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", uri, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

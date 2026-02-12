@@ -3,7 +3,7 @@
 
 /**
  * Defines flags used to determine what kind of content the subpicture stream contains.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_subpicture_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-dvd_subpicture_type
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

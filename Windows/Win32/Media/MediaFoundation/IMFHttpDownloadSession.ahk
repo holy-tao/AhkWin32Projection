@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfhttpdownloadsession
+ * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadSession)
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nn-mfidl-imfhttpdownloadsession
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -66,12 +66,16 @@ class IMFHttpDownloadSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsession-setserver
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfhttpdownloadsession-setserver
      */
     SetServer(szServerName, nPort) {
         szServerName := szServerName is String ? StrPtr(szServerName) : szServerName
 
-        result := ComCall(3, this, "ptr", szServerName, "uint", nPort, "HRESULT")
+        result := ComCall(3, this, "ptr", szServerName, "uint", nPort, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,16 +89,20 @@ class IMFHttpDownloadSession extends IUnknown{
      * <div class="alert"><b>Note</b>  This string should be all uppercase. Many servers treat HTTP verbs as case-sensitive, and the Internet Engineering Task Force (IETF) Requests for Comments (RFCs) spell these verbs using uppercase characters only.</div>
      * <div> </div>
      * @param {PWSTR} szReferrer Pointer to a string that specifies the URL of the document from which the URL in the request <i>szObjectName</i> was obtained. If this parameter is set to NULL, no referring document is specified.
-     * @returns {IMFHttpDownloadRequest} Upon successful return of the method, this parameter is set to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadrequest">IMFHttpDownloadRequest</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsession-createrequest
+     * @returns {Pointer<IMFHttpDownloadRequest>} Upon successful return of the method, this parameter is set to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfhttpdownloadrequest">IMFHttpDownloadRequest</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfhttpdownloadsession-createrequest
      */
     CreateRequest(szObjectName, fBypassProxyCache, fSecure, szVerb, szReferrer) {
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         szVerb := szVerb is String ? StrPtr(szVerb) : szVerb
         szReferrer := szReferrer is String ? StrPtr(szReferrer) : szReferrer
 
-        result := ComCall(4, this, "ptr", szObjectName, "int", fBypassProxyCache, "int", fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", &ppRequest := 0, "HRESULT")
-        return IMFHttpDownloadRequest(ppRequest)
+        result := ComCall(4, this, "ptr", szObjectName, "int", fBypassProxyCache, "int", fSecure, "ptr", szVerb, "ptr", szReferrer, "ptr*", &ppRequest := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppRequest
     }
 
     /**
@@ -119,10 +127,14 @@ class IMFHttpDownloadSession extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfhttpdownloadsession-close
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfidl/nf-mfidl-imfhttpdownloadsession-close
      */
     Close() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

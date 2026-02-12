@@ -5,7 +5,7 @@
  * Contains fields that specify information for setting an attribute.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_set_attributes_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_set_attributes_entry
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

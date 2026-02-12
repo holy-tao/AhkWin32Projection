@@ -32,7 +32,7 @@
  * wszID = wszIDin
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drmid
+ * @see https://learn.microsoft.com/windows/win32/api//content/msdrmdefs/ns-msdrmdefs-drmid
  * @namespace Windows.Win32.Data.RightsManagement
  * @version v4.0.30319
  */

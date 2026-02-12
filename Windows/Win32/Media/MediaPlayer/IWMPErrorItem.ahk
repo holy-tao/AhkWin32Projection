@@ -5,7 +5,7 @@
 
 /**
  * The IWMPErrorItem interface provides a way to access error information.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmperroritem
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmperroritem
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -62,6 +62,8 @@ class IWMPErrorItem extends IDispatch{
 
     /**
      * The get_errorCode method retrieves the current error code.
+     * @remarks
+     * You should set a <b>VARIANT_BOOL</b> to <b>FALSE</b> and pass it into <b>IWMPSettings::put_enableErrorDialogs</b> if you choose to display custom error messages.
      * @param {Pointer<Integer>} phr Pointer to a <b>long</b> containing the error code.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -82,17 +84,23 @@ class IWMPErrorItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_errorcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmperroritem-get_errorcode
      */
     get_errorCode(phr) {
         phrMarshal := phr is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, phrMarshal, phr, "HRESULT")
+        result := ComCall(7, this, phrMarshal, phr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_errorDescription method retrieves a description of the error.
+     * @remarks
+     * You should set a <b>VARIANT_BOOL</b> to <b>FALSE</b> and pass it into <b>IWMPSettings::put_enableErrorDialogs</b> if you choose to display custom error messages.
      * @param {Pointer<BSTR>} pbstrDescription Pointer to a <b>BSTR</b> containing the description.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -113,15 +121,23 @@ class IWMPErrorItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_errordescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmperroritem-get_errordescription
      */
     get_errorDescription(pbstrDescription) {
-        result := ComCall(8, this, "ptr", pbstrDescription, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_errorContext method retrieves a value indicating the context of the error.
+     * @remarks
+     * The error context is information that is used by Microsoft to provide additional information for technical support personnel.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>VARIANT</b> with the <b>vt</b> field set to VT_EMPTY.
      * @param {Pointer<VARIANT>} pvarContext Pointer to a <b>VARIANT</b> containing the error context.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -142,15 +158,21 @@ class IWMPErrorItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_errorcontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmperroritem-get_errorcontext
      */
     get_errorContext(pvarContext) {
-        result := ComCall(9, this, "ptr", pvarContext, "HRESULT")
+        result := ComCall(9, this, "ptr", pvarContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Reserved for future use.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>long</b> set to 0.
      * @param {Pointer<Integer>} plRemedy Pointer to a <b>long</b> containing the remedy.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -171,17 +193,23 @@ class IWMPErrorItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_remedy
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmperroritem-get_remedy
      */
     get_remedy(plRemedy) {
         plRemedyMarshal := plRemedy is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, plRemedyMarshal, plRemedy, "HRESULT")
+        result := ComCall(10, this, plRemedyMarshal, plRemedy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_customUrl method retrieves the URL of a website that displays specific information about codec download failure.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>BSTR</b> containing an empty string.
      * @param {Pointer<BSTR>} pbstrCustomUrl Pointer to a <b>BSTR</b> containing the custom url.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -202,10 +230,14 @@ class IWMPErrorItem extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperroritem-get_customurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmperroritem-get_customurl
      */
     get_customUrl(pbstrCustomUrl) {
-        result := ComCall(11, this, "ptr", pbstrCustomUrl, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrCustomUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

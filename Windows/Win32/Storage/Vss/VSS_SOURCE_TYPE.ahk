@@ -11,7 +11,7 @@
  * Information about the source type of the data that a writer manages can be retrieved through its metadata 
  *     using 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getidentity">IVssExamineWriterMetadata::GetIdentity</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_source_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/ne-vswriter-vss_source_type
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

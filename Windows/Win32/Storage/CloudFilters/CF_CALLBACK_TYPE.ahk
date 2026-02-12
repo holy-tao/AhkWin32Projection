@@ -13,7 +13,7 @@
  * All callback functions have the same prototype with two arguments: a [CF_CALLBACK_INFO](ns-cfapi-cf_callback_info.md) structure and a [CF_CALLBACK_PARAMETERS](ns-cfapi-cf_callback_parameters.md) structure.
  * 
  * Callback routines have no return value.
- * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfapi/ne-cfapi-cf_callback_type
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

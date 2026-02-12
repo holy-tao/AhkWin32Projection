@@ -38,7 +38,11 @@ class IDebugHostModule2 extends IDebugHostModule{
     FindContainingSymbolByRVA(rva, symbol, offset) {
         offsetMarshal := offset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", rva, "ptr*", symbol, offsetMarshal, offset, "HRESULT")
+        result := ComCall(16, this, "uint", rva, "ptr*", symbol, offsetMarshal, offset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

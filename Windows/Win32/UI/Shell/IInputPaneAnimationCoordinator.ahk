@@ -35,7 +35,11 @@ class IInputPaneAnimationCoordinator extends IUnknown{
      * @returns {HRESULT} 
      */
     AddAnimation(device, animation) {
-        result := ComCall(3, this, "ptr", device, "ptr", animation, "HRESULT")
+        result := ComCall(3, this, "ptr", device, "ptr", animation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * The IMsmError interface retrieves details about a single merge error.
- * @see https://docs.microsoft.com/windows/win32/api//mergemod/nn-mergemod-imsmerror
+ * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nn-mergemod-imsmerror
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -190,7 +190,7 @@ class IMsmError extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/moduleconfiguration-table">ModuleConfiguration table</a>. This type of error returns msmErrorMissingConfigItem in the 
      * <b>Type</b> property and enters "ModuleSubstitution" and the keys from the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/modulesubstitution-table">ModuleSubstitution table</a> for this row into the 
-     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-moduletable">ModuleTable</a> property. All other properties of the <b>Error</b>object are set to an empty string or -1. 
+     * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-moduletable">ModuleTable</a> property. All other properties of the <b>Error</b> object are set to an empty string or -1. 
      * 
      * 
      * This error causes the immediate failure of the merge and the 
@@ -270,17 +270,26 @@ class IMsmError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_type
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_type
      */
     get_Type(ErrorType) {
         ErrorTypeMarshal := ErrorType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, ErrorTypeMarshal, ErrorType, "HRESULT")
+        result := ComCall(7, this, ErrorTypeMarshal, ErrorType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Path method retrieves the Path property of the Error object.
+     * @remarks
+     * The client is responsible for freeing the resulting string using <b>SysFreeString</b>.
+     * 
+     * In Windows Installer versions 1.0 and 1.1 
+     * <b>get_Path</b> always returns the empty string. Future versions of the class may use this function to return the path to the file or directory that could not be created. This value is only valid for errors of type msmErrorFileCreate or msmErrorDirCreate. You can determine the type of error by calling <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmerror-get_type">IMsmError::get_Type</a>.
      * @param {Pointer<BSTR>} ErrorPath A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -323,15 +332,21 @@ class IMsmError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_path
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_path
      */
     get_Path(ErrorPath) {
-        result := ComCall(8, this, "ptr", ErrorPath, "HRESULT")
+        result := ComCall(8, this, "ptr", ErrorPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_Language method retrieves the Language property of the Error object. This function returns the LANGID of the error.
+     * @remarks
+     * The function returns -1 unless the error is of type msmErrorLanguageUnsupported or msmErrorLanguageFailed. You can determine the type of error by calling <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmerror-get_type">IMsmError::get_Type</a>.
      * @param {Pointer<Integer>} ErrorLanguage A pointer to a location in memory that receives the language value causing this error.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -363,17 +378,25 @@ class IMsmError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_language
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_language
      */
     get_Language(ErrorLanguage) {
         ErrorLanguageMarshal := ErrorLanguage is VarRef ? "short*" : "ptr"
 
-        result := ComCall(9, this, ErrorLanguageMarshal, ErrorLanguage, "HRESULT")
+        result := ComCall(9, this, ErrorLanguageMarshal, ErrorLanguage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_DatabaseTable method retrieves the DatabaseTable property of the Error object. The method returns the name of the table in the database that caused the error.
+     * @remarks
+     * The client is responsible for freeing the resulting string using <b>SysFreeString</b>.
+     * 
+     * The collection is empty if the values do not apply to the type of the error. You can determine the type of error by calling <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmerror-get_type">IMsmError::get_Type</a>.
      * @param {Pointer<BSTR>} ErrorTable A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -416,25 +439,41 @@ class IMsmError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_databasetable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_databasetable
      */
     get_DatabaseTable(ErrorTable) {
-        result := ComCall(10, this, "ptr", ErrorTable, "HRESULT")
+        result := ComCall(10, this, "ptr", ErrorTable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_DatabaseKeys method retrieves the DatabaseKeys property of the Error object. This method returns a pointer to a string collection containing the primary keys of the row in the database causing the error, one key per entry in the collection.
+     * @remarks
+     * The client is responsible for releasing the string collection when it is no longer required.
+     * 
+     * The collection is empty if the values do not apply to the type of the error. You can determine the type of error using <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmerror-get_type">IMsmError::get_Type</a>.
      * @returns {IMsmStrings} A pointer to a location in memory that receives a pointer to a string collection.
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_databasekeys
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_databasekeys
      */
     get_DatabaseKeys() {
-        result := ComCall(11, this, "ptr*", &ErrorKeys := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ErrorKeys := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMsmStrings(ErrorKeys)
     }
 
     /**
      * The get_ModuleTable method retrieves the ModuleTable property of the Error object. This method returns the name of the table in the module that caused the error.
+     * @remarks
+     * The client is responsible for freeing the resulting string using <b>SysFreeString</b>.
+     * 
+     * The collection is empty if the values do not apply to the type of the error. You can determine the type of error by calling <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmerror-get_type">IMsmError::get_Type</a>.
      * @param {Pointer<BSTR>} ErrorTable A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -477,20 +516,32 @@ class IMsmError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_moduletable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_moduletable
      */
     get_ModuleTable(ErrorTable) {
-        result := ComCall(12, this, "ptr", ErrorTable, "HRESULT")
+        result := ComCall(12, this, "ptr", ErrorTable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_ModuleKeys method retrieves the ModuleKeys property of the Error object. This method returns a pointer to a string collection that contains the primary keys of the row in the module causing the error, one key per entry in the collection.
+     * @remarks
+     * The client is responsible for releasing the string collection when it is no longer required.
+     * 
+     * The collection is empty if the values do not apply to the type of the error. You can determine the type of error by calling <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmerror-get_type">IMsmError::get_Type</a>.
      * @returns {IMsmStrings} A pointer to a location in memory that receives a pointer to a string collection.
-     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmerror-get_modulekeys
+     * @see https://learn.microsoft.com/windows/win32/api//content/mergemod/nf-mergemod-imsmerror-get_modulekeys
      */
     get_ModuleKeys() {
-        result := ComCall(13, this, "ptr*", &ErrorKeys := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ErrorKeys := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMsmStrings(ErrorKeys)
     }
 }

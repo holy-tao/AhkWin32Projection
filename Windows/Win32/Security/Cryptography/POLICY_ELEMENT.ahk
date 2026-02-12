@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * The POLICY_ELEMENT (lpmapi.h) structure contains an RSVP policy element.
- * @see https://learn.microsoft.com/windows/win32/api/lpmapi/ns-lpmapi-policy_element
+ * The POLICY_ELEMENT (infocard.h) structure contains an RSVP policy element. (POLICY_ELEMENT)
+ * @see https://learn.microsoft.com/windows/win32/api//content/infocard/ns-infocard-policy_element
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -14,6 +14,7 @@ class POLICY_ELEMENT extends Win32Struct
     static packingSize => 8
 
     /**
+     * TBD
      * @type {PWSTR}
      */
     targetEndpointAddress {
@@ -22,6 +23,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {PWSTR}
      */
     issuerEndpointAddress {
@@ -30,6 +32,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {PWSTR}
      */
     issuedTokenParameters {
@@ -38,6 +41,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {PWSTR}
      */
     privacyNoticeLink {
@@ -46,6 +50,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {Integer}
      */
     privacyNoticeVersion {
@@ -54,6 +59,7 @@ class POLICY_ELEMENT extends Win32Struct
     }
 
     /**
+     * TBD
      * @type {BOOL}
      */
     useManagedPresentation {

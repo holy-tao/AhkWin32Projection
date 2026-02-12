@@ -141,8 +141,10 @@ class Win32ComInterface extends Win32Struct {
     }
 
     __Delete(){
-        if(this.owned && this.refCount > 0){
-            throw MemoryError(Format("Script-owned {1} released with {2} references remaining", type(this), this.refCount))
+        if(this.owned) {
+            ; Expect exactly 1 reference remaining (the ref this object holds to itself)
+            if(this.refCount > 1)
+                throw MemoryError(Format("Script-owned {1} released with {2} references remaining", type(this), this.refCount - 1))
         }
     }
 

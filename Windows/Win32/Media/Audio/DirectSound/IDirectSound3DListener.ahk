@@ -36,7 +36,11 @@ class IDirectSound3DListener extends IUnknown{
      */
     GetAllParameters() {
         pListener := DS3DLISTENER()
-        result := ComCall(3, this, "ptr", pListener, "HRESULT")
+        result := ComCall(3, this, "ptr", pListener, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pListener
     }
 
@@ -45,7 +49,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {Float} 
      */
     GetDistanceFactor() {
-        result := ComCall(4, this, "float*", &pflDistanceFactor := 0, "HRESULT")
+        result := ComCall(4, this, "float*", &pflDistanceFactor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pflDistanceFactor
     }
 
@@ -54,7 +62,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {Float} 
      */
     GetDopplerFactor() {
-        result := ComCall(5, this, "float*", &pflDopplerFactor := 0, "HRESULT")
+        result := ComCall(5, this, "float*", &pflDopplerFactor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pflDopplerFactor
     }
 
@@ -65,17 +77,26 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOrientation(pvOrientFront, pvOrientTop) {
-        result := ComCall(6, this, "ptr", pvOrientFront, "ptr", pvOrientTop, "HRESULT")
+        result := ComCall(6, this, "ptr", pvOrientFront, "ptr", pvOrientTop, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Registers an event handler that is invoked when the asynchronous operation started by GetPositionInformationAsync completes, and provides a method that returns the results of the operation.
      * @returns {D3DVECTOR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mediastreaming/getpositioninformationoperation
      */
     GetPosition() {
         pvPosition := D3DVECTOR()
-        result := ComCall(7, this, "ptr", pvPosition, "HRESULT")
+        result := ComCall(7, this, "ptr", pvPosition, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvPosition
     }
 
@@ -84,7 +105,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {Float} 
      */
     GetRolloffFactor() {
-        result := ComCall(8, this, "float*", &pflRolloffFactor := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &pflRolloffFactor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pflRolloffFactor
     }
 
@@ -94,7 +119,11 @@ class IDirectSound3DListener extends IUnknown{
      */
     GetVelocity() {
         pvVelocity := D3DVECTOR()
-        result := ComCall(9, this, "ptr", pvVelocity, "HRESULT")
+        result := ComCall(9, this, "ptr", pvVelocity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvVelocity
     }
 
@@ -105,7 +134,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcListener, dwApply) {
-        result := ComCall(10, this, "ptr", pcListener, "uint", dwApply, "HRESULT")
+        result := ComCall(10, this, "ptr", pcListener, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +149,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDistanceFactor(flDistanceFactor, dwApply) {
-        result := ComCall(11, this, "float", flDistanceFactor, "uint", dwApply, "HRESULT")
+        result := ComCall(11, this, "float", flDistanceFactor, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +164,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDopplerFactor(flDopplerFactor, dwApply) {
-        result := ComCall(12, this, "float", flDopplerFactor, "uint", dwApply, "HRESULT")
+        result := ComCall(12, this, "float", flDopplerFactor, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +184,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOrientation(xFront, yFront, zFront, xTop, yTop, zTop, dwApply) {
-        result := ComCall(13, this, "float", xFront, "float", yFront, "float", zFront, "float", xTop, "float", yTop, "float", zTop, "uint", dwApply, "HRESULT")
+        result := ComCall(13, this, "float", xFront, "float", yFront, "float", zFront, "float", xTop, "float", yTop, "float", zTop, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,7 +201,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPosition(x, y, z, dwApply) {
-        result := ComCall(14, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(14, this, "float", x, "float", y, "float", z, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -167,7 +216,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRolloffFactor(flRolloffFactor, dwApply) {
-        result := ComCall(15, this, "float", flRolloffFactor, "uint", dwApply, "HRESULT")
+        result := ComCall(15, this, "float", flRolloffFactor, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +233,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     SetVelocity(x, y, z, dwApply) {
-        result := ComCall(16, this, "float", x, "float", y, "float", z, "uint", dwApply, "HRESULT")
+        result := ComCall(16, this, "float", x, "float", y, "float", z, "uint", dwApply, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +246,11 @@ class IDirectSound3DListener extends IUnknown{
      * @returns {HRESULT} 
      */
     CommitDeferredSettings() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

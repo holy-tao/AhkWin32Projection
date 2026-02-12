@@ -33,16 +33,25 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
-     * 
+     * Returns the length, in bytes, of a valid security identifier (SID).
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -51,7 +60,11 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetCountOfRecords() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
@@ -61,7 +74,11 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {Integer} 
      */
     GetRecordServiceId(bRecordIndex) {
-        result := ComCall(6, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(6, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -71,7 +88,11 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {BOOL} 
      */
     GetRecordNumericSelectionFlag(bRecordIndex) {
-        result := ComCall(7, this, "char", bRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(7, this, "char", bRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 
@@ -81,7 +102,11 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
      * @returns {BOOL} 
      */
     GetRecordVisibleServiceFlag(bRecordIndex) {
-        result := ComCall(8, this, "char", bRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        result := ComCall(8, this, "char", bRecordIndex, "int*", &pfVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfVal
     }
 }

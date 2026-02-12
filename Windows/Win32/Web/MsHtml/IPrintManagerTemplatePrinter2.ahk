@@ -54,7 +54,11 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter{
      * @returns {VARIANT_BOOL} 
      */
     get_showHeaderFooter() {
-        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -63,7 +67,11 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter{
      * @returns {VARIANT_BOOL} 
      */
     get_shrinkToFit() {
-        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -72,7 +80,11 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter{
      * @returns {Float} 
      */
     get_percentScale() {
-        result := ComCall(15, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(15, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

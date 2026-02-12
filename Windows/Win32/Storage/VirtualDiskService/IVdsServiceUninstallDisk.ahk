@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to uninstall basic and dynamic disks.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsserviceuninstalldisk
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdsserviceuninstalldisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,18 +32,40 @@ class IVdsServiceUninstallDisk extends IUnknown{
 
     /**
      * Retrieves the VDS object ID for the disk that corresponds to a specified LUN.
+     * @remarks
+     * VDS implements this method. This method is called by VDS applications that need to uninstall a disk whose LUN is accessed through a VDS hardware provider on another computer. This method enables the application to uninstall a disk on a computer that does not have access to a VDS hardware provider and is thus unable to make an implicit link from disk to LUN.
      * @param {Pointer<VDS_LUN_INFORMATION>} pLunInfo The address of a <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure that has been initialized by a VDS hardware provider.
      * @returns {Guid} The address of a VDS object ID variable passed in by the caller. This variable receives the GUID for the disk that corresponds to the LUN.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceuninstalldisk-getdiskidfromluninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsserviceuninstalldisk-getdiskidfromluninfo
      */
     GetDiskIdFromLunInfo(pLunInfo) {
         pDiskId := Guid()
-        result := ComCall(3, this, "ptr", pLunInfo, "ptr", pDiskId, "HRESULT")
+        result := ComCall(3, this, "ptr", pLunInfo, "ptr", pDiskId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDiskId
     }
 
     /**
      * Uninstalls a set of disks.
+     * @remarks
+     * VDS implements this method.
+     * 
+     * This method, which is synchronous, first uninstalls the volumes on the specified disks, and then uninstalls the 
+     *     disks. After the disks are uninstalled, the corresponding LUNs can be masked (hidden) or deleted.
+     * 
+     * This method cleans up the drive letters that were assigned to the volumes on the disks. In addition, it sets 
+     *     the volumes offline to prevent a volume from being remounted after the dismount handle has been closed but before 
+     *     the disk is actually removed.
+     * 
+     * When removing a dynamic volume that spans more than one disk, you must call this method instead of using device manager functions.
+     * 
+     * For instructions on how to uninstall a disk on Windows Server 2003 releases where the 
+     *     <b>UninstallDisks</b> 
+     *     method is not supported, see the Remarks section of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-setmask">IVdsLun::SetMask</a> 
+     *     method.
      * @param {Pointer<Guid>} pDiskIdArray Address of a buffer containing an array of VDS object IDs, one for each disk to be uninstalled. Each ID in 
      *       the array must be unique.
      * @param {Integer} ulCount Number of VDS object IDs in the buffer that the <i>pDiskIdArray</i> parameter points 
@@ -58,10 +80,10 @@ class IVdsServiceUninstallDisk extends IUnknown{
      *       properly, the specific error code for the failure is returned in the corresponding element of this array.
      * @returns {HRESULT} This method can return standard <b>HRESULT</b> values, such as 
      *       <b>E_INVALIDARG</b> or <b>E_OUTOFMEMORY</b>, and 
-     *       <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It 
-     *       can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a> using 
-     *       the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate 
-     *       from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is 
+     *       <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It 
+     *       can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> using 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate 
+     *       from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is 
      *       being used. Possible return values include the following.
      * 
      * <table>
@@ -191,13 +213,17 @@ class IVdsServiceUninstallDisk extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceuninstalldisk-uninstalldisks
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsserviceuninstalldisk-uninstalldisks
      */
     UninstallDisks(pDiskIdArray, ulCount, bForce, pbReboot, pResults) {
         pbRebootMarshal := pbReboot is VarRef ? "char*" : "ptr"
         pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDiskIdArray, "uint", ulCount, "char", bForce, pbRebootMarshal, pbReboot, pResultsMarshal, pResults, "HRESULT")
+        result := ComCall(4, this, "ptr", pDiskIdArray, "uint", ulCount, "char", bForce, pbRebootMarshal, pbReboot, pResultsMarshal, pResults, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

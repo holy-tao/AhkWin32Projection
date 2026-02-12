@@ -54,7 +54,11 @@ class IRTCMediaEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_MediaType() {
-        result := ComCall(7, this, "int*", &pMediaType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMediaType
     }
 
@@ -63,7 +67,11 @@ class IRTCMediaEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_EventType() {
-        result := ComCall(8, this, "int*", &penEventType := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &penEventType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penEventType
     }
 
@@ -72,7 +80,11 @@ class IRTCMediaEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_EventReason() {
-        result := ComCall(9, this, "int*", &penEventReason := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &penEventReason := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penEventReason
     }
 }

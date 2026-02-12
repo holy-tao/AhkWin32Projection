@@ -6,11 +6,8 @@
 /**
  * The IWMReaderAdvanced5 interface enables you to associate a player-hook callback interface with the reader object.An IWMReaderAdvanced5 interface exists for every reader object.
  * @remarks
- * 
  * A player-hook callback can be assigned in the reader object to enable per-sample processing when using DirectX Video Acceleration.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderadvanced5
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced5
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IWMReaderAdvanced5 extends IWMReaderAdvanced4{
 
     /**
      * The SetPlayerHook method assigns a player-hook callback to the reader. The reader calls the callback method before sending each sample to the graphics processor for decompression.
+     * @remarks
+     * DirectX Video Acceleration enables supported graphics cards to decompress video samples.
      * @param {Integer} dwOutputNum The output number to which the player-hook callback applies.
      * @param {IWMPlayerHook} pHook Pointer to the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmplayerhook">IWMPlayerHook</a> interface that will be used in association with the specified output.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -58,10 +57,14 @@ class IWMReaderAdvanced5 extends IWMReaderAdvanced4{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced5-setplayerhook
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced5-setplayerhook
      */
     SetPlayerHook(dwOutputNum, pHook) {
-        result := ComCall(49, this, "uint", dwOutputNum, "ptr", pHook, "HRESULT")
+        result := ComCall(49, this, "uint", dwOutputNum, "ptr", pHook, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

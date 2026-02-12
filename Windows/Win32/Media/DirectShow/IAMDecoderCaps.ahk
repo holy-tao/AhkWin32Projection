@@ -5,7 +5,7 @@
 
 /**
  * The IAMDecoderCaps interface returns capabilities information from an MPEG decoder filter.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamdecodercaps
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamdecodercaps
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IAMDecoderCaps extends IUnknown{
 
     /**
      * The GetDecoderCaps method queries the decoder for its capabilities.
+     * @remarks
+     * The DVD Graph Builder uses this method when it builds a DVD graph. If the decoder does not support the Video Mixing Renderer filter, then the DVD Graph Builder uses the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/overlay-mixer-filter">Overlay Mixer</a> filter instead.
      * @param {Integer} dwCapIndex Specifies the capability being queried for.
      * 
      * <table>
@@ -80,10 +82,14 @@ class IAMDecoderCaps extends IUnknown{
      * </tr>
      * </table>
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdecodercaps-getdecodercaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamdecodercaps-getdecodercaps
      */
     GetDecoderCaps(dwCapIndex) {
-        result := ComCall(3, this, "uint", dwCapIndex, "uint*", &lpdwCap := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwCapIndex, "uint*", &lpdwCap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpdwCap
     }
 }

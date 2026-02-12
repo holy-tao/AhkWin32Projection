@@ -43,7 +43,7 @@
  * <td>Vertical Reflection Component</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-xform
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-xform
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

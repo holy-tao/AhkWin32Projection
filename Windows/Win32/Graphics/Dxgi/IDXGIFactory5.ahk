@@ -5,7 +5,7 @@
 
 /**
  * This interface enables a single method to support variable refresh rate displays.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/nn-dxgi1_5-idxgifactory5
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_5/nn-dxgi1_5-idxgifactory5
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDXGIFactory5 extends IDXGIFactory4{
 
     /**
      * Used to check for hardware feature support.
+     * @remarks
+     * Refer to the description of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_chain_flag">DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING</a>.
      * @param {Integer} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a></b>
      * 
      * Specifies one member of  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/ne-dxgi1_5-dxgi_feature">DXGI_FEATURE</a> to query support for.
@@ -41,13 +43,17 @@ class IDXGIFactory5 extends IDXGIFactory4{
      * @param {Integer} FeatureSupportDataSize Type: <b>UINT</b>
      * 
      * The size, in bytes, of <i>pFeatureSupportData</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_5/nf-dxgi1_5-idxgifactory5-checkfeaturesupport
+     * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_5/nf-dxgi1_5-idxgifactory5-checkfeaturesupport
      */
     CheckFeatureSupport(Feature, pFeatureSupportData, FeatureSupportDataSize) {
-        result := ComCall(28, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "HRESULT")
+        result := ComCall(28, this, "int", Feature, "ptr", pFeatureSupportData, "uint", FeatureSupportDataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -4,8 +4,8 @@
 #Include .\IAudioClient2.ahk
 
 /**
- * The IAudioClient3 interface is derived from the IAudioClient2 interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to query for the audio engine's supported periodicities and current periodicity as well as request initialization a shared audio stream with a specified periodicity.
- * @see https://docs.microsoft.com/windows/win32/api//audioclient/nn-audioclient-iaudioclient3
+ * The IAudioClient3 interface is derived from the IAudioClient2 interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to query for the audio engine's supported periodicities and current periodicity as well as request initialization of a shared audio stream with a specified periodicity.
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nn-audioclient-iaudioclient3
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -32,6 +32,28 @@ class IAudioClient3 extends IAudioClient2{
 
     /**
      * Returns the range of periodicities supported by the engine for the specified stream format.
+     * @remarks
+     * Audio clients request a specific periodicity from the audio engine with the <i>PeriodInFrames</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient3-initializesharedaudiostream">IAudioClient3::InitializeSharedAudioStream</a>. The value of <i>PeriodInFrames</i> must be an integral multiple of the value returned in the <i>pFundamentalPeriodInFrames</i> parameter.  <i>PeriodInFrames</i> must also be greater than or equal to the value returned in <i>pMinPeriodInFrames</i> and less than or equal to the value of <i>pMaxPeriodInFrames</i>.
+     * 
+     * For example, for a 44100 kHz format, <b>GetSharedModeEnginePeriod</b> might return:
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * * <i>pDefaultPeriodInFrames</i> = 448 frames (about 10.16 milliseconds)
+     * 
+     * * <i>pFundamentalPeriodInFrames</i> = 4 frames (about 0.09 milliseconds)
+     * 
+     * * <i>pMinPeriodInFrames</i> = 48 frames (about 1.09 milliseconds)
+     * 
+     * * <i>pMaxPeriodInFrames</i> = 448 frames (same as the default)
+     * 
+     * Allowed values for the <i>PeriodInFrames</i> parameter to <b>InitializeSharedAudioStream</b> would include 48 and 448. They would also include things like 96 and 128.
+     * 
+     * They would NOT include 4 (which is smaller than the minimum allowed value) or 98 (which is not a multiple of the fundamental) or 1000 (which is larger than the maximum allowed value).
      * @param {Pointer<WAVEFORMATEX>} pFormat Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a>*</b>
      * 
      * The stream format for which the supported periodicities are queried.
@@ -51,10 +73,10 @@ class IAudioClient3 extends IAudioClient2{
      * 
      * The longest period, in audio frames,  with which the audio engine will wake the client for 
      *     transferring audio samples.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod
      */
     GetSharedModeEnginePeriod(pFormat, pDefaultPeriodInFrames, pFundamentalPeriodInFrames, pMinPeriodInFrames, pMaxPeriodInFrames) {
         pDefaultPeriodInFramesMarshal := pDefaultPeriodInFrames is VarRef ? "uint*" : "ptr"
@@ -62,40 +84,70 @@ class IAudioClient3 extends IAudioClient2{
         pMinPeriodInFramesMarshal := pMinPeriodInFrames is VarRef ? "uint*" : "ptr"
         pMaxPeriodInFramesMarshal := pMaxPeriodInFrames is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", pFormat, pDefaultPeriodInFramesMarshal, pDefaultPeriodInFrames, pFundamentalPeriodInFramesMarshal, pFundamentalPeriodInFrames, pMinPeriodInFramesMarshal, pMinPeriodInFrames, pMaxPeriodInFramesMarshal, pMaxPeriodInFrames, "HRESULT")
+        result := ComCall(18, this, "ptr", pFormat, pDefaultPeriodInFramesMarshal, pDefaultPeriodInFrames, pFundamentalPeriodInFramesMarshal, pFundamentalPeriodInFrames, pMinPeriodInFramesMarshal, pMinPeriodInFrames, pMaxPeriodInFramesMarshal, pMaxPeriodInFrames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the current format and periodicity of the audio engine.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The values returned by this method are instantaneous values and may be invalid immediately after the call returns if, for example, another audio client sets the periodicity or format to a different value.</div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  The caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to deallocate the memory of the <b>WAVEFORMATEX</b> structure populated by this method.</div>
+     * <div> </div>
      * @param {Pointer<Pointer<WAVEFORMATEX>>} ppFormat Type: <b><a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a>**</b>
      * 
      * The current device format that is being used by the audio engine.
      * @param {Pointer<Integer>} pCurrentPeriodInFrames Type: <b>UINT32*</b>
      * 
      * The current period of the audio engine, in audio frames.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudioclient3-getcurrentsharedmodeengineperiod
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nf-audioclient-iaudioclient3-getcurrentsharedmodeengineperiod
      */
     GetCurrentSharedModeEnginePeriod(ppFormat, pCurrentPeriodInFrames) {
         ppFormatMarshal := ppFormat is VarRef ? "ptr*" : "ptr"
         pCurrentPeriodInFramesMarshal := pCurrentPeriodInFrames is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, ppFormatMarshal, ppFormat, pCurrentPeriodInFramesMarshal, pCurrentPeriodInFrames, "HRESULT")
+        result := ComCall(19, this, ppFormatMarshal, ppFormat, pCurrentPeriodInFramesMarshal, pCurrentPeriodInFrames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Initializes a shared stream with the specified periodicity.
+     * @remarks
+     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient-initialize">IAudioClient::Initialize</a>, this method does not allow you to specify a  buffer size. The buffer size is computed based on the periodicity requested with the <i>PeriodInFrames</i> parameter. It is the client app's responsibility
+     *     to ensure that audio samples are transferred in and out of the buffer in a timely manner. 
+     * 
+     * Audio clients should check for allowed values for the <i>PeriodInFrames</i> parameter by calling <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod">IAudioClient3::GetSharedModeEnginePeriod</a>. The value of <i>PeriodInFrames</i> must be an integral multiple of the value returned in the <i>pFundamentalPeriodInFrames</i> parameter.  <i>PeriodInFrames</i> must also be greater than or equal to the value returned in <i>pMinPeriodInFrames</i> and less than or equal to the value of <i>pMaxPeriodInFrames</i>.
+     * 
+     * For example, for a 44100 kHz format, <b>GetSharedModeEnginePeriod</b> might return:
+     * 
+     * * <i>pDefaultPeriodInFrames</i> = 448 frames (about 10.16 milliseconds)
+     * 
+     * * <i>pFundamentalPeriodInFrames</i> = 4 frames (about 0.09 milliseconds)
+     * 
+     * * <i>pMinPeriodInFrames</i> = 48 frames (about 1.09 milliseconds)
+     * 
+     * * <i>pMaxPeriodInFrames</i> = 448 frames (same as the default)
+     * 
+     * Allowed values for the <i>PeriodInFrames</i> parameter to <b>InitializeSharedAudioStream</b> would include 48 and 448. They would also include things like 96 and 128.
+     * 
+     * They would NOT include 4 (which is smaller than the minimum allowed value) or 98 (which is not a multiple of the fundamental) or 1000 (which is larger than the maximum allowed value).
      * @param {Integer} StreamFlags Type: <b>DWORD</b>
      * 
      * Flags to control creation of the stream. The client should set this parameter to 0 or to the bitwise OR of one or more of the supported  <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audclnt-streamflags-xxx-constants">AUDCLNT_STREAMFLAGS_XXX Constants</a> or   <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audclnt-sessionflags-xxx-constants">AUDCLNT_SESSIONFLAGS_XXX Constants</a>. The supported <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audclnt-streamflags-xxx-constants">AUDCLNT_STREAMFLAGS_XXX Constants</a> for this parameter when using this method are: 
      * 
      * - AUDCLNT_STREAMFLAGS_EVENTCALLBACK
-     * - AUDCLNT_STREAMFLAGS_AUTOCONVERTPCM
-     * - AUDCLNT_STREAMFLAGS_SRC_DEFAULT_QUALITY
      * @param {Integer} PeriodInFrames Type: <b>UINT32</b>
      * 
      * Periodicity requested by the client. This value must  be an integral multiple of the value returned in the <i>pFundamentalPeriodInFrames</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod">IAudioClient3::GetSharedModeEnginePeriod</a>.  <i>PeriodInFrames</i> must also be greater than or equal to the value returned in <i>pMinPeriodInFrames</i> and less than or equal to the value returned in <i>pMaxPeriodInFrames</i>.
@@ -179,7 +231,7 @@ class IAudioClient3 extends IAudioClient2{
      * </dl>
      * </td>
      * <td width="60%">
-     * The client specified <a href="/windows/desktop/api/audioclient/ne-audioclient-audclnt_streamoptions">AUDCLNT_STREAMOPTIONS_MATCH_FORMAT</a> when calling <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">IAudioClient2::SetClientProperties</a>, but the format of the audio engine has been locked by another client. In this case, you can call <b>IAudioClient2::SetClientProperties</b> without specifying the match format option and then use audio engine's current format.
+     * The client specified <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/ne-audioclient-audclnt_streamoptions">AUDCLNT_STREAMOPTIONS_MATCH_FORMAT</a> when calling <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">IAudioClient2::SetClientProperties</a>, but the format of the audio engine has been locked by another client. In this case, you can call <b>IAudioClient2::SetClientProperties</b> without specifying the match format option and then use audio engine's current format.
      * 
      * </td>
      * </tr>
@@ -190,7 +242,7 @@ class IAudioClient3 extends IAudioClient2{
      * </dl>
      * </td>
      * <td width="60%">
-     * The client specified <a href="/windows/desktop/api/audioclient/ne-audioclient-audclnt_streamoptions">AUDCLNT_STREAMOPTIONS_MATCH_FORMAT</a> when calling <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">IAudioClient2::SetClientProperties</a>, but the periodicity of the audio engine has been locked by another client. In this case, you can call <b>IAudioClient2::SetClientProperties</b> without specifying the match format option and then use audio engine's current periodicity.
+     * The client specified <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/ne-audioclient-audclnt_streamoptions">AUDCLNT_STREAMOPTIONS_MATCH_FORMAT</a> when calling <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">IAudioClient2::SetClientProperties</a>, but the periodicity of the audio engine has been locked by another client. In this case, you can call <b>IAudioClient2::SetClientProperties</b> without specifying the match format option and then use audio engine's current periodicity.
      * 
      * </td>
      * </tr>
@@ -212,7 +264,7 @@ class IAudioClient3 extends IAudioClient2{
      * </dl>
      * </td>
      * <td width="60%">
-     * Indicates that the requested device period specified with the <i>PeriodInFrames</i> is not an integral multiple of the fundamental periodicity of the audio engine, is shorter than the engine's minimum period, or is longer than the engine's maximum period. Get the supported periodicity values of the engine by calling <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod">IAudioClient3::GetSharedModeEnginePeriod</a>.
+     * Indicates that the requested device period specified with the <i>PeriodInFrames</i> is not an integral multiple of the fundamental periodicity of the audio engine, is shorter than the engine's minimum period, or is longer than the engine's maximum period. Get the supported periodicity values of the engine by calling <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient3-getsharedmodeengineperiod">IAudioClient3::GetSharedModeEnginePeriod</a>.
      * 
      * </td>
      * </tr>
@@ -258,7 +310,7 @@ class IAudioClient3 extends IAudioClient2{
      * <td width="60%">
      * Parameter <i>pFormat</i> points to an invalid format description; or the AUDCLNT_STREAMFLAGS_LOOPBACK flag is set but <i>ShareMode</i> is not equal to AUDCLNT_SHAREMODE_SHARED; or the AUDCLNT_STREAMFLAGS_CROSSPROCESS flag is set but <i>ShareMode</i> is equal to AUDCLNT_SHAREMODE_EXCLUSIVE.
      * 
-     * A prior call to <a href="/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">SetClientProperties</a> was made with an invalid category for audio/render streams.
+     * A prior call to <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">SetClientProperties</a> was made with an invalid category for audio/render streams.
      * 
      * </td>
      * </tr>
@@ -274,10 +326,14 @@ class IAudioClient3 extends IAudioClient2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-iaudioclient3-initializesharedaudiostream
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioclient/nf-audioclient-iaudioclient3-initializesharedaudiostream
      */
     InitializeSharedAudioStream(StreamFlags, PeriodInFrames, pFormat, AudioSessionGuid) {
-        result := ComCall(20, this, "uint", StreamFlags, "uint", PeriodInFrames, "ptr", pFormat, "ptr", AudioSessionGuid, "HRESULT")
+        result := ComCall(20, this, "uint", StreamFlags, "uint", PeriodInFrames, "ptr", pFormat, "ptr", AudioSessionGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

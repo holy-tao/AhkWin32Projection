@@ -48,7 +48,11 @@ class ISVGPathSegLinetoVerticalAbs extends IDispatch{
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class ISVGPathSegLinetoVerticalAbs extends IDispatch{
      * @returns {Float} 
      */
     get_y() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

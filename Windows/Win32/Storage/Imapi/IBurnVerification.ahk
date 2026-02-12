@@ -6,13 +6,11 @@
 /**
  * Use this interface with IDiscFormat2Data or IDiscFormat2TrackAtOnce to get or set the Burn Verification Level property which dictates how burned media is verified for integrity after the write operation.
  * @remarks
- * 
  * The following example function demonstrates how the burn verification level defined by <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>, can be implemented. Burn verification level should be set prior to a burn operation.
  * 
  * 
  * ```cpp
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-iburnverification
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-iburnverification
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -47,22 +45,34 @@ class IBurnVerification extends IUnknown{
 
     /**
      * Sets the Burn Verification Level.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @param {Integer} value Value that defines the Burn Verification Level. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a>.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iburnverification-put_burnverificationlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iburnverification-put_burnverificationlevel
      */
     put_BurnVerificationLevel(value) {
-        result := ComCall(3, this, "int", value, "HRESULT")
+        result := ComCall(3, this, "int", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the current Burn Verification Level.
+     * @remarks
+     * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
      * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_burn_verification_level">IMAPI_BURN_VERIFICATION_LEVEL</a> enumeration that specifies the current the Burn Verification Level.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-iburnverification-get_burnverificationlevel
      */
     get_BurnVerificationLevel() {
-        result := ComCall(4, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Specifies the trimming option for text overflowing the layout box.
- * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_trimming
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/ns-dwrite-dwrite_trimming
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */

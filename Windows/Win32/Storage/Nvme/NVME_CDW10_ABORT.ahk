@@ -7,7 +7,7 @@
  * Host software may have multiple Abort commands outstanding, subject to the constraints of the Abort Command Limit indicated in the **ACL** field of the [Identify Controller data structure](ns-nvme-nvme_identify_controller_data.md).
  * 
  * An Abort command is a best effort command; the command to abort may have already completed, currently be in execution, or may be deeply queued. If or when a controller chooses to complete the command when the command to abort is not found, is implementation specific.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_abort
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw10_abort
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

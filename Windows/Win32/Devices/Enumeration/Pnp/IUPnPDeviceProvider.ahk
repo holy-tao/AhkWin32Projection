@@ -6,7 +6,7 @@
 
 /**
  * The IUPnPDeviceProvider interface allows a device provider to start and stop its processing.
- * @see https://docs.microsoft.com/windows/win32/api//upnphost/nn-upnphost-iupnpdeviceprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnphost/nn-upnphost-iupnpdeviceprovider
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -36,22 +36,33 @@ class IUPnPDeviceProvider extends IUnknown{
      * @param {BSTR} bstrInitString Identifies the initialization string specific to a device provider. This string is the same as the one passed to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerdeviceprovider">IUPnPRegistrar::RegisterDeviceProvider</a> at registration.
      * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpdeviceprovider-start
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnphost/nf-upnphost-iupnpdeviceprovider-start
      */
     Start(bstrInitString) {
-        bstrInitString := bstrInitString is String ? BSTR.Alloc(bstrInitString).Value : bstrInitString
+        if(bstrInitString is String) {
+            pin := BSTR.Alloc(bstrInitString)
+            bstrInitString := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrInitString, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrInitString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Stop method stops the device provider.
      * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpdeviceprovider-stop
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnphost/nf-upnphost-iupnpdeviceprovider-stop
      */
     Stop() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

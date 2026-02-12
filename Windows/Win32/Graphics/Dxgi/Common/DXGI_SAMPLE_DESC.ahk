@@ -24,7 +24,7 @@
  * </td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgicommon/ns-dxgicommon-dxgi_sample_desc
  * @namespace Windows.Win32.Graphics.Dxgi.Common
  * @version v4.0.30319
  */

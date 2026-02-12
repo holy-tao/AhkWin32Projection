@@ -41,7 +41,11 @@ class IIntelliForms extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_enabled() {
-        result := ComCall(7, this, "short*", &pVal := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &pVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -51,7 +55,11 @@ class IIntelliForms extends IDispatch{
      * @returns {HRESULT} 
      */
     put_enabled(bVal) {
-        result := ComCall(8, this, "short", bVal, "HRESULT")
+        result := ComCall(8, this, "short", bVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

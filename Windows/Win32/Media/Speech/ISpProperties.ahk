@@ -37,7 +37,11 @@ class ISpProperties extends IUnknown{
     SetPropertyNum(pName, lValue) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(3, this, "ptr", pName, "int", lValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pName, "int", lValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class ISpProperties extends IUnknown{
 
         plValueMarshal := plValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pName, plValueMarshal, plValue, "HRESULT")
+        result := ComCall(4, this, "ptr", pName, plValueMarshal, plValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class ISpProperties extends IUnknown{
         pName := pName is String ? StrPtr(pName) : pName
         pValue := pValue is String ? StrPtr(pValue) : pValue
 
-        result := ComCall(5, this, "ptr", pName, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, "ptr", pName, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +90,11 @@ class ISpProperties extends IUnknown{
     GetPropertyString(pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(6, this, "ptr", pName, "ptr*", &ppCoMemValue := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", pName, "ptr*", &ppCoMemValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCoMemValue
     }
 }

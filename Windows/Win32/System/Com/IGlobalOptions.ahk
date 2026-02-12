@@ -4,9 +4,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Sets and queries global properties of the Component Object Model (COM) runtime.
+ * The IGlobalOptions interface (objidl.h) sets and queries global properties of the Component Object Model (COM) runtime.
  * @remarks
- * 
  * The following global properties of the COM runtime can be set and queried with this interface.
  * 
  * <table>
@@ -140,17 +139,18 @@
  * 
  * All such applications should execute this code at startup.
  * 
- * <pre class="syntax" xml:space="preserve"><code>    IGlobalOptions *pGlobalOptions;
+ * 
+ * ``` syntax
+ *     IGlobalOptions *pGlobalOptions;
  *     hr =  CoCreateInstance(CLSID_GlobalOptions, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&amp;pGlobalOptions));
  *     if (SUCCEEDED(hr))
  *     {
  *         hr = pGlobalOptions-&gt;Set(COMGLB_EXCEPTION_HANDLING, COMGLB_EXCEPTION_DONOT_HANDLE);
  *         pGlobalOptions-&gt;Release();
  *     }
- * </code></pre>
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iglobaloptions
+ * ```
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iglobaloptions
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -176,27 +176,35 @@ class IGlobalOptions extends IUnknown{
     static VTableNames => ["Set", "Query"]
 
     /**
-     * Sets the specified global property of the COM runtime.
+     * The IGlobalOptions::Set method (objidl.h) sets the specified global property of the COM runtime.
      * @param {Integer} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
      * @param {Pointer} dwValue The value of the property.<div class="alert"><b>Important</b>  For the COMGLB_APPID property, this parameter must specify a pointer to the APPID GUID.</div>
      * <div> </div>
      * @returns {HRESULT} The return value is S_OK if the property was set successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobaloptions-set
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iglobaloptions-set
      */
     Set(dwProperty, dwValue) {
-        result := ComCall(3, this, "int", dwProperty, "ptr", dwValue, "HRESULT")
+        result := ComCall(3, this, "int", dwProperty, "ptr", dwValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Queries the specified global property of the COM runtime.
+     * The IGlobalOptions::Query method (objidl.h) queries the specified global property of the COM runtime.
      * @param {Integer} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
      * @returns {Pointer} The value of the property.<div class="alert"><b>Important</b>  For the COMGLB_APPID property, this parameter receives a pointer to the AppID GUID.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobaloptions-query
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iglobaloptions-query
      */
     Query(dwProperty) {
-        result := ComCall(4, this, "int", dwProperty, "ptr*", &pdwValue := 0, "HRESULT")
+        result := ComCall(4, this, "int", dwProperty, "ptr*", &pdwValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwValue
     }
 }

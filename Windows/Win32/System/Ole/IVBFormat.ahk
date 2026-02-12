@@ -6,7 +6,7 @@
 
 /**
  * Provides formatting support for controls on a Visual Basic container.
- * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nn-vbinterf-ivbformat
+ * @see https://learn.microsoft.com/windows/win32/api//content/vbinterf/nn-vbinterf-ivbformat
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IVBFormat extends IUnknown{
 
     /**
      * Formats a string according to a pattern.
+     * @remarks
+     * When migrating a VBX control to an OLE control, 
+     *     <b>Format</b> replaces the Visual Basic 
+     *     <b>VBFormat</b>, which is no longer supported.
      * @param {Pointer<VARIANT>} vData Data to be formatted.
      * @param {BSTR} bstrFormat Format string to be applied to the data.
      * @param {Pointer<Void>} lpBuffer Pointer to result buffer.
@@ -180,15 +184,22 @@ class IVBFormat extends IUnknown{
      * @returns {HRESULT} This method supports the standard return values <b>E_INVALIDARG</b>, 
      *       <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the 
      *       following:
-     * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nf-vbinterf-ivbformat-format
+     * @see https://learn.microsoft.com/windows/win32/api//content/vbinterf/nf-vbinterf-ivbformat-format
      */
     Format(vData, bstrFormat, lpBuffer, cb, lcid, sFirstDayOfWeek, sFirstWeekOfYear, rcb) {
-        bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
+        if(bstrFormat is String) {
+            pin := BSTR.Alloc(bstrFormat)
+            bstrFormat := pin.Value
+        }
 
         lpBufferMarshal := lpBuffer is VarRef ? "ptr" : "ptr"
         rcbMarshal := rcb is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, "ptr", vData, "ptr", bstrFormat, lpBufferMarshal, lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, rcbMarshal, rcb, "HRESULT")
+        result := ComCall(3, this, "ptr", vData, "ptr", bstrFormat, lpBufferMarshal, lpBuffer, "ushort", cb, "int", lcid, "short", sFirstDayOfWeek, "ushort", sFirstWeekOfYear, rcbMarshal, rcb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

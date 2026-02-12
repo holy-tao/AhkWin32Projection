@@ -12,12 +12,8 @@
 /**
  * Defines all the components of a task, such as the task settings, triggers, actions, and registration information.
  * @remarks
- * 
  * When reading or writing your own XML for a task, a task definition is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-task-element">Task</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskdefinition
+ * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nn-taskschd-itaskdefinition
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -97,165 +93,221 @@ class ITaskDefinition extends IDispatch{
     }
 
     /**
-     * Gets or sets the registration information used to describe a task, such as the description of the task, the author of the task, and the date the task is registered.
+     * Gets or sets the registration information used to describe a task, such as the description of the task, the author of the task, and the date the task is registered. (Get)
      * @returns {IRegistrationInfo} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_registrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_registrationinfo
      */
     get_RegistrationInfo() {
-        result := ComCall(7, this, "ptr*", &ppRegistrationInfo := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppRegistrationInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRegistrationInfo(ppRegistrationInfo)
     }
 
     /**
-     * Gets or sets the registration information used to describe a task, such as the description of the task, the author of the task, and the date the task is registered.
+     * Gets or sets the registration information used to describe a task, such as the description of the task, the author of the task, and the date the task is registered. (Put)
      * @param {IRegistrationInfo} pRegistrationInfo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_registrationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_registrationinfo
      */
     put_RegistrationInfo(pRegistrationInfo) {
-        result := ComCall(8, this, "ptr", pRegistrationInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", pRegistrationInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a collection of triggers used to start a task.
+     * Gets or sets a collection of triggers used to start a task. (Get)
      * @returns {ITriggerCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_triggers
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_triggers
      */
     get_Triggers() {
-        result := ComCall(9, this, "ptr*", &ppTriggers := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppTriggers := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITriggerCollection(ppTriggers)
     }
 
     /**
-     * Gets or sets a collection of triggers used to start a task.
+     * Gets or sets a collection of triggers used to start a task. (Put)
      * @param {ITriggerCollection} pTriggers 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_triggers
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_triggers
      */
     put_Triggers(pTriggers) {
-        result := ComCall(10, this, "ptr", pTriggers, "HRESULT")
+        result := ComCall(10, this, "ptr", pTriggers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the settings that define how the Task Scheduler service performs the task.
+     * Gets or sets the settings that define how the Task Scheduler service performs the task. (Get)
      * @returns {ITaskSettings} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_settings
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_settings
      */
     get_Settings() {
-        result := ComCall(11, this, "ptr*", &ppSettings := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppSettings := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITaskSettings(ppSettings)
     }
 
     /**
-     * Gets or sets the settings that define how the Task Scheduler service performs the task.
+     * Gets or sets the settings that define how the Task Scheduler service performs the task. (Put)
      * @param {ITaskSettings} pSettings 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_settings
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_settings
      */
     put_Settings(pSettings) {
-        result := ComCall(12, this, "ptr", pSettings, "HRESULT")
+        result := ComCall(12, this, "ptr", pSettings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the data that is associated with the task.
+     * Gets or sets the data that is associated with the task. (Get)
      * @param {Pointer<BSTR>} pData 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_data
      */
     get_Data(pData) {
-        result := ComCall(13, this, "ptr", pData, "HRESULT")
+        result := ComCall(13, this, "ptr", pData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the data that is associated with the task.
+     * Gets or sets the data that is associated with the task. (Put)
      * @param {BSTR} data 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_data
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_data
      */
     put_Data(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", data, "HRESULT")
+        result := ComCall(14, this, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the principal for the task that provides the security credentials for the task.
+     * Gets or sets the principal for the task that provides the security credentials for the task. (Get)
      * @returns {IPrincipal} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_principal
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_principal
      */
     get_Principal() {
-        result := ComCall(15, this, "ptr*", &ppPrincipal := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppPrincipal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrincipal(ppPrincipal)
     }
 
     /**
-     * Gets or sets the principal for the task that provides the security credentials for the task.
+     * Gets or sets the principal for the task that provides the security credentials for the task. (Put)
      * @param {IPrincipal} pPrincipal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_principal
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_principal
      */
     put_Principal(pPrincipal) {
-        result := ComCall(16, this, "ptr", pPrincipal, "HRESULT")
+        result := ComCall(16, this, "ptr", pPrincipal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets a collection of actions performed by the task.
+     * Gets or sets a collection of actions performed by the task. (Get)
      * @returns {IActionCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_actions
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_actions
      */
     get_Actions() {
-        result := ComCall(17, this, "ptr*", &ppActions := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppActions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IActionCollection(ppActions)
     }
 
     /**
-     * Gets or sets a collection of actions performed by the task.
+     * Gets or sets a collection of actions performed by the task. (Put)
      * @param {IActionCollection} pActions 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_actions
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_actions
      */
     put_Actions(pActions) {
-        result := ComCall(18, this, "ptr", pActions, "HRESULT")
+        result := ComCall(18, this, "ptr", pActions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the XML-formatted definition of the task.
+     * Gets or sets the XML-formatted definition of the task. (Get)
      * @remarks
-     * 
      * The XML for a task is defined by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-schema">Task Scheduler Schema</a>. For an example of task XML, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/daily-trigger-example--xml-">Daily Trigger Example (XML)</a>.
-     * 
-     * 
      * @param {Pointer<BSTR>} pXml 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-get_xmltext
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-get_xmltext
      */
     get_XmlText(pXml) {
-        result := ComCall(19, this, "ptr", pXml, "HRESULT")
+        result := ComCall(19, this, "ptr", pXml, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets or sets the XML-formatted definition of the task.
+     * Gets or sets the XML-formatted definition of the task. (Put)
      * @remarks
-     * 
      * The XML for a task is defined by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-schema">Task Scheduler Schema</a>. For an example of task XML, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/daily-trigger-example--xml-">Daily Trigger Example (XML)</a>.
-     * 
-     * 
      * @param {BSTR} xml 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskdefinition-put_xmltext
+     * @see https://learn.microsoft.com/windows/win32/api//content/taskschd/nf-taskschd-itaskdefinition-put_xmltext
      */
     put_XmlText(xml) {
-        xml := xml is String ? BSTR.Alloc(xml).Value : xml
+        if(xml is String) {
+            pin := BSTR.Alloc(xml)
+            xml := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", xml, "HRESULT")
+        result := ComCall(20, this, "ptr", xml, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

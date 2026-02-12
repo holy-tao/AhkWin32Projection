@@ -61,11 +61,15 @@ class IGameInputDevice extends IUnknown{
      * 
      * @param {Integer} motorIndex 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
-     * @returns {IGameInputForceFeedbackEffect} 
+     * @returns {Pointer<IGameInputForceFeedbackEffect>} 
      */
     CreateForceFeedbackEffect(motorIndex, params) {
-        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", &effect := 0, "HRESULT")
-        return IGameInputForceFeedbackEffect(effect)
+        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", &effect_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return effect_
     }
 
     /**
@@ -95,7 +99,11 @@ class IGameInputDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     SetHapticMotorState(motorIndex, params) {
-        result := ComCall(9, this, "uint", motorIndex, "ptr", params, "HRESULT")
+        result := ComCall(9, this, "uint", motorIndex, "ptr", params, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,21 +145,29 @@ class IGameInputDevice extends IUnknown{
      * 
      * @param {Integer} reportId 
      * @param {Integer} reportKind 
-     * @returns {IGameInputRawDeviceReport} 
+     * @returns {Pointer<IGameInputRawDeviceReport>} 
      */
     CreateRawDeviceReport(reportId, reportKind) {
-        result := ComCall(14, this, "uint", reportId, "int", reportKind, "ptr*", &report := 0, "HRESULT")
-        return IGameInputRawDeviceReport(report)
+        result := ComCall(14, this, "uint", reportId, "int", reportKind, "ptr*", &report := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return report
     }
 
     /**
      * 
      * @param {Integer} reportId 
-     * @returns {IGameInputRawDeviceReport} 
+     * @returns {Pointer<IGameInputRawDeviceReport>} 
      */
     GetRawDeviceFeature(reportId) {
-        result := ComCall(15, this, "uint", reportId, "ptr*", &report := 0, "HRESULT")
-        return IGameInputRawDeviceReport(report)
+        result := ComCall(15, this, "uint", reportId, "ptr*", &report := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return report
     }
 
     /**
@@ -160,7 +176,11 @@ class IGameInputDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     SetRawDeviceFeature(report) {
-        result := ComCall(16, this, "ptr", report, "HRESULT")
+        result := ComCall(16, this, "ptr", report, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,18 +190,26 @@ class IGameInputDevice extends IUnknown{
      * @returns {HRESULT} 
      */
     SendRawDeviceOutput(report) {
-        result := ComCall(17, this, "ptr", report, "HRESULT")
+        result := ComCall(17, this, "ptr", report, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {IGameInputRawDeviceReport} requestReport 
-     * @returns {IGameInputRawDeviceReport} 
+     * @returns {Pointer<IGameInputRawDeviceReport>} 
      */
     SendRawDeviceOutputWithResponse(requestReport) {
-        result := ComCall(18, this, "ptr", requestReport, "ptr*", &responseReport := 0, "HRESULT")
-        return IGameInputRawDeviceReport(responseReport)
+        result := ComCall(18, this, "ptr", requestReport, "ptr*", &responseReport := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return responseReport
     }
 
     /**
@@ -194,7 +222,11 @@ class IGameInputDevice extends IUnknown{
      * @returns {Pointer} 
      */
     ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer) {
-        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, "ptr*", &outputSize := 0, "HRESULT")
+        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, "ptr*", &outputSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return outputSize
     }
 

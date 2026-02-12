@@ -6,11 +6,8 @@
 /**
  * The IMPEG2ComponentType interface is implemented on MPEG2ComponentType objects. It enables applications to set and retrieve information about MPEG2 stream types.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2ComponentType)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-impeg2componenttype
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-impeg2componenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -52,10 +49,14 @@ class IMPEG2ComponentType extends ILanguageComponentType{
     /**
      * The get_StreamType method retrieves the stream type.
      * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that receives the stream type value.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2componenttype-get_streamtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2componenttype-get_streamtype
      */
     get_StreamType() {
-        result := ComCall(26, this, "int*", &MP2StreamType := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &MP2StreamType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return MP2StreamType
     }
 
@@ -63,10 +64,14 @@ class IMPEG2ComponentType extends ILanguageComponentType{
      * The put_StreamType method sets the MPEG2 stream type.
      * @param {Integer} MP2StreamType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that specifies the stream type.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2componenttype-put_streamtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-impeg2componenttype-put_streamtype
      */
     put_StreamType(MP2StreamType) {
-        result := ComCall(27, this, "int", MP2StreamType, "HRESULT")
+        result := ComCall(27, this, "int", MP2StreamType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
  * The WLAN_INTERFACE_STATE enumeration indicates the state of an interface.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_interface_state~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/ne-wlanapi-wlan_interface_state~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

@@ -53,7 +53,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      */
     get_expr() {
         expression := BSTR()
-        result := ComCall(12, this, "ptr", expression, "HRESULT")
+        result := ComCall(12, this, "ptr", expression, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return expression
     }
 
@@ -63,9 +67,16 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {HRESULT} 
      */
     put_expr(expression) {
-        expression := expression is String ? BSTR.Alloc(expression).Value : expression
+        if(expression is String) {
+            pin := BSTR.Alloc(expression)
+            expression := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", expression, "HRESULT")
+        result := ComCall(13, this, "ptr", expression, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -74,7 +85,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {IXMLDOMNode} 
      */
     get_context() {
-        result := ComCall(14, this, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(ppNode)
     }
 
@@ -84,7 +99,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {HRESULT} 
      */
     putref_context(pNode) {
-        result := ComCall(15, this, "ptr", pNode, "HRESULT")
+        result := ComCall(15, this, "ptr", pNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +112,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {IXMLDOMNode} 
      */
     peekNode() {
-        result := ComCall(16, this, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(ppNode)
     }
 
@@ -103,7 +126,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {IXMLDOMNode} 
      */
     matches(pNode) {
-        result := ComCall(17, this, "ptr", pNode, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pNode, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(ppNode)
     }
 
@@ -112,7 +139,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {IXMLDOMNode} 
      */
     removeNext() {
-        result := ComCall(18, this, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNode(ppNode)
     }
 
@@ -121,7 +152,11 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {HRESULT} 
      */
     removeAll() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,20 +165,34 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {IXMLDOMSelection} 
      */
     clone() {
-        result := ComCall(20, this, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMSelection(ppNode)
     }
 
     /**
-     * 
+     * getPropertyInfo Method (SQLServerDriver)
+     * @remarks
+     * This getPropertyInfo method is specified by the getPropertyInfo method in the java.sql.Driver interface.
      * @param {BSTR} name 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/getpropertyinfo-method-sqlserverdriver
      */
     getProperty(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
         value := VARIANT()
-        result := ComCall(21, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(21, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -154,9 +203,16 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
      * @returns {HRESULT} 
      */
     setProperty(name, value) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", name, "ptr", value, "HRESULT")
+        result := ComCall(22, this, "ptr", name, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

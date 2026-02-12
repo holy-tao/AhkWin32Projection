@@ -9,7 +9,7 @@
 
 /**
  * Contains information about the relationships of logical processors and related hardware. The GetLogicalProcessorInformationEx function uses this structure.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-system_logical_processor_information_ex
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

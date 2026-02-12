@@ -5,7 +5,7 @@
 
 /**
  * The IUPnPDescriptionDocumentCallback interface allows the UPnP framework to communicate the results of an asynchronous load operation to an application.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdescriptiondocumentcallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpdescriptiondocumentcallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -111,10 +111,14 @@ class IUPnPDescriptionDocumentCallback extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} The application should return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdescriptiondocumentcallback-loadcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpdescriptiondocumentcallback-loadcomplete
      */
     LoadComplete(hrLoadResult) {
-        result := ComCall(3, this, "int", hrLoadResult, "HRESULT")
+        result := ComCall(3, this, "int", hrLoadResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * The IWMCodecInfo3 interface retrieves properties from a codec.You can retrieve a pointer to IWMCodecInfo3 with a call to the QueryInterface method of any other interface of the profile manager object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmcodecinfo3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmcodecinfo3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
 
     /**
      * The GetCodecFormatProp method retrieves a property from one format of a codec.
+     * @remarks
+     * You should make two calls to <b>GetCodecFormatProp</b> for each property you want to retrieve. On the first call, pass <b>NULL</b> as <i>pValue</i>. On return, the value of <i>pdwSize</i> will be set to the buffer size required to hold the value of the specified property. Then you can allocate the required amount of memory for the buffer and pass a pointer to it as <i>pValue</i> on the second call.
      * @param {Pointer<Guid>} guidType GUID identifying the major type of digital media. This must be one of the following constants.
      * 
      * <table>
@@ -112,7 +114,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-getcodecformatprop
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-getcodecformatprop
      */
     GetCodecFormatProp(guidType, dwCodecIndex, dwFormatIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -121,12 +123,18 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(8, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetCodecProp method retrieves a codec property.
+     * @remarks
+     * You should make two calls to <b>GetCodecProp</b> for each property you want to retrieve. On the first call, pass <b>NULL</b> as <i>pValue</i>. On return, the value of <i>pdwSize</i> will be set to the buffer size required to hold the value of the specified property. Then you can allocate the required amount of memory for the buffer and pass a pointer to it as <i>pValue</i> on the second call.
      * @param {Pointer<Guid>} guidType GUID identifying the major type of digital media. This must be one of the following constants.
      * 
      * <table>
@@ -221,7 +229,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-getcodecprop
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-getcodecprop
      */
     GetCodecProp(guidType, dwCodecIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -230,12 +238,53 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(9, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The SetCodecEnumerationSetting method sets the value of one codec enumeration setting. Codec enumeration settings dictate the codec formats that can be enumerated by the methods of IWMCodecInfo.
+     * @remarks
+     * The Windows Media Audio and Video 9 Series codecs can potentially enumerate four different sets of codec formats, as listed in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th></th>
+     * <th>Constant bit rate (CBR) stream
+     *             </th>
+     * <th>Two-pass CBR stream
+     *             </th>
+     * <th>Quality-based variable bit rate (VBR) stream
+     *             </th>
+     * <th>Bit-rate-based VBR stream (constrained or unconstrained)
+     *             </th>
+     * </tr>
+     * <tr>
+     * <td>g_wszVBREnabled</td>
+     * <td>FALSE</td>
+     * <td>FALSE</td>
+     * <td>TRUE</td>
+     * <td>TRUE</td>
+     * </tr>
+     * <tr>
+     * <td>g_wszNumPasses</td>
+     * <td>1</td>
+     * <td>2</td>
+     * <td>1</td>
+     * <td>2</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Not all codecs support all formats.
+     * 
+     * If you make a call to this method and get the NS_E_UNSUPPORTED_PROPERTY error code, then the codec does not support that feature. For example, if an attempt to set g_wszNumPasses returns NS_E_UNSUPPORTED_PROPERTY, the codec does not support multiple encoding passes.
+     * 
+     * The return value of a call made to this method does not guarantee support of a codec feature. For example, the Windows Media Audio 9 Lossless codec does not return NS_E_UNSUPPORTED_PROPERTY for calls that set the number of passes, even though the codec does not support two-pass encoding.
      * @param {Pointer<Guid>} guidType GUID identifying the major type of digital media. This must be one of the following constants.
      * 
      * <table>
@@ -310,14 +359,18 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-setcodecenumerationsetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-setcodecenumerationsetting
      */
     SetCodecEnumerationSetting(guidType, dwCodecIndex, pszName, Type, pValue, dwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(10, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int", Type, pValueMarshal, pValue, "uint", dwSize, "HRESULT")
+        result := ComCall(10, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, "int", Type, pValueMarshal, pValue, "uint", dwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -397,7 +450,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-getcodecenumerationsetting
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmcodecinfo3-getcodecenumerationsetting
      */
     GetCodecEnumerationSetting(guidType, dwCodecIndex, pszName, pType, pValue, pdwSize) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -406,7 +459,11 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "HRESULT")
+        result := ComCall(11, this, "ptr", guidType, "uint", dwCodecIndex, "ptr", pszName, pTypeMarshal, pType, pValueMarshal, pValue, pdwSizeMarshal, pdwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

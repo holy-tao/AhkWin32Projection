@@ -35,7 +35,11 @@ class ISQLRequestDiagFields extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestDiagFields(cDiagFields, rgDiagFields) {
-        result := ComCall(3, this, "uint", cDiagFields, "ptr", rgDiagFields, "HRESULT")
+        result := ComCall(3, this, "uint", cDiagFields, "ptr", rgDiagFields, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

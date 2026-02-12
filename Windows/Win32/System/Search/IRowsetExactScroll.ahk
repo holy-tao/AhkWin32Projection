@@ -42,7 +42,11 @@ class IRowsetExactScroll extends IRowsetScroll{
         pulPositionMarshal := pulPosition is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "HRESULT")
+        result := ComCall(14, this, "ptr", hChapter, "ptr", cbBookmark, pBookmarkMarshal, pBookmark, pulPositionMarshal, pulPosition, pcRowsMarshal, pcRows, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

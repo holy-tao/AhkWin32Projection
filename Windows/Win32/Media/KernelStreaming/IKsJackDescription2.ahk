@@ -6,7 +6,7 @@
 
 /**
  * The IKsJackDescription2 interface provides information about the jacks or internal connectors that provide a physical connection between a device on an audio adapter and an external or internal endpoint device (for example, a microphone or CD player).
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iksjackdescription2
+ * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nn-devicetopology-iksjackdescription2
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IKsJackDescription2 extends IUnknown{
     /**
      * The GetJackCount method gets the number of jacks on the connector, which are required to connect to an endpoint device.
      * @returns {Integer} Receives the number of audio jacks associated with the connector.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjackdescription2-getjackcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iksjackdescription2-getjackcount
      */
     GetJackCount() {
-        result := ComCall(3, this, "uint*", &pcJacks := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pcJacks := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcJacks
     }
 
@@ -45,11 +49,15 @@ class IKsJackDescription2 extends IUnknown{
      * The GetJackDescription2 method gets the description of a specified audio jack.
      * @param {Integer} nJack The index of the jack to get a description for. If the connection consists of <i>n</i> jacks, the jacks are numbered from 0 to <i>n</i>– 1. To get the number of jacks, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackcount">IKsJackDescription::GetJackCount</a> method.
      * @returns {KSJACK_DESCRIPTION2} Pointer to a caller-allocated buffer into which the method writes a structure of type <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_description2">KSJACK_DESCRIPTION2</a> that contains information about the jack. The buffer size must be at least <c>sizeof(KSJACK_DESCRIPTION2)</c>.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2
      */
     GetJackDescription2(nJack) {
         pDescription2 := KSJACK_DESCRIPTION2()
-        result := ComCall(4, this, "uint", nJack, "ptr", pDescription2, "HRESULT")
+        result := ComCall(4, this, "uint", nJack, "ptr", pDescription2, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDescription2
     }
 }

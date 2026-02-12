@@ -40,7 +40,11 @@ class IViewSort extends IUnknown{
         prgColumnsMarshal := prgColumns is VarRef ? "ptr*" : "ptr"
         prgOrdersMarshal := prgOrders is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcValuesMarshal, pcValues, prgColumnsMarshal, prgColumns, prgOrdersMarshal, prgOrders, "HRESULT")
+        result := ComCall(3, this, pcValuesMarshal, pcValues, prgColumnsMarshal, prgColumns, prgOrdersMarshal, prgOrders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class IViewSort extends IUnknown{
         rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
         rgOrdersMarshal := rgOrders is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cValues, rgColumnsMarshal, rgColumns, rgOrdersMarshal, rgOrders, "HRESULT")
+        result := ComCall(4, this, "ptr", cValues, rgColumnsMarshal, rgColumns, rgOrdersMarshal, rgOrders, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

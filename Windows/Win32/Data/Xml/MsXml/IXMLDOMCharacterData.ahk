@@ -50,7 +50,11 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      */
     get_data() {
         data := BSTR()
-        result := ComCall(43, this, "ptr", data, "HRESULT")
+        result := ComCall(43, this, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return data
     }
 
@@ -60,9 +64,16 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_data(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(44, this, "ptr", data, "HRESULT")
+        result := ComCall(44, this, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,7 +82,11 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {Integer} 
      */
     get_length() {
-        result := ComCall(45, this, "int*", &dataLength := 0, "HRESULT")
+        result := ComCall(45, this, "int*", &dataLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return dataLength
     }
 
@@ -83,7 +98,11 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      */
     substringData(offset, count) {
         data := BSTR()
-        result := ComCall(46, this, "int", offset, "int", count, "ptr", data, "HRESULT")
+        result := ComCall(46, this, "int", offset, "int", count, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return data
     }
 
@@ -93,9 +112,16 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     appendData(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", data, "HRESULT")
+        result := ComCall(47, this, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,9 +132,16 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     insertData(offset, data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(48, this, "int", offset, "ptr", data, "HRESULT")
+        result := ComCall(48, this, "int", offset, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +152,11 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     deleteData(offset, count) {
-        result := ComCall(49, this, "int", offset, "int", count, "HRESULT")
+        result := ComCall(49, this, "int", offset, "int", count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,9 +168,16 @@ class IXMLDOMCharacterData extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     replaceData(offset, count, data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(50, this, "int", offset, "int", count, "ptr", data, "HRESULT")
+        result := ComCall(50, this, "int", offset, "int", count, "ptr", data, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

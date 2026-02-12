@@ -43,7 +43,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
     Begin_AssociateIdentity(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(3, this, "ptr", hwndParent, "HRESULT")
+        result := ComCall(3, this, "ptr", hwndParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
      * @returns {IPropertyStore} 
      */
     Finish_AssociateIdentity() {
-        result := ComCall(4, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppPropertyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -66,7 +74,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(5, this, "ptr", hwndParent, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(5, this, "ptr", hwndParent, "ptr", lpszUniqueID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +87,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_DisassociateIdentity() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +105,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(7, this, "ptr", hwndParent, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(7, this, "ptr", hwndParent, "ptr", lpszUniqueID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +118,11 @@ class AsyncIAssociatedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_ChangeCredential() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

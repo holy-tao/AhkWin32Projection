@@ -9,11 +9,8 @@
 /**
  * Controls the capture source object. The capture source manages the audio and video capture devices.
  * @remarks
- * 
  * To get a pointer to the capture source, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-getsource">IMFCaptureEngine::GetSource</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcapturesource
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nn-mfcaptureengine-imfcapturesource
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -42,10 +39,14 @@ class IMFCaptureSource extends IUnknown{
      * Gets the current capture device's IMFMediaSource object pointer.
      * @param {Integer} mfCaptureEngineDeviceType The capture engine device type.
      * @returns {IMFMediaSource} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> that represent the device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedevicesource
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedevicesource
      */
     GetCaptureDeviceSource(mfCaptureEngineDeviceType) {
-        result := ComCall(3, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppMediaSource := 0, "HRESULT")
+        result := ComCall(3, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppMediaSource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaSource(ppMediaSource)
     }
 
@@ -53,10 +54,14 @@ class IMFCaptureSource extends IUnknown{
      * Gets the current capture device's IMFActivate object pointer.
      * @param {Integer} mfCaptureEngineDeviceType The capture engine device type.
      * @returns {IMFActivate} Receives the pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> that represents a device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedeviceactivate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedeviceactivate
      */
     GetCaptureDeviceActivate(mfCaptureEngineDeviceType) {
-        result := ComCall(4, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppActivate := 0, "HRESULT")
+        result := ComCall(4, this, "int", mfCaptureEngineDeviceType, "ptr*", &ppActivate := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFActivate(ppActivate)
     }
 
@@ -65,15 +70,23 @@ class IMFCaptureSource extends IUnknown{
      * @param {Pointer<Guid>} rguidService A service identifier GUID. Currently the value must be <b>IID_IMFSourceReader</b> or <b>GUID_NULL</b>.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested. The value must be <b>IID_IMFSourceReader</b>. If the value is not set to <b>IID_IMFSourceReader</b>, the call  will fail and return <b>E_INVALIDARG</b>.
      * @returns {IUnknown} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getservice
      */
     GetService(rguidService, riid) {
-        result := ComCall(5, this, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnknown)
     }
 
     /**
      * Adds an effect to a capture stream.
+     * @remarks
+     * The effect must be implemented as a <a href="https://docs.microsoft.com/windows/desktop/medfound/media-foundation-transforms">Media Foundation Transform</a> (MFT). The <i>pUnknown</i> parameter can point to an instance of the MFT, or to an activation object for the MFT. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/activation-objects">Activation Objects</a>.
+     * 
+     * The effect is applied to the stream before the data reaches the capture sinks.
      * @param {Integer} dwSourceStreamIndex The capture stream. The value can be any of the following.
      * 
      * <table>
@@ -175,15 +188,21 @@ class IMFCaptureSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-addeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-addeffect
      */
     AddEffect(dwSourceStreamIndex, pUnknown) {
-        result := ComCall(6, this, "uint", dwSourceStreamIndex, "ptr", pUnknown, "HRESULT")
+        result := ComCall(6, this, "uint", dwSourceStreamIndex, "ptr", pUnknown, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes an effect from a capture stream.
+     * @remarks
+     * This method removes an effect that was previously added using the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-addeffect">IMFCaptureSource::AddEffect</a> method.
      * @param {Integer} dwSourceStreamIndex The capture stream. The value can be any of the following.
      * 
      * <table>
@@ -278,10 +297,14 @@ class IMFCaptureSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-removeeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-removeeffect
      */
     RemoveEffect(dwSourceStreamIndex, pUnknown) {
-        result := ComCall(7, this, "uint", dwSourceStreamIndex, "ptr", pUnknown, "HRESULT")
+        result := ComCall(7, this, "uint", dwSourceStreamIndex, "ptr", pUnknown, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -369,15 +392,23 @@ class IMFCaptureSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-removealleffects
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-removealleffects
      */
     RemoveAllEffects(dwSourceStreamIndex) {
-        result := ComCall(8, this, "uint", dwSourceStreamIndex, "HRESULT")
+        result := ComCall(8, this, "uint", dwSourceStreamIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a format that is supported by one of the capture streams.
+     * @remarks
+     * To enumerate all of the available formats on a stream, call this method in a loop while incrementing <i>dwMediaTypeIndex</i>, until the method returns <b>MF_E_NO_MORE_TYPES</b>.
+     * 
+     * Some cameras might support a range of frame rates. The minimum and maximum frame rates are stored in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-frame-rate-range-min">MF_MT_FRAME_RATE_RANGE_MIN</a> and <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-frame-rate-range-max">MF_MT_FRAME_RATE_RANGE_MAX</a> attributes on the media type.
      * @param {Integer} dwSourceStreamIndex The stream to query. The value can be any of the following.
      * 
      * <table>
@@ -432,15 +463,21 @@ class IMFCaptureSource extends IUnknown{
      * </table>
      * @param {Integer} dwMediaTypeIndex The zero-based index of the media type to retrieve.
      * @returns {IMFMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getavailabledevicemediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getavailabledevicemediatype
      */
     GetAvailableDeviceMediaType(dwSourceStreamIndex, dwMediaTypeIndex) {
-        result := ComCall(9, this, "uint", dwSourceStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwSourceStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaType(ppMediaType)
     }
 
     /**
      * Sets the output format for a capture stream.
+     * @remarks
+     * This method sets the native output type on the capture device. The device must support the specified format. To get the list of available formats, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getavailabledevicemediatype">IMFCaptureSource::GetAvailableDeviceMediaType</a>.
      * @param {Integer} dwSourceStreamIndex The capture stream to set. The value can be any of the following.
      * 
      * <table>
@@ -524,10 +561,14 @@ class IMFCaptureSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setcurrentdevicemediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setcurrentdevicemediatype
      */
     SetCurrentDeviceMediaType(dwSourceStreamIndex, pMediaType) {
-        result := ComCall(10, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "HRESULT")
+        result := ComCall(10, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -586,20 +627,28 @@ class IMFCaptureSource extends IUnknown{
      * </tr>
      * </table>
      * @returns {IMFMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcurrentdevicemediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcurrentdevicemediatype
      */
     GetCurrentDeviceMediaType(dwSourceStreamIndex) {
-        result := ComCall(11, this, "uint", dwSourceStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        result := ComCall(11, this, "uint", dwSourceStreamIndex, "ptr*", &ppMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaType(ppMediaType)
     }
 
     /**
      * Gets the number of device streams.
      * @returns {Integer} Receives the number of device streams.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcount
      */
     GetDeviceStreamCount() {
-        result := ComCall(12, this, "uint*", &pdwStreamCount := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pdwStreamCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwStreamCount
     }
 
@@ -607,26 +656,34 @@ class IMFCaptureSource extends IUnknown{
      * Gets the stream category for the specified source stream index.
      * @param {Integer} dwSourceStreamIndex The index of the source stream.
      * @returns {Integer} Receives the MF_CAPTURE_ENGINE_STREAM_CATEGORY of the specified source stream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcategory
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcategory
      */
     GetDeviceStreamCategory(dwSourceStreamIndex) {
-        result := ComCall(13, this, "uint", dwSourceStreamIndex, "int*", &pStreamCategory := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwSourceStreamIndex, "int*", &pStreamCategory := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStreamCategory
     }
 
     /**
-     * Gets the current mirroring state of the video preview stream.
+     * Gets the current mirroring state of the video preview stream. (IMFCaptureSource.GetMirrorState)
      * @param {Integer} dwStreamIndex The zero-based index of the stream.
      * @returns {BOOL} Receives the value <b>TRUE</b> if mirroring is enabled, or <b>FALSE</b> if mirroring is disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getmirrorstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getmirrorstate
      */
     GetMirrorState(dwStreamIndex) {
-        result := ComCall(14, this, "uint", dwStreamIndex, "int*", &pfMirrorState := 0, "HRESULT")
+        result := ComCall(14, this, "uint", dwStreamIndex, "int*", &pfMirrorState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfMirrorState
     }
 
     /**
-     * Enables or disables mirroring of the video preview stream.
+     * Enables or disables mirroring of the video preview stream. (IMFCaptureSource.SetMirrorState)
      * @param {Integer} dwStreamIndex The zero-based index of the stream.
      * @param {BOOL} fMirrorState If   <b>TRUE</b>,    mirroring is enabled; if  <b>FALSE</b>, mirroring is  disabled.
      * @returns {HRESULT} This method can return one of these values.
@@ -670,10 +727,14 @@ class IMFCaptureSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setmirrorstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-setmirrorstate
      */
     SetMirrorState(dwStreamIndex, fMirrorState) {
-        result := ComCall(15, this, "uint", dwStreamIndex, "int", fMirrorState, "HRESULT")
+        result := ComCall(15, this, "uint", dwStreamIndex, "int", fMirrorState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -690,10 +751,14 @@ class IMFCaptureSource extends IUnknown{
      * <li>MF_CAPTURE_ENGINE_FIRST_SOURCE_INDEPENDENT_PHOTO_STREAM</li>
      * </ul>
      * @returns {Integer} Receives the value of the stream index that corresponds to the friendly name.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getstreamindexfromfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getstreamindexfromfriendlyname
      */
     GetStreamIndexFromFriendlyName(uifriendlyName) {
-        result := ComCall(16, this, "uint", uifriendlyName, "uint*", &pdwActualStreamIndex := 0, "HRESULT")
+        result := ComCall(16, this, "uint", uifriendlyName, "uint*", &pdwActualStreamIndex := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwActualStreamIndex
     }
 }

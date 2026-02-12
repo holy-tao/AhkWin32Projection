@@ -34,7 +34,11 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {Boolean} 
      */
     IsTypedef() {
-        result := ComCall(29, this, "int*", &isTypedef := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &isTypedef := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isTypedef
     }
 
@@ -43,7 +47,11 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {IDebugHostType2} 
      */
     GetTypedefBaseType() {
-        result := ComCall(30, this, "ptr*", &baseType := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &baseType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType2(baseType)
     }
 
@@ -52,7 +60,11 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {IDebugHostType2} 
      */
     GetTypedefFinalBaseType() {
-        result := ComCall(31, this, "ptr*", &finalBaseType := 0, "HRESULT")
+        result := ComCall(31, this, "ptr*", &finalBaseType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType2(finalBaseType)
     }
 
@@ -61,8 +73,12 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {Integer} 
      */
     GetFunctionVarArgsKind() {
-        result := ComCall(32, this, "int*", &varArgsKind := 0, "HRESULT")
-        return varArgsKind
+        result := ComCall(32, this, "int*", &varArgsKind_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return varArgsKind_
     }
 
     /**
@@ -70,7 +86,11 @@ class IDebugHostType2 extends IDebugHostType{
      * @returns {IDebugHostType2} 
      */
     GetFunctionInstancePointerType() {
-        result := ComCall(33, this, "ptr*", &instancePointerType := 0, "HRESULT")
+        result := ComCall(33, this, "ptr*", &instancePointerType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType2(instancePointerType)
     }
 }

@@ -5,7 +5,7 @@
  * The NVME_CDW10_DATASET_MANAGEMENT structure contains parameters for the Dataset Management command that indicates attributes for ranges of logical blocks.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_dataset_management
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw10_dataset_management
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

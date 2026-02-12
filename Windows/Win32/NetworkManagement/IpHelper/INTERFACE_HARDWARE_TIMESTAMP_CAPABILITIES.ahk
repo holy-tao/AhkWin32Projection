@@ -7,7 +7,7 @@
  * All of the **INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES** structure's members represent hardware timestamp capabilities. The hardware timestamps are generated using the NIC's hardware clock.
  * 
  * Having both hardware and software timestamps enabled together isn't supported.
- * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/ns-iphlpapi-interface_hardware_timestamp_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/ns-iphlpapi-interface_hardware_timestamp_capabilities
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

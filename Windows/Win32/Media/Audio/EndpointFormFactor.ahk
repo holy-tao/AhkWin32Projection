@@ -13,7 +13,7 @@
  * <li>The white paper titled "Audio Driver Support for the WMA Pro-over-S/PDIF Format" at the <a href="https://www.microsoft.com/whdc/device/audio/default.mspx">Audio Device Technologies for Windows</a> website.</li>
  * </ul>
  * For information about obtaining a description of the audio jack or connector through which an audio endpoint device connects to an audio adapter, see <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription">IKsJackDescription::GetJackDescription</a> and <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iksjackdescription2-getjackdescription2">IKsJackDescription2::GetJackDescription2</a>.
- * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-endpointformfactor
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmdeviceapi/ne-mmdeviceapi-endpointformfactor
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

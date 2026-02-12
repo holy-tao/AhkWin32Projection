@@ -37,7 +37,11 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread{
      * @returns {HRESULT} 
      */
     SynchronousCallIntoThread32(pstcb, dwParam1, dwParam2, dwParam3) {
-        result := ComCall(12, this, "ptr", pstcb, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "HRESULT")
+        result := ComCall(12, this, "ptr", pstcb, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread{
      * @returns {HRESULT} 
      */
     QueryIsCurrentThread() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +63,11 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread{
      * @returns {HRESULT} 
      */
     QueryIsDebuggerThread() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +79,11 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread{
     SetDescription(pstrDescription) {
         pstrDescription := pstrDescription is String ? StrPtr(pstrDescription) : pstrDescription
 
-        result := ComCall(15, this, "ptr", pstrDescription, "HRESULT")
+        result := ComCall(15, this, "ptr", pstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +95,11 @@ class IDebugApplicationThread extends IRemoteDebugApplicationThread{
     SetStateString(pstrState) {
         pstrState := pstrState is String ? StrPtr(pstrState) : pstrState
 
-        result := ComCall(16, this, "ptr", pstrState, "HRESULT")
+        result := ComCall(16, this, "ptr", pstrState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

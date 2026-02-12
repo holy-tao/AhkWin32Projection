@@ -4,7 +4,7 @@
 
 /**
  * Specifies a certificate used to sign a document. The certificate can be stored in a Software Publisher Certificate (SPC) file or in a certificate store.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-cert
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-cert
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

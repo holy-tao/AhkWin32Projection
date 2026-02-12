@@ -33,7 +33,11 @@ class IDebugHostFunctionIntrospection3 extends IDebugHostFunctionIntrospection2{
      * @returns {Boolean} 
      */
     IsNoReturnFunction() {
-        result := ComCall(8, this, "int*", &pIsNoReturnFunction := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pIsNoReturnFunction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsNoReturnFunction
     }
 }

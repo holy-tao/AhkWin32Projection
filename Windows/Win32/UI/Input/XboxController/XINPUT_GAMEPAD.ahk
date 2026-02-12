@@ -13,7 +13,7 @@
  * 
  * 
  * The constant XINPUT_GAMEPAD_TRIGGER_THRESHOLD may be used as the value which <i>bLeftTrigger</i> and <i>bRightTrigger</i> must be greater than to register as pressed. This is optional, but often desirable. Xbox 360 Controller buttons do not manifest crosstalk.
- * @see https://learn.microsoft.com/windows/win32/api/xinput/ns-xinput-xinput_gamepad
+ * @see https://learn.microsoft.com/windows/win32/api//content/xinput/ns-xinput-xinput_gamepad
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
  */

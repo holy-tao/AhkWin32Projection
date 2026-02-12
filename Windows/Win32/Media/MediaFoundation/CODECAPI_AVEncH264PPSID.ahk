@@ -3,7 +3,7 @@
 
 /**
  * Sets the Picture Parameter Set (PPS) identifier.
- * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avench264ppsid
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/codecapi-avench264ppsid
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * Returns the name of the next request attribute within the current context, then increments the internal pointer to the following attribute.
+ * @see https://learn.microsoft.com/windows/win32/api//content/certif/nf-certif-icertserverexit-enumerateattributes
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

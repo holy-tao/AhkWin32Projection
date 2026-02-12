@@ -18,7 +18,7 @@
  * If the <b>STARTF_UNTRUSTEDSOURCE</b> flag is specified, the application should be aware that the command line is untrusted. If this flag is set, applications should disable potentially dangerous features such as macros, downloaded content, and automatic printing. This flag is optional. Applications that call <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> are encouraged to set this flag when launching a program with untrusted command line arguments (e.g. those provided by web content) so that the newly created process can apply appropriate policy.
  * 
  * The <b>STARTF_UNTRUSTEDSOURCE</b> flag is supported starting in Windows Vista, but it is not defined in the SDK header files prior to the Windows 10 SDK. To use the flag in versions prior to Windows 10, you can define it manually in your program.
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-startupinfow
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/ns-processthreadsapi-startupinfow
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  * @charset Unicode

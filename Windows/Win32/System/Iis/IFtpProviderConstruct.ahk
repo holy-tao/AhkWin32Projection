@@ -29,12 +29,17 @@ class IFtpProviderConstruct extends IUnknown{
     static VTableNames => ["Construct"]
 
     /**
-     * 
+     * Constructing SQL Statements for Cursors
      * @param {Pointer<SAFEARRAY>} configurationEntries 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-odbc-queries/constructing-sql-statements-for-cursors
      */
     Construct(configurationEntries) {
-        result := ComCall(3, this, "ptr", configurationEntries, "HRESULT")
+        result := ComCall(3, this, "ptr", configurationEntries, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IKsAggregateControl extends IUnknown{
      * @returns {HRESULT} 
      */
     KsAddAggregate(AggregateClass) {
-        result := ComCall(3, this, "ptr", AggregateClass, "HRESULT")
+        result := ComCall(3, this, "ptr", AggregateClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IKsAggregateControl extends IUnknown{
      * @returns {HRESULT} 
      */
     KsRemoveAggregate(AggregateClass) {
-        result := ComCall(4, this, "ptr", AggregateClass, "HRESULT")
+        result := ComCall(4, this, "ptr", AggregateClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

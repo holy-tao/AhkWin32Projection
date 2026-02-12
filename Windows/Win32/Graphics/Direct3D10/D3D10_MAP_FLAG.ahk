@@ -9,7 +9,7 @@
  * D3D10_MAP_FLAG_DO_NOT_WAIT cannot be used with <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP_WRITE_DISCARD</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_map">D3D10_MAP_WRITE_NOOVERWRITE</a>.
  * 
  * For more information about potential conflicts between the GPU and CPU during resource mapping, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-mapping">Copying and Accessing Resource Data (Direct3D 10)</a>.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_map_flag
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_map_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

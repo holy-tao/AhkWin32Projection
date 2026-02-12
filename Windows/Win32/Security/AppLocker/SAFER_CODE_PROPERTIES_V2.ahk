@@ -5,7 +5,7 @@
 
 /**
  * Contains code image information and criteria to be checked on the code image.S
- * @see https://learn.microsoft.com/windows/win32/api/winsafer/ns-winsafer-safer_code_properties_v2
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsafer/ns-winsafer-safer_code_properties_v2
  * @namespace Windows.Win32.Security.AppLocker
  * @version v4.0.30319
  */

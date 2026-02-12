@@ -101,7 +101,11 @@ class ISpeechPhraseProperty extends IDispatch{
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -110,7 +114,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {Integer} 
      */
     get_Id() {
-        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
@@ -120,7 +128,11 @@ class ISpeechPhraseProperty extends IDispatch{
      */
     get_Value() {
         Value := VARIANT()
-        result := ComCall(9, this, "ptr", Value, "HRESULT")
+        result := ComCall(9, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Value
     }
 
@@ -129,7 +141,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {Integer} 
      */
     get_FirstElement() {
-        result := ComCall(10, this, "int*", &FirstElement := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &FirstElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FirstElement
     }
 
@@ -138,7 +154,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {Integer} 
      */
     get_NumberOfElements() {
-        result := ComCall(11, this, "int*", &NumberOfElements := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &NumberOfElements := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfElements
     }
 
@@ -147,7 +167,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {Float} 
      */
     get_EngineConfidence() {
-        result := ComCall(12, this, "float*", &Confidence := 0, "HRESULT")
+        result := ComCall(12, this, "float*", &Confidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Confidence
     }
 
@@ -156,7 +180,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {Integer} 
      */
     get_Confidence() {
-        result := ComCall(13, this, "int*", &Confidence := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &Confidence := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Confidence
     }
 
@@ -165,7 +193,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {ISpeechPhraseProperty} 
      */
     get_Parent() {
-        result := ComCall(14, this, "ptr*", &ParentProperty := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ParentProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseProperty(ParentProperty)
     }
 
@@ -174,7 +206,11 @@ class ISpeechPhraseProperty extends IDispatch{
      * @returns {ISpeechPhraseProperties} 
      */
     get_Children() {
-        result := ComCall(15, this, "ptr*", &Children := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &Children := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseProperties(Children)
     }
 }
